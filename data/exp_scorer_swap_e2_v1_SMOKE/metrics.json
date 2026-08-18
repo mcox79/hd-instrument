@@ -1,0 +1,317 @@
+{
+  "verdict": "INSUFFICIENT_OVERLAP",
+  "verdict_msg": "STORE_POOL n_scoreable=5; READER_POOL n_scoreable=40; at least one pool has < 20 scoreable queries; no ONE/THREE call made",
+  "run_mode": "smoke",
+  "anchor_name": "scorer_swap_e2_v1",
+  "elapsed_s": 291.549,
+  "n_entities": 482588,
+  "n_edges_total": 1213912,
+  "n_rel": 33,
+  "n_reader_anchors": 716,
+  "n_reader_sents": 2000,
+  "store_scale": 100000,
+  "data_seeds": [
+    20260810
+  ],
+  "max_q_per_seed": 40,
+  "gate_thresh": 0.28,
+  "store_shortlist_k": 50,
+  "per_pool_bootstrap": {
+    "STORE_POOL": {
+      "n_boot": 5000,
+      "seed": 20260815,
+      "n_items": 5,
+      "arm_acc_ci": {
+        "DEGREE_FLOOR": {
+          "acc": 0.2,
+          "ci_lo": 0.0,
+          "ci_hi": 0.6,
+          "sd": 0.17771871707842143
+        },
+        "NATIVE": {
+          "acc": 0.6,
+          "ci_lo": 0.2,
+          "ci_hi": 1.0,
+          "sd": 0.21751227643514745
+        },
+        "SCRAMBLE": {
+          "acc": 0.4,
+          "ci_lo": 0.0,
+          "ci_hi": 0.8,
+          "sd": 0.22007270071501372
+        },
+        "SWAPPED": {
+          "acc": 0.4,
+          "ci_lo": 0.0,
+          "ci_hi": 0.8,
+          "sd": 0.21948886076518784
+        }
+      },
+      "deltas": {
+        "d_NATIVE_minus_SWAPPED": {
+          "delta": 0.19999999999999996,
+          "ci_lo": -0.4,
+          "ci_hi": 0.8,
+          "sd": 0.3351178515089878,
+          "ci_excludes_zero": false
+        },
+        "d_NATIVE_minus_DEGREE_FLOOR": {
+          "delta": 0.39999999999999997,
+          "ci_lo": -0.39999999999999997,
+          "ci_hi": 1.0,
+          "sd": 0.3552123871713936,
+          "ci_excludes_zero": false
+        },
+        "d_SWAPPED_minus_DEGREE_FLOOR": {
+          "delta": 0.2,
+          "ci_lo": 0.0,
+          "ci_hi": 0.6000000000000001,
+          "sd": 0.17771799683768666,
+          "ci_excludes_zero": false
+        },
+        "d_NATIVE_minus_SCRAMBLE": {
+          "delta": 0.19999999999999996,
+          "ci_lo": 0.0,
+          "ci_hi": 0.6000000000000001,
+          "sd": 0.1777179968376867,
+          "ci_excludes_zero": false
+        },
+        "d_SWAPPED_minus_SCRAMBLE": {
+          "delta": 0.0,
+          "ci_lo": -0.8,
+          "ci_hi": 0.8,
+          "sd": 0.40199438006021926,
+          "ci_excludes_zero": false
+        }
+      },
+      "paired": true
+    },
+    "READER_POOL": {
+      "n_boot": 5000,
+      "seed": 20260815,
+      "n_items": 40,
+      "arm_acc_ci": {
+        "DEGREE_FLOOR": {
+          "acc": 0.025,
+          "ci_lo": 0.0,
+          "ci_hi": 0.075,
+          "sd": 0.024844514485093082
+        },
+        "NATIVE": {
+          "acc": 0.0,
+          "ci_lo": 0.0,
+          "ci_hi": 0.0,
+          "sd": 0.0
+        },
+        "SCRAMBLE": {
+          "acc": 0.025,
+          "ci_lo": 0.0,
+          "ci_hi": 0.075,
+          "sd": 0.024515293186091004
+        },
+        "SWAPPED": {
+          "acc": 0.275,
+          "ci_lo": 0.15,
+          "ci_hi": 0.425,
+          "sd": 0.06907216443691337
+        }
+      },
+      "deltas": {
+        "d_NATIVE_minus_SWAPPED": {
+          "delta": -0.275,
+          "ci_lo": -0.425,
+          "ci_hi": -0.15,
+          "sd": 0.06907216443691337,
+          "ci_excludes_zero": true
+        },
+        "d_NATIVE_minus_DEGREE_FLOOR": {
+          "delta": -0.025,
+          "ci_lo": -0.075,
+          "ci_hi": 0.0,
+          "sd": 0.024844514485093082,
+          "ci_excludes_zero": false
+        },
+        "d_SWAPPED_minus_DEGREE_FLOOR": {
+          "delta": 0.25,
+          "ci_lo": 0.1,
+          "ci_hi": 0.4,
+          "sd": 0.07541032820509402,
+          "ci_excludes_zero": true
+        },
+        "d_NATIVE_minus_SCRAMBLE": {
+          "delta": -0.025,
+          "ci_lo": -0.075,
+          "ci_hi": 0.0,
+          "sd": 0.024515293186091004,
+          "ci_excludes_zero": false
+        },
+        "d_SWAPPED_minus_SCRAMBLE": {
+          "delta": 0.25,
+          "ci_lo": 0.125,
+          "ci_hi": 0.375,
+          "sd": 0.06702019024144887,
+          "ci_excludes_zero": true
+        }
+      },
+      "paired": true
+    }
+  },
+  "per_seed_pool_bootstrap": {
+    "20260810": {
+      "STORE_POOL": {
+        "n_boot": 5000,
+        "seed": 20260815,
+        "n_items": 5,
+        "arm_acc_ci": {
+          "DEGREE_FLOOR": {
+            "acc": 0.2,
+            "ci_lo": 0.0,
+            "ci_hi": 0.6,
+            "sd": 0.17771871707842143
+          },
+          "NATIVE": {
+            "acc": 0.6,
+            "ci_lo": 0.2,
+            "ci_hi": 1.0,
+            "sd": 0.21751227643514745
+          },
+          "SCRAMBLE": {
+            "acc": 0.4,
+            "ci_lo": 0.0,
+            "ci_hi": 0.8,
+            "sd": 0.22007270071501372
+          },
+          "SWAPPED": {
+            "acc": 0.4,
+            "ci_lo": 0.0,
+            "ci_hi": 0.8,
+            "sd": 0.21948886076518784
+          }
+        },
+        "deltas": {
+          "d_NATIVE_minus_SWAPPED": {
+            "delta": 0.19999999999999996,
+            "ci_lo": -0.4,
+            "ci_hi": 0.8,
+            "sd": 0.3351178515089878,
+            "ci_excludes_zero": false
+          },
+          "d_NATIVE_minus_DEGREE_FLOOR": {
+            "delta": 0.39999999999999997,
+            "ci_lo": -0.39999999999999997,
+            "ci_hi": 1.0,
+            "sd": 0.3552123871713936,
+            "ci_excludes_zero": false
+          },
+          "d_SWAPPED_minus_DEGREE_FLOOR": {
+            "delta": 0.2,
+            "ci_lo": 0.0,
+            "ci_hi": 0.6000000000000001,
+            "sd": 0.17771799683768666,
+            "ci_excludes_zero": false
+          },
+          "d_NATIVE_minus_SCRAMBLE": {
+            "delta": 0.19999999999999996,
+            "ci_lo": 0.0,
+            "ci_hi": 0.6000000000000001,
+            "sd": 0.1777179968376867,
+            "ci_excludes_zero": false
+          },
+          "d_SWAPPED_minus_SCRAMBLE": {
+            "delta": 0.0,
+            "ci_lo": -0.8,
+            "ci_hi": 0.8,
+            "sd": 0.40199438006021926,
+            "ci_excludes_zero": false
+          }
+        },
+        "paired": true
+      },
+      "READER_POOL": {
+        "n_boot": 5000,
+        "seed": 20260815,
+        "n_items": 40,
+        "arm_acc_ci": {
+          "DEGREE_FLOOR": {
+            "acc": 0.025,
+            "ci_lo": 0.0,
+            "ci_hi": 0.075,
+            "sd": 0.024844514485093082
+          },
+          "NATIVE": {
+            "acc": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "sd": 0.0
+          },
+          "SCRAMBLE": {
+            "acc": 0.025,
+            "ci_lo": 0.0,
+            "ci_hi": 0.075,
+            "sd": 0.024515293186091004
+          },
+          "SWAPPED": {
+            "acc": 0.275,
+            "ci_lo": 0.15,
+            "ci_hi": 0.425,
+            "sd": 0.06907216443691337
+          }
+        },
+        "deltas": {
+          "d_NATIVE_minus_SWAPPED": {
+            "delta": -0.275,
+            "ci_lo": -0.425,
+            "ci_hi": -0.15,
+            "sd": 0.06907216443691337,
+            "ci_excludes_zero": true
+          },
+          "d_NATIVE_minus_DEGREE_FLOOR": {
+            "delta": -0.025,
+            "ci_lo": -0.075,
+            "ci_hi": 0.0,
+            "sd": 0.024844514485093082,
+            "ci_excludes_zero": false
+          },
+          "d_SWAPPED_minus_DEGREE_FLOOR": {
+            "delta": 0.25,
+            "ci_lo": 0.1,
+            "ci_hi": 0.4,
+            "sd": 0.07541032820509402,
+            "ci_excludes_zero": true
+          },
+          "d_NATIVE_minus_SCRAMBLE": {
+            "delta": -0.025,
+            "ci_lo": -0.075,
+            "ci_hi": 0.0,
+            "sd": 0.024515293186091004,
+            "ci_excludes_zero": false
+          },
+          "d_SWAPPED_minus_SCRAMBLE": {
+            "delta": 0.25,
+            "ci_lo": 0.125,
+            "ci_hi": 0.375,
+            "sd": 0.06702019024144887,
+            "ci_excludes_zero": true
+          }
+        },
+        "paired": true
+      }
+    }
+  },
+  "n_scoreable_per_pool": {
+    "STORE_POOL": 5,
+    "READER_POOL": 40
+  },
+  "n_seeds_complete": 1,
+  "n_seeds_expected": 1,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "instrument_validity_stamped_this_session": true,
+  "crlb_n/a": "cross-representation vocabulary-overlap diagnostic; no closed-form floor for an intersection size",
+  "min_q_for_verdict": 20,
+  "prereg": "preregs/2026-08-15_scorer_swap_e2_v1.md"
+}

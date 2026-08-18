@@ -1,0 +1,2108 @@
+{
+  "anchor_name": "hub_spoke_correlation_cliff_v1",
+  "code_version": "v1.0",
+  "run_mode": "full",
+  "cell_class": "DIAGNOSTIC -- no pre-registered PASS/FAIL band",
+  "config": {
+    "RHOS": [
+      0.25,
+      0.5,
+      0.75,
+      0.9,
+      0.95,
+      0.98,
+      0.99,
+      0.995,
+      1.0
+    ],
+    "F_SWEEP": [
+      2,
+      4,
+      8
+    ],
+    "SEEDS": [
+      7,
+      17,
+      23
+    ],
+    "N_ITEMS": 1024,
+    "D": 1024
+  },
+  "grid": {
+    "F2_rho0.25": {
+      "measured_within_item_cos": 0.062029520670572914,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.5
+    },
+    "F2_rho0.5": {
+      "measured_within_item_cos": 0.2491175333658854,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.5
+    },
+    "F2_rho0.75": {
+      "measured_within_item_cos": 0.562042236328125,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.5
+    },
+    "F2_rho0.9": {
+      "measured_within_item_cos": 0.8092015584309896,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.5
+    },
+    "F2_rho0.95": {
+      "measured_within_item_cos": 0.9022801717122396,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.5
+    },
+    "F2_rho0.98": {
+      "measured_within_item_cos": 0.9596354166666666,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.5
+    },
+    "F2_rho0.99": {
+      "measured_within_item_cos": 0.9804534912109375,
+      "facet_recovery": 0.9972330729166666,
+      "facet_recovery_sd": 0.0006089937152952378,
+      "shuffled_key": 0.00341796875,
+      "chance": 0.5
+    },
+    "F2_rho0.995": {
+      "measured_within_item_cos": 0.9901707967122396,
+      "facet_recovery": 0.9599609375,
+      "facet_recovery_sd": 0.009990891440900264,
+      "shuffled_key": 0.04150390625,
+      "chance": 0.5
+    },
+    "F2_rho1": {
+      "measured_within_item_cos": 1.0,
+      "facet_recovery": 0.49755859375,
+      "facet_recovery_sd": 0.009029903324661586,
+      "shuffled_key": 0.5022786458333334,
+      "chance": 0.5
+    },
+    "F4_rho0.25": {
+      "measured_within_item_cos": 0.062029520670572914,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.25
+    },
+    "F4_rho0.5": {
+      "measured_within_item_cos": 0.2491175333658854,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.25
+    },
+    "F4_rho0.75": {
+      "measured_within_item_cos": 0.562042236328125,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.25
+    },
+    "F4_rho0.9": {
+      "measured_within_item_cos": 0.8092015584309896,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.25
+    },
+    "F4_rho0.95": {
+      "measured_within_item_cos": 0.9022801717122396,
+      "facet_recovery": 0.9998372395833334,
+      "facet_recovery_sd": 0.00011508899433374797,
+      "shuffled_key": 8.138020833333333e-05,
+      "chance": 0.25
+    },
+    "F4_rho0.98": {
+      "measured_within_item_cos": 0.9596354166666666,
+      "facet_recovery": 0.9833170572916666,
+      "facet_recovery_sd": 0.0003044968576476189,
+      "shuffled_key": 0.006754557291666667,
+      "chance": 0.25
+    },
+    "F4_rho0.99": {
+      "measured_within_item_cos": 0.9804534912109375,
+      "facet_recovery": 0.889892578125,
+      "facet_recovery_sd": 0.0038031645330559643,
+      "shuffled_key": 0.03466796875,
+      "chance": 0.25
+    },
+    "F4_rho0.995": {
+      "measured_within_item_cos": 0.9901707967122396,
+      "facet_recovery": 0.73193359375,
+      "facet_recovery_sd": 0.010388654555490201,
+      "shuffled_key": 0.087646484375,
+      "chance": 0.25
+    },
+    "F4_rho1": {
+      "measured_within_item_cos": 1.0,
+      "facet_recovery": 0.24560546875,
+      "facet_recovery_sd": 0.0014374610785038813,
+      "shuffled_key": 0.2504069010416667,
+      "chance": 0.25
+    },
+    "F8_rho0.25": {
+      "measured_within_item_cos": 0.062029520670572914,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.125
+    },
+    "F8_rho0.5": {
+      "measured_within_item_cos": 0.2491175333658854,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.125
+    },
+    "F8_rho0.75": {
+      "measured_within_item_cos": 0.562042236328125,
+      "facet_recovery": 1.0,
+      "facet_recovery_sd": 0.0,
+      "shuffled_key": 0.0,
+      "chance": 0.125
+    },
+    "F8_rho0.9": {
+      "measured_within_item_cos": 0.8092015584309896,
+      "facet_recovery": 0.9997151692708334,
+      "facet_recovery_sd": 0.00023017798866749594,
+      "shuffled_key": 8.138020833333333e-05,
+      "chance": 0.125
+    },
+    "F8_rho0.95": {
+      "measured_within_item_cos": 0.9022801717122396,
+      "facet_recovery": 0.9731038411458334,
+      "facet_recovery_sd": 0.003343528415392926,
+      "shuffled_key": 0.0030924479166666665,
+      "chance": 0.125
+    },
+    "F8_rho0.98": {
+      "measured_within_item_cos": 0.9596354166666666,
+      "facet_recovery": 0.8014729817708334,
+      "facet_recovery_sd": 0.0066445831270888255,
+      "shuffled_key": 0.027180989583333332,
+      "chance": 0.125
+    },
+    "F8_rho0.99": {
+      "measured_within_item_cos": 0.9804534912109375,
+      "facet_recovery": 0.6026204427083334,
+      "facet_recovery_sd": 0.006937155607150495,
+      "shuffled_key": 0.057698567708333336,
+      "chance": 0.125
+    },
+    "F8_rho0.995": {
+      "measured_within_item_cos": 0.9901707967122396,
+      "facet_recovery": 0.4364013671875,
+      "facet_recovery_sd": 0.002934769355510573,
+      "shuffled_key": 0.07845052083333333,
+      "chance": 0.125
+    },
+    "F8_rho1": {
+      "measured_within_item_cos": 1.0,
+      "facet_recovery": 0.12740071614583334,
+      "facet_recovery_sd": 0.004258292790348675,
+      "shuffled_key": 0.1278076171875,
+      "chance": 0.125
+    }
+  },
+  "cliffs": {
+    "F2": {
+      "nominal": 1.0,
+      "measured_cos": 1.0,
+      "facet_recovery": 0.49755859375
+    },
+    "F4": {
+      "nominal": 0.99,
+      "measured_cos": 0.9804534912109375,
+      "facet_recovery": 0.889892578125
+    },
+    "F8": {
+      "nominal": 0.98,
+      "measured_cos": 0.9596354166666666,
+      "facet_recovery": 0.8014729817708334
+    }
+  },
+  "per_config": [
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.25,
+      "F": 2,
+      "seed": 7,
+      "measured_within_item_cos": 0.06383514404296875,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.25,
+      "F": 2,
+      "seed": 17,
+      "measured_within_item_cos": 0.062286376953125,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.25,
+      "F": 2,
+      "seed": 23,
+      "measured_within_item_cos": 0.059967041015625,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.5,
+      "F": 2,
+      "seed": 7,
+      "measured_within_item_cos": 0.25043487548828125,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.5,
+      "F": 2,
+      "seed": 17,
+      "measured_within_item_cos": 0.2494354248046875,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.5,
+      "F": 2,
+      "seed": 23,
+      "measured_within_item_cos": 0.2474822998046875,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.75,
+      "F": 2,
+      "seed": 7,
+      "measured_within_item_cos": 0.5620803833007812,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.75,
+      "F": 2,
+      "seed": 17,
+      "measured_within_item_cos": 0.5635604858398438,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.75,
+      "F": 2,
+      "seed": 23,
+      "measured_within_item_cos": 0.56048583984375,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.9,
+      "F": 2,
+      "seed": 7,
+      "measured_within_item_cos": 0.8104095458984375,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.9,
+      "F": 2,
+      "seed": 17,
+      "measured_within_item_cos": 0.8094024658203125,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.9,
+      "F": 2,
+      "seed": 23,
+      "measured_within_item_cos": 0.8077926635742188,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.95,
+      "F": 2,
+      "seed": 7,
+      "measured_within_item_cos": 0.9023666381835938,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.95,
+      "F": 2,
+      "seed": 17,
+      "measured_within_item_cos": 0.9026336669921875,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.95,
+      "F": 2,
+      "seed": 23,
+      "measured_within_item_cos": 0.9018402099609375,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.98,
+      "F": 2,
+      "seed": 7,
+      "measured_within_item_cos": 0.9593734741210938,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.98,
+      "F": 2,
+      "seed": 17,
+      "measured_within_item_cos": 0.9595794677734375,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.98,
+      "F": 2,
+      "seed": 23,
+      "measured_within_item_cos": 0.9599533081054688,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.99,
+      "F": 2,
+      "seed": 7,
+      "measured_within_item_cos": 0.9801254272460938,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 0.99658203125,
+        "ci95": [
+          0.9931640625,
+          0.9990234375
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.00341796875,
+        "ci95": [
+          0.0009765625,
+          0.0068359375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.99,
+      "F": 2,
+      "seed": 17,
+      "measured_within_item_cos": 0.9803009033203125,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 0.998046875,
+        "ci95": [
+          0.99609375,
+          0.99951171875
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0048828125,
+        "ci95": [
+          0.00146484375,
+          0.0087890625
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.99,
+      "F": 2,
+      "seed": 23,
+      "measured_within_item_cos": 0.9809341430664062,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 0.9970703125,
+        "ci95": [
+          0.99365234375,
+          0.99951171875
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.001953125,
+        "ci95": [
+          0.0,
+          0.004406738281249933
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.995,
+      "F": 2,
+      "seed": 7,
+      "measured_within_item_cos": 0.989898681640625,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 0.958984375,
+        "ci95": [
+          0.94822998046875,
+          0.96875
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.04443359375,
+        "ci95": [
+          0.03466796875,
+          0.0556640625
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.995,
+      "F": 2,
+      "seed": 17,
+      "measured_within_item_cos": 0.9904098510742188,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 0.9482421875,
+        "ci95": [
+          0.93603515625,
+          0.9599609375
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.048828125,
+        "ci95": [
+          0.03759765625,
+          0.06103515625
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.995,
+      "F": 2,
+      "seed": 23,
+      "measured_within_item_cos": 0.990203857421875,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 0.97265625,
+        "ci95": [
+          0.962890625,
+          0.98095703125
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.03125,
+        "ci95": [
+          0.02294921875,
+          0.04052734375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 1.0,
+      "F": 2,
+      "seed": 7,
+      "measured_within_item_cos": 1.0,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 0.4990234375,
+        "ci95": [
+          0.4775390625,
+          0.521484375
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.50439453125,
+        "ci95": [
+          0.482421875,
+          0.52490234375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 1.0,
+      "F": 2,
+      "seed": 17,
+      "measured_within_item_cos": 1.0,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 0.5078125,
+        "ci95": [
+          0.486328125,
+          0.529296875
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.49462890625,
+        "ci95": [
+          0.47314453125,
+          0.515625
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 1.0,
+      "F": 2,
+      "seed": 23,
+      "measured_within_item_cos": 1.0,
+      "chance": 0.5,
+      "facet_recovery": {
+        "point": 0.48583984375,
+        "ci95": [
+          0.4638671875,
+          0.5073364257812499
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.5078125,
+        "ci95": [
+          0.48681640625,
+          0.5302734375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.25,
+      "F": 4,
+      "seed": 7,
+      "measured_within_item_cos": 0.06383514404296875,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.25,
+      "F": 4,
+      "seed": 17,
+      "measured_within_item_cos": 0.062286376953125,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.25,
+      "F": 4,
+      "seed": 23,
+      "measured_within_item_cos": 0.059967041015625,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.5,
+      "F": 4,
+      "seed": 7,
+      "measured_within_item_cos": 0.25043487548828125,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.5,
+      "F": 4,
+      "seed": 17,
+      "measured_within_item_cos": 0.2494354248046875,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.5,
+      "F": 4,
+      "seed": 23,
+      "measured_within_item_cos": 0.2474822998046875,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.75,
+      "F": 4,
+      "seed": 7,
+      "measured_within_item_cos": 0.5620803833007812,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.75,
+      "F": 4,
+      "seed": 17,
+      "measured_within_item_cos": 0.5635604858398438,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.75,
+      "F": 4,
+      "seed": 23,
+      "measured_within_item_cos": 0.56048583984375,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.9,
+      "F": 4,
+      "seed": 7,
+      "measured_within_item_cos": 0.8104095458984375,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.9,
+      "F": 4,
+      "seed": 17,
+      "measured_within_item_cos": 0.8094024658203125,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.9,
+      "F": 4,
+      "seed": 23,
+      "measured_within_item_cos": 0.8077926635742188,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.95,
+      "F": 4,
+      "seed": 7,
+      "measured_within_item_cos": 0.9023666381835938,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.95,
+      "F": 4,
+      "seed": 17,
+      "measured_within_item_cos": 0.9026336669921875,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.999755859375,
+        "ci95": [
+          0.999267578125,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.95,
+      "F": 4,
+      "seed": 23,
+      "measured_within_item_cos": 0.9018402099609375,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.999755859375,
+        "ci95": [
+          0.999267578125,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.000244140625,
+        "ci95": [
+          0.0,
+          0.000732421875
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.98,
+      "F": 4,
+      "seed": 7,
+      "measured_within_item_cos": 0.9593734741210938,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.983642578125,
+        "ci95": [
+          0.979736328125,
+          0.9873046875
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.005126953125,
+        "ci95": [
+          0.0029296875,
+          0.00732421875
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.98,
+      "F": 4,
+      "seed": 17,
+      "measured_within_item_cos": 0.9595794677734375,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.98291015625,
+        "ci95": [
+          0.97900390625,
+          0.986572265625
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.008056640625,
+        "ci95": [
+          0.005609130859375,
+          0.0107421875
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.98,
+      "F": 4,
+      "seed": 23,
+      "measured_within_item_cos": 0.9599533081054688,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.9833984375,
+        "ci95": [
+          0.979248046875,
+          0.9873046875
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.007080078125,
+        "ci95": [
+          0.00439453125,
+          0.009765625
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.99,
+      "F": 4,
+      "seed": 7,
+      "measured_within_item_cos": 0.9801254272460938,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.892822265625,
+        "ci95": [
+          0.88330078125,
+          0.90185546875
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.033935546875,
+        "ci95": [
+          0.0283203125,
+          0.03955078125
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.99,
+      "F": 4,
+      "seed": 17,
+      "measured_within_item_cos": 0.9803009033203125,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.884521484375,
+        "ci95": [
+          0.874755859375,
+          0.894287109375
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.037841796875,
+        "ci95": [
+          0.031982421875,
+          0.0439453125
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.99,
+      "F": 4,
+      "seed": 23,
+      "measured_within_item_cos": 0.9809341430664062,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.892333984375,
+        "ci95": [
+          0.88330078125,
+          0.901611328125
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0322265625,
+        "ci95": [
+          0.027099609375,
+          0.03759765625
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.995,
+      "F": 4,
+      "seed": 7,
+      "measured_within_item_cos": 0.989898681640625,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.740234375,
+        "ci95": [
+          0.72752685546875,
+          0.75390625
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0791015625,
+        "ci95": [
+          0.070068359375,
+          0.08740234375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.995,
+      "F": 4,
+      "seed": 17,
+      "measured_within_item_cos": 0.9904098510742188,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.71728515625,
+        "ci95": [
+          0.702874755859375,
+          0.7314514160156249
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.097412109375,
+        "ci95": [
+          0.088623046875,
+          0.10693359375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.995,
+      "F": 4,
+      "seed": 23,
+      "measured_within_item_cos": 0.990203857421875,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.73828125,
+        "ci95": [
+          0.7255859375,
+          0.75048828125
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.08642578125,
+        "ci95": [
+          0.078118896484375,
+          0.09521484375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 1.0,
+      "F": 4,
+      "seed": 7,
+      "measured_within_item_cos": 1.0,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.24609375,
+        "ci95": [
+          0.232904052734375,
+          0.259521484375
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.25732421875,
+        "ci95": [
+          0.243646240234375,
+          0.271484375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 1.0,
+      "F": 4,
+      "seed": 17,
+      "measured_within_item_cos": 1.0,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.24365234375,
+        "ci95": [
+          0.229241943359375,
+          0.2578125
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.24609375,
+        "ci95": [
+          0.233154296875,
+          0.259765625
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 1.0,
+      "F": 4,
+      "seed": 23,
+      "measured_within_item_cos": 1.0,
+      "chance": 0.25,
+      "facet_recovery": {
+        "point": 0.2470703125,
+        "ci95": [
+          0.234130859375,
+          0.260498046875
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.247802734375,
+        "ci95": [
+          0.23388671875,
+          0.26196899414062497
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.25,
+      "F": 8,
+      "seed": 7,
+      "measured_within_item_cos": 0.06383514404296875,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.25,
+      "F": 8,
+      "seed": 17,
+      "measured_within_item_cos": 0.062286376953125,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.25,
+      "F": 8,
+      "seed": 23,
+      "measured_within_item_cos": 0.059967041015625,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.5,
+      "F": 8,
+      "seed": 7,
+      "measured_within_item_cos": 0.25043487548828125,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.5,
+      "F": 8,
+      "seed": 17,
+      "measured_within_item_cos": 0.2494354248046875,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.5,
+      "F": 8,
+      "seed": 23,
+      "measured_within_item_cos": 0.2474822998046875,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.75,
+      "F": 8,
+      "seed": 7,
+      "measured_within_item_cos": 0.5620803833007812,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.75,
+      "F": 8,
+      "seed": 17,
+      "measured_within_item_cos": 0.5635604858398438,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.75,
+      "F": 8,
+      "seed": 23,
+      "measured_within_item_cos": 0.56048583984375,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.9,
+      "F": 8,
+      "seed": 7,
+      "measured_within_item_cos": 0.8104095458984375,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.9998779296875,
+        "ci95": [
+          0.9996337890625,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.9,
+      "F": 8,
+      "seed": 17,
+      "measured_within_item_cos": 0.8094024658203125,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.9993896484375,
+        "ci95": [
+          0.998779296875,
+          0.9998779296875
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0001220703125,
+        "ci95": [
+          0.0,
+          0.0003662109375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.9,
+      "F": 8,
+      "seed": 23,
+      "measured_within_item_cos": 0.8077926635742188,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.9998779296875,
+        "ci95": [
+          0.9996337890625,
+          1.0
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0001220703125,
+        "ci95": [
+          0.0,
+          0.0003662109375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.95,
+      "F": 8,
+      "seed": 7,
+      "measured_within_item_cos": 0.9023666381835938,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.9752197265625,
+        "ci95": [
+          0.9718017578125,
+          0.9786376953125
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0035400390625,
+        "ci95": [
+          0.0023193359375,
+          0.0048828125
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.95,
+      "F": 8,
+      "seed": 17,
+      "measured_within_item_cos": 0.9026336669921875,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.9757080078125,
+        "ci95": [
+          0.9722900390625,
+          0.9791259765625
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.002197265625,
+        "ci95": [
+          0.001220703125,
+          0.0032958984375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.95,
+      "F": 8,
+      "seed": 23,
+      "measured_within_item_cos": 0.9018402099609375,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.9683837890625,
+        "ci95": [
+          0.964599609375,
+          0.9722900390625
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0035400390625,
+        "ci95": [
+          0.0023193359375,
+          0.0048828125
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.98,
+      "F": 8,
+      "seed": 7,
+      "measured_within_item_cos": 0.9593734741210938,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.806884765625,
+        "ci95": [
+          0.7984588623046875,
+          0.8150634765625
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.02490234375,
+        "ci95": [
+          0.0216064453125,
+          0.0284423828125
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.98,
+      "F": 8,
+      "seed": 17,
+      "measured_within_item_cos": 0.9595794677734375,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.805419921875,
+        "ci95": [
+          0.796630859375,
+          0.8139678955078125
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0286865234375,
+        "ci95": [
+          0.0251434326171875,
+          0.0323486328125
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.98,
+      "F": 8,
+      "seed": 23,
+      "measured_within_item_cos": 0.9599533081054688,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.7921142578125,
+        "ci95": [
+          0.783935546875,
+          0.8009033203125
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0279541015625,
+        "ci95": [
+          0.0245361328125,
+          0.03125
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.99,
+      "F": 8,
+      "seed": 7,
+      "measured_within_item_cos": 0.9801254272460938,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.61083984375,
+        "ci95": [
+          0.601318359375,
+          0.6203674316406249
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.05712890625,
+        "ci95": [
+          0.052001953125,
+          0.0625
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.99,
+      "F": 8,
+      "seed": 17,
+      "measured_within_item_cos": 0.9803009033203125,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.6031494140625,
+        "ci95": [
+          0.5928955078125,
+          0.613037109375
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0556640625,
+        "ci95": [
+          0.0509002685546875,
+          0.0604248046875
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.99,
+      "F": 8,
+      "seed": 23,
+      "measured_within_item_cos": 0.9809341430664062,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.5938720703125,
+        "ci95": [
+          0.583984375,
+          0.603759765625
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.060302734375,
+        "ci95": [
+          0.0552978515625,
+          0.0657958984375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.995,
+      "F": 8,
+      "seed": 7,
+      "measured_within_item_cos": 0.989898681640625,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.4405517578125,
+        "ci95": [
+          0.4315185546875,
+          0.4501953125
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.073486328125,
+        "ci95": [
+          0.0677490234375,
+          0.0792236328125
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.995,
+      "F": 8,
+      "seed": 17,
+      "measured_within_item_cos": 0.9904098510742188,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.434326171875,
+        "ci95": [
+          0.4248046875,
+          0.44384765625
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0828857421875,
+        "ci95": [
+          0.077392578125,
+          0.0892333984375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 0.995,
+      "F": 8,
+      "seed": 23,
+      "measured_within_item_cos": 0.990203857421875,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.434326171875,
+        "ci95": [
+          0.4249267578125,
+          0.4437255859375
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.0789794921875,
+        "ci95": [
+          0.0732421875,
+          0.085205078125
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 1.0,
+      "F": 8,
+      "seed": 7,
+      "measured_within_item_cos": 1.0,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.1295166015625,
+        "ci95": [
+          0.122314453125,
+          0.136474609375
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.1259765625,
+        "ci95": [
+          0.1190185546875,
+          0.13293762207031248
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 1.0,
+      "F": 8,
+      "seed": 17,
+      "measured_within_item_cos": 1.0,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.1214599609375,
+        "ci95": [
+          0.1144989013671875,
+          0.12890625
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.1259765625,
+        "ci95": [
+          0.118896484375,
+          0.1331787109375
+        ],
+        "n": 1024
+      }
+    },
+    {
+      "nominal_flip_parameter_1_minus_2p": 1.0,
+      "F": 8,
+      "seed": 23,
+      "measured_within_item_cos": 1.0,
+      "chance": 0.125,
+      "facet_recovery": {
+        "point": 0.1312255859375,
+        "ci95": [
+          0.124267578125,
+          0.1383056640625
+        ],
+        "n": 1024
+      },
+      "facet_recovery_shuffled_key": {
+        "point": 0.1314697265625,
+        "ci95": [
+          0.1243896484375,
+          0.13916015625
+        ],
+        "n": 1024
+      }
+    }
+  ],
+  "verdict": "MEASURED",
+  "verdict_msg": "Within-item facet correlation swept past the v1 grid to identity. Cliff (first grid point with facet recovery < 0.95) per facet count: {\"F2\": {\"nominal\": 1.0, \"measured_cos\": 1.0, \"facet_recovery\": 0.49755859375}, \"F4\": {\"nominal\": 0.99, \"measured_cos\": 0.9804534912109375, \"facet_recovery\": 0.889892578125}, \"F8\": {\"nominal\": 0.98, \"measured_cos\": 0.9596354166666666, \"facet_recovery\": 0.8014729817708334}}. DIAGNOSTIC: synthetic codes, within-item read-out with the key in hand; says nothing about any cross-item or downstream metric.",
+  "summary": "Within-item facet correlation swept past the v1 grid to identity. Cliff (first grid point with facet recovery < 0.95) per facet count: {\"F2\": {\"nominal\": 1.0, \"measured_cos\": 1.0, \"facet_recovery\": 0.49755859375}, \"F4\": {\"nominal\": 0.99, \"measured_cos\": 0.9804534912109375, \"facet_recovery\": 0.889892578125}, \"F8\": {\"nominal\": 0.98, \"measured_cos\": 0.9596354166666666, \"facet_recovery\": 0.8014729817708334}}. DIAGNOSTIC: synthetic codes, within-item read-out with the key in hand; says nothing about any cross-item or downstream metric.",
+  "elapsed_s": 23.50859546661377
+}

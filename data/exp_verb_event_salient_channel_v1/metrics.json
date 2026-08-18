@@ -1,0 +1,1286 @@
+{
+  "anchor_name": "verb_event_salient_channel_v1",
+  "code_version": "v1.0",
+  "prereg": "notes/verb_representation_brain_drill_and_channel_specification_2026-08-17.md section (d) BUILD SPECIFICATION + notes/verb_similarity_ruler_acquisition_and_fitness_2026-08-17.md (the ruler, the C1_PARTIAL method) + notes/item2_verb_target_space_n222_measurement_2026-08-17.md (the license, rho=0.2607 [0.1282,0.3841] on SimLex-V n=222). No separate preregs/*.md file: same convention as exp_verb_target_space_n222_v1.",
+  "run_mode": "reduced",
+  "N_PERM": 400,
+  "N_BOOT": 2000,
+  "N_BOOT_PARTIAL": 300,
+  "measures_the_instrument_not_a_capability": true,
+  "cue_regime": "exact_key_own_code",
+  "progress_logging": "print_flush_true",
+  "ruler_mode_gate": {
+    "RUN_MODE": "full",
+    "V": 4096,
+    "CORPUS_BYTES": 64000000,
+    "argv": [
+      "experiments/exp_verb_event_salient_channel_v1.py",
+      "--grid",
+      "reduced"
+    ],
+    "PASS": true
+  },
+  "regression_gate": {
+    "landed_rho": 0.2607,
+    "landed_ci95": [
+      0.1282,
+      0.3841
+    ],
+    "recomputed_rho": {
+      "point": 0.260664623528911,
+      "ci95": [
+        0.13237530517575408,
+        0.38390183150961993
+      ],
+      "n": 222
+    },
+    "recomputed_band": "NOT_SEPARATED",
+    "recomputed_margin": {
+      "point": 0.14334574501682457,
+      "ci95": [
+        -0.04078642678796675,
+        0.3250207326713323
+      ],
+      "n": 222
+    },
+    "reproduced_point_estimate": true,
+    "note": "point rho is deterministic given the data (seed-independent); only the scramble null / CI use a per-process seed and are NOT expected to be bit-identical to the landed run -- only the POINT ESTIMATE is the strict gate."
+  },
+  "population": {
+    "simverb_usable": 3487,
+    "primary_disjoint": 3317,
+    "overlap_never_pooled": 170,
+    "simverb_ceiling_0_6121": 0.6121
+  },
+  "event_channel_construction": {
+    "event_col_names": [
+      "Valence_z",
+      "Arousal_z",
+      "Dominance_z"
+    ],
+    "keep_atomic_consequentiality": false,
+    "atomic_coverage_frac": 0.5473,
+    "socialness_available_on_disk": false,
+    "socialness_note": "Diveica et al. 2022 socialness norms NOT on disk (re-enumerated this pass: only data/corpora/social_iqa/, a QA corpus, exists; no word-level ratings). A1 is 12+3=15 dims, not the drill's hypothesised 17."
+  },
+  "joint_intersection_all_arms_n": 2433,
+  "joint_gate_min_n": 150,
+  "arms": {
+    "A0_INCUMBENT_12": {
+      "arm": "A0_INCUMBENT_12",
+      "width": 12,
+      "n": 3317,
+      "spearman_ci_halfwidth_approx": 0.034,
+      "rho": {
+        "point": 0.26963107816244036,
+        "ci95": [
+          0.23695538193168597,
+          0.30199912321894445
+        ],
+        "n": 3317
+      },
+      "strongest_floor": "F_SCRAMBLE_PERM_P95",
+      "floor_rho_by_arm": {
+        "F_ORTHOGRAPHIC": -0.0159,
+        "F_FREQUENCY_HARDENED": -0.0425,
+        "F_CONSTANT_PROTOTYPE": 0.0149,
+        "F_SCRAMBLE_PERM_P95": 0.0285
+      },
+      "margin_over_strongest_floor": {
+        "point": 0.24113802877051546,
+        "ci95": [
+          0.19286894902278645,
+          0.2895515168992233
+        ],
+        "n": 3317
+      },
+      "band": "ABOVE",
+      "clears_floor": true,
+      "clears_ALL_FOUR_floors_ci_separated": true,
+      "min_ci_lo_over_all_floors": 0.19286894902278645,
+      "middle_band": false,
+      "scramble_null": {
+        "p95": 0.02854905140411773,
+        "p95_row_permutation": 0.02850952293019759,
+        "p95_gold_permutation": 0.02854905140411773,
+        "row_null_mean": 0.0008583722406098186,
+        "row_null_sd": 0.016975877827792935,
+        "n_perm": 400,
+        "permutation_p_value": 0.0024937655860349127
+      },
+      "DECOMPOSED_per_floor": {
+        "F_ORTHOGRAPHIC": {
+          "floor_rho": -0.01587492058021655,
+          "margin": {
+            "point": 0.2855059987426569,
+            "ci95": [
+              0.24079248648932028,
+              0.3324844770237834
+            ],
+            "n": 3317
+          },
+          "band": "ABOVE"
+        },
+        "F_FREQUENCY_HARDENED": {
+          "floor_rho": -0.04249231235555413,
+          "margin": {
+            "point": 0.3121233905179945,
+            "ci95": [
+              0.2676291051147039,
+              0.35887998975532015
+            ],
+            "n": 3317
+          },
+          "band": "ABOVE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "floor_rho": 0.014921267292885058,
+          "margin": {
+            "point": 0.2547098108695553,
+            "ci95": [
+              0.2100330812704603,
+              0.2998847574849982
+            ],
+            "n": 3317
+          },
+          "band": "ABOVE"
+        },
+        "F_SCRAMBLE_PERM_P95": {
+          "floor_rho": 0.02854905140411773,
+          "margin": {
+            "point": 0.24113802877051546,
+            "ci95": [
+              0.19286894902278645,
+              0.2895515168992233
+            ],
+            "n": 3317
+          },
+          "band": "ABOVE"
+        }
+      },
+      "F_CONSTANT_PROTOTYPE_variant": "word2_replaced",
+      "C1_PARTIAL": {
+        "covariates": "mean_conc,absdiff_conc,mean_log10freq,absdiff_log10freq",
+        "n_boot": 300,
+        "n_after_covariate_mask": 3299,
+        "raw_rho_point": 0.26963107816244036,
+        "partial_rho": {
+          "point": 0.2586308996048312,
+          "ci95": [
+            0.2277300764147311,
+            0.2877397002043616
+          ],
+          "n": 3299,
+          "n_boot_used": 300,
+          "band": "ABOVE"
+        },
+        "partial_floor_rho_by_arm": {
+          "F_ORTHOGRAPHIC": -0.018192888233741274,
+          "F_FREQUENCY_HARDENED": -0.04254226017160152,
+          "F_CONSTANT_PROTOTYPE": 0.04501647821410572,
+          "F_SCRAMBLE_PERM_P95": 0.029975354161978978
+        },
+        "strongest_partial_floor": "F_CONSTANT_PROTOTYPE",
+        "partial_margin_over_strongest_partial_floor": {
+          "point": 0.2136144213907255,
+          "ci95": [
+            0.16758735424793206,
+            0.25700913990449864
+          ],
+          "band": "ABOVE",
+          "n": 3299
+        },
+        "survives_partial": true
+      },
+      "elapsed_s": 139.03
+    },
+    "A1_EVENT_SALIENT": {
+      "arm": "A1_EVENT_SALIENT",
+      "width": 15,
+      "n": 3161,
+      "spearman_ci_halfwidth_approx": 0.0349,
+      "rho": {
+        "point": 0.3704545077415655,
+        "ci95": [
+          0.3386972243006016,
+          0.40099093999238455
+        ],
+        "n": 3161
+      },
+      "strongest_floor": "F_SCRAMBLE_PERM_P95",
+      "floor_rho_by_arm": {
+        "F_ORTHOGRAPHIC": -0.009,
+        "F_FREQUENCY_HARDENED": -0.05,
+        "F_CONSTANT_PROTOTYPE": 0.0131,
+        "F_SCRAMBLE_PERM_P95": 0.0299
+      },
+      "margin_over_strongest_floor": {
+        "point": 0.3410049658595457,
+        "ci95": [
+          0.29439217090570124,
+          0.3892439092924725
+        ],
+        "n": 3161
+      },
+      "band": "ABOVE",
+      "clears_floor": true,
+      "clears_ALL_FOUR_floors_ci_separated": true,
+      "min_ci_lo_over_all_floors": 0.29439217090570124,
+      "middle_band": false,
+      "scramble_null": {
+        "p95": 0.02994782396513165,
+        "p95_row_permutation": 0.027940905159824607,
+        "p95_gold_permutation": 0.02994782396513165,
+        "row_null_mean": -0.002174539375789829,
+        "row_null_sd": 0.017320637636068947,
+        "n_perm": 400,
+        "permutation_p_value": 0.0024937655860349127
+      },
+      "DECOMPOSED_per_floor": {
+        "F_ORTHOGRAPHIC": {
+          "floor_rho": -0.008977175145300735,
+          "margin": {
+            "point": 0.37943168288686624,
+            "ci95": [
+              0.3343231108568017,
+              0.4249081049186889
+            ],
+            "n": 3161
+          },
+          "band": "ABOVE"
+        },
+        "F_FREQUENCY_HARDENED": {
+          "floor_rho": -0.05000626431129959,
+          "margin": {
+            "point": 0.42046077205286514,
+            "ci95": [
+              0.3749601605129291,
+              0.46544251965551603
+            ],
+            "n": 3161
+          },
+          "band": "ABOVE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "floor_rho": 0.01312471528874647,
+          "margin": {
+            "point": 0.35732979245281904,
+            "ci95": [
+              0.31421851791076977,
+              0.39955762489032753
+            ],
+            "n": 3161
+          },
+          "band": "ABOVE"
+        },
+        "F_SCRAMBLE_PERM_P95": {
+          "floor_rho": 0.02994782396513165,
+          "margin": {
+            "point": 0.3410049658595457,
+            "ci95": [
+              0.29439217090570124,
+              0.3892439092924725
+            ],
+            "n": 3161
+          },
+          "band": "ABOVE"
+        }
+      },
+      "F_CONSTANT_PROTOTYPE_variant": "word2_replaced",
+      "C1_PARTIAL": {
+        "covariates": "mean_conc,absdiff_conc,mean_log10freq,absdiff_log10freq",
+        "n_boot": 300,
+        "n_after_covariate_mask": 3152,
+        "raw_rho_point": 0.3704545077415655,
+        "partial_rho": {
+          "point": 0.3654593320735407,
+          "ci95": [
+            0.33474057149345693,
+            0.39256948360404326
+          ],
+          "n": 3152,
+          "n_boot_used": 300,
+          "band": "ABOVE"
+        },
+        "partial_floor_rho_by_arm": {
+          "F_ORTHOGRAPHIC": -0.0118464627859952,
+          "F_FREQUENCY_HARDENED": -0.04504297311210456,
+          "F_CONSTANT_PROTOTYPE": 0.045958572485286564,
+          "F_SCRAMBLE_PERM_P95": 0.03200081349766411
+        },
+        "strongest_partial_floor": "F_CONSTANT_PROTOTYPE",
+        "partial_margin_over_strongest_partial_floor": {
+          "point": 0.31950075958825414,
+          "ci95": [
+            0.272139365779194,
+            0.36459907917683915
+          ],
+          "band": "ABOVE",
+          "n": 3152
+        },
+        "survives_partial": true
+      },
+      "elapsed_s": 141.62
+    },
+    "A2_EVENT_ONLY": {
+      "arm": "A2_EVENT_ONLY",
+      "width": 3,
+      "n": 3161,
+      "spearman_ci_halfwidth_approx": 0.0349,
+      "rho": {
+        "point": 0.30808778345876464,
+        "ci95": [
+          0.27653112984420253,
+          0.33756462045701807
+        ],
+        "n": 3161
+      },
+      "strongest_floor": "F_SCRAMBLE_PERM_P95",
+      "floor_rho_by_arm": {
+        "F_ORTHOGRAPHIC": -0.009,
+        "F_FREQUENCY_HARDENED": -0.05,
+        "F_CONSTANT_PROTOTYPE": 0.0195,
+        "F_SCRAMBLE_PERM_P95": 0.0325
+      },
+      "margin_over_strongest_floor": {
+        "point": 0.275607926184637,
+        "ci95": [
+          0.22797789649212166,
+          0.32254545016850583
+        ],
+        "n": 3161
+      },
+      "band": "ABOVE",
+      "clears_floor": true,
+      "clears_ALL_FOUR_floors_ci_separated": true,
+      "min_ci_lo_over_all_floors": 0.22797789649212166,
+      "middle_band": false,
+      "scramble_null": {
+        "p95": 0.03248326302116093,
+        "p95_row_permutation": 0.03248326302116093,
+        "p95_gold_permutation": 0.028752638183899868,
+        "row_null_mean": 0.0008280626793601548,
+        "row_null_sd": 0.018718259295073904,
+        "n_perm": 400,
+        "permutation_p_value": 0.0024937655860349127
+      },
+      "DECOMPOSED_per_floor": {
+        "F_ORTHOGRAPHIC": {
+          "floor_rho": -0.008977175145300735,
+          "margin": {
+            "point": 0.31706495860406536,
+            "ci95": [
+              0.2718267152797228,
+              0.36273805233721246
+            ],
+            "n": 3161
+          },
+          "band": "ABOVE"
+        },
+        "F_FREQUENCY_HARDENED": {
+          "floor_rho": -0.05000626431129959,
+          "margin": {
+            "point": 0.35809404777006426,
+            "ci95": [
+              0.30985606801685445,
+              0.40425034876194565
+            ],
+            "n": 3161
+          },
+          "band": "ABOVE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "floor_rho": 0.01945265384656841,
+          "margin": {
+            "point": 0.28863512961219623,
+            "ci95": [
+              0.24043855918294035,
+              0.3347189132086857
+            ],
+            "n": 3161
+          },
+          "band": "ABOVE"
+        },
+        "F_SCRAMBLE_PERM_P95": {
+          "floor_rho": 0.03248326302116093,
+          "margin": {
+            "point": 0.275607926184637,
+            "ci95": [
+              0.22797789649212166,
+              0.32254545016850583
+            ],
+            "n": 3161
+          },
+          "band": "ABOVE"
+        }
+      },
+      "F_CONSTANT_PROTOTYPE_variant": "word1_replaced",
+      "C1_PARTIAL": {
+        "covariates": "mean_conc,absdiff_conc,mean_log10freq,absdiff_log10freq",
+        "n_boot": 300,
+        "n_after_covariate_mask": 3152,
+        "raw_rho_point": 0.30808778345876464,
+        "partial_rho": {
+          "point": 0.3029778659105832,
+          "ci95": [
+            0.27109456699751633,
+            0.3318236020036838
+          ],
+          "n": 3152,
+          "n_boot_used": 300,
+          "band": "ABOVE"
+        },
+        "partial_floor_rho_by_arm": {
+          "F_ORTHOGRAPHIC": -0.0118464627859952,
+          "F_FREQUENCY_HARDENED": -0.04504297311210456,
+          "F_CONSTANT_PROTOTYPE": 0.038149111839738216,
+          "F_SCRAMBLE_PERM_P95": 0.030413807869691074
+        },
+        "strongest_partial_floor": "F_CONSTANT_PROTOTYPE",
+        "partial_margin_over_strongest_partial_floor": {
+          "point": 0.26482875407084494,
+          "ci95": [
+            0.2208711359640767,
+            0.3138667164624435
+          ],
+          "band": "ABOVE",
+          "n": 3152
+        },
+        "survives_partial": true
+      },
+      "elapsed_s": 138.16
+    },
+    "A3_WIDTH_MATCHED_NOISE": {
+      "arm": "A3_WIDTH_MATCHED_NOISE",
+      "width": 15,
+      "n": 3317,
+      "spearman_ci_halfwidth_approx": 0.034,
+      "rho": {
+        "point": 0.25499675966970736,
+        "ci95": [
+          0.22247787303978117,
+          0.28777994232011245
+        ],
+        "n": 3317
+      },
+      "strongest_floor": "F_SCRAMBLE_PERM_P95",
+      "floor_rho_by_arm": {
+        "F_ORTHOGRAPHIC": -0.0159,
+        "F_FREQUENCY_HARDENED": -0.0425,
+        "F_CONSTANT_PROTOTYPE": 0.0123,
+        "F_SCRAMBLE_PERM_P95": 0.0298
+      },
+      "margin_over_strongest_floor": {
+        "point": 0.2252502794708241,
+        "ci95": [
+          0.17926359265092787,
+          0.27358930434246276
+        ],
+        "n": 3317
+      },
+      "band": "ABOVE",
+      "clears_floor": true,
+      "clears_ALL_FOUR_floors_ci_separated": true,
+      "min_ci_lo_over_all_floors": 0.17926359265092787,
+      "middle_band": false,
+      "scramble_null": {
+        "p95": 0.029753829809653767,
+        "p95_row_permutation": 0.029753829809653767,
+        "p95_gold_permutation": 0.02762882471350339,
+        "row_null_mean": -0.0012629208909322293,
+        "row_null_sd": 0.0187198718160372,
+        "n_perm": 400,
+        "permutation_p_value": 0.0024937655860349127
+      },
+      "DECOMPOSED_per_floor": {
+        "F_ORTHOGRAPHIC": {
+          "floor_rho": -0.01587492058021655,
+          "margin": {
+            "point": 0.2708716802499239,
+            "ci95": [
+              0.22643782419737812,
+              0.31758144464940513
+            ],
+            "n": 3317
+          },
+          "band": "ABOVE"
+        },
+        "F_FREQUENCY_HARDENED": {
+          "floor_rho": -0.04249231235555413,
+          "margin": {
+            "point": 0.2974890720252615,
+            "ci95": [
+              0.2527312298699296,
+              0.3428702533645636
+            ],
+            "n": 3317
+          },
+          "band": "ABOVE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "floor_rho": 0.012342246970432099,
+          "margin": {
+            "point": 0.24265451269927527,
+            "ci95": [
+              0.1988905709849689,
+              0.2865508910796313
+            ],
+            "n": 3317
+          },
+          "band": "ABOVE"
+        },
+        "F_SCRAMBLE_PERM_P95": {
+          "floor_rho": 0.029753829809653767,
+          "margin": {
+            "point": 0.2252502794708241,
+            "ci95": [
+              0.17926359265092787,
+              0.27358930434246276
+            ],
+            "n": 3317
+          },
+          "band": "ABOVE"
+        }
+      },
+      "F_CONSTANT_PROTOTYPE_variant": "word2_replaced",
+      "C1_PARTIAL": {
+        "covariates": "mean_conc,absdiff_conc,mean_log10freq,absdiff_log10freq",
+        "n_boot": 300,
+        "n_after_covariate_mask": 3299,
+        "raw_rho_point": 0.25499675966970736,
+        "partial_rho": {
+          "point": 0.24386235684663954,
+          "ci95": [
+            0.21369892422351663,
+            0.2816560592949977
+          ],
+          "n": 3299,
+          "n_boot_used": 300,
+          "band": "ABOVE"
+        },
+        "partial_floor_rho_by_arm": {
+          "F_ORTHOGRAPHIC": -0.018192888233741274,
+          "F_FREQUENCY_HARDENED": -0.04254226017160152,
+          "F_CONSTANT_PROTOTYPE": 0.043071336694317695,
+          "F_SCRAMBLE_PERM_P95": 0.02833543697319674
+        },
+        "strongest_partial_floor": "F_CONSTANT_PROTOTYPE",
+        "partial_margin_over_strongest_partial_floor": {
+          "point": 0.20079102015232184,
+          "ci95": [
+            0.15890898249550484,
+            0.24548500070768312
+          ],
+          "band": "ABOVE",
+          "n": 3299
+        },
+        "survives_partial": true
+      },
+      "elapsed_s": 135.95
+    },
+    "A4_WIDTH_MATCHED_WRONG": {
+      "arm": "A4_WIDTH_MATCHED_WRONG",
+      "width": 15,
+      "n": 3303,
+      "spearman_ci_halfwidth_approx": 0.0341,
+      "rho": {
+        "point": 0.22901190871493318,
+        "ci95": [
+          0.19602334830993995,
+          0.2628972047053274
+        ],
+        "n": 3303
+      },
+      "strongest_floor": "F_SCRAMBLE_PERM_P95",
+      "floor_rho_by_arm": {
+        "F_ORTHOGRAPHIC": -0.0153,
+        "F_FREQUENCY_HARDENED": -0.0426,
+        "F_CONSTANT_PROTOTYPE": 0.0141,
+        "F_SCRAMBLE_PERM_P95": 0.0319
+      },
+      "margin_over_strongest_floor": {
+        "point": 0.19747689787317096,
+        "ci95": [
+          0.15265991486568586,
+          0.2438703391559131
+        ],
+        "n": 3303
+      },
+      "band": "ABOVE",
+      "clears_floor": true,
+      "clears_ALL_FOUR_floors_ci_separated": true,
+      "min_ci_lo_over_all_floors": 0.15265991486568586,
+      "middle_band": false,
+      "scramble_null": {
+        "p95": 0.031942765465312856,
+        "p95_row_permutation": 0.030226413585368216,
+        "p95_gold_permutation": 0.031942765465312856,
+        "row_null_mean": -6.734141472625539e-05,
+        "row_null_sd": 0.018357931761443538,
+        "n_perm": 400,
+        "permutation_p_value": 0.0024937655860349127
+      },
+      "DECOMPOSED_per_floor": {
+        "F_ORTHOGRAPHIC": {
+          "floor_rho": -0.015251867697972253,
+          "margin": {
+            "point": 0.24426377641290545,
+            "ci95": [
+              0.1989462454012898,
+              0.29195299847043515
+            ],
+            "n": 3303
+          },
+          "band": "ABOVE"
+        },
+        "F_FREQUENCY_HARDENED": {
+          "floor_rho": -0.0426477169598559,
+          "margin": {
+            "point": 0.2716596256747891,
+            "ci95": [
+              0.22982524134124876,
+              0.3128358602466298
+            ],
+            "n": 3303
+          },
+          "band": "ABOVE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "floor_rho": 0.014098430661774113,
+          "margin": {
+            "point": 0.21491347805315908,
+            "ci95": [
+              0.17185870484527582,
+              0.25909688892809984
+            ],
+            "n": 3303
+          },
+          "band": "ABOVE"
+        },
+        "F_SCRAMBLE_PERM_P95": {
+          "floor_rho": 0.031942765465312856,
+          "margin": {
+            "point": 0.19747689787317096,
+            "ci95": [
+              0.15265991486568586,
+              0.2438703391559131
+            ],
+            "n": 3303
+          },
+          "band": "ABOVE"
+        }
+      },
+      "F_CONSTANT_PROTOTYPE_variant": "word2_replaced",
+      "C1_PARTIAL": {
+        "covariates": "mean_conc,absdiff_conc,mean_log10freq,absdiff_log10freq",
+        "n_boot": 300,
+        "n_after_covariate_mask": 3287,
+        "raw_rho_point": 0.22901190871493318,
+        "partial_rho": {
+          "point": 0.22985925574306923,
+          "ci95": [
+            0.19813531449125796,
+            0.2600741837884507
+          ],
+          "n": 3287,
+          "n_boot_used": 300,
+          "band": "ABOVE"
+        },
+        "partial_floor_rho_by_arm": {
+          "F_ORTHOGRAPHIC": -0.01850980850426739,
+          "F_FREQUENCY_HARDENED": -0.0408141140908282,
+          "F_CONSTANT_PROTOTYPE": 0.04421158192096464,
+          "F_SCRAMBLE_PERM_P95": 0.03242112977128509
+        },
+        "strongest_partial_floor": "F_CONSTANT_PROTOTYPE",
+        "partial_margin_over_strongest_partial_floor": {
+          "point": 0.1856476738221046,
+          "ci95": [
+            0.14109874741442655,
+            0.22829966676726487
+          ],
+          "band": "ABOVE",
+          "n": 3287
+        },
+        "survives_partial": true
+      },
+      "elapsed_s": 166.36
+    },
+    "S1_SLOT_FRAME": {
+      "arm": "S1_SLOT_FRAME",
+      "width": 24,
+      "n": 2517,
+      "spearman_ci_halfwidth_approx": 0.0391,
+      "rho": {
+        "point": 0.044167944877911564,
+        "ci95": [
+          0.00508718973991957,
+          0.08489319873931425
+        ],
+        "n": 2517
+      },
+      "strongest_floor": "F_SCRAMBLE_PERM_P95",
+      "floor_rho_by_arm": {
+        "F_ORTHOGRAPHIC": -0.0218,
+        "F_FREQUENCY_HARDENED": -0.067,
+        "F_CONSTANT_PROTOTYPE": -0.0327,
+        "F_SCRAMBLE_PERM_P95": 0.0398
+      },
+      "margin_over_strongest_floor": {
+        "point": 0.0044561710577699365,
+        "ci95": [
+          -0.048727388424875714,
+          0.059991176284126785
+        ],
+        "n": 2517
+      },
+      "band": "NOT_SEPARATED",
+      "clears_floor": false,
+      "clears_ALL_FOUR_floors_ci_separated": false,
+      "min_ci_lo_over_all_floors": -0.048727388424875714,
+      "middle_band": false,
+      "scramble_null": {
+        "p95": 0.0397696685430918,
+        "p95_row_permutation": 0.0397696685430918,
+        "p95_gold_permutation": 0.033242039618051715,
+        "row_null_mean": 1.886196035157238e-05,
+        "row_null_sd": 0.023643301559846626,
+        "n_perm": 400,
+        "permutation_p_value": 0.032418952618453865
+      },
+      "DECOMPOSED_per_floor": {
+        "F_ORTHOGRAPHIC": {
+          "floor_rho": -0.021761614615023874,
+          "margin": {
+            "point": 0.06592955949293544,
+            "ci95": [
+              0.012180577862085418,
+              0.12383167352342606
+            ],
+            "n": 2517
+          },
+          "band": "ABOVE"
+        },
+        "F_FREQUENCY_HARDENED": {
+          "floor_rho": -0.06697677238997185,
+          "margin": {
+            "point": 0.11114471726788341,
+            "ci95": [
+              0.06415165290530114,
+              0.15955437924381397
+            ],
+            "n": 2517
+          },
+          "band": "ABOVE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "floor_rho": -0.03266926087203907,
+          "margin": {
+            "point": 0.07683720574995064,
+            "ci95": [
+              0.035153515606783474,
+              0.12079168342646707
+            ],
+            "n": 2517
+          },
+          "band": "ABOVE"
+        },
+        "F_SCRAMBLE_PERM_P95": {
+          "floor_rho": 0.0397696685430918,
+          "margin": {
+            "point": 0.0044561710577699365,
+            "ci95": [
+              -0.048727388424875714,
+              0.059991176284126785
+            ],
+            "n": 2517
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "F_CONSTANT_PROTOTYPE_variant": "word1_replaced",
+      "C1_PARTIAL": {
+        "covariates": "mean_conc,absdiff_conc,mean_log10freq,absdiff_log10freq",
+        "n_boot": 300,
+        "n_after_covariate_mask": 2517,
+        "raw_rho_point": 0.044167944877911564,
+        "partial_rho": {
+          "point": 0.05836612825310755,
+          "ci95": [
+            0.019266499336278997,
+            0.09649949176945931
+          ],
+          "n": 2517,
+          "n_boot_used": 300,
+          "band": "ABOVE"
+        },
+        "partial_floor_rho_by_arm": {
+          "F_ORTHOGRAPHIC": -0.0249776676157326,
+          "F_FREQUENCY_HARDENED": -0.007268343403640808,
+          "F_CONSTANT_PROTOTYPE": -0.012604893315608986,
+          "F_SCRAMBLE_PERM_P95": 0.04441417229126215
+        },
+        "strongest_partial_floor": "F_SCRAMBLE_PERM_P95",
+        "partial_margin_over_strongest_partial_floor": {
+          "point": 0.013951955961845404,
+          "ci95": [
+            -0.03837718647351701,
+            0.05932656813660732
+          ],
+          "band": "NOT_SEPARATED",
+          "n": 2517
+        },
+        "survives_partial": false
+      },
+      "elapsed_s": 114.62
+    },
+    "S2_SLOT_DELTA": {
+      "arm": "S2_SLOT_DELTA",
+      "width": 12,
+      "n": 2517,
+      "spearman_ci_halfwidth_approx": 0.0391,
+      "rho": {
+        "point": 0.07982250001890898,
+        "ci95": [
+          0.04008534035158008,
+          0.1199281117480141
+        ],
+        "n": 2517
+      },
+      "strongest_floor": "F_SCRAMBLE_PERM_P95",
+      "floor_rho_by_arm": {
+        "F_ORTHOGRAPHIC": -0.0218,
+        "F_FREQUENCY_HARDENED": -0.067,
+        "F_CONSTANT_PROTOTYPE": -0.0068,
+        "F_SCRAMBLE_PERM_P95": 0.0371
+      },
+      "margin_over_strongest_floor": {
+        "point": 0.04276615334268322,
+        "ci95": [
+          -0.011762990514871884,
+          0.09882203793936224
+        ],
+        "n": 2517
+      },
+      "band": "NOT_SEPARATED",
+      "clears_floor": false,
+      "clears_ALL_FOUR_floors_ci_separated": false,
+      "min_ci_lo_over_all_floors": -0.011762990514871884,
+      "middle_band": false,
+      "scramble_null": {
+        "p95": 0.03705994651380169,
+        "p95_row_permutation": 0.03705994651380169,
+        "p95_gold_permutation": 0.0322047756535483,
+        "row_null_mean": 0.00043074582395205216,
+        "row_null_sd": 0.021599258222025065,
+        "n_perm": 400,
+        "permutation_p_value": 0.0024937655860349127
+      },
+      "DECOMPOSED_per_floor": {
+        "F_ORTHOGRAPHIC": {
+          "floor_rho": -0.021761614615023874,
+          "margin": {
+            "point": 0.10158411463393285,
+            "ci95": [
+              0.04611761294414019,
+              0.15362890297105566
+            ],
+            "n": 2517
+          },
+          "band": "ABOVE"
+        },
+        "F_FREQUENCY_HARDENED": {
+          "floor_rho": -0.06697677238997185,
+          "margin": {
+            "point": 0.14679927240888083,
+            "ci95": [
+              0.09444277060028698,
+              0.19765389319910187
+            ],
+            "n": 2517
+          },
+          "band": "ABOVE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "floor_rho": -0.0067746771586977,
+          "margin": {
+            "point": 0.08659717717760668,
+            "ci95": [
+              0.04229605213838039,
+              0.13262914646613713
+            ],
+            "n": 2517
+          },
+          "band": "ABOVE"
+        },
+        "F_SCRAMBLE_PERM_P95": {
+          "floor_rho": 0.03705994651380169,
+          "margin": {
+            "point": 0.04276615334268322,
+            "ci95": [
+              -0.011762990514871884,
+              0.09882203793936224
+            ],
+            "n": 2517
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "F_CONSTANT_PROTOTYPE_variant": "word1_replaced",
+      "C1_PARTIAL": {
+        "covariates": "mean_conc,absdiff_conc,mean_log10freq,absdiff_log10freq",
+        "n_boot": 300,
+        "n_after_covariate_mask": 2517,
+        "raw_rho_point": 0.07982250001890898,
+        "partial_rho": {
+          "point": 0.09155550845895594,
+          "ci95": [
+            0.0515034888417871,
+            0.12985916223836755
+          ],
+          "n": 2517,
+          "n_boot_used": 300,
+          "band": "ABOVE"
+        },
+        "partial_floor_rho_by_arm": {
+          "F_ORTHOGRAPHIC": -0.0249776676157326,
+          "F_FREQUENCY_HARDENED": -0.007268343403640808,
+          "F_CONSTANT_PROTOTYPE": 0.005067263938371247,
+          "F_SCRAMBLE_PERM_P95": 0.034688510515736765
+        },
+        "strongest_partial_floor": "F_SCRAMBLE_PERM_P95",
+        "partial_margin_over_strongest_partial_floor": {
+          "point": 0.05686699794321917,
+          "ci95": [
+            0.0010091701020780352,
+            0.11101435332270619
+          ],
+          "band": "ABOVE",
+          "n": 2517
+        },
+        "survives_partial": true
+      },
+      "elapsed_s": 121.84
+    },
+    "K_WORDNET_ORACLE_V": {
+      "arm": "K_WORDNET_ORACLE_V",
+      "n": 3317,
+      "role": "CEILING REFERENCE -- NEVER a pass, never a target, no verdict weight. Answers whether the stratum is readable at all.",
+      "rho": {
+        "point": 0.43643022027419237,
+        "ci95": [
+          0.40970021559606973,
+          0.4635962130026942
+        ],
+        "n": 3317
+      },
+      "strongest_floor": "F_SCRAMBLE_GOLD_PERM_ONLY_P95",
+      "floor_rho_by_arm": {
+        "F_ORTHOGRAPHIC": -0.0159,
+        "F_FREQUENCY_HARDENED": -0.0425,
+        "F_SCRAMBLE_GOLD_PERM_ONLY_P95": 0.027
+      },
+      "margin_over_strongest_floor": {
+        "point": 0.40942209566017673,
+        "ci95": [
+          0.36631918137252184,
+          0.45458663600519333
+        ],
+        "n": 3317
+      },
+      "band": "ABOVE",
+      "gold_permutation_null": {
+        "p95": 0.027012344662471068,
+        "n_perm": 400,
+        "note": "row-permutation variant N/A: WordNet oracle has no vector code to permute rows of. Gold-permutation-only substitute, documented."
+      },
+      "C1_PARTIAL": {
+        "partial_rho": {
+          "point": 0.4762297432502035,
+          "ci95": [
+            0.4485428549596252,
+            0.49923973056325976
+          ],
+          "n": 3299,
+          "n_boot_used": 300,
+          "band": "ABOVE"
+        },
+        "note": "oracle -- reported for context, carries no verdict weight, consistent with its ceiling-reference role."
+      },
+      "elapsed_s": 18.88
+    },
+    "N2_RANDOM_GAUSSIAN": {
+      "widths": [
+        3,
+        12,
+        15,
+        24
+      ],
+      "by_width": {
+        "3": {
+          "width": 3,
+          "seeds": [
+            "seed13",
+            "seed17",
+            "seed23",
+            "seed29",
+            "seed7"
+          ],
+          "rho_by_seed": {
+            "seed7": -0.030572904879046906,
+            "seed13": -0.005325194283712673,
+            "seed17": -0.016058100031029702,
+            "seed23": 0.008344519232460169,
+            "seed29": 0.006225736781056208
+          },
+          "n_by_seed": {
+            "seed7": 3317,
+            "seed13": 3317,
+            "seed17": 3317,
+            "seed23": 3317,
+            "seed29": 3317
+          },
+          "max_draw_seed": "seed23",
+          "rho_max_draw": 0.008344519232460169,
+          "rho_mean": -0.0074771886360545815,
+          "policy": "MAX DRAW never the mean"
+        },
+        "12": {
+          "width": 12,
+          "seeds": [
+            "seed13",
+            "seed17",
+            "seed23",
+            "seed29",
+            "seed7"
+          ],
+          "rho_by_seed": {
+            "seed7": -0.01875308485686405,
+            "seed13": -0.04405411674851482,
+            "seed17": -0.016328428000070228,
+            "seed23": -0.011512095277067426,
+            "seed29": 0.006274446542314572
+          },
+          "n_by_seed": {
+            "seed7": 3317,
+            "seed13": 3317,
+            "seed17": 3317,
+            "seed23": 3317,
+            "seed29": 3317
+          },
+          "max_draw_seed": "seed29",
+          "rho_max_draw": 0.006274446542314572,
+          "rho_mean": -0.01687465566804039,
+          "policy": "MAX DRAW never the mean"
+        },
+        "15": {
+          "width": 15,
+          "seeds": [
+            "seed13",
+            "seed17",
+            "seed23",
+            "seed29",
+            "seed7"
+          ],
+          "rho_by_seed": {
+            "seed7": 0.019429996680670285,
+            "seed13": -0.0037687976816976588,
+            "seed17": -0.018975795048066416,
+            "seed23": -0.0072611296116063435,
+            "seed29": -0.022006754281845745
+          },
+          "n_by_seed": {
+            "seed7": 3317,
+            "seed13": 3317,
+            "seed17": 3317,
+            "seed23": 3317,
+            "seed29": 3317
+          },
+          "max_draw_seed": "seed7",
+          "rho_max_draw": 0.019429996680670285,
+          "rho_mean": -0.0065164959885091744,
+          "policy": "MAX DRAW never the mean"
+        },
+        "24": {
+          "width": 24,
+          "seeds": [
+            "seed13",
+            "seed17",
+            "seed23",
+            "seed29",
+            "seed7"
+          ],
+          "rho_by_seed": {
+            "seed7": -0.008134933231691002,
+            "seed13": -0.05622119399081639,
+            "seed17": -0.0005679718844279009,
+            "seed23": 0.0016875215965210144,
+            "seed29": 0.017708465991420955
+          },
+          "n_by_seed": {
+            "seed7": 3317,
+            "seed13": 3317,
+            "seed17": 3317,
+            "seed23": 3317,
+            "seed29": 3317
+          },
+          "max_draw_seed": "seed29",
+          "rho_max_draw": 0.017708465991420955,
+          "rho_mean": -0.009105622303798666,
+          "policy": "MAX DRAW never the mean"
+        }
+      },
+      "elapsed_s": 231.64
+    },
+    "A0_OVERLAP_REPLICATION": {
+      "arm": "A0_OVERLAP_REPLICATION_SIMVERB_GOLD",
+      "width": 12,
+      "n": 170,
+      "spearman_ci_halfwidth_approx": 0.1517,
+      "rho": {
+        "point": 0.22899816743517368,
+        "ci95": [
+          0.0875002988618582,
+          0.36095302418276287
+        ],
+        "n": 170
+      },
+      "strongest_floor": "F_SCRAMBLE_PERM_P95",
+      "floor_rho_by_arm": {
+        "F_ORTHOGRAPHIC": 0.0386,
+        "F_FREQUENCY_HARDENED": -0.0577,
+        "F_CONSTANT_PROTOTYPE": 0.0455,
+        "F_SCRAMBLE_PERM_P95": 0.1293
+      },
+      "margin_over_strongest_floor": {
+        "point": 0.0996807935184518,
+        "ci95": [
+          -0.10711325900067187,
+          0.3053635597476066
+        ],
+        "n": 170
+      },
+      "band": "NOT_SEPARATED",
+      "clears_floor": false,
+      "clears_ALL_FOUR_floors_ci_separated": false,
+      "min_ci_lo_over_all_floors": -0.10711325900067187,
+      "middle_band": false,
+      "scramble_null": {
+        "p95": 0.1293213441923317,
+        "p95_row_permutation": 0.1293213441923317,
+        "p95_gold_permutation": 0.12843249110503646,
+        "row_null_mean": 0.0028373696807947636,
+        "row_null_sd": 0.07422861980379283,
+        "n_perm": 400,
+        "permutation_p_value": 0.0024937655860349127
+      },
+      "DECOMPOSED_per_floor": {
+        "F_ORTHOGRAPHIC": {
+          "floor_rho": 0.03860592746782745,
+          "margin": {
+            "point": 0.19039223996734622,
+            "ci95": [
+              -0.022567905285126914,
+              0.402197357683267
+            ],
+            "n": 170
+          },
+          "band": "NOT_SEPARATED"
+        },
+        "F_FREQUENCY_HARDENED": {
+          "floor_rho": -0.057713218372429854,
+          "margin": {
+            "point": 0.2867113858076035,
+            "ci95": [
+              0.08490616088640628,
+              0.47958977948398834
+            ],
+            "n": 170
+          },
+          "band": "ABOVE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "floor_rho": 0.04548281245475219,
+          "margin": {
+            "point": 0.18351535498042149,
+            "ci95": [
+              -0.01016123423653994,
+              0.37175026988234045
+            ],
+            "n": 170
+          },
+          "band": "NOT_SEPARATED"
+        },
+        "F_SCRAMBLE_PERM_P95": {
+          "floor_rho": 0.1293213441923317,
+          "margin": {
+            "point": 0.0996807935184518,
+            "ci95": [
+              -0.10711325900067187,
+              0.3053635597476066
+            ],
+            "n": 170
+          },
+          "band": "NOT_SEPARATED"
+        }
+      },
+      "F_CONSTANT_PROTOTYPE_variant": "word2_replaced",
+      "C1_PARTIAL": {
+        "covariates": "mean_conc,absdiff_conc,mean_log10freq,absdiff_log10freq",
+        "n_boot": 300,
+        "n_after_covariate_mask": 170,
+        "raw_rho_point": 0.22899816743517368,
+        "partial_rho": {
+          "point": 0.21164249780845115,
+          "ci95": [
+            0.053787036048419494,
+            0.36575971773580046
+          ],
+          "n": 170,
+          "n_boot_used": 300,
+          "band": "ABOVE"
+        },
+        "partial_floor_rho_by_arm": {
+          "F_ORTHOGRAPHIC": 0.05899980824428031,
+          "F_FREQUENCY_HARDENED": 0.00858368365661901,
+          "F_CONSTANT_PROTOTYPE": -0.01805470130789861,
+          "F_SCRAMBLE_PERM_P95": 0.1296578429926649
+        },
+        "strongest_partial_floor": "F_SCRAMBLE_PERM_P95",
+        "partial_margin_over_strongest_partial_floor": {
+          "point": 0.08198465481578626,
+          "ci95": [
+            -0.12171146081845498,
+            0.2877666232792286
+          ],
+          "band": "NOT_SEPARATED",
+          "n": 170
+        },
+        "survives_partial": false
+      },
+      "NEVER_POOLED_WARNING": "170 pairs, ALSO in SimLex-V (gold agreement rho 0.9121 on those pairs) -- NOT an independent measurement. Reported for completeness only."
+    }
+  },
+  "stop_ifs": {
+    "i_STRATUM_SHIFT": false,
+    "iii_CONTROL_FIRES": false,
+    "iv_DISSOCIATION": false,
+    "v_INSTRUMENT_LIMIT": false,
+    "vi_CONFOUND": false
+  },
+  "ceiling_fractions_of_0_6121": {
+    "A0_INCUMBENT_12": 0.4405,
+    "A1_EVENT_SALIENT": 0.6052,
+    "A2_EVENT_ONLY": 0.5033,
+    "A3_WIDTH_MATCHED_NOISE": 0.4166,
+    "A4_WIDTH_MATCHED_WRONG": 0.3741,
+    "S1_SLOT_FRAME": 0.0722,
+    "S2_SLOT_DELTA": 0.1304,
+    "K_WORDNET_ORACLE_V": 0.713,
+    "A0_OVERLAP_REPLICATION": 0.3741
+  },
+  "verdict": "EVENT_SALIENT_CHANNEL_REAL",
+  "verdict_msg": "PRIMARY stratum (SimVerb disjoint from SimLex-V) n=3317. A0 rho=0.26963107816244036 band=ABOVE; A1 rho=0.3704545077415655 band=ABOVE C1_survives=True; A3(noise) gain=0.2252502794708241 A4(wrong) gain=0.19747689787317096 vs A1 gain=0.3410049658595457; S1 band=NOT_SEPARATED S2 band=NOT_SEPARATED; K_WORDNET_ORACLE_V band=ABOVE (ceiling reference, no verdict weight); stop_ifs={'i_STRATUM_SHIFT': False, 'iii_CONTROL_FIRES': False, 'iv_DISSOCIATION': False, 'v_INSTRUMENT_LIMIT': False, 'vi_CONFOUND': False}. Every rho also reported as a fraction of the SimVerb ceiling 0.6121 in ceiling_fractions_of_0_6121.",
+  "elapsed_s": 287.47,
+  "summary": "PRIMARY stratum (SimVerb disjoint from SimLex-V) n=3317. A0 rho=0.26963107816244036 band=ABOVE; A1 rho=0.3704545077415655 band=ABOVE C1_survives=True; A3(noise) gain=0.2252502794708241 A4(wrong) gain=0.19747689787317096 vs A1 gain=0.3410049658595457; S1 band=NOT_SEPARATED S2 band=NOT_SEPARATED; K_WORDNET_ORACLE_V band=ABOVE (ceiling reference, no verdict weight); stop_ifs={'i_STRATUM_SHIFT': False, 'iii_CONTROL_FIRES': False, 'iv_DISSOCIATION': False, 'v_INSTRUMENT_LIMIT': False, 'vi_CONFOUND': False}. Every rho also reported as a fraction of the SimVerb ceiling 0.6121 in ceiling_fractions_of_0_6121."
+}

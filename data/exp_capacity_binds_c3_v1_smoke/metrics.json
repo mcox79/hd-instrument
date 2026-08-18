@@ -1,0 +1,240 @@
+{
+ "anchor_name": "exp_capacity_binds_c3_v1_smoke",
+ "what": "PRE-REGISTERED VET: does capacity (vector dimensionality d) bind the C3 open-vocabulary final pick? Identical items/pool/gold/scorer as exp_grounding_readout_known_answer_v1 across a d sweep; only the anchor field and queries are rebuilt per d.",
+ "prereg": "preregs/2026-08-15_capacity_binds_c3_v1.md",
+ "prior_work_check": "bash tools/substrate_query.sh top cosine 0.3047 ('Anchor 2 -- capacity retention under normalization (VALIDATION)', notes/exp_dev_handoff_research_pattern_b_payload_control_2026-06-07.md) -- read in full, an unrelated 2026-06-07 bundle-capacity-under-normalization test, different mechanism and different question. NO prior arc cell decomposes the C3 open-vocabulary final pick by dimensionality. Confirms the independent check already in .claude/scan-out/superposition-regime-audit.json (top non-self cosine 0.3311, a different adjacent question). NOVEL, not a rediscovery.",
+ "read_out_invariance_check": "Transform under test is a full re-draw of every anchor row's DIRECTION at a different dimensionality (ConceptSpace(d=d) + context_vector_masked(..., d=d)), not a post-hoc scalar rescale of a fixed-direction row. It is OUTSIDE the invariance group the per-row-gain / global-scalar theorem covers (that theorem is about a POSITIVE SCALAR on an existing row, which cancels between the cosine numerator and its self-derived norm; changing d changes the number of coordinates and the joint distribution of pairwise cosines -- concentration of measure, already measured in the B4 cell as crosstalk falling 1/sqrt(d)). This transform IS visible to canonicalize_fast's cosine argmax; whether it helps on THIS task is what this cell measures rather than assumes.",
+ "ts_iso": "2026-08-15T17:06:56.602792+00:00",
+ "smoke": true,
+ "d_grid": [
+  64,
+  128
+ ],
+ "draws": [
+  "PRIMARY",
+  "DRAW2"
+ ],
+ "n_items": 200,
+ "n_anchors": 716,
+ "item_construction": {
+  "n_anchors": 716,
+  "n_items_before_cap": 609,
+  "n_items": 200,
+  "removals": {
+   "foil_direction_fallback": 24,
+   "removed_L_not_in_wordnet": 39,
+   "removed_no_gold_anchor": 68
+  },
+  "n_items_with_heldout_sentence": 200
+ },
+ "items_pool_gold_are_d_independent_by_construction": true,
+ "a1_base_reproduces_c3_headline_0.0480_to_1e-9": null,
+ "per_d": {
+  "64": {
+   "n_mat_ok_primary": 716,
+   "n_mat_ok_draw2": 716,
+   "n_anchors": 716,
+   "median_rank_primary": 24.0,
+   "known_answer": {
+    "acc": 0.834171,
+    "n": 199,
+    "floor": 0.7,
+    "ok": true
+   },
+   "example_picks_primary": [
+    "often",
+    "together",
+    "jump",
+    "situation",
+    "please",
+    "use",
+    "tell",
+    "size",
+    "descent",
+    "thing"
+   ]
+  },
+  "128": {
+   "n_mat_ok_primary": 716,
+   "n_mat_ok_draw2": 716,
+   "n_anchors": 716,
+   "median_rank_primary": 20.5,
+   "known_answer": {
+    "acc": 0.78392,
+    "n": 199,
+    "floor": 0.7,
+    "ok": true
+   },
+   "example_picks_primary": [
+    "poverty",
+    "something",
+    "jump",
+    "situation",
+    "please",
+    "post",
+    "lead",
+    "size",
+    "descent",
+    "claim"
+   ]
+  }
+ },
+ "bootstrap": {
+  "n_boot": 5000,
+  "seed": 20260885,
+  "n_items": 200,
+  "arm_acc_ci": {
+   "D128_BASE": {
+    "acc": 0.02,
+    "ci_lo": 0.005,
+    "ci_hi": 0.04,
+    "sd": 0.010018210968032168
+   },
+   "D128_DRAW2": {
+    "acc": 0.05,
+    "ci_lo": 0.02,
+    "ci_hi": 0.08,
+    "sd": 0.015376025201592251
+   },
+   "D128_FREQ": {
+    "acc": 0.03,
+    "ci_lo": 0.01,
+    "ci_hi": 0.055,
+    "sd": 0.012039798004950083
+   },
+   "D128_SCRAM": {
+    "acc": 0.005,
+    "ci_lo": 0.0,
+    "ci_hi": 0.015,
+    "sd": 0.005006980726945132
+   },
+   "D128_TOP50": {
+    "acc": 0.72,
+    "ci_lo": 0.66,
+    "ci_hi": 0.78,
+    "sd": 0.031323293824245244
+   },
+   "D128_TRIG": {
+    "acc": 0.05,
+    "ci_lo": 0.02,
+    "ci_hi": 0.085,
+    "sd": 0.015528933479154324
+   },
+   "D64_BASE": {
+    "acc": 0.045,
+    "ci_lo": 0.02,
+    "ci_hi": 0.075,
+    "sd": 0.014507579260510694
+   },
+   "D64_DRAW2": {
+    "acc": 0.075,
+    "ci_lo": 0.04,
+    "ci_hi": 0.11,
+    "sd": 0.018691205525594116
+   },
+   "D64_FREQ": {
+    "acc": 0.03,
+    "ci_lo": 0.01,
+    "ci_hi": 0.055,
+    "sd": 0.012039798004950083
+   },
+   "D64_SCRAM": {
+    "acc": 0.005,
+    "ci_lo": 0.0,
+    "ci_hi": 0.015,
+    "sd": 0.005006980726945132
+   },
+   "D64_TOP50": {
+    "acc": 0.69,
+    "ci_lo": 0.625,
+    "ci_hi": 0.75,
+    "sd": 0.032613215097564346
+   },
+   "D64_TRIG": {
+    "acc": 0.05,
+    "ci_lo": 0.02,
+    "ci_hi": 0.085,
+    "sd": 0.015528933479154324
+   }
+  },
+  "deltas": {
+   "d_D64_BASE_minus_TRIG": {
+    "delta": -0.0050000000000000044,
+    "ci_lo": -0.045,
+    "ci_hi": 0.034999999999999996,
+    "sd": 0.019583043456010613,
+    "ci_excludes_zero": false
+   },
+   "d_D64_BASE_minus_DRAW2": {
+    "delta": -0.03,
+    "ci_lo": -0.075,
+    "ci_hi": 0.015,
+    "sd": 0.02226327190688736,
+    "ci_excludes_zero": false
+   },
+   "d_D64_BASE_minus_SCRAM": {
+    "delta": 0.04,
+    "ci_lo": 0.01,
+    "ci_hi": 0.07,
+    "sd": 0.015478676429204148,
+    "ci_excludes_zero": true
+   },
+   "d_D128_BASE_minus_TRIG": {
+    "delta": -0.030000000000000002,
+    "ci_lo": -0.065,
+    "ci_hi": 0.0050000000000000044,
+    "sd": 0.018737305996327218,
+    "ci_excludes_zero": false
+   },
+   "d_D128_BASE_minus_DRAW2": {
+    "delta": -0.030000000000000002,
+    "ci_lo": -0.065,
+    "ci_hi": 0.0049999999999999975,
+    "sd": 0.01712588403557609,
+    "ci_excludes_zero": false
+   },
+   "d_D128_BASE_minus_SCRAM": {
+    "delta": 0.015,
+    "ci_lo": -0.005,
+    "ci_hi": 0.04,
+    "sd": 0.01133524763734785,
+    "ci_excludes_zero": false
+   },
+   "d_D128_BASE_minus_D64_BASE": {
+    "delta": -0.024999999999999998,
+    "ci_lo": -0.06,
+    "ci_hi": 0.005124999999998185,
+    "sd": 0.016398810170253207,
+    "ci_excludes_zero": false
+   },
+   "d_D128_TOP50_minus_D64_TOP50": {
+    "delta": 0.030000000000000027,
+    "ci_lo": -0.025000000000000022,
+    "ci_hi": 0.08500000000000008,
+    "sd": 0.028199601965276027,
+    "ci_excludes_zero": false
+   }
+  }
+ },
+ "hit_at_1_sequence_by_d": {
+  "64": 0.045,
+  "128": 0.02
+ },
+ "monotonic_nondecreasing_across_d_grid": false,
+ "clears_bar_CI_separated_per_d": {
+  "64": false,
+  "128": false
+ },
+ "void_plumbing_per_d": {
+  "64": false,
+  "128": false
+ },
+ "kill_condition_flat_across_full_d_range_ci_includes_zero": true,
+ "containment_moves_with_d": {
+  "128": {
+   "delta_vs_d64": 0.030000000000000027,
+   "ci_excludes_zero": false
+  }
+ },
+ "elapsed_s": 35.42
+}

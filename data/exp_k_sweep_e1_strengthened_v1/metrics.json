@@ -1,0 +1,209 @@
+{
+  "verdict": "VOID_KNOWN_ANSWER_FAILED_ALL_SEEDS",
+  "verdict_msg": "n_seeds_gate_passed=0/5 n_seeds_both_store_arms_decline=0 pooled_both_decline=False instrument_still_weak=True",
+  "run_mode": "full",
+  "anchor_name": "k_sweep_e1_strengthened_v1",
+  "elapsed_s": 1652.719,
+  "n_entities": 482588,
+  "n_edges_total": 1213912,
+  "n_rel": 33,
+  "n_reader_anchors": 5491,
+  "n_reader_sents": 34169,
+  "store_scale": 100000,
+  "data_seeds": [
+    20260810,
+    20260811,
+    20260812,
+    20260813,
+    20260814
+  ],
+  "max_q_per_seed": 400,
+  "gate_thresh": 0.28,
+  "k_grid": [
+    5,
+    10,
+    20,
+    50,
+    100,
+    500,
+    -1
+  ],
+  "per_k_bootstrap_pooled": {
+    "5": {
+      "STORE_POOL": null,
+      "READER_POOL": null
+    },
+    "10": {
+      "STORE_POOL": null,
+      "READER_POOL": null
+    },
+    "20": {
+      "STORE_POOL": null,
+      "READER_POOL": null
+    },
+    "50": {
+      "STORE_POOL": null,
+      "READER_POOL": null
+    },
+    "100": {
+      "STORE_POOL": null,
+      "READER_POOL": null
+    },
+    "500": {
+      "STORE_POOL": null,
+      "READER_POOL": null
+    },
+    "-1": {
+      "STORE_POOL": null,
+      "READER_POOL": null
+    }
+  },
+  "n_scoreable_per_k_pool_pooled": {
+    "5": {
+      "STORE_POOL": 0,
+      "READER_POOL": 0
+    },
+    "10": {
+      "STORE_POOL": 0,
+      "READER_POOL": 0
+    },
+    "20": {
+      "STORE_POOL": 0,
+      "READER_POOL": 0
+    },
+    "50": {
+      "STORE_POOL": 0,
+      "READER_POOL": 0
+    },
+    "100": {
+      "STORE_POOL": 0,
+      "READER_POOL": 0
+    },
+    "500": {
+      "STORE_POOL": 0,
+      "READER_POOL": 0
+    },
+    "-1": {
+      "STORE_POOL": 0,
+      "READER_POOL": 0
+    }
+  },
+  "per_seed_bootstrap": {},
+  "per_seed_gate": {
+    "20260810": {
+      "known_answer_store": {
+        "acc": 0.96,
+        "n": 150,
+        "floor": 0.7,
+        "ok": true
+      },
+      "known_answer_reader": {
+        "acc": 0.546667,
+        "n": 150,
+        "floor": 0.7,
+        "ok": false,
+        "construction": "held_out_sentence_context_vector_masked"
+      },
+      "gate_fail": true
+    },
+    "20260811": {
+      "known_answer_store": {
+        "acc": 0.986667,
+        "n": 150,
+        "floor": 0.7,
+        "ok": true
+      },
+      "known_answer_reader": {
+        "acc": 0.573333,
+        "n": 150,
+        "floor": 0.7,
+        "ok": false,
+        "construction": "held_out_sentence_context_vector_masked"
+      },
+      "gate_fail": true
+    },
+    "20260812": {
+      "known_answer_store": {
+        "acc": 0.96,
+        "n": 150,
+        "floor": 0.7,
+        "ok": true
+      },
+      "known_answer_reader": {
+        "acc": 0.5,
+        "n": 150,
+        "floor": 0.7,
+        "ok": false,
+        "construction": "held_out_sentence_context_vector_masked"
+      },
+      "gate_fail": true
+    },
+    "20260813": {
+      "known_answer_store": {
+        "acc": 0.98,
+        "n": 150,
+        "floor": 0.7,
+        "ok": true
+      },
+      "known_answer_reader": {
+        "acc": 0.593333,
+        "n": 150,
+        "floor": 0.7,
+        "ok": false,
+        "construction": "held_out_sentence_context_vector_masked"
+      },
+      "gate_fail": true
+    },
+    "20260814": {
+      "known_answer_store": {
+        "acc": 0.966667,
+        "n": 150,
+        "floor": 0.7,
+        "ok": true
+      },
+      "known_answer_reader": {
+        "acc": 0.506667,
+        "n": 150,
+        "floor": 0.7,
+        "ok": false,
+        "construction": "held_out_sentence_context_vector_masked"
+      },
+      "gate_fail": true
+    }
+  },
+  "per_seed_reproduce": {},
+  "seeds_void_known_answer": [
+    20260810,
+    20260811,
+    20260812,
+    20260813,
+    20260814
+  ],
+  "kill_condition_pooled": {
+    "STORE_POOL_NATIVE": null,
+    "STORE_POOL_SWAPPED": null,
+    "READER_POOL_SWAPPED": null,
+    "READER_POOL_NATIVE_ANALYTICALLY_PINNED_NOT_EVIDENCE": null
+  },
+  "n_seeds_gate_passed": 0,
+  "n_seeds_both_store_arms_decline_ci_separated": 0,
+  "pooled_both_store_arms_decline_ci_separated": false,
+  "instrument_still_weak": true,
+  "read_out_invariance_note": "READER_POOL/NATIVE ranks and selects with the identical cosine score, so its conditional accuracy is analytically pinned to hit@1/recall@K (mechanically non-increasing in K) -- reported, excluded from the REPRODUCES/DOES-NOT-REPRODUCE verdict. See pre-reg sec 6.",
+  "n_seeds_complete": 5,
+  "n_seeds_expected": 5,
+  "cardinality_ok": true,
+  "arms_differ_verified": null,
+  "final_metrics_atomicity": "tmp_replace",
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "instrument_validity_stamped_this_session": true,
+  "crlb_n/a": "cross-representation K-sweep diagnostic; no closed-form floor for a conditional argmax-accuracy-given-recall@K quantity",
+  "min_q_for_verdict": 20,
+  "known_answer_floor": 0.7,
+  "known_answer_reader_construction": "held_out_sentence_context_vector_masked (C3-reused)",
+  "e2_correction_note": "exp_scorer_swap_e2_v1's AMBIGUOUS verdict was measured on a confounded pairing (~1400x K disparity + a lemma-normalization membership bug, ~21x on its own) -- see pre-reg sec 11 and exp_k_sweep_e1_v1 sec 3. Not re-run here; not evidence about store/reader mechanism identity.",
+  "prereg": "preregs/2026-08-15_k_sweep_e1_strengthened_v1.md",
+  "predecessor": "data/exp_k_sweep_e1_v1/metrics.json"
+}

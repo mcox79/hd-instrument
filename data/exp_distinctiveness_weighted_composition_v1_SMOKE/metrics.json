@@ -1,0 +1,12 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: VACUOUS SMOKE: SCRAMBLE_ASSIGN rho=0.0751 did not fail the headline gate at 480 pairs; the discriminator does not fire.",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "run_mode": "crash",
+  "failure_class": "AssertionError",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_distinctiveness_weighted_composition_v1.py\", line 830, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_distinctiveness_weighted_composition_v1.py\", line 816, in main\n    raise AssertionError(\nAssertionError: VACUOUS SMOKE: SCRAMBLE_ASSIGN rho=0.0751 did not fail the headline gate at 480 pairs; the discriminator does not fire.\n",
+  "ts_iso": "2026-08-13T22:22:44.764490+00:00",
+  "pid": 24016,
+  "anchor_name": "exp_distinctiveness_weighted_composition_v1"
+}

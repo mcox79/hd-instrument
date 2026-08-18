@@ -1,0 +1,128 @@
+{
+  "anchor_name": "c3_relation_alphabet_fragmentation_v1",
+  "code_version": "v1.0",
+  "run_mode": "full",
+  "cell_class": "DIAGNOSTIC -- no pre-registered PASS/FAIL band",
+  "encoder_stats": {
+    "n_parsed": 29272,
+    "n_skipped_long_or_empty": 124,
+    "n_encodings": 0,
+    "mean_features_per_encoding": null,
+    "max_tokens": 60,
+    "assets": [
+      "pos_tagger_ud_ewt_upos.json",
+      "arc_parser_richfeat_ud_ewt.npz",
+      "arc_labeler_hashed_ud_ewt.json"
+    ]
+  },
+  "fragmentation": {
+    "n_lemmas_with_features": 5491,
+    "n_features_total": 432094,
+    "n_relation_types": 674,
+    "R_eff_inverse_simpson": 51.85108619592438,
+    "p_two_independent_occurrences_agree_on_relation": 0.019285999067047557,
+    "top_relations": [
+      {
+        "rel": "amod",
+        "p": 0.04861673617314751
+      },
+      {
+        "rel": "^amod",
+        "p": 0.04727443565520466
+      },
+      {
+        "rel": "nmod",
+        "p": 0.040060727526880724
+      },
+      {
+        "rel": "^nmod",
+        "p": 0.039130374409272056
+      },
+      {
+        "rel": "^obj",
+        "p": 0.03535804709160507
+      },
+      {
+        "rel": "^obl",
+        "p": 0.031456118344619456
+      },
+      {
+        "rel": "obj",
+        "p": 0.030345248950459855
+      },
+      {
+        "rel": "obl",
+        "p": 0.0298430434118502
+      },
+      {
+        "rel": "conj",
+        "p": 0.028426684934296703
+      },
+      {
+        "rel": "compound",
+        "p": 0.02823922572403227
+      },
+      {
+        "rel": "^conj",
+        "p": 0.0274940175054502
+      },
+      {
+        "rel": "^compound",
+        "p": 0.026471091938328233
+      },
+      {
+        "rel": "^nsubj",
+        "p": 0.02487190287298597
+      },
+      {
+        "rel": "nsubj",
+        "p": 0.021455979485945187
+      },
+      {
+        "rel": "advmod",
+        "p": 0.019324498835901448
+      }
+    ],
+    "mean_distinct_symbols_FLAT": 48.64869786924058,
+    "mean_distinct_symbols_BOUND": 56.714259697687126,
+    "mean_repeat_coherence_FLAT": 1.6564835415337689,
+    "mean_repeat_coherence_BOUND": 1.451168351516518,
+    "symbol_split_factor": 1.1657919365103133
+  },
+  "cross_item_evidence": {
+    "n_gold_pairs": 155936,
+    "n_random_pairs": 20000,
+    "FLAT_FILLERS": {
+      "gold_cos_mean": 0.044944827594696195,
+      "gold_cos_ci95": [
+        0.044689318188693136,
+        0.04519770168423884
+      ],
+      "random_cos_mean": 0.02135626542246943,
+      "random_cos_ci95": [
+        0.02087164221665588,
+        0.021858190256254868
+      ],
+      "discriminative_signal_gold_minus_random": 0.023588562172226765
+    },
+    "BOUND_PAIRS": {
+      "gold_cos_mean": 0.007843487266392304,
+      "gold_cos_ci95": [
+        0.00774828713901147,
+        0.007943839547967485
+      ],
+      "random_cos_mean": 0.002060327330818771,
+      "random_cos_ci95": [
+        0.0019307121243653598,
+        0.002201106638115763
+      ],
+      "discriminative_signal_gold_minus_random": 0.005783159935573533
+    },
+    "SURVIVING_FRACTION_of_discriminative_signal_bound_over_flat": 0.24516797138159785,
+    "predicted_from_relation_agreement_p": 0.019285999067047557
+  },
+  "verdict": "MEASURED",
+  "verdict_msg": "On the REAL C3 corpus, holding content fixed and varying only whether the relation label is part of the symbol: R_eff=51.85 relations (p(agree)=0.0193); binding splits each lemma's symbol set by 1.17x and drops repeat-coherence from 1.66 to 1.45. The discriminative cross-item signal (gold minus random count-vector cosine) falls from 0.0236 FLAT to 0.0058 BOUND -- 24.5% survives. DIAGNOSTIC: content held fixed, so this is the cost of BINDING ALONE and is NOT the A1-vs-A2 contrast.",
+  "summary": "On the REAL C3 corpus, holding content fixed and varying only whether the relation label is part of the symbol: R_eff=51.85 relations (p(agree)=0.0193); binding splits each lemma's symbol set by 1.17x and drops repeat-coherence from 1.66 to 1.45. The discriminative cross-item signal (gold minus random count-vector cosine) falls from 0.0236 FLAT to 0.0058 BOUND -- 24.5% survives. DIAGNOSTIC: content held fixed, so this is the cost of BINDING ALONE and is NOT the A1-vs-A2 contrast.",
+  "elapsed_s": 654.7907166481018
+}

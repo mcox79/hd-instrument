@@ -1,0 +1,248 @@
+{
+  "anchor_name": "encoder_swap_behind_fixed_brain_stack_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "REFUTES_USER_CLAIM: the tuned encoder beats the simple char-trigram encoder by delta_AB=+0.3965 >= 0.05 behind a bit-identical brain-faithful stack, with both null arms at floor. Training the encoder DOES buy accuracy here. [HEADLINE role_attn] A_tuned=0.5429 A0_frozen_base=0.4520 B_char_trigram=0.1465 C_ppmi=0.0278 D_random_twin=0.1717 E_scramble=0.0278 | delta_AB=+0.3965 (per-seed ['+0.3965']) | floors_ok=True baseline_in_band=True arms_differ_ok=True || [CEILING CONTROL span, NOT gated] {'A_tuned_ckpt': 1.0, 'A0_frozen_base': 1.0, 'B_char_trigram': 1.0, 'C_ppmi': 1.0, 'D_random_init_twin': 1.0, 'E_scramble_floor': 0.0556} | band=REFUTES_USER_CLAIM",
+  "summary": "REFUTES_USER_CLAIM: the tuned encoder beats the simple char-trigram encoder by delta_AB=+0.3965 >= 0.05 behind a bit-identical brain-faithful stack, with both null arms at floor. Training the encoder DOES buy accuracy here. [HEADLINE role_attn] A_tuned=0.5429 A0_frozen_base=0.4520 B_char_trigram=0.1465 C_ppmi=0.0278 D_random_twin=0.1717 E_scramble=0.0278 | delta_AB=+0.3965 (per-seed ['+0.3965']) | floors_ok=True baseline_in_band=True arms_differ_ok=True || [CEILING CONTROL span, NOT gated] {'A_tuned_ckpt': 1.0, 'A0_frozen_base': 1.0, 'B_char_trigram': 1.0, 'C_ppmi': 1.0, 'D_random_init_twin': 1.0, 'E_scramble_floor': 0.0556} | band=REFUTES_USER_CLAIM",
+  "elapsed_s": 85.88097369999741,
+  "ts_iso": "2026-08-13T22:31:16.580608+00:00",
+  "run_mode": "smoke",
+  "seeds": [
+    7
+  ],
+  "eval_n": 12,
+  "arms": [
+    "A_tuned_ckpt",
+    "A0_frozen_base",
+    "B_char_trigram",
+    "C_ppmi",
+    "D_random_init_twin",
+    "E_scramble_floor"
+  ],
+  "discriminator_arms": [
+    "A_tuned_ckpt",
+    "B_char_trigram"
+  ],
+  "headline_readout": "role_attn",
+  "secondary_readout": "span (ceiling control, NOT gated -- see prereg amendment)",
+  "per_arm_mean_loop_mean": {
+    "A_tuned_ckpt": 0.5429292929292929,
+    "A0_frozen_base": 0.45202020202020204,
+    "B_char_trigram": 0.14646464646464644,
+    "C_ppmi": 0.027777777777777776,
+    "D_random_init_twin": 0.1717171717171717,
+    "E_scramble_floor": 0.027777777777777776
+  },
+  "per_arm_mean_loop_mean_span": {
+    "A_tuned_ckpt": 1.0,
+    "A0_frozen_base": 1.0,
+    "B_char_trigram": 1.0,
+    "C_ppmi": 1.0,
+    "D_random_init_twin": 1.0,
+    "E_scramble_floor": 0.05555555555555555
+  },
+  "per_unit": [
+    {
+      "arm": "A0_frozen_base",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.5,
+        "b_competitive_coref": 0.5833333333333334,
+        "c_overwrite": 0.2727272727272727
+      },
+      "loop_mean": 0.45202020202020204,
+      "preds_digest": "9204912996dab6da157408893b25cc65deab28e6ed33d8f08a3318bd3602284b",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "70f140973956e59b067234266c7882fb1711bb0c016e885d4e65c3be5a257fba",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "A0_frozen_base",
+        "seed": 7,
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+        "ckpt_sha256": "a5ed6bec534067cb6a3ab885a3a31ce1b13785ef063da8e75fc56d00c1f317d6"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 10.44579659998999
+    },
+    {
+      "arm": "A_tuned_ckpt",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.5,
+        "b_competitive_coref": 0.5833333333333334,
+        "c_overwrite": 0.5454545454545454
+      },
+      "loop_mean": 0.5429292929292929,
+      "preds_digest": "eef56dc7604d38ac131360286e4d10c4a44b7dbf906a46a83a6dea0b0f4ec7b4",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "70f140973956e59b067234266c7882fb1711bb0c016e885d4e65c3be5a257fba",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "A_tuned_ckpt",
+        "seed": 7,
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+        "ckpt_sha256": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc",
+        "state_dict_differs_from_frozen_base": true
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 10.96211089999997
+    },
+    {
+      "arm": "B_char_trigram",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.08333333333333333,
+        "b_competitive_coref": 0.08333333333333333,
+        "c_overwrite": 0.2727272727272727
+      },
+      "loop_mean": 0.14646464646464644,
+      "preds_digest": "a74f3febde5b6cb35b55eb2fb477fc15fcc8df49ec4f7f32ab4f859de80eac6b",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "70f140973956e59b067234266c7882fb1711bb0c016e885d4e65c3be5a257fba",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "B_char_trigram",
+        "seed": 7,
+        "encoder": "hdlab.char_trigram_encoder.CharTrigramEncoder(n_dim=512)"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 0.8636733000166714
+    },
+    {
+      "arm": "C_ppmi",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.0,
+        "b_competitive_coref": 0.08333333333333333,
+        "c_overwrite": 0.0
+      },
+      "loop_mean": 0.027777777777777776,
+      "preds_digest": "92eacaea6f03e118c669886439eceeb4ba085cb046fbe9c13596b839d7919744",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "70f140973956e59b067234266c7882fb1711bb0c016e885d4e65c3be5a257fba",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "C_ppmi",
+        "seed": 7,
+        "encoder": "hdlab.ppmi_sparse_encoder.PPMISparseEncoder(n_dim=512)",
+        "ppmi_vocab": 262,
+        "ppmi_effective_n_dim": 262
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 0.9801065000065137
+    },
+    {
+      "arm": "D_random_init_twin",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.3333333333333333,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.18181818181818182
+      },
+      "loop_mean": 0.1717171717171717,
+      "preds_digest": "b8da898221c59ac5a6a56c599cdc9d5b010d88630b0f2f0a3850edc25bee4100",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "70f140973956e59b067234266c7882fb1711bb0c016e885d4e65c3be5a257fba",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "D_random_init_twin",
+        "seed": 7,
+        "encoder": "V2Transformer(same model_cfg as arm A), UNTRAINED random init"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 10.988141499983612
+    },
+    {
+      "arm": "E_scramble_floor",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.08333333333333333,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.0
+      },
+      "loop_mean": 0.027777777777777776,
+      "preds_digest": "c575918af1691405aa3926d5e973e77b91fd79b079a17269f2b0de38604b1e82",
+      "per_type_span": {
+        "a_name_maintenance": 0.16666666666666666,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.0
+      },
+      "loop_mean_span": 0.05555555555555555,
+      "preds_digest_span": "489d0faa29d13c3ebb22e58063027eb65b3383e5e12af0e15f58f7a8863d212e",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "E_scramble_floor",
+        "seed": 7,
+        "encoder": "arm A tuned weights; the request<->sentence correspondence is deranged inside _encode_raw (text scramble)",
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+        "ckpt_sha256": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 10.642334999982268
+    }
+  ],
+  "arm_a_ckpt_paths": {
+    "7": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt"
+  },
+  "arm_a_ckpt_sha256": {
+    "7": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc"
+  },
+  "forbidden_ckpt_sha256": {
+    "f03051248c26a756d09d0076697cb470b477405cbaa289376e4a876bef3cb17a": "data/exp_scale_meaning_learn_arc_heldout_v3_relobj/ckpt_seed_7.pt"
+  },
+  "prereg": "preregs/2026-08-13_encoder_swap_behind_fixed_brain_stack.md",
+  "bands": {
+    "REFUTES_MIN_DELTA": 0.05,
+    "CONFIRMS_MAX_DELTA": 0.03,
+    "FLOOR_MARGIN": 0.05,
+    "BASELINE_BAND": [
+      0.05,
+      0.95
+    ]
+  },
+  "expected_n_units": 6,
+  "actual_n_units": 6,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_floor_computed": 0.05,
+  "crlb_formula_reference": "chance = 1/len(COLORS) for a colour argmax readout",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "scope": "situation-model assembly, held-out colours, role_attn readout; encoder-type is the ONLY varied factor"
+}

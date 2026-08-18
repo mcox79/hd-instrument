@@ -1,0 +1,974 @@
+{
+  "anchor_name": "organ_f_deep_reading_partialcue_ladder_v1",
+  "run_mode": "reduced",
+  "code_version": "v1.0",
+  "findings_log": "notes/organ_f_deep_reading_partialcue_ladder_2026-08-17.md",
+  "verdict": "ORGAN_F_DEEP__PRIZE_NOT_CLEARED__CLIMBING_NONE__UNDERPOWERED_NONE__RANKING_NOT_MEANING_NONE",
+  "verdict_msg": "ORGAN F, deep nested depth ladder on the REAL PARTIAL CUE. Nested populations (POP_72/128/256/512/768) so every deep-vs-shallow comparison is paired on identical items; winner composition (WordNet relation + co-occurrence) measured at every depth; token-matched, random-occurrence and frequency-stratified controls. -> ORGAN_F_DEEP__PRIZE_NOT_CLEARED__CLIMBING_NONE__UNDERPOWERED_NONE__RANKING_NOT_MEANING_NONE",
+  "config": {
+    "DEPTHS_UNION": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "POP_SPECS": [
+      {
+        "name": "POP_16_SMOKE",
+        "cap_min": 16,
+        "cap_max": null,
+        "depths": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ]
+      }
+    ],
+    "BAND_SPEC": null,
+    "CONTROL_POP": "POP_16_SMOKE",
+    "CONTROL_DEPTHS": [
+      16,
+      32
+    ],
+    "N_BOOT": 1500,
+    "MASTER_SEED": 20260816,
+    "MIN_ITEMS_HARD": 8,
+    "MIN_ITEMS_SOFT": 30
+  },
+  "selftest_evidence_keys": [
+    "OLD_selftest_keys",
+    "global_score_slice_equals_direct_rescoring",
+    "nested_population_subset_property",
+    "restriction_check_detects_a_real_difference",
+    "syntagmatic_jaccard_reused_known_answer",
+    "wordnet_relation_composition_reused_known_answer"
+  ],
+  "prize_cleared_populations": [],
+  "report": {
+    "anchor_name": "organ_f_deep_reading_partialcue_ladder_v1",
+    "grid": "reduced",
+    "code_version": "v1.0",
+    "findings_log": "notes/organ_f_deep_reading_partialcue_ladder_2026-08-17.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "RULER_MODE_GATE": {
+      "RUN_MODE": "full",
+      "V": 4096,
+      "CORPUS_BYTES": 64000000,
+      "argv": [
+        "experiments/exp_organ_f_deep_reading_partialcue_ladder_v1.py",
+        "--grid",
+        "reduced"
+      ],
+      "PASS": true
+    },
+    "PRIMARY_CUE": "REAL_PARTIAL_CUE (deployed Qcue_context, oracle reported beside it, never instead of it)",
+    "corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "CAPACITY_DISTRIBUTION": {
+      "percentiles": {
+        "50": 17,
+        "75": 42,
+        "90": 107,
+        "95": 184,
+        "99": 543,
+        "100": 2001
+      },
+      "max_capacity_anchor": "people",
+      "max_capacity": 2001,
+      "n_anchors_by_threshold": {
+        "72": 850,
+        "128": 449,
+        "256": 163,
+        "512": 61,
+        "768": 25,
+        "1024": 12,
+        "1536": 4,
+        "2048": 0
+      },
+      "note": "measured directly off the leak-safe pool; 1024/1536/2048 item-pop counts reported below in PER_POPULATION-adjacent CAPACITY_ITEM_COUNTS to justify stopping at 768"
+    },
+    "CAPACITY_ITEM_COUNTS": {
+      "72": 694,
+      "128": 360,
+      "256": 126,
+      "512": 43,
+      "768": 17,
+      "1024": 9,
+      "1536": 4,
+      "2048": 0
+    },
+    "real_cue_checkpoint_reuse": {
+      "n_units_loaded": 9485,
+      "n_anchors_found": 5491,
+      "n_anchors_missing": 0,
+      "n_items_found": 3994,
+      "n_items_missing": 0,
+      "elapsed_s": 0.8,
+      "missing_p_sample": [],
+      "missing_q_sample": []
+    },
+    "DEPTH_SNAPSHOT_BUILD": {
+      "n_anchors": 5491,
+      "n_empty_profile": 0,
+      "n_occurrence_calls": 106240,
+      "elapsed_s": 5.2
+    },
+    "CONTROLS_BUILD": {
+      "token_matched": {
+        "16": {
+          "n_anchors": 2275,
+          "mean_occurrences_used": 9.97,
+          "elapsed_s": 4.3
+        },
+        "32": {
+          "n_anchors": 2275,
+          "mean_occurrences_used": 20.97,
+          "elapsed_s": 4.4
+        }
+      },
+      "control_population": "POP_16_SMOKE",
+      "control_depths": [
+        16,
+        32
+      ]
+    },
+    "vocab_n_distinct_content_words": 21366,
+    "ARM_DIGESTS_ARMS_MUST_DIFFER_n_distinct": 21,
+    "ARM_DIGESTS_ARMS_MUST_DIFFER_n_total": 21,
+    "PER_POPULATION": {
+      "POP_16_SMOKE": {
+        "n_items": 2275,
+        "n_anchors": 2275,
+        "depths": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "cap_min": 16,
+        "cap_max": null,
+        "is_band": false,
+        "UNDERPOWERED": false,
+        "PUBLISHABLE": true,
+        "PER_RUNG": {
+          "D1_ORACLE": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0334,
+            "ci95": [
+              0.0275,
+              0.0395
+            ],
+            "ci_halfwidth": 0.00599,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3981,
+              "median_dprime_vs_mean": 3.1532,
+              "median_dprime_vs_p95": 1.2058,
+              "mean_dprime_vs_mean": 4.8618,
+              "mean_dprime_vs_p95": 3.5813
+            },
+            "RANK": {
+              "median_rank_optimistic": 74.0,
+              "q1_rank_optimistic": 19.0,
+              "q3_rank_optimistic": 206.0,
+              "median_rank_conservative": 114.5,
+              "n_items": 3994
+            },
+            "addressing_accuracy": 0.997496,
+            "margin_vs_binding_floor": {
+              "point": -0.141,
+              "ci95": [
+                -0.1573,
+                -0.126
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D2_ORACLE": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0315,
+            "ci95": [
+              0.0242,
+              0.0388
+            ],
+            "ci_halfwidth": 0.00731,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3994,
+              "median_dprime_vs_mean": 3.0001,
+              "median_dprime_vs_p95": 1.195,
+              "mean_dprime_vs_mean": 4.6996,
+              "mean_dprime_vs_p95": 2.9452
+            },
+            "RANK": {
+              "median_rank_optimistic": 78.0,
+              "q1_rank_optimistic": 18.0,
+              "q3_rank_optimistic": 284.75,
+              "median_rank_conservative": 83.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": 1.0,
+            "margin_vs_binding_floor": {
+              "point": -0.1428,
+              "ci95": [
+                -0.1593,
+                -0.1268
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D4_ORACLE": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0347,
+            "ci95": [
+              0.0277,
+              0.0426
+            ],
+            "ci_halfwidth": 0.00747,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3994,
+              "median_dprime_vs_mean": 3.074,
+              "median_dprime_vs_p95": 1.3193,
+              "mean_dprime_vs_mean": 4.6714,
+              "mean_dprime_vs_p95": 2.9622
+            },
+            "RANK": {
+              "median_rank_optimistic": 62.0,
+              "q1_rank_optimistic": 14.0,
+              "q3_rank_optimistic": 255.0,
+              "median_rank_conservative": 63.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": 1.0,
+            "margin_vs_binding_floor": {
+              "point": -0.1396,
+              "ci95": [
+                -0.1565,
+                -0.1231
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D8_ORACLE": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0413,
+            "ci95": [
+              0.0334,
+              0.0492
+            ],
+            "ci_halfwidth": 0.00791,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3994,
+              "median_dprime_vs_mean": 3.3547,
+              "median_dprime_vs_p95": 1.6251,
+              "mean_dprime_vs_mean": 4.5115,
+              "mean_dprime_vs_p95": 2.8146
+            },
+            "RANK": {
+              "median_rank_optimistic": 47.0,
+              "q1_rank_optimistic": 13.0,
+              "q3_rank_optimistic": 200.75,
+              "median_rank_conservative": 47.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": 1.0,
+            "margin_vs_binding_floor": {
+              "point": -0.133,
+              "ci95": [
+                -0.1508,
+                -0.116
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D16_ORACLE": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0475,
+            "ci95": [
+              0.0391,
+              0.0563
+            ],
+            "ci_halfwidth": 0.00857,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3994,
+              "median_dprime_vs_mean": 3.453,
+              "median_dprime_vs_p95": 1.688,
+              "mean_dprime_vs_mean": 4.3255,
+              "mean_dprime_vs_p95": 2.6081
+            },
+            "RANK": {
+              "median_rank_optimistic": 39.0,
+              "q1_rank_optimistic": 11.0,
+              "q3_rank_optimistic": 161.0,
+              "median_rank_conservative": 39.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": 1.0,
+            "margin_vs_binding_floor": {
+              "point": -0.1269,
+              "ci95": [
+                -0.1451,
+                -0.1083
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D32_ORACLE": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0563,
+            "ci95": [
+              0.047,
+              0.0655
+            ],
+            "ci_halfwidth": 0.00923,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3994,
+              "median_dprime_vs_mean": 3.4092,
+              "median_dprime_vs_p95": 1.6076,
+              "mean_dprime_vs_mean": 4.1241,
+              "mean_dprime_vs_p95": 2.373
+            },
+            "RANK": {
+              "median_rank_optimistic": 33.0,
+              "q1_rank_optimistic": 10.0,
+              "q3_rank_optimistic": 128.75,
+              "median_rank_conservative": 33.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": 1.0,
+            "margin_vs_binding_floor": {
+              "point": -0.118,
+              "ci95": [
+                -0.1358,
+                -0.1004
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D1_REAL": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0206,
+            "ci95": [
+              0.0152,
+              0.0265
+            ],
+            "ci_halfwidth": 0.00562,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3985,
+              "median_dprime_vs_mean": 3.3372,
+              "median_dprime_vs_p95": 1.1259,
+              "mean_dprime_vs_mean": 3.6575,
+              "mean_dprime_vs_p95": 2.4148
+            },
+            "RANK": {
+              "median_rank_optimistic": 78.0,
+              "q1_rank_optimistic": 25.0,
+              "q3_rank_optimistic": 201.0,
+              "median_rank_conservative": 134.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": null,
+            "margin_vs_binding_floor": {
+              "point": -0.1538,
+              "ci95": [
+                -0.1699,
+                -0.1384
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D2_REAL": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0204,
+            "ci95": [
+              0.0152,
+              0.0266
+            ],
+            "ci_halfwidth": 0.00571,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3987,
+              "median_dprime_vs_mean": 3.2092,
+              "median_dprime_vs_p95": 1.1315,
+              "mean_dprime_vs_mean": 3.6863,
+              "mean_dprime_vs_p95": 2.0288
+            },
+            "RANK": {
+              "median_rank_optimistic": 88.0,
+              "q1_rank_optimistic": 28.0,
+              "q3_rank_optimistic": 263.75,
+              "median_rank_conservative": 109.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": null,
+            "margin_vs_binding_floor": {
+              "point": -0.1538,
+              "ci95": [
+                -0.1696,
+                -0.1382
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D4_REAL": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0187,
+            "ci95": [
+              0.0136,
+              0.0246
+            ],
+            "ci_halfwidth": 0.00549,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3988,
+              "median_dprime_vs_mean": 3.0193,
+              "median_dprime_vs_p95": 1.0624,
+              "mean_dprime_vs_mean": 3.7078,
+              "mean_dprime_vs_p95": 1.9391
+            },
+            "RANK": {
+              "median_rank_optimistic": 96.0,
+              "q1_rank_optimistic": 28.0,
+              "q3_rank_optimistic": 303.5,
+              "median_rank_conservative": 105.5,
+              "n_items": 3994
+            },
+            "addressing_accuracy": null,
+            "margin_vs_binding_floor": {
+              "point": -0.1556,
+              "ci95": [
+                -0.1714,
+                -0.14
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D8_REAL": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0176,
+            "ci95": [
+              0.0127,
+              0.023
+            ],
+            "ci_halfwidth": 0.00511,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3988,
+              "median_dprime_vs_mean": 3.0425,
+              "median_dprime_vs_p95": 1.1793,
+              "mean_dprime_vs_mean": 3.8493,
+              "mean_dprime_vs_p95": 2.0767
+            },
+            "RANK": {
+              "median_rank_optimistic": 89.0,
+              "q1_rank_optimistic": 25.0,
+              "q3_rank_optimistic": 308.75,
+              "median_rank_conservative": 93.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": null,
+            "margin_vs_binding_floor": {
+              "point": -0.1567,
+              "ci95": [
+                -0.1727,
+                -0.1409
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D16_REAL": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0185,
+            "ci95": [
+              0.0132,
+              0.0242
+            ],
+            "ci_halfwidth": 0.00549,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3990,
+              "median_dprime_vs_mean": 3.0222,
+              "median_dprime_vs_p95": 1.206,
+              "mean_dprime_vs_mean": 3.9175,
+              "mean_dprime_vs_p95": 2.155
+            },
+            "RANK": {
+              "median_rank_optimistic": 84.0,
+              "q1_rank_optimistic": 24.0,
+              "q3_rank_optimistic": 297.0,
+              "median_rank_conservative": 86.5,
+              "n_items": 3994
+            },
+            "addressing_accuracy": null,
+            "margin_vs_binding_floor": {
+              "point": -0.1559,
+              "ci95": [
+                -0.1723,
+                -0.1393
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D32_REAL": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.022,
+            "ci95": [
+              0.0163,
+              0.0286
+            ],
+            "ci_halfwidth": 0.00615,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3990,
+              "median_dprime_vs_mean": 3.0645,
+              "median_dprime_vs_p95": 1.2633,
+              "mean_dprime_vs_mean": 4.0192,
+              "mean_dprime_vs_p95": 2.2635
+            },
+            "RANK": {
+              "median_rank_optimistic": 79.0,
+              "q1_rank_optimistic": 21.0,
+              "q3_rank_optimistic": 271.0,
+              "median_rank_conservative": 80.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": null,
+            "margin_vs_binding_floor": {
+              "point": -0.1524,
+              "ci95": [
+                -0.1688,
+                -0.1363
+              ],
+              "band": "BELOW"
+            }
+          },
+          "F_ORTHOGRAPHIC": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0878,
+            "ci95": [
+              0.0775,
+              0.0993
+            ],
+            "ci_halfwidth": 0.01086,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3994,
+              "median_dprime_vs_mean": 4.2919,
+              "median_dprime_vs_p95": 1.8997,
+              "mean_dprime_vs_mean": 4.5898,
+              "mean_dprime_vs_p95": 2.3455
+            },
+            "RANK": {
+              "median_rank_optimistic": 37.0,
+              "q1_rank_optimistic": 6.0,
+              "q3_rank_optimistic": 212.0,
+              "median_rank_conservative": 54.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": null,
+            "margin_vs_binding_floor": {
+              "point": -0.0865,
+              "ci95": [
+                -0.1057,
+                -0.0679
+              ],
+              "band": "BELOW"
+            }
+          },
+          "F_FREQUENCY": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0242,
+            "ci95": [
+              0.018,
+              0.0308
+            ],
+            "ci_halfwidth": 0.00637,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3994,
+              "median_dprime_vs_mean": 2.6336,
+              "median_dprime_vs_p95": 0.8142,
+              "mean_dprime_vs_mean": 2.3043,
+              "mean_dprime_vs_p95": 0.4838
+            },
+            "RANK": {
+              "median_rank_optimistic": 44.0,
+              "q1_rank_optimistic": 18.0,
+              "q3_rank_optimistic": 173.0,
+              "median_rank_conservative": 44.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": null,
+            "margin_vs_binding_floor": {
+              "point": -0.1501,
+              "ci95": [
+                -0.1666,
+                -0.1334
+              ],
+              "band": "BELOW"
+            }
+          },
+          "F_SCRAMBLE": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.0136,
+            "ci95": [
+              0.0088,
+              0.0185
+            ],
+            "ci_halfwidth": 0.00484,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3994,
+              "median_dprime_vs_mean": 2.0014,
+              "median_dprime_vs_p95": 0.3614,
+              "mean_dprime_vs_mean": 1.9786,
+              "mean_dprime_vs_p95": 0.3323
+            },
+            "RANK": {
+              "median_rank_optimistic": 132.5,
+              "q1_rank_optimistic": 38.0,
+              "q3_rank_optimistic": 520.75,
+              "median_rank_conservative": 132.5,
+              "n_items": 3994
+            },
+            "addressing_accuracy": null,
+            "margin_vs_binding_floor": {
+              "point": -0.1607,
+              "ci95": [
+                -0.1763,
+                -0.1451
+              ],
+              "band": "BELOW"
+            }
+          },
+          "F_CONSTANT_PROTOTYPE": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.1745,
+            "ci95": [
+              0.1591,
+              0.1899
+            ],
+            "ci_halfwidth": 0.01538,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3994,
+              "median_dprime_vs_mean": 2.4459,
+              "median_dprime_vs_p95": 0.5556,
+              "mean_dprime_vs_mean": 2.2421,
+              "mean_dprime_vs_p95": 0.3508
+            },
+            "RANK": {
+              "median_rank_optimistic": 58.0,
+              "q1_rank_optimistic": 8.0,
+              "q3_rank_optimistic": 331.75,
+              "median_rank_conservative": 58.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": null,
+            "margin_vs_binding_floor": null
+          },
+          "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+            "SIGNAL_hit_at_1_tie_corrected": 0.1952,
+            "ci95": [
+              0.1802,
+              0.2119
+            ],
+            "ci_halfwidth": 0.01582,
+            "analytic_null_halfwidth": 0.0345,
+            "NOISE_dprime": {
+              "n_valid": 3994,
+              "median_dprime_vs_mean": 5.2697,
+              "median_dprime_vs_p95": 3.2134,
+              "mean_dprime_vs_mean": 5.4179,
+              "mean_dprime_vs_p95": 3.3577
+            },
+            "RANK": {
+              "median_rank_optimistic": 24.0,
+              "q1_rank_optimistic": 3.0,
+              "q3_rank_optimistic": 231.0,
+              "median_rank_conservative": 25.0,
+              "n_items": 3994
+            },
+            "addressing_accuracy": null,
+            "margin_vs_binding_floor": {
+              "point": 0.0213,
+              "ci95": [
+                0.0031,
+                0.0398
+              ],
+              "band": "ABOVE"
+            }
+          }
+        },
+        "BINDING_FLOOR": "F_CONSTANT_PROTOTYPE",
+        "BINDING_FLOOR_VALUE": 0.1745,
+        "POWER": {
+          "n_common_scored": 2275,
+          "analytic_null_halfwidth": 0.0345
+        }
+      }
+    },
+    "STEP_TABLE": [
+      {
+        "population": "POP_16_SMOKE",
+        "cue_kind": "ORACLE",
+        "from_depth": 1,
+        "to_depth": 2,
+        "gain_point": -0.0018,
+        "gain_ci95": [
+          -0.0094,
+          0.0056
+        ],
+        "gain_ci_halfwidth": 0.0075,
+        "band": "NOT_SEPARATED"
+      },
+      {
+        "population": "POP_16_SMOKE",
+        "cue_kind": "ORACLE",
+        "from_depth": 2,
+        "to_depth": 4,
+        "gain_point": 0.0033,
+        "gain_ci95": [
+          -0.0049,
+          0.0117
+        ],
+        "gain_ci_halfwidth": 0.0083,
+        "band": "NOT_SEPARATED"
+      },
+      {
+        "population": "POP_16_SMOKE",
+        "cue_kind": "ORACLE",
+        "from_depth": 4,
+        "to_depth": 8,
+        "gain_point": 0.0066,
+        "gain_ci95": [
+          -0.0022,
+          0.0149
+        ],
+        "gain_ci_halfwidth": 0.0086,
+        "band": "NOT_SEPARATED"
+      },
+      {
+        "population": "POP_16_SMOKE",
+        "cue_kind": "ORACLE",
+        "from_depth": 8,
+        "to_depth": 16,
+        "gain_point": 0.0061,
+        "gain_ci95": [
+          -0.0031,
+          0.0152
+        ],
+        "gain_ci_halfwidth": 0.0092,
+        "band": "NOT_SEPARATED"
+      },
+      {
+        "population": "POP_16_SMOKE",
+        "cue_kind": "ORACLE",
+        "from_depth": 16,
+        "to_depth": 32,
+        "gain_point": 0.0089,
+        "gain_ci95": [
+          -0.0004,
+          0.0176
+        ],
+        "gain_ci_halfwidth": 0.009,
+        "band": "NOT_SEPARATED"
+      },
+      {
+        "population": "POP_16_SMOKE",
+        "cue_kind": "REAL",
+        "from_depth": 1,
+        "to_depth": 2,
+        "gain_point": 0.0,
+        "gain_ci95": [
+          -0.0064,
+          0.0065
+        ],
+        "gain_ci_halfwidth": 0.0065,
+        "band": "NOT_SEPARATED"
+      },
+      {
+        "population": "POP_16_SMOKE",
+        "cue_kind": "REAL",
+        "from_depth": 2,
+        "to_depth": 4,
+        "gain_point": -0.0018,
+        "gain_ci95": [
+          -0.0075,
+          0.0042
+        ],
+        "gain_ci_halfwidth": 0.0058,
+        "band": "NOT_SEPARATED"
+      },
+      {
+        "population": "POP_16_SMOKE",
+        "cue_kind": "REAL",
+        "from_depth": 4,
+        "to_depth": 8,
+        "gain_point": -0.0011,
+        "gain_ci95": [
+          -0.007,
+          0.0047
+        ],
+        "gain_ci_halfwidth": 0.0059,
+        "band": "NOT_SEPARATED"
+      },
+      {
+        "population": "POP_16_SMOKE",
+        "cue_kind": "REAL",
+        "from_depth": 8,
+        "to_depth": 16,
+        "gain_point": 0.0008,
+        "gain_ci95": [
+          -0.0033,
+          0.0051
+        ],
+        "gain_ci_halfwidth": 0.0042,
+        "band": "NOT_SEPARATED"
+      },
+      {
+        "population": "POP_16_SMOKE",
+        "cue_kind": "REAL",
+        "from_depth": 16,
+        "to_depth": 32,
+        "gain_point": 0.0035,
+        "gain_ci95": [
+          -0.0004,
+          0.0079
+        ],
+        "gain_ci_halfwidth": 0.0042,
+        "band": "NOT_SEPARATED"
+      }
+    ],
+    "MONOTONICITY": {
+      "POP_16_SMOKE_ORACLE": {
+        "n_interference_drops": 0,
+        "drops": [],
+        "MONOTONE_NONDECREASING": true,
+        "tol_sigma": 1.5,
+        "chain": [
+          "D1_ORACLE",
+          "D2_ORACLE",
+          "D4_ORACLE",
+          "D8_ORACLE",
+          "D16_ORACLE",
+          "D32_ORACLE"
+        ],
+        "values": [
+          0.0334,
+          0.0315,
+          0.0347,
+          0.0413,
+          0.0475,
+          0.0563
+        ]
+      },
+      "POP_16_SMOKE_REAL": {
+        "n_interference_drops": 0,
+        "drops": [],
+        "MONOTONE_NONDECREASING": true,
+        "tol_sigma": 1.5,
+        "chain": [
+          "D1_REAL",
+          "D2_REAL",
+          "D4_REAL",
+          "D8_REAL",
+          "D16_REAL",
+          "D32_REAL"
+        ],
+        "values": [
+          0.0206,
+          0.0204,
+          0.0187,
+          0.0176,
+          0.0185,
+          0.022
+        ]
+      }
+    },
+    "SANITY": {
+      "POP_16_SMOKE": {
+        "K1_known_answer": {
+          "addressing_at_deepest": 1.0,
+          "gate": 0.95,
+          "PASSED": true
+        },
+        "N1_random_null": {
+          "addressing_RANDOM_NULL": 0.0,
+          "hit_at_1_RANDOM_NULL_mean": 0.0088,
+          "chance_addressing_approx": 0.00044,
+          "PASSED": true
+        }
+      }
+    },
+    "CROSS_POPULATION_RESTRICTION_TABLE": [],
+    "FREQUENCY_STRATIFIED_COMPARISON": null,
+    "CONTROL_MARGINS": [
+      {
+        "depth": 16,
+        "control": "TOKEN_MATCHED",
+        "natural_arm": "D16_ORACLE",
+        "control_arm": "CTRL_TOKEN_MATCHED_D16",
+        "natural_minus_control_point": 0.0124,
+        "ci95": [
+          0.0026,
+          0.022
+        ],
+        "band": "ABOVE"
+      },
+      {
+        "depth": 16,
+        "control": "RANDOM_OCC",
+        "natural_arm": "D16_ORACLE",
+        "control_arm": "CTRL_RANDOM_OCC_D16",
+        "natural_minus_control_point": 0.0422,
+        "ci95": [
+          0.0334,
+          0.0512
+        ],
+        "band": "ABOVE"
+      },
+      {
+        "depth": 32,
+        "control": "TOKEN_MATCHED",
+        "natural_arm": "D32_ORACLE",
+        "control_arm": "CTRL_TOKEN_MATCHED_D32",
+        "natural_minus_control_point": 0.0089,
+        "ci95": [
+          -0.0004,
+          0.0174
+        ],
+        "band": "NOT_SEPARATED"
+      },
+      {
+        "depth": 32,
+        "control": "RANDOM_OCC",
+        "natural_arm": "D32_ORACLE",
+        "control_arm": "CTRL_RANDOM_OCC_D32",
+        "natural_minus_control_point": 0.0396,
+        "ci95": [
+          0.029,
+          0.0505
+        ],
+        "band": "ABOVE"
+      }
+    ],
+    "WINNER_COMPOSITION": {},
+    "COMPOSITION_TREND": {},
+    "FLOORS_RECOMPUTED_ON_THIS_POPULATION": true,
+    "NEVER_IMPORTED": [
+      "0.1382",
+      "0.2070",
+      "-0.1959",
+      "0.1390",
+      "0.0873"
+    ],
+    "CITED_NOT_IMPORTED_BASELINES_FROM_WR": {
+      "no_relation_fraction_R2_single_occ": 0.84,
+      "no_relation_fraction_R3_full_accum": 0.7971,
+      "winner_cooccur_R2": 0.66,
+      "winner_cooccur_R3": 0.944
+    },
+    "elapsed_s": 153.1
+  },
+  "elapsed_s": 35.6,
+  "summary": "ORGAN F, deep nested depth ladder on the REAL PARTIAL CUE. Nested populations (POP_72/128/256/512/768) so every deep-vs-shallow comparison is paired on identical items; winner composition (WordNet relation + co-occurrence) measured at every depth; token-matched, random-occurrence and frequency-stratified controls. -> ORGAN_F_DEEP__PRIZE_NOT_CLEARED__CLIMBING_NONE__UNDERPOWERED_NONE__RANKING_NOT_MEANING_NONE"
+}

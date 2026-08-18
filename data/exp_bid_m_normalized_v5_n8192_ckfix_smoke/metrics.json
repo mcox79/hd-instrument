@@ -1,0 +1,45 @@
+{
+  "anchor": "bid_m_normalized_v5_n8192",
+  "N": 512,
+  "smoke": true,
+  "M_fracs": [
+    0.05,
+    0.5,
+    2.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "N": 512,
+      "M_frac": 0.05,
+      "M": 25,
+      "seed": 17,
+      "bid": 48.00712643350034,
+      "threshold": 6.25,
+      "passes_hp": true
+    },
+    {
+      "N": 512,
+      "M_frac": 0.5,
+      "M": 256,
+      "seed": 17,
+      "bid": 24.47491486367274,
+      "threshold": 6.25,
+      "passes_hp": true
+    },
+    {
+      "N": 512,
+      "M_frac": 2.0,
+      "M": 1024,
+      "seed": 17,
+      "bid": 37.27266227913087,
+      "threshold": 6.25,
+      "passes_hp": true
+    }
+  ],
+  "verdict": "BID_V5_N8K_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_OUTSIDE: fracs_passing=3/3. fracs_passing=3/3 fracs_above_thr=3 mean_bid=36.58 threshold=6.25 HP_pass_fracs=5 seeds_per_frac=1 N=512",
+  "elapsed_s": 0.03
+}

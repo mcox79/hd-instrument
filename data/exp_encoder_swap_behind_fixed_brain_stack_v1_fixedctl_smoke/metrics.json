@@ -1,0 +1,248 @@
+{
+  "anchor_name": "encoder_swap_behind_fixed_brain_stack_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_META_RULE_AF: arms bit-identical [('A_tuned_ckpt', 'A0_frozen_base', '78883ef36594c605'), ('A0_frozen_base', 'B_char_trigram', '78883ef36594c605'), ('B_char_trigram', 'C_ppmi', '78883ef36594c605'), ('C_ppmi', 'D_random_init_twin', '78883ef36594c605')]. [HEADLINE span] A_tuned=1.0000 A0_frozen_base=1.0000 B_char_trigram=1.0000 C_ppmi=1.0000 D_random_twin=1.0000 E_scramble=0.0556 | delta_AB=+0.0000 (per-seed ['+0.0000']) | floors_ok=False baseline_in_band=False arms_differ_ok=False || [SECONDARY role_attn, NOT gated] {'A_tuned_ckpt': 0.5429, 'A0_frozen_base': 0.452, 'B_char_trigram': 0.1465, 'C_ppmi': 0.0278, 'D_random_init_twin': 0.1717, 'E_scramble_floor': 0.0278}",
+  "summary": "HARD_FAIL_META_RULE_AF: arms bit-identical [('A_tuned_ckpt', 'A0_frozen_base', '78883ef36594c605'), ('A0_frozen_base', 'B_char_trigram', '78883ef36594c605'), ('B_char_trigram', 'C_ppmi', '78883ef36594c605'), ('C_ppmi', 'D_random_init_twin', '78883ef36594c605')]. [HEADLINE span] A_tuned=1.0000 A0_frozen_base=1.0000 B_char_trigram=1.0000 C_ppmi=1.0000 D_random_twin=1.0000 E_scramble=0.0556 | delta_AB=+0.0000 (per-seed ['+0.0000']) | floors_ok=False baseline_in_band=False arms_differ_ok=False || [SECONDARY role_attn, NOT gated] {'A_tuned_ckpt': 0.5429, 'A0_frozen_base': 0.452, 'B_char_trigram': 0.1465, 'C_ppmi': 0.0278, 'D_random_init_twin': 0.1717, 'E_scramble_floor': 0.0278}",
+  "elapsed_s": 88.32974829999148,
+  "ts_iso": "2026-08-13T22:28:35.737285+00:00",
+  "run_mode": "smoke",
+  "seeds": [
+    7
+  ],
+  "eval_n": 12,
+  "arms": [
+    "A_tuned_ckpt",
+    "A0_frozen_base",
+    "B_char_trigram",
+    "C_ppmi",
+    "D_random_init_twin",
+    "E_scramble_floor"
+  ],
+  "discriminator_arms": [
+    "A_tuned_ckpt",
+    "B_char_trigram"
+  ],
+  "headline_readout": "span",
+  "secondary_readout": "role_attn (reported, NOT gated -- see prereg amendment)",
+  "per_arm_mean_loop_mean": {
+    "A_tuned_ckpt": 1.0,
+    "A0_frozen_base": 1.0,
+    "B_char_trigram": 1.0,
+    "C_ppmi": 1.0,
+    "D_random_init_twin": 1.0,
+    "E_scramble_floor": 0.05555555555555555
+  },
+  "per_arm_mean_loop_mean_role_attn": {
+    "A_tuned_ckpt": 0.5429292929292929,
+    "A0_frozen_base": 0.45202020202020204,
+    "B_char_trigram": 0.14646464646464644,
+    "C_ppmi": 0.027777777777777776,
+    "D_random_init_twin": 0.1717171717171717,
+    "E_scramble_floor": 0.027777777777777776
+  },
+  "per_unit": [
+    {
+      "arm": "A0_frozen_base",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean": 1.0,
+      "preds_digest": "70f140973956e59b067234266c7882fb1711bb0c016e885d4e65c3be5a257fba",
+      "per_type_role_attn": {
+        "a_name_maintenance": 0.5,
+        "b_competitive_coref": 0.5833333333333334,
+        "c_overwrite": 0.2727272727272727
+      },
+      "loop_mean_role_attn": 0.45202020202020204,
+      "preds_digest_role_attn": "9204912996dab6da157408893b25cc65deab28e6ed33d8f08a3318bd3602284b",
+      "headline_readout": "span",
+      "diag": {
+        "arm": "A0_frozen_base",
+        "seed": 7,
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+        "ckpt_sha256": "a5ed6bec534067cb6a3ab885a3a31ce1b13785ef063da8e75fc56d00c1f317d6"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 10.91190770000685
+    },
+    {
+      "arm": "A_tuned_ckpt",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean": 1.0,
+      "preds_digest": "70f140973956e59b067234266c7882fb1711bb0c016e885d4e65c3be5a257fba",
+      "per_type_role_attn": {
+        "a_name_maintenance": 0.5,
+        "b_competitive_coref": 0.5833333333333334,
+        "c_overwrite": 0.5454545454545454
+      },
+      "loop_mean_role_attn": 0.5429292929292929,
+      "preds_digest_role_attn": "eef56dc7604d38ac131360286e4d10c4a44b7dbf906a46a83a6dea0b0f4ec7b4",
+      "headline_readout": "span",
+      "diag": {
+        "arm": "A_tuned_ckpt",
+        "seed": 7,
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+        "ckpt_sha256": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc",
+        "state_dict_differs_from_frozen_base": true
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 10.840443900000537
+    },
+    {
+      "arm": "B_char_trigram",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean": 1.0,
+      "preds_digest": "70f140973956e59b067234266c7882fb1711bb0c016e885d4e65c3be5a257fba",
+      "per_type_role_attn": {
+        "a_name_maintenance": 0.08333333333333333,
+        "b_competitive_coref": 0.08333333333333333,
+        "c_overwrite": 0.2727272727272727
+      },
+      "loop_mean_role_attn": 0.14646464646464644,
+      "preds_digest_role_attn": "a74f3febde5b6cb35b55eb2fb477fc15fcc8df49ec4f7f32ab4f859de80eac6b",
+      "headline_readout": "span",
+      "diag": {
+        "arm": "B_char_trigram",
+        "seed": 7,
+        "encoder": "hdlab.char_trigram_encoder.CharTrigramEncoder(n_dim=512)"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 0.9024478000064846
+    },
+    {
+      "arm": "C_ppmi",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean": 1.0,
+      "preds_digest": "70f140973956e59b067234266c7882fb1711bb0c016e885d4e65c3be5a257fba",
+      "per_type_role_attn": {
+        "a_name_maintenance": 0.0,
+        "b_competitive_coref": 0.08333333333333333,
+        "c_overwrite": 0.0
+      },
+      "loop_mean_role_attn": 0.027777777777777776,
+      "preds_digest_role_attn": "92eacaea6f03e118c669886439eceeb4ba085cb046fbe9c13596b839d7919744",
+      "headline_readout": "span",
+      "diag": {
+        "arm": "C_ppmi",
+        "seed": 7,
+        "encoder": "hdlab.ppmi_sparse_encoder.PPMISparseEncoder(n_dim=512)",
+        "ppmi_vocab": 262,
+        "ppmi_effective_n_dim": 262
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 0.9411160000017844
+    },
+    {
+      "arm": "D_random_init_twin",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean": 1.0,
+      "preds_digest": "70f140973956e59b067234266c7882fb1711bb0c016e885d4e65c3be5a257fba",
+      "per_type_role_attn": {
+        "a_name_maintenance": 0.3333333333333333,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.18181818181818182
+      },
+      "loop_mean_role_attn": 0.1717171717171717,
+      "preds_digest_role_attn": "b8da898221c59ac5a6a56c599cdc9d5b010d88630b0f2f0a3850edc25bee4100",
+      "headline_readout": "span",
+      "diag": {
+        "arm": "D_random_init_twin",
+        "seed": 7,
+        "encoder": "V2Transformer(same model_cfg as arm A), UNTRAINED random init"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 10.946699499996612
+    },
+    {
+      "arm": "E_scramble_floor",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.16666666666666666,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.0
+      },
+      "loop_mean": 0.05555555555555555,
+      "preds_digest": "489d0faa29d13c3ebb22e58063027eb65b3383e5e12af0e15f58f7a8863d212e",
+      "per_type_role_attn": {
+        "a_name_maintenance": 0.08333333333333333,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.0
+      },
+      "loop_mean_role_attn": 0.027777777777777776,
+      "preds_digest_role_attn": "c575918af1691405aa3926d5e973e77b91fd79b079a17269f2b0de38604b1e82",
+      "headline_readout": "span",
+      "diag": {
+        "arm": "E_scramble_floor",
+        "seed": 7,
+        "encoder": "arm A tuned weights; the request<->sentence correspondence is deranged inside _encode_raw (text scramble)",
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+        "ckpt_sha256": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 11.528150799975265
+    }
+  ],
+  "arm_a_ckpt_paths": {
+    "7": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt"
+  },
+  "arm_a_ckpt_sha256": {
+    "7": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc"
+  },
+  "forbidden_ckpt_sha256": {
+    "f03051248c26a756d09d0076697cb470b477405cbaa289376e4a876bef3cb17a": "data/exp_scale_meaning_learn_arc_heldout_v3_relobj/ckpt_seed_7.pt"
+  },
+  "prereg": "preregs/2026-08-13_encoder_swap_behind_fixed_brain_stack.md",
+  "bands": {
+    "REFUTES_MIN_DELTA": 0.05,
+    "CONFIRMS_MAX_DELTA": 0.03,
+    "FLOOR_MARGIN": 0.05,
+    "BASELINE_BAND": [
+      0.05,
+      0.95
+    ]
+  },
+  "expected_n_units": 6,
+  "actual_n_units": 6,
+  "cardinality_ok": true,
+  "arms_differ_verified": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_floor_computed": 0.05,
+  "crlb_formula_reference": "chance = 1/len(COLORS) for a colour argmax readout",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "scope": "situation-model assembly, held-out colours, role_attn readout; encoder-type is the ONLY varied factor"
+}

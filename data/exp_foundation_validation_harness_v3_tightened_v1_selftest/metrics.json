@@ -1,0 +1,17 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "all 6 v3 formula self-tests passed (prefix-coverage worked examples incl. com/comes vs com/company, prefix_count_v3 differs from the v2 bug case, prefix_count_v3 villag-case unaffected, cooccurs_v3 discriminates the com case, cooccurs_v3 basic v1 parity, known-answer arm still valid at production n_dim)",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.18022850004490465,
+  "ts_iso": "2026-08-15T18:47:49.223589+00:00",
+  "anchor_name": "foundation_validation_harness_v3_tightened_v1",
+  "run_mode": "self_test",
+  "result": {
+    "prefix_covers_worked_examples_ok": true,
+    "prefix_count_v3_differs_from_v2_bug_case_ok": true,
+    "prefix_count_v3_villag_unaffected_case_ok": true,
+    "cooccurs_v3_discriminates_com_case_ok": true,
+    "cooccurs_v3_basic_v1_parity_ok": true,
+    "known_answer_arm_still_valid_ok": true
+  }
+}

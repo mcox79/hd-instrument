@@ -1,0 +1,69 @@
+{
+ "verdict": "SELFTEST_PASS",
+ "verdict_msg": "all self-tests passed",
+ "elapsed_s": 0.0,
+ "summary": "selftest",
+ "detail": {
+  "floor_battery_selftest_keys": [
+   "S1_constant_floor",
+   "S2_variant_corr_raw_vs_rownorm",
+   "S3_tie_conventions",
+   "S4_eligibility_respected",
+   "S5_balanced_pool_kills_constant_rankings",
+   "S6_role_symmetry_corr_gold_vs_candidate_marginal",
+   "S7_matched_pool_neutralises_a_nuisance_channel"
+  ],
+  "T1_ridge_recovers_known_map": {
+   "lam": 0.0001,
+   "cos_fit": 0.9989,
+   "cos_shuffled_pairing": -0.0804,
+   "lam_trace": [
+    {
+     "lam": 0.0001,
+     "heldout_mse": 0.002478,
+     "heldout_cos": 0.998761
+    },
+    {
+     "lam": 0.001,
+     "heldout_mse": 0.002479,
+     "heldout_cos": 0.998761
+    },
+    {
+     "lam": 0.01,
+     "heldout_mse": 0.002479,
+     "heldout_cos": 0.99876
+    },
+    {
+     "lam": 0.1,
+     "heldout_mse": 0.002487,
+     "heldout_cos": 0.998756
+    },
+    {
+     "lam": 1.0,
+     "heldout_mse": 0.00267,
+     "heldout_cos": 0.998665
+    },
+    {
+     "lam": 10.0,
+     "heldout_mse": 0.008587,
+     "heldout_cos": 0.995707
+    }
+   ]
+  },
+  "T2_dg_keys": {
+   "active_units": 5,
+   "distinct_signatures": 128
+  },
+  "T3_link_not_reconstruct": {
+   "self_reinstatement": 1.0,
+   "value_is_load_bearing": true
+  },
+  "T4_harness_end_to_end": {
+   "KA": 1.0,
+   "NULL": 0.0067
+  },
+  "T5_validity_arms_fail_independently": true,
+  "T6_shortlist_matches_owned_organ": 1.0,
+  "T7_saturation_guard_trips": true
+ }
+}

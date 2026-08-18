@@ -1,0 +1,185 @@
+{
+  "anchor": "bid_m_normalized_v5_n8192",
+  "N": 8192,
+  "smoke": false,
+  "M_fracs": [
+    0.025,
+    0.05,
+    0.125,
+    0.5,
+    2.0,
+    5.0
+  ],
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "cells": [
+    {
+      "N": 8192,
+      "M_frac": 0.025,
+      "M": 204,
+      "seed": 7,
+      "bid": 273.1997821720884,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 0.025,
+      "M": 204,
+      "seed": 17,
+      "bid": 261.60496908778345,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 0.025,
+      "M": 204,
+      "seed": 23,
+      "bid": 239.86741177181253,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 0.05,
+      "M": 409,
+      "seed": 7,
+      "bid": 239.0278833416033,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 0.05,
+      "M": 409,
+      "seed": 17,
+      "bid": 241.3814743251038,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 0.05,
+      "M": 409,
+      "seed": 23,
+      "bid": 275.07019487044084,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 0.125,
+      "M": 1024,
+      "seed": 7,
+      "bid": 203.21367279857583,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 0.125,
+      "M": 1024,
+      "seed": 17,
+      "bid": 258.68419028878037,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 0.125,
+      "M": 1024,
+      "seed": 23,
+      "bid": 231.10634694806882,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 0.5,
+      "M": 4096,
+      "seed": 7,
+      "bid": 131.37149024237553,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 0.5,
+      "M": 4096,
+      "seed": 17,
+      "bid": 131.6987626297294,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 0.5,
+      "M": 4096,
+      "seed": 23,
+      "bid": 165.05336401690693,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 2.0,
+      "M": 16384,
+      "seed": 7,
+      "bid": 156.52500814436706,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 2.0,
+      "M": 16384,
+      "seed": 17,
+      "bid": 140.35395753324508,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 2.0,
+      "M": 16384,
+      "seed": 23,
+      "bid": 158.1452038462941,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 5.0,
+      "M": 40960,
+      "seed": 7,
+      "bid": 189.29623281341281,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 5.0,
+      "M": 40960,
+      "seed": 17,
+      "bid": 173.77841076735442,
+      "threshold": 100.0,
+      "passes_hp": true
+    },
+    {
+      "N": 8192,
+      "M_frac": 5.0,
+      "M": 40960,
+      "seed": 23,
+      "bid": 159.487211068535,
+      "threshold": 100.0,
+      "passes_hp": true
+    }
+  ],
+  "verdict": "BID_V5_N8K_HARD_PASS",
+  "verdict_msg": "OUTSIDE_BANDS_N8192: fracs_passing=6/6. fracs_passing=6/6 fracs_above_thr=6 mean_bid=201.60 threshold=100.00 HP_pass_fracs=5 seeds_per_frac=3 N=8192",
+  "elapsed_s": 404.93
+}

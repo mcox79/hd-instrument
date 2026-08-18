@@ -1,0 +1,12 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: arm D lacks features for 10 surviving words (e.g. ['apparent', 'big', 'narrow', 'normal', 'noticeable', 'obvious', 'rapid', 'recent']); the arms would not be on the same pairs",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "run_mode": "crash",
+  "failure_class": "AssertionError",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_differentia_feature_supply_v1.py\", line 906, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_differentia_feature_supply_v1.py\", line 874, in main\n    m = run(\"smoke\", out, n)\n        ^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_differentia_feature_supply_v1.py\", line 678, in run\n    raise AssertionError(\"arm D lacks features for %d surviving words (e.g. %r); the arms \"\nAssertionError: arm D lacks features for 10 surviving words (e.g. ['apparent', 'big', 'narrow', 'normal', 'noticeable', 'obvious', 'rapid', 'recent']); the arms would not be on the same pairs\n",
+  "ts_iso": "2026-08-14T00:47:01.110580+00:00",
+  "pid": 13288,
+  "anchor_name": "exp_differentia_feature_supply_v1"
+}

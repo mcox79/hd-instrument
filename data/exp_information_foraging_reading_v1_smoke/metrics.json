@@ -1,0 +1,691 @@
+{
+  "anchor_name": "information_foraging_reading_v1",
+  "run_mode": "smoke",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "D1 dominant-source-share drop vs FROZEN = -0.212618 (need >=0.15); D2 held-out coverage FORAGE 0.009333 vs RANDOM 0.003333 rel=1.80018 (need >=+0.10); D3 WordNet agreement FORAGE 0.266667 vs FROZEN 0.366667 (need delta >= -0.05); D4 oracle ratio 1.919901. FORAGE read 8 corpora / banked from 4; FROZEN read 4.",
+  "summary": "MIDDLE_BAND: D1 dominant-source-share drop vs FROZEN = -0.212618 (need >=0.15); D2 held-out coverage FORAGE 0.009333 vs RANDOM 0.003333 rel=1.80018 (need >=+0.10); D3 WordNet agreement FORAGE 0.266667 vs FROZEN 0.366667 (need delta >= -0.05); D4 oracle ratio 1.919901. FORAGE read 8 corpora / banked from 4; FROZEN read 4.",
+  "elapsed_s": 276.19,
+  "ts_iso": "2026-08-14T06:12:09.271862+00:00",
+  "checks": {
+    "D1_dominant_share_drop_vs_FROZEN": {
+      "value": -0.212618,
+      "pass_band": ">= 0.15",
+      "pass": false
+    },
+    "D2_heldout_coverage_vs_RANDOM_rel": {
+      "value": 1.80018,
+      "pass_band": ">= +0.10",
+      "pass": true,
+      "forage": 0.009333,
+      "random": 0.003333,
+      "frozen": 0.041
+    },
+    "D3_wn_agreement_vs_FROZEN": {
+      "forage": 0.266667,
+      "random": 0.590909,
+      "frozen": 0.366667,
+      "delta": -0.1,
+      "pass_band": "delta >= -0.05 (non-inferiority)",
+      "pass": false
+    },
+    "D4_oracle_ratio": {
+      "value": 1.919901,
+      "pass_band": "0.70 <= r < 1.00",
+      "pass": false,
+      "note": "objective-aligned for FORAGE; mechanism check only"
+    },
+    "mechanism_fired": {
+      "gain_is_value_not_count": true,
+      "travel_updates_fired": true,
+      "multiple_patches": true,
+      "multiple_corpora_chosen": true,
+      "ranked_choice_not_all_fallback": true,
+      "baseline_in_band_META_RULE_AG": true
+    }
+  },
+  "arms": {
+    "FORAGE": {
+      "arm": "FORAGE",
+      "n_sentences_read": 900,
+      "elapsed_s": 69.94,
+      "read_sentence_digest": "40981cbf2ea57246ffed379588e65e7311044de3cd84bacc20b14ce4d2f334c2",
+      "n_grounded": 64,
+      "n_grounded_per_1k": 71.1111,
+      "n_refused": 71,
+      "refusal_reasons": {
+        "TAUTOLOGY_NO_ANCHOR": 69,
+        "CLOSED_CLASS_SUBJECT": 2
+      },
+      "n_self_grounded_tautology": 0,
+      "tautology_rate": 0.0,
+      "source_balance_entropy": 0.730626,
+      "dominant_source": "textbook_chemistry_2e",
+      "dominant_source_share": 0.59375,
+      "domain_balance_entropy": 0.773591,
+      "dominant_domain": "textbook_chemistry",
+      "dominant_domain_share": 0.59375,
+      "n_distinct_sources_banked": 4,
+      "banked_by_source": {
+        "textbook_chemistry_2e": 38,
+        "textbook_concepts_biology": 18,
+        "onestop": 4,
+        "textbook_microbiology": 4
+      },
+      "sentences_read_by_corpus": {
+        "onestop": 271,
+        "textbook_chemistry_2e": 175,
+        "tom_sawyer": 155,
+        "litbank_coref_conll": 135,
+        "wiqa": 56,
+        "textbook_biology_2e": 52,
+        "textbook_microbiology": 46,
+        "textbook_concepts_biology": 10
+      },
+      "n_distinct_corpora_read": 8,
+      "heldout_probe_n": 3000,
+      "heldout_hits": 28,
+      "heldout_coverage": 0.009333,
+      "wordnet": {
+        "n_pairs": 64,
+        "n_scorable": 60,
+        "n_related": 16,
+        "wn_agreement": 0.266667,
+        "wn_scorable_frac": 0.9375,
+        "mean_wup": 0.352021
+      },
+      "foraging": {
+        "achieved_gain_rate": 21.32721978,
+        "total_gain": 21071.293145,
+        "total_time": 988.0,
+        "rho_final": 14.79886003,
+        "rho_fast_final": 14.79886003,
+        "rho_slow_final": 16.53767757,
+        "kappa_final": 0.986386,
+        "kappa_n_observed": 885,
+        "n_patches": 11,
+        "mean_patch_residence": 81.8182,
+        "n_travel_updates": 11,
+        "n_visits": 11,
+        "n_distinct_visited": 8,
+        "oracle_rate": 11.10849887,
+        "oracle_ratio": 1.919901,
+        "gain_distinct_values": 896,
+        "mean_gain": 23.41254794,
+        "learning_progress_first_half_minus_second": 0.070584,
+        "n_choice_ranked": 6,
+        "n_choice_fallback_random": 5,
+        "ranked_choice_frac": 0.545455,
+        "example_targets": [
+          {
+            "primary": "chapter",
+            "target": "huck",
+            "n_candidates": 163
+          },
+          {
+            "primary": "blackberry",
+            "target": "bbm",
+            "n_candidates": 71
+          },
+          {
+            "primary": "blackberry",
+            "target": "bbm",
+            "n_candidates": 71
+          },
+          {
+            "primary": "bbm",
+            "target": "blackberry",
+            "n_candidates": 85
+          },
+          {
+            "primary": "bbm",
+            "target": "blackberry",
+            "n_candidates": 85
+          },
+          {
+            "primary": "bolivia",
+            "target": "convention",
+            "n_candidates": 136
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 73
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 71
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 71
+          },
+          {
+            "primary": "chemistry",
+            "target": "science",
+            "n_candidates": 235
+          }
+        ],
+        "example_ranked_choices": [
+          {
+            "target": "bbm",
+            "corpus": "onestop",
+            "score": 1
+          },
+          {
+            "target": "blackberry",
+            "corpus": "onestop",
+            "score": 1
+          },
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "page",
+            "corpus": "litbank_coref_conll",
+            "score": 1
+          },
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "science",
+            "corpus": "textbook_concepts_biology",
+            "score": 8
+          }
+        ]
+      },
+      "final_growth_row_segment_skew": {
+        "n_grounded": 64,
+        "n_segments": 4,
+        "dominant_segment": "textbook_chemistry_2e",
+        "dominant_share": 0.59375,
+        "normalised_entropy": 0.730626,
+        "grounded_by_segment": {
+          "onestop": 4,
+          "textbook_microbiology": 4,
+          "textbook_chemistry_2e": 38,
+          "textbook_concepts_biology": 18
+        },
+        "refused_by_segment": {
+          "textbook_chemistry_2e": 42,
+          "textbook_concepts_biology": 29
+        }
+      }
+    },
+    "RANDOM": {
+      "arm": "RANDOM",
+      "n_sentences_read": 900,
+      "elapsed_s": 48.65,
+      "read_sentence_digest": "aad3ce8118bda65da40891cfb94bc16b8a370cd1b52d76495bfe86c0ee0da707",
+      "n_grounded": 25,
+      "n_grounded_per_1k": 27.7778,
+      "n_refused": 64,
+      "refusal_reasons": {
+        "TAUTOLOGY_NO_ANCHOR": 61,
+        "CLOSED_CLASS_SUBJECT": 3
+      },
+      "n_self_grounded_tautology": 0,
+      "tautology_rate": 0.0,
+      "source_balance_entropy": 0.71378,
+      "dominant_source": "arc",
+      "dominant_source_share": 0.72,
+      "domain_balance_entropy": 0.71378,
+      "dominant_domain": "science_general",
+      "dominant_domain_share": 0.72,
+      "n_distinct_sources_banked": 3,
+      "banked_by_source": {
+        "arc": 18,
+        "textbook_anatomy_physiology_2e": 4,
+        "tinyshakespeare.txt": 3
+      },
+      "sentences_read_by_corpus": {
+        "arc": 368,
+        "tinyshakespeare.txt": 201,
+        "textbook_anatomy_physiology_2e": 155,
+        "alice_in_wonderland": 69,
+        "wiqa": 56,
+        "textbook_chemistry_2e": 27,
+        "mcguffey_readers": 18,
+        "simplewiki": 6
+      },
+      "n_distinct_corpora_read": 8,
+      "heldout_probe_n": 3000,
+      "heldout_hits": 10,
+      "heldout_coverage": 0.003333,
+      "wordnet": {
+        "n_pairs": 25,
+        "n_scorable": 22,
+        "n_related": 13,
+        "wn_agreement": 0.590909,
+        "wn_scorable_frac": 0.88,
+        "mean_wup": 0.522755
+      },
+      "foraging": {
+        "achieved_gain_rate": 20.50443745,
+        "total_gain": 19930.313204,
+        "total_time": 972.0,
+        "rho_final": 17.85507509,
+        "rho_fast_final": 17.85507509,
+        "rho_slow_final": 15.79782871,
+        "kappa_final": 0.883316,
+        "kappa_n_observed": 887,
+        "n_patches": 9,
+        "mean_patch_residence": 100.0,
+        "n_travel_updates": 9,
+        "n_visits": 9,
+        "n_distinct_visited": 8,
+        "oracle_rate": 11.50859382,
+        "oracle_ratio": 1.781663,
+        "gain_distinct_values": 895,
+        "mean_gain": 22.14479245,
+        "learning_progress_first_half_minus_second": 0.038861,
+        "n_choice_ranked": 0,
+        "n_choice_fallback_random": 0,
+        "ranked_choice_frac": 0.0,
+        "example_targets": [],
+        "example_ranked_choices": []
+      },
+      "final_growth_row_segment_skew": {
+        "n_grounded": 25,
+        "n_segments": 3,
+        "dominant_segment": "arc",
+        "dominant_share": 0.72,
+        "normalised_entropy": 0.71378,
+        "grounded_by_segment": {
+          "tinyshakespeare.txt": 3,
+          "textbook_anatomy_physiology_2e": 4,
+          "arc": 18
+        },
+        "refused_by_segment": {
+          "tinyshakespeare.txt": 3,
+          "textbook_anatomy_physiology_2e": 4,
+          "arc": 57
+        }
+      }
+    },
+    "FROZEN": {
+      "arm": "FROZEN",
+      "n_sentences_read": 900,
+      "elapsed_s": 39.1,
+      "read_sentence_digest": "c5897d2d20ad376cdf584993a3754587b2ce82a06963e9dc0787bccdc4d9ba70",
+      "n_grounded": 265,
+      "n_grounded_per_1k": 294.4444,
+      "n_refused": 147,
+      "refusal_reasons": {
+        "TAUTOLOGY_NO_ANCHOR": 115,
+        "CLOSED_CLASS_SUBJECT": 32
+      },
+      "n_self_grounded_tautology": 0,
+      "tautology_rate": 0.0,
+      "source_balance_entropy": 0.992736,
+      "dominant_source": "bio_new",
+      "dominant_source_share": 0.381132,
+      "domain_balance_entropy": 0.958838,
+      "dominant_domain": "news",
+      "dominant_domain_share": 0.618868,
+      "n_distinct_sources_banked": 3,
+      "banked_by_source": {
+        "bio_new": 101,
+        "adv_new": 90,
+        "int_cont": 74
+      },
+      "sentences_read_by_corpus": {
+        "adv_new": 225,
+        "bio_new": 225,
+        "ele_cont": 225,
+        "int_cont": 225
+      },
+      "n_distinct_corpora_read": 4,
+      "heldout_probe_n": 3000,
+      "heldout_hits": 123,
+      "heldout_coverage": 0.041,
+      "wordnet": {
+        "n_pairs": 265,
+        "n_scorable": 240,
+        "n_related": 88,
+        "wn_agreement": 0.366667,
+        "wn_scorable_frac": 0.90566,
+        "mean_wup": 0.39754
+      },
+      "foraging": {
+        "achieved_gain_rate": 15.84769378,
+        "total_gain": 14770.050605,
+        "total_time": 932.0,
+        "rho_final": 12.95268863,
+        "rho_fast_final": 12.95268863,
+        "rho_slow_final": 12.30906675,
+        "kappa_final": 0.852517,
+        "kappa_n_observed": 893,
+        "n_patches": 4,
+        "mean_patch_residence": 225.0,
+        "n_travel_updates": 4,
+        "n_visits": 4,
+        "n_distinct_visited": 4,
+        "oracle_rate": 10.77979455,
+        "oracle_ratio": 1.470129,
+        "gain_distinct_values": 898,
+        "mean_gain": 16.41116734,
+        "learning_progress_first_half_minus_second": 0.035567,
+        "n_choice_ranked": 0,
+        "n_choice_fallback_random": 0,
+        "ranked_choice_frac": 0.0,
+        "example_targets": [],
+        "example_ranked_choices": []
+      },
+      "final_growth_row_segment_skew": {
+        "n_grounded": 265,
+        "n_segments": 3,
+        "dominant_segment": "bio_new",
+        "dominant_share": 0.381132,
+        "normalised_entropy": 0.992736,
+        "grounded_by_segment": {
+          "int_cont": 74,
+          "adv_new": 90,
+          "bio_new": 101
+        },
+        "refused_by_segment": {
+          "int_cont": 45,
+          "adv_new": 39,
+          "bio_new": 63
+        }
+      }
+    },
+    "FIXED_LEAVE": {
+      "arm": "FIXED_LEAVE",
+      "n_sentences_read": 900,
+      "elapsed_s": 114.97,
+      "read_sentence_digest": "5ba59772362bf9b1a07d701b99a60f994c25ba8ab2e22adab5930b827eb136d1",
+      "n_grounded": 126,
+      "n_grounded_per_1k": 140.0,
+      "n_refused": 123,
+      "refusal_reasons": {
+        "TAUTOLOGY_NO_ANCHOR": 110,
+        "CLOSED_CLASS_SUBJECT": 13
+      },
+      "n_self_grounded_tautology": 0,
+      "tautology_rate": 0.0,
+      "source_balance_entropy": 0.861491,
+      "dominant_source": "simplewiki",
+      "dominant_source_share": 0.603175,
+      "domain_balance_entropy": 0.861491,
+      "dominant_domain": "encyclopedic",
+      "dominant_domain_share": 0.603175,
+      "n_distinct_sources_banked": 3,
+      "banked_by_source": {
+        "simplewiki": 76,
+        "textbook_psychology_2e": 26,
+        "textbook_concepts_biology": 24
+      },
+      "sentences_read_by_corpus": {
+        "simplewiki": 220,
+        "textbook_chemistry_2e": 200,
+        "litbank_coref_conll": 120,
+        "arc": 80,
+        "textbook_concepts_biology": 80,
+        "wizard_of_oz": 80,
+        "textbook_microbiology": 40,
+        "textbook_psychology_2e": 40,
+        "ud_english_ewt": 40
+      },
+      "n_distinct_corpora_read": 9,
+      "heldout_probe_n": 3000,
+      "heldout_hits": 57,
+      "heldout_coverage": 0.019,
+      "wordnet": {
+        "n_pairs": 126,
+        "n_scorable": 122,
+        "n_related": 34,
+        "wn_agreement": 0.278689,
+        "wn_scorable_frac": 0.968254,
+        "mean_wup": 0.396137
+      },
+      "foraging": {
+        "achieved_gain_rate": 16.79613886,
+        "total_gain": 18207.014526,
+        "total_time": 1084.0,
+        "rho_final": 11.75047611,
+        "rho_fast_final": 11.75047611,
+        "rho_slow_final": 12.43491618,
+        "kappa_final": 0.855651,
+        "kappa_n_observed": 876,
+        "n_patches": 23,
+        "mean_patch_residence": 39.1304,
+        "n_travel_updates": 23,
+        "n_visits": 23,
+        "n_distinct_visited": 9,
+        "oracle_rate": 15.14049036,
+        "oracle_ratio": 1.109352,
+        "gain_distinct_values": 900,
+        "mean_gain": 20.23001614,
+        "learning_progress_first_half_minus_second": -0.028507,
+        "n_choice_ranked": 21,
+        "n_choice_fallback_random": 2,
+        "ranked_choice_frac": 0.913043,
+        "example_targets": [
+          {
+            "primary": "iraqi",
+            "target": "baghdad",
+            "n_candidates": 70
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 53
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 60
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 60
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 104
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 104
+          },
+          {
+            "primary": "chemistry",
+            "target": "feature",
+            "n_candidates": 153
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 106
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 106
+          },
+          {
+            "primary": "openstax",
+            "target": "page",
+            "n_candidates": 106
+          },
+          {
+            "primary": "chemistry",
+            "target": "science",
+            "n_candidates": 237
+          },
+          {
+            "primary": "openstax",
+            "target": "create",
+            "n_candidates": 95
+          },
+          {
+            "primary": "openstax",
+            "target": "create",
+            "n_candidates": 95
+          },
+          {
+            "primary": "openstax",
+            "target": "create",
+            "n_candidates": 95
+          },
+          {
+            "primary": "april",
+            "target": "leap",
+            "n_candidates": 222
+          }
+        ],
+        "example_ranked_choices": [
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "page",
+            "corpus": "litbank_coref_conll",
+            "score": 1
+          },
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "page",
+            "corpus": "litbank_coref_conll",
+            "score": 1
+          },
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "feature",
+            "corpus": "textbook_psychology_2e",
+            "score": 3
+          },
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "page",
+            "corpus": "litbank_coref_conll",
+            "score": 1
+          },
+          {
+            "target": "page",
+            "corpus": "textbook_chemistry_2e",
+            "score": 2
+          },
+          {
+            "target": "science",
+            "corpus": "textbook_concepts_biology",
+            "score": 8
+          },
+          {
+            "target": "create",
+            "corpus": "simplewiki",
+            "score": 2
+          },
+          {
+            "target": "create",
+            "corpus": "textbook_concepts_biology",
+            "score": 2
+          },
+          {
+            "target": "create",
+            "corpus": "simplewiki",
+            "score": 2
+          },
+          {
+            "target": "leap",
+            "corpus": "wizard_of_oz",
+            "score": 1
+          },
+          {
+            "target": "leap",
+            "corpus": "simplewiki",
+            "score": 1
+          }
+        ]
+      },
+      "final_growth_row_segment_skew": {
+        "n_grounded": 126,
+        "n_segments": 3,
+        "dominant_segment": "simplewiki",
+        "dominant_share": 0.603175,
+        "normalised_entropy": 0.861491,
+        "grounded_by_segment": {
+          "textbook_psychology_2e": 26,
+          "textbook_concepts_biology": 24,
+          "simplewiki": 76
+        },
+        "refused_by_segment": {
+          "textbook_psychology_2e": 14,
+          "textbook_concepts_biology": 25,
+          "simplewiki": 84
+        }
+      }
+    }
+  },
+  "arm_failures": {},
+  "cardinality": {
+    "expected_n_units": 4,
+    "n_units": 4,
+    "cardinality_ok": true
+  },
+  "arms_differ_verified": true,
+  "config": {
+    "n_dim": 2048,
+    "budget": 900,
+    "chunk": 150,
+    "schema_thresh": 0.25,
+    "seed_vocab_n": 1000,
+    "heldout_probe_range": [
+      1000,
+      4000
+    ],
+    "travel_tau": 8.0,
+    "rho_halflife": 72.0,
+    "rho_slow_halflife": 360.0,
+    "beta_leave": 4.0,
+    "patch_fixed_len": 40,
+    "substrate_seed": 20260814,
+    "peek_n": 120,
+    "final_metrics_atomicity": "tmp_replace"
+  },
+  "selftest": {
+    "selftest_ok": true,
+    "exercised_entrypoints": [
+      "CorpusRegistry",
+      "ReadingLoopState",
+      "checkpoint_stage_a_detector",
+      "choose_gap_ranked",
+      "deterministic_seeding_ast_scan",
+      "frozen_shelf",
+      "information_foraging",
+      "read_and_track",
+      "substrate_signature",
+      "wordnet_scorer"
+    ],
+    "n_readable_corpora": 28,
+    "gains": [
+      13.227521,
+      5.621938,
+      8.980564
+    ]
+  }
+}

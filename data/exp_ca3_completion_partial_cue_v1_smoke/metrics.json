@@ -1,0 +1,1355 @@
+{
+  "anchor": "ca3_completion_partial_cue_v1",
+  "code_version": "v1.0",
+  "prereg": "preregs/2026-08-16_exp_ca3_completion_partial_cue_v1.md",
+  "run_mode": "smoke",
+  "V": 512,
+  "D_SWEEP": [
+    256
+  ],
+  "SEEDS": [
+    7
+  ],
+  "OVERLAPS": [
+    1.0,
+    0.8,
+    0.5,
+    0.35,
+    0.2,
+    0.1,
+    0.0
+  ],
+  "N_PROBE": 256,
+  "N_BOOT": 2000,
+  "ALPHA": 0.5,
+  "MAX_STEPS": 4,
+  "organ_default_off": false,
+  "excluded_channels_inherited": [
+    "F_FREQ_ONLY"
+  ],
+  "config_fingerprint": "37e1a9fe966d7be0",
+  "n_units": 1,
+  "selftest": {
+    "IV6_completer_is_reuse_not_reimplementation": true,
+    "IV7_stores_bit_identical_to_predecessor": true,
+    "IV9_cue_cos_tracks_f": {
+      "1.00": 1.0,
+      "0.80": 0.80615234375,
+      "0.50": 0.5151824951171875,
+      "0.35": 0.372650146484375,
+      "0.20": 0.2184906005859375,
+      "0.10": 0.1296844482421875,
+      "0.00": 0.0355682373046875
+    },
+    "IV1_known_answer": {
+      "KA_ORACLE_COMPLETE": 1.0,
+      "N_CA3_SHUFFLED": 0.0,
+      "C_ADDRESSED_CA3": 1.0,
+      "B_ADDRESSED": 1.0
+    },
+    "IV2_null_shuffled_choice": 0.0,
+    "IV3_no_overlap": {
+      "KA_ORACLE_COMPLETE": 1.0,
+      "N_CA3_SHUFFLED": 0.0,
+      "C_ADDRESSED_CA3": 0.0,
+      "B_ADDRESSED": 0.0
+    },
+    "IV5_arms_differ_at_primary_overlap": {
+      "A_FLAT": "5e251706c5b0f827",
+      "B_ADDRESSED": "3ceeb886a7b13a53",
+      "C_ADDRESSED_CA3": "b233e49c9ac85398",
+      "C_ADDRESSED_SNAP1": "71b30d8e487f6cc9",
+      "D_CA3_ONLY": "95f6c96d0f7458f3",
+      "B_ADDRESSED_SIGNED": "d9a4f8198cad193a",
+      "C_ADDRESSED_SIGNED_CA3": "f18dac76337037ae",
+      "KA_ORACLE_COMPLETE": "945ccf989a73d18a",
+      "N_CA3_SHUFFLED": "4407dc826d00f34c",
+      "F_CA3_RANDOMCB": "5c9bd35153114c6a",
+      "F_ORTHO_ONLY": "68385284e2174699",
+      "F_SCRAMBLE": "198e07f4786f9490",
+      "SLOTTED": "a8b273f13b0ca613",
+      "SLOTTED_CA3": "f76266d5b6f3cc37"
+    },
+    "ST_metric_moves": {
+      "f1.00": 1.0,
+      "f0.00": 0.0
+    },
+    "ST_A2_random_overcomplete_dictionary_floor_at_f050": {
+      "top1": 0.2604166666666667,
+      "M_over_d": 2.0,
+      "reason": "reclassified from NULL to FLOOR: with M>d a random codebook is an overcomplete dictionary and snapping to it reconstructs the cue"
+    },
+    "ST_ruler_status": {
+      "experiments/exp_encoding_quality_instrument_v2.py": {
+        "tracked": true,
+        "porcelain": "",
+        "sha256_16": "05e6aacac063edae"
+      },
+      "experiments/exp_hub_spoke_word_representation_v1.py": {
+        "tracked": true,
+        "porcelain": "",
+        "sha256_16": "a7c0ab784dbc55ac"
+      },
+      "experiments/exp_hub_spoke_partial_cue_curve_v1.py": {
+        "tracked": true,
+        "porcelain": "",
+        "sha256_16": "86ec149d810defdd"
+      },
+      "hdlab/hub_spoke_word.py": {
+        "tracked": true,
+        "porcelain": "",
+        "sha256_16": "850a1d123b03d39d"
+      },
+      "hdlab/iterative_attractor.py": {
+        "tracked": true,
+        "porcelain": "",
+        "sha256_16": "a2ba484ad0913926"
+      }
+    },
+    "ST_organ_default_off": true,
+    "IV8_no_external_llm": true
+  },
+  "elapsed_s": 5.335994005203247,
+  "verdict": "PAIRING_HYPOTHESIS_REFUTED",
+  "verdict_msg": "PAIRING_HYPOTHESIS_REFUTED: at cue overlap 0.20 (d=256, chance 1.95e-03) B_ADDRESSED=0.0547 C_ADDRESSED_CA3=0.0039; G1 C-B delta=-0.0508 CI[-0.078125, -0.02734375]; G2b C-SNAP1 delta=+0.0000 CI[0.0, 0.0] (if this covers zero the settling earned nothing); G3 floor=F_SCRAMBLE C_lo=0.0000 vs floor_hi=0.0781; gates passed 0/5. P2 (C top1>=0.5 at primary) FALSIFIED. CONSTRUCTION PROOF ONLY -- no meaning claim, no read-out claim.",
+  "summary": {
+    "d_reported": 256,
+    "chance": 0.001953125,
+    "d_sweep_all_reported": [
+      256
+    ],
+    "INSTRUMENT_VALIDITY": {
+      "IV1_known_answer_per_overlap": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.35": 1.0,
+        "0.20": 1.0,
+        "0.10": 1.0,
+        "0.00": 1.0
+      },
+      "IV1_passed": true,
+      "IV2_null_per_overlap": {
+        "1.00": 0.00390625,
+        "0.80": 0.0,
+        "0.50": 0.0,
+        "0.35": 0.00390625,
+        "0.20": 0.00390625,
+        "0.10": 0.0,
+        "0.00": 0.0
+      },
+      "IV2_passed": true,
+      "IV3_no_overlap_per_arm": {
+        "A_FLAT": 0.0,
+        "B_ADDRESSED": 0.0,
+        "C_ADDRESSED_CA3": 0.0,
+        "C_ADDRESSED_SNAP1": 0.0,
+        "D_CA3_ONLY": 0.0,
+        "B_ADDRESSED_SIGNED": 0.00390625,
+        "C_ADDRESSED_SIGNED_CA3": 0.00390625,
+        "N_CA3_SHUFFLED": 0.0,
+        "F_CA3_RANDOMCB": 0.0,
+        "F_ORTHO_ONLY": 0.0,
+        "F_SCRAMBLE": 0.00390625,
+        "SLOTTED": 0.0,
+        "SLOTTED_CA3": 0.0
+      },
+      "IV3_passed": true,
+      "IV4_saturation_spearman": 0.9642857142857143,
+      "IV4_axis": "spearman(cue_overlap, B_ADDRESSED top1); rising axis, so the gate is POSITIVE",
+      "IV4_passed": true,
+      "IV4b_non_measuring_overlaps": {
+        "1.00": false,
+        "0.80": false,
+        "0.50": false,
+        "0.35": false,
+        "0.20": false,
+        "0.10": false,
+        "0.00": false
+      },
+      "IV4b_primary_overlap_is_measuring": true,
+      "IV5_arms_must_differ_ok": true,
+      "IV6_IV7_IV8_IV9": "asserted in selftest(); the run aborts if any fails",
+      "all_passed": true
+    },
+    "CURVE": {
+      "d=256": {
+        "A_FLAT": {
+          "1.00": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.80": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.50": {
+            "top1": 0.953125,
+            "ci95": [
+              0.92578125,
+              0.9765625
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.35": {
+            "top1": 0.40234375,
+            "ci95": [
+              0.34375,
+              0.4609375
+            ],
+            "recall_at_50": 0.8828125,
+            "median_rank": 2.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.20": {
+            "top1": 0.046875,
+            "ci95": [
+              0.0234375,
+              0.07421875
+            ],
+            "recall_at_50": 0.42578125,
+            "median_rank": 73.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.10": {
+            "top1": 0.0078125,
+            "ci95": [
+              0.0,
+              0.01953125
+            ],
+            "recall_at_50": 0.16796875,
+            "median_rank": 174.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.00": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.06640625,
+            "median_rank": 270.5,
+            "per_spoke_completion_acc": NaN
+          }
+        },
+        "B_ADDRESSED": {
+          "1.00": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.80": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.50": {
+            "top1": 0.9453125,
+            "ci95": [
+              0.91796875,
+              0.97265625
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.35": {
+            "top1": 0.390625,
+            "ci95": [
+              0.3359375,
+              0.44921875
+            ],
+            "recall_at_50": 0.89453125,
+            "median_rank": 3.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.20": {
+            "top1": 0.0546875,
+            "ci95": [
+              0.02734375,
+              0.0859375
+            ],
+            "recall_at_50": 0.40625,
+            "median_rank": 79.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.10": {
+            "top1": 0.01171875,
+            "ci95": [
+              0.0,
+              0.0234375
+            ],
+            "recall_at_50": 0.16796875,
+            "median_rank": 167.5,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.00": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.06640625,
+            "median_rank": 283.5,
+            "per_spoke_completion_acc": NaN
+          }
+        },
+        "C_ADDRESSED_CA3": {
+          "1.00": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": 0.7294921875
+          },
+          "0.80": {
+            "top1": 0.9765625,
+            "ci95": [
+              0.95703125,
+              0.9921875
+            ],
+            "recall_at_50": 0.98828125,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": 0.5888671875
+          },
+          "0.50": {
+            "top1": 0.3046875,
+            "ci95": [
+              0.25,
+              0.36328125
+            ],
+            "recall_at_50": 0.6328125,
+            "median_rank": 13.0,
+            "per_spoke_completion_acc": 0.166015625
+          },
+          "0.35": {
+            "top1": 0.01171875,
+            "ci95": [
+              0.0,
+              0.02734375
+            ],
+            "recall_at_50": 0.2890625,
+            "median_rank": 149.5,
+            "per_spoke_completion_acc": 0.025390625
+          },
+          "0.20": {
+            "top1": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "recall_at_50": 0.1484375,
+            "median_rank": 227.0,
+            "per_spoke_completion_acc": 0.0048828125
+          },
+          "0.10": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.08984375,
+            "median_rank": 234.5,
+            "per_spoke_completion_acc": 0.0009765625
+          },
+          "0.00": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.05859375,
+            "median_rank": 284.0,
+            "per_spoke_completion_acc": 0.0009765625
+          }
+        },
+        "C_ADDRESSED_SNAP1": {
+          "1.00": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": 0.7841796875
+          },
+          "0.80": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": 0.7421875
+          },
+          "0.50": {
+            "top1": 0.5234375,
+            "ci95": [
+              0.4609375,
+              0.58203125
+            ],
+            "recall_at_50": 0.828125,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": 0.2744140625
+          },
+          "0.35": {
+            "top1": 0.0234375,
+            "ci95": [
+              0.0078125,
+              0.04296875
+            ],
+            "recall_at_50": 0.2265625,
+            "median_rank": 153.5,
+            "per_spoke_completion_acc": 0.029296875
+          },
+          "0.20": {
+            "top1": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "recall_at_50": 0.10546875,
+            "median_rank": 246.0,
+            "per_spoke_completion_acc": 0.0
+          },
+          "0.10": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.07421875,
+            "median_rank": 260.0,
+            "per_spoke_completion_acc": 0.0
+          },
+          "0.00": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.06640625,
+            "median_rank": 282.5,
+            "per_spoke_completion_acc": 0.001953125
+          }
+        },
+        "D_CA3_ONLY": {
+          "1.00": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.80": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.50": {
+            "top1": 0.75,
+            "ci95": [
+              0.69921875,
+              0.8046875
+            ],
+            "recall_at_50": 0.82421875,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.35": {
+            "top1": 0.2421875,
+            "ci95": [
+              0.19140625,
+              0.29296875
+            ],
+            "recall_at_50": 0.484375,
+            "median_rank": 55.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.20": {
+            "top1": 0.02734375,
+            "ci95": [
+              0.0078125,
+              0.05078125
+            ],
+            "recall_at_50": 0.26171875,
+            "median_rank": 148.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.10": {
+            "top1": 0.015625,
+            "ci95": [
+              0.00390625,
+              0.03125
+            ],
+            "recall_at_50": 0.140625,
+            "median_rank": 198.5,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.00": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.06640625,
+            "median_rank": 273.5,
+            "per_spoke_completion_acc": NaN
+          }
+        },
+        "B_ADDRESSED_SIGNED": {
+          "1.00": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.80": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.50": {
+            "top1": 0.765625,
+            "ci95": [
+              0.70703125,
+              0.81640625
+            ],
+            "recall_at_50": 0.99609375,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.35": {
+            "top1": 0.296875,
+            "ci95": [
+              0.24609375,
+              0.3515625
+            ],
+            "recall_at_50": 0.8046875,
+            "median_rank": 6.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.20": {
+            "top1": 0.03515625,
+            "ci95": [
+              0.015625,
+              0.05859375
+            ],
+            "recall_at_50": 0.3984375,
+            "median_rank": 78.5,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.10": {
+            "top1": 0.01171875,
+            "ci95": [
+              0.0,
+              0.02734375
+            ],
+            "recall_at_50": 0.16796875,
+            "median_rank": 165.5,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.00": {
+            "top1": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "recall_at_50": 0.07421875,
+            "median_rank": 280.5,
+            "per_spoke_completion_acc": NaN
+          }
+        },
+        "C_ADDRESSED_SIGNED_CA3": {
+          "1.00": {
+            "top1": 0.98828125,
+            "ci95": [
+              0.97265625,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": 0.595703125
+          },
+          "0.80": {
+            "top1": 0.8046875,
+            "ci95": [
+              0.7578125,
+              0.8515625
+            ],
+            "recall_at_50": 0.92578125,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": 0.40234375
+          },
+          "0.50": {
+            "top1": 0.1875,
+            "ci95": [
+              0.140625,
+              0.23828125
+            ],
+            "recall_at_50": 0.54296875,
+            "median_rank": 30.5,
+            "per_spoke_completion_acc": 0.09765625
+          },
+          "0.35": {
+            "top1": 0.02734375,
+            "ci95": [
+              0.0078125,
+              0.046875
+            ],
+            "recall_at_50": 0.29296875,
+            "median_rank": 119.5,
+            "per_spoke_completion_acc": 0.02734375
+          },
+          "0.20": {
+            "top1": 0.0078125,
+            "ci95": [
+              0.0,
+              0.01953125
+            ],
+            "recall_at_50": 0.1796875,
+            "median_rank": 196.5,
+            "per_spoke_completion_acc": 0.0078125
+          },
+          "0.10": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.1171875,
+            "median_rank": 227.0,
+            "per_spoke_completion_acc": 0.0009765625
+          },
+          "0.00": {
+            "top1": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "recall_at_50": 0.0703125,
+            "median_rank": 260.5,
+            "per_spoke_completion_acc": 0.0029296875
+          }
+        },
+        "KA_ORACLE_COMPLETE": {
+          "1.00": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.80": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.50": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.35": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.20": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.10": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.00": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          }
+        },
+        "N_CA3_SHUFFLED": {
+          "1.00": {
+            "top1": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "recall_at_50": 0.12109375,
+            "median_rank": 284.0,
+            "per_spoke_completion_acc": 0.7294921875
+          },
+          "0.80": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.0859375,
+            "median_rank": 254.5,
+            "per_spoke_completion_acc": 0.5888671875
+          },
+          "0.50": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.078125,
+            "median_rank": 243.0,
+            "per_spoke_completion_acc": 0.166015625
+          },
+          "0.35": {
+            "top1": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "recall_at_50": 0.09375,
+            "median_rank": 268.5,
+            "per_spoke_completion_acc": 0.025390625
+          },
+          "0.20": {
+            "top1": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "recall_at_50": 0.12109375,
+            "median_rank": 234.0,
+            "per_spoke_completion_acc": 0.0048828125
+          },
+          "0.10": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.10546875,
+            "median_rank": 226.0,
+            "per_spoke_completion_acc": 0.0009765625
+          },
+          "0.00": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.06640625,
+            "median_rank": 259.5,
+            "per_spoke_completion_acc": 0.0009765625
+          }
+        },
+        "F_CA3_RANDOMCB": {
+          "1.00": {
+            "top1": 0.98046875,
+            "ci95": [
+              0.9609375,
+              0.99609375
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.80": {
+            "top1": 0.8671875,
+            "ci95": [
+              0.82421875,
+              0.91015625
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.50": {
+            "top1": 0.265625,
+            "ci95": [
+              0.2109375,
+              0.3203125
+            ],
+            "recall_at_50": 0.8828125,
+            "median_rank": 5.5,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.35": {
+            "top1": 0.0625,
+            "ci95": [
+              0.03515625,
+              0.09375
+            ],
+            "recall_at_50": 0.65625,
+            "median_rank": 32.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.20": {
+            "top1": 0.015625,
+            "ci95": [
+              0.00390625,
+              0.03125
+            ],
+            "recall_at_50": 0.3359375,
+            "median_rank": 104.5,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.10": {
+            "top1": 0.01171875,
+            "ci95": [
+              0.0,
+              0.0234375
+            ],
+            "recall_at_50": 0.16015625,
+            "median_rank": 190.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.00": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.10546875,
+            "median_rank": 280.5,
+            "per_spoke_completion_acc": NaN
+          }
+        },
+        "F_ORTHO_ONLY": {
+          "1.00": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.80": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.50": {
+            "top1": 0.4921875,
+            "ci95": [
+              0.43359375,
+              0.5546875
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 2.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.35": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 2.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.20": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.91796875,
+            "median_rank": 5.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.10": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.50390625,
+            "median_rank": 49.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.00": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.05859375,
+            "median_rank": 260.0,
+            "per_spoke_completion_acc": NaN
+          }
+        },
+        "F_SCRAMBLE": {
+          "1.00": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.80": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.50": {
+            "top1": 0.98046875,
+            "ci95": [
+              0.9609375,
+              0.99609375
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.35": {
+            "top1": 0.31640625,
+            "ci95": [
+              0.2578125,
+              0.375
+            ],
+            "recall_at_50": 0.8359375,
+            "median_rank": 4.5,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.20": {
+            "top1": 0.05078125,
+            "ci95": [
+              0.0234375,
+              0.078125
+            ],
+            "recall_at_50": 0.3984375,
+            "median_rank": 84.5,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.10": {
+            "top1": 0.0078125,
+            "ci95": [
+              0.0,
+              0.01953125
+            ],
+            "recall_at_50": 0.1875,
+            "median_rank": 176.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.00": {
+            "top1": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "recall_at_50": 0.0859375,
+            "median_rank": 257.0,
+            "per_spoke_completion_acc": NaN
+          }
+        },
+        "SLOTTED": {
+          "1.00": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.80": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.50": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.35": {
+            "top1": 0.5,
+            "ci95": [
+              0.44140625,
+              0.5625
+            ],
+            "recall_at_50": 0.93359375,
+            "median_rank": 1.5,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.20": {
+            "top1": 0.0703125,
+            "ci95": [
+              0.04296875,
+              0.10546875
+            ],
+            "recall_at_50": 0.40234375,
+            "median_rank": 75.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.10": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.19140625,
+            "median_rank": 155.0,
+            "per_spoke_completion_acc": NaN
+          },
+          "0.00": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.0625,
+            "median_rank": 265.0,
+            "per_spoke_completion_acc": NaN
+          }
+        },
+        "SLOTTED_CA3": {
+          "1.00": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": 0.8095703125
+          },
+          "0.80": {
+            "top1": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "recall_at_50": 1.0,
+            "median_rank": 1.0,
+            "per_spoke_completion_acc": 0.7998046875
+          },
+          "0.50": {
+            "top1": 0.41796875,
+            "ci95": [
+              0.35546875,
+              0.48046875
+            ],
+            "recall_at_50": 0.6640625,
+            "median_rank": 4.0,
+            "per_spoke_completion_acc": 0.2626953125
+          },
+          "0.35": {
+            "top1": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "recall_at_50": 0.140625,
+            "median_rank": 217.5,
+            "per_spoke_completion_acc": 0.001953125
+          },
+          "0.20": {
+            "top1": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "recall_at_50": 0.10546875,
+            "median_rank": 260.0,
+            "per_spoke_completion_acc": 0.0
+          },
+          "0.10": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.0859375,
+            "median_rank": 261.0,
+            "per_spoke_completion_acc": 0.0
+          },
+          "0.00": {
+            "top1": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "recall_at_50": 0.0625,
+            "median_rank": 266.5,
+            "per_spoke_completion_acc": 0.0009765625
+          }
+        }
+      }
+    },
+    "SCIENTIFIC_GATES": {
+      "G1_pairing": {
+        "delta": {
+          "point": -0.05078125,
+          "ci95": [
+            -0.078125,
+            -0.02734375
+          ],
+          "n_seeds": 1
+        },
+        "passed": false
+      },
+      "G2_addressing_necessary": {
+        "delta": {
+          "point": -0.0234375,
+          "ci95": [
+            -0.04296875,
+            -0.0078125
+          ],
+          "n_seeds": 1
+        },
+        "passed": false
+      },
+      "G2b_ca3_earns_its_credit": {
+        "delta": {
+          "point": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "n_seeds": 1
+        },
+        "passed": false,
+        "meaning": "if this CI covers zero the SETTLING contributed nothing and any win belongs to the ADDRESS (routing), not to CA3"
+      },
+      "G3_floor": {
+        "C_ci_lower": 0.0,
+        "floor_ci_uppers": {
+          "F_ORTHO_ONLY": 0.0,
+          "F_SCRAMBLE": 0.078125,
+          "F_CA3_RANDOMCB": 0.03125
+        },
+        "strongest_floor": "F_SCRAMBLE",
+        "passed": false
+      },
+      "G4_spelling_neighbourhood_bar": {
+        "C_recall_at_50": 0.1484375,
+        "F_ORTHO_ONLY_recall_at_50": 0.91796875,
+        "C_median_rank": 227.0,
+        "F_ORTHO_ONLY_median_rank": 5.0,
+        "passed": false,
+        "note": "until this passes, no writeup may say 'beats the floors' -- only 'beats the floors on top-1'"
+      }
+    },
+    "PREDICTIONS": {
+      "P1_B_collapses": {
+        "B_at_0.50": 0.9453125,
+        "B_at_primary": 0.0546875,
+        "scored": "CONFIRMED"
+      },
+      "P2_C_holds_top1_ge_0.50_at_primary": {
+        "C_at_primary": 0.00390625,
+        "threshold": 0.5,
+        "scored": "FALSIFIED"
+      },
+      "P3_D_minus_A_within_band": {
+        "delta": {
+          "point": -0.01953125,
+          "ci95": [
+            -0.04296875,
+            0.0
+          ],
+          "n_seeds": 1
+        },
+        "band": 0.02,
+        "scored": "CONFIRMED"
+      },
+      "P4_signing_costs_the_completer": {
+        "delta": {
+          "point": 0.00390625,
+          "ci95": [
+            0.0,
+            0.01171875
+          ],
+          "n_seeds": 1
+        },
+        "scored": "NOT_CONFIRMED"
+      }
+    },
+    "CEILINGS_NOT_DIMENSION_MATCHED": {
+      "SLOTTED": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.35": 0.5,
+        "0.20": 0.0703125,
+        "0.10": 0.0,
+        "0.00": 0.0
+      },
+      "SLOTTED_CA3": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 0.41796875,
+        "0.35": 0.00390625,
+        "0.20": 0.00390625,
+        "0.10": 0.0,
+        "0.00": 0.0
+      }
+    },
+    "SLOTTED_CA3_minus_C_at_primary": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "n_seeds": 1
+    },
+    "X_ITERATION_LIFT_VS_CORRELATION": {
+      "d=256": {
+        "rho=0.0": {
+          "per_spoke_iterative": 0.505859375,
+          "per_spoke_single_snap": 0.51171875,
+          "iteration_lift": -0.005859375,
+          "measured_within_word_cos": 0.00164794921875
+        },
+        "rho=0.5": {
+          "per_spoke_iterative": 0.46875,
+          "per_spoke_single_snap": 0.47265625,
+          "iteration_lift": -0.00390625,
+          "measured_within_word_cos": 0.24835205078125
+        },
+        "rho=0.8": {
+          "per_spoke_iterative": 0.48046875,
+          "per_spoke_single_snap": 0.478515625,
+          "iteration_lift": 0.001953125,
+          "measured_within_word_cos": 0.636962890625
+        }
+      }
+    },
+    "SECONDARY_OVERLAPS": {
+      "0.35": {
+        "G1_C_minus_B": {
+          "point": -0.37890625,
+          "ci95": [
+            -0.44140625,
+            -0.32421875
+          ],
+          "n_seeds": 1
+        },
+        "C": 0.01171875,
+        "B": 0.390625
+      },
+      "0.10": {
+        "G1_C_minus_B": {
+          "point": -0.01171875,
+          "ci95": [
+            -0.0234375,
+            0.0
+          ],
+          "n_seeds": 1
+        },
+        "C": 0.0,
+        "B": 0.01171875
+      }
+    },
+    "VERDICT": "PAIRING_HYPOTHESIS_REFUTED",
+    "verdict_msg": "PAIRING_HYPOTHESIS_REFUTED: at cue overlap 0.20 (d=256, chance 1.95e-03) B_ADDRESSED=0.0547 C_ADDRESSED_CA3=0.0039; G1 C-B delta=-0.0508 CI[-0.078125, -0.02734375]; G2b C-SNAP1 delta=+0.0000 CI[0.0, 0.0] (if this covers zero the settling earned nothing); G3 floor=F_SCRAMBLE C_lo=0.0000 vs floor_hi=0.0781; gates passed 0/5. P2 (C top1>=0.5 at primary) FALSIFIED. CONSTRUCTION PROOF ONLY -- no meaning claim, no read-out claim."
+  }
+}

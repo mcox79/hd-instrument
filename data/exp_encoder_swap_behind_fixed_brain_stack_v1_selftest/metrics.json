@@ -1,0 +1,11 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: arm D_random_init_twin: 100.0% of real tokens have a DEAD (all-zero) rep; the arm is degenerate, not a fair comparator",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_swap_behind_fixed_brain_stack_v1.py\", line 748, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_swap_behind_fixed_brain_stack_v1.py\", line 670, in main\n    run_self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_encoder_swap_behind_fixed_brain_stack_v1.py\", line 575, in run_self_test\n    assert zf <= 0.25, (\"arm %s: %.1f%% of real tokens have a DEAD (all-zero) rep; \"\n           ^^^^^^^^^^\nAssertionError: arm D_random_init_twin: 100.0% of real tokens have a DEAD (all-zero) rep; the arm is degenerate, not a fair comparator\n",
+  "ts_iso": "2026-08-13T22:18:55.364650+00:00",
+  "pid": 9728,
+  "anchor_name": "encoder_swap_behind_fixed_brain_stack_v1",
+  "run_mode": "self_test"
+}

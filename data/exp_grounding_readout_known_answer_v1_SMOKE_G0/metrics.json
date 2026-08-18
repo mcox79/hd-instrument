@@ -1,0 +1,383 @@
+{
+  "anchor_name": "exp_grounding_readout_known_answer_v1",
+  "run_mode": "smoke",
+  "prereg": "preregs/2026-08-14_grounding_readout_known_answer_v1.md",
+  "ts_iso": "2026-08-14T07:27:46.217038+00:00",
+  "graded_comparator": false,
+  "HD_GRADED_COMPARATOR_env": "0",
+  "wire_status": "VET_PENDING",
+  "verdict": "AT_FLOOR | AT_CHANCE",
+  "verdict_msg": "STAGE_A(banked known-answer): AT_FLOOR -- arm=PBV_BASE GOLD_HIT=0.0251 floor_scramble=0.0125 floor_popularity=0.0094 d=0.0125 CI=[-0.0031,0.0313]; the banked meanings are statistically indistinguishable from a random re-pairing of the same object words || STAGE_B(2AFC known-answer, chance 0.50): AT_CHANCE -- B1=0.5074 (chance 0.50) scramble_floor=0.4910 frequency_floor=0.5238 d(B1-B2)=0.0164 CI=[-0.0378,0.0706]; the read-out cannot pick the gold meaning over a frequency-matched foil better than a coin",
+  "stage_a": {
+    "per_banked_arm": {
+      "PBV_BASE": {
+        "n_facts_total": 384,
+        "n_wordnet_evaluable": 319,
+        "evaluable_fraction": 0.830729,
+        "tautology_rate_all_facts": 0.0,
+        "n_tautology_all_facts": 0,
+        "gold_hit": {
+          "A1_REAL": {
+            "acc": 0.025078,
+            "ci_lo": 0.009404,
+            "ci_hi": 0.043887,
+            "sd": 0.00878
+          },
+          "A2_SCRAMBLE": {
+            "acc": 0.012539,
+            "ci_lo": 0.003135,
+            "ci_hi": 0.025078,
+            "sd": 0.006316
+          },
+          "A3_POPULARITY": {
+            "acc": 0.009404,
+            "ci_lo": 0.0,
+            "ci_hi": 0.021944,
+            "sd": 0.005449
+          }
+        },
+        "bootstrap": {
+          "n_boot": 5000,
+          "seed": 20260814,
+          "n_items": 319,
+          "arm_acc_ci": {
+            "A1_REAL": {
+              "acc": 0.025078,
+              "ci_lo": 0.009404,
+              "ci_hi": 0.043887,
+              "sd": 0.00878
+            },
+            "A2_SCRAMBLE": {
+              "acc": 0.012539,
+              "ci_lo": 0.003135,
+              "ci_hi": 0.025078,
+              "sd": 0.006316
+            },
+            "A3_POPULARITY": {
+              "acc": 0.009404,
+              "ci_lo": 0.0,
+              "ci_hi": 0.021944,
+              "sd": 0.005449
+            }
+          },
+          "deltas": {
+            "d_A1_minus_A2": {
+              "delta": 0.012539,
+              "ci_lo": -0.003135,
+              "ci_hi": 0.031348,
+              "sd": 0.008818,
+              "mde_95": 0.017284,
+              "ci_excludes_zero": false
+            },
+            "d_A1_minus_A3": {
+              "delta": 0.015674,
+              "ci_lo": -0.003135,
+              "ci_hi": 0.037618,
+              "sd": 0.010393,
+              "mde_95": 0.020369,
+              "ci_excludes_zero": false
+            }
+          }
+        },
+        "arm_digests": {
+          "A1_REAL": "d478392a145c90877aeb16c7dccae48d9b976d090a7549d67c3d01fdd0f7a5de",
+          "A2_SCRAMBLE": "d7ed0b608e78e4f57f36dc80dd4880f1e4d5de05f0660a8dc4d27615f28091c9",
+          "A3_POPULARITY": "885cc2a8eafb3bed3523d7346a4a25411b3fcf0b03821e80304702df043d67a3"
+        },
+        "examples_hit": [
+          "calculate->bank",
+          "followers->visitor",
+          "recommend->clean",
+          "reward->drink",
+          "rolling->bob",
+          "sheet->paper",
+          "status->dark",
+          "swing->beat"
+        ]
+      },
+      "PBV_F1F3": {
+        "n_facts_total": 369,
+        "n_wordnet_evaluable": 303,
+        "evaluable_fraction": 0.821138,
+        "tautology_rate_all_facts": 0.0,
+        "n_tautology_all_facts": 0,
+        "gold_hit": {
+          "A1_REAL": {
+            "acc": 0.019802,
+            "ci_lo": 0.006601,
+            "ci_hi": 0.036304,
+            "sd": 0.008099
+          },
+          "A2_SCRAMBLE": {
+            "acc": 0.0033,
+            "ci_lo": 0.0,
+            "ci_hi": 0.009901,
+            "sd": 0.003323
+          },
+          "A3_POPULARITY": {
+            "acc": 0.009901,
+            "ci_lo": 0.0,
+            "ci_hi": 0.023102,
+            "sd": 0.00583
+          }
+        },
+        "bootstrap": {
+          "n_boot": 5000,
+          "seed": 20260814,
+          "n_items": 303,
+          "arm_acc_ci": {
+            "A1_REAL": {
+              "acc": 0.019802,
+              "ci_lo": 0.006601,
+              "ci_hi": 0.036304,
+              "sd": 0.008099
+            },
+            "A2_SCRAMBLE": {
+              "acc": 0.0033,
+              "ci_lo": 0.0,
+              "ci_hi": 0.009901,
+              "sd": 0.003323
+            },
+            "A3_POPULARITY": {
+              "acc": 0.009901,
+              "ci_lo": 0.0,
+              "ci_hi": 0.023102,
+              "sd": 0.00583
+            }
+          },
+          "deltas": {
+            "d_A1_minus_A2": {
+              "delta": 0.016502,
+              "ci_lo": 0.0,
+              "ci_hi": 0.036304,
+              "sd": 0.008733,
+              "mde_95": 0.017116,
+              "ci_excludes_zero": false
+            },
+            "d_A1_minus_A3": {
+              "delta": 0.009901,
+              "ci_lo": -0.009901,
+              "ci_hi": 0.029703,
+              "sd": 0.010017,
+              "mde_95": 0.019633,
+              "ci_excludes_zero": false
+            }
+          }
+        },
+        "arm_digests": {
+          "A1_REAL": "c292ecd907ac0ab54d062f24c0e6ac883daa513b7fb516b423c30e4da78b65e6",
+          "A2_SCRAMBLE": "5d4179c203c20d0c24303a6d50be7a2af1c7b4c4a913387ec7b6d55c7e5c4298",
+          "A3_POPULARITY": "d5a4bf38f6567052c758df315a22d6fba9e9d4b78e1c9a747afbea4ba7571511"
+        },
+        "examples_hit": [
+          "hitting->beat",
+          "interpret->tell",
+          "mouse->witness",
+          "nap->sleeping",
+          "status->dark",
+          "yahoo->program"
+        ]
+      }
+    },
+    "verdict": "AT_FLOOR",
+    "notes": [
+      "arm=PBV_BASE GOLD_HIT=0.0251 floor_scramble=0.0125 floor_popularity=0.0094 d=0.0125 CI=[-0.0031,0.0313]",
+      "the banked meanings are statistically indistinguishable from a random re-pairing of the same object words"
+    ],
+    "banked_provenance_note": "facts banked 2026-08-12 by exp_grounding_quality_readout_v1 (FULL, STRUCTURAL_PASS_PENDING_B3), i.e. BEFORE the HD_GRADED_COMPARATOR default flip (38f7a0d5c, 2026-08-14). No cross-setting comparison is drawn from stage A."
+  },
+  "stage_b": {
+    "verdict": "AT_CHANCE",
+    "notes": [
+      "B1=0.5074 (chance 0.50) scramble_floor=0.4910 frequency_floor=0.5238 d(B1-B2)=0.0164 CI=[-0.0378,0.0706]",
+      "the read-out cannot pick the gold meaning over a frequency-matched foil better than a coin"
+    ],
+    "n_items": 609,
+    "item_construction": {
+      "n_anchors": 716,
+      "n_items_before_cap": 609,
+      "n_items": 609,
+      "removals": {
+        "foil_direction_fallback": 24,
+        "removed_L_not_in_wordnet": 39,
+        "removed_no_gold_anchor": 68
+      },
+      "n_items_with_heldout_sentence": 609
+    },
+    "graded_comparator": false,
+    "self_retrieval": {
+      "acc": 0.778523,
+      "n": 298,
+      "floor": 0.7,
+      "ok": true
+    },
+    "twoafc": {
+      "n_boot": 5000,
+      "seed": 20260821,
+      "n_items": 609,
+      "arm_acc_ci": {
+        "B1_ACCUM_REAL": {
+          "acc": 0.507389,
+          "ci_lo": 0.469622,
+          "ci_hi": 0.546798,
+          "sd": 0.020009
+        },
+        "B2_ACCUM_SCRAMBLE": {
+          "acc": 0.490969,
+          "ci_lo": 0.45156,
+          "ci_hi": 0.530378,
+          "sd": 0.020293
+        },
+        "B3_FREQUENCY": {
+          "acc": 0.52381,
+          "ci_lo": 0.482759,
+          "ci_hi": 0.564901,
+          "sd": 0.020812
+        },
+        "B4_SENTENCE_REAL": {
+          "acc": 0.527094,
+          "ci_lo": 0.486043,
+          "ci_hi": 0.568144,
+          "sd": 0.020509
+        }
+      },
+      "deltas": {
+        "d_B1_minus_B2": {
+          "delta": 0.01642,
+          "ci_lo": -0.037767,
+          "ci_hi": 0.070608,
+          "sd": 0.027578,
+          "mde_95": 0.054052,
+          "ci_excludes_zero": false
+        },
+        "d_B1_minus_B3": {
+          "delta": -0.01642,
+          "ci_lo": -0.07225,
+          "ci_hi": 0.039409,
+          "sd": 0.02826,
+          "mde_95": 0.05539,
+          "ci_excludes_zero": false
+        },
+        "d_B4_minus_B2": {
+          "delta": 0.036125,
+          "ci_lo": -0.019704,
+          "ci_hi": 0.093596,
+          "sd": 0.029027,
+          "mde_95": 0.056893,
+          "ci_excludes_zero": false
+        },
+        "d_B1_ACCUM_REAL_minus_CHANCE": {
+          "delta": 0.007389,
+          "ci_lo": -0.030378,
+          "ci_hi": 0.046798,
+          "sd": 0.020009,
+          "mde_95": 0.039217,
+          "ci_excludes_zero": false
+        }
+      }
+    },
+    "arm_digests": {
+      "B1_ACCUM_REAL": "b1d3cc93b5c3949d98a2e7ea51a29a766b34a04f446e67046243972a9d98895a",
+      "B2_ACCUM_SCRAMBLE": "e76a0a5f7088f86d571dbcbf70886c1f00511e1c3ece30d2706fee88c6ef6510",
+      "B3_FREQUENCY": "0839641ef988ec1597edbaf1e6a75f94246255d0ec41dd45cacdf462eefcce79",
+      "B4_SENTENCE_REAL": "6a8cfa6a8e1fbd4aaba1288503610f64124a4386095f0b9a9487bf6c23c954a1"
+    },
+    "arms_bit_identical": [],
+    "frequency_floor_in_band": {
+      "acc": 0.52381,
+      "band": [
+        0.4,
+        0.6
+      ],
+      "ok": true
+    },
+    "open_vocabulary_readout": {
+      "note": "B5/B6 are the OPEN-VOCABULARY argmax the reading loop actually performs (all 716 anchors eligible). B5 hit@1 is the closest automated analogue of the MEANINGFUL rate; B6 is its floor.",
+      "n_anchors": 716,
+      "hit_at_1": {
+        "B5_OPEN_REAL": {
+          "acc": 0.0,
+          "ci_lo": 0.0,
+          "ci_hi": 0.0,
+          "sd": 0.0
+        },
+        "B6_OPEN_SCRAMBLE": {
+          "acc": 0.027915,
+          "ci_lo": 0.016379,
+          "ci_hi": 0.041051,
+          "sd": 0.006794
+        }
+      },
+      "delta": {
+        "d_B5_minus_B6": {
+          "delta": -0.027915,
+          "ci_lo": -0.041051,
+          "ci_hi": -0.016379,
+          "sd": 0.006794,
+          "mde_95": 0.013316,
+          "ci_excludes_zero": true
+        }
+      },
+      "tautology_rate": 1.0,
+      "n_tautology": 609,
+      "example_picks": [
+        "ability->ability",
+        "about->about",
+        "above->above",
+        "accord->accord",
+        "action->action",
+        "address->address",
+        "add->add",
+        "affect->affect",
+        "african->african",
+        "after->after",
+        "agree->agree",
+        "allow->allow",
+        "also->also",
+        "alternative->alternative",
+        "altitude->altitude",
+        "amazon->amazon",
+        "american->american",
+        "amount->amount",
+        "animal->animal",
+        "answer->answer",
+        "antibiotic->antibiotic",
+        "appear->appear",
+        "apple->apple",
+        "application->application",
+        "apply->apply"
+      ],
+      "example_gold_hits": []
+    },
+    "diagnostics": {
+      "B4_zero_query_fell_back_to_coin": 3
+    },
+    "elapsed_s": 20.73
+  },
+  "revival_criterion": {
+    "recorded": ">=0.10 MEANINGFUL against a recorded floor, tautologies <0.10",
+    "source": "notes/SUBSTRATE_STRATEGY.md PART 1 (C3)"
+  },
+  "config": {
+    "CTX_D": 256,
+    "MIN_LEMMA_COUNT": 8,
+    "K_SENT_TOTAL": 90,
+    "PROFILE_FRAC": 0.8,
+    "FOIL_RATIO_BAND": [
+      0.5,
+      2.0
+    ],
+    "MAX_ITEMS": 4000,
+    "MIN_ITEMS": 200,
+    "N_BOOTSTRAP": 5000,
+    "MASTER_SEED": 20260814,
+    "OMP_NUM_THREADS": "1"
+  },
+  "limitations": [
+    "GOLD_HIT is a KNOWN-ANSWER PROXY for a human MEANINGFUL judgement, chosen because it has a floor and the hand-score does not. Convergence with the prior hand-score is evidence ABOUT THE PROXY, never a substitute for it.",
+    "STAGE B is a 2-candidate forced choice; it licenses NO statement about the open-vocabulary argmax rate. Only STAGE A and the B5/B6 open-vocabulary block do.",
+    "L's accumulated bundle may contain sentences where the gold word co-occurs. The leak is left IN on purpose (co-occurrence IS the mechanism) and biases TOWARDS the treatment, so a null is conservative.",
+    "STAGE A re-scores facts banked 2026-08-12, BEFORE the HD_GRADED_COMPARATOR default flip. STAGE B's setting is reported in graded_comparator."
+  ],
+  "elapsed_s": 27.87
+}

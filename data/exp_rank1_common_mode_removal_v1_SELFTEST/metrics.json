@@ -1,0 +1,53 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "module-import self-test ran successfully",
+  "summary": "self_test",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "selftest": {
+    "c1_testbed_selftest_ran_on_import": true,
+    "graded_comparator_switch": true,
+    "projection_algebra": {
+      "orthogonal_after_removal": true,
+      "idempotent": true,
+      "scale_free": true
+    },
+    "common_mode_meter": {
+      "planted_energy_frac": 0.693705,
+      "isotropic_energy_frac": 0.01905,
+      "planted_after_P1": 0.019355
+    },
+    "scorer_matches_reference_loop": true,
+    "control_separation": {
+      "energy_on_true_common_mode": 0.693705,
+      "energy_on_a_random_direction": 0.015237
+    },
+    "bootstrap_selftest": {
+      "real_delta": 0.1125,
+      "null_false_positives": 0,
+      "null_replicates": 6
+    },
+    "verdict_branches_reachable": [
+      "HARD_FAIL_NO_EFFECT",
+      "HARD_FAIL_PERTURBATION_ARTIFACT",
+      "HARD_PASS",
+      "MIDDLE_BAND",
+      "MIDDLE_BAND_FLOOR_HUGGING",
+      "MIDDLE_BAND_REAL_BUT_SMALL"
+    ],
+    "perturbation_branch_dominates": true,
+    "substrate_signature_checked": [
+      "canonicalize_fast"
+    ],
+    "testbed_functions_bound": [
+      "_ctx_masked_multi",
+      "_is_variant",
+      "assign_donors",
+      "build_corpus_assets",
+      "build_items",
+      "build_space",
+      "split_pools"
+    ],
+    "selftest_elapsed_s": 0.079
+  }
+}

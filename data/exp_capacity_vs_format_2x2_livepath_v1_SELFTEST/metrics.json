@@ -1,0 +1,47 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "6/6 checks",
+  "summary": "instrumentation self-test",
+  "anchor_name": "exp_capacity_vs_format_2x2_livepath_v1_SELFTEST",
+  "checks": {
+    "S0_fast_encoder_is_parent_encoder": true,
+    "S1_hdlab_byte_identity": {
+      "d256": {
+        "QUANT_byte_identical": true,
+        "GRAD_byte_identical": true
+      },
+      "d1024": {
+        "QUANT_byte_identical": true,
+        "GRAD_byte_identical": true
+      }
+    },
+    "S2_readout": {
+      "scorer_matches_canonicalize_fast": true,
+      "graded_query_reachable": true
+    },
+    "S3_draws_independent": {
+      "cos_draw0_draw1_d1024": -0.0026
+    },
+    "S4_bootstrap_is_paired": {
+      "identical_arms_ci": [
+        0.0,
+        0.0
+      ],
+      "perturbed_arms_delta": -0.032
+    },
+    "S5_all_verdict_branches_reachable": [
+      "BOTH_CAPACITY_AND_FORMAT",
+      "CAPACITY_ONLY",
+      "FORMAT_ONLY",
+      "NEGATIVE_DIRECTION",
+      "NEITHER_NULL",
+      "NO_READ_BASELINE_DRIFT",
+      "NO_READ_FLOOR_INVALID",
+      "NO_READ_FREQ_BASELINE_HIGH"
+    ],
+    "S6_wire_gate_can_open_and_close": true,
+    "ok": true,
+    "elapsed_s": 0.03
+  },
+  "ts_iso": "2026-08-14T03:57:13.114345+00:00"
+}

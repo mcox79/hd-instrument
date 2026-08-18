@@ -1,0 +1,12 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: META_RULE_AF: ['S1_SHARPEN_b0.5==S1_SHARPEN_b2', 'S1_SHARPEN_b32768==S1_SHARPEN_b8192', 'S1_SHARPEN_b0.5==S2_SCRAMBLED_b0.5', 'S1_SHARPEN_b0.5==S2_SCRAMBLED_b2', 'S2_SCRAMBLED_b32==S2_SCRAMBLED_b8', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b0.5', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b128', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b2', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b2048', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b32', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b32768', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b512', 'S0_ARGMAX_BASELINE==S3_TWOC",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "run_mode": "crash",
+  "failure_class": "AssertionError",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_sharpening_readout_sister_separation_v1.py\", line 949, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_sharpening_readout_sister_separation_v1.py\", line 936, in main\n    raise AssertionError(\"META_RULE_AF: %r\" % m[\"gates\"][\"declared_identical_pairs\"])\nAssertionError: META_RULE_AF: ['S1_SHARPEN_b0.5==S1_SHARPEN_b2', 'S1_SHARPEN_b32768==S1_SHARPEN_b8192', 'S1_SHARPEN_b0.5==S2_SCRAMBLED_b0.5', 'S1_SHARPEN_b0.5==S2_SCRAMBLED_b2', 'S2_SCRAMBLED_b32==S2_SCRAMBLED_b8', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b0.5', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b128', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b2', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b2048', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b32', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b32768', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b512', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b8', 'S0_ARGMAX_BASELINE==S3_TWOCAND_b8192']\n",
+  "ts_iso": "2026-08-14T15:02:19.884085+00:00",
+  "pid": 5520,
+  "anchor_name": "exp_sharpening_readout_sister_separation_v1"
+}

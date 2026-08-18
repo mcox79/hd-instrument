@@ -1,0 +1,343 @@
+{
+  "CIRCULARITY": "The wire IS circular for the subjects it is fed: INJECTED_A recall is ~1.0 by construction and carries NO claim. Every claim below is computed on HELDOUT_B, whose definitions were never given to the loop in any arm. Residual dependency: B's gold objects and A's injected objects come from the same extractor output, which is what the FREQMATCH arm prices.",
+  "NO_QUALITY_CLAIM": "No hand-scoring was performed and no quality claim is made beyond these recall numbers.",
+  "anchor": "wire_definitional_v1",
+  "arms": {
+    "FREQMATCH": {
+      "anchor_pool_n_lemmas": 1195,
+      "arm": "FREQMATCH",
+      "definition_map_is_shuffled": false,
+      "definition_map_n": 0,
+      "elapsed_s": 1297.44,
+      "n_A": 692,
+      "n_B": 661,
+      "n_anchors": 2357,
+      "n_chunks": 228,
+      "n_eligible_anchors": 2186,
+      "n_facts_banked_from_definitions": 0,
+      "n_grounded": 646,
+      "n_known_seed_lemmas": 887,
+      "n_meaning_facts": 646,
+      "n_refusals": 23629,
+      "n_sentences": 34169,
+      "n_tautology_facts": 0,
+      "no_leak_violations": [],
+      "pairs_digest": "2e0ae06c31d221f8",
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 241,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 22015,
+        "NO_STANDING_HYPOTHESIS": 1373
+      },
+      "segments_seen": {
+        "adv_new": 7408,
+        "bio_new": 12546,
+        "bootstrap": 4640,
+        "ele_cont": 4623,
+        "int_cont": 4952
+      },
+      "trajectory": {
+        "informative_encounter_rate": 0.450629,
+        "n_abandon": 9551,
+        "n_confirm": 2247,
+        "n_disconfirm": 23643,
+        "n_encounters": 83237,
+        "n_informative_encounters": 37509,
+        "n_items": 15990,
+        "n_items_revised": 4666,
+        "n_items_with_hypothesis": 11785,
+        "n_repropose": 9551,
+        "n_revive": 9891,
+        "revision_rate": 0.395927
+      }
+    },
+    "OFF": {
+      "anchor_pool_n_lemmas": 0,
+      "arm": "OFF",
+      "definition_map_is_shuffled": false,
+      "definition_map_n": 0,
+      "elapsed_s": 1406.31,
+      "n_A": 692,
+      "n_B": 661,
+      "n_anchors": 1171,
+      "n_chunks": 228,
+      "n_eligible_anchors": 1000,
+      "n_facts_banked_from_definitions": 0,
+      "n_grounded": 386,
+      "n_known_seed_lemmas": 887,
+      "n_meaning_facts": 386,
+      "n_refusals": 24939,
+      "n_sentences": 34169,
+      "n_tautology_facts": 0,
+      "no_leak_violations": [],
+      "pairs_digest": "72cebfb073eefcfd",
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 241,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 21207,
+        "NO_STANDING_HYPOTHESIS": 3491
+      },
+      "segments_seen": {
+        "adv_new": 7408,
+        "bio_new": 12546,
+        "bootstrap": 4640,
+        "ele_cont": 4623,
+        "int_cont": 4952
+      },
+      "trajectory": {
+        "informative_encounter_rate": 0.316629,
+        "n_abandon": 5944,
+        "n_confirm": 1112,
+        "n_disconfirm": 15482,
+        "n_encounters": 83732,
+        "n_informative_encounters": 26512,
+        "n_items": 15990,
+        "n_items_revised": 3337,
+        "n_items_with_hypothesis": 10438,
+        "n_repropose": 5944,
+        "n_revive": 10121,
+        "revision_rate": 0.319697
+      }
+    },
+    "ON": {
+      "anchor_pool_n_lemmas": 1202,
+      "arm": "ON",
+      "definition_map_is_shuffled": false,
+      "definition_map_n": 692,
+      "elapsed_s": 2124.19,
+      "n_A": 692,
+      "n_B": 661,
+      "n_anchors": 2440,
+      "n_chunks": 228,
+      "n_eligible_anchors": 2269,
+      "n_facts_banked_from_definitions": 394,
+      "n_grounded": 955,
+      "n_known_seed_lemmas": 887,
+      "n_meaning_facts": 955,
+      "n_refusals": 22233,
+      "n_sentences": 34169,
+      "n_tautology_facts": 0,
+      "no_leak_violations": [],
+      "pairs_digest": "f94244f503c4f2a3",
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 241,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 20326,
+        "NO_STANDING_HYPOTHESIS": 1666
+      },
+      "segments_seen": {
+        "adv_new": 7408,
+        "bio_new": 12546,
+        "bootstrap": 4640,
+        "ele_cont": 4623,
+        "int_cont": 4952
+      },
+      "trajectory": {
+        "informative_encounter_rate": 0.460592,
+        "n_abandon": 9576,
+        "n_confirm": 2142,
+        "n_disconfirm": 23626,
+        "n_encounters": 81152,
+        "n_informative_encounters": 37378,
+        "n_items": 15990,
+        "n_items_revised": 4638,
+        "n_items_with_hypothesis": 11818,
+        "n_repropose": 9576,
+        "n_revive": 9660,
+        "revision_rate": 0.392452
+      }
+    },
+    "SHUFFLE": {
+      "anchor_pool_n_lemmas": 1202,
+      "arm": "SHUFFLE",
+      "definition_map_is_shuffled": true,
+      "definition_map_n": 692,
+      "elapsed_s": 1760.9,
+      "n_A": 692,
+      "n_B": 661,
+      "n_anchors": 2440,
+      "n_chunks": 228,
+      "n_eligible_anchors": 2269,
+      "n_facts_banked_from_definitions": 394,
+      "n_grounded": 955,
+      "n_known_seed_lemmas": 887,
+      "n_meaning_facts": 955,
+      "n_refusals": 22233,
+      "n_sentences": 34169,
+      "n_tautology_facts": 0,
+      "no_leak_violations": [],
+      "pairs_digest": "acaf10657d00c610",
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 241,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 20326,
+        "NO_STANDING_HYPOTHESIS": 1666
+      },
+      "segments_seen": {
+        "adv_new": 7408,
+        "bio_new": 12546,
+        "bootstrap": 4640,
+        "ele_cont": 4623,
+        "int_cont": 4952
+      },
+      "trajectory": {
+        "informative_encounter_rate": 0.460592,
+        "n_abandon": 9576,
+        "n_confirm": 2142,
+        "n_disconfirm": 23626,
+        "n_encounters": 81152,
+        "n_informative_encounters": 37378,
+        "n_items": 15990,
+        "n_items_revised": 4638,
+        "n_items_with_hypothesis": 11818,
+        "n_repropose": 9576,
+        "n_revive": 9660,
+        "revision_rate": 0.392452
+      }
+    }
+  },
+  "band": "MASS_NOT_CONTENT",
+  "bands": {
+    "AVAILABILITY_ONLY": "availability delta >= +0.30 AND recall@1 delta < +0.03 -- the answer is on the menu and still is not chosen. PRE-DECLARED ACCEPTABLE, and the PREDICTED outcome given exp_anchor_pool_expansion_v1 LARGE.",
+    "BROKEN": "availability delta < +0.30 (manipulation failed) OR the OFF arm fails the n_grounded==386 regression check. Nothing is interpreted.",
+    "DEFINITIONS_HELP": "delta >= +0.05 AND (ON-SHUFFLE) >= +0.02 AND (ON-FREQMATCH) >= +0.02",
+    "HURTS": "delta <= -0.03 -- more candidates means more distractors. A live possibility.",
+    "MASS_NOT_CONTENT": "delta >= +0.03 but ON does not beat BOTH controls by >= +0.02",
+    "PARTIAL": "delta in [+0.03, +0.05)",
+    "discriminator": "recall@1(ON) - recall@1(OFF) on the HELD-OUT split B (661 subjects). A (692, injected) is a circularity witness and carries NO claim.",
+    "power": "n=661: SE(p~0.05)=0.0085, SE(delta)<=0.012, so +0.03 is ~2.5 SE and +0.05 is ~4 SE."
+  },
+  "deltas_HELDOUT_B_vs_OFF": {
+    "FREQMATCH": {
+      "availability": 0.04236,
+      "availability_conditioned_recall_at_1": 0.000272,
+      "recall_at_1": 0.001513
+    },
+    "ON": {
+      "availability": 0.529501,
+      "availability_conditioned_recall_at_1": 0.016288,
+      "recall_at_1": 0.030257
+    },
+    "SHUFFLE": {
+      "availability": 0.529501,
+      "availability_conditioned_recall_at_1": 0.016288,
+      "recall_at_1": 0.030257
+    }
+  },
+  "numpy": "2.4.5",
+  "off_regression_check": {
+    "PASS": true,
+    "expected_n_grounded": 386,
+    "observed_n_grounded": 386,
+    "reference_n_grounded": 386,
+    "reference_run": "data/exp_anchor_pool_expansion_v1/units.jsonl arm_done|SMALL"
+  },
+  "prereg": "preregs/2026-08-13_wire_definitional.md",
+  "primary_HELDOUT_B": {
+    "FREQMATCH": {
+      "availability": 0.26475,
+      "availability_conditioned_recall_at_1": 0.034286,
+      "live_banked": {
+        "live_banked_recall": 0.0,
+        "n_banked_correct": 0,
+        "n_probe_subjects_banked": 37
+      },
+      "n_availability_conditioned": 175,
+      "n_probe_subjects": 661,
+      "recall_at_1": 0.009077,
+      "recall_at_5": 0.015129
+    },
+    "OFF": {
+      "availability": 0.22239,
+      "availability_conditioned_recall_at_1": 0.034014,
+      "live_banked": {
+        "live_banked_recall": 0.0,
+        "n_banked_correct": 0,
+        "n_probe_subjects_banked": 17
+      },
+      "n_availability_conditioned": 147,
+      "n_probe_subjects": 661,
+      "recall_at_1": 0.007564,
+      "recall_at_5": 0.022693
+    },
+    "ON": {
+      "availability": 0.751891,
+      "availability_conditioned_recall_at_1": 0.050302,
+      "live_banked": {
+        "live_banked_recall": 0.097561,
+        "n_banked_correct": 4,
+        "n_probe_subjects_banked": 41
+      },
+      "n_availability_conditioned": 497,
+      "n_probe_subjects": 661,
+      "recall_at_1": 0.037821,
+      "recall_at_5": 0.104387
+    },
+    "SHUFFLE": {
+      "availability": 0.751891,
+      "availability_conditioned_recall_at_1": 0.050302,
+      "live_banked": {
+        "live_banked_recall": 0.097561,
+        "n_banked_correct": 4,
+        "n_probe_subjects_banked": 41
+      },
+      "n_availability_conditioned": 497,
+      "n_probe_subjects": 661,
+      "recall_at_1": 0.037821,
+      "recall_at_5": 0.104387
+    }
+  },
+  "python": "3.12.10",
+  "run_mode": "full",
+  "utc": "2026-08-13T19:23:33.962575+00:00",
+  "witness_INJECTED_A_NO_CLAIM": {
+    "FREQMATCH": {
+      "availability": 0.212428,
+      "availability_conditioned_recall_at_1": 0.034014,
+      "live_banked": {
+        "live_banked_recall": 0.0,
+        "n_banked_correct": 0,
+        "n_probe_subjects_banked": 29
+      },
+      "n_availability_conditioned": 147,
+      "n_probe_subjects": 692,
+      "recall_at_1": 0.007225,
+      "recall_at_5": 0.013006
+    },
+    "OFF": {
+      "availability": 0.176301,
+      "availability_conditioned_recall_at_1": 0.04918,
+      "live_banked": {
+        "live_banked_recall": 0.0,
+        "n_banked_correct": 0,
+        "n_probe_subjects_banked": 22
+      },
+      "n_availability_conditioned": 122,
+      "n_probe_subjects": 692,
+      "recall_at_1": 0.008671,
+      "recall_at_5": 0.013006
+    },
+    "ON": {
+      "availability": 0.99422,
+      "availability_conditioned_recall_at_1": 0.06686,
+      "live_banked": {
+        "live_banked_recall": 1.0,
+        "n_banked_correct": 394,
+        "n_probe_subjects_banked": 394
+      },
+      "n_availability_conditioned": 688,
+      "n_probe_subjects": 692,
+      "recall_at_1": 0.066474,
+      "recall_at_5": 0.153179
+    },
+    "SHUFFLE": {
+      "availability": 0.99422,
+      "availability_conditioned_recall_at_1": 0.06686,
+      "live_banked": {
+        "live_banked_recall": 0.0,
+        "n_banked_correct": 0,
+        "n_probe_subjects_banked": 394
+      },
+      "n_availability_conditioned": 688,
+      "n_probe_subjects": 692,
+      "recall_at_1": 0.066474,
+      "recall_at_5": 0.153179
+    }
+  }
+}

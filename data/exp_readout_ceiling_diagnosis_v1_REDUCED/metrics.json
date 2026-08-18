@@ -1,0 +1,1550 @@
+{
+ "anchor_name": "exp_readout_ceiling_diagnosis_v1",
+ "grid": "reduced",
+ "arm": "all",
+ "code_version": "v1.0",
+ "findings_log": "notes/readout_ceiling_findings_2026-08-17.md",
+ "NO_LLM_IN_OPERATIONAL_FLOW": true,
+ "ts_iso": "2026-08-17T14:27:50.446276+00:00",
+ "host": "FrameworkMPC",
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_readout_ceiling_diagnosis_v1.py",
+   "--grid",
+   "reduced",
+   "--arm",
+   "all"
+  ],
+  "PASS": true
+ },
+ "GROUNDED_SIMILARITY_TRIPWIRE_INSTALLED": true,
+ "cache": {
+  "store": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz",
+  "aux": "D:\\AI\\hd-instrument\\scratch\\sparsify_right_object\\aux_v2.npz",
+  "rebuilt": false
+ },
+ "population": {
+  "n_anchors": 5491,
+  "n_items_scored": 400,
+  "pool": "the LANDED OPEN pool (mat_ok minus per-item exclusions). eligB is NOT used: it is on record admitting a constant at 0.1715 against chance 0.0101.",
+  "gold": "WordNet 3.0 generous meaning set, as built by exp_grounding_readout_known_answer_v1 UNMODIFIED",
+  "scorer": "tools/floor_battery.hit_at_1_both_tie_conventions, tie-corrected primary",
+  "chance_addressing": 0.00018212
+ },
+ "REGRESSION_GATE": {
+  "partial_cue_tie_corrected_FULL_POP": 0.0223,
+  "expected": 0.0223,
+  "exact_key_tie_corrected_FULL_POP": 0.0481,
+  "expected_exact": 0.0481,
+  "exact_key_addressing_FULL_POP": 1.0,
+  "tol": 0.0005,
+  "n_scored": 3994,
+  "PASS": true
+ },
+ "VALIDITY": {
+  "KA_SELF_ADDRESS": {
+   "value": 1.0,
+   "gate": 0.95,
+   "PASS": true,
+   "sensitive_to": "scorer / pool / comparator",
+   "insensitive_to": "the WordNet gold pairing"
+  },
+  "NULL_PERMUTED": {
+   "hit_at_1_tie_corrected": 0.0275,
+   "addressing": 0.0,
+   "chance_addressing": 0.00018212,
+   "binom_ci_halfwidth_at_null_hit": 0.016026,
+   "sensitive_to": "the cue-to-item pairing",
+   "insensitive_to": "whether the scorer works"
+  },
+  "they_fail_independently": "a comparator/scorer bug drops KA while leaving NULL at chance; a pairing or leak bug leaves KA at ceiling while lifting NULL. No single bug can make both pass."
+ },
+ "FLOORS_RECOMPUTED_ON_THIS_POPULATION": [
+  "F_CONSTANT_PROTOTYPE",
+  "F_FREQUENCY",
+  "F_ORTHOGRAPHIC",
+  "F_SCRAMBLE"
+ ],
+ "NEVER_IMPORTED": [
+  "0.1382",
+  "0.2070",
+  "-0.1959",
+  "every floor above is recomputed on this population's own n"
+ ],
+ "S1_IS_THE_ANSWER_IN_THE_POOL": {
+  "what": "by construction every scored item has >=1 eligible gold anchor; the CENSUS is published because the random-ranking null depends on it PER ITEM.",
+  "frac_items_with_at_least_one_eligible_gold": 1.0,
+  "n_gold_per_item": {
+   "mean": 49.998,
+   "median": 23.5,
+   "p10": 2.0,
+   "p90": 145.10000000000002,
+   "min": 1.0,
+   "max": 333.0
+  },
+  "n_eligible_per_item": {
+   "mean": 5490.0,
+   "median": 5490.0,
+   "min": 5490.0,
+   "max": 5490.0
+  },
+  "VERDICT": "THE ANSWER IS ALWAYS IN THE POOL"
+ },
+ "S1b_WHAT_IS_THE_CONSTANT_FLOOR_EXPLOITING": {
+  "why_this_is_here": "the binding floor must be interpretable, not just large. A floor is only a fair bar if we know what no-understanding story it encodes. This does NOT lower the bar -- the bar is the bar -- it says what clearing it would and would not prove.",
+  "constant_floor_top_10_anchors": [
+   {
+    "anchor": "work",
+    "constant_score": 0.6935,
+    "is_gold_for_n_items": 50,
+    "is_gold_for_frac_of_items": 0.125
+   },
+   {
+    "anchor": "important",
+    "constant_score": 0.685,
+    "is_gold_for_n_items": 0,
+    "is_gold_for_frac_of_items": 0.0
+   },
+   {
+    "anchor": "like",
+    "constant_score": 0.6707,
+    "is_gold_for_n_items": 2,
+    "is_gold_for_frac_of_items": 0.005
+   },
+   {
+    "anchor": "need",
+    "constant_score": 0.6596,
+    "is_gold_for_n_items": 20,
+    "is_gold_for_frac_of_items": 0.05
+   },
+   {
+    "anchor": "see",
+    "constant_score": 0.653,
+    "is_gold_for_n_items": 11,
+    "is_gold_for_frac_of_items": 0.0275
+   },
+   {
+    "anchor": "become",
+    "constant_score": 0.6482,
+    "is_gold_for_n_items": 4,
+    "is_gold_for_frac_of_items": 0.01
+   },
+   {
+    "anchor": "get",
+    "constant_score": 0.6429,
+    "is_gold_for_n_items": 48,
+    "is_gold_for_frac_of_items": 0.12
+   },
+   {
+    "anchor": "country",
+    "constant_score": 0.6413,
+    "is_gold_for_n_items": 7,
+    "is_gold_for_frac_of_items": 0.0175
+   },
+   {
+    "anchor": "time",
+    "constant_score": 0.6401,
+    "is_gold_for_n_items": 5,
+    "is_gold_for_frac_of_items": 0.0125
+   },
+   {
+    "anchor": "part",
+    "constant_score": 0.6387,
+    "is_gold_for_n_items": 37,
+    "is_gold_for_frac_of_items": 0.0925
+   }
+  ],
+  "gold_degree_over_anchors": {
+   "max_items_any_single_anchor_is_gold_for": 64,
+   "max_as_frac_of_items": 0.16,
+   "mean": 3.642,
+   "n_anchors_gold_for_at_least_5pct_of_items": 210
+  },
+  "reading": "if one anchor is a correct answer for a large share of all items, a ranking that always names it scores that share while understanding nothing. The gold is the GENEROUS WordNet set (synonyms + hypernyms 2 up + sisters + hyponyms) built by exp_grounding_readout_known_answer_v1 UNMODIFIED."
+ },
+ "S2_WHERE_DOES_THE_ANSWER_RANK": {
+  "WHY_THIS_IS_THE_DECISIVE_ARM": "hit@1 is a single point of a distribution. If the rank curve sits AT the random-ranking null, the store's neighbourhood carries NO synonym information and THE DEFECT IS IN WHAT WE WROTE, NOT IN HOW WE READ -- no comparator, verifier, shortlist or cleanup could ever help. If it is CI-separated ABOVE the null while hit@1 sits below the binding floor, the information IS in the store and the SELECTOR cannot reach it.",
+  "curves": {
+   "EXACT_KEY_COSINE": {
+    "hit_at_k_optimistic": {
+     "1": 0.0275,
+     "2": 0.08,
+     "3": 0.115,
+     "5": 0.1625,
+     "10": 0.23,
+     "20": 0.3375,
+     "50": 0.49,
+     "100": 0.64,
+     "250": 0.795,
+     "500": 0.87,
+     "1000": 0.9175
+    },
+    "hit_at_k_conservative": {
+     "1": 0.0275,
+     "2": 0.08,
+     "3": 0.115,
+     "5": 0.1625,
+     "10": 0.23,
+     "20": 0.3375,
+     "50": 0.49,
+     "100": 0.64,
+     "250": 0.795,
+     "500": 0.87,
+     "1000": 0.9175
+    },
+    "rank_of_best_gold": {
+     "median_opt": 52.0,
+     "p25_opt": 12.0,
+     "p75_opt": 189.75,
+     "mean_opt": 303.2,
+     "median_cons": 52.0
+    },
+    "MRR_opt": 0.1012
+   },
+   "NULL_PERMUTED_CUE": {
+    "hit_at_k_optimistic": {
+     "1": 0.0275,
+     "2": 0.0375,
+     "3": 0.0475,
+     "5": 0.07,
+     "10": 0.105,
+     "20": 0.2,
+     "50": 0.3475,
+     "100": 0.495,
+     "250": 0.6625,
+     "500": 0.7625,
+     "1000": 0.8425
+    },
+    "hit_at_k_conservative": {
+     "1": 0.0275,
+     "2": 0.0375,
+     "3": 0.0475,
+     "5": 0.07,
+     "10": 0.105,
+     "20": 0.2,
+     "50": 0.3475,
+     "100": 0.495,
+     "250": 0.6625,
+     "500": 0.7625,
+     "1000": 0.8425
+    },
+    "rank_of_best_gold": {
+     "median_opt": 101.5,
+     "p25_opt": 29.0,
+     "p75_opt": 450.5,
+     "mean_opt": 474.6,
+     "median_cons": 101.5
+    },
+    "MRR_opt": 0.06056
+   },
+   "F_CONSTANT_PROTOTYPE": {
+    "hit_at_k_optimistic": {
+     "1": 0.125,
+     "2": 0.125,
+     "3": 0.13,
+     "5": 0.165,
+     "10": 0.3025,
+     "20": 0.3475,
+     "50": 0.4275,
+     "100": 0.5425,
+     "250": 0.6925,
+     "500": 0.825,
+     "1000": 0.885
+    },
+    "hit_at_k_conservative": {
+     "1": 0.125,
+     "2": 0.125,
+     "3": 0.13,
+     "5": 0.165,
+     "10": 0.3025,
+     "20": 0.3475,
+     "50": 0.4275,
+     "100": 0.5425,
+     "250": 0.6925,
+     "500": 0.825,
+     "1000": 0.885
+    },
+    "rank_of_best_gold": {
+     "median_opt": 69.0,
+     "p25_opt": 8.0,
+     "p75_opt": 384.0,
+     "mean_opt": 410.5,
+     "median_cons": 69.0
+    },
+    "MRR_opt": 0.16012
+   },
+   "F_FREQUENCY": {
+    "hit_at_k_optimistic": {
+     "1": 0.0125,
+     "2": 0.0125,
+     "3": 0.0125,
+     "5": 0.025,
+     "10": 0.2225,
+     "20": 0.2525,
+     "50": 0.5025,
+     "100": 0.65,
+     "250": 0.7775,
+     "500": 0.8325,
+     "1000": 0.895
+    },
+    "hit_at_k_conservative": {
+     "1": 0.0125,
+     "2": 0.0125,
+     "3": 0.0125,
+     "5": 0.025,
+     "10": 0.2225,
+     "20": 0.2525,
+     "50": 0.5025,
+     "100": 0.65,
+     "250": 0.7775,
+     "500": 0.8325,
+     "1000": 0.8925
+    },
+    "rank_of_best_gold": {
+     "median_opt": 50.0,
+     "p25_opt": 18.75,
+     "p75_opt": 209.5,
+     "mean_opt": 336.4,
+     "median_cons": 50.0
+    },
+    "MRR_opt": 0.05528
+   },
+   "F_ORTHOGRAPHIC": {
+    "hit_at_k_optimistic": {
+     "1": 0.125,
+     "2": 0.1925,
+     "3": 0.225,
+     "5": 0.25,
+     "10": 0.3125,
+     "20": 0.41,
+     "50": 0.535,
+     "100": 0.625,
+     "250": 0.735,
+     "500": 0.8475,
+     "1000": 0.9775
+    },
+    "hit_at_k_conservative": {
+     "1": 0.11,
+     "2": 0.1625,
+     "3": 0.1975,
+     "5": 0.2175,
+     "10": 0.2775,
+     "20": 0.335,
+     "50": 0.485,
+     "100": 0.5825,
+     "250": 0.685,
+     "500": 0.755,
+     "1000": 0.7875
+    },
+    "rank_of_best_gold": {
+     "median_opt": 39.5,
+     "p25_opt": 5.75,
+     "p75_opt": 311.25,
+     "mean_opt": 192.1,
+     "median_cons": 58.0
+    },
+    "MRR_opt": 0.19626
+   },
+   "F_SCRAMBLE": {
+    "hit_at_k_optimistic": {
+     "1": 0.0125,
+     "2": 0.025,
+     "3": 0.0325,
+     "5": 0.0525,
+     "10": 0.085,
+     "20": 0.1625,
+     "50": 0.295,
+     "100": 0.4175,
+     "250": 0.59,
+     "500": 0.705,
+     "1000": 0.8175
+    },
+    "hit_at_k_conservative": {
+     "1": 0.0125,
+     "2": 0.025,
+     "3": 0.0325,
+     "5": 0.0525,
+     "10": 0.085,
+     "20": 0.1625,
+     "50": 0.295,
+     "100": 0.4175,
+     "250": 0.59,
+     "500": 0.705,
+     "1000": 0.8175
+    },
+    "rank_of_best_gold": {
+     "median_opt": 159.5,
+     "p25_opt": 36.0,
+     "p75_opt": 641.25,
+     "mean_opt": 615.5,
+     "median_cons": 159.5
+    },
+    "MRR_opt": 0.04312
+   },
+   "RANDOM_RANKING_null_per_item": {
+    "hit_at_k_optimistic": {
+     "1": 0.00911,
+     "2": 0.01801,
+     "3": 0.02671,
+     "5": 0.04354,
+     "10": 0.08254,
+     "20": 0.14936,
+     "50": 0.28998,
+     "100": 0.42399,
+     "250": 0.60166,
+     "500": 0.72099,
+     "1000": 0.82372
+    },
+    "expected_median_rank_of_best_gold": 224.2,
+    "note": "P(hit@k) = 1 - C(n_elig-n_gold,k)/C(n_elig,k), computed from EACH ITEM'S OWN pool size and OWN gold count, then averaged. Not a scalar chance."
+   }
+  },
+  "EXACT_KEY_vs_RANDOM_RANKING_paired_bootstrap": {
+   "1": {
+    "point": 0.0188,
+    "ci95": [
+     0.0038,
+     0.0345
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.01535,
+    "analytic_null_halfwidth_at_this_n": 0.00931,
+    "exact_key": 0.0275,
+    "random_ranking": 0.00911,
+    "lift_x": 3.02
+   },
+   "2": {
+    "point": 0.0622,
+    "ci95": [
+     0.0367,
+     0.0886
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.02595,
+    "analytic_null_halfwidth_at_this_n": 0.01303,
+    "exact_key": 0.08,
+    "random_ranking": 0.01801,
+    "lift_x": 4.44
+   },
+   "3": {
+    "point": 0.0882,
+    "ci95": [
+     0.0578,
+     0.1193
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.03075,
+    "analytic_null_halfwidth_at_this_n": 0.0158,
+    "exact_key": 0.115,
+    "random_ranking": 0.02671,
+    "lift_x": 4.31
+   },
+   "5": {
+    "point": 0.1189,
+    "ci95": [
+     0.0858,
+     0.1561
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.03515,
+    "analytic_null_halfwidth_at_this_n": 0.02,
+    "exact_key": 0.1625,
+    "random_ranking": 0.04354,
+    "lift_x": 3.73
+   },
+   "10": {
+    "point": 0.1472,
+    "ci95": [
+     0.1091,
+     0.1885
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.0397,
+    "analytic_null_halfwidth_at_this_n": 0.02697,
+    "exact_key": 0.23,
+    "random_ranking": 0.08254,
+    "lift_x": 2.79
+   },
+   "20": {
+    "point": 0.1876,
+    "ci95": [
+     0.1446,
+     0.2314
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.0434,
+    "analytic_null_halfwidth_at_this_n": 0.03493,
+    "exact_key": 0.3375,
+    "random_ranking": 0.14936,
+    "lift_x": 2.26
+   },
+   "50": {
+    "point": 0.2005,
+    "ci95": [
+     0.1566,
+     0.2448
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.0441,
+    "analytic_null_halfwidth_at_this_n": 0.04447,
+    "exact_key": 0.49,
+    "random_ranking": 0.28998,
+    "lift_x": 1.69
+   },
+   "100": {
+    "point": 0.2165,
+    "ci95": [
+     0.1764,
+     0.2572
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.0404,
+    "analytic_null_halfwidth_at_this_n": 0.04843,
+    "exact_key": 0.64,
+    "random_ranking": 0.42399,
+    "lift_x": 1.51
+   },
+   "250": {
+    "point": 0.1942,
+    "ci95": [
+     0.1576,
+     0.2314
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.0369,
+    "analytic_null_halfwidth_at_this_n": 0.04798,
+    "exact_key": 0.795,
+    "random_ranking": 0.60166,
+    "lift_x": 1.32
+   },
+   "500": {
+    "point": 0.1493,
+    "ci95": [
+     0.1205,
+     0.1792
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.02935,
+    "analytic_null_halfwidth_at_this_n": 0.04395,
+    "exact_key": 0.87,
+    "random_ranking": 0.72099,
+    "lift_x": 1.21
+   },
+   "1000": {
+    "point": 0.0942,
+    "ci95": [
+     0.0692,
+     0.1205
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.02565,
+    "analytic_null_halfwidth_at_this_n": 0.03734,
+    "exact_key": 0.9175,
+    "random_ranking": 0.82372,
+    "lift_x": 1.11
+   }
+  },
+  "k_values_CI_separated_ABOVE_random": [
+   1,
+   2,
+   3,
+   5,
+   10,
+   20,
+   50,
+   100,
+   250,
+   500,
+   1000
+  ],
+  "EXACT_KEY_vs_PERMUTED_CUE_NULL_paired_bootstrap": {
+   "1": {
+    "point": 0.0008,
+    "ci95": [
+     -0.02,
+     0.0225
+    ],
+    "band": "NOT_SEPARATED",
+    "ci_halfwidth": 0.02125,
+    "exact_key": 0.0275,
+    "permuted_cue_null": 0.0275,
+    "margin_over_own_ci_halfwidth": 0.04
+   },
+   "2": {
+    "point": 0.0433,
+    "ci95": [
+     0.01,
+     0.0775
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.03375,
+    "exact_key": 0.08,
+    "permuted_cue_null": 0.0375,
+    "margin_over_own_ci_halfwidth": 1.28
+   },
+   "3": {
+    "point": 0.068,
+    "ci95": [
+     0.03,
+     0.105
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.0375,
+    "exact_key": 0.115,
+    "permuted_cue_null": 0.0475,
+    "margin_over_own_ci_halfwidth": 1.81
+   },
+   "5": {
+    "point": 0.0924,
+    "ci95": [
+     0.05,
+     0.1375
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.04375,
+    "exact_key": 0.1625,
+    "permuted_cue_null": 0.07,
+    "margin_over_own_ci_halfwidth": 2.11
+   },
+   "10": {
+    "point": 0.1243,
+    "ci95": [
+     0.075,
+     0.175
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.05,
+    "exact_key": 0.23,
+    "permuted_cue_null": 0.105,
+    "margin_over_own_ci_halfwidth": 2.49
+   },
+   "20": {
+    "point": 0.1373,
+    "ci95": [
+     0.08,
+     0.195
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.0575,
+    "exact_key": 0.3375,
+    "permuted_cue_null": 0.2,
+    "margin_over_own_ci_halfwidth": 2.39
+   },
+   "50": {
+    "point": 0.1429,
+    "ci95": [
+     0.085,
+     0.2
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.0575,
+    "exact_key": 0.49,
+    "permuted_cue_null": 0.3475,
+    "margin_over_own_ci_halfwidth": 2.49
+   },
+   "100": {
+    "point": 0.1456,
+    "ci95": [
+     0.0924,
+     0.1975
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.05255,
+    "exact_key": 0.64,
+    "permuted_cue_null": 0.495,
+    "margin_over_own_ci_halfwidth": 2.77
+   },
+   "250": {
+    "point": 0.1331,
+    "ci95": [
+     0.085,
+     0.1825
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.04875,
+    "exact_key": 0.795,
+    "permuted_cue_null": 0.6625,
+    "margin_over_own_ci_halfwidth": 2.73
+   },
+   "500": {
+    "point": 0.1077,
+    "ci95": [
+     0.0675,
+     0.15
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.04125,
+    "exact_key": 0.87,
+    "permuted_cue_null": 0.7625,
+    "margin_over_own_ci_halfwidth": 2.61
+   },
+   "1000": {
+    "point": 0.0752,
+    "ci95": [
+     0.0375,
+     0.1125
+    ],
+    "band": "ABOVE",
+    "ci_halfwidth": 0.0375,
+    "exact_key": 0.9175,
+    "permuted_cue_null": 0.8425,
+    "margin_over_own_ci_halfwidth": 2.01
+   }
+  },
+  "k_values_CI_separated_ABOVE_the_permuted_cue_null": [
+   2,
+   3,
+   5,
+   10,
+   20,
+   50,
+   100,
+   250,
+   500,
+   1000
+  ],
+  "WHERE_THE_QUERY_SIGNAL_LIVES": {
+   "binding_floor_curve": "F_ORTHOGRAPHIC",
+   "crossover_k_where_exact_key_overtakes_the_binding_floor": 100,
+   "reading": "if the crossover is far above k=1, the store's query-conditional signal is REAL but sits BELOW the top of the ranking: a query-ignoring constant owns the top slot and the query only starts to pay after the first 100 candidates. That is a statement about WHERE the signal is, which hit@1 alone cannot make."
+  },
+  "PREREGISTERED_READING": "BRANCH_B_ANSWER_IS_PRESENT_BUT_THE_SELECTOR_CANNOT_REACH_IT",
+  "TWO_STAGE_CEILING_ORACLE_not_a_floor": {
+   "what": "hit@k of stage one IS the exact ceiling of any propose-and-verify with a PERFECT verifier at shortlist size k. Labelled ORACLE; it is fitted on nothing but it presumes a verifier we have not built.",
+   "ceiling_by_shortlist_size": {
+    "1": 0.0275,
+    "2": 0.08,
+    "3": 0.115,
+    "5": 0.1625,
+    "10": 0.23,
+    "20": 0.3375,
+    "50": 0.49,
+    "100": 0.64,
+    "250": 0.795,
+    "500": 0.87,
+    "1000": 0.9175
+   }
+  }
+ },
+ "S3_WHAT_WINS_INSTEAD": {
+  "n_distinct_top1_anchors": 364,
+  "n_items": 400,
+  "degeneracy_distinct_over_items": 0.91,
+  "top_25_winners": [
+   {
+    "anchor": "average",
+    "n_items_won": 4,
+    "share": 0.01,
+    "constant_floor_score": 0.5319
+   },
+   {
+    "anchor": "now",
+    "n_items_won": 4,
+    "share": 0.01,
+    "constant_floor_score": 0.6376
+   },
+   {
+    "anchor": "work",
+    "n_items_won": 3,
+    "share": 0.0075,
+    "constant_floor_score": 0.6935
+   },
+   {
+    "anchor": "evolve",
+    "n_items_won": 3,
+    "share": 0.0075,
+    "constant_floor_score": 0.4373
+   },
+   {
+    "anchor": "vessel",
+    "n_items_won": 3,
+    "share": 0.0075,
+    "constant_floor_score": 0.1271
+   },
+   {
+    "anchor": "circulatory",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.1622
+   },
+   {
+    "anchor": "thut",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.1649
+   },
+   {
+    "anchor": "wings",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.1344
+   },
+   {
+    "anchor": "enough",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.6031
+   },
+   {
+    "anchor": "empire",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.1801
+   },
+   {
+    "anchor": "glycerol",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.1284
+   },
+   {
+    "anchor": "important",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.685
+   },
+   {
+    "anchor": "hurricane",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.2208
+   },
+   {
+    "anchor": "digestive",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.2491
+   },
+   {
+    "anchor": "deputy",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.0696
+   },
+   {
+    "anchor": "download",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.3993
+   },
+   {
+    "anchor": "lymphocyte",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.1287
+   },
+   {
+    "anchor": "many",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.6333
+   },
+   {
+    "anchor": "miami",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.2154
+   },
+   {
+    "anchor": "alternation",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.1657
+   },
+   {
+    "anchor": "platform",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.0986
+   },
+   {
+    "anchor": "phylum",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.3558
+   },
+   {
+    "anchor": "older",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.4057
+   },
+   {
+    "anchor": "other",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.6135
+   },
+   {
+    "anchor": "significantly",
+    "n_items_won": 2,
+    "share": 0.005,
+    "constant_floor_score": 0.458
+   }
+  ],
+  "share_taken_by_top_25": 0.1425,
+  "corr_times_won_vs_GENERICITY_constant_floor": 0.045,
+  "corr_times_won_vs_LOG_CORPUS_FREQUENCY": 0.0423,
+  "cosine_gap_winner_minus_best_gold": {
+   "mean": 0.20479,
+   "median": 0.16752,
+   "p90": 0.45023
+  },
+  "mean_cosine_of_winner": 0.4794,
+  "mean_cosine_of_best_gold": 0.27461,
+  "example_query_to_winner": [
+   "abandon -> palm",
+   "abbey -> highclere",
+   "ability -> work",
+   "able -> might",
+   "abnormality -> chromosomal",
+   "about -> more",
+   "above -> metre",
+   "abroad -> gain",
+   "absence -> presence",
+   "absent -> limitation",
+   "absolutely -> farm",
+   "absorb -> pigment",
+   "absorption -> fold",
+   "abundance -> endemic",
+   "abuse -> mouse",
+   "academic -> findings",
+   "academy -> proceedings",
+   "accelerate -> tness",
+   "acceptor -> nad",
+   "accept -> donate",
+   "accessory -> louis",
+   "access -> internet",
+   "accident -> buy",
+   "accommodation -> antisocial",
+   "accompany -> empire",
+   "accomplish -> shell",
+   "accord -> month",
+   "account -> average",
+   "accumulate -> divide",
+   "accuracy -> analyse"
+  ]
+ },
+ "S4_IS_THE_SCORE_MISCALIBRATED_ACROSS_ANCHORS": {
+  "method": "Nk k-occurrence at k=10 and its Gini, computed with the OWNED organ experiments/dehub_transforms (gini), IMPORTED not reimplemented. Radovanovic et al. 2010's hubness statistic.",
+  "Nk_gini_REAL": 0.713,
+  "Nk_gini_SCRAMBLE_NULL": 0.6973,
+  "reading": "a REAL Nk-Gini materially above the scramble null's means a small set of anchors is absorbing the top of many queries' rankings -- the signature hubness pathology of high-dimensional nearest-neighbour retrieval.",
+  "Nk_max_share_of_all_topk_slots": 0.00425,
+  "n_anchors_never_in_any_top10": 3177,
+  "frac_anchors_never_in_any_topk": 0.5786,
+  "corr_Nk_vs_GENERICITY_constant_floor": 0.3711,
+  "corr_Nk_vs_GOLD_DEGREE_how_often_the_anchor_IS_a_correct_answer": 0.0831
+ },
+ "ARM_B_ARITHMETIC_FACT_ASSERTED_NOT_ASSUMED": {
+  "claim": "normalising over the CANDIDATES OF ONE QUERY is a monotone transform within that query and CANNOT change that query's argmax, so it is arithmetically incapable of moving hit@1. Only a PER-ANCHOR calibration can.",
+  "verified_in": "self_test S-C, on a real score matrix, both directions",
+  "consequence": "the per-query direction is NOT run as if it could help; presenting it as a brain-derived fix would be laundering."
+ },
+ "ARM_B_CALIBRATION_IS_GOLD_BLIND_AND_NON_TRANSDUCTIVE": {
+  "probe_population": "the store's OWN 5491 rows (mat_ok). Nothing about the scored queries and nothing about the WordNet golds enters the calibration, so no arm here can memorise the test items or fit the answers.",
+  "note": "mean_sim over this probe set IS, up to normalisation, the CONSTANT/PROTOTYPE FLOOR -- cosine to the mean anchor direction. The binding floor and the hubness correction turn out to be the same object from two sides.",
+  "corr_mean_sim_vs_constant_prototype_floor": 0.9995
+ },
+ "ARM_B_KA_PER_COMPARATOR": {
+  "what": "the KNOWN-ANSWER arm re-run for EVERY comparator: does the transform still address the item's own row? A transform that destroys self-addressing has broken the instrument and its treatment number is not read.",
+  "gate": 0.95,
+  "values": {
+   "R0_COSINE_ARGMAX_INCUMBENT": 1.0,
+   "R1_CSLS_k1": 1.0,
+   "R1_CSLS_k5": 1.0,
+   "R1_CSLS_k10": 1.0,
+   "R1_CSLS_k20": 1.0,
+   "R1_CSLS_k50": 1.0,
+   "R1_CSLS_k100": 1.0,
+   "R2_SUBTRACT_CONSTANT_alpha0.25": 1.0,
+   "R2_SUBTRACT_CONSTANT_alpha0.5": 1.0,
+   "R2_SUBTRACT_CONSTANT_alpha0.75": 1.0,
+   "R2_SUBTRACT_CONSTANT_alpha1": 1.0,
+   "R2_SUBTRACT_CONSTANT_alpha1.5": 0.9725,
+   "R2_SUBTRACT_CONSTANT_alpha2": 0.785,
+   "R3_ZNORM_ANCHOR": 1.0,
+   "R4_DIVNORM_sigma0.01_expo1": 0.385,
+   "R4_DIVNORM_sigma0.05_expo1": 0.96,
+   "R4_DIVNORM_sigma0.1_expo1": 1.0,
+   "R4_DIVNORM_sigma0.25_expo1": 1.0,
+   "R4_DIVNORM_sigma0.5_expo1": 1.0,
+   "R4_DIVNORM_sigma1_expo1": 1.0,
+   "R4_DIVNORM_sigma0.01_expo2": 0.3625,
+   "R4_DIVNORM_sigma0.05_expo2": 0.98,
+   "R4_DIVNORM_sigma0.1_expo2": 1.0,
+   "R4_DIVNORM_sigma0.25_expo2": 1.0,
+   "R4_DIVNORM_sigma0.5_expo2": 1.0,
+   "R4_DIVNORM_sigma1_expo2": 1.0
+  },
+  "arms_failing_KA": [
+   "R2_SUBTRACT_CONSTANT_alpha2",
+   "R4_DIVNORM_sigma0.01_expo1",
+   "R4_DIVNORM_sigma0.01_expo2"
+  ]
+ },
+ "HIT_AT_1": {
+  "n_common_scored": 400,
+  "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED",
+  "tie_corrected": {
+   "F_ORTHOGRAPHIC": 0.11619,
+   "F_FREQUENCY": 0.0125,
+   "F_SCRAMBLE": 0.0125,
+   "F_CONSTANT_PROTOTYPE": 0.125,
+   "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.1625,
+   "R0_COSINE_ARGMAX_INCUMBENT": 0.0275,
+   "R1_CSLS_k1": 0.0275,
+   "R1_CSLS_k5": 0.0425,
+   "R1_CSLS_k10": 0.04,
+   "R1_CSLS_k20": 0.0375,
+   "R1_CSLS_k50": 0.0425,
+   "R1_CSLS_k100": 0.0425,
+   "R2_SUBTRACT_CONSTANT_alpha0.25": 0.0375,
+   "R2_SUBTRACT_CONSTANT_alpha0.5": 0.045,
+   "R2_SUBTRACT_CONSTANT_alpha0.75": 0.04,
+   "R2_SUBTRACT_CONSTANT_alpha1": 0.03,
+   "R2_SUBTRACT_CONSTANT_alpha1.5": 0.03,
+   "R2_SUBTRACT_CONSTANT_alpha2": 0.0275,
+   "R3_ZNORM_ANCHOR": 0.04,
+   "R4_DIVNORM_sigma0.01_expo1": 0.0175,
+   "R4_DIVNORM_sigma0.05_expo1": 0.0275,
+   "R4_DIVNORM_sigma0.1_expo1": 0.0425,
+   "R4_DIVNORM_sigma0.25_expo1": 0.04,
+   "R4_DIVNORM_sigma0.5_expo1": 0.035,
+   "R4_DIVNORM_sigma1_expo1": 0.0325,
+   "R4_DIVNORM_sigma0.01_expo2": 0.015,
+   "R4_DIVNORM_sigma0.05_expo2": 0.04,
+   "R4_DIVNORM_sigma0.1_expo2": 0.0425,
+   "R4_DIVNORM_sigma0.25_expo2": 0.0325,
+   "R4_DIVNORM_sigma0.5_expo2": 0.03,
+   "R4_DIVNORM_sigma1_expo2": 0.03
+  },
+  "optimistic_tie": {
+   "F_ORTHOGRAPHIC": 0.125,
+   "F_FREQUENCY": 0.0125,
+   "F_SCRAMBLE": 0.0125,
+   "F_CONSTANT_PROTOTYPE": 0.125,
+   "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.1625,
+   "R0_COSINE_ARGMAX_INCUMBENT": 0.0275,
+   "R1_CSLS_k1": 0.0275,
+   "R1_CSLS_k5": 0.0425,
+   "R1_CSLS_k10": 0.04,
+   "R1_CSLS_k20": 0.0375,
+   "R1_CSLS_k50": 0.0425,
+   "R1_CSLS_k100": 0.0425,
+   "R2_SUBTRACT_CONSTANT_alpha0.25": 0.0375,
+   "R2_SUBTRACT_CONSTANT_alpha0.5": 0.045,
+   "R2_SUBTRACT_CONSTANT_alpha0.75": 0.04,
+   "R2_SUBTRACT_CONSTANT_alpha1": 0.03,
+   "R2_SUBTRACT_CONSTANT_alpha1.5": 0.03,
+   "R2_SUBTRACT_CONSTANT_alpha2": 0.0275,
+   "R3_ZNORM_ANCHOR": 0.04,
+   "R4_DIVNORM_sigma0.01_expo1": 0.0175,
+   "R4_DIVNORM_sigma0.05_expo1": 0.0275,
+   "R4_DIVNORM_sigma0.1_expo1": 0.0425,
+   "R4_DIVNORM_sigma0.25_expo1": 0.04,
+   "R4_DIVNORM_sigma0.5_expo1": 0.035,
+   "R4_DIVNORM_sigma1_expo1": 0.0325,
+   "R4_DIVNORM_sigma0.01_expo2": 0.015,
+   "R4_DIVNORM_sigma0.05_expo2": 0.04,
+   "R4_DIVNORM_sigma0.1_expo2": 0.0425,
+   "R4_DIVNORM_sigma0.25_expo2": 0.0325,
+   "R4_DIVNORM_sigma0.5_expo2": 0.03,
+   "R4_DIVNORM_sigma1_expo2": 0.03
+  },
+  "conservative_tie": {
+   "F_ORTHOGRAPHIC": 0.11,
+   "F_FREQUENCY": 0.0125,
+   "F_SCRAMBLE": 0.0125,
+   "F_CONSTANT_PROTOTYPE": 0.125,
+   "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.1625,
+   "R0_COSINE_ARGMAX_INCUMBENT": 0.0275,
+   "R1_CSLS_k1": 0.0275,
+   "R1_CSLS_k5": 0.0425,
+   "R1_CSLS_k10": 0.04,
+   "R1_CSLS_k20": 0.0375,
+   "R1_CSLS_k50": 0.0425,
+   "R1_CSLS_k100": 0.0425,
+   "R2_SUBTRACT_CONSTANT_alpha0.25": 0.0375,
+   "R2_SUBTRACT_CONSTANT_alpha0.5": 0.045,
+   "R2_SUBTRACT_CONSTANT_alpha0.75": 0.04,
+   "R2_SUBTRACT_CONSTANT_alpha1": 0.03,
+   "R2_SUBTRACT_CONSTANT_alpha1.5": 0.03,
+   "R2_SUBTRACT_CONSTANT_alpha2": 0.0275,
+   "R3_ZNORM_ANCHOR": 0.04,
+   "R4_DIVNORM_sigma0.01_expo1": 0.0175,
+   "R4_DIVNORM_sigma0.05_expo1": 0.0275,
+   "R4_DIVNORM_sigma0.1_expo1": 0.0425,
+   "R4_DIVNORM_sigma0.25_expo1": 0.04,
+   "R4_DIVNORM_sigma0.5_expo1": 0.035,
+   "R4_DIVNORM_sigma1_expo1": 0.0325,
+   "R4_DIVNORM_sigma0.01_expo2": 0.015,
+   "R4_DIVNORM_sigma0.05_expo2": 0.04,
+   "R4_DIVNORM_sigma0.1_expo2": 0.0425,
+   "R4_DIVNORM_sigma0.25_expo2": 0.0325,
+   "R4_DIVNORM_sigma0.5_expo2": 0.03,
+   "R4_DIVNORM_sigma1_expo2": 0.03
+  },
+  "mean_tie_mass": {
+   "F_ORTHOGRAPHIC": 5e-05,
+   "F_FREQUENCY": 0.0,
+   "F_SCRAMBLE": 0.0,
+   "F_CONSTANT_PROTOTYPE": 0.0,
+   "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0,
+   "R0_COSINE_ARGMAX_INCUMBENT": 0.0,
+   "R1_CSLS_k1": 0.0,
+   "R1_CSLS_k5": 0.0,
+   "R1_CSLS_k10": 0.0,
+   "R1_CSLS_k20": 0.0,
+   "R1_CSLS_k50": 0.0,
+   "R1_CSLS_k100": 0.0,
+   "R2_SUBTRACT_CONSTANT_alpha0.25": 0.0,
+   "R2_SUBTRACT_CONSTANT_alpha0.5": 0.0,
+   "R2_SUBTRACT_CONSTANT_alpha0.75": 0.0,
+   "R2_SUBTRACT_CONSTANT_alpha1": 0.0,
+   "R2_SUBTRACT_CONSTANT_alpha1.5": 0.0,
+   "R2_SUBTRACT_CONSTANT_alpha2": 0.0,
+   "R3_ZNORM_ANCHOR": 0.0,
+   "R4_DIVNORM_sigma0.01_expo1": 0.0,
+   "R4_DIVNORM_sigma0.05_expo1": 0.0,
+   "R4_DIVNORM_sigma0.1_expo1": 0.0,
+   "R4_DIVNORM_sigma0.25_expo1": 0.0,
+   "R4_DIVNORM_sigma0.5_expo1": 0.0,
+   "R4_DIVNORM_sigma1_expo1": 0.0,
+   "R4_DIVNORM_sigma0.01_expo2": 0.0,
+   "R4_DIVNORM_sigma0.05_expo2": 0.0,
+   "R4_DIVNORM_sigma0.1_expo2": 0.0,
+   "R4_DIVNORM_sigma0.25_expo2": 0.0,
+   "R4_DIVNORM_sigma0.5_expo2": 0.0,
+   "R4_DIVNORM_sigma1_expo2": 0.0
+  },
+  "BINDING_FLOOR": "F_CONSTANT_PROTOTYPE",
+  "BINDING_FLOOR_VALUE": 0.125,
+  "ALL_FOUR_FLOORS": {
+   "F_ORTHOGRAPHIC": 0.11619,
+   "F_FREQUENCY": 0.0125,
+   "F_SCRAMBLE": 0.0125,
+   "F_CONSTANT_PROTOTYPE": 0.125
+  },
+  "ORACLE_CONSTANT_not_a_floor": 0.1625,
+  "POOL_ORACLE_CHECK": {
+   "what": "the fitted CEILING of the constant family on THIS open pool. The open pool is NOT a de-biased pool and is not claimed to be; the number is published so nobody reads a margin over it as a margin over chance. eligB is not used.",
+   "oracle_constant_hit_exp": 0.1625
+  },
+  "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+   "F_FREQUENCY": {
+    "point": -0.113,
+    "ci95": [
+     -0.15,
+     -0.08
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.035,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0125,
+    "margin_over_own_ci_halfwidth": 3.23
+   },
+   "F_ORTHOGRAPHIC": {
+    "point": -0.0087,
+    "ci95": [
+     -0.0504,
+     0.0316
+    ],
+    "band": "NOT_SEPARATED",
+    "ci_halfwidth": 0.041,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.11619,
+    "margin_over_own_ci_halfwidth": 0.21
+   },
+   "F_SCRAMBLE": {
+    "point": -0.1131,
+    "ci95": [
+     -0.1475,
+     -0.0825
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0325,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0125,
+    "margin_over_own_ci_halfwidth": 3.48
+   },
+   "R0_COSINE_ARGMAX_INCUMBENT": {
+    "point": -0.0979,
+    "ci95": [
+     -0.135,
+     -0.0624
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0363,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0275,
+    "margin_over_own_ci_halfwidth": 2.7
+   },
+   "R1_CSLS_k1": {
+    "point": -0.0979,
+    "ci95": [
+     -0.135,
+     -0.0624
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0363,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0275,
+    "margin_over_own_ci_halfwidth": 2.7
+   },
+   "R1_CSLS_k10": {
+    "point": -0.0855,
+    "ci95": [
+     -0.1225,
+     -0.0475
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0375,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.04,
+    "margin_over_own_ci_halfwidth": 2.28
+   },
+   "R1_CSLS_k100": {
+    "point": -0.083,
+    "ci95": [
+     -0.12,
+     -0.0474
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0363,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0425,
+    "margin_over_own_ci_halfwidth": 2.29
+   },
+   "R1_CSLS_k20": {
+    "point": -0.088,
+    "ci95": [
+     -0.125,
+     -0.05
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0375,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0375,
+    "margin_over_own_ci_halfwidth": 2.35
+   },
+   "R1_CSLS_k5": {
+    "point": -0.083,
+    "ci95": [
+     -0.12,
+     -0.045
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0375,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0425,
+    "margin_over_own_ci_halfwidth": 2.21
+   },
+   "R1_CSLS_k50": {
+    "point": -0.083,
+    "ci95": [
+     -0.12,
+     -0.0474
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0363,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0425,
+    "margin_over_own_ci_halfwidth": 2.29
+   },
+   "R2_SUBTRACT_CONSTANT_alpha0.25": {
+    "point": -0.0878,
+    "ci95": [
+     -0.1225,
+     -0.0525
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.035,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0375,
+    "margin_over_own_ci_halfwidth": 2.51
+   },
+   "R2_SUBTRACT_CONSTANT_alpha0.5": {
+    "point": -0.0803,
+    "ci95": [
+     -0.1175,
+     -0.045
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.03625,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.045,
+    "margin_over_own_ci_halfwidth": 2.22
+   },
+   "R2_SUBTRACT_CONSTANT_alpha0.75": {
+    "point": -0.0854,
+    "ci95": [
+     -0.1225,
+     -0.0475
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0375,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.04,
+    "margin_over_own_ci_halfwidth": 2.28
+   },
+   "R2_SUBTRACT_CONSTANT_alpha1": {
+    "point": -0.0954,
+    "ci95": [
+     -0.135,
+     -0.0575
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.03875,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.03,
+    "margin_over_own_ci_halfwidth": 2.46
+   },
+   "R2_SUBTRACT_CONSTANT_alpha1.5": {
+    "point": -0.0956,
+    "ci95": [
+     -0.1325,
+     -0.0575
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0375,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.03,
+    "margin_over_own_ci_halfwidth": 2.55
+   },
+   "R2_SUBTRACT_CONSTANT_alpha2": {
+    "point": -0.0981,
+    "ci95": [
+     -0.135,
+     -0.0624
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.0363,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0275,
+    "margin_over_own_ci_halfwidth": 2.7
+   },
+   "R3_ZNORM_ANCHOR": {
+    "point": -0.0856,
+    "ci95": [
+     -0.1225,
+     -0.05
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.03625,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.04,
+    "margin_over_own_ci_halfwidth": 2.36
+   },
+   "R4_DIVNORM_sigma0.01_expo1": {
+    "point": -0.1082,
+    "ci95": [
+     -0.145,
+     -0.0749
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.03505,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0175,
+    "margin_over_own_ci_halfwidth": 3.09
+   },
+   "R4_DIVNORM_sigma0.01_expo2": {
+    "point": -0.1108,
+    "ci95": [
+     -0.1475,
+     -0.075
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.03625,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.015,
+    "margin_over_own_ci_halfwidth": 3.06
+   },
+   "R4_DIVNORM_sigma0.05_expo1": {
+    "point": -0.0981,
+    "ci95": [
+     -0.135,
+     -0.0625
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.03625,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0275,
+    "margin_over_own_ci_halfwidth": 2.71
+   },
+   "R4_DIVNORM_sigma0.05_expo2": {
+    "point": -0.0855,
+    "ci95": [
+     -0.125,
+     -0.0475
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.03875,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.04,
+    "margin_over_own_ci_halfwidth": 2.21
+   },
+   "R4_DIVNORM_sigma0.1_expo1": {
+    "point": -0.0832,
+    "ci95": [
+     -0.12,
+     -0.0475
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.03625,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0425,
+    "margin_over_own_ci_halfwidth": 2.3
+   },
+   "R4_DIVNORM_sigma0.1_expo2": {
+    "point": -0.0829,
+    "ci95": [
+     -0.12,
+     -0.0475
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.03625,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0425,
+    "margin_over_own_ci_halfwidth": 2.29
+   },
+   "R4_DIVNORM_sigma0.25_expo1": {
+    "point": -0.0853,
+    "ci95": [
+     -0.1225,
+     -0.05
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.03625,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.04,
+    "margin_over_own_ci_halfwidth": 2.35
+   },
+   "R4_DIVNORM_sigma0.25_expo2": {
+    "point": -0.0928,
+    "ci95": [
+     -0.1275,
+     -0.0575
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.035,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0325,
+    "margin_over_own_ci_halfwidth": 2.65
+   },
+   "R4_DIVNORM_sigma0.5_expo1": {
+    "point": -0.0903,
+    "ci95": [
+     -0.125,
+     -0.055
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.035,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.035,
+    "margin_over_own_ci_halfwidth": 2.58
+   },
+   "R4_DIVNORM_sigma0.5_expo2": {
+    "point": -0.0954,
+    "ci95": [
+     -0.1325,
+     -0.06
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.03625,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.03,
+    "margin_over_own_ci_halfwidth": 2.63
+   },
+   "R4_DIVNORM_sigma1_expo1": {
+    "point": -0.0928,
+    "ci95": [
+     -0.1275,
+     -0.0575
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.035,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.0325,
+    "margin_over_own_ci_halfwidth": 2.65
+   },
+   "R4_DIVNORM_sigma1_expo2": {
+    "point": -0.0954,
+    "ci95": [
+     -0.1325,
+     -0.06
+    ],
+    "band": "BELOW",
+    "ci_halfwidth": 0.03625,
+    "analytic_null_halfwidth_at_this_n": 0.03241,
+    "arm_value": 0.03,
+    "margin_over_own_ci_halfwidth": 2.63
+   }
+  },
+  "ARMS_CI_SEPARATED_ABOVE_THE_BINDING_FLOOR": []
+ },
+ "POWER": {
+  "n_common_scored": 400,
+  "binom_ci_halfwidth_at_binding_floor": 0.03241,
+  "reading": "A WIDTH IS NOT AN EFFECT. If a margin is smaller than its own CI half-width the arm cannot separate at this n no matter how good the underlying thing is. Every margin above carries margin_over_own_ci_halfwidth beside it."
+ },
+ "ORGAN_REUSE_RUNTIME_WITNESS": {
+  "what": "modules actually LOADED by this run, observed in sys.modules AFTER the work -- runtime evidence, not a static search. Lazy imports are invisible to grep and string constants and comments read as imports.",
+  "loaded": [
+   "dehub_transforms",
+   "exp_cue_to_store_translation_v1",
+   "hdlab",
+   "hdlab.ablation",
+   "hdlab.animacy_lexicon",
+   "hdlab.atoms",
+   "hdlab.binding",
+   "hdlab.bundling",
+   "hdlab.char_trigram_encoder",
+   "hdlab.cleanup_family",
+   "hdlab.closed_class_lexicon",
+   "hdlab.consequence_learning_loop",
+   "hdlab.coreference_resolver",
+   "hdlab.event_bundle",
+   "hdlab.frame_induction",
+   "hdlab.gap_detector",
+   "hdlab.goal_typing",
+   "hdlab.grounded_similarity",
+   "hdlab.grounding_acquisition_loop",
+   "hdlab.hd_fact_store",
+   "hdlab.iterative_attractor",
+   "hdlab.learner",
+   "hdlab.learner.core",
+   "hdlab.learner.plugins",
+   "hdlab.learner.plugins.estimation_plugin",
+   "hdlab.learner.plugins.gam_plugin",
+   "hdlab.learner.plugins.proginduction_plugin",
+   "hdlab.learner.plugins.ruleind_plugin",
+   "hdlab.learner.registry",
+   "hdlab.lexical_similarity",
+   "hdlab.memory",
+   "hdlab.modulators",
+   "hdlab.reading_grounding_loop",
+   "hdlab.role_slot_summarizer",
+   "hdlab.self_improving_loop",
+   "hdlab.semantic",
+   "hdlab.situation_model_accumulate",
+   "hdlab.snapshots",
+   "hdlab.state_of_mind",
+   "hdlab.thematic_role_labeler",
+   "hdlab.tracing",
+   "hdlab.verb_lexical_similarity",
+   "hdlab.working_memory",
+   "tools.exp_checkpoint",
+   "tools.floor_battery",
+   "tools.saturation_negative_control"
+  ],
+  "edited_by_this_cell": []
+ },
+ "elapsed_s": 39.7,
+ "verdict": "BRANCH_B_ANSWER_IS_PRESENT_BUT_THE_SELECTOR_CANNOT_REACH_IT__REPLACEMENT_CLEARS_FLOOR_NO__KA_PASS",
+ "verdict_msg": "S2 exact-key hit@1=0.0275 hit@10=0.23 hit@100=0.64 vs RANDOM-RANKING 0.00911 / 0.08254 / 0.42399; median rank of best gold=52.0 of 5491 eligible || binding floor F_CONSTANT_PROTOTYPE=0.125; 0 of 29 arms CI-separated ABOVE it",
+ "wire_status": "VET_PENDING"
+}

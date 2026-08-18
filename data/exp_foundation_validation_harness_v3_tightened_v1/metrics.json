@@ -1,0 +1,82 @@
+{
+  "verdict": "INSTRUMENT_STILL_LOOSE",
+  "verdict_msg": "claim1_tightened=INSTRUMENT_STILL_LOOSE validity_gate_pass=False(chance_hat=0.76<=?0.15) gap=0.1133 floor=orthographic=0.84 precision=0.9533 v2_precision=0.9667 v2_chance=0.7667 v2_freq=0.96 known_answer_instrument_valid=True",
+  "summary": "claim1_tightened=INSTRUMENT_STILL_LOOSE validity_gate_pass=False(chance_hat=0.76<=?0.15) gap=0.1133 floor=orthographic=0.84 precision=0.9533 v2_precision=0.9667 v2_chance=0.7667 v2_freq=0.96 known_answer_instrument_valid=True",
+  "elapsed_s": 181.00955770001747,
+  "ts_iso": "2026-08-15T18:54:09.552455+00:00",
+  "anchor_name": "foundation_validation_harness_v3_tightened_v1",
+  "run_mode": "full",
+  "foundation_dir": "data/foundation_snapshots/reading_grounding_v2q_full_20260815T182838Z",
+  "n_facts_loaded": 2146,
+  "seed": 20260815,
+  "known_answer_arm": {
+    "n_dim": 2048,
+    "k_chains": 20,
+    "accuracy": 1.0,
+    "instrument_valid": true
+  },
+  "claim1_correctness_tightened": {
+    "verdict": "INSTRUMENT_STILL_LOOSE",
+    "validity_gate_pass": false,
+    "chance_near_gate_threshold": 0.15,
+    "n_live_grounded_meaning": 634,
+    "n_cross_grounded": 634,
+    "n_sampled": 150,
+    "precision_hat": 0.9533,
+    "chance_hat": 0.76,
+    "ortho_rate": 0.84,
+    "freq_rate": 0.8267,
+    "floor_name": "orthographic",
+    "floor_max": 0.84,
+    "gap": 0.1133,
+    "wilson_precision": [
+      0.9068,
+      0.9772
+    ],
+    "wilson_floor": [
+      0.773,
+      0.8901
+    ],
+    "freq_pick_global": "people",
+    "n_sentences": 30889,
+    "n_distinct_objects": 334,
+    "min_stem_coverage": 0.6,
+    "arms_differ_verified": true,
+    "v2_comparison": {
+      "precision_hat": 0.9667,
+      "chance_hat": 0.7667,
+      "ortho_rate": 0.84,
+      "freq_rate": 0.96,
+      "floor_max": 0.96,
+      "gap": 0.0067,
+      "verdict": "HARD_FAIL"
+    }
+  },
+  "claim2_coherence_from_v2_unchanged": {
+    "note": "not recomputed -- cooccurs/prefix_count not used by claim2's pass/fail arms",
+    "source": "data/exp_foundation_validation_harness_v2_floors_v1/metrics.json",
+    "verdict": "HARD_PASS",
+    "cohesion_gap": 0.3111,
+    "scrambled_cohesion_gap": -0.0055,
+    "active_contradiction_count": 0
+  },
+  "claim3_can_reason_from_v2_unchanged": {
+    "note": "not recomputed -- claim3 freq_accuracy uses a store-membership Counter, not corpus prefix_count; not implicated by this bug",
+    "source": "data/exp_foundation_validation_harness_v2_floors_v1/metrics.json",
+    "verdict": "HARD_PASS",
+    "mechanism_accuracy": 1.0,
+    "floor_max": 0.0267,
+    "draw_gap_mean": 0.996,
+    "draw_gap_sd": 0.008
+  },
+  "bands": {
+    "claim1_validity_gate": {
+      "chance_hat_near_gate_max": 0.15
+    },
+    "claim1": {
+      "hard_pass_gap_min": 0.2,
+      "hard_fail_gap_max": 0.05,
+      "floor": "max(chance,ortho,freq)_tightened"
+    }
+  }
+}

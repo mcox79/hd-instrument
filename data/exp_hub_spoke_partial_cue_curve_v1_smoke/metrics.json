@@ -1,0 +1,1726 @@
+{
+  "anchor_name": "hub_spoke_partial_cue_curve_v1",
+  "code_version": "v1.0",
+  "run_mode": "smoke",
+  "prereg": "preregs/2026-08-16_exp_hub_spoke_partial_cue_curve_v1.md",
+  "config_fingerprint": "29d2456d20332a97",
+  "parent_cell": "experiments/exp_hub_spoke_word_representation_v1.py (UNMODIFIED)",
+  "config": {
+    "V": 512,
+    "D_SWEEP": [
+      256
+    ],
+    "SEEDS": [
+      7
+    ],
+    "OVERLAPS": [
+      1.0,
+      0.8,
+      0.5,
+      0.2,
+      0.0
+    ],
+    "N_PROBE": 256,
+    "TOPK": 50,
+    "N_BOOT": 2000,
+    "BOOT_SEED": 20260815,
+    "config_inherited_from": "exp_hub_spoke_word_representation_v1 (unedited)"
+  },
+  "verdict": "PARTIAL",
+  "verdict_msg": "PARTIAL. instrument-validity 8/8. CURVE-A facet recovery vs KEY overlap (100/80/50/20/0%): 1.0000/1.0000/0.9951/0.6914/0.2319 (chance 0.25). CURVE-B item identification vs CONTENT overlap at 20%: ADDRESSED 0.0586, FLAT 0.0352, CONJUNCTIVE 0.0234 (chance 1.95e-03). P1=False P1_MEANINGFUL_FLOORS=True P2=False. CONSTRUCTION PROOF -- no meaning claim, no downstream number.",
+  "summary": "PARTIAL. instrument-validity 8/8. CURVE-A facet recovery vs KEY overlap (100/80/50/20/0%): 1.0000/1.0000/0.9951/0.6914/0.2319 (chance 0.25). CURVE-B item identification vs CONTENT overlap at 20%: ADDRESSED 0.0586, FLAT 0.0352, CONJUNCTIVE 0.0234 (chance 1.95e-03). P1=False P1_MEANINGFUL_FLOORS=True P2=False. CONSTRUCTION PROOF -- no meaning claim, no downstream number.",
+  "gates": [
+    {
+      "id": "PV1",
+      "family": "KNOWN",
+      "claim": "every CURVE-B operator identifies its own item at f=1.00 (>= 0.99)",
+      "observed": {
+        "ADDRESSED": 1.0,
+        "ADDRESSED_SIGNED": 1.0,
+        "FLAT": 1.0,
+        "CONJUNCTIVE": 1.0,
+        "SLOTTED": 1.0,
+        "F_ORTHO_ONLY": 1.0,
+        "F_SCRAMBLE": 1.0
+      },
+      "threshold": 0.99,
+      "passed": true
+    },
+    {
+      "id": "PV2",
+      "family": "NULL",
+      "claim": "every CURVE-B operator is at chance at f=0.00 (no-overlap control)",
+      "observed": {
+        "ADDRESSED": 0.0,
+        "ADDRESSED_SIGNED": 0.00390625,
+        "FLAT": 0.0,
+        "CONJUNCTIVE": 0.0,
+        "SLOTTED": 0.0,
+        "F_ORTHO_ONLY": 0.0,
+        "F_SCRAMBLE": 0.00390625
+      },
+      "threshold": 0.01953125,
+      "chance": 0.001953125,
+      "passed": true
+    },
+    {
+      "id": "PV3",
+      "family": "KNOWN",
+      "claim": "at f=1.00 the read-out is bit-identical to the parent cell's unmodified facet_recovery",
+      "observed": 1.0,
+      "passed": true,
+      "note": "asserted in selftest ST_PV3; the run aborts if it fails"
+    },
+    {
+      "id": "PV4",
+      "family": "AXIS",
+      "claim": "measured cue cosine is within 0.05 of f and monotone",
+      "observed": {
+        "1.00": 1.0,
+        "0.80": 0.7890625,
+        "0.50": 0.50390625,
+        "0.20": 0.220703125,
+        "0.00": -0.0078125
+      },
+      "threshold": 0.05,
+      "passed": true
+    },
+    {
+      "id": "PV5",
+      "family": "NULL",
+      "claim": "FLAT_SUM facet recovery stays at chance 0.25 at EVERY cue overlap",
+      "observed": {
+        "1.00": 0.25341796875,
+        "0.80": 0.2626953125,
+        "0.50": 0.24853515625,
+        "0.20": 0.2529296875,
+        "0.00": 0.2607421875
+      },
+      "threshold": 0.05,
+      "passed": true
+    },
+    {
+      "id": "PV6",
+      "family": "KNOWN",
+      "claim": "conjunction bit-identical to hdlab/perirhinal_conjunctive",
+      "observed": 1.0,
+      "passed": true,
+      "note": "asserted in selftest; the run aborts if it fails"
+    },
+    {
+      "id": "PV8",
+      "family": "KNOWN",
+      "claim": "no external LLM in sys.modules",
+      "observed": 1.0,
+      "passed": true,
+      "note": "asserted in selftest; the run aborts if it fails"
+    },
+    {
+      "id": "PV7",
+      "family": "KNOWN",
+      "claim": "every operator's stored vectors differ",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "floors": [
+        "F_ORTHO",
+        "F_FREQ",
+        "F_SCRAMBLE"
+      ],
+      "per_overlap": {
+        "1.00": {
+          "hs4_point": 1.0,
+          "hs4_ci_lower": 1.0,
+          "max_floor_ci_upper": 1.0,
+          "max_floor_arm": "F_SCRAMBLE",
+          "separated": false
+        },
+        "0.80": {
+          "hs4_point": 1.0,
+          "hs4_ci_lower": 1.0,
+          "max_floor_ci_upper": 1.0,
+          "max_floor_arm": "F_SCRAMBLE",
+          "separated": false
+        },
+        "0.50": {
+          "hs4_point": 0.9951171875,
+          "hs4_ci_lower": 0.99169921875,
+          "max_floor_ci_upper": 0.9990234375,
+          "max_floor_arm": "F_SCRAMBLE",
+          "separated": false
+        },
+        "0.20": {
+          "hs4_point": 0.69140625,
+          "hs4_ci_lower": 0.671875,
+          "max_floor_ci_upper": 0.6357543945312499,
+          "max_floor_arm": "F_SCRAMBLE",
+          "separated": true
+        }
+      },
+      "passed": false,
+      "id": "P1",
+      "claim": "ADDRESS SURVIVES A PARTIAL CUE: HS4_GRADED facet-recovery CI lower > max(F_ORTHO,F_FREQ,F_SCRAMBLE) CI upper at every overlap >= 0.20, identical scorer/n/pool",
+      "DECLARED_BEFORE_THE_RUN": "F_SCRAMBLE scores 1.000 on the FACET axis by construction (scrambling which word owns which meaning does not touch addressing). It is a floor for the MEANING axis and not for this one. The threshold is NOT changed; the meaningful-floor row is reported BESIDE it, never instead of it."
+    },
+    {
+      "floors": [
+        "F_ORTHO",
+        "F_FREQ"
+      ],
+      "per_overlap": {
+        "1.00": {
+          "hs4_point": 1.0,
+          "hs4_ci_lower": 1.0,
+          "max_floor_ci_upper": 0.25831298828124993,
+          "max_floor_arm": "F_FREQ",
+          "separated": true
+        },
+        "0.80": {
+          "hs4_point": 1.0,
+          "hs4_ci_lower": 1.0,
+          "max_floor_ci_upper": 0.26318359375,
+          "max_floor_arm": "F_FREQ",
+          "separated": true
+        },
+        "0.50": {
+          "hs4_point": 0.9951171875,
+          "hs4_ci_lower": 0.99169921875,
+          "max_floor_ci_upper": 0.2568359375,
+          "max_floor_arm": "F_FREQ",
+          "separated": true
+        },
+        "0.20": {
+          "hs4_point": 0.69140625,
+          "hs4_ci_lower": 0.671875,
+          "max_floor_ci_upper": 0.251953125,
+          "max_floor_arm": "F_FREQ",
+          "separated": true
+        }
+      },
+      "passed": true,
+      "id": "P1_MEANINGFUL_FLOORS",
+      "claim": "the same comparison restricted to the floors that are floors on THIS axis: max(F_ORTHO, F_FREQ). Reported beside P1, never averaged with it and never substituted for it."
+    },
+    {
+      "id": "P2",
+      "claim": "HUB-AND-SPOKE DOES NOT INHERIT THE CONJUNCTIVE COLLAPSE: at 20% cue overlap CONJUNCTIVE must be CI-separated below FLAT (positive control) AND ADDRESSED must not be",
+      "positive_control_CONJUNCTIVE_vs_FLAT": {
+        "delta": -0.01171875,
+        "ci95": [
+          -0.04296875,
+          0.015625
+        ],
+        "separated_below": false
+      },
+      "ADDRESSED_vs_FLAT": {
+        "delta": 0.0234375,
+        "ci95": [
+          -0.011816406249999994,
+          0.05859375
+        ],
+        "separated_below": false
+      },
+      "passed": false,
+      "instrument_has_discriminating_power": false
+    },
+    {
+      "id": "P3",
+      "claim": "the decay shape -- reported, not gated",
+      "passed": null
+    }
+  ],
+  "summary_block": {
+    "d_headline": 256,
+    "OVERLAPS": [
+      1.0,
+      0.8,
+      0.5,
+      0.2,
+      0.0
+    ],
+    "CURVE_A_HS4_GRADED": {
+      "1.00": 1.0,
+      "0.80": 1.0,
+      "0.50": 0.9951171875,
+      "0.20": 0.69140625,
+      "0.00": 0.23193359375
+    },
+    "CURVE_A_measured_cue_cos": {
+      "1.00": 1.0,
+      "0.80": 0.7890625,
+      "0.50": 0.50390625,
+      "0.20": 0.220703125,
+      "0.00": -0.0078125
+    },
+    "CURVE_B_top1_by_operator": {
+      "ADDRESSED": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 0.984375,
+        "0.20": 0.05859375,
+        "0.00": 0.0
+      },
+      "ADDRESSED_SIGNED": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 0.80078125,
+        "0.20": 0.0390625,
+        "0.00": 0.00390625
+      },
+      "FLAT": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 0.9609375,
+        "0.20": 0.03515625,
+        "0.00": 0.0
+      },
+      "CONJUNCTIVE": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 0.60546875,
+        "0.20": 0.0234375,
+        "0.00": 0.0
+      },
+      "SLOTTED": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.20": 0.06640625,
+        "0.00": 0.0
+      },
+      "F_ORTHO_ONLY": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 0.46484375,
+        "0.20": 0.0,
+        "0.00": 0.0
+      },
+      "F_SCRAMBLE": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 0.96875,
+        "0.20": 0.04296875,
+        "0.00": 0.00390625
+      }
+    },
+    "CURVE_B_median_rank_by_operator": {
+      "ADDRESSED": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.20": 91.0,
+        "0.00": 251.0
+      },
+      "ADDRESSED_SIGNED": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.20": 102.0,
+        "0.00": 228.5
+      },
+      "FLAT": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.20": 92.0,
+        "0.00": 241.0
+      },
+      "CONJUNCTIVE": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.20": 177.5,
+        "0.00": 229.5
+      },
+      "SLOTTED": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.20": 90.0,
+        "0.00": 244.5
+      },
+      "F_ORTHO_ONLY": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 2.0,
+        "0.20": 5.0,
+        "0.00": 252.0
+      },
+      "F_SCRAMBLE": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.20": 86.5,
+        "0.00": 260.0
+      }
+    },
+    "CURVE_B_recall_at_50_by_operator": {
+      "ADDRESSED": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.20": 0.34375,
+        "0.00": 0.10546875
+      },
+      "ADDRESSED_SIGNED": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 0.9921875,
+        "0.20": 0.35546875,
+        "0.00": 0.1015625
+      },
+      "FLAT": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.20": 0.3515625,
+        "0.00": 0.09375
+      },
+      "CONJUNCTIVE": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 0.890625,
+        "0.20": 0.234375,
+        "0.00": 0.09375
+      },
+      "SLOTTED": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.20": 0.38671875,
+        "0.00": 0.09765625
+      },
+      "F_ORTHO_ONLY": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.20": 0.9375,
+        "0.00": 0.07421875
+      },
+      "F_SCRAMBLE": {
+        "1.00": 1.0,
+        "0.80": 1.0,
+        "0.50": 1.0,
+        "0.20": 0.35546875,
+        "0.00": 0.0859375
+      }
+    },
+    "CURVE_B_measured_cue_cos_operator_space": {
+      "ADDRESSED": {
+        "1.00": 1.0,
+        "0.80": 0.8014599680900574,
+        "0.50": 0.5100193023681641,
+        "0.20": 0.1951557993888855,
+        "0.00": 0.014442510902881622
+      },
+      "ADDRESSED_SIGNED": {
+        "1.00": 1.0,
+        "0.80": 0.742279052734375,
+        "0.50": 0.469390869140625,
+        "0.20": 0.25421142578125,
+        "0.00": 0.148681640625
+      },
+      "FLAT": {
+        "1.00": 1.0,
+        "0.80": 0.7998895645141602,
+        "0.50": 0.5066123008728027,
+        "0.20": 0.19923532009124756,
+        "0.00": 0.025507060810923576
+      },
+      "CONJUNCTIVE": {
+        "1.00": 1.0,
+        "0.80": 0.644397497177124,
+        "0.50": 0.25705981254577637,
+        "0.20": 0.039785224944353104,
+        "0.00": 0.0047488221898674965
+      },
+      "SLOTTED": {
+        "1.00": 1.0,
+        "0.80": 0.8043975830078125,
+        "0.50": 0.491546630859375,
+        "0.20": 0.20404052734375,
+        "0.00": 0.014923095703125
+      },
+      "F_ORTHO_ONLY": {
+        "1.00": 1.0,
+        "0.80": 0.809478759765625,
+        "0.50": 0.509857177734375,
+        "0.20": 0.233489990234375,
+        "0.00": 0.022186279296875
+      },
+      "F_SCRAMBLE": {
+        "1.00": 1.0,
+        "0.80": 0.8035008907318115,
+        "0.50": 0.5198712348937988,
+        "0.20": 0.19048860669136047,
+        "0.00": 0.0019113931339234114
+      }
+    },
+    "chance_identify": 0.001953125
+  },
+  "selftest": {
+    "ST_PV6_conjunction_reuse_bit_identical": true,
+    "ST_PV4_cue_cos_tracks_f": {
+      "1.00": 1.0,
+      "0.80": 0.80078125,
+      "0.50": 0.455078125,
+      "0.20": 0.1875,
+      "0.00": -0.00390625
+    },
+    "ST_PV3_f1_bit_identical_to_parent": {
+      "HS4_GRADED": 1.0,
+      "FLAT_SUM": 0.25341796875,
+      "N_NULLCONTENT": 1.0
+    },
+    "ST_degradation_rowwise_cos": {
+      "1.00": 0.9999999403953552,
+      "0.80": 0.799591064453125,
+      "0.50": 0.49859619140625,
+      "0.20": 0.1981048583984375,
+      "0.00": -0.0037689208984375
+    },
+    "ST_PV1_known_answer_f1": {
+      "ADDRESSED": 1.0,
+      "ADDRESSED_SIGNED": 1.0,
+      "FLAT": 1.0,
+      "CONJUNCTIVE": 1.0,
+      "SLOTTED": 1.0,
+      "F_ORTHO_ONLY": 1.0,
+      "F_SCRAMBLE": 1.0
+    },
+    "ST_PV2_no_overlap_f0": {
+      "ADDRESSED": 0.0078125,
+      "ADDRESSED_SIGNED": 0.0,
+      "FLAT": 0.0,
+      "CONJUNCTIVE": 0.0,
+      "SLOTTED": 0.0,
+      "F_ORTHO_ONLY": 0.0,
+      "F_SCRAMBLE": 0.0
+    },
+    "ST_A1_excluded_channel_self_identification": {
+      "F_FREQ_ONLY": {
+        "self_identification_at_f1": 0.640625,
+        "PV1_threshold": 0.99,
+        "reason": "a frequency lift cannot distinguish words sharing a frequency band; it fails the known-answer gate from the item itself"
+      }
+    },
+    "ST_PV7_arms_differ": {
+      "ADDRESSED": "8c0fd603ae1fbf27",
+      "ADDRESSED_SIGNED": "2f44451cb33840c4",
+      "FLAT": "e054b405c688c789",
+      "CONJUNCTIVE": "c04cf1a48a19310d",
+      "SLOTTED": "d5180ebc8f748e29",
+      "F_ORTHO_ONLY": "f211cc06078bb081",
+      "F_SCRAMBLE": "878665c977224d7f"
+    },
+    "ST_metric_moves": {
+      "f1.00": 1.0,
+      "f0.00": 0.23193359375
+    },
+    "ST_ruler_status": {
+      "experiments/exp_encoding_quality_instrument_v2.py": {
+        "tracked": true,
+        "porcelain": "",
+        "sha256_16": "05e6aacac063edae"
+      },
+      "experiments/exp_hub_spoke_word_representation_v1.py": {
+        "tracked": false,
+        "porcelain": "?? experiments/exp_hub_spoke_word_representation_v1.py",
+        "sha256_16": "a7c0ab784dbc55ac"
+      },
+      "hdlab/hub_spoke_word.py": {
+        "tracked": false,
+        "porcelain": "?? hdlab/hub_spoke_word.py",
+        "sha256_16": "850a1d123b03d39d"
+      },
+      "hdlab/perirhinal_conjunctive.py": {
+        "tracked": true,
+        "porcelain": "",
+        "sha256_16": "22554adc90fcf5cd"
+      }
+    },
+    "ST_PV8_no_external_llm": true
+  },
+  "units": [
+    {
+      "d": 256,
+      "seed": 7,
+      "n_words": 512,
+      "chance_identify": 0.001953125,
+      "CURVE_A_facet_recovery_vs_key_overlap": {
+        "HS4_GRADED": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 1.0,
+            "chance": 0.25
+          },
+          "0.80": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.7890625,
+            "chance": 0.25
+          },
+          "0.50": {
+            "point": 0.9951171875,
+            "ci95": [
+              0.99169921875,
+              0.998046875
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.50390625,
+            "chance": 0.25
+          },
+          "0.20": {
+            "point": 0.69140625,
+            "ci95": [
+              0.671875,
+              0.7119140625
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.220703125,
+            "chance": 0.25
+          },
+          "0.00": {
+            "point": 0.23193359375,
+            "ci95": [
+              0.21435546875,
+              0.25048828125
+            ],
+            "n": 512,
+            "measured_cue_cos": -0.0078125,
+            "chance": 0.25
+          }
+        },
+        "HS4_SIGNED": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 1.0,
+            "chance": 0.25
+          },
+          "0.80": {
+            "point": 0.99951171875,
+            "ci95": [
+              0.99853515625,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.78515625,
+            "chance": 0.25
+          },
+          "0.50": {
+            "point": 0.947265625,
+            "ci95": [
+              0.93797607421875,
+              0.95703125
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.501953125,
+            "chance": 0.25
+          },
+          "0.20": {
+            "point": 0.50390625,
+            "ci95": [
+              0.482421875,
+              0.52587890625
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.193359375,
+            "chance": 0.25
+          },
+          "0.00": {
+            "point": 0.23681640625,
+            "ci95": [
+              0.2197265625,
+              0.2548828125
+            ],
+            "n": 512,
+            "measured_cue_cos": -0.015625,
+            "chance": 0.25
+          }
+        },
+        "HS2_GRADED": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 1.0,
+            "chance": 0.5
+          },
+          "0.80": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.79296875,
+            "chance": 0.5
+          },
+          "0.50": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.4375,
+            "chance": 0.5
+          },
+          "0.20": {
+            "point": 0.9990234375,
+            "ci95": [
+              0.9970703125,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.2734375,
+            "chance": 0.5
+          },
+          "0.00": {
+            "point": 0.525390625,
+            "ci95": [
+              0.5048828125,
+              0.544921875
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.0078125,
+            "chance": 0.5
+          }
+        },
+        "HS5_EXTENDED": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 1.0,
+            "chance": 0.2
+          },
+          "0.80": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.790625,
+            "chance": 0.2
+          },
+          "0.50": {
+            "point": 0.974609375,
+            "ci95": [
+              0.96796875,
+              0.98046875
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.4734375,
+            "chance": 0.2
+          },
+          "0.20": {
+            "point": 0.612890625,
+            "ci95": [
+              0.593359375,
+              0.6324316406250001
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.203125,
+            "chance": 0.2
+          },
+          "0.00": {
+            "point": 0.32500000000000007,
+            "ci95": [
+              0.30664062500000006,
+              0.342978515625
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.04375,
+            "chance": 0.2
+          }
+        },
+        "N_NULLCONTENT": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 1.0,
+            "chance": 0.25
+          },
+          "0.80": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.806640625,
+            "chance": 0.25
+          },
+          "0.50": {
+            "point": 0.998046875,
+            "ci95": [
+              0.99609375,
+              0.99951171875
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.541015625,
+            "chance": 0.25
+          },
+          "0.20": {
+            "point": 0.6357421875,
+            "ci95": [
+              0.61619873046875,
+              0.65625
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.146484375,
+            "chance": 0.25
+          },
+          "0.00": {
+            "point": 0.25732421875,
+            "ci95": [
+              0.2392578125,
+              0.2744140625
+            ],
+            "n": 512,
+            "measured_cue_cos": -0.01171875,
+            "chance": 0.25
+          }
+        },
+        "FLAT_SUM": {
+          "1.00": {
+            "point": 0.25341796875,
+            "ci95": [
+              0.23388671875,
+              0.27197265625
+            ],
+            "n": 512,
+            "measured_cue_cos": 1.0,
+            "chance": 0.25
+          },
+          "0.80": {
+            "point": 0.2626953125,
+            "ci95": [
+              0.24462890625,
+              0.28271484375
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.810546875,
+            "chance": 0.25
+          },
+          "0.50": {
+            "point": 0.24853515625,
+            "ci95": [
+              0.22998046875,
+              0.267578125
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.48828125,
+            "chance": 0.25
+          },
+          "0.20": {
+            "point": 0.2529296875,
+            "ci95": [
+              0.23387451171875,
+              0.27197265625
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.236328125,
+            "chance": 0.25
+          },
+          "0.00": {
+            "point": 0.2607421875,
+            "ci95": [
+              0.2421875,
+              0.27783203125
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.0,
+            "chance": 0.25
+          }
+        },
+        "F_ORTHO": {
+          "1.00": {
+            "point": 0.2392578125,
+            "ci95": [
+              0.2216796875,
+              0.25732421875
+            ],
+            "n": 512,
+            "measured_cue_cos": 1.0,
+            "chance": 0.25
+          },
+          "0.80": {
+            "point": 0.18798828125,
+            "ci95": [
+              0.17236328125,
+              0.20458984375
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.8046875,
+            "chance": 0.25
+          },
+          "0.50": {
+            "point": 0.22802734375,
+            "ci95": [
+              0.2099609375,
+              0.2470703125
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.482421875,
+            "chance": 0.25
+          },
+          "0.20": {
+            "point": 0.20166015625,
+            "ci95": [
+              0.18603515625,
+              0.21875
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.21875,
+            "chance": 0.25
+          },
+          "0.00": {
+            "point": 0.23095703125,
+            "ci95": [
+              0.21336669921875,
+              0.24951171875
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.03125,
+            "chance": 0.25
+          }
+        },
+        "F_FREQ": {
+          "1.00": {
+            "point": 0.2412109375,
+            "ci95": [
+              0.224609375,
+              0.25831298828124993
+            ],
+            "n": 512,
+            "measured_cue_cos": 1.0,
+            "chance": 0.25
+          },
+          "0.80": {
+            "point": 0.24560546875,
+            "ci95": [
+              0.22850341796875,
+              0.26318359375
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.79296875,
+            "chance": 0.25
+          },
+          "0.50": {
+            "point": 0.23681640625,
+            "ci95": [
+              0.2177734375,
+              0.2568359375
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.48828125,
+            "chance": 0.25
+          },
+          "0.20": {
+            "point": 0.234375,
+            "ci95": [
+              0.21727294921875,
+              0.251953125
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.25390625,
+            "chance": 0.25
+          },
+          "0.00": {
+            "point": 0.26904296875,
+            "ci95": [
+              0.25048828125,
+              0.28759765625
+            ],
+            "n": 512,
+            "measured_cue_cos": -0.01953125,
+            "chance": 0.25
+          }
+        },
+        "F_SCRAMBLE": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 1.0,
+            "chance": 0.25
+          },
+          "0.80": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.80078125,
+            "chance": 0.25
+          },
+          "0.50": {
+            "point": 0.9970703125,
+            "ci95": [
+              0.99462890625,
+              0.9990234375
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.5078125,
+            "chance": 0.25
+          },
+          "0.20": {
+            "point": 0.615234375,
+            "ci95": [
+              0.595703125,
+              0.6357543945312499
+            ],
+            "n": 512,
+            "measured_cue_cos": 0.169921875,
+            "chance": 0.25
+          },
+          "0.00": {
+            "point": 0.30712890625,
+            "ci95": [
+              0.29052734375,
+              0.3232421875
+            ],
+            "n": 512,
+            "measured_cue_cos": -0.01953125,
+            "chance": 0.25
+          }
+        }
+      },
+      "n_probe": 256,
+      "CURVE_B_identification_vs_content_overlap": {
+        "ADDRESSED": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 1.0,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.80": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.8014599680900574,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.50": {
+            "point": 0.984375,
+            "ci95": [
+              0.96875,
+              0.99609375
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.5100193023681641,
+            "median_rank": 1.0,
+            "mean_rank": 1.03515625,
+            "recall_at_50": 1.0
+          },
+          "0.20": {
+            "point": 0.05859375,
+            "ci95": [
+              0.03125,
+              0.08984375
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.1951557993888855,
+            "median_rank": 91.0,
+            "mean_rank": 128.81640625,
+            "recall_at_50": 0.34375
+          },
+          "0.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.014442510902881622,
+            "median_rank": 251.0,
+            "mean_rank": 255.78125,
+            "recall_at_50": 0.10546875
+          }
+        },
+        "ADDRESSED_SIGNED": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 1.0,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.80": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.742279052734375,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.50": {
+            "point": 0.80078125,
+            "ci95": [
+              0.74609375,
+              0.8515625
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.469390869140625,
+            "median_rank": 1.0,
+            "mean_rank": 3.2109375,
+            "recall_at_50": 0.9921875
+          },
+          "0.20": {
+            "point": 0.0390625,
+            "ci95": [
+              0.015625,
+              0.0625
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.25421142578125,
+            "median_rank": 102.0,
+            "mean_rank": 136.83984375,
+            "recall_at_50": 0.35546875
+          },
+          "0.00": {
+            "point": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.148681640625,
+            "median_rank": 228.5,
+            "mean_rank": 247.34375,
+            "recall_at_50": 0.1015625
+          }
+        },
+        "FLAT": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 1.0,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.80": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.7998895645141602,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.50": {
+            "point": 0.9609375,
+            "ci95": [
+              0.93359375,
+              0.98046875
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.5066123008728027,
+            "median_rank": 1.0,
+            "mean_rank": 1.08203125,
+            "recall_at_50": 1.0
+          },
+          "0.20": {
+            "point": 0.03515625,
+            "ci95": [
+              0.015625,
+              0.05859375
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.19923532009124756,
+            "median_rank": 92.0,
+            "mean_rank": 120.02734375,
+            "recall_at_50": 0.3515625
+          },
+          "0.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.025507060810923576,
+            "median_rank": 241.0,
+            "mean_rank": 248.11328125,
+            "recall_at_50": 0.09375
+          }
+        },
+        "CONJUNCTIVE": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 1.0,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.80": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.644397497177124,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.50": {
+            "point": 0.60546875,
+            "ci95": [
+              0.546875,
+              0.6602539062499995
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.25705981254577637,
+            "median_rank": 1.0,
+            "mean_rank": 18.89453125,
+            "recall_at_50": 0.890625
+          },
+          "0.20": {
+            "point": 0.0234375,
+            "ci95": [
+              0.0078125,
+              0.04296875
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.039785224944353104,
+            "median_rank": 177.5,
+            "mean_rank": 205.5078125,
+            "recall_at_50": 0.234375
+          },
+          "0.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.0047488221898674965,
+            "median_rank": 229.5,
+            "mean_rank": 247.77734375,
+            "recall_at_50": 0.09375
+          }
+        },
+        "SLOTTED": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 1.0,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.80": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.8043975830078125,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.50": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.491546630859375,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.20": {
+            "point": 0.06640625,
+            "ci95": [
+              0.0390625,
+              0.09765625
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.20404052734375,
+            "median_rank": 90.0,
+            "mean_rank": 122.63671875,
+            "recall_at_50": 0.38671875
+          },
+          "0.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.014923095703125,
+            "median_rank": 244.5,
+            "mean_rank": 255.82421875,
+            "recall_at_50": 0.09765625
+          }
+        },
+        "F_ORTHO_ONLY": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 1.0,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.80": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.809478759765625,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.50": {
+            "point": 0.46484375,
+            "ci95": [
+              0.40625,
+              0.5234375
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.509857177734375,
+            "median_rank": 2.0,
+            "mean_rank": 1.546875,
+            "recall_at_50": 1.0
+          },
+          "0.20": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.233489990234375,
+            "median_rank": 5.0,
+            "mean_rank": 12.8828125,
+            "recall_at_50": 0.9375
+          },
+          "0.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.022186279296875,
+            "median_rank": 252.0,
+            "mean_rank": 273.26953125,
+            "recall_at_50": 0.07421875
+          }
+        },
+        "F_SCRAMBLE": {
+          "1.00": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 1.0,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.80": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.8035008907318115,
+            "median_rank": 1.0,
+            "mean_rank": 1.0,
+            "recall_at_50": 1.0
+          },
+          "0.50": {
+            "point": 0.96875,
+            "ci95": [
+              0.9453125,
+              0.98828125
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.5198712348937988,
+            "median_rank": 1.0,
+            "mean_rank": 1.05078125,
+            "recall_at_50": 1.0
+          },
+          "0.20": {
+            "point": 0.04296875,
+            "ci95": [
+              0.01953125,
+              0.0703125
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.19048860669136047,
+            "median_rank": 86.5,
+            "mean_rank": 127.70703125,
+            "recall_at_50": 0.35546875
+          },
+          "0.00": {
+            "point": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "n": 256,
+            "measured_cue_cos_operator_space": 0.0019113931339234114,
+            "median_rank": 260.0,
+            "mean_rank": 264.22265625,
+            "recall_at_50": 0.0859375
+          }
+        }
+      },
+      "curve_b_store_digests": {
+        "ADDRESSED": "8c0fd603ae1fbf27",
+        "ADDRESSED_SIGNED": "2f44451cb33840c4",
+        "FLAT": "e054b405c688c789",
+        "CONJUNCTIVE": "c04cf1a48a19310d",
+        "SLOTTED": "d5180ebc8f748e29",
+        "F_ORTHO_ONLY": "f211cc06078bb081",
+        "F_SCRAMBLE": "878665c977224d7f"
+      },
+      "arms_must_differ_ok": true,
+      "CURVE_B_paired_delta_vs_FLAT": {
+        "ADDRESSED": {
+          "1.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          },
+          "0.80": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          },
+          "0.50": {
+            "point": 0.0234375,
+            "ci95": [
+              -0.00390625,
+              0.0546875
+            ],
+            "n": 256
+          },
+          "0.20": {
+            "point": 0.0234375,
+            "ci95": [
+              -0.011816406249999994,
+              0.05859375
+            ],
+            "n": 256
+          },
+          "0.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          }
+        },
+        "ADDRESSED_SIGNED": {
+          "1.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          },
+          "0.80": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          },
+          "0.50": {
+            "point": -0.16015625,
+            "ci95": [
+              -0.21875,
+              -0.10546875
+            ],
+            "n": 256
+          },
+          "0.20": {
+            "point": 0.00390625,
+            "ci95": [
+              -0.02734375,
+              0.03125
+            ],
+            "n": 256
+          },
+          "0.00": {
+            "point": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "n": 256
+          }
+        },
+        "CONJUNCTIVE": {
+          "1.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          },
+          "0.80": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          },
+          "0.50": {
+            "point": -0.35546875,
+            "ci95": [
+              -0.41796875,
+              -0.296875
+            ],
+            "n": 256
+          },
+          "0.20": {
+            "point": -0.01171875,
+            "ci95": [
+              -0.04296875,
+              0.015625
+            ],
+            "n": 256
+          },
+          "0.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          }
+        },
+        "SLOTTED": {
+          "1.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          },
+          "0.80": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          },
+          "0.50": {
+            "point": 0.0390625,
+            "ci95": [
+              0.01953125,
+              0.06640625
+            ],
+            "n": 256
+          },
+          "0.20": {
+            "point": 0.03125,
+            "ci95": [
+              -0.0078125,
+              0.06640625
+            ],
+            "n": 256
+          },
+          "0.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          }
+        },
+        "F_ORTHO_ONLY": {
+          "1.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          },
+          "0.80": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          },
+          "0.50": {
+            "point": -0.49609375,
+            "ci95": [
+              -0.55859375,
+              -0.4375
+            ],
+            "n": 256
+          },
+          "0.20": {
+            "point": -0.03515625,
+            "ci95": [
+              -0.05859375,
+              -0.015625
+            ],
+            "n": 256
+          },
+          "0.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          }
+        },
+        "F_SCRAMBLE": {
+          "1.00": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          },
+          "0.80": {
+            "point": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "n": 256
+          },
+          "0.50": {
+            "point": 0.0078125,
+            "ci95": [
+              -0.0234375,
+              0.0390625
+            ],
+            "n": 256
+          },
+          "0.20": {
+            "point": 0.0078125,
+            "ci95": [
+              -0.02734375,
+              0.04296875
+            ],
+            "n": 256
+          },
+          "0.00": {
+            "point": 0.00390625,
+            "ci95": [
+              0.0,
+              0.01171875
+            ],
+            "n": 256
+          }
+        }
+      },
+      "elapsed_s": 2.943761110305786
+    }
+  ],
+  "elapsed_s": 6.254779815673828
+}

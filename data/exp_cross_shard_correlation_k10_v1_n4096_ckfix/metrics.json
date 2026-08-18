@@ -1,0 +1,167 @@
+{
+  "verdict": "XSHARD_HARD_FAIL",
+  "verdict_msg": "AUC_NOISE: 4/5 cells with AUC<=0.6. pass_seeds=0/5 hf_seeds=4 mean_AUC=0.497 mean_entity_prec=0.524 mean_triplet_in_top9=1.00/3 N=4096",
+  "elapsed_s": 15.57,
+  "summary": {
+    "anchor": "cross_shard_correlation_k10_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "K_shards": 10,
+    "M_per_shard": 50,
+    "n_overlap": 30,
+    "total_expected": 5,
+    "n_completed": 5,
+    "cells": [
+      {
+        "seed": "seed17",
+        "N": 4096,
+        "K_shards": 10,
+        "M_per_shard": 50,
+        "n_overlap": 30,
+        "n_pairs": 45,
+        "correlation_AUC": 0.5,
+        "entity_resolution_precision": 0.56667,
+        "entity_precision_per_doublet": [
+          0.56667,
+          0.66667,
+          0.46667
+        ],
+        "triplet_ranks": [
+          1,
+          45,
+          44
+        ],
+        "triplet_in_top9": 1,
+        "related_mean_C": 8e-06,
+        "unrelated_mean_C": 0.0,
+        "max_related_C": 4.3e-05,
+        "max_unrelated_C": 5e-06,
+        "seed_int": 17,
+        "_ckpt_key": "seed17",
+        "_partial_written_at": 1786852826.9032915
+      },
+      {
+        "seed": "seed23",
+        "N": 4096,
+        "K_shards": 10,
+        "M_per_shard": 50,
+        "n_overlap": 30,
+        "n_pairs": 45,
+        "correlation_AUC": 0.49145,
+        "entity_resolution_precision": 0.5,
+        "entity_precision_per_doublet": [
+          0.56667,
+          0.43333,
+          0.5
+        ],
+        "triplet_ranks": [
+          2,
+          43,
+          5
+        ],
+        "triplet_in_top9": 2,
+        "related_mean_C": 1e-06,
+        "unrelated_mean_C": -0.0,
+        "max_related_C": 1.9e-05,
+        "max_unrelated_C": 4e-06,
+        "seed_int": 23,
+        "_ckpt_key": "seed23",
+        "_partial_written_at": 1786852830.1429043
+      },
+      {
+        "seed": "seed31",
+        "N": 4096,
+        "K_shards": 10,
+        "M_per_shard": 50,
+        "n_overlap": 30,
+        "n_pairs": 45,
+        "correlation_AUC": 0.40812,
+        "entity_resolution_precision": 0.52222,
+        "entity_precision_per_doublet": [
+          0.53333,
+          0.46667,
+          0.56667
+        ],
+        "triplet_ranks": [
+          45,
+          44,
+          26
+        ],
+        "triplet_in_top9": 0,
+        "related_mean_C": -5e-06,
+        "unrelated_mean_C": -1e-06,
+        "max_related_C": 1.9e-05,
+        "max_unrelated_C": 3e-06,
+        "seed_int": 31,
+        "_ckpt_key": "seed31",
+        "_partial_written_at": 1786852833.3928027
+      },
+      {
+        "seed": "seed41",
+        "N": 4096,
+        "K_shards": 10,
+        "M_per_shard": 50,
+        "n_overlap": 30,
+        "n_pairs": 45,
+        "correlation_AUC": 0.64957,
+        "entity_resolution_precision": 0.5,
+        "entity_precision_per_doublet": [
+          0.6,
+          0.43333,
+          0.46667
+        ],
+        "triplet_ranks": [
+          1,
+          7,
+          45
+        ],
+        "triplet_in_top9": 2,
+        "related_mean_C": 1e-06,
+        "unrelated_mean_C": -0.0,
+        "max_related_C": 1.3e-05,
+        "max_unrelated_C": 5e-06,
+        "seed_int": 41,
+        "_ckpt_key": "seed41",
+        "_partial_written_at": 1786852836.7625523
+      },
+      {
+        "seed": "seed7",
+        "N": 4096,
+        "K_shards": 10,
+        "M_per_shard": 50,
+        "n_overlap": 30,
+        "n_pairs": 45,
+        "correlation_AUC": 0.4359,
+        "entity_resolution_precision": 0.53333,
+        "entity_precision_per_doublet": [
+          0.56667,
+          0.4,
+          0.63333
+        ],
+        "triplet_ranks": [
+          44,
+          43,
+          18
+        ],
+        "triplet_in_top9": 0,
+        "related_mean_C": -0.0,
+        "unrelated_mean_C": 0.0,
+        "max_related_C": 3.6e-05,
+        "max_unrelated_C": 4e-06,
+        "seed_int": 7,
+        "_ckpt_key": "seed7",
+        "_partial_written_at": 1786852824.0363986
+      }
+    ],
+    "verdict": "XSHARD_HARD_FAIL",
+    "verdict_msg": "AUC_NOISE: 4/5 cells with AUC<=0.6. pass_seeds=0/5 hf_seeds=4 mean_AUC=0.497 mean_entity_prec=0.524 mean_triplet_in_top9=1.00/3 N=4096",
+    "elapsed_s": 15.57
+  }
+}

@@ -1,0 +1,599 @@
+{
+  "verdict": "AMBIGUOUS",
+  "verdict_msg": "STORE_POOL n_scoreable=298; READER_POOL n_scoreable=1200; store_scorer: store_pool_acc=0.4497 reader_pool_acc=0.1642 consistent=False; reader_scorer: store_pool_acc=0.4597 reader_pool_acc=0.0042 consistent=False; store_pool: store_scorer_acc=0.4497 reader_scorer_acc=0.4597 consistent=True; reader_pool: store_scorer_acc=0.1642 reader_scorer_acc=0.0042 consistent=False; neither clean pattern holds; recommend E1 (K-sweep) next",
+  "run_mode": "full",
+  "anchor_name": "scorer_swap_e2_v1",
+  "elapsed_s": 1652.275,
+  "n_entities": 482588,
+  "n_edges_total": 1213912,
+  "n_rel": 33,
+  "n_reader_anchors": 5491,
+  "n_reader_sents": 34169,
+  "store_scale": 100000,
+  "data_seeds": [
+    20260810,
+    20260811,
+    20260812
+  ],
+  "max_q_per_seed": 400,
+  "gate_thresh": 0.28,
+  "store_shortlist_k": 50,
+  "per_pool_bootstrap": {
+    "STORE_POOL": {
+      "n_boot": 5000,
+      "seed": 20260815,
+      "n_items": 298,
+      "arm_acc_ci": {
+        "DEGREE_FLOOR": {
+          "acc": 0.2751677852348993,
+          "ci_lo": 0.22483221476510068,
+          "ci_hi": 0.32550335570469796,
+          "sd": 0.026063301712174025
+        },
+        "NATIVE": {
+          "acc": 0.44966442953020136,
+          "ci_lo": 0.3926174496644295,
+          "ci_hi": 0.5067114093959731,
+          "sd": 0.02868967175550278
+        },
+        "SCRAMBLE": {
+          "acc": 0.3087248322147651,
+          "ci_lo": 0.2550335570469799,
+          "ci_hi": 0.3624161073825503,
+          "sd": 0.027161416533079043
+        },
+        "SWAPPED": {
+          "acc": 0.4597315436241611,
+          "ci_lo": 0.40268456375838924,
+          "ci_hi": 0.5167785234899329,
+          "sd": 0.02900972594424824
+        }
+      },
+      "deltas": {
+        "d_NATIVE_minus_SWAPPED": {
+          "delta": -0.010067114093959717,
+          "ci_lo": -0.08724832214765105,
+          "ci_hi": 0.06711409395973156,
+          "sd": 0.040058877077612236,
+          "ci_excludes_zero": false
+        },
+        "d_NATIVE_minus_DEGREE_FLOOR": {
+          "delta": 0.17449664429530204,
+          "ci_lo": 0.10402684563758385,
+          "ci_hi": 0.24496644295302014,
+          "sd": 0.03602967089513163,
+          "ci_excludes_zero": true
+        },
+        "d_SWAPPED_minus_DEGREE_FLOOR": {
+          "delta": 0.18456375838926176,
+          "ci_lo": 0.1174496644295302,
+          "ci_hi": 0.25503355704697983,
+          "sd": 0.03545086771068482,
+          "ci_excludes_zero": true
+        },
+        "d_NATIVE_minus_SCRAMBLE": {
+          "delta": 0.14093959731543626,
+          "ci_lo": 0.06711409395973156,
+          "ci_hi": 0.21476510067114096,
+          "sd": 0.03746794232942067,
+          "ci_excludes_zero": true
+        },
+        "d_SWAPPED_minus_SCRAMBLE": {
+          "delta": 0.15100671140939598,
+          "ci_lo": 0.07718120805369127,
+          "ci_hi": 0.22483221476510068,
+          "sd": 0.037521067433227015,
+          "ci_excludes_zero": true
+        }
+      },
+      "paired": true
+    },
+    "READER_POOL": {
+      "n_boot": 5000,
+      "seed": 20260815,
+      "n_items": 1200,
+      "arm_acc_ci": {
+        "DEGREE_FLOOR": {
+          "acc": 0.0,
+          "ci_lo": 0.0,
+          "ci_hi": 0.0,
+          "sd": 0.0
+        },
+        "NATIVE": {
+          "acc": 0.004166666666666667,
+          "ci_lo": 0.0008333333333333334,
+          "ci_hi": 0.008333333333333333,
+          "sd": 0.0018701873866303108
+        },
+        "SCRAMBLE": {
+          "acc": 0.0,
+          "ci_lo": 0.0,
+          "ci_hi": 0.0,
+          "sd": 0.0
+        },
+        "SWAPPED": {
+          "acc": 0.16416666666666666,
+          "ci_lo": 0.1425,
+          "ci_hi": 0.18502083333333302,
+          "sd": 0.010757784132638304
+        }
+      },
+      "deltas": {
+        "d_NATIVE_minus_SWAPPED": {
+          "delta": -0.15999999999999998,
+          "ci_lo": -0.18166666666666664,
+          "ci_hi": -0.1383333333333333,
+          "sd": 0.010911288434715468,
+          "ci_excludes_zero": true
+        },
+        "d_NATIVE_minus_DEGREE_FLOOR": {
+          "delta": 0.004166666666666667,
+          "ci_lo": 0.0008333333333333334,
+          "ci_hi": 0.008333333333333333,
+          "sd": 0.0018701873866303108,
+          "ci_excludes_zero": true
+        },
+        "d_SWAPPED_minus_DEGREE_FLOOR": {
+          "delta": 0.16416666666666666,
+          "ci_lo": 0.1425,
+          "ci_hi": 0.18502083333333302,
+          "sd": 0.010757784132638304,
+          "ci_excludes_zero": true
+        },
+        "d_NATIVE_minus_SCRAMBLE": {
+          "delta": 0.004166666666666667,
+          "ci_lo": 0.0008333333333333334,
+          "ci_hi": 0.008333333333333333,
+          "sd": 0.0018701873866303108,
+          "ci_excludes_zero": true
+        },
+        "d_SWAPPED_minus_SCRAMBLE": {
+          "delta": 0.16416666666666666,
+          "ci_lo": 0.1425,
+          "ci_hi": 0.18502083333333302,
+          "sd": 0.010757784132638304,
+          "ci_excludes_zero": true
+        }
+      },
+      "paired": true
+    }
+  },
+  "per_seed_pool_bootstrap": {
+    "20260810": {
+      "STORE_POOL": {
+        "n_boot": 5000,
+        "seed": 20260815,
+        "n_items": 104,
+        "arm_acc_ci": {
+          "DEGREE_FLOOR": {
+            "acc": 0.27884615384615385,
+            "ci_lo": 0.19230769230769232,
+            "ci_hi": 0.36538461538461536,
+            "sd": 0.044236615667119845
+          },
+          "NATIVE": {
+            "acc": 0.46153846153846156,
+            "ci_lo": 0.36538461538461536,
+            "ci_hi": 0.5576923076923077,
+            "sd": 0.04918749600572903
+          },
+          "SCRAMBLE": {
+            "acc": 0.3173076923076923,
+            "ci_lo": 0.23076923076923078,
+            "ci_hi": 0.40384615384615385,
+            "sd": 0.04458788874218208
+          },
+          "SWAPPED": {
+            "acc": 0.47115384615384615,
+            "ci_lo": 0.375,
+            "ci_hi": 0.5673076923076923,
+            "sd": 0.04968391212717005
+          }
+        },
+        "deltas": {
+          "d_NATIVE_minus_SWAPPED": {
+            "delta": -0.009615384615384581,
+            "ci_lo": -0.13461538461538464,
+            "ci_hi": 0.11538461538461542,
+            "sd": 0.06625697462449166,
+            "ci_excludes_zero": false
+          },
+          "d_NATIVE_minus_DEGREE_FLOOR": {
+            "delta": 0.1826923076923077,
+            "ci_lo": 0.06730769230769229,
+            "ci_hi": 0.29807692307692313,
+            "sd": 0.059418947329746154,
+            "ci_excludes_zero": true
+          },
+          "d_SWAPPED_minus_DEGREE_FLOOR": {
+            "delta": 0.1923076923076923,
+            "ci_lo": 0.07692307692307687,
+            "ci_hi": 0.3076923076923077,
+            "sd": 0.060195154024616775,
+            "ci_excludes_zero": true
+          },
+          "d_NATIVE_minus_SCRAMBLE": {
+            "delta": 0.14423076923076927,
+            "ci_lo": 0.028846153846153855,
+            "ci_hi": 0.26923076923076916,
+            "sd": 0.06077432743963232,
+            "ci_excludes_zero": true
+          },
+          "d_SWAPPED_minus_SCRAMBLE": {
+            "delta": 0.15384615384615385,
+            "ci_lo": 0.028846153846153855,
+            "ci_hi": 0.27884615384615385,
+            "sd": 0.06277923374292739,
+            "ci_excludes_zero": true
+          }
+        },
+        "paired": true
+      },
+      "READER_POOL": {
+        "n_boot": 5000,
+        "seed": 20260815,
+        "n_items": 400,
+        "arm_acc_ci": {
+          "DEGREE_FLOOR": {
+            "acc": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "sd": 0.0
+          },
+          "NATIVE": {
+            "acc": 0.0075,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0175,
+            "sd": 0.004334887512958093
+          },
+          "SCRAMBLE": {
+            "acc": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "sd": 0.0
+          },
+          "SWAPPED": {
+            "acc": 0.175,
+            "ci_lo": 0.1375,
+            "ci_hi": 0.215,
+            "sd": 0.019347641451866942
+          }
+        },
+        "deltas": {
+          "d_NATIVE_minus_SWAPPED": {
+            "delta": -0.16749999999999998,
+            "ci_lo": -0.2075,
+            "ci_hi": -0.12999999999999998,
+            "sd": 0.01995902011622815,
+            "ci_excludes_zero": true
+          },
+          "d_NATIVE_minus_DEGREE_FLOOR": {
+            "delta": 0.0075,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0175,
+            "sd": 0.004334887512958093,
+            "ci_excludes_zero": false
+          },
+          "d_SWAPPED_minus_DEGREE_FLOOR": {
+            "delta": 0.175,
+            "ci_lo": 0.1375,
+            "ci_hi": 0.215,
+            "sd": 0.019347641451866942,
+            "ci_excludes_zero": true
+          },
+          "d_NATIVE_minus_SCRAMBLE": {
+            "delta": 0.0075,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0175,
+            "sd": 0.004334887512958093,
+            "ci_excludes_zero": false
+          },
+          "d_SWAPPED_minus_SCRAMBLE": {
+            "delta": 0.175,
+            "ci_lo": 0.1375,
+            "ci_hi": 0.215,
+            "sd": 0.019347641451866942,
+            "ci_excludes_zero": true
+          }
+        },
+        "paired": true
+      }
+    },
+    "20260811": {
+      "STORE_POOL": {
+        "n_boot": 5000,
+        "seed": 20260815,
+        "n_items": 104,
+        "arm_acc_ci": {
+          "DEGREE_FLOOR": {
+            "acc": 0.27884615384615385,
+            "ci_lo": 0.19230769230769232,
+            "ci_hi": 0.36538461538461536,
+            "sd": 0.044080043142020256
+          },
+          "NATIVE": {
+            "acc": 0.46153846153846156,
+            "ci_lo": 0.36538461538461536,
+            "ci_hi": 0.5576923076923077,
+            "sd": 0.0486680535276643
+          },
+          "SCRAMBLE": {
+            "acc": 0.3076923076923077,
+            "ci_lo": 0.22115384615384615,
+            "ci_hi": 0.3942307692307692,
+            "sd": 0.046274994485628745
+          },
+          "SWAPPED": {
+            "acc": 0.4326923076923077,
+            "ci_lo": 0.33653846153846156,
+            "ci_hi": 0.5288461538461539,
+            "sd": 0.048569239259215656
+          }
+        },
+        "deltas": {
+          "d_NATIVE_minus_SWAPPED": {
+            "delta": 0.028846153846153855,
+            "ci_lo": -0.10576923076923078,
+            "ci_hi": 0.1634615384615385,
+            "sd": 0.06886266658438682,
+            "ci_excludes_zero": false
+          },
+          "d_NATIVE_minus_DEGREE_FLOOR": {
+            "delta": 0.1826923076923077,
+            "ci_lo": 0.05769230769230771,
+            "ci_hi": 0.29807692307692313,
+            "sd": 0.06111749717992763,
+            "ci_excludes_zero": true
+          },
+          "d_SWAPPED_minus_DEGREE_FLOOR": {
+            "delta": 0.15384615384615385,
+            "ci_lo": 0.038461538461538436,
+            "ci_hi": 0.2692307692307692,
+            "sd": 0.060104961323834534,
+            "ci_excludes_zero": true
+          },
+          "d_NATIVE_minus_SCRAMBLE": {
+            "delta": 0.15384615384615385,
+            "ci_lo": 0.038461538461538436,
+            "ci_hi": 0.27884615384615385,
+            "sd": 0.06199452388013203,
+            "ci_excludes_zero": true
+          },
+          "d_SWAPPED_minus_SCRAMBLE": {
+            "delta": 0.125,
+            "ci_lo": 0.0,
+            "ci_hi": 0.25,
+            "sd": 0.06317652033701676,
+            "ci_excludes_zero": false
+          }
+        },
+        "paired": true
+      },
+      "READER_POOL": {
+        "n_boot": 5000,
+        "seed": 20260815,
+        "n_items": 400,
+        "arm_acc_ci": {
+          "DEGREE_FLOOR": {
+            "acc": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "sd": 0.0
+          },
+          "NATIVE": {
+            "acc": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "sd": 0.0034552823328926397
+          },
+          "SCRAMBLE": {
+            "acc": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "sd": 0.0
+          },
+          "SWAPPED": {
+            "acc": 0.17,
+            "ci_lo": 0.135,
+            "ci_hi": 0.2075,
+            "sd": 0.01856243030963349
+          }
+        },
+        "deltas": {
+          "d_NATIVE_minus_SWAPPED": {
+            "delta": -0.165,
+            "ci_lo": -0.20249999999999999,
+            "ci_hi": -0.13,
+            "sd": 0.018706200014968297,
+            "ci_excludes_zero": true
+          },
+          "d_NATIVE_minus_DEGREE_FLOOR": {
+            "delta": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "sd": 0.0034552823328926397,
+            "ci_excludes_zero": false
+          },
+          "d_SWAPPED_minus_DEGREE_FLOOR": {
+            "delta": 0.17,
+            "ci_lo": 0.135,
+            "ci_hi": 0.2075,
+            "sd": 0.01856243030963349,
+            "ci_excludes_zero": true
+          },
+          "d_NATIVE_minus_SCRAMBLE": {
+            "delta": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "sd": 0.0034552823328926397,
+            "ci_excludes_zero": false
+          },
+          "d_SWAPPED_minus_SCRAMBLE": {
+            "delta": 0.17,
+            "ci_lo": 0.135,
+            "ci_hi": 0.2075,
+            "sd": 0.01856243030963349,
+            "ci_excludes_zero": true
+          }
+        },
+        "paired": true
+      }
+    },
+    "20260812": {
+      "STORE_POOL": {
+        "n_boot": 5000,
+        "seed": 20260815,
+        "n_items": 90,
+        "arm_acc_ci": {
+          "DEGREE_FLOOR": {
+            "acc": 0.26666666666666666,
+            "ci_lo": 0.17777777777777778,
+            "ci_hi": 0.35555555555555557,
+            "sd": 0.04602476622616175
+          },
+          "NATIVE": {
+            "acc": 0.4222222222222222,
+            "ci_lo": 0.32222222222222224,
+            "ci_hi": 0.5222222222222223,
+            "sd": 0.05137967965530226
+          },
+          "SCRAMBLE": {
+            "acc": 0.3,
+            "ci_lo": 0.21083333333333343,
+            "ci_hi": 0.4,
+            "sd": 0.04884933268432337
+          },
+          "SWAPPED": {
+            "acc": 0.4777777777777778,
+            "ci_lo": 0.37777777777777777,
+            "ci_hi": 0.5777777777777777,
+            "sd": 0.052728947890878806
+          }
+        },
+        "deltas": {
+          "d_NATIVE_minus_SWAPPED": {
+            "delta": -0.05555555555555558,
+            "ci_lo": -0.2,
+            "ci_hi": 0.0888888888888889,
+            "sd": 0.07465411134519478,
+            "ci_excludes_zero": false
+          },
+          "d_NATIVE_minus_DEGREE_FLOOR": {
+            "delta": 0.15555555555555556,
+            "ci_lo": 0.0222222222222222,
+            "ci_hi": 0.2888888888888889,
+            "sd": 0.06992880344047997,
+            "ci_excludes_zero": true
+          },
+          "d_SWAPPED_minus_DEGREE_FLOOR": {
+            "delta": 0.21111111111111114,
+            "ci_lo": 0.0888888888888889,
+            "ci_hi": 0.33333333333333337,
+            "sd": 0.06443571400633481,
+            "ci_excludes_zero": true
+          },
+          "d_NATIVE_minus_SCRAMBLE": {
+            "delta": 0.12222222222222223,
+            "ci_lo": -0.0222222222222222,
+            "ci_hi": 0.26666666666666666,
+            "sd": 0.07173385787361572,
+            "ci_excludes_zero": false
+          },
+          "d_SWAPPED_minus_SCRAMBLE": {
+            "delta": 0.1777777777777778,
+            "ci_lo": 0.055555555555555525,
+            "ci_hi": 0.30000000000000004,
+            "sd": 0.06506625667751827,
+            "ci_excludes_zero": true
+          }
+        },
+        "paired": true
+      },
+      "READER_POOL": {
+        "n_boot": 5000,
+        "seed": 20260815,
+        "n_items": 400,
+        "arm_acc_ci": {
+          "DEGREE_FLOOR": {
+            "acc": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "sd": 0.0
+          },
+          "NATIVE": {
+            "acc": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "sd": 0.0
+          },
+          "SCRAMBLE": {
+            "acc": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "sd": 0.0
+          },
+          "SWAPPED": {
+            "acc": 0.1475,
+            "ci_lo": 0.1125,
+            "ci_hi": 0.1825,
+            "sd": 0.017665925364950458
+          }
+        },
+        "deltas": {
+          "d_NATIVE_minus_SWAPPED": {
+            "delta": -0.1475,
+            "ci_lo": -0.1825,
+            "ci_hi": -0.1125,
+            "sd": 0.017665925364950458,
+            "ci_excludes_zero": true
+          },
+          "d_NATIVE_minus_DEGREE_FLOOR": {
+            "delta": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "sd": 0.0,
+            "ci_excludes_zero": false
+          },
+          "d_SWAPPED_minus_DEGREE_FLOOR": {
+            "delta": 0.1475,
+            "ci_lo": 0.1125,
+            "ci_hi": 0.1825,
+            "sd": 0.017665925364950458,
+            "ci_excludes_zero": true
+          },
+          "d_NATIVE_minus_SCRAMBLE": {
+            "delta": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "sd": 0.0,
+            "ci_excludes_zero": false
+          },
+          "d_SWAPPED_minus_SCRAMBLE": {
+            "delta": 0.1475,
+            "ci_lo": 0.1125,
+            "ci_hi": 0.1825,
+            "sd": 0.017665925364950458,
+            "ci_excludes_zero": true
+          }
+        },
+        "paired": true
+      }
+    }
+  },
+  "n_scoreable_per_pool": {
+    "STORE_POOL": 298,
+    "READER_POOL": 1200
+  },
+  "n_seeds_complete": 3,
+  "n_seeds_expected": 3,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "instrument_validity_stamped_this_session": true,
+  "crlb_n/a": "cross-representation vocabulary-overlap diagnostic; no closed-form floor for an intersection size",
+  "min_q_for_verdict": 20,
+  "prereg": "preregs/2026-08-15_scorer_swap_e2_v1.md"
+}

@@ -1,0 +1,246 @@
+{
+  "verdict": "NO_READ_FLOOR_INVALID",
+  "verdict_msg": "n=150 | 2x2 NEAR: QUANT[d256=0.6467 d1024=0.7400] GRAD[d256=0.6733 d1024=0.7467] | scrambled floors outside [0.45,0.55]: {\"F_d256_QUANT_SCRAM\": 0.573333} | between-draw sd(delta) {\"F256\": 0.034409, \"F1024\": 0.031721, \"Cq\": 0.033889, \"Cg\": 0.040749, \"HEAD\": 0.061014} | levels sd {\"A_d256_QUANT\": 0.044101, \"A_d256_GRAD\": 0.014236, \"A_d1024_QUANT\": 0.024802, \"A_d1024_GRAD\": 0.032387} | floors {\"F_d256_QUANT_SCRAM\": 0.573333, \"F_d256_GRAD_SCRAM\": 0.54, \"F_d1024_QUANT_SCRAM\": 0.526667, \"F_d1024_GRAD_SCRAM\": 0.513333} B_FREQ=0.5400 | FLIP=False | ",
+  "summary": "is the graded-comparator gain CAPACITY (d), FORMAT (graded vs sign), or both, measured on hdlab's own functions with a between-projection-draw sd",
+  "elapsed_s": 40.403,
+  "run_mode": "smoke",
+  "anchor_name": "exp_capacity_vs_format_2x2_livepath_v1",
+  "prereg": "preregs/2026-08-14_capacity_vs_format_2x2_livepath.md",
+  "hdlab_modified": false,
+  "n_items": 150,
+  "n_anchors": 180,
+  "chance": 0.5,
+  "arm_accuracy": {
+    "A_d256_QUANT": 0.646667,
+    "A_d256_GRAD": 0.673333,
+    "A_d1024_QUANT": 0.74,
+    "A_d1024_GRAD": 0.746667,
+    "F_d256_QUANT_SCRAM": 0.573333,
+    "F_d256_GRAD_SCRAM": 0.54,
+    "F_d1024_QUANT_SCRAM": 0.526667,
+    "F_d1024_GRAD_SCRAM": 0.513333,
+    "B_FREQ": 0.54
+  },
+  "arm_labels": {
+    "A_d<D>_<CODE>": "near-neighbour 2AFC. QUANT = hdlab ConceptSpace.anchor_matrix() (sign of sums) vs signed query; GRAD = hdlab ConceptSpace.freeze_graded('none') vs graded query. Distractor = WordNet dominant-sense sibling.",
+    "F_d<D>_<CODE>_SCRAM": "in-cell scrambled-context floor at that (d, code)",
+    "B_FREQ": "corpus-frequency baseline"
+  },
+  "live_path_provenance": {
+    "draw0_computed_by": "hdlab.reading_grounding_loop.ConceptSpace + context_vector_masked + grounding_acquisition_loop.context_vector",
+    "draws_1_to_4_computed_by": "exp_capacity_ceiling_near_far_v1._enc, asserted BYTE-IDENTICAL to the hdlab anchor matrices at d=256 AND d=1024 for BOTH codes by self-test S1",
+    "scope_caveat": "d=1024 is the live code with CTX_D changed; nothing else differs"
+  },
+  "deltas_paired_item_bootstrap": {
+    "F256": {
+      "delta": 0.026667,
+      "ci_lo": -0.060167,
+      "ci_hi": 0.12,
+      "boot_sd": 0.044991,
+      "excludes_zero": false
+    },
+    "F1024": {
+      "delta": 0.006667,
+      "ci_lo": -0.053333,
+      "ci_hi": 0.073333,
+      "boot_sd": 0.032842,
+      "excludes_zero": false
+    },
+    "Cq": {
+      "delta": 0.093333,
+      "ci_lo": 0.006667,
+      "ci_hi": 0.173333,
+      "boot_sd": 0.042018,
+      "excludes_zero": true
+    },
+    "Cg": {
+      "delta": 0.073333,
+      "ci_lo": 0.0,
+      "ci_hi": 0.153333,
+      "boot_sd": 0.040158,
+      "excludes_zero": false
+    },
+    "HEAD": {
+      "delta": 0.1,
+      "ci_lo": 0.0065,
+      "ci_hi": 0.2,
+      "boot_sd": 0.048951,
+      "excludes_zero": true
+    },
+    "INTER": {
+      "delta": -0.02,
+      "note": "F1024 - F256; no CI (a difference of two paired deltas)"
+    }
+  },
+  "delta_labels": {
+    "F256": "format at the live capacity",
+    "F1024": "format at 4x capacity",
+    "Cq": "capacity, quantised code",
+    "Cg": "capacity, graded code",
+    "HEAD": "full wire-it delta vs the live path"
+  },
+  "projection_draw_control": {
+    "n_draws": 5,
+    "accuracy_per_draw": {
+      "0": {
+        "A_d256_QUANT": 0.6466666666666666,
+        "A_d256_GRAD": 0.6733333333333333,
+        "A_d1024_QUANT": 0.74,
+        "A_d1024_GRAD": 0.7466666666666667
+      },
+      "1": {
+        "A_d256_QUANT": 0.72,
+        "A_d256_GRAD": 0.68,
+        "A_d1024_QUANT": 0.72,
+        "A_d1024_GRAD": 0.693333
+      },
+      "2": {
+        "A_d256_QUANT": 0.666667,
+        "A_d256_GRAD": 0.693333,
+        "A_d1024_QUANT": 0.706667,
+        "A_d1024_GRAD": 0.66
+      },
+      "3": {
+        "A_d256_QUANT": 0.593333,
+        "A_d256_GRAD": 0.653333,
+        "A_d1024_QUANT": 0.68,
+        "A_d1024_GRAD": 0.726667
+      },
+      "4": {
+        "A_d256_QUANT": 0.613333,
+        "A_d256_GRAD": 0.66,
+        "A_d1024_QUANT": 0.673333,
+        "A_d1024_GRAD": 0.673333
+      }
+    },
+    "between_draw_sd_of_delta": {
+      "F256": 0.034409,
+      "F1024": 0.031721,
+      "Cq": 0.033889,
+      "Cg": 0.040749,
+      "HEAD": 0.061014
+    },
+    "between_draw_sd_of_level": {
+      "A_d256_QUANT": 0.044101,
+      "A_d256_GRAD": 0.014236,
+      "A_d1024_QUANT": 0.024802,
+      "A_d1024_GRAD": 0.032387
+    },
+    "rule": "a delta counts as REAL only if its paired CI excludes 0 AND |delta| >= 2.0 x its between-draw sd",
+    "note": "the item bootstrap is structurally blind to shared-randomness variance; every cell built on a random projection must report this"
+  },
+  "wire_gate": {
+    "c1_primary_verdict_admits_format": false,
+    "c2_F1024_real_and_positive": false,
+    "c3_F256_positive_ci_excludes_zero": false,
+    "FLIP_DEFAULT_ON": false
+  },
+  "bands": {
+    "FLOOR_LO": 0.45,
+    "FLOOR_HI": 0.55,
+    "FREQ_MAX": 0.55,
+    "LANDED_LIVE": 0.6395,
+    "LANDED_TOL": 0.02,
+    "DRAW_SD_MULT": 2.0,
+    "HEAD_HP_MIN": 0.08,
+    "declared_in": "preregs/2026-08-14_capacity_vs_format_2x2_livepath.md"
+  },
+  "bootstrap_item": {
+    "n_boot": 1000,
+    "seed": 20260814,
+    "paired": true
+  },
+  "ties": {
+    "A_d1024_GRAD": {
+      "n_ties": 0
+    },
+    "A_d1024_QUANT": {
+      "n_ties": 0
+    },
+    "A_d256_GRAD": {
+      "n_ties": 0
+    },
+    "A_d256_QUANT": {
+      "n_ties": 0
+    },
+    "B_FREQ": {
+      "n_ties_fell_back_to_coin": 0
+    },
+    "F_d1024_GRAD_SCRAM": {
+      "n_ties": 0
+    },
+    "F_d1024_QUANT_SCRAM": {
+      "n_ties": 0
+    },
+    "F_d256_GRAD_SCRAM": {
+      "n_ties": 0
+    },
+    "F_d256_QUANT_SCRAM": {
+      "n_ties": 1
+    }
+  },
+  "item_construction": {
+    "n_eval_sentences_considered": 19680,
+    "n_items_before_cap": 8636,
+    "n_items": 150,
+    "removals": {
+      "removed_L1_target_variant": 350,
+      "removed_L2_distractor_present": 289,
+      "removed_L3_too_few_context_words": 518,
+      "removed_no_eligible_sentence": 2,
+      "removed_sentence_reuse": 9887,
+      "removed_word_cap": 7122
+    },
+    "distinct_target_words": 54,
+    "max_items_per_word": 4
+  },
+  "self_checks": {
+    "S0_fast_encoder_is_parent_encoder": true,
+    "S1_hdlab_byte_identity": {
+      "d256": {
+        "QUANT_byte_identical": true,
+        "GRAD_byte_identical": true
+      },
+      "d1024": {
+        "QUANT_byte_identical": true,
+        "GRAD_byte_identical": true
+      }
+    },
+    "S2_readout": {
+      "scorer_matches_canonicalize_fast": true,
+      "graded_query_reachable": true
+    },
+    "S3_draws_independent": {
+      "cos_draw0_draw1_d1024": -0.0026
+    },
+    "S4_bootstrap_is_paired": {
+      "identical_arms_ci": [
+        0.0,
+        0.0
+      ],
+      "perturbed_arms_delta": -0.032
+    },
+    "S5_all_verdict_branches_reachable": [
+      "BOTH_CAPACITY_AND_FORMAT",
+      "CAPACITY_ONLY",
+      "FORMAT_ONLY",
+      "NEGATIVE_DIRECTION",
+      "NEITHER_NULL",
+      "NO_READ_BASELINE_DRIFT",
+      "NO_READ_FLOOR_INVALID",
+      "NO_READ_FREQ_BASELINE_HIGH"
+    ],
+    "S6_wire_gate_can_open_and_close": true,
+    "ok": true,
+    "elapsed_s": 0.03
+  },
+  "untouched_and_declared": {
+    "hdlab/multi_hop.py beta=n_dim degenerate softmax": "NO ARM TOUCHES multi_hop",
+    "atoms.similarity FHRR-vs-HRR metric split": "this cell compares within ONE representation (real context vectors)",
+    "the other np.sign sites in notes/ORGAN_MAP.md sec 1 (34 sites / 12 modules)": "untouched; only this comparator's two sites are varied, via wired keyword flags"
+  },
+  "notes": [
+    "scrambled floors outside [0.45,0.55]: {\"F_d256_QUANT_SCRAM\": 0.573333}"
+  ],
+  "ts_iso": "2026-08-14T03:53:17.792075+00:00"
+}

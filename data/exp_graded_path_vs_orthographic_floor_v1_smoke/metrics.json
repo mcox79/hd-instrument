@@ -1,0 +1,264 @@
+{
+ "anchor_name": "exp_graded_path_vs_orthographic_floor_v1",
+ "run_mode": "smoke",
+ "prereg": "preregs/2026-08-14_exp_graded_path_vs_orthographic_floor_v1.md",
+ "premise_correction": "GRADED_COMPARATOR is default-ON as of 38f7a0d5c, NOT default-OFF as the dispatch brief assumed; A1_GRADED_ON is a reproduction, A9_GRADED_OFF is the novel arm. See prereg section 0.",
+ "ts_iso": "2026-08-15T00:39:39.921368+00:00",
+ "GRADED_COMPARATOR_at_import": true,
+ "n_items": 300,
+ "n_anchors": 716,
+ "item_construction": {
+  "n_anchors": 716,
+  "n_items_before_cap": 609,
+  "n_items": 300,
+  "removals": {
+   "foil_direction_fallback": 24,
+   "removed_L_not_in_wordnet": 39,
+   "removed_no_gold_anchor": 68
+  },
+  "n_items_with_heldout_sentence": 300
+ },
+ "a1_graded_on_reproduces_c3_headline_0480_exactly": false,
+ "self_retrieval": {
+  "ON": {
+   "acc": 0.8154362416107382,
+   "n": 298,
+   "ok": true
+  },
+  "OFF": {
+   "acc": 0.802013422818792,
+   "n": 298,
+   "ok": true
+  },
+  "floor": 0.7
+ },
+ "projdraw": {
+  "ON": {
+   "draws": [
+    0.06333333333333334,
+    0.04,
+    0.05333333333333334
+   ],
+   "sd": 0.00955813918560292
+  },
+  "OFF": {
+   "draws": [
+    0.04,
+    0.056666666666666664,
+    0.03333333333333333
+   ],
+   "sd": 0.009813067629253162
+  }
+ },
+ "bootstrap": {
+  "n_boot": 5000,
+  "seed": 20260819,
+  "n_items": 300,
+  "arm_acc_ci": {
+   "A1_GRADED_ON": {
+    "acc": 0.05333333333333334,
+    "ci_lo": 0.03,
+    "ci_hi": 0.08,
+    "sd": 0.012990628673522053
+   },
+   "A5_STRINGCTRL": {
+    "acc": 0.056666666666666664,
+    "ci_lo": 0.03333333333333333,
+    "ci_hi": 0.08333333333333333,
+    "sd": 0.013296747873070317
+   },
+   "A7_PREFIX_ONLY": {
+    "acc": 0.04666666666666667,
+    "ci_lo": 0.023333333333333334,
+    "ci_hi": 0.07333333333333333,
+    "sd": 0.012344678817657068
+   },
+   "A9_GRADED_OFF": {
+    "acc": 0.043333333333333335,
+    "ci_lo": 0.023333333333333334,
+    "ci_hi": 0.06666666666666667,
+    "sd": 0.011783791806262251
+   },
+   "F_FREQUENCY": {
+    "acc": 0.043333333333333335,
+    "ci_lo": 0.023333333333333334,
+    "ci_hi": 0.06666666666666667,
+    "sd": 0.011691047115920228
+   },
+   "F_SCRAMBLE_OFF": {
+    "acc": 0.05,
+    "ci_lo": 0.02666666666666667,
+    "ci_hi": 0.07666666666666666,
+    "sd": 0.012719444414840698
+   },
+   "F_SCRAMBLE_ON": {
+    "acc": 0.05,
+    "ci_lo": 0.02666666666666667,
+    "ci_hi": 0.07666666666666666,
+    "sd": 0.012719444414840698
+   }
+  },
+  "deltas": {
+   "d_A1_GRADED_ON_minus_A9_GRADED_OFF": {
+    "delta": 0.010000000000000002,
+    "ci_lo": -0.013333333333333343,
+    "ci_hi": 0.03666666666666666,
+    "sd": 0.012881731957396964,
+    "ci_excludes_zero": false
+   },
+   "d_A1_GRADED_ON_minus_A5_STRINGCTRL": {
+    "delta": -0.003333333333333327,
+    "ci_lo": -0.04000000000000001,
+    "ci_hi": 0.03333333333333333,
+    "sd": 0.01906765497438587,
+    "ci_excludes_zero": false
+   },
+   "d_A9_GRADED_OFF_minus_A5_STRINGCTRL": {
+    "delta": -0.013333333333333329,
+    "ci_lo": -0.05,
+    "ci_hi": 0.02333333333333333,
+    "sd": 0.018323477156672832,
+    "ci_excludes_zero": false
+   },
+   "d_A1_GRADED_ON_minus_A7_PREFIX_ONLY": {
+    "delta": 0.006666666666666668,
+    "ci_lo": -0.03,
+    "ci_hi": 0.04333333333333333,
+    "sd": 0.018240036537487774,
+    "ci_excludes_zero": false
+   },
+   "d_A1_GRADED_ON_minus_F_FREQUENCY": {
+    "delta": 0.010000000000000002,
+    "ci_lo": -0.02333333333333333,
+    "ci_hi": 0.04333333333333333,
+    "sd": 0.01663298137236176,
+    "ci_excludes_zero": false
+   },
+   "d_A9_GRADED_OFF_minus_F_FREQUENCY": {
+    "delta": 0.0,
+    "ci_lo": -0.033333333333333326,
+    "ci_hi": 0.033333333333333326,
+    "sd": 0.016327660497858637,
+    "ci_excludes_zero": false
+   },
+   "d_A1_GRADED_ON_minus_F_SCRAMBLE_ON": {
+    "delta": 0.003333333333333334,
+    "ci_lo": -0.033333333333333326,
+    "ci_hi": 0.039999999999999994,
+    "sd": 0.018252776762880642,
+    "ci_excludes_zero": false
+   },
+   "d_A9_GRADED_OFF_minus_F_SCRAMBLE_OFF": {
+    "delta": -0.006666666666666668,
+    "ci_lo": -0.04,
+    "ci_hi": 0.02666666666666667,
+    "sd": 0.017198549693376926,
+    "ci_excludes_zero": false
+   }
+  }
+ },
+ "per_arm": {
+  "A1_GRADED_ON": {
+   "hit_at_1": 0.05333333333333334,
+   "median_rank": 19.0,
+   "frac_gold_in_top50": 0.7266666666666667,
+   "separation_margin_z": {
+    "mean": -0.2359183292145165,
+    "median": -0.20679178959163994
+   },
+   "tautology_rate": 0.0,
+   "example_picks": [
+    "poverty",
+    "more",
+    "jump",
+    "situation",
+    "please",
+    "post",
+    "trade",
+    "job",
+    "descent",
+    "hear",
+    "reduce",
+    "science"
+   ]
+  },
+  "A9_GRADED_OFF": {
+   "hit_at_1": 0.043333333333333335,
+   "median_rank": 17.5,
+   "frac_gold_in_top50": 0.73,
+   "separation_margin_z": {
+    "mean": -0.1806422722628833,
+    "median": -0.16520934246387015
+   },
+   "tautology_rate": 0.0,
+   "example_picks": [
+    "oxfam",
+    "more",
+    "jump",
+    "clear",
+    "pack",
+    "post",
+    "exemption",
+    "pay",
+    "descent",
+    "whatsapp",
+    "reduce",
+    "science"
+   ]
+  },
+  "A5_STRINGCTRL": {
+   "hit_at_1": 0.056666666666666664,
+   "median_rank": 17.5,
+   "frac_gold_in_top50": 0.7366666666666667,
+   "separation_margin_z": {
+    "mean": -0.293929383267457,
+    "median": -0.2958758547680685
+   },
+   "tautology_rate": 0.0
+  },
+  "A7_PREFIX_ONLY": {
+   "hit_at_1": 0.04666666666666667,
+   "median_rank": 14.5,
+   "frac_gold_in_top50": 0.8933333333333333,
+   "separation_margin_z": {
+    "mean": -0.3211470566470566,
+    "median": -0.30000000000000004
+   },
+   "tautology_rate": 0.0
+  },
+  "F_FREQUENCY": {
+   "hit_at_1": 0.043333333333333335
+  },
+  "F_SCRAMBLE_ON": {
+   "hit_at_1": 0.05
+  },
+  "F_SCRAMBLE_OFF": {
+   "hit_at_1": 0.05
+  }
+ },
+ "arm_digests": {
+  "A1_GRADED_ON": "10cd7a113bdc3444",
+  "A9_GRADED_OFF": "bf384d4b43a787dd",
+  "A5_STRINGCTRL": "ca93c36f7940596e",
+  "A7_PREFIX_ONLY": "a6daaded62faed27",
+  "F_FREQUENCY": "5e0f9f3ecaaf6d77",
+  "F_SCRAMBLE_ON": "c7518379b16a435a",
+  "F_SCRAMBLE_OFF": "c7518379b16a435a"
+ },
+ "arms_must_differ": {
+  "ok": false,
+  "collisions": {
+   "c7518379b16a435a": [
+    "F_SCRAMBLE_ON",
+    "F_SCRAMBLE_OFF"
+   ]
+  }
+ },
+ "on_clears_floor": false,
+ "off_clears_floor": false,
+ "graded_helps": false,
+ "graded_hurts": false,
+ "verdict": "HARNESS_MISMATCH_STOP",
+ "verdict_msg": "A1_GRADED_ON=0.053333 does NOT reproduce the 0.0480 C3 headline within 1e-9 -- harness-integrity gate FAILED, no conclusion drawn about ON/OFF or the floor.",
+ "elapsed_s": 27.51
+}

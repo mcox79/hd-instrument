@@ -1,0 +1,179 @@
+{
+  "verdict": "HARD_FAIL_foundation_validation_failed",
+  "verdict_msg": "claim1=HARD_FAIL(gap=-0.15,floor=frequency) claim2=HARD_PASS(cohesion=0.3306,scrambled=0.0029,contra=0) claim3=HARD_PASS(mech=1.0,floor=scramble_permutation=0.04,draw_gap_mean=0.992+-0.016) known_answer_instrument_valid=True smoke_controls_discriminate=True",
+  "summary": "claim1=HARD_FAIL(gap=-0.15,floor=frequency) claim2=HARD_PASS(cohesion=0.3306,scrambled=0.0029,contra=0) claim3=HARD_PASS(mech=1.0,floor=scramble_permutation=0.04,draw_gap_mean=0.992+-0.016) known_answer_instrument_valid=True smoke_controls_discriminate=True",
+  "elapsed_s": 11.785337600042112,
+  "ts_iso": "2026-08-15T18:27:02.404323+00:00",
+  "anchor_name": "foundation_validation_harness_v2_floors_v1",
+  "run_mode": "smoke",
+  "foundation_dir": "D:\\AI\\hd-instrument\\data\\foundation_snapshots\\reading_grounding_v2q_smoke_20260815T182650Z",
+  "n_facts_loaded": 2146,
+  "seed": 20260815,
+  "known_answer_arm": {
+    "n_dim": 2048,
+    "k_chains": 20,
+    "accuracy": 1.0,
+    "instrument_valid": true
+  },
+  "claim1_correctness": {
+    "verdict": "HARD_FAIL",
+    "n_live_grounded_meaning": 634,
+    "n_self_grounded": 0,
+    "self_grounded_rate": 0.0,
+    "n_cross_grounded": 634,
+    "n_sampled": 20,
+    "precision_hat": 0.45,
+    "chance_hat": 0.05,
+    "ortho_rate": 0.15,
+    "freq_rate": 0.6,
+    "floor_name": "frequency",
+    "floor_max": 0.6,
+    "gap": -0.15,
+    "wilson_precision": [
+      0.2582,
+      0.6579
+    ],
+    "wilson_floor": [
+      0.3866,
+      0.7812
+    ],
+    "freq_pick_global": "com",
+    "corpus_n_sentences": 12157,
+    "n_distinct_objects": 334,
+    "arms_differ_verified": true
+  },
+  "claim2_coherence": {
+    "verdict": "HARD_PASS",
+    "same_rep_at_scale": {
+      "verdict": "HARD_PASS",
+      "cohesion_gap": 0.3306,
+      "n_qualifying_clusters": 40,
+      "n_missing_vec": 0,
+      "scrambled_cohesion_gap": 0.0029,
+      "n_scrambled_qualifying_clusters": 40,
+      "floor_margin": 0.3277,
+      "cohesion_gap_negsample_mean": 0.3297,
+      "cohesion_gap_negsample_sd": 0.0039,
+      "not_robust_to_negsample_draw": false,
+      "negsample_draw_note": "partial substitute only -- see pre-reg claim2 draw-spread section; a full ConceptSpace basis redraw requires a multihour reencode and is declared out of scope"
+    },
+    "no_contradictions": {
+      "verdict": "HARD_PASS",
+      "active_contradiction_count": 0,
+      "flagged_pairs_count": 0,
+      "examples": []
+    }
+  },
+  "claim3_can_reason": {
+    "verdict": "HARD_PASS",
+    "n_available_chains": 315,
+    "n_sampled": 25,
+    "mechanism_accuracy": 1.0,
+    "ablation_accuracy": 0.0,
+    "scramble_permutation_accuracy": 0.04,
+    "scramble_derangement_accuracy": 0.04,
+    "orthographic_accuracy": 0.0,
+    "frequency_accuracy": 0.04,
+    "floor_name": "scramble_permutation",
+    "floor_max": 0.04,
+    "gap_vs_floor": 0.96,
+    "leaked_count": 0,
+    "arms_differ_verified": true,
+    "controls_discriminate": true,
+    "draw_spread": {
+      "n_draws": 5,
+      "n_questions_per_draw": 25,
+      "per_draw_mechanism_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "per_draw_gap": [
+        0.96,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gap_mean": 0.992,
+      "gap_sd": 0.016,
+      "gap_min": 0.96,
+      "survives_2sd_margin_0.10": true
+    },
+    "example_chains": [
+      {
+        "A": "chemiosmosi",
+        "B": "generate",
+        "C": "potential",
+        "B_hat": "generate",
+        "C_hat": "potential",
+        "ortho_pick": "chew",
+        "freq_pick": "people"
+      },
+      {
+        "A": "apc",
+        "B": "antigen",
+        "C": "blood",
+        "B_hat": "antigen",
+        "C_hat": "blood",
+        "ortho_pick": "atm",
+        "freq_pick": "people"
+      },
+      {
+        "A": "stroma",
+        "B": "cycle",
+        "C": "light",
+        "B_hat": "cycle",
+        "C_hat": "light",
+        "ortho_pick": "strange",
+        "freq_pick": "people"
+      },
+      {
+        "A": "thut",
+        "B": "owner",
+        "C": "house",
+        "B_hat": "owner",
+        "C_hat": "house",
+        "ortho_pick": "thing",
+        "freq_pick": "people"
+      },
+      {
+        "A": "receive",
+        "B": "dendrit",
+        "C": "axon",
+        "B_hat": "dendrit",
+        "C_hat": "axon",
+        "ortho_pick": "recessive",
+        "freq_pick": "people"
+      }
+    ]
+  },
+  "smoke_controls_discriminate": true,
+  "bands": {
+    "claim1": {
+      "hard_pass_gap_min": 0.2,
+      "hard_fail_gap_max": 0.05,
+      "floor": "max(chance,ortho,freq)"
+    },
+    "claim2a": {
+      "hard_pass_cohesion_min": 0.1,
+      "hard_pass_floor_margin_min": 0.08,
+      "hard_fail_cohesion_max": 0.02
+    },
+    "claim2b": {
+      "hard_pass_active_contradictions": 0
+    },
+    "claim3": {
+      "hard_pass_mech_min": 0.5,
+      "hard_pass_gap_min": 0.2,
+      "hard_fail_gap_max": 0.05,
+      "hard_pass_draw_margin": "gap_mean-2*gap_sd>=0.10",
+      "floor": "max(scramble_perm,scramble_derange,ablation,ortho,freq)"
+    },
+    "known_answer_arm": {
+      "hard_pass_accuracy_min": 0.9
+    }
+  }
+}

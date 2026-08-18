@@ -1,0 +1,189 @@
+{
+  "anchor_name": "encoder_swap_behind_fixed_brain_stack_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: delta_AB=+0.3965 falls in [0.03, 0.05) or the floor arms are not at floor (floors_ok=False). This licenses nothing. A_tuned=0.5429 A0_frozen_base=0.4520 B_char_trigram=0.1465 C_ppmi=0.0278 D_random_twin=0.1717 E_scramble=0.7652 | delta_AB=+0.3965 (per-seed ['+0.3965']) | floors_ok=False baseline_in_band=True arms_differ_ok=True | band=MIDDLE_BAND",
+  "summary": "MIDDLE_BAND: delta_AB=+0.3965 falls in [0.03, 0.05) or the floor arms are not at floor (floors_ok=False). This licenses nothing. A_tuned=0.5429 A0_frozen_base=0.4520 B_char_trigram=0.1465 C_ppmi=0.0278 D_random_twin=0.1717 E_scramble=0.7652 | delta_AB=+0.3965 (per-seed ['+0.3965']) | floors_ok=False baseline_in_band=True arms_differ_ok=True | band=MIDDLE_BAND",
+  "elapsed_s": 95.83366619999288,
+  "ts_iso": "2026-08-13T22:24:24.763952+00:00",
+  "run_mode": "smoke",
+  "seeds": [
+    7
+  ],
+  "eval_n": 12,
+  "arms": [
+    "A_tuned_ckpt",
+    "A0_frozen_base",
+    "B_char_trigram",
+    "C_ppmi",
+    "D_random_init_twin",
+    "E_scramble_floor"
+  ],
+  "discriminator_arms": [
+    "A_tuned_ckpt",
+    "B_char_trigram"
+  ],
+  "per_arm_mean_loop_mean": {
+    "A_tuned_ckpt": 0.5429292929292929,
+    "A0_frozen_base": 0.45202020202020204,
+    "B_char_trigram": 0.14646464646464644,
+    "C_ppmi": 0.027777777777777776,
+    "D_random_init_twin": 0.1717171717171717,
+    "E_scramble_floor": 0.7651515151515151
+  },
+  "per_unit": [
+    {
+      "arm": "A0_frozen_base",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.5,
+        "b_competitive_coref": 0.5833333333333334,
+        "c_overwrite": 0.2727272727272727
+      },
+      "loop_mean": 0.45202020202020204,
+      "preds_digest": "9204912996dab6da157408893b25cc65deab28e6ed33d8f08a3318bd3602284b",
+      "diag": {
+        "arm": "A0_frozen_base",
+        "seed": 7,
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+        "ckpt_sha256": "a5ed6bec534067cb6a3ab885a3a31ce1b13785ef063da8e75fc56d00c1f317d6"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 11.885497000010218
+    },
+    {
+      "arm": "A_tuned_ckpt",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.5,
+        "b_competitive_coref": 0.5833333333333334,
+        "c_overwrite": 0.5454545454545454
+      },
+      "loop_mean": 0.5429292929292929,
+      "preds_digest": "eef56dc7604d38ac131360286e4d10c4a44b7dbf906a46a83a6dea0b0f4ec7b4",
+      "diag": {
+        "arm": "A_tuned_ckpt",
+        "seed": 7,
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+        "ckpt_sha256": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc",
+        "state_dict_differs_from_frozen_base": true
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 11.23211069998797
+    },
+    {
+      "arm": "B_char_trigram",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.08333333333333333,
+        "b_competitive_coref": 0.08333333333333333,
+        "c_overwrite": 0.2727272727272727
+      },
+      "loop_mean": 0.14646464646464644,
+      "preds_digest": "a74f3febde5b6cb35b55eb2fb477fc15fcc8df49ec4f7f32ab4f859de80eac6b",
+      "diag": {
+        "arm": "B_char_trigram",
+        "seed": 7,
+        "encoder": "hdlab.char_trigram_encoder.CharTrigramEncoder(n_dim=512)"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 0.9315080000087619
+    },
+    {
+      "arm": "C_ppmi",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.0,
+        "b_competitive_coref": 0.08333333333333333,
+        "c_overwrite": 0.0
+      },
+      "loop_mean": 0.027777777777777776,
+      "preds_digest": "92eacaea6f03e118c669886439eceeb4ba085cb046fbe9c13596b839d7919744",
+      "diag": {
+        "arm": "C_ppmi",
+        "seed": 7,
+        "encoder": "hdlab.ppmi_sparse_encoder.PPMISparseEncoder(n_dim=512)",
+        "ppmi_vocab": 262,
+        "ppmi_effective_n_dim": 262
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 1.0061489999934565
+    },
+    {
+      "arm": "D_random_init_twin",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.3333333333333333,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.18181818181818182
+      },
+      "loop_mean": 0.1717171717171717,
+      "preds_digest": "b8da898221c59ac5a6a56c599cdc9d5b010d88630b0f2f0a3850edc25bee4100",
+      "diag": {
+        "arm": "D_random_init_twin",
+        "seed": 7,
+        "encoder": "V2Transformer(same model_cfg as arm A), UNTRAINED random init"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 12.13714350000373
+    },
+    {
+      "arm": "E_scramble_floor",
+      "seed": 7,
+      "eval_n": 12,
+      "per_type": {
+        "a_name_maintenance": 0.9166666666666666,
+        "b_competitive_coref": 0.8333333333333334,
+        "c_overwrite": 0.5454545454545454
+      },
+      "loop_mean": 0.7651515151515151,
+      "preds_digest": "1b12af379fce9a7338013ea3c724e5d82afd99073ddf202ae939bbcec2831679",
+      "diag": {
+        "arm": "E_scramble_floor",
+        "seed": 7,
+        "encoder": "arm A tuned weights, token ids through a fixed random vocab bijection",
+        "perm_vocab": 16000
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 12.743099899991648
+    }
+  ],
+  "arm_a_ckpt_paths": {
+    "7": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt"
+  },
+  "arm_a_ckpt_sha256": {
+    "7": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc"
+  },
+  "forbidden_ckpt_sha256": {
+    "f03051248c26a756d09d0076697cb470b477405cbaa289376e4a876bef3cb17a": "data/exp_scale_meaning_learn_arc_heldout_v3_relobj/ckpt_seed_7.pt"
+  },
+  "prereg": "preregs/2026-08-13_encoder_swap_behind_fixed_brain_stack.md",
+  "bands": {
+    "REFUTES_MIN_DELTA": 0.05,
+    "CONFIRMS_MAX_DELTA": 0.03,
+    "FLOOR_MARGIN": 0.05,
+    "BASELINE_BAND": [
+      0.05,
+      0.95
+    ]
+  },
+  "expected_n_units": 6,
+  "actual_n_units": 6,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_floor_computed": 0.05,
+  "crlb_formula_reference": "chance = 1/len(COLORS) for a colour argmax readout",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "scope": "situation-model assembly, held-out colours, role_attn readout; encoder-type is the ONLY varied factor"
+}

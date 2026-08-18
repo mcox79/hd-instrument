@@ -1,0 +1,330 @@
+{
+ "anchor_name": "exp_per_row_gain_c3_vet_v1_smoke",
+ "what": "PRE-REGISTERED VET: hdlab/excitability.py per-row multiplicative gain on the C3 open-vocabulary final pick, one variable, identical items/pool/gold/scorer as exp_grounding_readout_known_answer_v1 / exp_orthographic_floor_vet_v1",
+ "prereg": "preregs/2026-08-15_per_row_gain_c3_readout_v1.md",
+ "compares_against": {
+  "cell": "exp_grounding_readout_known_answer_v1",
+  "arm": "B5_OPEN_REAL",
+  "hit_at_1": 0.048
+ },
+ "bar": {
+  "source": "exp_orthographic_floor_vet_v1 A6_TRIGRAM_ONLY",
+  "acc": 0.087,
+  "ci": [
+   0.0783,
+   0.096
+  ],
+  "rule": "CI-separated: arm's ci_lo must exceed the bar's ci_hi (0.0960)"
+ },
+ "ts_iso": "2026-08-15T16:17:41.131828+00:00",
+ "smoke": true,
+ "n_items": 200,
+ "n_anchors": 716,
+ "item_construction": {
+  "n_anchors": 716,
+  "n_items_before_cap": 609,
+  "n_items": 200,
+  "removals": {
+   "foil_direction_fallback": 24,
+   "removed_L_not_in_wordnet": 39,
+   "removed_no_gold_anchor": 68
+  },
+  "n_items_with_heldout_sentence": 200
+ },
+ "a1_base_reproduces_c3_headline_exactly": null,
+ "self_retrieval": {
+  "acc": 0.81407,
+  "n": 199,
+  "floor": 0.7,
+  "ok": true
+ },
+ "excitability_signal": {
+  "median_E": 0.885616037725195,
+  "n_rows_downscaled_by_E_thresh": 355,
+  "frac_matched_for_random_and_magnitude_controls": 0.4958100558659218
+ },
+ "bootstrap": {
+  "n_boot": 5000,
+  "seed": 20260865,
+  "n_items": 200,
+  "arm_acc_ci": {
+   "A1_BASE": {
+    "acc": 0.055,
+    "ci_lo": 0.025,
+    "ci_hi": 0.09,
+    "sd": 0.015909905719393814
+   },
+   "GLOBAL_SCALAR": {
+    "acc": 0.055,
+    "ci_lo": 0.025,
+    "ci_hi": 0.09,
+    "sd": 0.015909905719393814
+   },
+   "PER_RAW_DIM_INV_STD": {
+    "acc": 0.05,
+    "ci_lo": 0.02,
+    "ci_hi": 0.085,
+    "sd": 0.015387805529054492
+   },
+   "PER_RAW_DIM_RANDOM": {
+    "acc": 0.055,
+    "ci_lo": 0.025,
+    "ci_hi": 0.09,
+    "sd": 0.015909905719393814
+   },
+   "PER_ROW_GAIN_E_CONTINUOUS": {
+    "acc": 0.055,
+    "ci_lo": 0.025,
+    "ci_hi": 0.09,
+    "sd": 0.015909905719393814
+   },
+   "PER_ROW_GAIN_E_THRESH": {
+    "acc": 0.055,
+    "ci_lo": 0.025,
+    "ci_hi": 0.09,
+    "sd": 0.015909905719393814
+   },
+   "PER_ROW_GAIN_MAGNITUDE": {
+    "acc": 0.055,
+    "ci_lo": 0.025,
+    "ci_hi": 0.09,
+    "sd": 0.015909905719393814
+   },
+   "PER_ROW_GAIN_RANDOM": {
+    "acc": 0.055,
+    "ci_lo": 0.025,
+    "ci_hi": 0.09,
+    "sd": 0.015909905719393814
+   },
+   "SCRAMBLE": {
+    "acc": 0.005,
+    "ci_lo": 0.0,
+    "ci_hi": 0.015,
+    "sd": 0.004996224174314039
+   }
+  },
+  "deltas": {
+   "d_PER_ROW_GAIN_E_THRESH_minus_BASE": {
+    "delta": 0.0,
+    "ci_lo": 0.0,
+    "ci_hi": 0.0,
+    "sd": 0.0,
+    "ci_excludes_zero": false
+   },
+   "d_PER_ROW_GAIN_E_CONTINUOUS_minus_BASE": {
+    "delta": 0.0,
+    "ci_lo": 0.0,
+    "ci_hi": 0.0,
+    "sd": 0.0,
+    "ci_excludes_zero": false
+   },
+   "d_PER_ROW_GAIN_RANDOM_minus_BASE": {
+    "delta": 0.0,
+    "ci_lo": 0.0,
+    "ci_hi": 0.0,
+    "sd": 0.0,
+    "ci_excludes_zero": false
+   },
+   "d_PER_ROW_GAIN_MAGNITUDE_minus_BASE": {
+    "delta": 0.0,
+    "ci_lo": 0.0,
+    "ci_hi": 0.0,
+    "sd": 0.0,
+    "ci_excludes_zero": false
+   },
+   "d_GLOBAL_SCALAR_minus_BASE": {
+    "delta": 0.0,
+    "ci_lo": 0.0,
+    "ci_hi": 0.0,
+    "sd": 0.0,
+    "ci_excludes_zero": false
+   },
+   "d_PER_RAW_DIM_INV_STD_minus_BASE": {
+    "delta": -0.0049999999999999975,
+    "ci_lo": -0.015000000000000006,
+    "ci_hi": 0.0,
+    "sd": 0.004915546663393605,
+    "ci_excludes_zero": false
+   },
+   "d_PER_RAW_DIM_RANDOM_minus_BASE": {
+    "delta": 0.0,
+    "ci_lo": 0.0,
+    "ci_hi": 0.0,
+    "sd": 0.0,
+    "ci_excludes_zero": false
+   },
+   "d_SCRAMBLE_minus_BASE": {
+    "delta": -0.05,
+    "ci_lo": -0.085,
+    "ci_hi": -0.019999999999999997,
+    "sd": 0.016802073562510074,
+    "ci_excludes_zero": true
+   }
+  }
+ },
+ "clears_bar_CI_separated": {
+  "PER_ROW_GAIN_E_THRESH": false,
+  "PER_ROW_GAIN_E_CONTINUOUS": false,
+  "PER_ROW_GAIN_RANDOM": false,
+  "PER_ROW_GAIN_MAGNITUDE": false,
+  "GLOBAL_SCALAR": false,
+  "PER_RAW_DIM_INV_STD": false,
+  "PER_RAW_DIM_RANDOM": false
+ },
+ "structural_null_vs_A1_BASE": {
+  "PER_ROW_GAIN_E_THRESH": true,
+  "PER_ROW_GAIN_E_CONTINUOUS": true,
+  "PER_ROW_GAIN_RANDOM": true,
+  "PER_ROW_GAIN_MAGNITUDE": true,
+  "GLOBAL_SCALAR": true,
+  "PER_RAW_DIM_INV_STD": true,
+  "PER_RAW_DIM_RANDOM": true
+ },
+ "bitwise_identical_pick_fraction_vs_A1_BASE": {
+  "PER_ROW_GAIN_E_THRESH": 1.0,
+  "PER_ROW_GAIN_E_CONTINUOUS": 1.0,
+  "PER_ROW_GAIN_RANDOM": 1.0,
+  "PER_ROW_GAIN_MAGNITUDE": 1.0,
+  "GLOBAL_SCALAR": 1.0,
+  "PER_RAW_DIM_INV_STD": 0.0,
+  "PER_RAW_DIM_RANDOM": 0.0
+ },
+ "per_arm": {
+  "A1_BASE": {
+   "hit_at_1": 0.055,
+   "example_picks": [
+    "poverty",
+    "more",
+    "jump",
+    "situation",
+    "please",
+    "post",
+    "trade",
+    "job",
+    "descent",
+    "hear"
+   ]
+  },
+  "PER_ROW_GAIN_E_THRESH": {
+   "hit_at_1": 0.055,
+   "example_picks": [
+    "poverty",
+    "more",
+    "jump",
+    "situation",
+    "please",
+    "post",
+    "trade",
+    "job",
+    "descent",
+    "hear"
+   ]
+  },
+  "PER_ROW_GAIN_E_CONTINUOUS": {
+   "hit_at_1": 0.055,
+   "example_picks": [
+    "poverty",
+    "more",
+    "jump",
+    "situation",
+    "please",
+    "post",
+    "trade",
+    "job",
+    "descent",
+    "hear"
+   ]
+  },
+  "PER_ROW_GAIN_RANDOM": {
+   "hit_at_1": 0.055,
+   "example_picks": [
+    "poverty",
+    "more",
+    "jump",
+    "situation",
+    "please",
+    "post",
+    "trade",
+    "job",
+    "descent",
+    "hear"
+   ]
+  },
+  "PER_ROW_GAIN_MAGNITUDE": {
+   "hit_at_1": 0.055,
+   "example_picks": [
+    "poverty",
+    "more",
+    "jump",
+    "situation",
+    "please",
+    "post",
+    "trade",
+    "job",
+    "descent",
+    "hear"
+   ]
+  },
+  "GLOBAL_SCALAR": {
+   "hit_at_1": 0.055,
+   "example_picks": [
+    "poverty",
+    "more",
+    "jump",
+    "situation",
+    "please",
+    "post",
+    "trade",
+    "job",
+    "descent",
+    "hear"
+   ]
+  },
+  "PER_RAW_DIM_INV_STD": {
+   "hit_at_1": 0.05,
+   "example_picks": [
+    "poverty",
+    "more",
+    "jump",
+    "situation",
+    "please",
+    "post",
+    "trade",
+    "job",
+    "descent",
+    "bbm"
+   ]
+  },
+  "PER_RAW_DIM_RANDOM": {
+   "hit_at_1": 0.055,
+   "example_picks": [
+    "poverty",
+    "more",
+    "jump",
+    "situation",
+    "please",
+    "post",
+    "trade",
+    "job",
+    "descent",
+    "hear"
+   ]
+  },
+  "SCRAMBLE": {
+   "hit_at_1": 0.005,
+   "example_picks": [
+    "claim",
+    "clash",
+    "clear",
+    "climate",
+    "closing",
+    "coal",
+    "coca",
+    "college",
+    "colour",
+    "come"
+   ]
+  }
+ },
+ "elapsed_s": 44.18
+}

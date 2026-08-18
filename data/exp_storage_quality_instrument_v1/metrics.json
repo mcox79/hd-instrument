@@ -1,0 +1,7202 @@
+{
+  "verdict": "INSTRUMENT_STILL_LOOSE",
+  "verdict_msg": "INSTRUMENT_STILL_LOOSE: 10/11 gates passed; FAILED ['IV3b_null_ci_covers_chance']. NO storage-quality number is published.",
+  "anchor": "storage_quality_instrument_v1",
+  "config": {
+    "run_mode": "full",
+    "F": 4,
+    "D": 256,
+    "N_BOOT": 10000,
+    "T_GRID": [
+      1,
+      4,
+      16,
+      64
+    ],
+    "NEXTRA_GRID": [
+      0,
+      8,
+      64
+    ],
+    "COLLIDE_GRID": [
+      0.0,
+      0.5,
+      0.9
+    ],
+    "SYN_ITEMS": 400,
+    "LIVE_ITEMS": 300,
+    "LIVE_SCAN": 400000,
+    "S1_M_GRID": [
+      16,
+      64,
+      256,
+      1024
+    ],
+    "S1_T": 4,
+    "S1_NEXTRA": 4,
+    "S1_COLLIDE": 0.5,
+    "NOISE_LADDER": [
+      0.0,
+      1.0,
+      2.0,
+      4.0,
+      8.0,
+      16.0,
+      32.0,
+      64.0,
+      128.0,
+      256.0
+    ],
+    "FREQ_RATIO_MAX": 4.0,
+    "HEADLINE_T": 16,
+    "HEADLINE_NEXTRA": 8,
+    "HEADLINE_COLLIDE": 0.5,
+    "anchor": "storage_quality_instrument_v1"
+  },
+  "chance_s3": 0.25,
+  "seeds": [
+    7,
+    11,
+    13,
+    19,
+    23
+  ],
+  "summary_stats": {
+    "gates": [
+      {
+        "gate_name": "IV1_oracle_ceiling",
+        "measured": 1.0,
+        "threshold": 0.99,
+        "op": ">=",
+        "gate_verdict": true,
+        "note": "A0_ORACLE_DICT S3 minimum over every operating point, both regimes"
+      },
+      {
+        "gate_name": "IV2_slotted_at_max_load",
+        "measured": 1.0,
+        "threshold": 0.95,
+        "op": ">=",
+        "gate_verdict": true,
+        "note": "A1_SLOTTED at the heaviest NON-COLLIDING point T64_nx64_c0.00; the colliding points are the load axis, where every architecture must degrade"
+      },
+      {
+        "gate_name": "IV3a_null_near_chance",
+        "measured": 0.02931034482758621,
+        "threshold": 0.05,
+        "op": "<=",
+        "gate_verdict": true,
+        "note": "max |A5_NULL_CONTENT - chance| over every point, both regimes"
+      },
+      {
+        "gate_name": "IV3b_null_ci_covers_chance",
+        "measured": 0.9375,
+        "threshold": 1.0,
+        "op": ">=",
+        "gate_verdict": false,
+        "note": "fraction of points whose A5 95pct CI covers chance"
+      },
+      {
+        "gate_name": "IV4a_saturation_monotone",
+        "measured": -0.9969650916353059,
+        "threshold": -0.8,
+        "op": "<=",
+        "gate_verdict": true,
+        "note": "Spearman rho of A1_SLOTTED S3 vs store-noise sigma, 6 levels"
+      },
+      {
+        "gate_name": "IV4b_saturation_reaches_chance",
+        "measured": 0.26762500000000006,
+        "threshold": 0.35,
+        "op": "<=",
+        "gate_verdict": true,
+        "note": "A1_SLOTTED S3 at the top noise level"
+      },
+      {
+        "gate_name": "IV5_live_floors_at_chance",
+        "measured": 0.010000000000000009,
+        "threshold": 0.05,
+        "op": "<=",
+        "gate_verdict": true,
+        "note": "max |floor - chance| over A8_ORTHOGRAPHIC and A9_FREQUENCY"
+      },
+      {
+        "gate_name": "IV6_null_key_collapses_A0_A1",
+        "measured": 0.005,
+        "threshold": 0.3,
+        "op": "<=",
+        "gate_verdict": true,
+        "note": "worst deranged-key S3 over A0/A1, every point, both regimes"
+      },
+      {
+        "gate_name": "IV7_unkeyed_pool_balanced",
+        "measured": 0.006896551724137945,
+        "threshold": 0.05,
+        "op": "<=",
+        "gate_verdict": true,
+        "note": "max |A2U_BAG_UNKEYED - chance| over every point"
+      },
+      {
+        "gate_name": "IV8_arm_spread_at_headline",
+        "measured": 0.749625,
+        "threshold": 0.1,
+        "op": ">=",
+        "gate_verdict": true,
+        "note": "max-min S3 over {A1_SLOTTED, A2R_ROLEBOUND, A2_BAG} at T16_nx8_c0.50"
+      },
+      {
+        "gate_name": "IV8b_two_working_stores_separable",
+        "measured": 0.4480662983425414,
+        "threshold": 0.05,
+        "op": ">=",
+        "gate_verdict": true,
+        "note": "best A1_SLOTTED - A2R_ROLEBOUND gap over the grid, at T16_nx64_c0.90. A metric that cannot separate two WORKING stores separates only broken from working."
+      }
+    ],
+    "iv_pass": false,
+    "syn": {
+      "T16_nx0_c0.00": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.244875,
+          "s3_ci": [
+            0.235125,
+            0.254625
+          ],
+          "s3_deranged": 0.260375,
+          "s3_deranged_ci": [
+            0.25075,
+            0.270125
+          ],
+          "delta_key": -0.0155,
+          "delta_key_ci": [
+            -0.031625,
+            0.00025
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.249,
+          "s3_ci": [
+            0.239375,
+            0.2585
+          ],
+          "s3_deranged": 0.25825,
+          "s3_deranged_ci": [
+            0.248496875,
+            0.268
+          ],
+          "delta_key": -0.00925,
+          "delta_key_ci": [
+            -0.025,
+            0.0065
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.251125,
+          "s3_ci": [
+            0.248875,
+            0.2535
+          ],
+          "s3_deranged": 0.25075,
+          "s3_deranged_ci": [
+            0.2485,
+            0.253
+          ],
+          "delta_key": 0.000375,
+          "delta_key_ci": [
+            -0.00275,
+            0.0035
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.24975,
+          "s3_ci": [
+            0.24025,
+            0.25937812499999996
+          ],
+          "s3_deranged": 0.248625,
+          "s3_deranged_ci": [
+            0.2395,
+            0.258
+          ],
+          "delta_key": 0.001125,
+          "delta_key_ci": [
+            -0.01425,
+            0.016375
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.249875,
+          "s3_ci": [
+            0.2405,
+            0.25925
+          ],
+          "s3_deranged": 0.246375,
+          "s3_deranged_ci": [
+            0.237125,
+            0.25562812499999993
+          ],
+          "delta_key": 0.0035,
+          "delta_key_ci": [
+            -0.01175,
+            0.0185
+          ],
+          "n_items": 2000
+        }
+      },
+      "T16_nx0_c0.50": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.246625,
+          "s3_ci": [
+            0.237125,
+            0.2562531249999999
+          ],
+          "s3_deranged": 0.240875,
+          "s3_deranged_ci": [
+            0.231625,
+            0.25025
+          ],
+          "delta_key": 0.00575,
+          "delta_key_ci": [
+            -0.009625,
+            0.02125
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.998125,
+          "s3_ci": [
+            0.997125,
+            0.999
+          ],
+          "s3_deranged": 0.001125,
+          "s3_deranged_ci": [
+            0.0005,
+            0.001875
+          ],
+          "delta_key": 0.997,
+          "delta_key_ci": [
+            0.995371875,
+            0.9985
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.24125,
+          "s3_ci": [
+            0.232375,
+            0.25025
+          ],
+          "s3_deranged": 0.246375,
+          "s3_deranged_ci": [
+            0.237,
+            0.2557531249999999
+          ],
+          "delta_key": -0.005125,
+          "delta_key_ci": [
+            -0.02,
+            0.00925
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.970375,
+          "s3_ci": [
+            0.966625,
+            0.973875
+          ],
+          "s3_deranged": 0.010875,
+          "s3_deranged_ci": [
+            0.00875,
+            0.01325
+          ],
+          "delta_key": 0.9595,
+          "delta_key_ci": [
+            0.954125,
+            0.964625
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.24975,
+          "s3_ci": [
+            0.24925,
+            0.25025
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.249625,
+            0.250375
+          ],
+          "delta_key": -0.00025,
+          "delta_key_ci": [
+            -0.00075,
+            0.00025
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.249625,
+          "s3_ci": [
+            0.240125,
+            0.259125
+          ],
+          "s3_deranged": 0.24575,
+          "s3_deranged_ci": [
+            0.23675,
+            0.254625
+          ],
+          "delta_key": 0.003875,
+          "delta_key_ci": [
+            -0.01075,
+            0.019
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.264625,
+          "s3_ci": [
+            0.25475,
+            0.274625
+          ],
+          "s3_deranged": 0.241375,
+          "s3_deranged_ci": [
+            0.23175,
+            0.2507531249999999
+          ],
+          "delta_key": 0.02325,
+          "delta_key_ci": [
+            0.007625,
+            0.039125
+          ],
+          "n_items": 2000
+        }
+      },
+      "T16_nx0_c0.90": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 881
+        },
+        "A1_SLOTTED": {
+          "s3": 0.996594778660613,
+          "s3_ci": [
+            0.9946083995459705,
+            0.9982973893303064
+          ],
+          "s3_deranged": 0.0005675368898978433,
+          "s3_deranged_ci": [
+            0.0,
+            0.0014188422247446084
+          ],
+          "delta_key": 0.9960272417707151,
+          "delta_key_ci": [
+            0.9934733257661748,
+            0.9982973893303064
+          ],
+          "n_items": 881
+        },
+        "A2_BAG": {
+          "s3": 0.2474460839954597,
+          "s3_ci": [
+            0.23354143019296253,
+            0.2616345062429058
+          ],
+          "s3_deranged": 0.24716231555051077,
+          "s3_deranged_ci": [
+            0.23269012485811577,
+            0.26135073779795687
+          ],
+          "delta_key": 0.00028376844494892167,
+          "delta_key_ci": [
+            -0.022417707150964812,
+            0.023269012485811577
+          ],
+          "n_items": 881
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.9049375709421112,
+          "s3_ci": [
+            0.8952894438138479,
+            0.9145856980703746
+          ],
+          "s3_deranged": 0.036606129398410896,
+          "s3_deranged_ci": [
+            0.03036322360953462,
+            0.043132803632236094
+          ],
+          "delta_key": 0.8683314415437003,
+          "delta_key_ci": [
+            0.8538592508513053,
+            0.8828036322360954
+          ],
+          "n_items": 881
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.264472190692395,
+          "s3_ci": [
+            0.25028376844494893,
+            0.2783768444948922
+          ],
+          "s3_deranged": 0.24404086265607264,
+          "s3_deranged_ci": [
+            0.23013620885357547,
+            0.2582292849035187
+          ],
+          "delta_key": 0.02043132803632236,
+          "delta_key_ci": [
+            -0.0022701475595913734,
+            0.04284903518728717
+          ],
+          "n_items": 881
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.41912599318955734,
+          "s3_ci": [
+            0.40323496027241773,
+            0.43530079455164583
+          ],
+          "s3_deranged": 0.1926787741203178,
+          "s3_deranged_ci": [
+            0.17990919409761635,
+            0.20573212258796822
+          ],
+          "delta_key": 0.2264472190692395,
+          "delta_key_ci": [
+            0.20204313280363223,
+            0.2511350737797957
+          ],
+          "n_items": 881
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.24943246311010214,
+          "s3_ci": [
+            0.24858115777525538,
+            0.25
+          ],
+          "s3_deranged": 0.24943246311010214,
+          "s3_deranged_ci": [
+            0.24858115777525538,
+            0.25
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            -0.000851305334846765,
+            0.000851305334846765
+          ],
+          "n_items": 881
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.24829738933030646,
+          "s3_ci": [
+            0.23382519863791146,
+            0.26276958002270145
+          ],
+          "s3_deranged": 0.2593643586833144,
+          "s3_deranged_ci": [
+            0.24517593643586832,
+            0.27383654937570945
+          ],
+          "delta_key": -0.011066969353007945,
+          "delta_key_ci": [
+            -0.03433598183881952,
+            0.01191827468785471
+          ],
+          "n_items": 881
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.2551078320090806,
+          "s3_ci": [
+            0.24063564131668558,
+            0.2695800227014756
+          ],
+          "s3_deranged": 0.2551078320090806,
+          "s3_deranged_ci": [
+            0.24063564131668558,
+            0.2698637911464245
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            -0.02383654937570942,
+            0.02383654937570942
+          ],
+          "n_items": 881
+        }
+      },
+      "T16_nx64_c0.00": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.258125,
+          "s3_ci": [
+            0.2485,
+            0.267875
+          ],
+          "s3_deranged": 0.242125,
+          "s3_deranged_ci": [
+            0.233,
+            0.251375
+          ],
+          "delta_key": 0.016,
+          "delta_key_ci": [
+            0.000625,
+            0.031
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.999875,
+          "s3_ci": [
+            0.999625,
+            1.0
+          ],
+          "s3_deranged": 0.000125,
+          "s3_deranged_ci": [
+            0.0,
+            0.000375
+          ],
+          "delta_key": 0.99975,
+          "delta_key_ci": [
+            0.99925,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.25275,
+          "s3_ci": [
+            0.243375,
+            0.262125
+          ],
+          "s3_deranged": 0.244375,
+          "s3_deranged_ci": [
+            0.235,
+            0.25375
+          ],
+          "delta_key": 0.008375,
+          "delta_key_ci": [
+            -0.006625,
+            0.0235
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.98525,
+          "s3_ci": [
+            0.982625,
+            0.98775
+          ],
+          "s3_deranged": 0.00625,
+          "s3_deranged_ci": [
+            0.004625,
+            0.008
+          ],
+          "delta_key": 0.979,
+          "delta_key_ci": [
+            0.975125,
+            0.98275
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.249875,
+          "s3_ci": [
+            0.249625,
+            0.25
+          ],
+          "s3_deranged": 0.250125,
+          "s3_deranged_ci": [
+            0.25,
+            0.250375
+          ],
+          "delta_key": -0.00025,
+          "delta_key_ci": [
+            -0.000625,
+            0.0
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.25225,
+          "s3_ci": [
+            0.242875,
+            0.261875
+          ],
+          "s3_deranged": 0.249,
+          "s3_deranged_ci": [
+            0.239875,
+            0.258125
+          ],
+          "delta_key": 0.00325,
+          "delta_key_ci": [
+            -0.01175,
+            0.018625
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.2445,
+          "s3_ci": [
+            0.234875,
+            0.254125
+          ],
+          "s3_deranged": 0.250375,
+          "s3_deranged_ci": [
+            0.240875,
+            0.26
+          ],
+          "delta_key": -0.005875,
+          "delta_key_ci": [
+            -0.021875,
+            0.009625
+          ],
+          "n_items": 2000
+        }
+      },
+      "T16_nx64_c0.50": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.243875,
+          "s3_ci": [
+            0.2345,
+            0.253125
+          ],
+          "s3_deranged": 0.254375,
+          "s3_deranged_ci": [
+            0.244625,
+            0.264125
+          ],
+          "delta_key": -0.0105,
+          "delta_key_ci": [
+            -0.02575,
+            0.004875
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.962125,
+          "s3_ci": [
+            0.957996875,
+            0.96625
+          ],
+          "s3_deranged": 0.014375,
+          "s3_deranged_ci": [
+            0.011875,
+            0.017125
+          ],
+          "delta_key": 0.94775,
+          "delta_key_ci": [
+            0.9415,
+            0.95375
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.248375,
+          "s3_ci": [
+            0.239,
+            0.25775
+          ],
+          "s3_deranged": 0.255875,
+          "s3_deranged_ci": [
+            0.246375,
+            0.265625
+          ],
+          "delta_key": -0.0075,
+          "delta_key_ci": [
+            -0.02325,
+            0.008125
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.81025,
+          "s3_ci": [
+            0.8015,
+            0.818625
+          ],
+          "s3_deranged": 0.070375,
+          "s3_deranged_ci": [
+            0.065,
+            0.07575
+          ],
+          "delta_key": 0.739875,
+          "delta_key_ci": [
+            0.7275,
+            0.75175
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.2495,
+            0.2505
+          ],
+          "s3_deranged": 0.249875,
+          "s3_deranged_ci": [
+            0.249375,
+            0.25025
+          ],
+          "delta_key": 0.000125,
+          "delta_key_ci": [
+            -0.00075,
+            0.001
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.249375,
+          "s3_ci": [
+            0.240125,
+            0.258875
+          ],
+          "s3_deranged": 0.254375,
+          "s3_deranged_ci": [
+            0.244625,
+            0.26425
+          ],
+          "delta_key": -0.005,
+          "delta_key_ci": [
+            -0.02075,
+            0.01025
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.255,
+          "s3_ci": [
+            0.24525,
+            0.264875
+          ],
+          "s3_deranged": 0.245625,
+          "s3_deranged_ci": [
+            0.235875,
+            0.255125
+          ],
+          "delta_key": 0.009375,
+          "delta_key_ci": [
+            -0.006125,
+            0.02525
+          ],
+          "n_items": 2000
+        }
+      },
+      "T16_nx64_c0.90": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 905
+        },
+        "A1_SLOTTED": {
+          "s3": 0.9964088397790055,
+          "s3_ci": [
+            0.9941988950276243,
+            0.9980662983425415
+          ],
+          "s3_deranged": 0.0005524861878453039,
+          "s3_deranged_ci": [
+            0.0,
+            0.0013812154696132596
+          ],
+          "delta_key": 0.9958563535911602,
+          "delta_key_ci": [
+            0.9933701657458563,
+            0.9977900552486187
+          ],
+          "n_items": 905
+        },
+        "A2_BAG": {
+          "s3": 0.2549723756906077,
+          "s3_ci": [
+            0.24033149171270718,
+            0.26988950276243096
+          ],
+          "s3_deranged": 0.24005524861878452,
+          "s3_deranged_ci": [
+            0.2265193370165746,
+            0.2541436464088398
+          ],
+          "delta_key": 0.014917127071823204,
+          "delta_key_ci": [
+            -0.008287292817679558,
+            0.03756906077348066
+          ],
+          "n_items": 905
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.5483425414364641,
+          "s3_ci": [
+            0.5320441988950276,
+            0.5646408839779006
+          ],
+          "s3_deranged": 0.15441988950276242,
+          "s3_deranged_ci": [
+            0.14281767955801106,
+            0.1660220994475138
+          ],
+          "delta_key": 0.3939226519337017,
+          "delta_key_ci": [
+            0.37044198895027625,
+            0.4176795580110497
+          ],
+          "n_items": 905
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.25441988950276245,
+          "s3_ci": [
+            0.24033149171270718,
+            0.26933701657458564
+          ],
+          "s3_deranged": 0.2447513812154696,
+          "s3_deranged_ci": [
+            0.23093922651933702,
+            0.2585635359116022
+          ],
+          "delta_key": 0.009668508287292817,
+          "delta_key_ci": [
+            -0.012983425414364641,
+            0.03259668508287293
+          ],
+          "n_items": 905
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.40828729281767956,
+          "s3_ci": [
+            0.3919889502762431,
+            0.42458563535911603
+          ],
+          "s3_deranged": 0.19696132596685084,
+          "s3_deranged_ci": [
+            0.18425414364640885,
+            0.2096685082872928
+          ],
+          "delta_key": 0.21132596685082872,
+          "delta_key_ci": [
+            0.18756906077348065,
+            0.2356353591160221
+          ],
+          "n_items": 905
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.2494475138121547,
+          "s3_ci": [
+            0.2483425414364641,
+            0.2505524861878453
+          ],
+          "s3_deranged": 0.25027624309392266,
+          "s3_deranged_ci": [
+            0.25,
+            0.25082872928176797
+          ],
+          "delta_key": -0.0008287292817679558,
+          "delta_key_ci": [
+            -0.0019337016574585636,
+            0.0
+          ],
+          "n_items": 905
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.2585635359116022,
+          "s3_ci": [
+            0.24447513812154695,
+            0.2723825966850828
+          ],
+          "s3_deranged": 0.2408839779005525,
+          "s3_deranged_ci": [
+            0.22789364640883977,
+            0.2546961325966851
+          ],
+          "delta_key": 0.017679558011049725,
+          "delta_key_ci": [
+            -0.004696132596685083,
+            0.039779005524861875
+          ],
+          "n_items": 905
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.24585635359116023,
+          "s3_ci": [
+            0.23232044198895027,
+            0.26022099447513813
+          ],
+          "s3_deranged": 0.237292817679558,
+          "s3_deranged_ci": [
+            0.22375690607734808,
+            0.25082872928176797
+          ],
+          "delta_key": 0.00856353591160221,
+          "delta_key_ci": [
+            -0.012983425414364641,
+            0.03149171270718232
+          ],
+          "n_items": 905
+        }
+      },
+      "T16_nx8_c0.00": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.252875,
+          "s3_ci": [
+            0.2435,
+            0.26225
+          ],
+          "s3_deranged": 0.242125,
+          "s3_deranged_ci": [
+            0.232625,
+            0.251625
+          ],
+          "delta_key": 0.01075,
+          "delta_key_ci": [
+            -0.004628124999999997,
+            0.025875
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.2495,
+          "s3_ci": [
+            0.24025,
+            0.258875
+          ],
+          "s3_deranged": 0.246625,
+          "s3_deranged_ci": [
+            0.237125,
+            0.256
+          ],
+          "delta_key": 0.002875,
+          "delta_key_ci": [
+            -0.0125,
+            0.017878124999999953
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.99975,
+          "s3_ci": [
+            0.999375,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 0.99975,
+          "delta_key_ci": [
+            0.999375,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.250125,
+          "s3_ci": [
+            0.2495,
+            0.25075
+          ],
+          "s3_deranged": 0.250125,
+          "s3_deranged_ci": [
+            0.2495,
+            0.25075
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            -0.00075,
+            0.00075
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.2405,
+          "s3_ci": [
+            0.231125,
+            0.25025
+          ],
+          "s3_deranged": 0.246625,
+          "s3_deranged_ci": [
+            0.237375,
+            0.255875
+          ],
+          "delta_key": -0.006125,
+          "delta_key_ci": [
+            -0.020875,
+            0.009375
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.257375,
+          "s3_ci": [
+            0.24775,
+            0.267
+          ],
+          "s3_deranged": 0.24675,
+          "s3_deranged_ci": [
+            0.237125,
+            0.256375
+          ],
+          "delta_key": 0.010625,
+          "delta_key_ci": [
+            -0.00475,
+            0.0265
+          ],
+          "n_items": 2000
+        }
+      },
+      "T16_nx8_c0.50": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.250375,
+          "s3_ci": [
+            0.24125,
+            0.2595
+          ],
+          "s3_deranged": 0.250875,
+          "s3_deranged_ci": [
+            0.241375,
+            0.260625
+          ],
+          "delta_key": -0.0005,
+          "delta_key_ci": [
+            -0.01575,
+            0.014625
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.996625,
+          "s3_ci": [
+            0.995375,
+            0.997875
+          ],
+          "s3_deranged": 0.001625,
+          "s3_deranged_ci": [
+            0.00075,
+            0.0025031249999999546
+          ],
+          "delta_key": 0.995,
+          "delta_key_ci": [
+            0.993,
+            0.996875
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.25425,
+          "s3_ci": [
+            0.24475,
+            0.263375
+          ],
+          "s3_deranged": 0.238875,
+          "s3_deranged_ci": [
+            0.23,
+            0.24775
+          ],
+          "delta_key": 0.015375,
+          "delta_key_ci": [
+            0.000875,
+            0.03025
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.946875,
+          "s3_ci": [
+            0.942,
+            0.95175
+          ],
+          "s3_deranged": 0.02125,
+          "s3_deranged_ci": [
+            0.01825,
+            0.0245
+          ],
+          "delta_key": 0.925625,
+          "delta_key_ci": [
+            0.9185,
+            0.93275
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.24975,
+          "s3_ci": [
+            0.24925,
+            0.25025
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.2495,
+            0.2505
+          ],
+          "delta_key": -0.00025,
+          "delta_key_ci": [
+            -0.001,
+            0.000625
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.25325,
+          "s3_ci": [
+            0.2435,
+            0.26325
+          ],
+          "s3_deranged": 0.24975,
+          "s3_deranged_ci": [
+            0.24025,
+            0.259375
+          ],
+          "delta_key": 0.0035,
+          "delta_key_ci": [
+            -0.012375,
+            0.019375
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.248625,
+          "s3_ci": [
+            0.239125,
+            0.25825
+          ],
+          "s3_deranged": 0.2615,
+          "s3_deranged_ci": [
+            0.252,
+            0.271125
+          ],
+          "delta_key": -0.012875,
+          "delta_key_ci": [
+            -0.028375,
+            0.002625
+          ],
+          "n_items": 2000
+        },
+        "A4_FACTSTORE_d256": {
+          "s3": 0.999875,
+          "s3_ci": [
+            0.999625,
+            1.0
+          ],
+          "s3_deranged": 0.000125,
+          "s3_deranged_ci": [
+            0.0,
+            0.000375
+          ],
+          "delta_key": 0.99975,
+          "delta_key_ci": [
+            0.99925,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A4_FACTSTORE_d8192": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        }
+      },
+      "T16_nx8_c0.90": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 890
+        },
+        "A1_SLOTTED": {
+          "s3": 0.9985955056179775,
+          "s3_ci": [
+            0.9971910112359551,
+            0.9997191011235955
+          ],
+          "s3_deranged": 0.0002808988764044944,
+          "s3_deranged_ci": [
+            0.0,
+            0.0008426966292134832
+          ],
+          "delta_key": 0.998314606741573,
+          "delta_key_ci": [
+            0.996629213483146,
+            0.9997191011235955
+          ],
+          "n_items": 890
+        },
+        "A2_BAG": {
+          "s3": 0.2539325842696629,
+          "s3_ci": [
+            0.23904494382022473,
+            0.26910112359550564
+          ],
+          "s3_deranged": 0.23960674157303372,
+          "s3_deranged_ci": [
+            0.225561797752809,
+            0.2533707865168539
+          ],
+          "delta_key": 0.014325842696629213,
+          "delta_key_ci": [
+            -0.008988764044943821,
+            0.037921348314606744
+          ],
+          "n_items": 890
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.7893258426966292,
+          "s3_ci": [
+            0.775561797752809,
+            0.8028089887640449
+          ],
+          "s3_deranged": 0.08286516853932584,
+          "s3_deranged_ci": [
+            0.07359550561797752,
+            0.09213483146067415
+          ],
+          "delta_key": 0.7064606741573034,
+          "delta_key_ci": [
+            0.6859550561797753,
+            0.726685393258427
+          ],
+          "n_items": 890
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.2497191011235955,
+          "s3_ci": [
+            0.2348314606741573,
+            0.26432584269662923
+          ],
+          "s3_deranged": 0.24325842696629213,
+          "s3_deranged_ci": [
+            0.2292134831460674,
+            0.2573033707865168
+          ],
+          "delta_key": 0.0064606741573033704,
+          "delta_key_ci": [
+            -0.01657303370786517,
+            0.029213483146067417
+          ],
+          "n_items": 890
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.47247191011235956,
+          "s3_ci": [
+            0.45617977528089887,
+            0.4896067415730337
+          ],
+          "s3_deranged": 0.18651685393258427,
+          "s3_deranged_ci": [
+            0.17359550561797754,
+            0.199438202247191
+          ],
+          "delta_key": 0.2859550561797753,
+          "delta_key_ci": [
+            0.26179775280898876,
+            0.3112359550561798
+          ],
+          "n_items": 890
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.250561797752809,
+          "s3_ci": [
+            0.2491573033707865,
+            0.25196629213483146
+          ],
+          "s3_deranged": 0.2502808988764045,
+          "s3_deranged_ci": [
+            0.24943820224719102,
+            0.25112359550561797
+          ],
+          "delta_key": 0.0002808988764044944,
+          "delta_key_ci": [
+            -0.001966292134831461,
+            0.0022471910112359553
+          ],
+          "n_items": 890
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.24353932584269664,
+          "s3_ci": [
+            0.2300561797752809,
+            0.2573033707865168
+          ],
+          "s3_deranged": 0.24044943820224718,
+          "s3_deranged_ci": [
+            0.22668539325842696,
+            0.25449438202247193
+          ],
+          "delta_key": 0.003089887640449438,
+          "delta_key_ci": [
+            -0.019101123595505618,
+            0.025280898876404494
+          ],
+          "n_items": 890
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.2595505617977528,
+          "s3_ci": [
+            0.2452247191011236,
+            0.2735955056179775
+          ],
+          "s3_deranged": 0.2449438202247191,
+          "s3_deranged_ci": [
+            0.23146067415730337,
+            0.25870786516853933
+          ],
+          "delta_key": 0.014606741573033709,
+          "delta_key_ci": [
+            -0.007865168539325843,
+            0.03707865168539326
+          ],
+          "n_items": 890
+        }
+      },
+      "T1_nx0_c0.00": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.254,
+          "s3_ci": [
+            0.24475,
+            0.26325
+          ],
+          "s3_deranged": 0.247,
+          "s3_deranged_ci": [
+            0.237,
+            0.257125
+          ],
+          "delta_key": 0.007,
+          "delta_key_ci": [
+            -0.0085,
+            0.022875
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.253125,
+          "s3_ci": [
+            0.243375,
+            0.26275
+          ],
+          "s3_deranged": 0.25525,
+          "s3_deranged_ci": [
+            0.24525,
+            0.2652531249999999
+          ],
+          "delta_key": -0.002125,
+          "delta_key_ci": [
+            -0.018125,
+            0.013875
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.250625,
+          "s3_ci": [
+            0.248,
+            0.25325
+          ],
+          "s3_deranged": 0.24925,
+          "s3_deranged_ci": [
+            0.24675,
+            0.25175
+          ],
+          "delta_key": 0.001375,
+          "delta_key_ci": [
+            -0.00225,
+            0.004875
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.2495,
+          "s3_ci": [
+            0.239875,
+            0.259125
+          ],
+          "s3_deranged": 0.24375,
+          "s3_deranged_ci": [
+            0.234375,
+            0.253
+          ],
+          "delta_key": 0.00575,
+          "delta_key_ci": [
+            -0.009625,
+            0.021
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.254375,
+          "s3_ci": [
+            0.245,
+            0.264
+          ],
+          "s3_deranged": 0.251875,
+          "s3_deranged_ci": [
+            0.242125,
+            0.261625
+          ],
+          "delta_key": 0.0025,
+          "delta_key_ci": [
+            -0.012875,
+            0.018125
+          ],
+          "n_items": 2000
+        }
+      },
+      "T1_nx0_c0.50": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 132
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 132
+        },
+        "A2_BAG": {
+          "s3": 0.2689393939393939,
+          "s3_ci": [
+            0.23106060606060605,
+            0.3068181818181818
+          ],
+          "s3_deranged": 0.2481060606060606,
+          "s3_deranged_ci": [
+            0.21022727272727273,
+            0.2859848484848485
+          ],
+          "delta_key": 0.020833333333333332,
+          "delta_key_ci": [
+            -0.03977272727272727,
+            0.08333333333333333
+          ],
+          "n_items": 132
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 132
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.2765151515151515,
+          "s3_ci": [
+            0.24053030303030304,
+            0.3143939393939394
+          ],
+          "s3_deranged": 0.25757575757575757,
+          "s3_deranged_ci": [
+            0.2215909090909091,
+            0.29734848484848486
+          ],
+          "delta_key": 0.01893939393939394,
+          "delta_key_ci": [
+            -0.041666666666666664,
+            0.08143939393939394
+          ],
+          "n_items": 132
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 132
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.2481060606060606,
+          "s3_ci": [
+            0.24431818181818182,
+            0.25
+          ],
+          "s3_deranged": 0.2481060606060606,
+          "s3_deranged_ci": [
+            0.24053030303030304,
+            0.2537878787878788
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            -0.007575757575757576,
+            0.007575757575757576
+          ],
+          "n_items": 132
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.25757575757575757,
+          "s3_ci": [
+            0.2215909090909091,
+            0.2935606060606061
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.2159090909090909,
+            0.2840909090909091
+          ],
+          "delta_key": 0.007575757575757576,
+          "delta_key_ci": [
+            -0.04734848484848485,
+            0.0625
+          ],
+          "n_items": 132
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.2878787878787879,
+          "s3_ci": [
+            0.2481060606060606,
+            0.32954545454545453
+          ],
+          "s3_deranged": 0.23106060606060605,
+          "s3_deranged_ci": [
+            0.19507575757575757,
+            0.26704545454545453
+          ],
+          "delta_key": 0.056818181818181816,
+          "delta_key_ci": [
+            -0.003787878787878788,
+            0.11931818181818182
+          ],
+          "n_items": 132
+        }
+      },
+      "T1_nx64_c0.00": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.252375,
+          "s3_ci": [
+            0.24325,
+            0.26175
+          ],
+          "s3_deranged": 0.2485,
+          "s3_deranged_ci": [
+            0.2395,
+            0.257875
+          ],
+          "delta_key": 0.003875,
+          "delta_key_ci": [
+            -0.011,
+            0.019
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.81325,
+          "s3_ci": [
+            0.804875,
+            0.821875
+          ],
+          "s3_deranged": 0.067125,
+          "s3_deranged_ci": [
+            0.06175,
+            0.0725
+          ],
+          "delta_key": 0.746125,
+          "delta_key_ci": [
+            0.734,
+            0.758503125
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.248875,
+          "s3_ci": [
+            0.239625,
+            0.258375
+          ],
+          "s3_deranged": 0.254125,
+          "s3_deranged_ci": [
+            0.244375,
+            0.264125
+          ],
+          "delta_key": -0.00525,
+          "delta_key_ci": [
+            -0.021,
+            0.010125
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.71525,
+          "s3_ci": [
+            0.7055,
+            0.725125
+          ],
+          "s3_deranged": 0.096125,
+          "s3_deranged_ci": [
+            0.08975,
+            0.102375
+          ],
+          "delta_key": 0.619125,
+          "delta_key_ci": [
+            0.605375,
+            0.633375
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.250875,
+          "s3_ci": [
+            0.249875,
+            0.252
+          ],
+          "s3_deranged": 0.249625,
+          "s3_deranged_ci": [
+            0.2485,
+            0.25075
+          ],
+          "delta_key": 0.00125,
+          "delta_key_ci": [
+            -0.00025,
+            0.002875
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.245875,
+          "s3_ci": [
+            0.23675,
+            0.255375
+          ],
+          "s3_deranged": 0.249625,
+          "s3_deranged_ci": [
+            0.240375,
+            0.25925
+          ],
+          "delta_key": -0.00375,
+          "delta_key_ci": [
+            -0.018875,
+            0.0115
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.245625,
+          "s3_ci": [
+            0.23625,
+            0.255125
+          ],
+          "s3_deranged": 0.24975,
+          "s3_deranged_ci": [
+            0.24,
+            0.25937812499999996
+          ],
+          "delta_key": -0.004125,
+          "delta_key_ci": [
+            -0.019625,
+            0.011
+          ],
+          "n_items": 2000
+        }
+      },
+      "T1_nx64_c0.50": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 145
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 145
+        },
+        "A2_BAG": {
+          "s3": 0.27241379310344827,
+          "s3_ci": [
+            0.2396551724137931,
+            0.30517241379310345
+          ],
+          "s3_deranged": 0.22586206896551725,
+          "s3_deranged_ci": [
+            0.19310344827586207,
+            0.25862068965517243
+          ],
+          "delta_key": 0.04655172413793104,
+          "delta_key_ci": [
+            -0.006896551724137931,
+            0.09827586206896552
+          ],
+          "n_items": 145
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.7844827586206896,
+          "s3_ci": [
+            0.75,
+            0.8189655172413793
+          ],
+          "s3_deranged": 0.07586206896551724,
+          "s3_deranged_ci": [
+            0.05517241379310345,
+            0.09827586206896552
+          ],
+          "delta_key": 0.7086206896551724,
+          "delta_key_ci": [
+            0.6586206896551724,
+            0.756896551724138
+          ],
+          "n_items": 145
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.2396551724137931,
+          "s3_ci": [
+            0.20517241379310344,
+            0.27586206896551724
+          ],
+          "s3_deranged": 0.2482758620689655,
+          "s3_deranged_ci": [
+            0.21379310344827587,
+            0.28448275862068967
+          ],
+          "delta_key": -0.008620689655172414,
+          "delta_key_ci": [
+            -0.06724137931034482,
+            0.05
+          ],
+          "n_items": 145
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.7172413793103448,
+          "s3_ci": [
+            0.6793103448275862,
+            0.7551724137931034
+          ],
+          "s3_deranged": 0.09827586206896552,
+          "s3_deranged_ci": [
+            0.07413793103448275,
+            0.12241379310344827
+          ],
+          "delta_key": 0.6189655172413793,
+          "delta_key_ci": [
+            0.5637931034482758,
+            0.6741379310344827
+          ],
+          "n_items": 145
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25689655172413794,
+          "s3_ci": [
+            0.2517241379310345,
+            0.2637931034482759
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.24310344827586206,
+            0.25689655172413794
+          ],
+          "delta_key": 0.006896551724137931,
+          "delta_key_ci": [
+            0.0017241379310344827,
+            0.013793103448275862
+          ],
+          "n_items": 145
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.2206896551724138,
+          "s3_ci": [
+            0.18448275862068966,
+            0.25862068965517243
+          ],
+          "s3_deranged": 0.2775862068965517,
+          "s3_deranged_ci": [
+            0.24310344827586206,
+            0.3137931034482759
+          ],
+          "delta_key": -0.056896551724137934,
+          "delta_key_ci": [
+            -0.11551724137931034,
+            0.0034482758620689655
+          ],
+          "n_items": 145
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.21551724137931033,
+            0.28620689655172415
+          ],
+          "s3_deranged": 0.2810344827586207,
+          "s3_deranged_ci": [
+            0.2413793103448276,
+            0.32241379310344825
+          ],
+          "delta_key": -0.03103448275862069,
+          "delta_key_ci": [
+            -0.09482758620689655,
+            0.032758620689655175
+          ],
+          "n_items": 145
+        }
+      },
+      "T1_nx8_c0.00": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.259875,
+          "s3_ci": [
+            0.25,
+            0.26975
+          ],
+          "s3_deranged": 0.247625,
+          "s3_deranged_ci": [
+            0.238,
+            0.25725
+          ],
+          "delta_key": 0.01225,
+          "delta_key_ci": [
+            -0.00375,
+            0.02825
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.999375,
+          "s3_ci": [
+            0.99875,
+            0.999875
+          ],
+          "s3_deranged": 0.00025,
+          "s3_deranged_ci": [
+            0.0,
+            0.000625
+          ],
+          "delta_key": 0.999125,
+          "delta_key_ci": [
+            0.99825,
+            0.999875
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.253625,
+          "s3_ci": [
+            0.24425,
+            0.26325
+          ],
+          "s3_deranged": 0.246125,
+          "s3_deranged_ci": [
+            0.236625,
+            0.255625
+          ],
+          "delta_key": 0.0075,
+          "delta_key_ci": [
+            -0.0075,
+            0.022875
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.986625,
+          "s3_ci": [
+            0.984125,
+            0.989
+          ],
+          "s3_deranged": 0.005625,
+          "s3_deranged_ci": [
+            0.004,
+            0.00725
+          ],
+          "delta_key": 0.981,
+          "delta_key_ci": [
+            0.977125,
+            0.984625
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.249375,
+          "s3_ci": [
+            0.247875,
+            0.250875
+          ],
+          "s3_deranged": 0.2515,
+          "s3_deranged_ci": [
+            0.25,
+            0.253125
+          ],
+          "delta_key": -0.002125,
+          "delta_key_ci": [
+            -0.004625,
+            0.00025
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.236125,
+          "s3_ci": [
+            0.226875,
+            0.245375
+          ],
+          "s3_deranged": 0.262875,
+          "s3_deranged_ci": [
+            0.2535,
+            0.27225
+          ],
+          "delta_key": -0.02675,
+          "delta_key_ci": [
+            -0.042003125,
+            -0.0115
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.26,
+          "s3_ci": [
+            0.2505,
+            0.26975
+          ],
+          "s3_deranged": 0.2545,
+          "s3_deranged_ci": [
+            0.244875,
+            0.264
+          ],
+          "delta_key": 0.0055,
+          "delta_key_ci": [
+            -0.010125,
+            0.021375
+          ],
+          "n_items": 2000
+        }
+      },
+      "T1_nx8_c0.50": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 130
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 130
+        },
+        "A2_BAG": {
+          "s3": 0.275,
+          "s3_ci": [
+            0.23461538461538461,
+            0.3173076923076923
+          ],
+          "s3_deranged": 0.27115384615384613,
+          "s3_deranged_ci": [
+            0.23461538461538461,
+            0.3076923076923077
+          ],
+          "delta_key": 0.0038461538461538464,
+          "delta_key_ci": [
+            -0.06153846153846154,
+            0.06923076923076923
+          ],
+          "n_items": 130
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 130
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.25961538461538464,
+          "s3_ci": [
+            0.22115384615384615,
+            0.3
+          ],
+          "s3_deranged": 0.25576923076923075,
+          "s3_deranged_ci": [
+            0.2173076923076923,
+            0.2923076923076923
+          ],
+          "delta_key": 0.0038461538461538464,
+          "delta_key_ci": [
+            -0.05961538461538462,
+            0.0673076923076923
+          ],
+          "n_items": 130
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.9865384615384616,
+          "s3_ci": [
+            0.9769230769230769,
+            0.9961538461538462
+          ],
+          "s3_deranged": 0.0038461538461538464,
+          "s3_deranged_ci": [
+            0.0,
+            0.009615384615384616
+          ],
+          "delta_key": 0.9826923076923076,
+          "delta_key_ci": [
+            0.9692307692307692,
+            0.9942307692307693
+          ],
+          "n_items": 130
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25384615384615383,
+          "s3_ci": [
+            0.24615384615384617,
+            0.26153846153846155
+          ],
+          "s3_deranged": 0.25384615384615383,
+          "s3_deranged_ci": [
+            0.24615384615384617,
+            0.26153846153846155
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            -0.011538461538461539,
+            0.009615384615384616
+          ],
+          "n_items": 130
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.2673076923076923,
+          "s3_ci": [
+            0.23076923076923078,
+            0.3038461538461538
+          ],
+          "s3_deranged": 0.25769230769230766,
+          "s3_deranged_ci": [
+            0.22115384615384615,
+            0.29423076923076924
+          ],
+          "delta_key": 0.009615384615384616,
+          "delta_key_ci": [
+            -0.05,
+            0.06923076923076923
+          ],
+          "n_items": 130
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.26153846153846155,
+          "s3_ci": [
+            0.21153846153846154,
+            0.31346153846153846
+          ],
+          "s3_deranged": 0.2519230769230769,
+          "s3_deranged_ci": [
+            0.2153846153846154,
+            0.2903846153846154
+          ],
+          "delta_key": 0.009615384615384616,
+          "delta_key_ci": [
+            -0.0673076923076923,
+            0.08653846153846154
+          ],
+          "n_items": 130
+        }
+      },
+      "T1_nx8_c0.90": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1
+        },
+        "A2_BAG": {
+          "s3": 0.75,
+          "s3_ci": [
+            0.75,
+            0.75
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.5,
+          "delta_key_ci": [
+            0.5,
+            0.5
+          ],
+          "n_items": 1
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.5,
+          "s3_ci": [
+            0.5,
+            0.5
+          ],
+          "s3_deranged": 0.5,
+          "s3_deranged_ci": [
+            0.5,
+            0.5
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            0.0,
+            0.0
+          ],
+          "n_items": 1
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            0.0,
+            0.0
+          ],
+          "n_items": 1
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.5,
+          "s3_ci": [
+            0.5,
+            0.5
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 0.5,
+          "delta_key_ci": [
+            0.5,
+            0.5
+          ],
+          "n_items": 1
+        },
+        "A7_SCRAMBLE": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1
+        }
+      },
+      "T4_nx0_c0.00": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.26325,
+          "s3_ci": [
+            0.25325,
+            0.273125
+          ],
+          "s3_deranged": 0.248125,
+          "s3_deranged_ci": [
+            0.238125,
+            0.258125
+          ],
+          "delta_key": 0.015125,
+          "delta_key_ci": [
+            -0.001125,
+            0.031625
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.262625,
+          "s3_ci": [
+            0.252875,
+            0.2725
+          ],
+          "s3_deranged": 0.255625,
+          "s3_deranged_ci": [
+            0.246,
+            0.2655
+          ],
+          "delta_key": 0.007,
+          "delta_key_ci": [
+            -0.009375,
+            0.023125
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.24825,
+          "s3_ci": [
+            0.24575,
+            0.25075
+          ],
+          "s3_deranged": 0.251125,
+          "s3_deranged_ci": [
+            0.248625,
+            0.253625
+          ],
+          "delta_key": -0.002875,
+          "delta_key_ci": [
+            -0.00675,
+            0.000875
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.252875,
+          "s3_ci": [
+            0.243625,
+            0.262125
+          ],
+          "s3_deranged": 0.248875,
+          "s3_deranged_ci": [
+            0.2395,
+            0.258375
+          ],
+          "delta_key": 0.004,
+          "delta_key_ci": [
+            -0.01125,
+            0.019125
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.24775,
+          "s3_ci": [
+            0.238125,
+            0.257375
+          ],
+          "s3_deranged": 0.252125,
+          "s3_deranged_ci": [
+            0.242875,
+            0.2615
+          ],
+          "delta_key": -0.004375,
+          "delta_key_ci": [
+            -0.0195,
+            0.010625
+          ],
+          "n_items": 2000
+        }
+      },
+      "T4_nx0_c0.50": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1548
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1548
+        },
+        "A2_BAG": {
+          "s3": 0.24983850129198967,
+          "s3_ci": [
+            0.23917958656330748,
+            0.26049741602067183
+          ],
+          "s3_deranged": 0.2541989664082687,
+          "s3_deranged_ci": [
+            0.2437015503875969,
+            0.26501937984496127
+          ],
+          "delta_key": -0.00436046511627907,
+          "delta_key_ci": [
+            -0.02180232558139535,
+            0.012758397932816537
+          ],
+          "n_items": 1548
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.9917635658914729,
+          "s3_ci": [
+            0.9895025839793282,
+            0.9938630490956072
+          ],
+          "s3_deranged": 0.003714470284237726,
+          "s3_deranged_ci": [
+            0.0022609819121447027,
+            0.005329457364341085
+          ],
+          "delta_key": 0.9880490956072352,
+          "delta_key_ci": [
+            0.9844961240310077,
+            0.9914405684754521
+          ],
+          "n_items": 1548
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.24709302325581395,
+          "s3_ci": [
+            0.2364341085271318,
+            0.2575904392764858
+          ],
+          "s3_deranged": 0.250968992248062,
+          "s3_deranged_ci": [
+            0.24031007751937986,
+            0.26195090439276486
+          ],
+          "delta_key": -0.003875968992248062,
+          "delta_key_ci": [
+            -0.021321866925064596,
+            0.01308139534883721
+          ],
+          "n_items": 1548
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.8921188630490956,
+          "s3_ci": [
+            0.8840439276485789,
+            0.9001937984496124
+          ],
+          "s3_deranged": 0.04053617571059431,
+          "s3_deranged_ci": [
+            0.0355297157622739,
+            0.04538113695090439
+          ],
+          "delta_key": 0.8515826873385013,
+          "delta_key_ci": [
+            0.8401162790697675,
+            0.8632105943152455
+          ],
+          "n_items": 1548
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.2491925064599483,
+            0.250968992248062
+          ],
+          "s3_deranged": 0.25016149870801035,
+          "s3_deranged_ci": [
+            0.25,
+            0.250484496124031
+          ],
+          "delta_key": -0.00016149870801033592,
+          "delta_key_ci": [
+            -0.0012919896640826874,
+            0.0008074935400516795
+          ],
+          "n_items": 1548
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.25920542635658916,
+          "s3_ci": [
+            0.24854651162790697,
+            0.27051033591731266
+          ],
+          "s3_deranged": 0.2482235142118863,
+          "s3_deranged_ci": [
+            0.23772609819121446,
+            0.25888242894056845
+          ],
+          "delta_key": 0.010981912144702842,
+          "delta_key_ci": [
+            -0.007109980620155035,
+            0.02890826873385013
+          ],
+          "n_items": 1548
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.2482235142118863,
+          "s3_ci": [
+            0.23756459948320413,
+            0.25920542635658916
+          ],
+          "s3_deranged": 0.2491925064599483,
+          "s3_deranged_ci": [
+            0.23869509043927647,
+            0.25985142118863047
+          ],
+          "delta_key": -0.0009689922480620155,
+          "delta_key_ci": [
+            -0.01776485788113695,
+            0.01582687338501292
+          ],
+          "n_items": 1548
+        }
+      },
+      "T4_nx0_c0.90": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 26
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 26
+        },
+        "A2_BAG": {
+          "s3": 0.25961538461538464,
+          "s3_ci": [
+            0.16346153846153846,
+            0.3557692307692308
+          ],
+          "s3_deranged": 0.18269230769230768,
+          "s3_deranged_ci": [
+            0.10576923076923077,
+            0.25961538461538464
+          ],
+          "delta_key": 0.07692307692307693,
+          "delta_key_ci": [
+            -0.057692307692307696,
+            0.21153846153846154
+          ],
+          "n_items": 26
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.9807692307692307,
+          "s3_ci": [
+            0.9519230769230769,
+            1.0
+          ],
+          "s3_deranged": 0.019230769230769232,
+          "s3_deranged_ci": [
+            0.0,
+            0.04807692307692308
+          ],
+          "delta_key": 0.9615384615384616,
+          "delta_key_ci": [
+            0.9038461538461539,
+            1.0
+          ],
+          "n_items": 26
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.28846153846153844,
+          "s3_ci": [
+            0.20192307692307693,
+            0.375
+          ],
+          "s3_deranged": 0.22115384615384615,
+          "s3_deranged_ci": [
+            0.14423076923076922,
+            0.2980769230769231
+          ],
+          "delta_key": 0.0673076923076923,
+          "delta_key_ci": [
+            -0.08653846153846154,
+            0.22115384615384615
+          ],
+          "n_items": 26
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.7211538461538461,
+          "s3_ci": [
+            0.6057692307692307,
+            0.8269230769230769
+          ],
+          "s3_deranged": 0.11538461538461539,
+          "s3_deranged_ci": [
+            0.057692307692307696,
+            0.18269230769230768
+          ],
+          "delta_key": 0.6057692307692307,
+          "delta_key_ci": [
+            0.4326923076923077,
+            0.7596153846153846
+          ],
+          "n_items": 26
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            0.0,
+            0.0
+          ],
+          "n_items": 26
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.22115384615384615,
+          "s3_ci": [
+            0.15384615384615385,
+            0.2980769230769231
+          ],
+          "s3_deranged": 0.25961538461538464,
+          "s3_deranged_ci": [
+            0.17307692307692307,
+            0.34615384615384615
+          ],
+          "delta_key": -0.038461538461538464,
+          "delta_key_ci": [
+            -0.16346153846153846,
+            0.08653846153846154
+          ],
+          "n_items": 26
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.3173076923076923,
+          "s3_ci": [
+            0.21153846153846154,
+            0.4326923076923077
+          ],
+          "s3_deranged": 0.21153846153846154,
+          "s3_deranged_ci": [
+            0.125,
+            0.3076923076923077
+          ],
+          "delta_key": 0.10576923076923077,
+          "delta_key_ci": [
+            -0.057692307692307696,
+            0.2692307692307692
+          ],
+          "n_items": 26
+        }
+      },
+      "T4_nx64_c0.00": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.2555,
+          "s3_ci": [
+            0.24575,
+            0.26525
+          ],
+          "s3_deranged": 0.2465,
+          "s3_deranged_ci": [
+            0.237375,
+            0.2555
+          ],
+          "delta_key": 0.009,
+          "delta_key_ci": [
+            -0.006253124999999997,
+            0.024375
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.9865,
+          "s3_ci": [
+            0.983875,
+            0.989
+          ],
+          "s3_deranged": 0.00525,
+          "s3_deranged_ci": [
+            0.00375,
+            0.006875
+          ],
+          "delta_key": 0.98125,
+          "delta_key_ci": [
+            0.977375,
+            0.984875
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.24775,
+          "s3_ci": [
+            0.2385,
+            0.257
+          ],
+          "s3_deranged": 0.252625,
+          "s3_deranged_ci": [
+            0.24325,
+            0.261875
+          ],
+          "delta_key": -0.004875,
+          "delta_key_ci": [
+            -0.019875,
+            0.01
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.82925,
+          "s3_ci": [
+            0.821,
+            0.837625
+          ],
+          "s3_deranged": 0.066125,
+          "s3_deranged_ci": [
+            0.060875,
+            0.071625
+          ],
+          "delta_key": 0.763125,
+          "delta_key_ci": [
+            0.750875,
+            0.77525
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.2505,
+          "s3_ci": [
+            0.249625,
+            0.251375
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.249375,
+            0.25075
+          ],
+          "delta_key": 0.0005,
+          "delta_key_ci": [
+            -0.00075,
+            0.001625
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.244125,
+          "s3_ci": [
+            0.23475,
+            0.254
+          ],
+          "s3_deranged": 0.250875,
+          "s3_deranged_ci": [
+            0.241625,
+            0.26
+          ],
+          "delta_key": -0.00675,
+          "delta_key_ci": [
+            -0.021875,
+            0.00875
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.2525,
+          "s3_ci": [
+            0.242875,
+            0.262375
+          ],
+          "s3_deranged": 0.252125,
+          "s3_deranged_ci": [
+            0.24275,
+            0.2617531249999999
+          ],
+          "delta_key": 0.000375,
+          "delta_key_ci": [
+            -0.015625,
+            0.016125
+          ],
+          "n_items": 2000
+        }
+      },
+      "T4_nx64_c0.50": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1558
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1558
+        },
+        "A2_BAG": {
+          "s3": 0.248395378690629,
+          "s3_ci": [
+            0.2373234916559692,
+            0.2596317394094993
+          ],
+          "s3_deranged": 0.24871630295250322,
+          "s3_deranged_ci": [
+            0.2379653401797176,
+            0.25994865211810014
+          ],
+          "delta_key": -0.00032092426187419767,
+          "delta_key_ci": [
+            -0.018292682926829267,
+            0.01765083440308087
+          ],
+          "n_items": 1558
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.7766367137355584,
+          "s3_ci": [
+            0.766206675224647,
+            0.7870667522464698
+          ],
+          "s3_deranged": 0.0824775353016688,
+          "s3_deranged_ci": [
+            0.07589858793324776,
+            0.08921694480102696
+          ],
+          "delta_key": 0.6941591784338896,
+          "delta_key_ci": [
+            0.6789152759948652,
+            0.709403080872914
+          ],
+          "n_items": 1558
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.2511232349165597,
+          "s3_ci": [
+            0.24085365853658536,
+            0.261392811296534
+          ],
+          "s3_deranged": 0.2488767650834403,
+          "s3_deranged_ci": [
+            0.2381258023106547,
+            0.25994865211810014
+          ],
+          "delta_key": 0.002246469833119384,
+          "delta_key_ci": [
+            -0.014602053915275994,
+            0.01941591784338896
+          ],
+          "n_items": 1558
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.5710847240051348,
+          "s3_ci": [
+            0.5587291399229781,
+            0.5834403080872914
+          ],
+          "s3_deranged": 0.15372272143774068,
+          "s3_deranged_ci": [
+            0.14457637997432607,
+            0.16270860077021823
+          ],
+          "delta_key": 0.4173620025673941,
+          "delta_key_ci": [
+            0.3990693196405648,
+            0.43629653401797175
+          ],
+          "n_items": 1558
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.2501604621309371,
+          "s3_ci": [
+            0.2493581514762516,
+            0.25096277278562257
+          ],
+          "s3_deranged": 0.2506418485237484,
+          "s3_deranged_ci": [
+            0.2501604621309371,
+            0.2512836970474968
+          ],
+          "delta_key": -0.00048138639281129655,
+          "delta_key_ci": [
+            -0.0016046213093709885,
+            0.00048138639281129655
+          ],
+          "n_items": 1558
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.2508023106546855,
+          "s3_ci": [
+            0.24005134788189988,
+            0.261392811296534
+          ],
+          "s3_deranged": 0.2565789473684211,
+          "s3_deranged_ci": [
+            0.24566752246469833,
+            0.26765083440308085
+          ],
+          "delta_key": -0.005776636713735558,
+          "delta_key_ci": [
+            -0.02374839537869063,
+            0.011717747111681585
+          ],
+          "n_items": 1558
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.25609756097560976,
+          "s3_ci": [
+            0.24502567394094993,
+            0.26732991014120666
+          ],
+          "s3_deranged": 0.24679075738125802,
+          "s3_deranged_ci": [
+            0.2363607188703466,
+            0.25754172015404364
+          ],
+          "delta_key": 0.009306803594351733,
+          "delta_key_ci": [
+            -0.008664955070603338,
+            0.027118100128369706
+          ],
+          "n_items": 1558
+        }
+      },
+      "T4_nx64_c0.90": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 27
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 27
+        },
+        "A2_BAG": {
+          "s3": 0.26851851851851855,
+          "s3_ci": [
+            0.19444444444444445,
+            0.3425925925925926
+          ],
+          "s3_deranged": 0.2962962962962963,
+          "s3_deranged_ci": [
+            0.2222222222222222,
+            0.37037037037037035
+          ],
+          "delta_key": -0.027777777777777776,
+          "delta_key_ci": [
+            -0.1388888888888889,
+            0.09259259259259259
+          ],
+          "n_items": 27
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.5555555555555556,
+          "s3_ci": [
+            0.4537037037037037,
+            0.6574074074074074
+          ],
+          "s3_deranged": 0.12037037037037036,
+          "s3_deranged_ci": [
+            0.06481481481481481,
+            0.18518518518518517
+          ],
+          "delta_key": 0.4351851851851852,
+          "delta_key_ci": [
+            0.3055555555555556,
+            0.5648148148148148
+          ],
+          "n_items": 27
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.1574074074074074,
+            0.3425925925925926
+          ],
+          "s3_deranged": 0.26851851851851855,
+          "s3_deranged_ci": [
+            0.18518518518518517,
+            0.3611111111111111
+          ],
+          "delta_key": -0.018518518518518517,
+          "delta_key_ci": [
+            -0.16666666666666666,
+            0.12962962962962962
+          ],
+          "n_items": 27
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.37037037037037035,
+          "s3_ci": [
+            0.26851851851851855,
+            0.48148148148148145
+          ],
+          "s3_deranged": 0.18518518518518517,
+          "s3_deranged_ci": [
+            0.10185185185185185,
+            0.26851851851851855
+          ],
+          "delta_key": 0.18518518518518517,
+          "delta_key_ci": [
+            0.037037037037037035,
+            0.3425925925925926
+          ],
+          "n_items": 27
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            0.0,
+            0.0
+          ],
+          "n_items": 27
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.24074074074074073,
+          "s3_ci": [
+            0.1574074074074074,
+            0.32407407407407407
+          ],
+          "s3_deranged": 0.25925925925925924,
+          "s3_deranged_ci": [
+            0.18518518518518517,
+            0.3333333333333333
+          ],
+          "delta_key": -0.018518518518518517,
+          "delta_key_ci": [
+            -0.1388888888888889,
+            0.1111111111111111
+          ],
+          "n_items": 27
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.28703703703703703,
+          "s3_ci": [
+            0.19444444444444445,
+            0.3888888888888889
+          ],
+          "s3_deranged": 0.2222222222222222,
+          "s3_deranged_ci": [
+            0.1388888888888889,
+            0.3148148148148148
+          ],
+          "delta_key": 0.06481481481481481,
+          "delta_key_ci": [
+            -0.0835648148148146,
+            0.21296296296296297
+          ],
+          "n_items": 27
+        }
+      },
+      "T4_nx8_c0.00": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.25325,
+          "s3_ci": [
+            0.243375,
+            0.263
+          ],
+          "s3_deranged": 0.251,
+          "s3_deranged_ci": [
+            0.241625,
+            0.26075
+          ],
+          "delta_key": 0.00225,
+          "delta_key_ci": [
+            -0.013375,
+            0.0175
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.255,
+          "s3_ci": [
+            0.24525,
+            0.264875
+          ],
+          "s3_deranged": 0.2425,
+          "s3_deranged_ci": [
+            0.23275,
+            0.251875
+          ],
+          "delta_key": 0.0125,
+          "delta_key_ci": [
+            -0.003,
+            0.028625
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.992,
+          "s3_ci": [
+            0.99,
+            0.993875
+          ],
+          "s3_deranged": 0.003375,
+          "s3_deranged_ci": [
+            0.002125,
+            0.00475
+          ],
+          "delta_key": 0.988625,
+          "delta_key_ci": [
+            0.985625,
+            0.9915
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.250375,
+          "s3_ci": [
+            0.249125,
+            0.251625
+          ],
+          "s3_deranged": 0.250125,
+          "s3_deranged_ci": [
+            0.249,
+            0.25125
+          ],
+          "delta_key": 0.00025,
+          "delta_key_ci": [
+            -0.001375,
+            0.001875
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.252,
+          "s3_ci": [
+            0.242375,
+            0.261625
+          ],
+          "s3_deranged": 0.25025,
+          "s3_deranged_ci": [
+            0.2405,
+            0.259875
+          ],
+          "delta_key": 0.00175,
+          "delta_key_ci": [
+            -0.014,
+            0.017375
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.24675,
+          "s3_ci": [
+            0.237125,
+            0.2565
+          ],
+          "s3_deranged": 0.251375,
+          "s3_deranged_ci": [
+            0.241625,
+            0.261375
+          ],
+          "delta_key": -0.004625,
+          "delta_key_ci": [
+            -0.0205,
+            0.011503124999999954
+          ],
+          "n_items": 2000
+        }
+      },
+      "T4_nx8_c0.50": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1527
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1527
+        },
+        "A2_BAG": {
+          "s3": 0.2496725605762934,
+          "s3_ci": [
+            0.2388670595939751,
+            0.259990995415848
+          ],
+          "s3_deranged": 0.25196463654223966,
+          "s3_deranged_ci": [
+            0.24132285527177472,
+            0.2630975769482646
+          ],
+          "delta_key": -0.0022920759659463,
+          "delta_key_ci": [
+            -0.019810085134250165,
+            0.014734774066797643
+          ],
+          "n_items": 1527
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.9530124426981008,
+          "s3_ci": [
+            0.947773411918795,
+            0.9582514734774067
+          ],
+          "s3_deranged": 0.01882776686313032,
+          "s3_deranged_ci": [
+            0.01538965291421087,
+            0.02226588081204977
+          ],
+          "delta_key": 0.9341846758349706,
+          "delta_key_ci": [
+            0.9263261296660118,
+            0.9420432220039293
+          ],
+          "n_items": 1527
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.24394237066142763,
+          "s3_ci": [
+            0.233464309102816,
+            0.2549115913555992
+          ],
+          "s3_deranged": 0.25360183366077277,
+          "s3_deranged_ci": [
+            0.24263261296660119,
+            0.26489849377865093
+          ],
+          "delta_key": -0.009659462999345121,
+          "delta_key_ci": [
+            -0.02750900458415193,
+            0.008185985592665358
+          ],
+          "n_items": 1527
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.7946954813359528,
+          "s3_ci": [
+            0.7850360183366077,
+            0.8046823837590046
+          ],
+          "s3_deranged": 0.07842174197773412,
+          "s3_deranged_ci": [
+            0.07187295350360183,
+            0.08497053045186641
+          ],
+          "delta_key": 0.7162737393582187,
+          "delta_key_ci": [
+            0.7018664047151277,
+            0.7310085134250164
+          ],
+          "n_items": 1527
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.2508185985592665,
+          "s3_ci": [
+            0.2501637197118533,
+            0.25163719711853305
+          ],
+          "s3_deranged": 0.25130975769482644,
+          "s3_deranged_ci": [
+            0.2504911591355599,
+            0.2522920759659463
+          ],
+          "delta_key": -0.0004911591355599214,
+          "delta_key_ci": [
+            -0.0013097576948264572,
+            0.0003274394237066143
+          ],
+          "n_items": 1527
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.2540929927963327,
+          "s3_ci": [
+            0.2429600523903078,
+            0.26522593320235754
+          ],
+          "s3_deranged": 0.24034053700065489,
+          "s3_deranged_ci": [
+            0.2296987557301899,
+            0.25147347740667975
+          ],
+          "delta_key": 0.0137524557956778,
+          "delta_key_ci": [
+            -0.004092992796332679,
+            0.031110838244924627
+          ],
+          "n_items": 1527
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.2598231827111984,
+          "s3_ci": [
+            0.24885396201702684,
+            0.27095612311722334
+          ],
+          "s3_deranged": 0.2508185985592665,
+          "s3_deranged_ci": [
+            0.24001309757694828,
+            0.26178781925343814
+          ],
+          "delta_key": 0.009004584151931892,
+          "delta_key_ci": [
+            -0.008513425016371971,
+            0.026522593320235755
+          ],
+          "n_items": 1527
+        }
+      },
+      "T4_nx8_c0.90": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 29
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 29
+        },
+        "A2_BAG": {
+          "s3": 0.22413793103448276,
+          "s3_ci": [
+            0.15517241379310345,
+            0.29310344827586204
+          ],
+          "s3_deranged": 0.28448275862068967,
+          "s3_deranged_ci": [
+            0.20689655172413793,
+            0.3620689655172414
+          ],
+          "delta_key": -0.0603448275862069,
+          "delta_key_ci": [
+            -0.1810344827586207,
+            0.0603448275862069
+          ],
+          "n_items": 29
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.896551724137931,
+          "s3_ci": [
+            0.8362068965517241,
+            0.9568965517241379
+          ],
+          "s3_deranged": 0.05172413793103448,
+          "s3_deranged_ci": [
+            0.017241379310344827,
+            0.08620689655172414
+          ],
+          "delta_key": 0.8448275862068966,
+          "delta_key_ci": [
+            0.75,
+            0.9310344827586207
+          ],
+          "n_items": 29
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.22413793103448276,
+          "s3_ci": [
+            0.14655172413793102,
+            0.3103448275862069
+          ],
+          "s3_deranged": 0.3275862068965517,
+          "s3_deranged_ci": [
+            0.25862068965517243,
+            0.39655172413793105
+          ],
+          "delta_key": -0.10344827586206896,
+          "delta_key_ci": [
+            -0.23275862068965517,
+            0.034482758620689655
+          ],
+          "n_items": 29
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.6120689655172413,
+          "s3_ci": [
+            0.5086206896551724,
+            0.7155172413793104
+          ],
+          "s3_deranged": 0.11206896551724138,
+          "s3_deranged_ci": [
+            0.0603448275862069,
+            0.16379310344827586
+          ],
+          "delta_key": 0.5,
+          "delta_key_ci": [
+            0.3620689655172414,
+            0.6293103448275862
+          ],
+          "n_items": 29
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            0.0,
+            0.0
+          ],
+          "n_items": 29
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.1896551724137931,
+          "s3_ci": [
+            0.12931034482758622,
+            0.25862068965517243
+          ],
+          "s3_deranged": 0.27586206896551724,
+          "s3_deranged_ci": [
+            0.19827586206896552,
+            0.35344827586206895
+          ],
+          "delta_key": -0.08620689655172414,
+          "delta_key_ci": [
+            -0.20689655172413793,
+            0.034482758620689655
+          ],
+          "n_items": 29
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.28448275862068967,
+          "s3_ci": [
+            0.19827586206896552,
+            0.3793103448275862
+          ],
+          "s3_deranged": 0.22413793103448276,
+          "s3_deranged_ci": [
+            0.13793103448275862,
+            0.31896551724137934
+          ],
+          "delta_key": 0.0603448275862069,
+          "delta_key_ci": [
+            -0.09482758620689655,
+            0.21551724137931033
+          ],
+          "n_items": 29
+        }
+      },
+      "T64_nx0_c0.00": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.247375,
+          "s3_ci": [
+            0.238,
+            0.257
+          ],
+          "s3_deranged": 0.25125,
+          "s3_deranged_ci": [
+            0.24175,
+            0.260625
+          ],
+          "delta_key": -0.003875,
+          "delta_key_ci": [
+            -0.019,
+            0.011378124999999954
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.24925,
+          "s3_ci": [
+            0.239875,
+            0.25862812499999993
+          ],
+          "s3_deranged": 0.250875,
+          "s3_deranged_ci": [
+            0.241375,
+            0.260625
+          ],
+          "delta_key": -0.001625,
+          "delta_key_ci": [
+            -0.017,
+            0.013625
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.2525,
+          "s3_ci": [
+            0.25,
+            0.255
+          ],
+          "s3_deranged": 0.25025,
+          "s3_deranged_ci": [
+            0.247875,
+            0.25275
+          ],
+          "delta_key": 0.00225,
+          "delta_key_ci": [
+            -0.001375,
+            0.005875
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.23925,
+          "s3_ci": [
+            0.22975,
+            0.24875
+          ],
+          "s3_deranged": 0.25775,
+          "s3_deranged_ci": [
+            0.24825,
+            0.267375
+          ],
+          "delta_key": -0.0185,
+          "delta_key_ci": [
+            -0.034128125,
+            -0.003
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.25425,
+          "s3_ci": [
+            0.244875,
+            0.263875
+          ],
+          "s3_deranged": 0.242,
+          "s3_deranged_ci": [
+            0.232625,
+            0.2515
+          ],
+          "delta_key": 0.01225,
+          "delta_key_ci": [
+            -0.002875,
+            0.0275
+          ],
+          "n_items": 2000
+        }
+      },
+      "T64_nx0_c0.50": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.256,
+          "s3_ci": [
+            0.246875,
+            0.265375
+          ],
+          "s3_deranged": 0.25275,
+          "s3_deranged_ci": [
+            0.243125,
+            0.262125
+          ],
+          "delta_key": 0.00325,
+          "delta_key_ci": [
+            -0.012,
+            0.01875
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.25525,
+          "s3_ci": [
+            0.245625,
+            0.265
+          ],
+          "s3_deranged": 0.242125,
+          "s3_deranged_ci": [
+            0.232625,
+            0.251875
+          ],
+          "delta_key": 0.013125,
+          "delta_key_ci": [
+            -0.002378124999999997,
+            0.028625
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.991125,
+          "s3_ci": [
+            0.989,
+            0.993125
+          ],
+          "s3_deranged": 0.003875,
+          "s3_deranged_ci": [
+            0.002625,
+            0.00525
+          ],
+          "delta_key": 0.98725,
+          "delta_key_ci": [
+            0.984,
+            0.99025
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.249875,
+          "s3_ci": [
+            0.249625,
+            0.25
+          ],
+          "s3_deranged": 0.250125,
+          "s3_deranged_ci": [
+            0.24975,
+            0.250625
+          ],
+          "delta_key": -0.00025,
+          "delta_key_ci": [
+            -0.000875,
+            0.00025
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.251875,
+          "s3_ci": [
+            0.24225,
+            0.261375
+          ],
+          "s3_deranged": 0.253375,
+          "s3_deranged_ci": [
+            0.243625,
+            0.263375
+          ],
+          "delta_key": -0.0015,
+          "delta_key_ci": [
+            -0.0175,
+            0.01425
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.250125,
+          "s3_ci": [
+            0.240375,
+            0.259875
+          ],
+          "s3_deranged": 0.24575,
+          "s3_deranged_ci": [
+            0.23625,
+            0.2552531249999999
+          ],
+          "delta_key": 0.004375,
+          "delta_key_ci": [
+            -0.01125,
+            0.02025
+          ],
+          "n_items": 2000
+        }
+      },
+      "T64_nx0_c0.90": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1989
+        },
+        "A1_SLOTTED": {
+          "s3": 0.9976118652589241,
+          "s3_ci": [
+            0.9964806435394671,
+            0.9986173956762192
+          ],
+          "s3_deranged": 0.0011312217194570137,
+          "s3_deranged_ci": [
+            0.0005027652086475615,
+            0.001885369532428356
+          ],
+          "delta_key": 0.9964806435394671,
+          "delta_key_ci": [
+            0.9947209653092006,
+            0.9979889391654098
+          ],
+          "n_items": 1989
+        },
+        "A2_BAG": {
+          "s3": 0.2616892911010558,
+          "s3_ci": [
+            0.25213675213675213,
+            0.27111613876319757
+          ],
+          "s3_deranged": 0.2576671694318753,
+          "s3_deranged_ci": [
+            0.24824032176973354,
+            0.2670971593765711
+          ],
+          "delta_key": 0.004022121669180492,
+          "delta_key_ci": [
+            -0.011312217194570135,
+            0.019482151835093012
+          ],
+          "n_items": 1989
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.9767471091000502,
+          "s3_ci": [
+            0.9734791352438411,
+            0.9798893916540975
+          ],
+          "s3_deranged": 0.011940673705379587,
+          "s3_deranged_ci": [
+            0.009678230266465561,
+            0.014328808446455505
+          ],
+          "delta_key": 0.9648064353946707,
+          "delta_key_ci": [
+            0.9595274007038713,
+            0.9699597787833082
+          ],
+          "n_items": 1989
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.2476118652589241,
+          "s3_ci": [
+            0.2381850175967823,
+            0.25691302161890395
+          ],
+          "s3_deranged": 0.24710910005027653,
+          "s3_deranged_ci": [
+            0.23793049270990446,
+            0.25666163901458017
+          ],
+          "delta_key": 0.0005027652086475615,
+          "delta_key_ci": [
+            -0.014831573655103066,
+            0.01546003016591252
+          ],
+          "n_items": 1989
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.267219708396179,
+          "s3_ci": [
+            0.2575414781297134,
+            0.27702362996480645
+          ],
+          "s3_deranged": 0.23780794369029662,
+          "s3_deranged_ci": [
+            0.22863247863247863,
+            0.24723479135243842
+          ],
+          "delta_key": 0.029411764705882353,
+          "delta_key_ci": [
+            0.014454499748617396,
+            0.0444978632478632
+          ],
+          "n_items": 1989
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            0.0,
+            0.0
+          ],
+          "n_items": 1989
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.2510055304172951,
+          "s3_ci": [
+            0.24170437405731524,
+            0.26030668677727503
+          ],
+          "s3_deranged": 0.2523881347410759,
+          "s3_deranged_ci": [
+            0.2428324534942182,
+            0.2620663650075415
+          ],
+          "delta_key": -0.0013826043237807944,
+          "delta_key_ci": [
+            -0.016842634489693312,
+            0.014077425842131725
+          ],
+          "n_items": 1989
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.25075414781297134,
+          "s3_ci": [
+            0.24120160884866768,
+            0.2604323780794369
+          ],
+          "s3_deranged": 0.24673202614379086,
+          "s3_deranged_ci": [
+            0.23755656108597284,
+            0.2561588738059326
+          ],
+          "delta_key": 0.004022121669180492,
+          "delta_key_ci": [
+            -0.011186525892408246,
+            0.0196078431372549
+          ],
+          "n_items": 1989
+        }
+      },
+      "T64_nx64_c0.00": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.255625,
+          "s3_ci": [
+            0.24625,
+            0.26462812499999994
+          ],
+          "s3_deranged": 0.241375,
+          "s3_deranged_ci": [
+            0.231625,
+            0.250875
+          ],
+          "delta_key": 0.01425,
+          "delta_key_ci": [
+            -0.0008781249999999972,
+            0.029
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.254875,
+          "s3_ci": [
+            0.245125,
+            0.26475
+          ],
+          "s3_deranged": 0.24675,
+          "s3_deranged_ci": [
+            0.237125,
+            0.25625
+          ],
+          "delta_key": 0.008125,
+          "delta_key_ci": [
+            -0.00725,
+            0.02325
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.99875,
+          "s3_ci": [
+            0.997875,
+            0.9995
+          ],
+          "s3_deranged": 0.001,
+          "s3_deranged_ci": [
+            0.000375,
+            0.00175
+          ],
+          "delta_key": 0.99775,
+          "delta_key_ci": [
+            0.99625,
+            0.999
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.249875,
+          "s3_ci": [
+            0.249625,
+            0.25
+          ],
+          "s3_deranged": 0.250125,
+          "s3_deranged_ci": [
+            0.25,
+            0.250375
+          ],
+          "delta_key": -0.00025,
+          "delta_key_ci": [
+            -0.000625,
+            0.0
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.2425,
+          "s3_ci": [
+            0.23325,
+            0.251875
+          ],
+          "s3_deranged": 0.25175,
+          "s3_deranged_ci": [
+            0.242375,
+            0.26125
+          ],
+          "delta_key": -0.00925,
+          "delta_key_ci": [
+            -0.024375,
+            0.005875
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.25125,
+          "s3_ci": [
+            0.24187187500000001,
+            0.260875
+          ],
+          "s3_deranged": 0.255125,
+          "s3_deranged_ci": [
+            0.24575,
+            0.264375
+          ],
+          "delta_key": -0.003875,
+          "delta_key_ci": [
+            -0.0195,
+            0.0115
+          ],
+          "n_items": 2000
+        }
+      },
+      "T64_nx64_c0.50": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.250875,
+          "s3_ci": [
+            0.241375,
+            0.260125
+          ],
+          "s3_deranged": 0.2555,
+          "s3_deranged_ci": [
+            0.246125,
+            0.264875
+          ],
+          "delta_key": -0.004625,
+          "delta_key_ci": [
+            -0.02,
+            0.010625
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.999375,
+          "s3_ci": [
+            0.99875,
+            0.999875
+          ],
+          "s3_deranged": 0.0005,
+          "s3_deranged_ci": [
+            0.000125,
+            0.001
+          ],
+          "delta_key": 0.998875,
+          "delta_key_ci": [
+            0.99775,
+            0.99975
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.249375,
+          "s3_ci": [
+            0.24025,
+            0.258875
+          ],
+          "s3_deranged": 0.251125,
+          "s3_deranged_ci": [
+            0.2415,
+            0.2605
+          ],
+          "delta_key": -0.00175,
+          "delta_key_ci": [
+            -0.01675,
+            0.0135
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.9595,
+          "s3_ci": [
+            0.955125,
+            0.96375
+          ],
+          "s3_deranged": 0.0165,
+          "s3_deranged_ci": [
+            0.01375,
+            0.019375
+          ],
+          "delta_key": 0.943,
+          "delta_key_ci": [
+            0.9365,
+            0.94925
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.250125,
+          "s3_ci": [
+            0.25,
+            0.250375
+          ],
+          "s3_deranged": 0.24975,
+          "s3_deranged_ci": [
+            0.249375,
+            0.25
+          ],
+          "delta_key": 0.000375,
+          "delta_key_ci": [
+            0.0,
+            0.001
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.243,
+          "s3_ci": [
+            0.233125,
+            0.252625
+          ],
+          "s3_deranged": 0.2525,
+          "s3_deranged_ci": [
+            0.243,
+            0.262125
+          ],
+          "delta_key": -0.0095,
+          "delta_key_ci": [
+            -0.02525,
+            0.006003124999999955
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.251875,
+          "s3_ci": [
+            0.242125,
+            0.261375
+          ],
+          "s3_deranged": 0.2505,
+          "s3_deranged_ci": [
+            0.240875,
+            0.26
+          ],
+          "delta_key": 0.001375,
+          "delta_key_ci": [
+            -0.014,
+            0.017
+          ],
+          "n_items": 2000
+        }
+      },
+      "T64_nx64_c0.90": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1988
+        },
+        "A1_SLOTTED": {
+          "s3": 0.9982394366197183,
+          "s3_ci": [
+            0.9972334004024145,
+            0.9991197183098591
+          ],
+          "s3_deranged": 0.0005030181086519115,
+          "s3_deranged_ci": [
+            0.00012575452716297788,
+            0.001006036217303823
+          ],
+          "delta_key": 0.9977364185110664,
+          "delta_key_ci": [
+            0.9963531187122736,
+            0.9988682092555332
+          ],
+          "n_items": 1988
+        },
+        "A2_BAG": {
+          "s3": 0.2562877263581489,
+          "s3_ci": [
+            0.24635311871227364,
+            0.26609657947686116
+          ],
+          "s3_deranged": 0.24396378269617705,
+          "s3_deranged_ci": [
+            0.23478370221327968,
+            0.2533953722334004
+          ],
+          "delta_key": 0.01232394366197183,
+          "delta_key_ci": [
+            -0.0035211267605633804,
+            0.02766599597585513
+          ],
+          "n_items": 1988
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.6974346076458753,
+          "s3_ci": [
+            0.6877515090543259,
+            0.7071177062374245
+          ],
+          "s3_deranged": 0.10626257545271629,
+          "s3_deranged_ci": [
+            0.09959758551307847,
+            0.11292756539235413
+          ],
+          "delta_key": 0.591172032193159,
+          "delta_key_ci": [
+            0.5769617706237424,
+            0.6053822937625755
+          ],
+          "n_items": 1988
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.24861670020120724,
+          "s3_ci": [
+            0.2391851106639839,
+            0.25817404426559354
+          ],
+          "s3_deranged": 0.2461016096579477,
+          "s3_deranged_ci": [
+            0.23641851106639838,
+            0.2560362173038229
+          ],
+          "delta_key": 0.0025150905432595573,
+          "delta_key_ci": [
+            -0.013204225352112676,
+            0.017986041247484864
+          ],
+          "n_items": 1988
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.44994969818913483,
+          "s3_ci": [
+            0.4388801559356137,
+            0.4607645875251509
+          ],
+          "s3_deranged": 0.18309859154929578,
+          "s3_deranged_ci": [
+            0.17467303822937627,
+            0.19165304325955732
+          ],
+          "delta_key": 0.266851106639839,
+          "delta_key_ci": [
+            0.25037726358148893,
+            0.2833249496981891
+          ],
+          "n_items": 1988
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25012575452716296,
+          "s3_ci": [
+            0.24974849094567406,
+            0.2505030181086519
+          ],
+          "s3_deranged": 0.24987424547283701,
+          "s3_deranged_ci": [
+            0.2493712273641851,
+            0.25025150905432597
+          ],
+          "delta_key": 0.00025150905432595576,
+          "delta_key_ci": [
+            -0.00025150905432595576,
+            0.0008802816901408451
+          ],
+          "n_items": 1988
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.25037726358148893,
+          "s3_ci": [
+            0.24056841046277666,
+            0.2601861167002012
+          ],
+          "s3_deranged": 0.25314386317907445,
+          "s3_deranged_ci": [
+            0.24358651911468812,
+            0.26283010563380277
+          ],
+          "delta_key": -0.002766599597585513,
+          "delta_key_ci": [
+            -0.018485915492957746,
+            0.013329979879275655
+          ],
+          "n_items": 1988
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.2643360160965795,
+          "s3_ci": [
+            0.2550301810865191,
+            0.27389336016096577
+          ],
+          "s3_deranged": 0.24471830985915494,
+          "s3_deranged_ci": [
+            0.2352867203219316,
+            0.2540241448692153
+          ],
+          "delta_key": 0.019617706237424547,
+          "delta_key_ci": [
+            0.00464977364185111,
+            0.035211267605633804
+          ],
+          "n_items": 1988
+        }
+      },
+      "T64_nx8_c0.00": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.25375,
+          "s3_ci": [
+            0.244125,
+            0.263375
+          ],
+          "s3_deranged": 0.2515,
+          "s3_deranged_ci": [
+            0.242125,
+            0.261125
+          ],
+          "delta_key": 0.00225,
+          "delta_key_ci": [
+            -0.013253124999999998,
+            0.017875
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.251,
+          "s3_ci": [
+            0.2415,
+            0.260625
+          ],
+          "s3_deranged": 0.242875,
+          "s3_deranged_ci": [
+            0.233625,
+            0.252375
+          ],
+          "delta_key": 0.008125,
+          "delta_key_ci": [
+            -0.007,
+            0.023375
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.25025,
+          "s3_deranged_ci": [
+            0.25,
+            0.250625
+          ],
+          "delta_key": -0.00025,
+          "delta_key_ci": [
+            -0.000625,
+            0.0
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.248,
+          "s3_ci": [
+            0.238625,
+            0.25725
+          ],
+          "s3_deranged": 0.248875,
+          "s3_deranged_ci": [
+            0.239375,
+            0.2585
+          ],
+          "delta_key": -0.000875,
+          "delta_key_ci": [
+            -0.016375,
+            0.014375
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.255,
+          "s3_ci": [
+            0.2455,
+            0.26475
+          ],
+          "s3_deranged": 0.25175,
+          "s3_deranged_ci": [
+            0.242,
+            0.261
+          ],
+          "delta_key": 0.00325,
+          "delta_key_ci": [
+            -0.012125,
+            0.018628124999999954
+          ],
+          "n_items": 2000
+        }
+      },
+      "T64_nx8_c0.50": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A2_BAG": {
+          "s3": 0.247375,
+          "s3_ci": [
+            0.238,
+            0.25675
+          ],
+          "s3_deranged": 0.24825,
+          "s3_deranged_ci": [
+            0.238871875,
+            0.257875
+          ],
+          "delta_key": -0.000875,
+          "delta_key_ci": [
+            -0.01675,
+            0.014625
+          ],
+          "n_items": 2000
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 2000
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.243875,
+          "s3_ci": [
+            0.234375,
+            0.2532531249999999
+          ],
+          "s3_deranged": 0.252875,
+          "s3_deranged_ci": [
+            0.2435,
+            0.26225
+          ],
+          "delta_key": -0.009,
+          "delta_key_ci": [
+            -0.024375,
+            0.006
+          ],
+          "n_items": 2000
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.984625,
+          "s3_ci": [
+            0.982,
+            0.98725
+          ],
+          "s3_deranged": 0.007375,
+          "s3_deranged_ci": [
+            0.0055,
+            0.00925
+          ],
+          "delta_key": 0.97725,
+          "delta_key_ci": [
+            0.973125,
+            0.98125
+          ],
+          "n_items": 2000
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25025,
+          "s3_ci": [
+            0.25,
+            0.250625
+          ],
+          "s3_deranged": 0.250125,
+          "s3_deranged_ci": [
+            0.24975,
+            0.250625
+          ],
+          "delta_key": 0.000125,
+          "delta_key_ci": [
+            -0.000375,
+            0.00075
+          ],
+          "n_items": 2000
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.256375,
+          "s3_ci": [
+            0.247,
+            0.265875
+          ],
+          "s3_deranged": 0.244625,
+          "s3_deranged_ci": [
+            0.23525,
+            0.254125
+          ],
+          "delta_key": 0.01175,
+          "delta_key_ci": [
+            -0.003375,
+            0.027125
+          ],
+          "n_items": 2000
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.24975,
+          "s3_ci": [
+            0.24025,
+            0.2592531249999999
+          ],
+          "s3_deranged": 0.254875,
+          "s3_deranged_ci": [
+            0.245375,
+            0.26475
+          ],
+          "delta_key": -0.005125,
+          "delta_key_ci": [
+            -0.020875,
+            0.0105
+          ],
+          "n_items": 2000
+        }
+      },
+      "T64_nx8_c0.90": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1992
+        },
+        "A1_SLOTTED": {
+          "s3": 0.9986194779116466,
+          "s3_ci": [
+            0.9977409638554217,
+            0.9993724899598394
+          ],
+          "s3_deranged": 0.00037650602409638556,
+          "s3_deranged_ci": [
+            0.0,
+            0.0008785140562248996
+          ],
+          "delta_key": 0.9982429718875502,
+          "delta_key_ci": [
+            0.9971134538152611,
+            0.9992469879518072
+          ],
+          "n_items": 1992
+        },
+        "A2_BAG": {
+          "s3": 0.25062751004016065,
+          "s3_ci": [
+            0.241214859437751,
+            0.26029116465863456
+          ],
+          "s3_deranged": 0.25426706827309237,
+          "s3_deranged_ci": [
+            0.24510542168674698,
+            0.263679718875502
+          ],
+          "delta_key": -0.003639558232931727,
+          "delta_key_ci": [
+            -0.01882530120481928,
+            0.011674824297188708
+          ],
+          "n_items": 1992
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.9293423694779116,
+          "s3_ci": [
+            0.923820281124498,
+            0.9348644578313253
+          ],
+          "s3_deranged": 0.02873995983935743,
+          "s3_deranged_ci": [
+            0.025225903614457833,
+            0.03237951807228916
+          ],
+          "delta_key": 0.9006024096385542,
+          "delta_key_ci": [
+            0.8923192771084337,
+            0.9087631777108434
+          ],
+          "n_items": 1992
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.24234437751004015,
+          "s3_ci": [
+            0.23293172690763053,
+            0.2517570281124498
+          ],
+          "s3_deranged": 0.25778112449799195,
+          "s3_deranged_ci": [
+            0.2482429718875502,
+            0.26744477911646586
+          ],
+          "delta_key": -0.015436746987951807,
+          "delta_key_ci": [
+            -0.030500125502008032,
+            -0.000373368473895628
+          ],
+          "n_items": 1992
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.370105421686747,
+          "s3_ci": [
+            0.3596887550200803,
+            0.38077309236947793
+          ],
+          "s3_deranged": 0.2129769076305221,
+          "s3_deranged_ci": [
+            0.2043172690763052,
+            0.22213855421686746
+          ],
+          "delta_key": 0.1571285140562249,
+          "delta_key_ci": [
+            0.14131526104417672,
+            0.17319277108433734
+          ],
+          "n_items": 1992
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.2505020080321285,
+          "s3_ci": [
+            0.25,
+            0.25112951807228917
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.24949799196787148,
+            0.2505020080321285
+          ],
+          "delta_key": 0.000502008032128514,
+          "delta_key_ci": [
+            0.0,
+            0.0011295180722891566
+          ],
+          "n_items": 1992
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.25112951807228917,
+          "s3_ci": [
+            0.24183923192771087,
+            0.2604166666666667
+          ],
+          "s3_deranged": 0.2535140562248996,
+          "s3_deranged_ci": [
+            0.24397590361445784,
+            0.26305220883534136
+          ],
+          "delta_key": -0.002384538152610442,
+          "delta_key_ci": [
+            -0.018072289156626505,
+            0.01267570281124498
+          ],
+          "n_items": 1992
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.2469879518072289,
+          "s3_ci": [
+            0.23744979919678716,
+            0.2567771084337349
+          ],
+          "s3_deranged": 0.24322289156626506,
+          "s3_deranged_ci": [
+            0.23393574297188754,
+            0.2522590361445783
+          ],
+          "delta_key": 0.0037650602409638554,
+          "delta_key_ci": [
+            -0.011420682730923695,
+            0.018950803212851405
+          ],
+          "n_items": 1992
+        }
+      }
+    },
+    "live": {
+      "T4": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1
+        },
+        "A1_SLOTTED": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1
+        },
+        "A2_BAG": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.5,
+          "s3_deranged_ci": [
+            0.5,
+            0.5
+          ],
+          "delta_key": -0.25,
+          "delta_key_ci": [
+            -0.25,
+            -0.25
+          ],
+          "n_items": 1
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.5,
+          "s3_ci": [
+            0.5,
+            0.5
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.25,
+          "delta_key_ci": [
+            0.25,
+            0.25
+          ],
+          "n_items": 1
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.75,
+          "s3_ci": [
+            0.75,
+            0.75
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 0.75,
+          "delta_key_ci": [
+            0.75,
+            0.75
+          ],
+          "n_items": 1
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            0.0,
+            0.0
+          ],
+          "n_items": 1
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            0.0,
+            0.0
+          ],
+          "n_items": 1
+        },
+        "A7_SCRAMBLE": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1
+        },
+        "A4_FACTSTORE_d256": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1
+        },
+        "A4_FACTSTORE_d8192": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1
+        },
+        "A8_ORTHOGRAPHIC": {
+          "s3": 0.5,
+          "s3_ci": [
+            0.5,
+            0.5
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.25,
+          "delta_key_ci": [
+            0.25,
+            0.25
+          ],
+          "n_items": 1
+        },
+        "A9_FREQUENCY": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            0.0,
+            0.0
+          ],
+          "n_items": 1
+        }
+      },
+      "T16": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 50
+        },
+        "A1_SLOTTED": {
+          "s3": 0.99,
+          "s3_ci": [
+            0.975,
+            1.0
+          ],
+          "s3_deranged": 0.005,
+          "s3_deranged_ci": [
+            0.0,
+            0.015
+          ],
+          "delta_key": 0.985,
+          "delta_key_ci": [
+            0.96,
+            1.0
+          ],
+          "n_items": 50
+        },
+        "A2_BAG": {
+          "s3": 0.21,
+          "s3_ci": [
+            0.16,
+            0.26
+          ],
+          "s3_deranged": 0.285,
+          "s3_deranged_ci": [
+            0.225,
+            0.345
+          ],
+          "delta_key": -0.075,
+          "delta_key_ci": [
+            -0.165,
+            0.01512499999999818
+          ],
+          "n_items": 50
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.845,
+          "s3_ci": [
+            0.795,
+            0.895
+          ],
+          "s3_deranged": 0.065,
+          "s3_deranged_ci": [
+            0.035,
+            0.1
+          ],
+          "delta_key": 0.78,
+          "delta_key_ci": [
+            0.705,
+            0.85
+          ],
+          "n_items": 50
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.225,
+          "s3_ci": [
+            0.165,
+            0.285
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.195,
+            0.31
+          ],
+          "delta_key": -0.025,
+          "delta_key_ci": [
+            -0.115,
+            0.06
+          ],
+          "n_items": 50
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.54,
+          "s3_ci": [
+            0.475,
+            0.605
+          ],
+          "s3_deranged": 0.11,
+          "s3_deranged_ci": [
+            0.075,
+            0.145
+          ],
+          "delta_key": 0.43,
+          "delta_key_ci": [
+            0.345,
+            0.51
+          ],
+          "n_items": 50
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            0.0,
+            0.0
+          ],
+          "n_items": 50
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.255,
+          "s3_ci": [
+            0.195,
+            0.315
+          ],
+          "s3_deranged": 0.2,
+          "s3_deranged_ci": [
+            0.145,
+            0.26
+          ],
+          "delta_key": 0.055,
+          "delta_key_ci": [
+            -0.04,
+            0.15
+          ],
+          "n_items": 50
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.295,
+          "s3_ci": [
+            0.215,
+            0.38
+          ],
+          "s3_deranged": 0.245,
+          "s3_deranged_ci": [
+            0.185,
+            0.315
+          ],
+          "delta_key": 0.05,
+          "delta_key_ci": [
+            -0.075,
+            0.175
+          ],
+          "n_items": 50
+        },
+        "A4_FACTSTORE_d256": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 50
+        },
+        "A4_FACTSTORE_d8192": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 50
+        },
+        "A8_ORTHOGRAPHIC": {
+          "s3": 0.26,
+          "s3_ci": [
+            0.2,
+            0.32
+          ],
+          "s3_deranged": 0.265,
+          "s3_deranged_ci": [
+            0.215,
+            0.315
+          ],
+          "delta_key": -0.005,
+          "delta_key_ci": [
+            -0.1,
+            0.09
+          ],
+          "n_items": 50
+        },
+        "A9_FREQUENCY": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            0.0,
+            0.0
+          ],
+          "n_items": 50
+        }
+      },
+      "T64": {
+        "A0_ORACLE_DICT": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1500
+        },
+        "A1_SLOTTED": {
+          "s3": 0.986,
+          "s3_ci": [
+            0.983,
+            0.9888333333333333
+          ],
+          "s3_deranged": 0.003833333333333333,
+          "s3_deranged_ci": [
+            0.0023333333333333335,
+            0.0055
+          ],
+          "delta_key": 0.9821666666666666,
+          "delta_key_ci": [
+            0.9781666666666666,
+            0.986
+          ],
+          "n_items": 1500
+        },
+        "A2_BAG": {
+          "s3": 0.24166666666666667,
+          "s3_ci": [
+            0.231,
+            0.2525
+          ],
+          "s3_deranged": 0.25333333333333335,
+          "s3_deranged_ci": [
+            0.24233333333333335,
+            0.2645
+          ],
+          "delta_key": -0.011666666666666667,
+          "delta_key_ci": [
+            -0.029166666666666667,
+            0.006
+          ],
+          "n_items": 1500
+        },
+        "A2R_ROLEBOUND": {
+          "s3": 0.7326666666666667,
+          "s3_ci": [
+            0.7215,
+            0.744
+          ],
+          "s3_deranged": 0.08833333333333333,
+          "s3_deranged_ci": [
+            0.08133333333333333,
+            0.0955
+          ],
+          "delta_key": 0.6443333333333333,
+          "delta_key_ci": [
+            0.6283333333333333,
+            0.6601666666666667
+          ],
+          "n_items": 1500
+        },
+        "A3_BAG_SIGN": {
+          "s3": 0.23033333333333333,
+          "s3_ci": [
+            0.22,
+            0.24083749999999995
+          ],
+          "s3_deranged": 0.24633333333333332,
+          "s3_deranged_ci": [
+            0.2355,
+            0.2575
+          ],
+          "delta_key": -0.016,
+          "delta_key_ci": [
+            -0.03283333333333333,
+            0.001
+          ],
+          "n_items": 1500
+        },
+        "A3R_ROLEBOUND_SIGN": {
+          "s3": 0.4241666666666667,
+          "s3_ci": [
+            0.41133333333333333,
+            0.437
+          ],
+          "s3_deranged": 0.18516666666666667,
+          "s3_deranged_ci": [
+            0.17516666666666666,
+            0.19516666666666665
+          ],
+          "delta_key": 0.239,
+          "delta_key_ci": [
+            0.21983333333333333,
+            0.25766666666666665
+          ],
+          "n_items": 1500
+        },
+        "A2U_BAG_UNKEYED": {
+          "s3": 0.24966666666666668,
+          "s3_ci": [
+            0.24916666666666668,
+            0.25
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.2495,
+            0.2505
+          ],
+          "delta_key": -0.0003333333333333333,
+          "delta_key_ci": [
+            -0.001,
+            0.0
+          ],
+          "n_items": 1500
+        },
+        "A5_NULL_CONTENT": {
+          "s3": 0.25816666666666666,
+          "s3_ci": [
+            0.24733333333333332,
+            0.2688374999999999
+          ],
+          "s3_deranged": 0.24916666666666668,
+          "s3_deranged_ci": [
+            0.23783333333333334,
+            0.26033333333333336
+          ],
+          "delta_key": 0.009,
+          "delta_key_ci": [
+            -0.009,
+            0.027
+          ],
+          "n_items": 1500
+        },
+        "A7_SCRAMBLE": {
+          "s3": 0.25916666666666666,
+          "s3_ci": [
+            0.24816666666666667,
+            0.27066666666666667
+          ],
+          "s3_deranged": 0.25716666666666665,
+          "s3_deranged_ci": [
+            0.2465,
+            0.26816666666666666
+          ],
+          "delta_key": 0.002,
+          "delta_key_ci": [
+            -0.016166666666666666,
+            0.019837499999999942
+          ],
+          "n_items": 1500
+        },
+        "A4_FACTSTORE_d256": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1500
+        },
+        "A4_FACTSTORE_d8192": {
+          "s3": 1.0,
+          "s3_ci": [
+            1.0,
+            1.0
+          ],
+          "s3_deranged": 0.0,
+          "s3_deranged_ci": [
+            0.0,
+            0.0
+          ],
+          "delta_key": 1.0,
+          "delta_key_ci": [
+            1.0,
+            1.0
+          ],
+          "n_items": 1500
+        },
+        "A8_ORTHOGRAPHIC": {
+          "s3": 0.2465,
+          "s3_ci": [
+            0.23666666666666666,
+            0.2565
+          ],
+          "s3_deranged": 0.2575,
+          "s3_deranged_ci": [
+            0.24766666666666667,
+            0.2675
+          ],
+          "delta_key": -0.011,
+          "delta_key_ci": [
+            -0.027,
+            0.005
+          ],
+          "n_items": 1500
+        },
+        "A9_FREQUENCY": {
+          "s3": 0.25,
+          "s3_ci": [
+            0.25,
+            0.25
+          ],
+          "s3_deranged": 0.25,
+          "s3_deranged_ci": [
+            0.25,
+            0.25
+          ],
+          "delta_key": 0.0,
+          "delta_key_ci": [
+            0.0,
+            0.0
+          ],
+          "n_items": 1500
+        }
+      }
+    },
+    "gated_syn_points": [
+      "T16_nx0_c0.00",
+      "T16_nx0_c0.50",
+      "T16_nx0_c0.90",
+      "T16_nx64_c0.00",
+      "T16_nx64_c0.50",
+      "T16_nx64_c0.90",
+      "T16_nx8_c0.00",
+      "T16_nx8_c0.50",
+      "T16_nx8_c0.90",
+      "T1_nx0_c0.00",
+      "T1_nx0_c0.50",
+      "T1_nx64_c0.00",
+      "T1_nx64_c0.50",
+      "T1_nx8_c0.00",
+      "T1_nx8_c0.50",
+      "T4_nx0_c0.00",
+      "T4_nx0_c0.50",
+      "T4_nx64_c0.00",
+      "T4_nx64_c0.50",
+      "T4_nx8_c0.00",
+      "T4_nx8_c0.50",
+      "T64_nx0_c0.00",
+      "T64_nx0_c0.50",
+      "T64_nx0_c0.90",
+      "T64_nx64_c0.00",
+      "T64_nx64_c0.50",
+      "T64_nx64_c0.90",
+      "T64_nx8_c0.00",
+      "T64_nx8_c0.50",
+      "T64_nx8_c0.90"
+    ],
+    "gated_live_points": [
+      "T16",
+      "T64"
+    ],
+    "ungated_points_n": {
+      "SYN:T1_nx8_c0.90": 1,
+      "SYN:T4_nx0_c0.90": 26,
+      "SYN:T4_nx64_c0.90": 27,
+      "SYN:T4_nx8_c0.90": 29,
+      "LIVE:T4": 1
+    },
+    "infeasible_points": {
+      "11": {
+        "T1_nx0_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "T1_nx8_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "T1_nx64_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "LIVE_T1": "no lemma had all 4 facet golds written within its first 1 occurrences",
+        "LIVE_T4": "no lemma had all 4 facet golds written within its first 4 occurrences"
+      },
+      "13": {
+        "T1_nx0_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "T1_nx8_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "T1_nx64_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "LIVE_T1": "no lemma had all 4 facet golds written within its first 1 occurrences",
+        "LIVE_T4": "no lemma had all 4 facet golds written within its first 4 occurrences"
+      },
+      "19": {
+        "T1_nx0_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "T1_nx8_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "T1_nx64_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "LIVE_T1": "no lemma had all 4 facet golds written within its first 1 occurrences",
+        "LIVE_T4": "no lemma had all 4 facet golds written within its first 4 occurrences"
+      },
+      "23": {
+        "T1_nx0_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "T1_nx8_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "T1_nx64_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "LIVE_T1": "no lemma had all 4 facet golds written within its first 1 occurrences",
+        "LIVE_T4": "no lemma had all 4 facet golds written within its first 4 occurrences"
+      },
+      "7": {
+        "T1_nx0_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "T1_nx64_c0.90": "no item had all 4 facet golds written at T=1, p_collide=0.90",
+        "LIVE_T1": "no lemma had all 4 facet golds written within its first 1 occurrences"
+      }
+    },
+    "noise_ladder": {
+      "0.00": {
+        "A0_ORACLE_DICT": 1.0,
+        "A1_SLOTTED": 1.0,
+        "A2_BAG": 0.25,
+        "A2R_ROLEBOUND": 0.9966250000000001,
+        "A3_BAG_SIGN": 0.25125000000000003,
+        "A3R_ROLEBOUND_SIGN": 0.9455,
+        "A2U_BAG_UNKEYED": 0.24962499999999999,
+        "A5_NULL_CONTENT": 0.25325000000000003,
+        "A7_SCRAMBLE": 0.24825000000000003
+      },
+      "1.00": {
+        "A0_ORACLE_DICT": 1.0,
+        "A1_SLOTTED": 1.0,
+        "A2_BAG": 0.25075,
+        "A2R_ROLEBOUND": 0.9877500000000001,
+        "A3_BAG_SIGN": 0.248,
+        "A3R_ROLEBOUND_SIGN": 0.8466250000000001,
+        "A2U_BAG_UNKEYED": 0.25,
+        "A5_NULL_CONTENT": 0.24925000000000003,
+        "A7_SCRAMBLE": 0.252625
+      },
+      "2.00": {
+        "A0_ORACLE_DICT": 1.0,
+        "A1_SLOTTED": 0.9998750000000001,
+        "A2_BAG": 0.251,
+        "A2R_ROLEBOUND": 0.916,
+        "A3_BAG_SIGN": 0.25175,
+        "A3R_ROLEBOUND_SIGN": 0.6707500000000001,
+        "A2U_BAG_UNKEYED": 0.25,
+        "A5_NULL_CONTENT": 0.24925000000000003,
+        "A7_SCRAMBLE": 0.25625
+      },
+      "4.00": {
+        "A0_ORACLE_DICT": 1.0,
+        "A1_SLOTTED": 0.985,
+        "A2_BAG": 0.25325000000000003,
+        "A2R_ROLEBOUND": 0.6921250000000001,
+        "A3_BAG_SIGN": 0.2535,
+        "A3R_ROLEBOUND_SIGN": 0.47862499999999997,
+        "A2U_BAG_UNKEYED": 0.25,
+        "A5_NULL_CONTENT": 0.24925000000000003,
+        "A7_SCRAMBLE": 0.25525
+      },
+      "8.00": {
+        "A0_ORACLE_DICT": 1.0,
+        "A1_SLOTTED": 0.7924999999999999,
+        "A2_BAG": 0.253125,
+        "A2R_ROLEBOUND": 0.469625,
+        "A3_BAG_SIGN": 0.25149999999999995,
+        "A3R_ROLEBOUND_SIGN": 0.36125,
+        "A2U_BAG_UNKEYED": 0.25,
+        "A5_NULL_CONTENT": 0.24925000000000003,
+        "A7_SCRAMBLE": 0.25375000000000003
+      },
+      "16.00": {
+        "A0_ORACLE_DICT": 1.0,
+        "A1_SLOTTED": 0.52975,
+        "A2_BAG": 0.25412500000000005,
+        "A2R_ROLEBOUND": 0.349,
+        "A3_BAG_SIGN": 0.252375,
+        "A3R_ROLEBOUND_SIGN": 0.3035,
+        "A2U_BAG_UNKEYED": 0.25,
+        "A5_NULL_CONTENT": 0.24925000000000003,
+        "A7_SCRAMBLE": 0.25125000000000003
+      },
+      "32.00": {
+        "A0_ORACLE_DICT": 1.0,
+        "A1_SLOTTED": 0.38937499999999997,
+        "A2_BAG": 0.25425,
+        "A2R_ROLEBOUND": 0.293875,
+        "A3_BAG_SIGN": 0.25325,
+        "A3R_ROLEBOUND_SIGN": 0.273125,
+        "A2U_BAG_UNKEYED": 0.25,
+        "A5_NULL_CONTENT": 0.24925000000000003,
+        "A7_SCRAMBLE": 0.251375
+      },
+      "64.00": {
+        "A0_ORACLE_DICT": 1.0,
+        "A1_SLOTTED": 0.31462500000000004,
+        "A2_BAG": 0.253875,
+        "A2R_ROLEBOUND": 0.27075000000000005,
+        "A3_BAG_SIGN": 0.253875,
+        "A3R_ROLEBOUND_SIGN": 0.2605,
+        "A2U_BAG_UNKEYED": 0.25,
+        "A5_NULL_CONTENT": 0.24925000000000003,
+        "A7_SCRAMBLE": 0.25175000000000003
+      },
+      "128.00": {
+        "A0_ORACLE_DICT": 1.0,
+        "A1_SLOTTED": 0.282375,
+        "A2_BAG": 0.25375000000000003,
+        "A2R_ROLEBOUND": 0.25975000000000004,
+        "A3_BAG_SIGN": 0.253125,
+        "A3R_ROLEBOUND_SIGN": 0.25599999999999995,
+        "A2U_BAG_UNKEYED": 0.25,
+        "A5_NULL_CONTENT": 0.24925000000000003,
+        "A7_SCRAMBLE": 0.25175000000000003
+      },
+      "256.00": {
+        "A0_ORACLE_DICT": 1.0,
+        "A1_SLOTTED": 0.26762500000000006,
+        "A2_BAG": 0.25349999999999995,
+        "A2R_ROLEBOUND": 0.25437499999999996,
+        "A3_BAG_SIGN": 0.25325000000000003,
+        "A3R_ROLEBOUND_SIGN": 0.253375,
+        "A2U_BAG_UNKEYED": 0.25,
+        "A5_NULL_CONTENT": 0.24925000000000003,
+        "A7_SCRAMBLE": 0.25175000000000003
+      }
+    },
+    "headline_point_syn": "T16_nx8_c0.50",
+    "headline_point_live": "T16",
+    "headline_moved_by_IV8": false,
+    "two_working_separation_by_point": {
+      "T16_nx0_c0.00": 0.0,
+      "T16_nx0_c0.50": 0.00187499999999996,
+      "T16_nx0_c0.90": 0.09165720771850172,
+      "T16_nx64_c0.00": 0.00012500000000004174,
+      "T16_nx64_c0.50": 0.03787499999999999,
+      "T16_nx64_c0.90": 0.4480662983425414,
+      "T16_nx8_c0.00": 0.0,
+      "T16_nx8_c0.50": 0.003375000000000017,
+      "T16_nx8_c0.90": 0.2092696629213483,
+      "T1_nx0_c0.00": 0.0,
+      "T1_nx0_c0.50": 0.0,
+      "T1_nx64_c0.00": 0.18674999999999997,
+      "T1_nx64_c0.50": 0.2155172413793104,
+      "T1_nx8_c0.00": 0.0006249999999999867,
+      "T1_nx8_c0.50": 0.0,
+      "T4_nx0_c0.00": 0.0,
+      "T4_nx0_c0.50": 0.008236434108527146,
+      "T4_nx64_c0.00": 0.013499999999999956,
+      "T4_nx64_c0.50": 0.22336328626444157,
+      "T4_nx8_c0.00": 0.0,
+      "T4_nx8_c0.50": 0.046987557301899185,
+      "T64_nx0_c0.00": 0.0,
+      "T64_nx0_c0.50": 0.0,
+      "T64_nx0_c0.90": 0.020864756158873843,
+      "T64_nx64_c0.00": 0.0,
+      "T64_nx64_c0.50": 0.0006249999999999867,
+      "T64_nx64_c0.90": 0.300804828973843,
+      "T64_nx8_c0.00": 0.0,
+      "T64_nx8_c0.50": 0.0,
+      "T64_nx8_c0.90": 0.06927710843373502
+    },
+    "verdicts": {},
+    "persisted": {
+      "11": {
+        "n_lemmas_probed": 400,
+        "d": 256,
+        "real_key_peak_mean": 0.22571428665601595,
+        "random_key_peak_mean": 0.2254378486854537,
+        "delta_real_minus_random": 0.00027643797056225994,
+        "delta_ci95_over_lemmas": [
+          -0.000606355229924217,
+          0.0011786681934849211
+        ],
+        "no_unbind_peak_mean": 0.32528718999158285,
+        "real_key_peak_per_rel": {
+          "^nsubj": 0.22735748722570132,
+          "^obj": 0.2251206594033168,
+          "^obl": 0.22565604341398326,
+          "nmod": 0.22444378146727417,
+          "amod": 0.22561220434934753,
+          "obj": 0.22609968126309574,
+          "nsubj": 0.22497984507872654,
+          "~nsubj:obj": 0.22644459104668202
+        },
+        "store_norm_median": 45.60701700396552,
+        "reading": "a latent role address would make the REAL-key peak exceed the RANDOM-key peak; delta ~ 0 means no key was ever applied to this store"
+      },
+      "13": {
+        "n_lemmas_probed": 400,
+        "d": 256,
+        "real_key_peak_mean": 0.22555219473083363,
+        "random_key_peak_mean": 0.22515794484832327,
+        "delta_real_minus_random": 0.00039424988251035575,
+        "delta_ci95_over_lemmas": [
+          -0.0005460553332644055,
+          0.0013678105735125499
+        ],
+        "no_unbind_peak_mean": 0.3254852749181534,
+        "real_key_peak_per_rel": {
+          "^nsubj": 0.22580051655174066,
+          "^obj": 0.22551551082680216,
+          "^obl": 0.22609331520625883,
+          "nmod": 0.22402143361673496,
+          "amod": 0.22540521254113222,
+          "obj": 0.22703237620554698,
+          "nsubj": 0.22600244847711204,
+          "~nsubj:obj": 0.22454674442134104
+        },
+        "store_norm_median": 45.60701700396552,
+        "reading": "a latent role address would make the REAL-key peak exceed the RANDOM-key peak; delta ~ 0 means no key was ever applied to this store"
+      },
+      "19": {
+        "n_lemmas_probed": 400,
+        "d": 256,
+        "real_key_peak_mean": 0.2257802572286961,
+        "random_key_peak_mean": 0.22492604523779405,
+        "delta_real_minus_random": 0.0008542119909020485,
+        "delta_ci95_over_lemmas": [
+          -8.87057517857713e-05,
+          0.001801574302105804
+        ],
+        "no_unbind_peak_mean": 0.32416186648236317,
+        "real_key_peak_per_rel": {
+          "^nsubj": 0.22542283798413149,
+          "^obj": 0.22579237767794325,
+          "^obl": 0.2263827240004682,
+          "nmod": 0.22587121179389386,
+          "amod": 0.2259875952027507,
+          "obj": 0.22647750599077215,
+          "nsubj": 0.2246184360321501,
+          "~nsubj:obj": 0.22568936914745918
+        },
+        "store_norm_median": 45.60701700396552,
+        "reading": "a latent role address would make the REAL-key peak exceed the RANDOM-key peak; delta ~ 0 means no key was ever applied to this store"
+      },
+      "23": {
+        "n_lemmas_probed": 400,
+        "d": 256,
+        "real_key_peak_mean": 0.22604139786826807,
+        "random_key_peak_mean": 0.22534659937733081,
+        "delta_real_minus_random": 0.0006947984909372595,
+        "delta_ci95_over_lemmas": [
+          -0.00024648844095391867,
+          0.0016159416403475207
+        ],
+        "no_unbind_peak_mean": 0.32399552779281116,
+        "real_key_peak_per_rel": {
+          "^nsubj": 0.22742561327917848,
+          "^obj": 0.2250199921027352,
+          "^obl": 0.22668306335380745,
+          "nmod": 0.22503977839802766,
+          "amod": 0.22574830058280163,
+          "obj": 0.22664456368530186,
+          "nsubj": 0.22496372723425628,
+          "~nsubj:obj": 0.22680614431003604
+        },
+        "store_norm_median": 45.60701700396552,
+        "reading": "a latent role address would make the REAL-key peak exceed the RANDOM-key peak; delta ~ 0 means no key was ever applied to this store"
+      },
+      "7": {
+        "n_lemmas_probed": 400,
+        "d": 256,
+        "real_key_peak_mean": 0.22616435706747307,
+        "random_key_peak_mean": 0.2252377880047185,
+        "delta_real_minus_random": 0.0009265690627545675,
+        "delta_ci95_over_lemmas": [
+          -8.453944707294945e-06,
+          0.0019106151494383832
+        ],
+        "no_unbind_peak_mean": 0.3229995028868578,
+        "real_key_peak_per_rel": {
+          "^nsubj": 0.22688632507986375,
+          "^obj": 0.22673704354661303,
+          "^obl": 0.22677185366561717,
+          "nmod": 0.22442874864223433,
+          "amod": 0.22558201163789754,
+          "obj": 0.22738074488523397,
+          "nsubj": 0.2256530104909895,
+          "~nsubj:obj": 0.22587511859133527
+        },
+        "store_norm_median": 45.60701700396552,
+        "reading": "a latent role address would make the REAL-key peak exceed the RANDOM-key peak; delta ~ 0 means no key was ever applied to this store"
+      }
+    },
+    "s1": {
+      "11": {
+        "M16": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.125,
+          "n": 8.0
+        },
+        "M64": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.020833333333333332,
+          "n": 48.0
+        },
+        "M256": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.005076142131979695,
+          "n": 197.0
+        },
+        "M1024": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.0012836970474967907,
+          "n": 779.0
+        }
+      },
+      "13": {
+        "M16": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.1111111111111111,
+          "n": 9.0
+        },
+        "M64": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.022222222222222223,
+          "n": 45.0
+        },
+        "M256": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.005076142131979695,
+          "n": 197.0
+        },
+        "M1024": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.0012787723785166241,
+          "n": 782.0
+        }
+      },
+      "19": {
+        "M16": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.08333333333333333,
+          "n": 12.0
+        },
+        "M64": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.02127659574468085,
+          "n": 47.0
+        },
+        "M256": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.005154639175257732,
+          "n": 194.0
+        },
+        "M1024": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.0012836970474967907,
+          "n": 779.0
+        }
+      },
+      "23": {
+        "M16": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.07692307692307693,
+          "n": 13.0
+        },
+        "M64": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.022727272727272728,
+          "n": 44.0
+        },
+        "M256": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.005319148936170213,
+          "n": 188.0
+        },
+        "M1024": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.00129366106080207,
+          "n": 773.0
+        }
+      },
+      "7": {
+        "M16": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.08333333333333333,
+          "n": 12.0
+        },
+        "M64": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.023255813953488372,
+          "n": 43.0
+        },
+        "M256": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.005025125628140704,
+          "n": 199.0
+        },
+        "M1024": {
+          "A2_BAG": 1.0,
+          "A2R_ROLEBOUND": 1.0,
+          "chance": 0.0012706480304955528,
+          "n": 787.0
+        }
+      }
+    },
+    "live_notes": {
+      "11": {
+        "T16": {
+          "n_dropped_too_few_facets": 0,
+          "n_dropped_freq_stratum": 0,
+          "n_items": 11,
+          "T": 16,
+          "facet_coverage": 1.0,
+          "n_items_dropped_nothing_written": 289,
+          "mean_gold_freq_ratio_within_item": 2.2477424230396736,
+          "max_gold_freq_ratio_within_item": 3.129032258064516,
+          "mean_terms_per_item": 51.36363636363637,
+          "n_distinct_relations": 355
+        },
+        "T64": {
+          "n_dropped_too_few_facets": 0,
+          "n_dropped_freq_stratum": 0,
+          "n_items": 300,
+          "T": 64,
+          "facet_coverage": 1.0,
+          "n_items_dropped_nothing_written": 0,
+          "mean_gold_freq_ratio_within_item": 2.403009430715459,
+          "max_gold_freq_ratio_within_item": 4.0,
+          "mean_terms_per_item": 182.46,
+          "n_distinct_relations": 453
+        }
+      },
+      "13": {
+        "T16": {
+          "n_dropped_too_few_facets": 0,
+          "n_dropped_freq_stratum": 0,
+          "n_items": 10,
+          "T": 16,
+          "facet_coverage": 1.0,
+          "n_items_dropped_nothing_written": 290,
+          "mean_gold_freq_ratio_within_item": 2.0663591964744645,
+          "max_gold_freq_ratio_within_item": 3.5231481481481484,
+          "mean_terms_per_item": 44.0,
+          "n_distinct_relations": 354
+        },
+        "T64": {
+          "n_dropped_too_few_facets": 0,
+          "n_dropped_freq_stratum": 0,
+          "n_items": 300,
+          "T": 64,
+          "facet_coverage": 1.0,
+          "n_items_dropped_nothing_written": 0,
+          "mean_gold_freq_ratio_within_item": 2.4098122308182472,
+          "max_gold_freq_ratio_within_item": 3.996825396825397,
+          "mean_terms_per_item": 180.2,
+          "n_distinct_relations": 470
+        }
+      },
+      "19": {
+        "T16": {
+          "n_dropped_too_few_facets": 0,
+          "n_dropped_freq_stratum": 1,
+          "n_items": 14,
+          "T": 16,
+          "facet_coverage": 1.0,
+          "n_items_dropped_nothing_written": 286,
+          "mean_gold_freq_ratio_within_item": 2.7146186659081373,
+          "max_gold_freq_ratio_within_item": 3.943904593639576,
+          "mean_terms_per_item": 44.357142857142854,
+          "n_distinct_relations": 333
+        },
+        "T64": {
+          "n_dropped_too_few_facets": 0,
+          "n_dropped_freq_stratum": 1,
+          "n_items": 300,
+          "T": 64,
+          "facet_coverage": 1.0,
+          "n_items_dropped_nothing_written": 0,
+          "mean_gold_freq_ratio_within_item": 2.424105236594036,
+          "max_gold_freq_ratio_within_item": 4.0,
+          "mean_terms_per_item": 180.33,
+          "n_distinct_relations": 446
+        }
+      },
+      "23": {
+        "T16": {
+          "n_dropped_too_few_facets": 0,
+          "n_dropped_freq_stratum": 0,
+          "n_items": 7,
+          "T": 16,
+          "facet_coverage": 1.0,
+          "n_items_dropped_nothing_written": 293,
+          "mean_gold_freq_ratio_within_item": 2.136396277450324,
+          "max_gold_freq_ratio_within_item": 3.3970588235294117,
+          "mean_terms_per_item": 49.42857142857143,
+          "n_distinct_relations": 356
+        },
+        "T64": {
+          "n_dropped_too_few_facets": 0,
+          "n_dropped_freq_stratum": 0,
+          "n_items": 300,
+          "T": 64,
+          "facet_coverage": 1.0,
+          "n_items_dropped_nothing_written": 0,
+          "mean_gold_freq_ratio_within_item": 2.394810431647431,
+          "max_gold_freq_ratio_within_item": 4.0,
+          "mean_terms_per_item": 177.74333333333334,
+          "n_distinct_relations": 468
+        }
+      },
+      "7": {
+        "T4": {
+          "n_dropped_too_few_facets": 0,
+          "n_dropped_freq_stratum": 0,
+          "n_items": 1,
+          "T": 4,
+          "facet_coverage": 1.0,
+          "n_items_dropped_nothing_written": 299,
+          "mean_gold_freq_ratio_within_item": 2.769230769230769,
+          "max_gold_freq_ratio_within_item": 2.769230769230769,
+          "mean_terms_per_item": 11.0,
+          "n_distinct_relations": 252
+        },
+        "T16": {
+          "n_dropped_too_few_facets": 0,
+          "n_dropped_freq_stratum": 0,
+          "n_items": 8,
+          "T": 16,
+          "facet_coverage": 1.0,
+          "n_items_dropped_nothing_written": 292,
+          "mean_gold_freq_ratio_within_item": 2.1619969728971817,
+          "max_gold_freq_ratio_within_item": 2.9313854235062378,
+          "mean_terms_per_item": 40.75,
+          "n_distinct_relations": 341
+        },
+        "T64": {
+          "n_dropped_too_few_facets": 0,
+          "n_dropped_freq_stratum": 0,
+          "n_items": 300,
+          "T": 64,
+          "facet_coverage": 1.0,
+          "n_items_dropped_nothing_written": 0,
+          "mean_gold_freq_ratio_within_item": 2.385935158760227,
+          "max_gold_freq_ratio_within_item": 4.0,
+          "mean_terms_per_item": 177.82666666666665,
+          "n_distinct_relations": 457
+        }
+      }
+    },
+    "notes": [
+      "POINTS REPORTED BUT NOT GATED (n < 30): {'SYN:T1_nx8_c0.90': 1, 'SYN:T4_nx0_c0.90': 26, 'SYN:T4_nx64_c0.90': 27, 'SYN:T4_nx8_c0.90': 29, 'LIVE:T4': 1}",
+      "INSTRUMENT_STILL_LOOSE: no storage-quality number is published."
+    ]
+  },
+  "prereg": "preregs/exp_storage_quality_instrument_v1.md",
+  "elapsed_s": 3519.4656562805176,
+  "summary": "INSTRUMENT_STILL_LOOSE: 10/11 gates passed; FAILED ['IV3b_null_ci_covers_chance']. NO storage-quality number is published.",
+  "structured_gate_claims": [
+    {
+      "gate_name": "IV1_oracle_ceiling",
+      "measured": 1.0,
+      "threshold": 0.99,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "A0_ORACLE_DICT S3 minimum over every operating point, both regimes"
+    },
+    {
+      "gate_name": "IV2_slotted_at_max_load",
+      "measured": 1.0,
+      "threshold": 0.95,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "A1_SLOTTED at the heaviest NON-COLLIDING point T64_nx64_c0.00; the colliding points are the load axis, where every architecture must degrade"
+    },
+    {
+      "gate_name": "IV3a_null_near_chance",
+      "measured": 0.02931034482758621,
+      "threshold": 0.05,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "max |A5_NULL_CONTENT - chance| over every point, both regimes"
+    },
+    {
+      "gate_name": "IV3b_null_ci_covers_chance",
+      "measured": 0.9375,
+      "threshold": 1.0,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "fraction of points whose A5 95pct CI covers chance"
+    },
+    {
+      "gate_name": "IV4a_saturation_monotone",
+      "measured": -0.9969650916353059,
+      "threshold": -0.8,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "Spearman rho of A1_SLOTTED S3 vs store-noise sigma, 6 levels"
+    },
+    {
+      "gate_name": "IV4b_saturation_reaches_chance",
+      "measured": 0.26762500000000006,
+      "threshold": 0.35,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "A1_SLOTTED S3 at the top noise level"
+    },
+    {
+      "gate_name": "IV5_live_floors_at_chance",
+      "measured": 0.010000000000000009,
+      "threshold": 0.05,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "max |floor - chance| over A8_ORTHOGRAPHIC and A9_FREQUENCY"
+    },
+    {
+      "gate_name": "IV6_null_key_collapses_A0_A1",
+      "measured": 0.005,
+      "threshold": 0.3,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "worst deranged-key S3 over A0/A1, every point, both regimes"
+    },
+    {
+      "gate_name": "IV7_unkeyed_pool_balanced",
+      "measured": 0.006896551724137945,
+      "threshold": 0.05,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "max |A2U_BAG_UNKEYED - chance| over every point"
+    },
+    {
+      "gate_name": "IV8_arm_spread_at_headline",
+      "measured": 0.749625,
+      "threshold": 0.1,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "max-min S3 over {A1_SLOTTED, A2R_ROLEBOUND, A2_BAG} at T16_nx8_c0.50"
+    },
+    {
+      "gate_name": "IV8b_two_working_stores_separable",
+      "measured": 0.4480662983425414,
+      "threshold": 0.05,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "best A1_SLOTTED - A2R_ROLEBOUND gap over the grid, at T16_nx64_c0.90. A metric that cannot separate two WORKING stores separates only broken from working."
+    }
+  ]
+}

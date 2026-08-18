@@ -1,0 +1,633 @@
+{
+  "anchor_name": "e2e_trace_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-08-13T18:41:59.135416+00:00",
+  "note": "notes/e2e_substrate_trace_2026-08-13.md",
+  "QUALITY_CLAIM": "NONE. This cell counts attrition; it scores nothing.",
+  "wire_status": "NOTHING WIRED. hdlab/ is unmodified; all counters are external wrappers.",
+  "config": {
+    "corpus": "experiments.exp_definitional_grounding_v5.load_corpus_v5(None, lineaware=True)",
+    "n_sentences": 34169,
+    "n_chunks": 228,
+    "CHUNK_SIZE": 150,
+    "N_DIM": 2048,
+    "ARM_SEED": 4201,
+    "seed_vocabulary_rows": 1000,
+    "n_known_seed_lemmas": 887,
+    "SCHEMA_THRESH": 0.25,
+    "MIN_CONFIRM": 4,
+    "PATIENCE_MAX": 3,
+    "PBV_INFORMATIVE_MIN": 0.3,
+    "PBV_COMMIT_STRENGTH": 0.6,
+    "readout": null,
+    "freeze_episode": false,
+    "encoder": "context_vector_masked (bag)",
+    "anchor_pool": null,
+    "definition_map": null,
+    "revive_terminal": true
+  },
+  "W1_instrumentation_inert_selftest": "run --mode self-test (asserts tracer ON == tracer OFF on the same slice)",
+  "W2_reference_reproduction": {
+    "reference": "data/exp_grounding_quality_readout_v1/metrics.json:objective_metrics.PBV_BASE",
+    "expected": {
+      "n_sentences": 34169,
+      "n_chunks": 228,
+      "n_grounded": 384,
+      "n_meaning_facts": 384,
+      "n_refusals": 24949,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 247,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 21240,
+        "NO_STANDING_HYPOTHESIS": 3462
+      },
+      "pairs_digest16": "836571fa99d5765d",
+      "trajectory": {
+        "n_items": 15990,
+        "n_items_with_hypothesis": 10450,
+        "n_items_revised": 3358,
+        "n_encounters": 83723,
+        "n_informative_encounters": 26586,
+        "n_confirm": 1112,
+        "n_disconfirm": 15540,
+        "n_abandon": 5972,
+        "n_repropose": 5972,
+        "n_revive": 10122
+      }
+    },
+    "observed": {
+      "n_sentences": 34169,
+      "n_chunks": 228,
+      "n_grounded": 386,
+      "n_meaning_facts": 386,
+      "n_refusals": 24939,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 241,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 21207,
+        "NO_STANDING_HYPOTHESIS": 3491
+      },
+      "pairs_digest16": "c5ebeacc3a7063b0",
+      "trajectory": {
+        "n_items": 15990,
+        "n_items_with_hypothesis": 10438,
+        "n_items_revised": 3337,
+        "n_encounters": 83732,
+        "n_informative_encounters": 26512,
+        "n_confirm": 1112,
+        "n_disconfirm": 15482,
+        "n_abandon": 5944,
+        "n_repropose": 5944,
+        "n_revive": 10121
+      }
+    },
+    "matches": false
+  },
+  "ATTRITION_TABLE": [
+    {
+      "stage": "1_input_sentences",
+      "enter": 34169,
+      "leave": 33839,
+      "lost": 330,
+      "why_lost": {
+        "sentence_had_no_content_lemma": 330
+      }
+    },
+    {
+      "stage": "1b_tokens_to_content_lemmas",
+      "enter": 623522,
+      "leave": 338506,
+      "lost": 285016,
+      "why_lost": {
+        "stopword_or_len<=2_or_nonalpha (content_words regex + stoplist)": 270779,
+        "duplicate_lemma_within_the_same_sentence (content_lemmas is a set)": 14237
+      }
+    },
+    {
+      "stage": "2_gap_gate",
+      "enter": 338506,
+      "leave": 83923,
+      "lost": 254583,
+      "why_lost": {
+        "seed_known_word (anchor accumulation only, never a target)": 123346,
+        "already_terminal_library_item (GROUNDED, or ESCALATED past revivals)": 131237,
+        "gap_detector_says_known": 0
+      }
+    },
+    {
+      "stage": "2b_encoding",
+      "enter": 83923,
+      "leave": 83732,
+      "lost": 191,
+      "why_lost": {
+        "all_zero_context_vector (SILENT continue, rgl:1076)": 191
+      }
+    },
+    {
+      "stage": "2c_trace_appended",
+      "enter": 83732,
+      "leave": 83732,
+      "lost": 0,
+      "why_lost": {
+        "Library.flag refused (terminal, revivals exhausted)": 0
+      }
+    },
+    {
+      "stage": "3_candidate_pool",
+      "enter": 89676,
+      "leave": 89675,
+      "lost": 1,
+      "why_lost": {
+        "anchor_field_empty (SILENT self-return)": 1,
+        "no_scannable_anchor (SILENT self-return)": 0,
+        "query_profile_zero_norm (SILENT self-return)": 0
+      }
+    },
+    {
+      "stage": "4_selection_threshold",
+      "enter": 89676,
+      "leave": 32456,
+      "lost": 57220,
+      "why_lost": {
+        "argmax_cosine_below_PBV_INFORMATIVE_MIN=0.30 (uninformative encounter)": 57220
+      }
+    },
+    {
+      "stage": "5_consolidation_eligibility",
+      "enter": 1373320,
+      "leave": 52186,
+      "lost": 1321134,
+      "why_lost": {
+        "under_MIN_CONFIRM=4 exposures": 1313576,
+        "intervening_pass_wait (no patience cost)": 7558
+      },
+      "unit": "ITEM-PASSES (one library item counted once per consolidation pass)"
+    },
+    {
+      "stage": "5b_schema_coherence_gate",
+      "enter": 52186,
+      "leave": 25325,
+      "lost": 26861,
+      "why_lost": {
+        "schema_score_None (too few traces to split; SILENT continue, no patience)": 0,
+        "schema_score_below_0.25": 26861
+      },
+      "unit": "ITEM-PASSES"
+    },
+    {
+      "stage": "6_admission_gate_PBV",
+      "enter": 25325,
+      "leave": 386,
+      "lost": 24939,
+      "why_lost": {
+        "CLOSED_CLASS_SUBJECT": 241,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 21207,
+        "NO_STANDING_HYPOTHESIS": 3491
+      },
+      "unit": "ITEM-PASSES in, FACTS out"
+    },
+    {
+      "stage": "7_store_write",
+      "enter": 386,
+      "leave": 386,
+      "lost": 0,
+      "why_lost": {
+        "same-subject displacement (FUNCTIONAL supersede)": 0,
+        "lower-trust write dropped": 0
+      }
+    }
+  ],
+  "stage_detail": {
+    "1_input": {
+      "n_sentences": 34169,
+      "n_sentences_with_zero_content_lemmas": 330,
+      "n_whitespace_tokens": 623522,
+      "n_content_word_tokens": 352743,
+      "n_content_lemma_occurrences": 338506,
+      "n_distinct_content_lemmas": 16812,
+      "n_distinct_eligible_content_lemmas": 16507
+    },
+    "2_gap": {
+      "n_seed_occurrences": 123346,
+      "n_nonseed_occurrences": 215160,
+      "n_terminal_skips": 131237,
+      "n_is_gap_calls": 83923,
+      "n_gap_true": 83923,
+      "n_gap_false": 0,
+      "n_distinct_seed_lemmas_seen": 785,
+      "n_distinct_lemmas_called_gap": 16027,
+      "n_distinct_lemmas_called_known": 0,
+      "n_encode_calls": 207269,
+      "n_encode_zero_vectors": 395,
+      "n_flag_calls": 83732,
+      "n_flag_true": 83732,
+      "n_flag_false": 0
+    },
+    "3_candidates": {
+      "n_readout_calls": 89676,
+      "calls_by_context": {
+        "propose": 40356,
+        "verify": 49320
+      },
+      "mean_scannable_candidates_per_call": 765.969,
+      "min_scannable": 0,
+      "max_scannable": 1000,
+      "pool_size_quantiles_sampled_every_97th_call": {
+        "p01": 204.3,
+        "p05": 442.6,
+        "p10": 537.3,
+        "p25": 594.0,
+        "p50": 776.0,
+        "p75": 964.0,
+        "p90": 986.0,
+        "p95": 992.0,
+        "p99": 998.0,
+        "n": 924,
+        "min": 26.0,
+        "max": 1000.0,
+        "mean": 766.358225
+      },
+      "n_calls_pool_empty": 1,
+      "n_calls_no_scannable_anchor": 0,
+      "n_calls_query_zero_norm": 0,
+      "final_n_anchors": 1171,
+      "final_n_eligible_anchors": 1000
+    },
+    "4_selection": {
+      "n_cleared_threshold": 32456,
+      "n_below_threshold_self_return": 57220,
+      "clear_rate": 0.361925,
+      "cleared_by_context": {
+        "propose": 15862,
+        "verify": 16594
+      },
+      "argmax_cosine_histogram_all_calls": {
+        "[-1.01,-0.10)": 0,
+        "[-0.10,0.00)": 0,
+        "[0.00,0.05)": 2,
+        "[0.05,0.10)": 11,
+        "[0.10,0.15)": 1382,
+        "[0.15,0.20)": 15989,
+        "[0.20,0.25)": 21124,
+        "[0.25,0.30)": 18712,
+        "[0.30,0.35)": 15692,
+        "[0.35,0.40)": 8519,
+        "[0.40,0.45)": 3360,
+        "[0.45,0.50)": 1479,
+        "[0.50,0.60)": 1501,
+        "[0.60,0.70)": 593,
+        "[0.70,0.85)": 1149,
+        "[0.85,1.01)": 163
+      },
+      "argmax_cosine_quantiles_sampled_every_97th_call": {
+        "p01": 0.148438,
+        "p05": 0.169139,
+        "p10": 0.179688,
+        "p25": 0.210938,
+        "p50": 0.273438,
+        "p75": 0.342208,
+        "p90": 0.39884,
+        "p95": 0.461488,
+        "p99": 0.772266,
+        "n": 924,
+        "min": 0.109375,
+        "max": 0.859375,
+        "mean": 0.290113
+      },
+      "top_20_winning_anchors": [
+        {
+          "anchor": "people",
+          "n_wins": 1097
+        },
+        {
+          "anchor": "new",
+          "n_wins": 593
+        },
+        {
+          "anchor": "world",
+          "n_wins": 378
+        },
+        {
+          "anchor": "know",
+          "n_wins": 344
+        },
+        {
+          "anchor": "big",
+          "n_wins": 337
+        },
+        {
+          "anchor": "time",
+          "n_wins": 280
+        },
+        {
+          "anchor": "company",
+          "n_wins": 270
+        },
+        {
+          "anchor": "change",
+          "n_wins": 269
+        },
+        {
+          "anchor": "find",
+          "n_wins": 260
+        },
+        {
+          "anchor": "start",
+          "n_wins": 243
+        },
+        {
+          "anchor": "good",
+          "n_wins": 224
+        },
+        {
+          "anchor": "woman",
+          "n_wins": 222
+        },
+        {
+          "anchor": "happen",
+          "n_wins": 210
+        },
+        {
+          "anchor": "use",
+          "n_wins": 198
+        },
+        {
+          "anchor": "need",
+          "n_wins": 198
+        },
+        {
+          "anchor": "team",
+          "n_wins": 195
+        },
+        {
+          "anchor": "stem",
+          "n_wins": 192
+        },
+        {
+          "anchor": "friend",
+          "n_wins": 189
+        },
+        {
+          "anchor": "body",
+          "n_wins": 189
+        },
+        {
+          "anchor": "life",
+          "n_wins": 179
+        }
+      ],
+      "n_distinct_winning_anchors": 868
+    },
+    "5_consolidation": {
+      "n_item_passes_pending": 1373320,
+      "n_item_passes_under_min_confirm": 1313576,
+      "n_item_passes_intervening_wait": 7558,
+      "n_item_passes_reaching_schema_gate": 52186,
+      "n_schema_calls": 52186,
+      "n_schema_none": 0,
+      "n_schema_below_thresh": 26861,
+      "n_schema_ok": 25325,
+      "schema_score_quantiles": {
+        "p01": -0.086793,
+        "p05": -0.020002,
+        "p10": 0.015327,
+        "p25": 0.090955,
+        "p50": 0.239258,
+        "p75": 0.449975,
+        "p90": 0.611411,
+        "p95": 0.689242,
+        "p99": 0.825444,
+        "n": 52186,
+        "min": -0.184102,
+        "max": 1.0,
+        "mean": 0.279663
+      },
+      "consistency_check_schema_calls_equal_eligible_item_passes": true,
+      "consistency_check_schema_ok_equals_refusals_plus_facts": true,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 241,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 21207,
+        "NO_STANDING_HYPOTHESIS": 3491
+      },
+      "item_terminal_fate": {
+        "ESCALATED": 7082,
+        "GROUNDED_POS": 386,
+        "PENDING": 8522
+      },
+      "exposures_per_item": {
+        "p01": 1.0,
+        "p05": 1.0,
+        "p10": 1.0,
+        "p25": 2.0,
+        "p50": 3.0,
+        "p75": 7.0,
+        "p90": 11.0,
+        "p95": 15.0,
+        "p99": 30.0,
+        "n": 15990,
+        "min": 1.0,
+        "max": 241.0,
+        "mean": 5.236523
+      }
+    },
+    "6_pbv": {
+      "n_propose_calls": 40356,
+      "n_propose_returned_none_SILENT": 24494,
+      "n_propose_returned_candidate": 15862,
+      "n_verify_calls": 49320,
+      "n_verify_uninformative": 32726,
+      "n_verify_confirm": 1112,
+      "n_verify_disconfirm": 15482,
+      "trajectory": {
+        "n_items": 15990,
+        "n_items_with_hypothesis": 10438,
+        "n_items_revised": 3337,
+        "revision_rate": 0.319697,
+        "n_encounters": 83732,
+        "n_informative_encounters": 26512,
+        "informative_encounter_rate": 0.316629,
+        "n_confirm": 1112,
+        "n_disconfirm": 15482,
+        "n_abandon": 5944,
+        "n_repropose": 5944,
+        "n_revive": 10121
+      },
+      "final_hypothesis_strength_quantiles": {
+        "p01": 0.25,
+        "p05": 0.25,
+        "p10": 0.25,
+        "p25": 0.25,
+        "p50": 0.5,
+        "p75": 0.5,
+        "p90": 0.5,
+        "p95": 0.75,
+        "p99": 0.75,
+        "n": 9918,
+        "min": 0.203125,
+        "max": 0.9375,
+        "mean": 0.433452
+      },
+      "n_items_holding_a_final_hypothesis": 9918,
+      "n_items_final_hypothesis_at_or_above_commit": 654
+    },
+    "7_store": {
+      "n_meaning_facts": 386,
+      "n_distinct_subjects": 386,
+      "n_tautologies": 0,
+      "n_closed_class_objects": 0,
+      "store_resolutions": {
+        "CLEAN_STORE": 772
+      },
+      "writes_by_relation": {
+        "GROUNDED_MEANING": 386,
+        "KNOWN_WORD": 386
+      },
+      "n_subject_relation_pairs_written_more_than_once": 0,
+      "n_subject_relation_pairs_with_CONFLICTING_objects": 0,
+      "conflicting_examples": {},
+      "n_meaning_facts_superseded": 0,
+      "n_meaning_facts_dropped": 0,
+      "displacement_verdict": "NO DISPLACEMENT: every GROUNDED_MEANING subject was written exactly once",
+      "object_concentration_top10": [
+        {
+          "object": "people",
+          "n": 13
+        },
+        {
+          "object": "york",
+          "n": 7
+        },
+        {
+          "object": "driving",
+          "n": 6
+        },
+        {
+          "object": "talking",
+          "n": 6
+        },
+        {
+          "object": "dioxide",
+          "n": 6
+        },
+        {
+          "object": "stem",
+          "n": 6
+        },
+        {
+          "object": "new",
+          "n": 5
+        },
+        {
+          "object": "boat",
+          "n": 4
+        },
+        {
+          "object": "bag",
+          "n": 4
+        },
+        {
+          "object": "harry",
+          "n": 4
+        }
+      ]
+    }
+  },
+  "WHERE_THE_CORRECT_ANSWER_IS_LOST": {
+    "n_key_subjects": 1353,
+    "buckets": {
+      "ABSENT": 1069,
+      "ARGMAX_NOT_BANKED": 12,
+      "BANKED_OTHER": 39,
+      "PRESENT_NOT_ARGMAX": 233
+    },
+    "best_rank_of_correct_answer_when_available": {
+      "p01": 1.0,
+      "p05": 1.0,
+      "p10": 1.2,
+      "p25": 5.0,
+      "p50": 20.0,
+      "p75": 63.0,
+      "p90": 180.2,
+      "p95": 268.6,
+      "p99": 420.8,
+      "n": 253,
+      "min": 1.0,
+      "max": 461.0,
+      "mean": 57.494071
+    },
+    "n_subjects_with_answer_available_at_least_once": 253,
+    "n_subjects_correct_answer_ever_proposed_as_hypothesis": 9,
+    "rows_file": "key_subject_rows.json"
+  },
+  "SILENT_EMPTY_RETURNS": [
+    {
+      "site": "hdlab/reading_grounding_loop.py:1076 process_sentence",
+      "behaviour": "all-zero context vector -> `continue`; the occurrence is dropped with no counter, no log line and no refusal row",
+      "count": 191
+    },
+    {
+      "site": "hdlab/reading_grounding_loop.py:657 canonicalize_fast",
+      "behaviour": "empty anchor field -> returns (target, 0.0), which the caller reads as 'uninformative encounter'; an EMPTY POOL and a BELOW-THRESHOLD ARGMAX are the same return value",
+      "count": 1
+    },
+    {
+      "site": "hdlab/reading_grounding_loop.py:663 canonicalize_fast",
+      "behaviour": "no scannable anchor (mask all False) -> same indistinguishable self-return",
+      "count": 0
+    },
+    {
+      "site": "hdlab/reading_grounding_loop.py:668 canonicalize_fast",
+      "behaviour": "zero-norm query profile -> same indistinguishable self-return",
+      "count": 0
+    },
+    {
+      "site": "hdlab/grounding_acquisition_loop.py:331 Library._propose",
+      "behaviour": "propose_fn returned None -> `return` with NO hypothesis_log entry, so an encounter that failed to propose leaves no trace in the audit trail (only failed VERIFY is counted, as Hypothesis.n_uninformative)",
+      "count": 24494
+    },
+    {
+      "site": "hdlab/grounding_acquisition_loop.py:524 consolidation_pass",
+      "behaviour": "schema_score is None -> `continue`, no patience cost, nothing recorded",
+      "count": 0
+    },
+    {
+      "site": "hdlab/grounding_acquisition_loop.py:126 context_vector",
+      "behaviour": "window with no content word -> all-zero vector returned as if it were a representation (the caller's `np.any` guard is the only thing that notices)",
+      "count": 395
+    },
+    {
+      "site": "hdlab/reading_grounding_loop.py ReadingLoopState.refusals",
+      "behaviour": "the refusal ledger is never written to disk by the loop itself; only a calling cell that chooses to persist it keeps the per-lemma reasons",
+      "count": 24939
+    }
+  ],
+  "TIMING": {
+    "wall_clock_s": 1653.96,
+    "read_phase_s": 1627.67,
+    "consolidation_phase_s": 23.04,
+    "inclusive_by_stage_s": {
+      "consolidation_phase": 23.04,
+      "key_probe": 17.86,
+      "read_phase": 1627.67,
+      "stage1_input": 1.9,
+      "stage2_gap": 748.06,
+      "stage2b_encode": 171.87,
+      "stage2c_flag_incl": 695.06,
+      "stage34_select": 410.28,
+      "stage5_census": 1.28,
+      "stage5_schema": 2.21,
+      "stage6_propose_incl": 294.49,
+      "stage6_verify_incl": 397.59,
+      "stage7_store": 0.29
+    },
+    "note": "INCLUSIVE and NESTED: stage34_select is inside stage6_propose/verify, which is inside stage2c_flag_incl, which is inside read_phase. key_probe and the stage-1/2 counters are INSTRUMENTATION OVERHEAD, not live-path cost.",
+    "instrumentation_overhead_s": 19.14,
+    "total_including_setup_s": 1663.24
+  },
+  "LIMITATIONS": [
+    "This is a CENSUS. No fact is scored for correctness anywhere in this cell.",
+    "The known-answer key is the v5 definitional extraction, itself ~64% correct, so the ABSENT / PRESENT_NOT_ARGMAX split is structural: 'the key's object was not on the menu' does not mean 'no correct answer was on the menu'.",
+    "Stage-5 counts are ITEM-PASSES, not distinct items: one library item is counted once per consolidation pass it is pending for, which is how consolidation_pass itself works. Distinct-item outcomes are in stage_detail.5_consolidation.item_terminal_fate.",
+    "Timing is INCLUSIVE and nested; the per-stage seconds do not sum to wall clock.",
+    "The stage-2 split between 'terminal skip' and 'gap-detector says known' is derived arithmetically (non-seed occurrences minus is_gap calls); it is exact given that process_sentence's only other exit before is_gap is the terminal-status check.",
+    "One configuration only: the shipped default. F1/F3, the structural encoder, the anchor pool and the definitional wire are all OFF, as they are in production."
+  ]
+}

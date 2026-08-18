@@ -1,0 +1,230 @@
+{
+ "verdict": "DOES_NOT_TRANSFER",
+ "notes": [
+  "A1_BASE=0.048000 (target 0.048, integrity_ok=True)",
+  "RERANK_COH=0.0488 CI=[0.0420,0.0558] vs bar=0.0870",
+  "A6_TRIGRAM_ONLY=0.0870 RANDOM_TOP50=0.0248 SCRAMBLE_CONTEXT_COH=0.0470",
+  "coverage_real=0.2157 coverage_scrambled=0.2150 (fraction of items with a VerbNet-covered governing verb, i.e. coherence-eligible at all)",
+  "rerank_changed_the_pick=495/4000; of those, RERANK correct=22, BASE was already correct=19",
+  "between_draw_spread_sd=0.00020 (accs=[0.04875, 0.04875, 0.04925, 0.04875, 0.04875])",
+  "gain_over_base=0.00075 within_3x_draw_noise=False",
+  "ci_separated_above_all_floors=False ci_separated_above_bar=False scramble_overlaps_rerank_ci=True"
+ ],
+ "n_items": 4000,
+ "item_construction": {
+  "n_anchors": 5491,
+  "n_items_before_cap": 4603,
+  "n_items": 4000,
+  "removals": {
+   "foil_direction_fallback": 53,
+   "removed_L_not_in_wordnet": 404,
+   "removed_no_gold_anchor": 484
+  },
+  "n_items_with_heldout_sentence": 4000
+ },
+ "prereg": "preregs/2026-08-15_coherence_final_pick_transfer_v1.md",
+ "self_retrieval": {
+  "acc": 0.785953,
+  "n": 299,
+  "floor": 0.7
+ },
+ "integrity": {
+  "a1_base_acc": 0.048,
+  "target": 0.048,
+  "ok": true
+ },
+ "bootstrap": {
+  "n_boot": 5000,
+  "seed": 20260820,
+  "n_items": 4000,
+  "arm_acc_ci": {
+   "A1_BASE": {
+    "acc": 0.048,
+    "ci_lo": 0.0415,
+    "ci_hi": 0.055,
+    "sd": 0.003395656151246766
+   },
+   "A6_TRIGRAM_ONLY": {
+    "acc": 0.087,
+    "ci_lo": 0.07825,
+    "ci_hi": 0.096,
+    "sd": 0.004458815198850473
+   },
+   "RANDOM_TOP50": {
+    "acc": 0.02475,
+    "ci_lo": 0.02,
+    "ci_hi": 0.0295,
+    "sd": 0.0024669996752127877
+   },
+   "RERANK_COH": {
+    "acc": 0.04875,
+    "ci_lo": 0.042,
+    "ci_hi": 0.05575,
+    "sd": 0.0034286159652985346
+   },
+   "SCRAMBLE_CONTEXT_COH": {
+    "acc": 0.047,
+    "ci_lo": 0.0405,
+    "ci_hi": 0.05375,
+    "sd": 0.0033628884474510897
+   }
+  },
+  "deltas": {
+   "d_RERANK_minus_BASE": {
+    "delta": 0.0007500000000000007,
+    "ci_lo": -0.0020000000000000018,
+    "ci_hi": 0.0037499999999999964,
+    "sd": 0.0014601243474444223,
+    "ci_excludes_zero": false
+   },
+   "d_RERANK_minus_TRIGRAM": {
+    "delta": -0.03824999999999999,
+    "ci_lo": -0.04875,
+    "ci_hi": -0.027749999999999997,
+    "sd": 0.005430652100807047,
+    "ci_excludes_zero": true
+   },
+   "d_RERANK_minus_RANDOM50": {
+    "delta": 0.024,
+    "ci_lo": 0.016,
+    "ci_hi": 0.03225624999999991,
+    "sd": 0.004139722612687957,
+    "ci_excludes_zero": true
+   },
+   "d_RERANK_minus_SCRAMBLECTX": {
+    "delta": 0.0017500000000000016,
+    "ci_lo": -0.002250000000000002,
+    "ci_hi": 0.005749999999999998,
+    "sd": 0.0020415749551510472,
+    "ci_excludes_zero": false
+   }
+  }
+ },
+ "coverage": {
+  "real": 0.21575,
+  "scrambled": 0.215,
+  "n_real_eligible": 863
+ },
+ "mechanism_breakdown": {
+  "n_changed_pick": 495,
+  "n_changed_and_correct": 22,
+  "n_changed_but_base_was_correct": 19
+ },
+ "between_draw_spread": {
+  "seeds": [
+   20260815,
+   71,
+   137,
+   20260101,
+   999983
+  ],
+  "accs": [
+   0.04875,
+   0.04875,
+   0.04925,
+   0.04875,
+   0.04875
+  ],
+  "sd": 0.00020000000000000017
+ },
+ "coherence_bar": 0.087,
+ "arm_digests": {
+  "A1_BASE": "22f30a82296372ee",
+  "A6_TRIGRAM_ONLY": "5719b631a499e118",
+  "RANDOM_TOP50": "e40585aaf178918c",
+  "RERANK_COH": "18174eb19cddab97",
+  "SCRAMBLE_CONTEXT_COH": "56fd54d91f0a5401"
+ },
+ "arms_bit_identical": [],
+ "per_arm_example_picks": {
+  "A1_BASE": [
+   "palm",
+   "highclere",
+   "work",
+   "might",
+   "chromosomal",
+   "more",
+   "metre",
+   "gain",
+   "presence",
+   "limitation",
+   "farm",
+   "pigment",
+   "fold",
+   "endemic",
+   "mouse"
+  ],
+  "A6_TRIGRAM_ONLY": [
+   "don",
+   "able",
+   "capability",
+   "capable",
+   "abnormal",
+   "busy",
+   "burn",
+   "broad",
+   "absent",
+   "absence",
+   "solute",
+   "absorption",
+   "absorb",
+   "abundant",
+   "use"
+  ],
+  "RANDOM_TOP50": [
+   "climate",
+   "movie",
+   "less",
+   "four",
+   "mendel",
+   "many",
+   "town",
+   "strydom",
+   "release",
+   "voice",
+   "farm",
+   "thylakoid",
+   "innate",
+   "china",
+   "ethical"
+  ],
+  "RERANK_COH": [
+   "palm",
+   "highclere",
+   "social",
+   "might",
+   "chromosomal",
+   "more",
+   "metre",
+   "gain",
+   "presence",
+   "sophisticate",
+   "farm",
+   "pigment",
+   "fold",
+   "endemic",
+   "mouse"
+  ],
+  "SCRAMBLE_CONTEXT_COH": [
+   "palm",
+   "highclere",
+   "work",
+   "might",
+   "chromosomal",
+   "more",
+   "metre",
+   "gain",
+   "presence",
+   "limitation",
+   "paul",
+   "pigment",
+   "fold",
+   "endemic",
+   "mouse"
+  ]
+ },
+ "elapsed_s": 1525.76,
+ "ts_iso": "2026-08-15T16:47:52.866441+00:00",
+ "anchor_name": "exp_coherence_final_pick_transfer_v1",
+ "run_mode": "full"
+}

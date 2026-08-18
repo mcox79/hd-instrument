@@ -1,0 +1,832 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "n=600 anchors=647 | S0=0.7083 (live baseline; landed pre-flip 0.6395, graded-ON target 0.698) scramble=0.4500 frequency=0.5000 chance=0.50 | best_beta=512 dS=-0.0367 CI=[-0.0800,0.0084] dC=0.1817 CI=[0.1383,0.2217] S2-S0=-0.2183 | between_draw_sd(S0)=0.0306 (n_draws=2) | entropy 0.005..1.000 gate=True | OPEN-VOCAB O0=0.09833 floor=0.00167 best O1=0.09833 | SISTER ERRORS 22, CONVERTED 0 (rate 0.0000) vs content-blind control 0 (rate 0.0000) | median target rank 84/647 | self_retrieval=0.9067 | dS=-0.0367 (CI includes 0) dC=0.1817; between_draw_sd=0.0306; sister conversion 0.0000 (control 0.0000): neither the HARD_PASS conjunction nor the SNR-wall conjunction is met",
+  "summary": "does a sharpening (dense/modern-Hopfield) read-out separate paradigmatic sisters that plain argmax cannot, or are we at the codebook SNR wall?",
+  "elapsed_s": 313.408,
+  "run_mode": "smoke",
+  "anchor_name": "exp_sharpening_readout_sister_separation_v1",
+  "prereg": "preregs/2026-08-14_sharpening_readout_sister_separation.md",
+  "prereg_commit": "ab0e7507c",
+  "ts_iso": "2026-08-14T15:10:50.125906+00:00",
+  "hdlab_modified": false,
+  "n_items": 600,
+  "n_anchors": 647,
+  "chance": 0.5,
+  "arm_accuracy_2afc": {
+    "S0_ARGMAX_BASELINE": 0.708333,
+    "SF_SCRAMBLE_FLOOR": 0.45,
+    "SF_FREQUENCY_FLOOR": 0.5,
+    "S1_SHARPEN_b0.5": 0.461667,
+    "S2_SCRAMBLED_b0.5": 0.461667,
+    "S3_TWOCAND_b0.5": 0.708333,
+    "S1_SHARPEN_b2": 0.461667,
+    "S2_SCRAMBLED_b2": 0.461667,
+    "S3_TWOCAND_b2": 0.708333,
+    "S1_SHARPEN_b8": 0.466667,
+    "S2_SCRAMBLED_b8": 0.461667,
+    "S3_TWOCAND_b8": 0.708333,
+    "S1_SHARPEN_b32": 0.476667,
+    "S2_SCRAMBLED_b32": 0.465,
+    "S3_TWOCAND_b32": 0.708333,
+    "S1_SHARPEN_b128": 0.543333,
+    "S2_SCRAMBLED_b128": 0.466667,
+    "S3_TWOCAND_b128": 0.708333,
+    "S1_SHARPEN_b512": 0.671667,
+    "S2_SCRAMBLED_b512": 0.49,
+    "S3_TWOCAND_b512": 0.708333,
+    "S1_SHARPEN_b2048": 0.646667,
+    "S2_SCRAMBLED_b2048": 0.506667,
+    "S3_TWOCAND_b2048": 0.708333,
+    "S1_SHARPEN_b8192": 0.646667,
+    "S2_SCRAMBLED_b8192": 0.491667,
+    "S3_TWOCAND_b8192": 0.708333,
+    "S1_SHARPEN_b32768": 0.645,
+    "S2_SCRAMBLED_b32768": 0.49,
+    "S3_TWOCAND_b32768": 0.708333
+  },
+  "open_vocab_hit_at_1": {
+    "O0_ARGMAX": 0.098333,
+    "OF_SCRAMBLE_FLOOR": 0.001667,
+    "O1_SHARPEN_b0.5": 0.0,
+    "O2_SCRAMBLED_b0.5": 0.0,
+    "O1_SHARPEN_b2": 0.0,
+    "O2_SCRAMBLED_b2": 0.0,
+    "O1_SHARPEN_b8": 0.0,
+    "O2_SCRAMBLED_b8": 0.0,
+    "O1_SHARPEN_b32": 0.0,
+    "O2_SCRAMBLED_b32": 0.0,
+    "O1_SHARPEN_b128": 0.018333,
+    "O2_SCRAMBLED_b128": 0.0,
+    "O1_SHARPEN_b512": 0.093333,
+    "O2_SCRAMBLED_b512": 0.0,
+    "O1_SHARPEN_b2048": 0.098333,
+    "O2_SCRAMBLED_b2048": 0.0,
+    "O1_SHARPEN_b8192": 0.098333,
+    "O2_SCRAMBLED_b8192": 0.0,
+    "O1_SHARPEN_b32768": 0.098333,
+    "O2_SCRAMBLED_b32768": 0.0
+  },
+  "arm_labels": {
+    "S0_ARGMAX_BASELINE": "live read-out unchanged (canonicalize_fast, 2 eligible)",
+    "S1_SHARPEN_b<beta>": "one-step modern-Hopfield update over ALL anchors (hdlab.modern_hopfield_readout), then argmax over the 2",
+    "S2_SCRAMBLED_b<beta>": "THE DECIDING CONTROL: identical update with the anchor-score vector permuted before the softmax -- entropy EXACTLY equal by construction, content-blind",
+    "S3_TWOCAND_b<beta>": "PINNED BY CONSTRUCTION: softmax over the 2 eligible scores; softmax is monotone so this IS argmax at every beta",
+    "SF_SCRAMBLE_FLOOR": "donor-sentence query (deterministic derangement)",
+    "SF_FREQUENCY_FLOOR": "pick the corpus-more-frequent candidate",
+    "O0/O1/O2": "the same three read-outs with ALL anchors eligible (open vocabulary)"
+  },
+  "beta_sweep": {
+    "betas": [
+      0.5,
+      2.0,
+      8.0,
+      32.0,
+      128.0,
+      512.0,
+      2048.0,
+      8192.0,
+      32768.0
+    ],
+    "mean_normalised_entropy": {
+      "beta_0.5": 1.0,
+      "beta_2": 0.999995,
+      "beta_8": 0.999919,
+      "beta_32": 0.998676,
+      "beta_128": 0.971195,
+      "beta_512": 0.554638,
+      "beta_2048": 0.083556,
+      "beta_8192": 0.018079,
+      "beta_32768": 0.005009
+    },
+    "entropy_gate": {
+      "min": 0.005009,
+      "max": 1.0,
+      "need_above": 0.8,
+      "need_below": 0.2,
+      "gate_passed": true,
+      "per_beta": {
+        "beta_0.5": 1.0,
+        "beta_2": 0.999995,
+        "beta_8": 0.999919,
+        "beta_32": 0.998676,
+        "beta_128": 0.971195,
+        "beta_512": 0.554638,
+        "beta_2048": 0.083556,
+        "beta_8192": 0.018079,
+        "beta_32768": 0.005009
+      }
+    },
+    "per_beta_delta_vs_baseline": {
+      "beta_0.5": {
+        "delta": -0.246667,
+        "ci_lo": -0.301667,
+        "ci_hi": -0.191667,
+        "sd": 0.028013,
+        "mde_95": 0.054905,
+        "ci_excludes_zero": true
+      },
+      "beta_2": {
+        "delta": -0.246667,
+        "ci_lo": -0.301667,
+        "ci_hi": -0.191667,
+        "sd": 0.028013,
+        "mde_95": 0.054905,
+        "ci_excludes_zero": true
+      },
+      "beta_8": {
+        "delta": -0.241667,
+        "ci_lo": -0.298333,
+        "ci_hi": -0.186667,
+        "sd": 0.027946,
+        "mde_95": 0.054774,
+        "ci_excludes_zero": true
+      },
+      "beta_32": {
+        "delta": -0.231667,
+        "ci_lo": -0.288333,
+        "ci_hi": -0.178333,
+        "sd": 0.027547,
+        "mde_95": 0.053991,
+        "ci_excludes_zero": true
+      },
+      "beta_128": {
+        "delta": -0.165,
+        "ci_lo": -0.216667,
+        "ci_hi": -0.113292,
+        "sd": 0.026186,
+        "mde_95": 0.051325,
+        "ci_excludes_zero": true
+      },
+      "beta_512": {
+        "delta": -0.036667,
+        "ci_lo": -0.08,
+        "ci_hi": 0.008375,
+        "sd": 0.022089,
+        "mde_95": 0.043294,
+        "ci_excludes_zero": false
+      },
+      "beta_2048": {
+        "delta": -0.061667,
+        "ci_lo": -0.106667,
+        "ci_hi": -0.016667,
+        "sd": 0.022814,
+        "mde_95": 0.044715,
+        "ci_excludes_zero": true
+      },
+      "beta_8192": {
+        "delta": -0.061667,
+        "ci_lo": -0.106667,
+        "ci_hi": -0.015,
+        "sd": 0.023273,
+        "mde_95": 0.045616,
+        "ci_excludes_zero": true
+      },
+      "beta_32768": {
+        "delta": -0.063333,
+        "ci_lo": -0.108333,
+        "ci_hi": -0.018333,
+        "sd": 0.023291,
+        "mde_95": 0.04565,
+        "ci_excludes_zero": true
+      }
+    },
+    "best_beta_2afc": 512.0,
+    "best_beta_open_vocab": 2048.0,
+    "logit_scale_note": "logits = beta * cos / sqrt(256); entropy is REPORTED, never assumed (multi_hop.py beta=n_dim trap)"
+  },
+  "headline_deltas": {
+    "dS_best_S1_minus_S0": {
+      "delta": -0.036667,
+      "ci_lo": -0.08,
+      "ci_hi": 0.008375,
+      "sd": 0.022089,
+      "mde_95": 0.043294,
+      "ci_excludes_zero": false
+    },
+    "dC_best_S1_minus_S2": {
+      "delta": 0.181667,
+      "ci_lo": 0.138333,
+      "ci_hi": 0.221667,
+      "sd": 0.021016,
+      "mde_95": 0.041191,
+      "ci_excludes_zero": true
+    },
+    "S2_at_best_minus_S0": -0.218333
+  },
+  "floors": {
+    "chance": 0.5,
+    "in_cell_scramble": 0.45,
+    "frequency": 0.5,
+    "between_anchor_draw_sd_S0": 0.030641,
+    "between_anchor_draw_sd_dS": 0.001178,
+    "n_draws": 2,
+    "per_draw_S0": [
+      0.708333,
+      0.665
+    ],
+    "per_draw_dS": [
+      -0.036667,
+      -0.038333
+    ],
+    "draw_axis_note": "context_vector's projection is a sha256(word)-seeded bipolar draw with NO salt (hdlab/grounding_acquisition_loop.py:155), so no projection seed exists to vary without forking the live encoder; the redraw axis is ANCHOR CONSTRUCTION (independent profile/eval split seeds, space rebuilt)"
+  },
+  "sister_error_conversion": {
+    "definition": "sister(target) = WordNet LOOSE sibling set (pairs_loose, the predecessor's own criterion). Among items where the OPEN-VOCAB baseline was WRONG and its pick is a sister of the target, how many does the sharpened read-out get RIGHT?",
+    "n_open_vocab_errors": 541,
+    "n_sister_errors": 22,
+    "n_converted_best_beta": 0,
+    "conversion_rate": 0.0,
+    "n_converted_content_blind_control": 0,
+    "conversion_rate_control": 0.0,
+    "per_beta": {
+      "beta_0.5": {
+        "converted_by_O1": 0,
+        "converted_by_O2_control": 0
+      },
+      "beta_2": {
+        "converted_by_O1": 0,
+        "converted_by_O2_control": 0
+      },
+      "beta_8": {
+        "converted_by_O1": 0,
+        "converted_by_O2_control": 0
+      },
+      "beta_32": {
+        "converted_by_O1": 0,
+        "converted_by_O2_control": 0
+      },
+      "beta_128": {
+        "converted_by_O1": 0,
+        "converted_by_O2_control": 0
+      },
+      "beta_512": {
+        "converted_by_O1": 0,
+        "converted_by_O2_control": 0
+      },
+      "beta_2048": {
+        "converted_by_O1": 0,
+        "converted_by_O2_control": 0
+      },
+      "beta_8192": {
+        "converted_by_O1": 0,
+        "converted_by_O2_control": 0
+      },
+      "beta_32768": {
+        "converted_by_O1": 0,
+        "converted_by_O2_control": 0
+      }
+    },
+    "comparison_declared_in_prereg": "the prior rank-1 common-mode cell converted ZERO"
+  },
+  "open_vocab_bootstrap": {
+    "n_boot": 1000,
+    "seed": 20260815,
+    "arm_acc_ci": {
+      "O0_ARGMAX": {
+        "acc": 0.098333,
+        "ci_lo": 0.075,
+        "ci_hi": 0.123333,
+        "sd": 0.012402
+      },
+      "O1_BEST": {
+        "acc": 0.098333,
+        "ci_lo": 0.075,
+        "ci_hi": 0.123333,
+        "sd": 0.012402
+      },
+      "O2_BEST": {
+        "acc": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0,
+        "sd": 0.0
+      },
+      "OF_SCRAMBLE_FLOOR": {
+        "acc": 0.001667,
+        "ci_lo": 0.0,
+        "ci_hi": 0.005,
+        "sd": 0.00159
+      }
+    },
+    "deltas": {
+      "d_O0_minus_FLOOR": {
+        "delta": 0.096667,
+        "ci_lo": 0.073333,
+        "ci_hi": 0.121667,
+        "sd": 0.0126,
+        "mde_95": 0.024697,
+        "ci_excludes_zero": true
+      },
+      "d_O1_minus_O0": {
+        "delta": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0,
+        "sd": 0.0,
+        "mde_95": 0.0,
+        "ci_excludes_zero": false
+      },
+      "d_O1_minus_O2": {
+        "delta": 0.098333,
+        "ci_lo": 0.075,
+        "ci_hi": 0.123333,
+        "sd": 0.012402,
+        "mde_95": 0.024308,
+        "ci_excludes_zero": true
+      }
+    }
+  },
+  "snr_diagnostics": {
+    "median_rank_of_target_among_all_anchors": 84.0,
+    "mean_rank_of_target": 167.52,
+    "n_anchors": 647,
+    "frac_target_outside_top50": 0.6,
+    "frac_target_rank1": 0.098333,
+    "frac_items_score_gap_below_1e-3": 0.01,
+    "mean_abs_gap_when_baseline_correct": 0.130863,
+    "mean_abs_gap_when_baseline_wrong": 0.054683
+  },
+  "bootstrap_2afc": {
+    "n_boot": 1000,
+    "seed": 20260814,
+    "arm_acc_ci": {
+      "S0_ARGMAX_BASELINE": {
+        "acc": 0.708333,
+        "ci_lo": 0.671667,
+        "ci_hi": 0.745042,
+        "sd": 0.019461
+      },
+      "S1_SHARPEN_b0.5": {
+        "acc": 0.461667,
+        "ci_lo": 0.423292,
+        "ci_hi": 0.500042,
+        "sd": 0.019857
+      },
+      "S1_SHARPEN_b128": {
+        "acc": 0.543333,
+        "ci_lo": 0.501667,
+        "ci_hi": 0.581667,
+        "sd": 0.020067
+      },
+      "S1_SHARPEN_b2": {
+        "acc": 0.461667,
+        "ci_lo": 0.423292,
+        "ci_hi": 0.500042,
+        "sd": 0.019857
+      },
+      "S1_SHARPEN_b2048": {
+        "acc": 0.646667,
+        "ci_lo": 0.606667,
+        "ci_hi": 0.683333,
+        "sd": 0.019362
+      },
+      "S1_SHARPEN_b32": {
+        "acc": 0.476667,
+        "ci_lo": 0.438333,
+        "ci_hi": 0.515,
+        "sd": 0.019746
+      },
+      "S1_SHARPEN_b32768": {
+        "acc": 0.645,
+        "ci_lo": 0.605,
+        "ci_hi": 0.681667,
+        "sd": 0.01967
+      },
+      "S1_SHARPEN_b512": {
+        "acc": 0.671667,
+        "ci_lo": 0.631667,
+        "ci_hi": 0.711667,
+        "sd": 0.019753
+      },
+      "S1_SHARPEN_b8": {
+        "acc": 0.466667,
+        "ci_lo": 0.426667,
+        "ci_hi": 0.505042,
+        "sd": 0.01994
+      },
+      "S1_SHARPEN_b8192": {
+        "acc": 0.646667,
+        "ci_lo": 0.605,
+        "ci_hi": 0.685,
+        "sd": 0.01988
+      },
+      "S2_SCRAMBLED_b0.5": {
+        "acc": 0.461667,
+        "ci_lo": 0.423292,
+        "ci_hi": 0.500042,
+        "sd": 0.019857
+      },
+      "S2_SCRAMBLED_b128": {
+        "acc": 0.466667,
+        "ci_lo": 0.428333,
+        "ci_hi": 0.506667,
+        "sd": 0.019767
+      },
+      "S2_SCRAMBLED_b2": {
+        "acc": 0.461667,
+        "ci_lo": 0.423292,
+        "ci_hi": 0.500042,
+        "sd": 0.019857
+      },
+      "S2_SCRAMBLED_b2048": {
+        "acc": 0.506667,
+        "ci_lo": 0.468333,
+        "ci_hi": 0.545,
+        "sd": 0.019841
+      },
+      "S2_SCRAMBLED_b32": {
+        "acc": 0.465,
+        "ci_lo": 0.426625,
+        "ci_hi": 0.505,
+        "sd": 0.019913
+      },
+      "S2_SCRAMBLED_b32768": {
+        "acc": 0.49,
+        "ci_lo": 0.451667,
+        "ci_hi": 0.528333,
+        "sd": 0.019616
+      },
+      "S2_SCRAMBLED_b512": {
+        "acc": 0.49,
+        "ci_lo": 0.451667,
+        "ci_hi": 0.528333,
+        "sd": 0.019633
+      },
+      "S2_SCRAMBLED_b8": {
+        "acc": 0.461667,
+        "ci_lo": 0.423292,
+        "ci_hi": 0.500042,
+        "sd": 0.019857
+      },
+      "S2_SCRAMBLED_b8192": {
+        "acc": 0.491667,
+        "ci_lo": 0.451667,
+        "ci_hi": 0.531667,
+        "sd": 0.019626
+      },
+      "SF_FREQUENCY_FLOOR": {
+        "acc": 0.5,
+        "ci_lo": 0.46,
+        "ci_hi": 0.54,
+        "sd": 0.020192
+      },
+      "SF_SCRAMBLE_FLOOR": {
+        "acc": 0.45,
+        "ci_lo": 0.41,
+        "ci_hi": 0.49,
+        "sd": 0.020194
+      }
+    },
+    "deltas": {
+      "d_S1b0.5_minus_S0": {
+        "delta": -0.246667,
+        "ci_lo": -0.301667,
+        "ci_hi": -0.191667,
+        "sd": 0.028013,
+        "mde_95": 0.054905,
+        "ci_excludes_zero": true
+      },
+      "d_S1b2_minus_S0": {
+        "delta": -0.246667,
+        "ci_lo": -0.301667,
+        "ci_hi": -0.191667,
+        "sd": 0.028013,
+        "mde_95": 0.054905,
+        "ci_excludes_zero": true
+      },
+      "d_S1b8_minus_S0": {
+        "delta": -0.241667,
+        "ci_lo": -0.298333,
+        "ci_hi": -0.186667,
+        "sd": 0.027946,
+        "mde_95": 0.054774,
+        "ci_excludes_zero": true
+      },
+      "d_S1b32_minus_S0": {
+        "delta": -0.231667,
+        "ci_lo": -0.288333,
+        "ci_hi": -0.178333,
+        "sd": 0.027547,
+        "mde_95": 0.053991,
+        "ci_excludes_zero": true
+      },
+      "d_S1b128_minus_S0": {
+        "delta": -0.165,
+        "ci_lo": -0.216667,
+        "ci_hi": -0.113292,
+        "sd": 0.026186,
+        "mde_95": 0.051325,
+        "ci_excludes_zero": true
+      },
+      "d_S1b512_minus_S0": {
+        "delta": -0.036667,
+        "ci_lo": -0.08,
+        "ci_hi": 0.008375,
+        "sd": 0.022089,
+        "mde_95": 0.043294,
+        "ci_excludes_zero": false
+      },
+      "d_S1b2048_minus_S0": {
+        "delta": -0.061667,
+        "ci_lo": -0.106667,
+        "ci_hi": -0.016667,
+        "sd": 0.022814,
+        "mde_95": 0.044715,
+        "ci_excludes_zero": true
+      },
+      "d_S1b8192_minus_S0": {
+        "delta": -0.061667,
+        "ci_lo": -0.106667,
+        "ci_hi": -0.015,
+        "sd": 0.023273,
+        "mde_95": 0.045616,
+        "ci_excludes_zero": true
+      },
+      "d_S1b32768_minus_S0": {
+        "delta": -0.063333,
+        "ci_lo": -0.108333,
+        "ci_hi": -0.018333,
+        "sd": 0.023291,
+        "mde_95": 0.04565,
+        "ci_excludes_zero": true
+      },
+      "d_S1b0.5_minus_S2b0.5": {
+        "delta": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0,
+        "sd": 0.0,
+        "mde_95": 0.0,
+        "ci_excludes_zero": false
+      },
+      "d_S1b2_minus_S2b2": {
+        "delta": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0,
+        "sd": 0.0,
+        "mde_95": 0.0,
+        "ci_excludes_zero": false
+      },
+      "d_S1b8_minus_S2b8": {
+        "delta": 0.005,
+        "ci_lo": 0.0,
+        "ci_hi": 0.011667,
+        "sd": 0.002938,
+        "mde_95": 0.005758,
+        "ci_excludes_zero": false
+      },
+      "d_S1b32_minus_S2b32": {
+        "delta": 0.011667,
+        "ci_lo": 0.0,
+        "ci_hi": 0.023333,
+        "sd": 0.005871,
+        "mde_95": 0.011507,
+        "ci_excludes_zero": false
+      },
+      "d_S1b128_minus_S2b128": {
+        "delta": 0.076667,
+        "ci_lo": 0.051667,
+        "ci_hi": 0.101667,
+        "sd": 0.013158,
+        "mde_95": 0.02579,
+        "ci_excludes_zero": true
+      },
+      "d_S1b512_minus_S2b512": {
+        "delta": 0.181667,
+        "ci_lo": 0.138333,
+        "ci_hi": 0.221667,
+        "sd": 0.021016,
+        "mde_95": 0.041191,
+        "ci_excludes_zero": true
+      },
+      "d_S1b2048_minus_S2b2048": {
+        "delta": 0.14,
+        "ci_lo": 0.091625,
+        "ci_hi": 0.191667,
+        "sd": 0.02633,
+        "mde_95": 0.051606,
+        "ci_excludes_zero": true
+      },
+      "d_S1b8192_minus_S2b8192": {
+        "delta": 0.155,
+        "ci_lo": 0.101625,
+        "ci_hi": 0.21,
+        "sd": 0.027478,
+        "mde_95": 0.053856,
+        "ci_excludes_zero": true
+      },
+      "d_S1b32768_minus_S2b32768": {
+        "delta": 0.155,
+        "ci_lo": 0.1,
+        "ci_hi": 0.208375,
+        "sd": 0.027636,
+        "mde_95": 0.054167,
+        "ci_excludes_zero": true
+      },
+      "d_S2b0.5_minus_S0": {
+        "delta": -0.246667,
+        "ci_lo": -0.301667,
+        "ci_hi": -0.191667,
+        "sd": 0.028013,
+        "mde_95": 0.054905,
+        "ci_excludes_zero": true
+      },
+      "d_S2b2_minus_S0": {
+        "delta": -0.246667,
+        "ci_lo": -0.301667,
+        "ci_hi": -0.191667,
+        "sd": 0.028013,
+        "mde_95": 0.054905,
+        "ci_excludes_zero": true
+      },
+      "d_S2b8_minus_S0": {
+        "delta": -0.246667,
+        "ci_lo": -0.301667,
+        "ci_hi": -0.191667,
+        "sd": 0.028013,
+        "mde_95": 0.054905,
+        "ci_excludes_zero": true
+      },
+      "d_S2b32_minus_S0": {
+        "delta": -0.243333,
+        "ci_lo": -0.298375,
+        "ci_hi": -0.186667,
+        "sd": 0.028028,
+        "mde_95": 0.054935,
+        "ci_excludes_zero": true
+      },
+      "d_S2b128_minus_S0": {
+        "delta": -0.241667,
+        "ci_lo": -0.296708,
+        "ci_hi": -0.188333,
+        "sd": 0.027973,
+        "mde_95": 0.054826,
+        "ci_excludes_zero": true
+      },
+      "d_S2b512_minus_S0": {
+        "delta": -0.218333,
+        "ci_lo": -0.271667,
+        "ci_hi": -0.161667,
+        "sd": 0.027419,
+        "mde_95": 0.053742,
+        "ci_excludes_zero": true
+      },
+      "d_S2b2048_minus_S0": {
+        "delta": -0.201667,
+        "ci_lo": -0.258333,
+        "ci_hi": -0.144958,
+        "sd": 0.028349,
+        "mde_95": 0.055564,
+        "ci_excludes_zero": true
+      },
+      "d_S2b8192_minus_S0": {
+        "delta": -0.216667,
+        "ci_lo": -0.275,
+        "ci_hi": -0.161667,
+        "sd": 0.028417,
+        "mde_95": 0.055697,
+        "ci_excludes_zero": true
+      },
+      "d_S2b32768_minus_S0": {
+        "delta": -0.218333,
+        "ci_lo": -0.276667,
+        "ci_hi": -0.163333,
+        "sd": 0.028341,
+        "mde_95": 0.055549,
+        "ci_excludes_zero": true
+      },
+      "d_S0_minus_SCRAMBLE": {
+        "delta": 0.258333,
+        "ci_lo": 0.201667,
+        "ci_hi": 0.311667,
+        "sd": 0.027761,
+        "mde_95": 0.054412,
+        "ci_excludes_zero": true
+      },
+      "d_S0_minus_FREQUENCY": {
+        "delta": 0.208333,
+        "ci_lo": 0.158333,
+        "ci_hi": 0.263375,
+        "sd": 0.027547,
+        "mde_95": 0.053991,
+        "ci_excludes_zero": true
+      }
+    }
+  },
+  "verdict_notes": [
+    "dS=-0.0367 (CI includes 0) dC=0.1817; between_draw_sd=0.0306; sister conversion 0.0000 (control 0.0000): neither the HARD_PASS conjunction nor the SNR-wall conjunction is met"
+  ],
+  "bands": {
+    "HARD_PASS": {
+      "dS": 0.03,
+      "dC": 0.02,
+      "sister_conversion": 0.05,
+      "and_dS_gt_2x_between_draw_sd": true
+    },
+    "SNR_WALL": {
+      "all_beta_abs_delta_below": 0.02,
+      "and_sister_conversion_at_most": 0.01,
+      "and_entropy_gate_passed": true
+    },
+    "HARD_FAIL_CONTENT_BLIND": {
+      "S2_minus_S0_ge_dS": true
+    },
+    "strict_margin_frac": 0.05,
+    "declared_in": "preregs/2026-08-14_sharpening_readout_sister_separation.md",
+    "declared_at_commit": "ab0e7507c"
+  },
+  "gates": {
+    "baseline_is_live_readout": true,
+    "n_mismatch_2afc": 0,
+    "n_mismatch_open": 0,
+    "equivalence_subsample_n": 300,
+    "trap_S3_identical_to_S0": true,
+    "n_zero_norm_query_real": 0,
+    "n_zero_norm_query_scramble": 0,
+    "arms_differ_verified": true,
+    "declared_identical_pairs": [
+      "S1==S2 at beta=0.5 (entropy 1.0000, uniform: analytically forced)",
+      "S1==S2 at beta=2 (entropy 1.0000, uniform: analytically forced)",
+      "S3==S0 at every beta (the declared trap)"
+    ]
+  },
+  "positive_control_self_retrieval": {
+    "value": 0.9067,
+    "floor": 0.7,
+    "n": 300
+  },
+  "baseline_provenance": {
+    "landed_pre_flip": 0.6395,
+    "graded_on_live_target": 0.698,
+    "NOT_USED_0.69975": "divisive-normalisation arm, NEVER SHIPPED (reading_grounding_loop.py:526 defaults normalise='none')",
+    "NOT_USED_0.7495": "the d=1024 arm, also not shipped",
+    "note": "S0 is RECOMPUTED in-run at HEAD, never quoted"
+  },
+  "organs_reused": {
+    "testbed": "experiments/exp_context_conditioned_near_neighbour_v1.py (imported whole: corpus assets, items, leak controls, space build, _ctx_masked_multi)",
+    "sharpening_readout": "hdlab.modern_hopfield_readout.ModernHopfieldReadout",
+    "read_out": "hdlab.reading_grounding_loop.canonicalize_fast",
+    "controlled_forks": [
+      "split_pools_salted (salt='' asserted byte-identical to NN.split_pools, self-test S2)",
+      "batched cosine + Hopfield (asserted equal to canonicalize_fast and to ModernHopfieldReadout, self-tests S3/S4)"
+    ]
+  },
+  "item_construction": {
+    "n_eval_sentences_considered": 19680,
+    "n_items_before_cap": 8636,
+    "n_items": 600,
+    "removals": {
+      "removed_L1_target_variant": 350,
+      "removed_L2_distractor_present": 289,
+      "removed_L3_too_few_context_words": 518,
+      "removed_no_eligible_sentence": 2,
+      "removed_sentence_reuse": 9887,
+      "removed_word_cap": 7122
+    },
+    "distinct_target_words": 213,
+    "max_items_per_word": 4
+  },
+  "frequency_arm_diag": {
+    "n_ties_fell_back_to_coin": 0
+  },
+  "n_units": 10,
+  "expected_n_units": 10,
+  "cardinality_ok": true,
+  "compute_architecture": "sequential-CPU; thread pins set before numpy import",
+  "storage_strategy": "sharded (one anchor vector per word); no_composition",
+  "selftest": {
+    "testbed_selftest_readout_moves": {
+      "query_poetlike_picked": "poet",
+      "query_riverlike_picked": "river",
+      "cos_poetlike": 0.6901,
+      "cos_riverlike": 0.7411
+    },
+    "testbed_graded_comparator": true,
+    "split_salt_identity_and_variation": true,
+    "batched_baseline_matches_canonicalize_fast": true,
+    "batched_hopfield_matches_organ": [
+      "beta=2",
+      "beta=64",
+      "beta=1024"
+    ],
+    "trap_two_candidate_softmax_is_pinned": true,
+    "fullset_hopfield_can_move": true,
+    "entropy_monotone_and_spans": [
+      1.0,
+      1.0,
+      0.7279,
+      0.0
+    ],
+    "control_entropy_matched_and_differs": true,
+    "bootstrap_selftest": {
+      "real_delta": 0.15,
+      "null_fp": 0
+    },
+    "verdict_branches_reachable": [
+      "HARD_FAIL_SHARPENING_IS_CONTENT_BLIND",
+      "HARD_PASS_SHARPENING_SEPARATES_SISTERS",
+      "MIDDLE_BAND",
+      "MIDDLE_BAND_FLOOR_HUGGING",
+      "SNR_WALL_CLEANUP_RULE_CANNOT_HELP",
+      "SWEEP_DID_NOT_SPAN_THE_RANGE"
+    ],
+    "selftest_elapsed_s": 0.338
+  }
+}

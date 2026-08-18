@@ -1,0 +1,592 @@
+{
+  "anchor_name": "encoder_swap_behind_fixed_brain_stack_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "REFUTES_USER_CLAIM: the tuned encoder beats the simple char-trigram encoder by delta_AB=+0.5513 >= 0.05 behind a bit-identical brain-faithful stack, with both null arms at floor. Training the encoder DOES buy accuracy here. [HEADLINE role_attn] A_tuned=0.6386 A0_frozen_base=0.4325 B_char_trigram=0.0873 C_ppmi=0.0514 D_random_twin=0.1807 E_scramble=0.0330 | delta_AB=+0.5513 (per-seed ['+0.4672', '+0.5979', '+0.5889']) | floors_ok=True baseline_in_band=True arms_differ_ok=True || [CEILING CONTROL span, NOT gated] {'A_tuned_ckpt': 1.0, 'A0_frozen_base': 1.0, 'B_char_trigram': 1.0, 'C_ppmi': 1.0, 'D_random_init_twin': 1.0, 'E_scramble_floor': 0.0496} | band=REFUTES_USER_CLAIM",
+  "summary": "REFUTES_USER_CLAIM: the tuned encoder beats the simple char-trigram encoder by delta_AB=+0.5513 >= 0.05 behind a bit-identical brain-faithful stack, with both null arms at floor. Training the encoder DOES buy accuracy here. [HEADLINE role_attn] A_tuned=0.6386 A0_frozen_base=0.4325 B_char_trigram=0.0873 C_ppmi=0.0514 D_random_twin=0.1807 E_scramble=0.0330 | delta_AB=+0.5513 (per-seed ['+0.4672', '+0.5979', '+0.5889']) | floors_ok=True baseline_in_band=True arms_differ_ok=True || [CEILING CONTROL span, NOT gated] {'A_tuned_ckpt': 1.0, 'A0_frozen_base': 1.0, 'B_char_trigram': 1.0, 'C_ppmi': 1.0, 'D_random_init_twin': 1.0, 'E_scramble_floor': 0.0496} | band=REFUTES_USER_CLAIM",
+  "elapsed_s": 421.436815699999,
+  "ts_iso": "2026-08-13T22:41:55.776541+00:00",
+  "run_mode": "full",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "eval_n": 80,
+  "arms": [
+    "A_tuned_ckpt",
+    "A0_frozen_base",
+    "B_char_trigram",
+    "C_ppmi",
+    "D_random_init_twin",
+    "E_scramble_floor"
+  ],
+  "discriminator_arms": [
+    "A_tuned_ckpt",
+    "B_char_trigram"
+  ],
+  "headline_readout": "role_attn",
+  "secondary_readout": "span (ceiling control, NOT gated -- see prereg amendment)",
+  "per_arm_mean_loop_mean": {
+    "A_tuned_ckpt": 0.6386066127504484,
+    "A0_frozen_base": 0.4325467813481512,
+    "B_char_trigram": 0.08727182973758317,
+    "C_ppmi": 0.05141187487077898,
+    "D_random_init_twin": 0.1806546650724733,
+    "E_scramble_floor": 0.03299791296366639
+  },
+  "per_arm_mean_loop_mean_span": {
+    "A_tuned_ckpt": 1.0,
+    "A0_frozen_base": 1.0,
+    "B_char_trigram": 1.0,
+    "C_ppmi": 1.0,
+    "D_random_init_twin": 1.0,
+    "E_scramble_floor": 0.049636418129568816
+  },
+  "per_unit": [
+    {
+      "arm": "A0_frozen_base",
+      "seed": 13,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.4,
+        "b_competitive_coref": 0.45,
+        "c_overwrite": 0.3972602739726027
+      },
+      "loop_mean": 0.4157534246575343,
+      "preds_digest": "a669fea2c8c75bb1e23f99ede2978a6b2694189dd8bda6b9dcaf6b185b61ef42",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "f12d8b5499342925f96ea2ee5699e645c587b5493132062c1fe005f04dd3a5cb",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "A0_frozen_base",
+        "seed": 7,
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+        "ckpt_sha256": "a5ed6bec534067cb6a3ab885a3a31ce1b13785ef063da8e75fc56d00c1f317d6"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 28.882376299996395
+    },
+    {
+      "arm": "A0_frozen_base",
+      "seed": 19,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.55,
+        "b_competitive_coref": 0.5125,
+        "c_overwrite": 0.4594594594594595
+      },
+      "loop_mean": 0.5073198198198198,
+      "preds_digest": "5ca162b190ad8e338f1ee110987210e1f912f43a14f4db589e36e1b66de45ef1",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "049389aee2b8c05671c5a86403323d4f574db4711855f90698acfdefccd85114",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "A0_frozen_base",
+        "seed": 7,
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+        "ckpt_sha256": "a5ed6bec534067cb6a3ab885a3a31ce1b13785ef063da8e75fc56d00c1f317d6"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 26.81808140000794
+    },
+    {
+      "arm": "A0_frozen_base",
+      "seed": 7,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.4375,
+        "b_competitive_coref": 0.3875,
+        "c_overwrite": 0.2987012987012987
+      },
+      "loop_mean": 0.37456709956709955,
+      "preds_digest": "1900cb8e309bf2fb539474d637749d596eb1c0fe5399f747f31b6f02fb3dee2a",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "b14f0345a5f382221130ccba32ecb889927e6c3a4b3f560abb6df9f420965665",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "A0_frozen_base",
+        "seed": 7,
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+        "ckpt_sha256": "a5ed6bec534067cb6a3ab885a3a31ce1b13785ef063da8e75fc56d00c1f317d6"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 32.667511999985436
+    },
+    {
+      "arm": "A_tuned_ckpt",
+      "seed": 13,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.65,
+        "b_competitive_coref": 0.625,
+        "c_overwrite": 0.7123287671232876
+      },
+      "loop_mean": 0.6624429223744291,
+      "preds_digest": "5107d00a0e7449e142e9e0d98957f84f137794eeeed29800a9111ad3585123e3",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "f12d8b5499342925f96ea2ee5699e645c587b5493132062c1fe005f04dd3a5cb",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "A_tuned_ckpt",
+        "seed": 7,
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+        "ckpt_sha256": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc",
+        "state_dict_differs_from_frozen_base": true
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 27.13535729999421
+    },
+    {
+      "arm": "A_tuned_ckpt",
+      "seed": 19,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.6875,
+        "b_competitive_coref": 0.6375,
+        "c_overwrite": 0.6891891891891891
+      },
+      "loop_mean": 0.6713963963963964,
+      "preds_digest": "9c72eae000d8688c1ca732a1a320ed0fea3572aa8e2037dd1a60194f88fb8632",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "049389aee2b8c05671c5a86403323d4f574db4711855f90698acfdefccd85114",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "A_tuned_ckpt",
+        "seed": 7,
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+        "ckpt_sha256": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc",
+        "state_dict_differs_from_frozen_base": true
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 26.474602699978277
+    },
+    {
+      "arm": "A_tuned_ckpt",
+      "seed": 7,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.6375,
+        "b_competitive_coref": 0.55,
+        "c_overwrite": 0.5584415584415584
+      },
+      "loop_mean": 0.5819805194805195,
+      "preds_digest": "e65fad40fb6b7c4fbce341c8a5ead7658e5d4d6a59c364ecbddf1b13c0f07a38",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "b14f0345a5f382221130ccba32ecb889927e6c3a4b3f560abb6df9f420965665",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "A_tuned_ckpt",
+        "seed": 7,
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+        "ckpt_sha256": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc",
+        "state_dict_differs_from_frozen_base": true
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 37.76769149999018
+    },
+    {
+      "arm": "B_char_trigram",
+      "seed": 13,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.0375,
+        "b_competitive_coref": 0.0875,
+        "c_overwrite": 0.0684931506849315
+      },
+      "loop_mean": 0.06449771689497717,
+      "preds_digest": "8160c6b181c459968c4659ff165ddf033519311ab42a3dc708a2a1652954e1c7",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "f12d8b5499342925f96ea2ee5699e645c587b5493132062c1fe005f04dd3a5cb",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "B_char_trigram",
+        "seed": 7,
+        "encoder": "hdlab.char_trigram_encoder.CharTrigramEncoder(n_dim=512)"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 1.8111893000022974
+    },
+    {
+      "arm": "B_char_trigram",
+      "seed": 19,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.0625,
+        "b_competitive_coref": 0.05,
+        "c_overwrite": 0.13513513513513514
+      },
+      "loop_mean": 0.08254504504504505,
+      "preds_digest": "e7d978ed06c867c8f13422574a887f67ca141c07d097150be4b281b7f435d3ea",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "049389aee2b8c05671c5a86403323d4f574db4711855f90698acfdefccd85114",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "B_char_trigram",
+        "seed": 7,
+        "encoder": "hdlab.char_trigram_encoder.CharTrigramEncoder(n_dim=512)"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 1.7857359000190627
+    },
+    {
+      "arm": "B_char_trigram",
+      "seed": 7,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.1,
+        "b_competitive_coref": 0.0625,
+        "c_overwrite": 0.18181818181818182
+      },
+      "loop_mean": 0.11477272727272729,
+      "preds_digest": "c2f7c5d460fcb6cb3d1faf361105bd930d2fd976b2fba2347e88bba5a6619bdf",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "b14f0345a5f382221130ccba32ecb889927e6c3a4b3f560abb6df9f420965665",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "B_char_trigram",
+        "seed": 7,
+        "encoder": "hdlab.char_trigram_encoder.CharTrigramEncoder(n_dim=512)"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 2.5580835999862757
+    },
+    {
+      "arm": "C_ppmi",
+      "seed": 13,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.025,
+        "b_competitive_coref": 0.0375,
+        "c_overwrite": 0.0821917808219178
+      },
+      "loop_mean": 0.04823059360730594,
+      "preds_digest": "aee4c026e5521c6ab2afe644d818f20bd90471c37ad33054f8670d3d1390036c",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "f12d8b5499342925f96ea2ee5699e645c587b5493132062c1fe005f04dd3a5cb",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "C_ppmi",
+        "seed": 7,
+        "encoder": "hdlab.ppmi_sparse_encoder.PPMISparseEncoder(n_dim=512)",
+        "ppmi_vocab": 262,
+        "ppmi_effective_n_dim": 262
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 1.8124793999886606
+    },
+    {
+      "arm": "C_ppmi",
+      "seed": 19,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.0625,
+        "b_competitive_coref": 0.05,
+        "c_overwrite": 0.05405405405405406
+      },
+      "loop_mean": 0.05551801801801801,
+      "preds_digest": "b2d60a96fd9ff9da9ec40e6d247848f6b6b5b043a389fb55705198006465a6b4",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "049389aee2b8c05671c5a86403323d4f574db4711855f90698acfdefccd85114",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "C_ppmi",
+        "seed": 7,
+        "encoder": "hdlab.ppmi_sparse_encoder.PPMISparseEncoder(n_dim=512)",
+        "ppmi_vocab": 262,
+        "ppmi_effective_n_dim": 262
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 1.7247371000121348
+    },
+    {
+      "arm": "C_ppmi",
+      "seed": 7,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.0625,
+        "b_competitive_coref": 0.05,
+        "c_overwrite": 0.03896103896103896
+      },
+      "loop_mean": 0.05048701298701299,
+      "preds_digest": "f3c3eb28282a3d57df90f093db6c416cf2170d65f28fc529574ca51e524b9f23",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "b14f0345a5f382221130ccba32ecb889927e6c3a4b3f560abb6df9f420965665",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "C_ppmi",
+        "seed": 7,
+        "encoder": "hdlab.ppmi_sparse_encoder.PPMISparseEncoder(n_dim=512)",
+        "ppmi_vocab": 262,
+        "ppmi_effective_n_dim": 262
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 2.736633399996208
+    },
+    {
+      "arm": "D_random_init_twin",
+      "seed": 13,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.1625,
+        "b_competitive_coref": 0.125,
+        "c_overwrite": 0.1643835616438356
+      },
+      "loop_mean": 0.15062785388127853,
+      "preds_digest": "0006526978773f45d01cfecded1cef03a541f4ca956c87220ce069d14ea133cd",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "f12d8b5499342925f96ea2ee5699e645c587b5493132062c1fe005f04dd3a5cb",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "D_random_init_twin",
+        "seed": 7,
+        "encoder": "V2Transformer(same model_cfg as arm A), UNTRAINED random init"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 27.9720604000031
+    },
+    {
+      "arm": "D_random_init_twin",
+      "seed": 19,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.15,
+        "b_competitive_coref": 0.225,
+        "c_overwrite": 0.21621621621621623
+      },
+      "loop_mean": 0.19707207207207209,
+      "preds_digest": "7ea3c8e9eaab882353f6f76c804137acb1bab8b456578b5972e89e0be4902994",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "049389aee2b8c05671c5a86403323d4f574db4711855f90698acfdefccd85114",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "D_random_init_twin",
+        "seed": 7,
+        "encoder": "V2Transformer(same model_cfg as arm A), UNTRAINED random init"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 26.766187999979593
+    },
+    {
+      "arm": "D_random_init_twin",
+      "seed": 7,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.2,
+        "b_competitive_coref": 0.175,
+        "c_overwrite": 0.2077922077922078
+      },
+      "loop_mean": 0.19426406926406928,
+      "preds_digest": "804d569129a09643f415987bd4379134445276075a155b59fbe16589aaa79fde",
+      "per_type_span": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "loop_mean_span": 1.0,
+      "preds_digest_span": "b14f0345a5f382221130ccba32ecb889927e6c3a4b3f560abb6df9f420965665",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "D_random_init_twin",
+        "seed": 7,
+        "encoder": "V2Transformer(same model_cfg as arm A), UNTRAINED random init"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 37.81201000002329
+    },
+    {
+      "arm": "E_scramble_floor",
+      "seed": 13,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.0375,
+        "b_competitive_coref": 0.025,
+        "c_overwrite": 0.0684931506849315
+      },
+      "loop_mean": 0.04366438356164384,
+      "preds_digest": "61d5e21b67d664570a7cf85551f9799a503b8775c5d435231199d5bb9a6ed86d",
+      "per_type_span": {
+        "a_name_maintenance": 0.025,
+        "b_competitive_coref": 0.0625,
+        "c_overwrite": 0.0136986301369863
+      },
+      "loop_mean_span": 0.03373287671232877,
+      "preds_digest_span": "8780a74b1a1a4728ece7c636f1969bb5f171c78a64ae3348bde38c5f0f4d6c89",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "E_scramble_floor",
+        "seed": 7,
+        "encoder": "arm A tuned weights; the request<->sentence correspondence is deranged inside _encode_raw (text scramble)",
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+        "ckpt_sha256": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 26.08751990000019
+    },
+    {
+      "arm": "E_scramble_floor",
+      "seed": 19,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.0,
+        "b_competitive_coref": 0.0125,
+        "c_overwrite": 0.02702702702702703
+      },
+      "loop_mean": 0.013175675675675675,
+      "preds_digest": "6575c7aaea40d8ee728addddf6276611d4010911e60d76f784895ef108aa647d",
+      "per_type_span": {
+        "a_name_maintenance": 0.0375,
+        "b_competitive_coref": 0.0375,
+        "c_overwrite": 0.08108108108108109
+      },
+      "loop_mean_span": 0.05202702702702703,
+      "preds_digest_span": "cd7119a3ebc84a2f5b54ca7de56d84420ab35851c1720c7895aa9bfdf5dbeecb",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "E_scramble_floor",
+        "seed": 7,
+        "encoder": "arm A tuned weights; the request<->sentence correspondence is deranged inside _encode_raw (text scramble)",
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+        "ckpt_sha256": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 25.502663699997356
+    },
+    {
+      "arm": "E_scramble_floor",
+      "seed": 7,
+      "eval_n": 80,
+      "per_type": {
+        "a_name_maintenance": 0.05,
+        "b_competitive_coref": 0.0375,
+        "c_overwrite": 0.03896103896103896
+      },
+      "loop_mean": 0.042153679653679645,
+      "preds_digest": "6f63b43bf414f2ac1050275700c27e75f18d536fe22c384191974f4498cb55b8",
+      "per_type_span": {
+        "a_name_maintenance": 0.0625,
+        "b_competitive_coref": 0.075,
+        "c_overwrite": 0.05194805194805195
+      },
+      "loop_mean_span": 0.06314935064935066,
+      "preds_digest_span": "e3410b6a6e00387d883159ec9746eb9974c2a8c44edf4bb3ee36e9d579da9b7d",
+      "headline_readout": "role_attn",
+      "diag": {
+        "arm": "E_scramble_floor",
+        "seed": 7,
+        "encoder": "arm A tuned weights; the request<->sentence correspondence is deranged inside _encode_raw (text scramble)",
+        "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+        "ckpt_sha256": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc"
+      },
+      "n_held_colors": 10,
+      "elapsed_s": 33.16065710000112
+    }
+  ],
+  "arm_a_ckpt_paths": {
+    "7": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+    "13": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_13.pt",
+    "19": "D:\\AI\\hd-instrument\\data\\exp_encoder_retrain_persist_v1\\ckpt_seed_19.pt"
+  },
+  "arm_a_ckpt_sha256": {
+    "7": "29fbefbcb89c7b547e1f271f9e2afadb3c7a6084f86b9eef13d10165135bfdfc",
+    "13": "9460ed648870f637a1ea27594dfdac10f25af1ef8d5b9485502437324ea90763",
+    "19": "97de6d1d6b728efa9e9f23d8ca07acc060d10fbad187a637efdc9a55e07167fe"
+  },
+  "forbidden_ckpt_sha256": {
+    "f03051248c26a756d09d0076697cb470b477405cbaa289376e4a876bef3cb17a": "data/exp_scale_meaning_learn_arc_heldout_v3_relobj/ckpt_seed_7.pt"
+  },
+  "prereg": "preregs/2026-08-13_encoder_swap_behind_fixed_brain_stack.md",
+  "bands": {
+    "REFUTES_MIN_DELTA": 0.05,
+    "CONFIRMS_MAX_DELTA": 0.03,
+    "FLOOR_MARGIN": 0.05,
+    "BASELINE_BAND": [
+      0.05,
+      0.95
+    ]
+  },
+  "expected_n_units": 18,
+  "actual_n_units": 18,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_floor_computed": 0.05,
+  "crlb_formula_reference": "chance = 1/len(COLORS) for a colour argmax readout",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "scope": "situation-model assembly, held-out colours, role_attn readout; encoder-type is the ONLY varied factor"
+}

@@ -1,0 +1,34 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "module-import self-test ran successfully",
+  "summary": "self_test",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "selftest": {
+    "n_shards": 14,
+    "leak_regex_fires": true,
+    "selftest_cos": {
+      "self": 1.0,
+      "car_truck": 0.5255,
+      "car_dog": 0.0134
+    },
+    "w_rare": 6.6439,
+    "w_common": 4.3219,
+    "forbidden_assertion_fires": true,
+    "grounded_raw_sofa_couch": 0.9677,
+    "simlex_pairs": 999,
+    "pairs_both_grounded": 999,
+    "bootstrap_selftest": {
+      "good_vs_noise_ci_low": 0.577,
+      "self_delta_includes_zero": true
+    },
+    "verdict_bands_reachable": [
+      "HARD_FAIL",
+      "HARD_PASS",
+      "MIDDLE_BAND",
+      "SUPPLY_REAL_BUT_THIN"
+    ],
+    "validity_preflight_ok": true,
+    "selftest_elapsed_s": 0.099
+  }
+}

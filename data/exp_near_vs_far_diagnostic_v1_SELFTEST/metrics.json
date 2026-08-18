@@ -1,0 +1,48 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "module-import self-test ran successfully",
+  "summary": "self_test",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "selftest": {
+    "parent_metrics_ok": true,
+    "wordnet_version": "3.0",
+    "selftest_split": {
+      "sofa_couch": true,
+      "couch_chair": true,
+      "couch_democracy": false,
+      "happy_cheerful": false,
+      "wnsim_sofa_couch": 1.0,
+      "wnsim_couch_chair": 0.3333333333333333,
+      "wnsim_couch_democracy": 0.07142857142857142
+    },
+    "simlex_fields_ok": {
+      "n": 999,
+      "concQ_values": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "pos_values": [
+        "A",
+        "N",
+        "V"
+      ]
+    },
+    "grounded_raw_sofa_couch": 0.9677,
+    "pairs_both_grounded": 999,
+    "half_scorer": {
+      "good_ci_lo": 0.9981,
+      "noise_excludes_zero": false,
+      "sd_n80": 0.107,
+      "sd_n12": 0.3105
+    },
+    "reads_reachable": [
+      "MIXED",
+      "NEAR_COLLAPSE",
+      "NEAR_SURVIVES"
+    ],
+    "selftest_elapsed_s": 0.208
+  }
+}

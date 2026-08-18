@@ -1,0 +1,264 @@
+{
+ "anchor_name": "exp_graded_path_vs_orthographic_floor_v1",
+ "run_mode": "full",
+ "prereg": "preregs/2026-08-14_exp_graded_path_vs_orthographic_floor_v1.md",
+ "premise_correction": "GRADED_COMPARATOR is default-ON as of 38f7a0d5c, NOT default-OFF as the dispatch brief assumed; A1_GRADED_ON is a reproduction, A9_GRADED_OFF is the novel arm. See prereg section 0.",
+ "ts_iso": "2026-08-15T00:45:53.654278+00:00",
+ "GRADED_COMPARATOR_at_import": true,
+ "n_items": 4000,
+ "n_anchors": 5491,
+ "item_construction": {
+  "n_anchors": 5491,
+  "n_items_before_cap": 4603,
+  "n_items": 4000,
+  "removals": {
+   "foil_direction_fallback": 53,
+   "removed_L_not_in_wordnet": 404,
+   "removed_no_gold_anchor": 484
+  },
+  "n_items_with_heldout_sentence": 4000
+ },
+ "a1_graded_on_reproduces_c3_headline_0480_exactly": true,
+ "self_retrieval": {
+  "ON": {
+   "acc": 0.7859531772575251,
+   "n": 299,
+   "ok": true
+  },
+  "OFF": {
+   "acc": 0.7357859531772575,
+   "n": 299,
+   "ok": true
+  },
+  "floor": 0.7
+ },
+ "projdraw": {
+  "ON": {
+   "draws": [
+    0.0515,
+    0.0525,
+    0.05025
+   ],
+   "sd": 0.0009204467514322696
+  },
+  "OFF": {
+   "draws": [
+    0.03975,
+    0.0415,
+    0.0455
+   ],
+   "sd": 0.002406588179698941
+  }
+ },
+ "bootstrap": {
+  "n_boot": 5000,
+  "seed": 20260819,
+  "n_items": 4000,
+  "arm_acc_ci": {
+   "A1_GRADED_ON": {
+    "acc": 0.048,
+    "ci_lo": 0.04125,
+    "ci_hi": 0.05475,
+    "sd": 0.003414134660129855
+   },
+   "A5_STRINGCTRL": {
+    "acc": 0.087,
+    "ci_lo": 0.07825,
+    "ci_hi": 0.096,
+    "sd": 0.004548074150395966
+   },
+   "A7_PREFIX_ONLY": {
+    "acc": 0.05875,
+    "ci_lo": 0.0515,
+    "ci_hi": 0.066,
+    "sd": 0.0037216867409146626
+   },
+   "A9_GRADED_OFF": {
+    "acc": 0.0465,
+    "ci_lo": 0.04,
+    "ci_hi": 0.0535,
+    "sd": 0.003377827165501515
+   },
+   "F_FREQUENCY": {
+    "acc": 0.0185,
+    "ci_lo": 0.0145,
+    "ci_hi": 0.02275,
+    "sd": 0.002085815188361615
+   },
+   "F_SCRAMBLE_OFF": {
+    "acc": 0.01375,
+    "ci_lo": 0.0105,
+    "ci_hi": 0.01725,
+    "sd": 0.0018001824844998354
+   },
+   "F_SCRAMBLE_ON": {
+    "acc": 0.01375,
+    "ci_lo": 0.0105,
+    "ci_hi": 0.01725,
+    "sd": 0.0018001824844998354
+   }
+  },
+  "deltas": {
+   "d_A1_GRADED_ON_minus_A9_GRADED_OFF": {
+    "delta": 0.0015000000000000013,
+    "ci_lo": -0.005500000000000005,
+    "ci_hi": 0.00825,
+    "sd": 0.0034969082884027717,
+    "ci_excludes_zero": false
+   },
+   "d_A1_GRADED_ON_minus_A5_STRINGCTRL": {
+    "delta": -0.03899999999999999,
+    "ci_lo": -0.049999999999999996,
+    "ci_hi": -0.028249999999999997,
+    "sd": 0.005527632291496965,
+    "ci_excludes_zero": true
+   },
+   "d_A9_GRADED_OFF_minus_A5_STRINGCTRL": {
+    "delta": -0.040499999999999994,
+    "ci_lo": -0.051250000000000004,
+    "ci_hi": -0.029750000000000006,
+    "sd": 0.005618729356135601,
+    "ci_excludes_zero": true
+   },
+   "d_A1_GRADED_ON_minus_A7_PREFIX_ONLY": {
+    "delta": -0.010749999999999996,
+    "ci_lo": -0.020500000000000004,
+    "ci_hi": -0.0005000000000000004,
+    "sd": 0.005010955349032758,
+    "ci_excludes_zero": true
+   },
+   "d_A1_GRADED_ON_minus_F_FREQUENCY": {
+    "delta": 0.029500000000000002,
+    "ci_lo": 0.021750000000000002,
+    "ci_hi": 0.03725,
+    "sd": 0.003928612347572614,
+    "ci_excludes_zero": true
+   },
+   "d_A9_GRADED_OFF_minus_F_FREQUENCY": {
+    "delta": 0.028,
+    "ci_lo": 0.020499999999999997,
+    "ci_hi": 0.03575624999999991,
+    "sd": 0.0039622424660790264,
+    "ci_excludes_zero": true
+   },
+   "d_A1_GRADED_ON_minus_F_SCRAMBLE_ON": {
+    "delta": 0.03425,
+    "ci_lo": 0.026750000000000003,
+    "ci_hi": 0.042,
+    "sd": 0.003869162688489591,
+    "ci_excludes_zero": true
+   },
+   "d_A9_GRADED_OFF_minus_F_SCRAMBLE_OFF": {
+    "delta": 0.03275,
+    "ci_lo": 0.02525,
+    "ci_hi": 0.04025624999999991,
+    "sd": 0.003774284779597322,
+    "ci_excludes_zero": true
+   }
+  }
+ },
+ "per_arm": {
+  "A1_GRADED_ON": {
+   "hit_at_1": 0.048,
+   "median_rank": 37.0,
+   "frac_gold_in_top50": 0.5565,
+   "separation_margin_z": {
+    "mean": -0.1887435824197139,
+    "median": -0.16228779392999262
+   },
+   "tautology_rate": 0.0,
+   "example_picks": [
+    "palm",
+    "highclere",
+    "work",
+    "might",
+    "chromosomal",
+    "more",
+    "metre",
+    "gain",
+    "presence",
+    "limitation",
+    "farm",
+    "pigment"
+   ]
+  },
+  "A9_GRADED_OFF": {
+   "hit_at_1": 0.0465,
+   "median_rank": 45.0,
+   "frac_gold_in_top50": 0.5225,
+   "separation_margin_z": {
+    "mean": -0.14644588161438582,
+    "median": -0.12730191353039688
+   },
+   "tautology_rate": 0.0,
+   "example_picks": [
+    "palm",
+    "highclere",
+    "increase",
+    "might",
+    "duplication",
+    "more",
+    "mine",
+    "learn",
+    "presence",
+    "limitation",
+    "farm",
+    "pigment"
+   ]
+  },
+  "A5_STRINGCTRL": {
+   "hit_at_1": 0.087,
+   "median_rank": 37.0,
+   "frac_gold_in_top50": 0.5455,
+   "separation_margin_z": {
+    "mean": -0.3194307992287562,
+    "median": -0.33033655888473784
+   },
+   "tautology_rate": 0.0
+  },
+  "A7_PREFIX_ONLY": {
+   "hit_at_1": 0.05875,
+   "median_rank": 33.5,
+   "frac_gold_in_top50": 0.57675,
+   "separation_margin_z": {
+    "mean": -0.38898063741813743,
+    "median": -0.4
+   },
+   "tautology_rate": 0.0
+  },
+  "F_FREQUENCY": {
+   "hit_at_1": 0.0185
+  },
+  "F_SCRAMBLE_ON": {
+   "hit_at_1": 0.01375
+  },
+  "F_SCRAMBLE_OFF": {
+   "hit_at_1": 0.01375
+  }
+ },
+ "arm_digests": {
+  "A1_GRADED_ON": "9ee2af8d9ece6c2b",
+  "A9_GRADED_OFF": "f3402395402fee12",
+  "A5_STRINGCTRL": "7bcd53b0f3881142",
+  "A7_PREFIX_ONLY": "ece65e27b82d595b",
+  "F_FREQUENCY": "5c81a21601f1a055",
+  "F_SCRAMBLE_ON": "4596b30dc13e9692",
+  "F_SCRAMBLE_OFF": "4596b30dc13e9692"
+ },
+ "arms_must_differ": {
+  "ok": false,
+  "collisions": {
+   "4596b30dc13e9692": [
+    "F_SCRAMBLE_ON",
+    "F_SCRAMBLE_OFF"
+   ]
+  }
+ },
+ "on_clears_floor": false,
+ "off_clears_floor": false,
+ "graded_helps": false,
+ "graded_hurts": false,
+ "verdict": "DOES_NOT_CLEAR_ORTHOGRAPHIC_FLOOR",
+ "verdict_msg": "on_clears=False off_clears=False | graded_helps=False graded_hurts=False (delta=0.0015 CI=[-0.0055,0.0083] vs projdraw_sd on=0.0009 off=0.0024)",
+ "elapsed_s": 344.33
+}

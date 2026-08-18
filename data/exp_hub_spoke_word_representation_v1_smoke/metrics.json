@@ -1,0 +1,467 @@
+{
+  "anchor_name": "hub_spoke_word_representation_v1",
+  "code_version": "v1.0",
+  "run_mode": "smoke",
+  "prereg": "preregs/exp_hub_spoke_word_representation_v1.md",
+  "config_fingerprint": "f3ee8537dcf53345",
+  "config": {
+    "V": 512,
+    "D_SWEEP": [
+      256
+    ],
+    "SEEDS": [
+      7
+    ],
+    "SIGMAS": [
+      1.0,
+      8.0,
+      32.0
+    ],
+    "N_GATE": 512,
+    "AP_PROBES": 128,
+    "CORPUS_BYTES": 8000000,
+    "N_BOOT": 2000,
+    "BOOT_SEED": 20260815,
+    "BUNDLE_SIZES": [
+      2,
+      3,
+      4,
+      8
+    ],
+    "FR_SIGMAS": [
+      0.0,
+      1.0,
+      2.0,
+      4.0,
+      8.0,
+      16.0,
+      32.0
+    ],
+    "CORR_RHOS": [
+      0.25,
+      0.5,
+      0.75,
+      0.9
+    ],
+    "config_inherited_from": "exp_encoding_quality_instrument_v2 (unedited)"
+  },
+  "verdict": "INSTRUMENT_STILL_LOOSE",
+  "verdict_msg": "INSTRUMENT_STILL_LOOSE. instrument-validity 2/12. G1 ADDRESSED=False (HS4 facet recovery nan vs max floor nan, chance 0.25; CONSTRUCTION PROOF not a capability win). G2 EXTENSION=True. G3 MEANING=False (pre-declared expectation was FAIL; a null here is a real result).",
+  "summary": "INSTRUMENT_STILL_LOOSE. instrument-validity 2/12. G1 ADDRESSED=False (HS4 facet recovery nan vs max floor nan, chance 0.25; CONSTRUCTION PROOF not a capability win). G2 EXTENSION=True. G3 MEANING=False (pre-declared expectation was FAIL; a null here is a real result).",
+  "gates": [
+    {
+      "id": "IV1",
+      "family": "KNOWN",
+      "claim": "K_SLOTTED facet recovery >= 0.99",
+      "observed": NaN,
+      "op": ">=",
+      "threshold": 0.99,
+      "passed": false
+    },
+    {
+      "id": "IV2a",
+      "family": "NULL",
+      "claim": "FLAT_SUM facet recovery within chance +- 0.05",
+      "observed": NaN,
+      "op": "<=",
+      "threshold": 0.05,
+      "passed": false
+    },
+    {
+      "id": "IV2b",
+      "family": "NULL",
+      "claim": "FLAT_SUM facet-recovery 95% CI covers chance 0.25",
+      "observed": [
+        NaN,
+        NaN
+      ],
+      "op": "covers",
+      "threshold": 0.25,
+      "passed": false
+    },
+    {
+      "id": "IV3_F_ORTHO",
+      "family": "NULL",
+      "claim": "F_ORTHO facet recovery within chance +- 0.05",
+      "observed": NaN,
+      "op": "<=",
+      "threshold": 0.05,
+      "passed": false
+    },
+    {
+      "id": "IV3_F_FREQ",
+      "family": "NULL",
+      "claim": "F_FREQ facet recovery within chance +- 0.05",
+      "observed": NaN,
+      "op": "<=",
+      "threshold": 0.05,
+      "passed": false
+    },
+    {
+      "id": "IV4a",
+      "family": "NULL",
+      "claim": "N_NULLCONTENT bundled GOLD_ORTHO lift <= 1.15",
+      "observed": NaN,
+      "op": "<=",
+      "threshold": 1.15,
+      "passed": false
+    },
+    {
+      "id": "IV4b",
+      "family": "NULL",
+      "claim": "N_NULLCONTENT bundled |simlex rho| <= 0.10",
+      "observed": NaN,
+      "op": "<=",
+      "threshold": 0.1,
+      "passed": false
+    },
+    {
+      "id": "IV5",
+      "family": "KNOWN",
+      "claim": "N_NULLCONTENT facet recovery >= 0.95 (addressing is content-free)",
+      "observed": NaN,
+      "op": ">=",
+      "threshold": 0.95,
+      "passed": false
+    },
+    {
+      "id": "IV6",
+      "family": "NULL",
+      "claim": "FLAT_SUM delta_key within +- 0.05 of 0",
+      "observed": NaN,
+      "op": "<=",
+      "threshold": 0.05,
+      "passed": false
+    },
+    {
+      "id": "IV7",
+      "family": "SAT",
+      "claim": "HS4_GRADED facet recovery declines monotonically with noise (spearman <= -0.80)",
+      "observed": NaN,
+      "op": "<=",
+      "threshold": -0.8,
+      "passed": false
+    },
+    {
+      "id": "IV8",
+      "family": "KNOWN",
+      "claim": "binding primitives bit-identical to role_slot_summarizer and EventBundleCodec.encode_event",
+      "observed": 1.0,
+      "op": ">=",
+      "threshold": 1.0,
+      "passed": true,
+      "note": "asserted in selftest ST1/ST2; the run aborts if it fails"
+    },
+    {
+      "id": "IV9",
+      "family": "KNOWN",
+      "claim": "F_ORTHO structure equals INS.enc_orthographic run directly, to 1e-9",
+      "observed": 0.0,
+      "op": "<=",
+      "threshold": 1e-09,
+      "passed": true
+    },
+    {
+      "id": "G1",
+      "claim": "ADDRESSED: HS4_GRADED facet-recovery CI lower > max-floor CI upper AND delta_key >= 0.15 with CI > 0",
+      "hs4_ci_lower": NaN,
+      "max_floor_ci_upper": NaN,
+      "delta_key": NaN,
+      "delta_key_ci_lower": NaN,
+      "passed": false,
+      "HONEST_LABEL": "CONSTRUCTION PROOF, not a capability win. Role binding recovering its own role is algebra. The can-fail content is X_CORRSTRESS."
+    },
+    {
+      "id": "G2",
+      "claim": "EXTENSION WITHOUT INVALIDATION (a,b,c all required)",
+      "per_config": [
+        {
+          "d": 256,
+          "seed": 7,
+          "G2a_existing_keys_bit_identical": true,
+          "G2b_answers_on_already_written_vectors_bit_identical": true,
+          "G2b_fr_before": 1.0,
+          "G2b_fr_after": 1.0,
+          "G2c_fr_on_original_spokes_after_writing_5_spoke_vectors": 1.0,
+          "fr_all_5_spokes": 1.0,
+          "chance_4spoke": 0.25,
+          "chance_5spoke": 0.2
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "G3",
+      "claim": "unbound meaning spoke CI-separated above max(orthographic, hardened FREQ_MIN, scramble) on the identical 322 SimLex pairs",
+      "filled_in_by": "main() -- needs the per-pair cosine vectors",
+      "passed": false,
+      "n_pairs": 26,
+      "d": 256,
+      "floors": {
+        "HARDENED_FREQ_MIN": {
+          "point": 0.07867283402576009,
+          "ci95": [
+            -0.3512034804443217,
+            0.4814823255996799
+          ],
+          "n": 26
+        }
+      }
+    },
+    {
+      "id": "G4",
+      "claim": "spoke-bundle survival at B=2 retains >= 0.90 of the list-decoding ceiling",
+      "observed": NaN,
+      "threshold": 0.9,
+      "passed": false
+    },
+    {
+      "id": "G5",
+      "claim": "SIGN COST -- reported, not gated",
+      "observed": {
+        "B2": {
+          "graded_bits": NaN,
+          "signed_bits": NaN,
+          "sign_cost_bits": NaN
+        },
+        "B3": {
+          "graded_bits": NaN,
+          "signed_bits": NaN,
+          "sign_cost_bits": NaN
+        },
+        "B4": {
+          "graded_bits": NaN,
+          "signed_bits": NaN,
+          "sign_cost_bits": NaN
+        },
+        "B8": {
+          "graded_bits": NaN,
+          "signed_bits": NaN,
+          "sign_cost_bits": NaN
+        }
+      },
+      "passed": null
+    }
+  ],
+  "summary_block": {
+    "d_headline": 256,
+    "chance_4spoke": 0.25,
+    "facet_recovery_by_arm": {
+      "HS4_GRADED": NaN,
+      "HS4_SIGNED": NaN,
+      "HS2_GRADED": NaN,
+      "HS5_EXTENDED": NaN,
+      "FLAT_SUM": NaN,
+      "K_SLOTTED": NaN,
+      "N_NULLCONTENT": NaN,
+      "F_ORTHO": NaN,
+      "F_FREQ": NaN,
+      "F_SCRAMBLE": NaN
+    },
+    "max_floor_facet_recovery": NaN,
+    "corrstress": {
+      "d256": {
+        "rho0.25": {
+          "target_within_word_cos": 0.25,
+          "measured_within_word_cos": 0.063446044921875,
+          "facet_recovery": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512
+          }
+        },
+        "rho0.5": {
+          "target_within_word_cos": 0.5,
+          "measured_within_word_cos": 0.248931884765625,
+          "facet_recovery": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512
+          }
+        },
+        "rho0.75": {
+          "target_within_word_cos": 0.75,
+          "measured_within_word_cos": 0.56121826171875,
+          "facet_recovery": {
+            "point": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 512
+          }
+        },
+        "rho0.9": {
+          "target_within_word_cos": 0.9,
+          "measured_within_word_cos": 0.811187744140625,
+          "facet_recovery": {
+            "point": 0.99169921875,
+            "ci95": [
+              0.98779296875,
+              0.9951171875
+            ],
+            "n": 512
+          }
+        }
+      }
+    }
+  },
+  "selftest": {
+    "ST1_ST2_reuse": {
+      "reuse": {
+        "d": 1024,
+        "roles": [
+          "PRED",
+          "AGENT",
+          "PATIENT",
+          "TENSE"
+        ],
+        "reuse_verified": "role_slot_summarizer primitives + EventBundleCodec.encode_event"
+      },
+      "extension": {
+        "d": 512,
+        "acc_4spoke": 1.0,
+        "acc_after_extension": 1.0,
+        "acc_5spoke_on_original_spokes": 1.0
+      }
+    },
+    "ST3_bind_self_inverse": true,
+    "ST4_keys_order_independent": true,
+    "ST5_addressed_vs_flat": {
+      "addressed": 1.0,
+      "flat": 0.23876953125,
+      "chance": 0.25
+    },
+    "ST6_shuffled_key_collapses": {
+      "true_key": 1.0,
+      "shuffled_key": 0.0
+    },
+    "ST7_fano": true,
+    "ST8_simhash_order": {
+      "near": 0.98583984375,
+      "far": 0.31640625
+    },
+    "ST9_ruler_status": {
+      "experiments/exp_encoding_quality_instrument_v2.py": {
+        "tracked": true,
+        "porcelain": "",
+        "sha256_16": "05e6aacac063edae"
+      },
+      "experiments/exp_meaning_asset_fair_test_v1.py": {
+        "tracked": false,
+        "porcelain": "?? experiments/exp_meaning_asset_fair_test_v1.py",
+        "sha256_16": "6cee6031188ddd1a"
+      },
+      "hdlab/char_trigram_encoder.py": {
+        "tracked": true,
+        "porcelain": "",
+        "sha256_16": "e888d9271340dd4c"
+      },
+      "hdlab/grounded_similarity.py": {
+        "tracked": true,
+        "porcelain": "",
+        "sha256_16": "68c5bdd9447f0b79"
+      },
+      "hdlab/role_slot_summarizer.py": {
+        "tracked": true,
+        "porcelain": "",
+        "sha256_16": "82ed79099bac9901"
+      },
+      "hdlab/event_bundle.py": {
+        "tracked": true,
+        "porcelain": "",
+        "sha256_16": "a2d07cebcecbbd07"
+      }
+    },
+    "ST9_untracked_helpers": [
+      "experiments/exp_meaning_asset_fair_test_v1.py"
+    ],
+    "ST10_arms_differ": true,
+    "ST11_instrument_repro": {
+      "A_ORTHOGRAPHIC_d256_simlex_rho": 0.23332198414149075,
+      "n_pairs": 26,
+      "recoverability_sigma1": 1.0,
+      "published_full_run_rho": -0.0122,
+      "note": "full-run published value is the 3-seed mean at V=4096; single-seed here. Exact-match assertion is gate IV9 in the full run, not here."
+    },
+    "ST12_saturation_moves": {
+      "sigma0": 1.0,
+      "sigma4": 0.927734375
+    },
+    "ST13_no_external_llm": true
+  },
+  "extension_proof": [
+    {
+      "d": 256,
+      "seed": 7,
+      "G2a_existing_keys_bit_identical": true,
+      "G2b_answers_on_already_written_vectors_bit_identical": true,
+      "G2b_fr_before": 1.0,
+      "G2b_fr_after": 1.0,
+      "G2c_fr_on_original_spokes_after_writing_5_spoke_vectors": 1.0,
+      "fr_all_5_spokes": 1.0,
+      "chance_4spoke": 0.25,
+      "chance_5spoke": 0.2
+    }
+  ],
+  "corrstress": {
+    "d256": {
+      "rho0.25": {
+        "target_within_word_cos": 0.25,
+        "measured_within_word_cos": 0.063446044921875,
+        "facet_recovery": {
+          "point": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 512
+        }
+      },
+      "rho0.5": {
+        "target_within_word_cos": 0.5,
+        "measured_within_word_cos": 0.248931884765625,
+        "facet_recovery": {
+          "point": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 512
+        }
+      },
+      "rho0.75": {
+        "target_within_word_cos": 0.75,
+        "measured_within_word_cos": 0.56121826171875,
+        "facet_recovery": {
+          "point": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 512
+        }
+      },
+      "rho0.9": {
+        "target_within_word_cos": 0.9,
+        "measured_within_word_cos": 0.811187744140625,
+        "facet_recovery": {
+          "point": 0.99169921875,
+          "ci95": [
+            0.98779296875,
+            0.9951171875
+          ],
+          "n": 512
+        }
+      }
+    }
+  },
+  "units": [],
+  "elapsed_s": 9.119795083999634
+}

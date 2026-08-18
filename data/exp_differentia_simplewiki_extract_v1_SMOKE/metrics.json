@@ -1,0 +1,64 @@
+{
+  "verdict": "EXTRACTION_OK",
+  "verdict_msg": "simplewiki FULL: 200000 lines, 199855 sentences, 5746 treatment facts (COPULA+GLOSSARY_COLON), 4088 distinct terms; per-pattern ALL={\"APPOSITIVE\": 1386, \"CALLED\": 2143, \"COPULA\": 5532, \"GLOSSARY_COLON\": 214, \"REFERS_TO\": 75}; FORBIDDEN {CALLED,REFERS_TO,APPOSITIVE} persisted=0 (asserted)",
+  "summary": "differentia supply extraction from full Simple English Wikipedia",
+  "elapsed_s": 14.237,
+  "run_mode": "smoke",
+  "anchor_name": "exp_differentia_simplewiki_extract_v1",
+  "prereg": "preregs/2026-08-13_differentia_feature_supply.md",
+  "ts_iso": "2026-08-14T00:37:14.309274+00:00",
+  "n_units": 1,
+  "expected_n_units": 1,
+  "cardinality_ok": true,
+  "corpus": "data\\corpora\\simplewiki\\simplewiki_clean_v1.txt",
+  "n_lines_read": 200000,
+  "n_sentences_processed": 199855,
+  "n_treatment_facts": 5746,
+  "n_distinct_terms": 4088,
+  "pattern_counts_all_five": {
+    "COPULA": 5532,
+    "APPOSITIVE": 1386,
+    "GLOSSARY_COLON": 214,
+    "CALLED": 2143,
+    "REFERS_TO": 75
+  },
+  "treatment_patterns_frozen_in_advance": [
+    "COPULA",
+    "GLOSSARY_COLON"
+  ],
+  "forbidden_patterns": [
+    "CALLED",
+    "REFERS_TO",
+    "APPOSITIVE"
+  ],
+  "forbidden_pattern_assertion": {
+    "persisted_patterns": [
+      "COPULA",
+      "GLOSSARY_COLON"
+    ],
+    "forbidden_persisted": [],
+    "assertion": "sorted(set(persisted)) subset of ['COPULA','GLOSSARY_COLON']",
+    "result": "PASS"
+  },
+  "hdlab_modified": false,
+  "written_to_foundation_store": false,
+  "banked_to_canonical_fact_store": false,
+  "units": {
+    "block|0": {
+      "block_idx": 0,
+      "first_line_no": 1,
+      "n_lines": 200000,
+      "n_sentences_processed": 199855,
+      "pattern_counts_all": {
+        "COPULA": 5532,
+        "APPOSITIVE": 1386,
+        "GLOSSARY_COLON": 214,
+        "CALLED": 2143,
+        "REFERS_TO": 75
+      },
+      "n_facts_kept": 5746,
+      "shard": "facts_block_000.jsonl",
+      "failure_class": null
+    }
+  }
+}

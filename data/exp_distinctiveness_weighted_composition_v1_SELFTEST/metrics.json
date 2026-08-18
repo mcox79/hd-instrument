@@ -1,0 +1,22 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "module-import self-test ran successfully",
+  "summary": "self_test",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "selftest": {
+    "modulator_recency": 0.0,
+    "streamed_vs_build_profile_pairs_checked": 7,
+    "w_distinctive": 2.321928,
+    "w_shared": 1.321928,
+    "selftest_cos_self": 1.0,
+    "grounded_capped_sofa_couch": 0.45,
+    "grounded_raw_sofa_couch": 0.9677,
+    "simlex_pairs": 999,
+    "simlex_vocab": 1028,
+    "pairs_both_in_concept_features": 35,
+    "pairs_both_in_grounded": 999,
+    "validity_preflight_ok": true,
+    "selftest_elapsed_s": 3.467
+  }
+}

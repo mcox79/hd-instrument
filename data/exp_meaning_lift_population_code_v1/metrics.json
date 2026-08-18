@@ -1,0 +1,4431 @@
+{
+  "verdict": "BUNDLING_SURVIVED_BUT_NO_MEANING_GAIN",
+  "verdict_msg": "BUNDLING_SURVIVED_BUT_NO_MEANING_GAIN: 8/10 pre-registered gates passed; FAILED=['G0', 'G4']. IDENTITY and STRUCTURE are reported SEPARATELY and are never averaged.",
+  "summary": "BUNDLING_SURVIVED_BUT_NO_MEANING_GAIN: 8/10 pre-registered gates passed; FAILED=['G0', 'G4']. IDENTITY and STRUCTURE are reported SEPARATELY and are never averaged.",
+  "elapsed_s": 1541.083594083786,
+  "anchor": "meaning_lift_population_code_v1",
+  "run_mode": "full",
+  "prereg": "preregs/exp_meaning_lift_population_code_v1.md",
+  "ruler": "experiments/exp_encoding_quality_instrument_v2.py at 542e1fc0d, IMPORTED UNMODIFIED. Vocabulary, golds, sigma grid, seeds, K_DISTRACT, BUNDLE_B, AP_PROBES, N_GATE and every measurement function come from it.",
+  "config": {
+    "V": 4096,
+    "D_SWEEP": [
+      1024,
+      256
+    ],
+    "SEEDS": [
+      7,
+      17,
+      23
+    ],
+    "SIGMAS": [
+      1.0,
+      4.0,
+      8.0,
+      16.0,
+      32.0
+    ],
+    "N_SWEEP": [
+      128,
+      512,
+      1024,
+      4096
+    ],
+    "N_GATE": 1024,
+    "BUNDLE_B": 8,
+    "K_DISTRACT": 31,
+    "AP_PROBES": 1024,
+    "CORPUS_BYTES": 64000000,
+    "N_PERM": 2000,
+    "N_BOOT": 10000,
+    "BOOT_SEED": 20260816,
+    "KCAP_FRACS": [
+      0.02,
+      0.05,
+      0.1
+    ],
+    "TUNING_WIDTHS": [
+      1.0,
+      0.5
+    ]
+  },
+  "gates": [
+    {
+      "gate_id": "RG1",
+      "family": "REGRESSION",
+      "claim": "CEIL_NORMS12_DIRECT reproduces the landed 0.2701 (|delta| <= 5e-3)",
+      "observed": -0.0,
+      "op": ">=",
+      "threshold": -0.005,
+      "passed": true
+    },
+    {
+      "gate_id": "KA1",
+      "family": "KNOWN",
+      "claim": "KA_PLANTED_SEMANTIC simlex_rho >= 0.50",
+      "observed": 0.9256068975928455,
+      "op": ">=",
+      "threshold": 0.5,
+      "passed": true
+    },
+    {
+      "gate_id": "KA2",
+      "family": "KNOWN",
+      "claim": "C3_ORTHONORMAL is an EXACT isometry so every one of the 322 pair cosines must equal the direct read's (max |delta| <= 1e-5)",
+      "observed": -1.4811830495453648e-07,
+      "op": ">=",
+      "threshold": -1e-05,
+      "passed": true,
+      "also_reported_rho_delta": 0.0
+    },
+    {
+      "gate_id": "KA3",
+      "family": "KNOWN",
+      "claim": "batched Spearman == INS._spearman incl. ties (asserted in self-test)",
+      "observed": 1.0,
+      "op": ">=",
+      "threshold": 1.0,
+      "passed": true
+    },
+    {
+      "gate_id": "NU1",
+      "family": "NULL",
+      "claim": "NULL_RANDOM_IID |simlex_rho| <= 0.10",
+      "observed": 0.01194967191862977,
+      "op": "<=",
+      "threshold": 0.1,
+      "passed": true
+    },
+    {
+      "gate_id": "NU2",
+      "family": "NULL",
+      "claim": "every NULL_SCRAM_* arm at every d has |simlex_rho| <= 0.10 (worst: NULL_SCRAM_SIMHASH@d256)",
+      "observed": 0.057077274987128536,
+      "op": "<=",
+      "threshold": 0.1,
+      "passed": true
+    },
+    {
+      "gate_id": "G0",
+      "family": "TARGET",
+      "claim": "at least one candidate CI-separated above the incumbent AND closure >= 0.50",
+      "observed": 0.0,
+      "op": ">=",
+      "threshold": 1.0,
+      "passed": false
+    },
+    {
+      "gate_id": "G3",
+      "family": "TARGET",
+      "claim": "at least one candidate retains >= 0.5 bits of the bundling ceiling",
+      "observed": 14.0,
+      "op": ">=",
+      "threshold": 1.0,
+      "passed": true
+    },
+    {
+      "gate_id": "G4",
+      "family": "TARGET",
+      "claim": "at least one candidate does BOTH (meaning AND bundling survival)",
+      "observed": 0.0,
+      "op": ">=",
+      "threshold": 1.0,
+      "passed": false
+    },
+    {
+      "gate_id": "G1",
+      "family": "STANDING_BAR",
+      "claim": "at least one arm CI-separated above ALL THREE floors (see the scope note: the CEILING arm itself is known not to clear this on this population)",
+      "observed": 21.0,
+      "op": ">=",
+      "threshold": 1.0,
+      "passed": true
+    }
+  ],
+  "G0_winners_close_the_lift_gap": [],
+  "G3_winners_survive_bundling": [
+    "C1_KCAP_BIN_f002@d1024",
+    "C1_KCAP_BIN_f005@d1024",
+    "C1_KCAP_BIN_f010@d1024",
+    "C1_KCAP_GRD_f005@d1024",
+    "C1_KCAP_GRD_f005_BOOST@d1024",
+    "C2_TUNING_w1.0@d1024",
+    "C2_TUNING_w0.5@d1024",
+    "C1_KCAP_BIN_f002@d256",
+    "C1_KCAP_BIN_f005@d256",
+    "C1_KCAP_BIN_f010@d256",
+    "C1_KCAP_GRD_f005@d256",
+    "C1_KCAP_GRD_f005_BOOST@d256",
+    "C2_TUNING_w1.0@d256",
+    "C2_TUNING_w0.5@d256"
+  ],
+  "G4_winners_BOTH": [],
+  "G1_arms_clearing_all_three_floors": [
+    "C1_KCAP_BIN_f002@d1024",
+    "C1_KCAP_BIN_f005@d1024",
+    "C1_KCAP_BIN_f010@d1024",
+    "C1_KCAP_GRD_f005@d1024",
+    "C1_KCAP_GRD_f005_BOOST@d1024",
+    "C3_ORTHONORMAL@d1024",
+    "C3_GAUSSPROJ@d1024",
+    "C3_ONOFF@d1024",
+    "C4_PHASOR@d1024",
+    "CEIL_NORMS12_DIRECT@d1024",
+    "INC_SIMHASH@d1024",
+    "C1_KCAP_BIN_f005@d256",
+    "C1_KCAP_BIN_f010@d256",
+    "C1_KCAP_GRD_f005@d256",
+    "C1_KCAP_GRD_f005_BOOST@d256",
+    "C3_ORTHONORMAL@d256",
+    "C3_GAUSSPROJ@d256",
+    "C3_ONOFF@d256",
+    "C4_PHASOR@d256",
+    "CEIL_NORMS12_DIRECT@d256",
+    "INC_SIMHASH@d256"
+  ],
+  "reported_not_gated": {
+    "INC_SIMHASH_at_d256_vs_the_landed_hub_spoke_number": {
+      "measured": 0.2667203478011884,
+      "landed": 0.19774431011854252,
+      "note": "different projection seed/tag draw and a different OOV policy, so a mismatch is expected and is NOT a failure"
+    }
+  },
+  "SCOPE_NOTE_READ_THIS_BEFORE_QUOTING_G1": "G1 is the standing bar (CI-separated above ALL of orthographic, hardened frequency and the permutation-calibrated scramble p95). It may be unreachable for EVERY arm here INCLUDING THE CEILING: the direct 12-dim read scores 0.2701 and misses its own scramble floor by 0.0071 at the lower bound (exp_meaning_asset_permutation_null_v1, reproduced by exp_meaning_asset_hardened_margins_v2_complete). A lift cannot exceed what it lifts. A G1 failure is therefore a fact about THE NORMS -- already established, and Phase 1 item 1's problem -- and is NOT evidence about the lift. The lift question is G0, which is paired and within-instrument.",
+  "axes_note": "IDENTITY and STRUCTURE are reported separately BY DESIGN. A random encoding is near-optimal on IDENTITY and at chance on STRUCTURE, so any single scalar mixing them is unfalsifiable. This cell refuses to average them.",
+  "scope_disclaimer": "CEIL_NORMS12_DIRECT runs at d_eff=12 and is NOT dimension-matched to the other arms (same disclosure class as A_ORACLE_ONEHOT). C2_TUNING runs at d_eff = 12*(d//12), near-matched not exact. Fano numbers are LOWER BOUNDS. The only semantic gold is SimLex-999 pair similarity on the 322 pairs inside the instrument's vocabulary. KA_PLANTED_SEMANTIC is fitted to that gold BY DESIGN and its rho may never be quoted as a quality result. OOV words (words with no grounded norms) receive a random N(0,1) draw in norm space and are lifted through the same operator; all 322 scored pairs are covered, so this cannot touch the structure headline.",
+  "norms_coverage": {
+    "vocab": 4096,
+    "covered_by_grounded_norms": 2622,
+    "simlex_pairs_scored": 322
+  },
+  "by_d": {
+    "1024": {
+      "per_arm": {
+        "CEIL_NORMS12_DIRECT": {
+          "d_eff": 12,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.2701227920100438,
+            "simlex_rho_ci95": [
+              0.1624502603961648,
+              0.3711348808849658
+            ],
+            "simlex_rho_by_seed": [
+              0.2701227920100438,
+              0.2701227920100438,
+              0.2701227920100438
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.36951092896264,
+            "GOLD_FREQBAND_lift": 1.0110901722559393,
+            "GOLD_PLANTED_lift": 0.9998368108530853
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09084572283201826
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.08770590115575985,
+              0.09319520194203564,
+              0.09166276300336552
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.08769017553848088,
+              0.09318982827395973,
+              0.0916571646836142
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.2550949581734095,
+                "ci95": [
+                  0.10413942737847473,
+                  0.4046449667152683
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.19043527291276036,
+                "ci95": [
+                  0.04285208939231341,
+                  0.3328401934217613
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.17927706917802555,
+                "ci95": [
+                  0.0545696064891276,
+                  0.2972654173719949
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.17927706917802555,
+              "ci95": [
+                0.0545696064891276,
+                0.2972654173719949
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 0.166015625,
+              "4": 0.0078125,
+              "8": 0.001953125,
+              "16": 0.001953125,
+              "32": 0.0
+            },
+            "sigma_half": 1.0,
+            "disc_ortho_headline": 0.05078125,
+            "disc_freq_headline": 0.052734375,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 2.99791990138626,
+              "S2_ENCODE_SIGN": 2.8306887562060083,
+              "S3_BUNDLE": 0.1231302221850316,
+              "S4_BUNDLE_SIGN": 0.07491883550745311
+            },
+            "bits_retained_after_the_sum": 0.1231302221850316,
+            "bits_retained_after_the_sum_then_sign": 0.07491883550745311,
+            "SURVIVES_BUNDLING": false
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": 0.0021371051329927004,
+              "ci95": [
+                -0.005767840345763404,
+                0.010234812850157851
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.0021371051329927004,
+            "closure_fraction_of_the_lift_loss": 1.0,
+            "closure_fraction_ci95": [
+              -2.6989034169256776,
+              4.789101243618046
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "INC_SIMHASH": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.2679856868770511,
+            "simlex_rho_ci95": [
+              0.1614990488075033,
+              0.3689084313950896
+            ],
+            "simlex_rho_by_seed": [
+              0.26561190548996827,
+              0.2656900248589151,
+              0.2726551302822699
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.260043339014169,
+            "GOLD_FREQBAND_lift": 1.0111934499710247,
+            "GOLD_PLANTED_lift": 0.9998922328834822
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09039494629654427
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09398626319533908,
+              0.08427092730058461,
+              0.09296030216052137
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.0939762951164623,
+              0.08426407179301981,
+              0.0929444719801507
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.2529578530404168,
+                "ci95": [
+                  0.10182311529310632,
+                  0.4017442389358969
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.18829816777976766,
+                "ci95": [
+                  0.040977772792109166,
+                  0.329181871903509
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.17759074058050683,
+                "ci95": [
+                  0.058041878342463334,
+                  0.29124743992924773
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.17759074058050683,
+              "ci95": [
+                0.058041878342463334,
+                0.29124743992924773
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.994140625,
+              "8": 0.552734375,
+              "16": 0.08203125,
+              "32": 0.015625
+            },
+            "sigma_half": 8.646002150192588,
+            "disc_ortho_headline": 0.90625,
+            "disc_freq_headline": 0.94140625,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 0.8744235344513314,
+              "S4_BUNDLE_SIGN": 0.8026247660848679
+            },
+            "bits_retained_after_the_sum": 0.8744235344513314,
+            "bits_retained_after_the_sum_then_sign": 0.8026247660848679,
+            "SURVIVES_BUNDLING": true
+          }
+        },
+        "FLOOR_ORTHOGRAPHIC": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.01502783383663433,
+            "simlex_rho_ci95": [
+              -0.09624796126516441,
+              0.12323965528418662
+            ],
+            "simlex_rho_by_seed": [
+              0.01502783383663433,
+              0.01502783383663433,
+              0.01502783383663433
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 127.14101893329678,
+            "GOLD_FREQBAND_lift": 1.0037335948309554,
+            "GOLD_PLANTED_lift": 0.9955617272893905
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09670107581349001
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.10091536799652531,
+              0.09439578161271106,
+              0.09482121068172467
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.1009096078846136,
+              0.09438479272484558,
+              0.0948088268310108
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.0,
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": -0.0646596852606491,
+                "ci95": [
+                  -0.21806821406574906,
+                  0.08324085437854646
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": -0.08167324197685567,
+                "ci95": [
+                  -0.20964686479659758,
+                  0.043508069793570706
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": -0.08167324197685567,
+              "ci95": [
+                -0.20964686479659758,
+                0.043508069793570706
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": false,
+            "permutation_p_value_by_seed": [
+              0.4112943528235882,
+              0.3918040979510245,
+              0.4017991004497751
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 1.0,
+              "8": 0.728515625,
+              "16": 0.130859375,
+              "32": 0.015625
+            },
+            "sigma_half": 10.42772792413888,
+            "disc_ortho_headline": 0.875,
+            "disc_freq_headline": 0.9453125,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 5.596332373959157,
+              "S4_BUNDLE_SIGN": 5.113487889291888
+            },
+            "bits_retained_after_the_sum": 5.596332373959157,
+            "bits_retained_after_the_sum_then_sign": 5.113487889291888,
+            "SURVIVES_BUNDLING": true
+          }
+        },
+        "NULL_RANDOM_IID": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.01194967191862977,
+            "simlex_rho_ci95": [
+              -0.05008515157592501,
+              0.07203238722092671
+            ],
+            "simlex_rho_by_seed": [
+              -0.020339603249316995,
+              0.04110927966604685,
+              0.015079339339159456
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 1.0074040892701357,
+            "GOLD_FREQBAND_lift": 1.000759870011504,
+            "GOLD_PLANTED_lift": 0.9972292955995203
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.08935936744036477
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.08915458994983555,
+              0.08830676351288957,
+              0.09072787056309595
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.08911105245514032,
+              0.0882956567340571,
+              0.09067139313189689
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": -0.0030781619180045607,
+                "ci95": [
+                  -0.12921042780678502,
+                  0.1251286242268976
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": -0.06773784717865367,
+                "ci95": [
+                  -0.19318445510983304,
+                  0.055030891357733425
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": -0.077409695521735,
+                "ci95": [
+                  -0.15780482835700854,
+                  0.0040460897661375545
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": -0.077409695521735,
+              "ci95": [
+                -0.15780482835700854,
+                0.0040460897661375545
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": false,
+            "permutation_p_value_by_seed": [
+              0.6476761619190404,
+              0.21639180409795103,
+              0.40929535232383807
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 1.0,
+              "8": 0.7890625,
+              "16": 0.095703125,
+              "32": 0.017578125
+            },
+            "sigma_half": 10.680456515536273,
+            "disc_ortho_headline": 0.94921875,
+            "disc_freq_headline": 0.95703125,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 6.999999999951707,
+              "S4_BUNDLE_SIGN": 6.999999999951707
+            },
+            "bits_retained_after_the_sum": 6.999999999951707,
+            "bits_retained_after_the_sum_then_sign": 6.999999999951707,
+            "SURVIVES_BUNDLING": true
+          }
+        },
+        "KA_PLANTED_SEMANTIC": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.9256068975928455,
+            "simlex_rho_ci95": [
+              0.8956005974540531,
+              0.9492814348169561
+            ],
+            "simlex_rho_by_seed": [
+              0.9289314428534079,
+              0.924291037846053,
+              0.9235982120790758
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 1.0015445039570452,
+            "GOLD_FREQBAND_lift": 1.0011758772769759,
+            "GOLD_PLANTED_lift": 0.9973589440622725
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09068888600902247
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09022081375955221,
+              0.08913137893873173,
+              0.09284771971657199
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09021166594332936,
+              0.08905192413417132,
+              0.09280306794956672
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.9105790637562112,
+                "ci95": [
+                  0.7993263886908843,
+                  1.0242712544482537
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.8459193784955621,
+                "ci95": [
+                  0.7359972065053838,
+                  0.9533877066155211
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.8349180115838231,
+                "ci95": [
+                  0.7627458198081578,
+                  0.9048763135279445
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.8349180115838231,
+              "ci95": [
+                0.7627458198081578,
+                0.9048763135279445
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 1.0,
+              "8": 0.796875,
+              "16": 0.099609375,
+              "32": 0.017578125
+            },
+            "sigma_half": 10.746316345565196,
+            "disc_ortho_headline": 0.947265625,
+            "disc_freq_headline": 0.953125,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 6.955913374719517,
+              "S4_BUNDLE_SIGN": 6.908055889290506
+            },
+            "bits_retained_after_the_sum": 6.955913374719517,
+            "bits_retained_after_the_sum_then_sign": 6.908055889290506,
+            "SURVIVES_BUNDLING": true
+          }
+        },
+        "C1_KCAP_BIN_f002": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.24228910745620955,
+            "simlex_rho_ci95": [
+              0.14017011757800188,
+              0.33825343282287
+            ],
+            "simlex_rho_by_seed": [
+              0.2655652627203193,
+              0.22376832647586742,
+              0.2375337331724419
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 2.8068115495112367,
+            "GOLD_FREQBAND_lift": 1.0110359143725012,
+            "GOLD_PLANTED_lift": 1.0017051625618074
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09040437258724045
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.0882786058042993,
+              0.09552108263264474,
+              0.0874656395717654
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.08827796453552779,
+              0.09548916238406353,
+              0.08744599084213005
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.2272612736195752,
+                "ci95": [
+                  0.07775426457821666,
+                  0.3740140743628651
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.16260158835892613,
+                "ci95": [
+                  0.01672538918396948,
+                  0.30197860948352306
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.15188473486896908,
+                "ci95": [
+                  0.03506138502774053,
+                  0.2663888350091682
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.15188473486896908,
+              "ci95": [
+                0.03506138502774053,
+                0.2663888350091682
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.99609375,
+              "8": 0.6328125,
+              "16": 0.076171875,
+              "32": 0.015625
+            },
+            "sigma_half": 9.438754443109215,
+            "disc_ortho_headline": 0.93359375,
+            "disc_freq_headline": 0.9375,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 2.7236073098167846,
+              "S4_BUNDLE_SIGN": 6.625582068504808
+            },
+            "bits_retained_after_the_sum": 2.7236073098167846,
+            "bits_retained_after_the_sum_then_sign": 6.625582068504808,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.025696579420841553,
+              "ci95": [
+                -0.04982316926564969,
+                -0.001547972362579496
+              ],
+              "band": "BELOW",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.0021371051329927004,
+            "closure_fraction_of_the_lift_loss": -12.024012775102591,
+            "closure_fraction_ci95": [
+              -23.31339179176445,
+              -0.7243314045162529
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C1_KCAP_BIN_f005": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.2637730443045974,
+            "simlex_rho_ci95": [
+              0.15881333220019286,
+              0.36351653286174396
+            ],
+            "simlex_rho_by_seed": [
+              0.27057547876553645,
+              0.2592889064027656,
+              0.2614547477454903
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.0558847382818595,
+            "GOLD_FREQBAND_lift": 1.0106501080734551,
+            "GOLD_PLANTED_lift": 1.000592568209279
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09315682665441836
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09279857521888332,
+              0.09508386980147225,
+              0.09162524557614644
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09277785098719891,
+              0.09507267620589462,
+              0.09161995277016155
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.24874521046796308,
+                "ci95": [
+                  0.0991432835893055,
+                  0.39689110586542115
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.18408552520731397,
+                "ci95": [
+                  0.03618122279223917,
+                  0.325777754585338
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.17061621765017904,
+                "ci95": [
+                  0.04902899736423306,
+                  0.2896867859604439
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.17061621765017904,
+              "ci95": [
+                0.04902899736423306,
+                0.2896867859604439
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.9921875,
+              "8": 0.560546875,
+              "16": 0.076171875,
+              "32": 0.015625
+            },
+            "sigma_half": 8.724061861322062,
+            "disc_ortho_headline": 0.93359375,
+            "disc_freq_headline": 0.9296875,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 2.3496044373932197,
+              "S4_BUNDLE_SIGN": 6.843907495762501
+            },
+            "bits_retained_after_the_sum": 2.3496044373932197,
+            "bits_retained_after_the_sum_then_sign": 6.843907495762501,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.004212642572453684,
+              "ci95": [
+                -0.019775371198058868,
+                0.011401109587568199
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.0021371051329927004,
+            "closure_fraction_of_the_lift_loss": -1.9711910787255,
+            "closure_fraction_ci95": [
+              -9.253345047356833,
+              5.334837959797807
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C1_KCAP_BIN_f010": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.26920639333224433,
+            "simlex_rho_ci95": [
+              0.16358101868847819,
+              0.3704907868844591
+            ],
+            "simlex_rho_by_seed": [
+              0.2753569283122045,
+              0.2763554240604949,
+              0.2559068276240335
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.2094898148655115,
+            "GOLD_FREQBAND_lift": 1.0110764338522311,
+            "GOLD_PLANTED_lift": 1.0005664378966541
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09173043916432161
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.0914355682313438,
+              0.09571362545736903,
+              0.08809478012773138
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09143068163780255,
+              0.09568047700291431,
+              0.08808015885224796
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.25417855949561,
+                "ci95": [
+                  0.10218315280535716,
+                  0.40428455672247
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.1895188742349609,
+                "ci95": [
+                  0.04199913412281191,
+                  0.330959627214329
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.17747595416792272,
+                "ci95": [
+                  0.05137841256677107,
+                  0.300377983309993
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.17747595416792272,
+              "ci95": [
+                0.05137841256677107,
+                0.300377983309993
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.990234375,
+              "8": 0.513671875,
+              "16": 0.0703125,
+              "32": 0.01171875
+            },
+            "sigma_half": 8.172837242915337,
+            "disc_ortho_headline": 0.90234375,
+            "disc_freq_headline": 0.919921875,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 1.735514182448018,
+              "S4_BUNDLE_SIGN": 6.854047185845222
+            },
+            "bits_retained_after_the_sum": 1.735514182448018,
+            "bits_retained_after_the_sum_then_sign": 6.854047185845222,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": 0.0012207064551932323,
+              "ci95": [
+                -0.010299758740916407,
+                0.01291960853332995
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.0021371051329927004,
+            "closure_fraction_of_the_lift_loss": 0.5711962581287767,
+            "closure_fraction_ci95": [
+              -4.819490900053716,
+              6.045378083593831
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C1_KCAP_GRD_f005": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.23942863427984293,
+            "simlex_rho_ci95": [
+              0.13347795246178554,
+              0.33783833476637204
+            ],
+            "simlex_rho_by_seed": [
+              0.24732734184728206,
+              0.23014414049204523,
+              0.24081442050020152
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.192632496716575,
+            "GOLD_FREQBAND_lift": 1.010689914606697,
+            "GOLD_PLANTED_lift": 1.00055472721481
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09020594378284068
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09009940924749152,
+              0.09453593494549609,
+              0.08602193945872182
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09007434917781165,
+              0.09453017753723958,
+              0.08601330463347076
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.2244008004432086,
+                "ci95": [
+                  0.07390796102202124,
+                  0.37283386305906824
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.1597411151825595,
+                "ci95": [
+                  0.011695195908145883,
+                  0.30169589240277345
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.14922269049700226,
+                "ci95": [
+                  0.028485189620491166,
+                  0.2658470960791342
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.14922269049700226,
+              "ci95": [
+                0.028485189620491166,
+                0.2658470960791342
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.966796875,
+              "8": 0.529296875,
+              "16": 0.087890625,
+              "32": 0.01171875
+            },
+            "sigma_half": 8.37664005098079,
+            "disc_ortho_headline": 0.912109375,
+            "disc_freq_headline": 0.91015625,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 1.1337722280602005,
+              "S4_BUNDLE_SIGN": 2.9984258051118395
+            },
+            "bits_retained_after_the_sum": 1.1337722280602005,
+            "bits_retained_after_the_sum_then_sign": 2.9984258051118395,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.02855705259720817,
+              "ci95": [
+                -0.04844011153325926,
+                -0.009511322724168575
+              ],
+              "band": "BELOW",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.0021371051329927004,
+            "closure_fraction_of_the_lift_loss": -13.36249310169324,
+            "closure_fraction_ci95": [
+              -22.666227685966028,
+              -4.450563791800627
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C1_KCAP_GRD_f005_BOOST": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.2800803210566136,
+            "simlex_rho_ci95": [
+              0.17369063375545038,
+              0.3806229250127631
+            ],
+            "simlex_rho_by_seed": [
+              0.2889533716814338,
+              0.2785688518682279,
+              0.2727187396201791
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.16187352139257,
+            "GOLD_FREQBAND_lift": 1.0102729773929153,
+            "GOLD_PLANTED_lift": 1.0006142854564557
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09613554191603353
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09558209219688782,
+              0.0979865915346085,
+              0.09487920571581161
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09557859602598023,
+              0.09797477224750188,
+              0.09485325747461845
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.2650524872199793,
+                "ci95": [
+                  0.11254122040473377,
+                  0.4170953778808052
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.20039280195933018,
+                "ci95": [
+                  0.055461706332950146,
+                  0.33963829171725124
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.1839447791405801,
+                "ci95": [
+                  0.07022928967501546,
+                  0.29169772687068224
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.1839447791405801,
+              "ci95": [
+                0.07022928967501546,
+                0.29169772687068224
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.994140625,
+              "8": 0.625,
+              "16": 0.10546875,
+              "32": 0.01171875
+            },
+            "sigma_half": 9.451881248885005,
+            "disc_ortho_headline": 0.9296875,
+            "disc_freq_headline": 0.943359375,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 3.5264394767181924,
+              "S4_BUNDLE_SIGN": 5.240611793617766
+            },
+            "bits_retained_after_the_sum": 3.5264394767181924,
+            "bits_retained_after_the_sum_then_sign": 5.240611793617766,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": 0.012094634179562525,
+              "ci95": [
+                -0.02658594409934723,
+                0.05163442843936533
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.0021371051329927004,
+            "closure_fraction_of_the_lift_loss": 5.6593538580976475,
+            "closure_fraction_ci95": [
+              -12.440166695083239,
+              24.160921071327422
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C2_TUNING_w1.0": {
+          "d_eff": 1020,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.04975471483557178,
+            "simlex_rho_ci95": [
+              -0.06311206764468068,
+              0.16379602150858588
+            ],
+            "simlex_rho_by_seed": [
+              0.05005077579021091,
+              0.050117991571494824,
+              0.04909537714500959
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 1.401077401578877,
+            "GOLD_FREQBAND_lift": 1.004746403468473,
+            "GOLD_PLANTED_lift": 0.997756078660756
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09492168301650583
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09477408087504736,
+              0.09179150638551187,
+              0.09822748933198287
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.0947702977408334,
+              0.09178710321267375,
+              0.09820764809601032
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.03472688099893745,
+                "ci95": [
+                  -0.12391483773506108,
+                  0.1973699034859703
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": -0.029932804261711653,
+                "ci95": [
+                  -0.18666394110655818,
+                  0.1200024819454719
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": -0.045166968180934054,
+                "ci95": [
+                  -0.17189131067304816,
+                  0.08593649836524431
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": -0.045166968180934054,
+              "ci95": [
+                -0.17189131067304816,
+                0.08593649836524431
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": false,
+            "permutation_p_value_by_seed": [
+              0.17891054472763618,
+              0.19540229885057472,
+              0.20689655172413793
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 1.0,
+              "8": 0.697265625,
+              "16": 0.099609375,
+              "32": 0.013671875
+            },
+            "sigma_half": 10.056562585724034,
+            "disc_ortho_headline": 0.94140625,
+            "disc_freq_headline": 0.953125,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 5.2034325287431225,
+              "S4_BUNDLE_SIGN": 0.013344551342738006
+            },
+            "bits_retained_after_the_sum": 5.2034325287431225,
+            "bits_retained_after_the_sum_then_sign": 0.013344551342738006,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.21823097204147932,
+              "ci95": [
+                -0.33939030885515675,
+                -0.09621562129135083
+              ],
+              "band": "BELOW",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.0021371051329927004,
+            "closure_fraction_of_the_lift_loss": -102.11522525140306,
+            "closure_fraction_ci95": [
+              -158.80842903591304,
+              -45.021473116119026
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C2_TUNING_w0.5": {
+          "d_eff": 1020,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.032298201327849885,
+            "simlex_rho_ci95": [
+              -0.07988775300683214,
+              0.14645293486695207
+            ],
+            "simlex_rho_by_seed": [
+              0.032416877319582,
+              0.03190053790881011,
+              0.03257718875515755
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 1.2656400099120941,
+            "GOLD_FREQBAND_lift": 1.0040985278238719,
+            "GOLD_PLANTED_lift": 0.9981933512426008
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09320192951087537
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09389138849807709,
+              0.0901696021636248,
+              0.0955605145021362
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09388517013970163,
+              0.09016475867350288,
+              0.09555585971942163
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.017270367491215556,
+                "ci95": [
+                  -0.14038525316742592,
+                  0.18087653369399906
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": -0.047389317769433545,
+                "ci95": [
+                  -0.20977505212176523,
+                  0.10903867359332282
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": -0.06090372818302549,
+                "ci95": [
+                  -0.19005788562763187,
+                  0.06772261758665113
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": -0.06090372818302549,
+              "ci95": [
+                -0.19005788562763187,
+                0.06772261758665113
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": false,
+            "permutation_p_value_by_seed": [
+              0.29685157421289354,
+              0.29485257371314344,
+              0.28835582208895555
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 1.0,
+              "8": 0.697265625,
+              "16": 0.09765625,
+              "32": 0.01953125
+            },
+            "sigma_half": 10.049070982286896,
+            "disc_ortho_headline": 0.951171875,
+            "disc_freq_headline": 0.958984375,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 6.73307531422509,
+              "S4_BUNDLE_SIGN": 0.11173219949958894
+            },
+            "bits_retained_after_the_sum": 6.73307531422509,
+            "bits_retained_after_the_sum_then_sign": 0.11173219949958894,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.23568748554920121,
+              "ci95": [
+                -0.3612693415831777,
+                -0.10731818027799164
+              ],
+              "band": "BELOW",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.0021371051329927004,
+            "closure_fraction_of_the_lift_loss": -110.28352415173683,
+            "closure_fraction_ci95": [
+              -169.04612506230487,
+              -50.21661247320499
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C3_ORTHONORMAL": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.2701227920100438,
+            "simlex_rho_ci95": [
+              0.1624502603961648,
+              0.3711348808849658
+            ],
+            "simlex_rho_by_seed": [
+              0.2701227920100438,
+              0.2701227920100438,
+              0.2701227920100438
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.369510937458586,
+            "GOLD_FREQBAND_lift": 1.0110901721270598,
+            "GOLD_PLANTED_lift": 0.9998369246180191
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09038545647942975
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09253281198404349,
+              0.08789475234018,
+              0.0907600945994174
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09252971179092279,
+              0.08787582768304313,
+              0.09075082996432333
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.2550949581734095,
+                "ci95": [
+                  0.10413942737847473,
+                  0.4046449667152683
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.19043527291276036,
+                "ci95": [
+                  0.04285208939231341,
+                  0.3328401934217613
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.17973733553061405,
+                "ci95": [
+                  0.055108269152952014,
+                  0.301982988707305
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.17973733553061405,
+              "ci95": [
+                0.055108269152952014,
+                0.301982988707305
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.859375,
+              "8": 0.32421875,
+              "16": 0.0546875,
+              "32": 0.009765625
+            },
+            "sigma_half": 6.371057449730017,
+            "disc_ortho_headline": 0.80078125,
+            "disc_freq_headline": 0.876953125,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 0.1231302221850316,
+              "S4_BUNDLE_SIGN": 0.14425499095382222
+            },
+            "bits_retained_after_the_sum": 0.1231302221850316,
+            "bits_retained_after_the_sum_then_sign": 0.14425499095382222,
+            "SURVIVES_BUNDLING": false
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": 0.0021371051329927004,
+              "ci95": [
+                -0.005767840345763404,
+                0.010234812850157851
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.0021371051329927004,
+            "closure_fraction_of_the_lift_loss": 1.0,
+            "closure_fraction_ci95": [
+              -2.6989034169256776,
+              4.789101243618046
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C3_GAUSSPROJ": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.27095370367350896,
+            "simlex_rho_ci95": [
+              0.16403137566943793,
+              0.371772712519075
+            ],
+            "simlex_rho_by_seed": [
+              0.27083808294456246,
+              0.2696896635798453,
+              0.2723333644961191
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.3271513264941235,
+            "GOLD_FREQBAND_lift": 1.0112862591173795,
+            "GOLD_PLANTED_lift": 1.000143624700967
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09189409731728432
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.08574756757083958,
+              0.09597567079830156,
+              0.09396783297018702
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.08574325425867163,
+              0.09597407127837261,
+              0.09396496641480874
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.25592586983687465,
+                "ci95": [
+                  0.10517456687910637,
+                  0.4049518215430597
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.19126618457622552,
+                "ci95": [
+                  0.04336033398727631,
+                  0.3325886615293991
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.17905960635622464,
+                "ci95": [
+                  0.04711265150015904,
+                  0.30476854886212723
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.17905960635622464,
+              "ci95": [
+                0.04711265150015904,
+                0.30476854886212723
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.84375,
+              "8": 0.322265625,
+              "16": 0.05078125,
+              "32": 0.0078125
+            },
+            "sigma_half": 6.316721779323494,
+            "disc_ortho_headline": 0.837890625,
+            "disc_freq_headline": 0.880859375,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 0.11302525238655114,
+              "S4_BUNDLE_SIGN": 0.14211757840796166
+            },
+            "bits_retained_after_the_sum": 0.11302525238655114,
+            "bits_retained_after_the_sum_then_sign": 0.14211757840796166,
+            "SURVIVES_BUNDLING": false
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": 0.002968016796457862,
+              "ci95": [
+                -0.003133943479495209,
+                0.009104018329743514
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.0021371051329927004,
+            "closure_fraction_of_the_lift_loss": 1.3888024274695332,
+            "closure_fraction_ci95": [
+              -1.4664432886867775,
+              4.259976820604366
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C3_ONOFF": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.26970883385614736,
+            "simlex_rho_ci95": [
+              0.16310891108354778,
+              0.37065106416664645
+            ],
+            "simlex_rho_by_seed": [
+              0.2662621978983866,
+              0.27176005342046217,
+              0.27110425024959317
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.3336988956710996,
+            "GOLD_FREQBAND_lift": 1.01135413489389,
+            "GOLD_PLANTED_lift": 0.9999376833025581
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09067229173859855
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09072149944158125,
+              0.0908473133658802,
+              0.09049354089350496
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09071578430295872,
+              0.09084680116006026,
+              0.09045428975277664
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.25468100001951305,
+                "ci95": [
+                  0.10342859873972976,
+                  0.40422259836526153
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.1900213147588639,
+                "ci95": [
+                  0.04243144859231856,
+                  0.33243975096388406
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.17903654211754882,
+                "ci95": [
+                  0.05568047480390826,
+                  0.29782425862479994
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.17903654211754882,
+              "ci95": [
+                0.05568047480390826,
+                0.29782425862479994
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.802734375,
+              "8": 0.228515625,
+              "16": 0.029296875,
+              "32": 0.0078125
+            },
+            "sigma_half": 5.764561562187327,
+            "disc_ortho_headline": 0.755859375,
+            "disc_freq_headline": 0.775390625,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 0.28074728239404045,
+              "S4_BUNDLE_SIGN": 0.005498143733974577
+            },
+            "bits_retained_after_the_sum": 0.28074728239404045,
+            "bits_retained_after_the_sum_then_sign": 0.005498143733974577,
+            "SURVIVES_BUNDLING": false
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": 0.0017231469790962572,
+              "ci95": [
+                -0.00587468680047711,
+                0.00928678365865841
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.0021371051329927004,
+            "closure_fraction_of_the_lift_loss": 0.8062995837192362,
+            "closure_fraction_ci95": [
+              -2.748899298300069,
+              4.3454968664333515
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C4_PHASOR": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.3345486990208826,
+            "simlex_rho_ci95": [
+              0.2288057650917272,
+              0.4329590938582138
+            ],
+            "simlex_rho_by_seed": [
+              0.3345068838556988,
+              0.33049262799805834,
+              0.33864658520889057
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.3734584092216378,
+            "GOLD_FREQBAND_lift": 1.011135889840223,
+            "GOLD_PLANTED_lift": 0.9989187049077904
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": 0.01502783383663433,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09357988348959216
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09402613457299049,
+              0.09185430102182363,
+              0.09489581512492079
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09401043591391256,
+              0.09184928679642838,
+              0.09487992775843551
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.31952086518424827,
+                "ci95": [
+                  0.17614956960576045,
+                  0.4620741064952917
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.25486117992359913,
+                "ci95": [
+                  0.11025402173456844,
+                  0.3947472265696554
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.2409688155312904,
+                "ci95": [
+                  0.11597259827029058,
+                  0.35900592811363896
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.2409688155312904,
+              "ci95": [
+                0.11597259827029058,
+                0.35900592811363896
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.59375,
+              "8": 0.171875,
+              "16": 0.033203125,
+              "32": 0.001953125
+            },
+            "sigma_half": 4.666116158304467,
+            "disc_ortho_headline": 0.53515625,
+            "disc_freq_headline": 0.580078125,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 0.009661868391514616,
+              "S4_BUNDLE_SIGN": 0.10901830202284184
+            },
+            "bits_retained_after_the_sum": 0.009661868391514616,
+            "bits_retained_after_the_sum_then_sign": 0.10901830202284184,
+            "SURVIVES_BUNDLING": false
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": 0.06656301214383148,
+              "ci95": [
+                -0.02854627114894463,
+                0.16341758251744645
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.0021371051329927004,
+            "closure_fraction_of_the_lift_loss": 31.14634423745911,
+            "closure_fraction_ci95": [
+              -13.3574482173321,
+              76.46679613211364
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "NULL_SCRAM_SIMHASH": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.04296071332413428,
+            "simlex_rho_ci95": [
+              -0.10851069742692802,
+              0.023975108271499568
+            ],
+            "simlex_rho_by_seed": [
+              -0.01455539001108547,
+              -0.006802172749374775,
+              -0.10752457721194257
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal"
+          }
+        },
+        "NULL_SCRAM_KCAP_GRD": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.05298102161294569,
+            "simlex_rho_ci95": [
+              -0.1160200138185986,
+              0.012282059445920026
+            ],
+            "simlex_rho_by_seed": [
+              -0.006829339518249014,
+              -0.02425141540379603,
+              -0.12786230991679204
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal"
+          }
+        },
+        "NULL_SCRAM_TUNING": {
+          "d_eff": 1020,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.015328852466652778,
+            "simlex_rho_ci95": [
+              -0.08450889497952492,
+              0.053080527148388186
+            ],
+            "simlex_rho_by_seed": [
+              -0.0008910584053627072,
+              -0.022036891587406023,
+              -0.023058607407189603
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal"
+          }
+        },
+        "NULL_SCRAM_ORTHONORMAL": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.04771937065631952,
+            "simlex_rho_ci95": [
+              -0.11327664697262514,
+              0.019311015258133068
+            ],
+            "simlex_rho_by_seed": [
+              -0.0179563185551833,
+              -0.008832225549242614,
+              -0.11636956786453265
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal"
+          }
+        },
+        "NULL_SCRAM_ONOFF": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.04851110306759245,
+            "simlex_rho_ci95": [
+              -0.11348693059082093,
+              0.019088514104516133
+            ],
+            "simlex_rho_by_seed": [
+              -0.02540145479974875,
+              -0.007436329898889217,
+              -0.11269552450413939
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal"
+          }
+        },
+        "NULL_SCRAM_PHASOR": {
+          "d_eff": 1024,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.011605984808802832,
+            "simlex_rho_ci95": [
+              -0.07461082696145706,
+              0.05147602803398833
+            ],
+            "simlex_rho_by_seed": [
+              0.059356746792566896,
+              -0.03867135968445243,
+              -0.055503341534522965
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal"
+          }
+        }
+      },
+      "ceiling_rho": 0.2701227920100438,
+      "incumbent_rho": 0.2679856868770511,
+      "lift_gap": 0.0021371051329927004,
+      "frequency_channels_rho": {
+        "FREQ_NEG_ABS_DIFF": 0.012914776676707925,
+        "FREQ_SUM": 0.059026958133058915,
+        "FREQ_MIN": 0.07968751909728343,
+        "FREQ_MIN_OVER_MAX": 0.018345055814319954
+      },
+      "hardened_frequency_channel": "FREQ_MIN"
+    },
+    "256": {
+      "per_arm": {
+        "CEIL_NORMS12_DIRECT": {
+          "d_eff": 12,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.2701227920100438,
+            "simlex_rho_ci95": [
+              0.1624502603961648,
+              0.3711348808849658
+            ],
+            "simlex_rho_by_seed": [
+              0.2701227920100438,
+              0.2701227920100438,
+              0.2701227920100438
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.36951092896264,
+            "GOLD_FREQBAND_lift": 1.0110901722559393,
+            "GOLD_PLANTED_lift": 0.9998368108530853
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.0930423968677746
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09497315820373238,
+              0.09355052001793769,
+              0.09063134223120403
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.0949647562310719,
+              0.0935395660022445,
+              0.09062286837000742
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.28230735934471696,
+                "ci95": [
+                  0.12301709233211834,
+                  0.43415596386956634
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.19043527291276036,
+                "ci95": [
+                  0.04285208939231341,
+                  0.3328401934217613
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.1770803951422692,
+                "ci95": [
+                  0.06230634619305573,
+                  0.28809760338322404
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.1770803951422692,
+              "ci95": [
+                0.06230634619305573,
+                0.28809760338322404
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 0.166015625,
+              "4": 0.0078125,
+              "8": 0.001953125,
+              "16": 0.001953125,
+              "32": 0.0
+            },
+            "sigma_half": 1.0,
+            "disc_ortho_headline": 0.05078125,
+            "disc_freq_headline": 0.052734375,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 2.99791990138626,
+              "S2_ENCODE_SIGN": 2.8306887562060083,
+              "S3_BUNDLE": 0.1231302221850316,
+              "S4_BUNDLE_SIGN": 0.07491883550745311
+            },
+            "bits_retained_after_the_sum": 0.1231302221850316,
+            "bits_retained_after_the_sum_then_sign": 0.07491883550745311,
+            "SURVIVES_BUNDLING": false
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": 0.003402444208855382,
+              "ci95": [
+                -0.00963721348961846,
+                0.015976449184622838
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.003402444208855382,
+            "closure_fraction_of_the_lift_loss": 1.0,
+            "closure_fraction_ci95": [
+              -2.8324383584413044,
+              4.695580060663944
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "INC_SIMHASH": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.2667203478011884,
+            "simlex_rho_ci95": [
+              0.16065406385379963,
+              0.36609074343517295
+            ],
+            "simlex_rho_by_seed": [
+              0.2605135071660517,
+              0.2787650926371483,
+              0.26088244360036517
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.151822980791172,
+            "GOLD_FREQBAND_lift": 1.0105507934745115,
+            "GOLD_PLANTED_lift": 0.9991165713870173
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.0929898879020112
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09079188455831776,
+              0.09492385232157653,
+              0.09327469181013286
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09079140368853085,
+              0.09491613680694634,
+              0.09326212321055641
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.2789049151358616,
+                "ci95": [
+                  0.11975898306422976,
+                  0.4294649365551312
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.18703282870390497,
+                "ci95": [
+                  0.03898315574815599,
+                  0.33021451630550397
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.17373045989917724,
+                "ci95": [
+                  0.04923928489082061,
+                  0.29172592860025737
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.17373045989917724,
+              "ci95": [
+                0.04923928489082061,
+                0.29172592860025737
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.548828125,
+              "8": 0.109375,
+              "16": 0.015625,
+              "32": 0.009765625
+            },
+            "sigma_half": 4.320238955569224,
+            "disc_ortho_headline": 0.400390625,
+            "disc_freq_headline": 0.421875,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 0.7161041838248376,
+              "S4_BUNDLE_SIGN": 0.7159571273714477
+            },
+            "bits_retained_after_the_sum": 0.7161041838248376,
+            "bits_retained_after_the_sum_then_sign": 0.7159571273714477,
+            "SURVIVES_BUNDLING": true
+          }
+        },
+        "FLOOR_ORTHOGRAPHIC": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.012184567334673163,
+            "simlex_rho_ci95": [
+              -0.12146934622386724,
+              0.09520511880719622
+            ],
+            "simlex_rho_by_seed": [
+              -0.012184567334673161,
+              -0.012184567334673161,
+              -0.012184567334673161
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 102.92644895437205,
+            "GOLD_FREQBAND_lift": 1.0020718361726917,
+            "GOLD_PLANTED_lift": 0.9930403601703999
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09451627391639554
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09465877642853159,
+              0.09564396808109497,
+              0.09328206533879559
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09465588491674223,
+              0.09562848045865553,
+              0.09326445637378881
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.0,
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": -0.09187208643195659,
+                "ci95": [
+                  -0.24061819477328614,
+                  0.05552048219305352
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": -0.1067008412510687,
+                "ci95": [
+                  -0.2281955594866583,
+                  0.014712614639025104
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": -0.1067008412510687,
+              "ci95": [
+                -0.2281955594866583,
+                0.014712614639025104
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": false,
+            "permutation_p_value_by_seed": [
+              0.5782108945527237,
+              0.5887056471764118,
+              0.5932033983008496
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.70703125,
+              "8": 0.107421875,
+              "16": 0.015625,
+              "32": 0.00390625
+            },
+            "sigma_half": 5.08157906129476,
+            "disc_ortho_headline": 0.33984375,
+            "disc_freq_headline": 0.4765625,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 4.565699888040496,
+              "S4_BUNDLE_SIGN": 3.9679600251773315
+            },
+            "bits_retained_after_the_sum": 4.565699888040496,
+            "bits_retained_after_the_sum_then_sign": 3.9679600251773315,
+            "SURVIVES_BUNDLING": true
+          }
+        },
+        "NULL_RANDOM_IID": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.028044257109320878,
+            "simlex_rho_ci95": [
+              -0.08801787118509814,
+              0.0329744003118196
+            ],
+            "simlex_rho_by_seed": [
+              -0.05989734858428352,
+              0.014378605833207622,
+              -0.03861402857688674
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 0.9703521971578711,
+            "GOLD_FREQBAND_lift": 1.0010107496452745,
+            "GOLD_PLANTED_lift": 1.001419641095384
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09140687276364612
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09340514342574367,
+              0.08922669415157651,
+              0.09163015256616237
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09339542948729877,
+              0.08922535522759105,
+              0.0915998335760485
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": -0.015859689774647717,
+                "ci95": [
+                  -0.13873288280024476,
+                  0.10900228784440225
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": -0.1077317762066043,
+                "ci95": [
+                  -0.23470666056075246,
+                  0.017622301262325717
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": -0.119451129872967,
+                "ci95": [
+                  -0.2074122695335644,
+                  -0.026908051785036143
+                ],
+                "band": "BELOW",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": -0.119451129872967,
+              "ci95": [
+                -0.2074122695335644,
+                -0.026908051785036143
+              ],
+              "band": "BELOW",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": false,
+            "permutation_p_value_by_seed": [
+              0.8690654672663668,
+              0.4107946026986507,
+              0.7581209395302348
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.771484375,
+              "8": 0.12109375,
+              "16": 0.021484375,
+              "32": 0.001953125
+            },
+            "sigma_half": 5.342138639688716,
+            "disc_ortho_headline": 0.501953125,
+            "disc_freq_headline": 0.478515625,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 6.969058237659456,
+              "S4_BUNDLE_SIGN": 6.127877416090699
+            },
+            "bits_retained_after_the_sum": 6.969058237659456,
+            "bits_retained_after_the_sum_then_sign": 6.127877416090699,
+            "SURVIVES_BUNDLING": true
+          }
+        },
+        "KA_PLANTED_SEMANTIC": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.9269142505295291,
+            "simlex_rho_ci95": [
+              0.9022699197448326,
+              0.9463422492342489
+            ],
+            "simlex_rho_by_seed": [
+              0.9346706641355483,
+              0.9294878601230736,
+              0.9165842273299653
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 0.9642336751297953,
+            "GOLD_FREQBAND_lift": 1.0013258606097983,
+            "GOLD_PLANTED_lift": 1.001991618991484
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.0921050901708333
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.0915689664358466,
+              0.09523199287807754,
+              0.08956200025623265
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09156029488117562,
+              0.0952091772539225,
+              0.0895457983774018
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.9390988178642024,
+                "ci95": [
+                  0.8282853532061416,
+                  1.0510496788985018
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.8472267314322457,
+                "ci95": [
+                  0.7392618169861818,
+                  0.9541717259321535
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.8348091603586958,
+                "ci95": [
+                  0.7664357884898273,
+                  0.9001385750568549
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.8348091603586958,
+              "ci95": [
+                0.7664357884898273,
+                0.9001385750568549
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.76953125,
+              "8": 0.115234375,
+              "16": 0.025390625,
+              "32": 0.005859375
+            },
+            "sigma_half": 5.321895929487771,
+            "disc_ortho_headline": 0.5078125,
+            "disc_freq_headline": 0.47265625,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 6.76866836468362,
+              "S4_BUNDLE_SIGN": 6.053695311447949
+            },
+            "bits_retained_after_the_sum": 6.76866836468362,
+            "bits_retained_after_the_sum_then_sign": 6.053695311447949,
+            "SURVIVES_BUNDLING": true
+          }
+        },
+        "C1_KCAP_BIN_f002": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.2105297706480959,
+            "simlex_rho_ci95": [
+              0.12033960357836061,
+              0.2951198956170173
+            ],
+            "simlex_rho_by_seed": [
+              0.22818786773693114,
+              0.23083514081097362,
+              0.1725663033963829
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 2.188164814045878,
+            "GOLD_FREQBAND_lift": 1.0068236509708341,
+            "GOLD_PLANTED_lift": 1.0018183698453065
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09184983240459484
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09588512163002341,
+              0.08676823869336311,
+              0.0929224145404407
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.0958803405054975,
+              0.08675016029277045,
+              0.09291899641551654
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.22271433798276905,
+                "ci95": [
+                  0.08099828290577588,
+                  0.3613585031625705
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.13084225155081247,
+                "ci95": [
+                  -0.011642114564040887,
+                  0.2694505837455653
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.11867993824350105,
+                "ci95": [
+                  0.00759058721914556,
+                  0.22798343582943914
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.11867993824350105,
+              "ci95": [
+                0.00759058721914556,
+                0.22798343582943914
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": false,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0014992503748125937
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 0.96875,
+              "4": 0.623046875,
+              "8": 0.091796875,
+              "16": 0.0078125,
+              "32": 0.0
+            },
+            "sigma_half": 4.696602993938163,
+            "disc_ortho_headline": 0.44921875,
+            "disc_freq_headline": 0.44140625,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 1.2890896973893033,
+              "S4_BUNDLE_SIGN": 1.968997007134421
+            },
+            "bits_retained_after_the_sum": 1.2890896973893033,
+            "bits_retained_after_the_sum_then_sign": 1.968997007134421,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.05619057715309253,
+              "ci95": [
+                -0.10293988167449253,
+                -0.006567338904441346
+              ],
+              "band": "BELOW",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.003402444208855382,
+            "closure_fraction_of_the_lift_loss": -16.514768120766817,
+            "closure_fraction_ci95": [
+              -30.254686147850926,
+              -1.9301826867135223
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C1_KCAP_BIN_f005": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.2413314926215067,
+            "simlex_rho_ci95": [
+              0.14121684325643705,
+              0.33434377965047524
+            ],
+            "simlex_rho_by_seed": [
+              0.24761814462424792,
+              0.24365967838467573,
+              0.23271665485559642
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 2.4628489225744232,
+            "GOLD_FREQBAND_lift": 1.0103747793526505,
+            "GOLD_PLANTED_lift": 1.0019941490834614
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09100052967733056
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09091121348850134,
+              0.09244027454950479,
+              0.0897382377136955
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09082948627350011,
+              0.09243965069157449,
+              0.0897324520669171
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.2535160599561799,
+                "ci95": [
+                  0.09763628196379182,
+                  0.402634593471568
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.16164397352422327,
+                "ci95": [
+                  0.017276145921417997,
+                  0.30122202342448523
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.15033096294417614,
+                "ci95": [
+                  0.03276398210409013,
+                  0.2642618732327594
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.15033096294417614,
+              "ci95": [
+                0.03276398210409013,
+                0.2642618732327594
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.5390625,
+              "8": 0.08203125,
+              "16": 0.005859375,
+              "32": 0.001953125
+            },
+            "sigma_half": 4.244133641988656,
+            "disc_ortho_headline": 0.38671875,
+            "disc_freq_headline": 0.408203125,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 1.5423421348877298,
+              "S4_BUNDLE_SIGN": 3.6129692947966867
+            },
+            "bits_retained_after_the_sum": 1.5423421348877298,
+            "bits_retained_after_the_sum_then_sign": 3.6129692947966867,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.02538885517968173,
+              "ci95": [
+                -0.053227550732041023,
+                0.003266560692524502
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.003402444208855382,
+            "closure_fraction_of_the_lift_loss": -7.461946066184817,
+            "closure_fraction_ci95": [
+              -15.643915804264527,
+              0.9600629700327717
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C1_KCAP_BIN_f010": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.25026293540457106,
+            "simlex_rho_ci95": [
+              0.14541823411057755,
+              0.3487503507053996
+            ],
+            "simlex_rho_by_seed": [
+              0.26697461598211425,
+              0.23647025670158425,
+              0.24734393353001471
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 2.8264273226809156,
+            "GOLD_FREQBAND_lift": 1.0107259276412972,
+            "GOLD_PLANTED_lift": 1.001632701734341
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09377439202431097
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.0956981284146287,
+              0.09520177357451104,
+              0.09047772400360923
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09568771616845809,
+              0.09516469654226803,
+              0.09047076336220675
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.2624475027392442,
+                "ci95": [
+                  0.10346480302142264,
+                  0.4139265456926417
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.17057541630728762,
+                "ci95": [
+                  0.022240066273536762,
+                  0.3121537315169687
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.15648854338026008,
+                "ci95": [
+                  0.03139234568843216,
+                  0.27673803546166426
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.15648854338026008,
+              "ci95": [
+                0.03139234568843216,
+                0.27673803546166426
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.505859375,
+              "8": 0.083984375,
+              "16": 0.015625,
+              "32": 0.001953125
+            },
+            "sigma_half": 4.038694132914043,
+            "disc_ortho_headline": 0.408203125,
+            "disc_freq_headline": 0.412109375,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 1.3389559493961423,
+              "S4_BUNDLE_SIGN": 3.964630759600833
+            },
+            "bits_retained_after_the_sum": 1.3389559493961423,
+            "bits_retained_after_the_sum_then_sign": 3.964630759600833,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.016457412396617355,
+              "ci95": [
+                -0.03825025279714324,
+                0.0064691293436609084
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.003402444208855382,
+            "closure_fraction_of_the_lift_loss": -4.836938208651421,
+            "closure_fraction_ci95": [
+              -11.241992652690998,
+              1.9013182719716635
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C1_KCAP_GRD_f005": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.2376179105894555,
+            "simlex_rho_ci95": [
+              0.13850080503202358,
+              0.33112193099612597
+            ],
+            "simlex_rho_by_seed": [
+              0.25250452452142635,
+              0.2583279725941194,
+              0.2020212346528208
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 2.513891652333038,
+            "GOLD_FREQBAND_lift": 1.009665500873191,
+            "GOLD_PLANTED_lift": 1.0016840046299458
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.0930465646820063
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.0971572823155104,
+              0.0937828341772337,
+              0.08823303636842768
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09715448788257297,
+              0.0937642480590954,
+              0.08822095810435054
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.24980247792412866,
+                "ci95": [
+                  0.09991414398993831,
+                  0.39603945543439406
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.15793039149217208,
+                "ci95": [
+                  0.013781979403584273,
+                  0.2963908868568509
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.1445713459074492,
+                "ci95": [
+                  0.02267755885602701,
+                  0.2615841781068365
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.1445713459074492,
+              "ci95": [
+                0.02267755885602701,
+                0.2615841781068365
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.486328125,
+              "8": 0.0625,
+              "16": 0.013671875,
+              "32": 0.005859375
+            },
+            "sigma_half": 3.8550994046064546,
+            "disc_ortho_headline": 0.43359375,
+            "disc_freq_headline": 0.439453125,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 0.8295129609466526,
+              "S4_BUNDLE_SIGN": 1.3015792173186014
+            },
+            "bits_retained_after_the_sum": 0.8295129609466526,
+            "bits_retained_after_the_sum_then_sign": 1.3015792173186014,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.029102437211732918,
+              "ci95": [
+                -0.061320172450395796,
+                0.005059034146021138
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.003402444208855382,
+            "closure_fraction_of_the_lift_loss": -8.553391451941922,
+            "closure_fraction_ci95": [
+              -18.02238881413563,
+              1.4868823220831153
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C1_KCAP_GRD_f005_BOOST": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.255607933009975,
+            "simlex_rho_ci95": [
+              0.1533871584216193,
+              0.3509689893248587
+            ],
+            "simlex_rho_by_seed": [
+              0.2628825035377658,
+              0.23568150361338497,
+              0.2682597918787741
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 2.78605585154695,
+            "GOLD_FREQBAND_lift": 1.01113141978379,
+            "GOLD_PLANTED_lift": 0.9984366116263169
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.08994824942449205
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.08938340768278033,
+              0.09100834735619878,
+              0.08948081452286649
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.08937340078386738,
+              0.0910009635141911,
+              0.08947038397541769
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.26779250034464813,
+                "ci95": [
+                  0.1151981656338804,
+                  0.41414108342453726
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.17592041391269153,
+                "ci95": [
+                  0.030810179092499487,
+                  0.3146799509474895
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.16565968358548294,
+                "ci95": [
+                  0.04181254409799599,
+                  0.28243880552638506
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.16565968358548294,
+              "ci95": [
+                0.04181254409799599,
+                0.28243880552638506
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.57421875,
+              "8": 0.0859375,
+              "16": 0.01953125,
+              "32": 0.005859375
+            },
+            "sigma_half": 4.444434914620374,
+            "disc_ortho_headline": 0.447265625,
+            "disc_freq_headline": 0.453125,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 2.3090559784905422,
+              "S4_BUNDLE_SIGN": 2.958958463134658
+            },
+            "bits_retained_after_the_sum": 2.3090559784905422,
+            "bits_retained_after_the_sum_then_sign": 2.958958463134658,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.011112414791213443,
+              "ci95": [
+                -0.05404827159428636,
+                0.03177312256374399
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.003402444208855382,
+            "closure_fraction_of_the_lift_loss": -3.2660094065000926,
+            "closure_fraction_ci95": [
+              -15.88513088726553,
+              9.338322868322006
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C2_TUNING_w1.0": {
+          "d_eff": 252,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.18902287820728572,
+            "simlex_rho_ci95": [
+              0.08125883518411861,
+              0.2930848154596339
+            ],
+            "simlex_rho_by_seed": [
+              0.18941640803549786,
+              0.1898619372381792,
+              0.18779028934818004
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 2.294372802807381,
+            "GOLD_FREQBAND_lift": 1.0079633482486607,
+            "GOLD_PLANTED_lift": 1.001194785948738
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09223724526309025
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09268367007711759,
+              0.09112188264357136,
+              0.09294086928726576
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09266863638699889,
+              0.09110434184075504,
+              0.09293875756151687
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.20120744554195888,
+                "ci95": [
+                  0.04697429729894407,
+                  0.3530884168730044
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.10933535911000229,
+                "ci95": [
+                  -0.04212201564867177,
+                  0.2542602545270573
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.09678563294419547,
+                "ci95": [
+                  -0.033838394648157015,
+                  0.22444639185413193
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.09678563294419547,
+              "ci95": [
+                -0.033838394648157015,
+                0.22444639185413193
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": false,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.439453125,
+              "8": 0.05859375,
+              "16": 0.009765625,
+              "32": 0.005859375
+            },
+            "sigma_half": 3.44373021579604,
+            "disc_ortho_headline": 0.35546875,
+            "disc_freq_headline": 0.349609375,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 3.3848904976472283,
+              "S3_BUNDLE": 0.9127094506398631,
+              "S4_BUNDLE_SIGN": 0.0006897323475622367
+            },
+            "bits_retained_after_the_sum": 0.9127094506398631,
+            "bits_retained_after_the_sum_then_sign": 0.0006897323475622367,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.0776974695939027,
+              "ci95": [
+                -0.17596793432107402,
+                0.021548349076764412
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.003402444208855382,
+            "closure_fraction_of_the_lift_loss": -22.835780640188936,
+            "closure_fraction_ci95": [
+              -51.7180954394757,
+              6.333196888484324
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C2_TUNING_w0.5": {
+          "d_eff": 252,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.11729854747270525,
+            "simlex_rho_ci95": [
+              0.006523180516373949,
+              0.22697711129553358
+            ],
+            "simlex_rho_by_seed": [
+              0.11945484411400051,
+              0.11462824779806245,
+              0.11781255050605285
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 1.739970347342103,
+            "GOLD_FREQBAND_lift": 1.0060015150823192,
+            "GOLD_PLANTED_lift": 1.0007057380442559
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09430577798319038
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09577337645762461,
+              0.08987524556636314,
+              0.0972885441754889
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09575624901389106,
+              0.0898728912168048,
+              0.09728819371887526
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.12948311480737842,
+                "ci95": [
+                  -0.028671641774420407,
+                  0.2848306413276307
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.03761102837542182,
+                "ci95": [
+                  -0.11638355635851667,
+                  0.1856059272263473
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.02299276948951487,
+                "ci95": [
+                  -0.10025812129016955,
+                  0.14412796936185965
+                ],
+                "band": "NOT_SEPARATED",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.02299276948951487,
+              "ci95": [
+                -0.10025812129016955,
+                0.14412796936185965
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": false,
+            "permutation_p_value_by_seed": [
+              0.01649175412293853,
+              0.015992003998001,
+              0.01899050474762619
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 1.0,
+              "4": 0.6171875,
+              "8": 0.0859375,
+              "16": 0.009765625,
+              "32": 0.005859375
+            },
+            "sigma_half": 4.660834337431709,
+            "disc_ortho_headline": 0.39453125,
+            "disc_freq_headline": 0.390625,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 2.5104020510841765,
+              "S4_BUNDLE_SIGN": 0.00012955832529944664
+            },
+            "bits_retained_after_the_sum": 2.5104020510841765,
+            "bits_retained_after_the_sum_then_sign": 0.00012955832529944664,
+            "SURVIVES_BUNDLING": true
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.14942180032848318,
+              "ci95": [
+                -0.25653228965694996,
+                -0.04434559547127721
+              ],
+              "band": "BELOW",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.003402444208855382,
+            "closure_fraction_of_the_lift_loss": -43.9160177673421,
+            "closure_fraction_ci95": [
+              -75.39647203891997,
+              -13.03345264438459
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C3_ORTHONORMAL": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.2701227920100438,
+            "simlex_rho_ci95": [
+              0.1624502603961648,
+              0.3711348808849658
+            ],
+            "simlex_rho_by_seed": [
+              0.2701227920100438,
+              0.2701227920100438,
+              0.2701227920100438
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.369510894442414,
+            "GOLD_FREQBAND_lift": 1.0110902197518847,
+            "GOLD_PLANTED_lift": 0.9998370547673995
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09045632659463372
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.0934313018668289,
+              0.08788688953154052,
+              0.09008398291709097
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09341376106401257,
+              0.08787996127387075,
+              0.09007525744601788
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.28230735934471696,
+                "ci95": [
+                  0.12301709233211834,
+                  0.43415596386956634
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.19043527291276036,
+                "ci95": [
+                  0.04285208939231341,
+                  0.3328401934217613
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.1796664654154101,
+                "ci95": [
+                  0.052326922754547596,
+                  0.30466922738743435
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.1796664654154101,
+              "ci95": [
+                0.052326922754547596,
+                0.30466922738743435
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 0.9921875,
+              "4": 0.30078125,
+              "8": 0.046875,
+              "16": 0.013671875,
+              "32": 0.001953125
+            },
+            "sigma_half": 2.6827801145085934,
+            "disc_ortho_headline": 0.353515625,
+            "disc_freq_headline": 0.3984375,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 0.1231302221850316,
+              "S4_BUNDLE_SIGN": 0.14211757840796166
+            },
+            "bits_retained_after_the_sum": 0.1231302221850316,
+            "bits_retained_after_the_sum_then_sign": 0.14211757840796166,
+            "SURVIVES_BUNDLING": false
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": 0.003402444208855382,
+              "ci95": [
+                -0.00963721348961846,
+                0.015976449184622838
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.003402444208855382,
+            "closure_fraction_of_the_lift_loss": 1.0,
+            "closure_fraction_ci95": [
+              -2.8324383584413044,
+              4.695580060663944
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C3_GAUSSPROJ": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.26609949017827333,
+            "simlex_rho_ci95": [
+              0.15886411943048764,
+              0.3669243595399221
+            ],
+            "simlex_rho_by_seed": [
+              0.2671061693125825,
+              0.26985482749160977,
+              0.26133747373062766
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.292056915880783,
+            "GOLD_FREQBAND_lift": 1.0112817154342093,
+            "GOLD_PLANTED_lift": 0.9997448123252917
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09236999942648166
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09741426823911768,
+              0.0922058539356457,
+              0.0875417886138363
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.0974095056235989,
+              0.09217206632366344,
+              0.08752842633218268
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.2782840575129465,
+                "ci95": [
+                  0.11792363842971892,
+                  0.4308315747511319
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.1864119710809899,
+                "ci95": [
+                  0.03747632692224442,
+                  0.32916915538462405
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.17372949075179167,
+                "ci95": [
+                  0.045988477727155544,
+                  0.29554023795955564
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.17372949075179167,
+              "ci95": [
+                0.045988477727155544,
+                0.29554023795955564
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 0.998046875,
+              "4": 0.294921875,
+              "8": 0.048828125,
+              "16": 0.009765625,
+              "32": 0.00390625
+            },
+            "sigma_half": 2.6696797083400687,
+            "disc_ortho_headline": 0.33203125,
+            "disc_freq_headline": 0.361328125,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 0.11302525238655114,
+              "S4_BUNDLE_SIGN": 0.1347080881951269
+            },
+            "bits_retained_after_the_sum": 0.11302525238655114,
+            "bits_retained_after_the_sum_then_sign": 0.1347080881951269,
+            "SURVIVES_BUNDLING": false
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.0006208576229150831,
+              "ci95": [
+                -0.011756834311463182,
+                0.010463928135551592
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.003402444208855382,
+            "closure_fraction_of_the_lift_loss": -0.1824740053927133,
+            "closure_fraction_ci95": [
+              -3.4554084034248738,
+              3.0754150526017785
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C3_ONOFF": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.25799387800799023,
+            "simlex_rho_ci95": [
+              0.1519562356028745,
+              0.35745252189374643
+            ],
+            "simlex_rho_by_seed": [
+              0.26138150545900884,
+              0.2638652543823877,
+              0.24873487418257417
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.3072439029366563,
+            "GOLD_FREQBAND_lift": 1.0109734485192492,
+            "GOLD_PLANTED_lift": 1.0004843382388193
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.09417002846412677
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09332669506068904,
+              0.09777177891537174,
+              0.09147151253905193
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09331078073600271,
+              0.09773785651238423,
+              0.09146144814399339
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.2701784453426634,
+                "ci95": [
+                  0.11202521418858151,
+                  0.4211100236646507
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.17830635891070679,
+                "ci95": [
+                  0.029370430842203418,
+                  0.32040075151275843
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.16382384954386348,
+                "ci95": [
+                  0.03199776266629763,
+                  0.2851246820990232
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.16382384954386348,
+              "ci95": [
+                0.03199776266629763,
+                0.2851246820990232
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 0.990234375,
+              "4": 0.228515625,
+              "8": 0.044921875,
+              "16": 0.0078125,
+              "32": 0.001953125
+            },
+            "sigma_half": 2.4405046273583233,
+            "disc_ortho_headline": 0.259765625,
+            "disc_freq_headline": 0.27734375,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.999999999951707,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 0.2554583835079036,
+              "S4_BUNDLE_SIGN": 0.0018763487003378525
+            },
+            "bits_retained_after_the_sum": 0.2554583835079036,
+            "bits_retained_after_the_sum_then_sign": 0.0018763487003378525,
+            "SURVIVES_BUNDLING": false
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": -0.008726469793198188,
+              "ci95": [
+                -0.022954465108269276,
+                0.005038467947944482
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.003402444208855382,
+            "closure_fraction_of_the_lift_loss": -2.564764991733359,
+            "closure_fraction_ci95": [
+              -6.746463336129588,
+              1.4808377856222001
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "C4_PHASOR": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": 0.3251336970720589,
+            "simlex_rho_ci95": [
+              0.2190907935429705,
+              0.424046473719097
+            ],
+            "simlex_rho_by_seed": [
+              0.3197672178497656,
+              0.33441504625078955,
+              0.32121882711562166
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal",
+            "GOLD_ORTHO_lift": 3.3440936080312134,
+            "GOLD_FREQBAND_lift": 1.010432061499434,
+            "GOLD_PLANTED_lift": 0.9994190686962123
+          },
+          "THE_BAR": {
+            "floors": {
+              "A_ORTHOGRAPHIC": -0.012184567334673163,
+              "HARDENED_FREQUENCY_FREQ_MIN": 0.07968751909728343,
+              "OWN_SCRAMBLE_PERM_P95": 0.0980431431624937
+            },
+            "scramble_floor_policy": "95th percentile of a 2000-permutation row-permutation null of THIS arm's own code table. NOT a max-of-three-draws scramble. Paired-bootstrap partner = the permutation whose rho is closest to p95, per seed.",
+            "scramble_p95_by_seed": [
+              0.09915528277930932,
+              0.09701707509091845,
+              0.09796701020737368
+            ],
+            "scramble_partner_rho_by_seed": [
+              0.09915352151017408,
+              0.09701663477363463,
+              0.09795927320367243
+            ],
+            "MARGIN_per_floor": {
+              "A_ORTHOGRAPHIC": {
+                "point": 0.33731826440673207,
+                "ci95": [
+                  0.1909148003915446,
+                  0.4806772759391988
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "HARDENED_FREQUENCY_FREQ_MIN": {
+                "point": 0.24544617797477547,
+                "ci95": [
+                  0.09965129059885412,
+                  0.38670665241814495
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              },
+              "OWN_SCRAMBLE_PERM_P95": {
+                "point": 0.22709055390956523,
+                "ci95": [
+                  0.10503827140902788,
+                  0.34330630595548434
+                ],
+                "band": "ABOVE",
+                "n_boot": 10000
+              }
+            },
+            "strongest_floor_by_point": "OWN_SCRAMBLE_PERM_P95",
+            "MARGIN_over_strongest_floor": {
+              "point": 0.22709055390956523,
+              "ci95": [
+                0.10503827140902788,
+                0.34330630595548434
+              ],
+              "band": "ABOVE",
+              "n_boot": 10000
+            },
+            "CLEARS_ALL_THREE_FLOORS_CI_SEPARATED": true,
+            "permutation_p_value_by_seed": [
+              0.0004997501249375312,
+              0.0004997501249375312,
+              0.0004997501249375312
+            ]
+          },
+          "IDENTITY": {
+            "recoverability_curve_at_N_GATE": {
+              "1": 0.966796875,
+              "4": 0.16796875,
+              "8": 0.03125,
+              "16": 0.005859375,
+              "32": 0.001953125
+            },
+            "sigma_half": 2.2480967985829574,
+            "disc_ortho_headline": 0.21484375,
+            "disc_freq_headline": 0.22265625,
+            "NOTE": "a RANDOM encoding is near-OPTIMAL on this axis by design; scoring high here is NOT a win, and this axis is NEVER averaged with STRUCTURE"
+          },
+          "BUNDLING": {
+            "criterion": "pre-registered, carried forward verbatim from the parent: an arm retaining < 0.5 bits of the 7.000-bit ceiling after the sum has NOT solved the flat-sum problem",
+            "ceiling_bits": 7.0,
+            "stage_chain_bits": {
+              "S0_ORACLE": 6.999999999951707,
+              "S1_ENCODE": 6.988652363296159,
+              "S2_ENCODE_SIGN": 6.999999999951707,
+              "S3_BUNDLE": 0.012860110794117455,
+              "S4_BUNDLE_SIGN": 0.10167347435031715
+            },
+            "bits_retained_after_the_sum": 0.012860110794117455,
+            "bits_retained_after_the_sum_then_sign": 0.10167347435031715,
+            "SURVIVES_BUNDLING": false
+          },
+          "THE_TARGET_G0": {
+            "vs_incumbent_SIMHASH": {
+              "point": 0.058413349270870496,
+              "ci95": [
+                -0.03563127412343557,
+                0.15301120264383408
+              ],
+              "band": "NOT_SEPARATED",
+              "n_boot": 10000
+            },
+            "gap_being_closed": 0.003402444208855382,
+            "closure_fraction_of_the_lift_loss": 17.168054987893942,
+            "closure_fraction_ci95": [
+              -10.472258158032313,
+              44.97096594430528
+            ],
+            "CLOSES_THE_LIFT_GAP": false
+          }
+        },
+        "NULL_SCRAM_SIMHASH": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.057077274987128536,
+            "simlex_rho_ci95": [
+              -0.1234309792687079,
+              0.009832259183536243
+            ],
+            "simlex_rho_by_seed": [
+              -0.040241370301815724,
+              -0.013138785863833866,
+              -0.11785166879573604
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal"
+          }
+        },
+        "NULL_SCRAM_KCAP_GRD": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.026564568733226112,
+            "simlex_rho_ci95": [
+              -0.08775295934259325,
+              0.035431563805616906
+            ],
+            "simlex_rho_by_seed": [
+              0.014336725480398535,
+              -0.012984586511161718,
+              -0.08104584516891515
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal"
+          }
+        },
+        "NULL_SCRAM_TUNING": {
+          "d_eff": 252,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.015911808587574152,
+            "simlex_rho_ci95": [
+              -0.08285824276894022,
+              0.04888460842434594
+            ],
+            "simlex_rho_by_seed": [
+              -0.026002982125837695,
+              -0.04334878728791548,
+              0.021616343651030726
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal"
+          }
+        },
+        "NULL_SCRAM_ORTHONORMAL": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.04771937065631952,
+            "simlex_rho_ci95": [
+              -0.11327664697262514,
+              0.019311015258133068
+            ],
+            "simlex_rho_by_seed": [
+              -0.0179563185551833,
+              -0.008832225549242614,
+              -0.11636956786453265
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal"
+          }
+        },
+        "NULL_SCRAM_ONOFF": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.04703624984172015,
+            "simlex_rho_ci95": [
+              -0.11204098301569118,
+              0.018959610255906135
+            ],
+            "simlex_rho_by_seed": [
+              -0.03228442269175782,
+              -0.001826148539106589,
+              -0.10699817829429606
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal"
+          }
+        },
+        "NULL_SCRAM_PHASOR": {
+          "d_eff": 256,
+          "n_seeds": 3,
+          "STRUCTURE": {
+            "simlex_rho": -0.009098932018294299,
+            "simlex_rho_ci95": [
+              -0.07330866169954386,
+              0.054768028814535186
+            ],
+            "simlex_rho_by_seed": [
+              0.060349168033876466,
+              -0.022692515036934695,
+              -0.06495344905182467
+            ],
+            "n_pairs": 322,
+            "NOTE": "a RANDOM encoding must sit at rho ~0 here; any real rho IS the signal"
+          }
+        }
+      },
+      "ceiling_rho": 0.2701227920100438,
+      "incumbent_rho": 0.2667203478011884,
+      "lift_gap": 0.003402444208855382,
+      "frequency_channels_rho": {
+        "FREQ_NEG_ABS_DIFF": 0.012914776676707925,
+        "FREQ_SUM": 0.059026958133058915,
+        "FREQ_MIN": 0.07968751909728343,
+        "FREQ_MIN_OVER_MAX": 0.018345055814319954
+      },
+      "hardened_frequency_channel": "FREQ_MIN"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "all 7 v2 formula self-tests passed (orthographic score, frequency mode, prefix count, derangement no-fixed-points, known-answer arm AT PRODUCTION n_dim=2048, draw-spread rebuild mechanics, floor-gate max-selection)",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.1179384000133723,
+  "ts_iso": "2026-08-15T18:26:15.924120+00:00",
+  "anchor_name": "foundation_validation_harness_v2_floors_v1",
+  "run_mode": "self_test",
+  "result": {
+    "orthographic_score_ok": true,
+    "frequency_mode_ok": true,
+    "prefix_count_ok": true,
+    "derangement_no_fixed_points_ok": true,
+    "known_answer_arm_production_scale_ok": true,
+    "draw_spread_mechanics_ok": true,
+    "floor_gate_selects_max_ok": true
+  }
+}

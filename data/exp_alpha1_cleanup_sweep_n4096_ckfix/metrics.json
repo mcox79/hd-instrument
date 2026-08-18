@@ -1,0 +1,142 @@
+{
+  "verdict": "CLEANUP_HARD_PASS",
+  "verdict_msg": "CLEANUP_UNLOCKS_STEER: bpc varies with cleanup strength. W-magnitude path is operative at cleanup level. mean_bpc_range=15.1034 seeds_pass=3/3 HP_range=0.5 HF_range=0.05",
+  "elapsed_s": 304.63,
+  "config": {
+    "smoke": false,
+    "N": 4096,
+    "tau_sweep": [
+      0.0,
+      0.1,
+      1.0,
+      10.0,
+      100.0,
+      Infinity
+    ]
+  },
+  "summary": {
+    "per_seed": {
+      "7": {
+        "seed": 7,
+        "N": 4096,
+        "per_tau": {
+          "0.0": {
+            "bpc": 7.848078548908234,
+            "retention_argmax": 0.42812499962747097,
+            "tau_cleanup": 0.0
+          },
+          "0.1": {
+            "bpc": 7.990679919719696,
+            "retention_argmax": 0.0,
+            "tau_cleanup": 0.1
+          },
+          "1.0": {
+            "bpc": 7.761962413787842,
+            "retention_argmax": 0.35927734337747097,
+            "tau_cleanup": 1.0
+          },
+          "10.0": {
+            "bpc": 9.542315185070038,
+            "retention_argmax": 0.42861328087747097,
+            "tau_cleanup": 10.0
+          },
+          "100.0": {
+            "bpc": 21.4045512676239,
+            "retention_argmax": 0.42812499962747097,
+            "tau_cleanup": 100.0
+          },
+          "inf": {
+            "bpc": 22.78519344329834,
+            "retention_argmax": 0.42812499962747097,
+            "tau_cleanup": 999.0
+          }
+        }
+      },
+      "17": {
+        "seed": 17,
+        "N": 4096,
+        "per_tau": {
+          "0.0": {
+            "bpc": 7.854940235614777,
+            "retention_argmax": 0.42050781287252903,
+            "tau_cleanup": 0.0
+          },
+          "0.1": {
+            "bpc": 7.978373348712921,
+            "retention_argmax": 0.021582031273283064,
+            "tau_cleanup": 0.1
+          },
+          "1.0": {
+            "bpc": 7.741579920053482,
+            "retention_argmax": 0.38203125074505806,
+            "tau_cleanup": 1.0
+          },
+          "10.0": {
+            "bpc": 9.57178282737732,
+            "retention_argmax": 0.42099609412252903,
+            "tau_cleanup": 10.0
+          },
+          "100.0": {
+            "bpc": 21.578310012817383,
+            "retention_argmax": 0.42050781287252903,
+            "tau_cleanup": 100.0
+          },
+          "inf": {
+            "bpc": 23.088449120521545,
+            "retention_argmax": 0.42050781287252903,
+            "tau_cleanup": 999.0
+          }
+        }
+      },
+      "23": {
+        "seed": 23,
+        "N": 4096,
+        "per_tau": {
+          "0.0": {
+            "bpc": 7.646042883396149,
+            "retention_argmax": 0.43310546875,
+            "tau_cleanup": 0.0
+          },
+          "0.1": {
+            "bpc": 7.980873495340347,
+            "retention_argmax": 0.00048828125,
+            "tau_cleanup": 0.1
+          },
+          "1.0": {
+            "bpc": 7.747280567884445,
+            "retention_argmax": 0.41103515587747097,
+            "tau_cleanup": 1.0
+          },
+          "10.0": {
+            "bpc": 9.152933359146118,
+            "retention_argmax": 0.43212890625,
+            "tau_cleanup": 10.0
+          },
+          "100.0": {
+            "bpc": 21.457334995269775,
+            "retention_argmax": 0.43310546875,
+            "tau_cleanup": 100.0
+          },
+          "inf": {
+            "bpc": 22.586251378059387,
+            "retention_argmax": 0.43310546875,
+            "tau_cleanup": 999.0
+          }
+        }
+      }
+    },
+    "N_full": 4096,
+    "N_used": 4096,
+    "M_frac": 4.0,
+    "beta_readout": 32.0,
+    "tau_sweep": [
+      0.0,
+      0.1,
+      1.0,
+      10.0,
+      100.0,
+      "inf"
+    ],
+    "smoke": false
+  }
+}

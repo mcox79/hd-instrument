@@ -1,0 +1,241 @@
+{
+  "anchor": "bid_order_parameter_v6_n4096",
+  "N": 4096,
+  "smoke": false,
+  "M_fracs": [
+    0.05,
+    0.1,
+    0.15,
+    0.25,
+    0.5,
+    1.0,
+    1.5,
+    2.0
+  ],
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "cells": [
+    {
+      "N": 4096,
+      "M_frac": 0.05,
+      "M": 204,
+      "seed": 7,
+      "bid": 366.366,
+      "bid_normalized": 0.08944,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.05,
+      "M": 204,
+      "seed": 17,
+      "bid": 386.052,
+      "bid_normalized": 0.09425,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.05,
+      "M": 204,
+      "seed": 23,
+      "bid": 372.957,
+      "bid_normalized": 0.09105,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.1,
+      "M": 409,
+      "seed": 7,
+      "bid": 358.86,
+      "bid_normalized": 0.08761,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.1,
+      "M": 409,
+      "seed": 17,
+      "bid": 366.044,
+      "bid_normalized": 0.08937,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.1,
+      "M": 409,
+      "seed": 23,
+      "bid": 426.19,
+      "bid_normalized": 0.10405,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.15,
+      "M": 614,
+      "seed": 7,
+      "bid": 380.058,
+      "bid_normalized": 0.09279,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.15,
+      "M": 614,
+      "seed": 17,
+      "bid": 386.745,
+      "bid_normalized": 0.09442,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.15,
+      "M": 614,
+      "seed": 23,
+      "bid": 459.407,
+      "bid_normalized": 0.11216,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.25,
+      "M": 1024,
+      "seed": 7,
+      "bid": 438.64,
+      "bid_normalized": 0.10709,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.25,
+      "M": 1024,
+      "seed": 17,
+      "bid": 407.735,
+      "bid_normalized": 0.09954,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.25,
+      "M": 1024,
+      "seed": 23,
+      "bid": 430.498,
+      "bid_normalized": 0.1051,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.5,
+      "M": 2048,
+      "seed": 7,
+      "bid": 433.535,
+      "bid_normalized": 0.10584,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.5,
+      "M": 2048,
+      "seed": 17,
+      "bid": 436.147,
+      "bid_normalized": 0.10648,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 0.5,
+      "M": 2048,
+      "seed": 23,
+      "bid": 444.768,
+      "bid_normalized": 0.10859,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 1.0,
+      "M": 4096,
+      "seed": 7,
+      "bid": 467.565,
+      "bid_normalized": 0.11415,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 1.0,
+      "M": 4096,
+      "seed": 17,
+      "bid": 465.801,
+      "bid_normalized": 0.11372,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 1.0,
+      "M": 4096,
+      "seed": 23,
+      "bid": 458.521,
+      "bid_normalized": 0.11194,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 1.5,
+      "M": 6144,
+      "seed": 7,
+      "bid": 477.6,
+      "bid_normalized": 0.1166,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 1.5,
+      "M": 6144,
+      "seed": 17,
+      "bid": 475.775,
+      "bid_normalized": 0.11616,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 1.5,
+      "M": 6144,
+      "seed": 23,
+      "bid": 467.117,
+      "bid_normalized": 0.11404,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 2.0,
+      "M": 8192,
+      "seed": 7,
+      "bid": 487.482,
+      "bid_normalized": 0.11901,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 2.0,
+      "M": 8192,
+      "seed": 17,
+      "bid": 480.68,
+      "bid_normalized": 0.11735,
+      "outside_band": false
+    },
+    {
+      "N": 4096,
+      "M_frac": 2.0,
+      "M": 8192,
+      "seed": 23,
+      "bid": 482.227,
+      "bid_normalized": 0.11773,
+      "outside_band": false
+    }
+  ],
+  "verdict": "BID_V6_HARD_FAIL",
+  "verdict_msg": "BID_INSIDE_BANDS_AT_LOW_M: n_outside_low=0/12. rho=1.000 HP_rho<-0.5 n_outside_low=0/12 BAND_MAX_INSIDE=0.55 N=4096 M_fracs_tested=8",
+  "elapsed_s": 50.65
+}

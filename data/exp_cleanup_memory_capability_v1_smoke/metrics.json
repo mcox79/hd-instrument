@@ -1,0 +1,2139 @@
+{
+ "anchor_name": "exp_cleanup_memory_capability_v1",
+ "CODE_VERSION": "v1.0.0",
+ "grid": "smoke",
+ "ts_iso": "2026-08-17T02:13:07.773267+00:00",
+ "host": "FrameworkMPC",
+ "pid": 900,
+ "RULER_MODE_GATE": {
+  "RUN_MODE": "full",
+  "V": 4096,
+  "CORPUS_BYTES": 64000000,
+  "argv": [
+   "experiments/exp_cleanup_memory_capability_v1.py",
+   "--grid",
+   "smoke"
+  ],
+  "PASS": true
+ },
+ "cache": {
+  "source": "reused",
+  "path": "D:\\AI\\hd-instrument\\scratch\\sparse_code_real_task\\real_cache.npz"
+ },
+ "ORGAN": "hdlab/vsa_cleanup_memory.py (CleanupMemory) -- its 5 self-tests are run by --self-test and must pass before any treatment number here is read.",
+ "NO_LLM_IN_FLOW": true,
+ "aux_source": "reused:D:\\AI\\hd-instrument\\scratch\\sparsify_right_object\\aux_v2.npz",
+ "POOLS": {
+  "P1_OPEN": {
+   "chance": 0.010087905988131371,
+   "what": "the open pool of every eligible anchor; ANY WordNet gold member counts.",
+   "POOL_ORACLE_CHECK": {
+    "ok": null,
+    "oracle_constant_hit_exp": 0.1715,
+    "chance": 0.010088,
+    "margin_over_chance": 0.1614,
+    "note": "an OPEN pool is not de-biased by construction and is EXPECTED to admit a winning constant; the value is reported so the reader can see how much."
+   }
+  },
+  "P2_BALANCED_K15": {
+   "chance": 0.0625,
+   "K": 15,
+   "POOL_ORACLE_CHECK": {
+    "ok": true,
+    "oracle_constant_hit_exp": 0.0784,
+    "chance": 0.0625,
+    "margin_over_chance": 0.0159,
+    "tol": 0.03,
+    "n_items": 3994
+   },
+   "what": "de-biased: per-item pool = designated gold + 15 distractors drawn from the population of OTHER items' golds, so no constant ranking can beat chance 0.0625."
+  }
+ },
+ "CLEANUP_DIAGNOSTICS": {
+  "PARTIAL_CUE": {
+   "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+    "n_iterations": 11.0,
+    "converged": 1.0,
+    "decision_changed_frac": 0.25575,
+    "delta_state_vs_input_L2": 0.6926659941673279,
+    "beta": 16.0,
+    "alpha": 0.3,
+    "max_steps": 12.0,
+    "center": 1.0,
+    "M": 5491.0,
+    "d": 256.0
+   }
+  }
+ },
+ "PART_A_ORGAN": {
+  "A|v1.0.0|smoke|REAL_ANCHOR_MATRIX|b16_a0.3_ctrTrue": {
+   "codebook": "REAL_ANCHOR_MATRIX",
+   "cfg": {
+    "tag": "b16_a0.3_ctrTrue",
+    "beta": 16.0,
+    "alpha": 0.3,
+    "max_steps": 12,
+    "center": true
+   },
+   "GEOMETRY": {
+    "M": 5491,
+    "d": 256,
+    "participation_ratio": 83.458,
+    "mean_offdiag_cos": 0.06705,
+    "mean_abs_offdiag_cos": 0.08449,
+    "p99_offdiag_cos": 0.30621,
+    "common_mode_cos_mean": 0.25945,
+    "theory_capacity_scale_d_over_log_d": 46.17
+   },
+   "FIXED_POINT": {
+    "stored_symbols_are_fixed_points": 1.0,
+    "idempotent": true
+   },
+   "NOT_INERT": {
+    "delta_state_vs_input_L2_at_tau0.45": 0.663652,
+    "decision_changed_frac_at_tau0.45": 0.0,
+    "recovery_monotone_in_cue_quality": true,
+    "recovery_at_tau0.45": 1.0,
+    "chance": 0.00018212,
+    "VERDICT": "NOT_INERT"
+   },
+   "BASIN": {
+    "tau=0.10": {
+     "recovery_SETTLED": 0.0,
+     "recovery_ONE_SHOT_centred": 0.0,
+     "recovery_ONE_SHOT_raw_uncentred": 0.0,
+     "iteration_lift_over_one_shot": 0.0,
+     "centring_lift_over_raw": 0.0,
+     "decision_changed_frac": 0.6533,
+     "delta_state_vs_input_L2": 0.44912,
+     "n_iterations": 12,
+     "converged": false
+    },
+    "tau=0.30": {
+     "recovery_SETTLED": 0.6633,
+     "recovery_ONE_SHOT_centred": 0.93,
+     "recovery_ONE_SHOT_raw_uncentred": 0.9433,
+     "iteration_lift_over_one_shot": -0.2667,
+     "centring_lift_over_raw": -0.0133,
+     "decision_changed_frac": 0.33,
+     "delta_state_vs_input_L2": 0.656769,
+     "n_iterations": 12,
+     "converged": false
+    },
+    "tau=0.60": {
+     "recovery_SETTLED": 1.0,
+     "recovery_ONE_SHOT_centred": 1.0,
+     "recovery_ONE_SHOT_raw_uncentred": 1.0,
+     "iteration_lift_over_one_shot": 0.0,
+     "centring_lift_over_raw": 0.0,
+     "decision_changed_frac": 0.0,
+     "delta_state_vs_input_L2": 0.663652,
+     "n_iterations": 3,
+     "converged": true
+    },
+    "tau=1.00": {
+     "recovery_SETTLED": 1.0,
+     "recovery_ONE_SHOT_centred": 1.0,
+     "recovery_ONE_SHOT_raw_uncentred": 1.0,
+     "iteration_lift_over_one_shot": 0.0,
+     "centring_lift_over_raw": 0.0,
+     "decision_changed_frac": 0.0,
+     "delta_state_vs_input_L2": 0.000963,
+     "n_iterations": 1,
+     "converged": true
+    }
+   },
+   "CAPACITY": {
+    "L=1": {
+     "recovery_SETTLED": 1.0,
+     "recovery_ONE_SHOT_centred": 1.0,
+     "recovery_ONE_SHOT_raw": 1.0,
+     "iteration_lift_over_one_shot": 0.0,
+     "centring_lift_over_raw": 0.0,
+     "residue_cos_to_target": 1.0,
+     "decision_changed_frac": 0.0,
+     "delta_state_vs_input_L2": 0.000973,
+     "chance": 0.00018212
+    },
+    "L=4": {
+     "recovery_SETTLED": 1.0,
+     "recovery_ONE_SHOT_centred": 1.0,
+     "recovery_ONE_SHOT_raw": 1.0,
+     "iteration_lift_over_one_shot": 0.0,
+     "centring_lift_over_raw": 0.0,
+     "residue_cos_to_target": 0.497,
+     "decision_changed_frac": 0.0,
+     "delta_state_vs_input_L2": 0.744841,
+     "chance": 0.00018212
+    },
+    "L=16": {
+     "recovery_SETTLED": 0.35,
+     "recovery_ONE_SHOT_centred": 0.5533,
+     "recovery_ONE_SHOT_raw": 0.5567,
+     "iteration_lift_over_one_shot": -0.2033,
+     "centring_lift_over_raw": -0.0033,
+     "residue_cos_to_target": 0.2412,
+     "decision_changed_frac": 0.52,
+     "delta_state_vs_input_L2": 0.540439,
+     "chance": 0.00018212
+    },
+    "L=64": {
+     "recovery_SETTLED": 0.02,
+     "recovery_ONE_SHOT_centred": 0.0367,
+     "recovery_ONE_SHOT_raw": 0.0367,
+     "iteration_lift_over_one_shot": -0.0167,
+     "centring_lift_over_raw": 0.0,
+     "residue_cos_to_target": 0.1162,
+     "decision_changed_frac": 0.67,
+     "delta_state_vs_input_L2": 0.420426,
+     "chance": 0.00018212
+    }
+   },
+   "CAPACITY_SUMMARY": {
+    "first_load_below_0.50_recovery": 16,
+    "theory_scale_d_over_log_d": 46.17
+   },
+   "VALIDITY": {
+    "KNOWN_ANSWER_cue_is_the_symbol": 1.0,
+    "gate": 0.95,
+    "KA_PASSES": true,
+    "NULL_pairing_permuted": 0.0,
+    "chance": 0.00018212,
+    "NULL_near_chance": true,
+    "KA_broken_by_a_noise_codebook": 0.0,
+    "NULL_unaffected_when_KA_broken": 0.0,
+    "independence": "DEMONSTRATED: the noise codebook destroys KA and leaves NULL at chance, so the two arms do not share a failure mode."
+   }
+  },
+  "A|v1.0.0|smoke|RANDOM_MATCHED_M_and_d|b16_a0.3_ctrTrue": {
+   "codebook": "RANDOM_MATCHED_M_and_d",
+   "cfg": {
+    "tag": "b16_a0.3_ctrTrue",
+    "beta": 16.0,
+    "alpha": 0.3,
+    "max_steps": 12,
+    "center": true
+   },
+   "GEOMETRY": {
+    "M": 5491,
+    "d": 256,
+    "participation_ratio": 244.587,
+    "mean_offdiag_cos": 0.00015,
+    "mean_abs_offdiag_cos": 0.04982,
+    "p99_offdiag_cos": 0.14522,
+    "common_mode_cos_mean": 0.01251,
+    "theory_capacity_scale_d_over_log_d": 46.17
+   },
+   "FIXED_POINT": {
+    "stored_symbols_are_fixed_points": 1.0,
+    "idempotent": true
+   },
+   "NOT_INERT": {
+    "delta_state_vs_input_L2_at_tau0.45": 0.648833,
+    "decision_changed_frac_at_tau0.45": 0.0,
+    "recovery_monotone_in_cue_quality": true,
+    "recovery_at_tau0.45": 1.0,
+    "chance": 0.00018212,
+    "VERDICT": "NOT_INERT"
+   },
+   "BASIN": {
+    "tau=0.10": {
+     "recovery_SETTLED": 0.0,
+     "recovery_ONE_SHOT_centred": 0.0,
+     "recovery_ONE_SHOT_raw_uncentred": 0.0,
+     "iteration_lift_over_one_shot": 0.0,
+     "centring_lift_over_raw": 0.0,
+     "decision_changed_frac": 0.08,
+     "delta_state_vs_input_L2": 0.040933,
+     "n_iterations": 2,
+     "converged": true
+    },
+    "tau=0.30": {
+     "recovery_SETTLED": 0.9867,
+     "recovery_ONE_SHOT_centred": 0.9867,
+     "recovery_ONE_SHOT_raw_uncentred": 0.9867,
+     "iteration_lift_over_one_shot": 0.0,
+     "centring_lift_over_raw": 0.0,
+     "decision_changed_frac": 0.0,
+     "delta_state_vs_input_L2": 0.056446,
+     "n_iterations": 2,
+     "converged": true
+    },
+    "tau=0.60": {
+     "recovery_SETTLED": 1.0,
+     "recovery_ONE_SHOT_centred": 1.0,
+     "recovery_ONE_SHOT_raw_uncentred": 1.0,
+     "iteration_lift_over_one_shot": 0.0,
+     "centring_lift_over_raw": 0.0,
+     "decision_changed_frac": 0.0,
+     "delta_state_vs_input_L2": 0.648833,
+     "n_iterations": 3,
+     "converged": true
+    },
+    "tau=1.00": {
+     "recovery_SETTLED": 1.0,
+     "recovery_ONE_SHOT_centred": 1.0,
+     "recovery_ONE_SHOT_raw_uncentred": 1.0,
+     "iteration_lift_over_one_shot": 0.0,
+     "centring_lift_over_raw": 0.0,
+     "decision_changed_frac": 0.0,
+     "delta_state_vs_input_L2": 1.2e-05,
+     "n_iterations": 1,
+     "converged": true
+    }
+   },
+   "CAPACITY": {
+    "L=1": {
+     "recovery_SETTLED": 1.0,
+     "recovery_ONE_SHOT_centred": 1.0,
+     "recovery_ONE_SHOT_raw": 1.0,
+     "iteration_lift_over_one_shot": 0.0,
+     "centring_lift_over_raw": 0.0,
+     "residue_cos_to_target": 1.0,
+     "decision_changed_frac": 0.0,
+     "delta_state_vs_input_L2": 1.2e-05,
+     "chance": 0.00018212
+    },
+    "L=4": {
+     "recovery_SETTLED": 1.0,
+     "recovery_ONE_SHOT_centred": 1.0,
+     "recovery_ONE_SHOT_raw": 1.0,
+     "iteration_lift_over_one_shot": 0.0,
+     "centring_lift_over_raw": 0.0,
+     "residue_cos_to_target": 0.4938,
+     "decision_changed_frac": 0.0,
+     "delta_state_vs_input_L2": 0.737103,
+     "chance": 0.00018212
+    },
+    "L=16": {
+     "recovery_SETTLED": 0.64,
+     "recovery_ONE_SHOT_centred": 0.64,
+     "recovery_ONE_SHOT_raw": 0.6467,
+     "iteration_lift_over_one_shot": 0.0,
+     "centring_lift_over_raw": -0.0067,
+     "residue_cos_to_target": 0.2463,
+     "decision_changed_frac": 0.0233,
+     "delta_state_vs_input_L2": 0.052789,
+     "chance": 0.00018212
+    },
+    "L=64": {
+     "recovery_SETTLED": 0.0333,
+     "recovery_ONE_SHOT_centred": 0.0433,
+     "recovery_ONE_SHOT_raw": 0.0333,
+     "iteration_lift_over_one_shot": -0.01,
+     "centring_lift_over_raw": 0.01,
+     "residue_cos_to_target": 0.1225,
+     "decision_changed_frac": 0.0767,
+     "delta_state_vs_input_L2": 0.041299,
+     "chance": 0.00018212
+    }
+   },
+   "CAPACITY_SUMMARY": {
+    "first_load_below_0.50_recovery": 64,
+    "theory_scale_d_over_log_d": 46.17
+   },
+   "VALIDITY": {
+    "KNOWN_ANSWER_cue_is_the_symbol": 1.0,
+    "gate": 0.95,
+    "KA_PASSES": true,
+    "NULL_pairing_permuted": 0.0,
+    "chance": 0.00018212,
+    "NULL_near_chance": true,
+    "KA_broken_by_a_noise_codebook": 0.0,
+    "NULL_unaffected_when_KA_broken": 0.0,
+    "independence": "DEMONSTRATED: the noise codebook destroys KA and leaves NULL at chance, so the two arms do not share a failure mode."
+   }
+  }
+ },
+ "PART_B_READOUT": {
+  "B|v1.0.0|smoke|PARTIAL_CUE|P1_OPEN": {
+   "n_common_scored": 3994,
+   "chance_for_THIS_condition": 0.010088,
+   "n_boot": 2000,
+   "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED (expected hit under a random tie-break)",
+   "VALIDITY": {
+    "KNOWN_ANSWER_hit_at_1": 1.0,
+    "gate": 0.95,
+    "KA_PASSES": true,
+    "NULL_hit_at_1": 0.0105,
+    "chance": 0.010088,
+    "NULL_near_chance": true,
+    "treatment_ladder_spread": 0.002,
+    "spread_below_guard": false,
+    "CONDITION_READABLE": true,
+    "independence": "KA plants the answer in the QUERY; NULL permutes the ANCHOR->VECTOR map. Different mechanisms; --self-test breaks each and shows the other survives."
+   },
+   "hit_at_1_TIE_CORRECTED_primary": {
+    "F1_TRIGRAM_orthographic": 0.0871,
+    "F2_PREFIX_orthographic": 0.0551,
+    "F3_FREQUENCY_constant": 0.0185,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.139,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0105,
+    "A0_NO_CLEANUP_raw_cosine": 0.0223,
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": 0.0233,
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": 0.0218,
+    "C1_INCUMBENT_iterative_attractor_shipped": 0.0238,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "NULL_SCRAMBLED_ANCHORS": 0.0105
+   },
+   "hit_at_1_OPTIMISTIC_tie": {
+    "F1_TRIGRAM_orthographic": 0.0984,
+    "F2_PREFIX_orthographic": 0.0941,
+    "F3_FREQUENCY_constant": 0.0185,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.139,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0105,
+    "A0_NO_CLEANUP_raw_cosine": 0.0223,
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": 0.0233,
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": 0.0218,
+    "C1_INCUMBENT_iterative_attractor_shipped": 0.0238,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "NULL_SCRAMBLED_ANCHORS": 0.0105
+   },
+   "hit_at_1_CONSERVATIVE_tie": {
+    "F1_TRIGRAM_orthographic": 0.0786,
+    "F2_PREFIX_orthographic": 0.0371,
+    "F3_FREQUENCY_constant": 0.0185,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.139,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0105,
+    "A0_NO_CLEANUP_raw_cosine": 0.0223,
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": 0.0233,
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": 0.0218,
+    "C1_INCUMBENT_iterative_attractor_shipped": 0.0238,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "NULL_SCRAMBLED_ANCHORS": 0.0105
+   },
+   "ci95_tie_corrected": {
+    "F1_TRIGRAM_orthographic": [
+     0.0789,
+     0.096
+    ],
+    "F2_PREFIX_orthographic": [
+     0.0491,
+     0.0617
+    ],
+    "F3_FREQUENCY_constant": [
+     0.0145,
+     0.0228
+    ],
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": [
+     0.1287,
+     0.1495
+    ],
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": [
+     0.0073,
+     0.0138
+    ],
+    "A0_NO_CLEANUP_raw_cosine": [
+     0.0178,
+     0.027
+    ],
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": [
+     0.019,
+     0.028
+    ],
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": [
+     0.0173,
+     0.0263
+    ],
+    "C1_INCUMBENT_iterative_attractor_shipped": [
+     0.0193,
+     0.0288
+    ],
+    "KA_QUERY_IS_GOLD_VECTOR": [
+     1.0,
+     1.0
+    ],
+    "NULL_SCRAMBLED_ANCHORS": [
+     0.0073,
+     0.0138
+    ]
+   },
+   "mean_tie_mass_of_eligible_pool": {
+    "F1_TRIGRAM_orthographic": 0.0,
+    "F2_PREFIX_orthographic": 0.0004,
+    "F3_FREQUENCY_constant": 0.0,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0,
+    "A0_NO_CLEANUP_raw_cosine": 0.0,
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": 0.0,
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": 0.0,
+    "C1_INCUMBENT_iterative_attractor_shipped": 0.0,
+    "KA_QUERY_IS_GOLD_VECTOR": 0.0,
+    "NULL_SCRAMBLED_ANCHORS": 0.0
+   },
+   "BINDING_FLOOR": "F4_CONSTANT_PROTOTYPE_zero_query_information",
+   "BINDING_FLOOR_VALUE_tie_corrected": 0.139,
+   "FLOOR_VALUES_on_THIS_population": {
+    "F1_TRIGRAM_orthographic": 0.0871,
+    "F2_PREFIX_orthographic": 0.0551,
+    "F3_FREQUENCY_constant": 0.0185,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.139,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0105
+   },
+   "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.0517,
+     "ci95": [
+      -0.0654,
+      -0.0383
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0838,
+     "ci95": [
+      -0.0959,
+      -0.0722
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.1204,
+     "ci95": [
+      -0.1317,
+      -0.1097
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1395,
+      -0.1187
+     ],
+     "band": "BELOW"
+    },
+    "A0_NO_CLEANUP_raw_cosine": {
+     "point": -0.1167,
+     "ci95": [
+      -0.1282,
+      -0.1062
+     ],
+     "band": "BELOW"
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "point": -0.1157,
+     "ci95": [
+      -0.1269,
+      -0.1054
+     ],
+     "band": "BELOW"
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "point": -0.1172,
+     "ci95": [
+      -0.1287,
+      -0.1067
+     ],
+     "band": "BELOW"
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "point": -0.1152,
+     "ci95": [
+      -0.1267,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.861,
+     "ci95": [
+      0.8505,
+      0.8713
+     ],
+     "band": "ABOVE"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1395,
+      -0.1187
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_binding_floor_CONSERVATIVE": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.0602,
+     "ci95": [
+      -0.0736,
+      -0.0471
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.1018,
+     "ci95": [
+      -0.1137,
+      -0.0906
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.1204,
+     "ci95": [
+      -0.1317,
+      -0.1097
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1395,
+      -0.1187
+     ],
+     "band": "BELOW"
+    },
+    "A0_NO_CLEANUP_raw_cosine": {
+     "point": -0.1167,
+     "ci95": [
+      -0.1282,
+      -0.1062
+     ],
+     "band": "BELOW"
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "point": -0.1157,
+     "ci95": [
+      -0.1269,
+      -0.1054
+     ],
+     "band": "BELOW"
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "point": -0.1172,
+     "ci95": [
+      -0.1287,
+      -0.1067
+     ],
+     "band": "BELOW"
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "point": -0.1152,
+     "ci95": [
+      -0.1267,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.861,
+     "ci95": [
+      0.8505,
+      0.8713
+     ],
+     "band": "ABOVE"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1395,
+      -0.1187
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_binding_floor_OPTIMISTIC": {
+    "F1_TRIGRAM_orthographic": {
+     "point": -0.0404,
+     "ci95": [
+      -0.0541,
+      -0.027
+     ],
+     "band": "BELOW"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0448,
+     "ci95": [
+      -0.0586,
+      -0.0318
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.1204,
+     "ci95": [
+      -0.1317,
+      -0.1097
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1395,
+      -0.1187
+     ],
+     "band": "BELOW"
+    },
+    "A0_NO_CLEANUP_raw_cosine": {
+     "point": -0.1167,
+     "ci95": [
+      -0.1282,
+      -0.1062
+     ],
+     "band": "BELOW"
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "point": -0.1157,
+     "ci95": [
+      -0.1269,
+      -0.1054
+     ],
+     "band": "BELOW"
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "point": -0.1172,
+     "ci95": [
+      -0.1287,
+      -0.1067
+     ],
+     "band": "BELOW"
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "point": -0.1152,
+     "ci95": [
+      -0.1267,
+      -0.1047
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.861,
+     "ci95": [
+      0.8505,
+      0.8713
+     ],
+     "band": "ABOVE"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.1285,
+     "ci95": [
+      -0.1395,
+      -0.1187
+     ],
+     "band": "BELOW"
+    }
+   },
+   "ARM_BY_ARM_vs_EACH_FLOOR_tie_corrected": {
+    "A0_NO_CLEANUP_raw_cosine": {
+     "F1_TRIGRAM_orthographic": {
+      "point": -0.065,
+      "ci95": [
+       -0.075,
+       -0.0555
+      ],
+      "band": "BELOW"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": -0.0329,
+      "ci95": [
+       -0.0406,
+       -0.025
+      ],
+      "band": "BELOW"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": 0.0037,
+      "ci95": [
+       -0.0023,
+       0.01
+      ],
+      "band": "NOT_SEPARATED"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": -0.1167,
+      "ci95": [
+       -0.1282,
+       -0.1062
+      ],
+      "band": "BELOW"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.0118,
+      "ci95": [
+       0.0065,
+       0.0175
+      ],
+      "band": "ABOVE"
+     }
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "F1_TRIGRAM_orthographic": {
+      "point": -0.064,
+      "ci95": [
+       -0.0741,
+       -0.0545
+      ],
+      "band": "BELOW"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": -0.0319,
+      "ci95": [
+       -0.0394,
+       -0.0239
+      ],
+      "band": "BELOW"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": 0.0047,
+      "ci95": [
+       -0.0013,
+       0.0108
+      ],
+      "band": "NOT_SEPARATED"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": -0.1157,
+      "ci95": [
+       -0.1269,
+       -0.1054
+      ],
+      "band": "BELOW"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.0128,
+      "ci95": [
+       0.0075,
+       0.0185
+      ],
+      "band": "ABOVE"
+     }
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "F1_TRIGRAM_orthographic": {
+      "point": -0.0656,
+      "ci95": [
+       -0.0756,
+       -0.0558
+      ],
+      "band": "BELOW"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": -0.0334,
+      "ci95": [
+       -0.0409,
+       -0.0253
+      ],
+      "band": "BELOW"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": 0.0032,
+      "ci95": [
+       -0.0028,
+       0.0093
+      ],
+      "band": "NOT_SEPARATED"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": -0.1172,
+      "ci95": [
+       -0.1287,
+       -0.1067
+      ],
+      "band": "BELOW"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.0113,
+      "ci95": [
+       0.0058,
+       0.017
+      ],
+      "band": "ABOVE"
+     }
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "F1_TRIGRAM_orthographic": {
+      "point": -0.0635,
+      "ci95": [
+       -0.0736,
+       -0.0539
+      ],
+      "band": "BELOW"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": -0.0314,
+      "ci95": [
+       -0.0392,
+       -0.0238
+      ],
+      "band": "BELOW"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": 0.0052,
+      "ci95": [
+       -0.001,
+       0.0115
+      ],
+      "band": "NOT_SEPARATED"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": -0.1152,
+      "ci95": [
+       -0.1267,
+       -0.1047
+      ],
+      "band": "BELOW"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.0133,
+      "ci95": [
+       0.0078,
+       0.0193
+      ],
+      "band": "ABOVE"
+     }
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "F1_TRIGRAM_orthographic": {
+      "point": 0.9127,
+      "ci95": [
+       0.904,
+       0.9211
+      ],
+      "band": "ABOVE"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": 0.9448,
+      "ci95": [
+       0.9383,
+       0.9509
+      ],
+      "band": "ABOVE"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": 0.9814,
+      "ci95": [
+       0.9772,
+       0.9855
+      ],
+      "band": "ABOVE"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": 0.861,
+      "ci95": [
+       0.8505,
+       0.8713
+      ],
+      "band": "ABOVE"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.9895,
+      "ci95": [
+       0.9862,
+       0.9927
+      ],
+      "band": "ABOVE"
+     }
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "F1_TRIGRAM_orthographic": {
+      "point": -0.0768,
+      "ci95": [
+       -0.0862,
+       -0.0679
+      ],
+      "band": "BELOW"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": -0.0447,
+      "ci95": [
+       -0.052,
+       -0.0379
+      ],
+      "band": "BELOW"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": -0.0081,
+      "ci95": [
+       -0.0133,
+       -0.003
+      ],
+      "band": "BELOW"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": -0.1285,
+      "ci95": [
+       -0.1395,
+       -0.1187
+      ],
+      "band": "BELOW"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "band": "NOT_SEPARATED"
+     }
+    }
+   },
+   "LADDER_vs_A0_NO_CLEANUP_tie_corrected": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.065,
+     "ci95": [
+      0.0555,
+      0.075
+     ],
+     "band": "ABOVE"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": 0.0329,
+     "ci95": [
+      0.025,
+      0.0406
+     ],
+     "band": "ABOVE"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0037,
+     "ci95": [
+      -0.01,
+      0.0023
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": 0.1167,
+     "ci95": [
+      0.1062,
+      0.1282
+     ],
+     "band": "ABOVE"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0118,
+     "ci95": [
+      -0.0175,
+      -0.0065
+     ],
+     "band": "BELOW"
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "point": 0.001,
+     "ci95": [
+      -0.0005,
+      0.0025
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "point": -0.0005,
+     "ci95": [
+      -0.004,
+      0.0025
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "point": 0.0015,
+     "ci95": [
+      0.0,
+      0.003
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9777,
+     "ci95": [
+      0.973,
+      0.9822
+     ],
+     "band": "ABOVE"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0118,
+     "ci95": [
+      -0.0175,
+      -0.0065
+     ],
+     "band": "BELOW"
+    }
+   },
+   "LADDER_vs_A0_NO_CLEANUP_conservative": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.0565,
+     "ci95": [
+      0.0471,
+      0.0666
+     ],
+     "band": "ABOVE"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": 0.0148,
+     "ci95": [
+      0.0075,
+      0.0223
+     ],
+     "band": "ABOVE"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0037,
+     "ci95": [
+      -0.01,
+      0.0023
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": 0.1167,
+     "ci95": [
+      0.1062,
+      0.1282
+     ],
+     "band": "ABOVE"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0118,
+     "ci95": [
+      -0.0175,
+      -0.0065
+     ],
+     "band": "BELOW"
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "point": 0.001,
+     "ci95": [
+      -0.0005,
+      0.0025
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "point": -0.0005,
+     "ci95": [
+      -0.004,
+      0.0025
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "point": 0.0015,
+     "ci95": [
+      0.0,
+      0.003
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9777,
+     "ci95": [
+      0.973,
+      0.9822
+     ],
+     "band": "ABOVE"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0118,
+     "ci95": [
+      -0.0175,
+      -0.0065
+     ],
+     "band": "BELOW"
+    }
+   },
+   "regime": "PARTIAL_CUE",
+   "pool": "P1_OPEN",
+   "POOL_ORACLE_CHECK": {
+    "ok": null,
+    "oracle_constant_hit_exp": 0.1715,
+    "chance": 0.010088,
+    "margin_over_chance": 0.1614,
+    "note": "an OPEN pool is not de-biased by construction and is EXPECTED to admit a winning constant; the value is reported so the reader can see how much."
+   }
+  },
+  "B|v1.0.0|smoke|PARTIAL_CUE|P2_BALANCED_K15": {
+   "n_common_scored": 3994,
+   "chance_for_THIS_condition": 0.0625,
+   "n_boot": 2000,
+   "PRIMARY_METRIC": "hit_at_1_TIE_CORRECTED (expected hit under a random tie-break)",
+   "VALIDITY": {
+    "KNOWN_ANSWER_hit_at_1": 1.0,
+    "gate": 0.95,
+    "KA_PASSES": true,
+    "NULL_hit_at_1": 0.0636,
+    "chance": 0.0625,
+    "NULL_near_chance": true,
+    "treatment_ladder_spread": 0.0103,
+    "spread_below_guard": false,
+    "CONDITION_READABLE": true,
+    "independence": "KA plants the answer in the QUERY; NULL permutes the ANCHOR->VECTOR map. Different mechanisms; --self-test breaks each and shows the other survives."
+   },
+   "hit_at_1_TIE_CORRECTED_primary": {
+    "F1_TRIGRAM_orthographic": 0.1081,
+    "F2_PREFIX_orthographic": 0.0761,
+    "F3_FREQUENCY_constant": 0.0685,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0696,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0636,
+    "A0_NO_CLEANUP_raw_cosine": 0.0924,
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": 0.0899,
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": 0.0961,
+    "C1_INCUMBENT_iterative_attractor_shipped": 0.1002,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "NULL_SCRAMBLED_ANCHORS": 0.0636,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0784
+   },
+   "hit_at_1_OPTIMISTIC_tie": {
+    "F1_TRIGRAM_orthographic": 0.2661,
+    "F2_PREFIX_orthographic": 0.4284,
+    "F3_FREQUENCY_constant": 0.0689,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0696,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0636,
+    "A0_NO_CLEANUP_raw_cosine": 0.0924,
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": 0.0899,
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": 0.0961,
+    "C1_INCUMBENT_iterative_attractor_shipped": 0.1002,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "NULL_SCRAMBLED_ANCHORS": 0.0636,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0786
+   },
+   "hit_at_1_CONSERVATIVE_tie": {
+    "F1_TRIGRAM_orthographic": 0.0924,
+    "F2_PREFIX_orthographic": 0.0438,
+    "F3_FREQUENCY_constant": 0.0681,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0696,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0636,
+    "A0_NO_CLEANUP_raw_cosine": 0.0924,
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": 0.0899,
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": 0.0961,
+    "C1_INCUMBENT_iterative_attractor_shipped": 0.1002,
+    "KA_QUERY_IS_GOLD_VECTOR": 1.0,
+    "NULL_SCRAMBLED_ANCHORS": 0.0636,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0781
+   },
+   "ci95_tie_corrected": {
+    "F1_TRIGRAM_orthographic": [
+     0.099,
+     0.1175
+    ],
+    "F2_PREFIX_orthographic": [
+     0.0695,
+     0.0827
+    ],
+    "F3_FREQUENCY_constant": [
+     0.0605,
+     0.0762
+    ],
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": [
+     0.0618,
+     0.0776
+    ],
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": [
+     0.0563,
+     0.0716
+    ],
+    "A0_NO_CLEANUP_raw_cosine": [
+     0.0836,
+     0.1012
+    ],
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": [
+     0.0814,
+     0.0984
+    ],
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": [
+     0.0876,
+     0.1062
+    ],
+    "C1_INCUMBENT_iterative_attractor_shipped": [
+     0.0911,
+     0.1094
+    ],
+    "KA_QUERY_IS_GOLD_VECTOR": [
+     1.0,
+     1.0
+    ],
+    "NULL_SCRAMBLED_ANCHORS": [
+     0.0563,
+     0.0716
+    ],
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": [
+     0.0701,
+     0.0869
+    ]
+   },
+   "mean_tie_mass_of_eligible_pool": {
+    "F1_TRIGRAM_orthographic": 0.1569,
+    "F2_PREFIX_orthographic": 0.3499,
+    "F3_FREQUENCY_constant": 0.0002,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0,
+    "A0_NO_CLEANUP_raw_cosine": 0.0,
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": 0.0,
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": 0.0,
+    "C1_INCUMBENT_iterative_attractor_shipped": 0.0,
+    "KA_QUERY_IS_GOLD_VECTOR": 0.0,
+    "NULL_SCRAMBLED_ANCHORS": 0.0,
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": 0.0001
+   },
+   "BINDING_FLOOR": "F1_TRIGRAM_orthographic",
+   "BINDING_FLOOR_VALUE_tie_corrected": 0.1081,
+   "FLOOR_VALUES_on_THIS_population": {
+    "F1_TRIGRAM_orthographic": 0.1081,
+    "F2_PREFIX_orthographic": 0.0761,
+    "F3_FREQUENCY_constant": 0.0685,
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": 0.0696,
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": 0.0636
+   },
+   "MARGIN_vs_binding_floor_TIE_CORRECTED": {
+    "F2_PREFIX_orthographic": {
+     "point": -0.0321,
+     "ci95": [
+      -0.0423,
+      -0.0222
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0398,
+     "ci95": [
+      -0.0517,
+      -0.0282
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0386,
+     "ci95": [
+      -0.0503,
+      -0.0269
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0444,
+     "ci95": [
+      -0.0563,
+      -0.0322
+     ],
+     "band": "BELOW"
+    },
+    "A0_NO_CLEANUP_raw_cosine": {
+     "point": -0.0159,
+     "ci95": [
+      -0.0281,
+      -0.0038
+     ],
+     "band": "BELOW"
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "point": -0.0183,
+     "ci95": [
+      -0.0306,
+      -0.0063
+     ],
+     "band": "BELOW"
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "point": -0.0119,
+     "ci95": [
+      -0.0249,
+      0.0009
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "point": -0.0079,
+     "ci95": [
+      -0.0205,
+      0.005
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.8919,
+     "ci95": [
+      0.8825,
+      0.901
+     ],
+     "band": "ABOVE"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0444,
+     "ci95": [
+      -0.0563,
+      -0.0322
+     ],
+     "band": "BELOW"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0298,
+     "ci95": [
+      -0.0428,
+      -0.0174
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_binding_floor_CONSERVATIVE": {
+    "F2_PREFIX_orthographic": {
+     "point": -0.0487,
+     "ci95": [
+      -0.0588,
+      -0.0388
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0245,
+     "ci95": [
+      -0.0366,
+      -0.0128
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0229,
+     "ci95": [
+      -0.0348,
+      -0.011
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0287,
+     "ci95": [
+      -0.0406,
+      -0.0165
+     ],
+     "band": "BELOW"
+    },
+    "A0_NO_CLEANUP_raw_cosine": {
+     "point": -0.0002,
+     "ci95": [
+      -0.0125,
+      0.012
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "point": -0.0027,
+     "ci95": [
+      -0.015,
+      0.0093
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "point": 0.0038,
+     "ci95": [
+      -0.0088,
+      0.0168
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "point": 0.0077,
+     "ci95": [
+      -0.0045,
+      0.0208
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9076,
+     "ci95": [
+      0.8983,
+      0.9169
+     ],
+     "band": "ABOVE"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0287,
+     "ci95": [
+      -0.0406,
+      -0.0165
+     ],
+     "band": "BELOW"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0144,
+     "ci95": [
+      -0.0273,
+      -0.0015
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_binding_floor_OPTIMISTIC": {
+    "F2_PREFIX_orthographic": {
+     "point": 0.1626,
+     "ci95": [
+      0.1437,
+      0.182
+     ],
+     "band": "ABOVE"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.1973,
+     "ci95": [
+      -0.2123,
+      -0.181
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.1965,
+     "ci95": [
+      -0.2116,
+      -0.1813
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.2023,
+     "ci95": [
+      -0.2176,
+      -0.1863
+     ],
+     "band": "BELOW"
+    },
+    "A0_NO_CLEANUP_raw_cosine": {
+     "point": -0.1737,
+     "ci95": [
+      -0.189,
+      -0.1575
+     ],
+     "band": "BELOW"
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "point": -0.1762,
+     "ci95": [
+      -0.1918,
+      -0.1602
+     ],
+     "band": "BELOW"
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "point": -0.1697,
+     "ci95": [
+      -0.1858,
+      -0.1537
+     ],
+     "band": "BELOW"
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "point": -0.1658,
+     "ci95": [
+      -0.1818,
+      -0.1495
+     ],
+     "band": "BELOW"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.734,
+     "ci95": [
+      0.7208,
+      0.7481
+     ],
+     "band": "ABOVE"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.2023,
+     "ci95": [
+      -0.2176,
+      -0.1863
+     ],
+     "band": "BELOW"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.1874,
+     "ci95": [
+      -0.2041,
+      -0.171
+     ],
+     "band": "BELOW"
+    }
+   },
+   "ARM_BY_ARM_vs_EACH_FLOOR_tie_corrected": {
+    "A0_NO_CLEANUP_raw_cosine": {
+     "F1_TRIGRAM_orthographic": {
+      "point": -0.0159,
+      "ci95": [
+       -0.0281,
+       -0.0038
+      ],
+      "band": "BELOW"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": 0.0162,
+      "ci95": [
+       0.0058,
+       0.0269
+      ],
+      "band": "ABOVE"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": 0.0239,
+      "ci95": [
+       0.0129,
+       0.0359
+      ],
+      "band": "ABOVE"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": 0.0227,
+      "ci95": [
+       0.0113,
+       0.0343
+      ],
+      "band": "ABOVE"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.0285,
+      "ci95": [
+       0.0175,
+       0.0408
+      ],
+      "band": "ABOVE"
+     }
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "F1_TRIGRAM_orthographic": {
+      "point": -0.0183,
+      "ci95": [
+       -0.0306,
+       -0.0063
+      ],
+      "band": "BELOW"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": 0.0138,
+      "ci95": [
+       0.0028,
+       0.0244
+      ],
+      "band": "ABOVE"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": 0.0214,
+      "ci95": [
+       0.0104,
+       0.0334
+      ],
+      "band": "ABOVE"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": 0.0203,
+      "ci95": [
+       0.009,
+       0.0318
+      ],
+      "band": "ABOVE"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.0261,
+      "ci95": [
+       0.0148,
+       0.0373
+      ],
+      "band": "ABOVE"
+     }
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "F1_TRIGRAM_orthographic": {
+      "point": -0.0119,
+      "ci95": [
+       -0.0249,
+       0.0009
+      ],
+      "band": "NOT_SEPARATED"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": 0.0202,
+      "ci95": [
+       0.0088,
+       0.0314
+      ],
+      "band": "ABOVE"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": 0.0279,
+      "ci95": [
+       0.0159,
+       0.0404
+      ],
+      "band": "ABOVE"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": 0.0267,
+      "ci95": [
+       0.0145,
+       0.0388
+      ],
+      "band": "ABOVE"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.0325,
+      "ci95": [
+       0.0208,
+       0.0443
+      ],
+      "band": "ABOVE"
+     }
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "F1_TRIGRAM_orthographic": {
+      "point": -0.0079,
+      "ci95": [
+       -0.0205,
+       0.005
+      ],
+      "band": "NOT_SEPARATED"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": 0.0242,
+      "ci95": [
+       0.0125,
+       0.035
+      ],
+      "band": "ABOVE"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": 0.0318,
+      "ci95": [
+       0.0202,
+       0.0432
+      ],
+      "band": "ABOVE"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": 0.0307,
+      "ci95": [
+       0.019,
+       0.0423
+      ],
+      "band": "ABOVE"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.0365,
+      "ci95": [
+       0.0243,
+       0.0483
+      ],
+      "band": "ABOVE"
+     }
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "F1_TRIGRAM_orthographic": {
+      "point": 0.8919,
+      "ci95": [
+       0.8825,
+       0.901
+      ],
+      "band": "ABOVE"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": 0.924,
+      "ci95": [
+       0.9173,
+       0.9305
+      ],
+      "band": "ABOVE"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": 0.9317,
+      "ci95": [
+       0.9238,
+       0.9395
+      ],
+      "band": "ABOVE"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": 0.9305,
+      "ci95": [
+       0.9224,
+       0.9382
+      ],
+      "band": "ABOVE"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.9363,
+      "ci95": [
+       0.9284,
+       0.9437
+      ],
+      "band": "ABOVE"
+     }
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "F1_TRIGRAM_orthographic": {
+      "point": -0.0444,
+      "ci95": [
+       -0.0563,
+       -0.0322
+      ],
+      "band": "BELOW"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": -0.0123,
+      "ci95": [
+       -0.0225,
+       -0.0021
+      ],
+      "band": "BELOW"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": -0.0046,
+      "ci95": [
+       -0.0157,
+       0.0061
+      ],
+      "band": "NOT_SEPARATED"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": -0.0058,
+      "ci95": [
+       -0.0168,
+       0.005
+      ],
+      "band": "NOT_SEPARATED"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "band": "NOT_SEPARATED"
+     }
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "F1_TRIGRAM_orthographic": {
+      "point": -0.0298,
+      "ci95": [
+       -0.0428,
+       -0.0174
+      ],
+      "band": "BELOW"
+     },
+     "F2_PREFIX_orthographic": {
+      "point": 0.0023,
+      "ci95": [
+       -0.0081,
+       0.0135
+      ],
+      "band": "NOT_SEPARATED"
+     },
+     "F3_FREQUENCY_constant": {
+      "point": 0.01,
+      "ci95": [
+       -0.0014,
+       0.0217
+      ],
+      "band": "NOT_SEPARATED"
+     },
+     "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+      "point": 0.0088,
+      "ci95": [
+       -0.0026,
+       0.0203
+      ],
+      "band": "NOT_SEPARATED"
+     },
+     "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+      "point": 0.0146,
+      "ci95": [
+       0.003,
+       0.0263
+      ],
+      "band": "ABOVE"
+     }
+    }
+   },
+   "LADDER_vs_A0_NO_CLEANUP_tie_corrected": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.0159,
+     "ci95": [
+      0.0038,
+      0.0281
+     ],
+     "band": "ABOVE"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0162,
+     "ci95": [
+      -0.0269,
+      -0.0058
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0239,
+     "ci95": [
+      -0.0359,
+      -0.0129
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0227,
+     "ci95": [
+      -0.0343,
+      -0.0113
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0285,
+     "ci95": [
+      -0.0408,
+      -0.0175
+     ],
+     "band": "BELOW"
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "point": -0.0025,
+     "ci95": [
+      -0.0073,
+      0.0023
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "point": 0.004,
+     "ci95": [
+      -0.0053,
+      0.0135
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "point": 0.0079,
+     "ci95": [
+      -0.0013,
+      0.0165
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9077,
+     "ci95": [
+      0.8988,
+      0.9164
+     ],
+     "band": "ABOVE"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0285,
+     "ci95": [
+      -0.0408,
+      -0.0175
+     ],
+     "band": "BELOW"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0139,
+     "ci95": [
+      -0.0264,
+      -0.0016
+     ],
+     "band": "BELOW"
+    }
+   },
+   "LADDER_vs_A0_NO_CLEANUP_conservative": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.0002,
+     "ci95": [
+      -0.012,
+      0.0125
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0485,
+     "ci95": [
+      -0.0591,
+      -0.0378
+     ],
+     "band": "BELOW"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.0243,
+     "ci95": [
+      -0.0363,
+      -0.0133
+     ],
+     "band": "BELOW"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0227,
+     "ci95": [
+      -0.0343,
+      -0.0113
+     ],
+     "band": "BELOW"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0285,
+     "ci95": [
+      -0.0408,
+      -0.0175
+     ],
+     "band": "BELOW"
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "point": -0.0025,
+     "ci95": [
+      -0.0073,
+      0.0023
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "point": 0.004,
+     "ci95": [
+      -0.0053,
+      0.0135
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "point": 0.0079,
+     "ci95": [
+      -0.0013,
+      0.0165
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9077,
+     "ci95": [
+      0.8988,
+      0.9164
+     ],
+     "band": "ABOVE"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0285,
+     "ci95": [
+      -0.0408,
+      -0.0175
+     ],
+     "band": "BELOW"
+    },
+    "ORACLE_CONSTANT_FITTED_ON_GOLDS_not_a_floor": {
+     "point": -0.0142,
+     "ci95": [
+      -0.0265,
+      -0.002
+     ],
+     "band": "BELOW"
+    }
+   },
+   "MARGIN_vs_ORACLE_CONSTANT_tie_corrected": {
+    "F1_TRIGRAM_orthographic": {
+     "point": 0.0298,
+     "ci95": [
+      0.0174,
+      0.0428
+     ],
+     "band": "ABOVE"
+    },
+    "F2_PREFIX_orthographic": {
+     "point": -0.0023,
+     "ci95": [
+      -0.0135,
+      0.0081
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F3_FREQUENCY_constant": {
+     "point": -0.01,
+     "ci95": [
+      -0.0217,
+      0.0014
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F4_CONSTANT_PROTOTYPE_zero_query_information": {
+     "point": -0.0088,
+     "ci95": [
+      -0.0203,
+      0.0026
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "F5_SCRAMBLE_NULL_anchor_map_permuted": {
+     "point": -0.0146,
+     "ci95": [
+      -0.0263,
+      -0.003
+     ],
+     "band": "BELOW"
+    },
+    "A0_NO_CLEANUP_raw_cosine": {
+     "point": 0.0139,
+     "ci95": [
+      0.0016,
+      0.0264
+     ],
+     "band": "ABOVE"
+    },
+    "A0b_ONE_SHOT_centred_b16_a0.3_ctrTrue": {
+     "point": 0.0114,
+     "ci95": [
+      -0.0008,
+      0.024
+     ],
+     "band": "NOT_SEPARATED"
+    },
+    "T1_CLEANUP_SETTLED_b16_a0.3_ctrTrue": {
+     "point": 0.0179,
+     "ci95": [
+      0.005,
+      0.0312
+     ],
+     "band": "ABOVE"
+    },
+    "C1_INCUMBENT_iterative_attractor_shipped": {
+     "point": 0.0219,
+     "ci95": [
+      0.0089,
+      0.0352
+     ],
+     "band": "ABOVE"
+    },
+    "KA_QUERY_IS_GOLD_VECTOR": {
+     "point": 0.9217,
+     "ci95": [
+      0.9131,
+      0.9299
+     ],
+     "band": "ABOVE"
+    },
+    "NULL_SCRAMBLED_ANCHORS": {
+     "point": -0.0146,
+     "ci95": [
+      -0.0263,
+      -0.003
+     ],
+     "band": "BELOW"
+    }
+   },
+   "regime": "PARTIAL_CUE",
+   "pool": "P2_BALANCED_K15",
+   "POOL_ORACLE_CHECK": {
+    "ok": true,
+    "oracle_constant_hit_exp": 0.0784,
+    "chance": 0.0625,
+    "margin_over_chance": 0.0159,
+    "tol": 0.03,
+    "n_items": 3994
+   }
+  }
+ },
+ "n_units": 4,
+ "elapsed_s": 86.9,
+ "READING": {
+  "PART_A_organ_is_not_inert": {
+   "A|v1.0.0|smoke|REAL_ANCHOR_MATRIX|b16_a0.3_ctrTrue": "NOT_INERT",
+   "A|v1.0.0|smoke|RANDOM_MATCHED_M_and_d|b16_a0.3_ctrTrue": "NOT_INERT"
+  },
+  "HOW_TO_READ_A_NULL": "the brain does this, so the capability is DEMONSTRATED; a miss here is a fact about OUR IMPLEMENTATION, never about the capability. VSA algebraic binding itself is UNPINNED in the brain with two live published rivals -- the substrate choice is invention-under-test.",
+  "verdict_is_per_condition": "gates are per (regime, pool); see PART_B_READOUT."
+ },
+ "verdict": "COMPUTED",
+ "verdict_msg": "see PART_A_ORGAN / PART_B_READOUT; gates are per condition"
+}

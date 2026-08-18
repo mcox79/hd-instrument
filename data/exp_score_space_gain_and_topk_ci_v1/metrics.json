@@ -1,0 +1,335 @@
+{
+ "anchor_name": "exp_score_space_gain_and_topk_ci_v1",
+ "what": "PRE-REGISTERED VET, two jobs: (1) excitability-style gain applied in SCORE space (not vector space) on C3's open-vocab read-out; (2) paired-bootstrap CI on the top-50-retrieval-vs-conditional-pick diagnosis. Identical items/pool/gold/scorer as exp_grounding_readout_known_answer_v1 / exp_orthographic_floor_vet_v1.",
+ "prereg": "preregs/2026-08-15_score_space_gain_and_topk_ci_v1.md",
+ "bar": {
+  "source": "exp_orthographic_floor_vet_v1 A6_TRIGRAM_ONLY",
+  "acc": 0.087,
+  "ci": [
+   0.0783,
+   0.096
+  ],
+  "rule": "CI-separated: arm ci_lo must exceed bar ci_hi (0.0960)"
+ },
+ "projdraw_sd_ceiling_reused_from": "exp_graded_path_vs_orthographic_floor_v1 (on=0.0009, off=0.0024)",
+ "ts_iso": "2026-08-15T17:12:08.962244+00:00",
+ "smoke": false,
+ "n_items": 4000,
+ "n_anchors": 5491,
+ "item_construction": {
+  "n_anchors": 5491,
+  "n_items_before_cap": 4603,
+  "n_items": 4000,
+  "removals": {
+   "foil_direction_fallback": 53,
+   "removed_L_not_in_wordnet": 404,
+   "removed_no_gold_anchor": 484
+  },
+  "n_items_with_heldout_sentence": 4000
+ },
+ "void_plumbing_gate": {
+  "a1_base_reproduces_0480_to_1e-9": true,
+  "a6_trigram_reproduces_0870_to_1e-9": true,
+  "self_retrieval": {
+   "acc": 0.782609,
+   "n": 299,
+   "floor": 0.7,
+   "ok": true
+  },
+  "void": false
+ },
+ "job1_score_space_gain": {
+  "excitability_signal": {
+   "median_E": 0.9507614548908194,
+   "n_rows_downscaled_by_E_thresh": 2731,
+   "frac_matched_for_random_and_magnitude_controls": 0.4973593152431251
+  },
+  "bootstrap": {
+   "n_boot": 5000,
+   "seed": 20260885,
+   "n_items": 4000,
+   "arm_acc_ci": {
+    "A1_BASE": {
+     "acc": 0.048,
+     "ci_lo": 0.04125,
+     "ci_hi": 0.05475,
+     "sd": 0.003397998525235113
+    },
+    "A6_TRIGRAM_ONLY": {
+     "acc": 0.087,
+     "ci_lo": 0.0785,
+     "ci_hi": 0.0955,
+     "sd": 0.0043638859975943444
+    },
+    "F_FREQUENCY": {
+     "acc": 0.0185,
+     "ci_lo": 0.0145,
+     "ci_hi": 0.02275624999999991,
+     "sd": 0.0021483638419737003
+    },
+    "SCORE_GAIN_E_CONTINUOUS": {
+     "acc": 0.05075,
+     "ci_lo": 0.044,
+     "ci_hi": 0.05775,
+     "sd": 0.0034965365363456447
+    },
+    "SCORE_GAIN_E_THRESH": {
+     "acc": 0.051,
+     "ci_lo": 0.04425,
+     "ci_hi": 0.05775,
+     "sd": 0.0034869288747406365
+    },
+    "SCORE_GAIN_GLOBAL": {
+     "acc": 0.048,
+     "ci_lo": 0.04125,
+     "ci_hi": 0.05475,
+     "sd": 0.003397998525235113
+    },
+    "SCORE_GAIN_MAGNITUDE": {
+     "acc": 0.05,
+     "ci_lo": 0.04325,
+     "ci_hi": 0.05675,
+     "sd": 0.0034931127250634212
+    },
+    "SCORE_GAIN_RANDOM": {
+     "acc": 0.03975,
+     "ci_lo": 0.034,
+     "ci_hi": 0.046,
+     "sd": 0.003090440492470289
+    },
+    "SCRAMBLE": {
+     "acc": 0.008,
+     "ci_lo": 0.00525,
+     "ci_hi": 0.011,
+     "sd": 0.0014157046831878462
+    }
+   },
+   "deltas": {
+    "d_SCORE_GAIN_E_THRESH_minus_BASE": {
+     "delta": 0.0029999999999999957,
+     "ci_lo": -0.0024999999999999953,
+     "ci_hi": 0.00825624999999991,
+     "sd": 0.0027468498156979753,
+     "ci_excludes_zero": false
+    },
+    "d_SCORE_GAIN_E_CONTINUOUS_minus_BASE": {
+     "delta": 0.0027500000000000024,
+     "ci_lo": -0.0005000000000000004,
+     "ci_hi": 0.006000000000000005,
+     "sd": 0.001717497504364999,
+     "ci_excludes_zero": false
+    },
+    "d_SCORE_GAIN_RANDOM_minus_BASE": {
+     "delta": -0.00825,
+     "ci_lo": -0.014249999999999999,
+     "ci_hi": -0.0020000000000000018,
+     "sd": 0.003118631084306062,
+     "ci_excludes_zero": true
+    },
+    "d_SCORE_GAIN_MAGNITUDE_minus_BASE": {
+     "delta": 0.0020000000000000018,
+     "ci_lo": -0.0030000000000000027,
+     "ci_hi": 0.006999999999999999,
+     "sd": 0.002589290690034628,
+     "ci_excludes_zero": false
+    },
+    "d_SCORE_GAIN_GLOBAL_minus_BASE": {
+     "delta": 0.0,
+     "ci_lo": 0.0,
+     "ci_hi": 0.0,
+     "sd": 0.0,
+     "ci_excludes_zero": false
+    }
+   }
+  },
+  "clears_bar_CI_separated": {
+   "SCORE_GAIN_E_THRESH": false,
+   "SCORE_GAIN_E_CONTINUOUS": false,
+   "SCORE_GAIN_RANDOM": false,
+   "SCORE_GAIN_MAGNITUDE": false,
+   "SCORE_GAIN_GLOBAL": false
+  },
+  "delta_vs_A1_BASE_excludes_zero": {
+   "SCORE_GAIN_E_THRESH": false,
+   "SCORE_GAIN_E_CONTINUOUS": false,
+   "SCORE_GAIN_RANDOM": true,
+   "SCORE_GAIN_MAGNITUDE": false,
+   "SCORE_GAIN_GLOBAL": false
+  },
+  "delta_exceeds_projdraw_sd_ceiling": {
+   "SCORE_GAIN_E_THRESH": true,
+   "SCORE_GAIN_E_CONTINUOUS": true,
+   "SCORE_GAIN_RANDOM": true,
+   "SCORE_GAIN_MAGNITUDE": false,
+   "SCORE_GAIN_GLOBAL": false
+  },
+  "HARD_PASS_per_arm": {
+   "SCORE_GAIN_E_THRESH": false,
+   "SCORE_GAIN_E_CONTINUOUS": false,
+   "SCORE_GAIN_RANDOM": false,
+   "SCORE_GAIN_MAGNITUDE": false,
+   "SCORE_GAIN_GLOBAL": false
+  },
+  "any_gain_arm_HARD_PASS": false,
+  "bitwise_identical_pick_fraction_vs_A1_BASE": {
+   "SCORE_GAIN_E_THRESH": 0.56425,
+   "SCORE_GAIN_E_CONTINUOUS": 0.83525,
+   "SCORE_GAIN_RANDOM": 0.49975,
+   "SCORE_GAIN_MAGNITUDE": 0.61225,
+   "SCORE_GAIN_GLOBAL": 1.0
+  },
+  "prediction_1_at_least_one_variable_gain_arm_changes_picks": true,
+  "prediction_2_uniform_global_gain_stays_bit_identical": true,
+  "per_arm": {
+   "SCORE_GAIN_E_THRESH": {
+    "hit_at_1": 0.051,
+    "example_picks": [
+     "thats",
+     "highclere",
+     "work",
+     "might",
+     "inherit",
+     "more",
+     "metre",
+     "gain",
+     "presence",
+     "face"
+    ]
+   },
+   "SCORE_GAIN_E_CONTINUOUS": {
+    "hit_at_1": 0.05075,
+    "example_picks": [
+     "palm",
+     "highclere",
+     "work",
+     "might",
+     "chromosomal",
+     "more",
+     "metre",
+     "gain",
+     "presence",
+     "limitation"
+    ]
+   },
+   "SCORE_GAIN_RANDOM": {
+    "hit_at_1": 0.03975,
+    "example_picks": [
+     "likewise",
+     "highclere",
+     "most",
+     "might",
+     "chromosomal",
+     "other",
+     "metre",
+     "gain",
+     "presence",
+     "limitation"
+    ]
+   },
+   "SCORE_GAIN_MAGNITUDE": {
+    "hit_at_1": 0.05,
+    "example_picks": [
+     "aware",
+     "highclere",
+     "work",
+     "might",
+     "inherit",
+     "more",
+     "metre",
+     "gain",
+     "presence",
+     "skype"
+    ]
+   },
+   "SCORE_GAIN_GLOBAL": {
+    "hit_at_1": 0.048,
+    "example_picks": [
+     "palm",
+     "highclere",
+     "work",
+     "might",
+     "chromosomal",
+     "more",
+     "metre",
+     "gain",
+     "presence",
+     "limitation"
+    ]
+   }
+  }
+ },
+ "job2_topk_ci": {
+  "ours_A1_BASE": {
+   "hit_at_1": 0.048,
+   "frac_gold_in_top50": 0.5565,
+   "median_rank": 37.0
+  },
+  "spelling_A6_TRIGRAM_ONLY": {
+   "hit_at_1": 0.087,
+   "frac_gold_in_top50": 0.5455,
+   "median_rank": 37.0
+  },
+  "reference_uncontrolled_numbers_from_2026-08-14_note": {
+   "ours_frac_gold_in_top50": 0.5565,
+   "spelling_frac_gold_in_top50": 0.5455,
+   "ours_conditional_pick": 0.0863,
+   "spelling_conditional_pick": 0.1595
+  },
+  "top50_rate_paired_bootstrap": {
+   "n_boot": 5000,
+   "seed": 20260895,
+   "n_items": 4000,
+   "arm_acc_ci": {
+    "OURS_TOP50": {
+     "acc": 0.5565,
+     "ci_lo": 0.541,
+     "ci_hi": 0.572,
+     "sd": 0.007887486912191993
+    },
+    "SPELL_TOP50": {
+     "acc": 0.5455,
+     "ci_lo": 0.53,
+     "ci_hi": 0.56075,
+     "sd": 0.007887033522022082
+    }
+   },
+   "deltas": {
+    "d_top50_OURS_minus_SPELL": {
+     "delta": 0.01100000000000001,
+     "ci_lo": -0.007499999999999951,
+     "ci_hi": 0.029506249999999987,
+     "sd": 0.009476110499434883,
+     "ci_excludes_zero": false
+    }
+   }
+  },
+  "top50_rates_CI_separable": false,
+  "conditional_pick_rate_paired_ratio_bootstrap": {
+   "n_boot": 5000,
+   "n_boot_valid": 5000,
+   "seed": 20260905,
+   "arm_a_conditional_pick_rate": {
+    "point": 0.0862533692722372,
+    "ci_lo": 0.07507638585770406,
+    "ci_hi": 0.09813616179557565
+   },
+   "arm_b_conditional_pick_rate": {
+    "point": 0.15948670944087992,
+    "ci_lo": 0.14469344948777388,
+    "ci_hi": 0.17412017935386687
+   },
+   "delta_a_minus_b": {
+    "point": -0.07323334016864272,
+    "ci_lo": -0.0917389692334738,
+    "ci_hi": -0.05476043513448466,
+    "ci_excludes_zero": true
+   }
+  },
+  "conditional_pick_rates_CI_separable": true
+ },
+ "floors": {
+  "F_FREQUENCY": 0.0185,
+  "SCRAMBLE": 0.008
+ },
+ "elapsed_s": 539.69
+}

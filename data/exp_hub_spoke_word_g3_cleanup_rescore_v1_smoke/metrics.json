@@ -1,0 +1,160 @@
+{
+  "anchor_name": "hub_spoke_word_g3_cleanup_rescore_v1",
+  "code_version": "v1.0",
+  "run_mode": "full",
+  "amendment": "A3 (2026-08-15) to preregs/exp_hub_spoke_word_representation_v1.md section 6b G3",
+  "parent_cell": "experiments/exp_hub_spoke_word_representation_v1.py (UNMODIFIED)",
+  "prereg": "preregs/exp_hub_spoke_word_representation_v1.md",
+  "verdict": "G3_RESCORED_FAIL",
+  "verdict_msg": "AMENDMENT A3. G3 rescored through CLEANUP at d=256 seed=7: rho=0.5070 vs strongest floor ORTHOGRAPHIC=0.2333, margin 0.2737 CI [-0.25057629485408894, 0.7938998303490409] -> NOT_SEPARATED. Degenerate raw-unbound row re-verified at full scale: max |cos delta| vs bundled = 1.192e-07. NO THRESHOLD CHANGED.",
+  "summary": "AMENDMENT A3. G3 rescored through CLEANUP at d=256 seed=7: rho=0.5070 vs strongest floor ORTHOGRAPHIC=0.2333, margin 0.2737 CI [-0.25057629485408894, 0.7938998303490409] -> NOT_SEPARATED. Degenerate raw-unbound row re-verified at full scale: max |cos delta| vs bundled = 1.192e-07. NO THRESHOLD CHANGED.",
+  "d_headline": 256,
+  "seed_headline": 7,
+  "per_config": {
+    "d256_seed7": {
+      "d": 256,
+      "seed": 7,
+      "n_pairs": 26,
+      "DEGENERACY_recheck_at_this_scale": {
+        "max_abs_cos_delta_bundled_vs_raw_unbound": 1.1920928955078125e-07,
+        "rho_bundled": 0.5446153846153846,
+        "rho_raw_unbound": 0.5446153846153846
+      },
+      "cleanup_fidelity": {
+        "mean_identity_acc": 0.7122395833333334,
+        "mean_identity_chance": 0.001953125,
+        "mean_code_exact_acc": 0.9733072916666666,
+        "per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 0.98046875,
+            "cleanup_identity_chance": 0.001953125,
+            "cleanup_code_exact_acc": 0.98046875,
+            "n_distinct_codes_in_codebook": 512
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.939453125,
+            "cleanup_identity_chance": 0.001953125,
+            "cleanup_code_exact_acc": 0.939453125,
+            "n_distinct_codes_in_codebook": 512
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.216796875,
+            "cleanup_identity_chance": 0.001953125,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 111
+          }
+        },
+        "scramble_per_spoke": {
+          "SENSORY": {
+            "cleanup_identity_acc": 0.978515625,
+            "cleanup_identity_chance": 0.001953125,
+            "cleanup_code_exact_acc": 0.978515625,
+            "n_distinct_codes_in_codebook": 512
+          },
+          "ACTION": {
+            "cleanup_identity_acc": 0.9453125,
+            "cleanup_identity_chance": 0.001953125,
+            "cleanup_code_exact_acc": 0.9453125,
+            "n_distinct_codes_in_codebook": 512
+          },
+          "CONCRETE": {
+            "cleanup_identity_acc": 0.216796875,
+            "cleanup_identity_chance": 0.001953125,
+            "cleanup_code_exact_acc": 1.0,
+            "n_distinct_codes_in_codebook": 111
+          }
+        }
+      },
+      "rho": {
+        "CEILING_direct_spoke_codes": {
+          "point": 0.5124786324786325,
+          "ci95": [
+            0.1576582066501684,
+            0.7775799621363091
+          ],
+          "n": 26
+        },
+        "RESCORED_unbind_then_cleanup": {
+          "point": 0.507008547008547,
+          "ci95": [
+            0.1514817162262873,
+            0.770614225721142
+          ],
+          "n": 26
+        },
+        "DEGENERATE_raw_unbound": {
+          "point": 0.5446153846153846,
+          "ci95": [
+            0.20936814030151438,
+            0.7938179732638495
+          ],
+          "n": 26
+        },
+        "bundled_vector": {
+          "point": 0.5446153846153846,
+          "ci95": [
+            0.20936814030151438,
+            0.7938179732638495
+          ],
+          "n": 26
+        },
+        "SCRAMBLE_cleaned": {
+          "point": -0.24170940170940172,
+          "ci95": [
+            -0.5689901732455619,
+            0.1609689866487569
+          ],
+          "n": 26
+        },
+        "SCRAMBLE_raw_unbound": {
+          "point": -0.24649572649572649,
+          "ci95": [
+            -0.5604639635173987,
+            0.14002064686434976
+          ],
+          "n": 26
+        }
+      },
+      "floors": {
+        "ORTHOGRAPHIC": {
+          "point": 0.23332198414149075,
+          "ci95": [
+            -0.16419141133916776,
+            0.6014530546658818
+          ],
+          "n": 26
+        },
+        "HARDENED_FREQ_MIN": {
+          "point": 0.07867283402576009,
+          "ci95": [
+            -0.3512034804443217,
+            0.4814823255996799
+          ],
+          "n": 26
+        },
+        "SCRAMBLE_cleaned": {
+          "point": -0.24170940170940172,
+          "ci95": [
+            -0.5689901732455619,
+            0.1609689866487569
+          ],
+          "n": 26
+        }
+      },
+      "strongest_floor": "ORTHOGRAPHIC",
+      "margin_over_strongest_floor": {
+        "point": 0.2736865628670563,
+        "ci95": [
+          -0.25057629485408894,
+          0.7938998303490409
+        ],
+        "n": 26
+      },
+      "band": "NOT_SEPARATED",
+      "G3_RESCORED_passed": false,
+      "G3_RESCORED_status": "FAIL",
+      "evaluable": true
+    }
+  },
+  "elapsed_s": 7.80938982963562
+}

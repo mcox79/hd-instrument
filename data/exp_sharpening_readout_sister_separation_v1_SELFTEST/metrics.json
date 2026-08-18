@@ -1,0 +1,45 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "module-import self-test ran successfully",
+  "summary": "self_test",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "selftest": {
+    "testbed_selftest_readout_moves": {
+      "query_poetlike_picked": "poet",
+      "query_riverlike_picked": "river",
+      "cos_poetlike": 0.6901,
+      "cos_riverlike": 0.7411
+    },
+    "testbed_graded_comparator": true,
+    "split_salt_identity_and_variation": true,
+    "batched_baseline_matches_canonicalize_fast": true,
+    "batched_hopfield_matches_organ": [
+      "beta=2",
+      "beta=64",
+      "beta=1024"
+    ],
+    "trap_two_candidate_softmax_is_pinned": true,
+    "fullset_hopfield_can_move": true,
+    "entropy_monotone_and_spans": [
+      1.0,
+      1.0,
+      0.7279,
+      0.0
+    ],
+    "control_entropy_matched_and_differs": true,
+    "bootstrap_selftest": {
+      "real_delta": 0.15,
+      "null_fp": 0
+    },
+    "verdict_branches_reachable": [
+      "HARD_FAIL_SHARPENING_IS_CONTENT_BLIND",
+      "HARD_PASS_SHARPENING_SEPARATES_SISTERS",
+      "MIDDLE_BAND",
+      "MIDDLE_BAND_FLOOR_HUGGING",
+      "SNR_WALL_CLEANUP_RULE_CANNOT_HELP",
+      "SWEEP_DID_NOT_SPAN_THE_RANGE"
+    ],
+    "selftest_elapsed_s": 0.32
+  }
+}

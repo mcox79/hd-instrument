@@ -1,0 +1,230 @@
+{
+ "verdict": "INTEGRITY_CHECK_FAILED",
+ "notes": [
+  "A1_BASE=0.058333 (target 0.048, integrity_ok=False)",
+  "RERANK_COH=0.0583 CI=[0.0167,0.1000] vs bar=0.0870",
+  "A6_TRIGRAM_ONLY=0.0250 RANDOM_TOP50=0.0667 SCRAMBLE_CONTEXT_COH=0.0583",
+  "coverage_real=0.2583 coverage_scrambled=0.2417 (fraction of items with a VerbNet-covered governing verb, i.e. coherence-eligible at all)",
+  "rerank_changed_the_pick=24/120; of those, RERANK correct=1, BASE was already correct=1",
+  "between_draw_spread_sd=0.00000 (accs=[0.05833, 0.05833, 0.05833, 0.05833, 0.05833])",
+  "gain_over_base=0.00000 within_3x_draw_noise=False",
+  "ci_separated_above_all_floors=False ci_separated_above_bar=False scramble_overlaps_rerank_ci=True"
+ ],
+ "n_items": 120,
+ "item_construction": {
+  "n_anchors": 716,
+  "n_items_before_cap": 609,
+  "n_items": 120,
+  "removals": {
+   "foil_direction_fallback": 24,
+   "removed_L_not_in_wordnet": 39,
+   "removed_no_gold_anchor": 68
+  },
+  "n_items_with_heldout_sentence": 120
+ },
+ "prereg": "preregs/2026-08-15_coherence_final_pick_transfer_v1.md",
+ "self_retrieval": {
+  "acc": 0.858333,
+  "n": 120,
+  "floor": 0.7
+ },
+ "integrity": {
+  "a1_base_acc": 0.058333333333333334,
+  "target": 0.048,
+  "ok": false
+ },
+ "bootstrap": {
+  "n_boot": 5000,
+  "seed": 20260820,
+  "n_items": 120,
+  "arm_acc_ci": {
+   "A1_BASE": {
+    "acc": 0.058333333333333334,
+    "ci_lo": 0.016666666666666666,
+    "ci_hi": 0.1,
+    "sd": 0.02118280513372422
+   },
+   "A6_TRIGRAM_ONLY": {
+    "acc": 0.025,
+    "ci_lo": 0.0,
+    "ci_hi": 0.058333333333333334,
+    "sd": 0.014194545020300346
+   },
+   "RANDOM_TOP50": {
+    "acc": 0.06666666666666667,
+    "ci_lo": 0.025,
+    "ci_hi": 0.11666666666666667,
+    "sd": 0.02286168337342346
+   },
+   "RERANK_COH": {
+    "acc": 0.058333333333333334,
+    "ci_lo": 0.016666666666666666,
+    "ci_hi": 0.1,
+    "sd": 0.02117768086138486
+   },
+   "SCRAMBLE_CONTEXT_COH": {
+    "acc": 0.058333333333333334,
+    "ci_lo": 0.016666666666666666,
+    "ci_hi": 0.1,
+    "sd": 0.021275164903395382
+   }
+  },
+  "deltas": {
+   "d_RERANK_minus_BASE": {
+    "delta": 0.0,
+    "ci_lo": -0.024999999999999994,
+    "ci_hi": 0.024999999999999994,
+    "sd": 0.011821522744553682,
+    "ci_excludes_zero": false
+   },
+   "d_RERANK_minus_TRIGRAM": {
+    "delta": 0.03333333333333333,
+    "ci_lo": -0.01666666666666667,
+    "ci_hi": 0.08333333333333334,
+    "sd": 0.026118730986273687,
+    "ci_excludes_zero": false
+   },
+   "d_RERANK_minus_RANDOM50": {
+    "delta": -0.008333333333333331,
+    "ci_lo": -0.075,
+    "ci_hi": 0.05,
+    "sd": 0.03209645117108397,
+    "ci_excludes_zero": false
+   },
+   "d_RERANK_minus_SCRAMBLECTX": {
+    "delta": 0.0,
+    "ci_lo": -0.03333333333333333,
+    "ci_hi": 0.03333333333333333,
+    "sd": 0.016675513568636433,
+    "ci_excludes_zero": false
+   }
+  }
+ },
+ "coverage": {
+  "real": 0.25833333333333336,
+  "scrambled": 0.24166666666666667,
+  "n_real_eligible": 31
+ },
+ "mechanism_breakdown": {
+  "n_changed_pick": 24,
+  "n_changed_and_correct": 1,
+  "n_changed_but_base_was_correct": 1
+ },
+ "between_draw_spread": {
+  "seeds": [
+   20260815,
+   71,
+   137,
+   20260101,
+   999983
+  ],
+  "accs": [
+   0.058333333333333334,
+   0.058333333333333334,
+   0.058333333333333334,
+   0.058333333333333334,
+   0.058333333333333334
+  ],
+  "sd": 0.0
+ },
+ "coherence_bar": 0.087,
+ "arm_digests": {
+  "A1_BASE": "b21442bf14146f59",
+  "A6_TRIGRAM_ONLY": "47adbdab7c31d7ac",
+  "RANDOM_TOP50": "183a2ecd73880f32",
+  "RERANK_COH": "e69a0fcda9a29a49",
+  "SCRAMBLE_CONTEXT_COH": "6e64152ce3da84b2"
+ },
+ "arms_bit_identical": [],
+ "per_arm_example_picks": {
+  "A1_BASE": [
+   "poverty",
+   "more",
+   "jump",
+   "situation",
+   "please",
+   "post",
+   "trade",
+   "job",
+   "descent",
+   "hear",
+   "reduce",
+   "science",
+   "face",
+   "apps",
+   "flight"
+  ],
+  "A6_TRIGRAM_ONLY": [
+   "possibility",
+   "above",
+   "burn",
+   "record",
+   "auction",
+   "add",
+   "address",
+   "pack",
+   "africa",
+   "better",
+   "free",
+   "follow",
+   "huge",
+   "international",
+   "leaf"
+  ],
+  "RANDOM_TOP50": [
+   "scum",
+   "need",
+   "altitude",
+   "more",
+   "find",
+   "american",
+   "lead",
+   "size",
+   "internet",
+   "minister",
+   "reduce",
+   "leaf",
+   "rich",
+   "although",
+   "brasilia"
+  ],
+  "RERANK_COH": [
+   "poverty",
+   "more",
+   "jump",
+   "situation",
+   "please",
+   "post",
+   "trade",
+   "job",
+   "descent",
+   "hear",
+   "reduce",
+   "private",
+   "face",
+   "apps",
+   "flight"
+  ],
+  "SCRAMBLE_CONTEXT_COH": [
+   "poverty",
+   "more",
+   "jump",
+   "situation",
+   "please",
+   "post",
+   "come",
+   "woman",
+   "descent",
+   "hear",
+   "reduce",
+   "science",
+   "face",
+   "product",
+   "flight"
+  ]
+ },
+ "elapsed_s": 18.52,
+ "ts_iso": "2026-08-15T16:21:13.810277+00:00",
+ "anchor_name": "exp_coherence_final_pick_transfer_v1",
+ "run_mode": "smoke"
+}
