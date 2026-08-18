@@ -346,7 +346,26 @@ the number of queries per point beside every "no difference".**
   = substitutability" -- **that describes CHANCE, not the GATE.** No conclusion flips (every arm sat
   0.03-0.44, far below both), but **any future arm must clear 0.5431**, and the Director spent a night
   describing 0.5 as the target. Corrected in `PLAN_ORGAN_STEP_LADDERS` 6.29.
-- **HUMAN INSTRUMENT: TWO ATTEMPTS, BOTH `POWER_INSUFFICIENT` AT n=7. CAUSE NOW MEASURED (`6976f08ca`).**
+- **✅ THE HUMAN INSTRUMENT IS LICENSED (`f792c3ab8`, v3, THIRD attempt). n=7 -> 65 per cell.**
+  Frequency-STRATIFIED matching -- bin each POS stratum's frequency into 3 quantile bins, then run
+  the UNCHANGED matcher inside each (POS, bin) cell. **All four floors CI-include 0.5;
+  `max(four floors)=0.5943`** (higher than the WordNet instrument's 0.5431). Known-answer is the
+  **published human rating**, NOT WordNet -- its AUC 1.0 is **tautological plumbing, not a result**.
+  **All seven arms scored AT OR BELOW CHANCE on human judgements** (INCUMBENT 0.2265, SINGLE_OCC
+  0.4644, PARADIGMATIC 0.2788) -- the same qualitative picture WordNet gave.
+  **THE DECIDING NUMBER IS INCONCLUSIVE, on the PRE-COMMITTED branch: rho = 0.7857 between the two
+  instruments' arm orderings, permutation p = 0.048, BUT bootstrap-of-arms 95% CI = [-0.0439, 1.0],
+  WHICH INCLUDES ZERO. The 6.24 WordNet caveat REMAINS OPEN.** *rho 0.79 is NOT agreement; the wide
+  CI is NOT disagreement.*
+  **THE POWER LIMIT MOVED TO THE ARM COUNT.** The bootstrap resamples **ARMS, not pairs** -- 7 items
+  cannot give a tight CI however good each AUC is. **Fix = MORE ARMS, not more pairs.** *In flight:
+  `arm-expansion`, harvesting the 20+ store variants already built tonight and scoring them on both
+  instruments.*
+  **CAVEAT THAT TRAVELS WITH EVERY v3 NUMBER:** post-match balance is materially WORSE than its
+  sibling's (`mean_log_freq` -0.4382 vs -0.0416; `mean_length` 0.3988 vs -0.0121). **Floors pass,
+  which is the gate -- but this instrument is LOOSER.** And absolute AUCs are **NOT comparable across
+  the two instruments; only the ORDERING is.**
+- **SUPERSEDED: HUMAN INSTRUMENT v1/v2, BOTH `POWER_INSUFFICIENT` AT n=7 (`6976f08ca`).**
   v2 used the FULL 5,491-anchor set and got the SAME n=7 as v1 -- **which disproves the Director's
   own diagnosis.** *I claimed v1 collapsed because I restricted it to the WordNet instrument's 617
   words; v1's checkpoint diagnostics show that restriction NEVER EXISTED. Plan 6.30 is RETRACTED by
