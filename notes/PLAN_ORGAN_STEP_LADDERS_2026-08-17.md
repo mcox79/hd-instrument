@@ -434,6 +434,35 @@ ruler was too weak before anything was built. Three drills gate the organ work:
 
 ---
 
+### 6.14 THE WRITE-RULE GATE BOARD -- AT A GLANCE, 2026-08-18
+
+**The organ is the write rule. One organ at a time; every component gated; the point is to find WHERE
+it fails, not to find a win.** A clean exoneration is a complete result.
+
+| step | status | evidence | what it means |
+|---|---|---|---|
+| `FILTER` | **GATE RUNNING** | `filter-superpose-gate` | does what we DISCARD determine the relation? `N1_RANDOM_FILTER` carries the claim -- any filter changes the token count, and count alone changes the statistics |
+| `CODE` | **EXONERATED x2** | `ac629b1e7`, and the earlier composition null | a LEARNED basis is MATCHED by a same-rank RANDOM basis; composition moves for no arm; the k sweep FALLS monotonically. Drill 1's central prediction is REFUTED |
+| `ACCUMULATE` | **GUILTY -- the INTERFERENCE source** | `b6cad69ca` | correct score STATIONARY while the competing field rises CI-separated; mean pairwise cosine 0.0127 -> 0.272; interference DIFFUSE, and common-mode removal does NOT help |
+| `SUPERPOSE` | **GATE RUNNING** | `filter-superpose-gate` | `S1_PER_ANCHOR_ISOLATED` is the clean question: is the interference a property of SUPERPOSITION, or was it already in the per-anchor record? |
+| *(replacement for the collapse)* | **GATE RUNNING** | `noncollapse-maxpool` | MAX-over-occurrences vs the incumbent SUM, on the licensed instrument. `N1_MAXPOOL_RANDOM_OCC` decides mechanism vs the max operator |
+
+**THE INSTRUMENT THAT MADE THIS POSSIBLE** (`0eb44eb1d`): four floors AT CHANCE and VERIFIED there --
+the first this programme owns. On hit@1 the floors were 0.1390-0.2291 while every arm sat at
+0.02-0.04, so "margin over floor" returned the same verdict for a promising arm and a hopeless one.
+**The bar now measures US, not the POOL.**
+
+**WHAT IS NOT YET EXPLAINED, stated so it is not quietly dropped:** the incumbent reads **0.0710** and
+the best store we own reads **0.4173** -- *both below 0.5*. **No store we have built encodes
+substitutability yet.** If every remaining gate exonerates its step and max-pooling ties the sum, then
+the defect is not in any single step of this organ and the honest next question is whether this
+CORPUS can support the relation at all (that is `noncollapse-maxpool` stop-if (iv), pre-registered).
+
+**AND THE HEADLINE NOTHING TONIGHT HAS CHANGED:** read-out **0.0480** against a spelling-only floor of
+**0.0870**. Every gate so far has told us where the problem ISN'T.
+
+---
+
 ### 6.13 **THE CODE GATE REFUTES DRILL 1's CENTRAL PREDICTION. `CODE` IS EXONERATED -- A SECOND TIME, ON A HARDER TEST.**
 
 `exp_writerule_learned_basis_denominator_gate_v1`, commit `ac629b1e7`; findings
