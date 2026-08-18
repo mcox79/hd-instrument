@@ -200,6 +200,11 @@ _TOOLS_DIR = str(Path(__file__).resolve().parent)
 if _TOOLS_DIR not in sys.path:
     sys.path.insert(0, _TOOLS_DIR)
 
+# Repo root, for the RUNNING-tab action buttons (owner request 2026-08-18). Derived from THIS
+# file's location, never from the process cwd -- the GUI is launched from a .bat, from a shell,
+# and by the harness, and only one of those reliably starts in the repo.
+_REPO = Path(__file__).resolve().parent.parent
+
 import status_state  # noqa: E402  (the collector; this file only renders)
 from status_state import _fmt_dur  # noqa: E402
 
@@ -1361,6 +1366,30 @@ class StatusWindow:
         ttk.Button(loop, text="Copy the command",
                    command=self._copy_disarm).grid(row=3, column=1, padx=(6, 12))
 
+        # OWNER REQUEST 2026-08-18 (COMMENTARY): "there should be a button on the 'running' tab to
+        # turn off overnight or turn it back on, with an input for iterations. There should also be
+        # a button on that tab to kill the orphans / zombie processes that haven't cleanly exited".
+        # The copy-the-command box above stays: it is the one control that still works if this GUI
+        # or the venv is broken, which is exactly when someone most needs to stop the loop.
+        ctl = tk.Frame(loop, bg=_ALT)
+        ctl.grid(row=5, column=0, columnspan=2, sticky="ew", padx=12, pady=(2, 10))
+        tk.Label(ctl, text="iterations:", bg=_ALT, fg=_DIM,
+                 font=("Segoe UI", 10)).grid(row=0, column=0, sticky="w")
+        self.loop_iters = tk.Entry(ctl, width=8, bd=0, bg="#1b1b1b", fg=_FG,
+                                   insertbackground=_FG, highlightthickness=1,
+                                   highlightbackground="#3a3a3a", font=("Consolas", 11))
+        self.loop_iters.grid(row=0, column=1, sticky="w", padx=(6, 10))
+        self.loop_iters.insert(0, "200")
+        ttk.Button(ctl, text="Turn overnight ON",
+                   command=self._loop_arm).grid(row=0, column=2, padx=(0, 6))
+        ttk.Button(ctl, text="Turn overnight OFF",
+                   command=self._loop_disarm).grid(row=0, column=3, padx=(0, 18))
+        ttk.Button(ctl, text="Kill stuck runs...",
+                   command=self._kill_stuck_runs).grid(row=0, column=4)
+        self.loop_action_msg = tk.Label(ctl, text="", bg=_ALT, fg=_DIM, anchor="w",
+                                        font=("Segoe UI", 9), wraplength=self._wrap_w_narrow)
+        self.loop_action_msg.grid(row=1, column=0, columnspan=5, sticky="ew", pady=(4, 0))
+
         # A RESIZABLE PANEL (owner, 2026-08-16). The three parts of this tab used to be fixed-height
         # grid rows, so the owner could not give the run list more room no matter how large they
         # made the window. A PanedWindow puts a draggable sash between each pair: whichever part
@@ -1460,6 +1489,197 @@ class StatusWindow:
             self.loop_alt.configure(text="Copied. Paste it into a terminal in D:/AI/hd-instrument.")
         except tk.TclError:
             pass
+
+    # ------------------------------------------------------------------
+    # RUNNING-tab actions (owner request 2026-08-18)
+    # ------------------------------------------------------------------
+    def _say(self, msg: str, ok: bool = True) -> None:
+        try:
+            self.loop_action_msg.configure(text=msg, fg=(_DIM if ok else _AMBER))
+        except tk.TclError:
+            pass
+
+    def _run_tool(self, args: list) -> tuple:
+        """Run a repo tool with the REPO VENV, never bare `python` (CLAUDE.md convention).
+        Returns (ok, output). Never raises -- a dashboard button must not take the window down."""
+        import subprocess
+        py = _REPO / ".venv" / "Scripts" / "python.exe"
+        if not py.exists():                       # POSIX / venv-less fallback
+            py = Path(sys.executable)
+        try:
+            r = subprocess.run([str(py)] + [str(a) for a in args], capture_output=True, text=True,
+                               timeout=30, cwd=str(_REPO),
+                               creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+            return r.returncode == 0, ((r.stdout or "") + (r.stderr or "")).strip()
+        except Exception as exc:
+            return False, f"{type(exc).__name__}: {exc}"
+
+    def _loop_arm(self) -> None:
+        raw = (self.loop_iters.get() or "").strip()
+        # "unlimited" is a REAL cap value in autoloop.py, so it is accepted here rather than
+        # silently coerced -- but anything else non-numeric is refused instead of guessed at.
+        if raw.lower() in ("unlimited", "inf", "none"):
+            cap = "unlimited"
+        else:
+            try:
+                cap = str(int(raw))
+                if int(cap) < 1:
+                    raise ValueError
+            except ValueError:
+                self._say(f"'{raw}' is not a number of iterations. "
+                          f"Type a whole number (e.g. 200) or the word 'unlimited'.", ok=False)
+                return
+        ok, out = self._run_tool([_REPO / "tools" / "autoloop.py", "arm", "--max", cap,
+                                  "--by", "status_gui"])
+        self._say(f"Overnight loop ARMED, cap {cap}. It resumes at the end of the next turn."
+                  if ok else f"Could not arm: {out[:300]}", ok=ok)
+
+    def _loop_disarm(self) -> None:
+        ok, out = self._run_tool([_REPO / "tools" / "autoloop.py", "disarm"])
+        self._say("Overnight loop DISARMED. The current turn finishes, then it stops."
+                  if ok else f"Could not disarm: {out[:300]}", ok=ok)
+
+    @staticmethod
+    def _cpu_seconds(pid: int):
+        """Total CPU (user+kernel) seconds for a pid, or None if unreadable. ctypes only -- no
+        subprocess, so this stays cheap enough to call twice inside a button press."""
+        if sys.platform != "win32":
+            return None
+        try:
+            import ctypes
+            from ctypes import wintypes
+            k = ctypes.windll.kernel32
+            h = k.OpenProcess(0x0400 | 0x1000, False, int(pid))   # QUERY_INFORMATION|LIMITED
+            if not h:
+                return None
+            try:
+                c = wintypes.FILETIME(); e = wintypes.FILETIME()
+                u = wintypes.FILETIME(); s = wintypes.FILETIME()
+                if not k.GetProcessTimes(h, ctypes.byref(c), ctypes.byref(e),
+                                         ctypes.byref(s), ctypes.byref(u)):
+                    return None
+                def _ticks(ft):
+                    return ((ft.dwHighDateTime << 32) | ft.dwLowDateTime) / 1e7
+                return _ticks(u) + _ticks(s)
+            finally:
+                k.CloseHandle(h)
+        except Exception:
+            return None
+
+    def _filter_to_idle(self, cands: list, settle_s: float = 2.0) -> tuple:
+        """Keep only candidates whose CPU time does NOT advance over `settle_s`.
+
+        A process we cannot read CPU for is treated as BUSY (kept out of the kill list). The bias
+        is deliberate and one-directional: failing to offer a genuinely dead process costs nothing,
+        while offering a live one risks destroying hours of work.
+        """
+        first = {pid: self._cpu_seconds(pid) for pid, _ in cands}
+        time.sleep(settle_s)
+        idle, busy = [], 0
+        for pid, cmd in cands:
+            a, b = first.get(pid), self._cpu_seconds(pid)
+            if a is None or b is None or b > a + 0.01:
+                busy += 1
+            else:
+                idle.append((pid, cmd))
+        return idle, busy
+
+    def _kill_stuck_runs(self) -> None:
+        """List ORPHANED repo python processes and kill only after explicit confirmation.
+
+        DEFINING "STUCK" CORRECTLY MATTERS MORE THAN THE BUTTON. The obvious rule -- "no living
+        parent" -- IS WRONG HERE, and was caught before this shipped: the first draft of this
+        function would have offered to kill PID 27628, a HEALTHY density sweep, because runs in
+        this repo are launched DETACHED via PowerShell Start-Process precisely so they survive
+        their launching shell. Parentless is what a correct long run looks like. A button built on
+        that rule would kill live work, which is the opposite of what it is for.
+
+        SO STUCK = parentless AND **BURNING NO CPU** AND **HAVING NO LIVE CHILD**. All three are
+        load-bearing, and the third was added after the second draft was tested against reality:
+        PID 27628 read as parentless AND idle (0.0156 CPU seconds in 26 minutes) and would have
+        been offered -- but it is the WRAPPER of PID 28944, which was doing the actual work and
+        writing a unit that same minute. An idle parent waiting on a busy child is the NORMAL shape
+        of a detached run here, not a zombie, and killing it can take the child with it.
+
+        A working compute job accumulates CPU time; a wedged one does not. CPU is sampled twice
+        ~2s apart and anything that advances is excluded. That is a real liveness probe rather
+        than a proxy -- but it must be read on the whole PROCESS TREE, not one node of it.
+
+        DELIBERATELY NEVER OFFERED: this GUI, its parent, and dash_gui.py -- the same exclusion
+        `_enforce_single_instance` makes, for the same reason (a cleanup button that can kill the
+        window you pressed it in is a trap). Processes with a LIVE parent are never offered either:
+        somebody is waiting on those.
+        """
+        from tkinter import messagebox
+        try:
+            from local_exp_scan import _wmic_python_procs
+        except Exception as exc:
+            self._say(f"Cannot enumerate processes: {exc}", ok=False)
+            return
+        import os
+        procs = _wmic_python_procs()
+        if not procs:
+            self._say("Found no python processes to examine.", ok=False)
+            return
+        live = {p.get("pid") for p in procs if p.get("pid") is not None}
+        # Every pid that is the PARENT of some live process. A detached run in this repo is
+        # typically an idle wrapper plus a busy worker; the wrapper must never be offered.
+        parents_of_live = {p.get("ppid") for p in procs if p.get("ppid") is not None}
+        try:
+            own, parent = os.getpid(), os.getppid()
+        except OSError:
+            own, parent = -1, -1
+        cands = []
+        for p in procs:
+            pid, ppid, cmd = p.get("pid"), p.get("ppid"), (p.get("cmd") or "")
+            low = cmd.lower()
+            if pid in (own, parent) or pid is None:
+                continue
+            if "status_gui.py" in low or "dash_gui.py" in low:
+                continue
+            if "hd-instrument" not in low.replace("\\", "/").replace("d:/ai/", ""):
+                if "hd-instrument" not in low:
+                    continue
+            if ppid in live:            # parent still alive -> a running job, not an orphan
+                continue
+            if pid in parents_of_live:  # idle WRAPPER of a busy child -> never offer (see docstring)
+                continue
+            cands.append((pid, cmd))
+        if not cands:
+            self._say("No stuck runs found. (A process whose parent is still alive is somebody's "
+                      "running job and is never offered here.)")
+            return
+        # THE CPU PROBE -- this is what separates a wedged run from a healthy detached one.
+        cands, busy = self._filter_to_idle(cands)
+        if not cands:
+            self._say(f"No stuck runs found. {busy} detached run(s) have no parent but ARE burning "
+                      f"CPU, so they are working normally and were not offered.")
+            return
+        lines = [f"  PID {pid}  {cmd[:110]}" for pid, cmd in cands[:15]]
+        more = "" if len(cands) <= 15 else f"\n  ... and {len(cands)-15} more"
+        if not messagebox.askyesno(
+                "Kill orphaned runs?",
+                f"{len(cands)} python process(es) in this repo have NO LIVING PARENT:\n\n"
+                + "\n".join(lines) + more
+                + "\n\nKill them? This cannot be undone, and any UNSAVED progress in them is lost.\n"
+                  "Completed per-unit checkpoints on disk are NOT affected.",
+                icon="warning", default="no"):
+            self._say("Cancelled. Nothing was killed.")
+            return
+        import subprocess
+        killed, failed = 0, 0
+        for pid, _ in cands:
+            try:
+                r = subprocess.run(["taskkill", "/F", "/PID", str(pid)], capture_output=True,
+                                   timeout=6,
+                                   creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+                killed += 1 if r.returncode == 0 else 0
+                failed += 0 if r.returncode == 0 else 1
+            except Exception:
+                failed += 1
+        self._say(f"Killed {killed} orphaned process(es)"
+                  + (f"; {failed} could not be killed (may need admin)." if failed else "."),
+                  ok=(failed == 0))
 
     # ------------------------------------------------------------------
     # polling
