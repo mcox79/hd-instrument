@@ -9,6 +9,30 @@ step hunt. 6.16 holds the PRE-COMMITTED decision branches; 6.15 the five gated s
 HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_PLAN.md`.
 
 ## POSITION
+**🚨 OVERNIGHT 08-18, AND THIS BLOCK IS MIRRORED TO YOUR BOARD SO READ IT FIRST: I HEADLINED A WIN AND
+THEN TOOK IT APART. NO ARM CURRENTLY CLEARS A TRUSTWORTHY BAR.**
+- **A TYPED-ROLE ARM READ 0.6669 AND I CALLED IT THE FIRST EVER TO CLEAR THE BAR. RETRACTED.** Its bar
+  was computed on a DIFFERENT REPRESENTATION; rebuilt correctly, **a control containing NO WORDS AT
+  ALL reads 0.6317** against that 0.6669.
+- **BOTH BARS THIS PROGRAMME GATES ON INCLUDE CHANCE AT THEIR OWN n: 0.5431 CI [0.4922, 0.5953] and
+  0.5943 CI [0.4937, 0.6911].** *I spent two days correcting people that "the bar is 0.5431, NOT 0.5";
+  at these sample sizes THE TWO CANNOT BE TOLD APART.*
+- **AN AUDIT (`37181d944`) FOUND 21 ARMS ACROSS 3 CELLS GATED THE SAME WRONG WAY -- ALL SUSPENDED, NOT
+  REFUTED.** *A wrong floor makes a verdict unsupported; it does not prove the opposite.* **NOT
+  programme-wide: the main write-rule ladder does it correctly.** No false positive was manufactured.
+- **A VERIFIED CODE DEFECT: the prediction-error rule was applied to the BAG channel, not the typed
+  one, so "prediction error doesn't help" IS RETRACTED AND THAT QUESTION IS FULLY OPEN AGAIN.**
+- **THE ONE FINDING I TRUST, REACHED INDEPENDENTLY BY TWO LANES ON TWO POPULATIONS: THE TYPED CHANNEL
+  WAS NEVER GIVEN ENOUGH DATA TO BE TESTED.** ~8.6 slotted observations per word spread over 10,121
+  dimensions; the dense 58-dimension arm on the SAME data does not collapse. **A density sweep is
+  running against branches pre-committed at `0504bfd00`.**
+- **🧠 THE REFRAME WORTH KEEPING (biology, PINNED): the brain's "what is this LIKE" system (ATL) and
+  its "what goes WITH this in an event" system (pMTG/TPJ) doubly dissociate. OUR INSTRUMENT IS THAT
+  DISSOCIATION. WE BUILT THE SECOND ORGAN AND GRADED IT ON THE FIRST ORGAN'S EXAM.** *Grammatical
+  frames CONSTRAIN a meaning hypothesis; they do not SUPPLY it -- stage one of two.*
+- **UNCHANGED BELOW AND STILL TRUE:** Organ A closed, the corpus exonerated, the missing ingredient is
+  a learning signal. **Tonight did not touch that; it was about what came after.**
+
 **ORGAN A (THE WRITE RULE) IS CLOSED. ALL FIVE STEPS GATED. THE ANSWER IS A LEARNING SIGNAL, AND THE
 CORPUS IS EXONERATED (`0f8a3254a`).** The substitutability signal **IS PRESENT** in first-order counts
 from our own corpus: a supervised diagonal reweighting of a PPMI+SVD space reaches AUC **0.9670**
