@@ -549,6 +549,51 @@ excludes nothing is not a control -- report how many items each control actually
   of these 25 is explicitly `PENDING_VET`, and this file already records 21 arms suspended for a
   mis-imported bar. **THE CORRECT STATEMENT IS: A LARGE BODY OF CLAIMED POSITIVE RESULTS EXISTS THAT
   OUR POSITION DOCUMENT IGNORES, AND IT NEEDS VETTING -- NOT THAT WE HAVE 2,678 WINS.**
+- **🔬🔬🔬 VETTING PASS 4 (`a6e60cfa`): 3 REFUTED, 1 SUSPENDED, 2 QUALIFIED, 0 UPHELD.
+  RUNNING TOTAL OVER 24 CELLS: 11 REFUTED, 4 SUSPENDED, 9 QUALIFIED, *** ZERO UPHELD ***.**
+  - **🚨 THE CAUSAL-LINK RESULT IS PROVEN CONTENT-FREE, NOT MERELY SUSPECT. The auditor RE-RAN the
+    organ WITH THE GOLD LINKS REPLACED BY ARBITRARY RANDOM PAIRS AND GOT `organ_integration =
+    0.9722` -- BIT-IDENTICAL TO THE HEADLINE.** The cell writes `add_causal_link(cause, effect)` for
+    every gold item and queries the same indices back; no text is read (its own label is
+    "GOLD-ISOLATION"). **It measures FHRR write/read fidelity at bundle-load 2 and nothing else.**
+    **⛔ AND THE BASELINE WAS TUNED UNTIL IT FAILED.** The cell's own comment records sweeping
+    distractor density from 200/20 to 15/10 to find *"the smallest min_dist that keeps mr_control >=
+    the 0.50 can-fail floor WHILE DRIVING mr_integration TO 0.0000"*. **That is a gate adjusted
+    until it passed. All three siblings die together: `pilot_v1`, `fuller_v2`, `fuller_v3_cleaned`.**
+  - **REFUTED -- `exp_unified_self_learning_loop_v3`: ITS OWN SCRAMBLE CONTROL BEAT IT.** MAIN LOW
+    gain **0.0243** vs SCRAMBLED **0.0288** -- scrambled text learns MORE. Every separation gate is
+    `HP_CONTROL_SEP = 0.0` and `CONTRAST_EPS = 0.0`: **a margin of literally zero.** Its own
+    label-shuffle null on the same slice wobbles **0.0258** cycle-to-cycle, larger than the entire
+    claimed gain. Two arms are one measurement (`NO_READ` and `READ_NO_SLEEP` share the store digest
+    `c23b44bc…`). **AND `..._loop_v4`, LANDED FIVE HOURS LATER THE SAME DAY, RECORDS
+    `teaches_new=False` AND CARRIES v3's OWN NUMBER AS A CONTROL THAT FAILS. v3 WAS ALREADY DEAD AND
+    WAS STILL SITTING ON THE QUEUE AS HARD_PASS.**
+  - **QUALIFIED -- `exp_pivot_selectional_knowledge_richness_2afc_v1`: THE TABLE IS THE ANSWER KEY.**
+    Its 117 rated pairs and its 59 items x 2 fillers = 117 evaluation pairs are a **PERFECT
+    BIJECTION** (eval-not-rated 0, rated-not-in-eval 0): an LLM rated EXACTLY THE TEST. *Offline
+    LLM-built foundations are admissible under the owner's ruling, but a table whose vocabulary IS
+    the eval is an ORACLE, not a foundation.*
+    **✅ THE PART THAT SURVIVES AND MATTERS: the dumb twins DO NOT reproduce it** -- verb-noun
+    `Counter` 0.5508, noun frequency 0.5339, length 0.4915. **So the knowledge is REAL and ABSENT
+    FROM OUR CORPUS. Honest claim: a cheating oracle reaches 0.78-0.85 on these 59 items and THE
+    SUBSTRATE DID NONE OF IT.** *Convention was never declared: tie->0.5 gives 0.8136, tie->loss
+    0.7797, tie->win 0.8475.*
+  - **SUSPENDED -- `exp_outcome_valence_goal_congruence_v1`: THE DUMBEST RULE SITS EXACTLY ON THE
+    BAR.** "Predict MET iff the goal's infinitival verb lemma equals the outcome verb's lemma" --
+    no referent, no NP head, no registry -- scores **7/8 = 0.875, precisely the pre-registered
+    HARD-PASS floor.** Mechanism 8/8 beats it by ONE item; CIs overlap; P(8/8 | p=0.875) = 0.34.
+    *Its v2 reaches 1.0 at N=22 and self-tiered MIDDLE_BAND -- the honest tier v1 should have had.*
+  - **QUALIFIED -- `exp_learned_argstruct_parser_lccp_independent_gold_v1`: THE WRONG COMPONENT IS
+    CREDITED.** Arm B (cue-competition, **no LCCP**) already clears EVERY gate; adding the LCCP
+    prior moves F1 0.3934 -> 0.4048, two items. **Its "generalization" gate is ONE-SIDED and fired
+    because held-out precision (0.632) EXCEEDS seen (0.449) -- an EASIER held-out subset, not
+    generalization.** *"Independent gold" means independent of reader output; the annotator was the
+    authoring agent, same day, single pass. Absolute performance: P=0.50, R=0.34.*
+  - **🚨🚨 THE CROSS-CUTTING FINDING, AND IT IS THE ONE THAT EXPLAINS THE 0-FOR-24: NOT ONE OF THESE
+    SIX CELLS COMPUTED A SINGLE CONFIDENCE INTERVAL, NULL DISTRIBUTION OR p-VALUE.** Grepped for
+    `confidence|ci_low|bootstrap|p_value|binomtest|permutation|half_width`: two hits, both unrelated
+    words. **EVERY HARD_PASS IN THIS BATCH IS A POINT ESTIMATE COMPARED TO A POINT ESTIMATE, SEVERAL
+    AT GATE MARGINS OF EXACTLY 0.0.** *That is not a scoring accident; it is the archive's method.*
 - **🔬🔬 VETTING PASS 3 (`a04ef6b9`): 4 REFUTED, 2 QUALIFIED, 0 UPHELD. RUNNING TOTAL OVER 18 CELLS:
   8 REFUTED, 3 SUSPENDED, 7 QUALIFIED, *** STILL ZERO UPHELD AS CLAIMED ***.**
   **AT 0-FOR-18 THE PRIOR HAS MOVED: A HARD_PASS IN THIS ARCHIVE SHOULD BE READ AS "UNVERIFIED
