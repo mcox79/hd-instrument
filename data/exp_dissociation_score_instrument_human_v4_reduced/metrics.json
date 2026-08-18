@@ -1,0 +1,722 @@
+{
+  "anchor_name": "dissociation_score_instrument_human_v4",
+  "run_mode": "reduced",
+  "code_version": "v4.0",
+  "findings_log": "notes/dissociation_score_instrument_human_v4_2026-08-18.md",
+  "verdict": "DISSOCIATION_INSTRUMENT_HUMAN_V4__STOP_IF_i_CI_EXCLUDES_ZERO_POSITIVE__ORDERINGS_AGREE__ORGAN_A_CLOSURE_IS_ABOUT_OUR_STORE__rho_at_24_arms=0.9444__rho_at_7_arms=0.9286",
+  "verdict_msg": "Harvest every landed store variant onto both instruments; recompute the arm-ordering rank correlation with a much larger arm set than v3's n=7 -> DISSOCIATION_INSTRUMENT_HUMAN_V4__STOP_IF_i_CI_EXCLUDES_ZERO_POSITIVE__ORDERINGS_AGREE__ORGAN_A_CLOSURE_IS_ABOUT_OUR_STORE__rho_at_24_arms=0.9444__rho_at_7_arms=0.9286",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 1500,
+    "N_PERM_MC": 2000
+  },
+  "selftest_evidence_keys": [
+    "DSI_selftest",
+    "FSG_selftest",
+    "H3_selftest",
+    "MP_selftest",
+    "TR_selftest",
+    "arms_must_differ_known_answer",
+    "config_known_answer",
+    "real_code_path_filter",
+    "real_code_path_maxpool",
+    "real_code_path_predictive_coding",
+    "real_code_path_typed_role"
+  ],
+  "report": {
+    "anchor_name": "dissociation_score_instrument_human_v4",
+    "grid": "reduced",
+    "code_version": "v4.0",
+    "findings_log": "notes/dissociation_score_instrument_human_v4_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "REGRESSION_GATE_A_DSI_WORDNET_INSTRUMENT": {
+      "PASS": true,
+      "measured": {
+        "F_ORTHOGRAPHIC": 0.5,
+        "F_FREQUENCY": 0.4901,
+        "F_SCRAMBLE": 0.4664,
+        "F_CONSTANT_PROTOTYPE": 0.5431,
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": 0.9599,
+        "RANDOM_VECTOR_STORE": 0.4862,
+        "INCUMBENT_LIVE_STORE": 0.071,
+        "RAW_COUNT_FULL_ACCUM": 0.051
+      },
+      "expected": {
+        "F_ORTHOGRAPHIC": 0.5,
+        "F_FREQUENCY": 0.4901,
+        "F_SCRAMBLE": 0.4664,
+        "F_CONSTANT_PROTOTYPE": 0.5431,
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": 0.9599,
+        "RANDOM_VECTOR_STORE": 0.4862,
+        "INCUMBENT_LIVE_STORE": 0.071,
+        "RAW_COUNT_FULL_ACCUM": 0.051
+      },
+      "failures": [],
+      "tol": 0.0005
+    },
+    "REGRESSION_GATE_B_V3_HUMAN_INSTRUMENT": {
+      "PASS": true,
+      "measured": {
+        "F_ORTHOGRAPHIC": 0.492,
+        "F_FREQUENCY": 0.4151,
+        "F_SCRAMBLE": 0.5943,
+        "F_CONSTANT_PROTOTYPE": 0.4125,
+        "KNOWN_ANSWER_HUMAN_RATING": 1.0,
+        "RANDOM_VECTOR_STORE": 0.4578
+      },
+      "expected": {
+        "F_ORTHOGRAPHIC": 0.492,
+        "F_FREQUENCY": 0.4151,
+        "F_SCRAMBLE": 0.5943,
+        "F_CONSTANT_PROTOTYPE": 0.4125,
+        "KNOWN_ANSWER_HUMAN_RATING": 1.0,
+        "RANDOM_VECTOR_STORE": 0.4578
+      },
+      "n_match": 65,
+      "failures": [],
+      "tol": 0.0005
+    },
+    "N_MATCHED_PAIRS_PER_CELL": 10,
+    "N_WORDS_NEEDED": 36,
+    "corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "FAILED_ARM_CLUSTERS": {},
+    "CLUSTER_DIAGS": {
+      "maxpool": {
+        "occ_diag": {
+          "n_words": 36,
+          "n_empty_profile": 0,
+          "n_occurrences_total": 1715,
+          "elapsed_s": 0.0
+        },
+        "n_valid_words": 36,
+        "n_words_needed": 36,
+        "n_matchedP_used": 10,
+        "n_matchedS_used": 10,
+        "n_matchedP_dropped": 0,
+        "n_matchedS_dropped": 0,
+        "vocab_size": 4829
+      },
+      "filter": {
+        "f1": {
+          "n_anchors": 36,
+          "n_empty_profile": 0,
+          "elapsed_s": 0.0
+        },
+        "f2": {
+          "n_anchors": 36,
+          "n_empty_profile": 0,
+          "elapsed_s": 1.6
+        },
+        "f3": {
+          "n_anchors": 36,
+          "n_empty_profile": 0,
+          "elapsed_s": 0.0
+        },
+        "encoder_stats": {
+          "n_parsed": 34,
+          "n_skipped_long_or_empty": 0,
+          "n_encodings": 0,
+          "mean_features_per_encoding": null,
+          "max_tokens": 60,
+          "assets": [
+            "pos_tagger_ud_ewt_upos.json",
+            "arc_parser_richfeat_ud_ewt.npz",
+            "arc_labeler_hashed_ud_ewt.json"
+          ]
+        }
+      },
+      "typed_role": {
+        "typed_matrix_shape": [
+          36,
+          3358
+        ],
+        "n_typed_cols": 3358,
+        "n_verb_cols_untyped": 1458,
+        "n_covered_words": 36,
+        "svd_achieved_ranks": {
+          "T1": 35,
+          "T2": 35
+        }
+      },
+      "tuned_count": {
+        "MATRIX": {
+          "n_rows_anchors": 1230,
+          "n_missing_anchors": 0,
+          "missing_anchor_sample": [],
+          "n_cols_vocab": 18258,
+          "nnz": 237175,
+          "density": 0.01056114,
+          "total_token_count": 405538.0,
+          "matrix_shape": [
+            1230,
+            18258
+          ]
+        },
+        "T5_sgns_diag": {
+          "SKIPPED": false,
+          "elapsed_train_s": 3.7,
+          "vocab_size": 22265,
+          "n_sentences_trained_on": 33839,
+          "NO_PRETRAINED_EMBEDDING_TABLE_IMPORTED": true,
+          "in_in_score_fn_note": "cue-vector cosine (model.wv.similarity), the primary/required number"
+        },
+        "T5_SGNS_RESULT_ALREADY_SCORED": {
+          "n_pairs_P": 10,
+          "n_pairs_S": 10,
+          "auc": 0.44,
+          "ci95": [
+            0.18,
+            0.71
+          ],
+          "ci_halfwidth": 0.265,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        }
+      },
+      "predictive_coding": {
+        "P2_diag": {
+          "rule": "P2_WEIGHTED",
+          "param": 0.0,
+          "n_words": 36,
+          "n_tokens_available": 1715,
+          "n_tokens_accepted": 1715,
+          "acceptance_rate": 1.0,
+          "n_accept_by_word": {
+            "ant": 12,
+            "bee": 17,
+            "boy": 30,
+            "brain": 72,
+            "cat": 27,
+            "cord": 36,
+            "danger": 30,
+            "daughter": 72,
+            "disease": 72,
+            "dog": 40,
+            "easy": 72,
+            "father": 37,
+            "guardian": 32,
+            "happiness": 14,
+            "hard": 72,
+            "husband": 11,
+            "leader": 53,
+            "long": 72,
+            "manager": 62,
+            "money": 72,
+            "mother": 65,
+            "nerve": 39,
+            "new": 72,
+            "old": 72,
+            "parent": 72,
+            "peace": 24,
+            "salary": 48,
+            "season": 44,
+            "short": 72,
+            "simple": 72,
+            "son": 52,
+            "summer": 72,
+            "tough": 21,
+            "wife": 25,
+            "winter": 43,
+            "wire": 17
+          }
+        },
+        "P1_diag": {
+          "rule": "P1_GATE",
+          "param": 0.5151,
+          "n_words": 36,
+          "n_tokens_available": 1715,
+          "n_tokens_accepted": 275,
+          "acceptance_rate": 0.1603,
+          "n_accept_by_word": {
+            "ant": 2,
+            "bee": 4,
+            "boy": 8,
+            "brain": 8,
+            "cat": 2,
+            "cord": 3,
+            "danger": 9,
+            "daughter": 7,
+            "disease": 12,
+            "dog": 9,
+            "easy": 13,
+            "father": 6,
+            "guardian": 3,
+            "happiness": 4,
+            "hard": 10,
+            "husband": 3,
+            "leader": 7,
+            "long": 15,
+            "manager": 10,
+            "money": 8,
+            "mother": 8,
+            "nerve": 5,
+            "new": 13,
+            "old": 10,
+            "parent": 12,
+            "peace": 6,
+            "salary": 4,
+            "season": 10,
+            "short": 13,
+            "simple": 13,
+            "son": 8,
+            "summer": 11,
+            "tough": 7,
+            "wife": 4,
+            "winter": 6,
+            "wire": 2
+          }
+        },
+        "P1_threshold": 0.5151
+      }
+    },
+    "N_ARMS_ACHIEVED": 24,
+    "ARM_NAMES": [
+      "F1_NO_FILTER",
+      "F2_CONTENT_ONLY_STRICT",
+      "F3_SYNTACTIC_NEIGHBOURS_ONLY",
+      "F4_WINDOW_1",
+      "F4_WINDOW_2",
+      "F4_WINDOW_5",
+      "INCUMBENT_LIVE_STORE",
+      "M1_MAXPOOL",
+      "M2_TOPK_MEAN_K2",
+      "M2_TOPK_MEAN_K3",
+      "M2_TOPK_MEAN_K5",
+      "P1_PREDICTION_GATED_BEST",
+      "P2_PREDICTION_WEIGHTED",
+      "PARADIGMATIC_PROFILE_WRITE",
+      "PRESENCE_ABSENCE_BINARIZED",
+      "RAW_COUNT_FULL_ACCUM",
+      "RAW_COUNT_SINGLE_OCC",
+      "T0_VANILLA_PPMI_SVD",
+      "T1_TYPED_ROLE",
+      "T2_SHIFTED_PPMI_K15",
+      "T2_UNTYPED_SAME_COVERAGE",
+      "T3_COMBINED",
+      "T4_BEST_COMBINED",
+      "T5_SGNS_IN_IN"
+    ],
+    "ARM_DIGESTS_ARMS_MUST_DIFFER": {
+      "INCUMBENT_LIVE_STORE": "8488188a08f0eca0",
+      "RAW_COUNT_FULL_ACCUM": "b116fdc3446ed767",
+      "RAW_COUNT_SINGLE_OCC": "1ba73719b6555262",
+      "PRESENCE_ABSENCE_BINARIZED": "e74dcda3984ff19d",
+      "PARADIGMATIC_PROFILE_WRITE": "d78ba644b50189d0",
+      "T0_VANILLA_PPMI_SVD": "17cace1e826fd991",
+      "T2_SHIFTED_PPMI_K15": "d30127c1ec42e4d1",
+      "M1_MAXPOOL": "901634b68618beba",
+      "M2_TOPK_MEAN_K2": "3898f87b2657ad53",
+      "M2_TOPK_MEAN_K3": "8bdc25410c84da4c",
+      "M2_TOPK_MEAN_K5": "2191da996cd4a47f",
+      "F1_NO_FILTER": "e9b03592ed6ea57b",
+      "F2_CONTENT_ONLY_STRICT": "d62b5317c6f1a8f8",
+      "F3_SYNTACTIC_NEIGHBOURS_ONLY": "b393978842a0fa3d",
+      "F4_WINDOW_1": "b393978842a0fa3d",
+      "F4_WINDOW_2": "b393978842a0fa3d",
+      "F4_WINDOW_5": "b393978842a0fa3d",
+      "T1_TYPED_ROLE": "d5f0e82fe45b9230",
+      "T2_UNTYPED_SAME_COVERAGE": "331e10a5a30416e0",
+      "T3_COMBINED": "a5248b678b83ff32",
+      "T4_BEST_COMBINED": "b9a4abdcccd414bb",
+      "P2_PREDICTION_WEIGHTED": "69101b98893cb2f9",
+      "P1_PREDICTION_GATED_BEST": "b3eaa22e2672571d",
+      "T5_SGNS_IN_IN": "PRESCORED_T5_SGNS_IN_IN_0.44"
+    },
+    "ARMS_MUST_DIFFER_DUPLICATE_GROUPS": {
+      "b393978842a0fa3d": [
+        "F3_SYNTACTIC_NEIGHBOURS_ONLY",
+        "F4_WINDOW_1",
+        "F4_WINDOW_2",
+        "F4_WINDOW_5"
+      ]
+    },
+    "HUMAN_AUC_PER_ARM": {
+      "F1_NO_FILTER": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.365,
+        "ci95": [
+          0.12,
+          0.61
+        ],
+        "ci_halfwidth": 0.245,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F2_CONTENT_ONLY_STRICT": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.45,
+        "ci95": [
+          0.35,
+          0.5
+        ],
+        "ci_halfwidth": 0.075,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F3_SYNTACTIC_NEIGHBOURS_ONLY": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "ci_halfwidth": 0.0,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F4_WINDOW_1": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "ci_halfwidth": 0.0,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F4_WINDOW_2": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "ci_halfwidth": 0.0,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F4_WINDOW_5": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "ci_halfwidth": 0.0,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "INCUMBENT_LIVE_STORE": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.25,
+        "ci95": [
+          0.05,
+          0.48
+        ],
+        "ci_halfwidth": 0.215,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "M1_MAXPOOL": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.11,
+        "ci95": [
+          0.0,
+          0.31
+        ],
+        "ci_halfwidth": 0.155,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "M2_TOPK_MEAN_K2": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.05,
+        "ci95": [
+          0.0,
+          0.17
+        ],
+        "ci_halfwidth": 0.085,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "M2_TOPK_MEAN_K3": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.06,
+        "ci95": [
+          0.0,
+          0.18
+        ],
+        "ci_halfwidth": 0.09,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "M2_TOPK_MEAN_K5": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.09,
+        "ci95": [
+          0.0,
+          0.25
+        ],
+        "ci_halfwidth": 0.125,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "P1_PREDICTION_GATED_BEST": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.45,
+        "ci95": [
+          0.2,
+          0.73
+        ],
+        "ci_halfwidth": 0.265,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "P2_PREDICTION_WEIGHTED": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.25,
+        "ci95": [
+          0.05,
+          0.49
+        ],
+        "ci_halfwidth": 0.22,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "PARADIGMATIC_PROFILE_WRITE": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.38,
+        "ci95": [
+          0.15,
+          0.64
+        ],
+        "ci_halfwidth": 0.245,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "PRESENCE_ABSENCE_BINARIZED": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.08,
+        "ci95": [
+          0.0,
+          0.27
+        ],
+        "ci_halfwidth": 0.135,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "RAW_COUNT_FULL_ACCUM": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.16,
+        "ci95": [
+          0.0,
+          0.35
+        ],
+        "ci_halfwidth": 0.175,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "RAW_COUNT_SINGLE_OCC": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.35,
+        "ci95": [
+          0.2,
+          0.5
+        ],
+        "ci_halfwidth": 0.15,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "T0_VANILLA_PPMI_SVD": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.21,
+        "ci95": [
+          0.03,
+          0.44
+        ],
+        "ci_halfwidth": 0.205,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "T1_TYPED_ROLE": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.56,
+        "ci95": [
+          0.3,
+          0.81
+        ],
+        "ci_halfwidth": 0.255,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "T2_SHIFTED_PPMI_K15": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.23,
+        "ci95": [
+          0.0448,
+          0.46
+        ],
+        "ci_halfwidth": 0.2076,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "T2_UNTYPED_SAME_COVERAGE": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.46,
+        "ci95": [
+          0.19,
+          0.71
+        ],
+        "ci_halfwidth": 0.26,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "T3_COMBINED": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.31,
+        "ci95": [
+          0.08,
+          0.57
+        ],
+        "ci_halfwidth": 0.245,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "T4_BEST_COMBINED": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.13,
+        "ci95": [
+          0.0,
+          0.3252
+        ],
+        "ci_halfwidth": 0.1626,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "T5_SGNS_IN_IN": {
+        "n_pairs_P": 10,
+        "n_pairs_S": 10,
+        "auc": 0.44,
+        "ci95": [
+          0.18,
+          0.71
+        ],
+        "ci_halfwidth": 0.265,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      }
+    },
+    "WORDNET_AUC_PER_ARM": {
+      "INCUMBENT_LIVE_STORE": 0.071,
+      "RAW_COUNT_FULL_ACCUM": 0.051,
+      "RAW_COUNT_SINGLE_OCC": 0.4173,
+      "PRESENCE_ABSENCE_BINARIZED": 0.0294,
+      "PARADIGMATIC_PROFILE_WRITE": 0.2165,
+      "T0_VANILLA_PPMI_SVD": 0.0519,
+      "T2_SHIFTED_PPMI_K15": 0.1144,
+      "M1_MAXPOOL": 0.0299,
+      "M2_TOPK_MEAN_K2": 0.0264,
+      "M2_TOPK_MEAN_K3": 0.024,
+      "M2_TOPK_MEAN_K5": 0.0217,
+      "F1_NO_FILTER": 0.4558,
+      "F2_CONTENT_ONLY_STRICT": 0.4323,
+      "F3_SYNTACTIC_NEIGHBOURS_ONLY": 0.4876,
+      "F4_WINDOW_1": 0.4959,
+      "F4_WINDOW_2": 0.4731,
+      "F4_WINDOW_5": 0.4561,
+      "T1_TYPED_ROLE": 0.5802,
+      "T2_UNTYPED_SAME_COVERAGE": 0.59,
+      "T3_COMBINED": 0.2264,
+      "T4_BEST_COMBINED": 0.1144,
+      "T5_SGNS_IN_IN": 0.4417,
+      "P2_PREDICTION_WEIGHTED": 0.0728,
+      "P1_PREDICTION_GATED_BEST": 0.3079
+    },
+    "WORDNET_AUC_SOURCES": {
+      "INCUMBENT_LIVE_STORE": "data/exp_dissociation_score_instrument_human_v3/metrics.json:report.RANK_CORRELATION.wordnet_instrument_aucs.INCUMBENT_LIVE_STORE",
+      "RAW_COUNT_FULL_ACCUM": "data/exp_dissociation_score_instrument_human_v3/metrics.json:report.RANK_CORRELATION.wordnet_instrument_aucs.RAW_COUNT_FULL_ACCUM",
+      "RAW_COUNT_SINGLE_OCC": "data/exp_dissociation_score_instrument_human_v3/metrics.json:report.RANK_CORRELATION.wordnet_instrument_aucs.RAW_COUNT_SINGLE_OCC",
+      "PRESENCE_ABSENCE_BINARIZED": "data/exp_dissociation_score_instrument_human_v3/metrics.json:report.RANK_CORRELATION.wordnet_instrument_aucs.PRESENCE_ABSENCE_BINARIZED",
+      "PARADIGMATIC_PROFILE_WRITE": "data/exp_dissociation_score_instrument_human_v3/metrics.json:report.RANK_CORRELATION.wordnet_instrument_aucs.PARADIGMATIC_PROFILE_WRITE",
+      "T0_VANILLA_PPMI_SVD": "data/exp_dissociation_score_instrument_human_v3/metrics.json:report.RANK_CORRELATION.wordnet_instrument_aucs.T0_VANILLA_PPMI_SVD",
+      "T2_SHIFTED_PPMI_K15": "data/exp_dissociation_score_instrument_human_v3/metrics.json:report.RANK_CORRELATION.wordnet_instrument_aucs.T2_SHIFTED_PPMI_K15",
+      "M1_MAXPOOL": "data/exp_writerule_maxpool_occurrence_v1/metrics.json:report.REGIME_A_AUC_PER_ARM.M1_MAXPOOL.auc",
+      "M2_TOPK_MEAN_K2": "data/exp_writerule_maxpool_occurrence_v1/metrics.json:report.REGIME_A_AUC_PER_ARM.M2_TOPK_MEAN_K2.auc",
+      "M2_TOPK_MEAN_K3": "data/exp_writerule_maxpool_occurrence_v1/metrics.json:report.REGIME_A_AUC_PER_ARM.M2_TOPK_MEAN_K3.auc",
+      "M2_TOPK_MEAN_K5": "data/exp_writerule_maxpool_occurrence_v1/metrics.json:report.REGIME_A_AUC_PER_ARM.M2_TOPK_MEAN_K5.auc",
+      "F1_NO_FILTER": "data/exp_writerule_filter_superpose_gate_v1/metrics.json:report.GATE_A_AUC_PER_ARM.F1_NO_FILTER.auc",
+      "F2_CONTENT_ONLY_STRICT": "data/exp_writerule_filter_superpose_gate_v1/metrics.json:report.GATE_A_AUC_PER_ARM.F2_CONTENT_ONLY_STRICT.auc",
+      "F3_SYNTACTIC_NEIGHBOURS_ONLY": "data/exp_writerule_filter_superpose_gate_v1/metrics.json:report.GATE_A_AUC_PER_ARM.F3_SYNTACTIC_NEIGHBOURS_ONLY.auc",
+      "F4_WINDOW_1": "data/exp_writerule_filter_superpose_gate_v1/metrics.json:report.GATE_A_AUC_PER_ARM.F4_WINDOW_1.auc",
+      "F4_WINDOW_2": "data/exp_writerule_filter_superpose_gate_v1/metrics.json:report.GATE_A_AUC_PER_ARM.F4_WINDOW_2.auc",
+      "F4_WINDOW_5": "data/exp_writerule_filter_superpose_gate_v1/metrics.json:report.GATE_A_AUC_PER_ARM.F4_WINDOW_5.auc",
+      "T1_TYPED_ROLE": "data/exp_typed_role_selectional_asset_writerule_v1/metrics.json:report.AUC_PER_ARM.T1_TYPED_ROLE.auc",
+      "T2_UNTYPED_SAME_COVERAGE": "data/exp_typed_role_selectional_asset_writerule_v1/metrics.json:report.AUC_PER_ARM.T2_UNTYPED_SAME_COVERAGE.auc",
+      "T3_COMBINED": "data/exp_typed_role_selectional_asset_writerule_v1/metrics.json:report.AUC_PER_ARM.T3_COMBINED.auc",
+      "T4_BEST_COMBINED": "data/exp_tuned_count_unsupervised_dissociation_v1/metrics.json:report.T4_BEST_COMBINED.RESULT_held_out_selected_eval_AUC.auc",
+      "T5_SGNS_IN_IN": "data/exp_tuned_count_unsupervised_dissociation_v1/metrics.json:report.T5_SGNS_FROM_SCRATCH.T5_IN_IN.auc",
+      "P2_PREDICTION_WEIGHTED": "data/exp_predictive_coding_write_gate_dissociation_v1/metrics.json:report.AUC_PER_ARM.P2_PREDICTION_WEIGHTED.auc",
+      "P1_PREDICTION_GATED_BEST": "data/exp_predictive_coding_write_gate_dissociation_v1/metrics.json:report.AUC_PER_ARM.P1_PREDICTION_GATED_T0.5151.auc"
+    },
+    "RANK_CORRELATION_AT_7_ARMS": {
+      "tag": "SEVEN_ARMS_v3_BASELINE_COMPARISON",
+      "n_arms_requested": 7,
+      "n_arms_usable": 7,
+      "missing_arms": [],
+      "spearman_rho": 0.9286,
+      "arm_names_used": [
+        "INCUMBENT_LIVE_STORE",
+        "RAW_COUNT_FULL_ACCUM",
+        "RAW_COUNT_SINGLE_OCC",
+        "PRESENCE_ABSENCE_BINARIZED",
+        "PARADIGMATIC_PROFILE_WRITE",
+        "T0_VANILLA_PPMI_SVD",
+        "T2_SHIFTED_PPMI_K15"
+      ],
+      "permutation_p_method": "exact",
+      "permutation_p": 0.0028,
+      "bootstrap_of_arms_ci95": [
+        0.4118,
+        1.0
+      ],
+      "DISCLOSURE": "the bootstrap resamples ARMS, not pairs; a small n here yields a wide CI regardless of how good each per-arm AUC estimate is"
+    },
+    "RANK_CORRELATION_AT_FINAL_COUNT": {
+      "tag": "ALL_ACHIEVED_ARMS",
+      "n_arms_requested": 24,
+      "n_arms_usable": 24,
+      "missing_arms": [],
+      "spearman_rho": 0.9444,
+      "arm_names_used": [
+        "F1_NO_FILTER",
+        "F2_CONTENT_ONLY_STRICT",
+        "F3_SYNTACTIC_NEIGHBOURS_ONLY",
+        "F4_WINDOW_1",
+        "F4_WINDOW_2",
+        "F4_WINDOW_5",
+        "INCUMBENT_LIVE_STORE",
+        "M1_MAXPOOL",
+        "M2_TOPK_MEAN_K2",
+        "M2_TOPK_MEAN_K3",
+        "M2_TOPK_MEAN_K5",
+        "P1_PREDICTION_GATED_BEST",
+        "P2_PREDICTION_WEIGHTED",
+        "PARADIGMATIC_PROFILE_WRITE",
+        "PRESENCE_ABSENCE_BINARIZED",
+        "RAW_COUNT_FULL_ACCUM",
+        "RAW_COUNT_SINGLE_OCC",
+        "T0_VANILLA_PPMI_SVD",
+        "T1_TYPED_ROLE",
+        "T2_SHIFTED_PPMI_K15",
+        "T2_UNTYPED_SAME_COVERAGE",
+        "T3_COMBINED",
+        "T4_BEST_COMBINED",
+        "T5_SGNS_IN_IN"
+      ],
+      "permutation_p_method": "monte_carlo_2000_draws_NOT_exact",
+      "permutation_p": 0.0,
+      "bootstrap_of_arms_ci95": [
+        0.8554,
+        0.9747
+      ],
+      "DISCLOSURE": "the bootstrap resamples ARMS, not pairs; a small n here yields a wide CI regardless of how good each per-arm AUC estimate is"
+    },
+    "POPULATIONS_NOT_COMPARABLE": "this instrument's matched population and the WordNet instrument's are DIFFERENT, non-overlapping-by-construction pools -- absolute AUC values are NEVER compared side by side across the two instruments; only RANK_CORRELATION (the arm ORDERING) is a valid cross-instrument statement",
+    "INTERPRETATION": "STOP_IF_i_CI_EXCLUDES_ZERO_POSITIVE__ORDERINGS_AGREE__ORGAN_A_CLOSURE_IS_ABOUT_OUR_STORE__rho_at_24_arms=0.9444__rho_at_7_arms=0.9286",
+    "elapsed_s": 21.5
+  },
+  "elapsed_s": 34.0,
+  "summary": "Harvest every landed store variant onto both instruments; recompute the arm-ordering rank correlation with a much larger arm set than v3's n=7 -> DISSOCIATION_INSTRUMENT_HUMAN_V4__STOP_IF_i_CI_EXCLUDES_ZERO_POSITIVE__ORDERINGS_AGREE__ORGAN_A_CLOSURE_IS_ABOUT_OUR_STORE__rho_at_24_arms=0.9444__rho_at_7_arms=0.9286"
+}
