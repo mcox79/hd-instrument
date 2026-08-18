@@ -341,6 +341,21 @@ equality reported on a 3-value grid is a BIN, not a measurement (C35). State the
 the number of queries per point beside every "no difference".**
 
 ## WHAT IS RUNNING / BLOCKED
+- **🚨 THE MANDATORY PRIOR-WORK CHECK IS NON-FUNCTIONAL. `CLAUDE.md`'s SESSION STARTUP RITUAL TELLS
+  YOU TO RUN IT AS "THE LOAD-BEARING FIRST ACTION". DO NOT TRUST ITS ANSWER.** Measured 2026-08-18,
+  both interpreters, twice: `tools/substrate_query.sh` and `tools/director_kb_query.py` **return ZERO
+  BYTES and exit 0** after ~38-51 s. Bare `python` resolves fine (3.12.10), so this is NOT the
+  venv trap and NOT a hang -- the tool runs, prints nothing, and reports success. **AN EMPTY RESULT
+  IS NOT EVIDENCE OF ABSENCE**, and this project has a standing rule that an absence claim requires
+  an ENUMERATION. **Every "not a rediscovery" claim made through this tool is unsupported.**
+  **DO INSTEAD, and SAY WHICH YOU DID:** `ls notes/ | grep -i <topic>` then READ the hits; `os.walk`
+  over `data/` for `metrics.json`, then reconcile to the registry, never the reverse.
+  **PROVEN COST:** enumerating by hand on 2026-08-18 found `exp_pc1_predictive_coding_residual_gate_v1`
+  (2026-06-22) -- the SAME write-gate mechanism as `e822eeaaf`, uncited in its brief. *It turned out
+  to REPLICATE tonight's null on a different substrate and instrument, which is a gain, but it was
+  found by hand and not by the tool that exists to find it.* Header of `substrate_query.sh` carries
+  the full measurement; a 25 s guard was added there and is marked **UNPROVEN** because its firing
+  could not be demonstrated.
 - **WRITE-RULE ORGAN, GATE STATE (2026-08-18).** `CODE` **EXONERATED TWICE** (`ac629b1e7` -- a learned
   basis is MATCHED by a same-rank RANDOM basis; nothing moves composition; drill 1's prediction is
   REFUTED). `ACCUMULATE` **GATED = the INTERFERENCE source** (`b6cad69ca`). **The DISSOCIATION
