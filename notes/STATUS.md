@@ -35,9 +35,28 @@ VERIFIED there** (0.5000 / 0.4901 / 0.4664 / 0.5431, every CI including 0.5; kno
 `RAW_COUNT_FULL_ACCUM` **0.0510** > `PRESENCE_ABSENCE_BINARIZED` **0.0294**; the ranking is RESOLVABLE
 (max_lo 0.3835 > min_hi 0.0470). **STOP-IF (iii) fired: the incumbent is CI-separated BELOW 0.5.**
 
-**SO THE OPERATIVE DEFECT IS COLLAPSING OCCURRENCES INTO ONE VECTOR -- NOT THE BASIS THEY ARE WRITTEN
-IN.** Two instruments agree: the decisive arm has `SUM_ALL` 0.0100 < `RANDOM_SINGLE` 0.0367 <
-`BEST_SINGLE_ORACLE` 0.3033, and the dissociation AUC ranks single-occurrence LEAST biased.
+**ORGAN A IS NOW FULLY GATED -- ALL FIVE STEPS (`f311d0ac2`, `34d3fdbab`, plan sec 6.15).** FILTER:
+**REAL BUT NEGATIVE-VALUE** -- a same-size RANDOM token draw reads **0.5041, CI-separated ABOVE** the
+incumbent's 0.4173. CODE: exonerated x2. ACCUMULATE: interference source. NORMALISE: not in the live
+path. SUPERPOSE: **DOES NOT EXIST** -- rebuilding each word from its OWN counts alone reproduces the
+incumbent to **1.76e-08 across all 617 words**; proven by reconstruction, not argued.
+
+**RETRACTED 2026-08-18: "the operative defect is COLLAPSING OCCURRENCES INTO ONE VECTOR."** Tested
+directly and **FALSE**: `M1_MAXPOOL` (every occurrence kept, scored by best match) reads **0.0299,
+-0.0210 [-0.0393,-0.0020] CI-separated BELOW** the sum, at **55x the storage**. Its control decides the
+reading: `N1_MAXPOOL_RANDOM_OCC` sits **AT CHANCE (0.4545)**, NOT depressed -- so the depression needs
+the word's OWN occurrence content and is not an artifact of the max operator. Not-collapsing is not
+the fix.
+
+**THE ORGAN-LEVEL FINDING, AND IT IS THE REAL RESULT: NOT ONE ARM THIS PROGRAMME HAS EVER MEASURED IS
+CI-SEPARATED ABOVE 0.5 ON THE LICENSED INSTRUMENT.** Everything tops out AT chance and never above it
+(`N2_SHUFFLED` 0.5296 NOT_SEP, `N1_RANDOM_FILTER` 0.5041 NOT_SEP, `S1_SINGLE_OCC` 0.4173), and
+everything carrying MORE accumulated corpus content sits FURTHER BELOW (incumbent 0.0710, full accum
+0.0510, max-pool 0.0299, binarised 0.0294). **Interventions that DESTROY information move us TOWARD
+chance; interventions that ADD accumulated content move us AWAY from substitutability.** So the
+ceiling is not a step we have yet to fix -- **first-order co-occurrence counts from this corpus appear
+to carry a co-occurrence signal and NO substitutability signal for these five steps to expose.** The
+best any configuration achieves is encoding NOTHING.
 **CAVEAT, do not collapse these into one claim:** across `ACCUMULATE` the winner no-relation rate
 FALLS 0.8400 -> 0.7971 (-0.043 CI-separated) -- **adjacency was present from sentence one; a bag of
 neighbours IS an adjacency record.** Summing does not CREATE adjacency; it raises INTERFERENCE and
