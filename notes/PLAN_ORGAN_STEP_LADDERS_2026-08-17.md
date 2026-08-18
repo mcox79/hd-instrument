@@ -330,7 +330,80 @@ EVERY ARM.** K1_WORDNET_ORACLE ABOVE; N1_RANDOM_GAUSSIAN clean.
   FEELING. We have measured the feeling half. We have built neither the picture half nor the social
   half.**
 
-### 6.4 REVISED ORDER OF WORK
+### 6.6 **RETRACTED: "DEPTH IS STILL CLIMBING." IT WAS AN ORACLE-CUE NUMBER.**
+
+`exp_organ_f_deep_reading_partialcue_ladder_v1`, FULL, landed 2026-08-17T23:12. The deep ladder
+measured depth on the **REAL PARTIAL CUE** -- the actual operating point -- and the gain does not
+survive:
+
+| population | ORACLE cue | REAL partial cue |
+|---|---|---|
+| POP_72 | 32 -> 72 **ABOVE** | 32 -> 72 **BELOW** |
+| POP_128 | 16 -> 32 and 72 -> 128 **ABOVE** | every step **NOT_SEPARATED** |
+| POP_256 | NOT_SEPARATED | NOT_SEPARATED |
+
+Verdict: `PRIZE_NOT_CLEARED__CLIMBING_NONE__UNDERPOWERED_POP_768__RANKING_NOT_MEANING_NONE`.
+
+**WHAT WAS RETRACTED AND WHO GOT IT WRONG.** Section 6.2's "+0.0503 [+0.0139,+0.0861], still
+climbing at 128" is an **ORACLE-CUE** figure. The Director relayed it to the owner as "more reading
+is a lever we have been ignoring" and wrote it into this plan as the revised order-of-work item 2.
+**That is an exact-key/oracle number quoted as an operating-point number -- the standing rule this
+project already has, broken by the Director, twice.** The depth ladder is not wrong; the reading of
+it was.
+
+**AND COMPOSITION IS FLAT AT EVERY DEPTH:** no-relation rate 0.8235 and winner co-occurrence 0.00215
+are CONSTANT across D=1..768. **Depth changes neither the score nor the kind of word that wins.**
+
+**CONSEQUENCE: ORGAN F IS CLOSED as a lever.** Do not re-open it on an oracle-cue argument. Revival
+criterion: a real-partial-cue gain, CI-separated, on a population that is not underpowered.
+
+**TWO ARTIFACT DEFECTS, recorded so nobody quotes a hole:** the STEP_TABLE serialises `point` and
+`ci95` as **null** (only `band` survives), so exact margins are NOT quotable from that file; and
+`tools/scan_out_collect.py` crashes on a list-shaped fragment (`'list' object has no attribute
+'get'`), which is why a scan sat uncollected.
+
+---
+
+### 6.7 **OWNER'S METHOD RULING, 2026-08-18. THIS SUPERSEDES THE ORDER OF WORK BELOW.**
+
+> "you need to select one ~organ to focus on at a time, evaluate every component of it, and work to
+> improve each of them. As you test that organ / process, you evaluate every gate of the organ
+> process, to see where we're failing."
+> "the brain works, and if we can recreate it operationally substrate will work too"
+
+**THE DIRECTOR'S DIAGNOSED FAILURE, stated plainly because it is the reason for this ruling:** on
+2026-08-17 eleven experiments were run across SIX organs. Each was well-controlled in isolation. Not
+one asked *"what are all of this organ's steps, and which one fails?"* -- they asked *"does this
+change help?"* eleven times and got about +0.01 eleven times. **The two times the ladder method was
+used it produced more direction than the preceding eleven experiments combined** (the pipeline ladder
+relocated the ceiling upstream of the whole pipeline; the write-rule ladder localised the
+relation-destroying step and measured winner COMPOSITION for the first time). The method was never in
+question. **The Director's ORGAN SELECTION was: jumping to whichever organ had just produced a
+result instead of finishing one.**
+
+**THE ORGAN IS THE WRITE RULE (ORGAN A). Nothing else is touched until every one of its steps has a
+measured pass/fail.** It is the correct choice on evidence, not preference: the ceiling provably
+lives there (total pipeline loss 0.038 against a 0.079 gap), and its decisive arm already shows
+**individual sentences carry enough to clear the floor we have never cleared** -- `BEST_SINGLE_ORACLE`
+0.3033 against a 0.1390 floor, while our `SUM_ALL` reads 0.0100 and even `RANDOM_SINGLE` reads 0.0367.
+
+**ITS FOUR LIVE STEPS EACH GET THEIR OWN GATE** (enumerated from live code, and the Director's
+five-item sketch was already wrong once -- superposition is the SAME EVENT as coding):
+FILTER -> CODE -> ACCUMULATE -> NORMALISE (off by default since 2026-08-14).
+
+**DRILLS LEAD, BUILDS FOLLOW.** Every experiment on 2026-08-17 was engineering against a benchmark;
+the single true research drill (verbs) produced the session's best result AND correctly told us the
+ruler was too weak before anything was built. Three drills gate the organ work:
+1. **What does cortex COMPUTE when it extracts a cross-episode regularity** -- at the level of an
+   equation, not an anatomical label.
+2. **What experimental protocol does this class of problem actually demand** -- how the field
+   establishes that a representation encodes relation X rather than relation Y.
+3. **Which of our four steps has a neural counterpart with a SPECIFIED COMPUTATION**, and which are
+   our own invention wearing a biological name.
+
+---
+
+### 6.4 REVISED ORDER OF WORK  *(SUPERSEDED BY 6.7 -- kept for the record)*
 
 1. **DONE -- the verb rescore landed and survives (6.5).**
 2. **Accumulate-without-collapsing** (in flight). Promoted above everything else on the strength of

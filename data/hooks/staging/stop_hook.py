@@ -642,8 +642,14 @@ def _end_to_end_self_test() -> int:
     for want in ('notes/STATUS.md', 'notes/BOARD.md', 'notes/COMMENTARY.md',
                  'UPDATE THE PLAN IN PLACE'):
         check(want in reason, f"the continuation prompt names {want}")
-    check('PLAN_NEXT_12H.md' in reason or 'PLAN.md' in reason,
-          "the continuation prompt names the plan file that actually exists on disk")
+    # 2026-08-17: this used to accept only the two legacy names, so it PASSED while the hook was
+    # emitting its "NEITHER EXISTS ON DISK" fallback -- a self-test that agreed with the bug.
+    # Now it asserts the named plan is one that RESOLVES, and that the fallback is absent.
+    _plan_named = _plan_path(_repo_root())
+    check(_plan_named in reason,
+          f"the continuation prompt names the plan file that resolves on disk ({_plan_named})")
+    check('NOT ON DISK' not in reason,
+          "the plan resolver found a real plan (no plan file resolved => fix _plan_path's list)")
     check('preregs' in reason and 'arm_key' in reason,
           "the continuation prompt states the prereg / arm-key prohibition")
     check('autoloop.py disarm' in reason, "every block reason carries the one-step disarm command")
@@ -1070,12 +1076,31 @@ def _should_count_this_fire(repo_root: Path, session: str, window_s: float = 2.0
 # --- GUARD 3d: the autoloop plan-update continuation -----------------------
 
 def _plan_path(repo_root: Path) -> str:
-    """The plan file, by either accepted name. Another agent may rename PLAN_NEXT_12H.md ->
-    PLAN.md; both are valid and the prompt must name the one that actually exists."""
-    for name in ('PLAN_NEXT_12H.md', 'PLAN.md'):
+    """The plan file, resolved by PRIORITY ORDER against what is actually on disk.
+
+    2026-08-17 FIX, and it had been silently broken: this only ever looked for
+    'PLAN_NEXT_12H.md' and 'PLAN.md'. NEITHER HAS EXISTED FOR SOME TIME. So every autoloop
+    continuation instructed the session to re-read a plan file that is not there -- the
+    fallback string was returned every single time and read as ordinary prose. That is the
+    exact failure class this repo already has a rule for ('a doc parsed by code is coupled to
+    it'), occurring inside the hook that is supposed to keep the loop honest.
+
+    ORDER IS NEWEST-PLAN-FIRST, not alphabetical: the organ-ladder plan supersedes the 24h
+    plan's forward-looking sections, so a session handed both must be pointed at the ladder
+    plan. Keep the superseded names in the list -- they still carry retractions and standing
+    rules that remain in force.
+
+    COUPLING NOTE (both sides, per CLAUDE.md): the names below are an API shared with
+    notes/PLAN_ORGAN_STEP_LADDERS_2026-08-17.md and notes/PLAN_NEXT_24H.md. If a plan is
+    renamed, THIS LIST MUST BE EDITED IN THE SAME COMMIT."""
+    for name in ('PLAN_ORGAN_STEP_LADDERS_2026-08-17.md',
+                 'PLAN_NEXT_24H.md',
+                 'PLAN_NEXT_12H.md',
+                 'PLAN.md'):
         if (repo_root / 'notes' / name).exists():
             return f'notes/{name}'
-    return 'notes/PLAN_NEXT_12H.md (or notes/PLAN.md -- NEITHER EXISTS ON DISK, find the plan)'
+    return ('notes/PLAN_ORGAN_STEP_LADDERS_2026-08-17.md -- NOT ON DISK, and neither is any '
+            'other known plan name. FIND THE PLAN before continuing: ls notes/PLAN*')
 
 
 def _autoloop_prompt(repo_root: Path) -> str:
