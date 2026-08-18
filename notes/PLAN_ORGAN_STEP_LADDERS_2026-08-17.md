@@ -234,6 +234,45 @@ measured predictor of our performance. Both halves are load-bearing.
 
 ## 6. RESULTS SINCE THIS PLAN WAS WRITTEN -- TWO LADDERS LANDED THE SAME NIGHT
 
+> ### READ-ORDER INDEX -- READ THIS FIRST. THE SECTIONS BELOW ARE **NOT** IN NUMERICAL ORDER.
+>
+> Each result was PREPENDED as it landed, so the file runs newest-first in places and the numbers
+> jump (6.14 -> 6.22 -> 6.24 -> 6.23 -> 6.21 -> ... -> 6.4). **Nothing is missing; the order is an
+> artifact of how it was written.** Use this map instead of scrolling.
+>
+> **IF YOU READ ONLY THREE THINGS:**
+> 1. **6.23 -- ORGAN A: CLOSED. THE COMPLETE FINDING.** The bottom line of the whole pass.
+> 2. **6.24 -- SCOPE LIMIT ON THE INSTRUMENT.** Read immediately after 6.23 or you will overstate it.
+> 3. **6.14 -- THE WRITE-RULE GATE BOARD.** Every step, its verdict, its evidence, at a glance.
+>
+> **THE ARC, IN THE ORDER IT ACTUALLY HAPPENED:**
+> | # | what it is |
+> |---|---|
+> | 6.1-6.3 | the first two ladders; the reconciliation that produced "accumulate without collapsing" |
+> | 6.5 | the verb rescore -- the programme's first properly-controlled positive (+0.0993) |
+> | **6.6** | **RETRACTION: "depth is still climbing" was an ORACLE-cue number** |
+> | 6.7 | the owner's one-organ method ruling -- supersedes the earlier order of work |
+> | 6.8 | two owner answers that were missed for hours, both changing a design |
+> | 6.9 / 6.14 | the gate boards (6.14 is current) |
+> | 6.10 | drill 1: relocates the defect to `CODE` -- **later REFUTED by 6.13** |
+> | 6.11 | drill 2: why eleven controlled experiments produced almost nothing |
+> | 6.12 | the dissociation instrument is built and LICENSED |
+> | 6.13 | the `CODE` gate REFUTES drill 1 |
+> | 6.15 | all five steps gated; the organ-level reading |
+> | 6.16 | **decision branches PRE-COMMITTED before the capacity result landed** |
+> | **6.17** | **the Director repeated the project's own named error ("not persisted" = "gone")** |
+> | 6.18 | the capacity result -- the information IS there, nothing unsupervised reaches it |
+> | 6.19 | the learner already exists on disk; do not build a parallel one |
+> | 6.20 | the supervision drill -- and its attack on the Director's own headline |
+> | 6.21 | prediction-error gating: a null, saved from being a false headline by ONE control |
+> | 6.22 | the falsifier (tuned counts) SURVIVES -- closes the organ |
+> | 6.23 | **ORGAN A CLOSED** |
+> | 6.24 | **the instrument measures agreement with WORDNET, not substitutability in the abstract** |
+>
+> **THE FOUR RETRACTIONS AND CORRECTIONS ARE THE MOST VALUABLE ENTRIES HERE** -- 6.6, 6.13, 6.17,
+> and the sign error corrected inside 6.3. *A plan that only records its wins teaches a future
+> reader to repeat its losses.*
+
 **Both stop-ifs in section 5 FIRED. The plan's own order of work was wrong, in the way it predicted.**
 
 ### 6.1 ORGAN A LADDER LANDED (`exp_writerule_step_ladder_v1`, commit `ab3555eb6`)
