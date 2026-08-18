@@ -503,13 +503,23 @@ def _denial_gate_self_test() -> int:
     out = _denial_gate(root, session, str(tpath))
     check(out == [], "an unchanged transcript does not re-fire")
 
+    # OWNER RULING 2026-08-18: 'cancelled' is an in-flight TEARDOWN, not a denial of the work.
+    # One ESC keypress or a process restart tears down every in-flight call at once. It must be
+    # SEEN (the mark still advances) but must NOT halt the loop.
     with tpath.open('a', encoding='utf-8') as fh:
         fh.write(rec('2026-08-15T11:00:00.000Z', 'cancelled',
                      "The user doesn't want to take this action right now.") + '\n')
     out = _denial_gate(root, session, str(tpath))
-    check(len(out) == 1 and out[0]['kind'] == 'cancelled',
-          f"a NEW 'cancelled' denial fires (got {[d['kind'] for d in out]})")
-    check(out and "doesn't want to take this action" in out[0]['text'],
+    check(out == [],
+          f"a 'cancelled' teardown does NOT halt the loop (got {[d['kind'] for d in out]})")
+
+    with tpath.open('a', encoding='utf-8') as fh:
+        fh.write(rec('2026-08-15T11:30:00.000Z', 'permission-rule',
+                     'Permission to use Bash with command rm -rf y has been denied.') + '\n')
+    out = _denial_gate(root, session, str(tpath))
+    check(len(out) == 1 and out[0]['kind'] == 'permission-rule',
+          f"a NEW 'permission-rule' denial DOES halt (got {[d['kind'] for d in out]})")
+    check(out and 'has been denied' in out[0]['text'],
           "the denial prose is recovered verbatim from the record")
 
     out = _denial_gate(root, session, str(tpath))
@@ -519,7 +529,14 @@ def _denial_gate_self_test() -> int:
         fh.write(rec('2026-08-15T12:00:00.000Z', 'user-rejected', 'nope') + '\n')
     out = _denial_gate(root, session, str(tpath))
     check(len(out) == 1 and out[0]['kind'] == 'user-rejected',
-          "'user-rejected' fires too (all three kinds mean STOP)")
+          "'user-rejected' halts -- the owner's explicit no always wins")
+
+    # A teardown arriving AFTER a real denial must not resurrect or mask it: the mark advances
+    # past both, and only the real one ever halted.
+    with tpath.open('a', encoding='utf-8') as fh:
+        fh.write(rec('2026-08-15T12:30:00.000Z', 'cancelled', 'torn down again') + '\n')
+    out = _denial_gate(root, session, str(tpath))
+    check(out == [], "a later teardown still does not halt")
 
     # THE POINT OF THE GATE: a silent auto-deny inside a BACKGROUND SUBAGENT.
     sub = tdir / 'sess' / 'subagents'
@@ -679,9 +696,31 @@ def _end_to_end_self_test() -> int:
     session = saved
     autoloop.arm(0, 'self-test', state)
 
-    # --- GUARD 1: stop_hook_active wins even while ARMED ---
+    # --- GUARD 1 (REWORKED 2026-08-18) ---
+    # OLD behaviour: stop_hook_active always won, so the loop could continue EXACTLY ONCE and the
+    # cap was unreachable by construction. NEW behaviour: while ARMED the chain may continue, but
+    # never faster than the wall-clock floor; while DISARMED the flag still wins outright.
+    _saved_session = session
+    session = _saved_session + '_g1'
+
+    autoloop.disarm(state)
     out = fire(stop_hook_active=True)
-    check(out == "", f"GUARD 1 INTACT: stop_hook_active -> no block even while ARMED (got {out!r})")
+    check(out == "",
+          f"GUARD 1: DISARMED + stop_hook_active -> no block, unchanged (got {out!r})")
+
+    autoloop.arm(200, 'self-test', state)
+    out = fire(stop_hook_active=True)
+    check(blocked(out) is not None,
+          "GUARD 1: ARMED + stop_hook_active -> the chain CONTINUES (this is the fix; the old "
+          "code stopped here and that is why the loop only ever ran one turn)")
+
+    out = fire(stop_hook_active=True)
+    check(out == "",
+          f"GUARD 1: a second continuation INSIDE the wall-clock floor is refused -- the "
+          f"rate limit is what prevents a tight spin (got {out!r})")
+
+    session = _saved_session
+    autoloop.arm(200, 'self-test', state)
 
     # --- GUARD 2: a finite cap still stops the loop ---
     session_capped = session + '_cap'
@@ -977,8 +1016,28 @@ def _denial_gate(repo_root: Path, session: str, transcript_path: str) -> list:
 
     if first_run:
         return []           # pre-existing denials are history, not this session's backlog
+
+    # === OWNER RULING 2026-08-18: HALT ON REAL DENIALS ONLY ===
+    # `cancelled` is NOT a denial of the work. It is an in-flight teardown -- one ESC keypress,
+    # or a session/process restart, tears down every in-flight call at once, including harmless
+    # Read/Grep in background agents nobody meant to stop. On 2026-08-17 this fired repeatedly
+    # from harness-level teardowns while the owner confirmed they had denied NOTHING, and each
+    # one silently ended the overnight loop. Halting on those is halting on noise.
+    #
+    # WHAT STILL HALTS, and this is the point -- the guard is NARROWED, NOT REMOVED:
+    #   permission-rule  -> a permissions.deny rule actually fired. A real capability boundary.
+    #   user-rejected    -> the owner was asked and said no. Their explicit stop always wins.
+    # WHAT NO LONGER HALTS:
+    #   cancelled        -> counted and logged, never halts.
+    #
+    # The residual risk is stated rather than hidden: a `cancelled` teardown CAN drop a real
+    # precondition mid-run, and the loop will now continue past it. That is why the kinds are
+    # still recorded in _denial_halts.log and why every brief keeps the disclosure rule -- the
+    # AGENT-side obligation to stop and report a denial is unchanged. This narrows only the
+    # AUTOMATIC halt.
+    HALTING_KINDS = ('permission-rule', 'user-rejected')
     found.sort(key=lambda d: d['timestamp'])
-    return found
+    return [d for d in found if d['kind'] in HALTING_KINDS]
 
 
 def _record_denial_halt(repo_root: Path, session: str, denials: list, armed: bool) -> str:
@@ -1249,17 +1308,49 @@ def main() -> int:
         except (json.JSONDecodeError, OSError):
             pass
 
-    # === GUARD 1: stop_hook_active (THE load-bearing loop prevention) ===
-    if bool(hook_input.get('stop_hook_active', False)):
-        # Already in a Stop-hook-triggered continuation; never recurse.
-        # UNCHANGED 2026-08-15 and deliberately so: it is the one guard that cannot be configured
-        # away from here, and it runs BEFORE the denial gate and before any cap arithmetic.
-        return 0
-
     # Script lives in data/hooks/staging/; repo root = ../../..
+    # MOVED ABOVE GUARD 1 on 2026-08-18: GUARD 1 now needs the loop state to decide, and reading a
+    # path is side-effect-free.
     repo_root = Path(__file__).resolve().parent.parent.parent.parent
     state_dir = repo_root / 'data' / 'hook_state'
     state_dir.mkdir(parents=True, exist_ok=True)
+
+    # === GUARD 1: stop_hook_active ===
+    #
+    # 2026-08-18 FIX -- THIS IS WHY THE OVERNIGHT LOOP ONLY EVER RAN ONE TURN.
+    # The harness sets stop_hook_active=True on the Stop event that FOLLOWS a hook-driven
+    # continuation. The old code returned 0 unconditionally on that flag, so the sequence was
+    # always: block once -> continue -> next Stop carries the flag -> return 0 -> session ends.
+    # Observed exactly that: "continuation 1/200", then silence. The cap of 200 was unreachable
+    # by construction; GUARD 2 never got to do its job.
+    #
+    # THE GUARD IS NOT DELETED. It is replaced by TWO bounds that are strictly stronger together
+    # than a flag that only ever permitted one turn:
+    #   (a) GUARD 2's continuation counter + cap (visible, printed on every turn), and
+    #   (b) a WALL-CLOCK floor between hook-driven continuations, which is what actually prevents
+    #       the documented ~50-minute tight-spin: a runaway needs to spin FAST to do damage, and
+    #       this makes fast impossible regardless of what the counter does.
+    # If the loop is DISARMED, behaviour is EXACTLY as before -- unconditional stop on the flag.
+    _in_continuation = bool(hook_input.get('stop_hook_active', False))
+    if _in_continuation:
+        _al = _load_tool('autoloop')
+        if _al is None or not _al.is_armed():
+            return 0                      # disarmed: original behaviour, unchanged
+        # Armed: allow the chain to continue, but never faster than MIN_CONTINUATION_GAP_S.
+        MIN_CONTINUATION_GAP_S = 20.0
+        gap_file = state_dir / f'last_continuation_at__{session}.txt'
+        _now = time.time()
+        try:
+            _prev = float(gap_file.read_text(encoding='utf-8').strip())
+        except (OSError, ValueError):
+            _prev = 0.0
+        if _now - _prev < MIN_CONTINUATION_GAP_S:
+            return 0                      # spinning: let it stop. Rate limit, not a cap.
+        try:
+            gap_file.write_text(str(_now), encoding='utf-8')
+        except OSError:
+            pass
+        # fall through -- the denial gate, the cap and the signal gate all still run below.
     cont_file = state_dir / f'stop_continuations_{session}'
 
     # Resolve the loop's arm state + cap once, from tools/autoloop.py. If that module cannot be
