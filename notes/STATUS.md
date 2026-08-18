@@ -150,10 +150,15 @@ each; the two LADDERS redirected the programme. Method is not in question -- org
 
 ## TOP ITEM -- FIND AN ADMISSIBLE SUPERVISION SIGNAL THAT IS NOT THE EVALUATION GOLD
 Organ A is closed and its answer is that we need a LEARNING SIGNAL. **The whole question is now WHICH
-ONE, and the binding constraint is CIRCULARITY, not performance.** The licensed instrument builds
-`SET_P` from **WordNet synonymy** and its known-answer arm IS WordNet path similarity (0.9599), so
-**any signal derived from WordNet -- synonyms, hypernyms, glosses, or anything computed from them --
-trains on the test and is UNUSABLE AS SUPERVISION however well it scores.** Second constraint, the
+ONE, and the binding constraint is CIRCULARITY, not performance.**
+**VERIFIED OFF DISK 2026-08-18, not asserted** (`exp_dissociation_score_instrument_v1.py`):
+`SET_P` is built by `build_wordnet_synonym_candidates()` (line 304) from `wn.synsets()` (line 312);
+the known-answer arm is WordNet path similarity (0.9599); and `SET_S` **explicitly EXCLUDES any
+WordNet pair even at high co-occurrence** (evidence key
+`set_S_excludes_wordnet_pair_even_at_high_cooccurrence`, line 674). **So WordNet does not merely
+influence the labels -- it DEFINES both sides of them.** Therefore **any signal derived from WordNet --
+synonyms, hypernyms, glosses, or anything computed from them -- trains on the test and is UNUSABLE AS
+SUPERVISION however well it scores.** Second constraint, the
 owner's invariant: **NO LLM in the operational path**, and a pretrained table is disqualified as a
 MEANING SOURCE (ceiling reference only) -- **but a STATIC OFFLINE-BUILT ASSET IS ADMISSIBLE** (owner
 Q3: *"we can build that foundation however we want, as long as it is a strong foundation, and the
