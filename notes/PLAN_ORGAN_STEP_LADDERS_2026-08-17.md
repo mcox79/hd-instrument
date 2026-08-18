@@ -625,6 +625,45 @@ or eats the lane -- and tonight it did both.*
 
 ---
 
+### 6.34 **THE TYPED-ROLE TEST IS NOW A CROSS-CORPUS PAIR -- BY ACCIDENT, AFTER TWO DIRECTOR MISJUDGEMENTS.**
+
+**Two cells, same hypothesis, different assets AND different corpora.** Verified off disk, not taken
+on either agent's word:
+
+| cell | asset | corpus |
+|---|---|---|
+| `exp_typed_role_context_write_rule_dissociation_v1.py` | **LIVE parse** -- `hdlab.arc_parser` + `arc_labeler` + `pos_tagger` (**0** references to the slot asset) | **our own corpus** |
+| `exp_typed_role_selectional_asset_writerule_v1.py` | **pre-built** `data/selectional_preferences_v1/` (**4** references) | **SimpleWiki, 737,488 sentences** |
+
+**THIS IS A STRENGTH AND SHOULD BE READ AS ONE.** Two independent tests of *does the grammatical job
+a word does carry substitutability* -- different extraction path, different corpus. **Agreement is
+convergent evidence far stronger than either alone; disagreement localises cleanly to
+asset-vs-parse or SimpleWiki-vs-our-corpus.** Each must cross-reference the other by name.
+
+**THE DESIGN POINT THE CROSS-CORPUS ARM MUST HANDLE EXPLICITLY:** its slots come from a corpus our
+store and instrument have never seen. That is either **independence** (immune to our corpus's
+idiosyncrasies) or a **confound** (different register and sense distribution). **Coverage of the 617
+scored words is the deciding number, with `N5_COVERAGE_MATCHED` adjudicating.**
+
+**TWO DIRECTOR MISJUDGEMENTS PRODUCED THIS, AND BOTH ARE THE SAME MISTAKE.**
+1. **I declared an agent DEAD** because it produced nothing for an hour with no python running. **It
+   was authoring a 58 KB cell and had YIELDED its turn to wait on a smoke** -- which is externally
+   indistinguishable from death. I re-dispatched a replacement on that wrong call.
+2. **I then declared the replacement a DUPLICATE** on filename similarity and stood it down --
+   **without reading either file.** The two agents had already coordinated peer-to-peer and agreed
+   they were not duplicates. **They were right; I overrode them on worse information.**
+
+**BOTH TIMES A TEN-SECOND CHECK OFF DISK WOULD HAVE SETTLED IT BEFORE I ACTED** (`grep -c
+selectional_preferences_v1` on each file; `ls -la` on the cell). **THE RULE: verify liveness and
+duplication from ARTIFACTS, never from silence or from a filename** -- and when subordinate agents
+have already coordinated, **their direct evidence outranks the coordinator's inference.**
+
+*Standing fix now in every brief: do NOT yield a turn to wait on your own run -- block inside the
+turn, or launch detached and block on a bounded wait. Yielding is what made an active agent look
+dead.*
+
+---
+
 ### 6.33 **TWO CORRECTIONS, ONE OF THEM TO 6.30 -- WHICH IS WRONG.**
 
 **(A) THE 0.8629 IS VERIFIED, AND IT HAD NO ARTIFACT UNTIL NOW.** Spot-checking the most
