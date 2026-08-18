@@ -668,10 +668,22 @@ THE ITEM'S OWN POPULATION *AND* ITS OWN REPRESENTATION.**
   enumeration, never a search that returned nothing -- `substrate_query.sh` returns zero bytes and
   exits 0, and at least five agents have already misread that as "no prior work".
 
-**SECOND ITEM, NOT DISPATCHED YET -- PREDICTION ERROR ON THE TYPED CHANNEL.** The `S1`/`N3` defect
-leaves a real question fully open. **Do NOT report it as "retested" until an arm applies the error
-rule to the ARC channel with a rate-matched random-gate control** -- *the control that killed the
-+0.2369 prediction-error win earlier in this programme.*
+**SECOND ITEM -- PREDICTION ERROR ON THE TYPED CHANNEL.** The `S1`/`N3` defect leaves a real question
+fully open. **Do NOT report it as "retested" until an arm applies the error rule to the ARC channel
+with a rate-matched random-gate control** -- *the control that killed the +0.2369 prediction-error
+win earlier in this programme.*
+
+**🛑 CORRECTION TO MY OWN FRAMING ABOVE, SAME SESSION: I FIRST WROTE THIS AS "NOT DISPATCHED YET",
+WHICH READS AS MERELY PENDING. IT IS NOT. IT IS SUBSTANTIVELY BLOCKED, AND ON THE AUDIT.** An arm
+testing prediction error on the arc channel would have to be **GATED AGAINST AN ARC-REPRESENTATION
+FLOOR -- AND WHAT THAT FLOOR IS IS EXACTLY THE OPEN QUESTION THE AUDIT IS SETTLING.** The only
+arc-side floor anyone has computed is `bfc0e941c`'s **attestation floor at 0.6317**, from a single
+reconstruction, never independently reproduced. **DISPATCHING NOW WOULD PRODUCE A RESULT GATED
+AGAINST AN UNSETTLED FLOOR -- WHICH IS PRECISELY TONIGHT'S ERROR, REPEATED KNOWINGLY.** *The
+temptation is real because the question is genuinely open and the cell would be quick to write;
+"quick and unblocked" is how the 0.5431 import got made in the first place.*
+**ORDER: audit settles the arc-side floor -> THEN the prediction-error arm is built against it.**
+*This is a sequencing call, not a de-prioritisation: the question stays the second item.*
 
 ---
 
