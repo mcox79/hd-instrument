@@ -127,10 +127,17 @@ crashed. The five: `exp_relational_readout_promote_v1` HARD_PASS_MAJORITY, two
 `exp_scale_meaning_learn_arc_heldout_v3_grounding` / `_v4_breadth` -- both **HARD_FAIL**
 (NO_TRANSFER, DATA_LEVER_REFUTED).
 
-**⚠️ SEPARATE FINDING, AND NOBODY WAS WATCHING FOR IT: THE NEWEST REMOTE RESULT IS 2026-08-01. THE
-REMOTE HAS PRODUCED NOTHING IN 17 DAYS.** Whether that is intended idleness or a silently dead
-pipeline is UNKNOWN and worth one check -- it is the same silent-stall class as the 11 scheduled
-tasks disabled for 12 days and the KB ingest disabled for 6.
+**~~SEPARATE FINDING: the remote has produced nothing in 17 days.~~ ANSWERED BY THE OWNER
+IMMEDIATELY: "idle by intent." NOT a silent stall, NOT the scheduled-task failure class. Closed.**
+
+**AND THE OWNER SUPPLIED THE MISSING HALF OF THE DIFF: "a lot of these results were SSH'd back to
+this laptop."** That explains the **3,465 local-only** results, which I had reported as a bare
+asymmetry without accounting for it. **The laptop is not a partial mirror of the remote -- IT IS THE
+DESTINATION, deliberately pulled back.** So the sync picture is much healthier than the raw diff
+implies: **one file-level gap in one directory, against 4,409 matched and 3,465 deliberately
+repatriated.** *I framed a working process as a possible failure twice in the same report -- the
+17-day gap and the local-only surplus -- and the owner corrected both. **Ask what the operator
+INTENDED before naming something a defect.***
 
 **THE HONEST STATEMENT: 1,042 cells have no local result at the expected path. AT LEAST 142 of
 those did run or were shipped to run. THE TRUE NUMBER NEVER RUN IS UNKNOWN AND LOWER.** Settling it
