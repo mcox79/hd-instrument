@@ -1,0 +1,18 @@
+{
+  "n_act_candidates": 44893,
+  "n_dropped_nonrequest": 37565,
+  "n_scanned": 7328,
+  "n_dropped_ambiguous": 64,
+  "n_dropped_none": 4106,
+  "n_dropped_toolong": 110,
+  "n_dropped_dup": 266,
+  "n_dropped_cue_cap": 2589,
+  "n_kept": 72,
+  "met": 36,
+  "unmet": 36,
+  "subtypes": {
+    "direct": 13,
+    "idiomatic": 53,
+    "concession": 6
+  }
+}

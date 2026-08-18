@@ -1,0 +1,1202 @@
+[
+  {
+    "sent_id": "answers-20111103205154AAOod9K_ans-0008",
+    "tok_id": 10,
+    "lemma": "want",
+    "form": "want",
+    "text": "So you can pretty much get whatever deal you want anytime.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "no complement; simple desiderative verb, no object to select"
+  },
+  {
+    "sent_id": "answers-20111106130843AA7yj7U_ans-0003",
+    "tok_id": 3,
+    "lemma": "want",
+    "form": "want",
+    "text": "I really want to go to andiamos for my birthday and i was just wondering how much it would cost for the four of us to eat there",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "control verb + to-VP complement, standard subcat frame"
+  },
+  {
+    "sent_id": "answers-20111106130843AA7yj7U_ans-0006",
+    "tok_id": 5,
+    "lemma": "have",
+    "form": "have",
+    "text": "Or more if you have drinks.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "possession sense; human subj + physical-object obj, type fit trivial"
+  },
+  {
+    "sent_id": "answers-20111107082312AAPNaxb_ans-0002",
+    "tok_id": 16,
+    "lemma": "remember",
+    "form": "remember",
+    "text": "I have a friend out in Chicago this week, and I am trying to remember the name of an awesome hibachi style restaurant i visited while out there a couple years ago.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "cognitive verb + NP complement"
+  },
+  {
+    "sent_id": "answers-20111107082312AAPNaxb_ans-0005",
+    "tok_id": 9,
+    "lemma": "cook",
+    "form": "cook",
+    "text": "Four guys around a large square open hibachi cook your food, and when it's finished a server brings it to your table.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive; human agent + food patient, standard selectional fit"
+  },
+  {
+    "sent_id": "answers-20111107082312AAPNaxb_ans-0007",
+    "tok_id": 12,
+    "lemma": "send",
+    "form": "send",
+    "text": "It was pretty epic as I remember and would love to send my friend there.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "ditransitive-ish send(agent,theme,dest), theme=human, dest=locative adverb"
+  },
+  {
+    "sent_id": "answers-20111107163942AA08rP5_ans-0001",
+    "tok_id": 9,
+    "lemma": "come",
+    "form": "comes",
+    "text": "Name something you find at a carnival that comes on a stick?",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "verb + locative PP, literal location selectional fit"
+  },
+  {
+    "sent_id": "answers-20111107164802AAq8nhF_ans-0002",
+    "tok_id": 11,
+    "lemma": "take",
+    "form": "took",
+    "text": "can anyone tell me exactly what it is and what took place?",
+    "judgment": "type_level",
+    "subclass": "idiom_or_mwe_lexicon_entry",
+    "rationale": "'take place'=happen; non-compositional light-verb MWE, resolved via idiom lexicon entry not world-fact"
+  },
+  {
+    "sent_id": "answers-20111107164802AAq8nhF_ans-0003",
+    "tok_id": 4,
+    "lemma": "find",
+    "form": "find",
+    "text": "I cant find any information about it",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "simple transitive cognition-verb + abstract obj"
+  },
+  {
+    "sent_id": "answers-20111107164802AAq8nhF_ans-0005",
+    "tok_id": 2,
+    "lemma": "chase",
+    "form": "chased",
+    "text": "They chased the Communists out of the capital (Hanoi) and retook control.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive + locative oblique, straightforward"
+  },
+  {
+    "sent_id": "answers-20111107164802AAq8nhF_ans-0007",
+    "tok_id": 4,
+    "lemma": "check",
+    "form": "check",
+    "text": "You need to check out the French Indochina War (1946-1954) not the Vietnam War (1957-1975).",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "phrasal 'check out'+NP, literal inspect-entity selectional fit"
+  },
+  {
+    "sent_id": "answers-20111107200249AAIyCy5_ans-0002",
+    "tok_id": 13,
+    "lemma": "be",
+    "form": "are",
+    "text": "i doing a research paper on donatello and i notice that there are two statues of David, a bronze one and marble one.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "existential 'there be' construction; trivial argument structure"
+  },
+  {
+    "sent_id": "answers-20111107200249AAIyCy5_ans-0004",
+    "tok_id": 9,
+    "lemma": "be",
+    "form": "is",
+    "text": "so im a little confused , why is there two statues of David?",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "existential 'there be' construction; trivial argument structure"
+  },
+  {
+    "sent_id": "answers-20111107200249AAIyCy5_ans-0007",
+    "tok_id": 30,
+    "lemma": "waste",
+    "form": "wasted",
+    "text": "Obviously, he should have been arrested and jailed - imagine making a statue or painting on the same subject as another artist - clearly insulting and disrespecting - wasted time that could have been used making a statue with clothes on.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive resource-consuming verb + abstract obj (obj elided in extraction, frame clear)"
+  },
+  {
+    "sent_id": "answers-20111107211645AA391wC_ans-0004",
+    "tok_id": 3,
+    "lemma": "mean",
+    "form": "mean",
+    "text": "If you mean fluid ounces, 20, as opposed to the 16 in America.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "mean=intend/refer-to + quantity NP, straightforward"
+  },
+  {
+    "sent_id": "answers-20111107211645AA391wC_ans-0008",
+    "tok_id": 6,
+    "lemma": "remember",
+    "form": "remember",
+    "text": "Know this well because I remember an 'irish' pub in the town in canada i grew up in used to advertise the cheapest pints of guinness in town, but they served them in american sized pints.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "cognitive verb, elided complement"
+  },
+  {
+    "sent_id": "answers-20111107214231AA68BMD_ans-0002",
+    "tok_id": 12,
+    "lemma": "have",
+    "form": "have",
+    "text": "I'm considering taking a job with Steiner and noticed I have to pay for all my travel.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "'have to'=modal/semi-auxiliary sense vs possessive 'have NP'; complement TYPE (to-VP vs NP) disambiguates via subcat frame alone"
+  },
+  {
+    "sent_id": "answers-20111107214231AA68BMD_ans-0003",
+    "tok_id": 5,
+    "lemma": "know",
+    "form": "knew",
+    "text": "Was wondering if anyone knew a rough estimate of how much it costs with travel and training",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "cognition verb + abstract obj"
+  },
+  {
+    "sent_id": "answers-20111108050147AAOkFgL_ans-0002",
+    "tok_id": 17,
+    "lemma": "plan",
+    "form": "planning",
+    "text": "Well,I'm about to graduate in less then a year,and I'm planning to study medical school.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "control verb 'plan to VP'"
+  },
+  {
+    "sent_id": "answers-20111108050147AAOkFgL_ans-0007",
+    "tok_id": 11,
+    "lemma": "have",
+    "form": "have",
+    "text": "Airfare alone will be incredibly expensive so make sure you have the money and of course free time to take your time and have a great time.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "possession, human subj + concrete obj"
+  },
+  {
+    "sent_id": "answers-20111108071652AA8GAZw_ans-0004",
+    "tok_id": 3,
+    "lemma": "have",
+    "form": "have",
+    "text": "will i have to pay customs in NZ.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "'have to'=modal, complement-type disambiguated (same as #17)"
+  },
+  {
+    "sent_id": "answers-20111108074455AAiMwmn_ans-0003",
+    "tok_id": 15,
+    "lemma": "put",
+    "form": "put",
+    "text": "the camera only begins to work again when i take out the battery and put it back in.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "put(agent,theme,path); pronoun theme, frame satisfied regardless of referent"
+  },
+  {
+    "sent_id": "answers-20111108074455AAiMwmn_ans-0011",
+    "tok_id": 9,
+    "lemma": "get",
+    "form": "get",
+    "text": "I also agree it's under warranty so get in touch with Canon.",
+    "judgment": "type_level",
+    "subclass": "idiom_or_mwe_lexicon_entry",
+    "rationale": "'get in touch with X'=contact X; idiom MWE, lexicon-resolvable not world-fact"
+  },
+  {
+    "sent_id": "answers-20111108074455AAiMwmn_ans-0012",
+    "tok_id": 10,
+    "lemma": "require",
+    "form": "requires",
+    "text": "It sounds like a firmware issue and the camera requires a re-boot just like what happens in a computer - needs a re-start from time to time but it shouldn't be happening in a camera.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive require(NP,NP), straightforward"
+  },
+  {
+    "sent_id": "answers-20111108075412AA4d7Up_ans-0002",
+    "tok_id": 19,
+    "lemma": "be",
+    "form": "are",
+    "text": "In the Episode \"So in Louvre Are We Two\", How many diffrent painting/scupltures are their and who are the artists?",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "existential 'there be' (typo 'are their'='are there')"
+  },
+  {
+    "sent_id": "answers-20111108081911AAy6QeW_ans-0005",
+    "tok_id": 3,
+    "lemma": "press",
+    "form": "press",
+    "text": "When you press the button to stop recording the data is moved from the buffer to the memory card - no pause.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive press(agent,physical-object)"
+  },
+  {
+    "sent_id": "answers-20111108090345AAQiffR_ans-0002",
+    "tok_id": 19,
+    "lemma": "have",
+    "form": "have",
+    "text": "I'm looking for websites like flickr.com tumblr.com and autocorrects.com but ones that aren't very common and have a variety of funny pictures!",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "possession + abstract-quantity obj"
+  },
+  {
+    "sent_id": "answers-20111108090345AAQiffR_ans-0004",
+    "tok_id": 1,
+    "lemma": "thank",
+    "form": "Thank",
+    "text": "Thank you (:",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "thank(agent,addressee), fully compositional"
+  },
+  {
+    "sent_id": "answers-20111108100703AAo53QA_ans-0001",
+    "tok_id": 1,
+    "lemma": "study",
+    "form": "Studying",
+    "text": "Studying in Quebec,Canada?",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "intransitive + locative PP"
+  },
+  {
+    "sent_id": "answers-20111108102205AArwNzY_ans-0006",
+    "tok_id": 20,
+    "lemma": "have",
+    "form": "had",
+    "text": "My friend goes to the Phils every 6 months or so and she has found that Korean Air has had the cheapest fares lately.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "organization-subject possession of abstract property (fares); category-level fit"
+  },
+  {
+    "sent_id": "answers-20111108103704AAB0G7y_ans-0003",
+    "tok_id": 2,
+    "lemma": "pray",
+    "form": "pray",
+    "text": "just pray for her ad=nd try to hlep your dog and do some physical therapy on the hind legs and take her to the vet and ig it costs a whole lot ask hlep from you friends and family adn since shes not eating feed her by hand",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "pray for NP (benefactive PP), compositional"
+  },
+  {
+    "sent_id": "answers-20111108104517AAw5v4L_ans-0005",
+    "tok_id": 2,
+    "lemma": "know",
+    "form": "know",
+    "text": "I know saltwater is a possibility, can you give me a possible stocking option for that too?",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "cognition verb, no complement shown"
+  },
+  {
+    "sent_id": "answers-20111108111112AAAjhoy_ans-0009",
+    "tok_id": 14,
+    "lemma": "get",
+    "form": "get",
+    "text": "esp if not eating - if it had only happened once and could get him to eat right away - it could have been you missed his meal time and he needed to eat - since it sounds like it has happened several times over two days - then he may have gotten int to something that needs to be attended to RIGHT AWAY!!!",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "causative 'get NP to VP' construction; complement type signals the causative frame"
+  },
+  {
+    "sent_id": "email-enronsent04_01-0006",
+    "tok_id": 21,
+    "lemma": "get",
+    "form": "get",
+    "text": "Did you get in as much trouble as I did this weekend - Lori seems to think I need to get help - I told her it's normal to drink all day at a bar, then go to dinner where you don't know half the people there and proceed to get extremely fucked up",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "get=obtain + abstract obj, standard sense"
+  },
+  {
+    "sent_id": "email-enronsent04_01-0006",
+    "tok_id": 52,
+    "lemma": "proceed",
+    "form": "proceed",
+    "text": "Did you get in as much trouble as I did this weekend - Lori seems to think I need to get help - I told her it's normal to drink all day at a bar, then go to dinner where you don't know half the people there and proceed to get extremely fucked up",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "aspectual/control verb 'proceed to VP'"
+  },
+  {
+    "sent_id": "email-enronsent04_02-0013",
+    "tok_id": 23,
+    "lemma": "make",
+    "form": "makes",
+    "text": "I think this is actually a good thing--makes our proposal look like a much more preferable alternative by comparison, makes our support in the process more important, and sets Harvey up as the Ralph Nader equivalent in the election to fix California's broken system---a potential spoiler.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "resultative 'make NP AdjP' construction; a specific richer subcat frame, still lexicon-resolvable"
+  },
+  {
+    "sent_id": "email-enronsent09_02-0004",
+    "tok_id": 12,
+    "lemma": "sit",
+    "form": "sit",
+    "text": "I was wondering if it would be OK for me to sit in with you one day to get a general feel of your end of the process.",
+    "judgment": "type_level",
+    "subclass": "idiom_or_mwe_lexicon_entry",
+    "rationale": "'sit in (with X)'=participate/observe; idiom MWE"
+  },
+  {
+    "sent_id": "email-enronsent18_01-0007",
+    "tok_id": 5,
+    "lemma": "like",
+    "form": "like",
+    "text": "Ideally, we would like a fast turnaround.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "desiderative verb + NP obj"
+  },
+  {
+    "sent_id": "email-enronsent18_01-0009",
+    "tok_id": 9,
+    "lemma": "be",
+    "form": "is",
+    "text": "The credit guys are currently assuming that there is no correlation and may consequently be double dipping the credit reserve on this basis too.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "existential 'there is no correlation'"
+  },
+  {
+    "sent_id": "email-enronsent18_02-0023",
+    "tok_id": 3,
+    "lemma": "let",
+    "form": "let",
+    "text": "Please, let me know.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "causative 'let NP VP' bare-infinitive construction; standard subcat frame"
+  },
+  {
+    "sent_id": "email-enronsent21_02-0012",
+    "tok_id": 5,
+    "lemma": "have",
+    "form": "have",
+    "text": "I am going to have to miss your wedding.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "'have to'=modal (same pattern as #17/#21)"
+  },
+  {
+    "sent_id": "email-enronsent21_02-0052",
+    "tok_id": 10,
+    "lemma": "export",
+    "form": "export",
+    "text": "Starting in February, you will be able to export the data, as opposed to using the spreadsheets.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive export(agent,data)"
+  },
+  {
+    "sent_id": "email-enronsent21_02-0068",
+    "tok_id": 3,
+    "lemma": "go",
+    "form": "go",
+    "text": "Here you go...",
+    "judgment": "type_level",
+    "subclass": "idiom_or_mwe_lexicon_entry",
+    "rationale": "'Here you go'=fixed formulaic expression; general convention not tied to specific referents"
+  },
+  {
+    "sent_id": "email-enronsent23_01-0002",
+    "tok_id": 5,
+    "lemma": "know",
+    "form": "know",
+    "text": "i will let you know later.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "embedded cognition verb in causative small-clause, elided args"
+  },
+  {
+    "sent_id": "email-enronsent23_03-0004",
+    "tok_id": 5,
+    "lemma": "hose",
+    "form": "hose",
+    "text": "hopefully she doesn't hose you.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "'hose'=cheat (slang sense) vs literal spray-with-water; a SEPARATE cataloged roleset (PropBank hose.02), sense fixed by lexicon entry not instance fact"
+  },
+  {
+    "sent_id": "email-enronsent23_10-0003",
+    "tok_id": 3,
+    "lemma": "go",
+    "form": "go",
+    "text": "want to go to dinner with me before you have your 'matt time'?",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "directional motion + comitative PP"
+  },
+  {
+    "sent_id": "email-enronsent27_02-0006",
+    "tok_id": 3,
+    "lemma": "maintain",
+    "form": "maintained",
+    "text": "He has maintained a good relationship with Mulva.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive maintain(agent,abstract-relationship)"
+  },
+  {
+    "sent_id": "email-enronsent27_02-0012",
+    "tok_id": 11,
+    "lemma": "do",
+    "form": "do",
+    "text": "I don't know if there is anything I can do but I'm always willing to help.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "generic pro-verb 'do', no obj"
+  },
+  {
+    "sent_id": "email-enronsent28_01-0004",
+    "tok_id": 8,
+    "lemma": "add",
+    "form": "add",
+    "text": "it is to late for me to add changes.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive add(agent,NP)"
+  },
+  {
+    "sent_id": "email-enronsent32_01-0002",
+    "tok_id": 12,
+    "lemma": "revise",
+    "form": "revised",
+    "text": "As we discussed, here is a first effort at a revised TVA offer letter.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "participial adjective use, revise+document-type object implied"
+  },
+  {
+    "sent_id": "email-enronsent32_01-0054",
+    "tok_id": 5,
+    "lemma": "report",
+    "form": "reports",
+    "text": "This morning's paper reports that a rate increase of 40% may be imposed by the CDWR as early as today and the new bond issue amount is purported to be 16 billion (rather than the 10 initially discussed)",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "communication verb + sentential complement"
+  },
+  {
+    "sent_id": "email-enronsent32_02-0004",
+    "tok_id": 8,
+    "lemma": "send",
+    "form": "send",
+    "text": "No need to thank me,just send me gifts.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "ditransitive send(agent,theme,recipient)"
+  },
+  {
+    "sent_id": "email-enronsent32_02-0005",
+    "tok_id": 12,
+    "lemma": "agree",
+    "form": "agreed",
+    "text": "Seriously, I talked this morning with Tom Hall and we agreed that Ecogas would pay him $53,000.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "communication/agreement verb + sentential complement"
+  },
+  {
+    "sent_id": "email-enronsent32_02-0009",
+    "tok_id": 3,
+    "lemma": "ask",
+    "form": "asked",
+    "text": "I have asked Doug Daniels to prepare the settlement papers reflecting such an agreement.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "control verb 'ask NP to VP'; standard subcat frame"
+  },
+  {
+    "sent_id": "email-enronsent36_01-0011",
+    "tok_id": 2,
+    "lemma": "return",
+    "form": "return",
+    "text": "Please return an executed copy of confirm to me.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "ditransitive-ish return(agent,theme,goal)"
+  },
+  {
+    "sent_id": "email-enronsent36_01-0014",
+    "tok_id": 5,
+    "lemma": "have",
+    "form": "has",
+    "text": "My assistant Joanne Rozycki has cell, car numbers to reach me.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "possession + purpose infinitive"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_CognitiveScienceNews_05a0175fc6ece48b_ENG_20050828_091900-0006",
+    "tok_id": 1,
+    "lemma": "post",
+    "form": "Posted",
+    "text": "Posted by Anthony Beavers to Cognitive Science News at 8/28/2005 07:18:20 AM",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "communication-verb passive with by-agent + goal PP"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_GUHarryPotterReaders_75faa7d55aff9230_ENG_20050715_234000-0002",
+    "tok_id": 20,
+    "lemma": "leave",
+    "form": "left",
+    "text": "The story had brillant battle scenes, lovable heroes and villians, a compelling story line, and it left me dying for the next part of the series:) go to taleofterra.com to learn more aboout it",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "'leave NP V-ing' resultative/small-clause causative; a specific subcat frame"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_HumorUniversity_00dd93cc9545deb3_ENG_20051130_122700-0002",
+    "tok_id": 19,
+    "lemma": "rise",
+    "form": "risen",
+    "text": "Twinkle Twinkle lazy star Kitna soyega uthja yaar, up above the world so high, sun has risen in the sky, uthke jaldi pee le chai, then call me up and say \"HI\"",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "intransitive motion + locative PP"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_HumorUniversity_00dd93cc9545deb3_ENG_20051130_122700-0002",
+    "tok_id": 31,
+    "lemma": "call",
+    "form": "call",
+    "text": "Twinkle Twinkle lazy star Kitna soyega uthja yaar, up above the world so high, sun has risen in the sky, uthke jaldi pee le chai, then call me up and say \"HI\"",
+    "judgment": "type_level",
+    "subclass": "idiom_or_mwe_lexicon_entry",
+    "rationale": "'call up'=telephone; phrasal-verb sense, lexicon-cataloged"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_JokeEruption_df151b356f94881c_ENG_20050819_155700-0039",
+    "tok_id": 11,
+    "lemma": "shut",
+    "form": "shut",
+    "text": "Until I was thirteen, I thought my name was shut up.",
+    "judgment": "instance_level",
+    "subclass": "nonliteral_pragmatic",
+    "rationale": "joke about mishearing a name as the phrase 'shut up'; correct reading requires understanding a SPECIFIC narrative/pragmatic context (a mishearing joke), not a general lexicon entry or type constraint"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_alt.animals.cat_0f877e44e3521d27_ENG_20040131_084700-0003",
+    "tok_id": 3,
+    "lemma": "update",
+    "form": "updated",
+    "text": "We have updated our site to include a LOST and FOUND page and you can now join our branch and make a secure on-line donation to the charity.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive update(agent,NP)"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_alt.animals.cat_0f877e44e3521d27_ENG_20040131_084700-0005",
+    "tok_id": 12,
+    "lemma": "see",
+    "form": "see",
+    "text": "PS - we also have more cats coming in for re-homing see our 'Homes Wanted' page",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "directive/perception 'see'=check + NP"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_alt.animals_0b4766087b0d36b7_ENG_20031231_183500-0001",
+    "tok_id": 12,
+    "lemma": "receive",
+    "form": "received",
+    "text": "An orphaned, two-month old African elephant named Olly received an extremely uplifting Christmas present this year: an airplane ride just for him, courtesy of the International Fund for Animal Welfare and their friends 'The Bateleurs'.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "ditransitive-ish receive(recipient,theme)"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_chantonline_3e01677617c74720_ENG_20060112_102000-0008",
+    "tok_id": 9,
+    "lemma": "post",
+    "form": "post",
+    "text": "Action Network is also a good place to post details of events, or try to rally together a group if you want to take action in your area.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive post(agent,NP)=publish/announce"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_civilization_1201f7692b7769fb_ENG_20050908_010400-0005",
+    "tok_id": 18,
+    "lemma": "make",
+    "form": "made",
+    "text": "The overwhelming human and financial impacts of Hurricane Katrina are powerful evidence that political and economic decisions made in the United States and other countries have failed to account for our dependence on a healthy resource base, according to an assessment released today by the Worldwatch Institute.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "passive participial + locative oblique"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_fineart_0339fc0ed4e53c5a_ENG_20050930_025500-0008",
+    "tok_id": 17,
+    "lemma": "plan",
+    "form": "planned",
+    "text": "In the world of \"Wei's magic cubes,\" all seem to be ingeniously planned and tricky.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "passive, straightforward"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_hiddennook_1fd8f731ae7ffaa0_ENG_20050214_192900-0012",
+    "tok_id": 6,
+    "lemma": "see",
+    "form": "see",
+    "text": "It will be interesting to see whether or not Google will finally slay the Microsoft Goliath, who has known no major defeat and seeks to vanquish all competition.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "perception/cognition verb + sentential (whether-)complement"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_hiddennook_88969236563fa748_ENG_20050215_173600-0006",
+    "tok_id": 17,
+    "lemma": "operate",
+    "form": "operate",
+    "text": "\"Our plans include raising private capital to develop, build, flight test, and operate this Earth-Moon highway for the benefit of the country and the benefit of our investors.\"",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive operate(agent,NP), obj elided in extraction but frame is trivial"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_hiddennook_e21e429b3ad58235_ENG_20050830_214700-0005",
+    "tok_id": 29,
+    "lemma": "prove",
+    "form": "proved",
+    "text": "It looks as if NASA is transitioning away from the shuttle model, as in the past they have proven to be quite dangerous as Columbia has recently proved.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "raising 'prove (to be) AdjP' construction distinguished from transitive 'prove NP' by complement type"
+  },
+  {
+    "sent_id": "newsgroup-groups.google.com_jokecity_0566f0ba3b5f748f_ENG_20051125_240500-0009",
+    "tok_id": 9,
+    "lemma": "be",
+    "form": "is",
+    "text": "\"What?\" asks Winston, \"isn't there any one here who can give me an example of a tragedy?\"",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "existential 'isn't there any one'"
+  },
+  {
+    "sent_id": "reviews-011806-0002",
+    "tok_id": 4,
+    "lemma": "get",
+    "form": "getting",
+    "text": "Sheer contrast to getting it done at karol bagh which is done under the wooden plank",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "causative-passive 'get NP done' construction; standard subcat frame (VerbNet getting class)"
+  },
+  {
+    "sent_id": "reviews-014764-0001",
+    "tok_id": 6,
+    "lemma": "do",
+    "form": "did",
+    "text": "Daniel and his assistant both did a great job.",
+    "judgment": "type_level",
+    "subclass": "idiom_or_mwe_lexicon_entry",
+    "rationale": "'do a (great) job'=light-verb construction, NP carries the semantic content; cataloged construction"
+  },
+  {
+    "sent_id": "reviews-024306-0002",
+    "tok_id": 11,
+    "lemma": "taste",
+    "form": "tasted",
+    "text": "This place had the worst tasting pizza I have ever tasted it was possible the worst food I've ever eaten.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "perception verb taste(experiencer,theme)"
+  },
+  {
+    "sent_id": "reviews-083563-0001",
+    "tok_id": 3,
+    "lemma": "like",
+    "form": "like",
+    "text": "We would like to thank our emergency plumbers who visted our shop in Morningside Road today.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "control verb 'like to VP'"
+  },
+  {
+    "sent_id": "reviews-083563-0002",
+    "tok_id": 9,
+    "lemma": "get",
+    "form": "getting",
+    "text": "A fast service, saved a bad situation getting alot worse.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "inchoative 'get AdjP'=become, distinguished from possessive 'get NP' by complement type (AdjP vs NP)"
+  },
+  {
+    "sent_id": "reviews-087368-0002",
+    "tok_id": 26,
+    "lemma": "answer",
+    "form": "answering",
+    "text": "My pharmacy order is always correct and promptly delivered but the pharmacy staff are always very short with me and don't seem to like answering questions.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive answer(agent,questions)"
+  },
+  {
+    "sent_id": "reviews-101864-0002",
+    "tok_id": 2,
+    "lemma": "have",
+    "form": "have",
+    "text": "I have no complaints about the service I received.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "possession/experiencer have(experiencer,abstract-NP)"
+  },
+  {
+    "sent_id": "reviews-107608-0002",
+    "tok_id": 4,
+    "lemma": "have",
+    "form": "had",
+    "text": "Iv just had my bmw z3 rear window replaced by the guys at kelvin trimmers.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "causative 'have NP V-participle done'; standard subcat frame"
+  },
+  {
+    "sent_id": "reviews-122564-0003",
+    "tok_id": 8,
+    "lemma": "see",
+    "form": "seen",
+    "text": "too many bugs some you even never seen before.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "perception verb, passive"
+  },
+  {
+    "sent_id": "reviews-163250-0002",
+    "tok_id": 12,
+    "lemma": "sort",
+    "form": "sort",
+    "text": "These people were so helpful this week and did everything to sort out my windscreen and insurance.",
+    "judgment": "type_level",
+    "subclass": "idiom_or_mwe_lexicon_entry",
+    "rationale": "'sort out'=resolve/fix; phrasal-verb lexicon entry"
+  },
+  {
+    "sent_id": "reviews-169610-0002",
+    "tok_id": 9,
+    "lemma": "come",
+    "form": "came",
+    "text": "Mrs. Tolchin provided us with excellent service and came with a great deal of knowledge and professionalism!",
+    "judgment": "type_level",
+    "subclass": "idiom_or_mwe_lexicon_entry",
+    "rationale": "'come with X'=accompanied-by; idiom-ish comitative sense"
+  },
+  {
+    "sent_id": "reviews-181696-0002",
+    "tok_id": 14,
+    "lemma": "meet",
+    "form": "Met",
+    "text": "The only 10.0 \"Perfect Score\" AVVO Rated Attorney I Have Ever Met.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive meet(agent,NP), obj elided by relative-clause embedding"
+  },
+  {
+    "sent_id": "reviews-188382-0002",
+    "tok_id": 15,
+    "lemma": "love",
+    "form": "love",
+    "text": "I've been a regular customer at this store since it opened, and love the fact that all of the employees are friendly locals.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive love(experiencer,NP/complement-clause)"
+  },
+  {
+    "sent_id": "reviews-210875-0002",
+    "tok_id": 5,
+    "lemma": "know",
+    "form": "know",
+    "text": "Just wanted you to know that Eric came by as scheduled today and sprayed our house for scorpions.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "control-verb complement 'know that...'"
+  },
+  {
+    "sent_id": "reviews-211933-0003",
+    "tok_id": 7,
+    "lemma": "diagnose",
+    "form": "diagnosing",
+    "text": "He listens and is excellent in diagnosing, addressing and explaining the specific issues and suggesting exercises to use.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive diagnose(agent,issues), technical/medical sense straightforward"
+  },
+  {
+    "sent_id": "reviews-229100-0005",
+    "tok_id": 3,
+    "lemma": "go",
+    "form": "go",
+    "text": "Dont go to the one by pepco, I got confused!!!",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "directional motion + goal PP"
+  },
+  {
+    "sent_id": "reviews-263909-0004",
+    "tok_id": 1,
+    "lemma": "have",
+    "form": "Had",
+    "text": "Had it fixed within a few days (had to order a part).",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "causative 'have NP V-participle' (same pattern as #79)"
+  },
+  {
+    "sent_id": "reviews-275595-0002",
+    "tok_id": 24,
+    "lemma": "know",
+    "form": "knows",
+    "text": "this dentist want to pull the tooth out always.. always wants to do the cheapest for his benefit.. not unless he knows you.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "know=be-acquainted-with + human obj"
+  },
+  {
+    "sent_id": "reviews-286172-0003",
+    "tok_id": 2,
+    "lemma": "go",
+    "form": "going",
+    "text": "Definetely going back",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "directional motion + particle 'back'"
+  },
+  {
+    "sent_id": "reviews-290238-0003",
+    "tok_id": 3,
+    "lemma": "check",
+    "form": "check",
+    "text": "If you check RecWarehouse.com, they don't list this as a location.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "check(agent, information-source); category-level fit (website is a checkable entity), no instance fact about the specific site needed"
+  },
+  {
+    "sent_id": "reviews-290238-0003",
+    "tok_id": 9,
+    "lemma": "list",
+    "form": "list",
+    "text": "If you check RecWarehouse.com, they don't list this as a location.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "'list NP as NP' predicative-complement construction; standard subcat frame (label/characterize class)"
+  },
+  {
+    "sent_id": "reviews-325741-0002",
+    "tok_id": 23,
+    "lemma": "wait",
+    "form": "wait",
+    "text": "It was late in the day and I was worried I would get charged an arm and a leg and have to wait forever.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "'have to wait'=modal governing intransitive 'wait' (same have-to pattern)"
+  },
+  {
+    "sent_id": "reviews-336305-0001",
+    "tok_id": 3,
+    "lemma": "forgive",
+    "form": "forgive",
+    "text": "hard to forgive such an awful margarita and steep prices but the food can be good",
+    "judgment": "instance_level",
+    "subclass": "metonymic_pragmatic",
+    "rationale": "'forgive [the] margarita'=excuse the venue's quality via metonymy from drink to service; forgive's literal selectional restriction (person/offense) is violated and reinterpreted pragmatically, needing genre/discourse-specific (restaurant-review) inference beyond a fixed lexicon entry"
+  },
+  {
+    "sent_id": "reviews-390330-0001",
+    "tok_id": 15,
+    "lemma": "use",
+    "form": "use",
+    "text": "I appreciate the quick, good service and the reasonable prices and will definitely use American Pride Irrigation & Landscaping again.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive use(agent, service/company-name); category-level fit"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_aggressivevoicedaily_20060629164800_ENG_20060629_164800-0007",
+    "tok_id": 4,
+    "lemma": "dissent",
+    "form": "dissenting",
+    "text": "THOMAS filed a dissenting opinion, in which SCALIA joined, and in which ALITO joined as to all but Parts I, II-C-1, and III-B-2.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "gerund/adjectival use, no real argument-structure question"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_aggressivevoicedaily_20060811122000_ENG_20060811_122000-0004",
+    "tok_id": 4,
+    "lemma": "say",
+    "form": "said",
+    "text": "U.S. officials have said the plot, thwarted by Britain, to blow up several aircraft over the Atlantic bore many of the hallmarks of al Qaeda.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "communication verb + sentential complement"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_aggressivevoicedaily_20060811122000_ENG_20060811_122000-0042",
+    "tok_id": 6,
+    "lemma": "want",
+    "form": "want",
+    "text": "But because we don't want to sound hateful we must pretend everyone's a possible suspect and make airline travel more miserable than it's ever been.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "control verb 'want to VP'"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_floppingaces_20050313182621_ENG_20050313_182621-0003",
+    "tok_id": 8,
+    "lemma": "be",
+    "form": "is",
+    "text": "To the north in Lebanon, there is serious debate within Hezbollah about entering the Lebanese political process in light of Syria's promised withdrawal.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "existential 'there is serious debate' + locative"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_floppingaces_20050313182621_ENG_20050313_182621-0007",
+    "tok_id": 32,
+    "lemma": "waffle",
+    "form": "waffling",
+    "text": "Over three years after 9-11, the United Nations, despite their attempts to project strength in fighting terrorism , still cannot properly define the word \"terrorist\" , waffling over the issue of whether the murder of innocent civilians are terrorist acts.",
+    "judgment": "type_level",
+    "subclass": "idiom_or_mwe_lexicon_entry",
+    "rationale": "'waffle over X'=be indecisive about X; phrasal-verb idiom sense"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0003",
+    "tok_id": 3,
+    "lemma": "suspect",
+    "form": "suspect",
+    "text": "One can suspect the Iranian Government.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "cognition verb suspect(experiencer,organization), straightforward"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0007",
+    "tok_id": 5,
+    "lemma": "say",
+    "form": "said",
+    "text": "The President has also said he would like to see Israel wiped off the map which he couldn't even begin to try without nuclear weapons.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "communication verb + sentential complement"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0009",
+    "tok_id": 5,
+    "lemma": "use",
+    "form": "use",
+    "text": "Many people want to use diplomacy with Iran rather than military pressure.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive use(agent,NP) + PP"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_marketview_20050224181500_ENG_20050224_181500-0001",
+    "tok_id": 23,
+    "lemma": "commit",
+    "form": "commits",
+    "text": "Let me join the chorus of annoyance over Google's new toolbar , which, as noted in the linked article, commits just about every sin an online marketer could commit, and makes up a few new ones besides.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "commit(agent, abstract-offense-NP); standard VerbNet 'commit-a-crime' class"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_marketview_20050224181500_ENG_20050224_181500-0003",
+    "tok_id": 7,
+    "lemma": "use",
+    "form": "use",
+    "text": "(You don't need to use their site, you can opt-out of sharing your information, you don't need to send stuff to anyone with a Gmail account, and if -- wonder of wonders -- you're worried that you might send something to someone who would forward an excerpt to someone who would then store it on a Gmail account... you have far, far too much time on your hands).",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive use(agent,NP)"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_marketview_20060625150800_ENG_20060625_150800-0003",
+    "tok_id": 29,
+    "lemma": "want",
+    "form": "wants",
+    "text": "It's a little hard to parse, but at this point his ostensible view is that the Gateses are very good money-redistributors, and he wants them to have the money as soon as possible.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "'want NP to VP' ECM/raising-to-object construction; standard subcat frame"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_marketview_20060625150800_ENG_20060625_150800-0003",
+    "tok_id": 32,
+    "lemma": "have",
+    "form": "have",
+    "text": "It's a little hard to parse, but at this point his ostensible view is that the Gateses are very good money-redistributors, and he wants them to have the money as soon as possible.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "possession have(experiencer,NP)"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_marketview_20060625150800_ENG_20060625_150800-0007",
+    "tok_id": 4,
+    "lemma": "change",
+    "form": "change",
+    "text": "It doesn't change the company's intrinsic worth, and as the article notes, the company might be added to a major index once the shares get more liquid.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "causative change-of-state change(agent,abstract-NP)"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_marketview_20060625150800_ENG_20060625_150800-0008",
+    "tok_id": 25,
+    "lemma": "happen",
+    "form": "happens",
+    "text": "On the other hand, this is essentially a statement that the company is overpriced from the guy who knows it best -- and happens to be the best investor of the last century.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "raising 'happen to VP' (epistemic/coincidence) distinguished from intransitive 'an event happens' by complement type"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_marketview_20060625150800_ENG_20060625_150800-0013",
+    "tok_id": 2,
+    "lemma": "mention",
+    "form": "mentions",
+    "text": "He mentions his wife's death having an effect on him.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "communication verb mention(agent,NP), obj elided by possessive embedding"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_marketview_20060625150800_ENG_20060625_150800-0014",
+    "tok_id": 20,
+    "lemma": "start",
+    "form": "starting",
+    "text": "It sounds pretty rational that he's saying that Bill and Melinda are at a prime spot, so starting the money hose now is a good idea, but Buffet is still keeping most of his donation inside of Berkshire where it will compound.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive start(agent,abstract/event-NP); metaphor is in the NOUN 'hose', not the verb's own selectional need"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_tacitusproject_20040715092419_ENG_20040715_092419-0003",
+    "tok_id": 6,
+    "lemma": "suppose",
+    "form": "suppose",
+    "text": "It's symptomatic, I suppose, of our fast-paced, 24 hour news-cycle lives, that the biggest short-term humanitarian crisis in the world would quickly be eclipsed, once our Secretary of State was finished with his whirlwind tour, from the newspapers.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "parenthetical cognition verb suppose(experiencer)"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_tacitusproject_20040715092419_ENG_20040715_092419-0006",
+    "tok_id": 10,
+    "lemma": "demand",
+    "form": "demanded",
+    "text": "At that time, UN Secretary General Kofi Annan demanded steps be taken to end the ethnic violence in Darfur within 48 hours.",
+    "judgment": "type_level",
+    "subclass": "frame_disambiguated_sense",
+    "rationale": "'demand steps be taken'=subjunctive-complement-taking verb; standard subcat frame"
+  },
+  {
+    "sent_id": "weblog-blogspot.com_tacitusproject_20040715092419_ENG_20040715_092419-0008",
+    "tok_id": 16,
+    "lemma": "pledge",
+    "form": "pledging",
+    "text": "The African Union is clearly not up to the task of keeping the peace, pledging 300 troops to an area that will need 15,000, according to analysts.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "ditransitive pledge(agent,theme,goal)"
+  },
+  {
+    "sent_id": "weblog-juancole.com_juancole_20030914114200_ENG_20030914_114200-0002",
+    "tok_id": 2,
+    "lemma": "report",
+    "form": "reported",
+    "text": "Reuters reported that \"Sunni clerics in the town issued a 'Declaration by the people of Fallujah' condemning the deaths of the security guards and police, announcing three days of mourning, and calling for a general strike today.\"",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "communication verb + sentential complement"
+  },
+  {
+    "sent_id": "weblog-juancole.com_juancole_20040722101300_ENG_20040722_101300-0006",
+    "tok_id": 13,
+    "lemma": "know",
+    "form": "known",
+    "text": "Of course Bush would have tried to stop 9/11 if he had known it was coming.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "cognition verb + sentential complement"
+  },
+  {
+    "sent_id": "weblog-juancole.com_juancole_20040722101300_ENG_20040722_101300-0034",
+    "tok_id": 7,
+    "lemma": "use",
+    "form": "use",
+    "text": "Musharraf told Clinton he couldn't use Pakistani soil or air space to send the team in against Bin Laden.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive use(agent,NP) + purpose infinitive"
+  },
+  {
+    "sent_id": "weblog-juancole.com_juancole_20040722101300_ENG_20040722_101300-0037",
+    "tok_id": 12,
+    "lemma": "look",
+    "form": "look",
+    "text": "But for those of you tempted in that direction, please look up Carter's Tabas operation.",
+    "judgment": "type_level",
+    "subclass": "idiom_or_mwe_lexicon_entry",
+    "rationale": "'look up X'=research/investigate; phrasal-verb lexicon entry"
+  },
+  {
+    "sent_id": "weblog-juancole.com_juancole_20041018060600_ENG_20041018_060600-0021",
+    "tok_id": 16,
+    "lemma": "see",
+    "form": "seen",
+    "text": "The consolidation of smaller local radical fundamentalist groups with al-Qaeda can also be seen in the case of the Fizazi group in Tangiers that morphed into the Moroccan Islamic Combatant Group , had members who met with September 11 ringleader Muhammad Atta, and ultimately was in part responsible for the Madrid train bombings.",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "perception verb, passive + locative oblique"
+  },
+  {
+    "sent_id": "weblog-juancole.com_juancole_20041109060653_ENG_20041109_060653-0010",
+    "tok_id": 49,
+    "lemma": "respect",
+    "form": "respect",
+    "text": "The statement said, \"We direct an appeal at the men in the Iraqi forces, whether national guards or others, the majority of whom are Muslim, calling upon them to refrain for commiting this enormous sin under the banner of forces that do not respect our religion or any principles of basic humanity, and we ask them to view this war as illegal.\"",
+    "judgment": "type_level",
+    "subclass": "trivial_compositional",
+    "rationale": "transitive respect(agent,abstract-NP)"
+  }
+]
