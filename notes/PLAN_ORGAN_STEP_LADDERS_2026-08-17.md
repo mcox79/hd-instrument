@@ -660,13 +660,34 @@ with a PERCEPTUAL experience of its referent, not with other words.** **THAT IS 
 SUPERVISION SIGNAL, AND IT IS EXACTLY WHAT `TOP ITEM` HAS BEEN ASKING FOR: a signal that is NOT the
 evaluation gold and NOT an LLM.**
 
-**THE HARD PART, STATED PLAINLY RATHER THAN ROUTED AROUND: WE HAVE NO PERCEPTUAL MODALITY.** Our
-assets are text, WordNet (**disqualified -- it DEFINES both sides of the labels**), and CSKG.
-**DO NOT BUILD A FAKE "CROSS-MODAL" CHANNEL OUT OF MORE TEXT AND CALL IT GROUNDING** -- that is the
-substitution-of-something-convenient this project keeps being caught doing, and it would be
-mislabelled as brain-derived. **THE QUESTION TO ANSWER BEFORE ANY BUILD: what admissible
-non-linguistic convergence signal do we actually have, or can we legitimately construct offline?**
-*Check `admissible_supervision_sources_drill` FIRST and build on it -- do not re-run it.*
+**❌ I WROTE "WE HAVE NO PERCEPTUAL MODALITY" HERE AN HOUR AGO. IT IS FALSE, AND THE DRILL THIS VERY
+SECTION TOLD ME TO READ FIRST IS WHAT REFUTES IT. I GAVE THE INSTRUCTION AND THEN DID NOT FOLLOW IT.**
+`notes/admissible_supervision_sources_drill_2026-08-18.md` §3.2 measured it off disk and is titled
+*"THE PRIOR DRILL SAID WE DO NOT HAVE IT. MEASURED, THAT IS WRONG."* **WE HOLD:**
+- **Lancaster sensorimotor norms -- 39,707 words x 11 perceptual/action dimensions, covering 80.5% of
+  the 5,491 anchors and 90.3% OF THE 617 SCORED WORDS.**
+- Brysbaert concreteness 90.4%, Kuperman AoA 92.7%, Warriner VAD 82.8% of eval words.
+- **CSKG Visual-Genome subset -- 257,130 relations DERIVED FROM IMAGES**, 57.9% of eval words.
+- And the CSKG is **INDEPENDENT AND USABLE at 96.33% of its edges** with the contaminated relations
+  identified and droppable (§2.4, checked against the raw ConceptNet dump, not assumed).
+**THE GROUNDING SIGNAL IS ON DISK AT 90.3% COVERAGE OF THE POPULATION WE SCORE.**
+
+**THE REAL UNCERTAINTY IS RESOLUTION, NOT AVAILABILITY, AND THE DRILL NAMES THE SPECIFIC RISK: 11
+DIMENSIONS MAY NOT SEPARATE 5,491 WORDS, AND `SET_S` PAIRS ARE SAME-POS SAME-DOMAIN NOUNS
+("calcium/carbonate") THAT WILL TEND TO SHARE A SENSORIMOTOR PROFILE JUST AS `SET_P` PAIRS DO -- SO A
+LOW-DIMENSIONAL RATING SCORE IS AT REAL RISK OF BEHAVING LIKE THE CONSTANT/PROTOTYPE FLOOR, WHICH IS
+THE STRONGEST OF OUR FOUR.** *Binder's 65 dimensions would discriminate far better and covers 9.2% of
+eval words -- unusable at this population size.* **THAT IS A MEASURABLE QUESTION, NOT A REASON TO
+SKIP IT** -- and per discipline 18, **decide the required n BEFORE building.**
+
+**AND THE SEQUENCING FALLS OUT CLEANLY, WHICH I DID NOT SEE UNTIL READING THE DRILL: ITS
+PLAIN-LANGUAGE ANSWER SAYS THE FIRST THING TO CHECK IS WHETHER RECORDING *WHICH JOB* EACH CONTEXT
+WORD HELD IS ENOUGH ON ITS OWN. THAT IS EXACTLY WHAT TONIGHT'S TYPED-ROLE WORK TESTED.** *Tonight was
+not a detour -- it was step one of this drill's own plan, and it came back starved rather than
+refuted.* **STEP TWO IS THE SENSORIMOTOR CHANNEL.**
+**STILL BARRED: DO NOT BUILD A FAKE "CROSS-MODAL" CHANNEL OUT OF MORE TEXT AND CALL IT GROUNDING.**
+*Lancaster and Visual-Genome are admissible precisely because they are NOT text-derived; that is the
+whole reason they count, and inventing a text proxy would forfeit it.*
 
 ---
 
