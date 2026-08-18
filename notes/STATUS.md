@@ -341,6 +341,31 @@ equality reported on a 3-value grid is a BIN, not a measurement (C35). State the
 the number of queries per point beside every "no difference".**
 
 ## WHAT IS RUNNING / BLOCKED
+
+- **📋 BOARD TRIAGE -- 12 OPEN, BUT ONLY 5 NEED YOU. SEVEN ARE ONE FAULT AUTO-FILED SEVEN TIMES.**
+  **Q47, Q48, Q53, Q54, Q55, Q57, Q58 are all the SAME `rm`-bundling denial** -- the loop files a
+  board question per denial, so a recurring fault floods the board. **I verified two of them touched
+  no result** (the deleted paths were a smoke directory and a log truncated by `>` anyway) and the
+  rest are the same shape. **Q49 asks the one policy question they all reduce to; answering Q49
+  disposes of all seven.** *Read them as one item, not seven.*
+  **THE FIVE THAT ARE REAL, in the order I would take them:**
+  1. **Q52 -- 844 uncommitted insertions across 10 experiment files that are NOT mine**, last
+     modified 2026-08-17, existing only in the working tree. **Any reset/checkout/worktree op
+     destroys them.** I did not touch them: committing a concurrent session's in-progress state
+     under my name would be wrong either way. *Highest consequence on the list.*
+  2. **Q51 + Q56 (one issue, evidence added) -- 3,894 watchdog files, 31% of `notes/`, still
+     arriving every 10 min from the DEAD four-session fleet.** **Now MEASURED, not hypothesised: a
+     plain `find` over `notes/` TIMED OUT at 300 s tonight**, and the same cost hit the supervision
+     drill and two agents. Cheapest performance fix in the repo. *Disable the task first, then
+     clear; otherwise it refills at 6/hour.*
+  3. **Q50 -- `CLAUDE.md` tells every session to open by running a tool that returns ZERO BYTES and
+     exits 0.** I flagged it in this file but did NOT edit the conventions file unprompted.
+  4. **Q49 -- keep halting the loop on the `rm` fault, or log-and-continue?** *My recommendation is
+     KEEP HALTING and fix the cause; it is the only thing that reliably catches dropped
+     preconditions, and it caught them tonight.*
+  5. **Q16 / Q17 (older) -- build a word-onset channel? is that blocked file path deliberate?**
+  **Nothing on this list blocks the science.** All four research lanes ran to completion or are
+  still running.
 - **⚠️ THE BAR IS `max(four floors)` = 0.5431 ON THE LICENSED INSTRUMENT, **NOT 0.5**. CHANCE is 0.5;
   the BAR is 0.5431 (the constant/prototype floor). Sections of this file below still say "above 0.5
   = substitutability" -- **that describes CHANCE, not the GATE.** No conclusion flips (every arm sat
