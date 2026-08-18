@@ -1,0 +1,407 @@
+{
+  "anchor_name": "predictive_coding_write_gate_dissociation_v1",
+  "run_mode": "reduced",
+  "code_version": "v1.1",
+  "findings_log": "notes/predictive_coding_write_gate_dissociation_2026-08-18.md",
+  "verdict": "PREDICTIVE_CODING_WRITE_GATE__STOP_IF_ii_P1_BEATS_A0_BUT_NOT_N1__GAIN_IS_GATING_RATE_NOT_PREDICTION_ERROR",
+  "verdict_msg": "Does a store written under hdlab/predictive_coding.py's prediction-error write gate read above 0.5 on the licensed dissociation instrument? Surprise distribution reported first, then P1 (threshold-gated) / P2 (weighted) vs A0 (incumbent) / N1 (rate-matched random gate) / N2 (anti-gate). -> STOP_IF_ii_P1_BEATS_A0_BUT_NOT_N1__GAIN_IS_GATING_RATE_NOT_PREDICTION_ERROR",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 1500,
+    "QUANTILES": [
+      0.5
+    ],
+    "DEGENERACY_MEDIAN_MIN": 0.8,
+    "DEGENERACY_IQR90_10_MAX": 0.2,
+    "DSI_CODE_VERSION": "v1.7"
+  },
+  "selftest_evidence_keys": [
+    "anti_gate_diagnostic",
+    "arms_must_differ_digest_sensitivity",
+    "auc_margin_paired_known_answers",
+    "exp_checkpoint_selftest",
+    "n1_random_token_matched",
+    "p2_weighted_known_answer",
+    "predicted_direction_undefined_case",
+    "real_obs_stream_reused",
+    "repeated_occurrence_known_answer",
+    "surprise_distribution_fixture",
+    "threshold_at_module_max_accepts_only_first",
+    "threshold_gate_rejects_out_of_range"
+  ],
+  "report": {
+    "anchor_name": "predictive_coding_write_gate_dissociation_v1",
+    "grid": "reduced",
+    "code_version": "v1.1",
+    "findings_log": "notes/predictive_coding_write_gate_dissociation_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "DSI_REGRESSION_GATE": {
+      "n_matched_pairs_per_cell": 242,
+      "n_arms_recomputed": 11,
+      "checks": {
+        "F_ORTHOGRAPHIC": {
+          "PASS": true,
+          "expected": 0.5,
+          "measured": 0.5,
+          "delta": 0.0
+        },
+        "F_FREQUENCY": {
+          "PASS": true,
+          "expected": 0.4901,
+          "measured": 0.4901,
+          "delta": 0.0
+        },
+        "F_SCRAMBLE": {
+          "PASS": true,
+          "expected": 0.4664,
+          "measured": 0.4664,
+          "delta": 0.0
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "PASS": true,
+          "expected": 0.5431,
+          "measured": 0.5431,
+          "delta": 0.0
+        },
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+          "PASS": true,
+          "expected": 0.9599,
+          "measured": 0.9599,
+          "delta": 0.0
+        },
+        "RANDOM_VECTOR_STORE": {
+          "PASS": true,
+          "expected": 0.4862,
+          "measured": 0.4862,
+          "delta": 0.0
+        },
+        "INCUMBENT_LIVE_STORE": {
+          "PASS": true,
+          "expected": 0.071,
+          "measured": 0.071,
+          "delta": 0.0
+        },
+        "RAW_COUNT_FULL_ACCUM": {
+          "PASS": true,
+          "expected": 0.051,
+          "measured": 0.051,
+          "delta": 0.0
+        }
+      },
+      "floors_at_chance": true,
+      "known_answer_ok": true,
+      "random_store_ok": true,
+      "INSTRUMENT_LICENSED": true,
+      "recomputed_AUC_PER_ARM": {
+        "F_ORTHOGRAPHIC": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.5,
+          "ci95": [
+            0.4875,
+            0.5124
+          ],
+          "ci_halfwidth": 0.0125,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_FREQUENCY": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4901,
+          "ci95": [
+            0.4384,
+            0.5402
+          ],
+          "ci_halfwidth": 0.0509,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_SCRAMBLE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4664,
+          "ci95": [
+            0.4138,
+            0.5175
+          ],
+          "ci_halfwidth": 0.0518,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.5431,
+          "ci95": [
+            0.4938,
+            0.5947
+          ],
+          "ci_halfwidth": 0.0504,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.9599,
+          "ci95": [
+            0.9443,
+            0.974
+          ],
+          "ci_halfwidth": 0.0148,
+          "band": "ABOVE_0.5_SUBSTITUTABILITY"
+        },
+        "RANDOM_VECTOR_STORE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4862,
+          "ci95": [
+            0.4357,
+            0.5369
+          ],
+          "ci_halfwidth": 0.0506,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "INCUMBENT_LIVE_STORE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.071,
+          "ci95": [
+            0.051,
+            0.0948
+          ],
+          "ci_halfwidth": 0.0219,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "RAW_COUNT_FULL_ACCUM": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.051,
+          "ci95": [
+            0.0324,
+            0.0711
+          ],
+          "ci_halfwidth": 0.0193,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "RAW_COUNT_SINGLE_OCC": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4173,
+          "ci95": [
+            0.3875,
+            0.4506
+          ],
+          "ci_halfwidth": 0.0315,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "PRESENCE_ABSENCE_BINARIZED": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.0294,
+          "ci95": [
+            0.0147,
+            0.0465
+          ],
+          "ci_halfwidth": 0.0159,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "PARADIGMATIC_PROFILE_WRITE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.2165,
+          "ci95": [
+            0.1794,
+            0.2584
+          ],
+          "ci_halfwidth": 0.0395,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      }
+    },
+    "N_MATCHED_PAIRS_PER_CELL": 40,
+    "N_WORDS_NEEDED": 142,
+    "obs_stream": {
+      "source": "reused:D:\\AI\\hd-instrument\\scratch\\night\\obs_stream_v1.npz",
+      "n_obs": 153352,
+      "n_lemmas": 5491,
+      "d": 256
+    },
+    "STREAM_REGRESSION_GATE": {
+      "mean_cos_rebuilt_A0_vs_LANDED_anchor_matrix": 1.0,
+      "cos_gate": 0.9999,
+      "n_anchors_compared": 5491,
+      "rebuilt_A0_AUC_on_matched_pairs": 0.0519,
+      "expected_A0_AUC": 0.0519,
+      "expected_A0_AUC_source": "DSI_cached_scores_sliced_to_SAME_[:40]/[:40]_truncation_as_this_grid",
+      "auc_delta": -2.5e-05,
+      "auc_tol": 0.0005,
+      "PASSES": true
+    },
+    "SURPRISE_DISTRIBUTION_ON_THIS_POPULATION": {
+      "n": 7467,
+      "mean": 0.4469,
+      "p10": 0.3503,
+      "p25": 0.3989,
+      "p50": 0.4457,
+      "p75": 0.4851,
+      "p90": 0.5136,
+      "DEGENERACY_TEST": {
+        "rule": "median >= 0.80 AND (p90-p10) <= 0.20",
+        "median": 0.4457,
+        "p90_minus_p10": 0.1633,
+        "SURPRISE_DEGENERATE": false,
+        "compare_to_exp_surprise_weighted_update_v1_prior": {
+          "median": 0.875,
+          "p10": 0.6525,
+          "p90": 1.0128,
+          "population": "KA-pool word set (DIFFERENT population)"
+        }
+      }
+    },
+    "GATE_THRESHOLDS_SWEPT": [
+      0.4457
+    ],
+    "ARM_DIGESTS_ARMS_MUST_DIFFER": {
+      "A0_INCUMBENT": "a2d43ab2bea3dc91",
+      "P2_PREDICTION_WEIGHTED": "e2e67132ffc0cb0f",
+      "P1_PREDICTION_GATED_T0.4457": "1eb938ee1fa2da03",
+      "N2_ANTI_GATE_T0.4457": "9e132485d5107211",
+      "N1_RANDOM_GATE_T0.4457": "c82a500870872dab"
+    },
+    "AUC_PER_ARM": {
+      "A0_INCUMBENT": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.0519,
+        "ci95": [
+          0.0175,
+          0.0994
+        ],
+        "ci_halfwidth": 0.0409,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "P2_PREDICTION_WEIGHTED": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.0569,
+        "ci95": [
+          0.0206,
+          0.1085
+        ],
+        "ci_halfwidth": 0.0439,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "P1_PREDICTION_GATED_T0.4457": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.1531,
+        "ci95": [
+          0.0775,
+          0.2469
+        ],
+        "ci_halfwidth": 0.0847,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "N2_ANTI_GATE_T0.4457": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "ci_halfwidth": 0.0,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "N1_RANDOM_GATE_T0.4457": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.17,
+        "ci95": [
+          0.0884,
+          0.2662
+        ],
+        "ci_halfwidth": 0.0889,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "COMPOSITION_PER_ARM": {
+      "A0_INCUMBENT": {
+        "mean_score_SET_P_paradigmatic_substitutable": 0.1503,
+        "mean_score_SET_S_syntagmatic_cooccurring": 0.3876,
+        "P_minus_S": -0.2373,
+        "acceptance_rate": 1.0,
+        "n_tokens_accepted": 7467,
+        "NOTE": "'winner/gold co-occurrence share' has no referent on this AUC instrument -- there is no per-item argmax 'winner', only a rank-sum AUC over SET P (by construction zero corpus co-occurrence) vs SET S (by construction top-decile co-occurrence). The adapted, faithful analogue reported here is the arm's own mean score on each set and their difference."
+      },
+      "P2_PREDICTION_WEIGHTED": {
+        "mean_score_SET_P_paradigmatic_substitutable": 0.1533,
+        "mean_score_SET_S_syntagmatic_cooccurring": 0.3692,
+        "P_minus_S": -0.2159,
+        "acceptance_rate": 1.0,
+        "n_tokens_accepted": 7467,
+        "NOTE": "'winner/gold co-occurrence share' has no referent on this AUC instrument -- there is no per-item argmax 'winner', only a rank-sum AUC over SET P (by construction zero corpus co-occurrence) vs SET S (by construction top-decile co-occurrence). The adapted, faithful analogue reported here is the arm's own mean score on each set and their difference."
+      },
+      "P1_PREDICTION_GATED_T0.4457": {
+        "mean_score_SET_P_paradigmatic_substitutable": 0.1282,
+        "mean_score_SET_S_syntagmatic_cooccurring": 0.2456,
+        "P_minus_S": -0.1174,
+        "acceptance_rate": 0.519,
+        "n_tokens_accepted": 3875,
+        "NOTE": "'winner/gold co-occurrence share' has no referent on this AUC instrument -- there is no per-item argmax 'winner', only a rank-sum AUC over SET P (by construction zero corpus co-occurrence) vs SET S (by construction top-decile co-occurrence). The adapted, faithful analogue reported here is the arm's own mean score on each set and their difference."
+      },
+      "N2_ANTI_GATE_T0.4457": {
+        "mean_score_SET_P_paradigmatic_substitutable": 0.0,
+        "mean_score_SET_S_syntagmatic_cooccurring": 0.0,
+        "P_minus_S": 0.0,
+        "acceptance_rate": 0.0,
+        "n_tokens_accepted": 0,
+        "NOTE": "'winner/gold co-occurrence share' has no referent on this AUC instrument -- there is no per-item argmax 'winner', only a rank-sum AUC over SET P (by construction zero corpus co-occurrence) vs SET S (by construction top-decile co-occurrence). The adapted, faithful analogue reported here is the arm's own mean score on each set and their difference."
+      },
+      "N1_RANDOM_GATE_T0.4457": {
+        "mean_score_SET_P_paradigmatic_substitutable": 0.1377,
+        "mean_score_SET_S_syntagmatic_cooccurring": 0.2713,
+        "P_minus_S": -0.1337,
+        "acceptance_rate": 0.519,
+        "n_tokens_accepted": 3875,
+        "NOTE": "'winner/gold co-occurrence share' has no referent on this AUC instrument -- there is no per-item argmax 'winner', only a rank-sum AUC over SET P (by construction zero corpus co-occurrence) vs SET S (by construction top-decile co-occurrence). The adapted, faithful analogue reported here is the arm's own mean score on each set and their difference."
+      }
+    },
+    "DSI_A0_CACHED_AUC": 0.071,
+    "PAIRED_MARGINS": {
+      "P1_PREDICTION_GATED_T0.4457_vs_N1_RANDOM_GATE_T0.4457": {
+        "auc_a": 0.1531,
+        "auc_b": 0.17,
+        "point_diff": -0.0169,
+        "ci95_diff": [
+          -0.1066,
+          0.071
+        ],
+        "band": "NOT_SEPARATED"
+      },
+      "P1_PREDICTION_GATED_T0.4457_vs_N2_ANTI_GATE_T0.4457": {
+        "auc_a": 0.1531,
+        "auc_b": 0.5,
+        "point_diff": -0.3469,
+        "ci95_diff": [
+          -0.4231,
+          -0.2553
+        ],
+        "band": "A_BELOW_B"
+      },
+      "P1_PREDICTION_GATED_T0.4457_vs_A0_INCUMBENT": {
+        "auc_a": 0.1531,
+        "auc_b": 0.0519,
+        "point_diff": 0.1013,
+        "ci95_diff": [
+          0.0344,
+          0.1753
+        ],
+        "band": "A_ABOVE_B"
+      }
+    },
+    "BEST_P1_THRESHOLD": 0.4457,
+    "INTERPRETATION": "STOP_IF_ii_P1_BEATS_A0_BUT_NOT_N1__GAIN_IS_GATING_RATE_NOT_PREDICTION_ERROR",
+    "elapsed_s": 4.7
+  },
+  "elapsed_s": 5.4,
+  "summary": "Does a store written under hdlab/predictive_coding.py's prediction-error write gate read above 0.5 on the licensed dissociation instrument? Surprise distribution reported first, then P1 (threshold-gated) / P2 (weighted) vs A0 (incumbent) / N1 (rate-matched random gate) / N2 (anti-gate). -> STOP_IF_ii_P1_BEATS_A0_BUT_NOT_N1__GAIN_IS_GATING_RATE_NOT_PREDICTION_ERROR"
+}
