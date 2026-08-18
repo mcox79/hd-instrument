@@ -518,8 +518,19 @@ excludes nothing is not a control -- report how many items each control actually
   **2,678 HARD_PASS** (June 323 / July 2,193 / August 162), 1,369 HARD_FAIL, 1,068 MIDDLE_BAND.
   Excluding substrate-physics cells (capacity, scaling laws, binding, Hopfield), **236 HARD_PASS are
   MEANING-RELEVANT** -- June 14 / July 182 / August 40.
-  **AND 25 HARD_PASS LANDED ON 2026-08-17 -- THE DAY BEFORE THIS SESSION OPENED. THIS DOCUMENT
-  MENTIONS NONE OF THEM.** Among them, by their own headlines:
+  **🔴 RETRACTED WITHIN THE HOUR BY THE VET (`a2e65896`): "25 HARD_PASS LANDED 2026-08-17" IS FALSE.
+  THE TRUE COUNT IS 3, AND THE ERROR WAS MY OWN TOOL.** `experiment_index.py` dated cells by the
+  metrics.json **FILE MTIME**. **Exactly 60 metrics.json share the minute 2026-08-17 17:44 and 3,850
+  share 2026-07-03 14:28 -- BULK TOUCHES, NOT RUNS.** Their internal `ts_iso` says the six I vetted
+  actually ran **2026-07-17 to 07-23**, and ZERO ran on 08-17. *A file's mtime is when it was last
+  WRITTEN, not when the science happened; any copy, checkout or sync rewrites it.* **FIXED: the index
+  now reads `ts_iso` first and records `date_source` per row.** *I told the owner we had ignored 25
+  results the day after they landed. We had not. The July work was resurfaced by a touch.*
+  **⚠️ AND THE FIX IS ONLY PARTIAL, SO DO NOT TRUST RANKING BY DATE YET: of 7,794 landed rows only
+  **2,538 carry a `ts_iso`**; **5,256 STILL FALL BACK TO MTIME**. Two-thirds of the archive has no
+  trustworthy run-date at all.**
+  **[SUPERSEDED CLAIM, KEPT VISIBLE] "25 HARD_PASS landed 2026-08-17 and this document mentions none
+  of them."** Among the cells named:
   `exp_read_grow_openvocab_fastmap_v1` (**learn NEW words WHILE reading instead of abstaining**),
   `exp_read_grow_oov_verb_extension_v1`, `exp_read_grow_foundation_realprose_glassbox_ie_v1`
   (*"THE SUBSTANTIVE READING STEP"*), `exp_online_knowledge_condenser_selectional_v1`
@@ -538,6 +549,49 @@ excludes nothing is not a control -- report how many items each control actually
   of these 25 is explicitly `PENDING_VET`, and this file already records 21 arms suspended for a
   mis-imported bar. **THE CORRECT STATEMENT IS: A LARGE BODY OF CLAIMED POSITIVE RESULTS EXISTS THAT
   OUR POSITION DOCUMENT IGNORES, AND IT NEEDS VETTING -- NOT THAT WE HAVE 2,678 WINS.**
+- **🔬 FIRST SIX VETTED (`a2e65896`, AUDIT-ONLY, all recomputed off disk from per-item arrays, never
+  from `verdict_msg`). ONE REFUTED, TWO SUSPENDED, THREE QUALIFIED. NOT ONE IS UPHELD AS CLAIMED.**
+  - **REFUTED -- `exp_base_reader_grounded_relations_coref_v1`.** Headline `coref_lift=0.714,
+    p=0.000` is on **SEVEN questions**, and that p is **resample degeneracy**: bootstrapping 7 paired
+    diffs gives (2/7)^7 = 0.00016. **Exact paired McNemar on the same 7: p=0.0625, which FAILS its own
+    alpha.** Worse, **the cell RAN a real floor arm that scores 5/7 on that slice** -- full vs floor
+    p=1.0000 -- and then did not use it as the discriminator. Its NOCOREF control removed **0** items.
+    *Surviving secondary: relation_lift over all 25 items, full vs floor exact p=0.0215. That holds.*
+  - **SUSPENDED -- `exp_read_grow_foundation_realprose_glassbox_ie_v1`.** Its only floor is a
+    **HARDCODED LITERAL `1.0`** (line 749) imported from a DIFFERENT cell on a DIFFERENT corpus (23
+    pre-cleaned tuples, where that cell's own docstring says accuracy is 1.0 BY CONSTRUCTION). No
+    floor was ever run on this cell's 34 sentences. **This is the SAME defect that suspended 21 arms
+    on 08-18 -- and it was already present in JULY.**
+    **✅ AND THERE IS A v2 THAT IS THE REAL RESULT: `..._realprose_glassbox_ie_v2` -- 46 sentences,
+    correct_rate 0.891 against a REAL STANDALONE baseline of 0.565, delta +0.326, hardcoded stub
+    REMOVED. CITE v2. v1 SHOULD NOT APPEAR IN THIS DOCUMENT AT ALL.**
+  - **SUSPENDED (UNDERPOWERED) -- `exp_online_knowledge_condenser_selectional_v1`**, the
+    best-designed of the six: real held-out split, explicit leakage guard, 4,151 mining sentences.
+    **But n=48. FULL 0.750 [0.6275, 0.8725] against a SHUFFLE floor of 0.650 -- the CI lower bound
+    sits BELOW the shuffle mean. z=1.07, p=0.285. The "+0.10" is 4.8 items.** Its gate was a bare
+    point estimate. **Separating 0.75 from 0.65 at 80% power needs n~350.**
+  - **QUALIFIED -- `exp_read_grow_construction_induction_dop_fragments_v1`, and it is the STRONGEST
+    thing in the queue.** Only cell on a real external corpus (UD English-EWT, 846 sentences).
+    **Scramble binds HARD and is deprel-multiset-preserving: 2/124 vs 44/124, 0/156 vs 44/156, 0/171
+    vs 50/171 across three seeds; CI-separated 0.355 [0.271, 0.439] vs scramble upper ~0.038;
+    `split_overlap=0`.** *Narrower than "construction induction": the input is GOLD UD `upos`+`deprel`,
+    so parsing is ORACLE-SUPPLIED, and the metric is COVERAGE, not correctness (tunable 0.508 /
+    0.355 / 0.25 by min_count). Its own verdict says FEASIBILITY PROBE -- that is the honest label.*
+  - **QUALIFIED (toy) -- `exp_read_grow_openvocab_fastmap_v1`:** real mechanism, **26 hand-authored
+    sentences, 3 nonce words, 5 query cues**; `ABSTAIN_BASELINE=0.0` BY CONSTRUCTION; 5 seeds vary
+    only the codebook, so **n=1 dataset**; no CI, no floor, no scramble. Its NO_CONFIRM control DOES
+    bind (removed 2 false facts).
+  - **QUALIFIED (sharply) -- `exp_read_grow_oov_verb_extension_v1`:** `OOV_VERB_BASE_LEX` (line 165)
+    **hardcodes munch->eats, pursue->chases, dwell->live -- THE SAME TABLE GENERATES THE SENTENCE AND
+    SCORES IT**, and `coverage_current_pooled = 0.0` by construction, so "+88.2pp" is a gain over a
+    definitional zero. Real residue: the morphology inverter. Its OOS control removed **0** items.
+  - **🎯 THE CHEAPEST FIX IN THE WHOLE BACKLOG, and it needs no new experiment: SEVERAL CELLS ALREADY
+    COMPUTED THE RIGHT FLOOR AND THEN DISCRIMINATED AGAINST SOMETHING ELSE. RE-SCORE EVERY LANDED
+    CELL AGAINST THE FLOOR IT ALREADY HAS ON DISK.**
+  - **NO LLM IN ANY OPERATIONAL PATH (verified by import scan).** But state these wherever "grounded"
+    is claimed: WordNet is LIVE in the coref cell's path supplying the animacy that drives
+    resolution, beside a 28-entry hand override and a 13-entry name-gender table curated for those 7
+    passages; the condenser's 29-entry seed table is LLM-built OFFLINE and read-only (admissible).
   **ROOT CAUSE, FIXED: `tools/substrate_query.sh` -- the MANDATORY prior-work check -- RETURNS ZERO
   BYTES AND EXITS 0, so every "no prior work found" report from every agent and from me was
   vacuous, and the position document got assembled from whatever I happened to stumble into.**

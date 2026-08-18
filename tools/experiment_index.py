@@ -55,6 +55,29 @@ def _headline(src: str) -> str:
     return re.sub(r"\s+", " ", body)[:400]
 
 
+def _ran_date(mp: Path):
+    """WHEN THE CELL ACTUALLY RAN -- from the metrics' OWN internal timestamp, never the file mtime.
+
+    THIS FUNCTION EXISTS BECAUSE THE FIRST VERSION OF THIS INDEX USED mtime AND PRODUCED A FALSE
+    HEADLINE WITHIN THE HOUR. Exactly 60 metrics.json share the minute 2026-08-17 17:44 and 3,850
+    share 2026-07-03 14:28 -- bulk touches, not runs. Ranked on mtime, July work resurfaced as
+    "landed 2026-08-17", and the Director reported to the owner that 25 results had been ignored
+    the day after they landed. NONE of them ran that day; those six ran 2026-07-17 to 07-23.
+
+    A FILE'S MTIME IS WHEN IT WAS LAST WRITTEN, NOT WHEN THE SCIENCE HAPPENED. Any copy, checkout,
+    sync or chmod rewrites it. Returns (date, source) so every consumer can see which it got.
+    """
+    try:
+        d = json.loads(mp.read_text(encoding="utf-8", errors="replace"))
+    except Exception:
+        return None, "unreadable"
+    for k in ("ts_iso", "timestamp", "ts", "run_ts", "started_utc", "completed_utc"):
+        v = d.get(k)
+        if isinstance(v, str) and len(v) >= 10 and v[4] == "-" and v[7] == "-":
+            return v[:10], "ts_iso"
+    return time.strftime("%Y-%m-%d", time.localtime(mp.stat().st_mtime)), "mtime_FALLBACK"
+
+
 def _verdict(mp: Path):
     try:
         d = json.loads(mp.read_text(encoding="utf-8", errors="replace"))
@@ -95,8 +118,10 @@ def build() -> int:
             if mp.exists():
                 row["landed"] = True
                 row["verdict"] = _verdict(mp)
-                row["landed_date"] = time.strftime("%Y-%m-%d",
-                                                   time.localtime(mp.stat().st_mtime))
+                # NOT `src` -- that name already holds this file's SOURCE TEXT a few lines above.
+                ran_d, ran_src = _ran_date(mp)
+                row["landed_date"] = ran_d
+                row["date_source"] = ran_src
                 break
         rows.append(row)
 
@@ -107,10 +132,10 @@ def build() -> int:
             continue
         mp = DATA / d / "metrics.json"
         if mp.exists():
+            dt, src = _ran_date(mp)
             rows.append({"cell": d, "mtime": None, "headline": "(result only, no source file)",
                          "landed": True, "verdict": _verdict(mp),
-                         "landed_date": time.strftime("%Y-%m-%d",
-                                                      time.localtime(mp.stat().st_mtime))})
+                         "landed_date": dt, "date_source": src})
     INDEX.parent.mkdir(parents=True, exist_ok=True)
     with open(INDEX, "w", encoding="utf-8", newline="") as fh:
         for r in rows:
