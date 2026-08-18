@@ -8,17 +8,43 @@ CHAIN: `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md` (**THE PLAN; sec 6.6/6.7 are the 
 HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_PLAN.md`.
 
 ## POSITION
-**THE MISSING OPERATION HAS A NAME AND AN EQUATION (drill 1, `4f83dd8ce`, VET-pending).** Our store is
-`H^T p_a` -- a RANDOM ROTATION of the co-occurrence matrix `Sigma_yx`. The rule that yields
-SUBSTITUTABILITY is `Sigma_yx Sigma_xx^-1`: co-occurrence FACTORISED against the context correlation
-structure. **WE BUILT `Sigma_yx` AND STOPPED.** The slot where the factorisation belongs is our `CODE`
-step, and `CODE` is a Johnson-Lindenstrauss RANDOM PROJECTION -- a near-isometry, **provably incapable
-of creating structure that was not already in what it was handed.** Its measured composition delta is
-**+0.0031 [-0.0243,+0.0300] NOT_SEPARATED** -- it does not move the relation at all, exactly as
-"preserves geometry" predicts. **0 OF THE ORGAN'S 4 STEPS REPLICATE THE BRAIN**; and no biological
-account of combining experience has EVER been written without a DENOMINATOR, while our `ACCUMULATE` is
-`sums[lemma] += ctx_vec` with none. `sign()` is a per-component SELF-denominator -- the algebraic
-INVERSE of divisive normalisation -- and it is OFF by default.
+**DRILL 1'S CENTRAL PREDICTION IS REFUTED. `CODE` IS EXONERATED -- TWICE (`ac629b1e7`,
+`exp_writerule_learned_basis_denominator_gate_v1`).** The drill argued our store is `H^T p_a`, a random
+rotation of `Sigma_yx`, and that the missing operation is factorisation `Sigma_yx Sigma_xx^-1` living
+in the `CODE` slot -- so a LEARNED basis should create substitutability where a random projection
+cannot. **IT DOES NOT.** `C1_LEARNED_BASIS` +0.0073 [-0.0005,+0.0150] **NOT_SEPARATED**, and
+`C1_CTRL_MATCHED_RANK_RANDOM` **MATCHES IT** (-0.0060). Composition moves for NO arm, while
+`C1_CTRL_FREQUENCY_SHUFFLED` moves it **+0.0858 [+0.0486,+0.1229] ABOVE (worse)** -- which PROVES the
+composition instrument can see change, so the flat readings are real nulls. **"Cortex expands where we
+compress" also fails:** accuracy fell MONOTONICALLY across the k sweep, 0.0553 (k=64) -> 0.0393
+(k=2048). And `C2`'s one CI-separated accuracy gain is **NOT a denominator effect** -- its winning
+`pool='row'` divides each row by a scalar and **cosine is provably invariant to that** (the identical
+`WRONGPOOL` control is the PROOF, not a control failure); the genuine denominators (`col`,
+`both`=PPMI) scored BELOW A0. **AN ELEGANT DERIVATION IS A HYPOTHESIS. This one made a specific
+prediction and its own controls killed it.**
+
+**WHAT IS ESTABLISHED INSTEAD, on TWO independent instruments.** (1) `ACCUMULATE` is the measured
+INTERFERENCE source (`b6cad69ca`): the CORRECT score is STATIONARY with depth (POP_128 +0.0013
+[-0.0006,+0.0034]) while the competing FIELD's mean AND p95 rise CI-separated; mean pairwise anchor
+cosine 0.0127 -> 0.272; **common-mode removal does NOT help (DO-NOT-REDO 27 stays closed)** and the
+interference is DIFFUSE, not top-200 words. (2) **THE DISSOCIATION INSTRUMENT IS LICENSED**
+(`0eb44eb1d`) -- **the first instrument this programme owns whose FOUR FLOORS SIT AT CHANCE and are
+VERIFIED there** (0.5000 / 0.4901 / 0.4664 / 0.5431, every CI including 0.5; known-answer 0.9599 vs a
+0.95 gate; random store 0.4862). On it, above 0.5 = substitutability, below = co-occurrence:
+`RAW_COUNT_SINGLE_OCC` **0.4173** > `PARADIGMATIC_PROFILE_WRITE` **0.2165** > `INCUMBENT` **0.0710** >
+`RAW_COUNT_FULL_ACCUM` **0.0510** > `PRESENCE_ABSENCE_BINARIZED` **0.0294**; the ranking is RESOLVABLE
+(max_lo 0.3835 > min_hi 0.0470). **STOP-IF (iii) fired: the incumbent is CI-separated BELOW 0.5.**
+
+**SO THE OPERATIVE DEFECT IS COLLAPSING OCCURRENCES INTO ONE VECTOR -- NOT THE BASIS THEY ARE WRITTEN
+IN.** Two instruments agree: the decisive arm has `SUM_ALL` 0.0100 < `RANDOM_SINGLE` 0.0367 <
+`BEST_SINGLE_ORACLE` 0.3033, and the dissociation AUC ranks single-occurrence LEAST biased.
+**CAVEAT, do not collapse these into one claim:** across `ACCUMULATE` the winner no-relation rate
+FALLS 0.8400 -> 0.7971 (-0.043 CI-separated) -- **adjacency was present from sentence one; a bag of
+neighbours IS an adjacency record.** Summing does not CREATE adjacency; it raises INTERFERENCE and
+degrades retrieval. **REPORT WINNER SHARE, GOLD SHARE AND RATIO TOGETHER, ALWAYS** (the Director once
+quoted 66.0->94.4 while dropping the gold's 23.9->60.3 and the ratio, which FELL 3.967->3.822).
+**LIMIT: the dissociation instrument is n=242 matched pairs, ALL NOUNS** -- verb/adj/adv strata did not
+survive its frequency caliper.
 **RETRACTED (VET COMPLETE, off `exp_writerule_step_ladder_v1` `COMPOSITION_DELTA_TABLE`): "summing is
 what converts our store from could-replace to appears-near."** FALSE, and backwards: across
 `ACCUMULATE` the no-close-relation rate FALLS 0.8400 -> 0.7971, **-0.043 [-0.0800,-0.0086]
@@ -209,13 +235,28 @@ equality reported on a 3-value grid is a BIN, not a measurement (C35). State the
 the number of queries per point beside every "no difference".**
 
 ## WHAT IS RUNNING / BLOCKED
-- **ALL THREE PLAN ITEMS ARE NOW DONE.** ITEM 1 `eec21487d`, ITEM 2 `0652e20a5`, ITEM 3 `2e5a467ae`
-  (a clean null). Four more cells landed after them: `201776cc9` (compression diagnosis),
-  `a8fdc968f`/`24ca42661` (the write rule), `1e085d761` (binarised read-out transfer). The
-  08-16 22:41 basin cell has now been READ, twice and independently.
-- **TWO AGENTS ARE LIVE AS OF THIS PASS:** one authoring a 2x2 write-rule composition in
-  `experiments/` (do not edit `experiments/` or `hdlab/`), one writing
-  `notes/verb_representation_*` (`30cc1fd8a` is its first landing -- do not edit that file).
+- **WRITE-RULE ORGAN, GATE STATE (2026-08-18).** `CODE` **EXONERATED TWICE** (`ac629b1e7` -- a learned
+  basis is MATCHED by a same-rank RANDOM basis; nothing moves composition; drill 1's prediction is
+  REFUTED). `ACCUMULATE` **GATED = the INTERFERENCE source** (`b6cad69ca`). **The DISSOCIATION
+  INSTRUMENT IS LICENSED** (`0eb44eb1d`) -- four floors AT CHANCE and verified there, the first such
+  instrument this programme owns; incumbent AUC **0.0710**, single-occurrence **0.4173**, above 0.5
+  would mean substitutability. `FILTER` and `SUPERPOSE` are the two steps still UNGATED.
+- **ONE AGENT LIVE:** `noncollapse-maxpool` -- the organ's decisive build. Scores MAX-over-occurrences
+  vs the incumbent SUM on the licensed dissociation instrument, with `N1_MAXPOOL_RANDOM_OCC` as the
+  control that decides whether any gain is the mechanism or merely the max operator. Do NOT edit
+  `experiments/` or `hdlab/` while it runs. **It replaces `exp_organ_f_noncollapsing_accumulation_v1`,
+  which was KILLED at ~9 h projected runtime (spherical k-means per anchor); that cell is on disk,
+  self-tested, and is NOT the current attempt.**
+- **THE OVERNIGHT LOOP IS FIXED AND VERIFIED (2026-08-18), after running exactly ONE turn for days.**
+  Three defects, all real: the `Stop` hook was registered ONLY in `hd-instrument/.claude/settings.json`
+  which is NOT the session's project root, so it never executed (canary silent since 08-13) -- now
+  registered in `D:/AI/.claude/settings.json` beside the SessionStart hook that demonstrably fires;
+  `_plan_path()` resolved only `PLAN_NEXT_12H.md`/`PLAN.md`, NEITHER OF WHICH EXISTS, so every
+  continuation pointed at a missing file; and **GUARD 1 returned on `stop_hook_active`
+  unconditionally, so the chain could continue ONCE and the cap of 200 was unreachable by
+  construction.** GUARD 1 now continues while ARMED, bounded by the cap AND a 20 s wall-clock floor;
+  DISARMED behaviour is unchanged. GUARD 1D narrowed to `permission-rule` + `user-rejected` only
+  (owner ruling) -- `cancelled` teardowns are logged, never halt. Self-test OVERALL PASS.
 - `.claude/scan-out/` REFUSES FILE CREATION (4x); `notes/ tools/ experiments/ verification/` accept.
   `experiments/exp_propose_reject_retrieval_v1.py` IS A BLOCKED PATH -- OWNER'S CALL, never retry a
   variant.
