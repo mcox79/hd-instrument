@@ -625,7 +625,51 @@ or eats the lane -- and tonight it did both.*
 
 ---
 
-### 6.30 **THE n=7 COLLAPSE WAS A DESIGN ERROR, NOT A SAMPLING ONE. THE LESSON GENERALISES.**
+### 6.33 **TWO CORRECTIONS, ONE OF THEM TO 6.30 -- WHICH IS WRONG.**
+
+**(A) THE 0.8629 IS VERIFIED, AND IT HAD NO ARTIFACT UNTIL NOW.** Spot-checking the most
+load-bearing number of the night found it lived **only in prose** -- my plan, `STATUS.md`, the drill
+note -- and in NO landed artifact (`grep` of the capacity cell's `metrics.json`: **0 hits**). Its
+script WAS committed (`56175e456`), so it was reproducible rather than fabricated. **Re-ran it:
+GROUP-DISJOINT (word-level, no leakage) 5-fold CV AUC = 0.8629; PAIR-LEVEL = 0.9587.** Both
+reproduce exactly. Matrix 5,491 x 21,576, nnz 1,074,605, 148 word-disjoint components, largest
+holding 7.1% of words. *Log at `scratch/groupdisjoint_verify_out.log`.* **The claim "the corpus is
+not the blocker" now rests on a re-derived number instead of a remembered one.**
+
+**(B) 6.30 IS WRONG AND I ASSERTED IT CONFIDENTLY.** I diagnosed v1's n=7 collapse as *"I restricted
+it to the WordNet instrument's 617 words"*, wrote a plan section on it, and committed that reasoning
+in `a4b68e929`. **THAT RESTRICTION NEVER EXISTED.** The agent verified off v1's OWN checkpoint
+diagnostics (`data/exp_dissociation_score_instrument_human_v1/units.jsonl`) that
+`combine_benchmark_pairs` **always used the full 5,491-anchor set.**
+
+**THE ACTUAL CAUSE, measured:** a **structural frequency gap between the two human-labelled sets** --
+pre-match SMD on `mean_log_freq` = **-1.8396** -- colliding with the **WordNet-tuned caliper (0.02 on
+frequency covariates)**, which drops **429 of 436** candidates. **Adjective and noun strata yield ZERO
+matches; the surviving 7 are VERBS.**
+
+**THE PROOF THAT MY FIX ADDRESSED A NON-CAUSE: v2 was built on the full anchor set exactly as I
+prescribed AND GOT THE SAME n=7.** *A fix that changes nothing is the cleanest possible refutation of
+the diagnosis behind it.*
+
+**WHAT SURVIVES OF 6.30:** the general lesson -- *a rank correlation over ARMS does not require shared
+ITEMS, so ask what the deciding statistic actually needs before restricting a population* -- is still
+sound and still worth keeping. **It was simply not what happened here.** *Keeping a true lesson
+attached to a false diagnosis is how a plan teaches the next reader something wrong.*
+
+**AND THE REAL LESSON IS BETTER:** the human-labelled positive and negative sets differ structurally
+in frequency by nearly two standard deviations, and **a caliper tuned for the WordNet population is
+too tight for them.** Loosening it is still forbidden (it would unlicense the instrument). **So the
+honest options are a frequency-stratified matcher built FOR this population, or a label source
+without that intrinsic frequency gap.**
+
+**DISCIPLINE WORTH NOTING:** the agent added its own `STOP-IF (0)` at `n_match < 60` and **stopped
+before building a single arm** -- no floors, no known-answer, no scoring -- rather than producing
+numbers nobody could use. And it corrected the Director's brief **in its docstring and findings note
+rather than silently working around it.**
+
+---
+
+### 6.30 **[SUPERSEDED BY 6.33(B) -- THE DIAGNOSIS BELOW IS WRONG; THE GENERAL LESSON STILL HOLDS]** THE n=7 COLLAPSE WAS A DESIGN ERROR, NOT A SAMPLING ONE. THE LESSON GENERALISES.
 
 **What I did wrong:** I briefed the human-judgement instrument to score **the WordNet instrument's
 617 evaluation words**, so the two would be directly comparable. That restriction threw away

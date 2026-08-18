@@ -1,0 +1,12 @@
+[imports] starting (numpy/scipy/sklearn/DSI next -- flushed so a slow import is never mistaken for a hang)
+[imports] starting (numpy/scipy/nltk/hdlab next -- flushed so a slow import is never mistaken for a hang)
+[imports] starting (numpy/scipy/hdlab next -- this can take a while, flushed so a slow import is never mistaken for a hang)
+[imports] done
+[imports] done
+[imports] done
+n_words=617 n_components=148 largest_component_frac_words=0.0713
+[matrix] shape=(5491, 21576) nnz=1074605 density=0.009070 total_tokens=1824296
+matrix+ppmi built in 1.7s
+svd k=100 done in 1.7s
+GROUP-DISJOINT (word-level, no leakage) 5-fold CV AUC = 0.8629
+PAIR-LEVEL (word-sharing allowed across folds) 5-fold CV AUC = 0.9587
