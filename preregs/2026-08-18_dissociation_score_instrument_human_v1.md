@@ -266,3 +266,36 @@ seeds); `n_match=7 < 60` -> STOP-IF (0) fired; verdict
 `DISSOCIATION_INSTRUMENT_HUMAN_UNLICENSED__POWER_INSUFFICIENT__n_match=7__min_required=60__STOPPED_BEFORE_ANY_ARM`.
 No arm was scored; plan sec 6.24's WordNet-scope caveat remains OPEN, unchanged from v1's own honest
 read. Full account: `notes/dissociation_score_instrument_human_v2_2026-08-18.md`.
+
+## AMENDMENT v3.0 (2026-08-18) -- frequency-stratified matcher, filed after v2's POWER_INSUFFICIENT
+
+New file, `experiments/exp_dissociation_score_instrument_human_v3.py` (v1 and v2 left unmodified,
+permanent records). Population construction (SET_P_HUMAN/SET_S_HUMAN raw candidate build) and the
+license-gate/arm/rank-correlation machinery are reused verbatim from v2 (imported READ-ONLY). The
+ONE change is the matcher: `frequency_stratified_match_cells()` bins each POS stratum's pooled
+mean_log_freq into 3 quantile bins (equal candidate mass), then runs `DSI.match_cells` unchanged
+inside each (POS, bin) cell with a residual caliper `[8.0, 1.0, 1.5, 1.5, 1.5]` (mean_log_freq's own
+per-pair caliper loosened since bin membership now bounds it; abs_freq_diff/length/trigram/prototype
+loosened moderately). Selected by a pre-authoring grid search against the REAL four-floor AUC
+bootstrap (disposable scratch probes, not committed) -- the widest point at which all four floors
+still read at chance.
+
+**Result of the v3 FULL run** (553.4s, `data/exp_dissociation_score_instrument_human_v3/metrics.json`,
+run_mode=full, size=15674 bytes): n_matched=65/cell (a=2, n=9, v=54), clearing `POWER_INSUFFICIENT_
+MIN_N=60`. Post-match SMD: mean_log_freq -1.8396 -> -0.4382, abs_freq_diff 0.2650 -> 0.2466, mean_
+length 1.0581 -> 0.3988, trigram_cos -0.0595 -> -0.0710, prototype -1.2561 -> -0.1757 -- disclosed as
+NOT comparable to the WordNet instrument's own post-match balance (-0.0416 / 0.0045 / -0.0121 /
+0.0007 / 0.1574). Despite this, all four floors landed CI-included-0.5 at N_BOOT=10000: F_ORTHOGRAPHIC
+0.4920 [0.4462,0.5356], F_FREQUENCY 0.4151 [0.3167,0.5131], F_SCRAMBLE 0.5943 [0.4961,0.6899],
+F_CONSTANT_PROTOTYPE 0.4125 [0.3160,0.5122] -> `INSTRUMENT_LICENSED=True`, `max(four floors)=0.5943`.
+Known-answer = the published human rating itself (NOT WordNet path similarity), AUC=1.0 (tautological
+by design). Positive control (T0/T2 reproduced on the ORIGINAL WordNet population) matched the landed
+cells' own numbers exactly (delta=0.0 both). Seven arms scored, all read below both 0.5 and max-floor
+except RAW_COUNT_SINGLE_OCC (0.4644, at chance). Rank correlation vs the WordNet instrument's ordering
+(same 7 arms): Spearman rho=0.7857, exact permutation p=0.048, bootstrap-of-arms 95% CI=[-0.0439,
+1.0] -- includes zero. Verdict:
+`DISSOCIATION_INSTRUMENT_HUMAN_V3_LICENSED__RANK_CORRELATION_CI_INCLUDES_ZERO__INCONCLUSIVE_AT_THIS_N__rho=0.7857`.
+STOP-IF (i)/(ii) passed (licensed); n>=60 satisfied; the CI-includes-zero branch fired, not (iv) or
+(v) -- the ordering leans the same direction as the WordNet instrument's but 7 arms is too small a
+sample to certify agreement or disagreement. Full account:
+`notes/dissociation_score_instrument_human_v3_2026-08-18.md`.

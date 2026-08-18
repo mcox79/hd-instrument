@@ -1,0 +1,520 @@
+{
+  "anchor_name": "dissociation_score_instrument_human_v3",
+  "run_mode": "full",
+  "code_version": "v3.0",
+  "findings_log": "notes/dissociation_score_instrument_human_v3_2026-08-18.md",
+  "verdict": "DISSOCIATION_INSTRUMENT_HUMAN_V3_LICENSED__RANK_CORRELATION_CI_INCLUDES_ZERO__INCONCLUSIVE_AT_THIS_N__rho=0.7857",
+  "verdict_msg": "Human-label dissociation-score instrument, FREQUENCY-STRATIFIED MATCHER (v2 hit n=7 with a uniform caliper; this file matches within frequency bands): does agreement with human similarity judgements rank the same 7 arms the same way the WordNet-labelled instrument does? -> DISSOCIATION_INSTRUMENT_HUMAN_V3_LICENSED__RANK_CORRELATION_CI_INCLUDES_ZERO__INCONCLUSIVE_AT_THIS_N__rho=0.7857",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 10000,
+    "T_HIGH": 6.0,
+    "T_LOW": 4.0,
+    "TOP_DECILE_Q": 0.9,
+    "KNOWN_ANSWER_MIN_AUC": 0.999,
+    "FREQ_STRAT_N_BINS": 3,
+    "FREQ_STRAT_CALIPER_SQ_PER_DIM": [
+      8.0,
+      1.0,
+      1.5,
+      1.5,
+      1.5
+    ]
+  },
+  "selftest_evidence_keys": [
+    "H2_selftest",
+    "binning_rescues_bimodal_known_answer",
+    "config_known_answer",
+    "diag_shape_parity_known_answer",
+    "fail_closed_known_answer"
+  ],
+  "report": {
+    "anchor_name": "dissociation_score_instrument_human_v3",
+    "grid": "full",
+    "code_version": "v3.0",
+    "findings_log": "notes/dissociation_score_instrument_human_v3_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "T_HIGH": 6.0,
+    "T_LOW": 4.0,
+    "MATCHER": "frequency_stratified_coarsened_exact_plus_residual_caliper",
+    "MATCHER_CONFIG": {
+      "n_bins": 3,
+      "residual_caliper_sq_per_dim": [
+        8.0,
+        1.0,
+        1.5,
+        1.5,
+        1.5
+      ]
+    },
+    "REGRESSION_GATE": {
+      "n_anchors": 5491,
+      "mat_shape": [
+        5491,
+        256
+      ],
+      "PASS": true
+    },
+    "corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "WORDNET_INDEPENDENCE_AUDIT_RAW_CANDIDATES": {
+      "n": 436,
+      "n_exact_synonym": 94,
+      "n_close": 318,
+      "frac_exact_synonym": 0.2156,
+      "frac_close": 0.7294
+    },
+    "WORDNET_INDEPENDENCE_AUDIT_MATCHED_SET_P": {
+      "n": 65,
+      "n_exact_synonym": 10,
+      "n_close": 49,
+      "frac_exact_synonym": 0.1538,
+      "frac_close": 0.7538
+    },
+    "POPULATION": {
+      "n_combined_benchmark_pairs_anchor_restricted": 2233,
+      "decile90_threshold": 4.0,
+      "n_distinct_cooccurring_anchor_pairs": 711206,
+      "n_setP_raw": 436,
+      "n_setS_raw": 122,
+      "matching": {
+        "matcher": "frequency_stratified_coarsened_exact_plus_residual_caliper",
+        "n_bins": 3,
+        "residual_caliper_sq_per_dim": [
+          8.0,
+          1.0,
+          1.5,
+          1.5,
+          1.5
+        ],
+        "per_pos_stratum": {
+          "a": {
+            "n_P_candidates": 19,
+            "n_S_candidates": 3,
+            "n_matched": 2,
+            "n_dropped_caliper": 10
+          },
+          "n": {
+            "n_P_candidates": 47,
+            "n_S_candidates": 27,
+            "n_matched": 9,
+            "n_dropped_caliper": 21
+          },
+          "v": {
+            "n_P_candidates": 370,
+            "n_S_candidates": 92,
+            "n_matched": 54,
+            "n_dropped_caliper": 169
+          }
+        },
+        "freq_bins": {
+          "a": [
+            {
+              "lo": 2.5053,
+              "hi": 3.4144,
+              "n_P": 7,
+              "n_S": 0,
+              "n_matched": 0
+            },
+            {
+              "lo": 3.4144,
+              "hi": 4.2654,
+              "n_P": 6,
+              "n_S": 1,
+              "n_matched": 0
+            },
+            {
+              "lo": 4.2654,
+              "hi": 6.3478,
+              "n_P": 6,
+              "n_S": 2,
+              "n_matched": 2
+            }
+          ],
+          "n": [
+            {
+              "lo": 2.4181,
+              "hi": 3.5336,
+              "n_P": 23,
+              "n_S": 2,
+              "n_matched": 2
+            },
+            {
+              "lo": 3.5336,
+              "hi": 4.4382,
+              "n_P": 19,
+              "n_S": 5,
+              "n_matched": 4
+            },
+            {
+              "lo": 4.4382,
+              "hi": 6.0609,
+              "n_P": 5,
+              "n_S": 20,
+              "n_matched": 3
+            }
+          ],
+          "v": [
+            {
+              "lo": 2.3811,
+              "hi": 3.7538,
+              "n_P": 152,
+              "n_S": 2,
+              "n_matched": 2
+            },
+            {
+              "lo": 3.7538,
+              "hi": 4.6382,
+              "n_P": 143,
+              "n_S": 11,
+              "n_matched": 9
+            },
+            {
+              "lo": 4.6382,
+              "hi": 6.9005,
+              "n_P": 75,
+              "n_S": 79,
+              "n_matched": 43
+            }
+          ]
+        },
+        "n_candidates_P": 436,
+        "n_candidates_S": 122,
+        "n_matched_P": 65,
+        "n_matched_S": 65,
+        "n_dropped_caliper": 200,
+        "matching_covariates": [
+          "mean_log_freq",
+          "abs_freq_diff",
+          "mean_length",
+          "orthographic_trigram_cos",
+          "mean_constant_prototype"
+        ],
+        "pre_match_smd": {
+          "mean_log_freq": -1.8396,
+          "abs_freq_diff": 0.265,
+          "mean_length": 1.0581,
+          "orthographic_trigram_cos": -0.0595,
+          "mean_constant_prototype": -1.2561
+        },
+        "post_match_smd": {
+          "mean_log_freq": -0.4382,
+          "abs_freq_diff": 0.2466,
+          "mean_length": 0.3988,
+          "orthographic_trigram_cos": -0.071,
+          "mean_constant_prototype": -0.1757
+        },
+        "post_match_pos_distribution_P": {
+          "a": 2,
+          "n": 9,
+          "v": 54
+        },
+        "post_match_pos_distribution_S": {
+          "a": 2,
+          "n": 9,
+          "v": 54
+        }
+      },
+      "wordnet_independence_audit_raw": {
+        "n": 436,
+        "n_exact_synonym": 94,
+        "n_close": 318,
+        "frac_exact_synonym": 0.2156,
+        "frac_close": 0.7294
+      },
+      "wordnet_independence_audit_matched": {
+        "n": 65,
+        "n_exact_synonym": 10,
+        "n_close": 49,
+        "frac_exact_synonym": 0.1538,
+        "frac_close": 0.7538
+      }
+    },
+    "N_MATCHED_PAIRS_PER_CELL": 65,
+    "LICENSING": {
+      "STOP_IF_i_floors_at_chance": {
+        "PASS": true,
+        "floor_failures": []
+      },
+      "STOP_IF_ii_known_answer_near_1": {
+        "PASS": true,
+        "measured_auc": 1.0,
+        "gate": 0.999
+      },
+      "random_vector_store_at_chance": {
+        "PASS": true
+      },
+      "INSTRUMENT_LICENSED": true,
+      "max_floor_auc_this_population": 0.5943,
+      "BAR_NOTE": "the bar for any arm reading 'above chance' is max(four floors)=0.5943 on THIS population, NOT 0.5"
+    },
+    "AUC_PER_ARM": {
+      "F_ORTHOGRAPHIC": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.492,
+        "ci95": [
+          0.4462,
+          0.5356
+        ],
+        "ci_halfwidth": 0.0447,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_FREQUENCY": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.4151,
+        "ci95": [
+          0.3167,
+          0.5131
+        ],
+        "ci_halfwidth": 0.0982,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_SCRAMBLE": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.5943,
+        "ci95": [
+          0.4961,
+          0.6899
+        ],
+        "ci_halfwidth": 0.0969,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.4125,
+        "ci95": [
+          0.316,
+          0.5122
+        ],
+        "ci_halfwidth": 0.0981,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "KNOWN_ANSWER_HUMAN_RATING": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "ci_halfwidth": 0.0,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      },
+      "RANDOM_VECTOR_STORE": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.4578,
+        "ci95": [
+          0.3579,
+          0.5574
+        ],
+        "ci_halfwidth": 0.0998,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "INCUMBENT_LIVE_STORE": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.2265,
+        "ci95": [
+          0.1498,
+          0.311
+        ],
+        "ci_halfwidth": 0.0806,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "margin_vs_max_floor_this_population": -0.3678,
+        "margin_vs_0.5": -0.2735
+      },
+      "RAW_COUNT_FULL_ACCUM": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.1796,
+        "ci95": [
+          0.1108,
+          0.2542
+        ],
+        "ci_halfwidth": 0.0717,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "margin_vs_max_floor_this_population": -0.4147,
+        "margin_vs_0.5": -0.3204
+      },
+      "RAW_COUNT_SINGLE_OCC": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.4644,
+        "ci95": [
+          0.4012,
+          0.5253
+        ],
+        "ci_halfwidth": 0.0621,
+        "band": "NOT_SEPARATED_FROM_CHANCE",
+        "margin_vs_max_floor_this_population": -0.1299,
+        "margin_vs_0.5": -0.0356
+      },
+      "PRESENCE_ABSENCE_BINARIZED": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.1673,
+        "ci95": [
+          0.1027,
+          0.2407
+        ],
+        "ci_halfwidth": 0.069,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "margin_vs_max_floor_this_population": -0.427,
+        "margin_vs_0.5": -0.3327
+      },
+      "PARADIGMATIC_PROFILE_WRITE": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.2788,
+        "ci95": [
+          0.196,
+          0.3697
+        ],
+        "ci_halfwidth": 0.0869,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "margin_vs_max_floor_this_population": -0.3155,
+        "margin_vs_0.5": -0.2212
+      },
+      "T0_VANILLA_PPMI_SVD": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.2928,
+        "ci95": [
+          0.2045,
+          0.3865
+        ],
+        "ci_halfwidth": 0.091,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "margin_vs_max_floor_this_population": -0.3015,
+        "margin_vs_0.5": -0.2072
+      },
+      "T2_SHIFTED_PPMI_K15": {
+        "n_pairs_P": 65,
+        "n_pairs_S": 65,
+        "auc": 0.2649,
+        "ci95": [
+          0.1808,
+          0.3555
+        ],
+        "ci_halfwidth": 0.0873,
+        "band": "BELOW_0.5_COOCCURRENCE",
+        "margin_vs_max_floor_this_population": -0.3294,
+        "margin_vs_0.5": -0.2351
+      }
+    },
+    "single_occurrence_build_diag": {
+      "n_anchors": 180,
+      "n_empty_profile": 0,
+      "elapsed_s": 0.0
+    },
+    "MATRIX": {
+      "n_rows_anchors": 5491,
+      "n_missing_anchors": 0,
+      "missing_anchor_sample": [],
+      "n_cols_vocab": 21576,
+      "nnz": 1074605,
+      "density": 0.0090704,
+      "total_token_count": 1824296.0,
+      "matrix_shape": [
+        5491,
+        21576
+      ]
+    },
+    "POSITIVE_CONTROL": {
+      "T0_orig_population_auc": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0519,
+        "ci95": [
+          0.0349,
+          0.0714
+        ],
+        "ci_halfwidth": 0.0182,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "T0_expected": 0.0519,
+      "T0_delta": 0.0,
+      "T0_PASS": true,
+      "T2_orig_population_auc": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.1144,
+        "ci95": [
+          0.0863,
+          0.144
+        ],
+        "ci_halfwidth": 0.0289,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "T2_expected": 0.1144,
+      "T2_delta": 0.0,
+      "T2_PASS": true
+    },
+    "ARM_DIGESTS_ARMS_MUST_DIFFER": {
+      "F_ORTHOGRAPHIC": "6342273d91e8b001",
+      "F_FREQUENCY": "42b2d8151e1b11a1",
+      "F_SCRAMBLE": "f28dedefee9e33aa",
+      "F_CONSTANT_PROTOTYPE": "083753c3c82afcc2",
+      "KNOWN_ANSWER_HUMAN_RATING": "f0ea9d476659f2f4",
+      "RANDOM_VECTOR_STORE": "c9edda6f17cffb3b",
+      "INCUMBENT_LIVE_STORE": "01f8797d071f86ef",
+      "RAW_COUNT_FULL_ACCUM": "f504fbbb5e55799f",
+      "RAW_COUNT_SINGLE_OCC": "ea9c27ece82bf677",
+      "PRESENCE_ABSENCE_BINARIZED": "e7cd8e0327530c41",
+      "PARADIGMATIC_PROFILE_WRITE": "d048a826238f334c",
+      "T0_VANILLA_PPMI_SVD": "484958615beb37df",
+      "T2_SHIFTED_PPMI_K15": "7bfd09a614a1b2d8"
+    },
+    "POWER_CHECK": {
+      "n_matched_pairs_per_cell": 65,
+      "max_ci_halfwidth_across_seven_arms": 0.091,
+      "any_pairwise_CI_separated_among_seven_arms": true,
+      "POWER_INSUFFICIENT": false
+    },
+    "RANK_CORRELATION": {
+      "source_paths": {
+        "DSI": "D:\\AI\\hd-instrument\\data\\exp_dissociation_score_instrument_v1\\metrics.json",
+        "CAP": "D:\\AI\\hd-instrument\\data\\exp_corpus_capacity_ppmi_svd_ceiling_v1\\metrics.json",
+        "TC": "D:\\AI\\hd-instrument\\data\\exp_tuned_count_unsupervised_dissociation_v1\\metrics.json"
+      },
+      "wordnet_instrument_aucs": {
+        "INCUMBENT_LIVE_STORE": 0.071,
+        "RAW_COUNT_FULL_ACCUM": 0.051,
+        "RAW_COUNT_SINGLE_OCC": 0.4173,
+        "PRESENCE_ABSENCE_BINARIZED": 0.0294,
+        "PARADIGMATIC_PROFILE_WRITE": 0.2165,
+        "T0_VANILLA_PPMI_SVD": 0.0519,
+        "T2_SHIFTED_PPMI_K15": 0.1144
+      },
+      "human_instrument_aucs": {
+        "INCUMBENT_LIVE_STORE": 0.2265,
+        "RAW_COUNT_FULL_ACCUM": 0.1796,
+        "RAW_COUNT_SINGLE_OCC": 0.4644,
+        "PRESENCE_ABSENCE_BINARIZED": 0.1673,
+        "PARADIGMATIC_PROFILE_WRITE": 0.2788,
+        "T0_VANILLA_PPMI_SVD": 0.2928,
+        "T2_SHIFTED_PPMI_K15": 0.2649
+      },
+      "n_arms": 7,
+      "spearman_rho": 0.7857,
+      "exact_permutation_two_sided_p": 0.048,
+      "bootstrap_of_arms_ci95": [
+        -0.0439,
+        1.0
+      ],
+      "DISCLOSURE": "n=7 arms is a very small sample for a rank correlation; the bootstrap CI and exact permutation p-value are both reported so the reader can judge resolution directly rather than trust a single point estimate."
+    },
+    "POPULATIONS_NOT_COMPARABLE": "this instrument's matched population and the WordNet instrument's are DIFFERENT, non-overlapping-by-construction pools -- absolute AUC values are NEVER compared side by side across the two instruments; only RANK_CORRELATION (the arm ORDERING) is a valid cross-instrument statement",
+    "INTERPRETATION": "RANK_CORRELATION_CI_INCLUDES_ZERO__INCONCLUSIVE_AT_THIS_N__rho=0.7857",
+    "elapsed_s": 529.0
+  },
+  "elapsed_s": 553.4,
+  "summary": "Human-label dissociation-score instrument, FREQUENCY-STRATIFIED MATCHER (v2 hit n=7 with a uniform caliper; this file matches within frequency bands): does agreement with human similarity judgements rank the same 7 arms the same way the WordNet-labelled instrument does? -> DISSOCIATION_INSTRUMENT_HUMAN_V3_LICENSED__RANK_CORRELATION_CI_INCLUDES_ZERO__INCONCLUSIVE_AT_THIS_N__rho=0.7857"
+}

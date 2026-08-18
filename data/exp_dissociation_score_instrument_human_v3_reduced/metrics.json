@@ -1,0 +1,269 @@
+{
+  "anchor_name": "dissociation_score_instrument_human_v3",
+  "run_mode": "reduced",
+  "code_version": "v3.0",
+  "findings_log": "notes/dissociation_score_instrument_human_v3_2026-08-18.md",
+  "verdict": "DISSOCIATION_INSTRUMENT_HUMAN_V3_UNLICENSED__POWER_INSUFFICIENT__n_match=27__min_required=60__STOPPED_BEFORE_ANY_ARM",
+  "verdict_msg": "Human-label dissociation-score instrument, FREQUENCY-STRATIFIED MATCHER (v2 hit n=7 with a uniform caliper; this file matches within frequency bands): does agreement with human similarity judgements rank the same 7 arms the same way the WordNet-labelled instrument does? -> DISSOCIATION_INSTRUMENT_HUMAN_V3_UNLICENSED__POWER_INSUFFICIENT__n_match=27__min_required=60__STOPPED_BEFORE_ANY_ARM",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 1500,
+    "T_HIGH": 6.0,
+    "T_LOW": 4.0,
+    "TOP_DECILE_Q": 0.9,
+    "KNOWN_ANSWER_MIN_AUC": 0.999,
+    "FREQ_STRAT_N_BINS": 3,
+    "FREQ_STRAT_CALIPER_SQ_PER_DIM": [
+      8.0,
+      1.0,
+      1.5,
+      1.5,
+      1.5
+    ]
+  },
+  "selftest_evidence_keys": [
+    "H2_selftest",
+    "binning_rescues_bimodal_known_answer",
+    "config_known_answer",
+    "diag_shape_parity_known_answer",
+    "fail_closed_known_answer"
+  ],
+  "report": {
+    "anchor_name": "dissociation_score_instrument_human_v3",
+    "grid": "reduced",
+    "code_version": "v3.0",
+    "findings_log": "notes/dissociation_score_instrument_human_v3_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "T_HIGH": 6.0,
+    "T_LOW": 4.0,
+    "MATCHER": "frequency_stratified_coarsened_exact_plus_residual_caliper",
+    "MATCHER_CONFIG": {
+      "n_bins": 3,
+      "residual_caliper_sq_per_dim": [
+        8.0,
+        1.0,
+        1.5,
+        1.5,
+        1.5
+      ]
+    },
+    "REGRESSION_GATE": {
+      "n_anchors": 5491,
+      "mat_shape": [
+        5491,
+        256
+      ],
+      "PASS": true
+    },
+    "corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "WORDNET_INDEPENDENCE_AUDIT_RAW_CANDIDATES": {
+      "n": 436,
+      "n_exact_synonym": 94,
+      "n_close": 318,
+      "frac_exact_synonym": 0.2156,
+      "frac_close": 0.7294
+    },
+    "WORDNET_INDEPENDENCE_AUDIT_MATCHED_SET_P": {
+      "n": 27,
+      "n_exact_synonym": 6,
+      "n_close": 22,
+      "frac_exact_synonym": 0.2222,
+      "frac_close": 0.8148
+    },
+    "POPULATION": {
+      "n_combined_benchmark_pairs_anchor_restricted": 2233,
+      "decile90_threshold": 4.0,
+      "n_distinct_cooccurring_anchor_pairs": 711206,
+      "n_setP_raw": 120,
+      "n_setS_raw": 120,
+      "matching": {
+        "matcher": "frequency_stratified_coarsened_exact_plus_residual_caliper",
+        "n_bins": 3,
+        "residual_caliper_sq_per_dim": [
+          8.0,
+          1.0,
+          1.5,
+          1.5,
+          1.5
+        ],
+        "per_pos_stratum": {
+          "a": {
+            "n_P_candidates": 6,
+            "n_S_candidates": 3,
+            "n_matched": 0,
+            "n_dropped_caliper": 3
+          },
+          "n": {
+            "n_P_candidates": 20,
+            "n_S_candidates": 26,
+            "n_matched": 4,
+            "n_dropped_caliper": 16
+          },
+          "v": {
+            "n_P_candidates": 94,
+            "n_S_candidates": 91,
+            "n_matched": 23,
+            "n_dropped_caliper": 71
+          }
+        },
+        "freq_bins": {
+          "a": [
+            {
+              "lo": 3.4144,
+              "hi": 3.9156,
+              "n_P": 2,
+              "n_S": 1,
+              "n_matched": 0
+            },
+            {
+              "lo": 3.9156,
+              "hi": 4.7856,
+              "n_P": 3,
+              "n_S": 0,
+              "n_matched": 0
+            },
+            {
+              "lo": 4.7856,
+              "hi": 6.3478,
+              "n_P": 1,
+              "n_S": 2,
+              "n_matched": 0
+            }
+          ],
+          "n": [
+            {
+              "lo": 2.4181,
+              "hi": 3.6362,
+              "n_P": 12,
+              "n_S": 3,
+              "n_matched": 1
+            },
+            {
+              "lo": 3.6362,
+              "hi": 4.6365,
+              "n_P": 8,
+              "n_S": 7,
+              "n_matched": 3
+            },
+            {
+              "lo": 4.6365,
+              "hi": 6.0609,
+              "n_P": 0,
+              "n_S": 16,
+              "n_matched": 0
+            }
+          ],
+          "v": [
+            {
+              "lo": 2.6492,
+              "hi": 4.2037,
+              "n_P": 56,
+              "n_S": 6,
+              "n_matched": 4
+            },
+            {
+              "lo": 4.2037,
+              "hi": 5.3489,
+              "n_P": 37,
+              "n_S": 24,
+              "n_matched": 18
+            },
+            {
+              "lo": 5.3489,
+              "hi": 6.9005,
+              "n_P": 1,
+              "n_S": 61,
+              "n_matched": 1
+            }
+          ]
+        },
+        "n_candidates_P": 120,
+        "n_candidates_S": 120,
+        "n_matched_P": 27,
+        "n_matched_S": 27,
+        "n_dropped_caliper": 90,
+        "matching_covariates": [
+          "mean_log_freq",
+          "abs_freq_diff",
+          "mean_length",
+          "orthographic_trigram_cos",
+          "mean_constant_prototype"
+        ],
+        "pre_match_smd": {
+          "mean_log_freq": -1.9192,
+          "abs_freq_diff": 0.1933,
+          "mean_length": 1.1074,
+          "orthographic_trigram_cos": 0.0713,
+          "mean_constant_prototype": -1.2921
+        },
+        "post_match_smd": {
+          "mean_log_freq": -0.2755,
+          "abs_freq_diff": 0.0297,
+          "mean_length": 0.7564,
+          "orthographic_trigram_cos": 0.4,
+          "mean_constant_prototype": 0.0529
+        },
+        "post_match_pos_distribution_P": {
+          "n": 4,
+          "v": 23
+        },
+        "post_match_pos_distribution_S": {
+          "n": 4,
+          "v": 23
+        }
+      },
+      "wordnet_independence_audit_raw": {
+        "n": 436,
+        "n_exact_synonym": 94,
+        "n_close": 318,
+        "frac_exact_synonym": 0.2156,
+        "frac_close": 0.7294
+      },
+      "wordnet_independence_audit_matched": {
+        "n": 27,
+        "n_exact_synonym": 6,
+        "n_close": 22,
+        "frac_exact_synonym": 0.2222,
+        "frac_close": 0.8148
+      }
+    },
+    "N_MATCHED_PAIRS_PER_CELL": 27,
+    "LICENSING": {
+      "SKIPPED": true,
+      "INSTRUMENT_LICENSED": false,
+      "reason": "population n_match=27 < POWER_INSUFFICIENT_MIN_N=60; per pre-reg STOP-IF (0), no floor is scored at this n"
+    },
+    "POWER_CHECK": {
+      "n_matched_pairs_per_cell": 27,
+      "POWER_INSUFFICIENT_MIN_N": 60,
+      "POWER_INSUFFICIENT": true,
+      "reason": "matched population below the pre-registered minimum n; no arm (including floors) is scored"
+    },
+    "AUC_PER_ARM": {},
+    "ARM_DIGESTS_ARMS_MUST_DIFFER": {},
+    "arms_differ_exempted": [
+      "ALL_ARMS: population POWER_INSUFFICIENT at n=27 (<60), no arm was scored"
+    ],
+    "RANK_CORRELATION": {
+      "SKIPPED": "no arms scored on this population"
+    },
+    "WORDNET_INSTRUMENT_CONTEXT_MAX_FLOOR_AUC": {
+      "source": "D:\\AI\\hd-instrument\\data\\exp_dissociation_score_instrument_v1\\metrics.json",
+      "per_floor_auc": {
+        "F_ORTHOGRAPHIC": 0.5,
+        "F_FREQUENCY": 0.4901,
+        "F_SCRAMBLE": 0.4664,
+        "F_CONSTANT_PROTOTYPE": 0.5431
+      },
+      "max_floor_auc": 0.5431,
+      "note": "context only; this cell's own floors were never scored at this n"
+    },
+    "INTERPRETATION": "POWER_INSUFFICIENT__n_match=27__min_required=60__STOPPED_BEFORE_ANY_ARM",
+    "elapsed_s": 29.7
+  },
+  "elapsed_s": 25.0,
+  "summary": "Human-label dissociation-score instrument, FREQUENCY-STRATIFIED MATCHER (v2 hit n=7 with a uniform caliper; this file matches within frequency bands): does agreement with human similarity judgements rank the same 7 arms the same way the WordNet-labelled instrument does? -> DISSOCIATION_INSTRUMENT_HUMAN_V3_UNLICENSED__POWER_INSUFFICIENT__n_match=27__min_required=60__STOPPED_BEFORE_ANY_ARM"
+}
