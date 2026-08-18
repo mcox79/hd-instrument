@@ -4,7 +4,8 @@ AS OF: 2026-08-18 | branch `dataprep/mcguffey-graded-corpus` | HEAD `7003df4c1` 
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
-CHAIN: `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md` (**THE PLAN; sec 6.6/6.7 are the current orders**) ->
+CHAIN: `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md` (**THE PLAN; READ SEC 6.18 FIRST -- it supersedes the
+step hunt. 6.16 holds the PRE-COMMITTED decision branches; 6.15 the five gated steps**) ->
 HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_PLAN.md`.
 
 ## POSITION

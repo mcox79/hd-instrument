@@ -162,6 +162,29 @@ Ranked by expected value. **Ladder status stated honestly: exactly one organ has
 
 ## 3. ORDER OF WORK
 
+> **SUPERSEDED 2026-08-18 -- READ SEC 6.18 INSTEAD.** The list below was written when the plan was a
+> hunt for the defective write-rule STEP. **That hunt is COMPLETE: all five steps are gated (6.15) and
+> the answer is not a step (6.18).** The corpus contains the substitutability signal and a supervised
+> reweighting extracts it at **0.8629** under group-disjoint CV, while every unsupervised method --
+> ours and the classical gold standard alike -- sits below chance. **THE MISSING COMPONENT IS THE
+> LEARNING SIGNAL.**
+>
+> **CURRENT ORDER:**
+> 1. **RUNNING:** the supervision drill -- what error signal does a brain actually have that produces
+>    substitutability structure, and where exactly does the no-LLM line fall. *Drill, not build.*
+> 2. Then a can-fail build of whatever supervision-free proxy that drill names, scored on the licensed
+>    dissociation instrument, population loaded from its checkpoint (`POPULATION|v1.7|full`) and
+>    **never rebuilt**.
+> 3. **DO NOT** run another unsupervised sweep. Four have now failed (raw PPMI, PPMI+SVD at four
+>    ranks, second-order cosine, and every arm of the five-step hunt).
+> 4. **DO NOT** wire the fitted oracle in. It is a ceiling reference fitted on the evaluation
+>    construct; adopting it clears the bar by grabbing a tool rather than by understanding.
+>
+> **DEFERRED, once the capacity cell releases the module:** the dissociation instrument does not
+> publish its population or licence gates to `metrics.json` -- they are recoverable only from a
+> checkpoint key that is undiscoverable from the artifact. Two sibling cells found it; the Director
+> did not, and briefed an agent wrongly as a result (6.17). Give it a named loader.
+
 1. **Land the verb rescore.** Converts our one live positive from unquotable to quotable, or exposes
    it as a population artifact.
 2. **Ladder ORGAN F (accumulation).** Cheapest, and the only positive gradient we have.
