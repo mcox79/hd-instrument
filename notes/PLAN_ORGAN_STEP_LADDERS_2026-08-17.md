@@ -566,6 +566,60 @@ needle 7 points on a scale where the oracle is 91 points away.*
 
 ---
 
+### 6.27 **THE HUMAN INSTRUMENT IS `POWER_INSUFFICIENT` AT n=7. CALLED EXACTLY AS PRE-COMMITTED IN 6.26.**
+
+**`MATCHED n_P=7 n_S=7`.** Seven pairs per cell. The funnel: 2,233 benchmark pairs survive
+restriction to our anchors -> 436 positive candidates (zero co-occurrence, human score >= 6.0) and
+**122 negative candidates** -> **matching on five covariates collapses it to SEVEN.** Far worse than
+the shortfall 6.26 predicted twenty minutes earlier, because the binding constraint was never the
+benchmark size -- **it was the intersection of "humans rate these as similar", "they never co-occur
+in OUR corpus", and "a frequency/length/orthography-matched partner exists".**
+
+**PER 6.26 BRANCH 2, CALLED WITHOUT RE-READING THE ARMS: `POWER_INSUFFICIENT`. THE WORDNET CAVEAT
+(6.24) REMAINS OPEN -- NOT RESOLVED IN EITHER DIRECTION.** At n=7 an AUC CI half-width exceeds the
+entire range being discriminated, so **no arm number from this run may be quoted, and a null here is
+NOT evidence that the WordNet dependency was harmless.** *This is the exact trap 6.26 was written to
+prevent, and the pre-commitment is why it is being called rather than spun.*
+
+**WHAT WOULD ACTUALLY ANSWER THE QUESTION** (none of these is a tweak to this cell): a benchmark with
+far more coverage of our 5,491 anchors; OR a label source that does not require zero co-occurrence by
+construction; OR relaxed matching that still passes all four floors -- **and matching must never be
+loosened to buy n, since seven tightening rounds are what got the WordNet instrument's floors to
+chance in the first place.** **DO NOT re-run this cell hoping for a better draw.**
+
+---
+
+### 6.28 **THE SUPERVISION DRILL LANDED, AND ITS ANSWER IS ON DISK, NON-CIRCULAR, AND ALREADY 90% COVERING.**
+
+`notes/admissible_supervision_sources_drill_2026-08-18.md`.
+
+**ITS HONEST HEADLINE FIRST: MOST SIGNALS THAT LOOK LIKE SUPERVISION ARE CIRCULAR.** Every resource
+on disk that asserts "these two words mean the same" either IS WordNet, contains WordNet, or is a
+curated synonym list built for the same purpose. **That is the finding, and it forces a STRUCTURAL
+answer rather than a label lookup.** It also independently re-verified the trap in the instrument
+source and added a number I did not have: SET_S construction excludes **36** exact WordNet synonyms
+and **839** near-synonyms by path similarity. *WordNet defines both sides of the label, measured.*
+
+**THE CANDIDATE: SELECTIONAL PREFERENCES -- THE GRAMMATICAL JOB A WORD DOES.** Two substitutable
+words turn up as the subject of the same verbs and the object of the same verbs **even when they
+never co-occur**. Nothing in that consults a dictionary. **Already on disk:
+`data/selectional_preferences_v1/`, 41,529 verb-plus-role slots ("use/OBJECT", "reach/SUBJECT"),
+extracted by our own glass-box parser from plain text, covering 90.0% of the 617 words the
+instrument scores. No WordNet. No LLM.**
+
+**AND IT SHARPENS THE PREDICTION-ERROR NULL RATHER THAN CONTRADICTING IT.** Our killed experiment
+computed error against **the word's OWN running accumulator** -- a self-prediction. The drill's
+proposal is error against **OTHER WORDS COMPETING FOR THE SAME SLOT**. *Different target, different
+signal; 6.21's null does not cover it.*
+
+**THIRD DISTINCT USE OF THE SAME ASSET, and the pattern is worth naming.** Selectional constraints
+FAILED as a meaning-BUILDER (DO-NOT-REDO 43, CI-separated below neighbour-copying); WORKED as a
+candidate-REJECTOR (the owner's Q11 type-violation arm, beating a random pick from the same
+shortlist); and are now proposed as SUPERVISION. **A mechanism's failure at one job says nothing
+about another** -- that has now been demonstrated twice on this single asset.
+
+---
+
 ### 6.26 **PRE-COMMITTED READING OF THE HUMAN INSTRUMENT -- WRITTEN WHILE IT IS STILL RUNNING, ON PURPOSE.**
 
 `exp_dissociation_score_instrument_human_v1` is mid-flight (self-test ALL PASS, full launched
