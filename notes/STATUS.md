@@ -415,6 +415,45 @@ excludes nothing is not a control -- report how many items each control actually
   load-bearing number lived ONLY in prose -- zero hits in the capacity cell's `metrics.json`. Its
   script was committed, so reproducible not fabricated. **Re-ran: group-disjoint 5-fold CV AUC
   0.8629, pair-level 0.9587, both exact.** Log at `notes/groupdisjoint_verification_log_2026-08-18.txt`.
+- **🚨🚨🚨 AUDIT LANDED 06:52 (`37181d944`) -- BRANCH (i): 3 CELLS, 21 ARMS MIS-GATED, TWO OF THEM NEW.
+  AND IT SURFACED SOMETHING LARGER THAN THE IMPORT: THE BAR ITSELF WAS NEVER SEPARATED FROM CHANCE.**
+  **`F_CONSTANT_PROTOTYPE` = 0.5431 CARRIES CI [0.4922, 0.5953] -- IT INCLUDES 0.5.** I checked the
+  human instrument's bar too: **`F_SCRAMBLE` = 0.5943, CI [0.4937, 0.6911] -- ALSO INCLUDES 0.5.**
+  **BOTH BARS THIS PROGRAMME GATES ON ARE STATISTICALLY INDISTINGUISHABLE FROM CHANCE AT THEIR OWN n.**
+  *I spent two days correcting people that "the bar is 0.5431, NOT 0.5" -- and the honest statement is
+  that at these sample sizes THE TWO CANNOT BE TOLD APART. That correction was itself a width read as
+  an effect: discipline 14, committed by the person who wrote it.*
+  **MECHANISM (DSI L99-108): `F_SCRAMBLE` and `F_CONSTANT_PROTOTYPE` are computed FROM THE STORE
+  MATRIX; the other two are not. The bar is always owned by one of those two -- SO THE BAR IS
+  INHERENTLY THE REPRESENTATION-BOUND QUANTITY.** *That is why importing it across representations
+  was guaranteed to be wrong, not merely unlucky.*
+  **THE THREE, ALL `SUSPENDED, NOT REFUTED` -- a wrong floor makes a verdict UNSUPPORTED, it does NOT
+  establish the opposite:** (A) the typed-role arc cell, already retracted; (B) **NEW --
+  `exp_typed_role_selectional_asset_writerule_v1` (`c1d2bc80e`, 7 arms)**, corroborated off its own
+  data: **its must-fail controls `N1` 0.5516 and `N3` 0.5630 sit ABOVE the 0.5431 bar**, so its native
+  floor is ~0.55-0.56 and the imported bar was too low, *same direction as the arc rebuild*; (C)
+  **NEW -- tonight's human-instrument cell (`16475c9c5`, 4 arms)**, which re-derived its bar sincerely
+  but along the wrong axis -- right population, from v3 arrays built on the **bag** store.
+  **✅ WHAT SURVIVES UNTOUCHED, and this matters: (B)'s `WORD_SELECTION_NOT_TYPE` verdict is
+  WITHIN-CELL and same-representation, so it STANDS; no false positive was manufactured anywhere
+  (B's `T1` never cleared the bar even at its CI lower bound 0.5296); and BRANCH (B) FROM 6.39 STANDS
+  *A FORTIORI* -- `U1` 0.4125 failed a bar we now know was TOO LOW.**
+  **NOT A PROGRAMME-WIDE CRISIS, and I was primed to call it one.** The write-rule ladder already does
+  this correctly **per arm** (`F_CONSTANT_PROTOTYPE__<arm>`); `corpus_capacity`, `tuned_count` and
+  `predictive_coding` gate on 0.5 and hold 0.5431 only inside regression gates. **Branch (iii) ALSO
+  fired: NO `metrics.json` ANYWHERE records the REPRESENTATION a floor came from** -- every
+  determination above needed the source, so this is unauditable from artifacts today.
+- **🔬 MY OWN FOLLOW-UP, HYPOTHESIS NOT FINDING -- THE ONE ITEM THE AUDIT FLAGGED AND LEFT UNVERIFIED,
+  NOW CONFIRMED NUMERICALLY AND IT MAY RE-INTERPRET BRANCH (B).** In the human cell, `U1_TYPED_CONTEXT`
+  reads **0.4125 [0.3148, 0.5138]** and `F_CONSTANT_PROTOTYPE` reads **0.4125 [0.3164, 0.5153]** --
+  **IDENTICAL TO FOUR DECIMALS, different CIs** (so two genuinely different computations, not one value
+  copied). **`F_CONSTANT_PROTOTYPE` IS BY DEFINITION WHAT YOU SCORE WHEN EVERY WORD HAS THE SAME
+  VECTOR.** *So the live alternative to "typed context is bad at human similarity" is **"typed context
+  produced near-DEGENERATE vectors on this 65-pair population"** -- which would make branch (B) a
+  statement about COVERAGE COLLAPSE, not about the channel.* **CHEAP DECISIVE CHECK, NAMED AND NOT RUN:
+  the pairwise-cosine spread of `U1`'s vectors on that population -- near-zero spread confirms
+  degeneracy.** **DO NOT REWRITE BRANCH (B) UNTIL THAT IS MEASURED; an exact tie at n=65 is suggestive,
+  not proof, and I have twice tonight promoted a suggestive number too early.**
 - **🚨🚨 RETRACTION, 06:15 -- I HEADLINED "THE FIRST ARM EVER TO CLEAR THE BAR" AND TWO INDEPENDENT
   LANES TOOK IT APART WITHIN THE HOUR. THREE OF THE FOUR SUPPORTS ARE GONE. READ THIS BEFORE THE
   GREEN BLOCK BELOW, WHICH IS SUPERSEDED.**
