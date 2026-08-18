@@ -1,0 +1,201 @@
+{
+  "anchor_name": "typed_role_selectional_asset_writerule_v1",
+  "run_mode": "full",
+  "code_version": "v1.0",
+  "findings_log": "notes/typed_role_selectional_asset_writerule_2026-08-18.md",
+  "verdict": "TYPED_ROLE_SELECTIONAL_ASSET__WORD_SELECTION_NOT_TYPE",
+  "verdict_msg": "T1_TYPED_ROLE AUC=0.5802 CI=[0.5296, 0.6304] vs bar=0.5431 (margin=0.0371) vs chance=0.5 (margin=0.0802) | A0_INCUMBENT AUC=0.0710 (corpus-confounded vs T1, disclosed) | T2_UNTYPED AUC=0.5900 | T3_COMBINED AUC=0.2264 | N1 AUC=0.5516 | N3 AUC=0.5630 | N5_COVERAGE_MATCHED AUC=0.5217 (n_before P=242 S=242 -> n_after P=218 S=185) | STOP_IF=WORD_SELECTION_NOT_TYPE",
+  "summary": "T1_TYPED_ROLE AUC=0.5802 CI=[0.5296, 0.6304] vs bar=0.5431 (margin=0.0371) vs chance=0.5 (margin=0.0802) | A0_INCUMBENT AUC=0.0710 (corpus-confounded vs T1, disclosed) | T2_UNTYPED AUC=0.5900 | T3_COMBINED AUC=0.2264 | N",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 10000,
+    "N_TARGET": 128,
+    "REG_GATE_TOL": 0.0005
+  },
+  "selftest_evidence_keys": [
+    "N1_permute_columns_preserves_row_mass_changes_association",
+    "N3_permute_magnitudes_preserves_support",
+    "arms_must_differ_digest_sensitivity",
+    "collapse_roles_preserves_row_mass",
+    "coverage_restriction_known_answer",
+    "dsi_auc_of_reuse_sanity",
+    "dsi_regression_gate_real_code_path",
+    "exp_checkpoint_selftest",
+    "ppmi_svd_real_code_path",
+    "selectional_asset_real_code_path",
+    "typed_matrix_real_code_path"
+  ],
+  "corpus_confound_disclosed": true,
+  "report": {
+    "anchor_name": "typed_role_selectional_asset_writerule_v1",
+    "grid": "full",
+    "code_version": "v1.0",
+    "findings_log": "notes/typed_role_selectional_asset_writerule_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "corpus_confound_disclosed": true,
+    "overlapping_teammate_cell": "experiments/exp_typed_role_context_write_rule_dissociation_v1.py (typed-role-writerule, same-corpus design, not yet landed as of this run)",
+    "REGRESSION_GATE": {
+      "PASS": true,
+      "measured": {
+        "F_ORTHOGRAPHIC": 0.5,
+        "F_FREQUENCY": 0.4901,
+        "F_SCRAMBLE": 0.4664,
+        "F_CONSTANT_PROTOTYPE": 0.5431,
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": 0.9599,
+        "RANDOM_VECTOR_STORE": 0.4862,
+        "INCUMBENT_LIVE_STORE": 0.071,
+        "RAW_COUNT_FULL_ACCUM": 0.051
+      },
+      "expected": {
+        "F_ORTHOGRAPHIC": 0.5,
+        "F_FREQUENCY": 0.4901,
+        "F_SCRAMBLE": 0.4664,
+        "F_CONSTANT_PROTOTYPE": 0.5431,
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": 0.9599,
+        "RANDOM_VECTOR_STORE": 0.4862,
+        "INCUMBENT_LIVE_STORE": 0.071,
+        "RAW_COUNT_FULL_ACCUM": 0.051
+      },
+      "failures": [],
+      "tol": 0.0005
+    },
+    "N_MATCHED_PAIRS_BEFORE": {
+      "P": 242,
+      "S": 242
+    },
+    "TYPED_ROLE_BUILD": {
+      "n_words_needed": 617,
+      "n_covered_words": 555,
+      "typed_matrix_shape": [
+        617,
+        20600
+      ],
+      "n_typed_cols": 20600,
+      "n_verb_cols_untyped": 5536,
+      "svd_achieved_ranks": {
+        "T1": 128,
+        "T2": 128,
+        "N1": 128,
+        "N3": 128
+      },
+      "N5_n_pairs": {
+        "P_before": 242,
+        "S_before": 242,
+        "P_after": 218,
+        "S_after": 185
+      }
+    },
+    "AUC_PER_ARM": {
+      "T1_TYPED_ROLE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5802,
+        "ci95": [
+          0.5296,
+          0.6304
+        ],
+        "ci_halfwidth": 0.0504,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      },
+      "T2_UNTYPED_SAME_COVERAGE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.59,
+        "ci95": [
+          0.5393,
+          0.64
+        ],
+        "ci_halfwidth": 0.0503,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      },
+      "T3_COMBINED": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.2264,
+        "ci95": [
+          0.1862,
+          0.2682
+        ],
+        "ci_halfwidth": 0.041,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "N1_LABEL_PERMUTED": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5516,
+        "ci95": [
+          0.5004,
+          0.6025
+        ],
+        "ci_halfwidth": 0.051,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      },
+      "N3_MAGNITUDE_PERMUTED": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.563,
+        "ci95": [
+          0.5108,
+          0.6153
+        ],
+        "ci_halfwidth": 0.0522,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      },
+      "N5_COVERAGE_MATCHED": {
+        "n_pairs_P": 218,
+        "n_pairs_S": 185,
+        "auc": 0.5217,
+        "ci95": [
+          0.464,
+          0.5789
+        ],
+        "ci_halfwidth": 0.0574,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "A0_INCUMBENT": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.071,
+        "ci95": [
+          0.0504,
+          0.093
+        ],
+        "ci_halfwidth": 0.0213,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "ARM_DIGESTS_ARMS_MUST_DIFFER": {
+      "T1_TYPED_ROLE": "e2a05fd79020a76e",
+      "T2_UNTYPED_SAME_COVERAGE": "2dbbdb6996a3f06f",
+      "T3_COMBINED": "bd99fcce6f963ed0",
+      "N1_LABEL_PERMUTED": "2c3bb48d2512c192",
+      "N3_MAGNITUDE_PERMUTED": "89382e1c5de0a596",
+      "A0_INCUMBENT": "ecf34b2ca76e17c5"
+    },
+    "arms_differ_verified": true,
+    "BAR_MAX_FOUR_FLOORS": 0.5431,
+    "STOP_IF_CHECKS": {
+      "t1_clears_bar_ci_separated": false,
+      "t1_beats_t2": false,
+      "t1_beats_n1": false,
+      "n5_confirms_above_bar": false,
+      "t1_dominates_a0": true,
+      "t1_ties_a0": false
+    },
+    "INTERPRETATION": "WORD_SELECTION_NOT_TYPE",
+    "MARGINS": {
+      "T1_vs_bar_0.5431": 0.0371,
+      "T1_vs_chance_0.5": 0.0802
+    },
+    "elapsed_s": 147.9
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "AUC_PER_ARM",
+    "REGRESSION_GATE",
+    "arms_differ_verified",
+    "BAR_MAX_FOUR_FLOORS",
+    "INTERPRETATION"
+  ],
+  "elapsed_s": 151.2
+}
