@@ -1,0 +1,373 @@
+{
+  "anchor_name": "corpus_capacity_ppmi_svd_ceiling_v1",
+  "run_mode": "reduced",
+  "code_version": "v1.0",
+  "findings_log": "notes/corpus_capacity_ppmi_svd_ceiling_2026-08-18.md",
+  "verdict": "CORPUS_CAPACITY_CEILING__STOP_IF_iii_INFO_PRESENT_NO_UNSUPERVISED_FIRST_ORDER_TRANSFORM_REACHES_IT",
+  "verdict_msg": "Does this corpus support substitutability at all? PPMI + truncated SVD (classical, no LLM) applied to the SAME corpus our write rule uses, scored on the licensed dissociation instrument's exact 242-pair population. -> STOP_IF_iii_INFO_PRESENT_NO_UNSUPERVISED_FIRST_ORDER_TRANSFORM_REACHES_IT",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 1500,
+    "K_SWEEP": [
+      50,
+      100,
+      300,
+      500
+    ],
+    "C1_K": 100,
+    "C1_L2_C": 1.0,
+    "C1_CV_FOLDS": 5,
+    "DSI_CODE_VERSION": "v1.7"
+  },
+  "selftest_evidence_keys": [
+    "arms_must_differ_digest_sensitivity",
+    "coverage_known_answer",
+    "exp_checkpoint_selftest",
+    "fitted_oracle_known_answer",
+    "ppmi_known_answer",
+    "ppmi_never_negative",
+    "real_code_path_build_matrix",
+    "sparse_dense_cosine_agree",
+    "svd_real_code_path"
+  ],
+  "report": {
+    "anchor_name": "corpus_capacity_ppmi_svd_ceiling_v1",
+    "grid": "reduced",
+    "code_version": "v1.0",
+    "findings_log": "notes/corpus_capacity_ppmi_svd_ceiling_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "NO_PRETRAINED_EMBEDDING_TABLE_IMPORTED": true,
+    "REGRESSION_GATE": {
+      "n_matched_pairs_per_cell": 242,
+      "n_arms_recomputed": 11,
+      "checks": {
+        "F_ORTHOGRAPHIC": {
+          "PASS": true,
+          "expected": 0.5,
+          "measured": 0.5,
+          "delta": 0.0
+        },
+        "F_FREQUENCY": {
+          "PASS": true,
+          "expected": 0.4901,
+          "measured": 0.4901,
+          "delta": 0.0
+        },
+        "F_SCRAMBLE": {
+          "PASS": true,
+          "expected": 0.4664,
+          "measured": 0.4664,
+          "delta": 0.0
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "PASS": true,
+          "expected": 0.5431,
+          "measured": 0.5431,
+          "delta": 0.0
+        },
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+          "PASS": true,
+          "expected": 0.9599,
+          "measured": 0.9599,
+          "delta": 0.0
+        },
+        "RANDOM_VECTOR_STORE": {
+          "PASS": true,
+          "expected": 0.4862,
+          "measured": 0.4862,
+          "delta": 0.0
+        },
+        "INCUMBENT_LIVE_STORE": {
+          "PASS": true,
+          "expected": 0.071,
+          "measured": 0.071,
+          "delta": 0.0
+        },
+        "RAW_COUNT_FULL_ACCUM": {
+          "PASS": true,
+          "expected": 0.051,
+          "measured": 0.051,
+          "delta": 0.0
+        }
+      },
+      "floors_at_chance": true,
+      "known_answer_ok": true,
+      "random_store_ok": true,
+      "INSTRUMENT_LICENSED": true,
+      "recomputed_AUC_PER_ARM": {
+        "F_ORTHOGRAPHIC": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.5,
+          "ci95": [
+            0.4875,
+            0.5124
+          ],
+          "ci_halfwidth": 0.0125,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_FREQUENCY": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4901,
+          "ci95": [
+            0.4384,
+            0.5402
+          ],
+          "ci_halfwidth": 0.0509,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_SCRAMBLE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4664,
+          "ci95": [
+            0.4138,
+            0.5175
+          ],
+          "ci_halfwidth": 0.0518,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.5431,
+          "ci95": [
+            0.4938,
+            0.5947
+          ],
+          "ci_halfwidth": 0.0504,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.9599,
+          "ci95": [
+            0.9443,
+            0.974
+          ],
+          "ci_halfwidth": 0.0148,
+          "band": "ABOVE_0.5_SUBSTITUTABILITY"
+        },
+        "RANDOM_VECTOR_STORE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4862,
+          "ci95": [
+            0.4357,
+            0.5369
+          ],
+          "ci_halfwidth": 0.0506,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "INCUMBENT_LIVE_STORE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.071,
+          "ci95": [
+            0.051,
+            0.0948
+          ],
+          "ci_halfwidth": 0.0219,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "RAW_COUNT_FULL_ACCUM": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.051,
+          "ci95": [
+            0.0324,
+            0.0711
+          ],
+          "ci_halfwidth": 0.0193,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "RAW_COUNT_SINGLE_OCC": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4173,
+          "ci95": [
+            0.3875,
+            0.4506
+          ],
+          "ci_halfwidth": 0.0315,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "PRESENCE_ABSENCE_BINARIZED": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.0294,
+          "ci95": [
+            0.0147,
+            0.0465
+          ],
+          "ci_halfwidth": 0.0159,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "PARADIGMATIC_PROFILE_WRITE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.2165,
+          "ci95": [
+            0.1794,
+            0.2584
+          ],
+          "ci_halfwidth": 0.0395,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      }
+    },
+    "N_MATCHED_PAIRS_PER_CELL": 40,
+    "MATRIX": {
+      "n_rows_anchors": 1309,
+      "n_missing_anchors": 0,
+      "missing_anchor_sample": [],
+      "n_cols_vocab": 18726,
+      "nnz": 266166,
+      "density": 0.01085845,
+      "total_token_count": 459114.0,
+      "matrix_shape": [
+        1309,
+        18726
+      ]
+    },
+    "COVERAGE": {
+      "SET_P": {
+        "n_pairs": 40,
+        "n_both_members_present": 40
+      },
+      "SET_S": {
+        "n_pairs": 40,
+        "n_both_members_present": 40
+      }
+    },
+    "B3_VS_DSI_CONSISTENCY_CHECK": null,
+    "B2_PPMI_SVD_SWEEP": {
+      "10": {
+        "k": 10,
+        "elapsed_s": 0.1,
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.1256,
+        "ci95": [
+          0.0578,
+          0.2041
+        ],
+        "ci_halfwidth": 0.0731,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "20": {
+        "k": 20,
+        "elapsed_s": 0.2,
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.0631,
+        "ci95": [
+          0.0244,
+          0.116
+        ],
+        "ci_halfwidth": 0.0458,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "B2_K_SWEEP_DROPPED_RANK_CEILING": {
+      "dropped_k": [],
+      "max_k_reachable": 1308
+    },
+    "B2_BEST_K": 10,
+    "C1_FITTED_ORACLE": {
+      "k_features": 20,
+      "n_pairs_P_valid": 40,
+      "n_pairs_S_valid": 40,
+      "l2_C": 1.0,
+      "cv_folds": 5,
+      "FITTED_IN_SAMPLE_CEILING_DO_NOT_QUOTE_AS_CAPABILITY": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.9137,
+        "ci95": [
+          0.8503,
+          0.9656
+        ],
+        "ci_halfwidth": 0.0577,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      },
+      "HELD_OUT_CV_AUC": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.8769,
+        "ci95": [
+          0.8003,
+          0.945
+        ],
+        "ci_halfwidth": 0.0724,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      },
+      "k_used": 20
+    },
+    "NEW_ARM_DIGESTS_ARMS_MUST_DIFFER": {
+      "B1_PPMI": "10bd092c7672ba9d",
+      "B3_SECOND_ORDER_COSINE": "31f166459608435f"
+    },
+    "INTERPRETATION": "STOP_IF_iii_INFO_PRESENT_NO_UNSUPERVISED_FIRST_ORDER_TRANSFORM_REACHES_IT",
+    "B1_PPMI_RESULT": {
+      "n_pairs_P": 40,
+      "n_pairs_S": 40,
+      "auc": 0.0275,
+      "ci95": [
+        0.0,
+        0.0725
+      ],
+      "ci_halfwidth": 0.0362,
+      "band": "BELOW_0.5_COOCCURRENCE"
+    },
+    "B3_SECOND_ORDER_COSINE_RESULT": {
+      "n_pairs_P": 40,
+      "n_pairs_S": 40,
+      "auc": 0.0456,
+      "ci95": [
+        0.0103,
+        0.0975
+      ],
+      "ci_halfwidth": 0.0436,
+      "band": "BELOW_0.5_COOCCURRENCE"
+    },
+    "N0_RANDOM_VECTOR_STORE_REUSED": {
+      "n_pairs_P": 242,
+      "n_pairs_S": 242,
+      "auc": 0.4862,
+      "ci95": [
+        0.4357,
+        0.5369
+      ],
+      "ci_halfwidth": 0.0506,
+      "band": "NOT_SEPARATED_FROM_CHANCE"
+    },
+    "K1_KNOWN_ANSWER_REUSED": {
+      "n_pairs_P": 242,
+      "n_pairs_S": 242,
+      "auc": 0.9599,
+      "ci95": [
+        0.9443,
+        0.974
+      ],
+      "ci_halfwidth": 0.0148,
+      "band": "ABOVE_0.5_SUBSTITUTABILITY"
+    },
+    "A0_INCUMBENT_REUSED": {
+      "n_pairs_P": 242,
+      "n_pairs_S": 242,
+      "auc": 0.071,
+      "ci95": [
+        0.051,
+        0.0948
+      ],
+      "ci_halfwidth": 0.0219,
+      "band": "BELOW_0.5_COOCCURRENCE"
+    },
+    "elapsed_s": 3.2
+  },
+  "elapsed_s": 3.9,
+  "summary": "Does this corpus support substitutability at all? PPMI + truncated SVD (classical, no LLM) applied to the SAME corpus our write rule uses, scored on the licensed dissociation instrument's exact 242-pair population. -> STOP_IF_iii_INFO_PRESENT_NO_UNSUPERVISED_FIRST_ORDER_TRANSFORM_REACHES_IT"
+}
