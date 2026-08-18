@@ -486,6 +486,46 @@ CORPUS can support the relation at all (that is `noncollapse-maxpool` stop-if (i
 
 ---
 
+### 6.19 **THE LEARNER ALREADY EXISTS ON DISK, AND SO DOES A 41 KB DRILL ON THIS EXACT QUESTION. DO NOT BUILD A PARALLEL ONE.**
+
+Found by the Director while 6.18's drill was running. **This is the MISSING-LEARNING rule firing
+exactly as written: REUSE / EXPAND the learner module, never build alongside it.**
+
+**PRIOR DRILL, same question, already done:**
+`notes/research_prediction_error_native_learning_signal_grounding_link_2026-07-09.md` (41 KB) --
+prediction error as a native learning signal for THIS encoder, and whether predicting the input stream
+doubles as a grounding anchor. It already ran three parallel lit-scans: predictive coding as a LEARNING
+RULE vs backprop and contrastive/InfoNCE; prediction-of-input-stream as representation learning (JEPA,
+world models, CPC, the next-token-prediction-as-grounding debate); and the biology of reward- vs
+sensory/cerebellar prediction error. Hand-off: `notes/exp_dev_handoff_..._2026-07-09.md`.
+
+**MACHINERY, ON DISK, ALREADY RUN:** `hdlab/predictive_coding.py` -- Rao-Ballard predict + residual
+magnitude + threshold/proportional write-gates -- plus the landed cell family
+`exp_substrate_concept_encoder_spoke1_predictive_coding_competitive_allocation_v1/v2/_v3_D_competitive_hebbian_only/_stress_test_cell1`
+(2026-07-02). Landed verdicts include a **HARD_PASS** (v2: HYBRID gap 0.517, **PRED-only gap 0.566** --
+the prediction arm outscoring the hybrid) and a **MIDDLE_BAND** stress test whose margin over a strong
+softmax baseline was too thin (v3d ck 0.492 vs softmax 0.461).
+
+**THE TRAP, AND IT IS THIS PROJECT'S SIGNATURE ERROR -- DO NOT INHERIT THOSE VERDICTS.** They were
+scored on a `gap`/`ck` metric on a different population. **A NUMBER MAY NOT CROSS SCORERS OR
+POPULATIONS**; three retractions came from precisely that. **Their HARD_PASS says NOTHING about the
+dissociation AUC.** What transfers is the MACHINERY and the DESIGN, never the numbers. Treat
+"predictive coding already passed" as **UNVERIFIED ON THE CURRENT INSTRUMENT**.
+
+**THE SHARPEST AVAILABLE QUESTION, AND IT HAS NEVER BEEN ASKED:** we own a prediction-error-gated write
+rule that was **never scored on the licensed dissociation instrument**. **Does a store written under it
+read above 0.5?** Cheap, reuses existing machinery, directly tests the supervision hypothesis 6.18
+produced, and unrun. **That is the build the drill should specify** -- an EXPANSION of
+`hdlab/predictive_coding.py`, not a new learner, unless it can say precisely why that module cannot
+serve.
+
+**WHY THIS MATTERS BEYOND THIS ITEM:** 6.18 concluded the missing component is the learning signal, and
+the obvious next move was to design a learner. **The project already had one, tested, with a passing
+verdict on another instrument.** A session that had not checked would have rebuilt it and called the
+result new. *Prior-work checks are not bureaucracy here; this one converted a build into a measurement.*
+
+---
+
 ### 6.18 **THE CAPACITY RESULT LANDED. BRANCH B FIRES. THE INFORMATION IS THERE; NOTHING UNSUPERVISED REACHES IT. THIS IS THE MOST INFORMATIVE RESULT OF THE PROGRAMME.**
 
 `exp_corpus_capacity_ppmi_svd_ceiling_v1`, FULL. **Instrument licensed by exact reproduction: all
