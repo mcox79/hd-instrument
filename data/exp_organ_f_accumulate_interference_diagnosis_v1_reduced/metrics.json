@@ -1,0 +1,1846 @@
+{
+  "anchor_name": "organ_f_accumulate_interference_diagnosis_v1",
+  "run_mode": "reduced",
+  "code_version": "v1.0",
+  "findings_log": "notes/organ_f_accumulate_interference_diagnosis_2026-08-18.md",
+  "verdict": "ORGAN_F_ACCUM_INTERFERENCE__GROWS_FASTER_NONE__REFUTED_NONE__COMMONMODE_FIX_NONE__COMPOSITION_FLAT_True",
+  "verdict_msg": "ORGAN F ACCUMULATE-GATE diagnosis: signal/interference decomposition (d-prime + field percentiles), high/low-frequency contributor split, common-mode removal vs random-direction control (DO-NOT-REDO 27 gated), rank-vs-hit@1, winner composition, all by depth. -> ORGAN_F_ACCUM_INTERFERENCE__GROWS_FASTER_NONE__REFUTED_NONE__COMMONMODE_FIX_NONE__COMPOSITION_FLAT_True",
+  "config": {
+    "DEPTHS_UNION": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "POP_SPECS": [
+      {
+        "name": "POP_16_SMOKE",
+        "cap_min": 16,
+        "depths": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ]
+      }
+    ],
+    "HEADLINE_POP": "POP_16_SMOKE",
+    "N_HIGH_FREQ": 40,
+    "TOPK_INCORRECT_FIELD": 20,
+    "N_BOOT": 1500,
+    "MASTER_SEED": 20260816
+  },
+  "selftest_evidence_keys": [
+    "OLD_selftest_keys",
+    "common_mode_residual_cosine_matches_dense",
+    "common_mode_zero_direction_is_noop",
+    "field_stats_matches_LADDER_dprime",
+    "high_low_split_exact_reconstruction",
+    "mean_pairwise_cosine_matches_brute_force",
+    "topk_incorrect_freq_fraction_known_answer",
+    "wordnet_relation_composition_known_answer"
+  ],
+  "report": {
+    "anchor_name": "organ_f_accumulate_interference_diagnosis_v1",
+    "grid": "reduced",
+    "code_version": "v1.0",
+    "findings_log": "notes/organ_f_accumulate_interference_diagnosis_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "RULER_MODE_GATE": {
+      "RUN_MODE": "full",
+      "V": 4096,
+      "CORPUS_BYTES": 64000000,
+      "argv": [
+        "experiments/exp_organ_f_accumulate_interference_diagnosis_v1.py",
+        "--grid",
+        "reduced"
+      ],
+      "PASS": true
+    },
+    "DO_NOT_REDO_27_NOTE": "notes/STATUS.md DO-NOT-REDO 27 = 'rank-1 common-mode removal', CLOSED with a starred revival criterion. Prior instance (notes/SUBSTRATE_STRATEGY.md STEP 3, commit 34b94e8bc): removing the mean-anchor rank-1 direction from the DENSE 256-dim PROJECTED store on the C1 near-neighbour 2AFC read-out task moved accuracy +0.0005 [CI includes zero] -- and a RANDOM rank-1 direction removed as a control moved accuracy by the IDENTICAL +0.0005. The revival bar that closure implies: the treatment (real mean direction) must beat the matched random-direction control, CI-separated, or it is the same null in new clothes. THIS CELL RUNS THAT EXACT COMPARISON (mean vs random direction removal) AS PART OF ITS OWN DESIGN, on a DIFFERENT object (the sparse unprojected accumulation store, as a function of DEPTH, not the fixed dense projected store) and a DIFFERENT question (does the fix specifically counteract DEPTH-driven interference growth, not general read-out accuracy). Verdict on whether THIS instance clears the mean-beats-random bar is reported explicitly below (COMMON_MODE_REMOVAL.cleared_do_not_redo_27_bar); if it does not, the result is reported as DIAGNOSTIC ONLY, not as a reopened direction.",
+    "TOPK_INCORRECT_FIELD": 20,
+    "N_HIGH_FREQ": 40,
+    "corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "CAPACITY_ITEM_COUNTS": {
+      "16": 2275,
+      "72": 694,
+      "128": 360,
+      "256": 126,
+      "512": 43,
+      "768": 17
+    },
+    "real_cue_checkpoint_reuse": {
+      "n_units_loaded": 9485,
+      "n_anchors_found": 5491,
+      "n_anchors_missing": 0,
+      "n_items_found": 3994,
+      "n_items_missing": 0,
+      "elapsed_s": 0.5,
+      "missing_p_sample": [],
+      "missing_q_sample": []
+    },
+    "DEPTH_SNAPSHOT_BUILD": {
+      "n_anchors": 5491,
+      "n_empty_profile": 0,
+      "n_occurrence_calls": 106240,
+      "elapsed_s": 3.1
+    },
+    "vocab_n_distinct_content_words": 21233,
+    "HIGH_FREQ_WORDS_SAMPLE": [
+      "now",
+      "years",
+      "made",
+      "also",
+      "make",
+      "between",
+      "other",
+      "more",
+      "around",
+      "world",
+      "each",
+      "year",
+      "only",
+      "cells",
+      "most",
+      "found",
+      "through",
+      "says",
+      "food",
+      "after",
+      "many",
+      "used",
+      "during",
+      "may",
+      "new",
+      "people",
+      "where",
+      "time",
+      "called",
+      "work"
+    ],
+    "ARM_DIGESTS_ARMS_MUST_DIFFER_n_distinct": 16,
+    "ARM_DIGESTS_ARMS_MUST_DIFFER_n_total": 16,
+    "PER_POPULATION": {
+      "POP_16_SMOKE": {
+        "n_items": 2275,
+        "n_anchors": 2275,
+        "depths": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "UNDERPOWERED": false,
+        "PUBLISHABLE": true,
+        "PER_RUNG": {
+          "D1_ORACLE": {
+            "SIGNAL_hit_at_1": 0.0334,
+            "ci95": [
+              0.0275,
+              0.0395
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.141,
+              "ci95": [
+                -0.1573,
+                -0.126
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D2_ORACLE": {
+            "SIGNAL_hit_at_1": 0.0315,
+            "ci95": [
+              0.0242,
+              0.0388
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.1428,
+              "ci95": [
+                -0.1593,
+                -0.1268
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D4_ORACLE": {
+            "SIGNAL_hit_at_1": 0.0347,
+            "ci95": [
+              0.0277,
+              0.0426
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.1396,
+              "ci95": [
+                -0.1565,
+                -0.1231
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D8_ORACLE": {
+            "SIGNAL_hit_at_1": 0.0413,
+            "ci95": [
+              0.0334,
+              0.0492
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.133,
+              "ci95": [
+                -0.1508,
+                -0.116
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D16_ORACLE": {
+            "SIGNAL_hit_at_1": 0.0475,
+            "ci95": [
+              0.0391,
+              0.0563
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.1269,
+              "ci95": [
+                -0.1451,
+                -0.1083
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D32_ORACLE": {
+            "SIGNAL_hit_at_1": 0.0563,
+            "ci95": [
+              0.047,
+              0.0655
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.118,
+              "ci95": [
+                -0.1358,
+                -0.1004
+              ],
+              "band": "BELOW"
+            }
+          },
+          "D1_REAL": {
+            "SIGNAL_hit_at_1": 0.0206,
+            "ci95": [
+              0.0152,
+              0.0265
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.1538,
+              "ci95": [
+                -0.1699,
+                -0.1384
+              ],
+              "band": "BELOW"
+            },
+            "FIELD_STATS": {
+              "n_valid": 2272,
+              "mean_correct_score": 0.1001,
+              "mean_field_mean": 0.00594,
+              "mean_field_p95": 0.04153,
+              "mean_field_max": 0.37653,
+              "mean_field_std": 0.02345,
+              "median_dprime_vs_mean": 3.7225,
+              "median_dprime_vs_p95": 1.684
+            },
+            "RANK": {
+              "median_rank_optimistic": 78.0,
+              "q1_rank_optimistic": 25.0,
+              "q3_rank_optimistic": 201.0,
+              "median_rank_conservative": 134.0,
+              "n_items": 3994
+            },
+            "FREQ_DECOMP": {
+              "correct_frac_high": 0.5431,
+              "incorrect_topk_frac_high": 0.3505
+            }
+          },
+          "D2_REAL": {
+            "SIGNAL_hit_at_1": 0.0204,
+            "ci95": [
+              0.0152,
+              0.0266
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.1538,
+              "ci95": [
+                -0.1696,
+                -0.1382
+              ],
+              "band": "BELOW"
+            },
+            "FIELD_STATS": {
+              "n_valid": 2273,
+              "mean_correct_score": 0.10072,
+              "mean_field_mean": 0.00819,
+              "mean_field_p95": 0.05176,
+              "mean_field_max": 0.38028,
+              "mean_field_std": 0.02395,
+              "median_dprime_vs_mean": 3.4555,
+              "median_dprime_vs_p95": 1.4541
+            },
+            "RANK": {
+              "median_rank_optimistic": 88.0,
+              "q1_rank_optimistic": 28.0,
+              "q3_rank_optimistic": 263.75,
+              "median_rank_conservative": 109.0,
+              "n_items": 3994
+            },
+            "FREQ_DECOMP": {
+              "correct_frac_high": 0.5228,
+              "incorrect_topk_frac_high": 0.3261
+            }
+          },
+          "D4_REAL": {
+            "SIGNAL_hit_at_1": 0.0187,
+            "ci95": [
+              0.0136,
+              0.0246
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.1556,
+              "ci95": [
+                -0.1714,
+                -0.14
+              ],
+              "band": "BELOW"
+            },
+            "FIELD_STATS": {
+              "n_valid": 2273,
+              "mean_correct_score": 0.10228,
+              "mean_field_mean": 0.01079,
+              "mean_field_p95": 0.05597,
+              "mean_field_max": 0.38407,
+              "mean_field_std": 0.02437,
+              "median_dprime_vs_mean": 3.2262,
+              "median_dprime_vs_p95": 1.3313
+            },
+            "RANK": {
+              "median_rank_optimistic": 96.0,
+              "q1_rank_optimistic": 28.0,
+              "q3_rank_optimistic": 303.5,
+              "median_rank_conservative": 105.5,
+              "n_items": 3994
+            },
+            "FREQ_DECOMP": {
+              "correct_frac_high": 0.4689,
+              "incorrect_topk_frac_high": 0.3071
+            }
+          },
+          "D8_REAL": {
+            "SIGNAL_hit_at_1": 0.0176,
+            "ci95": [
+              0.0127,
+              0.023
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.1567,
+              "ci95": [
+                -0.1727,
+                -0.1409
+              ],
+              "band": "BELOW"
+            },
+            "FIELD_STATS": {
+              "n_valid": 2273,
+              "mean_correct_score": 0.10983,
+              "mean_field_mean": 0.01374,
+              "mean_field_p95": 0.05928,
+              "mean_field_max": 0.39079,
+              "mean_field_std": 0.02499,
+              "median_dprime_vs_mean": 3.232,
+              "median_dprime_vs_p95": 1.3945
+            },
+            "RANK": {
+              "median_rank_optimistic": 89.0,
+              "q1_rank_optimistic": 25.0,
+              "q3_rank_optimistic": 308.75,
+              "median_rank_conservative": 93.0,
+              "n_items": 3994
+            },
+            "FREQ_DECOMP": {
+              "correct_frac_high": 0.4736,
+              "incorrect_topk_frac_high": 0.2926
+            }
+          },
+          "D16_REAL": {
+            "SIGNAL_hit_at_1": 0.0185,
+            "ci95": [
+              0.0132,
+              0.0242
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.1559,
+              "ci95": [
+                -0.1723,
+                -0.1393
+              ],
+              "band": "BELOW"
+            },
+            "FIELD_STATS": {
+              "n_valid": 2274,
+              "mean_correct_score": 0.11526,
+              "mean_field_mean": 0.01623,
+              "mean_field_p95": 0.06226,
+              "mean_field_max": 0.39251,
+              "mean_field_std": 0.0256,
+              "median_dprime_vs_mean": 3.2027,
+              "median_dprime_vs_p95": 1.3694
+            },
+            "RANK": {
+              "median_rank_optimistic": 84.0,
+              "q1_rank_optimistic": 24.0,
+              "q3_rank_optimistic": 297.0,
+              "median_rank_conservative": 86.5,
+              "n_items": 3994
+            },
+            "FREQ_DECOMP": {
+              "correct_frac_high": 0.4613,
+              "incorrect_topk_frac_high": 0.2787
+            }
+          },
+          "D32_REAL": {
+            "SIGNAL_hit_at_1": 0.022,
+            "ci95": [
+              0.0163,
+              0.0286
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.1524,
+              "ci95": [
+                -0.1688,
+                -0.1363
+              ],
+              "band": "BELOW"
+            },
+            "FIELD_STATS": {
+              "n_valid": 2274,
+              "mean_correct_score": 0.1215,
+              "mean_field_mean": 0.01804,
+              "mean_field_p95": 0.06511,
+              "mean_field_max": 0.39262,
+              "mean_field_std": 0.02626,
+              "median_dprime_vs_mean": 3.2563,
+              "median_dprime_vs_p95": 1.4378
+            },
+            "RANK": {
+              "median_rank_optimistic": 79.0,
+              "q1_rank_optimistic": 21.0,
+              "q3_rank_optimistic": 271.0,
+              "median_rank_conservative": 80.0,
+              "n_items": 3994
+            },
+            "FREQ_DECOMP": {
+              "correct_frac_high": 0.4451,
+              "incorrect_topk_frac_high": 0.271
+            }
+          },
+          "F_ORTHOGRAPHIC": {
+            "SIGNAL_hit_at_1": 0.0878,
+            "ci95": [
+              0.0775,
+              0.0993
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.0865,
+              "ci95": [
+                -0.1057,
+                -0.0679
+              ],
+              "band": "BELOW"
+            }
+          },
+          "F_FREQUENCY": {
+            "SIGNAL_hit_at_1": 0.0242,
+            "ci95": [
+              0.018,
+              0.0308
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.1501,
+              "ci95": [
+                -0.1666,
+                -0.1334
+              ],
+              "band": "BELOW"
+            }
+          },
+          "F_SCRAMBLE": {
+            "SIGNAL_hit_at_1": 0.0136,
+            "ci95": [
+              0.0088,
+              0.0185
+            ],
+            "margin_vs_binding_floor": {
+              "point": -0.1607,
+              "ci95": [
+                -0.1763,
+                -0.1451
+              ],
+              "band": "BELOW"
+            }
+          },
+          "F_CONSTANT_PROTOTYPE": {
+            "SIGNAL_hit_at_1": 0.1745,
+            "ci95": [
+              0.1591,
+              0.1899
+            ],
+            "margin_vs_binding_floor": null
+          }
+        },
+        "BINDING_FLOOR": "F_CONSTANT_PROTOTYPE",
+        "BINDING_FLOOR_VALUE": 0.1745,
+        "SIGNAL_INTERFERENCE_SPAN_72_to_deepest": {}
+      }
+    },
+    "SANITY": {
+      "POP_16_SMOKE": {
+        "K1_known_answer": {
+          "addressing_at_deepest": 1.0,
+          "gate": 0.95,
+          "PASSED": true
+        },
+        "N1_random_null": {
+          "hit_at_1_RANDOM_NULL_mean": 0.0097,
+          "chance_approx": 0.00044,
+          "PASSED": true
+        }
+      }
+    },
+    "MEAN_PAIRWISE_ANCHOR_COSINE_GLOBAL_BY_DEPTH": {
+      "1": {
+        "n": 5491,
+        "mean_pairwise_cosine": 0.007468
+      },
+      "2": {
+        "n": 5491,
+        "mean_pairwise_cosine": 0.013651
+      },
+      "4": {
+        "n": 5491,
+        "mean_pairwise_cosine": 0.022714
+      },
+      "8": {
+        "n": 5491,
+        "mean_pairwise_cosine": 0.035237
+      },
+      "16": {
+        "n": 5491,
+        "mean_pairwise_cosine": 0.047847
+      },
+      "32": {
+        "n": 5491,
+        "mean_pairwise_cosine": 0.057957
+      }
+    },
+    "MEAN_PAIRWISE_ANCHOR_COSINE_HEADLINE_BY_DEPTH": {
+      "1": {
+        "n": 2275,
+        "mean_pairwise_cosine": 0.009156
+      },
+      "2": {
+        "n": 2275,
+        "mean_pairwise_cosine": 0.016435
+      },
+      "4": {
+        "n": 2275,
+        "mean_pairwise_cosine": 0.027709
+      },
+      "8": {
+        "n": 2275,
+        "mean_pairwise_cosine": 0.045304
+      },
+      "16": {
+        "n": 2275,
+        "mean_pairwise_cosine": 0.069187
+      },
+      "32": {
+        "n": 2275,
+        "mean_pairwise_cosine": 0.092563
+      }
+    },
+    "COMMON_MODE_REMOVAL_BY_DEPTH": {
+      "1": {
+        "hit_before": 0.0206,
+        "hit_mean_removed": 0.0181,
+        "hit_random_removed": 0.0204,
+        "margin_mean_removed_vs_before": {
+          "point": -0.0025,
+          "ci95": [
+            -0.0044,
+            -0.0008
+          ],
+          "band": "BELOW"
+        },
+        "margin_mean_removed_vs_random_removed": {
+          "point": -0.0023,
+          "ci95": [
+            -0.0044,
+            -0.0004
+          ],
+          "band": "BELOW"
+        },
+        "cleared_do_not_redo_27_bar": false
+      },
+      "2": {
+        "hit_before": 0.0204,
+        "hit_mean_removed": 0.0209,
+        "hit_random_removed": 0.0202,
+        "margin_mean_removed_vs_before": {
+          "point": 0.0005,
+          "ci95": [
+            -0.0013,
+            0.0022
+          ],
+          "band": "NOT_SEPARATED"
+        },
+        "margin_mean_removed_vs_random_removed": {
+          "point": 0.0007,
+          "ci95": [
+            -0.0013,
+            0.0026
+          ],
+          "band": "NOT_SEPARATED"
+        },
+        "cleared_do_not_redo_27_bar": false
+      },
+      "4": {
+        "hit_before": 0.0187,
+        "hit_mean_removed": 0.0191,
+        "hit_random_removed": 0.0189,
+        "margin_mean_removed_vs_before": {
+          "point": 0.0005,
+          "ci95": [
+            -0.0009,
+            0.0022
+          ],
+          "band": "NOT_SEPARATED"
+        },
+        "margin_mean_removed_vs_random_removed": {
+          "point": 0.0002,
+          "ci95": [
+            -0.0011,
+            0.0018
+          ],
+          "band": "NOT_SEPARATED"
+        },
+        "cleared_do_not_redo_27_bar": false
+      },
+      "8": {
+        "hit_before": 0.0176,
+        "hit_mean_removed": 0.0189,
+        "hit_random_removed": 0.0176,
+        "margin_mean_removed_vs_before": {
+          "point": 0.0013,
+          "ci95": [
+            -0.0002,
+            0.0033
+          ],
+          "band": "NOT_SEPARATED"
+        },
+        "margin_mean_removed_vs_random_removed": {
+          "point": 0.0013,
+          "ci95": [
+            -0.0004,
+            0.0035
+          ],
+          "band": "NOT_SEPARATED"
+        },
+        "cleared_do_not_redo_27_bar": false
+      },
+      "16": {
+        "hit_before": 0.0185,
+        "hit_mean_removed": 0.0193,
+        "hit_random_removed": 0.0185,
+        "margin_mean_removed_vs_before": {
+          "point": 0.0009,
+          "ci95": [
+            -0.0013,
+            0.0035
+          ],
+          "band": "NOT_SEPARATED"
+        },
+        "margin_mean_removed_vs_random_removed": {
+          "point": 0.0009,
+          "ci95": [
+            -0.0013,
+            0.0035
+          ],
+          "band": "NOT_SEPARATED"
+        },
+        "cleared_do_not_redo_27_bar": false
+      },
+      "32": {
+        "hit_before": 0.022,
+        "hit_mean_removed": 0.0202,
+        "hit_random_removed": 0.022,
+        "margin_mean_removed_vs_before": {
+          "point": -0.0018,
+          "ci95": [
+            -0.0044,
+            0.0007
+          ],
+          "band": "NOT_SEPARATED"
+        },
+        "margin_mean_removed_vs_random_removed": {
+          "point": -0.0018,
+          "ci95": [
+            -0.0044,
+            0.0007
+          ],
+          "band": "NOT_SEPARATED"
+        },
+        "cleared_do_not_redo_27_bar": false
+      }
+    },
+    "WINNER_COMPOSITION_HEADLINE": {
+      "population": "POP_16_SMOKE",
+      "n_probe": 40,
+      "PER_DEPTH": {
+        "1": {
+          "depth": 1,
+          "n_probe": 40,
+          "wordnet": {
+            "n_probed": 40,
+            "counts": {
+              "TAXONOMICALLY_DISTANT": 23,
+              "NO_WORDNET_PATH_AT_ALL": 8,
+              "WINNER_NOT_IN_WORDNET": 6,
+              "IN_THE_GENEROUS_GOLD": 2,
+              "TAXONOMICALLY_CLOSE_but_outside_the_gold": 1
+            },
+            "fractions": {
+              "TAXONOMICALLY_DISTANT": 0.575,
+              "NO_WORDNET_PATH_AT_ALL": 0.2,
+              "WINNER_NOT_IN_WORDNET": 0.15,
+              "IN_THE_GENEROUS_GOLD": 0.05,
+              "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.025
+            },
+            "fraction_no_close_relation": 0.775,
+            "no_relation_bool": [
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false
+            ],
+            "examples": [
+              "africa -> earth (path_sim=0.250)",
+              "age -> chronically (path_sim=0.000)",
+              "bind -> undergo (path_sim=0.167)",
+              "citizen -> follicle (path_sim=0.077)",
+              "classified -> subphylum (path_sim=0.091)",
+              "club -> division (path_sim=0.167)",
+              "coming -> sixth (path_sim=0.100)",
+              "confirm -> somatic (path_sim=0.000)",
+              "density -> intensity (path_sim=0.143)",
+              "distribute -> flowering (path_sim=0.125)",
+              "distribution -> correlate (path_sim=0.100)",
+              "disturbance -> precipitation (path_sim=0.125)",
+              "dog -> cultural (path_sim=0.000)",
+              "example -> personal (path_sim=0.077)",
+              "favourite -> fence (path_sim=0.125)",
+              "filter -> humoral (path_sim=0.000)",
+              "make -> morris (path_sim=0.062)",
+              "matrix -> goal (path_sim=0.125)",
+              "medication -> tide (path_sim=0.091)",
+              "menu -> respect (path_sim=0.125)"
+            ]
+          },
+          "syntagmatic": {
+            "TOP1_WINNER": {
+              "n": 40,
+              "mean": 0.00599,
+              "median": 0.0,
+              "frac_ever_co_occurring": 0.25
+            },
+            "BEST_GOLD_SYNONYM": {
+              "n": 40,
+              "mean": 0.00313,
+              "median": 0.0,
+              "frac_ever_co_occurring": 0.275
+            },
+            "winner_over_gold_ratio_of_means": 1.914,
+            "jw_array": [
+              0.010075566750629723,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.023255813953488372,
+              0.028925619834710745,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.015151515151515152,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.001763668430335097,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.07142857142857142,
+              0.0,
+              0.0,
+              0.011904761904761904,
+              0.0,
+              0.0,
+              0.02127659574468085,
+              0.0,
+              0.047619047619047616,
+              0.0,
+              0.0,
+              0.008
+            ],
+            "jg_array": [
+              0.011627906976744186,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0029282576866764276,
+              0.0,
+              0.0,
+              0.0,
+              0.013157894736842105,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.00423728813559322,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0045871559633027525,
+              0.0023006134969325155,
+              0.0,
+              0.0,
+              0.0,
+              0.0136986301369863,
+              0.0,
+              0.03184713375796178,
+              0.0,
+              0.0,
+              0.0,
+              0.011235955056179775,
+              0.0,
+              0.0,
+              0.0,
+              0.014388489208633094,
+              0.0,
+              0.015384615384615385
+            ]
+          }
+        },
+        "2": {
+          "depth": 2,
+          "n_probe": 40,
+          "wordnet": {
+            "n_probed": 40,
+            "counts": {
+              "TAXONOMICALLY_DISTANT": 18,
+              "NO_WORDNET_PATH_AT_ALL": 14,
+              "WINNER_NOT_IN_WORDNET": 6,
+              "TAXONOMICALLY_CLOSE_but_outside_the_gold": 2
+            },
+            "fractions": {
+              "TAXONOMICALLY_DISTANT": 0.45,
+              "NO_WORDNET_PATH_AT_ALL": 0.35,
+              "WINNER_NOT_IN_WORDNET": 0.15,
+              "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.05
+            },
+            "fraction_no_close_relation": 0.8,
+            "no_relation_bool": [
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false
+            ],
+            "examples": [
+              "africa -> earth (path_sim=0.250)",
+              "age -> chronically (path_sim=0.000)",
+              "bind -> receptor (path_sim=0.071)",
+              "build -> rocket (path_sim=0.111)",
+              "citizen -> yes (path_sim=0.067)",
+              "classified -> subphylum (path_sim=0.091)",
+              "club -> matter (path_sim=0.125)",
+              "confirm -> fungal (path_sim=0.000)",
+              "create -> norm (path_sim=0.000)",
+              "density -> dynamics (path_sim=0.091)",
+              "distribute -> asexual (path_sim=0.000)",
+              "distribution -> fertility (path_sim=0.125)",
+              "disturbance -> biotic (path_sim=0.000)",
+              "diversity -> quite (path_sim=0.000)",
+              "dog -> taxon (path_sim=0.091)",
+              "example -> personal (path_sim=0.077)",
+              "favourite -> prague (path_sim=0.071)",
+              "filter -> humoral (path_sim=0.000)",
+              "house -> argument (path_sim=0.100)",
+              "make -> morris (path_sim=0.062)"
+            ]
+          },
+          "syntagmatic": {
+            "TOP1_WINNER": {
+              "n": 40,
+              "mean": 0.0134,
+              "median": 0.0,
+              "frac_ever_co_occurring": 0.375
+            },
+            "BEST_GOLD_SYNONYM": {
+              "n": 40,
+              "mean": 0.00313,
+              "median": 0.0,
+              "frac_ever_co_occurring": 0.275
+            },
+            "winner_over_gold_ratio_of_means": 4.281,
+            "jw_array": [
+              0.010075566750629723,
+              0.0,
+              0.0,
+              0.1111111111111111,
+              0.004739336492890996,
+              0.0,
+              0.023255813953488372,
+              0.016129032258064516,
+              0.0,
+              0.0,
+              0.0,
+              0.0026595744680851063,
+              0.015384615384615385,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.015625,
+              0.001763668430335097,
+              0.0,
+              0.11538461538461539,
+              0.0,
+              0.009009009009009009,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.07142857142857142,
+              0.0,
+              0.05405405405405406,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.047619047619047616,
+              0.0,
+              0.0,
+              0.03773584905660377
+            ],
+            "jg_array": [
+              0.011627906976744186,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0029282576866764276,
+              0.0,
+              0.0,
+              0.0,
+              0.013157894736842105,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.00423728813559322,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0045871559633027525,
+              0.0023006134969325155,
+              0.0,
+              0.0,
+              0.0,
+              0.0136986301369863,
+              0.0,
+              0.03184713375796178,
+              0.0,
+              0.0,
+              0.0,
+              0.011235955056179775,
+              0.0,
+              0.0,
+              0.0,
+              0.014388489208633094,
+              0.0,
+              0.015384615384615385
+            ]
+          }
+        },
+        "4": {
+          "depth": 4,
+          "n_probe": 40,
+          "wordnet": {
+            "n_probed": 40,
+            "counts": {
+              "TAXONOMICALLY_DISTANT": 23,
+              "NO_WORDNET_PATH_AT_ALL": 11,
+              "WINNER_NOT_IN_WORDNET": 5,
+              "TAXONOMICALLY_CLOSE_but_outside_the_gold": 1
+            },
+            "fractions": {
+              "TAXONOMICALLY_DISTANT": 0.575,
+              "NO_WORDNET_PATH_AT_ALL": 0.275,
+              "WINNER_NOT_IN_WORDNET": 0.125,
+              "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.025
+            },
+            "fraction_no_close_relation": 0.85,
+            "no_relation_bool": [
+              true,
+              false,
+              false,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "examples": [
+              "africa -> country (path_sim=0.111)",
+              "build -> rocket (path_sim=0.111)",
+              "citizen -> gps (path_sim=0.091)",
+              "classified -> subphylum (path_sim=0.091)",
+              "club -> division (path_sim=0.167)",
+              "cnidarian -> coelom (path_sim=0.071)",
+              "confirm -> fungal (path_sim=0.000)",
+              "create -> norm (path_sim=0.000)",
+              "density -> dynamics (path_sim=0.091)",
+              "distribute -> geographical (path_sim=0.000)",
+              "distribution -> interval (path_sim=0.250)",
+              "disturbance -> voltage (path_sim=0.077)",
+              "diversity -> timber (path_sim=0.111)",
+              "dog -> taxon (path_sim=0.091)",
+              "example -> viewing (path_sim=0.125)",
+              "familiar -> monocot (path_sim=0.111)",
+              "favourite -> anywhere (path_sim=0.000)",
+              "filter -> humoral (path_sim=0.000)",
+              "house -> priest (path_sim=0.091)",
+              "make -> morris (path_sim=0.062)"
+            ]
+          },
+          "syntagmatic": {
+            "TOP1_WINNER": {
+              "n": 40,
+              "mean": 0.01517,
+              "median": 0.00429,
+              "frac_ever_co_occurring": 0.55
+            },
+            "BEST_GOLD_SYNONYM": {
+              "n": 40,
+              "mean": 0.00313,
+              "median": 0.0,
+              "frac_ever_co_occurring": 0.275
+            },
+            "winner_over_gold_ratio_of_means": 4.847,
+            "jw_array": [
+              0.026239067055393587,
+              0.008130081300813009,
+              0.0,
+              0.0,
+              0.004739336492890996,
+              0.0,
+              0.023255813953488372,
+              0.028925619834710745,
+              0.0,
+              0.0,
+              0.0,
+              0.0026595744680851063,
+              0.015384615384615385,
+              0.0,
+              0.0,
+              0.0,
+              0.008620689655172414,
+              0.015625,
+              0.0038461538461538464,
+              0.0196078431372549,
+              0.046511627906976744,
+              0.0,
+              0.00966183574879227,
+              0.0,
+              0.0,
+              0.0,
+              0.012987012987012988,
+              0.1111111111111111,
+              0.07142857142857142,
+              0.018691588785046728,
+              0.0,
+              0.011904761904761904,
+              0.0,
+              0.0,
+              0.0,
+              0.005025125628140704,
+              0.047619047619047616,
+              0.0,
+              0.06578947368421052,
+              0.04918032786885246
+            ],
+            "jg_array": [
+              0.011627906976744186,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0029282576866764276,
+              0.0,
+              0.0,
+              0.0,
+              0.013157894736842105,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.00423728813559322,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0045871559633027525,
+              0.0023006134969325155,
+              0.0,
+              0.0,
+              0.0,
+              0.0136986301369863,
+              0.0,
+              0.03184713375796178,
+              0.0,
+              0.0,
+              0.0,
+              0.011235955056179775,
+              0.0,
+              0.0,
+              0.0,
+              0.014388489208633094,
+              0.0,
+              0.015384615384615385
+            ]
+          }
+        },
+        "8": {
+          "depth": 8,
+          "n_probe": 40,
+          "wordnet": {
+            "n_probed": 40,
+            "counts": {
+              "TAXONOMICALLY_DISTANT": 21,
+              "NO_WORDNET_PATH_AT_ALL": 13,
+              "TAXONOMICALLY_CLOSE_but_outside_the_gold": 3,
+              "WINNER_NOT_IN_WORDNET": 2,
+              "IN_THE_GENEROUS_GOLD": 1
+            },
+            "fractions": {
+              "TAXONOMICALLY_DISTANT": 0.525,
+              "NO_WORDNET_PATH_AT_ALL": 0.325,
+              "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.075,
+              "WINNER_NOT_IN_WORDNET": 0.05,
+              "IN_THE_GENEROUS_GOLD": 0.025
+            },
+            "fraction_no_close_relation": 0.85,
+            "no_relation_bool": [
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "examples": [
+              "africa -> country (path_sim=0.111)",
+              "age -> christian (path_sim=0.100)",
+              "bigger -> bargain (path_sim=0.000)",
+              "build -> rocket (path_sim=0.111)",
+              "citizen -> gps (path_sim=0.091)",
+              "classified -> subphylum (path_sim=0.091)",
+              "club -> meiotic (path_sim=0.000)",
+              "cnidarian -> mesoderm (path_sim=0.062)",
+              "coming -> innovation (path_sim=0.167)",
+              "confirm -> telomerase (path_sim=0.000)",
+              "create -> norm (path_sim=0.000)",
+              "density -> dynamics (path_sim=0.091)",
+              "distribute -> divergence (path_sim=0.000)",
+              "distribution -> interval (path_sim=0.250)",
+              "disturbance -> resilience (path_sim=0.125)",
+              "diversity -> timber (path_sim=0.111)",
+              "dog -> taxon (path_sim=0.091)",
+              "familiar -> seedless (path_sim=0.333)",
+              "favourite -> anywhere (path_sim=0.000)",
+              "filter -> lymphocyte (path_sim=0.091)"
+            ]
+          },
+          "syntagmatic": {
+            "TOP1_WINNER": {
+              "n": 40,
+              "mean": 0.01576,
+              "median": 0.00946,
+              "frac_ever_co_occurring": 0.675
+            },
+            "BEST_GOLD_SYNONYM": {
+              "n": 40,
+              "mean": 0.00313,
+              "median": 0.0,
+              "frac_ever_co_occurring": 0.275
+            },
+            "winner_over_gold_ratio_of_means": 5.035,
+            "jw_array": [
+              0.026239067055393587,
+              0.008032128514056224,
+              0.022727272727272728,
+              0.03488372093023256,
+              0.004739336492890996,
+              0.0,
+              0.023255813953488372,
+              0.0,
+              0.0,
+              0.020618556701030927,
+              0.022222222222222223,
+              0.0026595744680851063,
+              0.015384615384615385,
+              0.0,
+              0.0,
+              0.0,
+              0.008620689655172414,
+              0.015625,
+              0.005870841487279843,
+              0.0,
+              0.046511627906976744,
+              0.015151515151515152,
+              0.00966183574879227,
+              0.0014892032762472078,
+              0.0,
+              0.0,
+              0.02197802197802198,
+              0.0,
+              0.0,
+              0.017699115044247787,
+              0.05405405405405406,
+              0.0136986301369863,
+              0.05747126436781609,
+              0.009259259259259259,
+              0.0,
+              0.009950248756218905,
+              0.047619047619047616,
+              0.0,
+              0.06578947368421052,
+              0.04918032786885246
+            ],
+            "jg_array": [
+              0.011627906976744186,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0029282576866764276,
+              0.0,
+              0.0,
+              0.0,
+              0.013157894736842105,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.00423728813559322,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0045871559633027525,
+              0.0023006134969325155,
+              0.0,
+              0.0,
+              0.0,
+              0.0136986301369863,
+              0.0,
+              0.03184713375796178,
+              0.0,
+              0.0,
+              0.0,
+              0.011235955056179775,
+              0.0,
+              0.0,
+              0.0,
+              0.014388489208633094,
+              0.0,
+              0.015384615384615385
+            ]
+          }
+        },
+        "16": {
+          "depth": 16,
+          "n_probe": 40,
+          "wordnet": {
+            "n_probed": 40,
+            "counts": {
+              "TAXONOMICALLY_DISTANT": 23,
+              "NO_WORDNET_PATH_AT_ALL": 12,
+              "TAXONOMICALLY_CLOSE_but_outside_the_gold": 3,
+              "WINNER_NOT_IN_WORDNET": 1,
+              "IN_THE_GENEROUS_GOLD": 1
+            },
+            "fractions": {
+              "TAXONOMICALLY_DISTANT": 0.575,
+              "NO_WORDNET_PATH_AT_ALL": 0.3,
+              "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.075,
+              "WINNER_NOT_IN_WORDNET": 0.025,
+              "IN_THE_GENEROUS_GOLD": 0.025
+            },
+            "fraction_no_close_relation": 0.875,
+            "no_relation_bool": [
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "examples": [
+              "africa -> apartheid (path_sim=0.056)",
+              "age -> enemy (path_sim=0.143)",
+              "bigger -> bargain (path_sim=0.000)",
+              "build -> rocket (path_sim=0.111)",
+              "citizen -> awareness (path_sim=0.077)",
+              "classified -> subphylum (path_sim=0.091)",
+              "club -> meiotic (path_sim=0.000)",
+              "cnidarian -> coelom (path_sim=0.071)",
+              "coming -> innovation (path_sim=0.167)",
+              "confirm -> nerve (path_sim=0.167)",
+              "create -> norm (path_sim=0.000)",
+              "density -> relatively (path_sim=0.000)",
+              "distribute -> mating (path_sim=0.200)",
+              "distribution -> interval (path_sim=0.250)",
+              "disturbance -> resilience (path_sim=0.125)",
+              "diversity -> timber (path_sim=0.111)",
+              "dog -> taxon (path_sim=0.091)",
+              "familiar -> seedless (path_sim=0.333)",
+              "favourite -> anywhere (path_sim=0.000)",
+              "filter -> lymphocyte (path_sim=0.091)"
+            ]
+          },
+          "syntagmatic": {
+            "TOP1_WINNER": {
+              "n": 40,
+              "mean": 0.01673,
+              "median": 0.00998,
+              "frac_ever_co_occurring": 0.7
+            },
+            "BEST_GOLD_SYNONYM": {
+              "n": 40,
+              "mean": 0.00313,
+              "median": 0.0,
+              "frac_ever_co_occurring": 0.275
+            },
+            "winner_over_gold_ratio_of_means": 5.345,
+            "jw_array": [
+              0.03205128205128205,
+              0.007936507936507936,
+              0.022727272727272728,
+              0.03488372093023256,
+              0.004739336492890996,
+              0.025,
+              0.023255813953488372,
+              0.0,
+              0.0,
+              0.020618556701030927,
+              0.0,
+              0.0026595744680851063,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.008620689655172414,
+              0.015625,
+              0.005870841487279843,
+              0.0,
+              0.046511627906976744,
+              0.015151515151515152,
+              0.00966183574879227,
+              0.0,
+              0.022727272727272728,
+              0.0,
+              0.031746031746031744,
+              0.013888888888888888,
+              0.005780346820809248,
+              0.01818181818181818,
+              0.05405405405405406,
+              0.0136986301369863,
+              0.05747126436781609,
+              0.0,
+              0.01,
+              0.009950248756218905,
+              0.047619047619047616,
+              0.0,
+              0.05952380952380952,
+              0.04918032786885246
+            ],
+            "jg_array": [
+              0.011627906976744186,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0029282576866764276,
+              0.0,
+              0.0,
+              0.0,
+              0.013157894736842105,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.00423728813559322,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0045871559633027525,
+              0.0023006134969325155,
+              0.0,
+              0.0,
+              0.0,
+              0.0136986301369863,
+              0.0,
+              0.03184713375796178,
+              0.0,
+              0.0,
+              0.0,
+              0.011235955056179775,
+              0.0,
+              0.0,
+              0.0,
+              0.014388489208633094,
+              0.0,
+              0.015384615384615385
+            ]
+          }
+        },
+        "32": {
+          "depth": 32,
+          "n_probe": 40,
+          "wordnet": {
+            "n_probed": 40,
+            "counts": {
+              "TAXONOMICALLY_DISTANT": 23,
+              "NO_WORDNET_PATH_AT_ALL": 12,
+              "TAXONOMICALLY_CLOSE_but_outside_the_gold": 3,
+              "WINNER_NOT_IN_WORDNET": 1,
+              "IN_THE_GENEROUS_GOLD": 1
+            },
+            "fractions": {
+              "TAXONOMICALLY_DISTANT": 0.575,
+              "NO_WORDNET_PATH_AT_ALL": 0.3,
+              "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.075,
+              "WINNER_NOT_IN_WORDNET": 0.025,
+              "IN_THE_GENEROUS_GOLD": 0.025
+            },
+            "fraction_no_close_relation": 0.875,
+            "no_relation_bool": [
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "examples": [
+              "africa -> chinese (path_sim=0.091)",
+              "age -> enemy (path_sim=0.143)",
+              "bigger -> bargain (path_sim=0.000)",
+              "build -> rocket (path_sim=0.111)",
+              "citizen -> awareness (path_sim=0.077)",
+              "classified -> subphylum (path_sim=0.091)",
+              "club -> meiotic (path_sim=0.000)",
+              "cnidarian -> coelom (path_sim=0.071)",
+              "coming -> innovation (path_sim=0.167)",
+              "confirm -> telomerase (path_sim=0.000)",
+              "create -> norm (path_sim=0.000)",
+              "density -> dynamics (path_sim=0.091)",
+              "distribute -> mating (path_sim=0.200)",
+              "distribution -> interval (path_sim=0.250)",
+              "disturbance -> resilience (path_sim=0.125)",
+              "diversity -> timber (path_sim=0.111)",
+              "dog -> taxon (path_sim=0.091)",
+              "familiar -> seedless (path_sim=0.333)",
+              "favourite -> anywhere (path_sim=0.000)",
+              "filter -> lymphocyte (path_sim=0.091)"
+            ]
+          },
+          "syntagmatic": {
+            "TOP1_WINNER": {
+              "n": 40,
+              "mean": 0.01595,
+              "median": 0.01194,
+              "frac_ever_co_occurring": 0.725
+            },
+            "BEST_GOLD_SYNONYM": {
+              "n": 40,
+              "mean": 0.00313,
+              "median": 0.0,
+              "frac_ever_co_occurring": 0.275
+            },
+            "winner_over_gold_ratio_of_means": 5.096,
+            "jw_array": [
+              0.015544041450777202,
+              0.007936507936507936,
+              0.022727272727272728,
+              0.03488372093023256,
+              0.004739336492890996,
+              0.025,
+              0.023255813953488372,
+              0.0,
+              0.0,
+              0.020618556701030927,
+              0.022222222222222223,
+              0.0026595744680851063,
+              0.015384615384615385,
+              0.0,
+              0.0,
+              0.0,
+              0.008620689655172414,
+              0.015625,
+              0.005870841487279843,
+              0.0,
+              0.046511627906976744,
+              0.015151515151515152,
+              0.00966183574879227,
+              0.0,
+              0.022727272727272728,
+              0.0,
+              0.031746031746031744,
+              0.013888888888888888,
+              0.005780346820809248,
+              0.01818181818181818,
+              0.05405405405405406,
+              0.01904761904761905,
+              0.0,
+              0.0,
+              0.01,
+              0.009950248756218905,
+              0.047619047619047616,
+              0.0,
+              0.05952380952380952,
+              0.04918032786885246
+            ],
+            "jg_array": [
+              0.011627906976744186,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0029282576866764276,
+              0.0,
+              0.0,
+              0.0,
+              0.013157894736842105,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.00423728813559322,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0045871559633027525,
+              0.0023006134969325155,
+              0.0,
+              0.0,
+              0.0,
+              0.0136986301369863,
+              0.0,
+              0.03184713375796178,
+              0.0,
+              0.0,
+              0.0,
+              0.011235955056179775,
+              0.0,
+              0.0,
+              0.0,
+              0.014388489208633094,
+              0.0,
+              0.015384615384615385
+            ]
+          }
+        }
+      }
+    },
+    "COMPOSITION_TREND": {
+      "shallow_depth": 1,
+      "deep_depth": 32,
+      "no_relation_delta_point": 0.1011,
+      "no_relation_delta_ci95": [
+        -0.075,
+        0.2506
+      ],
+      "FLAT": true
+    },
+    "FLOORS_RECOMPUTED_ON_THIS_POPULATION": true,
+    "NEVER_IMPORTED": [
+      "0.1382",
+      "0.2070",
+      "-0.1959",
+      "0.1390",
+      "0.0873",
+      "0.2291",
+      "0.1073"
+    ],
+    "elapsed_s": 63.0
+  },
+  "elapsed_s": 78.7,
+  "summary": "ORGAN F ACCUMULATE-GATE diagnosis: signal/interference decomposition (d-prime + field percentiles), high/low-frequency contributor split, common-mode removal vs random-direction control (DO-NOT-REDO 27 gated), rank-vs-hit@1, winner composition, all by depth. -> ORGAN_F_ACCUM_INTERFERENCE__GROWS_FASTER_NONE__REFUTED_NONE__COMMONMODE_FIX_NONE__COMPOSITION_FLAT_True"
+}
