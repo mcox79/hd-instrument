@@ -511,6 +511,26 @@ excludes nothing is not a control -- report how many items each control actually
   load-bearing number lived ONLY in prose -- zero hits in the capacity cell's `metrics.json`. Its
   script was committed, so reproducible not fabricated. **Re-ran: group-disjoint 5-fold CV AUC
   0.8629, pair-level 0.9587, both exact.** Log at `notes/groupdisjoint_verification_log_2026-08-18.txt`.
+- **🚨🚨🚨 THE FINDING OF THE NIGHT, AND IT REFRAMES EVERY NEGATIVE ABOVE: WE HAVE BEEN MEASURING
+  EVERYTHING ON 623,522 TOKENS. THE METHODS WE KEEP TESTING COME FROM A LITERATURE THAT OPERATES AT
+  1e8-1e9. WE ARE 160x TO 1,600x BELOW THE REGIME THEY WERE BUILT FOR.**
+  Measured just now, off disk: the store corpus every arm tonight was built on is **34,169 sentences
+  / ~623,522 tokens**. **`data/corpora/simplewiki/simplewiki_clean_v1.txt` -- 2,779,032 lines,
+  ~41,918,879 tokens, 252 MB -- HAS BEEN SITTING ON DISK THE WHOLE TIME AND WAS NEVER USED TO BUILD
+  THE STORE. It is ~67x larger than what we measure on.** *We used it tonight only as a source of
+  definition sentences, never as the usage corpus.*
+  **WHAT THIS REFRAMES:** SGNS reading BELOW its own untrained control; dependency-typed contexts
+  adding nothing; the drill's own note that symmetric-coordination and typed contexts are *"the
+  right idea, measured on 1e8-1e9 tokens; our corpus is ~1e6"*; and the definitional teacher channel
+  sitting AT CHANCE. **SUBSTITUTABILITY IS A SECOND-ORDER STATISTIC -- it needs enough contexts per
+  word to compare two words' context DISTRIBUTIONS. At 0.62M tokens most words have far too few.**
+  **⚠️ DO NOT OVERSELL THIS EITHER, AND I HAVE ALREADY OVERSOLD ONCE TONIGHT: MORE DATA CANNOT FIX A
+  MECHANISM THAT ANSWERS THE WRONG QUESTION.** Co-occurrence accumulated over 42M tokens is still
+  co-occurrence. **The honest claim is that SCALE IS A PRECONDITION WE HAVE NEVER ONCE MET, not that
+  scale is the answer.** Every "this mechanism does not work" verdict in this programme was reached
+  in a regime where the mechanism could not have worked, and that is a DIFFERENT statement from the
+  mechanism being wrong. **CHEAP AND DECISIVE: rebuild the usage view on simplewiki and re-measure
+  the incumbent. Nothing else should be built until that number exists.**
 - **🔴 CROSS-VIEW CONVERGENCE HUB: CLEAN NEGATIVE, `B_NEGATIVE` FIRED AS PRE-COMMITTED. THE
   BEST-CONTROLLED CELL OF THE SESSION, AND THE FIRST BUILT FROM THE BIOLOGY RATHER THAN FROM WHAT
   WAS LYING AROUND.** `experiments/exp_crossview_convergence_hub_v1.py`, all 16 mechanism arms fail.
@@ -524,12 +544,27 @@ excludes nothing is not a control -- report how many items each control actually
   0.4919; **the coverage control removed 40 of 242 rows (16.5%) -- IT BINDS**, unlike the one that
   removed 0 of 242 earlier tonight. A **planted-positive self-test** refused the cell until the
   pipeline could recover a planted invariant (now hub 0.9934, raw views 0.0000).
-  **⚠️ THE PART THAT IS NOT NOTHING, AND MUST NOT BE OVERSOLD: the hub reads 0.3129 against an
-  incumbent of 0.0603 and its own wrong-source residual control of 0.0575. THE CROSS-PREDICTABLE
-  COMPONENT GENUINELY STRIPS CO-OCCURRENCE ENCODING** -- CCA found real shared structure (rho
-  0.4701, k*=8). **BUT 0.3129 IS STILL DEEP BELOW 0.5. MOVING TOWARD CHANCE IS NOT ACQUIRING
-  SUBSTITUTABILITY**, and the pre-registered direction says only above 0.5 counts. *Definitional
-  view alone 0.4780; the naive-fusion arm was pre-registered to fail and did (0.1258).*
+  **🔴 RETRACTED WITHIN THE HOUR BY THE BRAIN DRILL (`9f27cc5e9`) -- I RELAYED THE 0.06 -> 0.31 MOVE
+  TO THE OWNER AS "GENUINELY STRIPS CO-OCCURRENCE". IT IS NOT. THERE IS ZERO MEASURED EXTRACTION.**
+  **A RANDOM 8-DIMENSIONAL PROJECTION OF THE INCUMBENT STORE -- WHICH NEVER SEES THE DEFINITIONAL
+  CHANNEL AT ALL -- READS 0.3079 [0.2697, 0.3495]. THE ARM READS 0.3129, INSIDE THAT BAND.**
+  Dose-response on RANK ALONE reproduces the whole effect: k=2 -> 0.4127, k=8 -> 0.3079, k=32 ->
+  0.1770, k=128 -> 0.0798, k=256 -> 0.0536 (centring alone 0.0536, so it is RANK, not centring).
+  **AND WORSE: pipeline-matched -- same whitening, same rho, same k*=8, ONLY THE DIRECTIONS
+  RANDOMISED -- the null reads 0.3312 and BEATS the real `HUB_CCA_X` (0.2458) IN 200 OF 200 DRAWS.
+  THE CROSS-VIEW-CHOSEN DIRECTIONS ARE WORSE THAN RANDOM ONES.**
+  **🚨 THE GENERAL LESSON, AND IT IS A NEW FLOOR WE HAVE NEVER HAD: WHEN THE BASELINE SITS FAR BELOW
+  CHANCE, DESTROYING INFORMATION MOVES THE SCORE TOWARD 0.5 AND READS AS PROGRESS. THE ENTIRE
+  INTERVAL (0.06, 0.50) IS REACHABLE BY PURE DEGRADATION, AND NOT ONE FLOOR IN OUR BATTERY CATCHES
+  IT.** *Any future "we moved from 0.06 toward 0.5" claim is void until it beats a RANK-MATCHED
+  null.* Control now exists: `tools/rank_matched_null_dissociation.py`.
+  **ALSO: the teacher channel was AT CHANCE BEFORE THE HUB WAS BUILT ON IT -- `A_DEF` 0.4780
+  [0.4223, 0.5350], NOT separated from 0.5.** *I quoted 0.4780 as a point value; it is a width.*
+  **TWO SETUP WEAKNESSES NAMED: the channel-independence preflight has a CEILING (r >= 0.95) but NO
+  FLOOR, and the pairing sat at r=0.0363 with held-out cosine 0.0512 -- the channels were nearly
+  UNRELATED, which is as fatal as being redundant; and `lam_rel=1.0` was selected AT THE GRID
+  BOUNDARY in 3 of 4 pairings with the objective still climbing, so k*=8 is a truncated-search lower
+  bound, not an optimum.**
   **SCOPE, as pre-registered: one definitional channel, one usage channel, one LINEAR extractor,
   one instrument, n=202. It says the missing ingredient is not a second view OF THIS KIND.**
 - **🚨 A LICENSING DEFECT THIS CELL FOUND THAT REACHES BACKWARDS INTO EVERY RUN WE HAVE GATED:
