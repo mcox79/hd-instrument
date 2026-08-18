@@ -511,6 +511,39 @@ excludes nothing is not a control -- report how many items each control actually
   load-bearing number lived ONLY in prose -- zero hits in the capacity cell's `metrics.json`. Its
   script was committed, so reproducible not fabricated. **Re-ran: group-disjoint 5-fold CV AUC
   0.8629, pair-level 0.9587, both exact.** Log at `notes/groupdisjoint_verification_log_2026-08-18.txt`.
+- **⏸️ HALTED ON A WEEKLY USAGE LIMIT (resets 1pm America/New_York). NOT a code, permission or design
+  failure -- the scaling-curve cell was dispatched and its agent died on the API limit before writing
+  anything. NOTHING IS RUNNING. NOTHING IS HALF-WRITTEN. NO PARTIAL ARTIFACT EXISTS TO CLEAN UP.**
+  **RESUME HERE, AND THE WHOLE BRIEF IS ALREADY DECIDED -- DO NOT RE-DERIVE IT:**
+  **BUILD: a CORPUS SCALING CURVE, not a single endpoint.** Rebuild the usage representation from
+  `data/corpora/simplewiki/simplewiki_clean_v1.txt` at NESTED subsets -- ~0.6M (reproduces today's
+  regime as the anchor), 2M, 6M, 20M, 42M tokens -- each smaller set a SUBSET of the larger so the
+  curve is about SIZE, not about which text. Score every rung on the dissociation instrument.
+  **REPORT MEDIAN CONTEXTS PER EVALUATION WORD at each rung -- that, not raw token count, is the
+  quantity that governs a second-order statistic and it is what makes the curve interpretable.**
+  **THE PRE-COMMITTED READINGS, decided BEFORE any number exists:** RISING and reaching ~0.5 by 42M
+  -> scale was a genuine precondition we never met, and every "this mechanism does not work" verdict
+  in this programme was reached where it COULD NOT have worked and must be RE-OPENED, not re-quoted.
+  RISING but extrapolating to need MUCH MORE THAN ~50M -> **THE MACHINERY IS NOT BRAIN-FAITHFUL, and
+  this is the MOST USEFUL outcome the cell can produce** (report the extrapolated requirement
+  explicitly). FLAT -> supply was never binding; the mechanism answers the wrong question; scale
+  hypothesis closed. NON-MONOTONIC -> the informative case; report it, do not smooth it.
+  **WHY THE CRITERION IS BRAIN-FRAMED AND NOT AN EXCUSE (OWNER, and it is the point of the cell):**
+  *"the brain doesn't need 600000 words - if we've set up the machinery right, shouldn't it work?"*
+  A child hears on the order of millions of words a year and has real vocabulary by 4-6, so TENS of
+  millions of tokens is roughly child scale. **623K is BELOW that -- we have been starving it, which
+  is itself not brain-faithful. But needing 1e8-1e9 would be an ADMISSION THE MACHINERY IS WRONG,
+  because no child gets that. That is what makes this falsifiable rather than a fudge.**
+  **CONTROLS THAT ARE NOT OPTIONAL:** rank-matched null at EVERY rung
+  (`tools/rank_matched_null_dissociation.py`) -- without it, a rise toward 0.5 is indistinguishable
+  from information destruction, which is exactly the claim that was retracted today; all four floors
+  AND the bar RECOMPUTED per rung (a bigger corpus is a DIFFERENT representation, so never import
+  0.5431 / 0.5510 / 0.5943 / 0.6317); `F_SCRAMBLE` as a POLICY over >=500 permutations at the 95th
+  percentile, reusing the fixed implementation already in
+  `experiments/exp_crossview_convergence_hub_v1.py`; CI half-width AND null p95 beside every margin,
+  with any rung whose half-width exceeds the chance-to-bar interval marked UNDERPOWERED rather than
+  given a verdict; evaluation population HELD FIXED across rungs; checkpoint per rung (42M is a long
+  run and must resume).
 - **🚨🚨🚨 THE FINDING OF THE NIGHT, AND IT REFRAMES EVERY NEGATIVE ABOVE: WE HAVE BEEN MEASURING
   EVERYTHING ON 623,522 TOKENS. THE METHODS WE KEEP TESTING COME FROM A LITERATURE THAT OPERATES AT
   1e8-1e9. WE ARE 160x TO 1,600x BELOW THE REGIME THEY WERE BUILT FOR.**
