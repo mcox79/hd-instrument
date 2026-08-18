@@ -687,7 +687,41 @@ excludes nothing is not a control -- report how many items each control actually
   RUNNING: a pre-committed prediction that can FAIL.** *Recorded, deliberately NOT dispatched --
   CLAUDE.md's rule is that an agent report ends my involvement and the owner decides what happens
   next.*
-- **🔵 SECOND LANE (08:05) -- `sensorimotor-discrimination`. THE MOST CONSEQUENTIAL TEST OF THE NIGHT,
+- **🔴 LANDED (`1b79ae57b`) -- SENSORIMOTOR CHANNEL: BRANCH (B) FIRED, EXACTLY AS PRE-REGISTERED AT
+  `73edbca69`. THE PERCEPTUAL ROUTE IS CLOSED AT THIS RESOLUTION, AND THE MECHANISM IS THE VALUABLE
+  PART.**
+  Best arm `SM11_Z_NEG_EUCLID` **0.6039 [0.5439, 0.6644]** against a **credible bar of 0.6791**
+  (margin **-0.0752**). **AND IT IS WORSE THAN THAT: IT SITS BELOW THE CONSTANT/PROTOTYPE FLOOR'S OWN
+  POINT VALUE (0.6195). 0 OF 6 GRID POINTS CLEAR; ALL SIX CIs OVERLAP THAT FLOOR.** Coverage **166 of
+  242** matched units, **557/617 = 90.3% of words -- independently reproducing the drill's §3.2
+  figure**, so this is not a coverage failure.
+  **🔬 THE MECHANISM, AND IT IS THE FINDING: THE ONLY THING THAT DISCRIMINATES IS A *QUERY-INDEPENDENT
+  PER-WORD GENERICITY SCORE* -- ONE THAT NEVER COMPARES THE TWO WORDS AT ALL -- READING 0.6195,
+  CI-SEPARATED ABOVE CHANCE AND BEATING EVERY PAIRWISE DISTANCE.** Centring collapses cosine
+  0.5990 -> 0.5381 while euclidean is unmoved: **the cosine "signal" was carried by the SHARED
+  PROTOTYPE DIRECTION.** Both cells sit in a narrow cone (within-pair cosine 0.8768 vs 0.8434) and
+  **effective dimensionality is 6.26 OF 11.** *So the norms do carry a real signal -- "how generic is
+  this word" -- and it is NOT "are these two words alike". That is the constant/prototype floor's
+  signature, which is precisely what the drill predicted.*
+  **✅ THE NEGATIVE IS REAL AND WAS CHECKED BEFORE ANY BRAIN TALK (discipline 17's first clause):**
+  instrument still licensed at n=166 (four floors CI-include 0.5; incumbent 0.0884); the
+  **planted-separable self-test fires at the deciding n or the cell aborts**; scramble changes 100%
+  of scores. **NOT A POWER PROBLEM -- the best arm is below the floor's POINT value, so no amount of
+  n converts it.** *Concreteness alone (1 dim): 0.5388 vs its own bar 0.6256 -- also beaten by its
+  own floor.*
+  **⚠️ TWO DISCLOSURES, BOTH THE AGENT'S OWN:** (1) known-answer reads **0.9448 [0.9204, 0.9654]** vs
+  a 0.95 **point** gate -- **fails strict-point by 0.005, passes CI-inclusive**; the branch was driven
+  by the CI form, both printed, decided and written into the docstring BEFORE the FULL run. (2)
+  **`F_PROTOTYPE_MAGNITUDE__CONC1` = 0.3195: `SET_S` PAIRS ARE RELIABLY MORE CONCRETE THAN `SET_P`.**
+  *The matcher balances on frequency/length/POS -- NOT on rating-norm properties -- so **discipline 16
+  is live here in a new form: the POPULATION is unbalanced on the very axis this channel measures.***
+  **WHAT IT DOES AND DOES NOT CLOSE: it refutes THIS RESOLUTION (11 dims), NOT GROUNDING.** And the
+  trade is now measured rather than assumed: **Binder's 65 dimensions discriminate far better but
+  cover 9.2% of eval words / 5.0% of anchors, and a unit needs ALL FOUR words covered -- which
+  collapses the instrument below the "a win on 20 pairs is not a win" line. NO ASSET WE CURRENTLY
+  HOLD SITS ON THE GOOD SIDE OF THE COVERAGE-RESOLUTION TRADE.** *The image-derived relational subset
+  (57.9%) is a different KIND of signal and a separate cell.*
+- **[SUPERSEDED -- LANDED ABOVE] SECOND LANE (08:05) -- `sensorimotor-discrimination`. THE MOST CONSEQUENTIAL TEST OF THE NIGHT,
   AND IT IS PRE-REGISTERED TO FAIL IN A SPECIFIC WAY. DO NOT RESPAWN.**
   **Question, deliberately narrow: does a PERCEPTUAL profile separate `SET_P` from `SET_S` AT ALL?
   A SIGNAL THAT CANNOT DISCRIMINATE CANNOT TEACH**, so this gates every downstream supervision idea.
