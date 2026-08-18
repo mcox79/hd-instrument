@@ -403,7 +403,24 @@ the number of queries per point beside every "no difference".**
   load-bearing number lived ONLY in prose -- zero hits in the capacity cell's `metrics.json`. Its
   script was committed, so reproducible not fabricated. **Re-ran: group-disjoint 5-fold CV AUC
   0.8629, pair-level 0.9587, both exact.** Log at `notes/groupdisjoint_verification_log_2026-08-18.txt`.
-- **IN FLIGHT (2026-08-18 ~04:45):** (a) **typed-role write rule** (re-dispatched tight after the
+- **IN FLIGHT, VERIFIED ALIVE AT 05:33 (2026-08-18) -- CHECK THESE FIRST AFTER A COMPACTION:**
+  (a) **`exp_typed_role_context_write_rule_dissociation_v1` (LIVE-PARSE arm) is RUNNING and healthy.**
+  Position read off disk, not inferred: **381 of 617 per-word occurrence units** written
+  (`data/exp_typed_role_context_write_rule_dissociation_v1/units.jsonl`, mtime 0 min ago, newest keys
+  `OCC|v1.0|full|peak / period / pest` -- it is walking the anchor list alphabetically). Slot
+  distribution already DONE (`n_slots=9981`, `n_slot_obs=71103`, 315 s). **Its stdout log lags the
+  units file by ~10 min because stdout is block-buffered -- JUDGE LIVENESS FROM `units.jsonl` mtime,
+  NEVER from the log tail.** *That buffering gap is exactly what made an earlier agent look dead
+  tonight when it was working fine.* Detached, so it survives this session: PID in
+  `scratch/typed_role_full.pid`.
+  (b) **`arm-expansion` (rank-correlation CI) is dispatched and has produced NO transcript bytes yet.**
+  **This is NOT evidence it is dead.** I misread agent silence as death twice tonight and was wrong
+  both times -- once standing down a healthy agent that was authoring a 58 KB cell. **Do not respawn
+  it; a duplicate is the more expensive error.**
+  **NEITHER MAY BE HEADLINED ALONE.** Pre-commitment 6.35 governs (a): it is one half of a
+  cross-corpus PAIR with the landed SimpleWiki arm, and *"one of two independent tests is not a
+  result"*. **If the two DISAGREE that is the informative case and must NOT be reported as "mixed".**
+- **SUPERSEDED IN-FLIGHT NOTE (2026-08-18 ~04:45):** (a) **typed-role write rule** (re-dispatched tight after the
   first attempt stalled an hour on my own over-broad enumeration instruction); (b) **frequency-
   stratified matcher** -- matches WITHIN frequency bands instead of one global caliper, to fix the
   n=7 cause above. **Its gate is unchanged: if it buys n but ANY floor leaves chance, it is REJECTED
