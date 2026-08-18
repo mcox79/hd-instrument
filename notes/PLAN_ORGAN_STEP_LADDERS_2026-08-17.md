@@ -463,6 +463,46 @@ CORPUS can support the relation at all (that is `noncollapse-maxpool` stop-if (i
 
 ---
 
+### 6.17 **THE DIRECTOR REPEATED THE PROJECT'S OWN NAMED ERROR: "NOT PERSISTED" READ AS "GONE".**
+
+While the capacity cell was authoring, the Director tried to shortcut its decisive number with a
+scratch probe, found the matched pairs absent from
+`data/exp_dissociation_score_instrument_v1/metrics.json`, and concluded the population **"cannot be
+read back from the artifact"** -- then wrote that into a brief telling the agent to reconstruct it.
+
+**WRONG, and wrong in the exact way this repo already has a standing rule about.** The population IS
+recoverable: it is in that cell's own `units.jsonl` under checkpoint key `POPULATION|v1.7|full`
+(`tools/exp_checkpoint.py` format), written by its per-unit checkpointing. The agent loads the
+**literal cached 242 pairs/cell, byte-identical** -- which is STRONGER than reconstruction, because a
+reconstruction is only as good as its seeds and calipers matching. It also reloads `SCORES|v1.7|full`
+and recomputes all eight licence checks (four floors + K1 + N0 + A0 + full-accum) to 4 decimals.
+
+**THE STANDING RULE, quoted because it is the one that was broken:** *an absence claim requires an
+ENUMERATION, not a search -- and CHECK RECOVERABILITY BEFORE CONCLUDING ABSENCE.* It was written after
+a prior agent's "never persisted" claim turned out to be true about PERSISTENCE and FALSE about
+RECOVERABILITY. **The Director hit the identical trap on a project whose own docs warn about it in
+those words.** Pattern across this session: **the scientific claims survive adversarial checking far
+better than the Director's operational ones**, because the experiments carry controls and the
+operational guesses did not. Four operational self-corrections tonight (`pythonw`, the argv, the
+ignore rule, this one); each came from asserting a diagnosis off ONE failed command instead of
+checking state.
+
+**THE REUSABILITY DEFECT IS STILL REAL, and is now correctly stated:** the pair set is recoverable
+only from a CHECKPOINT FILE whose key format is undiscoverable from `metrics.json`. Two sibling cells
+found it; the Director did not. **Fix once the capacity run is clear of the module** (editing an
+instrument while a live measurement imports it is changing the ruler mid-measurement): have the
+instrument write its population and its licence gates into `metrics.json` itself, or publish a named
+loader. Do NOT edit it while `exp_corpus_capacity_ppmi_svd_ceiling_v1` is running.
+
+**SMOKE-ONLY, 40 pairs/cell, NOT QUOTABLE AND NOT A RESULT** -- recorded only so the full run can be
+compared against its own smoke: B1_PPMI 0.0275, B3_SECOND_ORDER 0.0456, B2_PPMI_SVD 0.1256 (k=10) /
+0.0631 (k=20), all BELOW 0.5; C1_FITTED_ORACLE 0.9137 fitted / **0.8769 HELD-OUT**. *If that shape
+survives at full scale it is BRANCH B: no unsupervised first-order transform reaches the signal, but
+the signal is THERE -- and the held-out clearance means the oracle GENERALISES rather than memorises,
+which is stronger than Branch B required.* **Do not quote any of these numbers until the full lands.**
+
+---
+
 ### 6.16 **PRE-COMMITTED DECISION ON THE CAPACITY RESULT -- WRITTEN BEFORE IT LANDS, ON PURPOSE.**
 
 `exp_corpus_capacity_*` is in flight. It asks whether THIS CORPUS supports a substitutability signal
