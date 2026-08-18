@@ -469,8 +469,21 @@ relayed it to the owner. The drill checked it against the cell it cites and repo
 SUPPORTED**: the co-occurrence share rises across `ACCUMULATE` **for the RIGHT answer too**, and the
 bias RATIO slightly **FALLS**. **Adjacency does not get in at `ACCUMULATE`. It was there from the
 first sentence, because a bag of neighbours IS an adjacency record.** *The 66.0% -> 94.4% figure is
-real; the causal reading the Director put on it was not.* **VET THIS before it is quoted further --
-it is a correction of our own headline and it deserves the same scrutiny as a positive.**
+real; the causal reading the Director put on it was not.*
+
+> **VET COMPLETE, 2026-08-18, Director, read directly off
+> `data/exp_writerule_step_ladder_v1/metrics.json` -> `COMPOSITION_DELTA_TABLE`. THE DRILL IS
+> CORRECT, AND THE DIRECTOR'S CLAIM WAS WRONG IN THE OPPOSITE DIRECTION FROM WHAT HE ASSUMED.**
+> Across `ACCUMULATE` the fraction of winners with NO close WordNet relation **FALLS 0.8400 ->
+> 0.7971**, delta **-0.043 [-0.0800,-0.0086], CI-SEPARATED (BELOW)**. Accumulation makes the top-1
+> winner **MORE** likely to bear a real relation to the answer, not less. For contrast, the same
+> table puts `FILTER` at -0.0133 NOT_SEPARATED and `CODE_PROJECT` at +0.0031 NOT_SEPARATED -- neither
+> moves composition at all.
+> **HOW THE ERROR HAPPENED, because the mechanism matters more than the number:** the cell reported
+> the winner's ever-co-occur share rising 66.0% -> 94.4% AND, in the same sentence, the GOLD's rising
+> 23.9% -> 60.3% with the ratio staying flat at ~4x. The Director quoted the first half and dropped
+> the second, then attached a causal story ("summing is what converts the store to adjacency") that
+> the flat ratio directly contradicts. **The caveat was in the source; it was lost in the relay.**
 
 **AND THE ANSWER TO "DOES THE BRAIN AVERAGE EPISODES INTO ONE REPRESENTATION?"** -- **BOTH, in two
 anatomically separate pathways, at the same time, permanently.** So our write rule is **not a category
@@ -492,8 +505,8 @@ superposition is the SAME EVENT as coding, not a separate step):
 | # | STEP | what it does | GATE STATUS | evidence |
 |---|---|---|---|---|
 | 1 | **FILTER** | which tokens survive (`content_words`) | **NOT GATED** | +0.0009 NOT_SEPARATED in the step ladder -- that is a drop measurement, NOT a gate. No control, no composition split. |
-| 2 | **CODE** | occurrence -> 256-d vector, one shared random basis | **PARTLY GATED** | the projection is a measured LOSS (0.0123); uncompressed beats projected +0.0138 CI-sep; 32x more dimensions recovers almost none. Missing: composition at this step. |
-| 3 | **ACCUMULATE** | unweighted sum over occurrences | **GATE IN FLIGHT** | the organ's centre. Decisive arm: SUM_ALL 0.0100 < RANDOM_SINGLE 0.0367 < BEST_SINGLE_ORACLE 0.3033 vs a 0.1390 floor. Depth dissociation (6.6). Interference cell dispatched 2026-08-18. |
+| 2 | **CODE** | occurrence -> 256-d vector, one shared random basis | **THE MISSING OPERATION (6.10). NOW THE ORGAN'S PRIME SUSPECT.** | a random projection PRESERVES the geometry it is handed, so it is mathematically incapable of turning "appears near" into "could replace" -- the brain's shared low-dimensional code belongs in this slot. Measured: a LOSS of 0.0123; uncompressed beats projected +0.0138 CI-sep; 32x more dimensions recovers almost none; **composition delta +0.0031 NOT_SEPARATED -- it does not move the relation AT ALL, which is exactly what "preserves geometry" predicts.** |
+| 3 | **ACCUMULATE** | unweighted sum over occurrences | **GATE IN FLIGHT -- and PARTLY EXONERATED** | it is NOT where adjacency enters (VET, 6.10): composition IMPROVES across this step, -0.043 [-0.0800,-0.0086] CI-separated. Still the site of the decisive arm (SUM_ALL 0.0100 < RANDOM_SINGLE 0.0367 < ORACLE 0.3033) and of the depth dissociation (6.6), and it is the step with **no denominator**, which biology never omits. |
 | 4 | **NORMALISE** | `sign()` quantisation | **NOT GATED, AND OFF BY DEFAULT** | +0.0016 NOT_SEPARATED. **It has been OFF since 2026-08-14, so every headline number in this arc was measured with it NOT FIRING.** Anyone who believed quantisation was live was wrong. |
 
 **WHAT "GATED" REQUIRES, so the word is not diluted:** a measurement on ONE population with all four
