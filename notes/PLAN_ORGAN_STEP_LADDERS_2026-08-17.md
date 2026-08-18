@@ -634,6 +634,40 @@ or eats the lane -- and tonight it did both.*
 
 ---
 
+### 6.38 **A TESTABLE PREDICTION FALLING OUT OF THE `T3_COMBINED` COLLAPSE. NOT RUN -- RECORDED SO IT IS NOT LOST.**
+
+**The observation (6.36):** `T3_COMBINED` -- the published-best window+dependency configuration
+(Komninos & Manandhar 2016) -- read **0.2264, WORSE than either channel alone** (`T1` 0.5802,
+`A0` 0.0710). The cell's diagnosis: **`T1` leans mildly toward substitutability while `A0` leans hard
+toward co-occurrence, and simple concatenation cannot average ANTI-CORRELATED channels.** It
+re-checked for a bug and found none.
+
+**IF THAT DIAGNOSIS IS RIGHT, IT MAKES A SHARP PREDICTION WE HAVE NOT TESTED:** concatenation
+combines channels **additively**, which is the wrong operator for two signals pointing opposite ways.
+**A SIGNED combination -- using the co-occurrence channel as something to SUBTRACT rather than
+append -- should beat both.** *Our whole problem is a store saturated with co-occurrence; a channel
+that reliably MEASURES co-occurrence is exactly what you want to remove, not add.*
+
+**Concretely: score by `sim_T1 - beta * sim_A0`, sweeping beta and never adopting a value.** `A0` at
+0.0710 is a **strong, reliable co-occurrence detector** -- it is only "bad" because it detects the
+wrong relation. **An arm that is far BELOW chance is as informative as one far above; it is a sign
+flip away from being useful.** *That reframing has not been applied anywhere in this programme.*
+
+**MANDATORY CONTROLS IF THIS IS EVER BUILT** (all three, per tonight's pattern where five apparent
+wins died to controls): a **beta-matched random-direction subtraction** (does subtracting ANY channel
+help?); the **coverage-matched** twin, since 6.36 showed coverage asymmetry alone can manufacture a
+margin; and the **untyped** twin, since 6.36 also showed the role label contributes nothing over word
+selection. **And the bar is `max(four floors)`, not 0.5.**
+
+**HONEST PRIOR, held in advance:** the same drill that priced the typed-role arm at 0.15/0.20 positive
+and **0.45 clean negative** applies here too, and this is a *derived* idea rather than a
+brain-motivated one -- **it comes from an algebraic observation about anti-correlated channels, not
+from how cortex works.** *Under this project's own frame that makes it OUR-INVENTION-UNDER-TEST with
+no pinned biology behind it, and it should be labelled that way if built.* **NOT DISPATCHED: two
+lanes are already contending for CPU and this is not more urgent than either.**
+
+---
+
 ### 6.37 **THE HUMAN INSTRUMENT IS LICENSED AT LAST (n=65). AND THE POWER LIMIT MOVED TO A PLACE I DID NOT EXPECT: THE NUMBER OF ARMS.**
 
 `exp_dissociation_score_instrument_human_v3` (`f792c3ab8`). **Third attempt; first one that works.**
