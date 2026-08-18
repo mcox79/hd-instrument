@@ -1,0 +1,135 @@
+# PLAN -- SECTION 7: WHAT THE 2026-08-18 AUDIT CHANGED, AND WHAT IS LEFT
+
+**READ THIS BEFORE `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md` SECTION 6.** Section 6 is the ladder
+method and it stands. But the RESULTS it reasons over have since been audited, and most of them did
+not survive.
+
+## 7.1 THE ONE-LINE POSITION
+
+**Of 30 claimed HARD_PASS results vetted across five independent passes: 13 REFUTED, 4 SUSPENDED,
+12 QUALIFIED, 1 UPHELD.** Full record with dispositions: `notes/VETTING_LEDGER.md`
+(`python tools/vetting_ledger.py --cite NAME` answers "may I use this, and with what attached?").
+
+**The single upheld result:** `exp_agreement_depth_productivity_generalization_v1` -- a learned
+function-word accumulator supervised ONLY on depth<=1, scoring 0.7324 [0.7154, 0.7494] on 2,597
+HELD-OUT depth>1 items against a majority floor of 0.5741 (upper 0.5931); margin **+0.1223 read from
+the CI LOWER bound**; still holds at depth 4+ (0.6810 [0.6462, 0.7111]); scramble changes 86.5% of
+decisions; split asserted in code. **Its ceiling travels with it: it TIES the hand-written recursive
+rule (0.7312) rather than beating it. Parity, not supremacy.** Registered `WIRE`.
+
+## 7.2 WHY SO MANY FAILED -- CAUSE, MEASURED
+
+`tools/verdict_evidence_gate.py --census`, across all 7,788 landed results:
+
+| of 2,678 HARD_PASS | count | share |
+|---|---|---|
+| carries a confidence interval | 28 | 1.0% |
+| carries a null / permutation | 369 | 13.8% |
+| carries BOTH | **13** | **0.5%** |
+| **EVIDENCE_INSUFFICIENT** | **2,665** | **99.5%** |
+
+**99.5% of our claimed passes cannot be checked from their own files.** The 0-for-30 was not bad
+luck -- it was sampling a population where the evidence mostly is not there.
+
+**THE STRONGER PREDICTOR, AND IT IS FREE: DID THE TEST ITEMS EXIST BEFORE THE MECHANISM DID?**
+Every survivor was scored on items built independently of the rule. Every pass-5 refutation had its
+detectors authored against the very items it was scored on -- one docstring names the exact token
+pair its rule was written for. **Ask this BEFORE any statistic.**
+
+## 7.3 THE EIGHT FAILURE PATTERNS, EACH FOUND AT LEAST TWICE
+
+1. **The answer is written in.** A causal-link organ re-ran to a BIT-IDENTICAL 0.9722 with its gold
+   links replaced by RANDOM PAIRS. It measured write/read fidelity, not comprehension.
+2. **A stronger floor was computable from the cell's own data** and a weaker one was used --
+   attestation 1.0000 vs treatment 0.6898; bag-of-words 12/12; a 12-line `Counter` reproducing 8/8.
+3. **The gate could not fail** -- treatment a strict superset of baseline by construction, or
+   separation margins set to literally 0.0.
+4. **"N seeds" that are one measurement** -- bit-identical per-seed numbers because nothing depended
+   on the salt.
+5. **Tiny-n p-values that are resample degeneracy** -- a "p=0.000" that was (2/7)^7 over SEVEN pairs;
+   exact McNemar gave 0.0625 and failed its own alpha.
+6. **A "held-out" set that is not held out** -- 16 held-out words sharing ONE hand-written tag vector
+   with the seeds, so held-out similarity was exactly 1.0000.
+7. **A cited baseline that does not exist as quoted** -- 0.30 cited from a file that reads 0.6000 and
+   postdates the run.
+8. **A baseline tuned until it failed** -- a comment records sweeping distractor density for "the
+   smallest min_dist that keeps mr_control >= the can-fail floor while driving mr_integration to
+   0.0000".
+
+## 7.4 "ARE THERE OTHER EXPERIMENTS WE MISSED?" -- YES, ABOUT 5,000 CELLS
+
+Vetting looked ONLY at HARD_PASS. The index holds 8,834 cells:
+
+| population | count | meaning-relevant | status |
+|---|---|---|---|
+| HARD_PASS | 2,678 | 236 | 30 vetted, 1 upheld |
+| **MIDDLE_BAND** | **1,068** | **117** | **NEVER EXAMINED** |
+| **NO VERDICT** | **1,265** | -- | **NEVER EXAMINED** |
+| **unclassified verdict vocabulary** | **2,007** | -- | **NEVER EXAMINED** |
+| **AUTHORED, NEVER LANDED** | **1,042** | **121** | built and never run -- unproven, NOT refuted |
+| HARD_FAIL | 1,369 | -- | correctly negative |
+
+**THE SELECTION BIAS, AND IT IS THE SHARPEST FINDING OF THE WHOLE AUDIT: BUILDING THE QUEUE FROM
+HARD_PASS SELECTED FOR OVER-CLAIMING.** Two cells were found this session whose HONEST tier was
+MIDDLE_BAND: `exp_outcome_valence_goal_congruence_v2` (reaches 1.0 at N=22 and self-tiered
+MIDDLE_BAND -- the tier its over-claimed v1 sibling should have had), and
+`exp_context_vector_signal_v1` (prereg-literal tier MIDDLE_BAND; its HARD_PASS was awarded POST-HOC
+after the pre-registered ceiling guard fired and was amended away).
+
+**MIDDLE_BAND MAY HOLD BETTER SCIENCE THAN HARD_PASS, BECAUSE IT IS WHERE THE HONEST
+SELF-ASSESSMENTS WENT. 117 meaning-relevant MIDDLE_BAND cells have never been read.**
+
+**And 121 meaning-relevant cells were authored and NEVER RUN** -- unproven rather than refuted,
+including a cross-channel independence gate with a trap arm whose FULL never landed.
+
+## 7.5 THE ORGAN LAYER IS A SEPARATE POPULATION AND MUST NOT BE JUDGED BY 7.1
+
+**Owner, 2026-08-18: "we made a lot of effort to build fully functional organs and we should make
+sure we're working off of that significant effort."** That is correct, and it corrects the
+Director's focus: the audit had been checking CLAIMS and had never inventoried the MACHINERY.
+
+`hdlab/` holds **147 modules, 3,153,917 bytes**; **~82 carry a self-test** -- NOT the 31 the Director
+first reported, which was a too-narrow regex; 81 independently matches
+`notes/system_accounting_2026-08-13.md`. **An experiment's claim can be refuted while the organ it
+exercised is perfectly good machinery. The claim base rate says NOTHING about the organ layer.**
+
+**IN FLIGHT:** a runtime accounting of all 147 -- isolated import, self-test execution, and live
+closure by `sys.modules` inspection. **NOT grep**, which is wrong in BOTH directions here: three live
+modules are lazy imports inside function bodies (invisible to grep), and two grep "hits" are a string
+constant and a comment. Target: `notes/ORGAN_ACCOUNTING_2026-08-18.md`, verdicts
+LIVE_AND_WORKING / GOOD_BUT_UNUSED / BROKEN / CONSTANT_OR_STUB / SCRATCH_REMOVE.
+
+**THE DELIVERABLE THAT MATTERS IS GOOD_BUT_UNUSED.** This project's own record says 33 modules
+self-test PASS, are registered WIRED, and are ABSENT FROM THE LIVE CLOSURE -- built, working
+capability the substrate is not standing on.
+
+*Hygiene already visible: `hdlab/_scratch_orig_goal_owner_select.py` is 55 KB, lives in the durable
+organ directory, and is REGISTERED as a capability.*
+
+## 7.6 NEXT STEPS, IN PRIORITY ORDER
+
+1. **LAND THE ORGAN ACCOUNTING AND ACT ON `GOOD_BUT_UNUSED`.** Recovering working machinery beats
+   building new machinery, and it is the owner's explicit ask.
+2. **MINE MIDDLE_BAND, NOT HARD_PASS.** 117 meaning-relevant cells in a population selected for
+   honest self-assessment rather than over-claiming. **Highest expected yield in the archive.**
+3. **RE-RANK THE REMAINING QUEUE BY ITEM-PRIORITY** (7.2) rather than by evidence-carrying. Free,
+   and the stronger filter.
+4. **Vet the remaining 7 best-evidenced HARD_PASS** (13 carry both a CI and a null; 6 are done).
+5. **Triage the 121 meaning-relevant NEVER-LANDED cells.** Unproven, not refuted.
+6. **Fix the method so this does not regenerate:** no verdict without a CI, a null, a declared
+   STRONGEST floor, and an explicit statement of whether the items predate the mechanism.
+
+## 7.7 TOOLING BUILT 2026-08-18 -- INCLUDING THE ONE THAT FAILED
+
+- **`tools/experiment_index.py`** -- indexes all 8,834 cells, answers in ~1 s, and **prints how many
+  rows it scanned BEFORE its results**, so an empty answer can never again pass for an established
+  absence. Replaces `tools/substrate_query.sh`, which **RETURNS ZERO BYTES AND EXITS 0** and thereby
+  rendered every "no prior work found" report -- from every agent and from the Director -- vacuous.
+  **Dates read `ts_iso`, never file mtime:** 60 metrics files share one minute from a bulk touch, and
+  mtime-ranking produced a false "25 results landed the day before this session" claim.
+- **`tools/verdict_evidence_gate.py`** -- the 7.2 census; `--cell NAME` for a single result.
+- **`tools/vetting_ledger.py`** -- the durable categorized record; **refuses to bless an unvetted
+  cell** and returns the base rate instead of silence.
+- **`tools/refloor_sweep.py`** -- **BUILT, SPOT-CHECKED, FAILED, MARKED UNRELIABLE.** It compared a
+  baseline to itself and a law coefficient to an error term. Kept, with the failing spot-check
+  recorded inline, so the next person to have the idea finds the evidence against it first.
