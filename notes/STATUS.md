@@ -341,6 +341,26 @@ equality reported on a 3-value grid is a BIN, not a measurement (C35). State the
 the number of queries per point beside every "no difference".**
 
 ## WHAT IS RUNNING / BLOCKED
+- **⚠️ THE BAR IS `max(four floors)` = 0.5431 ON THE LICENSED INSTRUMENT, **NOT 0.5**. CHANCE is 0.5;
+  the BAR is 0.5431 (the constant/prototype floor). Sections of this file below still say "above 0.5
+  = substitutability" -- **that describes CHANCE, not the GATE.** No conclusion flips (every arm sat
+  0.03-0.44, far below both), but **any future arm must clear 0.5431**, and the Director spent a night
+  describing 0.5 as the target. Corrected in `PLAN_ORGAN_STEP_LADDERS` 6.29.
+- **IN FLIGHT (2026-08-18 ~04:20), both authoring, neither stalled:**
+  (1) **`typed-role write rule`** -- the FIRST arm in ~15 experiments to use the GRAMMATICAL RELATION
+  rather than an unordered bag of words. *Every prior arm varied WHICH words counted or HOW they were
+  weighted; none used the role label.* Uses `data/selectional_preferences_v1/` (41,529 verb+ROLE
+  slots, 90.0% coverage of the 617 scored words, no WordNet, no LLM). Carries an UNTYPED
+  same-coverage twin so a win cannot be credited to TYPE when it is really SELECTION, plus
+  label-permuted / magnitude-permuted / coverage-matched controls (SET_P 218 vs SET_S 185 coverage
+  asymmetry is the flagged artifact risk).
+  (2) **`human instrument v2`** -- rebuilt on ITS OWN population after v1 collapsed to **n=7**. That
+  collapse was a DESIGN error, not sampling: the deciding statistic is a RANK CORRELATION OVER ARMS,
+  which does not require shared ITEMS, and restricting to the WordNet instrument's 617 words threw
+  away ~550 of 573 usable SimLex pairs. **Absolute AUCs will NOT be comparable across the two
+  instruments -- ONLY the ordering.** See `PLAN_ORGAN_STEP_LADDERS` 6.30.
+- **DISK IS FINE (checked 04:20):** one KB staging dir at ~0 MB (not the documented 10.65 GB
+  runaway), 456 GB free. The main director KB is **16.4 GB** and answers every query with nothing.
 - **🚨 THE MANDATORY PRIOR-WORK CHECK IS NON-FUNCTIONAL. `CLAUDE.md`'s SESSION STARTUP RITUAL TELLS
   YOU TO RUN IT AS "THE LOAD-BEARING FIRST ACTION". DO NOT TRUST ITS ANSWER.** Measured 2026-08-18,
   both interpreters, twice: `tools/substrate_query.sh` and `tools/director_kb_query.py` **return ZERO
