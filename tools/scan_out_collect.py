@@ -171,6 +171,19 @@ def assemble(root: Path) -> str:
             lines.append(f"**UNREADABLE**: {err}")
             lines.append("")
             continue
+        # 2026-08-18: a fragment whose top level is a LIST (or anything but an object) used to
+        # crash the whole collector here with "'list' object has no attribute 'get'", so ONE
+        # malformed fragment made EVERY other fragment uncollectable -- and because the Stop
+        # hook's scan-out gate fires on "fragment present, not collected", it re-fired forever.
+        # Degrade per-fragment instead: report the shape, keep going.
+        if not isinstance(data, dict):
+            lines.append(f"**MALFORMED**: top level is `{type(data).__name__}`, expected an "
+                         f"object. Fragment skipped; the rest of this report is unaffected.")
+            if isinstance(data, list):
+                lines.append(f"- it holds {len(data)} item(s); "
+                             f"first item type `{type(data[0]).__name__ if data else 'n/a'}`")
+            lines.append("")
+            continue
         problems = validate_fragment(data)
         if problems:
             lines.append("**SCHEMA WARNINGS:**")
