@@ -35,6 +35,26 @@ VERIFIED there** (0.5000 / 0.4901 / 0.4664 / 0.5431, every CI including 0.5; kno
 `RAW_COUNT_FULL_ACCUM` **0.0510** > `PRESENCE_ABSENCE_BINARIZED` **0.0294**; the ranking is RESOLVABLE
 (max_lo 0.3835 > min_hi 0.0470). **STOP-IF (iii) fired: the incumbent is CI-separated BELOW 0.5.**
 
+**THE ANSWER IS THE LEARNING SIGNAL, AND IT IS MEASURED (`exp_corpus_capacity_ppmi_svd_ceiling_v1`,
+plan sec 6.18).** Instrument licensed by EXACT reproduction -- all 8 regression checks at **delta
+0.0000**; population loaded BYTE-IDENTICAL from the instrument's own checkpoint; matrix 5,491 x 21,576,
+density 0.91%, 1.82M tokens, **coverage PERFECT 242/242 in both cells**.
+- **PPMI+SVD -- the decades-old gold standard for extracting substitutability from counts -- FAILS ON
+  OUR CORPUS AT EVERY RANK:** k=50/100/300/500 -> **0.0519 / 0.0285 / 0.0230 / 0.0278**, all BELOW 0.5,
+  and its BEST is WORSE than our incumbent 0.0710. No k dropped for cost. **We are NOT being beaten by
+  truncated SVD.**
+- **A SUPERVISED LOW-RANK REWEIGHTING OF THE SAME COUNTS READS 0.9606 HELD-OUT** (5-fold; fitted
+  0.9670; **gap 0.0064**, so it generalises rather than memorises).
+- **SAME counts, SAME 242 pairs, SAME scorer. SUPERVISION IS THE ONLY VARIABLE, AND IT MOVES AUC FROM
+  0.03-0.07 TO 0.96.** So the missing thing is **NOT information, NOT representation capacity, NOT the
+  write steps** -- **IT IS THE LEARNING SIGNAL.** Every arm we have ever built is unsupervised and
+  chooses what to write with no error signal about which directions matter. **Routes to the project's
+  own named flavour MISSING-LEARNING -> REUSE/EXPAND the learner, never a parallel build.**
+- **NEVER QUOTE 0.9606 AS A CAPABILITY.** The oracle is FITTED ON THE EVALUATION CONSTRUCT. It proves
+  the counts CONTAIN the signal; it does NOT show an unsupervised or brain-plausible learner finds it.
+  The live question is what supervision a BRAIN has that we do not -- not a labelled synonym list, but
+  prediction error, cross-modal correspondence, consequences of use. **DRILL, NOT BUILD.**
+
 **ORGAN A IS NOW FULLY GATED -- ALL FIVE STEPS (`f311d0ac2`, `34d3fdbab`, plan sec 6.15).** FILTER:
 **REAL BUT NEGATIVE-VALUE** -- a same-size RANDOM token draw reads **0.5041, CI-separated ABOVE** the
 incumbent's 0.4173. CODE: exonerated x2. ACCUMULATE: interference source. NORMALISE: not in the live
