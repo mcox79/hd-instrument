@@ -634,6 +634,53 @@ or eats the lane -- and tonight it did both.*
 
 ---
 
+### 6.41 **THE NIGHT CONVERGED: THE TYPED CHANNEL HAS NEVER BEEN GIVEN ENOUGH DATA TO BE TESTED, ON EITHER INSTRUMENT. THAT IS A DENSITY PROBLEM, AND DENSITY IS A PARAMETER WE ARE FREE TO SET.**
+
+**TWO LANES, TWO POPULATIONS, ONE CAUSE -- neither was looking for it and neither knew of the other:**
+- **HUMAN population (`16475c9c5`, from its own persisted diagnostics):** `n_occurrences_with_slot`
+  **1,112 of 10,215 = 10.9%**, spread over `vocab_size` **10,121** -> **~8.6 slotted occurrences per
+  word over a 10,121-dimensional space.** Nearly every cosine is zero; `U1` lands **exactly** on its
+  own constant-prototype floor (0.4125 / 0.4125).
+- **WORDNET population (`bfc0e941c`):** *"a median 130 arcs per word cannot populate 21,093
+  dimensions -- the lexical channel was STARVED, NOT FALSIFIED"*; effective code **~3 relation bins.**
+- **THE WITHIN-RUN CONTROL THAT MAKES IT CAUSAL, NOT CORRELATIONAL: `U3_ROLE_ONLY` uses 58
+  DIMENSIONS, IS DENSE, AND DOES NOT COLLAPSE (0.5037). SAME CORPUS, SAME POPULATION, SAME 28,832
+  ARC EVENTS. THE ONLY VARIABLE IS HOW THINLY THEY WERE SPREAD.**
+
+**WHY THIS IS ACTIONABLE RATHER THAN A LAMENT: THE OWNER'S RULING (08-16) IS THAT WE SET EVERY
+VARIABLE, INCLUDING DIMENSIONALITY, PER PROCESS -- and this project's own reading is that a
+COMPUTATION is copied while a PARAMETER is SWEPT, NEVER ADOPTED.** *Our worst result copied a
+number; our best copied an operation. **10,121 dimensions was never chosen -- it is whatever
+`(neighbour, relation, direction)` happened to produce.** That is an unswept parameter sitting
+underneath every typed-channel result we have.*
+
+**THE EXPERIMENT: SWEEP THE TYPED CHANNEL'S DENSITY** by coarsening `(neighbour, relation,
+direction)` binning from the full 10,121 down toward `U3`'s 58, **recomputing every floor PER
+CONFIGURATION on THAT configuration's own representation** -- the write-rule ladder already does this
+correctly (`F_CONSTANT_PROTOTYPE__<arm>`) and is the pattern to copy, **not** the cell that imported
+0.5431.
+
+**PRE-COMMITTED READINGS, WRITTEN BEFORE THE RUN:**
+- **(α) SOME density clears its OWN rebuilt floor, CI-separated** -> the channel is real and was
+  starved. **Report the occurrences-per-dimension at which it turns on -- that number, not the AUC,
+  is the finding**, because it is what transfers to every other organ with a sparse channel.
+- **(β) NO configuration clears its own rebuilt floor anywhere in the sweep** -> the typed channel
+  does not carry substitutability beyond its floor **at any density reachable on THIS corpus.**
+  **STATE THE CORPUS AND THE DENSITY RANGE TESTED. THIS IS NOT "IMPOSSIBLE"** -- *a fair test of a
+  weak setup proves that setup failed, and 34,169 sentences may simply be too few.*
+- **(γ) IT CLEARS ONLY WHERE COARSENING HAS COLLAPSED IT ONTO `U3` (~58 dims)** -> **then ROLE
+  IDENTITY is the carrier and TYPED CONTEXT ADDS NOTHING**, and the honest headline is `U3`, not
+  `U1`. *This is the branch I expect to dislike, which is why it is written down now.*
+- **MANDATORY, ALL BRANCHES:** report **occurrences-per-dimension beside every AUC**; **recompute
+  floors per configuration** (discipline 16); **state the swept values and queries per point**
+  (discipline 15 -- an equality on a coarse grid is a BIN, not a measurement); and report **CI
+  half-width and null p95** beside every margin (discipline 14).
+- **🚫 AND THE BAR ITSELF IS NOT SAFE: `F_CONSTANT_PROTOTYPE` 0.5431 CARRIES CI [0.4922, 0.5953] AND
+  `F_SCRAMBLE` 0.5943 CARRIES [0.4937, 0.6911] -- BOTH INCLUDE CHANCE. DO NOT QUOTE A BAR WITHOUT ITS
+  CI, AND IF A REBUILT FLOOR'S CI INCLUDES 0.5, SAY SO RATHER THAN TREATING IT AS A CLEAN GATE.**
+
+---
+
 ### 6.40 **6.39's BRANCH (B) FIRED, AND THE POST-MORTEM FOUND A DEFECT THAT IS PROBABLY NOT CONFINED TO ONE CELL. THE FLOOR-PROVENANCE AUDIT IS NOW THE TOP ITEM.**
 
 **WHAT FIRED (all four Director-verified; full detail in `notes/STATUS.md`, commit `2b49c9dbc`):**
