@@ -591,7 +591,24 @@ excludes nothing is not a control -- report how many items each control actually
   RUNNING: a pre-committed prediction that can FAIL.** *Recorded, deliberately NOT dispatched --
   CLAUDE.md's rule is that an agent report ends my involvement and the owner decides what happens
   next.*
-- **IN FLIGHT (2 lanes, both dispatched 05:50-05:55). DO NOT RESPAWN EITHER -- a duplicate is the
+- **🔵 IN FLIGHT NOW (07:20) -- `typed-density-sweep`, THE ONE LANE RUNNING. DO NOT RESPAWN.**
+  Sweeps the typed channel's density by coarsening `(neighbour, relation, direction)` binning from
+  ~10,121 dimensions toward `U3`'s 58, **recomputing every floor PER CONFIGURATION on that
+  configuration's own representation.** **Branches PRE-COMMITTED at `0504bfd00` (plan 6.41) BEFORE
+  dispatch -- READ THEM BEFORE READING ITS RESULT:** *(α) some density clears its own rebuilt floor
+  -> the channel was starved, and **the occurrences-per-dimension at which it turns on IS the
+  finding, not the AUC**; (β) nothing clears anywhere -> it does not carry substitutability at any
+  density reachable **on THIS corpus** -- **state the corpus and range, do NOT call it impossible**;
+  (γ) it clears only once coarsened onto `U3` -> **role identity is the carrier, typed context adds
+  nothing, headline is `U3`** -- pre-committed as **the branch I expect to dislike**, and it must not
+  be softened.*
+  **IT WAS TOLD TO COPY THE WRITE-RULE LADDER'S PER-ARM FLOOR PATTERN AND EXPLICITLY *NOT* THE CELL
+  THAT IMPORTED 0.5431.**
+- **📋 BOARD FELL 13 -> 3 WITH NO OWNER INPUT THIS SESSION. NOTED, NOT CHASED.** *Consistent with the
+  seven duplicate `rm`-denial questions being auto-closed -- which is what the triage predicted would
+  happen once the underlying fault stopped recurring -- but **I have not verified that** and it
+  should not be reported as if I had.*
+- **[LANDED -- kept for the compaction reader] IN FLIGHT (2 lanes, both dispatched 05:50-05:55). DO NOT RESPAWN EITHER -- a duplicate is the
   more expensive error, and I made exactly that mistake twice tonight.**
   1. **`U1` ON THE HUMAN INSTRUMENT** -- scoring `U1_TYPED_CONTEXT`, `U3_ROLE_ONLY` and
      `T2_UNTYPED_SAME_COVERAGE` against human similarity ratings (n=65, bar **0.5943**). **Its
