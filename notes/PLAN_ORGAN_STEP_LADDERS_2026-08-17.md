@@ -434,6 +434,64 @@ ruler was too weak before anything was built. Three drills gate the organ work:
 
 ---
 
+### 6.11 DRILL 2 LANDED: WHY ELEVEN CONTROLLED EXPERIMENTS PRODUCED ALMOST NOTHING, AND THE PROTOCOL THAT REPLACES THEM.
+
+`notes/protocol_representational_content_organ_gates_2026-08-18.md` (commit `446f61aa0`). **ADOPTED.**
+
+**DECISION YIELD: 4 of 11 changed what we did next. The filesystem also holds FIVE MORE full runs from
+that day, ALL UNTRACKED IN GIT, none of which changed anything -- so the true yield is ~4 of 16.**
+Sharper still: **of the four decisions, only ONE came from an intervention experiment, and it was a
+NEGATIVE.** The other three came from a DECOMPOSITION, a CENSUS bolted onto a losing arm, and a
+RE-MEASUREMENT OF THE RULER.
+
+**WHY LADDERS WORK AND A/B ARMS DO NOT -- three structural properties, and they explain the +0.01
+pattern completely:**
+1. **A LADDER HAS NO NULL OUTCOME.** An A/B has two outcomes and one of them names no next action --
+   and here that outcome had prior ~0.9. A k-step ladder returns a **RANKING OVER NAMED PARTS**, and
+   *every ordering names a step.* You cannot run one and learn nothing.
+2. **IT MEASURES A PAIRED DIFFERENCE AGAINST ZERO, NOT A LEVEL AGAINST A FLOOR.** Measured: ladder drop
+   half-widths **0.0024-0.0078** against the unpaired analytic null **0.02603** at the same n --
+   **3-10x tighter.** And because every arm sits below the 0.139 floor, "margin over floor" returns
+   THE SAME VERDICT for a promising arm and a hopeless one. *That is why our controls were rigorous
+   and our results were uninformative.*
+3. **THE ORACLE RUNG BUYS A BUDGET** (total pipeline loss 0.038 against a 0.079 gap) -- i.e. permission
+   to STOP working on a region. Plus monotonicity is a self-check that can fail INDEPENDENTLY of the
+   hypothesis, which is how both ladders caught the Director's joint model being wrong.
+
+**SIX RETRACTIONS ON DISK, NOT FOUR -- AND ALL SIX ARE PROCESS-PREVENTABLE, NONE CARE-PREVENTABLE:**
+stale tool output (C32), underpowered null (C33), a floor carried across scorers (C34), coarse-grid
+quantisation read as equality (C35), a sign inversion (6.1), regime crossing (6.6). **Three already
+have mechanisms; three do not** -- provenance refusal, grid-resolution disclosure, regime tag.
+
+**NEW PRIMARY MEASUREMENT, ADOPTED: THE DISSOCIATION SCORE.** Two frequency/length/POS-matched pair
+sets -- **substitutable-but-never-co-occurring** vs **co-occurring-but-not-substitutable** -- scored by
+AUC. **It IS our question rather than a proxy for it; it uses ALL pairs rather than the argmax; and
+ALL FOUR FLOORS SIT AT CHANCE ON IT BY CONSTRUCTION.** That last property is the point: our floors have
+been the binding constraint on every read-out number, and this instrument finally **measures us
+instead of the pool.**
+
+**AND IT CORRECTS THE DIRECTOR'S OWN CORRECTION.** Winner composition stays as CONFIRMATORY, but its
+reference is **BROKEN**: `BEST_GOLD_SYNONYM` is an **argmax over golds under the rung's own scorer**,
+which is circular, and it rises 0.2386 -> 0.6029 across the same step the winner rises 0.6600 ->
+0.9443. **So the "66.0 -> 94.4" figure is UNCONTROLLED, not refuted.** *Precision, because it matters:
+the Director's VET in 6.10 rested on the `no_relation_rate` delta (-0.043 [-0.0800,-0.0086]
+CI-separated), which is a DIFFERENT measure and STANDS. The part now known to be uncontrolled is the
+RATIO argument (3.967 -> 3.822).* Do not quote the ratio again until the reference is rebuilt.
+
+**BEFORE-THE-FACT NULL TEST, ADOPTED:** compute the **MARGIN'S** null half-width at the PLANNED n --
+not the arm's -- and compare it to a written-down action threshold BEFORE running. (At n=222 the arm
+read 0.128 while the margin read 0.194.) **Retrospectively this stops 5 of the 7 no-decision runs.**
+The older `floor ~= 1.645/sqrt(n-1)` check is NECESSARY BUT NOT SUFFICIENT -- that ratio was ~1.0 at
+BOTH n=86 and n=222, so it could not discriminate.
+
+**OGL-1, the nine-gate organ protocol, ADOPTED as the standard:** 0 pre-flight power -> 1 enumerate
+from live code -> 2 instrument licence (known-answer, null, provenance, regime tag) -> 3 floors on
+this population only -> 4 oracle ladder (drops, direction field, grid resolution, monotonicity) ->
+5 **content gate** -> 6 selectivity -> 7 causal ablation with a matched-random control -> 8 budget.
+Exit is wire-or-shelve.
+
+---
+
 ### 6.10 DRILL 1 LANDED, AND IT RELOCATES THE ORGAN'S DEFECT FROM `ACCUMULATE` TO `CODE`.
 
 `notes/drill_what_cortex_computes_across_episodes_write_rule_equations_2026-08-18.md` (36 KB).
