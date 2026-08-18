@@ -403,6 +403,52 @@ ruler was too weak before anything was built. Three drills gate the organ work:
 
 ---
 
+### 6.8 TWO OWNER ANSWERS LANDED AND WERE MISSED FOR HOURS. BOTH CHANGE A DESIGN.
+
+**Process failure first, because it caused the delay:** both answers were sitting in `notes/BOARD.md`
+ANSWERED (Q16 at 2026-08-17T19:53Z, Q17 at 2026-08-18T01:12Z) while the board reported **11 OPEN
+questions** -- of which **10 were AUTO-FILED DENIAL NOTICES** from the Stop hook's own denial gate,
+and every `permission-rule` one was the same documented thing (an `rm` welded onto real work). The
+owner's real answers were buried under machine noise, which is exactly why they reported the
+questions tab as unusable. **All 10 notices resolved by the Director 2026-08-18 -- none needed an
+owner ruling** (CLAUDE.md already carries the standing answer, and a 2026-08-13 audit found 31 of 31
+auto-denies contained a deletion token with ZERO from a missing allow entry). Board is now at 0 open.
+**Standing fix already applied:** the denial gate no longer halts on `cancelled`, so teardowns stop
+generating these.
+
+**Q17 -- THE BLOCKED PATH WAS NEVER THE OWNER'S.** Verbatim: *"try a different name. I didn't block
+this at all."* So `experiments/exp_propose_reject_retrieval_v1.py` was blocked by something else, not
+by an owner decision. The Director had already built it under a different name
+(`exp_readout_shortlist_verifier_v1`) -- **that is now CONFIRMED CORRECT rather than a workaround.**
+Do not spend further effort on the blocked filename; it is not a decision point.
+
+**Q16 -- THE WORD-ONSET CHANNEL IS MORPHOLOGICAL, NOT ORTHOGRAPHIC. THIS KILLS THE DESIGN THE
+DIRECTOR WAS ABOUT TO BUILD.** Verbatim: *"the important part of the beginning is that some words are
+kind of defined by that - 'un' means negative, 'con' is usually constructive. It's only applicable to
+some words."*
+
+- **What the Director was going to build:** a representation of how a word *starts*, i.e. LETTERS.
+  **That is a spelling channel, and STANDING RULE 12 FORBIDS IT** -- a floor is cleared by
+  understanding, never adopted, and wiring spelling in to clear a spelling floor is how the retired
+  `>=10%` gate was gamed. The owner's answer redirects this before it was built.
+- **What the owner actually described:** a MEANING-BEARING unit. `un-` negates; `con-` builds. That is
+  MORPHOLOGY -- a semantic prefix -- not orthography that happens to sit at the front of the word.
+- **AND IT IS SELECTIVE:** *"only applicable to some words."* The channel must FIRE ON SOME WORDS AND
+  NOT OTHERS. A channel that fires on every word is, by construction, a letter channel.
+- **THE DISCRIMINATOR COMES FREE FROM THAT SELECTIVITY, and it is unusually clean:** a genuine
+  morphological channel helps on `unhelpful`/`unhealthy` and does **NOTHING** on words whose opening
+  letters carry no morpheme; a LETTER-MATCHING channel helps on BOTH equally. **Any onset arm must
+  report the morpheme-bearing and non-morpheme-bearing strata SEPARATELY, and a uniform gain across
+  both is a FAILURE under rule 12, not a win.**
+- **Prior measurement this replaces:** the onset cue read EXACTLY 0.0 [-0.0013,+0.0013] because our
+  only implementation hashed a word's first four characters into one meaningless token -- it could
+  only match if some other stored word literally WAS those four characters. That measured the absence
+  of any onset representation, not the absence of onset information.
+- **QUEUE POSITION: BEHIND the write-rule gates.** It is a genuinely new channel with a clean control,
+  but ORGAN A is the ruling and nothing jumps it.
+
+---
+
 ### 6.4 REVISED ORDER OF WORK  *(SUPERSEDED BY 6.7 -- kept for the record)*
 
 1. **DONE -- the verb rescore landed and survives (6.5).**
