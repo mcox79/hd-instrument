@@ -527,6 +527,41 @@ needle 7 points on a scale where the oracle is 91 points away.*
 
 ---
 
+### 6.24 **SCOPE LIMIT ON THE INSTRUMENT ITSELF, stated before it hardens into an overclaim.**
+
+Verified off disk 2026-08-18 (`exp_dissociation_score_instrument_v1.py`): `SET_P` is built by
+`build_wordnet_synonym_candidates()` (line 304) from `wn.synsets()` (line 312); `SET_S` **explicitly
+excludes any WordNet pair even at high co-occurrence** (line 674); the known-answer arm is WordNet
+path similarity. **WordNet DEFINES BOTH SIDES of the labels -- positives by inclusion, negatives by
+exclusion.**
+
+**THEREFORE, SAY THIS PRECISELY FROM NOW ON: the instrument measures AGREEMENT WITH WORDNET'S NOTION
+OF SYNONYMY. It does not measure "substitutability" in the abstract.** Everything in 6.12-6.23 is
+sound *as a statement about that target* -- the licence is real (four floors at chance, known-answer
+0.9599, random store 0.4862, all verified), the arms are separated, the controls did their work.
+**But two claims must NOT be made from it:**
+1. **"Our store cannot encode substitutability"** -- unsupported. A store could encode a genuine
+   substitutability relation that WordNet does not enumerate and would score at or below 0.5 here.
+   The correct statement is **"our store does not agree with WordNet synonymy above chance."**
+2. **"AUC 0.5 is the meaning boundary"** -- it is the **WordNet-agreement** boundary. Read every
+   number in 6.12-6.23 with that qualifier attached.
+
+**WHY THIS IS A LIMIT AND NOT A DEFECT.** The known-answer arm reading 0.9599 is close to tautological
+(a WordNet-derived similarity predicts WordNet-derived labels), which is exactly what makes it a good
+INSTRUMENT CHECK and a poor CAPABILITY TARGET. The floors sitting at chance are what make it usable
+at all. **This is the strongest instrument this programme has ever had, and it is still an instrument
+pointed at ONE lexical resource's opinion.**
+
+**THE CONSEQUENCE FOR THE NEXT PHASE, and it is not merely the circularity rule:** a second,
+INDEPENDENT operationalisation of substitutability -- one whose labels are NOT WordNet-derived --
+would test whether 6.23's conclusion is about our store or about WordNet. *Until that exists, "the
+missing ingredient is a learning signal" is a conclusion about learning to agree with WordNet.*
+**Candidate independent targets to consider when one is built: human substitution judgements, cloze
+/ fill-in-the-blank interchangeability measured on held-out text, or paraphrase corpora -- each with
+its own circularity audit.**
+
+---
+
 ### 6.23 **ORGAN A: CLOSED. THE COMPLETE FINDING.**
 
 **THE INFORMATION IS THERE.** A supervised diagonal reweighting of the SVD space reaches **0.9670
