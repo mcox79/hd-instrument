@@ -713,6 +713,24 @@ from how cortex works.** *Under this project's own frame that makes it OUR-INVEN
 no pinned biology behind it, and it should be labelled that way if built.* **NOT DISPATCHED: two
 lanes are already contending for CPU and this is not more urgent than either.**
 
+**🔺 UPDATE, SAME NIGHT (05:36, `5170c7751`) -- THE PREMISE REPLICATED ON A SECOND CORPUS BEFORE
+ANYONE WENT LOOKING FOR IT, WHICH RAISES THIS ITEM'S PRIORITY.** When 6.38 was written the
+combination collapse was **ONE observation on ONE corpus** (SimpleWiki, `T3_COMBINED` 0.2264). The
+live-parse arm then reproduced it independently: **`T3_COMBINED` 0.3533, i.e. -0.3136
+[-0.3476, -0.2812] against `U1` alone -- CI-separated, and a LARGE effect in the WRONG direction.**
+**Concatenating the published window+dependency channels is now a TWO-CORPUS finding: it does not
+merely fail to help, it ACTIVELY DESTROYS a channel that on its own clears the bar.** *A published
+best-practice configuration reversing sign on two independent corpora is itself worth reporting,
+separately from whether our signed alternative works.*
+
+**WHAT THIS DOES AND DOES NOT CHANGE.** It **does** promote 6.38 from an algebraic hunch to a
+prediction with a replicated empirical premise -- the anti-correlation is real and its cost is
+measured twice. It **does NOT** make the proposed fix brain-motivated; **the sign-flip remains
+OUR-INVENTION-UNDER-TEST with no pinned biology, and the honest prior above still stands.** *A
+strong premise does not license the conclusion -- that inference is exactly the one that produced
+five control-killed "wins" tonight.* **The three mandatory controls above are NOT relaxed by this
+update.**
+
 ---
 
 ### 6.37 **THE HUMAN INSTRUMENT IS LICENSED AT LAST (n=65). AND THE POWER LIMIT MOVED TO A PLACE I DID NOT EXPECT: THE NUMBER OF ARMS.**
