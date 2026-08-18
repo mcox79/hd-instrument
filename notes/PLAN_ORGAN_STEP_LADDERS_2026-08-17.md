@@ -463,6 +463,54 @@ CORPUS can support the relation at all (that is `noncollapse-maxpool` stop-if (i
 
 ---
 
+### 6.15 **ORGAN A IS FULLY GATED. ALL FIVE STEPS. AND THE ORGAN-LEVEL READING IS SHARPER THAN ANY SINGLE GATE.**
+
+Two cells closed the last three steps: `exp_writerule_maxpool_occurrence_v1` (`f311d0ac2`) and
+`exp_writerule_filter_superpose_gate_v1` (`34d3fdbab`). Both reuse the licensed dissociation
+instrument's matched-pair population and scorer VERBATIM, with regression gates passing bit-for-bit.
+
+| step | verdict | evidence |
+|---|---|---|
+| **FILTER** | **REAL BUT NEGATIVE-VALUE** | `N1_RANDOM_FILTER` (same token count, random draw) reads **0.5041**, **CI-separated ABOVE** the incumbent's **0.4173**. *Our stopword-removal selection is measurably WORSE than picking the same number of tokens at random.* Stop-if (ii) fired: removing the filter does not read worse. Its value, if any, is attrition -- not selection. |
+| **CODE** | **EXONERATED x2** | learned basis matched by same-rank RANDOM basis; nothing moves composition (6.13) |
+| **ACCUMULATE** | **INTERFERENCE SOURCE, but NOT FIXABLE BY NOT-COLLAPSING** | field grows while signal is stationary (6.9); and max-pooling is **-0.0210 [-0.0393,-0.0020] BELOW** the sum |
+| **NORMALISE** | **NOT IN THE LIVE PATH** | `sign()` off by default since 2026-08-14; every headline number measured with it not firing |
+| **SUPERPOSE** | **DOES NOT EXIST -- EXONERATED BY PROOF** | rebuilding each word from its OWN counts alone reproduces the incumbent to **1.76e-08 across all 617 words**. `ConceptSpace.observe` never reads another anchor's data. **Not argued -- reconstructed.** |
+
+**THE MAX-POOL RESULT AND WHY ITS CONTROL MATTERS.** Keeping every occurrence separate and scoring by
+best match made the store's co-occurrence bias **WORSE** (0.0299 vs the sum's 0.0510), at **55x the
+storage**. The control decides the interpretation: `N1_MAXPOOL_RANDOM_OCC` sits **at chance (0.4545,
+CI includes 0.5), NOT depressed.** If the max operator were inflating similarity by construction, N1
+would be dragged down too. It is not. **So the depression is caused by the word's OWN occurrence
+content, not by the operator.** None of the four pre-registered stop-ifs fired; the agent reported a
+FIFTH, unanticipated outcome rather than forcing it into the taxonomy, which is correct.
+
+**THE ORGAN-LEVEL FINDING, AND IT IS THE REAL RESULT OF THIS WHOLE PASS.**
+**NOT ONE ARM THIS PROGRAMME HAS EVER MEASURED IS CI-SEPARATED ABOVE 0.5 ON THE LICENSED INSTRUMENT.**
+Every store we can build tops out AT chance, never above it:
+
+- best measured: `N2_SHUFFLED` 0.5296 (NOT_SEP from 0.5), `N1_RANDOM_FILTER` 0.5041 (NOT_SEP),
+  `F4_W1` 0.4959, `S1_SINGLE_OCC` 0.4173
+- everything with MORE real accumulated content is FURTHER BELOW: incumbent 0.0710, full accumulation
+  0.0510, max-pool 0.0299, binarised 0.0294
+
+**Read the direction: every intervention that DESTROYS information moves us TOWARD chance, and every
+intervention that ADDS accumulated corpus content moves us AWAY from substitutability.** The ceiling
+is not "we have not found the right step" -- **it is that first-order co-occurrence counts from this
+corpus carry a co-occurrence signal and, apparently, no substitutability signal for these five steps
+to expose.** The best any of them achieves is to encode NOTHING.
+
+**WHAT THIS LICENSES, and it is a redirect rather than another step-fix.** The one arm that moved
+BOTH instruments is `PARADIGMATIC_PROFILE_WRITE` (AUC 0.2165 vs incumbent 0.0710; the only read-out
+mover at +0.0075) -- and it is the only rule tested that computes a **SECOND-ORDER** quantity at write
+time. **The next build is therefore not a sixth step-fix but a write rule whose PRIMARY quantity is
+distributional similarity, with the corpus-capacity question asked first: does a store built from
+this corpus have ANY configuration that reads above 0.5, and if not, the blocker is the CORPUS or the
+FIRST-ORDER REPRESENTATION, not the write steps.** *That is the honest stop-if (iv) reading and it
+must not be softened into "keep trying steps".*
+
+---
+
 ### 6.13 **THE CODE GATE REFUTES DRILL 1's CENTRAL PREDICTION. `CODE` IS EXONERATED -- A SECOND TIME, ON A HARDER TEST.**
 
 `exp_writerule_learned_basis_denominator_gate_v1`, commit `ac629b1e7`; findings
