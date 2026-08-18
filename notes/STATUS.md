@@ -326,7 +326,8 @@ ON-DISK RE-CHECK -- ~11 wrongly demoted, 17 corrections-of-a-correction in 48h; 
 EXISTS/IS-REACHED/IS-GOOD separate. **C35 is the 18th: a correction said a claim "does not
 reproduce" when the cell it reproduces in was never opened.** 8 A GATE IS A CI-SEPARATED MARGIN
 ABOVE max(ORTHOGRAPHIC, FREQUENCY, SCRAMBLE, CONSTANT) on the IDENTICAL scorer/n/pool/gold -- never
-a bare number, baseline STANDALONE, every floor recomputed on the item's OWN population.
+a bare number, baseline STANDALONE, every floor recomputed on the item's OWN population **AND ITS OWN
+REPRESENTATION (widened 08-18 -- see 16; "population" alone did NOT catch the 0.5431 import).**
 9 DETECTORS FIRE ON HONESTY (49/49 flagged were false positives). 10 SILENT JOINS FABRICATE GREEN
 AND RED -- ASSERT+COUNT joined rows. 11 A NUMBER MAY NOT BE CARRIED BETWEEN SCORERS OR POPULATIONS
 -- cost 3x in one night (C28/C29/C30); name the scorer, n, pool and gold for BOTH sides or you have
@@ -339,6 +340,17 @@ one night (C32/C33/C34), each an UNDERPOWERED NULL read as a CAPABILITY STATEMEN
 "floor" WAS the null distribution's own spread. **15 A GRID'S RESOLUTION IS PART OF ITS VERDICT: an
 equality reported on a 3-value grid is a BIN, not a measurement (C35). State the swept values and
 the number of queries per point beside every "no difference".**
+**16 A FLOOR IS SPECIFIC TO THE REPRESENTATION IT WAS COMPUTED ON, NOT ONLY TO THE POPULATION --
+AND THIS RULE EXISTS BECAUSE RULE 8 AS WRITTEN COULD NOT CATCH THE VIOLATION.** 0.5431 was computed
+on the BAG-of-words representation and quoted as "THE bar" across `STATUS.md` and the plan for two
+days -- **including in the banner that corrected everyone for saying 0.5** -- then applied to arms
+built on grammatical ARCS. Rebuilt on the arc representation, a **no-words attestation floor read
+0.6317 [0.5820, 0.6781]** against a 0.6669 headline: **the gate was meaningless and the coverage
+control could not catch it (`COVERAGE_MIN=3` dropped 0 of 242 pairs).** *Same population, same
+scorer, same gold -- so rules 8 and 11 both PASSED while the comparison was already void.* **STATE
+THE REPRESENTATION BESIDE EVERY FLOOR, AND REBUILD THE FLOOR WHENEVER THE REPRESENTATION CHANGES,
+EVEN IF NOTHING ELSE DID.** *Corollary, earned the same night: a control with a threshold that
+excludes nothing is not a control -- report how many items each control actually removed.*
 
 ## WHAT IS RUNNING / BLOCKED
 
