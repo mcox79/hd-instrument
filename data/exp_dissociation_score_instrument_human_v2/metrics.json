@@ -1,0 +1,179 @@
+{
+  "anchor_name": "dissociation_score_instrument_human_v2",
+  "run_mode": "full",
+  "code_version": "v2.0",
+  "findings_log": "notes/dissociation_score_instrument_human_v2_2026-08-18.md",
+  "verdict": "DISSOCIATION_INSTRUMENT_HUMAN_UNLICENSED__POWER_INSUFFICIENT__n_match=7__min_required=60__STOPPED_BEFORE_ANY_ARM",
+  "verdict_msg": "Human-label (SimLex-999 + SimVerb-3500) dissociation-score instrument: does agreement with human similarity judgements rank the same 7 arms the same way the WordNet-labelled instrument does? -> DISSOCIATION_INSTRUMENT_HUMAN_UNLICENSED__POWER_INSUFFICIENT__n_match=7__min_required=60__STOPPED_BEFORE_ANY_ARM",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 10000,
+    "T_HIGH": 6.0,
+    "T_LOW": 4.0,
+    "TOP_DECILE_Q": 0.9,
+    "KNOWN_ANSWER_MIN_AUC": 0.999
+  },
+  "selftest_evidence_keys": [
+    "DSI_selftest",
+    "arm_partition_known_answer",
+    "benchmark_loaders_real_code_path",
+    "combine_benchmark_pairs_precedence_and_anchor_restriction",
+    "max_floor_margin_known_answer",
+    "power_insufficient_threshold_known_answer",
+    "setP_setS_construction_known_answer",
+    "substrate_signature_checks_passed",
+    "wn_overlap_stats_known_answer"
+  ],
+  "report": {
+    "anchor_name": "dissociation_score_instrument_human_v2",
+    "grid": "full",
+    "code_version": "v2.0",
+    "findings_log": "notes/dissociation_score_instrument_human_v2_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "T_HIGH": 6.0,
+    "T_LOW": 4.0,
+    "REGRESSION_GATE": {
+      "n_anchors": 5491,
+      "mat_shape": [
+        5491,
+        256
+      ],
+      "PASS": true
+    },
+    "corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "WORDNET_INDEPENDENCE_AUDIT_RAW_CANDIDATES": {
+      "n": 436,
+      "n_exact_synonym": 94,
+      "n_close": 318,
+      "frac_exact_synonym": 0.2156,
+      "frac_close": 0.7294
+    },
+    "WORDNET_INDEPENDENCE_AUDIT_MATCHED_SET_P": {
+      "n": 7,
+      "n_exact_synonym": 3,
+      "n_close": 4,
+      "frac_exact_synonym": 0.4286,
+      "frac_close": 0.5714
+    },
+    "POPULATION": {
+      "n_combined_benchmark_pairs_anchor_restricted": 2233,
+      "decile90_threshold": 4.0,
+      "n_distinct_cooccurring_anchor_pairs": 711206,
+      "n_setP_raw": 436,
+      "n_setS_raw": 122,
+      "matching": {
+        "per_pos_stratum": {
+          "a": {
+            "n_P_candidates": 19,
+            "n_S_candidates": 3,
+            "n_matched": 0,
+            "n_dropped_caliper": 19
+          },
+          "n": {
+            "n_P_candidates": 47,
+            "n_S_candidates": 27,
+            "n_matched": 0,
+            "n_dropped_caliper": 47
+          },
+          "v": {
+            "n_P_candidates": 370,
+            "n_S_candidates": 92,
+            "n_matched": 7,
+            "n_dropped_caliper": 363
+          }
+        },
+        "n_candidates_P": 436,
+        "n_candidates_S": 122,
+        "n_matched_P": 7,
+        "n_matched_S": 7,
+        "n_dropped_caliper": 429,
+        "caliper_sq_per_dim": [
+          0.02,
+          0.02,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "matching_covariates": [
+          "mean_log_freq",
+          "abs_freq_diff",
+          "mean_length",
+          "orthographic_trigram_cos",
+          "mean_constant_prototype"
+        ],
+        "pre_match_smd": {
+          "mean_log_freq": -1.8396,
+          "abs_freq_diff": 0.265,
+          "mean_length": 1.0581,
+          "orthographic_trigram_cos": -0.0595,
+          "mean_constant_prototype": -1.2561
+        },
+        "post_match_smd": {
+          "mean_log_freq": -0.0126,
+          "abs_freq_diff": 0.012,
+          "mean_length": -0.7022,
+          "orthographic_trigram_cos": 0.0,
+          "mean_constant_prototype": -0.0691
+        },
+        "post_match_pos_distribution_P": {
+          "v": 7
+        },
+        "post_match_pos_distribution_S": {
+          "v": 7
+        }
+      },
+      "wordnet_independence_audit_raw": {
+        "n": 436,
+        "n_exact_synonym": 94,
+        "n_close": 318,
+        "frac_exact_synonym": 0.2156,
+        "frac_close": 0.7294
+      },
+      "wordnet_independence_audit_matched": {
+        "n": 7,
+        "n_exact_synonym": 3,
+        "n_close": 4,
+        "frac_exact_synonym": 0.4286,
+        "frac_close": 0.5714
+      }
+    },
+    "N_MATCHED_PAIRS_PER_CELL": 7,
+    "LICENSING": {
+      "SKIPPED": true,
+      "INSTRUMENT_LICENSED": false,
+      "reason": "population n_match=7 < POWER_INSUFFICIENT_MIN_N=60; per pre-reg STOP-IF (0), no floor is scored at this n"
+    },
+    "POWER_CHECK": {
+      "n_matched_pairs_per_cell": 7,
+      "POWER_INSUFFICIENT_MIN_N": 60,
+      "POWER_INSUFFICIENT": true,
+      "reason": "matched population below the pre-registered minimum n; no arm (including floors) is scored"
+    },
+    "AUC_PER_ARM": {},
+    "ARM_DIGESTS_ARMS_MUST_DIFFER": {},
+    "arms_differ_exempted": [
+      "ALL_ARMS: population POWER_INSUFFICIENT at n=7 (<60), no arm was scored, so the arms-must-differ hash-test does not apply (there is nothing to hash)"
+    ],
+    "RANK_CORRELATION": {
+      "SKIPPED": "no arms scored on this population"
+    },
+    "WORDNET_INSTRUMENT_CONTEXT_MAX_FLOOR_AUC": {
+      "source": "D:\\AI\\hd-instrument\\data\\exp_dissociation_score_instrument_v1\\metrics.json",
+      "per_floor_auc": {
+        "F_ORTHOGRAPHIC": 0.5,
+        "F_FREQUENCY": 0.4901,
+        "F_SCRAMBLE": 0.4664,
+        "F_CONSTANT_PROTOTYPE": 0.5431
+      },
+      "max_floor_auc": 0.5431,
+      "note": "the bar for ANY future arm on a licensed run is max(four floors), NOT 0.5 -- this is the WordNet instrument's OWN recomputed value, cited for context only; this cell's own floors were never scored (population underpowered)"
+    },
+    "INTERPRETATION": "POWER_INSUFFICIENT__n_match=7__min_required=60__STOPPED_BEFORE_ANY_ARM",
+    "elapsed_s": 3.7
+  },
+  "elapsed_s": 7.2,
+  "summary": "Human-label (SimLex-999 + SimVerb-3500) dissociation-score instrument: does agreement with human similarity judgements rank the same 7 arms the same way the WordNet-labelled instrument does? -> DISSOCIATION_INSTRUMENT_HUMAN_UNLICENSED__POWER_INSUFFICIENT__n_match=7__min_required=60__STOPPED_BEFORE_ANY_ARM"
+}
