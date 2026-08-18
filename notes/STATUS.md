@@ -687,7 +687,22 @@ excludes nothing is not a control -- report how many items each control actually
   RUNNING: a pre-committed prediction that can FAIL.** *Recorded, deliberately NOT dispatched --
   CLAUDE.md's rule is that an agent report ends my involvement and the owner decides what happens
   next.*
-- **🔵 IN FLIGHT NOW (07:20) -- `typed-density-sweep`, THE ONE LANE RUNNING. DO NOT RESPAWN.**
+- **🔵 SECOND LANE (08:05) -- `sensorimotor-discrimination`. THE MOST CONSEQUENTIAL TEST OF THE NIGHT,
+  AND IT IS PRE-REGISTERED TO FAIL IN A SPECIFIC WAY. DO NOT RESPAWN.**
+  **Question, deliberately narrow: does a PERCEPTUAL profile separate `SET_P` from `SET_S` AT ALL?
+  A SIGNAL THAT CANNOT DISCRIMINATE CANNOT TEACH**, so this gates every downstream supervision idea.
+  Data verified on disk by me: `data/grounding_testbed/Lancaster_sensorimotor_norms_for_39707_words.csv`,
+  16.4 MB, 39,707 rows, all 11 mean dimensions present. **NOT text-derived, NOT WordNet-derived, NOT
+  an LLM -- which is exactly why it is admissible where every other candidate was circular.**
+  **Branches pre-committed at `73edbca69` (6.43) BEFORE dispatch. THE FAILURE MODE IS NAMED IN
+  ADVANCE: `SET_S` pairs are same-POS same-domain nouns ("calcium/carbonate") that may share a
+  sensorimotor profile just as the synonyms do, so this channel may behave like the
+  constant/prototype floor -- OUR STRONGEST. IF THAT FIRES IT REFUTES THIS RESOLUTION (11 dims), NOT
+  GROUNDING**, and the report must name what resolution would be needed rather than concluding
+  grounding fails. *Binder's 65 dimensions discriminate better but cover 9.2% of eval words.*
+  **IT IS A DISCRIMINATION TEST, NOT A SUPERVISION BUILD -- if it passes, the supervision cell is a
+  SEPARATE decision with its own pre-commitment.**
+- **🔵 FIRST LANE (07:20) -- `typed-density-sweep`. DO NOT RESPAWN.**
   Sweeps the typed channel's density by coarsening `(neighbour, relation, direction)` binning from
   ~10,121 dimensions toward `U3`'s 58, **recomputing every floor PER CONFIGURATION on that
   configuration's own representation.** **Branches PRE-COMMITTED at `0504bfd00` (plan 6.41) BEFORE
