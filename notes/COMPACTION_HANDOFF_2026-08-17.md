@@ -1,5 +1,33 @@
 # COMPACTION HANDOFF -- 2026-08-17, written by the Director
 
+> ## SUPERSEDED IN ITS FORWARD-LOOKING PARTS, 2026-08-18. READ `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md` SEC 6.15-6.19 FIRST.
+>
+> **Its RETRACTIONS, CORRECTIONS and INSTRUMENT WARNINGS remain in force and are still worth reading.**
+> **Its "NEXT THREE THINGS" and its diagnosis of what to build are OVERTAKEN** -- do not resume from
+> them. What changed overnight, in one paragraph:
+>
+> - **The write rule is now FULLY GATED, all five steps** (plan 6.15). FILTER is real but
+>   NEGATIVE-VALUE (a same-size random token draw beats it, 0.5041 vs 0.4173). CODE is exonerated
+>   TWICE. ACCUMULATE is the interference source. NORMALISE is not in the live path. **SUPERPOSE DOES
+>   NOT EXIST** -- proven by reconstruction to 1.76e-08 across all 617 words.
+> - **A licensed instrument now exists** (`exp_dissociation_score_instrument_v1`): four floors VERIFIED
+>   AT CHANCE, known-answer 0.9599. Above 0.5 = substitutability, below = co-occurrence. **Load its
+>   population from its own checkpoint `POPULATION|v1.7|full`; NEVER rebuild the matching.**
+> - **THE ANSWER IS THE LEARNING SIGNAL** (plan 6.18). Every unsupervised method sits below chance --
+>   ours 0.0710, PPMI 0.0249, PPMI+SVD 0.0230-0.0519 at four ranks, second-order cosine 0.0510 -- while
+>   a SUPERVISED reweighting of the SAME counts reads **0.8629 under group-disjoint CV**. The corpus is
+>   NOT the blocker. **Never quote 0.9606** (leaked word identity) and **never quote the oracle as a
+>   capability** (fitted on the evaluation construct).
+> - **The learner already exists**: `hdlab/predictive_coding.py` plus a landed 2026-07-02 cell family
+>   (plan 6.19). **REUSE / EXPAND it, never build a parallel one -- but do NOT inherit its verdicts**,
+>   which were scored on a different metric and population.
+> - **RETRACTED overnight:** "the operative defect is collapsing occurrences into one vector" (max-pool
+>   reads 0.0299, CI-separated BELOW the sum at 55x storage) and "summing is what converts the store to
+>   appears-near" (the no-relation rate FALLS across ACCUMULATE; adjacency was there from sentence one).
+>
+> *This file is kept rather than rewritten because its retractions are load-bearing and a deleted
+> retraction is how a corrected claim comes back.*
+
 **READ THIS AFTER `notes/STATUS.md` AND BEFORE ACTING.** It carries what one very long session
 established, what it RETRACTED, and the two agents left mid-task. Everything here was measured on
 disk; where a number comes from an agent's fragment rather than an independent recompute, it says so.
