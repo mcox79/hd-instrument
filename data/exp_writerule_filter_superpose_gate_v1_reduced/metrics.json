@@ -1,0 +1,1250 @@
+{
+  "anchor_name": "writerule_filter_superpose_gate_v1",
+  "run_mode": "reduced",
+  "code_version": "v1.0",
+  "findings_log": "notes/writerule_filter_superpose_gate_2026-08-18.md",
+  "verdict": "BOTH_GATES_EXONERATED_WRITE_RULE_FULLY_GATED_DEFECT_LOCALISED_TO_ACCUMULATE",
+  "verdict_msg": "ORGAN A write-rule gate: FILTER (F0-F4, N1) and SUPERPOSE (S0-S2, N2), on the licensed dissociation AUC instrument, matched pairs and scorer reused verbatim from exp_dissociation_score_instrument_v1. -> BOTH_GATES_EXONERATED_WRITE_RULE_FULLY_GATED_DEFECT_LOCALISED_TO_ACCUMULATE",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 1500,
+    "S2_BLOCK_SIZE": 8,
+    "N_SMOKE_WORDS": 60
+  },
+  "selftest_evidence_keys": [
+    "F1_superset_of_F0",
+    "F2_F3_real_code_path",
+    "F4_whole_sentence_equals_F0",
+    "F4_window_is_strict_subset",
+    "N1_matched_count",
+    "N2_true_derangement",
+    "S1_bit_exact_and_population_independent",
+    "S2_capacity_known_answer",
+    "S2_pairwise_score_is_exactly_zero_tautology",
+    "arms_must_differ_digest_sensitivity",
+    "exp_checkpoint_selftest",
+    "restricted_hit1_known_answer"
+  ],
+  "report": {
+    "anchor_name": "writerule_filter_superpose_gate_v1",
+    "grid": "reduced",
+    "code_version": "v1.0",
+    "findings_log": "notes/writerule_filter_superpose_gate_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "N_MATCHED_PAIRS_PER_CELL": 15,
+    "REGRESSION_GATE_POPULATION": {
+      "PASS": true,
+      "measured_n_P": 15,
+      "measured_n_S": 15,
+      "expected_full_n_per_cell": 242
+    },
+    "corpus_provenance": {
+      "source": "reused",
+      "path": "D:\\AI\\hd-instrument\\scratch\\cue_information_audit_v1\\buckets_full.npz"
+    },
+    "GATE_A_DIAG": {
+      "F0": {
+        "n_anchors": 57,
+        "n_empty_profile": 0,
+        "elapsed_s": 0.0
+      },
+      "F1": {
+        "n_anchors": 57,
+        "n_empty_profile": 0,
+        "elapsed_s": 0.0
+      },
+      "F2": {
+        "n_anchors": 57,
+        "n_empty_profile": 0,
+        "elapsed_s": 2.5
+      },
+      "F3": {
+        "n_anchors": 57,
+        "n_empty_profile": 0,
+        "elapsed_s": 0.0,
+        "n_target_found_by_parser": 56,
+        "encoder_stats": {
+          "n_parsed": 54,
+          "n_skipped_long_or_empty": 1,
+          "n_encodings": 0,
+          "mean_features_per_encoding": null,
+          "max_tokens": 60,
+          "assets": [
+            "pos_tagger_ud_ewt_upos.json",
+            "arc_parser_richfeat_ud_ewt.npz",
+            "arc_labeler_hashed_ud_ewt.json"
+          ]
+        }
+      },
+      "F4_whole_matches_F0_exactly": true,
+      "elapsed_s": 2.5
+    },
+    "GATE_A_RESTRICTED_HIT1_AND_COMPOSITION": {
+      "F0_INCUMBENT": {
+        "n_probed": 15,
+        "n_pool": 57,
+        "hit_at_1": 0.0,
+        "composition": {
+          "n_probed": 15,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 15
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 1.0
+          },
+          "fraction_no_close_relation": 1.0,
+          "no_relation_bool": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "examples": [
+            "network -> hiv (path_sim=0.091)",
+            "reading -> acid (path_sim=0.091)",
+            "peak -> west (path_sim=0.167)",
+            "character -> hiv (path_sim=0.091)",
+            "bill -> yield (path_sim=0.111)",
+            "function -> ancestor (path_sim=0.111)",
+            "descent -> boiling (path_sim=0.167)",
+            "apartment -> ancestor (path_sim=0.100)",
+            "gain -> network (path_sim=0.143)",
+            "order -> mile (path_sim=0.125)",
+            "flower -> ramadan (path_sim=0.200)",
+            "issue -> increase (path_sim=0.125)",
+            "answer -> common (path_sim=0.077)",
+            "fruit -> hiv (path_sim=0.083)",
+            "choice -> answer (path_sim=0.167)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 15,
+            "mean": 0.00178,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.0667
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "frac_ever_co_occurring": null
+          },
+          "winner_over_gold_ratio_of_means": null,
+          "jw_array": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.02666666666666667,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "jg_array": []
+        }
+      },
+      "F1_NO_FILTER": {
+        "n_probed": 15,
+        "n_pool": 57,
+        "hit_at_1": 0.0,
+        "composition": {
+          "n_probed": 15,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 15
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 1.0
+          },
+          "fraction_no_close_relation": 1.0,
+          "no_relation_bool": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "examples": [
+            "network -> cigarette (path_sim=0.077)",
+            "reading -> common (path_sim=0.083)",
+            "peak -> double (path_sim=0.111)",
+            "character -> double (path_sim=0.143)",
+            "bill -> web (path_sim=0.100)",
+            "function -> peak (path_sim=0.143)",
+            "descent -> ramadan (path_sim=0.100)",
+            "apartment -> polypeptide (path_sim=0.062)",
+            "gain -> liquid (path_sim=0.111)",
+            "order -> double (path_sim=0.111)",
+            "flower -> sweden (path_sim=0.067)",
+            "issue -> muslim (path_sim=0.091)",
+            "answer -> sweden (path_sim=0.062)",
+            "fruit -> hiv (path_sim=0.083)",
+            "choice -> cigarette (path_sim=0.067)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 15,
+            "mean": 0.00057,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.0667
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "frac_ever_co_occurring": null
+          },
+          "winner_over_gold_ratio_of_means": null,
+          "jw_array": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.008547008547008548,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "jg_array": []
+        }
+      },
+      "F2_CONTENT_ONLY_STRICT": {
+        "n_probed": 15,
+        "n_pool": 57,
+        "hit_at_1": 0.0667,
+        "composition": {
+          "n_probed": 15,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 13,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 1,
+            "IN_THE_GENEROUS_GOLD": 1
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.8667,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0667,
+            "IN_THE_GENEROUS_GOLD": 0.0667
+          },
+          "fraction_no_close_relation": 0.8667,
+          "no_relation_bool": [
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true
+          ],
+          "examples": [
+            "network -> hiv (path_sim=0.091)",
+            "reading -> acid (path_sim=0.091)",
+            "peak -> yield (path_sim=0.250)",
+            "character -> west (path_sim=0.125)",
+            "bill -> sweden (path_sim=0.056)",
+            "function -> acid (path_sim=0.125)",
+            "descent -> flower (path_sim=0.125)",
+            "apartment -> ancestor (path_sim=0.100)",
+            "gain -> network (path_sim=0.143)",
+            "order -> mile (path_sim=0.125)",
+            "flower -> descent (path_sim=0.125)",
+            "answer -> common (path_sim=0.077)",
+            "fruit -> increase (path_sim=0.143)",
+            "choice -> answer (path_sim=0.167)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 15,
+            "mean": 0.00485,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.2
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "frac_ever_co_occurring": null
+          },
+          "winner_over_gold_ratio_of_means": null,
+          "jw_array": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.04046242774566474,
+            0.0,
+            0.0,
+            0.02666666666666667,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.00558659217877095,
+            0.0
+          ],
+          "jg_array": []
+        }
+      },
+      "F3_SYNTACTIC_NEIGHBOURS_ONLY": {
+        "n_probed": 14,
+        "n_pool": 57,
+        "hit_at_1": 0.0,
+        "composition": {
+          "n_probed": 14,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 13,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 1
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.9286,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0714
+          },
+          "fraction_no_close_relation": 0.9286,
+          "no_relation_bool": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "examples": [
+            "network -> acid (path_sim=0.091)",
+            "reading -> acid (path_sim=0.091)",
+            "peak -> acid (path_sim=0.083)",
+            "character -> acid (path_sim=0.091)",
+            "bill -> acid (path_sim=0.071)",
+            "function -> acid (path_sim=0.125)",
+            "descent -> acid (path_sim=0.111)",
+            "apartment -> acid (path_sim=0.077)",
+            "gain -> web (path_sim=0.143)",
+            "order -> acid (path_sim=0.091)",
+            "flower -> acid (path_sim=0.083)",
+            "issue -> acid (path_sim=0.083)",
+            "fruit -> acid (path_sim=0.077)",
+            "choice -> acid (path_sim=0.333)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 14,
+            "mean": 0.00329,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.1429
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "frac_ever_co_occurring": null
+          },
+          "winner_over_gold_ratio_of_means": null,
+          "jw_array": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.04046242774566474,
+            0.0,
+            0.0,
+            0.0,
+            0.00558659217877095,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "jg_array": []
+        }
+      },
+      "F4_WINDOW_1": {
+        "n_probed": 11,
+        "n_pool": 57,
+        "hit_at_1": 0.0,
+        "composition": {
+          "n_probed": 11,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 10,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 1
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.9091,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0909
+          },
+          "fraction_no_close_relation": 0.9091,
+          "no_relation_bool": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "examples": [
+            "network -> acid (path_sim=0.091)",
+            "reading -> acid (path_sim=0.091)",
+            "peak -> acid (path_sim=0.083)",
+            "character -> acid (path_sim=0.091)",
+            "bill -> acid (path_sim=0.071)",
+            "descent -> acid (path_sim=0.111)",
+            "gain -> acid (path_sim=0.091)",
+            "order -> acid (path_sim=0.091)",
+            "flower -> acid (path_sim=0.083)",
+            "fruit -> acid (path_sim=0.077)",
+            "choice -> acid (path_sim=0.333)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 11,
+            "mean": 0.00051,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.0909
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "frac_ever_co_occurring": null
+          },
+          "winner_over_gold_ratio_of_means": null,
+          "jw_array": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.00558659217877095,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "jg_array": []
+        }
+      },
+      "F4_WINDOW_2": {
+        "n_probed": 13,
+        "n_pool": 57,
+        "hit_at_1": 0.0,
+        "composition": {
+          "n_probed": 13,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 12,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 1
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.9231,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0769
+          },
+          "fraction_no_close_relation": 0.9231,
+          "no_relation_bool": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "examples": [
+            "network -> acid (path_sim=0.091)",
+            "reading -> acid (path_sim=0.091)",
+            "peak -> acid (path_sim=0.083)",
+            "character -> acid (path_sim=0.091)",
+            "bill -> acid (path_sim=0.071)",
+            "function -> acid (path_sim=0.125)",
+            "descent -> acid (path_sim=0.111)",
+            "gain -> web (path_sim=0.143)",
+            "order -> acid (path_sim=0.091)",
+            "flower -> acid (path_sim=0.083)",
+            "issue -> acid (path_sim=0.083)",
+            "fruit -> version (path_sim=0.083)",
+            "choice -> acid (path_sim=0.333)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 13,
+            "mean": 0.00354,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.1538
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "frac_ever_co_occurring": null
+          },
+          "winner_over_gold_ratio_of_means": null,
+          "jw_array": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.04046242774566474,
+            0.0,
+            0.0,
+            0.00558659217877095,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "jg_array": []
+        }
+      },
+      "F4_WINDOW_5": {
+        "n_probed": 15,
+        "n_pool": 57,
+        "hit_at_1": 0.0,
+        "composition": {
+          "n_probed": 15,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 15
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 1.0
+          },
+          "fraction_no_close_relation": 1.0,
+          "no_relation_bool": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "examples": [
+            "network -> cigarette (path_sim=0.077)",
+            "reading -> acid (path_sim=0.091)",
+            "peak -> acid (path_sim=0.083)",
+            "character -> acid (path_sim=0.091)",
+            "bill -> acid (path_sim=0.071)",
+            "function -> ancestor (path_sim=0.111)",
+            "descent -> acid (path_sim=0.111)",
+            "apartment -> acid (path_sim=0.077)",
+            "gain -> web (path_sim=0.143)",
+            "order -> acid (path_sim=0.091)",
+            "flower -> acid (path_sim=0.083)",
+            "issue -> acid (path_sim=0.083)",
+            "answer -> blues (path_sim=0.125)",
+            "fruit -> version (path_sim=0.083)",
+            "choice -> mile (path_sim=0.100)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 15,
+            "mean": 0.00037,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.0667
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "frac_ever_co_occurring": null
+          },
+          "winner_over_gold_ratio_of_means": null,
+          "jw_array": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.00558659217877095,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "jg_array": []
+        }
+      },
+      "N1_RANDOM_FILTER": {
+        "n_probed": 15,
+        "n_pool": 57,
+        "hit_at_1": 0.0667,
+        "composition": {
+          "n_probed": 15,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 14,
+            "IN_THE_GENEROUS_GOLD": 1
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.9333,
+            "IN_THE_GENEROUS_GOLD": 0.0667
+          },
+          "fraction_no_close_relation": 0.9333,
+          "no_relation_bool": [
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "examples": [
+            "network -> autism (path_sim=0.091)",
+            "reading -> polypeptide (path_sim=0.071)",
+            "peak -> cigarette (path_sim=0.077)",
+            "character -> function (path_sim=0.167)",
+            "function -> character (path_sim=0.167)",
+            "descent -> hiv (path_sim=0.077)",
+            "apartment -> increase (path_sim=0.111)",
+            "gain -> king (path_sim=0.100)",
+            "order -> character (path_sim=0.200)",
+            "flower -> function (path_sim=0.143)",
+            "issue -> cigarette (path_sim=0.071)",
+            "answer -> positive (path_sim=0.077)",
+            "fruit -> answer (path_sim=0.100)",
+            "choice -> double (path_sim=0.143)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 15,
+            "mean": 0.0,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.0
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "frac_ever_co_occurring": null
+          },
+          "winner_over_gold_ratio_of_means": null,
+          "jw_array": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "jg_array": []
+        }
+      }
+    },
+    "GATE_A_AUC_PER_ARM": {
+      "F0_INCUMBENT": {
+        "n_pairs_P": 15,
+        "n_pairs_S": 15,
+        "auc": 0.4911,
+        "ci95": [
+          0.3632,
+          0.6
+        ],
+        "ci_halfwidth": 0.1184,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F1_NO_FILTER": {
+        "n_pairs_P": 15,
+        "n_pairs_S": 15,
+        "auc": 0.3867,
+        "ci95": [
+          0.1711,
+          0.6444
+        ],
+        "ci_halfwidth": 0.2367,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F2_CONTENT_ONLY_STRICT": {
+        "n_pairs_P": 15,
+        "n_pairs_S": 15,
+        "auc": 0.4911,
+        "ci95": [
+          0.3667,
+          0.6
+        ],
+        "ci_halfwidth": 0.1167,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F3_SYNTACTIC_NEIGHBOURS_ONLY": {
+        "n_pairs_P": 15,
+        "n_pairs_S": 15,
+        "auc": 0.4667,
+        "ci95": [
+          0.4,
+          0.5
+        ],
+        "ci_halfwidth": 0.05,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F4_WINDOW_1": {
+        "n_pairs_P": 15,
+        "n_pairs_S": 15,
+        "auc": 0.4667,
+        "ci95": [
+          0.4,
+          0.5
+        ],
+        "ci_halfwidth": 0.05,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F4_WINDOW_2": {
+        "n_pairs_P": 15,
+        "n_pairs_S": 15,
+        "auc": 0.4667,
+        "ci95": [
+          0.4,
+          0.5
+        ],
+        "ci_halfwidth": 0.05,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F4_WINDOW_5": {
+        "n_pairs_P": 15,
+        "n_pairs_S": 15,
+        "auc": 0.4622,
+        "ci95": [
+          0.3608,
+          0.5667
+        ],
+        "ci_halfwidth": 0.1029,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "N1_RANDOM_FILTER": {
+        "n_pairs_P": 15,
+        "n_pairs_S": 15,
+        "auc": 0.4222,
+        "ci95": [
+          0.2087,
+          0.6533
+        ],
+        "ci_halfwidth": 0.2223,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      }
+    },
+    "GATE_A_ARM_DIGESTS": {
+      "F0_INCUMBENT": "5938c3939aa1eeaa",
+      "F1_NO_FILTER": "2a96ba2d63ffea59",
+      "F2_CONTENT_ONLY_STRICT": "2048c369569f38e0",
+      "F3_SYNTACTIC_NEIGHBOURS_ONLY": "2387c96551c4eaf6",
+      "F4_WINDOW_1": "74160bb3f2ba293c",
+      "F4_WINDOW_2": "158988061b9e01d2",
+      "F4_WINDOW_5": "c983872a6036bc6c",
+      "N1_RANDOM_FILTER": "32e265c6cacda1a3"
+    },
+    "GATE_B_DIAG": {
+      "S1_bit_exact_proof": {
+        "n_checked": 57,
+        "max_abs_error_vs_S0": 1.5929267571657135e-08,
+        "BIT_EXACT": true
+      },
+      "S2_capacity": {
+        "n_pop": 57,
+        "d_incumbent": 256,
+        "s2_block_size_dims_per_anchor": 8,
+        "dims_per_anchor_at_incumbent_budget": 4,
+        "DEGENERATE_AT_INCUMBENT_BUDGET": false,
+        "d_needed_for_nondegenerate_block_size": 456,
+        "capacity_multiplier_vs_incumbent": 1.78
+      },
+      "elapsed_s": 2.0
+    },
+    "GATE_B_RESTRICTED_HIT1_AND_COMPOSITION": {
+      "S0_INCUMBENT": {
+        "n_probed": 15,
+        "n_pool": 57,
+        "hit_at_1": 0.0,
+        "composition": {
+          "n_probed": 15,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 14,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 1
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.9333,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.0667
+          },
+          "fraction_no_close_relation": 0.9333,
+          "no_relation_bool": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+          ],
+          "examples": [
+            "network -> autism (path_sim=0.091)",
+            "reading -> boiling (path_sim=0.091)",
+            "peak -> pay (path_sim=0.077)",
+            "character -> pay (path_sim=0.083)",
+            "bill -> order (path_sim=0.100)",
+            "function -> polypeptide (path_sim=0.091)",
+            "descent -> ancestor (path_sim=0.100)",
+            "apartment -> double (path_sim=0.111)",
+            "gain -> attention (path_sim=0.111)",
+            "order -> bill (path_sim=0.100)",
+            "flower -> mendel (path_sim=0.091)",
+            "issue -> david (path_sim=0.125)",
+            "answer -> hiv (path_sim=0.071)",
+            "fruit -> flower (path_sim=0.333)",
+            "choice -> pay (path_sim=0.071)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 15,
+            "mean": 0.01421,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.4667
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "frac_ever_co_occurring": null
+          },
+          "winner_over_gold_ratio_of_means": null,
+          "jw_array": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.005988023952095809,
+            0.017094017094017096,
+            0.07894736842105263,
+            0.0,
+            0.0,
+            0.005988023952095809,
+            0.07006369426751592,
+            0.018072289156626505,
+            0.0,
+            0.01694915254237288,
+            0.0
+          ],
+          "jg_array": []
+        }
+      },
+      "S1_PER_ANCHOR_ISOLATED": {
+        "note": "identical to S0 by the bit-exact proof above; not recomputed",
+        "same_as": "S0_INCUMBENT"
+      },
+      "S2_DISJOINT_SUBSPACES": {
+        "note": "UNMEASURABLE by construction -- every cross-anchor cosine is exactly 0 (disjoint support), so argmax over the field is undefined (all-tied); not fabricated"
+      },
+      "N2_SHUFFLED_ASSIGNMENT": {
+        "n_probed": 15,
+        "n_pool": 57,
+        "hit_at_1": 0.0,
+        "composition": {
+          "n_probed": 15,
+          "counts": {
+            "TAXONOMICALLY_DISTANT": 13,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 2
+          },
+          "fractions": {
+            "TAXONOMICALLY_DISTANT": 0.8667,
+            "TAXONOMICALLY_CLOSE_but_outside_the_gold": 0.1333
+          },
+          "fraction_no_close_relation": 0.8667,
+          "no_relation_bool": [
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "examples": [
+            "network -> sweden (path_sim=0.077)",
+            "reading -> order (path_sim=0.143)",
+            "peak -> gain (path_sim=0.250)",
+            "character -> reading (path_sim=0.143)",
+            "bill -> positive (path_sim=0.067)",
+            "function -> increase (path_sim=0.167)",
+            "descent -> muslim (path_sim=0.100)",
+            "apartment -> hiv (path_sim=0.083)",
+            "gain -> fruit (path_sim=0.091)",
+            "order -> reading (path_sim=0.143)",
+            "flower -> fruit (path_sim=0.333)",
+            "issue -> acid (path_sim=0.083)",
+            "answer -> selection (path_sim=0.167)",
+            "fruit -> response (path_sim=0.091)",
+            "choice -> answer (path_sim=0.167)"
+          ]
+        },
+        "syntagmatic": {
+          "TOP1_WINNER": {
+            "n": 15,
+            "mean": 0.00113,
+            "median": 0.0,
+            "frac_ever_co_occurring": 0.0667
+          },
+          "BEST_GOLD_SYNONYM": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "frac_ever_co_occurring": null
+          },
+          "winner_over_gold_ratio_of_means": null,
+          "jw_array": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.01694915254237288,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "jg_array": []
+        }
+      }
+    },
+    "GATE_B_AUC_PER_ARM": {
+      "S0_INCUMBENT": {
+        "n_pairs_P": 15,
+        "n_pairs_S": 15,
+        "auc": 0.0311,
+        "ci95": [
+          0.0,
+          0.0933
+        ],
+        "ci_halfwidth": 0.0467,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "S1_PER_ANCHOR_ISOLATED": {
+        "n_pairs_P": 15,
+        "n_pairs_S": 15,
+        "auc": 0.0311,
+        "ci95": [
+          0.0,
+          0.0978
+        ],
+        "ci_halfwidth": 0.0489,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "S2_DISJOINT_SUBSPACES": {
+        "n_pairs_P": 15,
+        "n_pairs_S": 15,
+        "auc": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "ci_halfwidth": 0.0,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "N2_SHUFFLED_ASSIGNMENT": {
+        "n_pairs_P": 15,
+        "n_pairs_S": 15,
+        "auc": 0.6311,
+        "ci95": [
+          0.4089,
+          0.8334
+        ],
+        "ci_halfwidth": 0.2123,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      }
+    },
+    "GATE_B_ARM_DIGESTS": {
+      "S0_INCUMBENT": "be5ab21b3120cb20",
+      "S1_PER_ANCHOR_ISOLATED": "dede4c9dd72a7a34",
+      "N2_SHUFFLED_ASSIGNMENT": "94381036613d15a0"
+    },
+    "GATE_B_S2_TAUTOLOGY_CONFIRMED": true,
+    "K1_KNOWN_ANSWER_WORDNET_PATH_SIM": {
+      "n_pairs_P": 15,
+      "n_pairs_S": 15,
+      "auc": 0.9933,
+      "ci95": [
+        0.9677,
+        1.0
+      ],
+      "ci_halfwidth": 0.0161,
+      "band": "ABOVE_0.5_SUBSTITUTABILITY"
+    },
+    "N0_RANDOM_VECTOR_STORE": {
+      "n_pairs_P": 15,
+      "n_pairs_S": 15,
+      "auc": 0.4844,
+      "ci95": [
+        0.2711,
+        0.7022
+      ],
+      "ci_halfwidth": 0.2156,
+      "band": "NOT_SEPARATED_FROM_CHANCE"
+    },
+    "K1_N0_SOURCE": "reused verbatim from DISS's own SCORES checkpoint, re-bootstrapped here",
+    "FLOORS_SOURCE": "this cell reuses DISS's own POPULATION verbatim (unchanged), so DISS's already-licensed floor AUCs (F_ORTHOGRAPHIC/F_FREQUENCY/F_SCRAMBLE/F_CONSTANT_PROTOTYPE, all NOT_SEPARATED from 0.5 at full scale) remain valid for this population without re-derivation; they are properties of the PAIR SET, not of the FILTER/SUPERPOSE arm being scored",
+    "FLOORS_FROM_DISS": {
+      "F_ORTHOGRAPHIC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5,
+        "ci95": [
+          0.4875,
+          0.5124
+        ],
+        "ci_halfwidth": 0.0125,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_FREQUENCY": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4901,
+        "ci95": [
+          0.4376,
+          0.5413
+        ],
+        "ci_halfwidth": 0.0519,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_SCRAMBLE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4664,
+        "ci95": [
+          0.4148,
+          0.5178
+        ],
+        "ci_halfwidth": 0.0515,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5431,
+        "ci95": [
+          0.4922,
+          0.5953
+        ],
+        "ci_halfwidth": 0.0516,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.9599,
+        "ci95": [
+          0.9441,
+          0.9739
+        ],
+        "ci_halfwidth": 0.0149,
+        "band": "ABOVE_0.5_SUBSTITUTABILITY"
+      },
+      "RANDOM_VECTOR_STORE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4862,
+        "ci95": [
+          0.4353,
+          0.5377
+        ],
+        "ci_halfwidth": 0.0512,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "INCUMBENT_LIVE_STORE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.071,
+        "ci95": [
+          0.0509,
+          0.0937
+        ],
+        "ci_halfwidth": 0.0214,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "RAW_COUNT_FULL_ACCUM": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.051,
+        "ci95": [
+          0.0332,
+          0.071
+        ],
+        "ci_halfwidth": 0.0189,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "RAW_COUNT_SINGLE_OCC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4173,
+        "ci95": [
+          0.3835,
+          0.45
+        ],
+        "ci_halfwidth": 0.0333,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "PRESENCE_ABSENCE_BINARIZED": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0294,
+        "ci95": [
+          0.0147,
+          0.047
+        ],
+        "ci_halfwidth": 0.0161,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "PARADIGMATIC_PROFILE_WRITE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.2165,
+        "ci95": [
+          0.1781,
+          0.2575
+        ],
+        "ci_halfwidth": 0.0397,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "STOP_IF": {
+      "i_filter_arm_above_F0_and_above_N1": {
+        "FIRED": false
+      },
+      "ii_F1_no_filter_fails_to_be_worse_than_F0": {
+        "FIRED": true,
+        "F1_auc": 0.3867,
+        "F0_auc": 0.4911
+      },
+      "iii_S1_matches_S0_SUPERPOSE_exonerated": {
+        "FIRED": true,
+        "max_abs_error": 1.5929267571657135e-08
+      },
+      "iv_S1_beats_S0_CI_separated": {
+        "FIRED": false
+      },
+      "v_all_arms_tie_both_gates_exonerated": {
+        "FIRED": true,
+        "gate_a_all_arms_mutually_ci_overlap": true
+      },
+      "vi_K1_fails_instrument_still_loose": {
+        "FIRED": false
+      }
+    },
+    "elapsed_s": 7.3
+  },
+  "elapsed_s": 11.6,
+  "summary": "ORGAN A write-rule gate: FILTER (F0-F4, N1) and SUPERPOSE (S0-S2, N2), on the licensed dissociation AUC instrument, matched pairs and scorer reused verbatim from exp_dissociation_score_instrument_v1. -> BOTH_GATES_EXONERATED_WRITE_RULE_FULLY_GATED_DEFECT_LOCALISED_TO_ACCUMULATE"
+}
