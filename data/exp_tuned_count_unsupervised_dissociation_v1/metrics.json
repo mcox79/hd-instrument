@@ -1,0 +1,1855 @@
+{
+  "anchor_name": "tuned_count_unsupervised_dissociation_v1",
+  "run_mode": "full",
+  "code_version": "v1.0",
+  "findings_log": "notes/tuned_count_unsupervised_dissociation_2026-08-18.md",
+  "verdict": "TUNED_COUNT_UNSUPERVISED__STOP_IF_iii_TUNING_IMPROVES_ON_VANILLA_BUT_STAYS_BELOW_0.5__SUPERVISION_CONCLUSION_SURVIVES_A_FAIRER_TEST__IMPROVING_ARMS=T2,T4",
+  "verdict_msg": "Does a properly tuned, fully unsupervised count method (context-distribution smoothing + shifted PPMI + subsampling + eigenvalue weighting, all held-out-selected, never tuned on the 242 eval pairs) clear 0.5 on the licensed dissociation instrument, falsifying the Director's plan sec 6.18 supervision conclusion? -> STOP_IF_iii_TUNING_IMPROVES_ON_VANILLA_BUT_STAYS_BELOW_0.5__SUPERVISION_CONCLUSION_SURVIVES_A_FAIRER_TEST__IMPROVING_ARMS=T2,T4",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 10000,
+    "K_SWEEP_FULL": [
+      50,
+      100,
+      300,
+      500
+    ],
+    "SEL_K": [
+      50,
+      300
+    ],
+    "ALPHA_GRID": [
+      0.5,
+      0.75,
+      1.0
+    ],
+    "KSHIFT_GRID": [
+      1,
+      5,
+      15
+    ],
+    "SUBSAMPLE_T_GRID": [
+      "None",
+      "0.001",
+      "1e-05"
+    ],
+    "P_GRID": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "T4_K_GRID": [
+      50,
+      300
+    ],
+    "SGNS_VECTOR_SIZE": 100
+  },
+  "selftest_evidence_keys": [
+    "alpha_1_is_vanilla",
+    "arms_must_differ_digest_sensitivity",
+    "exp_checkpoint_selftest",
+    "ppmi_tuned_reduces_to_CAP_vanilla",
+    "score_fn_from_arrays_known_answer",
+    "seed_for_deterministic",
+    "shift_monotone",
+    "subsample_off_is_vanilla",
+    "svd_rank_ceiling_dropped",
+    "svd_vectors_p_matches_CAP_convention",
+    "winner_composition_collocate_arm_known_answer",
+    "winner_composition_perfect_arm_known_answer"
+  ],
+  "report": {
+    "anchor_name": "tuned_count_unsupervised_dissociation_v1",
+    "grid": "full",
+    "code_version": "v1.0",
+    "findings_log": "notes/tuned_count_unsupervised_dissociation_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "NO_PRETRAINED_EMBEDDING_TABLE_IMPORTED": true,
+    "REGRESSION_GATE": {
+      "n_matched_pairs_per_cell": 242,
+      "n_arms_recomputed": 11,
+      "checks": {
+        "F_ORTHOGRAPHIC": {
+          "PASS": true,
+          "expected": 0.5,
+          "measured": 0.5,
+          "delta": 0.0
+        },
+        "F_FREQUENCY": {
+          "PASS": true,
+          "expected": 0.4901,
+          "measured": 0.4901,
+          "delta": 0.0
+        },
+        "F_SCRAMBLE": {
+          "PASS": true,
+          "expected": 0.4664,
+          "measured": 0.4664,
+          "delta": 0.0
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "PASS": true,
+          "expected": 0.5431,
+          "measured": 0.5431,
+          "delta": 0.0
+        },
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+          "PASS": true,
+          "expected": 0.9599,
+          "measured": 0.9599,
+          "delta": 0.0
+        },
+        "RANDOM_VECTOR_STORE": {
+          "PASS": true,
+          "expected": 0.4862,
+          "measured": 0.4862,
+          "delta": 0.0
+        },
+        "INCUMBENT_LIVE_STORE": {
+          "PASS": true,
+          "expected": 0.071,
+          "measured": 0.071,
+          "delta": 0.0
+        },
+        "RAW_COUNT_FULL_ACCUM": {
+          "PASS": true,
+          "expected": 0.051,
+          "measured": 0.051,
+          "delta": 0.0
+        }
+      },
+      "floors_at_chance": true,
+      "known_answer_ok": true,
+      "random_store_ok": true,
+      "INSTRUMENT_LICENSED": true,
+      "recomputed_AUC_PER_ARM": {
+        "F_ORTHOGRAPHIC": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.5,
+          "ci95": [
+            0.4875,
+            0.5124
+          ],
+          "ci_halfwidth": 0.0125,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_FREQUENCY": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4901,
+          "ci95": [
+            0.4376,
+            0.5413
+          ],
+          "ci_halfwidth": 0.0519,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_SCRAMBLE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4664,
+          "ci95": [
+            0.4148,
+            0.5178
+          ],
+          "ci_halfwidth": 0.0515,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.5431,
+          "ci95": [
+            0.4922,
+            0.5953
+          ],
+          "ci_halfwidth": 0.0516,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.9599,
+          "ci95": [
+            0.9441,
+            0.9739
+          ],
+          "ci_halfwidth": 0.0149,
+          "band": "ABOVE_0.5_SUBSTITUTABILITY"
+        },
+        "RANDOM_VECTOR_STORE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4862,
+          "ci95": [
+            0.4353,
+            0.5377
+          ],
+          "ci_halfwidth": 0.0512,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "INCUMBENT_LIVE_STORE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.071,
+          "ci95": [
+            0.0509,
+            0.0937
+          ],
+          "ci_halfwidth": 0.0214,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "RAW_COUNT_FULL_ACCUM": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.051,
+          "ci95": [
+            0.0332,
+            0.071
+          ],
+          "ci_halfwidth": 0.0189,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "RAW_COUNT_SINGLE_OCC": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4173,
+          "ci95": [
+            0.3835,
+            0.45
+          ],
+          "ci_halfwidth": 0.0333,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "PRESENCE_ABSENCE_BINARIZED": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.0294,
+          "ci95": [
+            0.0147,
+            0.047
+          ],
+          "ci_halfwidth": 0.0161,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "PARADIGMATIC_PROFILE_WRITE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.2165,
+          "ci95": [
+            0.1781,
+            0.2575
+          ],
+          "ci_halfwidth": 0.0397,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      }
+    },
+    "N_MATCHED_PAIRS_PER_CELL": 242,
+    "N_DISTINCT_EVAL_WORDS": 617,
+    "MATRIX": {
+      "n_rows_anchors": 5491,
+      "n_missing_anchors": 0,
+      "missing_anchor_sample": [],
+      "n_cols_vocab": 21576,
+      "nnz": 1074605,
+      "density": 0.0090704,
+      "total_token_count": 1824296.0,
+      "matrix_shape": [
+        5491,
+        21576
+      ]
+    },
+    "COVERAGE": {
+      "SET_P": {
+        "n_pairs": 242,
+        "n_both_members_present": 242
+      },
+      "SET_S": {
+        "n_pairs": 242,
+        "n_both_members_present": 242
+      }
+    },
+    "HELDOUT_POPULATION": {
+      "n_pool_anchors_word_disjoint_from_eval": 4874,
+      "n_wn_candidates": 3062,
+      "n_setP_raw_zero_cooccurrence": 2400,
+      "setS_construction": {
+        "n_raw_top_pool": 8000,
+        "cap_requested": 8000,
+        "actual_min_count_in_pool": 9,
+        "decile_90_threshold_full_population": 4.0,
+        "pool_is_at_least_top_decile": true,
+        "n_excluded_wn_exact_synonym": 29,
+        "n_excluded_wn_near_path_sim_ge_thresh": 809,
+        "n_excluded_pos_mismatch_or_no_synsets": 4143,
+        "n_kept": 3019
+      },
+      "matching": {
+        "per_pos_stratum": {
+          "a": {
+            "n_P_candidates": 272,
+            "n_S_candidates": 22,
+            "n_matched": 0,
+            "n_dropped_caliper": 272
+          },
+          "n": {
+            "n_P_candidates": 829,
+            "n_S_candidates": 2992,
+            "n_matched": 54,
+            "n_dropped_caliper": 775
+          },
+          "r": {
+            "n_P_candidates": 106,
+            "n_S_candidates": 0,
+            "n_matched": 0,
+            "n_dropped_caliper": 0
+          },
+          "v": {
+            "n_P_candidates": 1193,
+            "n_S_candidates": 5,
+            "n_matched": 0,
+            "n_dropped_caliper": 1193
+          }
+        },
+        "n_candidates_P": 2400,
+        "n_candidates_S": 3019,
+        "n_matched_P": 54,
+        "n_matched_S": 54,
+        "n_dropped_caliper": 2240,
+        "caliper_sq_per_dim": [
+          0.02,
+          0.02,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "matching_covariates": [
+          "mean_log_freq",
+          "abs_freq_diff",
+          "mean_length",
+          "orthographic_trigram_cos",
+          "mean_constant_prototype"
+        ],
+        "pre_match_smd": {
+          "mean_log_freq": -3.2355,
+          "abs_freq_diff": -0.2362,
+          "mean_length": 0.5157,
+          "orthographic_trigram_cos": 0.5326,
+          "mean_constant_prototype": -1.5979
+        },
+        "post_match_smd": {
+          "mean_log_freq": -0.0326,
+          "abs_freq_diff": -0.0058,
+          "mean_length": 0.0246,
+          "orthographic_trigram_cos": -0.0379,
+          "mean_constant_prototype": 0.3074
+        },
+        "post_match_pos_distribution_P": {
+          "n": 54
+        },
+        "post_match_pos_distribution_S": {
+          "n": 54
+        }
+      },
+      "n_matched": 54
+    },
+    "T0_VANILLA_PPMI_SVD": {
+      "sweep": {
+        "50": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.0519,
+          "ci95": [
+            0.0349,
+            0.0714
+          ],
+          "ci_halfwidth": 0.0182,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "100": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.0285,
+          "ci95": [
+            0.0167,
+            0.0428
+          ],
+          "ci_halfwidth": 0.0131,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "300": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.023,
+          "ci95": [
+            0.0112,
+            0.0368
+          ],
+          "ci_halfwidth": 0.0128,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "500": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.0278,
+          "ci95": [
+            0.0132,
+            0.0451
+          ],
+          "ci_halfwidth": 0.0159,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "regression_checks": {
+        "50": {
+          "expected": 0.0519,
+          "measured": 0.0519,
+          "delta": 0.0,
+          "PASS": true
+        },
+        "100": {
+          "expected": 0.0285,
+          "measured": 0.0285,
+          "delta": 0.0,
+          "PASS": true
+        },
+        "300": {
+          "expected": 0.023,
+          "measured": 0.023,
+          "delta": 0.0,
+          "PASS": true
+        },
+        "500": {
+          "expected": 0.0278,
+          "measured": 0.0278,
+          "delta": 0.0,
+          "PASS": true
+        }
+      }
+    },
+    "T0_BEST_K": "50",
+    "T0_WINNER_COMPOSITION": {
+      "n_pairs_compared": 242,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5020661157024794,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 0.9958677685950413,
+      "winner_cooccurrence_share": 0.9586776859504132,
+      "ratio_winner_over_SET_S_share": 0.9626556016597511
+    },
+    "T1_CONTEXT_DISTRIBUTION_SMOOTHING": {
+      "SWEEP": [
+        {
+          "alpha": 0.5,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 50,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0343,
+            "ci95": [
+              0.0113,
+              0.0658
+            ],
+            "ci_halfwidth": 0.0273,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0379,
+            "ci95": [
+              0.0239,
+              0.0543
+            ],
+            "ci_halfwidth": 0.0152,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T1:a0.50_k50"
+        },
+        {
+          "alpha": 0.5,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 300,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0219,
+            "ci95": [
+              0.001,
+              0.0525
+            ],
+            "ci_halfwidth": 0.0257,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.025,
+            "ci95": [
+              0.0133,
+              0.0392
+            ],
+            "ci_halfwidth": 0.013,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T1:a0.50_k300"
+        },
+        {
+          "alpha": 0.75,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 50,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0388,
+            "ci95": [
+              0.013,
+              0.0741
+            ],
+            "ci_halfwidth": 0.0305,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0447,
+            "ci95": [
+              0.0293,
+              0.0623
+            ],
+            "ci_halfwidth": 0.0165,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T1:a0.75_k50"
+        },
+        {
+          "alpha": 0.75,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 300,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0154,
+            "ci95": [
+              0.0014,
+              0.0384
+            ],
+            "ci_halfwidth": 0.0185,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0214,
+            "ci95": [
+              0.0107,
+              0.0338
+            ],
+            "ci_halfwidth": 0.0116,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T1:a0.75_k300"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 50,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0432,
+            "ci95": [
+              0.0151,
+              0.0816
+            ],
+            "ci_halfwidth": 0.0333,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0519,
+            "ci95": [
+              0.0344,
+              0.0724
+            ],
+            "ci_halfwidth": 0.019,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T1:a1.00_k50"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 300,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.011,
+            "ci95": [
+              0.0014,
+              0.0274
+            ],
+            "ci_halfwidth": 0.013,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.023,
+            "ci95": [
+              0.0113,
+              0.0372
+            ],
+            "ci_halfwidth": 0.0129,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T1:a1.00_k300"
+        }
+      ],
+      "HELDOUT_USABLE": true,
+      "SELECTED_CONFIG": {
+        "alpha": 1.0,
+        "k_shift": 1.0,
+        "subsample_t": null,
+        "k": 50,
+        "p": 0.5,
+        "held_out_auc": {
+          "n_pairs_P": 54,
+          "n_pairs_S": 54,
+          "auc": 0.0432,
+          "ci95": [
+            0.0151,
+            0.0816
+          ],
+          "ci_halfwidth": 0.0333,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "eval_auc": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.0519,
+          "ci95": [
+            0.0344,
+            0.0724
+          ],
+          "ci_halfwidth": 0.019,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "RESULT_held_out_selected_eval_AUC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0519,
+        "ci95": [
+          0.0344,
+          0.0724
+        ],
+        "ci_halfwidth": 0.019,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "CEILING_NOT_A_RESULT_DO_NOT_QUOTE_AS_CAPABILITY": {
+        "alpha": 1.0,
+        "k_shift": 1.0,
+        "subsample_t": null,
+        "k": 50,
+        "p": 0.5,
+        "held_out_auc": {
+          "n_pairs_P": 54,
+          "n_pairs_S": 54,
+          "auc": 0.0432,
+          "ci95": [
+            0.0151,
+            0.0816
+          ],
+          "ci_halfwidth": 0.0333,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "eval_auc": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.0519,
+          "ci95": [
+            0.0344,
+            0.0724
+          ],
+          "ci_halfwidth": 0.019,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "CEILING_eval_AUC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0519,
+        "ci95": [
+          0.0344,
+          0.0724
+        ],
+        "ci_halfwidth": 0.019,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "T2_SHIFTED_PPMI": {
+      "SWEEP": [
+        {
+          "alpha": 1.0,
+          "k_shift": 1,
+          "subsample_t": null,
+          "k": 50,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0432,
+            "ci95": [
+              0.0151,
+              0.0813
+            ],
+            "ci_halfwidth": 0.0331,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0519,
+            "ci95": [
+              0.0347,
+              0.0719
+            ],
+            "ci_halfwidth": 0.0186,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T2:ks1_k50"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1,
+          "subsample_t": null,
+          "k": 300,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.011,
+            "ci95": [
+              0.0014,
+              0.0267
+            ],
+            "ci_halfwidth": 0.0127,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.023,
+            "ci95": [
+              0.0115,
+              0.0373
+            ],
+            "ci_halfwidth": 0.0129,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T2:ks1_k300"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 5,
+          "subsample_t": null,
+          "k": 50,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0576,
+            "ci95": [
+              0.0199,
+              0.1056
+            ],
+            "ci_halfwidth": 0.0429,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0832,
+            "ci95": [
+              0.0599,
+              0.1096
+            ],
+            "ci_halfwidth": 0.0248,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T2:ks5_k50"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 5,
+          "subsample_t": null,
+          "k": 300,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0141,
+            "ci95": [
+              0.0021,
+              0.0329
+            ],
+            "ci_halfwidth": 0.0154,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0286,
+            "ci95": [
+              0.0152,
+              0.0445
+            ],
+            "ci_halfwidth": 0.0147,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T2:ks5_k300"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 50,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0775,
+            "ci95": [
+              0.0312,
+              0.1361
+            ],
+            "ci_halfwidth": 0.0525,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.1144,
+            "ci95": [
+              0.0863,
+              0.144
+            ],
+            "ci_halfwidth": 0.0289,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T2:ks15_k50"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 300,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0216,
+            "ci95": [
+              0.0051,
+              0.0449
+            ],
+            "ci_halfwidth": 0.0199,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0443,
+            "ci95": [
+              0.0276,
+              0.0637
+            ],
+            "ci_halfwidth": 0.018,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T2:ks15_k300"
+        }
+      ],
+      "HELDOUT_USABLE": true,
+      "SELECTED_CONFIG": {
+        "alpha": 1.0,
+        "k_shift": 15,
+        "subsample_t": null,
+        "k": 50,
+        "p": 0.5,
+        "held_out_auc": {
+          "n_pairs_P": 54,
+          "n_pairs_S": 54,
+          "auc": 0.0775,
+          "ci95": [
+            0.0312,
+            0.1361
+          ],
+          "ci_halfwidth": 0.0525,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "eval_auc": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.1144,
+          "ci95": [
+            0.0863,
+            0.144
+          ],
+          "ci_halfwidth": 0.0289,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "RESULT_held_out_selected_eval_AUC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.1144,
+        "ci95": [
+          0.0863,
+          0.144
+        ],
+        "ci_halfwidth": 0.0289,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "CEILING_NOT_A_RESULT_DO_NOT_QUOTE_AS_CAPABILITY": {
+        "alpha": 1.0,
+        "k_shift": 15,
+        "subsample_t": null,
+        "k": 50,
+        "p": 0.5,
+        "held_out_auc": {
+          "n_pairs_P": 54,
+          "n_pairs_S": 54,
+          "auc": 0.0775,
+          "ci95": [
+            0.0312,
+            0.1361
+          ],
+          "ci_halfwidth": 0.0525,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "eval_auc": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.1144,
+          "ci95": [
+            0.0863,
+            0.144
+          ],
+          "ci_halfwidth": 0.0289,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "CEILING_eval_AUC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.1144,
+        "ci95": [
+          0.0863,
+          0.144
+        ],
+        "ci_halfwidth": 0.0289,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "T3_SUBSAMPLING": {
+      "SWEEP": [
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 50,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0432,
+            "ci95": [
+              0.0147,
+              0.0802
+            ],
+            "ci_halfwidth": 0.0328,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0519,
+            "ci95": [
+              0.0345,
+              0.0714
+            ],
+            "ci_halfwidth": 0.0185,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T3:tNone_k50"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 300,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.011,
+            "ci95": [
+              0.001,
+              0.0271
+            ],
+            "ci_halfwidth": 0.013,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.023,
+            "ci95": [
+              0.0115,
+              0.0369
+            ],
+            "ci_halfwidth": 0.0127,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T3:tNone_k300"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": 0.001,
+          "k": 50,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0432,
+            "ci95": [
+              0.0151,
+              0.0809
+            ],
+            "ci_halfwidth": 0.0329,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0519,
+            "ci95": [
+              0.0347,
+              0.0719
+            ],
+            "ci_halfwidth": 0.0186,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T3:t0.001_k50"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": 0.001,
+          "k": 300,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0113,
+            "ci95": [
+              0.0014,
+              0.0271
+            ],
+            "ci_halfwidth": 0.0129,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0231,
+            "ci95": [
+              0.0114,
+              0.0374
+            ],
+            "ci_halfwidth": 0.013,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T3:t0.001_k300"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": 1e-05,
+          "k": 50,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0367,
+            "ci95": [
+              0.0127,
+              0.0703
+            ],
+            "ci_halfwidth": 0.0288,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0507,
+            "ci95": [
+              0.0333,
+              0.0702
+            ],
+            "ci_halfwidth": 0.0185,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T3:t1e-05_k50"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": 1e-05,
+          "k": 300,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.012,
+            "ci95": [
+              0.0017,
+              0.0288
+            ],
+            "ci_halfwidth": 0.0135,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0239,
+            "ci95": [
+              0.0122,
+              0.0375
+            ],
+            "ci_halfwidth": 0.0127,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T3:t1e-05_k300"
+        }
+      ],
+      "HELDOUT_USABLE": true,
+      "SELECTED_CONFIG": {
+        "alpha": 1.0,
+        "k_shift": 1.0,
+        "subsample_t": null,
+        "k": 50,
+        "p": 0.5,
+        "held_out_auc": {
+          "n_pairs_P": 54,
+          "n_pairs_S": 54,
+          "auc": 0.0432,
+          "ci95": [
+            0.0147,
+            0.0802
+          ],
+          "ci_halfwidth": 0.0328,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "eval_auc": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.0519,
+          "ci95": [
+            0.0345,
+            0.0714
+          ],
+          "ci_halfwidth": 0.0185,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "RESULT_held_out_selected_eval_AUC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0519,
+        "ci95": [
+          0.0345,
+          0.0714
+        ],
+        "ci_halfwidth": 0.0185,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "CEILING_NOT_A_RESULT_DO_NOT_QUOTE_AS_CAPABILITY": {
+        "alpha": 1.0,
+        "k_shift": 1.0,
+        "subsample_t": null,
+        "k": 50,
+        "p": 0.5,
+        "held_out_auc": {
+          "n_pairs_P": 54,
+          "n_pairs_S": 54,
+          "auc": 0.0432,
+          "ci95": [
+            0.0147,
+            0.0802
+          ],
+          "ci_halfwidth": 0.0328,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "eval_auc": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.0519,
+          "ci95": [
+            0.0345,
+            0.0714
+          ],
+          "ci_halfwidth": 0.0185,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "CEILING_eval_AUC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0519,
+        "ci95": [
+          0.0345,
+          0.0714
+        ],
+        "ci_halfwidth": 0.0185,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "T4_BEST_COMBINED": {
+      "SWEEP": [
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 50,
+          "p": 0.0,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0765,
+            "ci95": [
+              0.0291,
+              0.1365
+            ],
+            "ci_halfwidth": 0.0537,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.1089,
+            "ci95": [
+              0.0821,
+              0.1389
+            ],
+            "ci_halfwidth": 0.0284,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T4:p0.00_k50"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 300,
+          "p": 0.0,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.023,
+            "ci95": [
+              0.0055,
+              0.048
+            ],
+            "ci_halfwidth": 0.0213,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0479,
+            "ci95": [
+              0.03,
+              0.0684
+            ],
+            "ci_halfwidth": 0.0192,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T4:p0.00_k300"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 50,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0775,
+            "ci95": [
+              0.0309,
+              0.1375
+            ],
+            "ci_halfwidth": 0.0533,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.1144,
+            "ci95": [
+              0.0864,
+              0.1449
+            ],
+            "ci_halfwidth": 0.0293,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T4:p0.50_k50"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 300,
+          "p": 0.5,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0216,
+            "ci95": [
+              0.0051,
+              0.0463
+            ],
+            "ci_halfwidth": 0.0206,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0443,
+            "ci95": [
+              0.0276,
+              0.0636
+            ],
+            "ci_halfwidth": 0.018,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T4:p0.50_k300"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 50,
+          "p": 1.0,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0772,
+            "ci95": [
+              0.0329,
+              0.1324
+            ],
+            "ci_halfwidth": 0.0497,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.1253,
+            "ci95": [
+              0.0956,
+              0.1572
+            ],
+            "ci_halfwidth": 0.0308,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T4:p1.00_k50"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 300,
+          "p": 1.0,
+          "held_out_auc": {
+            "n_pairs_P": 54,
+            "n_pairs_S": 54,
+            "auc": 0.0192,
+            "ci95": [
+              0.0041,
+              0.0412
+            ],
+            "ci_halfwidth": 0.0185,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "eval_auc": {
+            "n_pairs_P": 242,
+            "n_pairs_S": 242,
+            "auc": 0.0433,
+            "ci95": [
+              0.0268,
+              0.0626
+            ],
+            "ci_halfwidth": 0.0179,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T4:p1.00_k300"
+        }
+      ],
+      "HELDOUT_USABLE": true,
+      "SELECTED_CONFIG": {
+        "alpha": 1.0,
+        "k_shift": 15,
+        "subsample_t": null,
+        "k": 50,
+        "p": 0.5,
+        "held_out_auc": {
+          "n_pairs_P": 54,
+          "n_pairs_S": 54,
+          "auc": 0.0775,
+          "ci95": [
+            0.0309,
+            0.1375
+          ],
+          "ci_halfwidth": 0.0533,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "eval_auc": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.1144,
+          "ci95": [
+            0.0864,
+            0.1449
+          ],
+          "ci_halfwidth": 0.0293,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "RESULT_held_out_selected_eval_AUC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.1144,
+        "ci95": [
+          0.0864,
+          0.1449
+        ],
+        "ci_halfwidth": 0.0293,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "CEILING_NOT_A_RESULT_DO_NOT_QUOTE_AS_CAPABILITY": {
+        "alpha": 1.0,
+        "k_shift": 15,
+        "subsample_t": null,
+        "k": 50,
+        "p": 1.0,
+        "held_out_auc": {
+          "n_pairs_P": 54,
+          "n_pairs_S": 54,
+          "auc": 0.0772,
+          "ci95": [
+            0.0329,
+            0.1324
+          ],
+          "ci_halfwidth": 0.0497,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "eval_auc": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.1253,
+          "ci95": [
+            0.0956,
+            0.1572
+          ],
+          "ci_halfwidth": 0.0308,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "CEILING_eval_AUC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.1253,
+        "ci95": [
+          0.0956,
+          0.1572
+        ],
+        "ci_halfwidth": 0.0308,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "COMBINED_FROM": {
+        "alpha_star": 1.0,
+        "k_shift_star": 15,
+        "subsample_t_star": null
+      }
+    },
+    "T1_WINNER_COMPOSITION": {
+      "n_pairs_compared": 242,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5020661157024794,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 0.9958677685950413,
+      "winner_cooccurrence_share": 0.9586776859504132,
+      "ratio_winner_over_SET_S_share": 0.9626556016597511
+    },
+    "T2_WINNER_COMPOSITION": {
+      "n_pairs_compared": 242,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5020661157024794,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 0.9958677685950413,
+      "winner_cooccurrence_share": 0.8925619834710744,
+      "ratio_winner_over_SET_S_share": 0.8962655601659751
+    },
+    "T3_WINNER_COMPOSITION": {
+      "n_pairs_compared": 242,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5020661157024794,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 0.9958677685950413,
+      "winner_cooccurrence_share": 0.9586776859504132,
+      "ratio_winner_over_SET_S_share": 0.9626556016597511
+    },
+    "T4_WINNER_COMPOSITION": {
+      "n_pairs_compared": 242,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5020661157024794,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 0.9958677685950413,
+      "winner_cooccurrence_share": 0.8925619834710744,
+      "ratio_winner_over_SET_S_share": 0.8962655601659751
+    },
+    "T1_DIAGNOSTIC_FULL_K_SWEEP_at_selected_alpha_EVAL_ONLY_NOT_SELECTION": {
+      "50": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0519,
+        "ci95": [
+          0.0345,
+          0.0715
+        ],
+        "ci_halfwidth": 0.0185,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "100": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0285,
+        "ci95": [
+          0.0165,
+          0.0429
+        ],
+        "ci_halfwidth": 0.0132,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "300": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.023,
+        "ci95": [
+          0.0116,
+          0.0366
+        ],
+        "ci_halfwidth": 0.0125,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "500": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0278,
+        "ci95": [
+          0.0135,
+          0.0453
+        ],
+        "ci_halfwidth": 0.0159,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "T2_DIAGNOSTIC_FULL_K_SWEEP_at_selected_kshift_EVAL_ONLY_NOT_SELECTION": {
+      "50": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.1144,
+        "ci95": [
+          0.0856,
+          0.1452
+        ],
+        "ci_halfwidth": 0.0298,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "100": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0684,
+        "ci95": [
+          0.0472,
+          0.0913
+        ],
+        "ci_halfwidth": 0.022,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "300": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0443,
+        "ci95": [
+          0.0272,
+          0.0639
+        ],
+        "ci_halfwidth": 0.0184,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "500": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0406,
+        "ci95": [
+          0.0238,
+          0.0602
+        ],
+        "ci_halfwidth": 0.0182,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "T3_DIAGNOSTIC_FULL_K_SWEEP_at_selected_t_EVAL_ONLY_NOT_SELECTION": {
+      "50": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0519,
+        "ci95": [
+          0.0349,
+          0.0715
+        ],
+        "ci_halfwidth": 0.0183,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "100": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0285,
+        "ci95": [
+          0.0166,
+          0.0423
+        ],
+        "ci_halfwidth": 0.0128,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "300": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.023,
+        "ci95": [
+          0.0113,
+          0.0368
+        ],
+        "ci_halfwidth": 0.0127,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "500": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.0278,
+        "ci95": [
+          0.0136,
+          0.0449
+        ],
+        "ci_halfwidth": 0.0156,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "T5_SGNS_FROM_SCRATCH": {
+      "SKIPPED": false,
+      "elapsed_train_s": 3.0,
+      "vocab_size": 22265,
+      "n_sentences_trained_on": 33839,
+      "NO_PRETRAINED_EMBEDDING_TABLE_IMPORTED": true,
+      "T5_IN_IN": {
+        "n_pairs_P": 241,
+        "n_pairs_S": 242,
+        "auc": 0.4417,
+        "ci95": [
+          0.3904,
+          0.4927
+        ],
+        "ci_halfwidth": 0.0512,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "T5_IN_OUT_bonus_diagnostic": {
+        "n_pairs_P": 241,
+        "n_pairs_S": 242,
+        "auc": 0.5076,
+        "ci95": [
+          0.4569,
+          0.5595
+        ],
+        "ci_halfwidth": 0.0513,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "N1_UNTRAINED_RANDOM_INIT_CONTROL": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "ci_halfwidth": 0.0,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "in_in_score_fn_note": "cue-vector cosine (model.wv.similarity), the primary/required number"
+    },
+    "T5_WINNER_COMPOSITION": null,
+    "K1_KNOWN_ANSWER": {
+      "n_pairs_P": 242,
+      "n_pairs_S": 242,
+      "auc": 0.9599,
+      "ci95": [
+        0.9441,
+        0.9739
+      ],
+      "ci_halfwidth": 0.0149,
+      "band": "ABOVE_0.5_SUBSTITUTABILITY"
+    },
+    "N0_RANDOM_VECTOR_STORE": {
+      "n_pairs_P": 242,
+      "n_pairs_S": 242,
+      "auc": 0.4862,
+      "ci95": [
+        0.4353,
+        0.5377
+      ],
+      "ci_halfwidth": 0.0512,
+      "band": "NOT_SEPARATED_FROM_CHANCE"
+    },
+    "A0_INCUMBENT": {
+      "n_pairs_P": 242,
+      "n_pairs_S": 242,
+      "auc": 0.071,
+      "ci95": [
+        0.0509,
+        0.0937
+      ],
+      "ci_halfwidth": 0.0214,
+      "band": "BELOW_0.5_COOCCURRENCE"
+    },
+    "K1_WINNER_COMPOSITION": {
+      "n_pairs_compared": 242,
+      "n_ties_excluded": 2,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5020661157024794,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 0.9958677685950413,
+      "winner_cooccurrence_share": 0.04583333333333333,
+      "ratio_winner_over_SET_S_share": 0.04602351313969571
+    },
+    "N0_WINNER_COMPOSITION": {
+      "n_pairs_compared": 242,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5020661157024794,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 0.9958677685950413,
+      "winner_cooccurrence_share": 0.5454545454545454,
+      "ratio_winner_over_SET_S_share": 0.5477178423236514
+    },
+    "A0_WINNER_COMPOSITION": {
+      "n_pairs_compared": 242,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5020661157024794,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 0.9958677685950413,
+      "winner_cooccurrence_share": 0.9462809917355371,
+      "ratio_winner_over_SET_S_share": 0.950207468879668
+    },
+    "FLOORS_RECOMPUTED_ON_THIS_POPULATION": {
+      "F_ORTHOGRAPHIC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5,
+        "ci95": [
+          0.4875,
+          0.5124
+        ],
+        "ci_halfwidth": 0.0125,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_FREQUENCY": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4901,
+        "ci95": [
+          0.4376,
+          0.5413
+        ],
+        "ci_halfwidth": 0.0519,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_SCRAMBLE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4664,
+        "ci95": [
+          0.4148,
+          0.5178
+        ],
+        "ci_halfwidth": 0.0515,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5431,
+        "ci95": [
+          0.4922,
+          0.5953
+        ],
+        "ci_halfwidth": 0.0516,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      }
+    },
+    "TIE_CONVENTION_NOTE": "This instrument's scorer is DSI.auc_of, a Mann-Whitney-U-style AUC with ties credited 0.5 each (P(P>S) + 0.5*P(tie)) -- ONE well-defined tie handling built into the formula itself. Unlike the hit@1 metric elsewhere in this project, there is no second tie convention applicable to an AUC scorer; stated explicitly rather than silently omitted.",
+    "NEW_ARM_DIGESTS_ARMS_MUST_DIFFER": {
+      "T0": "cd925fa5ae27444e",
+      "T1": "5a974057239744ed",
+      "T2": "acfd3d99d5a27086",
+      "T3": "5a974057239744ed",
+      "T4": "acfd3d99d5a27086"
+    },
+    "WINNING_ARMS_CI_SEPARATED_ABOVE_0.5": [],
+    "ARMS_IMPROVING_OVER_T0_CI_SEPARATED": [
+      "T2",
+      "T4"
+    ],
+    "INTERPRETATION": "STOP_IF_iii_TUNING_IMPROVES_ON_VANILLA_BUT_STAYS_BELOW_0.5__SUPERVISION_CONCLUSION_SURVIVES_A_FAIRER_TEST__IMPROVING_ARMS=T2,T4",
+    "elapsed_s": 454.9
+  },
+  "elapsed_s": 455.8,
+  "summary": "Does a properly tuned, fully unsupervised count method (context-distribution smoothing + shifted PPMI + subsampling + eigenvalue weighting, all held-out-selected, never tuned on the 242 eval pairs) clear 0.5 on the licensed dissociation instrument, falsifying the Director's plan sec 6.18 supervision conclusion? -> STOP_IF_iii_TUNING_IMPROVES_ON_VANILLA_BUT_STAYS_BELOW_0.5__SUPERVISION_CONCLUSION_SURVIVES_A_FAIRER_TEST__IMPROVING_ARMS=T2,T4"
+}

@@ -1,0 +1,1374 @@
+{
+  "anchor_name": "tuned_count_unsupervised_dissociation_v1",
+  "run_mode": "reduced",
+  "code_version": "v1.0",
+  "findings_log": "notes/tuned_count_unsupervised_dissociation_2026-08-18.md",
+  "verdict": "TUNED_COUNT_UNSUPERVISED__STOP_IF_iii_TUNING_IMPROVES_ON_VANILLA_BUT_STAYS_BELOW_0.5__SUPERVISION_CONCLUSION_SURVIVES_A_FAIRER_TEST__IMPROVING_ARMS=T1,T2,T3,T4",
+  "verdict_msg": "Does a properly tuned, fully unsupervised count method (context-distribution smoothing + shifted PPMI + subsampling + eigenvalue weighting, all held-out-selected, never tuned on the 242 eval pairs) clear 0.5 on the licensed dissociation instrument, falsifying the Director's plan sec 6.18 supervision conclusion? -> STOP_IF_iii_TUNING_IMPROVES_ON_VANILLA_BUT_STAYS_BELOW_0.5__SUPERVISION_CONCLUSION_SURVIVES_A_FAIRER_TEST__IMPROVING_ARMS=T1,T2,T3,T4",
+  "config": {
+    "MASTER_SEED": 20260816,
+    "N_BOOT": 1500,
+    "K_SWEEP_FULL": [
+      50,
+      100,
+      300,
+      500
+    ],
+    "SEL_K": [
+      10,
+      20
+    ],
+    "ALPHA_GRID": [
+      0.5,
+      0.75,
+      1.0
+    ],
+    "KSHIFT_GRID": [
+      1,
+      5,
+      15
+    ],
+    "SUBSAMPLE_T_GRID": [
+      "None",
+      "0.001",
+      "1e-05"
+    ],
+    "P_GRID": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "T4_K_GRID": [
+      10,
+      20
+    ],
+    "SGNS_VECTOR_SIZE": 100
+  },
+  "selftest_evidence_keys": [
+    "alpha_1_is_vanilla",
+    "arms_must_differ_digest_sensitivity",
+    "exp_checkpoint_selftest",
+    "ppmi_tuned_reduces_to_CAP_vanilla",
+    "score_fn_from_arrays_known_answer",
+    "seed_for_deterministic",
+    "shift_monotone",
+    "subsample_off_is_vanilla",
+    "svd_rank_ceiling_dropped",
+    "svd_vectors_p_matches_CAP_convention",
+    "winner_composition_collocate_arm_known_answer",
+    "winner_composition_perfect_arm_known_answer"
+  ],
+  "report": {
+    "anchor_name": "tuned_count_unsupervised_dissociation_v1",
+    "grid": "reduced",
+    "code_version": "v1.0",
+    "findings_log": "notes/tuned_count_unsupervised_dissociation_2026-08-18.md",
+    "NO_LLM_IN_OPERATIONAL_FLOW": true,
+    "NO_PRETRAINED_EMBEDDING_TABLE_IMPORTED": true,
+    "REGRESSION_GATE": {
+      "n_matched_pairs_per_cell": 242,
+      "n_arms_recomputed": 11,
+      "checks": {
+        "F_ORTHOGRAPHIC": {
+          "PASS": true,
+          "expected": 0.5,
+          "measured": 0.5,
+          "delta": 0.0
+        },
+        "F_FREQUENCY": {
+          "PASS": true,
+          "expected": 0.4901,
+          "measured": 0.4901,
+          "delta": 0.0
+        },
+        "F_SCRAMBLE": {
+          "PASS": true,
+          "expected": 0.4664,
+          "measured": 0.4664,
+          "delta": 0.0
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "PASS": true,
+          "expected": 0.5431,
+          "measured": 0.5431,
+          "delta": 0.0
+        },
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+          "PASS": true,
+          "expected": 0.9599,
+          "measured": 0.9599,
+          "delta": 0.0
+        },
+        "RANDOM_VECTOR_STORE": {
+          "PASS": true,
+          "expected": 0.4862,
+          "measured": 0.4862,
+          "delta": 0.0
+        },
+        "INCUMBENT_LIVE_STORE": {
+          "PASS": true,
+          "expected": 0.071,
+          "measured": 0.071,
+          "delta": 0.0
+        },
+        "RAW_COUNT_FULL_ACCUM": {
+          "PASS": true,
+          "expected": 0.051,
+          "measured": 0.051,
+          "delta": 0.0
+        }
+      },
+      "floors_at_chance": true,
+      "known_answer_ok": true,
+      "random_store_ok": true,
+      "INSTRUMENT_LICENSED": true,
+      "recomputed_AUC_PER_ARM": {
+        "F_ORTHOGRAPHIC": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.5,
+          "ci95": [
+            0.4875,
+            0.5124
+          ],
+          "ci_halfwidth": 0.0125,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_FREQUENCY": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4901,
+          "ci95": [
+            0.4384,
+            0.5402
+          ],
+          "ci_halfwidth": 0.0509,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_SCRAMBLE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4664,
+          "ci95": [
+            0.4138,
+            0.5175
+          ],
+          "ci_halfwidth": 0.0518,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "F_CONSTANT_PROTOTYPE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.5431,
+          "ci95": [
+            0.4938,
+            0.5947
+          ],
+          "ci_halfwidth": 0.0504,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "KNOWN_ANSWER_WORDNET_PATH_SIM": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.9599,
+          "ci95": [
+            0.9443,
+            0.974
+          ],
+          "ci_halfwidth": 0.0148,
+          "band": "ABOVE_0.5_SUBSTITUTABILITY"
+        },
+        "RANDOM_VECTOR_STORE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4862,
+          "ci95": [
+            0.4357,
+            0.5369
+          ],
+          "ci_halfwidth": 0.0506,
+          "band": "NOT_SEPARATED_FROM_CHANCE"
+        },
+        "INCUMBENT_LIVE_STORE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.071,
+          "ci95": [
+            0.051,
+            0.0948
+          ],
+          "ci_halfwidth": 0.0219,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "RAW_COUNT_FULL_ACCUM": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.051,
+          "ci95": [
+            0.0324,
+            0.0711
+          ],
+          "ci_halfwidth": 0.0193,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "RAW_COUNT_SINGLE_OCC": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.4173,
+          "ci95": [
+            0.3875,
+            0.4506
+          ],
+          "ci_halfwidth": 0.0315,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "PRESENCE_ABSENCE_BINARIZED": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.0294,
+          "ci95": [
+            0.0147,
+            0.0465
+          ],
+          "ci_halfwidth": 0.0159,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "PARADIGMATIC_PROFILE_WRITE": {
+          "n_pairs_P": 242,
+          "n_pairs_S": 242,
+          "auc": 0.2165,
+          "ci95": [
+            0.1794,
+            0.2584
+          ],
+          "ci_halfwidth": 0.0395,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      }
+    },
+    "N_MATCHED_PAIRS_PER_CELL": 40,
+    "N_DISTINCT_EVAL_WORDS": 142,
+    "MATRIX": {
+      "n_rows_anchors": 1309,
+      "n_missing_anchors": 0,
+      "missing_anchor_sample": [],
+      "n_cols_vocab": 18726,
+      "nnz": 266166,
+      "density": 0.01085845,
+      "total_token_count": 459114.0,
+      "matrix_shape": [
+        1309,
+        18726
+      ]
+    },
+    "COVERAGE": {
+      "SET_P": {
+        "n_pairs": 40,
+        "n_both_members_present": 40
+      },
+      "SET_S": {
+        "n_pairs": 40,
+        "n_both_members_present": 40
+      }
+    },
+    "HELDOUT_POPULATION": {
+      "n_pool_anchors_word_disjoint_from_eval": 800,
+      "n_wn_candidates": 163,
+      "n_setP_raw_zero_cooccurrence": 118,
+      "setS_construction": {
+        "n_raw_top_pool": 1500,
+        "cap_requested": 1500,
+        "actual_min_count_in_pool": 5,
+        "decile_90_threshold_full_population": 4.0,
+        "pool_is_at_least_top_decile": true,
+        "n_excluded_wn_exact_synonym": 12,
+        "n_excluded_wn_near_path_sim_ge_thresh": 120,
+        "n_excluded_pos_mismatch_or_no_synsets": 884,
+        "n_kept": 484
+      },
+      "matching": {
+        "per_pos_stratum": {
+          "a": {
+            "n_P_candidates": 7,
+            "n_S_candidates": 0,
+            "n_matched": 0,
+            "n_dropped_caliper": 0
+          },
+          "n": {
+            "n_P_candidates": 59,
+            "n_S_candidates": 483,
+            "n_matched": 4,
+            "n_dropped_caliper": 55
+          },
+          "r": {
+            "n_P_candidates": 5,
+            "n_S_candidates": 0,
+            "n_matched": 0,
+            "n_dropped_caliper": 0
+          },
+          "v": {
+            "n_P_candidates": 47,
+            "n_S_candidates": 1,
+            "n_matched": 0,
+            "n_dropped_caliper": 47
+          }
+        },
+        "n_candidates_P": 118,
+        "n_candidates_S": 484,
+        "n_matched_P": 4,
+        "n_matched_S": 4,
+        "n_dropped_caliper": 102,
+        "caliper_sq_per_dim": [
+          0.02,
+          0.02,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "matching_covariates": [
+          "mean_log_freq",
+          "abs_freq_diff",
+          "mean_length",
+          "orthographic_trigram_cos",
+          "mean_constant_prototype"
+        ],
+        "pre_match_smd": {
+          "mean_log_freq": -2.2172,
+          "abs_freq_diff": -0.2178,
+          "mean_length": 0.3396,
+          "orthographic_trigram_cos": 0.8755,
+          "mean_constant_prototype": -0.9905
+        },
+        "post_match_smd": {
+          "mean_log_freq": 0.1279,
+          "abs_freq_diff": 0.0143,
+          "mean_length": -0.3499,
+          "orthographic_trigram_cos": 0.0,
+          "mean_constant_prototype": 0.0862
+        },
+        "post_match_pos_distribution_P": {
+          "n": 4
+        },
+        "post_match_pos_distribution_S": {
+          "n": 4
+        }
+      },
+      "n_matched": 4
+    },
+    "T0_VANILLA_PPMI_SVD": {
+      "sweep": {
+        "50": {
+          "n_pairs_P": 40,
+          "n_pairs_S": 40,
+          "auc": 0.0356,
+          "ci95": [
+            0.0081,
+            0.0772
+          ],
+          "ci_halfwidth": 0.0345,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "100": {
+          "n_pairs_P": 40,
+          "n_pairs_S": 40,
+          "auc": 0.0362,
+          "ci95": [
+            0.0013,
+            0.0894
+          ],
+          "ci_halfwidth": 0.0441,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "300": {
+          "n_pairs_P": 40,
+          "n_pairs_S": 40,
+          "auc": 0.0444,
+          "ci95": [
+            0.0013,
+            0.1125
+          ],
+          "ci_halfwidth": 0.0556,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        },
+        "500": {
+          "n_pairs_P": 40,
+          "n_pairs_S": 40,
+          "auc": 0.0462,
+          "ci95": [
+            0.0006,
+            0.1066
+          ],
+          "ci_halfwidth": 0.053,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "regression_checks": {}
+    },
+    "T0_BEST_K": "500",
+    "T0_WINNER_COMPOSITION": {
+      "n_pairs_compared": 40,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 1.0,
+      "winner_cooccurrence_share": 0.95,
+      "ratio_winner_over_SET_S_share": 0.95
+    },
+    "T1_CONTEXT_DISTRIBUTION_SMOOTHING": {
+      "SWEEP": [
+        {
+          "alpha": 0.5,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 10,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.11,
+            "ci95": [
+              0.0469,
+              0.1841
+            ],
+            "ci_halfwidth": 0.0686,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T1:a0.50_k10"
+        },
+        {
+          "alpha": 0.5,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 20,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.0475,
+            "ci95": [
+              0.0138,
+              0.096
+            ],
+            "ci_halfwidth": 0.0411,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T1:a0.50_k20"
+        },
+        {
+          "alpha": 0.75,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 10,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1206,
+            "ci95": [
+              0.0547,
+              0.2013
+            ],
+            "ci_halfwidth": 0.0733,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T1:a0.75_k10"
+        },
+        {
+          "alpha": 0.75,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 20,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.0519,
+            "ci95": [
+              0.0187,
+              0.0969
+            ],
+            "ci_halfwidth": 0.0391,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T1:a0.75_k20"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 10,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1256,
+            "ci95": [
+              0.0594,
+              0.2022
+            ],
+            "ci_halfwidth": 0.0714,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T1:a1.00_k10"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 20,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.0631,
+            "ci95": [
+              0.0213,
+              0.1178
+            ],
+            "ci_halfwidth": 0.0483,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T1:a1.00_k20"
+        }
+      ],
+      "HELDOUT_USABLE": false,
+      "SELECTED_CONFIG": {
+        "alpha": 1.0,
+        "k_shift": 1.0,
+        "subsample_t": null,
+        "k": 10,
+        "p": 0.5,
+        "held_out_auc": null,
+        "eval_auc": {
+          "n_pairs_P": 40,
+          "n_pairs_S": 40,
+          "auc": 0.1256,
+          "ci95": [
+            0.0594,
+            0.2022
+          ],
+          "ci_halfwidth": 0.0714,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "RESULT_held_out_selected_eval_AUC": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.1256,
+        "ci95": [
+          0.0594,
+          0.2022
+        ],
+        "ci_halfwidth": 0.0714,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "CEILING_NOT_A_RESULT_DO_NOT_QUOTE_AS_CAPABILITY": {
+        "alpha": 1.0,
+        "k_shift": 1.0,
+        "subsample_t": null,
+        "k": 10,
+        "p": 0.5,
+        "held_out_auc": null,
+        "eval_auc": {
+          "n_pairs_P": 40,
+          "n_pairs_S": 40,
+          "auc": 0.1256,
+          "ci95": [
+            0.0594,
+            0.2022
+          ],
+          "ci_halfwidth": 0.0714,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "CEILING_eval_AUC": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.1256,
+        "ci95": [
+          0.0594,
+          0.2022
+        ],
+        "ci_halfwidth": 0.0714,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "T2_SHIFTED_PPMI": {
+      "SWEEP": [
+        {
+          "alpha": 1.0,
+          "k_shift": 1,
+          "subsample_t": null,
+          "k": 10,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1256,
+            "ci95": [
+              0.059,
+              0.21
+            ],
+            "ci_halfwidth": 0.0755,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T2:ks1_k10"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1,
+          "subsample_t": null,
+          "k": 20,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.0631,
+            "ci95": [
+              0.0225,
+              0.1128
+            ],
+            "ci_halfwidth": 0.0452,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T2:ks1_k20"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 5,
+          "subsample_t": null,
+          "k": 10,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.155,
+            "ci95": [
+              0.0831,
+              0.2403
+            ],
+            "ci_halfwidth": 0.0786,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T2:ks5_k10"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 5,
+          "subsample_t": null,
+          "k": 20,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.0744,
+            "ci95": [
+              0.0294,
+              0.1341
+            ],
+            "ci_halfwidth": 0.0524,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T2:ks5_k20"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 10,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1694,
+            "ci95": [
+              0.0922,
+              0.2669
+            ],
+            "ci_halfwidth": 0.0874,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T2:ks15_k10"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 20,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1125,
+            "ci95": [
+              0.0522,
+              0.19
+            ],
+            "ci_halfwidth": 0.0689,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T2:ks15_k20"
+        }
+      ],
+      "HELDOUT_USABLE": false,
+      "SELECTED_CONFIG": {
+        "alpha": 1.0,
+        "k_shift": 15,
+        "subsample_t": null,
+        "k": 10,
+        "p": 0.5,
+        "held_out_auc": null,
+        "eval_auc": {
+          "n_pairs_P": 40,
+          "n_pairs_S": 40,
+          "auc": 0.1694,
+          "ci95": [
+            0.0922,
+            0.2669
+          ],
+          "ci_halfwidth": 0.0874,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "RESULT_held_out_selected_eval_AUC": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.1694,
+        "ci95": [
+          0.0922,
+          0.2669
+        ],
+        "ci_halfwidth": 0.0874,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "CEILING_NOT_A_RESULT_DO_NOT_QUOTE_AS_CAPABILITY": {
+        "alpha": 1.0,
+        "k_shift": 15,
+        "subsample_t": null,
+        "k": 10,
+        "p": 0.5,
+        "held_out_auc": null,
+        "eval_auc": {
+          "n_pairs_P": 40,
+          "n_pairs_S": 40,
+          "auc": 0.1694,
+          "ci95": [
+            0.0922,
+            0.2669
+          ],
+          "ci_halfwidth": 0.0874,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "CEILING_eval_AUC": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.1694,
+        "ci95": [
+          0.0922,
+          0.2669
+        ],
+        "ci_halfwidth": 0.0874,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "T3_SUBSAMPLING": {
+      "SWEEP": [
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 10,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1256,
+            "ci95": [
+              0.0584,
+              0.2094
+            ],
+            "ci_halfwidth": 0.0755,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T3:tNone_k10"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": null,
+          "k": 20,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.0631,
+            "ci95": [
+              0.025,
+              0.1166
+            ],
+            "ci_halfwidth": 0.0458,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T3:tNone_k20"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": 0.001,
+          "k": 10,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1256,
+            "ci95": [
+              0.0606,
+              0.201
+            ],
+            "ci_halfwidth": 0.0702,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T3:t0.001_k10"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": 0.001,
+          "k": 20,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.0619,
+            "ci95": [
+              0.0231,
+              0.1131
+            ],
+            "ci_halfwidth": 0.045,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T3:t0.001_k20"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": 1e-05,
+          "k": 10,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1244,
+            "ci95": [
+              0.0572,
+              0.2025
+            ],
+            "ci_halfwidth": 0.0727,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T3:t1e-05_k10"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 1.0,
+          "subsample_t": 1e-05,
+          "k": 20,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.0481,
+            "ci95": [
+              0.0163,
+              0.095
+            ],
+            "ci_halfwidth": 0.0394,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T3:t1e-05_k20"
+        }
+      ],
+      "HELDOUT_USABLE": false,
+      "SELECTED_CONFIG": {
+        "alpha": 1.0,
+        "k_shift": 1.0,
+        "subsample_t": null,
+        "k": 10,
+        "p": 0.5,
+        "held_out_auc": null,
+        "eval_auc": {
+          "n_pairs_P": 40,
+          "n_pairs_S": 40,
+          "auc": 0.1256,
+          "ci95": [
+            0.0584,
+            0.2094
+          ],
+          "ci_halfwidth": 0.0755,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "RESULT_held_out_selected_eval_AUC": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.1256,
+        "ci95": [
+          0.0584,
+          0.2094
+        ],
+        "ci_halfwidth": 0.0755,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "CEILING_NOT_A_RESULT_DO_NOT_QUOTE_AS_CAPABILITY": {
+        "alpha": 1.0,
+        "k_shift": 1.0,
+        "subsample_t": null,
+        "k": 10,
+        "p": 0.5,
+        "held_out_auc": null,
+        "eval_auc": {
+          "n_pairs_P": 40,
+          "n_pairs_S": 40,
+          "auc": 0.1256,
+          "ci95": [
+            0.0584,
+            0.2094
+          ],
+          "ci_halfwidth": 0.0755,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "CEILING_eval_AUC": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.1256,
+        "ci95": [
+          0.0584,
+          0.2094
+        ],
+        "ci_halfwidth": 0.0755,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      }
+    },
+    "T4_BEST_COMBINED": {
+      "SWEEP": [
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 10,
+          "p": 0.0,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1625,
+            "ci95": [
+              0.0815,
+              0.2547
+            ],
+            "ci_halfwidth": 0.0866,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T4:p0.00_k10"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 20,
+          "p": 0.0,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1087,
+            "ci95": [
+              0.0456,
+              0.1862
+            ],
+            "ci_halfwidth": 0.0703,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T4:p0.00_k20"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 10,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1694,
+            "ci95": [
+              0.0837,
+              0.2638
+            ],
+            "ci_halfwidth": 0.09,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T4:p0.50_k10"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 20,
+          "p": 0.5,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1125,
+            "ci95": [
+              0.0494,
+              0.1897
+            ],
+            "ci_halfwidth": 0.0702,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T4:p0.50_k20"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 10,
+          "p": 1.0,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.18,
+            "ci95": [
+              0.0975,
+              0.275
+            ],
+            "ci_halfwidth": 0.0888,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T4:p1.00_k10"
+        },
+        {
+          "alpha": 1.0,
+          "k_shift": 15,
+          "subsample_t": null,
+          "k": 20,
+          "p": 1.0,
+          "held_out_auc": null,
+          "eval_auc": {
+            "n_pairs_P": 40,
+            "n_pairs_S": 40,
+            "auc": 0.1169,
+            "ci95": [
+              0.0512,
+              0.195
+            ],
+            "ci_halfwidth": 0.0719,
+            "band": "BELOW_0.5_COOCCURRENCE"
+          },
+          "tag": "T4:p1.00_k20"
+        }
+      ],
+      "HELDOUT_USABLE": false,
+      "SELECTED_CONFIG": {
+        "alpha": 1.0,
+        "k_shift": 15,
+        "subsample_t": null,
+        "k": 10,
+        "p": 1.0,
+        "held_out_auc": null,
+        "eval_auc": {
+          "n_pairs_P": 40,
+          "n_pairs_S": 40,
+          "auc": 0.18,
+          "ci95": [
+            0.0975,
+            0.275
+          ],
+          "ci_halfwidth": 0.0888,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "RESULT_held_out_selected_eval_AUC": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.18,
+        "ci95": [
+          0.0975,
+          0.275
+        ],
+        "ci_halfwidth": 0.0888,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "CEILING_NOT_A_RESULT_DO_NOT_QUOTE_AS_CAPABILITY": {
+        "alpha": 1.0,
+        "k_shift": 15,
+        "subsample_t": null,
+        "k": 10,
+        "p": 1.0,
+        "held_out_auc": null,
+        "eval_auc": {
+          "n_pairs_P": 40,
+          "n_pairs_S": 40,
+          "auc": 0.18,
+          "ci95": [
+            0.0975,
+            0.275
+          ],
+          "ci_halfwidth": 0.0888,
+          "band": "BELOW_0.5_COOCCURRENCE"
+        }
+      },
+      "CEILING_eval_AUC": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.18,
+        "ci95": [
+          0.0975,
+          0.275
+        ],
+        "ci_halfwidth": 0.0888,
+        "band": "BELOW_0.5_COOCCURRENCE"
+      },
+      "COMBINED_FROM": {
+        "alpha_star": 1.0,
+        "k_shift_star": 15,
+        "subsample_t_star": null
+      }
+    },
+    "T1_WINNER_COMPOSITION": {
+      "n_pairs_compared": 40,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 1.0,
+      "winner_cooccurrence_share": 0.9,
+      "ratio_winner_over_SET_S_share": 0.9
+    },
+    "T2_WINNER_COMPOSITION": {
+      "n_pairs_compared": 40,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 1.0,
+      "winner_cooccurrence_share": 0.875,
+      "ratio_winner_over_SET_S_share": 0.875
+    },
+    "T3_WINNER_COMPOSITION": {
+      "n_pairs_compared": 40,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 1.0,
+      "winner_cooccurrence_share": 0.9,
+      "ratio_winner_over_SET_S_share": 0.9
+    },
+    "T4_WINNER_COMPOSITION": {
+      "n_pairs_compared": 40,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 1.0,
+      "winner_cooccurrence_share": 0.825,
+      "ratio_winner_over_SET_S_share": 0.825
+    },
+    "T5_SGNS_FROM_SCRATCH": {
+      "SKIPPED": false,
+      "elapsed_train_s": 4.1,
+      "vocab_size": 22265,
+      "n_sentences_trained_on": 33839,
+      "NO_PRETRAINED_EMBEDDING_TABLE_IMPORTED": true,
+      "T5_IN_IN": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.4744,
+        "ci95": [
+          0.3456,
+          0.5916
+        ],
+        "ci_halfwidth": 0.123,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "T5_IN_OUT_bonus_diagnostic": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.4612,
+        "ci95": [
+          0.3294,
+          0.5875
+        ],
+        "ci_halfwidth": 0.1291,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "N1_UNTRAINED_RANDOM_INIT_CONTROL": {
+        "n_pairs_P": 40,
+        "n_pairs_S": 40,
+        "auc": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "ci_halfwidth": 0.0,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "in_in_score_fn_note": "cue-vector cosine (model.wv.similarity), the primary/required number"
+    },
+    "T5_WINNER_COMPOSITION": null,
+    "K1_KNOWN_ANSWER": {
+      "n_pairs_P": 242,
+      "n_pairs_S": 242,
+      "auc": 0.9599,
+      "ci95": [
+        0.9443,
+        0.974
+      ],
+      "ci_halfwidth": 0.0148,
+      "band": "ABOVE_0.5_SUBSTITUTABILITY"
+    },
+    "N0_RANDOM_VECTOR_STORE": {
+      "n_pairs_P": 242,
+      "n_pairs_S": 242,
+      "auc": 0.4862,
+      "ci95": [
+        0.4357,
+        0.5369
+      ],
+      "ci_halfwidth": 0.0506,
+      "band": "NOT_SEPARATED_FROM_CHANCE"
+    },
+    "A0_INCUMBENT": {
+      "n_pairs_P": 242,
+      "n_pairs_S": 242,
+      "auc": 0.071,
+      "ci95": [
+        0.051,
+        0.0948
+      ],
+      "ci_halfwidth": 0.0219,
+      "band": "BELOW_0.5_COOCCURRENCE"
+    },
+    "K1_WINNER_COMPOSITION": {
+      "n_pairs_compared": 40,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 1.0,
+      "winner_cooccurrence_share": 0.0,
+      "ratio_winner_over_SET_S_share": 0.0
+    },
+    "N0_WINNER_COMPOSITION": {
+      "n_pairs_compared": 40,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 1.0,
+      "winner_cooccurrence_share": 0.55,
+      "ratio_winner_over_SET_S_share": 0.55
+    },
+    "A0_WINNER_COMPOSITION": {
+      "n_pairs_compared": 40,
+      "n_ties_excluded": 0,
+      "n_unscored_excluded": 0,
+      "no_relation_rate_overall": 0.5,
+      "gold_SET_P_cooccurrence_share": 0.0,
+      "SET_S_cooccurrence_share": 1.0,
+      "winner_cooccurrence_share": 0.95,
+      "ratio_winner_over_SET_S_share": 0.95
+    },
+    "FLOORS_RECOMPUTED_ON_THIS_POPULATION": {
+      "F_ORTHOGRAPHIC": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5,
+        "ci95": [
+          0.4875,
+          0.5124
+        ],
+        "ci_halfwidth": 0.0125,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_FREQUENCY": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4901,
+        "ci95": [
+          0.4384,
+          0.5402
+        ],
+        "ci_halfwidth": 0.0509,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_SCRAMBLE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.4664,
+        "ci95": [
+          0.4138,
+          0.5175
+        ],
+        "ci_halfwidth": 0.0518,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      },
+      "F_CONSTANT_PROTOTYPE": {
+        "n_pairs_P": 242,
+        "n_pairs_S": 242,
+        "auc": 0.5431,
+        "ci95": [
+          0.4938,
+          0.5947
+        ],
+        "ci_halfwidth": 0.0504,
+        "band": "NOT_SEPARATED_FROM_CHANCE"
+      }
+    },
+    "TIE_CONVENTION_NOTE": "This instrument's scorer is DSI.auc_of, a Mann-Whitney-U-style AUC with ties credited 0.5 each (P(P>S) + 0.5*P(tie)) -- ONE well-defined tie handling built into the formula itself. Unlike the hit@1 metric elsewhere in this project, there is no second tie convention applicable to an AUC scorer; stated explicitly rather than silently omitted.",
+    "NEW_ARM_DIGESTS_ARMS_MUST_DIFFER": {
+      "T0": "633e4e25a952568a",
+      "T1": "27f91a251c2e816c",
+      "T2": "5fda3b93d07e3fbf",
+      "T3": "27f91a251c2e816c",
+      "T4": "849c2b532504adba"
+    },
+    "WINNING_ARMS_CI_SEPARATED_ABOVE_0.5": [],
+    "ARMS_IMPROVING_OVER_T0_CI_SEPARATED": [
+      "T1",
+      "T2",
+      "T3",
+      "T4"
+    ],
+    "INTERPRETATION": "STOP_IF_iii_TUNING_IMPROVES_ON_VANILLA_BUT_STAYS_BELOW_0.5__SUPERVISION_CONCLUSION_SURVIVES_A_FAIRER_TEST__IMPROVING_ARMS=T1,T2,T3,T4",
+    "elapsed_s": 45.2
+  },
+  "elapsed_s": 46.2,
+  "summary": "Does a properly tuned, fully unsupervised count method (context-distribution smoothing + shifted PPMI + subsampling + eigenvalue weighting, all held-out-selected, never tuned on the 242 eval pairs) clear 0.5 on the licensed dissociation instrument, falsifying the Director's plan sec 6.18 supervision conclusion? -> STOP_IF_iii_TUNING_IMPROVES_ON_VANILLA_BUT_STAYS_BELOW_0.5__SUPERVISION_CONCLUSION_SURVIVES_A_FAIRER_TEST__IMPROVING_ARMS=T1,T2,T3,T4"
+}
