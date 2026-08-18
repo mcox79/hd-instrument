@@ -9,6 +9,35 @@ step hunt. 6.16 holds the PRE-COMMITTED decision branches; 6.15 the five gated s
 HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_PLAN.md`.
 
 ## POSITION
+**📐 WHY WE KEEP PRODUCING NEGATIVES -- NOW A NUMBER, NOT A COMPLAINT (Director, inline, 08-18).
+THE ANSWER TO THE OWNER'S "why aren't we narrowing in on GOOD results?" IS PARTLY THAT OUR
+INSTRUMENTS CANNOT SEE A WIN AT THE SAMPLE SIZES WE RUN.**
+**A floor is itself an ESTIMATE with its own error bar, so an arm must clear the floor's UPPER
+bound to be credible -- not the floor's point value.** That gives a **CREDIBLE BAR**:
+
+| instrument | n/cell | floor quoted | floor's own half-width | **CREDIBLE BAR** |
+|---|---|---|---|---|
+| WordNet (DSI) | 242 | 0.5431 | 0.0513 | **0.5944** |
+| human (v3/v4) | 65 | 0.5943 | 0.0975 | **0.6918** |
+| **arc representation (the BINDING one)** | 242 | **0.6317** | 0.0493 | **0.6810** |
+
+**AND THAT SETTLES TONIGHT'S ARM INDEPENDENTLY OF EVERY OTHER OBJECTION: `U1_TYPED_CONTEXT` 0.6669
+vs a credible bar of 0.6810 -- IT DOES NOT CLEAR.** *The retraction did not depend on this, but this
+would have caught it on its own.*
+**METHOD AND ITS LIMIT, STATED: Hanley-McNeil analytic SE, an APPROXIMATION. It is trustworthy HERE
+because it reproduces the cells' own bootstrap half-widths -- 0.0513 vs observed 0.0516, 0.0975 vs
+0.0987, 0.0493 vs 0.0481. IT DOES NOT REPLACE THE BOOTSTRAP; it is for required-n and order of
+magnitude.**
+**WHAT IT WOULD TAKE.** Per-cell n to tighten a floor's half-width: **±0.05 -> ~250-290; ±0.03 ->
+~770; ±0.02 -> ~1,550-1,780; ±0.01 -> ~6,300-7,200.** *The human instrument runs at **65**. Getting
+its bar to ±0.03 needs roughly **12x** the pairs, and its matching funnel is what caps it -- which is
+why "buy n by loosening the matcher" keeps being proposed and must keep being refused: **a bigger
+sample of an unlicensed instrument is worse than no sample.***
+**THE STRATEGIC READ (hypothesis, not a result): WE HAVE BEEN RUNNING EXPERIMENTS THAT COULD NOT
+HAVE RETURNED A CREDIBLE POSITIVE, AND THEN TREATING THE ABSENCE AS EVIDENCE ABOUT THE SUBSTRATE.**
+*Discipline 14 says a width is not an effect; this is the same error one level up -- **a width in the
+FLOOR is not a GATE.** Before the next arm is built, decide what n its instrument needs.*
+
 **🚨 OVERNIGHT 08-18, AND THIS BLOCK IS MIRRORED TO YOUR BOARD SO READ IT FIRST: I HEADLINED A WIN AND
 THEN TOOK IT APART. NO ARM CURRENTLY CLEARS A TRUSTWORTHY BAR.**
 - **A TYPED-ROLE ARM READ 0.6669 AND I CALLED IT THE FIRST EVER TO CLEAR THE BAR. RETRACTED.** Its bar
