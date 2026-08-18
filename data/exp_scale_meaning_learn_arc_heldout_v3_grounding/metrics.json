@@ -1,0 +1,452 @@
+{
+  "verdict": "HARD_FAIL_NO_TRANSFER",
+  "verdict_msg": "HARD_FAIL_NO_TRANSFER: neither semantic nor relational margin clears +/-0.02 of baseline DESPITE L_ground loss visibly decreasing (ground_loss [0.9969081878662109, 1.011542558670044]->[0.2174343764781952, 0.20465624332427979]) -- experiential grounding is too PARTIAL / architecture-bound to transfer into the encoder's held-out-NEW geometry at this scale. Honest null (per task instruction), not a training bug. sem_margin=-0.006507742998989985 rel_margin=5.9724742805356e-05 anchor_pool_min=12200 (of 12918 Lancaster-eligible concepts)",
+  "summary": "HARD_FAIL_NO_TRANSFER: neither semantic nor relational margin clears +/-0.02 of baseline DESPITE L_ground loss visibly decreasing (ground_loss [0.9969081878662109, 1.011542558670044]->[0.2174343764781952, 0.20465624332427979]) -- experiential grounding is too PARTIAL / architecture-bound to transfer into the encoder's held-out-NEW geometry at this scale. Honest null (per task instruction), not a training bug. sem_margin=-0.006507742998989985 rel_margin=5.9724742805356e-05 anchor_pool_min=12200 (of 12918 Lancaster-eligible concepts)",
+  "anchor_name": "scale_meaning_learn_arc_heldout_v3_grounding",
+  "run_mode": "full",
+  "ts_iso": "2026-07-28T20:18:35.578307+00:00",
+  "device": "cuda",
+  "cuda": true,
+  "n_seeds": 2,
+  "results_summary": {
+    "obj_semantic_auc": [
+      0.6244134831664494,
+      0.6337340301742563
+    ],
+    "obj_relational_auc": [
+      0.6315813520598396,
+      0.6340378101744053
+    ],
+    "baseline_semantic_auc": [
+      0.6339932003040564,
+      0.6371697990346293
+    ],
+    "baseline_relational_auc": [
+      0.6407445089333272,
+      0.6247552038153069
+    ],
+    "baseline_source": [
+      "reused_checkpoint",
+      "reused_checkpoint"
+    ],
+    "semantic_margin_over_baseline_mean": -0.006507742998989985,
+    "semantic_margin_over_baseline_min": -0.009579717137606969,
+    "relational_margin_over_baseline_mean": 5.9724742805356e-05,
+    "relational_margin_over_baseline_min": -0.009163156873487677,
+    "ground_learning_real": true,
+    "n_ground_fired_min": 7500,
+    "ground_loss_first": [
+      0.9969081878662109,
+      1.011542558670044
+    ],
+    "ground_loss_last": [
+      0.2174343764781952,
+      0.20465624332427979
+    ],
+    "anchor_pool_min": 12200,
+    "eligible_total_min": 12918,
+    "leak_zero_all": true,
+    "primary_arm_selected": [
+      "ARM_FUSE_ZAVG",
+      "ARM_FUSE_WTUNED"
+    ],
+    "w_star_per_seed": [
+      0.9,
+      0.9
+    ],
+    "semantic_raw_grounding": 0.5968416109382539,
+    "semantic_text": 0.6290737566703528,
+    "semantic_fused_eq_naive": 0.6084458522444119,
+    "semantic_fuse_zavg": 0.6408511394901414,
+    "semantic_fuse_wtuned": 0.6379520006014903,
+    "semantic_primary": 0.6403047584388313,
+    "semantic_random_init": 0.5322100341166243,
+    "semantic_collapse": 0.4974934207879314,
+    "semantic_popularity": 0.496758082059174,
+    "learning_text_minus_random": 0.09686372255372866,
+    "relational_raw": 0.5617170034260908,
+    "relational_text": 0.6328095811171224,
+    "n_query_min": 797,
+    "validity": true,
+    "trained_tokens": [
+      121082196,
+      121082196
+    ]
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "run_mode": "full",
+      "elapsed_s": 11460.236887300001,
+      "w_star": 0.9,
+      "selected_arm": "ARM_FUSE_ZAVG",
+      "fusion_select": {
+        "w_star": 0.9,
+        "selected_arm": "ARM_FUSE_ZAVG",
+        "n_query_train": 1500,
+        "train_arm_auc": {
+          "ARM_RAW_GROUNDING": 0.6070608889519525,
+          "ARM_RAW_TEXT": 0.6242607911091697,
+          "ARM_FUSED_EQ": 0.6174720472386818,
+          "ARM_FUSE_ZAVG": 0.6428528305981134,
+          "ARM_FUSE_WTUNED": 0.6174720472386818,
+          "ARM_RANDOM_INIT": 0.5270955041964286,
+          "ARM_COLLAPSE_SHUFFLE": 0.4994722701025445,
+          "ARM_POPULARITY": 0.497076545280176
+        },
+        "train_wtuned_by_w": {
+          "0.0": 0.6070608889519525,
+          "0.1": 0.6105469662631967,
+          "0.2": 0.6116884709067583,
+          "0.3": 0.6131539782056737,
+          "0.4": 0.6150237737234073,
+          "0.5": 0.6174720472386818,
+          "0.6": 0.6208209030474191,
+          "0.7": 0.6255535768259778,
+          "0.8": 0.6325158397632819,
+          "0.9": 0.642211035357123,
+          "1.0": 0.6242607911091697
+        },
+        "train_candidate_auc": {
+          "ARM_RAW_TEXT": 0.6242607911091697,
+          "ARM_FUSE_ZAVG": 0.6428528305981134,
+          "ARM_FUSE_WTUNED": 0.642211035357123
+        }
+      },
+      "n_well_covered": 674,
+      "semantic_all": {
+        "ARM_RAW_GROUNDING": 0.5968416109382539,
+        "ARM_RAW_TEXT": 0.6244134831664494,
+        "ARM_FUSED_EQ": 0.6069490538819363,
+        "ARM_FUSE_ZAVG": 0.6378929239894795,
+        "ARM_FUSE_WTUNED": 0.6331874083147974,
+        "ARM_FUSE_SELECTED": 0.6378929239894795,
+        "ARM_RANDOM_INIT": 0.5316321318795401,
+        "ARM_COLLAPSE_SHUFFLE": 0.4957313237800577,
+        "ARM_POPULARITY": 0.496758082059174,
+        "_selected_arm": "ARM_FUSE_ZAVG",
+        "_w_star": 0.9,
+        "_n_query": 797,
+        "_n_concepts": 800
+      },
+      "semantic_well_covered": {
+        "ARM_RAW_GROUNDING": 0.5930751753600751,
+        "ARM_RAW_TEXT": 0.6184087105702778,
+        "ARM_FUSED_EQ": 0.603008593669914,
+        "ARM_FUSE_ZAVG": 0.6315833994604584,
+        "ARM_FUSE_WTUNED": 0.6272218369939239,
+        "ARM_FUSE_SELECTED": 0.6315833994604584,
+        "ARM_RANDOM_INIT": 0.5293368232459565,
+        "ARM_COLLAPSE_SHUFFLE": 0.5020950695265408,
+        "ARM_POPULARITY": 0.49801618721945473,
+        "_selected_arm": "ARM_FUSE_ZAVG",
+        "_w_star": 0.9,
+        "_n_query": 672,
+        "_n_concepts": 674
+      },
+      "relational": {
+        "ARM_RAW_GROUNDING": 0.5602857140479233,
+        "ARM_RAW_TEXT": 0.6315813520598396,
+        "ARM_FUSED_EQ": 0.5815702400926813,
+        "ARM_FUSE_ZAVG": 0.6105058334855195,
+        "ARM_FUSE_WTUNED": 0.6273710911937482,
+        "ARM_COLLAPSE_SHUFFLE": 0.5154234793749715,
+        "ARM_POPULARITY": 0.5098813720818305,
+        "_n_query": 596,
+        "_n_shards": 16
+      },
+      "arm_digests": {
+        "ARM_RAW_GROUNDING": "c4c034781b460212745a5b1d8d94cec6248c7f8ca4df47b62a02b4bc413706ef",
+        "ARM_RAW_TEXT": "766eae8f2a97d9dd401dedcaa30c49772bb764d62bb869dc0d34fd79d78b6592",
+        "ARM_RANDOM_INIT": "e4f97c9c73f880675b5f04dea49aff1fcc65c6eda901b48ce9e1ea6f67e87047"
+      },
+      "mention_rep_coverage": 1.0,
+      "final_mlm_loss": 3.9808130264282227,
+      "trained_tokens": 121082196,
+      "corpus_stats": {
+        "n_read": 10000000,
+        "n_kept": 8923418,
+        "n_dup": 67749,
+        "n_lowq": 1008833,
+        "dup_rate": 0.0067749,
+        "total_alpha_tokens": 158090891
+      },
+      "collect_meta": {
+        "n_train_lines": 5461047,
+        "n_held_lines": 3462371,
+        "bpe_sample": 400000,
+        "train_tokens_available": 79893563,
+        "scrub_terms": 6457
+      },
+      "split_meta": {
+        "n_eligible": 15715,
+        "n_heldout": 800,
+        "n_train_eval": 14915,
+        "median_mentions_eligible": 655.0,
+        "median_mentions_heldout": 655.0
+      },
+      "bpe_size": 16000,
+      "checkpoint_saved": true,
+      "ground_diag": {
+        "ground_ok": true,
+        "n_ground_fired": 7500,
+        "n_ckpt_saves": 30,
+        "n_anchor_pool": 12200,
+        "ground_dim": 11,
+        "ground_loss_first": 0.9969081878662109,
+        "ground_loss_last": 0.2174343764781952,
+        "ground_loss_mean_first10": 0.9778878331184387,
+        "ground_loss_mean_last10": 0.18671219050884247,
+        "mlm_loss_first": 284.886962890625,
+        "mlm_loss_last": 3.9808130264282227,
+        "ground_loss_decreased": true
+      },
+      "baseline": {
+        "baseline_source": "reused_checkpoint",
+        "baseline_relational_auc": 0.6407445089333272,
+        "baseline_semantic_auc": 0.6339932003040564,
+        "baseline_reload_ok": true,
+        "baseline_n_query_rel": 596
+      },
+      "ground_leak_gate": {
+        "n_anchor_pool": 12200,
+        "n_eligible_total": 12918,
+        "n_held_with_lancaster": 641,
+        "n_leak_verified_zero": true
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1785258434.2859762
+    },
+    "13": {
+      "seed": 13,
+      "run_mode": "full",
+      "elapsed_s": 11453.084447599998,
+      "w_star": 0.9,
+      "selected_arm": "ARM_FUSE_WTUNED",
+      "fusion_select": {
+        "w_star": 0.9,
+        "selected_arm": "ARM_FUSE_WTUNED",
+        "n_query_train": 1499,
+        "train_arm_auc": {
+          "ARM_RAW_GROUNDING": 0.5973514553928907,
+          "ARM_RAW_TEXT": 0.637572468705497,
+          "ARM_FUSED_EQ": 0.6131523053821055,
+          "ARM_FUSE_ZAVG": 0.6447388468303437,
+          "ARM_FUSE_WTUNED": 0.6131523053821055,
+          "ARM_RANDOM_INIT": 0.5294228334412778,
+          "ARM_COLLAPSE_SHUFFLE": 0.49976514376210895,
+          "ARM_POPULARITY": 0.4978613054409568
+        },
+        "train_wtuned_by_w": {
+          "0.0": 0.5973514553928907,
+          "0.1": 0.6023767578790307,
+          "0.2": 0.6042141206606305,
+          "0.3": 0.6064911676043434,
+          "0.4": 0.6093968342514767,
+          "0.5": 0.6131523053821055,
+          "0.6": 0.6180910409817825,
+          "0.7": 0.6248575624764185,
+          "0.8": 0.6342798493985986,
+          "0.9": 0.6462383397865885,
+          "1.0": 0.637572468705497
+        },
+        "train_candidate_auc": {
+          "ARM_RAW_TEXT": 0.637572468705497,
+          "ARM_FUSE_ZAVG": 0.6447388468303437,
+          "ARM_FUSE_WTUNED": 0.6462383397865885
+        }
+      },
+      "n_well_covered": 674,
+      "semantic_all": {
+        "ARM_RAW_GROUNDING": 0.5968416109382539,
+        "ARM_RAW_TEXT": 0.6337340301742563,
+        "ARM_FUSED_EQ": 0.6099426506068876,
+        "ARM_FUSE_ZAVG": 0.6438093549908033,
+        "ARM_FUSE_WTUNED": 0.6427165928881831,
+        "ARM_FUSE_SELECTED": 0.6427165928881831,
+        "ARM_RANDOM_INIT": 0.5327879363537084,
+        "ARM_COLLAPSE_SHUFFLE": 0.4992555177958051,
+        "ARM_POPULARITY": 0.496758082059174,
+        "_selected_arm": "ARM_FUSE_WTUNED",
+        "_w_star": 0.9,
+        "_n_query": 797,
+        "_n_concepts": 800
+      },
+      "semantic_well_covered": {
+        "ARM_RAW_GROUNDING": 0.5930751753600751,
+        "ARM_RAW_TEXT": 0.6248627102557995,
+        "ARM_FUSED_EQ": 0.6054803505818507,
+        "ARM_FUSE_ZAVG": 0.6358102384264809,
+        "ARM_FUSE_WTUNED": 0.6347110284436918,
+        "ARM_FUSE_SELECTED": 0.6347110284436918,
+        "ARM_RANDOM_INIT": 0.5323801694997244,
+        "ARM_COLLAPSE_SHUFFLE": 0.497004096692249,
+        "ARM_POPULARITY": 0.49801618721945473,
+        "_selected_arm": "ARM_FUSE_WTUNED",
+        "_w_star": 0.9,
+        "_n_query": 672,
+        "_n_concepts": 674
+      },
+      "relational": {
+        "ARM_RAW_GROUNDING": 0.5631482928042582,
+        "ARM_RAW_TEXT": 0.6340378101744053,
+        "ARM_FUSED_EQ": 0.5812043489095863,
+        "ARM_FUSE_ZAVG": 0.6139029684860521,
+        "ARM_FUSE_WTUNED": 0.6405650243878312,
+        "ARM_COLLAPSE_SHUFFLE": 0.5258761951368914,
+        "ARM_POPULARITY": 0.5112675370763519,
+        "_n_query": 596,
+        "_n_shards": 16
+      },
+      "arm_digests": {
+        "ARM_RAW_GROUNDING": "c4c034781b460212745a5b1d8d94cec6248c7f8ca4df47b62a02b4bc413706ef",
+        "ARM_RAW_TEXT": "809bf75f6460a938e6a4673778bc1a9d0ef90ccf8d568831608861badfdc3c68",
+        "ARM_RANDOM_INIT": "5c146490c643317a7b34a5c63fd90f3cf6b24b77bdd24b1e72b04f83372fe926"
+      },
+      "mention_rep_coverage": 1.0,
+      "final_mlm_loss": 4.064918041229248,
+      "trained_tokens": 121082196,
+      "corpus_stats": {
+        "n_read": 10000000,
+        "n_kept": 8923418,
+        "n_dup": 67749,
+        "n_lowq": 1008833,
+        "dup_rate": 0.0067749,
+        "total_alpha_tokens": 158090891
+      },
+      "collect_meta": {
+        "n_train_lines": 5461047,
+        "n_held_lines": 3462371,
+        "bpe_sample": 400000,
+        "train_tokens_available": 79893563,
+        "scrub_terms": 6457
+      },
+      "split_meta": {
+        "n_eligible": 15715,
+        "n_heldout": 800,
+        "n_train_eval": 14915,
+        "median_mentions_eligible": 655.0,
+        "median_mentions_heldout": 655.0
+      },
+      "bpe_size": 16000,
+      "checkpoint_saved": true,
+      "ground_diag": {
+        "ground_ok": true,
+        "n_ground_fired": 7500,
+        "n_ckpt_saves": 30,
+        "n_anchor_pool": 12200,
+        "ground_dim": 11,
+        "ground_loss_first": 1.011542558670044,
+        "ground_loss_last": 0.20465624332427979,
+        "ground_loss_mean_first10": 0.9831938862800598,
+        "ground_loss_mean_last10": 0.19405003786087036,
+        "mlm_loss_first": 275.82342529296875,
+        "mlm_loss_last": 4.064918041229248,
+        "ground_loss_decreased": true
+      },
+      "baseline": {
+        "baseline_source": "reused_checkpoint",
+        "baseline_relational_auc": 0.6247552038153069,
+        "baseline_semantic_auc": 0.6371697990346293,
+        "baseline_reload_ok": true,
+        "baseline_n_query_rel": 596
+      },
+      "ground_leak_gate": {
+        "n_anchor_pool": 12200,
+        "n_eligible_total": 12918,
+        "n_held_with_lancaster": 641,
+        "n_leak_verified_zero": true
+      },
+      "_ckpt_key": "13",
+      "_partial_written_at": 1785269915.5627062
+    }
+  },
+  "bands": {
+    "hp_margin_over_baseline": 0.03,
+    "raw_signal_min": 0.55,
+    "collapse_band": [
+      0.44,
+      0.56
+    ],
+    "min_query": 120,
+    "sem_regression_max": 0.02,
+    "cited_baseline_relational_auc": 0.56
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "elapsed_s": 22913.3213349,
+  "structured_gate_claims": [
+    {
+      "gate_name": "collapse_in_band",
+      "measured": 1.0,
+      "threshold": 1.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "collapse=0.4975 band=(0.44, 0.56)"
+    },
+    {
+      "gate_name": "popularity_in_band",
+      "measured": 1.0,
+      "threshold": 1.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "pop=0.4968"
+    },
+    {
+      "gate_name": "raw_grounding_signal",
+      "measured": 0.5968416109382539,
+      "threshold": 0.55,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "raw grounding must be a real signal"
+    },
+    {
+      "gate_name": "power_min_query",
+      "measured": 797.0,
+      "threshold": 120.0,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "held-out query power floor"
+    },
+    {
+      "gate_name": "learning_real_text_over_random",
+      "measured": 0.09686372255372866,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": true,
+      "note": "RAW_TEXT - RANDOM_INIT"
+    },
+    {
+      "gate_name": "ground_anchor_pool_excludes_held",
+      "measured": 1.0,
+      "threshold": 1.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "held-out concepts never in grounding-loss anchor pool (min anchor_pool=12200 of 12918 eligible)"
+    },
+    {
+      "gate_name": "ground_objective_learning_real",
+      "measured": 1.0,
+      "threshold": 1.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "L_ground fired every seed AND ground_loss decreased (n_ground_fired_min=7500, per-seed ground_loss_decreased=[True, True])"
+    },
+    {
+      "gate_name": "semantic_margin_over_baseline",
+      "measured": -0.006507742998989985,
+      "threshold": 0.03,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "OBJ(TEXT_ARM semantic-AUC) - BASELINE(reused/cited)"
+    },
+    {
+      "gate_name": "relational_margin_over_baseline",
+      "measured": 5.9724742805356e-05,
+      "threshold": 0.03,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "OBJ(TEXT_ARM relational-AUC) - BASELINE(reused/cited)"
+    }
+  ]
+}

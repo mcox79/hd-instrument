@@ -1,0 +1,186 @@
+{
+  "verdict": "GATE_COMPLETE",
+  "verdict_tag": "OPTIMIZATION_UNSTABLE",
+  "verdict_msg": "MES/KD FAIRNESS-HARDENED GATE (gap-B; primary size=16; seeds=[7]; eval_N=16; ri_seeds=1): gate_verdict=OPTIMIZATION_UNSTABLE. mean_trained=0.5000 mean_random_init=0.4375 gate_min_detectable_effect(2sig)=0.3522. per_seed={7: {'trained': 0.5, 'ri_mean': 0.4375, 'gap': 0.0625, 'z': 0.35, 'p': 0.3613, 'sig': False, 'a_loss': 0.7071, 'fit': False, 'v': 'OPTIMIZATION_UNSTABLE'}}. bar: gap>=0.10 over ri-DISTRIBUTION AND (z>=2.0 AND trained>ri_max) WITH train_loss<0.15. KD B-A={7: 0.0} B-B_SHUF={7: 0.0} (grounding must beat the SHUFFLED-KB placebo, not just Arm A). BGE-recal: MES=n/a KD=n/a.",
+  "summary": "MES/KD FAIRNESS-HARDENED GATE (gap-B; primary size=16; seeds=[7]; eval_N=16; ri_seeds=1): gate_verdict=OPTIMIZATION_UNSTABLE. mean_trained=0.5000 mean_random_init=0.4375 gate_min_detectable_effect(2si",
+  "elapsed_s": 45.62404890000471,
+  "ts_iso": "2026-07-30T01:20:41.113469+00:00",
+  "pid": 22436,
+  "anchor_name": "stateful_core_mes_data_sufficient_gate_v1",
+  "run_mode": "cuda_sanity",
+  "device": "cuda",
+  "gate_verdict": "OPTIMIZATION_UNSTABLE",
+  "primary_size": 16,
+  "seeds": [
+    7
+  ],
+  "mes_sizes": [
+    16
+  ],
+  "ctrl_seeds": [
+    7
+  ],
+  "per_seed": {
+    "7": {
+      "best_trained_eval": 0.5,
+      "mes_a_train_loss": 0.7070840895175934,
+      "train_fit": false,
+      "seed_verdict": "OPTIMIZATION_UNSTABLE",
+      "power": {
+        "ri_mean": 0.4375,
+        "ri_std": 0.0,
+        "ri_max": 0.4375,
+        "ri_p95": 0.4375,
+        "n_ri_seeds": 1,
+        "se_trained": 0.125,
+        "se_diff": 0.17608480733726006,
+        "gap": 0.0625,
+        "z": 0.35494260376644554,
+        "p_value": 0.36131629529172155,
+        "min_detectable_effect_2sigma": 0.3521696146745201,
+        "beats_ri_max": true,
+        "significant": false
+      }
+    }
+  },
+  "gate_mean_trained": 0.5,
+  "gate_mean_random_init": 0.4375,
+  "gate_min_detectable_effect_2sigma": 0.3521696146745201,
+  "mes_eval_n": 16,
+  "ri_accs_primary": [
+    0.4375
+  ],
+  "results": {
+    "MES": {
+      "16": {
+        "7": {
+          "A": {
+            "train_loss": 0.7070840895175934,
+            "eval_acc": 0.5,
+            "epochs": 4,
+            "steps": 8
+          },
+          "B": {
+            "train_loss": 0.7070840895175934,
+            "eval_acc": 0.5,
+            "epochs": 4,
+            "steps": 8
+          }
+        }
+      }
+    },
+    "KD": {
+      "7": {
+        "A": {
+          "train_loss": 0.6933030324677626,
+          "eval_acc": 0.5,
+          "epochs": 4,
+          "steps": 192
+        },
+        "B": {
+          "train_loss": 0.7003842269380888,
+          "eval_acc": 0.5,
+          "epochs": 4,
+          "steps": 192
+        },
+        "B_SHUF": {
+          "train_loss": 0.7005131989717484,
+          "eval_acc": 0.5,
+          "epochs": 4,
+          "steps": 192
+        }
+      }
+    }
+  },
+  "controls": {
+    "MES": {
+      "16": {
+        "ri_accs": {
+          "7": 0.4375
+        }
+      }
+    },
+    "KD": {
+      "ri_accs": {
+        "7": 0.5
+      }
+    }
+  },
+  "kd_b_minus_a": {
+    "7": 0.0
+  },
+  "kd_b_minus_shuf": {
+    "7": 0.0
+  },
+  "kd_eval_facts": [
+    5,
+    6,
+    7,
+    8
+  ],
+  "kd_n_eval_facts": 4,
+  "kd_shuf_self_frac": {
+    "train": 0.0,
+    "eval": 0.0
+  },
+  "bge_recal": {},
+  "n_kd_edges_resolved": 9,
+  "n_kd_ids_total": 9,
+  "kd_eval_n": 256,
+  "kd_train_n": 384,
+  "kd_eval_fact_frac": 0.4,
+  "batch": 8,
+  "target_steps": 5,
+  "lr": 0.0003,
+  "warmup_frac": 0.0,
+  "cosine": false,
+  "tau_start": 1.0,
+  "tau_end": 0.1,
+  "lambda_pe": 0.2,
+  "lambda_kb": 0.2,
+  "ctrl_epochs": 10,
+  "grad_clip_max_norm": 1.0,
+  "train_fit_thresh": 0.15,
+  "unstable_thresh": 0.3,
+  "mech_margin": 0.1,
+  "z_thresh": 2.0,
+  "equalize": true,
+  "arms_capacity_equalized": true,
+  "shuffled_kb_placebo_arm": true,
+  "gap_b_token_rep_path": true,
+  "cuda_generator_safe": true,
+  "expected_n_units": 7,
+  "n_units_done": 7,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "MES_16_7": {
+      "A": "5784537179836bdd14d399bc924aef22f11b5cf2955d23da7eea934fe730b9e9",
+      "B": "5784537179836bdd14d399bc924aef22f11b5cf2955d23da7eea934fe730b9e9"
+    },
+    "KD_full_7": {
+      "A": "fcf2c4989a2b0d100b3fad1f0f72411bd346e80f4f227b83ad49d4d408e0d9c1",
+      "B": "1e81c59a9c95f0f87b8d9a2f7e6b85084af8e9ac1e6139e38241222ba2f98476",
+      "B_SHUF": "13cf5773bd1ea63df5f5d10832869006086d0837a4b2a782716f85efff17c932"
+    }
+  },
+  "arms_differ_exempted": [
+    {
+      "construction": "MES",
+      "size": 16,
+      "seed": 7,
+      "pair": [
+        "A",
+        "B"
+      ],
+      "rationale": "MES KB-absent -> Arm B degrades to Arm A (intended null)"
+    }
+  ],
+  "data_fixed_across_seeds": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "defensive_error_checking": "passed_all_4_patterns"
+}

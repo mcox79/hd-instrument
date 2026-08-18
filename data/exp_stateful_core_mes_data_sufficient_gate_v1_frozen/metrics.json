@@ -1,0 +1,313 @@
+{
+  "verdict": "GATE_COMPLETE",
+  "verdict_tag": "OPTIMIZATION_UNSTABLE",
+  "verdict_msg": "MES/KD FROZEN-ENCODER HARDENED GATE (train WM+judge only; primary size=256; seeds=[7, 13]; eval_N=800; ri_seeds=5): gate_verdict=OPTIMIZATION_UNSTABLE. mean_trained=0.5000 mean_random_init=0.5130 gate_mde(2sig)=0.0512. per_seed={7: {'trained': 0.5, 'ri_mean': 0.513, 'gap': -0.013, 'z': -0.51, 'p': 0.6943, 'sig': False, 'a_loss': 0.6995, 'fit': False, 'v': 'OPTIMIZATION_UNSTABLE'}, 13: {'trained': 0.5, 'ri_mean': 0.513, 'gap': -0.013, 'z': -0.51, 'p': 0.6943, 'sig': False, 'a_loss': 0.6978, 'fit': False, 'v': 'OPTIMIZATION_UNSTABLE'}}. bar: gap>=0.10 over ri-DIST AND (z>=2.0 AND >ri_max) WITH train_loss<0.15. meanpool_ctrl(MES={256: 0.5038},KD=0.5352). KD B-A={7: 0.0, 13: 0.0} B-B_SHUF={7: 0.0, 13: 0.0}. BGE: MES=HEADROOM_ABOVE_STRUCTURE_FLOOR KD=MEASUREMENT_IS_THE_BLOCK_no_detectable_known_reader_margin.",
+  "summary": "MES/KD FROZEN-ENCODER HARDENED GATE (train WM+judge only; primary size=256; seeds=[7, 13]; eval_N=800; ri_seeds=5): gate_verdict=OPTIMIZATION_UNSTABLE. mean_trained=0.5000 mean_random_init=0.5130 gate",
+  "elapsed_s": 716.7222710999997,
+  "ts_iso": "2026-07-30T03:15:48.988630+00:00",
+  "pid": 1464,
+  "anchor_name": "stateful_core_mes_data_sufficient_gate_v1",
+  "run_mode": "gate_frozen",
+  "device": "cpu",
+  "encoder_frozen": true,
+  "train_wm_judge_only": true,
+  "gate_verdict": "OPTIMIZATION_UNSTABLE",
+  "primary_size": 256,
+  "seeds": [
+    7,
+    13
+  ],
+  "mes_sizes": [
+    256
+  ],
+  "ctrl_seeds": [
+    7,
+    13,
+    101,
+    20250101,
+    424242
+  ],
+  "per_seed": {
+    "7": {
+      "best_trained_eval": 0.5,
+      "mes_a_train_loss": 0.6994958594441414,
+      "train_fit": false,
+      "seed_verdict": "OPTIMIZATION_UNSTABLE",
+      "power": {
+        "ri_mean": 0.5130000000000001,
+        "ri_std": 0.005491470659122207,
+        "ri_max": 0.51875,
+        "ri_p95": 0.51825,
+        "n_ri_seeds": 5,
+        "se_trained": 0.017677669529663688,
+        "se_diff": 0.02559189324766732,
+        "gap": -0.013000000000000123,
+        "z": -0.5079733599304952,
+        "p_value": 0.6942639870256759,
+        "min_detectable_effect_2sigma": 0.05118378649533464,
+        "beats_ri_max": false,
+        "significant": false
+      }
+    },
+    "13": {
+      "best_trained_eval": 0.5,
+      "mes_a_train_loss": 0.697834238409996,
+      "train_fit": false,
+      "seed_verdict": "OPTIMIZATION_UNSTABLE",
+      "power": {
+        "ri_mean": 0.5130000000000001,
+        "ri_std": 0.005491470659122207,
+        "ri_max": 0.51875,
+        "ri_p95": 0.51825,
+        "n_ri_seeds": 5,
+        "se_trained": 0.017677669529663688,
+        "se_diff": 0.02559189324766732,
+        "gap": -0.013000000000000123,
+        "z": -0.5079733599304952,
+        "p_value": 0.6942639870256759,
+        "min_detectable_effect_2sigma": 0.05118378649533464,
+        "beats_ri_max": false,
+        "significant": false
+      }
+    }
+  },
+  "gate_mean_trained": 0.5,
+  "gate_mean_random_init": 0.5130000000000001,
+  "gate_min_detectable_effect_2sigma": 0.05118378649533464,
+  "mes_eval_n": 800,
+  "ri_accs_primary": [
+    0.51,
+    0.51625,
+    0.515,
+    0.51875,
+    0.505
+  ],
+  "results": {
+    "MES": {
+      "256": {
+        "7": {
+          "A": {
+            "train_loss": 0.6994958594441414,
+            "eval_acc": 0.5,
+            "epochs": 10
+          },
+          "B": {
+            "train_loss": 0.6994958594441414,
+            "eval_acc": 0.5,
+            "epochs": 10
+          }
+        },
+        "13": {
+          "A": {
+            "train_loss": 0.697834238409996,
+            "eval_acc": 0.5,
+            "epochs": 10
+          },
+          "B": {
+            "train_loss": 0.697834238409996,
+            "eval_acc": 0.5,
+            "epochs": 10
+          }
+        }
+      }
+    },
+    "KD": {
+      "7": {
+        "A": {
+          "train_loss": 0.6976632860799631,
+          "eval_acc": 0.5,
+          "epochs": 7
+        },
+        "B": {
+          "train_loss": 0.7012983423968157,
+          "eval_acc": 0.5,
+          "epochs": 7
+        },
+        "B_SHUF": {
+          "train_loss": 0.7010930155714353,
+          "eval_acc": 0.5,
+          "epochs": 7
+        }
+      },
+      "13": {
+        "A": {
+          "train_loss": 0.6974879478414854,
+          "eval_acc": 0.5,
+          "epochs": 7
+        },
+        "B": {
+          "train_loss": 0.701462754358848,
+          "eval_acc": 0.5,
+          "epochs": 7
+        },
+        "B_SHUF": {
+          "train_loss": 0.7013429452975591,
+          "eval_acc": 0.5,
+          "epochs": 7
+        }
+      }
+    }
+  },
+  "controls": {
+    "MES": {
+      "256": {
+        "ri_accs": {
+          "7": 0.51,
+          "13": 0.51625,
+          "101": 0.515,
+          "20250101": 0.51875,
+          "424242": 0.505
+        }
+      }
+    },
+    "KD": {
+      "ri_accs": {
+        "7": 0.53125,
+        "13": 0.5078125,
+        "101": 0.55859375,
+        "20250101": 0.49609375,
+        "424242": 0.53125
+      }
+    }
+  },
+  "meanpool_control": {
+    "MES": {
+      "256": 0.50375
+    },
+    "KD": 0.53515625
+  },
+  "kd_b_minus_a": {
+    "7": 0.0,
+    "13": 0.0
+  },
+  "kd_b_minus_shuf": {
+    "7": 0.0,
+    "13": 0.0
+  },
+  "kd_shuf_self_frac": {
+    "train": 0.0,
+    "eval": 0.0
+  },
+  "bge_recal": {
+    "MES": {
+      "task": "MES",
+      "bge_recal_status": "MEASURED",
+      "n_eval": 800,
+      "bge_trained_best_acc": 0.67,
+      "bge_trained_best_readout": "CLS_TOKEN",
+      "bge_random_init_best_acc": 0.55625,
+      "bge_random_init_best_readout": "CLS_TOKEN",
+      "bge_trained_per_readout": {
+        "MEAN_POOL": 0.6575,
+        "CLS_TOKEN": 0.67,
+        "LAST_TOKEN": 0.67
+      },
+      "bge_random_init_per_readout": {
+        "MEAN_POOL": 0.55375,
+        "CLS_TOKEN": 0.55625,
+        "LAST_TOKEN": 0.4975
+      },
+      "margin_over_random_init": 0.11375000000000002,
+      "z": 4.703305605126224,
+      "p_value": 1.2799140888699125e-06,
+      "min_detectable_effect_2sigma": 0.048370235553488884,
+      "headroom_confirmed": true,
+      "headroom_verdict": "HEADROOM_ABOVE_STRUCTURE_FLOOR"
+    },
+    "KD": {
+      "task": "KD",
+      "bge_recal_status": "MEASURED",
+      "n_eval": 256,
+      "bge_trained_best_acc": 0.58203125,
+      "bge_trained_best_readout": "CLS_TOKEN",
+      "bge_random_init_best_acc": 0.5078125,
+      "bge_random_init_best_readout": "MEAN_POOL",
+      "bge_trained_per_readout": {
+        "MEAN_POOL": 0.57421875,
+        "CLS_TOKEN": 0.58203125,
+        "LAST_TOKEN": 0.58203125
+      },
+      "bge_random_init_per_readout": {
+        "MEAN_POOL": 0.5078125,
+        "CLS_TOKEN": 0.5,
+        "LAST_TOKEN": 0.5
+      },
+      "margin_over_random_init": 0.07421875,
+      "z": 1.6908993317382037,
+      "p_value": 0.04542801548236247,
+      "min_detectable_effect_2sigma": 0.08778612494181415,
+      "headroom_confirmed": false,
+      "headroom_verdict": "MEASUREMENT_IS_THE_BLOCK_no_detectable_known_reader_margin"
+    }
+  },
+  "n_kd_edges_resolved": 9,
+  "kd_eval_n": 256,
+  "kd_train_n": 384,
+  "batch": 8,
+  "target_steps": 320,
+  "lr": 0.0003,
+  "warmup_frac": 0.0,
+  "cosine": false,
+  "tau_start": 1.0,
+  "tau_end": 0.1,
+  "mech_margin": 0.1,
+  "z_thresh": 2.0,
+  "train_fit_thresh": 0.15,
+  "unstable_thresh": 0.3,
+  "equalize": true,
+  "arms_capacity_equalized": true,
+  "shuffled_kb_placebo_arm": true,
+  "gap_b_token_rep_path": true,
+  "cuda_generator_safe": true,
+  "expected_n_units": 24,
+  "n_units_done": 24,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "MES_256_7": {
+      "A": "b6a9abff209d1004284cf3f8858477c81662149dfadaaa6c1385f7e04a36b0c4",
+      "B": "b6a9abff209d1004284cf3f8858477c81662149dfadaaa6c1385f7e04a36b0c4"
+    },
+    "MES_256_13": {
+      "A": "2be16f5b27fb365afb52148e8033aa20f4208ff72885cf0c4f1c40ea757d37cb",
+      "B": "2be16f5b27fb365afb52148e8033aa20f4208ff72885cf0c4f1c40ea757d37cb"
+    },
+    "KD_full_7": {
+      "A": "3089d9f9cdbaef01cc458ef228f7704329141c8b0dcd66c7b4a44a64d930f95e",
+      "B": "2e3cd57bf693905565f1c904842159cb2546aedd89074006ce0774a6d9409e30",
+      "B_SHUF": "c81ed88315fd379bf714d6588aa6407dfcb4c51d5c7d82811829d934030e57c1"
+    },
+    "KD_full_13": {
+      "A": "34e3539426e279d5e9a6079375e6a1c14eca0f03d171a4aa7a01d1b71c1c9a2d",
+      "B": "8507c760dddce9b35e4e445809f61a109ab6b2f6c6a37415ecfeb4571fd8257c",
+      "B_SHUF": "00c31b0629dbfe77bbb5bff5bb5fc9b76bc529c0ff0f3cb8388d2349b80ee6bb"
+    }
+  },
+  "arms_differ_exempted": [
+    {
+      "construction": "MES",
+      "size": 256,
+      "seed": 7,
+      "pair": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "construction": "MES",
+      "size": 256,
+      "seed": 13,
+      "pair": [
+        "A",
+        "B"
+      ]
+    }
+  ],
+  "data_fixed_across_seeds": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "defensive_error_checking": "passed_all_4_patterns"
+}

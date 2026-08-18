@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "FloatingPointError: non-finite LPC loss step=40530 seed=7 (pred=0.1078)",
+  "summary": "CELL_CRASHED: FloatingPointError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_latent_pc_arc_v1.py\", line 1231, in <module>\n    main()\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_latent_pc_arc_v1.py\", line 1187, in main\n    res = run_one_seed(seed, cfg, device, out_dir, universe, bundle)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_latent_pc_arc_v1.py\", line 787, in run_one_seed\n    model, tdiag, enc_tok, enc_spec = _build_encoder(\n                                      ^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_latent_pc_arc_v1.py\", line 751, in _build_encoder\n    m, d = lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_contiguity=False)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_latent_pc_arc_v1.py\", line 441, in lpc_train\n    raise FloatingPointError(\"non-finite LPC loss step=%d seed=%d (pred=%.4f)\"\nFloatingPointError: non-finite LPC loss step=40530 seed=7 (pred=0.1078)\n",
+  "ts_iso": "2026-07-30T17:56:26.003712+00:00",
+  "pid": 4856,
+  "anchor_name": "encoder_latent_pc_arc_v1"
+}

@@ -1,0 +1,153 @@
+{
+  "verdict": "SINGLE_SEED_MEASURED_GATES_PASS",
+  "verdict_msg": "seed=13 single-seed measurement (NOT a final verdict -- combine with the sibling seed per pre-reg BOTH-seeds bands). sem_gate_auc=0.6494 (zavg=0.6438, margin=+0.0055) rel_gate_auc=0.6422 (zavg=0.6139, margin=+0.0282, dist_to_text=+0.0081)",
+  "elapsed_s": 22.17029039999761,
+  "summary": "seed=13 single-seed measurement (NOT a final verdict -- combine with the sibling seed per pre-reg BOTH-seeds bands). sem_gate_auc=0.6494 (zavg=0.6438, margin=+0.0055) rel_gate_auc=0.6422 (zavg=0.6139, margin=+0.0282, dist_to_text=+0.0081)",
+  "run_mode": "full",
+  "anchor_name": "gated_fusion_text_grounding_encoder_seed_13",
+  "seed": 13,
+  "per_seed": {
+    "seed": 13,
+    "run_mode": "full",
+    "elapsed_s": 22.17029039999761,
+    "npz_path": "C:\\dev\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v3_grounding\\evalreps_seed_13.npz",
+    "K": 16522,
+    "n_held": 800,
+    "n_train_eval": 14915,
+    "baseline": {
+      "semantic": {
+        "TEXT": 0.6337340301742563,
+        "ZAVG": 0.6438093549908033,
+        "GROUNDING": 0.5968416109382539,
+        "n_query": 797
+      },
+      "relational": {
+        "TEXT": 0.6340378101744053,
+        "ZAVG": 0.6139029684860521,
+        "GROUNDING": 0.5631482928042582,
+        "n_query": 596
+      }
+    },
+    "xcheck": {
+      "sem_gate_at_0.5": 0.6438093549908033,
+      "sem_zavg": 0.6438093549908033,
+      "sem_delta": 0.0,
+      "rel_gate_at_0.5": 0.6139029684860521,
+      "rel_zavg": 0.6139029684860521,
+      "rel_delta": 0.0,
+      "tol": 0.0001,
+      "pass_": true
+    },
+    "gate_semantic": {
+      "lambda_star": 0.7,
+      "val_score": 0.6515575215829231,
+      "n_val": 1500,
+      "used_fallback": false,
+      "curve": {
+        "0.0": 0.60345,
+        "0.1": 0.61749,
+        "0.2": 0.62727,
+        "0.3": 0.63568,
+        "0.4": 0.64252,
+        "0.5": 0.64759,
+        "0.6": 0.65082,
+        "0.7": 0.65156,
+        "0.8": 0.6492,
+        "0.9": 0.64375,
+        "1.0": 0.636
+      },
+      "test_auc": 0.6493579472779974,
+      "n_test_query": 800,
+      "n_test_cold": 0
+    },
+    "gate_relational": {
+      "lambda_star": 0.7,
+      "val_score": 0.6493222839731131,
+      "n_val": 448,
+      "used_fallback": false,
+      "curve": {
+        "0.0": 0.5754532600800737,
+        "0.1": 0.5819869867589892,
+        "0.2": 0.5874911011651685,
+        "0.3": 0.59420972146299,
+        "0.4": 0.6039557013281502,
+        "0.5": 0.609206624428045,
+        "0.6": 0.6464327060809442,
+        "0.7": 0.6493222839731131,
+        "0.8": 0.6455382988388808,
+        "0.9": 0.6455798225168043,
+        "1.0": 0.6399797190081389
+      },
+      "test_auc": 0.6421513391430399,
+      "n_test_query": 596,
+      "n_test_cold": 0
+    },
+    "arm_digests": {
+      "GATE_SEM": "da7d13843e29f41357a247c52da34d0b621637fb2fb3694577a632f198f0d798",
+      "PURE_TEXT": "ccaaa918219bd4825b51900ac131d3456f8a2bc8ee27ba9475673ed565673ce9",
+      "PURE_GROUNDING": "c2412cd57bcc742616d74fd474e0d855c2439ccd5649873aadced593c4be2979"
+    },
+    "arms_differ_exempted": [],
+    "lambda_convention": "lambda=0.0 -> pure GROUNDING (primary); lambda=1.0 -> pure TEXT (fallback)",
+    "val_test_leak_assert": "PASS (runtime-asserted disjoint at both fit calls)"
+  },
+  "seed_verdict": {
+    "sem_margin_vs_zavg": 0.005548592287194176,
+    "rel_margin_vs_zavg": 0.02824837065698782,
+    "rel_dist_to_text": 0.008113528968634598,
+    "sem_dist_to_text": 0.015623917103741114,
+    "gates": [
+      {
+        "gate_name": "sem_gate_beats_zavg",
+        "measured": 0.005548592287194176,
+        "threshold": 0.0,
+        "op": ">",
+        "gate_verdict": true,
+        "note": "semantic axis"
+      },
+      {
+        "gate_name": "rel_gate_beats_zavg",
+        "measured": 0.02824837065698782,
+        "threshold": 0.0,
+        "op": ">",
+        "gate_verdict": true,
+        "note": "relational axis"
+      },
+      {
+        "gate_name": "rel_gate_within_0.02_of_text",
+        "measured": 0.008113528968634598,
+        "threshold": 0.02,
+        "op": "<=",
+        "gate_verdict": true,
+        "note": "honest relational ceiling = recover TOWARD text, not exceed it"
+      }
+    ]
+  },
+  "structured_gate_claims": [
+    {
+      "gate_name": "sem_gate_beats_zavg",
+      "measured": 0.005548592287194176,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": true,
+      "note": "semantic axis"
+    },
+    {
+      "gate_name": "rel_gate_beats_zavg",
+      "measured": 0.02824837065698782,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": true,
+      "note": "relational axis"
+    },
+    {
+      "gate_name": "rel_gate_within_0.02_of_text",
+      "measured": 0.008113528968634598,
+      "threshold": 0.02,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "honest relational ceiling = recover TOWARD text, not exceed it"
+    }
+  ],
+  "ts_iso": "2026-07-28T20:38:37.803144+00:00"
+}

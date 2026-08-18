@@ -1,0 +1,51 @@
+{
+  "verdict": "FIT_CHECK_COMPLETE",
+  "verdict_tag": "OPTIMIZATION_UNSTABLE",
+  "verdict_msg": "FIT-CHECK MES size=256 recipe(lr=1.50e-04 warmup=0.15 cosine=True steps=512 tau=1.00->0.20): OPTIMIZATION_UNSTABLE. per_seed={7: {'loss': 0.6929, 'acc': 0.49, 'fit': False}, 13: {'loss': 0.6932, 'acc': 0.5, 'fit': False}} (fit=train_loss<0.15; unstable=train_loss>0.30)",
+  "summary": "FIT-CHECK MES size=256 recipe(lr=1.50e-04 warmup=0.15 cosine=True steps=512 tau=1.00->0.20): OPTIMIZATION_UNSTABLE. per_seed={7: {'loss': 0.6929, 'acc': 0.49, 'fit': False}, 13: {'loss': 0.6932, 'acc'",
+  "elapsed_s": 154.21297870000126,
+  "ts_iso": "2026-07-30T01:41:16.817888+00:00",
+  "pid": 19924,
+  "anchor_name": "stateful_core_mes_data_sufficient_gate_v1",
+  "run_mode": "fit_check",
+  "device": "cuda",
+  "all_fit": false,
+  "any_unstable": true,
+  "per_seed": {
+    "7": {
+      "train_loss": 0.6929103769361973,
+      "eval_acc": 0.49,
+      "fit": false,
+      "unstable": true,
+      "epochs": 16,
+      "steps": 512
+    },
+    "13": {
+      "train_loss": 0.6932165250182152,
+      "eval_acc": 0.5,
+      "fit": false,
+      "unstable": true,
+      "epochs": 16,
+      "steps": 512
+    }
+  },
+  "size": 256,
+  "lr": 0.00015,
+  "warmup_frac": 0.15,
+  "cosine": true,
+  "target_steps": 512,
+  "tau_start": 1.0,
+  "tau_end": 0.2,
+  "train_fit_thresh": 0.15,
+  "unstable_thresh": 0.3,
+  "equalize": true,
+  "expected_n_units": 2,
+  "n_units_done": 2,
+  "cardinality_ok": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "defensive_error_checking": "passed_all_4_patterns"
+}
