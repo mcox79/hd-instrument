@@ -511,6 +511,39 @@ excludes nothing is not a control -- report how many items each control actually
   load-bearing number lived ONLY in prose -- zero hits in the capacity cell's `metrics.json`. Its
   script was committed, so reproducible not fabricated. **Re-ran: group-disjoint 5-fold CV AUC
   0.8629, pair-level 0.9587, both exact.** Log at `notes/groupdisjoint_verification_log_2026-08-18.txt`.
+- **🚨🚨🚨 THIS DOCUMENT HAS BEEN DESCRIBING A TINY, ACCIDENTAL SLICE OF THE PROJECT. THE OWNER SAID
+  SO AND THE INDEX PROVES IT. TREAT EVERY "WE HAVE NEVER" AND "NOTHING REACHES" CLAIM BELOW AS
+  UNVERIFIED UNTIL RE-CHECKED AGAINST `tools/experiment_index.py`.**
+  Measured 2026-08-18 off the newly built index (8,834 cells, 7,570 with verdicts):
+  **2,678 HARD_PASS** (June 323 / July 2,193 / August 162), 1,369 HARD_FAIL, 1,068 MIDDLE_BAND.
+  Excluding substrate-physics cells (capacity, scaling laws, binding, Hopfield), **236 HARD_PASS are
+  MEANING-RELEVANT** -- June 14 / July 182 / August 40.
+  **AND 25 HARD_PASS LANDED ON 2026-08-17 -- THE DAY BEFORE THIS SESSION OPENED. THIS DOCUMENT
+  MENTIONS NONE OF THEM.** Among them, by their own headlines:
+  `exp_read_grow_openvocab_fastmap_v1` (**learn NEW words WHILE reading instead of abstaining**),
+  `exp_read_grow_oov_verb_extension_v1`, `exp_read_grow_foundation_realprose_glassbox_ie_v1`
+  (*"THE SUBSTANTIVE READING STEP"*), `exp_online_knowledge_condenser_selectional_v1`
+  (**condenses generalizable knowledge as it reads**), `exp_role_filler_factorization_compgen_v1`
+  (brain-faithful structure-content factorization), `exp_three_factor_eligibility_distal_credit_v1`
+  (**a three-factor eligibility trace solving DISTAL CREDIT ASSIGNMENT**),
+  `exp_reward_contingency_credit_assignment_v1`, and
+  `exp_relational_vs_similarity_conflict_viability_probe_v1` (**GREEN_LIGHT_PENDING_VET -- the
+  taxonomic-vs-thematic conflict**).
+  **THE MOST EMBARRASSING SPECIFIC: I SPENT 2026-08-18 CONCLUDING "THE MISSING INGREDIENT IS A
+  LEARNING SIGNAL" AND "WE HAVE NEVER BUILT THE TAXONOMIC ORGAN". A THREE-FACTOR LEARNING RULE AND
+  A RELATIONAL-VS-SIMILARITY PROBE BOTH HARD_PASSED THE PREVIOUS DAY, AND
+  `hdlab/random_indexing.py` -- AN EARNED DISTRIBUTIONAL ORGAN -- HAS EXISTED SINCE 2026-08-06.**
+  **⚠️ THE DEFLATION, AND IT IS NOT OPTIONAL: A HARD_PASS IN THIS PROJECT IS A CLAIM, NOT A
+  CAPABILITY.** Five apparently clean wins died to their own controls in ONE session on 08-18, one
+  of these 25 is explicitly `PENDING_VET`, and this file already records 21 arms suspended for a
+  mis-imported bar. **THE CORRECT STATEMENT IS: A LARGE BODY OF CLAIMED POSITIVE RESULTS EXISTS THAT
+  OUR POSITION DOCUMENT IGNORES, AND IT NEEDS VETTING -- NOT THAT WE HAVE 2,678 WINS.**
+  **ROOT CAUSE, FIXED: `tools/substrate_query.sh` -- the MANDATORY prior-work check -- RETURNS ZERO
+  BYTES AND EXITS 0, so every "no prior work found" report from every agent and from me was
+  vacuous, and the position document got assembled from whatever I happened to stumble into.**
+  Replacement `tools/experiment_index.py` (`dc408b95e`) indexes all 8,834 cells, answers in about a
+  second, and **PRINTS HOW MANY ROWS IT SCANNED BEFORE ITS RESULTS**, so an empty answer can never
+  again pass for an established absence. **QUERY IT BEFORE WRITING ANY "WE HAVE NEVER" SENTENCE.**
 - **⏸️ HALTED ON A WEEKLY USAGE LIMIT (resets 1pm America/New_York). NOT a code, permission or design
   failure -- the scaling-curve cell was dispatched and its agent died on the API limit before writing
   anything. NOTHING IS RUNNING. NOTHING IS HALF-WRITTEN. NO PARTIAL ARTIFACT EXISTS TO CLEAN UP.**
