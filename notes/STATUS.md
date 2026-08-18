@@ -364,6 +364,24 @@ one night (C32/C33/C34), each an UNDERPOWERED NULL read as a CAPABILITY STATEMEN
 "floor" WAS the null distribution's own spread. **15 A GRID'S RESOLUTION IS PART OF ITS VERDICT: an
 equality reported on a 3-value grid is a BIN, not a measurement (C35). State the swept values and
 the number of queries per point beside every "no difference".**
+**17 EVERY NEGATIVE GETS A BRAIN-FIDELITY DRILL, EVERY TIME -- OWNER INSTRUCTION 2026-08-18
+(COMMENTARY): *"All negative results you should drill (safely -- we shouldn't be giving away any of
+our substrate specifics here) for brain fidelity and what we should do to get closer to that -- every
+time."*** A negative is not filed until it has been asked: **WHICH BRAIN STRUCTURE performs this
+operation, are we REPLICATING it or SUBSTITUTING something convenient, and WHAT WOULD CLOSE THE
+GAP?** *This is not new doctrine -- it is the standing rule made non-optional and applied at the
+moment of the negative rather than in a later drill that may never happen.* **🔒 SAFETY CLAUSE, OWNER
+EXPLICIT: NEVER PUT OUR SUBSTRATE SPECIFICS INTO AN EXTERNAL QUERY.** Research drills ask about the
+BIOLOGY in general terms -- *"how does cortex represent grammatical role"* -- **never about our
+architecture, our organs, our operators, our dimensionalities or our results.** *Web search is a
+one-way door; a query naming our design is disclosure that cannot be recalled.*
+**AND THE FIRST QUESTION OF ANY SUCH DRILL IS WHETHER THE NEGATIVE IS EVEN REAL: on 2026-08-18, FOUR
+of the night's "negatives" were MEASUREMENT DEFECTS, not results** -- a bar computed on the wrong
+representation, an error rule applied to the wrong channel, an instrument with 10.9% coverage of the
+arm it was testing, and a corruption control that was near rank-preserving and so **incapable of
+failing.** *Drilling a defect for brain fidelity would have produced a confident, wrong story about
+the brain. **ESTABLISH THAT THE EXPERIMENT COULD HAVE SUCCEEDED BEFORE ASKING WHY THE BRAIN
+SUCCEEDS WHERE WE DID NOT.***
 **16 A FLOOR IS SPECIFIC TO THE REPRESENTATION IT WAS COMPUTED ON, NOT ONLY TO THE POPULATION --
 AND THIS RULE EXISTS BECAUSE RULE 8 AS WRITTEN COULD NOT CATCH THE VIOLATION.** 0.5431 was computed
 on the BAG-of-words representation and quoted as "THE bar" across `STATUS.md` and the plan for two
