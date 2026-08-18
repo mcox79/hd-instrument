@@ -434,8 +434,29 @@ the number of queries per point beside every "no difference".**
   mtimes 2 min ago, in sync. The 11-minute gap I saw was **PRINT CADENCE** -- the occdata stage prints
   every 100 words, and 381 units sat between the 300 and 400 marks. *There is no buffering defect;
   `units.jsonl` mtime is still the better liveness signal, but the log is not lying.*
-- **IN FLIGHT:**
-  (b) **`arm-expansion` (rank-correlation CI) is dispatched and has produced NO transcript bytes yet.**
+- **🟢 LANDED 05:44 -- `exp_dissociation_score_instrument_human_v4` (`75e093747`). THE 6.24 WORDNET
+  CAVEAT IS DISCHARGED. VERIFIED OFF DISK BY THE DIRECTOR, NOT TAKEN FROM THE AGENT'S PROSE.**
+  **rho = 0.9034 at 24 arms, bootstrap-of-arms 95% CI [0.7548, 0.9676] -- EXCLUDES ZERO**, against
+  rho 0.7857 / CI **[-0.0435, 1.0]** at 7. **Pre-committed branch (i) fired.** *The arm count really
+  was the limit: with 7 arms the CI could not separate from zero at any estimate quality.* Both
+  regression gates PASS (DSI 8 checks at tol 0.0005; v3 floors + n=65 bit-for-bit).
+  **WHAT THIS BUYS: every Organ A conclusion rested on an instrument built from WordNet, and the fear
+  was that we had only ever measured AGREEMENT WITH WORDNET. Two independently-built instruments --
+  one from WordNet, one from published HUMAN similarity ratings -- now rank our 24 arms the same way.
+  ORGAN A'S CLOSURE IS A FACT ABOUT OUR STORE.**
+  **🚨 BUT READ THE HUMAN ARM TABLE BEFORE CELEBRATING: ALL 24 ARMS SIT AT OR BELOW CHANCE ON HUMAN
+  JUDGEMENTS.** The two best straddle 0.5 and clear nothing -- `F1_NO_FILTER` [0.4542, 0.6508],
+  `T1_TYPED_ROLE` [0.4054, 0.6057] -- and the human bar is **0.5943**. *Agreeing about the ordering of
+  24 arms is not the same as any arm being good; the instruments agree that they are all poor.*
+- **🎯 THE OBVIOUS NEXT TEST, AND NOBODY HAS RUN IT: `U1_TYPED_CONTEXT` (0.6669, the only arm ever to
+  clear the WordNet bar) IS NOT IN THE 24.** It landed at 05:36; the harvest was already built. The
+  `T1_TYPED_ROLE` in the table is the **SimpleWiki** arm, a DIFFERENT cell. **So the one arm that
+  cleared a bar has never been scored against human judgement.** v4 now has the harvesting machinery,
+  so this is cheap. **rho = 0.9034 predicts it should replicate -- WHICH IS EXACTLY WHY IT IS WORTH
+  RUNNING: a pre-committed prediction that can FAIL.** *Recorded, deliberately NOT dispatched --
+  CLAUDE.md's rule is that an agent report ends my involvement and the owner decides what happens
+  next.*
+- **IN FLIGHT: nothing. Both lanes have landed.**
   **This is NOT evidence it is dead.** I misread agent silence as death twice tonight and was wrong
   both times -- once standing down a healthy agent that was authoring a 58 KB cell. **Do not respawn
   it; a duplicate is the more expensive error.**
