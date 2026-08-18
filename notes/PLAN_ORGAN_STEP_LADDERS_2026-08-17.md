@@ -566,6 +566,32 @@ needle 7 points on a scale where the oracle is 91 points away.*
 
 ---
 
+### 6.30 **THE n=7 COLLAPSE WAS A DESIGN ERROR, NOT A SAMPLING ONE. THE LESSON GENERALISES.**
+
+**What I did wrong:** I briefed the human-judgement instrument to score **the WordNet instrument's
+617 evaluation words**, so the two would be directly comparable. That restriction threw away
+**~550 of the 573 SimLex pairs available inside our anchors** -- only 23 touch those 617 words -- and
+produced n=7.
+
+**The error: THE DECISIVE OUTPUT WAS A RANK CORRELATION BETWEEN ARM ORDERINGS, AND A RANK CORRELATION
+OVER ARMS DOES NOT REQUIRE SHARED ITEMS.** Each instrument can rank the same seven stores on its own
+population. I imposed a same-items constraint the statistic never needed, and it cost the entire
+sample.
+
+**THE GENERAL LESSON, worth more than this cell: BEFORE RESTRICTING A POPULATION FOR
+COMPARABILITY, ASK WHAT THE DECIDING STATISTIC ACTUALLY REQUIRES.** *Same-item paired comparison*
+needs shared items. *Rank correlation over a shared set of ARMS* does not. **Restricting for a
+comparability the statistic never demanded is a silent way to destroy power**, and it looks like
+rigour while doing it.
+
+**THE HONEST COST OF THE FIX, stated so it is not lost:** with different populations the two
+instruments' **ABSOLUTE AUCs are NOT comparable** -- different items, different difficulty. **ONLY
+THE ORDERING IS.** Putting the two instruments' absolute numbers side by side would be the
+"a number may not cross populations" error that this project already has three retractions from.
+*The rebuild (`human-instrument-v2`) carries that constraint explicitly.*
+
+---
+
 ### 6.29 **CORRECTIONS THE DRILL FORCED, INCLUDING ONE NUMBER THE DIRECTOR HAS BEEN REPEATING ALL NIGHT.**
 
 `bd3fb130b`. Four things, each changing how earlier sections must be read.
