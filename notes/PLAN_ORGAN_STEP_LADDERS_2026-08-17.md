@@ -93,6 +93,45 @@ run - many experiments were run on the remote desktop."* They are right. Measure
   carrying no `exp_` prefix at all.
 - **The queue caches are SNAPSHOTS, not a dispatch history, so 112 is a FLOOR, not a count.**
 
+**RESOLVED SAME DAY BY GOING TO THE REMOTE (owner-authorised; orchestrator `a74e56c2`, commit
+`752bd5b04`). BOTH OF US WERE PARTLY RIGHT, AND THE MAGNITUDE WAS MINE.**
+The remote (`marsh@home`, repo at `C:/dev/hd-instrument`) is reachable and holds **4,424
+`metrics.json`, dated 2026-05-20 to 2026-08-01**, enumerated by `os.walk` on the REMOTE FILESYSTEM
+rather than from any queue file or manifest.
+
+| | count |
+|---|---|
+| present on remote AND locally | 4,409 |
+| **present ONLY on the remote** | **15** |
+| present only locally | 3,465 |
+
+**Run two ways -- strict path match and a name-variant matcher covering all four alternate result
+roots -- both give remote-only = 15 exactly, with ZERO records rescued by variant matching. It is
+not a naming artifact.** All 15 recovered (68 files, 404 KB), additively, nothing overwritten,
+nothing deleted, `data/foundation/` untouched. 1.13 GB of checkpoints deliberately left on the
+remote: model weights, not results.
+
+**THE OWNER'S INSTINCT FOUND A REAL DEFECT, AND IT IS THE NASTY KIND.** One directory held 8 local
+files including 20 MB of checkpoints but **NO `metrics.json`** -- **the sync is partial at the FILE
+level inside an otherwise-present directory, which is the version that LOOKS COMPLETE.**
+
+**BUT THE "NEVER RUN" FIGURE SURVIVES ESSENTIALLY INTACT, AND THAT WAS MY CLAIM TO DEFEND OR DROP:**
+of the 142 queue-named cells with no local result, **140 have no `metrics.json` ON THE REMOTE
+EITHER**; the 2 apparent hits are matcher coarseness and are present locally. **Remote results we
+were not counting existed -- there were 15, not 1,042.**
+
+**RECOVERED SUBSTANCE (claims, NOT results -- 30 vetted claims produced 1 upheld, so these enter the
+queue, not the record):** only 5 of 15 are `run_mode=full`; 6 are selftest/smoke/gate-only and 2
+crashed. The five: `exp_relational_readout_promote_v1` HARD_PASS_MAJORITY, two
+`exp_gated_fusion_text_grounding_encoder_seed_*` single-seed passes, and
+`exp_scale_meaning_learn_arc_heldout_v3_grounding` / `_v4_breadth` -- both **HARD_FAIL**
+(NO_TRANSFER, DATA_LEVER_REFUTED).
+
+**⚠️ SEPARATE FINDING, AND NOBODY WAS WATCHING FOR IT: THE NEWEST REMOTE RESULT IS 2026-08-01. THE
+REMOTE HAS PRODUCED NOTHING IN 17 DAYS.** Whether that is intended idleness or a silently dead
+pipeline is UNKNOWN and worth one check -- it is the same silent-stall class as the 11 scheduled
+tasks disabled for 12 days and the KB ingest disabled for 6.
+
 **THE HONEST STATEMENT: 1,042 cells have no local result at the expected path. AT LEAST 142 of
 those did run or were shipped to run. THE TRUE NUMBER NEVER RUN IS UNKNOWN AND LOWER.** Settling it
 requires SSH to the remote and a metrics sync, which is the orchestrator lane and needs owner
