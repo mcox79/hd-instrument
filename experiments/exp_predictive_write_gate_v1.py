@@ -40,6 +40,15 @@ rate-matched control twice already this session, in opposite directions. Not a t
 76.2% at 0.50, 100% at 0.75. The usable band is a CLIFF, so a single adopted value would be a
 parameter masquerading as a finding. "Copy the computation, sweep the parameter."
 
+*** CROSS-CELL POSITIVE CONTROL, AND IT CAME FREE. *** This cell rebuilds profiles from Library
+traces and scores them with its own rank table; `exp_cortical_read_consolidated_v1` v3 builds its
+index a different way and scores with different code. On seed 20260819 they agree EXACTLY:
+ACCUMULATE hit@10 0.1800 = v3's RANK_CONTEXT 0.1800; COOC_floor hit@10 0.4067 = v3's
+RANK_COOC_floor 0.4067; 428 consolidated terms in both. **Two independently written cells landing
+on the same three numbers means any arm difference measured HERE is attributable to the ARM and not
+to re-implementation drift.** That is the kind of agreement usually missing when two cells disagree
+and nobody can say which is wrong.
+
 PRE-COMMITTED READINGS, written before any number exists:
   (A) GATED beats ACCUMULATE **and** beats RANDOM_SKIP at the same threshold, CI-separated ->
       the residual carries information and predictive coding helps. Name the threshold and the
