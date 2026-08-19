@@ -43,6 +43,24 @@ WHAT THIS DOES AND DOES NOT DO, STATED PLAINLY SO NOBODY OVERREADS IT.
   EMPTY -- `generation.py` returns codebook INDICES, and that is the slot the no-LLM invariant
   created and nobody wrote down).
 
+*** AND THE ONE MEASURED WIRING DEFECT, NAMED HERE SO IT IS VISIBLE FROM THE MODULE ITSELF. ***
+THE CONSOLIDATED STORE IS WRITTEN AND NEVER READ BY THE RETRIEVAL ROUTES.
+`recall()`/`recall_sentence()` address the EPISODIC DG codes and never touch `state.store`;
+`profile()` reads Library traces plus ConceptSpace. Only `query()` addresses the fact store.
+Measured end to end (`exp_substrate_end_to_end_readout_v1` v3, 3 seeds): ablating consolidation to
+ZERO provenance rows left the read-out IDENTICAL in 9 of 12 cells and the EPISODIC route identical
+in all 6, while ablating `definitions` cut grounding by a third and moved the read-out by exactly
+0.0000 in all 12.
+
+THE BRAIN-FIDELITY NAME FOR IT: we built the hippocampal one-shot write (D3) and the
+hippocampus-to-cortex transfer (B3), and then answered every question OUT OF THE HIPPOCAMPUS.
+Under Complementary Learning Systems, retrieval of CONSOLIDATED knowledge is a CORTICAL read.
+POSITION is inverted here -- consolidation sits downstream of retrieval, where the brain puts it
+upstream. That is why the substrate memorises almost perfectly (exact key 0.9333) and transfers
+nothing (held out 0.0044): a pure-hippocampal system recognises what it has seen and generalises
+nothing. **A MISSING ORGAN, NOT A REPRESENTATIONAL CEILING.** The organs that would BE the
+cortical read path are `semantic_parser` (Q1) and `cortex` (Q3), and both are NEEDS_ADAPTER below.
+
 **NOTHING HERE IS EVIDENCE THAT THE ASSEMBLY WORKS.** Every organ in it was validated ALONE, and
 wiring ten together is precisely how a claims layer with 30 vetted results and 1 upheld came about.
 The end-to-end can-fail test is Phase 2 of `notes/BUILD_PLAN_post_audit_2026-08-19.md` and it does
@@ -141,6 +159,15 @@ SLOTS: List[Slot] = [
          "consolidation pass; promotes MEANING_RELATION + KNOWN_WORD on grounding"),
     Slot("R3", "the foundation survives a restart", "foundation_persistence", FILLED,
          "deterministic save/reload of the full ReadingLoopState"),
+    Slot("B5", "a second spoke: what things look like, feel like, are done with",
+         "sensorimotor_spoke", NEEDS_ADAPTER,
+         "ADDED 2026-08-19. The hub is fed by ONE spoke -- text -- and the literature predicts "
+         "exactly the ceiling we measured: text recovers non-sensorimotor meaning well, sensory "
+         "poorly, motor minimally (Xu 2025). The organ EXISTS, self-tests, and is invoked by "
+         "exp_sensorimotor_spoke_grounding_v1, but `read()` does not consult it, so it is "
+         "NEEDS_ADAPTER and not FILLED. The hub-spoke COMBINATION RULE is UNPINNED, so any "
+         "selection rule built on it is OUR-INVENTION-BEING-TESTED. The norms are SUPPLIED human "
+         "ratings: admissible as a static offline asset, but not something the substrate learned"),
     Slot("D2", "complete a pattern from a partial cue", "ca3_completer", NEEDS_ADAPTER,
          "consumes FHRR bundles + per-spoke codebooks; the ingest path produces neither. "
          "ALSO: UNTRACKED IN GIT -- exists only in the working tree"),
