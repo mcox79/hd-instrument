@@ -15,6 +15,30 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## ⏹️ AUTOLOOP **DISARMED** BY OWNER 2026-08-19. NOTHING IS RUNNING. BOTH CELLS LANDED.
+**➡️ THE COMPACTION HANDOFF AND THE PRIMARY FOCUS ARE THE FIRST BLOCK OF
+`notes/BUILD_PLAN_post_audit_2026-08-19.md`. OPEN IT AND READ ONLY THAT BLOCK.**
+**PRIMARY FOCUS: wire the sensorimotor norms in as a foundation asset and test whether the
+substrate can USE them.**
+
+## 🔬 GROUNDING PRECISION LANDED (3 seeds, n=398-441, NOT underpowered by the cell's own gate)
+**Reading (iii) fires: the gate assigns meanings BETTER THAN RANDOM and WORSE THAN CO-OCCURRENCE.**
+
+| arm | precision | hits per seed | paired p vs SUBSTRATE |
+|---|---|---|---|
+| **TOP_COOCCURRENT** | **0.0573** | 21, 26, 26 | **0.004 / 0.018 / 0.015 -- BEATS us 3 of 3** |
+| SUBSTRATE | 0.0244 | 7, 12, 12 | -- |
+| RANDOM_ANCHOR | 0.0031 | 1, 1, 2 | 0.069 / 0.005 / 0.011 |
+| MOST_FREQUENT_ANCHOR | 0.0023 | 1, 1, 1 | 0.065 / 0.002 / 0.004 |
+
+**So the grounding gate DOES assign meanings above chance (2 of 3 seeds at p<0.05) -- and "the word
+it co-occurs with most" beats it in ALL THREE.** *What the substrate learned is co-occurrence.
+Third instrument, same standing diagnosis.*
+**✅ AND THE DEGENERACY IS LARGELY GONE AT SCALE: anchor diversity 0.544, top-anchor share 3.1%,
+against 39 anchors for 96 terms and 17.7% earlier -- the shelf-rotation fix did that.**
+**⛔ CONSEQUENCE FOR THE NEXT BUILD: any sensorimotor channel must be pre-registered to beat
+`TOP_COOCCURRENT`, not merely random. Beating random is not the bar here and never was.**
+
 ## 🟢🟢 2026-08-19 -- THE BEST-CONTROLLED POSITIVE THIS PROGRAMME HAS: **THE SIGNAL TEXT LACKS IS IN
 ## THE SENSORIMOTOR NORMS. 0.6413 vs CO-OCCURRENCE'S 0.3067, FOUR CONTROLS BINDING.**
 **Task: given 50 candidates that ALL co-occur with the target, pick the taxonomically related one.

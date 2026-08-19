@@ -1,5 +1,51 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ⏹️ COMPACTION HANDOFF -- 2026-08-19, AUTOLOOP **DISARMED** BY OWNER. READ THIS BLOCK ONLY.
+> **NOTHING IS RUNNING. Both cells finished and are committed. The loop is off (`armed: false`).**
+>
+> ## THE PRIMARY FOCUS, IN ONE SENTENCE
+> **WIRE THE SENSORIMOTOR NORMS IN AS A FOUNDATION ASSET AND TEST WHETHER THE SUBSTRATE CAN USE
+> THEM.** *That is the one live positive with a mechanism-shaped next step, and everything else
+> this session established is a boundary around it.*
+>
+> ## WHY -- THE THREE RESULTS THAT MATTER, IN ORDER
+> 1. **🟢 THE SIGNAL TEXT LACKS IS IN THE SENSORIMOTOR NORMS.** Fitted, 4 controls binding:
+>    **0.6413 vs co-occurrence 0.3067**. Unfitted replication on HUMAN ratings, different scorer:
+>    **rho 0.3171 vs 0.0826, paired bootstrap +0.2348, CI [+0.1605, +0.3155]**. Raw co-occurrence
+>    does not predict human similarity at all (CI includes 0). **100% coverage of our vocabulary.
+>    The asset is on disk and was filed CLOSED on one narrow test.**
+> 2. **🧱 CO-OCCURRENCE HAS A CEILING.** ~0.31 however processed -- raw, Dice, NPMI, full 1,024-dim
+>    profile, linear, nonlinear, supervised on the answers. **Retrieval dwarfs discrimination on
+>    4 corpora: hit@50 0.280-0.542 vs hit@1 0.078-0.136.** The answer is in reach; we cannot pick
+>    it out. *This is why more text-only mechanism is not the move.*
+> 3. **🔴 THE ASSEMBLED SUBSTRATE MEMORISES AND DOES NOT TRANSFER.** Exact-key 0.9333, held-out
+>    0.0044, and an unrelated cue scores the same as the real one. Real, resolved, and it stands.
+>
+> ## THE THREE CONCRETE NEXT STEPS
+> 1. **BUILD:** a sensorimotor channel in `hdlab/` + a can-fail cell scoring it INSIDE the
+>    substrate (not as an offline feature table). **Pre-register that it must beat `TOP_COOCCURRENT`,
+>    not just random** -- see the grounding result below for why.
+> 2. **RE-RUN `exp_substrate_end_to_end_readout_v1`** with periodic consolidation and an
+>    `EXACT_COOC_COSINE` arm. Its ablation table is currently NOT quotable: that cell ran
+>    `max_patches=1`, so its consolidation organ never fired.
+> 3. **Q66 IS STILL OPEN AND STILL NEEDS YOU:** `hdlab/ca3_completer.py` is UNTRACKED with ZERO git
+>    history. Any checkout/reset/clean destroys it. My recommendation stands: commit it alone.
+>
+> ## WHAT LANDED THIS SESSION (44 commits, `2e8134fd2` .. HEAD)
+> Phase 0 done (import 205s->30s, dashboard says UNVETTED). Phase 1 done (`hdlab/substrate.py`,
+> self-testing). Phase 2 done (resolved negative). D7 successor representation built and REFUTED
+> by its own scale ladder. **Eight defects found in my own tooling, four of which would have been
+> published as substrate findings.** Two of my own promoted claims RETRACTED by my own controlled
+> cell. New durable tools: `readout_verdict.py`, `strongest_floor_audit.py`, `middle_band_miner.py`,
+> `scramble_control_audit.py`, `build_conceptnet_gold.py`.
+>
+> ## THE HABIT THAT PAID FOR ITSELF, AND THE ONE RULE TO CARRY FORWARD
+> **ASK WHETHER THE EXPERIMENT COULD HAVE SUCCEEDED BEFORE ASKING WHY IT DID NOT** -- it caught a
+> guaranteed-null replay build, an unwinnable zero-co-occurrence test, and a fake learning ceiling.
+> **AND VERIFY WITH A POSITIVE CONTROL, NEVER ONLY AN ABSENCE CHECK:** "no mojibake found"
+> inherits the detector's bug; "the character is present" does not.
+
+
 > **📖 HOW TO READ THIS FILE (it is 67 KB and every autoloop continuation is told to open it).
 > IT IS NEWEST-FIRST. The top ~250 lines are the current position; everything below is the record
 > in reverse order, kept so retracted claims stay VISIBLE rather than quietly deleted.**
