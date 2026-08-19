@@ -38,6 +38,10 @@ WHICH counts get added and cannot change that the code IS a count.*
 3. **"Our code is 4-12x too diffuse" is OVER-ATTRIBUTED.** A prior cell measured MiniLM -- an
    ordinary working text encoder -- at d_eff 91.6, using a **different formula** for participation
    ratio than today's diagnostic. The geometry stands; blaming OUR design does not, yet.
+   **⤷ RESOLVED, AND THE CORRECTION ITSELF NEEDED CORRECTING -- SEE THE BLOCK BELOW. The invalid
+   comparison was real (formula AND population both differed), but "probably normal for text" was
+   NOT supported: measured on the same formula we are 2.60x MiniLM, and on a fully matched
+   comparison we are MORE diffuse than the raw counts we are built from.**
 
 **➡️ NEXT STEPS, IN THIS ORDER, AND THE FIRST ONE RESOLVES CORRECTION 3:**
 1. **Recompute our participation ratio under BOTH formulas** -- `(sum s)^2/sum s^2` over singular
@@ -389,6 +393,44 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+## 📐 2026-08-19 -- **THE DIMENSIONALITY CLAIM, SETTLED ON MATCHED FORMULA AND MATCHED**
+## **POPULATION. MY ORIGINAL CLAIM WAS INVALID AND MY CORRECTION TO IT WAS ALSO WRONG.**
+*Three versions of this claim now exist. Only the third is measured on a comparison where everything
+matches, and it is the only one to quote.*
+
+| object (8,450 sentences, same corpus, same 256 dims) | PR_variance | PR_singular | rank90 | top-4 share |
+|---|---|---|---|---|
+| **OUR PROFILES (all 9,624 terms)** | **191.5** | **238.6** | 201 | 0.054 |
+| OUR PROFILES (consolidated, 330) | 71.5 | 163.9 | 115 | 0.151 |
+| **RAW COUNT VECTORS (9,305 terms)** | **131.7** | **219.7** | 182 | 0.092 |
+| our profiles, shuffled | 249.1 | 254.2 | 223 | 0.021 |
+| pure noise, same shape | 249.4 | 254.3 | 223 | 0.021 |
+| MiniLM (CITED, archive, ITS population) | not stored | 91.6 | 175 | -- |
+| brain, PINNED (Huth) | ~4-12 | ~4-12 | -- | -- |
+
+**⛔ V1 -- "we are 4-12x too diffuse vs the brain" -- WAS NOT A COMPARISON.** Two mismatches, either
+of which alone invalidates it: the archive's formula is `(sum s)^2/sum s^2` over SINGULAR VALUES,
+mine was `1/sum(v^2)` over VARIANCE SHARES (they differ by 1.2x on our own matrix); and my 50.4 was
+measured on the CONSOLIDATED population while the natural comparison is all profiled terms
+(**71.5 vs 191.5 -- the population effect is 2.7x, larger than the formula effect**).
+**⛔ V2 -- "so it is probably just what learning from text looks like" -- NOT SUPPORTED.** On the
+SAME formula we read **238.6 against MiniLM's 91.6, i.e. 2.60x**. *That comparison still has its own
+population caveat -- their number is over sentence embeddings on their corpus, ours over word
+profiles on ours -- so it is suggestive, not decisive. But it does not support the shrug.*
+**✅ V3, THE ONE TO QUOTE, BECAUSE EVERYTHING MATCHES -- same corpus, same sentences, same terms,
+same width, same formula: OUR PROFILES ARE LESS CONCENTRATED THAN THE RAW COUNTS THEY ARE BUILT
+FROM. 191.5 vs 131.7, and the top four components hold 0.054 of the variance against the counts'
+0.092.** Both are real structure (noise and shuffled sit at ~249).
+**🔑 SO THE RANDOM PROJECTION IS NOT NEUTRAL -- IT DE-CONCENTRATES.** We take a count matrix and
+produce something MORE spread out than what we started with. *That is a sharper statement of the
+subsumption result than the brain comparison ever was, it needs no pinned figure to make its point,
+and it names a specific suspect: **the projection, not the counting**.*
+**➡️ AND IT MAKES THE NEXT TEST OBVIOUS AND CHEAP:** the ridge read-out says the profile's most
+recoverable content is FREQUENCY (R^2 0.4819). If a dominant common direction is eating the
+variance, removing it should concentrate the code. *Running now, swept over k, scored against the
+COOC and FREQ floors on the same items -- because "better than our own previous arm" is the trap
+that has caught three lines already.*
+
 ## 📚 2026-08-19 -- **THE OWNER'S Q72 ("GIVE IT ANOTHER TEXTBOOK") HAS TWO HALVES. THE HALF I**
 ## **TESTED IS UNTESTED-AT-THIS-N; THE HALF I DID NOT TEST ALREADY HARD_PASSED A MONTH AGO.**
 *Owner, Q72: "Why aren't we identifying where the notes are PATCHY and/or giving them another
