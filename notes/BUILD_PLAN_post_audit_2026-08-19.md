@@ -46,17 +46,32 @@
 >    I published SMOKE numbers (161 terms). At full n (1,590): slope **-0.0035, CI [-0.0052,
 >    -0.0018]**, 63% of words negative. The residual DOES fall as a word becomes familiar.
 > 2. **Passive corpus breadth is UNTESTED, not negative** (see the CI above).
-> 3. **"Our code is 4-12x too diffuse" is OVER-ATTRIBUTED.** A prior cell measured MiniLM -- an
->    ordinary working text encoder -- at **d_eff 91.6**, and used a **DIFFERENT FORMULA** for
->    participation ratio than my diagnostic did. *The geometry stands; blaming OUR design does not.*
+> 3. **"Our code is 4-12x too diffuse" is OVER-ATTRIBUTED.** A prior cell measured MiniLM at
+>    **d_eff 91.6** under a **DIFFERENT FORMULA**. **⤷ NOW RESOLVED, AND THIS CORRECTION WAS ITSELF
+>    WRONG.** The invalid comparison was real -- formula differs 1.2x, POPULATION differs 2.7x
+>    (consolidated 71.5 vs all-terms 191.5) -- but *"probably normal for text"* is NOT supported: on
+>    the same formula we read **238.6 vs MiniLM 91.6 = 2.60x**.
+>    **✅ THE CLEAN, FULLY-MATCHED COMPARISON IS THE ONE TO QUOTE: our profiles are LESS
+>    CONCENTRATED THAN THE RAW COUNTS THEY ARE BUILT FROM -- 191.5 vs 131.7, top-4 share 0.054 vs
+>    0.092, with noise/shuffled at ~249 so both are real structure. THE RANDOM PROJECTION
+>    DE-CONCENTRATES.** *Sharper than the brain comparison ever was, needs no pinned figure, and
+>    names the PROJECTION rather than the COUNTING as the suspect.*
 >
 > ## ➡️ NEXT STEPS, IN ORDER
-> 1. **Recompute participation ratio under BOTH formulas** -- `(sum s)^2/sum s^2` over singular
->    values and `1/sum(v^2)` over variance shares -- on our profiles AND a text-encoder reference.
->    **This resolves correction 3 and it is the top unblocked item.**
-> 2. **Test the gap-targeted growth loop on the current substrate.** Only clean prior win in the
->    area, and it is the owner's own idea.
-> 3. **Leave the write gate alone.** Four explanations tested; tuning thresholds cannot reach it.
+> 1. ~~Recompute participation ratio under both formulas.~~ **DONE -- see correction 3 above.**
+> 2. ~~Remove the dominant common direction and re-score.~~ **DONE, AND IT IS CLOSED. NOT A LEAD.**
+>    Centring gives a small separated gain (median rank **91.0 -> 83.0**, paired -4.41, CI [-6.83,
+>    -2.06]) and removing ANY further component makes it monotonically **worse** (PC2 +3.73, PC4
+>    +6.06, PC8 +11.71). **⛔ But the FREQ floor -- ranking candidates by corpus frequency, never
+>    looking at the sentence -- reaches 71.0, and COOC reaches 20.5. EVERY ARM LOSES TO A FLOOR THAT
+>    IGNORES THE QUESTION.** *My script declared "REAL LEAD" because its gate compared only to COOC;
+>    it printed FREQ and never used it. Gate fixed in the script; verdict corrected to NOT A LEAD.*
+>    **🔑 AND IT CLOSES THE POST-HOC ROUTE: if the diffuseness lived in a few removable directions,
+>    removing them would help. It hurts. The variance is spread thin across the whole spectrum --
+>    which is what a random projection does -- so no transform applied AFTER the fact reaches it.**
+> 3. **Test the gap-targeted growth loop on the current substrate.** Only clean prior win in the
+>    area, and it is the owner's own idea. **NOW THE TOP UNBLOCKED ITEM.**
+> 4. **Leave the write gate alone.** Four explanations tested; tuning thresholds cannot reach it.
 >
 > ## ⛔ CLOSED 2026-08-19: **THE RESIDUAL WRITE GATE. 0 of 54 cells, both directions.**
 > `exp_predictive_write_gate_v1`, 3 seeds x 6 thresholds x 3 k. **Reading (A) in 0 of 54; floor

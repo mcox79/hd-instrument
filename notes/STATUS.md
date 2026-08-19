@@ -427,9 +427,43 @@ subsumption result than the brain comparison ever was, it needs no pinned figure
 and it names a specific suspect: **the projection, not the counting**.*
 **➡️ AND IT MAKES THE NEXT TEST OBVIOUS AND CHEAP:** the ridge read-out says the profile's most
 recoverable content is FREQUENCY (R^2 0.4819). If a dominant common direction is eating the
-variance, removing it should concentrate the code. *Running now, swept over k, scored against the
-COOC and FREQ floors on the same items -- because "better than our own previous arm" is the trap
-that has caught three lines already.*
+variance, removing it should concentrate the code. *Swept over k, scored against the COOC and FREQ
+floors on the same items -- because "better than our own previous arm" is the trap that has caught
+three lines already.*
+
+## 📉 2026-08-19 -- **REMOVING THE COMMON DIRECTION: A SMALL REAL GAIN, AND A FLOOR THAT MAKES IT**
+## **IRRELEVANT. MY OWN SCRIPT'S VERDICT WAS TOO GENEROUS AND IS CORRECTED HERE.**
+330 candidates, 300 held-out items (0.0% leaked -- drawn from the substrate's own advanced handle),
+paired bootstrap on identical items:
+
+| arm | median rank | 95% CI | vs RAW, paired |
+|---|---|---|---|
+| RAW | 91.0 | [74.5, 104.0] | -- |
+| **MEAN_REMOVED** | **83.0** | [70.0, 100.0] | **-4.41, CI [-6.83, -2.06] SEPARATED** |
+| PC1_REMOVED | 83.5 | [69.0, 107.0] | -3.67, CI [-7.58, +0.15] not separated |
+| PC2_REMOVED | 97.5 | [83.0, 118.0] | +3.73 SEPARATED **WORSE** |
+| PC4_REMOVED | 106.0 | [86.5, 127.0] | +6.06 SEPARATED **WORSE** |
+| PC8_REMOVED | 115.0 | [92.0, 135.5] | +11.71 SEPARATED **WORSE** |
+| **FREQ floor** (cue-blind) | **71.0** | [60.5, 71.0] | -- |
+| **COOC floor** | **20.5** | [15.0, 26.0] | -- |
+
+**⛔ THE HEADLINE IS THE FLOOR, NOT THE GAIN: A RANKING THAT NEVER LOOKS AT THE SENTENCE -- ORDER
+EVERY CANDIDATE BY HOW OFTEN IT APPEARS IN THE CORPUS -- REACHES 71.0. OUR BEST ARM REACHES 83.0.
+EVERY ARM WE RAN LOSES TO A FLOOR THAT IGNORES THE QUESTION.** And the real bar, COOC at 20.5, is
+four times better again.
+**⚠️ AND THE SCRIPT I WROTE DECLARED "REAL LEAD" ANYWAY, because its verdict gate compared only to
+COOC and I never wired FREQ into the decision -- I printed it and did not gate on it.** The standing
+rule is *CI-separated margin over the STRONGEST floor actually run*; I ran the floor and then failed
+to use it. **Corrected verdict: NOT A LEAD.**
+**✅ WHAT IS NEVERTHELESS TRUE, AND SMALL: centring the profiles helps by a separated margin**
+(91.0 -> 83.0). *Note MEAN_REMOVED is simply CENTRING -- and `PC1_REMOVED` is centring PLUS removing
+one more component, which is already no better. Removing further components degrades MONOTONICALLY.*
+So there is exactly one direction worth deleting and it buys 8 ranks out of 330.
+**🔑 READ TOGETHER WITH THE GEOMETRY ABOVE, THIS IS COHERENT AND IT IS NOT ENCOURAGING: our code is
+MORE diffuse than the counts it comes from, and the diffuseness is NOT concentrated in a few
+removable directions -- if it were, removing them would help and it makes things worse. The variance
+is spread thin across the whole spectrum, which is what a random projection does to a signal.**
+*No post-hoc transform reaches that. It is a property of how the code is WRITTEN.*
 
 ## 📚 2026-08-19 -- **THE OWNER'S Q72 ("GIVE IT ANOTHER TEXTBOOK") HAS TWO HALVES. THE HALF I**
 ## **TESTED IS UNTESTED-AT-THIS-N; THE HALF I DID NOT TEST ALREADY HARD_PASSED A MONTH AGO.**
