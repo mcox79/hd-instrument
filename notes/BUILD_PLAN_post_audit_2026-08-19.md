@@ -211,6 +211,43 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🧨 A FITTED DISCRIMINATOR REACHES ONLY 0.2732 -- **THE FEATURES DO NOT CONTAIN IT**
+`scratch/supervised_rerank_ceiling.py`. **CEILING DIAGNOSTIC, FITTED ON THE GOLD, NEVER A
+CAPABILITY** -- the same rule the project applies to its own 0.8629 oracle. Word-disjoint 5-fold
+CV (not pair-disjoint: this project measured that leak and it inflated 0.8629 to 0.9606).
+26,314 candidate rows, 3.6% positive, 538 target words, eight pairwise features.
+
+| re-ranker | hit@1 |
+|---|---|
+| RAW count | 0.1859 |
+| DICE (best unsupervised) | 0.2435 |
+| **FITTED, all 8 features, word-disjoint CV** | **0.2732** |
+| ORACLE | 1.0000 |
+
+***A MODEL TRAINED ON THE ANSWERS, GIVEN EVERY FEATURE WE CAN COMPUTE ABOUT A PAIR, BEATS A
+ONE-LINE TEXTBOOK STATISTIC BY 3 POINTS AND LEAVES 73% OF THE GAP UNTOUCHED.***
+
+**THE PRE-DECLARED READING FIRES, AND IT IS THE ONE I SAID WOULD BE MORE USEFUL: THE FEATURES DO
+NOT CONTAIN THE DISCRIMINATION. NO TEACHER OVER THESE FEATURES WILL HELP. THE NEXT MOVE IS NEW
+FEATURES, NOT NEW SUPERVISION.**
+
+### 🔬 AND THE CONTRAST WITH THIS PROJECT'S OWN ORACLE POINTS SOMEWHERE SPECIFIC
+The 0.8629 oracle was a supervised **low-rank reweighting of the FULL PPMI+SVD space** -- it saw a
+word's entire high-dimensional profile. **This model saw EIGHT SCALAR SUMMARIES of a pair and got
+0.2732.** *Hypothesis, and it is a hypothesis: the discrimination lives in the GEOMETRY OF THE FULL
+PROFILE, and collapsing a pair to scalar statistics destroys it. If so, the instruction is "learn
+on the profile, do not summarise it" -- which is the opposite of what every ranker in today's
+tables does.*
+**⛔ DO NOT QUOTE 0.2732 AND 0.8629 SIDE BY SIDE AS A COMPARISON. Different task, scorer,
+population and instrument; the standing rule forbids it. The structural observation -- scalars vs
+full profile -- is the part that transfers, and it is UNTESTED.**
+
+**⚠️ LIMITS: 538 target words, no CI on the fitted number, one corpus, and the model is LINEAR
+logistic regression -- this tests LINEAR separability of eight features, not every function of
+them. A nonlinear model is the obvious next check and is cheap.**
+
+---
+
 ## 🔎 WHAT SEPARATES THE RIGHT CANDIDATE FROM THE OTHER 49? AN UNSUPERVISED STATISTIC BUYS +31%
 `scratch/rerank_top50.py`. Re-ranking the SAME top-50 co-occurrence candidate set, 538 words whose
 candidate set contains a gold relative -- so this is a PURE DISCRIMINATION measurement with the
