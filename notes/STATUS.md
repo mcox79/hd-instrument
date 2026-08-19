@@ -1,4 +1,4 @@
-﻿# STATUS
+# STATUS
 
 AS OF: 2026-08-19 AUTOLOOP RUNNING | branch `dataprep/mcguffey-graded-corpus` | HEAD `85b146f69` | AUTOLOOP ARMED 200 | origin push needs USER AUTH | READ THE COMPACTION HANDOFF AT THE TOP OF ## POSITION AND STOP THERE
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
@@ -186,9 +186,9 @@ would have caught it on its own.*
 because it reproduces the cells' own bootstrap half-widths -- 0.0513 vs observed 0.0516, 0.0975 vs
 0.0987, 0.0493 vs 0.0481. IT DOES NOT REPLACE THE BOOTSTRAP; it is for required-n and order of
 magnitude.**
-**WHAT IT WOULD TAKE.** Per-cell n to tighten a floor's half-width: **Â±0.05 -> ~250-290; Â±0.03 ->
-~770; Â±0.02 -> ~1,550-1,780; Â±0.01 -> ~6,300-7,200.** *The human instrument runs at **65**. Getting
-its bar to Â±0.03 needs roughly **12x** the pairs, and its matching funnel is what caps it -- which is
+**WHAT IT WOULD TAKE.** Per-cell n to tighten a floor's half-width: **±0.05 -> ~250-290; ±0.03 ->
+~770; ±0.02 -> ~1,550-1,780; ±0.01 -> ~6,300-7,200.** *The human instrument runs at **65**. Getting
+its bar to ±0.03 needs roughly **12x** the pairs, and its matching funnel is what caps it -- which is
 why "buy n by loosening the matcher" keeps being proposed and must keep being refused: **a bigger
 sample of an unlicensed instrument is worse than no sample.***
 **âŒ MY STRATEGIC READ WAS "we have been running experiments that could not have returned a credible
@@ -225,7 +225,7 @@ THEN TOOK IT APART. NO ARM CURRENTLY CLEARS A TRUSTWORTHY BAR.**
   WAS NEVER GIVEN ENOUGH DATA TO BE TESTED.** ~8.6 slotted observations per word spread over 10,121
   dimensions; the dense 58-dimension arm on the SAME data does not collapse. **A density sweep is
   running against branches pre-committed at `0504bfd00`.**
-- **ðŸ§  THE REFRAME WORTH KEEPING (biology, PINNED): the brain's "what is this LIKE" system (ATL) and
+- **🧠 THE REFRAME WORTH KEEPING (biology, PINNED): the brain's "what is this LIKE" system (ATL) and
   its "what goes WITH this in an event" system (pMTG/TPJ) doubly dissociate. OUR INSTRUMENT IS THAT
   DISSOCIATION. WE BUILT THE SECOND ORGAN AND GRADED IT ON THE FIRST ORGAN'S EXAM.** *Grammatical
   frames CONSTRAIN a meaning hypothesis; they do not SUPPLY it -- stage one of two.*
@@ -616,7 +616,7 @@ excludes nothing is not a control -- report how many items each control actually
 
 ## WHAT IS RUNNING / BLOCKED
 
-- **ðŸŸ¢ AUTOLOOP ARMED AT 200 (owner-authorised 2026-08-19), executing
+- **🟢 AUTOLOOP ARMED AT 200 (owner-authorised 2026-08-19), executing
   `notes/BUILD_PLAN_post_audit_2026-08-19.md`.** Stop: `python tools/autoloop.py disarm`, or the
   dashboard's RUNNING tab, or set `armed: false` in `data/hook_state/autoloop.json`. Anything other
   than exactly boolean `true` reads DISARMED -- the fail-safe direction is OFF.
@@ -730,7 +730,7 @@ excludes nothing is not a control -- report how many items each control actually
   of these 25 is explicitly `PENDING_VET`, and this file already records 21 arms suspended for a
   mis-imported bar. **THE CORRECT STATEMENT IS: A LARGE BODY OF CLAIMED POSITIVE RESULTS EXISTS THAT
   OUR POSITION DOCUMENT IGNORES, AND IT NEEDS VETTING -- NOT THAT WE HAVE 2,678 WINS.**
-- **ðŸŸ¢ðŸŸ¢ VETTING PASS 5 (`ae41755a`) -- *** THE FIRST UPHELD RESULT IN 30 VETTED CELLS. ***
+- **🟢🟢 VETTING PASS 5 (`ae41755a`) -- *** THE FIRST UPHELD RESULT IN 30 VETTED CELLS. ***
   1 UPHELD, 2 QUALIFIED, 1 SUSPENDED, 2 REFUTED.**
   **âœ… UPHELD -- `exp_agreement_depth_productivity_generalization_v1`. IT GENERALISES, AND THE SPLIT
   IS ASSERTED IN CODE.** A learned function-word accumulator **supervised ONLY on depth<=1**, tested
@@ -1181,7 +1181,7 @@ excludes nothing is not a control -- report how many items each control actually
     is **~3 relation bins**; top-3 gives 0.6240 of U3's 0.6466). **A starved lexical channel would
     tie on BOTH instruments too, so replication does not discriminate.** *The observation stands;
     my interpretation of it does not follow. I stated it as the finding twice.*
-  - **ðŸ§  THE BIOLOGY PUTS THE WHOLE NIGHT IN A DIFFERENT FRAME (PINNED, and the most useful thing
+  - **🧠 THE BIOLOGY PUTS THE WHOLE NIGHT IN A DIFFERENT FRAME (PINNED, and the most useful thing
     anyone produced tonight): taxonomic (ATL) and thematic (pMTG/TPJ) systems DOUBLY DISSOCIATE.
     OUR INSTRUMENT *IS* THAT DISSOCIATION MEASURED IN A CORPUS, AND THE WINNING ARM IS THE THEMATIC
     ORGAN DOING THE TAXONOMIC ORGAN'S JOB.** Coarse frames drive **CATEGORY** induction unsupervised
@@ -1220,7 +1220,7 @@ excludes nothing is not a control -- report how many items each control actually
   mtimes 2 min ago, in sync. The 11-minute gap I saw was **PRINT CADENCE** -- the occdata stage prints
   every 100 words, and 381 units sat between the 300 and 400 marks. *There is no buffering defect;
   `units.jsonl` mtime is still the better liveness signal, but the log is not lying.*
-- **ðŸŸ¢ LANDED 05:44 -- `exp_dissociation_score_instrument_human_v4` (`75e093747`). THE 6.24 WORDNET
+- **🟢 LANDED 05:44 -- `exp_dissociation_score_instrument_human_v4` (`75e093747`). THE 6.24 WORDNET
   CAVEAT IS DISCHARGED. VERIFIED OFF DISK BY THE DIRECTOR, NOT TAKEN FROM THE AGENT'S PROSE.**
   **rho = 0.9034 at 24 arms, bootstrap-of-arms 95% CI [0.7548, 0.9676] -- EXCLUDES ZERO**, against
   rho 0.7857 / CI **[-0.0435, 1.0]** at 7. **Pre-committed branch (i) fired.** *The arm count really
@@ -1248,7 +1248,7 @@ excludes nothing is not a control -- report how many items each control actually
   Best arm `SM11_Z_NEG_EUCLID` **0.6039 [0.5439, 0.6644]** against a **credible bar of 0.6791**
   (margin **-0.0752**). **AND IT IS WORSE THAN THAT: IT SITS BELOW THE CONSTANT/PROTOTYPE FLOOR'S OWN
   POINT VALUE (0.6195). 0 OF 6 GRID POINTS CLEAR; ALL SIX CIs OVERLAP THAT FLOOR.** Coverage **166 of
-  242** matched units, **557/617 = 90.3% of words -- independently reproducing the drill's Â§3.2
+  242** matched units, **557/617 = 90.3% of words -- independently reproducing the drill's §3.2
   figure**, so this is not a coverage failure.
   **ðŸ”¬ THE MECHANISM, AND IT IS THE FINDING: THE ONLY THING THAT DISCRIMINATES IS A *QUERY-INDEPENDENT
   PER-WORD GENERICITY SCORE* -- ONE THAT NEVER COMPARES THE TWO WORDS AT ALL -- READING 0.6195,

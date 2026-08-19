@@ -475,6 +475,25 @@ this only changes how per-unit progress survives a crash, not the final-metrics 
 Resume order must stay deterministic (respect the existing `sorted(set())` discipline) so a
 resumed run computes the same remaining units a fresh run would have.
 
+## NEVER round-trip a UTF-8 file through PowerShell text mode
+
+**`(Get-Content file -Raw) -replace ... | Set-Content -Encoding utf8` CORRUPTS ANY NON-ASCII
+CHARACTER IN THE FILE, AND ADDS A BOM.** On PowerShell 5.1 `Get-Content` reads a BOM-less UTF-8
+file using the **ANSI codepage**, so every multi-byte character comes back as mojibake; the write
+then persists that mojibake as genuine UTF-8. Measured 2026-08-19 on `notes/STATUS.md` while doing
+nothing more than substituting a commit hash: **9 lines damaged** — four heading emoji, three `±`
+and one `§` — plus a BOM prepended to the recovery document the session-start hook parses.
+
+**This is the same hazard class as the store's CRLF rule (`binary / newline='' ONLY`), which this
+file already carries — it was just never written down for `notes/`.** The store rule exists
+because text-mode handles silently rewrite bytes; so does this one.
+
+**Rule: to edit a tracked text file, use the Edit tool, or Python with an explicit
+`encoding="utf-8"` (read) and a BINARY write.** Never `Get-Content -Raw | Set-Content` for a
+substitution. If it has already happened, the damage is reversible per line —
+`line.encode("cp1252").decode("utf-8")` — and `scratch/fix_status_encoding.py` is a worked repair
+that leaves any line it cannot round-trip untouched rather than guessing.
+
 ## Scratch files (throwaway work goes in `scratch/`)
 
 Throwaway probes, one-off analysis scripts, and temp output go in `scratch/` -- **never at the
