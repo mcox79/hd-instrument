@@ -4,6 +4,18 @@
 Supersedes the forward-looking parts of `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md`. Its Section 7
 (the audit findings) and Section 6 (the ladder METHOD) both still stand as reference.
 
+> **⛓️ COUPLING NOTE, BOTH SIDES (CLAUDE.md "a doc parsed by code is coupled to it"): THIS
+> FILENAME IS AN API.** `data/hooks/staging/stop_hook.py` `_plan_path()` (~line 1155) matches
+> `BUILD_PLAN_post_audit_2026-08-19.md` as the FIRST entry in its priority list, and every autoloop
+> continuation tells the session to open it. **If this file is renamed, edit that list in the same
+> commit** -- the previous version of that list named two plans that had not existed for weeks, and
+> the hook silently emitted a "re-read a file that is not there" instruction on every turn.
+
+> **🤖 AUTOLOOP ARMED 2026-08-19 AT 200 CONTINUATIONS (owner: "200 iterations authorized").**
+> Stop it with `python tools/autoloop.py disarm`, or set `armed: false` in
+> `data/hook_state/autoloop.json`, or from the dashboard's RUNNING tab. Anything other than exactly
+> boolean `true` reads as DISARMED -- the fail-safe direction is OFF.
+
 ## THE DECISION THIS PLAN IMPLEMENTS
 
 **Owner:** *"we need to have a current best substrate... we should envision a complete substrate (or
@@ -59,23 +71,45 @@ unknown cells. A blank currently reads as endorsement.
 
 ---
 
-## PHASE 1 -- WIRE THE SUBSTRATE (Tier 0 + Tier 1)
+## PHASE 1 -- WIRE THE SUBSTRATE (Tier 0 + Tier 1). **IN PROGRESS.**
 
-Order from `notes/COMPLETE_SUBSTRATE_DESIGN_2026-08-18.md`:
+**THE DELIVERABLE IS ONE FILE: `hdlab/substrate.py`.** Not a diagram, not a registry edit -- an
+importable object that holds the organs in dependency order and can be run. Until that file exists
+and self-tests, "wired" is a word.
 
+**Required shape, so a post-compaction session builds the same thing:**
+- `class Substrate` with **LAZY per-organ construction** -- an organ is imported and built on FIRST
+  USE, never at `import hdlab.substrate`. *Phase 0 existed because one module trained at import
+  time; do not rebuild that defect at the assembly layer.*
+- `Substrate.read(source, limit) -> ReadResult` -- the INGEST path (Tier 0 + Tier 1).
+- `Substrate.query(question) -> QueryResult` -- the RETRIEVAL path (Tier 2), returning the store
+  entry, the confidence, the ACCEPT/CLARIFY/REFUSE decision, and the provenance trace.
+- `Substrate.organ_report() -> dict` -- which slots are FILLED, which are EMPTY, which are
+  DELIBERATELY EXCLUDED and why. **An empty slot must be visible from the object itself**, not only
+  from a note; that is how P1/P2 went unwritten for weeks.
+- `python -m hdlab.substrate` self-test: builds, reads a few sentences, queries, asserts each wired
+  organ actually ran (count its invocations -- an organ that is imported and never called is not
+  wired), prints the organ report.
+
+**Wiring order (dependencies, not preferences) from `notes/COMPLETE_SUBSTRATE_DESIGN_2026-08-18.md` 4.1:**
 **Tier 0 (reading):** `corpus_registry` -> `information_foraging` -> `definitional_extraction`
 **Tier 1 (memory):** `hippocampal_encoder` -> `ca3_completer` -> `prelim_tier` -> `foundation_persistence`
 **Tier 2 (comprehension):** `coreference_resolver` -> `situation_model_accumulate`; `semantic_parser` -> `cortex`
 
-**Cost ~75 s one-time import**, dominated by `definitional_extraction` -- and after 0.1,
-`situation_reader` is affordable too.
+**Cost ~75 s one-time import**, dominated by `definitional_extraction` -- and after Phase 0,
+`situation_reader` (30 s) is affordable too.
 
 **WIRE ONLY THE INTERSECTION of self-test-passing AND probe-FUNCTIONAL.**
 **⛔ DO NOT WIRE:** `atom_consultation` (`applied` hard-coded `False` -- cannot change a decision),
 `definitional_predicate_v61` (fires on 0.27% of its intended population), `goal_achievement`'s
 desiderative-negation channel (7/7 on authored exemplars, 4/7 on paraphrases; also the one genuine
 self-test failure: `AssertionError: channel 'relation:recur' != 'majority'`). **All three are
-self-test-passing. That is exactly why the intersection rule exists.**
+self-test-passing. That is exactly why the intersection rule exists.** `cortex` is wired with
+`atom_consultation` OFF.
+
+**⚠️ `hdlab/ca3_completer.py` IS UNTRACKED IN GIT** -- 23 KB living only in the working tree, on
+this wire list, destroyed by any checkout/reset/clean. Same class as board Q52. Commit it or get an
+owner ruling BEFORE any git operation that touches the tree.
 
 ---
 
@@ -84,13 +118,30 @@ self-test-passing. That is exactly why the intersection rule exists.**
 **EVERY ORGAN HERE WAS VALIDATED IN ISOLATION. WIRING TEN TOGETHER IS PRECISELY HOW THE 0-FOR-30
 CLAIMS LAYER HAPPENED -- components that each look fine and produce nothing jointly.**
 
-**Before believing the assembled substrate does anything, build ONE end-to-end can-fail test:**
-- text in, traceable facts out, on a corpus the mechanism did not see;
-- **a REAL floor run standalone** -- the dumbest thing that scores well on this data;
+**THE DELIVERABLE IS ONE CELL: `experiments/exp_substrate_end_to_end_readout_v1.py`.**
+Per CLAUDE.md this is `hdi_exp_dev`'s lane; if agent dispatch is unavailable in the running session,
+author it in the main thread **with every gate below intact** -- the gates are the point, the lane
+is not.
+
+**The gates, and none is optional:**
+- text in, traceable facts out, **on a corpus the mechanism did not see**;
+- **a REAL floor run STANDALONE** -- the dumbest thing that scores well on this data. Run the
+  STRONGEST floor the cell's own data supports, not the most convenient one. Report how many items
+  each control actually removed: **a control that excludes nothing is not a control.**
 - **a scramble twin** -- if scrambled text produces the same output, the pipeline is not reading;
-- **CI + null + the strongest floor**, per the standing bar;
+- **CI half-width AND the null p95 beside every margin**, and gate on the FLOOR'S UPPER BOUND
+  (floor + its own half-width), never its point value;
+- **an ORGAN-ABLATION arm per wired organ** -- turn one off, re-run, report the delta. *This is the
+  only thing that distinguishes an assembled substrate from an expensive `Counter`, and no cell in
+  this archive has ever run it.*
 - **and the first question, free and non-statistical: DID THE TEST ITEMS EXIST BEFORE THE MECHANISM
-  DID?** That predictor beat every statistical signal in the audit.
+  DID?** State the answer in the metrics. That predictor beat every statistical signal in the audit.
+
+**PRE-COMMIT THE READINGS BEFORE ANY NUMBER EXISTS:** (α) beats the floor CI-separated AND at least
+one ablation degrades it -> the assembly is doing work, name which organ. (β) beats the floor but NO
+ablation moves anything -> **the floor is what is scoring, the organs are decoration** -- report it
+that way, do not soften it. (γ) does not beat the floor -> a real negative; go to the brain-fidelity
+drill (discipline 17), and ask FIRST whether the experiment could have succeeded at all.
 
 **This test does not currently exist. Nothing downstream should be trusted until it does.**
 

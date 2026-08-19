@@ -1149,17 +1149,24 @@ def _plan_path(repo_root: Path) -> str:
     plan. Keep the superseded names in the list -- they still carry retractions and standing
     rules that remain in force.
 
+    2026-08-19: BUILD_PLAN_post_audit_2026-08-19.md PREPENDED and it is now the head of the list.
+    It supersedes the ladder plan's forward-looking half, is self-contained, and is what STATUS.md
+    points every recovery at. The ladder plan stays in the list BELOW it -- its Section 7 (audit
+    findings) and Section 6 (the ladder METHOD) are both still in force.
+
     COUPLING NOTE (both sides, per CLAUDE.md): the names below are an API shared with
-    notes/PLAN_ORGAN_STEP_LADDERS_2026-08-17.md and notes/PLAN_NEXT_24H.md. If a plan is
-    renamed, THIS LIST MUST BE EDITED IN THE SAME COMMIT."""
-    for name in ('PLAN_ORGAN_STEP_LADDERS_2026-08-17.md',
+    notes/BUILD_PLAN_post_audit_2026-08-19.md, notes/PLAN_ORGAN_STEP_LADDERS_2026-08-17.md and
+    notes/PLAN_NEXT_24H.md. If a plan is renamed, THIS LIST MUST BE EDITED IN THE SAME COMMIT.
+    Each of those files carries a matching note naming this function."""
+    for name in ('BUILD_PLAN_post_audit_2026-08-19.md',
+                 'PLAN_ORGAN_STEP_LADDERS_2026-08-17.md',
                  'PLAN_NEXT_24H.md',
                  'PLAN_NEXT_12H.md',
                  'PLAN.md'):
         if (repo_root / 'notes' / name).exists():
             return f'notes/{name}'
-    return ('notes/PLAN_ORGAN_STEP_LADDERS_2026-08-17.md -- NOT ON DISK, and neither is any '
-            'other known plan name. FIND THE PLAN before continuing: ls notes/PLAN*')
+    return ('notes/BUILD_PLAN_post_audit_2026-08-19.md -- NOT ON DISK, and neither is any '
+            'other known plan name. FIND THE PLAN before continuing: ls notes/PLAN* notes/BUILD_PLAN*')
 
 
 def _autoloop_prompt(repo_root: Path) -> str:
