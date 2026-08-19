@@ -444,9 +444,17 @@ class Substrate:
                             vec = context_vector_masked(sent, lem, d=CONTEXT_DIM)
                             if vec is None or not np.any(vec):
                                 continue
-                            episodic.encode_and_write(np.asarray(vec, dtype=np.float32
-                                                                 ).reshape(1, -1))
+                            code = episodic.encode_and_write(
+                                np.asarray(vec, dtype=np.float32).reshape(1, -1))
+                            # KEEP THE CODE, NOT JUST THE FACT THAT WE WROTE ONE. Storing only
+                            # (lemma, episode_id) is what made D3 a write-only sink: 3,400
+                            # encounters went in and nothing could ever come back out. A DG code
+                            # is ~2% dense, so the ACTIVE UNIT INDICES are the whole content and
+                            # cost ~41 int32 per episode.
+                            active = np.flatnonzero(np.asarray(code).reshape(-1) > 0)
                             self._episode_index.append((lem, ep))
+                            self._epi_codes.append(active.astype(np.int32))
+                            self._epi_inverted = None      # invalidate; rebuilt on next recall
                             res.n_episodes_written += 1
 
                 res.n_sentences += len(sents)
@@ -544,6 +552,66 @@ class Substrate:
             out.decision = "REFUSE"
         return out
 
+    # -- EPISODIC RECALL ----------------------------------------------------------------------
+
+    def recall(self, cue_vec: np.ndarray, *, top_k: int = 5,
+               use_ca3: bool = True) -> List[tuple]:
+        """Address the episodic store with a context cue; return ranked (lemma, score).
+
+        THIS IS THE READ SIDE OF D3, AND IT DID NOT EXIST UNTIL 2026-08-19. The ablation smoke
+        found that turning the hippocampal store off changed NOTHING downstream, because the
+        assembly wrote 3,400 encounters and never read one. An organ wired write-only is an
+        island inside the substrate, and its ablation is a guaranteed null of the wiring's own
+        making -- which would have been filed as a finding about the organ.
+
+        The read is the organ's own two stages, not a re-derivation: `retrieve()` settles the cue
+        through CA3, then the settled pattern is matched against stored episodes by ACTIVE-UNIT
+        OVERLAP through an inverted index. Sparse codes make that exact and cheap.
+        """
+        if not self._epi_codes:
+            return []
+        episodic = self._episodic()
+        q = np.asarray(cue_vec, dtype=np.float32).reshape(1, -1)
+        settled = episodic.retrieve(q, use_ca3=use_ca3)
+        active = np.flatnonzero(np.asarray(settled).reshape(-1) > 0)
+        if active.size == 0:
+            return []
+
+        if self._epi_inverted is None:
+            inv: Dict[int, List[int]] = collections.defaultdict(list)
+            for ep_i, idxs in enumerate(self._epi_codes):
+                for u in idxs:
+                    inv[int(u)].append(ep_i)
+            self._epi_inverted = inv
+        inv = self._epi_inverted
+
+        hits: Dict[int, int] = collections.Counter()
+        for u in active:
+            for ep_i in inv.get(int(u), ()):
+                hits[ep_i] += 1
+        if not hits:
+            return []
+
+        # Per-LEMMA score is the best-matching episode, not the sum. Summing rewards a word for
+        # being FREQUENT rather than for matching, which is the frequency floor wearing the
+        # mechanism's coat -- and this project has already retracted one result to that shape.
+        best: Dict[str, float] = {}
+        denom = float(active.size)
+        for ep_i, n in hits.items():
+            lem = self._episode_index[ep_i][0]
+            s = n / denom
+            if s > best.get(lem, -1.0):
+                best[lem] = s
+        return sorted(best.items(), key=lambda kv: (-kv[1], kv[0]))[:top_k]
+
+    def recall_sentence(self, sentence: str, target: str = "", *,
+                        top_k: int = 5) -> List[tuple]:
+        """recall() from a raw sentence, with `target` masked out of its own cue (no-leak)."""
+        vec = context_vector_masked(sentence, target or "\x00none\x00", d=CONTEXT_DIM)
+        if vec is None or not np.any(vec):
+            return []
+        return self.recall(vec, top_k=top_k)
+
     # -- PERSISTENCE --------------------------------------------------------------------------
 
     def save(self, dir_path: str, *, source_tag: str = "substrate") -> dict:
@@ -629,6 +697,20 @@ class Substrate:
         if not hasattr(self, "__epidx"):
             setattr(self, "__epidx", [])
         return getattr(self, "__epidx")
+
+    @property
+    def _epi_codes(self) -> List:
+        if not hasattr(self, "__epicodes"):
+            setattr(self, "__epicodes", [])
+        return getattr(self, "__epicodes")
+
+    @property
+    def _epi_inverted(self):
+        return getattr(self, "__epiinv", None)
+
+    @_epi_inverted.setter
+    def _epi_inverted(self, v) -> None:
+        setattr(self, "__epiinv", v)
 
     @property
     def _seed_set(self) -> frozenset:

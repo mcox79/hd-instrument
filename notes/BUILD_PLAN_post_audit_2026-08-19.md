@@ -202,6 +202,53 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🚨 PHASE 2 FINDING #1 -- THE ASSEMBLED SUBSTRATE LOSES TO WORD-COUNTING BY ~10x ON HELD-OUT TEXT
+
+**The first end-to-end measurement of the assembly, and it is a clean negative that INDEPENDENTLY
+REPLICATES THIS PROJECT'S CENTRAL DOCUMENTED RESULT on a different task, a different instrument
+and a different route.** `scratch/recall_route_compare.py`, 400 sentences read, 200 items,
+pool 996, one corpus, one seed. **No CI yet, so these are measurements and not yet a verdict.**
+
+| route | SEEN (exact key) hit@1 | **HELD-OUT hit@1** |
+|---|---|---|
+| EPISODIC (DG code overlap after CA3 settling) | **0.795** | **0.025** |
+| SEMANTIC (cosine to the accumulated context profile) | 0.165 | **0.005** |
+| **COOC floor** (raw co-occurrence counting) | **0.320** | **0.255** |
+| **FREQ floor** (ignores the cue entirely) | 0.170 | **0.265** |
+
+**⛔ NEVER QUOTE 0.795 AS A CAPABILITY.** The cue at exact key IS the vector the episode was
+written from -- the same write-then-read-a-register shape that refuted
+`exp_causal_link_comprehension_fuller_v2` ("no comprehension was tested"). **It is a CEILING
+DIAGNOSTIC and it is doing one useful job: it proves the store, the encoder and the scorer all
+work, so the held-out collapse is a REAL NEGATIVE and not a broken instrument.**
+
+**THE NUMBER THAT MATTERS: on sentences it never read, the substrate scores 0.025 where COUNTING
+WORDS SCORES 0.255, and where a floor that DOES NOT LOOK AT THE CUE AT ALL scores 0.265.**
+
+### ❌ AND MY OWN BRAIN-FIDELITY PREDICTION WAS REFUTED IN THE SAME RUN, BEFORE IT COULD BE QUOTED
+I predicted the episodic collapse was us asking the WRONG ORGAN -- the dentate gyrus exists to make
+similar inputs DISSIMILAR, so pattern separation is the enemy of generalisation, and the
+consolidated semantic route should therefore do better. **IT DOES NOT. SEMANTIC IS 5x WORSE THAN
+EPISODIC ON HELD-OUT CUES (0.005 vs 0.025), and raw co-occurrence counting beats it in BOTH
+regimes, including at exact key (0.320 vs 0.165).** *The elegant story was wrong and its own
+control killed it inside one run. Recorded because the reasoning will look attractive again.*
+
+### 🎯 WHAT IT ACTUALLY CONVERGES ON, AND THIS IS THE VALUABLE PART
+**Our "semantic profile" is a SUM of context bags, and it is beaten by literally counting the same
+co-occurrences.** That is exactly the ORGAN A write-rule result -- summing raises interference,
+single-occurrence beats the sum, and no unsupervised transform extracts substitutability --
+**reached again end-to-end through the assembled substrate on a retrieval task, rather than on the
+dissociation instrument.** *Two instruments, two tasks, two populations, one diagnosis: the
+missing ingredient is the LEARNING SIGNAL, and assembling the organs did not supply it.*
+
+**CAVEATS THAT TRAVEL WITH EVERY NUMBER ABOVE:** n=200, ONE corpus (children's fiction), ONE seed,
+NO confidence interval and NO null yet -- that is what the Phase 2 cell is for. **And a named
+selection bias: items are the FIRST content lemma of each sentence that the store has seen, which
+skews toward frequent words and INFLATES both floors.** *It does not rescue the mechanism -- the
+gap is ~10x, not marginal -- but the cell must select items without that bias.*
+
+---
+
 ## 🔬 PHASE 2 IN PROGRESS -- THE ABLATION HARNESS EXISTS AND IT HAS ALREADY PAID FOR ITSELF
 
 `Substrate(ablate=[...])` supports four one-organ-at-a-time ablations. **Smoke run, 400 sentences,
