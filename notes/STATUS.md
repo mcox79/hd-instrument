@@ -15,7 +15,20 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
-## 🚨 THE MOST TRANSFERABLE THING FROM 2026-08-19: **SIX DEFECTS, ALL MINE, ALL IN THE WIRING, AND
+## 🧭 WHAT THE 2026-08-19 SESSION CONVERGES ON -- STRATEGIC READ, **HYPOTHESIS-PENDING-VET**
+**EVERY REPRESENTATION WE OWN TIES OR LOSES TO CO-OCCURRENCE COUNTING, ON THREE INSTRUMENTS -- and
+the reason may not be that we lack a teacher.**
+**MEASURED THIS SESSION: 74% of taxonomically-related word pairs CO-OCCUR in the corpus. Only 26%
+of words have a taxonomic relative they are never seen beside.** *So co-occurrence is not a weak
+baseline a better mechanism ought to beat -- it is most of the signal text makes available.*
+**That reframes the standing "the missing ingredient is a LEARNING SIGNAL" diagnosis: the residue a
+teacher would have to capture is a small and genuinely hard 26%, and nothing we own -- bag, typed
+slots, episodic, semantic, successor representation -- lifts it above ~0.02 on 4-7 hits.**
+**⚠️ NOT A RESULT: one gold (ConceptNet), one corpus, 852 words capped by the asset's own
+co-occurrence table. VET BEFORE QUOTING.** *Corollary that would change the programme if it
+survives: `SET_P` -- synonym pairs with ZERO co-occurrence -- tests the rare 26% BY CONSTRUCTION.*
+
+## 🚨 THE MOST TRANSFERABLE THING FROM 2026-08-19: **SEVEN DEFECTS, ALL MINE, ALL IN THE TOOLING, AND
 ## EVERY ONE LOOKED LIKE A FINDING ABOUT THE SUBSTRATE.**
 1. a refusal arm that passed because the store returned NOTHING for every cue -- **pair every
    refusal arm with a binding arm**; 2. a working organ reported DEAD because my counter could not
@@ -24,10 +37,16 @@ carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE R
    4. a rate-matched twin broken **TWICE, in opposite directions**; 5. **the substrate consolidated
    only when the forager changed books, so every Phase 2 run grounded NOTHING**; 6. **25 of 28
    corpora unreachable because every read restarted alphabetically -- which produced a textbook
-   LEARNING-CEILING curve.**
-**FOUR OF THE SIX WOULD HAVE BEEN PUBLISHED AS SUBSTRATE FINDINGS.** *None was caught by reading
+   LEARNING-CEILING curve**; 7. **an encoding repair that VERIFIED ITSELF WITH ITS OWN BROKEN
+   DETECTOR -- fixed 9 lines, reported "0 remaining", and 56 were damaged.**
+**FOUR OF THE SEVEN WOULD HAVE BEEN PUBLISHED AS SUBSTRATE FINDINGS.** *None was caught by reading
 the code. Every one was caught by a control on a control, or by asking whether the experiment
-COULD have succeeded before asking why it did not.* **THAT QUESTION IS THE HIGHEST-YIELD HABIT
+COULD have succeeded before asking why it did not.*
+**🔑 AND #7 GENERALISES THE WHOLE LIST: VERIFY WITH A POSITIVE CONTROL, NEVER ONLY AN ABSENCE
+CHECK.** *"No mojibake found" inherits the detector's bug; "the character 🚨 is present" does not.
+An absence test inherits every blindness of the thing that measures it -- which is also why
+"nothing was refused", "no organ was invoked" and "no prior work found" were all wrong this week.*
+**THAT QUESTION IS THE HIGHEST-YIELD HABIT
 THIS SESSION FOUND -- ask it before every negative, without exception.**
 
 ## WHAT LANDED 2026-08-19 (Phases 0-3; `2e8134fd2` .. `85b146f69`)
