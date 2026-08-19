@@ -265,6 +265,59 @@ the same measurement. The ORDER OF MAGNITUDE gap is the finding; the exact ratio
 ACCUMULATES cannot concentrate. Concentration is what LEARNING buys. Same conclusion as the
 novelty work -- prediction first -- reached through geometry instead of through surprise.**
 
+## 🧠✅ 2026-08-19 LATER -- **THE FIDELITY AUDIT IS NOW COMPLETE: ALL THREE GAPS FILLED, AND**
+## **FOUR OF MY FOUR EXPLANATIONS WERE REFUTED BY THEIR OWN PRE-COMMITTED CONTROLS.**
+*The accounting above said: NONE for the subsumption result, the 9-seed spoke failure, the
+reading-(C) void. All three now have one. **Every diagnostic was written with a pre-committed
+alternative reading, and in four cases out of four the ALTERNATIVE is what fired.** That is the
+system working, and it is worth more than four confirmations would have been.*
+
+**GAP 2 -- THE 9-SEED SPOKE FAILURE.** Hypothesis: hub-and-spoke POSITION. In the brain the
+sensorimotor spokes are INPUTS that shape the hub over experience; ours is a supplied Lancaster
+table consulted AFTER the hub has ranked. Prediction: the hub carries no sensorimotor structure.
+**REFUTED.** Ridge read-out of the grounded dimensions from the 256-dim profile, 5,950 covered
+words, 5-fold out-of-fold R^2, gated at max(0, shuffled-null p95):
+
+| | R^2 |
+|---|---|
+| log corpus frequency (positive control) | **0.4819** |
+| best sensorimotor dim (Gustatory) | 0.1145 |
+| typical sensorimotor dim | **0.01 - 0.05** |
+| Head | -0.0086 (no better than the mean) |
+
+11 of 12 dimensions ARE carried, so the hub is **not** sensorimotor-blind and position is not the
+explanation. **But the magnitude is the real story: the hub carries frequency ~20x more strongly
+than a typical sensorimotor dimension.** Not blind -- overwhelmingly a frequency code.
+*⚠️ A THRESHOLD BUG CAUGHT MID-RUN, LOGGED BECAUSE IT NEARLY PUBLISHED A FALSE POSITIVE: the first
+gate was "above the shuffled null", and the shuffled null sits at **-0.12** because a 256-dim ridge
+on shuffled targets OVERFITS. Under that gate 12 of 12 dims "passed" while every R^2 was NEGATIVE --
+worse than predicting the mean. **The bar is max(0, null p95); the ZERO is the binding half.***
+
+**GAP 3 -- THE READING-(C) VOID (the residual write gate did nothing).** Four explanations tested,
+four dead:
+1. *"It was thresholding noise."* The residual's median 0.4648 sits at the 0.5 that two UNRELATED
+   vectors produce, so this looked certain. **REFUTED, n=55,399:** matched 0.4546 vs mismatched
+   0.4888 vs chance 0.5001, difference CI [-0.0348, -0.0336]. The prediction carries real
+   term-specific information.
+2. *"Between-word variation swamped the encounter signal, so a global absolute threshold could only
+   sort vocabulary."* **REFUTED:** ICC = **0.201**. Within-word variation is **80%** of the total.
+   The absolute rule had exactly the encounter-level variation it needed.
+3. *"It is a familiarity detector, not a novelty detector"* (the owner's Q71 distinction). **REFUTED:**
+   the residual does not decay as a word is seen more -- pooled slope vs log(encounter number) is
+   **flat to slightly POSITIVE**, median -0.0046, only 55% of words negative.
+4. *"The missing PRECISION term is the divergence."* `precision` appears **nowhere** in
+   `hdlab/predictive_coding.py` -- enumerated, 15 public names, not one mentions precision, variance,
+   confidence or weighting, and `threshold_gate` takes exactly one knob. **But the archive already
+   tested the precision-weighted form and it ALSO sat at chance** (Friston arm 0.530 vs flat 0.542).
+
+**🔑 SO THE ACCOUNT THAT SURVIVES IS NOT ABOUT THE SIGNAL AT ALL -- IT IS ABOUT THE ACTION.** The
+gate's signal is fine by every test we can put to it. What a write gate can do is choose WHICH
+counts get added. **It cannot change that the representation IS a count.** Selectivity inside an
+accumulate-only store is a no-op on the KIND of code produced -- which is the same conclusion the
+effective-dimensionality measurement reached from geometry, and the same one the subsumption result
+reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
+reach it.*
+
 ## 🟢🟢 2026-08-19 -- **THE OWNER REMEMBERED PRIOR WORK THAT PREDICTED TODAY'S FAILURE THREE WEEKS**
 ## **AGO, AND IT GIVES THE ORDER OF OPERATIONS: PREDICTION FIRST, NOVELTY SECOND, NOTES THIRD.**
 *Owner, COMMENTARY 20:22Z: "on the note taking and a 'newness detector' - I think we did do some
