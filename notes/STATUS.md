@@ -231,6 +231,40 @@ finely is what showed that; adopting 0.50 would have hidden it.*
 carries no information, accumulation is the right rule. The pinned equation does not fail -- OUR
 RESIDUAL DOES, because the profile it is measured against predicts nothing in particular.**
 
+## 🟢🟢 2026-08-19 -- **THE OWNER REMEMBERED PRIOR WORK THAT PREDICTED TODAY'S FAILURE THREE WEEKS**
+## **AGO, AND IT GIVES THE ORDER OF OPERATIONS: PREDICTION FIRST, NOVELTY SECOND, NOTES THIRD.**
+*Owner, COMMENTARY 20:22Z: "on the note taking and a 'newness detector' - I think we did do some
+work on this - so is worth looking back at the experimental corpus." They were right; I had not
+looked.*
+`exp_ingest_gate_strong_foundation_novelty_v2` (2026-07-16), verdict
+**`SEMANTIC_NOVELTY_derivability_dose_dependent_on_foundation_strength`**:
+
+| foundation strength (inferable MRR) | novelty-detection AUC |
+|---|---|
+| **DEAD 0.013** | **0.605 -- near chance** |
+| WEAK 0.331 | 0.969 |
+| STRONG 0.741 | 0.988 |
+
+**dose-response +0.384; encoding-status AUC tracked separately (0.627 / 0.976 / 1.000) so the two
+were never conflated; per-candidate arrays dumped and the key AUC RECOMPUTED OFF-DISK.**
+**➡️ ITS CENTRAL SENTENCE EXPLAINS TODAY IN ONE LINE: *"surprise = can the CURRENT foundation
+predict this, which BECOMES semantic-novelty as the foundation strengthens"* -- and *"a DEAD
+non-generalizing foundation must COLLAPSE the KEY AUC to ~chance."***
+**⛔ THAT IS EXACTLY WHAT TODAY'S RESIDUAL WRITE GATE DID.** Our profiles predict their own next
+context only 10.4% better than an unrelated term's, and our median rank is 81 of 223 -- **we are in
+the DEAD regime by this cell's own dial, where it MEASURED that novelty detection collapses to
+chance.** *The gate did not fail because predictive coding is wrong. It failed because novelty
+detection is DOWNSTREAM of prediction quality, and ours has none to speak of.*
+**🎯 SO THE OWNER'S "NEWNESS GETS NOTES" PRINCIPLE IS RIGHT AND IS NOT YET BUILDABLE. The order is
+forced: (1) make the foundation PREDICT, (2) novelty detection then works for free -- it is the
+same signal -- (3) only then do notes-on-newness mean anything.** *Steps 2 and 3 are not separate
+builds; they fall out of step 1. Everything today was an attempt at step 3 while step 1 was unmet.*
+**⚠️ THE HONEST LIMIT, STATED BEFORE ANYONE CITES THIS: that dose-response was measured in a
+SYNTHETIC compositional TransE arena, chosen deliberately because a strong generalizing foundation
+does not exist on our real data (the same note records real CSKG capping at MRR ~0.13). TRANSFER TO
+OUR SUBSTRATE IS A HYPOTHESIS, NOT A RESULT.** *But the DEAD-regime prediction is the part we
+already match, and we match it exactly.*
+
 ## ✅ 2026-08-19 -- **9-SEED SWEEP FINAL. THE PRE-REGISTERED CONJUNCTION FAILS, AND THE TWO**
 ## **QUANTITIES SEPARATE CLEANLY -- ONE IS SOLID, THE OTHER IS NOISE AROUND A LOW CENTRE.**
 
