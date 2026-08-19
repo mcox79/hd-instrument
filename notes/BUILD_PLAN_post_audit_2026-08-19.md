@@ -69,9 +69,29 @@
 >    **🔑 AND IT CLOSES THE POST-HOC ROUTE: if the diffuseness lived in a few removable directions,
 >    removing them would help. It hurts. The variance is spread thin across the whole spectrum --
 >    which is what a random projection does -- so no transform applied AFTER the fact reaches it.**
-> 3. **Test the gap-targeted growth loop on the current substrate.** Only clean prior win in the
->    area, and it is the owner's own idea. **NOW THE TOP UNBLOCKED ITEM.**
-> 4. **Leave the write gate alone.** Four explanations tested; tuning thresholds cannot reach it.
+> 3. ~~Test the gap-targeted growth loop.~~ **DONE. UNDERPOWERED, NOT NEGATIVE -- AND THE ORGANS
+>    NEEDED NO ADAPTER.** `gap_detector` / `gap_driven_reader` / `three_tier_loop` are built, import
+>    clean, and take `sub.state` directly; `substrate.py` wires none of them. Gap signal verified
+>    with a positive AND negative control (0 of 40 grounded words are gaps, 20 of 40
+>    non-consolidated ones are). **Result: GAP minus PASSIVE -88.98, CI [-220.31, +40.72]; GAP minus
+>    rate-matched RANDOM -6.68, CI [-133.01, +121.76]. Neither separated, and a half-width of
+>    130-220 ranks means only an enormous effect was detectable. UNTESTED AT THIS POWER.**
+>    *⚠️ Run 1 was VOID at 0.981 arm overlap and my gate passed it at `jac < 0.99`. Third
+>    too-lenient gate of the session. Fixed to refuse above 0.60 and fail loud.*
+>    **🔑 AND THE PRIOR HARD_PASS MEASURED COVERAGE (0.50 -> 0.79), NOT RANK. Different claim. This
+>    is not a failure to reproduce it, and nothing here licenses "the owner's idea does not work".**
+> 4. **⬅️ NOW THE TOP UNBLOCKED ITEM: RE-RUN GAP-TARGETING AT POWER, OR ON COVERAGE.** Two honest
+>    routes, and the second is cheaper and matches the prior win: (a) raise n until the CI half-width
+>    is small enough to detect a plausible effect; (b) **score COVERAGE rather than rank**, which is
+>    what the HARD_PASS cell actually measured and what "patchy" actually means.
+> 5. **Leave the write gate alone.** Four explanations tested; tuning thresholds cannot reach it.
+>
+> ## ⚠️ A PATTERN WORTH MORE THAN ANY SINGLE RESULT ABOVE: **I WROTE THREE GATES TODAY THAT COULD
+> ## NOT FAIL.** The floor gate that printed FREQ and never used it; a discrimination check that
+> passed on 1 nonzero in 900; an arms-differ check that passed at 0.981 overlap. **Each would have
+> published a false positive or a vacuous null.** All three were caught by looking at the NUMBERS
+> rather than the VERDICT LINE. *Before trusting any verdict in this file, re-read what its gate
+> actually compared.*
 >
 > ## ⛔ CLOSED 2026-08-19: **THE RESIDUAL WRITE GATE. 0 of 54 cells, both directions.**
 > `exp_predictive_write_gate_v1`, 3 seeds x 6 thresholds x 3 k. **Reading (A) in 0 of 54; floor
