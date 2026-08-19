@@ -393,6 +393,32 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+## 🔌 2026-08-19 -- **THE GAP-TARGETED ORGANS ARE BUILT, IMPORT CLEAN, AND ARE DIRECTLY**
+## **STATE-COMPATIBLE WITH THE SUBSTRATE. THEY ARE SIMPLY NOT WIRED IN. NO ADAPTER NEEDED.**
+*The top item was "test gap-targeted growth". Per the query-before-building rule I checked the code
+registry first, and it is another BUILT-PASSING-UNWIRED case: `hdlab/gap_detector.py`,
+`hdlab/gap_driven_reader.py` and `hdlab/three_tier_loop.py` all exist, all import, and
+`substrate.py` references **none** of them.*
+**✅ COMPATIBILITY CONFIRMED WITHOUT AN ADAPTER: `sub.state` IS a `reading_grounding_loop.
+ReadingLoopState`, which is exactly what these functions take.**
+**✅ AND THE GAP SIGNAL WORKS, shown with a POSITIVE AND A NEGATIVE CONTROL rather than one:**
+
+    is_gap_now on CONSOLIDATED words (already grounded)   0 of 40   correctly NOT gaps
+    is_gap_now on NON-consolidated frequent words        20 of 40   correctly ARE gaps
+    rank_material over 10 docs x 30 sentences   scores 8,4,4,2,1,1,1,0,0,0 -- discriminates
+
+**⚠️ AND I NEARLY FILED THE OPPOSITE. My first probe reported "0 of 68 gaps" and "1 nonzero score in
+900 pairs" and I was one step from recording THE ORGAN IS INERT. Both signals were MY OWN BUGS:**
+1. `rank_material` takes `doc_id -> a sequence of SENTENCES`; **I passed `s.split()`, a sequence of
+   single WORDS**, so almost nothing could ever match.
+2. I ran `is_gap_now` on the **CONSOLIDATED** terms -- words the substrate has already grounded,
+   which by definition are not gaps. **I tested the one population guaranteed to return zero.**
+*Both are the same underlying error: an absence result was produced by MY setup and would have been
+attributed to the ORGAN. The positive control is what separated them -- "20 of 40 on the other
+population" cannot be faked by a broken detector.* **AND MY OWN CHECK PRINTED "DISCRIMINATES" ON A
+SINGLE NONZERO OUT OF 900 -- too lenient, the same failure mode as the floor gate two results
+earlier. Twice in one session I wrote a gate that could not fail.**
+
 ## 📐 2026-08-19 -- **THE DIMENSIONALITY CLAIM, SETTLED ON MATCHED FORMULA AND MATCHED**
 ## **POPULATION. MY ORIGINAL CLAIM WAS INVALID AND MY CORRECTION TO IT WAS ALSO WRONG.**
 *Three versions of this claim now exist. Only the third is measured on a comparison where everything
