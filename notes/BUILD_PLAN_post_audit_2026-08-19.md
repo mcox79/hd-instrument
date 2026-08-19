@@ -202,6 +202,50 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🔎 DIAGNOSTIC: WHERE WE ACTUALLY LOSE. FOUR ROUTES HAD LOST TO COUNTING; THIS ASKS WHY.
+**PROBES, NOT A CELL: one seed, one corpus, one task, NO CI. Not citable. They exist to pick the
+next build.** `scratch/projection_loss_probe.py` + `probe2.py`. Identical items, identical frozen
+vocabulary (2,161), identical 12,000-sentence corpus, **matched scale** -- only the
+REPRESENTATION and the CUE differ.
+
+| representation | hit@1 |
+|---|---|
+| **EXACT co-occurrence, cosine-ranked** | **0.0300** |
+| random projection of the same, d=1024 | 0.0275 |
+| random projection of the same, d=256 | 0.0225 |
+| **OUR encoder, cue = sum of the cue words' own profiles** | **0.0150** |
+| **`COUNT_FLOOR` -- the floor our cells have been using** | **0.0125** |
+| **OUR encoder, cue = whole-sentence vector (what the substrate does)** | **0.0075** |
+| random projection, d=64 | 0.0050 |
+
+### 🚨 CORRECTION TO MY OWN PHASE 2 REPORT, AND IT MAKES THE NEGATIVE WORSE, NOT BETTER
+**`COUNT_FLOOR` IS NOT THE STRONGEST FLOOR THIS DATA SUPPORTS. Cosine over the SAME co-occurrence
+counts scores 0.0300 against its 0.0125 -- 2.4x.** The standing rule is *"run the STRONGEST floor
+the cell's own data supports"*, and this archive has already refuted three cells for using a weaker
+one. **I did the same thing today.** *The Phase 2 verdict does not flip -- no substrate route was
+anywhere near either floor -- but "loses to counting by ~10x" was measured against the weak floor,
+and against the right one the gap is larger. **Any re-run of that cell must add an
+EXACT_COOC_COSINE arm.***
+
+### 🎯 WHERE THE LOSS ACTUALLY IS, DECOMPOSED
+- **projection:** 0.0300 -> 0.0225. Real, ~25%, and **NOT the main cost.** d=1024 recovers almost
+  all of it; d=64 is catastrophic. *A d-sweep buys something here, unlike on addressing (C36).*
+- **our encoder vs a plain random projection at the SAME d and scale:** 0.0225 -> 0.0150.
+  **We lose 33% to a random projection of the same counts.**
+- **🔴 CUE CONSTRUCTION: 0.0150 -> 0.0075. THE SINGLE LARGEST FACTOR MEASURED -- A FULL HALVING,
+  AND IT IS WHAT THE SUBSTRATE ACTUALLY DOES.** Building the query as a whole-sentence vector
+  costs twice as much as any representation choice in the table.
+  ***⚠️ DO NOT CROSS THIS WITH "THE CUE SIDE IS CLOSED" (four cells, DO-NOT-REDO 46).*** That
+  closure was a DIFFERENT scorer, population and instrument (partial-cue addressing, hit@1
+  0.0223 -> 0.0249 NOT_SEPARATED). **This is a new measurement on a new task, not a contradiction
+  of that one, and the two numbers may never appear side by side.**
+
+**WHAT THIS CHANGES ABOUT THE NEXT BUILD: the information is present and usable -- our own counts,
+ranked properly, beat the floor 2.4x. So the next move is NOT a fifth mechanism. It is to stop
+discarding what we already have, and the cheapest lever measured is the QUERY.**
+
+---
+
 ## 🔻 RETRACTED, SAME NIGHT, BY MY OWN NAMED RE-TEST: SR WAS **NOT** STARVED. D7 IS A REAL NEGATIVE.
 **`exp_sr_scale_ladder_v1`, 3 seeds, 400 items, pool FROZEN at 2,161, nested corpora, only the
 transition data varies. 63 s.** *The block below filed SR as UNTESTABLE-AT-THIS-SCALE and named

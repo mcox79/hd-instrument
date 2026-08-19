@@ -260,6 +260,9 @@ class ReadResult:
     gain_stream: List[float] = field(default_factory=list)
     elapsed_s: float = 0.0
     organ_calls: Dict[str, int] = field(default_factory=dict)
+    # False when a foraging-ablated arm was run WITHOUT being told how many sentences the live
+    # arm consumed. Recorded because an unmatched twin has twice been read as a result here.
+    rate_matched: bool = True
 
     def to_dict(self) -> dict:
         d = dict(self.__dict__)
@@ -367,7 +370,8 @@ class Substrate:
     # -- INGEST -------------------------------------------------------------------------------
 
     def read(self, *, corpus: Optional[str] = None, n_sentences: int = 200,
-             batch: int = 20, max_patches: int = 4) -> ReadResult:
+             batch: int = 20, max_patches: int = 4,
+             match_sentences: Optional[int] = None) -> ReadResult:
         """Choose material off the shelf, read it, and consolidate what recurs.
 
         The forager decides WHEN TO LEAVE a corpus. Its gain currency is NOVEL LEMMAS PER
@@ -401,7 +405,22 @@ class Substrate:
 
         read_budget = int(n_sentences)
         n_patches = max(1, min(int(max_patches), len(order)))
-        frozen_per_patch = -(-read_budget // n_patches)      # ceil; the rate-matched twin's quota
+        # RATE-MATCHING, THIRD ATTEMPT, AND THE FIRST TWO BOTH FAILED IN OPPOSITE DIRECTIONS.
+        #   v1: a fixed harvests-per-patch constant -> FROZEN read 150 against the forager's 400.
+        #   v2: split the BUDGET evenly -> the forager LEFT EARLY at 1,233 of 4,000 while FROZEN
+        #       read all 4,000, so the twin read 3.2x MORE.
+        # Both times the comparison measured "how much text did you read", not "did you choose
+        # well". The budget is not the right quantity because THE LIVE ARM DOES NOT CONSUME IT.
+        # `match_sentences` is: run the live arm FIRST, then hand the frozen twin the number of
+        # sentences the live arm ACTUALLY READ. A caller that omits it gets the honest fallback --
+        # the whole budget -- and `ReadResult.rate_matched` says which happened, so an unmatched
+        # comparison can never again look matched in the metrics.
+        if match_sentences is not None and "foraging" in self.ablate:
+            frozen_per_patch = -(-int(match_sentences) // n_patches)
+            res.rate_matched = True
+        else:
+            frozen_per_patch = -(-read_budget // n_patches)
+            res.rate_matched = not ("foraging" in self.ablate)
         for patch_i, name in enumerate(order):
             if read_budget <= 0 or patch_i >= max_patches:
                 break
