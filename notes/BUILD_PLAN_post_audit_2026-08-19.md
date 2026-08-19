@@ -202,6 +202,33 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🧪 PHASE 2 CELL BUILT AND SMOKE-CLEAN: `experiments/exp_substrate_end_to_end_readout_v1.py`
+**FULL RUN IN FLIGHT** on `simplewiki`, detached, PID in `scratch/p2_full.pid`, logs
+`scratch/p2_full.out` / `.err`, 3 seeds x 5 ablations = 15 checkpointed units -> `data/<cell>/`.
+**DO NOT RESPAWN IT** -- a duplicate is the more expensive error.
+
+### 🚨 PHASE 2 FINDING #2 -- THE OBVIOUS SCRAMBLE CONTROL IS A NO-OP, AND IT TIED THE REAL CUE EXACTLY
+**A word-ORDER scramble against a BAG-OF-WORDS cue is the same vector.** Measured: shuffled cue
+`hit@1 0.7` vs real cue `0.7`, **permutation p = 1.0000**. *That is not a weak control, it is a
+no-op wearing a control's name* -- the same class as the corruption control that was
+near-rank-preserving and "incapable of failing", and as the coverage control that dropped 0 of 242.
+**Pre-committed reading (d) fired on it as designed, which is the only reason it was caught.**
+**THE FIX, AND IT IS THE RECIPE THE READING LOOP ALREADY OWNS** (`scramble_context_source`):
+destroy the cue's CONTENT, not its ORDER -- swap in an unrelated sentence, keeping the target.
+**Rebuilt that way it BINDS HARD: exact-key EPISODIC 0.667 vs SCRAMBLE 0.017, perm p = 0.0005.**
+**🔎 LEAD, NOT YET CHECKED: any landed cell that scrambles WORD ORDER while scoring a BAG
+representation has a control that cannot fail. Enumerate them.** *This one is free to check and
+would be a real audit finding.*
+
+### ✅ AND THE UNBIASED ITEM SELECTION MOVED THE FLOORS EXACTLY AS PREDICTED
+Replacing "first known lemma" with a seeded RANDOM known lemma dropped the COOC floor from
+**0.255 to 0.083** -- confirming the selection bias I named was inflating it. **The substrate did
+not benefit: both its routes read 0.000 on held-out cues under the fair selection.** *At smoke n=60
+the margin vs floor is `perm p = 0.065`, so this is a WIDTH, not yet a resolved negative. That is
+what the full run is for.*
+
+---
+
 ## 🚨 PHASE 2 FINDING #1 -- THE ASSEMBLED SUBSTRATE LOSES TO WORD-COUNTING BY ~10x ON HELD-OUT TEXT
 
 **The first end-to-end measurement of the assembly, and it is a clean negative that INDEPENDENTLY
