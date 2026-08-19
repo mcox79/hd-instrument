@@ -393,6 +393,43 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+## 🔬 2026-08-19 -- **WHICH CAUSE? NOTE-TAKING IS WORTH 39% OF THE DEGRADATION AND NOT ONE POINT**
+## **OF THE DIFFUSION. THE TWO DEFECTS ARE INDEPENDENT AND ONLY ONE IS VISIBLE TO THE RANKING.**
+*The phase diagram said we fall away from the counter as we read. Two causes tracked that curve --
+falling coverage and a spreading code. This is the experiment that separates them: same terms, same
+corpus, same projection, arms differing ONLY in whether every encounter gets written down. **Because
+the arms share the projection, the projection cannot explain a difference between them.***
+
+| sentences | coverage | AS_IS gap | **FULL_COV gap** | COOC | PR as-is | **PR forced** |
+|---|---|---|---|---|---|---|
+| 1000 | 0.816 -> 1.0 | 1.20x | **0.98x** | 22.5 | 12.6 | 13.2 |
+| 2000 | 0.730 -> 1.0 | 2.29x | 1.71x | 14.0 | 18.2 | 20.1 |
+| 4000 | 0.708 -> 1.0 | 3.12x | 2.23x | 26.0 | 50.3 | 52.3 |
+| 8000 | 0.564 -> 1.0 | 3.69x | **2.06x** | 31.0 | 71.5 | 73.7 |
+| 16000 | 0.435 -> 1.0 | 6.42x | **4.39x** | 18.0 | 91.8 | 92.3 |
+
+    slope of the gap vs log(sentences)   AS_IS +1.708   FULL_COV +1.035   -> 39% reduction
+
+**✅ NOT-RECORDING IS REAL AND WORTH FIXING: forcing a note on every encounter improves the LEVEL at
+every single point (3.69x -> 2.06x at 8,000; 6.42x -> 4.39x at 16,000) and holds parity with the
+counter out to 1,000 sentences (0.98x).** *The owner's instinct that this is about what gets written
+down is CORRECT, and it is the largest single lever measured all session.*
+**⛔ AND IT IS NOT SUFFICIENT -- THE VERDICT IS PARTIAL, NOT SOLVED. The slope only falls 39% and is
+still climbing at +1.035. Even with PERFECT note-taking we are 4.39x behind at 16,000 and still
+degrading.** *Anyone quoting "fix the note-taking" must quote this sentence with it.*
+**🔑🔑 THE DISSOCIATION IS THE REAL RESULT, AND IT WAS THE PRE-COMMITTED "MOST INFORMATIVE" OUTCOME:
+FORCING COMPLETE NOTES DOES NOT MOVE THE DIFFUSION AT ALL. PR goes 12.6 -> 91.8 as-is and
+13.2 -> 92.3 forced -- identical to within noise at every point.** So coverage and diffusion are
+INDEPENDENT defects: coverage drives the ranking, diffusion is invisible to the ranking metric, and
+**writing MORE cannot concentrate a code. Concentration has to come from the write RULE.**
+**🧠 BRAIN FIDELITY, and this is the sharpest statement of it yet: the brain's hub CONCENTRATES with
+experience (pinned ~4-12 effective dims). We now know that is NOT achievable by recording more --
+we just recorded everything and the code diffused exactly as before. A learned code concentrates
+because of COMPETITION between representations; ours sums. THE DIVERGENCE IS THE WRITE OPERATION
+ITSELF, not the amount written.** *That is a build target, not a shortfall.*
+*⚠️ Same caveats as the phase diagram: single seed per point, one corpus, pool grows 58 -> 480.
+The MONOTONICITY and the 5-point slope carry the weight, not any single cell.*
+
 ## 🌡️🌡️ 2026-08-19 -- **THE PHASE DIAGRAM. THERE IS A REAL PHASE BOUNDARY NEAR ~1,000 SENTENCES:**
 ## **WE BEAT THE COUNTER BELOW IT AND FALL AWAY FROM IT MONOTONICALLY ABOVE IT.**
 *Owner, COMMENTARY 22:27:04Z: "don't forget the phase diagram for these different components".
