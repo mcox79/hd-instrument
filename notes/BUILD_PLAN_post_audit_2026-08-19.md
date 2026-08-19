@@ -71,7 +71,43 @@ unknown cells. A blank currently reads as endorsement.
 
 ---
 
-## PHASE 1 -- WIRE THE SUBSTRATE (Tier 0 + Tier 1). **IN PROGRESS.**
+## ✅ PHASE 1 IS BUILT AND SELF-TESTING (`2f9f3ae95`, 2026-08-19). `hdlab/substrate.py` EXISTS.
+
+**`python -m hdlab.substrate` -> ALL SELF-TESTS PASSED.** Measured on that run: **400 sentences
+read from 2 corpora it chose off a 36-corpus shelf, 3,400 lemma flags, 3,400 one-shot episodic
+writes, 19 facts grounded WITH PROVENANCE, 124 refused by the consolidation gate**, persisted to
+disk, query refuses a nonce and binds a seeded word. 7.9 s. Slots: **9 FILLED / 6 NEEDS_ADAPTER /
+8 EMPTY / 3 EXCLUDED**, and the object reports all four itself.
+
+**THE SELF-TEST CAUGHT FOUR DEFECTS IN THE ASSEMBLY CODE ON ITS FIRST RUNS. That is the return on
+writing RULE 2 the way it is written, and the two worth carrying forward:**
+- **`query()` returned zero facts for EVERY cue** (it scanned `live_facts()` as dicts; they are
+  `FactRecord` dataclasses) **and the nonce arm passed anyway.** *A store that refuses everything
+  passes a refusal test trivially.* **ALWAYS PAIR A REFUSAL ARM WITH A BINDING ARM.**
+- **`gap_detector` was reported never-invoked WHILE RUNNING.** `ReadingLoopState` builds its own,
+  so a call counter on the wrapper is structurally blind to it. Fixed by counting the ARTIFACT
+  (`gap_cache`), not the call. **Reporting working machinery as dead is the false-negative twin of
+  the false coverage this audit exists to catch, and it took 20 minutes to nearly commit.**
+
+### 🔎 PHASE 1 FINDING #2 -- GROUNDING TURNS ON BETWEEN 100 AND 400 SENTENCES, AND THE GATE BINDS HARD
+Measured, `scratch/phase1_grounding_scale.py`: **100 sentences -> 0 provenance rows; 400 -> 19.**
+Provenance is written ONLY at the consolidation gate, so it is the proof grounding fired at all.
+**The gate refused 124 and grounded 19 -- it rejects roughly 87% of what reaches it**, which is the
+2026-08-12 grounding-refusal fix working rather than a gate that says yes to everything.
+*Observed once and NOT a finding: reading 550 sentences produced FEWER grounded terms than 400
+(14 vs 19). Consistent with the measured ACCUMULATE interference result, but n=1 -- do not quote it.*
+
+### 🔎 PHASE 1 FINDING #3 -- THE FORAGER DECIDES WHEN TO LEAVE, NOT WHAT TO OPEN. PATCH ORDER IS ALPHABETICAL.
+**It read `alice_in_wonderland` then `anne_of_green_gables` -- the first two names in sorted order --
+and found 5 definitions in 400 sentences.** `definitional_extraction` pulled 228,133 definitions
+from SimpleWiki; on narrative fiction it has almost nothing to find. **Charnov's theorem is about
+WHEN TO LEAVE a patch; WHICH PATCH TO ENTER is a separate decision and we have not made it.**
+*The shelf was the point of wiring `corpus_registry`, and we are still reading whatever is
+alphabetically first.* **BUILD TARGET, cheap and well-posed: patch CHOICE by expected gain.**
+
+---
+
+## PHASE 1 -- WIRE THE SUBSTRATE (Tier 0 + Tier 1). **BUILT; TIER 2 REMAINS NEEDS_ADAPTER.**
 
 **THE DELIVERABLE IS ONE FILE: `hdlab/substrate.py`.** Not a diagram, not a registry edit -- an
 importable object that holds the organs in dependency order and can be run. Until that file exists
