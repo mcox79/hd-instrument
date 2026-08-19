@@ -202,7 +202,68 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
-## 🔎 DIAGNOSTIC: WHERE WE ACTUALLY LOSE. FOUR ROUTES HAD LOST TO COUNTING; THIS ASKS WHY.
+## 🧭 DIRECTOR'S CALL, 2026-08-19: **STOP OPTIMISING INTO THE CLOZE TASK. IT CANNOT SHOW A WIN.**
+*Full-auto ruling, made rather than filed, and it changes what the next continuations do.*
+
+**THE ARITHMETIC THAT FORCES IT.** The BEST number anywhere in today's diagnostic is **0.0300**
+(exact co-occurrence, cosine-ranked). Our best route is 0.0150. **So the entire prize available
+from fixing every representation defect I found is to CLIMB FROM 1.5% TO 3% AND TIE A FLOOR.** A
+task whose ceiling is a tie with the dumbest available method is not an instrument for detecting
+understanding -- it is a way to spend continuations.
+
+**THIS PLAN ALREADY SAID SO, IN THE DEFERRED SECTION, BEFORE ANY OF TODAY'S RUNS:**
+> *"PREFER TASKS WITH LARGE EFFECT SIZES OVER BUYING POWER ON A TASK WITH A TINY ONE. When a
+> mechanism genuinely works you see pattern completion 0.20 -> 0.92, or leave@3 vs leave@8 on an
+> identical patch. No CI needed. A whole day of gated word-meaning arms fought over 0.63 vs 0.55 --
+> THAT GAP IS THE PROBLEM, NOT THE SAMPLE SIZE."*
+
+**0.0075 vs 0.0300 IS THAT SHAPE AGAIN, ONE ORDER OF MAGNITUDE SMALLER.** *I wrote the warning
+into this file yesterday and then spent four continuations inside exactly the failure it names.
+The cell itself even declared "this task favours the floors by construction" in its own docstring.
+I shipped the caveat and ignored it.*
+
+**WHAT STAYS AND WHAT STOPS.**
+- **KEEP:** the cell, the harness, the ablation machinery, `readout_verdict.py`, and the negative.
+  **The Phase 2 result is real and it stands** -- the substrate memorises and does not transfer.
+  That was worth establishing and it is established.
+- **KEEP:** the two cheap correctness fixes, because every FUTURE measurement inherits them --
+  add an `EXACT_COOC_COSINE` arm as the strongest floor, and fix the query construction (worth 2x).
+  **They are hygiene, not a research programme.**
+- **STOP:** treating cloze hit@1 as the substrate's report card. **No further mechanism gets built
+  to move it.**
+
+### ➡️ THE REPLACEMENT TASK, AND IT TESTS THE CLAIM THE SUBSTRATE ACTUALLY MAKES
+The substrate's stated output is **an auditable store of facts, each traceable to the sentence it
+came from**. It grounds ~19 terms per 400 sentences and **REFUSES 124** -- a gate that discriminates
+7:1. *Nothing has ever asked whether the 19 are RIGHT.*
+
+**BUILD: grounding PRECISION against an INDEPENDENT gold.** For each term the substrate grounds,
+does its meaning-anchor match a definition from a source the substrate never read? **Effect size is
+plausibly large** (a gate at 0.8-0.9 against a floor near 0.3), which is the whole point of the
+switch. **Floors, all runnable from the cell's own data:** most-frequent-co-occurrent, the term's
+own nearest neighbour by count, and a random anchor from the grounded set.
+**⚠️ AND THE TRAP IS NAMED IN ADVANCE: the gold must not be WordNet if anything on the path
+touches WordNet, and `lemma_word` DOES use WordNet morphy.** *Morphology is not meaning, so this is
+probably admissible -- but it must be checked and stated, not assumed, and the alternative
+(dictionary/Wiktionary definitions already on disk) is cheap.*
+
+### ✅ THE GOLD IS SETTLED, AND CHECKED BEFORE ANY CELL WAS WRITTEN
+`scratch/conceptnet_admissibility.py`. **ConceptNet's FULL assertions file carries a `dataset`
+provenance field per edge, so WordNet-derived edges are EXCLUDABLE BY CONSTRUCTION.** Measured over
+400,000 English-English edges: **78.2% `/d/wiktionary/en`, 18.0% `/d/conceptnet/4/en` (crowd),
+and only 0.1% `/d/wordnet/3.1` -- 254 edges, all droppable.** *So an independent, non-WordNet,
+non-LLM gold exists on disk and the circularity constraint is satisfiable.*
+
+**🪤 AND THE CONVENIENT FILE IS THE TRAP, CONCRETELY.** `data/datasets/conceptnet5_en_100k.jsonl`
+is pre-extracted, small and ready to use -- **and it has NO provenance field at all**, only
+subject/predicate/object. **WordNet edges cannot be excluded from it, so it is INADMISSIBLE as a
+gold** however convenient it is. *That is "the way we lose is by trying fancy available tools",
+in one file, and it would have been invisible after the fact.*
+
+**⚠️ SCOPE OF THAT MEASUREMENT, STATED: the assertions file is sorted by URI, so the 400,000 rows
+scanned are an ALPHABETICALLY-ORDERED PREFIX, not a random sample.** *The WordNet share elsewhere
+in the file may differ, and `/r/IsA` is likely under-represented by that ordering. A full-file
+count is cheap and must be run before the gold is frozen -- do not quote 0.1% as a file-wide fact.*
 **PROBES, NOT A CELL: one seed, one corpus, one task, NO CI. Not citable. They exist to pick the
 next build.** `scratch/projection_loss_probe.py` + `probe2.py`. Identical items, identical frozen
 vocabulary (2,161), identical 12,000-sentence corpus, **matched scale** -- only the
