@@ -172,6 +172,26 @@ capability the substrate is not standing on.
 *Hygiene already visible: `hdlab/_scratch_orig_goal_owner_select.py` is 55 KB, lives in the durable
 organ directory, and is REGISTERED as a capability.*
 
+## 7.5b THE DASHBOARD IS STALE, AND IT IS SHOWING THE OWNER UNVERIFIED NUMBERS AS RESULTS
+
+**Measured 2026-08-18: ZERO of today's five artifacts are referenced in `tools/status_gui.py`,
+`tools/status_state.py` or `tools/inflight_monitor.py`.** Not the vetting ledger, not the organ
+accounting, not the experiment index, not the evidence gate.
+
+**THE ACTIVE HARM, not merely a gap: tabs `4. SCORES` and `7. LATEST RESULTS` render verdict strings
+straight from `metrics.json`. We now know 99.5% of those cannot be checked from their own files and
+that 30 vetted produced 1 upheld. THE DASHBOARD IS PRESENTING CLAIMS AS RESULTS, and it is the
+owner's primary window into the project.** `inflight_monitor.py` has not been touched since 07-28.
+
+**MINIMUM FIX (not a redesign):**
+1. Every verdict shown must carry its LEDGER DISPOSITION beside it -- `WIRE` / `WIRE_NARROWED` /
+   `RERUN_NAMED` / `SHELVED_REFUTED` / **`UNVETTED`**. `tools/vetting_ledger.py --cite` already
+   answers this and already refuses unknown cells.
+2. **`UNVETTED` must be the visible default**, not a blank. A number with no disposition currently
+   reads as endorsed.
+3. `5. ORGAN MAP` should read `notes/ORGAN_ACCOUNTING_2026-08-18.md`: 163/163 import, 83/87
+   self-tests, **67 built-passing-and-unwired**, and the 6-organ wire list.
+
 ## 7.6 NEXT STEPS, IN PRIORITY ORDER
 
 1. **LAND THE ORGAN ACCOUNTING AND ACT ON `GOOD_BUT_UNUSED`.** Recovering working machinery beats
