@@ -15,7 +15,37 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
-## 🔴 2026-08-19 -- **THE CORTICAL READ CELL IS VOID BY ITS OWN READING (C). NOT A NEGATIVE -- VOID.**
+## 🔬 2026-08-19 -- **THE REPRESENTATION DIAGNOSTIC. THE SPACE IS NOT BROKEN AND NOT A BLOB: THE**
+## **SIGNAL IS THERE ON HELD-OUT TEXT AND IS 4-7x WEAKER THAN ON READ TEXT.**
+`scratch/diag_cue_vs_profile_space.py`, 4,300 sentences, 223 consolidated terms, n=200 per
+condition. Measured on the VECTORS directly rather than through hit@1, with the SEEN condition as
+the positive control.
+
+| question | HELD-OUT | SEEN (control) |
+|---|---|---|
+| cue vs its own target | **0.0519** | 0.2551 |
+| SCRAMBLED cue vs that target | 0.0231 | 0.1345 |
+| **gap (the void condition)** | **+0.0288** | **+0.1206** |
+| cue-to-target vs cue-to-RANDOM term | +0.0318 | +0.2218 |
+| argmax concentration | 112 distinct winners / 200 cues, top 7.5% | 96 / 200, top 11.5% |
+
+**✅ THREE THINGS ARE RULED OUT.** The measurement is not broken (the control separates strongly).
+The index is not degenerate -- 112 distinct winners over 200 cues, no hub. And the held-out gap is
+**NOT zero**: +0.0288 real-vs-scramble, +0.0318 target-vs-random.
+**⚠️ SO I MUST NARROW MY OWN VOID VERDICT. Reading (C) fired as pre-registered and the cell's
+numbers remain void AS A CAPABILITY CLAIM -- that stands. But the MECHANISM is not "the route
+ignores the cue". It is "the cue carries a real but very weak signal, and a top-1 argmax over 223
+candidates cannot resolve +0.03".** *The scramble arm is not signal-free either (0.0231 vs a
+random-term 0.0201), which is exactly why hit@1 could not separate them at n=300.*
+**➡️ THIS IS THE PROGRAMME'S STANDING DIAGNOSIS ARRIVING ON A FOURTH INSTRUMENT, AND FOR THE FIRST
+TIME AT THE VECTOR LEVEL: the profiles MEMORISE (0.2551 on read text) AND BARELY TRANSFER (0.0519
+on unread text). A 4.9x drop.** Not a retrieval bug, not a code bug -- the representation itself.
+**➡️ NEXT, AND IT IS THE DISTINCTION THIS PROJECT ALREADY ESTABLISHED: score hit@k, not hit@1.**
+Retrieval dwarfs discrimination here on four corpora already; a +0.03 signal may well place the
+target in the top-50 of 223 while never winning top-1. **If hit@50 is above chance, the cell was
+measuring the wrong thing rather than measuring nothing.**
+
+## 🔴 [SEE THE DIAGNOSTIC ABOVE: THE MECHANISM IS "SIGNAL TOO WEAK FOR TOP-1", NOT "IGNORES THE CUE"] 2026-08-19 -- **THE CORTICAL READ CELL IS VOID BY ITS OWN READING (C). NOT A NEGATIVE -- VOID.**
 `exp_cortical_read_consolidated_v1`, 3 seeds, 1,594 s, 300 items each, 428-480 consolidated terms.
 **`READING (C) route reads the cue: [False, False, False]` -- the SCRAMBLE arm (an UNRELATED donor
 sentence) TIES OR BEATS the real cue on ALL THREE SEEDS.** My pre-registration says exactly what

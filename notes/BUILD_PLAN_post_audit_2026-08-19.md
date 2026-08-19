@@ -55,13 +55,34 @@
 > `Library.flag` in `grounding_acquisition_loop`, i.e. a second module's contract. The BANK-time
 > fingerprint (`n_anchors_at_bank`, `anchor_field_sha1_at_bank`) is in and bounds it from above.*
 >
-> ## TOP UNBLOCKED ITEM, IN ORDER
-> 1. **SCORE THE CORTICAL READ on the cortical instrument.** The organ is built and self-testing;
->    nothing blocks it.
-> 2. **ATTACK THE CONSOLIDATION GATE** -- this session's own result fingered it as the weak link
->    (it picks worse meanings than a plain perceptual nearest-neighbour, on our own gold).
-> 3. **Register `sensorimotor_spoke` and `cortical_recall`** in `data/capability_registry.jsonl`
->    now that one carries a landed result.
+> ## TOP UNBLOCKED ITEM, IN ORDER -- REWRITTEN 2026-08-19 AFTER THE CORTICAL CELL CAME BACK VOID
+> **1 and 3 below are DONE. The cortical read was scored and its own reading (C) VOIDED it: the
+> SCRAMBLE arm (an unrelated donor sentence) tied or beat the real cue on ALL THREE seeds, so the
+> route was not reading the cue and none of its numbers count.** *Not a negative about a cortical
+> read -- a void cell about THIS one on THIS task.*
+>
+> 1. **🔬 DIAGNOSE THE REPRESENTATION, AND DO IT BEFORE BUILDING ANYTHING ELSE ON IT.** The
+>    retrieval code is fine -- `cortical_recall`'s self-tests pass on fixtures where the families
+>    are separable. What failed is the space: **do held-out cue vectors and consolidated-term
+>    profiles occupy a comparable space at all?** If a scrambled cue scores like a real one, the
+>    likely answer is no, and everything built on accumulated context profiles inherits that.
+>    **This is a diagnostic, not a build. It is cheap and it gates items 2 and 3.**
+> 2. **HOLD the online shadow arm** (design settled, insertion point at `_encounter_best`, cost
+>    measured at 1.6% so no sampling needed). *Building a rival meaning-selection rule on a
+>    representation that may not support retrieval would repeat the failure just measured.*
+>    Unblock it when item 1 answers.
+> 3. **Register `cortical_recall`** only if item 1 shows the space is usable. `sensorimotor_spoke`
+>    IS registered (`WIRE_NARROWED`, fidelity 3/10). **Registering an organ whose only cell came
+>    back VOID would be registering on hope.**
+>
+> ## 🔧 GATE FACTS, CORRECTED AND VERIFIED AT RUNTIME -- earlier text in this file may contradict
+> **`checkpoint` defaults `pbv=False` and the substrate never overrides it. Instrumented:
+> `_make_grounding_gate` fires, `_make_pbv_grounding_gate` NEVER. THE OLD GATE IS LIVE** --
+> meaning is a `canonicalize` argmax over the anchor field as it stands at the call, refusals are
+> `TAUTOLOGY_NO_ANCHOR` / `CLOSED_CLASS_SUBJECT`. **`state.gate_decisions` IS DRAINED EVERY PASS**
+> (peak 23, zero after), which is why reading it post-run shows nothing and is what led me to
+> publish a wrong correction. *Anchor-field provenance (`n_anchors`, `anchor_field_sha1`) is LIVE
+> and verified 36 of 36. The PBV-gate copy is in a path that never executes -- do not cite it.*
 
 > # 🧠🔴 2026-08-19 -- [SUPERSEDED BY THE BLOCK ABOVE; ITS "NEXT STEP" IS DONE] THE ORDER OF THE PLAN CHANGED, AND A MEASURED RESULT CHANGED IT.
 > **`exp_substrate_end_to_end_readout_v1` v3 landed: 18 units, 3 seeds, 1,053 s. READING (e)
