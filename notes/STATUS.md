@@ -231,7 +231,35 @@ finely is what showed that; adopting 0.50 would have hidden it.*
 carries no information, accumulation is the right rule. The pinned equation does not fail -- OUR
 RESIDUAL DOES, because the profile it is measured against predicts nothing in particular.**
 
-## 📈 2026-08-19 -- **RUNNING READ, 7 OF 9 SEEDS: THE ESTIMATE HAS MOVED TWICE AND IS STILL MOVING.**
+## ✅ 2026-08-19 -- **9-SEED SWEEP FINAL. THE PRE-REGISTERED CONJUNCTION FAILS, AND THE TWO**
+## **QUANTITIES SEPARATE CLEANLY -- ONE IS SOLID, THE OTHER IS NOISE AROUND A LOW CENTRE.**
+
+| quantity | mean | median | min | max | sd | seeds passing |
+|---|---|---|---|---|---|---|
+| **union / counter** | **2.03** | 2.15 | **1.50** | 2.23 | 0.24 | **9 of 9** |
+| independence ratio | 0.87 | 0.91 | 0.70 | 0.98 | 0.09 | **6 of 9** |
+
+**⛔ VERDICT AS PRE-REGISTERED: FAILS.** The conjunction required ratio >= 0.85 AND union >= 1.5 on
+EVERY seed. Union holds 9 of 9; the ratio holds 6 of 9. **The strong claim -- "the spoke is a
+genuinely independent second channel" -- IS NOT ESTABLISHED, and no combination build proceeds on
+it.**
+**✅ WHAT NINE SEEDS BOUGHT THAT THREE COULD NOT: the two quantities have DIFFERENT RELIABILITY and
+should never have been quoted as one finding.** The union gain is **tight and never below 1.50**.
+The ratio is **noisy (sd 0.09) around a centre of 0.87-0.91, i.e. slightly BELOW independence**.
+*So 0.70 was neither an outlier nor the centre -- it is the low tail of a distribution whose centre
+sits just under the bar.*
+**🎯 THE SURVIVING, DEFENSIBLE STATEMENT: the spoke and the counter succeed on almost entirely
+DIFFERENT items -- only 1-6 of ~250 are ever got right by both, on every seed -- so combining them
+would roughly double what counting achieves alone. What is NOT established is that the spoke's
+unique contribution exceeds what chance overlap predicts.** *Both halves are needed; either alone
+misleads.*
+**⚠️ AND THE PROCESS NOTE THAT MATTERS MORE THAN THE RESULT: I characterised this quantity from 1
+seed (0.94, "at independence"), then 4 (0.83), then 7 (0.88), then 9 (0.87). Three of those four
+characterisations were wrong, and each was stated with more confidence than the data carried.
+Nine seeds cost about 80 minutes of compute and prevented a build on a number that was never
+there.*
+
+## 📈 [SUPERSEDED BY THE FINAL 9-SEED READ ABOVE] 2026-08-19 -- **RUNNING READ, 7 OF 9 SEEDS: THE ESTIMATE HAS MOVED TWICE AND IS STILL MOVING.**
 Ratios in landing order: **0.70 / 0.94 / 0.89 / 0.81 / 0.92 / 0.93 / 0.98**. Union/COOC:
 **1.50 / 2.23 / 1.94 / 2.23 / 2.00 / 2.17 / 2.18 -- all seven >= 1.5.**
 **My running mean has gone 0.94 (1 seed) -> 0.83 (4 seeds) -> 0.88 (7 seeds). Two of seven sit
