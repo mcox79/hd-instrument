@@ -216,7 +216,32 @@ is precisely the false coverage the organ audit exists to prevent.**
 **Only 26 of 580 carry a self-assessment field and only 31 have a readable docstring -- and ZERO
 have both**, which is why the list looked thin. The 26 are the population worth reading.
 
-**🎯 THE ONE WITH A LEAD FOR A CURRENTLY-EMPTY SLOT.** `exp_b_alpha_broad_envelope_cpu_v1`:
+### ⬇️ CORRECTION TO MY OWN FRAMING BELOW, MADE ONE CONTINUATION LATER AND BEFORE ANYONE BUILT ON IT
+**I called this cell "a lead for the empty inference slot with a number attached". IT IS NOT A
+REASONING MEASUREMENT.** Read from its metrics: the arms are *"recall vs independent nltk gold"*
+over a *"materialized within-5k HYPERNYM+PART_OF backbone"*, by *"deterministic BFS"*. **nltk
+hypernym/part-of IS WordNet, and the backbone is a MATERIALIZED COPY of that same relation set.**
+So `recall 0.61` at 2 hops means **39% of gold pairs were not reachable in the copy** -- and the
+cell says the mechanism itself: *"each hop multiplies out-of-5k-intermediate misses"*.
+***THIS MEASURES HOW COMPLETELY A KNOWLEDGE GRAPH WAS COPIED AND HOW BFS DEGRADES WHEN THE COPY HAS
+HOLES. The depth "cliff" is coverage decay, not a reasoning boundary.*** *The cell is honest about
+this in its own scope line -- "NOT general reasoning", "measured-bounds not fundamental" -- and I
+read past that to the part I wanted.*
+**⚠️ LIMIT ON THIS CORRECTION, STATED: `experiments/exp_b_alpha_broad_envelope_cpu_v1.py` IS NOT
+ON DISK, so I am inferring the backbone's provenance from the metrics rather than reading the
+build. If the backbone were materialized from a NON-WordNet source the circularity would not
+apply -- but nothing in the metrics suggests that, and the burden is on the claim.**
+
+**🟢 AND THERE *IS* SOMETHING REAL HERE -- IT IS JUST NOT THE RECALL NUMBER.**
+**`false_positives: 0` across all five benchmarks; `refuse_rate: 1.0`; 750 negatives verified
+GENUINELY UNREACHABLE by exhaustive BFS at build ("not bounded-give-up"); and 4,344 of 4,344
+returned path edges trace to a persisted Store tuple -- `n_unverifiable_edges: 0`.**
+***The system refuses instead of confabulating, and every answer it gives is fully auditable.***
+*That is the glass-box invariant demonstrated at scale, and it is worth more to this project than
+a recall figure. Caveat that must travel with it: a system which only ever reports STORED paths
+gets "no hallucination" cheaply -- the property is real, the difficulty of achieving it is not.*
+
+**🎯 [SUPERSEDED BY THE CORRECTION ABOVE] THE ONE WITH A LEAD FOR A CURRENTLY-EMPTY SLOT.** `exp_b_alpha_broad_envelope_cpu_v1`:
 > *"Characterizes WHERE composed reasoning works (**2-hop MIDDLE**) vs **CLIFFS (3-4 hop
 > HARD_FAIL**). NOT general reasoning. Per-benchmark HARD_FAIL = **honest cliff FINDING**."*
 **Q2 domain-general inference is a NAMED EMPTY SLOT in the substrate design, and this cell already
