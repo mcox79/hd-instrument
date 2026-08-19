@@ -211,6 +211,44 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🎯 IT IS A **RANKING** PROBLEM, NOT AN INFORMATION PROBLEM. hit@k SETTLES IT IN ONE PASS.
+`scratch/hit_at_k_ceiling.py`, paradigmatic gold, 635 scorable words, 852 candidates.
+
+| arm | hit@1 | hit@5 | hit@10 | hit@25 | **hit@50** | hit@100 |
+|---|---|---|---|---|---|---|
+| BAG cosine | 0.148 | 0.334 | 0.417 | 0.545 | 0.639 | 0.735 |
+| TYPED cosine | 0.134 | 0.274 | 0.361 | 0.469 | 0.567 | 0.660 |
+| **RAW co-occurrence COUNT** | **0.150** | **0.395** | **0.510** | **0.677** | **0.787** | **0.846** |
+| RANDOM | 0.003 | 0.013 | 0.030 | 0.072 | 0.167 | 0.277 |
+
+**A RELATED WORD IS IN THE TOP 50 OF A PLAIN COUNT LIST FOR 78.7% OF WORDS -- against a random
+16.7%. THE INFORMATION IS OVERWHELMINGLY PRESENT. WE CANNOT PUT IT FIRST.**
+
+***AND THE SECOND ROW OF THAT TABLE IS THE UNCOMFORTABLE ONE: RAW COUNTS BEAT BOTH OF OUR
+REPRESENTATIONS AT EVERY SINGLE DEPTH.*** Cosine over accumulated profiles reads 0.639 at k=50
+where the raw count reads 0.787 -- **a 15-point gap, and the "sophisticated" version is the loser.**
+*Normalising and projecting the counts is DESTROYING information, not extracting it. That is the
+ORGAN A write-rule conclusion again -- summing raises interference, the incumbent is worse than not
+accumulating -- arriving on a fourth instrument.*
+
+### 🔄 THIS REFRAMES THE PROGRAMME'S OWN DIAGNOSIS, AND IT UNIFIES WITH THE ONE RESULT WE TRUST
+The standing line is *"the missing ingredient is a LEARNING SIGNAL"*, which has been read as **the
+information is not in the counts**. **IT IS.** hit@50 = 0.787 says so directly, and the fitted
+PPMI+SVD oracle already said the same thing from the other side -- **supervision moves AUC from
+0.03-0.07 to 0.8629 ON THE SAME COUNTS.** *Two independent demonstrations that the counts carry it
+and the read-out does not.*
+**SO THE PROBLEM IS NOW WELL-POSED FOR THE FIRST TIME: given ~50 candidates that are ALL plausible
+by co-occurrence, pick the RIGHT one. That is a DISCRIMINATION task with a 79% ceiling, not a
+knowledge-acquisition task -- and it is exactly the shape a learning signal is for.**
+*It also explains why every mechanism today tied or lost: they are all different ways of ranking
+the same candidate pool, and none of them addresses discrimination.*
+
+**⚠️ SCOPE: one corpus, 852 words, paradigmatic relations, top-1-of-852 retrieval. The hit@k shape
+is robust (RANDOM's curve is visibly flat beneath all three), but the 0.787 is a property of THIS
+pool size -- a larger pool lowers it. Report the pool with the number, always.**
+
+---
+
 ## ✅ THE 74% REPLICATES ON HUMAN RATINGS -- AND IT WAS THE MOST FALSIFIABLE THING I CLAIMED TODAY
 `scratch/cooccurrence_of_related_pairs_simlex.py`. **The obvious way my number could have been
 wrong: ConceptNet is crowd-sourced and Wiktionary-derived, and both favour associations PEOPLE
