@@ -231,6 +231,40 @@ finely is what showed that; adopting 0.50 would have hidden it.*
 carries no information, accumulation is the right rule. The pinned equation does not fail -- OUR
 RESIDUAL DOES, because the profile it is measured against predicts nothing in particular.**
 
+## 🧠 2026-08-19 -- **BRAIN-FIDELITY AUDIT ON THE SUBSUMPTION NEGATIVE, AND FIRST THE HONEST**
+## **ACCOUNTING: OF SIX NEGATIVES TODAY, ONE GOT A FIDELITY CHECK, TWO PARTIAL, THREE NONE.**
+*Owner: "I want to make sure that you're properly drilling all negative findings and doing a brain
+fidelity check." Audited rather than claimed. **Full: the cortical read (CLS position inversion).
+Partial: the residual gate, the random-projection gap. NONE: the SUBSUMPTION result, the 9-seed
+spoke failure, the reading-(C) void.** The biggest negative of the day had no fidelity audit at
+all -- it was reported as a number and a consequence. This is that audit.*
+
+**IT IS CHECKABLE AGAINST A PINNED QUANTITY, which is rare here.** ORGAN_MAP B4 is one of the twelve
+organs whose equation is actually pinned: *"dense, graded, ~4-12 effective dims; IT sparseness
+index ~0.2-0.3"* (Huth 2012, first ~4 group PCs define the shared semantic space).
+
+| | effective dims (participation ratio) | components for 90% var | top-4 share |
+|---|---|---|---|
+| **brain, PINNED** | **~4-12** | -- | first ~4 define the space |
+| **OUR PROFILES** | **50.4** | 92 | 0.201 |
+| pure noise, same shape | 119.1 | 122 | 0.063 |
+
+**✅ OUR CODE IS REAL STRUCTURE, NOT NOISE: 50.4 against noise's 119.1, and the first four
+components hold 20.1% against noise's 6.3%. That much is a genuine positive and I had not measured
+it before.**
+**⛔ BUT IT IS 4-12x TOO HIGH-DIMENSIONAL AGAINST THE PINNED FIGURE, AND THAT EXPLAINS THE
+SUBSUMPTION RESULT MECHANISTICALLY RATHER THAN JUST REPORTING IT: a LINEAR projection PRESERVES
+THE RANK of what it projects. It cannot concentrate variance the way a LEARNED code does. So our
+"hub" is a compressed COUNT VECTOR, and a compressed count vector cannot beat the counter it
+compresses.** *That is why three mechanisms all lost to counting: they were all reading a lossy
+copy of the counter.*
+**⚠️ THE COMMENSURABILITY CAVEAT, STATED BEFORE ANYONE QUOTES THE COMPARISON: participation ratio
+over 223 word profiles and Huth's "~4 group PCs" over voxel-wise encoding across subjects are NOT
+the same measurement. The ORDER OF MAGNITUDE gap is the finding; the exact ratio is not.**
+**➡️ AND IT AGREES WITH THE OWNER'S OWN DIAGNOSIS FROM A DIFFERENT DIRECTION: a code that only
+ACCUMULATES cannot concentrate. Concentration is what LEARNING buys. Same conclusion as the
+novelty work -- prediction first -- reached through geometry instead of through surprise.**
+
 ## 🟢🟢 2026-08-19 -- **THE OWNER REMEMBERED PRIOR WORK THAT PREDICTED TODAY'S FAILURE THREE WEEKS**
 ## **AGO, AND IT GIVES THE ORDER OF OPERATIONS: PREDICTION FIRST, NOVELTY SECOND, NOTES THIRD.**
 *Owner, COMMENTARY 20:22Z: "on the note taking and a 'newness detector' - I think we did do some
