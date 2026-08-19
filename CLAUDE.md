@@ -25,6 +25,7 @@ condensation of this file cannot turn an earned rule into unsourced prose).
 | repeatedly judged something far worse than documented, then found the wrong artifact was examined | triple-check file / version / env / corpus / metric / arm, and say what you checked | *Evidence discipline* §5 |
 | `STATUS.md` reworded away two literals the session-start hook greps; compaction recovery silently degraded | a doc parsed by code is coupled to it -- mark both sides | *A doc parsed by code is coupled to it* |
 | a cell smoked clean, then its full run read 15 min and died with an EMPTY held-out split: the corpus yields exactly 20,000 and it read all 20,000 | check every split/sample against what the source actually yields, at FULL sizes, before the expensive step | *A smoke with smaller numbers does not test the full run's arithmetic* |
+| built a write gate after checking the registry; a HARD_PASS cell from 3 weeks earlier had already measured that it must fail on a weak foundation | the registry says what is BUILT; only `experiment_index.py` says what was ANSWERED -- query BOTH and quote the counts | *Two archives, two questions* |
 
 Rules on delegation, agent reports, model choice and detached launches are in their own sections
 below and carry their incidents inline.
@@ -511,6 +512,46 @@ fifth recorded time.** Two rules follow, and they generalise well past encoding:
 
 `scratch/fix_status_encoding2.py` is the worked repair: round-trip detection, iterated until
 stable, verified against the characters that must be present afterwards.
+
+## TWO ARCHIVES, TWO QUESTIONS -- THE REGISTRY DOES NOT TELL YOU IF THE QUESTION IS ANSWERED
+
+**Owner, 2026-08-19: *"I want to know how you missed that surprise experimental data - I thought we
+had this all consolidated and known at this point? What else are we missing?"***
+
+**THE INCIDENT.** I proposed building an error-signal write gate, ran the prior-work check, found
+`hdlab/predictive_coding.py` already implemented it, and correctly called the next step a WIRING
+rather than a build. The cell then failed. The owner remembered prior work on novelty detection;
+`tools/experiment_index.py query "novelty"` returns **17 cells**, `"surprise"` returns **28**, and
+one of them -- `exp_ingest_gate_strong_foundation_novelty_v2`, HARD_PASS, 2026-07-16 -- **had
+already measured that novelty detection collapses to chance on a weak foundation.** It predicted
+my result three weeks before I ran it.
+
+**THE FAILURE IS SPECIFIC AND IS NOT "I FORGOT TO SEARCH".** I ran a prior-work check every time.
+I ran the WRONG ONE:
+
+| question | the archive that answers it |
+|---|---|
+| *Does the tool already exist?* | `data/capability_registry.jsonl`, `hdlab/` |
+| ***Has this question already been ANSWERED?*** | **`tools/experiment_index.py query "<kw>"`** |
+
+**I checked the CODE inventory and called it a prior-work check. It is not one.** The registry
+tells you whether something is BUILT. It cannot tell you whether the experiment was already RUN
+and what it FOUND -- and a built organ with a landed negative beside it is exactly the case where
+building again is most wasteful.
+
+**AND THE STANDING RULE ITSELF POINTS AT THE WRONG FILE.** Non-negotiable 5 says *"Query
+data/capability_registry.jsonl BEFORE building"*. I followed it to the letter and still missed a
+HARD_PASS that answered my question. **The rule names the code archive and is silent on the results
+archive.**
+
+**Rule: before building OR wiring anything, query BOTH, and quote the counts.** Not "I checked" --
+the actual line, because `experiment_index.py` prints rows scanned before results and that is what
+makes silence distinguishable from absence.
+
+**Measured the same day, for everything else I had built without checking:** `"coverage"` **120
+cells**, `"projection"` **102**, `"trace"` **78**, `"cortical"` **9**. Four diagnostics and a cell
+built that day, none of them preceded by a results-archive query. *The answer to "what else are we
+missing" is not a feeling; it is a number you can print in one command.*
 
 ## A SMOKE WITH SMALLER NUMBERS DOES NOT TEST THE FULL RUN'S ARITHMETIC
 
