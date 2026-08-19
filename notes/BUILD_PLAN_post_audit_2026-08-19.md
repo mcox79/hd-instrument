@@ -211,6 +211,44 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🧯 THE ZERO-CO-OCCURRENCE TEST: I NEARLY REPORTED A 20x COLLAPSE THAT WAS MOSTLY DEFINITIONAL
+Masking every co-occurring candidate out of the pool for BOTH arms gave TYPED 0.0059 and BAG
+0.0082 -- **a 20x drop from 0.10-0.14, tied, barely above a 0.0012 random floor.** That reads as
+"neither representation generalises past direct co-occurrence", which is the strongest possible
+form of this project's standing diagnosis. **I checked whether a correct answer was even reachable
+before writing it down.**
+
+**IT LARGELY WAS NOT. After masking, only 45.9% of items (ALL relations) and 26.3% (PARADIGMATIC)
+still had ANY gold neighbour left in the pool. MEDIAN REACHABLE GOLD NEIGHBOURS: ZERO.**
+*So 54% and 74% of items were scored as misses BY CONSTRUCTION. Per discipline 18 that is
+UNTESTABLE, not negative -- and the "20x collapse" was mostly the denominator.*
+
+### RE-SCORED ONLY WHERE A CORRECT ANSWER WAS REACHABLE
+| gold subset | TYPED | BAG | diff | p |
+|---|---|---|---|---|
+| ALL (n=337) | 0.0148 (**5 hits**) | 0.0208 (**7 hits**) | -0.0059 | 0.72 |
+| PARADIGMATIC (n=167) | 0.0240 (**4 hits**) | 0.0299 (**5 hits**) | -0.0060 | 1.00 |
+
+**BOTH TIE, AT 4-7 HITS. THAT IS UNDERPOWERED AND IS NOT A VERDICT ON EITHER REPRESENTATION.**
+*What survives: the drop from ~0.10 to ~0.02 on the fair subset is real and large. What does NOT
+survive: any claim about TYPED vs BAG in the zero-co-occurrence regime.*
+
+### 🎯 THE INCIDENTAL FINDING IS THE MOST USEFUL THING HERE, AND IT IS ABOUT LANGUAGE, NOT US
+***74% OF PARADIGMATICALLY-RELATED GOLD PAIRS CO-OCCUR IN THE CORPUS. Only 26% of words have a
+taxonomic relative they are never seen beside.*** *That is a fact about text and about ConceptNet,
+not about our substrate -- and it does three things: it explains why co-occurrence is such a
+punishing baseline in this domain; it BOUNDS how much any "same job, never seen together"
+mechanism could ever buy; and it means the dissociation instrument's SET_P -- synonym pairs with
+ZERO co-occurrence -- is testing a genuinely RARE configuration, which is worth knowing before
+more effort is spent gating on it.*
+
+**FOUR REFINEMENTS OF ONE QUESTION IN TWO CONTINUATIONS: aggregate -> split by relation family ->
+mask co-occurring candidates -> score only where an answer is reachable. THE FIRST THREE WOULD ALL
+HAVE BEEN REPORTED AS ANSWERS, AND THE THIRD WOULD HAVE BEEN THE MOST QUOTABLE AND THE MOST
+WRONG.**
+
+---
+
 ## 🔬 THE DRILL'S NAMED TEST, RUN: TYPED SLOTS DO **NOT** BEAT THE BAG -- AND THE SPLIT IS THE FINDING
 `scratch/typed_vs_bag_probe.py` + `_split.py`. **UNUSUALLY CLEAN COMPARISON: both representations
 live in the SAME file (`selectional_slots_v1.pkl`), built by the SAME parser on the SAME corpus in
