@@ -192,6 +192,36 @@ owner's primary window into the project.** `inflight_monitor.py` has not been to
 3. `5. ORGAN MAP` should read `notes/ORGAN_ACCOUNTING_2026-08-18.md`: 163/163 import, 83/87
    self-tests, **67 built-passing-and-unwired**, and the 6-organ wire list.
 
+## 7.5c OWNER DECISIONS, 2026-08-18 -- THESE SET THE DIRECTION
+
+**1. BUILD A CURRENT-BEST SUBSTRATE. Owner: *"we need to have a current best substrate is my
+assumption... we should envision a complete substrate (or close to) and wire in the best versions of
+each."*** This REPLACES the piecemeal framing the Director was using. **Do not wire six organs into
+an unnamed pipeline. DESIGN THE COMPLETE ORGAN SET FIRST, then fill each slot with the best
+available implementation from the 147, and NAME THE EMPTY SLOTS.** An empty slot is a finding.
+
+**2. MINE MIDDLE_BAND. Owner: *"it's worth it. understanding what it was trying and the signal may
+be very important for the harder to obtain capabilities."*** **The value is NOT the verdict -- it is
+the ATTEMPT and the SIGNAL.** 117 meaning-relevant cells, never read, in a population selected for
+honest self-assessment rather than over-claiming.
+
+**3. PARITY IS INTERESTING.** The one upheld result TIES the hand-written recursive rule (0.7312) at
+0.7324. **The owner considers parity worth pursuing** -- and the learned version generalises to
+embedding depths it never saw, which the hand-written rule does not have to earn.
+
+**4. INSTRUMENT REBUILD -- DIRECTOR'S RECOMMENDATION: DEFER, WITH A TRIGGER. NOT NOW.**
+The dissociation instrument's bars both carry CIs that include chance (0.5431 CI [0.4922, 0.5953];
+0.5943 CI [0.4937, 0.6911]), and at n=242 the CI half-width (~0.05) is as large as the whole
+chance-to-bar interval (~0.04). **It structurally cannot resolve a real, moderate effect.**
+**BUT NOTHING IN 7.6 STEPS 1-3 USES IT.** Wiring uses organ-level discriminators, and mining
+MIDDLE_BAND is reading, not gating. **REBUILD IT BEFORE THE NEXT GATED WORD-MEANING EXPERIMENT, NOT
+BEFORE THE WIRING.**
+***AND THE DEEPER POINT, WHICH IS WORTH MORE THAN THE POWER FIX: PREFER TASKS WITH LARGE EFFECT
+SIZES OVER BUYING POWER ON A TASK WITH A TINY ONE.*** The organ probes are the evidence -- when a
+mechanism genuinely works you see **pattern completion 0.20 -> 0.92**, or **leave@3 vs leave@8 on an
+identical patch**. No confidence interval is needed to see those. **A whole day of gated
+word-meaning arms fought over 0.63 vs 0.55. THAT GAP IS THE PROBLEM, NOT THE SAMPLE SIZE.**
+
 ## 7.6 NEXT STEPS, IN PRIORITY ORDER
 
 1. **LAND THE ORGAN ACCOUNTING AND ACT ON `GOOD_BUT_UNUSED`.** Recovering working machinery beats
