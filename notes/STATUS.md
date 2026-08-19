@@ -15,6 +15,33 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 🎯 THE STRONGEST RESULT OF 2026-08-19, AND IT REFRAMES THE TOP ITEM: **IT IS A RANKING PROBLEM**
+**hit@k on the paradigmatic gold, 635 scorable words, 852 candidates** (`scratch/hit_at_k_ceiling.py`):
+
+| arm | hit@1 | hit@10 | **hit@50** | hit@100 |
+|---|---|---|---|---|
+| BAG cosine | 0.148 | 0.417 | 0.639 | 0.735 |
+| TYPED cosine | 0.134 | 0.361 | 0.567 | 0.660 |
+| **RAW co-occurrence COUNT** | **0.150** | **0.510** | **0.787** | **0.846** |
+| RANDOM | 0.003 | 0.030 | 0.167 | 0.277 |
+
+**A RELATED WORD IS IN THE TOP 50 OF A PLAIN COUNT LIST FOR 78.7% OF WORDS (random 16.7%). THE
+INFORMATION IS PRESENT. WE CANNOT PUT IT FIRST.** *That agrees with the one result this programme
+trusts from the other direction: the fitted oracle moves AUC 0.03-0.07 -> 0.8629 ON THE SAME
+COUNTS. Two independent demonstrations that the counts carry it and the READ-OUT does not.*
+**⛔ SO "THE MISSING INGREDIENT IS A LEARNING SIGNAL" MUST NOT BE READ AS "THE INFORMATION IS NOT
+IN THE COUNTS". The problem is DISCRIMINATION among ~50 co-occurrence-plausible candidates, with a
+79% ceiling -- which is a far better-posed problem than the one we have been working on.**
+
+**AND RAW COUNTS BEAT BOTH OUR REPRESENTATIONS AT EVERY DEPTH** (0.787 vs 0.639 at k=50).
+**Re-ranking that same candidate set, an unsupervised one-liner buys +31%: DICE 0.2435 vs RAW
+0.1859; NPMI 0.2249. SECOND-ORDER shared-neighbour cosine -- what our SEMANTIC route computes --
+reads 0.1506, WORSE THAN THE RAW COUNT IT IS BUILT FROM.** *Fifth instrument, same conclusion: our
+accumulate/normalise/project machinery LOSES information rather than extracting it. And Dice/NPMI
+are textbook -- the finding is that we were ranking on raw counts and leaving the standard gain
+unclaimed.* **⚠️ Both blocks: one corpus, no CI, ~31 items of 538 on the DICE gap. Act on it, do
+not cite it. 75.6% of the discrimination is still unexplained.**
+
 ## 🧭 WHAT THE 2026-08-19 SESSION CONVERGES ON -- STRATEGIC READ, **HYPOTHESIS-PENDING-VET**
 **EVERY REPRESENTATION WE OWN TIES OR LOSES TO CO-OCCURRENCE COUNTING, ON THREE INSTRUMENTS -- and
 the reason may not be that we lack a teacher.**
