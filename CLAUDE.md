@@ -26,6 +26,7 @@ condensation of this file cannot turn an earned rule into unsourced prose).
 | `STATUS.md` reworded away two literals the session-start hook greps; compaction recovery silently degraded | a doc parsed by code is coupled to it -- mark both sides | *A doc parsed by code is coupled to it* |
 | a cell smoked clean, then its full run read 15 min and died with an EMPTY held-out split: the corpus yields exactly 20,000 and it read all 20,000 | check every split/sample against what the source actually yields, at FULL sizes, before the expensive step | *A smoke with smaller numbers does not test the full run's arithmetic* |
 | built a write gate after checking the registry; a HARD_PASS cell from 3 weeks earlier had already measured that it must fail on a weak foundation | the registry says what is BUILT; only `experiment_index.py` says what was ANSWERED -- query BOTH and quote the counts | *Two archives, two questions* |
+| a "held-out" set built from a FRESH `CorpusRegistry()` overlapped the training pool 600/600; the arm read median rank 3.0 where every other measurement that day read 69-91 | a separate reader over one ordered source is not a separate sample -- draw held-out from the SAME advanced cursor, and PRINT the overlap count every run | *A fresh reader is not a held-out split* |
 
 Rules on delegation, agent reports, model choice and detached launches are in their own sections
 below and carry their incidents inline.
@@ -585,6 +586,37 @@ confirm it fires. A guard nobody has seen fire is a guard nobody has tested.
 *This is the "could this experiment have succeeded?" question — which redirected this session's
 plan three times — applied to resource arithmetic rather than to mechanism. It is the same
 question and it is cheaper than every other way of finding out.*
+
+## A FRESH READER IS NOT A HELD-OUT SPLIT -- CHECK OVERLAP, DO NOT INFER IT FROM THE CONSTRUCTION
+
+**Measured 2026-08-19.** A probe answering the owner's "one textbook or many?" built its held-out
+set with a brand-new `CorpusRegistry()`, on the reasoning that a fresh registry is a separate object
+from the one the substrate read through. It is. **Its handles also start at sentence one -- which is
+exactly where the substrate had just been reading.** Measured directly: **600 of 600 "held-out"
+sentences were already in the substrate's own pool. A 100% leak.**
+
+**The number it produced was `OURS median 3.0` against a counter's `2.0`.** Every comparable
+measurement this session had our arm at 69-91 against a counter at 15-20. A thirty-fold improvement
+appeared, and it appeared in the arm testing a hypothesis the owner had just proposed. **The fix
+restored `OURS 91.0 / COUNTER 19.5` -- which is itself the positive control on the diagnosis.**
+
+Three things, in order of how much they cost:
+
+1. **INDEPENDENT OBJECT != INDEPENDENT DATA.** Two readers over one ordered source, both starting at
+   the beginning, return the same sentences. Draw the held-out slice from THE SAME cursor the
+   training read advanced, so "what comes next" means it.
+2. **COMPUTE THE OVERLAP AND PRINT IT, EVERY RUN, EVEN WHEN IT SHOULD BE ZERO.** One line:
+   `sum(1 for s in held if s in seen)`. It is cheaper than the reasoning required to convince
+   yourself it must be zero, and unlike that reasoning it cannot be wrong.
+3. **A SMALL RESIDUAL LEAK GETS EXCLUDED AND COUNTED, NOT TOLERATED AND NOT USED TO BIN THE ARM.**
+   The many-corpus arm leaked 416 of 15,914 (2.6%) because small corpora get exhausted and their
+   handles wrap to the start. Dropping those and reporting the count is the honest move; refusing to
+   score the whole arm throws away a valid measurement, and keeping them silently is the bug above
+   in miniature.
+
+**The general form: a suspiciously good number in the arm you were hoping would win is a leak
+hypothesis before it is a result.** The strongest tell here was not statistical -- it was that the
+number disagreed with every other measurement of the same quantity taken that day.
 
 ## Scratch files (throwaway work goes in `scratch/`)
 
