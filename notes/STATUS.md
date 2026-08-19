@@ -15,7 +15,61 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
-## 🔧 2026-08-19 LATER -- PHASE 2 IS BEING RE-RUN AS A **WIRING DIAGNOSTIC**, NOT A REPORT CARD
+## 🧠🔴 2026-08-19 -- **READING (e) FIRED. THE READ-OUT NEVER CONSULTS GROUNDED FACTS.**
+## **AND THE BRAIN-FIDELITY NAME FOR IT: WE BUILT HIPPOCAMPUS-TO-CORTEX TRANSFER AND THEN READ**
+## **THE ANSWER OUT OF THE HIPPOCAMPUS.**
+`exp_substrate_end_to_end_readout_v1` spec `v3_consolidation`, 18 units, 3 seeds, 1,053 s.
+**THE MANIPULATION WAS TOTAL AND VERIFIED BOTH WAYS: control grounded 38 / 68 / 112 provenance
+rows, the B3-ablated twin grounded 0 / 0 / 0.** *Reading (g) checked FIRST and in code.*
+
+| contrast | result |
+|---|---|
+| **consolidation OFF vs control, read-out** | **IDENTICAL in 9 of 12 cells**; the 3 that move are SEMANTIC-at-exact-key by **+0.0033 to +0.0067 = 1-2 items of 300** |
+| **EPISODIC route** | **identical to 4 decimals in ALL 6 cells**, both regimes, every seed |
+| `definitions` OFF | grounding falls **68->46, 112->64, 38->31** -- it genuinely feeds grounding -- and the read-out moves **EXACTLY 0.0000 in all 12 cells** |
+| `gap_detector` OFF | moves nothing, anywhere |
+| `foraging` OFF | **now properly rate-matched (1150/1150, 1800/1800, 750/750)** and moves **exactly 0.0000** -- the void arm is fixed and reads a clean null |
+| `episodic` OFF | the ONLY organ that moves anything: exact-key **0.9467 -> 0.0000** |
+
+**⛔ AND IT IS NOT AN INFERENCE FROM A NULL -- THE MECHANISM IS A CODE FACT, VERIFIED AT HEAD:**
+`recall_sentence` -> `recall()` reads `self._epi_codes`, the episodic DG codes, and **NEVER touches
+`state.store`**. `profile()` reads Library `Trace.context_vec`s plus `state.space._sums`, and
+ConceptSpace is observed **only at grounding time** -- which is exactly why SEMANTIC moves by 1-2
+items and nothing else moves at all. `query()` DOES address the fact store; **the scored arms do
+not use `query()`.** *So the consolidated store is WRITTEN AND NEVER READ.*
+
+**🧠 BRAIN-FIDELITY AUDIT (SHAPE / POSITION / METRIC), because the wall is a fidelity divergence:**
+- **POSITION -- THE DEFECT.** CLS: hippocampus writes fast and sparse, replay transfers to
+  neocortex, and retrieval of CONSOLIDATED knowledge is a **CORTICAL** read. We built the write
+  (D3, one of only 5 of 38 organs that compute the brain's actual equation) and the transfer (B3,
+  which fires and refuses ~87%), **and then answered every question from the hippocampus.**
+  Consolidation sits DOWNSTREAM of retrieval here; in the brain it is upstream. *Position inverted.*
+- **METRIC.** The cell scores cloze naming, a LEXICAL-SEMANTIC task, i.e. a cortical one. Scoring
+  a cortical task through a hippocampal route is a route/metric mismatch.
+- **SHAPE (secondary, named so it is not lost).** Our consolidated store is HD-bound
+  `(subject, relation)` triples -- an addressable symbolic database. Cortical semantic memory is a
+  distributed overlapping representation. Real divergence, but not what is costing us here.
+**🔑 THIS REFRAMES THE STANDING NEGATIVE. "The store memorises and does not transfer" (exact-key
+0.9333, held-out 0.0044) IS THE SIGNATURE OF HIPPOCAMPUS-ONLY RETRIEVAL** -- a pure-hippocampal
+system recognises what it has seen and generalises nothing. **That is a MISSING ORGAN, not a
+representational ceiling.** *And the slot table already named it: `semantic_parser` (Q1,
+question -> retrieval cue) and `cortex` (Q3, accept/clarify/refuse) are BOTH NEEDS_ADAPTER. Those
+two ARE the cortical read path. The ablation just proved the gap costs everything.*
+**✅ CROSS-CHECK, TWO INSTRUMENTS AGREE ONCE THE WIRING IS KNOWN:** the grounding-precision cell
+scores the GROUNDED FACTS directly and the substrate DOES beat random there (0.0244 vs 0.0031).
+Grounding works; the read-out cannot see it.
+**⛔⛔ CONSEQUENCE FOR THE PRIMARY FOCUS, AND THIS IS WHY THE ORDER WAS FLIPPED: A SENSORIMOTOR
+CHANNEL FEEDS THE CORTICAL/CONSOLIDATED SIDE, WHICH THIS INSTRUMENT DOES NOT READ. Building B5
+first and scoring it end-to-end here would have produced a GUARANTEED NULL, and it would very
+likely have been filed as "sensorimotor does not help inside the substrate".** *That is "ask
+whether the experiment could have succeeded" paying out a second time -- this time IN ADVANCE.*
+**➡️ REVISED NEXT STEP: build the cortical read path (Q1 + Q3 adapters) so the consolidated store
+has a reader, OR score B5 on an instrument that reads that store. Do not score B5 here.**
+*Floors, recomputed per regime and NOT asserted in advance: `COOC_floor` is strongest in all six
+blocks (0.0167-0.0333 held-out); `COOC_COS_floor` is far WEAKER (0.0033-0.0067). My "strongest
+floor" wording was an import from another setup and was corrected before it landed.*
+
+## 🔧 2026-08-19 LATER -- PHASE 2 RE-RUN AS A **WIRING DIAGNOSTIC**, NOT A REPORT CARD [LANDED]
 **Owner authorised the recommendation in full. `SPEC_VERSION = v3_consolidation`, detached run in
 flight.** *The score stays retired: best achievable on this task is 0.0300 vs our 0.0150, so
 fixing every defect wins a TIE WITH A FLOOR. What is being recovered is the ABLATION CONTRASTS.*
@@ -754,7 +808,11 @@ excludes nothing is not a control -- report how many items each control actually
 - **⏹️ AUTOLOOP DISARMED BY OWNER 2026-08-19 and NOT to be re-armed without a fresh instruction.**
   Verify with `python tools/autoloop.py disarm` (idempotent) or `data/hook_state/autoloop.json`.
   Anything other than exactly boolean `true` reads DISARMED -- the fail-safe direction is OFF.
-- **🔵 IN FLIGHT: `exp_substrate_end_to_end_readout_v1` FULL, spec `v3_consolidation`.** 18 units
+- **✅ LANDED 2026-08-19 12:25Z: `exp_substrate_end_to_end_readout_v1` spec `v3_consolidation`,
+  18 units in 1,053 s, 30 older-spec units excluded from the report. NOTHING IS RUNNING.**
+  Result and its brain-fidelity audit are the first block of ## POSITION. Read it with
+  `scratch/read_v3_result.py`, which reads the pre-committed readings in their own order.
+- **[SUPERSEDED -- IT LANDED] IN FLIGHT: `exp_substrate_end_to_end_readout_v1` FULL, spec `v3_consolidation`.** 18 units
   (3 seeds x 6 ablations: control / episodic / definitions / gap_detector / **consolidation** /
   foraging). Detached; shim PID in `scratch/readout_v3_full.pid`, logs
   `scratch/readout_v3_full.log` / `.err`. Read progress with `scratch/peek_v3_units.py`.

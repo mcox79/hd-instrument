@@ -1,5 +1,46 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🧠🔴 2026-08-19 -- THE ORDER OF THE PLAN CHANGED, AND A MEASURED RESULT CHANGED IT.
+> **`exp_substrate_end_to_end_readout_v1` v3 landed: 18 units, 3 seeds, 1,053 s. READING (e)
+> FIRED. THE READ-OUT NEVER CONSULTS GROUNDED FACTS.** Grounding was manipulated totally and
+> verified both ways (control 38 / 68 / 112 provenance rows; B3-ablated 0 / 0 / 0), and the
+> read-out is **IDENTICAL in 9 of 12 cells** -- the EPISODIC route identical to four decimals in
+> **all six**. Ablating `definitions` cuts grounding by a third and moves the read-out by
+> **exactly 0.0000 in all twelve**.
+>
+> **IT IS NOT AN INFERENCE FROM A NULL. IT IS A CODE FACT, VERIFIED AT HEAD:** `recall_sentence`
+> reads the episodic DG codes and never touches `state.store`; `profile()` reads Library traces
+> plus ConceptSpace, which is observed only at grounding time. `query()` does address the fact
+> store -- **the scored arms do not use `query()`.** The consolidated store is written and never
+> read.
+>
+> ## THE BRAIN-FIDELITY NAME FOR IT
+> **WE BUILT HIPPOCAMPUS-TO-CORTEX TRANSFER AND THEN READ THE ANSWER OUT OF THE HIPPOCAMPUS.**
+> CLS: the hippocampus writes fast and sparse, replay transfers to neocortex, and retrieval of
+> consolidated knowledge is a **cortical** read. We have the write (D3 -- one of only 5 of 38
+> organs computing the brain's actual equation) and the transfer (B3 -- it fires and refuses
+> ~87%). **The cortical read does not exist.** *POSITION is inverted: consolidation sits
+> downstream of retrieval here and upstream in the brain. METRIC compounds it -- cloze naming is
+> a cortical task scored through a hippocampal route.*
+>
+> **⛔ THIS REFRAMES THE STANDING NEGATIVE.** "Memorises and does not transfer" (exact-key 0.9333,
+> held-out 0.0044) **IS the signature of hippocampus-only retrieval** -- such a system recognises
+> what it has seen and generalises nothing. **A MISSING ORGAN, NOT A REPRESENTATIONAL CEILING.**
+> The slot table already named it: `semantic_parser` (Q1) and `cortex` (Q3) are both
+> NEEDS_ADAPTER, and those two ARE the cortical read path.
+> **✅ Two instruments agree once the wiring is known:** grounding-precision scores the grounded
+> facts directly and the substrate beats random there (0.0244 vs 0.0031). Grounding works; the
+> read-out cannot see it.
+>
+> ## WHAT THIS DOES TO THE PRIMARY FOCUS
+> **The sensorimotor channel feeds the cortical/consolidated side, which this instrument does not
+> read. Building B5 first and scoring it end-to-end here would have produced a GUARANTEED NULL,
+> and it would very likely have been filed as "sensorimotor does not help inside the substrate".**
+> *That is "ask whether the experiment could have succeeded" paying out a second time, in advance.*
+> **NEXT STEP, REVISED: build the cortical read path (Q1 + Q3 adapters) so the consolidated store
+> has a reader, OR score B5 on an instrument that already reads that store. Do not score B5 here.**
+> The sensorimotor result itself is untouched by this and still stands.
+
 > # ⏹️ COMPACTION HANDOFF -- 2026-08-19, AUTOLOOP **DISARMED** BY OWNER. READ THIS BLOCK ONLY.
 > **NOTHING IS RUNNING. Both cells finished and are committed. The loop is off (`armed: false`).**
 >
