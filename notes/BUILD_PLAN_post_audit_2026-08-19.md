@@ -202,6 +202,36 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## ⬇️ DOWNGRADED BY ITS OWN CONTROL, ONE CONTINUATION LATER: THE GATE'S PRECISION ADVANTAGE IS NOT ESTABLISHED
+`scratch/gate_selection_control.py`. **Last continuation I reported the gate's accepted set at
+0.0355 vs the raw argmax's 0.0058 -- "roughly 6x, the gate is doing real selection" -- flagged as
+a direction rather than a result. The matched controls say even that was generous.**
+
+**THE CONFOUND IS REAL AND NOW MEASURED: the gate accepts terms with TWICE the gold degree
+(mean 42.3 vs 21.7; median 16 vs 8).** *Precision is P(anchor is a gold neighbour), so a term with
+many neighbours is easier to be right about. The gate was partly selecting EASY TERMS, not good
+meanings -- exactly the confound named before the probe ran.*
+
+| arm | precision | n |
+|---|---|---|
+| RAW, ungated argmax | 0.0058 | 1712 |
+| **RAW, DEGREE-MATCHED to the gated set** | **0.0089** | 112 |
+| GATED (what we ground) | 0.0446 | 112 |
+| **GATED, SAME TERMS, RANDOM ANCHOR** | **0.0179** | 112 |
+
+**AGAINST THE STRONGEST CONTROL -- the same terms with a random anchor from the same pool -- THE
+GATE IS 5 HITS AGAINST 2.** ***That is a width, not an effect (discipline 14), and the "6x" should
+not be repeated.*** *Degree-matching alone raises the baseline 0.0058 -> 0.0089, so part of the
+original gap was the easy-terms confound and the rest is unresolvable at this n.*
+
+**FILED: the gate's precision advantage is NOT ESTABLISHED. It is not refuted either -- 5 vs 2 is
+simply too few. The named way to settle it is more grounded items, which means more reading, not a
+better argument.** *Fifth time today a matched control changed a reading. The base rate for an
+apparent positive surviving its own twin in this project remains grim, and it applies to my
+positives too.*
+
+---
+
 ## ❌ HUBNESS HYPOTHESIS TESTED AND REFUTED -- AND IT MOVED THE PROBLEM TO A DIFFERENT ORGAN
 `scratch/hubness_probe.py`. **I proposed that the generic attractor is HUBNESS in the
 anchor-selection argmax, and that this might explain why the constant/prototype floor is the
