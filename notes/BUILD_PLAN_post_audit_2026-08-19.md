@@ -77,6 +77,30 @@
 > the unique contribution is BELOW independence, and the floors are uncleared. THE ACCUMULATED-
 > CONTEXT REPRESENTATION IS THE CEILING, NOT THE READ-OUT.**
 >
+> ## 🔑 2026-08-19 -- **THE ORGAN FOR THE PINNED EQUATION ALREADY EXISTS AND IS NOT WIRED.**
+> **The organ-reuse rule paid off before a line was written.** I was about to propose BUILDING an
+> error signal. `hdlab/predictive_coding.py` already implements it:
+> `predict(W, key)` / **`residual(observed, predicted)`** / `residual_magnitude` /
+> `threshold_gate` / **`gated_write`** / **`vanilla_hebbian_write`**.
+> **Its self-test PASSES** (`first_residual_mag=0.500, gate_skipped=0/8, relative_gate_ok=True`).
+> **AND IT IS NOT ON THE READING PATH -- VERIFIED AT RUNTIME, not read: a real `Substrate.read()`
+> loads 44 `hdlab.*` modules and `predictive_coding` IS NOT ONE OF THEM.** (`hdlab.learner` IS
+> live, but it is MDL construction-induction -- `entropy_bits`, `mdl_select` -- a different thing.)
+> *This is the BUILT-PASSING-UNWIRED class the 2026-08-18 audit counted 67 of. Here is number 68,
+> and it is the one holding the pinned equation for the exact defect three measurements point at.*
+>
+> **➡️ SO THE NEXT STEP IS A WIRING, NOT A BUILD, AND IT IS CAN-FAIL BY CONSTRUCTION:**
+> the organ already ships `gated_write` (write only when the residual clears a threshold) beside
+> `vanilla_hebbian_write` (write always). **Our current profile accumulation IS the vanilla arm.**
+> So the comparison is the organ's own two functions on the same reading run, same corpus, same
+> items, against the floors that just closed the cortical read (`COOC_floor` reaches median rank
+> 15-20 of ~450 -- that is the number to beat, and nothing we own has come near it).
+> **⚠️ STILL REQUIRED BEFORE RUNNING IT: a named floor in the pre-registration, and an honest check
+> that a residual-gated profile is even ARITHMETICALLY DIFFERENT from an accumulated one at our
+> volumes -- if the gate never skips, the arms are identical and the cell measures nothing.**
+> *That last check is the "could this experiment have succeeded?" question, which has changed this
+> session's plan four times and has never once been wasted.*
+>
 > ## 🧭 WHERE THAT POINTS -- A PROPOSAL, NOT A DECISION, AND IT NEEDS A CAN-FAIL DESIGN FIRST
 > Two levers remain, and only two: **the REPRESENTATION** and **the SUPPLY**.
 > - **SUPPLY** = the sensorimotor spoke. Measurably NOT a re-derivation of counting (union 2.2x,
