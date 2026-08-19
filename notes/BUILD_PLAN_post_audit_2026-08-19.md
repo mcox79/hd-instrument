@@ -30,6 +30,29 @@
 > have closed on the SAME representation. A fourth mechanism on the same profiles is the least
 > likely thing to work; SUPPLY is the lever that has not been exhausted.*
 >
+> ## 🥇 THE TOP ITEM CHANGED LATE ON 2026-08-19: **IT IS NOT A MECHANISM, IT IS NOTE-TAKING.**
+> **The system stops recording traces for a word once that word grounds.** So the words it meets
+> most often carry the FEWEST traces -- `century`: **7 traces across 92 sightings**. Overall
+> coverage **0.688**, and the shortfall is systematically concentrated on FREQUENT words.
+> **MEASURED COST, on matched text (both arms from the substrate's OWN pool):**
+>
+> | arm, 256 dims, same items | median rank of the answer |
+> |---|---|
+> | random projection of ALL occurrences | **17** |
+> | random projection of ONLY WHAT WE RECORDED | **46** |
+> | our actual profiles | **81** |
+>
+> **So 17 -> 46 is the cost of not writing things down, and 46 -> 81 is everything else about our
+> representation. NOT-RECORDING IS THE BIGGER TERM.** *It is worth more than all three mechanism
+> lines that closed today were chasing, and it is the cheapest thing on the list.*
+> **⛔ ON THE BOARD AS Q71 AND NOT STARTED: it changes core reading behaviour and its cost profile
+> (more memory, slower reads), so it is the owner's call, not mine.** *When it runs it MUST carry a
+> rate-matched arm that keeps the same NUMBER of extra traces chosen at random -- otherwise "better
+> notes" cannot be told from "more notes".*
+> **⚠️ AND THE HONEST RISK, recorded before anyone starts: it may simply reproduce the co-occurrence
+> counter more exactly rather than beating it. That would still be worth knowing -- it would say
+> the representation IS the counter, badly sampled -- but it is not a win.**
+>
 > ## THE ONE-PARAGRAPH POSITION
 > **The read-out is not the problem and is now closed. The REPRESENTATION is.** Three independent
 > measurements say so: three read-out variants built and none competitive; the cortical route's
