@@ -99,6 +99,45 @@ sixteen have never been tested against anything that could have failed; seven do
 and one of those seven is the organ that decides what to read next, which is why the system cannot
 notice what it does not know. Separately, 54% of the code is unreachable from any entry point.*
 
+### 🔴 ADDED 2026-08-19 — A SYSTEM-LEVEL FIDELITY DEFECT THAT NO PER-ORGAN ROW COULD HAVE CAUGHT
+
+**EVERY ORGAN IN THE RETRIEVAL PATH IS INDIVIDUALLY FINE AND THE PATH IS STILL WRONG, BECAUSE THE
+DEFECT IS IN THE *ORDER*, NOT IN ANY ORGAN.** Measured end to end
+(`exp_substrate_end_to_end_readout_v1` spec `v3_consolidation`, 3 seeds, 18 units):
+
+**THE CONSOLIDATED STORE IS WRITTEN AND NEVER READ BY THE RETRIEVAL ROUTES.** Ablating
+consolidation to ZERO provenance rows left the read-out **identical in 9 of 12 cells**, and the
+EPISODIC route identical to four decimals in **all six**. Ablating `definitions` cut grounding by a
+third (68→46, 112→64, 38→31) and moved the read-out by **exactly 0.0000 in all twelve**. The
+mechanism is a code fact, not an inference: `recall()`/`recall_sentence()` address the episodic DG
+codes and never touch `state.store`; only `query()` addresses the fact store, and the scored arms
+do not call it.
+
+**CLS reading (McClelland, McNaughton & O'Reilly 1995).** The hippocampus writes fast and sparse;
+replay transfers to neocortex; retrieval of CONSOLIDATED knowledge is a **CORTICAL** read. We built
+the write (**D3**, one of the five SAME rows) and the transfer (**B3**), then answered every
+question **out of the hippocampus**. **POSITION IS INVERTED** — consolidation sits downstream of
+retrieval here and upstream in the brain. **METRIC compounds it:** cloze naming is a
+lexical-semantic (cortical) task scored through a hippocampal route.
+
+**⛔ THIS REFRAMES THE PROGRAMME'S STANDING NEGATIVE.** "The store memorises and does not transfer"
+— exact key **0.9333**, held out **0.0044** — **IS the signature of hippocampus-only retrieval**,
+which recognises what it has seen and generalises nothing. **A MISSING ORGAN, NOT A
+REPRESENTATIONAL CEILING.** The organs that would BE the cortical read path are **Q1
+`semantic_parser`** and **Q3 `cortex`**, and both are NEEDS_ADAPTER.
+
+**🛑 AND THE COROLLARY, MEASURED BEFORE BUILDING THE FIX** (`scratch/probe_cortical_route_feasibility.py`):
+a cortical route **cannot be scored on the cloze task at this reading volume**. 1,150 sentences
+yield **68 consolidated facts against 487 refusals**; only **18 of 300 held-out targets (6.0%)**
+have any entry in the store, which covers **2.4%** of the candidate pool. **THAT SPARSITY IS
+CORRECT BEHAVIOUR, NOT A DEFECT** — the episodic pool holds 2,883 words to the store's 68, a **42x**
+gap with the gate refusing ~88%, which is exactly the CLS picture. *The cortical store is not too
+thin; the cloze task is asking it about words it has not consolidated yet.*
+**➡️ SO WE HAVE TWO INSTRUMENTS AND THEY MEASURE DIFFERENT ORGANS:**
+`exp_substrate_end_to_end_readout_v1` = the **hippocampal** instrument (episodic recall), currently
+the only one wired; `exp_grounding_precision_gold_v1` = the **cortical** instrument (what was
+actually consolidated). **Score a cortical route on the cortical instrument, never on the cloze task.**
+
 ### The evidence base, measured
 
 **7,625** `metrics.json` files exist under `data/` + `experiments/`. A prioritised set of **946**
@@ -392,6 +431,34 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   predictors but *"never the overall best predictor in any single dataset"* (Johns 2023), and the
   claim that norms *collapse* near-synonyms was **theoretically motivated but empirically untested**
   — our measurement above fills that gap.
+- 🟢 **UPDATED 2026-08-19 — THE ORGAN NOW EXISTS AS ITS OWN SLOT, AND THE METRIC GRADE HAS BEEN
+  TESTED RATHER THAN ASSERTED.** `hdlab/sensorimotor_spoke.py` (NEW, 3 can-fail self-tests) calls
+  `grounded_similarity`'s table rather than re-loading the norms, and adds B5 to
+  `hdlab/substrate.py`'s slot table as **NEEDS_ADAPTER** — the organ exists and a cell invokes it,
+  but `read()` does not consult it, so it is NOT counted as filled.
+  - **THE METRIC GRADE IS UPHELD, BUT ONLY ON THE CONTRAST THIS ROW ACTUALLY NAMES, AND MY FIRST
+    TEST OF IT FAILED.** I first asserted euclid-beats-cosine using dog/cat vs dog/justice —
+    concrete vs abstract — which BOTH metrics ace, and **cosine won it 22.8 to 3.2**. Re-tested on
+    SYNONYM-vs-SIBLING, which is what the row above is about: over 10 synonym and 10 sibling pairs
+    **euclid separates by 1.348 pooled SDs, cosine by 0.511**
+    (`scratch/probe_metric_synonym_vs_sibling.py`). *So: cosine is the better separator FAR APART,
+    euclid NEAR the diagonal, and near the diagonal is where meaning selection lives.* Both are
+    exposed and **SWEPT** by the scoring cell rather than one being adopted.
+  - **THE COMBINATION RULE REMAINS UNPINNED and the organ says so in its own docstring.**
+    "Nearest in spoke space selects the meaning" is **OUR-INVENTION-BEING-TESTED**, not a
+    replication. The Wang 2020 bounding result travels with it so the spoke is never presented as
+    the only route to modality knowledge.
+  - **SUPPLY, NOT LEARNING — stated in the organ and in the cell.** The norms are human ratings:
+    admissible as a static offline asset under the no-LLM-at-inference invariant, but the substrate
+    does not GROW this spoke and no result from it may be read as learned perceptual structure.
+  - **EVIDENCE IN FLIGHT:** `exp_sensorimotor_spoke_grounding_v1`, scored on the GROUNDING gold
+    (provenance-filtered ConceptNet), **pre-registered to beat `TOP_COOCCURRENT` and not merely
+    random**, with a `SHUFFLED_NORMS` permutation control checked FIRST. Seed 1 of 3: the norms
+    DO carry the arm (19 hits vs the permuted table's 6) but the arm **TIES the text channel**
+    (19 vs 18). *One seed. Not a result. Do not quote it as one.*
+  - **⛔ WHY IT IS SCORED THERE AND NOT ON THE READ-OUT CELL:** the read-out routes were measured
+    on 2026-08-19 to never consult the consolidated store at all, so a spoke feeding the
+    consolidated side would have been INVISIBLE there. See the B3/D3 note below.
 - **WIRED:** YES — but capped below the decision threshold, so it never decides anything.
 - **EVIDENCE:** the self-documented table above. ~~**NO FLOOR.**~~ 🔴 **CORRECTED 2026-08-15
   (C24) — A FLOOR NOW EXISTS AND THE ORGAN SITS ON IT.** On 124 both-covered blind pairs the NOISE
