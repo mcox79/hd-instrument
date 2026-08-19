@@ -15,6 +15,37 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 🟡 2026-08-19 -- **THE SENSORIMOTOR SPOKE LANDED. READING (B) FIRES: IT TIES THE TEXT CHANNEL.**
+`exp_sensorimotor_spoke_grounding_v1`, 3 seeds, 4,150 s, n=327-361 scorable per seed, NOT
+underpowered. Scored on the CORTICAL instrument (ConceptNet gold), bar pre-registered as
+`TOP_COOCCURRENT`.
+
+| arm | seed 101 | seed 20260819 | seed 7 | paired p vs SPOKE |
+|---|---|---|---|---|
+| **SPOKE_EUCLID** | 0.0699 (23) | 0.0526 (19) | 0.0703 (23) | -- |
+| SPOKE_COSINE | 0.0729 (24) | 0.0582 (21) | 0.0887 (29) | 1.0000 / 0.7206 / 0.0600 |
+| **TOP_COOCCURRENT** (THE BAR) | 0.0517 (17) | 0.0499 (18) | 0.0673 (22) | **0.3353 / 1.0000 / 1.0000** |
+| **SHUFFLED_NORMS** (can-fail) | 0.0182 (6) | 0.0166 (6) | 0.0275 (9) | **0.0025 / 0.0080 / 0.0145** |
+| RANDOM_CANDIDATE | 0.0182 (6) | 0.0194 (7) | 0.0153 (5) | 0.0010 / 0.0190 / 0.0020 |
+| SUBSTRATE (the gate's own anchor) | 0.0274 (9) | 0.0194 (7) | 0.0275 (9) | **0.0155 / 0.0290 / 0.0170** |
+
+**✅ READING (C) PASSES ON ALL THREE SEEDS: THE NORMS GENUINELY CARRY THE ARM.** Permuting every
+profile onto another word, marginals preserved, costs ~2.5-3x the hits and separates at p<0.05
+every time. *The channel is reading something real -- that is not in doubt.*
+**⛔ READING (B) FIRES: IT IS A TIE WITH COUNTING. SPOKE is higher in 3 of 3 seeds and significant
+in 0 of 3** (+1, +1, +6 hits; p 1.0000 / 1.0000 / 0.3353). **DO NOT REPORT THIS AS A WIN.** *It is
+a negative FOR THIS WIRING, and it is NOT a refutation of the 0.6413 sensorimotor finding, which
+was a different task, scorer and population.*
+**🟢 NOT PRE-REGISTERED AND THEREFORE HYPOTHESIS-ONLY, BUT IT REPLICATES 3/3: THE SPOKE PICKS
+BETTER MEANINGS THAN OUR OWN CONSOLIDATION GATE** -- 0.0639 pooled vs SUBSTRATE's 0.0248, p<0.05
+every seed. *So the gate is the weaker link, not the spoke.*
+**⚠️ AND MY OWN METRIC CHOICE IS REFUTED ON THE REAL INSTRUMENT. I pre-registered EUCLID as
+primary off a fixture probe (synonym-vs-sibling, 1.348 vs 0.511 pooled SDs). On the actual task
+COSINE scores >= EUCLID in ALL THREE SEEDS (24v23, 21v19, 29v23).** *A hand-built fixture probe
+did not transfer to the instrument. The sweep is what caught it; adopting euclid would have hidden
+it.* **Coverage, measured pre-filter and able to fail: terms 0.651-0.731, candidates 0.764-0.779,
+~1,400-1,500 candidates removed.**
+
 ## 🛑 2026-08-19 -- **THE CORTICAL READ ROUTE IS UNWINNABLE ON THE CLOZE TASK, MEASURED BEFORE**
 ## **BUILDING IT. AND THE REASON IS BRAIN-FAITHFUL, NOT A DEFECT.**
 `scratch/probe_cortical_route_feasibility.py`, on the read-out cell's OWN call (simplewiki,
