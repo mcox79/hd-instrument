@@ -80,7 +80,31 @@
 >    too-lenient gate of the session. Fixed to refuse above 0.60 and fail loud.*
 >    **🔑 AND THE PRIOR HARD_PASS MEASURED COVERAGE (0.50 -> 0.79), NOT RANK. Different claim. This
 >    is not a failure to reproduce it, and nothing here licenses "the owner's idea does not work".**
-> 4. **⬅️⬅️ NEW TOP ITEM -- OWNER, COMMENTARY 2026-08-19T22:27:04Z: *"don't forget the phase diagram
+> 4. ✅ **DONE -- THE PHASE DIAGRAM LANDED AND IT REFRAMES THE PROGRAM. THERE IS A REAL BOUNDARY
+>    NEAR ~1,000 SENTENCES: at 900 we BEAT the counter (0.95x); by 16,000 we are 6.42x behind,
+>    monotonically across seven points, slope +1.708 per e-fold.**
+>    **⛔ MORE DATA IS NOT THE LEVER -- IT IS THE PROBLEM.** Sharpest form: 8,000 -> 16,000, our arm
+>    does not move (114.5 -> 115.5) while the counter IMPROVES (31.0 -> 18.0). *We stop extracting
+>    anything from extra text; counting does not.*
+>    **All four component variables degrade together** -- coverage halves (0.961 -> 0.435),
+>    effective dims rise 9x (10.0 -> 91.8), residual spread shrinks then FLATLINES (0.1099 -> 0.0661
+>    -> 0.0661 -> 0.0661). **That flatline HARDENS the write-gate closure: the spread saturates
+>    rather than widening, so scale never reopens it. My scale-dependence flag was wrong, in the
+>    safe direction.**
+>    **🧠 FIDELITY: the brain's hub CONCENTRATES with experience (the pinned ~4-12). Ours DIFFUSES,
+>    progressively. Same divergence the geometry found, now as a TRAJECTORY not a snapshot.**
+>    *⚠️ Single seed per point, one corpus, pool grows 40 -> 480, no CI on the ratio. The
+>    MONOTONICITY across seven points carries the weight, not any single value.*
+>    **⬅️⬅️ AND IT SETS THE NEXT ITEM, WHICH IS NOW THE TOP ONE: SATURATION HAS TWO CANDIDATE
+>    CAUSES AND THEY ARE SEPARABLE.** Coverage falling (we record less of what we meet) and the
+>    projection diffusing (the code spreads out) both track the phase curve. The 8,000-point
+>    decomposition already said not-recording is the bigger term (17 all-occurrences / 46
+>    recorded-only / 81 our profiles). **So: RE-RUN THE PHASE SWEEP WITH COVERAGE FORCED TO ~1.0 and
+>    ask whether the curve FLATTENS.** If it does, the defect is note-taking and it is fixable. If
+>    the curve still climbs, the defect is the projection and no amount of note-taking reaches it.
+>    *That is one experiment that discriminates the two stories, and nothing else queued does.*
+>
+> 4b. **[SUPERSEDED BY 4] OWNER, COMMENTARY 2026-08-19T22:27:04Z: *"don't forget the phase diagram
 >    for these different components / make sure you're drilling negative results and continue to
 >    evaluate brain fidelity"*. THE PHASE DIAGRAM IS THE ITEM AND IT OUTRANKS 5 BELOW.**
 >    **WHY IT IS NOT BUSYWORK, AND WHY IT SHOULD ARGUABLY HAVE COME FIRST: EVERY CONCLUSION REACHED
