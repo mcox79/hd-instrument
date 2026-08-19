@@ -15,6 +15,38 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 🔴 2026-08-19 -- **THE RESIDUAL GATE HURTS, AND IS INDISTINGUISHABLE FROM RANDOM SKIPPING.**
+## **READINGS (C) AND (D) BOTH FIRE. 2 of 3 seeds banked; the picture is not close.**
+`exp_predictive_write_gate_v1`. **ACCUMULATE -- keeping everything, what the substrate does today
+-- is the BEST of our arms at every k on both seeds.**
+
+| seed 20260819 | hit@1 | hit@10 | hit@50 | median |
+|---|---|---|---|---|
+| **ACCUMULATE** | 0.0567 | **0.1800** | **0.3433** | **126** |
+| GATED@0.45 | 0.0300 | 0.1767 | 0.2933 | 120.5 |
+| RANDOM_SKIP@0.45 | 0.0300 | 0.1267 | 0.2967 | 132.5 |
+| GATED@0.50 | 0.0200 | 0.0800 | 0.2733 | 133.5 |
+| RANDOM_SKIP@0.50 | 0.0400 | 0.0900 | 0.2800 | 135.0 |
+| **COOC_floor** | **0.0867** | **0.4067** | **0.7533** | **15** |
+
+**⛔ READING (C): GATED never beats ACCUMULATE -- it LOSES at every threshold on both seeds.**
+**⛔ READING (D): nothing comes near the floor (0.3433 vs 0.7533).**
+**🎯 AND THE RATE-MATCHED ARM EARNS ITS PLACE: GATED ~= RANDOM_SKIP throughout, and RANDOM is
+SLIGHTLY AHEAD at 2 of 3 thresholds on seed 20260819 (0.2967 vs 0.2933; 0.2800 vs 0.2733).** *So
+the residual gate is not selecting informatively -- it is just discarding data, and discarding it
+no better than a coin would. Without that arm this would have read as "predictive coding hurts";
+with it, the honest statement is "the residual carries no usable selection signal here".*
+**✅ THE PRE-BUILD PROBE PREDICTED EXACTLY THIS AND IS WHY THE ARM WAS THERE.** Residuals measured
+near-constant (p10 0.3575, median 0.4648, p90 0.5237) -> a near-constant selector is a random
+selector. **The probe cost minutes and made the negative interpretable instead of merely
+disappointing.**
+*Also: the "cliff" I described was an artifact of a coarse grid. The fine sweep is smooth --
+skip rates 0.057 / 0.279 / 0.482 / 0.721 / 0.884 / 0.912 across thresholds 0.25-0.60. Sweeping
+finely is what showed that; adopting 0.50 would have hidden it.*
+**➡️ MORE DATA BEATS SELECTIVELY LESS DATA HERE, WHICH IS ITSELF THE FINDING: with a selector that
+carries no information, accumulation is the right rule. The pinned equation does not fail -- OUR
+RESIDUAL DOES, because the profile it is measured against predicts nothing in particular.**
+
 ## 📉 2026-08-19 -- **RUNNING READ, 4 OF 9 SEEDS: THE FIRST SEED I HAPPENED TO RUN WAS THE BEST**
 ## **ONE, AND I CHARACTERISED THE FINDING FROM IT.**
 Spoke-independence ratios as they land: **0.70 / 0.94 / 0.89 / 0.81** (seeds 20260819 / 7 / 101 /
