@@ -67,6 +67,34 @@
 > byte-identical) + a new no-op self-test. Cell re-running as `v2_hitk_sentencecue` AT THE CELL'S
 > OWN SCALE, because SCALE IS STILL THE OPEN CONFOUND.**
 >
+> ## ⛔ CLOSED 2026-08-19: **THE CORTICAL READ. RETRIEVES, NOT COMPETITIVE, 0 OF 18 FLOOR CELLS.**
+> v3 with the floors in: **`CONTEXT_clears` and `BOTH_clears` FALSE at every k on every seed.**
+> Counting reaches median rank **15-20 of ~450**; our best arm 69-79. **And `FREQ_floor`, which
+> NEVER LOOKS AT THE CUE, beats every cortical arm at k>=10** -- most of the achievable score here
+> is knowing which terms are COMMON, and a constant ranking harvests more of it than we do.
+> *Prediction was recorded before the run (`3ca164923`) and held.*
+> **THREE INDEPENDENT LINES NOW SAY THE SAME THING: read-out variants are exhausted (3 built),
+> the unique contribution is BELOW independence, and the floors are uncleared. THE ACCUMULATED-
+> CONTEXT REPRESENTATION IS THE CEILING, NOT THE READ-OUT.**
+>
+> ## 🧭 WHERE THAT POINTS -- A PROPOSAL, NOT A DECISION, AND IT NEEDS A CAN-FAIL DESIGN FIRST
+> Two levers remain, and only two: **the REPRESENTATION** and **the SUPPLY**.
+> - **SUPPLY** = the sensorimotor spoke. Measurably NOT a re-derivation of counting (union 2.2x,
+>   only 2 of 246 items shared). **Replication across seeds is IN FLIGHT and gates any build.**
+> - **REPRESENTATION** = the deeper one, and it has a PINNED brain equation we are not using.
+>   **A term's profile is built by pure ACCUMULATION -- `sum(context_vecs)` -- with NO ERROR
+>   SIGNAL ANYWHERE.** ORGAN_MAP G2 records the brain's rule as pinned: *the residual `x - x_hat`
+>   is the learning signal, precision-weighted*. **We never compute a residual, so nothing in the
+>   representation is ever CORRECTED -- it only ACCUMULATES.** That is a mechanism divergence with
+>   a pinned equation available, and it is consistent with everything measured: an accumulator
+>   memorises what it has seen (0.1702 leave-one-out) and transfers weakly (0.0519), and no
+>   read-out can recover information the store never encoded.
+>   *MEMORY anchor "missing-LEARNING -> REUSE/EXPAND `hdlab/learner`, don't build parallel" applies
+>   -- check that organ before writing anything new.*
+> **⚠️ NOT A DECISION. Before any build: (1) does `hdlab/learner` already do this, (2) what is the
+> can-fail cell, (3) what floor must it clear. This project's own record says the expensive failure
+> mode is building before those three are answered.**
+>
 > ## 📍 WHERE THIS ACTUALLY STANDS, 2026-08-19 (read this before the direction change below)
 > **THE CORTICAL READ WORKS AND IS PROBABLY NOT COMPETITIVE, AND THOSE ARE SEPARATE CLAIMS.**
 > v2 landed 3 seeds: `READING (C)` True on every seed (v1 was void on every seed), and reading (A)

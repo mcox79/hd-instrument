@@ -15,6 +15,32 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 🟡 2026-08-19 -- **THE SPOKE REPLICATION: PARTIAL. BY MY OWN PRE-REGISTRATION IT DOES NOT**
+## **REPLICATE, AND I AM HONOURING THAT RATHER THAN RE-READING THE THRESHOLD.**
+`scratch/diag_spoke_independence_seeds.py`, 3 seeds, 8,000 sentences each, n=246-277.
+
+| seed | n | SPOKE | COOC | both | spoke-only | predicted | ratio | **union/COOC** |
+|---|---|---|---|---|---|---|---|---|
+| 20260819 | 277 | 0.0614 | **0.0794** | 6 | 11 | 15.6 | **0.70** | 1.50 |
+| 7 | 246 | 0.0732 | 0.0528 | 2 | 16 | 17.0 | 0.94 | 2.23 |
+| 101 | 250 | 0.0720 | 0.0640 | 3 | 15 | 16.8 | 0.89 | 1.94 |
+
+**PRE-REGISTERED: ratio >= 0.85 AND union >= 1.5 on ALL THREE. Union holds 3 of 3 (1.50 / 2.23 /
+1.94). Ratio holds 2 of 3 -- seed 20260819 reads 0.70. THE CONJUNCTION FAILS, so the strong claim
+is NOT established and the combination build DOES NOT PROCEED.**
+**⚠️ AND I AM FLAGGING THE TEMPTATION RATHER THAN ACTING ON IT.** Last turn I argued that the
+UNION GAIN is the correct discriminator, and union passes 3 of 3 here. Adopting it now, when it is
+the criterion that rescues the result, would be motivated reasoning **even though I named it
+before seeing this data**. *The pre-registration for THIS run required both. Both is what it gets.*
+**✅ WHAT SURVIVES, NARROWED AND USEFUL: the union gain is CONSISTENT (1.50-2.23 on every seed),
+and only 2-6 of ~250 items are ever got right by BOTH arms.** So the channels do overlap very
+little; what is NOT stable is whether the spoke's unique contribution sits at or below what
+independence predicts. **AND THE SPOKE DOES NOT BEAT COUNTING: it wins 2 seeds and LOSES the third
+(0.0614 vs 0.0794), which is the same tie reading (B) already gave on the precision instrument.**
+**➡️ NEXT IS MORE SEEDS, NOT A BUILD.** The quantity that moved is a ratio of small counts
+(11-16 spoke-only against a ~16 prediction); 3 seeds cannot separate real instability from
+sampling noise at that count. *Anything built now would rest on the one seed that happened to fire.*
+
 ## 🔴🔴 2026-08-19 -- **v3 SETTLES IT: THE CORTICAL READ RETRIEVES AND IS NOT COMPETITIVE.**
 ## **18 OF 18 FLOOR CELLS FAIL. AND A CUE-BLIND FREQUENCY RANKING BEATS IT AT k>=10.**
 `v3_floors_at_k`, 3 seeds, 966 s, 300 items/seed, 428-480 candidates. **I recorded the prediction
