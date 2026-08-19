@@ -15,6 +15,36 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 🔴🔴🔴 2026-08-19 -- **A RANDOM PROJECTION OF THE CO-OCCURRENCE COUNTS BEATS OUR REPRESENTATION**
+## **BY 2x AT IDENTICAL DIMENSIONALITY. WE LOSE MORE THAN COMPRESSION EXPLAINS.**
+`scratch/diag_is_our_vector_a_compressed_counter.py`. The question the whole session pointed at and
+nobody had asked: both sides use co-occurrence, so **is our representation simply a LOSSY VERSION
+of the baseline that keeps beating it?** Matched dimensionality, one variable.
+
+| arm | hit@1 | hit@10 | hit@50 | **median rank** |
+|---|---|---|---|---|
+| **FULL_COOC** (6,145 dims) | 0.1137 | 0.3478 | 0.7124 | **20.0** |
+| **PROJ_COOC@256** (same counts, RANDOM projection) | 0.0803 | 0.2475 | 0.5619 | **42.0** |
+| **OURS** (accumulated context vectors, 256 dims) | 0.0569 | 0.1304 | 0.3779 | **81.0** |
+
+*POSITIVE CONTROL: FULL_COOC median 20.0, against the 15-20 two other cells measured. Same thing
+being scored.*
+**⛔ THE PRE-REGISTERED THIRD BRANCH FIRES, AND IT WAS THE ONE I THOUGHT LEAST LIKELY. Compression
+to 256 dims costs 20 -> 42. OUR representation at the SAME 256 dims costs 20 -> 81. So HALF THE
+GAP IS DIMENSIONAL AND HALF IS OURS: a RANDOM PROJECTION of the same counts beats a carefully
+accumulated context representation by 2x on median rank.**
+**➡️ THIS IS THE FIRST SPECIFIC, FIXABLE DEFECT THE SESSION HAS FOUND IN THE REPRESENTATION,
+rather than another ceiling.** Everything until now said "the representation is the limit"; this
+says **the representation is DESTROYING information that a random matrix preserves**, which is a
+much stronger and much more actionable claim.
+**🧠 AND IT GIVES QUANTITATIVE WEIGHT TO AN EXISTING QUALITATIVE FINDING: `notes/ORGAN_MAP.md` §1
+already records 34 `np.sign` call sites across 12 modules and calls the result "mathematically a
+PROTOTYPE EXTRACTOR -- the signature of a degrading ATL hub". A sign-quantised accumulation would
+lose exactly what a linear random projection keeps.** *That is now the leading hypothesis for the
+2x and it is directly testable: rebuild the profile WITHOUT the sign step and re-measure.*
+**⚠️ SCOPE: one seed, one corpus, 4,300 sentences, 223 candidates, held-out only. The direction is
+large but this is a single measurement and the sign hypothesis is UNTESTED.**
+
 ## ⛔ 2026-08-19 -- **WRITE-GATE CELL LANDED, 3 SEEDS. FORMAL VERDICT: (C) AND (D) BOTH FIRE.**
 ## **READING (A) IN 0 OF 54 CELLS. FLOOR CLEARED IN 0 OF 54.**
 `exp_predictive_write_gate_v1`, 1,064 s, 3 seeds x 6 thresholds x 3 k = 54 cells, read by a script
