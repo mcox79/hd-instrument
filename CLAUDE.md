@@ -490,9 +490,26 @@ because text-mode handles silently rewrite bytes; so does this one.
 
 **Rule: to edit a tracked text file, use the Edit tool, or Python with an explicit
 `encoding="utf-8"` (read) and a BINARY write.** Never `Get-Content -Raw | Set-Content` for a
-substitution. If it has already happened, the damage is reversible per line —
-`line.encode("cp1252").decode("utf-8")` — and `scratch/fix_status_encoding.py` is a worked repair
-that leaves any line it cannot round-trip untouched rather than guessing.
+substitution.
+
+**AND THE REPAIR HAS ITS OWN LESSON, WHICH IS WORTH MORE THAN THE ENCODING RULE.** The first repair
+script detected damage with a regex over "characters that look like mojibake", fixed **9 lines**,
+and reported *"mojibake remaining: 0"* **using that same regex**. The real damage was **56 lines**.
+A mangled 🚨 decodes to `ð Ÿ š ¨`, and two of those code points fall outside the range the pattern
+allowed — so the detector could not see them, and neither could its verification.
+
+**That is standing discipline 3 — A CHECKER SHARING A FLAW WITH WHAT IT CHECKS HIDES IT — for the
+fifth recorded time.** Two rules follow, and they generalise well past encoding:
+
+1. **Detect by ROUND TRIP, not by pattern.** A line is damaged iff `line.encode("cp1252")` then
+   `.decode("utf-8")` succeeds and *changes* it. That cannot share a blind spot with the damage,
+   because it makes no assumption about what damage looks like.
+2. **Verify with a POSITIVE control, never only an absence check.** *"No mojibake found"* shares
+   the detector's bug; *"the character 🚨 is present in the file"* does not. Absence tests inherit
+   every blindness of the thing that measures them.
+
+`scratch/fix_status_encoding2.py` is the worked repair: round-trip detection, iterated until
+stable, verified against the characters that must be present afterwards.
 
 ## Scratch files (throwaway work goes in `scratch/`)
 
