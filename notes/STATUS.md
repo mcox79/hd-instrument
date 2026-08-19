@@ -15,6 +15,24 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 🟢🟢 2026-08-19 -- **v2 SEED 1: THE CUE FIX WORKED AT FULL SCALE, AND THE SCRAMBLE COLLAPSED.**
+Same seed, same 16,600 sentences, same 428 consolidated terms -- **only the cue construction and
+the scorer changed.**
+
+| arm | v1 (profile-sum cue) | **v2 (sentence cue)** |
+|---|---|---|
+| CORTICAL_CONTEXT | 0.0433 | **0.0567** |
+| **SCRAMBLE** | **0.0500** | **0.0067** |
+
+**⛔ THAT IS THE WHOLE VOID VERDICT EXPLAINED: the scramble arm fell 7.5x while the real arm rose.**
+v1's arms were indistinguishable because the profile-sum cue let an UNRELATED donor sentence score
+almost as well as the real one; querying the space the index is actually built in removes that.
+**SO THE ANSWER TO THE OPEN CONFOUND IS CUE CONSTRUCTION, NOT SCALE** -- this is the cell's own
+scale, unchanged.
+**⚠️ ONE SEED. `COOC_floor` still leads at 0.0867 and the cortical arms have NOT beaten it. Reading
+(A) needs REAL to clear SCRAMBLE **and** chance at the same k, per-seed, across three seeds -- the
+hit@k table decides that, not this line.** *Do not quote 0.0567 as a capability.*
+
 ## ⚠️ 2026-08-19 -- **CORRECTION TO MY OWN "4.9x" -- A THIRD OF THE SEEN CONTROL WAS A VECTOR**
 ## **MATCHING ITSELF. THE READING SURVIVES; THE MAGNITUDE WAS OVERSTATED BY ME.**
 `scratch/diag_seen_control_is_inflated.py`. A term's profile IS THE SUM OF THE CONTEXT VECTORS IT
@@ -81,7 +99,7 @@ the positive control.
 
 | question | HELD-OUT | SEEN (control) |
 |---|---|---|
-| cue vs its own target | **0.0519** | 0.2551 |
+| cue vs its own target | **0.0519** | 0.2551 🔴 inflated, see below: leave-one-out 0.1702 |
 | SCRAMBLED cue vs that target | 0.0231 | 0.1345 |
 | **gap (the void condition)** | **+0.0288** | **+0.1206** |
 | cue-to-target vs cue-to-RANDOM term | +0.0318 | +0.2218 |
@@ -96,8 +114,11 @@ ignores the cue". It is "the cue carries a real but very weak signal, and a top-
 candidates cannot resolve +0.03".** *The scramble arm is not signal-free either (0.0231 vs a
 random-term 0.0201), which is exactly why hit@1 could not separate them at n=300.*
 **➡️ THIS IS THE PROGRAMME'S STANDING DIAGNOSIS ARRIVING ON A FOURTH INSTRUMENT, AND FOR THE FIRST
-TIME AT THE VECTOR LEVEL: the profiles MEMORISE (0.2551 on read text) AND BARELY TRANSFER (0.0519
-on unread text). A 4.9x drop.** Not a retrieval bug, not a code bug -- the representation itself.
+TIME AT THE VECTOR LEVEL: the profiles MEMORISE AND BARELY TRANSFER.** Not a retrieval bug, not a
+code bug -- the representation itself.
+**🔴 THE NUMBERS ON THIS LINE WERE 0.2551 READ / 0.0519 UNREAD, "a 4.9x drop". THAT SEEN FIGURE IS
+INFLATED BY SELF-MATCH AND IS RETRACTED AT SOURCE. Leave-one-out gives 0.1702, so the drop is
+3.3x. USE 3.3x -- see the correction block at the top of this file.**
 **➡️ NEXT, AND IT IS THE DISTINCTION THIS PROJECT ALREADY ESTABLISHED: score hit@k, not hit@1.**
 Retrieval dwarfs discrimination here on four corpora already; a +0.03 signal may well place the
 target in the top-50 of 223 while never winning top-1. **If hit@50 is above chance, the cell was
