@@ -202,7 +202,53 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
-## 🔴 D7 RESULT LANDED (spec `v2_sr`, 30 units, 1,564 s) -- AND IT IS STARVED, NOT FALSIFIED
+## 🔻 RETRACTED, SAME NIGHT, BY MY OWN NAMED RE-TEST: SR WAS **NOT** STARVED. D7 IS A REAL NEGATIVE.
+**`exp_sr_scale_ladder_v1`, 3 seeds, 400 items, pool FROZEN at 2,161, nested corpora, only the
+transition data varies. 63 s.** *The block below filed SR as UNTESTABLE-AT-THIS-SCALE and named
+exactly one way to settle it. It is settled, and against me.*
+
+| transitions/state | SR γ=0.1 | SR γ=0.9 | **COOC floor** | FREQ floor |
+|---|---|---|---|---|
+| 2.48 | 0.01417 | 0.01167 | 0.01917 | 0.00667 |
+| 6.91 | 0.00917 | 0.00417 | 0.03417 | 0.00917 |
+| 25.68 | 0.00417 | 0.00333 | 0.04417 | 0.00917 |
+| **80.19** | 0.01250 | **0.00167** | **0.05833** | 0.00917 |
+
+**ACROSS A 32x RANGE: THE CO-OCCURRENCE FLOOR TRIPLES (0.019 -> 0.058). SR γ=0.9 FALLS TO A
+SEVENTH. SR γ=0.1 IS FLAT.** *The data increase is real and usable -- the floor proves it on the
+identical corpus, items and frozen pool. SR simply cannot use it.* **At the top rung SR would have
+to move 27.2 CI half-widths to reach the floor. That is RESOLVED, not underpowered.**
+**PRE-COMMITTED READING (iii) FIRES: starvation is REFUTED as the explanation, and D7 over lemma
+transitions is a REAL NEGATIVE.**
+
+### 🔬 AND THE MECHANISM IS MEASURED, NOT NARRATED -- LONG-HORIZON SR BECOMES A CONSTANT
+`scratch/sr_mixing_probe.py`. γ=0.9 is ~100 steps of lookahead; over a word graph that is far past
+the mixing time, so `P^k` converges to the STATIONARY DISTRIBUTION, **which does not depend on the
+cue.** More text connects the graph better and mixes it FASTER. Distinct top-1 answers over 300
+DIFFERENT cues:
+
+| rung | γ | distinct answers / 300 cues | share taken by ONE word |
+|---|---|---|---|
+| 750 | 0.9 | 160 | 17.7% |
+| **40,000** | **0.9** | **31** | **83.7%** |
+| 40,000 | 0.1 | 133 | 5.0% |
+
+**AT SCALE, LONG-HORIZON SR ANSWERS THE SAME WORD TO 84% OF ALL QUESTIONS.** *That is the
+constant/prototype floor's signature, and this project already knows that floor is often the
+strongest thing in the room. We built a pinned equation and it converged into a baseline.*
+**γ was SWEPT and the sweep is what made this legible: short horizon keeps cue-specificity (133
+distinct) and still loses; long horizon destroys it. Had we ADOPTED one γ we would have learned
+neither half.**
+
+### ⚠️ WHAT I GOT WRONG, EXPLICITLY, SO IT IS NOT REPEATED
+I filed SR as starved citing "median ONE successor per word" and a dose-response of
+**0.00111 -> 0.00556**. *I flagged that comparison as not-a-slope because `n_read` AND `pool` both
+moved.* **With the pool held FIXED the effect does not merely shrink -- it REVERSES.** The
+apparent rise was the confound, exactly as flagged. **A caveat I wrote and then leaned on anyway.**
+
+---
+
+## 🔴 [SUPERSEDED BY THE RETRACTION ABOVE -- KEPT SO THE OVERCLAIM STAYS VISIBLE] D7 RESULT LANDED (spec `v2_sr`, 30 units, 1,564 s)
 **Verdict COMPUTED by `tools/readout_verdict.py`, which encodes the pre-committed readings as code
 so the reading cannot be done after seeing the table.** Held-out, 3 seeds, n=300, bar 0.0411:
 

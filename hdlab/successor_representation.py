@@ -123,6 +123,120 @@ def successor_matrix_td(P_sequences: Sequence[Sequence[int]], n_states: int, gam
     return M
 
 
+class SparseSuccessorRepresentation:
+    """D7 AT SCALE. The SAME quantity, never forming M, so vocabulary is not cubically capped.
+
+    WHY THIS EXISTS. The dense form inverts a V x V matrix, which is O(V^3) and made the named
+    re-test -- "rebuild SR on 10-50x the transitions" -- impossible: 2,114 states was already most
+    of a 26-minute run, and 50,000 states would be ~1e14 flops. The first D7 result was filed
+    UNTESTABLE-AT-THIS-SCALE (median ONE observed successor per word), so the ONLY way to convert
+    that into a real verdict is to run it on far more text. A method that cannot reach the scale
+    its own re-test requires is not a method.
+
+    THE IDENTITY, and no approximation is hidden in it:
+        M = (I - gamma*P)^-1 = SUM_k gamma^k P^k     (Neumann series, converges for gamma < 1)
+    so `M[i, :] = e_i^T M` is K sparse matrix-vector products and never touches a dense matrix.
+    The truncation error after K terms is bounded by gamma^(K+1) / (1 - gamma) in the row sum,
+    which `n_terms_for` inverts to pick K from a tolerance rather than from a guess.
+
+    AND IT IS ARGUABLY THE MORE FAITHFUL FORM: nothing in the brain inverts a matrix. Discounted
+    future occupancy accumulates through repeated transitions, which is what this computes.
+    """
+
+    def __init__(self, states: Sequence[str], P_sparse, gamma: float = 0.9,
+                 n_terms: Optional[int] = None, tol: float = 1e-3) -> None:
+        self.states = list(states)
+        self.index = {w: i for i, w in enumerate(self.states)}
+        self.P = P_sparse.tocsr()
+        self.Pt = self.P.T.tocsr()
+        self.gamma = float(gamma)
+        self.n_terms = int(n_terms) if n_terms is not None else self.n_terms_for(gamma, tol)
+
+    @staticmethod
+    def n_terms_for(gamma: float, tol: float = 1e-3) -> int:
+        """Smallest K with gamma^(K+1)/(1-gamma) <= tol. Chosen from the bound, not by taste."""
+        if gamma <= 0.0:
+            return 1
+        k = 1
+        while (gamma ** (k + 1)) / (1.0 - gamma) > tol and k < 2000:
+            k += 1
+        return k
+
+    @classmethod
+    def from_sequences(cls, sequences: Sequence[Sequence[str]], *, gamma: float = 0.9,
+                       window: int = 1, vocab: Optional[Sequence[str]] = None,
+                       tol: float = 1e-3) -> "SparseSuccessorRepresentation":
+        states, P = build_transition_matrix_sparse(sequences, vocab=vocab, window=window)
+        return cls(states, P, gamma=gamma, tol=tol)
+
+    def _series(self, v0: np.ndarray, mat) -> np.ndarray:
+        """SUM_k gamma^k (mat^k) v0, accumulated by repeated matvec."""
+        acc = v0.astype(np.float64).copy()
+        cur = acc.copy()
+        g = self.gamma
+        for _ in range(self.n_terms):
+            cur = g * (mat @ cur)
+            acc += cur
+        return acc
+
+    def rank_from_cue(self, cue_words: Sequence[str], *, top_k: int = 5,
+                      exclude: Sequence[str] = ()) -> List[str]:
+        """Identical semantics to the dense class: both directions summed, cue words excludable."""
+        ids = [self.index[w] for w in cue_words if w in self.index]
+        if not ids:
+            return []
+        n = len(self.states)
+        e = np.zeros(n, dtype=np.float64)
+        e[ids] = 1.0
+        # forward: rows of M for the cue -> e^T M  == series over P^T applied to e
+        fwd = self._series(e, self.Pt)
+        # backward: columns of M for the cue -> M e == series over P applied to e
+        bwd = self._series(e, self.P)
+        score = fwd + bwd
+        for w in exclude:
+            i = self.index.get(w)
+            if i is not None:
+                score[i] = -np.inf
+        k = min(top_k, n)
+        idx = np.argpartition(-score, k - 1)[:k] if k < n else np.arange(n)
+        return [self.states[i] for i in idx[np.argsort(-score[idx])]]
+
+
+def build_transition_matrix_sparse(sequences: Sequence[Sequence[str]],
+                                   vocab: Optional[Sequence[str]] = None,
+                                   *, window: int = 1):
+    """Row-stochastic P as a scipy CSR matrix. Dead rows are LEFT EMPTY, deliberately.
+
+    The dense builder fills a never-observed source with a UNIFORM row so the inverse stays well
+    conditioned. At scale that is catastrophic and also dishonest: it would turn a vocabulary of
+    50,000 unseen sources into 2.5e9 fabricated nonzeros. The Neumann series needs no
+    conditioning, so an unobserved state simply contributes nothing -- which is what "no data"
+    should mean.
+    """
+    from scipy import sparse
+
+    seen = sorted({w for s in sequences for w in s}) if vocab is None else sorted(set(vocab))
+    idx = {w: i for i, w in enumerate(seen)}
+    n = len(seen)
+    rows: List[int] = []
+    cols: List[int] = []
+    for seq in sequences:
+        ids = [idx[w] for w in seq if w in idx]
+        for t, a in enumerate(ids):
+            for d in range(1, window + 1):
+                if t + d < len(ids):
+                    rows.append(a)
+                    cols.append(ids[t + d])
+    C = sparse.coo_matrix((np.ones(len(rows), dtype=np.float64), (rows, cols)),
+                          shape=(n, n)).tocsr()
+    rs = np.asarray(C.sum(axis=1)).ravel()
+    inv = np.zeros_like(rs)
+    nz = rs > 0
+    inv[nz] = 1.0 / rs[nz]
+    P = sparse.diags(inv) @ C
+    return seen, P.tocsr()
+
+
 class SuccessorRepresentation:
     """D7. Holds P and M, and scores candidates from a cue by discounted expected occupancy."""
 
@@ -243,9 +357,54 @@ def _selftest_dead_rows_do_not_break_the_solve() -> dict:
     return {"n_states": len(states), "rows_stochastic": True}
 
 
+def _selftest_sparse_matches_the_closed_form() -> dict:
+    """THE SCALABLE PATH MUST AGREE WITH THE EXACT ONE. If the Neumann series and the inverse
+    disagree, the scale re-test would be measuring a different quantity and its verdict would be
+    about my truncation rather than about the successor representation."""
+    rng = np.random.default_rng(11)
+    words = [f"w{i}" for i in range(60)]
+    seqs = []
+    for _ in range(500):
+        L = int(rng.integers(3, 9))
+        seqs.append([words[int(rng.integers(len(words)))] for _ in range(L)])
+    worst = 0.0
+    for gamma in (0.1, 0.5, 0.9):
+        dense = SuccessorRepresentation.from_sequences(seqs, gamma=gamma, vocab=words)
+        sp = SparseSuccessorRepresentation.from_sequences(seqs, gamma=gamma, vocab=words,
+                                                          tol=1e-6)
+        # Compare RANKINGS, which is what the experiment consumes, on many cues.
+        agree = 0
+        trials = 40
+        for _ in range(trials):
+            cue = [words[int(rng.integers(len(words)))] for _ in range(3)]
+            a = dense.rank_from_cue(cue, top_k=5, exclude=cue)
+            b = sp.rank_from_cue(cue, top_k=5, exclude=cue)
+            agree += int(a[:1] == b[:1])
+        frac = agree / trials
+        worst = max(worst, 1.0 - frac)
+        assert frac >= 0.95, f"gamma={gamma}: top-1 agreement only {frac:.2f}"
+    return {"worst_top1_disagreement": round(worst, 4)}
+
+
+def _selftest_sparse_leaves_dead_rows_empty() -> dict:
+    """The sparse builder must NOT fabricate uniform rows. At 50k states that would invent 2.5e9
+    nonzeros and quietly turn 'no data' into 'transitions to everything'."""
+    from scipy import sparse
+    states, P = build_transition_matrix_sparse([["a", "b"], ["b", "c"]],
+                                               vocab=["a", "b", "c", "z_never_a_source"])
+    assert sparse.issparse(P)
+    z = states.index("z_never_a_source")
+    assert P[z].nnz == 0, "a never-observed source was given fabricated transitions"
+    rs = np.asarray(P.sum(axis=1)).ravel()
+    assert abs(rs[states.index("a")] - 1.0) < 1e-12, "observed rows must be stochastic"
+    return {"n_states": len(states), "dead_row_nnz": 0}
+
+
 def run_all_selftests() -> dict:
     tests = [
         ("closed_form_identity", _selftest_closed_form_identity),
+        ("sparse_leaves_dead_rows_empty", _selftest_sparse_leaves_dead_rows_empty),
+        ("sparse_matches_the_closed_form", _selftest_sparse_matches_the_closed_form),
         ("gamma_zero_is_the_identity", _selftest_gamma_zero_is_the_identity),
         ("dead_rows_do_not_break_the_solve", _selftest_dead_rows_do_not_break_the_solve),
         ("planted_structure_is_recovered", _selftest_planted_structure_is_recovered),

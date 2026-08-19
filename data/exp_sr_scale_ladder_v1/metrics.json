@@ -1,0 +1,482 @@
+{
+  "cell": "exp_sr_scale_ladder_v1",
+  "ts_iso": "2026-08-19T03:47:00Z",
+  "run_mode": "full",
+  "corpus": "simplewiki",
+  "spec": "v1",
+  "n_units": 3,
+  "items_predate_mechanism": true,
+  "items_predate_note": "Published prose predating this project; the gold is the word actually in the sentence. No detector of ours selected it.",
+  "population_held_fixed": true,
+  "population_note": "Candidate pool and items are FROZEN to the smallest rung's vocabulary, and the rung corpora are NESTED, so only the amount of text the transition matrix is estimated from varies.",
+  "units": {
+    "v1|full|simplewiki|20260819": {
+      "seed": 20260819,
+      "corpus": "simplewiki",
+      "rungs": [
+        750,
+        3000,
+        12000,
+        40000
+      ],
+      "pool_size_FROZEN": 2161,
+      "n_items": 400,
+      "chance_at_1": 0.00046274872744099955,
+      "by_rung": {
+        "750": {
+          "n_sentences": 750,
+          "n_transitions": 5360,
+          "transitions_per_state": 2.4803331790837575,
+          "nnz": 4843,
+          "seconds": 2.4,
+          "SR_g0.1": {
+            "hit@1": 0.0075,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0175,
+            "ci_half_width": 0.00875,
+            "clears_credible_bar": false
+          },
+          "SR_g0.9": {
+            "hit@1": 0.0125,
+            "ci_lo": 0.0025,
+            "ci_hi": 0.025,
+            "ci_half_width": 0.011250000000000001,
+            "clears_credible_bar": false
+          },
+          "COOC_floor": {
+            "hit@1": 0.02,
+            "ci_lo": 0.0075,
+            "ci_hi": 0.035,
+            "ci_half_width": 0.013750000000000002
+          },
+          "FREQ_floor": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625
+          },
+          "_credible_bar_cooc_upper": 0.035,
+          "_underpowered": false
+        },
+        "3000": {
+          "n_sentences": 3000,
+          "n_transitions": 14935,
+          "transitions_per_state": 6.911152244331328,
+          "nnz": 12347,
+          "seconds": 2.8,
+          "SR_g0.1": {
+            "hit@1": 0.015,
+            "ci_lo": 0.005,
+            "ci_hi": 0.0275,
+            "ci_half_width": 0.01125,
+            "clears_credible_bar": false
+          },
+          "SR_g0.9": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625,
+            "clears_credible_bar": false
+          },
+          "COOC_floor": {
+            "hit@1": 0.045,
+            "ci_lo": 0.025,
+            "ci_hi": 0.065,
+            "ci_half_width": 0.02
+          },
+          "FREQ_floor": {
+            "hit@1": 0.0175,
+            "ci_lo": 0.005,
+            "ci_hi": 0.0325,
+            "ci_half_width": 0.01375
+          },
+          "_credible_bar_cooc_upper": 0.065,
+          "_underpowered": false
+        },
+        "12000": {
+          "n_sentences": 12000,
+          "n_transitions": 55491,
+          "transitions_per_state": 25.678389634428505,
+          "nnz": 35665,
+          "seconds": 4.6,
+          "SR_g0.1": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625,
+            "clears_credible_bar": false
+          },
+          "SR_g0.9": {
+            "hit@1": 0.0025,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0075,
+            "ci_half_width": 0.00375,
+            "clears_credible_bar": false
+          },
+          "COOC_floor": {
+            "hit@1": 0.0525,
+            "ci_lo": 0.0325,
+            "ci_hi": 0.07506249999999966,
+            "ci_half_width": 0.021281249999999828
+          },
+          "FREQ_floor": {
+            "hit@1": 0.0175,
+            "ci_lo": 0.0075,
+            "ci_hi": 0.03,
+            "ci_half_width": 0.01125
+          },
+          "_credible_bar_cooc_upper": 0.07506249999999966,
+          "_underpowered": false
+        },
+        "40000": {
+          "n_sentences": 40000,
+          "n_transitions": 173296,
+          "transitions_per_state": 80.19250347061545,
+          "nnz": 84507,
+          "seconds": 9.5,
+          "SR_g0.1": {
+            "hit@1": 0.0125,
+            "ci_lo": 0.0025,
+            "ci_hi": 0.025,
+            "ci_half_width": 0.011250000000000001,
+            "clears_credible_bar": false
+          },
+          "SR_g0.9": {
+            "hit@1": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "ci_half_width": 0.0,
+            "clears_credible_bar": false
+          },
+          "COOC_floor": {
+            "hit@1": 0.07,
+            "ci_lo": 0.045,
+            "ci_hi": 0.0975,
+            "ci_half_width": 0.026250000000000002
+          },
+          "FREQ_floor": {
+            "hit@1": 0.0175,
+            "ci_lo": 0.005,
+            "ci_hi": 0.0325,
+            "ci_half_width": 0.01375
+          },
+          "_credible_bar_cooc_upper": 0.0975,
+          "_underpowered": false
+        }
+      },
+      "unit_key": "v1|full|simplewiki|20260819"
+    },
+    "v1|full|simplewiki|7": {
+      "seed": 7,
+      "corpus": "simplewiki",
+      "rungs": [
+        750,
+        3000,
+        12000,
+        40000
+      ],
+      "pool_size_FROZEN": 2161,
+      "n_items": 400,
+      "chance_at_1": 0.00046274872744099955,
+      "by_rung": {
+        "750": {
+          "n_sentences": 750,
+          "n_transitions": 5360,
+          "transitions_per_state": 2.4803331790837575,
+          "nnz": 4843,
+          "seconds": 1.9,
+          "SR_g0.1": {
+            "hit@1": 0.0125,
+            "ci_lo": 0.0025,
+            "ci_hi": 0.025,
+            "ci_half_width": 0.011250000000000001,
+            "clears_credible_bar": false
+          },
+          "SR_g0.9": {
+            "hit@1": 0.0075,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0175,
+            "ci_half_width": 0.00875,
+            "clears_credible_bar": false
+          },
+          "COOC_floor": {
+            "hit@1": 0.0175,
+            "ci_lo": 0.005,
+            "ci_hi": 0.0325,
+            "ci_half_width": 0.01375
+          },
+          "FREQ_floor": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625
+          },
+          "_credible_bar_cooc_upper": 0.0325,
+          "_underpowered": false
+        },
+        "3000": {
+          "n_sentences": 3000,
+          "n_transitions": 14935,
+          "transitions_per_state": 6.911152244331328,
+          "nnz": 12347,
+          "seconds": 3.1,
+          "SR_g0.1": {
+            "hit@1": 0.0075,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0175,
+            "ci_half_width": 0.00875,
+            "clears_credible_bar": false
+          },
+          "SR_g0.9": {
+            "hit@1": 0.0025,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0075,
+            "ci_half_width": 0.00375,
+            "clears_credible_bar": false
+          },
+          "COOC_floor": {
+            "hit@1": 0.025,
+            "ci_lo": 0.01,
+            "ci_hi": 0.04,
+            "ci_half_width": 0.015
+          },
+          "FREQ_floor": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625
+          },
+          "_credible_bar_cooc_upper": 0.04,
+          "_underpowered": false
+        },
+        "12000": {
+          "n_sentences": 12000,
+          "n_transitions": 55491,
+          "transitions_per_state": 25.678389634428505,
+          "nnz": 35665,
+          "seconds": 5.1,
+          "SR_g0.1": {
+            "hit@1": 0.0025,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0075,
+            "ci_half_width": 0.00375,
+            "clears_credible_bar": false
+          },
+          "SR_g0.9": {
+            "hit@1": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "ci_half_width": 0.0,
+            "clears_credible_bar": false
+          },
+          "COOC_floor": {
+            "hit@1": 0.0425,
+            "ci_lo": 0.025,
+            "ci_hi": 0.0625,
+            "ci_half_width": 0.01875
+          },
+          "FREQ_floor": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625
+          },
+          "_credible_bar_cooc_upper": 0.0625,
+          "_underpowered": false
+        },
+        "40000": {
+          "n_sentences": 40000,
+          "n_transitions": 173296,
+          "transitions_per_state": 80.19250347061545,
+          "nnz": 84507,
+          "seconds": 9.2,
+          "SR_g0.1": {
+            "hit@1": 0.0125,
+            "ci_lo": 0.0025,
+            "ci_hi": 0.025,
+            "ci_half_width": 0.011250000000000001,
+            "clears_credible_bar": false
+          },
+          "SR_g0.9": {
+            "hit@1": 0.0,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0,
+            "ci_half_width": 0.0,
+            "clears_credible_bar": false
+          },
+          "COOC_floor": {
+            "hit@1": 0.055,
+            "ci_lo": 0.035,
+            "ci_hi": 0.0775,
+            "ci_half_width": 0.021249999999999998
+          },
+          "FREQ_floor": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625
+          },
+          "_credible_bar_cooc_upper": 0.0775,
+          "_underpowered": false
+        }
+      },
+      "unit_key": "v1|full|simplewiki|7"
+    },
+    "v1|full|simplewiki|101": {
+      "seed": 101,
+      "corpus": "simplewiki",
+      "rungs": [
+        750,
+        3000,
+        12000,
+        40000
+      ],
+      "pool_size_FROZEN": 2161,
+      "n_items": 400,
+      "chance_at_1": 0.00046274872744099955,
+      "by_rung": {
+        "750": {
+          "n_sentences": 750,
+          "n_transitions": 5360,
+          "transitions_per_state": 2.4803331790837575,
+          "nnz": 4843,
+          "seconds": 1.7,
+          "SR_g0.1": {
+            "hit@1": 0.0225,
+            "ci_lo": 0.01,
+            "ci_hi": 0.0375,
+            "ci_half_width": 0.013749999999999998,
+            "clears_credible_bar": false
+          },
+          "SR_g0.9": {
+            "hit@1": 0.015,
+            "ci_lo": 0.005,
+            "ci_hi": 0.0275,
+            "ci_half_width": 0.01125,
+            "clears_credible_bar": false
+          },
+          "COOC_floor": {
+            "hit@1": 0.02,
+            "ci_lo": 0.0075,
+            "ci_hi": 0.035,
+            "ci_half_width": 0.013750000000000002
+          },
+          "FREQ_floor": {
+            "hit@1": 0.01,
+            "ci_lo": 0.0025,
+            "ci_hi": 0.02,
+            "ci_half_width": 0.00875
+          },
+          "_credible_bar_cooc_upper": 0.035,
+          "_underpowered": false
+        },
+        "3000": {
+          "n_sentences": 3000,
+          "n_transitions": 14935,
+          "transitions_per_state": 6.911152244331328,
+          "nnz": 12347,
+          "seconds": 2.4,
+          "SR_g0.1": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625,
+            "clears_credible_bar": false
+          },
+          "SR_g0.9": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625,
+            "clears_credible_bar": false
+          },
+          "COOC_floor": {
+            "hit@1": 0.0325,
+            "ci_lo": 0.0175,
+            "ci_hi": 0.05,
+            "ci_half_width": 0.01625
+          },
+          "FREQ_floor": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625
+          },
+          "_credible_bar_cooc_upper": 0.05,
+          "_underpowered": false
+        },
+        "12000": {
+          "n_sentences": 12000,
+          "n_transitions": 55491,
+          "transitions_per_state": 25.678389634428505,
+          "nnz": 35665,
+          "seconds": 4.7,
+          "SR_g0.1": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625,
+            "clears_credible_bar": false
+          },
+          "SR_g0.9": {
+            "hit@1": 0.0075,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0175,
+            "ci_half_width": 0.00875,
+            "clears_credible_bar": false
+          },
+          "COOC_floor": {
+            "hit@1": 0.0375,
+            "ci_lo": 0.02,
+            "ci_hi": 0.0575,
+            "ci_half_width": 0.018750000000000003
+          },
+          "FREQ_floor": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625
+          },
+          "_credible_bar_cooc_upper": 0.0575,
+          "_underpowered": false
+        },
+        "40000": {
+          "n_sentences": 40000,
+          "n_transitions": 173296,
+          "transitions_per_state": 80.19250347061545,
+          "nnz": 84507,
+          "seconds": 9.2,
+          "SR_g0.1": {
+            "hit@1": 0.0125,
+            "ci_lo": 0.0025,
+            "ci_hi": 0.0225,
+            "ci_half_width": 0.01,
+            "clears_credible_bar": false
+          },
+          "SR_g0.9": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625,
+            "clears_credible_bar": false
+          },
+          "COOC_floor": {
+            "hit@1": 0.05,
+            "ci_lo": 0.03,
+            "ci_hi": 0.0725,
+            "ci_half_width": 0.021249999999999998
+          },
+          "FREQ_floor": {
+            "hit@1": 0.005,
+            "ci_lo": 0.0,
+            "ci_hi": 0.0125,
+            "ci_half_width": 0.00625
+          },
+          "_credible_bar_cooc_upper": 0.0725,
+          "_underpowered": false
+        }
+      },
+      "unit_key": "v1|full|simplewiki|101"
+    }
+  }
+}
