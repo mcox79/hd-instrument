@@ -202,6 +202,43 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🚨 A DEFECT I BUILT, FOUND BY TRYING TO USE MY OWN SUBSTRATE: IT ONLY CONSOLIDATED WHEN THE FORAGER CHANGED BOOKS
+
+**MEASURED, and the contradiction is what exposed it.** Setting up the replacement task, the
+substrate grounded **NOTHING** on 6,000 sentences of simplewiki -- and nothing on 2,000 sentences
+of each of FIVE other corpora, narrative included. Yet the self-test grounds 19 on 400 sentences.
+
+**CAUSE: `read()` called `checkpoint()` ONCE PER PATCH.** Grounding needs `min_confirm=4` traces
+**across passes**, and one patch is one pass, so **a single-patch read grounded zero at ANY
+volume.** Consolidation frequency was tied to the corpus CHANGING, not to how much had been read.
+
+| | before | after |
+|---|---|---|
+| simplewiki, 750 sentences, 1 patch | **0 grounded / 0 refused** | **38 / 199** |
+| alice, 750 sentences, 1 patch | **0 / 0** | **97 / 344** |
+| self-test config (400 / 2 patches) | 19 / 124 | 55 / 258 |
+
+**FIX: consolidate on a SCHEDULE (`consolidate_every=200` sentences), which is also the more
+faithful shape -- the brain consolidates offline and periodically, not when you pick up a new book.**
+
+### ⚠️ SCOPE CORRECTION TO THE PHASE 2 NEGATIVE -- NOT A RETRACTION, BUT IT MUST TRAVEL WITH IT
+**`exp_substrate_end_to_end_readout_v1` ran with `max_patches=1`, so EVERY Phase 2 run grounded
+NOTHING. The consolidation organ never fired in the cell that reported on the assembled substrate.**
+*The result still stands as measured -- the EPISODIC and SEMANTIC routes read from episodic writes
+and Library traces, which happen regardless of consolidation -- but the substrate was running with
+one of its central organs effectively OFF and I did not notice.*
+**AND THE EVIDENCE WAS IN MY OWN OUTPUT THE WHOLE TIME: the smoke printed `"n_provenance": 0` and
+I read past it.** *A zero in a field I chose to emit, in a cell I wrote to catch exactly this class
+of thing.* **Re-run the cell with periodic consolidation before quoting its ablation table again.**
+
+### 🔎 AND THE CORPUS-TYPE FINDING SURVIVES, NOW QUANTIFIED INSTEAD OF 0-vs-0
+At matched volume (750 sentences, one patch): **narrative grounds 97, encyclopedic grounds 38 --
+2.5x.** *The substrate grounds where words RECUR, not where they are DEFINED. That inverts the
+naive expectation and it is worth keeping: `definitional_extraction` wants encyclopedias and the
+consolidation gate wants stories, and the forager currently serves neither deliberately.*
+
+---
+
 ## 🧭 DIRECTOR'S CALL, 2026-08-19: **STOP OPTIMISING INTO THE CLOZE TASK. IT CANNOT SHOW A WIN.**
 *Full-auto ruling, made rather than filed, and it changes what the next continuations do.*
 

@@ -317,6 +317,7 @@ class Substrate:
         self._built: Dict[str, Any] = {}
         self._calls: Dict[str, int] = collections.Counter()
         self._pass_idx = 0
+        self._last_consolidated = 0
 
         store = HDFactStore(n_dim=self.n_dim, seed=self.seed,
                             relation_cardinality={KNOWN_RELATION: "FUNCTIONAL",
@@ -371,7 +372,8 @@ class Substrate:
 
     def read(self, *, corpus: Optional[str] = None, n_sentences: int = 200,
              batch: int = 20, max_patches: int = 4,
-             match_sentences: Optional[int] = None) -> ReadResult:
+             match_sentences: Optional[int] = None,
+             consolidate_every: int = 200) -> ReadResult:
         """Choose material off the shelf, read it, and consolidate what recurs.
 
         The forager decides WHEN TO LEAVE a corpus. Its gain currency is NOVEL LEMMAS PER
@@ -479,6 +481,22 @@ class Substrate:
                 res.n_sentences += len(sents)
                 res.n_flagged += flagged_here
                 res.n_definitions += defs_here
+
+                # CONSOLIDATE ON A SCHEDULE, NOT WHEN THE FORAGER CHANGES BOOKS.
+                # MEASURED 2026-08-19, and it is a defect I built: this loop used to checkpoint
+                # ONCE PER PATCH, so a lemma's evidence only ever landed in ONE pass. Grounding
+                # needs min_confirm=4 traces ACROSS PASSES, so a single-patch read grounded
+                # NOTHING at any volume -- 6,000 sentences of simplewiki: 0 grounded, 0 refused;
+                # 400 sentences across TWO patches: 19 grounded, 124 refused. Consolidation
+                # frequency was tied to the corpus changing rather than to how much had been read.
+                # The brain consolidates on an offline schedule, not when you pick up a new book.
+                if consolidate_every > 0 and (res.n_sentences - self._last_consolidated
+                                              ) >= consolidate_every:
+                    row = checkpoint(self.state, self._pass_idx, source_tag=name,
+                                     definition_map=dict(self._definition_map) or None)
+                    res.checkpoints.append(row)
+                    self._pass_idx += 1
+                    self._last_consolidated = res.n_sentences
 
                 gain = flagged_here / float(len(sents))   # a RATE, not a count
                 patch_gain.append(gain)
