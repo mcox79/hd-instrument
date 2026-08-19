@@ -70,14 +70,20 @@ COUNTS. Two independent demonstrations that the counts carry it and the READ-OUT
 IN THE COUNTS". The problem is DISCRIMINATION among ~50 co-occurrence-plausible candidates, with a
 79% ceiling -- which is a far better-posed problem than the one we have been working on.**
 
-**AND RAW COUNTS BEAT BOTH OUR REPRESENTATIONS AT EVERY DEPTH** (0.787 vs 0.639 at k=50).
-**Re-ranking that same candidate set, an unsupervised one-liner buys +31%: DICE 0.2435 vs RAW
-0.1859; NPMI 0.2249. SECOND-ORDER shared-neighbour cosine -- what our SEMANTIC route computes --
-reads 0.1506, WORSE THAN THE RAW COUNT IT IS BUILT FROM.** *Fifth instrument, same conclusion: our
-accumulate/normalise/project machinery LOSES information rather than extracting it. And Dice/NPMI
-are textbook -- the finding is that we were ranking on raw counts and leaving the standard gain
-unclaimed.* **⚠️ Both blocks: one corpus, no CI, ~31 items of 538 on the DICE gap. Act on it, do
-not cite it. 75.6% of the discrimination is still unexplained.**
+**⛔⛔ TWO CLAIMS THAT WERE HERE ARE RETRACTED BY MY OWN CONTROLLED CELL
+(`exp_discrimination_ceiling_v1`, 4 corpora x 150,000 sentences, paired tests):**
+- **"DICE buys +31%" -- RETRACTED. 0 of 4 corpora at p<0.05, and NEGATIVE on two.** *The +31% came
+  from one 1,024-word table. The smoke had warned the effect was scale-dependent; I pre-registered
+  that warning and promoted the number anyway.*
+- **"SECOND-ORDER cosine is WORSE than the raw count" -- RETRACTED, IT IS THE OPPOSITE: it beats
+  RAW in 4 of 4 corpora.** *I called it "fifth instrument, same conclusion". It was one instrument
+  at one scale.*
+- **A BUG IN THAT CELL, DISCLOSED: `BAG_COSINE` and `SECOND_ORDER` are the same computation, so
+  that table has THREE arms, not four.**
+**✅ WHAT SURVIVES IS THE CLAIM THAT MATTERED: retrieval dwarfs discrimination on ALL FOUR corpora
+-- hit@50 0.280-0.542 vs hit@1 0.078-0.136, random 0.066-0.074.** **⚠️ AND THE NUMBER MOVES: the
+0.787 above is ONE corpus with an 852-word pool; at 2,400 words it is 0.280-0.542. POOL SIZE
+BELONGS BESIDE IT.**
 
 ## 🧭 WHAT THE 2026-08-19 SESSION CONVERGES ON -- STRATEGIC READ, **HYPOTHESIS-PENDING-VET**
 **EVERY REPRESENTATION WE OWN TIES OR LOSES TO CO-OCCURRENCE COUNTING, ON THREE INSTRUMENTS -- and

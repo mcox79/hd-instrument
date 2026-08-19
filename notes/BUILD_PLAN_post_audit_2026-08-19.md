@@ -211,6 +211,45 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🔻🔻 THE CONTROLLED CELL REFUTES TWO OF MY OWN FINDINGS -- INCLUDING ONES I PUT IN `STATUS.md`
+`data/exp_discrimination_ceiling_v1/metrics.json`, 4 corpora, 150,000 sentences each, paired
+permutation tests. **It was built to convert the continuation-33/34 scratch probes into citable
+results. It refuted them instead.**
+
+| corpus | inpool | RAW | DICE | Δ | p | BAG_COSINE | Δ |
+|---|---|---|---|---|---|---|---|
+| simplewiki | 1047 | 0.1356 | 0.1184 | **-0.0172** | 0.156 | 0.1557 | +0.0201 |
+| onestop | 515 | 0.0913 | 0.0641 | **-0.0272** | 0.070 | 0.1010 | +0.0097 |
+| mcguffey_graded | 589 | 0.0781 | 0.0866 | +0.0085 | 0.618 | 0.0985 | +0.0204 |
+| arc | 913 | 0.1117 | 0.1260 | +0.0142 | 0.297 | 0.1566 | +0.0449 |
+
+**⛔ RETRACTED #1 -- "DICE BUYS +31%". IT DOES NOT. 0 OF 4 CORPORA AT p<0.05, and it is NEGATIVE on
+two of them.** *The scratch probe measured +31% on a 1,024-word table built from ~737,000
+sentences; four corpora at 150,000 say there is nothing there. The smoke had already warned that
+the effect was scale-dependent -- I pre-registered that and then still promoted the number.*
+
+**⛔ RETRACTED #2 -- "SECOND-ORDER COSINE IS WORSE THAN THE RAW COUNT IT IS BUILT FROM". THE
+OPPOSITE: IT BEATS RAW IN 4 OF 4 CORPORA.** *I called that "fifth instrument, same conclusion" and
+put it in STATUS. It was one instrument at one scale, and the controlled version reverses it.*
+
+**🐛 AND A BUG IN MY OWN CELL, DISCLOSED: `BAG_COSINE` and `SECOND_ORDER` return IDENTICAL numbers
+in all four corpora because I implemented them as the same operation** -- `Cn[i] @ Cn[j]` and
+`(Cn[i] * Cn[j]).sum()` are the same computation. **There are three arms in that table, not four.**
+
+### ✅ WHAT SURVIVES, AND IT IS THE CLAIM THAT MATTERED
+**RETRIEVAL still dwarfs DISCRIMINATION on every corpus: hit@50 runs 0.280-0.542 against hit@1 of
+0.078-0.136, with RANDOM at 0.066-0.074.** *The answer is in reach and we cannot pick it out. That
+is the finding that reframed the TOP ITEM, it holds on four corpora, and it is untouched.*
+**⚠️ But the SPECIFIC NUMBER changes: I reported hit@50 = 0.787. Across four corpora it is
+0.280-0.542. The 0.787 was one corpus with a 852-word pool; a 2,400-word pool halves it. POOL SIZE
+BELONGS BESIDE THAT NUMBER -- I said so when I first reported it, and then quoted it without.**
+
+**🟢 THE SENSORIMOTOR RESULT IS UNTOUCHED BY THIS.** *Different measurement, different assets, and
+its strongest form is UNFITTED with a CI-separated paired bootstrap on human ratings. Nothing in
+this cell bears on it.*
+
+---
+
 ## ✅✅ REPLICATED ON A DIFFERENT GOLD *AND* A DIFFERENT SCORER -- **AND THIS ONE IS UNFITTED**
 `scratch/simlex_replication_sensorimotor.py`. **988 SimLex-999 pairs -- HUMAN similarity ratings,
 sharing no construction method with ConceptNet -- scored by SPEARMAN CORRELATION rather than
