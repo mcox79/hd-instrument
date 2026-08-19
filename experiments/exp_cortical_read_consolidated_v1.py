@@ -128,8 +128,27 @@ def _run(seed: int, n_read: int, n_items: int, chunk: int) -> dict:
     nprng = np.random.default_rng(seed)
 
     reg = CorpusRegistry()
-    pool = reg.handles[CORPUS].take(n_read + 6 * n_items)
+    want = n_read + 6 * n_items
+    pool = reg.handles[CORPUS].take(want)
     read_split, held_out = pool[:n_read], pool[n_read:]
+
+    # *** PRECONDITION, CHECKED BEFORE READING AND LOUDLY. ***
+    # THE FIRST FULL RUN DIED HERE AND THE CAUSE WAS THIS EXACT ARITHMETIC. `simplewiki` yields
+    # EXACTLY 20,000 sentences; the run asked to read 20,000 and then hold out 1,800 more, so
+    # `held_out` was EMPTY, every arm scored None, and it crashed on the summary print after ~15
+    # minutes of reading. A held-out split of zero is UNWINNABLE BY CONSTRUCTION -- the same
+    # "could this experiment have succeeded?" question that has already changed this session's
+    # plan three times, not asked about corpus arithmetic.
+    # Fail FAST and say the numbers, rather than after the read and with a TypeError.
+    if len(pool) < want:
+        print(f"[warn] {CORPUS} yielded {len(pool)} of {want} requested sentences", flush=True)
+    if len(held_out) < n_items:
+        raise SystemExit(
+            f"UNWINNABLE BY CONSTRUCTION, refusing to run: corpus {CORPUS!r} yielded "
+            f"{len(pool)} sentences; reading {n_read} leaves {len(held_out)} held-out, and "
+            f"{n_items} items are required. Lower --mode full's n_read (the corpus has a hard "
+            f"ceiling) or read a different corpus. This check exists because the first full run "
+            f"read for 15 minutes and then crashed with an empty held-out split.")
 
     sub = Substrate(seed=seed)
     t0 = time.time()
@@ -178,6 +197,16 @@ def _run(seed: int, n_read: int, n_items: int, chunk: int) -> dict:
         items.append((sent, rng.choice(sorted(set(present)))))
         if len(items) >= n_items:
             break
+
+    # The SECOND way this can be unwinnable, guarded separately from the corpus arithmetic above:
+    # enough held-out sentences, but none of them mentions anything the gate consolidated. That is
+    # a real possibility here -- the consolidated set is ~1-2% of the episodic pool by design.
+    if not items:
+        raise SystemExit(
+            f"UNWINNABLE BY CONSTRUCTION, refusing to score: {len(held_out)} held-out sentences "
+            f"contain NONE of the {len(cands)} consolidated terms, so there is nothing to ask "
+            f"about. Read more (more consolidation) or draw held-out text from the same "
+            f"distribution. Reporting this as a zero score would be a measurement error.")
 
     def top1_cortical(space: str, sent: str, tgt: str) -> Optional[str]:
         hits = cortical_recall(content_lemmas(sent), cons, profiles, space=space, top_k=1,
@@ -259,7 +288,11 @@ def main() -> int:
     ap.add_argument("--mode", choices=("smoke", "full"), default="smoke")
     a = ap.parse_args()
     smoke = a.mode == "smoke"
-    n_read = 2000 if smoke else 20000
+    # 16,000 AND NOT 20,000, AND THE NUMBER IS MEASURED. `simplewiki`'s handle yields EXACTLY
+    # 20,000 sentences (checked: `CorpusRegistry().handles['simplewiki'].remaining()`), so a
+    # 20,000-sentence read leaves ZERO held out and the cell cannot score anything. 16,000 leaves
+    # 4,000, of which 300 items are drawn. The first full run learned this the expensive way.
+    n_read = 2000 if smoke else 16000
     n_items = 60 if smoke else 300
     chunk = 400 if smoke else 800
     seeds = SEEDS[:1] if smoke else SEEDS
