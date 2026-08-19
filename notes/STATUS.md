@@ -393,6 +393,48 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+## 🌡️🌡️ 2026-08-19 -- **THE PHASE DIAGRAM. THERE IS A REAL PHASE BOUNDARY NEAR ~1,000 SENTENCES:**
+## **WE BEAT THE COUNTER BELOW IT AND FALL AWAY FROM IT MONOTONICALLY ABOVE IT.**
+*Owner, COMMENTARY 22:27:04Z: "don't forget the phase diagram for these different components".
+Built over READ VOLUME -- the one axis every component shares and the one we had never varied.
+**Every conclusion reached earlier today came from a single column of this table (8,000).***
+
+| sentences read | candidates | OURS | COOC | **GAP** | coverage | PR_var | resid_sd |
+|---|---|---|---|---|---|---|---|
+| 600 | 40 | 15.0 | 10.0 | 1.50x | 0.961 | 10.0 | 0.1099 |
+| **900** | 58 | **20.0** | **21.0** | **0.95x -- WE WIN** | 0.882 | 12.6 | 0.0929 |
+| 1000 | 58 | 27.0 | 22.5 | 1.20x | 0.816 | 12.6 | 0.0896 |
+| 2000 | 74 | 32.0 | 14.0 | 2.29x | 0.730 | 18.2 | 0.0793 |
+| 4000 | 222 | 81.0 | 26.0 | 3.12x | 0.708 | 50.3 | 0.0662 |
+| 8000 | 330 | 114.5 | 31.0 | 3.69x | 0.564 | 71.5 | 0.0661 |
+| 16000 | 480 | 115.5 | **18.0** | **6.42x** | 0.435 | 91.8 | 0.0661 |
+
+**⛔⛔ THE PHASE VARIABLE MOVES MONOTONICALLY THE WRONG WAY: 0.95x -> 6.42x, slope +1.708 per
+e-fold of reading. MORE DATA IS NOT THE LEVER -- IT IS THE PROBLEM.**
+**🔑 AND THE CLEANEST FORM OF IT IS IN THE LAST TWO ROWS: FROM 8,000 TO 16,000 SENTENCES *OUR* ARM
+DOES NOT MOVE (114.5 -> 115.5) WHILE THE COUNTER IMPROVES (31.0 -> 18.0). Our representation stops
+extracting anything from additional text while plain counting keeps getting better on the same
+text.** *That is saturation, stated as directly as this instrument can state it.*
+**➡️ ALL FOUR COMPONENT VARIABLES DEGRADE TOGETHER, WHICH IS WHY THIS IS ONE STORY AND NOT FOUR:**
+coverage **halves** (0.961 -> 0.435, we record ever fewer of what we meet); effective dimensionality
+**rises 9x** (10.0 -> 91.8, the code spreads out instead of concentrating); the residual spread
+**shrinks and then FLATLINES** (0.1099 -> 0.0661, then 0.0661, 0.0661).
+**✅ THAT FLATLINE IS A PROPER DRILL OF THE WRITE-GATE NEGATIVE, AND IT HARDENS IT.** The gate closed
+because the residual was too uniform to threshold. **The spread does not widen with scale -- it
+saturates. So the closure is NOT a single-point artifact and no amount of reading reopens it.**
+*I flagged that closure as possibly scale-dependent when I set this up; it is not. Recorded because
+the prediction was wrong in the safe direction.*
+**⚠️ CAVEATS, BEFORE ANYONE QUOTES THE 6.42x: single seed per point, one corpus, and the candidate
+pool GROWS with reading (40 -> 480) so the task itself changes down the column. The ratio is used
+precisely because the pool cancels between arms at each point -- but a ratio of medians is not a
+CI-separated statistic, and no CI was computed ON THE RATIO.** *What carries the weight is the
+MONOTONICITY across seven points, not any single value.*
+**🧠 BRAIN FIDELITY, since the owner asked for it on every negative: the brain's hub CONCENTRATES
+with experience -- that is what the pinned ~4-12 effective dims means. Ours does the opposite,
+moving 10.0 -> 91.8 as it reads. SHAPE diverges, and it diverges PROGRESSIVELY. A learned code buys
+concentration; an accumulating random projection buys diffusion. This is the same divergence the
+geometry and subsumption results found, now shown as a TRAJECTORY rather than a snapshot.**
+
 ## 🧪 2026-08-19 -- **GAP-TARGETED READING, TESTED TWICE. THE FIRST RUN WAS VOID AND MY OWN GATE**
 ## **PASSED IT AT 98% ARM OVERLAP. THE SECOND IS UNDERPOWERED, NOT NEGATIVE.**
 *The owner's "patchy" half of Q72, wired from the existing organs. One variable: WHICH sentences get
