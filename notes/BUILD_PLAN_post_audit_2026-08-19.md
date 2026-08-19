@@ -103,6 +103,30 @@
 >    ask whether the curve FLATTENS.** If it does, the defect is note-taking and it is fixable. If
 >    the curve still climbs, the defect is the projection and no amount of note-taking reaches it.
 >    *That is one experiment that discriminates the two stories, and nothing else queued does.*
+>    **✅ RAN. THE ANSWER IS "BOTH, AND THEY ARE INDEPENDENT."**
+>    - **Note-taking is REAL and is the biggest lever measured all session.** Forcing a note on
+>      every encounter improves the level at every point (8,000: **3.69x -> 2.06x**; 16,000:
+>      **6.42x -> 4.39x**) and holds parity with the counter to 1,000 sentences (**0.98x**).
+>    - **It is NOT sufficient. Slope falls only 39% (+1.708 -> +1.035) and STILL CLIMBS.** Perfect
+>      note-taking still leaves us 4.39x behind at 16,000 and still degrading.
+>    - **🔑 AND IT DOES NOT TOUCH THE DIFFUSION AT ALL: PR 12.6 -> 91.8 as-is vs 13.2 -> 92.3
+>      forced.** Identical at every point. **WRITING MORE CANNOT CONCENTRATE A CODE.**
+>    **🧠 SO THE BUILD TARGET IS NAMED, AND IT IS THE WRITE OPERATION, NOT THE WRITE VOLUME.** The
+>    brain's hub concentrates through COMPETITION between representations; ours SUMS. Every
+>    post-hoc route is now closed by measurement (centring helps 8 ranks then hurts; removing
+>    components hurts monotonically; recording everything changes nothing about concentration).
+>
+> ## ⬅️⬅️ TOP ITEM NOW: **A COMPETITIVE (NON-SUMMING) WRITE RULE, TESTED ON THE PHASE CURVE.**
+> Not a gate, not a transform, not more notes -- all three are closed by measurement above. The
+> minimal brain-motivated candidate is a write where representations COMPETE for capacity rather
+> than accumulate independently (normalisation across the active set, or a k-winners-take-all
+> sparsification at write time, which is the ATL/IT sparseness the pinned row already names).
+> **THE TEST IS THE PHASE CURVE, NOT A SINGLE POINT: does the slope come down?** A level gain at
+> 8,000 proves nothing -- three separate things produced one of those today.
+> *⚠️ QUERY BOTH ARCHIVES FIRST. `sparse cod` returned 16 cells / 15 landed and
+> `exp_arc_aggregation_sparse_code_regime_v1` reads SPARSITY_NEUTRAL; `exp_c1_sparse_value_k10_cpu_v1`
+> and `exp_cortex_schema_tonegawa_sparse_ensemble_v2` both HARD_FAIL. Read those three BEFORE
+> building -- that is the habit that has caught three rediscoveries today.*
 >
 > 4b. **[SUPERSEDED BY 4] OWNER, COMMENTARY 2026-08-19T22:27:04Z: *"don't forget the phase diagram
 >    for these different components / make sure you're drilling negative results and continue to
