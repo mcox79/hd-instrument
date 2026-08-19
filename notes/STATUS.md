@@ -15,6 +15,42 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 🟢 2026-08-19 -- **THE CORTICAL READ DOES RETRIEVE. READING (A) FIRES AT EVERY k -- AND THE**
+## **CELL'S VOID VERDICT IS PART CUE-CONSTRUCTION DEFECT, WHICH IS MINE.**
+`scratch/diag_cortical_hit_at_k.py` + `scratch/diag_cue_construction_one_variable.py`, 4,300
+sentences, 223 consolidated terms, n=300 held-out items, ties broken AGAINST us.
+
+| k | chance k/N | REAL | SCRAMBLE | CI-separated |
+|---|---|---|---|---|
+| 1 | 0.0045 | **0.0567** [0.033,0.083] | 0.0067 [0.000,0.017] | ✅ |
+| 10 | 0.0448 | 0.1300 [0.093,0.170] | 0.0533 [0.030,0.077] | ✅ |
+| 50 | 0.2242 | **0.3767** [0.323,0.427] | 0.2367 [0.190,0.283] | ✅ |
+
+**Median target rank 82 vs the scramble's 108, of 223. REAL beats chance k/N at EVERY k.** *This is
+retrieval, NOT discrimination -- being in a top-50 of 223 is not knowing the answer, and it must
+not be upgraded into a capability claim.*
+
+**🔧 THE ONE-VARIABLE TEST, SCALE HELD FIXED, ONLY THE CUE VARIED:**
+
+| cue construction | median rank | hit@1 | hit@10 | hit@50 |
+|---|---|---|---|---|
+| **SENTENCE (`context_vector_masked`)** | 82 | ✅ sep | ✅ sep | ✅ sep |
+| **PROFILE-SUM (`cortical_recall.cue_vector`, what the CELL used)** | 74 | ✅ sep | ❌ | ❌ |
+
+**⚠️ A DEFECT IN MY OWN ORGAN, NAMED PRECISELY: the index is built from accumulated CONTEXT
+VECTORS, and `cue_vector` queries it with a SUM OF PER-LEMMA PROFILES -- a different kind of
+object.** The profile-sum cue is not signal-free (median rank 74 is actually the better of the
+two), but **its SCRAMBLE retains far more signal** (hit@50 0.3177 vs the sentence cue's 0.2367),
+which is exactly what collapses the separation the cell was testing for.
+**⛔ AND THE HONEST LIMIT: SCALE IS STILL UNCONTROLLED between these diagnostics (4,300 sentences,
+223 terms) and the cell (16,600 sentences, 428-480 terms). So cue construction is DEMONSTRATED to
+matter and is NOT demonstrated to be the whole explanation of the void.** *The cell's own
+CORTICAL_CONTEXT hit@1 of 0.0100-0.0433 brackets the profile-sum cue's 0.0234 here, which is
+consistent; its SCRAMBLE of 0.0233-0.0500 against 0.0000 here is not, and scale is the open
+suspect.*
+**➡️ NEXT: fix `cue_vector` to query the space the index is actually built in, then RE-RUN THE CELL
+AT THE CELL'S OWN SCALE with hit@k arms. Both changes are needed and only the re-run settles it.**
+
 ## 🔬 2026-08-19 -- **THE REPRESENTATION DIAGNOSTIC. THE SPACE IS NOT BROKEN AND NOT A BLOB: THE**
 ## **SIGNAL IS THERE ON HELD-OUT TEXT AND IS 4-7x WEAKER THAN ON READ TEXT.**
 `scratch/diag_cue_vs_profile_space.py`, 4,300 sentences, 223 consolidated terms, n=200 per
