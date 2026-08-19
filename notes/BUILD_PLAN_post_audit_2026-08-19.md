@@ -4,6 +4,32 @@
 > *Everything below it is the record, newest-first. The older handoff blocks are SUPERSEDED: their
 > "next steps" are all done.*
 >
+> ## ⛔ CLOSED 2026-08-19: **THE RESIDUAL WRITE GATE. 0 of 54 cells, both directions.**
+> `exp_predictive_write_gate_v1`, 3 seeds x 6 thresholds x 3 k. **Reading (A) in 0 of 54; floor
+> cleared in 0 of 54.** At low thresholds the gate barely skips and MATCHES accumulation; as it
+> skips more it MONOTONICALLY DEGRADES; at 92% skip it is IDENTICAL to random skipping to four
+> decimals. **No window where selectivity helps.**
+> **✅ BUT THE PINNED EQUATION IS NOT REFUTED, AND THIS IS THE LOAD-BEARING DISTINCTION.** Measured
+> the same day, 16,930 paired observations, leave-one-out: **a term's profile predicts its own next
+> context 10.4% better than an unrelated term's, CI [+0.0498, +0.0522], on 73.2% of observations.**
+> The residual is REAL. It is also **too UNIFORM to threshold** -- sd 0.076 about a mean of 0.44.
+> **Predictive coding needs a predictor sharp enough that BEING WRONG IS INFORMATIVE. Ours is
+> evenly mediocre, so its errors carry no ranking. That is a fact about OUR PREDICTOR.**
+>
+> ## 🧭 WHAT "SHARPEN THE PREDICTOR" WOULD HAVE TO MEAN -- write this down before anyone builds it
+> The next person (probably me) will be tempted to reach for a better predictor immediately. Three
+> constraints first, all earned this session:
+> 1. **IT MUST BE A PREDICTOR, NOT A BETTER SELECTOR.** The gate failed because the residual does
+>    not RANK, and no gating rule fixes a flat residual distribution. The target is the SPREAD of
+>    the residual, and a candidate that does not widen that spread cannot help however clever it is.
+> 2. **CHECK IT AGAINST `COOC_floor`, NOT AGAINST OUR OWN ARMS.** Counting reaches median rank
+>    15-20 of ~450; our best arm 69-79. **Three lines have now closed while comparing us to us.**
+> 3. **QUERY THE REGISTRY FIRST.** `predictive_coding` was BUILT, PASSING and UNWIRED and I nearly
+>    rebuilt it. Assume the next organ exists too until an enumeration says otherwise.
+> *And the honest prior: three structural lines (read-out variants, cortical read, residual gate)
+> have closed on the SAME representation. A fourth mechanism on the same profiles is the least
+> likely thing to work; SUPPLY is the lever that has not been exhausted.*
+>
 > ## THE ONE-PARAGRAPH POSITION
 > **The read-out is not the problem and is now closed. The REPRESENTATION is.** Three independent
 > measurements say so: three read-out variants built and none competitive; the cortical route's
