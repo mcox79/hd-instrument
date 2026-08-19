@@ -211,6 +211,52 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🟢🟢 THE MISSING 69% IS IN THE SENSORIMOTOR MODALITY -- 0.6413 vs CO-OCCURRENCE'S 0.3067, CONTROLS BINDING
+`scratch/grounding_features_ceiling.py` + `_query_independent_control.py`. **The co-occurrence
+ceiling said the answer must come from grounding, structure or another modality. It comes from
+grounding, and the margin is not marginal.**
+
+| feature set (nonlinear, word-disjoint CV, identical folds and model) | hit@1 |
+|---|---|
+| **PAIRWISE sensorimotor only** (|dim diffs|, cosine, euclidean, |concreteness diff|) | **0.6413** (345/538) |
+| GROUND_ONLY (pairwise + candidate-only features) | 0.6152 |
+| **CO-OCCURRENCE ONLY -- the established ceiling** | **0.3067** (165/538) |
+| **CANDIDATE_ONLY -- never sees the query word** | **0.0985** (53/538) |
+| **SHUFFLED_QUERY -- pairing destroyed, marginals preserved** | **0.0595** (32/538) |
+
+**COO + GROUND vs COOC alone: +0.3030, paired permutation p = 0.0005.**
+
+### 🚨 I EXPECTED THIS TO BE AN ARTIFACT, BECAUSE THE ARCHIVE HAD ALREADY MEASURED THE NUMBER
+The sensorimotor cell (2026-08-18) found *"the ONLY thing that discriminates is a QUERY-INDEPENDENT
+PER-WORD GENERICITY SCORE -- one that never compares the two words at all -- **reading 0.6195**,
+beating every pairwise distance."* **My 0.6152 sat almost on top of their 0.6195, and my feature
+set contained exactly such a feature.** *So I ran their control before writing anything.*
+
+**IT IS NOT THE ARTIFACT, AND THREE CONTROLS SAY SO:**
+- **CANDIDATE_ONLY reads 0.0985.** A model that never sees the query is at floor. **The genericity
+  trap is absent here.**
+- **SHUFFLED_QUERY reads 0.0595** -- destroy the pairing, keep every marginal, and it collapses
+  *below* candidate-only. **The PAIRING carries the signal.**
+- **Removing the candidate-only features IMPROVED the score** (0.6152 -> 0.6413). They were
+  distraction, not the source.
+
+### 🔓 AND IT RE-OPENS A ROUTE THE PROJECT CLOSED -- EXACTLY AS THE STANDING RULE SAYS IT MIGHT
+**The same 11 Lancaster dimensions were filed as failing at 0.6039 against a 0.6791 bar and
+"refuting THIS RESOLUTION".** *That was a pairwise-similarity question on the dissociation
+instrument. On a better-posed problem -- pick the right one of 50 co-occurrence-plausible
+candidates -- THE SAME ELEVEN NUMBERS REACH 0.6413 AND DOUBLE THE TEXT-ONLY CEILING.*
+**This is "DO NOT GENERALISE A NARROW FAILURE TO IMPOSSIBLE" (owner, 2026-08-11) paying out in
+full, on an asset that was sitting on disk marked closed.**
+
+**⚠️ WHAT THIS IS AND IS NOT. It is a CEILING DIAGNOSTIC -- fitted on the gold, word-disjoint CV,
+never a capability. It says THE INFORMATION IS THERE and text does not contain it. IT DOES NOT
+give us a mechanism that uses it; that is the next build.** *Coverage is 100% of our 1,024 words,
+so this is not a coverage-limited result. Limits: one gold, one corpus, 538 target words, no CI on
+the fitted numbers, and the norms are a static offline human-rated asset -- admissible under the
+owner's ruling (no LLM at inference), but they are SUPPLIED knowledge, not learned.*
+
+---
+
 ## 🧱 CO-OCCURRENCE TOPS OUT AT ~0.31, HOWEVER YOU PROCESS IT -- AND THAT CORRECTS ME AGAIN
 `scratch/profile_vs_scalar_ceiling.py`. **Both checks I named last continuation, run. One of them
 corrects my own claim, in exactly the direction I flagged as the way it could be wrong.**
