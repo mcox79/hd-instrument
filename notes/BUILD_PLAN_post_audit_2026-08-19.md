@@ -202,6 +202,35 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🧠 BRAIN-FIDELITY DRILL ON THE PHASE 2 NEGATIVE (owed under discipline 17) -- AND IT FOUND THE GAP
+`notes/brain_fidelity_drill_memorises_but_does_not_transfer_2026-08-19.md`.
+
+**THE REFRAME: WE MEASURED A HIPPOCAMPUS AND REPORTED THAT IT IS NOT A NEOCORTEX.** An episodic
+store that recalls its own episodes almost perfectly (0.9333) and transfers nothing to a new
+context (0.0044) **is behaving exactly like the structure we copied** -- pattern separation makes
+similar inputs MORE distinct, deliberately. *That is D3 working, not D3 failing.* Generalisation is
+the slow system's job and **the transfer mechanism between them is REPLAY.**
+
+**THE GAP IS EMBARRASSINGLY CONCRETE AND WAS ENUMERATED ON DISK, NOT GUESSED:**
+`hdlab/hippocampal_encoder.py` ALREADY CONTAINS **`cls_replay_cycle`** and
+**`cls_discrete_budget_consolidate`**. A grep across `hdlab/ tools/ experiments/ verification/
+notes/` returns them in **exactly two files -- their own module and one witness.**
+> **NO EXPERIMENT CALLS THEM. NOTHING LIVE CALLS THEM. THE SUBSTRATE I BUILT TODAY WRITES 3,400
+> EPISODES AND CONSOLIDATES NONE OF THEM.** *We replicate the fast store and substitute NOTHING
+> for the slow one; the transfer step is simply absent and its organ has sat built and unused.*
+
+**NEXT BUILD, PRE-REGISTERED WITH FOUR WAYS TO FAIL** (A consolidation is the missing step / B it
+helps but is not the answer / C replay over our codes carries no transferable structure / D it
+needs implausibly many replays, which is an admission the machinery is wrong). **Mandatory: a
+RATE-MATCHED RANDOM-REPLAY twin**, floors rebuilt on the consolidated representation, and a
+rank-matched null -- *because held-out sits BELOW its floor, and destroying information moves a
+sub-chance score TOWARD chance and reads as progress.*
+**⚠️ Written before the build precisely because MY LAST PREDICTION IN THIS AREA WAS REFUTED INSIDE
+ONE RUN.** *That refutation tested the parallel context accumulator, which is never fed by replay,
+so it does not pre-empt this -- but a second bite needs its own stated way to be wrong.*
+
+---
+
 ## 🆕 PHASE 3 STARTED -- D7 SUCCESSOR REPRESENTATION IS BUILT: `hdlab/successor_representation.py`
 **`M = (I - gamma*P)^-1`. The only slot where the brain hands us a closed form and we had written
 none of it.** Five self-tests PASS, and they are can-fail rather than plausibility checks: the
