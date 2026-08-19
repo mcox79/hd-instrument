@@ -15,7 +15,37 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
-## 🟠 2026-08-19 -- **PARTIAL CORRECTION TO THE BLOCK BELOW, AND MY VERDICT STATISTIC WAS WRONG.**
+## 🔴 2026-08-19 -- **THE POSITIVE CONTROL FAILED AND IT CONDEMNS MY EARLIER PROBE: THE BASELINE**
+## **AND OUR ARM WERE BUILT ON DIFFERENT TEXT. THE "2x GAP" AS STATED IS CONFOUNDED.**
+`scratch/diag_does_coverage_explain_the_gap.py` was built to separate coverage from quality. Its
+first output was the control, and the control did not hold: **`PROJ_COOC_ALL` reads median 17.0
+where the earlier probe measured 42.0 for the same arm.**
+**⛔ CAUSE, AND IT IS A REAL DEFECT IN THE EARLIER PROBE: it built the counter from
+`read_split = pool[:N_READ]` -- MY slice of the corpus handle -- while our profiles are built from
+`sub.state.sentence_pool`, THE SENTENCES THE FORAGER ACTUALLY CHOSE. Those are different sentence
+sets. The baseline was scored on text the substrate had partly never read.** *So the earlier
+"compression costs 20 -> 42, ours costs 20 -> 81" decomposition is void. Same class as the
+corpus-arithmetic bug from earlier today: I assumed a slice was what the substrate consumed.*
+
+**✅ ON MATCHED TEXT -- both arms from the substrate's OWN pool -- the decomposition is cleaner and
+says something different:**
+
+| arm (256 dims, same items, same candidates) | hit@10 | hit@50 | **median** |
+|---|---|---|---|
+| **PROJ_COOC_ALL** (every occurrence) | 0.4247 | 0.7057 | **17.0** |
+| **PROJ_COOC_TRACED** (only what we recorded, 68.8%) | 0.3211 | 0.5251 | **46.0** |
+| **OURS** | 0.1304 | 0.3779 | **81.0** |
+
+**➡️ COVERAGE IS THE DOMINANT COST, NOT A SIDE ISSUE: 17 -> 46 from recording only 68.8% of
+occurrences. The remaining 46 -> 81 is real but SMALLER than the coverage penalty.**
+*Both factors survive; their sizes have swapped. What I first called "we destroy information" is
+the minority term, and "we never wrote it down" is the majority one.*
+**🎯 THIS SHARPENS BOARD Q69 CONSIDERABLY: "keep recording traces after a word grounds" is now the
+single largest measured lever on this representation, worth more than everything the three closed
+mechanism lines were chasing.** *Still an owner call -- it changes core reading behaviour and its
+cost profile -- but it is no longer a tidy-up, it is the main event.*
+
+## 🟠 [ITS "31% NEVER RECORDED" STANDS; ITS SIZE-ORDERING IS SUPERSEDED ABOVE] 2026-08-19 -- **PARTIAL CORRECTION TO THE BLOCK BELOW, AND MY VERDICT STATISTIC WAS WRONG.**
 ## **WE RECORD ONLY 69% OF OCCURRENCES, AND THE SHORTFALL IS CONCENTRATED ON FREQUENT WORDS.**
 I published "our representation is DESTROYING information a random matrix preserves". Reading the
 code then showed `context_vector(graded=True)` returns the RAW SUM of per-word bipolar draws --
