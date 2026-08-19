@@ -111,6 +111,59 @@ self-test-passing. That is exactly why the intersection rule exists.** `cortex` 
 this wire list, destroyed by any checkout/reset/clean. Same class as board Q52. Commit it or get an
 owner ruling BEFORE any git operation that touches the tree.
 
+### 🔎 PHASE 1 FINDING #1 -- THE ORGANS DO NOT SHARE A DATA FORMAT, AND ONE IS NOT A TEXT ORGAN AT ALL
+
+**Measured 2026-08-19 by runtime signature introspection of all 11 wire-list modules**
+(`scratch/phase1_api_survey.py`, `scratch/phase1_glue_check.py`), not by grep and not from a
+docstring. **This is exactly the risk Phase 2 was written to catch, arriving one phase early.**
+
+**`hdlab/coreference_resolver.build_mention_stream(passage)` READS `passage["entities"]` -- A GOLD
+MENTION INVENTORY KEYED BY GOLD ENTITY NAME**, and the records it emits carry a `gold_entity` field.
+It also requires `passage["clauses"]`. **It decides which mention links to which entity GIVEN the
+mentions and the entity set; it does not find them in prose.** So the ingest story in
+`COMPLETE_SUBSTRATE_DESIGN` 4.3 -- *"`coreference_resolver` decides which later mention is which
+earlier entity"* as a step in a text-in pipeline -- **is not runnable on unannotated text as
+written.** Its probe score (0.7193 vs recency 0.5614) was measured on gold-annotated LitBank and
+remains true OF THAT REGIME.
+
+***TRIPLE-CHECK STATEMENT (CLAUDE.md Evidence discipline 5), because this calls something narrower
+than documented:*** right file (`hdlab/coreference_resolver.py` at HEAD, source read directly, not
+the docstring); right version (HEAD after `2e8134fd2`); right env (`.venv`); right metric (the
+function's own parameter reads, not a summary); right arm (the PUBLIC entry point, not an internal
+helper). **What rules out the obvious alternative: there IS a raw-text path and it is a DIFFERENT
+organ.** `situation_reader.SituationReader.read(path)` takes a FILE OF PROSE -- verified by running
+its self-test this session, which writes plain sentences to a temp file and passes -- and gets its
+mentions from our own parser (`_pick_role_mentions(pred_idx, sent_noms)`), reusing `coref` and the
+event-bundle codec internally. **So the finding is "the coreference RESOLVER is gold-fed", NOT
+"we cannot do coreference on text".**
+
+**THE SAME SHAPE HOLDS ACROSS THE LIST, and it is the thing to design around:**
+| organ | what it actually consumes | composes on raw text? |
+|---|---|---|
+| `corpus_registry` | a directory | **YES** -- hands out sentences |
+| `definitional_extraction` | sentences | **YES** |
+| `situation_reader` | a file of prose | **YES** (30 s import after Phase 0) |
+| `information_foraging` | a stream of GAIN FLOATS the caller defines | needs a gain signal named by us |
+| `hippocampal_encoder` | a dense HD vector | needs an encoder in front |
+| `ca3_completer` | FHRR bundles + per-spoke codebooks | **a different representation** from the above |
+| `prelim_tier`, `foundation_persistence` | a `ReadingLoopState` / `Library` / `HDFactStore` | only via `reading_grounding_loop` |
+| `coreference_resolver` | **gold mentions + gold entity set** | **NO** |
+| `semantic_parser` | a TRAINED `IntentClassifier` + slot dicts | needs a fitted artifact |
+| `cortex` | torch HD tensors + its own codebooks | needs an encoder in front |
+
+**THE CONSEQUENCE FOR THE BUILD, AND IT IS A REUSE RULING, NOT A REWRITE:** `prelim_tier` and
+`foundation_persistence` both key off `ReadingLoopState`, which is `reading_grounding_loop`'s --
+**a LIVE entry point.** So the adapter layer this substrate needs mostly EXISTS, inside the live
+loop. **Build `hdlab/substrate.py` ON TOP of `reading_grounding_loop`'s text->facts path and wire
+the unwired organs INTO it. Do NOT author a parallel ingest path** -- that is the WIRE-DON'T-ISLAND
+rule and the MISSING-LEARNING rule in the same costume, and a parallel path is how we would get a
+second thing to audit instead of one thing that works.
+
+**`organ_report()` MUST DISTINGUISH THREE STATES, not two:** `FILLED` (wired and invoked on the
+real path), `NEEDS_ADAPTER` (works, but its input is not produced anywhere upstream -- name the
+missing adapter), and `EMPTY` (nothing implements it). **A `NEEDS_ADAPTER` organ counted as FILLED
+is precisely the false coverage the organ audit exists to prevent.**
+
 ---
 
 ## PHASE 2 -- THE RISK, AND IT IS THE MOST IMPORTANT STEP IN THIS PLAN
