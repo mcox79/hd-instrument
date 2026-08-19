@@ -202,6 +202,48 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🔴 GROUNDING PRECISION MEASURED FOR THE FIRST TIME -- AND THE ANCHORS ARE DEGENERATE
+**Nobody had ever asked whether the terms the substrate grounds are grounded to the RIGHT thing.**
+Now measured against the provenance-filtered ConceptNet gold (422,082 edges, no WordNet source).
+`scratch/grounding_precision_probe.py`, alice, 750 sentences, 96 grounded pairs, 344 refused.
+
+**✅ THE INSTRUMENT APPLIES: gold coverage is 96.9% -- 93 of 96 grounded terms have gold edges.**
+*That was the risk and it did not fire.*
+
+| arm | precision |
+|---|---|
+| `TOP_COOCCURRENT` floor (the word it co-occurs with most) | **0.0323** |
+| **SUBSTRATE GROUNDING** | **0.0215** |
+| `MOST_FREQUENT_ANCHOR` floor | 0.0108 |
+| `RANDOM_ANCHOR` floor | 0.0108 |
+
+**⚠️ AND THE PRECISION TABLE IS UNDERPOWERED AND MUST BE LABELLED SO: those are 3, 2, 1 and 1 HITS
+out of 93. The difference between 2 and 3 hits is not a result.** *Per discipline 18 this is closer
+to untestable than to resolved, and quoting "the floor beats the substrate" off single-digit counts
+would be the width-as-effect error.*
+
+### 🎯 THE FINDING THAT DOES NOT NEED A CI, AND IT IS THE MECHANISM
+**39 DISTINCT ANCHORS FOR 96 GROUNDED TERMS. ONE WORD -- `way` -- IS THE MEANING OF 17.7% OF THEM.**
+The top six anchors are `way, know, think, people, use, time`, and **48.5% of all anchors are
+seed-vocabulary words**. Actual output: `mouse -> way`, `swim -> way`, `think -> way`,
+`hall -> way`, `cry -> way`. ***THESE ARE THE SAME ANSWER TO DIFFERENT QUESTIONS.***
+**The grounding gate is not selecting a MEANING, it is selecting a GENERIC ATTRACTOR -- the
+constant/prototype floor appearing INSIDE the grounding organ.** *No gold that encodes meaning
+could ever score `way` as the meaning of `mouse`, so the low precision is downstream of the
+degeneracy and not an independent fact.*
+
+**✅ ONE OLD DEFECT IS GENUINELY GONE, RE-CHECKED RATHER THAN ASSUMED: SELF-ANCHORING IS 0.0%.**
+*The 2026-08-18 audit found 2,328 of 3,544 grounded facts had THEMSELVES as their meaning. Not one
+of these 96 does.* **A real repair, and worth saying so.**
+
+**NAMED NEXT STEP, and it targets the degeneracy rather than the precision number: the anchor pool
+is `ConceptSpace`, which holds SEED words plus already-grounded words -- so early grounding is
+forced to choose among ~107 generic seeds. That is a structural cause with a structural fix, and
+it predicts the degeneracy should FALL as the grounded vocabulary grows.** *Testable, and it does
+not require a bigger n to see.*
+
+---
+
 ## 🚨 A DEFECT I BUILT, FOUND BY TRYING TO USE MY OWN SUBSTRATE: IT ONLY CONSOLIDATED WHEN THE FORAGER CHANGED BOOKS
 
 **MEASURED, and the contradiction is what exposed it.** Setting up the replacement task, the
