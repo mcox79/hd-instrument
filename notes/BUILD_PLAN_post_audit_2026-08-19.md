@@ -211,6 +211,34 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🧰 "THE CHEAPEST FIX IN THE WHOLE BACKLOG" IS NOW A TOOL: `tools/strongest_floor_audit.py`
+The 2026-08-18 audit named it and nobody did it: *"SEVERAL CELLS ALREADY COMPUTED THE RIGHT FLOOR
+AND THEN DISCRIMINATED AGAINST SOMETHING ELSE. RE-SCORE EVERY LANDED CELL AGAINST THE FLOOR IT
+ALREADY HAS ON DISK."* **It is also personal: I committed that exact defect today**, reporting the
+substrate as losing "~10x" against a `COUNT_FLOOR` of 0.0125 while a stronger floor from the same
+data read 0.0300. *A rule that is easy to state and evidently hard to follow should be a tool.*
+
+**7,861 `metrics.json` scanned. 286 cells flagged** -- 143 where a floor the cell computed ITSELF
+beats its own best treatment, 193 where the verdict text quotes a floor that is NOT the largest
+one in its own metrics.
+
+### 🔬 THE NUMBER WENT 1,335 -> 286 BECAUSE ITS MOST EXCITING HIT WAS WRONG, AND I CHECKED IT
+**The single most striking flag was `diag_stateful_core_gen_curve_v1`: a RANDOM-INIT CONTROL at
+0.6250 beating a TRAINED arm at 0.5000, under a `PASS`.** That is the untrained-beats-trained
+shape this project has genuinely recorded once before -- and it was tempting.
+**Checked it: `run_mode: "selftest"`, and the cell's own message says "exercised at N~4-16". It
+was verifying that code paths RUN, not claiming training worked. NOT A DEFECT.**
+*Four false-positive shapes were found and filtered this way, each measured rather than imagined:*
+ties at ceiling (`1.0 vs 1.0`), **a DELTA read as a floor** (`real_minus_shuffle` matched on the
+word "shuffle"), cells that already declare themselves failures, and self-tests.
+
+**⚠️ AND THE RESIDUAL FALSE-POSITIVE RATE IS STILL REAL AND IS NOT HIDDEN. Two shapes remain
+UNFILTERED and visible in the top of the list:** comparing a `max_` statistic against a `mean_`
+one, and near-ties across different seeds or subsets (one hit "quotes 0.6319 while holding
+0.6337"). **286 IS A READ LIST, NOT 286 DEFECTS**, and the tool says so in its own output.
+
+---
+
 ## 📖 MIDDLE_BAND ACTUALLY READ (owner: *"understanding what it was TRYING and the SIGNAL"*)
 *I had produced a ranked list and a premise correction and had not read the cells. Owed, now done.*
 **Only 26 of 580 carry a self-assessment field and only 31 have a readable docstring -- and ZERO
