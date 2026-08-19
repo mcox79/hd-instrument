@@ -97,3 +97,63 @@ tax on any pipeline that wires these in.**
 
 **Evidence on disk:** `scratch/organ_audit/import_results.json` (per-module import time and status),
 `scratch/organ_audit/closure.json` (live closure and the 116), `scratch/organ_audit/modules.json`.
+
+---
+
+## CONSTANT-BEHAVIOUR PROBE -- 13 LARGEST UNREACHED ORGANS, RUNTIME EVIDENCE
+
+**10 FUNCTIONAL, 3 THIN, 0 CONSTANT_OR_PASSTHROUGH, 0 CANNOT_PROBE.**
+**THE ORGAN LAYER IS IN GENUINELY BETTER SHAPE THAN THE CLAIMS LAYER, AND THE OWNER WAS RIGHT TO
+INSIST WE LOOK.**
+
+**Method validated on a known-good calibrator FIRST**, so a THIN verdict cannot be method bias:
+`definitional_extraction` returned 9 distinct outputs over 12 inputs, all five pattern families
+fired, and it disagreed with a naive "contains ' is '" heuristic on 3 of 12.
+
+| organ | public entry | distinct out / in | verdict | evidence |
+|---|---|---|---|---|
+| `goal_achievement` | `goal_achievement_verdict` | 6/14 | FUNCTIONAL | all 4 channels fire; beats naive negation-word baseline on 4/14 |
+| `definitional_extraction` | `extract_definitions` | 9/12 | FUNCTIONAL | 5/5 patterns; fires on 9.38% of 4,000 SimpleWiki lines |
+| `goal_owner_select` | `select_outcome_owner` | 5/5 correct | FUNCTIONAL | one-variable goal-swap 5/5; **scramble control collapses to the foil** |
+| `situation_reader` | `SituationReader.read` | 6/6 | FUNCTIONAL | coref_acc 0.042-0.835; xsent **0.5292 vs blind baseline 0.0000** |
+| `concept_encoder` | `fit` / `encode_with_result` | 56 distinct confidences / 96 | FUNCTIONAL (documented scope) | same-cluster 1.0000 >= 0.40, cross -0.1755 / 0.0343 <= 0.10 |
+| `definitional_predicate_v61` | `extract_predicates_v61` | 5/12 | **THIN** | **fires on 1 of 375 already-definitional sentences (0.27%)** |
+| `reasoner` | `DerivationReasoner.reason` | 4 choices, 3 modes | **THIN** | derivation reaches 7/40 questions; **answer == similarity baseline on 38/40** |
+| `goal_outcome_relation` | `relation_votes` | 4/12 | FUNCTIONAL (narrow) | both sources fire; 7/12 abstain; avoidance branch exercised |
+| `atom_consultation` | `consult` | 3/12 | **THIN, DECISION-INERT** | 7-atom table; **`applied=False` hard-coded**; disabled by default in Cortex |
+| `information_foraging` | `ForagingController` | 7/7 | FUNCTIONAL | identical patch: **rich env leave@3, poor env leave@8** (marginal-value behaviour) |
+| `hippocampal_encoder` | `encode_and_write` / `retrieve` | 12/12 | FUNCTIONAL | **pattern completion cos 0.2000 -> 0.9173**; sparsity 0.0195 |
+| `coref` | `CorefReader.resolve_stream` | 8/8 | FUNCTIONAL | cross 0.3610 vs single-sentence 0.2116; strategy changes 7/8 |
+| `cortex` | `Cortex.forward` | 11/11 | FUNCTIONAL | monotone confidence 1.0 -> 0.0256; ACCEPT/CLARIFY/REFUSE at documented taus |
+
+### WORTH WIRING -- each has a real can-fail discriminator its own mechanism passes
+
+`hippocampal_encoder`, `cortex`, `information_foraging`, `coref`, `goal_owner_select`,
+`situation_reader` (**budget 204.5 s import**), `definitional_extraction`.
+
+### WOULD BE FALSE COVERAGE -- do NOT wire these as capabilities
+
+- **`atom_consultation`** -- retrieval works (8/8 with explicit hints), but with params alone it
+  returns `None` for 3 of 5 op-classes and the same `SHARDED` for every COMPOSITION query, and
+  **`applied` is hard-coded `False`. IT CANNOT CHANGE A DECISION BY CONSTRUCTION.**
+- **`definitional_predicate_v61`** -- 0.27% fire rate on its own intended population.
+- **`goal_achievement`'s desiderative-negation channel** -- fires 7/7 on its own authored exemplars
+  but **4/7 on minimal-edit paraphrases**, changing the verdict on 1 of 14 even at best. *This
+  REFINES the claim audit's "bit-identical ON vs OFF" finding: the cause is the `channel=='majority'`
+  gate plus surface-tuning, NOT a constant function.*
+
+### THE AUDITOR CORRECTED ITSELF THREE TIMES, AND SAID SO
+
+1. Its first `reasoner` probe read nonexistent keys and reported "1 distinct output / 24" -- **an
+   artifact of its own code**, discarded; correct keys give 4 choices / 3 modes.
+2. Its first `concept_encoder` probe masked the target across identical frames, **making the inputs
+   literally identical** -- the collapse was the probe's corpus, not the organ.
+3. `hippocampal_encoder.retrieve` equalling the raw DG code on CLEAN cues is **correct attractor
+   fixed-point behaviour, not passthrough** -- the noisy-cue arm is the discriminator.
+
+*Every one of those, uncaught, would have been a false negative against working machinery.*
+
+**Probe scripts:** `scratch/organ_audit/probe_*.py`. Checked per the triple-check rule: right file
+(HEAD `hdlab/`), right env (`.venv` throughout), right corpus (`data/corpora/simplewiki`,
+`data/litbank/coref/conll`), right metric (source-verified keys), right arm (ablation flags toggled
+one at a time).
