@@ -163,7 +163,20 @@ finely is what showed that; adopting 0.50 would have hidden it.*
 carries no information, accumulation is the right rule. The pinned equation does not fail -- OUR
 RESIDUAL DOES, because the profile it is measured against predicts nothing in particular.**
 
-## 📉 2026-08-19 -- **RUNNING READ, 4 OF 9 SEEDS: THE FIRST SEED I HAPPENED TO RUN WAS THE BEST**
+## 📈 2026-08-19 -- **RUNNING READ, 7 OF 9 SEEDS: THE ESTIMATE HAS MOVED TWICE AND IS STILL MOVING.**
+Ratios in landing order: **0.70 / 0.94 / 0.89 / 0.81 / 0.92 / 0.93 / 0.98**. Union/COOC:
+**1.50 / 2.23 / 1.94 / 2.23 / 2.00 / 2.17 / 2.18 -- all seven >= 1.5.**
+**My running mean has gone 0.94 (1 seed) -> 0.83 (4 seeds) -> 0.88 (7 seeds). Two of seven sit
+below the 0.85 threshold; five clear it.**
+*I have now characterised this quantity three times and been wrong twice. The honest statement at
+7 seeds: **the union gain is STABLE and unambiguous (1.50-2.23, every seed); the independence
+ratio is NOISY around ~0.88 with a low tail.** Those are different quantities with different
+reliability, and only the first is safe to build on.*
+**⚠️ AND THE PRE-REGISTERED CONJUNCTION STILL FAILS on the ratio arm, exactly as it did at 3
+seeds. More data has NOT rescued it -- it has just made the failure better characterised.**
+*2 seeds outstanding. The verdict is the 9-seed distribution, not this line.*
+
+## 📉 [SUPERSEDED BY THE 7-SEED READ ABOVE] 2026-08-19 -- **RUNNING READ, 4 OF 9 SEEDS: THE FIRST SEED I HAPPENED TO RUN WAS THE BEST**
 ## **ONE, AND I CHARACTERISED THE FINDING FROM IT.**
 Spoke-independence ratios as they land: **0.70 / 0.94 / 0.89 / 0.81** (seeds 20260819 / 7 / 101 /
 13). Union/COOC: 1.50 / 2.23 / 1.94 / 2.23 -- **all four >= 1.5.**
