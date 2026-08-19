@@ -1,6 +1,47 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
-> # 🧠🔴 2026-08-19 -- THE ORDER OF THE PLAN CHANGED, AND A MEASURED RESULT CHANGED IT.
+> # ✅ 2026-08-19 LATE -- PLAN UPDATED IN PLACE. THE BLOCK BELOW THIS ONE IS DONE; READ THIS FIRST.
+> **Everything the next block calls "NEXT STEP, REVISED" HAS LANDED. Do not re-do it.**
+>
+> | item | state | evidence |
+> |---|---|---|
+> | Re-run Phase 2 as a wiring diagnostic | ✅ DONE | `v3_consolidation`, 18 units, reading (e) fired |
+> | Q66 commit `ca3_completer.py` alone | ✅ DONE | `f102e7081`, 444 lines, nothing bundled |
+> | B5 sensorimotor spoke, built + scored | ✅ DONE | `hdlab/sensorimotor_spoke.py`; **reading (B): TIES** |
+> | Cortical read path | ✅ BUILT, NOT YET SCORED | `hdlab/cortical_recall.py`, 4 self-tests, slot B3' |
+>
+> ## WHAT THE SPOKE ACTUALLY SAID -- READING (B), A TIE. NOT A WIN.
+> 3 seeds, n=327-361, scored on the CORTICAL instrument with `TOP_COOCCURRENT` pre-registered as
+> the bar. **SPOKE higher in 3 of 3 seeds and significant in 0 of 3** (+1, +1, +6 hits;
+> p 1.0000 / 1.0000 / 0.3353). **The can-fail control BINDS: permuting every profile costs ~2.5-3x
+> the hits, p<0.05 every seed -- so the norms ARE carrying the arm.** *Real signal, no advantage
+> over counting. It is NOT a refutation of the 0.6413 finding: different task, scorer, population.*
+> **🟢 THE UNEXPECTED RESULT, replicating 3/3 but NOT pre-registered (hypothesis-only): THE SPOKE
+> PICKS BETTER MEANINGS THAN OUR OWN CONSOLIDATION GATE** -- 0.0639 pooled vs SUBSTRATE's 0.0248,
+> p<0.05 every seed. **THE GATE IS THE WEAKER LINK, NOT THE SPOKE. That is the new top target.**
+> **⚠️ AND MY OWN PRE-REGISTERED METRIC WAS REFUTED BY THE INSTRUMENT: I chose EUCLID off a fixture
+> probe; COSINE scores >= EUCLID in ALL THREE SEEDS.** *A hand-built probe did not transfer. The
+> sweep caught it; adopting one metric would have hidden it.*
+>
+> ## THE CORTICAL READ EXISTS NOW (`hdlab/cortical_recall.py`, slot B3', NEEDS_ADAPTER)
+> Retrieves CONSOLIDATED concepts by content similarity; ranks ONLY over the consolidated subset
+> and returns the grounded MEANING. **NOT built on the fact store's keys, and that is MEASURED:
+> related pairs 0.4850 vs unrelated 0.4717 in `sr_key` space (gap +0.0133, identical-key control
+> 1.0000) -- the store is EXACT-KEY BY CONSTRUCTION and cannot be pattern-completed.** That SHAPE
+> divergence is now the primary structural obstacle, not a footnote.
+> **⛔ DO NOT SCORE IT ON THE CLOZE TASK.** Measured before building: only 6.0% of held-out targets
+> have any store entry, covering 2.4% of the pool. *And that sparsity is CORRECT -- 2,883 episodic
+> lemmas to 68 consolidated, ~88% refused, which is CLS behaving as described.*
+>
+> ## TOP UNBLOCKED ITEM, IN ORDER
+> 1. **SCORE THE CORTICAL READ on the cortical instrument.** The organ is built and self-testing;
+>    nothing blocks it.
+> 2. **ATTACK THE CONSOLIDATION GATE** -- this session's own result fingered it as the weak link
+>    (it picks worse meanings than a plain perceptual nearest-neighbour, on our own gold).
+> 3. **Register `sensorimotor_spoke` and `cortical_recall`** in `data/capability_registry.jsonl`
+>    now that one carries a landed result.
+
+> # 🧠🔴 2026-08-19 -- [SUPERSEDED BY THE BLOCK ABOVE; ITS "NEXT STEP" IS DONE] THE ORDER OF THE PLAN CHANGED, AND A MEASURED RESULT CHANGED IT.
 > **`exp_substrate_end_to_end_readout_v1` v3 landed: 18 units, 3 seeds, 1,053 s. READING (e)
 > FIRED. THE READ-OUT NEVER CONSULTS GROUNDED FACTS.** Grounding was manipulated totally and
 > verified both ways (control 38 / 68 / 112 provenance rows; B3-ablated 0 / 0 / 0), and the

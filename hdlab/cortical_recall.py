@@ -101,18 +101,21 @@ def build_cortical_index(consolidated: Dict[str, Optional[str]],
         raise ValueError(f"unknown space {space!r}; known: {SPACES}")
     out: Dict[str, np.ndarray] = {}
     for term in sorted(consolidated):
-        parts: List[np.ndarray] = []
+        # A TERM MUST HAVE EVERY PART THE SPACE ASKS FOR, OR IT IS OMITTED.
+        # BUG FOUND BY THE FIRST SMOKE OF exp_cortical_read_consolidated_v1 AND IT WAS MINE: this
+        # loop used to append whatever parts existed, so under space="both" a term with only a
+        # context profile produced a 256-dim vector while a term with both produced 268, and
+        # `np.stack` raised "all input arrays must have the same shape". `cue_vector` ALREADY
+        # refused a half-built vector; the index did not. The two sides of the same comparison
+        # disagreed about what a vector in this space is.
+        parts: List[Optional[np.ndarray]] = []
         if space in ("context", "both"):
             v = context_profiles.get(term)
-            u = _unit(v) if v is not None else None
-            if u is not None:
-                parts.append(u)
+            parts.append(_unit(v) if v is not None else None)
         if space in ("spoke", "both"):
             v = _spoke_vec(term)
-            u = _unit(v) if v is not None else None
-            if u is not None:
-                parts.append(u)
-        if not parts:
+            parts.append(_unit(v) if v is not None else None)
+        if not parts or any(p is None for p in parts):
             continue
         # CONCATENATION, NOT SUMMATION, for space="both": the two spaces have different
         # dimensionalities and different meanings per axis, so adding them is not defined. Each
@@ -263,8 +266,41 @@ def _selftest_masking_actually_masks() -> dict:
     return {"unmasked_top": unmasked[0].term, "masked_returned": len(masked)}
 
 
+def _selftest_index_is_shape_homogeneous_under_partial_coverage() -> dict:
+    """EVERY vector in an index must have the SAME length, even when coverage is ragged.
+
+    *** THIS TEST EXISTS BECAUSE THE BUG SHIPPED. *** The first smoke of
+    `exp_cortical_read_consolidated_v1` died with "all input arrays must have the same shape":
+    under space="both" this module required BOTH parts for a CUE but accepted EITHER for the
+    INDEX, so a term with only a context profile produced a 256-dim vector and a term with both
+    produced 268. The two sides of the same comparison disagreed about what a vector is.
+
+    The fixture is deliberately RAGGED -- real words that have sensorimotor norms mixed with a
+    nonce that cannot -- because a fixture with uniform coverage could not have failed.
+    """
+    profiles = {w: np.ones(8) for w in ("dog", "cat", "zzqxvelmarathrom")}
+    consolidated = {"dog": "creature", "cat": "creature", "zzqxvelmarathrom": "nonce"}
+    out = {}
+    for space in SPACES:
+        idx = build_cortical_index(consolidated, profiles, space=space)
+        shapes = sorted({tuple(v.shape) for v in idx.values()})
+        assert len(shapes) <= 1, f"space={space!r} produced RAGGED index shapes: {shapes}"
+        out[space] = {"n_terms": len(idx), "shape": shapes[0] if shapes else None}
+        if idx:
+            # And it must actually be usable, not merely uniform.
+            hits = cortical_recall(["dog"], consolidated, profiles, space=space, top_k=1,
+                                   exclude=["dog"], index=idx)
+            out[space]["queryable"] = bool(hits) or len(idx) <= 1
+    assert out["both"]["n_terms"] < out["context"]["n_terms"], (
+        "POSITIVE CONTROL FAILED: the nonce was not dropped from the 'both' index, so this "
+        f"fixture has uniform coverage and could not have caught the bug: {out}")
+    return out
+
+
 def run_selftests() -> dict:
-    tests = [("retrieves_the_right_family_from_a_partial_cue",
+    tests = [("index_is_shape_homogeneous_under_partial_coverage",
+              _selftest_index_is_shape_homogeneous_under_partial_coverage),
+             ("retrieves_the_right_family_from_a_partial_cue",
               _selftest_retrieves_the_right_family_from_a_partial_cue),
              ("ranks_only_consolidated_terms", _selftest_ranks_only_consolidated_terms),
              ("an_unrelated_cue_does_not_win", _selftest_an_unrelated_cue_does_not_win),

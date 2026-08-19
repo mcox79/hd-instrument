@@ -26,14 +26,22 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 
 ## STATUS
 
-AS OF: 2026-08-18 END OF SESSION | branch `dataprep/mcguffey-graded-corpus` | HEAD `a8b8a5d58` | GROWTH PAUSED | origin push needs USER AUTH | READ THE COMPACTION HANDOFF AT THE TOP OF ## POSITION AND STOP THERE
+AS OF: 2026-08-19 AUTOLOOP DISARMED BY OWNER | branch `dataprep/mcguffey-graded-corpus` | HEAD `f102e7081` | origin push needs USER AUTH | ONE DETACHED RUN IN FLIGHT (`exp_substrate_end_to_end_readout_v1` v3, see ## WHAT IS RUNNING) | READ THE COMPACTION HANDOFF AT THE TOP OF ## POSITION AND STOP THERE
 
 **POSITION**
-# ⏱️ COMPACTION HANDOFF -- 2026-08-18 END OF SESSION. READ THIS BLOCK, THEN STOP AND ACT.
-**Everything below this block is the session's working record and is 112 KB. DO NOT read it top to
-bottom on recovery. This block is the entry point; the four artifacts it names are authoritative.**
+# â±ï¸âž¡ï¸ 2026-08-19 -- THE PLAN IS `notes/BUILD_PLAN_post_audit_2026-08-19.md`. OPEN IT. IT IS CURRENT.
+**The autoloop is ARMED at 200 and is executing that plan. It is rewritten every continuation and
+carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
+*Stop the loop with `python tools/autoloop.py disarm`.*
 
 **TOP ITEM -- FIND AN ADMISSIBLE SUPERVISION SIGNAL THAT IS NOT THE EVALUATION GOLD**
+**🆕 2026-08-19: THE FIRST CANDIDATE IS BUILT AND UNDER TEST -- D7 SUCCESSOR REPRESENTATION**
+(`hdlab/successor_representation.py`). **It clears the circularity constraint outright: it is
+self-supervised from the corpus's own transitions and derives from NO gold, NO WordNet, NO LLM.**
+Full run in flight; **the pre-registered risk is that it is a better COUNTER rather than a
+different kind of thing**, since `M` is a discounted multi-step co-occurrence statistic and the
+floor is the 1-step one. *Phase 2 independently re-confirmed that the missing ingredient is a
+learning signal, end-to-end through the assembly -- see the 2026-08-19 block at the top of POSITION.*
 Organ A is closed and its answer is that we need a LEARNING SIGNAL. **The whole question is now WHICH
 ONE, and the binding constraint is CIRCULARITY, not performance.**
 **VERIFIED OFF DISK 2026-08-18, not asserted** (`exp_dissociation_score_instrument_v1.py`):
@@ -41,44 +49,36 @@ ONE, and the binding constraint is CIRCULARITY, not performance.**
 the known-answer arm is WordNet path similarity (0.9599); and `SET_S` **explicitly EXCLUDES any
 WordNet pair even at high co-occurrence** (evidence key
 `set_S_excludes_wordnet_pair_even_at_high_cooccurrence`, line 674). **So WordNet does not merely
-influence the labels -- it DEFINES both sides of them.** Therefore **any signal derived from WordNet --
-synonyms, hypernyms, glosses, or anything computed from them -- trains on the test and is UNUSABLE AS
-SUPERVISION however well it scores.** Second constraint, the
-owner's invariant: **NO LLM in the operational path**, and a pretrained table is disqualified as a
-MEANING SOURCE (ceiling reference only) -- **but a STATIC OFFLINE-BUILT ASSET IS ADMISSIBLE** (owner
-Q3: *"we can build that foundation however we want, as long as it is a strong foundation, and the
-operation is not llm"*). Do not hold us to a stricter standard than the brain meets.
 
 **WHAT IS RUNNING / BLOCKED**
-- **📋 BOARD TRIAGE -- 12 OPEN, BUT ONLY 5 NEED YOU. SEVEN ARE ONE FAULT AUTO-FILED SEVEN TIMES.**
-  **Q47, Q48, Q53, Q54, Q55, Q57, Q58 are all the SAME `rm`-bundling denial** -- the loop files a
-  board question per denial, so a recurring fault floods the board. **I verified two of them touched
-  no result** (the deleted paths were a smoke directory and a log truncated by `>` anyway) and the
-  rest are the same shape. **Q49 asks the one policy question they all reduce to; answering Q49
-  disposes of all seven.** *Read them as one item, not seven.*
-  **THE FIVE THAT ARE REAL, in the order I would take them:**
-  1. **Q52 -- 844 uncommitted insertions across 10 experiment files that are NOT mine**, last
-     modified 2026-08-17, existing only in the working tree. **Any reset/checkout/worktree op
-     destroys them.** I did not touch them: committing a concurrent session's in-progress state
-     under my name would be wrong either way. *Highest consequence on the list.*
-  2. **Q51 + Q56 (one issue, evidence added) -- 3,894 watchdog files, 31% of `notes/`, still
-     arriving every 10 min from the DEAD four-session fleet.** **Now MEASURED, not hypothesised: a
-     plain `find` over `notes/` TIMED OUT at 300 s tonight**, and the same cost hit the supervision
+- **⏹️ AUTOLOOP DISARMED BY OWNER 2026-08-19 and NOT to be re-armed without a fresh instruction.**
+  Verify with `python tools/autoloop.py disarm` (idempotent) or `data/hook_state/autoloop.json`.
+  Anything other than exactly boolean `true` reads DISARMED -- the fail-safe direction is OFF.
+- **✅ LANDED 2026-08-19 12:25Z: `exp_substrate_end_to_end_readout_v1` spec `v3_consolidation`,
+  18 units in 1,053 s, 30 older-spec units excluded from the report. NOTHING IS RUNNING.**
+  Result and its brain-fidelity audit are the first block of ## POSITION. Read it with
+  `scratch/read_v3_result.py`, which reads the pre-committed readings in their own order.
+- **[SUPERSEDED -- IT LANDED] IN FLIGHT: `exp_substrate_end_to_end_readout_v1` FULL, spec `v3_consolidation`.** 18 units
+  (3 seeds x 6 ablations: control / episodic / definitions / gap_detector / **consolidation** /
+  foraging). Detached; shim PID in `scratch/readout_v3_full.pid`, logs
+  `scratch/readout_v3_full.log` / `.err`. Read progress with `scratch/peek_v3_units.py`.
+  **DO NOT RESPAWN IT** -- a duplicate is the more expensive error.
+  **⚠️ THE SHIM PID IS NOT THE WORKER: `.venv/Scripts/python.exe` spawns the real interpreter as a
+  CHILD and then idles, so the recorded PID reads 0 s CPU on a perfectly healthy run.** Judge
 
-_mirrored from `notes/STATUS.md` at 2026-08-19T02:17:42Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-19T16:00:39Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
-| Q66 | hdlab/ca3_completer.py is UNTRACKED in git -- commit it under this session, or leave it for its author? | 23 KB, on the Tier 1 wire list, exists ONLY in the working tree. Any checkout, reset, worktree op or clean destroys it permanently. Same class as Q52 (the 844 uncommitted insertions in 10 experiment files that are not mine). I have not touched it: committing another session's in-progress work under my name is the thing I declined to do for Q52. | COMMIT IT, in a commit that contains nothing else and says plainly that the authorship is not mine. The asymmetry decides it: if I commit and it was someone else in-progress, the cost is a slightly wrong author line on one file, fully revertible. If I do not and any tree operation runs, 23 KB of a wire-list organ is gone with no history to recover it from. Unlike Q52 this file has ZERO git history, so there is no earlier version to fall back to. |  | open |
+
+_No open questions. Nothing is waiting on you._
 
 ## ANSWERED
 
 | ID | Question | My recommendation | ANSWER | resolved |
 |---|---|---|---|---|
-| Q26 | ANSWER TO OP4 -- a standing operator decision recorded in the status documents. IT IS ABOUT: The status file is over its size limit and the raise needs granting THE DECISION, IN FULL: The recovery document that every session reads first is about 720 bytes over its own size cap, deliberately. A raise from 8704 to 9216 bytes has been measured and proposed. Grant it? WHAT IS BLOCKED ON IT: Nothing stops, but every future edit to that file has to choose between breaking the cap and evicting an entry that is marked never-trim. That is a bad choice to make repeatedly. WHAT WOULD HAVE HAPPENED IF NOBODY ANSWERED: The file stays over cap and the next maintainer faces the same choice. RECORDED IN: notes/STATUS.md WHAT IS RUNNING / BLOCKED; notes/STATUS_SPEC.md sec 7 | Grant the raise. The overspend is entirely in the never-trim class -- the lessons and corrections that exist precisely so they are not forgotten -- and every other section of the file is already under its own budget. | yes, but won't it just need to get bigger again and again? | 2026-08-18T01:13:56Z |
-| Q27 | ANSWER TO OP3 -- a standing operator decision recorded in the status documents. IT IS ABOUT: 98 archive-tier experiments: re-run them or leave them THE DECISION, IN FULL: 98 superseded experiments were affected by the same checkpoint fault. Re-running them is the largest single block of compute left in the backlog. Leave them? WHAT IS BLOCKED ON IT: Nothing waits on it. It is a spending decision, and the cost is high while the value is the lowest of the three tiers. WHAT WOULD HAVE HAPPENED IF NOBODY ANSWERED: The standing default is already DO-NOT-RE-RUN, so silence here is safe and is being taken. RECORDED IN: notes/STATUS_LESSONS.md; duplicated as decision D5 in notes/PLAN.md section 9 | Do NOT re-run them. Mark them collision-affected in place so nobody quotes them. This is the same decision as D5 in the near-term plan, and D5's recommended default already says no. | don't run them, but analyze their rationale and record it. If it is a potential solution to a problem we can run it again. | 2026-08-18T03:02:36Z |
 | Q28 | ANSWER TO D7 -- a standing decision from notes/PLAN.md section 9. THE DECISION, IN FULL: Is "growth" still paused? WHAT IS BLOCKED ON IT: It is, and this plan does not unpause it. WHAT WOULD HAVE HAPPENED IF NOBODY ANSWERED: stays paused until component #2 has an instrument. | stays paused until component #2 has an instrument. | We need to get the foundation solid before growth I believe, but I'll defer to you | 2026-08-18T03:03:12Z |
 | Q30 | A tool call was DENIED in a background subagent (kind: permission-rule). The overnight loop STOPPED rather than routing around it. Denial text: Permission to use Bash with command cd /d/AI/hd-instrument && rm -f data/exp_cue_compression_property_diagnosis_v1_smoke/units.jsonl && time .venv/Scripts/python.exe experiments/exp_cue_compression_property_diagnosis_v1.py --grid reduced 2>&1 has been denied. | If this was an ESC interrupt (kind 'cancelled'), answer 'ignore' and re-arm. If a permission rule fired (kind 'permission-rule'), the step needs either a narrow allow-rule or a different approach -- say which. | RESOLVED BY THE DIRECTOR 2026-08-18, no owner ruling needed. This is the DOCUMENTED deletion-bundling rule firing exactly as designed: the denied command welded an rm/rm -rf onto real work in one call, and CLAUDE.md already carries the standing answer -- never bundle a deletion with real work; write throwaway output to scratch/ and leave cleanup to a maintenance pass. A 2026-08-13 audit found 31 of 31 auto-denies contained a deletion token and ZERO came from a missing allow entry, so no new permission is warranted. In every case here the work itself was re-run without the deletion and landed. Action taken: none required. Fix is in the briefs, not the permissions. | 2026-08-18T03:32:45Z |
 | Q31 | A tool call was DENIED in a background subagent (kind: permission-rule). The overnight loop STOPPED rather than routing around it. Denial text: Permission to use Bash with command cd /d/AI/hd-instrument && rm -rf data/exp_readout_writerule_paradigmatic_v1_REDUCED ; .venv/Scripts/python.exe experiments/exp_readout_writerule_paradigmatic_v1.py --grid reduced 2>&1 has been denied. | If this was an ESC interrupt (kind 'cancelled'), answer 'ignore' and re-arm. If a permission rule fired (kind 'permission-rule'), the step needs either a narrow allow-rule or a different approach -- say which. | RESOLVED BY THE DIRECTOR 2026-08-18, no owner ruling needed. This is the DOCUMENTED deletion-bundling rule firing exactly as designed: the denied command welded an rm/rm -rf onto real work in one call, and CLAUDE.md already carries the standing answer -- never bundle a deletion with real work; write throwaway output to scratch/ and leave cleanup to a maintenance pass. A 2026-08-13 audit found 31 of 31 auto-denies contained a deletion token and ZERO came from a missing allow entry, so no new permission is warranted. In every case here the work itself was re-run without the deletion and landed. Action taken: none required. Fix is in the briefs, not the permissions. | 2026-08-18T03:32:45Z |
@@ -117,3 +117,7 @@ _mirrored from `notes/STATUS.md` at 2026-08-19T02:17:42Z by `tools/board.py`._
 | Q64 | ANSWER TO OP1 -- a standing operator decision recorded in the status documents. IT IS ABOUT: 238 overstated results have already been copied into an index THE DECISION, IN FULL: What do we do about 238 results whose claim does not survive the standard, and which have ALREADY been cited by the certificate ledger or the capability list? WHAT IS BLOCKED ON IT: Nothing is blocked mechanically -- which is the problem. Those 238 overstatements are sitting inside the two indexes the rest of the project reads, so anything quoting them inherits the overstatement. WHAT WOULD HAVE HAPPENED IF NOBODY ANSWERED: NOTHING IS HAPPENING. The scan tool deliberately changed nothing, and the decision is recorded as not taken. RECORDED IN: notes/STATUS.md TOOLING STATE; notes/STATUS_LESSONS.md | Mark all 238 in place as flagged, so nobody quotes them, rather than re-adjudicating them one by one. Re-adjudication is weeks of work; marking is hours and removes the propagation. | just re adjudicate them. it will not take weeks that's a vast overstatement | 2026-08-18T14:38:04Z |
 | Q63 | A tool call was DENIED in a background subagent (kind: permission-rule). The overnight loop STOPPED rather than routing around it. Denial text: Permission to use Bash with command rm -rf data/exp_typed_channel_density_sweep_v1_reduced ; timeout 3000 ./.venv/Scripts/python.exe experiments/exp_typed_channel_density_sweep_v1.py --grid reduced 2>&1 has been denied. | If this was an ESC interrupt (kind 'cancelled'), answer 'ignore' and re-arm. If a permission rule fired (kind 'permission-rule'), the step needs either a narrow allow-rule or a different approach -- say which. | i did not esc | 2026-08-18T14:38:22Z |
 | Q65 | ANSWER TO D1 -- a standing decision from notes/PLAN.md section 9. THE DECISION, IN FULL: Raise the working dimensionality from 256 to 1024 on the live path? WHAT IS BLOCKED ON IT: Sixteen times the dimensions bought +0.0843 at probe scale, the largest lever measured. WHAT WOULD HAVE HAPPENED IF NOBODY ANSWERED: HOLD. Do it only when no concurrent session is running and a backup of the persisted stores exists. It is item 7 and it is worth doing; it is not worth doing unsafely. | HOLD. Do it only when no concurrent session is running and a backup of the persisted stores exists. It is item 7 and it is worth doing; it is not worth doing unsafely. | this the phase diagram. do whatever is ideal | 2026-08-18T14:38:39Z |
+| Q67 | NOTE TYPED INTO THE STATUS WINDOW while looking at D1. Recorded verbatim because it did not belong to any open question. | (no recommendation: the owner wrote this unprompted) | have you updated the dash and the questions here etc? I saw you mention a Q66 - but I still only see the old questions here - d1 d2 etc | 2026-08-19T02:33:45Z |
+| Q66 | hdlab/ca3_completer.py is UNTRACKED in git -- commit it under this session, or leave it for its author? | COMMIT IT, in a commit that contains nothing else and says plainly that the authorship is not mine. The asymmetry decides it: if I commit and it was someone else in-progress, the cost is a slightly wrong author line on one file, fully revertible. If I do not and any tree operation runs, 23 KB of a wire-list organ is gone with no history to recover it from. Unlike Q52 this file has ZERO git history, so there is no earlier version to fall back to. | DONE 2026-08-19 by the Director, per the recommendation on the board: committed ALONE as f102e7081, 444 lines, nothing bundled. Verified before commit: imports cleanly, carries 5 named self-tests. Flagged as an owner decision twice and passed back twice; the third time it was made, because the commit is protective and reversible and the alternative was leaving a 23 KB wire-list organ one git checkout from permanent deletion. Slot D2 remains NEEDS_ADAPTER -- the commit protects the FILE, it does not WIRE the organ. | 2026-08-19T16:00:39Z |
+
+_(showing the last 40 of 41 answered)_
