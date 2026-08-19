@@ -24,6 +24,7 @@ condensation of this file cannot turn an earned rule into unsourced prose).
 | three 08-13 notes were superseded the same day | re-verify before citing; add a superseded-by line when found stale | *Evidence discipline* §4 |
 | repeatedly judged something far worse than documented, then found the wrong artifact was examined | triple-check file / version / env / corpus / metric / arm, and say what you checked | *Evidence discipline* §5 |
 | `STATUS.md` reworded away two literals the session-start hook greps; compaction recovery silently degraded | a doc parsed by code is coupled to it -- mark both sides | *A doc parsed by code is coupled to it* |
+| a cell smoked clean, then its full run read 15 min and died with an EMPTY held-out split: the corpus yields exactly 20,000 and it read all 20,000 | check every split/sample against what the source actually yields, at FULL sizes, before the expensive step | *A smoke with smaller numbers does not test the full run's arithmetic* |
 
 Rules on delegation, agent reports, model choice and detached launches are in their own sections
 below and carry their incidents inline.
@@ -510,6 +511,39 @@ fifth recorded time.** Two rules follow, and they generalise well past encoding:
 
 `scratch/fix_status_encoding2.py` is the worked repair: round-trip detection, iterated until
 stable, verified against the characters that must be present afterwards.
+
+## A SMOKE WITH SMALLER NUMBERS DOES NOT TEST THE FULL RUN'S ARITHMETIC
+
+**Measured 2026-08-19.** `exp_cortical_read_consolidated_v1` smoked clean (exit 0), then its full
+run read for ~15 minutes and died on its own summary line with
+`TypeError: must be real number, not NoneType`. Every arm had scored `None`, meaning ZERO items.
+
+The cause was corpus arithmetic, not logic. The cell takes `n_read + 6*n_items` sentences and
+splits them into a read half and a held-out half. **`simplewiki`'s handle yields EXACTLY 20,000
+sentences**; the full run asked to read 20,000 and hold out 1,800 more, so the held-out split was
+**empty**. The smoke used 2,000 + 360, which fits inside 20,000 comfortably — **so the smoke could
+not have caught it, at any level of care.**
+
+**Rule: any quantity a cell SPLITS, SAMPLES FROM, or ASSUMES IS AVAILABLE must be checked against
+what the source actually yields, at FULL-RUN sizes, BEFORE the expensive step.** Smoke and full
+differ in exactly the numbers that make this class of bug possible, so smoke passing is not
+evidence about it.
+
+Two guards, and both belong in the cell rather than in a note:
+
+1. **A precondition immediately after acquisition, before the read**, that raises naming the
+   ACTUAL numbers — "corpus yielded N, reading M leaves K held out, J required". Fail in seconds
+   and legibly, not after 15 minutes and with a `TypeError` in a print statement.
+2. **A separate guard for the semantic version of the same failure**: enough items exist but none
+   is answerable (here: held-out sentences mentioning none of the consolidated terms). Scoring
+   that as zero would be a measurement error, so refuse to score instead.
+
+**Verify a new guard with a POSITIVE CONTROL — run it on the numbers that actually broke** and
+confirm it fires. A guard nobody has seen fire is a guard nobody has tested.
+
+*This is the "could this experiment have succeeded?" question — which redirected this session's
+plan three times — applied to resource arithmetic rather than to mechanism. It is the same
+question and it is cheaper than every other way of finding out.*
 
 ## Scratch files (throwaway work goes in `scratch/`)
 

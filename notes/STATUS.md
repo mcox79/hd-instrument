@@ -860,6 +860,17 @@ excludes nothing is not a control -- report how many items each control actually
 - **⏹️ AUTOLOOP DISARMED BY OWNER 2026-08-19 and NOT to be re-armed without a fresh instruction.**
   Verify with `python tools/autoloop.py disarm` (idempotent) or `data/hook_state/autoloop.json`.
   Anything other than exactly boolean `true` reads DISARMED -- the fail-safe direction is OFF.
+- **🔵 IN FLIGHT: `exp_cortical_read_consolidated_v1` spec `v1_cortical`, 3 seeds.** Scores the
+  NEW cortical read organ on the consolidated side. Detached; shim PID `scratch/cortical_full2.pid`,
+  logs `scratch/cortical_full2.log` / `.err`. **DO NOT RESPAWN.**
+  **⚠️ ITS FIRST FULL RUN DIED AND THE CAUSE IS NOW A CLAUDE.md RULE: `simplewiki` yields EXACTLY
+  20,000 sentences, the run read all 20,000, so the HELD-OUT SPLIT WAS EMPTY and every arm scored
+  None after ~15 minutes of reading. The smoke used 2,000+360 and COULD NOT have caught it.**
+  Fixed three ways (n_read 16,000 measured; a precondition before the read; a second guard for
+  held-out text mentioning no consolidated term), and the precondition was verified with a
+  POSITIVE CONTROL on the exact numbers that crashed.
+  *This cell writes NO artifact until a whole unit lands, so process liveness is the only progress
+  signal mid-seed -- judge by the CHILD's CPU, never the shim PID's.*
 - **✅ LANDED 2026-08-19 12:25Z: `exp_substrate_end_to_end_readout_v1` spec `v3_consolidation`,
   18 units in 1,053 s, 30 older-spec units excluded from the report. NOTHING IS RUNNING.**
   Result and its brain-fidelity audit are the first block of ## POSITION. Read it with
