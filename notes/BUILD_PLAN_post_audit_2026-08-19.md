@@ -211,7 +211,46 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
-## 🧨 A FITTED DISCRIMINATOR REACHES ONLY 0.2732 -- **THE FEATURES DO NOT CONTAIN IT**
+## 🧱 CO-OCCURRENCE TOPS OUT AT ~0.31, HOWEVER YOU PROCESS IT -- AND THAT CORRECTS ME AGAIN
+`scratch/profile_vs_scalar_ceiling.py`. **Both checks I named last continuation, run. One of them
+corrects my own claim, in exactly the direction I flagged as the way it could be wrong.**
+
+| model (all fitted on the gold, word-disjoint CV -- CEILING DIAGNOSTICS, NEVER CAPABILITIES) | hit@1 |
+|---|---|
+| DICE, unsupervised, for reference | 0.2435 |
+| FITTED linear, 8 scalar pair-features | 0.2751 |
+| **FITTED NONLINEAR, the SAME 8 scalars** | **0.3104** |
+| **FITTED linear, the FULL 1,024-dim PROFILE product** | **0.3104** |
+| ORACLE | 1.0000 |
+
+**⬇️ CORRECTION TO MY OWN CLAIM: "the features do not contain the discrimination" was TOO STRONG.
+Nonlinearity buys +3.5pp over the linear fit, so part of what I attributed to the features was
+LINEAR SEPARABILITY.** *I named that as the way the claim could fail and it did.*
+
+**🔴 AND THE HYPOTHESIS I RAISED LAST CONTINUATION IS NOT SUPPORTED. "Learn on the profile, do not
+summarise it" predicted the full-profile model would jump. IT LANDS ON EXACTLY THE SAME 0.3104 AS
+NONLINEAR SCALARS.** *The full 1,024-dimensional profile carries NO MORE than nonlinear functions
+of eight numbers computed from it. The elegant story about profile geometry is dead, one
+continuation after I proposed it, and its own pre-committed control killed it.*
+
+### 🧱 WHAT SURVIVES IS A CEILING, AND IT IS THE MOST USEFUL THING HERE
+**TWO COMPLETELY DIFFERENT FEATURE SETS -- eight scalars with a tree ensemble, and a 1,024-dim
+profile with a linear model -- CONVERGE ON 0.3104. That is 167 of 538 either way.**
+***Co-occurrence, however it is processed -- raw, normalised, summarised, full-profile, linear,
+nonlinear, supervised on the answers -- tops out near 0.31 on this task. THE REMAINING 69% IS NOT
+IN CO-OCCURRENCE.***
+**So the pre-committed reading fires: new features must come from somewhere OTHER than word
+co-occurrence -- grounding, structure, or another modality. That is a much sharper instruction than
+"we need a learning signal", and it is the first result today that constrains WHERE to look rather
+than only where not to.**
+
+**⚠️ THE EXACT TIE AT 0.3104 MAY BE COINCIDENCE: 167 hits of 538 both ways, and at this n a
+one-hit difference is 0.0019. Do not read the identity as meaningful -- read the CONVERGENCE as
+meaningful. One corpus, no CI on either fitted number.**
+
+---
+
+## 🧨 [SUPERSEDED BY THE CORRECTION ABOVE] A FITTED DISCRIMINATOR REACHES ONLY 0.2732 -- **THE FEATURES DO NOT CONTAIN IT**
 `scratch/supervised_rerank_ceiling.py`. **CEILING DIAGNOSTIC, FITTED ON THE GOLD, NEVER A
 CAPABILITY** -- the same rule the project applies to its own 0.8629 oracle. Word-disjoint 5-fold
 CV (not pair-disjoint: this project measured that leak and it inflated 0.8629 to 0.9606).
