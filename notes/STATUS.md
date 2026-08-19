@@ -15,6 +15,32 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 🔴🔴 2026-08-19 -- **THE CORTICAL ROUTE IS SUBSUMED BY WORD COUNTING. NOT MERELY BEATEN --**
+## **ITS UNIQUE CONTRIBUTION IS BELOW WHAT INDEPENDENCE PREDICTS, AT EVERY k.**
+`scratch/diag_complementary_or_subsumed.py`. **This is the FIXED route (sentence cue), not the
+broken one** -- so it is the best version of our representation, on held-out text, over the same
+candidate set as the counter. 4,300 sentences, 223 candidates, n=300.
+
+| k | CORTICAL | COOC | both | **cortical-only** | independence predicts | **ratio** |
+|---|---|---|---|---|---|---|
+| 1 | 0.0567 | 0.0433 | 4 | 13 | 16.3 | **0.80** |
+| 10 | 0.1300 | 0.3367 | 27 | 12 | 25.9 | **0.46** |
+| 50 | 0.3767 | 0.6800 | 93 | 20 | 36.2 | **0.55** |
+
+**⛔ AT EVERY k THE CORTICAL-ONLY CELL IS BELOW ITS INDEPENDENCE PREDICTION.** The two routes are
+POSITIVELY correlated in what they get right, and our route's unique contribution is *smaller than
+chance would give* -- it is not a different view of the problem, it is a WEAKER VIEW OF THE SAME
+ONE. *"Scores lower" and "knows nothing new" are different claims, and this is the second.*
+**⛔ AND THE GAP WIDENS WITH k: at hit@50 counting reaches 0.6800 against our 0.3767.** The union
+oracle -- an impossible arm that always picks the better route -- reaches only 0.7467, barely above
+counting alone, which is exactly the signature of subsumption rather than complementarity.
+**➡️ THE CONSEQUENCE, AND IT IS A STOP RATHER THAN A PIVOT: STOP BUILDING READ-OUT VARIANTS ON THE
+ACCUMULATED-CONTEXT REPRESENTATION.** Three read-out variants have now been built on it (episodic,
+cortical-context, cortical-both) and the ceiling is not in the read-out. **The lever is the
+REPRESENTATION or the SUPPLY, never another way of querying the same profiles.**
+**⚠️ SCOPE, STATED: one seed, one corpus, 4,300 sentences, 223 candidates, held-out only. The
+direction is unambiguous at every k but the exact ratios are a single measurement.**
+
 ## 🟢🟢 2026-08-19 -- **v2 SEED 1: THE CUE FIX WORKED AT FULL SCALE, AND THE SCRAMBLE COLLAPSED.**
 Same seed, same 16,600 sentences, same 428 consolidated terms -- **only the cue construction and
 the scorer changed.**
