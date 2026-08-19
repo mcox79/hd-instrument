@@ -97,15 +97,33 @@ from hdlab.frame_induction import (
 )
 from hdlab.thematic_role_labeler import lemma_verb, is_strictly_intransitive
 
-# WIRE-DON'T-ISLAND (2026-08-05): pre-induce the OOV-subject construction->frame hypothesis ONCE
-# at import time (module-level cache inside get_induced_subj_hypothesis itself; this call just
-# forces the training so the first read() call doesn't pay the induction cost). Trained on the
+# WIRE-DON'T-ISLAND (2026-08-05): the OOV-subject construction->frame hypothesis, induced from the
 # real litbank-mined TRAIN split only (experiments/data/experiencer_narrative_roles_v1.jsonl);
 # held-out lemmas never seen (leakage-checked by exp_frame_induction_oov_psych_real_v1). Measured
 # held-out quality: subj-axis acc=0.833 (data/exp_frame_induction_oov_psych_real_v1/metrics.json,
 # MIDDLE_BAND -- data-starved, not a ceiling). Falls back to (None, None) -- the honest AGENT
 # default -- if the training file is missing; never raises.
-_INDUCED_SUBJ_NAME, _INDUCED_SUBJ_HYP = get_induced_subj_hypothesis()
+#
+# LAZY AS OF 2026-08-19: this used to be a module-level call, so merely IMPORTING this module ran a
+# full frame induction -- 190 s of the module's 205 s import cost, which timed out its own self-test
+# at 240 s and kept it off every wire list (notes/ORGAN_MAP.md row 15). The caching was always
+# correct (module-level cache keyed by data_path inside get_induced_subj_hypothesis, "trains at
+# most once per process"); only the PLACEMENT was wrong. Training now fires on first USE instead of
+# first IMPORT. Same values, same single training, paid by the first read() call that needs it.
+def _induced_subj() -> Tuple[Optional[str], Optional[object]]:
+    """(chosen_name, hypothesis) for the OOV-subject frame axis; trains at most once per process."""
+    return get_induced_subj_hypothesis()
+
+
+def __getattr__(name: str):
+    """Back-compat: `situation_reader._INDUCED_SUBJ_NAME` still resolves (PEP 562), and now trains
+    on first ACCESS rather than on import. Nothing in-repo reads these off this module, but a
+    module-level name that existed for two weeks is cheap to keep working."""
+    if name == "_INDUCED_SUBJ_NAME":
+        return _induced_subj()[0]
+    if name == "_INDUCED_SUBJ_HYP":
+        return _induced_subj()[1]
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 # ---- grounded-affect dimension (reuse, 2026-08-05 wire; CERTIFIED SCOPE =
 # notes/landed_vet_bridge1_foundation.md, animacy-axis event override, Bopen=1.000) ----
@@ -362,8 +380,8 @@ def _assign_frame_primary_roles(lemma: str, toks: List[str], pred_idx: int,
     _pick_role_mentions selector) -- additive, does not change which head is chosen. KNOWN verb
     (lemma in VERB_FRAMES) -> frame_slot_role() answers UNCONDITIONALLY (the re-VET's known-lemma
     acc=1.0 deterministic-dict path), UNCHANGED. OOV verb, subj slot -> now consults the
-    module-level pre-induced construction->frame hypothesis (_INDUCED_SUBJ_NAME/_INDUCED_SUBJ_HYP,
-    trained once at import time by hdlab.frame_induction.get_induced_subj_hypothesis() on the
+    pre-induced construction->frame hypothesis (_induced_subj(), trained once per process on
+    FIRST USE by hdlab.frame_induction.get_induced_subj_hypothesis() -- lazy since 2026-08-19; on the
     real litbank-mined TRAIN split; held-out lemmas never seen) INSTEAD of the honest-but-wrong
     positional AGENT default -- a genuinely novel psych verb (cherish/loathe/crave/...) now gets
     EXPERIENCER when its surrounding construction cues (has_scomp/degree_mod/passive/order_pre/
@@ -393,8 +411,9 @@ def _assign_frame_primary_roles(lemma: str, toks: List[str], pred_idx: int,
                                         pred_lemma=true_lemma if gate_intransitive else None)
     subj_role = None
     if subj_m is not None:
+        _ind_name, _ind_hyp = _induced_subj()
         subj_role = frame_primary_role(true_lemma, toks, pred_idx, int(subj_m["wtok_start"]), "subj",
-                                       chosen_name=_INDUCED_SUBJ_NAME, hypothesis=_INDUCED_SUBJ_HYP)
+                                       chosen_name=_ind_name, hypothesis=_ind_hyp)
     obj_role = None
     if obj_m is not None:
         obj_role = frame_primary_role(true_lemma, toks, pred_idx, int(obj_m["wtok_start"]), "obj")
@@ -730,11 +749,12 @@ def _selftest_frame_primary_wiring() -> dict:
     assert "feared" in by_pred, f"known psych verb event missing: {[e.predicate for e in sm.events]}"
     assert by_pred["feared"].subj_role == "EXPERIENCER", by_pred["feared"]
     assert "cherished" in by_pred, f"OOV psych verb event missing: {[e.predicate for e in sm.events]}"
-    # Induction-verified: cross-check that the module-level cached hypothesis, applied directly to
+    # Induction-verified: cross-check that the process-cached hypothesis, applied directly to
     # this construction's own feature encoding, independently agrees with what the reader emitted
     # (not just asserting the reader's output blind).
+    _ind_name, _ind_hyp = _induced_subj()
     _feats = FI_real_construction_feats(["john", "cherished", "that", "mary", "was", "kind", "."], 1, 0)
-    _direct_pred = FI_predict_subj_role(_INDUCED_SUBJ_NAME, _INDUCED_SUBJ_HYP, _feats, default="AGENT")
+    _direct_pred = FI_predict_subj_role(_ind_name, _ind_hyp, _feats, default="AGENT")
     assert _direct_pred == "EXPERIENCER", (_feats, _direct_pred)
     assert by_pred["cherished"].subj_role == "EXPERIENCER", by_pred["cherished"]  # earned, not overclaimed to 1.0
     assert "kicked" in by_pred, f"agentive verb event missing: {[e.predicate for e in sm.events]}"
@@ -747,7 +767,7 @@ def _selftest_frame_primary_wiring() -> dict:
             "cherish_subj_role": by_pred["cherished"].subj_role,
             "kick_subj_role": by_pred["kicked"].subj_role,
             "bolted_subj_role": by_pred["bolted"].subj_role,
-            "induced_name": _INDUCED_SUBJ_NAME}
+            "induced_name": _ind_name}
 
 
 def _selftest_affect_wiring() -> dict:

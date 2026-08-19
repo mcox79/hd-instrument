@@ -201,6 +201,45 @@ ROWS = [
 ]
 
 
+# ---------------------------------------------------------------------------------------------
+# PROGRAMMATIC LOOKUP -- for the dashboard, which was showing raw verdict strings with nothing
+# beside them (notes/PLAN_SECTION_7 7.5b: "a number with no disposition currently reads as
+# endorsed"). UNVETTED is a REAL ANSWER here, never a blank, because 99.5% of the archive's
+# HARD_PASS cannot be checked from their own files and 30 vetted produced 1 upheld.
+UNVETTED = "UNVETTED"
+
+_BY_CELL = {r[0]: r for r in ROWS}
+
+
+def lookup(name: str) -> dict:
+    """Ledger record for an experiment cell. Always returns a dict; `disposition` is UNVETTED when
+    the cell has never been vetted.
+
+    EXACT MATCH ONLY, deliberately -- unlike `--cite`, which is loose because a human is reading it.
+    A UI that attaches the wrong cell's disposition to a number is worse than one that says
+    UNVETTED, and the substring rule would happily map `..._cycle1_v1_selftest` onto the FULL run's
+    record. The only normalisation is stripping a directory prefix, so `data/exp_foo_v1` resolves."""
+    key = str(name).replace("\\", "/").rstrip("/").rsplit("/", 1)[-1]
+    r = _BY_CELL.get(name) or _BY_CELL.get(key)
+    if r is None:
+        return {"cell": name, "verdict": UNVETTED, "disposition": UNVETTED, "finding": "",
+                "narrowing_or_rerun": "", "pass": None, "vetted": False}
+    return {"cell": r[0], "verdict": r[1], "disposition": r[2], "finding": r[3],
+            "narrowing_or_rerun": r[4], "pass": r[5], "vetted": True}
+
+
+def disposition(name: str) -> str:
+    """WIRE / WIRE_NARROWED / RERUN_NAMED / SHELVED_REFUTED / UNVETTED. Never blank."""
+    return lookup(name)["disposition"]
+
+
+def base_rate() -> str:
+    """One line a UI can show beside an UNVETTED verdict without needing any other import."""
+    c = collections.Counter(r[2] for r in ROWS)
+    return (f"{len(ROWS)} cells vetted, {c.get('WIRE', 0)} upheld -- an unvetted verdict is an "
+            f"UNVERIFIED CLAIM, not a result.")
+
+
 def write() -> int:
     LEDGER_JSONL.parent.mkdir(parents=True, exist_ok=True)
     with open(LEDGER_JSONL, "w", encoding="utf-8", newline="") as fh:

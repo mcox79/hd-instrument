@@ -226,6 +226,42 @@ except Exception as _e:  # pragma: no cover - the window must open without it
 else:
     _COMMENTARY_ERR = ""
 
+# THE VETTING LEDGER. Guarded like every other import here. If it will not load, the VETTED? column
+# says LEDGER UNAVAILABLE rather than falling back to a blank -- a blank is exactly the failure this
+# column exists to fix, so degrading into one would be worse than not having the column.
+try:
+    import vetting_ledger as _ledger  # noqa: E402
+except Exception as _e:  # pragma: no cover - the window must open without it
+    _ledger = None
+    _LEDGER_ERR = f"{type(_e).__name__}: {_e}"
+else:
+    _LEDGER_ERR = ""
+
+
+def _vetting(name: str) -> dict:
+    """Ledger record for an experiment, with UNVETTED as the answer when nobody has checked it.
+    NEVER returns a blank disposition -- see the column comment in `_build_results`."""
+    if _ledger is None:
+        return {"disposition": "LEDGER UNAVAILABLE", "vetted": False, "verdict": "",
+                "finding": "", "narrowing_or_rerun": "", "cell": name}
+    try:
+        return _ledger.lookup(name or "")
+    except Exception:
+        return {"disposition": "LEDGER UNAVAILABLE", "vetted": False, "verdict": "",
+                "finding": "", "narrowing_or_rerun": "", "cell": name}
+
+
+# What each disposition means in one plain phrase, and the row colour it earns. UNVETTED is AMBER,
+# not neutral: "nobody has checked this" is a warning, not a null state.
+_VET_TEXT = {
+    "WIRE": ("CHECKED - upheld", "good"),
+    "WIRE_NARROWED": ("CHECKED - narrower than claimed", "warn"),
+    "RERUN_NAMED": ("CHECKED - cannot be judged yet", "warn"),
+    "SHELVED_REFUTED": ("CHECKED - REFUTED, do not cite", "bad"),
+    "UNVETTED": ("NOBODY HAS CHECKED IT", "warn"),
+    "LEDGER UNAVAILABLE": ("LEDGER UNAVAILABLE", "bad"),
+}
+
 REFRESH_MS = 20000        # collection costs ~2.5s; 20s is live enough and stays cheap
 TICK_MS = 1000
 POLL_WEDGE_S = 60         # collection is internally bounded well below this
@@ -1469,11 +1505,16 @@ class StatusWindow:
             justify="left", wraplength=self._wrap_w, padx=4, pady=6)
         self.results_hint.grid(row=0, column=0, sticky="ew")
 
+        # VETTED? is not decoration and it is not last on purpose. 2026-08-18 measured that 99.5%
+        # of the archive's HARD_PASS carry neither a CI nor a null, and 30 cells vetted produced
+        # ONE upheld result -- so a verdict string rendered straight out of metrics.json with
+        # nothing beside it reads as an endorsement this project cannot make. UNVETTED is the
+        # VISIBLE DEFAULT, never a blank (notes/PLAN_SECTION_7_audit_findings_2026-08-18.md 7.5b).
         frame, self.results_tv = self._tree(
-            f, cols=("when", "what", "verdict", "floor", "sep", "name"),
-            widths=(175, 100, 280, 150, 175, 350),
-            headings=("RESULT LAST WRITTEN", "", "WHAT IT CONCLUDED", "DID IT NAME A FLOOR?",
-                      "INTERVALS SEPARATED?", "EXPERIMENT"),
+            f, cols=("when", "what", "verdict", "vetted", "floor", "sep", "name"),
+            widths=(175, 100, 260, 150, 130, 150, 320),
+            headings=("RESULT LAST WRITTEN", "", "WHAT IT CONCLUDED", "HAS ANYONE CHECKED IT?",
+                      "DID IT NAME A FLOOR?", "INTERVALS SEPARATED?", "EXPERIMENT"),
             height=13)
         frame.grid(row=1, column=0, sticky="nsew")
         self.results_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_result_detail())
@@ -3306,14 +3347,17 @@ class StatusWindow:
             self._restore_scroll(tv, _kept[0])
             return
         rows = [_d(r) for r in _l(res.get("rows"))]
+        n_unvetted = sum(1 for r in rows if not _vetting(r.get("name") or "").get("vetted"))
         self.results_hint.configure(
             text=(f"The {len(rows)} most recent finished experiments. "
                   f"{res.get('n_negative')} of them are negative and "
                   f"{res.get('n_no_floor')} never named a floor at all -- a result with no "
                   f"floor beside it cannot be graded. Losses are shown exactly as loudly as "
-                  f"wins, on purpose."
+                  f"wins, on purpose. "
+                  f"{n_unvetted} of {len(rows)} have never been checked by anyone: "
+                  f"{_ledger.base_rate() if _ledger else 'the vetting ledger would not load.'}"
                   + _panel_age_text(s.get("ages"), "latest results")),
-            fg=_AMBER if res.get("n_negative") else _BLUE)
+            fg=_AMBER if (res.get("n_negative") or n_unvetted) else _BLUE)
         for i, r in enumerate(rows):
             iid = f"r{i}"
             self._result_rows[iid] = r
@@ -3325,10 +3369,20 @@ class StatusWindow:
             name = _short(r.get("name", "?"), 52)
             if r.get("is_smoke"):
                 name += "   (smoke)"
+            vet = _vetting(r.get("name") or "")
+            r["_vetting"] = vet
+            vet_txt, vet_tag = _VET_TEXT.get(vet["disposition"],
+                                             (vet["disposition"], "warn"))
+            # A REFUTED or unchecked claim colours the whole row, overriding the run's own label --
+            # a cell that called itself a WIN and was later refuted must not still render green.
+            if vet_tag == "bad":
+                tag = "bad"
+            elif tag == "good" and vet_tag == "warn":
+                tag = "warn"
             # The relative age is what reads at a glance; the exact stamp stays one click away in
             # the detail box, which is the split the owner asked for.
             tv.insert("", "end", iid=iid, values=(
-                _age_cell(r), label, r.get("verdict"), floor_cell, sep, name),
+                _age_cell(r), label, r.get("verdict"), vet_txt, floor_cell, sep, name),
                 tags=(tag, "even" if i % 2 == 0 else "odd"))
         if rows:
             self._restore_selection(tv, _kept, fallback_iid="r0",
@@ -3343,11 +3397,29 @@ class StatusWindow:
             return
         label = r.get("label", "FINDING")
         tag = {"NEGATIVE": "bad", "WIN": "good"}.get(label, "warn")
+        vet = r.get("_vetting") or _vetting(r.get("name") or "")
+        vet_txt, vet_tag = _VET_TEXT.get(vet["disposition"], (vet["disposition"], "warn"))
         chunks = [
             (f"{r.get('name')}\n", "h"),
             (f"{label}: {r.get('verdict')}\n\n", tag),
             f"{r.get('verdict_msg') or '(the run recorded no explanation)'}\n\n",
         ]
+        # THE DISPOSITION GOES ABOVE THE FLOOR AND SEPARATION WARNINGS, because it outranks them:
+        # a refuted cell's floor is beside the point, and an unchecked one's verdict is a claim.
+        chunks.append((f"HAS ANYONE CHECKED IT?  {vet_txt}\n", vet_tag))
+        if vet.get("vetted"):
+            chunks.append(f"{vet.get('finding') or ''}\n")
+            if vet.get("narrowing_or_rerun"):
+                key = ("RERUN NEEDED" if vet["disposition"] == "RERUN_NAMED"
+                       else "CITE ONLY WITH THIS ATTACHED")
+                chunks.append((f"{key}: {vet['narrowing_or_rerun']}\n", "warn"))
+            if vet["disposition"] == "SHELVED_REFUTED":
+                chunks.append(("DO NOT CITE THIS RESULT.\n", "bad"))
+        elif _ledger is not None:
+            chunks.append((f"{_ledger.base_rate()}\n", "dim"))
+        else:
+            chunks.append((f"The vetting ledger would not load: {_LEDGER_ERR}\n", "bad"))
+        chunks.append("\n")
         if not r.get("floor_named"):
             chunks.append(("This result names no floor. A score with no floor beside it "
                            "cannot be graded -- treat it as an observation, not a verdict.\n",
@@ -3520,6 +3592,22 @@ def self_test() -> int:
               f"the merged scores panel drew its rows "
               f"(got {len(gui.sc_tv.get_children())})")
         check(len(gui.results_tv.get_children()) >= 1, "the results panel drew its rows")
+        # THE VETTING RULE, checked at the RENDERED CELL like the floor rule below it and for the
+        # same reason: the harm was a verdict shown with NOTHING beside it, so a blank in this
+        # column is the exact defect and an empty string must fail. UNVETTED is a real answer.
+        _vet_cells = [str(gui.results_tv.set(iid, "vetted"))
+                      for iid in gui.results_tv.get_children()]
+        check(bool(_vet_cells) and all(c.strip() for c in _vet_cells),
+              f"no result is shown without a vetting disposition beside it -- a blank reads as "
+              f"an endorsement ({sum(1 for c in _vet_cells if not c.strip())} blank of "
+              f"{len(_vet_cells)})")
+        check(_ledger is not None and _ledger.disposition("no_such_cell_anywhere") == "UNVETTED",
+              "an unknown cell resolves to UNVETTED rather than to a blank or an exception")
+        check(_ledger is not None
+              and _ledger.disposition("exp_agreement_depth_productivity_generalization_v1") == "WIRE"
+              and _ledger.disposition("exp_desiderative_negation_channel_v1") == "SHELVED_REFUTED",
+              "the ledger lookup returns the right disposition for a known upheld and a known "
+              "refuted cell")
         check(len(gui.organ_tv.get_children()) >= 30,
               f"the organ map drew its rows (got {len(gui.organ_tv.get_children())})")
         check(len(gui.fid_tv.get_children()) >= 1, "the fidelity panel drew its rows")
