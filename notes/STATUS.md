@@ -393,6 +393,45 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+## 🧪 2026-08-19 -- **GAP-TARGETED READING, TESTED TWICE. THE FIRST RUN WAS VOID AND MY OWN GATE**
+## **PASSED IT AT 98% ARM OVERLAP. THE SECOND IS UNDERPOWERED, NOT NEGATIVE.**
+*The owner's "patchy" half of Q72, wired from the existing organs. One variable: WHICH sentences get
+read, never how many. Three arms, 6,000 sentences each from one 12,000-sentence pool.*
+
+**⛔ RUN 1 WAS VOID AND IT NEARLY GOT REPORTED. GAP and PASSIVE overlapped 0.981 -- 5,943 of 6,057
+sentences identical.** Cause: I drew targets from the top-400 frequent non-consolidated words, which
+gave 298 targets; frequent words appear in nearly every sentence, so almost everything scored >= 1,
+the ranking was flat, and **ties broke by INDEX -- i.e. corpus order -- so the "gap-targeted" arm
+silently reproduced passive reading.** *My arms-differ gate asserted `jac < 0.99` and PASSED at
+0.981.* **THAT IS THE THIRD TOO-LENIENT GATE I HAVE WRITTEN TODAY** (the floor gate that ignored
+FREQ; the "DISCRIMINATES" check that fired on 1 nonzero in 900). Gate now refuses above 0.60 and
+fails loud; targets now drawn from MID-frequency words (5 <= count <= 200) with RANDOM tie-breaks.
+
+**RUN 2, arms genuinely distinct (overlap 0.327 / 0.335 / 0.326), 4,924 shared candidates, 300 items:**
+
+| arm | median rank | 95% CI |
+|---|---|---|
+| PASSIVE | 1296.0 | [860.5, 1692.1] |
+| RANDOM_N (rate-matched) | 1205.5 | [1031.0, 1466.0] |
+| GAP | 1292.5 | [1028.8, 1501.0] |
+| FREQ floor (cue-blind) | 354.0 | [276.5, 432.0] |
+| COOC floor | 195.5 | [135.0, 262.0] |
+
+    GAP minus PASSIVE    -88.98  95% CI [-220.31,  +40.72]   NOT separated
+    GAP minus RANDOM_N    -6.68  95% CI [-133.01, +121.76]   NOT separated
+
+**⚠️ THE VERDICT IS "UNDERPOWERED", NOT "DOES NOT HELP", AND THE CI IS WHY: a half-width of 130-220
+ranks means this test could only ever have detected an enormous effect.** *Same category as the
+corpus-diversity result. My script printed "GAP-TARGETED SELECTION DOES NOT HELP HERE" -- too strong
+for what a CI that wide can support.*
+**🔑 AND A DISTINCTION THAT MATTERS MORE THAN THE NUMBERS: the prior HARD_PASS I was chasing
+(`exp_breadth_foundation_active_growth_loop_ud_ewt_v1`) measured COVERAGE, 0.50 -> 0.79. THIS TEST
+MEASURES RANK. Those are different claims, and coverage improving does not imply rank improving.**
+*So this is NOT a failure to reproduce that cell -- it is a different question, asked for the first
+time, and answered "not at this power".* **⛔ Nothing here licenses "the owner's idea does not work".**
+**➡️ Every arm remains 6.6x from the COOC floor and well behind a cue-blind FREQ ranking, exactly as
+in every other line this session.**
+
 ## 🔌 2026-08-19 -- **THE GAP-TARGETED ORGANS ARE BUILT, IMPORT CLEAN, AND ARE DIRECTLY**
 ## **STATE-COMPATIBLE WITH THE SUBSTRATE. THEY ARE SIMPLY NOT WIRED IN. NO ADAPTER NEEDED.**
 *The top item was "test gap-targeted growth". Per the query-before-building rule I checked the code
