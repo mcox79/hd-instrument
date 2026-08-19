@@ -15,6 +15,33 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 🟢 2026-08-19 -- **THE SPOKE IS NOT SUBSUMED. IT IS ~INDEPENDENT OF COUNTING, AND THE UNION**
+## **MORE THAN DOUBLES IT. THE CONTRAST WITH THE CORTICAL ROUTE IS THE FINDING.**
+`scratch/diag_spoke_complementary_or_subsumed.py`, on the spoke's OWN instrument (grounded terms,
+co-occurring candidates, provenance-filtered ConceptNet gold), 8,150 sentences, n=246.
+
+| | SPOKE | COOC | both | spoke-only | predicted | ratio | **UNION / COOC** |
+|---|---|---|---|---|---|---|---|
+| spoke | 0.0732 | 0.0528 | **2** | 16 | 17.0 | **0.94** | **0.1179 / 0.0528 = 2.2x** |
+| cortical (for contrast) | 0.3767 | 0.6800 | 93 | 20 | 36.2 | 0.55 | 0.7467 / 0.6800 = **1.1x** |
+
+**⚠️ MY PRE-REGISTRATION WAS MIS-SPECIFIED AND I AM NOT GOING TO READ IT LITERALLY.** I wrote
+"materially ABOVE independence -> complementary; AT OR BELOW -> subsumed", which lumps *at
+independence* together with *below independence*. **Those mean OPPOSITE things for buildability.**
+A ratio of 0.94 means the two arms succeed on DIFFERENT items at chance-overlap rates -- only
+**2 of 246** items were got right by both -- which is precisely the case where combining them pays.
+Subsumption is ratio << 1 **AND** union ~= the stronger arm alone. **The correct discriminator is
+the UNION GAIN, and by it the two channels separate cleanly: the spoke's union is 2.2x counting,
+the cortical route's was 1.1x.**
+**➡️ SO THE SPOKE IS A REAL SECOND CHANNEL AND THE CORTICAL ROUTE WAS NOT.** *That is exactly what
+the hub-and-spoke frame predicts: a spoke carries modality information text does not, while another
+way of reading the same text-derived profiles carries nothing new.*
+**⛔ POWER, STATED HONESTLY: the counts are SMALL -- 18 spoke hits, 13 counting hits, 2 overlapping,
+n=246. The direction is clear and the union gain is large, but this is ONE measurement at low
+count and it needs seeds before it is quoted as a result.** *It also does NOT rescue the spoke's
+tie on precision (reading B, 0 of 3 seeds significant) -- a tie plus independence means two
+comparable channels, not a better one.*
+
 ## 🔴🔴 2026-08-19 -- **THE CORTICAL ROUTE IS SUBSUMED BY WORD COUNTING. NOT MERELY BEATEN --**
 ## **ITS UNIQUE CONTRIBUTION IS BELOW WHAT INDEPENDENCE PREDICTS, AT EVERY k.**
 `scratch/diag_complementary_or_subsumed.py`. **This is the FIXED route (sentence cue), not the

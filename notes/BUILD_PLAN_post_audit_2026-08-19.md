@@ -67,6 +67,22 @@
 > byte-identical) + a new no-op self-test. Cell re-running as `v2_hitk_sentencecue` AT THE CELL'S
 > OWN SCALE, because SCALE IS STILL THE OPEN CONFOUND.**
 >
+> ## 🔴🔴 DIRECTION CHANGE 2026-08-19 -- **A STOP, NOT A PIVOT. STOP BUILDING READ-OUT VARIANTS.**
+> **The cortical route is SUBSUMED by word counting, not merely beaten: its unique contribution is
+> BELOW the independence prediction at EVERY k** (ratios 0.80 / 0.46 / 0.55 at k = 1 / 10 / 50).
+> The two routes are POSITIVELY correlated in what they get right. *"Scores lower" and "knows
+> nothing new" are different claims; this is the second.* The union oracle reaches 0.7467 against
+> counting's own 0.6800 -- the signature of subsumption, not complementarity.
+> **THREE READ-OUT VARIANTS HAVE NOW BEEN BUILT ON THE ACCUMULATED-CONTEXT REPRESENTATION**
+> (episodic, cortical-context, cortical-both). **THE CEILING IS NOT IN THE READ-OUT.** The lever is
+> the REPRESENTATION or the SUPPLY.
+> **⛔ THIS DEMOTES THE SHADOW ARM.** It is a read-out variant on the same profiles, and the finding
+> above says that class is exhausted. *Do not build it on this evidence.*
+> **➡️ THE LIVE QUESTION: the SENSORIMOTOR SPOKE is the only channel we own that is NOT derived
+> from co-occurrence. It must face the SAME subsumption test -- does it get right what counting
+> gets wrong, above independence? That is now the sharpest measurement available, and it decides
+> whether the spoke is a real second channel or another re-derivation.**
+>
 > ## TOP UNBLOCKED ITEM, IN ORDER -- REWRITTEN 2026-08-19 AFTER THE CORTICAL CELL CAME BACK VOID
 > **1 and 3 below are DONE. The cortical read was scored and its own reading (C) VOIDED it: the
 > SCRAMBLE arm (an unrelated donor sentence) tied or beat the real cue on ALL THREE seeds, so the
