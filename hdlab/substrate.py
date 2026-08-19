@@ -159,6 +159,19 @@ SLOTS: List[Slot] = [
          "consolidation pass; promotes MEANING_RELATION + KNOWN_WORD on grounding"),
     Slot("R3", "the foundation survives a restart", "foundation_persistence", FILLED,
          "deterministic save/reload of the full ReadingLoopState"),
+    Slot("B3'", "read consolidated knowledge back out (THE CORTICAL READ)", "cortical_recall",
+         NEEDS_ADAPTER,
+         "ADDED 2026-08-19 and it is the read side B3 never had. Measured defect: ablating "
+         "consolidation to ZERO left the read-out identical in 9 of 12 cells because every "
+         "retrieval route addressed the EPISODIC store. Under CLS, consolidated knowledge is read "
+         "from CORTEX. Built and self-testing (4 can-fail tests). NOT on the fact store's keys -- "
+         "measured, related pairs 0.4850 vs unrelated 0.4717 there, so it is exact-key by "
+         "construction and cannot be pattern-completed. STATE IS NEEDS_ADAPTER ON PURPOSE AND THE "
+         "NAME IS IMPERFECT: its inputs DO exist after any read, and `Substrate.recall_cortical` "
+         "calls it -- but no SCORED path does yet, and this project's own standard is that a call "
+         "count is evidence and a row is not. Upgrade to FILLED when a scored path invokes it. "
+         "SCOPE: it can only answer about CONSOLIDATED terms, which is 6.0% of the cloze task's "
+         "held-out targets -- do NOT score it there"),
     Slot("B5", "a second spoke: what things look like, feel like, are done with",
          "sensorimotor_spoke", NEEDS_ADAPTER,
          "ADDED 2026-08-19. The hub is fed by ONE spoke -- text -- and the literature predicts "
@@ -698,6 +711,50 @@ class Substrate:
                 best[lem] = s
         return sorted(best.items(), key=lambda kv: (-kv[1], kv[0]))[:top_k]
 
+    def consolidated(self) -> Dict[str, Optional[str]]:
+        """Term -> the meaning the consolidation gate accepted for it. THE CORTICAL CONTENTS.
+
+        This is deliberately NOT the episodic pool. Measured on a 1,150-sentence read: 2,883
+        episodic lemmas against 68 consolidated facts, a 42x gap with the gate refusing ~88%. That
+        sparsity is CLS working correctly, not a defect to be tuned away.
+        """
+        out: Dict[str, Optional[str]] = {}
+        for p in self.state.provenance:
+            subj = str(p.get("subject", "") or "").strip().lower()
+            obj = str(p.get("object", "") or "").strip().lower()
+            if subj:
+                out[subj] = obj or None
+        return out
+
+    def recall_cortical(self, sentence: str, target: str = "", *, space: str = "context",
+                        top_k: int = 5) -> List[tuple]:
+        """THE CORTICAL READ. Retrieve CONSOLIDATED concepts by content similarity to a cue.
+
+        THE ROUTE THAT DID NOT EXIST, and whose absence was this substrate's largest measured
+        fidelity defect: every other retrieval route addresses the episodic store, so consolidation
+        could be ablated to zero without moving the read-out at all. Under CLS, retrieval of
+        consolidated knowledge is a CORTICAL read; this is it.
+
+        NOT built on the fact store's own keys, and that is measured rather than assumed: in
+        `sr_key` space related pairs score 0.4850 and unrelated 0.4717 (gap +0.0133, identical-key
+        control 1.0000), so the store is exact-key by construction and cannot be pattern-completed.
+        Retrieval therefore happens in a SEMANTIC space, and the store says only WHICH terms are
+        consolidated and WHAT they mean.
+
+        `target` is masked out of its own cue. Returns (term, meaning, score).
+        """
+        def build():
+            from hdlab import cortical_recall as cr
+            return cr
+        cr = self._organ("cortical_recall", build)
+        cons = self.consolidated()
+        if not cons:
+            return []
+        hits = cr.cortical_recall(content_lemmas(sentence), cons, self.profile(),
+                                  space=space, top_k=top_k,
+                                  exclude=[target] if target else ())
+        return [(h.term, h.meaning, h.score) for h in hits]
+
     def recall_sentence(self, sentence: str, target: str = "", *,
                         top_k: int = 5) -> List[tuple]:
         """recall() from a raw sentence, with `target` masked out of its own cue (no-leak)."""
@@ -907,6 +964,39 @@ def _selftest_consolidation_ablation_binds_both_ways() -> dict:
             "ablated_refusals": len(off.state.refusals)}
 
 
+def _selftest_cortical_read_reaches_consolidated_knowledge() -> dict:
+    """B3'. The cortical route must retrieve CONSOLIDATED concepts, and ONLY those.
+
+    THIS IS THE ORGAN WHOSE ABSENCE WAS THE LARGEST MEASURED FIDELITY DEFECT IN THIS SUBSTRATE:
+    consolidation could be ablated to zero without moving the read-out, because every retrieval
+    route addressed the EPISODIC store. The assertions below are the two things that make this a
+    CORTICAL read rather than a second episodic one -- it ranks over the distilled subset, and it
+    returns the grounded MEANING rather than a bare lemma.
+    """
+    s = Substrate(seed=7)
+    s.read(corpus="simplewiki", n_sentences=400, batch=50, max_patches=1, consolidate_every=200)
+    cons = s.consolidated()
+    assert cons, (
+        "POSITIVE CONTROL FAILED: nothing was consolidated, so this test could not detect a "
+        "broken cortical read either way")
+    sent = next((p.get("sentence") or "" for p in s.state.provenance if p.get("sentence")), "")
+    if not sent:
+        sent = s.state.sentence_pool[0] if s.state.sentence_pool else ""
+    hits = s.recall_cortical(sent, top_k=5)
+    assert hits, f"the cortical read returned nothing on a cue of {len(content_lemmas(sent))} lemmas"
+    leaked = [t for t, _, _ in hits if t not in cons]
+    assert not leaked, (
+        f"un-consolidated terms leaked into a CORTICAL read: {leaked}. That makes it a second "
+        "episodic route, not a cortical one")
+    # It must be a DIFFERENT route from the episodic one, or it adds nothing.
+    epi = [r[0] for r in s.recall_sentence(sent, top_k=5)]
+    return {"n_consolidated": len(cons), "cortical_top": [t for t, _, _ in hits][:3],
+            "cortical_meanings": [m for _, m, _ in hits][:3],
+            "episodic_top": epi[:3],
+            "routes_differ": [t for t, _, _ in hits][:3] != epi[:3],
+            "top_score": round(hits[0][2], 4)}
+
+
 def _selftest_gain_is_a_rate_not_a_count() -> dict:
     """The forager's currency must vary. A constant gain stream is failure mode 6, and the organ
     ships the assertion that catches it -- this proves we CALL it."""
@@ -957,6 +1047,8 @@ def run_all_selftests() -> dict:
         ("organs_are_actually_called", _selftest_organs_are_actually_called),
         ("consolidation_ablation_binds_both_ways",
          _selftest_consolidation_ablation_binds_both_ways),
+        ("cortical_read_reaches_consolidated_knowledge",
+         _selftest_cortical_read_reaches_consolidated_knowledge),
         ("gain_is_a_rate_not_a_count", _selftest_gain_is_a_rate_not_a_count),
         ("query_refuses_what_it_never_read", _selftest_query_refuses_what_it_never_read),
     ]
