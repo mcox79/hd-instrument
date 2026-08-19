@@ -17,6 +17,22 @@ difference between that and something that understands.
 
 ---
 
+## ✅ PHASE 0 IS DONE AND MEASURED (`2e8134fd2`, 2026-08-19). DO NOT REDO IT.
+
+- **0.1 `situation_reader` import 205 s -> 30.4 s, and its self-test now PASSES in 102.7 s** where
+  it previously TIMED OUT at 240 s. Same induced hypothesis (`ruleind`), so the fix changed cost and
+  nothing else. **`situation_reader` IS ON THE WIRE LIST.**
+- **0.2 `_scratch_orig_goal_owner_select` removed** from `hdlab/` and from the registry (202 -> 201
+  rows, all re-parsed). Git-tracked, so recoverable from history.
+- **0.3 The dashboard now says `UNVETTED`, never a blank.** Tab 7 carries a HAS ANYONE CHECKED IT?
+  column; a `SHELVED_REFUTED` cell colours its row red regardless of what the run called itself.
+  Checked at the RENDERED CELL by the self-test: 0 blank of 14. Lookup is EXACT-match only --
+  looser matching mapped `..._selftest` onto the full run's record, and a wrong disposition is worse
+  than UNVETTED.
+- **⚠️ FOUND WHILE DOING IT, NOT FIXED: `hdlab/ca3_completer.py` (23 KB) IS UNTRACKED.** It is on
+  the Tier 1 wire list and exists ONLY in the working tree -- any checkout, reset or clean destroys
+  it. Same class as board Q52. **Not committed here: it is not this session's work to sign.**
+
 ## PHASE 0 -- ONE HOUR, DO IT FIRST
 
 **0.1 Fix `situation_reader`'s import-time training.** `hdlab/situation_reader.py:108` runs
