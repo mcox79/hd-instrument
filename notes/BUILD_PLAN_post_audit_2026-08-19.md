@@ -211,6 +211,41 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## ✅✅ REPLICATED ON A DIFFERENT GOLD *AND* A DIFFERENT SCORER -- **AND THIS ONE IS UNFITTED**
+`scratch/simlex_replication_sensorimotor.py`. **988 SimLex-999 pairs -- HUMAN similarity ratings,
+sharing no construction method with ConceptNet -- scored by SPEARMAN CORRELATION rather than
+top-1 retrieval. NO MODEL IS FITTED: this is a plain cosine in each space.**
+
+| predictor of HUMAN similarity | rho | 95% CI |
+|---|---|---|
+| **SENSORIMOTOR cosine** | **0.3171** | **[0.2605, 0.3707]** |
+| SENSORIMOTOR neg-euclidean | 0.3093 | [0.2514, 0.3660] |
+| co-occurrence PMI | 0.1237 | [0.0641, 0.1923] |
+| co-occurrence Dice | 0.0872 | [0.0358, 0.1624] |
+| co-occurrence second-order cosine | 0.0826 | [0.0212, 0.1484] |
+| **co-occurrence RAW count** | **0.0446** | **[-0.0177, 0.1077] -- CI INCLUDES ZERO** |
+
+**PAIRED BOOTSTRAP ON THE DIFFERENCE: +0.2348, 95% CI [+0.1605, +0.3155]. CI-SEPARATED.**
+
+**THIS IS THE STRONGEST FORM THE RESULT HAS TAKEN, AND IT IS THE ONE WITH THE FEWEST CAVEATS:**
+- **UNFITTED.** No model, no cross-validation, no ceiling-diagnostic asterisk. Just a cosine.
+- **A different gold** (human ratings, not a knowledge base) and **a different scorer**
+  (correlation, not retrieval). The ConceptNet/top-1 result is not an instrument quirk.
+- **RAW CO-OCCURRENCE DOES NOT PREDICT HUMAN SIMILARITY AT ALL** -- its CI includes zero. *Which
+  is exactly what the whole session predicts: co-occurrence is THEMATIC, and "how similar are
+  these two words" is TAXONOMIC.*
+- **The capacity confound is dead**: 1,024 co-occurrence features reached 0.3104 on the other
+  instrument; FOURTEEN sensorimotor features reached 0.6413. More features is not what is
+  happening.
+
+**⚖️ AND THE HONEST DEFLATION, WHICH MATTERS FOR HOW THIS IS SOLD: PERCEPTUAL NORMS PREDICTING
+SEMANTIC SIMILARITY IS A KNOWN RESULT IN THE LITERATURE. WE HAVE NOT DISCOVERED EMBODIMENT.**
+*What is new FOR THIS PROJECT is specific and worth stating plainly: our substrate has been working
+in a modality that measurably cannot carry the target, while an admissible, already-on-disk,
+100%-covering asset carries it 2.6-7x better -- and that asset was filed as CLOSED.*
+
+---
+
 ## 🟢🟢 THE MISSING 69% IS IN THE SENSORIMOTOR MODALITY -- 0.6413 vs CO-OCCURRENCE'S 0.3067, CONTROLS BINDING
 `scratch/grounding_features_ceiling.py` + `_query_independent_control.py`. **The co-occurrence
 ceiling said the answer must come from grounding, structure or another modality. It comes from
