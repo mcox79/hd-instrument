@@ -80,11 +80,25 @@
 >    too-lenient gate of the session. Fixed to refuse above 0.60 and fail loud.*
 >    **🔑 AND THE PRIOR HARD_PASS MEASURED COVERAGE (0.50 -> 0.79), NOT RANK. Different claim. This
 >    is not a failure to reproduce it, and nothing here licenses "the owner's idea does not work".**
-> 4. **⬅️ NOW THE TOP UNBLOCKED ITEM: RE-RUN GAP-TARGETING AT POWER, OR ON COVERAGE.** Two honest
->    routes, and the second is cheaper and matches the prior win: (a) raise n until the CI half-width
->    is small enough to detect a plausible effect; (b) **score COVERAGE rather than rank**, which is
->    what the HARD_PASS cell actually measured and what "patchy" actually means.
-> 5. **Leave the write gate alone.** Four explanations tested; tuning thresholds cannot reach it.
+> 4. **⬅️⬅️ NEW TOP ITEM -- OWNER, COMMENTARY 2026-08-19T22:27:04Z: *"don't forget the phase diagram
+>    for these different components / make sure you're drilling negative results and continue to
+>    evaluate brain fidelity"*. THE PHASE DIAGRAM IS THE ITEM AND IT OUTRANKS 5 BELOW.**
+>    **WHY IT IS NOT BUSYWORK, AND WHY IT SHOULD ARGUABLY HAVE COME FIRST: EVERY CONCLUSION REACHED
+>    TODAY WAS MEASURED AT EXACTLY ONE OPERATING POINT -- 8,450 sentences.** Three components were
+>    CLOSED and two called UNDERPOWERED on the strength of a single column of numbers. *The standing
+>    discipline says a fair test of a WEAK SETUP proves that setup failed, not that the capability is
+>    impossible.* **A phase diagram is that discipline made systematic: sweep the control parameter
+>    and show WHERE each component's behaviour changes, so "it loses to counting" can be separated
+>    from "it loses to counting AT THIS SCALE".** If the gap to the counter narrows with reading, the
+>    negatives are scale statements and several of today's closures reopen.
+>    *Prior use of the term in this repo is the physics sense -- "phase diagram maps operating
+>    envelope", boundaries in a load parameter -- and that is the sense being built.*
+> 5. **THEN: re-run gap-targeting at power, or on COVERAGE.** Coverage is cheaper and is what the
+>    HARD_PASS cell actually measured -- "patchy" is a coverage word, not a ranking word.
+> 6. **Leave the write gate alone.** Four explanations tested; tuning thresholds cannot reach it.
+>    *⚠️ Caveat consistent with item 4: that closure is also single-point. If the phase diagram shows
+>    the residual's spread widening with scale, the gate deserves one re-test at the new point --
+>    not a re-tune at the old one.*
 >
 > ## ⚠️ A PATTERN WORTH MORE THAN ANY SINGLE RESULT ABOVE: **I WROTE THREE GATES TODAY THAT COULD
 > ## NOT FAIL.** The floor gate that printed FREQ and never used it; a discrimination check that
