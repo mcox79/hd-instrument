@@ -1,6 +1,6 @@
 # STATUS
 
-AS OF: 2026-08-18 END OF SESSION | branch `dataprep/mcguffey-graded-corpus` | HEAD `a8b8a5d58` | GROWTH PAUSED | origin push needs USER AUTH | READ THE COMPACTION HANDOFF AT THE TOP OF ## POSITION AND STOP THERE
+AS OF: 2026-08-19 AUTOLOOP RUNNING | branch `dataprep/mcguffey-graded-corpus` | HEAD `5cdd0c580` | AUTOLOOP ARMED 200 | origin push needs USER AUTH | READ THE COMPACTION HANDOFF AT THE TOP OF ## POSITION AND STOP THERE
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
@@ -9,6 +9,51 @@ step hunt. 6.16 holds the PRE-COMMITTED decision branches; 6.15 the five gated s
 HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_PLAN.md`.
 
 ## POSITION
+
+# ⏱️➡️ 2026-08-19 -- THE PLAN IS `notes/BUILD_PLAN_post_audit_2026-08-19.md`. OPEN IT. IT IS CURRENT.
+**The autoloop is ARMED at 200 and is executing that plan. It is rewritten every continuation and
+carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
+*Stop the loop with `python tools/autoloop.py disarm`.*
+
+## WHAT LANDED 2026-08-19 (Phases 0-3; `2e8134fd2` .. `5cdd0c580`)
+- **PHASE 0 DONE.** `situation_reader` import **205 s -> 30.4 s** (it trained a model AT IMPORT
+  TIME); its self-test now PASSES at 102.7 s where it TIMED OUT. Scratch file out of `hdlab/` and
+  the registry. **The dashboard now shows `UNVETTED` instead of a blank** -- 0 blank of 14, checked
+  at the rendered cell.
+- **PHASE 1 DONE. `hdlab/substrate.py` EXISTS** -- the assembled reader, organs built lazily,
+  every organ's use PROVEN by a call count or by the artifact it leaves. Self-test PASSES:
+  400 sentences, 3,400 episodic writes, **19 facts grounded with provenance, 124 refused**.
+  Slots: **9 FILLED / 6 NEEDS_ADAPTER / 8 EMPTY / 3 EXCLUDED**, reported by the object itself.
+- **🚨 PHASE 2 IS THE RESULT, AND IT IS A RESOLVED NEGATIVE**
+  (`data/exp_substrate_end_to_end_readout_v1/metrics.json`, 3 seeds, n=300, pool 2,114):
+  **exact-key hit@1 0.9333, HELD-OUT 0.0044 against a 0.0233 co-occurrence floor whose credible
+  bar is 0.0367.** **AND FEEDING IT AN UNRELATED SENTENCE SCORES THE SAME AS THE REAL ONE
+  (0.0033, p up to 1.00) -- ON NEW TEXT IT IS NOT READING THE CUE.** *The same twin separates at
+  p=0.0005 at exact key, which is what makes this a result and not a broken cell.*
+  **THE STORE MEMORISES ALMOST PERFECTLY AND TRANSFERS NOTHING. That is ORGAN A's conclusion
+  reached end-to-end through an assembled substrate on a different task and instrument.**
+- **ABLATIONS: `definitions` and `gap_detector` change EXACTLY NOTHING**, both regimes, all seeds.
+  `episodic` is the organ doing the memorising (0.9333 -> 0.0000). **The `foraging` arm is VOID --
+  rate-matched on the BUDGET instead of on what the live arm consumes; fix by running the live arm
+  first and giving the twin its sentence count.** *Second failure of the same control in two days.*
+- **PHASE 3 STARTED: `hdlab/successor_representation.py`, `M = (I - gamma*P)^-1`**, 5 can-fail
+  self-tests PASS incl. a planted successor recovered over a frequency-matched decoy and the TD
+  rule converging to the closed form. **gamma SWEPT, never adopted.** **PRE-REGISTERED AND
+  UNFLATTERING: M is a discounted MULTI-STEP co-occurrence statistic and the floor is the 1-STEP
+  one; if it only wins at small gamma it is the counter wearing a matrix.**
+- **AUDIT, GOOD NEWS: the no-op scramble control I built today did NOT propagate.**
+  `tools/scramble_control_audit.py`, all **13,553** `.py` enumerated: **HIGH = 0**, 26 cells
+  already use the correct content-destroying recipe. *A word-ORDER shuffle against a BAG scorer is
+  the same vector -- it tied the real cue at p=1.0000. My own pre-committed reading caught it.*
+
+## FOUR CONTROL DEFECTS I BUILT AND FIXED IN ONE DAY -- THE PATTERN IS THE LESSON
+1. a refusal arm that passed because the store returned NOTHING for every cue -- **always pair a
+   refusal arm with a binding arm**; 2. a working organ reported DEAD because my counter could not
+   see the spine invoking it -- **count the artifact, not the call**; 3. a scramble that could not
+   move the number; 4. **a rate-matched twin broken TWICE, in both directions.**
+*Every one was caught by a control on a control. None was caught by reading the code.*
+
+---
 
 # ⏱️ COMPACTION HANDOFF -- 2026-08-18 END OF SESSION. READ THIS BLOCK, THEN STOP AND ACT.
 **Everything below this block is the session's working record and is 112 KB. DO NOT read it top to
@@ -286,6 +331,14 @@ with winner composition FLAT at every depth.** Eleven cells across six organs on
 each; the two LADDERS redirected the programme. Method is not in question -- organ selection was.
 
 ## TOP ITEM -- FIND AN ADMISSIBLE SUPERVISION SIGNAL THAT IS NOT THE EVALUATION GOLD
+**🆕 2026-08-19: THE FIRST CANDIDATE IS BUILT AND UNDER TEST -- D7 SUCCESSOR REPRESENTATION**
+(`hdlab/successor_representation.py`). **It clears the circularity constraint outright: it is
+self-supervised from the corpus's own transitions and derives from NO gold, NO WordNet, NO LLM.**
+Full run in flight; **the pre-registered risk is that it is a better COUNTER rather than a
+different kind of thing**, since `M` is a discounted multi-step co-occurrence statistic and the
+floor is the 1-step one. *Phase 2 independently re-confirmed that the missing ingredient is a
+learning signal, end-to-end through the assembly -- see the 2026-08-19 block at the top of POSITION.*
+
 Organ A is closed and its answer is that we need a LEARNING SIGNAL. **The whole question is now WHICH
 ONE, and the binding constraint is CIRCULARITY, not performance.**
 **VERIFIED OFF DISK 2026-08-18, not asserted** (`exp_dissociation_score_instrument_v1.py`):
@@ -522,6 +575,21 @@ excludes nothing is not a control -- report how many items each control actually
 
 ## WHAT IS RUNNING / BLOCKED
 
+- **🟢 AUTOLOOP ARMED AT 200 (owner-authorised 2026-08-19), executing
+  `notes/BUILD_PLAN_post_audit_2026-08-19.md`.** Stop: `python tools/autoloop.py disarm`, or the
+  dashboard's RUNNING tab, or set `armed: false` in `data/hook_state/autoloop.json`. Anything other
+  than exactly boolean `true` reads DISARMED -- the fail-safe direction is OFF.
+- **🔵 IN FLIGHT: `exp_substrate_end_to_end_readout_v1` FULL, spec `v2_sr`** (adds the D7
+  successor-representation arms, gamma swept 0.1/0.5/0.9). Detached; PID in
+  `scratch/p2_full_v2.pid`, logs `scratch/p2_full_v2.out` / `.err`; 15 checkpointed units.
+  **DO NOT RESPAWN IT** -- a duplicate is the more expensive error. *The v1 units for the same cell
+  are already landed and committed; unit keys carry a `SPEC_VERSION` so v1 results can never be
+  served for the v2 arm set.*
+- **❓ Q66 OPEN AND WORKED AROUND, NOT BLOCKING: `hdlab/ca3_completer.py` IS UNTRACKED IN GIT.**
+  23 KB, on the Tier 1 wire list, **zero git history to recover from**; any checkout/reset/clean
+  destroys it. My recommendation is on the board: commit it alone, in a commit that states the
+  authorship is not mine. *I have not done it -- committing another session's in-progress work
+  under my name is the thing I declined to do for Q52.*
 - **📋 BOARD TRIAGE -- 12 OPEN, BUT ONLY 5 NEED YOU. SEVEN ARE ONE FAULT AUTO-FILED SEVEN TIMES.**
   **Q47, Q48, Q53, Q54, Q55, Q57, Q58 are all the SAME `rm`-bundling denial** -- the loop files a
   board question per denial, so a recurring fault floods the board. **I verified two of them touched
