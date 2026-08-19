@@ -730,6 +730,25 @@ def _cos(a: np.ndarray, b: np.ndarray) -> float:
     return float(np.dot(a, b) / (na * nb))
 
 
+def _anchor_field_fingerprint(space: "ConceptSpace") -> Tuple[int, str]:
+    """(n_anchors, sha1 of the sorted anchor names) -- the field a decision was made against.
+
+    EXISTS BECAUSE A GROUNDING DECISION WAS NOT RE-DERIVABLE. `canonicalize` argmaxes over
+    `space.anchors()` AS IT STANDS AT THE MOMENT OF THE CALL, and the field grows as a
+    consolidation pass proceeds. Replaying 223 landed decisions from the FINAL state -- calling
+    `canonicalize` itself, with the same summed-trace vector and the same eligibility predicate --
+    reproduced only 71 of them (31.8%). The missing ingredient was never the rule; it was WHICH
+    ANCHORS EXISTED. This makes that recoverable.
+
+    The hash is over NAMES, not vectors: it identifies the candidate SET, which is what changes
+    the argmax. Two decisions sharing a fingerprint scanned the same candidates, so a replay
+    against a frozen field can be checked for validity rather than assumed.
+    """
+    anchors = space.anchors()
+    h = hashlib.sha1("\x00".join(anchors).encode("utf-8")).hexdigest()
+    return len(anchors), h
+
+
 def canonicalize(new_lemma: str, new_raw_sum: np.ndarray, space: ConceptSpace,
                  thresh: float = SENSE_MATCH_THRESH,
                  eligible: Optional[Callable[[str], bool]] = None) -> Tuple[str, float]:
@@ -1270,13 +1289,24 @@ def _make_grounding_gate(state: ReadingLoopState, pass_idx: int, source_tag: str
                                    "candidate_object": None})
             return False
         raw_sum = np.sum([t.context_vec for t in item.traces], axis=0)
+        # THE ANCHOR FIELD THIS DECISION WAS MADE AGAINST, RECORDED AT DECISION TIME.
+        # MEASURED 2026-08-19: replaying these decisions from the FINAL state reproduces only
+        # 71 of 223 (31.8%) even when calling THIS function with THIS vector and THIS predicate --
+        # because `canonicalize` scans `space.anchors()` as it stands NOW, and the field grows as
+        # the pass proceeds. The decision is path-dependent and the path was not recorded, so a
+        # central decision of an "auditable knowledge store" could not be re-derived from the
+        # artifact it leaves. Two probes failed before that was clear.
+        # Cheap by construction: the anchor list is already sorted for the scan, and this adds one
+        # hash per decision, not per anchor comparison.
+        _field = _anchor_field_fingerprint(state.space)
         canon_obj, best_cos = canonicalize(lemma, raw_sum, state.space, thresh=thresh,
                                            eligible=is_eligible_meaning)
         if canon_obj == lemma:
             state.refusals.append({"lemma": lemma, "reason": REFUSAL_TAUTOLOGY,
                                    "pass_idx": pass_idx, "segment": source_tag,
                                    "n_exposures": len(item.traces),
-                                   "best_cos": round(float(best_cos), 4), "candidate_object": None})
+                                   "best_cos": round(float(best_cos), 4), "candidate_object": None,
+                                   "n_anchors": _field[0], "anchor_field_sha1": _field[1]})
             return False
         if is_closed_class(canon_obj):
             # Defensive: canonicalize already skipped ineligible anchors, so reaching here means
@@ -1285,7 +1315,12 @@ def _make_grounding_gate(state: ReadingLoopState, pass_idx: int, source_tag: str
                 f"eligibility filter leaked a closed-class anchor {canon_obj!r} for {lemma!r}")
         state.gate_decisions[lemma] = {"canonical_obj": canon_obj,
                                        "best_cos": round(float(best_cos), 4),
-                                       "raw_sum": raw_sum, "pass_idx": pass_idx}
+                                       "raw_sum": raw_sum, "pass_idx": pass_idx,
+                                       # See the note above canonicalize's call: without these a
+                                       # grounding decision cannot be re-derived, because the
+                                       # field it argmaxed over no longer exists.
+                                       "n_anchors": _field[0],
+                                       "anchor_field_sha1": _field[1]}
         return True
 
     return gate
@@ -1346,10 +1381,21 @@ def _make_pbv_grounding_gate(state: ReadingLoopState, pass_idx: int, source_tag:
         # Summed ONLY to build this word's own future-anchor profile (see docstring), never to
         # choose the meaning -- the meaning is h.obj, carried across encounters.
         raw_sum = np.sum([t.context_vec for t in item.traces], axis=0)
+        # THE ANCHOR FIELD AT BANK TIME. Added 2026-08-19 to the LIVE gate after the first version
+        # of this provenance went into `_make_grounding_gate`, which `pbv=True` means is NOT the
+        # live path -- a verification run recorded 0 gate decisions there and its own
+        # missing-field check PASSED VACUOUSLY over the empty set.
+        # NOTE WHAT THIS DOES AND DOES NOT PIN. The PBV meaning is `h.obj`, a STANDING HYPOTHESIS
+        # proposed at an earlier encounter; the field that mattered is the one the PROPOSER
+        # scanned, not this one. `hypothesis.proposed_pass` / `proposed_at_n_traces` / `log`
+        # already locate that moment. This records the field at BANK time, which bounds it from
+        # above and is cheap; pinning the propose-time field belongs in the proposer.
+        _field = _anchor_field_fingerprint(state.space)
         state.gate_decisions[lemma] = {
             "canonical_obj": h.obj,
             "best_cos": round(float(prop_score), 4) if prop_score is not None else None,
             "raw_sum": raw_sum, "pass_idx": pass_idx,
+            "n_anchors_at_bank": _field[0], "anchor_field_sha1_at_bank": _field[1],
             "hypothesis": {"obj": h.obj, "strength": round(h.strength, 6),
                            "proposed_pass": h.proposed_pass,
                            "proposed_at_n_traces": h.proposed_at_n_traces,

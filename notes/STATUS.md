@@ -15,7 +15,32 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
-## 🔴 2026-08-19 -- **THE GATE'S DECISION CANNOT BE REPLAYED FROM THE FINAL STATE. TWO CONTROLS**
+## ⛔ CORRECTION 2026-08-19, TO THE BLOCK DIRECTLY BELOW, WHICH I COMMITTED AND WHICH IS WRONG
+## **I REPLAYED A RULE THE SYSTEM DOES NOT RUN. The 31.8% is explained by that, NOT primarily by**
+## **anchor-field growth, and the auditability claim below is OVERSTATED.**
+**`checkpoint` runs with `pbv=True`, which selects `_make_pbv_grounding_gate` -- NOT
+`_make_grounding_gate`.** The PBV gate's meaning is **`h.obj`, a STANDING HYPOTHESIS carried
+across encounters**; it does **not** canonicalize at consolidation time, and its own docstring says
+the summed-trace argmax is the OLD rule it replaced. **My v2 "exact" replay called `canonicalize`
+on summed traces -- the retired rule. Of course it did not reproduce the live decision.**
+**🧪 AND THE VERIFICATION I WROTE FOR MY OWN FIX PASSED VACUOUSLY:** it asserted "gate decisions
+MISSING the new fields: 0" over **ZERO gate decisions**, because I had instrumented the dead
+branch. *An absence check over an empty set. Fifth recorded instance of a checker sharing a flaw
+with what it checks.*
+**✅ WHAT SURVIVES, NARROWED:** the anchor field DOES grow during a pass and `canonicalize` DOES
+scan it as-of-call, so a canonicalize-based decision is genuinely path-dependent. **But the live
+gate's decision is MORE traceable than I said** -- `gate_decisions` already stores the full
+hypothesis record: `proposed_pass`, `proposed_at_n_traces`, `n_confirm` / `n_disconfirm`, the
+rejected list and the entire `hypothesis_log`. **The un-recorded quantity is narrower than "the
+path": it is the ANCHOR FIELD THE PROPOSER SCANNED at propose time.**
+**🔧 FIX APPLIED TO THE LIVE GATE:** `n_anchors_at_bank` + `anchor_field_sha1_at_bank` now recorded
+in the PBV gate, which bounds the propose-time field from above. *Pinning the propose-time field
+itself belongs in the proposer and is NOT done yet.*
+**➡️ THE BUILD CONCLUSION IS UNCHANGED AND IS THE USEFUL PART: the spoke-vs-gate comparison still
+cannot be made post-hoc, and must be an ONLINE arm.** It just has to be an arm on the PBV
+HYPOTHESIS PROPOSER, not on `canonicalize`.
+
+## 🔴 [SEE THE CORRECTION ABOVE -- THIS BLOCK'S CAUSAL CLAIM IS WRONG] 2026-08-19 -- **THE GATE'S DECISION CANNOT BE REPLAYED FROM THE FINAL STATE. TWO CONTROLS**
 ## **FAILED BEFORE THAT WAS CLEAR, AND IT IS AN AUDITABILITY PROBLEM, NOT A PROBE PROBLEM.**
 `scratch/probe_gate_exact_v2.py`. v2 calls **the gate's own `canonicalize`**, on the gate's own
 vector (the Library item's summed traces), with the gate's own `is_eligible_meaning` predicate and
