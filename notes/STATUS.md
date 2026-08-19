@@ -15,6 +15,28 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## ⚠️ 2026-08-19 -- **CORRECTION TO MY OWN "4.9x" -- A THIRD OF THE SEEN CONTROL WAS A VECTOR**
+## **MATCHING ITSELF. THE READING SURVIVES; THE MAGNITUDE WAS OVERSTATED BY ME.**
+`scratch/diag_seen_control_is_inflated.py`. A term's profile IS THE SUM OF THE CONTEXT VECTORS IT
+WAS SEEN IN, so on SEEN text the cue sentence's own context vector is one of the summands and the
+cosine is partly **a vector against itself**. I applied this project's no-leak rule to the TARGET
+TOKEN and never to the CUE SENTENCE.
+
+| SEEN cue-to-target cosine | value |
+|---|---|
+| FULL profile (**what I published**) | 0.2588 |
+| **LEAVE-ONE-OUT** (cue's own trace removed) | **0.1702** |
+| self-match contribution | **+0.0886 = 34% of the full value** |
+
+**POSITIVE CONTROL BINDS: exactly 1 trace removed on 200 of 200 items** -- the leave-one-out was
+not vacuous, which is the empty-set trap that already caught me once today.
+**➡️ THE CORRECTED NUMBER: the memorise-vs-transfer drop is 3.3x, NOT the 4.9x I published two
+turns ago (0.1702 / 0.0519, not 0.2551 / 0.0519).** *The DIRECTION and the reading are unchanged --
+profiles still memorise far better than they transfer -- but anyone quoting "4.9x" is quoting a
+number inflated by a third by self-match.* **USE 3.3x.**
+*Nothing else in that diagnostic moves: the held-out side never had this confound (the cue sentence
+was never read, so it contributed no trace), and the hit@k separation is measured on held-out only.*
+
 ## 🟢 2026-08-19 -- **THE CORTICAL READ DOES RETRIEVE. READING (A) FIRES AT EVERY k -- AND THE**
 ## **CELL'S VOID VERDICT IS PART CUE-CONSTRUCTION DEFECT, WHICH IS MINE.**
 `scratch/diag_cortical_hit_at_k.py` + `scratch/diag_cue_construction_one_variable.py`, 4,300

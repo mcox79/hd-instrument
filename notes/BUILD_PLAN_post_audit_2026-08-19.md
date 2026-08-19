@@ -55,6 +55,18 @@
 > `Library.flag` in `grounding_acquisition_loop`, i.e. a second module's contract. The BANK-time
 > fingerprint (`n_anchors_at_bank`, `anchor_field_sha1_at_bank`) is in and bounds it from above.*
 >
+> ## ✅ ITEM 1 IS DONE AND IT TURNED THE VOID AROUND. The representation diagnostic ran, and then
+> ## a one-variable test found the void was PART MY OWN CUE-CONSTRUCTION DEFECT.
+> **The space is NOT broken and NOT a blob.** Held-out cue-to-target 0.0519 vs a scrambled cue's
+> 0.0231 (gap +0.0288); 112 distinct argmax winners over 200 cues, no hub. **Scored at hit@k
+> instead of hit@1, REAL vs SCRAMBLE is CI-SEPARATED at k = 1, 10 AND 50 and beats chance k/N at
+> every k** -- median target rank 82 vs 108 of 223. *Retrieval, NOT discrimination.*
+> **The defect: the index is per-term ACCUMULATED CONTEXT VECTORS and `cue_vector` queried it with
+> a SUM OF PER-LEMMA PROFILES.** One-variable test, scale fixed: sentence cue separates at
+> k=1/10/50, profile-sum cue at k=1 only. **FIXED (`context_vec`, default unchanged so callers are
+> byte-identical) + a new no-op self-test. Cell re-running as `v2_hitk_sentencecue` AT THE CELL'S
+> OWN SCALE, because SCALE IS STILL THE OPEN CONFOUND.**
+>
 > ## TOP UNBLOCKED ITEM, IN ORDER -- REWRITTEN 2026-08-19 AFTER THE CORTICAL CELL CAME BACK VOID
 > **1 and 3 below are DONE. The cortical read was scored and its own reading (C) VOIDED it: the
 > SCRAMBLE arm (an unrelated donor sentence) tied or beat the real cue on ALL THREE seeds, so the
