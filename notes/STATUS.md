@@ -15,6 +15,27 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 🛑 2026-08-19 -- **THE CORTICAL READ ROUTE IS UNWINNABLE ON THE CLOZE TASK, MEASURED BEFORE**
+## **BUILDING IT. AND THE REASON IS BRAIN-FAITHFUL, NOT A DEFECT.**
+`scratch/probe_cortical_route_feasibility.py`, on the read-out cell's OWN call (simplewiki,
+`max_patches=1`, `consolidate_every=200`): **1,150 sentences -> 68 consolidated facts, 487
+refusals. Only 18 of 300 held-out targets (6.0%) have ANY entry in the consolidated store, which
+covers 2.4% of the candidate pool.**
+**⛔ SO THE NEXT STEP I HAD WRITTEN DOWN -- "build the cortical read path and score it on the
+read-out cell" -- WOULD HAVE PRODUCED A GUARANTEED NEAR-NULL, from having NO ENTRY rather than
+from being wrong.** *Caught before the build. Third time this session that asking "could this
+experiment have succeeded?" changed the plan; the first two were caught after the compute.*
+**🧠 AND THE SPARSITY IS CORRECT BEHAVIOUR, WHICH REFRAMES IT:** the episodic pool holds 2,883
+words while the consolidated store holds 68 -- a **42x** gap, with the gate refusing ~88%. That
+IS Complementary Learning Systems: the hippocampus holds everything, cortex holds the slowly
+distilled residue, and consolidation takes many repetitions. **The cortical store is not
+too thin -- the CLOZE TASK IS ASKING IT ABOUT WORDS IT HAS NOT CONSOLIDATED YET.**
+**➡️ CONSEQUENCE: WE HAVE TWO INSTRUMENTS AND THEY MEASURE DIFFERENT ORGANS.**
+`exp_substrate_end_to_end_readout_v1` = the HIPPOCAMPAL instrument (scores episodic recall) and is
+the only one wired. `exp_grounding_precision_gold_v1` = the CORTICAL instrument (scores what was
+actually consolidated). **A cortical read route must be scored on the cortical instrument, or on
+far more reading -- never on the cloze task.** *Do not re-derive this; the probe is on disk.*
+
 ## 🧠🔴 2026-08-19 -- **READING (e) FIRED. THE READ-OUT NEVER CONSULTS GROUNDED FACTS.**
 ## **AND THE BRAIN-FIDELITY NAME FOR IT: WE BUILT HIPPOCAMPUS-TO-CORTEX TRANSFER AND THEN READ**
 ## **THE ANSWER OUT OF THE HIPPOCAMPUS.**
