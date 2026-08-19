@@ -15,6 +15,22 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 📉 2026-08-19 -- **RUNNING READ, 4 OF 9 SEEDS: THE FIRST SEED I HAPPENED TO RUN WAS THE BEST**
+## **ONE, AND I CHARACTERISED THE FINDING FROM IT.**
+Spoke-independence ratios as they land: **0.70 / 0.94 / 0.89 / 0.81** (seeds 20260819 / 7 / 101 /
+13). Union/COOC: 1.50 / 2.23 / 1.94 / 2.23 -- **all four >= 1.5.**
+**⚠️ I DESCRIBED THIS FINDING AS "~INDEPENDENT OF COUNTING (0.94)" OFF A SINGLE SEED. The running
+mean is ~0.83, and 0.94 is the HIGHEST of four.** *Seed 7 was not cherry-picked -- it was simply
+the first one I ran -- but a single seed is as likely to be the best of its distribution as the
+worst, and I characterised a distribution from one draw of it. **The correction is not that the
+finding is gone; it is that "at independence" was the top of the range, not the centre.***
+**🔎 AND BOTH THINGS ARE TRUE AT ONCE, WHICH IS THE ACTUAL SHAPE: the ratio sits consistently a
+little BELOW independence (~0.83), AND the union still nearly doubles counting -- because the
+ABSOLUTE overlap is tiny (2-6 items of ~250).** A slight positive correlation in which items each
+arm gets right coexists with almost no shared successes. *Neither "complementary" nor "subsumed"
+is the right word; the honest statement needs both numbers.*
+*5 seeds still to land. No verdict until they do.*
+
 ## 🔎 2026-08-19 -- **THE INSTRUMENT IS NOT FREQUENCY-DOMINATED, AND THAT MAKES OUR RESULT WORSE.**
 A `FREQ_floor` that never looks at the cue beat every cortical arm at k>=10, which raised the
 question of whether this task is winnable by cue at all. **It is.** From the v3 metrics already on
