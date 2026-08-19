@@ -157,3 +157,56 @@ fired, and it disagreed with a naive "contains ' is '" heuristic on 3 of 12.
 (HEAD `hdlab/`), right env (`.venv` throughout), right corpus (`data/corpora/simplewiki`,
 `data/litbank/coref/conll`), right metric (source-verified keys), right arm (ablation flags toggled
 one at a time).
+
+---
+
+## SELF-TEST SWEEP -- LANDED. AND THE RECOVERABLE LIST IS 67 ORGANS.
+
+**87 modules carry a self-test entry point** -- another upward correction (the Director first said
+31, then ~82; the measured figure is **87**). Each run as `python -m hdlab.<mod>` in an ISOLATED
+subprocess, 240 s timeout, exit code as the primary signal and printed text only as secondary.
+
+| | count |
+|---|---|
+| swept | **87** (742 s) |
+| **exit 0** | **83** |
+| exit 0 AND printing an explicit pass marker | **78** |
+| not clean | **4** |
+
+**THE FOUR THAT ARE NOT CLEAN, and only one is a real failure:**
+- **`goal_achievement` -- rc=1, a GENUINE FAILING ASSERTION:**
+  `AssertionError: channel 'relation:recur' != 'majority' for 'I met up with my friend.'`
+  **This is the SAME organ whose desiderative-negation channel the constant-probe flagged (7/7 on
+  authored exemplars, 4/7 on minimal-edit paraphrases). Two independent methods converged on the
+  same component.** That convergence is the finding, not either result alone.
+- `concept_encoder`, `reasoner`, `situation_reader` -- **TIMEOUT at 240 s, which is a BUDGET
+  result, not a breakage result.** `situation_reader` alone costs 204.5 s just to import. **Do not
+  read these as failures**; re-run them with a longer ceiling before any judgement.
+
+## *** THE ANSWER TO THE OWNER'S QUESTION: 67 ORGANS ARE BUILT, SELF-TEST-PASSING, AND UNWIRED ***
+
+**`GOOD_BUT_UNUSED` = self-test exits 0 AND absent from the live closure = 67 modules.**
+(Of the 116 unreached, 71 have a self-test at all; 67 of those pass.)
+**Only 16 organs are BOTH live AND self-test-passing.**
+
+**The largest recoverable, by source size:** `definitional_extraction` (110 KB),
+`goal_owner_select` (62 KB), `definitional_predicate_v61` (51 KB), `goal_outcome_relation` (47 KB),
+`atom_consultation` (43 KB), `information_foraging` (39 KB), `hippocampal_encoder` (38 KB),
+`foundation_persistence` (37 KB), `cortex` (34 KB), `goal_outcome_relation_grounded` (33 KB),
+`prelim_tier` (32 KB), `semantic_parser` (31 KB), `context_retention` (31 KB),
+`result_type_induction` (30 KB), `script_grain_acquisition_loop` (29 KB), `action_selection` (29 KB).
+
+**CROSS THE TWO AUDITS BEFORE WIRING ANYTHING.** A passing self-test is NOT sufficient -- the
+constant-probe found `atom_consultation` self-test-passing AND decision-inert (`applied` hard-coded
+`False`), and `definitional_predicate_v61` self-test-passing AND firing on 0.27% of its intended
+population. **BOTH APPEAR IN THE 67.** The wire list is the INTERSECTION of self-test-passing and
+probe-FUNCTIONAL, not either alone.
+
+**WIRE LIST, both audits agreeing:** `hippocampal_encoder`, `cortex`, `information_foraging`,
+`coref`, `goal_owner_select`, `definitional_extraction` -- and `situation_reader` once its self-test
+is re-run with a longer budget.
+
+**`_scratch_orig_goal_owner_select` appears in the 67. It is a SCRATCH FILE. Remove it from
+`hdlab/` and from the registry rather than counting it as recoverable capability.**
+
+**Evidence:** `scratch/organ_audit/selftest_results.json`, `scratch/organ_audit/good_but_unused.json`.
