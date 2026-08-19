@@ -15,6 +15,43 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 🟢🟢 2026-08-19 -- THE BEST-CONTROLLED POSITIVE THIS PROGRAMME HAS: **THE SIGNAL TEXT LACKS IS IN
+## THE SENSORIMOTOR NORMS. 0.6413 vs CO-OCCURRENCE'S 0.3067, FOUR CONTROLS BINDING.**
+**Task: given 50 candidates that ALL co-occur with the target, pick the taxonomically related one.
+Gold = provenance-filtered ConceptNet, no WordNet source. Word-disjoint 5-fold CV. 538 target
+words.** *(All fitted -- CEILING DIAGNOSTICS, never capabilities.)*
+
+| feature set | hit@1 |
+|---|---|
+| **PAIRWISE sensorimotor (11 Lancaster dims + cosine + euclid + |conc diff|)** | **0.6413** |
+| co-occurrence + POS + sensorimotor | 0.6394 *(adds nothing)* |
+| **CO-OCCURRENCE, every form tried** | **0.3067** |
+| co-occurrence + POS | 0.2993 |
+| **POS only** | **0.1022** |
+| **CANDIDATE-ONLY, never sees the query** | **0.0985** |
+| **SHUFFLED PAIRING, marginals preserved** | **0.0595** |
+
+**CO-OCCURRENCE TOPS OUT AT ~0.31 HOWEVER PROCESSED** -- raw, Dice, NPMI, full 1,024-dim profile,
+linear, nonlinear, supervised on the answers. **Eight scalars with a tree ensemble and the full
+profile with a linear model BOTH land on 0.3104.** *The remaining 69% is not in text.*
+**AND SENSORIMOTOR ALONE MATCHES SENSORIMOTOR-PLUS-EVERYTHING -- co-occurrence adds nothing on top
+of it.**
+
+**🚨 I EXPECTED AN ARTIFACT AND THE ARCHIVE TOLD ME WHICH ONE.** The 2026-08-18 sensorimotor cell
+found a **QUERY-INDEPENDENT genericity score reading 0.6195** that beat every pairwise distance. My
+first number was **0.6152**. *So their control ran before anything was written: candidate-only
+0.0985, shuffled-pairing 0.0595, and dropping the candidate-only features IMPROVED the score.
+**The pairing carries it.***
+
+**🔓 IT RE-OPENS A CLOSED ROUTE. The SAME 11 dimensions were filed at 0.6039 against a 0.6791 bar
+as "refuting THIS RESOLUTION".** *That was pairwise similarity on the dissociation instrument; on a
+better-posed problem the same eleven numbers double the text-only ceiling.* **"DO NOT GENERALISE A
+NARROW FAILURE TO IMPOSSIBLE" (owner, 08-11) paid out, on an asset marked closed.**
+
+**⚠️ WHAT IT IS NOT: a mechanism. It says the INFORMATION is there and text does not have it. The
+norms are SUPPLIED human ratings -- admissible (static, offline, no LLM at inference) but not
+learned. One gold, one corpus, 538 words, no CI. NEXT BUILD, not next claim.**
+
 ## 🎯 THE STRONGEST RESULT OF 2026-08-19, AND IT REFRAMES THE TOP ITEM: **IT IS A RANKING PROBLEM**
 **hit@k on the paradigmatic gold, 635 scorable words, 852 candidates** (`scratch/hit_at_k_ceiling.py`):
 
