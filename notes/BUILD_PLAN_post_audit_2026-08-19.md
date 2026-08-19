@@ -211,6 +211,39 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🔎 WHAT SEPARATES THE RIGHT CANDIDATE FROM THE OTHER 49? AN UNSUPERVISED STATISTIC BUYS +31%
+`scratch/rerank_top50.py`. Re-ranking the SAME top-50 co-occurrence candidate set, 538 words whose
+candidate set contains a gold relative -- so this is a PURE DISCRIMINATION measurement with the
+retrieval step held fixed.
+
+| re-ranker | hit@1 | vs RAW |
+|---|---|---|
+| **DICE** `2c/(f(a)+f(b))` | **0.2435** | **+5.8pp (+31% relative)** |
+| NPMI | 0.2249 | +3.9pp |
+| PMI | 0.1914 | +0.6pp |
+| ENTROPY_PEN | 0.1877 | +0.2pp |
+| **RAW count** (the incumbent) | 0.1859 | -- |
+| SYMMETRY | 0.1859 | **0.0 -- no effect at all** |
+| **SECOND_ORDER** (shared-neighbour cosine) | **0.1506** | **-3.5pp, WORSE than raw** |
+| ORACLE | 1.0000 | *ceiling diagnostic, never a capability* |
+
+**SO THE "WE NEED A TEACHER" FRAME IS AT LEAST PARTLY WRONG: A ONE-LINE UNSUPERVISED STATISTIC
+RECOVERS 31% OF THE INCUMBENT'S SHORTFALL, AND WE WERE NOT USING IT.**
+***AND THESE ARE TEXTBOOK STATISTICS, NOT DISCOVERIES.*** *Dice and NPMI are the standard
+frequency-normalisation moves in distributional semantics. The finding is not that they work -- it
+is that our pipeline was ranking on RAW COUNTS and leaving the standard gain on the table.*
+
+**🔴 AND THE ONE THAT MATTERS MOST IS THE LOSER: SECOND_ORDER -- "do these two words keep the same
+company", the classic distributional-similarity move and the thing our SEMANTIC route computes --
+IS WORSE THAN THE RAW COUNT IT IS BUILT FROM.** *Fifth instrument, same conclusion: our
+second-order machinery destroys information rather than extracting it.*
+
+**⚠️ UNCONTROLLED: no CI, one corpus, 538 items. The DICE-vs-RAW gap is ~31 items of 538. Real
+enough to act on, not established. And 75.6% of the discrimination remains unexplained by ANY of
+these features -- the teacher requirement is narrowed, not removed.**
+
+---
+
 ## 🎯 IT IS A **RANKING** PROBLEM, NOT AN INFORMATION PROBLEM. hit@k SETTLES IT IN ONE PASS.
 `scratch/hit_at_k_ceiling.py`, paradigmatic gold, 635 scorable words, 852 candidates.
 
