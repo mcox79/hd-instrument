@@ -97,7 +97,12 @@ OUTPUT_DIR = os.path.join(_REPO, "data", CELL)
 #      fixed: the sentence cue separates at k=1/10/50, the profile-sum cue at k=1 only.
 # SCALE REMAINS THE OPEN CONFOUND: the diagnostics ran at 4,300 sentences / 223 terms, this cell
 # at 16,600 / 428-480. That is exactly why this re-runs AT THE CELL'S OWN SCALE.
-SPEC = "v2_hitk_sentencecue"
+# v2 -> v3: added the FLOORS to the hit@k block. v2 scored the cortical arms against SCRAMBLE and
+# chance only, so it could say "the route retrieves" and could NOT say "the route is competitive",
+# and those two get conflated by any reader in a hurry. v3 ranks COOC and FREQ over the SAME
+# candidate set at every k and reports whether each cortical arm clears the STRONGEST floor's
+# UPPER bound -- this project's actual bar, not the noise arm.
+SPEC = "v3_floors_at_k"
 KS = (1, 5, 10, 25, 50)
 CORPUS = "simplewiki"
 SEEDS = (20260819, 7, 101)
@@ -241,6 +246,31 @@ def _run(seed: int, n_read: int, n_items: int, chunk: int) -> dict:
         sims = M @ q
         return int(np.sum(sims > sims[P[tgt]])) + 1
 
+    def rank_cooc(sent: str, tgt: str) -> Optional[int]:
+        """The target's rank under co-occurrence counting, over the SAME candidate set.
+
+        THE FLOOR WAS MISSING FROM THE hit@k BLOCK AND THAT WAS A REAL GAP. v2 scored the cortical
+        arms against SCRAMBLE and chance only, which is weaker than this project's standard bar
+        (clear the STRONGEST FLOOR'S upper bound). Without this the table could say "the route
+        retrieves" and could NOT say "the route is competitive", and those get conflated.
+        Unranked candidates are placed LAST, so the floor is never flattered by absence.
+        """
+        c: collections.Counter = collections.Counter()
+        cue = [l for l in content_lemmas(sent) if l != tgt]
+        for l in cue:
+            c.update(cooc.get(l, {}))
+        for w in cue:
+            c.pop(w, None)
+        if not c:
+            return None
+        ranked = [w for w, _ in c.most_common() if w in cand_set]
+        return (ranked.index(tgt) + 1) if tgt in ranked else len(cands)
+
+    def rank_freq(sent: str, tgt: str) -> Optional[int]:
+        """The target's rank under raw frequency. NEVER LOOKS AT THE CUE, so it is the same
+        ranking for every item -- which is exactly what makes it a floor worth having."""
+        return (freq_rank.index(tgt) + 1) if tgt in freq_rank else len(cands)
+
     def top1_cortical(space: str, sent: str, tgt: str) -> Optional[str]:
         hits = cortical_recall(content_lemmas(sent), cons, profiles, space=space, top_k=1,
                                exclude=[tgt], index=idx.get(space),
@@ -289,6 +319,9 @@ def _run(seed: int, n_read: int, n_items: int, chunk: int) -> dict:
     rank_arms["RANK_SCRAMBLE"] = [
         rank_cortical("context", _donor([s for s, _ in items], i, rng), t)
         for i, (s, t) in enumerate(items)]
+    # THE FLOORS, AT EVERY k. Without these the block can only say the route beats NOISE.
+    rank_arms["RANK_COOC_floor"] = [rank_cooc(s, t) for s, t in items]
+    rank_arms["RANK_FREQ_floor"] = [rank_freq(s, t) for s, t in items]
 
     hitk: Dict[str, Dict[str, float]] = {}
     for name, ranks in rank_arms.items():
@@ -307,12 +340,32 @@ def _run(seed: int, n_read: int, n_items: int, chunk: int) -> dict:
     sep_k = [k for k in KS
              if hitk["RANK_CONTEXT"]["ci_lo@%d" % k] > hitk["RANK_SCRAMBLE"]["ci_hi@%d" % k]
              and hitk["RANK_CONTEXT"]["hit@%d" % k] > k / big_n]
+    # THE BAR THIS PROJECT ACTUALLY USES: clear the STRONGEST FLOOR'S UPPER BOUND, not its point
+    # value, and not merely the noise arm. Computed per k over whichever floor is stronger THERE.
+    beat_floor = {}
+    for k in KS:
+        floors = {f: hitk[f] for f in ("RANK_COOC_floor", "RANK_FREQ_floor")}
+        strongest = max(floors, key=lambda f: floors[f]["hit@%d" % k])
+        bar = floors[strongest]["ci_hi@%d" % k]
+        beat_floor["k=%d" % k] = {
+            "strongest_floor": strongest,
+            "floor_hit": floors[strongest]["hit@%d" % k],
+            "credible_bar": bar,
+            "CONTEXT_clears": bool(hitk["RANK_CONTEXT"]["ci_lo@%d" % k] > bar),
+            "BOTH_clears": bool(hitk["RANK_BOTH"]["ci_lo@%d" % k] > bar),
+        }
 
     out: dict = {
         "seed": seed, "n_read": total, "read_seconds": round(read_s, 1),
         "hit_at_k": hitk,
         "chance_at_k": {("hit@%d" % k): k / big_n for k in KS},
         "READING_A_k_where_real_clears_scramble_and_chance": sep_k,
+        "clears_strongest_floor_per_k": beat_floor,
+        "floor_note": ("v2 scored the cortical arms against SCRAMBLE and chance ONLY, which is "
+                       "weaker than this project's bar. 'clears_strongest_floor_per_k' is the "
+                       "real one: the strongest floor's UPPER bound at that k. A run where "
+                       "READING_A fires but nothing clears the floor means the route RETRIEVES "
+                       "and is NOT COMPETITIVE -- report both."),
         "retrieval_not_discrimination_note": (
             "hit@k here is RETRIEVAL. A target inside the top-k of ~450 consolidated terms is "
             "NARROWED DOWN, not known. Do not report it as discrimination."),
