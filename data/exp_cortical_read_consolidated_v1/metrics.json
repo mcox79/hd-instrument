@@ -1,23 +1,116 @@
 {
   "cell": "exp_cortical_read_consolidated_v1",
-  "ts_iso": "2026-08-19T16:50:38Z",
+  "ts_iso": "2026-08-19T17:32:46Z",
   "run_mode": "full",
-  "spec": "v1_cortical",
+  "spec": "v2_hitk_sentencecue",
   "n_units": 3,
   "corpus": "simplewiki",
   "what_is_scored": "the CORTICAL read route (hdlab/cortical_recall.py), on the consolidated side it can actually reach",
   "items_predate_mechanism": true,
   "items_predate_note": "The sentences are published prose predating this project and the gold is the word actually present. BUT THE CANDIDATE SET IS OURS -- it is whatever the gate consolidated. FREQ_floor and SCRAMBLE exist to measure how much of any score comes from the candidate set's shape rather than from reading the cue.",
   "readings_c_route_reads_the_cue": [
-    false,
-    false,
-    false
+    true,
+    true,
+    true
   ],
   "units": [
     {
       "seed": 20260819,
       "n_read": 16600,
-      "read_seconds": 548.1,
+      "read_seconds": 233.0,
+      "hit_at_k": {
+        "RANK_CONTEXT": {
+          "hit@1": 0.056666666666666664,
+          "ci_lo@1": 0.03333333333333333,
+          "ci_hi@1": 0.08666666666666667,
+          "hit@5": 0.14,
+          "ci_lo@5": 0.10333333333333333,
+          "ci_hi@5": 0.18333333333333332,
+          "hit@10": 0.18,
+          "ci_lo@10": 0.13666666666666666,
+          "ci_hi@10": 0.22333333333333333,
+          "hit@25": 0.2633333333333333,
+          "ci_lo@25": 0.21333333333333335,
+          "ci_hi@25": 0.31333333333333335,
+          "hit@50": 0.3433333333333333,
+          "ci_lo@50": 0.29333333333333333,
+          "ci_hi@50": 0.39666666666666667,
+          "median_rank": 126.0,
+          "n_scored": 300
+        },
+        "RANK_SPOKE": {
+          "hit@1": 0.01,
+          "ci_lo@1": 0.0,
+          "ci_hi@1": 0.023333333333333334,
+          "hit@5": 0.056666666666666664,
+          "ci_lo@5": 0.03333333333333333,
+          "ci_hi@5": 0.08333333333333333,
+          "hit@10": 0.10666666666666667,
+          "ci_lo@10": 0.07333333333333333,
+          "ci_hi@10": 0.14333333333333334,
+          "hit@25": 0.19666666666666666,
+          "ci_lo@25": 0.15333333333333332,
+          "ci_hi@25": 0.24,
+          "hit@50": 0.3433333333333333,
+          "ci_lo@50": 0.29,
+          "ci_hi@50": 0.4,
+          "median_rank": 82.0,
+          "n_scored": 277
+        },
+        "RANK_BOTH": {
+          "hit@1": 0.03,
+          "ci_lo@1": 0.013333333333333334,
+          "ci_hi@1": 0.05,
+          "hit@5": 0.09666666666666666,
+          "ci_lo@5": 0.06666666666666667,
+          "ci_hi@5": 0.13333333333333333,
+          "hit@10": 0.15333333333333332,
+          "ci_lo@10": 0.11333333333333333,
+          "ci_hi@10": 0.19333333333333333,
+          "hit@25": 0.2733333333333333,
+          "ci_lo@25": 0.22,
+          "ci_hi@25": 0.32666666666666666,
+          "hit@50": 0.39666666666666667,
+          "ci_lo@50": 0.3433333333333333,
+          "ci_hi@50": 0.4533333333333333,
+          "median_rank": 69.0,
+          "n_scored": 277
+        },
+        "RANK_SCRAMBLE": {
+          "hit@1": 0.006666666666666667,
+          "ci_lo@1": 0.0,
+          "ci_hi@1": 0.016666666666666666,
+          "hit@5": 0.02666666666666667,
+          "ci_lo@5": 0.01,
+          "ci_hi@5": 0.04666666666666667,
+          "hit@10": 0.03666666666666667,
+          "ci_lo@10": 0.016666666666666666,
+          "ci_hi@10": 0.06,
+          "hit@25": 0.11666666666666667,
+          "ci_lo@25": 0.08,
+          "ci_hi@25": 0.15333333333333332,
+          "hit@50": 0.19,
+          "ci_lo@50": 0.14666666666666667,
+          "ci_hi@50": 0.23333333333333334,
+          "median_rank": 173.0,
+          "n_scored": 300
+        }
+      },
+      "chance_at_k": {
+        "hit@1": 0.002336448598130841,
+        "hit@5": 0.011682242990654205,
+        "hit@10": 0.02336448598130841,
+        "hit@25": 0.05841121495327103,
+        "hit@50": 0.11682242990654206
+      },
+      "READING_A_k_where_real_clears_scramble_and_chance": [
+        1,
+        5,
+        10,
+        25,
+        50
+      ],
+      "retrieval_not_discrimination_note": "hit@k here is RETRIEVAL. A target inside the top-k of ~450 consolidated terms is NARROWED DOWN, not known. Do not report it as discrimination.",
       "n_consolidated": 428,
       "n_items": 300,
       "index_sizes": {
@@ -33,14 +126,14 @@
       "min_items_required": 200,
       "min_candidates_required": 50,
       "CORTICAL_CONTEXT": {
-        "hit@1": 0.043333333333333335,
-        "hits": 13,
+        "hit@1": 0.056666666666666664,
+        "hits": 17,
         "n": 300,
-        "ci_lo": 0.02,
-        "ci_hi": 0.06666666666666667,
-        "ci_half_width": 0.02333333333333333,
+        "ci_lo": 0.03,
+        "ci_hi": 0.08333333333333333,
+        "ci_half_width": 0.026666666666666665,
         "clears_credible_bar": false,
-        "perm_p_vs_strongest_floor": 0.02148925537231384,
+        "perm_p_vs_strongest_floor": 0.18790604697651175,
         "perm_p_vs_EPISODIC": 0.0004997501249375312
       },
       "CORTICAL_SPOKE": {
@@ -52,18 +145,18 @@
         "ci_half_width": 0.011666666666666667,
         "clears_credible_bar": false,
         "perm_p_vs_strongest_floor": 0.0004997501249375312,
-        "perm_p_vs_EPISODIC": 0.25237381309345325
+        "perm_p_vs_EPISODIC": 0.239880059970015
       },
       "CORTICAL_BOTH": {
-        "hit@1": 0.023333333333333334,
-        "hits": 7,
+        "hit@1": 0.03,
+        "hits": 9,
         "n": 300,
-        "ci_lo": 0.006666666666666667,
-        "ci_hi": 0.043333333333333335,
-        "ci_half_width": 0.018333333333333333,
+        "ci_lo": 0.013333333333333334,
+        "ci_hi": 0.05333333333333334,
+        "ci_half_width": 0.02,
         "clears_credible_bar": false,
-        "perm_p_vs_strongest_floor": 0.0014992503748125937,
-        "perm_p_vs_EPISODIC": 0.014992503748125937
+        "perm_p_vs_strongest_floor": 0.00399800099950025,
+        "perm_p_vs_EPISODIC": 0.0034982508745627187
       },
       "EPISODIC_FILTERED": {
         "hit@1": 0.0,
@@ -93,23 +186,115 @@
         "ci_half_width": 0.021666666666666667
       },
       "SCRAMBLE": {
-        "hit@1": 0.05,
-        "hits": 15,
+        "hit@1": 0.006666666666666667,
+        "hits": 2,
         "n": 300,
-        "ci_lo": 0.02666666666666667,
-        "ci_hi": 0.07666666666666666,
-        "ci_half_width": 0.024999999999999994,
-        "perm_p_vs_CORTICAL_CONTEXT": 0.808095952023988
+        "ci_lo": 0.0,
+        "ci_hi": 0.016666666666666666,
+        "ci_half_width": 0.008333333333333333,
+        "perm_p_vs_CORTICAL_CONTEXT": 0.0004997501249375312
       },
       "_strongest_floor": "COOC_floor",
       "_credible_bar": 0.12,
-      "READING_C_route_reads_the_cue": false,
-      "unit_key": "v1_cortical|full|20260819"
+      "READING_C_route_reads_the_cue": true,
+      "unit_key": "v2_hitk_sentencecue|full|20260819"
     },
     {
       "seed": 7,
       "n_read": 16600,
-      "read_seconds": 524.9,
+      "read_seconds": 264.7,
+      "hit_at_k": {
+        "RANK_CONTEXT": {
+          "hit@1": 0.03,
+          "ci_lo@1": 0.013333333333333334,
+          "ci_hi@1": 0.05,
+          "hit@5": 0.09,
+          "ci_lo@5": 0.056666666666666664,
+          "ci_hi@5": 0.12333333333333334,
+          "hit@10": 0.15333333333333332,
+          "ci_lo@10": 0.11333333333333333,
+          "ci_hi@10": 0.19666666666666666,
+          "hit@25": 0.27,
+          "ci_lo@25": 0.22,
+          "ci_hi@25": 0.3233333333333333,
+          "hit@50": 0.3433333333333333,
+          "ci_lo@50": 0.29333333333333333,
+          "ci_hi@50": 0.4,
+          "median_rank": 115.5,
+          "n_scored": 300
+        },
+        "RANK_SPOKE": {
+          "hit@1": 0.01,
+          "ci_lo@1": 0.0,
+          "ci_hi@1": 0.023333333333333334,
+          "hit@5": 0.03666666666666667,
+          "ci_lo@5": 0.016666666666666666,
+          "ci_hi@5": 0.06,
+          "hit@10": 0.08,
+          "ci_lo@10": 0.05,
+          "ci_hi@10": 0.11,
+          "hit@25": 0.17,
+          "ci_lo@25": 0.12666666666666668,
+          "ci_hi@25": 0.21333333333333335,
+          "hit@50": 0.29333333333333333,
+          "ci_lo@50": 0.24,
+          "ci_hi@50": 0.3466666666666667,
+          "median_rank": 88.0,
+          "n_scored": 277
+        },
+        "RANK_BOTH": {
+          "hit@1": 0.023333333333333334,
+          "ci_lo@1": 0.006666666666666667,
+          "ci_hi@1": 0.04,
+          "hit@5": 0.09666666666666666,
+          "ci_lo@5": 0.06666666666666667,
+          "ci_hi@5": 0.13,
+          "hit@10": 0.13666666666666666,
+          "ci_lo@10": 0.09666666666666666,
+          "ci_hi@10": 0.17666666666666667,
+          "hit@25": 0.20666666666666667,
+          "ci_lo@25": 0.16333333333333333,
+          "ci_hi@25": 0.25,
+          "hit@50": 0.34,
+          "ci_lo@50": 0.2866666666666667,
+          "ci_hi@50": 0.3933333333333333,
+          "median_rank": 79.0,
+          "n_scored": 277
+        },
+        "RANK_SCRAMBLE": {
+          "hit@1": 0.01,
+          "ci_lo@1": 0.0,
+          "ci_hi@1": 0.023333333333333334,
+          "hit@5": 0.03,
+          "ci_lo@5": 0.013333333333333334,
+          "ci_hi@5": 0.05008333333333288,
+          "hit@10": 0.05333333333333334,
+          "ci_lo@10": 0.03,
+          "ci_hi@10": 0.08,
+          "hit@25": 0.09333333333333334,
+          "ci_lo@25": 0.06333333333333334,
+          "ci_hi@25": 0.12666666666666668,
+          "hit@50": 0.19666666666666666,
+          "ci_lo@50": 0.15333333333333332,
+          "ci_hi@50": 0.24333333333333335,
+          "median_rank": 176.0,
+          "n_scored": 300
+        }
+      },
+      "chance_at_k": {
+        "hit@1": 0.0020833333333333333,
+        "hit@5": 0.010416666666666666,
+        "hit@10": 0.020833333333333332,
+        "hit@25": 0.052083333333333336,
+        "hit@50": 0.10416666666666667
+      },
+      "READING_A_k_where_real_clears_scramble_and_chance": [
+        5,
+        10,
+        25,
+        50
+      ],
+      "retrieval_not_discrimination_note": "hit@k here is RETRIEVAL. A target inside the top-k of ~450 consolidated terms is NARROWED DOWN, not known. Do not report it as discrimination.",
       "n_consolidated": 480,
       "n_items": 300,
       "index_sizes": {
@@ -125,15 +310,15 @@
       "min_items_required": 200,
       "min_candidates_required": 50,
       "CORTICAL_CONTEXT": {
-        "hit@1": 0.01,
-        "hits": 3,
+        "hit@1": 0.03,
+        "hits": 9,
         "n": 300,
-        "ci_lo": 0.0,
-        "ci_hi": 0.023333333333333334,
-        "ci_half_width": 0.011666666666666667,
+        "ci_lo": 0.013333333333333334,
+        "ci_hi": 0.05,
+        "ci_half_width": 0.018333333333333333,
         "clears_credible_bar": false,
-        "perm_p_vs_strongest_floor": 0.0009995002498750624,
-        "perm_p_vs_EPISODIC": 0.25087456271864067
+        "perm_p_vs_strongest_floor": 0.03798100949525238,
+        "perm_p_vs_EPISODIC": 0.001999000499750125
       },
       "CORTICAL_SPOKE": {
         "hit@1": 0.01,
@@ -144,18 +329,18 @@
         "ci_half_width": 0.011666666666666667,
         "clears_credible_bar": false,
         "perm_p_vs_strongest_floor": 0.0009995002498750624,
-        "perm_p_vs_EPISODIC": 0.24037981009495252
+        "perm_p_vs_EPISODIC": 0.24287856071964017
       },
       "CORTICAL_BOTH": {
-        "hit@1": 0.02,
-        "hits": 6,
+        "hit@1": 0.023333333333333334,
+        "hits": 7,
         "n": 300,
-        "ci_lo": 0.006666666666666667,
-        "ci_hi": 0.03666666666666667,
+        "ci_lo": 0.01,
+        "ci_hi": 0.04,
         "ci_half_width": 0.015,
         "clears_credible_bar": false,
-        "perm_p_vs_strongest_floor": 0.001999000499750125,
-        "perm_p_vs_EPISODIC": 0.02848575712143928
+        "perm_p_vs_strongest_floor": 0.009495252373813094,
+        "perm_p_vs_EPISODIC": 0.01249375312343828
       },
       "EPISODIC_FILTERED": {
         "hit@1": 0.0,
@@ -172,9 +357,9 @@
         "hit@1": 0.07,
         "hits": 21,
         "n": 300,
-        "ci_lo": 0.043333333333333335,
+        "ci_lo": 0.043250000000000004,
         "ci_hi": 0.1,
-        "ci_half_width": 0.028333333333333335
+        "ci_half_width": 0.028375
       },
       "FREQ_floor": {
         "hit@1": 0.02666666666666667,
@@ -185,23 +370,116 @@
         "ci_half_width": 0.018333333333333333
       },
       "SCRAMBLE": {
-        "hit@1": 0.023333333333333334,
-        "hits": 7,
+        "hit@1": 0.006666666666666667,
+        "hits": 2,
         "n": 300,
-        "ci_lo": 0.006666666666666667,
-        "ci_hi": 0.043333333333333335,
-        "ci_half_width": 0.018333333333333333,
-        "perm_p_vs_CORTICAL_CONTEXT": 0.2703648175912044
+        "ci_lo": 0.0,
+        "ci_hi": 0.016666666666666666,
+        "ci_half_width": 0.008333333333333333,
+        "perm_p_vs_CORTICAL_CONTEXT": 0.06746626686656672
       },
       "_strongest_floor": "COOC_floor",
       "_credible_bar": 0.1,
-      "READING_C_route_reads_the_cue": false,
-      "unit_key": "v1_cortical|full|7"
+      "READING_C_route_reads_the_cue": true,
+      "unit_key": "v2_hitk_sentencecue|full|7"
     },
     {
       "seed": 101,
       "n_read": 16650,
-      "read_seconds": 461.1,
+      "read_seconds": 277.6,
+      "hit_at_k": {
+        "RANK_CONTEXT": {
+          "hit@1": 0.05333333333333334,
+          "ci_lo@1": 0.03,
+          "ci_hi@1": 0.08,
+          "hit@5": 0.11333333333333333,
+          "ci_lo@5": 0.08,
+          "ci_hi@5": 0.15,
+          "hit@10": 0.16666666666666666,
+          "ci_lo@10": 0.12666666666666668,
+          "ci_hi@10": 0.21,
+          "hit@25": 0.24333333333333335,
+          "ci_lo@25": 0.19666666666666666,
+          "ci_hi@25": 0.29333333333333333,
+          "hit@50": 0.3333333333333333,
+          "ci_lo@50": 0.28,
+          "ci_hi@50": 0.38666666666666666,
+          "median_rank": 121.0,
+          "n_scored": 300
+        },
+        "RANK_SPOKE": {
+          "hit@1": 0.0033333333333333335,
+          "ci_lo@1": 0.0,
+          "ci_hi@1": 0.01,
+          "hit@5": 0.056666666666666664,
+          "ci_lo@5": 0.03,
+          "ci_hi@5": 0.08333333333333333,
+          "hit@10": 0.09666666666666666,
+          "ci_lo@10": 0.06666666666666667,
+          "ci_hi@10": 0.13,
+          "hit@25": 0.18666666666666668,
+          "ci_lo@25": 0.14333333333333334,
+          "ci_hi@25": 0.23,
+          "hit@50": 0.33666666666666667,
+          "ci_lo@50": 0.2833333333333333,
+          "ci_hi@50": 0.39,
+          "median_rank": 88.0,
+          "n_scored": 280
+        },
+        "RANK_BOTH": {
+          "hit@1": 0.043333333333333335,
+          "ci_lo@1": 0.02,
+          "ci_hi@1": 0.07,
+          "hit@5": 0.09,
+          "ci_lo@5": 0.06,
+          "ci_hi@5": 0.12333333333333334,
+          "hit@10": 0.15,
+          "ci_lo@10": 0.11,
+          "ci_hi@10": 0.19333333333333333,
+          "hit@25": 0.27,
+          "ci_lo@25": 0.22,
+          "ci_hi@25": 0.3233333333333333,
+          "hit@50": 0.38333333333333336,
+          "ci_lo@50": 0.32666666666666666,
+          "ci_hi@50": 0.44,
+          "median_rank": 75.5,
+          "n_scored": 280
+        },
+        "RANK_SCRAMBLE": {
+          "hit@1": 0.0033333333333333335,
+          "ci_lo@1": 0.0,
+          "ci_hi@1": 0.01,
+          "hit@5": 0.02666666666666667,
+          "ci_lo@5": 0.01,
+          "ci_hi@5": 0.04666666666666667,
+          "hit@10": 0.05333333333333334,
+          "ci_lo@10": 0.03,
+          "ci_hi@10": 0.08,
+          "hit@25": 0.10333333333333333,
+          "ci_lo@25": 0.07,
+          "ci_hi@25": 0.14,
+          "hit@50": 0.18,
+          "ci_lo@50": 0.14,
+          "ci_hi@50": 0.22666666666666666,
+          "median_rank": 196.0,
+          "n_scored": 300
+        }
+      },
+      "chance_at_k": {
+        "hit@1": 0.0022935779816513763,
+        "hit@5": 0.011467889908256881,
+        "hit@10": 0.022935779816513763,
+        "hit@25": 0.05733944954128441,
+        "hit@50": 0.11467889908256881
+      },
+      "READING_A_k_where_real_clears_scramble_and_chance": [
+        1,
+        5,
+        10,
+        25,
+        50
+      ],
+      "retrieval_not_discrimination_note": "hit@k here is RETRIEVAL. A target inside the top-k of ~450 consolidated terms is NARROWED DOWN, not known. Do not report it as discrimination.",
       "n_consolidated": 436,
       "n_items": 300,
       "index_sizes": {
@@ -217,15 +495,15 @@
       "min_items_required": 200,
       "min_candidates_required": 50,
       "CORTICAL_CONTEXT": {
-        "hit@1": 0.02,
-        "hits": 6,
+        "hit@1": 0.05333333333333334,
+        "hits": 16,
         "n": 300,
-        "ci_lo": 0.006666666666666667,
-        "ci_hi": 0.03666666666666667,
-        "ci_half_width": 0.015,
+        "ci_lo": 0.03,
+        "ci_hi": 0.08,
+        "ci_half_width": 0.025,
         "clears_credible_bar": false,
-        "perm_p_vs_strongest_floor": 0.0004997501249375312,
-        "perm_p_vs_EPISODIC": 0.031484257871064465
+        "perm_p_vs_strongest_floor": 0.11794102948525736,
+        "perm_p_vs_EPISODIC": 0.0004997501249375312
       },
       "CORTICAL_SPOKE": {
         "hit@1": 0.0033333333333333335,
@@ -239,15 +517,15 @@
         "perm_p_vs_EPISODIC": 1.0
       },
       "CORTICAL_BOTH": {
-        "hit@1": 0.01,
-        "hits": 3,
+        "hit@1": 0.043333333333333335,
+        "hits": 13,
         "n": 300,
-        "ci_lo": 0.0,
-        "ci_hi": 0.023333333333333334,
-        "ci_half_width": 0.011666666666666667,
+        "ci_lo": 0.023333333333333334,
+        "ci_hi": 0.06666666666666667,
+        "ci_half_width": 0.021666666666666667,
         "clears_credible_bar": false,
-        "perm_p_vs_strongest_floor": 0.0004997501249375312,
-        "perm_p_vs_EPISODIC": 0.25737131434282856
+        "perm_p_vs_strongest_floor": 0.028985507246376812,
+        "perm_p_vs_EPISODIC": 0.0009995002498750624
       },
       "EPISODIC_FILTERED": {
         "hit@1": 0.0,
@@ -272,23 +550,23 @@
         "hit@1": 0.03,
         "hits": 9,
         "n": 300,
-        "ci_lo": 0.01,
-        "ci_hi": 0.05008333333333288,
-        "ci_half_width": 0.02004166666666644
+        "ci_lo": 0.013333333333333334,
+        "ci_hi": 0.05,
+        "ci_half_width": 0.018333333333333333
       },
       "SCRAMBLE": {
-        "hit@1": 0.023333333333333334,
-        "hits": 7,
+        "hit@1": 0.0033333333333333335,
+        "hits": 1,
         "n": 300,
-        "ci_lo": 0.006666666666666667,
-        "ci_hi": 0.043333333333333335,
-        "ci_half_width": 0.018333333333333333,
-        "perm_p_vs_CORTICAL_CONTEXT": 1.0
+        "ci_lo": 0.0,
+        "ci_hi": 0.013333333333333334,
+        "ci_half_width": 0.006666666666666667,
+        "perm_p_vs_CORTICAL_CONTEXT": 0.0004997501249375312
       },
       "_strongest_floor": "COOC_floor",
       "_credible_bar": 0.12333333333333334,
-      "READING_C_route_reads_the_cue": false,
-      "unit_key": "v1_cortical|full|101"
+      "READING_C_route_reads_the_cue": true,
+      "unit_key": "v2_hitk_sentencecue|full|101"
     }
   ]
 }

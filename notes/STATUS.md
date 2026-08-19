@@ -15,6 +15,33 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## ✅ 2026-08-19 -- **v2 LANDED, 3 SEEDS: READING (A) FIRES. THE CORTICAL READ RETRIEVES --**
+## **AND THE CELL CANNOT SAY WHETHER IT BEATS COUNTING, WHICH IS A GAP I BUILT.**
+`exp_cortical_read_consolidated_v1` spec `v2_hitk_sentencecue`, 811 s, 300 items/seed, 428-480
+consolidated terms. **`READING (C): [True, True, True]` -- the cue fix held on every seed.**
+**k where REAL clears SCRAMBLE's upper CI AND chance: [1,5,10,25,50] / [1,5,10,25,50] / [5,10,25,50].**
+
+| seed 20260819 | hit@1 | hit@10 | hit@50 | median rank |
+|---|---|---|---|---|
+| RANK_CONTEXT | 0.0567 | 0.1800 | 0.3433 | 126 |
+| RANK_SPOKE | 0.0100 | 0.1067 | 0.3433 | **82** |
+| **RANK_BOTH** | 0.0300 | 0.1533 | **0.3967** | **69** |
+| RANK_SCRAMBLE | 0.0067 | 0.0367 | 0.1900 | 173 |
+| chance | 0.0023 | 0.0234 | 0.1168 | -- |
+
+**🟢 `BOTH` HAS THE BEST MEDIAN RANK ON ALL THREE SEEDS (69 / 75.5 / 79) and the best hit@50 on two
+-- while SPOKE ALONE has a better median (82-88) than CONTEXT (115-126) despite a WORSE hit@1.**
+*The two channels are good at different things, which is the independence result showing up
+independently in a different table.*
+**⛔ THE GAP, AND IT IS MINE: I computed hit@k for the cortical arms and the scramble BUT NOT FOR
+THE FLOORS.** So reading (A)'s bar is *"clears SCRAMBLE and chance"*, which is WEAKER than this
+project's standard *"clears the strongest floor's upper bound"*. **THIS TABLE THEREFORE CANNOT SAY
+WHETHER THE CORTICAL READ BEATS COUNTING AT ANY k, AND MUST NOT BE READ AS SAYING SO.**
+*The separate subsumption diagnostic already indicates it does not -- COOC hit@50 0.6800 vs
+cortical 0.3767 at 223 candidates -- but that is a different pool size and does not transfer.*
+**➡️ FIX: add `COOC_floor` and `FREQ_floor` to the hit@k block. Until then the honest claim is
+"the route retrieves", NOT "the route is competitive".**
+
 ## 🟢 2026-08-19 -- **THE SPOKE IS NOT SUBSUMED. IT IS ~INDEPENDENT OF COUNTING, AND THE UNION**
 ## **MORE THAN DOUBLES IT. THE CONTRAST WITH THE CORTICAL ROUTE IS THE FINDING.**
 `scratch/diag_spoke_complementary_or_subsumed.py`, on the spoke's OWN instrument (grounded terms,
