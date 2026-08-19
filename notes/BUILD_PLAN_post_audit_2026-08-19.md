@@ -461,6 +461,48 @@ lists as missing.
 
 ---
 
+## ✅ MIDDLE_BAND MINED -- `tools/middle_band_miner.py`. TWO CORRECTIONS TO THIS PLAN'S OWN PREMISE.
+
+**CORRECTION 1 -- THE POPULATION IS 580, NOT 117.** Enumerated by walking **all 8,148 result
+directories** under `data/` (the 117 figure came from the index's `data/exp_*` scan; results also
+live under `data/results`, `data/lambda_batch_results`, `data/skypilot_results` and ~60
+`substrate_*` directories). **Meaning-relevant MIDDLE_BAND: 580. HARD_PASS: 1,359.**
+
+**CORRECTION 2 -- AND IT IS THE ONE THAT MATTERS, BECAUSE THE OWNER AUTHORISED WORK ON THIS
+RATIONALE. THE STATED MECHANISM IS NOT SUPPORTED.** This plan said MIDDLE_BAND "is where the
+HONEST SELF-ASSESSMENTS went". Measured with the **IDENTICAL detector on both tiers** (same
+directories, same fields, only the tier pattern differs -- a cross-tool comparison would have been
+the very thing discipline 11 forbids):
+
+| property | MIDDLE_BAND | HARD_PASS | |
+|---|---|---|---|
+| **states a limitation about itself** | **4.5%** | **3.0%** | **NO REAL DIFFERENCE -- the stated rationale fails** |
+| carries a CI | 10.3% | 5.4% | MB nearly 2x |
+| carries a floor | 76.4% | 69.2% | MB higher |
+| carries a scramble | 24.1% | 19.5% | MB higher |
+| carries a held-out split | 23.6% | 20.2% | MB higher |
+| carries a null | 4.0% | 2.7% | no real difference |
+
+**SO THE PREMISE IS HALF RIGHT AND THE HALF THAT SURVIVES IS NOT THE HALF WE ARGUED.** MIDDLE_BAND
+IS modestly better-evidenced -- **twice as likely to carry a confidence interval** -- but **it is
+NOT a population characterised by honest self-assessment: 4.5% is not a culture of caveats, it is
+a rounding error, and HARD_PASS is at 3.0%.** *The mining stays worth doing on the evidence
+gradient. The story we told about WHY must not be repeated.*
+
+**THE READ LIST IS RANKED BY HOW MUCH MECHANISM IS IN THE CELL, and the top of it is substantive:**
+`exp_bootstrap_passage_context_binding_fade_v4` (discourse-level passage-context binding under a
+fairness lockdown), `exp_agreement_attractor_role_binding_cg_viability_v1` -- **whose own
+`honest_scope` names its real discriminator and rejects the trivial one**: *"Beating nearest-noun
+is trivial here... the HONEST discriminator is beating the FIRST-NOUN positional heuristic on the
+subject-not-first subset"* -- and `exp_grounding_quality_readout_v1`, which opens its limitations
+with ***"THIS CELL MEASURES NO QUALITY."*** *Those three are exactly the honesty the premise
+predicted; the measurement says they are the 4.5%, not the norm.*
+
+**NOTHING MINED HERE IS CITABLE.** `tools/vetting_ledger.py --cite` still governs and still
+refuses every one of them.
+
+---
+
 ## PARALLEL TRACK -- MINE MIDDLE_BAND (owner: "it's worth it")
 
 **117 meaning-relevant cells, never read.** Owner's framing, and it changes the brief:
