@@ -1,6 +1,6 @@
 # STATUS
 
-AS OF: 2026-08-19 AUTOLOOP DISARMED BY OWNER | branch `dataprep/mcguffey-graded-corpus` | HEAD `f102e7081` | origin push needs USER AUTH | ONE DETACHED RUN IN FLIGHT (`exp_substrate_end_to_end_readout_v1` v3, see ## WHAT IS RUNNING) | READ THE COMPACTION HANDOFF AT THE TOP OF ## POSITION AND STOP THERE
+AS OF: 2026-08-19 AUTOLOOP ARMED, 26 CONTINUATIONS IN | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | TWO DETACHED RUNS IN FLIGHT (9-seed spoke sweep + `exp_predictive_write_gate_v1`, see ## WHAT IS RUNNING) | THE CURRENT HANDOFF IS THE FIRST BLOCK OF `notes/BUILD_PLAN_post_audit_2026-08-19.md` -- READ THAT, THEN STOP
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
@@ -1225,20 +1225,29 @@ excludes nothing is not a control -- report how many items each control actually
 
 ## WHAT IS RUNNING / BLOCKED
 
-- **⏹️ AUTOLOOP DISARMED BY OWNER 2026-08-19 and NOT to be re-armed without a fresh instruction.**
-  Verify with `python tools/autoloop.py disarm` (idempotent) or `data/hook_state/autoloop.json`.
-  Anything other than exactly boolean `true` reads DISARMED -- the fail-safe direction is OFF.
-- **🔵 IN FLIGHT: `exp_cortical_read_consolidated_v1` spec `v1_cortical`, 3 seeds.** Scores the
-  NEW cortical read organ on the consolidated side. Detached; shim PID `scratch/cortical_full2.pid`,
-  logs `scratch/cortical_full2.log` / `.err`. **DO NOT RESPAWN.**
-  **⚠️ ITS FIRST FULL RUN DIED AND THE CAUSE IS NOW A CLAUDE.md RULE: `simplewiki` yields EXACTLY
-  20,000 sentences, the run read all 20,000, so the HELD-OUT SPLIT WAS EMPTY and every arm scored
-  None after ~15 minutes of reading. The smoke used 2,000+360 and COULD NOT have caught it.**
-  Fixed three ways (n_read 16,000 measured; a precondition before the read; a second guard for
-  held-out text mentioning no consolidated term), and the precondition was verified with a
-  POSITIVE CONTROL on the exact numbers that crashed.
-  *This cell writes NO artifact until a whole unit lands, so process liveness is the only progress
-  signal mid-seed -- judge by the CHILD's CPU, never the shim PID's.*
+- **🟢 AUTOLOOP IS ARMED (owner, 2026-08-19: "enable your stop hook and make sure it's working
+  properly"), 26 continuations in.** Stop it with `python tools/autoloop.py disarm`. Anything
+  other than exactly boolean `true` in `data/hook_state/autoloop.json` reads DISARMED -- the
+  fail-safe direction is OFF. *Both `stop_hook.py --self-test` and `autoloop.py self-test` PASS.*
+  **⚠️ THIS BULLET SAID "DISARMED" FOR ~20 CONTINUATIONS AFTER THE LOOP WAS RE-ARMED.** This
+  section is MACHINE-PARSED by `tools/session_start_hook.py`, so a resuming session was being told
+  the loop was off and the wrong cell was running. **A stale `WHAT IS RUNNING` is worse than an
+  empty one -- it is confidently wrong. Update it in the same turn as the launch, not later.**
+- **🔵 IN FLIGHT (2 detached, they CONTEND so both are slow -- that is expected, not a stall):**
+  - **9-seed spoke independence sweep** -- `scratch/spoke9.log` / `.err`, PID `scratch/spoke9.pid`.
+    Decides whether the spoke's independence from counting is real or a small-count artefact.
+    **3 of 9 seeds in and reproducing the earlier run EXACTLY (0.70 / 0.94 / 0.89).**
+  - **`exp_predictive_write_gate_v1`** spec `v1_residual_gate`, 3 seeds -- `scratch/pwg_full.log`
+    / `.err`, PID `scratch/pwg_full.pid`. The pinned residual rule against pure accumulation,
+    **with a rate-matched RANDOM_SKIP arm and the threshold SWEPT, both in from the first draft.**
+  **DO NOT RESPAWN EITHER.** *Neither writes an artifact until a whole unit lands, so mid-unit the
+  only progress signal is the CHILD process's CPU -- never the shim PID's, which reads 0 s on a
+  healthy run.*
+- **✅ LANDED AND SUPERSEDED: `exp_cortical_read_consolidated_v1`.** v1 was VOID (cue-construction
+  defect), v2 fixed the cue, **v3 (`v3_floors_at_k`) is the final word: retrieves, NOT competitive,
+  0 of 18 floor cells.** *Its first full run also died on corpus arithmetic -- `simplewiki` yields
+  exactly 20,000 sentences and it read all of them, leaving an EMPTY held-out split. That is now a
+  CLAUDE.md rule, because the smoke used 2,000+360 and could not have caught it.*
 - **✅ LANDED 2026-08-19 12:25Z: `exp_substrate_end_to_end_readout_v1` spec `v3_consolidation`,
   18 units in 1,053 s, 30 older-spec units excluded from the report. NOTHING IS RUNNING.**
   Result and its brain-fidelity audit are the first block of ## POSITION. Read it with
