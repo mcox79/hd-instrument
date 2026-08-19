@@ -211,6 +211,46 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 📖 MIDDLE_BAND ACTUALLY READ (owner: *"understanding what it was TRYING and the SIGNAL"*)
+*I had produced a ranked list and a premise correction and had not read the cells. Owed, now done.*
+**Only 26 of 580 carry a self-assessment field and only 31 have a readable docstring -- and ZERO
+have both**, which is why the list looked thin. The 26 are the population worth reading.
+
+**🎯 THE ONE WITH A LEAD FOR A CURRENTLY-EMPTY SLOT.** `exp_b_alpha_broad_envelope_cpu_v1`:
+> *"Characterizes WHERE composed reasoning works (**2-hop MIDDLE**) vs **CLIFFS (3-4 hop
+> HARD_FAIL**). NOT general reasoning. Per-benchmark HARD_FAIL = **honest cliff FINDING**."*
+**Q2 domain-general inference is a NAMED EMPTY SLOT in the substrate design, and this cell already
+measured its boundary: composition survives two hops and falls off a cliff at three.** *That is a
+starting point with a number attached, and it was sitting unread. Verify before leaning on it --
+it is UNVETTED and the ledger still refuses it.*
+
+**AND FOUR CELLS THAT EMBODY DISCIPLINES THIS PROJECT KEEPS RE-LEARNING, WRITTEN BY THEIR OWN
+AUTHORS:**
+- **The strongest-floor rule, applied by a cell to itself.**
+  `exp_agreement_attractor_role_binding_cg_viability_v1`: *"Beating nearest-noun is TRIVIAL here
+  (nearest is the attractor -> below chance); the HONEST discriminator is beating the FIRST-NOUN
+  positional heuristic on the subject-not-first subset."* **It identified that its own obvious
+  baseline was the wrong one and named the right one.**
+- **A cell refusing to let its own metrics be read as quality.**
+  `exp_grounding_quality_readout_v1`: *"**THIS CELL MEASURES NO QUALITY.** Everything it emits is
+  structural or a stability/selectivity control."*
+- **A cell delimiting what each of its arms licenses.** `exp_grounding_readout_known_answer_v1`:
+  *"Convergence with the prior hand-score is evidence ABOUT THE PROXY, never a substitute for
+  it"*, and *"STAGE B is a 2-candidate forced choice; it licenses NO statement about the
+  open-vocabulary argmax rate."*
+- **The circularity trap, flagged by the cell that fell into it.**
+  `exp_learned_composition_glue_pun_selectional_generalization_v1_smoke`: *"generalization signal
+  is WordNet-hypernym (KB-derived); a full-gate pass is a CANDIDATE for fresh adversarial VET,
+  not a self-declared CG."*
+
+**THE HONEST SYNTHESIS, WHICH IS NOT QUITE EITHER STORY: self-assessment is RARE EVERYWHERE
+(MIDDLE_BAND 4.5%, HARD_PASS 3.0% -- no real difference, as measured). But the ones that exist
+cluster at the TOP of the MIDDLE_BAND ranking, and they are worth reading INDIVIDUALLY rather than
+aggregating.** *The owner's instinct was right about the cells and wrong about the population
+statistic, and both halves are worth keeping.*
+
+---
+
 ## 🧪 THE CELL THAT CAN SETTLE IT IS RUNNING: `experiments/exp_grounding_precision_gold_v1.py`
 **IN FLIGHT**, detached, PID `scratch/gp_full.pid`, logs `scratch/gp_full.out` / `.err`.
 3 seeds x 40,000 sentences, checkpointed units -> `data/exp_grounding_precision_gold_v1/`.
