@@ -278,6 +278,26 @@ that its launching shell has exited (each PowerShell tool call spawns a fresh `p
 that terminates when the command returns). Evidence from the working launch: parent PID 15524
 gone, experiment PID 9260 still running.
 
+**🚨 THE PID `Start-Process` RETURNS IS THE VENV SHIM, NOT THE WORKER — AND ITS COUNTERS READ AS A
+DEAD PROCESS (measured 2026-08-19).** `.venv/Scripts/python.exe` immediately spawns the base
+interpreter as a CHILD and then does nothing. Measured on a live 40,000-sentence run 10.7 minutes
+in: **recorded PID 37284 showed CPU 0 s and a 4 MB working set, while its child PID 29016 held
+1,052 MB and was doing all the work.** Checking CPU or memory on the recorded PID therefore shows
+a process that looks hung or crashed, on a run that is perfectly healthy. This fooled the Director
+twice in one session before it was traced.
+
+**Rule: `-PassThru` gives you a handle for KILLING the tree, not for JUDGING PROGRESS.** To judge
+progress use, in order of preference: (a) the artifact the run writes — `units.jsonl` mtime, a
+checkpoint file, `metrics.json`; (b) the CHILD process, found via
+`Get-CimInstance Win32_Process -Filter "ParentProcessId=<pid>"`. **Never the recorded PID's own
+CPU/WS.** *This is the same class as the REMOTE-LIVENESS rule above — observe the artifact the
+process produces, never a proxy for it — with a new and very convincing cause.*
+
+**Corollary for redirected stdout: it is BLOCK-BUFFERED, so the log can sit unchanged for 15+
+minutes on a healthy run.** A stale log plus a dead-looking shim PID is two false alarms pointing
+the same way. Prefer `flush=True` on progress prints, and never conclude a stall from the log
+alone.
+
 **A permission is required and is deliberately narrow:**
 `PowerShell(Start-Process -FilePath D:/AI/hd-instrument/.venv/Scripts/python.exe:*)` in
 `~/.claude/settings.json`. Do NOT broaden this to a general `PowerShell(Start-Process:*)`
