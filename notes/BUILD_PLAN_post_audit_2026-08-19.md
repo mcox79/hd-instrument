@@ -202,6 +202,42 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🆕 PHASE 3 STARTED -- D7 SUCCESSOR REPRESENTATION IS BUILT: `hdlab/successor_representation.py`
+**`M = (I - gamma*P)^-1`. The only slot where the brain hands us a closed form and we had written
+none of it.** Five self-tests PASS, and they are can-fail rather than plausibility checks: the
+defining identity `M = I + gamma*P*M` to 1e-8 across four gammas; `gamma=0` reduces to `I`;
+dead rows do not make the solve singular; **a PLANTED successor is recovered above a
+frequency-matched decoy that never follows the cue**; and **the online TD rule converges to the
+closed form** (6.1% relative error) -- so the mechanism can be checked against the thing it is
+meant to compute rather than against a hope.
+
+**WHY THIS ONE, AND NOT JUST BECAUSE IT WAS TOP OF A LIST.** Phase 2 says the missing ingredient is
+a LEARNING SIGNAL. SR supplies one that is actually admissible here: **self-supervised from the
+corpus's own transitions, derived from NO gold, NO WordNet, NO LLM** -- and the circularity trap
+that disqualifies almost every other supervision candidate does not touch it.
+
+**PINNED vs OURS, stated because presenting an invention as pinned is barred:** the COMPUTATION
+(discounted expected future occupancy) is PINNED. **That a "state" is a LEMMA is OUR INVENTION
+UNDER TEST** -- the brain's SR runs over places. **`gamma` is SWEPT (0.1 / 0.5 / 0.9) and never
+adopted**: our worst result copied a pinned NUMBER, our best copied an OPERATION.
+
+**⚠️ THE UNFLATTERING PREDICTION, PRE-REGISTERED IN THE MODULE BEFORE ANY NUMBER: M IS A
+DISCOUNTED MULTI-STEP CO-OCCURRENCE STATISTIC AND OUR FLOOR IS THE 1-STEP ONE.** If SR only wins
+at small gamma it is the 1-step counter wearing a matrix and must be reported as such.
+
+**FIRST SMOKE, AND ONE BUG WORTH KEEPING VISIBLE: SR READ EXACTLY 0.0000 IN EVERY CELL.** Not a
+result -- an artifact of the equation. `M = I + gamma*P + ...`, so **the IDENTITY TERM puts every
+cue word at the top of its own ranking**, and the target is masked out of the cue by construction,
+so hit@1 was zero by definition. Excluding the cue's own words fixes it, **and the SAME exclusion
+was applied to the COOC floor** so the arms still differ in route and nothing else.
+*Smoke after the fix (n=60, nothing resolved): SR 0.25 / 0.28 / 0.20 at exact key against COOC
+0.217, and 0.0167 held-out against COOC 0.083.* **SR is the best substrate-side route on held-out
+text and is still losing to counting.** **FULL RUN IN FLIGHT**, `scratch/p2_full_v2.pid`.
+*Unit keys carry a `SPEC_VERSION`, so the 15 already-checkpointed v1 units cannot be silently
+served for a changed specification -- which is exactly what would have happened.*
+
+---
+
 ## ✅ PHASE 2 FULL RUN LANDED (`data/exp_substrate_end_to_end_readout_v1/metrics.json`, 15 units, 605 s)
 **PRE-COMMITTED READING (c) FIRED: no substrate route beats the strongest floor, and the
 instrument is alive.** simplewiki, 3 seeds, n=300 items per regime, pool 2,114, chance 0.00047.

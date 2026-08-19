@@ -86,6 +86,16 @@ SEEDS = (20260819, 7, 101)
 N_BOOT = 2000
 N_PERM = 2000
 TOP_K = 5
+SR_GAMMAS = (0.1, 0.5, 0.9)    # SWEPT, never adopted -- gamma is a parameter, not a computation
+
+# BUMP THIS WHENEVER THE ARM SET OR A SCORER CHANGES. It is part of every unit_key, so a resumed
+# run cannot silently serve results computed under a DIFFERENT specification -- which is what
+# would have happened here: v1 units were already checkpointed on disk, and adding the SR arms
+# without a bump would have let `completed_units` skip every one of them.
+# v1 -> v2: added the D7 successor-representation arms; excluded the cue's own words from BOTH
+#           the SR and COOC rankings (M's identity term put cue words top by construction and
+#           made SR read exactly 0.000 everywhere).
+SPEC_VERSION = "v2_sr"
 
 
 # ---------------------------------------------------------------------------------------------
@@ -125,6 +135,39 @@ class Routes:
         self.freq_rank = [w for w, _ in self.freq.most_common()]
         self.tri = {n: _char_trigrams(n) for n in self.names}
 
+        # D7 SUCCESSOR REPRESENTATION, swept over gamma and never adopted at one value. M is a
+        # DISCOUNTED MULTI-STEP co-occurrence statistic and COOC_floor is the 1-STEP one, so the
+        # sweep IS the test: if SR only wins at small gamma it is the 1-step counter wearing a
+        # matrix (M = I + gamma*P + gamma^2*P^2 + ..., so gamma -> 0 leaves the 1-step term).
+        self.sr: Dict[float, object] = {}
+        if self.names:
+            seqs = [[l for l in content_lemmas(s) if l in self.seen] for s in read_split]
+            seqs = [s for s in seqs if len(s) > 1]
+            if seqs:
+                from hdlab.successor_representation import SuccessorRepresentation
+                for g in SR_GAMMAS:
+                    try:
+                        self.sr[g] = SuccessorRepresentation.from_sequences(
+                            seqs, gamma=g, window=1, vocab=self.names)
+                    except (ValueError, np.linalg.LinAlgError):
+                        self.sr[g] = None
+
+    def sr_rank(self, sent: str, tgt: str, gamma: float) -> List[str]:
+        m = self.sr.get(gamma)
+        if m is None:
+            return []
+        cue = [l for l in content_lemmas(sent) if l != tgt and l in self.seen]
+        if not cue:
+            return []
+        # THE CUE'S OWN WORDS ARE EXCLUDED, AND NOT AS A FAVOUR. M = I + gamma*P + ..., so the
+        # IDENTITY TERM puts every cue word at the top of its own ranking by construction. With
+        # them left in, SR scored exactly 0.000 in every cell of the smoke -- a dead arm produced
+        # by an artifact of the equation, not by the mechanism failing. The target is masked out
+        # of the cue, so it can never be among the excluded.
+        # COOC_floor gets the IDENTICAL treatment below, so the two arms still differ in ROUTE
+        # and in nothing else.
+        return m.rank_from_cue(cue, top_k=TOP_K, exclude=cue)
+
     # -- substrate routes --
     def episodic(self, sent: str, tgt: str) -> List[str]:
         return [r[0] for r in self.sub.recall_sentence(sent, target=tgt, top_k=TOP_K)]
@@ -142,10 +185,14 @@ class Routes:
     # -- floors, each computable from exactly what the substrate had --
     def cooc_floor(self, sent: str, tgt: str) -> List[str]:
         c: collections.Counter = collections.Counter()
-        for l in content_lemmas(sent):
-            if l == tgt or l not in self.seen:
-                continue
+        cue = [l for l in content_lemmas(sent) if l != tgt and l in self.seen]
+        for l in cue:
             c.update(self.cooc.get(l, {}))
+        # SAME EXCLUSION AS THE SR ARM. Applied here too because the arms must differ in ROUTE and
+        # nothing else -- giving one arm a cleaner candidate list than its floor would be exactly
+        # the kind of unmatched comparison this cell exists to avoid.
+        for w in cue:
+            c.pop(w, None)
         return [w for w, _ in c.most_common(TOP_K)]
 
     def freq_floor(self, sent: str, tgt: str) -> List[str]:
@@ -243,10 +290,13 @@ def _run_one(seed: int, n_read: int, n_items: int, ablate: Sequence[str],
     arms = {"EPISODIC": routes.episodic, "SEMANTIC": routes.semantic,
             "COOC_floor": routes.cooc_floor, "FREQ_floor": routes.freq_floor,
             "ORTH_floor": routes.orth_floor}
+    for _g in SR_GAMMAS:
+        arms[f"SR_g{_g}"] = (lambda s, t, g=_g: routes.sr_rank(s, t, g))
 
     per_item: Dict[str, Dict[str, List[int]]] = {
         reg_name: {a: [] for a in list(arms) + ["SCRAMBLE"]}
         for reg_name in ("HELD_OUT", "SEEN_exact_key")}
+    arms = dict(arms)          # bind after SR construction so the sweep is present in both blocks
     n_by_regime: Dict[str, int] = {}
     targets_used: List[str] = []
 
@@ -293,7 +343,7 @@ def _run_one(seed: int, n_read: int, n_items: int, ablate: Sequence[str],
         bar = floors[strongest]["ci_hi"]
         block["_strongest_floor"] = strongest
         block["_credible_bar"] = bar
-        for name in ("EPISODIC", "SEMANTIC"):
+        for name in ["EPISODIC", "SEMANTIC"] + [f"SR_g{g}" for g in SR_GAMMAS]:
             m = (block[name]["hit@1"] or 0.0) - (floors[strongest]["hit@1"] or 0.0)
             block[name]["margin_vs_strongest_floor"] = m
             block[name]["clears_credible_bar"] = bool((block[name]["hit@1"] or 0.0) > bar)
@@ -323,7 +373,7 @@ def main() -> int:
     t0 = time.time()
     for seed in seeds:
         for ab in ablations:
-            key = unit_key(a.mode, a.corpus, seed, "+".join(ab) or "NONE")
+            key = unit_key(SPEC_VERSION, a.mode, a.corpus, seed, "+".join(ab) or "NONE")
             if key in done:
                 print(f"[skip] {key}", flush=True)
                 continue
