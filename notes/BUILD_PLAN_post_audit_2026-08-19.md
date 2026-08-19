@@ -202,6 +202,49 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## ✅ PHASE 2 FULL RUN LANDED (`data/exp_substrate_end_to_end_readout_v1/metrics.json`, 15 units, 605 s)
+**PRE-COMMITTED READING (c) FIRED: no substrate route beats the strongest floor, and the
+instrument is alive.** simplewiki, 3 seeds, n=300 items per regime, pool 2,114, chance 0.00047.
+
+| arm | SEEN (exact key) | **HELD-OUT (the real point)** |
+|---|---|---|
+| EPISODIC | **0.9333** clears bar, p=0.0005 | **0.0044** -- CI upper ~0.0105, **BELOW the 0.0367 bar** |
+| SEMANTIC | 0.2789 clears bar | **0.0056** -- below the bar |
+| **COOC floor** (strongest, standalone) | 0.1700 | **0.0233** |
+| FREQ floor | 0.0011 | 0.0078 |
+| ORTH floor | 0.0000 | 0.0033 |
+| **SCRAMBLE twin** | **0.0011**, p=0.0005 vs EPISODIC | **0.0033, p = 0.48 / 0.64 / 1.00** |
+
+**🚨 READING (d) ALSO FIRED, ON THE HELD-OUT REGIME ONLY, AND IT IS THE HEADLINE: FEEDING THE
+SUBSTRATE AN UNRELATED SENTENCE SCORES THE SAME AS FEEDING IT THE REAL ONE (0.0033 vs 0.0044,
+p up to 1.00). ON NEW TEXT IT IS NOT READING THE CUE AT ALL.** *At exact key the same twin
+separates at p=0.0005, so the pipeline demonstrably CAN read -- which is what makes the held-out
+tie a result rather than a broken cell.*
+
+**THE ONE-SENTENCE FINDING: THE STORE MEMORISES EPISODES ALMOST PERFECTLY (0.93 at exact key) AND
+TRANSFERS NOTHING TO A NEW CONTEXT (0.004, tied with its own scramble, beaten 5x by counting).**
+*And the task is NOT impossible: a co-occurrence counter reaches 50x chance on it.*
+**This is ORGAN A's conclusion reached end-to-end through the assembled substrate on a different
+task and a different instrument -- perfect storage, no generalisation, and the missing ingredient
+is the learning signal. Assembly did not supply it, and was never going to.**
+
+### ABLATIONS -- TWO ORGANS CONTRIBUTE EXACTLY NOTHING, AND ONE ARM IS VOID
+| ablation | effect |
+|---|---|
+| `definitions` (R1) | **ZERO change in EVERY number, both regimes, all 3 seeds.** |
+| `gap_detector` (H1) | **ZERO change** -- and already known to be untestable while the foundation is near-empty. |
+| `episodic` (D3) | exact-key 0.9333 -> **0.0000**. It IS the organ doing the memorising. Held-out 0.0044 -> 0.0000: nothing to lose. |
+| `foraging` (H2) | **VOID IN THIS RUN -- DO NOT READ IT.** |
+
+**⚠️ THE FORAGING ARM IS UNMATCHED AGAIN, IN THE OPPOSITE DIRECTION, AND IT IS THE SAME DEFECT I
+"FIXED" ONE CONTINUATION EARLIER.** The forager LEFT its patch after **1,233** of 4,000 requested
+sentences; my frozen quota is the whole budget, so FROZEN read **4,000**. *Last time frozen read
+too LITTLE; I matched on the budget instead of on what the live arm actually consumes, and it now
+reads too MUCH.* **FIX: run the live arm FIRST, then give the frozen twin exactly its sentence
+count.** *Twice in two days on the same control. Rate-matching is not a step to add at the end.*
+
+---
+
 ## 🧪 PHASE 2 CELL BUILT AND SMOKE-CLEAN: `experiments/exp_substrate_end_to_end_readout_v1.py`
 **FULL RUN IN FLIGHT** on `simplewiki`, detached, PID in `scratch/p2_full.pid`, logs
 `scratch/p2_full.out` / `.err`, 3 seeds x 5 ablations = 15 checkpointed units -> `data/<cell>/`.
