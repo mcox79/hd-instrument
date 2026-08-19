@@ -280,11 +280,13 @@ ACCUMULATES cannot concentrate. Concentration is what LEARNING buys. Same conclu
 novelty work -- prediction first -- reached through geometry instead of through surprise.**
 
 ## 🧠✅ 2026-08-19 LATER -- **THE FIDELITY AUDIT IS NOW COMPLETE: ALL THREE GAPS FILLED, AND**
-## **FOUR OF MY FOUR EXPLANATIONS WERE REFUTED BY THEIR OWN PRE-COMMITTED CONTROLS.**
+## **THREE OF MY FOUR EXPLANATIONS WERE REFUTED BY THEIR OWN PRE-COMMITTED CONTROLS.**
 *The accounting above said: NONE for the subsumption result, the 9-seed spoke failure, the
 reading-(C) void. All three now have one. **Every diagnostic was written with a pre-committed
-alternative reading, and in four cases out of four the ALTERNATIVE is what fired.** That is the
-system working, and it is worth more than four confirmations would have been.*
+alternative reading, and in three cases out of four the ALTERNATIVE is what fired.** That is the
+system working, and it is worth more than three confirmations would have been.*
+*(Header corrected from "four of four". The familiarity hypothesis was NOT refuted -- I had read
+smoke numbers. See item 3 below, which is left standing as the correction rather than edited away.)*
 
 **GAP 2 -- THE 9-SEED SPOKE FAILURE.** Hypothesis: hub-and-spoke POSITION. In the brain the
 sensorimotor spokes are INPUTS that shape the hub over experience; ours is a supplied Lancaster
@@ -316,9 +318,19 @@ four dead:
 2. *"Between-word variation swamped the encounter signal, so a global absolute threshold could only
    sort vocabulary."* **REFUTED:** ICC = **0.201**. Within-word variation is **80%** of the total.
    The absolute rule had exactly the encounter-level variation it needed.
-3. *"It is a familiarity detector, not a novelty detector"* (the owner's Q71 distinction). **REFUTED:**
-   the residual does not decay as a word is seen more -- pooled slope vs log(encounter number) is
-   **flat to slightly POSITIVE**, median -0.0046, only 55% of words negative.
+3. *"It is a familiarity detector, not a novelty detector"* (the owner's Q71 distinction).
+   **NOT REFUTED -- AND THIS ENTRY IS A CORRECTION OF WHAT I FIRST WROTE HERE.** I published the
+   SMOKE numbers (161 terms: slope +0.0103, median -0.0046, 55% negative) as the finding and called
+   it refuted. **At full n (1,590 terms) the sign flips and separates: mean slope -0.0035, median
+   -0.0061, 63% of words negative, 95% CI [-0.0052, -0.0018].** The residual DOES fall as a word
+   becomes familiar. *My own rule -- a smoke with smaller numbers does not test the full run -- and
+   I broke it inside the very audit that was checking my rigour.*
+   **A detrended encounter-level signal also survives (r = +0.733), BUT I AM NOT LEANING ON THAT
+   NUMBER:** the residual is a distance to the word's own profile and "how unusual this use is" is a
+   leave-one-out distance to the word's other contexts. **Those are nearly the same computation, and
+   the positive control (+0.802) shows the construction correlates by itself.** So (2) mostly
+   confirms the arithmetic, not a discovery. *A per-word DETRENDED gate is a real lead; it is not
+   yet evidence.*
 4. *"The missing PRECISION term is the divergence."* `precision` appears **nowhere** in
    `hdlab/predictive_coding.py` -- enumerated, 15 public names, not one mentions precision, variance,
    confidence or weighting, and `threshold_gate` takes exactly one knob. **But the archive already
@@ -331,6 +343,41 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+## 📚 2026-08-19 -- **THE OWNER'S Q72 ("GIVE IT ANOTHER TEXTBOOK") HAS TWO HALVES. THE HALF I**
+## **TESTED IS UNTESTED-AT-THIS-N; THE HALF I DID NOT TEST ALREADY HARD_PASSED A MONTH AGO.**
+*Owner, Q72: "Why aren't we identifying where the notes are PATCHY and/or giving them another
+textbook? There's only so much you can get from one textbook."* They are two proposals and they have
+different answers.
+
+**HALF ONE -- PASSIVE BREADTH (read the same amount, spread over more sources). TESTED TODAY, AND
+THE ANSWER IS "NO MEASURABLE DIFFERENCE", NOT "IT HURTS".** One variable, same total reading, each
+arm scored against its own counter so a harder candidate pool cannot be mistaken for progress:
+
+| | corpora | OUR median rank | counter median rank | ratio |
+|---|---|---|---|---|
+| ONE_CORPUS | 1 | 91.0 (CI 68.5-111.0) | 19.5 (CI 15.5-25.0) | 4.67x |
+| MANY_CORPORA | 27 | 106.5 (CI 89.0-122.0) | 20.0 (CI 16.5-29.0) | 5.33x |
+
+**MANY minus ONE, ours: +15.8, 95% CI [-10.0, +42.5] -- NOT separated from zero.** Counter: +1.2,
+CI [-5.0, +10.0], also not separated. **⛔ SO THE HONEST VERDICT IS UNTESTED AT THIS n, AND I NEARLY
+FILED IT AS A NEGATIVE:** the point estimates alone (91 -> 106.5) read as "diversity hurts us", and
+the pre-committed third reading was written for exactly that. The CI says the width swallows it.
+*Do not quote "spreading reading across corpora made it worse."*
+
+**HALF TWO -- ACTIVE, GAP-TARGETED GROWTH (find the patchy bits, then go read for them). ALREADY
+LANDED, HARD_PASS, AND I DID NOT KNOW IT WHEN I DESIGNED TODAY'S TEST.**
+`exp_breadth_foundation_active_growth_loop_ud_ewt_v1`, disk-verified:
+
+    on_miss_ratio   0.348      per-token miss 0.43 -> 0.15
+    coverage        0.50 -> 0.79   (d = +0.291)
+    use_real_auc    0.8924     vs shuffle 0.5122 +- 0.1003, delta 0.3802
+    retention_gap   0.852      n_sent 6000, n_grown 8422, n_escalations 2099
+
+**➡️ THE OWNER'S INSTINCT IS RIGHT, BUT THE LOAD-BEARING WORD IS "PATCHY", NOT "ANOTHER TEXTBOOK".**
+Reading more widely at random does nothing measurable. Reading TO FILL A NAMED GAP moves coverage
+from half to four-fifths with a real-vs-shuffled separation of 0.38. *That is the same shape as
+GAP == GROUNDING: naming the gap and traversing it are one act.*
+
 **⚠️ AND "NON-ADDITIVE" MUST NOT BE READ AS "IN-PLACE EDITING" -- I CHECKED THE ARCHIVE BEFORE
 PROPOSING IT THIS TIME.** `exp_additive_only_cert_cpu_v1` (MIDDLE_BAND) set out to certify that
 additive writes stay stable while in-place edits accumulate error ~ edits^2/N and collapse recall.
