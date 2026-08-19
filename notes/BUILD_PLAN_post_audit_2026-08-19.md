@@ -216,9 +216,19 @@ near-rank-preserving and "incapable of failing", and as the coverage control tha
 **THE FIX, AND IT IS THE RECIPE THE READING LOOP ALREADY OWNS** (`scramble_context_source`):
 destroy the cue's CONTENT, not its ORDER -- swap in an unrelated sentence, keeping the target.
 **Rebuilt that way it BINDS HARD: exact-key EPISODIC 0.667 vs SCRAMBLE 0.017, perm p = 0.0005.**
-**🔎 LEAD, NOT YET CHECKED: any landed cell that scrambles WORD ORDER while scoring a BAG
-representation has a control that cannot fail. Enumerate them.** *This one is free to check and
-would be a real audit finding.*
+**🔎 LEAD CHASED, AND IT IS GOOD NEWS -- THE DEFECT IS NOT WIDESPREAD. `tools/scramble_control_audit.py`.**
+Enumerated by `os.walk` over `experiments/ hdlab/ tools/ verification/`, **all 13,553 `.py` files,
+no sampling, rows-scanned printed before results.** Of 66 files that declare a scramble control AND
+carry an order-invariant scorer: **HIGH = 0**, 26 already use the CORRECT content-destroying
+recipe, 23 CHECK (they scramble by a route the token regex cannot see -- index arrays, `sample` --
+and need reading), 17 declare a scramble with no visible shuffle (several are prose mentions).
+**No landed cell pairs a word-order shuffle with a bag scorer and nothing order-sensitive. The
+defect was mine, in a cell written today, and it did not propagate.**
+***SCOPE OF THAT ABSENCE CLAIM, STATED: `HIGH` requires the word "scramble" to appear. A cell that
+scrambles without naming it would not be seen.*** *The tool's own first version keyed on the
+shuffle's TARGET NAME and found 1 file in 13,553 -- it would have reported this defect as absent
+because my regex was narrow, not because the code was clean. Rebuilt LABEL-FIRST, and the
+self-test now asserts it still catches a shuffle of an INDEX ARRAY.*
 
 ### ✅ AND THE UNBIASED ITEM SELECTION MOVED THE FLOORS EXACTLY AS PREDICTED
 Replacing "first known lemma" with a seeded RANDOM known lemma dropped the COOC floor from
