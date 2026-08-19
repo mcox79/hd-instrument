@@ -1,5 +1,44 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🧭 CURRENT HANDOFF -- 2026-08-19 LATE, AUTOLOOP ARMED. **READ THIS BLOCK, THEN STOP.**
+> *Everything below it is the record, newest-first. The older handoff blocks are SUPERSEDED: their
+> "next steps" are all done.*
+>
+> ## THE ONE-PARAGRAPH POSITION
+> **The read-out is not the problem and is now closed. The REPRESENTATION is.** Three independent
+> measurements say so: three read-out variants built and none competitive; the cortical route's
+> unique contribution BELOW independence at every k; and 0 of 18 floor cells cleared. Counting
+> reaches median rank **15-20 of ~450**; our best arm 69-79. **A cue-blind FREQUENCY ranking beats
+> every cortical arm at k>=10** -- most of the achievable score here is knowing which words are
+> common. **Two levers remain: SUPPLY and REPRESENTATION. Both are being measured right now.**
+>
+> ## WHAT IS RUNNING (2 detached, both mid-flight, they contend so both are slow)
+> | run | what it decides | logs |
+> |---|---|---|
+> | 9-seed spoke sweep | is the spoke's independence from counting real, or a small-count artefact? 3 seeds gave ratios 0.70 / 0.94 / 0.89 -- **the conjunction FAILED my own pre-registration** | `scratch/spoke9.log` |
+> | `exp_predictive_write_gate_v1` | does a RESIDUAL-GATED profile retrieve better than pure accumulation -- **and better than a rate-matched RANDOM skip?** | `scratch/pwg_full.log` |
+>
+> ## THE FOUR THINGS A RESUMING SESSION MUST NOT RE-DERIVE
+> 1. **`hdlab/predictive_coding.py` implements the pinned residual equation, self-tests PASS, and
+>    is NOT on the reading path** (runtime: a real `read()` loads 44 `hdlab.*` modules, not it).
+>    The next step there is a WIRING, not a build.
+> 2. **The residuals are nearly constant** (p10 0.3575, median 0.4648, p90 0.5237). So a residual
+>    gate is close to a RANDOM gate, which is why the rate-matched arm is mandatory, and it is
+>    already in the cell.
+> 3. **The threshold is a CLIFF** -- 2.5% skipped at 0.25, 76.2% at 0.50, 100% at 0.75. SWEEP it.
+> 4. **The live gate is `_make_grounding_gate`, NOT the PBV one** (`checkpoint` defaults
+>    `pbv=False`; verified at runtime). `state.gate_decisions` is DRAINED EVERY PASS, which is what
+>    made me publish a wrong correction. *Anchor-field provenance is live and verified 36 of 36.*
+>
+> ## THE HABIT THAT KEEPS PAYING, AND THE ONE THAT KEEPS COSTING
+> **PAYS: run it, do not read it.** Reading the code misled me three times this session; runtime
+> instrumentation has not misled me once. **PAYS: ask whether the experiment could have succeeded**
+> -- it has changed the plan five times, including catching a 15-minute run that was arithmetically
+> unwinnable and a wiring experiment whose arms would have been identical.
+> **COSTS: my own pre-registered thresholds.** One was mis-specified (lumping *at* independence with
+> *below* it). One I honoured against my own preference. **Write them, then obey them, and say
+> plainly when they were badly written rather than quietly re-reading them.**
+
 > # ✅ 2026-08-19 LATE -- PLAN UPDATED IN PLACE. THE BLOCK BELOW THIS ONE IS DONE; READ THIS FIRST.
 > **Everything the next block calls "NEXT STEP, REVISED" HAS LANDED. Do not re-do it.**
 >
