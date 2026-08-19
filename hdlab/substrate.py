@@ -750,9 +750,16 @@ class Substrate:
         cons = self.consolidated()
         if not cons:
             return []
+        # THE SENTENCE'S OWN MASKED CONTEXT VECTOR IS THE CUE, not a sum of its words' profiles.
+        # MEASURED with scale held fixed and only the cue varied: the sentence cue separates from
+        # its scramble at k = 1, 10 AND 50; the profile-sum cue separates at k=1 only, because its
+        # SCRAMBLE retains much more signal (hit@50 0.3177 vs 0.2367). The index rows are single
+        # accumulated context vectors, so this queries the space the index is actually built in.
+        cvec = context_vector_masked(sentence, target or "\x00none\x00", d=CONTEXT_DIM)
         hits = cr.cortical_recall(content_lemmas(sentence), cons, self.profile(),
                                   space=space, top_k=top_k,
-                                  exclude=[target] if target else ())
+                                  exclude=[target] if target else (),
+                                  context_vec=cvec)
         return [(h.term, h.meaning, h.score) for h in hits]
 
     def recall_sentence(self, sentence: str, target: str = "", *,

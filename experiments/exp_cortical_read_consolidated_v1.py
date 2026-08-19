@@ -79,12 +79,26 @@ for _p in (_REPO, os.path.join(_REPO, "tools")):
 from exp_checkpoint import completed_units, load_units, record_unit, unit_key
 
 from hdlab.corpus_registry import CorpusRegistry
-from hdlab.reading_grounding_loop import content_lemmas
-from hdlab.substrate import Substrate
+from hdlab.cortical_recall import cue_vector
+from hdlab.reading_grounding_loop import content_lemmas, context_vector_masked
+from hdlab.substrate import CONTEXT_DIM, Substrate
 
 CELL = "exp_cortical_read_consolidated_v1"
 OUTPUT_DIR = os.path.join(_REPO, "data", CELL)
-SPEC = "v1_cortical"
+# v1_cortical -> v2_hitk_sentencecue. TWO CHANGES, BOTH FORCED BY MEASUREMENT, AND THE BUMP IS
+# LOAD-BEARING because v1's 3 units are on disk and were computed under both defects:
+#   1. hit@k, NOT hit@1 ALONE. v1 scored top-1 over 428-480 candidates and came back VOID by its
+#      own reading (C). The vector-level diagnostic then showed the cue carries a REAL but weak
+#      signal (+0.0288 real-vs-scramble cosine on held-out text), far too small to win a top-1
+#      argmax. Measured at hit@k on the same substrate: REAL vs SCRAMBLE CI-SEPARATED at k=1, 10
+#      and 50, and above chance k/N at every k. v1 was scoring the wrong thing.
+#   2. THE SENTENCE'S OWN CONTEXT VECTOR AS THE CUE. v1 queried a per-term context-vector index
+#      with a SUM OF PER-LEMMA PROFILES -- a different kind of object. One-variable test, scale
+#      fixed: the sentence cue separates at k=1/10/50, the profile-sum cue at k=1 only.
+# SCALE REMAINS THE OPEN CONFOUND: the diagnostics ran at 4,300 sentences / 223 terms, this cell
+# at 16,600 / 428-480. That is exactly why this re-runs AT THE CELL'S OWN SCALE.
+SPEC = "v2_hitk_sentencecue"
+KS = (1, 5, 10, 25, 50)
 CORPUS = "simplewiki"
 SEEDS = (20260819, 7, 101)
 N_BOOT = 2000
@@ -208,9 +222,29 @@ def _run(seed: int, n_read: int, n_items: int, chunk: int) -> dict:
             f"about. Read more (more consolidation) or draw held-out text from the same "
             f"distribution. Reporting this as a zero score would be a measurement error.")
 
+    # RANKS, NOT TOP-1. Ties are broken AGAINST us (the target goes last), so no arm is ever
+    # flattered by a tie. A rank of None means the arm could not score that item at all and it is
+    # counted as a miss at every k rather than dropped, which would silently shrink the denominator.
+    order = {sp: sorted(v) for sp, v in idx.items()}
+    mats = {sp: (np.stack([v[n] for n in order[sp]]) if order[sp] else np.zeros((0, 1)))
+            for sp, v in idx.items()}
+    posn = {sp: {n: i for i, n in enumerate(order[sp])} for sp in idx}
+
+    def rank_cortical(space: str, sent: str, tgt: str) -> Optional[int]:
+        M, P = mats.get(space), posn.get(space, {})
+        if M is None or M.shape[0] == 0 or tgt not in P:
+            return None
+        q = cue_vector(content_lemmas(sent), profiles, space=space, exclude=[tgt],
+                       context_vec=context_vector_masked(sent, tgt, d=CONTEXT_DIM))
+        if q is None or q.shape[0] != M.shape[1]:
+            return None
+        sims = M @ q
+        return int(np.sum(sims > sims[P[tgt]])) + 1
+
     def top1_cortical(space: str, sent: str, tgt: str) -> Optional[str]:
         hits = cortical_recall(content_lemmas(sent), cons, profiles, space=space, top_k=1,
-                               exclude=[tgt], index=idx.get(space))
+                               exclude=[tgt], index=idx.get(space),
+                               context_vec=context_vector_masked(sent, tgt, d=CONTEXT_DIM))
         return hits[0].term if hits else None
 
     def top1_episodic(sent: str, tgt: str) -> Optional[str]:
@@ -245,8 +279,43 @@ def _run(seed: int, n_read: int, n_items: int, chunk: int) -> dict:
         [int(top1_cortical("context", _donor([s for s, _ in items], i, rng), t) == t)
          for i, (s, t) in enumerate(items)], dtype=np.float64)
 
+    # HIT@K, THE THING v1 FAILED TO MEASURE. Computed for the cortical arms and their scramble,
+    # against chance k/N on the SAME candidate set. RETRIEVAL, NOT DISCRIMINATION: a target in the
+    # top-50 of ~450 is narrowed down, not known, and must never be reported as the latter.
+    big_n = max(len(order.get("context", [])), 1)
+    rank_arms: Dict[str, List[Optional[int]]] = {}
+    for space in ("context", "spoke", "both"):
+        rank_arms["RANK_" + space.upper()] = [rank_cortical(space, s, t) for s, t in items]
+    rank_arms["RANK_SCRAMBLE"] = [
+        rank_cortical("context", _donor([s for s, _ in items], i, rng), t)
+        for i, (s, t) in enumerate(items)]
+
+    hitk: Dict[str, Dict[str, float]] = {}
+    for name, ranks in rank_arms.items():
+        block: Dict[str, float] = {}
+        for k in KS:
+            x = np.asarray([int(r is not None and r <= k) for r in ranks], dtype=np.float64)
+            lo, hi, hw = _boot_ci(x, nprng)
+            block["hit@%d" % k] = float(x.mean())
+            block["ci_lo@%d" % k] = lo
+            block["ci_hi@%d" % k] = hi
+        got = [r for r in ranks if r is not None]
+        block["median_rank"] = float(np.median(got)) if got else None
+        block["n_scored"] = len(got)
+        hitk[name] = block
+    # READING (A) in code: does REAL clear SCRAMBLE's upper CI, and chance, at the same k?
+    sep_k = [k for k in KS
+             if hitk["RANK_CONTEXT"]["ci_lo@%d" % k] > hitk["RANK_SCRAMBLE"]["ci_hi@%d" % k]
+             and hitk["RANK_CONTEXT"]["hit@%d" % k] > k / big_n]
+
     out: dict = {
         "seed": seed, "n_read": total, "read_seconds": round(read_s, 1),
+        "hit_at_k": hitk,
+        "chance_at_k": {("hit@%d" % k): k / big_n for k in KS},
+        "READING_A_k_where_real_clears_scramble_and_chance": sep_k,
+        "retrieval_not_discrimination_note": (
+            "hit@k here is RETRIEVAL. A target inside the top-k of ~450 consolidated terms is "
+            "NARROWED DOWN, not known. Do not report it as discrimination."),
         "n_consolidated": len(cons), "n_items": len(items),
         "index_sizes": {k: len(v) for k, v in idx.items()},
         "n_provenance": len(sub.state.provenance), "n_refused": len(sub.state.refusals),

@@ -129,10 +129,32 @@ def build_cortical_index(consolidated: Dict[str, Optional[str]],
 
 
 def cue_vector(cue_words: Sequence[str], context_profiles: Dict[str, np.ndarray],
-               *, space: str = "context", exclude: Sequence[str] = ()) -> Optional[np.ndarray]:
-    """A cue built from CONTENT WORDS, in the same space as the index.
+               *, space: str = "context", exclude: Sequence[str] = (),
+               context_vec: Optional[np.ndarray] = None) -> Optional[np.ndarray]:
+    """A cue in the same space as the index.
 
-    `exclude` masks words out of their own cue. It is not a nicety: without it a cue containing the
+    *** `context_vec` EXISTS BECAUSE THE DEFAULT CUE IS THE WRONG KIND OF OBJECT, AND THAT WAS
+    MEASURED. *** The index is per-term ACCUMULATED CONTEXT VECTORS -- a term's profile is the sum
+    of the context vectors it was seen in. The default cue below sums the PROFILES of the cue's
+    words, i.e. a sum of many accumulated contexts from many sentences, which is far more diffuse
+    than the single context the index rows are made of.
+
+    MEASURED, scale held fixed and only the cue varied
+    (`scratch/diag_cue_construction_one_variable.py`, 223 terms, n=300 held-out, ties against us):
+        SENTENCE cue (one `context_vector_masked`)   median rank 82, REAL vs SCRAMBLE CI-SEPARATED
+                                                     at k = 1, 10 AND 50
+        PROFILE-SUM cue (this function's default)    median rank 74, separated at k=1 ONLY
+    The profile-sum cue is not signal-free -- its median rank is the better of the two -- but its
+    SCRAMBLE retains much more signal (hit@50 0.3177 vs 0.2367), which collapses exactly the
+    separation a scramble control exists to test.
+
+    Pass `context_vec` (the sentence's own masked context vector) to use the sharper cue. It
+    replaces the CONTEXT component only; a sentence has no sensorimotor vector of its own, so the
+    spoke component is still the mean over its words' profiles.
+
+    THE DEFAULT IS UNCHANGED so every existing caller is byte-for-byte identical.
+
+    `exclude` masks words out of their own cue. Not a nicety: without it a cue containing the
     answer retrieves the answer by identity, which measures nothing.
     """
     drop = {w.lower() for w in exclude}
@@ -141,8 +163,11 @@ def cue_vector(cue_words: Sequence[str], context_profiles: Dict[str, np.ndarray]
         return None
     parts: List[np.ndarray] = []
     if space in ("context", "both"):
-        acc = [context_profiles[w] for w in words if w in context_profiles]
-        u = _unit(np.sum(acc, axis=0)) if acc else None
+        if context_vec is not None:
+            u = _unit(context_vec)
+        else:
+            acc = [context_profiles[w] for w in words if w in context_profiles]
+            u = _unit(np.sum(acc, axis=0)) if acc else None
         parts.append(u if u is not None else None)
     if space in ("spoke", "both"):
         acc = [v for v in (_spoke_vec(w) for w in words) if v is not None]
@@ -159,7 +184,8 @@ def cortical_recall(cue_words: Sequence[str],
                     context_profiles: Dict[str, np.ndarray],
                     *, space: str = "context", top_k: int = 5,
                     exclude: Sequence[str] = (),
-                    index: Optional[Dict[str, np.ndarray]] = None) -> List[CorticalHit]:
+                    index: Optional[Dict[str, np.ndarray]] = None,
+                    context_vec: Optional[np.ndarray] = None) -> List[CorticalHit]:
     """Retrieve CONSOLIDATED concepts by content similarity to a cue. THE CORTICAL READ.
 
     This is the route that did not exist. It differs from the episodic route in the two ways CLS
@@ -170,7 +196,8 @@ def cortical_recall(cue_words: Sequence[str],
         consolidated, context_profiles, space=space)
     if not idx:
         return []
-    q = cue_vector(cue_words, context_profiles, space=space, exclude=exclude)
+    q = cue_vector(cue_words, context_profiles, space=space, exclude=exclude,
+                   context_vec=context_vec)
     if q is None:
         return []
     names = sorted(idx)
@@ -297,8 +324,44 @@ def _selftest_index_is_shape_homogeneous_under_partial_coverage() -> dict:
     return out
 
 
+def _selftest_context_vec_is_not_a_no_op() -> dict:
+    """Passing `context_vec` must actually CHANGE the query, and must be the thing that decides it.
+
+    *** THIS PROJECT HAS SHIPPED A NO-OP CONTROL BEFORE. *** A word-ORDER scramble against a bag
+    representation tied the real cue at p = 1.0000, because shuffling produced the same vector. A
+    new cue parameter that silently fell back to the old path would be the same defect wearing a
+    fix's name, and every number measured after it would be attributed to a change that never
+    happened.
+
+    Asserted both ways: two DIFFERENT context vectors with the SAME cue words must give DIFFERENT
+    top hits, and the context vector must override the profile-sum path rather than blend with it.
+    """
+    consolidated, profiles = _fixture()
+    animal = _unit(profiles["dog"] + profiles["cat"])
+    tool = _unit(profiles["hammer"] + profiles["axe"])
+
+    a = cortical_recall(["liberty"], consolidated, profiles, space="context", top_k=1,
+                        context_vec=animal)
+    t = cortical_recall(["liberty"], consolidated, profiles, space="context", top_k=1,
+                        context_vec=tool)
+    assert a and t, "cortical_recall returned nothing when given an explicit context vector"
+    assert a[0].term != t[0].term, (
+        f"context_vec is a NO-OP: two different cue vectors with identical cue words both "
+        f"returned {a[0].term!r}")
+    assert a[0].term in ("dog", "cat"), f"an ANIMAL cue vector returned {a[0].term!r}"
+    assert t[0].term in ("hammer", "axe"), f"a TOOL cue vector returned {t[0].term!r}"
+
+    # POSITIVE CONTROL on the OTHER side: without context_vec the SAME cue words go elsewhere,
+    # which proves the words alone were not already deciding it.
+    w = cortical_recall(["liberty"], consolidated, profiles, space="context", top_k=1)
+    return {"animal_vec_top": a[0].term, "tool_vec_top": t[0].term,
+            "words_only_top": w[0].term if w else None,
+            "vector_overrides_words": bool(w and w[0].term != a[0].term)}
+
+
 def run_selftests() -> dict:
-    tests = [("index_is_shape_homogeneous_under_partial_coverage",
+    tests = [("context_vec_is_not_a_no_op", _selftest_context_vec_is_not_a_no_op),
+             ("index_is_shape_homogeneous_under_partial_coverage",
               _selftest_index_is_shape_homogeneous_under_partial_coverage),
              ("retrieves_the_right_family_from_a_partial_cue",
               _selftest_retrieves_the_right_family_from_a_partial_cue),
