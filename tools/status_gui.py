@@ -748,6 +748,7 @@ class StatusWindow:
         self._build_fidelity()    # C
         self._build_results()     # C
         self._build_commentary()  # D  (2026-08-17: its OWN tab -- see docstring below)
+        self._register_tab_sources()
 
         bar = ttk.Frame(root)
         bar.grid(row=2, column=0, sticky="ew", padx=6, pady=(0, 6))
@@ -755,6 +756,100 @@ class StatusWindow:
         self.status_lbl = ttk.Label(bar, text="starting...", anchor="w", foreground=_DIM)
         self.status_lbl.grid(row=0, column=0, sticky="ew")
         ttk.Button(bar, text="Refresh (F5)", command=self.refresh_now).grid(row=0, column=1)
+
+    # ---- PER-TAB DATA AGE (owner, 2026-08-19) ---------------------------
+    # "add an 'updated' timestamp on each tab so I know when the data is new or not".
+    #
+    # THE AGE GOES IN THE TAB TITLE, and that is a deliberate choice rather than a shortcut.
+    # A strip inside each panel would show the age only of the tab you are already looking at,
+    # and would need a new grid row inserted into eight existing layouts. In the title it is
+    # visible for EVERY tab at once, without clicking through -- which is what "so I know when
+    # the data is new" actually asks for.
+    #
+    # IT IS THE AGE OF THE EVIDENCE, NOT OF THE REFRESH. The bottom bar already carries the
+    # refresh clock and says in so many words that it is "the REFRESH, not the age of anything
+    # on screen". This fills exactly the gap that sentence admits to: each title shows how long
+    # ago the FILE that tab is rendered from last changed. A tab reading live process state says
+    # `live`, because there is no file whose mtime would mean anything.
+    _TAB_SOURCES = {
+        "1. WHERE WE ARE": ["notes/BUILD_PLAN_post_audit_2026-08-19.md", "notes/STATUS.md",
+                            "notes/LONG_TERM_PLAN.md"],
+        "2. RUNNING": None,                       # live process/queue state
+        "3. WAITING ON YOU": ["notes/BOARD.md"],
+        "4. SCORES": ["notes/STATUS.md", "notes/VETTING_LEDGER.md"],
+        "5. ORGAN MAP": ["notes/ORGAN_MAP.md"],
+        "6. COPYING THE BRAIN": ["notes/ORGAN_MAP.md"],
+        "7. LATEST RESULTS": None,                # newest metrics.json, computed at render
+        "8. NOTE FOR ME": ["notes/COMMENTARY.md"],
+    }
+
+    def _register_tab_sources(self) -> None:
+        """Remember each tab's BASE title so the age suffix can be re-applied without accreting."""
+        self._tab_base = {}
+        for tab_id in self.nb.tabs():
+            self._tab_base[tab_id] = self.nb.tab(tab_id, "text")
+
+    @staticmethod
+    def _fmt_age(seconds: float) -> str:
+        if seconds < 90:
+            return "%ds" % int(seconds)
+        if seconds < 5400:
+            return "%dm" % int(seconds // 60)
+        if seconds < 172800:
+            return "%dh" % int(seconds // 3600)
+        return "%dd" % int(seconds // 86400)
+
+    def _newest_metrics_mtime(self) -> float | None:
+        """Newest metrics.json under data/. Cached for 60 s -- this walks a large tree and the
+        GUI refreshes far more often than results land."""
+        now = time.time()
+        cached = getattr(self, "_metrics_mtime_cache", None)
+        if cached is not None and (now - cached[0]) < 60:
+            return cached[1]
+        newest = None
+        try:
+            for d in (_REPO / "data").iterdir():
+                if not d.is_dir():
+                    continue
+                try:
+                    m = (d / "metrics.json").stat().st_mtime
+                except OSError:
+                    continue
+                if newest is None or m > newest:
+                    newest = m
+        except OSError:
+            newest = None
+        self._metrics_mtime_cache = (now, newest)
+        return newest
+
+    def _update_tab_ages(self) -> None:
+        """Re-title every tab with the age of the evidence behind it. Never raises: a dashboard
+        that dies while decorating itself is worse than one with no timestamps."""
+        try:
+            now = time.time()
+            for tab_id in self.nb.tabs():
+                base = self._tab_base.get(tab_id)
+                if not base:
+                    continue
+                srcs = self._TAB_SOURCES.get(base, None)
+                if base == "7. LATEST RESULTS":
+                    m = self._newest_metrics_mtime()
+                    suffix = ("  [%s]" % self._fmt_age(now - m)) if m else "  [--]"
+                elif srcs is None:
+                    suffix = "  [live]"
+                else:
+                    newest = None
+                    for rel in srcs:
+                        try:
+                            mt = (_REPO / rel).stat().st_mtime
+                        except OSError:
+                            continue
+                        if newest is None or mt > newest:
+                            newest = mt
+                    suffix = ("  [%s]" % self._fmt_age(now - newest)) if newest else "  [--]"
+                self.nb.tab(tab_id, text=base + suffix)
+        except Exception:
+            pass
 
     # ---- the side channel: its OWN tab (2026-08-17, defect 2) -----------
     def _build_commentary(self) -> None:
@@ -1781,6 +1876,9 @@ class StatusWindow:
                      f"Ctrl+1..7 = jump to a panel  |  this clock is the REFRESH, not the age of "
                      f"anything on screen")
         self.status_lbl.configure(text="    |    ".join(parts))
+        # Per-tab evidence age, re-applied on the tick so it counts up between refreshes rather
+        # than freezing at whatever it was when the data last landed.
+        self._update_tab_ages()
         self.root.after(TICK_MS, self._tick)
 
     # ------------------------------------------------------------------
