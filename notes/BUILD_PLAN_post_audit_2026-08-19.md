@@ -1,8 +1,62 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
-> # 🧭 CURRENT HANDOFF -- 2026-08-19 LATE, AUTOLOOP ARMED. **READ THIS BLOCK, THEN STOP.**
+> # 🧭 CURRENT HANDOFF -- 2026-08-19 END OF FIDELITY-AUDIT SESSION. **READ THIS BLOCK, THEN STOP.**
 > *Everything below it is the record, newest-first. The older handoff blocks are SUPERSEDED: their
 > "next steps" are all done.*
+>
+> ## ✅ LANDED SINCE THIS PLAN WAS LAST WRITTEN -- three items below are now ANSWERED, not pending
+> **1. THE BRAIN-FIDELITY AUDIT THE OWNER ASKED FOR IS COMPLETE.** All three negatives that had no
+> fidelity check now have one. **Three of my four explanations were REFUTED by their own
+> pre-committed controls** -- the diagnostics were genuinely can-fail and they fired against me.
+> - *Spoke failure:* hub-and-spoke POSITION was NOT the cause. 11 of 12 grounded dimensions read
+>   back out of the profile (ridge, 5,950 words, out-of-fold). **The magnitude is the finding:
+>   frequency reads out at R^2 0.4819 vs 0.01-0.05 for a typical sensorimotor dimension.**
+> - *Reading (C):* not noise (matched 0.4546 / stranger 0.4888 / chance 0.5001, n=55,399), not a
+>   between/within mismatch (ICC 0.201 -- within-word variation is 80%), and the missing precision
+>   term is real but **the archive already tested the precision-weighted form and it also sat at
+>   chance** (Friston arm 0.530 vs flat 0.542).
+> - **THE ONE ACCOUNT THAT SURVIVES:** *a write gate chooses WHICH counts get added; it cannot
+>   change that the code IS a count.* Same conclusion the geometry and subsumption results reached
+>   from two other directions. **This is why "sharpen the predictor" below is now second-line.**
+>
+> **2. Q72 IS ANSWERED ON BOTH HALVES, AND THEY DIFFER.** The diversity test described further down
+> as "running" has LANDED:
+>
+> | | corpora | OUR median rank | counter | ratio |
+> |---|---|---|---|---|
+> | ONE_CORPUS | 1 | 91.0 (CI 68.5-111.0) | 19.5 | 4.67x |
+> | MANY_CORPORA | 27 | 106.5 (CI 89.0-122.0) | 20.0 | 5.33x |
+>
+> **Difference +15.8, 95% CI [-10.0, +42.5] -- NOT SEPARATED. Passive breadth is UNTESTED at this n,
+> NOT a negative. ⛔ Never quote "spreading reading across corpora made it worse."**
+> **BUT THE OTHER HALF ALREADY LANDED HARD_PASS a month ago:**
+> `exp_breadth_foundation_active_growth_loop_ud_ewt_v1` -- gap-targeted active growth moved coverage
+> **0.50 -> 0.79**, real-vs-shuffle AUC **0.8924 vs 0.5122 +- 0.1003**. *The load-bearing word in the
+> owner's question is "PATCHY", not "another textbook".*
+>
+> **3. THE OWNER'S "WHAT ELSE ARE WE MISSING?" HAS A CONCRETE ANSWER AND IT KEEPS PAYING.** Querying
+> the RESULTS archive (not the code registry) found: today's write-gate negative had been measured a
+> month earlier (flat raw surprise at chance, 0.545 and 0.542, clean controls); a PRIOR residual gate
+> already recorded **skip=0.00** (`exp_pc1_predictive_coding_residual_gate_v1`); and both corrections
+> in the next block. **`tools/experiment_index.py query "<kw>"`. `substrate_query.sh` returns zero
+> bytes and exits 0 -- never use it.**
+>
+> ## ⛔ THREE CORRECTIONS. DO NOT RE-QUOTE THE SUPERSEDED FORMS.
+> 1. The audit is **THREE of four** refuted, not four. The familiarity hypothesis was NOT refuted --
+>    I published SMOKE numbers (161 terms). At full n (1,590): slope **-0.0035, CI [-0.0052,
+>    -0.0018]**, 63% of words negative. The residual DOES fall as a word becomes familiar.
+> 2. **Passive corpus breadth is UNTESTED, not negative** (see the CI above).
+> 3. **"Our code is 4-12x too diffuse" is OVER-ATTRIBUTED.** A prior cell measured MiniLM -- an
+>    ordinary working text encoder -- at **d_eff 91.6**, and used a **DIFFERENT FORMULA** for
+>    participation ratio than my diagnostic did. *The geometry stands; blaming OUR design does not.*
+>
+> ## ➡️ NEXT STEPS, IN ORDER
+> 1. **Recompute participation ratio under BOTH formulas** -- `(sum s)^2/sum s^2` over singular
+>    values and `1/sum(v^2)` over variance shares -- on our profiles AND a text-encoder reference.
+>    **This resolves correction 3 and it is the top unblocked item.**
+> 2. **Test the gap-targeted growth loop on the current substrate.** Only clean prior win in the
+>    area, and it is the owner's own idea.
+> 3. **Leave the write gate alone.** Four explanations tested; tuning thresholds cannot reach it.
 >
 > ## ⛔ CLOSED 2026-08-19: **THE RESIDUAL WRITE GATE. 0 of 54 cells, both directions.**
 > `exp_predictive_write_gate_v1`, 3 seeds x 6 thresholds x 3 k. **Reading (A) in 0 of 54; floor
@@ -54,6 +108,13 @@
 > using one sixteenth of the available reading.* **Test running with DIVERSITY as the one variable:
 > same total sentences, 1 corpus vs 12, both scored against the counter ON THEIR OWN TEXT so
 > "the task got easier" cannot masquerade as "we got better".**
+> **✅ THAT TEST HAS SINCE LANDED -- SEE THE TOP BLOCK. Result: 1 vs 27 corpora at constant total
+> reading, difference +15.8 with 95% CI [-10.0, +42.5], NOT SEPARATED. Passive breadth is UNTESTED
+> at this n. The GAP-TARGETED half of Q72 is the one with a prior HARD_PASS.**
+> *⚠️ And the first version of that test LEAKED 100%: its held-out set came from a fresh
+> `CorpusRegistry()`, whose handles start at sentence one -- exactly where the substrate had been
+> reading. 600 of 600 sentences were already seen and the arm scored median rank 3.0. Rule now in
+> CLAUDE.md: draw held-out from the SAME advanced cursor and PRINT the overlap every run.*
 >
 > ## 🥇 [THE OWNER CORRECTED THIS: THE PRINCIPLE IS NOVELTY, NOT VOLUME] THE TOP ITEM CHANGED LATE ON 2026-08-19: **IT IS NOT A MECHANISM, IT IS NOTE-TAKING.**
 > **The system stops recording traces for a word once that word grounds.** So the words it meets
@@ -70,10 +131,13 @@
 > **So 17 -> 46 is the cost of not writing things down, and 46 -> 81 is everything else about our
 > representation. NOT-RECORDING IS THE BIGGER TERM.** *It is worth more than all three mechanism
 > lines that closed today were chasing, and it is the cheapest thing on the list.*
-> **⛔ ON THE BOARD AS Q71 AND NOT STARTED: it changes core reading behaviour and its cost profile
-> (more memory, slower reads), so it is the owner's call, not mine.** *When it runs it MUST carry a
-> rate-matched arm that keeps the same NUMBER of extra traces chosen at random -- otherwise "better
-> notes" cannot be told from "more notes".*
+> **✅ Q71 IS NOW ANSWERED AND THE ANSWER KILLS THE "RECORD EVERYTHING" VERSION OF THIS ITEM.** The
+> owner's principle is *newness gets notes*, so the proposal is NOT "record every occurrence" -- it
+> is "record the novel ones", and **we have no working novelty signal** (the residual gate closed 0
+> of 54, and the fidelity audit above found the signal is real but selecting on it cannot change
+> that the code is a count). *When any version of this runs it MUST still carry a rate-matched arm
+> keeping the same NUMBER of extra traces chosen at random -- otherwise "better notes" cannot be
+> told from "more notes".*
 > **⚠️ AND THE HONEST RISK, recorded before anyone starts: it may simply reproduce the co-occurrence
 > counter more exactly rather than beating it. That would still be worth knowing -- it would say
 > the representation IS the counter, badly sampled -- but it is not a win.**
