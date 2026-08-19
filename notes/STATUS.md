@@ -30,6 +30,14 @@ among the 13 largest -- and 67 organs are BUILT, SELF-TEST-PASSING, AND UNWIRED.
 
 **PLAN = `notes/PLAN_ORGAN_STEP_LADDERS_2026-08-17.md`, SECTION 7 (prepended; read it BEFORE sec 6).**
 
+# ➡️ THE PLAN TO EXECUTE IS `notes/BUILD_PLAN_post_audit_2026-08-19.md`. OPEN IT AND START AT PHASE 0.
+**It is self-contained, owner-approved, and written for exactly this handoff.** Phase 0 is one hour
+(fix `situation_reader`'s import-time training; remove a scratch file from `hdlab/`; make the
+dashboard show `UNVETTED` instead of a blank). Phase 1 wires Tier 0+1 (~75 s import). **PHASE 2 IS
+THE ONE THAT MATTERS: an end-to-end can-fail test with a real floor and a scramble twin, because
+every organ was validated ALONE and wiring ten together is exactly how the 0-for-30 claims layer
+happened.** Phase 3 builds the empty slots. The ranked list below is the same plan in summary.
+
 ## NEXT STEPS, RANKED -- START AT 1
 1. **WIRE THE SIX ORGANS BOTH AUDITS AGREE ON:** `hippocampal_encoder`, `cortex`,
    `information_foraging`, `coref`, `goal_owner_select`, `definitional_extraction`. **Recovering
