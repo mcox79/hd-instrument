@@ -19,6 +19,13 @@ no arm can perturb the data another arm sees, and the comparison is one variable
 THREE ARMS, and the third is the one that makes this honest:
   ACCUMULATE   sum every trace. THIS IS WHAT THE SUBSTRATE DOES TODAY (the organ's own
                `vanilla_hebbian_write` arm).
+               *** THAT LABEL IS VERIFIED, NOT ASSUMED, AND I EXPECTED IT TO BE WRONG. ***
+               `Substrate.profile()` merges Library trace sums with ConceptSpace `_sums`, and the
+               ConceptSpace entry OVERWRITES the Library one -- and every consolidated term IS an
+               anchor in ConceptSpace, so the baseline looked mislabelled. Checked at runtime on
+               68 consolidated terms: `profile()` equals `sum(library traces)` for 68 of 68, at
+               cosine 1.000000, because `checkpoint` seeds a newly grounded word's anchor profile
+               FROM those same summed traces. The two coincide by construction. Baseline stands.
   GATED        write a trace only when its residual against the profile-so-far clears `thr`.
   RANDOM_SKIP  skip the SAME FRACTION of traces, chosen at random, per term.
 
