@@ -15,7 +15,39 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
-## 🔴🔴🔴 2026-08-19 -- **A RANDOM PROJECTION OF THE CO-OCCURRENCE COUNTS BEATS OUR REPRESENTATION**
+## 🟠 2026-08-19 -- **PARTIAL CORRECTION TO THE BLOCK BELOW, AND MY VERDICT STATISTIC WAS WRONG.**
+## **WE RECORD ONLY 69% OF OCCURRENCES, AND THE SHORTFALL IS CONCENTRATED ON FREQUENT WORDS.**
+I published "our representation is DESTROYING information a random matrix preserves". Reading the
+code then showed `context_vector(graded=True)` returns the RAW SUM of per-word bipolar draws --
+**a LINEAR random projection.** By linearity, summing a term's per-sentence vectors should EQUAL
+projecting its summed counts, so OURS and PROJ_COOC should be the same object and there is nothing
+for a "quality" difference to live in. Unless they are built from different OCCURRENCES. Measured:
+
+| traces recorded vs sentences containing the term | |
+|---|---|
+| median ratio | **0.958** |
+| mean ratio | 0.802 |
+| **OVERALL (total traces / total occurrences)** | **0.688** |
+| least covered | `century` 7/92 = 0.076, `european` 5/44, `ways` 5/41, `unite` 7/50 |
+
+**⛔ THE SHORTFALL IS SYSTEMATIC AND FREQUENCY-DEPENDENT: rare terms are covered almost completely,
+FREQUENT terms are covered barely at all.** *That is the loop working as designed -- a word stops
+being a gap once it grounds, so it stops accruing traces -- but the consequence is that **the terms
+with the MOST evidence available have the LEAST recorded**, which is exactly backwards for
+estimating a profile.*
+**⚠️ AND MY PRE-REGISTERED VERDICT STATISTIC WAS THE WRONG ONE. I gated on the MEDIAN ratio (0.958,
+"coverage is not the story"), when the quantity that matters is the FREQUENCY-WEIGHTED TOTAL
+(0.688) and its CORRELATION WITH FREQUENCY. The median hides a systematic truncation by
+construction.** *Third time this session a threshold I wrote was badly specified. The pattern is
+always the same: I pick a statistic that is easy to compute rather than the one that answers the
+question.*
+**➡️ SO BOTH MECHANISMS ARE LIVE AND NEITHER IS CLEAN: ~31% of occurrences were never recorded
+(concentrated where it hurts most), AND that alone may not account for a 2x median-rank gap. The
+"destroys information" claim below is NOT refuted but is NO LONGER THE SOLE EXPLANATION and must
+not be quoted as one.** *The clean next test: rebuild PROJ_COOC from ONLY the recorded traces. If
+it then matches OURS, coverage explains everything.*
+
+## 🔴🔴🔴 [SEE THE PARTIAL CORRECTION ABOVE -- COVERAGE IS ALSO IN PLAY] 2026-08-19 -- **A RANDOM PROJECTION OF THE CO-OCCURRENCE COUNTS BEATS OUR REPRESENTATION**
 ## **BY 2x AT IDENTICAL DIMENSIONALITY. WE LOSE MORE THAN COMPRESSION EXPLAINS.**
 `scratch/diag_is_our_vector_a_compressed_counter.py`. The question the whole session pointed at and
 nobody had asked: both sides use co-occurrence, so **is our representation simply a LOSSY VERSION
