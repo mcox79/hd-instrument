@@ -15,7 +15,34 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
-## ⚠️ 2026-08-19 -- **A PRE-BUILD PROBE WHOSE OWN POSITIVE CONTROL FAILED. READ THE CAVEAT FIRST.**
+## 🔴 2026-08-19 -- **THE GATE'S DECISION CANNOT BE REPLAYED FROM THE FINAL STATE. TWO CONTROLS**
+## **FAILED BEFORE THAT WAS CLEAR, AND IT IS AN AUDITABILITY PROBLEM, NOT A PROBE PROBLEM.**
+`scratch/probe_gate_exact_v2.py`. v2 calls **the gate's own `canonicalize`**, on the gate's own
+vector (the Library item's summed traces), with the gate's own `is_eligible_meaning` predicate and
+its own `SENSE_MATCH_THRESH=0.45` -- it recomputes NOTHING. It still reproduces only
+**71 of 223 decisions (31.8%)**.
+**⛔ SO THE ANSWER TO v1's OPEN QUESTION IS NEITHER OF THE TWO I NAMED.** Not "the gate
+underperforms its own rule" and not merely "my cosine was wrong": **THE GATE'S DECISION IS
+PATH-DEPENDENT AND THE PATH IS NOT RECORDED.** `canonicalize` scans `space.anchors()` AS IT WAS AT
+DECISION TIME; by the end of the read the field has grown to 273 anchors, so a replay argmaxes over
+a strictly larger set than the gate ever saw. *The codebase already knew this -- `FrozenAnchorSpace`
+(READ-OUT FIX 3) exists precisely so a verification episode "compares against a STABLE field instead
+of a field that grew under it". I did not connect it until two controls had failed.*
+**🚨 THE CONSEQUENCE IS BIGGER THAN THE PROBE. The substrate's stated output is an AUDITABLE store
+of facts, and one of its central decisions cannot be re-derived from the artifact it leaves.**
+Provenance records the subject, the object and the sentence -- **not the anchor field the choice
+was made against.** A fact you cannot re-derive is a fact you can only take on trust.
+**➡️ AND IT SETTLES THE BUILD DESIGN, WHICH IS THE USEFUL PART: THE SPOKE-vs-GATE COMPARISON
+CANNOT BE MADE POST-HOC AT ALL.** It has to be made ONLINE, inside the gate, with both rules
+scoring the same decision against the same field at the same moment. **That is the wiring
+experiment itself, so the pre-build probe collapses into the build.** *Two failed controls were
+the cheap way to find that out; building a post-hoc comparison cell would have been the expensive
+way.*
+**📌 SEPARATE, SMALL, AND WORTH DOING ANYWAY: record the anchor-field size (and ideally a hash of
+`space.anchors()`) in the provenance row at decision time.** Cheap, and it makes every future
+grounding decision re-derivable.
+
+## ⚠️ 2026-08-19 -- [v1, SUPERSEDED BY THE BLOCK ABOVE] **A PRE-BUILD PROBE WHOSE OWN POSITIVE CONTROL FAILED. READ THE CAVEAT FIRST.**
 `scratch/probe_spoke_vs_gate_on_anchors.py`, 4,300 sentences, 273 anchors, 209 scorable grounded
 terms, gold = provenance-filtered ConceptNet. **Built to answer one question BEFORE wiring the
 spoke into the consolidation gate: the spoke's win over the gate was measured on CO-OCCURRING
