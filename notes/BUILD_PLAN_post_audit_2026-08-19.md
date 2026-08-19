@@ -202,6 +202,24 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🧪 THE CELL THAT CAN SETTLE IT IS RUNNING: `experiments/exp_grounding_precision_gold_v1.py`
+**IN FLIGHT**, detached, PID `scratch/gp_full.pid`, logs `scratch/gp_full.out` / `.err`.
+3 seeds x 40,000 sentences, checkpointed units -> `data/exp_grounding_precision_gold_v1/`.
+**DO NOT RESPAWN.** *Smoke clean: 2,000 sentences -> 76 grounded, 648 refused, coverage 98.7%, and
+the shelf fix is visible -- SIX corpora visited where the old code reached three.*
+
+**THE DECIDER IS `RANDOM_ANCHOR`, NOT A FLOOR OVER OTHER ITEMS, AND THE CELL SAYS SO IN ITS OWN
+DOCSTRING.** *The gate was measured to accept terms with twice the gold degree, so any comparison
+against a different item set is confounded by term difficulty. `RANDOM_ANCHOR` holds the TERMS
+FIXED and randomises only the ANSWER -- it isolates "is this meaning right" from "is this term
+easy". Paired permutation, not two independent CIs.*
+
+**AND READING (iv) IS A REFUSAL TO ISSUE A VERDICT: below 300 scorable items the cell reports
+UNDERPOWERED and reports the required n instead.** *At 2,000 sentences it produced 75 scorable and
+flagged itself. That is the rule that would have stopped me quoting "6x" yesterday.*
+
+---
+
 ## ⬇️ DOWNGRADED BY ITS OWN CONTROL, ONE CONTINUATION LATER: THE GATE'S PRECISION ADVANTAGE IS NOT ESTABLISHED
 `scratch/gate_selection_control.py`. **Last continuation I reported the gate's accepted set at
 0.0355 vs the raw argmax's 0.0058 -- "roughly 6x, the gate is doing real selection" -- flagged as
