@@ -261,6 +261,20 @@ copy of the counter.*
 **⚠️ THE COMMENSURABILITY CAVEAT, STATED BEFORE ANYONE QUOTES THE COMPARISON: participation ratio
 over 223 word profiles and Huth's "~4 group PCs" over voxel-wise encoding across subjects are NOT
 the same measurement. The ORDER OF MAGNITUDE gap is the finding; the exact ratio is not.**
+**⚠️⚠️ AND A SECOND CAVEAT FOUND AFTERWARDS BY QUERYING THE ARCHIVE I SHOULD HAVE QUERIED FIRST --
+IT WEAKENS THE CLAIM ABOVE AND IS RECORDED WHERE THE CLAIM IS, NOT IN A FOOTNOTE:**
+- **THE TWO CELLS USE DIFFERENT FORMULAS FOR THE SAME WORD.** `exp_effective_rank_svd_v1`
+  (HARD_PASS) defines participation ratio as **(sum s)^2 / sum s^2 over SINGULAR VALUES**; today's
+  diagnostic used **1 / sum(v^2) over normalised VARIANCE shares**. Those are different statistics
+  and generally give different numbers. **50.4 and any number in that cell must not be put side by
+  side until one of them is recomputed.**
+- **AND ITS NUMBER MAKES THE "WE ARE UNUSUALLY DIFFUSE" READING LOOK PREMATURE:** that cell measured
+  **MiniLM -- a normal, working sentence encoder -- at d_eff 91.6, rank90 175, rank99 296**, and
+  landed HARD_PASS for being *intrinsic-dim-limited at d_eff <= 120*. If a competent text encoder
+  also sits far above the brain's ~4-12, then **being 4-12x too diffuse may be a property of
+  LEARNING-FROM-TEXT rather than a defect specific to OUR code**, and the subsumption explanation
+  above is over-attributed. *The geometry finding stands; the blame does not, until both numbers are
+  computed the same way on both objects.*
 **➡️ AND IT AGREES WITH THE OWNER'S OWN DIAGNOSIS FROM A DIFFERENT DIRECTION: a code that only
 ACCUMULATES cannot concentrate. Concentration is what LEARNING buys. Same conclusion as the
 novelty work -- prediction first -- reached through geometry instead of through surprise.**
@@ -317,6 +331,16 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+**⚠️ AND "NON-ADDITIVE" MUST NOT BE READ AS "IN-PLACE EDITING" -- I CHECKED THE ARCHIVE BEFORE
+PROPOSING IT THIS TIME.** `exp_additive_only_cert_cpu_v1` (MIDDLE_BAND) set out to certify that
+additive writes stay stable while in-place edits accumulate error ~ edits^2/N and collapse recall.
+**Disk-verified, the discriminator did NOT fire: additive@200 = 1.000 and in-place@200 edits =
+1.000.** Both arms sat at ceiling, which is why it landed MIDDLE_BAND. *So that cell neither
+supports nor blocks a non-additive write -- it is uninformative at that scale, and the honest
+statement is that the question is OPEN.* What the geometry argues for is a write that can
+CONCENTRATE variance -- competition, normalisation, sparsification, something learned -- **not
+subtract-old-and-add-new, which is a different proposal that this cell tried and could not
+discriminate.**
 
 ## 🟢🟢 2026-08-19 -- **THE OWNER REMEMBERED PRIOR WORK THAT PREDICTED TODAY'S FAILURE THREE WEEKS**
 ## **AGO, AND IT GIVES THE ORDER OF OPERATIONS: PREDICTION FIRST, NOVELTY SECOND, NOTES THIRD.**
