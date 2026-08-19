@@ -202,6 +202,42 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## ❌ HUBNESS HYPOTHESIS TESTED AND REFUTED -- AND IT MOVED THE PROBLEM TO A DIFFERENT ORGAN
+`scratch/hubness_probe.py`. **I proposed that the generic attractor is HUBNESS in the
+anchor-selection argmax, and that this might explain why the constant/prototype floor is the
+strongest floor across this whole project.** Tested before building on it.
+
+| | distinct / queries | top-share | gold precision |
+|---|---|---|---|
+| ARGMAX (what `canonicalize` does) | 205 / 1926 = **0.106** | **2.4%** | 0.0058 |
+| hubness-corrected (similarity centering) | 205 / 1926 = 0.106 | 1.8% | **0.0058, identical** |
+
+**THE CORRECTION CHANGES NOTHING**, and the correlation between an anchor's mean similarity to all
+queries and how often it wins is only **r = 0.305** -- too weak to be the mechanism. **HYPOTHESIS
+REFUTED.** *Cost: one probe, no build.*
+
+### 🎯 AND THE REFUTATION IS MORE USEFUL THAN THE HYPOTHESIS WOULD HAVE BEEN
+**THE RAW ARGMAX IS NOT DEGENERATE AT ALL: 205 distinct anchors over 1,926 pending items, top
+anchor 2.4%.** *The grounded set was 39 anchors over 96 terms with the top at 17.7%.* **So the
+concentration is NOT introduced when the anchor is CHOSEN. It is introduced by WHICH CANDIDATES
+THE CONSOLIDATION GATE ACCEPTS.** *I was looking at the wrong organ, and the probe said so in one
+run. The next investigation belongs at the gate -- schema consistency, vote margin, min_confirm --
+not at `canonicalize`.*
+
+**🟢 AND AN UNEXPECTED POSITIVE FOR THE GATE, STATED WITH ITS LIMIT: the gate's ACCEPTED set scores
+0.0355 against the raw argmax's 0.0058 on the same gold -- roughly 6x. The gate is doing real
+selection, not just thinning.** ***⚠️ That is 5 hits of 141 against 10 of 1,712, and it is a
+SELECTION EFFECT BY CONSTRUCTION -- which is what a gate is for. It is a direction, not a result,
+and single-digit hit counts cannot carry more than that.***
+
+**⚠️ NOT A REDISCOVERY OF DO-NOT-REDO 27, and the difference was stated before running:** that
+entry closed RANK-1 COMMON-MODE REMOVAL applied to the STORE in the ACCUMULATE-interference
+setting on the dissociation instrument. This was applied to the ANCHOR-SELECTION ARGMAX, on
+grounding degeneracy, on a different scorer and population. **A second independent negative for
+the same family of fix, at a different site.**
+
+---
+
 ## 🚨 SECOND DEFECT I BUILT: 25 OF 28 CORPORA WERE UNREACHABLE, AND IT LOOKED EXACTLY LIKE SATURATION
 **The degeneracy trajectory was meant to test whether the anchor pool is a cold-start bottleneck.
 It first produced a textbook learning ceiling: grounding plateaued at 180 terms, new anchors per
