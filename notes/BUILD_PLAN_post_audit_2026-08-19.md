@@ -77,6 +77,32 @@
 > the unique contribution is BELOW independence, and the floors are uncleared. THE ACCUMULATED-
 > CONTEXT REPRESENTATION IS THE CEILING, NOT THE READ-OUT.**
 >
+> ## ⚖️ 2026-08-19 -- **THE WIRING IS WINNABLE, BUT ON A CLIFF -- AND A RATE-MATCHED CONTROL IS**
+> ## **NOW MANDATORY, NOT OPTIONAL.** (`scratch/probe_does_the_residual_gate_ever_skip.py`)
+> Asked before building, on real traces from a real read: 16,211 writes over 2,270 multi-trace terms.
+>
+> | threshold | % writes skipped | |
+> |---|---|---|
+> | 0.05 / 0.10 / 0.25 | 0.0 / 0.3 / 2.5% | degenerate |
+> | **0.50** | **76.2%** | **the only material band** |
+> | 0.75 and above | 100% | degenerate |
+>
+> **At 0.50 the profile genuinely moves: cosine(accumulated, gated) = 0.6793 mean, 0.2198 min.** So
+> the arms are not the same function and the cell is winnable.
+> **🚨 BUT THE RESIDUALS ARE ALMOST CONSTANT, AND THAT IS THE REAL FINDING HERE: p10 0.3575,
+> MEDIAN 0.4648, p90 0.5237 over a 0.024-0.606 range.** Every new context is about equally
+> surprising to the accumulated profile. *A genuine predictive code would show SPREAD -- some
+> contexts predicted well, some badly. Ours predicts everything equally poorly, which is the
+> accumulate-don't-learn diagnosis showing up in a fourth place.*
+> **⛔ CONSEQUENCE FOR THE CELL DESIGN, AND IT IS NOT NEGOTIABLE: if the residual is near-constant,
+> gating on it is close to gating AT RANDOM. So the cell MUST carry a RANDOM-SKIP arm matched to
+> the SAME 76% skip rate.** Without it, any difference is attributable to WRITING LESS rather than
+> to WRITING SELECTIVELY. *This project broke the same control twice already this session (the
+> foraging twin, in opposite directions); it does not get broken a third time.*
+> **⛔ AND SWEEP THE THRESHOLD, NEVER ADOPT 0.50.** It sits on a cliff -- 2.5% skipped at 0.25,
+> 100% at 0.75 -- so a single adopted value would be a parameter masquerading as a finding.
+> *"Copy the computation, sweep the parameter" applies exactly here.*
+>
 > ## 🔑 2026-08-19 -- **THE ORGAN FOR THE PINNED EQUATION ALREADY EXISTS AND IS NOT WIRED.**
 > **The organ-reuse rule paid off before a line was written.** I was about to propose BUILDING an
 > error signal. `hdlab/predictive_coding.py` already implements it:
