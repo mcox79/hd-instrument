@@ -202,6 +202,54 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🔴 D7 RESULT LANDED (spec `v2_sr`, 30 units, 1,564 s) -- AND IT IS STARVED, NOT FALSIFIED
+**Verdict COMPUTED by `tools/readout_verdict.py`, which encodes the pre-committed readings as code
+so the reading cannot be done after seeing the table.** Held-out, 3 seeds, n=300, bar 0.0411:
+
+| route | held-out hit@1 |
+|---|---|
+| SEMANTIC | 0.00556 |
+| EPISODIC | 0.00444 |
+| **SR (all three gammas)** | **0.00111 -- the WORST substrate route** |
+| COOC floor | **0.02333** |
+
+**Reading (e) did NOT fire: SR clears at NO gamma, so it is not even "the 1-step counter wearing a
+matrix" -- it loses everywhere.** Verdict stands at **(c)+(d)**: a real negative, and the pipeline
+is not reading the held-out cue.
+
+### ⚠️ BUT FILING THIS AS "SR DOES NOT WORK" WOULD BE THE C33 ERROR AGAIN. MEASURED, NOT ASSERTED:
+`scratch/sr_density.py` -- **4,596 observed transitions across 2,114 states, and the MEDIAN NUMBER
+OF DISTINCT SUCCESSORS PER WORD IS 1.0.** *Half the vocabulary was seen followed by exactly one
+other word.* **That is not a test of a predictive map; it is a test of an empty matrix.** For scale,
+this project has twice called a channel STARVED at ~8.6 observations per word and at a median 130
+arcs per word. **2.17 transitions per state is far below both.**
+
+### 🎯 AND THE DOSE-RESPONSE IS ALREADY IN THE RUN, AS A NATURAL EXPERIMENT
+The `foraging` ablation reads the full budget instead of letting the forager leave early:
+
+| | sentences read | pool | SR_g0.9 | COOC floor |
+|---|---|---|---|---|
+| forager ON | 1,233 | 2,899 | **0.00111** | 0.02333 |
+| forager OFF | 4,000 | 6,094 | **0.00556** | 0.01889 |
+
+**3.2x the text moves SR 5x UP while the floor moves DOWN** (the pool more than doubled, so the
+task got harder). *Exactly the direction the starvation hypothesis predicts and the opposite of
+the floor's.* **⚠️ NOT a clean one-variable comparison -- `n_read` AND `pool` both changed -- so it
+is DIRECTIONAL EVIDENCE, not a measured slope. State it that way or not at all.**
+
+### 🪞 THE IRONY, AND IT IS A REAL WIRING FINDING: OUR FORAGER IS STARVING OUR SUCCESSOR MAP
+H2's leave rule cut reading to **1,233 of 4,000** requested sentences. **The organ that most needs
+data got the least, because another organ decided to move on.** *That is a genuine interaction
+between two wired organs, and it is invisible unless both are in the same substrate -- which is
+the first concrete argument this session that assembling them was worth doing.*
+
+**FILED AS: `UNTESTABLE-AT-THIS-SCALE`, NOT `REFUTED`. Per discipline 18, if no achievable score
+could clear the bar on the data supplied, the point is untestable rather than negative.**
+**THE NAMED RE-TEST: rebuild SR on 10-50x the transitions and re-measure. If it still does not
+move, THAT is the negative -- and it will be a real one.**
+
+---
+
 ## 🧠 BRAIN-FIDELITY DRILL ON THE PHASE 2 NEGATIVE (owed under discipline 17) -- AND IT FOUND THE GAP
 `notes/brain_fidelity_drill_memorises_but_does_not_transfer_2026-08-19.md`.
 
