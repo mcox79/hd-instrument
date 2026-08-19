@@ -15,6 +15,25 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## 🔎 2026-08-19 -- **THE INSTRUMENT IS NOT FREQUENCY-DOMINATED, AND THAT MAKES OUR RESULT WORSE.**
+A `FREQ_floor` that never looks at the cue beat every cortical arm at k>=10, which raised the
+question of whether this task is winnable by cue at all. **It is.** From the v3 metrics already on
+disk, no new run:
+
+| seed | COOC@10 | FREQ@10 | ratio | COOC@50 | FREQ@50 | ratio |
+|---|---|---|---|---|---|---|
+| 101 | 0.3933 | 0.1667 | **2.36x** | 0.7633 | 0.4867 | 1.57x |
+| 20260819 | 0.4067 | 0.1767 | **2.30x** | 0.7533 | 0.4700 | 1.60x |
+| 7 | 0.3667 | 0.2167 | 1.69x | 0.7233 | 0.4567 | 1.58x |
+
+**Counting beats the cue-blind floor by 2.12x at k=10 and 1.59x at k=50, on every seed, and by
+median rank 15-20.5 against 52-61 -- roughly 3x.**
+**⛔ SO THE TASK HAS REAL CUE-EXPLOITABLE SIGNAL AND COUNTING HARVESTS IT. THE EXCUSE THAT "THIS
+INSTRUMENT MOSTLY MEASURES WORD FREQUENCY" IS NOT AVAILABLE.** *Our arms losing to `FREQ_floor` is
+therefore not a property of the task being frequency-shaped -- it is our representation failing to
+use a cue that a word counter uses successfully. That reading is strictly worse for us than the
+one I flagged two blocks ago, and it is the correct one.*
+
 ## 🟡 2026-08-19 -- **THE SPOKE REPLICATION: PARTIAL. BY MY OWN PRE-REGISTRATION IT DOES NOT**
 ## **REPLICATE, AND I AM HONOURING THAT RATHER THAN RE-READING THE THRESHOLD.**
 `scratch/diag_spoke_independence_seeds.py`, 3 seeds, 8,000 sentences each, n=246-277.
