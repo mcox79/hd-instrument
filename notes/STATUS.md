@@ -1,6 +1,6 @@
 # STATUS
 
-AS OF: 2026-08-19 AUTOLOOP ARMED, 26 CONTINUATIONS IN | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | TWO DETACHED RUNS IN FLIGHT (9-seed spoke sweep + `exp_predictive_write_gate_v1`, see ## WHAT IS RUNNING) | THE CURRENT HANDOFF IS THE FIRST BLOCK OF `notes/BUILD_PLAN_post_audit_2026-08-19.md` -- READ THAT, THEN STOP
+AS OF: 2026-08-19 POST-COMPACTION HANDOFF WRITTEN | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING -- every detached run finished and was read; no orphans** | working tree clean for my files, HEAD `c6710d753` | **READ `## 🧭 RESUME HERE AFTER COMPACTION` DIRECTLY BELOW, THEN `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK**
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
@@ -9,6 +9,52 @@ step hunt. 6.16 holds the PRE-COMMITTED decision branches; 6.15 the five gated s
 HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_PLAN.md`.
 
 ## POSITION
+
+## 🧭 RESUME HERE AFTER COMPACTION -- written 2026-08-19 at the end of the fidelity-audit session
+*Written deliberately short. The five commits named here are the record; this block only says where
+to stand. **The LEDGER and `git log` OUTRANK anything I remember.***
+
+**STATE: CLEAN. Nothing is running. Nothing is half-done. No orphaned processes, no uncommitted work
+of mine.** HEAD is `c6710d753`. The last five commits are the whole of this session's output:
+
+    c6710d753  correct a smoke-numbers finding, answer Q72 with CIs
+    3cf399a6e  two archive-found caveats on claims committed earlier today
+    e027ccd11  complete the brain-fidelity audit on all three open negatives
+    0b987588d  record held-out leak fault and archive-mining finding
+    ea62d96a2  fidelity audit on the biggest negative + the honest accounting
+
+**WHAT WAS FINISHED.** The owner asked that every negative get a brain-fidelity check. All three
+that had none now have one. **Three of my four explanations were REFUTED by their own pre-committed
+controls** -- see the audit block further down. The one surviving account: *a write gate chooses
+WHICH counts get added and cannot change that the code IS a count.*
+
+**⛔ THREE CORRECTIONS LIVE IN THIS FILE. DO NOT RE-QUOTE THE SUPERSEDED VERSIONS:**
+1. **"Four of four refuted" is WRONG -- it is THREE of four.** The familiarity hypothesis was NOT
+   refuted; I had read SMOKE numbers (161 terms). At full n (1,590) the slope separates negative:
+   mean -0.0035, CI [-0.0052, -0.0018], 63% of words.
+2. **Never quote "spreading reading across corpora made it worse."** Point estimates 91.0 -> 106.5
+   look like a negative; the difference is **+15.8, 95% CI [-10.0, +42.5], NOT separated.** Passive
+   breadth is **UNTESTED at this n**, not a negative.
+3. **"Our code is 4-12x too diffuse" is OVER-ATTRIBUTED.** A prior cell measured MiniLM -- an
+   ordinary working text encoder -- at d_eff 91.6, using a **different formula** for participation
+   ratio than today's diagnostic. The geometry stands; blaming OUR design does not, yet.
+
+**➡️ NEXT STEPS, IN THIS ORDER, AND THE FIRST ONE RESOLVES CORRECTION 3:**
+1. **Recompute our participation ratio under BOTH formulas** -- `(sum s)^2/sum s^2` over singular
+   values (the prior cell's) and `1/sum(v^2)` over variance shares (today's) -- on our profiles AND
+   on a text-encoder reference, so the MiniLM comparison becomes legitimate. Until then we cannot
+   say whether we are unusual or merely normal-for-text.
+2. **Test the gap-targeted growth loop on the current substrate.** It is the only thing in this area
+   with a clean prior win (`exp_breadth_foundation_active_growth_loop_ud_ewt_v1`, HARD_PASS,
+   coverage 0.50 -> 0.79, real-vs-shuffle AUC 0.8924 vs 0.5122) **and it is the owner's own idea**
+   -- the load-bearing half of Q72 is "patchy", not "another textbook".
+3. **Leave the write gate alone.** Four explanations tested; tuning thresholds cannot reach it.
+
+**🔁 THE HABIT THAT PAID OFF MOST AND SHOULD CARRY FORWARD: query the RESULTS archive before
+building, not just the code registry.** `python tools/experiment_index.py query "<kw>"` -- it found
+that today's write-gate negative had been measured a month earlier, that a prior residual gate
+already recorded skip=0.00, and both of the corrections above. **`substrate_query.sh` returns zero
+bytes and exits 0 -- never use it.**
 
 ## 📖 WHERE WE ARE, IN PLAIN WORDS -- added 2026-08-19 because everything below this is jargon
 *The owner answered two board questions with "too jargony so I don't really know how to help".
