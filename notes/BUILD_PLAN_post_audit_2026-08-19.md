@@ -30,7 +30,32 @@
 > have closed on the SAME representation. A fourth mechanism on the same profiles is the least
 > likely thing to work; SUPPLY is the lever that has not been exhausted.*
 >
-> ## 🥇 THE TOP ITEM CHANGED LATE ON 2026-08-19: **IT IS NOT A MECHANISM, IT IS NOTE-TAKING.**
+> ## 🗣️ THE OWNER ANSWERED, AND CORRECTED THE FRAMING BELOW. **READ THIS BEFORE THE TOP ITEM.**
+> **Q71, on note-taking:** *"students don't take notes on words - they take notes on ideas etc. If
+> they already understand a word, they're not going to take notes, but if perhaps the word is used
+> in a NEW way, or in a new idea, yeah they'll take notes on that... it's NEWNESS that gets notes,
+> not just on words used the same way."*
+> **➡️ SO "RECORD EVERY OCCURRENCE" IS THE WRONG PROPOSAL AND THE BLOCK BELOW OVERSTATES IT.** The
+> 31% we skip may be CORRECTLY skipped -- identical repeated usage. **The real defect is that we
+> cannot tell a NOVEL usage from a REPEATED one**, which is exactly what the residual write gate
+> was for, and it failed because the residual does not discriminate (sd 0.076 about a mean 0.44).
+> *Two of today's findings join here: the goal is not MORE notes, it is notes on NOVELTY, and we
+> currently have no working novelty signal at all.*
+> **⚠️ AND IT PUNCTURES A READING OF MY OWN MEASUREMENT: the counter WANTS every occurrence because
+> it computes a frequency statistic; a note-taker wants the novel ones. So "give the counter only
+> our notes and it does worse" does NOT imply "take more notes" -- it implies our notes are the
+> wrong SHAPE for a counting-style read-out.**
+>
+> **Q72, on direction:** *"Why aren't we identifying where the notes are patchy and/or giving them
+> another textbook? There's only so much you can get from one textbook."*
+> **➡️ CHECKED, AND THE OWNER IS RIGHT IN A WAY I HAD NOT NOTICED: the shelf holds 28 CORPORA AND
+> 325,798 SENTENCES, including five real textbooks. EVERY read-out experiment today ran on
+> `simplewiki` ALONE -- 6.1% of the shelf.** *Three mechanisms were compared against a word counter
+> using one sixteenth of the available reading.* **Test running with DIVERSITY as the one variable:
+> same total sentences, 1 corpus vs 12, both scored against the counter ON THEIR OWN TEXT so
+> "the task got easier" cannot masquerade as "we got better".**
+>
+> ## 🥇 [THE OWNER CORRECTED THIS: THE PRINCIPLE IS NOVELTY, NOT VOLUME] THE TOP ITEM CHANGED LATE ON 2026-08-19: **IT IS NOT A MECHANISM, IT IS NOTE-TAKING.**
 > **The system stops recording traces for a word once that word grounds.** So the words it meets
 > most often carry the FEWEST traces -- `century`: **7 traces across 92 sightings**. Overall
 > coverage **0.688**, and the shortfall is systematically concentrated on FREQUENT words.
