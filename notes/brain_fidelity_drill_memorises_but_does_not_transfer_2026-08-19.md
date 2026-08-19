@@ -83,9 +83,41 @@ accumulator. It does not test replay, because that accumulator is never fed by r
 parallel sum, not a consolidated store. A NEW prediction is therefore legitimate, and it needs its
 own way to be wrong.*
 
-**THE BUILD:** run `cls_replay_cycle` over the episodes the substrate has already written, into a
-cortical weight matrix, and score the SAME held-out items through the consolidated store on the
-SAME scorer, pool and gold.
+### 🛑 CORRECTION TO THIS SECTION, MADE BEFORE THE BUILD AND NOT AFTER IT
+
+**THE BUILD AS FIRST WRITTEN -- "run `cls_replay_cycle` over the stored episodes and score it" --
+WOULD HAVE BEEN AN EXPERIMENT THAT COULD NOT SUCCEED, AND I WOULD HAVE FILED ITS NULL AS
+READING (C).** Read at HEAD before writing any cell:
+
+- **`cls_replay_cycle` builds `cortex_W` of shape `[dg_dim, dg_dim]` and trains it Hebbian on
+  `outer(code, settle(code))` -- an AUTOASSOCIATOR OVER THE SAME SPARSE, PATTERN-SEPARATED DG
+  CODES.** Its own docstring says so plainly: *"This is a minimal composition point; the FULL
+  cortex is Spoke1+2 and would receive PROJECTED codes rather than raw DG. Kept minimal to
+  selftest replay semantics -- production consolidation is a v2 concern."*
+- **Replaying pattern-separated codes into a matrix over the SAME space cannot produce
+  generalisation. It re-learns the separation.** A new sentence about a known word gets a
+  different context vector, hence a different top-K DG code, hence little overlap with anything
+  stored -- which is precisely the 0.0044 we already measured. **A null there would have been a
+  property of MY CHOICE OF TARGET REPRESENTATION, not of replay.**
+
+***SO THE ORGAN WE HAVE IS NOT THE ORGAN THIS DRILL CALLS FOR.*** The whole point of the slow
+system is that its codes are DENSE AND OVERLAPPING, so structure shared across episodes
+superimposes while episode-specific detail cancels. **We have the replay MACHINERY and no
+cortical TARGET REPRESENTATION to replay into.** *`cls_discrete_budget_consolidate` is the
+certified sibling and is closer -- but it requires a `concept_codebook` of clean concept
+attractors, i.e. it presumes you already have the concepts it would be used to form.*
+
+**THE BUILD, CORRECTED:** replay the stored episodes into a **DENSE, OVERLAPPING** target -- the
+un-separated context vectors, not their DG codes -- and score the SAME held-out items on the SAME
+scorer, pool and gold. **The DG-space arm is kept as a control, not as the treatment**, because it
+is the arm that CANNOT WORK and saying so in advance is the difference between a control and an
+alibi.
+**⚠️ AND NOTE WHAT THAT MAKES THE TREATMENT: an accumulated dense per-word profile. THAT IS VERY
+CLOSE TO THE `SEMANTIC` ROUTE THAT ALREADY READ 0.005.** *If the corrected build is only "the
+semantic route again, fed by replay", it must be pre-declared as a REPLICATION of a measured null
+and not dressed as a new mechanism. The one genuine difference is the SELECTION and REPEAT
+structure replay imposes on what gets accumulated -- so THAT, and not the accumulation, is the
+variable under test, and a RATE-MATCHED RANDOM-REPLAY twin is what isolates it.*
 
 **PRE-COMMITTED READINGS, before any number exists:**
 - **(A)** consolidated route beats the 1-step co-occurrence floor's UPPER bound, CI-separated ->

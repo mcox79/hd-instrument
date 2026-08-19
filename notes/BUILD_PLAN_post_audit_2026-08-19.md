@@ -225,6 +225,23 @@ needs implausibly many replays, which is an admission the machinery is wrong). *
 RATE-MATCHED RANDOM-REPLAY twin**, floors rebuilt on the consolidated representation, and a
 rank-matched null -- *because held-out sits BELOW its floor, and destroying information moves a
 sub-chance score TOWARD chance and reads as progress.*
+
+**🛑 AND THE DRILL CORRECTED ITSELF BEFORE THE BUILD, WHICH IS THE POINT OF WRITING IT DOWN FIRST.**
+Reading `cls_replay_cycle` at HEAD: it trains `cortex_W [dg_dim, dg_dim]` on
+`outer(code, settle(code))` -- **an autoassociator over the SAME sparse pattern-separated codes**,
+and its own docstring calls itself a minimal self-test scaffold whose real cortex *"would receive
+PROJECTED codes rather than raw DG"*. **Replaying separated codes into their own space re-learns
+the separation; it cannot generalise. Running it would have produced a guaranteed null that I
+would have filed as reading (C) -- a property of my choice of target, not of replay.**
+***WE HAVE THE REPLAY MACHINERY AND NO CORTICAL TARGET REPRESENTATION TO REPLAY INTO.*** The slow
+system's whole point is DENSE OVERLAPPING codes, so shared structure superimposes and
+episode-specific detail cancels. **Corrected build: replay into the DENSE context vectors, keep
+the DG-space arm as the control that CANNOT work.**
+**⚠️ HONEST DEFLATION, PRE-DECLARED: a dense accumulated per-word profile is VERY CLOSE to the
+`SEMANTIC` route that already read 0.005.** *If the corrected build is only "that route again, fed
+by replay", it is a REPLICATION of a measured null and must not be dressed as a new mechanism. The
+one real difference is the SELECTION and REPEAT structure replay imposes -- so that is the
+variable, and the rate-matched random-replay twin is what isolates it.*
 **⚠️ Written before the build precisely because MY LAST PREDICTION IN THIS AREA WAS REFUTED INSIDE
 ONE RUN.** *That refutation tested the parallel context accumulator, which is never fed by replay,
 so it does not pre-empt this -- but a second bite needs its own stated way to be wrong.*
