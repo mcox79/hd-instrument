@@ -318,6 +318,7 @@ class Substrate:
         self._calls: Dict[str, int] = collections.Counter()
         self._pass_idx = 0
         self._last_consolidated = 0
+        self._patch_cursor = 0
 
         store = HDFactStore(n_dim=self.n_dim, seed=self.seed,
                             relation_cardinality={KNOWN_RELATION: "FUNCTIONAL",
@@ -392,6 +393,19 @@ class Substrate:
 
         order = [corpus] if corpus else readable
         order = [c for c in order if c in reg.handles]
+        # SKIP DRAINED PATCHES, AND DO NOT RESTART AT THE ALPHABETICAL HEAD EVERY CALL.
+        # MEASURED 2026-08-19: `readable` is sorted, so every read() began at
+        # alice_in_wonderland and took the first `max_patches` names. Repeated calls therefore
+        # re-entered the SAME three books until they drained, while 25 of 28 corpora -- 113,649
+        # sentences -- were NEVER OPENED. That produced a grounding curve that plateaued at 180
+        # terms and looked exactly like a learning ceiling. It was a shelf the reader could not
+        # reach. Phase 1 Finding #3 said the forager chooses WHEN to leave but not WHAT to open;
+        # this is the concrete cost of that, and the cheapest half of the fix.
+        if corpus is None:
+            order = [c for c in order if reg.handles[c].remaining() > 0]
+            if order:
+                start = self._patch_cursor % len(order)
+                order = order[start:] + order[:start]
         forager = self._forager()
         extract = self._definitions()
         episodic = self._episodic()
@@ -529,6 +543,7 @@ class Substrate:
             st["n_harvests"] = len(patch_gain)
             res.foraging.append(st)
             forager.travel()
+            self._patch_cursor += 1        # next read() starts where this one stopped
 
         # FAILURE MODE 6, checked and not assumed: a gain stream that is one constant is not a
         # gain stream. The organ ships this guard; a caller that never calls it is not foraging.

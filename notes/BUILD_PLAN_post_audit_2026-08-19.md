@@ -202,6 +202,43 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🚨 SECOND DEFECT I BUILT: 25 OF 28 CORPORA WERE UNREACHABLE, AND IT LOOKED EXACTLY LIKE SATURATION
+**The degeneracy trajectory was meant to test whether the anchor pool is a cold-start bottleneck.
+It first produced a textbook learning ceiling: grounding plateaued at 180 terms, new anchors per
+chunk fell 21 -> 9 -> 32 -> 7 -> 1 -> 1 -> 0, and `distinct/grounded` flattened at 0.42.**
+*I was one paragraph from writing "the substrate saturates after ~1,600 sentences".*
+
+**IT WAS NOT SATURATION. `readable_names()` IS SORTED, so EVERY `read()` restarted at the
+alphabetical head and took the first `max_patches` names -- re-entering the SAME THREE BOOKS until
+they drained. MEASURED: 113,649 sentences remained across just 12 of the 28 readable corpora, and
+25 of 28 were NEVER OPENED.** *The reader had a 36-corpus shelf and could reach three of it.*
+**FIX: skip drained patches, and rotate the start point so the next read continues where the last
+stopped.** *This is the concrete cost of Phase 1 Finding #3 -- the forager chooses WHEN to leave
+but not WHAT to open -- and the cheapest half of that fix.*
+
+### 📈 WITH A VARIED SHELF, THE DEGENERACY ROUGHLY HALVES -- READING (A) FIRES, BUT ONLY PARTLY
+| | narrow shelf | rotated shelf |
+|---|---|---|
+| top-anchor share | 23.6% -> **12.8%** | 23.6% -> **9.5%** |
+| distinct anchors / grounded | 0.382 -> 0.428 (**plateau**) | 0.382 -> **0.524, still rising** |
+| new anchors per chunk | collapses to **0** | still arriving (**8** in the last chunk) |
+| grounded terms | plateaus at 180 | 55 -> **147 and climbing** |
+
+**And the anchors become recognisably meaning-like:** `physics -> biology`,
+`discipline -> physics`, `perform -> function`, `institute -> commons` -- against the narrow
+shelf's `mouse -> way`, `swim -> way`, `cry -> way`.
+
+**⚠️ BUT IT IS NOT PURELY A COLD START, AND THE STRUCTURAL HALF REPRODUCES: a NEW generic attractor
+forms.** `bookstore -> available`, `campus -> available`, `custom -> available`. *One
+high-frequency word still absorbs many terms; only its identity changed. `way` remains top at
+9.5%.* **So: shelf breadth halves the degeneracy and does not remove it.**
+
+**PRECISION RE-MEASURED on the varied shelf: 0.0215 -> 0.0355 (5 hits of 141), floors 0.0142 and
+0.0071. ⚠️ FIVE HITS AGAINST TWO IS NOT A WIN AND IS NOT CLAIMED AS ONE** -- the direction agrees
+with the degeneracy result, and that is all it is licensed to say.
+
+---
+
 ## 🔴 GROUNDING PRECISION MEASURED FOR THE FIRST TIME -- AND THE ANCHORS ARE DEGENERATE
 **Nobody had ever asked whether the terms the substrate grounds are grounded to the RIGHT thing.**
 Now measured against the provenance-filtered ConceptNet gold (422,082 edges, no WordNet source).
