@@ -1,6 +1,6 @@
 # STATUS
 
-AS OF: 2026-08-18 | branch `dataprep/mcguffey-graded-corpus` | HEAD `7003df4c1` | GROWTH PAUSED | origin merge needs USER AUTH
+AS OF: 2026-08-18 END OF SESSION | branch `dataprep/mcguffey-graded-corpus` | HEAD `a8b8a5d58` | GROWTH PAUSED | origin push needs USER AUTH | READ THE COMPACTION HANDOFF AT THE TOP OF ## POSITION AND STOP THERE
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
@@ -9,6 +9,70 @@ step hunt. 6.16 holds the PRE-COMMITTED decision branches; 6.15 the five gated s
 HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_PLAN.md`.
 
 ## POSITION
+
+# ⏱️ COMPACTION HANDOFF -- 2026-08-18 END OF SESSION. READ THIS BLOCK, THEN STOP AND ACT.
+**Everything below this block is the session's working record and is 112 KB. DO NOT read it top to
+bottom on recovery. This block is the entry point; the four artifacts it names are authoritative.**
+
+## WHERE WE ARE, IN TWO SENTENCES
+**The CLAIMS layer is mostly unverified: 30 vetted, 1 upheld, and 99.5% of the archive's 2,678
+HARD_PASS carry neither a CI nor a null, so they cannot be checked from their own files.**
+**The ORGAN layer is in genuinely good shape: 163/163 import, 83/87 self-tests pass, 0 constants
+among the 13 largest -- and 67 organs are BUILT, SELF-TEST-PASSING, AND UNWIRED.**
+
+## THE FOUR ARTIFACTS -- USE THESE, DO NOT RE-DERIVE THEM
+| artifact | answers |
+|---|---|
+| `tools/experiment_index.py` | what exists in 8,834 cells. **Prints rows scanned BEFORE results**, so silence can never again read as absence. **REPLACES `substrate_query.sh`, WHICH RETURNS ZERO BYTES AND EXITS 0.** |
+| `tools/verdict_evidence_gate.py --census` | which claims carry a CI + null (13 of 2,678) |
+| `notes/VETTING_LEDGER.md` + `tools/vetting_ledger.py --cite NAME` | may I cite this, and with what narrowing attached? 1 WIRE / 12 WIRE_NARROWED / 4 RERUN_NAMED / 13 SHELVED_REFUTED |
+| `notes/ORGAN_ACCOUNTING_2026-08-18.md` | what machinery works, what is unwired, what would be false coverage |
+
+**PLAN = `notes/PLAN_ORGAN_STEP_LADDERS_2026-08-17.md`, SECTION 7 (prepended; read it BEFORE sec 6).**
+
+## NEXT STEPS, RANKED -- START AT 1
+1. **WIRE THE SIX ORGANS BOTH AUDITS AGREE ON:** `hippocampal_encoder`, `cortex`,
+   `information_foraging`, `coref`, `goal_owner_select`, `definitional_extraction`. **Recovering
+   built machinery beats building new machinery.** Re-run `situation_reader`'s self-test with a
+   >240 s budget first (it needs 204 s just to import) and add it if clean.
+   **⛔ A PASSING SELF-TEST IS NOT SUFFICIENT: `atom_consultation` passes AND has `applied`
+   hard-coded `False`; `definitional_predicate_v61` passes AND fires on 0.27% of its intended
+   population. BOTH SIT INSIDE THE 67. WIRE ONLY THE INTERSECTION of self-test-passing AND
+   probe-FUNCTIONAL.**
+2. **MINE MIDDLE_BAND, NOT HARD_PASS.** 117 meaning-relevant, never read. **Building the queue from
+   HARD_PASS SELECTED FOR OVER-CLAIMING** -- two cells found this session had MIDDLE_BAND as their
+   honest tier while an over-claimed sibling took HARD_PASS. **Highest expected yield in the archive.**
+3. **Fix `goal_achievement`** -- the one genuine self-test failure (`AssertionError: channel
+   'relation:recur' != 'majority'`), and the SAME organ the constant-probe independently flagged.
+   Two methods converged; that is the strongest signal in the organ layer.
+4. **Remove `_scratch_orig_goal_owner_select`** from `hdlab/` and from the registry. It is a scratch
+   file counted as recoverable capability.
+5. **Re-rank the remaining claim queue by ITEM-PRIORITY** (below), not by evidence-carrying.
+6. **No new verdict without** a CI, a null, a declared STRONGEST floor, and a statement of whether
+   the items predate the mechanism.
+
+## THE STRONGEST PREDICTOR, AND IT IS FREE
+**DID THE TEST ITEMS EXIST BEFORE THE MECHANISM DID?** Every vetting survivor was scored on items
+built independently of the rule; every pass-5 refutation had detectors authored against the items
+they were scored on. **It beat every statistical signal tried. Ask it first.**
+
+## MY FOUR ERRORS THIS SESSION -- ALL ONE FAULT, DO NOT REPEAT IT
+1. "No prior work found" x3 -- from a tool that returns zero bytes and exits 0.
+2. "25 results landed 08-17" -- my index dated cells by **file mtime**; 60 share one bulk-touch
+   minute. True count 3. Now reads `ts_iso`.
+3. "1,042 never run" -- a LOCAL-DISK claim. **At least 142 had run; 15 recovered from the remote.**
+4. "31 organs self-test" -> ~82 -> **87 measured.** A too-narrow regex, corrected upward twice.
+**EVERY ONE WAS AN ABSENCE CLAIM MADE FROM A SEARCH INSTEAD OF AN ENUMERATION.**
+*Also: I twice framed the owner's WORKING process as a defect (the remote's intentional idleness,
+the deliberate SSH-back of results). **Ask what the operator intended before naming something broken.***
+
+## STANDING CONTEXT
+Remote `marsh@home` idle **BY INTENT**; results deliberately SSH'd back to this laptop. Growth
+paused. Origin push needs USER AUTH. `data/foundation/` READ-ONLY, one disk, NO BACKUP. Never bundle
+a deletion with real work. Never `git add -A`.
+
+---
+
 **📐 WHY WE KEEP PRODUCING NEGATIVES -- NOW A NUMBER, NOT A COMPLAINT (Director, inline, 08-18).
 THE ANSWER TO THE OWNER'S "why aren't we narrowing in on GOOD results?" IS PARTLY THAT OUR
 INSTRUMENTS CANNOT SEE A WIN AT THE SAMPLE SIZES WE RUN.**
