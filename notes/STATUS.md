@@ -15,7 +15,34 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
-## ✅ 2026-08-19 -- **v2 LANDED, 3 SEEDS: READING (A) FIRES. THE CORTICAL READ RETRIEVES --**
+## 🔴🔴 2026-08-19 -- **v3 SETTLES IT: THE CORTICAL READ RETRIEVES AND IS NOT COMPETITIVE.**
+## **18 OF 18 FLOOR CELLS FAIL. AND A CUE-BLIND FREQUENCY RANKING BEATS IT AT k>=10.**
+`v3_floors_at_k`, 3 seeds, 966 s, 300 items/seed, 428-480 candidates. **I recorded the prediction
+BEFORE the run (`3ca164923`): "I expect v3 to show the route does NOT clear the floor." It does not.**
+
+| seed 20260819 | hit@1 | hit@10 | hit@50 | median rank |
+|---|---|---|---|---|
+| **RANK_COOC_floor** | **0.0867** | **0.4067** | **0.7533** | **15** |
+| RANK_FREQ_floor *(never sees the cue)* | 0.0400 | 0.1767 | 0.4700 | 61 |
+| RANK_BOTH | 0.0300 | 0.1533 | 0.3967 | 69 |
+| RANK_CONTEXT | 0.0567 | 0.1800 | 0.3433 | 126 |
+| RANK_SCRAMBLE | 0.0067 | 0.0367 | 0.1900 | 173 |
+
+**⛔ `CONTEXT_clears` AND `BOTH_clears` ARE FALSE AT EVERY k ON EVERY SEED -- 18 of 18 cells.**
+Counting puts the target at median rank **15-20 of ~450**; our best arm puts it at **69-79**.
+**🚨 AND THE PART I DID NOT PREDICT, WHICH IS WORSE THAN THE PREDICTION: `FREQ_floor` -- a ranking
+that NEVER LOOKS AT THE CUE -- BEATS every cortical arm at k>=10** (hit@50 0.4700 vs BOTH's 0.3967
+and CONTEXT's 0.3433). *The route does use its cue: it beats SCRAMBLE, CI-separated, on every seed.
+But most of the achievable score on this task comes from knowing WHICH TERMS ARE COMMON, and a
+constant ranking harvests more of that than our cue-dependent route does.* **That is what the
+frequency floor exists to expose, and it is the first time this session it has caught something.**
+**➡️ THIS CLOSES THE CORTICAL READ AS A LINE OF WORK. Both claims are now established and they must
+travel together: IT RETRIEVES (reading A fires, 3 seeds) and IT IS NOT COMPETITIVE (0 of 18 floor
+cells). Combined with the subsumption result -- unique contribution BELOW independence at every k --
+there is nothing left to build here.** *The accumulated-context representation is the ceiling, not
+the read-out, and that has now been shown three independent ways.*
+
+## ✅ [SUPERSEDED BY v3 ABOVE, WHICH ADDS THE FLOORS v2 LACKED] 2026-08-19 -- **v2 LANDED, 3 SEEDS: READING (A) FIRES. THE CORTICAL READ RETRIEVES --**
 ## **AND THE CELL CANNOT SAY WHETHER IT BEATS COUNTING, WHICH IS A GAP I BUILT.**
 `exp_cortical_read_consolidated_v1` spec `v2_hitk_sentencecue`, 811 s, 300 items/seed, 428-480
 consolidated terms. **`READING (C): [True, True, True]` -- the cue fix held on every seed.**
