@@ -202,6 +202,42 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🔬 PHASE 2 IN PROGRESS -- THE ABLATION HARNESS EXISTS AND IT HAS ALREADY PAID FOR ITSELF
+
+`Substrate(ablate=[...])` supports four one-organ-at-a-time ablations. **Smoke run, 400 sentences,
+2 corpora, one seed -- OBSERVATIONS, NOT RESULTS: no CI, no null, n=1, and they are not to be
+quoted as findings until the cell runs.** They already change what to build.
+
+| ablation | what moved | reading |
+|---|---|---|
+| `episodic` (D3 off) | **ONLY its own counter** (3400 -> 0) | **I WIRED THE EPISODIC STORE AS A WRITE-ONLY SINK.** 3,400 encounters written, nothing reads them. Provenance, refusals, profiles all bit-identical. *This is MY wiring defect, not the organ's -- `hippocampal_encoder.retrieve` exists and I never call it.* **BUILD TARGET.** |
+| `definitions` (R1 off) | **ONLY its own counter** (5 -> 0) | the `definition_map` handed to `checkpoint()` changed NOTHING about what grounded. **Under-powered on fiction (5 definitions in 400 sentences) -- re-run on SimpleWiki before concluding anything.** |
+| `gap_detector` (H1 off) | **NOTHING AT ALL** | **AND IT IS UNINFORMATIVE, NOT A NULL -- READ THE NEXT BLOCK BEFORE QUOTING IT.** |
+| `foraging` (H2 off, rate-matched) | 7 of 8 counters | **FROZEN reads the SAME 400 sentences and grounds 9 where the forager grounds 19.** It touches MORE lemmas (1,320 vs 1,137) and grounds FEWER -- spreading thinner, which is what MVT says foraging avoids. |
+
+**⚠️ THE H1 ABLATION CANNOT SUCCEED AND MUST NOT BE FILED AS A NEGATIVE.** Verified rather than
+assumed (`scratch/gapcache_values.py`): the real detector and a stub that always answers GAP agree
+on **all 1,137 shared lemmas, zero disagreements**. The 19 lemmas the cache marks known are
+**exactly the 19 grounded words**, written back by the consolidation path, not by the detector.
+**But the foundation starts with 107 seed words and nothing else, so every content word in
+children's fiction genuinely IS a gap. The detector is answering correctly; the question has one
+true answer at this scale.** *Discipline 17's first clause: establish the experiment could have
+succeeded before concluding anything from it.* **RE-TEST H1 AGAINST A POPULATED FOUNDATION.**
+
+**AND TWO OF MY OWN CONTROLS WERE DEFECTIVE BEFORE THEY WERE FIXED, WHICH IS THE POINT OF RUNNING
+CONTROLS ON CONTROLS:**
+1. **The foraging twin was NOT rate-matched.** A fixed harvests-per-patch constant let FROZEN read
+   **150 sentences against the forager's 400**, so every downstream difference was attributable to
+   reading LESS rather than to choosing worse. **That is the unmatched-twin defect that killed four
+   apparent wins in this project's own record, rebuilt from scratch by me.** Now splits the same
+   budget across the same patches; both arms read exactly 400.
+2. **Ablating H1 by setting `state.gap_detector = None` CRASHED** (`is_gap` calls `.familiarity()`
+   unconditionally) -- and would have been the wrong control anyway, since removing the call
+   changes the PATH rather than the ANSWER. Replaced by a stub with the interface intact and the
+   discrimination removed.
+
+---
+
 ## PHASE 2 -- THE RISK, AND IT IS THE MOST IMPORTANT STEP IN THIS PLAN
 
 **EVERY ORGAN HERE WAS VALIDATED IN ISOLATION. WIRING TEN TOGETHER IS PRECISELY HOW THE 0-FOR-30

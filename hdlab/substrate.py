@@ -91,6 +91,13 @@ CONTEXT_DIM = 256      # context_vector_masked's own d; the episodic encoder's i
 DG_DIM = 2048          # expansion target for the dentate-gyrus projection
 DG_SPARSITY = 0.02     # the organ probe measured 0.0195 at this setting
 
+# The FROZEN schedule's harvests per patch, for the foraging ablation. MEASURED, not chosen: the
+# live forager took 6 harvests across 2 patches on the 400-sentence self-test run, so 3 is what
+# it actually does. This is RATE-MATCHING, and it is not optional -- an ablation that reads a
+# different AMOUNT of text confounds "the organ contributes nothing" with "we read less", and
+# this project has four arms whose apparent wins died to exactly that kind of unmatched twin.
+_FROZEN_HARVESTS_PER_PATCH = 3
+
 
 # ---------------------------------------------------------------------------------------------
 # SLOT TABLE. The complete organ set, its filler, and its HONEST state.
@@ -221,6 +228,24 @@ _SPINE_WITNESS: Dict[str, Callable[[Any], int]] = {
 }
 
 
+class _NullGapDetector:
+    """The H1 ablation: the organ's INTERFACE intact, its DISCRIMINATION removed.
+
+    Setting `state.gap_detector = None` is not an ablation, it is a crash -- `is_gap` calls
+    `.familiarity()` unconditionally (verified at reading_grounding_loop.py:1142). And it would be
+    the wrong control anyway: removing the call removes the novelty CHECK, so the loop would take
+    a different path rather than the same path with a worse answer. This says GAP to everything,
+    which is the honest "no novelty discrimination" arm -- the substrate still asks, and always
+    gets the least informative possible answer back.
+    """
+
+    def familiarity(self, subject: str, relation: str, obj: str, **_kw):
+        return type("_R", (), {"is_gap": True, "margin": 0.0, "ablated": True})()
+
+    def refresh(self) -> None:
+        return None
+
+
 @dataclass
 class ReadResult:
     """What one `read()` call did. Every field is a COUNT OF SOMETHING THAT HAPPENED, not a score."""
@@ -260,9 +285,28 @@ class QueryResult:
 class Substrate:
     """The assembled reader. Organs are built on FIRST USE and every use is counted."""
 
+    # Every ablation this substrate supports. THESE EXIST SO THE ASSEMBLY CAN BE TESTED, and the
+    # reason is Phase 2's: an assembled substrate that nobody can switch pieces off in cannot be
+    # distinguished from an expensive Counter. Each name turns exactly ONE organ off and changes
+    # nothing else, so a delta is attributable.
+    ABLATIONS = {
+        "episodic": "do not write encounters to the hippocampal store (D3 off)",
+        "definitions": "do not read definitions out of prose (R1 off)",
+        "gap_detector": "do not check novelty; treat every content lemma as a gap (H1 off)",
+        "foraging": "never leave a patch on the forager's signal; read a FIXED schedule "
+                    "instead (H2 off). This is the FROZEN control the vetting ledger says "
+                    "already SCORED HIGHER than foraging on reading yield -- 0.0743 vs 0.0617",
+    }
+
     def __init__(self, *, seed: int = 20260819, n_dim: int = 2048,
                  corpora_dir: Optional[str] = None, seed_vocab: Optional[Sequence[str]] = None,
-                 foundation_dir: Optional[str] = None) -> None:
+                 foundation_dir: Optional[str] = None,
+                 ablate: Optional[Sequence[str]] = None) -> None:
+        self.ablate = frozenset(ablate or ())
+        unknown = self.ablate - set(self.ABLATIONS)
+        if unknown:
+            raise ValueError(f"unknown ablation(s) {sorted(unknown)}; "
+                             f"known: {sorted(self.ABLATIONS)}")
         self.seed = int(seed)
         self.n_dim = int(n_dim)
         self.corpora_dir = corpora_dir
@@ -350,10 +394,14 @@ class Substrate:
         # GapDetector at construction, so this branch does not fire and the organ is the SPINE's,
         # not ours. Kept as a guard for a state handed in without one. The organ genuinely runs --
         # see _SPINE_WITNESS below for how that is evidenced rather than asserted.
-        if self.state.gap_detector is None:
+        if "gap_detector" in self.ablate:
+            self.state.gap_detector = _NullGapDetector()
+        elif self.state.gap_detector is None:
             self.state.gap_detector = self._gap_detector()
 
         read_budget = int(n_sentences)
+        n_patches = max(1, min(int(max_patches), len(order)))
+        frozen_per_patch = -(-read_budget // n_patches)      # ceil; the rate-matched twin's quota
         for patch_i, name in enumerate(order):
             if read_budget <= 0 or patch_i >= max_patches:
                 break
@@ -378,17 +426,18 @@ class Substrate:
                     n_flag = process_sentence(self.state, sent, ep, pass_idx=self._pass_idx)
                     flagged_here += int(n_flag)
 
-                    for d in extract(sent):
-                        lem = d.definiendum_lemma or d.definiendum
-                        if lem:
-                            self._definition_map[lem] = d.definiens
-                            defs_here += 1
+                    if "definitions" not in self.ablate:
+                        for d in extract(sent):
+                            lem = d.definiendum_lemma or d.definiendum
+                            if lem:
+                                self._definition_map[lem] = d.definiens
+                                defs_here += 1
 
                     # ONE-SHOT EPISODIC WRITE, per flagged lemma occurrence. The cue is the
                     # sentence's context vector with the target itself REMOVED (the no-leak form)
                     # -- writing a word's own identity into its episode would make retrieval a
                     # lookup of the thing being asked about.
-                    if n_flag:
+                    if n_flag and "episodic" not in self.ablate:
                         for lem in content_lemmas(sent):
                             if lem in self._seed_set:
                                 continue
@@ -408,7 +457,20 @@ class Substrate:
                 patch_gain.append(gain)
                 res.gain_stream.append(gain)
                 forager.harvest(gain)
-                if forager.should_leave():
+                # H2. Ablating foraging does NOT remove the decision -- it replaces the learned
+                # leave rule with a FIXED schedule, which is the FROZEN arm the vetting ledger
+                # says already beats it (0.0743 vs 0.0617 on reading yield).
+                #
+                # RATE-MATCHED ON SENTENCES, AND THE FIRST VERSION OF THIS WAS NOT. A fixed
+                # harvests-per-patch constant let the frozen arm read 150 sentences against the
+                # forager's 400, so every downstream difference was attributable to reading LESS
+                # rather than to choosing worse. That is the unmatched-twin defect that killed
+                # four apparent wins in this project's own record, rebuilt here by me. The frozen
+                # schedule now splits the SAME total budget evenly across the SAME patches.
+                if "foraging" in self.ablate:
+                    if len(patch_gain) * batch >= frozen_per_patch:
+                        break
+                elif forager.should_leave():
                     break
 
             row = checkpoint(self.state, self._pass_idx, source_tag=name,
@@ -524,10 +586,35 @@ class Substrate:
         return {
             "counts": dict(by_state),
             "n_slots": len(rows),
+            "ablated": sorted(self.ablate),
             "filled_but_never_invoked": filled_never_called,
             "gain_stream_degenerate": getattr(self, "_gain_degenerate", None),
             "rows": rows,
         }
+
+    def profile(self) -> Dict[str, np.ndarray]:
+        """Per-lemma accumulated context profile -- the substrate's OWN learned representation.
+
+        TWO POPULATIONS, AND THE SECOND IS THE BIG ONE. MEASURED 2026-08-19: `ConceptSpace` is
+        observed ONLY for seed-known words and at grounding time, so after 200 sentences it holds
+        31 lemmas -- essentially the seed vocabulary. Reading it alone and calling it "what the
+        substrate learned" would have scored an evaluation against the seed list.
+
+        What the substrate actually holds about a word it is still working on is its LIBRARY
+        ITEM's accumulated `Trace.context_vec`s. That is 1,472 lemmas at 550 sentences, and it is
+        the representation any honest evaluation has to address. ConceptSpace wins on collision
+        because a grounded word's profile is the consolidated one.
+        """
+        out: Dict[str, np.ndarray] = {}
+        for lem, item in getattr(self.state.library, "items", {}).items():
+            traces = getattr(item, "traces", None) or []
+            vecs = [t.context_vec for t in traces if getattr(t, "context_vec", None) is not None]
+            if not vecs:
+                continue
+            out[lem] = np.sum(np.asarray(vecs, dtype=np.float64), axis=0)
+        for lem, vec in getattr(self.state.space, "_sums", {}).items():
+            out[lem] = np.asarray(vec, dtype=np.float64)
+        return out
 
     # -- lazily-initialised caches ------------------------------------------------------------
 
