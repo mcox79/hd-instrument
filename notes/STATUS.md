@@ -10,6 +10,44 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
+## 📖 WHERE WE ARE, IN PLAIN WORDS -- added 2026-08-19 because everything below this is jargon
+*The owner answered two board questions with "too jargony so I don't really know how to help".
+That was about the board, but this file has the same problem and the owner reads it. Everything
+below is unchanged; this block is the translation. **If the two disagree, the blocks below are the
+record and this one is the summary.***
+
+**THE GOAL.** Get a system to learn what words mean by reading, with no language model doing the
+understanding -- every step has to be inspectable.
+
+**WHERE IT ACTUALLY IS.** It reads text, decides which words it does not know, and writes down what
+it learns so each fact can be traced back to the sentence it came from. That part works. **What it
+cannot yet do is use what it learned to answer a question better than a crude word counter can.**
+
+**THE ONE THING TO UNDERSTAND ABOUT TODAY.** Give the system a sentence it has never seen and ask
+which word belongs in it. A crude method -- just counting which words tend to appear near each
+other -- narrows it to about the top 15 out of 450 candidates. **Our system gets to about 70-80.**
+Today I tried three different clever ways to close that gap. All three lost. *Three different
+clever ideas losing to the crude one usually means the problem is not the thinking -- it is what
+went in.*
+
+**THE MOST USEFUL THING FOUND TODAY, and it is a plumbing problem, not a clever one.** The system
+stops taking notes on a word once it decides it knows that word -- like a student who stops writing
+things down the moment a topic feels familiar. So the words it meets constantly have the fewest
+notes: for the word "century" it wrote 7 notes across 92 sightings. **Roughly 3 of every 10
+encounters are never recorded, and that alone costs more than all three clever ideas were trying
+to win.**
+
+**WHAT IS ON THE OWNER'S DESK.** Two questions, in plain language, on the board: should it keep
+taking notes after it thinks it knows a word, and should we change what we feed it rather than how
+it thinks.
+
+**HOW MUCH OF TODAY WAS ME CORRECTING MYSELF: a lot, and deliberately so.** Several numbers I
+published were wrong and were caught by controls -- a comparison built on text the system had never
+read, a measurement inflated by comparing something to a copy of itself, and a claim that our
+storage "destroys information" which turned out to be mostly "never wrote it down". *Each is
+corrected at the original text below, not just above it.*
+
+
 # â±ï¸âž¡ï¸ 2026-08-19 -- THE PLAN IS `notes/BUILD_PLAN_post_audit_2026-08-19.md`. OPEN IT. IT IS CURRENT.
 **The autoloop is ARMED at 200 and is executing that plan. It is rewritten every continuation and
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
