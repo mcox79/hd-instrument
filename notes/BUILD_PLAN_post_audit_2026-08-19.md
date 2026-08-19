@@ -67,6 +67,24 @@
 > byte-identical) + a new no-op self-test. Cell re-running as `v2_hitk_sentencecue` AT THE CELL'S
 > OWN SCALE, because SCALE IS STILL THE OPEN CONFOUND.**
 >
+> ## 📍 WHERE THIS ACTUALLY STANDS, 2026-08-19 (read this before the direction change below)
+> **THE CORTICAL READ WORKS AND IS PROBABLY NOT COMPETITIVE, AND THOSE ARE SEPARATE CLAIMS.**
+> v2 landed 3 seeds: `READING (C)` True on every seed (v1 was void on every seed), and reading (A)
+> fires -- REAL clears SCRAMBLE's upper CI and chance at k=[1,5,10,25,50] on two seeds and
+> [5,10,25,50] on the third. **`BOTH` has the best median rank on ALL THREE seeds (69/75.5/79)
+> while SPOKE ALONE beats CONTEXT on median (82-88 vs 115-126) despite a worse hit@1** -- the two
+> channels are good at different things, which is the independence 2x2 reappearing in a different
+> table.
+> **⛔ BUT v2's BAR WAS TOO WEAK AND THAT WAS MY GAP: it scored the cortical arms against SCRAMBLE
+> and chance ONLY, never the floors.** So it supports *"the route retrieves"* and is SILENT on
+> *"the route is competitive"*. **v3 (`v3_floors_at_k`) adds `RANK_COOC_floor` + `RANK_FREQ_floor`
+> at every k and a per-k `clears_strongest_floor_per_k`. RUNNING. It is the first version that can
+> answer the only question that matters.**
+> *Prior expectation, stated so it cannot be quietly revised: the subsumption diagnostic says
+> counting reaches hit@50 0.6800 against the cortical 0.3767 at a 223 pool, so I expect v3 to show
+> the route does NOT clear the floor. If it does clear it, that is a surprise and gets re-checked
+> before it is believed.*
+>
 > ## 🔴🔴 DIRECTION CHANGE 2026-08-19 -- **A STOP, NOT A PIVOT. STOP BUILDING READ-OUT VARIANTS.**
 > **The cortical route is SUBSUMED by word counting, not merely beaten: its unique contribution is
 > BELOW the independence prediction at EVERY k** (ratios 0.80 / 0.46 / 0.55 at k = 1 / 10 / 50).
