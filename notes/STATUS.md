@@ -15,6 +15,34 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## ⛔ 2026-08-19 -- **WRITE-GATE CELL LANDED, 3 SEEDS. FORMAL VERDICT: (C) AND (D) BOTH FIRE.**
+## **READING (A) IN 0 OF 54 CELLS. FLOOR CLEARED IN 0 OF 54.**
+`exp_predictive_write_gate_v1`, 1,064 s, 3 seeds x 6 thresholds x 3 k = 54 cells, read by a script
+written BEFORE the result existed (`scratch/read_write_gate_result.py`).
+
+| seed 7 | hit@10 | hit@50 | median | skip |
+|---|---|---|---|---|
+| ACCUMULATE | 0.1533 | 0.3433 | 115.5 | 0% |
+| GATED@0.25 | 0.1533 | 0.3533 | 116.0 | 4.7% |
+| GATED@0.40 | 0.1600 | 0.3300 | 113.5 | 26.9% |
+| GATED@0.50 | 0.0833 | 0.2867 | 138.5 | 72.6% |
+| GATED@0.60 | 0.0800 | 0.1733 | 222.5 | 92.1% |
+| **COOC_floor** | **0.3667** | **0.7233** | **20.5** | -- |
+
+**THE SHAPE IS THE ARGUMENT: at low thresholds the gate barely skips and MATCHES accumulation; as
+it skips more it MONOTONICALLY DEGRADES. There is no window where selectivity helps.** *At 0.60,
+GATED and RANDOM_SKIP are IDENTICAL to four decimals on every metric -- at that skip rate the two
+selectors have nothing left to disagree about.*
+**➡️ AND THE TWO NEGATIVES SAY DIFFERENT THINGS, WHICH IS WHY BOTH ARE REPORTED:**
+**(C)** the pinned residual rule does not help AS WIRED HERE -- a real negative about this wiring.
+**(D)** no arm clears the floor at any threshold or k, so the representation is not competitive
+*regardless* of what happens between the arms.
+**✅ THE PINNED EQUATION IS NOT REFUTED, AND THE DISTINCTION IS LOAD-BEARING.** Measured the same
+day: profiles DO predict their own contexts 10.4% better than an unrelated term's, CI-separated.
+**So the residual is real but too UNIFORM to threshold (sd 0.076 about a mean 0.44). Predictive
+coding needs a predictor sharp enough that being wrong is INFORMATIVE. Ours is evenly mediocre, so
+its errors carry no ranking.** *That is a statement about our predictor, not about the brain's rule.*
+
 ## ⚠️ 2026-08-19 -- **CORRECTION TO MY OWN INTERPRETATION ONE BLOCK BELOW: THE PROFILES DO**
 ## **PREDICT. WEAKLY, BUT REALLY -- 10.4%, CI-SEPARATED, ON 73% OF OBSERVATIONS.**
 I wrote that the write-gate negative was explained by "the profile predicts nothing in particular".
