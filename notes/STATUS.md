@@ -15,6 +15,38 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
+## ⚠️ 2026-08-19 -- **A PRE-BUILD PROBE WHOSE OWN POSITIVE CONTROL FAILED. READ THE CAVEAT FIRST.**
+`scratch/probe_spoke_vs_gate_on_anchors.py`, 4,300 sentences, 273 anchors, 209 scorable grounded
+terms, gold = provenance-filtered ConceptNet. **Built to answer one question BEFORE wiring the
+spoke into the consolidation gate: the spoke's win over the gate was measured on CO-OCCURRING
+candidates, and the gate chooses among ANCHORS -- a different population, so discipline 2 says it
+does not transfer.**
+
+| arm | hits | n | precision |
+|---|---|---|---|
+| GATE_ACTUAL (what the gate chose) | 12 | 209 | 0.0574 |
+| **CONTEXT_COS (the gate's OWN rule, recomputed)** | 20 | 209 | **0.0957** |
+| SPOKE_NEAREST (the candidate wiring) | 21 | 181 | 0.1160 |
+| RANDOM_ANCHOR | 0 | 209 | 0.0000 |
+
+**⛔ THE POSITIVE CONTROL FAILED, AND I PRE-COMMITTED TO WHAT THAT MEANS.** `CONTEXT_COS` exists to
+check that this probe reproduces the gate's decision; it reads **0.0957 against the gate's 0.0574**,
+which is NOT the same decision. My own pre-registered text says: *"If it does not, this probe is
+not looking at the gate's decision and NEITHER arm means anything."* **So SPOKE_NEAREST 0.1160 vs
+GATE_ACTUAL 0.0574 IS NOT A CLEAN COMPARISON AND MUST NOT BE QUOTED AS ONE**, and the pre-committed
+"wire it" trigger does NOT fire. *Also unpaired: 181 vs 209 items, because only anchors with
+sensorimotor norms can be ranked by the spoke.*
+
+**🔎 BUT THE FAILURE IS ITSELF THE INTERESTING SIGNAL, AND IT IS A HYPOTHESIS, NOT A RESULT: THE
+GATE MAY BE UNDERPERFORMING ITS OWN SIMILARITY RULE.** A plain cosine argmax over the same anchors
+scored 20 hits where the gate scored 12. Two live explanations and the probe cannot separate them:
+(i) the gate's extra machinery -- encounter-time decision, `SENSE_MATCH_THRESH=0.45`, margin-z, a
+growing anchor field -- COSTS accuracy against a plain consolidation-time argmax; or (ii) my
+recomputation is simply not the gate's rule. **(ii) is the null and is the more likely of the two.**
+**➡️ WHAT SETTLES IT, AND IT IS CHEAP: reproduce the gate's decision EXACTLY by calling the organ's
+own `canonicalize` path rather than re-deriving cosine, and re-run PAIRED on the common subset.
+Do that BEFORE any wiring.** *Do not build on a probe whose control did not bind.*
+
 ## 🟡 2026-08-19 -- **THE SENSORIMOTOR SPOKE LANDED. READING (B) FIRES: IT TIES THE TEXT CHANNEL.**
 `exp_sensorimotor_spoke_grounding_v1`, 3 seeds, 4,150 s, n=327-361 scorable per seed, NOT
 underpowered. Scored on the CORTICAL instrument (ConceptNet gold), bar pre-registered as
