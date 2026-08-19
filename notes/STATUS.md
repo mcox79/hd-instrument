@@ -15,7 +15,33 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
-## 🔴 2026-08-19 -- **THE RESIDUAL GATE HURTS, AND IS INDISTINGUISHABLE FROM RANDOM SKIPPING.**
+## ⚠️ 2026-08-19 -- **CORRECTION TO MY OWN INTERPRETATION ONE BLOCK BELOW: THE PROFILES DO**
+## **PREDICT. WEAKLY, BUT REALLY -- 10.4%, CI-SEPARATED, ON 73% OF OBSERVATIONS.**
+I wrote that the write-gate negative was explained by "the profile predicts nothing in particular".
+**That was an interpretation, not a measurement, and turning it into one refutes it.**
+`scratch/diag_does_a_profile_predict_its_own_contexts.py`, 16,930 PAIRED observations, 1,753 terms.
+
+| residual magnitude (LOWER = better prediction) | mean | median | sd |
+|---|---|---|---|
+| **OWN** (leave-one-out profile) | **0.4375** | 0.4522 | 0.0759 |
+| OTHER (a random other term's profile) | 0.4884 | 0.4904 | 0.0378 |
+| **paired difference** | **+0.0510** | +0.0384 | CI **[+0.0498, +0.0522]** |
+
+**A term's profile predicts its own next context 10.4% better than an unrelated term's does, on
+73.2% of observations, with the CI nowhere near zero.** *Leave-one-out throughout, so OWN is never
+a self-match -- that discipline exists because this session already found a 34% self-match
+inflation in a number I published.*
+**➡️ SO THE CHAIN IS NARROWER AND MORE HONEST THAN I SAID: the profiles DO carry term-specific
+predictive content (10.4%); that content is TOO WEAK AND TOO UNIFORM to threshold (sd 0.076 about
+a mean of 0.44); so a residual gate lands where a coin does. The failure is in the SELECTOR'S
+RESOLUTION, not in the representation being empty.**
+**⛔ AND THAT MATTERS FOR WHAT COMES NEXT: "the representation predicts nothing" would have closed
+the representation line entirely. "It predicts 10.4% and that is too little to act on" points
+somewhere specific -- the question becomes what would make the prediction SHARPER, not whether
+prediction exists at all.** *Second time this session I overstated a negative and the measurement
+walked it back. Both times the overstatement was mine and in the pessimistic direction.*
+
+## 🔴 2026-08-19 -- [SEE THE CORRECTION ABOVE: "predicts nothing in particular" IS REFUTED] **THE RESIDUAL GATE HURTS, AND IS INDISTINGUISHABLE FROM RANDOM SKIPPING.**
 ## **READINGS (C) AND (D) BOTH FIRE. 2 of 3 seeds banked; the picture is not close.**
 `exp_predictive_write_gate_v1`. **ACCUMULATE -- keeping everything, what the substrate does today
 -- is the BEST of our arms at every k on both seeds.**
