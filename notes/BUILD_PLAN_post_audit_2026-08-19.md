@@ -33,6 +33,28 @@
 > have any store entry, covering 2.4% of the pool. *And that sparsity is CORRECT -- 2,883 episodic
 > lemmas to 68 consolidated, ~88% refused, which is CLS behaving as described.*
 >
+> ## 🔧 THE ONLINE SPOKE ARM -- DESIGN SETTLED 2026-08-19, INSERTION POINT IDENTIFIED
+> **Two failed post-hoc probes established that this comparison CANNOT be made after the fact**
+> (the gate's choice depends on the anchor field as it stood at that moment, and my "exact" replay
+> called a RETIRED rule -- `pbv=True` means the live gate reads a STANDING HYPOTHESIS, never
+> `canonicalize` at consolidation time). **So it must be an ONLINE SHADOW ARM, and the place is
+> exact:**
+> ```
+> hdlab/reading_grounding_loop.py:996  _encounter_best(item, tr)   # inside make_pbv_fns
+>     sp = _space_for(item)                                        # the field, possibly FROZEN
+>     return canonicalize_fast(item.lemma, tr.context_vec, sp, ...)  # the TEXT rule's pick
+> ```
+> **THE DESIGN: at this exact call, ALSO compute the SPOKE's pick over `sp.anchors()` -- the
+> IDENTICAL candidate set, at the IDENTICAL moment -- and RECORD BOTH. Record, never replace.**
+> A shadow arm changes no decision, so it cannot corrupt the run that produces it, and it yields
+> the PAIRED per-encounter data that no post-hoc analysis can reconstruct.
+> **⚠️ SIZE IT BEFORE BUILDING IT: this is the hot path, once per encounter per item. Doubling the
+> anchor scan doubles the dominant cost. Measure the per-encounter cost first and, if it is
+> material, sample (e.g. every Nth encounter) and SAY SO in the metrics rather than silently.**
+> *Also still open and deliberately not done: the propose-time anchor field is logged by
+> `Library.flag` in `grounding_acquisition_loop`, i.e. a second module's contract. The BANK-time
+> fingerprint (`n_anchors_at_bank`, `anchor_field_sha1_at_bank`) is in and bounds it from above.*
+>
 > ## TOP UNBLOCKED ITEM, IN ORDER
 > 1. **SCORE THE CORTICAL READ on the cortical instrument.** The organ is built and self-testing;
 >    nothing blocks it.
