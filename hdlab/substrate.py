@@ -299,6 +299,15 @@ class Substrate:
         "foraging": "never leave a patch on the forager's signal; read a FIXED schedule "
                     "instead (H2 off). This is the FROZEN control the vetting ledger says "
                     "already SCORED HIGHER than foraging on reading yield -- 0.0743 vs 0.0617",
+        "consolidation": "never run the consolidation pass; nothing is ever promoted to a "
+                         "grounded fact and no provenance row is written (B3 off). ADDED "
+                         "2026-08-19 to make one question answerable that was not: does "
+                         "grounding reach the READ-OUT at all? Every unit of the first Phase 2 "
+                         "run recorded n_provenance 0 because consolidation fired only when the "
+                         "forager changed corpus, so the definitions and gap_detector ablations "
+                         "measured organs feeding a path that never ran. Turning this off ON "
+                         "PURPOSE, against a control where it fires, is what separates 'the "
+                         "organ contributes nothing' from 'the organ was never reached'",
     }
 
     def __init__(self, *, seed: int = 20260819, n_dim: int = 2048,
@@ -418,6 +427,12 @@ class Substrate:
             self.state.gap_detector = _NullGapDetector()
         elif self.state.gap_detector is None:
             self.state.gap_detector = self._gap_detector()
+
+        # B3 OFF. Applied HERE rather than at the call site so the ablation cannot be forgotten by
+        # a caller that passes consolidate_every explicitly -- an ablation a caller can silently
+        # override is not an ablation.
+        if "consolidation" in self.ablate:
+            consolidate_every = 0
 
         read_budget = int(n_sentences)
         n_patches = max(1, min(int(max_patches), len(order)))
@@ -824,6 +839,47 @@ def _selftest_organs_are_actually_called() -> dict:
             "elapsed_s": round(res.elapsed_s, 1)}
 
 
+def _selftest_consolidation_ablation_binds_both_ways() -> dict:
+    """The B3 ablation must CHANGE something, and the control must SHOW something to change.
+
+    THIS IS A POSITIVE CONTROL, NOT AN ABSENCE CHECK, AND THE DISTINCTION IS THE WHOLE REASON IT
+    EXISTS. The first Phase 2 run recorded n_provenance 0 on all 30 units and it was read as a
+    fact about the substrate; it was consolidation firing only when the forager changed corpus.
+    An ablation asserted only by "the ablated arm grounds nothing" would have PASSED on that
+    broken run, because nothing grounded in either arm. So both directions are asserted here.
+
+    max_patches=1 IS THE REGIME ON TRIAL, not a convenience -- it is the single-patch read that
+    grounded NOTHING at any volume before consolidation was put on a schedule.
+
+    Numbers below are MEASURED (scratch/probe_consolidation_binds.py), not hoped for: at 400
+    sentences and consolidate_every=200 the live arm records 3 passes, 30 provenance rows and 91
+    refusals, and the ablated twin records 0 and 0.
+    """
+    live = Substrate(seed=7)
+    live.read(corpus="simplewiki", n_sentences=400, batch=50, max_patches=1,
+              consolidate_every=200)
+    off = Substrate(seed=7, ablate=["consolidation"])
+    off.read(corpus="simplewiki", n_sentences=400, batch=50, max_patches=1,
+             consolidate_every=200)
+
+    assert len(live.state.provenance) > 0, (
+        "POSITIVE CONTROL FAILED: consolidation is ON and nothing grounded, so this test could "
+        "not have detected the ablation either way")
+    assert len(live.state.refusals) > 0, (
+        "POSITIVE CONTROL FAILED: the grounding gate refused nothing, so it is not discriminating")
+    assert len(off.state.provenance) == 0, (
+        f"the consolidation ablation did not bind: {len(off.state.provenance)} provenance rows "
+        "were written with B3 switched off")
+    assert len(off.state.refusals) == 0, (
+        f"the consolidation ablation did not bind: {len(off.state.refusals)} refusals were "
+        "recorded with B3 switched off")
+    return {"live_provenance": len(live.state.provenance),
+            "live_refusals": len(live.state.refusals),
+            "live_passes": len(live.state.growth_curve),
+            "ablated_provenance": len(off.state.provenance),
+            "ablated_refusals": len(off.state.refusals)}
+
+
 def _selftest_gain_is_a_rate_not_a_count() -> dict:
     """The forager's currency must vary. A constant gain stream is failure mode 6, and the organ
     ships the assertion that catches it -- this proves we CALL it."""
@@ -872,6 +928,8 @@ def run_all_selftests() -> dict:
         ("import_builds_nothing", _selftest_import_builds_nothing),
         ("report_names_the_empties", _selftest_report_names_the_empties),
         ("organs_are_actually_called", _selftest_organs_are_actually_called),
+        ("consolidation_ablation_binds_both_ways",
+         _selftest_consolidation_ablation_binds_both_ways),
         ("gain_is_a_rate_not_a_count", _selftest_gain_is_a_rate_not_a_count),
         ("query_refuses_what_it_never_read", _selftest_query_refuses_what_it_never_read),
     ]

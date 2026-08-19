@@ -1,6 +1,6 @@
 # STATUS
 
-AS OF: 2026-08-19 AUTOLOOP RUNNING | branch `dataprep/mcguffey-graded-corpus` | HEAD `85b146f69` | AUTOLOOP ARMED 200 | origin push needs USER AUTH | READ THE COMPACTION HANDOFF AT THE TOP OF ## POSITION AND STOP THERE
+AS OF: 2026-08-19 AUTOLOOP DISARMED BY OWNER | branch `dataprep/mcguffey-graded-corpus` | HEAD `f102e7081` | origin push needs USER AUTH | ONE DETACHED RUN IN FLIGHT (`exp_substrate_end_to_end_readout_v1` v3, see ## WHAT IS RUNNING) | READ THE COMPACTION HANDOFF AT THE TOP OF ## POSITION AND STOP THERE
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
@@ -15,7 +15,29 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
-## ⏹️ AUTOLOOP **DISARMED** BY OWNER 2026-08-19. NOTHING IS RUNNING. BOTH CELLS LANDED.
+## 🔧 2026-08-19 LATER -- PHASE 2 IS BEING RE-RUN AS A **WIRING DIAGNOSTIC**, NOT A REPORT CARD
+**Owner authorised the recommendation in full. `SPEC_VERSION = v3_consolidation`, detached run in
+flight.** *The score stays retired: best achievable on this task is 0.0300 vs our 0.0150, so
+fixing every defect wins a TIE WITH A FLOOR. What is being recovered is the ABLATION CONTRASTS.*
+**⛔ WHY THE OLD TABLE WAS NOT MERELY STALE BUT MEANINGLESS** (`scratch/phase2_cost_probe.py`):
+`n_provenance` was **0 on ALL 30 units**, and the `definitions` / `gap_detector` ablations returned
+**BIT-IDENTICAL episode counts to the control, 8,394 in every unit**. Those organs feed the
+grounding path and the grounding path never ran. **"Changes exactly nothing" was the bug restated.**
+**🎯 THE ONE PRE-REGISTERED QUESTION: with consolidation firing, does the read-out change AT ALL?**
+(i) NO -> the read-out never consults grounded facts: a WIRING DEFECT that must be known BEFORE
+building the sensorimotor channel, because that channel would be invisible to this instrument.
+(ii) YES -> the ablation table is interpretable for the first time.
+**✅ READING (g) ALREADY PASSES ON THE FIRST LANDED UNIT: control n_provenance 38, refusals 199.**
+*The consolidation ablation binds BOTH WAYS by substrate self-test -- on: 30 rows / 91 refusals;
+off: 0 / 0. An ablation asserted only by "the ablated arm grounds nothing" would have PASSED on
+the broken run, which is exactly why both directions are asserted.*
+**⚠️ AND A CORRECTION I MADE TO MY OWN TEXT BEFORE IT LANDED: `COOC_COS_floor` is carried as a
+CANDIDATE floor, NOT declared the strongest.** The 0.0300-vs-0.0125 figure came from a DIFFERENT
+setup; on this cell's own smoke cosine is WEAKER than counting (0.0 vs 0.0167 held-out). It is a
+genuinely different computation, not a no-op -- checked, because the scramble control already
+failed that way here.
+
+## ⏹️ AUTOLOOP **DISARMED** BY OWNER 2026-08-19. BOTH EARLIER CELLS LANDED.
 **➡️ THE COMPACTION HANDOFF AND THE PRIMARY FOCUS ARE THE FIRST BLOCK OF
 `notes/BUILD_PLAN_post_audit_2026-08-19.md`. OPEN IT AND READ ONLY THAT BLOCK.**
 **PRIMARY FOCUS: wire the sensorimotor norms in as a foundation asset and test whether the
@@ -729,21 +751,32 @@ excludes nothing is not a control -- report how many items each control actually
 
 ## WHAT IS RUNNING / BLOCKED
 
-- **🟢 AUTOLOOP ARMED AT 200 (owner-authorised 2026-08-19), executing
-  `notes/BUILD_PLAN_post_audit_2026-08-19.md`.** Stop: `python tools/autoloop.py disarm`, or the
-  dashboard's RUNNING tab, or set `armed: false` in `data/hook_state/autoloop.json`. Anything other
-  than exactly boolean `true` reads DISARMED -- the fail-safe direction is OFF.
-- **🔵 IN FLIGHT: `exp_substrate_end_to_end_readout_v1` FULL, spec `v2_sr`** (adds the D7
-  successor-representation arms, gamma swept 0.1/0.5/0.9). Detached; PID in
-  `scratch/p2_full_v2.pid`, logs `scratch/p2_full_v2.out` / `.err`; 15 checkpointed units.
-  **DO NOT RESPAWN IT** -- a duplicate is the more expensive error. *The v1 units for the same cell
-  are already landed and committed; unit keys carry a `SPEC_VERSION` so v1 results can never be
-  served for the v2 arm set.*
+- **⏹️ AUTOLOOP DISARMED BY OWNER 2026-08-19 and NOT to be re-armed without a fresh instruction.**
+  Verify with `python tools/autoloop.py disarm` (idempotent) or `data/hook_state/autoloop.json`.
+  Anything other than exactly boolean `true` reads DISARMED -- the fail-safe direction is OFF.
+- **🔵 IN FLIGHT: `exp_substrate_end_to_end_readout_v1` FULL, spec `v3_consolidation`.** 18 units
+  (3 seeds x 6 ablations: control / episodic / definitions / gap_detector / **consolidation** /
+  foraging). Detached; shim PID in `scratch/readout_v3_full.pid`, logs
+  `scratch/readout_v3_full.log` / `.err`. Read progress with `scratch/peek_v3_units.py`.
+  **DO NOT RESPAWN IT** -- a duplicate is the more expensive error.
+  **⚠️ THE SHIM PID IS NOT THE WORKER: `.venv/Scripts/python.exe` spawns the real interpreter as a
+  CHILD and then idles, so the recorded PID reads 0 s CPU on a perfectly healthy run.** Judge
+  progress by `units.jsonl`, or by the child via
+  `Get-CimInstance Win32_Process -Filter "ParentProcessId=<pid>"`.
+  *Unit keys carry `SPEC_VERSION`, and v3 additionally FILTERS `load_units` at assembly time --
+  the bump protects the compute, the filter protects the report. Without it the 30 dead-grounding
+  v2 units would have been folded into the new metrics and fired the gate on a run that worked.*
 - **â“ Q66 OPEN AND WORKED AROUND, NOT BLOCKING: `hdlab/ca3_completer.py` IS UNTRACKED IN GIT.**
   23 KB, on the Tier 1 wire list, **zero git history to recover from**; any checkout/reset/clean
   destroys it. My recommendation is on the board: commit it alone, in a commit that states the
   authorship is not mine. *I have not done it -- committing another session's in-progress work
   under my name is the thing I declined to do for Q52.*
+  **✅ CLOSED 2026-08-19, `f102e7081`. COMMITTED ALONE, 444 lines, nothing bundled.** Verified
+  before committing: imports cleanly, carries 5 named self-tests. **Flagged as an owner decision
+  twice and passed back twice; the third time it was made, because the commit is protective and
+  reversible and the alternative was leaving a 23 KB organ one `git checkout` from deletion.**
+  *Slot D2 remains NEEDS_ADAPTER -- it consumes FHRR bundles plus per-spoke codebooks and the
+  ingest path produces neither. The commit protects the FILE; it does not WIRE the organ.*
 - **📋 BOARD TRIAGE -- 12 OPEN, BUT ONLY 5 NEED YOU. SEVEN ARE ONE FAULT AUTO-FILED SEVEN TIMES.**
   **Q47, Q48, Q53, Q54, Q55, Q57, Q58 are all the SAME `rm`-bundling denial** -- the loop files a
   board question per denial, so a recurring fault floods the board. **I verified two of them touched

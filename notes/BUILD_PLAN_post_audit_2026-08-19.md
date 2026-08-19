@@ -1343,6 +1343,21 @@ what the full run is for.*
 > substrate only consolidated when the forager changed corpus, so **every Phase 2 run grounded
 > NOTHING**. The retrieval result stands -- both routes read from episodic writes and Library
 > traces, which happen regardless -- but the ablation table must be re-run before it is quoted.
+> **(3) ADDED 2026-08-19 WITH THE EVIDENCE, WHICH IS SHARPER THAN (2) AND CHANGES WHAT THE
+> ABLATION NULL MEANT.** Re-read off disk (`scratch/phase2_cost_probe.py`): **`n_provenance` is 0
+> on ALL 30 units, no exceptions**, and the `definitions` and `gap_detector` ablations returned
+> **BIT-IDENTICAL episode counts to the control -- 8,394 in every single unit**. Those two organs
+> feed the grounding path, and the grounding path never ran. **So "definitions and gap_detector
+> change EXACTLY NOTHING" was the bug restated, NOT a measurement of two organs** -- and two slots
+> the substrate calls FILLED were resting on it. *Also visible in the same data: the foraging twin
+> read 4,000 sentences against the live arm's 1,150, 3.5x more text.*
+> **THE CELL IS BEING RE-RUN AS `v3_consolidation`, DEMOTED FROM A REPORT CARD TO A WIRING
+> DIAGNOSTIC.** Its score stays retired (best achievable 0.0300 vs our 0.0150 -- fixing every
+> defect wins a tie with a floor); what it is for is one pre-registered question: **with
+> consolidation firing, does the read-out change AT ALL?** A new `consolidation` ablation decides
+> it, and its binding is proven BOTH WAYS by a substrate self-test (on -> 30 provenance rows and
+> 91 refusals; off -> 0 and 0). **That two-way proof is the point: an ablation asserted only by
+> "the ablated arm grounds nothing" would have PASSED on the broken run.**
 
 **The first end-to-end measurement of the assembly, and it is a clean negative that INDEPENDENTLY
 REPLICATES THIS PROJECT'S CENTRAL DOCUMENTED RESULT on a different task, a different instrument

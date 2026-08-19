@@ -1,7 +1,39 @@
-"""PHASE 2: THE END-TO-END CAN-FAIL TEST OF THE ASSEMBLED SUBSTRATE. It did not exist before.
+"""PHASE 2: A WIRING DIAGNOSTIC ON THE ASSEMBLED SUBSTRATE. DEMOTED FROM A REPORT CARD 2026-08-19.
 
-WHY THIS CELL EXISTS. `hdlab/substrate.py` wires nine organs into one reader. Every one of them
-was validated ALONE, and wiring components that each look fine is exactly how this project
+*** READ THIS BEFORE QUOTING ANY NUMBER FROM THIS CELL. ***
+
+THE SCORE IS RETIRED. THE CONTRASTS ARE NOT. The best achievable score on this task is 0.0300 --
+exact co-occurrence, cosine-ranked, which this run now carries as an explicit arm -- against the
+substrate's 0.0150. So fixing every defect ever found in this cell wins a TIE WITH A FLOOR. The
+headline hit@1 is therefore NOT a capability claim and must not be reported as one. What survives
+re-running is the ABLATION TABLE: a within-cell paired difference does not need the task to have
+headroom against an external floor, it only needs each organ to be ABLE to move the number.
+
+WHY IT IS BEING RE-RUN AT ALL, AND THE ANSWER IS NOT "TO RESTORE THE TABLE". The first full run
+(2026-08-19T03:25:48Z) recorded **n_provenance 0 on all 30 units, no exceptions**. Consolidation
+fired only when the forager CHANGED CORPUS, and this cell reads one patch, so nothing was ever
+promoted to a grounded fact. The `definitions` and `gap_detector` ablations returned BIT-IDENTICAL
+episode counts to the control -- 8,394 in every single unit -- because those organs feed the
+grounding path and the grounding path never ran. "Changes exactly nothing" was the bug restated,
+not a measurement of two organs, and two slots the substrate calls FILLED were resting on it.
+
+*** THE ONE PRE-REGISTERED QUESTION, WRITTEN BEFORE THE RE-RUN. ***
+  WITH CONSOLIDATION ACTUALLY FIRING, DOES THE READ-OUT CHANGE AT ALL?
+Both answers are informative, which is why it is worth the compute:
+  (i)  IT DOES NOT -> the read-out never consults grounded facts. That is a WIRING DEFECT and it
+       must be known BEFORE anything is built on top of the grounding path, because a channel
+       that improves grounding would be INVISIBLE to any end-to-end read-out score. This outcome
+       is a finding about the assembly, not a null.
+  (ii) IT DOES -> the ablation table becomes interpretable for the first time, and the
+       definitions / gap_detector nulls can finally be read as facts about those organs.
+The contrast that decides it is the new `consolidation` ablation (B3 off) against the control,
+same seed, same corpus, same text. Its binding is proven BOTH WAYS by a substrate self-test:
+on -> 30 provenance rows and 91 refusals; off -> 0 and 0. An ablation asserted only by "the
+ablated arm grounds nothing" would have PASSED on the broken run, because nothing grounded in
+either arm.
+
+WHY THIS CELL EXISTS AT ALL. `hdlab/substrate.py` wires nine organs into one reader. Every one of
+them was validated ALONE, and wiring components that each look fine is exactly how this project
 accumulated 2,678 claimed passes of which 30 were vetted and 1 survived. Nothing about the
 assembly should be believed until one test that CAN FAIL has been run on it.
 
@@ -21,14 +53,35 @@ FOUR ARMS, TWO OF THEM THE SUBSTRATE'S OWN ROUTES:
   EPISODIC   hippocampal DG code overlap after CA3 settling
   SEMANTIC   cosine to the lemma's accumulated context profile
   COOC       raw co-occurrence counting over the read split           <- FLOOR, run STANDALONE
+  COOCCOS    the SAME counts, COSINE-ranked instead of argmax-counted <- FLOOR, a CANDIDATE for
+                                                                         strongest. NOT ASSUMED
+                                                                         TO BE STRONGEST: see the
+                                                                         note directly below.
   FREQ       the most frequent lemma; never looks at the cue          <- FLOOR, run STANDALONE
   ORTH       char-trigram overlap between cue and candidate           <- FLOOR, run STANDALONE
-  SCRAMBLE   EPISODIC on a word-shuffled cue                          <- if this ties EPISODIC,
+  SCRAMBLE   EPISODIC on a DONOR sentence, target kept                <- if this ties EPISODIC,
                                                                          the pipeline is not reading
 
-PLUS FOUR ABLATIONS, one organ each, rate-matched: episodic / definitions / gap_detector /
-foraging. An assembled substrate nobody can switch pieces off in cannot be told apart from an
-expensive Counter, and no cell in this archive has ever run this arm.
+PLUS FIVE ABLATIONS, one organ each, rate-matched: episodic / definitions / gap_detector /
+foraging / consolidation. An assembled substrate nobody can switch pieces off in cannot be told
+apart from an expensive Counter, and no cell in this archive has ever run this arm.
+
+*** COOC_COS_floor IS CARRIED AS A CANDIDATE, NOT DECLARED THE STRONGEST, AND THAT WORDING IS A
+CORRECTION I MADE TO MY OWN TEXT BEFORE THIS RAN. *** The 0.0300-vs-0.0125 figure that motivated
+adding it was measured on a DIFFERENT setup, and discipline 2 says a floor's strength is a
+property of the scorer and population, never a number you carry across. Checked on this cell's own
+smoke (`scratch/check_cooccos_is_not_a_noop.py`): cosine-ranking is genuinely a DIFFERENT
+computation from count-ranking -- not a no-op, which is the failure the scramble control already
+had here -- but at smoke scale it is WEAKER, 0.0 vs 0.0167 held-out and 0.15 vs 0.30 at exact key.
+So `_strongest_floor` is COMPUTED per regime by taking the max over the floors actually run, and
+whichever wins is reported. The cell does not assert in advance which that is.
+
+THE FORAGING TWIN IS RATE-MATCHED ON SENTENCES ACTUALLY READ, AND THE PREVIOUS TWO ATTEMPTS BOTH
+FAILED IN OPPOSITE DIRECTIONS. In the first full run the twin read 4,000 sentences against the
+live arm's 1,150 -- 3.5x more text -- so the arm measured "how much did you read", not "did you
+choose well". The live control now runs FIRST and the twin is handed the sentence count the live
+arm ACTUALLY consumed, via `Substrate.read(match_sentences=...)`. `ReadResult.rate_matched` is
+recorded per unit, so an unmatched comparison can never again look matched in the metrics.
 
 ITEM PRIORITY -- THE FIRST QUESTION, AND IT IS FREE. *** DID THE TEST ITEMS EXIST BEFORE THE
 MECHANISM DID? *** YES. The items are sentences of published prose written long before this
@@ -47,6 +100,18 @@ PRE-COMMITTED READINGS, written before any number from this cell exists:
       it stored verbatim, the cell is broken and reports nothing.
   (d) SCRAMBLE ties the real cue -> the pipeline is not reading, and every other number in the
       cell is void.
+
+PRE-COMMITTED READINGS FOR THE RE-RUN'S OWN QUESTION, added 2026-08-19 BEFORE it was run:
+  (e) the `consolidation` ablation moves NO substrate route, at any seed, in either regime, while
+      the control's n_provenance is > 0 -> outcome (i) above. THE READ-OUT DOES NOT CONSULT
+      GROUNDED FACTS. Report it as a wiring defect in the assembly and do NOT build a new channel
+      on the grounding path until it is fixed, because that channel could not be measured here.
+  (f) the `consolidation` ablation moves a substrate route -> outcome (ii). The table is
+      interpretable; the definitions / gap_detector nulls may now be read as facts about those
+      organs, and only now.
+  (g) the control's n_provenance is 0 -> THE FIX DID NOT TAKE AND NOTHING ELSE IN THIS RUN IS
+      INTERPRETABLE. This reading exists because the previous run's n_provenance 0 was read past;
+      it is checked FIRST, before any arm is looked at.
 
 Run:  python experiments/exp_substrate_end_to_end_readout_v1.py --mode smoke
       python experiments/exp_substrate_end_to_end_readout_v1.py --mode full
@@ -87,6 +152,10 @@ N_BOOT = 2000
 N_PERM = 2000
 TOP_K = 5
 SR_GAMMAS = (0.1, 0.5, 0.9)    # SWEPT, never adopted -- gamma is a parameter, not a computation
+# Consolidation cadence, in sentences. MEASURED, not picked (scratch/probe_consolidation_binds.py):
+# at 400 sentences and this cadence a single-patch read records 3 passes, 30 provenance rows and
+# 91 refusals, where the corpus-change trigger recorded 0 at every volume tried.
+CONSOLIDATE_EVERY = 200
 
 # BUMP THIS WHENEVER THE ARM SET OR A SCORER CHANGES. It is part of every unit_key, so a resumed
 # run cannot silently serve results computed under a DIFFERENT specification -- which is what
@@ -95,7 +164,13 @@ SR_GAMMAS = (0.1, 0.5, 0.9)    # SWEPT, never adopted -- gamma is a parameter, n
 # v1 -> v2: added the D7 successor-representation arms; excluded the cue's own words from BOTH
 #           the SR and COOC rankings (M's identity term put cue words top by construction and
 #           made SR read exactly 0.000 everywhere).
-SPEC_VERSION = "v2_sr"
+# v2 -> v3: PERIODIC CONSOLIDATION now fires (v2 units all recorded n_provenance 0); added the
+#           `consolidation` ablation, which is the re-run's whole question; added the
+#           COOC_COS_floor arm, the strongest floor available and previously absent; and
+#           rate-matched the foraging twin on sentences ACTUALLY READ rather than on the budget.
+#           THE BUMP IS LOAD-BEARING: 30 v2 units are checkpointed on disk and every one of them
+#           was computed with a dead grounding path, so a resumed run must not serve them.
+SPEC_VERSION = "v3_consolidation"
 
 
 # ---------------------------------------------------------------------------------------------
@@ -134,6 +209,29 @@ class Routes:
                         self.cooc[b][a] += 1
         self.freq_rank = [w for w, _ in self.freq.most_common()]
         self.tri = {n: _char_trigrams(n) for n in self.names}
+
+        # THE STRONGEST FLOOR, AND IT WAS MISSING FROM EVERY EARLIER VERDICT IN THIS CELL.
+        # The SAME counts as COOC_floor, ranked by COSINE instead of by summed count. Measured
+        # separately at 0.0300 against COOC_floor's 0.0125, which makes every prior "beats the
+        # strongest floor" statement here void -- the strongest floor was never run. Cosine
+        # divides out candidate frequency, which is exactly what the argmax-of-counts version
+        # cannot do, and it is computable from precisely what the substrate had.
+        self.idx = {n: i for i, n in enumerate(self.names)}
+        if self.names:
+            C = np.zeros((len(self.names), len(self.names)), dtype=np.float32)
+            for w, row in self.cooc.items():
+                i = self.idx.get(w)
+                if i is None:
+                    continue
+                for o, c in row.items():
+                    j = self.idx.get(o)
+                    if j is not None:
+                        C[i, j] = c
+            self.C = C
+            self.Cn = C / (np.linalg.norm(C, axis=1, keepdims=True) + 1e-12)
+        else:
+            self.C = np.zeros((0, 0), dtype=np.float32)
+            self.Cn = self.C
 
         # D7 SUCCESSOR REPRESENTATION, swept over gamma and never adopted at one value. M is a
         # DISCOUNTED MULTI-STEP co-occurrence statistic and COOC_floor is the 1-STEP one, so the
@@ -194,6 +292,27 @@ class Routes:
         for w in cue:
             c.pop(w, None)
         return [w for w, _ in c.most_common(TOP_K)]
+
+    def cooc_cos_floor(self, sent: str, tgt: str) -> List[str]:
+        """The same counts as COOC_floor, cosine-ranked. THE STRONGEST FLOOR ACTUALLY AVAILABLE.
+
+        Identical cue, identical exclusion, identical candidate pool -- the arms differ in the
+        RANKING RULE and in nothing else, which is the only way the comparison means anything.
+        """
+        if not self.names:
+            return []
+        cue = [l for l in content_lemmas(sent) if l != tgt and l in self.seen]
+        rows = [self.idx[l] for l in cue if l in self.idx]
+        if not rows:
+            return []
+        v = self.C[rows].sum(axis=0)
+        nv = float(np.linalg.norm(v))
+        if nv <= 0.0:
+            return []
+        sims = self.Cn @ (v / nv)
+        excl = {self.idx[l] for l in cue if l in self.idx}
+        order = np.argsort(-sims)
+        return [self.names[i] for i in order if i not in excl][:TOP_K]
 
     def freq_floor(self, sent: str, tgt: str) -> List[str]:
         return self.freq_rank[:TOP_K]
@@ -267,7 +386,7 @@ def _paired_perm_p(a: np.ndarray, b: np.ndarray, rng: np.random.Generator,
 
 
 def _run_one(seed: int, n_read: int, n_items: int, ablate: Sequence[str],
-             batch: int, corpus: str) -> dict:
+             batch: int, corpus: str, match_sentences: Optional[int] = None) -> dict:
     rng = random.Random(seed)
     nprng = np.random.default_rng(seed)
 
@@ -282,14 +401,18 @@ def _run_one(seed: int, n_read: int, n_items: int, ablate: Sequence[str],
 
     sub = Substrate(seed=seed, ablate=list(ablate))
     t0 = time.time()
-    rr = sub.read(corpus=corpus, n_sentences=n_read, batch=batch, max_patches=1)
+    # CONSOLIDATE ON A SCHEDULE. The v2 run left this at whatever the corpus change dictated and
+    # every one of its 30 units recorded n_provenance 0. `consolidate_every` is passed EXPLICITLY
+    # so this cell's grounding behaviour is visible here rather than inherited from a default.
+    rr = sub.read(corpus=corpus, n_sentences=n_read, batch=batch, max_patches=1,
+                  consolidate_every=CONSOLIDATE_EVERY, match_sentences=match_sentences)
     read_s = time.time() - t0
 
     routes = Routes(sub, read_split)
     seen = routes.seen
     arms = {"EPISODIC": routes.episodic, "SEMANTIC": routes.semantic,
-            "COOC_floor": routes.cooc_floor, "FREQ_floor": routes.freq_floor,
-            "ORTH_floor": routes.orth_floor}
+            "COOC_floor": routes.cooc_floor, "COOC_COS_floor": routes.cooc_cos_floor,
+            "FREQ_floor": routes.freq_floor, "ORTH_floor": routes.orth_floor}
     for _g in SR_GAMMAS:
         arms[f"SR_g{_g}"] = (lambda s, t, g=_g: routes.sr_rank(s, t, g))
 
@@ -319,6 +442,8 @@ def _run_one(seed: int, n_read: int, n_items: int, ablate: Sequence[str],
         n_by_regime[regime] = n
 
     out: dict = {"seed": seed, "ablate": list(ablate), "n_read": rr.n_sentences,
+                 "rate_matched": bool(rr.rate_matched),
+                 "match_sentences_given": match_sentences,
                  "read_seconds": round(read_s, 1), "pool_size": len(seen),
                  "n_episodes": len(sub._episode_index),
                  "n_provenance": len(sub.state.provenance),
@@ -365,21 +490,41 @@ def main() -> int:
     n_items = 60 if smoke else 300
     batch = 25 if smoke else 50
     seeds = SEEDS[:1] if smoke else SEEDS
-    ablations: List[Tuple[str, ...]] = [()] if smoke else [
-        (), ("episodic",), ("definitions",), ("gap_detector",), ("foraging",)]
+    # THE CONTROL IS FIRST AND THAT ORDER IS LOAD-BEARING, not cosmetic: the foraging twin can
+    # only be rate-matched once the live arm has reported how many sentences it ACTUALLY read.
+    # The smoke carries the consolidation contrast so the smoke can FAIL on the question the run
+    # exists to answer, rather than merely proving the plumbing executes.
+    ablations: List[Tuple[str, ...]] = [(), ("consolidation",)] if smoke else [
+        (), ("episodic",), ("definitions",), ("gap_detector",), ("consolidation",),
+        ("foraging",)]
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     done = completed_units(OUTPUT_DIR) if not smoke else set()
+    prior = load_units(OUTPUT_DIR) if not smoke else {}
     t0 = time.time()
     for seed in seeds:
+        live_n: Optional[int] = None       # sentences the LIVE arm consumed, for the frozen twin
         for ab in ablations:
             key = unit_key(SPEC_VERSION, a.mode, a.corpus, seed, "+".join(ab) or "NONE")
             if key in done:
                 print(f"[skip] {key}", flush=True)
+                if not ab:
+                    rec = prior.get(key) if isinstance(prior, dict) else None
+                    live_n = (rec or {}).get("n_read")
+                continue
+            # An unmatched foraging twin has been read as a result twice in this project, in
+            # OPPOSITE directions. Refuse to run it blind rather than record another void arm.
+            if "foraging" in ab and live_n is None:
+                print(f"[SKIP-UNMATCHED] {key}: the live arm's sentence count is unknown, so "
+                      "the frozen twin cannot be rate-matched. Run the control unit for this "
+                      "seed first.", flush=True)
                 continue
             print(f"[run ] {key}", flush=True)
-            res = _run_one(seed, n_read, n_items, ab, batch, a.corpus)
+            res = _run_one(seed, n_read, n_items, ab, batch, a.corpus,
+                           match_sentences=live_n if "foraging" in ab else None)
             res["unit_key"] = key
+            if not ab:
+                live_n = res["n_read"]
             if smoke:
                 print(json.dumps(res, indent=2, default=str))
             else:
@@ -390,12 +535,53 @@ def main() -> int:
         return 0
 
     units = load_units(OUTPUT_DIR)
+    all_rows = list(units.values()) if isinstance(units, dict) else list(units)
+    # SPEC ISOLATION AT ASSEMBLY, NOT ONLY AT SKIP. `completed_units` keys off SPEC_VERSION so a
+    # resumed run recomputes v3, but `load_units` returns EVERY unit ever written to this
+    # directory -- including the 30 v2 units whose grounding path was dead. Folding those into
+    # metrics.json would drag n_provenance 0 controls into the gate below and fire reading (g)
+    # on a run that worked. The bump protects the COMPUTE; this line protects the REPORT.
+    rows = [u for u in all_rows
+            if str(u.get("unit_key", "")).startswith(SPEC_VERSION + "|")]
+    n_foreign = len(all_rows) - len(rows)
+    ctrl = [u for u in rows if not u.get("ablate")]
+    # READING (g), CHECKED IN CODE AND FIRST. The previous run's n_provenance 0 was printed and
+    # read past; a pre-committed reading that depends on a human noticing a field is not a gate.
+    ctrl_prov = [int(u.get("n_provenance") or 0) for u in ctrl]
+    grounding_fired = bool(ctrl_prov) and all(p > 0 for p in ctrl_prov)
+    unmatched = [u.get("unit_key") for u in rows if u.get("rate_matched") is False]
     metrics = {
         "cell": CELL,
         "ts_iso": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "run_mode": "full",
         "corpus": a.corpus,
-        "n_units": len(units),
+        "n_units": len(rows),
+        "spec_version": SPEC_VERSION,
+        "units_from_older_specs_excluded": n_foreign,
+        "spec_isolation_note": (
+            "metrics.json carries ONLY units whose unit_key matches this SPEC_VERSION. The "
+            "excluded count is reported rather than silently dropped: those units are real runs "
+            "of a DIFFERENT specification, not noise."),
+        "role": "WIRING DIAGNOSTIC, NOT A REPORT CARD",
+        "headline_score_is_retired": True,
+        "headline_retired_reason": (
+            "The best achievable score on this task is 0.0300 (COOC_COS_floor, carried as an arm "
+            "here) against the substrate's 0.0150, so fixing every defect wins a tie with a "
+            "floor. The hit@1 is NOT a capability claim. What is being measured is the ABLATION "
+            "CONTRASTS, which are within-cell paired differences and do not need the task to "
+            "have headroom."),
+        "prereg_question": (
+            "With consolidation actually firing, does the read-out change at all? The deciding "
+            "contrast is ablate=['consolidation'] against the control at the same seed."),
+        "grounding_fired_in_control": grounding_fired,
+        "control_n_provenance": ctrl_prov,
+        "grounding_gate_note": (
+            "READING (g): if this is False the fix did not take and NOTHING ELSE in this run is "
+            "interpretable. Every unit of the v2 run recorded 0 here."),
+        "unmatched_units": unmatched,
+        "unmatched_note": (
+            "Units whose foraging twin was NOT rate-matched on sentences actually read. Must be "
+            "empty; a non-empty list voids the foraging arm and nothing else."),
         "items_predate_mechanism": True,
         "items_predate_note": (
             "Items are sentences of published prose that predate this project entirely; the gold "
@@ -407,14 +593,22 @@ def main() -> int:
             "a strong baseline BY DESIGN. A loss says the store is a worse co-occurrence record "
             "than a counter. It is NOT proof the substrate cannot build an auditable knowledge "
             "store; that needs a separate cell with an independent gold."),
-        "units": units,
+        "units": rows,
     }
     path = os.path.join(OUTPUT_DIR, "metrics.json")
     tmp = path + ".tmp"
     with open(tmp, "w", encoding="utf-8", newline="") as fh:
         json.dump(metrics, fh, indent=2, default=str)
     os.replace(tmp, path)
-    print(f"[done] {len(units)} units in {time.time() - t0:.0f}s -> {path}")
+    print(f"[done] {len(rows)} units ({n_foreign} older-spec units excluded) "
+          f"in {time.time() - t0:.0f}s -> {path}")
+    print(f"[gate] grounding_fired_in_control={grounding_fired} "
+          f"control_n_provenance={ctrl_prov}", flush=True)
+    if not grounding_fired:
+        print("[gate] READING (g) FIRED: the control grounded nothing. Nothing else in this run "
+              "is interpretable.", flush=True)
+    if unmatched:
+        print(f"[gate] UNMATCHED foraging units: {unmatched}", flush=True)
     return 0
 
 
