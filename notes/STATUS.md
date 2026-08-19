@@ -1,6 +1,6 @@
-# STATUS
+﻿# STATUS
 
-AS OF: 2026-08-19 AUTOLOOP RUNNING | branch `dataprep/mcguffey-graded-corpus` | HEAD `5cdd0c580` | AUTOLOOP ARMED 200 | origin push needs USER AUTH | READ THE COMPACTION HANDOFF AT THE TOP OF ## POSITION AND STOP THERE
+AS OF: 2026-08-19 AUTOLOOP RUNNING | branch `dataprep/mcguffey-graded-corpus` | HEAD `85b146f69` | AUTOLOOP ARMED 200 | origin push needs USER AUTH | READ THE COMPACTION HANDOFF AT THE TOP OF ## POSITION AND STOP THERE
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
@@ -10,12 +10,27 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
-# ⏱️➡️ 2026-08-19 -- THE PLAN IS `notes/BUILD_PLAN_post_audit_2026-08-19.md`. OPEN IT. IT IS CURRENT.
+# â±ï¸âž¡ï¸ 2026-08-19 -- THE PLAN IS `notes/BUILD_PLAN_post_audit_2026-08-19.md`. OPEN IT. IT IS CURRENT.
 **The autoloop is ARMED at 200 and is executing that plan. It is rewritten every continuation and
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
-## WHAT LANDED 2026-08-19 (Phases 0-3; `2e8134fd2` .. `5cdd0c580`)
+## ðŸš¨ THE MOST TRANSFERABLE THING FROM 2026-08-19: **SIX DEFECTS, ALL MINE, ALL IN THE WIRING, AND
+## EVERY ONE LOOKED LIKE A FINDING ABOUT THE SUBSTRATE.**
+1. a refusal arm that passed because the store returned NOTHING for every cue -- **pair every
+   refusal arm with a binding arm**; 2. a working organ reported DEAD because my counter could not
+   see the spine invoking it -- **count the artifact, not the call**; 3. a scramble control that
+   was a NO-OP against a bag representation (shuffled cue tied the real cue, p=1.0000);
+   4. a rate-matched twin broken **TWICE, in opposite directions**; 5. **the substrate consolidated
+   only when the forager changed books, so every Phase 2 run grounded NOTHING**; 6. **25 of 28
+   corpora unreachable because every read restarted alphabetically -- which produced a textbook
+   LEARNING-CEILING curve.**
+**FOUR OF THE SIX WOULD HAVE BEEN PUBLISHED AS SUBSTRATE FINDINGS.** *None was caught by reading
+the code. Every one was caught by a control on a control, or by asking whether the experiment
+COULD have succeeded before asking why it did not.* **THAT QUESTION IS THE HIGHEST-YIELD HABIT
+THIS SESSION FOUND -- ask it before every negative, without exception.**
+
+## WHAT LANDED 2026-08-19 (Phases 0-3; `2e8134fd2` .. `85b146f69`)
 - **PHASE 0 DONE.** `situation_reader` import **205 s -> 30.4 s** (it trained a model AT IMPORT
   TIME); its self-test now PASSES at 102.7 s where it TIMED OUT. Scratch file out of `hdlab/` and
   the registry. **The dashboard now shows `UNVETTED` instead of a blank** -- 0 blank of 14, checked
@@ -24,7 +39,7 @@ carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE R
   every organ's use PROVEN by a call count or by the artifact it leaves. Self-test PASSES:
   400 sentences, 3,400 episodic writes, **19 facts grounded with provenance, 124 refused**.
   Slots: **9 FILLED / 6 NEEDS_ADAPTER / 8 EMPTY / 3 EXCLUDED**, reported by the object itself.
-- **🚨 PHASE 2 IS THE RESULT, AND IT IS A RESOLVED NEGATIVE**
+- **ðŸš¨ PHASE 2 IS THE RESULT, AND IT IS A RESOLVED NEGATIVE**
   (`data/exp_substrate_end_to_end_readout_v1/metrics.json`, 3 seeds, n=300, pool 2,114):
   **exact-key hit@1 0.9333, HELD-OUT 0.0044 against a 0.0233 co-occurrence floor whose credible
   bar is 0.0367.** **AND FEEDING IT AN UNRELATED SENTENCE SCORES THE SAME AS THE REAL ONE
@@ -32,15 +47,41 @@ carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE R
   p=0.0005 at exact key, which is what makes this a result and not a broken cell.*
   **THE STORE MEMORISES ALMOST PERFECTLY AND TRANSFERS NOTHING. That is ORGAN A's conclusion
   reached end-to-end through an assembled substrate on a different task and instrument.**
+  **âš ï¸ SCOPE CORRECTION THAT MUST TRAVEL WITH IT: that cell ran `max_patches=1`, and the substrate
+  only consolidated when the forager CHANGED CORPUS -- so EVERY Phase 2 run grounded NOTHING and
+  the consolidation organ never fired. The retrieval result stands (both routes read from episodic
+  writes and Library traces, which happen regardless), but re-run before quoting its ablation
+  table. The smoke printed `n_provenance: 0` and I read past it.**
+- **ðŸ”­ AND THE CLOZE TASK IS RETIRED AS A REPORT CARD (Director's call).** Its BEST achievable score
+  is 0.0300 -- exact co-occurrence, cosine-ranked -- against our 0.0150, so **the whole prize for
+  fixing every defect found is to tie a floor.** *Also measured: the `COUNT_FLOOR` our cells used
+  is NOT the strongest available (0.0125 vs 0.0300), which makes the Phase 2 negative WORSE, not
+  better. And the single biggest loss in the pipeline is CUE CONSTRUCTION (a full halving) -- do
+  NOT cross that with the older "cue side is closed" null, which was a different scorer and
+  population.*
+- **ðŸŽ¯ REPLACEMENT TASK RUNNING: GROUNDING PRECISION vs an independent gold.** Gold built and
+  admissibility CHECKED FIRST: `data/conceptnet_gold_v1`, **422,082 provenance-filtered edges, no
+  WordNet-sourced edge present**, meaning relations only. *The convenient pre-extracted ConceptNet
+  file carries NO provenance field and is INADMISSIBLE -- the available-tool trap in one file.*
+  **FIRST RESULT: the grounding gate is DEGENERATE -- one word was the meaning of 17.7% of terms.
+  A varied shelf halves that to 9.5% and anchors become meaning-like (`physics -> biology`), but a
+  NEW generic attractor forms (`campus -> available`), so it is part cold-start and part
+  structural.** Precision 0.0355 vs floors 0.0142/0.0071 -- **5 hits of 141, UNDERPOWERED, not a
+  win.** âœ… **Self-anchoring, the 2026-08-18 defect, is 0.0% -- a genuine repair.**
 - **ABLATIONS: `definitions` and `gap_detector` change EXACTLY NOTHING**, both regimes, all seeds.
   `episodic` is the organ doing the memorising (0.9333 -> 0.0000). **The `foraging` arm is VOID --
   rate-matched on the BUDGET instead of on what the live arm consumes; fix by running the live arm
   first and giving the twin its sentence count.** *Second failure of the same control in two days.*
-- **PHASE 3 STARTED: `hdlab/successor_representation.py`, `M = (I - gamma*P)^-1`**, 5 can-fail
-  self-tests PASS incl. a planted successor recovered over a frequency-matched decoy and the TD
-  rule converging to the closed form. **gamma SWEPT, never adopted.** **PRE-REGISTERED AND
-  UNFLATTERING: M is a discounted MULTI-STEP co-occurrence statistic and the floor is the 1-STEP
-  one; if it only wins at small gamma it is the counter wearing a matrix.**
+- **PHASE 3: `hdlab/successor_representation.py`, `M = (I - gamma*P)^-1`** -- built, 7 can-fail
+  self-tests PASS, **AND MEASURED AS A REAL NEGATIVE.** *I first filed it STARVED (median ONE
+  observed successor per word) and named one way to settle it. **The re-test settled it against
+  me.*** `exp_sr_scale_ladder_v1`, pool FROZEN, nested corpora: **across a 32x range in
+  transitions per state the COOC floor TRIPLES (0.019 -> 0.058) while SR FALLS to a seventh.** At
+  the top rung SR is **27 CI half-widths** below the floor -- resolved, not underpowered.
+  **MECHANISM MEASURED: at gamma=0.9 the chain mixes past the cue, so at 40,000 sentences SR gives
+  just 31 distinct answers to 300 DIFFERENT cues and ONE WORD TAKES 83.7%. A pinned equation
+  converged into the constant floor.** *The gamma SWEEP is what made that legible; adopting one
+  value would have shown neither half.*
 - **AUDIT, GOOD NEWS: the no-op scramble control I built today did NOT propagate.**
   `tools/scramble_control_audit.py`, all **13,553** `.py` enumerated: **HIGH = 0**, 26 cells
   already use the correct content-destroying recipe. *A word-ORDER shuffle against a BAG scorer is
@@ -55,7 +96,7 @@ carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE R
 
 ---
 
-# ⏱️ COMPACTION HANDOFF -- 2026-08-18 END OF SESSION. READ THIS BLOCK, THEN STOP AND ACT.
+# â±ï¸ COMPACTION HANDOFF -- 2026-08-18 END OF SESSION. READ THIS BLOCK, THEN STOP AND ACT.
 **Everything below this block is the session's working record and is 112 KB. DO NOT read it top to
 bottom on recovery. This block is the entry point; the four artifacts it names are authoritative.**
 
@@ -75,7 +116,7 @@ among the 13 largest -- and 67 organs are BUILT, SELF-TEST-PASSING, AND UNWIRED.
 
 **PLAN = `notes/PLAN_ORGAN_STEP_LADDERS_2026-08-17.md`, SECTION 7 (prepended; read it BEFORE sec 6).**
 
-# ➡️ THE PLAN TO EXECUTE IS `notes/BUILD_PLAN_post_audit_2026-08-19.md`. OPEN IT AND START AT PHASE 0.
+# âž¡ï¸ THE PLAN TO EXECUTE IS `notes/BUILD_PLAN_post_audit_2026-08-19.md`. OPEN IT AND START AT PHASE 0.
 **It is self-contained, owner-approved, and written for exactly this handoff.** Phase 0 is one hour
 (fix `situation_reader`'s import-time training; remove a scratch file from `hdlab/`; make the
 dashboard show `UNVETTED` instead of a blank). Phase 1 wires Tier 0+1 (~75 s import). **PHASE 2 IS
@@ -88,7 +129,7 @@ happened.** Phase 3 builds the empty slots. The ranked list below is the same pl
    `information_foraging`, `coref`, `goal_owner_select`, `definitional_extraction`. **Recovering
    built machinery beats building new machinery.** Re-run `situation_reader`'s self-test with a
    >240 s budget first (it needs 204 s just to import) and add it if clean.
-   **⛔ A PASSING SELF-TEST IS NOT SUFFICIENT: `atom_consultation` passes AND has `applied`
+   **â›” A PASSING SELF-TEST IS NOT SUFFICIENT: `atom_consultation` passes AND has `applied`
    hard-coded `False`; `definitional_predicate_v61` passes AND fires on 0.27% of its intended
    population. BOTH SIT INSIDE THE 67. WIRE ONLY THE INTERSECTION of self-test-passing AND
    probe-FUNCTIONAL.**
@@ -126,7 +167,7 @@ a deletion with real work. Never `git add -A`.
 
 ---
 
-**📐 WHY WE KEEP PRODUCING NEGATIVES -- NOW A NUMBER, NOT A COMPLAINT (Director, inline, 08-18).
+**ðŸ“ WHY WE KEEP PRODUCING NEGATIVES -- NOW A NUMBER, NOT A COMPLAINT (Director, inline, 08-18).
 THE ANSWER TO THE OWNER'S "why aren't we narrowing in on GOOD results?" IS PARTLY THAT OUR
 INSTRUMENTS CANNOT SEE A WIN AT THE SAMPLE SIZES WE RUN.**
 **A floor is itself an ESTIMATE with its own error bar, so an arm must clear the floor's UPPER
@@ -145,12 +186,12 @@ would have caught it on its own.*
 because it reproduces the cells' own bootstrap half-widths -- 0.0513 vs observed 0.0516, 0.0975 vs
 0.0987, 0.0493 vs 0.0481. IT DOES NOT REPLACE THE BOOTSTRAP; it is for required-n and order of
 magnitude.**
-**WHAT IT WOULD TAKE.** Per-cell n to tighten a floor's half-width: **±0.05 -> ~250-290; ±0.03 ->
-~770; ±0.02 -> ~1,550-1,780; ±0.01 -> ~6,300-7,200.** *The human instrument runs at **65**. Getting
-its bar to ±0.03 needs roughly **12x** the pairs, and its matching funnel is what caps it -- which is
+**WHAT IT WOULD TAKE.** Per-cell n to tighten a floor's half-width: **Â±0.05 -> ~250-290; Â±0.03 ->
+~770; Â±0.02 -> ~1,550-1,780; Â±0.01 -> ~6,300-7,200.** *The human instrument runs at **65**. Getting
+its bar to Â±0.03 needs roughly **12x** the pairs, and its matching funnel is what caps it -- which is
 why "buy n by loosening the matcher" keeps being proposed and must keep being refused: **a bigger
 sample of an unlicensed instrument is worse than no sample.***
-**❌ MY STRATEGIC READ WAS "we have been running experiments that could not have returned a credible
+**âŒ MY STRATEGIC READ WAS "we have been running experiments that could not have returned a credible
 positive, then treating the absence as evidence about the substrate." I TESTED IT IMMEDIATELY AND ON
 THE HUMAN SIDE IT IS FALSE. RETRACTED, SAME SESSION, BEFORE IT COULD BE QUOTED.**
 Classified all 24 human-side arms by whether their CI **upper** bound could even reach the credible
@@ -167,7 +208,7 @@ right and still binding; its SCOPE is "arms near the bar", NOT "our negative rec
 **AND THE OWNER'S QUESTION KEEPS ITS HONEST ANSWER: the negatives are mostly REAL. The instrument is
 not what is holding us back -- what we are BUILDING is.**
 
-**🚨 OVERNIGHT 08-18, AND THIS BLOCK IS MIRRORED TO YOUR BOARD SO READ IT FIRST: I HEADLINED A WIN AND
+**ðŸš¨ OVERNIGHT 08-18, AND THIS BLOCK IS MIRRORED TO YOUR BOARD SO READ IT FIRST: I HEADLINED A WIN AND
 THEN TOOK IT APART. NO ARM CURRENTLY CLEARS A TRUSTWORTHY BAR.**
 - **A TYPED-ROLE ARM READ 0.6669 AND I CALLED IT THE FIRST EVER TO CLEAR THE BAR. RETRACTED.** Its bar
   was computed on a DIFFERENT REPRESENTATION; rebuilt correctly, **a control containing NO WORDS AT
@@ -184,7 +225,7 @@ THEN TOOK IT APART. NO ARM CURRENTLY CLEARS A TRUSTWORTHY BAR.**
   WAS NEVER GIVEN ENOUGH DATA TO BE TESTED.** ~8.6 slotted observations per word spread over 10,121
   dimensions; the dense 58-dimension arm on the SAME data does not collapse. **A density sweep is
   running against branches pre-committed at `0504bfd00`.**
-- **🧠 THE REFRAME WORTH KEEPING (biology, PINNED): the brain's "what is this LIKE" system (ATL) and
+- **ðŸ§  THE REFRAME WORTH KEEPING (biology, PINNED): the brain's "what is this LIKE" system (ATL) and
   its "what goes WITH this in an event" system (pMTG/TPJ) doubly dissociate. OUR INSTRUMENT IS THAT
   DISSOCIATION. WE BUILT THE SECOND ORGAN AND GRADED IT ON THE FIRST ORGAN'S EXAM.** *Grammatical
   frames CONSTRAIN a meaning hypothesis; they do not SUPPLY it -- stage one of two.*
@@ -331,7 +372,7 @@ with winner composition FLAT at every depth.** Eleven cells across six organs on
 each; the two LADDERS redirected the programme. Method is not in question -- organ selection was.
 
 ## TOP ITEM -- FIND AN ADMISSIBLE SUPERVISION SIGNAL THAT IS NOT THE EVALUATION GOLD
-**🆕 2026-08-19: THE FIRST CANDIDATE IS BUILT AND UNDER TEST -- D7 SUCCESSOR REPRESENTATION**
+**ðŸ†• 2026-08-19: THE FIRST CANDIDATE IS BUILT AND UNDER TEST -- D7 SUCCESSOR REPRESENTATION**
 (`hdlab/successor_representation.py`). **It clears the circularity constraint outright: it is
 self-supervised from the corpus's own transitions and derives from NO gold, NO WordNet, NO LLM.**
 Full run in flight; **the pre-registered risk is that it is a better COUNTER rather than a
@@ -549,7 +590,7 @@ our substrate specifics here) for brain fidelity and what we should do to get cl
 time."*** A negative is not filed until it has been asked: **WHICH BRAIN STRUCTURE performs this
 operation, are we REPLICATING it or SUBSTITUTING something convenient, and WHAT WOULD CLOSE THE
 GAP?** *This is not new doctrine -- it is the standing rule made non-optional and applied at the
-moment of the negative rather than in a later drill that may never happen.* **🔒 SAFETY CLAUSE, OWNER
+moment of the negative rather than in a later drill that may never happen.* **ðŸ”’ SAFETY CLAUSE, OWNER
 EXPLICIT: NEVER PUT OUR SUBSTRATE SPECIFICS INTO AN EXTERNAL QUERY.** Research drills ask about the
 BIOLOGY in general terms -- *"how does cortex represent grammatical role"* -- **never about our
 architecture, our organs, our operators, our dimensionalities or our results.** *Web search is a
@@ -575,22 +616,22 @@ excludes nothing is not a control -- report how many items each control actually
 
 ## WHAT IS RUNNING / BLOCKED
 
-- **🟢 AUTOLOOP ARMED AT 200 (owner-authorised 2026-08-19), executing
+- **ðŸŸ¢ AUTOLOOP ARMED AT 200 (owner-authorised 2026-08-19), executing
   `notes/BUILD_PLAN_post_audit_2026-08-19.md`.** Stop: `python tools/autoloop.py disarm`, or the
   dashboard's RUNNING tab, or set `armed: false` in `data/hook_state/autoloop.json`. Anything other
   than exactly boolean `true` reads DISARMED -- the fail-safe direction is OFF.
-- **🔵 IN FLIGHT: `exp_substrate_end_to_end_readout_v1` FULL, spec `v2_sr`** (adds the D7
+- **ðŸ”µ IN FLIGHT: `exp_substrate_end_to_end_readout_v1` FULL, spec `v2_sr`** (adds the D7
   successor-representation arms, gamma swept 0.1/0.5/0.9). Detached; PID in
   `scratch/p2_full_v2.pid`, logs `scratch/p2_full_v2.out` / `.err`; 15 checkpointed units.
   **DO NOT RESPAWN IT** -- a duplicate is the more expensive error. *The v1 units for the same cell
   are already landed and committed; unit keys carry a `SPEC_VERSION` so v1 results can never be
   served for the v2 arm set.*
-- **❓ Q66 OPEN AND WORKED AROUND, NOT BLOCKING: `hdlab/ca3_completer.py` IS UNTRACKED IN GIT.**
+- **â“ Q66 OPEN AND WORKED AROUND, NOT BLOCKING: `hdlab/ca3_completer.py` IS UNTRACKED IN GIT.**
   23 KB, on the Tier 1 wire list, **zero git history to recover from**; any checkout/reset/clean
   destroys it. My recommendation is on the board: commit it alone, in a commit that states the
   authorship is not mine. *I have not done it -- committing another session's in-progress work
   under my name is the thing I declined to do for Q52.*
-- **📋 BOARD TRIAGE -- 12 OPEN, BUT ONLY 5 NEED YOU. SEVEN ARE ONE FAULT AUTO-FILED SEVEN TIMES.**
+- **ðŸ“‹ BOARD TRIAGE -- 12 OPEN, BUT ONLY 5 NEED YOU. SEVEN ARE ONE FAULT AUTO-FILED SEVEN TIMES.**
   **Q47, Q48, Q53, Q54, Q55, Q57, Q58 are all the SAME `rm`-bundling denial** -- the loop files a
   board question per denial, so a recurring fault floods the board. **I verified two of them touched
   no result** (the deleted paths were a smoke directory and a log truncated by `>` anyway) and the
@@ -614,12 +655,12 @@ excludes nothing is not a control -- report how many items each control actually
   5. **Q16 / Q17 (older) -- build a word-onset channel? is that blocked file path deliberate?**
   **Nothing on this list blocks the science.** All four research lanes ran to completion or are
   still running.
-- **⚠️ THE BAR IS `max(four floors)` = 0.5431 ON THE LICENSED INSTRUMENT, **NOT 0.5**. CHANCE is 0.5;
+- **âš ï¸ THE BAR IS `max(four floors)` = 0.5431 ON THE LICENSED INSTRUMENT, **NOT 0.5**. CHANCE is 0.5;
   the BAR is 0.5431 (the constant/prototype floor). Sections of this file below still say "above 0.5
   = substitutability" -- **that describes CHANCE, not the GATE.** No conclusion flips (every arm sat
   0.03-0.44, far below both), but **any future arm must clear 0.5431**, and the Director spent a night
   describing 0.5 as the target. Corrected in `PLAN_ORGAN_STEP_LADDERS` 6.29.
-- **✅ THE HUMAN INSTRUMENT IS LICENSED (`f792c3ab8`, v3, THIRD attempt). n=7 -> 65 per cell.**
+- **âœ… THE HUMAN INSTRUMENT IS LICENSED (`f792c3ab8`, v3, THIRD attempt). n=7 -> 65 per cell.**
   Frequency-STRATIFIED matching -- bin each POS stratum's frequency into 3 quantile bins, then run
   the UNCHANGED matcher inside each (POS, bin) cell. **All four floors CI-include 0.5;
   `max(four floors)=0.5943`** (higher than the WordNet instrument's 0.5431). Known-answer is the
@@ -651,14 +692,14 @@ excludes nothing is not a control -- report how many items each control actually
   load-bearing number lived ONLY in prose -- zero hits in the capacity cell's `metrics.json`. Its
   script was committed, so reproducible not fabricated. **Re-ran: group-disjoint 5-fold CV AUC
   0.8629, pair-level 0.9587, both exact.** Log at `notes/groupdisjoint_verification_log_2026-08-18.txt`.
-- **🚨🚨🚨 THIS DOCUMENT HAS BEEN DESCRIBING A TINY, ACCIDENTAL SLICE OF THE PROJECT. THE OWNER SAID
+- **ðŸš¨ðŸš¨ðŸš¨ THIS DOCUMENT HAS BEEN DESCRIBING A TINY, ACCIDENTAL SLICE OF THE PROJECT. THE OWNER SAID
   SO AND THE INDEX PROVES IT. TREAT EVERY "WE HAVE NEVER" AND "NOTHING REACHES" CLAIM BELOW AS
   UNVERIFIED UNTIL RE-CHECKED AGAINST `tools/experiment_index.py`.**
   Measured 2026-08-18 off the newly built index (8,834 cells, 7,570 with verdicts):
   **2,678 HARD_PASS** (June 323 / July 2,193 / August 162), 1,369 HARD_FAIL, 1,068 MIDDLE_BAND.
   Excluding substrate-physics cells (capacity, scaling laws, binding, Hopfield), **236 HARD_PASS are
   MEANING-RELEVANT** -- June 14 / July 182 / August 40.
-  **🔴 RETRACTED WITHIN THE HOUR BY THE VET (`a2e65896`): "25 HARD_PASS LANDED 2026-08-17" IS FALSE.
+  **ðŸ”´ RETRACTED WITHIN THE HOUR BY THE VET (`a2e65896`): "25 HARD_PASS LANDED 2026-08-17" IS FALSE.
   THE TRUE COUNT IS 3, AND THE ERROR WAS MY OWN TOOL.** `experiment_index.py` dated cells by the
   metrics.json **FILE MTIME**. **Exactly 60 metrics.json share the minute 2026-08-17 17:44 and 3,850
   share 2026-07-03 14:28 -- BULK TOUCHES, NOT RUNS.** Their internal `ts_iso` says the six I vetted
@@ -666,7 +707,7 @@ excludes nothing is not a control -- report how many items each control actually
   WRITTEN, not when the science happened; any copy, checkout or sync rewrites it.* **FIXED: the index
   now reads `ts_iso` first and records `date_source` per row.** *I told the owner we had ignored 25
   results the day after they landed. We had not. The July work was resurfaced by a touch.*
-  **⚠️ AND THE FIX IS ONLY PARTIAL, SO DO NOT TRUST RANKING BY DATE YET: of 7,794 landed rows only
+  **âš ï¸ AND THE FIX IS ONLY PARTIAL, SO DO NOT TRUST RANKING BY DATE YET: of 7,794 landed rows only
   **2,538 carry a `ts_iso`**; **5,256 STILL FALL BACK TO MTIME**. Two-thirds of the archive has no
   trustworthy run-date at all.**
   **[SUPERSEDED CLAIM, KEPT VISIBLE] "25 HARD_PASS landed 2026-08-17 and this document mentions none
@@ -684,14 +725,14 @@ excludes nothing is not a control -- report how many items each control actually
   LEARNING SIGNAL" AND "WE HAVE NEVER BUILT THE TAXONOMIC ORGAN". A THREE-FACTOR LEARNING RULE AND
   A RELATIONAL-VS-SIMILARITY PROBE BOTH HARD_PASSED THE PREVIOUS DAY, AND
   `hdlab/random_indexing.py` -- AN EARNED DISTRIBUTIONAL ORGAN -- HAS EXISTED SINCE 2026-08-06.**
-  **⚠️ THE DEFLATION, AND IT IS NOT OPTIONAL: A HARD_PASS IN THIS PROJECT IS A CLAIM, NOT A
+  **âš ï¸ THE DEFLATION, AND IT IS NOT OPTIONAL: A HARD_PASS IN THIS PROJECT IS A CLAIM, NOT A
   CAPABILITY.** Five apparently clean wins died to their own controls in ONE session on 08-18, one
   of these 25 is explicitly `PENDING_VET`, and this file already records 21 arms suspended for a
   mis-imported bar. **THE CORRECT STATEMENT IS: A LARGE BODY OF CLAIMED POSITIVE RESULTS EXISTS THAT
   OUR POSITION DOCUMENT IGNORES, AND IT NEEDS VETTING -- NOT THAT WE HAVE 2,678 WINS.**
-- **🟢🟢 VETTING PASS 5 (`ae41755a`) -- *** THE FIRST UPHELD RESULT IN 30 VETTED CELLS. ***
+- **ðŸŸ¢ðŸŸ¢ VETTING PASS 5 (`ae41755a`) -- *** THE FIRST UPHELD RESULT IN 30 VETTED CELLS. ***
   1 UPHELD, 2 QUALIFIED, 1 SUSPENDED, 2 REFUTED.**
-  **✅ UPHELD -- `exp_agreement_depth_productivity_generalization_v1`. IT GENERALISES, AND THE SPLIT
+  **âœ… UPHELD -- `exp_agreement_depth_productivity_generalization_v1`. IT GENERALISES, AND THE SPLIT
   IS ASSERTED IN CODE.** A learned function-word accumulator **supervised ONLY on depth<=1**, tested
   on **2,597 HELD-OUT depth>1 Linzen items: 0.7324 [0.7154, 0.7494]** against the strongest floor
   ACTUALLY RUN (majority 0.5741, upper bound 0.5931) -- **margin +0.1223 READ FROM THE CI LOWER
@@ -699,7 +740,7 @@ excludes nothing is not a control -- report how many items each control actually
   upper 0.5751. Real seed spread (not one measurement printed n times); scramble drops 0.2947 and
   changes 86.5% of decisions; five filters removed 350 / 289 / 518 / 9,887 / 7,122 items, so the
   controls BIND. No LLM on the path.
-  **⚠️ ITS HONEST CEILING, STATED BY THE AUDITOR AND NOT TO BE DROPPED: IT *TIES* THE HAND-WRITTEN
+  **âš ï¸ ITS HONEST CEILING, STATED BY THE AUDITOR AND NOT TO BE DROPPED: IT *TIES* THE HAND-WRITTEN
   RECURSIVE RULE (0.7312). IT DOES NOT BEAT IT.** *So: a learned mechanism reaches parity with the
   symbolic rule it was meant to replace, generalising to depths it never saw. That is a real result
   and a bounded one.*
@@ -719,27 +760,27 @@ excludes nothing is not a control -- report how many items each control actually
   - **REFUTED -- `exp_desiderative_negation_channel_v1`: 8 OF 8 RECOVERIES LIE INSIDE THE 10-ITEM SET
     THE TAXONOMY WAS DESIGNED FROM, AND 0 OF 27 NON-DESIGN ITEMS RECOVERED.** The channel is
     **bit-identical ON vs OFF on both full benches** (n=80: 0.6992/0.6992; n=160: 0.6623/0.6623).
-- **🚨 A BUG IN MY OWN GATE, CAUGHT BY THE AUDITOR, AND I HAD ALREADY QUOTED ITS NUMBER TO THE OWNER.**
+- **ðŸš¨ A BUG IN MY OWN GATE, CAUGHT BY THE AUDITOR, AND I HAD ALREADY QUOTED ITS NUMBER TO THE OWNER.**
   `CI_PAT` contained a bare `confidence`, which matched `lookup_confidence` and
   `high_confidence_idxs` -- model confidences, not intervals -- so two cells computing NO interval
   entered the "best evidenced" shortlist. **CORRECTED FIGURES: 28 carry a CI (not 52), 13 carry BOTH
   a CI and a null (NOT 26), and EVIDENCE_INSUFFICIENT is 2,665 = 99.5% (not 99.0%).** *The direction
   was right and the shortlist was half the size I said.*
-- **🎯 THE BEST PREDICTOR IS NOT EVIDENCE-CARRYING, AND THIS IS THE MOST USEFUL THING FIVE PASSES
+- **ðŸŽ¯ THE BEST PREDICTOR IS NOT EVIDENCE-CARRYING, AND THIS IS THE MOST USEFUL THING FIVE PASSES
   PRODUCED: WHAT SEPARATES THE SURVIVORS FROM THE FAILURES IS *** WHETHER THE TEST ITEMS EXISTED
   BEFORE THE MECHANISM DID. ***** The three that survived this batch were scored on items built
   independently of the rule; the three that failed had detectors authored against the very items
   they were scored on -- one docstring even names the specific token pair its rule was written for.
   **CARRYING A CI IS NECESSARY AND WEAK; ITEM-PRIORITY IS THE STRONG TEST, AND IT SHOULD BE THE
   FIRST QUESTION ASKED OF EVERY REMAINING CLAIM.**
-- **🔬🔬🔬 VETTING PASS 4 (`a6e60cfa`): 3 REFUTED, 1 SUSPENDED, 2 QUALIFIED, 0 UPHELD.
+- **ðŸ”¬ðŸ”¬ðŸ”¬ VETTING PASS 4 (`a6e60cfa`): 3 REFUTED, 1 SUSPENDED, 2 QUALIFIED, 0 UPHELD.
   RUNNING TOTAL OVER 24 CELLS: 11 REFUTED, 4 SUSPENDED, 9 QUALIFIED, *** ZERO UPHELD ***.**
-  - **🚨 THE CAUSAL-LINK RESULT IS PROVEN CONTENT-FREE, NOT MERELY SUSPECT. The auditor RE-RAN the
+  - **ðŸš¨ THE CAUSAL-LINK RESULT IS PROVEN CONTENT-FREE, NOT MERELY SUSPECT. The auditor RE-RAN the
     organ WITH THE GOLD LINKS REPLACED BY ARBITRARY RANDOM PAIRS AND GOT `organ_integration =
     0.9722` -- BIT-IDENTICAL TO THE HEADLINE.** The cell writes `add_causal_link(cause, effect)` for
     every gold item and queries the same indices back; no text is read (its own label is
     "GOLD-ISOLATION"). **It measures FHRR write/read fidelity at bundle-load 2 and nothing else.**
-    **⛔ AND THE BASELINE WAS TUNED UNTIL IT FAILED.** The cell's own comment records sweeping
+    **â›” AND THE BASELINE WAS TUNED UNTIL IT FAILED.** The cell's own comment records sweeping
     distractor density from 200/20 to 15/10 to find *"the smallest min_dist that keeps mr_control >=
     the 0.50 can-fail floor WHILE DRIVING mr_integration TO 0.0000"*. **That is a gate adjusted
     until it passed. All three siblings die together: `pilot_v1`, `fuller_v2`, `fuller_v3_cleaned`.**
@@ -748,7 +789,7 @@ excludes nothing is not a control -- report how many items each control actually
     `HP_CONTROL_SEP = 0.0` and `CONTRAST_EPS = 0.0`: **a margin of literally zero.** Its own
     label-shuffle null on the same slice wobbles **0.0258** cycle-to-cycle, larger than the entire
     claimed gain. Two arms are one measurement (`NO_READ` and `READ_NO_SLEEP` share the store digest
-    `c23b44bc…`). **AND `..._loop_v4`, LANDED FIVE HOURS LATER THE SAME DAY, RECORDS
+    `c23b44bcâ€¦`). **AND `..._loop_v4`, LANDED FIVE HOURS LATER THE SAME DAY, RECORDS
     `teaches_new=False` AND CARRIES v3's OWN NUMBER AS A CONTROL THAT FAILS. v3 WAS ALREADY DEAD AND
     WAS STILL SITTING ON THE QUEUE AS HARD_PASS.**
   - **QUALIFIED -- `exp_pivot_selectional_knowledge_richness_2afc_v1`: THE TABLE IS THE ANSWER KEY.**
@@ -756,7 +797,7 @@ excludes nothing is not a control -- report how many items each control actually
     BIJECTION** (eval-not-rated 0, rated-not-in-eval 0): an LLM rated EXACTLY THE TEST. *Offline
     LLM-built foundations are admissible under the owner's ruling, but a table whose vocabulary IS
     the eval is an ORACLE, not a foundation.*
-    **✅ THE PART THAT SURVIVES AND MATTERS: the dumb twins DO NOT reproduce it** -- verb-noun
+    **âœ… THE PART THAT SURVIVES AND MATTERS: the dumb twins DO NOT reproduce it** -- verb-noun
     `Counter` 0.5508, noun frequency 0.5339, length 0.4915. **So the knowledge is REAL and ABSENT
     FROM OUR CORPUS. Honest claim: a cheating oracle reaches 0.78-0.85 on these 59 items and THE
     SUBSTRATE DID NONE OF IT.** *Convention was never declared: tie->0.5 gives 0.8136, tie->loss
@@ -772,12 +813,12 @@ excludes nothing is not a control -- report how many items each control actually
     because held-out precision (0.632) EXCEEDS seen (0.449) -- an EASIER held-out subset, not
     generalization.** *"Independent gold" means independent of reader output; the annotator was the
     authoring agent, same day, single pass. Absolute performance: P=0.50, R=0.34.*
-  - **🚨🚨 THE CROSS-CUTTING FINDING, AND IT IS THE ONE THAT EXPLAINS THE 0-FOR-24: NOT ONE OF THESE
+  - **ðŸš¨ðŸš¨ THE CROSS-CUTTING FINDING, AND IT IS THE ONE THAT EXPLAINS THE 0-FOR-24: NOT ONE OF THESE
     SIX CELLS COMPUTED A SINGLE CONFIDENCE INTERVAL, NULL DISTRIBUTION OR p-VALUE.** Grepped for
     `confidence|ci_low|bootstrap|p_value|binomtest|permutation|half_width`: two hits, both unrelated
     words. **EVERY HARD_PASS IN THIS BATCH IS A POINT ESTIMATE COMPARED TO A POINT ESTIMATE, SEVERAL
     AT GATE MARGINS OF EXACTLY 0.0.** *That is not a scoring accident; it is the archive's method.*
-- **🔬🔬 VETTING PASS 3 (`a04ef6b9`): 4 REFUTED, 2 QUALIFIED, 0 UPHELD. RUNNING TOTAL OVER 18 CELLS:
+- **ðŸ”¬ðŸ”¬ VETTING PASS 3 (`a04ef6b9`): 4 REFUTED, 2 QUALIFIED, 0 UPHELD. RUNNING TOTAL OVER 18 CELLS:
   8 REFUTED, 3 SUSPENDED, 7 QUALIFIED, *** STILL ZERO UPHELD AS CLAIMED ***.**
   **AT 0-FOR-18 THE PRIOR HAS MOVED: A HARD_PASS IN THIS ARCHIVE SHOULD BE READ AS "UNVERIFIED
   CLAIM", NOT AS EVIDENCE. THAT IS NOW A MEASURED BASE RATE, NOT A CAUTION.**
@@ -787,7 +828,7 @@ excludes nothing is not a control -- report how many items each control actually
     and the distractor into 1 of 2 -- **the margin is AUTHORED**. Its "ablated=0.0000" arm replaces
     the novelty filter with noise, removing the candidate SET rather than changing the RANKING: an
     extreme lesion, not a matched control.*
-  - **🚨 REFUTED -- `exp_reading_grounding_loop_cycle2_v1`: THIS PROJECT ALREADY REFUTED IT ON DISK
+  - **ðŸš¨ REFUTED -- `exp_reading_grounding_loop_cycle2_v1`: THIS PROJECT ALREADY REFUTED IT ON DISK
     AND THIS DOCUMENT NEVER CAUGHT UP.** `exp_reading_grounding_loop_cycle3_groundingfix_v1` records
     `B1_taut 0.656885 -> 0.0` and `B4_grounded 3544 -> 634`. Independently recomputed from
     `data/foundation/reading_grounding_v1/store/store_facts.json`: **2,328 of 3,544
@@ -795,7 +836,7 @@ excludes nothing is not a control -- report how many items each control actually
     meaning.** Of the 1,216 real links the top anchors are `also` (31), `say` (15), `people` (10),
     with samples like `web -> polar` and `stargaz -> million`; 121 stem/full-form pairs
     (`cigarett`/`cigarette`) are counted as separate concepts.
-    **⛔ RETIRE THE FIGURE "3,544 CONCEPTS / 9.87x THE HAND LEXICON" WHEREVER IT APPEARS.**
+    **â›” RETIRE THE FIGURE "3,544 CONCEPTS / 9.87x THE HAND LEXICON" WHEREVER IT APPEARS.**
   - **REFUTED -- `exp_verb_class_openvocab_similarity_v1`: THE "HELD-OUT" SET IS FOUR VECTORS.**
     In `hdlab/verb_lexical_similarity.py` every desiderative word -- 10 seeds AND all 16 held-out --
     carries the SAME four hand-written tags. **Held-out similarity to its own class is EXACTLY
@@ -820,11 +861,11 @@ excludes nothing is not a control -- report how many items each control actually
   - **QUALIFIED -- `exp_reading_grounding_loop_cycle1_v1`:** its context-scramble control BINDS
     (removed 132 of 185), but the same 67% self-anchoring applies, and its curriculum-order arm
     moved link-rate 0.3297 -> 0.3047 -- **a null shipped inside a pass**.
-  - **✅ CLEAN ON TWO DIMENSIONS, AND WORTH SAYING: NO LLM in any operational path across six cells
+  - **âœ… CLEAN ON TWO DIMENSIONS, AND WORTH SAYING: NO LLM in any operational path across six cells
     and four organs (grepped), and every cited path in this batch exists.** *But **NO CELL IN THIS
     BATCH REPORTS A p-VALUE OR A CI AT ALL**, and all three "3-seed" cells return bit-identical
     per-seed numbers BY DESIGN -- one measurement, printed three times.*
-- **🔬 VETTING PASS 2 (`afb293f4`): 3 REFUTED, 3 QUALIFIED, 0 UPHELD. RUNNING TOTAL OVER 12 CELLS:
+- **ðŸ”¬ VETTING PASS 2 (`afb293f4`): 3 REFUTED, 3 QUALIFIED, 0 UPHELD. RUNNING TOTAL OVER 12 CELLS:
   4 REFUTED, 3 SUSPENDED, 5 QUALIFIED, *** ZERO UPHELD AS CLAIMED ***.**
   - **REFUTED -- `exp_causal_link_comprehension_fuller_v2`: THE ANSWER IS WRITTEN IN.** The cell
     calls `reg.add_causal_link(cause_idx, effect_idx)` for every item and then queries
@@ -856,7 +897,7 @@ excludes nothing is not a control -- report how many items each control actually
     HAND-AUDIT BY THE AUTHORING AGENT OF THE PREDICTION IT WAS TESTING**, no inter-rater
     reliability. **Under the stricter rubric THE CELL ITSELF NAMES in `honest_limitations`, it is
     89/120 = 0.7417 [0.657, 0.812] -- BELOW its own 0.80 floor.**
-  - **✅ QUALIFIED -- `exp_context_vector_signal_v1`, AND A LONG-OPEN QUESTION IS NOW CLOSED CLEAN.**
+  - **âœ… QUALIFIED -- `exp_context_vector_signal_v1`, AND A LONG-OPEN QUESTION IS NOW CLOSED CLEAN.**
     CLAUDE.md records that its figure came from a run whose clean-slate teardown was DENIED and
     silently dropped, that the figure is LOAD-BEARING in MEMORY.md, and that closing it needs a
     clean-slate re-run. **IT DOES NOT: the heartbeat trace settles it.** `_start_marker` 22:49:29.5,
@@ -864,19 +905,19 @@ excludes nothing is not a control -- report how many items each control actually
     cache is checked BEFORE the pass and skips it on hit, so **unit-0 heartbeats PROVE a cache
     miss**, and the FULL run wrote to a different directory than the denied smoke.
     **CONTAMINATION DID NOT OCCUR -- DEMONSTRATED, NOT ASSUMED. NO RE-RUN NEEDED.**
-    **⚠️ BUT TWO CORRECTIONS TO HOW IT IS CITED: (a) the HARD_PASS IS POST-HOC -- the pre-registered
+    **âš ï¸ BUT TWO CORRECTIONS TO HOW IT IS CITED: (a) the HARD_PASS IS POST-HOC -- the pre-registered
     ceiling guard fired on SCRAMBLE_SENT 0.9984 and was AMENDED AWAY AFTER THE RUN; the
     prereg-literal verdict is MIDDLE_BAND. (b) STOP QUOTING 0.7830 vs 0.9984 -- it is
     ceiling-saturated, all three nulls sit at 0.995-0.999. QUOTE `argmax_in_own_window_rate` REAL
     0.2871 vs an EXACTLY BAG-MATCHED SCRAMBLE 0.0050 (informative_rate 0.416808 vs 0.416687).
     A RATE-MATCHED TWIN DOES NOT REPRODUCE IT -- the strongest control-passing result in the batch.**
-- **🚨 A THIRD FLOOR-DEFECT CLASS, DISTINCT FROM THE IMPORTED-BAR ONE, AND IT IS THE MOST COMMON:
+- **ðŸš¨ A THIRD FLOOR-DEFECT CLASS, DISTINCT FROM THE IMPORTED-BAR ONE, AND IT IS THE MOST COMMON:
   THE CELL HAD A STRONGER FLOOR ALREADY COMPUTABLE FROM ITS OWN DATA AND DISCRIMINATED AGAINST A
   WEAKER ONE.** Three of six this pass: attestation at **1.0000**, a superset-by-construction
   coverage gate, and FROZEN at **0.0743**. **THE RULE IS NOT JUST "RECOMPUTE THE FLOOR ON THIS
   REPRESENTATION" -- IT IS "RUN THE STRONGEST FLOOR THE CELL'S OWN DATA SUPPORTS".**
   **AND AUDIT "N SEEDS" FOR SEED-DEPENDENCE: three identical numbers are one measurement.**
-- **🔬 FIRST SIX VETTED (`a2e65896`, AUDIT-ONLY, all recomputed off disk from per-item arrays, never
+- **ðŸ”¬ FIRST SIX VETTED (`a2e65896`, AUDIT-ONLY, all recomputed off disk from per-item arrays, never
   from `verdict_msg`). ONE REFUTED, TWO SUSPENDED, THREE QUALIFIED. NOT ONE IS UPHELD AS CLAIMED.**
   - **REFUTED -- `exp_base_reader_grounded_relations_coref_v1`.** Headline `coref_lift=0.714,
     p=0.000` is on **SEVEN questions**, and that p is **resample degeneracy**: bootstrapping 7 paired
@@ -889,7 +930,7 @@ excludes nothing is not a control -- report how many items each control actually
     pre-cleaned tuples, where that cell's own docstring says accuracy is 1.0 BY CONSTRUCTION). No
     floor was ever run on this cell's 34 sentences. **This is the SAME defect that suspended 21 arms
     on 08-18 -- and it was already present in JULY.**
-    **✅ AND THERE IS A v2 THAT IS THE REAL RESULT: `..._realprose_glassbox_ie_v2` -- 46 sentences,
+    **âœ… AND THERE IS A v2 THAT IS THE REAL RESULT: `..._realprose_glassbox_ie_v2` -- 46 sentences,
     correct_rate 0.891 against a REAL STANDALONE baseline of 0.565, delta +0.326, hardcoded stub
     REMOVED. CITE v2. v1 SHOULD NOT APPEAR IN THIS DOCUMENT AT ALL.**
   - **SUSPENDED (UNDERPOWERED) -- `exp_online_knowledge_condenser_selectional_v1`**, the
@@ -912,7 +953,7 @@ excludes nothing is not a control -- report how many items each control actually
     **hardcodes munch->eats, pursue->chases, dwell->live -- THE SAME TABLE GENERATES THE SENTENCE AND
     SCORES IT**, and `coverage_current_pooled = 0.0` by construction, so "+88.2pp" is a gain over a
     definitional zero. Real residue: the morphology inverter. Its OOS control removed **0** items.
-  - **🎯 THE CHEAPEST FIX IN THE WHOLE BACKLOG, and it needs no new experiment: SEVERAL CELLS ALREADY
+  - **ðŸŽ¯ THE CHEAPEST FIX IN THE WHOLE BACKLOG, and it needs no new experiment: SEVERAL CELLS ALREADY
     COMPUTED THE RIGHT FLOOR AND THEN DISCRIMINATED AGAINST SOMETHING ELSE. RE-SCORE EVERY LANDED
     CELL AGAINST THE FLOOR IT ALREADY HAS ON DISK.**
   - **NO LLM IN ANY OPERATIONAL PATH (verified by import scan).** But state these wherever "grounded"
@@ -925,7 +966,7 @@ excludes nothing is not a control -- report how many items each control actually
   Replacement `tools/experiment_index.py` (`dc408b95e`) indexes all 8,834 cells, answers in about a
   second, and **PRINTS HOW MANY ROWS IT SCANNED BEFORE ITS RESULTS**, so an empty answer can never
   again pass for an established absence. **QUERY IT BEFORE WRITING ANY "WE HAVE NEVER" SENTENCE.**
-- **⏸️ HALTED ON A WEEKLY USAGE LIMIT (resets 1pm America/New_York). NOT a code, permission or design
+- **â¸ï¸ HALTED ON A WEEKLY USAGE LIMIT (resets 1pm America/New_York). NOT a code, permission or design
   failure -- the scaling-curve cell was dispatched and its agent died on the API limit before writing
   anything. NOTHING IS RUNNING. NOTHING IS HALF-WRITTEN. NO PARTIAL ARTIFACT EXISTS TO CLEAN UP.**
   **RESUME HERE, AND THE WHOLE BRIEF IS ALREADY DECIDED -- DO NOT RE-DERIVE IT:**
@@ -958,7 +999,7 @@ excludes nothing is not a control -- report how many items each control actually
   with any rung whose half-width exceeds the chance-to-bar interval marked UNDERPOWERED rather than
   given a verdict; evaluation population HELD FIXED across rungs; checkpoint per rung (42M is a long
   run and must resume).
-- **🚨🚨🚨 THE FINDING OF THE NIGHT, AND IT REFRAMES EVERY NEGATIVE ABOVE: WE HAVE BEEN MEASURING
+- **ðŸš¨ðŸš¨ðŸš¨ THE FINDING OF THE NIGHT, AND IT REFRAMES EVERY NEGATIVE ABOVE: WE HAVE BEEN MEASURING
   EVERYTHING ON 623,522 TOKENS. THE METHODS WE KEEP TESTING COME FROM A LITERATURE THAT OPERATES AT
   1e8-1e9. WE ARE 160x TO 1,600x BELOW THE REGIME THEY WERE BUILT FOR.**
   Measured just now, off disk: the store corpus every arm tonight was built on is **34,169 sentences
@@ -971,27 +1012,27 @@ excludes nothing is not a control -- report how many items each control actually
   right idea, measured on 1e8-1e9 tokens; our corpus is ~1e6"*; and the definitional teacher channel
   sitting AT CHANCE. **SUBSTITUTABILITY IS A SECOND-ORDER STATISTIC -- it needs enough contexts per
   word to compare two words' context DISTRIBUTIONS. At 0.62M tokens most words have far too few.**
-  **⚠️ DO NOT OVERSELL THIS EITHER, AND I HAVE ALREADY OVERSOLD ONCE TONIGHT: MORE DATA CANNOT FIX A
+  **âš ï¸ DO NOT OVERSELL THIS EITHER, AND I HAVE ALREADY OVERSOLD ONCE TONIGHT: MORE DATA CANNOT FIX A
   MECHANISM THAT ANSWERS THE WRONG QUESTION.** Co-occurrence accumulated over 42M tokens is still
   co-occurrence. **The honest claim is that SCALE IS A PRECONDITION WE HAVE NEVER ONCE MET, not that
   scale is the answer.** Every "this mechanism does not work" verdict in this programme was reached
   in a regime where the mechanism could not have worked, and that is a DIFFERENT statement from the
   mechanism being wrong. **CHEAP AND DECISIVE: rebuild the usage view on simplewiki and re-measure
   the incumbent. Nothing else should be built until that number exists.**
-- **🔴 CROSS-VIEW CONVERGENCE HUB: CLEAN NEGATIVE, `B_NEGATIVE` FIRED AS PRE-COMMITTED. THE
+- **ðŸ”´ CROSS-VIEW CONVERGENCE HUB: CLEAN NEGATIVE, `B_NEGATIVE` FIRED AS PRE-COMMITTED. THE
   BEST-CONTROLLED CELL OF THE SESSION, AND THE FIRST BUILT FROM THE BIOLOGY RATHER THAN FROM WHAT
   WAS LYING AROUND.** `experiments/exp_crossview_convergence_hub_v1.py`, all 16 mechanism arms fail.
   Primary `HUB_CCA_BOTH` **0.3129 [0.2630, 0.3644]** against a **RECOMPUTED** bar of **0.5510**;
   margin **-0.2880**. **NOT UNDERPOWERED -- the CI upper bound sits 5.7 half-widths below the bar**,
   so this is a resolved negative, not a width.
-  **✅ WHY THE NEGATIVE IS TRUSTWORTHY, and it clears every trap that caught us earlier:** BOTH trap
+  **âœ… WHY THE NEGATIVE IS TRUSTWORTHY, and it clears every trap that caught us earlier:** BOTH trap
   pairings stayed dead (0.0446 / 0.1375, `ANY_TRAP_CLEARS_ITS_OWN_BAR` false) so it is not a trap
   artifact; held-out split 3,064 fit / 617 eval with eval words excluded from the SVD basis,
   vocabulary, CCA, ridge, lambda AND k*; all four floors NOT_SEPARATED, known-answer 0.9612, random
   0.4919; **the coverage control removed 40 of 242 rows (16.5%) -- IT BINDS**, unlike the one that
   removed 0 of 242 earlier tonight. A **planted-positive self-test** refused the cell until the
   pipeline could recover a planted invariant (now hub 0.9934, raw views 0.0000).
-  **🔴 RETRACTED WITHIN THE HOUR BY THE BRAIN DRILL (`9f27cc5e9`) -- I RELAYED THE 0.06 -> 0.31 MOVE
+  **ðŸ”´ RETRACTED WITHIN THE HOUR BY THE BRAIN DRILL (`9f27cc5e9`) -- I RELAYED THE 0.06 -> 0.31 MOVE
   TO THE OWNER AS "GENUINELY STRIPS CO-OCCURRENCE". IT IS NOT. THERE IS ZERO MEASURED EXTRACTION.**
   **A RANDOM 8-DIMENSIONAL PROJECTION OF THE INCUMBENT STORE -- WHICH NEVER SEES THE DEFINITIONAL
   CHANNEL AT ALL -- READS 0.3079 [0.2697, 0.3495]. THE ARM READS 0.3129, INSIDE THAT BAND.**
@@ -1000,7 +1041,7 @@ excludes nothing is not a control -- report how many items each control actually
   **AND WORSE: pipeline-matched -- same whitening, same rho, same k*=8, ONLY THE DIRECTIONS
   RANDOMISED -- the null reads 0.3312 and BEATS the real `HUB_CCA_X` (0.2458) IN 200 OF 200 DRAWS.
   THE CROSS-VIEW-CHOSEN DIRECTIONS ARE WORSE THAN RANDOM ONES.**
-  **🚨 THE GENERAL LESSON, AND IT IS A NEW FLOOR WE HAVE NEVER HAD: WHEN THE BASELINE SITS FAR BELOW
+  **ðŸš¨ THE GENERAL LESSON, AND IT IS A NEW FLOOR WE HAVE NEVER HAD: WHEN THE BASELINE SITS FAR BELOW
   CHANCE, DESTROYING INFORMATION MOVES THE SCORE TOWARD 0.5 AND READS AS PROGRESS. THE ENTIRE
   INTERVAL (0.06, 0.50) IS REACHABLE BY PURE DEGRADATION, AND NOT ONE FLOOR IN OUR BATTERY CATCHES
   IT.** *Any future "we moved from 0.06 toward 0.5" claim is void until it beats a RANK-MATCHED
@@ -1014,7 +1055,7 @@ excludes nothing is not a control -- report how many items each control actually
   bound, not an optimum.**
   **SCOPE, as pre-registered: one definitional channel, one usage channel, one LINEAR extractor,
   one instrument, n=202. It says the missing ingredient is not a second view OF THIS KIND.**
-- **🚨 A LICENSING DEFECT THIS CELL FOUND THAT REACHES BACKWARDS INTO EVERY RUN WE HAVE GATED:
+- **ðŸš¨ A LICENSING DEFECT THIS CELL FOUND THAT REACHES BACKWARDS INTO EVERY RUN WE HAVE GATED:
   `F_SCRAMBLE` WAS A SINGLE COIN FLIP.** Its first smoke voided on `F_SCRAMBLE` 0.4266
   [0.3701, 0.4867] -- **one permutation's own CI excludes 0.5 about 5% of the time BY CONSTRUCTION,
   and across four floors that voids or passes roughly 18% of runs ON NOISE ALONE.** Measured
@@ -1025,7 +1066,7 @@ excludes nothing is not a control -- report how many items each control actually
   **OPEN AND NOT YET ASSESSED: every earlier licensing decision in this programme used the
   single-draw form. That does not invalidate them, but it means an unknown fraction turned on a coin
   flip, and the fix belongs in the shared instrument, not in one cell.**
-- **🚨🚨🚨 AUDIT LANDED 06:52 (`37181d944`) -- BRANCH (i): 3 CELLS, 21 ARMS MIS-GATED, TWO OF THEM NEW.
+- **ðŸš¨ðŸš¨ðŸš¨ AUDIT LANDED 06:52 (`37181d944`) -- BRANCH (i): 3 CELLS, 21 ARMS MIS-GATED, TWO OF THEM NEW.
   AND IT SURFACED SOMETHING LARGER THAN THE IMPORT: THE BAR ITSELF WAS NEVER SEPARATED FROM CHANCE.**
   **`F_CONSTANT_PROTOTYPE` = 0.5431 CARRIES CI [0.4922, 0.5953] -- IT INCLUDES 0.5.** I checked the
   human instrument's bar too: **`F_SCRAMBLE` = 0.5943, CI [0.4937, 0.6911] -- ALSO INCLUDES 0.5.**
@@ -1044,7 +1085,7 @@ excludes nothing is not a control -- report how many items each control actually
   floor is ~0.55-0.56 and the imported bar was too low, *same direction as the arc rebuild*; (C)
   **NEW -- tonight's human-instrument cell (`16475c9c5`, 4 arms)**, which re-derived its bar sincerely
   but along the wrong axis -- right population, from v3 arrays built on the **bag** store.
-  **✅ WHAT SURVIVES UNTOUCHED, and this matters: (B)'s `WORD_SELECTION_NOT_TYPE` verdict is
+  **âœ… WHAT SURVIVES UNTOUCHED, and this matters: (B)'s `WORD_SELECTION_NOT_TYPE` verdict is
   WITHIN-CELL and same-representation, so it STANDS; no false positive was manufactured anywhere
   (B's `T1` never cleared the bar even at its CI lower bound 0.5296); and BRANCH (B) FROM 6.39 STANDS
   *A FORTIORI* -- `U1` 0.4125 failed a bar we now know was TOO LOW.**
@@ -1053,7 +1094,7 @@ excludes nothing is not a control -- report how many items each control actually
   `predictive_coding` gate on 0.5 and hold 0.5431 only inside regression gates. **Branch (iii) ALSO
   fired: NO `metrics.json` ANYWHERE records the REPRESENTATION a floor came from** -- every
   determination above needed the source, so this is unauditable from artifacts today.
-- **🔴🔴 07:05 -- THE DEGENERACY HYPOTHESIS BELOW IS NOW CONFIRMED FROM THE CELL'S OWN PERSISTED
+- **ðŸ”´ðŸ”´ 07:05 -- THE DEGENERACY HYPOTHESIS BELOW IS NOW CONFIRMED FROM THE CELL'S OWN PERSISTED
   DIAGNOSTICS, AND IT MEANS THE HUMAN INSTRUMENT COULD NOT FAIRLY TEST `U1` AT ALL.**
   `report/OCCURRENCE_DATA_STATS`: **`n_occurrences_total` = 10,215, `n_occurrences_with_slot` =
   1,112. ONLY 10.9% OF OCCURRENCES ON THIS POPULATION CARRY THE SLOT INFORMATION THE TYPED ARM IS
@@ -1083,7 +1124,7 @@ excludes nothing is not a control -- report how many items each control actually
   I would not rewrite branch (B) before measuring, and I am recording a re-interpretation on
   different evidence than the check I named -- stronger evidence, but not the same evidence. The
   cosine-spread check stays open.*
-- **🔬 [SUPERSEDED BY THE CONFIRMATION ABOVE] MY OWN FOLLOW-UP, HYPOTHESIS NOT FINDING -- THE ONE ITEM THE AUDIT FLAGGED AND LEFT UNVERIFIED,
+- **ðŸ”¬ [SUPERSEDED BY THE CONFIRMATION ABOVE] MY OWN FOLLOW-UP, HYPOTHESIS NOT FINDING -- THE ONE ITEM THE AUDIT FLAGGED AND LEFT UNVERIFIED,
   NOW CONFIRMED NUMERICALLY AND IT MAY RE-INTERPRET BRANCH (B).** In the human cell, `U1_TYPED_CONTEXT`
   reads **0.4125 [0.3148, 0.5138]** and `F_CONSTANT_PROTOTYPE` reads **0.4125 [0.3164, 0.5153]** --
   **IDENTICAL TO FOUR DECIMALS, different CIs** (so two genuinely different computations, not one value
@@ -1094,7 +1135,7 @@ excludes nothing is not a control -- report how many items each control actually
   the pairwise-cosine spread of `U1`'s vectors on that population -- near-zero spread confirms
   degeneracy.** **DO NOT REWRITE BRANCH (B) UNTIL THAT IS MEASURED; an exact tie at n=65 is suggestive,
   not proof, and I have twice tonight promoted a suggestive number too early.**
-- **🚨🚨 RETRACTION, 06:15 -- I HEADLINED "THE FIRST ARM EVER TO CLEAR THE BAR" AND TWO INDEPENDENT
+- **ðŸš¨ðŸš¨ RETRACTION, 06:15 -- I HEADLINED "THE FIRST ARM EVER TO CLEAR THE BAR" AND TWO INDEPENDENT
   LANES TOOK IT APART WITHIN THE HOUR. THREE OF THE FOUR SUPPORTS ARE GONE. READ THIS BEFORE THE
   GREEN BLOCK BELOW, WHICH IS SUPERSEDED.**
   1. **THE BAR WAS THE WRONG BAR -- MY OWN RULE, BROKEN BY THE CELL AND MISSED BY ME.**
@@ -1111,7 +1152,7 @@ excludes nothing is not a control -- report how many items each control actually
      noun pairs** U3 reads **0.5958 [0.5458, 0.6458]** vs floors 0.5141 / 0.5053. **A 64-bin role
      histogram with the words thrown away does carry real substitutability. It is a SMALLER, HONEST
      result standing on a REBUILT floor, not the headline I wrote.**
-  2. **🔴 "SECOND INDEPENDENT NEGATIVE ON PREDICTION ERROR" IS RETRACTED OUTRIGHT -- I VERIFIED THE
+  2. **ðŸ”´ "SECOND INDEPENDENT NEGATIVE ON PREDICTION ERROR" IS RETRACTED OUTRIGHT -- I VERIFIED THE
      DEFECT IN SOURCE MYSELF.** `store_from_s1` and `store_from_s1_permuted_magnitude` both iterate
      **`rec["bag_counts"]`** (`experiments/exp_typed_role_context_write_rule_dissociation_v1.py`
      ~590-640, called at 954-957). **The prediction-error rule was applied to the BAG channel -- the
@@ -1140,7 +1181,7 @@ excludes nothing is not a control -- report how many items each control actually
     is **~3 relation bins**; top-3 gives 0.6240 of U3's 0.6466). **A starved lexical channel would
     tie on BOTH instruments too, so replication does not discriminate.** *The observation stands;
     my interpretation of it does not follow. I stated it as the finding twice.*
-  - **🧠 THE BIOLOGY PUTS THE WHOLE NIGHT IN A DIFFERENT FRAME (PINNED, and the most useful thing
+  - **ðŸ§  THE BIOLOGY PUTS THE WHOLE NIGHT IN A DIFFERENT FRAME (PINNED, and the most useful thing
     anyone produced tonight): taxonomic (ATL) and thematic (pMTG/TPJ) systems DOUBLY DISSOCIATE.
     OUR INSTRUMENT *IS* THAT DISSOCIATION MEASURED IN A CORPUS, AND THE WINNING ARM IS THE THEMATIC
     ORGAN DOING THE TAXONOMIC ORGAN'S JOB.** Coarse frames drive **CATEGORY** induction unsupervised
@@ -1179,7 +1220,7 @@ excludes nothing is not a control -- report how many items each control actually
   mtimes 2 min ago, in sync. The 11-minute gap I saw was **PRINT CADENCE** -- the occdata stage prints
   every 100 words, and 381 units sat between the 300 and 400 marks. *There is no buffering defect;
   `units.jsonl` mtime is still the better liveness signal, but the log is not lying.*
-- **🟢 LANDED 05:44 -- `exp_dissociation_score_instrument_human_v4` (`75e093747`). THE 6.24 WORDNET
+- **ðŸŸ¢ LANDED 05:44 -- `exp_dissociation_score_instrument_human_v4` (`75e093747`). THE 6.24 WORDNET
   CAVEAT IS DISCHARGED. VERIFIED OFF DISK BY THE DIRECTOR, NOT TAKEN FROM THE AGENT'S PROSE.**
   **rho = 0.9034 at 24 arms, bootstrap-of-arms 95% CI [0.7548, 0.9676] -- EXCLUDES ZERO**, against
   rho 0.7857 / CI **[-0.0435, 1.0]** at 7. **Pre-committed branch (i) fired.** *The arm count really
@@ -1189,11 +1230,11 @@ excludes nothing is not a control -- report how many items each control actually
   was that we had only ever measured AGREEMENT WITH WORDNET. Two independently-built instruments --
   one from WordNet, one from published HUMAN similarity ratings -- now rank our 24 arms the same way.
   ORGAN A'S CLOSURE IS A FACT ABOUT OUR STORE.**
-  **🚨 BUT READ THE HUMAN ARM TABLE BEFORE CELEBRATING: ALL 24 ARMS SIT AT OR BELOW CHANCE ON HUMAN
+  **ðŸš¨ BUT READ THE HUMAN ARM TABLE BEFORE CELEBRATING: ALL 24 ARMS SIT AT OR BELOW CHANCE ON HUMAN
   JUDGEMENTS.** The two best straddle 0.5 and clear nothing -- `F1_NO_FILTER` [0.4542, 0.6508],
   `T1_TYPED_ROLE` [0.4054, 0.6057] -- and the human bar is **0.5943**. *Agreeing about the ordering of
   24 arms is not the same as any arm being good; the instruments agree that they are all poor.*
-- **🎯 THE OBVIOUS NEXT TEST, AND NOBODY HAS RUN IT: `U1_TYPED_CONTEXT` (0.6669, the only arm ever to
+- **ðŸŽ¯ THE OBVIOUS NEXT TEST, AND NOBODY HAS RUN IT: `U1_TYPED_CONTEXT` (0.6669, the only arm ever to
   clear the WordNet bar) IS NOT IN THE 24.** It landed at 05:36; the harvest was already built. The
   `T1_TYPED_ROLE` in the table is the **SimpleWiki** arm, a DIFFERENT cell. **So the one arm that
   cleared a bar has never been scored against human judgement.** v4 now has the harvesting machinery,
@@ -1201,15 +1242,15 @@ excludes nothing is not a control -- report how many items each control actually
   RUNNING: a pre-committed prediction that can FAIL.** *Recorded, deliberately NOT dispatched --
   CLAUDE.md's rule is that an agent report ends my involvement and the owner decides what happens
   next.*
-- **🔴 LANDED (`1b79ae57b`) -- SENSORIMOTOR CHANNEL: BRANCH (B) FIRED, EXACTLY AS PRE-REGISTERED AT
+- **ðŸ”´ LANDED (`1b79ae57b`) -- SENSORIMOTOR CHANNEL: BRANCH (B) FIRED, EXACTLY AS PRE-REGISTERED AT
   `73edbca69`. THE PERCEPTUAL ROUTE IS CLOSED AT THIS RESOLUTION, AND THE MECHANISM IS THE VALUABLE
   PART.**
   Best arm `SM11_Z_NEG_EUCLID` **0.6039 [0.5439, 0.6644]** against a **credible bar of 0.6791**
   (margin **-0.0752**). **AND IT IS WORSE THAN THAT: IT SITS BELOW THE CONSTANT/PROTOTYPE FLOOR'S OWN
   POINT VALUE (0.6195). 0 OF 6 GRID POINTS CLEAR; ALL SIX CIs OVERLAP THAT FLOOR.** Coverage **166 of
-  242** matched units, **557/617 = 90.3% of words -- independently reproducing the drill's §3.2
+  242** matched units, **557/617 = 90.3% of words -- independently reproducing the drill's Â§3.2
   figure**, so this is not a coverage failure.
-  **🔬 THE MECHANISM, AND IT IS THE FINDING: THE ONLY THING THAT DISCRIMINATES IS A *QUERY-INDEPENDENT
+  **ðŸ”¬ THE MECHANISM, AND IT IS THE FINDING: THE ONLY THING THAT DISCRIMINATES IS A *QUERY-INDEPENDENT
   PER-WORD GENERICITY SCORE* -- ONE THAT NEVER COMPARES THE TWO WORDS AT ALL -- READING 0.6195,
   CI-SEPARATED ABOVE CHANCE AND BEATING EVERY PAIRWISE DISTANCE.** Centring collapses cosine
   0.5990 -> 0.5381 while euclidean is unmoved: **the cosine "signal" was carried by the SHARED
@@ -1217,13 +1258,13 @@ excludes nothing is not a control -- report how many items each control actually
   **effective dimensionality is 6.26 OF 11.** *So the norms do carry a real signal -- "how generic is
   this word" -- and it is NOT "are these two words alike". That is the constant/prototype floor's
   signature, which is precisely what the drill predicted.*
-  **✅ THE NEGATIVE IS REAL AND WAS CHECKED BEFORE ANY BRAIN TALK (discipline 17's first clause):**
+  **âœ… THE NEGATIVE IS REAL AND WAS CHECKED BEFORE ANY BRAIN TALK (discipline 17's first clause):**
   instrument still licensed at n=166 (four floors CI-include 0.5; incumbent 0.0884); the
   **planted-separable self-test fires at the deciding n or the cell aborts**; scramble changes 100%
   of scores. **NOT A POWER PROBLEM -- the best arm is below the floor's POINT value, so no amount of
   n converts it.** *Concreteness alone (1 dim): 0.5388 vs its own bar 0.6256 -- also beaten by its
   own floor.*
-  **⚠️ TWO DISCLOSURES, BOTH THE AGENT'S OWN:** (1) known-answer reads **0.9448 [0.9204, 0.9654]** vs
+  **âš ï¸ TWO DISCLOSURES, BOTH THE AGENT'S OWN:** (1) known-answer reads **0.9448 [0.9204, 0.9654]** vs
   a 0.95 **point** gate -- **fails strict-point by 0.005, passes CI-inclusive**; the branch was driven
   by the CI form, both printed, decided and written into the docstring BEFORE the FULL run. (2)
   **`F_PROTOTYPE_MAGNITUDE__CONC1` = 0.3195: `SET_S` PAIRS ARE RELIABLY MORE CONCRETE THAN `SET_P`.**
@@ -1250,20 +1291,20 @@ excludes nothing is not a control -- report how many items each control actually
   grounding fails. *Binder's 65 dimensions discriminate better but cover 9.2% of eval words.*
   **IT IS A DISCRIMINATION TEST, NOT A SUPERVISION BUILD -- if it passes, the supervision cell is a
   SEPARATE decision with its own pre-commitment.**
-- **🔵 FIRST LANE (07:20) -- `typed-density-sweep`. DO NOT RESPAWN.**
+- **ðŸ”µ FIRST LANE (07:20) -- `typed-density-sweep`. DO NOT RESPAWN.**
   Sweeps the typed channel's density by coarsening `(neighbour, relation, direction)` binning from
   ~10,121 dimensions toward `U3`'s 58, **recomputing every floor PER CONFIGURATION on that
   configuration's own representation.** **Branches PRE-COMMITTED at `0504bfd00` (plan 6.41) BEFORE
-  dispatch -- READ THEM BEFORE READING ITS RESULT:** *(α) some density clears its own rebuilt floor
+  dispatch -- READ THEM BEFORE READING ITS RESULT:** *(Î±) some density clears its own rebuilt floor
   -> the channel was starved, and **the occurrences-per-dimension at which it turns on IS the
-  finding, not the AUC**; (β) nothing clears anywhere -> it does not carry substitutability at any
+  finding, not the AUC**; (Î²) nothing clears anywhere -> it does not carry substitutability at any
   density reachable **on THIS corpus** -- **state the corpus and range, do NOT call it impossible**;
-  (γ) it clears only once coarsened onto `U3` -> **role identity is the carrier, typed context adds
+  (Î³) it clears only once coarsened onto `U3` -> **role identity is the carrier, typed context adds
   nothing, headline is `U3`** -- pre-committed as **the branch I expect to dislike**, and it must not
   be softened.*
   **IT WAS TOLD TO COPY THE WRITE-RULE LADDER'S PER-ARM FLOOR PATTERN AND EXPLICITLY *NOT* THE CELL
   THAT IMPORTED 0.5431.**
-- **📋 BOARD FELL 13 -> 3 WITH NO OWNER INPUT THIS SESSION. NOTED, NOT CHASED.** *Consistent with the
+- **ðŸ“‹ BOARD FELL 13 -> 3 WITH NO OWNER INPUT THIS SESSION. NOTED, NOT CHASED.** *Consistent with the
   seven duplicate `rm`-denial questions being auto-closed -- which is what the triage predicted would
   happen once the underlying fault stopped recurring -- but **I have not verified that** and it
   should not be reported as if I had.*
@@ -1281,7 +1322,7 @@ excludes nothing is not a control -- report how many items each control actually
      role profile REPLICATES something real or is a symptom of an impoverished encoding.** *That
      second reading is the one that would deflate tonight's result, which is why the drill was told
      to argue both.* Writes a note only; touches no cell.
-- **⚠️ WHY (C) IS A LIVE OUTCOME, NOT A HEDGE: the human population is n=65 against the WordNet
+- **âš ï¸ WHY (C) IS A LIVE OUTCOME, NOT A HEDGE: the human population is n=65 against the WordNet
   instrument's n=242 -- 3.7x smaller -- and v4's human CI half-widths run ~0.10, WIDE ENOUGH TO
   SWALLOW THE ENTIRE 0.6669-vs-0.5943 MARGIN BEFORE ANY CAPABILITY QUESTION IS ASKED.** *Do not let
   a width be read as an effect in either direction.*
@@ -1311,7 +1352,7 @@ excludes nothing is not a control -- report how many items each control actually
   instruments -- ONLY the ordering.** See `PLAN_ORGAN_STEP_LADDERS` 6.30.
 - **DISK IS FINE (checked 04:20):** one KB staging dir at ~0 MB (not the documented 10.65 GB
   runaway), 456 GB free. The main director KB is **16.4 GB** and answers every query with nothing.
-- **🚨 THE MANDATORY PRIOR-WORK CHECK IS NON-FUNCTIONAL. `CLAUDE.md`'s SESSION STARTUP RITUAL TELLS
+- **ðŸš¨ THE MANDATORY PRIOR-WORK CHECK IS NON-FUNCTIONAL. `CLAUDE.md`'s SESSION STARTUP RITUAL TELLS
   YOU TO RUN IT AS "THE LOAD-BEARING FIRST ACTION". DO NOT TRUST ITS ANSWER.** Measured 2026-08-18,
   both interpreters, twice: `tools/substrate_query.sh` and `tools/director_kb_query.py` **return ZERO
   BYTES and exit 0** after ~38-51 s. Bare `python` resolves fine (3.12.10), so this is NOT the
