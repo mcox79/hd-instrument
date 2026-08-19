@@ -211,6 +211,49 @@ is precisely the false coverage the organ audit exists to prevent.**
 
 ---
 
+## 🔬 THE DRILL'S NAMED TEST, RUN: TYPED SLOTS DO **NOT** BEAT THE BAG -- AND THE SPLIT IS THE FINDING
+`scratch/typed_vs_bag_probe.py` + `_split.py`. **UNUSUALLY CLEAN COMPARISON: both representations
+live in the SAME file (`selectional_slots_v1.pkl`), built by the SAME parser on the SAME corpus in
+the SAME run -- 944,990 slot observations over 736,967 parsed sentences. Representation is the
+only variable.** Scored on the independent ConceptNet gold, 851 words with >=5 observations in
+BOTH representations, comparable dimensionality (20,865 typed vs 21,740 bag).
+
+| gold subset | TYPED (slots) | BAG (co-occurrence) | TYPED - BAG | p |
+|---|---|---|---|---|
+| **aggregate** | 0.1081 | **0.1363** | -0.0282 | 0.048 |
+| **PARADIGMATIC** (IsA/Synonym/SimilarTo/PartOf...) | 0.1004 | 0.1110 | **-0.0106** | **0.447 -- TIED** |
+| **THEMATIC** (AtLocation/UsedFor/Causes...) | 0.0230 | **0.0474** | -0.0244 | **0.006** |
+| FREQUENCY floor | 0.0423 | | | |
+| RANDOM floor | 0.0071 | | | |
+
+**THE AGGREGATE LOSS IS ENTIRELY THE THEMATIC HALF.** *Which is unsurprising and should have been
+predicted: co-occurrence IS thematic, so a bag predicting "what goes WITH this" is the
+representation matching the construct.* **On the PARADIGMATIC half -- the relations typed slots
+were supposed to win -- THEY TIE.**
+
+**🟢 AND BOTH BEAT THEIR FLOORS BY A LOT: 0.10-0.14 against a frequency floor of 0.042 and random
+of 0.007.** *That is the first thing measured today where one of our own representations clearly
+clears its floors -- roughly 3x frequency and 15-19x random. Worth saying after a day of numbers
+that did not.*
+
+**VERDICT ON THE DRILL'S CLAIM: NOT SUPPORTED, AND NOT YET REFUTED EITHER.** *Typed slots buy
+nothing here, and they cost a parser the bag does not need.*
+
+### ⚠️ BUT MY TEST STILL DOES NOT ASK THE DRILL'S EXACT QUESTION, AND I AM SAYING SO RATHER THAN CLAIMING THE SCALP
+The drill's mechanism is specifically about words that **NEVER CO-OCCUR**: *"two words that can
+replace each other turn up as the subject of the same verbs... **even when they never appear in the
+same sentence as each other**."* **My ConceptNet-related pairs are NOT restricted that way, and a
+bag can only win on pairs that DO co-occur.** *That is the same structure as SET_P in the
+dissociation instrument, and it is the one condition under which typed slots could show their
+advantage.*
+**THE DECISIVE TEST, NAMED AND NOT RUN: restrict the gold pairs to those with ZERO co-occurrence in
+the corpus, then re-score.** *Cheap -- the co-occurrence counts are in the same file. Until it runs,
+"typed slots do not help" is licensed only for pairs that co-occur.*
+***This is the third refinement of the same question in one continuation. Each one moved closer to
+what was actually claimed, and the first two would both have been reported as answers.***
+
+---
+
 ## 🚨 A 123 KB DRILL ON THE TOP ITEM LANDED 21 HOURS AGO AND NOBODY READ IT -- INCLUDING ME, ALL DAY
 `notes/admissible_supervision_sources_drill_2026-08-18.md` (67 KB) and
 `notes/what_supervision_the_brain_has_that_we_do_not_error_driven_learning_drill_2026-08-18.md`
