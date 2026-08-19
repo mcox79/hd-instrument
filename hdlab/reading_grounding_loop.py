@@ -877,7 +877,8 @@ def _eligible_mask(space: ConceptSpace, cache: Dict[str, object]) -> np.ndarray:
 
 def make_pbv_fns(state: "ReadingLoopState", *, informative_min: float = PBV_INFORMATIVE_MIN,
                  readout: Optional[ReadoutConfig] = None, freeze_episode: bool = False,
-                 freeze_epoch_fn: Optional[Callable[[], object]] = None):
+                 freeze_epoch_fn: Optional[Callable[[], object]] = None,
+                 shadow_fn: Optional[Callable[[str, object, object, str, float], None]] = None):
     """Build the PBV (propose_fn, verify_fn) pair for `state`. THIS is the propose-then-verify
     wiring; hdlab.grounding_acquisition_loop.Library.flag owns the control flow.
 
@@ -996,8 +997,28 @@ def make_pbv_fns(state: "ReadingLoopState", *, informative_min: float = PBV_INFO
     def _encounter_best(item, tr) -> Tuple[str, float]:
         sp = _space_for(item)
         mask_cache = cache if sp is state.space else sp._elig_cache
-        return canonicalize_fast(item.lemma, tr.context_vec, sp, thresh=informative_min,
-                                 eligible_mask=_eligible_mask(sp, mask_cache), readout=readout)
+        out = canonicalize_fast(item.lemma, tr.context_vec, sp, thresh=informative_min,
+                                eligible_mask=_eligible_mask(sp, mask_cache), readout=readout)
+        # SHADOW ARM (2026-08-19, ADDITIVE, DEFAULT None = prior behaviour byte-for-byte).
+        # THE ONE PLACE A RIVAL MEANING-SELECTION RULE CAN BE COMPARED FAIRLY. Two post-hoc probes
+        # failed to reconstruct this decision -- the field `sp` is the anchor set AS IT STANDS
+        # NOW (and may be a FROZEN episode snapshot), and it is gone by the time anything reads
+        # the result. A shadow rule scoring the SAME candidates at the SAME moment is the only
+        # comparison that is not confounded by the field having moved.
+        # IT RECORDS, IT NEVER REPLACES. `out` is returned untouched, so a run carrying a shadow
+        # arm makes exactly the decisions it would have made without one and cannot be corrupted
+        # by the thing measuring it.
+        # COST MEASURED BEFORE THIS WAS WRITTEN (scratch/bench_shadow_arm_cost.py): a 12-dim
+        # spoke scan is 0.0020 ms against canonicalize_fast's 0.1308 ms over 161 anchors --
+        # 1.6% of the existing per-encounter cost, so it runs on EVERY encounter and needs no
+        # sampling. If a future shadow rule is dearer, sample and STATE the rate in the metrics.
+        if shadow_fn is not None:
+            try:
+                shadow_fn(item.lemma, tr, sp, out[0], out[1])
+            except Exception:
+                # A measurement must never take down the run it is measuring.
+                pass
+        return out
 
     def release_episodes(lemmas) -> int:
         """Drop the frozen field held for each of `lemmas`. Returns how many were actually held.

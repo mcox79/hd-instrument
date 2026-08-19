@@ -15,7 +15,49 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 carries every number below with its controls. THIS BLOCK IS A POINTER, NOT THE RECORD.**
 *Stop the loop with `python tools/autoloop.py disarm`.*
 
-## ⛔ CORRECTION 2026-08-19, TO THE BLOCK DIRECTLY BELOW, WHICH I COMMITTED AND WHICH IS WRONG
+## 🔴 2026-08-19 -- **THE CORTICAL READ CELL IS VOID BY ITS OWN READING (C). NOT A NEGATIVE -- VOID.**
+`exp_cortical_read_consolidated_v1`, 3 seeds, 1,594 s, 300 items each, 428-480 consolidated terms.
+**`READING (C) route reads the cue: [False, False, False]` -- the SCRAMBLE arm (an UNRELATED donor
+sentence) TIES OR BEATS the real cue on ALL THREE SEEDS.** My pre-registration says exactly what
+that means: *"the route is not reading the cue and EVERY other number in this cell is void."*
+
+| seed | CTX | SPOKE | BOTH | EPI | COOC (floor) | SCRAM |
+|---|---|---|---|---|---|---|
+| 101 | 0.0200 | 0.0033 | 0.0100 | 0.0000 | **0.0900** | 0.0233 |
+| 20260819 | 0.0433 | 0.0100 | 0.0233 | 0.0000 | **0.0867** | 0.0500 |
+| 7 | 0.0100 | 0.0100 | 0.0200 | 0.0000 | **0.0700** | 0.0233 |
+
+*p(SCRAMBLE vs CORTICAL_CONTEXT) = 1.0000 / 0.8081 / 0.2704 -- nowhere near separated.*
+**⛔ DO NOT REPORT "the cortical read scores 0.02" AS A CAPABILITY, AND DO NOT REPORT COOC BEATING
+IT AS A COMPARISON.** Both are void: an arm that scores the same on an unrelated sentence is not
+reading anything. The credible bar was 0.1000-0.1233 and nothing came close. *`EPISODIC_FILTERED`
+reads 0.0000 on every seed -- the episodic route, restricted to consolidated candidates, never once
+retrieves the right one.*
+**➡️ WHAT THIS DOES AND DOES NOT SAY. It does NOT say a cortical read is impossible; it says THIS
+one, on THIS task, is not reading its cue. The organ's self-tests pass on synthetic fixtures where
+the families are separable, so the failure is in the REPRESENTATION the cue and the index are built
+from -- accumulated context profiles -- not in the retrieval code.** *Next diagnostic, not next
+build: check whether held-out cue vectors and consolidated-term profiles occupy the same space at
+all before building anything else on them.*
+
+## ⛔⛔ CORRECTION TO MY OWN CORRECTION, 2026-08-19. **I WAS RIGHT, THEN I "CORRECTED" MYSELF INTO**
+## **BEING WRONG. THE BLOCK BELOW IS THE WRONG ONE. VERIFIED AT RUNTIME, TWICE.**
+**`checkpoint` defaults `pbv=False`, and the substrate never passes `pbv=True`. Instrumented at
+runtime: `_make_grounding_gate` fires 5 times, `_make_pbv_grounding_gate` ZERO. Refusals are
+`TAUTOLOGY_NO_ANCHOR` (297) and `CLOSED_CLASS_SUBJECT` (48) -- both the OLD gate's reasons.
+THE OLD GATE IS LIVE.**
+**So my ORIGINAL v2 replay used the RIGHT rule, the 31.8% IS explained by anchor-field growth as
+first stated, and my provenance fix went into the LIVE path all along.** *Verified: 36 of 36
+successful gate decisions carried `n_anchors` + `anchor_field_sha1`.*
+**🧪 AND THE THING THAT FOOLED ME: `state.gate_decisions` IS DRAINED EVERY PASS.** Peak during the
+run 23, after the run **0** -- so reading it afterwards shows zero even though 36 decisions were
+recorded. I read an emptied dict, concluded the branch was dead, and published a correction that
+reversed a claim that had been right. **The lesson is the one I keep re-learning: I diagnosed by
+READING the code and was wrong both times; both were settled in one runtime instrumentation.**
+*The PBV fingerprint I added last turn sits in a path that does not execute. Harmless, left in
+place with this note, and NOT to be cited as live provenance.*
+
+## ⛔ [THIS BLOCK IS THE WRONG CORRECTION -- SEE ABOVE] CORRECTION 2026-08-19, TO THE BLOCK DIRECTLY BELOW, WHICH I COMMITTED AND WHICH IS WRONG
 ## **I REPLAYED A RULE THE SYSTEM DOES NOT RUN. The 31.8% is explained by that, NOT primarily by**
 ## **anchor-field growth, and the auditability claim below is OVERSTATED.**
 **`checkpoint` runs with `pbv=True`, which selects `_make_pbv_grounding_gate` -- NOT
