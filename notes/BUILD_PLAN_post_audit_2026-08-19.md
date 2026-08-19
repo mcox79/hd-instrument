@@ -1,5 +1,14 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> **📖 HOW TO READ THIS FILE (it is 67 KB and every autoloop continuation is told to open it).
+> IT IS NEWEST-FIRST. The top ~250 lines are the current position; everything below is the record
+> in reverse order, kept so retracted claims stay VISIBLE rather than quietly deleted.**
+> **THREE THINGS IN THE LOWER HALF ARE SUPERSEDED AND ARE MARKED AT THE STALE TEXT ITSELF, not
+> only corrected above it:** the "~10x" Phase 2 headline (wrong floor, AND its consolidation organ
+> never fired), `COOC_floor` described as "strongest" (it is not -- cosine over the same counts
+> beats it 0.0300 vs 0.0125), and SR filed as "starved" (refuted by its own re-test).
+> *If you are resuming and want only what to DO next, read to the first `---` and stop.*
+
 **Written 2026-08-18 end of session, at the owner's direction, to be executed after compaction.**
 Supersedes the forward-looking parts of `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md`. Its Section 7
 (the audit findings) and Section 6 (the ladder METHOD) both still stand as reference.
@@ -691,7 +700,7 @@ instrument is alive.** simplewiki, 3 seeds, n=300 items per regime, pool 2,114, 
 |---|---|---|
 | EPISODIC | **0.9333** clears bar, p=0.0005 | **0.0044** -- CI upper ~0.0105, **BELOW the 0.0367 bar** |
 | SEMANTIC | 0.2789 clears bar | **0.0056** -- below the bar |
-| **COOC floor** (strongest, standalone) | 0.1700 | **0.0233** |
+| **COOC floor** (~~strongest~~ **NOT the strongest -- see below**, standalone) | 0.1700 | **0.0233** |
 | FREQ floor | 0.0011 | 0.0078 |
 | ORTH floor | 0.0000 | 0.0033 |
 | **SCRAMBLE twin** | **0.0011**, p=0.0005 vs EPISODIC | **0.0033, p = 0.48 / 0.64 / 1.00** |
@@ -763,7 +772,15 @@ what the full run is for.*
 
 ---
 
-## 🚨 PHASE 2 FINDING #1 -- THE ASSEMBLED SUBSTRATE LOSES TO WORD-COUNTING BY ~10x ON HELD-OUT TEXT
+## 🚨 [SUPERSEDED TWICE -- READ THE TWO CORRECTIONS BEFORE THE NUMBERS] PHASE 2 FINDING #1 -- THE ASSEMBLED SUBSTRATE LOSES TO WORD-COUNTING BY ~10x ON HELD-OUT TEXT
+> **⛔ SUPERSEDED-BY, added 2026-08-19 rather than left for the next reader to trip over:**
+> **(1) THE "~10x" IS AGAINST THE WRONG FLOOR.** `COUNT_FLOOR` is NOT the strongest floor the data
+> supports -- cosine over the SAME co-occurrence counts scores **0.0300 against its 0.0125**. The
+> real gap is LARGER, not smaller. See the diagnostic block above.
+> **(2) THE CONSOLIDATION ORGAN NEVER FIRED IN THIS CELL.** It ran `max_patches=1`, and the
+> substrate only consolidated when the forager changed corpus, so **every Phase 2 run grounded
+> NOTHING**. The retrieval result stands -- both routes read from episodic writes and Library
+> traces, which happen regardless -- but the ablation table must be re-run before it is quoted.
 
 **The first end-to-end measurement of the assembly, and it is a clean negative that INDEPENDENTLY
 REPLICATES THIS PROJECT'S CENTRAL DOCUMENTED RESULT on a different task, a different instrument
