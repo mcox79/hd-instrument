@@ -413,6 +413,39 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🧩🧩 **THE THREADS CONVERGE. THE OWNER'S IDEA IS NOT DEAD -- IT IS BLOCKED BY A BROKEN**
+> ## **INSTRUMENT, AND THE ORGAN THAT WOULD FIX THE INSTRUMENT IS ALREADY BUILT AND UNCALLED.**
+> *Written because three separate findings tonight turn out to be one finding, and that is only
+> visible from the end.*
+>
+> **1. THE OWNER'S HYPOTHESIS FAILED FOR A REASON THAT IS NOT ABOUT THE HYPOTHESIS.** Surprise did
+> not select useful notes -- but our surprise reads **0.4252 / 0.4214 / 0.4206 against a
+> no-information value of 0.5.** *You cannot gate on a signal that is 4% from chance.* The idea was
+> never given a working instrument.
+>
+> **2. WHY THE INSTRUMENT IS BROKEN, AND IT IS A POSITION ERROR AGAIN.** Our "surprise" is
+> `1 - cos(new context, ACCUMULATED AVERAGE)` -- **an error against a MEAN, not against a
+> PREDICTION.** ORGAN_MAP G2 pins prediction error as `x - x_hat`, where `x_hat` is what a
+> generative model PREDICTED. **A running average of bags predicts almost nothing, so its residual is
+> almost pure noise -- by construction, not by accident.** *Eight closed routes all tried to USE that
+> residual better. None asked whether it was a prediction error at all.*
+>
+> **3. THE ORGAN THAT MAKES A REAL PREDICTION IS D7, AND IT IS BUILT, FAITHFUL, AND NEVER CALLED.**
+> A successor representation IS a predictive map -- `M = (I - gamma*P)^-1`, expected DISCOUNTED FUTURE
+> occupancy. It predicts what should come next. **Surprise measured against an SR prediction is an
+> actual prediction error; surprise measured against a bag-average is not.**
+> *`hdlab/successor_representation.py` implements the closed form AND the TD variant, its math is
+> FULLY PINNED, and no `hdlab` module imports it.*
+>
+> **➡️ SO THE CHAIN IS: wire D7 -> get a real predictor -> get a real prediction error -> AND ONLY
+> THEN is the owner's "note only what is new" idea testable at all.** *Every step is brain-pinned,
+> and the expensive step is already done.*
+> *⚠️ HONEST RISK, RECORDED FIRST: this is a four-link chain and each link can break. D7 being
+> faithful does not mean SR over READING ORDER is meaningful -- SR is pinned for state transitions in
+> navigation, and sentences are not a Markov chain over states in the same sense. **That mapping is
+> OUR invention, not the pinned part**, and it is the link most likely to fail. Test the predictor's
+> accuracy BEFORE building anything on its residual.*
+
 > ## ❌ **OWNER Q74 ANSWERED: SURPRISE DOES NOT SELECT THE USEFUL NOTES. IT IS VOLUME.**
 > *The owner: "We shouldn't need notes every single time - only when there's something NEW... I still
 > think it's the surprise measurement."* **Tested in the ONE population never selected over -- the
