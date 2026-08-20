@@ -305,6 +305,13 @@ heads 7 -> 5) was a correct fix to the component the B3 audit shows barely carri
   under SURVIVES on seed 7 alone. *A guard I exempt my own favourites from is not a guard.*
   **The other kept claims cleared it:** phrase-vs-floor `REPLICATED` (4/4 same sign, 1.2x spread,
   no control within half); looked-up-definition-is-worse `REPLICATED` (3/3, 2.1x).
+  **SEED 101 IS IN AND THE DOWNGRADED CLAIM IS HOLDING:** `DEFINIENS` is worse than `PROFILE` on
+  both seeds (**+28.0, +19.5**), same sign, 1.4x spread. Seed 13 pending before the verdict string
+  goes in the ledger.
+  **🔎 AND A THIRD INDEPENDENT SIGN-FLIP ON THE COMBINING QUESTION: `BOTH` reads +7.0 (WORSE) on
+  seed 7 and -8.0 (BETTER) on seed 101.** That is now the third dataset showing combining behaves
+  inconsistently across seeds -- **further confirming that NEITHER of my two opposing boundary
+  claims was ever established**, and that the honest position is the one already in the ledger.
 - *(earlier in-flight entries, now landed, kept for the launch-time-recording discipline:)*
   - **phrase-floor seed replication, seed 29** (`scratch/phrase_floor_feasibility.py`).
     **SEEDS 7 / 101 / 13 ARE IN AND REPLICATE TIGHTLY: OURS 19.4 / 18.9 / 20.3%, strongest floor
