@@ -1,5 +1,42 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🎯 **RESOLVED -- AND THE CONFIGURATION WE ACTUALLY RUN HAS NEVER BEEN MEASURED BY ANY CELL.**
+> *Un-correcting my own correction: the graded-query evidence is REAL. It is in
+> `exp_graded_divisive_comparator_v1`, not in the cell the docstring's prereg reference pointed me
+> at, which is why I could not find it and wrongly called it unverified.*
+>
+> | arm | accuracy | |
+> |---|---|---|
+> | `R_LIVE` -- **fully QUANTISED** | 0.6395 | what "live" meant on 2026-08-13 |
+> | `R_BASE` -- **fully GRADED** | **0.69975** | **delta +0.0602** |
+> | `F_LOCAL_SCRAM` / `F_BASE_SCRAM` | 0.4953 / 0.5065 | scramble floors |
+> | `B_FREQ` | 0.4800 | cue-blind frequency floor |
+> | positive control, self-retrieval | **0.9133** vs floor 0.70 | ✅ passes |
+>
+> **Clean floors, a working positive control, and the delta is real.** *The near-identity with F3's
+> `0.060289` is a genuine coincidence between two different cells measuring two different things --
+> comparator accuracy vs read-out stability.*
+>
+> ## 🚨 **AND HERE IS THE PART THAT MATTERS: WE RUN NEITHER ARM.**
+> Those two arms are the two PURE configurations. **The live path today is the MIXED one:**
+> - `GRADED_COMPARATOR` was flipped True on **2026-08-14** -- AFTER this 2026-08-13 cell -- so the
+>   **ANCHORS are now graded** (`bundle()` returns the raw sum; verified at runtime today).
+> - **The QUERY is still signed**: `canonicalize` line 776 hardcodes `np.sign(new_raw_sum)`, with no
+>   graded option, and it takes **451 of 451 live selection calls** (`canonicalize_fast`, the only
+>   graded-query door, takes **0**).
+>
+> **So `R_LIVE` (both quantised) is NOT what we run, and `R_BASE` (both graded) is NOT what we run.
+> We run signed-query-against-graded-anchors, and NO CELL HAS EVER MEASURED THAT ARM.**
+> **⚖️ AND IT IS THE ONE COMBINATION THE CODE'S OWN DOCSTRING SINGLES OUT AS WORST:**
+> > *"a graded field read by a signed query is worse than either, because the query's magnitudes are
+> > exactly what the field's magnitudes are being compared to."*
+> **⚠️ SCOPE, HONESTLY: that this is worse than both is an INFERENCE from the docstring plus the
+> dates plus the runtime call counts. It is NOT measured. The measurable claim is only that the
+> configuration we ship is unmeasured -- which is itself the finding.**
+> **➡️ THE CHEAP DECISIVE RUN: score all THREE arms -- both-signed, both-graded, and the mixed one we
+> actually ship -- on the same items and floors. If mixed lands below both, a one-line change to
+> `canonicalize` recovers a measured +0.06 with clean floors behind it.**
+
 > # 🚨 **THE ENTIRE READ-OUT FIX SUBSYSTEM IS DEAD CODE ON THE LIVE PATH -- `canonicalize_fast`**
 > # **IS CALLED *ZERO* TIMES WHILE READING. AND I CLOSED THE SIGN HYPOTHESIS THIS MORNING ON HALF**
 > # **AN INSPECTION.**
