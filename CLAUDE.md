@@ -27,6 +27,8 @@ condensation of this file cannot turn an earned rule into unsourced prose).
 | a cell smoked clean, then its full run read 15 min and died with an EMPTY held-out split: the corpus yields exactly 20,000 and it read all 20,000 | check every split/sample against what the source actually yields, at FULL sizes, before the expensive step | *A smoke with smaller numbers does not test the full run's arithmetic* |
 | built a write gate after checking the registry; a HARD_PASS cell from 3 weeks earlier had already measured that it must fail on a weak foundation | the registry says what is BUILT; only `experiment_index.py` says what was ANSWERED -- query BOTH and quote the counts | *Two archives, two questions* |
 | a "held-out" set built from a FRESH `CorpusRegistry()` overlapped the training pool 600/600; the arm read median rank 3.0 where every other measurement that day read 69-91 | a separate reader over one ordered source is not a separate sample -- draw held-out from the SAME advanced cursor, and PRINT the overlap count every run | *A fresh reader is not a held-out split* |
+| an arm whose accumulator was never written (all-zero profiles) reported median rank 1.0 -- a 20x "win" -- because tied similarities never sort above the target | assert each arm's representation is non-empty before scoring; construct the EMPTY version of a winning arm and check it LOSES | *An empty representation scores perfectly on a rank metric* |
+| a script exited on "my manipulation failed" before the "the corpus already drifts" check below it could run; both were true, and it suppressed the informative one | a gate's THRESHOLD is not the only thing to check -- check what it EXITS BEFORE; order readings most-informative first | *Non-stationary escape, sixth gate defect* |
 
 Rules on delegation, agent reports, model choice and detached launches are in their own sections
 below and carry their incidents inline.
@@ -586,6 +588,38 @@ confirm it fires. A guard nobody has seen fire is a guard nobody has tested.
 *This is the "could this experiment have succeeded?" question — which redirected this session's
 plan three times — applied to resource arithmetic rather than to mechanism. It is the same
 question and it is cheaper than every other way of finding out.*
+
+## AN EMPTY REPRESENTATION SCORES *PERFECTLY* ON A RANK METRIC -- ASSERT THE ARM IS NON-EMPTY
+
+**Measured 2026-08-20.** A divisive-normalisation arm scaled each write by a term's response, and
+an uninitialised profile responded **0.0**. So the first write was `0 * trace`, the accumulator
+stayed **exactly zero forever**, and every term's profile was the zero vector.
+
+**It reported median rank 1.0 -- `0.05x` the counter, a twenty-fold "win" -- at every sweep point.**
+The mechanism is arithmetic, not luck: ranking is `sum(sims > sims[target])`, all-zero profiles make
+every similarity tie at 0, nothing sorts strictly above the target, so the target "wins" every item.
+**The emptier the arm, the better it scores.** Effective dimensionality printed `inf`, which was the
+only visible tell, and it sat in a column labelled "descriptive only".
+
+Three things, and the third is the general one:
+
+1. **ASSERT THE REPRESENTATION EXISTS BEFORE SCORING IT**, per arm, per point:
+   `alive = sum(norm(acc[t]) > 1e-9 for t in names)`; refuse if `alive < 0.5 * len(names)`. Fail
+   LOUD with the counts in the message. Verified with a positive control on the numbers that broke
+   it -- 0 of 4 non-zero, guard fires.
+2. **A NEUTRAL INITIAL VALUE IS PART OF THE DESIGN, NOT A DETAIL.** The docstring *claimed* empty
+   profiles "respond at the pool mean"; the code used 0.0. **The prose and the code disagreed and
+   the prose was never executed.** Where a rule multiplies, the identity element is 1, not 0.
+3. **THE GENERAL FORM: ASK WHAT SCORE A BROKEN ARM WOULD GET.** Any metric where "no information"
+   and "perfect information" produce the same output is a metric that cannot fail safely. Rank-based
+   scores tie-break in favour of the target; similarity thresholds pass everything at zero; ratios
+   divide by zero into `inf` and sort first. **Before trusting a winning arm, construct the empty
+   version of it and check that it LOSES.**
+
+*This is the same shape as the held-out leak below -- a suspiciously good number in the arm you
+hoped would win -- but arriving from the opposite direction: there the data was too good, here the
+model was too empty. Both were caught by the number disagreeing with every other measurement of the
+same quantity that day.*
 
 ## A FRESH READER IS NOT A HELD-OUT SPLIT -- CHECK OVERLAP, DO NOT INFER IT FROM THE CONSTRUCTION
 
