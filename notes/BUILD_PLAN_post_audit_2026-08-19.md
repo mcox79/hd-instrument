@@ -1,5 +1,44 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🔬 **THE UPSTREAM BLOCKER, CHARACTERISED MECHANISTICALLY. "0 of 2,092 VERB DEFINIENDA" HAS**
+> # **THREE INDEPENDENT CAUSES, AND ONLY ONE IS THE PATTERN INVENTORY.**
+> *All four of today's routes named the definitional extractor as the target. The charter described
+> it as "five NP-headed patterns". **That description is imprecise, and the imprecision matters** --
+> the `means` / `refers to` pattern is NOT NP-constrained on the definiens side. Reproduced live:*
+>
+> | sentence | result |
+> |---|---|
+> | `Photosynthesis means the process by which...` | ✅ dfd=Photosynthesis **head=process** |
+> | `Evaporation means the change from a liquid...` | ✅ dfd=Evaporation **head=change** |
+> | **`Gallop means to run at a fast pace.`** | ✅ matched -- but **head=`pace`, NOT `run`** |
+> | **`To gallop means to run at a fast pace.`** | ❌ **DROPPED** |
+> | **`Evaporate means to turn from a liquid into a gas.`** | ❌ **DROPPED** |
+>
+> ## THE THREE CAUSES, EACH ISOLATED BY A ONE-WORD CHANGE
+> 1. **THE DEFINIENDUM MUST BE A NOMINAL LEMMA.** `is_nominal_lemma("evaporate")` is **False**, so
+>    `Evaporate means...` is rejected -- while `Evaporation means...` (the nominalisation) is
+>    accepted. **Pure verbs cannot be defined at all; only their noun forms can.**
+> 2. **THE ANCHOR REQUIRES A SENTENCE BOUNDARY.** `_RE_REFERS` starts `(?:^|[,;]\s*)`, so
+>    `To gallop means...` fails purely because the infinitival `To` occupies the start position.
+>    *The identical sentence without `To` matches.*
+> 3. **THE HEAD IS THE LAST NOMINAL TOKEN.** `Gallop means to run at a fast pace` extracts with
+>    **`head=pace`** -- not `run`. *A gallop is a kind of RUN; `pace` is simply the last noun in the
+>    string.*
+>
+> ## 🔑 **AND CAUSE 3 IS THE DAY'S THEME AGAIN: THE HEAD RULE IS POSITIONAL.**
+> `nouns[-1]` -- take the last nominal. **Not the syntactic head, the LAST ONE.** *So even the
+> extractions that succeed carry a head chosen by position, exactly as role assignment was found to
+> be positional and exactly as the representation was found to be counting. Three different
+> components, three positional/count heuristics standing in for structure.*
+>
+> ## ➡️ WHY THIS IS A BETTER TARGET THAN "FIX THE EXTRACTOR"
+> **Each cause is small, separable, and independently testable**, and they have different costs:
+> (2) is a regex anchor; (1) is a lexical gate with a real design question behind it (*should a verb
+> be definable by a verb phrase?* -- the brain's answer via syntactic bootstrapping is yes); (3) is a
+> head-selection rule that is positional where it should be syntactic, and we already own a parser.
+> **⚠️ AND THE CHARTER'S BAR STILL HOLDS: this is fixing the extractor that STARVES `frame_induction`,
+> which is explicitly a different target from re-proposing `frame_induction` itself.**
+
 > # ✅ **THE DESIGN QUESTION IS ALREADY ANSWERED BY THIS PROJECT, AND IT MEANS THE ZERO-CALLS**
 > # **FINDING IS PROBABLY NOT A DEFECT. THE THREADS CONVERGE ON ONE UPSTREAM TARGET.**
 > *I asked: should the word-learning reading path assign roles at all? I was about to drill the
