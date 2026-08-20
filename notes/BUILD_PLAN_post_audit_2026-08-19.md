@@ -18,6 +18,18 @@
 >   that work are bring-in-signal".*
 > - **NOT refuted** (one instrument, and *do-not-generalise-a-narrow-failure* has paid out here
 >   once) **and NOT established. REPLICATE WITH A CI BEFORE BUILDING.**
+>
+> ## ✅ **AND THE ASSET IS CLEARED OF THE CHARGE I BROUGHT AGAINST IT**
+> I suspected the norm vector was mostly a *genericity* axis, which would explain the
+> constant-prototype floor. **Tested on the asset itself (36,810 words): REFUTED.** No dominant
+> axis (**PC1 26.7%**, PC2 17.8%, PC3 15.9%; **73.3% of variance survives removing PC1**), and PC1
+> is a nameable **MODALITY CONTRAST** -- `mispronunciation, audibility, deafening` at one end,
+> `bath, towel, soap, clothing` at the other. **AUDITORY vs HAPTIC -- exactly what sensorimotor
+> norms should carry.**
+> *One of my three measures was VACUOUS and is reported rather than dropped: "cosine to the
+> population mean" on Z-SCORED vectors is cosine to a ~zero vector by construction.*
+> **➡️ SO THE 0.6195 FLOOR NEEDS A DIFFERENT EXPLANATION -- most likely a property of that task's
+> GOLD, not of the norms' geometry. The open question is now about the INSTRUMENT, not the ASSET.**
 
 > # ✅ **Q89 IS ANSWERED (owner, 2026-08-20T20:24Z). THE STANDING INSTRUCTION IS NEW AND IS NOT A
 > # ONE-OFF:**
