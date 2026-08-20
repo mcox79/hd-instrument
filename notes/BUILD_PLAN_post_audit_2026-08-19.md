@@ -234,6 +234,35 @@
 > defects were gates set too LOW; this one was set in the wrong ORDER. Checking a gate's threshold is
 > not enough -- check what it EXITS BEFORE.**
 >
+> ## 🔎 ARCHIVE HIT -- **"TRY A LEARNED PROJECTION (PPMI+SVD)" WAS ALREADY RUN. IT LOST. AND THE**
+> ## **THING THAT WON WAS REMOVING EXACTLY ONE DIRECTION -- WHICH IS WHAT TODAY FOUND SEPARATELY.**
+> *I was one step from building PPMI -> SVD as the successor to post-hoc centring. Queried first.
+> `"svd"` returns 44 cells, `"ppmi"` 42. A FOUR-CELL ARC already walked this exact path.*
+> Disk-verified from `metrics.json`, all glass-box and earned from corpus counts:
+>
+> | step | representation | ceiling | unstated-goal recovery |
+> |---|---|---|---|
+> | earned_v1 | raw PPMI, single novel | 0.500 | 0.333 |
+> | earned_v2 | **PPMI + SVD**, 5 corpora, k=250 | **0.333** | **0.000** |
+> | earned_v3 arm_a | raw PPMI, 5 corpora | 0.333 | 0.000 |
+> | earned_v3 arm_b | **PPMI + MEAN REMOVAL (1 direction)** | **0.667** | 0.333 |
+> | (reference) | borrowed BGE embedding | 0.833 | 1.000 |
+>
+> **⛔ SVD MADE IT WORSE, not better -- below even the single-novel baseline it was meant to improve.**
+> **✅ AND `mean_removal_n_top_directions = 1` DOUBLED the ceiling and broke the collapse
+> (`collapse_broken=True`, misrank 1.000 -> 0.667, structure accuracy 0.667 -> 1.000).**
+> **🔑 TWO INDEPENDENT INSTRUMENTS, DIFFERENT TASKS, DIFFERENT REPRESENTATIONS, SAME SHAPE: REMOVE
+> EXACTLY ONE DOMINANT DIRECTION AND STOP.** Today's phase curve found post-hoc centring is the best
+> arm of the session (slope +0.631, PR 92.3 -> 29.1) and that removing PC2/PC4/PC8 makes it
+> monotonically worse. *That agreement was reached by two routes that share no code.*
+> **⚠️⚠️ AND THE CAVEAT IS SEVERE, SO IT TRAVELS ATTACHED: N = 6 PROBE ITEMS. The cell's own verdict
+> says `CHEAP_EXHAUSTED (N=6 probe, directional)`. 0.333 -> 0.667 is TWO ITEMS. This is DIRECTIONAL
+> AGREEMENT AND NOTHING MORE -- it must never be quoted as confirming centring.** *An underpowered
+> WIN read as a capability statement is the same error as an underpowered null, wearing better
+> clothes.*
+> **➡️ WHAT IT CHANGES: "try a learned projection next" is retired as a fresh idea. If SVD is
+> revisited it must be as a REPLICATION of a cell that already lost, with power, and stated as such.**
+>
 > ## ⬅️ NEXT: **THE EXTREME-DRIFT VERSION, PRIOR RECORDED LOW BEFORE RUNNING.**
 > The only honest remainder: cross-CORPUS blocking. The shelf holds **36 corpora** including five
 > textbooks (anatomy, biology, chemistry, microbiology, psychology) and several novels. Reading
