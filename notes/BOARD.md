@@ -44,21 +44,11 @@ repo; three attempts to change that all failed. That read-back gap is the bottle
 Flat ledger of what survives vs what I withdrew: `WHAT_2026-08-20_ESTABLISHED_survives_vs_withdrawn.md`.
 ### 2026-08-21 -- THE F5 BAR IS MEASURED AND REPLICATED, BEFORE THE ORGAN EXISTS
 
-**TOP ITEM -- **BUILD F5. THE TASK, THE ITEMS AND THE BAR ARE ALL READY; ONLY THE ORGAN IS MISSING.****
-> **OWNER STANDING RULE, 2026-08-20T21:59Z: *"Make sure you always have 2 high priority angles you
-> can work on while you're waiting on results."*** *"Blocked on one thing" is never a stopping
-> state -- it means the second angle was never lined up.*
-**READY, NOTHING BLOCKING THE BUILD:**
-1. **The evaluation design** -- discriminator, six floors, four mandatory diagnostics, pre-committed
-   can-fail condition: `F5_EVALUATION_DESIGN_how_we_would_know_a_coherence_monitor_works_2026-08-20.md`.
-2. **The items** -- `data/anomaly_set_frequency_matched_v8.json`, 120 frequency-matched items,
-   hand-scored **102 CLEAN / 17 WEAK / 1 BROKEN** in `..._v8_handscores.json`. Builder is
-   byte-deterministic (`tools/build_frequency_matched_anomaly_set.py --self-test`).
-   **CEILING ~86%: with 17 WEAK items a PERFECT detector cannot score higher. PRINT THAT beside any
-   score, or the shortfall reads as detector failure.**
-3. **The bar** -- beat co-occurrence surprisal's median rank 4.0 of ~9, gated on that floor's UPPER
-   bound, >=3 item sets, `replication_gate.py` = `REPLICATED`.
-4. **The consumption design** -- the banked meaning must supply the **PREDICTION**, not sit in the
+**TOP ITEM`, `## WHAT IS RUNNING`**
+(`session_start_hook.py`, `board.py`). **Inside a section use `###`, never `##` -- a `##` here once
+terminated `## POSITION` at its own first line and both parsers mirrored an EMPTY position.**
+CHAIN: `BUILD_PLAN_post_audit_2026-08-19.md` (THE PLAN) -> HERE -> `STATUS_LESSONS.md` (detail).
+Pre-2026-08-21 session log: `STATUS_ARCHIVE_2026-08-21_pre_trim.md` (byte-identical snapshot).
 
 **WHAT IS RUNNING**
 - **NOTHING IS RUNNING.** No cells, no agents, no detached processes spawned by this session.
@@ -75,13 +65,14 @@ Flat ledger of what survives vs what I withdrew: `WHAT_2026-08-20_ESTABLISHED_su
   (`_tie_mass_examination_2026-08-21.json`); this file trimmed 308,692 -> ~17 KB with **nothing
   deleted**; the hook size guard. All committed.
 
-_mirrored from `notes/STATUS.md` at 2026-08-20T23:14:43Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-20T23:57:25Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
 | Q92 | Our recovery note (the file a fresh session reads first after a memory reset) has a size limit of 8,700 characters. I have now cut it from 308,000 to 17,600 -- eighteen times smaller -- by moving old material into two other files and rewriting the stale parts, deleting nothing. Here is the problem, and it is arithmetic rather than effort: two sections of that file are 'never delete' by our own rules -- the list of dead ends we already paid to discover, and the hard-won rules about how to work -- and those two ALONE are 11,200 characters. They are 29 percent bigger than the whole limit before a single word of current status is added. So the limit cannot be met without deleting exactly the material the limit exists to protect. Two honest options. Either raise the limit to about 18,000 characters, which matches what the file actually needs. Or move the never-delete sections out to the companion file too, leaving one-line pointers -- which meets the limit but means a fresh session no longer sees the dead ends and the rules without opening a second file, and that second read is the one most likely to get skipped. | The file is 2x its cap. Our procedure says the agent that wants the extra room may not grant it, so I cannot decide this myself, and it will otherwise recur. | Raise the limit to ~18,000. The 35x bloat was accumulation and that is now fixed and guarded automatically; what remains is content the rules class as unloseable. Risk of my recommendation: a bigger limit weakens the pressure to keep the file to one readable pass, and that pressure is the only thing that would have caught this earlier -- which is why I also added an automatic size report at every session start rather than relying on the limit alone. |  | open |
+| Q93 | You told me that if the brain argument points at building the coherence-monitor component, I should check again that we are really following the brain. I checked, and I found something I had missed all session. Our own brain-reference document schedules that component LAST -- behind a piece of work on pronoun resolution that we have not started -- and it sits in a section headed 'not started, recorded so it is not started by accident'. I had been reading that document's page on HOW the component works and never its page on WHEN to build it. That is the second time I have made that exact mistake with that exact file. The good news is real: the heart of the design -- that the system's belief about a word should create an expectation, and surprise is the gap between that expectation and what the sentence actually delivers -- is the part the brain evidence genuinely nails down. The details of how to measure that gap are my invention and I have now labelled them as mine rather than as the brain's. So the question is a scheduling one, and it is yours because you endorsed this direction without being told the document queues it behind unfinished work. Do you want to carry on with the coherence monitor anyway, or do the pronoun-resolution step first as the document says? Either way none of today's measurement is wasted -- the test set, the scoring machine, and the finding that our system is measurably behind plain word-counting are facts about the task and the system, not about this component. | The brain-reference document queues F5 behind step 4 (coreference) and classes it Phase B, gated on a Phase-A parity measurement that is met by 5 organs of 38. Your Q89/Q90 endorsement outranks the document, but it was given without this constraint being surfaced. | Carry on with the coherence monitor. The gate the document sets is about not starting Phase-B work before Phase-A organs are floored, and today's work has floored this task thoroughly -- we now know the untrained system scores zero, the trained system scores sixteen, and word-counting scores twenty-nine, all replicated. That is more flooring than most organs on the map have. Risk of my recommendation, stated plainly: the document's ordering exists because coreference feeds discourse state, and the coherence monitor measures change in discourse state -- so building the monitor first may mean measuring changes in a discourse state that is missing its main ingredient, and a weak result would then be uninterpretable rather than informative. |  | open |
 
 ## ANSWERED
 

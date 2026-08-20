@@ -1,5 +1,36 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🚨 **ORGAN_MAP QUEUES F5 BEHIND STEP 4 AND CLASSES IT PHASE B -- BOARD Q93 OPEN (2026-08-21)**
+> `ORGAN_MAP.md` in its own words: **"F5/F6 -- queue behind step 4"** (1440); **"PHASE B --
+> SUPERCHARGE. NOT STARTED. Recorded so it is not started by accident."** (1442); **"F5 does not
+> exist yet, so this is Phase B AFTER the Phase-A organ is built and floored"** (1447-49); **"No
+> organ enters Phase B until its Phase-A parity is measured against a floor -- 5 organs of 38, and
+> three of those five are not wired."** (1451). **Step 4 is E3 coreference, and it is not started.**
+> ### **I CITED F5's MATH ROW (989) ALL SESSION AND NEVER READ LINE 1440 IN THE SAME FILE.** Second
+> time with this exact file -- the divisive-normalisation rule was *grep the whole file, not the row
+> you are citing.* **Quoting one section of a document is not reading it.**
+> ### ✅ **THE FIDELITY ANSWER IS GOOD BUT PARTIAL:** the error being measured against the CURRENT
+> discourse state is **PINNED**; the **norm, the update rule and the precision estimator are
+> UNPINNED**. Angle B's load-bearing claim sits on the pinned half. **Every F5 brief must label the
+> rest OUR-INVENTION-UNDER-TEST, not brain-derived.**
+> ### **NOT "STOP":** the owner's Q89/Q90 endorsement outranks ORGAN_MAP -- but it was given without
+> this constraint surfaced, so the scheduling call is now **Q93**. **Do not self-answer it.**
+> **No measurement is wasted either way:** the item set, hand-scores, harness, three-way comparison
+> and paired test are properties of the TASK and the SUBSTRATE, not of F5.
+> `notes/THE_BRAIN_REFERENCE_QUEUES_F5_BEHIND_STEP_4_...md`
+
+> # 📊 **THE THREE-WAY COMPARISON IS COMPLETE (2026-08-21)**
+> | arm, paired hit@1 discrimination, 4 sets | median | verdict |
+> |---|---|---|
+> | untrained codebook (nothing read) | **~0** | CIs span zero -- donates nothing |
+> | **THE TRAINED SUBSTRATE** | **+16.3 pp** | **`REPLICATED`, 4/4 CIs exclude zero** |
+> | second-order counting (**the bar**, UB **+44.2**) | +29.4 pp | `REPLICATED` |
+>
+> **Learning bought something real** (0 -> +16.3, same representation and comparison, only the
+> reading differs). **And the PAIRED test says we are measurably BEHIND counting, not merely
+> not-ahead: `-0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.** Overlapping
+> marginal CIs are not a test of a difference; the paired test is.
+
 > # ✅ **THE SURFACE-vs-LEMMA BUG CLASS IS ENUMERATED ACROSS `hdlab/` -- THE SUBSTRATE IS CLEAN (2026-08-21)**
 > Four modules use the lemma functions; three compare lemma-to-lemma correctly. **One site genuinely
 > would break** -- `substrate.py` ~547 compares `content_lemmas` output against `SEED_VOCAB` as
