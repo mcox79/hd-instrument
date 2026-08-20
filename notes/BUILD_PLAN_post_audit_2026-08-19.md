@@ -195,7 +195,58 @@
 > 39%) -- neither is a rule about writing.** *The limit is the REPRESENTATION -- a random projection
 > of counts -- not the procedure that fills it.*
 >
-> ## ⬅️⬅️ TOP ITEM NOW: **THE ONE HONEST ESCAPE FOR THE DELTA RULE -- A NON-STATIONARY CORPUS.**
+> ## ✅ RAN -- **THE NON-STATIONARY ESCAPE IS CLOSED, AND THE PREMISE WAS FALSE BEFORE IT STARTED.**
+> **THE CORPUS WAS NEVER STATIONARY.** Measured drift: **NATURAL 0.6895, BLOCKED 0.6905 (within
+> 0.1%), SHUFFLED 0.6146.** Natural reading order drifts as much as MAXIMAL topic-blocking, and
+> shuffling is the only ordering that REMOVES structure. *Wikipedia arrives article by article, so a
+> word's contexts already shift as you read.* **⛔ SO THE ESCAPE IN THE BLOCK BELOW WAS VOID WHEN I
+> WROTE IT -- the delta rule had been under drift all along, and its earlier null was not a regime
+> artifact.** You cannot add drift to text that already has it, which is ALSO why my blocking
+> manipulation reads weak (1.12x). Same fact seen twice, not two problems.
+>
+> **AND THE DIRECTION THE ESCAPE PREDICTS RUNS BACKWARDS.** The hypothesis is not "some delta arm
+> wins somewhere" -- it is that as drift rises, forgetting should cost LESS:
+>
+> | ordering | mean drift | penalty for forgetting (DELTA_020 - SUM) |
+> |---|---|---|
+> | SHUFFLED | 0.6146 | **+1.062** |
+> | NATURAL | 0.6895 | +1.494 |
+> | BLOCKED | 0.6905 | **+2.115** |
+>
+> **corr(drift, penalty) = +0.051 across 12 cells -- the escape predicts NEGATIVE. Forgetting gets
+> MORE expensive as contexts drift, not less. A delta arm beats the sum in 3 of 24 cells.**
+> **✅ FREE HARNESS CHECK, AND IT PASSED: SUM is order-invariant by construction and read identical
+> across all three orderings at all four reads.** *A sum cannot care about order; if it had moved,
+> the experiment was broken.*
+> **➡️ PER THIS PLAN'S OWN PRE-COMMITMENT -- "if it loses even under drift, the delta rule is dead on
+> this instrument outright and the write-side route is closed for good" -- IT IS CLOSED.**
+> *⚠️ SCOPE, STATED WITH THE RESULT: the achievable drift range is narrow (0.6146-0.6905). This
+> closes the escape AS PROPOSED (reordering ONE corpus). It does NOT test extreme regime change --
+> an anatomy textbook followed by Sherlock Holmes. That version is queued below with its prior
+> recorded LOW IN ADVANCE, because within the range we CAN see, more drift makes recency worse.*
+>
+> **🚨 SIXTH GATE DEFECT, AND A NEW SPECIES: EXIT-ORDER, NOT LENIENCY.** The script checked "did my
+> manipulation work" FIRST and exited; the "is the corpus already drifting" check sat below it and
+> never ran. Both conditions were true. **The run printed the uninformative reading and SUPPRESSED
+> the informative one** -- it reported "treatment did not take, nothing else is reportable" when the
+> data said "there was nothing to add, and here is the answer anyway." *Fixed: reading 4 is now
+> evaluated first, and a weak manipulation no longer aborts a readable comparison.* **The five prior
+> defects were gates set too LOW; this one was set in the wrong ORDER. Checking a gate's threshold is
+> not enough -- check what it EXITS BEFORE.**
+>
+> ## ⬅️ NEXT: **THE EXTREME-DRIFT VERSION, PRIOR RECORDED LOW BEFORE RUNNING.**
+> The only honest remainder: cross-CORPUS blocking. The shelf holds **36 corpora** including five
+> textbooks (anatomy, biology, chemistry, microbiology, psychology) and several novels. Reading
+> anatomy -> chemistry -> Sherlock is a genuine regime change, far past the 0.6146-0.6905 band a
+> single corpus can reach.
+> **⚠️ PRIOR: LOW, AND WRITTEN FIRST.** Within the range we could measure, the penalty for forgetting
+> *rose* with drift (+0.051 correlation, BLOCKED worst). Extrapolating says extreme drift makes it
+> worse still. **I am running it because the measured range was narrow and extrapolation across a
+> regime boundary is exactly the move this project keeps punishing -- not because I expect a win.**
+> *Pre-commit: if the penalty still rises with drift across corpora, the write-side route is closed
+> with no remaining caveat, and I stop proposing write rules.*
+>
+> ## [SUPERSEDED -- PREMISE FALSE, SEE ABOVE] previous top item: **THE ONE HONEST ESCAPE FOR THE DELTA RULE -- A NON-STATIONARY CORPUS.**
 > **Forgetting BUYS ADAPTATION TO A CHANGING WORLD. `simplewiki` read front-to-back is STATIONARY,
 > so recency can only DISCARD EVIDENCE and must lose.** *We tested a rule for non-stationarity in a
 > stationary regime -- a FOURTH position error of the same shape: right mechanism, wrong regime.*
