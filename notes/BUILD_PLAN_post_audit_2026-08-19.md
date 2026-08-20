@@ -413,7 +413,22 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
-> ## 🟢🟢 **FIRST STRUCTURAL IMPROVEMENT OF THE SESSION -- AND IT IS A SINGLE-SEED HYPOTHESIS, NOT**
+> ## 🔬 VETTING IN FLIGHT -- **3 SEEDS, PAIRED CIs, AND A DOUBLE-COUNT ARM. THE SMOKE ALREADY**
+> ## **REFUSED THE CLAIM -- AT A SCALE WHERE THE EFFECT IS SMALLEST, SO IT DOES NOT COUNT EITHER.**
+> `scratch/diag_keepnoting_multiseed.py`, running at 16,000. Three arms: DEFAULT · KEEP_NOTING (as
+> shipped) · **KEEP_NOTING_POSTONLY** -- consolidated vector plus ONLY traces with
+> `pass_idx > snapshot_pass`, which **cannot double-count**, because the shipped merge adds the whole
+> Library sum to a consolidated vector partly built from those same pre-grounding traces.
+> *Pre-committed: if KEEP wins across seeds but POSTONLY does not, the gain is the merge measuring its
+> own arithmetic, and the headline number gets RETRACTED rather than explained.*
+>
+> **⚠️ THE SMOKE (`DIAG_FINAL=4000`) RETURNED "NOT ESTABLISHED" IN 0 OF 3 SEEDS -- AND IT IS NOT THE
+> TEST.** The single-seed effect at 4,000 was **2.91x -> 2.50x**, its smallest; the headline is at
+> **16,000 (5.33x -> 3.17x)**, where it is 41%. **Running a 4,000-sentence smoke and reporting its
+> verdict would be the smoke-numbers error for the third time tonight.** It is recorded here so the
+> full run cannot be quietly compared against a friendlier memory of it.
+>
+> ## 🟡 **CLAIMED, PENDING VET -- SINGLE-SEED HYPOTHESIS, NOT A WIN:**
 > ## **A WIN, UNTIL IT HAS SEEDS AND CIs. BOTH FREEZES OPENED, MEASURED IN THE ASSEMBLY.**
 > Write side (`Library.flag` + `process_sentence`) AND read side (`Substrate.profile` sums the
 > Library traces into the consolidated vector instead of being overwritten by it). Both additive,
