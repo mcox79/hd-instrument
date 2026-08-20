@@ -393,6 +393,49 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+## 🧱 2026-08-20 -- **THE UPDATE RULE CHANGES NOTHING EITHER. THE SUM IS OPTIMAL IN ITS OWN**
+## **FAMILY, AND THE PRE-REGISTERED RISK IS EXACTLY WHAT HAPPENED.**
+*The three POSITION errors all pointed here: precision belongs on HOW MUCH TO UPDATE, and `acc +=
+trace` has no step size to modulate. So the profile was given a delta rule `p <- p + eta*(trace - p)`
+-- which has both a residual and a step size, the form G2 actually pins. All arms at full coverage.*
+
+| sentences | SUM | **1/n (control)** | eta .05 | eta .20 | eta .50 | **PREC** |
+|---|---|---|---|---|---|---|
+| 1000 | 0.98x | 0.98x | 0.84x | 1.07x | 1.16x | 0.93x |
+| 2000 | 1.71x | 1.71x | 1.57x | 1.86x | 2.14x | 1.50x |
+| 4000 | 2.23x | 2.23x | 2.42x | 2.90x | 3.42x | 2.44x |
+| 8000 | 2.06x | 2.06x | 1.89x | 2.92x | 4.24x | 1.90x |
+| 16000 | **4.39x** | 4.39x | 6.92x | 8.69x | 10.08x | 6.06x |
+
+    phase slope  SUM +1.035 | 1/n +1.035 | .05 +1.798 | .20 +2.354 | .50 +2.879 | PREC +1.536
+    beats SUM at:  1/n 0/5   .05 3/5   .20 0/5   .50 0/5   PREC 3/5
+
+**✅ THE NESTED POSITIVE CONTROL PASSED AT EVERY POINT: `eta = 1/n` IS the running mean, and it
+reproduced SUM's ranking EXACTLY (delta +0.00 at all five reads).** *That is what makes the rest of
+the table interpretable rather than decorative -- the sum is not a separate arm, it is a POINT
+INSIDE the delta-rule family, so "no arm beats the sum" means the family's optimum sits at the
+no-forgetting end.*
+**⛔ EVERY FIXED LEARNING RATE IS WORSE THAN THE SUM, AND WORSE FASTER: slopes +1.798 / +2.354 /
++2.879 against +1.035, and at 16,000 the recency arms blow out to 6.92-10.08x against the sum's
+4.39x.** Precision on the step size does not rescue it (+1.536, 3/5).
+**➡️ AND THE RISK WAS WRITTEN DOWN BEFORE THE RUN, VERBATIM: *"if the eta sweep says
+smaller-is-always-better, the winner IS the sum and this is a NULL. Say so plainly."* It does, it is,
+and I am.**
+**🔑🔑 SO THE REPRESENTATION IS INSENSITIVE TO **HOW** IT IS WRITTEN AS WELL AS TO **WHICH** TRACES
+GO IN.** Six write-side interventions have now failed on the phase curve (residual gate, k-WTA,
+normalisation, incremental decorrelation, novelty/precision selection, and now the whole delta-rule
+family). **The only two things that have EVER moved it are HOW MANY traces exist (coverage) and a
+POST-HOC transform (centring) -- neither of which is a rule about writing.** *The limit is the
+REPRESENTATION -- a random projection of counts -- not the procedure that fills it.*
+**🧠 FIDELITY, AND IT NAMES THE ONE HONEST ESCAPE FOR THE DELTA RULE: the brain DOES forget, and
+recency weighting is real synaptic behaviour. But forgetting BUYS adaptation to a CHANGING world,
+and `simplewiki` read front-to-back is STATIONARY -- there is nothing to adapt to, so tracking can
+only discard evidence.** *We tested a rule for non-stationarity on a stationary corpus, which is a
+fourth POSITION error of the same shape: right mechanism, wrong regime.* **That is testable: on a
+deliberately NON-STATIONARY reading order (topic-blocked, so word senses drift), recency should beat
+accumulation. If it does not even there, the delta rule is dead on this instrument outright.**
+*⚠️ Single seed per point, one corpus. Per-point deltas reported before slopes.*
+
 ## 🎚️ 2026-08-20 -- **PRECISION WEIGHTING, THE PINNED TERM, BUILT TO THE ARCHIVE'S OWN CONSTRAINT.**
 ## **MEASURABLE, WELL-BEHAVED -- AND STILL NOT A USABLE GATE. FOURTH NEGATIVE ON SELECTION.**
 *ORGAN_MAP G2 pins the rule as the residual PRECISION-WEIGHTED, and enumeration found the term
