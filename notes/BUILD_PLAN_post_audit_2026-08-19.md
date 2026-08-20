@@ -17,10 +17,18 @@
 >
 > **➡️ AND MOST OF THE NOISE IS ONE BUG: the DEFINIENS is fine, the DEFINIENDUM is a broken span.**
 > `longest river -> the Gudena`, `big change -> the development of atomic theory`,
-> `well-known example -> the Ring of Fire`. **91% of noise on simplewiki, 63-75% on the textbook.**
-> **SAME BUG CLASS `exp_definitional_grounding_v5` ALREADY FIXED FOR OTHER PATTERNS** (term-boundary
-> corruption 16.1% -> 1.0%, which took that sample 4% -> 60%). **~95 noise rows per 6,000 sentences
-> on the live corpus, from one cause.**
+> `well-known example -> the Ring of Fire`.
+> **DIAGNOSED: it is the SPECIFICATIONAL COPULA.** *"A cell is the smallest unit of life"* defines
+> the LEFT side; *"Australia's longest river is the Gudena"* defines the **RIGHT** side, the left
+> being only a description pointing at it. **The extractor takes the pre-copula NP as definiendum
+> unconditionally, which is correct for the predicational kind only.** Principled fix: detect and
+> either SWAP the roles or REFUSE (*"the difference is the presence of the hydroxyl group"* defines
+> nothing).
+> **⚠️ PREVALENCE CORRECTED DOWN, BY ME, AGAINST MY OWN EARLIER NUMBER: the population count
+> (25 of 340 simplewiki = 7.4%; 13 of 295 textbook = 4.4%) puts the true rate near 9-10%, NOT the
+> ~25-28% my 40-row hand sample implied.** The 340-row count beats the 40-row sample; the sample
+> over-represented them. **And there are TWO subtypes -- specificational (marker-detectable) and
+> truncated/merged spans (`cooking breakfast saus`), which the same fix does NOT address.**
 >
 > **TWO OTHER FAILURE CLASSES FOUND AND BOTH DEMOTED BY PREVALENCE:** vacuous definiens
 > (*"tonicity is a concern for all living things"*), and polarity loss from COUNTERFACTUALS
