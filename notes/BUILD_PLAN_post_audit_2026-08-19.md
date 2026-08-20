@@ -1,7 +1,7 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
 > # 🚨 **A MATERIAL QUALIFICATION TO THE WHOLE DAY: BOTH QUALITY MEASUREMENTS SCORE ONE OF TWO**
-> # **OUTPUT PATHWAYS, AND THE OTHER HAS NEVER BEEN ASSESSED.**
+> # **OUTPUT PATHWAYS. ✅ THE OTHER IS NOW MEASURED TOO -- SEE THE GREEN BLOCK BELOW.**
 >
 > | measurement | multi-word objects in its sample |
 > |---|---|
@@ -31,10 +31,53 @@
 >   scored."**
 > - **DOES change Q89**, which is on the owner's board right now and quotes the unqualified version.
 >   **Amended there rather than left to mislead a decision.**
-> **➡️ THE OBVIOUS NEXT MEASUREMENT, AND IT NEEDS NO NEW MACHINERY: blind-hand-score a sample of the
-> PHRASE pathway with the same MEANINGFUL/RELATED/NOISE rubric used for the 100 single-word rows.
-> Same rubric, same scorer discipline, different population -- and it is the only way to know whether
-> half this system's output is good.**
+> # ✅ **DONE, SAME DAY. THE PHRASE PATHWAY IS NOW MEASURED, AND IT WINS 8-TO-1 ON THE SAME WORDS.**
+> **`notes/the_phrase_pathway_measured_definitional_vs_distributional_2026-08-20.md`**
+>
+> | on IDENTICAL terms, IDENTICAL traces | MEANINGFUL | RELATED | NOISE |
+> |---|---|---|---|
+> | definitional route (phrase off the page) | **32%** | 36% | 32% |
+> | distributional read-out (`canonicalize`) | **4%** | 68% | 28% |
+>
+> **PAIRED. McNemar 8 discordant pairs for the phrase route vs 1 against, exact one-sided p=0.020.**
+> The first version of this was UNPAIRED (32% vs 0%, Fisher p=0.002) and **confounded** -- the phrase
+> arm drew `drupe, economics, tectonics` while the word arm drew `previous, other's, useful,
+> populous`, which have no good one-word meaning for ANY system. **The pairing removes term
+> difficulty by construction and the result survived it.**
+>
+> ## 🔍 THE SECOND FINDING, WHICH THE HEADLINE HIDES
+> **The definitional route is NOT less noisy -- 32% vs 28%, marginally WORSE.** RELATED collapses
+> 68% -> 36% and that mass moves into MEANINGFUL. **The gain is not "fewer wrong answers", it is
+> "when it is right it TEACHES the word instead of gesturing at it".** `algebra -> solve` is not
+> wrong, it is useless. **A denoising intervention would not have produced this, and anyone reading
+> only the headline would have gone looking for one.**
+>
+> ## ⚠️ AND THE PART THAT MATTERS MORE THAN THE WIN
+> **THE GOOD HALF IS NOT PRODUCED BY THE SUBSTRATE'S LEARNING MECHANISM.** The definitional route is
+> a SURFACE PATTERN MATCHER -- no traces, no bundling, no binding, no consolidation. **The HDC
+> read-out is the arm scoring 4%.** This does not overturn the day's conclusion, it sharpens it: the
+> system's best output comes from **reading text that already states the answer**, the same shape as
+> the other three things that work. *Q89 amended in place with both findings and with a correction to
+> my own recommendation -- I had told the owner the extra material would need quality fixed too, and
+> that assumption is now measured false.*
+>
+> ## 📌 SELECTION RUNS *AGAINST* THE DEFINITIONAL ROUTE, SO THIS IS CONSERVATIVE
+> Of 212 definitional facts, **151 (71%) have a distributional counterfactual of NO-MATCH** (`obj ==
+> term`, the sentinel `reading_grounding_loop.py:770-775` documents as *"NOT a meaning"* and the gate
+> REFUSES). Excluded -- a refusal cannot be quality-scored. **The 29% scored are exactly the terms
+> where the distributional read-out was at its BEST. It still loses 8-to-1.**
+> *My own diagnostic first printed "distributional returned nothing: 0 (0%)" because it tested for
+> EMPTY when the sentinel is EQUAL-TO-THE-TERM. Caught by reading `canonicalize`, not by the script.*
+>
+> ## 🚨 FOUND WHILE DOING THIS: 100 PRE-REGISTERED AUDIT ROWS, UNSCORED SINCE 2026-08-12
+> `data/exp_definitional_grounding_v3/b3_audit_sample_{DEF,DIST_LOWINFO}.json`, 50 rows each,
+> `NOT_AUTO_SCORED: true`. **Two landed cells are blocked on them** (`STRUCTURAL_PASS_PENDING_B3`),
+> with a pre-committed baseline to beat (**8% MEANINGFUL / 26% RELATED / 66% NOISE**). **THE TEST
+> ITEMS PREDATE TODAY'S MECHANISM BY 8 DAYS -- this project's strongest free predictor of a
+> non-bogus result.** They do NOT measure the phrase pathway (**0 of 50 objects are multi-word**;
+> v3 banked `Definition.head`, `substrate.py:538` now banks `d.definiens`) -- which is exactly why
+> that pathway was still unmeasured. **THIS IS THE TOP UNBLOCKED ITEM: same scorer, same rubric,
+> ~1 hour, resolves two PENDING verdicts.**
 
 
 > # ⛔ **TWO OF MY OWN CLAIMS FROM THE LAST HOUR WITHDRAWN -- AND THE REASON IS A STRUCTURAL FACT**
