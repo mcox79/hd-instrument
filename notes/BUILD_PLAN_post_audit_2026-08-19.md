@@ -1,5 +1,34 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ✅ **THE LIGHT-NOUN FIX IS CONFIRMED LIVE AND `way` IS OUT OF THE TOP ANCHORS -- BUT THAT IS**
+> # **NOT A QUALITY CLAIM, AND I WROTE THAT DOWN BEFORE RUNNING IT.**
+> **First, the fix is REACHABLE, verified not assumed:** over 1,200 sentences of real reading,
+> `extract_definitions` is called **1,150 times** and `definiens_head` **98 times**. The extractor is
+> on the reading path and heavily used. *Three times today a module was imported and never called;
+> this one is called.*
+>
+> **`exp_grounding_precision_gold_v1` recorded `top_anchor = way` on ALL THREE SEEDS** (~3.0% share,
+> 40,000 sentences/seed). After adding `way`/`means`/`part` to `_MEASURE_HEAD`:
+>
+> | | |
+> |---|---|
+> | `way` in the top 10 | **NO** |
+> | semantically-empty anchors | **2.5%** (10 of 402) |
+> | new top anchor | `day` (3.2%) |
+>
+> **⚠️ WHAT THIS DOES NOT SHOW, stated in the script before it ran: A DIFFERENT TOP ANCHOR IS NOT A
+> BETTER GROUNDING.** It shows the fix reaches the output distribution. **Whether PRECISION moved
+> needs the independent-gold cell re-run (~1.5 h), which this is not.**
+> **⚠️ AND THE POPULATIONS DIFFER: 12,000 sentences of `simplewiki` here vs 40,000 across 28 corpora
+> there. Compare the RANK of `way`, never the shares.**
+>
+> ## 🔍 AND THE NEW TOP-10 SHOWS THE OTHER DEFECT STILL PLAINLY: `kabul`, `prc`, `american`
+> **Proper nouns are being assigned as MEANINGS** -- the referent-vs-concept routing error measured
+> this morning (~10-13% of grounded subjects have no dictionary entry). *The brain stores a name as a
+> REFERENT, not as a word-meaning; we ask which other WORD `kabul` means. That defect is untouched by
+> the light-noun fix and is the larger of the two.*
+
+
 > # 🧭🧭 **CONSOLIDATED READ -- 2026-08-20. THIS BLOCK REPLACES READING THE TWENTY BELOW IT.**
 > *Everything under this is the working record, newest-first, and stays. This is what it adds up to.*
 >
