@@ -217,6 +217,43 @@ named, fixable class.**
 GROUNDING READ-OUT is not.** We are good at extracting what a page says and bad at deciding what a
 word means from statistics. **Worklist now 9.**
 
+### 8g. FOURTH AUDIT SCORED -- **BETTER TEXT DOES NOT RESCUE THE READ-OUT** (`grounding_text_vs_mechanism`)
+The cell asks the question Q89 turns on: **is grounding limited by the TEXT we feed it, or by the
+MECHANISM?** Arms are NEWS vs TEXTBOOK read streams, with a SEALED co-occurrence control. Its own
+prereg names `MECHANISM_IS_BINDING` an expected, acceptable outcome.
+
+| n=50 per arm | MEANINGFUL | RELATED | NOISE |
+|---|---|---|---|
+| NEWS | **0%** | 24% | 76% |
+| TEXTBOOK | **0%** | 36% | 64% |
+
+**NEITHER ARM PRODUCED A SINGLE MEANINGFUL GROUNDING.** Textbook is directionally better on RELATED
+and NOISE (Fisher one-sided p=0.1376 on NOISE) -- **underpowered, not null** -- but **the
+discriminating cell is empty, so switching from news to textbook does not rescue the read-out.**
+
+**🔓 AND THE SEALED CO-OCCURRENCE CONTROL IS THE SHARPEST PART:**
+
+| arm | either_top1 (floor) | top5 containment (floor) | band |
+|---|---|---|---|
+| NEWS | 0.12 (0.02) | 0.44 (0.04) | **COOC_PARTIAL** |
+| TEXTBOOK | 0.04 (0.00) | 0.20 (0.02) | **COOC_DOES_NOT_EXPLAIN** |
+
+**On TEXTBOOK the substrate DEPARTS from plain co-occurrence far more than on NEWS -- and still
+produced ZERO meaningful groundings.**
+**➡️ DIVERGENCE FROM THE BASELINE IS NOT QUALITY.** *Exactly the shape of the structured comparator
+scored hours earlier: it could not reproduce a known baseline error, and was still worse. Two
+independent cells, same lesson -- **"not doing what the baseline does" is not evidence of doing
+better**, and this project has repeatedly read it as though it were.*
+
+**⚠️ TENSION TO RECORD, NOT RESOLVE:** the charter carries a different text-kind result (`bio_new`
+9/17 = 52.9% MEANINGFUL vs 13/83 = 15.7% elsewhere, p=0.00204). That is a WITHIN-read segment
+comparison on another cell; this is a BETWEEN-stream comparison with 0 MEANINGFUL in both arms.
+**Do not merge them** -- different populations and samples, and the standing prohibition on
+juxtaposing hand-score figures applies.
+**⚠️ BLINDING LIMIT:** this design *cannot* be fully blind -- the arms differ BY CORPUS, so the
+vocabulary reveals the arm (`spermatogonia`/`operon` are obviously textbook). Mitigated by scoring
+from the (subject -> object) PAIRS ALONE with sentences withheld. **Worklist now 8.**
+
 ### 9-11. Infrastructure and governance, all verified from disk
 - **The registry's do-not-wire gate on the definitional module had been CARRIED PAST** while
   `pipeline_status` read `WIRED_BUT_NOT_PIPELINE_REACHABLE` -- wrong in the safe-looking direction.
