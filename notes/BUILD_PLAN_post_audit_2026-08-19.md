@@ -413,6 +413,30 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## ✅ **LAST OPEN THREAD CLOSED: THE GAP DETECTOR IS CORRECT AND REDUNDANT. NOT BROKEN, NOT USELESS.**
+> Positive control -- asked the organ about the populations the live path never lets it see:
+>
+> | population | `is_gap` | correct? |
+> |---|---|---|
+> | SEED-KNOWN (`more`, `for`, `all`, `her`) | **False 8/8** | yes -- correctly "not a gap" |
+> | GROUNDED (`march`, `month`, `days`, `april`) | **False 8/8** | yes -- correctly "not a gap" |
+> | PENDING (`fourth`, `gregorian`, `julian`) | **True 8/8** | yes -- correctly "a gap" |
+>
+> **THE ORGAN DISCRIMINATES PERFECTLY.** It answered True 8,053 times out of 8,053 on the live path
+> for one reason: **it is only ever ASKED about PENDING words.** `state.known_seed` filters seed words
+> at the top of the loop, and the terminal short-circuit filters GROUNDED ones -- **both populations
+> it would reject are removed before it is consulted.** Its answer is predetermined by its POSITION.
+>
+> **🔑 SO THIS IS A POSITION RESULT, NOT A CAPABILITY ONE, AND IT FULLY EXPLAINS THE ABLATION.**
+> `ablate=["gap_detector"]` changed nothing because the organ's output is never load-bearing here --
+> replacing a correct answer that is already determined with a constant that happens to match it is a
+> no-op by construction. *The false alarm I raised (and withdrew) is now closed with a mechanism
+> rather than just a retraction.*
+> **➡️ AND IT NAMES A CHEAP WIN THAT IS NOT A RESEARCH QUESTION: the organ runs 8,053 times per 1,500
+> sentences to compute an answer two earlier filters already guarantee.** *Not proposing the removal
+> -- it is a correctness guard for a state handed in without those filters, which its own docstring
+> says. Recording that its COST is real and its CONTRIBUTION here is zero.*
+>
 > ## ❌ **CLOSED -- AND IT CORRECTS THE ROUND BEFORE IT. ACCUMULATION *HELPS* ON THE TASK.**
 > Three seeds, `simplewiki`, 8,000 sentences, paired on identical probes:
 >
