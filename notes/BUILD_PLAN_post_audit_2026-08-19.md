@@ -1,5 +1,43 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ⛔ **TWO OF MY OWN CLAIMS FROM THE LAST HOUR WITHDRAWN -- AND THE REASON IS A STRUCTURAL FACT**
+> # **ABOUT THIS CODEBASE I DID NOT KNOW: `consolidated()` MIXES TWO POPULATIONS.**
+>
+> | source | content | share multi-word |
+> |---|---|---|
+> | store `GROUNDED_MEANING.obj` (what the precision cell scored) | `house`, `end`, `real`, `help`, `control` | **0.0%** (0 of 634) |
+> | `sub.consolidated()` values | *"a dairy product that is made from the milk of cows"* | **~55%** (2 seeds) |
+>
+> **They are NOT the same thing. `consolidated()` carries single-word `canonicalize` anchors AND
+> multi-word definitional definiens together; the store's GROUNDED_MEANING facts are single-word
+> only.**
+>
+> ## 1. ⛔ **WITHDRAWN: "54.7% of assigned meanings have no dictionary entry, so proper nouns are a
+> ## big share."** The detector was a single-word WordNet lookup, and it was being handed PHRASES --
+> on which it trivially returns False. The flagged "names" are things like *"a bridge over the
+> stream"* and *"a colour seen with fear and the unknown"*. **The number measures phrase-ness, not
+> name-ness, and is void.**
+> **🚨 MY POSITIVE CONTROL TESTED FOUR NAMES AND FIVE COMMON NOUNS -- ALL SINGLE WORDS. IT NEVER
+> TESTED A PHRASE, WHICH IS THE ONLY INPUT THAT BREAKS IT.** *A control that does not include the
+> failing case is the checker-shares-a-flaw trap, and that is the fifth instance today.*
+> *(It did earn its keep once: it caught that `kabul` IS in WordNet, so the detector under-counts
+> well-known place names too.)*
+>
+> ## 2. ⚠️ **QUALIFIED: "`way` is out of the top 10 after the light-noun fix."** True of
+> `consolidated()`. **But the precision cell's `top_anchor='way'` was over the STORE's single-word
+> objects -- a different population.** *So the two cannot be compared, and the fix's effect on the
+> figure the precision cell reported is UNMEASURED.* **The fix being live is still verified
+> separately** (`extract_definitions` 1,150 calls / `definiens_head` 98 over 1,200 sentences).
+>
+> ## ✅ WHAT IS ACTUALLY WORTH KEEPING FROM THIS HOUR
+> **The substrate stores rich multi-word definiens for roughly half of what it consolidates** --
+> *"a dairy product that is made from the milk of cows"* is a BETTER definition than any single head
+> word, and I had been reasoning all day as though the output were single-word anchors only.
+> **Every head-quality argument I made today applies to one half of the output and not the other.**
+> *Also visible in the store sample: `leav` -- a stem, in the pre-fix v2 store, consistent with the
+> lemmatiser finding.*
+
+
 > # ✅ **THE LIGHT-NOUN FIX IS CONFIRMED LIVE AND `way` IS OUT OF THE TOP ANCHORS -- BUT THAT IS**
 > # **NOT A QUALITY CLAIM, AND I WROTE THAT DOWN BEFORE RUNNING IT.**
 > **First, the fix is REACHABLE, verified not assumed:** over 1,200 sentences of real reading,
