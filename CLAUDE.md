@@ -772,6 +772,35 @@ Three points, and the third is why this section exists at all:
    is not a prior-work check. Any tool relied on to establish ABSENCE needs a known-present positive
    control wired into it, not into the habits of whoever runs it.*
 
+## A RULE IN THIS FILE DID NOT STOP ME REPEATING THE FAULT TWICE THE SAME DAY -- USE `tools/rank_with_ties.py`
+
+**Measured 2026-08-20. THREE false results in one day, all from `1 + sum(scores > scores[target])`:**
+
+| | optimistic | truth |
+|---|---|---|
+| DG at 1% sparsity | 18.0, "parity with word-counting" | random noise scored **14.0**; 89.4% of similarities exactly 0.0 |
+| "never picks an available synonym, 775 of 775" | 100% miss | a random picker also scores 0 (P(zero) = 0.64 / 0.85) |
+| first-order co-occurrence | 21.0 | **100.0 pessimistic**; 92.2% of items tied, 79.2% of the column zero |
+
+A STRICT inequality meeting a score distribution with mass on one value counts every tie as BEATEN,
+so **the less a representation knows, the better it scores.**
+
+**THE PART THAT MATTERS FOR HOW RULES GET WRITTEN HERE: the rule "report both tie conventions" was
+added to this file on the MORNING of 2026-08-20, and I then failed to apply it to the next two
+scripts I wrote that same day.** A rule in a document is a habit; a habit is not a guard.
+
+**So the guard moved into a function.** `tools/rank_with_ties.py` returns a `RankResult` carrying
+`optimistic` / `midpoint` / `pessimistic` / `n_tied` / `suspicious` -- **there is no call signature
+that yields a bare rank.** Self-tested against all three real failures above plus a negative control
+(a tie-free field must NOT be flagged, or the guard cries wolf and gets ignored).
+
+**Rule: any rank-based comparison uses that helper. If `optimistic` and `pessimistic` disagree
+materially, the optimistic number is not a result** -- report the midpoint or fix the representation
+so the ties go away.
+
+*Corollary worth generalising past ranks: when the same class of error recurs, stop writing the
+lesson down and put it in the code path that can enforce it.*
+
 ## NON-ZERO IS NOT NON-DEGENERATE -- A *SPARSE* ARM BREAKS A RANK METRIC THE SAME WAY AN EMPTY ONE DOES
 
 **Measured 2026-08-20, and the guard that should have caught it is the one directly above -- written

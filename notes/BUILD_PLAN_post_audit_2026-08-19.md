@@ -1,5 +1,51 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🔁 **THREE RESULTS. TWO OF MY OWN CLAIMS DIE, AND A TIE ARTIFACT APPEARS FOR THE THIRD TIME**
+> # **TODAY -- WHICH MAKES IT A TOOLING PROBLEM, NOT THREE COINCIDENCES.**
+>
+> ## ⛔ 1. **COOC1's WIN IS WITHDRAWN. IT WAS TIE-BREAKING.**
+> | arm | OPTIMISTIC | MIDPOINT | PESSIMISTIC | median ties | % items tied | % zeros |
+> |---|---|---|---|---|---|---|
+> | SUBSTRATE | 40.0 | 40.0 | 40.0 | **0.0** | **0.0%** | 0.0% |
+> | COOC2 | 26.0 | 27.0 | 27.0 | **0.0** | 3.9% | 4.9% |
+> | **COOC1** | **21.0** | 71.5 | **100.0** | **57.0** | **92.2%** | **79.2%** |
+>
+> **`COOC1 - SUBSTRATE` goes from -19.0 OPTIMISTIC to +60.0 PESSIMISTIC.** Most anchors never
+> co-occur with the target, so they tie at exactly 0.0 and the strict-inequality rank counts every
+> tie as beaten. **My ORIGINAL prediction -- that direct co-occurrence would be WEAK for synonyms --
+> was RIGHT, and the "encyclopedic text states synonyms together" story I invented to explain the
+> apparent win was a rationalisation of an artifact.**
+>
+> ## ⛔ 2. **THE SIGNED QUERY COSTS NOTHING. MY "WE SHIP THE WORST OF THREE" WAS WRONG.**
+> | comparison | pooled paired | CI | |
+> |---|---|---|---|
+> | SHIPPED − BOTH_GRADED | +0.0 | [+0.0, +1.0] | not separated |
+> | SHIPPED − BOTH_SIGNED | +0.0 | [−1.0, +0.0] | not separated |
+> | BOTH_GRADED − BOTH_SIGNED | +0.0 | [−1.0, +0.0] | not separated |
+> | SHIPPED − UNIFORM | **−111.0** | [−141.0, −83.0] | separated |
+>
+> **The docstring's *"a graded field read by a signed query is worse than either"* does NOT bite on
+> this task.** *I labelled that an INFERENCE rather than a measurement, which is the one thing I got
+> right about it.*
+> **⚠️ AND THE TENSION IS WORTH STATING RATHER THAN PICKING A SIDE: per-seed medians differ a lot
+> (BOTH_SIGNED 64 vs BOTH_GRADED 44 on seed 7) while the PAIRED median difference is 0.** Both are
+> true and they answer different questions -- *the typical item does not move, but the distribution's
+> centre does*, meaning a minority of items shift a great deal. **This is NOT a reachability failure:
+> the arms are genuinely different objects (per-seed medians differ) and the metric plainly reaches
+> (UNIFORM separates at −111).**
+> **✅ WHAT STILL STANDS: `canonicalize_fast` and the whole `ReadoutConfig` subsystem take 0 live
+> calls. That is a fact about the code, unaffected by this null.** *What dies is the claim that
+> connecting it would buy anything on THIS task.*
+>
+> ## 🔧 3. **THE REAL FINDING: THREE TIE ARTIFACTS IN ONE DAY, ALL FROM ONE LINE OF ARITHMETIC.**
+> `DG@0.01` (18.0, noise scored 14.0) · the 775-of-775 miss rate (random also scores 0) · `COOC1`
+> (21.0 optimistic, 100.0 pessimistic). **Every one is `1 + sum(scores > scores[target])` -- a STRICT
+> inequality -- meeting a score distribution with mass piled on a single value.**
+> **➡️ THREE IN ONE DAY IS A TOOLING PROBLEM, NOT THREE COINCIDENCES. The rank helper should REFUSE
+> to return a number without also reporting tie density, and every rank comparison should print both
+> conventions by default rather than when someone remembers.** *I wrote that rule into CLAUDE.md this
+> morning and then failed to apply it to my own next two scripts.*
+
 > # 🔒 **THE STEMMING THREAD, CLOSED PROPERLY. I NARROWED IT THREE TIMES AND THIS IS THE FINAL**
 > # **STATE -- DO NOT RE-OPEN IT WITHOUT READING ALL FIVE LINES.**
 > | claim | status |
