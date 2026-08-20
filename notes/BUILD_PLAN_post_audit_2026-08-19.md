@@ -369,6 +369,30 @@
 > algebra. They show the MACHINERY works; NONE shows that revising beliefs helps this substrate read
 > better.*
 >
+> **🚨🚨 AND CHASING "WHY WAS NOTHING EVER CONTRADICTED" FOUND SOMETHING BIGGER: THE FACT STORE**
+> **CONTAINS NO FACTS.** Dumped every stored belief after 6,150 sentences. The entire relation
+> vocabulary is **TWO** entries:
+>
+> | relation | count | object |
+> |---|---|---|
+> | `KNOWN_WORD` | 380 | **always the constant `CORE`** |
+> | `GROUNDED_MEANING` | 288 | varies |
+>
+> **There is not one propositional belief in it** -- nothing of the "X treats Y" shape that revision,
+> contradiction detection and AGM contraction are all built to operate on. `KNOWN_WORD -> CORE` is a
+> vocabulary flag with a constant object, so **it is not capable of being contradicted by
+> construction.** That is the real reason 668 of 668 keys were uncontested, and it is a much duller
+> reason than "the corpus lacks contradictions".
+>
+> **⛔ AND THE PROVENANCE TAGS SAY THE EXTRACTOR'S OUTPUT IS NOT LANDING HERE.** The store recognises
+> four pipelines -- `SEED_VOCABULARY`, `UNKNOWN_LEGACY`, `DEFINITIONAL_EXTRACTOR`, `READING_GROUNDING`
+> -- and **all 668 facts are tagged `UNKNOWN_LEGACY`. Not one carries `DEFINITIONAL_EXTRACTOR`.**
+> Meanwhile the reader reports `n_definitions = 73` per 1,500 sentences, so the extractor IS finding
+> definitions. *Either they are stored stripped of provenance under `GROUNDED_MEANING`, or they are
+> not stored at all -- and I have not yet separated those two, so the honest claim stops here.*
+> **➡️ THIS OUTRANKS WIRING A CONTRADICTION DETECTOR. A detector fed a store whose only contestable
+> content is a constant would find nothing, correctly. FIND OUT WHERE THE 73 DEFINITIONS GO FIRST.**
+>
 > **🔁 THIRD TIME THIS EXACT SHAPE HAS APPEARED TODAY, AND IT IS NOW A PATTERN WORTH NAMING:
 > BUILT, CORRECT, NEVER REACHED.** (1) the consolidated store -- WRITTEN AND NEVER READ; (2)
 > `gap_detector` / `gap_driven_reader` / `three_tier_loop` -- import clean, wired by nothing; (3)
