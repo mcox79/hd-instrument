@@ -1,5 +1,46 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🎯 **HAND-READ 50 DROPS: ~48% ARE REAL DEFINITIONS WE CANNOT PARSE, AND THE THREE FORMS THAT**
+> # **LOSE THEM ARE NONE OF THE CAUSES I ORIGINALLY PROPOSED.**
+> *The 73.1% unattributed pool was the open question. Hand-classified a random 50 (seed 20260820)
+> into NOT-A-DEFINITION vs A-DEFINITION-WE-CANNOT-PARSE.*
+>
+> **24 of 50 are genuine definitions. 26 are not.** *So the recoverable pool is about HALF of the
+> unattributed drops -- not the whole 73%, exactly as the upper-bound caveat warned.*
+> Not-definitions are dominated by anaphoric `This means that...` (energy cannot be created, the
+> heart cannot pump, they will eventually run out) and by `means` as a NOUN (`by these means`,
+> `by normal means`).
+>
+> ## THE THREE FORMS THAT LOSE REAL DEFINITIONS, EACH CONFIRMED BY A MINIMAL PAIR
+> | form | example | result |
+> |---|---|---|
+> | **MULTI-WORD DEFINIENDUM** | `The genetic code refers to the DNA alphabet.` | **DROPPED** |
+> | *(control)* | `Genetics refers to the DNA alphabet.` | ✅ extracts |
+> | **`which means` RELATIVE CLAUSE** | `Sponges are monoecious, which means that one individual...` | **DROPPED** |
+> | **QUOTED DEFINIENS** | `Note that lysis means "to split".` | **DROPPED** |
+>
+> **🔑 THE MULTI-WORD CAUSE IS A SINGLE CHARACTER CLASS: `_RE_REFERS`'s `dfd` group is
+> `[A-Za-z'\-]{1,30}` -- NO SPACES.** So `peripheral nervous system`, `genetic code`,
+> `assessment testing`, `inner peace`, `first language` all fail while their one-word cousins
+> succeed. *That is most of the technical vocabulary a textbook actually defines.*
+> **AND THE `which means` FORM IS THE SINGLE COMMONEST DEFINITIONAL SHAPE IN THE SAMPLE** -- it is
+> how running prose defines a term it has just used, and no pattern covers it at all.
+>
+> ## 📐 WHAT IT WOULD BE WORTH, WITH THE ARITHMETIC SHOWN
+> 438 candidates, 47 extracted (10.7%). Unattributed 320, of which ~48% recoverable = **~154**.
+> Plus cause 1's 71. **Ceiling if every recoverable form were parsed: ~(47+154)/438 = ~46%**, against
+> today's 10.7% -- roughly **4x the definitional supply**.
+> **⚠️ AND THE CAVEATS ARE REAL: single scorer (me), n=50, and "recoverable in principle" is not
+> "parsed correctly in practice" -- cause 3 showed that even a successful extraction can take the
+> WRONG head (`gallop -> pace`). A 4x increase in QUANTITY at today's quality would multiply noise,
+> which is the same trap the 78%-noise hand-score already caught.**
+>
+> ## ➡️ SO THE HONEST NEXT STEP IS NOT "PARSE MORE"
+> **It is: fix the three forms AND the head rule together, then re-run the blind quality hand-score
+> on the new output.** Quantity without the head fix is the growth-multiplies-noise error with extra
+> steps. *The head rule -- `nouns[-1]`, take the last nominal -- is the positional heuristic that
+> today's other two components also turned out to be using.*
+
 > # 📏 **MEASURED BEFORE BUILDING: 89.3% OF DEFINITIONAL SENTENCES ARE DROPPED -- AND ONE OF MY**
 > # **THREE PROPOSED FIXES FIRES *ZERO* TIMES ON REAL TEXT.**
 > *40,000 sentences across `simplewiki` and `textbook_biology_2e`; drops attributed **BY
