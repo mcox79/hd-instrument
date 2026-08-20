@@ -2685,3 +2685,36 @@ stage itself clears its floor, at which point better addressing finally has some
   entry. **This is standing discipline 7 again -- no demotion without a fresh on-disk re-check --
   applied to a correction rather than to a result, and it is the second time in one day (C35 was the
   first).**
+
+## STATUS.md IS 35x OVER ITS CAP -- BUT ITS SAFETY CONTRACT IS INTACT, SO A TRIM IS NOW *VERIFIED SAFE* (2026-08-20)
+
+**`STATUS_SPEC.md` sec 8 records that an ad-hoc byte-shave once deleted a standing discipline that
+had cost two full experiments to learn.** That warning is why I declined to trim `STATUS.md` twice
+tonight while adding to it. **This audit replaces the warning with evidence.**
+
+**MEASURED 2026-08-20:**
+
+| | |
+|---|---|
+| `STATUS.md` | **305,039 bytes / 3,786 lines** -- **35x** the 8,704 B cap |
+| `STATUS_LESSONS.md` | 197,717 bytes, **47** entries |
+| the six SPEC-REQUIRED sections | **all present, exactly once each** (`# STATUS`, `## POSITION`, `## TOP ITEM`, `## DO NOT REDO`, `## STANDING DISCIPLINES`, `## WHAT IS RUNNING`) |
+| **the sec-2 contract** -- *"nothing may appear in `STATUS_LESSONS.md` that is not stubbed by name in `STATUS.md`"* | **46 of 47 stubbed.** The single miss is the literal heading `DO NOT REDO`, a section title rather than a lesson -- a false positive of the check |
+
+**➡️ SO THE OVERSIZE IS ACCUMULATED SESSION NARRATIVE, NOT ORPHANED KNOWLEDGE. Every closed route
+is still stubbed, which is precisely the property the spec's cold-session requirement depends on:**
+*"A cold session must be able to see that a route is CLOSED from `STATUS.md` alone."*
+
+**WHY I STILL DID NOT TRIM IT, AND THIS IS A JUDGEMENT NOT AN OVERSIGHT.** The risk is asymmetric:
+**a bad trim loses knowledge that cannot be recomputed; a delayed trim costs only bytes.** A large
+destructive edit is a poor thing to attempt on the 81st continuation of an unattended overnight run,
+and the machine-parsed literals currently work (verified: `session_start_hook.py` exit 0,
+`board.py self-test` PASS). **What was missing before tonight was not the courage to trim -- it was
+the evidence that trimming is safe. That evidence now exists and is written down here.**
+
+**WHOEVER DOES IT:** sections 5 and 6 are **NEVER-TRIM and are floors as well as ceilings** -- they
+may be reworded, never emptied. Section 4 (PATH STATE) is the spec's designated first-to-trim
+because its content is the most re-derivable. **And the four machine-parsed literals (`AS OF:`,
+`## POSITION`, `## TOP ITEM`, `## WHAT IS RUNNING`) are an API shared by
+`tools/session_start_hook.py` AND `tools/board.py` -- rewording any of them requires changing both
+in the same commit.**
