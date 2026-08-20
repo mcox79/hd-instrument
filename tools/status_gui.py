@@ -3104,6 +3104,32 @@ class StatusWindow:
                                   str(r.get("resolved") or r.get("asked") or "")[:19]),
                           tags=("good", "even" if i % 2 == 0 else "odd"))
                 i += 1
+            # ...and the DECISION / STANDING rows that already carry an answer. Owner 2026-08-20:
+            # *"I did answer d6 but I don't think those legacy questions are working properly...
+            # they are all legacy and need to be removed."* The answer HAD stuck (D6 -> Q81,
+            # "Yes - merge this branch to main"); the defect was that an answered decision kept
+            # sitting in the WAITING-ON-YOU list, so answering it changed nothing the owner could
+            # see. Settled rows belong here, in the archive, not in the working list.
+            rec_a = _d(b.get("recorded"))
+            for grp, kind in ((_l((s.get("plan") or {}).get("decisions")), "DECISION"),
+                              (_l((s.get("plan") or {}).get("standing")), "STANDING")):
+                for r in grp:
+                    r = _d(r)
+                    done = _d(rec_a.get(str(r.get("id") or "").upper()))
+                    if not done:
+                        continue
+                    iid = "z%s" % r.get("id")
+                    self._wait_rows[iid] = dict(r, _kind="ANSWERED",
+                                                answer=done.get("answer"),
+                                                resolved=done.get("resolved"))
+                    tv.insert("", "end", iid=iid,
+                              values=(r.get("id", "?"), "%s - ANSWERED" % kind,
+                                      _gist(r.get("question", "")),
+                                      "you answered: " + _verbatim(str(done.get("answer") or ""),
+                                                                   120),
+                                      str(done.get("resolved") or "")[:19]),
+                              tags=("good", "even" if i % 2 == 0 else "odd"))
+                    i += 1
             self._update_board_mode_label()
             return
 
@@ -3124,6 +3150,11 @@ class StatusWindow:
             iid = f"d{d.get('id')}"
             self._wait_rows[iid] = dict(d, _kind="DECISION")
             done = _d(recorded.get(str(d.get("id") or "").upper()))
+            # ANSWERED ROWS LEAVE THE WORKING LIST (owner 2026-08-20). They are in the archive.
+            # Leaving them here is what made answering D6 feel like it "did not work": the answer
+            # was recorded correctly, and the row stayed exactly where it was.
+            if done:
+                continue
             tv.insert("", "end", iid=iid,
                       values=(d.get("id", "?"),
                               "DECISION - ANSWERED" if done else "DECISION (answerable here)",
@@ -3141,6 +3172,8 @@ class StatusWindow:
             drift = ("   [CHECK SOURCE]"
                      if o.get("verify_status") == "CHECK_SOURCE" else "")
             done = _d(recorded.get(str(o.get("id") or "").upper()))
+            if done:                       # answered -> the archive, not the working list
+                continue
             tv.insert("", "end", iid=iid,
                       values=(o.get("id", "?"),
                               "STANDING - ANSWERED" if done else "STANDING (answerable here)",
