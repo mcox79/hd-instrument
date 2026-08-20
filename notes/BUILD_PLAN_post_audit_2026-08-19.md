@@ -413,6 +413,29 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## ⚠️ **CORRECTION -- I RAISED A FALSE ALARM ABOUT THE `gap_detector` ABLATION. WITHDRAWN.**
+> Earlier tonight I wrote that the ablation is *"accepted, recorded and inert"* and that **"ANY PRIOR
+> RESULT RESTING ON THE `gap_detector` ABLATION NEEDS RE-CHECKING."** *That was wrong, and it was the
+> kind of wrong that would have sent someone auditing clean work.*
+>
+> **INSTRUMENTED THE LIVE ORGAN, 1,500 sentences, DEFAULT run:**
+>
+>     is_gap returned True  (is a gap, proceed):  8,053
+>     is_gap returned False (known, SKIP)      :      0
+>     fraction of words the organ actually skips:  0.0000
+>
+> **THE ABLATION IS FAITHFUL.** `_NullGapDetector` says GAP to everything -- **which is exactly what
+> the live organ already does on this path.** It looked inert because the organ is already maximally
+> permissive, not because the instrument is broken. *So a prior cell reporting "ablating gap_detector
+> changes nothing" was reporting a TRUE fact about the organ, not an artifact. The alarm is withdrawn
+> in the same place it was raised.*
+> **🔑 AND WHAT REPLACES IT IS A REAL NEGATIVE ABOUT AN ORGAN: the gap detector performs ZERO
+> discrimination on the reading path at this scale.** Every word it is asked about is a gap. *That is
+> also why grounded words stay blocked -- the terminal short-circuit stops them BEFORE `is_gap` is
+> ever consulted, so the organ never even sees the population it would need to discriminate.*
+> *⚠️ SCOPE: measured at 1,500 sentences on `simplewiki`, on the `process_sentence` path only. It does
+> not say the organ is useless everywhere -- it says it discriminates nothing HERE.*
+>
 > ## ✅✅ **VET PASSED -- THIS IS A RESULT, NOT A HYPOTHESIS. FIRST ONE OF THE SESSION.**
 > Three seeds at 16,000 sentences, arms paired on the SAME probes within each seed:
 >
