@@ -710,6 +710,28 @@ hoped would win -- but arriving from the opposite direction: there the data was 
 model was too empty. Both were caught by the number disagreeing with every other measurement of the
 same quantity that day.*
 
+## A BOARD QUESTION CARRIES ITS CONTEXT **IN THE QUESTION TEXT**, NOT IN A SIDE FIELD
+
+**Owner, 2026-08-20, clarifying an earlier instruction: *"When I asked you to add context to
+questions I mean in the question itself."*** Said after questions were filed with a one-line ask in
+`question` and the actual context pushed into `--why` / `--rec`, or split with a
+*"(Detail follows; the one-line ask is above.)"* seam.
+
+**Why the side fields do not work as context:** `--why` and `--rec` are rendered in SEPARATE
+sections of the reading pane and as SEPARATE columns in the table, so the owner reads the question
+first, on its own, with nothing to interpret it by. A question that only makes sense after scrolling
+to a different field is a question they have to reconstruct before they can answer it.
+
+**Rule: `question` must stand alone.** Someone reading only that field should get the situation, the
+number with its units in words, and what it costs -- without reading anything else. `--why` is then
+what is BLOCKED, and `--rec` is the recommendation plus **the risk of that recommendation**. Those
+two supplement; they never carry the setup.
+
+This compounds with the standing plain-language rule (the owner has said four times that the writing
+is too jargon-heavy to act on, and returned two board questions unanswered for that reason). **A
+question they cannot act on is not a question -- it is a decision taken unilaterally while appearing
+to consult.**
+
 ## `experiment_index.py` RETURNED A SILENT ZERO FOR MULTI-WORD QUERIES -- THE SAME DEFECT AS THE TOOL IT REPLACED
 
 **Measured 2026-08-20. FIXED, with a self-test -- run `python tools/experiment_index.py --self-test`.**

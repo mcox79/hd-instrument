@@ -1,5 +1,44 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🔧 **A QUARTER OF THE GROUNDED FOUNDATION IS EITHER A DUPLICATE OR A CATEGORY ERROR, AND HALF**
+> # **OF THAT IS A PLAIN BUG. MEASURED ON THE WHOLE STORE, NOT A SAMPLE.**
+> *Followed up the flagged side-observation (24 of 100 hand-scored subjects had no dictionary entry).
+> It reproduces at scale -- and the population is NOT what I assumed.*
+>
+> | store | n | no dictionary entry | **STEMMER ARTEFACTS** | likely NAMES/non-words |
+> |---|---|---|---|---|
+> | `reading_grounding_v1` | 3,544 | 919 (25.9%) | **442 (12.5%)** | 477 (13.5%) |
+> | `reading_grounding_v2_qualityfix` | 634 | 153 (24.1%) | **87 (13.7%)** | 66 (10.4%) |
+>
+> **⛔ 107 CONFIRMED DOUBLE-COUNTS IN v1: the stem AND its full form are BOTH separate concepts in
+> the same store** -- `billionair`/`billionaire`, `villag`/`village`, `cigarett`/`cigarette`,
+> `centr`/`centre`, `statu`/`statue`. **This INDEPENDENTLY REPRODUCES a defect the charter already
+> records** (*"121 stem/full-form pairs are counted as two concepts"*) by a different detection
+> method -- which is why it counts as a positive control rather than a new claim.
+> **➡️ MY PROPER-NOUN HYPOTHESIS WAS HALF RIGHT. Roughly half the no-entry population is names
+> (`tesco`, `baumgartner`, `huffington`) -- the referent-vs-concept routing issue. THE OTHER HALF IS
+> A STEMMING BUG, and it is data hygiene rather than a mechanism question.**
+> **📉 AND THE QUALITY FIX DID NOT TOUCH IT: names fell 13.5% -> 10.4% between v1 and v2, while
+> STEMS ROSE 12.5% -> 13.7%.**
+> **⚖️ PRECISION ON "NAMES": the category is "no entry AND not a restorable stem", so it also holds
+> contractions (`dont`), compounds (`midlife`, `crowdfund`) and neologisms (`facebook`). Calling all
+> 13.5% proper nouns would be an over-read.**
+>
+> ## 🚨 AND A FAULT OF MINE INSIDE THIS RUN, RECORDED BECAUSE THE TELL IS REUSABLE
+> The first version read `f.get("object")` where the schema field is **`obj`**. Every lookup returned
+> `None`, and the script reported **"OBJECTS with no dictionary entry: 100.0%"** -- in all six stores.
+> **AN EXACTLY-100.0% (OR EXACTLY-0.0%) RESULT IS A REACHABILITY FAILURE, NOT A FINDING** -- the same
+> class as the exactly-zero-width CI already in CLAUDE.md. *I distrusted it on sight because it was
+> too clean, checked the schema, and found the field name. The corrected figure is 5.7%-25.0%.*
+> A populated-field assertion is now in the script.
+>
+> ## ➡️ WHY THIS MATTERS FOR DIRECTION
+> The day's evidence says the lever is SUPPLY, and the unread hand-score says supply is 78% noise.
+> **This names a concrete, non-speculative slice of that noise: ~25% of grounded concepts are
+> duplicates or category errors, and the ~12-14% stemming half is fixable without touching any
+> mechanism.** *It also further deflates the retired "3,544 grounded concepts" figure -- 107 of those
+> were the same word twice.*
+
 > # ❌ **POLYSEMY DOES NOT EXPLAIN THE BIOLOGY EFFECT. MY HYPOTHESIS, REFUTED BY ITS OWN**
 > # **PRE-COMMITTED DECIDER. THE CONFOUND IS STILL OPEN.**
 > *The hypothesis was mechanical, not vague: our grounding assigns ONE meaning per word, which CAN be
