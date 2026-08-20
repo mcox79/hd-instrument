@@ -1,5 +1,53 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 📏 **MEASURED BEFORE BUILDING: 89.3% OF DEFINITIONAL SENTENCES ARE DROPPED -- AND ONE OF MY**
+> # **THREE PROPOSED FIXES FIRES *ZERO* TIMES ON REAL TEXT.**
+> *40,000 sentences across `simplewiki` and `textbook_biology_2e`; drops attributed **BY
+> INTERVENTION** -- neutralise one cause, re-run the extractor, see if it now succeeds -- rather than
+> by reading a regex and telling a story about it.*
+>
+> | | candidates | extracted |
+> |---|---|---|
+> | `simplewiki` (20k sentences) | 308 | 31 (10.1%) |
+> | `textbook_biology_2e` (20k) | 130 | 16 (12.3%) |
+> | **TOTAL** | **438** | **47 (10.7%)** -- **391 DROPPED (89.3%)** |
+>
+> | cause | drops | share of candidates |
+> |---|---|---|
+> | **`0_other`** -- unattributed | **320** | **73.1%** |
+> | `1_definiendum_not_nominal` | 71 | **16.2%** |
+> | **`2_anchor_sentence_start`** | **0** | **0.0%** |
+>
+> ## ⛔ **CAUSE 2 IS DEAD AS A TARGET. IT COSTS NOTHING.**
+> The `To gallop means...` anchor defect is REAL and REPRODUCES in isolation -- and it fires **0
+> times in 438 real definitional candidates**. *I would have spent time on a regex fix worth exactly
+> zero. This is the whole reason for measuring prevalence before building.*
+>
+> ## 🔍 **CAUSE 1 COSTS 16.2%, AND THE EXAMPLES ARE A SURPRISE: THEY ARE ADJECTIVES, NOT VERBS.**
+> > *"**Autonomous** means that each of these autonomous communities has its own executive..."*
+> > *"**Commutative** means that a function has the same result if..."*
+> > *"**Associative** refers to the grouping of numbers"*
+> **The nominal-definiendum gate blocks ADJECTIVE definitions at least as visibly as verb ones in
+> this corpus.** *The charter framed the gap as verb-shaped ("0/2092 verb definienda"). On this
+> evidence the same filter is also silently discarding a whole class of adjective definitions --
+> which nobody has counted, and which this run did not set out to find.*
+>
+> ## ⚠️ **AND THE 73.1% IS NOT A RECOVERABLE POOL -- MY UPPER-BOUND CAVEAT IS DOING REAL WORK**
+> The unattributed examples are a MIXTURE, and the difference matters:
+> > *"Artists may feel a certain emotion and wish to express it by creating something"* -- **not a
+> > definition at all**, it merely contains a trigger word
+> > *"...a 'Renaissance' which means 'rebirth'"* -- **a real definition**, in a relative clause with a
+> > quoted definiens, which no pattern covers
+> **So 89.3% is an UPPER BOUND on what any fix could recover, and the true recoverable share is
+> unknown until someone hand-reads a sample.** *"A sentence containing `means` is a definition" is
+> exactly the kind of assumption that has produced three false results today.*
+>
+> ## ➡️ NEXT, AND IT NEEDS JUDGEMENT RATHER THAN CODE
+> **Hand-read ~50 of the 320 unattributed drops and split them: NOT-A-DEFINITION vs
+> A-DEFINITION-WE-CANNOT-PARSE.** That single number decides whether the extractor is a real lever or
+> whether the corpus simply does not state definitions in forms we can use -- and it is the
+> difference between a build and a supply decision.
+
 > # 🔬 **THE UPSTREAM BLOCKER, CHARACTERISED MECHANISTICALLY. "0 of 2,092 VERB DEFINIENDA" HAS**
 > # **THREE INDEPENDENT CAUSES, AND ONLY ONE IS THE PATTERN INVENTORY.**
 > *All four of today's routes named the definitional extractor as the target. The charter described
