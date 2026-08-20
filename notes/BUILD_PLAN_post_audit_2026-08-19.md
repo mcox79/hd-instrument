@@ -26,10 +26,15 @@
 > **➡️ STRONG EVIDENCE FOR Q89's PIPELINE BRANCH -- BUT THE "GLOSSARY LINES ARE THE TARGET"
 > GENERALISATION IS RETRACTED, ONE TURN AFTER I MADE IT.** The 92% rests on **13 rows**, so I
 > re-extracted at HEAD: **fresh psychology-textbook extraction scores 13%, not 92%, because
->  is matching BIBLIOGRAPHY ENTRIES** --  *[An introduction to
-> behavioral pharmacology]*,  *[The American Journal of Maternal Child Nursing]*.
-> **A reference list is , the same shape as , and the extractor
+> GLOSSARY_COLON is matching BIBLIOGRAPHY ENTRIES** -- "drug -> introduction" *[An introduction to
+> behavioral pharmacology]*, "mcn -> journal" *[The American Journal of Maternal Child Nursing]*.
+> **A reference list is "Title: Subtitle", the same shape as "term: definition", and the extractor
 > cannot tell them apart.** Supply is also thin: **0.67-8.00 hits per 1,000 sentences** (biology: 4
+>
+> *(This passage was rewritten by hand: the first version was written via a shell command whose
+> DOUBLE-QUOTED string contained backticks, so bash executed every backticked span as a command and
+> silently deleted five of them. Same hazard class as the PowerShell UTF-8 round-trip already in
+> CLAUDE.md -- a shell that interprets your text will edit it for you. Use the Edit tool.)*
 > in 6,000). **CORRECTED CLAIM: 92% inside a REAL GLOSSARY, ~13% in a bibliography, with nothing
 > distinguishing them.** The v5 result stands for ITS population; the generalisation does not.
 > *Verdicts recorded beside the evidence as `_handscore_verdict_<date>.json`; landed `metrics.json`
