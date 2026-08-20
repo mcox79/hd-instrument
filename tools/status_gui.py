@@ -919,6 +919,44 @@ class StatusWindow:
         # Whatever we had last (None on the very first call, which renders as "[--]").
         return cached[1] if cached else None
 
+    def _src_mtime_cached(self, key, srcs):
+        """Newest mtime across `srcs`, cached 10s and refreshed OFF the drawing thread.
+
+        Returns the previous value immediately -- None on the very first call, which renders as
+        "[--]" for one tick. Never does file I/O on the caller's thread.
+        """
+        now = time.time()
+        cache = getattr(self, "_src_mtime_cache", None)
+        if cache is None:
+            cache = self._src_mtime_cache = {}
+        hit = cache.get(key)
+        if hit is not None and (now - hit[0]) < 10.0:
+            return hit[1]
+        running = getattr(self, "_src_scan_running", None)
+        if running is None:
+            running = self._src_scan_running = set()
+        if key not in running:
+            running.add(key)
+
+            def _scan():
+                t0 = time.time()
+                newest = None
+                for rel in srcs:
+                    try:
+                        mt = (_REPO / rel).stat().st_mtime
+                    except OSError:
+                        continue
+                    if newest is None or mt > newest:
+                        newest = mt
+                cache[key] = (time.time(), newest)
+                running.discard(key)
+                ms = 1000 * (time.time() - t0)
+                if ms > UI_STALL_MS:
+                    _diag("src_mtime_scan_slow", key=str(key), ms=round(ms), n=len(srcs))
+
+            threading.Thread(target=_scan, daemon=True).start()
+        return hit[1] if hit else None
+
     def _update_tab_ages(self) -> None:
         """Re-title every tab with the age of the evidence behind it. Never raises: a dashboard
         that dies while decorating itself is worse than one with no timestamps."""
@@ -935,14 +973,16 @@ class StatusWindow:
                 elif srcs is None:
                     suffix = "  [live]"
                 else:
-                    newest = None
-                    for rel in srcs:
-                        try:
-                            mt = (_REPO / rel).stat().st_mtime
-                        except OSError:
-                            continue
-                        if newest is None or mt > newest:
-                            newest = mt
+                    # *** STILL ON-THREAD I/O, AND THE DIAGNOSTICS LOG CAUGHT IT. ***
+                    # After moving the data/ walk off-thread the worst UI stall fell 6,910ms ->
+                    # 700ms, but `ui_stall` records kept arriving with `tab_ages_ms: 597`. These
+                    # `stat()` calls are the remainder: individually trivial (measured 0.7ms for 40
+                    # of them on an idle disk) but they BLOCK under I/O contention, and this window
+                    # runs while the machine is doing heavy corpus reads -- the same contention
+                    # pushed the off-thread data/ scan from 5.4s to 121.6s.
+                    # Cached for 10s and refreshed off-thread, same pattern as the metrics scan.
+                    # A tab-title age that is up to 10s stale is invisible; a 600ms hitch is not.
+                    newest = self._src_mtime_cached(base, srcs)
                     suffix = ("  [%s]" % self._fmt_age(now - newest)) if newest else "  [--]"
                 # *** ONLY RE-TITLE WHEN THE TEXT ACTUALLY CHANGES. ***
                 # Owner 2026-08-20: *"the tabs keep changing slightly with every update"*. This

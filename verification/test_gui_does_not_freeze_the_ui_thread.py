@@ -55,6 +55,34 @@ def main() -> int:
     assert ms < 250, "_update_tab_ages took %.0f ms on the UI thread" % ms
     print("_update_tab_ages: %.1f ms" % ms)
 
+    # ---- 1b. NO FILE I/O ON THE CALLING THREAD ---------------------------------------------
+    # A DURATION ASSERTION CANNOT CATCH THIS ONE. Before the 10s off-thread source-mtime cache,
+    # `_update_tab_ages` still ran a stat() per tab source; on an idle disk that is ~0.7ms and the
+    # timing check above passed anyway. It only bit under I/O contention -- the diagnostics log
+    # recorded `ui_stall` with `tab_ages_ms: 597` while heavy corpus reads were running, and pushed
+    # the off-thread data/ scan from 5.4s to 121.6s. So assert the ABSENCE OF I/O, not its speed.
+    stats = {"n": 0}
+    real_stat = Path.stat
+
+    def counting_stat(self, *a, **k):
+        stats["n"] += 1
+        return real_stat(self, *a, **k)
+
+    Path.stat = counting_stat
+    try:
+        w._update_tab_ages()          # prime any cache
+        time.sleep(0.4)               # let the off-thread scans settle
+        w._update_tab_ages()
+        stats["n"] = 0
+        w._update_tab_ages()          # the pass that must be I/O-free
+        on_thread = stats["n"]
+    finally:
+        Path.stat = real_stat
+    assert on_thread == 0, ("_update_tab_ages made %d stat() calls ON THE CALLING THREAD -- under "
+                            "disk contention each of those blocks, which is the residual stall the "
+                            "diagnostics log recorded at 597ms" % on_thread)
+    print("tab ages: %d stat() calls on the calling thread (all file I/O is off-thread)" % on_thread)
+
     # ---- 2. THE CHURN: a second identical pass must re-title NOTHING ------------------------
     calls = {"n": 0}
     real_tab = w.nb.tab

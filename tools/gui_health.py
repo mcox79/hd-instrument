@@ -89,7 +89,7 @@ def main(argv):
         print("BACKGROUND GATHER: %d run(s), median %.0fms, worst %.1fs"
               % (len(col), _pct(col, 50), max(col) / 1000.0))
         if over:
-            print("   ⚠ %d run(s) took longer than the %ds refresh interval -- refreshes are"
+            print("   WARNING: %d run(s) took longer than the %ds refresh interval -- refreshes are"
                   % (over, REFRESH_MS // 1000))
             print("     overlapping. Slow here does NOT freeze the window, but it is its own bug.")
         else:
