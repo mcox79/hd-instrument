@@ -323,6 +323,36 @@
 > revision, not accumulation), and register what is genuinely wired. **Report honestly if the
 > HARD_PASS cells turn out to be synthetic-only** -- several this session did.
 >
+> ## ⬅️⬅️ TOP ITEM, RE-DERIVED UNDER THE OWNER'S RULE -- **THE PINNED CORTICAL COMPUTATION WE HAVE**
+> ## **NEVER ACTUALLY RUN: DIVISIVE NORMALISATION OVER A POPULATION POOL.**
+> *Chosen because ORGAN_MAP pins it, not because it looks useful. The pinned line, verbatim:*
+> **"graded competition implemented BY the normalisation pool, not a hard argmax."** *(Carandini &
+> Heeger -- divisive normalisation, a canonical cortical computation.)*
+>
+> **WHAT WE ACTUALLY TESTED WAS THE WITHIN-ITEM VERSION, BOTH TIMES. Read from the source, not
+> remembered:**
+> - `KWTA8/32` -> `kwta(trace, k)` keeps the k largest-magnitude **dimensions of that one trace**
+> - `NORM` -> `acc += trace/||trace||`, **per-trace L2 scaling**
+>
+> **Neither involves any other term.** The plan already named this exact error -- *"we copied
+> sparsity's SHAPE and not its POSITION"* -- and then never fixed it. **THIS IS THE FIX, AND IT IS
+> THE SEVENTH INSTANCE OF THE SAME POSITION FAMILY.**
+>
+> **THE BRAIN'S FORM.** A neuron's response is divided by the pooled activity of OTHER neurons
+> responding to the same stimulus: `R_i = x_i / (sigma + sum_j-in-pool x_j)`. **The pool is other
+> units, not other dimensions of the same unit.** Mapped onto us: when a sentence is read, every
+> candidate term responds to it; a term's write should be scaled DOWN by how strongly the whole
+> population responded. **A word that responds to everything gets suppressed; a word that responds
+> selectively gets through.**
+>
+> **🎯 AND IT PREDICTS SOMETHING SPECIFIC AND ALREADY-MEASURED, WHICH IS WHY IT IS WORTH RUNNING:**
+> our hub carries **frequency at R^2 0.4819** against **0.01-0.05** for a typical sensorimotor
+> dimension -- it is overwhelmingly a "responds to everything" code. **Divisive normalisation is
+> precisely the operation that removes responds-to-everything from a representation.** Prediction:
+> effective dimensionality should FALL (k-WTA RAISED it, 92.3 -> 130.2). Pinned target ~4-12.
+> *Pre-commit both ways: if it does not concentrate the code, the population reading of competition
+> is wrong too and the write side is closed on brain-faithful grounds as well as empirical ones.*
+>
 > ## 🧠🚨 OWNER CORRECTION 2026-08-20T02:14Z -- **AND IT INVALIDATES MY OWN RECOMMENDATION BELOW.**
 > > *"I want to re-emphasize being brain foundational here. Don't just wire in organs because you
 > > think it could help - we're making connections because the brain does"*
