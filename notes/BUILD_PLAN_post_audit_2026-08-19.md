@@ -413,6 +413,31 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🗂️ **REGISTRY COVERAGE CLOSED (2026-08-20). 204 -> 208 ROWS, AND THE AUDIT CAUGHT ME 3x.**
+> **`keep_noting_grounded` had NO registry row** -- the one verified result of the night was shipped
+> into `hdlab` and islanded. Registered, plus the three modules the audit listed as unregistered
+> (`ca3_completer`, `cortical_recall`, `vsa_cleanup_memory`). **That flag is now clear.**
+>
+> **THE AUDIT REJECTED MY FIRST ATTEMPT THREE TIMES, ALL THREE LEGITIMATE:** an invented
+> `fidelity_basis` value (allowed set is pinned / invention_under_test / unpinned_and_unstated); a
+> `brain_structure` that read as a COGNITIVE-THEORY LABEL with no neural system beside it -- *this
+> project's own standing rule, and the audit has a heuristic for exactly it*; and a `path` written as
+> a string containing a list-repr, which the audit walked character by character (204 of 205 rows use
+> a real list).
+> **✅ AND ONE I CAUGHT MYSELF: `brain_fidelity_score` is left NULL, not fabricated.** It is a dict
+> emitted by `tools/brain_fidelity_score.py`, which I did not run. **A dict written in its shape
+> would have looked scored while being invented**; the prose assessment moved to `narrowing`.
+>
+> **EVERY NEW ROW SAYS IN ITS OWN TEXT THAT IT RECORDS EXISTENCE AND CONSUMERS ONLY, NOT RESULTS.**
+> `cortical_recall`'s row carries its own negative verbatim (built to fix a real measured defect, and
+> a cue-blind FREQUENCY floor still beat every cortical arm at k>=10 -- *do not quote as a win*).
+> `vsa_cleanup_memory` has NO hdlab consumer, so it is marked SHELVE/ISLANDED **on purpose**, with a
+> BRAIN-framed revival criterion rather than a performance one.
+> *⚠️ ONE FLAG DELIBERATELY NOT TOUCHED: row 200 `dissociation_score_instrument` carries an invalid
+> `fidelity_basis` of `not_applicable_measurement_instrument`. It is pre-existing and not mine, none
+> of the three allowed values honestly fits a measurement instrument, and silently rewriting another
+> row's brain-fidelity semantics to clear a report-only flag is worse than leaving it visible.*
+
 > ## ✅ **LAST OPEN THREAD CLOSED: THE GAP DETECTOR IS CORRECT AND REDUNDANT. NOT BROKEN, NOT USELESS.**
 > Positive control -- asked the organ about the populations the live path never lets it see:
 >
