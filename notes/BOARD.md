@@ -26,7 +26,7 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 
 ## STATUS
 
-AS OF: 2026-08-20 AUTOLOOP ARMED, RUNNING | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **ONE RUN IN FLIGHT: the full divisive-normalisation sweep (`scratch/divnorm.log`) -- its SMOKE says no win; do NOT quote the smoke** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## 🧭 RESUME HERE` BELOW**
+AS OF: 2026-08-20 AUTOLOOP ARMED, ~15 CONTINUATIONS IN | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING; every thread opened tonight is CLOSED or CORRECTED** | **ONE VERIFIED RESULT (`keep_noting_grounded`) AND ONE OWNER DECISION (board Q74)** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## 🧭 RESUME HERE` BELOW**
 
 **POSITION**
 
@@ -62,13 +62,14 @@ WordNet pair even at high co-occurrence** (evidence key
   - **`exp_predictive_write_gate_v1`** spec `v1_residual_gate`, 3 seeds -- `scratch/pwg_full.log`
     / `.err`, PID `scratch/pwg_full.pid`. The pinned residual rule against pure accumulation,
 
-_mirrored from `notes/STATUS.md` at 2026-08-20T05:54:04Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-20T08:38:20Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
 | Q74 | Should the system keep taking notes on a word after it has decided it knows that word? Right now it stops completely - I measured it, and out of 60 words it had learned, not one of them gained a single new note across 14,000 more sentences of reading. I changed it so notes keep accruing, and tested it three separate times from scratch. Every time it got better at the task we score it on: it went from being about five times worse than a crude word-counting method to about three times worse. That is the first real improvement in a long stretch of work. The change is currently switched OFF by default, so nothing behaves differently unless someone turns it on. | Turning it on by default changes how the core system behaves for everyone and every future experiment, so it is your call rather than mine. Until then the improvement sits behind a switch that nothing uses, which means it is a result we are not actually benefiting from. | Turn it on by default. THE RISK OF MY OWN RECOMMENDATION, stated plainly: it makes the system do strictly more work per sentence, and I have only tested it on one body of text (simple Wikipedia) at one size. It is also still LOSING to the crude word-counting method, just by less - so this makes a bad number better, it does not make it good. A safer middle option is to leave it off by default but turn it on for all new experiments, so we gather evidence on other texts before committing. |  | open |
+| Q75 | Should the overnight loop keep running? I have been going for many hours. The last several rounds have been useful bookkeeping - tidying records, registering things properly - rather than new findings, and the amount learned per round has clearly dropped. I am also near the limit of how much I can hold in working memory at once, which is when I start repeating myself or missing things I already established. | You told me to keep going and I will not stop your loop on my own. But you asked me to be honest about quality, and the honest read is that tonight's research value is spent: one verified improvement, four claims I had to retract, and one genuinely new problem found. More rounds now mostly risk adding noise to a record that is currently clean and complete. | Stop the loop for tonight (python tools/autoloop.py disarm) and pick up fresh. THE RISK OF MY OWN RECOMMENDATION: I could be wrong that the well is dry - the narrative-learning problem found tonight is genuinely open and someone rested might see an angle immediately. If you would rather I continue, say so and I will, but I would want to start a fresh session rather than continue this one, because a clean head matters more here than continuity. |  | open |
 
 ## ANSWERED
 
