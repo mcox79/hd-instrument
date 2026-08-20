@@ -413,6 +413,31 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 📚 **FICTION COULD NOT BE TESTED, AND THE REASON IS A FINDING: THIS SUBSTRATE IS AN**
+> ## **EXPOSITORY-TEXT LEARNER. ON NOVELS IT GROUNDS UNDER 1% OF THE WORDS IT MEETS.**
+> The fiction arm **refused to report** -- 14, 15 and 17 shared candidates against a 40 minimum, so
+> the guard fired rather than scoring noise. Chasing why:
+>
+> | corpus | grounded @2,000 | @4,000 | @8,000 | library @8,000 | grounding rate |
+> |---|---|---|---|---|---|
+> | `textbook_biology_2e` | 271 | 445 | **819** | 6,475 | **12.6%** |
+> | `simplewiki` | 74 | 222 | 331 | 9,212 | 3.6% |
+> | `little_women` | 42 | 51 | 59 | 7,520 | 0.8% |
+> | `sherlock_holmes` | 14 | 37 | **50** | 6,987 | **0.7%** |
+>
+> **A biology textbook grounds ~16x more of what it reads than Sherlock Holmes does, from a SMALLER
+> library.** *That is not a quirk of one novel -- both fiction corpora sit under 1% while both
+> expository corpora sit well above it.*
+> **🔑 SO THE FICTION TEST IS NOT INCONCLUSIVE, IT IS INAPPLICABLE, AND FOR A REASON THAT MATTERS
+> MORE THAN THE TEST WOULD HAVE: `keep_noting_grounded` acts on words AFTER they ground, and on
+> narrative text almost nothing grounds.** There is no surface for it to act on. *Reporting "the fix
+> does not generalise to fiction" would have been false -- what does not reach fiction is GROUNDING
+> ITSELF.*
+> **➡️ AND IT SCOPES Q74 HONESTLY: the recommendation holds for expository prose, where it is now
+> measured twice on genuinely different vocabularies. It is untested on narrative text and cannot be
+> tested there until grounding works there.** *That is a bigger open question than the flag, and it
+> is now visible instead of hidden inside a null.*
+>
 > ## ✅✅ **IT GENERALISES -- AND THE EFFECT IS BIGGER ON A REAL TEXTBOOK THAN ON WIKIPEDIA.**
 > `textbook_biology_2e`, 3 seeds, 16,000 sentences, paired on identical probes within each seed.
 > **Technical expository prose with a dense specialist vocabulary -- and a much harder task: 261-279
