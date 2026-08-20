@@ -178,7 +178,36 @@
 > brain has an input) and k-WTA (competition inside a trace where the brain has it across a
 > population).* **THE PINNED TERM MAY STILL BE RIGHT AND TESTED IN THE WRONG PLACE.**
 >
-> ## ⬅️⬅️ TOP ITEM NOW: **GIVE THE PROFILE AN UPDATE RULE, SO THERE IS SOMETHING TO MODULATE.**
+> ## ✅ RAN -- **THE UPDATE RULE CHANGES NOTHING. THE SUM IS OPTIMAL INSIDE ITS OWN FAMILY.**
+> Nested control PASSED everywhere (`eta=1/n` reproduced SUM's ranking exactly, delta +0.00 at all
+> five reads) -- so the sum is not a rival arm, it is a POINT INSIDE the delta-rule family.
+> Every fixed eta is worse and worse faster: slopes **+1.798 / +2.354 / +2.879** vs SUM **+1.035**;
+> at 16,000 the recency arms blow out to **6.92-10.08x** against the sum's **4.39x**. Precision on
+> the step size does not rescue it (**+1.536**, 3/5).
+> **The pre-registered risk is exactly what happened, and it was written verbatim: *"if the eta
+> sweep says smaller-is-always-better, the winner IS the sum and this is a NULL."***
+>
+> ## 🧱🧱 STRATEGIC CONCLUSION, NOW SUPPORTED BY SIX FAILED INTERVENTIONS:
+> **THE REPRESENTATION IS INSENSITIVE TO *HOW* IT IS WRITTEN AND TO *WHICH* TRACES GO IN.**
+> Failed on the phase curve: residual gate, k-WTA, normalisation, incremental decorrelation,
+> novelty/precision selection, the entire delta-rule family. **The ONLY two things that have ever
+> moved the slope are HOW MANY traces exist (coverage, 39%) and a POST-HOC transform (centring,
+> 39%) -- neither is a rule about writing.** *The limit is the REPRESENTATION -- a random projection
+> of counts -- not the procedure that fills it.*
+>
+> ## ⬅️⬅️ TOP ITEM NOW: **THE ONE HONEST ESCAPE FOR THE DELTA RULE -- A NON-STATIONARY CORPUS.**
+> **Forgetting BUYS ADAPTATION TO A CHANGING WORLD. `simplewiki` read front-to-back is STATIONARY,
+> so recency can only DISCARD EVIDENCE and must lose.** *We tested a rule for non-stationarity in a
+> stationary regime -- a FOURTH position error of the same shape: right mechanism, wrong regime.*
+> **THE TEST: a deliberately TOPIC-BLOCKED reading order (so a word's typical context genuinely
+> drifts), same total reading, same scorer, SUM vs the delta family. Recency should win THERE.**
+> *Pre-commit both ways: if recency wins under drift, the delta rule is alive and the earlier null
+> was a regime artifact -- a real finding about WHEN it applies. **If it loses even under drift, the
+> delta rule is dead on this instrument outright and the write-side route is closed for good.***
+> *⚠️ And the honest framing either way: this tests WHEN a rule applies, it does NOT reopen the
+> strategic conclusion above. Only coverage and post-hoc transforms have ever moved the curve.*
+>
+> ## [SUPERSEDED] previous top item: **GIVE THE PROFILE AN UPDATE RULE, SO THERE IS SOMETHING TO MODULATE.**
 > This is what the three POSITION errors have been pointing at all along, and it is the one thing
 > never tried: **our profiles have no learning rate.** `acc += trace` is not an update rule -- it has
 > no notion of how much to move, so precision has nothing to weight and every selector can only
