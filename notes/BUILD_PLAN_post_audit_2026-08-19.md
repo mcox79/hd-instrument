@@ -1,5 +1,47 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🚨 **THE ENTIRE READ-OUT FIX SUBSYSTEM IS DEAD CODE ON THE LIVE PATH -- `canonicalize_fast`**
+> # **IS CALLED *ZERO* TIMES WHILE READING. AND I CLOSED THE SIGN HYPOTHESIS THIS MORNING ON HALF**
+> # **AN INSPECTION.**
+> *Runtime evidence, not grep -- both functions monkeypatched and counted through a real 1,500-
+> sentence read:*
+>
+> | | live calls over 1,500 sentences |
+> |---|---|
+> | `canonicalize` -- **SIGNED query, `np.sign(new_raw_sum)` hardcoded at line 776** | **451** |
+> | `canonicalize_fast` -- graded query when `readout=None`, and the ONLY door to `ReadoutConfig` | **0** |
+>
+> ## ⛔ **CORRECTION TO MY OWN CLOSURE FROM THIS MORNING**
+> I wrote: *"the sign hypothesis is REFUTED BY CONSTRUCTION -- `GRADED_COMPARATOR` has been True
+> since 08-14, verified at RUNTIME, the profile path has no sign step."* **I checked the ANCHOR side
+> only.** `bundle()` and `anchor_matrix()` are indeed graded -- **and the QUERY is signed on 100% of
+> live selection calls.** The code's own docstring says why that is the worst of both:
+> > *"a graded field read by a signed query is worse than either, because the query's magnitudes are
+> > exactly what the field's magnitudes are being compared to."*
+> **So the sign hypothesis is NOT closed. It is half-closed, and the open half is the live half.**
+>
+> ## 📉 WHAT IS UNREACHABLE, AND ONE PIECE OF IT IS VET-CONFIRMED
+> `ReadoutConfig` (FIX 1 informativeness gate, FIX 2 frequency-backbone correction, FIX 3 frozen
+> anchor snapshot, and `graded_query`) is reachable ONLY through `canonicalize_fast`. **Zero calls
+> means none of it runs.** From `exp_readout_fix_v1` (MIDDLE_BAND) and its landed-VET `8de3a9a20`:
+> - **F3 -- CONFIRMED under 4 independent controls**, `F3_HELPS growing drop=0.060289`
+> - F2 -- **load-bearing claim REFUTED** by the retention-matched arm the cell disclosed as not-run
+> - F1 -- z-statistic under-credited
+> **➡️ A VET-CONFIRMED IMPROVEMENT IS SITTING BEHIND A FUNCTION NOTHING CALLS.** *This is the
+> wire-don't-island failure in its purest form: built, measured, VET'd, defaulted ON in the path
+> that is never taken.*
+> **⚠️ DO NOT CONFLATE THE NUMBERS: the docstring attributes `+0.0602` to GRADED QUERY; the cell
+> reports `0.060289` for F3 (the FROZEN SNAPSHOT). They may be the same measurement described twice
+> or two different things. I have not resolved which, and the claim "graded query is worth +0.06"
+> is NOT established here.**
+>
+> ## ➡️ WHY THIS MATTERS MORE THAN ANY MECHANISM PROPOSED TODAY
+> Thirteen interventions were tested and closed. **This is not a new mechanism -- it is measured,
+> VET-confirmed work that is already built and simply not connected.** The two live call sites are
+> `gate()` and `checkpoint()`: **the steps that decide what actually gets RECORDED as a grounded
+> meaning.** *The cheap per-encounter scan was given the better read-out; the decisive recording
+> step was not.*
+
 > # 🎯 **ANCHOR SELECTION *IS* FREQUENCY-BIASED -- CONFIRMED ON TWO STORES. AND THE SCARIER**
 > # **NUMBER NEXT TO IT IS WORTHLESS, WHICH A CONTROL CAUGHT BEFORE IT WAS REPORTED.**
 > *No hand-scoring needed: "does selection prefer frequent words" is a question about the
