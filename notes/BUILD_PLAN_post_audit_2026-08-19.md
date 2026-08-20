@@ -263,7 +263,67 @@
 > **➡️ WHAT IT CHANGES: "try a learned projection next" is retired as a fresh idea. If SVD is
 > revisited it must be as a REPLICATION of a cell that already lost, with power, and stated as such.**
 >
-> ## ⬅️ NEXT: **THE EXTREME-DRIFT VERSION, PRIOR RECORDED LOW BEFORE RUNNING.**
+> ## ✅ RAN -- **EXTREME DRIFT TESTED ACROSS SIX CORPORA. THE ESCAPE IS CLOSED WITH NO CAVEAT LEFT,**
+> ## **AND THE INSTRUMENT THAT COULD HAVE OVERTURNED IT WAS BUILT FIRST.**
+> Six unrelated corpora -- anatomy, chemistry, psychology, biology, Sherlock Holmes, Little Women --
+> read corpus-by-corpus vs round-robin vs shuffled. Same sentences, order is the only variable
+> (asserted as a permutation, not assumed).
+>
+> **🔬 FIRST THE MANIPULATION CHECK FAILED, AND THE HONEST DIAGNOSIS WAS THE INSTRUMENT.** The
+> context-vector drift metric read **1.08x** across six unrelated corpora -- NARROWER than reordering
+> one wikipedia dump (1.12x). That is a metric hitting its floor, not a statement about the orderings:
+> a word's contexts vary so much sentence to sentence that two half-means differ by ~0.75 even when
+> nothing systematic changed. **⛔ THE BARRED MOVE WAS TO LOWER THE 1.15x GATE. I DID NOT.** I built a
+> metric that measures regime change directly -- the total-variation distance between the CORPUS MIX
+> of a word's first-half and second-half occurrences -- validated it on known-answer orderings
+> (perfectly blocked **1.000**, perfectly interleaved **0.000**), and applied **THE ORIGINAL,
+> UNCHANGED 1.15x GATE** to it.
+>
+> | | new metric (regime change) | old metric (context drift) |
+> |---|---|---|
+> | BLOCKED_BY_CORPUS | **0.6585** | 0.7901 |
+> | ROUND_ROBIN | 0.3557 | 0.7885 |
+> | SHUFFLED | **0.2695** | 0.7283 |
+> | **band** | **2.44x -- PASSES** | 1.08x -- fails |
+>
+> **➡️ AND THE ARMS STILL SAY NO. corr(regime change, penalty for forgetting) = +0.123 across 9
+> cells; the escape needs clearly NEGATIVE. A delta arm beats the sum in 2 of 18 cells.** At 12,000
+> sentences the blocked ordering's delta arm blows out to **12.84x** against the sum's **5.71x**.
+> **✅ FREE HARNESS CHECK PASSED AGAIN: SUM is order-invariant and read identical across all three
+> orderings at all three points** -- asserted this time, not merely printed.
+> *⚠️ HONEST WRINKLE: the penalty is NOT perfectly monotonic -- ROUND_ROBIN (2.292) sits BELOW
+> SHUFFLED (2.752). The direction is flat-to-positive, not cleanly rising. That is enough to refute
+> "penalty falls as drift rises"; it is not itself a clean positive trend, and I am not claiming one.*
+> **🧠 FIDELITY NOTE: this does NOT say the brain lacks recency -- it plainly has it. It says recency
+> applied to OUR accumulator, on THIS retrieval task, costs rather than pays. Fifth POSITION error of
+> the same family: right mechanism, wrong place.**
+>
+> ## ⬅️⬅️ TOP ITEM NOW -- **OWNER INSTRUCTION 2026-08-20T01:31Z, AND IT CUTS AGAINST MY OWN CLOSURE:**
+> > *"adjusting a belief sounds like an important capability for substrate - so let's keep that
+> > finding and integrate where it needs to go"*
+>
+> **I WAS ABOUT TO WRITE "I STOP PROPOSING WRITE RULES" AND LEAVE IT THERE. THAT WOULD HAVE THROWN
+> AWAY A CAPABILITY BECAUSE IT LOST ONE BENCHMARK.** The owner is drawing a distinction I had
+> collapsed: *the delta rule as a REPLACEMENT FOR THE SUM* lost, robustly and now under genuine
+> regime change. **That is a claim about a DEFAULT WRITE RULE on a cloze-retrieval task. It is NOT a
+> claim about whether the substrate should be able to REVISE A BELIEF IT HOLDS.** Our profiles can
+> only ever be diluted by later evidence -- a wrong early impression is never CORRECTED, only
+> outvoted. Nothing in the six failed interventions tested revision, because the benchmark never
+> contradicts anything.
+>
+> **🔎 AND THE ARCHIVE SAYS THE CAPABILITY IS ALREADY BUILT AND SITTING UNWIRED -- five landed
+> HARD_PASS cells, none of them in `capability_registry.jsonl`:**
+> `exp_lap2_2_belief_revision_cpu_v1` (HARD_PASS) · `exp_lap4_9_agm_contraction_depth_cpu_v1`
+> (HARD_PASS -- AGM contraction, the formal theory of giving up a belief) ·
+> `exp_cheap1_contradiction_detect_cpu_v1` (HARD_PASS) · `exp_a3_rollback_via_subtraction_v1`
+> (HARD_PASS) · `exp_pp52_exact_rollback_n4096/n16384_v1` (HARD_PASS) ·
+> `exp_pb_pinv_downdate_forgetting_v1` (HARD_PASS).
+> **That is exactly the WIRE-DON'T-ISLAND failure mode: proven capability, no organ, no consumer.**
+> ➡️ NEXT ACTIONS: verify these on disk, find the real integration point (contradiction detection ->
+> revision, not accumulation), and register what is genuinely wired. **Report honestly if the
+> HARD_PASS cells turn out to be synthetic-only** -- several this session did.
+>
+> ## [DONE -- SEE ABOVE] **THE EXTREME-DRIFT VERSION, PRIOR RECORDED LOW BEFORE RUNNING.**
 > The only honest remainder: cross-CORPUS blocking. The shelf holds **36 corpora** including five
 > textbooks (anatomy, biology, chemistry, microbiology, psychology) and several novels. Reading
 > anatomy -> chemistry -> Sherlock is a genuine regime change, far past the 0.6146-0.6905 band a
