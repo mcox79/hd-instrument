@@ -413,8 +413,36 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
-> ## 🔬 VETTING IN FLIGHT -- **3 SEEDS, PAIRED CIs, AND A DOUBLE-COUNT ARM. THE SMOKE ALREADY**
-> ## **REFUSED THE CLAIM -- AT A SCALE WHERE THE EFFECT IS SMALLEST, SO IT DOES NOT COUNT EITHER.**
+> ## ✅✅ **VET PASSED -- THIS IS A RESULT, NOT A HYPOTHESIS. FIRST ONE OF THE SESSION.**
+> Three seeds at 16,000 sentences, arms paired on the SAME probes within each seed:
+>
+> | seed | candidates | COOC | DEFAULT | KEEP_NOTING | **POSTONLY** |
+> |---|---|---|---|---|---|
+> | 7 | 74 | 7.0 | 33.0 (4.71x) | 19.5 (2.79x) | **18.5 (2.64x)** |
+> | 101 | 108 | 9.0 | 45.0 (5.00x) | 30.0 (3.33x) | **27.0 (3.00x)** |
+> | 20260819 | 114 | 9.0 | 45.0 (5.00x) | 31.0 (3.44x) | **30.0 (3.33x)** |
+>
+> **3 of 3 seeds separated for BOTH arms.** Pooled paired differences: KEEP - DEFAULT **-5.0, 95% CI
+> [-6.0, -3.5]**; POSTONLY - DEFAULT **-6.0, 95% CI [-8.0, -4.5]**.
+>
+> **🔑 AND THE DOUBLE-COUNT ARM DID NOT JUST SURVIVE -- IT WON, IN 3 OF 3 SEEDS.** POSTONLY adds ONLY
+> traces recorded after grounding, so it cannot double-count, and it beats the shipped merge every
+> time. **That inverts the concern: the shipped version's double-count was mildly HURTING, not
+> flattering.** *The pre-registered failure mode was "KEEP wins but POSTONLY collapses -> retract".
+> The opposite happened, which is the strongest form this check could have returned.*
+> **➡️ SO THE SHIPPED MERGE SHOULD BE RE-SHIPPED AS POST-ONLY.** Concrete and small: record
+> `grounded_at_pass` on the `LibraryItem` at promotion, and have `profile()` sum only traces with
+> `pass_idx > grounded_at_pass`. Same additive, default-off discipline.
+>
+> **⛔ WHAT IT STILL IS NOT: A WIN OVER COUNTING.** 2.64x-3.33x behind COOC at 16,000. **The curve
+> bends hard and does not cross.** One corpus, three seeds, and the probes are drawn from the
+> candidate set frozen at 2,000 sentences -- all of which travel with the number.
+>
+> ## [KEPT FOR THE RECORD] the smoke that refused this claim, and why it did not count
+> **The `DIAG_FINAL=4000` smoke returned "NOT ESTABLISHED" in 0 of 3 seeds.** It ran at the scale
+> where the single-seed effect was SMALLEST (2.91x -> 2.50x) while the headline was at 16,000. Had I
+> reported it, I would have retracted a real result on smoke numbers -- the third time tonight that
+> error was available and the first time the trap pointed at a TRUE finding rather than a false one.
 > `scratch/diag_keepnoting_multiseed.py`, running at 16,000. Three arms: DEFAULT · KEEP_NOTING (as
 > shipped) · **KEEP_NOTING_POSTONLY** -- consolidated vector plus ONLY traces with
 > `pass_idx > snapshot_pass`, which **cannot double-count**, because the shipped merge adds the whole
