@@ -1,5 +1,39 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ⚠️🔬 **DG PATTERN SEPARATION -- SEED 7 LOOKS LIKE THE BIGGEST WIN OF THE EFFORT, AND I DO NOT**
+> # **BELIEVE IT. A REFUTATION IS RUNNING. NOBODY QUOTE THIS UNTIL IT LANDS.**
+> *`scratch/diag_dg_pattern_separation_on_profiles.py`, seed 7 of 3, `simplewiki`, leak 0.*
+>
+> | arm | median rank | vs COOC floor 17.0 | mean-pair-cos | ranks changed vs RAW |
+> |---|---|---|---|---|
+> | RAW (what ships) | 52.5 | 3.09x | +0.0815 | -- |
+> | **DG@0.01** | **18.0** | **1.06x** | **+0.0096** | 295 |
+> | DG@0.02 | 56.0 | 3.29x | +0.0155 | 296 |
+> | DG@0.05 | 95.0 | 5.59x | +0.0264 | 294 |
+> | DG@0.10 | 79.0 | 4.65x | +0.0398 | 290 |
+> | DG@0.25 | 63.0 | 3.71x | +0.0629 | 281 |
+>
+> **⛔ THREE TELLS SAY TIE-BREAKING ARTIFACT, NOT PATTERN SEPARATION, AND THEY WERE VISIBLE BEFORE
+> ANY REFUTATION RAN:**
+> 1. **The winning point is the SPARSEST point.** `sparsity=0.01` over `expand_dim=1024` keeps **10
+>    non-zero components**. Two 10-sparse vectors over 1024 slots usually share NO support, so their
+>    dot product is **exactly 0.0** -- and the rank statistic is `1 + #{sims > sims[target]}`, a
+>    STRICT inequality, so **every candidate tied at 0.0 counts as BEATEN.**
+> 2. **The sweep is NON-MONOTONE** (18.0 / 56.0 / 95.0 / 79.0 / 63.0). A real encoding improvement
+>    does not change sign twice.
+> 3. **DG@0.01 has the LOWEST mean pairwise cosine (+0.0096)** -- the most nearly-orthogonal arm,
+>    which is exactly the condition that manufactures ties.
+>
+> **🚨 AND MY OWN GUARD PASSED IT: `alive = 286 of 286`. NON-ZERO IS NOT NON-DEGENERATE.** CLAUDE.md
+> already carries this fault -- *"an arm whose accumulator was never written reported median rank 1.0,
+> a 20x win, because tied similarities never sort above the target"* -- and I wrote the guard for the
+> EMPTY case while building the arm most exposed to the SPARSE case. **The rule that would have caught
+> it is the one already written down: ASK WHAT SCORE A BROKEN ARM WOULD GET.**
+> **➡️ RUNNING: `scratch/diag_dg_is_the_win_a_tie_artifact.py` -- scores every arm under BOTH tie
+> conventions (optimistic / midpoint / pessimistic) plus tie-density per probe.** Pre-committed:
+> *survives pessimistic* -> real, and the most important result of the effort; *collapses* ->
+> **withdraw it**, and record that the non-emptiness guard needs a tie-density check for sparse arms.
+
 > # 🔄 THRUST 2 CORRECTED -- **Q77 SELF-RESOLVED AND MY OWN PREMISE WAS THE THING THAT WAS WRONG.**
 > *I filed Q77 arguing that `social_iqa` might be unable to show a difference, because "when the
 > clever method AND the crude word-counting floor both sit at chance, the likeliest reading is the
