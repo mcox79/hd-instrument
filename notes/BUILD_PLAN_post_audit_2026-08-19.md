@@ -1,5 +1,48 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 📖 **AN UNREAD RUN FROM 2026-08-19 INDEPENDENTLY CORROBORATES TODAY'S CENTRAL RESULT -- AND IT**
+> # **WAS INVISIBLE ONLY BECAUSE IT NEVER WROTE A VERDICT LINE.**
+> *`exp_discrimination_ceiling_v1`. Independent gold: `data/conceptnet_gold_v1`, 422,082 edges,
+> provenance-filtered, **NO WordNet source**, paradigmatic only. `items_predate_mechanism: True` --
+> this project's strongest free predictor of a non-bogus result. Four corpora, ~1,900 scorable items
+> each. **The DISCRIMINATION arms re-rank the SAME top-50 candidate set, so any difference is the
+> RANKER and not retrieval** -- the cell's own design note says so.*
+>
+> | corpus | **RAW (ours)** | BAG_COSINE | SECOND_ORDER | RANDOM | pool |
+> |---|---|---|---|---|---|
+> | simplewiki | 0.1356 | **0.1557** | **0.1557** | 0.0392 | 1047 |
+> | onestop | 0.0913 | **0.1010** | **0.1010** | 0.0291 | 515 |
+> | mcguffey_graded | 0.0781 | **0.0985** | **0.0985** | 0.0170 | 589 |
+>
+> ## 🔑 THREE THINGS IT SAYS, AND ALL THREE MATTER
+> 1. **OUR REPRESENTATION LOSES TO A PLAIN BAG-OF-WORDS COSINE ON EVERY CORPUS.** 0.1356 vs 0.1557,
+>    0.0913 vs 0.1010, 0.0781 vs 0.0985. *Not a tie here -- a loss, on the arm that isolates the
+>    ranker.*
+> 2. **`BAG_COSINE` AND `SECOND_ORDER` ARE IDENTICAL TO FOUR DECIMALS ON EVERY CORPUS**, with
+>    identical hit COUNTS (163/163, 52/52, 58/58). *That is today's synonym-rank tie -- our
+>    representation sitting exactly where co-occurrence counting sits -- reproduced on a different
+>    task, a different gold standard and a different metric, a day earlier, unread.*
+> 3. **THE TASK IS NOT CAPPED: `ORACLE_ceiling_diagnostic = 1.0`, and every arm is far above
+>    RANDOM.** So the low absolute numbers are a real shortfall, not an unmeasurable regime.
+>
+> ## ✅ **I SUSPECTED A DUPLICATED ARM AND CHECKED. THEY ARE GENUINELY DIFFERENT -- BUT THE CLAIM**
+> ## **HAS TO BE STATED MORE NARROWLY THAN "IDENTICAL".**
+> Identical hit counts (163/163, 52/52, 58/58) across three corpora is exactly what one arm computed
+> twice would look like, so it needed checking before it was quoted. **Checked: the two arms differ
+> on `ci_half_width`, `ci_hi`, `ci_lo` and `paired_perm_p_vs_RAW` on EVERY corpus** -- and those
+> statistics depend on WHICH items were hit, not merely how many.
+> **➡️ SO THE HONEST STATEMENT IS: BAG_COSINE AND SECOND_ORDER GET DIFFERENT ITEMS RIGHT AND ARRIVE
+> AT EXACTLY THE SAME ACCURACY. NOT "the same ranker" -- "the same score by different routes."**
+> *That is weaker than identical rankings would have been, and it is still a convergence worth
+> noting; it just cannot be cited as the two methods being one method.*
+> **⚠️ POINT 1 IS UNAFFECTED AND IS THE STRONGER FINDING: RAW LOSES TO BAG_COSINE ON EVERY CORPUS.**
+>
+> ## ➡️ AND THE PROCESS POINT, WHICH IS WORTH AS MUCH AS THE RESULT
+> **This ran on 2026-08-19 with complete results and nobody read it**, because the dashboard showed
+> it as "(no verdict recorded)" and it looked like a failure. **Six more runs are in that state.**
+> *The owner spotted the symptom -- "a lot of no-verdict runs, is that correct or old?" -- and it led
+> straight to a corroborating result the project already owned.*
+
 > # 🎯 **HAND-READ 50 DROPS: ~48% ARE REAL DEFINITIONS WE CANNOT PARSE, AND THE THREE FORMS THAT**
 > # **LOSE THEM ARE NONE OF THE CAUSES I ORIGINALLY PROPOSED.**
 > *The 73.1% unattributed pool was the open question. Hand-classified a random 50 (seed 20260820)
