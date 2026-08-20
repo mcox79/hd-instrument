@@ -57,7 +57,11 @@ Notes: `THE_F5_BAR_IS_MEASURED_BEFORE_THE_BUILD_...md`, `THE_F5_BAR_REPLICATES_.
    byte-deterministic (`tools/build_frequency_matched_anomaly_set.py --self-test`).
    **CEILING ~86%: with 17 WEAK items a PERFECT detector cannot score higher. PRINT THAT beside any
    score, or the shortfall reads as detector failure.**
-3. **The bar (CORRECTED 2026-08-21)** -- **beat +18.8 pp on the PAIRED anomalous-vs-original hit@1
+3. **The bar (CORRECTED + REPLICATED 2026-08-21)** -- **beat +20.7 pp on the PAIRED
+   anomalous-vs-original hit@1 difference.** Second-order counting scores `+10.9/+13.3/+13.8/+7.6`
+   across four independently-built sets -> `REPLICATED` (median +12.1, 1.8x spread, McNemar
+   p=0.0004-0.0389); +20.7 is the MAX per-set CI upper bound, per the gate-on-the-upper-bound rule.
+   ~~beat +18.8 pp on the PAIRED anomalous-vs-original hit@1
    difference**, the UPPER bound of SECOND-ORDER counting's discrimination (53.5% vs 42.6%,
    +10.9 pp, CI [+3.0, +18.8]). **The old rank-4.0 bar is SUPERSEDED: too low, and absolute rank is
    slot-inflated for EVERY arm** -- the floor ranks that slot first 42.6% of the time with the

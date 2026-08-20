@@ -18,8 +18,15 @@ from hdlab.reading_grounding_loop import content_lemmas
 SET=os.environ.get("DIAG_SET","data/anomaly_set_frequency_matched_v8.json")
 S=json.load(open(SET,encoding="utf-8"))["items"]
 HAND=SET.replace(".json","_handscores.json")
-V=({v["index"]:v["verdict"] for v in json.load(open(HAND,encoding="utf-8"))["verdicts"]}
-   if os.path.exists(HAND) else {i:"CLEAN" for i in range(len(S))})
+# ALL_ITEMS forces every item to be scored even when hand-scores exist. Needed for REPLICATION:
+# the seed-variant sets have no hand-scores, so a CLEAN-only run on v8 against all-items runs on the
+# others would compare two different populations -- "no number crosses populations" is the standing
+# rule, and a replication that silently does so is worse than no replication.
+ALL_ITEMS = os.environ.get("DIAG_ALL_ITEMS","0")=="1" or not os.path.exists(HAND)
+V=({i:"CLEAN" for i in range(len(S))} if ALL_ITEMS else
+   {v["index"]:v["verdict"] for v in json.load(open(HAND,encoding="utf-8"))["verdicts"]})
+print("POPULATION: %s (%d items)"%("ALL ITEMS" if ALL_ITEMS else "hand-scored CLEAN only",
+      sum(1 for x in V.values() if x=="CLEAN")))
 sents=list(CorpusRegistry().handles["simplewiki"].take(8000))
 held={i["sentence_original"] for i in S}
 kept=[s for s in sents if s not in held]

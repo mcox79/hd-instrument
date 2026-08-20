@@ -33,7 +33,14 @@
 > **Real discrimination: 53.5% vs 42.6% = +10.9 pp, CI [+3.0, +18.8], McNemar p=0.0153.**
 > **➡️ ABSOLUTE RANK CANNOT BE THE READ-OUT FOR ANY ARM -- every arm is slot-inflated. The only
 > valid metric is the PAIRED anomalous-vs-original difference.**
-> ### 🎯 **CORRECTED BAR: F5 must beat +18.8 pp (the floor's UPPER bound) on the paired hit@1
+> ### ✅ **AND THE CORRECTED BAR NOW REPLICATES (4 sets, ALL-ITEMS so the population is constant):
+> `+10.9 / +13.3 / +13.8 / +7.6 pp` -> `REPLICATED`, median +12.1, 1.8x spread, sign 4/4, McNemar
+> p = 0.0004-0.0389 on every set. Per-set CI upper bounds 17.6 / 20.0 / 20.7 / 14.3.**
+> ### 🎯 **FINAL BAR: F5 must beat +20.7 pp -- the MAX per-set CI upper bound, gating on the
+> floor's upper bound as the standing rule requires. (Was +18.8 from a single set.)**
+> *Caveat stated rather than buried: 1.8x magnitude spread, wider than the rank measure's 1.1x.*
+>
+> ### ~~CORRECTED BAR: F5 must beat +18.8 pp (the floor's UPPER bound) on the paired hit@1
 > difference, >=3 sets, `REPLICATED`. Headroom is ~43 pp; counting takes 10.9 of it. F5 is NOT
 > pre-empted, but the bar is nearly twice what I pre-committed.**
 > `notes/THE_F5_BAR_WAS_TOO_LOW_AND_ON_THE_WRONG_METRIC_second_order_counting_2026-08-21.md`
