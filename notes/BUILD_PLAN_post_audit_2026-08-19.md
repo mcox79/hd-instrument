@@ -129,7 +129,29 @@
 > is stored. Ours filters WITHIN one incoming trace and then sums independently. **No competition
 > between encounters, none between terms. We copied sparsity's SHAPE and not its POSITION.**
 >
-> ## ⬅️⬅️ TOP ITEM NOW: **COMPETITION BETWEEN THE STORED PROFILES -- ON THE ACCUMULATED STATE.**
+> ## ✅ RAN -- **REFUTED BACKWARDS, AND IT HANDED US THE BEST RESULT OF THE SESSION.**
+> Incremental removal HURTS (INCR_CENTER **+1.406**, INCR_OJA **+2.025** vs SUM **+1.035**).
+> **POST-HOC centring is the best arm measured all session: slope +0.631 (39% flatter) and the ONLY
+> intervention that has ever CONCENTRATED the code -- effective dims 92.3 -> 29.1 at 16,000.**
+> **🔑 Same lesson k-WTA taught: an EARLY estimate of the shared direction is a BAD estimate, and
+> subtracting a bad estimate corrupts every trace. OPERATIONS ON THE ADDENDS HURT; THE SAME
+> OPERATION ON THE ACCUMULATED RESULT HELPS.** *Retires my own "the store must never accumulate it"
+> intuition, which the plan stated confidently.*
+> **🚨 And my verdict line said "THE ACCUMULATION ROUTE IS EXHAUSTED" -- wrong. The gate compared
+> only the INCREMENTAL arms to SUM, so POSTHOC was invisible to the code judging it. Fourth
+> mis-specified gate; fixed to report the winner across ALL arms first.**
+> *⚠️ POSTHOC is still 3.11x behind the counter at 16,000. It flattens the curve; it does not clear
+> the floor. Both statements travel together.*
+>
+> ## ⬅️⬅️ TOP ITEM NOW [RUNNING]: **2x2 FACTORIAL -- DO COVERAGE AND CENTRING ADD?**
+> Both gave 39%, but from DIFFERENT RUNS, and the centring run had full coverage already on, so
+> chaining them to "-63%" is an INFERENCE not a measurement. **And one cell has never been measured:
+> CENTRING WITHOUT CHANGING NOTE-TAKING -- the cheap, shippable one.** Full coverage rewrites how
+> the substrate reads and the owner already rejected "record everything" as the framing (Q71);
+> centring is a change to how profiles are READ and costs nothing.
+> Cells: A as-is+sum / B as-is+centred / C full+sum / D full+centred, ONE run, ONE population.
+>
+> ## [SUPERSEDED] previous top item: **COMPETITION BETWEEN THE STORED PROFILES -- ON THE ACCUMULATED STATE.**
 > Every write-side variant tested (gate, centring, PC-removal, full coverage, k-WTA, normalisation)
 > competes in the WRONG PLACE or not at all. The untested faithful version is the ATL hub story:
 > **profiles compete with EACH OTHER for capacity** -- e.g. decorrelate/whiten the store across
