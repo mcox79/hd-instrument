@@ -150,3 +150,33 @@ the decode" is exactly the check this codebase has skipped before.*
 
 **➡️ THE BRIEF'S OPEN QUESTION IS THEREFORE ANSWERED: the link is available, it is tested, and its
 capacity limit is documented. It should be designed in from the start rather than bolted on.**
+
+### ⛔ AND THE CAPACITY CONSTRAINT I JUST IMPOSED IS **ALREADY SOLVED BY THE DEFAULT** -- MEASURED, IN A LANDED CELL
+
+I was about to measure the crosstalk. **I read the constructor first, and it had already been
+done -- better than I would have done it.** `make_situation_register`'s docstring records
+`exp_situation_model_multibank_capacity_v1`, sweeping `n_events` in {64, 96, 128, 192, 256}:
+
+| backend | decode self-consistency across the sweep |
+|---|---|
+| **`multibank_8`** -- and it is **the DEFAULT** | **[1.0000, 0.9992]** -- holds **>=0.999 at 256 events/entity** |
+| flat register | [0.9781, **0.6547**] -- degrades badly under load |
+
+*"Strictly >= flat at every swept load ... there is no regime in the measured sweep where flat beats
+multibank_8, so multibank is a safe default, not a scale-vs-small-scale tradeoff."*
+
+**➡️ SO "ONE ROLE PER MEANING-SLOT, OR MEASURE THE CROSSTALK" IS AN OVER-CONSTRAINT I IMPOSED ONE
+TURN AGO ON STALE INFORMATION.** The lossless-for-one-filler caveat is real for the **flat**
+register; **the shipped default holds 256 events per entity at >=0.999.** *The design can bundle
+many meanings per entity.*
+
+**AND THE DOCSTRING'S OWN HONEST SCOPE MATTERS TOO:** *"at current pilot scale (bundle-load ~2)
+multibank and flat decode IDENTICALLY ... Switching the default is NOT claimed to lift current
+comprehension accuracy; it is capacity-headroom future-proofing."* **So capacity is not currently a
+binding constraint at all -- neither backend is under stress at present loads.**
+
+**🔑 FIFTH TIME TONIGHT THE ANSWER WAS ALREADY IN AN ARTIFACT -- AND THE FIRST TIME I CAUGHT IT
+BEFORE SPENDING THE COMPUTE.** *The previous four were found after the fact: two unscored audit
+samples, a cell's own floor_note, a balance table nobody read. This one was caught by reading the
+constructor docstring before writing the diagnostic. That is the habit working prospectively rather
+than as an autopsy.*
