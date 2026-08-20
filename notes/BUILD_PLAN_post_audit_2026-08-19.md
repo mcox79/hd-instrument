@@ -151,7 +151,47 @@
 > > FIRE** -- the mojibake repair, the proper-noun detector and `experiment_index.py` all failed in
 > > exactly that way.
 > > *Still a claim about the EXTRACTOR's output, NOT the HDC substrate, whose read-out is the 4%
-> > arm.* **Seeds 101/13/29 in flight. SINGLE SEED = HYPOTHESIS.**
+> > arm.*
+> >
+> > **ALL 4 SEEDS IN AND CLEARING: OURS 19.4 / 18.9 / 20.3 / 21.3%; strongest floor 7.5 / 7.4 /
+> > 8.2 / 7.7%.** The harder **`CO_SPAN`** floor (a CONTIGUOUS same-length window from the SAME
+> > sentence, so only span-SELECTION differs) reads **4.4% [2.1, 8.8]** with only **12.8% overlap**
+> > with our words -- so the false-negative risk did not materialise. **ORACLE = 100.0% in-run**,
+> > plus a standalone matcher control firing **400/400** at **0.2%** false-fire.
+> > **⚠️ CORRECTION: SHUFFLE IS NOT 0.0% ON EVERY SEED** -- seed 29 reads **2.6%**; pooled
+> > **4/621 = 0.6%**. Still a real floor, still cleared; "zero everywhere" was wrong and I said it
+> > twice. *`CO_SPAN` (4.4%) scores BELOW `CO_SENTENCE` (6.2%), the opposite of my expectation:
+> > `CO_SENTENCE` draws CONTENT words only while `CO_SPAN` and OURS both spend slots on function
+> > words, so `CO_SENTENCE` is the harder floor and is ADVANTAGED relative to ours.*
+>
+> > # ⛔ **AND THEN THE NEXT LINK IN THE CHAIN IS BROKEN -- WHICH DECIDES WHAT THE WIN IS WORTH.**
+> > **`notes/good_definitions_in_nothing_competitive_out_the_readback_gap_2026-08-20.md`**
+> >
+> > | step | status |
+> > |---|---|
+> > | reading produces definitional PHRASES | **GOOD** (above) |
+> > | those phrases are BANKED | works -- 212 of 402 provenance rows |
+> > | **anything READS them back and does better with them** | ❌ **NOT COMPETITIVE** |
+> >
+> > `exp_cortical_read_consolidated_v1` `v3_floors_at_k`, re-read from metrics: **3 seeds,
+> > `UNDERPOWERED: false`, `items_predate_mechanism: true`, `CONTEXT_clears: false` /
+> > `BOTH_clears: false` at EVERY k (1/5/10/25/50) on EVERY seed.** `READING_A` fires, so it
+> > RETRIEVES -- it never beats `RANK_COOC_floor`. **And that is the route built precisely because
+> > its absence meant consolidation could be ablated to zero without moving the read-out.**
+> >
+> > ## ✅ WHY, SETTLED THE SAME HOUR -- AND MY FIRST GUESS WAS WRONG
+> > I guessed it had only been tested on single-word content. **No.**
+> > `cortical_recall.py:90 build_cortical_index` iterates the consolidated **TERMS** and builds one
+> > vector per term from **`context_profiles`** (+ spoke). **THE MEANING VALUE IS NEVER VECTORISED,
+> > NEVER COMPARED, NEVER READ** -- the dict is used for its KEYS; the meaning is attached to the
+> > hit for DISPLAY *after* ranking. `cue_vector` also builds from `context_profiles`, so **both
+> > sides of the comparison are the distributional representation.**
+> > **➡️ 4% -> 32% MEANINGFUL CANNOT MOVE THAT ROUTE, BECAUSE IT NEVER LOOKS AT THE MEANING.** The
+> > definitional gate changes WHICH TERMS consolidate (coverage), never the ranked vectors.
+> > **THIS MECHANICALLY EXPLAINS THE STANDING INERTNESS FINDING.** Not a tuning gap.
+> > **🔑 THE GAP IS A BUILD TARGET, NOT A DEFECT: no route exists by which the CONTENT of a learned
+> > definition affects any later answer. "Improve the definitions" and "improve the read-out" are
+> > DISCONNECTED PROBLEMS.** Strategy call -> **Q89, amended a third time in plain language.**
 
 
 > # ⛔ **TWO OF MY OWN CLAIMS FROM THE LAST HOUR WITHDRAWN -- AND THE REASON IS A STRUCTURAL FACT**

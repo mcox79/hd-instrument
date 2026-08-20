@@ -48,7 +48,38 @@ estimate would have produced a false positive where the paired statistic said no
 **Two of the day's best results were already on disk, unread. The archive out-performed the runs.**
 
 
-## TOP ITEM -- SETTLE WHETHER THE READ-BACK WAS EVER TESTED ON THE *GOOD* CONTENT
+## TOP ITEM -- THE READ-BACK GAP IS REAL, AND THE OBVIOUS FIX IS MEASURED AND DOES NOT WORK
+
+**`notes/wiring_the_definitions_into_retrieval_would_not_help_measured_2026-08-20.md`**
+Same space, same cue, same 212 candidates, same scorer; **one variable: what the index row is made
+of.** Ranks via `tools/rank_with_ties.py`. n=133, seed 7.
+
+| arm | midpoint rank (lower better) |
+|---|---|
+| **PROFILE** -- accumulated context vector. **THE SHIPPED ROUTE.** | **64.0** |
+| **DEFINIENS** -- the term's own definition. **THE PROPOSED FIX.** | **92.0** |
+| BOTH | 71.0 |
+| SHUFFLE_DEF -- *another* term's definition | 99.0 |
+| **COOC** | **5.0** |
+
+**➡️ INDEXING BY THE DEFINITION IS 28 RANKS WORSE THAN THE PROFILE IT WOULD REPLACE. DO NOT BUILD
+IT.** *DEFINIENS (92) still beats SHUFFLE_DEF (99), so the definitions are NOT noise -- they carry
+term-specific signal, just LESS of it. Mechanism is almost certainly VOLUME: ~7 words against a
+profile summed over dozens of encounters. A short high-quality signal loses to a long low-quality
+one on a task rewarding breadth.*
+**🚫 NARROW NEGATIVE, DO NOT WIDEN IT:** one way of consuming meaning (as an index vector), one task
+(retrieve term from sentence cue). **Untested and open: use the definition to ANSWER rather than
+RETRIEVE; use its GENUS for inference; SEED a new term at first encounter, where volume is zero and
+seven good words may beat nothing.**
+**📌 A BOUNDARY ON OUR MOST REPRODUCIBLE POSITIVE: `BOTH` (71) is WORSE than `PROFILE` (64).**
+Combining channels helps when both are comparably strong; **when one is strictly weaker it
+DILUTES** -- 71 sits between 64 and 92, exactly as an average would.
+**⚠️ AND COOC IS 5.0 AGAINST THE BEST ARM'S 64.0 ON A TASK BUILT TODAY.** None of today's good news
+touches the headline: the phrases are good OUTPUT; the RETRIEVAL machinery is >10x below counting.
+*Leak control did real work: **3,269 cue sentences excluded** as a definition's own source; 79 of
+212 terms dropped for having no non-source cue, reported rather than absorbed.*
+
+## [ANSWERED] WAS THE READ-BACK EVER TESTED ON THE *GOOD* CONTENT
 
 **THE PHRASE RESULT IS HARDENED (4 seeds, 5 floors, ORACLE at 100%) -- AND THEN THE NEXT LINK IN
 THE CHAIN TURNS OUT TO BE BROKEN.**
