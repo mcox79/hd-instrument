@@ -710,6 +710,46 @@ hoped would win -- but arriving from the opposite direction: there the data was 
 model was too empty. Both were caught by the number disagreeing with every other measurement of the
 same quantity that day.*
 
+## `experiment_index.py` RETURNED A SILENT ZERO FOR MULTI-WORD QUERIES -- THE SAME DEFECT AS THE TOOL IT REPLACED
+
+**Measured 2026-08-20. FIXED, with a self-test -- run `python tools/experiment_index.py --self-test`.**
+
+Matching was literal substring, so a query with a SPACE could never match a cell name with an
+UNDERSCORE. **`query "active growth"` returned 0 against a LANDED HARD_PASS cell named
+`exp_breadth_foundation_active_growth_loop_ud_ewt_v1`.** Every multi-word query was structurally
+unable to match any cell name -- and it failed the way that costs most, with a clean `0 matching
+cells` that reads exactly like "no prior work exists".
+
+Measured on one afternoon's prior-work checks -- **5 false negatives in 12 queries**:
+
+| query | literal | normalised |
+|---|---|---|
+| **pattern separation** | **1** | **12** |
+| gap driven | 0 | 7 |
+| active growth | 0 | 2 |
+| growth loop | 0 | 2 |
+| frequency weight | 0 | 1 |
+
+**WHAT IT COST, CONCRETELY: a DG pattern-separation diagnostic was designed, launched and run partly
+on the strength of "1 cell, 0 landed".** The truth was 12 cells, 9 landed, including
+`exp_dg_pattern_separation_mcscript_purity_v1` **HARD_FAIL** (purity 0.1013 vs a 0.1999 baseline)
+and `exp_selfplay_dg_pattern_separation_xfit_v1` **HARD_FAIL_REPRESENTATION_INSUFFICIENT_REDIRECT_
+EXOGENOUS** (DG improved the metric by 0.015). **The archive had already answered the question, and
+that second verdict name -- redirect to exogenous information -- is the same conclusion the day's
+fidelity synthesis reached independently a month later.**
+
+Three points, and the third is why this section exists at all:
+
+1. **SINGLE-WORD queries were never affected**, so conclusions drawn from them still stand
+   (`"moral"` and `"fable"` really are 0). Multi-word conclusions from before this fix are void.
+2. **The fix folds `_` and `-` to spaces on BOTH sides**, and the self-test asserts the three
+   spellings return EQUAL counts, plus a known-present and a known-absent control.
+3. **CLAUDE.md already documents this exact failure mode for `director_kb_query.py` -- "it runs,
+   costs 40-50s, and produces nothing while reporting success" -- and the replacement tool shipped
+   with its own version of it.** *A tool that can return zero without proving it CAN return non-zero
+   is not a prior-work check. Any tool relied on to establish ABSENCE needs a known-present positive
+   control wired into it, not into the habits of whoever runs it.*
+
 ## NON-ZERO IS NOT NON-DEGENERATE -- A *SPARSE* ARM BREAKS A RANK METRIC THE SAME WAY AN EMPTY ONE DOES
 
 **Measured 2026-08-20, and the guard that should have caught it is the one directly above -- written

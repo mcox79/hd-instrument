@@ -163,6 +163,31 @@ def _load():
     return out
 
 
+def _norm(s: str) -> str:
+    """Fold `_` and `-` to spaces so a MULTI-WORD query can match an underscored CELL NAME.
+
+    THE BUG THIS FIXES, MEASURED 2026-08-20, AND IT IS THE SAME FAILURE CLASS AS THE director_kb
+    THIS TOOL REPLACED: a SILENT zero. Matching was literal substring, so `query "active growth"`
+    scored 0 hits against a LANDED HARD_PASS cell named `exp_breadth_..._active_growth_loop_...` --
+    because the name has an UNDERSCORE where the query has a SPACE. Every multi-word query was
+    structurally unable to match any cell name.
+
+    Measured impact on one afternoon's prior-work checks -- 5 FALSE NEGATIVES in 12 queries:
+
+        query                 literal  normalised
+        pattern separation          1          12   <-- used to justify an experiment as unexplored
+        gap driven                  0           7
+        active growth               0           2
+        growth loop                 0           2
+        frequency weight            0           1
+
+    The `pattern separation` row is the expensive one: a diagnostic was designed and run partly on
+    the strength of "1 cell, 0 landed". **AN EMPTY RESULT FROM THIS TOOL WAS NOT EVIDENCE OF
+    ABSENCE**, which is exactly what CLAUDE.md already says about its predecessor.
+    """
+    return s.replace("_", " ").replace("-", " ")
+
+
 def query(terms, all_terms=False, limit=40) -> int:
     rows = _load()
     # The count is printed FIRST and ALWAYS. A tool that can return nothing without saying how
@@ -171,10 +196,10 @@ def query(terms, all_terms=False, limit=40) -> int:
           f"({'ALL' if all_terms else 'ANY'} must match)")
     if not rows:
         return 1
-    terms_l = [t.lower() for t in terms]
+    terms_l = [_norm(t.lower()) for t in terms]
     hits = []
     for r in rows:
-        blob = f"{r['cell']} {r.get('headline') or ''} {r.get('verdict') or ''}".lower()
+        blob = _norm(f"{r['cell']} {r.get('headline') or ''} {r.get('verdict') or ''}".lower())
         n = sum(1 for t in terms_l if t in blob)
         if (n == len(terms_l)) if all_terms else (n > 0):
             hits.append((n, r))
@@ -205,11 +230,59 @@ def verdicts(limit=40) -> int:
     return 0
 
 
+def self_test() -> int:
+    """POSITIVE CONTROL against the silent-zero defect fixed 2026-08-20.
+
+    The defect was invisible precisely because it produced a CLEAN ZERO -- indistinguishable from
+    "no prior work exists", which is the one answer this tool must never give wrongly. So the test
+    is not "does query run" but **do two spellings of the SAME concept return the SAME count**.
+    A tool that disagrees with itself about underscores cannot be trusted to report absence.
+    """
+    rows = _load()
+    if not rows:
+        print("SELF-TEST CANNOT RUN: index is empty. Run `build` first.", file=sys.stderr)
+        return 2
+
+    def count(term):
+        t = _norm(term.lower())
+        return sum(1 for r in rows
+                   if t in _norm(f"{r['cell']} {r.get('headline') or ''} "
+                                 f"{r.get('verdict') or ''}".lower()))
+
+    fails = []
+    # 1. SPELLING EQUIVALENCE -- the actual bug. Space, underscore and hyphen must agree.
+    for a, b in (("active growth", "active_growth"),
+                 ("pattern separation", "pattern_separation"),
+                 ("gap driven", "gap-driven")):
+        ca, cb = count(a), count(b)
+        if ca != cb:
+            fails.append("spelling mismatch: %r=%d but %r=%d" % (a, ca, b, cb))
+    # 2. KNOWN-PRESENT control -- a landed cell that MUST be findable by a multi-word phrase.
+    if count("active growth") < 1:
+        fails.append("known-present cell exp_breadth_..._active_growth_loop_... not found by "
+                     "the multi-word phrase 'active growth' -- the original defect has returned")
+    # 3. KNOWN-ABSENT control, so the test cannot pass by matching everything.
+    if count("zzzz nonexistent concept") != 0:
+        fails.append("matched a nonsense phrase -- the matcher is too permissive")
+
+    for f in fails:
+        print("FAIL: %s" % f)
+    if fails:
+        print("\nSELF-TEST FAILED (%d)" % len(fails))
+        return 1
+    print("self-test: spelling equivalence OK (space == underscore == hyphen)")
+    print("self-test: known-present multi-word phrase found; known-absent phrase returns 0")
+    print("SELF-TEST PASS (%d indexed cells)" % len(rows))
+    return 0
+
+
 def main() -> int:
     if len(sys.argv) < 2:
         print(__doc__)
         return 2
     cmd = sys.argv[1]
+    if cmd in ("--self-test", "self-test"):
+        return self_test()
     if cmd == "build":
         return build()
     if cmd == "verdicts":
