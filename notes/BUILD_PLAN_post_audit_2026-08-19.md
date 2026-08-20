@@ -413,6 +413,28 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🔬 RUNNING -- **TAKING THE COVERAGE GAIN INSIDE THE ASSEMBLY, WITH MACHINERY THAT ALREADY**
+> ## **EXISTS. NO NEW ORGAN, AND IT REMOVES A RULE RATHER THAN ADDING ONE.**
+> *Three-read prior-work check done first: registry/`hdlab` (the ablation already exists),
+> `experiment_index` (`"full coverage"`, `"every encounter"`, `"note-taking"` all return **0**), and
+> ORGAN_MAP's corrections (nothing bearing on this).*
+>
+> **🧠 WHY THIS IS ALLOWED UNDER THE OWNER'S RULE.** It does not wire an organ because it might help.
+> **It REMOVES a rule the brain does not have.** There is no "known -> sealed" gate in lexical
+> memory -- word representations keep being tuned by experience for life. *Our freeze is a
+> GAP-FILLING task framing (unknown -> known -> done) imported into a system whose reference
+> continuously tunes.*
+>
+> **AND THE INSTRUMENT WAS ALREADY THERE.** `Substrate.ABLATIONS` carries `gap_detector`: *"do not
+> check novelty; treat every content lemma as a gap (H1 off)."* **Treating every lemma as a gap IS
+> never stopping.** So: sanctioned machinery, real assembly, no defaults changed.
+> **⚠️ AND ITS CONFOUND IS NAMED IN ADVANCE: that ablation removes novelty gating WHOLESALE, so the
+> reader also loses the signal it forages on. A worse result would NOT show that continued
+> note-taking hurts -- only that removing the whole gate hurts. The targeted flag would still be owed.**
+> **Reachability is gated FIRST** (does `cos(profile_end, profile_snapshot)` actually leave 1.000000?)
+> because the last three diagnostics all produced clean-looking numbers from interventions that never
+> reached anything.
+>
 > ## 🧊 RAN -- **"DO WE HAVE A FORGETTING PROBLEM?" IS THE WRONG QUESTION: A CONSOLIDATED PROFILE**
 > ## **IS FROZEN *EXACTLY*, FOREVER. NOTHING CAN BE FORGOTTEN BECAUSE NOTHING IS EVER WRITTEN AGAIN.**
 > *Asked before building D8 (cascade synapse -- MISSING, math FULLY PINNED) because its pinned benefit
