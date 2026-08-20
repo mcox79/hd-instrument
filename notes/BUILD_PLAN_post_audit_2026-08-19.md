@@ -413,6 +413,39 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🧠🚨 **OWNER 2026-08-20T12:31Z -- A DATED PRE-REG AMENDMENT, FILED BEFORE ANY ARM IS SCORED.**
+> > *"When I read either of those, I read them in a very different way. You don't approach a
+> > textbook like a story - textbooks are supposed to have facts laid out for learning, stories are
+> > there to enjoy - to get a new perspective or imagine a different life or world. Yes, you can
+> > learn from stories, but it's not the same kind of learning at all."*
+>
+> **THIS BREAKS MY PRE-REGISTERED DISCRIMINATOR, AND IT BREAKS IT CORRECTLY.** I had written:
+> *"structure must help NARRATIVE MORE THAN EXPOSITION, or it is a better encoder rather than a
+> fidelity fix."* **That test assumes narrative SHOULD yield the same kind of knowledge as a
+> textbook, and the owner is pointing out that it should not.**
+>
+> **⛔ AND IT REFRAMES TONIGHT'S "BIGGEST NEWLY-VISIBLE GAP" AS POSSIBLY NOT A GAP AT ALL.** I
+> recorded: *grounding rate textbook 12.6% vs Sherlock 0.7%, and children learn from narrative, so
+> this is a fidelity failure.* **The missing step: OUR TASK IS A FACT-RECALL TASK** -- predict the
+> missing word from its context, scored against co-occurrence floors. **That is EXPOSITORY-KIND
+> knowledge.** Measuring what a novel taught us with a metric built for what a textbook taught us is
+> a **METRIC infidelity** -- the third axis of SHAPE / POSITION / METRIC, and the one I have been
+> cataloguing all night without applying it here.
+> *So "narrative does not ground" may not be a failure of the LEARNER. It may be that we asked a
+> novel to deliver textbook knowledge and scored it when it did not.*
+>
+> **📌 AMENDED DISCRIMINATOR (dated 2026-08-20, filed BEFORE any structural arm is scored; the
+> superseded version is retained above verbatim, per this project's own precedent in ORGAN_MAP §3):**
+> **On the CURRENT fact-recall task, structure is judged on EXPOSITORY prose, where that task is a
+> fair measure of what the text was there to teach.** Narrative is reported as a SEPARATE
+> observation, NOT as the pass/fail criterion. **A structural encoder that helps exposition and not
+> narrative is NOT thereby disqualified.**
+> **➡️ AND THE REAL QUESTION THE OWNER'S NOTE OPENS IS BIGGER THAN THE ENCODER: WE HAVE NO MEASURE OF
+> NARRATIVE-KIND LEARNING AT ALL.** *Perspective, a situation model, what a character wanted --
+> nothing in the instrument scores any of it. Until such a measure exists, EVERY claim about this
+> substrate failing on narrative is unfalsifiable, including the one I made tonight with a table and
+> four decimal places.*
+
 > ## 🟢 **STRUCTURAL ENCODER IS USABLE -- AND I BRIEFLY CLAIMED THE OPPOSITE. RETRACTED HERE.**
 > Reachability check before building anything. **First result: `structural_vector_masked` returned an
 > ALL-ZERO vector (norm 0.000) against the bag's 32.680**, and I wrote that up as a reachability

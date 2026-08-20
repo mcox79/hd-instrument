@@ -64,3 +64,7 @@ I want to re-emphasize being brain foundational here. Don't just wire in organs 
 ## 2026-08-20T12:06:45Z  --  the status window
 
 I want to make sure we've been drilling and evaluating deeply the brain foundationality of any negatives
+
+## 2026-08-20T12:31:52Z  --  the status window
+
+just a quick though on stories vs textbooks. When I read either of those, I read them in a very different way. You don't approach a textbook like a story - textbooks are supposed to have facts laid out for learning, stories are there to enjoy - to get a new perspective or imagine a different life or world. Yes, you can learn from stories, but it's not the same kind of learning at all.
