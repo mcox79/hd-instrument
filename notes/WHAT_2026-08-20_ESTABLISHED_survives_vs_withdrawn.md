@@ -55,14 +55,23 @@ content in `hdlab/` is a SELF-TEST ASSERTION.**
 effect). **It is a missing piece, not a bug.**
 
 ### 6. Making the read consume the meaning: THREE variants tried, none pays
-- **⚠️ DOWNGRADED BY MY OWN NEW GATE, WITHIN THE HOUR OF WRITING IT.** *"Index BY the raw definiens
-  text: 92.0 vs the profile's 64.0 -- 28 ranks WORSE"* (n=133, leak-controlled: **3,269** cue
-  sentences excluded) **is SEED 7 ONLY.** Running `tools/replication_gate.py` over the claims in
-  this very ledger returned **`SINGLE_SEED_HYPOTHESIS`** for it. **I had filed it under SURVIVES.**
-  *A guard I exempt my own favourites from is not a guard, so it is downgraded here and seeds
-  101/13 are running to settle it.* **The FAMILY conclusion is unaffected** -- the closely related
-  looked-up-definition arm is worse on all three seeds (+12.5 / +16.0 / +26.0, gate:
-  `REPLICATED`) -- but this specific 28-rank number is a hypothesis until the seeds land.
+- **DOWNGRADED BY MY OWN NEW GATE, THEN RESTORED BY RUNNING THE SEEDS.** *"Index BY the raw
+  definiens text is 28 ranks worse"* was **seed 7 only**, and `tools/replication_gate.py` --
+  pointed at this very ledger's SURVIVES list within the hour of being written -- returned
+  **`SINGLE_SEED_HYPOTHESIS`** for it. **I had filed it under SURVIVES.** *A guard I exempt my own
+  favourites from is not a guard.* **Seeds 101 and 13 were then run, and it holds:**
+
+  | DEFINIENS - PROFILE | seed 7 | seed 101 | seed 13 | gate |
+  |---|---|---|---|---|
+  | (positive = WORSE) | **+28.0** | **+19.5** | **+28.5** | **`REPLICATED`** (3/3 same sign, 1.5x) |
+
+  Leak-controlled (**3,269** cue sentences excluded on seed 7). `SHUFFLE_DEF` is worse than
+  `DEFINIENS` on all three seeds (+7.0 / +31.0 / +19.0), so the definiens IS term-specific -- just
+  worse than the profile.
+- **🔎 AND A THIRD INDEPENDENT SIGN-FLIP ON THE COMBINING QUESTION.** `BOTH - PROFILE` reads
+  **+7.0 / -8.0 / +6.5** -- gate verdict **`INCONSISTENT_SIGN`**. **That is now three separate
+  datasets showing combining behaves inconsistently across seeds**, and it independently confirms
+  the ledger's position that NEITHER of my two opposing boundary claims was ever established.
 - **Index by the LOOKED-UP definition (mean of the profiles of the words it names): worse on all
   three seeds** (+12.5 / +16.0 / +26.0).
 - **Blend it with the profile: WITHDRAWN as an artifact** (see below).

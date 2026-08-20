@@ -298,7 +298,16 @@ heads 7 -> 5) was a correct fix to the component the B3 audit shows barely carri
 
 ## WHAT IS RUNNING
 
-- **🔵 IN FLIGHT: seeds 101/13 of `experiments/analysis_definition_indexed_retrieval_v1.py`.**
+- **🔴 NOTHING IS RUNNING** (both replication batches landed; verified against the process table
+  when the last one exited).
+- **✅ LANDED: seeds 101/13 of `experiments/analysis_definition_indexed_retrieval_v1.py`.**
+  **THE DOWNGRADED CLAIM IS RESTORED ON EVIDENCE:** `DEFINIENS - PROFILE` = **+28.0 / +19.5 /
+  +28.5**, gate **`REPLICATED`** (3/3 same sign, 1.5x spread). `SHUFFLE_DEF` is worse than
+  `DEFINIENS` on all three, so the definiens IS term-specific -- just worse than the profile.
+  **AND A THIRD SIGN-FLIP ON COMBINING: `BOTH - PROFILE` = +7.0 / -8.0 / +6.5, gate
+  `INCONSISTENT_SIGN`** -- three separate datasets now agree that combining is inconsistent across
+  seeds, independently confirming that NEITHER of my opposing boundary claims held.
+- *(the launch record for those seeds, kept because recording at launch time is the discipline:)*
   **WHY: MY OWN NEW GATE DOWNGRADED ONE OF MY OWN KEPT CLAIMS.** Running
   `tools/replication_gate.py` over the ledger's surviving items returned
   **`SINGLE_SEED_HYPOTHESIS`** for *"indexing by the raw definiens text is 28 ranks worse"* -- filed
