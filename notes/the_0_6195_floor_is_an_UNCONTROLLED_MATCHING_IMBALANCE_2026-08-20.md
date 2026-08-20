@@ -100,3 +100,45 @@ None.
 2. **This is a cell-authoring job** (`experiments/*.py`, smoke-gated), not a main-thread edit.
 3. Whoever does it should check whether the SAME uncontrolled covariate affects the other
    dissociation-instrument cells that share this matching procedure.
+
+---
+
+## ⛔ **SELF-CORRECTION, SAME NIGHT: THE IMBALANCE IS TOO SMALL TO EXPLAIN THE FLOOR**
+
+Before leaving this as "the floor is a matching artifact", I checked whether the imbalance is
+**big enough**. It is not.
+
+| | |
+|---|---|
+| reported smd on `mean_constant_prototype` | **0.1501** |
+| AUC a normal-theory effect of that size predicts | **0.5423** |
+| **OBSERVED floor AUC** | **0.6195** |
+| d implied by the observed AUC | **0.4302** |
+| **ratio** | **2.87x larger than the reported imbalance** |
+
+**➡️ SO THE UNCONTROLLED COVARIATE IS AT MOST A PARTIAL CONTRIBUTOR. Something else is doing most
+of the work, and my previous framing overstated it.**
+
+*Caveats on the arithmetic, which is first-order: it assumes normality and equal variance, and the
+balance statistic may be computed over a different population (survivors vs full set) or a different
+granularity (per-word vs per-pair) than the floor's score. **It is enough to say "not sufficient"; it
+is not enough to say "irrelevant".***
+
+### 🔍 AND THE GAP POINTS AT SOMETHING SHARPER: **BALANCE-ON-MEANS IS NOT BALANCE**
+
+**A standardized mean difference detects only a shift in MEANS.** If the two arms differ in
+**VARIANCE or in distributional shape** on the prototype feature, a scorer can separate them well
+while the smd stays near zero -- **and every number in that balance table would still look clean.**
+
+**That is a general weakness of the matching check, not a quirk of this cell**, and it is a better
+candidate for the missing 2.87x than anything about concreteness or frequency.
+
+**THE CONCRETE NEXT TEST IS CHEAP AND DIFFERENT FROM THE ONE I PROPOSED ABOVE:** compare the two
+arms' **DISTRIBUTIONS** of the constant-prototype score -- variance ratio, and a
+Kolmogorov-Smirnov statistic -- not just their means. *If the variances differ materially, the
+matching procedure needs a distributional check and every cell sharing it inherits the same blind
+spot.*
+
+**Recorded because I nearly shipped "the floor is an artifact of matching" as a finding on the
+strength of one suggestive number, one turn after writing that this project measures well and then
+does not read what it wrote.** The arithmetic took a minute.
