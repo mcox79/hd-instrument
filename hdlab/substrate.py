@@ -348,6 +348,19 @@ class Substrate:
                          "measured organs feeding a path that never ran. Turning this off ON "
                          "PURPOSE, against a control where it fires, is what separates 'the "
                          "organ contributes nothing' from 'the organ was never reached'",
+        "keep_noting_grounded": "keep collecting distributional traces for a word AFTER it grounds "
+                                "(the banked fact stays banked; only the evidence keeps "
+                                "accumulating). ADDED 2026-08-20. NOT a lesion -- this one REMOVES a "
+                                "stop rule, and it is listed here because ABLATIONS is the only "
+                                "sanctioned way to vary the assembly without changing defaults. "
+                                "MEASURED with it OFF: a grounded word's representation is sealed at "
+                                "the instant it grounds -- 0 of 60 grounded terms gained a single "
+                                "trace over 2,000 -> 16,000 sentences, cos(profile_16k, profile_2k) "
+                                "= 1.000000. Substrate.profile() reads exactly those traces, so the "
+                                "representation everything is scored on is frozen at the moment it "
+                                "was WEAKEST. TWO gates enforce it and both had to be opened: the "
+                                "terminal short-circuit in process_sentence fires BEFORE is_gap is "
+                                "consulted, which is why ablating gap_detector alone changed nothing",
     }
 
     def __init__(self, *, seed: int = 20260819, n_dim: int = 2048,
@@ -513,7 +526,9 @@ class Substrate:
                 defs_here = 0
                 for j, sent in enumerate(sents):
                     ep = f"{name}_p{self._pass_idx}_{res.n_sentences + j}"
-                    n_flag = process_sentence(self.state, sent, ep, pass_idx=self._pass_idx)
+                    n_flag = process_sentence(
+                        self.state, sent, ep, pass_idx=self._pass_idx,
+                        keep_noting_grounded="keep_noting_grounded" in self.ablate)
                     flagged_here += int(n_flag)
 
                     if "definitions" not in self.ablate:

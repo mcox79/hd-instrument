@@ -269,7 +269,8 @@ class Library:
              abandon_strength: float = PBV_ABANDON_STRENGTH,
              init_strength: float = PBV_INIT_STRENGTH,
              revive_terminal: bool = False,
-             max_revivals: int = PBV_MAX_REVIVALS) -> bool:
+             max_revivals: int = PBV_MAX_REVIVALS,
+             keep_noting_grounded: bool = False) -> bool:
         """Append one trace -- and, when `propose_fn`/`verify_fn` are supplied, run the PBV
         PROPOSE / VERIFY / ABANDON-AND-RE-PROPOSE cycle at this encounter.
 
@@ -293,12 +294,33 @@ class Library:
         on escalation was a fidelity bug. GROUNDED_* items are NEVER revived here (a banked fact is
         the store's business, not the library's).
 
+        keep_noting_grounded (2026-08-20, ADDITIVE, DEFAULT False = prior behaviour byte-for-byte):
+        when True, a GROUNDED_* item receiving a new trace APPENDS it and returns True, WITHOUT
+        changing status and WITHOUT running PBV -- the banked fact stays banked, the hypothesis stays
+        settled, and only the distributional evidence keeps accumulating.
+
+        WHY IT EXISTS. MEASURED 2026-08-20: with the default, a grounded word's representation is
+        sealed at the instant it grounds and never moves again. Over 2,000 -> 16,000 sentences,
+        **0 of 60 grounded terms gained a single trace**, and both cos(profile_16k, profile_2k) and
+        cos(traceMean_16k, traceMean_2k) read **1.000000**. `Substrate.profile()` reads exactly these
+        traces, so the representation everything is scored on is frozen at the moment it was
+        WEAKEST. Separately measured: rebuilding profiles from every occurrence is the largest
+        single effect found in that session (gap-to-counter 3.69x -> 2.06x at 8,000 sentences).
+
+        FIDELITY. There is no "banked, therefore closed" handoff in lexical memory -- frequency,
+        semantic drift and context-dependent tuning keep moving a word's representation long after it
+        is known. UNKNOWN -> KNOWN -> DONE is a gap-filling TASK framing, not a memory architecture.
+        This flag removes that stop rule; it does not add a mechanism.
+
         Returns True iff a trace was actually appended."""
         it = self.items.get(lemma)
         if it is None:
             it = LibraryItem(lemma=lemma)
             self.items[lemma] = it
         if it.status != "PENDING":
+            if keep_noting_grounded and it.status.startswith("GROUNDED"):
+                it.traces.append(Trace(episode_id, pole, context_vec, pass_idx))
+                return True
             if not (revive_terminal and it.status == "ESCALATED" and it.n_revivals < max_revivals):
                 return False
             it.status = "PENDING"
@@ -830,6 +852,27 @@ def self_test() -> dict:
     lib9.items["grounded_item"].status = "GROUNDED_POS"
     assert lib9.flag("grounded_item", "g1", "POS", v1, 2, revive_terminal=True) is False, (
         "revive_terminal must NEVER revive a GROUNDED item, only an ESCALATED one")
+
+    # keep_noting_grounded (2026-08-20) -- checked in BOTH directions, plus the two invariants that
+    # make it safe. A one-sided check would pass a flag that quietly un-grounds banked facts.
+    n_before = len(lib9.items["grounded_item"].traces)
+    assert lib9.flag("grounded_item", "g2", "POS", v1, 3) is False, (
+        "DEFAULT must still refuse a grounded item -- byte-for-byte prior behaviour")
+    assert len(lib9.items["grounded_item"].traces) == n_before, (
+        "the refused call must not have appended anything")
+    assert lib9.flag("grounded_item", "g3", "POS", v1, 4, keep_noting_grounded=True) is True, (
+        "keep_noting_grounded=True must accept a trace on a GROUNDED item")
+    assert len(lib9.items["grounded_item"].traces) == n_before + 1, (
+        "keep_noting_grounded must actually APPEND, not merely return True")
+    assert lib9.items["grounded_item"].status == "GROUNDED_POS", (
+        "keep_noting_grounded must NOT un-ground the item -- the banked fact stays banked")
+    assert lib9.items["grounded_item"].n_revivals == 0, (
+        "keep_noting_grounded is not a revival and must not consume a revival budget")
+    # and it must NOT rescue an ESCALATED item -- that is revive_terminal's job, not this flag's
+    lib9.flag("esc2", "x0", "POS", v1, 1)
+    lib9.items["esc2"].status = "ESCALATED"
+    assert lib9.flag("esc2", "x1", "POS", v1, 2, keep_noting_grounded=True) is False, (
+        "keep_noting_grounded must apply ONLY to GROUNDED_*, never to ESCALATED")
 
     return {
         "context_vector_deterministic": True,

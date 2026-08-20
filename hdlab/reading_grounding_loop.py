@@ -1190,7 +1190,8 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
                      pbv_fns: Optional[Tuple[Callable, Callable]] = None,
                      revive_terminal: bool = False,
                      encoder: Optional["StructuralEncoder"] = None,
-                     anchor_pool: Optional[frozenset] = None) -> int:
+                     anchor_pool: Optional[frozenset] = None,
+                     keep_noting_grounded: bool = False) -> int:
     """FLAG every content-word lemma in `sentence` that is (a) not a seed-known word, (b) not
     already a foundation gap-negative (GapDetector says known), and (c) not a terminal Library
     item (GROUNDED/ESCALATED -- Library.flag() itself no-ops on those, this is just a cheap
@@ -1243,10 +1244,15 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
             if np.any(actx != 0.0):
                 state.space.observe(lemma, actx)
         it = state.library.items.get(lemma)
-        if it is not None and it.status != "PENDING":
+        # TWO GATES IN SERIES BLOCK A GROUNDED WORD, and that is why ablating the gap detector alone
+        # changed nothing (MEASURED 2026-08-20: traces 8052 in BOTH arms). This short-circuit fires
+        # FIRST and `continue`s before `is_gap` is ever consulted, so the gap_detector ablation is
+        # MASKED on this path rather than globally inert. Both gates have to yield.
+        keep_grounded = keep_noting_grounded and it is not None and it.status.startswith("GROUNDED")
+        if it is not None and it.status != "PENDING" and not keep_grounded:
             if not (revive_terminal and it.status == "ESCALATED" and it.n_revivals < PBV_MAX_REVIVALS):
                 continue  # terminal (GROUNDED, or ESCALATED with revival off/exhausted)
-        if not is_gap(state, lemma):
+        if not keep_grounded and not is_gap(state, lemma):
             continue  # foundation already knows this word (e.g. grounded earlier this run)
         if scramble_context_source is not None:
             src_sent = scramble_context_source[int(scramble_rng.integers(0, len(scramble_context_source)))]
@@ -1258,7 +1264,8 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
             continue  # empty window (all-stopword context); nothing to learn from this occurrence
         flagged = state.library.flag(lemma, episode_id, "POS", ctx, pass_idx,
                                      propose_fn=propose_fn, verify_fn=verify_fn,
-                                     revive_terminal=revive_terminal)
+                                     revive_terminal=revive_terminal,
+                                     keep_noting_grounded=keep_noting_grounded)
         if flagged:
             n_flagged += 1
             # PROVENANCE (2026-08-12): record, IN TRACE ORDER, the actual context sentence this
