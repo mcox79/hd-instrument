@@ -1,5 +1,38 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🟢 **FIFTH UNREAD RUN, AND IT CONTAINS THE BEST EVIDENCE IN THE PROJECT FOR THE OWNER'S OWN**
+> # **"MANY CHANNELS" HYPOTHESIS -- COMBINING TWO CHANNELS BEATS EITHER ALONE, ON ALL THREE SEEDS.**
+> *`exp_cortical_read_consolidated_v1`, spec `v3_floors_at_k`. Owner, board Q82: **"the brain often
+> has many channels that it uses and combines to result in robust outcomes."***
+>
+> | seed | CONTEXT | SPOKE | **BOTH** | SCRAMBLE | COOC_floor |
+> |---|---|---|---|---|---|
+> | 20260819 | 126.0 | 82.0 | **69.0** | 173.0 | 15.0 |
+> | 7 | 115.5 | 88.0 | **79.0** | 176.0 | 20.5 |
+> | 101 | 121.0 | 88.0 | **75.5** | 196.0 | 17.0 |
+> *(median rank, lower is better)*
+>
+> **➡️ `BOTH` BEATS BOTH SINGLE CHANNELS ON EVERY SEED -- median rank 126 -> 69, a ~45% improvement
+> over the context channel alone.** *Two weak channels combine into something better than either.
+> That is the owner's hypothesis, measured in our own data, and it was sitting unread.*
+> **✅ THE SCRAMBLE CONTROL WORKS** (173/176/196, far worse than any live arm), and
+> `readings_c_route_reads_the_cue: [True, True, True]` -- so the arms genuinely read the cue rather
+> than scoring on the candidate set's shape.
+>
+> ## ⛔ **AND IT STILL LOSES TO COUNTING BY 4x. `CONTEXT_clears=False, BOTH_clears=False` AT EVERY k.**
+> The co-occurrence floor sits at median rank **15.0 / 20.5 / 17.0** against `BOTH`'s 69/79/75.5, and
+> the cell's own gate records failure to clear the strongest floor at k = 1, 5, 10, 25 and 50.
+> **⚠️ AND ONE HONEST TENSION IN THE OTHER DIRECTION: at hit@1, `BOTH` (0.030) is WORSE than
+> `CONTEXT` alone (0.057).** *Combining helps the tail and hurts the top-1 -- so "channels combine"
+> is supported on median rank and NOT on first-place accuracy. Both should be said.*
+>
+> ## 🔍 THE CELL ALSO CORRECTED ITS OWN EARLIER VERSION, WHICH IS WHY THIS IS TRUSTWORTHY
+> > `floor_note`: *"v2 scored the cortical arms against SCRAMBLE and chance ONLY, which is weaker
+> > th[an]..."*
+> **v2 passed by using weak floors; v3 added the co-occurrence floor and the same arms then failed.**
+> *A cell that retro-fits a stronger floor and reports its own earlier pass as a failure is exactly
+> the discipline this project asks for -- and nobody read the result.*
+
 > # 📉 **FOURTH UNREAD RUN: MORE TEXT HELPS THE COUNTER AND DOES NOTHING FOR US. A 53x DATA RANGE,**
 > # **AND THE SUCCESSOR REPRESENTATION NEVER CLEARS THE BAR ON ANY RUNG OR ANY SEED.**
 > *`exp_sr_scale_ladder_v1`, 3 seeds x 4 rungs. **The design is the point: the candidate pool and
