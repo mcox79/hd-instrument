@@ -413,6 +413,16 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 📋 **ON THE BOARD AS Q74 -- THE ONLY OWNER DECISION OUTSTANDING. NOT BLOCKING; WORK CONTINUES.**
+> *Should `keep_noting_grounded` become the DEFAULT?* It changes canonical substrate behaviour for
+> every future experiment, so it is the owner's call, not mine. **Filed with the risk of my own
+> recommendation stated in the question**: it makes the reader do strictly more work per sentence, it
+> is tested on ONE corpus at ONE size, and **it makes a bad number better without making it good** --
+> the arm still loses to word-counting. Middle option offered: leave the default alone but switch it
+> on for all NEW experiments, so evidence accumulates on other texts before committing.
+> *Until it is answered the result sits behind a flag nothing uses, which is a gain we are not
+> collecting.*
+>
 > ## ✅ **SHIPPED POST-ONLY, RE-VETTED, AND IT IS BETTER THAN WHAT IT REPLACED.**
 > `LibraryItem.grounded_at_n_traces` stamped at banking; `Substrate.profile()` under the flag adds
 > only `traces[grounded_at_n_traces:]`. Re-ran the same 3-seed vet against the SHIPPED code:
