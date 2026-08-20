@@ -10,6 +10,41 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
+## 🟢 **THE FIRST ENCOURAGING RESULT IN A LONG STRETCH -- WITH ITS OWN CAVEAT ATTACHED**
+**Where does a KNOWN-CORRECT synonym rank among all anchors?** SUBSTRATE **46.0 / 35.0** vs
+FREQUENCY 89.0 / 60.0 vs UNIFORM 197.0 / 155.0 (382 / 327 anchors, 2 seeds).
+**~4x chance, ~2x the cue-blind frequency floor. Selection CARRIES real lexical meaning -- it is
+losing on the final step, not blind.** ⚠️ **BUT I FLAGGED THAT FLOOR AS TOO WEAK BEFORE THE RESULT
+WAS QUOTED:** ranking by raw frequency is a strange way to hunt a SYNONYM. The honest opponent is
+**SECOND-ORDER CO-OCCURRENCE** (synonyms don't co-occur but share contexts -- the count version of
+what we do). Queued. **If the counter ties or wins, this becomes "counting carries the meaning and
+we are a lossy copy".**
+*Replaces a WITHDRAWN binary measure: "we never pick an available correct synonym, 775 of 775" is
+WORTHLESS -- a random picker also scores 0 (expected 0.44 / 0.16 hits, P(zero|random) 0.64 / 0.85).*
+
+## 🚨 **THE READ-OUT FIX SUBSYSTEM IS DEAD CODE, AND THE ARM WE SHIP WAS NEVER MEASURED**
+Runtime call-counting over a real 1,500-sentence read: `canonicalize` (**SIGNED query**, `np.sign`
+hardcoded line 776) = **451 calls**; `canonicalize_fast` (graded query, the ONLY door to
+`ReadoutConfig` F1/F2/F3) = **0**; `freeze` / `freeze_graded` / `operating_readout` = **0**.
+**⛔ CORRECTS MY OWN CLOSURE FROM THIS MORNING:** I called the sign hypothesis "refuted by
+construction" after verifying `bundle()` is graded. **I checked the ANCHOR side only -- the QUERY is
+signed on 100% of live calls.**
+**🎯 `exp_graded_divisive_comparator_v1`: R_LIVE 0.6395 (both signed) vs R_BASE 0.69975 (both
+graded), +0.0602, scramble floors 0.4953/0.5065, freq 0.4800, positive control self-retrieval
+0.9133. BOTH ARE PURE CONFIGS AND WE RUN NEITHER** -- `GRADED_COMPARATOR` flipped True on 08-14,
+AFTER that cell, so we ship **signed-query x graded-anchors, which no cell has ever scored** and
+which the code's own docstring calls *"worse than either"*. Measuring now. *(That it is worse than
+both is an INFERENCE from docstring + dates + call counts, NOT a measurement.)*
+
+## 🔧 GUI: TWO OWNER-REPORTED DEFECTS, BOTH MEASURED AND FIXED
+*"it's hanging a lot"* = `_newest_metrics_mtime()` walking **8,155 dirs in 6.91s ON THE UI THREAD**,
+once a minute, from the 1-second tick. Now off-thread: **6,910ms -> 0.0ms**.
+*"tabs keep changing slightly with every update"* = `nb.tab(text=...)` on all 8 tabs every second.
+Now only when the text changes; sub-minute ages read "just now".
+**Diagnostics added** (`data/hook_state/status_gui_diag.jsonl` + `tools/gui_health.py`) because two
+earlier freeze reports were closed with "I cannot tell you why". Plus an answered-questions ARCHIVE
+and a bigger-reading-pane toggle on the questions tab.
+
 ## ⛔🔴 **READ THIS FIRST: A RESULT THAT LOOKED LIKE THE BREAKTHROUGH OF THE EFFORT WAS WITHDRAWN**
 ## **THE SAME HOUR. NOISE SCORED BETTER THAN IT DID.**
 DG pattern separation (`hdlab/dg_pattern_separation.py`, ORGAN_MAP fidelity **SAME**, never before
