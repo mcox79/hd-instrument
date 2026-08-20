@@ -143,7 +143,41 @@
 > *⚠️ POSTHOC is still 3.11x behind the counter at 16,000. It flattens the curve; it does not clear
 > the floor. Both statements travel together.*
 >
-> ## ⬅️⬅️ TOP ITEM NOW [RUNNING]: **2x2 FACTORIAL -- DO COVERAGE AND CENTRING ADD?**
+> ## ✅ 2x2 RAN -- **SYNERGISTIC, AND THERE IS NO CHEAP VERSION.**
+> A **+1.708** / B as-is+centred **+1.384** / C full+sum **+1.035** / D full+centred **+0.631**.
+> **Centring ALONE buys 19% of the 63% total -- under a third. The cheap standalone win I was about
+> to recommend does NOT exist; the two are entangled and centring needs complete counts underneath.**
+> Super-additive: independence predicted +0.838, measured +0.631. *And it VALIDATED the cross-run
+> chaining I had flagged as unsafe -- predicted -63%, measured -63%.*
+>
+> ## ✅ Q71 RAN -- **VOLUME MATTERS, SELECTION DOES NOT. AND A SLOPE NEARLY FOOLED ME.**
+> At matched budget (half of each term's occurrences): **NOVEL vs RANDOM is a coin flip** -- novelty
+> wins 3 of 5 points, all deltas within +-0.14 except one. Both land between AS_IS and FULL, so
+> **half the traces buys ~55% of full coverage's benefit however they are chosen.**
+> **🚨 My script printed "novelty selection is ANTI-correlated with usefulness (8% vs 55%)". NOT
+> SUPPORTED -- the final point's delta (0.944) is 8.7x the mean of the other four (0.109). Fifth
+> gate defect, new species: ENDPOINT-SENSITIVE rather than too lenient.**
+> **🧠 The residual conflates A NEW SENSE with A NOISY OCCURRENCE, so it acts as an OUTLIER detector.
+> The owner's principle is NOT refuted -- WE HAVE NO SIGNAL CAPABLE OF IMPLEMENTING IT.**
+>
+> ## ⬅️⬅️ TOP ITEM NOW: **IMPLEMENT PRECISION WEIGHTING -- THREE LINES NOW POINT AT THE SAME TERM.**
+> ORGAN_MAP G2 pins the rule as the residual `x - x_hat` **PRECISION-WEIGHTED**. Enumeration of
+> `hdlab/predictive_coding.py` found 15 public names and **not one** mentions precision, variance,
+> confidence or weighting; `threshold_gate` takes exactly one knob. Three independent lines have now
+> arrived at that absence: the write gate's flat residual; the archive's flat-surprise-at-chance
+> (0.545 / 0.542); and today's outlier-vs-new-sense confusion.
+> **THE CONCRETE FORM, and it is NOT the one the archive already killed:** precision = INVERSE
+> VARIANCE OF THE TERM'S OWN CONTEXT DISTRIBUTION. A word seen in consistent contexts has a
+> trustworthy prediction, so a large residual is meaningful; a word seen in scattered contexts has
+> an untrustworthy one, so a large residual is noise. **That is exactly the distinction that made
+> today's selector an outlier detector.**
+> *⚠️ QUERY-BEFORE-BUILD, AND THE ARCHIVE ALREADY KILLED A DIFFERENT PRECISION FORM:
+> `exp_ingest_gate_combination_rule_race_v1` tested Friston's `raw_PE * (1 - schema_fit)` and it sat
+> at CHANCE (0.530 vs flat 0.542). That used SCHEMA-FIT as the weight; this uses per-term VARIANCE.
+> Different quantity -- but the prior is low and must be recorded as low before the run.*
+> **TEST IT ON THE PHASE CURVE with the rate-matched random control, not on a single point.**
+>
+> ## [SUPERSEDED] previous top item: **2x2 FACTORIAL -- DO COVERAGE AND CENTRING ADD?**
 > Both gave 39%, but from DIFFERENT RUNS, and the centring run had full coverage already on, so
 > chaining them to "-63%" is an INFERENCE not a measurement. **And one cell has never been measured:
 > CENTRING WITHOUT CHANGING NOTE-TAKING -- the cheap, shippable one.** Full coverage rewrites how
