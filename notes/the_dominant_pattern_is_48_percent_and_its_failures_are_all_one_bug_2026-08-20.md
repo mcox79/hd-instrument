@@ -60,17 +60,51 @@ killed two proposals today and rightly shrank a third:
 - **`COPULA`: 340 hits per 6,000 -> ~48x the volume, with ~95 noise rows per 6,000 attributable to
   one identifiable defect.**
 
+## ✅ REPLICATED ON A SECOND CORPUS, AND THE REPLICATION REFINES THE CLAIM RATHER THAN JUST CONFIRMING IT
+
+Re-scored on `textbook_biology_2e` -- a genuine genre change, not a re-run -- **because n=40 on one
+corpus by one scorer is precisely the shape of the finding I retracted an hour earlier.**
+
+| `COPULA`, definiens field, n=40 each | MEANINGFUL | RELATED | NOISE |
+|---|---|---|---|
+| simplewiki | 47.5% | 25.0% | 27.5% |
+| **textbook_biology_2e** | **67.5%** | 12.5% | 20.0% |
+
+**THE RATE REPLICATES AND IMPROVES.** Both sit far above the 0-4% every distributional measurement
+gives on the same corpora. *(295 COPULA hits per 6,000 textbook sentences vs 340 in simplewiki --
+supply is comparable, so this is a quality difference, not a coverage one.)*
+
+**THE FAILURE-MODE CLAIM REPLICATES BUT LESS ABSOLUTELY: ~5-6 of 8 noise rows (63-75%) are
+definiendum-span bugs, against 10 of 11 (91%) on simplewiki** -- `factor -> "the size of the
+cell"`, `resultant chemical struc... -> "a molecule"`, `rigidity -> "an important structural
+component of the cell walls"` (should be *cellulose*).
+
+**AND THE SECOND CORPUS EXPOSES TWO FAILURE CLASSES THE FIRST DID NOT:**
+1. **VACUOUS DEFINIENS** -- `tonicity -> "a concern for all living things"`. The term is right, the
+   span is right, and the sentence simply does not define anything. Nothing about term boundaries
+   would fix it.
+2. **POSSIBLE POLARITY LOSS** -- `cell -> "a closed system"`, where the textbook's own next entry is
+   `closed system -> "one that can transfer energy but not matter"`. **A cell is NOT a closed
+   system**, so this looks like a negated sentence read as an affirmative one. **Stated as a
+   HYPOTHESIS: I did not retrieve the source sentence to confirm the negation.** If real, it is a
+   correctness bug of a different and worse kind than a boundary slip, because the output is
+   confidently wrong rather than merely misattached.
+
+**➡️ HONEST NET: the headline number survives a genre change and gets better; the "it is all one
+bug" framing was too strong and is now "most of it is one bug, and there are at least two others".**
+
 ## LIMITS, AND THEY ARE REAL
 
-1. **n=40, one scorer (me), one corpus, one sitting.** After tonight, that is a HYPOTHESIS about the
-   rate. It is **not** a hypothesis that the failures share a cause -- that is a qualitative reading
-   of ten specific rows, and anyone can check them.
+1. **n=40 per corpus, one scorer (me), two corpora, one sitting.** The RATE now has a genre
+   replication (47.5% -> 67.5%), which is more than any other single-arm number tonight has. It is
+   still one scorer.
 2. **Single arm. No floor.** A precision figure, not a floor-cleared comparison. It cannot clear the
    measurement bar and must not be quoted as though it had.
 3. **Scored on the DEFINIENS**, so it is not comparable to any figure scored on the banked head. The
    standing prohibition on juxtaposing hand-score numbers applies.
-4. **I have retracted a same-shaped finding once tonight already** (the 92%), on exactly this kind
-   of evidence. **The 48% should be treated as provisional until re-scored on a second corpus.**
+4. **I retracted a same-shaped finding once tonight** (the 92%), which is why the second corpus was
+   run BEFORE quoting this anywhere. **It survived. The 92% did not.** That is the difference
+   between a number that replicates and one that was a property of its sample.
 
 ## TLDR
 
