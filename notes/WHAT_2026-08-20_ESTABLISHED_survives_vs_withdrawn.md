@@ -125,10 +125,30 @@ defect was in a **FUNCTION** docstring inside a module that never claimed unreac
 scan **structurally could not have caught it**. It also cannot check the *other* half of that defect
 -- whether a docstring describes the arm that actually ships -- which is not machine-checkable.
 
-**INCIDENTAL, AND WORTH A LATER LOOK: the live closure is 45 `hdlab` modules** under read + recall +
-query. CLAUDE.md's standing figure is **"35 of 141"** from 2026-08-13. *I am NOT claiming growth: I
-do not know which probe produced the 35, and a wider probe finds a wider closure by construction.
-The comparison needs the original method before it means anything.*
+### 8d. RECONCILED: "35 of 141 modules are live" is a LOWER BOUND FROM ONE PROBE, not a census
+I flagged a possible discrepancy (my trace read 45-46, the standing figure is 35) and said it needed
+the original method before it meant anything. **It did, and the answer is better than either
+reading.**
+
+- **The original method REPRODUCES EXACTLY today** -- eager-import trace of
+  `reading_grounding_loop` + `grounding_acquisition_loop` gives **40 entries / 32 top-level**,
+  identical to 2026-08-13. **The 35 figure is NOT stale.**
+- **But a probe that actually RUNS the substrate loads 6 modules the import trace never sees:**
+  `corpus_registry, cortical_recall, definitional_extraction, hippocampal_encoder,
+  information_foraging, substrate`.
+- **And my running probe MISSES all three lazy modules the 2026-08-13 note added BY HAND**
+  (`pos_tagger`, `arc_parser`, `arc_labeler`) -- they load on a path it never exercised.
+
+**➡️ NEITHER PROBE IS COMPLETE. EVERY PUBLISHED LIVE-CLOSURE COUNT IS A LOWER BOUND FROM ONE
+PROBE, AND THE UNION IS LARGER THAN EITHER.**
+
+**AND THIS IS THE ROOT CAUSE OF 8b.** `_make_definitional_gate` said *"it is NOT on the live reading
+path"* and cited this accounting. **It was faithfully quoting a method that structurally cannot see
+a lazily-imported module** -- and `definitional_extraction` is responsible for **212 of 402** banked
+facts. **The two organs the standard trace misses -- `definitional_extraction` and `cortical_recall`
+-- are the two that today's entire investigation is about.** The docstring was not careless; the
+instrument was blind in exactly the place that mattered. *Corrected in CLAUDE.md's evidence-
+discipline section, which quotes the 35 as the scope of every capability claim.*
 
 ### 9-11. Infrastructure and governance, all verified from disk
 - **The registry's do-not-wire gate on the definitional module had been CARRIED PAST** while

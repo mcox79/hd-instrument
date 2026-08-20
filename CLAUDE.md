@@ -340,7 +340,29 @@ generalised from dispatch turns to all turns; the mechanism was established in
 
 **1. State the SCOPE of any capability claim.** "Grounding is 1-3% MEANINGFUL" is a fact about ONE
 loop, not about the system. Measured (`notes/system_accounting_2026-08-13.md`): `hdlab/` holds 141
-modules; **35 of 141** are reachable from the live path; the live path opens ~28 MB of the ~26 GB of
+modules; **35 of 141** are reachable from the live path;
+
+> **⚠️ "35 of 141" IS A LOWER BOUND FROM ONE PROBE, NOT A CENSUS (measured 2026-08-20).** The
+> figure is an EAGER-IMPORT trace of two modules (32 top-level) plus **3 lazy imports added BY
+> HAND**. Re-run today it reproduces EXACTLY -- 40 entries, 32 top-level -- **so the number is not
+> stale.** But a probe that actually RUNS the substrate (read + `recall_sentence` +
+> `recall_cortical` + `query`) loads **6 modules the import trace never sees**:
+> `corpus_registry, cortical_recall, definitional_extraction, hippocampal_encoder,
+> information_foraging, substrate`. **And it MISSES all three of the hand-added ones**
+> (`pos_tagger`, `arc_parser`, `arc_labeler`), which load only on a path it did not exercise.
+> **NEITHER PROBE IS COMPLETE AND THEIR UNION IS LARGER THAN EITHER.**
+>
+> **This is not pedantry -- it caused a real error.** `_make_definitional_gate`'s docstring said
+> *"it is NOT on the live reading path"*, citing this accounting. It was faithfully quoting a
+> method that **structurally cannot see a lazily-imported module** -- and `definitional_extraction`
+> is now responsible for **212 of 402** banked facts on a 12,000-sentence read. **Two of the
+> organs the standard trace misses are the two that this project's 2026-08-20 findings are
+> entirely about.**
+>
+> **Rule: quote the live-closure count WITH its probe** ("35 under an eager-import trace of the two
+> loop modules"), and when the question is *"is this organ live"*, RUN THE CODE THAT WOULD USE IT
+> rather than consulting the number. `tools/audit_docstrings_vs_live_closure.py` does the running
+> version. the live path opens ~28 MB of the ~26 GB of
 data assets on disk (the 12 GB director KB, the 258 MB / 1.21 M-edge CSKG and the 117,642-sentence
 OpenStax corpus are read by nobody live). 33 modules self-test PASS, are registered `WIRED`, and are
 absent from the live closure. So every claim names which modules, which data, which corpus, which
