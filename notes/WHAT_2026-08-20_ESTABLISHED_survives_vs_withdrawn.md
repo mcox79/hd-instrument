@@ -186,6 +186,37 @@ shrinks as work is done instead of rotting. *Verified: both moved out of the wor
 > travel is a one-line `.gitignore` exception, and changing a deliberate repo policy is the owner's
 > call, not one to take unilaterally at 3am inside an autoloop.**
 
+### 8f. THIRD PENDING AUDIT SCORED, AND THIS ONE IS **POSITIVE**: 96% EXTRACTION PRECISION
+`exp_definitional_predicate_v62` -- *"keep the predicate the definitional extractor discards"*, i.e.
+for *"X is a process in which Y is broken down"*, keep the **doing** as well as the genus. Pending
+since 2026-08-13.
+
+**48 of 50 extracted triples are faithful to their source sentence -- 96%.** Against the cell's
+recorded v6.1 prior of **40/2/8**, its four defect fixes moved precision from roughly 80% to 96%.
+
+**BOTH failures are the SAME SHAPE -- the wrong verb pulled out of a complex clause:**
+`(cellular respiration, PROCESS_PATIENT, energy)` where the sentence is *"the process of making ATP
+using the chemical energy"* (the patient of MAKING is ATP); and `(neurotransmitter release,
+ENABLING_CONDITION, alter)` where the sentence is *"occurs when an action potential TRAVELS...
+resulting in ALTERED permeability"* (the when-clause event is TRAVELS). **Not random noise -- a
+named, fixable class.**
+
+**🚫 SCOPE, AND IT IS SEVERE ENOUGH THAT THE HEADLINE MUST NOT TRAVEL WITHOUT IT:**
+1. **SINGLE ARM. No control, no floor.** A precision figure, **not** a floor-cleared comparison; it
+   cannot clear this project's measurement bar and must never be quoted as though it had.
+2. **IT SCORES FIDELITY-TO-SENTENCE, NOT TRUTH.** Row 30, `(nitrification, PROCESS_PATIENT,
+   nitrite)`, is faithful to a source sentence that is itself **chemically backwards** -- and I
+   scored it CORRECT, because the question is whether we read the sentence right. **Extraction
+   accuracy is not knowledge accuracy.**
+3. **THE CORPUS IS DENSE EXPOSITORY BIOLOGY -- measured today as the EASY case** (dense expository
+   text grounds 3.4x better than ordinary prose, Fisher p=0.002). **96% here does NOT transfer to
+   simplewiki**, which is where every other number in this ledger was measured.
+4. Single scorer, n=50.
+
+**➡️ CONSISTENT WITH THE DAY'S STORY RATHER THAN AGAINST IT: the READING is accurate; the
+GROUNDING READ-OUT is not.** We are good at extracting what a page says and bad at deciding what a
+word means from statistics. **Worklist now 9.**
+
 ### 9-11. Infrastructure and governance, all verified from disk
 - **The registry's do-not-wire gate on the definitional module had been CARRIED PAST** while
   `pipeline_status` read `WIRED_BUT_NOT_PIPELINE_REACHABLE` -- wrong in the safe-looking direction.
