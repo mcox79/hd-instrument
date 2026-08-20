@@ -155,6 +155,27 @@ the whole reason to count the population when you can.*
 **SO THE HONEST TARGET IS SMALLER AND SHARPER THAN I SAID ONE TURN AGO: ~7% of the dominant
 pattern, one nameable construction, with a principled fix -- not "28% from one bug".**
 
+### ✅ AND THE PROPOSED FIX IS SAFE: **96% PRECISION, CHECKED ON ALL 25 FLAGGED ROWS**
+
+**A fix that refuses good extractions is worse than the bug.** So every marker-flagged simplewiki
+row was checked -- not sampled, **all 25** -- asking *"would refusing or swapping this be RIGHT?"*
+
+**24 of 25: YES.** `main sporting league -> the AFL` (swap defines the AFL), `result -> an element
+with an atomic number of two less` (refuse -- defines nothing), `chief executive -> the marzpet`
+(swap), `third-largest group -> the Hazaras` (swap), `best time -> the months of May and June`
+(refuse).
+
+**1 of 25: NO -- and the cause is a REGEX OVER-MATCH, not a linguistic error.**
+`honest reporting -> "a key part of how science works today"` is a **perfectly good PREDICATIONAL
+extraction.** The marker fired because **`\w+est` matches "hon-EST".** *`best time` on the same list
+is a genuine superlative and correctly flagged; "honest" simply is not one.*
+
+**➡️ THE FIX IS SAFE TO BUILD, AND ITS ONE FAILURE MODE IS ALREADY NAMED AND CLOSABLE** -- require a
+real superlative (POS tag `JJS`, or a stoplist for the `-est` nouns: honest, earnest, modest,
+forest, interest, harvest, request, contest, protest, priest, quest...). **Without this check that
+over-match would have shipped inside the fix**, silently refusing good extractions -- the exact
+shape of a repair that costs more than the defect.
+
 ## LIMITS, AND THEY ARE REAL
 
 1. **n=40 per corpus, one scorer (me), two corpora, one sitting.** The RATE now has a genre
