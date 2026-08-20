@@ -92,6 +92,21 @@ dozens of encounters.
 **COOC 5.0 / 3.0 / 4.0** against a best arm of 38-57. **Nothing measured today touches the standing
 headline.**
 
+### 8b. A live docstring was describing a different wire than the one running
+`reading_grounding_loop.py:1451` (`_make_definitional_gate`) carried three claims that had moved.
+**Corrected in place, comment-only, with the original kept verbatim as the design rationale:**
+1. *"it is NOT on the live reading path"* -- **no longer true**; `substrate.py:538` passes
+   `definition_map` in, and 212 of 402 provenance rows carry the definitional label.
+2. **What ships is NOT what the paragraph describes.** It says `Definition.term -> Definition.head`
+   (a single head noun); `substrate.py:538` stores `d.definiens` (the full phrase). **Measured the
+   same day: phrase 32% MEANINGFUL vs head 4%, and the head form is NOT distinguishable from the
+   distributional control (p = 0.2475).**
+3. **The 64% does not state which population it measures.** Per the charter it is the EXTRACTOR's
+   own output after the v5 term-boundary fix -- *"is the extracted definition right for that
+   sentence"* -- **not** a score of the grounding facts the gate banks, which is what the wire's
+   value depends on. **The docstring now carries the standing prohibition explicitly**, so the next
+   reader does not line it up against the 4% the way I nearly did.
+
 ### 9-11. Infrastructure and governance, all verified from disk
 - **The registry's do-not-wire gate on the definitional module had been CARRIED PAST** while
   `pipeline_status` read `WIRED_BUT_NOT_PIPELINE_REACHABLE` -- wrong in the safe-looking direction.

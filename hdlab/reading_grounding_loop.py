@@ -1453,7 +1453,34 @@ def _make_definitional_gate(state: ReadingLoopState, pass_idx: int,
     (notes/system_accounting_2026-08-13.md: absent from the 35-of-141 live closure). This is the
     smallest wire that makes it reachable: WRAP the existing consolidation gate, and when a
     consolidating item is one the extractor has a definition for, bank THAT object as the meaning
-    instead of the cosine argmax / carried hypothesis. It does not touch `_make_grounding_gate` or
+    instead of the cosine argmax / carried hypothesis.
+
+    THREE CORRECTIONS TO THE PARAGRAPH ABOVE (2026-08-20). It is kept verbatim because it is the
+    design rationale, but all three of its factual claims have moved:
+
+    1. "it is NOT on the live reading path" is NO LONGER TRUE. `substrate.py:538` builds
+       `definition_map` and passes it into `checkpoint`, so this gate is live. Runtime evidence,
+       not inference: over a 12,000-sentence read, 212 of 402 provenance rows carry
+       `meaning_source=DEFINITIONAL_EXTRACTION`, a label a fact cannot carry unless this gate
+       fired. The capability-registry row was corrected the same day
+       (pipeline_status WIRED_BUT_NOT_PIPELINE_REACHABLE -> WIRED_AND_PIPELINE_USED).
+
+    2. WHAT SHIPS IS NOT WHAT THIS PARAGRAPH DESCRIBES. The text says
+       `Definition.term -> Definition.head` -- a SINGLE HEAD NOUN. `substrate.py:538` stores
+       `d.definiens`, the FULL PHRASE. That difference is not cosmetic: measured 2026-08-20 on the
+       same rubric, same scorer, same day, the PHRASE form scores 32% MEANINGFUL where the HEAD
+       form scores 4%, and the head form is NOT distinguishable from the distributional control
+       (Fisher one-sided p = 0.2475). See
+       notes/b3_audit_scored_the_win_is_the_phrase_form_not_the_definitional_source_2026-08-20.md.
+
+    3. THE 64% DOES NOT SAY WHICH POPULATION IT MEASURES, AND THE TWO CANDIDATES DIFFER BY A LOT.
+       Per notes/SUBSTRATE_CHARTER_read_first.md it is the EXTRACTOR's own output hand-scored
+       after the v5 term-boundary fix -- i.e. "is the extracted definition right for that
+       sentence" -- NOT a score of the GROUNDING FACTS this gate banks, which is what the wire's
+       value actually depends on. DO NOT place it beside the 4% in (2), or beside the 1-3% /
+       35% / 94% figures: SUBSTRATE_CHARTER and MEMORY.md both carry a STANDING PROHIBITION on
+       juxtaposing those numbers, because they come from different scorers, rubrics and
+       populations, and lining them up manufactures a trend that no single measurement supports. It does not touch `_make_grounding_gate` or
     `_make_pbv_grounding_gate` (either may be the `inner`), does not change what is FLAGGED, and
     does not change the admission policy -- a defined word still has to survive consolidation_pass's
     exposure and schema requirements to reach the gate at all.
