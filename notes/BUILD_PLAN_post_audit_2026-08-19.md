@@ -1,6 +1,82 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
-> # 🧭 CURRENT HANDOFF -- 2026-08-19 END OF FIDELITY-AUDIT SESSION. **READ THIS BLOCK, THEN STOP.**
+> # 🧭 CURRENT HANDOFF -- 2026-08-20, END OF THE OVERNIGHT LOOP. **READ THIS BLOCK, THEN STOP.**
+> *Supersedes the 2026-08-19 handoff below it. Everything under this block is the RECORD, newest
+> first; this block is the only thing that needs reading to resume.*
+>
+> ## ✅ WHAT IS TRUE AND SHIPPED
+> **`keep_noting_grounded`** -- the substrate no longer seals a word's representation the instant it
+> grounds. Additive, **DEFAULT-OFF**, all self-tests pass, registered (row 205).
+> *Motivating fact: 0 of 60 grounded terms gained a single trace over 14,000 further sentences;
+> `cos(profile_16k, profile_2k) = 1.000000`.* Three gates had to open -- two write-side and one
+> read-side, where `profile()` was silently discarding what the fix collected.
+>
+> | corpus | 3 seeds, DEFAULT | 3 seeds, FIX |
+> |---|---|---|
+> | `simplewiki` | 4.71x / 5.00x / 5.00x | **2.57x / 3.00x / 3.22x** |
+> | `textbook_biology_2e` | 5.45x / 5.63x / 4.76x | **2.60x / 2.66x / 2.74x** |
+>
+> Pooled paired: simplewiki **-6.0** CI [-8.0,-4.0]; textbook **-21.0** CI [-26.0,-16.0]. Phase slope
+> **+1.410 -> +0.667**. Post-only beat whole-pile 3/3, so the shipped form merges only traces at
+> `grounded_at_n_traces` onward. **⛔ STILL LOSES TO WORD-COUNTING: the curve bends, it does not cross.**
+>
+> ## ➡️ THE ONE UNSTARTED ACTION -- CLEARED, DOCUMENTED, NOT RUN
+> **Turn on `StructuralEncoder` (additive, default-off) and measure context-as-STRUCTURE against
+> context-as-BAG-OF-NEARBY-WORDS**, on the same task, floors and seeds.
+> Three-read check: 1 archive hit / **0 landed**, no ORGAN_MAP prohibition, no registry claim. Organ
+> verified working (norms 22-33 vs the bag's 32.68; front-end assets present).
+> **⚠️ PASS TARGETS AS LEMMAS (`content_lemmas` output). A surface-form mismatch fails SILENTLY as a
+> zero vector, and an all-zero arm scores median rank 1.0 -- a fake breakthrough. That cost me a
+> wrong claim and one command to catch.**
+>
+> ## ⚖️ THE DISCRIMINATOR WAS AMENDED BY THE OWNER (dated, before any arm was scored)
+> *"You don't approach a textbook like a story... it's not the same kind of learning at all."*
+> **SUPERSEDED:** *structure must help narrative MORE than exposition, or it is only a better encoder.*
+> **CURRENT:** judge structure on **EXPOSITORY prose**, where our fact-recall task fairly measures
+> what the text was there to teach. **Narrative is a separate OBSERVATION, not pass/fail.**
+>
+> ## 🚨 DO NOT QUOTE THESE -- CLAIMS I MADE AND RETRACTED
+> 1. *"The substrate can't learn from narrative (12.6% vs 0.7%) -- a fidelity failure."* **DEMOTED to
+>    UNFALSIFIABLE.** Our task is FACT RECALL; scoring what a novel taught with a textbook's metric is
+>    a METRIC infidelity. **We have no measure of narrative-kind learning at all.**
+> 2. *"The `gap_detector` ablation is inert; prior results need re-checking."* **FALSE ALARM.** The
+>    organ is correct (seed-known False 8/8, grounded False 8/8, pending True 8/8); it is only ever
+>    asked about words two earlier filters have already left. **Correct and redundant. No audit needed.**
+> 3. *"Accumulation is the problem, 4th time."* **WITHDRAWN** -- that rested on an internal statistic;
+>    on the task the sum BEATS any single trace (+13.0, CI [+6.0,+17.5]).
+> 4. *"Our code is 4-12x too diffuse, so the projection is the defect."* **OVER-ATTRIBUTED** -- an
+>    ordinary text encoder sits there too, under a different formula.
+> 5. *"PBV discarded recoverable signal -- build cross-situational tracking."* **CIRCULAR** (margin IS
+>    the grounding criterion). Re-tested: pooling scores 0.75-0.80x of a SINGLE encounter. **Do not build.**
+>
+> ## 📉 CLOSED WITH EVIDENCE (do not re-propose without reading these)
+> - **D7 / successor representation: DO NOT WIRE.** Faithful to its pinned closed form, but on reading
+>   order plain 1-step co-occurrence beats it **18.5 vs 45.0** (+25.5, CI [+21.0,+29.0]). SR is pinned
+>   for NAVIGATION; mapping it onto text was OUR invention. *(ONE text sample, CIs over 408 pairs --
+>   the script says "seeds" and is WRONG; only the uniform arm was seeded.)*
+> - **Owner Q74: SURPRISE DOES NOT SELECT.** High/low/random-surprise halves indistinguishable at
+>   matched count (all +0.0, CI [+0.0,+1.0]); only VOLUME moves it. **Mean surprise 0.4206-0.4252
+>   against a 0.5 no-information floor -- ~4% from chance, so there was nothing to select on.**
+> - **Eight write-side routes closed** (residual gate, novelty, precision, k-WTA, divisive
+>   normalisation, delta-rule family, retrieval practice, best-single-trace) **plus the write MOMENT**.
+> - **ORGAN_MAP gap list was 2/5 STALE** (D7, H2 marked MISSING while both exist). Corrected in place;
+>   all 39 sections re-audited; contradictions now **NONE**.
+>
+> ## 🧠 FIDELITY AUDIT (owner asked twice): 6 of 8 negatives had one; both gaps filled
+> **And filling one INVERTED it:** *"the sum beats any single encounter"* is CONSISTENT with pinned
+> ORGAN_MAP B1' (*LATL conceptual combination is approximately ADDITIVE*). **The first POSITIVE
+> fidelity result of the session -- filed for hours as a dead lead.**
+> **STANDING RULE ADDED TO CLAUDE.md: a statistic the mechanism OPTIMISES is not an outcome. It may
+> DIAGNOSE, never DECIDE.** Anchor margin, trace coherence and effective dimensionality each produced
+> a confident story the task then refused.
+>
+> ## 🎯 THE BIGGEST OPEN PROBLEM IS AN INSTRUMENT GAP, NOT A MECHANISM
+> **We cannot measure narrative-kind learning.** Perspective, situation model, what a character
+> wanted -- nothing in the instrument scores any of it. **Until that exists, no experiment can resolve
+> whether this substrate learns from stories**, and more compute cannot help. *That is a design
+> question for the owner, not a run.*
+>
+> # [SUPERSEDED] 2026-08-19 HANDOFF -- END OF FIDELITY-AUDIT SESSION
 > *Everything below it is the record, newest-first. The older handoff blocks are SUPERSEDED: their
 > "next steps" are all done.*
 >
