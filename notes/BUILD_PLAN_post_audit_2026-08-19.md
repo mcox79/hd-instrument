@@ -323,6 +323,58 @@
 > revision, not accumulation), and register what is genuinely wired. **Report honestly if the
 > HARD_PASS cells turn out to be synthetic-only** -- several this session did.
 >
+> ## ✅ OWNER NOTE ANSWERED -- **BELIEF REVISION IS REAL, CORRECT, AND HAS NEVER ONCE FIRED.**
+> *"adjusting a belief sounds like an important capability for substrate - so let's keep that finding
+> and integrate where it needs to go" (2026-08-20T01:31Z).* **It needs to go somewhere it can be
+> TRIGGERED. It currently cannot be.**
+>
+> **WHAT IS ALREADY BUILT AND WORKING.** `hdlab/hd_fact_store.py` implements trust-ordered
+> prioritized revision -- REPLACE / DROP / COMBINE / FLAG by trust level and relation cardinality.
+> Runtime-tested, not read off the source: storing `aspirin treats headache` at LOW trust and then
+> `aspirin treats fever` at HIGH trust yields **REPLACE**, the old fact goes **SUPERSEDED**, and
+> `query()` correctly returns only `fever`. Positive control held (retained beliefs still findable).
+>
+> **⛔ AND MY FIRST RECOMMENDATION FROM THAT WAS WRONG -- CAUGHT BY ENUMERATING CONSUMERS.** The
+> superseded fact's HD vector survives (hidden by a status flag, not erased), so I was about to
+> recommend wiring the proven exact-erasure organ (`exp_pb_pinv_downdate_forgetting_v1`, deviation
+> **1.67e-16**, retained_recall 1.000) into the supersession path. Then I enumerated who READS those
+> vectors: `query()`, `live_facts()` and the conflict search at `hd_fact_store.py:292` **all** filter
+> on `ACTIVE_STATUSES`, and the only direct `._facts` reader outside the class is
+> `foundation_persistence.py` -- serialization, which SHOULD retain superseded records as an audit
+> trail. **There is no pollution path. Erasure would buy nothing today.** *Keeping EXISTS /
+> IS-REACHED / IS-GOOD separate is the only reason that recommendation did not ship.*
+>
+> **🚨 THE ACTUAL FINDING, AND IT IS SHARPER THAN THE ONE I WENT LOOKING FOR.** Read 6,150 sentences
+> and count what the store's resolution paths did:
+>
+> | | count |
+> |---|---|
+> | facts stored | 668 |
+> | distinct (subject, relation) keys | **668** |
+> | keys that ever saw more than one OBJECT | **0** |
+> | beliefs superseded or dropped | **0** |
+> | beliefs flagged as contradictions | **0** |
+>
+> **668 of 668 keys are unique. Not one belief was ever challenged, so revision could not fire even
+> in principle. THE READER ADDS BELIEFS AND NEVER CONTRADICTS ONE.** Belief revision is not missing
+> machinery -- **it is machinery with no input.**
+>
+> **➡️ SO THE BUILD TARGET THE OWNER'S NOTE LANDS ON IS A CONTRADICTION SOURCE, NOT MORE REVISION.**
+> `exp_cheap1_contradiction_detect_cpu_v1` landed HARD_PASS (recall 1.000, FP 0.000) and **is not in
+> `hdlab/`** -- enumerated, not searched: a word-boundary scan of all 151 hdlab modules for `AGM`
+> returns ZERO, and every apparent hit was the substring inside "fragment" or "magma". That organ
+> feeds the revision path that already works.
+> *⚠️ AND THE LIMIT ON EVERY ONE OF THOSE HARD_PASSES, STATED WITH THEM: 1.000 / 1.000 / 0.000-FP /
+> 1.67e-16 are CONSTRUCTION PROOFS on synthetic facts. Exact erasure is exact because it is linear
+> algebra. They show the MACHINERY works; NONE shows that revising beliefs helps this substrate read
+> better.*
+>
+> **🔁 THIRD TIME THIS EXACT SHAPE HAS APPEARED TODAY, AND IT IS NOW A PATTERN WORTH NAMING:
+> BUILT, CORRECT, NEVER REACHED.** (1) the consolidated store -- WRITTEN AND NEVER READ; (2)
+> `gap_detector` / `gap_driven_reader` / `three_tier_loop` -- import clean, wired by nothing; (3)
+> belief revision -- correct, and never triggered. *The registry answers "does it exist". Nothing
+> answers "is it reached". That gap is why the same surprise keeps arriving.*
+>
 > ## [DONE -- SEE ABOVE] **THE EXTREME-DRIFT VERSION, PRIOR RECORDED LOW BEFORE RUNNING.**
 > The only honest remainder: cross-CORPUS blocking. The shelf holds **36 corpora** including five
 > textbooks (anatomy, biology, chemistry, microbiology, psychology) and several novels. Reading
