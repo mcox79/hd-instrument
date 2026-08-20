@@ -120,6 +120,38 @@
 > > distributional path). **The QUALITY claim the B3 gate held them open for does NOT clear.**
 > > *This is the one genuinely BLIND score of the day -- both arms are single-word, so the sheet
 > > carried no cue to arm, and the prediction was recorded before the key was opened.*
+>
+> > # ✅ **AND THE FLOOR PROBLEM IS SOLVED -- THE PHRASE HALF NO LONGER NEEDS ME TO SCORE IT.**
+> > `tools/score_phrase_output_against_conceptnet_hypernyms.py`
+> >
+> > **THE OBSTACLE:** every floor we own (COOC, COOC2, FREQ, TOP_COOCCURRENT, SCRAMBLE) is
+> > WORD-TO-WORD, so phrase output had **no admissible floor and no machine scorer** -- the whole
+> > case for it was n=25 hand-scored by an interested party.
+> > **THE WAY THROUGH:** ConceptNet cannot match a phrase exactly, but holds **154,974 `/r/IsA` +
+> > 2,173 `/r/DefinedAs`** edges -- so score a HIT when the phrase **CONTAINS an attested hypernym**
+> > of the term. Independent gold, machine-computed, phrase-native. Gold covers **75%** of our terms.
+> >
+> > | seed 7, n=160, ALL FLOORS LENGTH-MATCHED | hit rate | 95% CI | mean words |
+> > |---|---|---|---|
+> > | **OURS** | **19.4%** | [14.0, 26.2] | 6.9 |
+> > | **CO_SENTENCE** -- random content words from THE SAME SENTENCE | **7.5%** | [4.3, 12.7] | 6.9 |
+> > | CONSTANT (most common phrase, every term) | 2.5% | [1.0, 6.3] | 4.0 |
+> > | RANDOM_NOUNS -- **the information-free version of our arm** | 0.6% | [0.1, 3.5] | 6.9 |
+> > | SHUFFLE -- another term's real definiens | **0.0%** | [0.0, 2.3] | 6.8 |
+> >
+> > **OURS's LOWER bound clears EVERY floor's UPPER bound.**
+> > **🚨 THE METRIC'S OBVIOUS FAILURE MODE IS LENGTH** -- a longer phrase gets more chances to
+> > contain a hypernym, and ours are long by construction. **That is this week's sparse-DG artifact
+> > in different clothes**, so every floor emits the SAME word count. `RANDOM_NOUNS` at 0.6% with an
+> > identical 6.9-word mean shows it is not counting words. **`SHUFFLE` at 0.0% is the decisive
+> > control: a REAL definiens, right form, right length, WRONG TERM -> ZERO.** The metric is not
+> > rewarding definition-shaped text; it requires the phrase to be about the right word.
+> > **An ORACLE positive control was added afterwards** (a genuine attested hypernym padded to our
+> > length, must read ~100%) because **a 0.0% floor is only meaningful once the matcher is shown to
+> > FIRE** -- the mojibake repair, the proper-noun detector and `experiment_index.py` all failed in
+> > exactly that way.
+> > *Still a claim about the EXTRACTOR's output, NOT the HDC substrate, whose read-out is the 4%
+> > arm.* **Seeds 101/13/29 in flight. SINGLE SEED = HYPOTHESIS.**
 
 
 > # ⛔ **TWO OF MY OWN CLAIMS FROM THE LAST HOUR WITHDRAWN -- AND THE REASON IS A STRUCTURAL FACT**

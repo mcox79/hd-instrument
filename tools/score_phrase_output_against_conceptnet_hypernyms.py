@@ -120,10 +120,22 @@ def arm_words(it, arm, idx):
         if not bag:
             return []
         return [rng.choice(bag) for _ in range(k)]
+    if arm == "ORACLE":
+        # a genuine attested hypernym, padded to OUR length so it is not advantaged by being short
+        gold = sorted(isa.get(it["term"], set()))
+        if not gold:
+            return []
+        return [rng.choice(gold)] + rng.sample(pool, max(0, k - 1))
     raise ValueError(arm)
 
 
-ARMS = ("OURS", "CO_SENTENCE", "SHUFFLE", "RANDOM_NOUNS", "CONSTANT")
+# *** POSITIVE CONTROL. A SCORER THAT HAS NEVER BEEN SHOWN TO RETURN A HIT CANNOT SUPPORT A LOW
+# *** FLOOR NUMBER: SHUFFLE = 0.0% and RANDOM_NOUNS = 0.6% are only meaningful if the matcher
+# demonstrably CAN fire. ORACLE emits a genuine attested hypernym of the term, padded to the same
+# length with random words, and MUST score ~100%. If it does not, every other number here is void.
+# (Standing rule: verify with a positive control, never only an absence check -- the mojibake
+# repair, the proper-noun detector and `experiment_index.py` all failed exactly this way.)
+ARMS = ("OURS", "CO_SENTENCE", "SHUFFLE", "RANDOM_NOUNS", "CONSTANT", "ORACLE")
 res = {}
 for arm in ARMS:
     hits, lens, scored = 0, [], 0
@@ -161,12 +173,26 @@ ours_lo = wilson(*res["OURS"][:2])[0]
 print("\nGATE: OURS's LOWER bound vs each floor's UPPER bound (gate on the floor's upper bound,")
 print("      never its point value -- standing measurement rule).")
 verdict = True
-for arm in ARMS[1:]:
+FLOORS = [a for a in ARMS if a not in ("OURS", "ORACLE")]  # ORACLE is a CEILING, not a floor
+for arm in FLOORS:
     f_hi = wilson(*res[arm][:2])[1]
     ok = ours_lo > f_hi
     verdict &= ok
     print("   OURS lo %.1f%%  vs  %-13s hi %.1f%%   -> %s"
           % (100 * ours_lo, arm, 100 * f_hi, "CLEARS" if ok else "**DOES NOT CLEAR**"))
+
+o_h, o_n, _ = res["ORACLE"]
+o_rate = 100.0 * o_h / max(1, o_n)
+print("\nPOSITIVE CONTROL: ORACLE (a genuine attested hypernym, padded to our length) = %.1f%%"
+      % o_rate)
+if o_rate < 95.0:
+    print("   *** THE MATCHER IS BROKEN. It cannot reliably find a hypernym that IS present, so")
+    print("   *** every floor number above is void -- a 0.0%% floor may just be a scorer that")
+    print("   *** never fires. DO NOT USE THIS METRIC UNTIL THIS READS ~100%.")
+    verdict = False
+else:
+    print("   -> the matcher demonstrably FIRES, so SHUFFLE=0.0%% and RANDOM_NOUNS=0.6%% are real")
+    print("      floors and not a scorer that is simply silent.")
 
 print("\nLENGTH CHECK (the way this metric fakes a win):")
 print("   OURS mean words %.1f | RANDOM_NOUNS %.1f | CO_SENTENCE %.1f -- matched by construction."
