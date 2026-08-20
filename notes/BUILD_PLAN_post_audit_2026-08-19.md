@@ -1,5 +1,43 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🔴🔴 **THE SHARPEST RESULT OF THE WHOLE EFFORT WAS SITTING UNREAD SINCE 2026-08-19. A TRIVIAL**
+> # **CO-OCCURRENCE BASELINE IS 2-3x MORE ACCURATE THAN THE ENTIRE SUBSTRATE, ON ALL THREE SEEDS.**
+> *`exp_grounding_precision_gold_v1`. **Grounding precision against an INDEPENDENT gold** --
+> `conceptnet_gold_v1`, 422,082 edges, provenance-filtered, **NO WordNet source**;
+> `items_predate_mechanism: True`; ~40,000 sentences read per seed across 28 corpora; paired
+> permutation tests against three controls.*
+>
+> | seed | **SUBSTRATE** | RANDOM_ANCHOR | MOST_FREQUENT_ANCHOR | **TOP_COOCCURRENT** |
+> |---|---|---|---|---|
+> | 20260819 (n=441) | 0.0159 | 0.0023 *(p=.069)* | 0.0023 *(p=.065)* | **0.0476 (p=.0045)** |
+> | 7 (n=398) | 0.0302 | 0.0025 *(p=.005)* | 0.0025 *(p=.002)* | **0.0653 (p=.019)** |
+> | 101 (n=441) | 0.0272 | 0.0045 *(p=.011)* | 0.0023 *(p=.005)* | **0.0590 (p=.015)** |
+>
+> ## THREE READINGS, IN ORDER OF HOW MUCH THEY HURT
+> 1. **THE SUBSTRATE'S GROUNDING PRECISION IS 1.6%-3.0%.** Independent gold, three seeds. *That is
+>    the same picture as the 78%-noise blind hand-score, reached by a completely different route with
+>    a completely different reference.*
+> 2. **A TRIVIAL "PICK THE MOST CO-OCCURRENT WORD" BASELINE BEATS IT ON ALL THREE SEEDS,
+>    SIGNIFICANTLY** (p = .0045 / .019 / .015), scoring **2-3x higher**. *Not a tie this time. A loss,
+>    against the crudest possible method, on an independent gold.*
+> 3. **IT ONLY BEATS RANDOM ON 2 OF 3 SEEDS** -- on seed 20260819, `p = .069` against a random anchor
+>    and `p = .065` against the most-frequent anchor. **On that seed the substrate is not
+>    distinguishable from picking an anchor at random.**
+>
+> ## 🔗 AND IT CORROBORATES THE LIGHT-NOUN FIX I MADE AN HOUR AGO, FROM A FAR LARGER SAMPLE
+> **`top_anchor` is `way` on ALL THREE SEEDS** (share ~3%). *`way` is one of the exact semantically-
+> empty light nouns added to `_MEASURE_HEAD` today off a 47-definition sample. Here it is the single
+> most-assigned meaning in the entire grounding output over 40,000 sentences per seed.* **Independent
+> confirmation, three orders of magnitude more data, and it was on disk the whole time.**
+> *Also visible: ~10,000 REFUSED per seed against ~550 grounded -- a 95% refusal rate. The gate is
+> not the leak.*
+>
+> ## ⚖️ SCOPE, BECAUSE THIS IS THE MOST QUOTABLE NUMBER IN THE PROJECT
+> n=398-441 per seed, 3 seeds, one gold standard, paradigmatic edges only. **The gold is
+> ConceptNet -- an absent edge is not proof a grounding is wrong**, so 1.6-3.0% is a LOWER bound on
+> precision, not a point estimate. *What survives that caveat is the COMPARISON: every arm faces the
+> same gold, and the trivial baseline still wins by 2-3x with paired permutation p < .02.*
+
 > # 📖 **AN UNREAD RUN FROM 2026-08-19 INDEPENDENTLY CORROBORATES TODAY'S CENTRAL RESULT -- AND IT**
 > # **WAS INVISIBLE ONLY BECAUSE IT NEVER WROTE A VERDICT LINE.**
 > *`exp_discrimination_ceiling_v1`. Independent gold: `data/conceptnet_gold_v1`, 422,082 edges,
