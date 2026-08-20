@@ -115,6 +115,46 @@ component of the cell walls"` (should be *cellulose*).
 **➡️ HONEST NET: the headline number survives a genre change and gets better; the "it is all one
 bug" framing was too strong and is now "most of it is one bug, and there are at least two others".**
 
+## 🔬 THE SPAN BUG DIAGNOSED -- IT IS THE **SPECIFICATIONAL COPULA**, AND THE POPULATION COUNT CORRECTS MY OWN PREVALENCE ESTIMATE **DOWN**
+
+**DIAGNOSIS.** Every broken-span row is the same linguistic construction. English has two copulas:
+
+- **PREDICATIONAL** -- *"A cell is the smallest unit of a living thing"*. Subject is the term,
+  complement describes it. **The extractor is right.**
+- **SPECIFICATIONAL** -- *"Australia's longest river is the Gudena"*. **The subject is a definite
+  DESCRIPTION and the complement is the NAME.** The sentence defines *Gudena*, not
+  *longest river*. **The extractor takes the pre-copula NP as the definiendum unconditionally,
+  which is correct for the first kind only.**
+
+Unambiguous instances from both corpora: `result -> "an element with an atomic number of two
+less"`, `difference -> "the presence of the hydroxyl group on the ribose"`, `main sporting league ->
+"the AFL"`, `third-largest group -> "the Hazaras"`, `net result -> "a low pH in the thylakoid
+lumen"`.
+
+**PREVALENCE, AND IT CONTRADICTS MY OWN EARLIER NUMBER.** A definite-description marker
+(superlative / ordinal / `example` / `result` / `difference` / `main` / `key`...) in the definiendum:
+
+| | flagged | of |
+|---|---|---|
+| simplewiki | **25** (7.4%) | 340 |
+| textbook_biology_2e | 13 (4.4%) | 295 |
+
+**That marker catches ~78% of the span bugs I hand-identified (7 of 9), which puts the true
+specificational rate near 9-10% -- NOT the ~25-28% my 40-row sample implied.**
+**➡️ THE 340-ROW POPULATION COUNT BEATS MY 40-ROW HAND SAMPLE FOR PREVALENCE, AND I AM CORRECTING
+MY OWN ESTIMATE DOWNWARD.** *The sample over-represented span bugs; small samples do that, which is
+the whole reason to count the population when you can.*
+
+**AND THERE ARE AT LEAST TWO SPAN-BUG SUBTYPES, NOT ONE:**
+1. **Specificational copula** -- ~7.4% / 4.4%, marker-detectable, **principled fix available**:
+   detect it and either SWAP the roles or REFUSE (*"the difference is the presence of the hydroxyl
+   group"* defines nothing and should be refused).
+2. **Truncated or merged spans** -- `cooking breakfast saus`, `United Nations Cuba`. **No marker,
+   different cause, not addressed by the same fix.**
+
+**SO THE HONEST TARGET IS SMALLER AND SHARPER THAN I SAID ONE TURN AGO: ~7% of the dominant
+pattern, one nameable construction, with a principled fix -- not "28% from one bug".**
+
 ## LIMITS, AND THEY ARE REAL
 
 1. **n=40 per corpus, one scorer (me), two corpora, one sitting.** The RATE now has a genre
