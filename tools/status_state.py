@@ -443,6 +443,12 @@ def collect_board() -> dict:
         "open": open_rows,
         "n_open": len(open_rows),
         "answered_count": len(answered),
+        # THE ANSWERED ROWS THEMSELVES (owner request 2026-08-20: "move the questions already
+        # answered to an archive I can click into if I want"). Only the count was exposed before,
+        # so the GUI could say HOW MANY were settled but could not show one. Newest first, because
+        # an archive is read backwards. Capped at 200: the whole point is to keep settled rows OUT
+        # of the working view, and an unbounded list would put the cost back on every refresh.
+        "answered": list(reversed(answered))[:200],
         "writable": os.access(str(BOARD_DOC), os.W_OK),
         # Which DECISION / STANDING rows already carry an answer on the board. Read back off the
         # document, so an answer typed on a phone counts the same as one typed in the window.

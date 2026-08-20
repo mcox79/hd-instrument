@@ -1413,6 +1413,37 @@ class StatusWindow:
         self.board_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_board_detail())
         tv_wrap.grid(row=self._board_table_row, column=0, sticky="ew", pady=(0, 4))
 
+        # ---- ARCHIVE + READING-SIZE CONTROLS (owner, 2026-08-20) --------------------------------
+        # "move the questions already answered to an archive that I can click into if I want" and
+        # "make more room for the question text when it's selected".
+        #
+        # A TOGGLE RATHER THAN A TREE HIERARCHY, deliberately. Nesting answered rows under a
+        # collapsible parent node would change every iid in `self._wait_rows`, which is the key the
+        # selection handler and the answer box both index by -- a much larger blast radius than this
+        # tab's history justifies. A toggle swaps WHICH rows are listed and touches nothing else.
+        #
+        # THE READING PANE GROWS BY SHRINKING THE TABLE, because this tab's layout gives the detail
+        # pane the only weighted grid row: every row the table gives up goes straight to it. The
+        # table is a fixed `height` in ROWS, so this is one `configure` call and it is reversible.
+        self.board_archive = False
+        self.board_big_read = False
+        # Lives INSIDE `tv_wrap` (row 1) rather than as a new row on `f`. Inserting a row into `f`
+        # would push `_board_detail_row` and the answer box down by one, and those indices are held
+        # in attributes and referenced elsewhere -- renumbering them is exactly the kind of layout
+        # churn that has already broken this tab twice.
+        ctl = tk.Frame(tv_wrap, bg=_ALT)
+        ctl.grid(row=1, column=0, sticky="ew", pady=(2, 0))
+        self.board_archive_btn = ttk.Button(ctl, text="Show answered archive",
+                                            command=self._toggle_board_archive)
+        self.board_archive_btn.grid(row=0, column=0, padx=(2, 6))
+        self.board_big_btn = ttk.Button(ctl, text="Bigger reading pane",
+                                        command=self._toggle_board_big_read)
+        self.board_big_btn.grid(row=0, column=1, padx=(0, 10))
+        self.board_mode_lbl = tk.Label(ctl, text="", bg=_ALT, fg=_DIM, anchor="w",
+                                       font=("Segoe UI", 9), wraplength=self._wrap_w_narrow)
+        self.board_mode_lbl.grid(row=0, column=2, sticky="ew")
+        ctl.columnconfigure(2, weight=1)
+
         # THE READING PANE -- THE PRIMARY CONTENT OF THIS TAB. Bigger font (13pt heading 16pt,
         # up from 10pt/11pt), generous line spacing, and it is the one row with grid weight (see
         # above), so it takes essentially all the space the table and the fixed rows do not use.
@@ -2914,6 +2945,25 @@ class StatusWindow:
         # cut off. The full text is unchanged and unabridged in the reading pane below, once a row
         # is selected -- see `_show_board_detail`.
         i = 0
+        # ARCHIVE MODE (owner 2026-08-20): show ONLY what is settled, newest first, and nothing
+        # that is still waiting. The two views are mutually exclusive on purpose -- the complaint
+        # was that answered rows were cluttering the working list, so a mode that shows both would
+        # not fix anything.
+        if getattr(self, "board_archive", False):
+            for j, r in enumerate(_l(b.get("answered"))):
+                r = _d(r)
+                iid = f"a{j}"
+                self._wait_rows[iid] = dict(r, _kind="ANSWERED")
+                tv.insert("", "end", iid=iid,
+                          values=(r.get("id", "?"), "ANSWERED",
+                                  _gist(r.get("question", "")),
+                                  "you answered: " + _verbatim(str(r.get("answer") or ""), 120),
+                                  str(r.get("resolved") or r.get("asked") or "")[:19]),
+                          tags=("good", "even" if i % 2 == 0 else "odd"))
+                i += 1
+            self._update_board_mode_label()
+            return
+
         for j, r in enumerate(self._board_rows):
             iid = f"q{j}"
             self._wait_rows[iid] = dict(r, _kind="QUESTION")
@@ -3057,6 +3107,49 @@ class StatusWindow:
         self.answer_btn.state(["!disabled"] if can_save else ["disabled"])
         self.note_btn.state(["!disabled"] if self._board_writable else ["disabled"])
 
+    # ---- board archive + reading size (owner, 2026-08-20) --------------------------------------
+    def _toggle_board_archive(self) -> None:
+        self.board_archive = not self.board_archive
+        self.board_archive_btn.configure(
+            text="Back to open questions" if self.board_archive else "Show answered archive")
+        # STRAIGHT TO `_r_board_apply`, NOT `_r_board`. `_r_board` is a deliberate freeze-guard: it
+        # refuses to re-render when the incoming payload is byte-identical to what is on screen, so
+        # the table cannot jump while the owner is mid-sentence in the answer box. A mode toggle
+        # changes NOTHING in the payload -- only which subset is listed -- so routing it through
+        # that guard means the click does nothing at all. This is an explicit owner action and takes
+        # the same path `_board_force_refresh` does.
+        s = self._state or getattr(self, "_board_last_state", None)
+        if s:
+            self._r_board_apply(s)
+        self._update_board_mode_label()
+
+    def _toggle_board_big_read(self) -> None:
+        """Trade table rows for reading rows. The detail pane owns the only weighted grid row on
+        this tab, so every row the table gives up goes straight to the question text."""
+        self.board_big_read = not self.board_big_read
+        try:
+            self.board_tv.configure(height=1 if self.board_big_read else 3)
+        except tk.TclError:
+            pass
+        self.board_big_btn.configure(
+            text="Smaller reading pane" if self.board_big_read else "Bigger reading pane")
+        self._update_board_mode_label()
+
+    def _update_board_mode_label(self) -> None:
+        try:
+            n = len(self.board_tv.get_children())
+        except tk.TclError:
+            n = 0
+        if self.board_archive:
+            msg = ("ARCHIVE -- %d question(s) you have already answered, newest first. "
+                   "Click one to read it and your answer in full." % n)
+        else:
+            msg = "%d item(s) waiting on you. Click a row to read it in full below." % n
+        try:
+            self.board_mode_lbl.configure(text=msg)
+        except tk.TclError:
+            pass
+
     def _show_board_detail(self) -> None:
         sel = self.board_tv.selection()
         r = getattr(self, "_wait_rows", {}).get(sel[0]) if sel else None
@@ -3079,6 +3172,27 @@ class StatusWindow:
         self._selected_row_id = r.get("id")
         self._load_draft(self._selected_qid)
         self._sync_answer_ui(r)
+        if kind == "ANSWERED":
+            # Read-only history. It deliberately does NOT offer to re-answer: the row is settled,
+            # and the answer box above is for things still waiting.
+            chunks = [(f"{r.get('id')}  {r.get('question')}\n\n", "h"),
+                      ("YOUR ANSWER\n", "good"),
+                      (f"{r.get('answer') or '(no answer text recorded)'}\n\n", "")]
+            # Only render fields the ANSWERED schema actually carries. Measured: answered rows have
+            # id / question / answer / rec / resolved and NOT why / asked, so printing those
+            # unconditionally put "(not recorded)" on every single row -- noise that makes a real
+            # missing value indistinguishable from a field that never exists here.
+            for key, head, style in (("why", "WHY IT WAS ASKED", "warn"),
+                                     ("rec", "WHAT I RECOMMENDED AT THE TIME", "dim")):
+                if r.get(key):
+                    chunks += [(head + "\n", style), (f"{r.get(key)}\n\n", "")]
+            if r.get("resolved"):
+                chunks.append((f"settled {r.get('resolved')}\n", "dim"))
+            chunks.append(("\nThis is the archive -- the row is settled and nothing is waiting on "
+                           "it. Press 'Back to open questions' to return to what still needs "
+                           "you.\n", "dim"))
+            self._set_text(self.board_detail, chunks)
+            return
         if kind == "QUESTION":
             self._set_text(self.board_detail, [
                 (f"{r.get('id')}  {r.get('question')}\n\n", "h"),
