@@ -48,7 +48,45 @@ estimate would have produced a false positive where the paired statistic said no
 **Two of the day's best results were already on disk, unread. The archive out-performed the runs.**
 
 
-## TOP ITEM -- THE READ-BACK GAP IS REAL, AND THE OBVIOUS FIX IS MEASURED AND DOES NOT WORK
+## TOP ITEM -- A DEFINITION HELPS WHEN **LOOKED UP**, NOT WHEN **READ** (1 seed; 2 running)
+
+**`notes/a_definition_helps_when_it_is_LOOKED_UP_not_when_it_is_read_2026-08-20.md`**
+Two hours ago I measured that indexing a term by its definition's RAW TEXT is 28 ranks worse and
+called the route closed. **Too broad. Changing HOW the definition is consumed reverses the sign.**
+
+| ALL, n=132, 211 candidates, seed 7 | midpoint rank (lower better) |
+|---|---|
+| PROFILE (shipped) | 54.5 |
+| DEF_LOOKUP = mean of the **already-learned profiles of the words the definition NAMES** | 67.0 |
+| **BOTH = profile + right definition-lookup** | **38.5  (-16 RANKS)** |
+| **BOTH_SHUFFLE** = profile + **another term's** lookup | **58.0 -- WORSE than profile** |
+| **BOTH_NOISE** = profile + random vector | **78.0 -- far worse** |
+| **COOC** | **5.0** |
+
+**➡️ "a drupe is a fleshy FRUIT" is worth little as seven tokens and a lot as a POINTER TO `fruit`
+-- borrowed volume.** *Both information-free blends FAIL to beat the profile, so the gain requires
+the RIGHT content and is NOT smoothing.* Holds in both strata (**-19.0 low exposure, -12.0 high**).
+**⚠️ STILL 8x WORSE THAN COUNTING WORDS (5.0). An internal improvement, NEVER a capability claim.**
+It is, though, **the first thing measured all day that makes the definitions DO anything.**
+
+### ⛔ TWO OF MY OWN CLAIMS CORRECTED
+1. **"Combining helps only when channels are comparably strong; a weaker one DILUTES" -- REFUTED**
+   by this, two hours after I published it in STATUS, the plan, a note and a commit. DEF_LOOKUP
+   (67.0) is WEAKER than PROFILE (54.5) and BOTH still gains 16 ranks. **THE CONDITION IS
+   INDEPENDENCE, NOT COMPARABLE STRENGTH:** the second channel must be an INDEPENDENT ESTIMATE OF
+   THE SAME THING IN A COMPARABLE REPRESENTATION (a mean of learned profiles), not merely more text
+   (a raw 7-token vector). **The owner's original "combine channels" hypothesis was right and my
+   amendment made it worse.** Corrected in place in the earlier note.
+2. **MY PRE-COMMITTED PREDICTION FAILED.** I predicted DEF_LOOKUP would beat PROFILE at LOW exposure
+   and not HIGH. It beat it at NEITHER (+8.5 / +11.0). Only the COMBINATION stratifies. **A
+   prediction reinterpreted after the fact did not succeed.**
+
+*🚫 `GENUS_HEAD` alone (71.2) is the WORST definition arm -- mild evidence against the narrowest
+"head noun is the schema pointer" reading. 🧠 PINNED: schema-congruent items consolidate rapidly
+(Tse 2007). OUR INVENTION UNDER TEST: that averaging the definition's word-profiles stands in for
+that. It scored well; that does not make it the brain's mechanism.*
+
+## [SUPERSEDED, THE NARROW VERSION] THE OBVIOUS FIX -- INDEXING *BY* THE RAW DEFINITION -- FAILS
 
 **`notes/wiring_the_definitions_into_retrieval_would_not_help_measured_2026-08-20.md`**
 Same space, same cue, same 212 candidates, same scorer; **one variable: what the index row is made

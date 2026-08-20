@@ -40,7 +40,36 @@ using its GENUS for inference or type-checking, or using it to seed a term's rep
 encounter rather than to replace it afterwards. *This project's own rule: a fair test of a WEAK
 implementation proves that setup failed, not that the capability is impossible.*
 
-## THE BOUNDARY IT PUTS ON THE ONE RESULT THAT KEEPS WORKING
+## ⛔ THE "BOUNDARY" BELOW IS **REFUTED** -- BY A FOLLOW-UP THE SAME EVENING. READ THIS FIRST.
+
+**I wrote below that "combining helps when the channels are comparably strong; when one is strictly
+weaker it DILUTES." THAT WAS A GENERALISATION FROM ONE DATA POINT AND IT IS WRONG.**
+
+`notes/a_definition_helps_when_it_is_LOOKED_UP_not_when_it_is_read_2026-08-20.md`: represent the
+definition NOT as its raw text vector but as **the mean of the already-learned profiles of the words
+it names** -- borrowed volume instead of seven thin tokens. Then:
+
+| ALL, n=132, 211 candidates | midpoint rank |
+|---|---|
+| PROFILE | 54.5 |
+| DEF_LOOKUP (weaker channel) | 67.0 |
+| **BOTH** | **38.5** |
+
+**The second channel is WEAKER (67 vs 54.5) and combining still gains 16 RANKS.** So weakness does
+not imply dilution, and my boundary was false.
+
+**THE CORRECTED STATEMENT: combining helps when the second channel is an INDEPENDENT ESTIMATE OF THE
+SAME THING IN A COMPARABLE REPRESENTATION.** That is what differs between the two experiments -- here
+the second channel is a mean of LEARNED PROFILES, the same kind of object as the first, built from
+different evidence. In the experiment below it was a raw context vector over seven tokens: not an
+independent estimate of the term, just more text. **INDEPENDENCE, NOT COMPARABLE STRENGTH, IS THE
+CONDITION** -- which is what the owner's original "combine channels" hypothesis said, and my
+amendment made it worse rather than sharper.
+
+*The finding below -- that indexing BY the raw definiens text is 28 ranks worse -- still stands. It
+is the INFERENCE I drew about combining that was wrong.*
+
+## THE (REFUTED) BOUNDARY IT SEEMED TO PUT ON THE ONE RESULT THAT KEEPS WORKING
 
 **"Combining channels beats either alone" is this project's most reproducible positive** -- the
 owner's own hypothesis, confirmed on three seeds. **Here it fails: `BOTH` (71) is WORSE than
