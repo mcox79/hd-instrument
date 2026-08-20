@@ -413,7 +413,37 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
-> ## 🛑 **DO NOT BUILD THE PARALLEL-CANDIDATE ORGAN. I TESTED THE PREMISE FIRST AND IT FAILED.**
+> ## 🔁 **MY OWN "DO NOT BUILD" EVIDENCE WAS CIRCULAR. RE-TESTED PROPERLY -- SAME ANSWER, REAL**
+> ## **REASON, AND IT REJOINS THE SESSION'S MAIN THREAD.**
+> **THE CIRCULARITY, caught before it was quoted anywhere:** the block below compares the anchor
+> margin of GROUNDED words against ESCALATED ones. **But a word grounds BECAUSE a clear anchor won --
+> the margin IS essentially the grounding criterion.** "Words that failed the margin test have low
+> margins" is a restatement of the definition, not evidence. *I nearly closed a research direction on
+> a tautology.*
+>
+> **THE NON-CIRCULAR TEST, which is also what cross-situational learning actually claims:** does
+> pooling evidence ACROSS encounters beat a SINGLE encounter? Both sides are averages over the same
+> escalated items, so no selection is involved:
+>
+> | corpus (ESCALATED only) | n | pooled margin | mean SINGLE-trace margin | pooled / single |
+> |---|---|---|---|---|
+> | `textbook_biology_2e` | 1,784 | 0.0412 | 0.0550 | **0.75x** |
+> | `sherlock_holmes` | 2,417 | 0.0285 | 0.0359 | **0.80x** |
+>
+> **⛔ POOLING IS WORSE THAN A TYPICAL SINGLE ENCOUNTER, in both corpora.** Cross-situational
+> accumulation would not merely find nothing -- **it would actively destroy signal that individual
+> encounters already carry.** *That is a real, non-circular reason not to build it, and it is the
+> opposite of what the literature argument predicted.*
+>
+> **🔑 AND IT REJOINS THE DOMINANT FINDING RATHER THAN OPENING A FRONT: summing many context vectors
+> converges toward the corpus mean -- the "responds to everything" direction -- washing out
+> word-specific structure. Same mechanism as the de-concentration measured earlier: ACCUMULATION IS
+> THE PROBLEM, for a fourth independent time.**
+> *⚠️ ONE NUMBER I AM NOT CLAIMING: the BEST single trace scores 0.1511 / 0.1136, 3-4x the pooled
+> value. That is a MAX over ~8 noisy samples and is biased upward by selection; it needs a null before
+> it means anything. The clean comparison is pooled vs MEAN-single, and that one is unbiased.*
+>
+> ## 🛑 **DO NOT BUILD THE PARALLEL-CANDIDATE ORGAN -- ORIGINAL (CIRCULAR) EVIDENCE, KEPT FOR RECORD**
 > *The previous block argued -- from real literature -- that cross-situational learning (Yu & Smith
 > 2007) is the right mechanism for varied contexts, and that our single-hypothesis PBV explains the
 > narrative failure. **That argument was good and the premise underneath it is false.***
