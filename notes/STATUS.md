@@ -1,6 +1,6 @@
 # STATUS
 
-AS OF: 2026-08-20 AUTOLOOP ARMED, RUNNING | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **ONE RUN IN FLIGHT: the full divisive-normalisation sweep (`scratch/divnorm.log`) -- its SMOKE says no win; do NOT quote the smoke** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## 🧭 RESUME HERE` BELOW**
+AS OF: 2026-08-20 AUTOLOOP ARMED, ~15 CONTINUATIONS IN | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING; every thread opened tonight is CLOSED or CORRECTED** | **ONE VERIFIED RESULT (`keep_noting_grounded`) AND ONE OWNER DECISION (board Q74)** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## 🧭 RESUME HERE` BELOW**
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
@@ -10,7 +10,52 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
-## 🧭 RESUME HERE -- **UPDATED 2026-08-20. THE OWNER GAVE TWO DIRECTIONS AND BOTH CHANGED THE PLAN.**
+## 🧭 RESUME HERE -- **REWRITTEN 2026-08-20 END OF NIGHT. ONE RESULT, FOUR RETRACTIONS, ONE DECISION.**
+
+> ### ✅ THE ONE VERIFIED RESULT -- `keep_noting_grounded` (shipped, ADDITIVE, DEFAULT-OFF)
+> **The substrate used to seal a word's representation the instant it grounded: 0 of 60 grounded
+> terms gained a single trace over 14,000 further sentences, `cos(profile_16k, profile_2k)` =
+> 1.000000.** Two gates enforced it (`Library.flag`'s `return False`, and a terminal short-circuit in
+> `process_sentence` that fires BEFORE `is_gap`), and the read-out discarded the fix a third time
+> until `profile()` was taught to merge POST-grounding traces only.
+> **VETTED: 3 seeds x 2 corpora, paired on identical probes, all separated.**
+>
+> | corpus | DEFAULT | shipped fix |
+> |---|---|---|
+> | `simplewiki` (3 seeds) | 4.71x / 5.00x / 5.00x | **2.57x / 3.00x / 3.22x** |
+> | `textbook_biology_2e` (3 seeds) | 5.45x / 5.63x / 4.76x | **2.60x / 2.66x / 2.74x** |
+>
+> Phase slope **+1.410 -> +0.667** per e-fold. Post-only BEAT whole-pile in 3 of 3 (the double-count
+> was mildly hurting). **⛔ STILL LOSES TO WORD-COUNTING -- the curve bends, it does not cross.**
+> **📋 BOARD Q74 IS THE ONLY OWNER DECISION: make it the default? Not blocking.**
+>
+> ### ⛔ FOUR THINGS I CLAIMED AND THEN RETRACTED. DO NOT RE-QUOTE THE FIRST VERSIONS.
+> 1. *"The `gap_detector` ablation is inert; prior results need re-checking."* **FALSE ALARM,
+>    WITHDRAWN.** The organ is CORRECT (positive control: seed-known False 8/8, grounded False 8/8,
+>    pending True 8/8). It says "gap" 8,053/8,053 only because two earlier filters remove everything
+>    it would reject. **Correct and redundant -- a POSITION result. No audit needed.**
+> 2. *"Accumulation is the problem, 4th independent time."* **WITHDRAWN.** That rested on the anchor
+>    MARGIN. On the task the sum BEATS any single trace (+13.0, CI [+6.0, +17.5]).
+> 3. *"Our code is 4-12x too diffuse, so the projection is the defect."* **OVER-ATTRIBUTED** -- an
+>    ordinary text encoder (MiniLM, d_eff 91.6) sits there too, under a different formula.
+> 4. *"PBV discarded recoverable signal, so build cross-situational tracking."* **CIRCULAR** (margin
+>    IS the grounding criterion). Re-tested properly: pooling scores 0.75-0.80x of a SINGLE encounter,
+>    so the mechanism would destroy signal. **DO NOT BUILD IT.**
+>
+> ### 🧠 THE STANDING LESSON, NOW A RULE IN CLAUDE.md
+> **A statistic the mechanism OPTIMISES is not an outcome -- it may DIAGNOSE, never DECIDE.** Anchor
+> margin, trace coherence and effective dimensionality each produced a confident mechanistic story
+> the held-out task then refused. *Three of tonight's more confident claims died to one question:
+> "what does the TASK do under this intervention?"*
+>
+> ### 📌 THE BIGGEST NEWLY-VISIBLE GAP (not acted on, deliberately)
+> **This substrate is an EXPOSITORY-TEXT learner.** Grounding rate at 8,000 sentences:
+> textbook **12.6%**, simplewiki 3.6%, Little Women 0.8%, Sherlock **0.7%** -- and it is NOT exposure
+> (encounters/item 4.16 vs 3.66). **Children acquire most vocabulary from exactly the narrative
+> regime this substrate cannot use.** *The obvious fixes were tested and rejected; this needs fresh
+> judgement, not another mechanism hunt at 3am.*
+
+## [PREVIOUS] RESUME BLOCK -- **THE OWNER GAVE TWO DIRECTIONS AND BOTH CHANGED THE PLAN.**
 > **1. "adjusting a belief ... integrate where it needs to go" (01:31Z).** Answered: belief revision
 > in `hd_fact_store` is REAL and CORRECT and **has never once fired** -- 668 facts, 668 distinct
 > (subject, relation) keys, **0 ever contested**. Chasing why found worse: **the fact store holds no
