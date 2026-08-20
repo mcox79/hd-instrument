@@ -1,5 +1,41 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ⛔ **CORRECTION TO MY OWN Q82 CAVEAT: COMPOSITION HAS BEEN TESTED, AND IN BOTH TESTS THE**
+> # **SIGNAL WAS POSITIONAL, NOT STRUCTURAL.**
+> *In Q82 I told the owner: "the part that is genuinely distinctive about this approach -- binding
+> words into roles, composing structures -- was NOT under test here." **I went to design that test
+> and the archive already had it.** `role binding` returns 15 cells / 14 landed; `unbind` 84 / 76.*
+>
+> **`exp_agreement_attractor_role_binding_cg_viability_v1` -- MIDDLE_BAND_POSITIONAL_OR_COUNT_HEURISTIC**
+>
+> | arm | held-out | **SNF subset (subject-not-first -- where POSITION CANNOT WORK)** |
+> |---|---|---|
+> | **substrate** | 0.7913 | **0.5803** |
+> | first-noun (positional heuristic) | 0.7478 | 0.4149 |
+> | majority class | 0.5795 | **0.6269** |
+> | **structure-SHUFFLED control** | 0.5869 | **0.6214** |
+> | bag-of-words | 0.5002 | 0.4905 |
+>
+> **➡️ IN AGGREGATE THE SUBSTRATE (0.7913) BARELY BEATS "JUST PICK THE FIRST NOUN" (0.7478). ON THE
+> SUBSET THAT ACTUALLY REQUIRES STRUCTURE IT DROPS TO 0.5803 AND LOSES TO BOTH MAJORITY-CLASS AND A
+> STRUCTURE-SHUFFLED CONTROL.** The cell's own flags read `headtrack_win=False`,
+> **`structure_used=False`**.
+> *`exp_coherence_role_conflict_crosstalk_v1` is the second: **HARD_FAIL_SIGNAL_IS_POSITIONAL_NOT_
+> STRUCTURAL**.*
+>
+> ## ⚖️ **BUT DO NOT OVER-CORRECT -- BOTH ARE NARROWLY SCOPED, AND ONE SAYS SO ITSELF**
+> The crosstalk cell's own scope field: *"NOT general goal-owner attribution, NOT general
+> role-content coherence... a single-item (N=1 real passage) existence proof."* The agreement cell is
+> subject-verb agreement attractors, not composition in general.
+> **SO THE HONEST STATEMENT IS NEITHER "never tested" (my Q82 claim, WRONG) NOR "composition is
+> closed" (an over-read). It is: composition has been tested on two specific tasks, and on both the
+> apparent structure turned out to be POSITION.** *That is a much stronger prior than I gave the
+> owner, and it means a new composition test must be designed so POSITION CANNOT PRODUCE THE ANSWER
+> -- which is exactly what the SNF subset does, and exactly where we fail.*
+> **🎯 THE DESIGN CONSTRAINT THIS HANDS US, FREE: any role-binding test must report the
+> position-cannot-work SUBSET SEPARATELY, and must carry a STRUCTURE-SHUFFLED control. Both already
+> exist in `exp_agreement_attractor_role_binding_cg_viability_v1` and both are what caught it.**
+
 > # 🎯 **THE CLEANEST RESULT OF THE DAY: WE ARE A FAITHFUL RE-ENCODING OF SECOND-ORDER**
 > # **CO-OCCURRENCE. NOT WORSE. NOT BETTER. TIED.**
 > *The properly-powered meaning task -- where does a KNOWN-CORRECT synonym rank among all anchors --
