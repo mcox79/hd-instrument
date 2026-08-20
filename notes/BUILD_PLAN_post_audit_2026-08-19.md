@@ -1,5 +1,50 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🔴 **MEASURED: THERE IS NO ROLE ASSIGNMENT ON THE READING PATH AT ALL. ZERO CALLS, ALL FIVE**
+> # **ENTRY POINTS. THIS CORRECTS MY "COMPOSITION IS STARVED" FRAMING FROM EARLIER TODAY.**
+> *Runtime call-counting over 1,200 sentences of real `Substrate.read()`, every function wrapped so
+> the real one still runs, with a positive control asserting the counter counts before any zero is
+> believed.*
+>
+> | entry point | live calls |
+> |---|---|
+> | `thematic_role_labeler.label_roles` (the cue-integration model) | **0** |
+> | `thematic_role_labeler.train_perceptron` | **0** |
+> | `thematic_role_labeler.role_feats` | **0** |
+> | `frame_induction.frame_primary_role` (registry: `WIRED_AND_PIPELINE_USED`) | **0** |
+> | `animacy_lexicon.lookup_animacy` | **0** |
+>
+> **➡️ THE PRE-COMMITTED THIRD BRANCH FIRES. The reading loop does not assign roles -- not with the
+> HARD_PASS model, not with the frame-primary one, not at all. It accumulates bags of nearby words.**
+>
+> ## 🔑 WHY THIS IS THE MOST COHERENT THING MEASURED TODAY
+> **It explains the day's central result rather than sitting beside it.** The substrate ties
+> second-order co-occurrence counting (−1.0 rank, CI [−5.0, +1.0]) **because on this path counting is
+> all it does.** There is no structure being built for a structural read-out to lose.
+> **AND IT CORRECTS ME TWICE OVER:**
+> - *"composition is VET-confirmed given roles, it is just starved"* -- **too generous.** Starved
+>   implies a trickle. There is no feed at all on this path.
+> - *"we have one channel where the brain has several"* -- **also wrong**, and wrong in the other
+>   direction: we have ZERO channels here, and the multi-channel model exists but is never invoked.
+>
+> ## ⚠️ SCOPE, AND IT IS THE PART THAT KEEPS THIS HONEST
+> **This measures `Substrate.read()` -- the word-learning path -- and NOTHING ELSE.** The role
+> machinery may well be exercised by other entry points (the comprehension pipeline, the situation
+> model, the goal-owner work) that are not part of reading. **"No role assignment on the reading
+> path" is NOT "role assignment is never used."** *The registry's `WIRED_AND_PIPELINE_USED` on
+> `frame_primary_role_assigner_v1` is probably true of a DIFFERENT pipeline, and that row is not
+> thereby wrong.*
+> **AND THE MODULES ARE IMPORTED WHILE THEIR FUNCTIONS ARE NEVER CALLED** -- the same trap as
+> `canonicalize_fast` (imported, 0 calls). *Import is not use. That is now three separate subsystems
+> today where the distinction decided the answer.*
+>
+> ## ➡️ WHAT THIS MAKES THE REAL QUESTION
+> Not *"why is our role assignment positional"* -- there is none to be positional. It is:
+> **should the word-learning reading path assign roles at all?** The brain's answer is not obviously
+> yes: distributional word learning and syntactic role assignment are separable, and a child learns
+> plenty of vocabulary before reliable syntax. **That is a design question with a real brain-fidelity
+> answer available, and it is worth asking before anything is wired.**
+
 > # 🚨 **THE OWNER'S "MANY CHANNELS" IS THE LITERATURE'S CENTRAL CLAIM -- AND WE ALREADY BUILT IT,**
 > # **IT ALREADY HARD_PASSED ON EXACTLY THE FAILING SUBSET, AND IT IS `VET_PENDING / N_A`.**
 > *Owner, Q82: "drill online what goes into the process in the brain... **the brain often has many
