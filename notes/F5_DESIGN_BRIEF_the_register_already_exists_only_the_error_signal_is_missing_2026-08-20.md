@@ -112,3 +112,41 @@ None. This is a design brief for a decision already taken, not a new fork.
 2. **Whoever picks it up: read `ORGAN_MAP` E2 and F5 and G2 together.** The register, the missing
    error signal, and the recorded reason the last attempt died are three entries in one file.
 3. **Design the meaning-consumption link IN**, or the build will not touch the bottleneck.
+
+---
+
+## ✅ THE MEANING-CONSUMPTION LINK IS **ARCHITECTURALLY AVAILABLE TODAY** -- AND ALREADY EXERCISED
+
+The brief above ends by warning that this build will not touch the bottleneck unless banked meanings
+are wired into the prediction. **That connection point exists, is live, and is already used.**
+
+`hdlab/situation_model_accumulate.py:301`:
+
+```
+def bind_filler(self, entity, role, content_vec)   # bind a role to an ARBITRARY content vector
+def decode_filler(self, entity, role)              # unbind it back out
+```
+
+**It is not hypothetical.** `hdlab/goal_outcome_relation_grounded.py` binds **word vectors** as
+fillers in four places (`:144`, `:311`, `:314`, `:414`), with a verification witness in
+`verification/test_three_tier_loop_e2e.py:98`. The module's own docstring says why the API exists:
+*"since the goal_outcome_relation ablation needs to carry an **OPEN-vocabulary** [content]"*.
+
+**➡️ SO A TERM'S BANKED MEANING CAN BE BOUND INTO THE RUNNING REGISTER AS A FILLER, WHICH PUTS IT
+INSIDE THE PREDICTION AND THEREFORE INSIDE THE ERROR SIGNAL.** *That is the selection loop the
+philosophy demands and the read-back gap lacks -- and it needs no new machinery, only wiring.*
+**A wrong meaning would then produce a wrong prediction, an error, and pressure to revise.**
+
+### ⚠️ AND THE CONSTRAINT, WHICH IS IN THE SAME DOCSTRING AND IS A REAL DESIGN LIMIT
+
+> *"`unbind(bind(v,r),r) = v * r * conj(r) = v`, since `|r| = 1`, so `decode_filler` after
+> **exactly one** `bind_filler` call on that role is a **lossless passthrough**, not noise."*
+
+**LOSSLESS FOR ONE FILLER PER ROLE. Bundle several meanings onto the same role and the decode
+becomes noisy** -- the ordinary superposition-capacity limit. **So the design cannot simply pour
+every banked meaning into one register slot.** *It needs either one role per meaning-slot, or an
+explicit capacity budget with the crosstalk measured -- and "measure the crosstalk before trusting
+the decode" is exactly the check this codebase has skipped before.*
+
+**➡️ THE BRIEF'S OPEN QUESTION IS THEREFORE ANSWERED: the link is available, it is tested, and its
+capacity limit is documented. It should be designed in from the start rather than bolted on.**
