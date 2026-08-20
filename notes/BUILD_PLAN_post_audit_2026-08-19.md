@@ -413,6 +413,33 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🧭 **OWNER Q75 ANSWERED -- A STANDING DIRECTIVE, AND THE FIRST THING IT FOUND IS THAT THE**
+> ## **GAP LIST ITSELF IS STALE.**
+> *Owner: "When you get to a point where you're spinning your wheels you should take a deep look at
+> brain foundationality and see where you can shift focus to fill in gaps."* **Not "stop" -- a rule
+> for what to do WHEN stuck. Applied immediately.**
+>
+> ORGAN_MAP marks 5 of 46 organ headings MISSING. **Checked against disk and the registry, 2 of the 5
+> are NOT missing:**
+>
+> | organ | ORGAN_MAP says | actually on disk |
+> |---|---|---|
+> | **D7** successor representation | *MISSING, math FULLY PINNED* | **`hdlab/successor_representation.py` EXISTS** + registry row `successor_representation_d7_v1` |
+> | **H2** information foraging | *MISSING -- and it is step 1* | **`hdlab/information_foraging.py` EXISTS**, registry row `information_foraging_mvt_leave_rule`, and `Substrate` BUILDS it |
+> | D8 cascade synapse | MISSING, math FULLY PINNED | genuinely absent (0 registry rows) -- **and RULED OUT on evidence tonight**: no memory-lifetime problem to solve |
+> | F5 coherence monitor (N400) | MISSING, PHASE-B target | no `coherence_gate.py`; 21 registry rows mention "coherence" -- **needs a real check, not a keyword match** |
+> | F6 construction-integration | MISSING | 24 registry rows mention "construction" -- same caveat |
+>
+> **🔑 SO THE FIRST GAP TO FILL IS THE GAP LIST.** *A stale MISSING label is worse than no label: it
+> sends you to build something that exists, which is the rediscovery failure this session already hit
+> six times through a different door.* **And the two false MISSINGs are both organs I might plausibly
+> have proposed building next -- D7 in particular, since a successor representation is a
+> brain-pinned alternative to the bag-of-words context unit named as the next expansion below.**
+> *⚠️ F5/F6 are NOT yet cleared either way: "coherence" and "construction" are common words and 21/24
+> keyword hits are not evidence of the organ. They need the same disk check D7 and H2 just got.*
+> **➡️ ACTION: audit all 46 organ status labels against disk + registry, fix ORGAN_MAP in place, and
+> only then choose a gap to fill.** *That is the owner's directive executed in the right order.*
+
 > ## ⬅️⬅️⬅️ **NEXT EXPANSION (owner asked 2026-08-20): THE UNIT, NOT THE MECHANISM.**
 > ## **OUR "CONTEXT" IS A BAG OF NEARBY WORDS. THE BRAIN ENCODES WHO DID WHAT TO WHOM.**
 > `context_vector_masked` sums the content words around a target -- a FIRST-ORDER, SYNTAGMATIC
