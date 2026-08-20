@@ -413,8 +413,27 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
-> ## 🔬 RUNNING -- **DOES IT HOLD ON TEXT THAT IS NOT WIKIPEDIA? THE WEAKEST PART OF THE EVIDENCE,**
-> ## **AND THE THING Q74's ANSWER MOST DEPENDS ON.**
+> ## ✅✅ **IT GENERALISES -- AND THE EFFECT IS BIGGER ON A REAL TEXTBOOK THAN ON WIKIPEDIA.**
+> `textbook_biology_2e`, 3 seeds, 16,000 sentences, paired on identical probes within each seed.
+> **Technical expository prose with a dense specialist vocabulary -- and a much harder task: 261-279
+> candidates against simplewiki's 74.**
+>
+> | seed | candidates | COOC | DEFAULT | KEEP_NOTING | POSTONLY |
+> |---|---|---|---|---|---|
+> | 7 | 271 | 20.0 | 109.0 (5.45x) | **52.0 (2.60x)** | 48.5 (2.42x) |
+> | 101 | 261 | 19.0 | 107.0 (5.63x) | **50.5 (2.66x)** | 49.0 (2.58x) |
+> | 20260819 | 279 | 21.0 | 100.0 (4.76x) | **57.5 (2.74x)** | 61.0 (2.90x) |
+>
+> **3 of 3 seeds separated. Pooled paired difference -21.0, 95% CI [-26.0, -16.0]** -- against
+> simplewiki's -6.0. **The gap roughly HALVES on every seed (5.45x -> 2.60x, 5.63x -> 2.66x,
+> 4.76x -> 2.74x).**
+> **🔑 THIS IS THE STRONGEST FORM THE GENERALITY CHECK COULD HAVE RETURNED: a different genre, a
+> different vocabulary, a candidate pool 3.6x larger, and the effect is LARGER rather than smaller.**
+> *The one-corpus limitation I wrote into Q74 myself is now substantially closed for expository prose.*
+> *⚠️ Fiction (`sherlock_holmes`, 8,000 sentences) is still running -- the recommendation is not
+> fully firmed until narrative text reports.*
+>
+> ## [DONE -- SEE ABOVE] **DOES IT HOLD ON TEXT THAT IS NOT WIKIPEDIA?**
 > Every number supporting `keep_noting_grounded` so far comes from **one corpus**: `simplewiki`. That
 > is the limitation I wrote into Q74 myself, so it is the next thing to close rather than something
 > to wait on. Same 3-seed paired design, same probes within a seed, now on
