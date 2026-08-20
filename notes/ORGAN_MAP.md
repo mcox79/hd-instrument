@@ -702,7 +702,7 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   (docstring provenance, commit `a27939c5`). **Floor not restated in the module — PARTIALLY FLOORED.**
 - **BLOCKS:** nothing today.
 
-**D7 — Successor representation: the predictive relational map** *(MISSING, and its math is FULLY PINNED)*
+**D7 — Successor representation: the predictive relational map** *(**LABEL CORRECTED 2026-08-20: NOT MISSING.** `hdlab/successor_representation.py` is on disk and `capability_registry.jsonl` carries `successor_representation_d7_v1`. The prior *MISSING* label was stale and would have sent someone to rebuild an organ that exists -- caught by auditing all 39 organ sections against their own declared modules. Its math remains FULLY PINNED; what is unverified is whether the built organ MATCHES that math, which is a different question and still open.)*
 - **BRAIN'S MATH:** `M(s,s') = E[Σ_{k≥0} γ^k · 1{s_k = s'} | s_0 = s]`, i.e. **`M = (I − γP)⁻¹`**.
   Place cells are rows of M; **grid cells are the eigenvectors of M**. Multi-scale: several γ run
   simultaneously (Dayan 1993 *Neural Computation* 5:613; Stachenfeld, Botvinick & Gershman 2017
@@ -1163,7 +1163,7 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   ablation is real but the items are not real text.
 - **BLOCKS:** nothing. **Its output has nowhere to go — see H2. That is the tragedy of this row.**
 
-**H2 — Information foraging: deciding WHAT TO READ NEXT** *(MISSING — and it is step 1)*
+**H2 — Information foraging: deciding WHAT TO READ NEXT** *(**LABEL CORRECTED 2026-08-20: NOT MISSING.** `hdlab/information_foraging.py` is on disk, `capability_registry.jsonl` carries `information_foraging_mvt_leave_rule`, and `Substrate` BUILDS it at runtime -- it appears in `sub._built`. The prior *MISSING -- and it is step 1* label was stale.)*
 🔴 **SUPERSEDED 2026-08-14/15 — SEE §10.1/H2b BEFORE READING THIS ENTRY.** The organ is NOT missing
 (`hdlab/information_foraging.py`, witness + registry row `information_foraging_mvt_leave_rule`,
 integration_status WIRED), its brain math is NOT unpinned (Charnov 1976 MVT; Constantino & Daw 2015
