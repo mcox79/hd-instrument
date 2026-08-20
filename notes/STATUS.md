@@ -10,6 +10,31 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
+## 🎯 **THE CLEANEST RESULT OF THE DAY, AND IT CLOSES THE QUESTION THE SESSION KEPT CIRCLING:**
+## **WE TIE SECOND-ORDER CO-OCCURRENCE COUNTING. NOT WORSE. NOT BETTER.**
+Synonym-rank task, 3 seeds, paired on identical items, against the floor that is actually trying.
+**`SUBSTRATE - COOC2 = -1.0, CI [-5.0, +1.0], NOT SEPARATED.`** Per-seed: SUBSTRATE 46/35/42 vs
+COOC2 38/30/31. `SUBSTRATE - FREQUENCY = -7.0 CI[-13,-1]` separated.
+**Every piece of HD machinery -- random projection, accumulation, bundling, cosine read-out -- lands
+where a plain co-occurrence count lands.** *Not a LOSSY copy (which four routes suggested today) --
+a FAITHFUL one.* **➡️ IMPROVING THE CODE CANNOT HELP, AND THAT IS NOW MEASURED, NOT INFERRED. The
+lever is what goes INTO the counts.** ⚠️ **SCOPE: this tested only the DISTRIBUTIONAL half. BINDING
+and COMPOSITION -- the genuinely distinctive part -- were NOT under test. A tie here is not a verdict
+on the approach.** Also: a tie is a NULL; the CI excludes only effects above ~5 ranks. **📋 ON THE
+BOARD AS Q82 -- an owner call.**
+
+## ⛔ **THREE TIE ARTIFACTS IN ONE DAY -> THE GUARD IS NOW A FUNCTION, NOT A RULE**
+`DG@0.01` (18.0; noise scored 14.0) - the 775-of-775 miss rate (random also scores 0) - `COOC1`
+(21.0 optimistic, **100.0 pessimistic**, 92.2% of items tied). All three are
+`1 + sum(scores > scores[target])` meeting a spiky score distribution: **ties count as BEATEN, so the
+LESS a representation knows the better it scores.** **I added the "report both tie conventions" rule
+to CLAUDE.md that MORNING and then failed to apply it to my next two scripts.** ➡️ **USE
+`tools/rank_with_ties.py`** -- returns tie count + `suspicious`; there is no signature that yields a
+bare rank. Self-tested on all three real failures plus a no-cry-wolf control.
+**⛔ ALSO DEAD: my "we ship the worst of three quantisation configs" -- all three TIE (+0.0,
+CI[+0.0,+1.0]). The 0-live-calls fact stands; the claimed benefit does not reproduce.**
+
+
 ## 🟢 **THE FIRST ENCOURAGING RESULT IN A LONG STRETCH -- WITH ITS OWN CAVEAT ATTACHED**
 **Where does a KNOWN-CORRECT synonym rank among all anchors?** SUBSTRATE **46.0 / 35.0** vs
 FREQUENCY 89.0 / 60.0 vs UNIFORM 197.0 / 155.0 (382 / 327 anchors, 2 seeds).
