@@ -43,6 +43,24 @@
 > *Limits: single arm, no floor, one scorer. The RATE replicates across corpora; it is still mine.*
 > **🚧 DIAGNOSED AND VERIFIED, DELIBERATELY NOT BUILT** -- building it IS Q89's reading-pipeline
 > branch, which is the owner's open decision. This makes it shovel-ready if they take it.
+>
+> ## 🗺️ **AND THE WHOLE EXTRACTOR IS NOW MAPPED -- FOUR PATTERNS, FOUR DIFFERENT FAILURES**
+> *(supersedes the "one target" framing above -- it was written before the other patterns were
+> scored)*
+>
+> | pattern | per 6,000 | MEANINGFUL | NOISE | its OWN failure mode |
+> |---|---|---|---|---|
+> | `COPULA` | 340 | 47.5% | 27.5% | specificational inversion (~7%) |
+> | `CALLED` | 135 | 40% | 25% | **ANAPHORIC definiens** (35% RELATED) |
+> | `APPOSITIVE` | 53 | 40% | **50%** | **false appositive -- a comma is not an apposition** |
+> | `GLOSSARY_COLON` | 7 | ~13% | -- | bibliography contamination |
+>
+> **THERE IS NO SINGLE "EXTRACTOR BUG"; there are four, needing four different fixes.**
+> **`CALLED`'s is NEW:** *"This area of science is called biochemistry"* -> `biochemistry -> "This
+> area of science"` -- **not wrong, UNRESOLVED**, meaningless without the previous sentence.
+> **`APPOSITIVE` is the WORST at 50% noise and a CO-EQUAL target** (~27 noise rows per 6,000 vs
+> COPULA's ~25), which **changes the single-target priority stated above.**
+> *n=20 per pattern: ORIENTATION numbers, not measurements. The failure MODES are the solid part.*
 
 > # 🔦 **LATE 2026-08-20: THREE ABANDONED HUMAN AUDITS SCORED, AND SIX MORE ARE WAITING.**
 > A landed cell can sit for over a week needing only a human to grade its output. **I found two by
