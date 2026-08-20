@@ -13,8 +13,13 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 ## 🟢 **THE FIRST ENCOURAGING RESULT IN A LONG STRETCH -- WITH ITS OWN CAVEAT ATTACHED**
 **Where does a KNOWN-CORRECT synonym rank among all anchors?** SUBSTRATE **46.0 / 35.0** vs
 FREQUENCY 89.0 / 60.0 vs UNIFORM 197.0 / 155.0 (382 / 327 anchors, 2 seeds).
-**~4x chance, ~2x the cue-blind frequency floor. Selection CARRIES real lexical meaning -- it is
-losing on the final step, not blind.** ⚠️ **BUT I FLAGGED THAT FLOOR AS TOO WEAK BEFORE THE RESULT
+**BUT THE PAIRED NUMBERS DEFLATE THAT HARD (3 seeds, complete): SUBSTRATE-UNIFORM -111.0
+CI[-141,-83]; FREQUENCY-UNIFORM -97.0 CI[-119,-79]; SUBSTRATE-FREQUENCY only -7.0 CI[-13,-1].**
+**THE CUE-BLIND FREQUENCY FLOOR DOES 97 OF THE 111 RANKS. OUR OWN CONTRIBUTION IS 7 RANKS OUT OF
+~350, CI UPPER BOUND -1.0.** Per-seed medians (46 vs 89) LOOK like 2x; paired on identical items it
+is seven ranks. *Same trap as the structure-vs-bag tie: median-of-differences != difference-of-
+medians.* **Not blind, but mostly a FREQUENCY code with a thin lexical layer on top -- which is what
+three other measurements today independently predict.** ⚠️ **BUT I FLAGGED THAT FLOOR AS TOO WEAK BEFORE THE RESULT
 WAS QUOTED:** ranking by raw frequency is a strange way to hunt a SYNONYM. The honest opponent is
 **SECOND-ORDER CO-OCCURRENCE** (synonyms don't co-occur but share contexts -- the count version of
 what we do). Queued. **If the counter ties or wins, this becomes "counting carries the meaning and

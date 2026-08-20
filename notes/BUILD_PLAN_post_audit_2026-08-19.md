@@ -1,5 +1,37 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ⛔ **I OVERSTATED THE ENCOURAGING RESULT BY READING THE WRONG STATISTIC. THE PAIRED NUMBERS**
+> # **DEFLATE IT HARD, AND THEY LANDED AN HOUR AFTER I QUOTED "~2x BETTER THAN FREQUENCY".**
+> *3 seeds, complete. Same trap as this morning's structure-vs-bag tie: **the median of per-probe
+> differences is NOT the difference of medians**, and only the paired figure is computed on
+> identical items.*
+>
+> | comparison | pooled paired median | 95% CI | |
+> |---|---|---|---|
+> | SUBSTRATE − UNIFORM | **−111.0** | [−141.0, −83.0] | separated |
+> | **FREQUENCY − UNIFORM** | **−97.0** | [−119.0, −79.0] | separated |
+> | **SUBSTRATE − FREQUENCY** | **−7.0** | **[−13.0, −1.0]** | separated, but barely |
+>
+> **➡️ THE CUE-BLIND FREQUENCY FLOOR DOES 97 OF THE 111 RANKS OF IMPROVEMENT. THE SUBSTRATE'S OWN
+> CONTRIBUTION OVER IT IS 7 RANKS, WITH THE CI UPPER BOUND AT −1.0.**
+> *Per-seed medians read 46 vs 89 and 35 vs 60, which looks like "twice as good" -- and I said so.
+> On identical items, paired, it is seven ranks out of ~350.*
+>
+> **WHAT SURVIVES, STATED HONESTLY:**
+> - **The substrate is not blind** -- it beats chance by a mile, and that is real (−111, tight CI).
+> - **Almost all of that is FREQUENCY**, which is cue-blind and knows nothing about the target word.
+> - **The lexical signal above frequency is REAL but SMALL** -- separated, and the interval nearly
+>   touches zero.
+> **🎯 AND THAT IS EXACTLY WHAT THE DAY'S OTHER MEASUREMENTS PREDICT: anchor selection is
+> frequency-biased on two independent stores; the hub carries frequency at R^2 0.4819 against
+> 0.01-0.05 for a sensorimotor dimension; and `exp_readout_fix_v1`'s top hub anchors by background
+> activation are `people, know, new, want, use, time, life, system, world, find`. Four independent
+> routes, one conclusion: WE ARE MOSTLY A FREQUENCY CODE WITH A THIN LAYER OF LEXICAL SIGNAL ON TOP.**
+> *The pre-committed verdict text printed "SELECTION CARRIES REAL LEXICAL MEANING", which is true and
+> which I should not have repeated without its magnitude. Seven ranks is the magnitude.*
+> **➡️ THE STRONG FLOOR NOW MATTERS MORE, NOT LESS: if second-order co-occurrence explains the
+> remaining 7, there is no lexical signal of our own at all. RUNNING.**
+
 > # 🟢 **THE FIRST ENCOURAGING NUMBER IN A LONG STRETCH -- AND I HAVE ALREADY FLAGGED ITS FLOOR AS**
 > # **TOO WEAK, BEFORE THE STRONGER ONE RAN.**
 > **THE QUESTION, and it is the well-powered replacement for the binary hit/miss that was withdrawn:**
