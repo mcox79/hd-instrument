@@ -51,6 +51,13 @@ builds each vector from `context_profiles` -- the meaning value is never vectori
 never read**; it is attached to the hit for DISPLAY after ranking. `query`'s ACCEPT/CLARIFY/REFUSE
 keys on whether a meaning **exists**, not what it says. **Every read of a `GROUNDED_MEANING` object's
 content in `hdlab/` is a SELF-TEST ASSERTION.**
+**SCOPE COMPLETED (the enumeration now covers the whole repo, not just `hdlab/`):** outside `hdlab/`
+exactly **three** files call `consolidated()` -- `exp_cortical_read_consolidated_v1.py` (passes it to
+`build_cortical_index`, **keys only**), `exp_predictive_write_gate_v1.py:212` (`for term in cons`,
+**keys only**), and `tools/diag_top_anchors_after_the_light_noun_fix.py`, which reads the VALUES but
+is a diagnostic that COUNTS which anchors get assigned -- it measures them, it does not consume them.
+**So: no read or retrieval path anywhere in the repository consumes the meaning content. The only
+value-readers are self-test assertions and one counter.**
 **➡️ This mechanically explains the standing inertness finding** (consolidation ablates to zero
 effect). **It is a missing piece, not a bug.**
 
