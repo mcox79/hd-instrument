@@ -30,6 +30,7 @@ condensation of this file cannot turn an earned rule into unsourced prose).
 | an arm whose accumulator was never written (all-zero profiles) reported median rank 1.0 -- a 20x "win" -- because tied similarities never sort above the target | assert each arm's representation is non-empty before scoring; construct the EMPTY version of a winning arm and check it LOSES | *An empty representation scores perfectly on a rank metric* |
 | every paired difference returned `+0.0` with CI `[+0.0, +0.0]`; the "practice" arm added unit vectors where the substrate accumulates RAW ones (mean norm 44.5), so it was 1/44th of a real read and moved the profile by cos 0.999923 | a zero-WIDTH CI is a reachability failure, not a null -- print added/base, cos-shift and ranks-changed before reading any verdict, and ADD WHAT THE SYSTEM ADDS | *A null that is exactly zero is a reachability failure* |
 | ran a full 5-point sweep on divisive normalisation after quoting ORGAN_MAP §2; §3 of the same file said *"do not re-propose"* it, with an analytic proof (scalar denominator, cosine is scalar-invariant) | the prior-work check before proposing a BRAIN MECHANISM is THREE reads -- registry, `experiment_index.py`, **and ORGAN_MAP's corrections**; grep the whole file, not the row you cite | *Two archives was not enough* |
+| three internal statistics (anchor margin, trace coherence, effective dimensionality) each produced a confident mechanistic claim that the held-out TASK then contradicted | a statistic the mechanism OPTIMISES is not an outcome -- it may DIAGNOSE, never DECIDE; score every lever on the same task, floors and CIs | *A statistic the mechanism optimises is not an outcome* |
 | a script exited on "my manipulation failed" before the "the corpus already drifts" check below it could run; both were true, and it suppressed the informative one | a gate's THRESHOLD is not the only thing to check -- check what it EXITS BEFORE; order readings most-informative first | *Non-stationary escape, sixth gate defect* |
 
 Rules on delegation, agent reports, model choice and detached launches are in their own sections
@@ -590,6 +591,30 @@ confirm it fires. A guard nobody has seen fire is a guard nobody has tested.
 *This is the "could this experiment have succeeded?" question — which redirected this session's
 plan three times — applied to resource arithmetic rather than to mechanism. It is the same
 question and it is cheaper than every other way of finding out.*
+
+## A STATISTIC THE MECHANISM OPTIMISES IS NOT AN OUTCOME -- SCORE LEVERS ON THE TASK
+
+**Measured three times on 2026-08-20, in three disguises, each time producing a confident claim that
+the task metric then refused.**
+
+| internal statistic | what it said | what the TASK said |
+|---|---|---|
+| anchor **margin** (top-1 minus top-2) | pooling traces is worse than one trace -> *"accumulation is the problem, 4th time"* | the sum beats any single trace by **+13.0, CI [+6.0, +17.5]** |
+| trace **coherence** | narrative is 2.67x less consistent -> a mechanism-shape problem | the mechanism was doing what its own model predicts; nothing was recoverable |
+| **effective dimensionality** | our code is 4-12x too diffuse -> the projection is the defect | an ordinary text encoder sits there too; attribution withdrawn |
+
+**The failure mode is specific and seductive: the mechanism is TUNED to maximise the statistic, so
+the statistic moves readily, looks mechanistic, and explains everything.** Margin is literally what
+`canonicalize` optimises -- **measuring it after selecting on it is circular, and I did exactly that
+once before catching it.**
+
+**RULE: a candidate lever is scored on the SAME held-out task, floors and CIs as every other result.
+An internal statistic may DIAGNOSE — it may never DECIDE.** *This is the measurement-side twin of the
+existing "a cheap probe may MEASURE, it may never SET DIRECTION".*
+
+**The cheap check that catches it: before believing a statistic, ask what the TASK does under the
+same intervention.** If they disagree, the task wins and the statistic was a mechanism artifact.
+*Three of this session's more confident claims died to that one question.*
 
 ## TWO ARCHIVES WAS NOT ENOUGH -- **READ ORGAN_MAP'S *CORRECTIONS*, NOT ONLY ITS PINNED TABLE**
 
