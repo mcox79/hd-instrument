@@ -44,21 +44,21 @@ mirroring an EMPTY position. See the WHAT IS RUNNING note below -- same defect, 
 **WHAT THE SUBSTRATE IS.** On every properly-controlled test it is AT OR BELOW co-occurrence
 counting, and BELOW it on both tests using an INDEPENDENT gold (ConceptNet, no WordNet source):
 
-**TOP ITEM -- 🧭 **THE DIRECTION IS DECIDED ON THE OWNER'S BRAIN-FOUNDATIONAL CRITERION: BUILD F5****
-**Q90 ANSWERED 2026-08-20T21:13Z:** *"if you've drilled this online and it points in other
-directions to be brain foundational, follow those directions. if brain foundational points in this
-direction, do it again and verify we're actually brain foundational."*
-**`notes/BRAIN_FOUNDATIONAL_ANSWER_the_missing_consumer_is_F5_and_we_quantise_where_the_brain_is_graded_2026-08-20.md`**
-**➡️ BRAIN-FOUNDATIONAL POINTS AWAY FROM MORE PERCEPTUAL NORMS AND TOWARD `ORGAN_MAP` F5 -- THE
-COHERENCE MONITOR / N400 GENERATOR, ALREADY LISTED THERE AS *MISSING* AND A LEGITIMATE PHASE-B
-TARGET.** N400 = **the magnitude of update forced on a running probabilistic SITUATION MODEL** by
-the incoming word, a **precision-weighted prediction error against the CURRENT DISCOURSE STATE**
-(Rabovsky/Hansen/McClelland 2018; Kutas & Federmeier 2011). **Reference point PINNED; norm, update
-rule and precision estimator UNPINNED.** **🚧 NOT SMALL -- depends on F6, also MISSING.**
-### 🎯 FOUR INDEPENDENT ROUTES, ONE TARGET (none chosen to agree with the others)
-| route | conclusion |
-|---|---|
-| **measurement** | nothing READS the banked meanings; 3 attempts to make retrieval use them FAILED |
+**TOP ITEM -- 🧭 **THE DIRECTION IS DECIDED: BUILD F5. AND KEEP TWO ANGLES LIVE AT ALL TIMES.****
+> **📌 OWNER, 2026-08-20T21:59Z: *"Make sure you always have 2 high priority angles you can work on
+> while you're waiting on results."*** **This is a STANDING RULE about how to work, and it was
+> aimed at a real failure: I had spent several turns concluding "nothing further I can responsibly
+> open" while a build sat blocked on cell-authoring.** *"Blocked on one thing" is never a stopping
+> state -- it is a signal that the second angle was never lined up.*
+>
+> ### 🅰️ ANGLE A -- **SPECIFY THE F5 EVALUATION TASK** (pure judgement, no cell needed)
+> The build cannot be judged without a scorable, **can-fail** task, and **every organ that failed
+> tonight failed partly on a badly-posed task**: a retrieval metric that rewarded topical
+> narrowness; a floor propped by an uncontrolled covariate; a gate that could never fire. **Posing
+> the task well BEFORE the build is the highest-leverage work available.** Needs: the
+> discriminator, the floors that will actually be RUN, the positive control, and the can-fail
+> condition -- written down before anyone codes.
+>
 
 **WHAT IS RUNNING**
 - **🔴 NOTHING IS RUNNING** (both replication batches landed; verified against the process table
@@ -76,14 +76,13 @@ rule and precision estimator UNPINNED.** **🚧 NOT SMALL -- depends on F6, also
   **`SINGLE_SEED_HYPOTHESIS`** for *"indexing by the raw definiens text is 28 ranks worse"* -- filed
   under SURVIVES on seed 7 alone. *A guard I exempt my own favourites from is not a guard.*
 
-_mirrored from `notes/STATUS.md` at 2026-08-20T21:30:59Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-20T23:09:15Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
-
-_No open questions. Nothing is waiting on you._
+| Q91 | Our recovery note (notes/STATUS.md) had grown to 308,000 characters against a 8,700-character limit -- about 35 times too big -- because sessions kept adding findings to the bottom instead of rewriting it. I have moved 135 old blocks out into two other files, deleting nothing: a byte-identical snapshot, and the long-form lessons file. That took it down to about 27,800 characters, an eleven-fold cut, and both programs that read the file still work identically. But it is still roughly three times over the limit, and everything left is either the five sections the rules require or the never-delete lists of closed routes and hard-won rules. To get smaller I would have to either cut evidence pointers or raise the limit. Our own written procedure says the person who wants the extra room is the wrong person to grant it, so I am asking rather than deciding. Do you want the limit raised to about 28,000 characters to match reality, or should I keep squeezing the wording of the five required sections? | notes/STATUS.md is the file a fresh session reads first after a memory reset. It is now 3x over its own cap and I am not permitted to grant myself the room. | Raise the cap to ~28KB. The 35x growth was accumulation, which is now fixed; the residue is required content, and squeezing it further means cutting the evidence pointers the cap exists to protect. Risk of my recommendation: a larger cap weakens the pressure that keeps the file to one readable pass, and that pressure is the only thing that stopped this before. |  | open |
 
 ## ANSWERED
 
