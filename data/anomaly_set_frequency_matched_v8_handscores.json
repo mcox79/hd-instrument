@@ -1,0 +1,738 @@
+{
+ "scored_by": "director, by hand, all 120 items read 2026-08-21",
+ "rubric": {
+  "CLEAN": "grammatical sentence, intruder clearly does not belong -> the anomaly is SEMANTIC",
+  "WEAK": "grammatical and the intruder is DEFENSIBLE in context -> there may be no anomaly to find. CAPS THE ACHIEVABLE SCORE; must not be read as detector failure.",
+  "BROKEN": "detectable WITHOUT comprehension (syntax, orthography, punctuation) -> would be scored by the very floors the set exists to beat. EXCLUDE before scoring."
+ },
+ "counts": {
+  "CLEAN": 102,
+  "WEAK": 17,
+  "BROKEN": 1
+ },
+ "usable_n_after_excluding_broken": 119,
+ "ceiling_note": "With 17 WEAK items a PERFECT detector cannot score above ~86% on this set. State that ceiling beside any result.",
+ "verdicts": [
+  {
+   "index": 0,
+   "target": "cleaner",
+   "intruder": "footwear",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 1,
+   "target": "student",
+   "intruder": "argument",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 2,
+   "target": "atmosphere",
+   "intruder": "population",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 3,
+   "target": "liquidator",
+   "intruder": "reciprocal",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 4,
+   "target": "fire",
+   "intruder": "music",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 5,
+   "target": "granite",
+   "intruder": "fishing",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 6,
+   "target": "stick",
+   "intruder": "circle",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 7,
+   "target": "cats",
+   "intruder": "roles",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 8,
+   "target": "places",
+   "intruder": "stars",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 9,
+   "target": "methods",
+   "intruder": "churches",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 10,
+   "target": "reactions",
+   "intruder": "neutrons",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 11,
+   "target": "gases",
+   "intruder": "areas",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 12,
+   "target": "cities",
+   "intruder": "plants",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 13,
+   "target": "currents",
+   "intruder": "hundreds",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 14,
+   "target": "education",
+   "intruder": "discovery",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 15,
+   "target": "virus",
+   "intruder": "mantle",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 16,
+   "target": "page",
+   "intruder": "fungi",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 17,
+   "target": "chemicals",
+   "intruder": "problems",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 18,
+   "target": "dimension",
+   "intruder": "opposite",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 19,
+   "target": "sex",
+   "intruder": "dose",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 20,
+   "target": "civilization",
+   "intruder": "measurement",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 21,
+   "target": "activity",
+   "intruder": "beginning",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 22,
+   "target": "scientist",
+   "intruder": "mountain",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 23,
+   "target": "bridges",
+   "intruder": "borders",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 24,
+   "target": "season",
+   "intruder": "content",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 25,
+   "target": "continent",
+   "intruder": "bacteria",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 26,
+   "target": "pieces",
+   "intruder": "methods",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 27,
+   "target": "wings",
+   "intruder": "sizes",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 28,
+   "target": "position",
+   "intruder": "warming",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 29,
+   "target": "seeds",
+   "intruder": "months",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 30,
+   "target": "systems",
+   "intruder": "persons",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 31,
+   "target": "substances",
+   "intruder": "particles",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 32,
+   "target": "scales",
+   "intruder": "zones",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 33,
+   "target": "table",
+   "intruder": "week",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 34,
+   "target": "top",
+   "intruder": "term",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 35,
+   "target": "option",
+   "intruder": "traffic",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 36,
+   "target": "towns",
+   "intruder": "crimes",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 37,
+   "target": "brain",
+   "intruder": "author",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 38,
+   "target": "ideas",
+   "intruder": "types",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 39,
+   "target": "economy",
+   "intruder": "mantle",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 40,
+   "target": "roles",
+   "intruder": "prices",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 41,
+   "target": "jobs",
+   "intruder": "terms",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 42,
+   "target": "sand",
+   "intruder": "brain",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 43,
+   "target": "mixture",
+   "intruder": "plague",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 44,
+   "target": "areas",
+   "intruder": "rocks",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 45,
+   "target": "tools",
+   "intruder": "places",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 46,
+   "target": "infection",
+   "intruder": "audience",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 47,
+   "target": "base",
+   "intruder": "berry",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 48,
+   "target": "members",
+   "intruder": "currents",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 49,
+   "target": "point",
+   "intruder": "gold",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 50,
+   "target": "cleaner",
+   "intruder": "policy",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 51,
+   "target": "directions",
+   "intruder": "situations",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 52,
+   "target": "leaders",
+   "intruder": "paints",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 53,
+   "target": "kilns",
+   "intruder": "cigars",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 54,
+   "target": "parts",
+   "intruder": "atoms",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 55,
+   "target": "problems",
+   "intruder": "particles",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 56,
+   "target": "tasks",
+   "intruder": "birds",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 57,
+   "target": "waves",
+   "intruder": "months",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 58,
+   "target": "election",
+   "intruder": "painting",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 59,
+   "target": "future",
+   "intruder": "economy",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 60,
+   "target": "civilizations",
+   "intruder": "photosynthesis",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 61,
+   "target": "beginning",
+   "intruder": "direction",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 62,
+   "target": "derivative",
+   "intruder": "equivalent",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 63,
+   "target": "influence",
+   "intruder": "production",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 64,
+   "target": "types",
+   "intruder": "tools",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 65,
+   "target": "abortion",
+   "intruder": "interest",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 66,
+   "target": "materials",
+   "intruder": "electrons",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 67,
+   "target": "shells",
+   "intruder": "lines",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 68,
+   "target": "jail",
+   "intruder": "carp",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 69,
+   "target": "blood",
+   "intruder": "orbit",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 70,
+   "target": "plateaus",
+   "intruder": "findings",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 71,
+   "target": "income",
+   "intruder": "altar",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 72,
+   "target": "ingredients",
+   "intruder": "environments",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 73,
+   "target": "towns",
+   "intruder": "dishes",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 74,
+   "target": "minutes",
+   "intruder": "orbits",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 75,
+   "target": "side",
+   "intruder": "gold",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 76,
+   "target": "air",
+   "intruder": "atom",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 77,
+   "target": "physics",
+   "intruder": "center",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 78,
+   "target": "items",
+   "intruder": "birds",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 79,
+   "target": "treatment",
+   "intruder": "argument",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 80,
+   "target": "touch",
+   "intruder": "debt",
+   "verdict": "BROKEN",
+   "reason": "POS mis-tag: 'touch' is a VERB in 'when people touch animals' but was tagged NOUN, so the intruder landed in a verb slot -> 'When people debt animals' is ungrammatical and therefore findable on SYNTAX rather than meaning"
+  },
+  {
+   "index": 81,
+   "target": "object",
+   "intruder": "virus",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 82,
+   "target": "crime",
+   "intruder": "island",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 83,
+   "target": "street",
+   "intruder": "title",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 84,
+   "target": "animal",
+   "intruder": "letter",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 85,
+   "target": "results",
+   "intruder": "diseases",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 86,
+   "target": "humans",
+   "intruder": "metals",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 87,
+   "target": "town",
+   "intruder": "orbit",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 88,
+   "target": "scales",
+   "intruder": "valleys",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 89,
+   "target": "beings",
+   "intruder": "slaves",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 90,
+   "target": "continent",
+   "intruder": "activity",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 91,
+   "target": "techniques",
+   "intruder": "provinces",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 92,
+   "target": "languages",
+   "intruder": "compounds",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 93,
+   "target": "numbers",
+   "intruder": "protons",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 94,
+   "target": "laws",
+   "intruder": "maps",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 95,
+   "target": "colors",
+   "intruder": "genes",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 96,
+   "target": "signs",
+   "intruder": "tens",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 97,
+   "target": "points",
+   "intruder": "movies",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 98,
+   "target": "money",
+   "intruder": "space",
+   "verdict": "WEAK"
+  },
+  {
+   "index": 99,
+   "target": "dioxide",
+   "intruder": "species",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 100,
+   "target": "reaction",
+   "intruder": "calendar",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 101,
+   "target": "jobs",
+   "intruder": "seeds",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 102,
+   "target": "cultures",
+   "intruder": "diseases",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 103,
+   "target": "famine",
+   "intruder": "embassy",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 104,
+   "target": "records",
+   "intruder": "laptops",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 105,
+   "target": "end",
+   "intruder": "lot",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 106,
+   "target": "places",
+   "intruder": "rocks",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 107,
+   "target": "features",
+   "intruder": "proteins",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 108,
+   "target": "gases",
+   "intruder": "places",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 109,
+   "target": "biologists",
+   "intruder": "distances",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 110,
+   "target": "extinction",
+   "intruder": "algorithm",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 111,
+   "target": "power",
+   "intruder": "type",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 112,
+   "target": "parents",
+   "intruder": "glazes",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 113,
+   "target": "substances",
+   "intruder": "experiments",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 114,
+   "target": "doctor",
+   "intruder": "spirit",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 115,
+   "target": "hills",
+   "intruder": "troops",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 116,
+   "target": "rulers",
+   "intruder": "foods",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 117,
+   "target": "elements",
+   "intruder": "electrons",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 118,
+   "target": "regime",
+   "intruder": "survey",
+   "verdict": "CLEAN"
+  },
+  {
+   "index": 119,
+   "target": "extinction",
+   "intruder": "philosophy",
+   "verdict": "CLEAN"
+  }
+ ]
+}

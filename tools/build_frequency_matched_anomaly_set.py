@@ -76,7 +76,9 @@ def word(tok):
 
 
 def is_prose(s):
-    """Reject table/list debris. V1 emitted 'Kandahar 1,127,000 54,022 Pashto, Dari 16 districts'."""
+    """Reject table/list debris AND fragments. V1 emitted 'Kandahar 1,127,000 54,022 Pashto, Dari
+    16 districts'; V5 still emitted the fragments 'Note that this does not apply for X (i' and
+    'makes his "I Have a Dream" X for Civil Rights', plus a source with an unbalanced paren."""
     toks = s.split()
     if not (6 <= len(toks) <= 45):
         return False
@@ -84,7 +86,88 @@ def is_prose(s):
         return False
     if sum(1 for t in toks if any(c.isdigit() for c in t)) > 2:
         return False
+    if s.count("(") != s.count(")"):
+        return False                      # V5 item 26: "(Earth's money are well known"
+    if not s[:1].isupper():
+        return False                      # V5 item 51: "makes his ... " -- a mid-sentence fragment
+    if len(toks[-1].strip(".,;:()\"'")) <= 1:
+        return False                      # V6: "eaten in the U" -- split mid-abbreviation
+    # RUN-TOGETHER TOKENS: the corpus concatenates across missing whitespace, e.g.
+    # "EasterPentecostPinseThe", "BededagA", "DayJuledagThe". A lowercase letter immediately
+    # followed by an uppercase one inside a token is the tell. Costs the odd legitimate CamelCase.
+    for t in toks:
+        w = word(t)
+        if any(w[k].islower() and w[k + 1].isupper() for k in range(len(w) - 1)):
+            return False
     return True
+
+
+# --------------------------------------------------------------------- grammatical number
+# **`lemma_word` ALONE IS NOT A NUMBER TEST, AND TRUSTING IT COST A WHOLE BUILD.** It is documented
+# to return a REAL ENGLISH WORD rather than a stripped stem -- which is why it is right for concept
+# identity -- but that same guarantee makes it leave `laws -> laws` and `values -> values`
+# UNCHANGED, so both read SINGULAR. V3 therefore shipped *"Many countries have thing based on this
+# idea"* and *"The values members who sit on the left"* while its own check reported **120 of 120
+# agreeing, 0 violations** -- because the CHECK CALLED THE SAME FUNCTION THE BUILDER DID.
+#
+# *That is standing discipline 3 -- a checker sharing a flaw with what it checks hides it -- and it
+# was found by READING THE ITEMS, not by any statistic. Third time in this one script that a clean
+# number sat on top of broken items.*
+#
+# So: three independent signals, and a `--self-test` over hand-labelled traps in BOTH directions
+# (irregular plurals that do not end in s; singulars that do).
+_SG_ENDING_IN_S = {
+    "glass", "grass", "class", "gas", "bus", "news", "species", "series", "means", "lens",
+    "physics", "mathematics", "politics", "economics", "ethics", "process", "analysis", "basis",
+    "crisis", "thesis", "axis", "campus", "virus", "status", "focus", "bonus", "census", "atlas",
+    "canvas", "chaos", "cosmos", "surplus", "consensus", "apparatus", "octopus", "hypothesis",
+    "diagnosis", "emphasis", "illness", "business", "witness", "address", "press", "success",
+    "access", "loss", "cross", "dress", "mass", "pass", "miss", "boss", "kiss", "guess",
+}
+
+
+def grammatical_number(w):
+    """SG/PL for a lowercase surface form.
+
+    **DELIBERATELY TAKES NO VOCABULARY.** An earlier version confirmed a singular existed in a
+    corpus vocabulary before calling a trailing-s word plural -- and the builder passed its
+    FILTERED common-noun set, which omits `law`, so `laws` read SINGULAR and 10 violations shipped.
+    The exception list plus the `ss` rule already carry the hard cases, so the vocabulary bought
+    nothing and cost a build. *Removing a parameter removes the class of bug where a caller passes
+    the wrong one.*"""
+    from hdlab.reading_grounding_loop import normalize_lemma
+    if w in _SG_ENDING_IN_S or w.endswith("ss"):
+        return "SG"
+    if normalize_lemma(w) != w:
+        return "PL"                      # lemmatiser changed it -> inflected
+    return "PL" if (w.endswith("s") and len(w) > 3) else "SG"
+
+
+def _selftest_number():
+    """Positive AND negative controls. An absence check ('no violations') inherits the detector's
+    blind spots; a labelled trap list does not."""
+    pl = ["laws", "values", "buildings", "creditors", "children", "mice", "feet", "dishes",
+          "scales", "cultures", "churches", "events", "cities", "leaves", "types", "crops"]
+    sg = ["thing", "choir", "glass", "species", "news", "half", "analysis", "series", "bus",
+          "process", "crisis", "lens", "physics", "status", "focus", "business", "law", "value"]
+    # Exercise BOTH call signatures -- bare, and WITH a vocab, which is what the builder uses.
+    # A vocab that omits the singular must not silently flip a plural to singular.
+    bad = [(w, "PL", grammatical_number(w)) for w in pl if grammatical_number(w) != "PL"]
+    bad += [(w, "SG", grammatical_number(w)) for w in sg if grammatical_number(w) != "SG"]
+    # THE EXACT REGRESSION that shipped v4, as a permanent case: these three read SG under the old
+    # vocabulary-gated version and put "Many countries have thing" / "Usually the days is used"
+    # into a 120-item evaluation set.
+    bad += [(w, "PL(v4 regression)", grammatical_number(w))
+            for w in ("laws", "values", "days") if grammatical_number(w) != "PL"]
+    if bad:
+        print("NUMBER SELF-TEST FAILED (%d):" % len(bad))
+        for w, want, got in bad:
+            print("   %-12s want %s got %s" % (w, want, got))
+        return 1
+    print("number self-test PASS: %d plurals + %d singulars, including the traps lemma_word alone "
+          "gets wrong (laws, values) and the traps a trailing-s rule gets wrong (glass, species, "
+          "news, analysis)" % (len(pl), len(sg)))
+    return 0
 
 
 def smd(a, b):
@@ -100,17 +183,41 @@ def q(v, f):
 
 
 def main():
+    from nltk.corpus import wordnet as wn
+
     from hdlab.corpus_registry import CorpusRegistry
     from hdlab.pos_tagger import PosTagger
     from hdlab.reading_grounding_loop import content_lemmas, normalize_lemma
 
-    # GRAMMATICAL NUMBER, via the substrate's OWN lemmatizer (lemma_word, which is guaranteed to
-    # return a real word rather than a stripped stem). V2 shipped "an English cultures", "a
-    # churches" and "a certain events" -- 3 of 14 items detectable on AGREEMENT rather than on
-    # meaning. Verified against the traps that break a naive trailing-s rule: glass, species, news
-    # and half all read SG correctly.
-    def number(w):
-        return "PL" if normalize_lemma(w) != w else "SG"
+    # ------------------------------------------------------------------ TWO FILTERS FROM THE READ
+    # **1. THE INTRUDER MUST NOT BE A NEAR-SYNONYM OF THE TARGET -- THE WORST DEFECT FOUND, BECAUSE
+    # IT MAKES THE ITEM UNANSWERABLE RATHER THAN EASY.** V5 shipped laws->rules ("Many countries
+    # have RULES based on this idea of fairness"), types->ideas, ways->tools and
+    # particles->molecules. **Every one of those sentences is still TRUE, so there is no anomaly to
+    # find and a PERFECT detector must fail on them.** Topical disjointness was supposed to prevent
+    # this and cannot: it asks whether two words co-occur in an 8,000-sentence sample, and `law`
+    # and `rule` simply never did. *Co-occurrence is not relatedness -- synonyms are precisely the
+    # words that SUBSTITUTE for each other instead of appearing together, so the disjointness rule
+    # was actively SELECTING for them.*
+    def relatedness_blocked(a, b):
+        sa, sb = wn.synsets(a, pos="n"), wn.synsets(b, pos="n")
+        if not sa or not sb:
+            return True                   # unknown to WordNet -> cannot verify -> refuse
+        if {x.name() for x in sa} & {x.name() for x in sb}:
+            return True                   # share a sense
+        close = set()
+        for x in sa:
+            close |= {h.name() for h in x.hypernyms()} | {h.name() for h in x.hyponyms()}
+            for h in x.hypernyms():
+                close |= {g.name() for g in h.hyponyms()}      # siblings (co-hyponyms)
+        return bool(close & {x.name() for x in sb})
+
+    # **2. BOTH WORDS MUST BE REAL ENGLISH.** V5 shipped the corpus's own misspellings and debris as
+    # intruders -- `countrys` (twice), `todays`, `cetera` (from "et cetera"). A misspelled intruder
+    # is detectable on ORTHOGRAPHY, which is one of the mandatory floors: the item would be scored
+    # by the very baseline it is meant to beat.
+    def real_word(w):
+        return bool(wn.synsets(w, pos="n"))
 
     reg = CorpusRegistry()
     h = reg.handles.get(CORPUS)
@@ -161,12 +268,21 @@ def main():
             return False
         return casecount[lw] / n >= LOWER_SHARE
 
-    vocab = [w for w in docfreq if is_common_noun(w)]
+    vocab = [w for w in docfreq if is_common_noun(w) and real_word(w)]
     print("common-noun vocabulary (UPOS NOUN >=%.0f%%, lowercase >=%.0f%%, n>=3): %d"
           % (100 * NOUN_SHARE, 100 * LOWER_SHARE, len(vocab)))
     if len(vocab) < 200:
         print("vocabulary too small to match within -- UNDERPOWERED, not writing")
         return 1
+
+    # ** PASS THE FULL CORPUS TOKEN SET, NOT `vocab`. ** `vocab` is the heavily FILTERED
+    # common-noun set (UPOS NOUN >=80%, lowercase >=90%), and `law` is not in it -- so `laws` failed
+    # the "does a singular exist" test and read SINGULAR. That let 10 violations through, including
+    # *"Many countries have thing"* and *"Usually the days is used"*.
+    # **AND THE SELF-TEST PASSED THROUGHOUT, BECAUSE IT CALLS gn(w) WITH THE DEFAULT vocab=None --
+    # IT NEVER EXERCISED THE CALL THE BUILDER MAKES.** A self-test that does not use the production
+    # call signature is a self-test of a different function.
+    number = grammatical_number
 
     by_bin = collections.defaultdict(list)
     for w in vocab:
@@ -179,6 +295,7 @@ def main():
             cooc[w] |= u
 
     rng = random.Random(SEED)
+    used_pairs, used_target = set(), collections.Counter()
     items, order = [], list(range(len(sents)))
     rng.shuffle(order)
     for i in order:
@@ -204,7 +321,8 @@ def main():
         host = set(ls)
         tnum = number(target)
         prev = word(toks[pos - 1]).lower() if pos > 0 else ""
-        pool = [w for w in pool if w != target and not (cooc[w] & host) and number(w) == tnum]
+        pool = [w for w in pool if w != target and not (cooc[w] & host) and number(w) == tnum
+                and not relatedness_blocked(normalize_lemma(w), normalize_lemma(target))]
         if prev in ("a", "an"):
             # "a"/"an" is fixed by the FOLLOWING word's initial sound. Swapping a vowel-initial
             # target for a consonant-initial intruder yields "an cost" -- an agreement cue, the
@@ -215,9 +333,26 @@ def main():
             pool = [w for w in pool if (w[0] in "aeiou") == want]
         if not pool:
             continue
+        # ** ITEM INDEPENDENCE. ** V6 used `cities -> changes` FOUR times and `ways -> types` three
+        # times: 111 distinct pairs across 120 items, with one target reused 6 times. Repeated pairs
+        # are not independent items -- they share the same lexical decision, so a detector that
+        # happens to handle `changes` well collects four correlated wins and n is overstated.
+        # Cap each (target, intruder) pair at ONE use and each target at two.
+        pool = [w for w in pool if (target, w) not in used_pairs]
+        if not pool or used_target[target] >= 2:
+            continue
         intruder = rng.choice(pool)
+        used_pairs.add((target, intruder))
+        used_target[target] += 1
         anom = list(toks)
-        anom[pos] = intruder
+        # **PRESERVE THE TOKEN'S PUNCTUATION.** Writing `anom[pos] = intruder` replaces the WHOLE
+        # token, so `fire)` -> `music` DESTROYED a closing parenthesis and left V7 item 12 reading
+        # "the 4 classical elements (water, air, earth and music". Same for a closing quote
+        # (`site"`). An unbalanced bracket is a visible corruption at exactly the position being
+        # scored -- the anomaly becomes findable by punctuation. Splice the alphabetic core only.
+        core = word(toks[pos])
+        at = toks[pos].find(core)
+        anom[pos] = toks[pos][:at] + intruder + toks[pos][at + len(core):]
         items.append({
             "sentence_original": s, "sentence_anomalous": " ".join(anom),
             "target": target, "intruder": intruder, "anomaly_token_index": pos,
@@ -266,7 +401,7 @@ def main():
     if bad:
         print("  GUARD FAILED -- not writing"); return 1
 
-    out = os.path.join(_REPO, "data", "anomaly_set_frequency_matched_v3.json")
+    out = os.path.join(_REPO, "data", "anomaly_set_frequency_matched_v8.json")
     with open(out, "w", encoding="utf-8") as fh:
         json.dump({"corpus": CORPUS, "n_sentences_scanned": len(raw), "n_prose": len(sents),
                    "seed": SEED, "pos_checkpoint": os.path.relpath(POS_CKPT, _REPO),
@@ -295,4 +430,8 @@ def main():
 
 
 if __name__ == "__main__":
+    if "--self-test" in sys.argv:
+        raise SystemExit(_selftest_number())
+    if _selftest_number():
+        raise SystemExit("number self-test failed -- refusing to build")
     raise SystemExit(main())

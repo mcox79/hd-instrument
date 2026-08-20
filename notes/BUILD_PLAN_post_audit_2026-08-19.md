@@ -4,18 +4,30 @@
 > | | what landed |
 > |---|---|
 > | **ANGLE B** | **The meaning-consumption link is DESIGNED.** The banked meaning must supply the **PREDICTION**, not sit in the register -- otherwise it is the same bottleneck in a new location. Definitional half only (32% vs 4% MEANINGFUL); dedicated `MEANING` role via the live `bind_filler`. `notes/ANGLE_B_the_meaning_consumption_link_...md` |
-> | **ANGLE A** | **The frequency-matched anomaly set is BUILT** -- `data/anomaly_set_frequency_matched_v3.json`, 120 items, log-frequency smd **+0.0157**, length **-0.0749**, NOUN share 0.951 vs 0.951, number agreement **120/120**. `tools/build_frequency_matched_anomaly_set.py` |
+> | **ANGLE A** | **The anomaly set is BUILT AND HAND-SCORED** -- `data/anomaly_set_frequency_matched_v8.json` + `_v8_handscores.json`, **all 120 read**. smd **-0.0134** freq / **-0.0289** length, number **120/120**, **120/120 distinct pairs**. `tools/build_frequency_matched_anomaly_set.py --self-test` |
 >
-> ## ⚠️ **AND ANGLE A'S REAL FINDING: A BALANCE TABLE MEASURES THE MATCHING, NEVER THE ITEM**
-> **V1's balance was BETTER than v3's (+0.0126 / -0.0085) and its items were UNUSABLE** -- WordNet
-> noun-hood admitted verbs and adjectives, so swaps were **ungrammatical** (*"the only month to both
-> carbon and end"*); lemmatisation lowercased proper nouns (*"Several december species"*); table
-> debris was not prose. **V2 fixed all three and still shipped an agreement cue** (*"a churches"*,
-> **3 of 14**). **Three rounds of improving statistics over broken items. Only READING them ever
-> found it.**
-> **Honest residual, measured on a 14-item read: ~14% of v3 items are odd-but-defensible, which CAPS
-> the achievable score and must not be read as detector failure.** A human pass over all 120 is owed
-> before any verdict.
+> ### 🚫 **`..._v3.json` IS TRACKED, SUPERSEDED AND DEFECTIVE -- DO NOT USE** (10 number violations its own check scored as "0 violations")
+> ### 🚨 **THE CEILING: 102 CLEAN / 17 WEAK / 1 BROKEN -> A PERFECT DETECTOR CANNOT EXCEED ~86% HERE. PRINT THAT BESIDE ANY SCORE**, or the shortfall gets read as detector failure.
+>
+> ## ⚠️ **ANGLE A'S REAL FINDING: THE BALANCE TABLE WAS PERFECT AT EVERY STAGE WHILE THE ITEMS WERE BROKEN FIVE DIFFERENT WAYS**
+> **V1's matching was the BEST of all eight versions (+0.0126 / -0.0085) and its items were
+> unusable.** Each round the statistics stayed excellent and READING found something new: verbs and
+> adjectives with rare noun senses -> **ungrammatical** swaps; lowercased proper nouns; table debris;
+> number mismatch (*"a churches"*); **near-synonym intruders, so the sentence stayed TRUE and a
+> PERFECT detector must FAIL** (*"Many countries have RULES based on this idea of fairness"*);
+> corpus misspellings (`countrys`, `cetera`) detectable on **orthography, a mandatory floor**;
+> repeated pairs overstating n; and a splice that **destroyed punctuation at the scored position**.
+> **THE NEAR-SYNONYM CASE IS THE ONE TO REMEMBER: my topical-disjointness rule was ACTIVELY SELECTING
+> for synonyms** -- co-occurrence is not relatedness, and synonyms are exactly the words that
+> substitute for each other rather than appearing together. *A plausible constraint producing the
+> failure it was written to prevent.*
+>
+> ### 🔁 **AND THE CHECK WAS BROKEN TWICE, BOTH ALREADY-DOCUMENTED CLASSES**
+> V3 reported **"120 of 120 agree, 0 violations"** with 10 violations present, because (a) **the
+> check called the same helper the builder did** (`lemma_word` leaves `laws -> laws`), and (b) **the
+> self-test never used the production call signature** -- it called `gn(w)`, the builder called
+> `gn(w, vocab)` with a filtered set omitting `law`. **Fixed by DELETING the parameter**; the
+> regression is now a permanent self-test case and the builder refuses to run if it fails.
 >
 > **F5 itself is NOT built** -- it is cell-authoring work and nothing here measures anything.
 
