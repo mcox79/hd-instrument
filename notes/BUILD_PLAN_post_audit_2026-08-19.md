@@ -1,5 +1,42 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🚨 **A MATERIAL QUALIFICATION TO THE WHOLE DAY: BOTH QUALITY MEASUREMENTS SCORE ONE OF TWO**
+> # **OUTPUT PATHWAYS, AND THE OTHER HAS NEVER BEEN ASSESSED.**
+>
+> | measurement | multi-word objects in its sample |
+> |---|---|
+> | the blind hand-score ("78% noise") | **0 of 100 (0.0%)** -- `isolate, situation, beat, boat, totally, head, ride` |
+> | `exp_grounding_precision_gold_v1` ("1.6-3.0%", loses 2-3x) | single-word anchors; `top_anchor='way'`, 319 distinct |
+> | **what `consolidated()` actually carries** | **~55% MULTI-WORD** on both seeds |
+>
+> **➡️ EVERY QUALITY NUMBER THIS PROJECT HAS -- 78% NOISE, 3 MEANINGFUL OF 100, 1.6-3.0% PRECISION,
+> LOSES 2-3x TO A TRIVIAL BASELINE -- IS ABOUT THE SINGLE-WORD `canonicalize` PATHWAY.**
+> **THE DEFINITIONAL-PHRASE PATHWAY IS UNMEASURED.** *And ConceptNet cannot measure it: its gold is
+> word-to-word edges, so a phrase can never match one. The instrument excludes that half by
+> construction, not by choice.*
+>
+> ## 🔍 AND THE PHRASES LOOK QUALITATIVELY BETTER THAN THE SINGLE WORDS
+> > *"a dairy product that is made from the milk of cows"* · *"a bridge over the stream"* ·
+> > *"a computing project that is seeking possible drug treatments"*
+> against the single-word pathway's *`artwork -> himself`*, *`mice -> experiment`*,
+> *`often -> understand`*. **These are not comparable in kind, and the phrase examples read like
+> definitions while the single-word ones read like noise.** *That is an EYEBALL impression from a
+> dozen examples and it is NOT a measurement -- which is exactly the point: nobody has made one.*
+>
+> ## ⚖️ WHAT THIS DOES AND DOES NOT CHANGE
+> - **DOES NOT change** that the single-word pathway loses to a trivial baseline on an independent
+>   gold. That evidence stands as measured.
+> - **DOES change the scope of the headline.** "The system's grounding is 2% accurate" should read
+>   **"the single-word half of the system's grounding is 2% accurate, and the other half has not been
+>   scored."**
+> - **DOES change Q89**, which is on the owner's board right now and quotes the unqualified version.
+>   **Amended there rather than left to mislead a decision.**
+> **➡️ THE OBVIOUS NEXT MEASUREMENT, AND IT NEEDS NO NEW MACHINERY: blind-hand-score a sample of the
+> PHRASE pathway with the same MEANINGFUL/RELATED/NOISE rubric used for the 100 single-word rows.
+> Same rubric, same scorer discipline, different population -- and it is the only way to know whether
+> half this system's output is good.**
+
+
 > # ⛔ **TWO OF MY OWN CLAIMS FROM THE LAST HOUR WITHDRAWN -- AND THE REASON IS A STRUCTURAL FACT**
 > # **ABOUT THIS CODEBASE I DID NOT KNOW: `consolidated()` MIXES TWO POPULATIONS.**
 >
