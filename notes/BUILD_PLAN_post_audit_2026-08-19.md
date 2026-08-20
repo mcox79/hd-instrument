@@ -1,6 +1,100 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
-> # 🧭 CURRENT HANDOFF -- 2026-08-20, END OF THE OVERNIGHT LOOP. **READ THIS BLOCK, THEN STOP.**
+> # 🧭 CURRENT HANDOFF -- 2026-08-20 POST-COMPACTION. **READ THIS BLOCK, THEN STOP.**
+> *Supersedes the end-of-loop handoff below it.*
+>
+> ## 🛑 **THE OVERNIGHT LOOP IS DISARMED, BY OWNER INSTRUCTION, AND IT HAD BEEN MISSED.**
+> `notes/COMMENTARY.md` **2026-08-20T12:48:12Z**: *"please turn off the hook loop when you see this,
+> and in the running tab on gui make a button that turns the loop on, and another that turns it
+> off."* Disarmed and verified. **It had sat unread through the whole compaction-prep sequence** --
+> the loop kept firing while the instruction to stop it was already on disk.
+>
+> ## 🔴 **THE OWNER HAS BEEN LOOKING AT A THREE-DAY-OLD DASHBOARD. THIS IS THE FINDING OF THE**
+> ## **SESSION, AND IT IS NOT A SUBSTRATE RESULT AT ALL.**
+> **Their `status_gui.py` process started `2026-08-17 17:50` and was still running on 08-20.** Tk
+> loads the file ONCE at startup, so **four landed commits were invisible to them** -- including the
+> two they then asked for AGAIN, not knowing they already existed:
+>
+> | they asked | it already existed |
+> |---|---|
+> | on/off buttons for the loop (08-20 12:48) | `072c18b05`, **08-18 07:26** |
+> | per-tab "updated" timestamp (08-19 19:44) | `d79473ab8`, **08-19** |
+>
+> **It also explains board Q67** (*"I still only see the old questions here - d1 d2 etc"*) and
+> *"Why aren't you sharing any questions on the gui?"* **Every one of those was read as "the feature
+> is missing" when the truth was "the window cannot see it".**
+> **➡️ FIXED DURABLY (`faa255cc5`): the GUI now compares its own file's mtime at import against disk
+> on every tick and shows an unmissable "THIS WINDOW IS RUNNING OLD CODE" banner.** Witness at
+> `verification/test_gui_stale_banner.py` drives the REAL widget through four cases -- fresh, stale,
+> restored (it must not latch), and no-baseline (it must stay silent). **All four pass, including the
+> one that actually occurred.**
+> **🧠 THE LESSON GENERALISES PAST THE GUI: a stale surface is INDISTINGUISHABLE from a current one,
+> so the owner reasonably inferred absence from not-on-screen.** *This file already carried the rule
+> -- "a stale RUNNING panel is read as evidence, which is worse than no panel" -- and the window was
+> the one surface not held to it.*
+>
+> ## ✅ **THE REGISTRY "WHOLE-FILE DIFF" ANOMALY IS SOLVED AND BENIGN** (`2ad3d46a0`)
+> 832 differing bytes, every one inside a `last_audit_utc` value (`08:35:45Z` -> `09:15:02Z`); the
+> only byte substitutions are digits. The scheduled audit re-stamps every row, and an ISO timestamp
+> is FIXED-WIDTH -- which is exactly why size, row count and id order all matched.
+> **The prior session checked three PROXIES and wrote "identical on every check I could run". `cmp`
+> answered it in one command.** *An absence claim built from proxies inherits every blind spot of the
+> proxies.* **Do not re-open it.**
+> **⚠️ STILL UNEXPLAINED AND UNTOUCHED: ~380 other modified files** (mostly `metrics.json` whose only
+> change is a `ts_iso` marker) **plus 7 DELETIONS** (3 cornerstone `metrics.json`, 3
+> `notes/_forensics_*`, 1 `prereqs/*.md`). The deletions are not marker churn. **Characterise before
+> committing or reverting that tree.**
+>
+> ## 🔬 THRUST 1 LANDED -- **TIE. ROLE-BINDING BUYS NOTHING HERE.** 3 seeds, pre-committed verdict.
+> Relaunched detached at `DIAG_N_READ=3000` after it died producing nothing.
+>
+> | seed | COOC floor | BAG | STRUCT | zero-struct skips |
+> |---|---|---|---|---|
+> | 7 | 10.0 | 36.5 (3.65x) | 49.0 (4.90x) | 131 |
+> | 101 | 6.0 | 36.0 (6.00x) | 50.0 (8.33x) | 132 |
+> | 20260819 | 7.0 | 36.5 (5.21x) | 47.0 (6.71x) | 121 |
+>
+> **POOLED PAIRED: `STRUCT - BAG +3.0`, 95% CI `[+0.0, +7.0]` -- NOT SEPARATED.**
+> **⚠️ READ THE PER-SEED COLUMNS AND THE POOLED LINE CORRECTLY, BECAUSE THEY LOOK CONTRADICTORY AND
+> ARE NOT: per-seed medians differ by ~13, the pooled paired median differs by 3. THE MEDIAN OF
+> PER-PROBE DIFFERENCES IS NOT THE DIFFERENCE OF MEDIANS.** *The paired statistic is the correct one
+> -- it is the one computed on identical probes -- and it does not separate from zero.*
+> **➡️ PRE-COMMITTED THIRD BRANCH FIRES: a tie means THIS structural encoding is not the right
+> structure, NOT that structure is irrelevant.** The four routes still point at the context unit;
+> this particular unit is not the answer.
+> **🚨 AND A CONFOUND I AM RECORDING RATHER THAN BURYING, BECAUSE IT CUTS AGAINST THE TIE: the STRUCT
+> arm was built from LESS EVIDENCE.** 121-132 sentences per seed produced an all-zero structural
+> vector (target absent from the parse) and were skipped, while the BAG arm took every one. **So
+> "structure ties the bag" conflates ENCODING with COVERAGE, and coverage is already the single
+> largest measured cost on this representation** (recording 68.8% of occurrences moved median rank
+> 17 -> 46). *A coverage-matched re-run -- BAG restricted to exactly the sentences STRUCT could
+> parse -- is the honest version of this test, and it was not run.*
+> **⛔ BOTH ARMS STILL LOSE HEAVILY TO WORD-COUNTING (3.65x-8.33x). Neither is close.**
+>
+> ## 🎯 THRUST 2 UNBLOCKED, AND ITS PREMISE IS PARTLY WRONG
+> The open question was where story pairs come from. **McGuffey carries exactly ONE labelled moral**
+> across all seven readers -- that path is closed. `experiment_index.py` returns **0 cells** for both
+> `moral` and `fable`, so the transfer test is genuinely unexplored.
+> **BUT THE PLAN'S CLAIM THAT "WE CANNOT MEASURE NARRATIVE-KIND LEARNING AT ALL" IS TOO STRONG.**
+> `social_iqa` is on the shelf: 33,410 items, three-way choice, *"what will Remy want to do next?"* /
+> *"how would Others feel?"* -- **selection not generation, not fact-recall, and it existed years
+> before any mechanism here.** It is the owner's own candidate shape (2), *what a character WANTED*.
+> **AND WE ALREADY RAN IT.** Ten cells, 2026-08-11, `exp_crutch_fade_social_iqa_*`, all HARD_FAIL.
+> **Every arm scored 0.3501-0.3975 against a majority-class floor of 0.3362** (validation n=1,954,
+> balanced 3-way). **The word-counting baseline sat at 0.3501 too.** Scramble controls clean.
+> **➡️ SO THE HONEST POSITION IS NOT "no instrument". IT IS: WE HAVE ONE, IT WAS RUN, AND BOTH THE
+> SUBSTRATE AND THE CRUDE FLOOR CAME BACK AT CHANCE.** *Those cells were measuring something else --
+> whether a crutch fades -- so chance was a by-product, not the target, and they predate
+> `keep_noting_grounded`.* **⚠️ WHEN THE CLEVER METHOD AND THE CRUDE FLOOR BOTH SIT AT CHANCE, THE
+> LIKELIEST READING IS THAT THE TEST IS NOT REACHING EITHER -- which is UNTESTABLE, not negative.**
+> **THE CHEAP NEXT MOVE, AND IT IS HOURS NOT DAYS: hand that test the answer in a form it cannot
+> miss and check the score rises.** If it does not, the instrument is broken for our purposes and
+> building on it would waste weeks. If it does, we own a working narrative ruler already, and the
+> owner's moral/transfer test becomes the harder SECOND step instead of the first.
+> *This is the project's own highest-yield habit -- ask whether the experiment COULD have succeeded
+> before asking why it did not -- applied to an instrument instead of a mechanism.*
+
+> # [SUPERSEDED] 2026-08-20 END-OF-LOOP HANDOFF
 > *Supersedes the 2026-08-19 handoff below it. Everything under this block is the RECORD, newest
 > first; this block is the only thing that needs reading to resume.*
 >

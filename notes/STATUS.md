@@ -10,16 +10,35 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
-## 🔀 **TWO THRUSTS -- BOTH DEFINED, NEITHER RUNNING. THIS IS THE STATE TO RESUME FROM.**
+## 🛑 **THE OVERNIGHT LOOP IS DISARMED (owner instruction 2026-08-20T12:48Z, found UNREAD).**
+## 🔴 **AND THE OWNER HAS BEEN READING A THREE-DAY-OLD DASHBOARD -- SEE THE PLAN'S TOP BLOCK.**
+Their `status_gui.py` started `2026-08-17 17:50`; Tk loads the file once, so **four landed commits
+were invisible, including the two they asked for AGAIN** (loop on/off buttons `072c18b05`; per-tab
+data age `d79473ab8`). Explains board Q67 too. **FIXED `faa255cc5`** -- the GUI now shows a
+"RUNNING OLD CODE" banner when its own file has changed since import; witness
+`verification/test_gui_stale_banner.py`, 4 cases including the one that occurred. **RESTART THE GUI.**
 
-> ### THRUST 1 -- **RE-LAUNCH REQUIRED. IT DIED AND PRODUCED NOTHING.**
-> `scratch/diag_structure_vs_bag.py` -- is context-as-STRUCTURE better than context-as-BAG?
-> **`scratch/struct_vs_bag.log` holds ONLY the self-test line. No completion record. NOT a result.**
-> Script is correct and guarded (positive control for the silent-zero trap; non-empty assertion per
-> arm). **SLOW -- it parses every sentence; use a smaller `DIAG_N_READ` for a first pass.**
-> *Judged on EXPOSITORY prose per the owner's amendment; narrative is an observation, not pass/fail.*
+## 🔀 **TWO THRUSTS -- THRUST 1 HAS LANDED. THIS IS THE STATE TO RESUME FROM.**
+
+> ### THRUST 1 -- ✅ **LANDED. TIE. `STRUCT - BAG +3.0`, 95% CI `[+0.0, +7.0]`, NOT SEPARATED.**
+> Role-binding buys nothing on this task. Both arms still lose to word-counting by **3.65x-8.33x**.
+> **A tie means THIS structural encoding is not the right structure -- NOT that structure is
+> irrelevant.** *Confound recorded, not buried: STRUCT skipped 121-132 sentences per seed as
+> unparseable, so it ran on LESS EVIDENCE than BAG -- a coverage-matched re-run is the honest
+> version and was not done.* **Do not read the per-seed medians as the effect: the median of
+> per-probe differences is not the difference of medians.** Full table in the plan.
 >
-> ### THRUST 2 -- **DESIGN NOW SPECIFIED BY THE OWNER (Q76). NO COMPUTE NEEDED.**
+> ### THRUST 2 -- **DESIGN SPECIFIED BY THE OWNER (Q76), AND ITS PREMISE IS PARTLY WRONG.**
+> **"We cannot measure narrative-kind learning at all" is TOO STRONG.** `social_iqa` is on the shelf
+> (33,410 items, 3-way choice, *what did the character WANT*), selection-not-generation, not
+> fact-recall, pre-dating every mechanism here -- **and we already ran it: 10 cells, 2026-08-11, all
+> HARD_FAIL, every arm 0.3501-0.3975 against a 0.3362 majority floor, with the word-counting baseline
+> at 0.3501 too.** **When the clever method AND the crude floor both sit at chance, the likeliest
+> reading is the test is not reaching either -- UNTESTABLE, not negative.**
+> **➡️ CHEAP NEXT MOVE (hours): hand that test the answer in a form it cannot miss and check the
+> score rises.** Broken -> do not build on it. Works -> we already own a narrative ruler.
+> *McGuffey carries exactly ONE labelled moral; `moral` and `fable` return 0 cells. That path is
+> closed and the transfer test is genuinely unexplored.*
 > *"a high score would be able to summarize what happened in the story and generalize any takeways
 > from it"* + *"PPL can take different morals from the same story."*
 > **THE SHAPE THE CONSTRAINTS FORCE -- A TRANSFER TEST:** read story A; present story B with the SAME
