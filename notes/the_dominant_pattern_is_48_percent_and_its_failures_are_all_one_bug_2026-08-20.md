@@ -89,12 +89,28 @@ component of the cell walls"` (should be *cellulose*).
 1. **VACUOUS DEFINIENS** -- `tonicity -> "a concern for all living things"`. The term is right, the
    span is right, and the sentence simply does not define anything. Nothing about term boundaries
    would fix it.
-2. **POSSIBLE POLARITY LOSS** -- `cell -> "a closed system"`, where the textbook's own next entry is
-   `closed system -> "one that can transfer energy but not matter"`. **A cell is NOT a closed
-   system**, so this looks like a negated sentence read as an affirmative one. **Stated as a
-   HYPOTHESIS: I did not retrieve the source sentence to confirm the negation.** If real, it is a
-   correctness bug of a different and worse kind than a boundary slip, because the output is
-   confidently wrong rather than merely misattached.
+2. **POLARITY LOSS -- CONFIRMED AS A DEFECT, MECHANISM CORRECTED, AND THEN SIZED OUT OF
+   PRIORITY.** `cell -> "a closed system"`. I hypothesised a dropped negation. **Retrieving the
+   source sentence shows something subtler:**
+
+   > *"**If a cell were a closed system**, its chemical reactions would reach equilibrium, and it
+   > would die..."*
+
+   **A COUNTERFACTUAL CONDITIONAL, not a negation.** The subjunctive *"were"* is the only signal
+   that a cell is NOT a closed system -- **there is no negation token to detect**, so a
+   negation-word filter would never catch it. *The defect is real and the output is confidently
+   wrong; my proposed cause was wrong.*
+
+   **AND THEN PREVALENCE KILLED IT AS A TARGET.** Sentences carrying counterfactual / negated /
+   hypothetical markers account for **5 of 295 COPULA extractions on the textbook (1.7%) and 0 of
+   340 on simplewiki (0.0%)** -- and **inspecting all five, only ONE is an actual polarity defect**.
+   The other four extract correctly despite the marker (`proline -> "an exception to the amino
+   acid's standard structure"`, `alkaptonuria -> "a recessive genetic disorder in which..."`), the
+   marker sitting harmlessly in a subordinate clause.
+   **➡️ REAL RATE ~1 IN 295 (0.3%) AGAINST ~28% FOR DEFINIENDUM-SPAN BUGS -- ROUGHLY 90x LESS
+   PREVALENT. NAMED, CONFIRMED, AND NOT WORTH FIXING.** *Third time today prevalence has demoted a
+   qualitatively alarming defect; the discipline is the reason this note recommends one target
+   instead of four.*
 
 **➡️ HONEST NET: the headline number survives a genre change and gets better; the "it is all one
 bug" framing was too strong and is now "most of it is one bug, and there are at least two others".**
@@ -139,10 +155,16 @@ survives a change of material, which the glossary claim did not.
 **The second look also corrected me.** "Almost all one mistake" was too strong -- on the textbook
 it is more like two in three, and two further kinds of error showed up that the first source never
 revealed: sentences that define nothing at all (*"tonicity is a concern for all living things"*),
-and one apparent case of the system dropping a **"not"** and recording the opposite of what the book
-said. **That last one, if confirmed, is worse than a misattached explanation** -- it is confidently
-wrong rather than merely pointing at the wrong word. I have flagged it as unconfirmed because I did
-not go back to the original sentence.
+and one case of the system recording the opposite of what the book said.
+
+**I went back and checked that last one, and it is real but rarer than it looked.** The book had
+written *"if a cell WERE a closed system, its reactions would reach equilibrium and it would die"* --
+a hypothetical, the kind of sentence that describes something in order to rule it out. The system
+read it as a plain statement of fact. There is no "not" anywhere in it, so nothing simple would
+catch this. **But counting how often that kind of sentence fools it: once in about three hundred, and
+never once in the Wikipedia text.** The misattached-explanation bug is roughly ninety times more
+common. **So it is a genuine flaw, correctly diagnosed, and not worth anyone spending a day on** --
+which is the third time today that counting how often something happens has demoted it.
 
 ## QUESTIONS
 
