@@ -1,5 +1,52 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🧠 **FIDELITY CHECK ON THE *ANSWER SHAPE* -- MY HYPOTHESIS REFUTED, AND THE REFUTATION IS**
+> # **MORE USEFUL THAN THE HYPOTHESIS WOULD HAVE BEEN.**
+> *Every fidelity pass so far audited a MECHANISM. Thirteen closed. Nobody had audited the SHAPE of
+> the answer the mechanism is required to produce.*
+>
+> **THE FIDELITY OBSERVATION STANDS AND IS WORTH KEEPING:** `GROUNDED_MEANING(subject, obj)` is a
+> POINTER FROM ONE LEXICAL ITEM TO ANOTHER -- `artery -> vessel`. Ask *which brain structure?* and
+> there is **none**: conceptual semantics in the ATL hub is a DISTRIBUTED pattern over
+> modality-specific features (ORGAN_MAP B4), and nothing in cortex stores *"the meaning of X is the
+> word Y"*. **A lexical pointer is a DICTIONARY's format -- a convenient available structure.
+> It is OUR-INVENTION-BEING-TESTED and it is labelled that way nowhere in the organ map or registry.**
+>
+> ## ❌ BUT THE MEASURABLE CONSEQUENCE I PREDICTED DOES **NOT** HOLD
+> I predicted that if most words have no single other word meaning them, 78% noise would be the
+> EXPECTED output of correct code. **Measured on 1,500 of the commonest content words we actually
+> read, drawn independently of the hand-scored 100:**
+>
+> | | share | |
+> |---|---|---|
+> | **SYNONYM** -- a true one-word meaning EXISTS | **91.1%** | (93.4% of words WordNet knows) |
+> | HYPERNYM only -- a broader word exists | 4.5% | |
+> | NEITHER -- no one-word answer at all | 1.9% | |
+> | no dictionary entry | 2.5% | |
+>
+> **➡️ THE ANSWER FORMAT IS NOT THE CEILING. The pre-committed negative branch fires: the answer
+> shape is reachable for ~93% of what we read, so the noise is the MECHANISM's fault.**
+>
+> ## 🔑 **AND THE SHARPER FINDING IS INSIDE THE REFUTATION**
+> On the blind-scored 100, split by whether a one-word answer was even available:
+>
+> | class | n | grounded meaningful-or-related |
+> |---|---|---|
+> | **SYNONYM (the answer EXISTS)** | 61 | **21%** |
+> | HYPERNYM | 8 | 12% |
+> | NEITHER | 7 | 71% *(n=7 -- ignore)* |
+> | NO_ENTRY | 24 | 12% |
+>
+> **WORDS THAT DO HAVE A CORRECT ONE-WORD MEANING AVAILABLE ARE STILL GROUNDED CORRECTLY ONLY ~21%
+> OF THE TIME. The answer is there and we do not find it.** *That is unambiguously a SELECTION
+> failure, and it removes "the task is impossible" as an available excuse.*
+> **🎯 SO BLAME RETURNS TO ANCHOR SELECTION -- and today's one surviving fidelity gap is exactly a
+> selection story: the hub carries FREQUENCY at R^2 0.4819 against 0.01-0.05 for a sensorimotor
+> dimension, so selecting the nearest anchor by cosine in that space should systematically return
+> FREQUENT words.** That was UNTESTABLE at n=22 this morning. **It is now the leading candidate with
+> a clean prediction, and what it needs is a stratified sample big enough to test it -- not another
+> mechanism.**
+
 > # 🔧 **A QUARTER OF THE GROUNDED FOUNDATION IS EITHER A DUPLICATE OR A CATEGORY ERROR, AND HALF**
 > # **OF THAT IS A PLAIN BUG. MEASURED ON THE WHOLE STORE, NOT A SAMPLE.**
 > *Followed up the flagged side-observation (24 of 100 hand-scored subjects had no dictionary entry).
