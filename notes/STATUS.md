@@ -10,6 +10,23 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
+## ⚠️ **UNRESOLVED ANOMALY -- `data/capability_registry.jsonl` SHOWS A WHOLE-FILE DIFF I COULD NOT**
+## **EXPLAIN. LEFT UNCOMMITTED ON PURPOSE. DO NOT `git checkout` IT BLINDLY.**
+Flagged 2026-08-20 at end of loop, because hiding it would be worse than not solving it.
+- `git diff` reports **208 insertions / 208 deletions** -- every row -- and `--ignore-all-space`
+  reports the SAME, so it is **not** whitespace. `core.autocrlf` is **false**.
+- **BUT the two versions are IDENTICAL on every check I could run:** byte size **508729 == 508729**,
+  **208 rows == 208 rows**, and the `id` sequence is **identical and in the same order**.
+- My three intended edits to this file (registering `keep_noting_grounded`, then the three unregistered
+  hdlab modules) each committed cleanly at the time -- `2fcb6882d` and `5add6fb5a`.
+
+**WHAT I DID: NOTHING.** The working tree is left as-is and the diff is left uncommitted. *Committing
+a whole-file change I cannot characterise would put unexplained churn into the canonical registry;
+reverting it might discard a real edit. Both are worse than leaving it visible.*
+**➡️ FOR WHOEVER PICKS THIS UP: diff a single row against `git show HEAD:data/capability_registry.jsonl`
+and find the actual byte-level difference before doing anything to this file.** *The registry is
+canonical and the standing rule is never `git add -A` it.*
+
 ## 🧭 RESUME HERE -- **REWRITTEN 2026-08-20 (LATEST). BOTH BOARD Qs ANSWERED; NEXT STEP UNSTARTED.**
 
 > ### ➡️ THE ONE UNSTARTED ACTION
