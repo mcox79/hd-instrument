@@ -1,5 +1,42 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🟡 **THIRD UNREAD RUN: SUPPLIED SENSORIMOTOR NORMS BEAT OUR LEARNED SUBSTRATE -- BUT THEY DO**
+> # **NOT CLEAR THEIR OWN PRE-REGISTERED BAR. I ALMOST REPORTED THE OPPOSITE.**
+> *`exp_sensorimotor_spoke_grounding_v1`, 3 seeds, same independent ConceptNet gold,
+> `items_predate_mechanism: True`. Its bar was pre-registered and explicit:
+> **"TOP_COOCCURRENT (pre-registered). Beating RANDOM_CANDIDATE is not the bar."***
+>
+> | seed | SPOKE_COSINE | SPOKE_EUCLID | TOP_COOCCURRENT | SUBSTRATE | RANDOM | SHUFFLED_NORMS |
+> |---|---|---|---|---|---|---|
+> | 20260819 | 0.0582 | 0.0526 | 0.0499 | 0.0194 | 0.0194 | 0.0166 |
+> | 7 | 0.0887 | 0.0703 | 0.0673 | 0.0275 | 0.0153 | 0.0275 |
+> | 101 | 0.0729 | 0.0699 | 0.0517 | 0.0274 | 0.0182 | 0.0182 |
+>
+> ## ⛔ **THE BAR IS NOT CLEARED, AND THE POINT ESTIMATES LIE ABOUT IT**
+> On point estimates the spoke arms look like the first thing all day to beat `TOP_COOCCURRENT`
+> (0.058 vs 0.050, 0.089 vs 0.067, 0.073 vs 0.052). **The PAIRED permutation tests say
+> `p = 1.0, 1.0, 0.3353` -- not separated on any seed.** *I had the sentence "the first thing today
+> to beat the baseline" half-written. **Fourth time today that reading a point estimate instead of
+> the paired statistic would have produced a false positive.***
+>
+> ## ✅ **WHAT IS REAL, AND IT IS STILL WORTH HAVING**
+> 1. **SUPPLIED NORMS BEAT OUR LEARNED SUBSTRATE, SEPARATED ON ALL THREE SEEDS** -- `SPOKE_EUCLID`
+>    vs `SUBSTRATE` p = **.029 / .017 / .0155**.
+> 2. **THE CAN-FAIL CONTROL WORKS: `SHUFFLED_NORMS` (every profile permuted onto another word,
+>    marginals preserved exactly) COLLAPSES and separates**, p = **.008 / .0145 / .0025**. *So the
+>    sensorimotor structure is real and the arm is not scoring on marginals.*
+> 3. **OUR SUBSTRATE IS AT RANDOM ON SEED 20260819** -- 7 hits vs 7 hits, precision identical to four
+>    decimals.
+>
+> ## ⚖️ AND THE CELL SCOPES ITSELF BEFORE ANYONE ELSE CAN
+> > `supply_not_learning`: *"The sensorimotor norms are **SUPPLIED human ratings**. Admissible under
+> > the static offline-asset ruling, but **no result here is the substrate having LEARNED perceptual
+> > structure**."*
+> **➡️ SO THE HONEST SUMMARY IS: HANDING THE SYSTEM HUMAN PERCEPTUAL RATINGS BEATS WHAT IT LEARNED
+> FROM 40,000 SENTENCES -- AND STILL ONLY TIES A CO-OCCURRENCE COUNTER.** *Both halves matter. The
+> first says perceptual grounding is a real signal the text pathway is missing; the second says even
+> that signal, supplied for free, does not clear the crudest text baseline on this task.*
+
 > # 🔴 **SECOND UNREAD RUN, AND ITS OWN DECIDING CONTRAST WAS ANSWERED: CONSOLIDATION FIRES, HAS**
 > # **LARGE INTERNAL EFFECTS, AND CHANGES THE READ-OUT BY EXACTLY NOTHING.**
 > *`exp_substrate_end_to_end_readout_v1`, 18 units, unread since 2026-08-19. Its prereg question,
