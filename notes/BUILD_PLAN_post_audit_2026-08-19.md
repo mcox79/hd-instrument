@@ -1,5 +1,24 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🔍 **THE ENDORSED BRANCH, AUDITED BY THE SAME STANDARD (2026-08-20 late)**
+> **`notes/the_endorsed_branch_audited_by_the_same_standard_2026-08-20.md`**
+> I stress-tested the pipeline branch all night and had given the branch I RECOMMENDED no scrutiny
+> at all. Corrected:
+> - **POSITIVE evidence rates `SINGLE_SEED_HYPOTHESIS`.** *"The 11 Lancaster dims double the
+>   text-only ceiling"* is **one gold, one corpus, 538 words, NO CI** -- and its own author wrote
+>   *"NEXT BUILD, not next claim."*
+> - **THE NEGATIVE EVIDENCE IS THE BETTER-CONTROLLED OF THE TWO.**
+>   `exp_sensorimotor_channel_discrimination_v1`: AUC **0.6039** [0.5439, 0.6644] against a
+>   **0.6791** CONSTANT-PROTOTYPE bar computed **on the same 11-dim representation** -- margin
+>   **-0.0752**; instrument licensed (known-answer 0.9448); clears the nulls at **p=0.0011**.
+> - **➡️ SIGNAL BUT NOT DISCRIMINATION -- THE SAME FAILURE SHAPE AS THE TEXT SIDE, IN A NEW
+>   CHANNEL.** Text loses to co-occurrence counting; perceptual loses to a constant prototype. Both
+>   beat their nulls; neither clears a floor. **Supplying norms did not escape the failure mode; it
+>   reproduced it.** *A real caution for a branch chosen partly because "three of the four things
+>   that work are bring-in-signal".*
+> - **NOT refuted** (one instrument, and *do-not-generalise-a-narrow-failure* has paid out here
+>   once) **and NOT established. REPLICATE WITH A CI BEFORE BUILDING.**
+
 > # ✅ **Q89 IS ANSWERED (owner, 2026-08-20T20:24Z). THE STANDING INSTRUCTION IS NEW AND IS NOT A
 > # ONE-OFF:**
 > > *"yes this sounds like a promising angle, but you should also **drill relevant theory on reading
