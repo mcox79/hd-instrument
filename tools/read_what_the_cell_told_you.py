@@ -65,20 +65,56 @@ def audit(cell_dir, m, *, tie_thresh=0.5, smd_thresh=0.10, coverage_thresh=0.25)
     for path, key, val in _walk(m):
         kl = key.lower()
         if kl == "underpowered" and val is True:
-            flags.append(("UNDERPOWERED yet a verdict is stated", path, val))
+            # SUPPRESS WHEN THE VERDICT ALREADY DISCLOSES IT -- symmetric with the coverage rule
+            # below, which has had this suppression since its first tightening.
+            # Verified 2026-08-21 on both cells this rule was firing on:
+            # `exp_organ_f_deep_reading_partialcue_ladder_v1` states
+            # `..._UNDERPOWERED_POP_768_...` IN ITS VERDICT STRING, and
+            # `exp_organ_f_accumulate_interference_diagnosis_v1` names only the POWERED populations
+            # (`GROWS_FASTER_POP_128_POP_256_POP_512`). **Each has FOUR powered populations and one
+            # underpowered one, and neither leans on the underpowered one.** Flagging them
+            # penalises a cell for stratifying its power and saying so.
+            others = [v for p, k, v in _walk(m)
+                      if k.lower() == "underpowered" and p != path]
+            all_under = bool(others) and all(v is True for v in others)
+            pop = path.split(".")[-2] if "." in path else ""
+            disclosed = "UNDERPOWER" in verdict.upper() or (pop and pop.upper() in verdict.upper()
+                                                            and "UNDERPOWER" in verdict.upper())
+            if all_under or not (disclosed or others):
+                flags.append(("UNDERPOWERED yet a verdict is stated"
+                              + (" -- AND EVERY POPULATION IS UNDERPOWERED" if all_under else ""),
+                              path, val))
         elif kl == "not_auto_scored" and val is True:
             flags.append(("NOT_AUTO_SCORED -- a human input is outstanding", path, val))
-        elif "tie_mass" in kl and isinstance(val, (int, float)) and val > tie_thresh:
+        elif ("tie_mass" in kl and isinstance(val, (int, float)) and val > tie_thresh
+              # A SELF-TEST CONSTRUCTS A DEGENERATE CASE ON PURPOSE. Verified 2026-08-21 on
+              # exp_sensorimotor_channel_discrimination_v1: `selftest_evidence.
+              # tie_conventions_both_ways.tie_mass_frac = 1.000` is a FULLY-TIED case built to prove
+              # the scorer handles ties both ways -- and it does (auc_ties_to_P 1.0, _to_S 0.0,
+              # half 0.5). **Every real arm in that cell reads 0.000-0.005.** Flagging it penalises
+              # the cell for HAVING the tie self-test this repo's own rules demand.
+              and not re.search(r"selftest|self_test|smoke|synthetic", path.lower())):
             # NAME THE ARM. Verified 2026-08-20 on exp_feeling_match_rejector_v1: its TIE MASS
             # 1.000 is on the RIVAL arm (ATTESTATION) in the stratum where attestation is blind BY
             # DESIGN -- which is exactly what that verdict is about -- while the treatment arm's tie
             # mass is 0.000/max 0.003. I reported that cell as compromised and it was not.
             # A degenerate FLOOR or RIVAL makes that comparison uninformative (worth knowing);
             # a degenerate TREATMENT would invalidate the result. THEY ARE NOT THE SAME FINDING.
-            arm = next((a for a in ("F_ORTHOGRAPHIC", "F_FREQUENCY", "F_SCRAMBLE", "ATTESTATION",
-                                    "F_CONSTANT_PROTOTYPE") if a in path), None)
+            # NAME THE ARM BY THIS REPO'S CONVENTION, not by a hardcoded list. The five-name list
+            # left every arm in two cells reading "an unnamed arm -- CHECK WHETHER IT IS THE
+            # TREATMENT" when the names were sitting in the path: `F1_TRIGRAM_ONLY_orthographic`,
+            # `F3_FREQUENCY_ONLY_constant`, `X3_QUERY_LENGTH`, `X4_CONSTANT`. **`F<n>_` and `X<n>_`
+            # ARE the floor/control prefixes here; `C<n>_` marks a candidate signal under test.**
+            # Verified 2026-08-21 across both cells: every arm with tie mass > 0.5 is F- or
+            # X-prefixed, while all eight C-signals read a MEDIAN of 0.000.
+            arm = next((seg for seg in reversed(path.split("."))
+                        if re.match(r"^[FXC]\d*_", seg) or seg in ("ATTESTATION",)), None)
+            floorish = bool(arm and (re.match(r"^[FX]\d*_", arm) or arm == "ATTESTATION"
+                                     or re.search(r"orthographic|constant|frequency|scramble|"
+                                                  r"prototype|length", arm.lower())))
             kind = ("a FLOOR/RIVAL arm -- that comparison is uninformative here, NOT proof the "
-                    "verdict is wrong" if arm else "an arm -- CHECK WHETHER IT IS THE TREATMENT")
+                    "verdict is wrong" if floorish
+                    else "an arm -- CHECK WHETHER IT IS THE TREATMENT")
             flags.append(("TIE MASS %.3f on %s: %s" % (val, arm or "an unnamed arm", kind),
                           path, val))
         elif ("smd" in path.lower() or "balance" in path.lower()) and \
@@ -134,7 +170,16 @@ def main(argv):
     # fires on a quarter of the repo is CONTEXT, not an alarm, and saying so is the difference
     # between a worklist and noise.**
     ACT = ("UNDERPOWERED", "NOT_AUTO_SCORED", "TIE MASS")
-    tier1 = [(n, v, [f for f in fl if any(a in f[0] for a in ACT)]) for n, v, fl in rows]
+    # ⛔ FOURTH TIGHTENING (2026-08-21), AND IT FOLLOWS FROM THE TOOL'S OWN WORDING. A tie-mass flag
+    # on a NAMED floor/rival arm prints the sentence "NOT proof the verdict is wrong" -- so the tool
+    # was putting rows it ITSELF calls non-findings at the top of a list headed THIS IS THE WORKLIST.
+    # It made up 22 of the 27 Tier-1 rows, four of them the SAME finding across `_reduced` variants
+    # of one cell. **Only a tie-degenerate arm that might be THE TREATMENT is actionable**; a
+    # degenerate floor is context, which is what Tier 2 is for.
+    def _actionable(f):
+        return any(a in f[0] for a in ACT) and "NOT proof the verdict is wrong" not in f[0]
+
+    tier1 = [(n, v, [f for f in fl if _actionable(f)]) for n, v, fl in rows]
     tier1 = [(n, v, fl) for n, v, fl in tier1 if fl]
     tier2 = [(n, v, fl) for n, v, fl in rows
              if not any(any(a in f[0] for a in ACT) for f in fl)]

@@ -1,0 +1,12 @@
+{
+ "examined_by": "director, 2026-08-21, from disk; metrics.json NOT modified",
+ "trigger": "read_what_the_cell_told_you.py Tier-1: TIE MASS 0.979 on C1_TOP1_ABS",
+ "question": "Is a TREATMENT arm tie-degenerate, which would make its score a tie convention rather than a measurement and could invalidate the verdict?",
+ "measured": {
+  "candidate_signals_C1_to_C8": "MEDIAN confidence_tie_mass 0.000 across 15 blocks each; maxima 0.979 (C1), 0.003 (C2), 0.003 (C3), 0.000 (C4), 0.000 (C5), 0.000 (C6), 0.006 (C7), 0.000 (C8)",
+  "C1_TOP1_ABS": "degenerate in 1 of 15 blocks only: A_POOLSELF_GOLD_EXACT|EXACT_KEY at 0.979. All 14 other blocks read 0.000.",
+  "control_signals": "X2_QUERY_LOGFREQ 0.868, X3_QUERY_LENGTH 0.994, X4_CONSTANT 1.000 -- degenerate AS EXPECTED, they are the controls. X5_SCRAMBLED reads 0.000."
+ },
+ "verdict": "NO ACTION. The one degenerate candidate reading is in the EXACT-KEY block, where top-1 absolute similarity saturates BY CONSTRUCTION because the query IS the key. The standing rule already holds that an exact-key number does not transfer to the partial-cue regime, which is the operative one -- and every partial-cue block reads 0.000. The cell's verdict is unaffected.",
+ "note": "The cell's verdict is a NEGATIVE (does not clear its strongest confidence floor). Tie degeneracy INFLATES optimistic scores, so a degenerate arm scoring badly anyway would be a STRONGER negative, not a compromised one. Both directions checked."
+}
