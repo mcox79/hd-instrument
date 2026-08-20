@@ -1,5 +1,42 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🚨 **THE SWEEP FINISHED AND PRINTED A CONFIDENT FALSE POSITIVE. READ THIS BEFORE TRUSTING ANY**
+> # **PRE-COMMITTED VERDICT IN THIS REPO.**
+> The DG sweep completed all 3 seeds and printed, in its own words:
+> *"VERDICT: **A POST-HOC NON-LINEAR TRANSFORM MOVES THE TASK** -- DG@0.01 beats RAW by -16.5,
+> CI-separated. That is the FIRST mechanism family in eleven attempts to move this."*
+> **THAT VERDICT IS FALSE, AND IT WAS ALREADY WITHDRAWN BEFORE THE SCRIPT PRINTED IT** (noise at the
+> same sparsity scores 14.0 against the real arm's 18.0/15.0; an all-identical arm scores 1.0).
+>
+> | arm | pooled paired vs RAW | reading |
+> |---|---|---|
+> | **DG@0.01** | **-16.5, CI [-22.0, -10.0] SEPARATED** | ⛔ **THE ARTIFACT. Noise beats it.** |
+> | DG@0.02 | +6.0, CI [+1.0, +11.0] SEPARATED | worse than RAW |
+> | DG@0.05 | +19.0, CI [+15.0, +22.0] SEPARATED | much worse |
+> | DG@0.10 | +6.0, CI [+4.0, +8.0] SEPARATED | worse |
+> | DG@0.25 | +1.0, CI [+0.0, +2.0] not separated | ties RAW |
+>
+> **➡️ SO THE CLEAN READING IS: AT EVERY NON-ARTIFACT SPARSITY, DG IS WORSE THAN OR EQUAL TO RAW.
+> The post-hoc-transform family CLOSES.**
+> **🔑 THE TOOLING LESSON, AND IT IS THE ONE WORTH KEEPING: A PRE-COMMITTED READING IS ONLY AS GOOD
+> AS THE GUARDS BEHIND IT.** The script's branch logic was sound, its floors were real, its CIs were
+> bootstrapped, its held-out leak was 0, and its arms were asserted non-empty -- **and it still
+> declared a breakthrough that random noise reproduces.** Pre-registration protects against moving the
+> goalposts after the fact. **It does not protect against a metric that cannot fail safely in the
+> regime being swept.** *Those are different failures and only one of them was defended against.*
+>
+> ## 🔧 AND A SECOND, CHEAPER TOOLING FAULT FROM THE SAME HOUR
+> The refutation script itself **died after its full multi-minute corpus read** on
+> `ValueError: unsupported format character '>'` -- a line left behind by a `sed` substitution that
+> silently failed to match. **`py_compile` reported success**, because an invalid conversion character
+> is a RUNTIME error, not a syntax error. **"COMPILES OK" was structurally incapable of catching it,
+> and I treated it as verification.**
+> **➡️ FIXED: `tools/check_format_strings.py`** walks the AST and renders every `%`-literal against
+> dummy args. Self-tested with a positive control -- it fires on the exact literal that broke the run
+> and stays silent on a valid one. *Two rules: a `sed` that does not match fails SILENTLY, so verify
+> the edit took; and **COMPILING IS NOT EXERCISING** -- before an expensive run, exercise the cheap
+> surfaces.*
+
 > # 🧭 **WHERE THE FIDELITY PASS ACTUALLY LEAVES US -- THE SYNTHESIS, 2026-08-20.**
 > *Marked as a SYNTHESIS, not a result: the DG sweep's third seed and the real-data tie-convention
 > numbers had not landed when this was written. The analytic refutation is decisive for the sparse
