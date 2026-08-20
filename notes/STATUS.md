@@ -48,7 +48,40 @@ estimate would have produced a false positive where the paired statistic said no
 **Two of the day's best results were already on disk, unread. The archive out-performed the runs.**
 
 
-## TOP ITEM -- A DEFINITION HELPS WHEN **LOOKED UP**, NOT WHEN **READ** (1 seed; 2 running)
+## TOP ITEM -- ⛔ **THE "LOOKED-UP DEFINITION" WIN IS WITHDRAWN ON ITS SECOND SEED**
+
+**Seed 7 gave `BOTH` a 16-rank gain. Seed 101 gives it -1.0 AND AN INFORMATION-FREE BLEND BEATS IT.**
+
+| seed 101, n=119, 195 candidates | rank |
+|---|---|
+| PROFILE | 53.0 |
+| BOTH (profile + **right** lookup) | 52.0 -- a **1-rank** "gain" |
+| BOTH_SHUFFLE (profile + **wrong** lookup) | 62.0 |
+| **BOTH_NOISE (profile + RANDOM VECTOR)** | **45.0 -- BEST ARM ON THIS SEED** |
+| COOC | 3.0 |
+
+**BLENDING WITH RANDOM NOISE BEAT BLENDING WITH THE RIGHT DEFINITION.** The guard printed its own
+verdict unprompted: *"AN INFORMATION-FREE BLEND ALSO BEATS THE PROFILE -- the gain is SMOOTHING, not
+the definition. BOTH is an ARTIFACT unless it clears these two."* Also unstable WITHIN seed 101
+(+11.5 low exposure, -16.0 high, where seed 7 won both). **Seed 13 still running; the verdict does
+not depend on it.**
+
+**⚠️ FOURTH SINGLE-SEED WIN READ AS A RESULT IN A WEEK. The rule was written in my own limits
+section BEFORE the second seed ran, and I still led with the headline.**
+**✅ WHAT WORKED: the controls were added BEFORE replication, precisely because a blend beating its
+own component is where artifacts hide. They caught it automatically.**
+
+**WHAT SURVIVES ON BOTH SEEDS:** `DEF_LOOKUP` alone is WORSE than `PROFILE` (67.0/54.5; 69.0/53.0).
+`SHUFFLE_LOOKUP` is far worse than `DEF_LOOKUP` (106/67; 104/69) -- **the definitions DO carry
+term-specific signal, just not enough.** **`COOC` 5.0 / 3.0 crushes every arm on both seeds.**
+
+**⛔ AND MY HOUR-OLD CORRECTION IS ITSELF WITHDRAWN.** I used this artifact to refute my own
+"combining dilutes when one channel is weaker" and replace it with "the condition is INDEPENDENCE".
+**That refutation rested on the artifact. NEITHER boundary is established** -- both claims came from
+single runs, in opposite directions. *The owner's original three-seed "combining channels helps"
+result is untouched; what is withdrawn is MY attempt to say WHEN.*
+
+## [WITHDRAWN -- KEPT FOR THE RECORD] A DEFINITION HELPS WHEN **LOOKED UP**, NOT WHEN **READ**
 
 **`notes/a_definition_helps_when_it_is_LOOKED_UP_not_when_it_is_read_2026-08-20.md`**
 Two hours ago I measured that indexing a term by its definition's RAW TEXT is 28 ranks worse and
@@ -82,9 +115,21 @@ It is, though, **the first thing measured all day that makes the definitions DO 
    prediction reinterpreted after the fact did not succeed.**
 
 *🚫 `GENUS_HEAD` alone (71.2) is the WORST definition arm -- mild evidence against the narrowest
-"head noun is the schema pointer" reading. 🧠 PINNED: schema-congruent items consolidate rapidly
-(Tse 2007). OUR INVENTION UNDER TEST: that averaging the definition's word-profiles stands in for
-that. It scored well; that does not make it the brain's mechanism.*
+"head noun is the schema pointer" reading.*
+
+### ⛔ **3rd CORRECTION: I LABELLED THE BRAIN MECHANISM "PINNED". `ORGAN_MAP.md` §G1 SAYS IT IS NOT.**
+Verbatim: *"Lexical-semantic acquisition: **UNPINNED, deliberately** ... No equation is offered for
+either half. (And the strong 'fast mapping writes directly to cortex' alternative has **collapsed
+under replication** -- Warren & Duff 2014; Cooper, Greve & Henson 2019.)"*
+**PRESENTING AN INVENTION AS BRAIN-DERIVED IS THE SPECIFICALLY BARRED MOVE, and it is the SAME
+FAULT ALREADY ON RECORD FOR VSA BINDING.** I cited Tse et al. 2007 as pinning schema-dependent
+rapid consolidation; **I was not entitled to.** What stands: the BEHAVIOURAL phenomenon (few-shot
+word learning when told the kind of thing) -- a fact about behaviour, not a mechanism. **The
+profile-averaging stand-in is OUR INVENTION UNDER TEST.** The empirical ranks are unaffected; **the
+JUSTIFICATION is withdrawn**, which matters because a brain-derived label is what would license
+building on this without more evidence. *Found only by running the THIRD archive check (ORGAN_MAP
+corrections) AFTER building -- the rule is three reads BEFORE proposing a brain mechanism, and I did
+two of them late.*
 
 ## [SUPERSEDED, THE NARROW VERSION] THE OBVIOUS FIX -- INDEXING *BY* THE RAW DEFINITION -- FAILS
 

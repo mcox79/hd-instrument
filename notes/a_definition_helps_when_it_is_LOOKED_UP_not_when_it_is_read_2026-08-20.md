@@ -1,4 +1,48 @@
-# A DEFINITION HELPS WHEN IT IS **LOOKED UP**, NOT WHEN IT IS **READ** -- AND IT ONLY HELPS *ALONGSIDE* THE PROFILE
+# ⛔⛔ **WITHDRAWN ON THE SECOND SEED. THE HEADLINE BELOW IS AN ARTIFACT.** ⛔⛔
+
+**Seed 7 gave `BOTH` a 16-rank gain. Seed 101 gives it -1.0, and the INFORMATION-FREE CONTROL BEATS
+IT.**
+
+| seed 101, n=119, 195 candidates | rank |
+|---|---|
+| PROFILE | 53.0 |
+| BOTH (profile + **right** definition-lookup) | 52.0 -- **a 1-rank "gain"** |
+| BOTH_SHUFFLE (profile + **wrong** definition) | 62.0 |
+| **BOTH_NOISE (profile + RANDOM VECTOR)** | **45.0 -- THE BEST ARM ON THIS SEED** |
+| COOC | 3.0 |
+
+**BLENDING WITH RANDOM NOISE BEAT BLENDING WITH THE RIGHT DEFINITION.** The guard printed its own
+verdict without being asked: *"AN INFORMATION-FREE BLEND ALSO BEATS THE PROFILE -- the gain is
+SMOOTHING, not the definition. BOTH is an ARTIFACT unless it clears these two."*
+
+**SO THE SEED-7 RESULT WAS A LUCKY DRAW AND THE MECHANISM STORY BUILT ON IT IS VOID.** It is also
+unstable *within* seed 101: `BOTH` beats `PROFILE` by 11.5 in the low-exposure stratum and LOSES by
+16.0 in the high one, where seed 7 had it winning in both.
+
+**⚠️ FOURTH TIME IN A WEEK A SINGLE-SEED WIN WAS READ AS A RESULT.** The standing rule -- *a
+single-seed win is a HYPOTHESIS* -- is written in the note below, by me, before the second seed ran.
+**The rule was written down, applied to the limits section, and I still led with the headline.**
+
+**WHAT SURVIVES, ON BOTH SEEDS:**
+- **`DEF_LOOKUP` alone is WORSE than `PROFILE`** (67.0 vs 54.5; 69.0 vs 53.0). Consistent.
+- **`SHUFFLE_LOOKUP` is far worse than `DEF_LOOKUP`** (106 vs 67; 104 vs 69), so **the definitions
+  DO carry term-specific signal -- just not enough of it.** Consistent, and the one honest positive.
+- **`COOC` reads 5.0 / 3.0 and crushes every arm on both seeds.** Consistent.
+
+**⛔ AND THE CORRECTION I MADE AN HOUR AGO IS ITSELF WITHDRAWN.** I used the seed-7 `BOTH` result to
+refute my earlier claim that "combining dilutes when one channel is weaker", replacing it with "the
+condition is INDEPENDENCE, not comparable strength". **That refutation rested on this artifact, so it
+is void.** Honest position: **NEITHER boundary condition is established -- both claims were built on
+single runs, and combining behaved inconsistently across seeds.** *The earlier note has been restored
+to say that rather than leaving my confident correction standing.*
+
+**WHAT WORKED: the control did its job.** `BOTH_NOISE` and `BOTH_SHUFFLE` were added *before* the
+replication, precisely because a blend beating its own component is where an artifact hides. They
+caught it automatically, on the first seed that disagreed.
+
+---
+
+# [WITHDRAWN -- KEPT FOR THE RECORD] A DEFINITION HELPS WHEN IT IS **LOOKED UP**, NOT WHEN IT IS **READ**
 
 **2026-08-20, late.** Two hours ago I measured that indexing a term by its definition's raw text
 vector retrieves **28 ranks WORSE** than the accumulated profile, and concluded the route was
@@ -61,15 +105,36 @@ one.** What it is: the first thing measured all day that makes the definitions *
 
 ## 🧠 THE BRAIN FRAME, AND WHAT IS PINNED VS INVENTED
 
-**Fast mapping (Carey & Bartlett) + SCHEMA-DEPENDENT RAPID CONSOLIDATION (Tse et al. 2007):** a new
-item integrates in one or few exposures **when it slots into an existing schema**, slowly when it
-does not. The definitional genus IS the schema pointer.
-- **PINNED BY EVIDENCE:** that schema-congruent items consolidate rapidly; that prior knowledge is
-  what makes one-shot learning possible.
+> # ⛔ **CORRECTED WITHIN THE HOUR: I LABELLED THIS MECHANISM "PINNED BY EVIDENCE". IT IS NOT.**
+> **`notes/ORGAN_MAP.md` §G1 says the opposite, verbatim:** *"Lexical-semantic acquisition:
+> **UNPINNED, deliberately.** ... **No equation is offered for either half.** (And the strong 'fast
+> mapping writes directly to cortex' alternative has **collapsed under replication** -- Warren & Duff
+> 2014; Cooper, Greve & Henson 2019.)"*
+>
+> **PRESENTING AN INVENTION AS BRAIN-DERIVED IS THE SPECIFICALLY BARRED MOVE** -- the standing rule
+> is *invent freely, but never label an invention as pinned* -- and it is **the same fault already
+> on record for VSA binding**, where every brief and organ row calling it brain-derived was found
+> mislabelled. **I found this only because I ran the THIRD archive check (ORGAN_MAP's corrections)
+> AFTER building, which is also the wrong order.** The prior-work rule is three reads *before*
+> proposing a brain mechanism, and I did two of them late.
+>
+> **THE EMPIRICAL RESULT IS UNAFFECTED** -- the ranks, the controls and the shuffles are what they
+> are. **What is withdrawn is the justification**, and that matters because a brain-derived label is
+> exactly what would license building on this without further evidence.
+
+**WHAT IS ACTUALLY STANDING, STATED HONESTLY:**
+- **BEHAVIOURAL PHENOMENON, not disputed:** children acquire a usable word meaning from very few
+  exposures when told what kind of thing it is (Carey & Bartlett fast mapping). *That is a fact
+  about behaviour, not a mechanism, and it is all I am entitled to lean on.*
+- **MECHANISM: UNPINNED.** Per ORGAN_MAP G1 the field offers no equation for either the fast or the
+  slow phase of lexical-semantic acquisition, and the strong direct-to-cortex account has failed
+  replication. **I should not have cited Tse et al. 2007 as pinning this.**
 - **OUR INVENTION, UNDER TEST:** that *averaging the profiles of the definition's content words* is
-  a faithful stand-in for schema-linked integration. **It is a stand-in. It scored well; that does
-  not make it the brain's mechanism**, and the honest version of this result is "a
-  schema-pointer-shaped intervention helped", not "we implemented fast mapping".
+  a stand-in for schema-linked integration. **It scored well; that does not make it the brain's
+  mechanism.** The honest sentence is *"a schema-pointer-SHAPED intervention helped on this task"* --
+  never *"we implemented fast mapping"*.
+- **UNPINNED != STOP** (standing rule): testing the best brain-motivated candidate is allowed. What
+  is barred is the label, and the label is what I got wrong.
 
 ## LIMITS
 

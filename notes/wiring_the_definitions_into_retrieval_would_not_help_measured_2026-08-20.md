@@ -40,7 +40,29 @@ using its GENUS for inference or type-checking, or using it to seed a term's rep
 encounter rather than to replace it afterwards. *This project's own rule: a fair test of a WEAK
 implementation proves that setup failed, not that the capability is impossible.*
 
-## ⛔ THE "BOUNDARY" BELOW IS **REFUTED** -- BY A FOLLOW-UP THE SAME EVENING. READ THIS FIRST.
+## ⚠️ STATUS OF THE "BOUNDARY" BELOW: **NOT ESTABLISHED, AND NEITHER IS THE THING THAT REFUTED IT.**
+
+**Read this before the two sections that follow, because they argue opposite things and BOTH rest on
+single seeds.**
+
+1. Below I claimed *"combining helps when channels are comparably strong; a strictly weaker one
+   DILUTES."* One experiment, one seed.
+2. An hour later I marked that REFUTED, on the strength of a `BOTH` arm that gained 16 ranks with a
+   weaker second channel.
+3. **That refuting result died on its second seed** -- `BOTH` fell to a 1-rank gain and an
+   information-free NOISE blend beat it outright
+   (`notes/a_definition_helps_when_it_is_LOOKED_UP_not_when_it_is_read_2026-08-20.md`).
+
+**➡️ SO NEITHER STATEMENT IS ESTABLISHED. Combining behaved inconsistently across seeds and I have
+no evidence for any boundary condition on it.** The owner's original "combining channels helps"
+result stands on its own three-seed evidence elsewhere and is untouched by any of this; what is
+withdrawn is MY attempt to say WHEN it helps -- twice, in opposite directions, each time from a
+single run.
+
+*The finding in this note -- that indexing BY the raw definiens text is 28 ranks worse -- is a
+separate measurement and still stands.*
+
+## [SUPERSEDED CORRECTION -- ITS EVIDENCE WAS ITSELF WITHDRAWN] THE "BOUNDARY" IS REFUTED
 
 **I wrote below that "combining helps when the channels are comparably strong; when one is strictly
 weaker it DILUTES." THAT WAS A GENERALISATION FROM ONE DATA POINT AND IT IS WRONG.**
