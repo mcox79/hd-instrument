@@ -31,22 +31,27 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 > structure we chose -- the *did-the-test-items-exist-before-the-mechanism* trap. **Search the shelf
 > first; fables carry explicit morals.**
 
-## ⚠️ **UNRESOLVED ANOMALY -- `data/capability_registry.jsonl` SHOWS A WHOLE-FILE DIFF I COULD NOT**
-## **EXPLAIN. LEFT UNCOMMITTED ON PURPOSE. DO NOT `git checkout` IT BLINDLY.**
-Flagged 2026-08-20 at end of loop, because hiding it would be worse than not solving it.
-- `git diff` reports **208 insertions / 208 deletions** -- every row -- and `--ignore-all-space`
-  reports the SAME, so it is **not** whitespace. `core.autocrlf` is **false**.
-- **BUT the two versions are IDENTICAL on every check I could run:** byte size **508729 == 508729**,
-  **208 rows == 208 rows**, and the `id` sequence is **identical and in the same order**.
-- My three intended edits to this file (registering `keep_noting_grounded`, then the three unregistered
-  hdlab modules) each committed cleanly at the time -- `2fcb6882d` and `5add6fb5a`.
+## ✅ **[SOLVED 2026-08-20, POST-COMPACTION] THE `data/capability_registry.jsonl` "WHOLE-FILE DIFF"**
+## **WAS THE SCHEDULED AUDIT STAMPING `last_audit_utc`. BENIGN. NOT CORRUPTION.**
+**832 differing bytes across 208 rows, and every one of them is inside a `last_audit_utc` value:
+`"2026-08-20T08:35:45Z"` -> `"2026-08-20T09:15:02Z"`.** The distinct byte substitutions are only
+`(51,49) (52,48) (53,50) (56,57)` -- i.e. digits. `hd_capability_registry_audit` re-stamps every row
+each run, and an ISO timestamp is FIXED-WIDTH, which is exactly why size (508729), row count (208)
+and `id` order were all identical while the content differed.
+**➡️ THE LESSON, AND IT IS THE ONE THIS PROJECT ALREADY HAS A RULE FOR: I CHECKED SIZE, ROW COUNT AND
+ID ORDER -- THREE PROXIES -- AND CALLED IT "IDENTICAL ON EVERY CHECK I COULD RUN". `cmp` ANSWERED IT
+IN ONE COMMAND** (`differ: char 3740`). *An absence claim built from proxies inherits every blind
+spot of the proxies; a direct byte comparison has none.* **Do not re-open this. The file is fine, and
+the diff is safe to commit or discard.** *The standing rule -- never `git add -A` the registry --
+still applies for unrelated reasons.*
 
-**WHAT I DID: NOTHING.** The working tree is left as-is and the diff is left uncommitted. *Committing
-a whole-file change I cannot characterise would put unexplained churn into the canonical registry;
-reverting it might discard a real edit. Both are worse than leaving it visible.*
-**➡️ FOR WHOEVER PICKS THIS UP: diff a single row against `git show HEAD:data/capability_registry.jsonl`
-and find the actual byte-level difference before doing anything to this file.** *The registry is
-canonical and the standing rule is never `git add -A` it.*
+**⚠️ SEPARATE AND STILL UNEXPLAINED, FOUND WHILE SOLVING THE ABOVE: the working tree carries ~380
+modified files, MOSTLY `data/exp_*/metrics.json` WHOSE ONLY CHANGE IS `ts_iso`** (e.g.
+`2026-08-13T16:09:40` -> `2026-08-18T23:35:04`, verdict still `RUNNING`), **plus 7 DELETIONS** (3
+`data/cornerstone_results/*/metrics.json`, 3 `notes/_forensics_*`, 1 `prereqs/*.md`). **None of it is
+this session's work and none of it has been touched.** *Same class as the registry -- a marker
+rewrite, not content loss -- but the DELETIONS are not, and should be characterised before anyone
+commits or reverts this tree.*
 
 ## 🧭 RESUME HERE -- **REWRITTEN 2026-08-20 (LATEST). BOTH BOARD Qs ANSWERED; NEXT STEP UNSTARTED.**
 
