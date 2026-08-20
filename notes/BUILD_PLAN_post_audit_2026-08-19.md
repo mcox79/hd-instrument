@@ -56,14 +56,53 @@
 > the CLS replay cell that exists is MIDDLE_BAND (closed-loop 0.576 vs uniform 0.521, below its
 > >=0.08 bar). **An "unexplored gap" claim over 176 landed cells needs an ENUMERATION, not a hunch.**
 >
-> ## ➡️ THE NEXT MOVE, AND IT IS STILL FREE
-> **Ask ONE question of those 176 landed replay/consolidation cells: did ANY of them change the KIND
-> of code, or do they all also reduce to reweighting a sum?**
-> - *All reduce to reweighting* -> the fidelity gap is real and survives 176 cells, which is a much
->   stronger claim than "nobody tried it", and it names the build target precisely.
-> - *One genuinely transformed the code* -> **we should be WIRING it, not rebuilding it** -- and that
->   is the wire-don't-island failure this project keeps paying for.
-> *Either answer is worth having and neither needs a GPU.*
+> ## ✅ **THE ENUMERATION IS DONE, AND THE GAP SURVIVES 266 LANDED CELLS.**
+> `scratch/enumerate_consolidation_cells.py`. **311 replay/consolidation cells, 266 LANDED.**
+> Classified by whether the stored code stays a (re)WEIGHTED SUM of traces or leaves that family --
+> *selection, gating, prioritised replay and scalar normalisation all only change the WEIGHTS, and a
+> weight of zero is still a weight.*
+>
+> | | count |
+> |---|---|
+> | **NON-LINEAR candidates** (sparsify / quantise / prototype / bind / truncate / learned / attractor) | **30** |
+> | linear-only (weights) | 45 |
+> | **matched NOTHING -- the filter says nothing about these** | **191** |
+>
+> **POSITIVE CONTROL PASSED, and the run was built to REFUSE without it: the same filter finds 1,356
+> of 8,836 cells archive-wide, spread across all seven operations** (bind 501, prototype 431,
+> attractor 326, sparsify 91, quantise 78, truncate 74, learned 24). *A filter that could not find
+> k-WTA or binding in 8,836 cells could not be trusted to report their absence in a subset.*
+>
+> ## 🔑 **AND THE DECISIVE CUT: 29 OF THE 30 NEVER TOUCHED THE WORD-MEANING TASK.**
+> Every one is a **STORE-level** result -- cortex/hippocampus handoff at M=2048/8192, Hopfield
+> consolidation, codebook consolidation, compressed sequence replay, SVD atom merge, capacity. The
+> single cell matching reading/vocabulary wording at all is `exp_ner_frame_semantic_cpu_v1`, a
+> HARD_FAIL NER frame cell -- not a consolidation transform over word profiles.
+> **➡️ SO THE CLAIM IS NOT "NOBODY TRIED IT". IT IS THE MUCH STRONGER "IT WAS TRIED 30 TIMES, ALWAYS
+> ON A DIFFERENT OBJECT."** *That is what an enumeration buys over a search.*
+> **⚠️ HONEST LIMIT, STATED BECAUSE 191 IS MOST OF THE POPULATION: the filter matched nothing on 191
+> landed cells, so this is evidence about the 75 it classified, not about all 266.**
+>
+> ## 🎯 **THE ONE CANDIDATE IT SURFACED -- AND WHY THE ANSWER IS *MEASURE*, NOT *WIRE*.**
+> `exp_cls_ca3complete_consolidation_v1` = **HARD_PASS** (Buzsaki two-stage CLS): consolidation keeps
+> OLD **0.933** where naive forgets it at **0.020**, while still acquiring NEW 0.893.
+> `hdlab/ca3_completer.py` is registered **`WIRE_BEHIND_FLAG` / `WIRED_BUT_NOT_PIPELINE_REACHABLE`**,
+> and `substrate.py:184` carries it as **slot D2 "complete a pattern from a partial cue",
+> NEEDS_ADAPTER.** *It is a POST-HOC NON-LINEAR TRANSFORM -- exactly the family the evidence points
+> at -- and it is not reachable from the reading path.*
+> **⛔ BUT WIRING IT NOW WOULD REPEAT THE EXACT MISTAKE THE OWNER BARRED, AND THREE THINGS SAY SO:**
+> 1. **Its headline win is anti-FORGETTING, and we do not have a forgetting problem** -- we measured
+>    the opposite, `cos(profile_16k, profile_2k) = 1.000000`, a profile that never moved at all.
+> 2. **Its own ablation puts the ATTRACTOR at +0.053** (NO_CLEANUP 0.880 vs FULL 0.933). The large
+>    number belongs to two-stage replay, not to pattern completion.
+> 3. **The partial-cue regime is already documented as STRUCTURALLY CAPPED** -- a cheating WordNet
+>    oracle reads 0.8787 at the exact key and **0.0365 under the partial cue**. A cleanup attractor
+>    cannot rescue a cue that thin.
+> **➡️ SO THE NEXT TEST IS CHEAP AND WIRES NOTHING: apply a post-hoc non-linear cleanup to the
+> profiles WE ALREADY HAVE and re-score on the SAME task, floors and CIs.** It is the one mechanism
+> class eleven write-side failures point at, it is brain-pinned (D2 exists and is unfilled), and
+> **it can fail cleanly: if a post-hoc transform cannot move our task either, the post-hoc lead dies
+> too -- and that would be the single most informative negative available to us right now.**
 
 > # 🧭 [PREVIOUS] HANDOFF -- 2026-08-20 POST-COMPACTION.
 > *Supersedes the end-of-loop handoff below it.*
