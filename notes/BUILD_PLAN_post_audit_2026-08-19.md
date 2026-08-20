@@ -413,7 +413,41 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
-> ## 🚨🚨 CORRECTION TO THE BLOCK BELOW -- **ORGAN_MAP ALREADY SAID "DO NOT RE-PROPOSE THIS", IN**
+> ## 🧊 RAN -- **"DO WE HAVE A FORGETTING PROBLEM?" IS THE WRONG QUESTION: A CONSOLIDATED PROFILE**
+> ## **IS FROZEN *EXACTLY*, FOREVER. NOTHING CAN BE FORGOTTEN BECAUSE NOTHING IS EVER WRITTEN AGAIN.**
+> *Asked before building D8 (cascade synapse -- MISSING, math FULLY PINNED) because its pinned benefit
+> is MEMORY LIFETIME, and scoring that on the phase curve would repeat tonight's testing-effect
+> category error.*
+>
+> **THE DIAGNOSTIC'S OWN VERDICT WAS VOID AND I CAUGHT IT WITH THE RULE I WROTE THREE HOURS EARLIER.**
+> It reported EARLY_RARE 32.0 and EARLY_COMMON 28.0 at **every one of five checkpoints**, drift
+> exactly 1.00x, and concluded "nothing is forgotten". An exactly-constant series is a reachability
+> failure until proven otherwise. Verified directly:
+>
+>     frozen terms whose profile changed, 2,000 -> 16,000 sentences:  0 of 74
+>     mean relative change in profile norm:                           0.0000
+>     mean cos(profile_16k, profile_2k):                              1.000000
+>
+> **THE PROFILES NEVER UPDATED. Of course nothing was forgotten -- nothing was written.**
+>
+> **🔑 AND THAT IS A REAL FINDING, STRONGER THAN THE ONE IT REPLACES.** The session already knew the
+> reader "stops taking notes once it knows a word" (century: 7 notes across 92 sightings). **This
+> measures the cutoff exactly: it is not FEWER notes, it is ZERO further notes, permanently, to
+> `cos = 1.000000`.** Mechanism located in code, not inferred: `reading_grounding_loop.py:1716` --
+> after a word grounds and its `KNOWN_WORD` fact is promoted it is no longer a GAP, so the reader
+> stops collecting traces, and `Substrate.profile()` reads exactly those traces.
+>
+> **➡️ D8 IS NOT INDICATED -- BUT NOT FOR THE REASON MY SCRIPT GAVE.** Not "we do not forget", which
+> was unmeasurable here. The correct reason: **you cannot have a memory-lifetime problem in a store
+> that never writes again.** A cascade synapse manages decay of repeatedly-updated weights; ours are
+> write-once-then-sealed. *Building it would be a faithful organ solving a problem the architecture
+> forbids -- exactly the trap the owner named.*
+> **⬅️ THE PRIOR QUESTION IS NOT "DO WE FORGET" BUT "WHY DO WE STOP WRITING", and that lands on the
+> single biggest lever ever measured here: forcing a note on every encounter moved 3.69x -> 2.06x at
+> 8,000 and 6.42x -> 4.39x at 16,000.** Coverage is one of only two levers that has ever moved the
+> phase slope, and the freeze is its mechanism.
+>
+> ## 🚨🚨 CORRECTION -- **ORGAN_MAP ALREADY SAID "DO NOT RE-PROPOSE THIS", IN**
 > ## **WRITING, IN THE SAME DOCUMENT I QUOTED TO JUSTIFY BUILDING IT.**
 > `notes/ORGAN_MAP.md` §3 "THE THREE CORRECTIONS THIS METHOD FORCED ON ITS OWN AUTHOR", correction 1,
 > verbatim: *"**Carandini & Heeger was TRANSPOSED.** The pool index `j` ranges over other NEURONS in
