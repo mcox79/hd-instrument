@@ -1,5 +1,42 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ✅ **Q89 IS ANSWERED (owner, 2026-08-20T20:24Z). THE STANDING INSTRUCTION IS NEW AND IS NOT A
+> # ONE-OFF:**
+> > *"yes this sounds like a promising angle, but you should also **drill relevant theory on reading
+> > around what you're trying to figure out. learning research, linguistic research, even
+> > philosophy. You should not try to figure this out on your own I'm sure there is a hundred years
+> > of research on this**."*
+>
+> **THE DIRECTION IS ENDORSED; THE METHOD IS CORRECTED.** Stop deriving from our own output alone.
+> **`notes/theory_drill_word_learning_definitions_and_pattern_extraction_2026-08-20.md`** -- the
+> first drill took ten minutes and found four literatures, of which:
+> - **ONE CONTRADICTS MY RECOMMENDATION.** Miller & Gildea 1987: children given dictionary
+>   definitions do NOT learn the words -- they build wrong sentences from them. **Definitions are
+>   not how vocabulary is acquired; varied CONTEXT is.** The extraction route yields a better
+>   knowledge artefact, not a better learner -- which our own read-back gap showed independently.
+> - **ONE NAMES OUR OWN MECHANISM AND THE INGREDIENT WE LACK.** Bolger/Balass/Landen/Perfetti,
+>   INSTANCE-BASED word learning: a trace per encounter, meaning by abstraction across **DIVERSE**
+>   encounters; **context VARIATION is the active ingredient and definitions REDUCE its benefit.**
+>   **We sum ten near-identical contexts exactly as ten varied ones and have never measured it.**
+> - **ONE SETS EXPECTATIONS.** Nagy & Anderson: only **5-12% of words are learned from a SINGLE
+>   exposure** even in children. *Perspective, NOT a defence -- the measures are not comparable.*
+> - **ONE IS HUMBLING.** Hearst 1992 / Snow, Jurafsky & Ng 2004: our five hand-written patterns
+>   re-invent a 30-year-old field, whose answer to hand-diagnosing pattern failures is to **LEARN**
+>   dependency-path patterns from a seed set. **And Higgins 1979 already named my "discovered"
+>   copula bug -- with the literature stating the ambiguous cases are settled by INFORMATION
+>   STRUCTURE, not surface form, which caps the marker fix I specified.**
+>
+> ## ⛔ AND THE FIRST TEST BUILT FROM THE THEORY WAS **INVALID BY CONSTRUCTION**
+> **`notes/context_diversity_test_INVALID_by_construction_2026-08-20.md`.** Measuring whether
+> DIVERSITY beats COUNT returned `rho=+0.46 / +0.20` -- *"variety and volume both make it worse"* --
+> **and the design is at fault, not the theory.** The outcome (rank when retrieved from a sentence
+> cue) **rewards TOPICAL NARROWNESS**, and diversity IS topical spread: `uzbeki, turkmeni, tom's,
+> bob's` each occur in ONE article and are trivially retrievable. **Predictor and outcome were
+> anti-correlated before any learning happened.** *Every discipline was followed -- n=4,139, 35,906
+> cue sentences excluded, correct partials -- except asking what the METRIC rewards.* **The claim
+> remains UNTESTED; the valid version is an INTERVENTION (hold count fixed, vary similarity), not a
+> correlation.**
+
 > # 🎯 **THE ONE NAMED, SIZED, REPLICATED TARGET TO COME OUT OF 2026-08-20**
 > **`notes/the_dominant_pattern_is_48_percent_and_its_failures_are_all_one_bug_2026-08-20.md`**
 > *(filename overstates -- see its own banner)*
