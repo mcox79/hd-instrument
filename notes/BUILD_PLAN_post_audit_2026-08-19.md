@@ -1,5 +1,32 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🎯 **THE F5 BAR IS MEASURED, BEFORE THE ORGAN EXISTS (2026-08-21)**
+> `tools/score_anomaly_set_floors.py` on the 102 hand-scored CLEAN items.
+> **DELTA = anomalous-sentence rank vs the ORIGINAL sentence scored at the SAME slot. The original
+> word is CORRECT there, so a DELTA of zero means the arm is responding to the SLOT, not the anomaly.**
+>
+> | floor | anom | orig | DELTA |
+> |---|---|---|---|
+> | **CO-OCCURRENCE SURPRISAL** | **4.00** | 6.00 | **+2.00** -- the ONLY floor that detects anything |
+> | FREQUENCY (flag the rarest) | 2.00 | 2.50 | +0.50 -- **the matching worked** |
+> | POSITION / ORTHOGRAPHIC / LENGTH / CONSTANT | -- | -- | **+0.00, all four: NO anomaly signal** |
+>
+> ### 🚨 **PRE-COMMITTED BAR: F5 must beat median rank 4.0 of ~9 on CLEAN frequency-matched items, gated on that floor's UPPER bound, across >=3 independently-built item sets, `replication_gate.py` = `REPLICATED`, with the ~86% item ceiling printed beside the score.**
+>
+> ### ⚠️ **A LEAK WAS INFLATING THE FLOOR BY 43% OF ITS OWN EFFECT -- CAUGHT BEFORE PUBLISHING**
+> The items were DRAWN FROM the corpus, so a co-occurrence table over all 8,000 sentences **had read
+> each item's original sentence**. Excluding the 120: rank **2.50 -> 4.00**, delta **+3.50 -> +2.00**.
+> *Same class as the held-out split that overlapped its pool 600/600.* The exclusion count now prints
+> every run -- **a control that excludes nothing is not a control.**
+>
+> ### 🚫 **TEMPTATION REFUSED, WRITTEN DOWN BEFORE IT IS ACTED ON:** co-occurrence surprisal separates
+> CLEAN from WEAK items, so it would make a convenient automatic item screen. **Filtering the items
+> with it would tune the set toward the floor and guarantee the floor wins** -- ground-by-X and
+> grade-by-X. Do not.
+>
+> **F5 is NOT pre-empted** (rank 4 of 9 is real but far from ceiling) and **nothing here measures the
+> substrate** -- no arm in that table is ours.
+
 > # 🅰️🅱️ **LANDED 2026-08-21 -- BOTH STANDING ANGLES CLOSED**
 > | | what landed |
 > |---|---|
