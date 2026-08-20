@@ -413,6 +413,41 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🛑 **LINK ONE BREAKS -- AT EXACTLY THE POINT FLAGGED IN ADVANCE. THE CHAIN STOPS HERE.**
+> *The previous block laid out: wire D7 -> real predictor -> real prediction error -> then the
+> owner's idea becomes testable. It named the SR-over-reading mapping as OUR invention and the link
+> most likely to fail, and said to test the predictor BEFORE building on its residual. **Tested. It
+> failed.***
+>
+> | arm | median rank of the true next lemma (vocab 500) |
+> |---|---|
+> | **ONE_STEP** -- plain 1-step co-occurrence `P` | **18.5** |
+> | **SR** -- `M = (I - 0.7P)^-1` | **45.0** |
+> | FREQUENCY -- cue-blind floor | 121.5 |
+> | UNIFORM | ~250 |
+>
+> **SR beats the cue-blind floor (-40.0, CI [-43.0,-37.0]) -- but PLAIN CO-OCCURRENCE BEATS SR by
+> +25.5, CI [+21.0,+29.0], SEPARATED.** *The discounted multi-step structure does not merely fail to
+> add; it actively DESTROYS predictive power that one-step counting already had.*
+>
+> **🧠 FIDELITY READ, AND THE DISTINCTION IS THE WHOLE POINT: D7 IS NOT AT FAULT.** Its self-test
+> recovers the true successor on a deterministic chain, and its math is the pinned closed form. **SR
+> is pinned for STATE TRANSITIONS IN NAVIGATION** (Dayan 1993; Stachenfeld 2017 -- grid cells as
+> eigenvectors of `M`). **Reading is not a Markov walk over states in that sense: the "next lemma"
+> is chosen by syntax and topic, not by a transition policy over a state space.** *We mapped a
+> navigation organ onto text because both look like sequences. That mapping was OUR invention, it
+> was labelled as such in advance, and it does not transfer.*
+> **➡️ SO: DO NOT WIRE D7 INTO THE READING PATH. The organ stays correct, stays registered, and stays
+> uncalled -- and now for a MEASURED reason rather than an oversight.** *And the owner's
+> "note only what is new" idea remains blocked: we still have no real predictor, and the one candidate
+> that looked pinned turns out to be pinned for a different problem.*
+>
+> *⚠️ LIMITATION, CAUGHT ON READING THE OUTPUT: the three "seeds" returned IDENTICAL numbers
+> (45.0/18.5/121.5) because the corpus handle yields the same sentences each time -- only the UNIFORM
+> arm is seeded. **This is ONE text sample with bootstrapped CIs over 408 held-out pairs, NOT three
+> independent replications.** The margin is large and the CIs are over pairs, so the direction is
+> safe; the word "seeds" in that script is wrong and must not be quoted as replication.*
+
 > ## 🧩🧩 **THE THREADS CONVERGE. THE OWNER'S IDEA IS NOT DEAD -- IT IS BLOCKED BY A BROKEN**
 > ## **INSTRUMENT, AND THE ORGAN THAT WOULD FIX THE INSTRUMENT IS ALREADY BUILT AND UNCALLED.**
 > *Written because three separate findings tonight turn out to be one finding, and that is only
