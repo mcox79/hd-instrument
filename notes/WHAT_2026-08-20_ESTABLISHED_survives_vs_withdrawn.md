@@ -150,6 +150,42 @@ facts. **The two organs the standard trace misses -- `definitional_extraction` a
 instrument was blind in exactly the place that mattered. *Corrected in CLAUDE.md's evidence-
 discipline section, which quotes the 35 as the scope of every capability claim.*
 
+### 8e. TEN LANDED CELLS ARE STILL BLOCKED ON HUMAN SCORES NOBODY DID -- now a list, not a lucky grep
+I found two of these BY ACCIDENT today, and each was **the only missing input to a landed verdict**,
+and each **answered a question the project was still treating as open**:
+
+- `exp_definitional_grounding_v3` (8 days) -> the definitional HEAD route is NOT distinguishable
+  from the distributional control.
+- `exp_structured_comparator_v1` (7 days) -> the structured comparator is **significantly WORSE**
+  than the bag-of-words it was built to replace.
+
+**Finding the second one by accident is the signal that this should be enumerated.**
+`tools/find_pending_handscores.py` walks `data/*/metrics.json` FROM DISK (never an index), and
+reports cells whose verdict names a pending human score, which sample artefacts exist, and whether
+anything score-shaped sits beside them. **It never opens an `arm_key*` file** -- reading a key
+before its sample is scored destroys the blinding as thoroughly as editing it.
+
+**RESULT: 10 cells still unscored** (`called_boundary_v7_smoke`, `definitional_grounding_v4`,
+`_v5`, `definitional_predicate_v6/_v61/_v62`, `grounding_quality_readout_v1_smoke`,
+`grounding_text_vs_mechanism`, `reading_grounding_loop_cycle3_groundingfix_v1`,
+`structured_comparator_v1_smoke`). **Each is a landed cell whose question may already be answerable
+from data sitting on disk.**
+
+**AND THE COMPLETED ONES ARE NOW DISCOVERABLE.** Both scores I did today are written beside their
+evidence as `_handscore_verdict_2026-08-20.json` -- **additive; the landed `metrics.json` is NOT
+rewritten**, per the standing discipline -- and the tool recognises that filename, so the worklist
+shrinks as work is done instead of rotting. *Verified: both moved out of the worklist on re-run.*
+
+> **⚠️ ONE UNRESOLVED WRINKLE, SURFACED RATHER THAN DECIDED.** `.gitignore:53` is `data/*/**`, so
+> those verdict files are **LOCAL-ONLY**. Specific audit artefacts (`metrics.json`,
+> `blind_sample.json`, `arm_key.json`, `b3_audit_sample_*`) are tracked by exception -- but the
+> existing completed score, `_joined_verdicts.json`, is **also untracked**, so the precedent for
+> verdicts is local-only. **CONSEQUENCE: on a fresh clone the worklist reads 12 again, because the
+> evidence that two are done does not travel.** *The durable record is in `notes/`, which is
+> tracked, so nothing is lost -- but the TOOL's shrink-as-you-go property is local.* **Making them
+> travel is a one-line `.gitignore` exception, and changing a deliberate repo policy is the owner's
+> call, not one to take unilaterally at 3am inside an autoloop.**
+
 ### 9-11. Infrastructure and governance, all verified from disk
 - **The registry's do-not-wire gate on the definitional module had been CARRIED PAST** while
   `pipeline_status` read `WIRED_BUT_NOT_PIPELINE_REACHABLE` -- wrong in the safe-looking direction.
