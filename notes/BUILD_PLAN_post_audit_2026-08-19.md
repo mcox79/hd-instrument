@@ -1,5 +1,35 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ✅ **THE 78%-NOISE HAND-SCORE IS CLEAN. ITS LINEAGE DOES *NOT* CARRY THE STEMMING DEFECT, SO**
+> # **THE LOAD-BEARING FIGURE STANDS.**
+> *The worry was legitimate: the cell ran **2026-08-12 22:44**, BEFORE the 08-13 lemmatiser fix, and
+> every persisted foundation store from that era is ~12-14% corrupted. But the date is not the test
+> -- the ITEMS are.*
+>
+> | | stem artefacts |
+> |---|---|
+> | the 100 scored OBJECTS | **0 of 100** |
+> | the 100 scored SUBJECTS | 2 of 100 -- and both are **`colin`, `tim`: NAMES**, not stems |
+>
+> **➡️ THE SAMPLE IS CLEAN, and the reason is findable in the code: `definitional_extraction.py:55`
+> reads `from hdlab.thematic_role_labeler import lemma_word as lemma_verb  # canonical
+> never-non-word normalizer` -- the extraction path ALIASES the CORRECT normaliser under the buggy
+> one's name.** So the extractor was never affected; the corrupted `v1`/`v2` stores come from an
+> older pipeline that called the raw buggy `lemma_verb`. **3 MEANINGFUL / 19 RELATED / 78 NOISE is
+> measured on uncorrupted items and needs no re-scoping.**
+>
+> ## ⚠️ AND MY OWN STEM DETECTOR FALSE-POSITIVES ON NAMES -- WHICH INFLATED THE (ALREADY VOID) COUNT
+> It flagged `colin` and `tim` as stems, because appending a suffix happens to reach a real word
+> (`colic`, `time`). **That is the same detector that produced "442 of 3,544 are stemmer artefacts
+> (12.5%)".** Those numbers were already void as a CURRENT defect; this says they were also
+> **INFLATED as a historical one**, since the names half and the stems half were being double-counted
+> into the stems bucket.
+> **🔑 THE GENERAL FAULT, AND IT IS ONE THIS PROJECT ALREADY NAMES: A CHECKER SHARING A FLAW WITH
+> WHAT IT CHECKS.** My restorer's rule was *"if adding a suffix reaches a dictionary word, it was a
+> stem"* -- which cannot distinguish a truncated word from a short name that happens to be a prefix
+> of one. **The positive control I wrote (`baumgartner -> None`) passed only because that surname is
+> long; it never tested a SHORT name, which is exactly where the rule breaks.**
+
 > # ⛔ **THE STEMMING FINDING IS VOID AS A CURRENT DEFECT -- IT WAS FIXED A WEEK AGO AND I**
 > # **MEASURED STORES WRITTEN THE DAY BEFORE THE FIX. I PUT IT ON NEXT-STEPS TWICE.**
 > *I reported "442 of 3,544 grounded concepts are stemmer artefacts (12.5%), 107 confirmed
