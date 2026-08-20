@@ -73,7 +73,37 @@ the module's own `used_by` registry field.
   Supplying four times as much of something nothing can use competitively is not four times the
   value. **Correcting that on the board is more useful than leaving it to read as encouragement.**
 
-## THE HONEST OPEN QUESTION THIS RAISES
+## ✅ SETTLED SAME DAY -- MY HYPOTHESIS BELOW WAS WRONG, AND THE TRUTH IS WORSE AND CLEANER
+
+I guessed the read-back had been tested only on single-word content, so that its failure might be a
+verdict on its input. **That is wrong. Read the index construction and the answer is structural:**
+
+`hdlab/cortical_recall.py:90 build_cortical_index(consolidated, context_profiles, space)` iterates
+the consolidated **TERMS** and builds **one unit vector per term out of `context_profiles`** (the
+accumulated context vector) and/or the spoke vector. **The meaning VALUE -- `consolidated[term]`,
+the phrase we worked all day to improve -- is never vectorised, never compared, never read.** The
+dict is used for its KEYS. `cortical_recall` then attaches the meaning to the returned hit purely
+for display ("returns the concept's GROUNDED MEANING rather than a raw lemma"), after ranking is
+already done. `cue_vector` builds the query from `context_profiles` too, so **both sides of the
+comparison are the distributional representation.**
+
+**➡️ THE CONTENT OF THE CONSOLIDATED STORE IS ARCHITECTURALLY IRRELEVANT TO THE ONLY ROUTE THAT
+READS IT. Going from 4% to 32% MEANINGFUL CANNOT move this route, because the route never looks at
+the meaning.** What the definitional gate changes is *which terms* reach consolidation -- the
+candidate SET, i.e. coverage -- not the vectors anything is ranked by.
+
+**AND THAT MECHANICALLY EXPLAINS THE INERTNESS FINDING.** *"Consolidation, definitions and foraging
+are INERT on the read-out; ablations demonstrably fire (provenance 68 -> 0) and change no arm to
+four decimals."* Of course they do: the read-out ranks by accumulated context profiles, which is the
+representation measured at or below co-occurrence counting on every controlled test this week.
+**This is not a tuning gap. Nothing in the read path consumes meaning.**
+
+**SO THE REAL GAP IS NAMED, AND IT IS A BUILD TARGET RATHER THAN A DEFECT:** there is no route in
+this substrate by which the CONTENT of a learned definition affects any later answer. Whether that
+should be built is a strategy call, not mine -- **but "improve the definitions" and "improve the
+read-out" are currently disconnected problems, and that was not visible before today.**
+
+## THE HYPOTHESIS THIS REPLACED (kept, because it was wrong in a useful way)
 
 **Is step 3 failing because the READ is weak, or because the CONTENT is thin?** The cortical read
 was measured on the store as it was -- **and that store was ~0% multi-word on the population the

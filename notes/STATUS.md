@@ -68,14 +68,28 @@ its absence meant consolidation could be ablated to zero without moving the read
 
 **➡️ WE ARE WRITING BETTER NOTES INTO A NOTEBOOK NOTHING READS COMPETITIVELY.**
 
-**🔑 THE OPEN QUESTION, AND IT IS THE TOP ITEM BECAUSE IT IS CHEAP AND DECIDES THE PIPELINE BRANCH:
-WAS THAT READ-BACK EVER TESTED ON THE PHRASE CONTENT?** The store population the precision cell
-scored was **0% multi-word**. If the cortical index was built over single-word `canonicalize`
-anchors, **"not competitive" is a verdict on what it was FED, not on the route.** *Hypothesis, not
-a finding -- I have not checked which population that cell indexed.*
-**🚫 DO NOT SPEND ON EXTRACTOR RECALL UNTIL THIS IS ANSWERED.** Four times more material that
-nothing reads competitively is not four times the value. *Q89 amended a second time with this,
-correcting my own "the two branches are much closer" from one turn earlier.*
+### ✅ **SETTLED THE SAME HOUR. MY HYPOTHESIS WAS WRONG AND THE TRUTH IS STRUCTURAL.**
+I guessed the read-back had only been tested on single-word content. **No.**
+`cortical_recall.py:90 build_cortical_index` iterates the consolidated **TERMS** and builds one
+vector per term from **`context_profiles`** (+ spoke). **THE MEANING VALUE IS NEVER VECTORISED,
+NEVER COMPARED, NEVER READ** -- the dict is used for its KEYS, and `cortical_recall` attaches the
+meaning to the hit for DISPLAY after ranking is already decided. `cue_vector` builds the query from
+`context_profiles` too, so **both sides are the distributional representation.**
+
+**➡️ THE CONTENT OF THE CONSOLIDATED STORE IS ARCHITECTURALLY IRRELEVANT TO THE ONLY ROUTE THAT
+READS IT. 4% -> 32% MEANINGFUL CANNOT MOVE IT, BECAUSE IT NEVER LOOKS AT THE MEANING.** The
+definitional gate changes WHICH TERMS reach consolidation (the candidate set / coverage), never the
+vectors anything is ranked by.
+**AND THIS MECHANICALLY EXPLAINS THE INERTNESS FINDING** -- consolidation ablates to zero effect
+because the read-out ranks by accumulated context profiles, the representation measured at or below
+co-occurrence counting all week. **NOT A TUNING GAP: NOTHING IN THE READ PATH CONSUMES MEANING.**
+
+**🔑 SO THE REAL GAP IS NAMED AND IT IS A BUILD TARGET, NOT A DEFECT:** there is no route by which
+the CONTENT of a learned definition affects any later answer. **"Improve the definitions" and
+"improve the read-out" are currently DISCONNECTED PROBLEMS, and that was not visible before today.**
+Whether to build the connection is a strategy call -- **Q89 amended a third time with the plain-
+language version.** *🚫 Still do not spend on extractor recall: more material that nothing reads
+is not more value.*
 
 ## [PREVIOUS TOP ITEM, ACHIEVED] PUT THE PHRASE RESULT ON A PROPER FOOTING
 
