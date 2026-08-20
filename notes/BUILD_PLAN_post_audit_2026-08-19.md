@@ -413,6 +413,25 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## ⬅️⬅️ TOP ITEM NOW -- **WHY DOES THIS SUBSTRATE BARELY LEARN FROM NOVELS? THREE CAUSES, AND**
+> ## **THEY MAKE DIFFERENT PREDICTIONS, SO THEY ARE SEPARABLE.**
+> *Three-read check done: `experiment_index` returns **0** for `expository`, `fiction` and
+> `corpus type`; ORGAN_MAP's corrections carry nothing on acquisition regime. Genuinely new ground.*
+>
+> **🧠 THE BRAIN ARGUMENT, AND IT IS NOT A CONVENIENCE ONE.** Children acquire most of their
+> vocabulary from **narrative and conversation**, not from definitional text. A learner that only
+> works on expository prose is not a learner with a corpus preference -- **it is diverging from the
+> acquisition regime the reference standard actually operates in.** The substrate fails precisely
+> where the brain most obviously succeeds.
+>
+> **THE THREE CANDIDATES:** (a) EXPOSURE -- fewer encounters per word; (b) COHERENCE -- similar
+> exposure but far more VARIED contexts, because *novels USE words and textbooks EXPLAIN them*;
+> (c) the machinery TRIES AND REJECTS, which shows up as ESCALATED rather than PENDING.
+> **The PENDING/ESCALATED split is the part that matters most: those two call for completely
+> different fixes, and reporting "fiction does not ground" without separating them hides which.**
+> *Coherence is measured only on items with >=4 traces, so a corpus is not penalised for words it
+> barely met -- that would confound (a) into (b).*
+>
 > ## 📚 **FICTION COULD NOT BE TESTED, AND THE REASON IS A FINDING: THIS SUBSTRATE IS AN**
 > ## **EXPOSITORY-TEXT LEARNER. ON NOVELS IT GROUNDS UNDER 1% OF THE WORDS IT MEETS.**
 > The fiction arm **refused to report** -- 14, 15 and 17 shared candidates against a 40 minimum, so
