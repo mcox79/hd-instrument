@@ -413,6 +413,41 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## ⚠️🚧 **THE OBVIOUS NEXT MOVE IS BARRED, AND NAMING THAT IS THE POINT OF THIS BLOCK.**
+> Last round's finding -- *"our grounding threshold demands more consistency than narrative
+> supplies"* -- has an obvious follow-up: **lower the threshold.** *That is the band-adjusting move
+> this loop explicitly forbids, and it would have produced a lovely number:* a looser gate grounds
+> more words on fiction by construction. **Counting more groundings is not evidence they are RIGHT --
+> lowering a threshold trades precision for recall, and nothing here measures grounding CORRECTNESS,
+> only rate.** *The distinction I am holding: changing a MODEL parameter and re-measuring fairly is
+> legitimate; changing it because it makes the number move is not. I could not tell those apart here
+> without a correctness measure, so I did not do it.*
+>
+> ## 🧠 **WHAT THE BRAIN OFFERS INSTEAD IS A DIFFERENT MECHANISM, NOT A LOOSER ONE -- AND WE**
+> ## **IMPLEMENTED ONE SIDE OF A LIVE SCIENTIFIC DEBATE WITHOUT NOTICING THE OTHER SIDE EXISTS.**
+> `grounding_acquisition_loop.py:194`, our own code: *"SHAPE (Medina 2011 PNAS / Trueswell 2013 Cog
+> Psych / Woodard 2016): **exactly one hypothesis** is [carried] ... **the thing the PBV literature is
+> unambiguous about**"*, with `strength` from Stevens 2017 Hybrid Pursuit. **We implement
+> PROPOSE-BUT-VERIFY: one candidate meaning at a time, abandoned on disconfirmation.**
+>
+> **AND PBV PREDICTS OUR FAILURE EXACTLY.** A single hypothesis meeting varied contexts is
+> disconfirmed and abandoned repeatedly -- **which is precisely the elevated ESCALATED rate on
+> narrative (0.3523 vs 0.2616).** *The mechanism is not malfunctioning; it is doing what that model
+> says learners do, in a regime where that model struggles.*
+>
+> **THE COMPETING ACCOUNT IS ALSO LITERATURE, NOT INVENTION: cross-situational statistical learning
+> (Yu & Smith 2007) tracks MULTIPLE candidates in parallel and lets accumulated co-occurrence decide,
+> which needs no two contexts to resemble each other.** It is specifically demonstrated in
+> HIGH-AMBIGUITY, varied-context settings -- our failing regime.
+> *⚠️ HONESTY ABOUT STATUS: these two accounts CONFLICT and the debate is live. Swapping PBV for
+> cross-situational is not "fixing an infidelity" -- it is **choosing the other side of an open
+> question**, and it must be labelled that way rather than as brain-correction. Our archive has
+> **1 hit** for `cross-situational` and **0** for `mutual exclusivity` / `fast mapping`, so the
+> alternative has never been tried here.*
+> **➡️ THE TEST THAT WOULD SETTLE IT FOR US: a parallel-candidate arm against PBV, scored on BOTH
+> genres. If multi-hypothesis tracking rescues narrative while matching PBV on exposition, that is an
+> answer about our substrate -- and a small piece of evidence in a real debate.**
+>
 > ## 🎯 ANSWERED -- **NOT EXPOSURE. CONTEXT CONSISTENCY, AND THE MACHINERY TRIES AND FAILS.**
 > Same 8,000-sentence budget, four corpora, two genres:
 >
