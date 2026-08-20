@@ -413,6 +413,22 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🔬 RUNNING -- **ONE ENCOUNTER vs THE SUM OF ALL OF THEM. FIFTH ANGLE ON ACCUMULATION, AND**
+> ## **THE FIRST THAT POINTS AT SELECTION *AT READ-OUT* RATHER THAN AT WRITE TIME.**
+> Four arms, identical corpus/terms/probes/floors, differing only in what a word's profile IS:
+> `SUM` (today) · `BEST` (the single highest-margin trace) · **`RANDOM_ONE` -- the control that
+> decides it** · `BEST_HALF` (top half by margin -- cliff or gradient?).
+>
+> **⚠️ SCORED ON THE TASK, NOT ON THE MARGIN, AND THAT IS DELIBERATE.** The margin is the quantity
+> `canonicalize` optimises, so selecting the max-margin trace and then reporting its margin would
+> repeat exactly the circularity caught one round ago. **These arms are scored on the same held-out
+> ranking task and the same COOC/FREQ floors as everything else this session.**
+>
+> **WHY `RANDOM_ONE` IS THE ARM THAT MATTERS: if `BEST` ties it, there is no selection effect and the
+> result collapses to "one trace beats a sum" -- a claim about ACCUMULATION, not about choosing
+> well.** *And if `BEST` does beat it, the lever is new: every selector tried this session (novelty,
+> precision, residual gating) chose WHICH TRACES TO STORE. None chose WHICH ONE TO READ OUT.*
+>
 > ## 🔁 **MY OWN "DO NOT BUILD" EVIDENCE WAS CIRCULAR. RE-TESTED PROPERLY -- SAME ANSWER, REAL**
 > ## **REASON, AND IT REJOINS THE SESSION'S MAIN THREAD.**
 > **THE CIRCULARITY, caught before it was quoted anywhere:** the block below compares the anchor
