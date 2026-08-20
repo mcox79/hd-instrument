@@ -15,9 +15,9 @@ MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `### 2026-08-21 -- THE TH
 difference being 7,535 sentences read. First replicated positive from our side on this task.
 **AND IT DOES NOT CLEAR THE BAR** (best CI +30.8 vs gate +44.2), reproducing the standing position
 *at or below counting* on a task that did not exist when that position was formed.
-**NOT CLAIMED: that we are significantly WORSE than counting.** The CIs overlap; a PAIRED
-substrate-vs-counting comparison is untested. Failing a gate is a decision rule, not a significance
-test. `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
+**AND THE PAIRED TEST NOW SAYS WE ARE MEASURABLY BEHIND, not merely not-ahead:
+`SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.**
+Marginal CIs overlapped, which is NOT a test of a difference; the paired test is. `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
 
 ## TOP ITEM`, `## WHAT IS RUNNING`
 (`session_start_hook.py`, `board.py`). **Inside a section use `###`, never `##` -- a `##` here once

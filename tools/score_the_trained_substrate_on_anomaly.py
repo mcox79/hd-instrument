@@ -42,7 +42,8 @@ N_READ = int(os.environ.get("DIAG_N_READ", "8000"))
 
 
 def main():
-    from f5_evaluation_harness import DiagnosticFailure, score_across_sets
+    from f5_evaluation_harness import (DiagnosticFailure, compare_detectors_paired,
+                                       score_across_sets)
 
     from hdlab.corpus_registry import CorpusRegistry
     from hdlab.reading_grounding_loop import (
@@ -104,6 +105,57 @@ def main():
     print("**A margin over the UNTRAINED arm is what learning bought; a margin over COUNTING is what")
     print("the substrate is worth. They are different questions and both are reported.**")
     print("=" * 78)
+
+    # ---- THE PAIRED TEST, which is the only thing that can say "behind" rather than "not ahead"
+    import collections as _c
+    import math as _m
+    df, co, nd = _c.Counter(), _c.defaultdict(_c.Counter), 0
+    for s in sents:
+        u = set(content_lemmas(s)); nd += 1; df.update(u)
+        for w in u:
+            co[w].update(u)
+    _pc = {}
+
+    def prof2(w):
+        v = _pc.get(w)
+        if v is None:
+            pw = df[w] / nd if df.get(w) else 0.0
+            v = {}
+            if pw > 0:
+                for c, j in co[w].items():
+                    if c == w:
+                        continue
+                    pc_ = df[c] / nd
+                    if pc_ > 0 and j > 0:
+                        p = _m.log((j / nd) / (pw * pc_))
+                        if p > 0:
+                            v[c] = p
+            nrm = _m.sqrt(sum(x * x for x in v.values())) or 1.0
+            v = {k: x / nrm for k, x in v.items()}
+            _pc[w] = v
+        return v
+
+    def counting(toks, i):
+        """SECOND-ORDER counting, the strongest floor -- same corpus, same leak control."""
+        vw = prof2(normalize_lemma("".join(c for c in toks[i].lower() if c.isalpha())))
+        if not vw:
+            return -1e9
+        out = []
+        for j, t in enumerate(toks):
+            if j == i:
+                continue
+            vc = prof2(normalize_lemma("".join(c for c in t.lower() if c.isalpha())))
+            if not vc:
+                continue
+            a, b = (vw, vc) if len(vw) < len(vc) else (vc, vw)
+            out.append(sum(x * b.get(k, 0.0) for k, x in a.items()))
+        return -float(np.mean(out)) if out else -1e9
+
+    print("")
+    print("PAIRED SUBSTRATE vs SECOND-ORDER COUNTING -- same items, same slots, same corpus.")
+    print("Two overlapping CIs from separate runs are NOT a test of a difference; this is.")
+    compare_detectors_paired(detector, counting, SETS,
+                             name_a="SUBSTRATE", name_b="COUNTING")
     return 0
 
 

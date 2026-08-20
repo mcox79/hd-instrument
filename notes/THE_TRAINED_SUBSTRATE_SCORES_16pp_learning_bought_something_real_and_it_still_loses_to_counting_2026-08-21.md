@@ -34,16 +34,24 @@ The gate is counting's **upper** bound, `+44.2 pp`. The substrate's best per-set
 task that did not exist when that position was formed.** An independent task returning the known
 answer is a consistency check that passed, and it is worth more than a new number.
 
-## 3. ⚠️ **WHAT I AM *NOT* CLAIMING, AND THE DISTINCTION MATTERS**
+## 3. ✅ **THE QUESTION I FLAGGED AS UNTESTED IS NOW TESTED -- AND THE ANSWER GOES AGAINST US**
 
-**I have NOT shown the substrate is significantly WORSE than counting.** The CIs overlap -- the
-substrate reaches +30.8, second-order counting starts at +20.0. **What is established is that it
-FAILS THE GATE**, which is a decision rule, not a significance test.
+I originally wrote that I had *not* shown the substrate to be significantly WORSE than counting,
+because the marginal CIs overlap (+30.8 vs +20.0) and **overlapping marginal intervals are not a
+test of a difference.** That was correct at the time and it was the right thing to refuse to claim.
 
-*Testing "is our arm significantly below counting" would need a PAIRED comparison of the two arms on
-the same items, which is not what any of these runs did. It is a different question and it is
-untested. Reporting "we lose to counting" as though it were measured here would be exactly the
-scorer-crossing this project's rules forbid.*
+**SO I RAN THE PAIRED TEST** -- same items, same slots, same corpus, each item contributing its own
+`(anom - orig)_SUBSTRATE - (anom - orig)_COUNTING`:
+
+> **SUBSTRATE - COUNTING over 478 items = -0.142 per item, 95% CI [-0.203, -0.082]. SEPARATED.**
+
+**The substrate is MEASURABLY BEHIND second-order counting on this task**, not merely failing to be
+ahead. *The standing position -- "at or below co-occurrence counting" -- can now be stated in its
+stronger form for this task, tested rather than inferred.*
+
+**Note which direction the extra work pointed.** The paired test was the honest follow-up to a
+caution I had written into my own note, and it converted an unresolved overlap into a result that is
+worse for us. That is the correct use of the caution.
 
 ## 4. 🎯 WHAT THIS MEANS FOR F5
 

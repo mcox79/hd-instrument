@@ -257,6 +257,61 @@ def score_across_sets(detector, set_paths, *, name="detector"):
     return {"per_set": res, "replication": v.verdict, "verdict": verdict, "effects": eff}
 
 
+def compare_detectors_paired(det_a, det_b, set_paths, *, name_a="A", name_b="B", seed=23,
+                             n_boot=20000):
+    """Is arm A's discrimination different from arm B's, **on the same items**?
+
+    **THIS ANSWERS A QUESTION `score_across_sets` CANNOT.** Two arms can each have a CI, and those
+    CIs can OVERLAP, without that meaning the arms are indistinguishable -- overlapping marginal
+    intervals are not a test of a difference. Reporting "we lose to counting" from two separate runs
+    would be the scorer-crossing this repo's rules forbid.
+
+    The paired quantity per item is `(anom_A - orig_A) - (anom_B - orig_B)`, each term a 0/1 hit, so
+    it lives in {-2,-1,0,1,2} and every item contributes its own difference. Bootstrap over ITEMS."""
+    from rank_with_ties import rank_with_ties
+
+    per_item = []
+    for sp in set_paths:
+        items = _load(sp)
+        hits = {}
+        for label, det in ((name_a, det_a), (name_b, det_b)):
+            for field in ("sentence_anomalous", "sentence_original"):
+                row = []
+                for it in items:
+                    toks = it[field].split()
+                    cand = sorted({j for j, t in enumerate(toks) if _word(t) in _content}
+                                  | {it["anomaly_token_index"]})
+                    if len(cand) < 3:
+                        row.append(None)
+                        continue
+                    sc = [float(det(toks, j)) for j in cand]
+                    r = rank_with_ties(sc, cand.index(it["anomaly_token_index"]))
+                    row.append(r.pessimistic == 1)
+                hits[(label, field)] = row
+        for k in range(len(items)):
+            v = [hits[(lab, f)][k] for lab in (name_a, name_b)
+                 for f in ("sentence_anomalous", "sentence_original")]
+            if any(x is None for x in v):
+                continue
+            per_item.append((int(v[0]) - int(v[1])) - (int(v[2]) - int(v[3])))
+
+    n = len(per_item)
+    if n < MIN_ITEMS:
+        raise DiagnosticFailure("only %d paired items -- UNDERPOWERED" % n)
+    mean = float(np.mean(per_item))
+    rng = random.Random(seed)
+    boot = [float(np.mean([per_item[rng.randrange(n)] for _ in range(n)])) for _ in range(n_boot)]
+    lo, hi = (float(x) for x in np.percentile(boot, [2.5, 97.5]))
+    sep = lo > 0 or hi < 0
+    print("PAIRED %s - %s over %d items: %+.3f per item, 95%% CI [%+.3f, %+.3f]"
+          % (name_a, name_b, n, mean, lo, hi))
+    print("  -> %s" % ("SEPARATED: the CI excludes zero, so the arms differ" if sep else
+                       "NOT SEPARATED: the CI includes zero. **This is a null, not a tie** -- it "
+                       "says the difference is unresolved at this n, not that the arms are equal."))
+    return {"n": n, "mean_diff": round(mean, 4), "ci": [round(lo, 4), round(hi, 4)],
+            "separated": sep, "a": name_a, "b": name_b}
+
+
 def _self_test():
     """Positive AND negative controls on the HARNESS ITSELF.
 
