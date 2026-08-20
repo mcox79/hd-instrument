@@ -413,8 +413,36 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
-> ## ✅ RAN, FULL SWEEP -- **THE PINNED CORTICAL COMPUTATION, IN THE BRAIN'S OWN POSITION, DOES**
-> ## **NOTHING. THIS IS THE STRONGEST WRITE-SIDE CLOSURE WE HAVE.**
+> ## 🚨🚨 CORRECTION TO THE BLOCK BELOW -- **ORGAN_MAP ALREADY SAID "DO NOT RE-PROPOSE THIS", IN**
+> ## **WRITING, IN THE SAME DOCUMENT I QUOTED TO JUSTIFY BUILDING IT.**
+> `notes/ORGAN_MAP.md` §3 "THE THREE CORRECTIONS THIS METHOD FORCED ON ITS OWN AUTHOR", correction 1,
+> verbatim: *"**Carandini & Heeger was TRANSPOSED.** The pool index `j` ranges over other NEURONS in
+> the same population at the same moment, **so the denominator is a SCALAR for the whole
+> representation. Cosine is invariant to a scalar, so canonical divisive normalisation cannot change
+> a two-candidate argmax at all — 'not weakly, identically not at all.'** What was implemented and
+> measured NULL (+0.0018, CI [−0.0030,+0.0065]) was efficient-coding ADAPTATION (Laughlin 1981;
+> Fairhall 2001), a different real mechanism. **Do not re-propose 'apply divisive normalisation to
+> fix the argmax.'"***
+>
+> **I READ §2 (THE PINNED TABLE) AND QUOTED IT. I DID NOT READ §3 OF THE SAME FILE.** The prior-work
+> habit that has caught six rediscoveries covers `experiment_index.py` and the capability registry --
+> **it does not cover the corrections section of the brain-reference document itself.** That is a new
+> hole and it is exactly the shape of the ones before it: *the answer was on disk, in the file I was
+> already citing.*
+> **➡️ SO THE NULL BELOW IS A REDISCOVERY, NOT A DISCOVERY, AND ITS HEADLINE IS DEMOTED.** It is not
+> "the strongest write-side closure we have"; it is **confirmation of a mechanism ORGAN_MAP had
+> already ruled out on ANALYTIC grounds** -- cosine is scalar-invariant, so a scalar denominator
+> cannot move a cosine ranking.
+> *⚠️ ONE HONEST DIFFERENCE, AND IT IS WHY THE ARMS MOVED AT ALL: my divisor was a scalar PER
+> SENTENCE, not one global scalar, so a term's history accumulated DIFFERENT weights and the profile
+> did change (effective dims 94.7 vs SUM 92.3; ranks reordered). That is why it was not identically
+> zero. It does not rescue the design -- ORGAN_MAP's analytic point stands and predicted the outcome.*
+> **📌 NEW STANDING RULE, ADDED TO CLAUDE.md: BEFORE PROPOSING ANY BRAIN MECHANISM, READ THE
+> CORRECTIONS SECTION OF ORGAN_MAP, NOT ONLY THE PINNED TABLE.** A pinned equation tells you what the
+> brain computes; the corrections tell you what we already got wrong about it.
+>
+> ## ✅ RAN, FULL SWEEP -- **THE PINNED CORTICAL COMPUTATION, IN THE BRAIN'S OWN POSITION, IS INERT**
+> ## **HERE -- AND ORGAN_MAP PREDICTED THAT ANALYTICALLY (see the correction above).**
 > Five points, 1,000 -> 16,000 sentences. Slope of gap-to-counter per e-fold, lower is better:
 >
 > | arm | slope | effective dims 1k -> 16k |

@@ -29,6 +29,7 @@ condensation of this file cannot turn an earned rule into unsourced prose).
 | a "held-out" set built from a FRESH `CorpusRegistry()` overlapped the training pool 600/600; the arm read median rank 3.0 where every other measurement that day read 69-91 | a separate reader over one ordered source is not a separate sample -- draw held-out from the SAME advanced cursor, and PRINT the overlap count every run | *A fresh reader is not a held-out split* |
 | an arm whose accumulator was never written (all-zero profiles) reported median rank 1.0 -- a 20x "win" -- because tied similarities never sort above the target | assert each arm's representation is non-empty before scoring; construct the EMPTY version of a winning arm and check it LOSES | *An empty representation scores perfectly on a rank metric* |
 | every paired difference returned `+0.0` with CI `[+0.0, +0.0]`; the "practice" arm added unit vectors where the substrate accumulates RAW ones (mean norm 44.5), so it was 1/44th of a real read and moved the profile by cos 0.999923 | a zero-WIDTH CI is a reachability failure, not a null -- print added/base, cos-shift and ranks-changed before reading any verdict, and ADD WHAT THE SYSTEM ADDS | *A null that is exactly zero is a reachability failure* |
+| ran a full 5-point sweep on divisive normalisation after quoting ORGAN_MAP §2; §3 of the same file said *"do not re-propose"* it, with an analytic proof (scalar denominator, cosine is scalar-invariant) | the prior-work check before proposing a BRAIN MECHANISM is THREE reads -- registry, `experiment_index.py`, **and ORGAN_MAP's corrections**; grep the whole file, not the row you cite | *Two archives was not enough* |
 | a script exited on "my manipulation failed" before the "the corpus already drifts" check below it could run; both were true, and it suppressed the informative one | a gate's THRESHOLD is not the only thing to check -- check what it EXITS BEFORE; order readings most-informative first | *Non-stationary escape, sixth gate defect* |
 
 Rules on delegation, agent reports, model choice and detached launches are in their own sections
@@ -589,6 +590,36 @@ confirm it fires. A guard nobody has seen fire is a guard nobody has tested.
 *This is the "could this experiment have succeeded?" question — which redirected this session's
 plan three times — applied to resource arithmetic rather than to mechanism. It is the same
 question and it is cheaper than every other way of finding out.*
+
+## TWO ARCHIVES WAS NOT ENOUGH -- **READ ORGAN_MAP'S *CORRECTIONS*, NOT ONLY ITS PINNED TABLE**
+
+**Measured 2026-08-20.** I proposed divisive normalisation over a population pool, justified it by
+quoting `notes/ORGAN_MAP.md` §2 (*"graded competition implemented BY the normalisation pool, not a
+hard argmax"*), queried `experiment_index.py` and the capability registry, found nothing, and built
+and ran a full five-point sweep. It came back inert.
+
+**§3 of the SAME FILE says, verbatim: *"Do not re-propose 'apply divisive normalisation to fix the
+argmax.'"*** — with the analytic reason: the Carandini & Heeger pool index ranges over other
+**neurons at the same moment**, so the denominator is a **scalar for the whole representation**, and
+**cosine is invariant to a scalar.** The mechanism cannot move a cosine ranking. ORGAN_MAP had
+already recorded a NULL for it (+0.0018, CI [−0.0030, +0.0065]) and identified what was actually
+implemented as efficient-coding adaptation (Laughlin 1981; Fairhall 2001).
+
+**The prior-work habit had a hole exactly the shape of the ones it was built to close.** *Two
+archives, two questions* covers "does the tool exist" (registry) and "has this been answered"
+(`experiment_index.py`). **Neither covers "has the brain reference itself already ruled this out."**
+
+**Rule: the prior-work check before proposing a BRAIN MECHANISM is THREE reads, not two.**
+
+| question | where |
+|---|---|
+| Does the tool already exist? | `data/capability_registry.jsonl`, `hdlab/` |
+| Has this question already been ANSWERED? | `tools/experiment_index.py query "<kw>"` |
+| ***Have we already been WRONG about this mechanism?*** | **`ORGAN_MAP.md` §3 corrections — and grep the whole file, not the row you are citing** |
+
+**A pinned equation tells you what the brain computes. The corrections tell you what we already got
+wrong about it — including analytic impossibility results that no experiment needs to re-derive.**
+*Quoting one section of a document is not reading it.*
 
 ## A NULL THAT IS *EXACTLY* ZERO IS A REACHABILITY FAILURE, NOT A RESULT
 
