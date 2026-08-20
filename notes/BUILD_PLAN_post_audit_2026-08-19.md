@@ -30,6 +30,24 @@
 > population mean" on Z-SCORED vectors is cosine to a ~zero vector by construction.*
 > **➡️ SO THE 0.6195 FLOOR NEEDS A DIFFERENT EXPLANATION -- most likely a property of that task's
 > GOLD, not of the norms' geometry. The open question is now about the INSTRUMENT, not the ASSET.**
+>
+> ## 🧱 **AND THEN FIVE EXPLANATIONS WERE TRIED AND ALL FIVE FAILED. THE NEGATIVE IS PROBABLY REAL.**
+> | # | explanation for why the floor beats the norms | outcome |
+> |---|---|---|
+> | 1 | norms are a GENERICITY axis | **refuted** -- PC1 is auditory-vs-haptic, 73.3% residual |
+> | 2 | the gold differs in CONCRETENESS | **refuted** by the cell's own arm, 0.5388 |
+> | 3 | frequency / orthography leakage | **refuted** -- 0.4851, clean 0.5000 |
+> | 4 | an uncontrolled MATCHING IMBALANCE | **insufficient** -- **2.87x too small** |
+> | 5 | TIE-DENSITY artifact | **refuted** -- tie mass exactly **0.000** |
+>
+> **➡️ I TRIED FIVE TIMES TO EXPLAIN AWAY THE RESULT THAT COUNTS AGAINST MY OWN RECOMMENDATION AND
+> FAILED EVERY TIME. THE FLOOR IS PROBABLY REAL AND SO IS THE SENSORIMOTOR NEGATIVE.** *Not
+> refuted -- one instrument, one resolution, and a better-posed follow-up exists -- but **"the
+> negative was an artifact" is no longer an available story.***
+> *Two side-findings: `units.jsonl` keeps only 21 AGGREGATE arm results, so that cell's balance
+> question cannot be re-checked without a re-run (**a balance table with no per-unit values cannot
+> be audited by anyone**); and `F_ORTHOGRAPHIC` is **97.6% ties**, so its reported 0.5 null is an
+> accounting convention, not a measurement.*
 
 > # ✅ **Q89 IS ANSWERED (owner, 2026-08-20T20:24Z). THE STANDING INSTRUCTION IS NEW AND IS NOT A
 > # ONE-OFF:**
