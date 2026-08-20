@@ -1,5 +1,29 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🔧 **TWO CHECKS BUILT 2026-08-20, BOTH FROM FAILURES THAT REPEATED**
+> | tool | the failure it mechanises against |
+> |---|---|
+> | **`tools/replication_gate.py`** | **4 single-seed wins reported as results in one day.** No call signature returns a pass from one seed; `controls=` checks whether an information-free arm reproduced half the effect. |
+> | **`tools/find_pending_handscores.py`** | **landed cells blocked on human scores nobody did.** Found 12; 6 scored tonight, 4 of which answered questions still treated as open. |
+> | **`tools/read_what_the_cell_told_you.py`** | **5x in one day the answer was already in an artifact nobody read.** Flags a cell's own self-qualifying diagnostics. |
+>
+> ## ⚠️ **AND THE THIRD ONE NEEDED TIGHTENING TWICE -- WHICH IS THE LESSON**
+> Run 1 flagged **708** cells (a "has an honest_scope field" rule -- which fires everywhere
+> **because this repo writes honest scope**, a credit not a defect). Run 2 flagged **279** (a
+> CONFIG threshold read as a measurement). Now tiered: **13 in the worklist.**
+> **A CHECK THAT FIRES ON A QUARTER OF THE REPO IS IGNORED.**
+>
+> ## ✅ **AND ITS FIRST FINDING WAS CHASED TO THE END AND DOES *NOT* COMPROMISE ANY VERDICT**
+> `F_ORTHOGRAPHIC` is genuinely **tie-degenerate wherever tie mass is reported** (0.902 / 0.949 /
+> 0.976 across three cells) -- **so what it reports there is an accounting convention, not a
+> measurement.** *But:* in the **3 cells where it is the STRONGEST/binding floor**, the verdicts are
+> **"DOES NOT CLEAR THE FLOOR" / "DO NOT CLEAR THE FLOOR" / "MECHANISM IS THE LIMIT"** -- **all
+> NEGATIVES, and a weak floor is EASIER to clear, so degeneracy would only make them STRONGER.**
+> **THE TWO CONDITIONS NEVER OVERLAP.** *A real observation about one floor; not a claim about any
+> conclusion.* **Also corrected: I reported `exp_feeling_match_rejector_v1` as compromised by a
+> 1.000 tie mass. FALSE POSITIVE -- that is the RIVAL arm where it is blind BY DESIGN; the
+> treatment arm's tie mass is 0.000/max 0.003.**
+
 > # 🧭 **THE DIRECTION IS DECIDED, ON THE OWNER'S OWN CRITERION (Q90 answered 2026-08-20T21:13Z)**
 > > *"if you've drilled this online and it points in other directions to be brain foundational,
 > > follow those directions. if brain foundational points in this direction, do it again and verify
