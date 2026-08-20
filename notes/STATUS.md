@@ -3,7 +3,23 @@
 AS OF: 2026-08-21 ~92 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD Q91 OPEN: this file is still ~2x its cap and I may not raise it myself** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` CARRIES EVERYTHING -- ITS TOP BLOCKS FIRST**
 
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). FOUR literals
-MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`, `## WHAT IS RUNNING`
+MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
+
+| arm, paired hit@1 discrimination, 4 sets | median | verdict |
+|---|---|---|
+| untrained codebook (nothing read) | **~0** | CIs span zero -- donates nothing |
+| **THE TRAINED SUBSTRATE** | **+16.3 pp** | **`REPLICATED`, all 4 CIs exclude zero** |
+| second-order counting (**the bar**, upper bound **+44.2**) | +29.4 pp | `REPLICATED` |
+
+**LEARNING BOUGHT SOMETHING REAL** -- 0 -> +16.3 pp, same representation and comparison, the only
+difference being 7,535 sentences read. First replicated positive from our side on this task.
+**AND IT DOES NOT CLEAR THE BAR** (best CI +30.8 vs gate +44.2), reproducing the standing position
+*at or below counting* on a task that did not exist when that position was formed.
+**NOT CLAIMED: that we are significantly WORSE than counting.** The CIs overlap; a PAIRED
+substrate-vs-counting comparison is untested. Failing a gate is a decision rule, not a significance
+test. `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
+
+## TOP ITEM`, `## WHAT IS RUNNING`
 (`session_start_hook.py`, `board.py`). **Inside a section use `###`, never `##` -- a `##` here once
 terminated `## POSITION` at its own first line and both parsers mirrored an EMPTY position.**
 CHAIN: `BUILD_PLAN_post_audit_2026-08-19.md` (THE PLAN) -> HERE -> `STATUS_LESSONS.md` (detail).
