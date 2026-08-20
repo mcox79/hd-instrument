@@ -853,8 +853,22 @@ class Substrate:
             if not vecs:
                 continue
             out[lem] = np.sum(np.asarray(vecs, dtype=np.float64), axis=0)
+        # CONCEPTSPACE OVERWRITES THE LIBRARY SUM -- and with `keep_noting_grounded` on, that
+        # overwrite silently DISCARDS every trace the flag was added to collect. MEASURED
+        # 2026-08-20, flag ON, 2,000 -> 12,000 sentences over 60 grounded terms: 58 of 60 grew, 2,893
+        # new traces, cos(traceMean_end, snapshot) = 0.775658 -- the Library genuinely moved -- while
+        # cos(profile_end, snapshot) stayed at 1.000000. **The notes were taken and never read**, so
+        # both arms scored an identical median 32.0 and the run looked like a clean null.
+        # Under the flag the two are SUMMED instead. Same units on both sides: `space._sums`
+        # accumulates `context_vector_masked` outputs and `Trace.context_vec` IS that same vector, so
+        # adding them is the accumulation this substrate already does everywhere else.
+        merge_grounded = "keep_noting_grounded" in self.ablate
         for lem, vec in getattr(self.state.space, "_sums", {}).items():
-            out[lem] = np.asarray(vec, dtype=np.float64)
+            cs = np.asarray(vec, dtype=np.float64)
+            if merge_grounded and lem in out and out[lem].shape == cs.shape:
+                out[lem] = cs + out[lem]
+            else:
+                out[lem] = cs
         return out
 
     # -- lazily-initialised caches ------------------------------------------------------------

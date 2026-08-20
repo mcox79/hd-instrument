@@ -413,6 +413,39 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🟢🟢 **FIRST STRUCTURAL IMPROVEMENT OF THE SESSION -- AND IT IS A SINGLE-SEED HYPOTHESIS, NOT**
+> ## **A WIN, UNTIL IT HAS SEEDS AND CIs. BOTH FREEZES OPENED, MEASURED IN THE ASSEMBLY.**
+> Write side (`Library.flag` + `process_sentence`) AND read side (`Substrate.profile` sums the
+> Library traces into the consolidated vector instead of being overwritten by it). Both additive,
+> both default-off, **all self-tests pass** (`grounding_acquisition_loop.self_test`, 7 substrate
+> self-tests). Scoping verified: **68 of 68 grounded profiles differ between arms; every NON-grounded
+> profile is byte-identical.**
+>
+> | sentences | DEFAULT gap | KEEP_NOTING gap |
+> |---|---|---|
+> | 2,000 | 2.29x | **1.93x** |
+> | 4,000 | 2.91x | **2.50x** |
+> | 8,000 | 3.56x | **2.55x** |
+> | 16,000 | **5.33x** | **3.17x** |
+>
+> **Better at EVERY point, and the margin GROWS with scale (16% at 2,000 -> 41% at 16,000). Median
+> rank at 16,000: 32.0 -> 19.0.** Reachability confirmed rather than assumed: `cos-to-snapshot`
+> 1.000000 -> **0.825256**, rel change **1.7132**.
+> **➡️ This is the first thing all session to bend the curve the substrate actually runs on, and it
+> is the post-hoc coverage claim (3.69x -> 2.06x) finally reproducing INSIDE the assembly.**
+>
+> **⛔ WHAT IT IS NOT, AND THESE TRAVEL WITH THE NUMBERS:**
+> 1. **SINGLE SEED, NO CI, MEDIANS ONLY.** This project's own rule: *a single-seed win is a
+>    HYPOTHESIS.* **Do not quote 5.33x -> 3.17x as a result until it has seeds and intervals.**
+> 2. **STILL LOSING.** 3.17x behind the word counter at 16,000. The curve bends; it does not cross.
+> 3. **A DOUBLE-COUNT IS POSSIBLE AND UNRESOLVED.** The merge adds the Library trace sum to the
+>    consolidated vector, and the Library still holds the PRE-grounding traces that produced that
+>    consolidated vector. Some evidence may be counted twice. **The honest next test is
+>    post-grounding traces ONLY**, which would also be the cleaner mechanism claim.
+> 4. **THE SCRIPT'S OWN VERDICT LINE IS STALE** -- it still warns that "the ablation removes novelty
+>    gating wholesale", which was true of the `gap_detector` attempt and is NOT true of the targeted
+>    flag. *Ignore that sentence; the file has been corrected.*
+>
 > ## 🧱🧱 LANDED + MEASURED -- **THE FREEZE IS *TWO* FREEZES. I FIXED THE WRITE ONE; THE READ ONE**
 > ## **SILENTLY DISCARDS EVERYTHING IT PRODUCES. THIRD "WRITTEN AND NEVER READ" OF THE NIGHT.**
 > **SHIPPED (additive, default-off, all module self-tests pass including
