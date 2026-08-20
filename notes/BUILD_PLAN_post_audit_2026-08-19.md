@@ -192,6 +192,39 @@
 > > **🔑 THE GAP IS A BUILD TARGET, NOT A DEFECT: no route exists by which the CONTENT of a learned
 > > definition affects any later answer. "Improve the definitions" and "improve the read-out" are
 > > DISCONNECTED PROBLEMS.** Strategy call -> **Q89, amended a third time in plain language.**
+> >
+> > ### ❌ THE OBVIOUS FIX FAILS -- **indexing BY the raw definition is 28 ranks WORSE**
+> > `PROFILE 64.0 | DEFINIENS 92.0 | BOTH 71.0 | SHUFFLE_DEF 99.0 | COOC 5.0` (n=133, seed 7,
+> > `rank_with_ties`, 3,269 leaked cue sentences excluded and counted).
+> > **DEFINIENS still beats SHUFFLE_DEF, so the definitions are NOT noise -- there is just ~7 words
+> > of signal against a profile summed over dozens of encounters. THE BINDING CONSTRAINT IS VOLUME,
+> > NOT QUALITY**, and that diagnosis is what set up the next result.
+> >
+> > ### ✅ **BUT A DEFINITION HELPS WHEN *LOOKED UP* RATHER THAN *READ* -- SIGN REVERSED**
+> > **`notes/a_definition_helps_when_it_is_LOOKED_UP_not_when_it_is_read_2026-08-20.md`**
+> > Represent the definition as **the mean of the ALREADY-LEARNED PROFILES of the words it NAMES**
+> > -- borrowed volume, not seven thin tokens:
+> >
+> > | seed 7, n=132, 211 candidates | rank |
+> > |---|---|
+> > | PROFILE (shipped) | 54.5 |
+> > | DEF_LOOKUP alone | 67.0 |
+> > | **BOTH = profile + right lookup** | **38.5  (-16)** |
+> > | **BOTH_SHUFFLE** = profile + ANOTHER term's lookup | **58.0 -- WORSE than profile** |
+> > | **BOTH_NOISE** = profile + random vector | **78.0 -- far worse** |
+> > | **COOC** | **5.0** |
+> >
+> > **BOTH INFORMATION-FREE BLENDS HURT, SO THE GAIN NEEDS THE *RIGHT* CONTENT AND IS NOT
+> > SMOOTHING.** Holds in both strata (-19.0 low exposure, -12.0 high). **⚠️ STILL 8x BELOW
+> > COUNTING -- an internal improvement, NEVER a capability claim** -- but the first thing measured
+> > all day that makes the definitions DO anything. **1 seed = HYPOTHESIS; 101/13 running.**
+> > **⛔ IT ALSO REFUTES MY OWN BOUNDARY FROM 2 HOURS EARLIER** ("combining helps only when channels
+> > are comparably strong; a weaker one dilutes"): DEF_LOOKUP is WEAKER and BOTH still gains.
+> > **THE CONDITION IS INDEPENDENCE, NOT COMPARABLE STRENGTH** -- an independent estimate of the
+> > same thing in a comparable representation, not merely more text. *The owner's original
+> > combine-channels hypothesis was right; my amendment made it worse.* **And my pre-committed
+> > prediction FAILED** -- DEF_LOOKUP beat PROFILE in NEITHER stratum; only the combination
+> > stratifies.
 
 
 > # ⛔ **TWO OF MY OWN CLAIMS FROM THE LAST HOUR WITHDRAWN -- AND THE REASON IS A STRUCTURAL FACT**
