@@ -1,5 +1,60 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ✅ **CONFIRMED ON REAL DATA: THE DG WIN WAS 100% TIE-BREAKING. AND A PRIOR-WORK TOOL WAS**
+> # **RETURNING SILENT ZEROS -- THE ARCHIVE HAD ALREADY ANSWERED THIS A MONTH AGO.**
+>
+> ## 1. THE TIE-CONVENTION TABLE (seed 7, real profiles -- not a simulation)
+>
+> | arm | OPTIMISTIC | MIDPOINT | PESSIMISTIC | median ties | % probes tied | % sims exactly 0 |
+> |---|---|---|---|---|---|---|
+> | **RAW** | 52.5 | 52.5 | 52.5 | **0.0** | **0.0%** | **0.0%** |
+> | **DG@0.01** | **18.0** | 146.5 | **275.0** | **254.0** | **85.7%** | **89.4%** |
+> | DG@0.02 | 56.0 | 148.2 | 239.5 | 173.5 | 65.3% | 64.5% |
+> | DG@0.05 | 95.0 | 95.0 | 95.0 | 0.0 | 4.0% | 5.9% |
+> | DG@0.25 | 63.0 | 63.0 | 63.0 | 0.0 | 0.0% | 0.0% |
+>
+> **`DG@0.01 - RAW` goes from `-29.0` [CI -36.0,-17.5] OPTIMISTIC to `+199.0` [CI +176.5,+216.5]
+> PESSIMISTIC. The sign REVERSES.** RAW has **zero** ties, so the artifact is entirely a property of
+> the sparse arms. **At the two sparsities with NO ties (0.05, 0.25) DG is unambiguously WORSE
+> (+22.5 and +2.0).** *The post-hoc-transform family closes with the eleven write-side routes.*
+>
+> ## 2. ⛔ **`experiment_index.py` -- THE DESIGNATED PRIOR-WORK TOOL -- WAS RETURNING SILENT ZEROS**
+> Matching was literal substring, so **a query with a SPACE could never match a cell name with an
+> UNDERSCORE.** `query "active growth"` returned **0** against a LANDED HARD_PASS named
+> `exp_breadth_foundation_active_growth_loop_ud_ewt_v1`. **5 false negatives in 12 of the day's
+> checks** -- and the expensive one is `"pattern separation"`: **1 literal vs 12 normalised.**
+> **🚨 I DESIGNED AND RAN THE DG DIAGNOSTIC PARTLY ON THE STRENGTH OF "1 cell, 0 landed". THE TRUTH
+> WAS 12 CELLS, 9 LANDED, AND TWO WERE HARD_FAILS ON THE SAME ORGAN:**
+> - `exp_dg_pattern_separation_mcscript_purity_v1` **HARD_FAIL** -- DG at sparsity 0.05, purity
+>   **0.1013 against a 0.1999 baseline**. *"the substrate cannot discriminate 195-way online with
+>   this keying signal even with DG-style separation."*
+> - `exp_selfplay_dg_pattern_separation_xfit_v1`
+>   **HARD_FAIL_REPRESENTATION_INSUFFICIENT_REDIRECT_EXOGENOUS** -- DG improved the metric by
+>   **0.015**. **THAT VERDICT NAME IS THE SAME CONCLUSION TODAY'S FIDELITY SYNTHESIS REACHED
+>   INDEPENDENTLY: GO GET EXOGENOUS INFORMATION.** It was on disk a month early.
+> - `exp_substrate_anisotropy_dg_pattern_separation_prewrite_v1` **HARD_PASS** -- but **PRE-WRITE**,
+>   and on borrowed Pythia keys, not our accumulated profiles. *A POSITION difference worth noting,
+>   not a licence to re-propose.*
+> **✅ FIXED + SELF-TESTED (`--self-test`): folds `_` and `-` to spaces on both sides; asserts the
+> three spellings return EQUAL counts, plus known-present and known-absent controls.**
+> **⚠️ SINGLE-WORD queries were never affected -- `"moral"` and `"fable"` really are 0, so the
+> thrust-2 conclusion stands. Every MULTI-WORD conclusion drawn before this fix is void.**
+> *CLAUDE.md already documented this exact failure for `director_kb_query.py`. The replacement
+> shipped with its own version of it.*
+>
+> ## 3. ✅ THE STRUCTURE-VS-BAG CONFOUND I FLAGGED THIS MORNING IS **NOT** REAL
+> Coverage-matched re-run, restricting BAG to exactly the sentences STRUCT could parse (the
+> restriction dropped 4.4% of pairs, positive-control asserted non-empty):
+>
+> | seed | COOC | BAG_ALL | BAG_MATCHED | STRUCT |
+> |---|---|---|---|---|
+> | 7 | 10.0 | 36.5 | **37.0** | 49.0 |
+> | 101 | 6.0 | 36.0 | **35.5** | 50.0 |
+>
+> **BAG_MATCHED ~= BAG_ALL, so the coverage penalty is ~ZERO and my confound worry was unfounded.
+> STRUCT still loses at equal coverage.** *I flagged it honestly and it cost one cheap run to close;
+> the morning's reported tie was, if anything, generous to STRUCT.*
+
 > # 🚨 **THE SWEEP FINISHED AND PRINTED A CONFIDENT FALSE POSITIVE. READ THIS BEFORE TRUSTING ANY**
 > # **PRE-COMMITTED VERDICT IN THIS REPO.**
 > The DG sweep completed all 3 seeds and printed, in its own words:
