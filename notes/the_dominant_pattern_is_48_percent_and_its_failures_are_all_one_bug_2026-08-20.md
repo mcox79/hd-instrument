@@ -237,3 +237,40 @@ None. This names a target; whether to spend on it is part of the Q89 decision al
    n=40 is exactly the shape of tonight's retraction.
 2. **The definiendum-span defect is the named, sized target** -- ~95 noise rows per 6,000 sentences
    on the live corpus, one cause, already solved once for other patterns.
+
+## 🗺️ THE WHOLE EXTRACTOR, PATTERN BY PATTERN -- **EACH ONE FAILS ITS OWN WAY**
+
+Having diagnosed `COPULA`, I scored the remaining volume on the same field and rubric.
+**simplewiki, n=20 per pattern:**
+
+| pattern | per 6,000 sents | MEANINGFUL | RELATED | NOISE | its CHARACTERISTIC failure |
+|---|---|---|---|---|---|
+| `COPULA` | 340 | 47.5% | 25% | 27.5% | **specificational inversion** (~7% of its output) |
+| `CALLED` | 135 | 40% | **35%** | 25% | **ANAPHORIC DEFINIENS** |
+| `APPOSITIVE` | 53 | 40% | 10% | **50%** | **false appositive / broken span** |
+| `GLOSSARY_COLON` | 7 | ~13%* | -- | -- | **bibliography contamination** |
+
+*\*measured on fresh psychology text; 92% on a real glossary region.*
+
+**➡️ THERE IS NO SINGLE "EXTRACTOR BUG". EACH PATTERN HAS A DISTINCT, NAMEABLE FAILURE MODE, AND
+THEY NEED DIFFERENT FIXES.**
+
+**`CALLED`'s weakness is NEW and was invisible until now: the definiens is ANAPHORIC.**
+*"biochemistry -> **This area of science**"*, *"Milankovitch cycles -> **These long-term changes**"*,
+*"zoonosis -> **This method** of spreading disease"*, *"teosintes -> **The wild ones**"*. The
+sentence *"This area of science is called biochemistry"* yields a definiens that **cannot be
+understood without the preceding sentence** -- which is why `CALLED` has the highest RELATED share
+(35%) and a LOW noise share. **It is not wrong; it is unresolved.** *A fix is obvious in principle
+(resolve the demonstrative against the previous sentence, or refuse a definiens headed by
+this/these/the-wild-ones) and it is a DIFFERENT fix from the specificational one.*
+
+**`APPOSITIVE` IS THE WORST PATTERN AT 50% NOISE** -- `INXS -> the folk-rocker Paul Kelly`,
+`people -> the largest cities in Argentina are Buenos Aires`, `New Testament -> an Angel tells The
+Virgin Mary...`. **A comma is not an apposition**, and this pattern takes any comma-flanked NP.
+**At 53 hits per 6,000 it contributes ~27 noise rows, comparable to COPULA's specificational bug at
+~25** -- so it is a co-equal target, not a lesser one.
+
+**⚠️ n=20 PER PATTERN. These are ORIENTATION numbers, not measurements** -- one scorer, one corpus,
+and small enough that a 40%/40% tie between `CALLED` and `APPOSITIVE` means nothing. **What is solid
+is the QUALITATIVE finding: the failure MODES are distinct and pattern-specific**, which is visible
+in the rows themselves rather than in the rates.
