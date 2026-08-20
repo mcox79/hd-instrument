@@ -126,7 +126,52 @@ def main():
             out.append(len(tw & tc) / max(1, len(tw | tc)))
         return float(np.mean(out)) if out else 0.0
 
+    # ---- SECOND-ORDER co-occurrence. **ADDED BECAUSE MY OWN PRE-COMMITTED BAR MAY HAVE BEEN TOO
+    # LOW.** The bar was set with FIRST-order PMI, but this project's standing position is that we
+    # only TIE *second-order* counting -- a distributional-similarity floor that is repeatedly
+    # stronger than first-order. **If second-order beats first-order here, then a bar set on
+    # first-order is a WEAKENED GATE, and F5 could clear it while still losing to plain counting.**
+    # Checking this BEFORE anything is judged against the bar is the only honest order to do it in.
+    _ctx_cache = {}
+
+    def ctx_vec(w):
+        """A word's co-occurrence profile, PPMI-weighted -- the standard second-order object."""
+        v = _ctx_cache.get(w)
+        if v is None:
+            pw = docfreq[w] / ndoc
+            v = {}
+            for c, joint in cooc[w].items():
+                if c == w:
+                    continue
+                pc = docfreq[c] / ndoc
+                if pw > 0 and pc > 0 and joint > 0:
+                    p = math.log((joint / ndoc) / (pw * pc))
+                    if p > 0:
+                        v[c] = p
+            nrm = math.sqrt(sum(x * x for x in v.values())) or 1.0
+            v = {k: x / nrm for k, x in v.items()}
+            _ctx_cache[w] = v
+        return v
+
+    def second_order_fit(w, context):
+        """Mean cosine between w's co-occurrence profile and those of the sentence's other content
+        words. Does not require w to have been SEEN with them -- only to keep similar company."""
+        vw = ctx_vec(w)
+        if not vw:
+            return 0.0
+        out = []
+        for c in context:
+            if c == w:
+                continue
+            vc = ctx_vec(c)
+            if not vc:
+                continue
+            small, big = (vw, vc) if len(vw) < len(vc) else (vc, vw)
+            out.append(sum(x * big.get(k, 0.0) for k, x in small.items()))
+        return float(np.mean(out)) if out else 0.0
+
     ARMS = {
+        "SECOND_ORDER_COOCCURRENCE": lambda w, ctx, pos, n: -second_order_fit(w, ctx),
         # HIGHER score = MORE anomalous, so each arm is signed to make the anomaly rank 1st
         "CO_OCCURRENCE_SURPRISAL": lambda w, ctx, pos, n: -pmi_fit(w, ctx),
         "FREQUENCY (flag the rarest)": lambda w, ctx, pos, n: -math.log(

@@ -57,7 +57,11 @@ Notes: `THE_F5_BAR_IS_MEASURED_BEFORE_THE_BUILD_...md`, `THE_F5_BAR_REPLICATES_.
    byte-deterministic (`tools/build_frequency_matched_anomaly_set.py --self-test`).
    **CEILING ~86%: with 17 WEAK items a PERFECT detector cannot score higher. PRINT THAT beside any
    score, or the shortfall reads as detector failure.**
-3. **The bar** -- beat co-occurrence surprisal's median rank 4.0 of ~9, gated on that floor's UPPER
+3. **The bar (CORRECTED 2026-08-21)** -- **beat +18.8 pp on the PAIRED anomalous-vs-original hit@1
+   difference**, the UPPER bound of SECOND-ORDER counting's discrimination (53.5% vs 42.6%,
+   +10.9 pp, CI [+3.0, +18.8]). **The old rank-4.0 bar is SUPERSEDED: too low, and absolute rank is
+   slot-inflated for EVERY arm** -- the floor ranks that slot first 42.6% of the time with the
+   CORRECT word in it. Headroom ~43 pp; counting takes 10.9. ~~gated on that floor's UPPER~~
    bound, >=3 item sets, `replication_gate.py` = `REPLICATED`.
 4. **The consumption design** -- the banked meaning must supply the **PREDICTION**, not sit in the
    register; error = `||predicted - observed||` = `||delta situation_model||`:

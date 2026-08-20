@@ -25,7 +25,20 @@
 > | FREQUENCY (flag the rarest) | 2.00 | 2.50 | +0.50 -- **the matching worked** |
 > | POSITION / ORTHOGRAPHIC / LENGTH / CONSTANT | -- | -- | **+0.00, all four: NO anomaly signal** |
 >
-> ### 🚨 **PRE-COMMITTED BAR: F5 must beat median rank 4.0 of ~9 on CLEAN frequency-matched items, gated on that floor's UPPER bound, across >=3 independently-built item sets, `replication_gate.py` = `REPLICATED`, with the ~86% item ceiling printed beside the score.**
+> ### 🚫 **THAT BAR IS SUPERSEDED 2026-08-21 -- IT WAS TOO LOW AND ON THE WRONG METRIC.**
+> **SECOND-ORDER counting (word-profile vs neighbours' profiles) reads median rank 1.0 under BOTH
+> tie conventions on all four sets, tie mass ~0** -- where first-order reads 4.0. But the control
+> reversed the reading and I nearly fired the kill condition on it: **the same floor ranks that slot
+> first 42.6% of the time when the word is CORRECT.** Most of the rank is a SLOT property.
+> **Real discrimination: 53.5% vs 42.6% = +10.9 pp, CI [+3.0, +18.8], McNemar p=0.0153.**
+> **➡️ ABSOLUTE RANK CANNOT BE THE READ-OUT FOR ANY ARM -- every arm is slot-inflated. The only
+> valid metric is the PAIRED anomalous-vs-original difference.**
+> ### 🎯 **CORRECTED BAR: F5 must beat +18.8 pp (the floor's UPPER bound) on the paired hit@1
+> difference, >=3 sets, `REPLICATED`. Headroom is ~43 pp; counting takes 10.9 of it. F5 is NOT
+> pre-empted, but the bar is nearly twice what I pre-committed.**
+> `notes/THE_F5_BAR_WAS_TOO_LOW_AND_ON_THE_WRONG_METRIC_second_order_counting_2026-08-21.md`
+>
+> ### ~~PRE-COMMITTED BAR: F5 must beat median rank 4.0 of ~9 on CLEAN frequency-matched items, gated on that floor's UPPER bound, across >=3 independently-built item sets, `replication_gate.py` = `REPLICATED`, with the ~86% item ceiling printed beside the score.**
 > ### 🚫 **WITHDRAWN 2026-08-21: "co-occurrence separates my hand-scored CLEAN from WEAK items."**
 > Measured properly: **+0.54, 95% CI [-1.34, +2.60], Mann-Whitney p=0.535 -- IT DOES NOT SEPARATE**
 > (n=17 WEAK). **The number I quoted came from the LEAKED run (2.5 vs 4.0) and I carried the
