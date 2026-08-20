@@ -356,7 +356,42 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
-> ## ⬅️⬅️ TOP ITEM, RE-DERIVED UNDER THE OWNER'S RULE -- **THE PINNED CORTICAL COMPUTATION WE HAVE**
+> ## ✅ RAN, FULL SWEEP -- **THE PINNED CORTICAL COMPUTATION, IN THE BRAIN'S OWN POSITION, DOES**
+> ## **NOTHING. THIS IS THE STRONGEST WRITE-SIDE CLOSURE WE HAVE.**
+> Five points, 1,000 -> 16,000 sentences. Slope of gap-to-counter per e-fold, lower is better:
+>
+> | arm | slope | effective dims 1k -> 16k |
+> |---|---|---|
+> | SUM (today's substrate) | +1.035 | 13.2 -> 92.3 |
+> | NORM (within-item control) | **+0.972** | 15.5 -> 98.4 |
+> | **DIVNORM (brain's position)** | **+1.206** | 13.5 -> **94.7** |
+> | DIVNORM_SH (shuffled-pool control) | +1.179 | 12.6 -> 97.0 |
+>
+> **⛔ DIVNORM TIES ITS SHUFFLED-POOL CONTROL (+1.206 vs +1.179, 0.027 apart).** The divisor's
+> correspondence to a term's OWN context carries nothing; what remains is scaling variance. **It is
+> not competition, even when the pool is the population.**
+> **⛔ AND IT DID NOT CONCENTRATE THE CODE AT ALL -- 94.7 against SUM's 92.3, the same trajectory
+> point for point.** The prediction was that removing "responds to everything" would pull effective
+> dimensionality toward the pinned ~4-12. It moved nothing. *k-WTA at least failed informatively by
+> RAISING dims; this failed by being inert.*
+> **✅ BEST ARM REPORTED FIRST, BEFORE ANY STORY: NORM at +0.972** -- the within-item control, and
+> only 6% better than plain summing. *Floors at the largest point: COOC 18.0, FREQ 55.0. Every arm
+> still loses to counting.*
+>
+> **🧠 WHY THIS CLOSURE IS STRONGER THAN THE SIX BEFORE IT.** Those closed a rule we CHOSE. This one
+> closed **a computation the literature PINS, implemented in the POSITION the brain uses, with the
+> control that distinguishes competition from scaling.** The brain-fidelity argument for intervening
+> at write time is now spent: *we did the thing the brain does, where the brain does it, and the
+> representation did not move.*
+> **➡️ SEVENTH POSITION-FAMILY RESULT, AND THE FAMILY ITSELF IS NOW THE FINDING: every fix has been
+> "right mechanism, wrong place", and fixing the place did not help either. The place was never the
+> problem.**
+> *⚠️ SMOKE vs FULL, recorded because I published smoke numbers as a finding earlier today: the smoke
+> (900/1500/2200) read DIVNORM +1.346 / SUM +1.161. The full sweep reads +1.206 / +1.035. Same
+> direction, different numbers -- the smoke was directionally right and quantitatively wrong, which
+> is exactly why it was not quoted.*
+>
+> ## [DONE -- SEE ABOVE] TOP ITEM, RE-DERIVED UNDER THE OWNER'S RULE -- **THE PINNED CORTICAL COMPUTATION WE HAVE**
 > ## **NEVER ACTUALLY RUN: DIVISIVE NORMALISATION OVER A POPULATION POOL.**
 > *Chosen because ORGAN_MAP pins it, not because it looks useful. The pinned line, verbatim:*
 > **"graded competition implemented BY the normalisation pool, not a hard argmax."** *(Carandini &
