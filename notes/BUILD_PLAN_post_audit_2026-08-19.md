@@ -413,6 +413,22 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## ✅ **SHIPPED POST-ONLY, RE-VETTED, AND IT IS BETTER THAN WHAT IT REPLACED.**
+> `LibraryItem.grounded_at_n_traces` stamped at banking; `Substrate.profile()` under the flag adds
+> only `traces[grounded_at_n_traces:]`. Re-ran the same 3-seed vet against the SHIPPED code:
+>
+> | seed | COOC | DEFAULT | shipped KEEP (post-only) | *was* whole-pile |
+> |---|---|---|---|---|
+> | 7 | 7.0 | 33.0 (4.71x) | **18.0 (2.57x)** | 19.5 (2.79x) |
+> | 101 | 9.0 | 45.0 (5.00x) | **27.0 (3.00x)** | 30.0 (3.33x) |
+> | 20260819 | 9.0 | 45.0 (5.00x) | **29.0 (3.22x)** | 31.0 (3.44x) |
+>
+> **Better in 3 of 3 seeds than the version it replaced.** Pooled paired difference vs DEFAULT
+> **-6.0, 95% CI [-8.0, -4.0]**, separated in every seed. *And it now matches the independently
+> computed POSTONLY arm, which is the cross-check: two different implementations of "post-grounding
+> only" -- one via an exact trace count inside the substrate, one via `pass_idx` outside it -- agree.*
+> **Gap to the counter across the session's best arms: 5.00x -> 3.00x.**
+>
 > ## ⚠️ **CORRECTION -- I RAISED A FALSE ALARM ABOUT THE `gap_detector` ABLATION. WITHDRAWN.**
 > Earlier tonight I wrote that the ablation is *"accepted, recorded and inert"* and that **"ANY PRIOR
 > RESULT RESTING ON THE `gap_detector` ABLATION NEEDS RE-CHECKING."** *That was wrong, and it was the
