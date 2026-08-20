@@ -72,10 +72,32 @@ there**, and Q89 is open on exactly this fork, so firming up the evidence the ow
 in-bounds while acting on it is not.
 
 **WHAT WOULD MAKE IT SOLID:** seeds and CIs rather than one run; the strongest floor actually RUN on
-the phrase population (**note that COOC/FREQ floors are word-to-word and CANNOT be evaluated on
-phrases as-is -- constructing an admissible floor for phrase output is itself unsolved and is the
-first real obstacle**); and a scorer who is not me, or a rubric mechanical enough that being me stops
+the phrase population; and a scorer who is not me, or a rubric mechanical enough that being me stops
 mattering.
+
+### ✅ **THE FLOOR PROBLEM IS SOLVED, AND IT REMOVES ME FROM THE SCORING LOOP (seed 7, n=160)**
+Every floor we own is WORD-TO-WORD, so phrase output had no admissible floor and no machine scorer.
+**ConceptNet cannot match a phrase exactly, but it holds 154,974 `/r/IsA` + 2,173 `/r/DefinedAs`
+edges -- so score a HIT when the phrase CONTAINS an attested hypernym of the term.** Independent
+gold, machine-computed, works on phrases. Gold covers **75%** of our terms; scored on those.
+
+| arm (all floors LENGTH-MATCHED to ours) | hit rate | 95% CI | mean words |
+|---|---|---|---|
+| **OURS** | **19.4%** | [14.0, 26.2] | 6.9 |
+| **CO_SENTENCE** -- random content words FROM THE SAME SENTENCE | **7.5%** | [4.3, 12.7] | 6.9 |
+| CONSTANT (most common phrase, every term) | 2.5% | [1.0, 6.3] | 4.0 |
+| RANDOM_NOUNS -- **the information-free version of our arm** | 0.6% | [0.1, 3.5] | 6.9 |
+| SHUFFLE -- another term's definiens | **0.0%** | [0.0, 2.3] | 6.8 |
+
+**OURS's LOWER bound clears EVERY floor's UPPER bound** (gate on the upper bound, standing rule).
+**THE METRIC'S OBVIOUS FAILURE MODE IS LENGTH -- a longer phrase gets more chances to contain a
+hypernym -- so every floor emits the SAME number of words.** `RANDOM_NOUNS` at 0.6% with the
+identical 6.9-word mean shows it is not counting words, and **`SHUFFLE` at 0.0% is the decisive
+one: a real definiens, correct form, correct length, but about the WRONG TERM, scores ZERO.** So
+the metric is not rewarding definition-shaped text; it requires the phrase to be about the right
+word. *This is the first machine-measured result this week where our output clears a strong floor
+on an independent gold -- and it is still a claim about the EXTRACTOR's output, NOT about the HDC
+substrate, whose own read-out is the 4% arm.* **Seeds 101/13/29 in flight; single-seed = HYPOTHESIS.**
 
 **🚫 DO NOT SPEND MORE ON HEAD-SELECTION.** Today's `_MEASURE_HEAD` fix (`way`/`means`/`part`, empty
 heads 7 -> 5) was a correct fix to the component the B3 audit shows barely carries the result. The
@@ -83,8 +105,13 @@ heads 7 -> 5) was a correct fix to the component the B3 audit shows barely carri
 
 ## WHAT IS RUNNING
 
-- **🔴 NOTHING IS RUNNING.** Verified 2026-08-20 against the live process table: the only live
-  python is the status GUI (shim PID 8900, child 28648). **Not inferred from a log or a PID file.**
+- **🔵 IN FLIGHT: phrase-floor seed replication, seeds 101 / 13 / 29** (`scratch/phrase_floor_
+  feasibility.py`, `DIAG_SEED=<s>`, ~4 min/seed, foreground-batched not detached).
+  **Written here IN THE SAME TURN AS THE LAUNCH -- which is the rule this section's own stale
+  entry was written to enforce, and then was not followed.** Seed 7 is in; these three decide
+  whether it replicates.
+- *(Before that launch: nothing was running -- verified 2026-08-20 against the live process table,
+  only the status GUI, shim PID 8900 / child 28648. Not inferred from a log or a PID file.)*
 - **🚨 THIS SECTION WAS CONFIDENTLY WRONG FOR A FULL DAY, AND IT IS THE ONE `session_start_hook.py`
   INJECTS INTO EVERY COMPACTION RECOVERY.** The parsed copy sat at **line ~2535 under 2,300 lines of
   archive**, said *"26 continuations in"*, and named two runs as in flight that had **finished the
