@@ -1,5 +1,48 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🧭 **WHERE THE FIDELITY PASS ACTUALLY LEAVES US -- THE SYNTHESIS, 2026-08-20.**
+> *Marked as a SYNTHESIS, not a result: the DG sweep's third seed and the real-data tie-convention
+> numbers had not landed when this was written. The analytic refutation is decisive for the sparse
+> points regardless -- noise beats them -- but treat the "post-hoc family closes" line as
+> pending-confirmation rather than banked.*
+>
+> ## THE SHAPE OF EVERYTHING WE HAVE TRIED, IN ONE TABLE
+>
+> | where we intervened | how many routes | outcome |
+> |---|---|---|
+> | **WHICH traces get written** | 8 | all closed |
+> | **WHEN they get written** (the write moment) | 1 | closed |
+> | **HOW they are written** (delta-rule family, incl. a nested positive control) | 1 | closed -- the sum is the family's optimum |
+> | **WHAT a trace IS** (structure vs bag) | 1 | TIE -- and coverage-confounded, re-run written |
+> | **HOW they are transformed AFTERWARDS** (DG pattern separation) | 1 | sparse points = artifact; dense points lose to RAW |
+> | **HOW MANY traces exist** (coverage) | 1 | ✅ **the only thing that has ever worked** |
+>
+> ## 🔑 **THE ONE FIDELITY GAP THAT SURVIVED THE WHOLE PASS, IN ORGAN_MAP'S OWN NUMBERS**
+> **Our hub carries FREQUENCY at R^2 0.4819 and a typical sensorimotor dimension at 0.01-0.05 --
+> roughly TWENTY TIMES more strongly.** That was measured weeks ago as a by-product of the spoke
+> audit and reported as "not blind, but overwhelmingly a frequency code". **Nobody connected it to
+> the write rule.**
+> **➡️ AND IT EXPLAINS THE TABLE ABOVE MECHANICALLY RATHER THAN BY ANALOGY: every transformation of
+> a bag of word-forms is still a function of word-form statistics, and the dominant word-form
+> statistic is frequency.** Selecting which bags, weighting them, changing the update rule, and
+> re-projecting the result afterwards **cannot** change what the input is made of. *That is why
+> thirteen interventions at five different positions all returned the same answer.*
+> **⚠️ WHAT THIS IS NOT: it is not a proof, and "our code is a frequency detector" must not harden
+> into an unscoped claim.** It is one R^2 on one profile set. **The honest status is: the strongest
+> surviving HYPOTHESIS, consistent with every negative and contradicted by none of them.**
+>
+> ## ➡️ WHAT THAT MAKES THE NEXT REAL QUESTION -- AND IT IS THE OWNER'S OWN
+> If the limit is what a trace is MADE OF, then the lever is SUPPLY, not mechanism -- which is
+> exactly Q72: *"you need more textbooks / information"*, and the load-bearing word there was
+> **PATCHY**, not "another textbook". Two concrete things already point the same way and neither is a
+> new build:
+> - `exp_breadth_foundation_active_growth_loop_ud_ewt_v1` -- **HARD_PASS**, gap-targeted active
+>   growth moved coverage **0.50 -> 0.79**, real-vs-shuffle AUC **0.8924 vs 0.5122**. It is the
+>   owner's own idea and it is the only landed win in this area.
+> - **coverage is the only intervention that has ever moved the representation**, twice now
+>   (`keep_noting_grounded`, and the 17 -> 46 trace-coverage measurement).
+> *Both say the same thing: give it more and better-targeted evidence rather than a cleverer rule.*
+
 > # ⛔🔴 **WITHDRAWN WITHIN THE HOUR: THE DG@0.01 "WIN" IS A TIE-BREAKING ARTIFACT. PURE NOISE**
 > # **SCORES BETTER THAN IT DID. DO NOT QUOTE ANY NUMBER FROM THE BLOCK BELOW.**
 > *`scratch/diag_what_would_a_meaningless_sparse_arm_score.py` -- no corpus, no substrate, seconds.*
