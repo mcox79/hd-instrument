@@ -1,5 +1,46 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🎯 **THE CLEANEST RESULT OF THE DAY: WE ARE A FAITHFUL RE-ENCODING OF SECOND-ORDER**
+> # **CO-OCCURRENCE. NOT WORSE. NOT BETTER. TIED.**
+> *The properly-powered meaning task -- where does a KNOWN-CORRECT synonym rank among all anchors --
+> against the floor that is actually trying, 3 seeds, paired on identical items.*
+>
+> | seed | SUBSTRATE | COOC2 | FREQUENCY | UNIFORM |
+> |---|---|---|---|---|
+> | 7 | 46.0 | 38.0 | 89.0 | 197.0 |
+> | 101 | 35.0 | 30.0 | 60.0 | 155.0 |
+> | 20260819 | 42.0 | 31.0 | 59.0 | 170.0 |
+>
+> | comparison | pooled paired | CI | |
+> |---|---|---|---|
+> | **SUBSTRATE − COOC2** | **−1.0** | **[−5.0, +1.0]** | **not separated -- A TIE** |
+> | SUBSTRATE − FREQUENCY | −7.0 | [−13.0, −1.0] | separated |
+> | ~~SUBSTRATE − COOC1~~ | ~~+17.0~~ | ~~[+6.0, +29.0]~~ | ⛔ **VOID -- COOC1 is the tie artifact** |
+>
+> **➡️ THE PRE-COMMITTED MIDDLE BRANCH FIRES: every piece of hyperdimensional machinery in this
+> substrate -- the random projection, the accumulation, the bundling, the cosine read-out -- lands
+> EXACTLY where a plain second-order co-occurrence count lands. One rank apart, CI straddling zero.**
+> *It is not a lossy copy, which is what four routes suggested earlier today and what I half-expected.
+> It is a FAITHFUL one. That is a better result than "lossy" and a worse one than "better".*
+>
+> ## 🔑 WHY THIS IS THE MOST USEFUL THING MEASURED TODAY
+> **It closes the question the whole session kept circling.** Thirteen mechanism interventions were
+> tested and closed; the fidelity pass found one surviving gap; every route ended at "the
+> representation is the limit". **This says precisely what the representation IS: co-occurrence
+> counting, re-encoded without loss and without gain.**
+> **➡️ SO IMPROVING THE CODE CANNOT HELP, AND THAT IS NOW MEASURED RATHER THAN INFERRED. THE LEVER IS
+> WHAT GOES INTO THE COUNTS.** *Which is where the fidelity synthesis, the owner's Q72 instinct
+> ("patchy"), and the archive's own `REDIRECT_EXOGENOUS` verdict all independently pointed.*
+>
+> ## ⚠️ SCOPE, AND ONE CONTAMINATED ROW
+> - **The COOC1 rows in this run are VOID.** That arm's optimistic ranks are tie-inflated (92.2% of
+>   items tied, 79.2% zeros) and this script pre-dates `tools/rank_with_ties.py`. **Disregard every
+>   COOC1 comparison here**; the SUBSTRATE-vs-COOC2 result is unaffected because BOTH have ~0 ties.
+> - One corpus, ~60-73 scorable words per seed, synonym-ranking only. **A tie on this task is not a
+>   tie on every task.**
+> - **The tie is a NULL, and a null is not proof of equivalence** -- CI [−5.0, +1.0] excludes only
+>   effects larger than ~5 ranks. A small real advantage either way would not show here.
+
 > # 🔁 **THREE RESULTS. TWO OF MY OWN CLAIMS DIE, AND A TIE ARTIFACT APPEARS FOR THE THIRD TIME**
 > # **TODAY -- WHICH MAKES IT A TOOLING PROBLEM, NOT THREE COINCIDENCES.**
 >
