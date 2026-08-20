@@ -55,8 +55,14 @@ content in `hdlab/` is a SELF-TEST ASSERTION.**
 effect). **It is a missing piece, not a bug.**
 
 ### 6. Making the read consume the meaning: THREE variants tried, none pays
-- **Index BY the raw definiens text: 92.0 vs the profile's 64.0 -- 28 ranks WORSE.** (n=133,
-  leak-controlled: **3,269** cue sentences excluded as a definition's own source.)
+- **⚠️ DOWNGRADED BY MY OWN NEW GATE, WITHIN THE HOUR OF WRITING IT.** *"Index BY the raw definiens
+  text: 92.0 vs the profile's 64.0 -- 28 ranks WORSE"* (n=133, leak-controlled: **3,269** cue
+  sentences excluded) **is SEED 7 ONLY.** Running `tools/replication_gate.py` over the claims in
+  this very ledger returned **`SINGLE_SEED_HYPOTHESIS`** for it. **I had filed it under SURVIVES.**
+  *A guard I exempt my own favourites from is not a guard, so it is downgraded here and seeds
+  101/13 are running to settle it.* **The FAMILY conclusion is unaffected** -- the closely related
+  looked-up-definition arm is worse on all three seeds (+12.5 / +16.0 / +26.0, gate:
+  `REPLICATED`) -- but this specific 28-rank number is a hypothesis until the seeds land.
 - **Index by the LOOKED-UP definition (mean of the profiles of the words it names): worse on all
   three seeds** (+12.5 / +16.0 / +26.0).
 - **Blend it with the profile: WITHDRAWN as an artifact** (see below).

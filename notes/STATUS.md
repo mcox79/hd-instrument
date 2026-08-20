@@ -298,8 +298,14 @@ heads 7 -> 5) was a correct fix to the component the B3 audit shows barely carri
 
 ## WHAT IS RUNNING
 
-- **🔵 IN FLIGHT (2, written here IN THE SAME TURN AS EACH LAUNCH -- the rule this section's own
-  stale entry was written to enforce, and then was not followed):**
+- **🔵 IN FLIGHT: seeds 101/13 of `experiments/analysis_definition_indexed_retrieval_v1.py`.**
+  **WHY: MY OWN NEW GATE DOWNGRADED ONE OF MY OWN KEPT CLAIMS.** Running
+  `tools/replication_gate.py` over the ledger's surviving items returned
+  **`SINGLE_SEED_HYPOTHESIS`** for *"indexing by the raw definiens text is 28 ranks worse"* -- filed
+  under SURVIVES on seed 7 alone. *A guard I exempt my own favourites from is not a guard.*
+  **The other kept claims cleared it:** phrase-vs-floor `REPLICATED` (4/4 same sign, 1.2x spread,
+  no control within half); looked-up-definition-is-worse `REPLICATED` (3/3, 2.1x).
+- *(earlier in-flight entries, now landed, kept for the launch-time-recording discipline:)*
   - **phrase-floor seed replication, seed 29** (`scratch/phrase_floor_feasibility.py`).
     **SEEDS 7 / 101 / 13 ARE IN AND REPLICATE TIGHTLY: OURS 19.4 / 18.9 / 20.3%, strongest floor
     7.5 / 7.4 / 8.2%, SHUFFLE 0.0% on all three.**
