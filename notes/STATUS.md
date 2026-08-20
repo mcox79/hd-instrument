@@ -118,11 +118,18 @@ heads 7 -> 5) was a correct fix to the component the B3 audit shows barely carri
 
 ## WHAT IS RUNNING
 
-- **🔵 IN FLIGHT: phrase-floor seed replication, seeds 101 / 13 / 29** (`scratch/phrase_floor_
-  feasibility.py`, `DIAG_SEED=<s>`, ~4 min/seed, foreground-batched not detached).
-  **Written here IN THE SAME TURN AS THE LAUNCH -- which is the rule this section's own stale
-  entry was written to enforce, and then was not followed.** Seed 7 is in; these three decide
-  whether it replicates.
+- **🔵 IN FLIGHT (2, written here IN THE SAME TURN AS EACH LAUNCH -- the rule this section's own
+  stale entry was written to enforce, and then was not followed):**
+  - **phrase-floor seed replication, seed 29** (`scratch/phrase_floor_feasibility.py`).
+    **SEEDS 7 / 101 / 13 ARE IN AND REPLICATE TIGHTLY: OURS 19.4 / 18.9 / 20.3%, strongest floor
+    7.5 / 7.4 / 8.2%, SHUFFLE 0.0% on all three.**
+  - **the HARDER floor, seed 7** (`tools/score_phrase_output_against_conceptnet_hypernyms.py`).
+    Adds **`CO_SPAN`** -- a CONTIGUOUS same-length window from the SAME sentence. `CO_SENTENCE`
+    samples words INDEPENDENTLY, which destroys syntax, so it may be beaten by mere phrase-hood
+    rather than by definitional-ness. Also adds the **ORACLE** ceiling and a **treatment-overlap**
+    column, because our definiens IS a contiguous window of that sentence and on a short sentence
+    a random window can largely BE it -- **a floor that contains the treatment is not a floor, and
+    failing to clear it would be a FALSE NEGATIVE, not a result.**
 - *(Before that launch: nothing was running -- verified 2026-08-20 against the live process table,
   only the status GUI, shim PID 8900 / child 28648. Not inferred from a log or a PID file.)*
 - **🚨 THIS SECTION WAS CONFIDENTLY WRONG FOR A FULL DAY, AND IT IS THE ONE `session_start_hook.py`

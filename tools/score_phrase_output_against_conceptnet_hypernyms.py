@@ -120,6 +120,19 @@ def arm_words(it, arm, idx):
         if not bag:
             return []
         return [rng.choice(bag) for _ in range(k)]
+    if arm == "CO_SPAN":
+        # *** THE HARDEST FLOOR, ADDED AFTER THE FIRST RESULT LOOKED GOOD. ***
+        # CO_SENTENCE samples words INDEPENDENTLY, which destroys syntax; our definiens is a
+        # CONTIGUOUS span that happens to follow "is a". So CO_SENTENCE may be beaten by mere
+        # phrase-hood rather than by definitional-ness. This emits a contiguous k-word window from
+        # a random position in the SAME sentence: same length, same sentence, same contiguity --
+        # differing ONLY in whether it is the span the extractor selected.
+        for s in rng.sample(it["sents"], len(it["sents"])):
+            toks = [w for w in s.lower().split() if w.isalpha()]
+            if len(toks) >= k:
+                st = rng.randrange(0, len(toks) - k + 1)
+                return toks[st:st + k]
+        return []
     if arm == "ORACLE":
         # a genuine attested hypernym, padded to OUR length so it is not advantaged by being short
         gold = sorted(isa.get(it["term"], set()))
@@ -135,10 +148,11 @@ def arm_words(it, arm, idx):
 # length with random words, and MUST score ~100%. If it does not, every other number here is void.
 # (Standing rule: verify with a positive control, never only an absence check -- the mojibake
 # repair, the proper-noun detector and `experiment_index.py` all failed exactly this way.)
-ARMS = ("OURS", "CO_SENTENCE", "SHUFFLE", "RANDOM_NOUNS", "CONSTANT", "ORACLE")
+ARMS = ("OURS", "CO_SPAN", "CO_SENTENCE", "SHUFFLE", "RANDOM_NOUNS", "CONSTANT", "ORACLE")
 res = {}
+overlap = {}
 for arm in ARMS:
-    hits, lens, scored = 0, [], 0
+    hits, lens, scored, ov = 0, [], 0, []
     for i, it in enumerate(covered):
         w = arm_words(it, arm, i)
         if not w:
@@ -146,7 +160,15 @@ for arm in ARMS:
         scored += 1
         lens.append(len(w))
         hits += hit(it["term"], w)
+        # *** HOW MUCH OF THE TREATMENT DOES THIS "FLOOR" ACTUALLY CONTAIN? ***
+        # CO_SPAN takes a contiguous window of the SAME sentence, and OURS *is* a contiguous
+        # window of that sentence. On a short sentence there are few possible positions, so the
+        # floor can largely BE the treatment. A floor that contains the treatment is not a floor,
+        # and failing to clear it would be a FALSE NEGATIVE. Measure it rather than assume it.
+        a, b = set(w), set(it["words"])
+        ov.append(len(a & b) / max(1, len(a | b)))
     res[arm] = (hits, scored, sum(lens) / max(1, len(lens)))
+    overlap[arm] = sum(ov) / max(1, len(ov))
 
 
 def wilson(k, n):
@@ -162,12 +184,17 @@ def wilson(k, n):
 print("\n" + "=" * 88)
 print("HIT = the emitted phrase CONTAINS a ConceptNet-attested hypernym of the term")
 print("=" * 88)
-print("%-14s %6s %7s %9s   %-22s %s" % ("arm", "hits", "n", "rate", "95% CI", "mean words"))
+print("%-14s %6s %7s %9s   %-22s %-11s %s"
+      % ("arm", "hits", "n", "rate", "95% CI", "mean words", "overlap w/ OURS"))
 for arm in ARMS:
     h, n, ml = res[arm]
     lo, hi = wilson(h, n)
-    print("%-14s %6d %7d %8.1f%%   [%5.1f%%, %5.1f%%]        %.1f"
-          % (arm, h, n, 100.0 * h / max(1, n), 100 * lo, 100 * hi, ml))
+    print("%-14s %6d %7d %8.1f%%   [%5.1f%%, %5.1f%%]   %8.1f    %5.1f%%%s"
+          % (arm, h, n, 100.0 * h / max(1, n), 100 * lo, 100 * hi, ml,
+             100 * overlap[arm],
+             "  <- CONTAINS THE TREATMENT" if arm != "OURS" and overlap[arm] > 0.30 else ""))
+print("OVERLAP = mean Jaccard between the arm's words and ours. A 'floor' with high overlap is")
+print("partly the treatment itself; failing to clear THAT is a false negative, not a result.")
 
 ours_lo = wilson(*res["OURS"][:2])[0]
 print("\nGATE: OURS's LOWER bound vs each floor's UPPER bound (gate on the floor's upper bound,")
