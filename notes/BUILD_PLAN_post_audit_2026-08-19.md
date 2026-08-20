@@ -1,5 +1,38 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ⛔🔴 **WITHDRAWN WITHIN THE HOUR: THE DG@0.01 "WIN" IS A TIE-BREAKING ARTIFACT. PURE NOISE**
+> # **SCORES BETTER THAN IT DID. DO NOT QUOTE ANY NUMBER FROM THE BLOCK BELOW.**
+> *`scratch/diag_what_would_a_meaningless_sparse_arm_score.py` -- no corpus, no substrate, seconds.*
+> **THE REFUTATION IS THE PROJECT'S OWN RULE WITH THE SIGN FLIPPED.** CLAUDE.md says *"construct the
+> EMPTY version of a winning arm and check that it LOSES."* The suspect arm was not empty but SPARSE,
+> so: **construct the MEANINGLESS version and check whether it WINS.** It does.
+>
+> | k (non-zero of 1024) | RANDOM NOISE, optimistic | RANDOM NOISE, pessimistic | observed DG |
+> |---|---|---|---|
+> | **10 (sparsity 0.01)** | **14.0** | **272.0** | **18.0 / 15.0** |
+> | 20 (0.02) | 49.0 | 239.0 | 56.0 / 46.0 |
+> | 51 (0.05) | 142.0 | 156.0 | 95.0 / 78.5 |
+> | 1024 (dense noise, control) | 143.0 | 143.0 | -- |
+> | CONSTANT (degenerate extreme) | **1.0** | 286.0 | -- |
+>
+> **➡️ A CODE CONTAINING NO INFORMATION WHATSOEVER SCORES 14.0 -- BETTER THAN OUR 18.0 AND 15.0 --
+> AND NOISE REPRODUCES THE WHOLE SWEEP SHAPE.** The arithmetic was predictable in advance and is
+> stated in the script: `k=10` over 1024 slots makes **~91% of candidate/query pairs share no support
+> at all**, so their dot product is EXACTLY 0.0; the rank statistic `1 + #{sims > sims[target]}` uses
+> a STRICT inequality, so every one of those ties counts as BEATEN. **The emptier the code, the
+> better the score.** The `CONSTANT` row is the proof in its purest form: identical profiles carrying
+> zero information score a PERFECT 1.0.
+> **✅ THE HARNESS ITSELF IS FINE -- positive control passed: query == profile scores rank 1.0 under
+> both conventions.** The defect is the SPARSITY, not the scorer.
+> **🚨 MY OWN GUARD PASSED THIS (`alive = 286 of 286`). NON-ZERO IS NOT NON-DEGENERATE, AND I WROTE
+> THAT GUARD FOR THE EMPTY CASE WHILE BUILDING THE ARM MOST EXPOSED TO THE SPARSE CASE.** New rule
+> added to CLAUDE.md.
+> **📉 AND THE REAL READING OF THE SWEEP, ONCE THE ARTIFACT IS REMOVED: NO SPARSITY BEATS RAW.** At
+> k=256 the real arm (63.0 / 41.5) does beat noise (152.0), so there IS genuine signal at dense
+> settings -- **but it still loses to RAW (52.5 / 35.5).** *So the pre-committed "DG ties or loses"
+> branch fires, and the post-hoc-transform family closes with the eleven write-side routes.*
+>
+> # [THE WITHDRAWN BLOCK, KEPT SO THE ERROR IS VISIBLE RATHER THAN EDITED AWAY]
 > # ⚠️🔬 **DG PATTERN SEPARATION -- SEED 7 LOOKS LIKE THE BIGGEST WIN OF THE EFFORT, AND I DO NOT**
 > # **BELIEVE IT. A REFUTATION IS RUNNING. NOBODY QUOTE THIS UNTIL IT LANDS.**
 > *`scratch/diag_dg_pattern_separation_on_profiles.py`, seed 7 of 3, `simplewiki`, leak 0.*

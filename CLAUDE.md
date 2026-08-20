@@ -32,6 +32,7 @@ condensation of this file cannot turn an earned rule into unsourced prose).
 | ran a full 5-point sweep on divisive normalisation after quoting ORGAN_MAP §2; §3 of the same file said *"do not re-propose"* it, with an analytic proof (scalar denominator, cosine is scalar-invariant) | the prior-work check before proposing a BRAIN MECHANISM is THREE reads -- registry, `experiment_index.py`, **and ORGAN_MAP's corrections**; grep the whole file, not the row you cite | *Two archives was not enough* |
 | three internal statistics (anchor margin, trace coherence, effective dimensionality) each produced a confident mechanistic claim that the held-out TASK then contradicted | a statistic the mechanism OPTIMISES is not an outcome -- it may DIAGNOSE, never DECIDE; score every lever on the same task, floors and CIs | *A statistic the mechanism optimises is not an outcome* |
 | a script exited on "my manipulation failed" before the "the corpus already drifts" check below it could run; both were true, and it suppressed the informative one | a gate's THRESHOLD is not the only thing to check -- check what it EXITS BEFORE; order readings most-informative first | *Non-stationary escape, sixth gate defect* |
+| a 1%-sparse arm read 1.06x the floor vs the shipped 3.09x -- apparent parity with word-counting, on two seeds -- while random noise of the same sparsity scored BETTER (14.0 vs 18.0); ~91% of pairs shared no support so their similarity tied at exactly 0.0, and the strict-inequality rank counts every tie as beaten | `norm(v)>0` is not a non-degeneracy check -- assert TIE DENSITY, report both tie conventions, and score the information-free version of any winning arm | *Non-zero is not non-degenerate* |
 
 Rules on delegation, agent reports, model choice and detached launches are in their own sections
 below and carry their incidents inline.
@@ -708,6 +709,53 @@ Three things, and the third is the general one:
 hoped would win -- but arriving from the opposite direction: there the data was too good, here the
 model was too empty. Both were caught by the number disagreeing with every other measurement of the
 same quantity that day.*
+
+## NON-ZERO IS NOT NON-DEGENERATE -- A *SPARSE* ARM BREAKS A RANK METRIC THE SAME WAY AN EMPTY ONE DOES
+
+**Measured 2026-08-20, and the guard that should have caught it is the one directly above -- written
+by the same person, the same week, for the EMPTY case, while building the arm most exposed to the
+SPARSE case.**
+
+A dentate-gyrus pattern-separation arm (`dg_separate`, `expand_dim=1024`, `sparsity=0.01`) took the
+held-out word-recall task from **3.09x the co-occurrence floor to 1.06x** -- apparent parity with
+word-counting for the first time in the project, reproduced on two seeds. **It was an artifact.**
+
+`k = round(0.01 * 1024) = 10` non-zero components. Two independent 10-subsets of 1024 slots are
+disjoint with probability `(1 - 10/1024)^10 ~= 0.91`, so **~91% of candidate/query pairs have a dot
+product of EXACTLY 0.0**. The rank statistic is `1 + #{sims > sims[target]}` -- a STRICT inequality
+-- so whenever the target also scores 0.0, **every one of those ties counts as BEATEN**.
+
+**The refutation needed no corpus and took seconds: construct the MEANINGLESS version of the winning
+arm and check whether it WINS.**
+
+| arm (286 candidates, 300 probes) | optimistic | pessimistic |
+|---|---|---|
+| **random 10-sparse noise -- ZERO information** | **14.0** | 272.0 |
+| the real DG@0.01 arm | 18.0 / 15.0 | -- |
+| random dense noise (control) | 143.0 | 143.0 |
+| **every profile IDENTICAL (degenerate extreme)** | **1.0** | 286.0 |
+
+Noise beat the real arm, and reproduced the whole sweep shape across k. The harness was fine --
+positive control `query == profile` scored rank 1.0 under both conventions. **The sparsity was the
+defect, not the scorer.**
+
+Three rules, and the third is the general one:
+
+1. **ASSERTING `norm(v) > 0` PER ITEM IS NOT ENOUGH.** That guard passed at `alive = 286 of 286`.
+   For any arm that sparsifies, thresholds, quantises or masks, ALSO assert **tie density**: the
+   fraction of candidates whose similarity to the query is exactly equal to the target's. Print it.
+2. **REPORT BOTH TIE CONVENTIONS WHENEVER TIES ARE POSSIBLE** -- optimistic (ties beaten),
+   pessimistic (ties beating), and the midpoint. A result that exists only under the optimistic
+   convention is a tie-breaking result, not a ranking result. *The measurement bar already says
+   "report tie conventions both ways"; this is what it costs to skip it.*
+3. **THE GENERAL FORM: BUILD THE INFORMATION-FREE VERSION OF YOUR WINNING ARM AND SCORE IT.** Empty,
+   constant, shuffled, or random-with-the-same-shape -- whichever degeneracy your mechanism can
+   approach. If it scores well, the metric cannot fail safely in that regime and no number from that
+   regime means anything. **This is cheap, needs no data, and catches the failure BEFORE the
+   expensive run rather than after it.**
+
+*Note what did NOT catch it: two seeds agreeing. The artifact is a deterministic property of sparse
+codes, so it reproduces perfectly. Replication is not a defence against a metric defect.*
 
 ## A FRESH READER IS NOT A HELD-OUT SPLIT -- CHECK OVERLAP, DO NOT INFER IT FROM THE CONSTRUCTION
 
