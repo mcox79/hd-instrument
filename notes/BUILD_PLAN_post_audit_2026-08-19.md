@@ -413,6 +413,42 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## ⬅️⬅️⬅️ **NEXT EXPANSION (owner asked 2026-08-20): THE UNIT, NOT THE MECHANISM.**
+> ## **OUR "CONTEXT" IS A BAG OF NEARBY WORDS. THE BRAIN ENCODES WHO DID WHAT TO WHOM.**
+> `context_vector_masked` sums the content words around a target -- a FIRST-ORDER, SYNTAGMATIC
+> statistic. **Every wall hit this session is downstream of that one choice.**
+>
+> | measurement | what the BAG explains |
+> |---|---|
+> | textbook grounds **12.6%**, novels **0.7%** | *"mitochondria are organelles that produce ATP"* -- the bag nearly IS the definition. *"he stumbled through the gorse"* -- the bag is useless; the **frame** says physical, traversable, outdoors |
+> | coherence **0.027** narrative / 0.071 expository, both near zero | two scenes share almost no WORDS -- they share ROLE FRAMES |
+> | pooling scores **0.75-0.80x** of a single encounter | averaging bags of different scenes converges to the corpus mean; averaging ROLE SLOTS would accumulate |
+> | **eight** write-rule closures | every one chose WHICH bags to add or HOW. **None questioned the bag.** |
+>
+> **🧠 IT IS PINNED, NOT INVENTED.** ORGAN_MAP F3: MacWhinney Competition Model, cue validity =
+> availability x reliability -- and its own FIDELITY line already says **"RIGHT-OP-WRONG-METRIC: the
+> competition shape is right; raw counts are not cue validity."**
+> **🛠️ AND IT IS ALREADY BUILT, DEFAULT-OFF, IN EXACTLY THE SHAPE `keep_noting_grounded` HAD:**
+> `StructuralEncoder` (`reading_grounding_loop.py:318`) and `structural_vector_masked` (:456), with
+> `encoder=None` giving the byte-identical shipped path (:269 *"NOTHING BELOW RUNS unless a caller
+> explicitly builds a StructuralEncoder"*). Plus `hdlab/thematic_role_labeler.py` and
+> `hdlab/role_slot_summarizer.py`.
+>
+> **SEQUENCE -- DO NOT SKIP STEP 1:**
+> 1. **THREE-READ prior-work check** (`experiment_index.py` on structural/role encoding · the
+>    registry · **ORGAN_MAP's CORRECTIONS**). *That habit caught six rediscoveries tonight, including
+>    one where ORGAN_MAP said in writing "do not re-propose this".* **The encoder being built and
+>    OFF is itself evidence someone may already have a reason.**
+> 2. Turn it on ADDITIVE + DEFAULT-OFF; measure on the same task, same COOC/FREQ floors, 3 seeds,
+>    BOTH genres. **Never on a statistic the mechanism optimises.**
+> 3. **PRE-REGISTERED DISCRIMINATOR: structure must help NARRATIVE MORE THAN EXPOSITORY prose** --
+>    exposition's bag already carries the definition, so it has less to gain. **If it helps both
+>    equally it is a better ENCODER, not a fidelity fix, and must be reported as that.**
+>
+> *⚠️ HONEST RISK: role-binding leans on VSA binding, which ORGAN_MAP records as UNPINNED in the
+> brain -- our invention under test. So the CONTEXT UNIT is brain-pinned; the BINDING that implements
+> it is not. Both statements travel together.*
+
 > ## 🗂️ **REGISTRY COVERAGE CLOSED (2026-08-20). 204 -> 208 ROWS, AND THE AUDIT CAUGHT ME 3x.**
 > **`keep_noting_grounded` had NO registry row** -- the one verified result of the night was shipped
 > into `hdlab` and islanded. Registered, plus the three modules the audit listed as unregistered
