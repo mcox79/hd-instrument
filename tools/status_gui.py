@@ -205,6 +205,28 @@ if _TOOLS_DIR not in sys.path:
 # and by the harness, and only one of those reliably starts in the repo.
 _REPO = Path(__file__).resolve().parent.parent
 
+# ---- THIS WINDOW CAN BE STALE, AND THAT COST THE OWNER FOUR SEPARATE REQUESTS -------------------
+# MEASURED 2026-08-20: the owner's GUI process started 2026-08-17 17:50 and was still running three
+# days later. Tk loads this file ONCE, at startup, so every feature added since was invisible to
+# them -- including the two they then asked for AGAIN, not knowing they already existed:
+#   072c18b05 (08-18 07:26)  the overnight ON/OFF buttons  -> re-requested 08-20 12:48
+#   d79473ab8 (08-19)        per-tab data age              -> re-requested 08-19 19:44
+# and it also explains board Q67, "I still only see the old questions here - d1 d2 etc".
+#
+# THE POINT IS NOT THE THREE DAYS. It is that a stale window is INDISTINGUISHABLE from a current
+# one, so the owner reasonably read "the feature is missing" from "the feature is not on screen".
+# This file already carries the rule for exactly this class of fault -- *a stale RUNNING panel is
+# read as evidence, which is worse than no panel* -- and the window itself was the one surface not
+# holding itself to it.
+#
+# The mtime is captured AT IMPORT, so it is the version this PROCESS is running, and compared to
+# disk on every refresh. No version string to bump and forget: the file's own mtime cannot drift
+# out of sync with the file.
+try:
+    _SRC_MTIME_AT_IMPORT = Path(__file__).resolve().stat().st_mtime
+except OSError:                                   # unreadable -> never claim staleness
+    _SRC_MTIME_AT_IMPORT = None
+
 import status_state  # noqa: E402  (the collector; this file only renders)
 from status_state import _fmt_dur  # noqa: E402
 
@@ -732,6 +754,14 @@ class StatusWindow:
                                     font=("Segoe UI", 10), anchor="w", justify="left",
                                     padx=14, wraplength=self._wrap_w)
         self.headsub_lbl.grid(row=1, column=0, sticky="ew", pady=(0, 9))
+
+        # "YOU ARE LOOKING AT OLD CODE" -- hidden unless it is true. It lives INSIDE the headline
+        # frame (row 2) rather than as a new root row, so the Notebook and the bottom bar keep their
+        # existing row indices and no other layout has to move.
+        self.stale_lbl = tk.Label(head, text="", bg="#5a2d00", fg="#ffd9a0", anchor="w",
+                                  justify="left", padx=14, wraplength=self._wrap_w,
+                                  font=("Segoe UI", 11, "bold"))
+        self.stale_shown = False
         self.headbar = head
 
         self.nb = ttk.Notebook(root)
@@ -1879,7 +1909,42 @@ class StatusWindow:
         # Per-tab evidence age, re-applied on the tick so it counts up between refreshes rather
         # than freezing at whatever it was when the data last landed.
         self._update_tab_ages()
+        # Checked on the TICK, not on a successful collect: a window running code old enough to
+        # matter may also be failing to collect, and that is precisely when the owner most needs
+        # to be told the window itself is the problem.
+        self._check_self_stale()
         self.root.after(TICK_MS, self._tick)
+
+    def _check_self_stale(self) -> None:
+        """Say so, unmissably, when this file has changed on disk since the process loaded it.
+
+        Never raises and never claims staleness it cannot prove: an unreadable mtime, or a missing
+        baseline, leaves the banner hidden. The bias is deliberate -- a false 'restart me' is a
+        nuisance, a false 'you are up to date' is the three-day failure this exists to prevent.
+        """
+        if _SRC_MTIME_AT_IMPORT is None:
+            return
+        try:
+            now_mtime = Path(__file__).resolve().stat().st_mtime
+        except OSError:
+            return
+        # Whole seconds: some filesystems report sub-second jitter that is not a real edit.
+        stale = int(now_mtime) > int(_SRC_MTIME_AT_IMPORT)
+        try:
+            if stale and not self.stale_shown:
+                age = _fmt_dur(max(0.0, time.time() - _SRC_MTIME_AT_IMPORT))
+                self.stale_lbl.configure(
+                    text=("THIS WINDOW IS RUNNING OLD CODE -- CLOSE IT AND OPEN IT AGAIN.\n"
+                          f"It loaded {age} ago and the dashboard has been changed since. "
+                          "Buttons, tabs and questions added after that point are NOT on screen, "
+                          "so anything that looks missing may already exist."))
+                self.stale_lbl.grid(row=2, column=0, sticky="ew", pady=(0, 9))
+                self.stale_shown = True
+            elif not stale and self.stale_shown:
+                self.stale_lbl.grid_remove()
+                self.stale_shown = False
+        except tk.TclError:
+            pass
 
     # ------------------------------------------------------------------
     # rendering -- every panel independently guarded
