@@ -413,6 +413,41 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🧱🧱 LANDED + MEASURED -- **THE FREEZE IS *TWO* FREEZES. I FIXED THE WRITE ONE; THE READ ONE**
+> ## **SILENTLY DISCARDS EVERYTHING IT PRODUCES. THIRD "WRITTEN AND NEVER READ" OF THE NIGHT.**
+> **SHIPPED (additive, default-off, all module self-tests pass including
+> `_selftest_promotion_closes_the_gap_gate`): `keep_noting_grounded`.** `Library.flag()` appends to a
+> `GROUNDED_*` item without changing status or running PBV; `process_sentence` opens the *second*
+> gate too -- the terminal short-circuit that fires BEFORE `is_gap`, which is why ablating
+> `gap_detector` alone had changed nothing. Exposed via `Substrate.ABLATIONS`.
+> **Verified surgical at 1,500 sentences: traces 8052 -> 8242, with library items, consolidated count
+> and every status count IDENTICAL.** Nothing un-grounds; only evidence accumulates.
+>
+> **⛔ AND THEN THE MEASUREMENT KILLED IT, FOR A REASON WORTH MORE THAN THE FIX.** With the flag ON,
+> 2,000 -> 12,000 sentences, 60 grounded terms:
+>
+>     terms whose trace COUNT grew :  58 of 60      (2,893 new traces)
+>     cos(traceMean_end, snapshot) :  0.775658      <- the LIBRARY genuinely moved
+>     cos(profile_end,  snapshot)  :  1.000000      <- the READ-OUT serves the frozen vector
+>
+> **THE NOTES ARE NOW BEING TAKEN AND THEY ARE NEVER READ.** `Substrate.profile()` returns the sealed
+> CONSOLIDATED vector for a grounded word -- its own docstring says so: *"ConceptSpace wins on
+> collision because a grounded word's profile is the consolidated one."* So the arms came out
+> equal (median 32.0 at every checkpoint in both), and the only moving number was the COOC floor.
+> *A run reporting "keep_noting_grounded does not help" would have been true and completely
+> misleading.*
+>
+> **🔁 THIRD INSTANCE TONIGHT OF THE SAME SHAPE, AND IT IS NOW THE DOMINANT FAILURE MODE HERE:**
+> (1) the consolidated store -- written, never read by the retrieval routes; (2) `gap_detector` /
+> `gap_driven_reader` / `three_tier_loop` -- built, wired by nothing; (3) post-grounding traces --
+> now written, never read. **The registry answers "does it exist". Nothing answers "is its output
+> CONSUMED".**
+> **➡️ NEXT, AND IT IS SMALL: make the read-out respect the flag.** For a grounded word,
+> `profile()` should fold the accumulated Library traces into the consolidated vector rather than
+> discarding them. Same additive, default-off discipline. **Only then is the post-hoc coverage claim
+> (3.69x -> 2.06x) actually being tested inside the assembly** -- everything before this point was
+> testing a write that nothing reads.
+>
 > ## 🎯 RAN -- **THE FREEZE IS ONE `return False`, AND IT IS DELIBERATE. EXACT MECHANISM, IN CODE.**
 > `hdlab/grounding_acquisition_loop.py:300-303`, `Library.note()`:
 > ```python
