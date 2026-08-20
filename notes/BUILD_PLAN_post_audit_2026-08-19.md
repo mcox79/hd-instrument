@@ -1,5 +1,36 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 📉 **FOURTH UNREAD RUN: MORE TEXT HELPS THE COUNTER AND DOES NOTHING FOR US. A 53x DATA RANGE,**
+> # **AND THE SUCCESSOR REPRESENTATION NEVER CLEARS THE BAR ON ANY RUNG OR ANY SEED.**
+> *`exp_sr_scale_ladder_v1`, 3 seeds x 4 rungs. **The design is the point: the candidate pool and
+> items are FROZEN to the smallest rung's vocabulary and the rung corpora are NESTED, so the ONLY
+> thing that varies is how much text the transition matrix is estimated from.** No population
+> confound is available.*
+>
+> | rung | COOC_floor (3 seeds) | SR_g0.1 | SR_g0.9 |
+> |---|---|---|---|
+> | 750 | 0.020 / 0.018 / 0.020 | 0.008 / 0.013 / 0.023 | 0.013 / 0.008 / 0.015 |
+> | 3,000 | 0.045 / 0.025 / 0.033 | 0.015 / 0.008 / 0.005 | 0.005 / 0.003 / 0.005 |
+> | 12,000 | 0.053 / 0.043 / 0.038 | 0.005 / 0.003 / 0.005 | 0.003 / **0.000** / 0.008 |
+> | **40,000** | **0.070 / 0.055 / 0.050** | 0.013 / 0.013 / 0.013 | **0.000 / 0.000** / 0.005 |
+>
+> **➡️ THE COUNTER SCALES: 0.020 -> 0.070, roughly 3.5x over a 53x increase in text, on every seed.
+> THE SUCCESSOR REPRESENTATION IS FLAT OR DECLINING, and `clears_credible_bar` is False on EVERY
+> rung, EVERY seed, EVERY discount.**
+> **🔴 AND `SR_g0.9` GETS WORSE WITH MORE DATA -- to EXACTLY 0.0 at 40,000 sentences on two of three
+> seeds.** *A mechanism that degrades as evidence accumulates is not under-trained; it is
+> mis-specified. The likely reason is visible in the same rows: `transitions_per_state` goes 2.5 ->
+> 80.2, so the transition matrix densifies and a heavily-discounted multi-step occupancy washes out.*
+>
+> ## 🔗 IT CLOSES THE SR LINE FAR MORE DECISIVELY THAN TODAY'S EARLIER TEST DID
+> This morning I closed D7/SR on a single text sample (1-step co-occurrence 18.5 vs SR 45.0) and
+> recorded the caveat that the script *"says seeds and is WRONG; only the uniform arm was seeded."*
+> **This cell has real seeds, a frozen population, nested corpora and a scaling axis -- and reaches
+> the same conclusion with far better evidence.** *The better version of my own result was already
+> on disk, unread, when I ran the weaker one.*
+> **⚖️ SCOPE: one corpus (`simplewiki`), 400 items, pool 2,161, hit@1 only. The absolute numbers are
+> tiny (7% at best) -- this ladder measures RELATIVE scaling behaviour, not capability.**
+
 > # 🟡 **THIRD UNREAD RUN: SUPPLIED SENSORIMOTOR NORMS BEAT OUR LEARNED SUBSTRATE -- BUT THEY DO**
 > # **NOT CLEAR THEIR OWN PRE-REGISTERED BAR. I ALMOST REPORTED THE OPPOSITE.**
 > *`exp_sensorimotor_spoke_grounding_v1`, 3 seeds, same independent ConceptNet gold,
