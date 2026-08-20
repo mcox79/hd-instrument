@@ -68,3 +68,25 @@ I want to make sure we've been drilling and evaluating deeply the brain foundati
 ## 2026-08-20T12:31:52Z  --  the status window
 
 just a quick though on stories vs textbooks. When I read either of those, I read them in a very different way. You don't approach a textbook like a story - textbooks are supposed to have facts laid out for learning, stories are there to enjoy - to get a new perspective or imagine a different life or world. Yes, you can learn from stories, but it's not the same kind of learning at all.
+
+## 2026-08-20T12:48:12Z  --  the status window
+
+please turn off the hook loop when you see this, and in the running tab on gui make a button that turns the loop on, and another that turns it off
+
+## 2026-08-20T14:41:29Z  --  the status window
+
+there are ~8 questions in the "still need to be answered" section that I think are already answered / moot
+
+## 2026-08-20T14:44:17Z  --  the status window
+
+you should add some kind of error log or statistics that can figure out what's going wrong with the gui - weird things happenening and it's hanging a lot. the tabs keep changing slightly with every update too
+
+## 2026-08-20T15:45:56Z  --  the status window
+
+I did answer d6 but I don't think those legacy questions are working properly. Yes you can merge to main. These are all the questions that appear stil "unanswered" in the waiting on you tab - they are all legacy and need to be removed I believe:
+D1-D7
+OP1-OP4
+
+## 2026-08-20T16:06:55Z  --  the status window
+
+tehere are a lot of "no verdict" runs in the "latest results" tab - is that correct or old?

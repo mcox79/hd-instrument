@@ -218,13 +218,33 @@
 > > SMOOTHING.** Holds in both strata (-19.0 low exposure, -12.0 high). **⚠️ STILL 8x BELOW
 > > COUNTING -- an internal improvement, NEVER a capability claim** -- but the first thing measured
 > > all day that makes the definitions DO anything. **1 seed = HYPOTHESIS; 101/13 running.**
-> > **⛔ IT ALSO REFUTES MY OWN BOUNDARY FROM 2 HOURS EARLIER** ("combining helps only when channels
-> > are comparably strong; a weaker one dilutes"): DEF_LOOKUP is WEAKER and BOTH still gains.
-> > **THE CONDITION IS INDEPENDENCE, NOT COMPARABLE STRENGTH** -- an independent estimate of the
-> > same thing in a comparable representation, not merely more text. *The owner's original
-> > combine-channels hypothesis was right; my amendment made it worse.* **And my pre-committed
-> > prediction FAILED** -- DEF_LOOKUP beat PROFILE in NEITHER stratum; only the combination
-> > stratifies.
+> > **And my pre-committed prediction FAILED** -- DEF_LOOKUP beat PROFILE in NEITHER stratum.
+> >
+> > ### ⛔⛔ **WITHDRAWN ON SEED 101. THE `BOTH` GAIN IS AN ARTIFACT.**
+> > | seed 101, n=119, 195 candidates | rank |
+> > |---|---|
+> > | PROFILE | 53.0 |
+> > | BOTH (profile + **right** lookup) | 52.0 -- a **1-rank** "gain", not 16 |
+> > | BOTH_SHUFFLE (profile + **wrong** lookup) | 62.0 |
+> > | **BOTH_NOISE (profile + RANDOM VECTOR)** | **45.0 -- BEST ARM ON THIS SEED** |
+> > | COOC | 3.0 |
+> >
+> > **BLENDING WITH RANDOM NOISE BEAT BLENDING WITH THE RIGHT DEFINITION**, and the guard printed
+> > its own verdict unprompted. Unstable *within* the seed too (+11.5 low, -16.0 high). **FOURTH
+> > SINGLE-SEED WIN READ AS A RESULT IN A WEEK** -- the rule was in my own limits section before the
+> > second seed ran. ✅ **The controls were added BEFORE replication and caught it automatically.**
+> > **SURVIVES BOTH SEEDS:** DEF_LOOKUP < PROFILE (67/54.5; 69/53); SHUFFLE_LOOKUP far worse than
+> > DEF_LOOKUP (106/67; 104/69) so **definitions DO carry term-specific signal, just not enough**;
+> > **COOC 5.0/3.0 crushes every arm.**
+> > **⛔ AND THE "INDEPENDENCE NOT COMPARABLE STRENGTH" CORRECTION IS ITSELF WITHDRAWN** -- it rested
+> > on this artifact. **NEITHER boundary condition is established**; both of my claims came from
+> > single runs, in opposite directions. *The owner's original 3-seed "combining channels helps"
+> > result is untouched; what is withdrawn is MY attempt to say WHEN.*
+> > **⛔ ALSO WITHDRAWN: my "PINNED BY EVIDENCE" label on the brain mechanism.** `ORGAN_MAP.md` §G1:
+> > lexical-semantic acquisition is *"UNPINNED, deliberately"* and the strong "fast mapping writes
+> > directly to cortex" account *"collapsed under replication"* (Warren & Duff 2014; Cooper, Greve &
+> > Henson 2019). **Presenting an invention as brain-derived is the barred move -- same fault
+> > already on record for VSA binding.** Found by running the THIRD archive check AFTER building.
 
 
 > # ⛔ **TWO OF MY OWN CLAIMS FROM THE LAST HOUR WITHDRAWN -- AND THE REASON IS A STRUCTURAL FACT**

@@ -4,64 +4,75 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-18T05:12:26Z  |  HEAD: ac96e455b
+generated: 2026-08-20T18:59:15Z  |  HEAD: 0c8ccc770
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 22266 min ago <-- STALE
-  - orchestrator: 30595 min ago <-- STALE
-  - research: 496 min ago <-- STALE
-  - skunkworks: 33267 min ago <-- STALE
-  - testbed: 69841 min ago <-- STALE
+  - exp_dev: 25973 min ago <-- STALE
+  - orchestrator: 34302 min ago <-- STALE
+  - research: 364 min ago <-- STALE
+  - skunkworks: 36974 min ago <-- STALE
+  - testbed: 73548 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - substrate_director_kb_v1.staging.23180: 5 min ago, NO metrics.json yet (likely in-flight)
-  - writerule_learned_basis_denominator_gate_v1: 14 min ago, NO metrics.json yet (likely in-flight)
-  - exp_dissociation_score_instrument_v1: 46 min ago, has metrics.json
-  - exp_writerule_learned_basis_denominator_gate_v1: 48 min ago, has metrics.json
-  - writerule_learned_basis_denominator_gate_v1_reduced: 52 min ago, NO metrics.json yet (likely in-flight)
-  - exp_writerule_learned_basis_denominator_gate_v1_reduced: 52 min ago, has metrics.json
-  - exp_dissociation_score_instrument_v1_reduced: 60 min ago, has metrics.json
-  - exp_organ_f_accumulate_interference_diagnosis_v1: 73 min ago, has metrics.json
+  - substrate_director_kb_v1.staging.12232: 9 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
-  - **ALL THREE PLAN ITEMS ARE NOW DONE.** ITEM 1 `eec21487d`, ITEM 2 `0652e20a5`, ITEM 3 `2e5a467ae`
-    (a clean null). Four more cells landed after them: `201776cc9` (compression diagnosis),
-    `a8fdc968f`/`24ca42661` (the write rule), `1e085d761` (binarised read-out transfer). The
-    08-16 22:41 basin cell has now been READ, twice and independently.
-  - **TWO AGENTS ARE LIVE AS OF THIS PASS:** one authoring a 2x2 write-rule composition in
-    `experiments/` (do not edit `experiments/` or `hdlab/`), one writing
-    `notes/verb_representation_*` (`30cc1fd8a` is its first landing -- do not edit that file).
-  - `.claude/scan-out/` REFUSES FILE CREATION (4x); `notes/ tools/ experiments/ verification/` accept.
-    `experiments/exp_propose_reject_retrieval_v1.py` IS A BLOCKED PATH -- OWNER'S CALL, never retry a
-    variant.
-  - NO BACKUP, gitignored: `data/foundation/reading_grounding_v1` + `v2_qualityfix` (22+23MB).
-    Also gitignored and citation-bearing: `scratch/sparsify_right_object/` (the Q13 sparsity numbers).
-  - Three `data/cornerstone_results/*/metrics.json` are deleted in the working tree but PRESENT in
-    git (`39cc197ff`) -- recoverable, not lost; nobody has decided whether the deletion was intended.
-  - USER AUTH: `d=256->1024` (rewrites every anchor store; the phase-diagram pass says it is justified
-    for the comparison job and NOT for addressing), merge to `origin/main`, any push. Autoloop ARMED
-    at 200.
-  - `hd_director_kb_continuous_ingest` LIVELOCKED (10.65 GB, self-killed at 45 min) while the
-    scheduler reports it healthy -- `director_kb_query.py` and `substrate_query.sh` are STALE and
-    `substrate_query.sh` currently ERRORS on a locked cache file rather than returning no hits.
-  - **DATA HAZARD FOUND AND FIXED 2026-08-17 -- THIS ENTRY'S EARLIER WORDING IS SUPERSEDED.** It read
-    "`notes/LONG_TERM_PLAN.md` HAS NEVER BEEN COMMITTED", which was true when written. **It is now
-    TRACKED, committed unchanged at `0c8d202d7`** (`git log -- notes/LONG_TERM_PLAN.md` returns that
-    one commit; the working tree is clean against it at 32,823 B). The hazard is closed; the staleness
-    below is not.
-  - `LONG_TERM_PLAN.md` also stale: sec 2 rows 3/4/6 superseded by STORAGE + C30; sec 4's dual-hub
-    `[PINNED]` (line 185) should drop to CONTESTED; its Phase 2 kill banner (line 343) is recorded as
-    FIRED without the 8b(B) withdrawal-for-thematic. Director's call, NOT done here (PLAN sec 9).
-  - OVER CAP AND DELIBERATELY SO, AND THE GAP GREW AGAIN: **19,450 B against the 8,704 cap** (11,571 B
-    on 08-16, 15,149 B after the first 08-17 docs pass, this figure after the third). The new growth is
-    never-trim class -- five landed results, DO-NOT-REDO 44/45/46 each with a revival criterion, C36 --
-    offset only partly by tier trims to PHASE DIAGRAM, BRIDGING and STORAGE. **`STATUS_SPEC.md` sec 7's
-    own measurement is now stale by ~7.9 KB and BOTH of its options (raise to 12,288 B; move the stub
-    index into an uncapped `STATUS_CLOSED.md`, which was sized to land this file at ~8,580 B) are now
-    undersized -- re-measure before enacting either.** Still PROPOSED, NOT ENACTED: DIRECTOR'S CALL.
-    Never close the gap by evicting a never-trim entry.
+  - **🔵 IN FLIGHT (2, written here IN THE SAME TURN AS EACH LAUNCH -- the rule this section's own
+    stale entry was written to enforce, and then was not followed):**
+    - **phrase-floor seed replication, seed 29** (`scratch/phrase_floor_feasibility.py`).
+      **SEEDS 7 / 101 / 13 ARE IN AND REPLICATE TIGHTLY: OURS 19.4 / 18.9 / 20.3%, strongest floor
+      7.5 / 7.4 / 8.2%, SHUFFLE 0.0% on all three.**
+    - **the HARDER floor, seed 7** (`tools/score_phrase_output_against_conceptnet_hypernyms.py`).
+      Adds **`CO_SPAN`** -- a CONTIGUOUS same-length window from the SAME sentence. `CO_SENTENCE`
+      samples words INDEPENDENTLY, which destroys syntax, so it may be beaten by mere phrase-hood
+      rather than by definitional-ness. Also adds the **ORACLE** ceiling and a **treatment-overlap**
+      column, because our definiens IS a contiguous window of that sentence and on a short sentence
+      a random window can largely BE it -- **a floor that contains the treatment is not a floor, and
+      failing to clear it would be a FALSE NEGATIVE, not a result.**
+  - *(Before that launch: nothing was running -- verified 2026-08-20 against the live process table,
+    only the status GUI, shim PID 8900 / child 28648. Not inferred from a log or a PID file.)*
+  - **🚨 THIS SECTION WAS CONFIDENTLY WRONG FOR A FULL DAY, AND IT IS THE ONE `session_start_hook.py`
+    INJECTS INTO EVERY COMPACTION RECOVERY.** The parsed copy sat at **line ~2535 under 2,300 lines of
+    archive**, said *"26 continuations in"*, and named two runs as in flight that had **finished the
+    previous afternoon** -- while the `AS OF:` line at the top of the SAME FILE named two *different*
+    runs. **A stale WHAT IS RUNNING is worse than an empty one; that exact sentence was already
+    written in the stale section, by someone who had just been burned by it.**
+    **THE STRUCTURAL CAUSE, NOW FIXED: both `session_start_hook.py` and `board.py` take the FIRST
+    line-start match, and the current sections had been buried under the archive.** They now sit at
+    the top; the archived copies below are renamed so exactly one of each literal is parsed.
+  - **✅ COMPLETED 2026-08-19, both with positive evidence in their logs, neither previously recorded
+    here:**
+    - **9-seed spoke independence sweep** (`scratch/spoke9.log`) -- **PRE-REGISTERED CONJUNCTION
+      (ratio>=0.85 AND union>=1.5 on EVERY seed): FAILS** -- 3 of 9 seeds fall under the ratio bar
+      (union clears on 9 of 9). **BUT DO NOT READ THAT AS "THE ENCOURAGING SEED WAS AN OUTLIER".**
+      The log poses that as a CONDITIONAL and the data takes the other branch: **ratio mean 0.87,
+      median 0.91, sd 0.09, min 0.70, and 6 of 9 seeds clear 0.85.** The 0.70 is the extreme, not the
+      0.94. **The honest verdict is: the pre-registered all-seeds bar FAILS and the effect is
+      BORDERLINE-AT-INDEPENDENCE, not refuted.**
+      *🚨 I first wrote "the single encouraging seed was the outlier" here, having copied the log's
+      conditional prose without checking which branch its own numbers took. Caught by reading the
+      table. That is the house error -- a narrative sentence sitting next to the data that contradicts
+      it -- and it survived into this file for one edit.*
+    - **`exp_predictive_write_gate_v1`** (`scratch/pwg_full.log`) -- `[done] 3 units in 1064s`.
+      **ACC hit@10 0.1533 vs COOC hit@10 0.3667** (seed 7); 0.1667 vs 0.3933 (seed 101). **Accumulation
+      loses to co-occurrence counting again**, consistent with everything else measured this week.
+  - **🔎 THE MACHINE ALREADY KNEW, AND THE WARNING WAS BEING READ PAST EVERY SESSION.** The hook's own
+    `[pid-reconcile]` block prints **"4 RECENT RUN(S) DEAD WITHOUT FINISHING <-- do not describe these
+    as live"**, naming `spoke9`, `onemany` and `cn_gold` as `DEAD_BUT_CLAIMED_LIVE`. It was correct
+    about LIVENESS and was ignored while this file said the opposite two lines further up.
+    **⚠️ BUT IT IS NOT RELIABLE ABOUT COMPLETION: it classifies `spoke9` as dead WITHOUT FINISHING,
+    and that run demonstrably finished** -- all 9 seeds, summary statistics and its pre-registered
+    verdict are in the log. It appears to infer "unfinished" from a missing `metrics.json`, which a
+    scratch-script run never writes. **DEAD != UNFINISHED; the reconciler conflates them, so use it
+    for liveness and read the log for completion.**
+  - **⚠️ FILE HEALTH: this file is ~272 KB / 3,373 lines against a stated cap of 8,704 B -- 31x over.**
+    `STATUS_SPEC.md` sec 2 requires the state half to be REWRITTEN IN PLACE and the never-trim half to
+    live in `STATUS_LESSONS.md`. It has instead become an append log. **NOT trimmed here on purpose:**
+    the spec's own sec 8 records that an ad-hoc byte-shave deleted a discipline that had cost two full
+    experiments to learn. A trim is a deliberate job against the spec, not a side-effect of a status
+    update.
 
 ## 3. How we are doing (C1-C4, notes/SUBSTRATE_STRATEGY.md PART 1)
 - **C1** Near-neighbour 2AFC, live reading path: now=**0.6980** (was 0.6395) | floor(s)=scrambled-context **0.5095**, frequency **0.48025**, chance 0.50 | table verdict: (no verdict word in table cell)
@@ -71,13 +82,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 10 new commit(s) since last snapshot (HEAD de2d126e5 -> ac96e455b)
-- data/ directory count: 8080 -> 8088 (+8)
+- 1 new commit(s) since last snapshot (HEAD 59627d991 -> 0c8ccc770)
 
 ## 5. What is stuck (blocked / pending / no owner)
-- `experiments/exp_propose_reject_retrieval_v1.py` IS A BLOCKED PATH -- OWNER'S CALL, never retry a
-- USER AUTH: `d=256->1024` (rewrites every anchor store; the phase-diagram pass says it is justified
+- (none found)
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8088, "generated_at": "2026-08-18T05:12:26Z", "head_commit": "ac96e455b4bc5c8dccd5aa2a202fbec039a1de3e", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8155, "generated_at": "2026-08-20T18:59:15Z", "head_commit": "0c8ccc7705574e2877857603586bfc8d3a3f9b53", "step_status": {}}
 -->

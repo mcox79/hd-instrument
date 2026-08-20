@@ -1,5 +1,16 @@
 # Research: Target-scouting -- the next comprehension benchmark after ProPara-bridging exhaustion (2026-08-10)
 
+> 🟡 **NOTE ADDED 2026-08-15 (correction C21) -- THIS NOTE IS CORRECT AND WAS MIS-QUOTED
+> DOWNSTREAM. It is not demoted; it is the exonerating evidence.** Lines 11 and 301 say
+> "native LOCAL thematic-role reading at **0.95 parse coverage**". That is a COVERAGE figure and
+> this note states it accurately. Downstream it was transcribed as an ACCURACY figure --
+> `notes/HANDOFF_full_project_report_for_new_team_2026-08-14.md:158` reads "local thematic-role
+> reading (0.95 held-out)". **There is no 0.95 accuracy for this organ on disk.** The real numbers:
+> `exp_thematic_role_labeler_cue_integration_v1` HARD_PASS `mean_full_acc` **0.8666** at n_test=63,
+> and `exp_thematic_role_labeler_qasrl_modern_revalidation_v1` **HARD_FAIL** at
+> `mean_qasrl_noncanon` **0.7442**, n=3937. Anyone citing "0.95 held-out" is citing a transcription
+> error, not this note.
+
 Filed by: research (Sonnet). Trigger: explicit TARGET-SCOUTING dispatch -- ProPara-bridging is now
 comprehensively exhausted for the glass-box approach (frame-activation build `exp_propara_bridging_
 frame_activation_v1` landed with the PARENT task HARD_FAIL -- frame_f1=0.327 < oracle_f1=0.399 --

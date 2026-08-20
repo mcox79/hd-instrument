@@ -1,5 +1,22 @@
 # C3 gate hardening -- a zero-meaning control cleared the gate, so the gate is wrong
 
+> 🔴 **WORDING CORRECTED 2026-08-15 (corrections C16 + C22). THE CONCLUSION OF THIS NOTE STANDS;
+> ITS DESCRIPTION OF THE ARM DOES NOT.** This note repeatedly calls `A5_STRINGCTRL` "a zero-meaning
+> arm" / "a pure character-trigram control containing no meaning at all" (lines 1, 104, 121, 244,
+> 284, 297, 329). **The CHANNEL is zero-meaning; the ARM is not.** Verified in source:
+> `experiments/exp_meaning_supply_separation_v1.py:235-240` defines
+> `arm_scores(base, aux, w) = _z(base) + w*sum(_z(aux))` and `:469` sets
+> `"A5_STRINGCTRL": [aux_t]`, so the arm is **`z(base) + w*z(trigram)` and carries the FULL
+> substrate signal plus spelling** -- a decomposition, not a standalone floor.
+> **Why the conclusion survives anyway:** an arm differing from the failing base ONLY by a spelling
+> channel cleared the old criterion, which is exactly the gameability demonstration this note was
+> written to make. The 0.10275 figure is unaffected.
+> **The genuinely standalone zero-substrate arm is a different object in a different cell** --
+> `exp_orthographic_floor_vet_v1`'s `A6_TRIGRAM_ONLY` (`t_mat[sel] @ tq`, no base term), which
+> scores **0.0870 [0.07825, 0.09600]** against our 0.0480 and is the number to quote for
+> "spelling alone beats us". Kept in place rather than rewritten: the history of what was believed
+> is the audit trail.
+
 **Filed:** 2026-08-14. **Author role:** audit (cert-owner). **Status of this note:** proposal +
 executed re-scoring. It does NOT edit `notes/SUBSTRATE_STRATEGY.md` or `notes/STATUS.md`; the exact
 replacement text for both is in section 6, ready to apply by whoever owns those files.

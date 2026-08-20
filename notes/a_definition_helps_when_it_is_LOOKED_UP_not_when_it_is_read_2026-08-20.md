@@ -19,6 +19,20 @@ SMOOTHING, not the definition. BOTH is an ARTIFACT unless it clears these two."*
 unstable *within* seed 101: `BOTH` beats `PROFILE` by 11.5 in the low-exposure stratum and LOSES by
 16.0 in the high one, where seed 7 had it winning in both.
 
+### ✅ SEED 13 CONFIRMS THE WITHDRAWAL, FROM THE OTHER DIRECTION
+
+| seed 13, n=131 | rank |
+|---|---|
+| PROFILE | 57.0 |
+| BOTH | 52.0 |
+| **BOTH_SHUFFLE (the WRONG definition)** | **53.0 -- ONE RANK from BOTH** |
+| BOTH_NOISE | 62.0 |
+
+**Using another term's definition performs the same as using the right one.** The guard fired here
+too. **ALL THREE SEEDS: `BOTH - PROFILE` = -16.0 / -1.0 / -5.0, and on TWO OF THREE an
+information-free blend matched or beat the treatment.** A gain that only appears on one seed, and
+that a random vector reproduces on another, is not a gain.
+
 **⚠️ FOURTH TIME IN A WEEK A SINGLE-SEED WIN WAS READ AS A RESULT.** The standing rule -- *a
 single-seed win is a HYPOTHESIS* -- is written in the note below, by me, before the second seed ran.
 **The rule was written down, applied to the limits section, and I still led with the headline.**

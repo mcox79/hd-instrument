@@ -10,6 +10,15 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
+> # 📒 **READ THIS ONE FIRST: `notes/WHAT_2026-08-20_ESTABLISHED_survives_vs_withdrawn.md`**
+> Today produced **11 findings and 6 retractions of my own claims**, several of them corrections OF
+> corrections. The plan, this file and four notes carry those layers **in the order they happened**
+> -- the right way to keep a record and the wrong way to read one. **That file is the FLAT version:
+> what survives, what is withdrawn, why. Where it and an older note disagree, IT IS LATER.**
+> **ONE LINE: the definitional-PHRASE half of the output is genuinely good and clears every floor on
+> an independent gold; NOTHING in the substrate reads it; three attempts to change that all failed;
+> co-occurrence counting still beats every arm by ~10x.**
+
 ### 🧭 **CONSOLIDATED, 2026-08-20. THE PLAN'S TOP BLOCK IS THE FULL VERSION; THIS IS THE SHORT ONE.**
 *(`###` deliberately, not `##`: `## POSITION` is machine-parsed and a `##` here TERMINATED the
 POSITION section at its own first line, so both `session_start_hook.py` and `board.py` were
@@ -63,8 +72,12 @@ estimate would have produced a false positive where the paired statistic said no
 **BLENDING WITH RANDOM NOISE BEAT BLENDING WITH THE RIGHT DEFINITION.** The guard printed its own
 verdict unprompted: *"AN INFORMATION-FREE BLEND ALSO BEATS THE PROFILE -- the gain is SMOOTHING, not
 the definition. BOTH is an ARTIFACT unless it clears these two."* Also unstable WITHIN seed 101
-(+11.5 low exposure, -16.0 high, where seed 7 won both). **Seed 13 still running; the verdict does
-not depend on it.**
+(+11.5 low exposure, -16.0 high, where seed 7 won both).
+**✅ SEED 13 CONFIRMS IT FROM THE OTHER DIRECTION: `PROFILE 57.0 | BOTH 52.0 | BOTH_SHUFFLE 53.0`
+-- using ANOTHER TERM'S definition performs the SAME as the right one, one rank apart.**
+**ALL THREE SEEDS: `BOTH - PROFILE` = -16.0 / -1.0 / -5.0, and on TWO OF THREE an information-free
+blend matched or beat the treatment.** A gain that appears on one seed and that a RANDOM VECTOR
+reproduces on another is not a gain.
 
 **⚠️ FOURTH SINGLE-SEED WIN READ AS A RESULT IN A WEEK. The rule was written in my own limits
 section BEFORE the second seed ran, and I still led with the headline.**
