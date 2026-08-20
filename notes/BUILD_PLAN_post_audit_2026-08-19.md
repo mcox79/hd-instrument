@@ -1,5 +1,54 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🎯 **ANCHOR SELECTION *IS* FREQUENCY-BIASED -- CONFIRMED ON TWO STORES. AND THE SCARIER**
+> # **NUMBER NEXT TO IT IS WORTHLESS, WHICH A CONTROL CAUGHT BEFORE IT WAS REPORTED.**
+> *No hand-scoring needed: "does selection prefer frequent words" is a question about the
+> MECHANISM'S BEHAVIOUR, answerable against a random-draw-from-the-same-pool null on every fact in
+> the store. This morning the same question read UNTESTABLE at n=22.*
+>
+> ## ✅ **A. THE FREQUENCY BIAS IS REAL AND REPRODUCES**
+>
+> | store | chosen anchor, mean log-freq | random draw from the SAME pool | |
+> |---|---|---|---|
+> | `reading_grounding_v1` (n=3,544) | **1.335** | 1.222, CI [1.173, 1.271] | ✅ separated |
+> | `reading_grounding_v2_qualityfix` (n=634) | **2.641** | 2.240, CI [2.090, 2.392] | ✅ separated |
+>
+> **The null is the pool itself, so "frequent words get chosen because frequent words are what is
+> available" is controlled for BY CONSTRUCTION.** *This converts the geometric finding -- the hub
+> carries frequency at R^2 0.4819 against 0.01-0.05 for a sensorimotor dimension -- into a measured
+> behaviour of the step that actually assigns meaning. It is the first time that gap has been shown
+> to REACH anything.*
+>
+> ## ⛔ **B. WITHDRAWN BEFORE PUBLICATION: "WE NEVER PICK AN AVAILABLE CORRECT SYNONYM, 775 OF 775"**
+> The run reported that where a true synonym WAS in the anchor pool we chose something else **732 of
+> 732 times (v1) and 43 of 43 (v2)** -- 100.0%, on two independent stores. The examples read
+> devastatingly: `artwork -> himself` with `art` available; `mice -> experiment` with `mouse`
+> available; `often -> understand` with `frequently` available.
+> **IT MEANS NOTHING, AND THE CONTROL SAYS SO:**
+>
+> | | expected hits if picking AT RANDOM | P(zero hits \| random) |
+> |---|---|---|
+> | v1 -- 732 opportunities, pool 2,744 | **0.44** | **0.642** |
+> | v2 -- 43 opportunities, pool 334 | **0.16** | **0.848** |
+>
+> **A correct synonym is typically ONE word in a 334-2,744 word pool (median available: 1.0), so a
+> random picker also scores zero most of the time. Observing 0 is UNSURPRISING.** *The measurement is
+> UNDERPOWERED BY CONSTRUCTION -- with an expected hit count below 0.5 it can never distinguish good
+> selection from random, no matter how many facts it runs on.*
+> **🚨 I ALMOST REPORTED A 100.0% AS DAMNING. The tell was the same one that saved me twice already
+> today: an exactly-100.0% figure is a reason to check, never a finding.** *And the pre-committed
+> verdict logic held the line on its own -- it printed "the costly case is NOT established" because
+> only 30-37% of misses were more frequent than the available correct answer.*
+>
+> ## ➡️ THE WELL-POWERED VERSION, AND IT IS THE NEXT RUN
+> **Stop asking whether the correct synonym WON. Ask what RANK it got.** A binary hit/miss over a
+> 1-in-2,744 event is unpowered; the RANK of the correct synonym among all anchors by cosine is
+> continuous, uses every opportunity, and has an obvious null (uniform rank). **If selection carries
+> real lexical meaning, correct synonyms should rank far above chance even when they lose. If they
+> rank at chance, selection has no relationship to meaning at all -- and that would be the sharpest
+> statement of the problem yet.** *Needs the substrate's own cosine scores rather than the stored
+> facts, so it is a real run, not a re-slice.*
+
 > # 🧠 **FIDELITY CHECK ON THE *ANSWER SHAPE* -- MY HYPOTHESIS REFUTED, AND THE REFUTATION IS**
 > # **MORE USEFUL THAN THE HYPOTHESIS WOULD HAVE BEEN.**
 > *Every fidelity pass so far audited a MECHANISM. Thirteen closed. Nobody had audited the SHAPE of
