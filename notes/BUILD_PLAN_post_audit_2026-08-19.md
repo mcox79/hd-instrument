@@ -1,5 +1,19 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ✅ **THE SURFACE-vs-LEMMA BUG CLASS IS ENUMERATED ACROSS `hdlab/` -- THE SUBSTRATE IS CLEAN (2026-08-21)**
+> Four modules use the lemma functions; three compare lemma-to-lemma correctly. **One site genuinely
+> would break** -- `substrate.py` ~547 compares `content_lemmas` output against `SEED_VOCAB` as
+> written, and **15 of 107 entries are not their own lemma.** It survives only because **all 15 have
+> their lemma ALSO in the list.** Measured: 34,647 content lemmas over 4,000 sentences, 4,038 skipped
+> as seeds, **0 missed.**
+> **I nearly reported the reassuring version:** the first check said "harmless, they're function
+> words", then verbs turned out to survive filtering (`"was called"` -> lemma `call`), which
+> contradicted my own zero. **An empirical zero and a structural impossibility are different claims
+> and only the second is safe to rely on.**
+> **A lucky property is one careless edit from a silent bug**, so it is now
+> `verification/test_seed_vocab_is_lemma_closed.py`, with a POSITIVE control (verbs survive, so the
+> invariant guards a live path) and a NEGATIVE control (the detector fails a deliberately broken list).
+
 > # 🧹 **`notes/STATUS.md` TRIMMED 308,692 -> 27,819 B (2026-08-21). NOTHING DELETED.**
 > It is the compaction-recovery entry point and had reached **35x its own 8,704 B cap** by
 > ACCUMULATING session findings instead of being rewritten in place.
