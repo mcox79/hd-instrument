@@ -413,6 +413,40 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## ❌ **OWNER Q74 ANSWERED: SURPRISE DOES NOT SELECT THE USEFUL NOTES. IT IS VOLUME.**
+> *The owner: "We shouldn't need notes every single time - only when there's something NEW... I still
+> think it's the surprise measurement."* **Tested in the ONE population never selected over -- the
+> POST-GROUNDING notes, which did not exist before tonight's fix. The answer is no.**
+> 3 seeds, 16,000 sentences, halves COUNT-MATCHED so volume cannot explain a difference:
+>
+> | comparison | diff | 95% CI | |
+> |---|---|---|---|
+> | ALL - NONE | **-8.0** | [-11.0, -5.0] | **SEPARATED** -- the fix reproduces |
+> | HIGH_SURP - RANDOM_HALF | +0.0 | [+0.0, +1.0] | not separated |
+> | LOW_SURP - RANDOM_HALF | +0.0 | [+0.0, +1.0] | not separated |
+> | HIGH_SURP - ALL | +1.0 | [+0.0, +2.0] | not separated |
+>
+> **⚠️ AND SEED 7 ALONE WOULD HAVE TOLD A COMPELLING STORY IN THE WRONG DIRECTION.** Per-seed:
+> `LOW_SURP` 73.5 / 92.0 / 90.5 and `HIGH_SURP` 83.0 / 74.0 / 69.5 -- **the two arms swap places
+> between seeds.** On seed 7 the least-surprising half beat everything including ALL at double the
+> count; on seeds 101 and 20260819 it was the worst arm. *Reporting seed 7 would have produced a
+> striking, quotable, entirely false finding -- "confirmation beats novelty". Three seeds is why it
+> did not happen.*
+>
+> **🧠 FIDELITY READ (the owner's standing requirement -- a negative without one is not closed).**
+> This negative is **BRAIN-CONSISTENT, and it is the SECOND confirmation tonight of the same pinned
+> fact.** ORGAN_MAP B1': *LATL conceptual combination is approximately **ADDITIVE** (Baron & Osherson
+> 2011).* **An additive hub has no notion of a special instance -- every contribution just adds.
+> "Every note contributes a little and none is special" is precisely what additive combination
+> predicts.** *Same pinned fact that reframed "the sum beats any single encounter" an hour ago. Two
+> independent negatives, one brain property, both consistent.*
+> **🔑 AND WHY SURPRISE COULD NOT SELECT, MEASURED NOT ASSUMED: mean surprise across seeds is
+> 0.4252 / 0.4214 / 0.4206 -- against 0.5, which is the NO-INFORMATION value for unrelated vectors.**
+> Our surprise signal sits a few percent from chance, so there was almost nothing in it to select on.
+> *That was measured independently earlier tonight and it predicted this result.*
+> **➡️ SO THE HONEST ANSWER TO "WHY IS IT SCORING BETTER": MORE EVIDENCE, EVENLY. Not novelty, not
+> confirmation, not any subset -- volume, in a hub that adds.**
+
 > ## 🧠 **OWNER 2026-08-20T12:06Z: "drilling and evaluating deeply the brain foundationality of any**
 > ## **negatives" -- AUDITED, NOT ASSERTED. 6 OF 8 HAD ONE. THE 2 GAPS ARE NOW FILLED BELOW.**
 > *Same request as 2026-08-19T20:23Z, when the honest answer was 1 of 6. Auditing the same way.*
