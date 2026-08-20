@@ -55,7 +55,7 @@ def main():
     from rank_with_ties import format_arms, rank_with_ties
 
     from hdlab.corpus_registry import CorpusRegistry
-    from hdlab.reading_grounding_loop import content_lemmas
+    from hdlab.reading_grounding_loop import content_lemmas, normalize_lemma
 
     print("SET: %s" % os.path.basename(SET))
     items = json.load(open(SET, encoding="utf-8"))["items"]
@@ -190,14 +190,22 @@ def main():
         for _, it in group:
             toks = it[field].split()
             # candidate positions = content words the corpus knows, incl. the anomaly
-            cand = [j for j, t in enumerate(toks)
-                    if "".join(ch for ch in t.lower() if ch.isalpha()) in docfreq]
+# LEMMATISE BEFORE LOOKUP. `docfreq`/`cooc` are keyed by `content_lemmas` output, so a SURFACE
+# lookup misses every inflected form: "achievements" is absent while "achievement" is present. Two
+# consequences, both measured 2026-08-21: inflected words were silently EXCLUDED from the candidate
+# slate (a hidden population restriction), and any that slipped in scored the unknown-word value and
+# outranked real candidates. **Fixing it moved second-order counting's discrimination from +10.9 pp
+# to +28.3 pp and dropped its ORIGINAL-sentence hit rate from 42.6% to 12.5%** -- so the "most of
+# the floor's skill is a slot effect" reading was substantially an artifact of this bug.
+            def _lem(t):
+                return normalize_lemma("".join(ch for ch in t.lower() if ch.isalpha()))
+            cand = [j for j, t in enumerate(toks) if _lem(t) in docfreq]
             if it["anomaly_token_index"] not in cand:
                 cand.append(it["anomaly_token_index"])
             cand = sorted(set(cand))
             if len(cand) < 3:
                 continue
-            words = ["".join(ch for ch in toks[j].lower() if ch.isalpha()) for j in cand]
+            words = [_lem(toks[j]) for j in cand]
             tgt = cand.index(it["anomaly_token_index"])
             for a, fn in ARMS.items():
                 scores = [fn(w, words, j, len(toks)) for w, j in zip(words, cand)]

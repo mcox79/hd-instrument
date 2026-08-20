@@ -36,7 +36,20 @@
 > ### ✅ **AND THE CORRECTED BAR NOW REPLICATES (4 sets, ALL-ITEMS so the population is constant):
 > `+10.9 / +13.3 / +13.8 / +7.6 pp` -> `REPLICATED`, median +12.1, 1.8x spread, sign 4/4, McNemar
 > p = 0.0004-0.0389 on every set. Per-set CI upper bounds 17.6 / 20.0 / 20.7 / 14.3.**
-> ### 🎯 **FINAL BAR: F5 must beat +20.7 pp -- the MAX per-set CI upper bound, gating on the
+> ### 🚨 **CORRECTED AGAIN 2026-08-21 -- A SURFACE-vs-LEMMA LOOKUP BUG WAS DEFLATING EVERY FLOOR.**
+> The co-occurrence tables are keyed by `content_lemmas` output; the scorers looked up SURFACE
+> forms, so `achievements` missed while `achievement` was present. Inflected words were silently
+> dropped from the candidate slate and any that survived scored the unknown-word sentinel and
+> OUTRANKED real candidates. **Fixing it moved second-order counting from +10.9 pp to +28.3 pp and
+> dropped its ORIGINAL-sentence hit rate 42.6% -> 12.5% -- so the "most of the floor's skill is a
+> slot effect" reading was LARGELY THIS BUG.** Both floors now measured THROUGH the harness the
+> cell will use: first-order `+23.3/+23.5/+22.5/+25.2`, second-order `+28.3/+29.4/+35.0/+29.4`,
+> both `REPLICATED`.
+> ### 🎯 **BAR: F5 must beat +44.2 pp.** Third correction, third upward move, every one from a
+> defect in my own instrument: rank-4.0 -> +18.8 -> +20.7 -> **+44.2**. `tools/f5_evaluation_harness.py`
+> refuses to score a detector that fails the mandatory diagnostics.
+>
+> ### ~~FINAL BAR: F5 must beat +20.7 pp -- the MAX per-set CI upper bound, gating on the
 > floor's upper bound as the standing rule requires. (Was +18.8 from a single set.)**
 > *Caveat stated rather than buried: 1.8x magnitude spread, wider than the rank measure's 1.1x.*
 >

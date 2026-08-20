@@ -13,7 +13,7 @@ import numpy as np
 sys.path.insert(0,"."); sys.path.insert(0,"tools")
 from rank_with_ties import rank_with_ties
 from hdlab.corpus_registry import CorpusRegistry
-from hdlab.reading_grounding_loop import content_lemmas
+from hdlab.reading_grounding_loop import content_lemmas, normalize_lemma
 
 SET=os.environ.get("DIAG_SET","data/anomaly_set_frequency_matched_v8.json")
 S=json.load(open(SET,encoding="utf-8"))["items"]
@@ -36,6 +36,7 @@ for s in kept:
     u=set(content_lemmas(s)); n+=1; df.update(u)
     for w in u: co[w].update(u)
 cache={}
+def _lem(t): return normalize_lemma("".join(c for c in t.lower() if c.isalpha()))
 def prof(w):
     v=cache.get(w)
     if v is None:
@@ -64,9 +65,16 @@ def run(items,field,per_item=None):
     hit=tot=0
     for it in items:
         t=it[field].split()
-        cand=sorted({j for j,x in enumerate(t) if "".join(c for c in x.lower() if c.isalpha()) in df}|{it["anomaly_token_index"]})
+        # LEMMATISE BEFORE LOOKUP. `docfreq`/`cooc` are keyed by `content_lemmas` output, so a SURFACE
+        # lookup misses every inflected form: "achievements" is absent while "achievement" is present. Two
+        # consequences, both measured 2026-08-21: inflected words were silently EXCLUDED from the candidate
+        # slate (a hidden population restriction), and any that slipped in scored the unknown-word value and
+        # outranked real candidates. **Fixing it moved second-order counting's discrimination from +10.9 pp
+        # to +28.3 pp and dropped its ORIGINAL-sentence hit rate from 42.6% to 12.5%** -- so the "most of
+        # the floor's skill is a slot effect" reading was substantially an artifact of this bug.
+        cand=sorted({j for j,x in enumerate(t) if _lem(x) in df}|{it["anomaly_token_index"]})
         if len(cand)<3: continue
-        w=["".join(c for c in t[j].lower() if c.isalpha()) for j in cand]
+        w=[_lem(t[j]) for j in cand]
         r=rank_with_ties([-fit(x,w) for x in w],cand.index(it["anomaly_token_index"]))
         tot+=1; ok=(r.pessimistic==1); hit+=ok
         if per_item is not None: per_item.append(ok)

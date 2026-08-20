@@ -57,7 +57,13 @@ Notes: `THE_F5_BAR_IS_MEASURED_BEFORE_THE_BUILD_...md`, `THE_F5_BAR_REPLICATES_.
    byte-deterministic (`tools/build_frequency_matched_anomaly_set.py --self-test`).
    **CEILING ~86%: with 17 WEAK items a PERFECT detector cannot score higher. PRINT THAT beside any
    score, or the shortfall reads as detector failure.**
-3. **The bar (CORRECTED + REPLICATED 2026-08-21)** -- **beat +20.7 pp on the PAIRED
+3. **The bar (CORRECTED 3x, REPLICATED)** -- **beat +44.2 pp** on the paired anomalous-vs-original
+   hit@1 difference, via `tools/f5_evaluation_harness.py`, which REFUSES to score a detector
+   failing the mandatory diagnostics. Both counting floors measured through it and REPLICATED:
+   first-order `+23.3/+23.5/+22.5/+25.2`, second-order `+28.3/+29.4/+35.0/+29.4`.
+   **The bar moved three times and every move was UPWARD, each from a defect in my own
+   instrument** (rank is slot-inflated; single set; a surface-vs-lemma lookup bug deflating both
+   floors). ~~beat +20.7 pp on the PAIRED
    anomalous-vs-original hit@1 difference.** Second-order counting scores `+10.9/+13.3/+13.8/+7.6`
    across four independently-built sets -> `REPLICATED` (median +12.1, 1.8x spread, McNemar
    p=0.0004-0.0389); +20.7 is the MAX per-set CI upper bound, per the gate-on-the-upper-bound rule.
