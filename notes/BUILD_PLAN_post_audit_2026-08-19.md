@@ -116,7 +116,32 @@
 >    post-hoc route is now closed by measurement (centring helps 8 ranks then hurts; removing
 >    components hurts monotonically; recording everything changes nothing about concentration).
 >
-> ## ⬅️⬅️ TOP ITEM NOW: **A COMPETITIVE (NON-SUMMING) WRITE RULE, TESTED ON THE PHASE CURVE.**
+> ## ✅ RAN AND FAILED -- **COMPETITION AT WRITE TIME DOES NOT WORK, AND THE REASON IS USEFUL.**
+> No arm cut the phase slope: SUM **+1.035**, KWTA8 **+1.683**, KWTA32 **+1.174**, NORM **+0.972**.
+> k-WTA is worse than plain summing at EVERY point. *Prior was recorded as low in advance (two
+> adjacent sparsity failures, read before building) and the prior was right.*
+> **🔑 THE MECHANISM INVERTS MY OWN PRE-REG. I wrote that k-WTA lowers effective dimensionality BY
+> CONSTRUCTION so it must not be the outcome. It RAISED it: 92.3 (SUM) -> 130.2 (KWTA8) at 16,000.
+> Sparsifying the addends DECORRELATES them, so the sum spreads over MORE directions.
+> SPARSITY ON THE INPUT OF AN ACCUMULATOR IS AN ANTI-CONCENTRATION OPERATION.**
+> **🧠 FIDELITY -- POSITION, and it names the next build exactly.** Cortical/DG sparse coding is
+> competition ACROSS THE POPULATION at encoding, winners suppressing others, and the SETTLED pattern
+> is stored. Ours filters WITHIN one incoming trace and then sums independently. **No competition
+> between encounters, none between terms. We copied sparsity's SHAPE and not its POSITION.**
+>
+> ## ⬅️⬅️ TOP ITEM NOW: **COMPETITION BETWEEN THE STORED PROFILES -- ON THE ACCUMULATED STATE.**
+> Every write-side variant tested (gate, centring, PC-removal, full coverage, k-WTA, normalisation)
+> competes in the WRONG PLACE or not at all. The untested faithful version is the ATL hub story:
+> **profiles compete with EACH OTHER for capacity** -- e.g. decorrelate/whiten the store across
+> terms, or suppress a new profile's overlap with existing ones at write time.
+> **TEST IT ON THE PHASE SLOPE, and note the honest risk in advance: whitening across terms is a
+> POST-HOC transform in disguise, and post-hoc transforms are already closed by measurement
+> (centring, PC-removal). What would make it different is applying it INCREMENTALLY AT WRITE so the
+> store never accumulates the correlated component in the first place.** If that distinction turns
+> out not to matter empirically, the accumulation route is exhausted and the honest next move is a
+> different representation, not another write rule.
+>
+> ## [SUPERSEDED] previous top item: **A COMPETITIVE (NON-SUMMING) WRITE RULE, TESTED ON THE PHASE CURVE.**
 > Not a gate, not a transform, not more notes -- all three are closed by measurement above. The
 > minimal brain-motivated candidate is a write where representations COMPETE for capacity rather
 > than accumulate independently (normalisation across the active set, or a k-winners-take-all
