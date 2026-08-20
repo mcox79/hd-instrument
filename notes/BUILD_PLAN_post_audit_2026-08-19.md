@@ -1,5 +1,42 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ✅ **THE DESIGN QUESTION IS ALREADY ANSWERED BY THIS PROJECT, AND IT MEANS THE ZERO-CALLS**
+> # **FINDING IS PROBABLY NOT A DEFECT. THE THREADS CONVERGE ON ONE UPSTREAM TARGET.**
+> *I asked: should the word-learning reading path assign roles at all? I was about to drill the
+> literature. The charter answers it, and the answer is on the **DO-NOT-RE-PROPOSE** list.*
+>
+> **`SUBSTRATE_CHARTER_read_first.md`, pinned 2026-08-12:**
+> > *"(3) **Syntactic bootstrapping (`frame_induction`) as the next build step -- NOT APPLICABLE on
+> > current data**: the definitional extractor's five patterns are all NP-headed and yield
+> > **~0/2092 genuine verb definienda** (66.7% NOUN / 28.0% PROPN / **2.3% VERB**, and hand-inspection
+> > of the 48 VERB-tagged rows found **zero real verb definitions**); the organ itself is MIDDLE_BAND
+> > on real text and LOSES to a trivial position-majority baseline on both axes (0.833 vs 1.000 subj;
+> > 0.455 vs 0.545 obj). **The foundation is structurally NOUN-ONLY and this gap is unsolved** --
+> > wiring `frame_induction` cannot fix a verb population that does not exist in the extracted facts;
+> > **the blocker is upstream, in the extractor's pattern inventory.**"*
+>
+> ## 🔑 WHY THAT CHANGES THE READING OF TODAY'S ZERO CALLS
+> **Syntactic bootstrapping is how a FRAME constrains a VERB's meaning (Gleitman). Role assignment
+> earns its keep on verbs. Our foundation is 2.3% VERB with zero real verb definitions in 48
+> hand-inspected rows.** *So a noun-learning path making zero role-assignment calls is not obviously
+> a bug -- there is almost nothing for those roles to do.*
+> **➡️ I SHOULD NOT HAVE FRAMED THE ZERO CALLS AS A MISSING COMPONENT WITHOUT CHECKING WHETHER THERE
+> WAS ANY WORK FOR IT.** *That is the same shape as everything else today: measure the thing, then
+> ask whether the measurement could have come out any other way.*
+>
+> ## 🎯 **AND NOW FOUR INDEPENDENT ROUTES POINT AT ONE UPSTREAM TARGET**
+> 1. **the tie with counting** -- the representation IS co-occurrence, so better code cannot help
+> 2. **zero role calls** -- no structure is built on this path, which is why there is none to read
+> 3. **the charter's noun-only finding** -- the extractor's NP-headed patterns yield no verbs
+> 4. **the archive's own `REDIRECT_EXOGENOUS`** verdict, reached a month before any of this
+> **ALL FOUR SAY: THE LEVER IS WHAT ENTERS THE SYSTEM, AND THE SPECIFIC NAMED BLOCKER IS THE
+> DEFINITIONAL EXTRACTOR'S PATTERN INVENTORY -- FIVE NP-HEADED PATTERNS THAT STRUCTURALLY CANNOT
+> YIELD A VERB.**
+> *That is a much narrower, more actionable target than "improve the representation", and unlike the
+> thirteen closed mechanism routes it has never been attempted.*
+> **⚠️ BEFORE ANYONE BUILDS IT: the charter bars re-proposing `frame_induction` itself, NOT fixing
+> the extractor that starves it. Those are different targets and the distinction is load-bearing.**
+
 > # 🔴 **MEASURED: THERE IS NO ROLE ASSIGNMENT ON THE READING PATH AT ALL. ZERO CALLS, ALL FIVE**
 > # **ENTRY POINTS. THIS CORRECTS MY "COMPOSITION IS STARVED" FRAMING FROM EARLIER TODAY.**
 > *Runtime call-counting over 1,200 sentences of real `Substrate.read()`, every function wrapped so
