@@ -57,7 +57,30 @@ estimate would have produced a false positive where the paired statistic said no
 **Two of the day's best results were already on disk, unread. The archive out-performed the runs.**
 
 
-## TOP ITEM -- 🧭 **THE DIRECTION IS DECIDED ON THE OWNER'S BRAIN-FOUNDATIONAL CRITERION: BUILD F5**
+## TOP ITEM -- 🧭 **THE DIRECTION IS DECIDED: BUILD F5. AND KEEP TWO ANGLES LIVE AT ALL TIMES.**
+
+> **📌 OWNER, 2026-08-20T21:59Z: *"Make sure you always have 2 high priority angles you can work on
+> while you're waiting on results."*** **This is a STANDING RULE about how to work, and it was
+> aimed at a real failure: I had spent several turns concluding "nothing further I can responsibly
+> open" while a build sat blocked on cell-authoring.** *"Blocked on one thing" is never a stopping
+> state -- it is a signal that the second angle was never lined up.*
+>
+> ### 🅰️ ANGLE A -- **SPECIFY THE F5 EVALUATION TASK** (pure judgement, no cell needed)
+> The build cannot be judged without a scorable, **can-fail** task, and **every organ that failed
+> tonight failed partly on a badly-posed task**: a retrieval metric that rewarded topical
+> narrowness; a floor propped by an uncontrolled covariate; a gate that could never fire. **Posing
+> the task well BEFORE the build is the highest-leverage work available.** Needs: the
+> discriminator, the floors that will actually be RUN, the positive control, and the can-fail
+> condition -- written down before anyone codes.
+>
+> ### 🅱️ ANGLE B -- **DOES THE GRADED READ-OUT BANK *BETTER* FACTS, OR JUST MORE?**
+> Measured tonight: `sign()` on the query changes the nearest anchor **42.5%** of the time and
+> nearly **doubles** what clears the bar (8.2% -> 15.5%). **Whether the extra material is any GOOD
+> is unmeasured, and the prior is bad (0-4% MEANINGFUL).** *Hand-scoring the facts that ONLY the
+> graded read-out banks decides whether a one-line fidelity fix helps or multiplies noise.*
+> **Runnable inline, no cell, no agent.**
+
+## [the direction] 🧭 **DECIDED ON THE OWNER'S BRAIN-FOUNDATIONAL CRITERION: BUILD F5**
 
 **Q90 ANSWERED 2026-08-20T21:13Z:** *"if you've drilled this online and it points in other
 directions to be brain foundational, follow those directions. if brain foundational points in this
