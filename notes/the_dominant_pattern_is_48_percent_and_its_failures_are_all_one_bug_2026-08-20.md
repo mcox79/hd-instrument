@@ -1,4 +1,10 @@
-# THE DOMINANT EXTRACTION PATTERN IS ~48% MEANINGFUL ON ORDINARY PROSE, AND **91% OF ITS FAILURES ARE ONE BUG**
+# THE DOMINANT EXTRACTION PATTERN IS **48-68% MEANINGFUL ACROSS TWO CORPORA**, AND **MOST OF ITS FAILURES ARE ONE BUG**
+
+> **⚠️ THE FILENAME SAYS "48 percent" AND "all one bug". BOTH WERE WRITTEN BEFORE THE SECOND
+> CORPUS RAN AND BOTH ARE NOW TOO STRONG.** The rate is **47.5% (simplewiki) / 67.5% (biology
+> textbook)**, and the single-bug share is **91% on one corpus, 63-75% on the other**, with two
+> further failure classes found. *The filename is left alone because notes are cited by name; the
+> title and TLDR are corrected here. See the replication section.*
 
 **2026-08-20, late.** Tonight I measured the RAREST extraction pattern (`GLOSSARY_COLON`, 1-12% of
 supply), got 92%, and had to retract it. **So I measured the DOMINANT one instead** -- `COPULA` is
@@ -117,17 +123,26 @@ than half of everything it extracts.
 branch of astronomy that deals with the universe"*, *"death: the end of a life in an organism"*.
 Everything else we measure on that same text scores between nothing and four percent.
 
-**And its mistakes are almost all one mistake.** Nine times in ten, the explanation it extracted was
-perfectly good -- it just attached it to the wrong word. From *"Australia's longest river is the
-Gudena"* it learns that "longest river" means "the Gudena", instead of learning what the Gudena is.
+**And its mistakes are mostly one mistake.** Usually the explanation it extracted was perfectly
+good -- it just attached it to the wrong word. From *"Australia's longest river is the Gudena"* it
+learns that "longest river" means "the Gudena", instead of learning what the Gudena is.
 
 That exact bug was already found and fixed for a different sentence shape a week ago, and fixing it
 there took that shape's accuracy from 4% to 60%. **It is still unfixed on the shape that carries
 most of the traffic.**
 
-Caution, because I have already retracted one finding of this shape tonight: this is forty examples,
-graded by me, on one source. Treat the number as provisional. **The fact that the failures share a
-single cause is the durable part** -- those ten rows are on the page and anyone can look.
+**I then checked it on a second, very different source before letting the number stand -- because I
+had already retracted one finding of exactly this shape earlier tonight.** On a biology textbook it
+did *better*, not worse: **roughly two in three right instead of one in two.** So the headline
+survives a change of material, which the glossary claim did not.
+
+**The second look also corrected me.** "Almost all one mistake" was too strong -- on the textbook
+it is more like two in three, and two further kinds of error showed up that the first source never
+revealed: sentences that define nothing at all (*"tonicity is a concern for all living things"*),
+and one apparent case of the system dropping a **"not"** and recording the opposite of what the book
+said. **That last one, if confirmed, is worse than a misattached explanation** -- it is confidently
+wrong rather than merely pointing at the wrong word. I have flagged it as unconfirmed because I did
+not go back to the original sentence.
 
 ## QUESTIONS
 
