@@ -69,7 +69,18 @@ def audit(cell_dir, m, *, tie_thresh=0.5, smd_thresh=0.10, coverage_thresh=0.25)
         elif kl == "not_auto_scored" and val is True:
             flags.append(("NOT_AUTO_SCORED -- a human input is outstanding", path, val))
         elif "tie_mass" in kl and isinstance(val, (int, float)) and val > tie_thresh:
-            flags.append(("TIE MASS %.3f -- this arm's score is a tie convention" % val, path, val))
+            # NAME THE ARM. Verified 2026-08-20 on exp_feeling_match_rejector_v1: its TIE MASS
+            # 1.000 is on the RIVAL arm (ATTESTATION) in the stratum where attestation is blind BY
+            # DESIGN -- which is exactly what that verdict is about -- while the treatment arm's tie
+            # mass is 0.000/max 0.003. I reported that cell as compromised and it was not.
+            # A degenerate FLOOR or RIVAL makes that comparison uninformative (worth knowing);
+            # a degenerate TREATMENT would invalidate the result. THEY ARE NOT THE SAME FINDING.
+            arm = next((a for a in ("F_ORTHOGRAPHIC", "F_FREQUENCY", "F_SCRAMBLE", "ATTESTATION",
+                                    "F_CONSTANT_PROTOTYPE") if a in path), None)
+            kind = ("a FLOOR/RIVAL arm -- that comparison is uninformative here, NOT proof the "
+                    "verdict is wrong" if arm else "an arm -- CHECK WHETHER IT IS THE TREATMENT")
+            flags.append(("TIE MASS %.3f on %s: %s" % (val, arm or "an unnamed arm", kind),
+                          path, val))
         elif ("smd" in path.lower() or "balance" in path.lower()) and \
                 isinstance(val, (int, float)) and abs(val) > smd_thresh:
             flags.append(("IMBALANCE %.4f on a matched covariate" % val, path, val))
