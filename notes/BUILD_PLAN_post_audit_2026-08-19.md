@@ -323,6 +323,59 @@
 > revision, not accumulation), and register what is genuinely wired. **Report honestly if the
 > HARD_PASS cells turn out to be synthetic-only** -- several this session did.
 >
+> ## 🧠🚨 OWNER CORRECTION 2026-08-20T02:14Z -- **AND IT INVALIDATES MY OWN RECOMMENDATION BELOW.**
+> > *"I want to re-emphasize being brain foundational here. Don't just wire in organs because you
+> > think it could help - we're making connections because the brain does"*
+>
+> **THEY ARE RIGHT AND IT LANDS EXACTLY ON WHAT I PROPOSED.** I recommended wiring
+> `exp_cheap1_contradiction_detect_cpu_v1` **"because it feeds the revision path that already
+> works."** That is a UTILITY argument. It never once named a brain structure. It is the precise move
+> the standing frame forbids: *"WHICH BRAIN STRUCTURE, and are we replicating it or substituting
+> something convenient?" -- never "did we consider the brain?"*
+>
+> **⛔ AND THE THING I WAS ABOUT TO BUILD ON IS NOT A BRAIN MECHANISM AT ALL.** AGM contraction is
+> **Alchourrón, Gärdenfors & Makinson 1985 -- formal logic and philosophy.** No neuron does AGM
+> contraction. We have TWO HARD_PASS cells for it (`exp_lap2_2_belief_revision_cpu_v1`,
+> `exp_lap4_9_agm_contraction_depth_cpu_v1`). **We implemented the PHILOSOPHY of changing your mind
+> and never the NEUROSCIENCE of it.**
+>
+> **🧠 SO: WHICH BRAIN STRUCTURE ACTUALLY REVISES A STORED BELIEF? RECONSOLIDATION.** Retrieving a
+> consolidated memory returns it to a LABILE state, after which it is re-stored -- possibly altered
+> (Nader, Schafe & LeDoux 2000; Nature 406:722). **In the brain, RETRIEVAL IS NOT READ-ONLY. Recalling
+> a thing is an opportunity to change it.** That is the mechanism the owner's phrase "adjusting a
+> belief" actually names.
+>
+> **🔎 ENUMERATED ABSENCE, WITH THE SEARCH STATED (not "I looked and did not find it"):**
+>
+> | term | archive (8,836 cells) | `hdlab/` (151 modules) | ORGAN_MAP |
+> |---|---|---|---|
+> | `reconsolid*` | **0** | **0** | **0** |
+> | `destabil*` | **0** | -- | -- |
+> | `memory update` | **0** | -- | -- |
+> | AGM belief revision | **2 HARD_PASS** | 0 | 0 |
+>
+> **THE BRAIN'S ACTUAL BELIEF-REVISION MECHANISM HAS NEVER BEEN TOUCHED BY THIS PROJECT, AND THE
+> PHILOSOPHER'S VERSION IS BUILT AND PASSING.** *Our substrate is also maximally far from it:
+> retrieval is strictly read-only; profiles are written only at reading time. A POSITION divergence --
+> the sixth of that family today.*
+>
+> **⚠️ THREE HONEST CONSTRAINTS, BEFORE ANYONE TREATS THIS AS A BUILD ORDER:**
+> 1. **RECONSOLIDATION IS UNPINNED AS AN EQUATION.** It is a robust qualitative phenomenon, not a
+>    formula. Per §1 of ORGAN_MAP that makes it UNSCORABLE for fidelity, and **any specific update
+>    rule we pick is OUR-INVENTION-UNDER-TEST, not brain-derived.** Unpinned does not mean stop; it
+>    means label it correctly.
+> 2. **IT IS A WRITE-SIDE MECHANISM, AND I CLOSED THE WRITE-SIDE ROUTE SIX TIMES TODAY.** The
+>    resolution is not to ignore that -- it is that **every one of those six was measured on a
+>    benchmark that never contradicts anything.** Reconsolidation must be judged on a task where a
+>    belief has to CHANGE. Scoring it on the phase curve would repeat the error, not test it.
+> 3. **AND THE STRUCTURE IT WOULD OPERATE ON IS ITSELF NOT BRAIN-FAITHFUL.** STATUS already records
+>    it: our fact store is HD-bound `(subject, relation, object)` triples -- *an addressable symbolic
+>    database*, where cortical semantic memory is a distributed overlapping representation.
+>    **⛔ SO "GO FILL THE FACT STORE WITH PROPOSITIONS" -- MY OWN LAST RECOMMENDATION -- IS NOT A
+>    BRAIN-FOUNDATIONAL GOAL EITHER.** It makes a convenient substitution richer. The finding that the
+>    store holds no facts STANDS as a description of what we built; it does NOT follow that filling it
+>    is the right move. *Downgraded from "next step" to "diagnosis", by the owner's rule.*
+>
 > ## ✅ OWNER NOTE ANSWERED -- **BELIEF REVISION IS REAL, CORRECT, AND HAS NEVER ONCE FIRED.**
 > *"adjusting a belief sounds like an important capability for substrate - so let's keep that finding
 > and integrate where it needs to go" (2026-08-20T01:31Z).* **It needs to go somewhere it can be
