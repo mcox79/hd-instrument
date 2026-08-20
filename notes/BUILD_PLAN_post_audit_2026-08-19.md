@@ -11,8 +11,20 @@
 > | `exp_structured_comparator_v1` (7 days) | the structured comparator is **SIGNIFICANTLY WORSE** than the bag it was built to replace (RELATED 24% vs 6%, p=0.0113) |
 > | `exp_definitional_predicate_v62` (7 days) | ✅ **96% extraction precision** (48/50) -- *single-arm, fidelity-to-sentence not truth, dense-biology corpus* |
 >
-> **➡️ THE PATTERN ACROSS ALL THREE: THE READING IS ACCURATE; THE READ-OUT IS NOT.** We extract what
-> a page says well and decide what a word means from statistics badly. **9 audits still unscored.**
+> | `exp_grounding_text_vs_mechanism` (7 days) | NEWS vs TEXTBOOK: **0% MEANINGFUL in BOTH arms.** Better text does NOT rescue the read-out. Sealed control: on TEXTBOOK the substrate departs from co-occurrence *more* and is still worthless -- **divergence is not quality** |
+> | `exp_definitional_grounding_v5` (8 days) | 🟢 **60% MEANINGFUL vs my own v3 score of 4%, same field/rubric/scorer/night.** By pattern: **`GLOSSARY_COLON` 12/13 = 92%, ZERO noise**; COPULA 50%, APPOSITIVE 47%, CALLED 44% |
+>
+> **➡️ THE PATTERN ACROSS ALL FIVE: THE READING IS ACCURATE; THE READ-OUT IS NOT.** We extract what
+> a page says well and decide what a word means from statistics badly. **7 audits still unscored,
+> all smoke variants or superseded versions.**
+>
+> ## 🎯 **AND THE v5 RESULT NAMES A SPECIFIC TARGET, WHICH NOTHING ELSE TODAY DID**
+> **`GLOSSARY_COLON` -- the *"term: definition"* construction -- is 92% MEANINGFUL with zero noise.**
+> The v3 -> v5 jump is NOT corpus (segment mixes near-identical) and NOT pattern-mix alone (that
+> would predict ~45%, not 4%): it is the **TERM-BOUNDARY repair, 16.1% -> 1.0% corruption.** In v3
+> the patterns fired correctly **on the wrong spans**, which is how `afghanistan -> catch` happens.
+> **➡️ STRONGEST EVIDENCE ALL DAY FOR Q89's PIPELINE BRANCH, and it says WHERE: glossary lines.**
+> *n=13 for the 92%. Single arm, no floor, one scorer, dense-expository corpus (the easy case).*
 > *Verdicts recorded beside the evidence as `_handscore_verdict_<date>.json`; landed `metrics.json`
 > never rewritten.*
 >
