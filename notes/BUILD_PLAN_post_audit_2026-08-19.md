@@ -12,6 +12,8 @@
 > | POSITION / ORTHOGRAPHIC / LENGTH / CONSTANT | -- | -- | **+0.00, all four: NO anomaly signal** |
 >
 > ### 🚨 **PRE-COMMITTED BAR: F5 must beat median rank 4.0 of ~9 on CLEAN frequency-matched items, gated on that floor's UPPER bound, across >=3 independently-built item sets, `replication_gate.py` = `REPLICATED`, with the ~86% item ceiling printed beside the score.**
+> ### ✅ **AND THE BAR ITSELF NOW REPLICATES (2026-08-21): `+2.00 / +2.25 / +2.00 / +2.00` on FOUR independently-built 120-item sets -> `REPLICATED`, 1.1x spread, no control reaching half the effect.** The builder is byte-deterministic (a rebuild reproduces the committed `v8` SHA-256 exactly), so the bar is settleable later.
+> ### ⚠️ **HONEST CAVEAT ON THE MATCHING:** FREQUENCY's delta averages **+0.44**, not zero -- about **22% of the co-occurrence effect**, and +0.75 vs +2.00 on one set. **The frequency confound is REDUCED, NOT GONE. The bar is CO-OCCURRENCE, not frequency** -- an F5 beating only the frequency floor would have beaten almost nothing.
 >
 > ### ⚠️ **A LEAK WAS INFLATING THE FLOOR BY 43% OF ITS OWN EFFECT -- CAUGHT BEFORE PUBLISHING**
 > The items were DRAWN FROM the corpus, so a co-occurrence table over all 8,000 sentences **had read

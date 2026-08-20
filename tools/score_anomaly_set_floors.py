@@ -38,8 +38,15 @@ for _p in (_REPO, os.path.join(_REPO, "tools")):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-SET = os.path.join(_REPO, "data", "anomaly_set_frequency_matched_v8.json")
-HAND = os.path.join(_REPO, "data", "anomaly_set_frequency_matched_v8_handscores.json")
+SET = os.environ.get("DIAG_SET",
+                     os.path.join(_REPO, "data", "anomaly_set_frequency_matched_v8.json"))
+HAND = SET.replace(".json", "_handscores.json")
+# ALL_ITEMS: score every item rather than only the hand-scored CLEAN ones. Required for REPLICATION
+# across independently-built sets, which have no hand-scores -- the WEAK items dilute every arm
+# EQUALLY, so a DELTA computed the same way on every set is still comparable across sets. It is NOT
+# comparable to the CLEAN-only headline, and the two are never printed as one number.
+ALL_ITEMS = os.environ.get("DIAG_ALL_ITEMS", "0") == "1" or not os.path.exists(HAND)
+EMIT = os.environ.get("DIAG_EMIT_DELTAS", "")
 N_SENT = int(os.environ.get("DIAG_N_SENT", "8000"))
 CORPUS = os.environ.get("DIAG_CORPUS", "simplewiki")
 
@@ -50,12 +57,18 @@ def main():
     from hdlab.corpus_registry import CorpusRegistry
     from hdlab.reading_grounding_loop import content_lemmas
 
+    print("SET: %s" % os.path.basename(SET))
     items = json.load(open(SET, encoding="utf-8"))["items"]
-    hand = json.load(open(HAND, encoding="utf-8"))["verdicts"]
-    verdict = {v["index"]: v["verdict"] for v in hand}
+    if ALL_ITEMS:
+        verdict = {n: "CLEAN" for n in range(len(items))}
+        print("ALL-ITEMS MODE (no hand-scores for this set): every item scored. **Comparable across "
+              "sets scored the same way; NOT comparable to the hand-scored CLEAN-only headline.**")
+    else:
+        verdict = {v["index"]: v["verdict"]
+                   for v in json.load(open(HAND, encoding="utf-8"))["verdicts"]}
     clean = [(n, it) for n, it in enumerate(items) if verdict[n] == "CLEAN"]
     weak = [(n, it) for n, it in enumerate(items) if verdict[n] == "WEAK"]
-    print("items: %d CLEAN (headline), %d WEAK (reported separately), %d BROKEN (excluded)"
+    print("items: %d scored (headline), %d WEAK (reported separately), %d BROKEN (excluded)"
           % (len(clean), len(weak), sum(1 for v in verdict.values() if v == "BROKEN")))
 
     # ---- corpus statistics: the SAME 8,000 sentences the set was built from
@@ -181,6 +194,11 @@ def main():
         tag = "  <- NO ANOMALY SIGNAL" if d <= 0.25 else ""
         print("%-28s %10.2f %10.2f %+10.2f%s" % (a, ma, mo, d, tag))
     print("")
+    if EMIT:
+        json.dump({"set": os.path.basename(SET), "all_items": ALL_ITEMS, "n": len(clean),
+                   "deltas": {a: d for d, a, _, _ in rows}},
+                  open(EMIT, "w", encoding="utf-8"), indent=1)
+        print("[deltas -> %s]" % EMIT)
     print("DELTA = how much WORSE the arm ranks the CORRECT word than the intruder.")
     print("A DELTA NEAR ZERO MEANS THE ARM WOULD SCORE THE UNTOUCHED SENTENCE THE SAME WAY.")
     print("")
