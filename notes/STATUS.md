@@ -48,7 +48,36 @@ estimate would have produced a false positive where the paired statistic said no
 **Two of the day's best results were already on disk, unread. The archive out-performed the runs.**
 
 
-## TOP ITEM -- PUT THE PHRASE RESULT ON A PROPER FOOTING BEFORE ANYONE BUILDS ON IT
+## TOP ITEM -- SETTLE WHETHER THE READ-BACK WAS EVER TESTED ON THE *GOOD* CONTENT
+
+**THE PHRASE RESULT IS HARDENED (4 seeds, 5 floors, ORACLE at 100%) -- AND THEN THE NEXT LINK IN
+THE CHAIN TURNS OUT TO BE BROKEN.**
+`notes/good_definitions_in_nothing_competitive_out_the_readback_gap_2026-08-20.md`
+
+| step | status |
+|---|---|
+| reading produces definitional PHRASES | **GOOD** -- 32% vs 4% paired, p=0.020; 4 seeds vs strong floors |
+| those phrases are BANKED | works -- 212 of 402 provenance rows |
+| **anything READS them back out and does better with them** | ❌ **NOT COMPETITIVE** |
+
+`exp_cortical_read_consolidated_v1` spec `v3_floors_at_k`, re-read from metrics today: **3 seeds,
+`UNDERPOWERED: false`, `items_predate_mechanism: true`, and `CONTEXT_clears: false` /
+`BOTH_clears: false` at EVERY k (1/5/10/25/50) on EVERY seed.** `READING_A` fires, so the route
+RETRIEVES -- it just never beats `RANK_COOC_floor`. **And this is the route built precisely because
+its absence meant consolidation could be ablated to zero without moving the read-out.**
+
+**➡️ WE ARE WRITING BETTER NOTES INTO A NOTEBOOK NOTHING READS COMPETITIVELY.**
+
+**🔑 THE OPEN QUESTION, AND IT IS THE TOP ITEM BECAUSE IT IS CHEAP AND DECIDES THE PIPELINE BRANCH:
+WAS THAT READ-BACK EVER TESTED ON THE PHRASE CONTENT?** The store population the precision cell
+scored was **0% multi-word**. If the cortical index was built over single-word `canonicalize`
+anchors, **"not competitive" is a verdict on what it was FED, not on the route.** *Hypothesis, not
+a finding -- I have not checked which population that cell indexed.*
+**🚫 DO NOT SPEND ON EXTRACTOR RECALL UNTIL THIS IS ANSWERED.** Four times more material that
+nothing reads competitively is not four times the value. *Q89 amended a second time with this,
+correcting my own "the two branches are much closer" from one turn earlier.*
+
+## [PREVIOUS TOP ITEM, ACHIEVED] PUT THE PHRASE RESULT ON A PROPER FOOTING
 
 **TODAY'S FINDING, IN ONE LINE: the half of the output nobody had ever scored is the good half, and
 what makes it good is the FORM (a whole phrase) rather than the SOURCE (read off the page).**
@@ -98,10 +127,20 @@ the metric is not rewarding definition-shaped text; it requires the phrase to be
 word. *This is the first machine-measured result this week where our output clears a strong floor
 on an independent gold -- and it is still a claim about the EXTRACTOR's output, NOT about the HDC
 substrate, whose own read-out is the 4% arm.*
-**SEED 101 REPLICATES: OURS 18.9% [13.4, 26.0], CO_SENTENCE 7.4%, SHUFFLE 0.0%, RANDOM_NOUNS 0.0%.**
-Seeds 13/29 running. **MATCHER POSITIVE CONTROL PASSES** (`scratch/test_hypernym_matcher.py`):
-fires **400/400** on attested hypernyms, false-fires on **0.2%** of random words -- so a 0.0% floor
-is a real floor and not a silent scorer.
+**ALL 4 SEEDS IN AND CLEARING: OURS 19.4 / 18.9 / 20.3 / 21.3%; strongest floor 7.5 / 7.4 / 8.2 /
+7.7%.** **⚠️ CORRECTION TO MY OWN EARLIER LINE: SHUFFLE IS NOT 0.0% ON EVERY SEED** -- seed 29 reads
+**2.6%** (4 hits). Pooled 4/621 = **0.6%**. Still a real floor, still cleared, but "zero everywhere"
+was wrong and I had already said it twice.
+**THE HARDER FLOOR ALSO CLEARS (seed 7): `CO_SPAN`** -- a CONTIGUOUS same-length window from the
+SAME sentence, so syntax is preserved and only span-SELECTION differs -- reads **4.4% [2.1, 8.8]**
+against OURS's lower bound of 14.0%. **Its overlap with our own words is only 12.8%**, so the
+false-negative risk (a floor that CONTAINS the treatment) did not materialise.
+**ORACLE POSITIVE CONTROL = 100.0% [97.7, 100] in-run**, plus a standalone check
+(`verification/test_hypernym_matcher_positive_control.py`) firing **400/400** with **0.2%**
+false-fire. **A 0.0% floor is only evidence once the scorer is shown to return non-zero.**
+*Note `CO_SPAN` (4.4%) scores BELOW `CO_SENTENCE` (6.2%) -- I expected the opposite. `CO_SENTENCE`
+draws CONTENT words only, while `CO_SPAN` and OURS both spend slots on function words. So
+`CO_SENTENCE` is the harder floor and is ADVANTAGED relative to ours.*
 
 **🚨 NEVER QUOTE THE 19% AS AN ACCURACY -- IT IS A LOWER BOUND ON A DELIBERATELY-CRIPPLED YARDSTICK.**
 This gold drops **218,061 WordNet-provenance edges**, and that omission IS its admissibility
