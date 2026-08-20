@@ -393,6 +393,50 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+## 🎚️ 2026-08-20 -- **PRECISION WEIGHTING, THE PINNED TERM, BUILT TO THE ARCHIVE'S OWN CONSTRAINT.**
+## **MEASURABLE, WELL-BEHAVED -- AND STILL NOT A USABLE GATE. FOURTH NEGATIVE ON SELECTION.**
+*ORGAN_MAP G2 pins the rule as the residual PRECISION-WEIGHTED, and enumeration found the term
+absent from the module. Three lines pointed here. Precision = bias-corrected resultant length of the
+term's contexts, computed from the PREFIX ONLY so an occurrence never contributes to its own weight.*
+
+| sentences | AS_IS | **PREC_50** | NOVEL_50 | RANDOM_50 | FULL |
+|---|---|---|---|---|---|
+| 1000 | 1.20x | **0.84x** | 1.09x | 1.11x | 0.98x |
+| 2000 | 2.29x | 1.86x | 1.57x | 1.79x | 1.71x |
+| 4000 | 3.12x | 2.58x | 2.92x | 2.56x | 2.23x |
+| 8000 | 3.69x | 3.02x | 2.53x | 2.39x | 2.06x |
+| 16000 | 6.42x | **4.75x** | 6.64x | 5.44x | 4.39x |
+
+    phase slope   AS_IS +1.708   PREC +1.294   NOVEL +1.740   RANDOM +1.337   FULL +1.035
+    PREC beats RANDOM at 2/5 points, beats NOVEL at 3/5 -- a coin flip, deltas swing -0.69 to +0.63
+
+**✅ THE DESIGN CAME FROM THE ARCHIVE, NOT FROM ME, AND THAT MATTERS.** A four-cell arc exists:
+`..._reliability_gate_v1` HARD_PASS **but DOWNGRADED on adversarial VET -- its confidence was
+INJECTED**; `..._derived_v1` HARD_FAIL_INERT_OR_HARMFUL with a strong same-item signal
+(auc **0.8303**) that **still gave a gate delta of -0.0280**; `..._independent_channel_v1` HARD_PASS
+**because it was LEAVE-ONE-ITEM-OUT**; `..._correlated_error_v1` HARD_FAIL, fooled **below chance
+(auc 0.3198)** by systematic errors. *Reading that arc first is why precision here is prefix-only --
+building it without leave-one-out would have reproduced a known failure exactly.*
+**⛔ AND IT LANDED IN THE SAME PLACE THE DERIVED CELL DID: MEASURABLE BUT NOT USABLE.** The statistic
+is real and its self-test is clean (consistent contexts 0.989, scattered 0.167, single observation
+0.000). Weighting the residual by it does not make selection work.
+**🔑🔑 AND THIS CORRECTS MY OWN MECHANISTIC STORY, WHICH IS THE MOST USEFUL PART. I had explained the
+residual gate's failure as "the selector has no spread to rank on" (sd 0.066 about mean 0.44).
+PRECISION HAS 2-3x MORE SPREAD (sd 0.134-0.208) AND FAILS ANYWAY. So spread was NOT the binding
+constraint, and the story I have been telling since the write gate closed is wrong.**
+**➡️ FOUR INDEPENDENT TESTS NOW AGREE: WHICH TRACES ARE KEPT DOES NOT MATTER ON THIS INSTRUMENT --
+ONLY HOW MANY.** (residual write gate 0 of 54; NOVEL vs RANDOM a tie; PREC vs RANDOM a coin flip;
+and every selective arm sits between AS_IS and FULL regardless of rule.) *That is a real, useful
+negative: STOP BUILDING SELECTORS.*
+**🧠 FIDELITY -- POSITION AGAIN, AND IT IS THE ONE HONEST ESCAPE LEFT FOR THE PINNED RULE. G2's
+precision-weighted residual is a claim about LEARNING -- how much to UPDATE -- not about WHICH
+EPISODES TO STORE. We have now tested it four times in the storage role and never in the update
+role, because our profiles have no update rule to modulate: they only ever add.** *So the pinned
+term may still be right and tested in the wrong place -- which is the same POSITION error found for
+the sensorimotor spoke and for k-WTA. Third time.*
+*⚠️ Single seed per point, one corpus. Per-point deltas reported BEFORE slopes, per last night's
+endpoint lesson.*
+
 ## 📝 2026-08-19 -- **THE OWNER'S Q71 RULE, TESTED: WHAT MATTERS IS HOW MANY NOTES, NOT WHICH.**
 ## **AND I NEARLY HEADLINED A STRONG CLAIM THAT RESTED ENTIRELY ON ONE POINT.**
 *Owner Q71: "it's NEWNESS that gets notes, not just words used the same way." Tested at MATCHED
