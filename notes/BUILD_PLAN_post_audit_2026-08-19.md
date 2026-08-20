@@ -413,6 +413,32 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🎯 **THE GAP THE DIRECTIVE ACTUALLY FOUND: D7 IS BUILT TO THE BRAIN'S CLOSED FORM AND THE**
+> ## **SUBSTRATE NEVER CALLS IT. FOURTH "BUILT, CORRECT, NEVER REACHED" OF THE SESSION.**
+> After correcting the stale label, the obvious follow-up was whether the built organ MATCHES its
+> pinned math -- *a module existing is not the same as a module being faithful.* **It does.**
+> `hdlab/successor_representation.py` (435 lines) exposes `successor_matrix` (the closed form) AND
+> `successor_matrix_td`, with 71 references to the discount factor, a matrix inverse, and eigenvector
+> code for the grid-cell claim. Its own docstring: *"D7. THE ONE SLOT WHERE THE BRAIN HANDS US A
+> CLOSED FORM."* **This is one of the most faithfully-built organs in the substrate.**
+>
+> **AND NOTHING IN `hdlab/` IMPORTS IT.** Enumerated over `hdlab/` and `experiments/`: every importer
+> is an EXPERIMENT cell (6 on disk). **No substrate module calls it, and its own registry row says
+> `WIRED_BUT_NOT_PIPELINE_REACHABLE`.**
+> **🔁 FOURTH INSTANCE TONIGHT OF THE SAME SHAPE** -- after the write-only consolidated store, the
+> unwired gap organs, and post-grounding traces that were written and never read. *The registry
+> answers "does it exist"; nothing answers "is it REACHED".*
+>
+> **➡️ SO THE GAP IS NOT "BUILD D7". IT IS "THE SUBSTRATE DOES NOT USE THE ONE ORGAN WHERE THE BRAIN
+> HANDED US A CLOSED FORM."** *And that lands exactly on the next expansion named below: a successor
+> representation is a PREDICTIVE, multi-step relational map -- a brain-pinned alternative to the
+> bag-of-nearby-words context unit. The organ that could replace the bag is already written, already
+> faithful, and never called.*
+> *⚠️ TWO REGISTRY DEFECTS FOUND IN PASSING, NOT YET FIXED: its `used_by` lists 2 files where disk
+> shows 6, and its `narrowing` is `None` -- no limits recorded at all, which by tonight's standard is
+> itself a gap. **Do not read a `narrowing: None` row as "no known limits"; read it as "nobody wrote
+> them down".***
+
 > ## 🧭 **OWNER Q75 ANSWERED -- A STANDING DIRECTIVE, AND THE FIRST THING IT FOUND IS THAT THE**
 > ## **GAP LIST ITSELF IS STALE.**
 > *Owner: "When you get to a point where you're spinning your wheels you should take a deep look at
