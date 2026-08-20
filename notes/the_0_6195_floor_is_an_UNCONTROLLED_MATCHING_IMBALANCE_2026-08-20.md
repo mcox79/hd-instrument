@@ -148,3 +148,66 @@ spot.*
 **Recorded because I nearly shipped "the floor is an artifact of matching" as a finding on the
 strength of one suggestive number, one turn after writing that this project measures well and then
 does not read what it wrote.** The arithmetic took a minute.
+
+---
+
+## 🧱 **FIFTH EXPLANATION TESTED, FIFTH FAILURE: THE FLOOR IS LOOKING REAL**
+
+The distributional check I proposed cannot be run: `units.jsonl` retains **21 aggregate ARM
+results and no per-pair scores**, so the balance question cannot be re-examined without a re-run.
+*(Worth recording as a retention lesson: **a cell that reports a balance table but keeps no
+per-unit feature values cannot have its balance re-checked by anyone, ever.**)*
+
+**But the retained units DO answer a different suspicion, and it also fails:**
+
+| arm | tie mass | AUC ties->P | AUC ties->S |
+|---|---|---|---|
+| **`F_CONSTANT_PROTOTYPE__SM11`** (the binding floor) | **0.000** | 0.6195 | 0.6195 |
+| every `SM11_*` arm | 0.000 | -- | -- |
+| `F_ORTHOGRAPHIC` | **0.976** | **0.9881** | **0.012** |
+
+**THE BINDING FLOOR IS COMPLETELY TIE-FREE AND CONVENTION-INDEPENDENT.** After a night in which
+tie-density destroyed three separate results, that was the obvious next suspicion. **It is wrong.**
+
+*Separate observation, not verdict-changing: `F_ORTHOGRAPHIC` is **97.6% ties**, and its AUC runs
+from 0.012 to 0.9881 depending on convention. Its reported 0.5 is a ties-half artifact, not a
+measured null. It is not the binding floor so nothing here turns on it -- but **a 97.6%-tied arm is
+an information-free control**, exactly the hazard `tools/rank_with_ties.py` exists for.*
+
+## 📊 SO: FIVE EXPLANATIONS TRIED, FIVE FAILED
+
+| # | my explanation for why the floor beats the norms | outcome |
+|---|---|---|
+| 1 | the norms are really a GENERICITY axis | **refuted** -- PC1 is auditory-vs-haptic, 73.3% residual |
+| 2 | the gold's answers differ in CONCRETENESS | **refuted** by the cell's own arm, 0.5388 |
+| 3 | frequency / orthography leakage | **refuted** -- 0.4851 and a clean 0.5000 |
+| 4 | an uncontrolled MATCHING IMBALANCE | **insufficient** -- 2.87x too small |
+| 5 | TIE-DENSITY artifact | **refuted** -- tie mass exactly 0.000 |
+
+**➡️ I HAVE NOW TRIED FIVE TIMES TO EXPLAIN AWAY THE RESULT THAT COUNTS AGAINST THE BRANCH I
+RECOMMENDED, AND FAILED EVERY TIME. THE HONEST UPDATE IS THAT THE FLOOR IS PROBABLY REAL, AND SO IS
+THE SENSORIMOTOR NEGATIVE.**
+
+*That is a genuine update AGAINST my own recommendation, reached by trying hard to rescue it. The
+branch is still not refuted -- one instrument, one resolution, and the better-posed follow-up
+exists -- but **"the negative was an artifact" is no longer an available story**, and anyone
+building here should know that five candidate artifacts were checked and none held.*
+
+## TLDR (revised after five checks)
+
+I have spent several rounds trying to show that the experiment counting against the direction you
+chose was flawed. **I could not, and I checked five different ways.**
+
+The ratings are not measuring something trivial. The test items do not differ in concreteness,
+frequency or spelling. There is one property the test failed to control for, but the arithmetic says
+it is about three times too small to matter. And the tie-breaking bug that wrecked three other
+results tonight is absent here -- that comparison has no ties at all.
+
+**So the unflattering result is probably sound.** The direction is not refuted -- it was one test on
+one framing, and a later, better-posed attempt did better -- but **I can no longer offer "that
+negative was an artifact" as a reason for confidence**, and it would be dishonest to leave the
+impression that I can.
+
+One thing did turn up along the way: a different comparison in the same experiment is 97.6% ties,
+so its "no effect" reading is an accounting convention rather than a measurement. It does not change
+this verdict, but it is the kind of thing worth knowing about a shared instrument.
