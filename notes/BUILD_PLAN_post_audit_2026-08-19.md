@@ -1,5 +1,43 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🎯 **THE BRAIN-FIDELITY GATE ON THE COMPOSITION NEGATIVE -- AND IT SHARPENS THE DIAGNOSIS**
+> # **CONSIDERABLY: COMPOSITION IS NOT FAILING. IT IS BEING STARVED.**
+> *Standing discipline: every negative gets a fidelity audit before it is called a ceiling. Doing it
+> on today's "composition is positional, not structural" produced a better answer than the negative.*
+>
+> ## 1. **THE OPERATION ITSELF IS OUR INVENTION, NOT BIOLOGY -- SO ITS FAILURE INDICTS US, NOT A**
+> ## **BRAIN MECHANISM.** ORGAN_MAP E1: *"BRAIN'S MATH: **UNPINNED and actively CONTESTED three
+> ways** -- theta-gamma phase coding (Lisman & Jensen), conjunctive mixed selectivity (Rigotti &
+> Fusi), tensor-product representations (Smolensky). There is no settled equation to be faithful
+> to."* **FIDELITY: UNSCORABLE, "recorded honestly rather than claimed SAME."**
+> *Two PINNED adjacent facts survive and are worth keeping: TEM's hippocampal conjunctive code is a
+> PRODUCT (`p = g ⊗ x`, Whittington 2020), and LATL conceptual combination is ADDITIVE (Baron &
+> Osherson 2011) -- the latter licenses our `sum` and indicts only the normaliser after it.*
+>
+> ## 2. 🔑 **AND HERE IS THE LINE THAT CHANGES THE DIAGNOSIS**, from the same E1 entry:
+> > **"EVIDENCE: composition mechanism VET-confirmed 4x GIVEN ROLES. The oracle role-key derivation
+> > has no mechanistic analog -- the least defensible part of the binding story."**
+> > **"BLOCKS: nothing -- it works. Its INPUT (roles from syntax) is the gap; see F3/F4."**
+>
+> **➡️ SO `structure_used=False` IS NOT A FAILURE OF BINDING. THE BINDER WORKS -- FOUR INDEPENDENT
+> VET CONFIRMATIONS -- WHENEVER IT IS HANDED REAL ROLES. WHAT FAILS IS GETTING ROLES OUT OF A
+> SENTENCE, AND WHEN THAT FAILS THE ONLY SIGNAL LEFT IS WORD ORDER.** *Which is exactly what both
+> role-binding cells measured: `POSITIONAL_OR_COUNT_HEURISTIC` and
+> `SIGNAL_IS_POSITIONAL_NOT_STRUCTURAL`.*
+> **AND THE CHARTER ALREADY SAID THIS, on 2026-08-04: *"a per-component brain-fidelity audit
+> adjudicated the real gap = THEMATIC-ROLE LABELING (Component-3)."* Two independent routes, sixteen
+> days apart, same component.**
+>
+> ## ⚖️ WHAT THIS MEANS FOR Q82, STATED SO THE OWNER CAN USE IT
+> The honest picture is now **two separate findings, not one verdict**:
+> - **the DISTRIBUTIONAL half is measurably equivalent to co-occurrence counting** (−1.0 rank,
+>   CI [−5.0, +1.0]) -- improving that code cannot help;
+> - **the COMPOSITIONAL half is not broken, it is UNFED** -- the binder is VET-confirmed given roles,
+>   and role assignment from syntax is the component that does not work.
+> **➡️ THOSE IMPLY DIFFERENT ACTIONS. "The approach is equivalent to counting" would be the wrong
+> lesson: it is true of one half and false of the other, where the real gap is a specific, named,
+> already-identified component.**
+
 > # ⛔ **CORRECTION TO MY OWN Q82 CAVEAT: COMPOSITION HAS BEEN TESTED, AND IN BOTH TESTS THE**
 > # **SIGNAL WAS POSITIONAL, NOT STRUCTURAL.**
 > *In Q82 I told the owner: "the part that is genuinely distinctive about this approach -- binding
