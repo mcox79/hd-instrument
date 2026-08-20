@@ -413,6 +413,23 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🔬 RUNNING -- **DOES IT HOLD ON TEXT THAT IS NOT WIKIPEDIA? THE WEAKEST PART OF THE EVIDENCE,**
+> ## **AND THE THING Q74's ANSWER MOST DEPENDS ON.**
+> Every number supporting `keep_noting_grounded` so far comes from **one corpus**: `simplewiki`. That
+> is the limitation I wrote into Q74 myself, so it is the next thing to close rather than something
+> to wait on. Same 3-seed paired design, same probes within a seed, now on
+> **`textbook_biology_2e`** -- technical expository prose with a dense specialist vocabulary, about as
+> far from simple encyclopedia entries as the shelf offers without leaving non-fiction.
+> *Queued after it: `sherlock_holmes` (narrative fiction, 10,799 sentences, so it runs at 8,000).*
+>
+> **PRE-COMMITTED, BEFORE THE NUMBERS EXIST:**
+> - holds on both -> the result generalises across genre, and my Q74 recommendation firms up.
+> - holds on the textbook, fails on fiction -> it is an expository-prose effect. **Say that, and
+>   narrow the recommendation to the corpora where it is measured** rather than defending it.
+> - fails on both -> **the simplewiki result is corpus-specific and Q74 must be withdrawn and
+>   re-filed.** *An owner decision resting on one corpus is exactly the kind of thing that should be
+>   retracted loudly, not quietly re-scoped.*
+>
 > ## 📈 **SCALE CURVE WITH THE SHIPPED FIX -- THE GAIN GROWS WITH SCALE, AND THE SLOPE HALVES.**
 >
 > | sentences | DEFAULT | KEEP_NOTING (shipped) | improvement |
