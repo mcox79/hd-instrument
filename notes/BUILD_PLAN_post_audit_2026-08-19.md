@@ -413,6 +413,42 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🧠 **OWNER 2026-08-20T12:06Z: "drilling and evaluating deeply the brain foundationality of any**
+> ## **negatives" -- AUDITED, NOT ASSERTED. 6 OF 8 HAD ONE. THE 2 GAPS ARE NOW FILLED BELOW.**
+> *Same request as 2026-08-19T20:23Z, when the honest answer was 1 of 6. Auditing the same way.*
+>
+> | negative (this session) | brain-fidelity check at the time? |
+> |---|---|
+> | divisive normalisation inert | **FULL** -- ORGAN_MAP §3 gave an ANALYTIC reason (pool denominator is a scalar; cosine is scalar-invariant) |
+> | testing effect did not reproduce | **FULL** -- METRIC/regime mismatch named: the effect is defined by what survives a DELAY and nothing here decays |
+> | delta rule under drift closed | **FULL** -- named as the 5th POSITION error; explicitly NOT a claim the brain lacks recency |
+> | cross-situational: do not build | **FULL** -- PBV (Medina/Trueswell) vs Yu & Smith identified as competing accounts, then the premise measured false |
+> | D8 cascade synapse ruled out | **FULL** -- checked against pinned Fusi/Benna-Fusi math; problem shown not to exist here |
+> | narrative does not ground | **FULL** -- children acquire most vocabulary in exactly that regime |
+> | **gap detector contributes nothing** | **PARTIAL** -- called a POSITION result, but I never asked what the brain's novelty gate DOES |
+> | **one encounter vs the sum** | **NONE** -- closed purely on the task metric; no fidelity read at all |
+>
+> **⛔ SO 6 OF 8, NOT 8 OF 8. The two weakest are filled here rather than claimed.**
+>
+> **FILLING GAP 1 -- "the sum beats any single encounter" (+13.0, CI [+6.0,+17.5]).** This is the
+> exemplar-vs-prototype question, and **ORGAN_MAP already PINS the answer: B1' "LATL conceptual
+> combination is approximately ADDITIVE (Baron & Osherson 2011)."** *Our result is CONSISTENT with a
+> pinned brain fact -- aggregation beating any instance is what an additive hub predicts.* **That
+> reframes it from "a lead died" to "a pinned brain property was confirmed on our instrument", which
+> is the first positive fidelity result of the session and I had not noticed it.**
+> *⚠️ Scope: additive COMBINATION is pinned; it does not license our particular sum (raw, unweighted,
+> unnormalised). Consistency is not identity.*
+>
+> **FILLING GAP 2 -- the gap detector discriminates nothing on the live path.** The brain's analogue
+> is **H1 perirhinal familiarity** -- *"do I already know this?"* -- and ORGAN_MAP lists H1 as BUILT
+> with its module on disk. **The fidelity read: in the brain, familiarity is a GRADED signal consumed
+> at retrieval; ours is a BINARY gate consumed at intake, and positioned after two filters that
+> already removed every word it would reject.** *POSITION again -- the same family as the other five.
+> Not a broken organ: an organ asked a question whose answer is already determined.*
+>
+> *➡️ STANDING: a negative without a fidelity read is not closed, it is only unexplained. Both gaps
+> above existed because the task metric gave a clean answer and I stopped there.*
+
 > ## 🎯 **THE GAP THE DIRECTIVE ACTUALLY FOUND: D7 IS BUILT TO THE BRAIN'S CLOSED FORM AND THE**
 > ## **SUBSTRATE NEVER CALLS IT. FOURTH "BUILT, CORRECT, NEVER REACHED" OF THE SESSION.**
 > After correcting the stale label, the obvious follow-up was whether the built organ MATCHES its

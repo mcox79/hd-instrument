@@ -35,3 +35,32 @@ There should also be a button on that tab to kill the orphans / zombie processes
 ## 2026-08-19T19:44:45Z  --  the status window
 
 Why aren't you sharing any questions on the gui? Also please update the gui and add an "updated" timestamp on each tab so I know when the data is new or not
+
+## 2026-08-19T20:22:05Z  --  the status window
+
+Quick note on the note taking and a "newness detector" - I think we did do some work on this - so is worth looking back at the experimental corpus
+
+## 2026-08-19T20:23:25Z  --  the status window
+
+I want to make sure that you're properly drilling all negative findings and doing a brain fidelity check
+
+## 2026-08-19T20:25:00Z  --  the status window
+
+I want to know how you missed that surprise experimental data - I thought we had this all consolidated and known at this point? What else are we missing?
+
+## 2026-08-19T22:27:04Z  --  the status window
+
+don't forget the phase diagram for these different components
+make sure you're drilling negative results and continue to evaluate brain fidelity
+
+## 2026-08-20T01:31:37Z  --  the status window
+
+adjusting a belief sounds like an important capability for substrate - so let's keep that finding and integrate where it needs to go
+
+## 2026-08-20T02:14:39Z  --  the status window
+
+I want to re-emphasize being brain foundational here. Don't just wire in organs because you think it could help - we're making connections because the brain does
+
+## 2026-08-20T12:06:45Z  --  the status window
+
+I want to make sure we've been drilling and evaluating deeply the brain foundationality of any negatives
