@@ -88,13 +88,21 @@ estimate would have produced a false positive where the paired statistic said no
 > GRADED-QUERY CHANGE AS A QUALITY FIX.** *The fidelity charge still stands; a gap can be real and
 > consequential AND fixing it in one place can still not help.*
 >
-> ### 🅱️ **NEW ANGLE B -- DESIGN THE MEANING-CONSUMPTION LINK CONCRETELY**
-> Without it, F5 gives the SITUATION REGISTER a use and leaves the `GROUNDED_MEANING` facts outside
-> the loop -- **which is the bottleneck all four routes identified.** The connection point exists
-> and is live (`bind_filler` / `decode_filler`, already carrying open-vocabulary word vectors in
-> `goal_outcome_relation_grounded.py`), and capacity is not binding (multibank_8 holds 256
-> events/entity at >=0.999). **What is undesigned: WHICH meanings get bound, to WHICH role, at WHAT
-> point in reading.**
+> **✅ ANGLE B (2nd) DONE:** `notes/ANGLE_B_the_meaning_consumption_link_designed_the_meaning_is_the_PREDICTION_2026-08-20.md`
+> **WHICH:** the DEFINITIONAL half only (**32% MEANINGFUL vs 4%** -- feeding the bad half makes the
+> system expect nonsense, and a system expecting nonsense is surprised by everything). **WHERE:** a
+> dedicated `MEANING` role via the live `bind_filler`. **WHEN -- the load-bearing answer: the banked
+> meaning must supply the PREDICTION, not sit in the register.** Predicted-from-meaning vs
+> observed-from-context; the gap IS `‖Δ situation_model‖`. **A wrong meaning then costs the system
+> something, which is the selection pressure it has never had.**
+> *Falsifiable corollary worth checking cheaply: accumulated error per term would be a GOLD-FREE
+> quality estimate for banked facts -- testable against tonight's several hundred hand-scores.*
+>
+> ### 🅰️ **NEW ANGLE A -- BUILD THE FREQUENCY-MATCHED ANOMALY SET**
+> The F5 evaluation needs items where the anomalous word is matched to the coherent word it replaces
+> on **frequency, length, POS and position** -- otherwise the test rewards "flag the rare word" and
+> measures vocabulary statistics in a comprehension costume. **Constructible inline from existing
+> corpora; no cell, no agent.** It is the concrete prerequisite for the build.
 
 ## [the direction] 🧭 **DECIDED ON THE OWNER'S BRAIN-FOUNDATIONAL CRITERION: BUILD F5**
 
