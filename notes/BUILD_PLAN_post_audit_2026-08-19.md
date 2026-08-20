@@ -413,6 +413,35 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🟢 **STRUCTURAL ENCODER IS USABLE -- AND I BRIEFLY CLAIMED THE OPPOSITE. RETRACTED HERE.**
+> Reachability check before building anything. **First result: `structural_vector_masked` returned an
+> ALL-ZERO vector (norm 0.000) against the bag's 32.680**, and I wrote that up as a reachability
+> failure -- *"the encoder exists but returns no signal."* **THAT WAS WRONG.**
+>
+> **THE POSITIVE CONTROL CAUGHT IT: I passed the target `"mitochondria"`, and `content_lemmas`
+> produces `"mitochondrion"`.** The target was never found in the parse, so the vector was empty --
+> **my bug, in my test, not the encoder's.** With correctly-lemmatised targets it produces real
+> vectors on every sentence tried:
+>
+>     "The dog chased the cat down the street."      cat 27.857 · chased 27.857 · dog 26.683
+>     "Water freezes at zero degrees."               degree 25.768 · freeze 22.450 · water 24.249
+>     "The mitochondria produce energy for the cell." cell 32.924 · energy 32.062 · mitochondrion 25.768
+>
+> Norms 22-33, comparable to the bag's 32.68. Its three front-end assets are present in
+> `data/frontend_assets/` (hashed arc parser, arc labeler, UPOS tagger).
+>
+> **🔑 THIS IS EXACTLY THE FAULT THE SESSION ALREADY WROTE A RULE ABOUT, ARRIVING FROM THE OTHER
+> SIDE.** CLAUDE.md now says *"an empty representation scores PERFECTLY on a rank metric"* -- had I
+> built arms on that all-zero vector, they would have scored median rank 1.0 and looked like a
+> breakthrough. **Instead the emptiness appeared in a REACHABILITY probe, where I misread it as a
+> property of the code rather than of my own call.** *An absence check inherits every bug in the
+> thing making the check -- which is why the standing rule is to verify with a POSITIVE control, and
+> it is the only reason this was caught within one command.*
+> **➡️ SO THE PATH IS CLEAR ON BOTH COUNTS: no prior work forbids it, and the organ genuinely works.
+> The next step is the measurement, unstarted.** *And a practical note for whoever runs it: targets
+> must be passed as LEMMAS (`content_lemmas` output), not surface forms -- a mismatch fails SILENTLY
+> as a zero vector rather than raising.*
+
 > ## ✅ **THREE-READ CHECK ON THE STRUCTURAL ENCODER: CLEAR. THIS IS THE NEXT THING TO TEST.**
 > *Step 1 of the sequence I wrote when the owner asked for the next expansion. Done before touching
 > anything, because the encoder being BUILT AND SWITCHED OFF is itself evidence someone may have had
