@@ -393,6 +393,42 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+## 🧮 2026-08-19 -- **THE 2x2: THE TWO WORKING FIXES ARE SYNERGISTIC, NOT INDEPENDENT -- AND THERE**
+## **IS NO CHEAP VERSION. CENTRING ALONE BUYS 19% OF A 63% TOTAL.**
+*Both fixes had shown 39%, but from DIFFERENT runs, and the centring run already had full coverage
+on -- so chaining them to "-63%" was an inference. Four cells, ONE run, ONE population per point.*
+
+| sentences | cov | COOC | A as-is+sum | B as-is+**centred** | C **full**+sum | D **full+centred** |
+|---|---|---|---|---|---|---|
+| 1000 | 0.816 | 22.5 | 1.20x | 1.16x | 0.98x | 1.02x |
+| 2000 | 0.730 | 14.0 | 2.29x | 2.14x | 1.71x | 1.64x |
+| 4000 | 0.708 | 26.0 | 3.12x | 3.10x | 2.23x | 2.00x |
+| 8000 | 0.564 | 31.0 | 3.69x | 3.32x | 2.06x | 1.84x |
+| 16000 | 0.435 | 18.0 | **6.42x** | 5.36x | 4.39x | **3.11x** |
+
+    phase slope   A +1.708   B +1.384   C +1.035   D +0.631
+    centring:  at as-is coverage 19%  |  at FULL coverage 39%
+    coverage:  without centring  39%  |  WITH centring    54%
+    A -> D total 63%   |   multiplicative prediction +0.838, MEASURED +0.631, deviation -0.207
+
+**⛔ NO CHEAP VERSION EXISTS, AND THAT WAS THE PRACTICAL QUESTION. Centring alone -- a change to how
+profiles are READ, costing nothing and touching no reading behaviour -- buys only a 19% slope
+reduction against 63% for both. That is under a third of the achievable benefit.** *Centring needs
+complete counts underneath it to pay off; the two are entangled and I should stop offering the cheap
+option, which I had been ready to recommend shipping.*
+**✅ THEY ARE SUPER-ADDITIVE, NOT MERELY ADDITIVE: the independence prediction was +0.838 and the
+measured value is +0.631 (deviation -0.207).** Each fix makes the other work better -- centring is
+worth 19% alone and 39% once coverage is complete; coverage is worth 39% alone and 54% once centring
+is on. *Mechanistically coherent: centring can only remove the shared direction accurately if the
+counts it is estimated from are complete.*
+**✅ AND IT VALIDATES THE CROSS-RUN ARITHMETIC I FLAGGED AS UNSAFE: I predicted -63% by chaining two
+separate runs, warned in the pre-reg that chaining was an inference and not a measurement, and the
+one-run measurement came back at exactly -63%.** *The earlier sweeps are mutually consistent -- a
+real check on four experiments, not a formality.*
+**⚠️ AND THE POSITION IS STILL NOT WON: the best cell is 3.11x behind the counter at 16,000. Both
+fixes together FLATTEN the curve by two thirds and do not CLEAR the floor.** *At 1,000 sentences
+every cell is at parity (0.98-1.20x); the whole effect is about how fast we fall away, not whether.*
+
 ## 🔁 2026-08-19 -- **INCREMENTAL DECORRELATION: HYPOTHESIS REFUTED IN THE OPPOSITE DIRECTION.**
 ## **DOING IT AFTERWARDS BEATS DOING IT AS YOU GO -- AND MY SCRIPT COULD NOT SEE ITS OWN WINNER.**
 *The plan predicted that removing the shared component INCREMENTALLY AT WRITE would beat removing it
