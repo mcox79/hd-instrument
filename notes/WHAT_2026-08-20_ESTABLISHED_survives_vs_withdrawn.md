@@ -330,6 +330,36 @@ reads exactly like *"no glossary lines exist in any corpus"*. **A zero from a wr
 indistinguishable from a zero from the data.** Caught only by inspecting the handle's real
 attributes.
 
+### ✅ 8j. **RESOLVED: THE HISTORICAL 38% / 40% / 64% FIGURES MEASURE A DIFFERENT FIELD THAN MY 4%**
+Flagged twice tonight as unreconciled, and left open both times. **Settled by scoring the OTHER
+field on the SAME 50 rows.**
+
+| same rows, same scorer, same rubric, same night | MEANINGFUL |
+|---|---|
+| **banked HEAD** (`object`) -- what I scored earlier | **4%** (2/50) |
+| **DEFINIENS SURFACE** (the full extracted phrase) | **48%** (24/50) |
+
+**48% sits beside the historical 38-40%. 4% does not.** Both numbers were always correct -- **they
+describe DIFFERENT FIELDS, and no document said which.**
+
+| term | banked HEAD | DEFINIENS SURFACE |
+|---|---|---|
+| activation energy | `proceed` (noise) | *"the amount of initial energy necessary for reactions to occur"* |
+| Dialysis | `medical` (an adjective) | *"a medical process of removing wastes and excess water"* |
+| Genetics | `study` (bare genus) | *"the study of heredity"* |
+
+**➡️ WHY IT MATTERS, AND IT IS NOT PEDANTRY: v3-era code BANKED `d.head`.** So the 38/40/64%
+figures described the extractor's PHRASE output **while the system was storing the HEAD** -- a
+quality claim about something the substrate never used. **`reading_grounding_loop.py:1451` cites the
+64% as the JUSTIFICATION for the definitional wire.** That docstring was corrected earlier tonight
+to state which population its number measures; **this is the evidence that the correction was
+necessary.**
+
+**AND IT INDEPENDENTLY REPLICATES THE NIGHT'S CENTRAL FINDING ON A DIFFERENT SAMPLE.** The live
+paired test read **32% phrase vs 4% head** (McNemar p=0.020); this 8-day-old pre-registered sample
+reads **48% vs 4%**. **Two independent populations, same conclusion: a single word almost cannot
+teach a word.**
+
 ### 9-11. Infrastructure and governance, all verified from disk
 - **The registry's do-not-wire gate on the definitional module had been CARRIED PAST** while
   `pipeline_status` read `WIRED_BUT_NOT_PIPELINE_REACHABLE` -- wrong in the safe-looking direction.
