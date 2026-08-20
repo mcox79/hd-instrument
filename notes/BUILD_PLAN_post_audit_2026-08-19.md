@@ -413,8 +413,55 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
-> ## 🔬 RUNNING -- **TAKING THE COVERAGE GAIN INSIDE THE ASSEMBLY, WITH MACHINERY THAT ALREADY**
-> ## **EXISTS. NO NEW ORGAN, AND IT REMOVES A RULE RATHER THAN ADDING ONE.**
+> ## 🎯 RAN -- **THE FREEZE IS ONE `return False`, AND IT IS DELIBERATE. EXACT MECHANISM, IN CODE.**
+> `hdlab/grounding_acquisition_loop.py:300-303`, `Library.note()`:
+> ```python
+> if it.status != "PENDING":
+>     if not (revive_terminal and it.status == "ESCALATED" and it.n_revivals < max_revivals):
+>         return False
+> ```
+> with its own docstring stating the intent: ***"GROUNDED_* items are NEVER revived here (a banked
+> fact is the store's business, not the library's)."*** **So once a word grounds, `note()` refuses
+> every future trace, permanently. ESCALATED items CAN be revived; GROUNDED ones cannot, by design.**
+> *This is a deliberate handoff, not a bug -- and the handoff is the thing costing us.*
+>
+> **MEASURED CONSEQUENCE, three ways, all agreeing:**
+>
+>     grounded terms gaining ANY trace, 2,000 -> 16,000 sentences:   0 of 60
+>     total new traces on those terms:                               0
+>     mean cos(profile_16k, profile_2k):                             1.000000
+>     mean cos(traceMean_16k, traceMean_2k):                         1.000000
+>
+> **⛔ AND TWO OF MY OWN HYPOTHESES DIED ON THE WAY HERE, BOTH CAUGHT BY MEASUREMENT:**
+> 1. *"The `gap_detector` ablation will unfreeze it."* **NO.** With `ablate=["gap_detector"]` the run
+>    is byte-identical to default -- profiled 2931, consolidated 68, library items 2883, **traces
+>    8052 in BOTH arms**. The ablation IS registered (`sub.ablate = frozenset({'gap_detector'})`) and
+>    changes nothing on this path. *An ablation that is accepted, recorded, and inert.*
+>    **⚠️ THAT HAS CONSEQUENCES BEYOND TONIGHT: `gap_detector` is one of the ablations Phase 2 used to
+>    argue organ contribution. An inert ablation manufactures "the organ contributes nothing".
+>    ANY PRIOR RESULT RESTING ON THE `gap_detector` ABLATION NEEDS RE-CHECKING.**
+> 2. *"It is a READ-OUT problem -- `profile()` returns the sealed consolidated vector while the
+>    Library keeps accumulating."* **NO.** The Library stopped too: `cos(traceMean_16k, traceMean_2k)
+>    = 1.000000` and zero new traces. **The writing genuinely stops.** *`profile()`'s docstring says a
+>    grounded word's profile is the consolidated one, which made the read-out story very plausible --
+>    and it was wrong.*
+>
+> **🧠 THE BRAIN DIVERGENCE, NAMED: there is no "banked, therefore closed" handoff in lexical memory.**
+> A word being well-known does not stop its representation being tuned -- frequency, semantic drift
+> and context-dependent tuning keep moving for life. *Ours implements UNKNOWN -> KNOWN -> DONE, which
+> is a gap-filling TASK framing, not a memory architecture.*
+>
+> **➡️ THE PROPOSED CHANGE IS SMALL, ADDITIVE AND DEFAULT-OFF, MATCHING THIS CODEBASE'S OWN CONVENTION**
+> (*"additive; default None preserves the prior behavior byte-for-byte"* appears twice in this file
+> already): extend the existing `revive_terminal` / `max_revivals` parameters -- **which already exist
+> and already handle ESCALATED** -- to optionally revive `GROUNDED_*` too. Then measure against the
+> post-hoc coverage result (3.69x -> 2.06x at 8,000; 6.42x -> 4.39x at 16,000).
+> *⚠️ PRE-COMMIT: the post-hoc number was produced by rebuilding profiles OUTSIDE the substrate. If
+> reviving grounded items in-assembly does NOT reproduce it, the coverage lever does not survive
+> contact with the real system, and that must be reported plainly rather than explained away.*
+>
+> ## [SUPERSEDED BY THE ABOVE] **TAKING THE COVERAGE GAIN INSIDE THE ASSEMBLY, WITH MACHINERY THAT**
+> ## **ALREADY EXISTS -- the `gap_detector` ablation, which turned out to be INERT.**
 > *Three-read prior-work check done first: registry/`hdlab` (the ablation already exists),
 > `experiment_index` (`"full coverage"`, `"every encounter"`, `"note-taking"` all return **0**), and
 > ORGAN_MAP's corrections (nothing bearing on this).*
