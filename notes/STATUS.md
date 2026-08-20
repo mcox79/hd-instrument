@@ -1,6 +1,6 @@
 # STATUS
 
-AS OF: 2026-08-20 AUTOLOOP ARMED, ~15 CONTINUATIONS IN | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING; every thread opened tonight is CLOSED or CORRECTED** | **ONE VERIFIED RESULT (`keep_noting_grounded`) AND ONE OWNER DECISION (board Q74)** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## 🧭 RESUME HERE` BELOW**
+AS OF: 2026-08-20 READY FOR COMPACTION, ~39 CONTINUATIONS IN | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING; every thread opened tonight is CLOSED or CORRECTED** | **ONE VERIFIED RESULT (`keep_noting_grounded`) AND ONE OWNER DECISION (board Q74)** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## 🧭 RESUME HERE` BELOW**
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
@@ -9,6 +9,27 @@ step hunt. 6.16 holds the PRE-COMMITTED decision branches; 6.15 the five gated s
 HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_PLAN.md`.
 
 ## POSITION
+
+## 🔀 **TWO THRUSTS -- BOTH DEFINED, NEITHER RUNNING. THIS IS THE STATE TO RESUME FROM.**
+
+> ### THRUST 1 -- **RE-LAUNCH REQUIRED. IT DIED AND PRODUCED NOTHING.**
+> `scratch/diag_structure_vs_bag.py` -- is context-as-STRUCTURE better than context-as-BAG?
+> **`scratch/struct_vs_bag.log` holds ONLY the self-test line. No completion record. NOT a result.**
+> Script is correct and guarded (positive control for the silent-zero trap; non-empty assertion per
+> arm). **SLOW -- it parses every sentence; use a smaller `DIAG_N_READ` for a first pass.**
+> *Judged on EXPOSITORY prose per the owner's amendment; narrative is an observation, not pass/fail.*
+>
+> ### THRUST 2 -- **DESIGN NOW SPECIFIED BY THE OWNER (Q76). NO COMPUTE NEEDED.**
+> *"a high score would be able to summarize what happened in the story and generalize any takeways
+> from it"* + *"PPL can take different morals from the same story."*
+> **THE SHAPE THE CONSTRAINTS FORCE -- A TRANSFER TEST:** read story A; present story B with the SAME
+> principle and **ZERO surface overlap**; pick which of N principles they share.
+> - no single gold answer (owner's own words) -> **exact match is invalid**
+> - no LLM at inference (standing invariant) -> **selection, never generation**
+> - **the can-fail floor is BUILT IN**: word overlap ~0 by construction, so a memoriser MUST fail
+> **⚠️ UNSOLVED: where the pairs come from.** Authoring them risks encoding the answer in the
+> structure we chose -- the *did-the-test-items-exist-before-the-mechanism* trap. **Search the shelf
+> first; fables carry explicit morals.**
 
 ## ⚠️ **UNRESOLVED ANOMALY -- `data/capability_registry.jsonl` SHOWS A WHOLE-FILE DIFF I COULD NOT**
 ## **EXPLAIN. LEFT UNCOMMITTED ON PURPOSE. DO NOT `git checkout` IT BLINDLY.**
