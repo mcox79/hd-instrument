@@ -413,6 +413,35 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## ✅ **THREE-READ CHECK ON THE STRUCTURAL ENCODER: CLEAR. THIS IS THE NEXT THING TO TEST.**
+> *Step 1 of the sequence I wrote when the owner asked for the next expansion. Done before touching
+> anything, because the encoder being BUILT AND SWITCHED OFF is itself evidence someone may have had
+> a reason.*
+>
+> | read | result |
+> |---|---|
+> | `experiment_index.py` -- structural encoder / structural_vector / role-bound | **1 hit, 0 LANDED.** Built, never produced a result. No prior negative to rediscover. |
+> | ORGAN_MAP §3 CORRECTIONS | **no mention of structural or role encoding.** Not a re-proposal of anything already ruled out. |
+> | `capability_registry.jsonl` | 50 keyword hits, all broad false positives (`superposition`, `catastrophic_forgetting`, ...). **No row claims this capability.** |
+>
+> *⚠️ ONE SCARE INVESTIGATED AND CLEARED: `exp_wave14r_erase_orthkeys_v1` carries the verdict
+> `STRUCT_KEYS_FIX_MIRAGE`, which reads like a direct warning about structured codes. **It is not** --
+> disk-verified, it concerns GDPR-style surgical ERASE under orthogonal Hadamard keys, and the
+> "mirage" is a paraphrase-probe artifact in erasure. Unrelated to encoding context structurally.
+> Recorded because the NAME alone would deter the next person who greps for it.*
+>
+> **➡️ SO THE PATH IS CLEAR AND THE CASE IS NOW FOUR-FOLD.** Four independent routes reached the same
+> place tonight: the bag-of-nearby-words CONTEXT UNIT is the limit. (1) exposition grounds 12.6% and
+> narrative 0.7%, and it is NOT exposure; (2) eight write-rule closures all argued about which bags to
+> add, never about the bag; (3) surprise reads 0.42 against a 0.5 no-information floor because it is
+> an error against a MEAN, not a prediction; (4) the one pinned predictive organ (D7/SR) fails on
+> reading because sequence is the wrong structure -- **syntax chooses the next word, not a transition
+> policy.**
+> **NEXT, AND UNSTARTED: turn on `StructuralEncoder` additive/default-off, measure on the same task,
+> same floors, BOTH genres. PRE-REGISTERED DISCRIMINATOR STANDS: it must help NARRATIVE MORE THAN
+> EXPOSITION** -- exposition's bag already carries the definition, so it has less to gain. *If it
+> helps both equally it is a better ENCODER, not a fidelity fix, and must be reported as that.*
+
 > ## 🛑 **LINK ONE BREAKS -- AT EXACTLY THE POINT FLAGGED IN ADVANCE. THE CHAIN STOPS HERE.**
 > *The previous block laid out: wire D7 -> real predictor -> real prediction error -> then the
 > owner's idea becomes testable. It named the SR-over-reading mapping as OUR invention and the link
