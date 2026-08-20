@@ -1,5 +1,63 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🚨 **THE OWNER'S "MANY CHANNELS" IS THE LITERATURE'S CENTRAL CLAIM -- AND WE ALREADY BUILT IT,**
+> # **IT ALREADY HARD_PASSED ON EXACTLY THE FAILING SUBSET, AND IT IS `VET_PENDING / N_A`.**
+> *Owner, Q82: "drill online what goes into the process in the brain... **the brain often has many
+> channels that it uses and combines to result in robust outcomes**." Full scan persisted at
+> `notes/brain_thematic_role_assignment_is_multi_cue_competition_2026-08-20.md`.*
+>
+> ## 1. THE LITERATURE SAYS EXACTLY WHAT THE OWNER SAID
+> **The Competition Model (Bates & MacWhinney 1982/1989):** role assignment integrates **competing
+> weighted cues** -- word order, animacy, case marking, agreement, semantic plausibility. **CUE
+> VALIDITY = AVAILABILITY x RELIABILITY**, and the weights are **LEARNED from input statistics and
+> are language-specific** (English weights order; German/Italian weight case and agreement).
+> Neurally: prefrontal = morphosyntax, **parietal = assigning constituents to roles** (TMS), thematic
+> integration 300-500 ms with **conflict resolution beyond 500 ms** -- competition resolution is a
+> measurably separate, later stage.
+>
+> ## 2. ⛔ **AND MY "WE HAVE ONE CHANNEL WHERE THE BRAIN HAS SEVERAL" WAS WRONG. I CHECKED BEFORE**
+> ## **PROPOSING THE BUILD, AND THE BUILD EXISTS.**
+> `hdlab/thematic_role_labeler.py:5` -- *"integrating multiple probabilistic surface cues (word order,
+> animacy, voice) weighted by CUE..."*; `:448` -- *"Matches spec Section 3 feature list verbatim
+> (word-order, animacy, verb-frame-slot, voice...)"*. `hdlab/animacy_lexicon.py` exists.
+>
+> **`exp_thematic_role_labeler_cue_integration_v1` -- HARD_PASS, 2026-08-04:**
+>
+> | | |
+> |---|---|
+> | full cue-integration, **NON-CANONICAL held-out** | **0.8666** |
+> | matched **positional** baseline | 0.6032 |
+> | **lift** | **+0.2635** (bar was >=0.15) |
+> | scramble control | **collapses, drop 0.5270** |
+> | best SINGLE cue | frame_only 0.6984 -- **does not match full** |
+> | seeds / n_test | 5 / 63 |
+>
+> **➡️ THAT IS PRECISELY THE CAPABILITY THE ROLE-BINDING CELLS FOUND MISSING. They measured 0.5803 on
+> the subject-not-first subset, losing to majority-class 0.6269. This scores 0.8666 on non-canonical
+> sentences -- the same kind of subset -- with a scramble collapse and no single-cue match.**
+>
+> ## 3. 🔑 **SO WHY IS THE SIGNAL STILL POSITIONAL? THE REGISTRY ANSWERS IT.**
+> | capability | gate | pipeline |
+> |---|---|---|
+> | `frame_primary_role_assigner_v1` | WIRE | **WIRED_AND_PIPELINE_USED** |
+> | **`thematic_role_labeler_cue_integration`** | **VET_PENDING** | **N_A** |
+>
+> **The module IS loaded on the live path** (runtime: `hdlab.thematic_role_labeler` and
+> `hdlab.animacy_lexicon` both in `sys.modules` after a real read) -- **but the capability that
+> HARD_PASSED was never VET'd and is registered pipeline `N_A`, while a DIFFERENT assigner is the one
+> marked in-pipeline.** *Module loaded is not capability used; that distinction is exactly what
+> `WIRED_BUT_NOT_PIPELINE_REACHABLE` exists to record, and this row does not even claim that much.*
+>
+> ## ⚠️ THE ONE THING I HAVE **NOT** ESTABLISHED, AND IT IS THE DECIDING FACT
+> **WHICH assigner the live grounding path actually calls.** Module-loaded is proven; function-called
+> is not. **Until that is measured at runtime, "the HARD_PASS is unused" is an INFERENCE from the
+> registry, not a measurement** -- and I have been wrong twice today by stopping at exactly this
+> point. **NEXT: count live calls to the cue-integration entry point vs the frame-primary one, the
+> same way `canonicalize_fast` was caught at 0.**
+> **⚖️ SCOPE ON THE HARD_PASS ITSELF: n_test=63, 26 non-canonical sentences, resolve_rate 0.62. Five
+> seeds and a collapsing scramble make the controls sound, but this is a SMALL test and its
+> `VET_PENDING` status means nobody has independently re-derived it.**
+
 > # 🎯 **THE BRAIN-FIDELITY GATE ON THE COMPOSITION NEGATIVE -- AND IT SHARPENS THE DIAGNOSIS**
 > # **CONSIDERABLY: COMPOSITION IS NOT FAILING. IT IS BEING STARVED.**
 > *Standing discipline: every negative gets a fidelity audit before it is called a ceiling. Doing it
