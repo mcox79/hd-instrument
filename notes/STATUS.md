@@ -393,6 +393,47 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+## 🔁 2026-08-19 -- **INCREMENTAL DECORRELATION: HYPOTHESIS REFUTED IN THE OPPOSITE DIRECTION.**
+## **DOING IT AFTERWARDS BEATS DOING IT AS YOU GO -- AND MY SCRIPT COULD NOT SEE ITS OWN WINNER.**
+*The plan predicted that removing the shared component INCREMENTALLY AT WRITE would beat removing it
+post-hoc, "so the store never accumulates the correlated component". All arms at full coverage.*
+
+| sentences | COOC | SUM | **POSTHOC_CENTER** | INCR_CENTER | INCR_OJA |
+|---|---|---|---|---|---|
+| 1000 | 22.5 | 0.98x | 1.02x | 0.96x | 1.11x |
+| 2000 | 14.0 | 1.71x | 1.64x | 1.50x | 2.14x |
+| 4000 | 26.0 | 2.23x | 2.00x | 2.60x | 3.10x |
+| 8000 | 31.0 | 2.06x | **1.84x** | 2.21x | 3.56x |
+| 16000 | 18.0 | 4.39x | **3.11x** | 5.47x | 7.42x |
+
+    phase slope   SUM +1.035   POSTHOC +0.631   INCR_CENTER +1.406   INCR_OJA +2.025
+    effective dims at 16,000   SUM 92.3   POSTHOC 29.1   INCR_CEN 100.3   INCR_OJA 143.7
+
+**⛔ THE HYPOTHESIS IS REFUTED, AND BACKWARDS: incremental removal HURTS (+1.406, +2.025 vs SUM's
++1.035) while POST-HOC removal is the best arm measured all session (+0.631, 39% flatter, and the
+ONLY intervention that has ever concentrated the code -- 92.3 -> 29.1 effective dims, 3.2x).**
+**🔑 MECHANISM, AND IT IS THE SAME LESSON k-WTA TAUGHT LAST NIGHT: an EARLY running estimate of the
+shared direction is a BAD estimate, and subtracting a bad estimate corrupts every trace it touches.
+OPERATIONS ON THE ADDENDS HURT; THE SAME OPERATION ON THE ACCUMULATED RESULT HELPS. Two independent
+experiments now agree, having been designed to show the opposite.** *This retires the "the store
+must never accumulate it" intuition, which was mine and was stated confidently in the plan.*
+**🚨 AND MY OWN VERDICT LINE SAID "THE ACCUMULATION ROUTE IS EXHAUSTED" -- FLATLY WRONG. The gate
+compared only the two INCREMENTAL arms against SUM; POSTHOC was never on the left-hand side of any
+comparison, so the best result of the session was invisible to the code that judged it. FOURTH
+mis-specified gate in two sessions** (the floor gate that ignored FREQ; "DISCRIMINATES" on 1 nonzero
+in 900; arms-differ passing at 0.981 overlap; now a verdict blind to one of its own arms).
+*Every one was caught by reading the NUMBERS rather than the VERDICT LINE. That habit is now the
+single most load-bearing thing I do.*
+**⚠️ WHAT IT DOES NOT DO, STATED BEFORE ANYONE GETS EXCITED: POSTHOC IS STILL 3.11x BEHIND THE
+COUNTER AT 16,000. It flattens the curve; it does not clear the floor.** *And at the single 8,000
+point I earlier recorded centring as "NOT A LEAD" because it lost to a cue-blind FREQ ranking --
+BOTH are true, and they are answers to different questions: it is the best SLOPE intervention and
+still not a capability win.*
+**➡️ THE OBVIOUS NEXT TEST, AND IT IS CHEAP: FULL COVERAGE gave a 39% slope cut and POST-HOC
+CENTRING gives 39%. They target DIFFERENT defects (recording vs concentration) and were measured
+independently. DO THEY ADD?** If they compose, the slope lands near +0.4 and the position at 16,000
+improves materially; if they do not, they were the same 39% twice and that is worth knowing too.
+
 ## ⛔ 2026-08-19 -- **COMPETITION AT WRITE TIME FAILS, AND IT FAILS FOR A REASON THAT OVERTURNS MY**
 ## **OWN DESIGN ASSUMPTION: SPARSIFYING THE ADDENDS MAKES THE SUM *MORE* DIFFUSE, NOT LESS.**
 *All arms at FULL COVERAGE so the note-taking term is held constant. Same corpus, terms, items,
