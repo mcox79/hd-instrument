@@ -28,6 +28,7 @@ condensation of this file cannot turn an earned rule into unsourced prose).
 | built a write gate after checking the registry; a HARD_PASS cell from 3 weeks earlier had already measured that it must fail on a weak foundation | the registry says what is BUILT; only `experiment_index.py` says what was ANSWERED -- query BOTH and quote the counts | *Two archives, two questions* |
 | a "held-out" set built from a FRESH `CorpusRegistry()` overlapped the training pool 600/600; the arm read median rank 3.0 where every other measurement that day read 69-91 | a separate reader over one ordered source is not a separate sample -- draw held-out from the SAME advanced cursor, and PRINT the overlap count every run | *A fresh reader is not a held-out split* |
 | an arm whose accumulator was never written (all-zero profiles) reported median rank 1.0 -- a 20x "win" -- because tied similarities never sort above the target | assert each arm's representation is non-empty before scoring; construct the EMPTY version of a winning arm and check it LOSES | *An empty representation scores perfectly on a rank metric* |
+| every paired difference returned `+0.0` with CI `[+0.0, +0.0]`; the "practice" arm added unit vectors where the substrate accumulates RAW ones (mean norm 44.5), so it was 1/44th of a real read and moved the profile by cos 0.999923 | a zero-WIDTH CI is a reachability failure, not a null -- print added/base, cos-shift and ranks-changed before reading any verdict, and ADD WHAT THE SYSTEM ADDS | *A null that is exactly zero is a reachability failure* |
 | a script exited on "my manipulation failed" before the "the corpus already drifts" check below it could run; both were true, and it suppressed the informative one | a gate's THRESHOLD is not the only thing to check -- check what it EXITS BEFORE; order readings most-informative first | *Non-stationary escape, sixth gate defect* |
 
 Rules on delegation, agent reports, model choice and detached launches are in their own sections
@@ -588,6 +589,37 @@ confirm it fires. A guard nobody has seen fire is a guard nobody has tested.
 *This is the "could this experiment have succeeded?" question — which redirected this session's
 plan three times — applied to resource arithmetic rather than to mechanism. It is the same
 question and it is cheaper than every other way of finding out.*
+
+## A NULL THAT IS *EXACTLY* ZERO IS A REACHABILITY FAILURE, NOT A RESULT
+
+**Measured 2026-08-20.** A retrieval-practice cell returned `TEST - STUDY +0.0, 95% CI [+0.0, +0.0]`
+and the same for every other pair. **A confidence interval of exactly zero width is not a null --
+it means the intervention never reached the thing being scored.**
+
+The cause was a units mismatch inside my own arm. The substrate accumulates the **raw** context
+vector (`_sums[lemma] += ctx_vec`), and those vectors have **mean norm 44.5** (measured, n=599).
+My "read it again" arm added the **unit-normalised** vector. So a practice episode was **1/44th of
+an actual read**, the whole practice phase came to **0.85% of the accumulated profile**, and the
+profile turned by `cos = 0.999923`. The arm labelled *study-type practice* was not practice.
+
+**THE DIAGNOSTIC, AND IT BELONGS IN ANY CELL THAT PERTURBS AN EXISTING REPRESENTATION** — run it
+BEFORE reading the verdict:
+
+    mean base profile norm
+    mean added magnitude / base norm      <- relative SIZE of the intervention
+    mean cos(updated, original)           <- did the representation TURN at all
+    how many scored items CHANGED RANK    <- did it reach the SCORER
+
+Before: `0.0085 / 0.999923 / 61 of 300`. After using the raw vector: `0.4271 / 0.9158 / 252 of 300`.
+Same code, same question — one was unanswerable and reported a clean-looking null.
+
+**Rule: when an arm is meant to imitate something the system already does, ADD WHAT THE SYSTEM ADDS.
+Read the accumulation line in the source and match it, units included.** An arm that normalises where
+the substrate does not is a different experiment wearing the right label.
+
+*Related failure, opposite sign: an arm can also be too LARGE to be meaningful. The same three
+numbers catch that — `added/base` near or above 1.0 means the practice phase overwrote the reading
+phase rather than modifying it.*
 
 ## AN EMPTY REPRESENTATION SCORES *PERFECTLY* ON A RANK METRIC -- ASSERT THE ARM IS NON-EMPTY
 
