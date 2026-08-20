@@ -10,7 +10,48 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
-## 🧭 RESUME HERE -- **REWRITTEN 2026-08-20 END OF NIGHT. ONE RESULT, FOUR RETRACTIONS, ONE DECISION.**
+## 🧭 RESUME HERE -- **REWRITTEN 2026-08-20 (LATEST). BOTH BOARD Qs ANSWERED; NEXT STEP UNSTARTED.**
+
+> ### ➡️ THE ONE UNSTARTED ACTION
+> **Turn on `StructuralEncoder` (additive, default-off) and measure context-as-STRUCTURE against
+> context-as-BAG-OF-NEARBY-WORDS.** Cleared to run: three-read check returned 1 archive hit / 0
+> landed, no ORGAN_MAP prohibition, no registry claim; and the organ WORKS (norms 22-33 vs the bag's
+> 32.68, front-end assets present).
+> **⚠️ PASS TARGETS AS LEMMAS (`content_lemmas` output), NOT SURFACE FORMS -- a mismatch fails
+> SILENTLY as a zero vector, and an all-zero arm scores median rank 1.0, i.e. a fake breakthrough.
+> That cost me a wrong claim tonight and one command to catch.**
+>
+> ### ⚖️ THE DISCRIMINATOR WAS AMENDED BY THE OWNER, DATED, BEFORE ANY ARM WAS SCORED
+> *Owner 12:31Z: "You don't approach a textbook like a story... it's not the same kind of learning."*
+> **SUPERSEDED:** *structure must help narrative MORE than exposition or it is only a better encoder.*
+> **CURRENT:** judge structure on **EXPOSITORY prose**, where our fact-recall task fairly measures
+> what the text was there to teach. **Narrative is a separate OBSERVATION, not pass/fail.**
+>
+> ### 🚨 AND THAT AMENDMENT DEMOTES TONIGHT'S HEADLINE "GAP"
+> I reported *textbook grounds 12.6%, Sherlock 0.7%, therefore a fidelity failure.* **Our task is
+> FACT RECALL -- expository-kind knowledge.** Scoring what a novel taught with a textbook's metric is
+> a METRIC infidelity. **We have NO measure of narrative-kind learning, so that claim is currently
+> UNFALSIFIABLE -- do not quote it as a finding.**
+>
+> ### 📉 CLOSED SINCE THE LAST REWRITE
+> - **D7 / successor representation: DO NOT WIRE.** Faithful to its pinned closed form, but on
+>   reading order plain 1-step co-occurrence beats it **18.5 vs 45.0** (SR-ONE_STEP **+25.5**, CI
+>   [+21.0,+29.0]). SR is pinned for NAVIGATION; mapping it onto text was OUR invention and did not
+>   transfer. *(Caveat: ONE text sample with CIs over 408 pairs -- the script says "seeds" and is
+>   wrong; only the uniform arm was seeded.)*
+> - **Owner Q74 answered: SURPRISE DOES NOT SELECT.** High-, low- and random-surprise halves are
+>   indistinguishable at matched count (all +0.0, CI [+0.0,+1.0]); only VOLUME moves it (ALL-NONE
+>   **-8.0**, CI [-11.0,-5.0]). **Mean surprise 0.4206-0.4252 against a 0.5 no-information floor --
+>   the signal is ~4% from chance, so there was nothing to select on.**
+> - **ORGAN_MAP gap list was 2/5 STALE** (D7, H2 labelled MISSING while both exist). Corrected in
+>   place; all 39 organ sections re-audited; contradictions now NONE.
+>
+> ### 🧠 THE FIDELITY AUDIT THE OWNER ASKED FOR: 6 of 8 negatives had one; the 2 gaps are filled
+> **And filling one INVERTED it:** "the sum beats any single encounter" is CONSISTENT with pinned
+> ORGAN_MAP B1' (*LATL conceptual combination is approximately ADDITIVE*). **The first POSITIVE
+> fidelity result of the session, filed for hours as a dead lead.**
+
+## [PREVIOUS REWRITE] **ONE RESULT, FOUR RETRACTIONS, ONE DECISION.**
 
 > ### ✅ THE ONE VERIFIED RESULT -- `keep_noting_grounded` (shipped, ADDITIVE, DEFAULT-OFF)
 > **The substrate used to seal a word's representation the instant it grounded: 0 of 60 grounded
