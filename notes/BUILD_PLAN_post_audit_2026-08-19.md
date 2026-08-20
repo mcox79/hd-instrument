@@ -1,5 +1,59 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🔴 **A COMPLETED HAND-SCORE HAS BEEN SITTING UNREAD ON DISK SINCE 2026-08-12, AND IT IS THE**
+> # **GATE ON THE ENTIRE SUPPLY DIRECTION. IT DOES NOT SAY WHAT I HOPED.**
+>
+> ## HOW IT WAS FOUND. The charter's standing rule is **GROWTH STAYS PAUSED** pending three things.
+> Checked all three rather than assuming, because every route today points at SUPPLY:
+> 1. **grounding-quality fix lands** -- ✅ **MET.** Tautology gate + closed-class refusal are in
+>    `reading_grounding_loop.py` with a self-test (`_selftest_tautology_is_refused_not_recorded`).
+> 2. **read-out fix lands** -- ⚠️ **PARTIAL.** `9979af09e` IS an ancestor of HEAD, but its landed-VET
+>    (`8de3a9a20`) reads **OVERSTATED**: F3 confirmed under 4 controls, **F2's load-bearing claim
+>    REFUTED** by a retention-matched arm the cell had disclosed as not-run, F1 under-credited.
+> 3. **re-measurement of quality with controls that can fail** -- **the cell exists and says
+>    `STRUCTURAL_PASS_PENDING_B3`, and its own message reads: *"THIS CELL MAKES NO QUALITY CLAIM.
+>    100 blind rows written for the director's hand-score."*** MEMORY agrees: *"the surviving number
+>    is 634, and it has not been re-vetted."*
+>
+> ## 🚨 **BUT THE HAND-SCORE WAS ACTUALLY DONE.** `_joined_verdicts.json` (written 10 minutes AFTER
+> the blind sample) holds **all 100 rows scored and already joined to their arms.** The verdict field
+> was never updated and **nobody ever read the result.** Computed now:
+>
+> | arm | n | MEANINGFUL | RELATED | NOISE | MEANINGFUL rate [95% CI] |
+> |---|---|---|---|---|---|
+> | PBV_BASE | 50 | **1** | 12 | 37 | 0.020 [0.000, 0.060] |
+> | PBV_F1F3 (the read-out fix) | 50 | **2** | 7 | 41 | 0.040 [0.000, 0.100] |
+>
+> **`BASE - F1F3` = -0.020, 95% CI [-0.080, +0.040] -- NOT separated. The read-out fix did not move
+> grounding quality.** Overall: **3 MEANINGFUL / 19 RELATED / 78 NOISE out of 100.**
+>
+> ## ⚠️ THE SCOPE, STATED BEFORE ANYONE QUOTES THE NUMBER -- AND ONE COMPARISON IS BARRED
+> - **POPULATION IS COMPARABLE on the one axis that matters: 0 of 100 rows are self-tautologies**, so
+>   the gate worked and this is the cross-grounded population, not the tautology-inflated one.
+> - **⛔ I AM NOT PLACING THIS BESIDE THE HISTORICAL 35% / 64% / 94% FIGURES.** MEMORY carries an
+>   explicit standing prohibition on exactly that juxtaposition, and the corpora differ (this sample
+>   is onestop reading-levels + biology). *The rate is reported for THIS sample only.*
+> - **n IS TINY WHERE IT COUNTS: MEANINGFUL counts are 1 and 2.** Both CIs touch zero. This
+>   distinguishes "poor" from "excellent"; it does NOT resolve 2% vs 5%.
+> - **SINGLE SCORER, no second witness, and the scorer was a prior session's director.**
+> - **DIFFERENT OBJECT FROM THE RECALL TASK.** This scores the GROUNDED_MEANING fact store, not the
+>   word profiles the rank metric scores. Do not transfer the number between them.
+> - ✅ **THE CHARTER'S OWN PREDICTION REPRODUCES**, which is the closest thing here to a positive
+>   control: *"meaningful groundings concentrate in the dense technical (biology) segment"* --
+>   `bio_new` is 9 of 17 meaningful-or-related (53%) against `adv_new`'s 6 of 42 (14%).
+>
+> ## ➡️ **CONSEQUENCE, AND IT REVERSES WHAT I WAS ABOUT TO RECOMMEND**
+> **Condition 3 is now MET -- and it does NOT confirm quality.** So **GROWTH STAYS PAUSED, now on
+> EVIDENCE rather than on a pending item**, and the charter line can finally be resolved either way
+> instead of hanging.
+> **🚨 AND IT CUTS AGAINST THE SUPPLY RECOMMENDATION I REACHED THREE BLOCKS ABOVE.** I was about to
+> propose re-running gap-targeted growth. **You cannot fix a grounding process that is mostly noise
+> by feeding it more text -- growing on a noisy foundation multiplies the noise.** *The fidelity
+> synthesis said "the lever is supply". This says "not until the thing being supplied is worth
+> keeping". Both are mine, from the same day, and the second one wins because it is measured.*
+> **THE REAL NEXT QUESTION IS THEREFORE NARROWER AND BETTER: why is 78% of grounding NOISE, and does
+> the biology-segment concentration (53% vs 14%) point at the fix?**
+
 > # ✅ **CONFIRMED ON REAL DATA: THE DG WIN WAS 100% TIE-BREAKING. AND A PRIOR-WORK TOOL WAS**
 > # **RETURNING SILENT ZEROS -- THE ARCHIVE HAD ALREADY ANSWERED THIS A MONTH AGO.**
 >
