@@ -226,6 +226,26 @@ remaining cap governs only the STATE half, where the trim order in sec 3 works c
 the never-trim class is **absent from that budget entirely**. The cap now constrains only
 material that is re-derivable from disk by construction.
 
+### 2026-08-21: THE CAP IS NOW MIRRORED IN CODE, AND IT IS REPORTED EVERY SESSION
+
+**`tools/session_start_hook.py` holds `STATUS_CAP_BYTES = 8704` and prints
+`size: <n> B of <cap> B cap` in every session-start injection**, with a loud pointer to this
+section past 1.5x. **If the cap is changed here, change it there in the same commit** -- this is
+the same doc-parsed-by-code coupling as the four literals in sec 2, and it is marked on both sides.
+
+**Why it was added.** On 2026-08-21 `STATUS.md` was found at **308,692 B -- 35x this cap** --
+because sessions had been APPENDING findings instead of rewriting in place, **and nothing ever
+reported it.** Every mechanism in this spec assumes someone NOTICES the file is over; none of them
+did the noticing. The fix is the same one `rank_with_ties.py` and `replication_gate.py` got:
+**write the control into the code, not the caution into the prose.** Self-tested in both directions
+-- an over-cap fixture must warn and an under-cap fixture must NOT, because a guard that fires on a
+compliant file is a guard that gets ignored.
+
+*That trim moved 135 sections / 280,747 B to `STATUS_LESSONS.md` (escalation step 1) and deleted
+nothing; a byte-identical snapshot is at `notes/STATUS_ARCHIVE_2026-08-21_pre_trim.md`. It landed
+at 27,819 B -- still ~3.2x -- so escalation step 3 was raised as **board Q91** rather than
+self-authorised, per sec 6.*
+
 ### Escalation, pre-authorised so no future agent improvises under pressure
 
 If a rewrite cannot fit within 8192 after applying tiers 1-4 honestly:

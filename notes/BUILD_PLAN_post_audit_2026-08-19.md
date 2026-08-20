@@ -1,5 +1,19 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🧹 **`notes/STATUS.md` TRIMMED 308,692 -> 27,819 B (2026-08-21). NOTHING DELETED.**
+> It is the compaction-recovery entry point and had reached **35x its own 8,704 B cap** by
+> ACCUMULATING session findings instead of being rewritten in place.
+> **135 sections / 280,747 B were MOVED, not cut** -> `notes/STATUS_LESSONS.md` (numbered TOC,
+> **verified: 0 of 135 headings missing**) + `notes/STATUS_ARCHIVE_2026-08-21_pre_trim.md`
+> (byte-identical snapshot, sha256-verified). The largest block, **77,131 B = 25% of the file**, was
+> self-labelled *STALE, SUPERSEDED BY `## WHAT IS RUNNING`* with its successor present -- spec tier 5.
+> **`## DO NOT REDO` and `## STANDING DISCIPLINES` UNTOUCHED** -- the never-trim sections were not
+> the growth.
+> **POSITIVE CONTROLS:** the hook injects **7,817 B, byte-for-byte the same count as before the
+> trim**, correct `AS OF:`, populated `WHAT IS RUNNING`, no placeholders; `board.py self-test` PASS.
+> ### 📋 **STILL ~3x OVER CAP. BOARD Q91 OPEN** -- a further raise is ESCALATED not self-authorised
+> (spec sec 6: the party needing the room may not grant it). **Do not self-approve it while it is open.**
+
 > # 🎯 **THE F5 BAR IS MEASURED, BEFORE THE ORGAN EXISTS (2026-08-21)**
 > `tools/score_anomaly_set_floors.py` on the 102 hand-scored CLEAN items.
 > **DELTA = anomalous-sentence rank vs the ORIGINAL sentence scored at the SAME slot. The original

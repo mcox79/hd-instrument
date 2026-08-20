@@ -21,6 +21,9 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 PY = REPO / '.venv' / 'Scripts' / 'python.exe'
 STATUS_MD = REPO / 'notes' / 'STATUS.md'
+# Mirrors the cap in notes/STATUS_SPEC.md sec 7 (raised 8192 -> 8704 on 2026-08-15). Changing it
+# there means changing it here in the same commit; see the SIZE GUARD note in status_summary().
+STATUS_CAP_BYTES = 8704
 PROBE_TIMEOUT_SEC = 25
 
 # The non-negotiables. Kept SHORT on purpose: a wall of text gets skimmed, and these have to
@@ -164,9 +167,23 @@ def status_summary(path: Path = STATUS_MD) -> str:
 
     age_days = (time.time() - mtime) / 86400.0
     age_flag = ' <-- STALE, over 1 day old, rewrite it' if age_days > 1.0 else ''
+    # SIZE GUARD, added 2026-08-21. On that date STATUS.md was found at 308,692 B against this cap
+    # -- 35x -- because sessions had been APPENDING findings instead of rewriting in place, and
+    # NOTHING EVER REPORTED IT. The trim moved 135 sections out (nothing deleted); this line is the
+    # part that stops it silently recurring. Same lesson as rank_with_ties.py and
+    # replication_gate.py: WRITE THE CONTROL INTO THE CODE, NOT THE CAUTION INTO THE PROSE.
+    # Costs one f-string on a stat() this function already makes, so the <10s hook budget is safe.
+    # CONTRACT: STATUS_CAP_BYTES mirrors the cap in notes/STATUS_SPEC.md sec 7. If that cap is
+    # changed there, change it HERE in the same commit -- doc parsed by code, marked on both sides.
+    n_bytes = len(text.encode('utf-8'))
+    over = n_bytes / STATUS_CAP_BYTES
+    size_flag = ('  <-- %.1fx OVER CAP. Do NOT byte-shave: STATUS_SPEC.md sec 7 escalation is '
+                 'MOVE-to-STATUS_LESSONS first, and sec 6 forbids the agent that needs the room '
+                 'from raising the cap.' % over) if over > 1.5 else ''
     return (
         f"[STATUS.md] {as_of_line}\n"
         f"    age: {age_days:.2f} days{age_flag}\n"
+        f"    size: {n_bytes:,} B of {STATUS_CAP_BYTES:,} B cap{size_flag}\n"
         f"  WHAT IS RUNNING:\n{running_body}"
     )
 
@@ -204,6 +221,27 @@ def _self_test() -> int:
             print("[self-test] PASS: missing '## WHAT IS RUNNING' triggers the loud banner")
         else:
             print(f"[self-test] FAIL: missing '## WHAT IS RUNNING' did NOT trigger the loud banner:\n{out}")
+            ok = False
+
+    # SIZE GUARD -- both directions. An over-cap fixture MUST warn, and an under-cap fixture MUST
+    # NOT, because a guard that fires on a compliant file is a guard that gets ignored (the exact
+    # cry-wolf failure that made read_what_the_cell_told_you.py flag 708 cells).
+    with tempfile.TemporaryDirectory() as td:
+        head = "# STATUS\n\nAS OF: 2099-01-01 | fixture\n\n## WHAT IS RUNNING\n- nothing\n"
+        big = Path(td) / 'STATUS_fixture_over_cap.md'
+        big.write_text(head + ("x" * (STATUS_CAP_BYTES * 2)), encoding='utf-8')
+        out_big = status_summary(big)
+        small = Path(td) / 'STATUS_fixture_under_cap.md'
+        small.write_text(head, encoding='utf-8')
+        out_small = status_summary(small)
+        if 'OVER CAP' in out_big and 'OVER CAP' not in out_small:
+            print("[self-test] PASS: size guard fires over cap and stays silent under it")
+        else:
+            print("[self-test] FAIL: size guard over=%s under=%s"
+                  % ('OVER CAP' in out_big, 'OVER CAP' in out_small))
+            ok = False
+        if 'size:' not in out_small:
+            print("[self-test] FAIL: the size line is absent from a compliant file")
             ok = False
 
     # Sanity: the REAL STATUS.md (read-only here, never written) must NOT trigger either banner.
