@@ -323,6 +323,39 @@
 > revision, not accumulation), and register what is genuinely wired. **Report honestly if the
 > HARD_PASS cells turn out to be synthetic-only** -- several this session did.
 >
+> ## 📌 QUEUED NEXT (after divisive normalisation resolves) -- **RETRIEVAL IS READ-ONLY HERE AND IS**
+> ## **NOT READ-ONLY IN THE BRAIN. THIS IS THE ONE POSITION WE HAVE NEVER INTERVENED AT.**
+> *Brain-first, and it is the mechanism the owner's "adjusting a belief" actually names.*
+>
+> **ORGAN_MAP ALREADY CARRIES IT, ALREADY CAVEATED** (its own words): the win is *"scoped to TEST-type
+> practice (retrieval attempts)"*, **PINNED as a real 1978 effect** (Landauer & Bjork) for test-type
+> practice at short delay, **and UNPINNED as a general optimum** -- Karpicke & Roediger 2007 and
+> Storm, Bjork & Storm 2010 find equal-interval spacing matches or beats expanding at long retention.
+> *"Do not build 'expanding, doubling' in as a fixed law."* **So the PINNED part is that RETRIEVING
+> CHANGES THE TRACE; the schedule is not pinned and must not be imported.**
+>
+> **🔎 ENUMERATED ABSENCE, AND THE CONTRAST IS THE POINT:**
+>
+> | | archived cells |
+> |---|---|
+> | `replay` (OFFLINE reactivation) | **211 hits, 163 landed** |
+> | `retrieval practice` | **0** |
+> | `testing effect` | **0** |
+> | `retrieval-induced` | **0** |
+> | `reconsolid*` | **0** |
+>
+> **WE BUILT OFFLINE REACTIVATION EXHAUSTIVELY AND ONLINE RETRIEVAL-MODIFICATION NOT AT ALL.** Those
+> are different mechanisms in different structures, and only one of them is in the substrate.
+>
+> **🔑 WHY THIS IS NOT A SEVENTH WRITE-RULE RETRY.** All six closed routes intervened at READING time
+> -- which traces to keep, how to combine them, what step size to take. **Retrieval-modifies-memory
+> acts at a moment we have never touched: our `profile()` and every recall path are strictly
+> read-only.** *That is a genuinely new POSITION, not a new parameter in the old one.*
+> *⚠️ AND THE PRE-COMMITMENT MUST SAY WHAT WOULD KILL IT: if a retrieval-modification arm behaves
+> like the other six -- no slope change, no concentration -- then the representation is insensitive to
+> the write moment as well as the write rule, and that is a broader and more useful closure than any
+> of the six.*
+>
 > ## ⬅️⬅️ TOP ITEM, RE-DERIVED UNDER THE OWNER'S RULE -- **THE PINNED CORTICAL COMPUTATION WE HAVE**
 > ## **NEVER ACTUALLY RUN: DIVISIVE NORMALISATION OVER A POPULATION POOL.**
 > *Chosen because ORGAN_MAP pins it, not because it looks useful. The pinned line, verbatim:*
