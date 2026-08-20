@@ -393,6 +393,43 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+## 📝 2026-08-19 -- **THE OWNER'S Q71 RULE, TESTED: WHAT MATTERS IS HOW MANY NOTES, NOT WHICH.**
+## **AND I NEARLY HEADLINED A STRONG CLAIM THAT RESTED ENTIRELY ON ONE POINT.**
+*Owner Q71: "it's NEWNESS that gets notes, not just words used the same way." Tested at MATCHED
+BUDGET -- keep half of each term's occurrences, chosen by novelty vs chosen at random. The
+rate-matched control was demanded by the plan in advance, and it is what makes this readable.*
+
+| sentences | AS_IS | NOVEL_50 | RANDOM_50 | FULL | NOVEL - RANDOM |
+|---|---|---|---|---|---|
+| 1000 | 1.20x | 1.00x | 1.11x | 0.98x | **-0.11** |
+| 2000 | 2.29x | 1.64x | 1.79x | 1.71x | **-0.14** |
+| 4000 | 3.12x | 2.69x | 2.56x | 2.23x | +0.13 |
+| 8000 | 3.69x | 2.34x | 2.39x | 2.06x | **-0.05** |
+| 16000 | 6.42x | 6.39x | 5.44x | 4.39x | **+0.94** |
+
+**✅ THE DEFENSIBLE FINDING: VOLUME, NOT SELECTION. Both half-budget arms land between AS_IS and
+FULL, and NOVEL vs RANDOM is a coin flip -- NOVEL wins 3 of 5 points, and every delta except one is
+within +-0.14.** *Practically useful either way: half the traces buys ~55% of full coverage's
+benefit no matter how they are chosen.*
+**🚨 AND THE VERDICT MY SCRIPT PRINTED WAS "NOVELTY SELECTION IS WORSE THAN RANDOM (8% vs 55%) --
+our residual is ANTI-correlated with usefulness". THAT CLAIM IS NOT SUPPORTED AND I ALMOST FILED
+IT.** It came from a SLOPE over five points, and **the final point's delta (0.944) is 8.7x the mean
+of the other four (0.109)** -- one endpoint dragging the whole fit. *Fifth gate defect of the
+session, and a new species: not too lenient, but ENDPOINT-SENSITIVE. A slope is a summary, and a
+summary can be carried by one observation. The per-point column is now printed and the verdict
+refuses to headline a slope that one point dominates.*
+**🧠 BRAIN-FIDELITY DRILL, AND IT IS THE THIRD INDEPENDENT ROUTE TO THE SAME MISSING TERM.** Our
+residual measures "unlike this word's average so far", which CONFLATES two things the owner's rule
+separates: **a genuinely NEW SENSE, and a merely NOISY occurrence.** In `simplewiki` most words are
+monosemous, so the noisy ones dominate and the selector behaves as an OUTLIER detector rather than a
+new-sense detector. **Distinguishing those two is exactly what PRECISION WEIGHTING does in the
+brain -- and precision was measured absent from `hdlab/predictive_coding.py` by enumeration (15
+public names, not one mentions precision, variance, confidence or weighting).**
+*So the owner's principle is NOT refuted here. What is measured is that WE HAVE NO SIGNAL CAPABLE OF
+IMPLEMENTING IT.* **That is now the third independent line pointing at the same absent term** (the
+write gate's flat residual; the archive's flat-surprise-at-chance; this).
+*⚠️ Single seed per point, one corpus, same caveats as the rest of the sweep family.*
+
 ## 🧮 2026-08-19 -- **THE 2x2: THE TWO WORKING FIXES ARE SYNERGISTIC, NOT INDEPENDENT -- AND THERE**
 ## **IS NO CHEAP VERSION. CENTRING ALONE BUYS 19% OF A 63% TOTAL.**
 *Both fixes had shown 39%, but from DIFFERENT runs, and the centring run already had full coverage
