@@ -97,7 +97,20 @@ one: a real definiens, correct form, correct length, but about the WRONG TERM, s
 the metric is not rewarding definition-shaped text; it requires the phrase to be about the right
 word. *This is the first machine-measured result this week where our output clears a strong floor
 on an independent gold -- and it is still a claim about the EXTRACTOR's output, NOT about the HDC
-substrate, whose own read-out is the 4% arm.* **Seeds 101/13/29 in flight; single-seed = HYPOTHESIS.**
+substrate, whose own read-out is the 4% arm.*
+**SEED 101 REPLICATES: OURS 18.9% [13.4, 26.0], CO_SENTENCE 7.4%, SHUFFLE 0.0%, RANDOM_NOUNS 0.0%.**
+Seeds 13/29 running. **MATCHER POSITIVE CONTROL PASSES** (`scratch/test_hypernym_matcher.py`):
+fires **400/400** on attested hypernyms, false-fires on **0.2%** of random words -- so a 0.0% floor
+is a real floor and not a silent scorer.
+
+**🚨 NEVER QUOTE THE 19% AS AN ACCURACY -- IT IS A LOWER BOUND ON A DELIBERATELY-CRIPPLED YARDSTICK.**
+This gold drops **218,061 WordNet-provenance edges**, and that omission IS its admissibility
+property -- **the taxonomic backbone goes with them. `dog IsA animal` IS NOT IN THIS GOLD.** Also
+**52.8% of gold objects are MULTI-WORD** and unmatchable by a whitespace-split phrase. So a CORRECT
+definition routinely MISSES: our `piraeus -> "a port"` is right, the gold offers only
+`administrative_region`; `drupe` has no IsA edge at all. **The under-count hits every arm equally so
+the COMPARISON is untouched, but the absolute rate is quotable only as "beats the strongest floor".
+The hand-score's 32% is the better quality estimate.**
 
 **🚫 DO NOT SPEND MORE ON HEAD-SELECTION.** Today's `_MEASURE_HEAD` fix (`way`/`means`/`part`, empty
 heads 7 -> 5) was a correct fix to the component the B3 audit shows barely carries the result. The

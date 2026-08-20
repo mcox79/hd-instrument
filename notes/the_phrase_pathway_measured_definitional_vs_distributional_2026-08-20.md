@@ -82,6 +82,54 @@ by construction. That is a warning about RECALL. **This is a hand-score of MEANI
 my own semantic judgement of what the words mean -- the extractor is not the gold here, and it
 cannot be, because it is the thing under test.**
 
+## ✅ ADDED SAME DAY: A MACHINE SCORER FOR PHRASE OUTPUT, WITH LENGTH-MATCHED FLOORS
+
+Every floor this project owns is word-to-word, so the phrase half had no admissible floor and no
+scorer but me. **ConceptNet holds 154,974 `/r/IsA` + 2,173 `/r/DefinedAs` edges, so score a HIT when
+the phrase CONTAINS an attested hypernym of the term.** Tool:
+`tools/score_phrase_output_against_conceptnet_hypernyms.py`.
+
+| all floors LENGTH-MATCHED to ours | seed 7 (n=160) | seed 101 (n=148) |
+|---|---|---|
+| **OURS** | **19.4%** [14.0, 26.2] | **18.9%** [13.4, 26.0] |
+| **CO_SENTENCE** -- random content words from THE SAME SENTENCE | 7.5% [4.3, 12.7] | 7.4% [4.2, 12.8] |
+| CONSTANT (most common phrase, every term) | 2.5% | 3.4% |
+| RANDOM_NOUNS -- the information-free version of our arm | 0.6% | **0.0%** |
+| SHUFFLE -- another term's real definiens | **0.0%** | **0.0%** |
+
+OURS's lower bound clears every floor's upper bound on both seeds. *Seeds 13/29 running.*
+
+**THE METRIC'S FAILURE MODE IS LENGTH** -- a longer phrase gets more chances to contain a hypernym,
+and ours are long by construction. That is this week's sparse-DG artifact in new clothes, so every
+floor emits the same word count (6.9). **`SHUFFLE` at 0.0% on both seeds is the decisive control: a
+REAL definiens, right form, right length, WRONG TERM, scores ZERO.** It also disposes of the obvious
+objection that we hit on generic category words -- `"a type of book"`, `"a system of government"`
+are full of them, and against the wrong term they never land.
+
+**MATCHER POSITIVE CONTROL PASSES** (`scratch/test_hypernym_matcher.py`, no corpus needed): fires
+**400/400** on attested hypernyms padded with filler, false-fires on **0.2%** of random-word sets.
+**A 0.0% floor is only evidence once the scorer is shown to return non-zero**, which is exactly how
+the mojibake detector, the proper-noun detector and `experiment_index.py` each produced a confident
+wrong answer this month.
+
+### 🚨 THE ABSOLUTE NUMBER IS A SEVERE UNDER-COUNT AND MUST NEVER BE QUOTED AS AN ACCURACY
+
+Running that control surfaced something the headline hides. **This gold deliberately drops 218,061
+WordNet-provenance edges** -- that omission IS its admissibility property (no ground-by-X and
+grade-by-X) -- **and the taxonomic backbone goes with them.** Measured directly: **`dog IsA animal`
+is NOT in this gold.** What survives is crowd-sourced (`dog IsA canid, domestic_animal,
+cuter_than_kids`). Separately, **52.8% of gold objects are MULTI-WORD** (`administrative_region`) and
+a whitespace-split phrase can never match one.
+
+**So a CORRECT definition routinely scores a MISS.** Our `piraeus -> "a port"` is right; the gold
+offers only `administrative_region`, and it counts as a miss. `drupe` has no IsA edge at all.
+
+**➡️ "19%" IS A LOWER BOUND ON A HARSH, DELIBERATELY-CRIPPLED YARDSTICK, NOT "19% OF OUR DEFINITIONS
+ARE CORRECT."** The hand-score put the same population at 32% MEANINGFUL, which is the better
+estimate of quality. **The under-count applies to every arm equally, so the COMPARISON stands
+untouched -- but the absolute rate is quotable only as "beats the strongest floor", never as an
+accuracy.**
+
 ## RELATED PRIOR WORK FOUND DURING THIS -- AND A PENDING AUDIT NOBODY HAS SCORED
 
 `tools/experiment_index.py query "definitional extraction"` -> 4 cells, 3 landed.
