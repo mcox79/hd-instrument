@@ -184,3 +184,42 @@ punished collapsing them.*
 how much is banked; **it does nothing about the fact that nothing READS what is banked.** Coverage is
 already one of the four things that work here. **The bottleneck the other four routes identified is
 consumption, and this does not touch it.**
+
+---
+
+## 🅱️ **ANGLE B ANSWERED: THE GRADED READ-OUT BANKS *MORE OF THE SAME*, NOT BETTER. DO NOT SHIP IT AS A QUALITY FIX.**
+
+The open question left above was whether the extra facts a graded query banks are any GOOD. **They
+are not.** Over 600 sampled terms, **40 are banked ONLY by the graded read-out** (49 by both).
+Hand-scoring 26 of those 40 additions on the night's standard rubric:
+
+| the facts graded banking would ADD | |
+|---|---|
+| **MEANINGFUL** | **1 / 26 = 3.8%** -- only `mercury -> metal` |
+| RELATED | 9 (`customary -> inch`, `civil -> war`, `bronze -> tin`, `judo -> swimming`) |
+| NOISE | 16 (`politics -> today`, `quarter -> pakistan`, `denmark -> australia`, `heat -> also`) |
+
+**➡️ ~4% MEANINGFUL -- INDISTINGUISHABLE FROM THE 0-4% THE DISTRIBUTIONAL READ-OUT ALREADY
+PRODUCES.** The fidelity fix **doubles the yield at constant, bad quality.** *That is precisely the
+charter's warning -- "growing on a foundation that is 78% noise multiplies the noise" -- and it is
+now measured on this specific change rather than asserted.*
+
+**AND IT IS WHAT THE MARGINAL COSINES PREDICT:** every added fact sits at **cos 0.45-0.60**, just
+over the 0.45 bar. **These are the borderline cases, and the borderline of a 4%-accurate process is
+not where the good material lives.**
+
+### ⚖️ WHAT THIS SETTLES AND WHAT IT DOES NOT
+
+- **SETTLED: do NOT ship the graded-query change as a quality improvement.** It is a coverage
+  change at constant quality, and coverage is already one of the four things that work.
+- **NOT SETTLED, AND STILL TRUE: the brain-fidelity charge stands.** `sign()` on the query IS a
+  substitution of a graded quantity for its sign, it DOES change 42.5% of decisions, and the
+  identical substitution in `predictive_coding.py` is the recorded reason G2's gate never fired.
+  **A fidelity gap can be real and consequential AND fixing it in one place can still not help.**
+  *Those are three separate sentences and collapsing them is what tonight kept punishing.*
+- **AND IT SHARPENS F5 RATHER THAN WEAKENING IT.** The read-out's problem is not resolution; it is
+  that **nothing selects against a wrong answer.** Giving the same unselected process a finer
+  measuring stick yields finer-grained noise.
+
+*n=26, one scorer, and the comparison to the 0-4% prior is across samples -- but the rate lands so
+close to the existing one that "no quality gain" is the safe reading.*
