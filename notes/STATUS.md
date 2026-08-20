@@ -1,6 +1,6 @@
 # STATUS
 
-AS OF: 2026-08-20 READY FOR COMPACTION, ~39 CONTINUATIONS IN | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING; every thread opened tonight is CLOSED or CORRECTED** | **ONE VERIFIED RESULT (`keep_noting_grounded`) AND ONE OWNER DECISION (board Q74)** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## 🧭 RESUME HERE` BELOW**
+AS OF: 2026-08-20 ~46 CONTINUATIONS IN, LOOP RE-ARMED BY OWNER | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **2 RUNS IN FLIGHT (tie-convention check; coverage-matched structure-vs-bag)** | **⛔ THE BIGGEST-LOOKING RESULT OF THE DAY WAS WITHDRAWN THE SAME HOUR -- see POSITION** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## POSITION` BELOW**
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
@@ -10,7 +10,52 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
-## 🛑 **THE OVERNIGHT LOOP IS DISARMED (owner instruction 2026-08-20T12:48Z, found UNREAD).**
+## ⛔🔴 **READ THIS FIRST: A RESULT THAT LOOKED LIKE THE BREAKTHROUGH OF THE EFFORT WAS WITHDRAWN**
+## **THE SAME HOUR. NOISE SCORED BETTER THAN IT DID.**
+DG pattern separation (`hdlab/dg_pattern_separation.py`, ORGAN_MAP fidelity **SAME**, never before
+pointed at word meaning) at sparsity 0.01 took the task from **3.09x the co-occurrence floor to
+1.06x** -- apparent parity with word-counting for the first time -- **on 3 seeds, leak 0, arms
+asserted non-empty, and the script printed its own pre-committed VERDICT calling it real.**
+**IT IS A TIE-BREAKING ARTIFACT.** `k=10` of 1024 makes ~91% of pairs share NO support, so their
+similarity is exactly 0.0, and the rank `1 + #{sims > target}` counts every tie as BEATEN.
+**Random noise at the same sparsity scores 14.0 where the real arm scored 18.0/15.0. An
+all-identical arm scores a PERFECT 1.0.** Harness is fine (query==profile -> 1.0 both conventions).
+**AT EVERY NON-ARTIFACT SPARSITY DG IS WORSE THAN OR EQUAL TO RAW -> the post-hoc-transform family
+CLOSES.** Refutation: `tools/diag_what_would_a_meaningless_sparse_arm_score.py` (no corpus, seconds).
+**🔑 TWO RULES EARNED: (1) NON-ZERO IS NOT NON-DEGENERATE -- assert TIE DENSITY and report BOTH tie
+conventions (now in CLAUDE.md). (2) PRE-REGISTRATION DOES NOT DEFEND AGAINST A METRIC THAT CANNOT
+FAIL SAFELY -- the branch logic, floors, CIs and leak checks were all sound and it still declared a
+breakthrough noise reproduces. Two seeds agreeing did NOT catch it; the artifact is deterministic.**
+
+## 🧠 THE DEEP FIDELITY PASS (owner-directed) -- **13 INTERVENTIONS, 5 POSITIONS, 1 SURVIVING GAP**
+Closed for free by READING, before any compute: **the sign hypothesis** (already the shipped state
+since 08-14, verified at runtime -- STATUS had carried it as the "leading hypothesis" for the 2x
+gap); **decorrelation** (rank-1 removal HARD_FAIL_NO_EFFECT, CI includes 0; full whitening
+explicitly PARKED, "do not queue"); **a depression/LTD term** (the delta-rule sweep's nested
+positive control shows `eta=1/n` IS the running mean and reproduces SUM exactly -- the sum is the
+family's optimum). Also declined a +0.500 islanded HARD_PASS: it protects items above a **K=1200
+capacity cliff** and we score 150-450 candidates.
+**ENUMERATED rather than searched: 311 replay/consolidation cells, 266 LANDED, 30 non-linear --
+and 29 OF 30 NEVER TOUCHED WORD MEANING** (all store/capacity work). *Not "nobody tried it" but
+"tried 30 times, always on a different object."* Honest limit: the filter matched nothing on 191.
+**🔑 THE ONE SURVIVING GAP, IN ORGAN_MAP'S OWN NUMBERS: our hub carries FREQUENCY at R^2 0.4819 and
+a typical sensorimotor dimension at 0.01-0.05 -- ~20x. Every transformation of a bag of word-forms
+is still a function of word-form statistics.** That explains why 13 interventions at 5 positions all
+returned the same answer. **STATUS: strongest surviving HYPOTHESIS, not a result -- one R^2, one
+profile set. Do not harden it into "our code is a frequency detector".**
+**➡️ IT POINTS AT SUPPLY, WHICH IS THE OWNER'S OWN Q72 ("patchy" was the load-bearing word).**
+
+## ✅ BOARD Q77 SELF-RESOLVED, AND MY PREMISE WAS THE THING THAT WAS WRONG
+I argued `social_iqa` might be unable to show a difference because our arm AND the crude floor both
+sat at chance. **Backwards.** On all 1,954 items: LONGEST 0.3557, OVERLAP 0.3449, RAREST 0.3234
+against floor 0.3362 and bar 0.3682. **No shallow trick clears it -- the set is built so they
+cannot, so a crude method at chance is the instrument WORKING.** Therefore our 0.3501-0.3975 is a
+**GENUINE NEGATIVE**. The best-looking old score (0.3975) was on **n=400** not 1,954 (bar 0.4069)
+and its run logged **28 of 100 sampled items LEAKING**. **Building a new story test would not have
+fixed anything -- we would own two story tests we fail.**
+
+## 🛑 **THE OVERNIGHT LOOP WAS DISARMED (owner instruction 2026-08-20T12:48Z, found UNREAD), THEN**
+## **RE-ARMED ON OWNER REQUEST. Dashboard was CLOSED AND REOPENED for the owner -- it is current.**
 ## 🔴 **AND THE OWNER HAS BEEN READING A THREE-DAY-OLD DASHBOARD -- SEE THE PLAN'S TOP BLOCK.**
 Their `status_gui.py` started `2026-08-17 17:50`; Tk loads the file once, so **four landed commits
 were invisible, including the two they asked for AGAIN** (loop on/off buttons `072c18b05`; per-tab
