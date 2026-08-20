@@ -1,5 +1,34 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🔄 THRUST 2 CORRECTED -- **Q77 SELF-RESOLVED AND MY OWN PREMISE WAS THE THING THAT WAS WRONG.**
+> *I filed Q77 arguing that `social_iqa` might be unable to show a difference, because "when the
+> clever method AND the crude word-counting floor both sit at chance, the likeliest reading is the
+> test is not reaching either of them". **That reasoning is backwards for this dataset**, and
+> settling it cost one script and no owner input.*
+>
+> **WHAT A METHOD WITH A REAL BUT SHALLOW ADVANTAGE SCORES** (all 1,954 validation items,
+> `tools/diag_is_the_story_test_answerable.py`):
+>
+> | method | score |
+> |---|---|
+> | majority-class floor | 0.3362 |
+> | **BAR** (floor + 3sd at n=1954) | **0.3682** |
+> | LONGEST answer (the classic multiple-choice annotation artifact) | 0.3557 |
+> | OVERLAP with context+question | 0.3449 |
+> | RAREST word | 0.3234 |
+>
+> **NOT ONE SURFACE OR ARTIFACT METHOD CLEARS THE BAR.** The set was built so shallow tricks cannot
+> work, **so a crude method scoring at chance is the instrument WORKING, not failing.**
+> **➡️ THEREFORE OUR 2026-08-11 ARMS AT 0.3501-0.3975 ARE A GENUINE NEGATIVE, NOT AN UNTESTABLE
+> MEASUREMENT.** And the one score that looked like it might clear a bar does not survive either:
+> **0.3975 was on `n_dev = 400`, not 1,954** -- where the 3sd bar rises to **0.4069** -- and that same
+> run recorded **28 of 100 sampled items LEAKING** from its training set.
+> **🎯 THE CONSEQUENCE FOR THE PLAN, AND IT IS THE USEFUL PART: BUILDING A NEW STORY TEST WOULD NOT
+> HAVE FIXED ANYTHING -- WE WOULD OWN TWO STORY TESTS WE FAIL.** The owner's moral/transfer test is
+> still worth building, but as a way to understand HOW we fail, **not as a replacement instrument.**
+> *"Ask whether the experiment could have succeeded before asking why it did not" -- applied to an
+> INSTRUMENT, and this time it defended the instrument rather than condemning it.*
+
 > # 🧠 DEEP BRAIN-FIDELITY PASS -- 2026-08-20, OWNER-DIRECTED. **THREE ROUTES CLOSED FOR FREE,**
 > # **AND THE ELEVEN NEGATIVES RESOLVE INTO ONE POSITION ERROR.**
 > *Owner: "begin with a deep brain fidelity check." Done by READING, before spending any compute --
