@@ -105,3 +105,41 @@ None. The direction is the owner's and it stands; this is about what to do FIRST
 2. **Understand the 0.6195 constant-prototype floor**, because a query-INDEPENDENT score beating
    every query-dependent one is the same tell that has appeared repeatedly tonight. If perceptual
    norms mostly encode *how generic a word is*, that is worth knowing before they are wired in.
+
+---
+
+## ✅ FOLLOW-UP: **MY OWN CONCERN ABOUT THE NORMS IS REFUTED -- THEY ARE NOT A GENERICITY AXIS**
+
+I proposed that the 11/12-dim norm vector might mostly encode *"how generic/perceptible a word is
+at all"*, which would explain why a constant-prototype floor beat every pairwise distance. **Tested
+on the asset itself -- 36,810 words, no corpus, no substrate. The concern does not hold.**
+
+**1. ONE OF MY THREE MEASUREMENTS WAS VACUOUS, AND I AM REPORTING IT RATHER THAN DROPPING IT.**
+"Cosine of each word to the population mean" returned **-0.026**. That is not evidence of low
+prototype dominance -- **the vectors are Z-SCORED, so the population mean is ~0 BY CONSTRUCTION and
+the cosine is to a near-zero vector.** The measure cannot answer the question on this data.
+*Same class as the invalid diversity test earlier: an instrument that cannot answer the question it
+is pointed at.*
+
+**2. THERE IS NO SINGLE DOMINANT AXIS.** PC1 **26.7%**, PC2 17.8%, PC3 15.9%; first three 60.4%.
+**Removing PC1 leaves 73.3% of the variance.** A genericity axis would look nothing like this.
+
+**3. AND PC1 IS NAMEABLE -- IT IS A MODALITY CONTRAST, NOT GENERICITY.**
+
+| end | words |
+|---|---|
+| LOW | `mispronunciation, earful, audibility, rumor, tuneful, bilingualism, pronunciation, deafening` |
+| HIGH | `bath, sleepwear, tux, towel, bathwater, apparel, bedsheet, sunscreen, soap, lotion, clothing` |
+
+**AUDITORY/SPEECH at one end, HAPTIC/BODY at the other.** That is exactly the structure sensorimotor
+norms are supposed to carry, and it is rich rather than degenerate.
+
+**➡️ SO THE NORMS ASSET IS CLEARED OF THE CHARGE I BROUGHT AGAINST IT.** The
+constant-prototype floor's strength at 0.6195 therefore needs a DIFFERENT explanation -- most
+likely a property of that task's GOLD (e.g. correct answers systematically differing in
+concreteness), **not** of the norms' geometry. *That is now the open question, and it is about the
+instrument rather than the asset.*
+
+**This is the second time tonight that testing my own suspicion refuted it.** *The first saved a
+theory from being wrongly refuted; this one clears an asset I had just cast doubt on while auditing
+my own recommendation.*
