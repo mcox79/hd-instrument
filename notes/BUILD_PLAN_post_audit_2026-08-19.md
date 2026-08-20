@@ -1,5 +1,47 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🔴 **SECOND UNREAD RUN, AND ITS OWN DECIDING CONTRAST WAS ANSWERED: CONSOLIDATION FIRES, HAS**
+> # **LARGE INTERNAL EFFECTS, AND CHANGES THE READ-OUT BY EXACTLY NOTHING.**
+> *`exp_substrate_end_to_end_readout_v1`, 18 units, unread since 2026-08-19. Its prereg question,
+> verbatim: **"With consolidation actually firing, does the read-out change at all? The deciding
+> contrast is ablate=['consolidation'] against the control at the same seed."***
+>
+> | ablate | n_episodes | n_provenance | n_refused | OUTPUT SCORES |
+> |---|---|---|---|---|
+> | (control) | 8394 | 68 | 487 | -- |
+> | `episodic` | **0** | 68 | 487 | **CHANGED** |
+> | `definitions` | 8394 | **46** | **523** | **IDENTICAL** |
+> | **`consolidation`** | 8394 | **0** | **0** | **IDENTICAL** |
+> | `foraging` | 8394 | 68 | 487 | **IDENTICAL** |
+> | `gap_detector` | 8394 | 68 | 487 | IDENTICAL |
+>
+> **➡️ THE ABLATIONS DEMONSTRABLY FIRED -- that is what the middle columns prove, and it is why
+> "identical" here means INERT rather than "the switch did not work".** Ablating consolidation takes
+> provenance from 68 to **0** and refusals from 487 to **0**, and every arm's hit@1 is unchanged to
+> four decimals on all three seeds. *Definitions likewise: provenance 68->46, refusals 487->523,
+> output identical.*
+> **SO THREE COMPONENTS DO REAL WORK THAT NEVER REACHES THE READ-OUT.** *Only `episodic` moves the
+> output at all.*
+> **✅ AND `gap_detector` DOES NOT EVEN CHANGE INTERNAL STATE** (68/487 identical) -- independently
+> reproducing today's earlier finding that it is correct but redundant, from a different run.
+>
+> ## ⚖️ **AND THIS CELL CORRECTS SOMETHING IN MY OWN REPORTING TODAY. IT SAYS SO ITSELF:**
+> > `headline_score_is_retired: True` -- *"the best achievable score on this task is 0.0300 against
+> > the substrate's 0.0150, so fixing every defect wins a tie with a floor. **The hit@1 is NOT a
+> > capability claim.**"*
+> > `task_favours_floors_by_construction: True` -- *"Naming a word from its neighbours is close to
+> > cloze, where co-occurrence counting is a strong baseline **BY DESIGN**. A loss says the store is a
+> > worse co-occurrence record than a counter. **It is NOT proof the substrate cannot build an
+> > auditable knowledge store; that needs a separate cell with an independent gold.**"*
+>
+> **🚨 THAT CAVEAT APPLIES TO MY OWN SYNONYM-RANK RESULT FROM TODAY.** Ranking a synonym by
+> context-vector similarity is a distributional task, so "we tie second-order co-occurrence" is
+> partly true BY CONSTRUCTION -- the task is built on the quantity the floor computes directly.
+> **The tie is still real, but it is weaker evidence than I presented it as.**
+> **✅ WHAT RESCUES THE CONCLUSION IS THE OTHER UNREAD CELL: `exp_grounding_precision_gold_v1` IS the
+> "separate cell with an independent gold" this one asks for -- and there the substrate loses to a
+> trivial baseline 2-3x on ConceptNet.** *The two cells were designed as a pair. Both were unread.*
+
 > # 🔴🔴 **THE SHARPEST RESULT OF THE WHOLE EFFORT WAS SITTING UNREAD SINCE 2026-08-19. A TRIVIAL**
 > # **CO-OCCURRENCE BASELINE IS 2-3x MORE ACCURATE THAN THE ENTIRE SUBSTRATE, ON ALL THREE SEEDS.**
 > *`exp_grounding_precision_gold_v1`. **Grounding precision against an INDEPENDENT gold** --
