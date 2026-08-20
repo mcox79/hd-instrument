@@ -1,5 +1,33 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🎯 **THE ONE NAMED, SIZED, REPLICATED TARGET TO COME OUT OF 2026-08-20**
+> **`notes/the_dominant_pattern_is_48_percent_and_its_failures_are_all_one_bug_2026-08-20.md`**
+> *(filename overstates -- see its own banner)*
+>
+> **`COPULA` is 52-63% of ALL definitional extraction**, so its quality decides whether the
+> extraction route is worth anything. Scored on the DEFINIENS (the field that ships), n=40 per
+> corpus, **replicated across a genre change**:
+>
+> | | MEANINGFUL | NOISE |
+> |---|---|---|
+> | simplewiki | **47.5%** | 27.5% |
+> | textbook_biology_2e | **67.5%** | 20.0% |
+>
+> **Every distributional number on the SAME corpora sits at 0-4%.**
+>
+> **➡️ AND MOST OF THE NOISE IS ONE BUG: the DEFINIENS is fine, the DEFINIENDUM is a broken span.**
+> `longest river -> the Gudena`, `big change -> the development of atomic theory`,
+> `well-known example -> the Ring of Fire`. **91% of noise on simplewiki, 63-75% on the textbook.**
+> **SAME BUG CLASS `exp_definitional_grounding_v5` ALREADY FIXED FOR OTHER PATTERNS** (term-boundary
+> corruption 16.1% -> 1.0%, which took that sample 4% -> 60%). **~95 noise rows per 6,000 sentences
+> on the live corpus, from one cause.**
+>
+> **TWO OTHER FAILURE CLASSES FOUND AND BOTH DEMOTED BY PREVALENCE:** vacuous definiens
+> (*"tonicity is a concern for all living things"*), and polarity loss from COUNTERFACTUALS
+> (*"if a cell WERE a closed system"* -> `cell -> a closed system`) at **~1 in 295, 0 in 340** --
+> real, confirmed, ~90x rarer than the span bug, **not worth fixing.**
+> *Limits: single arm, no floor, one scorer. The RATE replicates across corpora; it is still mine.*
+
 > # 🔦 **LATE 2026-08-20: THREE ABANDONED HUMAN AUDITS SCORED, AND SIX MORE ARE WAITING.**
 > A landed cell can sit for over a week needing only a human to grade its output. **I found two by
 > accident, so I enumerated the rest: `tools/find_pending_handscores.py`.** Each is a question the
