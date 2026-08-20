@@ -413,6 +413,28 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 📈 **SCALE CURVE WITH THE SHIPPED FIX -- THE GAIN GROWS WITH SCALE, AND THE SLOPE HALVES.**
+>
+> | sentences | DEFAULT | KEEP_NOTING (shipped) | improvement |
+> |---|---|---|---|
+> | 2,000 | 2.29x | **1.68x** | 27% |
+> | 4,000 | 2.91x | **2.20x** | 24% |
+> | 8,000 | 3.56x | **2.35x** | 34% |
+> | 16,000 | 5.33x | **3.17x** | **41%** |
+>
+> **Phase slope on this instrument: DEFAULT +1.410 -> KEEP_NOTING +0.667 per e-fold. A 53%
+> reduction.** *The curve still CLIMBS -- we keep falling behind as we read more; we just fall behind
+> at roughly half the rate.* Reachability rises with scale exactly as it should
+> (`cos-to-snapshot` 1.000000 -> 0.899 -> 0.805 -> **0.740**), which is the profile being genuinely
+> rewritten by later reading rather than nudged.
+>
+> **⚠️ THESE SLOPES DO NOT CROSS SCORERS, AND I ALMOST QUOTED THEM AS IF THEY DID.** The +1.708 /
+> +1.035 / +0.631 figures recorded earlier come from a curve with a **GROWING candidate pool and
+> different probes**; this one uses a **frozen 74-term set fixed at 2,000 sentences**, identical for
+> both arms. **+0.667 must NOT be read as "better than the post-hoc coverage arm's +1.035" or
+> "comparable to centring's +0.631".** The only legitimate comparison here is DEFAULT vs KEEP_NOTING,
+> measured side by side on the same instrument -- and that one is clean.
+>
 > ## 📋 **ON THE BOARD AS Q74 -- THE ONLY OWNER DECISION OUTSTANDING. NOT BLOCKING; WORK CONTINUES.**
 > *Should `keep_noting_grounded` become the DEFAULT?* It changes canonical substrate behaviour for
 > every future experiment, so it is the owner's call, not mine. **Filed with the risk of my own
