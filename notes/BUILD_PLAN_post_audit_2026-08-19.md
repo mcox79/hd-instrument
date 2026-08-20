@@ -1,5 +1,58 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🎯 **WHY IS GROUNDING NOISE? THE SAMPLE CANNOT SAY -- BUT IT SAYS SOMETHING ELSE CLEANLY:**
+> # **THE *KIND* OF TEXT IS THE LEVER, AND IT IS WORTH 3.4x.**
+>
+> ## ⚠️ FIRST, THE HONEST NEGATIVE: THE "WHY" QUESTION IS **UNTESTABLE AT THIS n**, NOT ANSWERED
+> `scratch/diag_why_is_grounding_noise.py` tested the hypothesis today's fidelity pass predicts --
+> *a frequency-dominated hub should hand out FREQUENT words as meanings, and those should be the
+> NOISE ones* -- **and pre-registered the rival**, that the SUBJECTS differ (a population effect:
+> we try to ground proper nouns and inflections that have no groundable meaning).
+>
+> | | NOISE | GOOD | diff | CI |
+> |---|---|---|---|---|
+> | log freq of assigned OBJECT | 2.303 | 2.197 | +0.105 | [-1.389, +0.938] |
+> | log freq of SUBJECT | 0.693 | 1.242 | -0.549 | [-1.386, +0.405] |
+> | SUBJECT unseen in corpus | 0.000 | 0.000 | +0.000 | [+0.000, +1.000] |
+>
+> **NOTHING SEPARATES. With 22 non-noise rows the CIs cannot exclude the effect sizes in play.**
+> *The pre-committed third branch fired, and it was written before the run: **the hand-score answers
+> WHETHER quality is poor and structurally cannot answer WHY.** Report as UNTESTABLE, never as
+> evidence of no effect.* **So the frequency-hub-causes-bad-grounding story remains a HYPOTHESIS --
+> it was not confirmed here and must not be quoted as if it were.**
+>
+> ## ✅ **WHAT THE SAMPLE *CAN* ANSWER, AND IT IS WELL-POWERED**
+>
+> | segment | n | meaningful-or-related | rate |
+> |---|---|---|---|
+> | **`bio_new`** (dense technical) | 17 | **9** | **52.9%** |
+> | `ele_cont` | 18 | 4 | 22% |
+> | `adv_new` | 42 | 6 | 14% |
+> | `int_cont` | 21 | 3 | 14% |
+>
+> **`bio_new` vs ALL OTHERS: 9/17 vs 13/83, difference +0.373, 95% CI [+0.124, +0.620], SEPARATED.
+> Fisher exact two-sided p = 0.00204.** *This is the charter's own prediction reproducing, which is
+> what makes it a positive control rather than a fishing expedition.*
+> **🔗 AND IT CONVERGES WITH AN INDEPENDENT MEASUREMENT ON A DIFFERENT INSTRUMENT AND SAMPLE:**
+> grounding RATE at 8,000 sentences was textbook **12.6%** / simplewiki 3.6% / Little Women 0.8% /
+> Sherlock **0.7%**. **Two different measurements, same direction: dense expository text grounds
+> several times better than general prose.**
+>
+> ## 🚨 **THE QUALIFICATION THAT CHANGES HOW TO READ IT -- DO NOT SKIP THIS**
+> **The 52.9% is "MEANINGFUL *or* RELATED". Biology's breakdown is 1 MEANINGFUL / 8 RELATED / 8
+> NOISE.** So **even in the best segment, genuinely meaningful grounding is 1 of 17 (~6%)**, and the
+> effect is mostly biology producing NEAR-MISSES rather than hits. *"Biology works" would be a
+> serious over-read; "biology gets closer and still rarely lands" is what the data supports.*
+> **⚠️ AND IT IS CONFOUNDED: `bio_new` differs from the others in corpus, domain, vocabulary AND
+> definition density all at once. This sample cannot say WHICH of those is doing the work.**
+>
+> ## ➡️ WHERE THAT LEAVES THE SUPPLY DIRECTION -- REFINED TWICE IN ONE DAY, AND BOTH TIMES BY DATA
+> 1. Fidelity synthesis said **the lever is SUPPLY** (13 interventions at 5 positions all closed).
+> 2. The unread hand-score said **not more text -- 78% of what we ground is noise**, so growth would
+>    multiply noise. *That reversed (1).*
+> 3. This says **not quantity but KIND: dense expository text with explicit definitions, worth 3.4x**
+>    -- *and even there the hit rate is ~6%, so it is a better starting point, not a solution.*
+
 > # 🔴 **A COMPLETED HAND-SCORE HAS BEEN SITTING UNREAD ON DISK SINCE 2026-08-12, AND IT IS THE**
 > # **GATE ON THE ENTIRE SUPPLY DIRECTION. IT DOES NOT SAY WHAT I HOPED.**
 >
