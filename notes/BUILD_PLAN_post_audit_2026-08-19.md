@@ -1,5 +1,62 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🧭🧭 **CONSOLIDATED READ -- 2026-08-20. THIS BLOCK REPLACES READING THE TWENTY BELOW IT.**
+> *Everything under this is the working record, newest-first, and stays. This is what it adds up to.*
+>
+> ## 1. **WHAT THE SUBSTRATE IS, ON EVERY PROPERLY-CONTROLLED TEST WE HAVE**
+> | test | independent gold? | result |
+> |---|---|---|
+> | grounding precision (`grounding_precision_gold`) | ✅ ConceptNet | **loses 2-3x to top-co-occurrent**, p<.02, 3 seeds |
+> | discrimination re-rank (`discrimination_ceiling`) | ✅ ConceptNet | **loses to bag-of-words**, 3 corpora |
+> | synonym rank (2026-08-20) | ✗ distributional | ties second-order co-occurrence, −1.0 CI [−5.0,+1.0] |
+> | cortical read (`cortical_read_consolidated`) | ✗ | **4x worse than the co-occurrence floor** |
+> | scale ladder (`sr_scale_ladder`) | ✗ | counter scales 3.5x over 53x text; **we do not** |
+>
+> **➡️ THE CONVERGED STATEMENT: THE LEARNED TEXT REPRESENTATION IS AT OR BELOW CO-OCCURRENCE COUNTING
+> ON EVERY TEST, AND BELOW IT ON BOTH TESTS THAT USE AN INDEPENDENT GOLD.** Grounding precision is
+> **1.6-3.0%**; on one seed it is not distinguishable from a random anchor.
+> *⚖️ The synonym-rank TIE is the weakest of these -- that task favours counting BY CONSTRUCTION, as
+> `substrate_end_to_end_readout`'s own caveat says. The independent-gold LOSSES carry the claim.*
+>
+> ## 2. **WHY -- AND IT IS NOT A TUNING PROBLEM**
+> - **13 interventions closed** across which traces, when, how written, what a trace is, and how it
+>   is transformed afterwards.
+> - **ZERO role-assignment calls** on the reading path (5 entry points, runtime-counted).
+> - **Consolidation, definitions and foraging are INERT on the read-out** -- ablations demonstrably
+>   fire (provenance 68->0) and change no arm to four decimals. Only `episodic` moves anything.
+> - **The successor representation DEGRADES with more data**, to exactly 0.0 at 40,000 sentences.
+> **The representation IS co-occurrence, so improving how it is computed cannot help. That is now
+> measured rather than argued.**
+>
+> ## 3. ✅ **THE FOUR THINGS THAT DO WORK -- AND THREE OF THEM POINT THE SAME WAY**
+> 1. **COVERAGE** -- `keep_noting_grounded`, the session's one verified win (5.0x -> 2.6x the floor).
+> 2. **COMBINING CHANNELS** -- `BOTH` beats either single channel on all 3 seeds (median 126 -> 69).
+>    *The owner's own "many channels" hypothesis, confirmed in our data.*
+> 3. **SUPPLIED PERCEPTUAL NORMS** -- beat the learned substrate on all 3 seeds (p=.029/.017/.0155),
+>    with a shuffled-norms control that collapses.
+> 4. **DENSE EXPOSITORY TEXT** -- grounds 3.4x better than general prose (Fisher p=0.002).
+> **➡️ 2, 3 AND 4 ARE ALL "BRING IN SIGNAL THE TEXT-DISTRIBUTIONAL CHANNEL DOES NOT HAVE". 1 IS "USE
+> MORE OF WHAT YOU ALREADY SEE". NONE OF THEM IS "COMPUTE THE SAME THING BETTER".**
+>
+> ## 4. **THE ONE CONCRETE UPSTREAM DEFECT, SIZED**
+> The definitional extractor returns a definition for **10.7% of definitional sentences** (47 of 438).
+> Hand-reading 50 drops: **~48% are real definitions we cannot parse.** Three forms lose them --
+> **multi-word definienda** (`dfd` is `[A-Za-z'\-]{1,30}`, no spaces), **`which means` relative
+> clauses**, **quoted definientia**. Ceiling if all were parsed: ~46%, roughly **4x the supply**.
+> **⚠️ BUT QUANTITY WITHOUT QUALITY MULTIPLIES NOISE -- grounding is 78% noise by blind hand-score and
+> 1.6-3.0% precision against an independent gold. Fix the forms AND the head rule, then re-score.**
+>
+> ## 5. **THE PROCESS FAULTS, BECAUSE THEY COST MORE THAN ANY MECHANISM DID**
+> - **3 tie artifacts in one day**, all from one line of arithmetic -> guard moved into
+>   `tools/rank_with_ties.py` (a rule in CLAUDE.md had failed to stop me twice).
+> - **7 finished runs invisible for a day** over a missing one-line field -> display fixed, verdicts
+>   recorded in `notes/verdicts_for_the_seven_unread_runs_2026-08-19.md`.
+> - **The prior-work tool returned SILENT ZEROS** for multi-word queries -> fixed + self-tested.
+> - **4 times a point estimate would have produced a false positive** where the paired statistic said
+>   no.
+> **Two of the day's best results were already on disk and unread. The archive out-performed the
+> experiments.**
+
 > # 🟢 **FIFTH UNREAD RUN, AND IT CONTAINS THE BEST EVIDENCE IN THE PROJECT FOR THE OWNER'S OWN**
 > # **"MANY CHANNELS" HYPOTHESIS -- COMBINING TWO CHANNELS BEATS EITHER ALONE, ON ALL THREE SEEDS.**
 > *`exp_cortical_read_consolidated_v1`, spec `v3_floors_at_k`. Owner, board Q82: **"the brain often

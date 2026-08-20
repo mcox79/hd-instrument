@@ -10,6 +10,41 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
+## 🧭 **CONSOLIDATED, 2026-08-20. THE PLAN'S TOP BLOCK IS THE FULL VERSION; THIS IS THE SHORT ONE.**
+
+**WHAT THE SUBSTRATE IS.** On every properly-controlled test it is AT OR BELOW co-occurrence
+counting, and BELOW it on both tests using an INDEPENDENT gold (ConceptNet, no WordNet source):
+grounding precision **loses 2-3x to a trivial top-co-occurrent baseline** (p<.02, 3 seeds, precision
+**1.6-3.0%**, and on one seed not distinguishable from a RANDOM anchor); discrimination re-ranking
+**loses to bag-of-words** on 3 corpora. The synonym-rank TIE is the weakest evidence here -- that
+task favours counting BY CONSTRUCTION -- so the independent-gold LOSSES carry the claim.
+
+**WHY, AND IT IS NOT TUNING.** 13 interventions closed across which traces / when / how written /
+what a trace is / how transformed. **ZERO role-assignment calls** on the reading path (5 entry
+points, runtime-counted). **Consolidation, definitions and foraging are INERT on the read-out** --
+ablations demonstrably fire (provenance 68->0) and change no arm to 4 decimals; only `episodic`
+moves anything. SR **degrades** with more data, to exactly 0.0 at 40k sentences.
+
+**THE FOUR THINGS THAT WORK:** coverage (`keep_noting_grounded`, 5.0x->2.6x); **combining channels**
+(BOTH beats either alone on 3 seeds, median 126->69 -- the owner's own hypothesis, confirmed);
+**supplied perceptual norms** beat the learned substrate on 3 seeds (p=.029/.017/.0155, shuffled
+control collapses); **dense expository text** grounds 3.4x better (Fisher p=0.002).
+**➡️ THREE OF THE FOUR ARE "BRING IN SIGNAL THE TEXT CHANNEL DOES NOT HAVE". NONE IS "COMPUTE THE
+SAME THING BETTER".**
+
+**THE SIZED UPSTREAM DEFECT.** The definitional extractor returns a definition for **10.7%** of
+definitional sentences; hand-reading 50 drops, **~48% are real definitions we cannot parse**
+(multi-word definienda, `which means` clauses, quoted definientia). Ceiling ~46% = **4x supply**.
+**But quantity without quality multiplies noise: grounding is 78% noise by blind hand-score.**
+
+**PROCESS FAULTS THAT COST MORE THAN ANY MECHANISM.** 3 tie artifacts in one day -> guard moved into
+`tools/rank_with_ties.py`; **7 finished runs invisible for a day** over a missing verdict field ->
+display fixed, verdicts in `notes/verdicts_for_the_seven_unread_runs_2026-08-19.md`; the prior-work
+tool returned **silent zeros** for multi-word queries -> fixed + self-tested; **4 times** a point
+estimate would have produced a false positive where the paired statistic said no.
+**Two of the day's best results were already on disk, unread. The archive out-performed the runs.**
+
+
 ## 🎯 **THE CLEANEST RESULT OF THE DAY, AND IT CLOSES THE QUESTION THE SESSION KEPT CIRCLING:**
 ## **WE TIE SECOND-ORDER CO-OCCURRENCE COUNTING. NOT WORSE. NOT BETTER.**
 Synonym-rank task, 3 seeds, paired on identical items, against the floor that is actually trying.
