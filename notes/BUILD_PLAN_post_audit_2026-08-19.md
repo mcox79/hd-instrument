@@ -40,6 +40,24 @@
 > *Verdicts recorded beside the evidence as `_handscore_verdict_<date>.json`; landed `metrics.json`
 > never rewritten.*
 >
+> ## ✅ **AND A NUMBER THAT NEVER ADDED UP IS RESOLVED: IT WAS TWO DIFFERENT FIELDS ALL ALONG**
+> Historical records report **v3 DEF 38% / v4 40% / (charter) 64% MEANINGFUL**; my score of the SAME
+> v3 sample read **4%**. **Settled by scoring the OTHER field on the SAME 50 rows:**
+>
+> | same rows, same scorer, same rubric | MEANINGFUL |
+> |---|---|
+> | banked **HEAD** (`object`) | **4%** (2/50) |
+> | **DEFINIENS SURFACE** (the full phrase) | **48%** (24/50) |
+>
+> **Both numbers were always correct; no document said which field it measured.** `activation
+> energy` banks the head "proceed" (noise) while its definiens is *"the amount of initial energy
+> necessary for reactions to occur"*.
+> **➡️ AND v3-ERA CODE BANKED THE HEAD -- so the 38/40/64% figures described the extractor's PHRASE
+> output while the system stored the WORD. `reading_grounding_loop.py:1451` cites the 64% as the
+> WIRE'S JUSTIFICATION**; that docstring was corrected tonight, and this is the evidence it needed
+> to be. *Third independent replication of the night's core finding: a single word almost cannot
+> teach a word (32 vs 4 paired; 4 vs 0 blind; 48 vs 4 same-rows).*
+>
 > # 📒 **BEFORE READING THE BLOCKS BELOW: `notes/WHAT_2026-08-20_ESTABLISHED_survives_vs_withdrawn.md`**
 > 2026-08-20 produced **11 findings and 6 retractions of my own claims**, several of them corrections
 > OF corrections. **This plan records them in the order they happened, which is the wrong order to
