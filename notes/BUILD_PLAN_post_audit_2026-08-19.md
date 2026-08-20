@@ -413,6 +413,44 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
+> ## 🛑 **DO NOT BUILD THE PARALLEL-CANDIDATE ORGAN. I TESTED THE PREMISE FIRST AND IT FAILED.**
+> *The previous block argued -- from real literature -- that cross-situational learning (Yu & Smith
+> 2007) is the right mechanism for varied contexts, and that our single-hypothesis PBV explains the
+> narrative failure. **That argument was good and the premise underneath it is false.***
+>
+> **THE PREMISE, MADE CHECKABLE WITHOUT BUILDING ANYTHING:** if PBV abandons a word because it can
+> only hold ONE guess, then pooling evidence ACROSS that word's traces should still show a clear
+> winner. **Measured as the substrate itself measures it** -- pooled traces scored against the
+> ConceptSpace anchors, top-1 minus top-2 margin, the exact quantity `canonicalize` decides on:
+>
+> | corpus | group | n | **margin** | traces/item |
+> |---|---|---|---|---|
+> | `textbook_biology_2e` | GROUNDED | 831 | **0.3517** | 13.66 |
+> | `textbook_biology_2e` | ESCALATED | 1,784 | **0.0412** | 7.79 |
+> | `textbook_biology_2e` | PENDING | 108 | 0.0358 | 5.03 |
+> | `sherlock_holmes` | GROUNDED | 49 | **0.5520** | 11.61 |
+> | `sherlock_holmes` | ESCALATED | 2,417 | **0.0285** | 7.53 |
+> | `sherlock_holmes` | PENDING | 143 | 0.0346 | 4.78 |
+>
+> **Abandoned words carry 8.5x (textbook) to 19x (fiction) WEAKER pooled evidence than grounded
+> ones.** *PBV did not discard recoverable structure. It gave up on words that genuinely have no
+> winner, and pooling across encounters -- which is exactly what cross-situational tracking does --
+> would find nothing there.*
+> **✅ THE GROUNDED GROUP IS WHAT MAKES THIS READABLE: a margin means nothing in the abstract, but
+> against the margins of words THIS substrate did ground, 0.0285 against 0.5520 is unambiguous.**
+> *Note ESCALATED and PENDING sit at the SAME margin (~0.03-0.04) in both corpora -- the mechanism is
+> not failing to reach these words, there is simply nothing to reach.*
+>
+> **🔑 SO THE HONEST CONCLUSION INVERTS THE ONE I WAS BUILDING TOWARD.** Narrative words are not
+> victims of a too-strict single-hypothesis rule. **In this substrate's own representation they are
+> genuinely undetermined** -- and the interesting question moves upstream, to why a bag-of-context
+> vector extracts so little from narrative that 2,417 of 2,417 escalated words look identical to
+> noise. *That is a REPRESENTATION question, and it rejoins the session's dominant finding rather
+> than opening a new front.*
+> **⚠️ AND THIS IS THE TRAP THE OWNER NAMED, AVOIDED BY ONE MEASUREMENT: I had literature, a
+> mechanism, a named failure mode and a plausible story. Building it would have been "wiring an organ
+> because I think it could help." The premise cost one cheap probe to check and was wrong.**
+>
 > ## ⚠️🚧 **THE OBVIOUS NEXT MOVE IS BARRED, AND NAMING THAT IS THE POINT OF THIS BLOCK.**
 > Last round's finding -- *"our grounding threshold demands more consistency than narrative
 > supplies"* -- has an obvious follow-up: **lower the threshold.** *That is the band-adjusting move
