@@ -73,12 +73,28 @@ estimate would have produced a false positive where the paired statistic said no
 > discriminator, the floors that will actually be RUN, the positive control, and the can-fail
 > condition -- written down before anyone codes.
 >
-> ### 🅱️ ANGLE B -- **DOES THE GRADED READ-OUT BANK *BETTER* FACTS, OR JUST MORE?**
-> Measured tonight: `sign()` on the query changes the nearest anchor **42.5%** of the time and
-> nearly **doubles** what clears the bar (8.2% -> 15.5%). **Whether the extra material is any GOOD
-> is unmeasured, and the prior is bad (0-4% MEANINGFUL).** *Hand-scoring the facts that ONLY the
-> graded read-out banks decides whether a one-line fidelity fix helps or multiplies noise.*
-> **Runnable inline, no cell, no agent.**
+> **✅ ANGLE A DONE:** `notes/F5_EVALUATION_DESIGN_how_we_would_know_a_coherence_monitor_works_2026-08-20.md`
+> -- task (**detect the anomalous word**, the N400 read-out), the confound that would ruin it
+> (**anomalous words are RARE words -> the swap must be FREQUENCY-MATCHED**), the six floors that
+> must actually be RUN (**co-occurrence surprisal is the one that decides it**), the four
+> diagnostics that must print before any verdict, and the pre-committed can-fail condition.
+> **Explicitly NOT a target: beating the 40-50% human miss rate -- an always-on checker beats an
+> inattentive reader trivially.**
+>
+> **✅ ANGLE B DONE -- ANSWERED NEGATIVE:** the graded read-out banks **MORE OF THE SAME, NOT
+> BETTER**. Of 600 terms, 40 are banked only by the graded query; hand-scoring 26 gives
+> **1 MEANINGFUL / 9 RELATED / 16 NOISE = 3.8%** -- indistinguishable from the 0-4% already
+> produced, and every addition sits at **cos 0.45-0.60**, just over the bar. **DO NOT SHIP THE
+> GRADED-QUERY CHANGE AS A QUALITY FIX.** *The fidelity charge still stands; a gap can be real and
+> consequential AND fixing it in one place can still not help.*
+>
+> ### 🅱️ **NEW ANGLE B -- DESIGN THE MEANING-CONSUMPTION LINK CONCRETELY**
+> Without it, F5 gives the SITUATION REGISTER a use and leaves the `GROUNDED_MEANING` facts outside
+> the loop -- **which is the bottleneck all four routes identified.** The connection point exists
+> and is live (`bind_filler` / `decode_filler`, already carrying open-vocabulary word vectors in
+> `goal_outcome_relation_grounded.py`), and capacity is not binding (multibank_8 holds 256
+> events/entity at >=0.999). **What is undesigned: WHICH meanings get bound, to WHICH role, at WHAT
+> point in reading.**
 
 ## [the direction] 🧭 **DECIDED ON THE OWNER'S BRAIN-FOUNDATIONAL CRITERION: BUILD F5**
 
