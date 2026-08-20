@@ -4,6 +4,41 @@
 > *Supersedes the 2026-08-19 handoff below it. Everything under this block is the RECORD, newest
 > first; this block is the only thing that needs reading to resume.*
 >
+> ## 🔀 **TWO THRUSTS, RUN IN PARALLEL (owner 2026-08-20). THEY DO NOT COMPETE FOR ANYTHING.**
+> *One is COMPUTE-bound and runs unattended; the other is DESIGN-bound and needs no compute. That is
+> why both can be live at once -- and why the answer to "what else can you do while it runs" is not
+> "a second experiment".*
+>
+> ### THRUST 1 -- **RUNNING**: is CONTEXT-AS-STRUCTURE better than CONTEXT-AS-BAG?
+> `scratch/diag_structure_vs_bag.py`, 3 seeds, 8,000 sentences. ONE variable: what a word's context
+> vector IS (`context_vector_masked` vs `structural_vector_masked`). Both arms built from the SAME
+> sentence pool, same probes, same COOC floor.
+> **Guarded against the trap that already cost me a wrong claim: the structural encoder returns an
+> all-zero vector SILENTLY when handed a surface form instead of a lemma, and an all-zero arm scores
+> median rank 1.0.** A positive-control self-test runs first; every arm's non-empty fraction is
+> asserted before scoring; zero-vector skips are counted and printed.
+> *Judged on EXPOSITORY prose per the owner's amendment. Narrative is an observation, not pass/fail.*
+>
+> ### THRUST 2 -- **THE INSTRUMENT GAP. NO COMPUTE. THE HIGHER-VALUE ONE.**
+> **We cannot measure narrative-kind learning at all**, so every claim about this substrate failing
+> on stories is currently unfalsifiable -- including the one I made tonight with a table and four
+> decimal places. *Owner: "textbooks are supposed to have facts laid out for learning, stories are
+> there to enjoy -- to get a new perspective... it's not the same kind of learning at all."*
+> **THE QUESTION: what would count as EVIDENCE that this substrate got something from a story?**
+> Candidate shapes, none yet chosen, all needing a can-fail floor before they mean anything:
+> - **situation model** -- after reading, which entities are still "live", and who did what to whom?
+>   *(E2 situation-model register exists in ORGAN_MAP)*
+> - **perspective / stance** -- can it tell what a character WANTED, as distinct from what happened?
+> - **expectation violation** -- does it register that something UNUSUAL happened in a scene, which
+>   is narrative's analogue of a fact being surprising
+> - **transfer** -- does reading a story change behaviour on a LATER, unrelated text?
+> **⚠️ THE TRAP TO AVOID IS THE ONE WE JUST FELL INTO: any narrative metric must NOT be fact-recall
+> wearing a costume.** If the scorer ends up asking "predict the missing word", it is the textbook
+> ruler again and will return the same answer for the same wrong reason.
+> **➡️ THIS IS THE ONE I WANT THE OWNER'S VIEW ON.** It is a definition question, not a measurement
+> one, and getting it wrong costs more than any single experiment: *a bad narrative metric would make
+> the substrate look fixed or broken for reasons unrelated to whether it understood anything.*
+
 > ## ✅ WHAT IS TRUE AND SHIPPED
 > **`keep_noting_grounded`** -- the substrate no longer seals a word's representation the instant it
 > grounds. Additive, **DEFAULT-OFF**, all self-tests pass, registered (row 205).
