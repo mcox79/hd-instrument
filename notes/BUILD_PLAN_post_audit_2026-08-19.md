@@ -4,6 +4,50 @@
 > *Supersedes the 2026-08-19 handoff below it. Everything under this block is the RECORD, newest
 > first; this block is the only thing that needs reading to resume.*
 >
+> ## 🎯 **Q76 ANSWERED -- THE NARRATIVE MEASURE IS "SUMMARISE + GENERALISE THE TAKEAWAY".**
+> *Owner 2026-08-20: "stories typically have morals - what's the moral of the story? that's advanced
+> - if someone does something stupid and goes to jail, the moral is, you should try to adhere to the
+> law etc. PPL can take different morals from the same story. I think a high score would be able to
+> summarize what happened in the story and generalize any takeways from it."*
+>
+> **TWO COMPONENTS, AND THE SECOND IS THE ONE THAT MAKES IT NOT FACT-RECALL:**
+> 1. **SUMMARISE** what happened -- a story-level situation model.
+> 2. **GENERALISE the takeaway** -- abstract from *these events* to a *transferable principle*.
+>
+> **⛔ THREE HARD DESIGN CONSTRAINTS, ALL FROM THE OWNER'S OWN WORDING OR THIS PROJECT'S INVARIANTS:**
+> - **"PPL can take different morals from the same story"** -> there is **NO single gold answer**.
+>   An exact-match scorer is invalid by construction. *This is the owner telling us the metric shape,
+>   not just the metric.*
+> - **NO LLM AT INFERENCE (the standing invariant)** -> we cannot have a model read a free-text
+>   summary and judge it. **So the task must be SELECTION / DISCRIMINATION, not generation.**
+> - **It must NOT be fact-recall wearing a costume** -- the failure that produced tonight's
+>   unfalsifiable claim.
+>
+> **➡️ THE SHAPE THOSE THREE CONSTRAINTS FORCE, AND IT IS A GOOD ONE: A TRANSFER TEST.**
+> Read story A (someone breaks a rule, suffers a consequence). Then present story B carrying the
+> **SAME principle** with **DELIBERATELY ZERO SURFACE OVERLAP** -- different characters, setting,
+> vocabulary. Ask the substrate to pick which of N candidate principles B shares with A.
+> **THE CAN-FAIL FLOOR IS BUILT IN AND THAT IS WHY THIS SHAPE WINS: a system that memorised A's
+> WORDS must fail B, because the word overlap is controlled to ~zero by construction.** *Surface
+> matching cannot pass it, so passing means something abstracted. And "different people take
+> different morals" is accommodated -- the candidates are principles, scored as discrimination, with
+> no claim that one reading is uniquely correct.*
+> *This merges Q76's options (1) situation model and (4) transfer; the TRANSFER half is what keeps it
+> honest, and the SUMMARISE half is what the owner asked for on top.*
+>
+> **⚠️ OPEN AND NOT YET SOLVED -- WHERE THE STORY PAIRS COME FROM.** We would need story pairs sharing
+> a principle with no lexical overlap. **Writing them ourselves risks encoding the answer in the
+> structure we chose**, which is the "did the test items exist before the mechanism did?" trap this
+> project already names as its strongest free predictor of a bogus result. *Check the corpus shelf
+> for existing labelled material (fables have explicit morals) BEFORE authoring any.*
+>
+> ## ⛔ **THRUST 1 DIED AND PRODUCED NOTHING -- RE-LAUNCH REQUIRED, DO NOT READ ITS LOG AS A RESULT.**
+> `scratch/struct_vs_bag.log` contains ONLY the encoder self-test line (`struct norm 27.857 | bag
+> norm 32.062`). The harness reports no completion record -- it was killed when the previous process
+> exited. **The script is correct and ready; it simply needs re-running.** *It is SLOW because the
+> structural encoder parses every sentence -- budget accordingly, and consider a smaller
+> `DIAG_N_READ` for a first pass.*
+
 > ## 🔀 **TWO THRUSTS, RUN IN PARALLEL (owner 2026-08-20). THEY DO NOT COMPETE FOR ANYTHING.**
 > *One is COMPUTE-bound and runs unattended; the other is DESIGN-bound and needs no compute. That is
 > why both can be live at once -- and why the answer to "what else can you do while it runs" is not
