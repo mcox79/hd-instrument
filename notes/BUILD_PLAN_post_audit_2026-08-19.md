@@ -34,7 +34,15 @@
 > (*"tonicity is a concern for all living things"*), and polarity loss from COUNTERFACTUALS
 > (*"if a cell WERE a closed system"* -> `cell -> a closed system`) at **~1 in 295, 0 in 340** --
 > real, confirmed, ~90x rarer than the span bug, **not worth fixing.**
+> **✅ AND THE FIX IS SAFETY-CHECKED, NOT JUST SPECIFIED: 96% precision on ALL 25 flagged rows**
+> (checked exhaustively, not sampled -- *a fix that refuses GOOD extractions is worse than the bug*).
+> **Its ONE failure is a regex over-match, already named and closable:** `honest reporting` was
+> flagged because **`\w+est` matches "hon-EST"**. Require a real superlative (POS `JJS`, or a
+> stoplist for `-est` nouns). **That would have shipped inside the fix and silently refused good
+> extractions.**
 > *Limits: single arm, no floor, one scorer. The RATE replicates across corpora; it is still mine.*
+> **🚧 DIAGNOSED AND VERIFIED, DELIBERATELY NOT BUILT** -- building it IS Q89's reading-pipeline
+> branch, which is the owner's open decision. This makes it shovel-ready if they take it.
 
 > # 🔦 **LATE 2026-08-20: THREE ABANDONED HUMAN AUDITS SCORED, AND SIX MORE ARE WAITING.**
 > A landed cell can sit for over a week needing only a human to grade its output. **I found two by
