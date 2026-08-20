@@ -1,5 +1,22 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🔒 **THE STEMMING THREAD, CLOSED PROPERLY. I NARROWED IT THREE TIMES AND THIS IS THE FINAL**
+> # **STATE -- DO NOT RE-OPEN IT WITHOUT READING ALL FIVE LINES.**
+> | claim | status |
+> |---|---|
+> | a CURRENT code defect | ❌ **NO** -- fixed 2026-08-13; current code produces **0 non-words of 12** tested |
+> | a LIVE RUNTIME problem | ❌ **NO** -- a real read opens **0 foundation files** (runtime spy on `builtins.open`, not grep) |
+> | a hazard for ANALYSIS of the persisted stores | ✅ **YES** -- **all 6 stores date 2026-08-12**, every one pre-fix, enumerated not sampled |
+> | the size I reported (442, 12.5%) | ⚠️ **INFLATED** -- my detector false-positives on short names (`colin`, `tim`) |
+> | the load-bearing 78%-noise hand-score | ✅ **CLEAN** -- 0 stem artefacts in its 100 objects; unaffected |
+>
+> **➡️ SO THE ONLY THING THAT SURVIVES IS A PROVENANCE WARNING, AND IT IS WORTH KEEPING: every
+> persisted foundation store on disk was written before a lemmatiser fix, so ANY analysis run against
+> them inherits a defect the running system no longer has.** *That is what happened to me today, three
+> times in one thread, and each narrowing came from asking a question I should have asked first:
+> does the CODE still do this? does the LIVE PATH read this? is my DETECTOR sound?*
+> **⛔ WHAT IT IS NOT: a bug to fix, a reason to rebuild the stores, or a defect in anything running.**
+
 > # ✅ **THE 78%-NOISE HAND-SCORE IS CLEAN. ITS LINEAGE DOES *NOT* CARRY THE STEMMING DEFECT, SO**
 > # **THE LOAD-BEARING FIGURE STANDS.**
 > *The worry was legitimate: the cell ran **2026-08-12 22:44**, BEFORE the 08-13 lemmatiser fix, and
