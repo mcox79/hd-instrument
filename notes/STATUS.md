@@ -1,6 +1,6 @@
 # STATUS
 
-AS OF: 2026-08-20 ~46 CONTINUATIONS IN, LOOP RE-ARMED BY OWNER | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **2 RUNS IN FLIGHT (tie-convention check; coverage-matched structure-vs-bag)** | **⛔ THE BIGGEST-LOOKING RESULT OF THE DAY WAS WITHDRAWN THE SAME HOUR -- see POSITION** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## POSITION` BELOW**
+AS OF: 2026-08-20 ~34 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING -- verified against the live process table, not inferred** | **✅ TODAY: THE UNMEASURED HALF OF THE OUTPUT IS NOW MEASURED AND IT WINS 8-TO-1; THE WIN IS THE PHRASE *FORM*, NOT THE DEFINITIONAL SOURCE -- see `## TOP ITEM`** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## POSITION` BELOW**
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
@@ -10,7 +10,10 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
-## 🧭 **CONSOLIDATED, 2026-08-20. THE PLAN'S TOP BLOCK IS THE FULL VERSION; THIS IS THE SHORT ONE.**
+### 🧭 **CONSOLIDATED, 2026-08-20. THE PLAN'S TOP BLOCK IS THE FULL VERSION; THIS IS THE SHORT ONE.**
+*(`###` deliberately, not `##`: `## POSITION` is machine-parsed and a `##` here TERMINATED the
+POSITION section at its own first line, so both `session_start_hook.py` and `board.py` were
+mirroring an EMPTY position. See the WHAT IS RUNNING note below -- same defect, same file.)*
 
 **WHAT THE SUBSTRATE IS.** On every properly-controlled test it is AT OR BELOW co-occurrence
 counting, and BELOW it on both tests using an INDEPENDENT gold (ConceptNet, no WordNet source):
@@ -44,6 +47,84 @@ tool returned **silent zeros** for multi-word queries -> fixed + self-tested; **
 estimate would have produced a false positive where the paired statistic said no.
 **Two of the day's best results were already on disk, unread. The archive out-performed the runs.**
 
+
+## TOP ITEM -- PUT THE PHRASE RESULT ON A PROPER FOOTING BEFORE ANYONE BUILDS ON IT
+
+**TODAY'S FINDING, IN ONE LINE: the half of the output nobody had ever scored is the good half, and
+what makes it good is the FORM (a whole phrase) rather than the SOURCE (read off the page).**
+
+| same rubric, same scorer, same day | MEANINGFUL |
+|---|---|
+| definitional **PHRASE** (`d.definiens`) | **32%** |
+| definitional **HEAD** (`d.head`, SAME source, one noun) | **4%** |
+| distributional (`canonicalize`) | **0-4%** |
+
+Paired on identical terms and traces: McNemar **8 for / 1 against, p = 0.020**. Head-vs-distributional
+is **NOT distinguishable** (p = 0.2475), which is what isolates FORM as the cause.
+Full: `notes/the_phrase_pathway_measured_definitional_vs_distributional_2026-08-20.md` and
+`notes/b3_audit_scored_the_win_is_the_phrase_form_not_the_definitional_source_2026-08-20.md`.
+
+**➡️ THE TOP ITEM IS TO HARDEN IT, AND THAT IS DELIBERATELY *NOT* BUILDING ON IT.** Every phrase
+number is **n=25, ONE seed, ONE corpus, 12,000 sentences, and scored by an interested party** -- me,
+who argued the phrases looked better before scoring them. The B3 half was genuinely blind; the phrase
+half could not be, because a phrase is visibly a phrase. **A result this load-bearing cannot rest
+there**, and Q89 is open on exactly this fork, so firming up the evidence the owner is deciding on is
+in-bounds while acting on it is not.
+
+**WHAT WOULD MAKE IT SOLID:** seeds and CIs rather than one run; the strongest floor actually RUN on
+the phrase population (**note that COOC/FREQ floors are word-to-word and CANNOT be evaluated on
+phrases as-is -- constructing an admissible floor for phrase output is itself unsolved and is the
+first real obstacle**); and a scorer who is not me, or a rubric mechanical enough that being me stops
+mattering.
+
+**🚫 DO NOT SPEND MORE ON HEAD-SELECTION.** Today's `_MEASURE_HEAD` fix (`way`/`means`/`part`, empty
+heads 7 -> 5) was a correct fix to the component the B3 audit shows barely carries the result. The
+`thing`/`word`/`idea` empty-head backlog should be **re-priced or dropped**, not worked.
+
+## WHAT IS RUNNING
+
+- **🔴 NOTHING IS RUNNING.** Verified 2026-08-20 against the live process table: the only live
+  python is the status GUI (shim PID 8900, child 28648). **Not inferred from a log or a PID file.**
+- **🚨 THIS SECTION WAS CONFIDENTLY WRONG FOR A FULL DAY, AND IT IS THE ONE `session_start_hook.py`
+  INJECTS INTO EVERY COMPACTION RECOVERY.** The parsed copy sat at **line ~2535 under 2,300 lines of
+  archive**, said *"26 continuations in"*, and named two runs as in flight that had **finished the
+  previous afternoon** -- while the `AS OF:` line at the top of the SAME FILE named two *different*
+  runs. **A stale WHAT IS RUNNING is worse than an empty one; that exact sentence was already
+  written in the stale section, by someone who had just been burned by it.**
+  **THE STRUCTURAL CAUSE, NOW FIXED: both `session_start_hook.py` and `board.py` take the FIRST
+  line-start match, and the current sections had been buried under the archive.** They now sit at
+  the top; the archived copies below are renamed so exactly one of each literal is parsed.
+- **✅ COMPLETED 2026-08-19, both with positive evidence in their logs, neither previously recorded
+  here:**
+  - **9-seed spoke independence sweep** (`scratch/spoke9.log`) -- **PRE-REGISTERED CONJUNCTION
+    (ratio>=0.85 AND union>=1.5 on EVERY seed): FAILS** -- 3 of 9 seeds fall under the ratio bar
+    (union clears on 9 of 9). **BUT DO NOT READ THAT AS "THE ENCOURAGING SEED WAS AN OUTLIER".**
+    The log poses that as a CONDITIONAL and the data takes the other branch: **ratio mean 0.87,
+    median 0.91, sd 0.09, min 0.70, and 6 of 9 seeds clear 0.85.** The 0.70 is the extreme, not the
+    0.94. **The honest verdict is: the pre-registered all-seeds bar FAILS and the effect is
+    BORDERLINE-AT-INDEPENDENCE, not refuted.**
+    *🚨 I first wrote "the single encouraging seed was the outlier" here, having copied the log's
+    conditional prose without checking which branch its own numbers took. Caught by reading the
+    table. That is the house error -- a narrative sentence sitting next to the data that contradicts
+    it -- and it survived into this file for one edit.*
+  - **`exp_predictive_write_gate_v1`** (`scratch/pwg_full.log`) -- `[done] 3 units in 1064s`.
+    **ACC hit@10 0.1533 vs COOC hit@10 0.3667** (seed 7); 0.1667 vs 0.3933 (seed 101). **Accumulation
+    loses to co-occurrence counting again**, consistent with everything else measured this week.
+- **🔎 THE MACHINE ALREADY KNEW, AND THE WARNING WAS BEING READ PAST EVERY SESSION.** The hook's own
+  `[pid-reconcile]` block prints **"4 RECENT RUN(S) DEAD WITHOUT FINISHING <-- do not describe these
+  as live"**, naming `spoke9`, `onemany` and `cn_gold` as `DEAD_BUT_CLAIMED_LIVE`. It was correct
+  about LIVENESS and was ignored while this file said the opposite two lines further up.
+  **⚠️ BUT IT IS NOT RELIABLE ABOUT COMPLETION: it classifies `spoke9` as dead WITHOUT FINISHING,
+  and that run demonstrably finished** -- all 9 seeds, summary statistics and its pre-registered
+  verdict are in the log. It appears to infer "unfinished" from a missing `metrics.json`, which a
+  scratch-script run never writes. **DEAD != UNFINISHED; the reconciler conflates them, so use it
+  for liveness and read the log for completion.**
+- **⚠️ FILE HEALTH: this file is ~272 KB / 3,373 lines against a stated cap of 8,704 B -- 31x over.**
+  `STATUS_SPEC.md` sec 2 requires the state half to be REWRITTEN IN PLACE and the never-trim half to
+  live in `STATUS_LESSONS.md`. It has instead become an append log. **NOT trimmed here on purpose:**
+  the spec's own sec 8 records that an ad-hoc byte-shave deleted a discipline that had cost two full
+  experiments to learn. A trim is a deliberate job against the spec, not a side-effect of a status
+  update.
 
 ## 🎯 **THE CLEANEST RESULT OF THE DAY, AND IT CLOSES THE QUESTION THE SESSION KEPT CIRCLING:**
 ## **WE TIE SECOND-ORDER CO-OCCURRENCE COUNTING. NOT WORSE. NOT BETTER.**
@@ -2289,7 +2370,9 @@ was an ORACLE-CUE number; on the REAL partial cue POP_72 32->72 is BELOW and POP
 with winner composition FLAT at every depth.** Eleven cells across six organs on 08-17 returned ~+0.01
 each; the two LADDERS redirected the programme. Method is not in question -- organ selection was.
 
-## TOP ITEM -- FIND AN ADMISSIBLE SUPERVISION SIGNAL THAT IS NOT THE EVALUATION GOLD
+## [ARCHIVED TOP ITEM] FIND AN ADMISSIBLE SUPERVISION SIGNAL THAT IS NOT THE EVALUATION GOLD
+*(renamed 2026-08-20: it is no longer the top item, and while it carried the literal `## TOP ITEM`
+buried at line ~2292 it was competing with the current one for the machine parse. Content intact.)*
 **🆕 2026-08-19: THE FIRST CANDIDATE IS BUILT AND UNDER TEST -- D7 SUCCESSOR REPRESENTATION**
 (`hdlab/successor_representation.py`). **It clears the circularity constraint outright: it is
 self-supervised from the corpus's own transitions and derives from NO gold, NO WordNet, NO LLM.**
@@ -2532,7 +2615,10 @@ THE REPRESENTATION BESIDE EVERY FLOOR, AND REBUILD THE FLOOR WHENEVER THE REPRES
 EVEN IF NOTHING ELSE DID.** *Corollary, earned the same night: a control with a threshold that
 excludes nothing is not a control -- report how many items each control actually removed.*
 
-## WHAT IS RUNNING / BLOCKED
+## [ARCHIVED 2026-08-19] RUNNING / BLOCKED -- STALE, SUPERSEDED BY `## WHAT IS RUNNING` AT THE TOP
+*(renamed 2026-08-20. This copy carried the machine-parsed literal `## WHAT IS RUNNING` while
+sitting under 2,300 lines of archive, so it -- not the current state -- was injected into every
+compaction recovery for a full day. Both runs named below FINISHED on 2026-08-19. Content intact.)*
 
 - **🟢 AUTOLOOP IS ARMED (owner, 2026-08-19: "enable your stop hook and make sure it's working
   properly"), 26 continuations in.** Stop it with `python tools/autoloop.py disarm`. Anything

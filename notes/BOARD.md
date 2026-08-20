@@ -26,43 +26,57 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 
 ## STATUS
 
-AS OF: 2026-08-20 ~46 CONTINUATIONS IN, LOOP RE-ARMED BY OWNER | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **2 RUNS IN FLIGHT (tie-convention check; coverage-matched structure-vs-bag)** | **⛔ THE BIGGEST-LOOKING RESULT OF THE DAY WAS WITHDRAWN THE SAME HOUR -- see POSITION** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## POSITION` BELOW**
+AS OF: 2026-08-20 ~34 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING -- verified against the live process table, not inferred** | **✅ TODAY: THE UNMEASURED HALF OF THE OUTPUT IS NOW MEASURED AND IT WINS 8-TO-1; THE WIN IS THE PHRASE *FORM*, NOT THE DEFINITIONAL SOURCE -- see `## TOP ITEM`** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## POSITION` BELOW**
 
 **POSITION**
+### 🧭 **CONSOLIDATED, 2026-08-20. THE PLAN'S TOP BLOCK IS THE FULL VERSION; THIS IS THE SHORT ONE.**
+*(`###` deliberately, not `##`: `## POSITION` is machine-parsed and a `##` here TERMINATED the
+POSITION section at its own first line, so both `session_start_hook.py` and `board.py` were
+mirroring an EMPTY position. See the WHAT IS RUNNING note below -- same defect, same file.)*
+**WHAT THE SUBSTRATE IS.** On every properly-controlled test it is AT OR BELOW co-occurrence
+counting, and BELOW it on both tests using an INDEPENDENT gold (ConceptNet, no WordNet source):
+grounding precision **loses 2-3x to a trivial top-co-occurrent baseline** (p<.02, 3 seeds, precision
+**1.6-3.0%**, and on one seed not distinguishable from a RANDOM anchor); discrimination re-ranking
+**loses to bag-of-words** on 3 corpora. The synonym-rank TIE is the weakest evidence here -- that
+task favours counting BY CONSTRUCTION -- so the independent-gold LOSSES carry the claim.
+**WHY, AND IT IS NOT TUNING.** 13 interventions closed across which traces / when / how written /
+what a trace is / how transformed. **ZERO role-assignment calls** on the reading path (5 entry
+points, runtime-counted). **Consolidation, definitions and foraging are INERT on the read-out** --
+ablations demonstrably fire (provenance 68->0) and change no arm to 4 decimals; only `episodic`
 
-**TOP ITEM -- FIND AN ADMISSIBLE SUPERVISION SIGNAL THAT IS NOT THE EVALUATION GOLD**
-**🆕 2026-08-19: THE FIRST CANDIDATE IS BUILT AND UNDER TEST -- D7 SUCCESSOR REPRESENTATION**
-(`hdlab/successor_representation.py`). **It clears the circularity constraint outright: it is
-self-supervised from the corpus's own transitions and derives from NO gold, NO WordNet, NO LLM.**
-Full run in flight; **the pre-registered risk is that it is a better COUNTER rather than a
-different kind of thing**, since `M` is a discounted multi-step co-occurrence statistic and the
-floor is the 1-step one. *Phase 2 independently re-confirmed that the missing ingredient is a
-learning signal, end-to-end through the assembly -- see the 2026-08-19 block at the top of POSITION.*
-Organ A is closed and its answer is that we need a LEARNING SIGNAL. **The whole question is now WHICH
-ONE, and the binding constraint is CIRCULARITY, not performance.**
-**VERIFIED OFF DISK 2026-08-18, not asserted** (`exp_dissociation_score_instrument_v1.py`):
-`SET_P` is built by `build_wordnet_synonym_candidates()` (line 304) from `wn.synsets()` (line 312);
-the known-answer arm is WordNet path similarity (0.9599); and `SET_S` **explicitly EXCLUDES any
-WordNet pair even at high co-occurrence** (evidence key
-`set_S_excludes_wordnet_pair_even_at_high_cooccurrence`, line 674). **So WordNet does not merely
+**TOP ITEM -- PUT THE PHRASE RESULT ON A PROPER FOOTING BEFORE ANYONE BUILDS ON IT**
+**TODAY'S FINDING, IN ONE LINE: the half of the output nobody had ever scored is the good half, and
+what makes it good is the FORM (a whole phrase) rather than the SOURCE (read off the page).**
+| same rubric, same scorer, same day | MEANINGFUL |
+|---|---|
+| definitional **PHRASE** (`d.definiens`) | **32%** |
+| definitional **HEAD** (`d.head`, SAME source, one noun) | **4%** |
+| distributional (`canonicalize`) | **0-4%** |
+Paired on identical terms and traces: McNemar **8 for / 1 against, p = 0.020**. Head-vs-distributional
+is **NOT distinguishable** (p = 0.2475), which is what isolates FORM as the cause.
+Full: `notes/the_phrase_pathway_measured_definitional_vs_distributional_2026-08-20.md` and
+`notes/b3_audit_scored_the_win_is_the_phrase_form_not_the_definitional_source_2026-08-20.md`.
+**➡️ THE TOP ITEM IS TO HARDEN IT, AND THAT IS DELIBERATELY *NOT* BUILDING ON IT.** Every phrase
+number is **n=25, ONE seed, ONE corpus, 12,000 sentences, and scored by an interested party** -- me,
+who argued the phrases looked better before scoring them. The B3 half was genuinely blind; the phrase
 
-**WHAT IS RUNNING / BLOCKED**
-- **🟢 AUTOLOOP IS ARMED (owner, 2026-08-19: "enable your stop hook and make sure it's working
-  properly"), 26 continuations in.** Stop it with `python tools/autoloop.py disarm`. Anything
-  other than exactly boolean `true` in `data/hook_state/autoloop.json` reads DISARMED -- the
-  fail-safe direction is OFF. *Both `stop_hook.py --self-test` and `autoloop.py self-test` PASS.*
-  **⚠️ THIS BULLET SAID "DISARMED" FOR ~20 CONTINUATIONS AFTER THE LOOP WAS RE-ARMED.** This
-  section is MACHINE-PARSED by `tools/session_start_hook.py`, so a resuming session was being told
-  the loop was off and the wrong cell was running. **A stale `WHAT IS RUNNING` is worse than an
-  empty one -- it is confidently wrong. Update it in the same turn as the launch, not later.**
-- **🔵 IN FLIGHT (2 detached, they CONTEND so both are slow -- that is expected, not a stall):**
-  - **9-seed spoke independence sweep** -- `scratch/spoke9.log` / `.err`, PID `scratch/spoke9.pid`.
-    Decides whether the spoke's independence from counting is real or a small-count artefact.
-    **3 of 9 seeds in and reproducing the earlier run EXACTLY (0.70 / 0.94 / 0.89).**
-  - **`exp_predictive_write_gate_v1`** spec `v1_residual_gate`, 3 seeds -- `scratch/pwg_full.log`
-    / `.err`, PID `scratch/pwg_full.pid`. The pinned residual rule against pure accumulation,
+**WHAT IS RUNNING**
+- **🔴 NOTHING IS RUNNING.** Verified 2026-08-20 against the live process table: the only live
+  python is the status GUI (shim PID 8900, child 28648). **Not inferred from a log or a PID file.**
+- **🚨 THIS SECTION WAS CONFIDENTLY WRONG FOR A FULL DAY, AND IT IS THE ONE `session_start_hook.py`
+  INJECTS INTO EVERY COMPACTION RECOVERY.** The parsed copy sat at **line ~2535 under 2,300 lines of
+  archive**, said *"26 continuations in"*, and named two runs as in flight that had **finished the
+  previous afternoon** -- while the `AS OF:` line at the top of the SAME FILE named two *different*
+  runs. **A stale WHAT IS RUNNING is worse than an empty one; that exact sentence was already
+  written in the stale section, by someone who had just been burned by it.**
+  **THE STRUCTURAL CAUSE, NOW FIXED: both `session_start_hook.py` and `board.py` take the FIRST
+  line-start match, and the current sections had been buried under the archive.** They now sit at
+  the top; the archived copies below are renamed so exactly one of each literal is parsed.
+- **✅ COMPLETED 2026-08-19, both with positive evidence in their logs, neither previously recorded
+  here:**
+  - **9-seed spoke independence sweep** (`scratch/spoke9.log`) -- **PRE-REGISTERED CONJUNCTION
 
-_mirrored from `notes/STATUS.md` at 2026-08-20T17:00:37Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-20T17:58:28Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
