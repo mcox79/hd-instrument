@@ -56,9 +56,9 @@ worse for us. That is the correct use of the caution.
 ## 4. 🎯 WHAT THIS MEANS FOR F5
 
 **F5 is NOT building on nothing.** There is a real, replicated ~16-point signal in the accumulated
-profiles for a coherence monitor to read. **But the gap to counting is ~13 points on the medians and
-the gate is 13.4 above the substrate's best CI**, so F5 must contribute substantially rather than
-merely surface what is already there.
+profiles for a coherence monitor to read. **But the gap to counting is ~13 points on the medians, the gate
+is 13.4 above the substrate's best CI, and the paired test confirms the gap is real**, so F5 must
+contribute substantially rather than merely surface what is already there.
 
 **And the honest risk, stated up front:** the most likely F5 outcome given every other measurement
 this project has made is *another arm that lands between the substrate and counting*. That would be
@@ -77,10 +77,14 @@ task.
 Plain word-counting scores about **29**, and the bar we set — deliberately using the top of
 counting's error range rather than its middle — is **44**. **So our system does not pass.**
 
-One thing I am careful *not* to say: I have not shown we are *significantly worse* than counting.
-The error ranges overlap. What is established is that we fail the test we set in advance — which is
-a decision, not a proof of inferiority. Claiming more would be the exact sloppiness I have spent the
-day removing.
+At first I was careful *not* to say we were *worse* than counting, only that we failed the bar — the
+two error ranges overlapped, and overlapping ranges are not a test of a difference. **So I ran the
+test that is.** Comparing the two methods sentence by sentence on the identical sentences, **counting
+wins by a clear margin that does not include zero.** We are genuinely behind, not merely not ahead.
+
+Worth noting which way that went. The extra work came from a caution I had written into my own
+write-up, and doing it produced a **worse** answer for us than leaving the caution in place would
+have. That is what a caution is for.
 
 What it means practically: the new component would not be starting from nothing — there is a real
 signal in what the system has learned for it to read. But it would need to add a lot, not just
@@ -94,6 +98,6 @@ None.
 
 1. `tools/score_the_trained_substrate_on_anomaly.py` is the instrument; it carries leak control and
    prints the anchor count and mean profile norm so an empty accumulator cannot pass unnoticed.
-2. The paired substrate-vs-counting comparison is UNTESTED and is the obvious follow-up if the
-   question "are we actually behind counting, or just not ahead" ever becomes load-bearing.
+2. The paired substrate-vs-counting comparison is DONE: `-0.142 per item, 95% CI [-0.203, -0.082]`
+   over 478 items, SEPARATED. `compare_detectors_paired()` in the harness is the reusable form.
 3. F5 remains blocked only on cell-authoring.
