@@ -289,9 +289,46 @@ extracted phrase) rather than the banked head object** -- the same which-populat
 flagged tonight in `reading_grounding_loop.py:1451`. **The standing prohibition on juxtaposing
 hand-score figures applies; I am not merging them.**
 
-**➡️ THIS IS THE STRONGEST EVIDENCE ALL DAY FOR THE PIPELINE BRANCH OF Q89, AND IT NAMES WHERE THE
-VALUE IS: the glossary-colon construction.** *Limits: single arm, no floor, n=50, one scorer, and
-the corpus is the dense-expository mix already measured as the EASY case.* **Worklist now 7.**
+**➡️ STRONG EVIDENCE FOR THE PIPELINE BRANCH OF Q89** -- but see the immediate retraction below
+before treating "glossary lines" as the target. *Limits: single arm, no floor, n=50, one scorer,
+dense-expository corpus (the easy case).* **Worklist now 7.**
+
+### ⛔ 8i. **I TESTED MY OWN BEST FINDING BEFORE BUILDING ON IT, AND THE 92% DID NOT SURVIVE**
+The 92% rests on **13 rows**, so I re-extracted with the code at HEAD and measured both quality AND
+supply. **Neither held up.**
+
+| fresh extraction, 6,000 sentences per corpus | GLOSSARY_COLON yield |
+|---|---|
+| `textbook_psychology_2e` | 48 (8.00 per 1,000) -- 12% of its definitional patterns |
+| `simplewiki` | 7 (1.17 per 1,000) -- 1% |
+| `textbook_biology_2e` | **4** (0.67 per 1,000) -- **1%** |
+
+**QUALITY ON FRESH PSYCHOLOGY TEXT: 4 MEANINGFUL / 3 RELATED / 23 NOISE = 13%, NOT 92%.**
+
+**AND THE CAUSE IS PLAIN FROM THE ROWS: the pattern is matching BIBLIOGRAPHY ENTRIES.**
+`genie -> tragedy` *[A Scientific Tragedy]*, `drug -> introduction` *[An introduction to behavioral
+pharmacology, 7th edition]*, `mcn -> journal` *[The American Journal of Maternal Child Nursing,
+30]*. **A reference list is `Title: Subtitle`, which is exactly the shape of `term: definition`, and
+the pattern cannot tell them apart.**
+
+**➡️ THE CORRECTED CLAIM: `GLOSSARY_COLON` IS 92% ACCURATE *WHEN IT FIRES INSIDE A REAL GLOSSARY*
+AND ~13% WHEN IT FIRES IN A BIBLIOGRAPHY -- AND NOTHING IN THE EXTRACTOR DISTINGUISHES THE TWO.**
+The v5 sample drew from a genuine glossary region (`ecology: the study of...`); fresh extraction
+over the psychology textbook body hits its reference list instead. **The v5 result stands for its
+population. The generalisation to "glossary lines are the target" does not, and I made that
+generalisation one turn earlier.**
+
+**WHAT THIS IS WORTH: more than the fragile 92% was.** It names a specific, fixable defect (a
+region/genre filter, or refusing colon-matches whose definiens looks like a citation) and it sizes
+the prize honestly -- **supply is 0.67-8.00 per 1,000 sentences, so even a perfect fix is a small
+lever, not a plan.** *Prevalence measured BEFORE proposing the fix, which is the rule that killed
+two other proposals today.*
+
+**🔧 AND A TOOLING NOTE, BECAUSE IT NEARLY BECAME THE FINDING:** my first two attempts at the corpus
+API (`.stream()`, then `.available()`) each returned **a clean ZERO for every corpus** -- which
+reads exactly like *"no glossary lines exist in any corpus"*. **A zero from a wrong call is
+indistinguishable from a zero from the data.** Caught only by inspecting the handle's real
+attributes.
 
 ### 9-11. Infrastructure and governance, all verified from disk
 - **The registry's do-not-wire gate on the definitional module had been CARRIED PAST** while

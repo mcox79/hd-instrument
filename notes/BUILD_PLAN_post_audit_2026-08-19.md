@@ -23,8 +23,15 @@
 > The v3 -> v5 jump is NOT corpus (segment mixes near-identical) and NOT pattern-mix alone (that
 > would predict ~45%, not 4%): it is the **TERM-BOUNDARY repair, 16.1% -> 1.0% corruption.** In v3
 > the patterns fired correctly **on the wrong spans**, which is how `afghanistan -> catch` happens.
-> **➡️ STRONGEST EVIDENCE ALL DAY FOR Q89's PIPELINE BRANCH, and it says WHERE: glossary lines.**
-> *n=13 for the 92%. Single arm, no floor, one scorer, dense-expository corpus (the easy case).*
+> **➡️ STRONG EVIDENCE FOR Q89's PIPELINE BRANCH -- BUT THE "GLOSSARY LINES ARE THE TARGET"
+> GENERALISATION IS RETRACTED, ONE TURN AFTER I MADE IT.** The 92% rests on **13 rows**, so I
+> re-extracted at HEAD: **fresh psychology-textbook extraction scores 13%, not 92%, because
+>  is matching BIBLIOGRAPHY ENTRIES** --  *[An introduction to
+> behavioral pharmacology]*,  *[The American Journal of Maternal Child Nursing]*.
+> **A reference list is , the same shape as , and the extractor
+> cannot tell them apart.** Supply is also thin: **0.67-8.00 hits per 1,000 sentences** (biology: 4
+> in 6,000). **CORRECTED CLAIM: 92% inside a REAL GLOSSARY, ~13% in a bibliography, with nothing
+> distinguishing them.** The v5 result stands for ITS population; the generalisation does not.
 > *Verdicts recorded beside the evidence as `_handscore_verdict_<date>.json`; landed `metrics.json`
 > never rewritten.*
 >
