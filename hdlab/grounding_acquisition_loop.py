@@ -227,6 +227,14 @@ class LibraryItem:
     n_abandoned: int = 0
     n_revivals: int = 0
     rejected: List[str] = field(default_factory=list)          # LOG ONLY -- never read by a decision
+    # 2026-08-20: how many traces existed at the moment this item was BANKED. Everything at
+    # `traces[grounded_at_n_traces:]` was recorded AFTER grounding, and is therefore evidence the
+    # consolidated vector does NOT already contain. Recorded as a COUNT rather than a pass index
+    # because traces are appended in order, which makes the split exact instead of approximate.
+    # None on any item that never grounded, and on items loaded from a snapshot written before this
+    # field existed -- consumers must treat None as "no post-grounding evidence available", which
+    # reproduces the prior behaviour rather than guessing.
+    grounded_at_n_traces: Optional[int] = None
 
 
 # ---- PBV config (Stevens 2017 Hybrid Pursuit shape; values are OURS, justified in the pre-reg) --
@@ -587,6 +595,9 @@ def consolidation_pass(library: Library, pass_idx: int, *,
                                          abstain_band=neutral_band - 1e-9)
             label = vote if vote is not None else "NEUTRAL"
             it.status = f"GROUNDED_{label}"
+            # Stamp the evidence boundary AT the moment of banking. Everything appended after this
+            # index is evidence the consolidated vector cannot already contain.
+            it.grounded_at_n_traces = len(it.traces)
             if register and label in ("POS", "NEG"):
                 register_acquired_outcome(lemma, label)
             newly_grounded[label].append(lemma)

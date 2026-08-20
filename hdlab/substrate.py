@@ -862,13 +862,29 @@ class Substrate:
         # Under the flag the two are SUMMED instead. Same units on both sides: `space._sums`
         # accumulates `context_vector_masked` outputs and `Trace.context_vec` IS that same vector, so
         # adding them is the accumulation this substrate already does everywhere else.
+        # POST-GROUNDING TRACES ONLY, and that is not a safety choice -- it MEASURED BETTER.
+        # Summing the WHOLE Library pile into the consolidated vector double-counts the
+        # pre-grounding evidence the consolidated vector was built from. VET 2026-08-20, 3 seeds at
+        # 16,000 sentences, paired on identical probes: whole-pile beat DEFAULT by -5.0
+        # (95% CI [-6.0, -3.5]); POST-ONLY beat it by -6.0 (95% CI [-8.0, -4.5]) and won in 3 of 3
+        # seeds. **The double-count was mildly HURTING, not flattering** -- the opposite of the
+        # pre-registered worry, which was that post-only would collapse.
         merge_grounded = "keep_noting_grounded" in self.ablate
+        items = getattr(self.state.library, "items", {})
         for lem, vec in getattr(self.state.space, "_sums", {}).items():
             cs = np.asarray(vec, dtype=np.float64)
-            if merge_grounded and lem in out and out[lem].shape == cs.shape:
-                out[lem] = cs + out[lem]
-            else:
-                out[lem] = cs
+            if merge_grounded:
+                it = items.get(lem)
+                n0 = getattr(it, "grounded_at_n_traces", None) if it is not None else None
+                if n0 is not None:
+                    post = [t.context_vec for t in (getattr(it, "traces", None) or [])[int(n0):]
+                            if getattr(t, "context_vec", None) is not None]
+                    if post:
+                        add = np.sum(np.asarray(post, dtype=np.float64), axis=0)
+                        if add.shape == cs.shape:
+                            out[lem] = cs + add
+                            continue
+            out[lem] = cs
         return out
 
     # -- lazily-initialised caches ------------------------------------------------------------
