@@ -663,7 +663,19 @@ archives, two questions* covers "does the tool exist" (registry) and "has this b
 |---|---|
 | Does the tool already exist? | `data/capability_registry.jsonl`, `hdlab/` |
 | Has this question already been ANSWERED? | `tools/experiment_index.py query "<kw>"` |
-| ***Have we already been WRONG about this mechanism?*** | **`ORGAN_MAP.md` §3 corrections — and grep the whole file, not the row you are citing** |
+| ***Have we already been WRONG about this mechanism?*** | **`python tools/organ_map_cite.py <ORGAN_ID>`** — greps the WHOLE file and prints constraints BEFORE the entry |
+
+**THE THIRD READ IS NOW A TOOL, BECAUSE THE RULE FAILED TWICE ON THE SAME FILE.** 2026-08-20 I
+quoted `ORGAN_MAP` §2 to justify divisive normalisation while §3 said *"do not re-propose"* it.
+**2026-08-21 I quoted F5's `BRAIN'S MATH` row all session and never read line 1440 in the same file
+-- "F5/F6 -- queue behind step 4" -- under a heading reading *"recorded so it is not started by
+accident."*** Same file, same rule, same failure, two days apart.
+
+`tools/organ_map_cite.py` has **no call signature that returns the math row alone**: it prints every
+line naming the organ, with scheduling / prohibition / correction lines FIRST, plus the file-wide
+standing prohibitions. Self-tested against the exact line that was missed. *Same escalation as
+`rank_with_ties.py` and `replication_gate.py`: when a caution written as prose has been violated,
+move it into the code path where the unsafe usage is unrepresentable.*
 
 **A pinned equation tells you what the brain computes. The corrections tell you what we already got
 wrong about it — including analytic impossibility results that no experiment needs to re-derive.**
