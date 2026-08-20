@@ -413,8 +413,37 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
-> ## ⬅️⬅️ TOP ITEM NOW -- **WHY DOES THIS SUBSTRATE BARELY LEARN FROM NOVELS? THREE CAUSES, AND**
-> ## **THEY MAKE DIFFERENT PREDICTIONS, SO THEY ARE SEPARABLE.**
+> ## 🎯 ANSWERED -- **NOT EXPOSURE. CONTEXT CONSISTENCY, AND THE MACHINERY TRIES AND FAILS.**
+> Same 8,000-sentence budget, four corpora, two genres:
+>
+> | corpus | library | grounded | enc/item | **coherence** | PENDING | ESCALATED |
+> |---|---|---|---|---|---|---|
+> | `textbook_biology_2e` | 6,475 | 831 | 4.85 | **0.0835** | 3,860 | 1,784 |
+> | `simplewiki` | 9,212 | 330 | 3.46 | **0.0591** | 6,600 | 2,282 |
+> | `little_women` | 7,520 | 59 | 3.60 | **0.0256** | 4,764 | 2,697 |
+> | `sherlock_holmes` | 6,987 | 49 | 3.73 | **0.0278** | 4,521 | 2,417 |
+>
+> **grounding 11.0x apart · exposure only 1.14x apart · coherence 2.67x apart · escalation HIGHER in
+> narrative (0.3523 vs 0.2616).**
+>
+> **⛔ (a) EXPOSURE IS RULED OUT. Narrative words get essentially the same number of encounters
+> (3.66 vs 4.16).** More reading is not the fix, which is the cheap answer and it is dead.
+> **✅ (b) COHERENCE CONFIRMED, and (c) with it: narrative words ESCALATE MORE.** The evidence
+> arrives, the verifier runs, and it cannot settle on a hypothesis. *Novels USE words; textbooks
+> EXPLAIN them.*
+>
+> **🔑 THE SHARPEST FRAMING, AND IT IS NOT "NOVELS ARE INCOHERENT": BOTH NUMBERS ARE TINY -- 0.071
+> AND 0.027, BOTH NEAR ZERO. Our grounding threshold simply happens to sit BETWEEN THEM.** The
+> mechanism demands more contextual consistency than narrative supplies, and expository text clears
+> it only barely. *That is a statement about OUR threshold, not about literature.*
+> **🧠 AND THE FIDELITY GAP IS EXACT: children acquire most of their vocabulary in precisely the
+> regime that sits below our threshold.** A mechanism requiring repeated near-identical contexts is
+> the wrong SHAPE for how word learning actually happens -- the brain does it from varied,
+> single-pass, narrative exposure.
+> *⚠️ SCOPE: 8,000 sentences, seed 7, four corpora, two per genre. The genre split is consistent
+> across both members of each group, which is what makes it more than a two-corpus accident.*
+>
+> ## [DONE -- SEE ABOVE] **WHY DOES THIS SUBSTRATE BARELY LEARN FROM NOVELS?**
 > *Three-read check done: `experiment_index` returns **0** for `expository`, `fiction` and
 > `corpus type`; ORGAN_MAP's corrections carry nothing on acquisition regime. Genuinely new ground.*
 >
