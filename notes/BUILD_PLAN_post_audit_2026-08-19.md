@@ -1,5 +1,21 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🔦 **LATE 2026-08-20: THREE ABANDONED HUMAN AUDITS SCORED, AND SIX MORE ARE WAITING.**
+> A landed cell can sit for over a week needing only a human to grade its output. **I found two by
+> accident, so I enumerated the rest: `tools/find_pending_handscores.py`.** Each is a question the
+> project may still be treating as open while its answer sits on disk.
+>
+> | audit, pending since | result |
+> |---|---|
+> | `exp_definitional_grounding_v3` (8 days) | definitional **HEAD** route **NOT distinguishable** from the distributional control (p=0.2475) |
+> | `exp_structured_comparator_v1` (7 days) | the structured comparator is **SIGNIFICANTLY WORSE** than the bag it was built to replace (RELATED 24% vs 6%, p=0.0113) |
+> | `exp_definitional_predicate_v62` (7 days) | ✅ **96% extraction precision** (48/50) -- *single-arm, fidelity-to-sentence not truth, dense-biology corpus* |
+>
+> **➡️ THE PATTERN ACROSS ALL THREE: THE READING IS ACCURATE; THE READ-OUT IS NOT.** We extract what
+> a page says well and decide what a word means from statistics badly. **9 audits still unscored.**
+> *Verdicts recorded beside the evidence as `_handscore_verdict_<date>.json`; landed `metrics.json`
+> never rewritten.*
+>
 > # 📒 **BEFORE READING THE BLOCKS BELOW: `notes/WHAT_2026-08-20_ESTABLISHED_survives_vs_withdrawn.md`**
 > 2026-08-20 produced **11 findings and 6 retractions of my own claims**, several of them corrections
 > OF corrections. **This plan records them in the order they happened, which is the wrong order to
