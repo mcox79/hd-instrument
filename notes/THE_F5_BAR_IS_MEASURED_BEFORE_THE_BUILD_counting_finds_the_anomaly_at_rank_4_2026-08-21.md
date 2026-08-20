@@ -1,5 +1,18 @@
 # THE F5 BAR IS **MEASURED BEFORE THE ORGAN EXISTS**: COUNTING FINDS THE PLANTED WORD AT **RANK 4.0 OF ~9**, AND **EVERY OTHER FLOOR CARRIES NO ANOMALY SIGNAL AT ALL**
 
+> # 🚫 SUPERSEDED 2026-08-21 (same day) -- **EVERY NUMBER BELOW WAS COMPUTED WITH A SURFACE-vs-LEMMA LOOKUP BUG**
+> The co-occurrence tables are keyed by `content_lemmas` output; this scorer looked up SURFACE
+> forms, so inflected words were dropped from the candidate slate and any that survived scored the
+> unknown-word value and OUTRANKED real candidates.
+> **Re-measured after the fix: first-order reads anom 3.00 / orig 7.00 / DELTA +4.00, not the
+> 4.00 / 6.00 / +2.00 below. FREQUENCY's residual +0.50 becomes +0.00 -- the frequency matching is
+> CLEANER than this note claims, not dirtier.**
+> **AND THE HEADLINE FRAMING IS WRONG TWICE OVER:** absolute rank is slot-inflated for every arm and
+> is not a valid read-out at all, and second-order counting -- absent here -- is the stronger floor.
+> **CURRENT: the bar is +44.2 pp on the paired hit@1 difference, via `tools/f5_evaluation_harness.py`.**
+> What survives: the LEAK-CONTROL finding, and POSITION/LENGTH/CONSTANT carrying no anomaly signal.
+
+
 **Tool:** `tools/score_anomaly_set_floors.py`. **Items:** `anomaly_set_frequency_matched_v8.json`,
 the 102 hand-scored CLEAN items. **Corpus stats:** 7,880 simplewiki sentences after leak control.
 

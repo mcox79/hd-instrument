@@ -33,7 +33,7 @@ import numpy as np
 sys.path.insert(0,"."); sys.path.insert(0,"tools")
 from rank_with_ties import rank_with_ties
 from hdlab.corpus_registry import CorpusRegistry
-from hdlab.reading_grounding_loop import content_lemmas
+from hdlab.reading_grounding_loop import content_lemmas, normalize_lemma
 S=json.load(open("data/anomaly_set_frequency_matched_v8.json",encoding="utf-8"))["items"]
 V={v["index"]:v["verdict"] for v in json.load(open("data/anomaly_set_frequency_matched_v8_handscores.json",encoding="utf-8"))["verdicts"]}
 sents=list(CorpusRegistry().handles["simplewiki"].take(8000))
@@ -51,13 +51,19 @@ def pmi(w,ctx):
         pc,pj=df[c]/n,co[w][c]/n
         if pw>0 and pc>0: v.append(math.log(pj/(pw*pc)) if pj>0 else -8.0)
     return float(np.mean(v)) if v else 0.0
+def _lem(t):
+    """LEMMATISE: df/co are keyed by content_lemmas output, so a SURFACE lookup misses every
+    inflected form. This whole file's first result was computed WITHOUT this and is superseded."""
+    return normalize_lemma("".join(c for c in t.lower() if c.isalpha()))
+
+
 def mids(group):
     out=[]
     for it in group:
         t=it["sentence_anomalous"].split()
-        cand=sorted({j for j,x in enumerate(t) if "".join(c for c in x.lower() if c.isalpha()) in df}|{it["anomaly_token_index"]})
+        cand=sorted({j for j,x in enumerate(t) if _lem(x) in df}|{it["anomaly_token_index"]})
         if len(cand)<3: continue
-        w=["".join(c for c in t[j].lower() if c.isalpha()) for j in cand]
+        w=[_lem(t[j]) for j in cand]
         sc=[-pmi(x,w) for x in w]
         out.append(rank_with_ties(sc,cand.index(it["anomaly_token_index"])).midpoint)
     return out

@@ -1,5 +1,14 @@
 # THE F5 BAR **REPLICATES**: `+2.00` ON FOUR INDEPENDENTLY-BUILT ITEM SETS, **1.1x SPREAD**
 
+> # 🚫 SUPERSEDED 2026-08-21 (same day) -- **THE `+2.00` EFFECTS BELOW ARE RANK DELTAS FROM A SCORER WITH A SURFACE-vs-LEMMA LOOKUP BUG**
+> The replication METHOD stands and so does its lesson (one set is a hypothesis). The NUMBERS do not.
+> **Re-measured through `tools/f5_evaluation_harness.py` on the same four sets:** first-order
+> `+23.3/+23.5/+22.5/+25.2 pp`, second-order `+28.3/+29.4/+35.0/+29.4 pp`, both `REPLICATED`.
+> **Absolute rank is slot-inflated and is not a valid read-out; the metric is the paired
+> anomalous-vs-original hit@1 difference. CURRENT BAR: +44.2 pp.**
+> The byte-determinism result below is unaffected.
+
+
 **Follows** `notes/THE_F5_BAR_IS_MEASURED_BEFORE_THE_BUILD_...md`, which measured the bar on ONE set.
 **Four single-seed wins were withdrawn in one session this week**, so a bar taken from one item
 sample is a hypothesis, not a bar.

@@ -1,5 +1,14 @@
 # WITHDRAWN: **THE FLOOR DOES NOT CONFIRM MY HAND-SCORES** -- AND THE FAULT IS THAT I KEPT A CONCLUSION AFTER FIXING THE INPUT IT CAME FROM
 
+> # ♻️ NUMBERS UPDATED 2026-08-21 (same day) -- **THE CONCLUSION HOLDS, THE FIGURES DO NOT**
+> These figures were themselves computed with the SURFACE-vs-LEMMA lookup bug found later the same
+> day. **Re-measured after the fix: CLEAN n=102 median 3.00, WEAK n=17 median 3.50, difference
+> +0.37, 95% CI [-0.82, +1.56], Mann-Whitney p=0.316** -- a TIGHTER CI and the SAME verdict:
+> **it does not separate at this n.** The withdrawal stands and its two lessons stand.
+> *Note the shape: this note's own lesson -- "fixing an input invalidates every number downstream of
+> it" -- applied to this note within hours of it being written. That is the rule working, not failing.*
+
+
 **The claim, from today's F5-bar commit, listed as one of three "independent confirmations that the
 item set is sound":**
 

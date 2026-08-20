@@ -1,5 +1,18 @@
 # THE F5 BAR I PRE-COMMITTED WAS **TOO LOW AND ON THE WRONG METRIC** -- SECOND-ORDER COUNTING, AND WHY ABSOLUTE RANK CANNOT BE THE READ-OUT
 
+> # 🚫 SUPERSEDED 2026-08-21 (same day) -- **THE SLOT-EFFECT STORY BELOW WAS LARGELY A LOOKUP BUG**
+> This note's central claim -- *"the floor ranks that slot first 42.6% of the time even when the word
+> is CORRECT, so most of its skill is a SLOT property"* -- was computed with a SURFACE-vs-LEMMA
+> lookup bug that let unknown/inflected words outrank real candidates in BOTH conditions.
+> **After the fix the original-sentence hit rate falls 42.6% -> 12.5%, and second-order counting's
+> discrimination rises +10.9 pp -> +28.3 pp.** The slot effect is real but MUCH smaller; the floor is
+> far STRONGER than this note says.
+> **WHAT SURVIVES, AND IT IS THE IMPORTANT HALF:** absolute rank IS slot-inflated for every arm, so
+> the paired anomalous-vs-original difference is the only valid read-out -- that conclusion is
+> unchanged and is now built into `tools/f5_evaluation_harness.py`. **CURRENT BAR: +44.2 pp**, not the
+> +18.8 below.
+
+
 **I set the bar with FIRST-order co-occurrence: *"beat median rank 4.0 of ~9."*** This project's
 standing position is that we only **TIE second-order** counting, which is repeatedly the stronger
 floor -- so a bar set on first-order risks being **a weakened gate**, and F5 could clear it while
