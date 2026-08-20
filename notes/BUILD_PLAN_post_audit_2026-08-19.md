@@ -1,5 +1,37 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ⛔ **THE STEMMING FINDING IS VOID AS A CURRENT DEFECT -- IT WAS FIXED A WEEK AGO AND I**
+> # **MEASURED STORES WRITTEN THE DAY BEFORE THE FIX. I PUT IT ON NEXT-STEPS TWICE.**
+> *I reported "442 of 3,544 grounded concepts are stemmer artefacts (12.5%), 107 confirmed
+> stem/full-form double-counts, and the quality fix did not touch it -- stems ROSE 12.5% -> 13.7%
+> between v1 and v2." **Every part of that describes data, not code.***
+>
+> | | |
+> |---|---|
+> | `hdlab/thematic_role_labeler.py:311` | *"**FIXED 2026-08-13** (was an unguarded suffix stripper: `status`->`statu`, `analysis`->`analysi`, `arteries`->`arteri`, `added`->`ad`)"* |
+> | current code, 12 offending words tested | **0 of 12 produce a non-word** -- `arteries`->`artery`, `cities`->`city`, `billionaires`->`billionaire`, `chimpanzees`->`chimpanzee` |
+> | `reading_grounding_v1` written | **2026-08-12 09:46** |
+> | `reading_grounding_v2_qualityfix` written | **2026-08-12 13:55** |
+>
+> **BOTH STORES PREDATE THE FIX BY A DAY.** *So "the quality fix did not touch the stemming" was
+> comparing two PRE-FIX stores against each other -- it could not possibly have shown a change.*
+> **➡️ THE FAULT IS MINE AND CLAUDE.md ALREADY NAMES IT: "TRIPLE-CHECK before declaring something
+> worse than documented -- RIGHT VERSION, and check whether a fixing commit is already an
+> ancestor."** I found stems in a store and reported them as a live defect without ever asking
+> whether the code still produces them. One command answered it.
+>
+> ## ✅ WHAT SURVIVES, AND IT IS NOT NOTHING
+> - **The NAMES half stands** -- `tesco`, `baumgartner`, `huffington` are unaffected by a lemmatiser
+>   fix, and ~10-13% of grounded subjects having no dictionary entry is still real.
+> - **AND A NEW, SHARPER PROBLEM REPLACES THE OLD ONE: EVERY PERSISTED FOUNDATION STORE ON DISK WAS
+>   WRITTEN BEFORE THE 08-13 LEMMATISER FIX, so every one of them carries ~12-14% corrupted concepts
+>   that the current code would not produce.** *Any analysis run against those stores -- including
+>   today's 78%-noise hand-score, if it shares that lineage -- inherits a defect that no longer
+>   exists. That is a data-provenance problem, and it is worth more than the tidy-up I was proposing.*
+> **➡️ NEXT: check whether the blind-scored 100 shares that pre-fix lineage. Its sample showed 0
+> self-tautologies and clean subjects (`metaphase`, `publisher`, `baffin`), which suggests a later
+> run -- but "suggests" is not "verified", and the 78% noise figure is load-bearing.**
+
 > # ⛔ **I OVERSTATED THE ENCOURAGING RESULT BY READING THE WRONG STATISTIC. THE PAIRED NUMBERS**
 > # **DEFLATE IT HARD, AND THEY LANDED AN HOUR AFTER I QUOTED "~2x BETTER THAN FREQUENCY".**
 > *3 seeds, complete. Same trap as this morning's structure-vs-bag tie: **the median of per-probe
