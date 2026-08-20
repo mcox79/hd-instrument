@@ -69,7 +69,21 @@ COHERENCE MONITOR / N400 GENERATOR, ALREADY LISTED THERE AS *MISSING* AND A LEGI
 TARGET.** N400 = **the magnitude of update forced on a running probabilistic SITUATION MODEL** by
 the incoming word, a **precision-weighted prediction error against the CURRENT DISCOURSE STATE**
 (Rabovsky/Hansen/McClelland 2018; Kutas & Federmeier 2011). **Reference point PINNED; norm, update
-rule and precision estimator UNPINNED.** **🚧 NOT SMALL -- depends on F6, also MISSING.**
+rule and precision estimator UNPINNED.**
+
+**✅ CORRECTED -- SMALLER THAN I FIRST SAID.** I claimed F5 depends on F6 *"also MISSING"*. **Wrong.**
+`ORGAN_MAP` **E2**: `hdlab/situation_model_accumulate.py` is **`WIRED: YES`, LIVE**, and its fidelity
+note reads **RIGHT-OP-WRONG-PLACE / PARTIAL -- *"has the register, has none of the PE-driven
+segmentation that decides WHEN to write."*** **➡️ F5's missing piece and E2's are THE SAME PIECE: the
+register runs; nothing computes prediction error against it. NOT "build two organs" -- "add the error
+signal to an organ that already runs."** *Also PINNED: a boundary posts when PE crosses threshold
+(Zacks & Franklin SEM).* Brief: `notes/F5_DESIGN_BRIEF_the_register_already_exists_only_the_error_signal_is_missing_2026-08-20.md`
+**🔴 THE TRAP: G2's gate NEVER FIRED (`skip=0.00`) because its residual was `sign()`-quantised. THE
+ERROR MUST STAY GRADED, and the build must PRINT the error distribution, the firing rate and a
+POSITIVE CONTROL before any verdict is read.**
+**⚖️ THE CASE AGAINST: the bottleneck is that nothing reads the banked MEANINGS. A coherence monitor
+gives the SITUATION REGISTER a use; `GROUNDED_MEANING` facts stay outside that loop unless the link
+is DESIGNED IN. Built without it, the gap survives the build.**
 
 ### 🎯 FOUR INDEPENDENT ROUTES, ONE TARGET (none chosen to agree with the others)
 | route | conclusion |

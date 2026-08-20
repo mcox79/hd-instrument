@@ -13,7 +13,20 @@
 > SITUATION MODEL** by the incoming word (`‖Δ situation_model‖`), a prediction error against the
 > **CURRENT DISCOURSE STATE**, precision-weighted (Rabovsky/Hansen/McClelland 2018; Kutas &
 > Federmeier 2011). **Reference point PINNED; norm, update rule and precision estimator UNPINNED.**
-> **🚧 NOT SMALL: it depends on F6 (Construction-Integration), also MISSING.**
+> **✅ CORRECTED, AND IT IS SMALLER THAN I FIRST SAID.** I wrote *"NOT SMALL -- depends on F6, also
+> MISSING"*. **Wrong.** `ORGAN_MAP` **E2**: `hdlab/situation_model_accumulate.py` is **`WIRED: YES`,
+> LIVE** (one of only four modules the live path gains from a lazy import), fidelity
+> **RIGHT-OP-WRONG-PLACE / PARTIAL -- *"has the register, has none of the PE-driven segmentation
+> that decides WHEN to write."*** **➡️ F5's missing piece and E2's are THE SAME PIECE. The register
+> runs; nothing computes prediction error against it. NOT "build two organs" -- "add the error
+> signal to an organ that already runs."**
+> **`notes/F5_DESIGN_BRIEF_the_register_already_exists_only_the_error_signal_is_missing_2026-08-20.md`**
+> **🔴 TRAP: G2's gate NEVER FIRED (`skip=0.00`) on a `sign()`-quantised residual -- THE ERROR MUST
+> STAY GRADED, and the build must PRINT the error distribution, firing rate and a POSITIVE CONTROL
+> before any verdict is read.**
+> **⚖️ CASE AGAINST: the bottleneck is that nothing reads the banked MEANINGS. This gives the
+> SITUATION REGISTER a use; `GROUNDED_MEANING` facts stay outside that loop unless the link is
+> DESIGNED IN.**
 >
 > ## 🎯 **FOUR INDEPENDENT ROUTES, ONE TARGET -- AND NONE WAS CHOSEN TO AGREE WITH THE OTHERS**
 > | route | conclusion |
