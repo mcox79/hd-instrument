@@ -27,13 +27,39 @@
 > - **F3 -- CONFIRMED under 4 independent controls**, `F3_HELPS growing drop=0.060289`
 > - F2 -- **load-bearing claim REFUTED** by the retention-matched arm the cell disclosed as not-run
 > - F1 -- z-statistic under-credited
-> **➡️ A VET-CONFIRMED IMPROVEMENT IS SITTING BEHIND A FUNCTION NOTHING CALLS.** *This is the
-> wire-don't-island failure in its purest form: built, measured, VET'd, defaulted ON in the path
-> that is never taken.*
-> **⚠️ DO NOT CONFLATE THE NUMBERS: the docstring attributes `+0.0602` to GRADED QUERY; the cell
-> reports `0.060289` for F3 (the FROZEN SNAPSHOT). They may be the same measurement described twice
-> or two different things. I have not resolved which, and the claim "graded query is worth +0.06"
-> is NOT established here.**
+> **➡️ THE SUBSYSTEM IS BUILT AND NOT CONNECTED.** *Wire-don't-island in its purest form: built,
+> measured, defaulted ON in the path that is never taken.*
+>
+> ## ⛔⛔ **TWO CORRECTIONS TO WHAT I WROTE ABOVE AN HOUR AGO. I OVERSTATED IT.**
+> **1. "A VET-CONFIRMED IMPROVEMENT" OVERSTATES WHAT F3 IS CONFIRMED FOR.** `exp_readout_fix_v1`
+> carries its own `scope` field and it is explicit:
+> > *"READ-OUT STABILITY ONLY. Nothing here measures grounding QUALITY or whether any anchor means
+> > anything; **a better read-out is not better meanings.** PBV was NOT re-run -- the confirm rate is
+> > a PROJECTION of the Library.flag state machine over re-scored encounters."*
+> **So F3 is confirmed for READ-OUT STABILITY, not for grounding quality**, and its `wire_status` is
+> **`VET_PENDING`**, not wired-and-proven. *The cell disclaimed exactly the reading I gave it.*
+>
+> **2. THE `+0.0602` GRADED-QUERY FIGURE IS CITED BUT I HAVE NOT VERIFIED IT, AND I SHOULD NOT HAVE
+> REPEATED IT.** The docstring credits it to prereg `d6c56353c`, n=4000. Checked:
+> `exp_context_conditioned_near_neighbour_v1` (MIDDLE_BAND_FLOOR_HUGGING, n=4000) reports
+> **A1=0.6395** with floors scrambled 0.4975 / frequency 0.4800 / chance 0.50 -- **and contains no
+> 0.6997 and no graded arm at all.** ORGAN_MAP attributes `R_LIVE 0.6395, R_BASE 0.6997` to a
+> DIFFERENT cell reproducing baselines. **So "graded query is worth +0.06" has no arm-level evidence
+> I can point at, and the near-identity with F3's `0.060289` remains unexplained.**
+> **✅ WHAT SURVIVES BOTH CORRECTIONS: 0 CALLS IS 0 CALLS.** The dead-code finding does not depend on
+> what the improvement is worth -- only on the fact that nothing can reach it.
+>
+> ## 🔗 ONE INDEPENDENT CORROBORATION OF THE FREQUENCY STORY, FOUND IN PASSING
+> `exp_readout_fix_v1`'s `fix2` field lists the **top hub anchors by background activation**:
+> **`people, know, new, want, use, time, life, system, world, find`.** *Every one a high-frequency
+> generic word. That is the frequency backbone, named by a cell from 12 August, agreeing with
+> today's two-store frequency-bias measurement from a completely different direction.*
+>
+> ## 🧠 AND THE PINNED GEOMETRIC REASON THE SIGNED QUERY HURTS, FROM ORGAN_MAP
+> > *"`cos(a1,a2)` is LOWER under sign than under the graded code at every distinctive:shared ratio
+> > -- **sign() makes near-neighbours look MORE separated while making the separation MEAN LESS.**"*
+> *That is precisely the failure mode for a mechanism whose whole job is picking the nearest
+> neighbour.*
 >
 > ## ➡️ WHY THIS MATTERS MORE THAN ANY MECHANISM PROPOSED TODAY
 > Thirteen interventions were tested and closed. **This is not a new mechanism -- it is measured,
