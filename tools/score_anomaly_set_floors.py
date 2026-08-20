@@ -195,7 +195,21 @@ def main():
         print("%-28s %10.2f %10.2f %+10.2f%s" % (a, ma, mo, d, tag))
     print("")
     if EMIT:
+        # STAMP THE PROVENANCE INTO THE ARTIFACT, not just into the stdout nobody keeps.
+        # On 2026-08-21 a CLEAN-vs-WEAK conclusion computed BEFORE the leak fix was carried across
+        # AFTER it, because the conclusion still sounded right while its input had changed. The
+        # numbers a downstream reader quotes must travel WITH the conditions that produced them --
+        # otherwise "which run was this from" is answerable only by memory, and memory is what
+        # failed. Same shape as rank_with_ties.py: make the unsafe usage unrepresentable.
         json.dump({"set": os.path.basename(SET), "all_items": ALL_ITEMS, "n": len(clean),
+                   "leak_control": {"applied": True,
+                                    "item_sentences_excluded": len(sents) - len(kept),
+                                    "corpus_sentences_used": len(kept),
+                                    "note": "the items are DRAWN FROM this corpus; without this "
+                                            "exclusion the co-occurrence table has read each "
+                                            "item's own original sentence, which inflated the "
+                                            "measured floor by 43% of its own effect"},
+                   "scorer": os.path.basename(__file__),
                    "deltas": {a: d for d, a, _, _ in rows}},
                   open(EMIT, "w", encoding="utf-8"), indent=1)
         print("[deltas -> %s]" % EMIT)
