@@ -1,5 +1,43 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🧭 **THE DIRECTION IS DECIDED, ON THE OWNER'S OWN CRITERION (Q90 answered 2026-08-20T21:13Z)**
+> > *"if you've drilled this online and it points in other directions to be brain foundational,
+> > follow those directions. if brain foundational points in this direction, do it again and verify
+> > we're actually brain foundational."*
+>
+> **BRAIN-FOUNDATIONAL POINTS AWAY FROM MORE PERCEPTUAL NORMS AND TOWARD THE COHERENCE MONITOR.**
+> **`notes/BRAIN_FOUNDATIONAL_ANSWER_the_missing_consumer_is_F5_and_we_quantise_where_the_brain_is_graded_2026-08-20.md`**
+>
+> **THE TARGET IS `ORGAN_MAP` F5 -- the N400 generator -- ALREADY LISTED THERE AS *MISSING* AND A
+> LEGITIMATE PHASE-B TARGET.** N400 = **the magnitude of update forced on a running probabilistic
+> SITUATION MODEL** by the incoming word (`‖Δ situation_model‖`), a prediction error against the
+> **CURRENT DISCOURSE STATE**, precision-weighted (Rabovsky/Hansen/McClelland 2018; Kutas &
+> Federmeier 2011). **Reference point PINNED; norm, update rule and precision estimator UNPINNED.**
+> **🚧 NOT SMALL: it depends on F6 (Construction-Integration), also MISSING.**
+>
+> ## 🎯 **FOUR INDEPENDENT ROUTES, ONE TARGET -- AND NONE WAS CHOSEN TO AGREE WITH THE OTHERS**
+> | route | conclusion |
+> |---|---|
+> | **measurement** (tonight) | nothing READS the banked meanings; 3 attempts to make retrieval use them failed |
+> | **learning research** | definitions teach only alongside VARIED CONTEXT |
+> | **philosophy** | referential grounding needs a **HISTORY OF SELECTION** -- use, with consequences |
+> | **neuroscience + ORGAN_MAP** | the consumer is **F5**, MISSING; our nearest organ never fires |
+>
+> ## 🔴 **THE VERIFICATION ASKED FOR: WE ARE NOT BRAIN-FOUNDATIONAL HERE, AND IT IS MEASURED**
+> `ORGAN_MAP` G2 (`predictive_coding.py`) = **RIGHT-OP-WRONG-METRIC** -- residual computed on a
+> **`sign()`-quantised** prediction, no precision term, **WIRED: NO**. Measured consequence:
+> `exp_pc1_predictive_coding_residual_gate_v1` at thresh 0.3 -> **skip = 0.00, byte-identical to
+> ungated -- THE GATE NEVER FIRED.** *That is what a quantised error predicts; the null is a
+> consequence of the infidelity, NOT evidence about prediction error.*
+>
+> **AND THE SAME SUBSTITUTION IS IN THE READ-OUT** (`canonicalize:776` hard-signs the query while
+> anchors are graded). **MEASURED, n=400: nearest anchor differs 42.5% of the time; the graded query
+> clears the bar 15.5% vs 8.2%; the bank/refuse decision FLIPS on 7.2%.**
+> **⚠️ BUT A DOUBLING IS NOT A WIN: the distributional read-out is 0-4% MEANINGFUL, so doubling its
+> yield doubles the noise** -- the charter's own warning. **ESTABLISHED: the gap is real and
+> consequential. NOT ESTABLISHED: that fixing it helps.** *And it does not touch the bottleneck --
+> nothing still reads what is banked.*
+
 > # 🔍 **THE ENDORSED BRANCH, AUDITED BY THE SAME STANDARD (2026-08-20 late)**
 > **`notes/the_endorsed_branch_audited_by_the_same_standard_2026-08-20.md`**
 > I stress-tested the pipeline branch all night and had given the branch I RECOMMENDED no scrutiny
