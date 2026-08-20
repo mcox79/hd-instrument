@@ -57,7 +57,34 @@ estimate would have produced a false positive where the paired statistic said no
 **Two of the day's best results were already on disk, unread. The archive out-performed the runs.**
 
 
-## TOP ITEM -- ⛔ **THE "LOOKED-UP DEFINITION" WIN IS WITHDRAWN ON ITS SECOND SEED**
+## TOP ITEM -- ⛔ **THE STRUCTURED COMPARATOR IS *WORSE* THAN THE BAG IT WAS BUILT TO REPLACE**
+
+**A SECOND 7-DAY-PENDING BLIND HAND-SCORE FOUND AND SCORED TODAY.**
+`notes/structured_comparator_handscore_the_fix_is_WORSE_than_the_bag_2026-08-20.md`
+`exp_structured_comparator_v1` landed 2026-08-13 `STRUCTURAL_PASS_PENDING_HANDSCORE`, never scored.
+**It is the built fix for the defect this whole day kept hitting** -- the read-out compares BAGS of
+nearby content words, so it cannot separate *"X means Y"* from *"X occurs near Y"*.
+
+| 100 rows, blind, `arm_key.json` unopened until scores were on disk | MEANINGFUL | RELATED | NOISE |
+|---|---|---|---|
+| **CONTROL** -- bag of nearby content words (SHIPPED) | 0% | **24%** | 76% |
+| **STRUCTURED** -- word in THIS DEPENDENCY RELATION to the target | 0% | **6%** | **94%** |
+
+**RELATED 24% vs 6%, Fisher one-sided p = 0.0113 -- THE CONTROL IS SIGNIFICANTLY BETTER.**
+MEANINGFUL 0 vs 0 (p=1.0) -- **a tie at ZERO, not a tie between working systems.**
+
+**AND IT IS A FAIR TEST, NOT A REACHABILITY FAILURE:** the cell had already shown **97.8% argmax
+disagreement** (6,145 of 6,283 lemmas) and a worked witness -- `wedding` is in the CONTROL bag in
+ALL THREE `whisky` sentences and in the STRUCTURED features in NONE. **STRUCTURED genuinely cannot
+produce `whisky -> wedding`. It produces DIFFERENT errors instead, and MORE of them. Being unable
+to make a known mistake is not the same as being right.**
+**➡️ THE BAG-OF-WORDS DEFECT REMAINS OPEN AND IS NOW HARDER: its principled fix is measured worse.**
+*Landed `metrics.json` deliberately NOT modified; verdict recorded beside the evidence. Keep it
+DEFAULT-OFF. 🚫 Do NOT line these up against the historical 35/64/94 figures -- standing
+prohibition.* **Limits: n=50/arm, one scorer, and the only separated cell is RELATED, the softest
+category.**
+
+## [EARLIER TOP ITEM] ⛔ **THE "LOOKED-UP DEFINITION" WIN IS WITHDRAWN ON ITS SECOND SEED**
 
 **Seed 7 gave `BOTH` a 16-rank gain. Seed 101 gives it -1.0 AND AN INFORMATION-FREE BLEND BEATS IT.**
 
