@@ -1,5 +1,37 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🟢 **THE FIRST ENCOURAGING NUMBER IN A LONG STRETCH -- AND I HAVE ALREADY FLAGGED ITS FLOOR AS**
+> # **TOO WEAK, BEFORE THE STRONGER ONE RAN.**
+> **THE QUESTION, and it is the well-powered replacement for the binary hit/miss that was withdrawn:**
+> among all anchors, where does a KNOWN-CORRECT synonym of the target actually LAND?
+>
+> | seed | anchors | words | **SUBSTRATE** | FREQUENCY | UNIFORM |
+> |---|---|---|---|---|---|
+> | 7 | 382 | 73 | **46.0** | 89.0 | 197.0 |
+> | 101 | 327 | 61 | **35.0** | 60.0 | 155.0 |
+>
+> **~4x better than chance and ~2x better than the cue-blind frequency floor, reproducing across two
+> seeds.** *Pre-committed reading: **selection carries real lexical meaning -- it is losing on the
+> final step, not blind.** That is a far more tractable problem than "the representation is empty",
+> and it is the first clearly positive signal since the `keep_noting_grounded` fix.*
+>
+> ## ⚠️ **BUT THE FREQUENCY FLOOR WAS NEVER REALLY TRYING, AND I AM SAYING SO BEFORE THE RESULT IS**
+> ## **QUOTED, NOT AFTER.**
+> Ranking anchors by raw corpus frequency is a strange way to look for a SYNONYM -- **synonyms are
+> not especially frequent**, so that floor is easy to beat and beating it means less than it sounds.
+> **THE FLOOR THAT IS ACTUALLY TRYING IS SECOND-ORDER CO-OCCURRENCE**: synonyms famously do NOT
+> co-occur (`car automobile` is not a phrase) but they occur in SIMILAR CONTEXTS -- which is the
+> crude count-based version of exactly what the substrate's accumulated context vector approximates.
+> **A first-order counter has beaten every arm this project has fielded all session; its second-order
+> form is the right opponent.** Built and queued: `scratch/diag_synonym_rank_against_the_strong_floor.py`
+> (five arms, positive control on the counter's self-retrieval, counts built from the substrate's OWN
+> pool so the two sides read identical text).
+> **⛔ THE DEFLATING READING, WRITTEN DOWN FIRST SO IT CANNOT BE AVOIDED LATER: if the count-based
+> floor matches or beats the substrate, then "our representation carries lexical meaning" is more
+> honestly "COUNTING carries lexical meaning and we are a lossy copy" -- the same conclusion four
+> independent routes reached earlier today. That would not erase the result; it would relocate the
+> credit.**
+
 > # 🎯 **RESOLVED -- AND THE CONFIGURATION WE ACTUALLY RUN HAS NEVER BEEN MEASURED BY ANY CELL.**
 > *Un-correcting my own correction: the graded-query evidence is REAL. It is in
 > `exp_graded_divisive_comparator_v1`, not in the cell the docstring's prereg reference pointed me
