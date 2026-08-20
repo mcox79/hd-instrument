@@ -1,5 +1,54 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # ❌ **POLYSEMY DOES NOT EXPLAIN THE BIOLOGY EFFECT. MY HYPOTHESIS, REFUTED BY ITS OWN**
+> # **PRE-COMMITTED DECIDER. THE CONFOUND IS STILL OPEN.**
+> *The hypothesis was mechanical, not vague: our grounding assigns ONE meaning per word, which CAN be
+> right for a monosemous word and CANNOT be right for a polysemous one. Technical vocabulary is
+> monosemous (`metaphase` 2 senses), general vocabulary is not (`head` 42). If that were the story,
+> biology's advantage would not be about biology at all -- it would be about being handed words that
+> HAVE one answer.* **Three measurements were specified in advance, with C as the decider.**
+>
+> | | result | |
+> |---|---|---|
+> | **A. bio subjects ARE more monosemous** | median **1.0** vs **4.0**; diff **-2.656**, CI [-4.073, -1.099] | ✅ **SEPARATED** |
+> | **B. polysemy -> quality (pooled)** | +0.316, CI [-1.737, +2.632] | ❌ not separated |
+> | **C. THE DECIDER -- same test, BIOLOGY REMOVED** | +1.756, CI [-0.923, +4.821] | ❌ **not separated** |
+>
+> **AND THE MOST CONVINCING PART IS THE DESCRIPTIVE ONE, BECAUSE IT NEEDS NO STATISTICS: the
+> sense-count bands are FLAT.**
+>
+> | subject senses | n | grounded meaningful-or-related |
+> |---|---|---|
+> | **1 (monosemous)** | 22 | **27%** |
+> | 2-4 | 28 | 25% |
+> | 5-9 | 19 | 21% |
+> | **10+** | 7 | **29%** |
+>
+> *If polysemy mattered there would be a gradient across a 1-to-10+ sense range. There is none.*
+> **➡️ VERDICT (branch 3 of 4, written before the run): POLYSEMY MARKS THE SEGMENT WITHOUT EXPLAINING
+> IT. The biology confound -- corpus vs domain vs definition density vs vocabulary -- REMAINS
+> UNRESOLVED, and I am not claiming a mechanism.**
+> *⚖️ WordNet was used strictly as a DIAGNOSTIC on the test items -- never in an arm, never as a
+> grader. That is the charter-permitted use and a different thing from the circular-oracle failure
+> MEMORY records, where WordNet was used to ANSWER the task.*
+>
+> ## 🔎 ONE SIDE-OBSERVATION, FLAGGED NOT CLAIMED
+> **WordNet has NO ENTRY for 24 of the 100 subjects** (`baffin`, `tesco`, `abdullah` -- proper nouns).
+> Those rows ground **12% good against 25% for known words** -- about half. *Not formally tested,
+> n=24, and "no entry" was deliberately kept distinct from "one sense" so it could not manufacture
+> the polysemy result. **A real candidate for a future test: we may be spending a quarter of our
+> grounding effort on words that have no dictionary meaning to find.***
+>
+> ## ➡️ WHAT WOULD ACTUALLY RESOLVE THE CONFOUND, SINCE THIS SAMPLE CANNOT
+> **The remaining candidate with a mechanism behind it is DEFINITION DENSITY**: the grounding organ
+> IS a definitional extractor (`reading_grounding_loop_definitional_reading_pipeline`), and textbooks
+> state definitions explicitly where news prose does not. **But measuring definition density per
+> corpus would only reproduce measurement A -- a segment property, not a link to quality.**
+> **THE HONEST STATEMENT: a 100-row sample scored once cannot separate four co-varying properties.
+> Resolving it needs a purpose-built STRATIFIED sample -- technical-but-definition-poor text against
+> general-but-definition-rich text -- so the properties come apart.** *That is a real experiment, not
+> another slice of this one.*
+
 > # 🎯 **WHY IS GROUNDING NOISE? THE SAMPLE CANNOT SAY -- BUT IT SAYS SOMETHING ELSE CLEANLY:**
 > # **THE *KIND* OF TEXT IS THE LEVER, AND IT IS WORTH 3.4x.**
 >
