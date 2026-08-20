@@ -323,7 +323,44 @@
 > revision, not accumulation), and register what is genuinely wired. **Report honestly if the
 > HARD_PASS cells turn out to be synthetic-only** -- several this session did.
 >
-> ## 🔬 RUNNING -- **RETRIEVAL-MODIFIES-MEMORY, AND THE SMOKE ALREADY CAUGHT A CONFOUND THAT WOULD**
+> ## ✅ RAN -- **THE TESTING EFFECT DOES NOT REPRODUCE. EIGHTH CONFIRMATION THAT ONLY VOLUME MOVES**
+> ## **THIS, NOW EXTENDED FROM THE WRITE RULE TO THE WRITE *MOMENT*.**
+> 6,000 read / 6,000 practice, final test on 300 never-read never-practised items, 288 candidates.
+>
+> | arm | median | vs COOC | 95% CI |
+> |---|---|---|---|
+> | BASELINE (no practice) | 97.5 | 3.75x | [87.0, 124.0] |
+> | **STUDY (read it again)** | **75.5** | **2.90x** | [60.0, 86.0] |
+> | TEST (retrieve, success-weighted) | 89.0 | 3.42x | [74.0, 109.5] |
+> | TEST_SH (success borrowed from another item) | 80.0 | 3.08x | [67.0, 99.0] |
+>
+> **✅ THE EXPERIMENT HAD POWER, WHICH IS WHAT MAKES THE NULL READABLE.** Paired on the same items:
+> **STUDY - BASE = -5.0, CI [-8.5, -2.0] SEPARATED**, and TEST - BASE = -2.0, CI [-4.0, -1.0]
+> SEPARATED. *Practice genuinely helps. This is not the underpowered non-result the two smokes were.*
+> **⛔ AND TEST TIES ITS OWN SHUFFLED-SUCCESS CONTROL: TEST - TEST_SH = +0.0, CI [-2.0, +0.5].**
+> Which item was successfully retrieved carries **nothing**. TEST is a scaled-down STUDY.
+> **⛔ TEST DOES NOT BEAT STUDY EITHER (+2.0, CI [+0.0, +3.0]) -- if anything it is worse.** At
+> matched total input, concentrating that input on well-retrieved items is not better than spreading
+> it evenly.
+>
+> **➡️ SO THE EIGHTH INDEPENDENT TEST AGREES WITH THE SEVEN BEFORE IT: HOW MANY, NOT WHICH.** The
+> difference is that the seven acted on the write RULE and this one acted on the write MOMENT -- the
+> one position never touched. **Retrieval-as-encoding buys nothing here. The pre-committed broader
+> closure fires: the representation is insensitive to the write moment as well as the write rule.**
+>
+> **⚠️⚠️ THE LIMITATION, AND IT IS THE FAILURE MODE I WROTE INTO CLAUDE.md AN HOUR EARLIER:
+> `added/base = 1.0301`.** The practice phase added slightly MORE than the entire reading phase, so
+> this is not "practice modifying a memory" -- it is **a second, equal-sized reading phase whose
+> input was redistributed.** That is still a fair test of *redistribution by retrieval success*, and
+> the shuffled control makes the redistribution answer clean. **It is NOT a clean test of the human
+> testing effect**, which is defined by what survives a DELAY. *Nothing in this substrate decays, so
+> there is no retention interval for a testing effect to act on -- and that, not the arms, is the
+> honest reason this task cannot express it.*
+> **🧠 FIDELITY, STATED PLAINLY: the brain result is real and this is not evidence against it.** We
+> tested the mechanism in a system with no forgetting, scored immediately. Expressing the effect
+> would require decay between practice and test, which we do not have and have never built.
+>
+> ## [DONE -- SEE ABOVE] **THE SMOKE CAUGHT A CONFOUND THAT WOULD**
 > ## **HAVE MADE IT THE EIGHTH "VOLUME MATTERS" RESULT IN DISGUISE.**
 > Design is the real testing-effect design, because no other design can see the effect: read, then a
 > PRACTICE phase, then a final test on a THIRD disjoint slice. Arms differ only in what a practice
