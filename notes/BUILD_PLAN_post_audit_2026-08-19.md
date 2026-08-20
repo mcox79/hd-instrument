@@ -323,7 +323,27 @@
 > revision, not accumulation), and register what is genuinely wired. **Report honestly if the
 > HARD_PASS cells turn out to be synthetic-only** -- several this session did.
 >
-> ## 📌 QUEUED NEXT (after divisive normalisation resolves) -- **RETRIEVAL IS READ-ONLY HERE AND IS**
+> ## 🔬 RUNNING -- **RETRIEVAL-MODIFIES-MEMORY, AND THE SMOKE ALREADY CAUGHT A CONFOUND THAT WOULD**
+> ## **HAVE MADE IT THE EIGHTH "VOLUME MATTERS" RESULT IN DISGUISE.**
+> Design is the real testing-effect design, because no other design can see the effect: read, then a
+> PRACTICE phase, then a final test on a THIRD disjoint slice. Arms differ only in what a practice
+> episode IS -- `BASELINE` (none) · `STUDY` (read it again) · `TEST` (retrieve it, update by success)
+> · `TEST_SH` (same, success value borrowed from another item -- the control that decides it).
+>
+> **⛔ THE CONFOUND THE SMOKE EXPOSED.** Raw retrieval success on this substrate averages **0.0739**,
+> so a success-scaled TEST arm added **eleven times less input than STUDY** (measured: 0.1062 vs
+> 1.1622 mean added magnitude per term). **Volume is one of only two levers that has ever moved this
+> metric.** Running that would have re-confirmed "volume matters" for the eighth time while wearing a
+> retrieval label. **FIXED by normalising success weights to mean 1.0, so TOTAL input is equal and
+> the only difference is how it is DISTRIBUTED** -- concentrated on well-retrieved items, or spread
+> evenly. *That is the question the testing effect actually poses.* **A hard gate now refuses to
+> report if the TEST/STUDY input ratio leaves 0.75-1.33** (currently 1.237).
+> *⚠️ And the first smoke was correctly refused by its own power guard: at 1,500 read / 600 practice
+> only 174 updates landed across 74 candidates, every paired difference was EXACTLY 0.0, and the
+> script reported "underpowered, no arm comparison reportable" rather than a null. Practice must be a
+> real fraction of total exposure -- now running at parity, 6,000 read / 6,000 practice.*
+>
+> ## 📌 THE CASE FOR IT (unchanged) -- **RETRIEVAL IS READ-ONLY HERE AND IS**
 > ## **NOT READ-ONLY IN THE BRAIN. THIS IS THE ONE POSITION WE HAVE NEVER INTERVENED AT.**
 > *Brain-first, and it is the mechanism the owner's "adjusting a belief" actually names.*
 >
