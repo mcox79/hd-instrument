@@ -26,6 +26,21 @@
 > | POSITION / ORTHOGRAPHIC / LENGTH / CONSTANT | -- | -- | **+0.00, all four: NO anomaly signal** |
 >
 > ### 🚨 **PRE-COMMITTED BAR: F5 must beat median rank 4.0 of ~9 on CLEAN frequency-matched items, gated on that floor's UPPER bound, across >=3 independently-built item sets, `replication_gate.py` = `REPLICATED`, with the ~86% item ceiling printed beside the score.**
+> ### 🚫 **WITHDRAWN 2026-08-21: "co-occurrence separates my hand-scored CLEAN from WEAK items."**
+> Measured properly: **+0.54, 95% CI [-1.34, +2.60], Mann-Whitney p=0.535 -- IT DOES NOT SEPARATE**
+> (n=17 WEAK). **The number I quoted came from the LEAKED run (2.5 vs 4.0) and I carried the
+> conclusion across after fixing the leak, because it still sounded right.**
+> **➡️ FIXING AN INPUT INVALIDATES EVERY NUMBER DOWNSTREAM OF IT, INCLUDING THE ONES THAT STILL LOOK
+> CORRECT.** Withdrawn, NOT refuted -- underpowered, not disagreeing.
+> **The other two confirmations STAND** (FREQUENCY delta +0.00/+0.50/+0.75/+0.50 across four sets;
+> POSITION/LENGTH/CONSTANT exactly +0.00 -- exact arithmetic, no power question). **The bar itself is
+> untouched.** `tools/test_floor_separates_handscored_item_classes.py`
+>
+> ### 📌 **AND HAND-SCORES MUST PERSIST PER-ITEM.** The 2026-08-20 hand-scores are TALLIES only --
+> five files of counts and a few examples, **not one term-by-term label** -- so Angle B's corollary
+> (grade banked facts with no human) **cannot be tested against them at all.** The expensive part is
+> the per-row judgement; a count throws it away. `anomaly_set_..._v8_handscores.json` is the pattern.
+>
 > ### ✅ **AND THE BAR ITSELF NOW REPLICATES (2026-08-21): `+2.00 / +2.25 / +2.00 / +2.00` on FOUR independently-built 120-item sets -> `REPLICATED`, 1.1x spread, no control reaching half the effect.** The builder is byte-deterministic (a rebuild reproduces the committed `v8` SHA-256 exactly), so the bar is settleable later.
 > ### ⚠️ **HONEST CAVEAT ON THE MATCHING:** FREQUENCY's delta averages **+0.44**, not zero -- about **22% of the co-occurrence effect**, and +0.75 vs +2.00 on one set. **The frequency confound is REDUCED, NOT GONE. The bar is CO-OCCURRENCE, not frequency** -- an F5 beating only the frequency floor would have beaten almost nothing.
 >
