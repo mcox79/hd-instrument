@@ -1,9 +1,22 @@
 # WHAT 2026-08-20 ESTABLISHED -- A SINGLE LEDGER OF WHAT SURVIVES AND WHAT I WITHDREW
 
-**Why this file exists.** Today produced eleven findings and **six retractions of my own claims**,
-several of them corrections *of corrections*. The plan, STATUS and four notes now carry those layers
-in the order they happened, which is the right way to keep a record and **the wrong way to read
-one.** This is the flat version. **Where this file and an older note disagree, this file is later.**
+**Why this file exists.** 2026-08-20 produced **~17 findings and 8 retractions of my own claims**,
+several of them corrections *of corrections*, plus **six abandoned human audits scored** (sections
+8d-8j). The plan, STATUS and six notes carry those layers in the order they happened, which is the
+right way to keep a record and **the wrong way to read one.** This is the flat version. **Where this
+file and an older note disagree, this file is later.**
+
+> **THE WHOLE NIGHT IN FOUR LINES.**
+> 1. **A single word almost cannot teach a word** -- established three times, on three independent
+>    samples (32% vs 4% paired; 4% vs 0% blind; 48% vs 4% same-rows). This is the day's one durable
+>    finding.
+> 2. **Nothing in the substrate reads the meanings it stores**, and three attempts to change that
+>    all failed.
+> 3. **We are good at LIFTING what a page states and bad at GUESSING meaning from statistics** --
+>    and co-occurrence counting still beats every arm by roughly 10x.
+> 4. **Every retraction had the same shape: one good-looking run, reported too early.** What caught
+>    them was always a control written into the script *before* the result existed -- never a
+>    caution written into prose.
 
 ---
 
@@ -450,6 +463,33 @@ early. The safeguards that caught me were the ones I had written into the code b
 warnings I had written into the text.
 
 Plain word-counting still beats everything we compute, by roughly ten to one. That has not moved.
+
+**AND THEN THE NIGHT TURNED UP SOMETHING THE DAY HAD NOT: SIX FINISHED EXPERIMENTS THAT HAD BEEN
+WAITING A WEEK OR MORE FOR A HUMAN TO GRADE THEM.** I found the first two by accident, which was the
+signal to list the rest rather than keep getting lucky. **Every one I graded answered a question the
+project was still treating as open:**
+
+- **The obvious fix for our known weak point makes it worse.** The system decides meaning by looking
+  at nearby words, which cannot tell *"whisky is a drink"* from *"whisky was served at a wedding"*.
+  Someone built the grammar-based fix a week ago. Graded blind, it is **significantly worse** -- and
+  it *does* avoid the exact mistakes it was designed to avoid, then makes different ones instead.
+  **Avoiding a known error is not the same as being right**, and a second experiment made the same
+  point independently the same night.
+- **Better reading material does not fix it either.** Fed news in one run and textbooks in the
+  other, it produced **zero** genuinely useful definitions in both.
+- **But it reads textbook sentences very accurately** -- 48 of 50 facts correctly lifted. So the
+  split is clean: **we are good at LIFTING what a page says, bad at GUESSING meaning from
+  patterns.** Everything that works here is the first kind.
+- **And a number that never added up finally does.** Old records said this reader scored 38-64%;
+  grading the identical examples I got 4%. **Both were right** -- the old score judged the whole
+  explanatory phrase, mine judged the single word the system actually filed. On identical rows:
+  **48% versus 4%.** The system was filing the word while being justified by the phrase's score.
+
+**One more retraction, and it is mine from an hour earlier.** I reported that the system reads
+glossary lines almost perfectly and that glossary text was the target to aim at. Re-testing showed
+it **cannot tell a glossary from a bibliography** -- *"Smith: An introduction to pharmacology"* looks
+exactly like *"term: definition"* -- and on a real textbook the bibliography wins. **I checked my own
+best finding before building on it, which is the only reason that did not become a plan.**
 
 ## QUESTIONS
 
