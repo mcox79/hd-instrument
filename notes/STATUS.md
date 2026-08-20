@@ -1,6 +1,6 @@
 # STATUS
 
-AS OF: 2026-08-19 POST-COMPACTION HANDOFF WRITTEN | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING -- every detached run finished and was read; no orphans** | working tree clean for my files, HEAD `c6710d753` | **READ `## 🧭 RESUME HERE AFTER COMPACTION` DIRECTLY BELOW, THEN `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK**
+AS OF: 2026-08-20 AUTOLOOP ARMED, RUNNING | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **ONE RUN IN FLIGHT: the full divisive-normalisation sweep (`scratch/divnorm.log`) -- its SMOKE says no win; do NOT quote the smoke** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` IS CURRENT AND CARRIES EVERYTHING -- READ ITS FIRST BLOCK, THEN `## 🧭 RESUME HERE` BELOW**
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). Cap 8704 B, OVER -- see
 WHAT IS RUNNING. FOUR literals MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `## TOP ITEM`,
 `## WHAT IS RUNNING` (`session_start_hook.py`, `board.py`).
@@ -10,7 +10,31 @@ HERE -> `COMPACTION_HANDOFF_2026-08-17.md` -> `PLAN_NEXT_24H.md` -> `LONG_TERM_P
 
 ## POSITION
 
-## 🧭 RESUME HERE AFTER COMPACTION -- written 2026-08-19 at the end of the fidelity-audit session
+## 🧭 RESUME HERE -- **UPDATED 2026-08-20. THE OWNER GAVE TWO DIRECTIONS AND BOTH CHANGED THE PLAN.**
+> **1. "adjusting a belief ... integrate where it needs to go" (01:31Z).** Answered: belief revision
+> in `hd_fact_store` is REAL and CORRECT and **has never once fired** -- 668 facts, 668 distinct
+> (subject, relation) keys, **0 ever contested**. Chasing why found worse: **the fact store holds no
+> facts.** Its whole relation vocabulary is `KNOWN_WORD` (380, object always the constant `CORE`) and
+> `GROUNDED_MEANING` (288). A constant cannot be contradicted.
+> **2. "be brain foundational -- don't wire organs because you think it could help" (02:14Z).** This
+> **invalidated my own recommendation.** I had proposed wiring contradiction detection *"because it
+> feeds the revision path"* -- a utility argument naming no brain structure. And the machinery under
+> it, **AGM contraction, is 1985 formal logic, not neuroscience.** The brain's actual mechanism is
+> **RECONSOLIDATION** (retrieval makes a trace labile, then re-stores it -- Nader/Schafe/LeDoux 2000),
+> and it returns **0 hits in 8,836 archived cells, 0 in 151 `hdlab` modules, 0 in ORGAN_MAP.**
+> *We built the philosopher's version of changing your mind and never the brain's.*
+> **⛔ CONSEQUENCE: "go fill the fact store" is DOWNGRADED from next-step to diagnosis** -- the store
+> is an addressable symbolic database where cortex has a distributed representation, so enriching it
+> is not a brain-foundational goal.
+>
+> **➡️ CURRENT TOP ITEM, CHOSEN BECAUSE ORGAN_MAP PINS IT:** divisive normalisation over a POPULATION
+> POOL (*"graded competition implemented BY the normalisation pool, not a hard argmax"*). We tested
+> competition twice and both times WITHIN an item (k-WTA on one trace; per-trace L2). **Smoke says no
+> win** -- DIVNORM +1.346 vs SUM +1.161, ties its shuffled-pool control, and does NOT concentrate the
+> code (28.5 vs 28.9). **The full sweep decides; the smoke must not be quoted** (I published smoke
+> numbers as a finding once today already and had to correct it).
+>
+> ## 🧭 RESUME HERE AFTER COMPACTION -- written 2026-08-19 at the end of the fidelity-audit session
 *Written deliberately short. The five commits named here are the record; this block only says where
 to stand. **The LEDGER and `git log` OUTRANK anything I remember.***
 
