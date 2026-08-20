@@ -413,8 +413,35 @@
 > the write moment as well as the write rule, and that is a broader and more useful closure than any
 > of the six.*
 >
-> ## 🔬 RUNNING -- **ONE ENCOUNTER vs THE SUM OF ALL OF THEM. FIFTH ANGLE ON ACCUMULATION, AND**
-> ## **THE FIRST THAT POINTS AT SELECTION *AT READ-OUT* RATHER THAN AT WRITE TIME.**
+> ## ❌ **CLOSED -- AND IT CORRECTS THE ROUND BEFORE IT. ACCUMULATION *HELPS* ON THE TASK.**
+> Three seeds, `simplewiki`, 8,000 sentences, paired on identical probes:
+>
+> | comparison | difference | 95% CI | |
+> |---|---|---|---|
+> | BEST - SUM | **+7.0** | [+3.0, +12.0] | SEPARATED -- the best single trace is **WORSE** |
+> | BEST - RANDOM_ONE | -1.0 | [-6.0, +1.0] | not separated -- **NO selection effect** |
+> | RANDOM_ONE - SUM | **+13.0** | [+6.0, +17.5] | SEPARATED -- one trace is worse than the sum |
+> | BEST_HALF - SUM | +0.0 | [+0.0, +1.0] | not separated -- half the traces tie ALL of them |
+>
+> **THE HINT WAS SELECTION BIAS, exactly as flagged when it was recorded.** A max over ~8 noisy
+> samples looked like signal and was not. *Pre-registering that suspicion is what made this cheap to
+> close instead of expensive to build on.*
+>
+> **🚨 AND IT FORCES A CORRECTION TO THE PREVIOUS BLOCK, WHICH I WROTE CONFIDENTLY.** I claimed
+> *"ACCUMULATION IS THE PROBLEM, for a fourth independent time"* on the strength of pooling scoring a
+> worse anchor MARGIN than a single trace. **On the TASK the opposite is true: the sum beats any
+> single trace by a separated margin (+13.0).** The margin statistic and the ranking task disagree,
+> **and the task is the one that matters.** *So "accumulation is the problem" is NOT supported by that
+> evidence and the fourth count is withdrawn. Accumulation is what the read-out is BUILT on and it
+> earns its place here.*
+> **➡️ WHAT SURVIVES IS SMALLER AND REAL: `BEST_HALF` ties `SUM` exactly (+0.0, CI [+0.0, +1.0]).
+> HALF the traces carry the whole benefit** -- so there is genuine redundancy in the pile, but
+> removing it buys nothing either. *Not a lever; a fact about the data.*
+> **🔑 THE STANDING LESSON, THIRD TIME TONIGHT: A STATISTIC THE MECHANISM OPTIMISES IS NOT AN
+> OUTCOME. Margin, coherence and effective dimensionality have each now pointed somewhere the task
+> metric did not follow.**
+>
+> ## [DONE -- SEE ABOVE] **ONE ENCOUNTER vs THE SUM OF ALL OF THEM.**
 > Four arms, identical corpus/terms/probes/floors, differing only in what a word's profile IS:
 > `SUM` (today) · `BEST` (the single highest-margin trace) · **`RANDOM_ONE` -- the control that
 > decides it** · `BEST_HALF` (top half by margin -- cliff or gradient?).
