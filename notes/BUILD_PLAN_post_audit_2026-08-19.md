@@ -1,6 +1,71 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
-> # 🧭 CURRENT HANDOFF -- 2026-08-20 POST-COMPACTION. **READ THIS BLOCK, THEN STOP.**
+> # 🧠 DEEP BRAIN-FIDELITY PASS -- 2026-08-20, OWNER-DIRECTED. **THREE ROUTES CLOSED FOR FREE,**
+> # **AND THE ELEVEN NEGATIVES RESOLVE INTO ONE POSITION ERROR.**
+> *Owner: "begin with a deep brain fidelity check." Done by READING, before spending any compute --
+> three standing leads died to the three-read check and one runtime probe, at a cost of minutes.*
+>
+> ## ⛔ CLOSED 1 -- **THE SIGN HYPOTHESIS IS REFUTED BY CONSTRUCTION. IT WAS ALREADY THE SHIPPED**
+> ## **STATE.** STATUS carried *"a sign-quantised accumulation would lose exactly what a linear
+> random projection keeps -- that is now the LEADING HYPOTHESIS for the 2x, and it is directly
+> testable"* as an open lead. **`GRADED_COMPARATOR` has been `True` since 2026-08-14.** Verified at
+> RUNTIME, not by reading: `bundle()` returns the raw `2*v`, `anchor_matrix()` rows are raw, `_sums`
+> is raw. **The profile path has no sign step, and the 2x gap is measured on the profile path.**
+> *The leading hypothesis for our largest gap could not have been true for six days.*
+>
+> ## ⛔ CLOSED 2 -- **DECORRELATION IS SHUT AT BOTH ENDS, AND ORGAN_MAP SAYS SO IN WRITING.**
+> The drill's *"whitening is per-dimension gain but IN THE RIGHT BASIS -- our four failures were
+> wrong-basis, NOT evidence the mechanism fails"* reads like a live lead. It is not:
+> - **rank-1 / common-mode removal: `exp_rank1_common_mode_removal_v1` = HARD_FAIL_NO_EFFECT.**
+>   `d_P1 = +0.0005, CI [-0.0043, +0.0053]` -- includes zero. Mean-removal arm `P5 = 0.6767` is
+>   WORSE than baseline `P0 = 0.6980`. Random-direction control clean.
+> - **full-covariance whitening: PARKED-BY-SAMPLE-SIZE**, `O(d^2)` samples required, with the
+>   verbatim instruction **"do not queue full whitening"**.
+> *This is the divisive-normalisation lesson repeating exactly. The third read paid for itself again.*
+>
+> ## ⛔ CLOSED 3 -- **A DEPRESSION / FORGETTING TERM IS NOT THE ANSWER EITHER, AND THE CONTROL THAT**
+> ## **PROVES IT IS UNUSUALLY GOOD.** ORGAN_MAP G3 calls our rule *"reward-gated pure-Hebbian, no
+> error term, no normalisation, no LTD"* and **"WRONG-OP relative to any named cortical plasticity
+> rule"** -- which points straight at *add an LTD term*. **Already tested.** The delta-rule sweep
+> `p <- p + eta*(trace - p)` has both a residual and a step size, and **`eta = 1/n` IS the running
+> mean and reproduced SUM's ranking EXACTLY (delta +0.00 at all five reads)** -- so the sum is not a
+> rival arm, it is a POINT INSIDE the family. **Every fixed learning rate is worse, and worse faster**
+> (slopes +1.798 / +2.354 / +2.879 vs SUM's +1.035). **The family's optimum sits at the
+> no-forgetting end.**
+>
+> ## 🟡 AND THE ONE ISLANDED HARD_PASS IS NOT OUR PROBLEM -- SAYING SO RATHER THAN SEIZING ON IT
+> ORGAN_MAP flags `exp_excitability_gated_substrate_cpu_v1` (**HARD_PASS, +0.500, ZERO CONSUMERS**)
+> as *"the largest fidelity gap in the §10 batch"*. Read it: it protects high-priority items **above
+> the superposition capacity cliff, K=1200**. **We score 150-450 candidates. We are nowhere near that
+> cliff.** Correctly `SHELVE`d with a capacity-framed revival criterion. **Wiring it would be exactly
+> the "don't wire an organ because you think it could help" the owner barred on 2026-08-20.**
+>
+> ## 🔑 **THE SYNTHESIS, AND IT IS A *POSITION* ERROR IN THE SHAPE/POSITION/METRIC FRAME**
+> **ELEVEN write-side interventions have now closed** -- residual gate, novelty, precision, k-WTA,
+> divisive normalisation, incremental decorrelation, retrieval practice, best-single-trace, the write
+> MOMENT, the whole delta-rule family, and today's structure-vs-bag.
+> **The representation is insensitive to WHICH traces go in AND to HOW they are written.**
+> **➡️ THE ONLY TWO THINGS THAT HAVE EVER MOVED IT ARE COVERAGE (how many traces exist) AND A
+> POST-HOC CENTRING TRANSFORM. NEITHER IS A RULE ABOUT WRITING.**
+> **That is the fidelity statement: we have been intervening at the WRITE for eleven attempts, and
+> both things that worked act somewhere else.** *In CLS the transformation from experience into a
+> semantic code is not at the write either -- the write is fast, additive and pattern-separated, and
+> the REORGANISATION happens offline.*
+> **⚠️ BUT DO NOT READ THAT AS "GO BUILD REPLAY". `experiment_index.py` returns `replay` 211 cells /
+> 176 landed and `consolidation` 114 / 100.** This is the most-explored ground in the project, and
+> the CLS replay cell that exists is MIDDLE_BAND (closed-loop 0.576 vs uniform 0.521, below its
+> >=0.08 bar). **An "unexplored gap" claim over 176 landed cells needs an ENUMERATION, not a hunch.**
+>
+> ## ➡️ THE NEXT MOVE, AND IT IS STILL FREE
+> **Ask ONE question of those 176 landed replay/consolidation cells: did ANY of them change the KIND
+> of code, or do they all also reduce to reweighting a sum?**
+> - *All reduce to reweighting* -> the fidelity gap is real and survives 176 cells, which is a much
+>   stronger claim than "nobody tried it", and it names the build target precisely.
+> - *One genuinely transformed the code* -> **we should be WIRING it, not rebuilding it** -- and that
+>   is the wire-don't-island failure this project keeps paying for.
+> *Either answer is worth having and neither needs a GPU.*
+
+> # 🧭 [PREVIOUS] HANDOFF -- 2026-08-20 POST-COMPACTION.
 > *Supersedes the end-of-loop handoff below it.*
 >
 > ## 🛑 **THE OVERNIGHT LOOP IS DISARMED, BY OWNER INSTRUCTION, AND IT HAD BEEN MISSED.**
