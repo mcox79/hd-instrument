@@ -1,5 +1,24 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 🅰️🅱️ **LANDED 2026-08-21 -- BOTH STANDING ANGLES CLOSED**
+> | | what landed |
+> |---|---|
+> | **ANGLE B** | **The meaning-consumption link is DESIGNED.** The banked meaning must supply the **PREDICTION**, not sit in the register -- otherwise it is the same bottleneck in a new location. Definitional half only (32% vs 4% MEANINGFUL); dedicated `MEANING` role via the live `bind_filler`. `notes/ANGLE_B_the_meaning_consumption_link_...md` |
+> | **ANGLE A** | **The frequency-matched anomaly set is BUILT** -- `data/anomaly_set_frequency_matched_v3.json`, 120 items, log-frequency smd **+0.0157**, length **-0.0749**, NOUN share 0.951 vs 0.951, number agreement **120/120**. `tools/build_frequency_matched_anomaly_set.py` |
+>
+> ## ⚠️ **AND ANGLE A'S REAL FINDING: A BALANCE TABLE MEASURES THE MATCHING, NEVER THE ITEM**
+> **V1's balance was BETTER than v3's (+0.0126 / -0.0085) and its items were UNUSABLE** -- WordNet
+> noun-hood admitted verbs and adjectives, so swaps were **ungrammatical** (*"the only month to both
+> carbon and end"*); lemmatisation lowercased proper nouns (*"Several december species"*); table
+> debris was not prose. **V2 fixed all three and still shipped an agreement cue** (*"a churches"*,
+> **3 of 14**). **Three rounds of improving statistics over broken items. Only READING them ever
+> found it.**
+> **Honest residual, measured on a 14-item read: ~14% of v3 items are odd-but-defensible, which CAPS
+> the achievable score and must not be read as detector failure.** A human pass over all 120 is owed
+> before any verdict.
+>
+> **F5 itself is NOT built** -- it is cell-authoring work and nothing here measures anything.
+
 > # 🔧 **TWO CHECKS BUILT 2026-08-20, BOTH FROM FAILURES THAT REPEATED**
 > | tool | the failure it mechanises against |
 > |---|---|
