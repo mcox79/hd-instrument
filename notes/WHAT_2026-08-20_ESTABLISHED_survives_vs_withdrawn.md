@@ -107,6 +107,29 @@ headline.**
    value depends on. **The docstring now carries the standing prohibition explicitly**, so the next
    reader does not line it up against the 4% the way I nearly did.
 
+### 8c. Swept for more of the same: CLEAN, and the clean result is deliberately not over-read
+Having found one live docstring describing a dead route, I checked whether others do
+(`scratch/audit_docstrings_vs_live_closure.py`): read with the substrate, snapshot `sys.modules`
+for `hdlab.*` -- **that IS the live closure, and CLAUDE.md says it is knowable no other way** --
+then scan each live module's docstring region for a claim of its own unreachability.
+
+**Result: NO live module falsely claims to be unreachable.** Two flags, both FALSE POSITIVES on
+inspection and reported rather than quietly dropped: `consequence_learning_loop` says *"never
+imported here"* about OTHER mechanisms it declines to import, and `substrate` QUOTES the 2026-08-13
+accounting finding as background. *Opt-in levers ("default OFF", "NOT wired into `<fn>`'s
+precedence") are deliberately excluded -- there are dozens, they are legitimate design statements,
+and flagging them would bury the real cases.*
+
+**⚠️ THE CLEAN RESULT IS WEAK EVIDENCE AND THE SCOPE WAS WRITTEN BEFORE THE RUN:** today's actual
+defect was in a **FUNCTION** docstring inside a module that never claimed unreachability, so this
+scan **structurally could not have caught it**. It also cannot check the *other* half of that defect
+-- whether a docstring describes the arm that actually ships -- which is not machine-checkable.
+
+**INCIDENTAL, AND WORTH A LATER LOOK: the live closure is 45 `hdlab` modules** under read + recall +
+query. CLAUDE.md's standing figure is **"35 of 141"** from 2026-08-13. *I am NOT claiming growth: I
+do not know which probe produced the 35, and a wider probe finds a wider closure by construction.
+The comparison needs the original method before it means anything.*
+
 ### 9-11. Infrastructure and governance, all verified from disk
 - **The registry's do-not-wire gate on the definitional module had been CARRIED PAST** while
   `pipeline_status` read `WIRED_BUT_NOT_PIPELINE_REACHABLE` -- wrong in the safe-looking direction.
