@@ -1,4 +1,10 @@
-# THE 0.6195 FLOOR THAT DEFEATED THE PERCEPTUAL NORMS LOOKS LIKE AN **UNCONTROLLED MATCHING IMBALANCE** -- AND THE CELL REPORTED IT
+# THE 0.6195 FLOOR THAT DEFEATED THE PERCEPTUAL NORMS IS **NOT YET EXPLAINED** -- FOUR CANDIDATES RULED OUT, AND MY OWN FIFTH IS TOO SMALL BY 2.87x
+
+> **⚠️ THE FILENAME AND THE ORIGINAL TITLE BOTH SAID "UNCONTROLLED MATCHING IMBALANCE". THE
+> SELF-CORRECTION AT THE BOTTOM SHOWS THAT IS TOO STRONG:** the imbalance is real and is the only
+> unbalanced covariate, **but it is ~3x too small to produce the observed floor.** *Filename left
+> alone because notes are cited by name. **THIRD TIME TONIGHT I HAVE WRITTEN A HEADLINE BEFORE THE
+> INVESTIGATION FINISHED AND HAD TO CORRECT IT** -- the pattern is mine, not the data's.*
 
 **2026-08-20.** `exp_sensorimotor_channel_discrimination_v1` filed the sensorimotor channel as
 failing: best arm **0.6039** against a credible bar of **0.6791** derived from
@@ -36,10 +42,10 @@ From the cell's own `POST_MATCH_BALANCE_ON_SURVIVORS`, standardized mean differe
 control is off by 0.1501 -- roughly 2.4x the largest other imbalance -- and it is EXACTLY the
 feature the strongest floor is built from.**
 
-**➡️ THE MOST LIKELY READING: the matching procedure balanced frequency, length and orthography but
-NOT distance-to-prototype, leaving a residual regularity that a query-blind constant-prototype
-scorer can exploit. The floor is measuring a property of the MATCHED SET, not a property the
-sensorimotor arms had to beat on merit.**
+**➡️ A PARTIAL READING (corrected below, and it is NOT sufficient): the matching balanced frequency,
+length and orthography but NOT distance-to-prototype, leaving a residual regularity a query-blind
+scorer can exploit.** *The self-correction at the bottom shows this accounts for at most a third of
+the floor -- it is a contributor, not the cause.*
 
 ## ⚖️ WHAT THIS DOES AND DOES NOT LICENSE
 
