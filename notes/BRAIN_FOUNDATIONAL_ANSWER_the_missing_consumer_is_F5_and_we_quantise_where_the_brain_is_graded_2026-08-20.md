@@ -132,3 +132,55 @@ None. This answers Q90 on the criterion you set; I have not opened a new fork.
    not work here".
 3. **Test the shared-defect hypothesis:** is the graded-vs-signed substitution one bug in two
    organs? Cheap to check, and it would reframe both.
+
+---
+
+## 🔬 **MEASURED: THE SIGN() SUBSTITUTION IS NOT COSMETIC -- AND WHAT IT CHANGES IS *COVERAGE*, NOT DEMONSTRABLY QUALITY**
+
+The hypothesis above ("we quantise where the brain is graded") was a link between two documented
+facts. **Tested on the organ that matters most -- `canonicalize`, the read-out that scores 4%
+MEANINGFUL.** Real accumulated trace-sums, `sign(raw_sum)` vs the graded `raw_sum`, n=400 terms.
+*Cosine is scale-invariant, so this is NOT about normalisation: the only thing `sign()` removes is
+the RELATIVE MAGNITUDE of each dimension.*
+
+**1. IT CHANGES THE ANSWER OFTEN.**
+
+| | |
+|---|---|
+| nearest anchor DIFFERS | **170/400 = 42.5%** |
+| mean cos(signed query, graded query) | 0.828 |
+| dims with `|raw| <= 1`, promoted to full weight by signing | 17.2% |
+
+**2. AND IT CHANGES WHAT GETS BANKED -- NEARLY DOUBLING IT.**
+
+| at `SENSE_MATCH_THRESH = 0.45` | |
+|---|---|
+| SIGNED clears the bar | 33/400 = **8.2%** |
+| **GRADED clears the bar** | 62/400 = **15.5%** |
+| both refused | 338 = 84.5% |
+| **bank/refuse decision FLIPS** | 29 = **7.2%** |
+
+**➡️ SO THE FIDELITY CHARGE HAS A MEASURED CONSEQUENCE. The graded query is better aligned with the
+(already graded) anchors, clears the threshold about twice as often, and flips the bank/refuse
+decision on 7% of terms.**
+
+## ⚠️ **AND A DOUBLING IS NOT A WIN HERE. THE OPPOSITE, PROBABLY.**
+
+**Whether the extra material is any GOOD is unmeasured, and the prior is bad:** the distributional
+read-out scores **0-4% MEANINGFUL** on every hand-score tonight. **Doubling the yield of a
+4%-meaningful process doubles the noise**, which is precisely what `SUBSTRATE_CHARTER` already warns:
+*"growing on a foundation that is 78% noise multiplies the noise."*
+
+**A higher cosine is not a better meaning.** The sampled disagreements are genuinely mixed --
+`andorra`: signed `large` vs graded `city` (graded better); but `linguistics`: signed `grammar` vs
+graded `one` (**signed better**). *There is no quality claim here in either direction, and I am not
+making one.*
+
+**➡️ WHAT IS ESTABLISHED: the brain-fidelity gap is REAL and CONSEQUENTIAL, not decorative. What is
+NOT established: that fixing it helps.** *Those are different sentences and tonight has repeatedly
+punished collapsing them.*
+
+**AND IT SHARPENS THE F5 POINT RATHER THAN COMPETING WITH IT.** Making the read-out graded changes
+how much is banked; **it does nothing about the fact that nothing READS what is banked.** Coverage is
+already one of the four things that work here. **The bottleneck the other four routes identified is
+consumption, and this does not touch it.**
