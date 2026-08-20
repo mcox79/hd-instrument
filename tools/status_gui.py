@@ -286,6 +286,41 @@ _VET_TEXT = {
 
 REFRESH_MS = 20000        # collection costs ~2.5s; 20s is live enough and stays cheap
 TICK_MS = 1000
+
+# ---- DIAGNOSTICS LOG (owner request 2026-08-20: "add some kind of error log or statistics that
+# ---- can figure out what's going wrong with the gui - weird things happening and it's hanging")
+#
+# WHY A LOG AND NOT A GUESS. Two owner reports of freezing were investigated twice with no crash
+# output, no hung process and nothing left running -- so there was nothing to diagnose FROM, and
+# both times the honest answer was "I cannot tell you why." This file fixes that: every UI stall,
+# every collect, and every exception is appended with a duration, so the NEXT report has evidence
+# attached instead of a memory of it.
+#
+# THE ONE RULE IT MUST OBEY: the logger itself can never be the problem. Appending one short JSON
+# line is bounded work, it is wrapped so a logging failure cannot raise into the UI, and the file
+# is capped -- a diagnostic that fills a disk or blocks a redraw would be worse than no diagnostic.
+DIAG_PATH = _REPO / "data" / "hook_state" / "status_gui_diag.jsonl"
+DIAG_MAX_BYTES = 4_000_000
+UI_STALL_MS = 250         # anything above this on the UI thread is a visible hitch
+
+
+def _diag(event: str, **fields) -> None:
+    """Append one JSON line. Never raises, never blocks on anything but a short write."""
+    try:
+        rec = {"t": round(time.time(), 3), "event": event}
+        rec.update(fields)
+        DIAG_PATH.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            if DIAG_PATH.exists() and DIAG_PATH.stat().st_size > DIAG_MAX_BYTES:
+                # Truncate rather than rotate: this is a rolling diagnostic, not an audit trail,
+                # and an unbounded file on the owner's machine is a defect of its own.
+                DIAG_PATH.write_text("", encoding="utf-8")
+        except OSError:
+            pass
+        with open(DIAG_PATH, "a", encoding="utf-8", newline="") as fh:
+            fh.write(json.dumps(rec, default=str) + "\n")
+    except Exception:
+        pass
 POLL_WEDGE_S = 60         # collection is internally bounded well below this
 
 # The draft key for text typed while no answerable question is selected. It is a reserved key
@@ -816,13 +851,22 @@ class StatusWindow:
     def _register_tab_sources(self) -> None:
         """Remember each tab's BASE title so the age suffix can be re-applied without accreting."""
         self._tab_base = {}
+        # What each tab's title currently READS, so the 1-second tick can skip the re-title when
+        # nothing changed (owner: "the tabs keep changing slightly with every update").
+        self._tab_text_now = {}
         for tab_id in self.nb.tabs():
             self._tab_base[tab_id] = self.nb.tab(tab_id, "text")
 
     @staticmethod
     def _fmt_age(seconds: float) -> str:
+        # NO SECOND-BY-SECOND PRECISION IN A TAB TITLE. This value goes into the tab strip, and a
+        # string that changes every second makes the strip twitch every second even with the
+        # only-when-changed guard above -- which is exactly what the owner reported. Under a minute
+        # the honest and stable answer is "just now"; nobody needs a tab title accurate to 1s.
+        if seconds < 60:
+            return "just now"
         if seconds < 90:
-            return "%ds" % int(seconds)
+            return "1m"
         if seconds < 5400:
             return "%dm" % int(seconds // 60)
         if seconds < 172800:
@@ -836,21 +880,44 @@ class StatusWindow:
         cached = getattr(self, "_metrics_mtime_cache", None)
         if cached is not None and (now - cached[0]) < 60:
             return cached[1]
-        newest = None
-        try:
-            for d in (_REPO / "data").iterdir():
-                if not d.is_dir():
-                    continue
+
+        # *** THIS WALK USED TO RUN ON THE UI THREAD AND IT IS THE MEASURED FREEZE. ***
+        # Measured 2026-08-20 on the owner's own data/: **8,155 directories, 6.91 SECONDS**, with a
+        # stat() per directory -- executed from `_update_tab_ages`, which the 1-second tick calls.
+        # So once a minute the window went completely unresponsive for ~7s, and on a cold cache far
+        # longer (a plain shell glob over the sibling experiments/ tree timed out at 120s the same
+        # day). That is the owner's *"it's hanging a lot"*, and the docstring's "cached for 60s"
+        # was doing its job -- the defect was never the FREQUENCY, it was that the work was on the
+        # thread that draws.
+        #
+        # NOW: kick the rescan into a daemon thread and return the PREVIOUS value immediately. A
+        # tab-title timestamp that is one refresh stale is invisible; a 7-second freeze is not.
+        if not getattr(self, "_metrics_scan_running", False):
+            self._metrics_scan_running = True
+
+            def _scan():
+                t0 = time.time()
+                newest, n = None, 0
                 try:
-                    m = (d / "metrics.json").stat().st_mtime
+                    for d in (_REPO / "data").iterdir():
+                        if not d.is_dir():
+                            continue
+                        n += 1
+                        try:
+                            m = (d / "metrics.json").stat().st_mtime
+                        except OSError:
+                            continue
+                        if newest is None or m > newest:
+                            newest = m
                 except OSError:
-                    continue
-                if newest is None or m > newest:
-                    newest = m
-        except OSError:
-            newest = None
-        self._metrics_mtime_cache = (now, newest)
-        return newest
+                    newest = None
+                self._metrics_mtime_cache = (time.time(), newest)
+                self._metrics_scan_running = False
+                _diag("metrics_scan", ms=round(1000 * (time.time() - t0)), dirs=n)
+
+            threading.Thread(target=_scan, daemon=True).start()
+        # Whatever we had last (None on the very first call, which renders as "[--]").
+        return cached[1] if cached else None
 
     def _update_tab_ages(self) -> None:
         """Re-title every tab with the age of the evidence behind it. Never raises: a dashboard
@@ -877,9 +944,18 @@ class StatusWindow:
                         if newest is None or mt > newest:
                             newest = mt
                     suffix = ("  [%s]" % self._fmt_age(now - newest)) if newest else "  [--]"
-                self.nb.tab(tab_id, text=base + suffix)
-        except Exception:
-            pass
+                # *** ONLY RE-TITLE WHEN THE TEXT ACTUALLY CHANGES. ***
+                # Owner 2026-08-20: *"the tabs keep changing slightly with every update"*. This
+                # loop ran every TICK_MS (1 second) and unconditionally called `nb.tab(text=...)`
+                # on all eight tabs. Each call re-measures the tab label and re-lays out the whole
+                # Notebook, so the tab strip visibly shifted once a second as an age string grew a
+                # character ("9s" -> "10s"). Comparing first makes the common case a no-op.
+                want = base + suffix
+                if self._tab_text_now.get(tab_id) != want:
+                    self._tab_text_now[tab_id] = want
+                    self.nb.tab(tab_id, text=want)
+        except Exception as exc:
+            _diag("tab_ages_error", err=f"{type(exc).__name__}: {exc}")
 
     # ---- the side channel: its OWN tab (2026-08-17, defect 2) -----------
     def _build_commentary(self) -> None:
@@ -1898,9 +1974,17 @@ class StatusWindow:
         threading.Thread(target=self._worker, daemon=True).start()
 
     def _worker(self) -> None:
+        t0 = time.time()
         try:
-            self._q.put(("ok", status_state.collect()))
-        except Exception:
+            payload = status_state.collect()
+            _diag("collect", ms=round(1000 * (time.time() - t0)))
+            self._q.put(("ok", payload))
+        except Exception as exc:
+            # The FULL traceback goes to the log; the short form goes on screen. Before this, a
+            # collector exception was shown truncated to 400 chars in the status bar and recorded
+            # nowhere, so a recurring failure left no trace to diagnose it from afterwards.
+            _diag("collect_error", ms=round(1000 * (time.time() - t0)),
+                  err=f"{type(exc).__name__}: {exc}", tb=traceback.format_exc(limit=12))
             self._q.put(("error", traceback.format_exc(limit=6)))
 
     def _pump(self) -> None:
@@ -1931,6 +2015,12 @@ class StatusWindow:
                          else "refreshing...")
         if self._last_error:
             parts.append(f"LAST REFRESH ERROR: {self._last_error[:160]}")
+        # SURFACE THE DIAGNOSTIC, do not just write it to a file nobody opens. If the window has
+        # hitched at all this session the owner sees the worst one and where the log is.
+        worst = getattr(self, "_worst_stall_ms", 0)
+        if worst > UI_STALL_MS:
+            parts.append("worst UI freeze this session %.1fs (log: %s)"
+                         % (worst / 1000.0, DIAG_PATH.name))
         # This bar is the ONLY place the refresh clock appears, and it says so: every timestamp in
         # every table is an evidence age, and the two must not be read for one another.
         parts.append(f"auto-refresh every {REFRESH_MS // 1000}s  |  F5 = refresh  |  "
@@ -1939,11 +2029,24 @@ class StatusWindow:
         self.status_lbl.configure(text="    |    ".join(parts))
         # Per-tab evidence age, re-applied on the tick so it counts up between refreshes rather
         # than freezing at whatever it was when the data last landed.
+        # ---- EVERYTHING BELOW RUNS ON THE UI THREAD, SO IT IS TIMED ----------------------------
+        # The freeze this instruments was a 6.9s `data/` walk reached from `_update_tab_ages`. It
+        # is off-thread now, but the point of a diagnostic is to catch the NEXT one, which will be
+        # somewhere nobody suspects. Anything over UI_STALL_MS is a hitch the owner can see.
+        _t0 = time.time()
         self._update_tab_ages()
+        _t1 = time.time()
         # Checked on the TICK, not on a successful collect: a window running code old enough to
         # matter may also be failing to collect, and that is precisely when the owner most needs
         # to be told the window itself is the problem.
         self._check_self_stale()
+        _t2 = time.time()
+        ms_total = 1000 * (_t2 - _t0)
+        if ms_total > UI_STALL_MS:
+            _diag("ui_stall", ms=round(ms_total),
+                  tab_ages_ms=round(1000 * (_t1 - _t0)),
+                  self_stale_ms=round(1000 * (_t2 - _t1)))
+            self._worst_stall_ms = max(getattr(self, "_worst_stall_ms", 0), ms_total)
         self.root.after(TICK_MS, self._tick)
 
     def _check_self_stale(self) -> None:
