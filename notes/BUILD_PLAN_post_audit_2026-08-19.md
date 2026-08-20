@@ -160,7 +160,40 @@
 > **🧠 The residual conflates A NEW SENSE with A NOISY OCCURRENCE, so it acts as an OUTLIER detector.
 > The owner's principle is NOT refuted -- WE HAVE NO SIGNAL CAPABLE OF IMPLEMENTING IT.**
 >
-> ## ⬅️⬅️ TOP ITEM NOW: **IMPLEMENT PRECISION WEIGHTING -- THREE LINES NOW POINT AT THE SAME TERM.**
+> ## ✅ RAN -- **PRECISION WEIGHTING IS MEASURABLE BUT NOT USABLE. FOURTH SELECTION NEGATIVE.**
+> Built prefix-only (leave-one-out) BECAUSE the archive's four-cell arc said that is what separates
+> its HARD_PASS from its HARD_FAIL. Landed exactly where `..._derived_v1` landed: a clean, real
+> statistic that does not translate into a working gate. PREC beats random at **2/5** points and the
+> unweighted residual at **3/5**; slopes PREC **+1.294** vs RANDOM **+1.337** vs FULL **+1.035**.
+> **🔑 AND IT CORRECTS MY OWN MECHANISTIC STORY: I had blamed the write gate's failure on the
+> selector having NO SPREAD (sd 0.066). Precision has 2-3x MORE spread (sd 0.134-0.208) and fails
+> anyway. SPREAD WAS NOT THE BINDING CONSTRAINT.**
+> **➡️ FOUR INDEPENDENT TESTS NOW AGREE: WHICH TRACES ARE KEPT DOES NOT MATTER -- ONLY HOW MANY.
+> STOP BUILDING SELECTORS.** (write gate 0/54; NOVEL~RANDOM; PREC~RANDOM; every selective arm sits
+> between AS_IS and FULL regardless of rule.)
+> **🧠 FIDELITY -- POSITION, THIRD TIME.** G2's precision-weighted residual is a claim about
+> **LEARNING** (how much to UPDATE), not about **WHICH EPISODES TO STORE**. We have tested it four
+> times in the storage role and never in the update role -- because our profiles HAVE no update rule
+> to modulate; they only add. *Same position error as the sensorimotor spoke (a re-ranker where the
+> brain has an input) and k-WTA (competition inside a trace where the brain has it across a
+> population).* **THE PINNED TERM MAY STILL BE RIGHT AND TESTED IN THE WRONG PLACE.**
+>
+> ## ⬅️⬅️ TOP ITEM NOW: **GIVE THE PROFILE AN UPDATE RULE, SO THERE IS SOMETHING TO MODULATE.**
+> This is what the three POSITION errors have been pointing at all along, and it is the one thing
+> never tried: **our profiles have no learning rate.** `acc += trace` is not an update rule -- it has
+> no notion of how much to move, so precision has nothing to weight and every selector can only
+> choose what to add. A profile with an update rule (`p <- p + eta*(trace - p)`, i.e. an
+> error-correcting move toward the observation rather than a sum) has BOTH a residual AND a step
+> size, which is the form G2 actually pins.
+> **THE MINIMAL TEST: replace the sum with a delta-rule update, sweep eta, and put PRECISION on the
+> LEARNING RATE (eta_i = eta0 * precision_i) -- the role the brain reference actually assigns it.**
+> Test on the phase slope with per-point consistency, against COOC and FREQ floors.
+> *⚠️ HONEST RISK, RECORDED FIRST: a delta-rule profile is a RUNNING MEAN, and a running mean of
+> context vectors is close to what the sum already computes once normalised. If eta-sweep lands on
+> "eta -> 0 is best", that IS the sum and the result is a null. Say so if it happens.*
+> *⚠️ AND QUERY BOTH ARCHIVES BEFORE BUILDING -- that habit has now caught five rediscoveries.*
+>
+> ## [SUPERSEDED] previous top item: **IMPLEMENT PRECISION WEIGHTING -- THREE LINES NOW POINT AT THE SAME TERM.**
 > ORGAN_MAP G2 pins the rule as the residual `x - x_hat` **PRECISION-WEIGHTED**. Enumeration of
 > `hdlab/predictive_coding.py` found 15 public names and **not one** mentions precision, variance,
 > confidence or weighting; `threshold_gate` takes exactly one knob. Three independent lines have now
