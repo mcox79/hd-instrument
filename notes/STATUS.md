@@ -393,6 +393,47 @@ accumulate-only store is a no-op on the KIND of code produced -- which is the sa
 effective-dimensionality measurement reached from geometry, and the same one the subsumption result
 reached from ranking. *The fix is a NON-ADDITIVE write, not a better gate. Tuning thresholds cannot
 reach it.*
+## ⛔ 2026-08-19 -- **COMPETITION AT WRITE TIME FAILS, AND IT FAILS FOR A REASON THAT OVERTURNS MY**
+## **OWN DESIGN ASSUMPTION: SPARSIFYING THE ADDENDS MAKES THE SUM *MORE* DIFFUSE, NOT LESS.**
+*All arms at FULL COVERAGE so the note-taking term is held constant. Same corpus, terms, items,
+floors. They differ only in the write operation.*
+
+| sentences | COOC | SUM | KWTA8 | KWTA32 | NORM (control) |
+|---|---|---|---|---|---|
+| 1000 | 22.5 | 0.98x | 1.07x | 0.98x | **0.89x** |
+| 2000 | 14.0 | 1.71x | 2.21x | 1.86x | 1.57x |
+| 4000 | 26.0 | 2.23x | 3.35x | 2.77x | 2.23x |
+| 8000 | 31.0 | 2.06x | 3.40x | 2.34x | 2.15x |
+| 16000 | 18.0 | 4.39x | 6.31x | 4.81x | 3.97x |
+
+    phase slope   SUM +1.035   KWTA8 +1.683   KWTA32 +1.174   NORM +0.972
+
+**⛔ NO ARM CUTS THE SLOPE. k-WTA is WORSE than plain summing at every single point and STEEPENS the
+degradation (+1.035 -> +1.683). NORM ties SUM (+0.972 vs +1.035) -- within noise, not a win.**
+**🔑🔑 AND HERE IS THE MECHANISM, WHICH IS THE OPPOSITE OF WHAT I DESIGNED THE TEST TO GUARD
+AGAINST. I wrote in the pre-reg that "k-WTA REDUCES EFFECTIVE DIMENSIONALITY BY CONSTRUCTION", so PR
+would be a tautology and must not be the outcome. IT DID THE REVERSE: at 16,000 the effective
+dimensionality is SUM 92.3 -> KWTA8 130.2.** *Sparsifying each trace before adding does not sparsify
+the total -- it DECORRELATES the addends, so their sum spreads across MORE independent directions
+than the dense traces did.* **Sparsity applied to the INPUT of an accumulator is an
+anti-concentration operation.** That is a genuine mechanistic result and it explains the ranking
+loss rather than merely reporting it.
+**📕 THIS IS NOW THE THIRD PLACE SPARSITY HAS FAILED IN THIS CODEBASE, and the prior two were read
+BEFORE building, not after:** `exp_c1_sparse_value_k10_cpu_v1` HARD_FAIL (dense capacity 332 vs
+sparse 132, ratio 0.40) and `exp_arc_aggregation_sparse_code_regime_v1` SPARSITY_NEUTRAL (0.308 vs
+0.301). *The third, `exp_cortex_schema_tonegawa_sparse_ensemble_v2`, is uninformative -- its
+baseline sat at 1.000, a saturated regime.* **A low prior was recorded in advance and it was right.**
+**🧠 BRAIN-FIDELITY DRILL ON THIS NEGATIVE -- POSITION, and it names the next build precisely.**
+Cortical/DG sparse coding is COMPETITION ACROSS THE POPULATION at encoding, with recurrent settling;
+the units that win SUPPRESS the others, and what is stored is the settled pattern. **Ours applies
+k-WTA WITHIN a single incoming trace and then sums the results INDEPENDENTLY -- there is no
+competition BETWEEN encounters and none BETWEEN terms at all.** *We copied the shape of sparsity and
+not its position.* **➡️ SO THE UNTESTED FAITHFUL VERSION IS COMPETITION ON THE ACCUMULATED STATE --
+between the stored profiles themselves, which is the ATL hub story -- NOT a filter on the incoming
+trace. Every variant tested so far, including this one, competes in the wrong place.**
+*⚠️ Single seed per point, one corpus, pool grows 58 -> 480. Internal consistency check that
+passed: SUM here reads +1.035, exactly the FULL_COV slope from the previous experiment, as it must.*
+
 ## 🔬 2026-08-19 -- **WHICH CAUSE? NOTE-TAKING IS WORTH 39% OF THE DEGRADATION AND NOT ONE POINT**
 ## **OF THE DIFFUSION. THE TWO DEFECTS ARE INDEPENDENT AND ONLY ONE IS VISIBLE TO THE RANKING.**
 *The phase diagram said we fall away from the counter as we read. Two causes tracked that curve --
