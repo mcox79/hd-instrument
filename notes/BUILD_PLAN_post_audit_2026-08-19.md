@@ -76,8 +76,50 @@
 > ITEMS PREDATE TODAY'S MECHANISM BY 8 DAYS -- this project's strongest free predictor of a
 > non-bogus result.** They do NOT measure the phrase pathway (**0 of 50 objects are multi-word**;
 > v3 banked `Definition.head`, `substrate.py:538` now banks `d.definiens`) -- which is exactly why
-> that pathway was still unmeasured. **THIS IS THE TOP UNBLOCKED ITEM: same scorer, same rubric,
-> ~1 hour, resolves two PENDING verdicts.**
+> that pathway was still unmeasured.
+>
+> > # ✅ **SCORED, BLIND, SAME DAY -- AND IT SETTLES A QUESTION THE PHRASE RESULT COULD NOT.**
+> > **`notes/b3_audit_scored_the_win_is_the_phrase_form_not_the_definitional_source_2026-08-20.md`**
+> >
+> > Today's phrase win confounded **SOURCE** (off the page) with **FORM** (phrase vs word). The v3
+> > DEF arm is definitional SOURCE at SINGLE-WORD FORM -- the missing cell.
+> >
+> > | same rubric, same scorer, same day | MEANINGFUL |
+> > |---|---|
+> > | definitional **PHRASE** (`d.definiens`) | **32%** |
+> > | definitional **HEAD** (`d.head`, SAME source) | **4%** |
+> > | distributional (`canonicalize`) | **0%** |
+> >
+> > **DEF-head vs DIST: 2/50 vs 0/50, p = 0.2475. NOT DISTINGUISHABLE.** NOISE 23/50 vs 28/50,
+> > p = 0.2119, also not.
+> >
+> > **➡️ THE WIN IS THE PHRASE FORM, NOT THE DEFINITIONAL SOURCE. A SINGLE WORD ALMOST CANNOT TEACH
+> > A WORD** -- only **3 of ~75** single-word objects scored MEANINGFUL all day (`soccer -> football`,
+> > `drosophila -> fly`, `piraeus -> port`), all the same special case: an unambiguous identifying
+> > genus. **The format caps at 2-4%. The phrase format reaches 32% on the same source material.**
+> >
+> > **`substrate.py:538` (`d.head` -> `d.definiens`) LOOKS LIKE AN IMPLEMENTATION DETAIL AND IS
+> > WORTH 28 POINTS OF MEANINGFUL.**
+> >
+> > ## 🔁 THIS REDIRECTS THE EXTRACTOR WORK, INCLUDING MY OWN FROM THIS MORNING
+> > The extractor's **RECALL** (10.7% of definitional sentences, ~48% of drops recoverable, ~4x
+> > supply) is now clearly the high-value target. **HEAD-SELECTION IS NOT.** Today's `_MEASURE_HEAD`
+> > fix (`way`/`means`/`part`, empty heads 7 -> 5) was a correct fix to the component this audit
+> > says barely carries the result -- **and the `thing`/`word`/`idea` empty-head backlog should be
+> > re-priced or dropped rather than worked.**
+> >
+> > ## ⚠️ USE THE WITHIN-SITTING COMPARISON, NOT THE PRE-COMMITTED BASELINE
+> > Against the v2 baseline (8% M / 26% R / 66% N) DEF-head reads 46% NOISE. **DO NOT READ THAT AS
+> > "HALVED THE NOISE"** -- my R/N boundary is measurably more generous than that scorer's (44% vs
+> > 19% RELATED), while **MEANINGFUL survives the scorer change** (0% vs 3%, 4% vs 8%, both within
+> > CI). **The M cell transfers across scorers; the R/N boundary does not.**
+> >
+> > ## 📌 THE TWO BLOCKED CELLS: REPORTED, NOT REWRITTEN
+> > `_v3` and `_v5` landed `metrics.json` **deliberately unmodified** (same discipline as the seven
+> > unread runs on 08-19). Their STRUCTURAL claim stands (1749 of 1751 facts not producible by the
+> > distributional path). **The QUALITY claim the B3 gate held them open for does NOT clear.**
+> > *This is the one genuinely BLIND score of the day -- both arms are single-word, so the sheet
+> > carried no cue to arm, and the prediction was recorded before the key was opened.*
 
 
 > # ⛔ **TWO OF MY OWN CLAIMS FROM THE LAST HOUR WITHDRAWN -- AND THE REASON IS A STRUCTURAL FACT**
