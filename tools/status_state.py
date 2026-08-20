@@ -246,6 +246,9 @@ _POSITIVE_WORDS = frozenset({"PASS", "PASSED", "CLEARS", "CLEARED", "BEATS", "SE
 _POSITIVE_SUBSTRINGS = ("HARD_PASS", "SEPARATED_ABOVE", "CLEARS_THE")
 
 NO_VERDICT = "(no verdict recorded)"
+# Shared prefix for the richer verdictless labels built by `_verdictless_label`, so
+# `_grade` can recognise them WITHOUT substring-guessing. Both sides test this one name.
+VERDICTLESS_PREFIX = "NO VERDICT LINE"
 
 
 # ---------------------------------------------------------------------------
@@ -946,7 +949,13 @@ def _grade(verdict: str, msg: str, metrics: dict) -> dict:
     v = (verdict or "").upper()
     blob = f"{v} {msg or ''}"
     blob_u = blob.upper()
-    if not verdict or verdict == NO_VERDICT:
+    # `_verdictless_label` builds richer strings for the same state ("RESULTS PRESENT, NO VERDICT
+    # LINE (full, 3 units recorded)"). They MUST land here too. Without this test the tokeniser
+    # sees the literal word "NO", the negation rule fires, and SEVEN COMPLETED RUNS render as
+    # NEGATIVE -- which is worse than the placeholder they replaced. This is the exact hazard the
+    # comment below already named; the shared prefix is what makes it testable rather than a
+    # substring guess.
+    if not verdict or verdict == NO_VERDICT or verdict.startswith(VERDICTLESS_PREFIX):
         # A run that wrote metrics without a verdict (still in flight, or it crashed before
         # adjudicating). That is its own state -- calling it a FINDING would imply something
         # was concluded, and the negation rule below would otherwise read the literal word
@@ -1066,6 +1075,38 @@ def _newest_metrics(entries: list, n: int,
     }
 
 
+def _verdictless_label(m: dict) -> str:
+    """What to show for a run whose metrics.json carries RESULTS but no top-level `verdict`.
+
+    OWNER, 2026-08-20: *"there are a lot of 'no verdict' runs in the latest results tab -- is that
+    correct or old?"* Measured: the SEVEN NEWEST runs (0.9-1.5 days) have no verdict and everything
+    1.7 days and older has one -- a sharp cutoff, not a scatter.
+
+    **THEY ARE NEITHER OLD NOR BROKEN.** Their files are 9-24 KB and carry `units`, `spec`,
+    `what_is_tested`, `run_mode: full` -- complete results. `exp_predictive_write_gate_v1` holds 3
+    full seeds whose numbers are quoted in notes/STATUS.md. What they never wrote is the ONE-LINE
+    `verdict` field this panel displays, so a finished run rendered as "(no verdict recorded)" and
+    read like a failure.
+
+    So the fix belongs in the READER, not in the results: rewriting a landed metrics.json to add a
+    verdict after the fact is the same hazard class as adjusting a gate after seeing the data, and
+    this project already refuses that elsewhere. Say what IS known instead, and say plainly that the
+    summary line is what is missing -- never imply the run failed or is stale.
+    """
+    n_units = m.get("n_units")
+    if n_units is None:
+        u = m.get("units")
+        n_units = len(u) if isinstance(u, (list, tuple)) else None
+    mode = str(m.get("run_mode") or "").strip()
+    if n_units:
+        return ("%s -- RESULTS PRESENT (%s%d unit%s recorded)"
+                % (VERDICTLESS_PREFIX, ("%s, " % mode) if mode else "", n_units,
+                   "" if n_units == 1 else "s"))
+    if mode:
+        return "%s (run_mode %s, no units recorded)" % (VERDICTLESS_PREFIX, mode)
+    return NO_VERDICT
+
+
 def collect_results(n: int = RESULTS_N) -> dict:
     """The newest verdicts, newest first, each with its floor and whether it was separated.
 
@@ -1088,7 +1129,7 @@ def collect_results(n: int = RESULTS_N) -> dict:
     rows: list[dict] = []
     for mtime, name, p in stamped:
         m = _read_metrics(p)
-        verdict = str(m.get("verdict") or "").strip() or NO_VERDICT
+        verdict = str(m.get("verdict") or "").strip() or _verdictless_label(m)
         msg = str(m.get("verdict_msg") or m.get("summary") or "").strip()
         grade = _grade(verdict, msg, m)
         rows.append({
