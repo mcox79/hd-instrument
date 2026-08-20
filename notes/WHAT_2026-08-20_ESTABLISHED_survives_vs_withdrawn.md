@@ -254,6 +254,45 @@ juxtaposing hand-score figures applies.
 vocabulary reveals the arm (`spermatogonia`/`operon` are obviously textbook). Mitigated by scoring
 from the (subject -> object) PAIRS ALONE with sentences withheld. **Worklist now 8.**
 
+### 8h. 🟢 **THE BEST RESULT OF THE NIGHT, AND IT NAMES A SPECIFIC PATTERN: `GLOSSARY_COLON` IS 92% MEANINGFUL**
+`exp_definitional_grounding_v5` (term-boundary repair), pending since 2026-08-12. Scored on the
+**same field, same rubric, same scorer, same night** as the v3 sample:
+
+| | MEANINGFUL | RELATED | NOISE |
+|---|---|---|---|
+| **v3 DEF** (scored earlier tonight) | **4%** (2/50) | 50% | 46% |
+| **v5 DEF_V5_TERM_BOUNDARY** | **60%** (30/50) | 20% | 20% |
+
+**A 15x difference, by one scorer in one sitting, on the same `subject -> object` field.**
+
+**BY EXTRACTION PATTERN -- this is the actionable part:**
+
+| pattern | n | MEANINGFUL |
+|---|---|---|
+| **`GLOSSARY_COLON`** (*"ecology: the study of..."*) | 13 | **12 = 92%, ZERO noise** |
+| `COPULA` | 12 | 50% |
+| `APPOSITIVE` | 15 | 47% |
+| `CALLED` | 9 | 44% |
+
+**CONFOUND CHECKED AND REJECTED: it is NOT a corpus difference.** Segment mixes are near-identical
+(v3 `bio_new` 33 / `adv_new` 8; v5 `bio_new` 30 / `adv_new` 8).
+**MECHANISM:** the pattern mix shifted (`GLOSSARY_COLON` 2 -> 13, `CALLED` 19 -> 9), **but that
+alone cannot explain the gap** -- if v3's patterns ran at their v5 rates (~44-50%) v3 would have
+scored ~45%, not 4%. **The dominant cause is the TERM-BOUNDARY corruption v5 repaired (16.1% ->
+1.0%): in v3 the patterns fired correctly on WRONG SPANS, which is exactly how you get
+`afghanistan -> catch`.**
+
+**⚠️ UNRECONCILED, FLAGGED NOT MERGED:** the cell cites baselines of *v3 DEF 38%* and *v4 DEF 40%*,
+and the charter attributes *64%* to this v5 fix -- while my v3 score of the OBJECT field is 4%.
+**The likely explanation is that the historical scores judged the DEFINIENS SURFACE (the full
+extracted phrase) rather than the banked head object** -- the same which-population ambiguity
+flagged tonight in `reading_grounding_loop.py:1451`. **The standing prohibition on juxtaposing
+hand-score figures applies; I am not merging them.**
+
+**➡️ THIS IS THE STRONGEST EVIDENCE ALL DAY FOR THE PIPELINE BRANCH OF Q89, AND IT NAMES WHERE THE
+VALUE IS: the glossary-colon construction.** *Limits: single arm, no floor, n=50, one scorer, and
+the corpus is the dense-expository mix already measured as the EASY case.* **Worklist now 7.**
+
 ### 9-11. Infrastructure and governance, all verified from disk
 - **The registry's do-not-wire gate on the definitional module had been CARRIED PAST** while
   `pipeline_status` read `WIRED_BUT_NOT_PIPELINE_REACHABLE` -- wrong in the safe-looking direction.
