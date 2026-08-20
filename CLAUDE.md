@@ -848,6 +848,50 @@ Three rules, and the third is the general one:
 *Note what did NOT catch it: two seeds agreeing. The artifact is a deterministic property of sparse
 codes, so it reproduces perfectly. Replication is not a defence against a metric defect.*
 
+## FOUR SINGLE-SEED WINS PUBLISHED IN ONE SESSION -- USE `tools/replication_gate.py`
+
+**Measured 2026-08-20. Four of my own claims withdrawn in one session, every one the same shape:
+ONE SEED PRODUCED A CLEAN-LOOKING NUMBER AND I LED WITH IT.**
+
+The worst case in full, because it shows why judgement is not the fix. A blend of the accumulated
+profile with the term's own looked-up definition scored **16 ranks better** than the profile on seed
+7, with both information-free controls failing to beat the profile. It was written up, committed, and
+reported. Then:
+
+| | seed 7 | seed 101 | seed 13 |
+|---|---|---|---|
+| BOTH - PROFILE | **-16.0** | -1.0 | -5.0 |
+| profile + **random vector** | +23.5 | **-8.0 (BEAT the treatment)** | +5.0 |
+| profile + **wrong** definition | +3.5 | +9.0 | **-4.0 (TIED the treatment)** |
+
+**A random vector beat the right definition on one seed and the wrong definition tied it on
+another.** The effect also swung **16x** in magnitude across seeds and flipped between strata.
+
+**THE RULE ALREADY EXISTED IN THREE PLACES** -- MEMORY.md, this file, and *my own limits section of
+the note whose headline I then retracted*, written before the disconfirming seed ran. **A rule in a
+document is a habit; a habit is not a guard.** This is the same escalation the tie rule got: written
+down on the morning of 2026-08-20, violated twice the same day, then moved into `rank_with_ties.py`.
+
+**So the guard is a function.** `replication_verdict(effects, controls=..., lower_is_better=...)`
+returns `SINGLE_SEED_HYPOTHESIS` / `ARTIFACT_CONTROL_MATCHES` / `INCONSISTENT_SIGN` /
+`UNSTABLE_MAGNITUDE` / `REPLICATED`. **There is no call signature that returns a pass from one seed**,
+and passing `controls=` makes it check whether an information-free arm reproduced **half** the effect
+on any seed.
+
+**Rule: any cross-seed claim goes through that helper, and the verdict string is quoted in the
+write-up.** Self-tested (`--self-test`) against the real failure above, against the single-seed
+moment it was published, against a sign flip, against the 16x spread -- **and against a genuine
+stable effect that it must NOT flag**, because a guard that flags everything gets ignored.
+
+**It says REPRODUCIBLE, never GOOD.** The measurement bar (CI-separated margin over the strongest
+floor actually RUN) still applies on top. Verified both ways on real data the day it was written: it
+returns `ARTIFACT_CONTROL_MATCHES` for the withdrawn result above and `REPLICATED` for the phrase-
+floor result that survived (4/4 same sign, 1.2x spread, no control within half the effect).
+
+*The generalisable half, and it is the day's most useful finding: **EVERY CAUTION WRITTEN AS PROSE
+THAT DAY WAS SUBSEQUENTLY VIOLATED; EVERY CONTROL WRITTEN AS CODE CAUGHT SOMETHING.** Write the
+control into the script, not the caution into the prose.*
+
 ## A FRESH READER IS NOT A HELD-OUT SPLIT -- CHECK OVERLAP, DO NOT INFER IT FROM THE CONSTRUCTION
 
 **Measured 2026-08-19.** A probe answering the owner's "one textbook or many?" built its held-out

@@ -119,6 +119,25 @@ to retract.
 **➡️ THE OPERATIONAL LESSON: WRITE THE CONTROL INTO THE SCRIPT, NOT THE CAUTION INTO THE PROSE.**
 Every caution I wrote as prose today, I then violated. Every control I wrote as code, caught me.
 
+### ✅ SO THE LESSON WAS MOVED INTO CODE: `tools/replication_gate.py`
+
+Same escalation the tie rule got (written down in the morning, violated twice by evening, moved into
+`rank_with_ties.py`). `replication_verdict(effects, controls=..., lower_is_better=...)` returns
+`SINGLE_SEED_HYPOTHESIS` / `ARTIFACT_CONTROL_MATCHES` / `INCONSISTENT_SIGN` / `UNSTABLE_MAGNITUDE` /
+`REPLICATED`. **There is no call signature that returns a pass from one seed**, and `controls=` makes
+it check whether an information-free arm reproduced **half** the effect on any seed.
+
+**Checked both ways on today's own real data, which is the only test that matters:**
+
+| the day's two candidate results, judged by the new gate | verdict |
+|---|---|
+| the withdrawn blend (-16.0 / -1.0 / -5.0, controls run) | **`ARTIFACT_CONTROL_MATCHES`** |
+| the phrase-floor result (4 seeds, +11.9 / +11.5 / +12.1 / +13.6) | **`REPLICATED`** -- 4/4 same sign, 1.2x spread, no control within half |
+
+**It discriminates rather than flagging everything** -- which is the failure mode that gets a guard
+ignored, and is why its self-test includes a genuine effect that must PASS. **It says REPRODUCIBLE,
+never GOOD:** the floor/CI bar still applies on top. Recorded in `CLAUDE.md` beside the tie rule.
+
 ---
 
 ## TLDR

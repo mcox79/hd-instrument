@@ -1,5 +1,11 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
+> # 📒 **BEFORE READING THE BLOCKS BELOW: `notes/WHAT_2026-08-20_ESTABLISHED_survives_vs_withdrawn.md`**
+> 2026-08-20 produced **11 findings and 6 retractions of my own claims**, several of them corrections
+> OF corrections. **This plan records them in the order they happened, which is the wrong order to
+> READ them in.** That file is the flat ledger: what survives, what is withdrawn, why. **Where it and
+> a block below disagree, IT IS LATER.**
+
 > # 🚨 **A MATERIAL QUALIFICATION TO THE WHOLE DAY: BOTH QUALITY MEASUREMENTS SCORE ONE OF TWO**
 > # **OUTPUT PATHWAYS. ✅ THE OTHER IS NOW MEASURED TOO -- SEE THE GREEN BLOCK BELOW.**
 >
