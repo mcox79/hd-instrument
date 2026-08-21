@@ -1932,6 +1932,27 @@ ours / **GAP** / **EXISTS – IS-REACHED – IS-GOOD** / **SMALLEST CAN-FAIL FLO
     pairs are CORRELATED and harder, so the NUMBERS do not transfer.** *The structural point does:
     an exact cue regenerates its own DG code whatever the inputs are.* **`IS-GOOD` remains genuinely
     unknown -- this says the TEST could not see the organ, not that the organ is worthless.**
+  - ⚡ **AND THIS WAS ALREADY KNOWN, IN CODE, IN A SIBLING ORGAN -- REUSE IT, DO NOT REBUILD.**
+    **`hdlab/ca3_completer.py` carries a self-test literally named
+    `selftest_full_cue_is_not_where_the_action_is`**, whose docstring reads *"At a FULL cue both arms
+    are at ceiling -- **the saturation trap, made explicit**. This is why **a full-cue test of a
+    completer measures nothing**, and it is asserted here **so the scope of the three earlier floored
+    cells cannot be quietly forgotten**."* *It ASSERTS the ceiling (`>= 0.999`) as a GUARD.*
+    **Its `routed_completion_discriminates` curve already IS the sweep D3 needs**, on a structurally
+    different (multi-spoke bound) store -- cue kept 1.00/0.80/0.60/0.50/0.35:
+    **uncompleted 1.0 / 1.0 / 0.9766 / 0.5000 / 0.0** vs **completed 1.0 / 1.0 / 0.8984 / 0.4922 /
+    0.0**. **Completion NEVER helps at any cue level, and the informative band is ~0.80→0.35 kept**
+    -- *which brackets consistently with the 25-40% corruption collapse measured on
+    `hippocampal_encoder` tonight, by different code on different structure.* **So the
+    synthetic-pattern scope caveat above is WEAKER than stated: two independent implementations
+    agree.** *It also classifies its own controls correctly:*
+    `FLOOR_random_overcomplete_codebook_reclassified_from_null = 0.4375`, *"M>d makes a random
+    codebook an overcomplete dictionary; snapping to it reconstructs the cue. **A floor, not a
+    null.**"*
+    ➡️ **WHOEVER AUTHORS D3 SHOULD REUSE THIS HARNESS** (cue-fraction sweep + oracle + null +
+    correctly-classified floor, already built and passing) **rather than author a parallel one.**
+    ⚠️ *`ca3_completer` is the D2/cleanup family, NOT D3 -- CROSS-ORGAN corroboration, not the same
+    measurement twice.*
   `notes/D3s_QUEUED_TEST_SWEEPS_THE_WRONG_VARIABLE_exact_cue_recall_is_solved_by_the_projection_alone_2026-08-21.md`
 - **SMALLEST CAN-FAIL FLOOR TEST — ⚠️ "sweeping N" IS SUPERSEDED BY THE BLOCK ABOVE; SWEEP CUE
   CORRUPTION INSTEAD. The floor design below is UNCHANGED AND STILL RIGHT.** One-shot cued recall of

@@ -85,6 +85,42 @@ argmax and never widens the basin"*, `IS-GOOD no — indistinguishable from argm
 with DO-NOT-REDO 45.** ⚠️ *Different organ, different instrument, different task -- so this is
 CORROBORATION IN SHAPE, not a shared number. Do not merge the figures.*
 
+## 7b. ⚡ **THE PRIOR-WORK CHECK PAID OUT: THIS WAS ALREADY KNOWN, IN CODE, AND ASSERTED AS A GUARD**
+
+**`hdlab/ca3_completer.py` carries a self-test named `selftest_full_cue_is_not_where_the_action_is`.**
+Its docstring, verbatim:
+
+> *"At a FULL cue both arms are at ceiling -- **the saturation trap, made explicit**. This is why **a
+> full-cue test of a completer measures nothing**, and it is asserted here **so the scope of the
+> three earlier floored cells cannot be quietly forgotten**."*
+
+***It ASSERTS the ceiling (`plain >= 0.999 and done >= 0.999`) -- the trap is encoded as a GUARD.***
+
+**And its `routed_completion_discriminates` curve already IS the sweep D3 needs:**
+
+| cue kept | 1.00 | 0.80 | **0.60** | **0.50** | 0.35 | 0.20 |
+|---|---|---|---|---|---|---|
+| top1 **uncompleted** | 1.0 | 1.0 | **0.9766** | 0.5000 | 0.0 | 0.0 |
+| top1 **completed** | 1.0 | 1.0 | **0.8984** | 0.4922 | 0.0 | 0.0 |
+
+**Completion NEVER helps at any cue level** (identical in shape to my `CA3 ON − CA3 OFF` ≤ 0), and
+the **informative band is ~0.80 → 0.35 kept**, which **brackets consistently with the 25-40%
+corruption collapse I measured on `hippocampal_encoder`.**
+
+**➡️ THIS MATERIALLY WEAKENS MY OWN SCOPE CAVEAT IN §8.** *I flagged that my patterns were synthetic
+and near-orthogonal. `ca3_completer` uses a **multi-spoke bound store with a shared mask and donor
+across spokes** -- its own note calls that *"harder than the experiment's"* -- **different code,
+different structure, same shape.** Two independent implementations agree.*
+
+*It also classifies its own controls correctly, which is the §4 lesson already solved:*
+`FLOOR_random_overcomplete_codebook_reclassified_from_null = 0.4375`, *"M>d makes a random codebook
+an overcomplete dictionary; snapping to it reconstructs the cue. **A floor, not a null.**"*
+
+> **➡️ REUSE, DO NOT REBUILD (error-flavour route 4). Whoever authors D3 should reuse this harness --
+> cue-fraction sweep, oracle, null, and a correctly-classified floor, already built and passing --
+> rather than author a parallel one.** ⚠️ *`ca3_completer` is the D2/cleanup family, NOT D3, so this
+> is CROSS-ORGAN corroboration and not the same measurement twice.*
+
 ## 8. 🔻 SCOPE LIMITS, STATED BECAUSE THEY BOUND EVERY NUMBER ABOVE
 
 1. **Patterns are i.i.d. random bipolar -- near-orthogonal. Real `(context → lemma)` pairs are

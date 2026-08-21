@@ -106,6 +106,12 @@
 >   📊 **NIGHT'S SCORECARD: 3 queued tests checked -- 1 could not run, 1 swept a dead variable, 1
 >   sound. THE TELL DISCRIMINATES.**
 >   `notes/B4s_QUEUED_TEST_CLEARS_THE_SWEEP_TELL_but_its_stated_failure_mode_was_already_answered_at_full_scale_2026-08-21.md`
+> - ✅ **`4155f27a0` -- ALL THREE NOW CORRECTED AT THE SOURCE, not only in notes.** *I applied that
+>   lesson to B1 and then failed to apply it to D3/B4 -- an author reads `ORGAN_MAP`, not my notes.*
+>   **`organ_map_cite.py D3` and `B4` now print the correction BEFORE the entry** (headers carry the
+>   organ id + a constraint keyword; tool self-test PASS). **AND D3's `EVIDENCE` LINE IS FIXED, which
+>   matters most because it always prints first: *"self-test 14/14 PASS"* IS A CEILING, NOT EVIDENCE
+>   -- that task scores 1.0000 EVEN WITH THE MEMORY SWITCHED OFF.**
 > - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
 >   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
 >   the headings *and their whole sections* into the header paragraph. **Every section BODY was
