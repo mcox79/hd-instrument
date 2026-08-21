@@ -246,6 +246,29 @@ nothing; a byte-identical snapshot is at `notes/STATUS_ARCHIVE_2026-08-21_pre_tr
 at 27,819 B -- still ~3.2x -- so escalation step 3 was raised as **board Q91** rather than
 self-authorised, per sec 6.*
 
+### 2026-08-21: escalation step 3 invoked again -- cap raised 8704 -> 28672 BY THE OWNER
+
+**Granted by the OWNER on board Q92, verbatim: *"sure raise it, but we need a way of moving old
+material to archive that doesn't take this much time."*** Escalation steps 1 and 2 were spent first
+and the measurement is recorded here as this section requires.
+
+**WHY THE OLD CAP WAS UNREACHABLE, not merely tight.** The two NEVER-TRIM sections alone --
+`## DO NOT REDO` and `## STANDING DISCIPLINES` -- measure **11,228 B**, which is **1.29x the entire
+8,704 B cap** before a single word of current state. **The cap could only have been met by deleting
+the material it exists to protect.** That is arithmetic, not effort.
+
+**The 2026-08-21 trim first did the work honestly:** 308,692 -> ~23488 B by MOVING 135 sections
+(280,747 B) to `notes/STATUS_LESSONS.md` and a byte-identical archive, deleting nothing, then rewriting the
+stale state sections. Only then was the raise requested, and it was requested rather than taken --
+sec 6 forbids the party needing the room from granting it.
+
+**⚠️ AND THE OWNER ATTACHED A STANDING REQUIREMENT TO THE GRANT, WHICH IS THE MORE IMPORTANT HALF:**
+*"Can we start storing this in substrate instead and implement an auto aging feature like the normal
+sleep pruning or something?"* **Hand-managed archiving is now explicitly a cost the owner does not
+want to keep paying.** *That maps onto `notes/ORGAN_MAP.md` D8+D4 -- memory lifetime and replay schedule,
+"making new learning stick without destroying old learning" -- which is step 5 of the build order,
+not a documentation chore.* **Tracked as work, not as a filing convention.**
+
 ### Escalation, pre-authorised so no future agent improvises under pressure
 
 If a rewrite cannot fit within 8192 after applying tiers 1-4 honestly:

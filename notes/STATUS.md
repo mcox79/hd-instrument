@@ -19,9 +19,11 @@ difference being 7,535 sentences read. First replicated positive from our side o
 `SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.**
 Marginal CIs overlapped, which is NOT a test of a difference; the paired test is. `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
 
-## TOP ITEM`, `## WHAT IS RUNNING`
-(`session_start_hook.py`, `board.py`). **Inside a section use `###`, never `##` -- a `##` here once
-terminated `## POSITION` at its own first line and both parsers mirrored an EMPTY position.**
+"TOP ITEM" and "WHAT IS RUNNING" (`session_start_hook.py`, `board.py`).
+**Inside a section use `###`, never `##`.** *And NEVER let a line BEGIN with one of those literals
+even when merely NAMING it: on 2026-08-21 this very sentence wrapped so that a line started with
+`## TOP ITEM`, and `board.py` mirrored that as the heading -- corrupting the board's STATUS section.
+The sentence documenting the hazard triggered the hazard. Hence the literals are unquoted above.*
 CHAIN: `BUILD_PLAN_post_audit_2026-08-19.md` (THE PLAN) -> HERE -> `STATUS_LESSONS.md` (detail).
 Pre-2026-08-21 session log: `STATUS_ARCHIVE_2026-08-21_pre_trim.md` (byte-identical snapshot).
 

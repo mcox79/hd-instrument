@@ -21,9 +21,10 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 PY = REPO / '.venv' / 'Scripts' / 'python.exe'
 STATUS_MD = REPO / 'notes' / 'STATUS.md'
-# Mirrors the cap in notes/STATUS_SPEC.md sec 7 (raised 8192 -> 8704 on 2026-08-15). Changing it
+# Mirrors the cap in notes/STATUS_SPEC.md sec 7 (8192 -> 8704 on 2026-08-15;
+# 8704 -> 28672 on 2026-08-21 by OWNER decision on board Q92, 'sure raise it'). Changing it
 # there means changing it here in the same commit; see the SIZE GUARD note in status_summary().
-STATUS_CAP_BYTES = 8704
+STATUS_CAP_BYTES = 28672
 PROBE_TIMEOUT_SEC = 25
 
 # The non-negotiables. Kept SHORT on purpose: a wall of text gets skimmed, and these have to
