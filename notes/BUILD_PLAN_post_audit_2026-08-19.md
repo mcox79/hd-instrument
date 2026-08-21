@@ -297,6 +297,17 @@
 > relied on to establish ABSENCE needs a SEARCH POSITIVE CONTROL.* And its first draft scanned all
 > of `data/` (~26 GB); bounded to `data/*/metrics.json`. Now the 5th row of CLAUDE.md's table.
 
+> ## **THE BOARD'S HEADER IS A CACHE OF STATUS'S `AS OF:` LINE AND IT WENT STALE IN FRONT OF THE OWNER**
+> **Found by USING `cite_check.py` on a STATUS number: `notes/BOARD.md` was still announcing
+> *"Q102 + Q103 OPEN"* and still carrying the WITHDRAWN premise *"our 9-book shelf leaves only 40 of
+> 999 SimLex pairs usable"* -- hours after I corrected STATUS and withdrew Q103.** ***The board is
+> the document the OWNER READS, so the stale copy was the one facing them.*** `board.py sync`
+> rewrites it; NOTHING NOTICED IT NEEDED REWRITING. **Same class as the registry rows being older
+> than their own report: a CACHE with no freshness check.** ✅ **Fixed + detector: the session hook
+> now compares the two `AS OF:` lines and prints the divergence WITH the fix command; both
+> directions self-tested (a matching pair must NOT flag).** `9-book shelf` no longer appears in
+> BOARD.md.
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"

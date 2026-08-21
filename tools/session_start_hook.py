@@ -309,6 +309,27 @@ def _self_test() -> int:
             print(f"[self-test] FAIL: registry_report raised on a missing tool dir: {exc!r}")
             ok = False
 
+    # THE BOARD HEADER IS A COPY OF STATUS'S AS OF LINE, AND IT WENT STALE IN FRONT OF THE OWNER
+    # on 2026-08-21. Both directions, because a staleness flag that fires when the two agree is a
+    # flag that gets ignored.
+    with tempfile.TemporaryDirectory() as td:
+        b, st = Path(td) / 'BOARD.md', Path(td) / 'STATUS.md'
+        nl = chr(10)
+        b.write_text("AS OF: same line" + nl + nl + "## QUESTIONS FOR YOU" + nl, encoding='utf-8')
+        st.write_text("AS OF: same line" + nl + nl + "## POSITION" + nl, encoding='utf-8')
+        if _board_header_stale(b, st) is None:
+            print("[self-test] PASS: matching AS OF lines are NOT reported stale (no cry-wolf)")
+        else:
+            print("[self-test] FAIL: flagged two identical AS OF lines")
+            ok = False
+        b.write_text("AS OF: the SUPERSEDED text, Q103 OPEN" + nl, encoding='utf-8')
+        out = _board_header_stale(b, st)
+        if out and 'board.py sync' in out:
+            print("[self-test] PASS: a diverged board header IS reported, with the fix command")
+        else:
+            print(f"[self-test] FAIL: divergence not reported ({out!r})")
+            ok = False
+
     # THE ROWS-BEHIND-THE-REPORT CHECK, at BOTH real scales. The audit stamps rows at START and
     # names its report at FINISH, so a healthy run leaves rows minutes behind; the 2026-08-21
     # lost-update left them 4.8 HOURS behind. A detector that cannot tell those apart is useless,
@@ -478,6 +499,44 @@ def _self_test() -> int:
 
     print(f"[self-test] {'ALL PASS' if ok else 'FAILED'}")
     return 0 if ok else 1
+
+
+def _board_header_stale(board_path: Path | None = None,
+                        status_path: Path | None = None) -> str | None:
+    """BOARD.md's `AS OF:` line is a COPY of notes/STATUS.md's. Report it when they diverge.
+
+    MEASURED 2026-08-21: STATUS's AS OF line was corrected to record that board Q103 had been filed
+    and withdrawn, and BOARD.md kept the SUPERSEDED text -- still announcing Q103 as OPEN and still
+    carrying the withdrawn premise ("our 9-book shelf leaves only 40 of 999 usable"). **The board is
+    the document the owner reads, so the stale copy was the one facing them.** `board.py sync`
+    rewrites it, but nothing noticed it needed rewriting.
+
+    Same class as the capability-registry rows being older than their own report: a CACHE with no
+    freshness check. Never raises -- a missing file is simply not a staleness claim.
+    """
+    try:
+        bp = Path(board_path) if board_path else REPO / 'notes' / 'BOARD.md'
+        sp = Path(status_path) if status_path else STATUS_MD
+        if not (bp.is_file() and sp.is_file()):
+            return None
+
+        def _as_of(path: Path) -> str:
+            for ln in path.read_text(encoding='utf-8', errors='replace').splitlines():
+                if ln.startswith('AS OF:'):
+                    return ln.strip()
+            return ''
+        b, st = _as_of(bp), _as_of(sp)
+        if not b or not st or b == st:
+            return None
+        return chr(10).join([
+            "[board-header] STALE: notes/BOARD.md's AS OF line no longer matches notes/STATUS.md's.",
+            "    The board is what the owner reads, so the stale copy is the one facing them.",
+            "    run: python tools/board.py sync",
+            f"    board : {b[:150]}",
+            f"    status: {st[:150]}",
+        ])
+    except (OSError, ValueError):
+        return None
 
 
 def board_report(board_path: Path | None = None) -> str:
@@ -705,6 +764,9 @@ def main() -> int:
     # In-process (no subprocess): the board parse is a single small file read, so it costs
     # milliseconds and cannot push this hook toward its 10s budget.
     blocks.append(board_report())
+    _stale = _board_header_stale()
+    if _stale:
+        blocks.append(_stale)
     # The owner's side channel. In-process like board_report above (one small file read), and
     # placed immediately after it because the two answer the same question -- "has the owner said
     # anything to me" -- and reading one without the other is how a note goes unanswered.
