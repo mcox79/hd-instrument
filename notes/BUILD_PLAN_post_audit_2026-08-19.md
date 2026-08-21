@@ -273,6 +273,24 @@
 > the stored key" is CLOSED; "separate similar items BEFORE storing" is a different operation.**
 > `notes/WHY_WRITING_LESS_HELPS_the_mechanism_was_already_measured_on_our_own_substrate_2026-08-21.md`
 >
+> ### 🎯 **AND THE OPERATIVE AXIS IS SUPERPOSITION LOAD PER CONCEPT -- BOTH SIDES NOW MEASURED**
+> **CAPACITY** (`vsa_cleanup_memory.capacity_curve`, d=256, existing self-tested organ): recovery
+> **0.9967 @L=8, 0.7867 @L=16, 0.3267 @L=32**, half at **L~22** (theory O(d/log d) = 46.2/32.0).
+> **WHAT WE WRITE** (`scratch/night/obs_stream_v1.npz`, the write-gate cell's OWN stream, `lens`):
+> **153,352 obs / 5,491 lemmas, MEAN 27.9, MEDIAN 17, MAX 72.**
+> ➡️ **THE MEDIAN LEMMA SITS ALMOST EXACTLY ON THE 0.79-RECOVERY POINT, AND 65.8% OF ALL WRITES LAND
+> IN BUNDLES ALREADY BELOW ONE-THIRD RECOVERY** (L>16: 50.3% of lemmas, **82.3% of writes**; L>32:
+> 30.7% of lemmas, **65.8% of writes**). ***Most of the writing goes into containers already full.***
+> 🔻 **CORRECTS MY OWN "6.2 traces/lemma" FROM ONE STEP EARLIER** -- I divided the arm's
+> `n_tokens_accepted` (33,907) by the stream's `n_lemmas` (5,491), **two different populations**.
+> *Second numerator/denominator mismatch tonight; both caught by loading the array instead of
+> dividing two summary fields.*
+> ⚠️ **UNEXPLAINED, FLAGGED NOT DIAGNOSED: `max = 72` and `p90 = p99 = 72`** -- >=10% of lemmas sit
+> at EXACTLY 72, so that is a CAP, not a Zipfian tail. **Not traced; not guessed.**
+> 🚫 **DO NOT QUOTE THE HEBBIAN 257-1,297 FOR WRITE-RATE QUESTIONS** -- different store, ~50x apart;
+> superposition is the axis the sweep actually moves.
+> `notes/THE_OPERATIVE_AXIS_IS_SUPERPOSITION_LOAD_PER_CONCEPT_two_thirds_of_writes_land_in_saturated_bundles_2026-08-21.md`
+>
 > - 🧰 **`5d433bacd` -- AND BOTH READER FAILURES ARE NOW CODE.** *`what_did_this_cell_save.py` gained:
 >   **`load_any`** (JSON, falls back to JSONL, says **UNKNOWN not absent** when both fail); it now
 >   **OPENS** sibling data files instead of listing them; and **`sample_tell`**, which flags a file
