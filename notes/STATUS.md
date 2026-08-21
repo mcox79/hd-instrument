@@ -1,6 +1,6 @@
 # STATUS -- THE RECOVERY ENTRY POINT. READ THIS, THEN THE PLAN.
 
-AS OF: 2026-08-21 LATE (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD: Q102 OPEN (wire the FORM organs); Q98 approved the write-rate extension WITH a stopping rule; Q99 done.** | 🧠 **ONE STRUCTURAL FINDING, upstream of THREE dead ends tonight: ONE REPRESENTATION IS DOING TWO JOBS THAT NEED OPPOSITE THINGS -- grounding must DELETE the word (correct, else it learns 'artery means artery'); identification needs it PRESENT (masked hit@1 0.1417 vs unmasked 0.4750, chance 0.0167). THE FORM ORGANS ARE ALREADY BUILT AND UNWIRED.** | **READ `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK (76 lines, rewritten from 6,895) -- it carries the 16 withdrawals and the method -- THEN `## POSITION` BELOW**
+AS OF: 2026-08-21 LATE (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD: Q102 OPEN (wire the FORM organs); Q98 approved the write-rate extension WITH a stopping rule; Q99 done.** | 🧠 **ONE STRUCTURAL FINDING, upstream of THREE dead ends tonight: ONE REPRESENTATION IS DOING TWO JOBS THAT NEED OPPOSITE THINGS -- grounding must DELETE the word (correct, else it learns 'artery means artery'); identification needs it PRESENT -- **VETTED 08-21: the word ALONE scores 0.9687 vs 0.6423 for word+sentence (chance 0.0167), so CONTEXT DILUTES identification and the job is a LOOKUP. DO NOT quote 0.1417/0.4750 as evidence about CONTEXT -- it is SELF-REFERENCE**. THE FORM ORGANS ARE ALREADY BUILT AND UNWIRED.** | **READ `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK (76 lines, rewritten from 6,895) -- it carries the 16 withdrawals and the method -- THEN `## POSITION` BELOW**
 
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). FOUR literals
 MACHINE-PARSED, never reword: `AS OF:`, "POSITION", "TOP ITEM" and "WHAT IS RUNNING"
@@ -33,42 +33,22 @@ difference being 7,535 sentences read. First replicated positive from our side o
 Marginal CIs overlapped, which is NOT a test of a difference; the paired test is. `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
 
 
-## TOP ITEM -- **IT IS ALREADY WIRED AND LIVE. AND ITS HEADLINE NUMBER MUST NOT BE USED THAT WAY.**
+## TOP ITEM -- **IT IS ALREADY WIRED AND LIVE. AND ITS HEADLINE NUMBER IS BARRED FROM THAT USE.**
 
-**The previous TOP ITEM said "WIRE DEFINITIONAL DIRECT-BANK", citing `64% MEANINGFUL (32/50) against
-an 8% floor`. BOTH HALVES ARE WRONG, AND `hdlab/reading_grounding_loop.py:1479` ALREADY SAYS SO IN
-THREE NUMBERED CORRECTIONS DATED 2026-08-20 THAT I HAD NOT READ.**
+**The old TOP ITEM said "WIRE DEFINITIONAL DIRECT-BANK" citing `64% vs an 8% floor`. BOTH HALVES ARE
+WRONG, and `hdlab/reading_grounding_loop.py:1479` says so in THREE numbered corrections dated
+2026-08-20 that I had not read:** (1) **it IS live** -- `substrate.py:538`, and **212 of 402
+provenance rows** carry `meaning_source=DEFINITIONAL_EXTRACTION`, which a fact cannot carry unless
+the gate fired; (2) **what ships is the PHRASE `d.definiens`, not `d.head`** -- **PHRASE 32% vs HEAD
+4%**, head **NOT distinguishable from the distributional control** (Fisher p=0.2475); (3) 🚫 **the
+64% scores the EXTRACTOR's own output, NOT the facts the gate banks, under a STANDING PROHIBITION on
+placing it beside the 4% / 1-3% / 35% / 94%.** *The TOP ITEM did exactly that.*
 
-1. **IT IS ON THE LIVE PATH.** `substrate.py:538` builds `definition_map` and passes it to
-   `checkpoint`, so the gate fires. **Runtime evidence: 212 of 402 provenance rows from a
-   12,000-sentence read carry `meaning_source=DEFINITIONAL_EXTRACTION`**, which a fact cannot carry
-   unless it fired.
-2. **WHAT SHIPS IS THE PHRASE, NOT THE HEAD.** `substrate.py:538` stores `d.definiens`. Same rubric,
-   same scorer, same day: **PHRASE 32% MEANINGFUL vs HEAD 4%**, and the head form is **NOT
-   distinguishable from the distributional control (Fisher one-sided p = 0.2475)**.
-3. 🚫 **THE 64% DOES NOT MEASURE THE FACTS THIS GATE BANKS.** It scores the EXTRACTOR's own output
-   ("is the extracted definition right for that sentence"). **There is a STANDING PROHIBITION on
-   placing it beside the 4% / 1-3% / 35% / 94% figures** -- different scorers, rubrics and
-   populations. *The TOP ITEM did exactly that, and I was about to build on it.*
-
-### 📏 **MY OWN MEASUREMENT, WHICH THE DOCSTRING DOES NOT HAVE -- THE CITED ARTIFACT IS 100% HEAD-FORM**
-*`definitional_facts_v5.jsonl`, all 2,092 rows enumerated, not sampled:*
-
-| | |
-|---|---|
-| objects that are MULTI-WORD (the validated phrase form) | **0 of 2,092** |
-| rows carrying a multi-word `definiens_surface` **already on disk** | **2,079 of 2,092 (99.4%)** |
-| rows where the phrase DIFFERS from the head | **2,082 of 2,092 (99.5%)** |
-
-**`ATP -> "process"` vs `"a process called hydrolysis"`. `Abdullah -> "minister"` vs `"the Chief
-Minister of Jammu and Kashmir"`.** ***The head form discards the differentia -- and the validated
-form is ALREADY PRESENT IN THE SAME ROWS, so nothing needs re-extracting.***
-⚠️ *The phrase route carries its own extraction errors (`Afghanistan -> "the prince was caught in
-another media furore"`); 32% is not clean, it is 8x the head form.*
-
-➡️ **SO THERE IS NO WIRING JOB HERE. The honest residue is a RE-SCOPE: the phrase is what is
-validated and what already ships; the head-form v5 artifact is not the evidence for it.**
-`b3_audit_scored_the_win_is_the_phrase_form_...` `hdlab/reading_grounding_loop.py:1479`
+**MY ADDITION, all 2,092 rows ENUMERATED: the cited artifact is `0 of 2,092` multi-word -- 100%
+HEAD-FORM -- while `2,079 (99.4%)` already carry the validated PHRASE in the SAME ROW**
+(`ATP -> "process"` vs `"a process called hydrolysis"`). ***NOTHING NEEDS RE-EXTRACTING; THERE IS NO
+WIRING JOB.*** ⚠️ *32% is 8x the head form, NOT clean.*
+`THE_TOP_ITEM_WAS_ALREADY_WIRED_...` `b3_audit_scored_the_win_is_the_phrase_form_...`
 
 ## 🌙 THE NIGHT OF 2026-08-21 -- FINDINGS, ALL FROM READING ARTIFACTS THAT ALREADY EXISTED
 
