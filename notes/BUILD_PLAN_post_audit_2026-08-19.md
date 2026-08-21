@@ -251,6 +251,28 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## 🎯 **AND THE NEUROSCIENCE METHOD IMMEDIATELY PAID OUT: OUR CA3 *MERGES* OVERLAPPING MEMORIES.
+> ## THE FAULT IS THE IMPORTED COMPLETION RULE -- NOT SPARSITY, NOT THE ALLOCATOR. THRESHOLD MEASURED.**
+> *Three arms; TWO OF MY OWN HYPOTHESES REFUTED before the third isolated it.*
+> 🚫 **ARM 1 (retrieval routed through DG vs the direct EC→CA3 path): REFUTED** -- the direct path is
+> WORSE (-0.1625). *And `CA3 OFF = 1.0000` with **80% of active units deleted** -- ~8 surviving units
+> of ~40 in 2,048 dims still identify a pattern uniquely.*
+> 🚫 **ARM 2 ("it needs more load"): REFUTED** -- `CA3 OFF` stays **1.0000 at N = 400 / 2,000 / 8,000
+> / 20,000**. Completion is never REQUIRED, because the codes are near-orthogonal by construction.
+> ✅ **ARM 3 -- OVERLAPPING memories (families around a shared base; real episodes share content):**
+> within-family code cos **-0.0003 → 0.0467 → 0.2254 → 0.5510** as input corr goes 0 → 0.95, and
+> **CA3 ON collapses 0.9050 → 0.8450 → 0.1433 → 0.0533 while CA3 OFF holds 1.0000 → 0.9733.**
+> ➡️ ***IT DOES NOT FAIL TO COMPLETE -- IT ACTIVELY MERGES CORRELATED EPISODES INTO THEIR SHARED
+> BASE. That is the catastrophic-interference failure DG exists to prevent, occurring in the organ
+> DOWNSTREAM OF DG.*** **Bar for any replacement: 0.0533 incumbent vs 0.9733 not-completing.**
+> ✅ **CONSTRAINT CHECK PASSES: my within-family 0.5510 reconciles with the organ's OWN self-test
+> (`input_cos 0.934 → code_cos 0.561`), reached by a different route.**
+> ✅ **VINDICATES DG (one of the 5 `fidelity SAME`): cross-family stays ~0.0000 while within-family
+> rises to 0.55 -- it separates WITHOUT destroying graded structure.**
+> ⚠️ *I made the mean-over-the-wrong-population error AGAIN first: with 30 families only ~1 pair in
+> 30 is same-family, so the all-pairs mean hid the effect entirely.*
+> `notes/CA3_MERGES_OVERLAPPING_MEMORIES_the_failure_is_the_COMPLETION_RULE_not_sparsity_or_the_allocator_2026-08-21.md`
+>
 > ## 🧠 **RETROSPECTIVE REDONE AS A NEUROSCIENTIST (owner, COMMENTARY 18:41Z: *"you often go for
 > ## answers that might make sense in standard coding, but don't apply well here... imagine yourself
 > ## as a neuroscience expert"*). THE CORRECTION IS EXACT AND IT CHANGED THE CONCLUSION.**
