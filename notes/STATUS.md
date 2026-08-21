@@ -22,36 +22,41 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
 "TOP ITEM" and "WHAT IS RUNNING" (`session_start_hook.py`, `board.py`).
 **Inside a section use `###`, never `##`.** *And NEVER let a line BEGIN with one of those literals
 even when merely NAMING it: on 2026-08-21 this very sentence wrapped so that a line started with
-`## TOP ITEM -- **READING GROUNDS ZERO. A COLD-START DEADLOCK, WITH ONE UNRESOLVED CAVEAT.**
+`## TOP ITEM -- **IT WAS SOLVED 8 DAYS AGO AND RANKED #1. WIRE DEFINITIONAL DIRECT-BANK.**
 
-**Owner asked why reading stalled. Measured: `Substrate().read()` with defaults grounds NOTHING.**
-Six calls on one substrate, state accumulating: **3,120 sentences, 1,871 refusals, `GROUNDED = 0` at
-every step.**
+**Owner, 2026-08-21: *"i think this reading and grounding thing was figured out a while ago - but you
+clearly didn't pick up on that."*** **They are right.** `notes/opportunity_map_2026-08-13.md` item
+**#1**, verbatim:
 
-### 🚨 THE MECHANISM IS CIRCULAR
-`ConceptSpace` grows from seeded words and **words seeded ONCE AT GROUNDING TIME**. So **grounding
-needs an anchor close enough to canonicalize against; anchors grow when something grounds; nothing
-grounds because no anchor is close enough** (dominant refusal `TAUTOLOGY_NO_ANCHOR`, best cosine
-median **0.350**). **After 600 sentences: 82 anchors** -- essentially the 107-word seed vocabulary.
-*Diagnostics that call `observe()` directly reach 4,250 anchors on 4,096 sentences, ~50x more.*
+> *"The extractor that reads 'X is a Y' out of real textbook prose currently runs only inside
+> experiment cells. Its facts are written to files that nothing live re-reads. **Wiring it means the
+> reading loop banks those facts into the foundation directly, at the moment of reading, WITHOUT
+> ASKING THE BROKEN COMPARATOR TO CHOOSE ANYTHING.**"*
 
-### ⚠️ **THE CAVEAT THAT DECIDES "BROKEN" vs "UNCONFIGURED" -- AND I HAVE NOT RUN IT**
-**Facts HAVE been banked historically** (the 402 provenance rows). **A fresh `Substrate()` has an
-EMPTY library and does NOT load `data/foundation/` (~63 MB).** If the real pipeline loads it first,
-the anchor pool starts populated and the deadlock never occurs. **ONE RUN SETTLES THIS.** Until then
-the claim is narrow: **from COLD, the default entry point grounds nothing.**
+**Evidence already on record: 64% MEANINGFUL (32/50) against an 8% floor**, same scorer, same rubric,
+same sampling, **pre-registered HARD_PASS band >=52%.** Ladder **v2 8% -> v3 38% -> v4 40% -> v5
+64%**. `data/foundation/reading_grounding_v5_termboundary/definitional_facts_v5.jsonl`, **2,092
+rows**. The brain-fidelity audit called that metric *"the best in the repository... the only place
+where the thing being measured is the thing the brain is judged on."*
 
-### ✅ RULED OUT -- MEASURED, DO NOT RE-INVESTIGATE
-**Not a read cap** (`max_patches=4` x ~300 = 1,200/call by design; repeated calls advance the
-cursor). **Not the forager leaving early** (MVT leave rule, 4 corpora visited, correct per spec).
-**Not gate strictness alone** -- only **~32 of 2,164** flagged episodes REACH a gate decision; the
-other ~98% never produce a candidate, so loosening the gate changes almost nothing.
+### 🚫 **AND I MUST CORRECT MY OWN HEADLINE FROM ONE TURN AGO: "READING GROUNDS ZERO" WAS WRONG.**
+I measured `n_grounded`, which is **the comparator gate only** -- and that gate is precisely the
+thing the 08-13 note says to BYPASS. **Reading DOES produce meanings.** 600 sentences of biology
+gives **15 consolidated entries**, provenance **3 `DEFINITIONAL_EXTRACTION` / 12 none**:
 
-### 🎯 **IT ALSO DEMOTES THE WIRING BACKLOG.** `three_tier_loop` (proven, islanded, and BOTH the
-owner's *"cold storage"* and their *"hierarchical memory"*) retains gate-failures and re-queries them
-first -- **the right shape, but it would retain ~32 items per 300 sentences.** *Wiring it now
-connects a good mechanism to a nearly empty stream.* **The bootstrap comes first.**
-`notes/READING_GROUNDS_ZERO_a_cold_start_deadlock_in_the_default_entry_point_2026-08-21.md`
+| source | examples |
+|---|---|
+| **DEFINITIONAL** | **`hypothesis -> a suggested explanation that one can test`**, `biology -> a science` |
+| none (distributional) | `brain -> people`, `create -> book`, `critical -> number` |
+
+**That is the SAME split I spent today rediscovering at 32% vs 4% -- and it was already measured at
+64% vs 8%, with the fix specified and ranked #1, eight days ago.**
+
+### 🎯 THE ACTUAL TOP ITEM
+**Wire the definitional channel to bank DIRECTLY at read time, bypassing `canonicalize`.** *The
+deadlock I described -- grounding needs anchors, anchors need grounding -- is a real property of the
+COMPARATOR path, and it is exactly why the fix is to not route through it.*
+`notes/opportunity_map_2026-08-13.md` (item #1), `notes/director_handscore_b3_v5_termboundary_2026-08-12.md`
 
 ## WHAT IS RUNNING
 

@@ -1,5 +1,22 @@
 # READING GROUNDS **ZERO** -- A COLD-START DEADLOCK IN THE DEFAULT ENTRY POINT
 
+> # 🚫 **THE TITLE IS WRONG. "GROUNDS ZERO" MEASURED ONE COUNTER.** (corrected same day, 2026-08-21)
+> **Owner: *"i think this reading and grounding thing was figured out a while ago - but you clearly
+> didn't pick up on that."* They are right, and they are right twice over.**
+> **(1) `n_grounded` IS THE COMPARATOR GATE ONLY.** Reading DOES produce meanings: 600 sentences of
+> biology yields **15 consolidated entries**, provenance **3 `DEFINITIONAL_EXTRACTION` / 12 none** --
+> e.g. **`hypothesis -> a suggested explanation that one can test`**. *The deadlock below is real for
+> the COMPARATOR path; it is not "reading produces nothing".*
+> **(2) THE FIX WAS SPECIFIED AND RANKED #1 EIGHT DAYS AGO.** `opportunity_map_2026-08-13.md`:
+> *"banks those facts into the foundation directly, at the moment of reading, WITHOUT ASKING THE
+> BROKEN COMPARATOR TO CHOOSE ANYTHING."* **64% MEANINGFUL vs an 8% floor, pre-registered HARD_PASS
+> >=52%, 2,092 rows in `reading_grounding_v5_termboundary`.**
+> **➡️ SO THE DEADLOCK IS NOT A DISCOVERY -- IT IS THE KNOWN REASON THE COMPARATOR PATH WAS TO BE
+> BYPASSED. I rediscovered a diagnosed problem at lower quality (32% vs 4%) than the 64% vs 8%
+> already on record, and proposed measuring what had already been measured.**
+> *What survives below: the `foundation_dir` parameter IS dead and `Substrate` genuinely cannot load
+> a foundation -- that is a real, separate wiring gap.*
+
 > # ✅ **THE CAVEAT IS RESOLVED: `Substrate` CANNOT LOAD A FOUNDATION AT ALL.** (verified 2026-08-21)
 > I wrote below that the deadlock might mean *"I ran it without its foundation"*. **It does not.**
 > - **`Substrate.__init__` accepts `foundation_dir` -- and `self.foundation_dir` is assigned ONCE and

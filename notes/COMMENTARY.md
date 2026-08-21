@@ -119,3 +119,11 @@ are you able to measure or set an alarm for when you have 10% context left?
 Are you able to compact when you want to?
 
 While you're considering this and answering me, please fully prepare for compaction
+
+## 2026-08-21T02:12:20Z  --  the status window
+
+i think this reading and grounding thing was figured out a while ago - but you clearly didn't pick up on that. look deeply at the old notes for what worked best
+
+## 2026-08-21T02:22:53Z  --  the status window
+
+You should make an overngiht plan with a clear and varied plan of attack, including a few high priority organs / capabilities
