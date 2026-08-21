@@ -177,6 +177,21 @@
 >   one.* **UNCHANGED: random rate-matched matches at all four points (gain is RATE), and every arm
 >   stays `BELOW_0.5_COOCCURRENCE`.** *Position changed 3x in one night -- weight the measurement,
 >   not my judgement.*
+> - 📊 **AND THE REASON ALL OF TONIGHT'S FINDINGS CAME FROM RE-READING: ~1 CELL IN 3 IS
+>   RE-ANALYSABLE. FULL ENUMERATION OF ALL 7,905 `data/exp_*` DIRS, NOTHING SAMPLED.**
+>   **2,012 have a DATA-extension sibling + 435 hold a >=50-entry population INSIDE `metrics.json`
+>   = 2,447 (31.0%) CONFIRMED RE-ANALYSABLE; ~5,356 (67.8%) are SUMMARY-ONLY and must be re-run.**
+>   *Two checks on my own method, both of which moved the answer: counting only LISTS undercut by 35%
+>   (populations are often DICTS keyed by item -- 283 → 435); and the "stray `.log` inflates it"
+>   objection is real but tiny (`.json` 3,759 / `.jsonl` 450 / `.npz` 228 vs `.log` 45; only 15
+>   log-only cells).* ⚠️ **NOT a refutation of the earlier "158 / 3,518" figure -- different
+>   population (3,676) and criterion; discipline 11, so this one is defined here and stands alone.**
+>   ➡️ ***DECISION RULE, NOT A STATISTIC: BEFORE CONCLUDING "WE MUST RE-RUN" -- OR FILING A BOARD
+>   QUESTION ASKING FOR A MEASUREMENT -- OPEN THE CELL. Tonight 3 of 4 such questions were already
+>   answered on disk, and TWICE I asked the owner to authorise producing a number already saved.***
+>   *The 4th (the 90% extractor) genuinely was not there -- v2 saved its 37 KB hand-check SAMPLE, not
+>   its 1,414 survivors, which is also this measurement's own loosest edge.*
+>   `notes/ONE_THIRD_OF_THE_ARCHIVE_IS_RE_ANALYSABLE_measured_by_full_enumeration_not_sampled_2026-08-21.md`
 > - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
 >   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
 >   the headings *and their whole sections* into the header paragraph. **Every section BODY was
