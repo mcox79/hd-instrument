@@ -251,6 +251,30 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## 🔬 **AND Q74's SHARPER HALF IS NOW ANSWERED: SURPRISE IS REAL BUT UNINFORMATIVE ABOUT VALUE --
+> ## WHICH EXPLAINS THE WRITE-GATE NULL THAT HAD NO MECHANISM.**
+> 🔻 **THE WRONG EXPLANATION I ALMOST FILED:** position-MEAN surprise barely moves (`0.9572 →
+> 0.9288`), which reads as "the signal is SATURATED, so gating is necessarily random". **FALSE.**
+> ✅ **THE DISTRIBUTION -- what a gate actually thresholds on -- HAS REAL SPREAD:** 2,880 trace
+> events, mean 0.9360, **sd 0.0960**, p1 0.6437 / p50 0.9477 / p99 1.1230, range **0.348-1.204**.
+> *Averaging over 80 lemmas hid the within-position variance that mattered.*
+> 🎯 ***THE ACTUAL FINDING: surprise VARIES, marginal value VARIES, and THEY DO NOT VARY TOGETHER --
+> r = +0.2382 (n=36), interval comfortably spanning zero. A gate can select high-surprise traces
+> perfectly well; it just will not be selecting VALUABLE ones.***
+> 🔗 **AND THAT NAMES THE MECHANISM FOR A PREVIOUSLY UNEXPLAINED NULL:
+> `exp_predictive_coding_write_gate_dissociation_v1` found prediction-error gating `NOT_SEPARATED`
+> from rate-matched RANDOM at all four thresholds, recorded as a fact WITHOUT a mechanism.
+> GATING ON AN UNCORRELATED SIGNAL *IS* GATING AT RANDOM.**
+> ⚠️ **EVIDENCE IS ASYMMETRIC AND I SAY SO: my r is on 36 AGGREGATED positions and is UNDERPOWERED.
+> The load-bearing evidence is the landed cell's rate-matched control (direct, CIs, four
+> thresholds). They agree; the cell carries the weight.**
+> 🧠 **FOR THE OWNER'S INTUITION: it SURVIVES. What fails is our PROXY -- cosine-from-anchor measures
+> NOVELTY OF FORM, and the intuition needs NOVELTY OF CONTENT. In a representation where every
+> context is near-orthogonal, form-novelty says nothing about whether a trace teaches anything.**
+> ***The route is not closed. The measure is.*** *And needing "two contexts about the same thing to
+> look alike" is the 0.0056 encoding gap AGAIN -- third time it has surfaced tonight.*
+> `notes/SURPRISE_IS_REAL_BUT_UNINFORMATIVE_ABOUT_VALUE_which_explains_the_write_gate_null_2026-08-21.md`
+>
 > ## 🎯 **AND TWO OF TONIGHT'S MEASUREMENTS SET SIDE BY SIDE ANSWER A STANDING OWNER QUESTION
 > ## (Q71/Q74): THE LOOP STOPS ACCRUING EXACTLY WHERE ACCRUAL STILL PAYS.**
 > **(a) MORE TRACES HELP:** hit@1 `0.0312 → 0.0516 → 0.0719 → 0.0984 → 0.1219 → 0.1328` at
