@@ -35,14 +35,14 @@ grounding precision loses 2-3x to a trivial top-co-occurrent baseline (p<.02, 3 
 1.6-3.0%); discrimination re-ranking loses to bag-of-words on 3 corpora. **Counting beats every arm
 this project has built, by roughly 10x.** Growth stays PAUSED.
 ### THE ONE GOOD HALF, AND THE BOTTLENECK
-**The definitional-PHRASE half of the output is genuinely good** -- `meaning_source=
-DEFINITIONAL_EXTRACTION` scores **32% MEANINGFUL (212 of 402)** against **4%** for distributional
-`canonicalize` (190 of 402), same scorer, same rubric; it clears every length-matched floor on an
-independent gold across 4 seeds. **The win is the FORM (a phrase), not the SOURCE.**
-**AND NOTHING IN THE SUBSTRATE READS THE BANKED MEANINGS** -- enumerated across 4 routes, whole
-repo; three attempts to change that all failed. That read-back gap is the bottleneck, not quality.
-Flat ledger of what survives vs what I withdrew: `WHAT_2026-08-20_ESTABLISHED_survives_vs_withdrawn.md`.
-### 2026-08-21 -- THE F5 BAR IS MEASURED AND REPLICATED, BEFORE THE ORGAN EXISTS
+**The definitional-PHRASE half of the output is genuinely good.** Of 402 provenance rows,
+`meaning_source=DEFINITIONAL_EXTRACTION` accounts for **212** and `canonicalize` for the other
+**190** -- that is the POPULATION SPLIT, not a score. Hand-scored on the same rubric by the same
+scorer, the definitional half reads **32% MEANINGFUL** and the distributional half **4%**.
+*(Written as "32% MEANINGFUL (212 of 402)" until 2026-08-21: that reads as though 212/402 WERE the
+32%, which it is not -- 212/402 is 52.7%. The source note had share and score in SEPARATE COLUMNS
+and my compression merged them. Numbers unchanged; the sentence was the defect.)*
+It clears every length-matched floor on an
 
 **TOP ITEM`, `## WHAT IS RUNNING`**
 (`session_start_hook.py`, `board.py`). **Inside a section use `###`, never `##` -- a `##` here once
@@ -65,7 +65,7 @@ Pre-2026-08-21 session log: `STATUS_ARCHIVE_2026-08-21_pre_trim.md` (byte-identi
   (`_tie_mass_examination_2026-08-21.json`); this file trimmed 308,692 -> ~17 KB with **nothing
   deleted**; the hook size guard. All committed.
 
-_mirrored from `notes/STATUS.md` at 2026-08-21T00:04:41Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-21T00:15:31Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
