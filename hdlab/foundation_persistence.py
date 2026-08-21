@@ -239,19 +239,36 @@ def load_store(dir_path: str) -> HDFactStore:
 
 # ============================================================================ ConceptSpace
 def save_concept_space(space: ConceptSpace, path: str) -> None:
+    """Persist the accumulator. `counts` was ADDED 2026-08-21 and is written unconditionally.
+
+    WHY IT EXISTS: the store kept each lemma's SUM and not how many traces went into it, which
+    made "how loaded is this concept?" unanswerable from disk. The obvious workaround --
+    recovering L from ||sum||^2/d -- is INVALID, because that identity holds only for INDEPENDENT
+    contributions and returns L^2 for correlated ones; on a real store it read 92,155 for a single
+    lemma against a manifest recording 26,123 occurrences IN TOTAL. One integer per lemma settles
+    what an estimator cannot. See notes/THE_LIVE_LOAD_ESTIMATOR_IS_INVALID_*.md.
+    """
     lemmas = sorted(space._sums.keys())
     sums = (np.stack([space._sums[l] for l in lemmas], 0).astype(np.float64) if lemmas
            else np.zeros((0, space.d), dtype=np.float64))
-    _write_npz(path, lemmas=np.array(lemmas), sums=sums, d=np.array([space.d]))
+    # -1 = UNKNOWN, never 0. A lemma present in _sums but absent from _counts was seeded without
+    # a count; recording 0 would later read as "empty", which is a different and false claim.
+    counts = np.array([space._counts.get(l, -1) for l in lemmas], dtype=np.int64)
+    _write_npz(path, lemmas=np.array(lemmas), sums=sums, d=np.array([space.d]), counts=counts)
 
 
 def load_concept_space(path: str) -> ConceptSpace:
+    """BACKWARD COMPATIBLE: a snapshot written before `counts` existed loads unchanged, with every
+    lemma reporting UNKNOWN (-1) rather than a fabricated 0. The read-only foundation stores in
+    data/foundation are exactly that case and must keep loading."""
     npz = np.load(path)
     d = int(npz["d"][0])
     space = ConceptSpace(d=d)
     lemmas, sums = list(npz["lemmas"]), npz["sums"]
+    counts = npz["counts"] if "counts" in npz.files else None
     for i, lem in enumerate(lemmas):
         space._sums[str(lem)] = sums[i].astype(np.float64)
+        space._counts[str(lem)] = int(counts[i]) if counts is not None else -1
     return space
 
 
@@ -503,6 +520,32 @@ def _selftest_concept_space_roundtrip(tmp_dir: str) -> None:
     for lem in space.anchors():
         assert np.array_equal(space._sums[lem], space2._sums[lem])
         assert np.array_equal(space.bundle(lem), space2.bundle(lem))
+    # TRACE COUNTS survive the roundtrip (added 2026-08-21). Each lemma above was observed twice.
+    for lem in space.anchors():
+        assert space2.trace_count(lem) == 2, (lem, space2.trace_count(lem))
+    # ...and an explicitly seeded lemma with no count stays UNKNOWN rather than becoming 0.
+    space.seed_from_bundle("seeded", np.ones(32))
+    save_concept_space(space, p)
+    assert load_concept_space(p).trace_count("seeded") == -1
+
+
+def _selftest_pre_counts_snapshot_reports_UNKNOWN_not_zero(tmp_dir: str) -> None:
+    """A concept_space.npz written BEFORE `counts` existed must still load, and every lemma must
+    report -1 (UNKNOWN) rather than 0.
+
+    This is not hypothetical: the read-only stores in data/foundation are exactly this shape, they
+    have no backup, and 0 would be a false claim that a concept is empty. The distinction matters
+    because the reason counts were added at all was that an ESTIMATOR of load (||sum||^2/d) proved
+    invalid -- it returned 92,155 for a lemma in a store holding 26,123 occurrences in total. A
+    fabricated 0 would be the same class of error in the opposite direction.
+    """
+    p = os.path.join(tmp_dir, "legacy_cspace.npz")
+    np.savez(p, lemmas=np.array(["alpha", "beta"]), sums=np.zeros((2, 16), dtype=np.float64),
+             d=np.array([16]))
+    space = load_concept_space(p)
+    assert space.anchors() == ["alpha", "beta"]
+    for lem in ("alpha", "beta"):
+        assert space.trace_count(lem) == -1, (lem, space.trace_count(lem))
 
 
 def _selftest_library_pending_roundtrip(tmp_dir: str) -> None:
@@ -649,6 +692,7 @@ def _run_all_selftests() -> dict:
         _selftest_pipeline_provenance_survives_flush(tmp)
         _selftest_continuation_matches_uninterrupted_run(tmp)
         _selftest_concept_space_roundtrip(tmp)
+        _selftest_pre_counts_snapshot_reports_UNKNOWN_not_zero(tmp)
         _selftest_library_pending_roundtrip(tmp)
         _selftest_full_foundation_roundtrip_and_resume_grounds(tmp)
         _selftest_v1_snapshot_without_sidecars_still_loads(tmp)
@@ -658,6 +702,7 @@ def _run_all_selftests() -> dict:
         "pipeline_provenance_survives_flush_ok": True,
         "continuation_matches_uninterrupted_run_ok": True,
         "concept_space_roundtrip_ok": True,
+        "pre_counts_snapshot_reports_UNKNOWN_not_zero_ok": True,
         "library_pending_roundtrip_ok": True,
         "full_foundation_roundtrip_and_resume_grounds_ok": True,
         "v1_snapshot_without_sidecars_still_loads_ok": True,

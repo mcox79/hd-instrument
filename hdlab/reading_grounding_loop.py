@@ -472,19 +472,41 @@ class ConceptSpace:
     def __init__(self, d: int = CTX_D) -> None:
         self.d = d
         self._sums: Dict[str, np.ndarray] = {}
+        # HOW MANY traces went into each sum. Added 2026-08-21 because the store persisted the
+        # SUM and not the COUNT, which made "how loaded is this concept?" unanswerable from disk.
+        # The attempted workaround -- recovering L from ||sum||^2/d -- is INVALID here: that
+        # identity holds only for INDEPENDENT contributions, and for correlated ones it returns
+        # L^2. It read a maximum of 92,155 for one lemma in a store whose manifest records
+        # n_occurrences_seen = 26,123 IN TOTAL, i.e. 3.5x every occurrence of every word combined.
+        # See notes/THE_LIVE_LOAD_ESTIMATOR_IS_INVALID_*.md. One integer per lemma settles it.
+        # -1 means UNKNOWN (seeded without a count) and is never conflated with 0.
+        self._counts: Dict[str, int] = {}
         self._version = 0                                        # bumped on EVERY mutation
         self._mat_cache: Optional[Tuple[int, List[str], np.ndarray]] = None
 
     def observe(self, lemma: str, ctx_vec: np.ndarray) -> None:
         if lemma not in self._sums:
             self._sums[lemma] = np.zeros(self.d, dtype=np.float64)
+            self._counts[lemma] = 0
         self._sums[lemma] += ctx_vec
+        if self._counts.get(lemma, -1) >= 0:                     # never turn UNKNOWN into a count
+            self._counts[lemma] += 1
         self._version += 1
 
-    def seed_from_bundle(self, lemma: str, raw_sum: np.ndarray) -> None:
+    def trace_count(self, lemma: str) -> int:
+        """Traces accumulated into `lemma`'s sum. -1 = UNKNOWN (seeded without a count, or loaded
+        from a pre-2026-08-21 snapshot that did not persist counts). NEVER returns 0 for unknown."""
+        return int(self._counts.get(lemma, -1))
+
+    def seed_from_bundle(self, lemma: str, raw_sum: np.ndarray, n_traces: int = -1) -> None:
         """Seed (or overwrite) a lemma's accumulator directly from an already-computed raw sum
-        (used at grounding time: the sum of a Library item's own trace context vectors)."""
+        (used at grounding time: the sum of a Library item's own trace context vectors).
+
+        `n_traces` is how many traces that sum was built from. It DEFAULTS TO -1 = UNKNOWN rather
+        than to 0, because a seeded lemma genuinely has an unknown load unless the caller says
+        otherwise, and recording 0 would be a lie that later reads as "empty"."""
         self._sums[lemma] = np.array(raw_sum, dtype=np.float64, copy=True)
+        self._counts[lemma] = int(n_traces)
         self._version += 1
 
     def anchor_matrix(self) -> Tuple[List[str], np.ndarray]:
@@ -1593,7 +1615,9 @@ def checkpoint(state: ReadingLoopState, pass_idx: int, source_tag: str, trust: s
             canon_obj, best_cos = canonicalize(lemma, raw_sum, state.space, thresh=SENSE_MATCH_THRESH)
         res = state.store.store(lemma, MEANING_RELATION, canon_obj, f"reading:{source_tag}", trust)
         state.store.store(lemma, KNOWN_RELATION, KNOWN_OBJECT, f"reading:{source_tag}", trust)
-        state.space.seed_from_bundle(lemma, raw_sum)
+        # len(it.traces) is the true count in BOTH branches above: the decision path's raw_sum
+        # is the sum of these same traces, it is just precomputed there.
+        state.space.seed_from_bundle(lemma, raw_sum, n_traces=len(it.traces))
         self_grounded = (canon_obj == lemma)
         bank_schema_score = schema_consistency_split_half(it.traces, min_half_size=2)
         cos_out = round(float(best_cos), 4) if best_cos is not None else None
