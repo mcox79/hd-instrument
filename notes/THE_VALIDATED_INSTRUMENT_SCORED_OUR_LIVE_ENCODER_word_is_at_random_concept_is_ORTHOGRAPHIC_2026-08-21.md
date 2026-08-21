@@ -36,6 +36,35 @@ several artifacts caught tonight.*
 d=1024 it rises to rho 0.0747 against random 0.0119 -- better, still small, and **not the dimension
 we run.***
 
+## 2b. 🔴 **CORRECTION TO §2, AND IT MATTERS: THE WORD ENCODER IS RANDOM *BY CONSTRUCTION*, NOT BY FAILURE**
+
+**I wrote §2 as if a deficiency had been discovered. It has not.** The cell's
+`production_encoder_identification` block names the live word encoder exactly:
+
+> **`"INLINED in hdlab/grounding_acquisition_loop.context_vector and exposed as
+> hdlab/reading_grounding_loop.symbol_vector: sha256(w)[:8] -> seed -> default_rng(seed).choice([-1,+1], d)"`**
+
+**THE LIVE WORD CODE IS A HASH-SEEDED RANDOM DRAW. It cannot correlate with meaning -- not "does
+not", CANNOT.** `rho = -0.0019` is not a finding about our encoder's quality; **it is the
+mathematically necessary value, and its appearance confirms the instrument is measuring the right
+object.**
+
+**AND THAT IS ORTHODOX VSA, NOT A DEFECT.** *Atomic symbols are random by design; meaning is supposed
+to live in what gets BUNDLED, which is the concept level.* **So "the meaning may not be there in the
+first place", as I put it, is WRONG at the word level -- it was never meant to be there.**
+
+*How the cell proves the arm really is the live path, rather than asserting it:*
+**`byte_equality_vs_live_context_vector_masked: "200/200"`** -- 200 samples byte-identical to the live
+function -- and the identification method is stated as *"RUNTIME: imported the two live entry points
+and diffed `sys.modules`; then reconciled to `capability_registry.jsonl`. **Never the reverse, and
+never from grep.**"* **That is the exact discipline `CLAUDE.md` demands, executed.**
+
+**🔎 AND ONE MORE THING IN THAT BLOCK, WHICH BELONGS BESIDE TONIGHT'S ISLANDING WORK:**
+> *"12 encoder-named candidates, **0 on the live path**... every encoder-named registry row is
+> `WIRED_BUT_NOT_PIPELINE_REACHABLE`; **NO registry row names the live word encoder at all**."*
+
+**Twelve built encoders, none reached, and the thing actually running is unregistered.**
+
 ## 3. ⚡ **THE CONCEPT ENCODING DOES CARRY REAL STRUCTURE -- AND THE BIG SIGNAL IS ORTHOGRAPHIC**
 
 | arm (d=256) | SimLex rho | **GOLD_ORTHO lift** | FREQBAND | PLANTED |
@@ -86,11 +115,22 @@ meaning.** It shows a large effect on a spelling-based test, and only a weak rel
 judgements of meaning. **The experiment includes the right control** — scramble the concepts and the
 spelling effect vanishes completely — so the effect is real, not a measurement quirk.
 
-**Why this matters more than anything else I found:** everything else tonight assumed the system
-stores meaning and asked which downstream part fails to use it. **This suggests the meaning may not
-be there in the first place.** It also explains a pattern that's dogged this project — simple
-spelling-based baselines keep beating our sophisticated methods. If our own representation is largely
-spelling, then a spelling baseline isn't a cheap trick, **it's a competitor using the same signal.**
+**I initially misread the first one and have corrected it.** I reported the word-level result as a
+*discovered weakness*. It isn't: the code that represents a word is **deliberately a random pattern
+derived from its spelling hash** — that's the standard design in this family of systems, where words
+are meant to be arbitrary tags and meaning is supposed to live in what accumulates around them.
+**Scoring zero there is the mathematically required answer, and getting it is evidence the instrument
+is pointed at the right thing.**
+
+**So the real finding is the second one**, and it's narrower but sharper: **the level that IS supposed
+to carry meaning carries a lot of spelling and a little meaning.**
+
+That still explains a pattern that's dogged this project — simple spelling-based baselines keep
+beating our sophisticated methods. If the structure our representation actually captures is largely
+spelling, **a spelling baseline isn't a cheap trick, it's a competitor drawing on the same signal.**
+
+**One more thing worth flagging:** twelve different encoders have been built, **none of them is on
+the live path**, and the one actually running **isn't recorded in our capability list at all.**
 
 **One thing I'm careful not to claim:** the spelling number and the meaning number are in different
 units and can't be divided into a ratio, and no precision is given for the meaning figure. The honest
