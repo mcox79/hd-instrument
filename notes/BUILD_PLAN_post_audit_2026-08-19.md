@@ -251,6 +251,31 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## 🔻🏆 **AND A CORRECTION PLUS THE BEST RESULT: RECOVERY-COSINE WAS GAMEABLE, AND THE
+> ## BIOLOGICALLY-LOCAL RULE BEATS BOTH THE INCUMBENT AND THE PSEUDO-INVERSE.**
+> 🔻 **CORRECTION TO MY OWN `+0.2832`: recovery-cosine REWARDS MERGING. The incumbent Hebbian rule --
+> the one I had just proven merges -- scores the HIGHEST recovery of all four (0.7189 vs cue 0.4652,
+> pinv 0.5731, delta 0.6794).** *A merged attractor sits at the family's shared base, which at 0.55
+> within-family overlap is close to every member. Recovery cannot tell "reconstructed" from
+> "collapsed to the average of its neighbours".*
+> ✅ **THE UNGAMEABLE METRIC IS A MARGIN: target MINUS nearest same-family sibling** (merging raises
+> both, so it cannot inflate the difference; and keeping episodes DISTINCT is exactly why DG exists).
+> | rule | to TARGET | to SIBLING | **MARGIN** | local? |
+> |---|---|---|---|---|
+> | cue itself | 0.4652 | 0.3930 | **+0.0723** | -- |
+> | **one-shot Hebbian (incumbent)** | 0.7189 | **0.8210** | **−0.1021** | yes |
+> | pseudo-inverse | 0.5731 | 0.4892 | +0.0839 | 🚫 global inverse |
+> | **LOCAL error-driven delta** | 0.6794 | 0.5818 | **+0.0975** | ✅ **YES** |
+> ➡️ ***THE INCUMBENT'S MARGIN IS NEGATIVE -- its output is closer to a SIBLING than to the memory it
+> was cued with. AND THE BIOLOGICALLY PLAUSIBLE RULE IS THE BEST OF THE FOUR.*** **So the fix does
+> NOT require abandoning plausibility -- it requires abandoning the ONE-SHOT outer product, which was
+> never the pinned part (`ORGAN_MAP`: core operation UNPINNED, Hopfield sign-update is OUR import).**
+> ⚠️ **LIMITS: different scale from the previous run (dg=1024/N=400 vs 2048/600) so NUMBERS DO NOT
+> TRANSFER between them; 200 epochs is NOT one-shot, and one-shot encoding is the hippocampus's
+> signature -- how FEW passes suffice is UNMEASURED and is the next question (replay = organ D4);
+> bench only, nothing wired.**
+> `notes/THE_LOCAL_ERROR_DRIVEN_RULE_BEATS_BOTH_and_recovery_cosine_was_the_wrong_metric_2026-08-21.md`
+>
 > ## ⚖️ **AND I THEN APPLIED THAT REFRAME TO THE OTHER FIVE. IT RESCUES EXACTLY ONE OF SIX.**
 > *I flagged it as "a question to ask, not an answer to assume". Asked. **It does NOT generalise.***
 > | mechanism | trivial baseline | brain-computable? | verdict |
