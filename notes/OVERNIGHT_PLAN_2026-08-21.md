@@ -67,9 +67,20 @@ any single one does not idle the night, and so they do not contend for the same 
 > the unpinned half of a half-pinned organ. **Breadth was never in the currency.**
 > **`notes/T1_foraging_the_negative_drilled_MVT_says_WHEN_TO_LEAVE_not_WHERE_TO_GO_2026-08-21.md`**
 >
-> **REAL REMAINING WORK:** (1) a clean re-score on a probe **not register-matched** to either arm --
-> no new run; (2) the **patch-choice** primitive, which is the actual build target; (3) the live-path
-> call site (`IS-REACHED: no`) -- *a wiring, not a build.*
+> **REAL REMAINING WORK:** ~~(1) a clean re-score on a probe **not register-matched** to either arm --
+> no new run;~~ 🔴 **(1) IS IMPOSSIBLE -- VERIFIED ON DISK. THE CELL PERSISTED ITS SCORES BUT NOT ITS
+> OUTPUTS**: zero list-valued per-arm fields in `metrics.json`, none in `units.jsonl`'s 5 units, and
+> a 9,482-byte stdout log. **The banked terms exist nowhere, so every re-analysis costs a full
+> re-run** (4,144 s x 5 arms). *(2) the **patch-choice** primitive, the actual build target; (3) the
+> live-path call site (`IS-REACHED: no`) -- a wiring, not a build.*
+>
+> **AND THE CONFOUND IS NOW QUANTIFIED, WHICH WITHDRAWS THE INVERSION HEADLINE:** measuring what each
+> arm **BANKED FROM** rather than what it read -- **FROZEN 88.2% news/conversational, FORAGE 11.6%**
+> -- against a probe whose backbone is **SUBTLEX-US (51M words of film/TV subtitles)**. That is a
+> **7.6x register bias favouring FROZEN sitting under a 1.20x margin.** **The comparison cannot
+> support a claim about selection quality in EITHER direction**, and flipping it ("FORAGE actually
+> wins") would be the same overclaim reversed.
+> **`notes/T1_the_register_confound_is_QUANTIFIED_a_7_6x_bias_sits_under_a_1_2x_effect_2026-08-21.md`**
 
 ## ~~2. T1 -- THE SYSTEM CANNOT NOTICE WHAT IT DOES NOT KNOW~~ **(the superseded version, kept visible on purpose)**
 
@@ -90,7 +101,21 @@ instead of a synthetic dict; the driver is ~60-100 lines.
   the organ adds nothing*; **(ii) the FROZEN 4-entry schedule** that produced the skew.
 - **HONEST CAVEAT, IN THE WRITEUP:** function parity, **not** equation parity. UNPINNED.
 
-## 3. T2 -- **WHO DOES "HE" REFER TO**
+## 3. T2 -- 🔴 **SUPERSEDED. THE PROPOSED MECHANISM ALREADY RAN AND MADE COREFERENCE *WORSE*.**
+
+> **`exp_coref_cue_based_retrieval_actr_activation_v1`, landed 2026-08-14: `HARD_FAIL`.**
+> `delta vs base_principle_b = **-0.1348 (CI -0.2500..-0.0337)**`, on link-level pronoun accuracy
+> over the **COMPETITIVE subset (>=2 gn-compatible candidates)** -- *my proposed mechanism, on my
+> proposed can-fail test.* **A CI-separated harm, not a null.** Neighbours: `..._tiebreak_under_
+> centering_v2` **VACUOUS**, `..._cb_tier_error_anatomy_v1` **RANKING_DOMINATED**.
+>
+> **BUT NOT "CUE-BASED RETRIEVAL IS WRONG":** the brain side is pinned as an **ORDERING**, and the
+> map says *"the cue weights and the activation equation are UNPINNED."* **A brain-faithful
+> mechanism lost to our invented arithmetic -> `presumed impl-bug until proven structural`.**
+> **The open question is a DIAGNOSIS of an existing artifact -- *why did our ACT-R activation lose
+> 13.5 points?* -- not a build.**
+
+## ~~3. T2 -- WHO DOES "HE" REFER TO~~ **(superseded version, kept visible)**
 
 Corrected floors, from the **same run** that measures our resolver (never across runs):
 **our resolver 0.7193** vs **most-recent-mention 0.5614** and **subject-position-majority 0.3860**.
@@ -103,7 +128,32 @@ Fix: replace our invented arithmetic with genuine parallel cue-based retrieval w
 interference, scored by the semantic comparator rather than token overlap. **Test at n in the
 hundreds, not n=10.**
 
-## 4. T3 -- **TURN ON THE BETTER WORD CODES**
+## 4. T3 -- 🔴 **SUPERSEDED: THE SWITCHES ARE ALREADY ON. THE REAL DEFECT IS SHARPER.**
+
+> `reading_grounding_loop.py:103` -- `GRADED_COMPARATOR` defaults to **`"1"` = ON**; `:683`
+> `graded_query` follows it. And `exp_graded_path_vs_orthographic_floor_v1/metrics.json` carries a
+> field named **`premise_correction`**: *"GRADED_COMPARATOR is default-ON ... NOT default-OFF as the
+> dispatch brief assumed"* -- **a PRIOR dispatch made my identical mistake.**
+>
+> **THE REAL DEFECT:** `canonicalize_fast` honours the switch (`:821-825`); **`canonicalize` `:776`
+> hardcodes `np.sign(new_raw_sum)` with no branch** -- and **the grounding decisions (`:1330`,
+> `:1593`) call the one that cannot do a graded query**, while `definitional_extraction.py:19` says
+> it is *"the loop's ONLY grounding signal."* So the field is GRADED and the query is BINARY -- the
+> configuration `:663` itself calls **"worse than either"**. Unreached effect, measured: **0.6997 vs
+> 0.6395, +0.0602 CI [+0.0440,+0.0762]**. *Not transferred, not measured on the grounding task.*
+> **`notes/T3_the_live_grounding_path_reads_a_GRADED_field_with_a_SIGNED_query_2026-08-21.md`**
+>
+> ## 🅃5 -- **AND FOLLOWING T3 FOUND THE BIGGER ONE (owner-authorised expansion)**
+> **`A6_TRIGRAM_ONLY` -- pure spelling, ZERO substrate signal -- beats the meaning read-out
+> `A1_BASE` at hit@1 `0.087` vs `0.048`, CIs NON-OVERLAPPING** (0.078 > 0.055), identical
+> items/pool/gold/scorer. **And `A8_MAXORTHO`, documented as *"the strongest available zero-meaning
+> attack"*, is `_z(trig) + _z(pre)` -- a SUM, scoring `0.061`, 30% BELOW its own component.**
+> ⚠️ **The deciding check -- tie mass -- was never computed in EITHER cell; it is RUNNING NOW
+> (`tools/orthographic_floor_tie_mass_v1.py`).** Median rank is identical (37.0 vs 37.0), so the
+> whole effect lives in the top slot, which is the most tie-sensitive statistic there is.
+> **`notes/T5_the_orthographic_floor_drilled_pure_SPELLING_beats_meaning_and_the_MAXORTHO_arm_is_not_a_MAX_2026-08-21.md`**
+
+## ~~4. T3 -- TURN ON THE BETTER WORD CODES~~ **(superseded version, kept visible)**
 
 Three switches are **already built and already default-OFF**. Live path runs `d=256` quantised at
 **0.6395**; at probe scale the graded versions read **0.7030** and **0.78225**.
