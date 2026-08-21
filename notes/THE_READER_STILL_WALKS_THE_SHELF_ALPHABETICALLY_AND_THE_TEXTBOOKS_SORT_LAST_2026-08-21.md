@@ -77,10 +77,15 @@ graded readers — and **never reached any of our six textbooks.**
 A fix two days ago stopped it re-opening the same three books forever, and that fix works. **But it
 only moves a pointer down a sorted list; it does not choose.**
 
-**Why that matters: we measured earlier that dense technical writing teaches this system about three
-and a half times better than general prose. Every one of those technical sources begins with a letter
-near the end of the alphabet.** So a short session reads storybooks and never opens the biology
-textbook — **not because anything decided that, but because "a" comes before "t".**
+**Why that might matter: there is a hint that dense technical writing teaches this system better than
+general prose, and every technical source we own begins with a letter near the end of the alphabet.**
+So a short session reads storybooks and never opens the biology textbook — **not because anything
+decided that, but because "a" comes before "t".**
+
+*I checked that hint after writing this note, and it is thinner than I first made it sound: it rests
+on seventeen examples judged by one person, counting "genuinely meaningful" and "roughly related"
+together, where the "genuinely meaningful" cases number one and two.* **So it is a reason to look,
+not a reason to conclude.**
 
 **What I'm not saying:** that shuffling the order would help. I've measured the order, not the
 outcome of changing it. That's an argument for testing a change, not for making one — **and I have
