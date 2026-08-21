@@ -47,6 +47,15 @@ reading differs -- a clean attribution because the codebook was measured separat
 *Overlapping marginal CIs are not a test of a difference; this is. The project's standing position
 can now be stated in its strong form for this task.*
 
+### 3b. 🚨 AND THE SUBSTRATE'S SIGNAL IS **SUBSUMED** BY COUNTING -- a lossy counter on this task
+On 478 anomalous sentences: both arms hit **88** where independence predicts 62.3; **substrate-only
+58 where independence predicts 83.7**. Substrate-unique rate minus independence = **`-0.0537`, CI
+`[-0.0741, -0.0330]`, EXCLUDES ZERO.** *The arms agree far more than two independent arms would --
+one signal read twice.* **This closes the room "+16.3 vs +29.4" left open**: "we get different items
+so combining helps" is refuted, not merely unsupported. *The same analysis returned NOT SUBSUMED for
+the sensorimotor spoke, so the test discriminates.* **It does not say we have no signal** -- +16.3 is
+replicated and we score 0 before reading.
+
 ### 4. The "good half" of our meanings carries NO signal for a prediction-error consumer
 On the 48 items where both routes fire, scored alone with no mixing:
 **definitional `-0.021`/item, CI `[-0.062, +0.000]`**; **distributional `+0.188`, CI `[+0.042, +0.333]`**;

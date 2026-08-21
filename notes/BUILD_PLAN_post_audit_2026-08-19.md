@@ -28,6 +28,28 @@
 > slot-inflated; one set; a surface-vs-lemma lookup bug deflating both floors) -- **never from new
 > evidence about the task.**
 >
+> ## 🚨🚨 **SUBSUMED -- THE SUBSTRATE IS A LOSSY COUNTER ON THIS TASK (2026-08-21)**
+> *"Behind" and "subsumed" are different findings with opposite consequences, and I had only
+> measured the first.* On 478 anomalous sentences, did the arm put the planted word first:
+> | | observed | if INDEPENDENT |
+> |---|---|---|
+> | both arms hit | **88** | 62.3 |
+> | **SUBSTRATE ONLY** | **58** | **83.7** |
+>
+> **substrate-unique rate MINUS independence prediction = `-0.0537`, CI `[-0.0741, -0.0330]`.
+> CI EXCLUDES ZERO -> SUBSUMED.** The arms agree far more than two independent arms of those rates
+> would: **one underlying signal read twice, not two sources.**
+> ### **THIS CLOSES THE ROOM THAT "+16.3 vs +29.4" LEFT OPEN** -- "we get different items, so
+> combining helps" is now refuted by measurement, not merely unsupported.
+> ### ✅ **THE METHOD DISCRIMINATES:** run before on two other routes it returned BOTH answers --
+> cortical read SUBSUMED, sensorimotor spoke NOT SUBSUMED. This is not a test that can only say one thing.
+> ### **LIMITS, REAL:** one task, one corpus; it does NOT say the substrate has no signal (+16.3
+> REPLICATED, 0 before reading -- the learning is real, it is just not INDEPENDENT); and 58 items are
+> still substrate-only, merely fewer than chance.
+> ### 🎯 **THE QUESTION IT HANDS OVER:** not *"how do we score higher"* but ***"what would make the
+> representation carry something counting cannot"***. F5 built on this representation inherits the
+> subsumption. `notes/SUBSUMED_the_substrate_is_a_LOSSY_COUNTER_on_this_task_2026-08-21.md`
+>
 > ## 🅱️ **E3, THE ALTERNATIVE -- AND THE HONEST VERSION OF ITS MARGIN**
 > `WIRED: YES`, and `ORGAN_MAP` step 4 calls it **"a WIDEN-THE-MARGIN step on a working organ, not a
 > rescue."** Resolver **0.7193** (`strict_cb`; `earned` is **0.6842**) vs recency **0.5614** and
