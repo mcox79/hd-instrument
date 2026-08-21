@@ -192,6 +192,35 @@
 >   *The 4th (the 90% extractor) genuinely was not there -- v2 saved its 37 KB hand-check SAMPLE, not
 >   its 1,414 survivors, which is also this measurement's own loosest edge.*
 >   `notes/ONE_THIRD_OF_THE_ARCHIVE_IS_RE_ANALYSABLE_measured_by_full_enumeration_not_sampled_2026-08-21.md`
+> - 🧰 **`335e5b383` -- AND THAT RULE IS NOW ONE COMMAND: `python tools/what_did_this_cell_save.py
+>   <cell>`.** *Lists sibling data files, walks `metrics.json` for populations, prints RE-ANALYSABLE
+>   or SUMMARY-ONLY.* **Threshold defaults to 10, NOT 50 -- a calibration, not a guess: the census
+>   above used 50 and would have MISSED `n11c`'s 29-entry `per_triple`, the population that mattered
+>   most tonight, so 31.0% is a LOWER BOUND.** *Self-tested both directions (known-present asserts
+>   29; absurd threshold finds nothing; summary-only fixture reports none; dict-keyed populations
+>   detected) and verified live on a real summary-only cell.* ⚠️ *Prints its own limit: config blocks
+>   (`detail`, `<root>`) are STRUCTURE and are listed too -- deliberately NOT filtered, because the
+>   heuristic that would separate them is the kind of cleverness that has produced false confidence
+>   here before.*
+> - 🔻 **AND THE FIRST THING I POINTED THAT TOOL AT KILLED ONE OF MY OWN HEADLINES.** *Earlier I
+>   listed `exp_bootstrap_dense_process_article_reading_fade_v6` as a buried result the archive fix
+>   surfaced, quoting its **"This REFUTES 'reading can't supply the knowledge'"** line.* **I HAD NOT
+>   OPENED IT. THE CLAIM FAILS FOUR WAYS:** (1) the five strong numbers come from a field literally
+>   named **`per_process_strong`**, whose sibling `per_process_failed` holds 0.2308 / **0.0** /
+>   **0.0**; (2) the only floor in the file is **`scramble_floor_aggregate`** -- *no per-process
+>   floor exists*, so per-process treatment is compared across populations (disciplines 8/11);
+>   (3) **the seed beats reading in 8 OF 8 processes**, item-weighted 0.4576 vs **0.7203**, and three
+>   "strong" rows have n = 13/5/4 (*erosion is 3 of 5*); and (4) 🚨 **THE ARITHMETIC DOES NOT CLOSE
+>   -- 165 held-out x 0.2121 aggregate ≈ 35 items recalled, but the 8 listed processes alone cover
+>   118 items at 0.4576 ≈ 54. A SUBSET RECALLS MORE THAN THE WHOLE**, so per-process and aggregate
+>   are on different bases and the cell never says so. *(18 processes covered, 8 reported, 47 of 165
+>   items in no row.)* ✅ **KEEP: its failure localisation is genuinely good** -- 32 facts extracted
+>   with 0.0 recall correctly diagnosed as ENTITY MISMATCH, vs 0 facts from a descriptive article;
+>   *and the cell's own honest block already says `beats_v4_genuine_signal: false`,
+>   `approaches_seed: false`, dense signal 0.0242 vs scattered 0.0485.* 🔴 ***MY FAULT WAS QUOTING A
+>   `diagnosis.headline` WITHOUT OPENING THE NUMBERS UNDER IT -- THE IDENTICAL FAULT AS THE B1
+>   "CLIFF", SAME SESSION, AFTER I HAD WRITTEN THE LESSON DOWN.***
+>   `notes/THE_BURIED_REFUTES_CLAIM_DOES_NOT_SURVIVE_its_subset_recalls_more_items_than_its_whole_2026-08-21.md`
 > - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
 >   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
 >   the headings *and their whole sections* into the header paragraph. **Every section BODY was
