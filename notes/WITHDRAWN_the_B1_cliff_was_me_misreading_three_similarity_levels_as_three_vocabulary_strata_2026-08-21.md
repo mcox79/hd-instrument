@@ -81,6 +81,31 @@ and it is NOT evidenced by the tier means.** *Do not quote it as measured.*
 4. *`n11b` HARD_FAIL, the 12-dim norms asset, and the `GROUNDED_CAP=0.45` flattening are all
    unaffected -- they were measured elsewhere and are not part of this retraction.*
 
+## 6b. ➕ **TWO MORE ERRORS IN THE SAME SOURCE BULLET, FOUND WHEN I WENT TO FIX IT**
+
+**I went to correct `ORGAN_MAP` L1797 and found the misreading was not alone.**
+
+**(a) THE LEXICON SIZE MATCHES NEITHER CANDIDATE.** The bullet blames *"the ~230-concept hand
+lexicon"*. **The cell scored on its OWN authored inventory -- `n_concepts = 86`, `n_feature_tags =
+76`** -- **not** on the live organ's `CONCEPT_FEATURES`, which measures **359 words / 168 tags**
+(*corroborated independently*: `STATUS_LESSONS.md` `hand_lexicon_baseline = 359`, and
+`word_concept_bridge_scope_2026-08-13.md` *"len(CONCEPT_FEATURES) == 359 MEASURED"*). **"~230" is
+neither number, and the organ blamed was not the organ measured.**
+
+**(b) 🚨 THE "CHEAP FLOOR TEST" QUEUED UNDER IT COULD NEVER HAVE RUN.** It asked to stratify n11c
+*"by whether both words are in `CONCEPT_FEATURES`"* with the can-fail condition *"if the OUT stratum
+does not lose to WINDOW, the coverage story is wrong."* **MEASURED: the OUT stratum is EMPTY -- 0 of
+86 distinct probe words fall outside, 29/29 triples have all four words inside.**
+
+> **A STRATIFICATION WITH AN EMPTY STRATUM IS NOT A CAN-FAIL TEST -- IT IS UNTESTABLE (discipline
+> 18). THE MISREADING HAD ALREADY GENERATED A DOWNSTREAM TASK THAT COULD NOT HAVE PRODUCED A
+> RESULT**, and it was sitting in the map labelled *"still needed, and it is cheap."*
+
+*Corrected in place at the source, so the next session does not inherit what I inherited.*
+**Enumerated, not searched: the interpretive claim appears in exactly 5 files -- `ORGAN_MAP.md`
+(source, now corrected), `OVERNIGHT_PLAN`, `BUILD_PLAN`, the B1 note and this one. Verified 0
+uncorrected instances remain.**
+
 ## 7. 🎯 THE LESSON, AND IT IS NOT "READ MORE CAREFULLY"
 
 **I did not invent this reading -- I inherited it.** `ORGAN_MAP` says *"It is a cliff. 0.931 -> 0.304

@@ -1789,20 +1789,46 @@ ours / **GAP** / **EXISTS – IS-REACHED – IS-GOOD** / **SMALLEST CAN-FAIL FLO
 - **NO LONGER UNTESTED.** `data/exp_n11c_shared_feature_lexical_similarity_v1` **HARD_PASS**, with
   three real failable floors: `ordered_frac` shared_feature **0.966** vs WINDOW distributional
   **0.379**, HASH_RANDOM **0.103**, SCRAMBLE **0.310** (the scramble collapses the gain, so it is
-  earned). **But read the tier breakdown, which the headline hides: shared_feature tier1/2/3 =
-  (0.931, 0.304, 0.002) against window (0.859, 0.852, 0.830).** On tier 3 the organ scores **0.002**
-  while the distributional baseline scores **0.830**. Companion negative:
+  earned). **THE TIER BREAKDOWN -- AND READ WHAT THE TIERS ARE BEFORE READING THE NUMBERS:
+  tier1/2/3 are `cos_syn` / `cos_rel` / `cos_unrel`, i.e. similarity to a SYNONYM, to a TOPICALLY
+  RELATED word, and to an UNRELATED word (verified from `per_unit[0].*.per_triple`, n=29, which
+  reproduces the reported means exactly). shared_feature = (0.931, 0.304, 0.002) against window
+  (0.859, 0.852, 0.830).** ***A LOW tier-3 is the GOAL*** -- `vessel` vs `anger` should read ~0 --
+  **so the organ's 0.002 is CORRECT and the distributional 0.830 is the DEFECT: window's whole
+  synonym-to-unrelated range is 0.0285 against shared_feature's 0.9287, which is exactly WHY its
+  ordered fraction is 0.379 to our 0.966.** Companion negative:
   `exp_n11b_symmetric_pattern_lexical_similarity_v1` **HARD_FAIL**, sym 0.207 vs window 0.379, and the
   scramble did NOT collapse (0.207 = 0.207) — that arm's signal was an artifact.
-- **HONEST TIER: not a HARD_PASS for the organ. It is a cliff.** 0.931 → 0.304 → 0.002 is the
-  ~230-concept hand lexicon becoming visible as a measurement. The map's `BLOCKS` line already
-  predicted this ("any judgement over the ~99.4% of vocabulary outside the hand lexicon"); the cell
-  measured it and nobody set the two beside each other.
-- **EXISTS** yes / **IS-REACHED** yes (live) / **IS-GOOD** only inside the hand lexicon.
-- **FLOOR TEST (still needed, and it is cheap):** re-score n11c with items stratified by *whether both
-  words are in `CONCEPT_FEATURES`*, reporting IN/OUT separately against the same WINDOW floor. Can
-  fail: if the OUT stratum does not lose to WINDOW, the coverage story is wrong. A re-scoring of an
-  existing cell, not a new experiment.
+- 🚫 **RETRACTED 2026-08-21 -- THIS BULLET SAID "HONEST TIER: not a HARD_PASS for the organ. It is a
+  cliff. 0.931 → 0.304 → 0.002 is the ~230-concept hand lexicon becoming visible as a measurement."
+  IT IS WRONG THREE SEPARATE WAYS, AND IT WAS QUOTED AS AUTHORITY AND PROPAGATED INTO THREE PLANNING
+  DOCUMENTS BEFORE ANYONE OPENED `metrics.json`.**
+  1. **INVERTED.** The tiers are relatedness LEVELS, not vocabulary STRATA (see above). 0.002 on
+     unrelated pairs is the *success* criterion; window's 0.830 is the pathology.
+  2. **THE LEXICON SIZE IS WRONG AND MATCHES NEITHER CANDIDATE.** The cell scored on its **OWN
+     hand-authored inventory: `n_concepts = 86`, `n_feature_tags = 76`** (`per_unit[0]`), *not* on the
+     live organ's `CONCEPT_FEATURES`, which measures **359 words / 168 tags** (corroborated by
+     `STATUS_LESSONS.md` `hand_lexicon_baseline = 359` and `word_concept_bridge_scope_2026-08-13.md`).
+     **"~230" is neither.**
+  3. **NO TIER HERE MEASURES OUT-OF-LEXICON BEHAVIOUR AT ALL.** `coverage` reads **29/29 on all four
+     arms**, and all **86/86** distinct probe words are inside the lexicon. *So the `BLOCKS` line
+     about "the ~99.4% outside the hand lexicon" was NOT confirmed by this cell -- it was never
+     tested by it.*
+- **EXISTS** yes / **IS-REACHED** yes (live) / **IS-GOOD** *demonstrated only INSIDE the lexicon, on
+  86 concepts* -- **and demonstrated WELL there** (`ordered_frac` 0.966 vs window 0.379, scramble
+  collapses). *The cell says so itself and declines to claim more:* `coverage_scope` = *"mechanism-
+  proof on 86 hand-authored concepts... general open-vocabulary feature coverage... is a separate,
+  missing-LEARNING follow-up, **NOT claimed here**."* **That is a narrow demonstration of something
+  that WORKS -- the opposite of a cliff.**
+- 🚫 **FLOOR TEST -- WITHDRAWN AS SPECIFIED, IT CANNOT RUN.** It asked to *"re-score n11c with items
+  stratified by whether both words are in `CONCEPT_FEATURES`, reporting IN/OUT separately"*, with the
+  can-fail condition *"if the OUT stratum does not lose to WINDOW, the coverage story is wrong."*
+  **MEASURED 2026-08-21: the OUT stratum is EMPTY -- 0 of 86 distinct probe words fall outside, and
+  29/29 triples have all four words inside.** *A stratification with an empty stratum is not a
+  can-fail test; it is untestable (STANDING DISCIPLINE 18).* **The real question -- open-vocabulary
+  feature INDUCTION -- needs NEW items, not a re-scoring, and is a `missing-LEARNING` route.**
+  ⚠️ **NOTE WHAT THIS COST: the misreading had already generated a downstream task that could never
+  have produced a result.**
 
 ---
 
