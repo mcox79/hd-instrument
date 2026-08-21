@@ -72,19 +72,49 @@ def sample_tell(obj):
 
     The 2026-08-21 case that motivates it, exactly: `{"n_survivors": 1414, "sample": [100 rows]}`.
     That file looks like saved data and IS saved data -- but it cannot answer a question about the
-    other 1,314. Deliberately narrow: an integer field whose value EXCEEDS the longest list in the
-    same dict by more than 2x. A file that kept everything has count == length and stays quiet.
+    other 1,314.
+
+    🚫 THE FIRST VERSION OF THIS FUNCTION WAS CRY-WOLF AND I SHIPPED IT. It flagged ANY integer
+    exceeding the longest list by 2x, which I called "deliberately narrow" after testing it on two
+    fixtures and one real silent case. Run across the archive it fired 3,990 times, and the top
+    "populations" were 20,260,802 / 20,260,816 / 20,260,727 -- i.e. THE DATES 2026-08-02, 2026-08-16
+    and 2026-07-27 stored as YYYYMMDD integers. A fixture is not a scale test, and this project has
+    already paid for one keyword detector that flagged 49 of 49 honest cells.
+
+    🚫 REQUIRING THE *INTEGER* TO LOOK LIKE A COUNT WAS NOT ENOUGH EITHER -- STILL 1,822 HITS, whose
+    largest were `n_features = 56,553`, `event_n = 8,192` (that is a DIMENSIONALITY) and a tiny
+    transformer's 862,976 PARAMETERS. `n_*` legitimately names corpus sizes, feature counts, token
+    counts and parameter counts. Nothing in a key name says an integer counts the same THING a
+    nearby list holds, and pairing them is where the false positives live.
+
+    ✅ SO THE RELIABLE SIGNAL IS THE LIST'S OWN NAME. A file that stores its rows under `sample`,
+    `subset` or `examples` is TELLING you it kept a sample. That fires 53 times across the archive
+    and the top hits read true -- including this cell's own v1 companion,
+    `n_total_extractions = 4,015` beside `sample[100]`.
+
+    The declared total is reported only as a HEDGE, never as a fact, because even at 53 hits the
+    paired integer is sometimes the wrong quantity. Three versions of this function were wrong in
+    three different ways; the honest output asks the reader to check rather than asserting.
     """
     if not isinstance(obj, dict):
         return None
-    longest = max([len(v) for v in obj.values() if isinstance(v, list)] or [0])
-    if not longest:
+    sampleish = ("sample", "subset", "examples", "excerpt", "handcheck", "hand_check", "preview")
+    rows = [(k, len(v)) for k, v in obj.items()
+            if isinstance(v, list) and len(v) >= 5 and any(s in k.lower() for s in sampleish)]
+    if not rows:
         return None
-    for k, v in obj.items():
-        if isinstance(v, int) and not isinstance(v, bool) and v > 2 * longest:
-            return (f"SAMPLE, NOT THE POPULATION: '{k}' = {v:,} but the longest list here holds "
-                    f"{longest:,}. It cannot answer a question about the other {v - longest:,}.")
-    return None
+    key, kept = max(rows, key=lambda r: r[1])
+    msg = (f"SAMPLE, NOT THE POPULATION: rows are stored under '{key}' and there are {kept:,}. "
+           f"The file names itself a sample, so it cannot answer a question about what was dropped.")
+    bigger = [(k, v) for k, v in obj.items()
+              if isinstance(v, int) and not isinstance(v, bool) and v > 2 * kept
+              and (k.lower().startswith(("n_", "num_", "count_", "total_"))
+                   or k.lower().endswith(("_n", "_count", "_total")))]
+    if bigger:
+        k, v = max(bigger, key=lambda r: r[1])
+        msg += (f" It also declares '{k}' = {v:,} -- CHECK whether that counts the same thing "
+                f"(dimensionalities and feature counts live under n_* too).")
+    return msg
 
 
 def _populations(obj, min_entries, path="", depth=0, out=None):
@@ -234,6 +264,37 @@ def _self_test():
         print("[self-test] PASS sample-tell stays SILENT when the file kept everything")
     else:
         print("[self-test] FAIL sample-tell fired on a complete file (cry-wolf)")
+        ok = False
+    # THE REGRESSION THAT COST 3,990 FALSE POSITIVES: a YYYYMMDD date beside a short list.
+    if sample_tell({"ts_iso_int": 20260802, "rows": [0] * 20}) is None:
+        print("[self-test] PASS sample-tell ignores a YYYYMMDD date (the 3,990-false-positive bug)")
+    else:
+        print("[self-test] FAIL sample-tell fired on a date field")
+        ok = False
+    if sample_tell({"seed": 999999, "rows": [0] * 10}) is None:
+        print("[self-test] PASS sample-tell ignores a seed")
+    else:
+        print("[self-test] FAIL sample-tell fired on a seed")
+        ok = False
+    if sample_tell({"n_total": 900, "sample": [0] * 3}) is None:
+        print("[self-test] PASS sample-tell ignores a list too short to judge (<5)")
+    else:
+        print("[self-test] FAIL sample-tell fired on a 3-element list")
+        ok = False
+    # REGRESSION FOR THE SECOND FALSE-POSITIVE WAVE (1,822 hits): `n_*` also names feature,
+    # parameter and dimensionality counts, so an n_* beside a list NOT named sample must stay quiet.
+    if sample_tell({"n_features": 56553, "rows": [0] * 30}) is None:
+        print("[self-test] PASS sample-tell ignores n_features beside a list NOT named 'sample'")
+    else:
+        print("[self-test] FAIL sample-tell fired on n_features vs a plain 'rows' list")
+        ok = False
+    # And when a sample list IS present, a dimensionality must be HEDGED, never asserted as the
+    # discarded population -- `event_n = 8192` is D, not a count of anything sampled.
+    hedged = sample_tell({"event_n": 8192, "glass_box_samples": [0] * 6})
+    if hedged and "CHECK whether" in hedged:
+        print("[self-test] PASS a dimensionality beside a sample list is HEDGED, not asserted")
+    else:
+        print("[self-test] FAIL event_n=8192 was not hedged")
         ok = False
 
     # load_any must read BOTH formats -- reading JSON as JSONL is what produced a false
