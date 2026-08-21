@@ -139,6 +139,21 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## 🔻 **AND THE COMBINATION QUESTION: THE CHANNELS *ARE* INDEPENDENT AND COMBINING BUYS `+0.0035`**
+> **`ORGAN_MAP` marks the hub-spoke combination rule UNPINNED and OUR-INVENTION-BEING-TESTED, so I
+> tested its PRECONDITION before inventing one. On the same 829 pairs: LEARNED (`d=1024`) `+0.1071`,
+> SUPPLIED (norms euclid) `+0.2876`, and the CORRELATION BETWEEN THEM is `+0.0901` -- NEARLY
+> INDEPENDENT, which is exactly when combining is supposed to pay.** **It does not: best blend
+> `w=0.90` gives `+0.2911` vs supplied-alone `+0.2876`, a gain of `+0.0035` where the noise floor on
+> this comparison measured `~0.043` earlier tonight. THE OPTIMUM PUTS 90% OF THE WEIGHT ON THE
+> HANDED-OVER TABLE AND 10% ON EVERYTHING THE SUBSTRATE LEARNED.**
+> 🎯 **WHY, AND IT IS THE USEFUL PART: a second channel helps in proportion to how much SIGNAL it
+> has, not just how UNCORRELATED it is. COMPLEMENTARY IS NOT USEFUL.** *I predicted the opposite
+> from the correlation alone.* 🚫 **So a hub-spoke combination rule is NOT the next build -- there is
+> nothing to combine yet.** ✅ **The independence is GOOD NEWS and survives: the combination becomes
+> worth doing the moment the LEARNED side improves.** ⚠️ *Not a claim it can never help.*
+> `COMPLEMENTARY_IS_NOT_USEFUL_...`
+
 > ## 🔻 **AND MY EXPLANATION FOR THE SATURATION IS ALSO REFUTED: IT IS NOT ONE DOMINANT AXIS**
 > **I read the module's phrase "a dominant shared concreteness axis" as the MECHANISM and proposed
 > removing it. Measured on 1,028 words: PC1 explains `27.5%` (0.275/0.218/0.159/0.088/0.055 -- the
