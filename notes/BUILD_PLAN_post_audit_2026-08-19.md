@@ -251,6 +251,29 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## 🎯 **AND TWO OF TONIGHT'S MEASUREMENTS SET SIDE BY SIDE ANSWER A STANDING OWNER QUESTION
+> ## (Q71/Q74): THE LOOP STOPS ACCRUING EXACTLY WHERE ACCRUAL STILL PAYS.**
+> **(a) MORE TRACES HELP:** hit@1 `0.0312 → 0.0516 → 0.0719 → 0.0984 → 0.1219 → 0.1328` at
+> L=1/4/8/16/24/37, CI-separated end to end, shuffled-label control at chance.
+> **(b) WHAT THE LIVE LOOP ACCUMULATES:** median **10**, p90 36, max 77 (1,200-sentence read).
+> | live position | its hit@1 | at L=37 | **left on the table** |
+> |---|---|---|---|
+> | **MEDIAN lemma (10 traces)** | **0.0785** | 0.1328 | **1.69x** |
+> | p90 lemma (36 traces) | 0.1320 | 0.1328 | 1.01x |
+> ➡️ ***THE MEDIAN WORD SITS AT ~60% OF WHAT ACCUMULATION ALREADY BUYS. THE BUSY TAIL IS ALREADY AT
+> THE PLATEAU -- THE LOSS IS CONCENTRATED ON TYPICAL WORDS.*** *And `century` (7 traces / 92
+> occurrences) -> 0.0668 vs 0.1328 = **1.99x**, on a curve that had not flattened.*
+> ⚠️ **POPULATION WARNING, STATED BECAUSE I AM COMBINING THREE RUNS (80-lemma corpus pool; 94-lemma
+> live read; `century` from a third run in STATUS). DISCIPLINE 11 FORBIDS QUOTING THE COMBINED
+> MULTIPLIER AS A MEASUREMENT.** *Supported: the DIRECTION (CI-separated, controlled), that the live
+> MEDIAN sits well below the plateau, and that the busy tail is already at it. NOT supported: "1.7x"
+> as a precise figure -- treat it as an order-of-size estimate.*
+> 🔗 **THIS IS THE MEASURE OWNER Q71 ASKED FOR** (*"Should it keep taking notes anyway?"*) -- on this
+> task notes keep paying past 37 and the typical word stops at 10. **IT DOES NOT ANSWER Q74's sharper
+> half** (*"only when there's something NEW... I still think it's the surprise measurement"*), which
+> needs a per-note INFORMATION measure rather than a count, and remains unmeasured.
+> `notes/THE_MEDIAN_WORD_LEAVES_1_7x_ON_THE_TABLE_the_loop_stops_accruing_where_accrual_still_pays_2026-08-21.md`
+>
 > ## 🚫 **AND THE TASK KILLED IT: HIGHER OVERLAP DID *NOT* MEAN A BETTER SCORE. THE 12-DIM FEATURE
 > ## CONTEXT IS WORSE AT EVERY LOAD AND -- WORSE -- IT IS FLAT.**
 > *Anchor self-identification, 80 lemmas, chance 0.0125, same sentences/masking/probes both arms.*
