@@ -2,6 +2,33 @@
 
 **Found by noticing that ONE row's `provenance` field contradicted its own `pipeline_status` field.**
 
+> # 🔻 **THIS NOTE'S TITLE AND SECTION 3 ARE WRONG. CORRECTED THE SAME NIGHT BY A RETRODICTION I RAN ON MY OWN FIX.**
+> **I wrote that the registry was stale because the audit "was simply not re-run" after its
+> 09:49 fix. THEN I BUILT A DETECTOR FOR THAT AND ASKED WHETHER IT WOULD HAVE FIRED ON THE REAL
+> PRIOR STATE. IT WOULD NOT -- and that is how I found the story was wrong.**
+>
+> **THE AUDIT *DID* RUN AFTER THE FIX, TWICE, AND COMPUTED THE CORRECT ANSWER BOTH TIMES:**
+>
+> | report | local time | computed |
+> |---|---|---|
+> | `...T092428Z` | 05:24 | 48 used / 101 not-reachable *(pre-fix)* |
+> | `...T140051Z` | **10:00** | **55 / 94 -- CORRECT** |
+> | `...T140353Z` | **10:03** | **55 / 94 -- CORRECT** |
+>
+> ***So the right answer was computed at 10:00 this morning and the ROWS still carried the 05:24
+> values eleven hours later.*** **THE RESULTS WERE NOT MISSING. THEY WERE LOST.**
+>
+> **THE MECHANISM IS NAMED IN THE AUDIT'S OWN COMMENT (`capability_registry_audit.py:1495`): it is
+> a read-modify-write writer of this file, *"the same class of race that caused the reported
+> lost-update bug for one-off registration scripts."*** *Two such registration commits landed at
+> 09:43 and 11:53 local, and both left rows with a hand-written `integration_status: None` that no
+> audit would ever produce.* **A script that loaded the registry before the audit wrote it and saved
+> afterwards silently discards the audit's work while its REPORT survives on disk.**
+>
+> ➡️ **SO "THE REPORT EXISTS" IS NOT EVIDENCE THE ROWS WERE UPDATED** -- and my tool-mtime detector
+> is blind to this case, because the tool never moved. **A second detector was added for the real
+> failure: the ROWS being older than the REPORT.** *Sections 1, 2, 4 and 5 below stand as written.*
+
 ---
 
 ## 1. THE CONTRADICTION THAT STARTED IT
@@ -24,7 +51,8 @@ instance, not a pattern.*
 
 > ### **SO A HAND-CORRECTION TO `pipeline_status` CANNOT SURVIVE. The next audit overwrites it from the computed closure, whatever runtime evidence motivated it.**
 
-## 3. AND THE COMPUTED CLOSURE WAS RIGHT ALL ALONG -- **THE REGISTRY WAS SIMPLY NOT RE-RUN**
+## 3. ~~AND THE COMPUTED CLOSURE WAS RIGHT ALL ALONG -- THE REGISTRY WAS SIMPLY NOT RE-RUN~~
+### 🔻 **THIS SECTION IS THE WRONG EXPLANATION -- SEE THE CORRECTION BLOCK AT THE TOP. IT WAS RE-RUN AT 10:00 AND 10:03 AND ITS RESULTS WERE LOST BY A CONCURRENT WRITER.** *The closure being right IS true; "not re-run" is not.*
 
 | | |
 |---|---|
@@ -85,8 +113,11 @@ None.
 
 ## NEXT STEPS
 
-1. **Re-run the audit after any change to its entry points** -- the stored rows are a CACHE of a
-   computation, and a fix to the computation does not update them.
+1. ~~Re-run the audit after any change to its entry points~~ **SUPERSEDED BY THE CORRECTION: that
+   was the wrong lesson. The real one is that a CONCURRENT WRITER can discard the audit's results
+   while leaving its report behind, so BOTH checks are now in `session_start_hook.registry_report()`
+   -- tool-newer-than-report, AND rows-older-than-report (1h tolerance, because the audit stamps
+   rows at START and names its report at FINISH, an 8m24s gap on a healthy run).**
 2. *Do not hand-edit `pipeline_status`. It is recomputed; write the evidence into `provenance` and
    fix the closure instead.*
 3. *Method note: **the tell was a row contradicting itself.** Nothing external flagged it -- putting

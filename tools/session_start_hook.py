@@ -13,6 +13,7 @@ Usage: python tools/session_start_hook.py
 """
 from __future__ import annotations
 import json
+import re
 import subprocess
 import sys
 import time
@@ -249,6 +250,98 @@ def _self_test() -> int:
             print(f"[self-test] FAIL: missing '## WHAT IS RUNNING' did NOT trigger the loud banner:\n{out}")
             ok = False
 
+    # THE REGISTRY CACHE IS STALE WHEN ITS INPUTS MOVE, NOT WHEN IT GETS OLD (added 2026-08-21,
+    # after a 4-hour-old report read as fresh while being stale by a tool fix that changed 7 rows).
+    # BOTH DIRECTIONS, because a staleness flag that fires on a cache nobody has invalidated is
+    # worse than none -- it gets ignored, and then it is not there for the real case.
+    import os as _os
+    with tempfile.TemporaryDirectory() as td:
+        rd, tl = Path(td) / 'reports', Path(td) / 'tools'
+        rd.mkdir(); tl.mkdir()
+        rep = rd / 'registry-audit-20260821T000000Z.json'
+        rep.write_text('{"n_rows": 3}', encoding='utf-8')
+        tool = tl / 'capability_registry_audit.py'
+        tool.write_text('# fixture\n', encoding='utf-8')
+
+        # NEGATIVE CONTROL FIRST: tool OLDER than the report -> must NOT flag.
+        _os.utime(tool, (rep.stat().st_mtime - 7200, rep.stat().st_mtime - 7200))
+        out = registry_report(rd, tl)
+        if 'STALE BY A TOOL CHANGE' not in out:
+            print("[self-test] PASS: a cache whose inputs have NOT moved is not flagged "
+                  "(no cry-wolf)")
+        else:
+            print(f"[self-test] FAIL: flagged a cache whose tool is OLDER than it:\n{out}")
+            ok = False
+
+        # POSITIVE: tool NEWER than the report -> must flag, and must name the tool.
+        _os.utime(tool, (rep.stat().st_mtime + 3600, rep.stat().st_mtime + 3600))
+        out = registry_report(rd, tl)
+        if 'STALE BY A TOOL CHANGE' in out and 'capability_registry_audit.py' in out:
+            print("[self-test] PASS: a tool NEWER than the report flags the cache and names it")
+        else:
+            print(f"[self-test] FAIL: a newer tool did NOT flag the cache:\n{out}")
+            ok = False
+
+        # THE SHARED RESOLVER COUNTS TOO -- the closure delegates to it, so it can change every row.
+        _os.utime(tool, (rep.stat().st_mtime - 7200, rep.stat().st_mtime - 7200))
+        ih = tl / 'integration_health.py'
+        ih.write_text('# fixture\n', encoding='utf-8')
+        _os.utime(ih, (rep.stat().st_mtime + 3600, rep.stat().st_mtime + 3600))
+        out = registry_report(rd, tl)
+        if 'STALE BY A TOOL CHANGE' in out and 'integration_health.py' in out:
+            print("[self-test] PASS: the shared resolver moving also flags the cache")
+        else:
+            print(f"[self-test] FAIL: integration_health.py moving did NOT flag:\n{out}")
+            ok = False
+
+    # AND IT MUST NEVER RAISE ON A MISSING TOOL DIRECTORY -- the hook degrades, it does not fail.
+    with tempfile.TemporaryDirectory() as td:
+        rd = Path(td) / 'reports'
+        rd.mkdir()
+        (rd / 'registry-audit-20260821T000000Z.json').write_text('{"n_rows": 1}', encoding='utf-8')
+        try:
+            out = registry_report(rd, Path(td) / 'no_such_tools_dir')
+            print("[self-test] PASS: a missing tool directory degrades rather than raising"
+                  if 'STALE BY A TOOL CHANGE' not in out else
+                  "[self-test] FAIL: a missing tool dir was reported as staleness")
+            ok = ok and ('STALE BY A TOOL CHANGE' not in out)
+        except Exception as exc:                                   # pragma: no cover
+            print(f"[self-test] FAIL: registry_report raised on a missing tool dir: {exc!r}")
+            ok = False
+
+    # THE ROWS-BEHIND-THE-REPORT CHECK, at BOTH real scales. The audit stamps rows at START and
+    # names its report at FINISH, so a healthy run leaves rows minutes behind; the 2026-08-21
+    # lost-update left them 4.8 HOURS behind. A detector that cannot tell those apart is useless,
+    # so both are asserted with the ACTUAL measured numbers rather than invented ones.
+    def _reg_fixture(tmp, row_ts, rep_stamp):
+        rd, tl = Path(tmp) / 'reports', Path(tmp) / 'tools'
+        rd.mkdir(); tl.mkdir()
+        (rd / ('registry-audit-%sZ.json' % rep_stamp)).write_text('{"n_rows": 2}', encoding='utf-8')
+        reg = Path(tmp) / 'capability_registry.jsonl'
+        reg.write_text(json.dumps({"id": "x", "last_audit_utc": row_ts}) + chr(10),
+                       encoding='utf-8')
+        return rd, tl, reg
+
+    with tempfile.TemporaryDirectory() as td:
+        # HEALTHY: rows 8m24s behind, the measured real gap on 2026-08-21's own clean run.
+        rd, tl, reg = _reg_fixture(td, '2026-08-21T21:00:13Z', '20260821T210837')
+        out = registry_report(rd, tl, reg)
+        if 'THE ROWS ARE OLDER' not in out:
+            print("[self-test] PASS: rows 8m behind the report (a healthy run) do NOT flag")
+        else:
+            print("[self-test] FAIL: flagged a healthy 8-minute gap -- cry-wolf: " + out)
+            ok = False
+
+    with tempfile.TemporaryDirectory() as td:
+        # THE REAL INCIDENT: rows at 09:15:02Z, newest report 14:03:53Z -- 4.8h, results lost.
+        rd, tl, reg = _reg_fixture(td, '2026-08-21T09:15:02Z', '20260821T140353')
+        out = registry_report(rd, tl, reg)
+        if 'THE ROWS ARE OLDER' in out and '4.8h behind' in out:
+            print("[self-test] PASS: the real 2026-08-21 lost-update (rows 4.8h behind) IS flagged")
+        else:
+            print("[self-test] FAIL: the real lost-update was NOT flagged: " + out)
+            ok = False
+
     # THE TWO LITERALS board.py OWNS -- both directions, added 2026-08-21. These are the ones that
     # actually went missing, and NOTHING in this file noticed for hours. A fixture that is complete
     # except for ONE heading is the honest test: it proves the guard is per-literal rather than
@@ -465,16 +558,47 @@ def commentary_report(doc: Path | None = None, mark: Path | None = None) -> str:
         return f"[commentary] ERROR reading the side channel ({type(exc).__name__}: {exc})"
 
 
-def registry_report() -> str:
-    """Report the newest registry-audit result + its age. Does NOT re-run the audit.
+# The tools whose OUTPUT the stored registry rows are a CACHE of. `capability_registry_audit.py`
+# recomputes `pipeline_status` on every row from an import closure, and that closure delegates to
+# the shared resolver in `integration_health.py` -- so a change to EITHER can change the answer for
+# every row without anything on disk looking any different.
+_REGISTRY_AUDIT_INPUTS = ('capability_registry_audit.py', 'integration_health.py')
+
+# How far the rows may legitimately trail the report: the audit's own runtime, since it stamps rows
+# at START and names the report at FINISH. Measured 8m24s on 2026-08-21; an hour is generous and
+# still an order of magnitude below the 4.8h real incident.
+_ROWS_BEHIND_TOLERANCE_SEC = 3600
+
+
+def registry_report(rep_dir: Path | None = None, tool_dir: Path | None = None,
+                    registry_path: Path | None = None) -> str:
+    """Report the newest registry-audit result, its age, AND whether its INPUTS have moved since.
 
     capability_registry_audit.py takes >3 min (it walks the import graph), which is far too
     slow to block session start. It already persists each run to
     data/capability_registry_reports/registry-audit-<ts>.json -- so read the result and
     report staleness. Recomputing is the director's call, not the hook's.
+
+    STALENESS IS MEASURED TWO WAYS, AND THE SECOND ONE WAS MISSING (added 2026-08-21).
+    This function used to flag only on WALL-CLOCK AGE (`age_h > 24`). That is blind to the failure
+    that actually happened: on 2026-08-21 the audit tool was fixed at 09:49 local -- *"not rooted at
+    the assembled substrate"* -- while the stored rows had last been computed at 05:15 local. The
+    report was FOUR HOURS OLD, comfortably inside the 24 h window, and reported as fresh; re-running
+    the audit moved SEVEN organs from WIRED_BUT_NOT_PIPELINE_REACHABLE to WIRED_AND_PIPELINE_USED,
+    including the definitional extractor, the assembled reader, and the corpus registry.
+
+    A CACHE IS NOT STALE WHEN IT IS OLD. IT IS STALE WHEN ITS INPUTS HAVE MOVED. Age is a proxy for
+    that and it is a bad one -- it says "fresh" for a four-hour-old cache of a computation that
+    changed four hours ago, and "stale" for a month-old cache of something nobody has touched.
+
+    `notes/THE_REGISTRY_WAS_STALE_BY_ONE_TOOL_FIX_...md` is the incident. The prose next-step it
+    ended with ("re-run the audit after any change to its entry points") is exactly the kind of
+    caution this repo has measured 6-for-6 as getting violated, which is why it is here in code.
+
+    Args are for the self-test only; both default to the real locations.
     """
     import time
-    rep_dir = REPO / 'data' / 'capability_registry_reports'
+    rep_dir = Path(rep_dir) if rep_dir else REPO / 'data' / 'capability_registry_reports'
     if not rep_dir.is_dir():
         return ("[capability-registry] NO REPORTS DIR <-- ATTENTION\n"
                 "    run: python tools/capability_registry_audit.py")
@@ -483,7 +607,8 @@ def registry_report() -> str:
         return ("[capability-registry] NO AUDIT EVER RECORDED <-- ATTENTION\n"
                 "    run: python tools/capability_registry_audit.py")
     newest = max(reports, key=lambda p: p.stat().st_mtime)
-    age_h = (time.time() - newest.stat().st_mtime) / 3600.0
+    rep_mtime = newest.stat().st_mtime
+    age_h = (time.time() - rep_mtime) / 3600.0
     try:
         data = json.loads(newest.read_text(encoding='utf-8'))
     except (OSError, json.JSONDecodeError) as exc:
@@ -492,10 +617,86 @@ def registry_report() -> str:
                    'vet_pending', 'orphans', 'n_rows', 'total_rows')
     bits = [f'{k}={data[k] if not isinstance(data[k], list) else len(data[k])}'
             for k in interesting if k in data]
+
+    # HAVE THE INPUTS MOVED SINCE THIS WAS COMPUTED? Never raises: a missing or unreadable tool
+    # is simply not evidence of staleness, and the hook must degrade rather than fail.
+    tdir = Path(tool_dir) if tool_dir else REPO / 'tools'
+    moved = []
+    for name in _REGISTRY_AUDIT_INPUTS:
+        try:
+            p = tdir / name
+            if p.is_file() and p.stat().st_mtime > rep_mtime:
+                moved.append((name, (p.stat().st_mtime - rep_mtime) / 3600.0))
+        except OSError:
+            continue
+
+    # AND THE ONE THAT ACTUALLY HAPPENED: THE ROWS ARE OLDER THAN THE REPORT.
+    # The audit writes BOTH a report and every row's `last_audit_utc`. A one-off registration
+    # script is also a read-modify-write writer of the same file, so if it loaded the registry
+    # before the audit wrote it and saved afterwards, the audit's results are LOST while its report
+    # survives -- the lost-update race capability_registry_audit.py:1495 warns about in its own
+    # comment. Measured 2026-08-21: the audit computed the correct 55/94 split at 10:00 AND 10:03
+    # local, and the rows still carried the 05:24 values (48/101) eleven hours later, with two
+    # hand-registration commits in between. THE REPORT EXISTING IS NOT EVIDENCE THE ROWS WERE
+    # UPDATED, and the tool-mtime check above cannot see this at all: the tool never moved.
+    rows_behind = None
+    try:
+        stamp = re.search(r'registry-audit-(\d{8}T\d{6})Z', newest.name)
+        reg = Path(registry_path) if registry_path else REPO / 'data' / 'capability_registry.jsonl'
+        if stamp and reg.is_file():
+            rep_ts = stamp.group(1)
+            newest_row = ''
+            with reg.open(encoding='utf-8') as fh:
+                for line in fh:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        v = str(json.loads(line).get('last_audit_utc') or '')
+                    except json.JSONDecodeError:
+                        continue
+                    if v > newest_row:
+                        newest_row = v
+            if newest_row:
+                # TOLERANCE, AND IT IS NOT OPTIONAL. The audit stamps every row with the time it
+                # STARTED and its report is named for the time it FINISHED, and it walks the import
+                # graph in between -- measured 8m24s on 2026-08-21. So rows trail the report by
+                # minutes on EVERY HEALTHY RUN. A strict comparison fires every time, which is the
+                # cry-wolf detector this repo has twice measured as worse than no detector at all
+                # (3,990 false positives on dates; a 48.5%-base-rate ceiling flag that was never
+                # built). The real incident was 4.8 HOURS behind, so an hour separates them cleanly.
+                try:
+                    r_ep = time.mktime(time.strptime(rep_ts, '%Y%m%dT%H%M%S'))
+                    w_ep = time.mktime(time.strptime(
+                        newest_row.rstrip('Z'), '%Y-%m-%dT%H:%M:%S'))
+                    if (r_ep - w_ep) > _ROWS_BEHIND_TOLERANCE_SEC:
+                        rows_behind = (newest_row, rep_ts, (r_ep - w_ep) / 3600.0)
+                except ValueError:
+                    rows_behind = None
+    except (OSError, re.error):
+        rows_behind = None
+
     flag = ' <-- STALE, re-run the audit' if age_h > 24 else ''
-    return (f"[capability-registry] last audit {age_h:.1f}h ago{flag}\n"
-            f"    {newest.name}\n"
-            f"    {'  '.join(bits) if bits else '(no summary keys matched)'}")
+    out = [f"[capability-registry] last audit {age_h:.1f}h ago{flag}",
+           f"    {newest.name}",
+           f"    {'  '.join(bits) if bits else '(no summary keys matched)'}"]
+    if moved:
+        out.append("    <-- STALE BY A TOOL CHANGE, NOT BY AGE. These rows are a CACHE and their")
+        out.append("        INPUTS HAVE MOVED SINCE IT WAS COMPUTED:")
+        for name, dh in sorted(moved, key=lambda x: -x[1]):
+            out.append(f"          {name} is {dh:.1f}h NEWER than the report")
+        out.append("        run: python tools/capability_registry_audit.py")
+        out.append("        (2026-08-21: this exact case moved 7 organs to WIRED_AND_PIPELINE_USED")
+        out.append("         while the report was only 4h old and therefore read as fresh)")
+    if rows_behind:
+        row_ts, rep_ts, behind_h = rows_behind
+        out.append("    <-- THE ROWS ARE OLDER THAN THE REPORT. The audit ran and its results were")
+        out.append("        LOST -- a concurrent read-modify-write writer (a one-off registration")
+        out.append("        script) clobbered them. The report surviving is NOT evidence the rows")
+        out.append(f"        were updated.  rows are {behind_h:.1f}h behind the report")
+        out.append(f"        newest row last_audit_utc={row_ts}  report={rep_ts}Z")
+        out.append("        run: python tools/capability_registry_audit.py")
+    return "\n".join(out)
 
 
 def main() -> int:
