@@ -22,41 +22,38 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
 "TOP ITEM" and "WHAT IS RUNNING" (`session_start_hook.py`, `board.py`).
 **Inside a section use `###`, never `##`.** *And NEVER let a line BEGIN with one of those literals
 even when merely NAMING it: on 2026-08-21 this very sentence wrapped so that a line started with
-`## TOP ITEM -- **BUILD SLEEP (D8+D4). THE EQUATION IS FULLY PINNED AND WE HAVE NONE OF IT.**
+`## TOP ITEM -- **SLEEP HAS FAILED THREE WAYS IN THREE TURNS. THE OPEN QUESTION IS SCALE.**
 
-**Owner Q95: *"we should chase things that are brain foundational in every way."*** Applied, that
-picks NEITHER F5 nor E3. **`ORGAN_MAP` STEP 5, its own words: *"this is the ONE place in the plan
-where the brain's equation is FULLY PINNED and we have literally none of it."*** Nothing else on a
-39-organ map says that. **And the owner asked for it in the same message for an unrelated reason**
-(Q92: *"an auto aging feature like the normal sleep pruning"*). Two routes, one target.
+**Owner Q95: *"chase things that are brain foundational in every way"*** picked sleep (D8+D4) --
+`ORGAN_MAP`'s *"the ONE place the brain's equation is FULLY PINNED and we have literally none of
+it"*. **Then three cheap measurements took it apart. All three are negatives about MY proposals,
+not about the biology.**
 
-**IT ALSO SIDESTEPS TODAY'S WORST FINDING.** Our representation is **partially subsumed by counting
-(union gain 1.28x)**. F5 would READ that representation and inherit it. **Sleep does not** -- it
-governs what is KEPT and what DECAYS, orthogonal to whether the representation beats counting.
+| proposed | why it does not apply |
+|---|---|
+| **cascade / graceful decay** | our slots are **PRIVATE**; we lack the shared-synapse interference it defends against. Retention slope **-0.031** vs the **-0.50** a Benna-Fusi system gives, and indistinguishable from the `sign()` arm |
+| **cold storage / tiering** (owner's Q92 + commentary) | **ALREADY BUILT AND PROVEN** -- `prelim_tier`'s docstring opens *"retain-forever"*; 3 HARD_PASS, VET'd. **A WIRING gap: `Substrate().read()` loads 44 modules and NONE of the three tiers** (runtime-verified, clean process) |
+| **consolidation / dedup** (owner's middle clause) | **NO DUPLICATES EXIST.** Pairs above cos 0.90: **0.03% / 0.00% / 0.00%** across rare/mid/common, against a frequency-matched null p95 of ~0.10 |
 
-### THE PINNED MATHEMATICS (Benna & Fusi 2016, verbatim in `drill_cascade_synapse_replay_consolidation_biology_2026-08-14.md`)
-`u_1` **IS** the synaptic weight and is **graded, not bistable**; `u_2..u_m` are hidden variables in
-a **linear chain, nearest-neighbour only**, with a leak `u_{m+1}=0`:
-`C_k du_k/dt = g_{k-1,k}(u_{k-1}-u_k) + g_{k,k+1}(u_{k+1}-u_k)`, input `I(t)` replacing `g_{0,1}` at `k=1`.
-**The couplings are BIDIRECTIONAL -- "the whole difference from Fusi 2005, and where metaplasticity
-comes from for free."** Constants: `C_k = 2^(k-1)`, `g_{k,k+1} = 2^(-k-2)` ->
-**`tau_k = 2^(2k+1)`, a 4x timescale ratio per level** (8, 32, 128, ...).
+**AND SLOT GROWTH IS ORDINARY, NOT PATHOLOGICAL:** Heaps `beta = 0.589`, per-sentence rate falling
+3.65 -> 1.52. *I called it "unbounded" one turn ago; that was the wrong word.*
 
-### ⚙️ COPY THE COMPUTATION, SWEEP THE PARAMETER -- the standing discipline decides the design
-**COPY EXACTLY** (derives from a problem we SHARE): the chain, nearest-neighbour coupling, the
-**bidirectional** push-back, the leak, and `u_1` being the weight itself.
-**SWEEP, NEVER ADOPT** (derives from biochemical constraints we do NOT share): `m`, and the powers
-of two. *"The pinned MTL 0.2% band was the WORST point in its own sweep. Our worst result copied a
-NUMBER; our best copied an OPERATION."*
+### 🎯 **THE ONE VERSION OF THE QUESTION LEFT OPEN, AND IT IS THE REAL ONE**
+**All of the above is measured at 4,096 sentences / 6,217 slots.** `beta = 0.589` **does not
+saturate**, so the count keeps climbing. **What slot count costs at 10^5-10^6 sentences is
+UNTESTED**, and a pathology that only appears there is invisible here. *That is the capacity
+question worth asking; the ones I asked were not.*
 
-### ⚠️ HONEST COST AND CARRIED CORRECTIONS
-*"The substrate has no replay scheduler primitive; needs new infrastructure"* (prior note), and
-`SUBSTRATE_STRATEGY.md` puts D4 below the line needing *"a corpus stream to be testable"*.
-**A real build, not a wiring job**, and its evaluation needs the standard the anomaly harness set.
-**D8:** *"Roxin & Fusi 2012"* is **2013**, and it **shares the cascade's scaling, never supported `~N`.**
-**D4:** reward-scaling is **Ambrose, Pfeiffer & Foster 2016**, not Foster & Wilson 2006 -- that paper
-**found reverse replay and never reward modulation.**
-**F5 and E3 are NOT withdrawn.** `notes/THE_DECISION_sleep_is_the_one_place...md`
+### **WHAT SURVIVES, AND IT IS THE OWNER'S PRINCIPLE**
+*"The brain throws away detail; we can put it in cold storage and not lose it... never throw out
+useful information."* **Right on our own rules** -- we are not capacity-bound as the brain is, so
+copying biological forgetting copies a CONSTRAINT we do not share. **Copy the computation, sweep the
+parameter.**
+
+### ⚠️ **DO NOT BUILD SLEEP AS DECAY OR DEDUP ON ASSERTION.** Three of my own proposals died to three
+cheap measurements this session. *The stratified null is what made the dedup zero readable -- without
+it, rare words seen once would have looked like duplicates and I would have invented the problem.*
+`notes/NEITHER_DECAY_NOR_DEDUP_IS_WARRANTED_...md`
 
 ## WHAT IS RUNNING
 
