@@ -52,7 +52,9 @@ Pre-2026-08-21 session log: `STATUS_ARCHIVE_2026-08-21_pre_trim.md` (byte-identi
 
 **WHAT IS RUNNING**
 - **NOTHING IS RUNNING.** No cells, no agents, no detached processes spawned by this session.
-- **BOARD Q91 IS OPEN** -- this file is ~2x its 8,704 B cap after the 2026-08-21 trim. Escalation
+- **BOARD Q92 AND Q95 ARE OPEN** (Q91->Q92 superseded on new arithmetic; Q93->Q94->Q95 on a
+  reversed recommendation and then a fact I had not CI-checked). Q92: this file is ~2.3x its
+  8,704 B cap after the 2026-08-21 trim. Escalation
   steps 1-2 are spent. **Per `STATUS_SPEC.md` sec 6 the agent that needs the room may NOT raise the
   cap; do not self-approve it.** The session-start hook now REPORTS the size every session
   (`STATUS_CAP_BYTES` in `session_start_hook.py` mirrors the spec -- change both together).
@@ -62,10 +64,9 @@ Pre-2026-08-21 session log: `STATUS_ARCHIVE_2026-08-21_pre_trim.md` (byte-identi
   **Never edit `preregs/**` or any `arm_key*` file.**
 - **2026-08-21 landed:** anomaly set + hand-scores; the F5 bar measured and replicated; the cell
   flagger tightened 13 -> 1 with its survivor examined and cleared
-  (`_tie_mass_examination_2026-08-21.json`); this file trimmed 308,692 -> ~17 KB with **nothing
-  deleted**; the hook size guard. All committed.
+  (`_tie_mass_examination_2026-08-21.json`); this file trimmed 308,692 -> ~20 KB with **nothing
 
-_mirrored from `notes/STATUS.md` at 2026-08-21T00:15:31Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-21T00:17:10Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 

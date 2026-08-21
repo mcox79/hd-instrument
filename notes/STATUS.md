@@ -47,22 +47,28 @@ independent gold across 4 seeds. **The win is the FORM (a phrase), not the SOURC
 repo; three attempts to change that all failed. That read-back gap is the bottleneck, not quality.
 Flat ledger of what survives vs what I withdrew: `WHAT_2026-08-20_ESTABLISHED_survives_vs_withdrawn.md`.
 
-### 2026-08-21 -- THE F5 BAR IS MEASURED AND REPLICATED, BEFORE THE ORGAN EXISTS
+### 2026-08-21 -- THE F5 BAR, MEASURED AND REPLICATED BEFORE THE ORGAN EXISTS
+
 Four routes (measurement, learning research, philosophy, neuroscience+ORGAN_MAP) converge on **F5**,
-the coherence monitor / N400 generator, as the missing consumer. Its bar is now a number:
+the coherence monitor / N400 generator, as the missing consumer. **Three reference points now exist
+on one task, all through `tools/f5_evaluation_harness.py`, all `REPLICATED` on 4 independently-built
+120-item sets:**
 
-| floor, on 102 hand-scored CLEAN items | anom | orig | DELTA |
-|---|---|---|---|
-| **CO-OCCURRENCE SURPRISAL** | **4.00** | 6.00 | **+2.00** -- the only floor that detects anything |
-| FREQUENCY (flag the rarest) | 2.00 | 2.50 | +0.50 -- the matching worked |
-| POSITION / ORTHOGRAPHIC / LENGTH / CONSTANT | -- | -- | **+0.00 all four: NO anomaly signal** |
+| arm -- paired anomalous-vs-original hit@1 discrimination | per set | median |
+|---|---|---|
+| untrained codebook (nothing read) | +0.0, +3.4, *(refused)* | **~0** -- CIs span zero, donates nothing |
+| **THE TRAINED SUBSTRATE** | +12.5, +11.8, +20.8, +20.2 | **+16.3 pp** -- 4/4 CIs exclude zero |
+| first-order counting | +23.3, +23.5, +22.5, +25.2 | +23.5 pp |
+| **second-order counting -- THE BAR** | +28.3, +29.4, +35.0, +29.4 | **+29.4 pp**, upper bound **+44.2** |
 
-**DELTA = the same floor scored on the ORIGINAL sentence at the SAME slot. The original word is
-CORRECT there, so DELTA 0 means the arm reads the SLOT, not the anomaly.** `REPLICATED` across 4
-independently-built item sets (+2.00/+2.25/+2.00/+2.00, 1.1x spread, no control at half the effect).
-**A leak inflated it by 43% of its own effect** (the items were drawn FROM the corpus the
-co-occurrence table was built on); excluding the 120 item sentences moved rank 2.50 -> 4.00.
-Notes: `THE_F5_BAR_IS_MEASURED_BEFORE_THE_BUILD_...md`, `THE_F5_BAR_REPLICATES_...md`.
+**THE READ-OUT IS THE PAIRED DIFFERENCE, NOT RANK.** The same floor scored on the ORIGINAL sentence
+at the SAME slot; the word there is CORRECT, so a difference of 0 means the arm reads the SLOT.
+**Absolute rank is slot-inflated for every arm and is not a valid read-out.**
+**LEARNING BOUGHT SOMETHING REAL** (0 -> +16.3, same representation, only the reading differs) --
+**AND THE PAIRED TEST SAYS WE ARE MEASURABLY BEHIND COUNTING**, not merely not-ahead:
+`SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.
+Notes: `THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`, `THE_F5_BAR_WAS_TOO_LOW_...md`,
+`THE_UNTRAINED_GEOMETRY_DONATES_NOTHING_...md`.
 
 ## TOP ITEM -- **BUILD F5. THE TASK, THE ITEMS AND THE BAR ARE ALL READY; ONLY THE ORGAN IS MISSING.**
 
@@ -77,23 +83,14 @@ Notes: `THE_F5_BAR_IS_MEASURED_BEFORE_THE_BUILD_...md`, `THE_F5_BAR_REPLICATES_.
    hand-scored **102 CLEAN / 17 WEAK / 1 BROKEN** in `..._v8_handscores.json`. Builder is
    byte-deterministic (`tools/build_frequency_matched_anomaly_set.py --self-test`).
    **CEILING ~86%: with 17 WEAK items a PERFECT detector cannot score higher. PRINT THAT beside any
-   score, or the shortfall reads as detector failure.**
-3. **The bar (CORRECTED 3x, REPLICATED)** -- **beat +44.2 pp** on the paired anomalous-vs-original
-   hit@1 difference, via `tools/f5_evaluation_harness.py`, which REFUSES to score a detector
-   failing the mandatory diagnostics. Both counting floors measured through it and REPLICATED:
-   first-order `+23.3/+23.5/+22.5/+25.2`, second-order `+28.3/+29.4/+35.0/+29.4`.
-   **The bar moved three times and every move was UPWARD, each from a defect in my own
-   instrument** (rank is slot-inflated; single set; a surface-vs-lemma lookup bug deflating both
-   floors). ~~beat +20.7 pp on the PAIRED
-   anomalous-vs-original hit@1 difference.** Second-order counting scores `+10.9/+13.3/+13.8/+7.6`
-   across four independently-built sets -> `REPLICATED` (median +12.1, 1.8x spread, McNemar
-   p=0.0004-0.0389); +20.7 is the MAX per-set CI upper bound, per the gate-on-the-upper-bound rule.
-   ~~beat +18.8 pp on the PAIRED anomalous-vs-original hit@1
-   difference**, the UPPER bound of SECOND-ORDER counting's discrimination (53.5% vs 42.6%,
-   +10.9 pp, CI [+3.0, +18.8]). **The old rank-4.0 bar is SUPERSEDED: too low, and absolute rank is
-   slot-inflated for EVERY arm** -- the floor ranks that slot first 42.6% of the time with the
-   CORRECT word in it. Headroom ~43 pp; counting takes 10.9. ~~gated on that floor's UPPER~~
-   bound, >=3 item sets, `replication_gate.py` = `REPLICATED`.
+3. **The bar -- `+44.2 pp`** on the paired anomalous-vs-original hit@1 difference, via
+   `tools/f5_evaluation_harness.py`, which REFUSES to score a detector failing the mandatory
+   diagnostics. It is the MAX per-set CI upper bound across both counting floors (see POSITION).
+   **THE BAR MOVED THREE TIMES AND EVERY MOVE WAS UPWARD, each from a defect in MY OWN INSTRUMENT,
+   never from new evidence about the task:** rank-4.0 (rank is slot-inflated -> wrong metric);
+   +18.8 (one set, not replicated); +20.7 (a surface-vs-lemma lookup bug deflating BOTH floors).
+   **The superseded values are recorded in the notes with banners, deliberately NOT layered here --
+   three strikethrough versions stacked in this item is what made it unreadable on 2026-08-21.**
 4. **The consumption design** -- the banked meaning must supply the **PREDICTION**, not sit in the
    register; error = `||predicted - observed||` = `||delta situation_model||`:
    `ANGLE_B_the_meaning_consumption_link_...md`.
@@ -109,7 +106,9 @@ floor wins** -- ground-by-X and grade-by-X. Do not.
 ## WHAT IS RUNNING
 
 - **NOTHING IS RUNNING.** No cells, no agents, no detached processes spawned by this session.
-- **BOARD Q91 IS OPEN** -- this file is ~2x its 8,704 B cap after the 2026-08-21 trim. Escalation
+- **BOARD Q92 AND Q95 ARE OPEN** (Q91->Q92 superseded on new arithmetic; Q93->Q94->Q95 on a
+  reversed recommendation and then a fact I had not CI-checked). Q92: this file is ~2.3x its
+  8,704 B cap after the 2026-08-21 trim. Escalation
   steps 1-2 are spent. **Per `STATUS_SPEC.md` sec 6 the agent that needs the room may NOT raise the
   cap; do not self-approve it.** The session-start hook now REPORTS the size every session
   (`STATUS_CAP_BYTES` in `session_start_hook.py` mirrors the spec -- change both together).
@@ -119,7 +118,7 @@ floor wins** -- ground-by-X and grade-by-X. Do not.
   **Never edit `preregs/**` or any `arm_key*` file.**
 - **2026-08-21 landed:** anomaly set + hand-scores; the F5 bar measured and replicated; the cell
   flagger tightened 13 -> 1 with its survivor examined and cleared
-  (`_tie_mass_examination_2026-08-21.json`); this file trimmed 308,692 -> ~17 KB with **nothing
+  (`_tie_mass_examination_2026-08-21.json`); this file trimmed 308,692 -> ~20 KB with **nothing
   deleted**; the hook size guard. All committed.
 
 ## DO NOT REDO -- NEVER-TRIM -- stubs; detail in LESSONS
