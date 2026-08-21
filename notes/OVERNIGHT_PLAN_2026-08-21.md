@@ -28,6 +28,32 @@
 > than the distributional half on **three independent samples** (32%/4% paired, 48%/4% same-rows,
 > 28%/6% my per-row re-score). *That is the only part of the output with a repeatable quality signal.*
 > **Any organ proposal must now state WHAT IT CONSUMES and whether that input is shown ABOVE CHANCE.**
+>
+> ---
+>
+> ## 💡 **AND THE ONE ACTIONABLE LEVER FOUND TONIGHT: WRITE LESS. IT IS 4.3x AND IT IS UNTUNED.**
+> **`exp_predictive_coding_write_gate_dissociation_v1` (08-18) swept the write threshold over four
+> percentiles of the surprise distribution:**
+>
+> | threshold | **P1** (prediction-gated) | **N1** (**random**, same rate) | band | vs incumbent 0.0710 |
+> |---|---|---|---|---|
+> | p25 | 0.0961 | 0.0971 | `NOT_SEPARATED` | +0.0251 |
+> | p50 | 0.1526 | 0.1368 | `NOT_SEPARATED` | +0.0816 |
+> | p75 | 0.2268 | 0.2165 | `NOT_SEPARATED` | +0.1558 |
+> | **p90** | **0.3079** | **0.3007** | `NOT_SEPARATED` | **+0.2369** |
+>
+> **(a) WRITING LESS IMPROVES MONOTONICALLY -- 0.0710 -> 0.3079, 4.3x, NO NEW MECHANISM.**
+> **(b) A RANDOM GATE MATCHES PREDICTION-ERROR AT EVERY RATE**, and the gap SHRINKS as the rate
+> tightens. ***So my Angle B write-gate half is REFUTED: the gain is RATE, not error.***
+> **(c) `BEST_P1_THRESHOLD` = the HIGHEST value tested -- the sweep HIT THE EDGE OF ITS RANGE STILL
+> CLIMBING. The optimum is not in the data.**
+>
+> **⛔ AND THE CEILING THAT MUST BE QUOTED WITH IT: EVERY ARM AT EVERY THRESHOLD IS
+> `BELOW_0.5_COOCCURRENCE`.** *4.3x and still below counting. **"4.3x" alone is the most misleading
+> number available from tonight's work.***
+>
+> **➡️ CHEAPEST REAL EXPERIMENT AVAILABLE: EXTEND THE SWEEP PAST p90.** *One parameter. No new
+> mechanism. And credit NO selection rule until one separates from a rate-matched random gate.*
 
 > # 🏆 **BEST FINDING OF THE NIGHT: THE STRONGEST SEMANTIC ASSET WE OWN IS 12 HUMAN-MEASURED NUMBERS**
 > **`ASSET_NORMS12` = `hdlab/grounded_similarity.py` -- 11 Lancaster sensorimotor norms + 1 Brysbaert
