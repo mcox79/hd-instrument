@@ -98,6 +98,13 @@ D_TEXT = ("Raise the working dimensionality from 256 to 1024 on the live path? S
 D_ROW = {"id": "D1", "question": D_TEXT,
          "why": "It rewrites every persisted anchor store, and a concurrent session is live.",
          "default": "HOLD. Do it only when no concurrent session is running and a backup exists."}
+# D2 IS NEVER ANSWERED BY THIS WITNESS, ON PURPOSE. Once the owner's 2026-08-20 rule landed
+# ("answered rows leave the working list"), answering D1 in section B empties the fixture's working
+# list entirely -- and the refresh-preservation check below needs a row that is still THERE to
+# preserve. Without this row that check silently tested nothing.
+D2_ROW = {"id": "D2", "question": "A second decision, deliberately left unanswered.",
+          "why": "It keeps the refresh-preservation check non-vacuous.",
+          "default": "Nothing happens."}
 O_ROW = {"id": "OP4", "title": "The status file is over its size limit and the raise needs granting",
          "question": "A raise from 8704 to 9216 bytes has been measured and proposed. Grant it?",
          "blocked": "Every future edit has to choose between breaking the cap and evicting an entry.",
@@ -134,10 +141,24 @@ def _payload() -> dict:
     return {
         "ts": "witness", "took_s": 0.0,
         "board": board,
-        "plan": {"status": "OK", "decisions": [dict(D_ROW)],
+        "plan": {"status": "OK", "decisions": [dict(D_ROW), dict(D2_ROW)],
                  "operator": {"status": "OK", "rows": [dict(O_ROW)]}},
         "ages": {},
     }
+
+
+def _disengage(gui) -> None:
+    """Drop selection and drafts so the next `_r_board` is APPLIED rather than held.
+
+    `_r_board` refuses to rebuild while the owner is engaged (a row selected, or unsaved text in the
+    box) -- deliberately, and section E already did this by hand for that reason. A rebuild that is
+    silently refused leaves the PREVIOUS rows on screen, so any check reading them afterwards passes
+    against stale data instead of what it meant to test."""
+    gui.board_tv.selection_remove(*gui.board_tv.selection())
+    gui.answer_box.delete("1.0", "end")
+    gui._drafts.clear()
+    gui._selected_row_id = None
+    gui._selected_qid = None
 
 
 def _iid_for(gui, row_id: str) -> str:
@@ -295,24 +316,47 @@ def run() -> int:
         check("D1" in {k.upper() for k in (p["board"].get("recorded") or {})},
               f"D the collector reads the D1 answer back out of notes/BOARD.md "
               f"(recorded: {sorted((p['board'].get('recorded') or {}))})")
+        # UPDATED 2026-08-21. This block used to assert that the answered decision STAYED in the
+        # working list wearing an "ANSWERED" label. The owner then asked for the opposite, twice --
+        # *"they are all legacy and need to be removed"* and *"it should be archived"* -- and
+        # status_gui was changed to skip settled rows. THE WITNESS WAS NOT UPDATED WITH IT, so it
+        # has been failing ever since, which is why nobody noticed the phantom-row crash it was
+        # also hitting. It now asserts the contract that actually shipped.
+        _disengage(gui)
+        gui.board_archive = False
+        gui._r_board(p)
+        working = {r.get("id") for r in gui._wait_rows.values()}
+        check("D1" not in working,
+              f"D an answered decision LEAVES the working list (owner: 'it should be archived') "
+              f"(working rows: {sorted(x for x in working if x)})")
+        check("D2" in working,
+              f"D ...while an UNANSWERED one stays, so the check above is not vacuous "
+              f"(working rows: {sorted(x for x in working if x)})")
+        _disengage(gui)
+        gui.board_archive = True
         gui._r_board(p)
         vals = [gui.board_tv.item(iid, "values")
                 for iid, r in gui._wait_rows.items() if r.get("id") == "D1"]
         joined = " ".join(str(v) for v in (vals[0] if vals else ()))
         check("ANSWERED" in joined.upper(),
-              f"D and the row shows as ANSWERED instead of asking again forever (row {joined[:150]!r})")
+              f"D and it shows as ANSWERED in the ARCHIVE -- archived, not deleted "
+              f"(row {joined[:150]!r})")
         check(ANSWER_D[:25] in joined,
-              f"D with the answer visible in the row (row {joined[:200]!r})")
+              f"D with the answer visible on the archived row (row {joined[:200]!r})")
+        _disengage(gui)
+        gui.board_archive = False
+        gui._r_board(p)
 
         # ---------------------------------------------------------------
         # A REFRESH STILL MUST NOT DESTROY IN-PROGRESS INPUT, on a DECISION row.
         # ---------------------------------------------------------------
-        _select(gui, "D1")
+        # ON D2, not D1: D1 has been answered by now and correctly no longer exists here.
+        _select(gui, "D2")
         _type(gui, "a draft I am still composing")
         gui._r_board(_payload())
         sel = gui.board_tv.selection()
         sel_id = gui._wait_rows.get(sel[0], {}).get("id") if sel else None
-        check(sel_id == "D1", f"a refresh keeps the DECISION row selected (selection {sel_id!r})")
+        check(sel_id == "D2", f"a refresh keeps the DECISION row selected (selection {sel_id!r})")
         check(_box(gui) == "a draft I am still composing",
               f"and keeps the half-typed answer (box {_box(gui)[:50]!r})")
 
@@ -349,8 +393,17 @@ def run() -> int:
                                             "rows": [r for r in live_rows
                                                      if r["_kind"] == "STANDING"]}},
                       "ages": {}})
+        # ONLY THE ROWS THAT ARE STILL WAITING. By 2026-08-21 the owner had answered all seven
+        # decisions and all four standing items, so every live row is settled and correctly
+        # suppressed; demanding that a suppressed row arm Save asserts the opposite of what they
+        # asked for. That settled rows leave the list is asserted by
+        # verification/test_settled_rows_leave_the_working_list.py.
+        _rec_now = {str(k).upper() for k in (_payload()["board"].get("recorded") or {})}
+        pending = [r for r in live_rows if str(r.get("id") or "").upper() not in _rec_now]
+        check(True, f"E of {len(live_rows)} live rows, {len(pending)} are still waiting and "
+                    f"{len(live_rows) - len(pending)} are settled (settled: {sorted(_rec_now)})")
         dead = []
-        for rid in [r.get("id") for r in live_rows]:
+        for rid in [r.get("id") for r in pending]:
             try:
                 _select(gui, rid)
             except AssertionError:

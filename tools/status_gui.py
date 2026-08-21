@@ -3148,13 +3148,22 @@ class StatusWindow:
         for d in decisions:
             d = _d(d)
             iid = f"d{d.get('id')}"
-            self._wait_rows[iid] = dict(d, _kind="DECISION")
             done = _d(recorded.get(str(d.get("id") or "").upper()))
             # ANSWERED ROWS LEAVE THE WORKING LIST (owner 2026-08-20). They are in the archive.
             # Leaving them here is what made answering D6 feel like it "did not work": the answer
             # was recorded correctly, and the row stayed exactly where it was.
+            #
+            # `_wait_rows` IS REGISTERED **AFTER** THIS SKIP, NEVER BEFORE IT (fixed 2026-08-21,
+            # found by verification/test_settled_rows_leave_the_working_list.py on its first run).
+            # Registering first left `_wait_rows` claiming a row the Treeview had never been given,
+            # and the two are read together 50 lines below: the selection-restore looks `keep` up in
+            # `_wait_rows` and hands it to `tv.selection_set()`, which raises
+            # `TclError: Item dD1 not found` and takes the WHOLE PANEL REFRESH down with it.
+            # Reachable by the owner's ordinary workflow -- select a decision, answer it, wait for
+            # the next 20 s refresh -- which is when the row disappears while still selected.
             if done:
                 continue
+            self._wait_rows[iid] = dict(d, _kind="DECISION")
             tv.insert("", "end", iid=iid,
                       values=(d.get("id", "?"),
                               "DECISION - ANSWERED" if done else "DECISION (answerable here)",
@@ -3168,12 +3177,14 @@ class StatusWindow:
         for o in standing:
             o = _d(o)
             iid = f"o{o.get('id')}"
-            self._wait_rows[iid] = dict(o, _kind="STANDING")
             drift = ("   [CHECK SOURCE]"
                      if o.get("verify_status") == "CHECK_SOURCE" else "")
             done = _d(recorded.get(str(o.get("id") or "").upper()))
             if done:                       # answered -> the archive, not the working list
                 continue
+            # AFTER the skip, for the same reason as the DECISION branch above: a `_wait_rows` entry
+            # with no matching Treeview item crashes the selection-restore and kills the refresh.
+            self._wait_rows[iid] = dict(o, _kind="STANDING")
             tv.insert("", "end", iid=iid,
                       values=(o.get("id", "?"),
                               "STANDING - ANSWERED" if done else "STANDING (answerable here)",
