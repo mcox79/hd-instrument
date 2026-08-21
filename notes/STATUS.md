@@ -85,52 +85,64 @@ COMPARATOR path, and it is exactly why the fix is to not route through it.*
 | **NORMS12** | **The strongest semantic asset we own is 12 HUMAN-MEASURED dims** (11 Lancaster sensorimotor + 1 Brysbaert concreteness) -- **rho 0.2701, +0.1653 over the incumbent, CI [0.0159, 0.3084]**, beating a **121M-token encoder** and our 256-d live encoding **at 21x smaller**. **The most brain-faithful asset is also the best-performing** (ATL hub, Cox 2024). **It IS live -- but `GROUNDED_CAP=0.45` makes the live scalar effectively two-valued** (`sofa/couch` = `dog/cat` = 0.45); **the arm that WON used the RAW vectors, which almost nothing consumes.** ⚠️ token coverage **60.4%**, type **10.3%**; usable table **36,810 NOT 39,707**. [`THE_BEST_SEMANTIC_ASSET_...`] |
 | **CHANCE?** | **CORRECTED CLAIM -- I over-reached and withdrew it.** Three measurements (SimLex CI **[-0.007, +0.213]** crosses zero; **100 BLIND** hand-scored facts **3/19/78**; `SUBSTRATE`=`RANDOM` **7-of-361**) do NOT license "at or near chance": a **fourth**, already in this file, has the trained substrate **+16.3 pp REPLICATED over an untrained codebook**. **➡️ ABOVE its untrained floor on at least one task, and `SUBSTRATE - COUNTING = -0.142` CI **[-0.203,-0.082] SEPARATED** -- measurably BEHIND counting, not merely not-ahead.** [`THREE_INDEPENDENT_MEASUREMENTS_CONVERGE_...`] |
 | ⭐ **METHOD** | **AUDIT ON OWNER INSTRUCTION, counted from `git log`: 57 commits, 68 notes, **7 (12%) touched CODE**, **29 of 57 subjects (51%) were corrections/"already done"**. **LARGEST WASTE: 7 PROPOSALS ALREADY ANSWERED ON DISK.** *Cause, one sentence: **I ran the prior-work check on what I was BUILDING, never on what I was DOING** -- and hand-scoring/sweeping/auditing are neither.* **➡️ STEP 1 IS NOW A COMMAND: `python tools/before_you_start.py "<what you are about to do>"`** (queries VERBS first; known-present control 126 cells, known-absent 0). Steps 2-5 in `CLAUDE.md`: **enumerate small populations whole** (sampling caused every withdrawal); **read every row the query returned** (a 4-row result read at row 1; row 4 reversed it); **print quantities that CONSTRAIN EACH OTHER** (found the only real bug; 5 iterations of static tooling did not); **conclude last, naming the population**. **META-RULE 5-FOR-5: prose cautions get violated, CODE controls catch things.** [`AUDIT_OF_MY_OWN_METHOD_...`] |
-| **ARCHIVE FIXED** | **`experiment_index` was reporting the WRONG STATE for 9 cells and NOTHING for 2** -- it read `verdict`, ignoring `final_verdict`. Fixed + rebuilt. **IMMEDIATELY SURFACED TWO BURIED RESULTS: a hand-checked *90%-precision* extractor (`HARD_PASS`, negation-clean, 0.394->0.90 over its predecessor) and `MIDDLE_BAND_dense_reading_works...` whose own text says *"This REFUTES 'reading can't supply the knowledge'"* (per-process 0.45-0.69 vs a 0.19 scramble floor) -- both filed as FAILURES.** *It now also prints `!! CORRECTION ON THIS CELL` for the 14 rows carrying a `premise_correction`/`amendment` -- one of which had recorded the exact wrong premise I then repeated.* |
+| **ARCHIVE FIXED** | **`experiment_index` read `verdict` and ignored `final_verdict` -- WRONG STATE for 9 cells, NOTHING for 2.** Fixed + rebuilt; now also prints `!! CORRECTION ON THIS CELL` for the 14 rows carrying a `premise_correction`. **It surfaced two buried results and I checked BOTH: the *90%-precision* extractor HOLDS** (random sample drawn AFTER the filters were designed, per-row verdicts kept, 10 errors in 10 distinct categories; quote it **0.90 [0.826,0.945]**, precision on the 1,414 survivors) -- **but `MIDDLE_BAND_dense_reading_works...`'s *"This REFUTES 'reading can't supply the knowledge'"* DOES NOT: its five strong numbers come from a field named `per_process_strong`, the only floor is `scramble_floor_aggregate` (no per-process floor exists), seed beats reading **8 of 8**, and 165x0.2121 aggregate ~= 35 items recalled while its 8 listed processes alone cover 118 items at 0.4576 ~= 54. A SUBSET CANNOT OUT-RECALL THE WHOLE.** *Keep its failure localisation (32 facts, 0 recall = ENTITY MISMATCH); drop the headline.* |
 | **KNOWL-EVAL** | **`query "quality"` -> 126 cells, 116 landed. A BLIND 100-row hand-score was written 08-12, scored 10 min later, and written up 08-20 -- and I produced an UNBLINDED duplicate of it.** *The prior-work rule fired on BUILDING; I was never building.* **➡️ TRIGGER IS *STARTING ANYTHING*, AND QUERY THE ACTIVITY ("hand-score", "blind", "quality"), NOT ONLY THE ARTIFACT.** *Now in `CLAUDE.md`.* [`PRIOR_WORK_FOUND_...`] |
 
 ## WHAT IS RUNNING
 
-- ⬜ **NOTHING IS RUNNING. BOTH DETACHED DIAGNOSTICS FINISHED AND WERE READ 2026-08-21**
-  (they had sat completed-and-unread; one had landed a `metrics.json` at 03:48Z):
-  - ✅ **`exp_graded_vs_signed_query_v1` -- `np.sign` AT `:776` COSTS ALMOST NOTHING. QUESTION CLOSED.**
-    `Q_GRADED` hit@1 **0.0480** / median **37.0** vs `Q_SIGNED` **0.0455** / **41.0**; paired
-    **`+0.0025`, CI95 `[-0.0030, +0.0080]` NOT SEPARATED**. **T5b's PREDICTION IS REFUTED** -- it said
-    magnitude moves hit@1 *specifically* and leaves median rank alone; **the opposite happened.**
-    *A real null, not a reachability failure: positive control reproduces the landed C3 headline
-    EXACTLY (0.0480) and **3,708 of 4,000 ranks changed**.* **`:663`'s "worse than either" is not
-    supported at this scale.** [`BOTH_DETACHED_DIAGNOSTICS_FINISHED_...`]
-  - ✅ **`diagnose_read_with_loaded_foundation` -- guard worked (both arms read **1,060** of 1,200 and
-    said so), AND THE `n_grounded=0` IT EXPOSED IS NOW **FIXED AT SOURCE**.** *Clean number from that
-    run: refusal delta **279 vs 380 = 1.36x**, not the 22x headline that was **93% pre-existing**.*
-- 🔧 **FIXED 2026-08-21 -- `ReadResult.n_grounded` WAS STRUCTURALLY ALWAYS ZERO.**
-  `substrate.py:608` read **`n_grounded_cumulative`**; `checkpoint()` emits **`cumulative_grounded`**
-  -- **the same two words TRANSPOSED**, a key existing nowhere else in `hdlab/`, so `.get()` always
-  took its default and `or 0` served a wiring failure up as data. **No exception, no warning.**
-  **POSITIVE CONTROL WAS REQUIRED AND WAS NOT OPTIONAL:** at 60 sentences the true value is *also* 0,
-  so a rename would have looked like success; at **600 sentences / 6 checkpoints** it climbs
-  **0 -> 14 -> 28 -> 34 -> 37 -> 39** while the field reported 0. **After the fix the same read gives
-  `n_grounded = 39`, matching its own checkpoints; substrate self-tests PASS.** It now **raises**
-  rather than defaulting. **Blast radius: 1 writer, 1 reader (my own diagnostic); NO landed cell
-  affected** -- the cells compute their own counts. ⚠️ **AND THE GENERALISABLE PART: a STATIC scan for
-  this bug class DOES NOT WORK** (1,925 -> 871 -> 801 -> 132 suspects, all levels dominated by
-  legitimate reads; `tools/audit_keys_read_but_never_written.py` says so in its own docstring).
-  **WHAT FOUND IT WAS A CONTRADICTION BETWEEN TWO FIELDS OF ONE OUTPUT** -- `n_grounded=0` printed
-  beside `anchors +68`. ***Make outputs print quantities that CONSTRAIN EACH OTHER.***
-- **DONE, one command each, all from READING:** `tools/orthographic_floor_tie_mass_v1.py` (621 s).
-- **BOARD Q92 AND Q95 ARE OPEN** (Q91->Q92 superseded on new arithmetic; Q93->Q94->Q95 on a
-  reversed recommendation and then a fact I had not CI-checked). Q92: this file is ~2.3x its
-  8,704 B cap after the 2026-08-21 trim. Escalation
-  steps 1-2 are spent. **Per `STATUS_SPEC.md` sec 6 the agent that needs the room may NOT raise the
-  cap; do not self-approve it.** The session-start hook now REPORTS the size every session
-  (`STATUS_CAP_BYTES` in `session_start_hook.py` mirrors the spec -- change both together).
+- 📏 **THIS FILE IS ~870 B (3%) OVER ITS 28,672 CAP AND IS LEFT THAT WAY DELIBERATELY.**
+  *Per `STATUS_SPEC.md` sec 6 I spent both permitted actions -- compressed my own addition twice,
+  then evicted tiers 1-4 (a stale "Q92/Q95 are OPEN" block, two finished-work progress reports,
+  emphasis prose in the diagnostics and `n_grounded` entries). Step 3 is **STOP, do not descend into
+  the never-trim sections, disclose it** -- so it is disclosed here rather than paid for out of
+  DO-NOT-REDO or STANDING DISCIPLINES.* **Hand to a maintenance pass; the hook warns only past 1.5x.**
+- ⬜ **NOTHING IS RUNNING.** Both detached diagnostics finished and were read 2026-08-21:
+  - ✅ **`exp_graded_vs_signed_query_v1` -- `np.sign` AT `:776` COSTS ALMOST NOTHING. CLOSED.**
+    `Q_GRADED` 0.0480 / median 37.0 vs `Q_SIGNED` 0.0455 / 41.0; paired **+0.0025 CI95
+    [-0.0030,+0.0080] NOT SEPARATED**. **T5b's PREDICTION IS REFUTED** -- it said magnitude moves
+    hit@1 specifically and leaves median rank alone; the opposite happened. *Real null, not
+    unreachable: positive control reproduces the C3 headline EXACTLY (0.0480), 3,708/4,000 ranks
+    changed.* **`:663`'s "worse than either" unsupported at this scale.**
+  - ✅ **`diagnose_read_with_loaded_foundation`: refusal delta 279 vs 380 = 1.36x, NOT the 22x
+    headline, which was 93% PRE-EXISTING.** *Its `n_grounded=0` is fixed at source, below.*
+- 🔧 **FIXED -- `ReadResult.n_grounded` WAS STRUCTURALLY ALWAYS ZERO.** `substrate.py:608` read
+  `n_grounded_cumulative`; `checkpoint()` emits `cumulative_grounded` -- **the same two words
+  TRANSPOSED**, so `.get()` always defaulted and `or 0` served a wiring failure up as data, silently.
+  **A POSITIVE CONTROL WAS NOT OPTIONAL:** at 60 sentences the true value is *also* 0, so a rename
+  would have looked like success; at 600 it climbs **0->14->28->34->37->39** while the field said 0.
+  Now raises; self-tests PASS; **no landed cell affected** (cells count for themselves).
+  ⚠️ **GENERALISABLE: a STATIC scan for this bug class DOES NOT WORK** (1,925->871->801->132
+  suspects, every level dominated by legitimate reads --
+  `tools/audit_keys_read_but_never_written.py` says so in its own docstring). **WHAT FOUND IT WAS A
+  CONTRADICTION BETWEEN TWO FIELDS OF ONE OUTPUT** (`n_grounded=0` beside `anchors +68`).
+  ***Make outputs print quantities that CONSTRAIN EACH OTHER.***
+- ⭐ **WHY WRITING LESS HELPS -- MECHANISM MEASURED ON OUR OWN SUBSTRATE (owner asked, Q98).**
+  `exp_crosstalk_capacity_law_v1_gpu_v1` `MEASURED_MECHANISM`: crosstalk `E[<ki,kj>^2]` over raw
+  keys DOMINATES Hebbian capacity, **r 0.976 / rho 0.964, n=11**; rivals `d_eff` -0.212 and
+  `IsoScore` 0.304 are weaker and their PARTIALS go NEGATIVE (-0.349/-0.499), killing
+  crosstalk-in-disguise. **Fewer keys -> less interference -> cleaner retrieval.**
+  ⚡ **DISSOLVES THE "BAD NEWS": a rate-matched RANDOM gate matching at all 4 thresholds is what
+  interference PREDICTS -- it counts HOW MANY keys, not WHICH. "Write less helps" + "choosing well
+  does not" are ONE result.** ✅ **OUR KEYS ARE AT THE WELCH BOUND: live encoder `inv_e_sq = 256.00`
+  at d=256, `inv_e_sq/D = 1.000`; best of the 11 is 0.179, most ~0.001 (anisotropic, isoscore
+  0.28-0.92). 3.2x the best at a THIRD of its D.** ➡️ **capacity ~ c x d (257-1,297 @256;
+  1,029-5,190 @1024). TWO LEVERS LEFT: FEWER ITEMS (approved sweep), MORE DIMENSIONS (B4 queued,
+  unrun). "Better keys" CLOSED BY GEOMETRY.** ⚠️ *d-prediction EXTRAPOLATES ALONG A DIFFERENT AXIS
+  (law varied ENCODERS at native D; `c` unmeasured for us, 5x spread) -- B4's sweep is the test.*
+  🚫 *Do not re-propose DO-NOT-REDO 44 or 32.* [`WHY_WRITING_LESS_HELPS_...`]
 - **HAZARD: `data/foundation/` is READ-ONLY, ~63 MB, ONE DISK, NO BACKUP, gitignored.**
 - **GATES: origin push needs in-session USER AUTH. Never `git add -A` on the canonical store.**
   **Never bundle a deletion (`rm`/`Remove-Item`) with real work in one call.**
   **Never edit `preregs/**` or any `arm_key*` file.**
-- **2026-08-21 landed:** anomaly set + hand-scores; the F5 bar measured and replicated; the cell
-  flagger tightened 13 -> 1 with its survivor examined and cleared
-  (`_tie_mass_examination_2026-08-21.json`); this file trimmed 308,692 -> ~20 KB with **nothing
-  deleted**; the hook size guard. All committed.
+- ✅ **BOARD EMPTY. Q98 ANSWERED: *"approved, but you should do some research on why this is as
+  you're finding it"*** -- write-rate extension AUTHORISED **with a stopping rule: extend past p90,
+  stop at the last point where the fraction of test words with NO score is still zero** (measured
+  0.0000 at every tested threshold; tie mass 0.0000 too -- only the write-nothing arm ties, 1.0000).
+- 🧰 **USE IT: `python tools/what_did_this_cell_save.py <cell>`** -- RE-ANALYSABLE vs SUMMARY-ONLY,
+  opens siblings, reads JSON *and* JSONL, flags a SAMPLE posing as a population. **~31% of 7,905
+  cells are re-analysable (full enumeration).** *3 of 4 "must we re-run?" questions tonight were
+  already answered on disk; TWICE I asked the owner to authorise a number already saved.*
+  **OPEN THE CELL BEFORE ASKING.**
 
 ## DO NOT REDO -- NEVER-TRIM -- stubs; detail in LESSONS
 All CLOSED. `*` = revival criterion. 1 intersection-over-argmax; 2 the "40% ceiling"; 3 syntactic
