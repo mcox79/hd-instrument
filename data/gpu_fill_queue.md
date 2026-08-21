@@ -1,3 +1,12 @@
+<!-- STALENESS-BANNER -->
+> # ⚠️ STALE PANEL -- LAST WRITTEN 2026-06-22 (60 DAYS AGO). NOT CURRENT STATE.
+> **Nothing writes this file any more.** It is a relic of the retired 4-session fleet
+> architecture. Read `notes/STATUS.md` and `notes/BUILD_PLAN_post_audit_2026-08-19.md`
+> for current state, and `notes/BOARD.md` for anything waiting on you.
+> *Banner stamped by `tools/dashboard_staleness.py`; re-running replaces it rather
+> than stacking another. Delete the marker pair to remove it.*
+<!-- /STALENESS-BANNER -->
+
 # GPU fill queue (standing; pre-validated quick cells for GPU idle gaps)
 
 **Purpose:** when GPU goes idle and a cell-author would take minutes to pre-dispatch (smoke + Fix #17 timing), fire one of these PRE-VALIDATED cells instead. Wall budget ≤10min each. Updated when GPU-runnable cells land or revivals queue up.

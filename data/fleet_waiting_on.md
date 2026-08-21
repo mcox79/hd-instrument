@@ -1,3 +1,12 @@
+<!-- STALENESS-BANNER -->
+> # ⚠️ STALE PANEL -- LAST WRITTEN 2026-06-26 (56 DAYS AGO). NOT CURRENT STATE.
+> **Nothing writes this file any more.** It is a relic of the retired 4-session fleet
+> architecture. Read `notes/STATUS.md` and `notes/BUILD_PLAN_post_audit_2026-08-19.md`
+> for current state, and `notes/BOARD.md` for anything waiting on you.
+> *Banner stamped by `tools/dashboard_staleness.py`; re-running replaces it rather
+> than stacking another. Delete the marker pair to remove it.*
+<!-- /STALENESS-BANNER -->
+
 # Fleet waiting-on (USER-directed shared blocker registry; 2026-06-20)
 
 **Purpose:** single shared place where each session lists what they're waiting on. Replaces the "Waiting on: X / Y / Z" boilerplate at the end of every note. Reduces cross-fleet ACK overhead.

@@ -1,3 +1,12 @@
+<!-- STALENESS-BANNER -->
+> # ⚠️ STALE PANEL -- LAST WRITTEN 2026-06-22 (60 DAYS AGO). NOT CURRENT STATE.
+> **Nothing writes this file any more.** It is a relic of the retired 4-session fleet
+> architecture. Read `notes/STATUS.md` and `notes/BUILD_PLAN_post_audit_2026-08-19.md`
+> for current state, and `notes/BOARD.md` for anything waiting on you.
+> *Banner stamped by `tools/dashboard_staleness.py`; re-running replaces it rather
+> than stacking another. Delete the marker pair to remove it.*
+<!-- /STALENESS-BANNER -->
+
 # Research (Director) Work Queue — durable anti-freeze queue
 
 **Purpose:** mechanical anti-freeze infrastructure. Each cycle dequeues top item. Never end a cycle passive while queue is non-empty + USER hasn't directed standby. Per Fix #12 (freeze-pattern-harden discipline, 2026-06-22).
