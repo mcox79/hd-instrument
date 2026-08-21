@@ -31,6 +31,24 @@ shuffles rather than against my intuition about what zero means.*
 
 > ### **A PURE FORM CODE. IT CANNOT INFLATE A MEANING SCORE, BECAUSE IT PERFORMS EXACTLY AS WELL AS NOISE ON MEANING.**
 
+> # 🔻 **TWO CORRECTIONS TO THIS NOTE, FROM READING THE CELL'S OWN FIELDS ONE TURN LATER.**
+> **(1) THE "UNEXPECTED FLAG" IN SECTION 3 WAS ALREADY RECORDED BY THE CELL.** Its `arms_clearing`
+> field reads exactly `["SIMLEX999|ASSET_NORMS12", "WORDSIM353|ASSET_NORMS12"]` -- **only NORMS12
+> clears, on either benchmark.** *So "the token-embedding arms carry no meaning signal" is the cell's
+> own position, not a discovery. My formulation (inside the shuffled null band) is marginally
+> sharper than "does not clear the hardened floor", but the substance was already there.*
+> **FOURTH TIME TONIGHT THAT CHECKING PRIOR WORK CHANGED THE ANSWER.**
+>
+> **(2) AND THE CELL CARRIES A SCOPE DISCLAIMER I DID NOT CARRY, WHICH BEARS ON EVERY NUMBER ABOVE:**
+> *"POWER EXTENSION. The item population is the SimLex+WordSim word list, **NOT the instrument's
+> frequency-ranked vocabulary. These are NOT instrument numbers and may not be quoted as such.**
+> Identity and bundling are NOT measured here."*
+> ***So `0.2449`, `0.4093` and the shuffled null band describe these arms ON A CURATED WORD LIST, and
+> may NOT be read as statements about the live instrument.*** **That does not weaken the form-channel
+> conclusion -- noise-equivalence on a meaning benchmark is exactly what was being tested -- but it
+> does mean none of these rho values may be carried into a sentence about the substrate's own
+> vocabulary.** *Second time tonight a note stated its own limit and I quoted past it.*
+
 ## 3. ⚠️ **AND AN UNEXPECTED ONE: BOTH TOKEN-EMBEDDING ARMS ARE ALSO INSIDE THE NULL BAND**
 
 **`ASSET_V2_TOKEMB` and `ASSET_RETRAIN_TOKEMB` both score `+0.0265` -- inside `−0.0172 … +0.0426`.**
