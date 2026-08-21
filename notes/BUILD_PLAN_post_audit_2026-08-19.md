@@ -39,6 +39,29 @@
 > 2016**, not Foster & Wilson 2006, which **found reverse replay and never reward modulation**.
 > **F5 and E3 are NOT withdrawn.** `notes/THE_DECISION_sleep_is_the_one_place...md`
 >
+> ## 🔬 **AND THE FIRST SLEEP EXPERIMENT IS ONE LINE -- DISK-VERIFIED 2026-08-21**
+> The 2026-08-14 drill already wrote the evaluation (its section 4), so it was NOT re-derived.
+> **Measurand = the LOG-LOG RETENTION SLOPE, not a task score:** naive is CURVED, cascade is straight
+> at `-3/4..-1`, Benna-Fusi straight at `-1/2` with a knee at `2^(2m+1)`.
+> ### 🎯 **THE BEST CAN-FAIL CONDITION IN THE PROJECT: THE SIGN FLIPS.** The cascade arm must start
+> **BELOW** naive by exactly `1/n` (`1/sqrt(m)`). *"An arm that is better everywhere has not
+> implemented a cascade."* **The theory predicts OUR OWN ARM IS WORSE AT t=0.** Every artifact this
+> project has caught would FAIL this test, because artifacts are better everywhere.
+> ### **THE HYPOTHESIS, AND IT IS CHEAP:** `_sums[lemma] += ctx_vec` **IS** Benna-Fusi's unbounded
+> perfect integrator, which already gives `SNR = sqrt(N/t)` -- the same `t^-1/2` exponent -- and
+> `np.sign()` destroys it. **DISK-VERIFIED: anchors are GRADED (flag ON by default since 08-14) but
+> the QUERY at `reading_grounding_loop.py:776` is `np.sign(new_raw_sum)`, UNCONDITIONAL.** *Half the
+> quantiser was already removed; the drill's "default-OFF graded path" is stale.* **First experiment
+> = one line, no new organ, tests a PINNED prediction.**
+> ### ⚠️ **THE CONFOUND THE DRILL LACKS: A SYSTEM THAT LEARNS LESS FORGETS LESS.** Both arms must
+> reach criterion on set A first, acquisition REPORTED beside retention, and a **FROZEN arm as an
+> explicit floor** that must show perfect retention and fail acquisition. *An all-zero accumulator
+> once scored median rank 1.0 here.* Also: **their `t` is memories-at-this-synapse, ours is
+> concepts-ingested** -- state the mapping or the slope describes a different quantity.
+> ### **UNPINNED, label as ours if used:** replay count (3.1), interleaving ratio (3.5), and **the
+> selection function -- which traces get replayed (3.8) -- where an invention is easiest to disguise
+> as biology.** `notes/SLEEP_DESIGN_BRIEF_...md`
+>
 > ## 🅰️ ~~OPEN OWNER DECISIONS~~ -- BOTH NOW ANSWERED, ABOVE
 > - **Q92** -- `notes/STATUS.md` is ~2.3x its 8,704 B cap. **The two never-trim sections ALONE are
 >   11,228 B = 1.29x the whole cap**, so the cap is unreachable without deleting what it protects.
