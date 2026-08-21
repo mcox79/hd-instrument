@@ -234,6 +234,42 @@
 >   reader, not the file.*** ✅ *That note's CONCLUSION survives on its real evidence --
 >   `n_survivors = 1414` vs `len(sample) = 100`, so the v1-vs-v2 volume/purity trade still cannot be
 >   settled from disk and `WIRE_CANDIDATE` stands. **Right conclusion, wrong supporting fact.***
+> ## ✅ **OWNER ANSWERED Q98 (2026-08-21): *"approved, but you should do some research on why this is
+> ## as you're finding it, to understand why and potentially to give you a good idea on next optimal
+> ## stepss"*** -- **AND THE MECHANISM WAS ALREADY MEASURED ON OUR OWN SUBSTRATE.**
+> **`exp_crosstalk_capacity_law_v1_gpu_v1` = `MEASURED_MECHANISM`. Its `honest_claim`: the direct
+> crosstalk moment `E[<ki,kj>^2]` over raw keys is the DOMINANT predictor of Hebbian capacity --
+> Pearson 0.976 / Spearman 0.964, n=11 encoders, `M_keys=8000`, 5 seeds. Controls `d_eff` (−0.212)
+> and `IsoScore` (0.304) are WEAKER, and their PARTIALS given crosstalk go NEGATIVE (−0.349 /
+> −0.499) -- the test that separates a real second cause from crosstalk in disguise.**
+> ➡️ **WHY WRITING LESS HELPS: fewer stored keys -> less interference -> cleaner retrieval.**
+> ⚡ **AND IT DISSOLVES THE "BAD NEWS" HALF OF Q98: the rate-matched RANDOM gate matching at all four
+> thresholds is EXACTLY what an interference account predicts -- interference depends on HOW MANY
+> keys are superposed, not WHICH. "Writing less helps" and "choosing well does not" are ONE result.**
+> 🎯 **FREE CAN-FAIL PREDICTION FOR THE APPROVED SWEEP: the gain must SATURATE while coverage is
+> still complete. If it instead climbs until words go blank, my Q97 tie-mass measurement was wrong.**
+> ⚠️ **DO NOT MERGE THE TWO: that cell varies the ENCODER at fixed load; the sweep varies LOAD at
+> fixed geometry. Direction explained, effect NOT measured (discipline 11). Cell's own limits:
+> "NOT parameter-free LAW", `c_spread 5.04x`, `worst_m_crit_cv 0.343`, n=11.**
+> 🔴 **THE OBVIOUS NEXT STEP IS CLOSED -- DO NOT RE-PROPOSE: DO-NOT-REDO 44 (sparsifying the stored
+> key, −0.0145 CI [−0.0203,−0.0088] BELOW flat, oracle 1.0000) and 32 (DG/pattern-separation).**
+> 💡 **HYPOTHESIS-PENDING-VET, flagged as reasoning not result:** our live encoder is
+> `sha256 -> random ±1`, and random codes sit near MINIMUM crosstalk by construction -- so "better
+> keys" may be closed by GEOMETRY, leaving quantity as the only lever, which is what the sweep found.
+> ***One-line test: put our encoder's `E[<ki,kj>^2]` beside the 11 already in
+> `detail.per_encoder`.*** 🧠 **BRAIN: its answer is not "write less" but "write SEPARABLY" (DG
+> pattern separation; our own self-test passes it, `input_cos 0.934 -> code_cos 0.561`). "Sparsify
+> the stored key" is CLOSED; "separate similar items BEFORE storing" is a different operation.**
+> `notes/WHY_WRITING_LESS_HELPS_the_mechanism_was_already_measured_on_our_own_substrate_2026-08-21.md`
+>
+> - 🧰 **`5d433bacd` -- AND BOTH READER FAILURES ARE NOW CODE.** *`what_did_this_cell_save.py` gained:
+>   **`load_any`** (JSON, falls back to JSONL, says **UNKNOWN not absent** when both fail); it now
+>   **OPENS** sibling data files instead of listing them; and **`sample_tell`**, which flags a file
+>   holding a SAMPLE of a population it discarded.* **On the file I misread twice it now prints by
+>   itself: *"SAMPLE, NOT THE POPULATION: 'n_survivors' = 1,414 but the longest list here holds 100.
+>   It cannot answer a question about the other 1,314."*** *Tell is narrow (an int > 2x the longest
+>   list) and its SILENCE is verified on real data -- the adjudicated sibling, 100 of 100, correctly
+>   does not fire. 8 self-tests, both directions.*
 > - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
 >   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
 >   the headings *and their whole sections* into the header paragraph. **Every section BODY was
