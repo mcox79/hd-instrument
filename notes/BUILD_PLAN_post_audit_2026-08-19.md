@@ -321,8 +321,25 @@
 >   wiring works end to end. mean 15.5, median 10, p90 36, MAX 77.** Against the capacity curve
 >   (0.9967@8, 0.7867@16, 0.3267@32): **L>8 = 56.4% of lemmas holding 84.4% of traces; L>16 = 28.7%
 >   holding 63.0%; L>32 = 14.9% holding 42.2%.**
->   ➡️ ***63% OF LIVE WRITES LAND IN CONCEPTS ALREADY PAST THE 0.79-RECOVERY POINT*** -- the
->   prediction I refused to assert one step earlier, now MEASURED.
+>   🚫 ***"63% OF LIVE WRITES LAND PAST THE 0.79-RECOVERY POINT" IS WITHDRAWN.*** **The curve I
+>   gated on (`capacity_curve`) BINDS each member to a key and recovers ONE DESIGNATED slot by
+>   UNBINDING; `ConceptSpace` does a PLAIN SUM with no keys and compares whole bundles. I applied a
+>   threshold from a harder, differently-shaped operation** (disciplines 11 and 16).
+>   ✅ **MATCHED RE-MEASUREMENT (same d, same M=800, 400 probes, ONE VARIABLE = the representation;
+>   argmax-is-a-member): LIVE 1.0000@8, 0.9900@16, 0.9600@32, 0.8000@64, 0.6025@128 vs RANDOM
+>   1.0000/1.0000/1.0000/0.9800/0.9425.** ***At the measured live MEDIAN load of 10 both arms are at
+>   1.0000; at p90=36 live is ~0.95. So live loads are NOT catastrophic and the alarm was wrong.***
+>   ✅ **WHAT SURVIVES IS THE CAVEAT I WAS LEAST SURE OF: live vectors ARE correlated and it DOES
+>   cost capacity, growing with load -- mean cos +0.0078, `E[cos^2] 0.00474` vs random `0.00390`, so
+>   `inv_e_sq 211` = **82% of the Welch bound** (still far above any trained encoder's 17.9%); the
+>   penalty is -0.04 at L=32 but -0.34 at L=128.**
+>   ⚠️ **HONEST RESIDUE: NEITHER curve is the store's own operation.** *`ConceptSpace` compares one
+>   ACCUMULATED BUNDLE against other bundles. **The real question -- as a lemma's bundle grows, does
+>   it stay closer to the right anchor than a wrong one? -- IS UNMEASURED**, and is recorded as such
+>   rather than answered with the nearest available curve, which is the mistake being withdrawn.*
+>   ➡️ **CONSEQUENCE: bundle saturation does NOT explain "writing less helps", which puts the
+>   crosstalk/interference account back as the live hypothesis.**
+>   `notes/WITHDRAWN_the_63_percent_past_0_79_recovery_claim_used_a_curve_from_a_DIFFERENT_retrieval_operation_2026-08-21.md`
 >   ⚠️ **A LOWER BOUND TWICE OVER: (a) 1,200 sentences is short and frequent words keep
 >   accumulating; (b) the capacity curve was measured on RANDOM BIPOLAR codes while live context
 >   vectors carry the known common mode -- correlation makes true capacity WORSE (discipline 16).**
