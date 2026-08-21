@@ -45,6 +45,37 @@ def panels(root="data"):
     return sorted(glob.glob(os.path.join(root, "*.md")))
 
 
+def has_live_writer(path, tool_dir="tools", self_name="dashboard_staleness.py"):
+    """Does ANY live tool still write this panel? ORPHANED vs merely IDLE.
+
+    OWNER, Q99: "I want the only things in the gui to be regularly updated. static windows that get
+    old are useless. Evaluate what is genuinely useful here, keep it, and make sure it's effortless
+    to maintain."
+
+    The distinction that makes that decidable: a panel with NO writer is ORPHANED and will never
+    update again, so it is pure clutter. A panel WITH a writer that simply has not run is IDLE --
+    it is stale because nothing is running, and it comes back by itself the moment work resumes.
+    Age alone cannot tell those apart, which is why the first version of this tool could only
+    stamp banners rather than recommend removal.
+
+    Excludes THIS file from counting as a writer -- it mentions every panel by construction, and a
+    tool that counts itself as the maintainer would find every panel healthy. Also excludes
+    `_`-prefixed one-off scripts, which are dead by convention here.
+    """
+    stem = os.path.splitext(os.path.basename(path))[0]
+    for t in glob.glob(os.path.join(tool_dir, "*.py")):
+        base = os.path.basename(t)
+        if base == self_name or base.startswith("_"):
+            continue
+        try:
+            with open(t, encoding="utf-8", errors="replace") as fh:
+                if stem in fh.read():
+                    return base
+        except OSError:
+            continue
+    return None
+
+
 def age_days(path):
     return (time.time() - os.path.getmtime(path)) / 86400.0
 
