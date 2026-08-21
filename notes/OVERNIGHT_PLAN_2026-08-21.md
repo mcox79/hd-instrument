@@ -1,5 +1,30 @@
 # OVERNIGHT PLAN -- 2026-08-21. **FOUR THRUSTS, DELIBERATELY DIFFERENT IN KIND.**
 
+> # 🎯 **THE RECOMMENDATION AFTER TONIGHT, GIVEN TO THE OWNER 2026-08-21: MAKE THE BANKED MEANINGS SUPPLY THE PREDICTION.**
+> **The substrate is a library, a librarian and a filing system with no reader.** It writes down what
+> words mean and **never opens the file again.** Every other candidate improves a part that feeds a
+> drawer nobody opens.
+>
+> | candidate | brain status | what it buys |
+> |---|---|---|
+> | **1. MEANINGS SUPPLY THE PREDICTION** ⬅️ **FOCUS** | **equation known** (prediction error) | **the only option where being WRONG about a word COSTS the system something** |
+> | 2. patch-CHOICE (which text next) | **equation UNKNOWN for the half we need** | MVT says when to LEAVE, never where to GO |
+> | 3. graded codes ON | equation known | cheap, real, **not a discovery** -- already measured at probe scale |
+> | 4. coherence monitor (F5) | reference point only | gives the PASSAGE picture a use, **not the word meanings** |
+> | 5. sleep (D8+D4) | equation fully known | **blocked**, and D8 is a published null at our scale |
+>
+> **WHY 1 AND NOT THE OTHERS:** until a wrong meaning produces a persistent error, the system has no
+> way to tell good knowledge from bad **and neither do we without hand-grading** -- the single most
+> expensive bottleneck of the last two days. **The corollary is worth more than the mechanism:**
+> accumulated error per term would be a **gold-free quality estimate**, checkable against hand-scores
+> that already exist.
+>
+> **⚠️ TONIGHT'S YIELD WAS NEGATIVE-CLEARING, NOT CAPABILITY.** Four findings withdrawn, every one
+> the same error -- **a quantity that pre-dated the intervention, credited to the intervention.**
+> The ground is firmer; nothing new was added.
+> **OPEN FOR THE OWNER (non-blocking):** F5's test set is finished and ready; the build order puts it
+> later and it does not address the core gap. *Moving it up is a legitimate call for a visible result.*
+
 **Owner, dash 02:22Z:** *"You should make an overngiht plan with a clear and varied plan of attack,
 including a few high priority organs / capabilities"* -- and, in session: *"make sure we're keeping
 track of brain foundationality, and drilling negatives."*
