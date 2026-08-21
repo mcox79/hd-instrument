@@ -3,6 +3,8 @@
 **I measured `MASKED hit@1 = 0.0972` against chance `0.0167` an hour ago. Before anyone quotes that
 as word-specific signal, this is the floor it should have been measured against.**
 
+> **RUN CONFIGURATION, stated because it is part of the measurement: `GRADED_COMPARATOR=True` (the shipped default), `CTX_D=256`, `HD_GRADED_COMPARATOR` unset. *`context_vector_masked` takes `graded=None` meaning 'follow the module switch' (DEFAULT CHANGED 2026-08-14), so these numbers inherit it -- and a number from one switch state may not be compared with one from the other. Found by running `tools/symbol_corrections.py context_vector_masked` over my own night's citations.*
+
 ---
 
 ## 1. WHY THIS FLOOR AND NOT CHANCE

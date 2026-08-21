@@ -63,6 +63,12 @@ def _tagged_sentences(limit: int = 60000) -> list[tuple[str, str]]:
 
 
 def main() -> int:
+    # context_vector_masked takes `graded=None` = "follow the module switch", changed
+    # 2026-08-14. A number produced under one switch state cannot be compared to one
+    # produced under the other, so the state is PRINTED rather than remembered.
+    import hdlab.reading_grounding_loop as _rgl
+    print(f"CONFIG: GRADED_COMPARATOR={_rgl.GRADED_COMPARATOR}  CTX_D={_rgl.CTX_D}  "
+          f"HD_GRADED_COMPARATOR={os.environ.get('HD_GRADED_COMPARATOR', '(unset)')}", flush=True)
     tagged = _tagged_sentences()
     print(f"corpus sentences: {len(tagged)}", flush=True)
     if len(tagged) < 5000:

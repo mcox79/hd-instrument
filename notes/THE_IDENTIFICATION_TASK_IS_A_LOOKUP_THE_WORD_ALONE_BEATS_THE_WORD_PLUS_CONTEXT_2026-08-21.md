@@ -3,6 +3,8 @@
 **VET of the measurement board Q102 rests on. The note under test states its own caveat -- *"0.4750
 is inflated by self-reference"* -- and never quantifies it. This quantifies it.**
 
+> **RUN CONFIGURATION, stated because it is part of the measurement: `GRADED_COMPARATOR=True` (the shipped default), `CTX_D=256`, `HD_GRADED_COMPARATOR` unset. *`context_vector_masked` takes `graded=None` meaning 'follow the module switch' (DEFAULT CHANGED 2026-08-14), so these numbers inherit it -- and a number from one switch state may not be compared with one from the other. Found by running `tools/symbol_corrections.py context_vector_masked` over my own night's citations.*
+
 ---
 
 ## 1. THE ARM THE ORIGINAL WAS MISSING
