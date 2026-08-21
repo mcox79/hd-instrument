@@ -1,5 +1,34 @@
 # OVERNIGHT PLAN -- 2026-08-21. **FOUR THRUSTS, DELIBERATELY DIFFERENT IN KIND.**
 
+> # 🛑 **READ THIS BEFORE ANY BUILD DECISION BELOW. THREE INDEPENDENT MEASUREMENTS SAY THE SUBSTRATE'S SEMANTIC OUTPUT IS AT OR NEAR CHANCE.**
+>
+> | measurement | task | result |
+> |---|---|---|
+> | `exp_meaning_asset_vs_production_v1` | SimLex word similarity, n=322 | `P_LIVE_CONCEPT` rho **0.1048, CI [-0.0073, +0.2126] -- CROSSES ZERO** |
+> | `exp_grounding_quality_readout_v1` + `B3_RESOLVED.md` | **100 BLIND** hand-scored facts | **3 MEANINGFUL / 19 RELATED / 78 NOISE** |
+> | `exp_sensorimotor_spoke_grounding_v1` | candidate selection, **3 seeds x 40k sentences** | `SUBSTRATE` **0.0194 / 0.0275 / 0.0274** vs `RANDOM` **0.0194 / 0.0153 / 0.0182** -- *tied 7-of-361 on seed 1* |
+>
+> **DIFFERENT BENCHMARKS, SCORERS, YEARS AND FAILURE MODES. THEY AGREE.** *Each alone is dismissible
+> and I would dismiss each alone -- but a benchmark artifact cannot explain a blind hand-score, a
+> lenient scorer cannot explain a CI crossing zero, and a hard task cannot explain tying a random
+> picker where a 12-dim human-norm profile scores 3x higher.*
+>
+> **EACH CARRIES A CONTROL THAT FIRED:** planted-semantic arm **0.9269**; **0 of 100** self-tautologies
+> plus the charter's own bio-53%/adv-14% prediction reproducing; `SHUFFLED_NORMS` collapsing at
+> **p = 0.008 / 0.014 / 0.0025**. **Each detects signal when signal is present.**
+>
+> ## ⛔ **WHAT THIS DOES TO EVERY THRUST BELOW**
+> **T1 foraging patch-choice, the F5 monitor, the meaning-consumption link, the B5 adapter -- ALL FOUR
+> assume the substrate's semantic output is a usable INPUT.** **AN ORGAN THAT CONSUMES A CHANCE-LEVEL
+> SIGNAL PRODUCES A CHANCE-LEVEL RESULT *AND LOOKS CORRECTLY BUILT WHILE DOING IT*.**
+> **➡️ THE ORDERING QUESTION IS NOT "WHICH ORGAN NEXT". IT IS "WHY IS THE OUTPUT AT CHANCE" -- AND THE
+> ANSWER IS NOT KNOWN.**
+>
+> **THE ONE EXCEPTION WORTH PRESSING:** the **DEFINITIONAL** half hand-scores several times better
+> than the distributional half on **three independent samples** (32%/4% paired, 48%/4% same-rows,
+> 28%/6% my per-row re-score). *That is the only part of the output with a repeatable quality signal.*
+> **Any organ proposal must now state WHAT IT CONSUMES and whether that input is shown ABOVE CHANCE.**
+
 > # 🏆 **BEST FINDING OF THE NIGHT: THE STRONGEST SEMANTIC ASSET WE OWN IS 12 HUMAN-MEASURED NUMBERS**
 > **`ASSET_NORMS12` = `hdlab/grounded_similarity.py` -- 11 Lancaster sensorimotor norms + 1 Brysbaert
 > concreteness norm.** *Not a trained model.*
