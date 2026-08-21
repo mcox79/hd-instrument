@@ -83,7 +83,18 @@ def _verdict(mp: Path):
         d = json.loads(mp.read_text(encoding="utf-8", errors="replace"))
     except Exception:
         return None
-    for k in ("verdict", "VERDICT", "verdict_msg", "result", "branch"):
+    # `final_verdict` FIRST, ADDED 2026-08-21. Enumerated over all 7,868 cells with a metrics.json:
+    # NINE carry a `final_verdict`, and ALL NINE disagree with `verdict`. TWO of them
+    # (exp_context_conditioned_sense_selection v1/v2) have `verdict: None`, so this archive -- the
+    # one CLAUDE.md names as the answer to "has this question been ANSWERED?" -- returned NOTHING
+    # for a definite HARD_FAIL recorded two fields away. Others are worse than silent: one reads
+    # `STRICT_READY_PENDING_HANDCHECK` while its final_verdict is
+    # `HARD_PASS_CLEAN_GROW_BY_READING_VIABLE` (a hand-checked 90%-precision extractor), and one
+    # reads `HARD_FAIL_dense_explicit_no_better_than_scattered` while its final_verdict is
+    # `MIDDLE_BAND_dense_reading_works_per_process_aggregate_capped_by_volume` -- a materially
+    # different thing to tell someone deciding what to build.
+    # Backward compatible: 7,859 of 7,868 cells have no `final_verdict` and are unaffected.
+    for k in ("final_verdict", "verdict", "VERDICT", "verdict_msg", "result", "branch"):
         v = d.get(k)
         if isinstance(v, str):
             return v[:300]
