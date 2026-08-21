@@ -296,6 +296,21 @@
 > 🚫 **DO NOT QUOTE THE HEBBIAN 257-1,297 FOR WRITE-RATE QUESTIONS** -- different store, ~50x apart;
 > superposition is the axis the sweep actually moves.
 > `notes/THE_OPERATIVE_AXIS_IS_SUPERPOSITION_LOAD_PER_CONCEPT_two_thirds_of_writes_land_in_saturated_bundles_2026-08-21.md`
+> - 🚫 **AND I TRIED TO EXTEND IT TO THE LIVE LOOP AND THE ESTIMATOR IS INVALID -- CAUGHT BY A
+>   CONSTRAINT CHECK.** *`concept_space.npz` persists `sums` but NO per-lemma count, so I used
+>   `L_hat = ||sum||^2/d` (exact for INDEPENDENT ±1 traces): v1 median 8.1 / max **92,155**; v2
+>   median 39.4 / max 94,688.* 🔴 **`manifest.json` says `n_occurrences_seen = 26,123` for the WHOLE
+>   v1 store -- so max `L_hat` is 3.5x EVERY OCCURRENCE OF EVERY WORD COMBINED. A lemma cannot have
+>   more traces than the store has occurrences.** *Cause: `L_hat` returns `L` only for independent
+>   contributions; for correlated ones it returns `L^2`, so it conflates COUNT with CORRELATION --
+>   and correlation is known here (C11 "58% common mode", DO-NOT-REDO 27 rank-1 common-mode removal).*
+>   ⚠️ **A coherence check (`L_hat >= max|entry|`) PASSED at 100% and was NOT a sufficient guard.**
+>   ➡️ **SO "the live loop saturates worse" IS STILL UNMEASURED -- neither confirmed nor refuted; my
+>   own prediction from one step earlier is NOT evidence.** *The sweep-stream finding is unaffected:
+>   it had real per-lemma counts (`lens`).* ✅ **CHEAPEST FIX: persist a per-lemma trace COUNT beside
+>   the sum -- ONE INTEGER, and the live loop already knows it at write time (`century, 7 traces /
+>   92 occurrences`). Same save-the-population lesson, in its smallest possible form.**
+>   `notes/THE_LIVE_LOAD_ESTIMATOR_IS_INVALID_max_exceeds_total_occurrences_by_3_5x_2026-08-21.md`
 >
 > - 🧰 **`5d433bacd` -- AND BOTH READER FAILURES ARE NOW CODE.** *`what_did_this_cell_save.py` gained:
 >   **`load_any`** (JSON, falls back to JSONL, says **UNKNOWN not absent** when both fail); it now
