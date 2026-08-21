@@ -22,66 +22,36 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
 "TOP ITEM" and "WHAT IS RUNNING" (`session_start_hook.py`, `board.py`).
 **Inside a section use `###`, never `##`.** *And NEVER let a line BEGIN with one of those literals
 even when merely NAMING it: on 2026-08-21 this very sentence wrapped so that a line started with
-`## TOP ITEM -- **SLEEP HAS FAILED THREE WAYS IN THREE TURNS. THE OPEN QUESTION IS SCALE.**
+`## TOP ITEM -- **36 OF 150 MODULES RUN WHEN IT READS. 81 ARE BUILT, BLESSED `WIRE`, AND NEVER CALLED.**
 
-**Owner Q95: *"chase things that are brain foundational in every way"*** picked sleep (D8+D4) --
-`ORGAN_MAP`'s *"the ONE place the brain's equation is FULLY PINNED and we have literally none of
-it"*. **Then three cheap measurements took it apart. All three are negatives about MY proposals,
-not about the biology.**
+**Owner asked: *"Why did we stop working on reading? Where are we on the different functions of
+substrate?"*** Measured, not recalled (`tools/substrate_function_status.py`, runtime + disk
+enumeration, because the registry's `pipeline_status` is documented wrong in BOTH directions).
 
-| proposed | why it does not apply |
+| | |
 |---|---|
-| **cascade / graceful decay** | our slots are **PRIVATE**; we lack the shared-synapse interference it defends against. Retention slope **-0.031** vs the **-0.50** a Benna-Fusi system gives, and indistinguishable from the `sign()` arm |
-| **cold storage / tiering** (owner's Q92 + commentary) | **ALREADY BUILT AND PROVEN** -- `prelim_tier`'s docstring opens *"retain-forever"*; 3 HARD_PASS, VET'd. **A WIRING gap: `Substrate().read()` loads 44 modules and NONE of the three tiers** (runtime-verified, clean process) |
-| **consolidation / dedup** (owner's middle clause) | **NO DUPLICATES EXIST.** Pairs above cos 0.90: **0.03% / 0.00% / 0.00%** across rare/mid/common, against a frequency-matched null p95 of ~0.10 |
+| modules on disk | **150** |
+| registered | **150** (was *"62 of 141 unregistered"* -- **that figure is stale, it is now 0**) |
+| **loaded by a LIVE read** | **36** (`CLAUDE.md`'s *"35 of 141"* held up almost exactly) |
+| **`gate=WIRE` but NOT loaded by a live read** | **81** |
 
-**AND SLOT GROWTH IS ORDINARY, NOT PATHOLOGICAL:** Heaps `beta = 0.589`, per-sentence rate falling
-3.65 -> 1.52. *I called it "unbounded" one turn ago; that was the wrong word.*
+### 🚨 **THAT 81 IS PROBABLY THE ANSWER TO "WHY DID READING STALL".**
+*Reading is not unbuilt -- the loop is a real ~36-part pipeline (`reading_grounding_loop`,
+`grounding_acquisition_loop`, `definitional_extraction`, `coreference_resolver`,
+`situation_model_accumulate`, `hd_fact_store`, `information_foraging`, `hippocampal_encoder`, ...).*
+**It stalled because two thirds of what we built sits BESIDE the loop rather than inside it.**
 
-### ✅ **AND THE SCALE QUESTION IS NOW ANSWERED -- MEASURED ON EVERY SENTENCE WE OWN**
-| sentences | slots | slots/sent | size |
-|---|---|---|---|
-| 4,096 | 4,250 | 1.038 | 8.7 MB |
-| 32,768 | 35,580 | 1.086 | 72.9 MB |
-| **325,798 (all readable)** | **69,171** | **0.212** | **141.7 MB** |
+**Islanded and directly relevant:** `prelim_tier` + `three_tier_loop` (**the owner's cold storage AND
+the hierarchical-memory idea they proposed -- proven, 3 HARD_PASS**), `successor_representation`
+(D7, fully pinned), `situation_model_multibank`, `pos_tagger`/`arc_parser`/`semantic_parser`,
+`modern_hopfield_readout`, `streaming_attention`, `learning`, `word_learning_tool`,
+`sensorimotor_spoke` (**the one route measured NOT subsumed by counting**).
 
-**RETAIN-FOREVER COSTS 142 MB ON EVERYTHING WE OWN, AND THE GROWTH IS SATURATING.**
-*Extrapolated (weakest number, labelled): 10^7 sentences -> ~0.4 GB.*
-**🚨 AND IT CORRECTS MY OWN EXPONENT: I wrote `beta = 0.589` "does not saturate". Measured over the
-last decade of real data it is `0.289` and FALLING** -- 0.589 came from the first 4,096 sentences,
-the function-word-dominated part of the curve. **Fitting an exponent on the early segment and calling
-it the asymptote is the same shape as characterising an effect from one seed. FOURTH instance this
-session.**
-### 🎯 **SO SLEEP-AS-CAPACITY-MANAGEMENT IS DEAD FOUR WAYS** -- private slots, tiering already built,
-no duplicates, **and no capacity pressure at all.** *There is no storage problem for it to solve at
-any scale this project can plausibly reach.*
-### ✅ **AND IT TURNS THE OWNER'S INSTINCT INTO A MEASURED PERMISSION:** *"never throw out useful
-information"* is not merely allowed, it is **CHEAP** -- 142 MB today. **The brain discards detail
-because it is capacity-bound; we have now MEASURED that we are not, by a wide margin.**
-### ✅ **AND SPEED IS NOW MEASURED TOO -- THE WALL IS CORPUS LOADING, AND IT AMORTISES**
-**The `O(n_slots)` retrieval wall DOES NOT FIRE on the read path: `anchor_matrix` called ZERO times
-over an instrumented 200-sentence read.** *(Scope: `consolidate_every` defaults to 200, so a longer
-read may call it -- the anchor scan's cost is UNTESTED, not shown absent.)*
-**89% of a short read is corpus LOADING** (`remaining()`->`pool()` 43.8s of 49.2s; `_acceptable`
-785,899 calls); the actual learning is ~6s. **And it is a FIXED cost: 171 -> 55 -> 66 -> 24
-ms/sentence across successive reads.**
-**➡️ AT ~24 ms/SENTENCE, EVERY SENTENCE WE OWN READS IN ~2.2 HOURS.**
-### 🎯 **THE COMPLETE PICTURE: RETAIN-FOREVER COSTS 142 MB AND ~2.2 HOURS.** Affordable on BOTH axes.
-*The charter's named `O(n_facts)` wall is not what binds on this path -- which is a different claim
-from it being imaginary.*
-`notes/THE_SPEED_WALL_IS_CORPUS_LOADING_NOT_RETRIEVAL_and_it_amortises_2026-08-21.md`
-`notes/CAPACITY_IS_NOT_A_PROBLEM_retain_forever_costs_142MB_at_full_corpus_2026-08-21.md`
-
-### **WHAT SURVIVES, AND IT IS THE OWNER'S PRINCIPLE**
-*"The brain throws away detail; we can put it in cold storage and not lose it... never throw out
-useful information."* **Right on our own rules** -- we are not capacity-bound as the brain is, so
-copying biological forgetting copies a CONSTRAINT we do not share. **Copy the computation, sweep the
-parameter.**
-
-### ⚠️ **DO NOT BUILD SLEEP AS DECAY OR DEDUP ON ASSERTION.** Three of my own proposals died to three
-cheap measurements this session. *The stratified null is what made the dedup zero readable -- without
-it, rare words seen once would have looked like duplicates and I would have invented the problem.*
-`notes/NEITHER_DECAY_NOR_DEDUP_IS_WARRANTED_...md`
+### ⚠️ **SCOPE:** *"not loaded by a live read"* does **NOT** mean dead -- a module may serve query or
+consolidation. It means the READING path does not touch it, which is the question that was asked.
+### 🎯 **THE BACKLOG IS A WIRING BACKLOG, NOT A BUILD ONE.** But 81 assumptions would be 81 chances to
+repeat today's pattern of proposing before measuring: **each needs a measured target, per
+WIRE-or-SHELVE.** `notes/WHERE_THE_SUBSTRATE_FUNCTIONS_STAND_36_of_150_run_when_it_reads_2026-08-21.md`
 
 ## WHAT IS RUNNING
 
