@@ -139,6 +139,23 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## 📐 **SUPPLIED BEATS LEARNED 2.69x ON IDENTICAL PAIRS -- AND THE METRIC CHOICE BEATS OUR WHOLE SIGNAL**
+> **The archive's `norms 0.2701` vs `live 0.1048` came from DIFFERENT CELLS ON DIFFERENT PAIR SETS,
+> which our own bar forbids comparing. Scored both at once on 829 shared pairs, 200-shuffle null:**
+> `LEARNED d=256 0.0944 | LEARNED d=1024 0.1071 | SUPPLIED cosine 0.2176 | SUPPLIED euclid 0.2876`
+> (nulls `0.063-0.076`). **2.69x -- the inferred figure survives its first honest test.**
+> 🎯 **AND EUCLID BEATS COSINE BY `+0.0700`, WHERE OUR ENTIRE LEARNED ARM CLEARS ITS OWN NULL BY
+> `0.0440`. Picking the right distance on a handed-over table is worth 1.6x everything we learned.**
+> *I only swept because `symbol_corrections.py` surfaced the organ's docstring first: it records
+> euclid separating synonyms/siblings by 1.348 SD vs cosine 0.511, cosine winning concrete-vs-
+> abstract 22.8 to 3.2, and that the self-test which first declared a winner FAILED. SimLex is dense
+> in near pairs, so this RETRODICTS the organ's stated mechanism.* **Without it I would have taken
+> cosine, the obvious default, and reported a number 0.07 too low.**
+> 🚫 **FRAMING FIXED BY THAT DOCSTRING AND NOT NEGOTIABLE: the norms are HUMAN RATINGS, the substrate
+> is HANDED them, "that is SUPPLY, not learning, and no result from this organ may be reported as
+> the substrate having learned perceptual structure". A reason to USE the asset, NOT evidence of
+> understanding.** `SUPPLIED_BEATS_LEARNED_2_69x_...`
+
 > ## 🔻 **BUT DIMENSION BUYS THE LOOKUP, NOT THE UNDERSTANDING -- AND THE TEST HAD THE POWER TO SEE IT**
 > **829 SimLex pairs IDENTICAL at every `d` (so the corpus confound CANCELS -- it is constant across
 > the arms compared), null = 200 shuffles per `d`:** `128 0.0974 | 256 0.0944 | 512 0.1032 |
