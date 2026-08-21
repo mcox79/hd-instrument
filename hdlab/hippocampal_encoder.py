@@ -795,7 +795,78 @@ def _st_cls_discrete_budget_consolidation() -> None:
           flush=True)
 
 
+def _st_exact_cue_cannot_measure_this_organ() -> None:
+    """An EXACT cue regenerates its own DG code, so recall succeeds with CA3 SWITCHED OFF.
+
+    WHAT THIS REFUSES TO LET PASS: a test of this organ that cues with the undegraded input, or
+    that sweeps N and reads the resulting flat 1.0000 as a capacity result. Both were queued
+    against this organ on 2026-08-21 (`ORGAN_MAP` D3, "sweeping N to find the collapse point") and
+    neither could have produced an answer -- hit@1 measured 1.0000 at EVERY N from 1 to 2000, and
+    identically 1.0000 with `use_ca3=False`.
+
+    THE EXPENSIVE CONSEQUENCE, which is why this is asserted rather than left in a note: D3's
+    design turns on a RANDOM-ADDRESS arm that isolates the allocator from the write op. If CA3 is
+    never consulted, that arm reads 1.0000 too -- yielding a false "the allocator does not matter"
+    on the one comparison the whole design exists to protect.
+
+    Modelled on `hdlab.ca3_completer.selftest_full_cue_is_not_where_the_action_is`, which asserts
+    the same saturation trap for the completer family, and on
+    `hdlab.vsa_cleanup_memory.selftest_capacity_is_measurable` ("the capacity axis must actually
+    FALL with load, or it is not measuring capacity"). Those two already guarded this and were not
+    attached to the job; this puts the guard in the organ the job names.
+
+    NOT ASSERTED, DELIBERATELY: whether CA3 beats CA3-off at an informative cue level. That is the
+    open question the D3 experiment exists to decide, and pre-judging it here would be the same
+    fault `ca3_completer`'s amendments record. It is REPORTED below so the sign is visible.
+    """
+    d, dg, flip = 64, 512, 0.40
+
+    def hit1(n, corrupt, use_ca3):
+        rng = np.random.default_rng(7)
+        X = rng.choice([-1.0, 1.0], size=(n, d))
+        enc = HippocampalEncoder(d, dg, 0.02, seed=7)
+        stored = enc.encode_and_write(X)
+        B = stored / (np.linalg.norm(stored, axis=1, keepdims=True) + 1e-12)
+        Q = X.copy()
+        if corrupt:
+            Q[rng.random(Q.shape) < corrupt] *= -1
+        out = enc.retrieve(Q, use_ca3=use_ca3)
+        A = out / (np.linalg.norm(out, axis=1, keepdims=True) + 1e-12)
+        return float(((A @ B.T).argmax(axis=1) == np.arange(n)).mean())
+
+    # (i) THE TRAP, MADE EXPLICIT: at an exact cue both arms sit at ceiling.
+    small_on, small_off = hit1(8, 0.0, True), hit1(8, 0.0, False)
+    big_on, big_off = hit1(256, 0.0, True), hit1(256, 0.0, False)
+    for label, v in (("N=8 CA3_ON", small_on), ("N=8 CA3_OFF", small_off),
+                     ("N=256 CA3_ON", big_on), ("N=256 CA3_OFF", big_off)):
+        assert v >= 0.999, (
+            f"exact-cue arm {label} is not at ceiling ({v:.4f}). If this ever fails the trap "
+            "has changed shape -- re-measure before trusting any exact-cue result.")
+
+    # (ii) THEREFORE N IS A SATURATED AXIS: a 32x load increase moves nothing.
+    # HONEST NOTE, verified by negative control 2026-08-21: this is a TIGHTENING of (i), not an
+    # independent check. Because (i) already requires both arms >= 0.999, any load-dependent drop
+    # large enough to matter trips (i) FIRST -- (ii) only bites in the narrow 0.999..1.0 band. It
+    # is kept because it states the INTENT (the axis is flat) where (i) states the symptom.
+    assert abs(big_on - small_on) < 1e-9, (
+        f"exact-cue hit@1 moved with load ({small_on:.4f} -> {big_on:.4f}); if N genuinely "
+        "measures capacity here, this guard is stale and D3's sweep should be revisited.")
+
+    # (iii) THE AXIS THAT DOES MEASURE: corrupt the cue and the score collapses.
+    degraded = hit1(256, flip, True)
+    assert degraded < 0.5, (
+        f"a {int(flip * 100)}%-corrupted cue still scores {degraded:.4f} -- the cue axis is "
+        "saturated too, and NO axis in this test can measure the organ.")
+
+    # REPORTED, NOT ASSERTED -- see the docstring.
+    delta = degraded - hit1(256, flip, False)
+    print(f"[selftest exact_cue_cannot_measure_this_organ] PASS exact_cue={big_on:.4f} "
+          f"(CA3_OFF={big_off:.4f}, unchanged from N=8) | cue@{int(flip * 100)}%_corrupt="
+          f"{degraded:.4f} | REPORTED ca3_on_minus_off={delta:+.4f} (not asserted)", flush=True)
+
+
 _SELFTESTS = [
+    ("exact_cue_cannot_measure_this_organ", _st_exact_cue_cannot_measure_this_organ),
     ("dg_output_ternary", _st_dg_output_ternary),
     ("dg_sparse_rate_matches_target", _st_dg_sparse_rate_matches_target),
     ("dg_pattern_separation", _st_dg_pattern_separation),
