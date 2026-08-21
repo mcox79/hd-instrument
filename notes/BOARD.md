@@ -26,7 +26,7 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 
 ## STATUS
 
-AS OF: 2026-08-21 ~150 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **TWO DETACHED DIAGNOSTICS LIVE (see `## WHAT IS RUNNING`)** | **BOTH BOARD QUESTIONS ANSWERED (Q92 cap raise + archiving; Q95 brain-foundational criterion)** | 🔴 **TOP ITEM CHANGED: THE OVERNIGHT PLAN'S FOUR THRUSTS WERE *ALL FOUR* ALREADY ANSWERED ON DISK -- found by READING, none by running, one command each. The defect was ORDER: I wrote the plan before running the three prior-work reads, then ran them per-thrust afterwards. RUN THEM BEFORE RANKING CANDIDATES, NOT AFTER COMMITTING.** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK, THEN `notes/OVERNIGHT_PLAN_2026-08-21.md`, THEN `## POSITION` BELOW**
+AS OF: 2026-08-21 LATE (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD: Q102 OPEN (wire the FORM organs); Q98 approved the write-rate extension WITH a stopping rule; Q99 done.** | 🧠 **ONE STRUCTURAL FINDING, upstream of THREE dead ends tonight: ONE REPRESENTATION IS DOING TWO JOBS THAT NEED OPPOSITE THINGS -- grounding must DELETE the word (correct, else it learns 'artery means artery'); identification needs it PRESENT (masked hit@1 0.1417 vs unmasked 0.4750, chance 0.0167). THE FORM ORGANS ARE ALREADY BUILT AND UNWIRED.** | **READ `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK (76 lines, rewritten from 6,895) -- it carries the 16 withdrawals and the method -- THEN `## POSITION` BELOW**
 
 **POSITION**
 ### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
@@ -75,7 +75,7 @@ I measured `n_grounded`, which is **the comparator gate only** -- and that gate 
     changed.* **`:663`'s "worse than either" unsupported at this scale.**
   - ✅ **`diagnose_read_with_loaded_foundation`: refusal delta 279 vs 380 = 1.36x, NOT the 22x
 
-_mirrored from `notes/STATUS.md` at 2026-08-21T19:53:44Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-21T20:20:41Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
