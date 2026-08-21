@@ -22,10 +22,24 @@
 > - **D8 is *"🅿️ PARKED-BY-SCALE"***: *"the cascade only beats simpler multistate models above ~1e6
 >   synapses; we run d = 256..4096. **A negative here is the PUBLISHED PREDICTION.**"*
 >
-> **➡️ THE TOP ITEM IS STEP 1 (H2, deciding what to read next), WHICH IS HOW YOU GET TO STEP 5.**
-> *This is the repo's own third-archive rule catching a decision made by quoting one line of a
-> two-page entry. **Quoting one section of a document is not reading it.*** The table below is kept
-> because its F5/E3 comparison and its four-reads evidence remain valid.
+> **➡️ ~~THE TOP ITEM IS STEP 1 (H2, deciding what to read next)~~ -- 🔴 THAT IS ALSO WRONG, CORRECTED
+> LATER THE SAME DAY. H2 IS NOT A BUILD: IT IS BUILT, ITS MATH IS PINNED, AND IT HAS BEEN RUN.**
+> *`hdlab/information_foraging.py`, registry `WIRED`, Charnov 1976 MVT; `exp_information_foraging_
+> reading_v1` ran **5 arms x 10,000 sentences**. **`tools/organ_map_cite.py H2` returns "§6 STEP 1
+> (H2) is superseded" as its FIRST LINE.*** **MVT is a rule for WHEN TO LEAVE, silent on WHERE TO GO
+> -- the patch-CHOICE half is the UNPINNED one -- and even that has been scored** (`exp_sensorimotor_
+> spoke_grounding_v1`, 3 seeds x 40k sentences: beats its own shuffle 3/3, **never beats
+> TOP_COOCCURRENT**).
+>
+> **🏁 CURRENT POSITION IS IN `notes/OVERNIGHT_PLAN_2026-08-21.md`, FIRST BLOCK. In short: ALL FOUR
+> of that night's thrusts were already answered on disk; the archive tool was reading the wrong
+> field and now reads `final_verdict` (it was wrong for 9 cells, silent for 2); two buried results
+> surfaced -- a hand-checked **90%-precision** extractor and a `MIDDLE_BAND` whose own text says
+> *"This REFUTES 'reading can't supply the knowledge'"*; and the one cheap unanswered experiment is
+> **Q96**.** *Method for avoiding a repeat: `python tools/before_you_start.py "<the work>"`, and
+> query the ACTIVITY, not just the artifact.*
+>
+> *The table below is kept because its F5/E3 comparison and its four-reads evidence remain valid.*
 >
 > ## ~~🎯 THE DECISION, APPLYING Q95: SLEEP (D8+D4) IS THE TOP ITEM. NOT F5.~~ **(WITHDRAWN, above)**
 > **`ORGAN_MAP` STEP 5, its own words: *"this is the ONE place in the plan where the brain's equation
