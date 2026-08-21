@@ -58,8 +58,18 @@ any scale this project can plausibly reach.*
 ### ✅ **AND IT TURNS THE OWNER'S INSTINCT INTO A MEASURED PERMISSION:** *"never throw out useful
 information"* is not merely allowed, it is **CHEAP** -- 142 MB today. **The brain discards detail
 because it is capacity-bound; we have now MEASURED that we are not, by a wide margin.**
-### ⚠️ **THE LIVE VERSION IS SPEED, NOT MEMORY:** retrieval is `O(n_slots)` per query at 69,171
-slots. The charter already names *"the O(n_facts) speed wall"*. **Different question, unmeasured.**
+### ✅ **AND SPEED IS NOW MEASURED TOO -- THE WALL IS CORPUS LOADING, AND IT AMORTISES**
+**The `O(n_slots)` retrieval wall DOES NOT FIRE on the read path: `anchor_matrix` called ZERO times
+over an instrumented 200-sentence read.** *(Scope: `consolidate_every` defaults to 200, so a longer
+read may call it -- the anchor scan's cost is UNTESTED, not shown absent.)*
+**89% of a short read is corpus LOADING** (`remaining()`->`pool()` 43.8s of 49.2s; `_acceptable`
+785,899 calls); the actual learning is ~6s. **And it is a FIXED cost: 171 -> 55 -> 66 -> 24
+ms/sentence across successive reads.**
+**➡️ AT ~24 ms/SENTENCE, EVERY SENTENCE WE OWN READS IN ~2.2 HOURS.**
+### 🎯 **THE COMPLETE PICTURE: RETAIN-FOREVER COSTS 142 MB AND ~2.2 HOURS.** Affordable on BOTH axes.
+*The charter's named `O(n_facts)` wall is not what binds on this path -- which is a different claim
+from it being imaginary.*
+`notes/THE_SPEED_WALL_IS_CORPUS_LOADING_NOT_RETRIEVAL_and_it_amortises_2026-08-21.md`
 `notes/CAPACITY_IS_NOT_A_PROBLEM_retain_forever_costs_142MB_at_full_corpus_2026-08-21.md`
 
 ### **WHAT SURVIVES, AND IT IS THE OWNER'S PRINCIPLE**
