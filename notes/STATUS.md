@@ -77,17 +77,20 @@ COMPARATOR path, and it is exactly why the fix is to not route through it.*
 
 ## WHAT IS RUNNING
 
-- 🟢 **TWO DETACHED DIAGNOSTICS ARE LIVE** (this session; `Start-Process`, survive the session):
-  - `tools/diagnose_read_with_loaded_foundation.py` -> `scratch/t4_decisive_out.log` (shim PID in
-    `scratch/t4_decisive.pid`). **Healthy but SILENT: its prints lack `flush=True`, so redirected
-    stdout is block-buffered and dumps only at exit.** Judge it by the CHILD process, never the
-    shim: CPU advanced 937s -> 1720s. *It re-runs the "decisive test" whose original double null
-    (`GROUNDED(last)=0`) was TWO probe bugs -- corpus exhausted (3x1200 requested, 1540 read =
-    1200+340+0) so the count came off a read that processed no text, and only the LAST of three
-    calls was reported.*
-  - `tools/graded_vs_signed_query_v1.py` -> `scratch/gvs_out.log`. **Tests T5b's prediction:
-    restoring the magnitude `:776` discards should move hit@1 SPECIFICALLY and leave median rank
-    roughly alone.** Refuses to report unless `Q_GRADED` reproduces the landed C3 headline 0.0480.
+- ⬜ **NOTHING IS RUNNING. BOTH DETACHED DIAGNOSTICS FINISHED AND WERE READ 2026-08-21**
+  (they had sat completed-and-unread; one had landed a `metrics.json` at 03:48Z):
+  - ✅ **`exp_graded_vs_signed_query_v1` -- `np.sign` AT `:776` COSTS ALMOST NOTHING. QUESTION CLOSED.**
+    `Q_GRADED` hit@1 **0.0480** / median **37.0** vs `Q_SIGNED` **0.0455** / **41.0**; paired
+    **`+0.0025`, CI95 `[-0.0030, +0.0080]` NOT SEPARATED**. **T5b's PREDICTION IS REFUTED** -- it said
+    magnitude moves hit@1 *specifically* and leaves median rank alone; **the opposite happened.**
+    *A real null, not a reachability failure: positive control reproduces the landed C3 headline
+    EXACTLY (0.0480) and **3,708 of 4,000 ranks changed**.* **`:663`'s "worse than either" is not
+    supported at this scale.** [`BOTH_DETACHED_DIAGNOSTICS_FINISHED_...`]
+  - ⚠️ **`diagnose_read_with_loaded_foundation` -- the corpus-exhaustion GUARD WORKED** (both arms
+    read **1,060** of a requested 1,200 and said so). **BUT `n_grounded` STILL READS 0 WHILE ANCHORS
+    GREW +68 -- THE FIELD IS NOT POPULATED ON THIS PATH. It is a reachability failure and must NOT be
+    quoted as a null.** *Clean number from that run: refusal delta **279 vs 380 = 1.36x**, not the 22x
+    headline that was **93% pre-existing in the foundation**.*
 - **DONE, one command each, all from READING:** `tools/orthographic_floor_tie_mass_v1.py` (621 s).
 - **BOARD Q92 AND Q95 ARE OPEN** (Q91->Q92 superseded on new arithmetic; Q93->Q94->Q95 on a
   reversed recommendation and then a fact I had not CI-checked). Q92: this file is ~2.3x its
