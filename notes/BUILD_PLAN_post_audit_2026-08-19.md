@@ -28,6 +28,9 @@
 > where the word is the QUESTION. Prior: spelling already beats our meaning read-out, `0.0767` vs
 > `0.0480`.**
 > `ONE_REPRESENTATION_TWO_OPPOSITE_JOBS_...` `THE_FORM_CHANNEL_SCORES_1_0000_...`
+> ✅ **AND THE VALID TEST IS NOW RUN: the FORM channel scores `rho = -0.0259` (p=0.41, n=999) against SimLex-999 human meaning judgements -- **ZERO meaning signal**, vs NORMS12's 0.2701 and our live encoding's 0.1048. *That DISARMS the stated risk: a pure index CANNOT inflate a meaning score or be mistaken for understanding, which makes it SAFE to wire as a SEPARATE channel -- and makes BLENDING it into the meaning vector clearly wrong (it would be pure noise there).*
+> 🔄 **AND IT REINTERPRETS A STANDING RESULT: spelling beats our meaning read-out (0.0767 vs 0.0480) -- but a channel with ZERO meaning signal cannot beat a meaning test on meaning. SO THAT READ-OUT TASK IS PARTLY SOLVABLE WITHOUT MEANING (likely gold answers that are orthographic or morphological relatives of the cue).** ⚠️ *I cannot separate that from "our read-out is so weak a meaningless signal beats it" -- both imply the task is not a pure meaning test, but the CAUSE is unsettled. Stop citing it as evidence about our MEANING representation without the caveat.*
+> `THE_FORM_CHANNEL_HAS_ZERO_MEANING_SIGNAL_...`
 >
 > ## 🔻 **THREE DEAD ENDS, ALL DOWNSTREAM OF THAT ONE CAUSE**
 > 1. **CA3 cannot complete** -- our rule MERGES correlated memories (margin **−0.1021**; the local
