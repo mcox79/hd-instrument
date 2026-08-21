@@ -725,6 +725,26 @@ archives, two questions* covers "does the tool exist" (registry) and "has this b
 | ***Have we already been WRONG about this mechanism?*** | **`python tools/organ_map_cite.py <ORGAN_ID>`** — greps the WHOLE file and prints constraints BEFORE the entry |
 | ***Has the thing I am about to CITE already corrected itself?*** | **`python tools/symbol_corrections.py <symbol>`** — prints the correction lines out of that function's OWN docstring |
 
+**AND A FIFTH READ, FOR QUOTING RATHER THAN BUILDING: `python tools/cite_check.py <number>`.**
+The four reads above answer *"has this been done / are we wrong about it"*. **They do not stop the
+failure that actually recurred most on 2026-08-21, which was quoting a number past the limits its own
+source states -- THREE times in one night.** `0.2449` came from a cell whose `scope_disclaimer` says
+*"These are NOT instrument numbers and may not be quoted as such"*; `0.4750` was quoted as evidence
+about context while its own note says two paragraphs down that it *"is inflated by self-reference"*;
+and a `3.5x` grounding ratio was real but MEANINGFUL-OR-RELATED COMBINED, n=17, one scorer, with the
+source's own limits reading *"MEANINGFUL counts are 1 and 2, and both CIs touch zero."*
+**THE SHAPE IS ALWAYS THE SAME: THE NUMBER TRAVELS AND THE CAVEAT DOES NOT.** `cite_check.py` takes
+the literal you are about to repeat, finds every `notes/*.md` and `data/*/metrics.json` containing
+it, and prints the caveat-bearing lines nearest it plus any `scope_disclaimer` verbatim. ~2 s warm.
+*Self-tested on the two real misses rather than fixtures.*
+
+*Two defects worth repeating from building it: its first draft shelled out to `rg`, which is NOT on
+PATH for a subprocess here, so every query returned ZERO FILES SILENTLY and read as "no caveats
+exist" -- and the negative control PASSED THROUGH THAT, because a broken search and an absent literal
+are indistinguishable. **Any tool relied on to establish absence needs a SEARCH positive control, not
+just an absence check.** Its first draft also scanned all of `data/` (~26 GB); the bounded scope is
+`data/*/metrics.json`, which is where `scope_disclaimer` lives.*
+
 **THE FOURTH READ WAS ADDED 2026-08-21 AFTER THREE INSTANCES IN ONE NIGHT, ALL THE SAME SHAPE: I
 QUOTED A CLAIM WHILE ITS CORRECTION SAT IN THE DOCSTRING OF THE THING I WAS QUOTING.**
 `_make_definitional_gate` carries three numbered corrections dated 2026-08-20 — it IS on the live

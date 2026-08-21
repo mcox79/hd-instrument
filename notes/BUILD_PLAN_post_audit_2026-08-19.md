@@ -283,6 +283,20 @@
 > UNTOUCHED.** *Supplies the missing NUMBER for the plan's existing UNPINNED patch-CHOICE gap.*
 > `THE_READER_STILL_WALKS_THE_SHELF_ALPHABETICALLY_...`
 
+> ## **A FIFTH READ, FOR QUOTING RATHER THAN BUILDING: `tools/cite_check.py <number>`**
+> **The night's most-repeated failure was quoting a number past the limits ITS OWN SOURCE states --
+> THREE times.** *(`0.2449` vs its cell's "NOT instrument numbers, may not be quoted as such";
+> `0.4750` vs its note's "inflated by self-reference" two paragraphs down; `3.5x` vs its note's
+> "MEANINGFUL counts are 1 and 2, and both CIs touch zero".)* **THE NUMBER TRAVELS AND THE CAVEAT
+> DOES NOT.** Paste the literal; it prints the caveat lines nearest it in every `notes/*.md` and
+> every `data/*/metrics.json`, plus any `scope_disclaimer` verbatim. **~2s warm; self-tested on the
+> two REAL misses, not fixtures.** 🔻 **TWO DEFECTS FROM BUILDING IT, both worth keeping:** its first
+> draft shelled out to `rg`, which is **NOT on PATH for a subprocess here**, so every query returned
+> **ZERO FILES SILENTLY** and read as *"no caveats exist"* -- **and the NEGATIVE control PASSED
+> THROUGH THAT, because a broken search and an absent literal are indistinguishable.** *Any tool
+> relied on to establish ABSENCE needs a SEARCH POSITIVE CONTROL.* And its first draft scanned all
+> of `data/` (~26 GB); bounded to `data/*/metrics.json`. Now the 5th row of CLAUDE.md's table.
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"
