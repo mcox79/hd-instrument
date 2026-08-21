@@ -139,6 +139,23 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## ✅ **AND THE `0.45` CAP IS NOT A DEFECT -- I WAS QUOTING IT WRONG. ITS JUSTIFICATION IS METRIC-SPECIFIC.**
+> **Verified on disk (`grounded_similarity.py:96,190`): the cap is DELIBERATE and EARNED.** Raw
+> cosine over the 12 dims cannot separate a true synonym from a perceptual sibling -- `sofa/couch
+> 0.968` vs `apple/orange 0.952`, fully overlapping in the p95-p99.9 tail of a 2,000-pair background
+> -- **so it caps STRUCTURALLY BELOW the 0.50 merge threshold, making a false identity merge
+> impossible BY CONSTRUCTION. Only the TOP is flattened; below it the ordering is genuine.**
+> *I had been calling that a crippling. That was wrong and the plan text is corrected above.*
+> 🎯 **BUT ITS OWN WORDS ARE "not something a different threshold on this SAME metric can fix" --
+> THE CEILING IS A PROPERTY OF COSINE. THREE INDEPENDENT MEASUREMENTS NOW AGREE EUCLID BEATS IT ON
+> EXACTLY THAT CONTRAST:** the spoke's own 10+10 probe (`1.348` vs `0.511` SD), my 829-pair SimLex
+> run (`0.2876` vs `0.2176`), and **the capped module's OWN six named failure pairs (`+2.68` vs
+> `+1.26` SD; margin `0.272` vs `0.010`).**
+> ⚠️ **NOT REFUTED: its claim is STATISTICAL separability vs a 2,000-pair background, and six pairs
+> cannot test that; n=2 synonyms makes those SDs directional only. NOT a proposal to remove the cap
+> -- a metric change must RE-DERIVE the no-false-merge guarantee on the new scale first.**
+> `THE_CAP_IS_PRINCIPLED_AND_ITS_JUSTIFICATION_IS_METRIC_SPECIFIC_...`
+
 > ## 📐 **SUPPLIED BEATS LEARNED 2.69x ON IDENTICAL PAIRS -- AND THE METRIC CHOICE BEATS OUR WHOLE SIGNAL**
 > **The archive's `norms 0.2701` vs `live 0.1048` came from DIFFERENT CELLS ON DIFFERENT PAIR SETS,
 > which our own bar forbids comparing. Scored both at once on 829 shared pairs, 200-shuffle null:**
