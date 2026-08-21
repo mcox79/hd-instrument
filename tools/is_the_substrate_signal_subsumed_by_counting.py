@@ -33,7 +33,7 @@ Reference points from that same diagnostic, on the same discriminator:
 | route | ratio | **union gain** | verdict then |
 |---|---|---|---|
 | cortical read | 0.55 | **1.1x** | SUBSUMED |
-| sensorimotor spoke | 0.94 | **2.2x** | a real second channel |
+| sensorimotor spoke, **9 seeds** | 0.91 med *(0.70-0.98, **6/9** pass)* | **2.15 med, min 1.50, 9/9** | **union SOLID; independence NOT ESTABLISHED -- its own pre-registration FAILED** |
 
 *I built this tool without running the prior-work read on my own project's answer to the same
 question. That read is `tools/organ_map_cite.py`'s sibling discipline and it exists because of
@@ -206,7 +206,7 @@ def main():
     print("  *** PRIMARY DISCRIMINATOR -- UNION GAIN (the ratio above is SECONDARY) ***")
     print("     union hit rate %.4f / counting %.4f = **%.2fx**" % (union, pc, gain))
     print("     reference, same discriminator, 2026-08-19: cortical read 1.1x = SUBSUMED;")
-    print("     sensorimotor spoke 2.2x = a real second channel.")
+    print("     sensorimotor spoke union 2.15 median / 1.50 min over 9 seeds -- union SOLID, but its independence claim FAILED its own pre-registration (ratio 6/9).")
     if gain < 1.15:
         print("  -> SUBSUMED by union gain: combining buys almost nothing over counting alone.")
     elif gain < 1.6:

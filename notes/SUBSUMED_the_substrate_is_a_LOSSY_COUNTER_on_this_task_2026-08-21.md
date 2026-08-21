@@ -11,7 +11,7 @@
 > |---|---|---|---|
 > | cortical read | 0.55 | **1.1x** | SUBSUMED |
 > | **THE SUBSTRATE, today** | **0.69** | **1.28x** | **PARTIAL -- nearer the cortical end** |
-> | sensorimotor spoke | 0.94 | **2.2x** | a real second channel |
+> | sensorimotor spoke, **9 seeds** | 0.91 med *(0.70-0.98, **6/9** pass)* | **2.15 med, min 1.50, 9/9** | **union SOLID; independence NOT ESTABLISHED -- its own pre-registration FAILED** |
 >
 > **➡️ CORRECTED CLAIM: combining the substrate with counting buys `1.28x` -- REAL, but far short of
 > a genuine second channel.** *"We are a lossy counter" was too strong; "we are mostly a lossy

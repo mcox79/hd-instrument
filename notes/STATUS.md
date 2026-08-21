@@ -78,8 +78,9 @@ at the SAME slot; the word there is CORRECT, so a difference of 0 means the arm 
 
 **🚨 AND THE SIGNAL IS *PARTIALLY* SUBSUMED** *(corrected -- I first wrote SUBSUMED, on a
 discriminator this project had already flagged as mis-specified; **union gain is the right number**:
-cortical read 1.1x = subsumed, **substrate 1.28x = PARTIAL**, sensorimotor spoke 2.2x = a real second
-channel. Combining with counting buys something REAL but far short of a second channel).** Both arms hit **88** items where independence predicts
+cortical read 1.1x = subsumed, **substrate 1.28x = PARTIAL**, sensorimotor spoke union **2.15 median, min 1.50 over 9 seeds** -- union SOLID, but its
+INDEPENDENCE claim FAILED its own pre-registration (ratio 6/9). *I had been quoting its
+SINGLE-SEED figure (2.2x/0.94), which a 9-seed sweep superseded.* Combining with counting buys something REAL but far short of a second channel).** Both arms hit **88** items where independence predicts
 62.3; **substrate-only 58 where independence predicts 83.7**; substrate-unique rate minus
 independence = **`-0.0537`, CI `[-0.0741, -0.0330]`, EXCLUDES ZERO.** The arms agree far more than
 two independent arms would -- **one signal read twice.** **This closes the room the margin left open:

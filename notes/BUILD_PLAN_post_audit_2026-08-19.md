@@ -32,7 +32,7 @@
 > *First written as flat SUBSUMED on a discriminator the 2026-08-19 spoke diagnostic had ALREADY
 > flagged as mis-specified: "AT independence and BELOW independence mean OPPOSITE things for
 > buildability... the correct discriminator is the UNION GAIN." Same discriminator:*
-> **cortical read 1.1x = SUBSUMED · SUBSTRATE 1.28x = PARTIAL · sensorimotor spoke 2.2x = REAL CHANNEL.**
+> **cortical read 1.1x = SUBSUMED · SUBSTRATE 1.28x = PARTIAL · sensorimotor spoke union 2.15 med (min 1.50, 9/9) -- union SOLID, independence NOT ESTABLISHED (ratio 6/9).**
 > *"Behind" and "subsumed" are different findings with opposite consequences, and I had only
 > measured the first.* On 478 anomalous sentences, did the arm put the planted word first:
 > | | observed | if INDEPENDENT |
