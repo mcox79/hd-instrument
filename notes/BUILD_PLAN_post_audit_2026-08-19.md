@@ -112,6 +112,32 @@
 >   organ id + a constraint keyword; tool self-test PASS). **AND D3's `EVIDENCE` LINE IS FIXED, which
 >   matters most because it always prints first: *"self-test 14/14 PASS"* IS A CEILING, NOT EVIDENCE
 >   -- that task scores 1.0000 EVEN WITH THE MEMORY SWITCHED OFF.**
+> - ⚡ **`b8e88d703` -- AND THE PRIOR-WORK CHECK PAID OUT: THE TRAP WAS ALREADY ENCODED IN CODE.**
+>   **`hdlab/ca3_completer.py::selftest_full_cue_is_not_where_the_action_is`** *ASSERTS the ceiling
+>   (`>=0.999`) as a GUARD* -- *"a full-cue test of a completer measures nothing... asserted here so
+>   the scope of the three earlier floored cells cannot be quietly forgotten."* **Its
+>   `routed_completion_discriminates` curve IS the sweep D3 needs** (cue kept 1.00/0.80/**0.60**/
+>   0.50/0.35 → uncompleted 1.0/1.0/**0.9766**/0.5000/0.0 vs completed 1.0/1.0/**0.8984**/0.4922/
+>   0.0): **completion NEVER helps, informative band ~0.80→0.35 kept**, bracketing tonight's 25-40%
+>   collapse **on a multi-spoke bound store its own note calls *"harder than the experiment's"*.**
+>   ➡️ **TWO INDEPENDENT IMPLEMENTATIONS AGREE, so the synthetic-pattern caveat is SMALLER than I
+>   stated. AUTHOR D3 BY REUSING THAT HARNESS** (sweep + oracle + null + a correctly-classified
+>   floor: *"M>d makes a random codebook an overcomplete dictionary... **a floor, not a null**"*).
+>   ***THE KNOWLEDGE WAS HERE; IT WAS NOT ATTACHED TO THE JOB THAT NEEDED IT.***
+> - 🏁 **THE NIGHT'S SYNTHESIS -- AND IT WITHDRAWS MY OWN "NEW TELL".** *"A sweep is only a test if
+>   the score moves across it"* **IS NOT NEW: it is `hdlab/vsa_cleanup_memory.py::selftest_capacity_
+>   is_measurable`, and the code is SHARPER than my sentence because it RUNS** -- it asserts BOTH
+>   endpoints and raises *"the axis is saturated and cannot measure a capacity"*. **Had D3's test
+>   been written against it, tonight's `1.0000 at every N` would have RAISED with the right
+>   diagnosis already in the error string.** **29 self-tests across 16 of 151 modules; 13 of them, in
+>   just THREE modules (`vsa_cleanup_memory`, `ca3_completer`, `hub_spoke_word`), assert METHOD
+>   rather than correctness** -- capacity-must-fall, null-and-known-answer-must-fail-independently
+>   (= discipline 6), not-inert, *"MEASURE the incumbent rather than characterise it in prose"*,
+>   reuse-is-bit-identical (= WIRE-DON'T-ISLAND). **EVERY defect I found by hand tonight falls inside
+>   what those three already guard.** ➡️ **DO NOT WRITE A NEW PROSE RULE. Author D3/B4 AGAINST these
+>   guards, and give other modules a self-test whose NAME states what it refuses to let pass --
+>   `selftest_capacity_is_measurable` is 8 LINES.**
+>   `notes/THE_NIGHTS_SYNTHESIS_the_disciplines_that_were_CODE_caught_tonights_defects_the_ones_in_PROSE_did_not_2026-08-21.md`
 > - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
 >   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
 >   the headings *and their whole sections* into the header paragraph. **Every section BODY was
