@@ -1,6 +1,6 @@
 # STATUS -- THE RECOVERY ENTRY POINT. READ THIS, THEN THE PLAN.
 
-AS OF: 2026-08-21 ~92 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD Q91 OPEN: this file is still ~2x its cap and I may not raise it myself** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` CARRIES EVERYTHING -- ITS TOP BLOCKS FIRST**
+AS OF: 2026-08-21 ~133 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOTH BOARD QUESTIONS ANSWERED (Q92 cap raise + archiving; Q95 brain-foundational criterion)** | **TOP ITEM: 36 of 150 modules run when it reads; 81 are built, blessed WIRE, and never called -- that is the backlog, and it is a WIRING backlog** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK, THEN `## POSITION` BELOW**
 
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). FOUR literals
 MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON

@@ -102,3 +102,20 @@ when evaluating what to work on next, you should do brain fidelity checks to ide
 ## 2026-08-21T01:07:13Z  --  the status window
 
 just remember that in any sleep function, while the brain throws away detail, we can put that detail into cold storage and not lose it. We'll still want a consolidation function so we're not duplicating things, but we should never throw out useful information
+
+## 2026-08-21T01:36:26Z  --  the status window
+
+it seems like the main benefit of sleep might be to optimized the time for query - we should have a hierarchical memory - optimized, not in the weeds on details, and then a 2nd level based on what it finds there that is way faster. something like this?
+
+Also - why did we stop working on reading? Were are we on the different functinos of substrate?
+
+## 2026-08-21T01:36:58Z  --  the status window
+
+also, there was a task that I just killed (python) that was taking about 8gigs of memory - it was hanging the gui and nimbalyst
+
+## 2026-08-21T01:49:33Z  --  the status window
+
+are you able to measure or set an alarm for when you have 10% context left?
+Are you able to compact when you want to?
+
+While you're considering this and answering me, please fully prepare for compaction

@@ -130,3 +130,47 @@ first) are open and are yours.
 
 1. Board answers gate the next build.
 2. The apparatus is reusable for any detector, not just F5.
+
+---
+
+## 🌙 LATER THE SAME DAY -- THE SLEEP ARC, AND IT IS ALL NEGATIVE ABOUT MY OWN PROPOSALS
+
+**Owner Q95 (*"chase things that are brain foundational in every way"*) picked SLEEP (D8+D4)** --
+`ORGAN_MAP`'s *"the ONE place the brain's equation is FULLY PINNED and we have literally none of
+it."* **Then four cheap measurements took it apart.**
+
+| proposal | measured outcome |
+|---|---|
+| cascade / graceful decay | **our slots are PRIVATE.** Retention slope **-0.031** vs the **-0.50** a Benna-Fusi system gives, and indistinguishable from the `sign()` arm. *We lack the shared-synapse interference it defends against* |
+| cold storage / tiering | **ALREADY BUILT AND PROVEN.** `prelim_tier` opens *"retain-forever"*; `three_tier_loop` has 12 landed cells, HARD_PASS. **A WIRING gap** |
+| consolidation / dedup | **NO DUPLICATES EXIST.** >cos 0.90 at **0.03% / 0.00% / 0.00%** across rare/mid/common vs a frequency-matched null p95 ~0.10 |
+| capacity pressure itself | **142 MB for all 325,798 sentences we own, and SATURATING** (`beta` 0.589 -> **0.289**) |
+
+**AND THE SPEED WALL IS NOT WHERE THE CHARTER SAYS EITHER:** `anchor_matrix` called **ZERO** times in
+an instrumented read; **89% of a short read is corpus LOADING**, which is a FIXED cost --
+**171 -> 24 ms/sentence** across successive reads. **All 325,798 sentences read in ~2.2 hours.**
+
+### ✅ **SO RETAIN-FOREVER IS AFFORDABLE ON BOTH AXES: 142 MB AND ~2.2 HOURS.**
+*The owner's instinct -- never throw out useful information -- now has a measured number on each,
+rather than a principle on one. The brain discards detail because it is capacity-bound; we have
+measured that we are not.*
+
+## 📊 AND THE ANSWER TO *"WHERE ARE WE ON THE FUNCTIONS OF SUBSTRATE?"*
+**150 modules on disk, 150 registered, 36 loaded by a LIVE READ, 81 `gate=WIRE` and never called.**
+*Reading is not unbuilt -- the loop is a real ~36-part pipeline. It stalled because two thirds of
+what we built sits BESIDE it.* **Triaged: 34 proven-and-islanded, 25 tried-not-passing, 38
+never-evaluated.** *(Corrects `CLAUDE.md`'s "62 of 141 unregistered" -> now **0**; its "35 of 141
+live" held at **36 of 150**.)*
+
+## 🚨 AND AN OPERATIONAL HARM I CAUSED
+**A python process of mine reached ~8 GB and hung the owner's machine; they killed it.** *I could not
+identify the culprit afterwards and did not guess -- corpus loading is bounded at 0.11 GB total, the
+PPMI dict measures ~125 MB, neither explains it.* **`tools/memory_guard.py` now aborts on an RSS
+ceiling in all six heavy diagnostics, verified CALLED and not merely imported** (the first pass
+hooked only two of six).
+
+## 🔁 THE PATTERN OF THE WHOLE DAY, STATED PLAINLY
+**Every negative above is about MY PROPOSAL, not about the biology or the substrate.** Four sleep
+proposals, an exponent quoted from too narrow a range, a discriminator the project had already
+corrected, and a blind spot found in TWO of my own tools in consecutive turns. **The consistent
+fault: I proposed before measuring, and the archive usually already held the answer.**

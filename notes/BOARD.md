@@ -26,7 +26,7 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 
 ## STATUS
 
-AS OF: 2026-08-21 ~92 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD Q91 OPEN: this file is still ~2x its cap and I may not raise it myself** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` CARRIES EVERYTHING -- ITS TOP BLOCKS FIRST**
+AS OF: 2026-08-21 ~133 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOTH BOARD QUESTIONS ANSWERED (Q92 cap raise + archiving; Q95 brain-foundational criterion)** | **TOP ITEM: 36 of 150 modules run when it reads; 81 are built, blessed WIRE, and never called -- that is the backlog, and it is a WIRING backlog** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK, THEN `## POSITION` BELOW**
 
 > **MISSING REQUIRED LITERAL `## POSITION` in `STATUS.md`.** `tools/board.py` parses
 > this exact string; it is an API, not a formatting choice. See `notes/STATUS_SPEC.md` sec 2.
@@ -50,7 +50,7 @@ AS OF: 2026-08-21 ~92 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED 
   flagger tightened 13 -> 1 with its survivor examined and cleared
   (`_tie_mass_examination_2026-08-21.json`); this file trimmed 308,692 -> ~20 KB with **nothing
 
-_mirrored from `notes/STATUS.md` at 2026-08-21T01:48:45Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-21T01:52:05Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
