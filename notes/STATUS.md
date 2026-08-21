@@ -75,6 +75,21 @@ at the SAME slot; the word there is CORRECT, so a difference of 0 means the arm 
 **LEARNING BOUGHT SOMETHING REAL** (0 -> +16.3, same representation, only the reading differs) --
 **AND THE PAIRED TEST SAYS WE ARE MEASURABLY BEHIND COUNTING**, not merely not-ahead:
 `SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.
+
+**🚨 AND WORSE: THE SIGNAL IS *SUBSUMED*.** Both arms hit **88** items where independence predicts
+62.3; **substrate-only 58 where independence predicts 83.7**; substrate-unique rate minus
+independence = **`-0.0537`, CI `[-0.0741, -0.0330]`, EXCLUDES ZERO.** The arms agree far more than
+two independent arms would -- **one signal read twice.** **This closes the room the margin left open:
+"we score lower but get DIFFERENT items, so combining helps" is REFUTED, not merely unsupported.**
+*The structural reason is not mysterious: the context vector IS an accumulation of co-occurring
+content words, so the substrate is a lossy re-derivation of the very thing it is compared against.
+The measurement confirms an architectural fact rather than discovering an accident.*
+**It does NOT say we have no signal** (+16.3 REPLICATED, 0 pp before reading) -- it says the signal is
+not INDEPENDENT. *Scope: one task, one corpus. The same analysis returned NOT SUBSUMED for the
+sensorimotor spoke, so the test discriminates.*
+**➡️ THE QUESTION THIS HANDS OVER: not "how do we score higher" but "what would make the
+representation carry something counting cannot".**
+`SUBSUMED_the_substrate_is_a_LOSSY_COUNTER_on_this_task_2026-08-21.md`
 Notes: `THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`, `THE_F5_BAR_WAS_TOO_LOW_...md`,
 `THE_UNTRAINED_GEOMETRY_DONATES_NOTHING_...md`.
 
