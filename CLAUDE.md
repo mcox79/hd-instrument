@@ -573,6 +573,32 @@ data/capability_registry.jsonl BEFORE building"*. I followed it to the letter an
 HARD_PASS that answered my question. **The rule names the code archive and is silent on the results
 archive.**
 
+> ### 🔴 **EXTENDED 2026-08-21 ON OWNER INSTRUCTION -- THE TRIGGER WAS TOO NARROW AND IT COST HOURS.**
+> **Owner: *"remember to ALWAYS look for previous work... we did a ton of it. Why haven't you already
+> found all this? Whenever you start something new -- you should do a deep drill on whether we've
+> done it before."***
+>
+> **THE RULE BELOW FIRES ON "BUILDING OR WIRING". THAT IS NOT WHERE THE COST LANDED.** On 2026-08-21
+> I ran the check faithfully before every BUILD (`"information foraging"`, `"cold placement"`) and
+> **never once before the thing I was actually DOING -- hand-scoring 100 meanings.** Hand-scoring is
+> neither building nor wiring, so the rule as written did not fire.
+>
+> **WHAT WAS ALREADY ON DISK:** `exp_grounding_quality_readout_v1` had written **100 BLIND rows for
+> exactly this hand-score on 2026-08-12**, they were **scored and joined to their arms 10 minutes
+> later**, and `B3_RESOLVED.md` wrote it up **the previous day**. *I produced an UNBLINDED duplicate
+> of a BLINDED result that was already finished.* And `query "quality"` returns **126 cells, 116
+> landed** -- including a 2-hour `ASSET_CLEARS_THE_STRONGEST_FLOOR` and a 59-minute instrument that
+> refused to publish its number.
+>
+> **➡️ THE TRIGGER IS *STARTING ANYTHING*, NOT *BUILDING* ANYTHING.** Measuring, hand-scoring,
+> auditing, designing an evaluation, choosing a floor, writing a probe -- **each is "something new"
+> and each has a prior-art archive.** *The cheapest tell that you are about to repeat work: you are
+> about to spend more than ~20 minutes on a task you have not queried.*
+>
+> **AND QUERY THE ACTIVITY, NOT ONLY THE ARTIFACT.** I queried the ORGAN I was building. The hours
+> went into an ACTIVITY -- "hand-score", "blind", "quality", "evaluate" -- and **none of those words
+> was ever typed into the archive.**
+
 **Rule: before building OR wiring anything, query BOTH, and quote the counts.** Not "I checked" --
 the actual line, because `experiment_index.py` prints rows scanned before results and that is what
 makes silence distinguishable from absence.
