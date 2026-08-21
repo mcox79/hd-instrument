@@ -33,18 +33,26 @@ grounding precision loses 2-3x to a trivial top-co-occurrent baseline (p<.02, 3 
 1.6-3.0%); discrimination re-ranking loses to bag-of-words on 3 corpora. **Counting beats every arm
 this project has built, by roughly 10x.** Growth stays PAUSED.
 
-### THE ONE GOOD HALF, AND THE BOTTLENECK
-**The definitional-PHRASE half of the output is genuinely good.** Of 402 provenance rows,
-`meaning_source=DEFINITIONAL_EXTRACTION` accounts for **212** and `canonicalize` for the other
-**190** -- that is the POPULATION SPLIT, not a score. Hand-scored on the same rubric by the same
-scorer, the definitional half reads **32% MEANINGFUL** and the distributional half **4%**.
-*(Written as "32% MEANINGFUL (212 of 402)" until 2026-08-21: that reads as though 212/402 WERE the
-32%, which it is not -- 212/402 is 52.7%. The source note had share and score in SEPARATE COLUMNS
-and my compression merged them. Numbers unchanged; the sentence was the defect.)*
-It clears every length-matched floor on an
-independent gold across 4 seeds. **The win is the FORM (a phrase), not the SOURCE.**
+### THE TWO HALVES -- **GOOD BY RUBRIC, NO SIGNAL ON THE TASK. BOTH FACTS ARE TRUE.**
+Of 402 provenance rows, `meaning_source=DEFINITIONAL_EXTRACTION` accounts for **212** and
+`canonicalize` for the other **190** -- that is the POPULATION SPLIT, not a score. Hand-scored on the
+same rubric by the same scorer, the definitional half reads **32% MEANINGFUL** and the
+distributional half **4%**. *That is a RUBRIC number and it is real.*
+
+**🚫 BUT MEASURED ON A TASK (2026-08-21) THE RANKING INVERTS.** On the 48 items where both routes
+fire, scored alone with no mixing: **DEFINITIONAL `-0.021`/item, CI `[-0.062, +0.000]` -- NO ANOMALY
+SIGNAL AT ALL**; **DISTRIBUTIONAL on the SAME items `+0.188`, CI `[+0.042, +0.333]`**; paired
+`-0.208`, CI `[-0.375, -0.042]`, **SEPARATED**. And definitions exist for only **24.6%** of
+encountered words. **➡️ "Bind only the definitional half" would REMOVE the signal and keep the half
+that has none. That design decision is ANSWERED AGAINST, not open.**
+*Stated narrowly: this is NOT "the definitions are bad". A correct definition need not share
+vocabulary with an arbitrary sentence -- "a bottle is a container for liquids" predicts nothing about
+bottles at a picnic. They may suit a LOOKUP or an inference step; they do not suit a
+prediction-error monitor. **A statistic the mechanism optimises may DIAGNOSE, never DECIDE** -- I used
+the rubric to decide, all session.*
+
 **AND NOTHING IN THE SUBSTRATE READS THE BANKED MEANINGS** -- enumerated across 4 routes, whole
-repo; three attempts to change that all failed. That read-back gap is the bottleneck, not quality.
+repo; three attempts to change that all failed. That read-back gap is the bottleneck.
 Flat ledger of what survives vs what I withdrew: `WHAT_2026-08-20_ESTABLISHED_survives_vs_withdrawn.md`.
 
 ### 2026-08-21 -- THE F5 BAR, MEASURED AND REPLICATED BEFORE THE ORGAN EXISTS
@@ -91,9 +99,16 @@ Notes: `THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`, `THE_F5_BAR_WAS_TOO_LOW_...md`
    +18.8 (one set, not replicated); +20.7 (a surface-vs-lemma lookup bug deflating BOTH floors).
    **The superseded values are recorded in the notes with banners, deliberately NOT layered here --
    three strikethrough versions stacked in this item is what made it unreadable on 2026-08-21.**
-4. **The consumption design** -- the banked meaning must supply the **PREDICTION**, not sit in the
-   register; error = `||predicted - observed||` = `||delta situation_model||`:
-   `ANGLE_B_the_meaning_consumption_link_...md`.
+4. **The consumption design -- ARCHITECTURE INTACT, FILTER ANSWERED AGAINST.** The banked meaning
+   must supply the **PREDICTION**, not sit in the register; error = `||predicted - observed||` =
+   `||delta situation_model||`. **That part stands and is the PINNED half of F5.**
+   **🚫 BUT ITS FILTER -- "bind only the definitional half" -- IS DEAD, measured twice:** definitions
+   cover only **24.6%** of encountered words, and where they DO fire they carry **no anomaly signal**
+   (`-0.021`/item, CI `[-0.062, +0.000]`) while the distributional profiles carry real signal on the
+   same items (`+0.188`, CI `[+0.042, +0.333]`). **Any F5 brief that repeats the definitional filter
+   is repeating a refuted claim.** The fallback for uncovered words is an OPEN design decision.
+   `ANGLE_B_the_meaning_consumption_link_...md` (design),
+   `THE_DEFINITIONS_CARRY_NO_ANOMALY_SIGNAL_...md` (the refutation).
 
 **THE BUILD ITSELF IS CELL-AUTHORING WORK** (`experiments/*.py` + smoke), which the main thread must
 not do -- spawn `hdi_exp_dev`. That is the only thing standing between here and a measured F5.

@@ -34,15 +34,15 @@ counting, and BELOW it on both tests using an INDEPENDENT gold (ConceptNet, no W
 grounding precision loses 2-3x to a trivial top-co-occurrent baseline (p<.02, 3 seeds, precision
 1.6-3.0%); discrimination re-ranking loses to bag-of-words on 3 corpora. **Counting beats every arm
 this project has built, by roughly 10x.** Growth stays PAUSED.
-### THE ONE GOOD HALF, AND THE BOTTLENECK
-**The definitional-PHRASE half of the output is genuinely good.** Of 402 provenance rows,
-`meaning_source=DEFINITIONAL_EXTRACTION` accounts for **212** and `canonicalize` for the other
-**190** -- that is the POPULATION SPLIT, not a score. Hand-scored on the same rubric by the same
-scorer, the definitional half reads **32% MEANINGFUL** and the distributional half **4%**.
-*(Written as "32% MEANINGFUL (212 of 402)" until 2026-08-21: that reads as though 212/402 WERE the
-32%, which it is not -- 212/402 is 52.7%. The source note had share and score in SEPARATE COLUMNS
-and my compression merged them. Numbers unchanged; the sentence was the defect.)*
-It clears every length-matched floor on an
+### THE TWO HALVES -- **GOOD BY RUBRIC, NO SIGNAL ON THE TASK. BOTH FACTS ARE TRUE.**
+Of 402 provenance rows, `meaning_source=DEFINITIONAL_EXTRACTION` accounts for **212** and
+`canonicalize` for the other **190** -- that is the POPULATION SPLIT, not a score. Hand-scored on the
+same rubric by the same scorer, the definitional half reads **32% MEANINGFUL** and the
+distributional half **4%**. *That is a RUBRIC number and it is real.*
+**🚫 BUT MEASURED ON A TASK (2026-08-21) THE RANKING INVERTS.** On the 48 items where both routes
+fire, scored alone with no mixing: **DEFINITIONAL `-0.021`/item, CI `[-0.062, +0.000]` -- NO ANOMALY
+SIGNAL AT ALL**; **DISTRIBUTIONAL on the SAME items `+0.188`, CI `[+0.042, +0.333]`**; paired
+`-0.208`, CI `[-0.375, -0.042]`, **SEPARATED**. And definitions exist for only **24.6%** of
 
 **TOP ITEM`, `## WHAT IS RUNNING`**
 (`session_start_hook.py`, `board.py`). **Inside a section use `###`, never `##` -- a `##` here once
@@ -66,7 +66,7 @@ Pre-2026-08-21 session log: `STATUS_ARCHIVE_2026-08-21_pre_trim.md` (byte-identi
   flagger tightened 13 -> 1 with its survivor examined and cleared
   (`_tie_mass_examination_2026-08-21.json`); this file trimmed 308,692 -> ~20 KB with **nothing
 
-_mirrored from `notes/STATUS.md` at 2026-08-21T00:17:10Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-21T00:30:51Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
