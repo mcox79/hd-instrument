@@ -27,7 +27,19 @@
 > with a blind spot, whose failure mode reads as ABSENCE.** *`CLAUDE.md` states the rule that would
 > have caught it before publication -- **verify with a POSITIVE control, never only an absence
 > check.** I wrote that sentence into a note four hours ago and then shipped a scanner without one.*
-> **Corrected figures pending a re-run; treat the table below as void.**
+> ### ✅ **CORRECTED FIGURES ARE IN, AND THE LESSON IS SHARPER THAN THE HEADLINE**
+> | | v1 (buggy) | **v3 (self-tested)** |
+> |---|---|---|
+> | persisted an output list | 129 (3.5%) | **158 (4.3%)** |
+> | no output found (upper bound) | 3,547 (96.5%) | **3,518 (95.7%)** |
+> | credited by file SIZE alone (heuristic) | -- | 33 |
+>
+> **➡️ THE AGGREGATE MOVED 0.8 PERCENTAGE POINTS. THE ONE CELL I NAMED FLIPPED COMPLETELY.**
+> *That is the finding worth keeping: **a bug too small to matter in the total can still invert the
+> verdict on the single case you chose to single out** -- and the named case is the one that damages
+> a real result and a real person's work. The aggregate was roughly right and my accusation was
+> flatly wrong, at the same time.*
+> **So the corrected bound is 95.7%, and it still means what §2 says it means: mostly "cannot tell."**
 
 **Generalised from tonight's foraging dead end**, where the correct re-analysis became impossible
 because the cell persisted **the score but not the scored population** -- 604 strings, a few
