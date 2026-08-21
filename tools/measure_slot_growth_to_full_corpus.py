@@ -29,6 +29,9 @@ _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
+from memory_guard import guard  # noqa: E402
+_MEM = guard(limit_gb=2.0, label=os.path.basename(__file__))
+
 
 def main():
     from hdlab.corpus_registry import CorpusRegistry
@@ -51,6 +54,7 @@ def main():
         except Exception:
             continue
         for s in pool:
+            _MEM()
             n += 1
             seen.update(content_lemmas(s))
             if n in marks:

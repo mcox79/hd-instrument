@@ -43,6 +43,9 @@ for _p in (_REPO, os.path.join(_REPO, "tools")):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
+from memory_guard import guard  # noqa: E402
+_MEM = guard(limit_gb=2.0, label=os.path.basename(__file__))
+
 N_A = int(os.environ.get("DIAG_N_A", "600"))        # sentences forming set A (the memory)
 N_STREAM = int(os.environ.get("DIAG_N_STREAM", "7000"))
 N_B = int(os.environ.get("DIAG_N_B", "600"))        # set B -- the ACQUISITION probe
@@ -106,6 +109,7 @@ def main():
         checkpoints.append(checkpoints[-1] * 2)
     rows, seen = [], 0
     for k, s in enumerate(stream):
+        _MEM()
         for lem in content_lemmas(s):
             space.observe(lem, context_vector_masked(s, lem, d=CTX_D))
         seen += 1

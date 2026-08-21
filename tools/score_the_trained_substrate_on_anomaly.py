@@ -36,6 +36,9 @@ for _p in (_REPO, os.path.join(_REPO, "tools")):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
+from memory_guard import guard  # noqa: E402
+_MEM = guard(limit_gb=2.0, label=os.path.basename(__file__))
+
 SETS = [os.path.join(_REPO, "scratch", "set_%s.json" % s)
         for s in ("20260821", "31415926", "27182818", "16180339")]
 N_READ = int(os.environ.get("DIAG_N_READ", "8000"))
@@ -111,6 +114,7 @@ def main():
     import math as _m
     df, co, nd = _c.Counter(), _c.defaultdict(_c.Counter), 0
     for s in sents:
+        _MEM()
         u = set(content_lemmas(s)); nd += 1; df.update(u)
         for w in u:
             co[w].update(u)
