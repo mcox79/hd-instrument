@@ -1,5 +1,21 @@
 # **ALL 10 QUEUED TESTS IN `ORGAN_MAP` AUDITED FOR "CAN THIS TEST ACTUALLY RUN?" -- THE IMPOSSIBLE ONE WAS ISOLATED, NOT A PATTERN. AND THE BEST-SPECIFIED UNRUN TEST ON THE MAP IS D3.**
 
+> # 🚫 **CORRECTED SAME NIGHT: "1 of 10" IS NOW "2 of 10", AND THE SECOND ONE IS D3 -- THE VERY TEST
+> # THIS NOTE PRAISES IN SECTION 4.**
+> **I went to prepare D3's test and measured its sweep variable. `hit@1 = 1.0000 at EVERY N from 1
+> to 2000`, sd 0.0000, both sparsities -- and `use_ca3=False` gives the IDENTICAL 1.0000, so the
+> DG projection solves it with no memory involved. The score does not move across the swept range.**
+> **WORSE, AND IT HITS SECTION 4's OWN ARGUMENT: if CA3 is never consulted, the random-address arm
+> reads 1.0000 too -- a FALSE "the allocator does not matter" on the one arm the design exists to
+> protect.** *The knob that does move it is CUE DEGRADATION (collapse between 25% and 40%), which is
+> exactly the metric `ORGAN_MAP`'s own METRIC line already records for this organ.*
+> **THE DESIGN PRAISE IN SECTION 4 STANDS -- the random-address arm IS the right idea. The SWEEP
+> VARIABLE does not.**
+> ⚠️ **AND THE AUDIT BELOW HAD A BLIND SPOT: it asked "does the population its can-fail condition
+> needs EXIST?" -- for D3 it does. IT NEVER ASKED WHETHER THE SCORE COULD *MOVE* ACROSS THE SWEPT
+> RANGE.** ***A SWEEP IS ONLY A TEST IF THE SCORE MOVES ACROSS IT; two endpoint runs settle it.***
+> ➡️ `notes/D3s_QUEUED_TEST_SWEEPS_THE_WRONG_VARIABLE_exact_cue_recall_is_solved_by_the_projection_alone_2026-08-21.md`
+
 **Motivation:** tonight the B1 floor test was found to be impossible as written -- its can-fail
 condition needed an OUT stratum that is EMPTY. **The obvious worry is that the map is full of
 queued work that cannot produce a result, which would silently waste the scarcest resource we

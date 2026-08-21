@@ -75,6 +75,21 @@
 >   encoder.py:179` IS that equation), allocator UNPINNED and declared ours. **Other runnable-unrun:
 >   B4's d=1024 live-path 2AFC vs 0.6395.** ⚠️ *Both need cell authoring.*
 >   `notes/ALL_TEN_QUEUED_TESTS_IN_THE_ORGAN_MAP_AUDITED_the_impossible_one_was_ISOLATED_2026-08-21.md`
+> - 🔴 **AND PREPARING D3 CORRECTED THAT: "1 of 10" IS NOW "2 of 10". D3 SWEEPS THE WRONG VARIABLE.**
+>   Measured (instrument characterisation, no verdict): **`hit@1 = 1.0000 at EVERY N from 1 to 2000`,
+>   sd 0.0000, both sparsities -- and `use_ca3=False` gives the IDENTICAL 1.0000.** *An exact cue
+>   regenerates its own DG code, so the task is solved by the PROJECTION with no memory involved.*
+>   **🚨 CONSEQUENCE FOR THE ARM THE DESIGN EXISTS TO PROTECT: if CA3 is never consulted, the
+>   random-address arm reads 1.0000 too -- a FALSE "the allocator does not matter".**
+>   ✅ **The knob that DOES move it is CUE DEGRADATION -- collapse between 25% and 40% corruption --
+>   which is exactly what `ORGAN_MAP`'s own METRIC line for D3 already says** (*"retrieval of the
+>   full pattern FROM A PARTIAL CUE"*). **The right metric was written down and then not used.**
+>   *Across all 34 grid points CA3 is NEVER better than CA3-off (delta -0.0480..+0.0000) -- same
+>   SHAPE as D2's "indistinguishable from argmax", NOT a shared number.* ⚠️ **Scope: synthetic
+>   near-orthogonal patterns; real correlated pairs are harder.** ➡️ **AUTHOR D3 WITH CUE CORRUPTION
+>   AS THE SWEPT VARIABLE, and verify a non-zero CA3 ON-minus-OFF gap BEFORE trusting arm (ii).**
+>   ***NEW TELL: A SWEEP IS ONLY A TEST IF THE SCORE MOVES ACROSS IT -- check the endpoints first.***
+>   `notes/D3s_QUEUED_TEST_SWEEPS_THE_WRONG_VARIABLE_exact_cue_recall_is_solved_by_the_projection_alone_2026-08-21.md`
 > - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
 >   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
 >   the headings *and their whole sections* into the header paragraph. **Every section BODY was
