@@ -1,5 +1,17 @@
 # ANGLE B CORRECTED: THE DEFINITIONAL HALF IS **HALF THE BANKED ROWS BUT ONLY A QUARTER OF THE WORDS** -- IT CANNOT SUPPLY THE PREDICTION FOR MOST OF THEM
 
+> # ✅ SUPERSEDED THE SAME DAY -- **"UNRESOLVED" BELOW IS NOW "ANSWERED AGAINST"**
+> This note left the filter open pending a quality test at low coverage. **That test was run.** On
+> the 48 items where both routes fire, scored alone with no mixing: **definitional `-0.021`/item, CI
+> `[-0.062, +0.000]` -- no signal at all**; distributional on the SAME items **`+0.188`, CI
+> `[+0.042, +0.333]`**; paired **`-0.208`, CI `[-0.375, -0.042]`, SEPARATED.**
+> **➡️ The filter should be INVERTED OR DROPPED, not marked unresolved.** Its three fallback options
+> below are moot for the definitional-first framing; the open question is now only what F5 predicts
+> FROM, and the distributional profiles are the only route measured to carry signal.
+> The coverage finding below (24.6%) stands and is independent.
+> `notes/THE_DEFINITIONS_CARRY_NO_ANOMALY_SIGNAL_...md`
+
+
 **Testing the load-bearing claim I have repeated all session and never checked against a task.**
 Angle B's design says *bind only the definitional half*, because hand-scoring puts it at **32%
 MEANINGFUL** against **4%**. **That is a RUBRIC comparison, and a rubric is not an outcome.**

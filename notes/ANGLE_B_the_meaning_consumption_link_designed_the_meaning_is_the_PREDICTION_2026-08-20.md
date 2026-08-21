@@ -1,5 +1,23 @@
 # ANGLE B -- THE MEANING-CONSUMPTION LINK, DESIGNED: **THE BANKED MEANING SUPPLIES THE *PREDICTION*, THE CONTEXT SUPPLIES THE *OBSERVATION*, AND THE DIFFERENCE IS THE ERROR**
 
+> # 🚫 ITS **FILTER** IS REFUTED (2026-08-21). **THE ARCHITECTURE BELOW STANDS; SECTION 1 DOES NOT.**
+> Section 1 says *"BIND ONLY THE DEFINITIONAL HALF"* and calls the filter settled -- *"one field that
+> already exists on every provenance row, no new machinery."* **Measured twice and wrong twice:**
+> **(a) COVERAGE** -- definitions exist for only **24.6%** of encountered words, so the filter leaves
+> ~75% of words with no prediction, and no prediction means no error signal.
+> **(b) QUALITY ON A TASK** -- on the 48 items where both routes fire, scored alone with no mixing:
+> **definitional `-0.021`/item, CI `[-0.062, +0.000]` -- NO SIGNAL AT ALL**; distributional on the
+> SAME items **`+0.188`, CI `[+0.042, +0.333]`**; paired **`-0.208`, CI `[-0.375, -0.042]`, SEPARATED.**
+> **➡️ The 32%-vs-4% hand-score that justifies section 1 is a RUBRIC number. It is real, and it
+> pointed the WRONG WAY for this consumer.** *A statistic the mechanism optimises may DIAGNOSE,
+> never DECIDE.*
+> **SECTIONS 3-5 ARE UNAFFECTED** -- the meaning supplying the PREDICTION, the error being the gap
+> against observed context, and the wiring checks. That is the PINNED half of F5.
+> *Not "the definitions are bad": a correct definition need not share vocabulary with an arbitrary
+> sentence. They may suit a LOOKUP; they do not suit a prediction-error monitor.*
+> `notes/THE_DEFINITIONS_CARRY_NO_ANOMALY_SIGNAL_...md`
+
+
 **The bottleneck all four routes identified is that nothing consumes the banked meanings.** F5 gives
 the SITUATION REGISTER a use; **it does not automatically give the `GROUNDED_MEANING` facts one.**
 This is the design that closes that gap, and its three questions are WHICH meanings, WHICH role, and
