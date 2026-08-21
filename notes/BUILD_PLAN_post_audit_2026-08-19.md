@@ -221,6 +221,19 @@
 >   `diagnosis.headline` WITHOUT OPENING THE NUMBERS UNDER IT -- THE IDENTICAL FAULT AS THE B1
 >   "CLIFF", SAME SESSION, AFTER I HAD WRITTEN THE LESSON DOWN.***
 >   `notes/THE_BURIED_REFUTES_CLAIM_DOES_NOT_SURVIVE_its_subset_recalls_more_items_than_its_whole_2026-08-21.md`
+> - ✅ **THE OTHER BURIED RESULT FROM THE SAME ARCHIVE FIX -- THE 0.90 EXTRACTOR -- SURVIVES THE SAME
+>   SCRUTINY. THE METHOD DISCRIMINATES.** *`hand_check.note`: **"fresh random sample drawn (seed
+>   offset +23) AFTER the infinitival+coordination hardening -> INDEPENDENT of the v1 sample the
+>   filters were designed from"** -- random, held out, and explicitly not the tuning set.* **Per-row
+>   verdicts persisted (100 rows with `verdict` + `error_category`), and all 10 errors fall in 10
+>   DISTINCT categories, 1 each -- no systematic failure mode under the aggregate.** ⚠️ **QUOTE IT AS
+>   0.90 [0.8256, 0.9448] (Wilson, n=100, half-width 0.0596), precision ON THE 1,414 SURVIVORS.**
+>   🔻 **AND A CORRECTION I OWE: my earlier note recorded `_survivors_for_handcheck.json` as "0
+>   parseable rows". FALSE -- it parses fine; I had read JSON as JSONL.** *Same fault class as the
+>   2 MB truncation that voided "96.5% saved nothing": **"unparseable" was a statement about my
+>   reader, not the file.*** ✅ *That note's CONCLUSION survives on its real evidence --
+>   `n_survivors = 1414` vs `len(sample) = 100`, so the v1-vs-v2 volume/purity trade still cannot be
+>   settled from disk and `WIRE_CANDIDATE` stands. **Right conclusion, wrong supporting fact.***
 > - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
 >   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
 >   the headings *and their whole sections* into the header paragraph. **Every section BODY was

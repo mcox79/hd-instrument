@@ -1,3 +1,28 @@
+> # ⚠️ **CORRECTION 2026-08-21 (later the same day): ONE FACT BELOW IS WRONG AND IT WAS MY PARSER.**
+> **The table below records `_survivors_for_handcheck.json` as "0 parseable rows 🔴". THAT IS FALSE.**
+> **Both sibling files parse perfectly as JSON: `_survivors_for_handcheck.json` is a dict
+> `{n_survivors: 1414, sample: [100 rows]}`, and `_survivors_handcheck_adjudicated.json` is a dict
+> `{n_adjudicated: 100, n_correct: 90, hand_checked_precision: 0.9, error_category_counts, rows:
+> [100]}`. I had read them as JSONL.** *"Unparseable" was a statement about my reader, not the file
+> -- the same fault class as the 2 MB truncation that voided the "96.5% saved nothing" claim.*
+>
+> ### ✅ **THE NOTE'S CONCLUSION SURVIVES ANYWAY, FOR THE REASON IT ACTUALLY GIVES:**
+> **`n_survivors = 1414` but only `len(sample) = 100` was persisted.** *The full survivor set genuinely
+> was not saved, so the v1-vs-v2 volume/purity comparison still cannot be made from disk and the
+> `WIRE_CANDIDATE` registration still stands.* **Right conclusion, wrong supporting fact.**
+>
+> ### 🎯 **AND THE 0.90 PRECISION CLAIM ITSELF IS SOUND -- IT SURVIVES THE SCRUTINY THAT KILLED THE
+> ### "REFUTES" CLAIM THE SAME NIGHT.** *Both were surfaced by the same archive fix; one failed four
+> ways, this one holds.*
+> - **`hand_check.note`, verbatim: *"fresh random sample drawn (seed offset +23) AFTER the
+>   infinitival+coordination hardening -> **independent of the v1 sample the filters were designed
+>   from**."*** **A random, held-out sample, explicitly not the set the filters were tuned on.**
+> - **Per-row verdicts persisted** -- 100 rows each carrying `verdict` and `error_category`.
+> - **All 10 errors fall in 10 DISTINCT categories, 1 each** -- *no systematic failure mode hiding
+>   under the aggregate.*
+> - ⚠️ **QUOTE IT WITH ITS INTERVAL: 90/100 = 0.90, Wilson 95% CI [0.8256, 0.9448], half-width
+>   0.0596** (discipline 14). *It is precision ON THE 1,414 SURVIVORS, not on all extractions.*
+
 # **THE VOLUME/PURITY TRADE CANNOT BE SETTLED FROM DISK -- v2 PERSISTED ITS HAND-CHECK *SAMPLE*, NOT ITS 1,414 SURVIVORS. AND v1 PERSISTED EVERYTHING.**
 
 **I registered the 90%-precision extractor as `WIRE_CANDIDATE` rather than `WIRE` for exactly one
