@@ -53,7 +53,7 @@ the rubric to decide, all session.*
 
 **AND NOTHING IN THE SUBSTRATE READS THE BANKED MEANINGS** -- enumerated across 4 routes, whole
 repo; three attempts to change that all failed. That read-back gap is the bottleneck.
-Flat ledger of what survives vs what I withdrew: `WHAT_2026-08-20_ESTABLISHED_survives_vs_withdrawn.md`.
+Flat ledger of what survives vs what I withdrew: **`WHAT_2026-08-21_ESTABLISHED_survives_vs_withdrawn.md`** (the 08-20 one is banded and points forward).
 
 ### 2026-08-21 -- THE F5 BAR, MEASURED AND REPLICATED BEFORE THE ORGAN EXISTS
 

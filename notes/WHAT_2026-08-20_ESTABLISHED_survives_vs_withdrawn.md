@@ -1,5 +1,13 @@
 # WHAT 2026-08-20 ESTABLISHED -- A SINGLE LEDGER OF WHAT SURVIVES AND WHAT I WITHDREW
 
+> # ➡️ **A LATER LEDGER EXISTS: `notes/WHAT_2026-08-21_ESTABLISHED_survives_vs_withdrawn.md`.**
+> **AND IT QUALIFIES SECTION 1 BELOW.** *"The definitional-PHRASE half is the good half"* is a
+> **RUBRIC** result and it stands as one. **Measured on a TASK the ranking INVERTS:** on the 48 items
+> where both routes fire, definitional **`-0.021`/item, CI `[-0.062, +0.000]` -- no signal at all**,
+> distributional **`+0.188`, CI `[+0.042, +0.333]`**, paired **`-0.208`, CI `[-0.375, -0.042]`,
+> SEPARATED**; and definitions cover only **24.6%** of encountered words.
+> **Both facts are true. They answer different questions, and I used the rubric one to DECIDE.**
+
 **Why this file exists.** 2026-08-20 produced **~17 findings and 8 retractions of my own claims**,
 several of them corrections *of corrections*, plus **six abandoned human audits scored** (sections
 8d-8j). The plan, STATUS and six notes carry those layers in the order they happened, which is the
