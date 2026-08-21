@@ -22,122 +22,41 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
 "TOP ITEM" and "WHAT IS RUNNING" (`session_start_hook.py`, `board.py`).
 **Inside a section use `###`, never `##`.** *And NEVER let a line BEGIN with one of those literals
 even when merely NAMING it: on 2026-08-21 this very sentence wrapped so that a line started with
-`## TOP ITEM`, and `board.py` mirrored that as the heading -- corrupting the board's STATUS section.
-The sentence documenting the hazard triggered the hazard. Hence the literals are unquoted above.*
-CHAIN: `BUILD_PLAN_post_audit_2026-08-19.md` (THE PLAN) -> HERE -> `STATUS_LESSONS.md` (detail).
-Pre-2026-08-21 session log: `STATUS_ARCHIVE_2026-08-21_pre_trim.md` (byte-identical snapshot).
+`## TOP ITEM -- **BUILD SLEEP (D8+D4). THE EQUATION IS FULLY PINNED AND WE HAVE NONE OF IT.**
 
-## POSITION
+**Owner Q95: *"we should chase things that are brain foundational in every way."*** Applied, that
+picks NEITHER F5 nor E3. **`ORGAN_MAP` STEP 5, its own words: *"this is the ONE place in the plan
+where the brain's equation is FULLY PINNED and we have literally none of it."*** Nothing else on a
+39-organ map says that. **And the owner asked for it in the same message for an unrelated reason**
+(Q92: *"an auto aging feature like the normal sleep pruning"*). Two routes, one target.
 
-**WHAT THE SUBSTRATE IS.** On every properly-controlled test it is AT OR BELOW co-occurrence
-counting, and BELOW it on both tests using an INDEPENDENT gold (ConceptNet, no WordNet source):
-grounding precision loses 2-3x to a trivial top-co-occurrent baseline (p<.02, 3 seeds, precision
-1.6-3.0%); discrimination re-ranking loses to bag-of-words on 3 corpora. **Counting beats every arm
-this project has built, by roughly 10x.** Growth stays PAUSED.
+**IT ALSO SIDESTEPS TODAY'S WORST FINDING.** Our representation is **partially subsumed by counting
+(union gain 1.28x)**. F5 would READ that representation and inherit it. **Sleep does not** -- it
+governs what is KEPT and what DECAYS, orthogonal to whether the representation beats counting.
 
-### THE TWO HALVES -- **GOOD BY RUBRIC, NO SIGNAL ON THE TASK. BOTH FACTS ARE TRUE.**
-Of 402 provenance rows, `meaning_source=DEFINITIONAL_EXTRACTION` accounts for **212** and
-`canonicalize` for the other **190** -- that is the POPULATION SPLIT, not a score. Hand-scored on the
-same rubric by the same scorer, the definitional half reads **32% MEANINGFUL** and the
-distributional half **4%**. *That is a RUBRIC number and it is real.*
+### THE PINNED MATHEMATICS (Benna & Fusi 2016, verbatim in `drill_cascade_synapse_replay_consolidation_biology_2026-08-14.md`)
+`u_1` **IS** the synaptic weight and is **graded, not bistable**; `u_2..u_m` are hidden variables in
+a **linear chain, nearest-neighbour only**, with a leak `u_{m+1}=0`:
+`C_k du_k/dt = g_{k-1,k}(u_{k-1}-u_k) + g_{k,k+1}(u_{k+1}-u_k)`, input `I(t)` replacing `g_{0,1}` at `k=1`.
+**The couplings are BIDIRECTIONAL -- "the whole difference from Fusi 2005, and where metaplasticity
+comes from for free."** Constants: `C_k = 2^(k-1)`, `g_{k,k+1} = 2^(-k-2)` ->
+**`tau_k = 2^(2k+1)`, a 4x timescale ratio per level** (8, 32, 128, ...).
 
-**🚫 BUT MEASURED ON A TASK (2026-08-21) THE RANKING INVERTS.** On the 48 items where both routes
-fire, scored alone with no mixing: **DEFINITIONAL `-0.021`/item, CI `[-0.062, +0.000]` -- NO ANOMALY
-SIGNAL AT ALL**; **DISTRIBUTIONAL on the SAME items `+0.188`, CI `[+0.042, +0.333]`**; paired
-`-0.208`, CI `[-0.375, -0.042]`, **SEPARATED**. And definitions exist for only **24.6%** of
-encountered words. **➡️ "Bind only the definitional half" would REMOVE the signal and keep the half
-that has none. That design decision is ANSWERED AGAINST, not open.**
-*Stated narrowly: this is NOT "the definitions are bad". A correct definition need not share
-vocabulary with an arbitrary sentence -- "a bottle is a container for liquids" predicts nothing about
-bottles at a picnic. They may suit a LOOKUP or an inference step; they do not suit a
-prediction-error monitor. **A statistic the mechanism optimises may DIAGNOSE, never DECIDE** -- I used
-the rubric to decide, all session.*
+### ⚙️ COPY THE COMPUTATION, SWEEP THE PARAMETER -- the standing discipline decides the design
+**COPY EXACTLY** (derives from a problem we SHARE): the chain, nearest-neighbour coupling, the
+**bidirectional** push-back, the leak, and `u_1` being the weight itself.
+**SWEEP, NEVER ADOPT** (derives from biochemical constraints we do NOT share): `m`, and the powers
+of two. *"The pinned MTL 0.2% band was the WORST point in its own sweep. Our worst result copied a
+NUMBER; our best copied an OPERATION."*
 
-**AND NOTHING IN THE SUBSTRATE READS THE BANKED MEANINGS** -- enumerated across 4 routes, whole
-repo; three attempts to change that all failed. That read-back gap is the bottleneck.
-Flat ledger of what survives vs what I withdrew: **`WHAT_2026-08-21_ESTABLISHED_survives_vs_withdrawn.md`** (the 08-20 one is banded and points forward).
-
-### 2026-08-21 -- THE F5 BAR, MEASURED AND REPLICATED BEFORE THE ORGAN EXISTS
-
-Four routes (measurement, learning research, philosophy, neuroscience+ORGAN_MAP) converge on **F5**,
-the coherence monitor / N400 generator, as the missing consumer. **Three reference points now exist
-on one task, all through `tools/f5_evaluation_harness.py`, all `REPLICATED` on 4 independently-built
-120-item sets:**
-
-| arm -- paired anomalous-vs-original hit@1 discrimination | per set | median |
-|---|---|---|
-| untrained codebook (nothing read) | +0.0, +3.4, *(refused)* | **~0** -- CIs span zero, donates nothing |
-| **THE TRAINED SUBSTRATE** | +12.5, +11.8, +20.8, +20.2 | **+16.3 pp** -- 4/4 CIs exclude zero |
-| first-order counting | +23.3, +23.5, +22.5, +25.2 | +23.5 pp |
-| **second-order counting -- THE BAR** | +28.3, +29.4, +35.0, +29.4 | **+29.4 pp**, upper bound **+44.2** |
-
-**THE READ-OUT IS THE PAIRED DIFFERENCE, NOT RANK.** The same floor scored on the ORIGINAL sentence
-at the SAME slot; the word there is CORRECT, so a difference of 0 means the arm reads the SLOT.
-**Absolute rank is slot-inflated for every arm and is not a valid read-out.**
-**LEARNING BOUGHT SOMETHING REAL** (0 -> +16.3, same representation, only the reading differs) --
-**AND THE PAIRED TEST SAYS WE ARE MEASURABLY BEHIND COUNTING**, not merely not-ahead:
-`SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.
-
-**🚨 AND THE SIGNAL IS *PARTIALLY* SUBSUMED** *(corrected -- I first wrote SUBSUMED, on a
-discriminator this project had already flagged as mis-specified; **union gain is the right number**:
-cortical read 1.1x = subsumed, **substrate 1.28x = PARTIAL**, sensorimotor spoke union **2.15 median, min 1.50 over 9 seeds** -- union SOLID, but its
-INDEPENDENCE claim FAILED its own pre-registration (ratio 6/9). *I had been quoting its
-SINGLE-SEED figure (2.2x/0.94), which a 9-seed sweep superseded.* Combining with counting buys something REAL but far short of a second channel).** Both arms hit **88** items where independence predicts
-62.3; **substrate-only 58 where independence predicts 83.7**; substrate-unique rate minus
-independence = **`-0.0537`, CI `[-0.0741, -0.0330]`, EXCLUDES ZERO.** The arms agree far more than
-two independent arms would -- **one signal read twice.** **This closes the room the margin left open:
-"we score lower but get DIFFERENT items, so combining helps" is REFUTED, not merely unsupported.**
-*The structural reason is not mysterious: the context vector IS an accumulation of co-occurring
-content words, so the substrate is a lossy re-derivation of the very thing it is compared against.
-The measurement confirms an architectural fact rather than discovering an accident.*
-**It does NOT say we have no signal** (+16.3 REPLICATED, 0 pp before reading) -- it says the signal is
-not INDEPENDENT. *Scope: one task, one corpus. The same analysis returned NOT SUBSUMED for the
-sensorimotor spoke, so the test discriminates.*
-**➡️ THE QUESTION THIS HANDS OVER: not "how do we score higher" but "what would make the
-representation carry something counting cannot".**
-`SUBSUMED_the_substrate_is_a_LOSSY_COUNTER_on_this_task_2026-08-21.md`
-Notes: `THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`, `THE_F5_BAR_WAS_TOO_LOW_...md`,
-`THE_UNTRAINED_GEOMETRY_DONATES_NOTHING_...md`.
-
-## TOP ITEM -- **BUILD F5. THE TASK, THE ITEMS AND THE BAR ARE ALL READY; ONLY THE ORGAN IS MISSING.**
-
-> **OWNER STANDING RULE, 2026-08-20T21:59Z: *"Make sure you always have 2 high priority angles you
-> can work on while you're waiting on results."*** *"Blocked on one thing" is never a stopping
-> state -- it means the second angle was never lined up.*
-
-**READY, NOTHING BLOCKING THE BUILD:**
-1. **The evaluation design** -- discriminator, six floors, four mandatory diagnostics, pre-committed
-   can-fail condition: `F5_EVALUATION_DESIGN_how_we_would_know_a_coherence_monitor_works_2026-08-20.md`.
-2. **The items** -- `data/anomaly_set_frequency_matched_v8.json`, 120 frequency-matched items,
-   hand-scored **102 CLEAN / 17 WEAK / 1 BROKEN** in `..._v8_handscores.json`. Builder is
-   byte-deterministic (`tools/build_frequency_matched_anomaly_set.py --self-test`).
-   **CEILING ~86%: with 17 WEAK items a PERFECT detector cannot score higher. PRINT THAT beside any
-3. **The bar -- `+44.2 pp`** on the paired anomalous-vs-original hit@1 difference, via
-   `tools/f5_evaluation_harness.py`, which REFUSES to score a detector failing the mandatory
-   diagnostics. It is the MAX per-set CI upper bound across both counting floors (see POSITION).
-   **THE BAR MOVED THREE TIMES AND EVERY MOVE WAS UPWARD, each from a defect in MY OWN INSTRUMENT,
-   never from new evidence about the task:** rank-4.0 (rank is slot-inflated -> wrong metric);
-   +18.8 (one set, not replicated); +20.7 (a surface-vs-lemma lookup bug deflating BOTH floors).
-   **The superseded values are recorded in the notes with banners, deliberately NOT layered here --
-   three strikethrough versions stacked in this item is what made it unreadable on 2026-08-21.**
-4. **The consumption design -- ARCHITECTURE INTACT, FILTER ANSWERED AGAINST.** The banked meaning
-   must supply the **PREDICTION**, not sit in the register; error = `||predicted - observed||` =
-   `||delta situation_model||`. **That part stands and is the PINNED half of F5.**
-   **🚫 BUT ITS FILTER -- "bind only the definitional half" -- IS DEAD, measured twice:** definitions
-   cover only **24.6%** of encountered words, and where they DO fire they carry **no anomaly signal**
-   (`-0.021`/item, CI `[-0.062, +0.000]`) while the distributional profiles carry real signal on the
-   same items (`+0.188`, CI `[+0.042, +0.333]`). **Any F5 brief that repeats the definitional filter
-   is repeating a refuted claim.** The fallback for uncovered words is an OPEN design decision.
-   `ANGLE_B_the_meaning_consumption_link_...md` (design),
-   `THE_DEFINITIONS_CARRY_NO_ANOMALY_SIGNAL_...md` (the refutation).
-
-**THE BUILD ITSELF IS CELL-AUTHORING WORK** (`experiments/*.py` + smoke), which the main thread must
-not do -- spawn `hdi_exp_dev`. That is the only thing standing between here and a measured F5.
-
-### REFUSED, WRITTEN DOWN BEFORE IT IS ACTED ON
-Co-occurrence surprisal separates CLEAN from WEAK items, so it would make a convenient automatic
-item screen. **Filtering the items with it would tune the set toward the floor and guarantee the
-floor wins** -- ground-by-X and grade-by-X. Do not.
+### ⚠️ HONEST COST AND CARRIED CORRECTIONS
+*"The substrate has no replay scheduler primitive; needs new infrastructure"* (prior note), and
+`SUBSTRATE_STRATEGY.md` puts D4 below the line needing *"a corpus stream to be testable"*.
+**A real build, not a wiring job**, and its evaluation needs the standard the anomaly harness set.
+**D8:** *"Roxin & Fusi 2012"* is **2013**, and it **shares the cascade's scaling, never supported `~N`.**
+**D4:** reward-scaling is **Ambrose, Pfeiffer & Foster 2016**, not Foster & Wilson 2006 -- that paper
+**found reverse replay and never reward modulation.**
+**F5 and E3 are NOT withdrawn.** `notes/THE_DECISION_sleep_is_the_one_place...md`
 
 ## WHAT IS RUNNING
 

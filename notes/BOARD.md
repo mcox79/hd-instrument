@@ -28,37 +28,11 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 
 AS OF: 2026-08-21 ~92 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD Q91 OPEN: this file is still ~2x its cap and I may not raise it myself** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` CARRIES EVERYTHING -- ITS TOP BLOCKS FIRST**
 
-**POSITION**
-**WHAT THE SUBSTRATE IS.** On every properly-controlled test it is AT OR BELOW co-occurrence
-counting, and BELOW it on both tests using an INDEPENDENT gold (ConceptNet, no WordNet source):
-grounding precision loses 2-3x to a trivial top-co-occurrent baseline (p<.02, 3 seeds, precision
-1.6-3.0%); discrimination re-ranking loses to bag-of-words on 3 corpora. **Counting beats every arm
-this project has built, by roughly 10x.** Growth stays PAUSED.
-### THE TWO HALVES -- **GOOD BY RUBRIC, NO SIGNAL ON THE TASK. BOTH FACTS ARE TRUE.**
-Of 402 provenance rows, `meaning_source=DEFINITIONAL_EXTRACTION` accounts for **212** and
-`canonicalize` for the other **190** -- that is the POPULATION SPLIT, not a score. Hand-scored on the
-same rubric by the same scorer, the definitional half reads **32% MEANINGFUL** and the
-distributional half **4%**. *That is a RUBRIC number and it is real.*
-**🚫 BUT MEASURED ON A TASK (2026-08-21) THE RANKING INVERTS.** On the 48 items where both routes
-fire, scored alone with no mixing: **DEFINITIONAL `-0.021`/item, CI `[-0.062, +0.000]` -- NO ANOMALY
-SIGNAL AT ALL**; **DISTRIBUTIONAL on the SAME items `+0.188`, CI `[+0.042, +0.333]`**; paired
-`-0.208`, CI `[-0.375, -0.042]`, **SEPARATED**. And definitions exist for only **24.6%** of
+> **MISSING REQUIRED LITERAL `## POSITION` in `STATUS.md`.** `tools/board.py` parses
+> this exact string; it is an API, not a formatting choice. See `notes/STATUS_SPEC.md` sec 2.
 
-**TOP ITEM -- **BUILD F5. THE TASK, THE ITEMS AND THE BAR ARE ALL READY; ONLY THE ORGAN IS MISSING.****
-> **OWNER STANDING RULE, 2026-08-20T21:59Z: *"Make sure you always have 2 high priority angles you
-> can work on while you're waiting on results."*** *"Blocked on one thing" is never a stopping
-> state -- it means the second angle was never lined up.*
-**READY, NOTHING BLOCKING THE BUILD:**
-1. **The evaluation design** -- discriminator, six floors, four mandatory diagnostics, pre-committed
-   can-fail condition: `F5_EVALUATION_DESIGN_how_we_would_know_a_coherence_monitor_works_2026-08-20.md`.
-2. **The items** -- `data/anomaly_set_frequency_matched_v8.json`, 120 frequency-matched items,
-   hand-scored **102 CLEAN / 17 WEAK / 1 BROKEN** in `..._v8_handscores.json`. Builder is
-   byte-deterministic (`tools/build_frequency_matched_anomaly_set.py --self-test`).
-   **CEILING ~86%: with 17 WEAK items a PERFECT detector cannot score higher. PRINT THAT beside any
-3. **The bar -- `+44.2 pp`** on the paired anomalous-vs-original hit@1 difference, via
-   `tools/f5_evaluation_harness.py`, which REFUSES to score a detector failing the mandatory
-   diagnostics. It is the MAX per-set CI upper bound across both counting floors (see POSITION).
-   **THE BAR MOVED THREE TIMES AND EVERY MOVE WAS UPWARD, each from a defect in MY OWN INSTRUMENT,
+> **MISSING REQUIRED LITERAL `## TOP ITEM` in `STATUS.md`.** `tools/board.py` parses
+> this exact string; it is an API, not a formatting choice. See `notes/STATUS_SPEC.md` sec 2.
 
 **WHAT IS RUNNING**
 - **NOTHING IS RUNNING.** No cells, no agents, no detached processes spawned by this session.
@@ -76,7 +50,7 @@ SIGNAL AT ALL**; **DISTRIBUTIONAL on the SAME items `+0.188`, CI `[+0.042, +0.33
   flagger tightened 13 -> 1 with its survivor examined and cleared
   (`_tie_mass_examination_2026-08-21.json`); this file trimmed 308,692 -> ~20 KB with **nothing
 
-_mirrored from `notes/STATUS.md` at 2026-08-21T00:57:55Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-21T01:03:04Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
