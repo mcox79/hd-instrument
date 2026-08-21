@@ -269,6 +269,29 @@
 >   which is the correct reason to run a paired one; untrained ~0 with CIs spanning zero.*
 >   🎯 ***5 KILLS AND 1 PASS TONIGHT -- THE CHECK DISCRIMINATES RATHER THAN CONDEMNS, which is what
 >   makes the pass worth something.*** `notes/CONSTRAINT_CHECK_the_three_way_comparison_SURVIVES_and_reconciles_exactly_2026-08-21.md`
+> - ✅ **NORMS12 ALSO PASSES (now 2 passes, 5 kills).** *`0.2701 - 0.1048 = 0.1653` EXACT; CI
+>   `[0.0159, 0.3084]` excludes zero.* **Its note is the TEMPLATE: it states its own coverage limit
+>   (44% by the 4k-16k band -- *"the headline advantage is measured where the asset is strongest"*)
+>   AND carries the prior negative that must travel with it -- a grounded inductive encoder at
+>   **0.5879** against a **POPULARITY** baseline's **0.8148**, shuffle control 0.4980.**
+> - ⚡ **ASSEMBLING THAT SURFACED THE NIGHT'S LARGEST PATTERN, WHICH NOBODY WENT LOOKING FOR: SIX
+>   INDEPENDENT COMPARISONS, SIX SUBSYSTEMS, DIFFERENT AUTHORS MONTHS APART -- IN NONE DOES THE
+>   BUILT MECHANISM BEAT THE TRIVIAL BASELINE.** *rate-matched RANDOM ties the prediction gate at
+>   all 4 thresholds; COUNTING beats the substrate (paired -0.142, SEPARATED); POPULARITY beats the
+>   grounded encoder by 0.2269; SPELLING beats the meaning read-out at rank 1 (0.0767 vs 0.0480);
+>   CA3-OFF equals CA3-ON exactly; WINDOW ties the substrate on synonym rank.*
+>   **NOT one finding six times -- different baselines, tasks, scorers, populations; and 3 carry
+>   controls that FIRE (shuffle 0.4980, the scramble collapse, the shuffled-label arm).**
+>   ⚠️ **MAY NOT BE POOLED (discipline 11): the pattern is in the unanimous DIRECTION and no pooled
+>   effect size is computed.** 🚫 **DOES NOT refute the approach -- 4 of 6 test the DISTRIBUTIONAL
+>   half, and one is now known un-improvable by engineering (keys are AT the Welch bound).**
+>   ➡️ ***THE MEASURED WINS ARE ALL ACTS OF SUPPLY; THE MEASURED LOSSES ARE ALL ACTS OF INFERENCE***
+>   -- human norms beat a 121M-token encoder, definitional extraction reads facts off the page at
+>   0.90, denser text lifts extraction. **HYPOTHESIS-PENDING-VET about the programme's shape,
+>   labelled as one.**
+>   ➡️ **RULE: score every new mechanism against ITS OWN task's trivial baseline -- popularity,
+>   counting, spelling, recency -- NOT against random.**
+>   `notes/THE_PATTERN_ACROSS_SIX_INDEPENDENT_COMPARISONS_a_trivial_baseline_matches_or_beats_the_mechanism_2026-08-21.md`
 >
 > ## ✅ **OWNER ANSWERED Q98 (2026-08-21): *"approved, but you should do some research on why this is
 > ## as you're finding it, to understand why and potentially to give you a good idea on next optimal
