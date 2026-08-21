@@ -251,6 +251,31 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## 🚫 **AND THE TASK KILLED IT: HIGHER OVERLAP DID *NOT* MEAN A BETTER SCORE. THE 12-DIM FEATURE
+> ## CONTEXT IS WORSE AT EVERY LOAD AND -- WORSE -- IT IS FLAT.**
+> *Anchor self-identification, 80 lemmas, chance 0.0125, same sentences/masking/probes both arms.*
+> | traces | 1 | 4 | 8 | 16 | 24 | **37** |
+> |---|---|---|---|---|---|---|
+> | **INCUMBENT (word identity)** | 0.0312 | 0.0516 | 0.0719 | 0.0984 | 0.1219 | **0.1328** |
+> | **FEATURE (12-dim, centred)** | 0.0250 | 0.0203 | 0.0234 | 0.0250 | 0.0266 | **0.0266** |
+> ➡️ ***THE INCUMBENT CLIMBS 4.3x FROM L=1 TO L=37; THE FEATURE ARM SITS AT ~2x CHANCE AND DOES NOT
+> MOVE. It is not merely weaker -- IT DOES NOT LEARN.*** *12 shared dims give a coarse "what kind of
+> scene is this" signal, not a word-specific one.*
+> 🔻 **THE PROXY I TRUSTED WAS WRONG: last turn's 9x same-word OVERLAP (0.0503 vs 0.0056) predicted
+> the WINNER and it is 5x WORSE on the task. OVERLAP IS NOT DISCRIMINABILITY** -- two encounters can
+> be more similar to each other AND less distinguishable from every other word.
+> **FOURTH INSTANCE TONIGHT of measuring the wrong quantity** (B1's number in the wrong context; the
+> 0.79 curve for the wrong operation; CA3's flaw in a regime we never enter; now a representational
+> gain that does not survive the task).
+> ✅ **AND THE ARCHIVE ALREADY SAID SO -- CONSTRAINT CHECK PASSES: NORMS12's own note states
+> *"'Highest-value cheap move' stands; 'a graded feature space for everything' does not."* THAT IS
+> EXACTLY WHAT I JUST REFUTED, AND THE NOTE REFUSED TO CLAIM IT.** *Second time tonight the note
+> carrying its own limit was the trustworthy one; I re-derived its scoping at three turns' cost.*
+> ⚠️ **NOT REFUTED: `ORGAN_MAP` B1's gap itself. The brain's spokes are many and high-dimensional;
+> 12 human-rated dims are a thin proxy, and their failure is not the proposal's failure.** *And the
+> encoding gap (same-word codes at 0.0056) STANDS -- still the real problem, still unsolved.*
+> `notes/HIGHER_OVERLAP_DID_NOT_MEAN_BETTER_TASK_the_12_dim_feature_context_is_FLAT_2026-08-21.md`
+>
 > ## ⚖️ **AND THE MAP'S OWN PROPOSED FIX TESTED: FEATURE CONTEXT GIVES A 12x MARGIN THAT IS ONLY
 > ## 11% IN SIGNAL-TO-NOISE. BOTH TRUE; THE SECOND ANSWERS THE QUESTION.**
 > *`ORGAN_MAP` B1 STEP 3 names the gap: "the brain's hub pools SPOKE (feature) inputs; ours pools
