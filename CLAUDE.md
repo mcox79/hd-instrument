@@ -723,6 +723,23 @@ archives, two questions* covers "does the tool exist" (registry) and "has this b
 | Does the tool already exist? | `data/capability_registry.jsonl`, `hdlab/` |
 | Has this question already been ANSWERED? | `tools/experiment_index.py query "<kw>"` |
 | ***Have we already been WRONG about this mechanism?*** | **`python tools/organ_map_cite.py <ORGAN_ID>`** — greps the WHOLE file and prints constraints BEFORE the entry |
+| ***Has the thing I am about to CITE already corrected itself?*** | **`python tools/symbol_corrections.py <symbol>`** — prints the correction lines out of that function's OWN docstring |
+
+**THE FOURTH READ WAS ADDED 2026-08-21 AFTER THREE INSTANCES IN ONE NIGHT, ALL THE SAME SHAPE: I
+QUOTED A CLAIM WHILE ITS CORRECTION SAT IN THE DOCSTRING OF THE THING I WAS QUOTING.**
+`_make_definitional_gate` carries three numbered corrections dated 2026-08-20 — it IS on the live
+path, what ships is the phrase not the head, and its 64% is under a **standing prohibition** against
+exactly the comparison the plan's top item was making. ORGAN_MAP entry A1's heading is
+**`NO LONGER UNTESTED`** while I was telling the owner on the board that the gain was untested. And a
+power-extension cell's own `arms_clearing` already recorded the finding I called unexpected.
+*A fourth instance predates tonight and is documented above: that same docstring once asserted
+"it is NOT on the live reading path" while the module was responsible for 212 of 402 banked facts.*
+
+**Base rate measured BEFORE the tool was written, per the standing rule: 159 of 4,183 docstrings
+(3.8%) carry a correction marker.** That is low enough to be a signal — the ceiling-detector proposal
+was abandoned at 48.5% because a flag firing on half the archive is not a flag — and the tool's own
+self-test FAILS if a future edit widens its markers past 10%, so it cannot quietly become noise. It
+is a targeted lookup, never a broadcast: you ask about the symbol you are about to rely on.
 
 **THE THIRD READ IS NOW A TOOL, BECAUSE THE RULE FAILED TWICE ON THE SAME FILE.** 2026-08-20 I
 quoted `ORGAN_MAP` §2 to justify divisive normalisation while §3 said *"do not re-propose"* it.

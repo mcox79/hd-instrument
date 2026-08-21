@@ -196,6 +196,19 @@
 > the owner that the gain was unmeasured.** *NOT filing a second board question -- the owner
 > complained tonight about settled items reappearing.* `Q102s_GAIN_IS_NOT_UNTESTED_...`
 
+> ## **THE PRIOR-WORK CHECK NOW HAS A FOURTH READ: `tools/symbol_corrections.py`**
+> **THREE instances in ONE night, all the same shape: I quoted a claim while its CORRECTION sat in
+> the DOCSTRING OF THE THING I WAS QUOTING.** *(`_make_definitional_gate`'s three numbered
+> corrections; ORGAN_MAP A1's `NO LONGER UNTESTED` heading; a cell's own `arms_clearing`.) A FOURTH
+> predates tonight and is already in CLAUDE.md.* **Cells were covered (`experiment_index` prints
+> corrections) and ORGAN_MAP was covered (`organ_map_cite`); CODE WAS NOT, and that is where three
+> of the four lived.** ✅ **BASE RATE MEASURED BEFORE WRITING A LINE: 159 of 4,183 docstrings = 3.8%**
+> -- low enough to be a signal, where the ceiling detector was ABANDONED at 48.5%. *A TARGETED
+> lookup, never a broadcast; its self-test FAILS if a future edit widens the markers past 10%, so it
+> cannot quietly become noise.* **On the real incident it surfaces the 3 corrections in 5 lines
+> instead of a 3,810-byte docstring.** `tools/symbol_corrections.py` (4 self-tests, incl. a
+> negative control and the base-rate ceiling). Now the 4th row of CLAUDE.md's prior-work table.
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"
