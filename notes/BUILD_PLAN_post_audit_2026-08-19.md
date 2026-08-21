@@ -180,6 +180,22 @@
 > separated from a floor != good; (4) NOT scored against the counting bar.**
 > `THE_MASKED_VECTOR_DOES_CARRY_WORD_SIGNAL_...`
 
+> ## **Q102's "THE GAIN IS GENUINELY UNTESTED" IS WITHDRAWN -- ORGAN_MAP MEASURED IT ON 08-14**
+> **`organ_map_cite.py vwfa` returned it in its FIRST constraint line: `ORGAN_MAP` 10.1 entry A1,
+> heading verbatim `NO LONGER UNTESTED`.** Disk-verified against
+> `data/exp_orthographic_floor_vet_v1/metrics.json`, n=4000, 5000-boot: **A1_BASE (live substrate)
+> 0.0480 [0.0413,0.0548] vs A6_TRIGRAM_ONLY (the form organ ALONE) 0.0870 [0.0783,0.0960]**;
+> `A6-BASE = +0.0390 [0.0282,0.0500]`, **CI EXCLUDES ZERO**; A8 0.0610 and A7 0.0588 also beat it.
+> **A floored, can-fail, identical-pool measurement of EXACTLY what Q102 proposes to wire.**
+> ⚠️ **THE CAVEAT TRAVELS: that task has an ORTHOGRAPHIC SHORTCUT and this cell's own `example_picks`
+> PROVE IT** -- A6 picks `able/capability/capable/abnormal/absent/absence`, A7 picks
+> `abbey/able/abiotic/abbey`. *A spelling-neighbour picker only beats chance if the GOLD is a
+> spelling neighbour -- **this CLOSES tonight's open follow-up on the shortcut hypothesis.*** **And
+> the substrate WINS the full ranking (median 37.0 vs 54.0), so the organ wins AT RANK 1 ONLY.**
+> ✅ **RECOMMENDATION UNCHANGED (wire form as a SEPARATE channel); what is withdrawn is my claim to
+> the owner that the gain was unmeasured.** *NOT filing a second board question -- the owner
+> complained tonight about settled items reappearing.* `Q102s_GAIN_IS_NOT_UNTESTED_...`
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"
