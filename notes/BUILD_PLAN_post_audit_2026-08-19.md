@@ -139,6 +139,23 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## 🔻 **AND THE METRIC-CHANGE PROPOSAL I MADE ONE TURN LATER IS ANSWERED *NO* BY ITS OWN TEST**
+> **999 SimLex pairs, ALL covered by the norms, strata from HUMAN ratings not hand-picked pairs:**
+> `SYNONYM(>=8) n=120 cos 0.627 / euc 2.712 | RELATED(4-6) n=235 cos 0.551 / euc 3.804 |
+> UNRELATED(<2) n=217 cos 0.360 / euc 4.456`. **Both metrics order the strata correctly, so the
+> graded sub-ceiling signal is real on both -- exactly as the module says.**
+> **THE GUARANTEE TEST -- set the bar so NO related pair passes, then count TRUE SYNONYMS admitted:**
+> **cosine must exceed `0.979` -> `0 of 120` (`0.0%`); euclid must be under `1.526` -> `8 of 120`
+> (`6.7%`).** ➡️ ***THE CAP STAYS UNDER EITHER METRIC. My proposal to re-derive it is REFUSED.***
+> ✅ **And the module's *"not something a different threshold on this SAME metric can fix"* is now
+> confirmed on 999 pairs instead of 6 -- and is STRONGER than it claimed: the survivable cosine
+> threshold has an EMPTY pass set.** 🎯 **Euclid's case is the GRADED band ONLY (`0.2876` vs
+> `0.2176`), never identity -- two claims I had been running together.**
+> ⚠️ **AND A MEASURED REASON THE CAP WAS NEEDED: UNRELATED pairs (human rating <2) reach a 95th
+> percentile cosine of `0.912`. Under cosine almost everything looks similar to everything.**
+> *Six pairs chosen to ILLUSTRATE a problem are not a sample for TESTING a fix to it.*
+> `MY_OWN_PROPOSAL_ANSWERED_NO_...`
+
 > ## ✅ **AND THE `0.45` CAP IS NOT A DEFECT -- I WAS QUOTING IT WRONG. ITS JUSTIFICATION IS METRIC-SPECIFIC.**
 > **Verified on disk (`grounded_similarity.py:96,190`): the cap is DELIBERATE and EARNED.** Raw
 > cosine over the 12 dims cannot separate a true synonym from a perceptual sibling -- `sofa/couch
