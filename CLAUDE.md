@@ -952,6 +952,45 @@ floor result that survived (4/4 same sign, 1.2x spread, no control within half t
 THAT DAY WAS SUBSEQUENTLY VIOLATED; EVERY CONTROL WRITTEN AS CODE CAUGHT SOMETHING.** Write the
 control into the script, not the caution into the prose.*
 
+## THE ORDER THAT FIXES IT -- **RUN `tools/before_you_start.py` FIRST. MEASURED: 7 PROPOSALS IN ONE NIGHT WERE ALREADY ANSWERED ON DISK.**
+
+**Owner, 2026-08-21: *"figure out a more efficient method for future development... we need to
+optimize our approach."*** **Audited from `git log`, not memory: 57 commits, 68 notes, **7 (12%)
+touched code**, and **29 of 57 commit subjects (51%) were corrections, withdrawals or "already
+done".**
+
+**THE LARGEST SINGLE WASTE, AND IT IS NOT SUBTLE: SEVEN PROPOSALS ALREADY ANSWERED.** *Build the
+foraging organ (built, PINNED, run at 10k sentences); improve coreference that way (`HARD_FAIL` on
+that exact mechanism); turn on the graded switches (**already default-ON, and already floored**);
+hand-score 100 facts (a **BLIND** 100-row score existed, done and written up); gate writes by
+prediction error (**dissociated** -- a random gate at the same rate ties it); sweep the write rate
+(**already swept**, four thresholds); wire the sensorimotor spoke (**already scored, 3 seeds, 40k
+sentences each**).*
+
+> ### 🔑 **THE CAUSE IN ONE SENTENCE: I RAN THE PRIOR-WORK CHECK ON THE THING I WAS *BUILDING*, NEVER ON THE THING I WAS *DOING*.**
+> *"Before building OR wiring anything" does not fire for hand-scoring, sweeping, auditing, measuring
+> or choosing a floor -- **which is where the hours went.***
+
+**➡️ `python tools/before_you_start.py "<plain description of the work>"` QUERIES THE VERBS AS WELL AS
+THE NOUNS, activities first.** *Self-tested with a known-present control (126 cells) and a
+known-absent control (0), because a prior-work tool that has never returned non-zero cannot establish
+absence.*
+
+### THE OTHER FOUR STEPS, EACH EARNED BY A SPECIFIC FAILURE THE SAME NIGHT
+
+| step | the failure it prevents |
+|---|---|
+| **2. ENUMERATE the whole population when it is small enough to count** | *sampling produced every withdrawal; enumeration produced every win -- **20 `PENDING` cells -> 13 already resolved; 9 `final_verdict` cells -> 9/9 divergent**, both conclusive because complete* |
+| **3. READ EVERY ROW THE QUERY RETURNED before quoting any** | *`query "cold placement"` returned **4**; I read **1**; **row 4 reversed row 1*** |
+| **4. MAKE OUTPUTS PRINT QUANTITIES THAT CONSTRAIN EACH OTHER, then read them against each other** | ***the single highest-yield habit found.** `n_grounded=0` printed beside `anchors +68` found the only real code bug of the night -- **five iterations of static tooling could not*** |
+| **5. CONCLUDE LAST, and NAME THE POPULATION the conclusion covers** | *every number I quoted was accurate; **every withdrawal was a generalisation from a partial population*** |
+
+**AND THE META-RULE, NOW 5-FOR-5 AND 0-FOR-N THE OTHER WAY: A CAUTION WRITTEN AS PROSE GETS VIOLATED;
+A CONTROL WRITTEN AS CODE CATCHES SOMETHING.** *`rank_with_ties.py`, `replication_gate.py`,
+`organ_map_cite.py`, the `final_verdict` fix, the corrections fix -- **every one caught a real error.
+Every prose caution I wrote that night, I later broke myself.*** **When a lesson recurs, stop writing
+it down and put it in the code path where the unsafe usage becomes unrepresentable.**
+
 ## SIX WITHDRAWALS IN ONE NIGHT, ONE FAMILY: **WHAT WAS ALREADY THERE, CREDITED TO WHAT I JUST DID**
 
 **Measured 2026-08-21. Six of my own claims withdrawn in a single session. Not six mistakes -- ONE
