@@ -22,36 +22,36 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
 "TOP ITEM" and "WHAT IS RUNNING" (`session_start_hook.py`, `board.py`).
 **Inside a section use `###`, never `##`.** *And NEVER let a line BEGIN with one of those literals
 even when merely NAMING it: on 2026-08-21 this very sentence wrapped so that a line started with
-`## TOP ITEM -- **36 OF 150 MODULES RUN WHEN IT READS. 81 ARE BUILT, BLESSED `WIRE`, AND NEVER CALLED.**
+`## TOP ITEM -- **READING GROUNDS ZERO. A COLD-START DEADLOCK, WITH ONE UNRESOLVED CAVEAT.**
 
-**Owner asked: *"Why did we stop working on reading? Where are we on the different functions of
-substrate?"*** Measured, not recalled (`tools/substrate_function_status.py`, runtime + disk
-enumeration, because the registry's `pipeline_status` is documented wrong in BOTH directions).
+**Owner asked why reading stalled. Measured: `Substrate().read()` with defaults grounds NOTHING.**
+Six calls on one substrate, state accumulating: **3,120 sentences, 1,871 refusals, `GROUNDED = 0` at
+every step.**
 
-| | |
-|---|---|
-| modules on disk | **150** |
-| registered | **150** (was *"62 of 141 unregistered"* -- **that figure is stale, it is now 0**) |
-| **loaded by a LIVE read** | **36** (`CLAUDE.md`'s *"35 of 141"* held up almost exactly) |
-| **`gate=WIRE` but NOT loaded by a live read** | **81** |
+### 🚨 THE MECHANISM IS CIRCULAR
+`ConceptSpace` grows from seeded words and **words seeded ONCE AT GROUNDING TIME**. So **grounding
+needs an anchor close enough to canonicalize against; anchors grow when something grounds; nothing
+grounds because no anchor is close enough** (dominant refusal `TAUTOLOGY_NO_ANCHOR`, best cosine
+median **0.350**). **After 600 sentences: 82 anchors** -- essentially the 107-word seed vocabulary.
+*Diagnostics that call `observe()` directly reach 4,250 anchors on 4,096 sentences, ~50x more.*
 
-### 🚨 **THAT 81 IS PROBABLY THE ANSWER TO "WHY DID READING STALL".**
-*Reading is not unbuilt -- the loop is a real ~36-part pipeline (`reading_grounding_loop`,
-`grounding_acquisition_loop`, `definitional_extraction`, `coreference_resolver`,
-`situation_model_accumulate`, `hd_fact_store`, `information_foraging`, `hippocampal_encoder`, ...).*
-**It stalled because two thirds of what we built sits BESIDE the loop rather than inside it.**
+### ⚠️ **THE CAVEAT THAT DECIDES "BROKEN" vs "UNCONFIGURED" -- AND I HAVE NOT RUN IT**
+**Facts HAVE been banked historically** (the 402 provenance rows). **A fresh `Substrate()` has an
+EMPTY library and does NOT load `data/foundation/` (~63 MB).** If the real pipeline loads it first,
+the anchor pool starts populated and the deadlock never occurs. **ONE RUN SETTLES THIS.** Until then
+the claim is narrow: **from COLD, the default entry point grounds nothing.**
 
-**Islanded and directly relevant:** `prelim_tier` + `three_tier_loop` (**the owner's cold storage AND
-the hierarchical-memory idea they proposed -- proven, 3 HARD_PASS**), `successor_representation`
-(D7, fully pinned), `situation_model_multibank`, `pos_tagger`/`arc_parser`/`semantic_parser`,
-`modern_hopfield_readout`, `streaming_attention`, `learning`, `word_learning_tool`,
-`sensorimotor_spoke` (**the one route measured NOT subsumed by counting**).
+### ✅ RULED OUT -- MEASURED, DO NOT RE-INVESTIGATE
+**Not a read cap** (`max_patches=4` x ~300 = 1,200/call by design; repeated calls advance the
+cursor). **Not the forager leaving early** (MVT leave rule, 4 corpora visited, correct per spec).
+**Not gate strictness alone** -- only **~32 of 2,164** flagged episodes REACH a gate decision; the
+other ~98% never produce a candidate, so loosening the gate changes almost nothing.
 
-### ⚠️ **SCOPE:** *"not loaded by a live read"* does **NOT** mean dead -- a module may serve query or
-consolidation. It means the READING path does not touch it, which is the question that was asked.
-### 🎯 **THE BACKLOG IS A WIRING BACKLOG, NOT A BUILD ONE.** But 81 assumptions would be 81 chances to
-repeat today's pattern of proposing before measuring: **each needs a measured target, per
-WIRE-or-SHELVE.** `notes/WHERE_THE_SUBSTRATE_FUNCTIONS_STAND_36_of_150_run_when_it_reads_2026-08-21.md`
+### 🎯 **IT ALSO DEMOTES THE WIRING BACKLOG.** `three_tier_loop` (proven, islanded, and BOTH the
+owner's *"cold storage"* and their *"hierarchical memory"*) retains gate-failures and re-queries them
+first -- **the right shape, but it would retain ~32 items per 300 sentences.** *Wiring it now
+connects a good mechanism to a nearly empty stream.* **The bootstrap comes first.**
+`notes/READING_GROUNDS_ZERO_a_cold_start_deadlock_in_the_default_entry_point_2026-08-21.md`
 
 ## WHAT IS RUNNING
 
