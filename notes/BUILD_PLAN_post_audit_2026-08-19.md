@@ -251,6 +251,32 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## ⚖️ **AND THE MAP'S OWN PROPOSED FIX TESTED: FEATURE CONTEXT GIVES A 12x MARGIN THAT IS ONLY
+> ## 11% IN SIGNAL-TO-NOISE. BOTH TRUE; THE SECOND ANSWERS THE QUESTION.**
+> *`ORGAN_MAP` B1 STEP 3 names the gap: "the brain's hub pools SPOKE (feature) inputs; ours pools
+> co-occurring word identities." Tested, same no-leak masking both arms, 80 lemmas x 20 sentences.*
+> | representation | WITHIN | CROSS | margin | ratio |
+> |---|---|---|---|---|
+> | feature context, **raw** | 0.2516 | 0.2115 | +0.0401 | **1.19x** ⬅️ **worst** |
+> | **feature context, MEAN-CENTRED** | **0.0503** | 0.0019 | **+0.0484** | 26.16x |
+> | + rank-1 removed | 0.0468 | 0.0006 | +0.0462 | 76.64x |
+> | **incumbent (word identity, DG)** | 0.0056 | 0.0015 | **+0.0041** | 3.73x |
+> ⚠️ **THE RAW ARM IS A TRAP: 0.2516 looks best and its RATIO IS THE WORST -- a 12-dim cosine has a
+> random level near 0.29, so 0.2115 cross-lemma is roughly chance. Centring is what makes it
+> readable.**
+> 🔻 **THE OVER-CLAIM I ALMOST MADE: +0.0484 vs +0.0041 is 12x, and I was about to report it. THE
+> SHUFFLED CONTROL STOPPED IT -- shuffled sd is 0.0032 vs 0.0003, so the NOISE SCALES WITH THE
+> MARGIN. In units of its own null: 14.8 sd vs 13.3 sd = 11% BETTER, NOT 1,100%.** *Discipline 14 --
+> a width is not an effect; I had the width and was calling it the effect.*
+> ✅ **BOTH CONTROLS FIRE (shuffled margins +0.0007 / −0.0000) -- both representations carry GENUINE
+> same-word signal; the incumbent's is real, just small.**
+> ✅ **WHERE THE 12x DOES MATTER -- ABSOLUTE overlap, which is what COMPLETION needs: incumbent
+> 0.0056 (40x below the 0.22 threshold) vs features 0.0503 (4x below). FEATURES CLOSE MOST OF AN
+> ORDER OF MAGNITUDE AND STILL FALL SHORT -- so this does NOT rescue CA3 either.**
+> *Mean-centring does most of the work (1.19x → 26.16x); rank-1 adds ratio but costs margin,
+> consistent with DO-NOT-REDO 27's "the operation WORKED and the task did not care".*
+> `notes/FEATURE_CONTEXT_vs_WORD_IDENTITY_a_12x_margin_that_is_only_11_percent_in_signal_to_noise_2026-08-21.md`
+>
 > ## 🔻 **SCOPING CHECK -- AND IT SCOPES THE WHOLE CA3 THREAD OUT OF OUR DATA. THE REASON IS THE
 > ## REAL FINDING: THE PROBLEM IS UPSTREAM OF BOTH DG AND CA3.**
 > **Natural families on REAL data = DG codes of the SAME LEMMA in different sentences (80 lemmas x
