@@ -1,5 +1,22 @@
 # READING GROUNDS **ZERO** -- A COLD-START DEADLOCK IN THE DEFAULT ENTRY POINT
 
+> # ✅ **THE CAVEAT IS RESOLVED: `Substrate` CANNOT LOAD A FOUNDATION AT ALL.** (verified 2026-08-21)
+> I wrote below that the deadlock might mean *"I ran it without its foundation"*. **It does not.**
+> - **`Substrate.__init__` accepts `foundation_dir` -- and `self.foundation_dir` is assigned ONCE and
+>   NEVER READ.** One occurrence in the whole file, at the assignment. **The parameter is dead.**
+> - **`__init__` ALWAYS builds a fresh `HDFactStore` and a fresh `ReadingLoopState`**, then seeds 107
+>   words. **There is no load method** -- the public surface is `read`, `query`, `recall`,
+>   `consolidated`.
+> - **And the capability EXISTS and works.** `foundation_persistence.load_foundation()` loads six
+>   saved foundations cleanly: **4,322 / 1,415 / 907 / 781 / 738 / 360 anchors.**
+>
+> **➡️ SO THE SUBSTRATE CANNOT BE GIVEN THE ANCHORS IT NEEDS, THROUGH ANY DOCUMENTED ROUTE. The
+> deadlock is not "I ran it wrong" -- there is no way to run it right.** *A `save`/`load` pair exists
+> and passes its own witness (`R3: "the foundation survives a restart"` = FILLED); the SUBSTRATE
+> simply never calls the load half.*
+> **That makes this the sharpest instance of WIRE-DON'T-ISLAND in the repo: the system cannot read its
+> own saved knowledge back in.**
+
 **Owner: *"Why did we stop working on reading?"*** The answer is sharper than "we drifted".
 **`Substrate().read()` with defaults grounds nothing, ever, and the mechanism is circular.**
 
