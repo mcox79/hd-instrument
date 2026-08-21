@@ -952,6 +952,36 @@ floor result that survived (4/4 same sign, 1.2x spread, no control within half t
 THAT DAY WAS SUBSEQUENTLY VIOLATED; EVERY CONTROL WRITTEN AS CODE CAUGHT SOMETHING.** Write the
 control into the script, not the caution into the prose.*
 
+## SAVE THE POPULATION YOU SCORED, NOT JUST THE SAMPLE YOU SCORED IT ON -- **THREE INSTANCES IN ONE NIGHT, THREE SUBSYSTEMS, THREE AUTHORS**
+
+**A cell that persists its SCORE but not the THING IT SCORED can only ever answer the question it was
+originally asked. When that question turns out to be confounded -- which is normal, not exceptional
+-- every re-analysis costs a full re-run, and once the corpus, seed or code has moved on, the number
+is unauditable forever.**
+
+| 2026-08-21 instance | what survived | what was lost | what it cost |
+|---|---|---|---|
+| `exp_information_foraging_reading_v1` | `heldout_coverage 0.0617` | **which 604 words were banked** | the probe turned out to carry a **7.6x register bias**; the correct re-score is impossible without a **4,144 s x 5-arm** re-run |
+| my own hand-score, the night before | *"32% vs 4% MEANINGFUL"* | **which of the 100 rows were which** | the self-grading correlation -- **the whole point of the design** -- could not be run |
+| `..._stated_entity_fate_..._v2_highprecision` | hand-check **90/100** | **the 1,414 survivors** (37 KB saved; **v1 saved all 4,015 in 1.2 MB**) | **the HARD_PASS worth promoting cannot be compared to the HARD_FAIL it replaced** |
+
+> ### 🔑 **THE PATTERN IS NOT CARELESSNESS. EACH AUTHOR SAVED EXACTLY WHAT THEIR OWN QUESTION NEEDED.**
+> *The hand-check needed 100 rows, so 100 rows were saved. **The loss only becomes visible when the
+> NEXT question arrives**, and by then the run is gone.*
+
+**RULE: any cell that computes a score OVER A SET emits that set.** *One line beside the score it
+already writes:*
+```python
+"scored_population": sorted(banked_subjects),   # a few KB; makes every future re-score free
+```
+
+**THE ASYMMETRY IS THE WHOLE ARGUMENT: a few hundred KB at write time against a multi-hour re-run --
+and that is the cost only while you CAN still re-run.**
+
+**⚠️ AND NOTE WHICH VERSION LOST IT.** *`v1` -- the one that `HARD_FAIL`ed -- is fully re-analysable
+today. `v2` -- the `HARD_PASS`, the one worth wiring -- is not. **The stronger result became the less
+examinable one**, because by v2 the team knew what it wanted to measure and saved only that.*
+
 ## THE ORDER THAT FIXES IT -- **RUN `tools/before_you_start.py` FIRST. MEASURED: 7 PROPOSALS IN ONE NIGHT WERE ALREADY ANSWERED ON DISK.**
 
 **Owner, 2026-08-21: *"figure out a more efficient method for future development... we need to
