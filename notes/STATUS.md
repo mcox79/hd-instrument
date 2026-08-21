@@ -38,11 +38,29 @@ not about the biology.**
 **AND SLOT GROWTH IS ORDINARY, NOT PATHOLOGICAL:** Heaps `beta = 0.589`, per-sentence rate falling
 3.65 -> 1.52. *I called it "unbounded" one turn ago; that was the wrong word.*
 
-### 🎯 **THE ONE VERSION OF THE QUESTION LEFT OPEN, AND IT IS THE REAL ONE**
-**All of the above is measured at 4,096 sentences / 6,217 slots.** `beta = 0.589` **does not
-saturate**, so the count keeps climbing. **What slot count costs at 10^5-10^6 sentences is
-UNTESTED**, and a pathology that only appears there is invisible here. *That is the capacity
-question worth asking; the ones I asked were not.*
+### ✅ **AND THE SCALE QUESTION IS NOW ANSWERED -- MEASURED ON EVERY SENTENCE WE OWN**
+| sentences | slots | slots/sent | size |
+|---|---|---|---|
+| 4,096 | 4,250 | 1.038 | 8.7 MB |
+| 32,768 | 35,580 | 1.086 | 72.9 MB |
+| **325,798 (all readable)** | **69,171** | **0.212** | **141.7 MB** |
+
+**RETAIN-FOREVER COSTS 142 MB ON EVERYTHING WE OWN, AND THE GROWTH IS SATURATING.**
+*Extrapolated (weakest number, labelled): 10^7 sentences -> ~0.4 GB.*
+**🚨 AND IT CORRECTS MY OWN EXPONENT: I wrote `beta = 0.589` "does not saturate". Measured over the
+last decade of real data it is `0.289` and FALLING** -- 0.589 came from the first 4,096 sentences,
+the function-word-dominated part of the curve. **Fitting an exponent on the early segment and calling
+it the asymptote is the same shape as characterising an effect from one seed. FOURTH instance this
+session.**
+### 🎯 **SO SLEEP-AS-CAPACITY-MANAGEMENT IS DEAD FOUR WAYS** -- private slots, tiering already built,
+no duplicates, **and no capacity pressure at all.** *There is no storage problem for it to solve at
+any scale this project can plausibly reach.*
+### ✅ **AND IT TURNS THE OWNER'S INSTINCT INTO A MEASURED PERMISSION:** *"never throw out useful
+information"* is not merely allowed, it is **CHEAP** -- 142 MB today. **The brain discards detail
+because it is capacity-bound; we have now MEASURED that we are not, by a wide margin.**
+### ⚠️ **THE LIVE VERSION IS SPEED, NOT MEMORY:** retrieval is `O(n_slots)` per query at 69,171
+slots. The charter already names *"the O(n_facts) speed wall"*. **Different question, unmeasured.**
+`notes/CAPACITY_IS_NOT_A_PROBLEM_retain_forever_costs_142MB_at_full_corpus_2026-08-21.md`
 
 ### **WHAT SURVIVES, AND IT IS THE OWNER'S PRINCIPLE**
 *"The brain throws away detail; we can put it in cold storage and not lose it... never throw out
