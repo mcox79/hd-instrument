@@ -45,6 +45,24 @@ stream.* **The stream's own `lens` array gives 27.9, and the median is 17.** ***
 now made twice tonight: pairing a numerator and denominator that do not come from the same
 population.*** *Caught by loading the array instead of dividing two summary fields.*
 
+## 4a. ✅ **THE 72 CAP IS NOW TRACED, AND IT IS BY DESIGN -- WHICH BOUNDS EVERYTHING ABOVE**
+
+**`K_SENT_TOTAL = 90` ("sentences kept per lemma") x `PROFILE_FRAC = 0.8` -> `_n_profile(k) =
+min(k-1, int(k*0.8))` = `int(90*0.8)` = **72**.** *The other 18 are held out for evaluation --
+`exp_grounding_readout_known_answer_v1:89-90,364-368`, reached via
+`exp_surprise_weighted_update_v1:166`.* **A deliberate proportional profile/eval split, not a defect.
+One grep, as promised, and no theory required.**
+
+> ### 🔻 **AND IT SCOPES SECTION 2: THAT DISTRIBUTION IS THIS EXPERIMENT'S SAMPLING, NOT THE LIVE LOOP'S.**
+> **The stream is capped at 90 sentences per lemma by construction, so `mean 27.9 / median 17 /
+> max 72` describes the write-gate cell's population -- which IS the right population for the
+> write-rate question, because that sweep ran on exactly this stream.** ***It does NOT transfer to
+> the live reading loop, which caps by a completely different mechanism: a word STOPS accruing
+> traces once it grounds*** (the standing example: `century`, **7 traces / 92 occurrences**).
+> **Two different capping regimes. Do not quote either number for the other.**
+> *If anything the live loop's frequent words would saturate WORSE without the 90-sentence ceiling --
+> but that is a prediction, not a measurement, and it is not made here.*
+
 ## 4. ⚠️ AND AN UNEXPLAINED FINDING WORTH FLAGGING SEPARATELY
 
 **`max = 72`, and `p90 = p99 = max = 72`.** *At least 10% of lemmas sit at EXACTLY 72 traces.* **That

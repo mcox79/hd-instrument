@@ -285,8 +285,14 @@
 > `n_tokens_accepted` (33,907) by the stream's `n_lemmas` (5,491), **two different populations**.
 > *Second numerator/denominator mismatch tonight; both caught by loading the array instead of
 > dividing two summary fields.*
-> ⚠️ **UNEXPLAINED, FLAGGED NOT DIAGNOSED: `max = 72` and `p90 = p99 = 72`** -- >=10% of lemmas sit
-> at EXACTLY 72, so that is a CAP, not a Zipfian tail. **Not traced; not guessed.**
+> ✅ **THE 72 CAP IS TRACED AND IS BY DESIGN: `K_SENT_TOTAL = 90` x `PROFILE_FRAC = 0.8` ->
+> `_n_profile = int(90*0.8) = 72`, the other 18 held out for evaluation**
+> (`exp_grounding_readout_known_answer_v1:89-90,364-368` via `exp_surprise_weighted_update_v1:166`).
+> *One grep, no theory.* 🔻 **AND IT SCOPES THE DISTRIBUTION ABOVE: mean 27.9 / median 17 / max 72
+> describes THIS EXPERIMENT'S SAMPLING -- the right population for the write-rate question, since
+> that sweep ran on exactly this stream, but it does NOT transfer to the LIVE loop, which caps by a
+> different mechanism entirely: a word STOPS accruing once it grounds (`century`, 7 traces / 92
+> occurrences). TWO CAPPING REGIMES -- do not quote either for the other.**
 > 🚫 **DO NOT QUOTE THE HEBBIAN 257-1,297 FOR WRITE-RATE QUESTIONS** -- different store, ~50x apart;
 > superposition is the axis the sweep actually moves.
 > `notes/THE_OPERATIVE_AXIS_IS_SUPERPOSITION_LOAD_PER_CONCEPT_two_thirds_of_writes_land_in_saturated_bundles_2026-08-21.md`
