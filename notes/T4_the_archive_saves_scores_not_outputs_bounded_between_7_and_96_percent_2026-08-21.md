@@ -1,5 +1,34 @@
 # T4 -- **HOW MUCH OF THE ARCHIVE CAN BE RE-ANALYSED? BOUNDED BETWEEN 7% AND 96.5%, AND THE WIDTH OF THAT GAP IS THE FINDING.**
 
+> # 🔴 **BOTH NUMBERS BELOW ARE WRONG. THE SCANNER HAD A BUG, AND ITS BIAS RAN EXACTLY BACKWARDS.**
+> **`tools/audit_archive_reanalysability.py` v1 read only the FIRST 2 MB of each sibling JSON file.**
+> Any output file **larger** than that failed to parse and was silently swallowed by an
+> `except: continue` -- **and counted as "saved no outputs."**
+>
+> **➡️ SO THE CELLS THAT PERSISTED THE MOST DATA WERE THE ONES MOST LIKELY TO BE CALLED DEFECTIVE.**
+>
+> **CAUGHT BY THE TRIPLE-CHECK RULE, ON THE ONE CELL I SINGLED OUT.** §3 below names
+> **`exp_context_vector_signal_v1`** as *"load-bearing ... and cannot be recovered to re-check it."*
+> **That is FALSE.** Its `_pass_encounters.json` is **4,011,507 bytes**, holds an `encounters`
+> record, and a corrected read finds a **167-item string list**. *The cell saved its population. My
+> scanner could not see it because the file was too big.*
+>
+> **AND §3'S OTHER CLAIM NEEDS THE SAME CORRECTION.** I implied the HARD_PASS was irregular. The
+> cell **documents its own amendments and preserves the unamended verdict**: `amendments` records
+> *"A1 ceiling guard: pre-registered rule fired on the NULL arm alone, which can only suppress a
+> positive"* and *"A2 trace-sum ALIVE criterion was written backwards"*, with
+> `prereg_literal_primary = MIDDLE_BAND_CEILING_LIMITED` kept in the file. It also carries
+> `no_leak_violations: 0`, `arms_differ_verified: true`, per-arm digests and `n_encounters: 8282`.
+> **That is well-instrumented work, not a compromised number.** *The disclosure fault CLAUDE.md
+> records is about the AGENT's non-disclosure of a denial; it is not a defect in this artifact, and
+> I blurred the two.*
+>
+> **THIS IS THE THIRD OVERCLAIM OF THE NIGHT AND IT HAS THE SAME SHAPE AS THE OTHER TWO: a check
+> with a blind spot, whose failure mode reads as ABSENCE.** *`CLAUDE.md` states the rule that would
+> have caught it before publication -- **verify with a POSITIVE control, never only an absence
+> check.** I wrote that sentence into a note four hours ago and then shipped a scanner without one.*
+> **Corrected figures pending a re-run; treat the table below as void.**
+
 **Generalised from tonight's foraging dead end**, where the correct re-analysis became impossible
 because the cell persisted **the score but not the scored population** -- 604 strings, a few
 kilobytes, that would have made it a one-second recompute.

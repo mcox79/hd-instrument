@@ -78,9 +78,21 @@ def main():
                 if f in ("metrics.json", "units.jsonl") or not f.endswith((".json", ".jsonl")):
                     continue
                 try:
+                    # 🔴 v1 READ ONLY THE FIRST 2 MB HERE, so any sibling file LARGER than that
+                    # failed to parse and was swallowed by the except below -- and it was counted
+                    # as "no outputs saved". THE BIAS RAN EXACTLY BACKWARDS: the cells that
+                    # persisted the MOST data were the ones most likely to be called defective.
+                    # Caught on exp_context_vector_signal_v1, whose _pass_encounters.json is
+                    # 4,011,507 bytes and DOES contain its scored population -- a cell v1 named in
+                    # its "genuinely lost" list. Read the whole file.
                     with open(os.path.join(d, f), encoding="utf-8") as fh:
-                        head = fh.read(2_000_000)
-                    best = max(best, max(list(str_lists(json.loads(head))) or [0]))
+                        blob_f = fh.read()
+                    if f.endswith(".jsonl"):
+                        for line in blob_f.splitlines()[:2000]:
+                            if line.strip():
+                                best = max(best, max(list(str_lists(json.loads(line))) or [0]))
+                    else:
+                        best = max(best, max(list(str_lists(json.loads(blob_f))) or [0]))
                 except Exception:
                     continue
         if best >= MIN_LIST:
