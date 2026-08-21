@@ -127,6 +127,23 @@
 > *You cannot lock a script that does not exist yet, so the mitigation is the DETECTOR shipped
 > tonight.* `THE_REGISTRY_LOST_UPDATE_ONE_UNLOCKED_WRITER_...`
 
+> ## **VET OF THE NIGHT'S LOAD-BEARING NUMBER: IDENTIFICATION IS A LOOKUP, AND CONTEXT DILUTES IT**
+> **The two-jobs note says the unmasked arm is "inflated by self-reference" and never quantifies it.
+> I added the missing arm -- TARGET_ONLY, the exact COMPLEMENT of the mask (the target tokens and
+> nothing else).** `MASKED 0.0972 | UNMASKED 0.6423 | **TARGET_ONLY 0.9687**`, chance 0.0167,
+> 60 lemmas x 41 sentences, leave-one-out, same code path. **THE WORD ALONE BEATS THE WORD PLUS ITS
+> SENTENCE BY +0.3264 (1.51x) -- so context is NOT a weaker identification cue, it is NOISE.**
+> *`within=0.8059 / cross=0.0005` is the SAME signature as the form channel's 1.0000: THE QUERY IS
+> THE ANSWER. Third instance tonight.* ✅ **The original claim is CONFIRMED AND UNDERSTATED** -- the
+> word is not the strongest cue, it is nearly the ONLY one, **so the identification job is a LOOKUP
+> needing no accumulated context, which STRENGTHENS Q102** (a form channel IS a lookup).
+> 🚫 **STOP QUOTING `0.1417 vs 0.4750` AS EVIDENCE ABOUT CONTEXT -- it is evidence about
+> SELF-REFERENCE.** /!\ **REPRODUCTION CAVEAT, FIRST-CLASS: the producing script did not survive
+> `scratch/`, I rebuilt from the description, and I DID NOT reproduce its numbers (MASKED -0.0445,
+> UNMASKED +0.1673). DIFFERENT POPULATION -- no number here crosses into a sentence about the note's.
+> Only the ORDERING travels, and it travels because +0.3264 is not a marginal gap.**
+> `THE_IDENTIFICATION_TASK_IS_A_LOOKUP_...` `tools/vet_two_jobs_selfreference_share.py`
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"
