@@ -62,6 +62,31 @@
 > selection function -- which traces get replayed (3.8) -- where an invention is easiest to disguise
 > as biology.** `notes/SLEEP_DESIGN_BRIEF_...md`
 >
+> ## ❌ **AND IT RAN: THE `sign()` HYPOTHESIS IS REFUTED. OUR SYNAPSES ARE NOT SHARED.**
+> | log-log retention slope | GRADED query | `sign()` query | FROZEN |
+> |---|---|---|---|
+> | | **-0.031** | **-0.033** | 0.000 |
+>
+> *(a `t^-1/2` system reads **-0.50**)*. **Indistinguishable, and ~15x shallower than Benna-Fusi.
+> Removing the quantiser recovers nothing because there is barely any decay to recover.**
+> ### ✅ **THE FLOOR CONTROL PASSED FIRST, which is what makes the null readable:** FROZEN shows the
+> BEST retention (flat, 0.000) and acquires **0 of 200** new words while live arms acquire **200 of
+> 200**. **The metric CAN expose the learn-less-forget-less cheat.** And SNR does fall (8.88 -> 6.42)
+> with the live arms separating from FROZEN, so this is a REAL NULL, not a dead instrument.
+> ### 🚨 **THE REASON IS ARCHITECTURAL AND THE DRILL FLAGGED IT AGAINST ITSELF A WEEK AGO:** *"our
+> 'time' axis (new concepts ingested) is not their 'time' axis (memories stored AT THIS SYNAPSE)."*
+> **In Benna-Fusi MANY memories share one synapse -- that IS the interference the cascade defends
+> against. In our substrate EVERY LEMMA OWNS ITS OWN ACCUMULATOR**, so streaming 4,096 sentences
+> writes mostly to other slots. **We do not have the problem the cascade solves -- not because we
+> solved it, but because our storage is not shared in the way that creates it.**
+> ### 🎯 **IT RELOCATES THE SLEEP QUESTION, WHICH IS MORE USEFUL THAN A WIN:** a cascade protects a
+> SHARED slot; ours are private, so its stated benefit does not apply as stated. **Our real cost is
+> that slot COUNT only grows and nothing ever decays -- which is much closer to what the owner
+> actually asked for on Q92 (*"an auto aging feature"*) than interference protection is.**
+> **Next question: what IS our capacity failure mode given private slots? UNMEASURED.**
+> *The cheap probe MEASURED and did not SET DIRECTION, as the brief required.*
+> `notes/THE_SIGN_HYPOTHESIS_IS_REFUTED_our_synapses_are_not_shared_2026-08-21.md`
+>
 > ## 🅰️ ~~OPEN OWNER DECISIONS~~ -- BOTH NOW ANSWERED, ABOVE
 > - **Q92** -- `notes/STATUS.md` is ~2.3x its 8,704 B cap. **The two never-trim sections ALONE are
 >   11,228 B = 1.29x the whole cap**, so the cap is unreachable without deleting what it protects.
