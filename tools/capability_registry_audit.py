@@ -140,6 +140,24 @@ COMPOSED_ENTRY_PATHS_REL = [
     # verified present on disk, unlike substrate.py/pipeline.py which have no git
     # history at all. Using them as composed roots keeps the closure rooted at real
     # production entry points instead of at names that were only ever aspirational.
+    #
+    # 🔴 CORRECTED 2026-08-21: THE CLAUSE ABOVE IS NOW FALSE FOR substrate.py, AND
+    # EXCLUDING IT WAS INFLATING THE NOT-REACHABLE COUNT.
+    #   * it EXISTS: hdlab/substrate.py, 64,370 bytes on disk;
+    #   * it HAS git history: added by 2f9f3ae95, whose message reads "PHASE 1:
+    #     hdlab/substrate.py -- the assembled substrate exists, runs end to end,
+    #     and self-tests PASS";
+    #   * RUNTIME PROOF, which outranks both: `Substrate().read(n_sentences=40)`
+    #     loads 37 top-level hdlab modules. Rooting the closure anywhere else
+    #     cannot see anything reachable ONLY through the assembled substrate.
+    # MEASURED CONSEQUENCE of the omission: 4 registry rows read
+    # WIRED_BUT_NOT_PIPELINE_REACHABLE for modules that a real read demonstrably
+    # loads -- definitional_extraction, information_foraging, corpus_registry, and
+    # `substrate` ITSELF (row substrate_assembled_reader_v1). The registry was
+    # asserting that the assembled substrate is not reachable by the pipeline,
+    # while running it is what loaded every other module in the trace.
+    # (pipeline.py is NOT added -- it genuinely still does not exist.)
+    "hdlab/substrate.py",
     "tools/read_anne_glassbox_v2_honest_ledger.py",
     "hdlab/coreference_resolver.py",
     "hdlab/situation_model_accumulate.py",
@@ -197,6 +215,12 @@ def validate_entry_paths() -> list[str]:
 # section verbatim (5 entry points, exact-8-file reachable set at time of audit).
 # ---------------------------------------------------------------------------
 ACTIVE_PIPELINE_ENTRY_POINTS = [
+    # 🔴 ADDED 2026-08-21, same evidence as the COMPOSED_ENTRY_PATHS_REL correction
+    # above. This list is the "code that actually runs" root set, and the assembled
+    # substrate is the most literal member of that description there is: a real
+    # 40-sentence read through it loads 37 top-level hdlab modules. Its absence is
+    # why row `substrate_assembled_reader_v1` was marked NOT_PIPELINE_REACHABLE.
+    "hdlab/substrate.py",
     "tools/read_anne_glassbox_v2_honest_ledger.py",  # also pulls in tools/read_anne_glassbox_v1.py
     "hdlab/coreference_resolver.py",
     "hdlab/situation_model_accumulate.py",
