@@ -62,7 +62,21 @@
 >   trained encoder's 0.179) -- **"better keys" is closed by GEOMETRY.** Two levers remain: FEWER
 >   ITEMS and MORE DIMENSIONS.* `WHY_WRITING_LESS_HELPS_...`
 >
-> ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
+> > ## 🖥️ **AND THE OWNER'S GUI COMPLAINT (board Q100, D3) IS CLOSED -- BUT WRITING ITS GUARD FOUND A CRASH**
+> **Measured FIRST: the panel is already clean -- 1 real question, 0 legacy rows, 40 archived.** *The
+> 2026-08-20 suppression works; the list is also empty because the owner answered seven legacy rows
+> one at a time, each by typing a complaint into it.* **So nothing needed fixing -- but nothing
+> guaranteed it stays fixed.** ➡️ **THE GUARD FAILED ON RUN ONE WITH A CRASH, NOT AN ASSERTION:
+> `_wait_rows` was registered BEFORE the skip, so a suppressed row left a phantom entry that the
+> selection-restore hands to Tk -- `TclError` that KILLS THE WHOLE PANEL REFRESH, reachable by
+> select-a-decision / answer-it / wait.** *Fixed both branches; witness asserts the GENERAL form.*
+> 🔍 **AND THE EXISTING WITNESS HAD BEEN FAILING SINCE THE DAY OF THAT FIX** -- it produces the
+> IDENTICAL TclError against PRE-EDIT modules, and still demanded the behaviour the owner asked to
+> REMOVE. *A failing witness is why the crash went unseen.* 🚫 **DID NOT delete the section-9 parser:
+> the ARCHIVE is built from the same list, so that would destroy the record the owner asked to KEEP.**
+> `THE_GUI_COMPLAINT_WAS_ALREADY_FIXED_BUT_WRITING_ITS_GUARD_FOUND_A_CRASH_...`
+
+## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"
 > headline (its subset out-recalls its whole); D3's queued test (sweeps a variable that does not
