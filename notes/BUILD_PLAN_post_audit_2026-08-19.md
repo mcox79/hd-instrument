@@ -311,6 +311,23 @@
 >   the sum -- ONE INTEGER, and the live loop already knows it at write time (`century, 7 traces /
 >   92 occurrences`). Same save-the-population lesson, in its smallest possible form.**
 >   `notes/THE_LIVE_LOAD_ESTIMATOR_IS_INVALID_max_exceeds_total_occurrences_by_3_5x_2026-08-21.md`
+> - ✅ **THE FIX IS BUILT AND THE MEASUREMENT IS MADE. `f379ca309` persists a per-lemma TRACE COUNT
+>   beside the sum** (`ConceptSpace._counts`; `observe` increments; the live call site passes
+>   `len(it.traces)`; `seed_from_bundle` defaults to **-1 = UNKNOWN, never 0**; `trace_count()`).
+>   **BACKWARD COMPATIBLE, verified against the REAL read-only store** -- v1 loads and reports
+>   UNKNOWN rather than a fabricated zero. *2 self-tests; the new one added to the REPORTED dict
+>   because an invisible control is a weak one. 9 checks pass; the loop's 21 unaffected.*
+> - 🎯 **LIVE MEASUREMENT (1,200 sentences): 94 lemmas, ALL 94 with a KNOWN count, 0 unknown -- the
+>   wiring works end to end. mean 15.5, median 10, p90 36, MAX 77.** Against the capacity curve
+>   (0.9967@8, 0.7867@16, 0.3267@32): **L>8 = 56.4% of lemmas holding 84.4% of traces; L>16 = 28.7%
+>   holding 63.0%; L>32 = 14.9% holding 42.2%.**
+>   ➡️ ***63% OF LIVE WRITES LAND IN CONCEPTS ALREADY PAST THE 0.79-RECOVERY POINT*** -- the
+>   prediction I refused to assert one step earlier, now MEASURED.
+>   ⚠️ **A LOWER BOUND TWICE OVER: (a) 1,200 sentences is short and frequent words keep
+>   accumulating; (b) the capacity curve was measured on RANDOM BIPOLAR codes while live context
+>   vectors carry the known common mode -- correlation makes true capacity WORSE (discipline 16).**
+>   ✅ **`max = 77 > 72` INDEPENDENTLY CONFIRMS THE TWO-CAPPING-REGIMES POINT: the live loop is NOT
+>   under the experiment's 90-sentence sampling cap.**
 >
 > - 🧰 **`5d433bacd` -- AND BOTH READER FAILURES ARE NOW CODE.** *`what_did_this_cell_save.py` gained:
 >   **`load_any`** (JSON, falls back to JSONL, says **UNKNOWN not absent** when both fail); it now
