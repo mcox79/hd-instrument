@@ -89,20 +89,27 @@
 > THERE IS NO WIRING JOB.** *32% is 8x the head form, NOT clean --* `Afghanistan -> "the prince was
 > caught in another media furore"`. `THE_TOP_ITEM_WAS_ALREADY_WIRED_...`
 
-> ## **THE REGISTRY WAS STALE BY EXACTLY ONE TOOL FIX -- 7 LIVE ORGANS READ AS "NOT ON THE PIPELINE"**
+> ## **THE REGISTRY'S ROWS WERE STALE BECAUSE A CONCURRENT WRITER DISCARDED THE AUDIT'S RESULTS**
 > **Tell: ONE row contradicted ITSELF** -- `definitional_extraction`'s `provenance` said
 > *"pipeline_status corrected... on RUNTIME evidence (212 of 402 rows)"* while the FIELD still read
-> `WIRED_BUT_NOT_PIPELINE_REACHABLE`. **Cause is NOT a bad hand-edit: `capability_registry_audit.py:1494`
-> RECOMPUTES that field on EVERY row, so a hand-correction CANNOT survive.** And the closure was right
-> all along -- **the audit was fixed at 09:49 local ("not rooted at the assembled substrate") while the
-> registry's `last_audit_utc` is 09:15:02Z = 05:15 local, FOUR HOURS EARLIER.** Re-ran it: **7 organs
-> flipped to `WIRED_AND_PIPELINE_USED`** -- `definitional_extraction`, `substrate_assembled_reader_v1`,
-> `information_foraging`, `corpus_registry`, `sensorimotor_spoke`, `cortical_recall`,
-> `foundation_persistence` (+2 hand-registered rows got their missing `integration_status`).
-> **Totals now 55 USED / 94 NOT-REACHABLE.** /!\ **LIMIT, NOT TO BE OVERSTATED: that flag means
-> IMPORT-REACHABLE FROM THE ASSEMBLED READER, *NOT* EXERCISED. Only ONE of the seven
-> (`definitional_extraction`) has independent runtime evidence that it fires.**
-> `THE_REGISTRY_WAS_STALE_BY_ONE_TOOL_FIX_...`
+> `WIRED_BUT_NOT_PIPELINE_REACHABLE`. **A hand-correction CANNOT survive: `capability_registry_audit.py:1494`
+> RECOMPUTES that field on every row.** Re-ran it: **7 organs flipped to `WIRED_AND_PIPELINE_USED`**
+> -- `definitional_extraction`, `substrate_assembled_reader_v1`, `information_foraging`,
+> `corpus_registry`, `sensorimotor_spoke`, `cortical_recall`, `foundation_persistence`.
+> **Totals now 55 USED / 94 NOT-REACHABLE.**
+> **CORRECTED THE SAME NIGHT, AND MY FIRST EXPLANATION WAS WRONG: I said "nobody re-ran it", then
+> built a detector and asked whether it would have fired on the real prior state. IT WOULD NOT.
+> THE AUDIT RAN TWICE AFTER THE FIX (10:00 and 10:03 local) AND COMPUTED THE CORRECT 55/94 BOTH
+> TIMES -- the rows kept the 05:24 values (48/101) ELEVEN HOURS LATER. THE RESULTS WERE LOST, NOT
+> MISSING**, to the read-modify-write race `capability_registry_audit.py:1495` warns about in its own
+> comment (two one-off registration commits at 09:43 and 11:53 local, both leaving a hand-written
+> `integration_status: None`). ***SO "THE REPORT EXISTS" IS NOT EVIDENCE THE ROWS WERE UPDATED.***
+> **BOTH detectors now in `session_start_hook.registry_report()`: tool-newer-than-report, AND
+> rows-older-than-report (1h tolerance -- the audit stamps rows at START and names its report at
+> FINISH, an 8m24s gap on a healthy run, so a strict compare cries wolf every time).**
+> /!\ **LIMIT: `WIRED_AND_PIPELINE_USED` means IMPORT-REACHABLE FROM THE ASSEMBLED READER, *NOT*
+> EXERCISED. Only ONE of the seven (`definitional_extraction`) has runtime evidence that it fires.**
+> `THE_REGISTRY_WAS_STALE_BY_ONE_TOOL_FIX_...` *(title is wrong; corrected in-file)*
 
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
