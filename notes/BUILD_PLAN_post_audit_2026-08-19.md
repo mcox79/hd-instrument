@@ -251,6 +251,34 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## 🧩 **AND THE ENCODING GAP NOW HAS A NAME -- ONE CAUSE BEHIND THREE OF TONIGHT'S DEAD ENDS:
+> ## ONE REPRESENTATION IS DOING TWO JOBS THAT REQUIRE OPPOSITE THINGS.**
+> *60 lemmas x 41 real sentences, SAME code path both arms (`context_vector_masked` with a
+> never-matching target for the unmasked arm). Chance 0.0167.*
+> | | within | cross | margin | **hit@1** |
+> |---|---|---|---|---|
+> | **MASKED -- what the live path stores** | 0.0182 | 0.0079 | +0.0104 | **0.1417** |
+> | **UNMASKED -- word included** | 0.0705 | 0.0089 | **+0.0616** | **0.4750** |
+> **`context_vector_masked` removes every token matching the target ("the no-leak fix") and
+> `ConceptSpace.observe` accumulates exactly that -- SO A WORD'S STORED REPRESENTATION CONTAINS NO
+> TRACE OF THE WORD ITSELF.**
+> ⚠️ **NOT AN ARGUMENT TO UNMASK: 0.4750 is inflated by SELF-REFERENCE (the word's own vector is
+> identical across its encounters), and the mask is CORRECT for grounding -- without it the system
+> learns "artery means artery".**
+> 🎯 ***THE FINDING: GROUNDING needs the word REMOVED or the answer is written into the question;
+> IDENTIFICATION needs it PRESENT because it is by far the strongest cue. The same accumulated
+> vector is asked to do both, and the first requirement destroys the second BY CONSTRUCTION.***
+> 🧠 **THE BRAIN DOES NOT FACE THIS: word identification (VWFA → lexical entry) and semantic
+> grounding (ATL hub + spokes) ARE DIFFERENT SYSTEMS. It identifies the word FIRST, then binds
+> meaning to an already-identified item. We collapse both into one vector and then delete the
+> identity half to protect the grounding half.**
+> 🔗 **ONE CAUSE, THREE SYMPTOMS:** *CA3 cannot complete (same-word codes 0.0056 -- the cue is masked
+> out before storage); surprise is uninformative about value (no identity ⇒ cannot register "same
+> thing again", only novelty-of-form); 12-dim feature context is FLAT (also lacks identity).*
+> ⚠️ **NOT PROPOSED, NOT MEASURED: whether SPLITTING into a stable identity code plus a masked
+> context accumulation helps. This note names a CAUSE; the fix needs its own can-fail test.**
+> `notes/ONE_REPRESENTATION_TWO_OPPOSITE_JOBS_the_no_leak_mask_is_the_encoding_gap_2026-08-21.md`
+>
 > ## 🔬 **AND Q74's SHARPER HALF IS NOW ANSWERED: SURPRISE IS REAL BUT UNINFORMATIVE ABOUT VALUE --
 > ## WHICH EXPLAINS THE WRITE-GATE NULL THAT HAD NO MECHANISM.**
 > 🔻 **THE WRONG EXPLANATION I ALMOST FILED:** position-MEAN surprise barely moves (`0.9572 →
