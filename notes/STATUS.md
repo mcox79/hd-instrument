@@ -3,7 +3,20 @@
 AS OF: 2026-08-21 ~150 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **TWO DETACHED DIAGNOSTICS LIVE (see `## WHAT IS RUNNING`)** | **BOTH BOARD QUESTIONS ANSWERED (Q92 cap raise + archiving; Q95 brain-foundational criterion)** | 🔴 **TOP ITEM CHANGED: THE OVERNIGHT PLAN'S FOUR THRUSTS WERE *ALL FOUR* ALREADY ANSWERED ON DISK -- found by READING, none by running, one command each. The defect was ORDER: I wrote the plan before running the three prior-work reads, then ran them per-thrust afterwards. RUN THEM BEFORE RANKING CANDIDATES, NOT AFTER COMMITTING.** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK, THEN `notes/OVERNIGHT_PLAN_2026-08-21.md`, THEN `## POSITION` BELOW**
 
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). FOUR literals
-MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
+MACHINE-PARSED, never reword: `AS OF:`, "POSITION", "TOP ITEM" and "WHAT IS RUNNING"
+(`session_start_hook.py`, `board.py`). **Inside a section use `###`, never `##`.**
+*NEVER let a line BEGIN with one of those literals even when merely NAMING it -- which is why the
+four names above are in DOUBLE QUOTES, not backticks. **AND THE OPPOSITE FAILURE HAPPENED HERE ON
+2026-08-21: quoting them in BACKTICKS that were never closed swallowed the two REAL headings into
+this paragraph** -- one before `### 2026-08-21` and one before the TOP ITEM heading -- so
+`board.py` wrote MISSING REQUIRED LITERAL for BOTH, into the owner-facing board, and the file
+still LOOKED complete because every section BODY was present. **A heading is not the same object as
+its section: grep the four literals, never eyeball the content.** Restored the same day.
+**RUN `python tools/board.py self-test` AFTER ANY EDIT TO THIS HEADER.***
+
+## POSITION
+
+### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
 
 | arm, paired hit@1 discrimination, 4 sets | median | verdict |
 |---|---|---|
@@ -19,10 +32,8 @@ difference being 7,535 sentences read. First replicated positive from our side o
 `SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.**
 Marginal CIs overlapped, which is NOT a test of a difference; the paired test is. `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
 
-"TOP ITEM" and "WHAT IS RUNNING" (`session_start_hook.py`, `board.py`).
-**Inside a section use `###`, never `##`.** *And NEVER let a line BEGIN with one of those literals
-even when merely NAMING it: on 2026-08-21 this very sentence wrapped so that a line started with
-`## TOP ITEM -- **IT WAS SOLVED 8 DAYS AGO AND RANKED #1. WIRE DEFINITIONAL DIRECT-BANK.**
+
+## TOP ITEM -- **IT WAS SOLVED 8 DAYS AGO AND RANKED #1. WIRE DEFINITIONAL DIRECT-BANK.**
 
 **Owner, 2026-08-21: *"i think this reading and grounding thing was figured out a while ago - but you
 clearly didn't pick up on that."*** **They are right.** `notes/opportunity_map_2026-08-13.md` item
