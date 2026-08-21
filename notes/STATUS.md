@@ -1,6 +1,6 @@
 # STATUS -- THE RECOVERY ENTRY POINT. READ THIS, THEN THE PLAN.
 
-AS OF: 2026-08-21 ~133 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOTH BOARD QUESTIONS ANSWERED (Q92 cap raise + archiving; Q95 brain-foundational criterion)** | **TOP ITEM: 36 of 150 modules run when it reads; 81 are built, blessed WIRE, and never called -- that is the backlog, and it is a WIRING backlog** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK, THEN `## POSITION` BELOW**
+AS OF: 2026-08-21 ~150 CONTINUATIONS IN (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **TWO DETACHED DIAGNOSTICS LIVE (see `## WHAT IS RUNNING`)** | **BOTH BOARD QUESTIONS ANSWERED (Q92 cap raise + archiving; Q95 brain-foundational criterion)** | 🔴 **TOP ITEM CHANGED: THE OVERNIGHT PLAN'S FOUR THRUSTS WERE *ALL FOUR* ALREADY ANSWERED ON DISK -- found by READING, none by running, one command each. The defect was ORDER: I wrote the plan before running the three prior-work reads, then ran them per-thrust afterwards. RUN THEM BEFORE RANKING CANDIDATES, NOT AFTER COMMITTING.** | **THE PLAN `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK, THEN `notes/OVERNIGHT_PLAN_2026-08-21.md`, THEN `## POSITION` BELOW**
 
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). FOUR literals
 MACHINE-PARSED, never reword: `AS OF:`, `## POSITION`, `### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
@@ -58,9 +58,33 @@ deadlock I described -- grounding needs anchors, anchors need grounding -- is a 
 COMPARATOR path, and it is exactly why the fix is to not route through it.*
 `notes/opportunity_map_2026-08-13.md` (item #1), `notes/director_handscore_b3_v5_termboundary_2026-08-12.md`
 
+## 🌙 THE NIGHT OF 2026-08-21 -- FINDINGS, ALL FROM READING ARTIFACTS THAT ALREADY EXISTED
+
+**Full notes named; do not re-derive.**
+
+| # | finding |
+|---|---|
+| **META** | **All 4 planned thrusts were already answered on disk.** T1 organ exists+PINNED+run; T2 `HARD_FAIL` on the exact test; T3 switches already default-ON (a landed cell carries a `premise_correction` field recording a PRIOR dispatch making the identical mistake); T5 already measured. **`organ_map_cite.py` answered two in its FIRST LINE.** The defect was ORDER, not omission. [`T2_superseded_and_the_NIGHT_S_META_FINDING...`] |
+| **H2** | The organ built to break a **64.5% biology skew read its way to `dominant_domain=textbook_biology 0.63245`** -- free choice over 36 corpora, 19 visited -- **while WINNING on its own currency** (gain 6.96 vs 5.90). **MVT is a LEAVE rule, silent on WHERE TO GO**; patch-CHOICE is the UNPINNED half. **Breadth was never in the currency.** *Register-inversion headline WITHDRAWN: a 7.6x register bias sits under a 1.2x margin, so the coverage comparison supports nothing either way.* [`T1_foraging_...`] |
+| **E3** | **Our coreference "salience" is PROVABLY a mention-count.** `count + 0.5*exp(-0.1*d)`: bonus capped at 0.5, counts are integers, so **a one-mention lead can never be overturned**. The cell measured `D2_salience_equals_argmax_count_fraction = 1.0` on all 89 competitive decisions; its verdict never said so. **`base_principle_b` (0.7191) did not beat a cue-integration account -- it beat a counter.** We implement **none** of the brain's top three cues. [`T2c_...`] |
+| **E3b** | That `HARD_FAIL` **cannot support its own verdict**: n=89 (CI 0.22 wide), **scramble control ABOVE the treatment** (0.5938 vs 0.5843, different subset -> unusable either way), **2 of 3 params hand-set with the sweep still CLIMBING at its boundary**. Re-label **UNDERPOWERED**. [`T2b_...`] |
+| **B4** | **Pure spelling beats the meaning read-out at rank 1 and SURVIVES the strictest tie convention** (0.0767 vs 0.0480; substrate arm has **0.0% ties** -- no defence available). **BUT the "identical median rank 37.0" WAS the artifact** -- honestly scored, the substrate WINS the full ranking **37.0 vs 54.0**. **➡️ THE DEFECT IS PRECISION AT THE TOP, NOT COVERAGE.** *`A8_MAXORTHO`, documented as "the strongest zero-meaning attack", is a z-SUM 30% BELOW its own component; the true floor is `A6`.* [`T5b_...`] |
+| **B4b** | **The live grounding path reads a GRADED field with a SIGN-QUANTISED query** -- `canonicalize:776` hardcodes `np.sign`, `canonicalize_fast` honours the switch, and **the grounding call sites use the one that cannot**. `:663` calls that pairing *"worse than either"*. **Under test now.** [`T3_...`] |
+
 ## WHAT IS RUNNING
 
-- **NOTHING IS RUNNING.** No cells, no agents, no detached processes spawned by this session.
+- 🟢 **TWO DETACHED DIAGNOSTICS ARE LIVE** (this session; `Start-Process`, survive the session):
+  - `tools/diagnose_read_with_loaded_foundation.py` -> `scratch/t4_decisive_out.log` (shim PID in
+    `scratch/t4_decisive.pid`). **Healthy but SILENT: its prints lack `flush=True`, so redirected
+    stdout is block-buffered and dumps only at exit.** Judge it by the CHILD process, never the
+    shim: CPU advanced 937s -> 1720s. *It re-runs the "decisive test" whose original double null
+    (`GROUNDED(last)=0`) was TWO probe bugs -- corpus exhausted (3x1200 requested, 1540 read =
+    1200+340+0) so the count came off a read that processed no text, and only the LAST of three
+    calls was reported.*
+  - `tools/graded_vs_signed_query_v1.py` -> `scratch/gvs_out.log`. **Tests T5b's prediction:
+    restoring the magnitude `:776` discards should move hit@1 SPECIFICALLY and leave median rank
+    roughly alone.** Refuses to report unless `Q_GRADED` reproduces the landed C3 headline 0.0480.
+- **DONE, one command each, all from READING:** `tools/orthographic_floor_tie_mass_v1.py` (621 s).
 - **BOARD Q92 AND Q95 ARE OPEN** (Q91->Q92 superseded on new arithmetic; Q93->Q94->Q95 on a
   reversed recommendation and then a fact I had not CI-checked). Q92: this file is ~2.3x its
   8,704 B cap after the 2026-08-21 trim. Escalation
