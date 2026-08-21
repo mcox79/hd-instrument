@@ -38,6 +38,23 @@
 > ahead of the strong one only as a POINT ESTIMATE. *Which is what step 4 exists to settle -- its own
 > can-fail test already reads "n in the hundreds, not n=10".*
 >
+> ## 🔻 **ANGLE B CORRECTED -- THE DEFINITIONAL HALF COVERS ONLY A QUARTER OF THE WORDS**
+> Tested the claim I repeated all session and never checked against a task. 7,535 sentences yield
+> **528 defined terms**. Over 480 items: the CORRECT word has a definition **24.6%** of the time,
+> the intruder **31.2%**, **BOTH only 10.0%**. **NOT TESTABLE at this coverage -- and that is NOT a
+> negative result**; a low score would measure coverage, not meaning quality, so the script refuses
+> to score below 20%.
+> ### **THE COVERAGE FIGURE IS ITSELF THE ANSWER, AND IT CORRECTS MY DESIGN.** "Bind only the
+> definitional half" leaves **~75% of encountered words with NO prediction**, and no prediction
+> means no error -- F5 would be silent exactly where the substrate is least informed.
+> ### ⚠️ **AND I CONFLATED TWO DENOMINATORS**, the same error I had just fixed in STATUS.md:
+> **"212 of 402" = 53% of PROVENANCE ROWS IN ONE BANKING RUN**; definitional coverage of the words
+> you actually meet is **24.6%**. *Half the rows you banked is not half the words you encounter.*
+> **Three fallback options recorded, none chosen** (no prediction / fall back to the distributional
+> profile / widen coverage first) -- I have no evidence to choose between them.
+> **The architectural claim is UNTOUCHED**: the meaning must supply the PREDICTION. What is
+> corrected is the FILTER. `notes/ANGLE_B_CORRECTED_the_definitional_half_covers_only_a_quarter...md`
+>
 > ## 🧰 **ASSETS BUILT TODAY -- USE, DO NOT RE-DERIVE**
 > `f5_evaluation_harness.py` (REFUSES to score a detector failing the mandatory diagnostics; has
 > `compare_detectors_paired`) · `anomaly_set_frequency_matched_v8.json` + `_v8_handscores.json`
