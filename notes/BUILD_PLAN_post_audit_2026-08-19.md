@@ -139,6 +139,22 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## 🔻 **BUT DIMENSION BUYS THE LOOKUP, NOT THE UNDERSTANDING -- AND THE TEST HAD THE POWER TO SEE IT**
+> **829 SimLex pairs IDENTICAL at every `d` (so the corpus confound CANCELS -- it is constant across
+> the arms compared), null = 200 shuffles per `d`:** `128 0.0974 | 256 0.0944 | 512 0.1032 |
+> 1024 0.1071 | 2048 0.0874`, null p95 `0.058-0.079`, null mean `~0`. **`1024 - 256` on MEANING =
+> `+0.0127`, CI `[-0.0305,+0.0559]` -- SPANS ZERO, and the curve DROPS at 2048.** *Against the same
+> change on IDENTIFICATION: `+0.0622`, CI EXCLUDES ZERO.*
+> 🎯 **NOT THE USUAL "UNDERPOWERED" DODGE: the meaning CI half-width is `0.0432`, so an
+> identification-sized `+0.0622` would have given `[+0.019,+0.105]` and been DETECTED. A BOUNDED
+> negative.** ➡️ **D1 must be argued on IDENTIFICATION -- which is largely a LOOKUP -- against a
+> change that rewrites every persisted store.** ⚠️ **AND SOBERING: rho `~0.10` vs a null p95 of
+> `~0.065` means our meaning signal is BARELY clear of noise at EVERY dimension.**
+> 🔻 *My first null shuffled ONCE and reused it at every `d` -- read `0.0568-0.0846`, comparable to
+> the real signal, and appeared to RISE with `d`. One unlucky draw inherited by five arms; the tell
+> was a "random" control varying with a parameter it cannot depend on.*
+> `DIMENSION_BUYS_THE_LOOKUP_NOT_THE_UNDERSTANDING_...`
+
 > ## ✅ **THE LIMIT IS DIMENSIONAL, NOT EXPERIENTIAL -- AND D1 NOW HAS A SECOND, FLOORED MEASUREMENT**
 > **Sweep with the SCRAMBLE floor RECOMPUTED AT EVERY `d` (balanced lemmas, chance 0.0167 fixed):**
 > `d=128 0.1061 | 256 0.1435 | 512 0.1776 | 1024 0.2057 | 2048 0.2268`, **SCRAMBLE stays at chance
