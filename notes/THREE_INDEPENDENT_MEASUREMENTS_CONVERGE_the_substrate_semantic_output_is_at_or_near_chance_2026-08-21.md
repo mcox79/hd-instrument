@@ -1,5 +1,32 @@
 # **THREE INDEPENDENT MEASUREMENTS, THREE DIFFERENT TASKS, ONE ANSWER: THE SUBSTRATE'S SEMANTIC OUTPUT IS AT OR NEAR CHANCE**
 
+> # 🔴 **CORRECTED -- A FOURTH MEASUREMENT EXISTS, IT IS IN `STATUS.md`, AND IT MAKES "AT OR NEAR CHANCE" TOO STRONG.**
+> **I synthesised three measurements without checking whether a fourth existed. It did, in the file
+> the session-start hook injects every single time.**
+>
+> | arm, paired hit@1 discrimination, 4 sets | median | verdict |
+> |---|---|---|
+> | untrained codebook (nothing read) | ~0 | CIs span zero |
+> | **THE TRAINED SUBSTRATE** | **+16.3 pp** | **`REPLICATED`, all 4 CIs exclude zero** |
+> | second-order counting (**the bar**) | +29.4 pp | `REPLICATED` |
+>
+> **"LEARNING BOUGHT SOMETHING REAL -- 0 -> +16.3 pp, same representation and comparison, the only
+> difference being 7,535 sentences read. First replicated positive from our side on this task."**
+>
+> **➡️ SO THE SUBSTRATE IS *NOT* UNIFORMLY AT CHANCE. On this task it is REPLICATED above an
+> untrained codebook, with all four CIs excluding zero.** *"At or near chance" is withdrawn as a
+> general claim.*
+>
+> **WHAT SURVIVES, AND IT IS THE SAME DIRECTION BUT A DIFFERENT SENTENCE:**
+> **`SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]` -- SEPARATED.**
+> *Not "not ahead" -- **measurably behind**, on a paired test, which is the test that matters.*
+>
+> **➡️ THE CORRECTED CLAIM: THE SUBSTRATE IS ABOVE ITS UNTRAINED FLOOR ON AT LEAST ONE TASK AND
+> CONSISTENTLY, MEASURABLY BELOW COUNTING ON EVERY TASK EXAMINED.** *That is a weaker statement than
+> the headline below and it is the one the evidence supports.*
+>
+> *The three measurements below stand as written; what changes is the generalisation drawn from them.*
+
 **None of these was designed to test the others. All three were already on disk. I found them
 separately tonight and only noticed the convergence after the third.**
 
