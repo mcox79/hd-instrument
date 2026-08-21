@@ -251,6 +251,25 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## 🚫 **DE-RISKING Q102: THE FORM CHANNEL SCORES 1.0000 ON IDENTIFICATION -- WHICH PROVES THE TASK
+> ## IS A LOOKUP, NOT THAT THE CHANNEL IS GOOD. MY OWN BENCHMARK WAS CIRCULAR.**
+> *80 lemmas, 8 held-out probes each, chance 0.0125.* **CONTEXT 0.1141 vs FORM (`CharTrigramEncoder`)
+> **1.0000**; CONTEXT-right-FORM-wrong = **0.0000** (strict domination).**
+> ➡️ ***TAUTOLOGY: the task is "which of 80 words is this?" and the form code IS a function of the
+> word's spelling. Query and answer are the same object -- a perfect score was guaranteed before the
+> code ran. I nearly reported "form beats context 1.0000 to 0.1141" as a finding.***
+> ✅ **WHAT IT SETTLES: the index is PERFECT and therefore UNINFORMATIVE, so the Q102 decision cannot
+> be judged on ANY identification-style metric. It must be judged on MEANING** -- where the archive
+> already has the alarming prior: **spelling beats our meaning read-out at rank 1, `0.0767` vs
+> `0.0480`, strictest tie convention, substrate arm at 0.0% ties so no defence available.**
+> ➡️ **SHARPENED TELL FOR Q102 (stronger than the one I filed): *THE FORM CHANNEL WILL SCORE
+> PERFECTLY ON ANY TASK WHERE THE WORD IS THE ANSWER. EVALUATE IT ONLY WHERE THE WORD IS THE
+> QUESTION -- meaning, similarity, entailment. Any evaluation it wins trivially cannot inform the
+> wiring decision.***
+> 🔁 *Same shape as D3's self-test reading 1.000: **a perfect score usually means the task is broken,
+> not that the method is good.***
+> `notes/THE_FORM_CHANNEL_SCORES_1_0000_BECAUSE_THE_TASK_IS_A_LOOKUP_de_risking_Q102_2026-08-21.md`
+>
 > ## 🔻 **AND THE PRIOR-WORK CHECK CORRECTED MY OWN RECOMMENDATION ONE TURN AFTER FILING IT (Q101 →
 > ## Q102): THE "SEPARATE IDENTITY CODE" IS ALREADY BUILT AND SIMPLY NOT WIRED.**
 > **`notes/PLAN.md` already carries tonight's "discovery" as ONE OF ITS FOUR FOUNDATIONAL ANCHORS:**
