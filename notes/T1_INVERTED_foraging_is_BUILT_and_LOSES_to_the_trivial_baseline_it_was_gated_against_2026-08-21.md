@@ -104,6 +104,39 @@ explanation that would have excused the result is ruled out by construction.*
   that foraging beats doing nothing clever, because the arm that beat it was in the same run and was
   not the gate** -- and the obvious excuse for the winner has been checked and does not hold.
 
+## 7. 🔬 **THE DRILL: *WHY* FROZEN WINS -- AND IT PARTLY REHABILITATES THE ORGAN**
+
+All five arms read **exactly 10,000 sentences**. Splitting the outcome into *how many extraction
+attempts each arm generated* and *what fraction of those succeeded* -- both already in the metrics,
+no new run -- gives the mechanism:
+
+| arm | banked | refused | **attempts** | **HIT RATE** | held-out |
+|---|---|---|---|---|---|
+| **FROZEN** | 696 | 3,872 | **4,568** | **15.2%** | 0.0743 |
+| **FORAGE** | 604 | 1,633 | 2,237 | **🥇 27.0%** | 0.0617 |
+| FIXED_LEAVE | 440 | 1,464 | 1,904 | 23.1% | 0.0520 |
+| FORAGE_REFUSAL | 383 | 1,419 | 1,802 | 21.3% | 0.0253 |
+| **RANDOM** | 157 | 1,177 | 1,334 | **11.8%** | 0.0127 |
+
+**➡️ FORAGE HAS THE BEST HIT RATE OF ANY ARM -- 27.0% vs FROZEN's 15.2%. IT LOSES ON VOLUME:
+FROZEN GENERATES 2.04x THE ATTEMPTS FROM THE SAME 10,000 SENTENCES.**
+
+**AND THE ORGAN IS DEMONSTRABLY DOING ITS JOB, WHICH THE HEADLINE ALONE HIDES.** Against **RANDOM**
+-- the arm that isolates *choosing* from *not choosing* -- FORAGE more than **doubles** the hit rate
+(27.0% vs 11.8%) while reading fewer corpora (19 vs 28). *Gap-driven selection genuinely picks better
+material. That is a real capability and it is not what failed.*
+
+**WHAT FAILED IS THE OBJECTIVE.** FORAGE maximises **yield per attempt**; the outcome scores **total
+banked**. The four frozen corpora are dense textbook prose that offers far more extractable structure
+per sentence, so **volume beats precision at this foundation size** -- *and nothing in the foraging
+controller's value function knows that.*
+
+**➡️ THE CONCRETE, TESTABLE FIX THIS POINTS AT:** the ranker weights expected *gap coverage* and is
+blind to expected *attempt density*. **A patch that yields 4 candidate structures per sentence is
+worth more than one that yields 1, even at a lower hit rate** -- which is ordinary marginal-value
+arithmetic and exactly what the foraging controller already exists to compute. *Stated as a
+hypothesis: it predicts FORAGE overtakes FROZEN once density enters the gain term.*
+
 ## TLDR
 
 Tonight's plan said the top job was to build the part that decides what to read next, because the
@@ -133,8 +166,23 @@ to the winner doesn't hold, which makes the result stronger rather than weaker.*
 
 One caveat stands: **it's a single run, not repeated.**
 
-**The useful outcome: a better question.** Not "can we build this" but **"why does reading the same
-four things forever beat choosing what to read?"** — which is cheaper to answer and more interesting.
+**Then I dug into why — and it's much more interesting than "the clever thing lost."**
+
+Every version read exactly the same number of sentences. Split the result into *how many times each
+one tried to learn something* and *how often trying worked*, and the picture flips: **the clever
+selector has the best success rate of anything tested — 27%, against 15% for reading the same four
+documents.** It's genuinely good at picking promising material. Compared against picking at random,
+which is the fair test of whether choosing helps at all, **it more than doubles the success rate.**
+
+**It loses because it doesn't try often enough.** The four frozen documents are dense textbooks that
+offer roughly twice as many chances to learn something per sentence. So the selector wins every
+attempt and still loses the match.
+
+**That means the machinery works and the goal is wrong.** It's built to maximise how often it
+succeeds, while what actually matters is how much it learns in total — and nothing in it currently
+knows that a page offering four chances beats a page offering one. **That's a small, specific fix
+rather than a rebuild**, and it predicts the selector overtakes the frozen schedule once it counts
+opportunities as well as quality.
 
 ## QUESTIONS
 
