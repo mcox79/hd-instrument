@@ -24,6 +24,29 @@
 >    the knowledge'."*** Per-process **0.45-0.69 against a 0.19 scramble floor**; the aggregate only
 >    looked bad because **the dense corpus is small (155 facts vs ~735)**.
 >
+> ## 🎯 **THE STRONGEST BUILD CANDIDATE IN THE ARCHIVE -- BOTH HALVES MEASURED, NEITHER CONNECTED**
+> **B1 (the concept hub) IS A COVERAGE CLIFF, and `ORGAN_MAP` says so in its own words: *"not a
+> HARD_PASS for the organ. **It is a cliff.**"***
+>
+> | tier | 1 | 2 | **3** |
+> |---|---|---|---|
+> | **ours (hand lexicon)** | 0.931 | 0.304 | **0.002** |
+> | distributional counting | 0.859 | 0.852 | **0.830** |
+>
+> **CAUSE, from B1's own `GAP` line: *"a hand-built lexicon of ~230 concepts, not learned, and
+> **unweighted**... **there is no frequency statistic anywhere in this organ, so distinctiveness
+> cannot be computed even in principle**."*** *Brain SHAPE privileges distinctive features; ours is
+> **"the precise inverse."***
+>
+> **AND THE ASSET THAT ADDRESSES IT IS ALREADY LIVE:** `grounded_similarity.py` exists *because* of
+> this gap and says so -- **36,810 words / 60.4% of tokens, z-scored across 12 continuous
+> dimensions**, measured at **rho 0.2701, CI [0.0159, 0.3084]**, beating a **121M-token encoder**.
+> **It is loaded on every read and `GROUNDED_CAP=0.45` makes it effectively two-valued, so it cannot
+> influence any decision.**
+>
+> **⚠️ THE BAR IS COUNTING, NOT RANDOM -- tier-3 distributional is `0.830`. And a close relative was
+> already scored (3 seeds x 40k sentences) and NEVER beat `TOP_COOCCURRENT`.**
+>
 > ## ➡️ **WHAT IS ACTUALLY NEXT**
 > **THE SCANNING IS EXHAUSTED -- two consecutive mechanical audits produced unusable populations
 > (1,925->132 suspects; 98% of `HARD_PASS` cells "unregistered", which is a curation ratio, not a
