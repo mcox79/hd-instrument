@@ -1,207 +1,62 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
-> # 🔄 **AND MY RECOMMENDATION ON IT REVERSED, ONE TURN LATER -- NOW BOARD Q94 (Q93 SUPERSEDED)**
-> I recommended *"carry on with F5"* and only THEN ran the three prior-work reads on the
-> alternative. **The reads changed the answer. Recommending before reading is the same ordering
-> error I had just finished documenting.**
-> ### **E3 IS NOT A MISSING ORGAN -- IT IS A WORKING ONE, ABOVE ITS FLOORS.** `ORGAN_MAP` STEP 4 in
-> its own words: **"a WIDEN-THE-MARGIN step on a working organ, not a rescue."**
-> **our resolver 0.7193** vs most-recent-mention **0.5614** and subject-majority **0.3860**; oracle
-> 0.9298, honest earned 0.6842; same run, same corpus, same metric
-> (`exp_wire_coref_accumulate_situation_model_v1`, `BOTTLENECK_QUANTIFIED`). **`WIRED: YES`.**
-> ### ⚠️ **CORRECTED -- I QUOTED THAT MARGIN WITHOUT A CI. n=57, AND THE STRONG FLOOR IS NOT CLEARED.**
-> All five figures DISK-VERIFIED in one block, one metric (`eval_blocks.powered.
-> query_accuracy_identity_demanding`) -- ORGAN_MAP's prose is accurate. **But n=57 and the file
-> carries NO confidence interval anywhere.** Unpaired 2-proportion test (conservative; the file lacks
-> the discordant counts a paired test needs):
-> | comparison | diff | 95% CI | |
-> |---|---|---|---|
-> | strict_cb vs **recency floor** | +0.1579 | **[-0.016, +0.332]** | **NOT SEPARATED** |
-> | earned vs **recency floor** | +0.1228 | **[-0.054, +0.299]** | **NOT SEPARATED** |
-> | strict_cb vs singleton floor | +0.3333 | [+0.161, +0.505] | SEPARATED |
-> **The whole margin over the strong floor is NINE ITEMS of 57 (41 vs 32).**
-> **HONEST VERSION: clearly ahead of the WEAK floor, ahead of the STRONG one only as a POINT
-> ESTIMATE.** Still the best-looking thing measured today; a smaller claim than I made.
-> *Also note `0.7193` is the `strict_cb` arm (`best_real_arm`); `earned` is `0.6842`.*
-> **RECOMMENDATION UNCHANGED -- this argues FOR step 4**, whose own can-fail test already reads
-> *"n in the hundreds, not n=10"*. An unproven nine-item lead is what that step exists to settle.
-> `notes/CORRECTION_the_E3_margin_over_its_STRONG_floor_is_NOT_CI_separated_at_n57_2026-08-21.md`
-> Its fidelity fix is named precisely -- replace OUR invented arithmetic (`beta=0.5, lambda=0.1`)
-> with parallel cue-based retrieval + similarity interference, score by the semantic comparator not
-> token Jaccard, **KEEP** the margin abstention (already brain-faithful). **More specified than F5's
-> design, whose norm/update/precision are all UNPINNED.**
-> ### ⚠️ **AND ITS HARD_PASS IS n=10 (1.000).** The map already says so: can-fail test is
-> **"n in the hundreds -- not n=10."**
-> **Q94 recommendation: do step 4 first. Risk stated: it defers the read-back gap F5 was aimed at,
-> and I have reversed myself within two turns, which is itself a reason to discount me.**
-> `notes/I_RECOMMENDED_F5_BEFORE_READING_E3_...md`
-
-> # 🚨 **ORGAN_MAP QUEUES F5 BEHIND STEP 4 AND CLASSES IT PHASE B -- BOARD Q94 (2026-08-21)**
-> `ORGAN_MAP.md` in its own words: **"F5/F6 -- queue behind step 4"** (1440); **"PHASE B --
-> SUPERCHARGE. NOT STARTED. Recorded so it is not started by accident."** (1442); **"F5 does not
-> exist yet, so this is Phase B AFTER the Phase-A organ is built and floored"** (1447-49); **"No
-> organ enters Phase B until its Phase-A parity is measured against a floor -- 5 organs of 38, and
-> three of those five are not wired."** (1451). **Step 4 is E3 coreference, and it is not started.**
-> ### **I CITED F5's MATH ROW (989) ALL SESSION AND NEVER READ LINE 1440 IN THE SAME FILE.** Second
-> time with this exact file -- the divisive-normalisation rule was *grep the whole file, not the row
-> you are citing.* **Quoting one section of a document is not reading it.**
-> ### ✅ **THE FIDELITY ANSWER IS GOOD BUT PARTIAL:** the error being measured against the CURRENT
-> discourse state is **PINNED**; the **norm, the update rule and the precision estimator are
-> UNPINNED**. Angle B's load-bearing claim sits on the pinned half. **Every F5 brief must label the
-> rest OUR-INVENTION-UNDER-TEST, not brain-derived.**
-> ### **NOT "STOP":** the owner's Q89/Q90 endorsement outranks ORGAN_MAP -- but it was given without
-> this constraint surfaced, so the scheduling call is now **Q93**. **Do not self-answer it.**
-> **No measurement is wasted either way:** the item set, hand-scores, harness, three-way comparison
-> and paired test are properties of the TASK and the SUBSTRATE, not of F5.
-> `notes/THE_BRAIN_REFERENCE_QUEUES_F5_BEHIND_STEP_4_...md`
-
-> # 📊 **THE THREE-WAY COMPARISON IS COMPLETE (2026-08-21)**
-> | arm, paired hit@1 discrimination, 4 sets | median | verdict |
-> |---|---|---|
-> | untrained codebook (nothing read) | **~0** | CIs span zero -- donates nothing |
-> | **THE TRAINED SUBSTRATE** | **+16.3 pp** | **`REPLICATED`, 4/4 CIs exclude zero** |
-> | second-order counting (**the bar**, UB **+44.2**) | +29.4 pp | `REPLICATED` |
+> # 📍 **STATE AS OF 2026-08-21. ONE BLOCK, CURRENT ONLY.**
+> *Seven blocks were stacked here during the session, several superseded by ones ABOVE them --
+> Q93/Q94 references after Q95, a STATUS size after two more trims, and a bar table the lemma fix
+> had already withdrawn. **A reader could not tell which was live. Superseded detail lives in the
+> notes, each with a banner; it is deliberately NOT layered here.***
 >
-> **Learning bought something real** (0 -> +16.3, same representation and comparison, only the
-> reading differs). **And the PAIRED test says we are measurably BEHIND counting, not merely
-> not-ahead: `-0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.** Overlapping
-> marginal CIs are not a test of a difference; the paired test is.
-
-> # ✅ **THE SURFACE-vs-LEMMA BUG CLASS IS ENUMERATED ACROSS `hdlab/` -- THE SUBSTRATE IS CLEAN (2026-08-21)**
-> Four modules use the lemma functions; three compare lemma-to-lemma correctly. **One site genuinely
-> would break** -- `substrate.py` ~547 compares `content_lemmas` output against `SEED_VOCAB` as
-> written, and **15 of 107 entries are not their own lemma.** It survives only because **all 15 have
-> their lemma ALSO in the list.** Measured: 34,647 content lemmas over 4,000 sentences, 4,038 skipped
-> as seeds, **0 missed.**
-> **I nearly reported the reassuring version:** the first check said "harmless, they're function
-> words", then verbs turned out to survive filtering (`"was called"` -> lemma `call`), which
-> contradicted my own zero. **An empirical zero and a structural impossibility are different claims
-> and only the second is safe to rely on.**
-> **A lucky property is one careless edit from a silent bug**, so it is now
-> `verification/test_seed_vocab_is_lemma_closed.py`, with a POSITIVE control (verbs survive, so the
-> invariant guards a live path) and a NEGATIVE control (the detector fails a deliberately broken list).
-
-> # 🧹 **`notes/STATUS.md` TRIMMED 308,692 -> 27,819 B (2026-08-21). NOTHING DELETED.**
-> It is the compaction-recovery entry point and had reached **35x its own 8,704 B cap** by
-> ACCUMULATING session findings instead of being rewritten in place.
-> **135 sections / 280,747 B were MOVED, not cut** -> `notes/STATUS_LESSONS.md` (numbered TOC,
-> **verified: 0 of 135 headings missing**) + `notes/STATUS_ARCHIVE_2026-08-21_pre_trim.md`
-> (byte-identical snapshot, sha256-verified). The largest block, **77,131 B = 25% of the file**, was
-> self-labelled *STALE, SUPERSEDED BY `## WHAT IS RUNNING`* with its successor present -- spec tier 5.
-> **`## DO NOT REDO` and `## STANDING DISCIPLINES` UNTOUCHED** -- the never-trim sections were not
-> the growth.
-> **POSITIVE CONTROLS:** the hook injects **7,817 B, byte-for-byte the same count as before the
-> trim**, correct `AS OF:`, populated `WHAT IS RUNNING`, no placeholders; `board.py self-test` PASS.
-> ### 📋 **STILL ~3x OVER CAP. BOARD Q91 OPEN** -- a further raise is ESCALATED not self-authorised
-> (spec sec 6: the party needing the room may not grant it). **Do not self-approve it while it is open.**
-
-> # 🎯 **THE F5 BAR IS MEASURED, BEFORE THE ORGAN EXISTS (2026-08-21)**
-> `tools/score_anomaly_set_floors.py` on the 102 hand-scored CLEAN items.
-> **DELTA = anomalous-sentence rank vs the ORIGINAL sentence scored at the SAME slot. The original
-> word is CORRECT there, so a DELTA of zero means the arm is responding to the SLOT, not the anomaly.**
+> ## 🅰️ **OPEN OWNER DECISIONS -- DO NOT SELF-ANSWER**
+> - **Q92** -- `notes/STATUS.md` is ~2.3x its 8,704 B cap. **The two never-trim sections ALONE are
+>   11,228 B = 1.29x the whole cap**, so the cap is unreachable without deleting what it protects.
+>   Raise it, or move those sections out behind pointers? *(Q91 superseded on that arithmetic.)*
+> - **Q95** -- `ORGAN_MAP` queues **F5 behind step 4 (E3 coreference)** and classes it **Phase B,
+>   "recorded so it is not started by accident"**. Build F5 anyway, or do E3 first?
+>   *(Q93 -> Q94 on a reversed recommendation, Q94 -> Q95 on a fact I had not CI-checked.
+>   **I have revised this item three turns running -- weight my judgement below the evidence.**)*
 >
-> | floor | anom | orig | DELTA |
-> |---|---|---|---|
-> | **CO-OCCURRENCE SURPRISAL** | **4.00** | 6.00 | **+2.00** -- the ONLY floor that detects anything |
-> | FREQUENCY (flag the rarest) | 2.00 | 2.50 | +0.50 -- **the matching worked** |
-> | POSITION / ORTHOGRAPHIC / LENGTH / CONSTANT | -- | -- | **+0.00, all four: NO anomaly signal** |
->
-> ### 🚫 **THAT BAR IS SUPERSEDED 2026-08-21 -- IT WAS TOO LOW AND ON THE WRONG METRIC.**
-> **SECOND-ORDER counting (word-profile vs neighbours' profiles) reads median rank 1.0 under BOTH
-> tie conventions on all four sets, tie mass ~0** -- where first-order reads 4.0. But the control
-> reversed the reading and I nearly fired the kill condition on it: **the same floor ranks that slot
-> first 42.6% of the time when the word is CORRECT.** Most of the rank is a SLOT property.
-> **Real discrimination: 53.5% vs 42.6% = +10.9 pp, CI [+3.0, +18.8], McNemar p=0.0153.**
-> **➡️ ABSOLUTE RANK CANNOT BE THE READ-OUT FOR ANY ARM -- every arm is slot-inflated. The only
-> valid metric is the PAIRED anomalous-vs-original difference.**
-> ### ✅ **AND THE CORRECTED BAR NOW REPLICATES (4 sets, ALL-ITEMS so the population is constant):
-> `+10.9 / +13.3 / +13.8 / +7.6 pp` -> `REPLICATED`, median +12.1, 1.8x spread, sign 4/4, McNemar
-> p = 0.0004-0.0389 on every set. Per-set CI upper bounds 17.6 / 20.0 / 20.7 / 14.3.**
-> ### 🚨 **CORRECTED AGAIN 2026-08-21 -- A SURFACE-vs-LEMMA LOOKUP BUG WAS DEFLATING EVERY FLOOR.**
-> The co-occurrence tables are keyed by `content_lemmas` output; the scorers looked up SURFACE
-> forms, so `achievements` missed while `achievement` was present. Inflected words were silently
-> dropped from the candidate slate and any that survived scored the unknown-word sentinel and
-> OUTRANKED real candidates. **Fixing it moved second-order counting from +10.9 pp to +28.3 pp and
-> dropped its ORIGINAL-sentence hit rate 42.6% -> 12.5% -- so the "most of the floor's skill is a
-> slot effect" reading was LARGELY THIS BUG.** Both floors now measured THROUGH the harness the
-> cell will use: first-order `+23.3/+23.5/+22.5/+25.2`, second-order `+28.3/+29.4/+35.0/+29.4`,
-> both `REPLICATED`.
-> ### 🎯 **BAR: F5 must beat +44.2 pp.** Third correction, third upward move, every one from a
-> defect in my own instrument: rank-4.0 -> +18.8 -> +20.7 -> **+44.2**. `tools/f5_evaluation_harness.py`
-> refuses to score a detector that fails the mandatory diagnostics.
->
-> ### ~~FINAL BAR: F5 must beat +20.7 pp -- the MAX per-set CI upper bound, gating on the
-> floor's upper bound as the standing rule requires. (Was +18.8 from a single set.)**
-> *Caveat stated rather than buried: 1.8x magnitude spread, wider than the rank measure's 1.1x.*
->
-> ### ~~CORRECTED BAR: F5 must beat +18.8 pp (the floor's UPPER bound) on the paired hit@1
-> difference, >=3 sets, `REPLICATED`. Headroom is ~43 pp; counting takes 10.9 of it. F5 is NOT
-> pre-empted, but the bar is nearly twice what I pre-committed.**
-> `notes/THE_F5_BAR_WAS_TOO_LOW_AND_ON_THE_WRONG_METRIC_second_order_counting_2026-08-21.md`
->
-> ### ~~PRE-COMMITTED BAR: F5 must beat median rank 4.0 of ~9 on CLEAN frequency-matched items, gated on that floor's UPPER bound, across >=3 independently-built item sets, `replication_gate.py` = `REPLICATED`, with the ~86% item ceiling printed beside the score.**
-> ### 🚫 **WITHDRAWN 2026-08-21: "co-occurrence separates my hand-scored CLEAN from WEAK items."**
-> Measured properly: **+0.54, 95% CI [-1.34, +2.60], Mann-Whitney p=0.535 -- IT DOES NOT SEPARATE**
-> (n=17 WEAK). **The number I quoted came from the LEAKED run (2.5 vs 4.0) and I carried the
-> conclusion across after fixing the leak, because it still sounded right.**
-> **➡️ FIXING AN INPUT INVALIDATES EVERY NUMBER DOWNSTREAM OF IT, INCLUDING THE ONES THAT STILL LOOK
-> CORRECT.** Withdrawn, NOT refuted -- underpowered, not disagreeing.
-> **The other two confirmations STAND** (FREQUENCY delta +0.00/+0.50/+0.75/+0.50 across four sets;
-> POSITION/LENGTH/CONSTANT exactly +0.00 -- exact arithmetic, no power question). **The bar itself is
-> untouched.** `tools/test_floor_separates_handscored_item_classes.py`
->
-> ### 📌 **AND HAND-SCORES MUST PERSIST PER-ITEM.** The 2026-08-20 hand-scores are TALLIES only --
-> five files of counts and a few examples, **not one term-by-term label** -- so Angle B's corollary
-> (grade banked facts with no human) **cannot be tested against them at all.** The expensive part is
-> the per-row judgement; a count throws it away. `anomaly_set_..._v8_handscores.json` is the pattern.
->
-> ### ✅ **AND THE BAR ITSELF NOW REPLICATES (2026-08-21): `+2.00 / +2.25 / +2.00 / +2.00` on FOUR independently-built 120-item sets -> `REPLICATED`, 1.1x spread, no control reaching half the effect.** The builder is byte-deterministic (a rebuild reproduces the committed `v8` SHA-256 exactly), so the bar is settleable later.
-> ### ⚠️ **HONEST CAVEAT ON THE MATCHING:** FREQUENCY's delta averages **+0.44**, not zero -- about **22% of the co-occurrence effect**, and +0.75 vs +2.00 on one set. **The frequency confound is REDUCED, NOT GONE. The bar is CO-OCCURRENCE, not frequency** -- an F5 beating only the frequency floor would have beaten almost nothing.
->
-> ### ⚠️ **A LEAK WAS INFLATING THE FLOOR BY 43% OF ITS OWN EFFECT -- CAUGHT BEFORE PUBLISHING**
-> The items were DRAWN FROM the corpus, so a co-occurrence table over all 8,000 sentences **had read
-> each item's original sentence**. Excluding the 120: rank **2.50 -> 4.00**, delta **+3.50 -> +2.00**.
-> *Same class as the held-out split that overlapped its pool 600/600.* The exclusion count now prints
-> every run -- **a control that excludes nothing is not a control.**
->
-> ### 🚫 **TEMPTATION REFUSED, WRITTEN DOWN BEFORE IT IS ACTED ON:** co-occurrence surprisal separates
-> CLEAN from WEAK items, so it would make a convenient automatic item screen. **Filtering the items
-> with it would tune the set toward the floor and guarantee the floor wins** -- ground-by-X and
-> grade-by-X. Do not.
->
-> **F5 is NOT pre-empted** (rank 4 of 9 is real but far from ceiling) and **nothing here measures the
-> substrate** -- no arm in that table is ours.
-
-> # 🅰️🅱️ **LANDED 2026-08-21 -- BOTH STANDING ANGLES CLOSED**
-> | | what landed |
+> ## 📊 **THE MEASUREMENT PICTURE -- all through `tools/f5_evaluation_harness.py`, all `REPLICATED` on 4 sets**
+> | arm -- paired anomalous-vs-original hit@1 | median |
 > |---|---|
-> | **ANGLE B** | **The meaning-consumption link is DESIGNED.** The banked meaning must supply the **PREDICTION**, not sit in the register -- otherwise it is the same bottleneck in a new location. Definitional half only (32% vs 4% MEANINGFUL); dedicated `MEANING` role via the live `bind_filler`. `notes/ANGLE_B_the_meaning_consumption_link_...md` |
-> | **ANGLE A** | **The anomaly set is BUILT AND HAND-SCORED** -- `data/anomaly_set_frequency_matched_v8.json` + `_v8_handscores.json`, **all 120 read**. smd **-0.0134** freq / **-0.0289** length, number **120/120**, **120/120 distinct pairs**. `tools/build_frequency_matched_anomaly_set.py --self-test` |
+> | untrained codebook (nothing read) | **~0** -- donates nothing |
+> | **THE TRAINED SUBSTRATE** | **+16.3 pp** -- 4/4 CIs exclude zero |
+> | second-order counting -- **THE BAR** | **+29.4 pp**, upper bound **+44.2** |
 >
-> ### 🚫 **`..._v3.json` IS TRACKED, SUPERSEDED AND DEFECTIVE -- DO NOT USE** (10 number violations its own check scored as "0 violations")
-> ### 🚨 **THE CEILING: 102 CLEAN / 17 WEAK / 1 BROKEN -> A PERFECT DETECTOR CANNOT EXCEED ~86% HERE. PRINT THAT BESIDE ANY SCORE**, or the shortfall gets read as detector failure.
+> **Learning bought something real** (0 -> +16.3). **And the paired test says we are measurably
+> BEHIND counting**, not merely not-ahead: `-0.142 per item over 478 items, CI [-0.203, -0.082]`.
+> **The bar moved three times, every move UPWARD, each from a defect in MY OWN instrument** (rank is
+> slot-inflated; one set; a surface-vs-lemma lookup bug deflating both floors) -- **never from new
+> evidence about the task.**
 >
-> ## ⚠️ **ANGLE A'S REAL FINDING: THE BALANCE TABLE WAS PERFECT AT EVERY STAGE WHILE THE ITEMS WERE BROKEN FIVE DIFFERENT WAYS**
-> **V1's matching was the BEST of all eight versions (+0.0126 / -0.0085) and its items were
-> unusable.** Each round the statistics stayed excellent and READING found something new: verbs and
-> adjectives with rare noun senses -> **ungrammatical** swaps; lowercased proper nouns; table debris;
-> number mismatch (*"a churches"*); **near-synonym intruders, so the sentence stayed TRUE and a
-> PERFECT detector must FAIL** (*"Many countries have RULES based on this idea of fairness"*);
-> corpus misspellings (`countrys`, `cetera`) detectable on **orthography, a mandatory floor**;
-> repeated pairs overstating n; and a splice that **destroyed punctuation at the scored position**.
-> **THE NEAR-SYNONYM CASE IS THE ONE TO REMEMBER: my topical-disjointness rule was ACTIVELY SELECTING
-> for synonyms** -- co-occurrence is not relatedness, and synonyms are exactly the words that
-> substitute for each other rather than appearing together. *A plausible constraint producing the
-> failure it was written to prevent.*
+> ## 🅱️ **E3, THE ALTERNATIVE -- AND THE HONEST VERSION OF ITS MARGIN**
+> `WIRED: YES`, and `ORGAN_MAP` step 4 calls it **"a WIDEN-THE-MARGIN step on a working organ, not a
+> rescue."** Resolver **0.7193** (`strict_cb`; `earned` is **0.6842**) vs recency **0.5614** and
+> subject-majority **0.3860**; oracle 0.9298. **All five disk-verified, one block, one metric.**
+> ### ⚠️ **BUT n=57 AND THE FILE CARRIES NO CI.** Unpaired 2-proportion test: vs the **strong**
+> (recency) floor **+0.1579, CI [-0.016, +0.332] -- NOT SEPARATED**; vs the weak floor **SEPARATED**.
+> **The whole lead over the strong floor is NINE ITEMS of 57.** Clearly ahead of the weak floor,
+> ahead of the strong one only as a POINT ESTIMATE. *Which is what step 4 exists to settle -- its own
+> can-fail test already reads "n in the hundreds, not n=10".*
 >
-> ### 🔁 **AND THE CHECK WAS BROKEN TWICE, BOTH ALREADY-DOCUMENTED CLASSES**
-> V3 reported **"120 of 120 agree, 0 violations"** with 10 violations present, because (a) **the
-> check called the same helper the builder did** (`lemma_word` leaves `laws -> laws`), and (b) **the
-> self-test never used the production call signature** -- it called `gn(w)`, the builder called
-> `gn(w, vocab)` with a filtered set omitting `law`. **Fixed by DELETING the parameter**; the
-> regression is now a permanent self-test case and the builder refuses to run if it fails.
+> ## 🧰 **ASSETS BUILT TODAY -- USE, DO NOT RE-DERIVE**
+> `f5_evaluation_harness.py` (REFUSES to score a detector failing the mandatory diagnostics; has
+> `compare_detectors_paired`) · `anomaly_set_frequency_matched_v8.json` + `_v8_handscores.json`
+> (**102 CLEAN / 17 WEAK / 1 BROKEN -> a PERFECT detector cannot exceed ~86%; print that beside any
+> score**) · `build_frequency_matched_anomaly_set.py --self-test` (byte-deterministic) ·
+> `organ_map_cite.py` (constraints BEFORE the entry -- the third prior-work read, now a tool) ·
+> `verify_number_on_disk.py` (finds a number AND its n AND whether anything bounds it) ·
+> `verification/test_seed_vocab_is_lemma_closed.py`.
+> **`data/anomaly_set_frequency_matched_v3.json` is tracked, SUPERSEDED and DEFECTIVE -- do not use.**
 >
-> **F5 itself is NOT built** -- it is cell-authoring work and nothing here measures anything.
+> ## 🎓 **THE TWO LESSONS WORTH KEEPING FROM TODAY**
+> 1. **A BALANCE TABLE MEASURES THE MATCHING, NEVER THE ITEM.** v1's matching was the best of eight
+>    versions and its items were unusable. Five rounds of improving statistics over broken items;
+>    **only READING them ever found it.** The worst case: my topical-disjointness rule was *actively
+>    selecting for synonyms*, so the sentence stayed TRUE and a perfect detector had to fail.
+> 2. **THE SURFACE-vs-LEMMA BUG CLASS IS ENUMERATED ACROSS `hdlab/` AND THE SUBSTRATE IS CLEAN** --
+>    but only because `SEED_VOCAB` happens to hold both `called` and `call`. **A lucky property is
+>    one careless edit from a silent bug**, so it is now a verification test with both controls.
+
 
 > # 🔧 **TWO CHECKS BUILT 2026-08-20, BOTH FROM FAILURES THAT REPEATED**
 > | tool | the failure it mechanises against |
