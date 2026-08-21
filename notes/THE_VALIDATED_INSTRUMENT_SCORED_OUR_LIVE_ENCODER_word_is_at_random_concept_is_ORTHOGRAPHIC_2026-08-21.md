@@ -144,7 +144,17 @@ None.
 
 1. **This belongs in front of any plan that assumes the encoding carries meaning** -- which includes
    my own meaning-consumption proposal from earlier tonight.
-2. **`P_LIVE_WORD` at d=1024 scores rho 0.0747 vs 0.0019 at d=256** -- the capacity question is live
-   again on the axis that matters, and `ORGAN_MAP` STEP 2 already wants that switch flipped.
+2. ~~`P_LIVE_WORD` at d=1024 scores rho 0.0747 vs 0.0019 at d=256 -- the capacity question is live
+   again.~~ 🔴 **WITHDRAWN, WRONG ON BOTH COUNTS.**
+   **(a) `P_LIVE_CONCEPT` WAS NEVER MEASURED AT d=1024** -- the d=1024 arm list has no such entry, so
+   **this cell says NOTHING about concept-encoder capacity.**
+   **(b) The arm I quoted is `P_LIVE_WORD`, which is the sha256-seeded RANDOM draw**, so its rho
+   moving `-0.0019 -> 0.0747` is **noise in a quantity that cannot learn.** *And the tell was sitting
+   in the same table: `A_RANDOM_IID` moves the SAME WAY over the same jump, `-0.028 -> 0.0119`.
+   **Two independent random arms rising together is a property of the dimension and the 322-pair
+   sample, not of anything learning.***
+   *I made this error in the message reporting the finding, one turn after correcting a different
+   misreading of the same cell. The guard that catches it is the one this file already praises: **ask
+   what a random arm does under the same change.** It was in the table and I did not look.*
 3. Ask the instrument's author for a CI on `simlex_rho`; without one the concept figure has no
    stated precision.

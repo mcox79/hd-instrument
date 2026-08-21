@@ -1,5 +1,39 @@
 # OVERNIGHT PLAN -- 2026-08-21. **FOUR THRUSTS, DELIBERATELY DIFFERENT IN KIND.**
 
+> # 🔬 **THE MOST CONSEQUENTIAL THING FOUND ALL NIGHT -- AND IT WAS ALREADY ON DISK.**
+> **`exp_encoding_quality_instrument_v2` (08-15, `INSTRUMENT_VALIDATED`, 21/21 gates) SCORED OUR LIVE
+> ENCODER.** *v1 validated the instrument on 17/17 and published no number -- validate first, score
+> second.*
+>
+> ## THE DESIGN RULE IT ENCODES, WHICH GENERALISES
+> **Two axes, NEVER averaged.** IDENTITY: *"a RANDOM encoding is near-OPTIMAL here; scoring high is
+> NOT a win."* STRUCTURE: *"a random encoding must sit at ~1.0 / ~0.0; any real lift IS the signal."*
+> **Averaging them lets noise launder itself into a respectable score.**
+>
+> ## WHAT IT MEASURED (d=256, the live dimension)
+> | arm | SimLex rho | GOLD_ORTHO lift |
+> |---|---|---|
+> | **`P_LIVE_CONCEPT`** | **0.1048** | **26.855** |
+> | `C_CONCEPT_SHUFFLED` (control) | -0.0092 | **1.021** |
+> | `P_LIVE_WORD` | -0.0019 | 0.987 |
+>
+> **➡️ THE CONCEPT ENCODING CARRIES A LARGE, CONTROL-VERIFIED *SPELLING* EFFECT AND ONLY A MODEST
+> SEMANTIC ONE.** *If the structure we capture is largely orthographic, an ORTHOGRAPHIC FLOOR IS NOT A
+> NUISANCE BASELINE -- IT IS A RIVAL DRAWING ON THE SAME SIGNAL.* **That reframes `F_ORTHOGRAPHIC`
+> binding in three cells.**
+>
+> ## ⚠️ TWO THINGS NOT TO MISREAD (I MISREAD BOTH, ONE TURN APART)
+> 1. **`P_LIVE_WORD` rho ~ 0 IS NOT A DEFECT.** The live word encoder is
+>    `sha256(w) -> seed -> choice([-1,+1])` -- **random BY CONSTRUCTION**, orthodox VSA, and zero is
+>    the required answer. *Verified live: `byte_equality_vs_live_context_vector_masked 200/200`.*
+> 2. **NO CAPACITY CLAIM IS AVAILABLE HERE.** `P_LIVE_CONCEPT` was **only ever run at d=256**. The
+>    d=1024 numbers are `P_LIVE_WORD` -- the random arm -- and `A_RANDOM_IID` **moves the same way**
+>    over the same jump. **Two random arms rising together is not capacity.**
+>
+> ## 🔎 AND, BESIDE THE ISLANDING WORK
+> **12 encoder-named candidates, `0 on the live path`; every encoder registry row is
+> `WIRED_BUT_NOT_PIPELINE_REACHABLE`; NO registry row names the live word encoder at all.**
+
 > # 📚 **KNOWLEDGE-EVALUATION PRIOR WORK -- FOUND ON OWNER INSTRUCTION. 126 CELLS, 116 LANDED.**
 > **Owner: *"we did work on evaluating our knowledge too -- we did a ton of it. Why haven't you
 > already found all this?"*** **Correct. The four that matter:**
