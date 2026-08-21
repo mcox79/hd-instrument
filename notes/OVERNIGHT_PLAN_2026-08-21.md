@@ -17,10 +17,23 @@
 > | `C_CONCEPT_SHUFFLED` (control) | -0.0092 | **1.021** |
 > | `P_LIVE_WORD` | -0.0019 | 0.987 |
 >
-> **➡️ THE CONCEPT ENCODING CARRIES A LARGE, CONTROL-VERIFIED *SPELLING* EFFECT AND ONLY A MODEST
-> SEMANTIC ONE.** *If the structure we capture is largely orthographic, an ORTHOGRAPHIC FLOOR IS NOT A
-> NUISANCE BASELINE -- IT IS A RIVAL DRAWING ON THE SAME SIGNAL.* **That reframes `F_ORTHOGRAPHIC`
-> binding in three cells.**
+> **➡️ THE CONCEPT ENCODING CARRIES A LARGE, CONTROL-VERIFIED *SPELLING* EFFECT AND A MODEST BUT
+> **GENUINE** SEMANTIC ONE.**
+>
+> > 🔴 **AND THE "SPELLING IS THE SIGNAL" READING IS REFUTED -- BY THE ARM NEXT TO IT.**
+> > **`A_ORTHOGRAPHIC` -- a PURE spelling encoding -- has `GOLD_ORTHO_lift = 102.926` (FOUR TIMES
+> > OURS) and `simlex_rho = -0.0122`.** *A pure spelling encoding scores **ZERO** on meaning.*
+> > **So our 0.1048 CANNOT come from our orthographic content. The semantic signal is REAL and is a
+> > SEPARATE property.** *I put the opposite framing in this plan two turns earlier; it is withdrawn.
+> > An orthographic floor wins orthographic golds and has nothing with which to win a semantic one.*
+> >
+> > **AND THE READOUT IS VALIDATED END TO END:** `A_PLANTED_SEMANTIC` **0.9269** (it CAN detect
+> > meaning), its own shuffle **-0.0163** (detection dies with structure), three noise arms at
+> > **-0.0019 / -0.028 / 0.0008**.
+> >
+> > **➡️ WE SIT AT ~11% OF A DEMONSTRATED CEILING (0.1048 vs 0.9269, same readout, n=322). NO CI IS
+> > REPORTED, so it is a point estimate.** *The question is no longer "is meaning there" -- it is
+> > "why is it at a tenth of reachable". **Measure future work against 0.9269, not against zero.***
 >
 > ## ⚠️ TWO THINGS NOT TO MISREAD (I MISREAD BOTH, ONE TURN APART)
 > 1. **`P_LIVE_WORD` rho ~ 0 IS NOT A DEFECT.** The live word encoder is
