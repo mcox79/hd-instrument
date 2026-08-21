@@ -138,6 +138,31 @@
 >   guards, and give other modules a self-test whose NAME states what it refuses to let pass --
 >   `selftest_capacity_is_measurable` is 8 LINES.**
 >   `notes/THE_NIGHTS_SYNTHESIS_the_disciplines_that_were_CODE_caught_tonights_defects_the_ones_in_PROSE_did_not_2026-08-21.md`
+> - 🔒 **`512ff12cf` -- AND THE SYNTHESIS IS NOW ACTED ON, NOT JUST WRITTEN: the finding is CODE.**
+>   **`hippocampal_encoder._st_exact_cue_cannot_measure_this_organ`** asserts (i) both arms at
+>   ceiling on an exact cue at N=8 AND N=256, (ii) therefore N is a saturated axis, (iii) **and
+>   names the axis that DOES work** -- 40% cue corruption collapses it to **0.0273**. **REPORTS,
+>   never asserts, `ca3_on_minus_off = -0.0156`, because that is the open question D3 exists to
+>   decide** (following `selftest_not_inert`'s restraint). **Verified BOTH directions -- noise
+>   injection fires it, load-dependent degradation fires it, restored module passes silently; suite
+>   15/15.** *Honest note left in the code: (ii) is a TIGHTENING of (i), not an independent check.*
+> - 🚫 **Q96 IS WITHDRAWN BY ME AND REPLACED BY Q97 -- ANSWERED FROM DISK, NOTHING AUTHORED.** *The
+>   "write less" axis TERMINATES IN A DEGENERATE ARM THAT WAS ALREADY IN THE CELL:* **`N2_ANTI_GATE`
+>   writes `0` tokens, scores EXACTLY `0.5000`, `ci95 [0.5,0.5]`, `ci_halfwidth 0.0` -- the signature
+>   of an ALL-TIES arm -- and 0.5 IS THE REFERENCE VALUE every arm is compared against.** *So the
+>   curve climbs toward a score that is high for NO REASON, and "extend until it stops improving" has
+>   no answer.* **acceptance 1.0000→0.7485→0.5139→0.3067→0.1581→0.0000 against AUC 0.0710→0.0961→
+>   0.1526→0.2268→0.3079→0.5000.** ⚠️ **CI half-width MORE THAN DOUBLES as acceptance falls (0.0211→
+>   0.0464): the best-looking numbers are the shakiest.** ⚠️ **And the rate-matched RANDOM gate
+>   matches at ALL FOUR thresholds (0.0971/0.1368/0.2165/0.3007 vs 0.0961/0.1526/0.2268/0.3079) --
+>   so prediction-error gating contributes nothing ANYWHERE on the axis, not just at one point.**
+>   ➡️ **REPLACEMENT: measure TIE MASS per threshold (a re-scoring, not a new cell).** *Not claiming
+>   the gain is fake -- intermediate arms write 5,362-25,380 real tokens and sit far from 0.5.*
+>   🔴 ***MY OWN Q96 RECOMMENDATION NAMED THIS EXACT RISK AND DEMANDED "how MUCH is being kept at
+>   each point" -- `acceptance_rate`/`n_tokens_accepted` WERE ALREADY IN `COMPOSITION_PER_ARM`. I
+>   FILED THE QUESTION WITHOUT OPENING THE FILE.*** **THIRD instance tonight of a control that scores
+>   well by containing nothing** (zeroed-`W`; B1's empty stratum; this).
+>   `notes/Q96_ANSWERED_FROM_DISK_the_write_less_axis_TERMINATES_IN_A_DEGENERATE_ARM_that_is_already_measured_2026-08-21.md`
 > - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
 >   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
 >   the headings *and their whole sections* into the header paragraph. **Every section BODY was
