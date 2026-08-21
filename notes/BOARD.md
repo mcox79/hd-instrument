@@ -26,7 +26,7 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 
 ## STATUS
 
-AS OF: 2026-08-21 LATE (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD: Q102 OPEN (wire the FORM organs); Q98 approved the write-rate extension WITH a stopping rule; Q99 done.** | 🧠 **ONE STRUCTURAL FINDING, upstream of THREE dead ends tonight: ONE REPRESENTATION IS DOING TWO JOBS THAT NEED OPPOSITE THINGS -- grounding must DELETE the word (correct, else it learns 'artery means artery'); identification needs it PRESENT (masked hit@1 0.1417 vs unmasked 0.4750, chance 0.0167). THE FORM ORGANS ARE ALREADY BUILT AND UNWIRED.** | **READ `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK (76 lines, rewritten from 6,895) -- it carries the 16 withdrawals and the method -- THEN `## POSITION` BELOW**
+AS OF: 2026-08-21 LATE (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD: Q102 OPEN (wire the FORM organs) -- MY OWN "the gain is genuinely untested" IS WITHDRAWN: ORGAN_MAP 10.1 A1 measured it 08-14, form organ 0.0870 vs live substrate 0.0480, CI-separated, on a task with a spelling shortcut; Q98 approved the write-rate extension WITH a stopping rule; Q99 done.** | 🧠 **ONE STRUCTURAL FINDING, upstream of THREE dead ends tonight: ONE REPRESENTATION IS DOING TWO JOBS THAT NEED OPPOSITE THINGS -- grounding must DELETE the word (correct, else it learns 'artery means artery'); identification needs it PRESENT -- **VETTED 08-21: the word ALONE scores 0.9687 vs 0.6423 for word+sentence (chance 0.0167), so CONTEXT DILUTES identification and the job is a LOOKUP. DO NOT quote 0.1417/0.4750 as evidence about CONTEXT -- it is SELF-REFERENCE**. THE FORM ORGANS ARE ALREADY BUILT AND UNWIRED.** | **READ `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK (76 lines, rewritten from 6,895) -- it carries the 16 withdrawals and the method -- THEN `## POSITION` BELOW**
 
 **POSITION**
 ### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
@@ -43,21 +43,20 @@ difference being 7,535 sentences read. First replicated positive from our side o
 `SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.**
 Marginal CIs overlapped, which is NOT a test of a difference; the paired test is. `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
 
-**TOP ITEM -- **IT WAS SOLVED 8 DAYS AGO AND RANKED #1. WIRE DEFINITIONAL DIRECT-BANK.****
-**Owner, 2026-08-21: *"i think this reading and grounding thing was figured out a while ago - but you
-clearly didn't pick up on that."*** **They are right.** `notes/opportunity_map_2026-08-13.md` item
-**#1**, verbatim:
-> *"The extractor that reads 'X is a Y' out of real textbook prose currently runs only inside
-> experiment cells. Its facts are written to files that nothing live re-reads. **Wiring it means the
-> reading loop banks those facts into the foundation directly, at the moment of reading, WITHOUT
-> ASKING THE BROKEN COMPARATOR TO CHOOSE ANYTHING.**"*
-**Evidence already on record: 64% MEANINGFUL (32/50) against an 8% floor**, same scorer, same rubric,
-same sampling, **pre-registered HARD_PASS band >=52%.** Ladder **v2 8% -> v3 38% -> v4 40% -> v5
-64%**. `data/foundation/reading_grounding_v5_termboundary/definitional_facts_v5.jsonl`, **2,092
-rows**. The brain-fidelity audit called that metric *"the best in the repository... the only place
-where the thing being measured is the thing the brain is judged on."*
-### 🚫 **AND I MUST CORRECT MY OWN HEADLINE FROM ONE TURN AGO: "READING GROUNDS ZERO" WAS WRONG.**
-I measured `n_grounded`, which is **the comparator gate only** -- and that gate is precisely the
+**TOP ITEM -- **IT IS ALREADY WIRED AND LIVE. AND ITS HEADLINE NUMBER IS BARRED FROM THAT USE.****
+**The old TOP ITEM said "WIRE DEFINITIONAL DIRECT-BANK" citing `64% vs an 8% floor`. BOTH HALVES ARE
+WRONG, and `hdlab/reading_grounding_loop.py:1479` says so in THREE numbered corrections dated
+2026-08-20 that I had not read:** (1) **it IS live** -- `substrate.py:538`, and **212 of 402
+provenance rows** carry `meaning_source=DEFINITIONAL_EXTRACTION`, which a fact cannot carry unless
+the gate fired; (2) **what ships is the PHRASE `d.definiens`, not `d.head`** -- **PHRASE 32% vs HEAD
+4%**, head **NOT distinguishable from the distributional control** (Fisher p=0.2475); (3) 🚫 **the
+64% scores the EXTRACTOR's own output, NOT the facts the gate banks, under a STANDING PROHIBITION on
+placing it beside the 4% / 1-3% / 35% / 94%.** *The TOP ITEM did exactly that.*
+**MY ADDITION, all 2,092 rows ENUMERATED: the cited artifact is `0 of 2,092` multi-word -- 100%
+HEAD-FORM -- while `2,079 (99.4%)` already carry the validated PHRASE in the SAME ROW**
+(`ATP -> "process"` vs `"a process called hydrolysis"`). ***NOTHING NEEDS RE-EXTRACTING; THERE IS NO
+WIRING JOB.*** ⚠️ *32% is 8x the head form, NOT clean.*
+`THE_TOP_ITEM_WAS_ALREADY_WIRED_...` `b3_audit_scored_the_win_is_the_phrase_form_...`
 
 **WHAT IS RUNNING**
 - 📏 **THIS FILE IS ~870 B (3%) OVER ITS 28,672 CAP AND IS LEFT THAT WAY DELIBERATELY.**
@@ -75,13 +74,14 @@ I measured `n_grounded`, which is **the comparator gate only** -- and that gate 
     changed.* **`:663`'s "worse than either" unsupported at this scale.**
   - ✅ **`diagnose_read_with_loaded_foundation`: refusal delta 279 vs 380 = 1.36x, NOT the 22x
 
-_mirrored from `notes/STATUS.md` at 2026-08-21T20:20:41Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-21T22:10:52Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
 | Q102 | Same finding as my last question, but the fix is far cheaper than I told you - it is already built and just not switched on. I said the system barely notices two sentences are about the same word, because when it reads a sentence to learn what a word means it first deletes that word - correctly, or it would learn that artery means artery. But that deleted word is the strongest clue that two sentences concern the same thing. Measured: put it back and recognising which word a sentence is about goes from about 14 percent to about 48 percent, against 2 percent for guessing. One thing is doing two jobs that need opposite treatment. I then recommended building a separate way for the system to recognise a word without that leaking into what it learns. THAT RECOMMENDATION WAS WRONG IN A WAY THAT MATTERS, and I found out by checking our own notes one turn later. It is already built. We have three components that recognise a word from its spelling - the same job the brain gives to a dedicated region for written words - and our own planning document records all three as built and none of them connected to the live system. The same document also already states the exact conclusion I presented to you as tonight's discovery, listed as one of its four foundational principles: that recognising a word and understanding it are separate brain systems, that a spelling-based code is a recognition code, and that we have been mistakenly treating it as a meaning code - which it says explains why a spell-checker beats us. So this is not a build. It is a decision to connect three finished components whose brain justification our notes already record as settled rather than speculative. | Nothing is blocked. But every promising route I tested tonight ended at this same point, so testing further components downstream of it will likely keep producing the same answer in different forms. | Connect the spelling-based recognition components to the live system, keeping the current word-deleted context accumulation exactly as it is for learning meanings. The two then do the jobs they are each suited to, which is also how the brain divides them. RISK OF MY RECOMMENDATION, and it is a real one: we already measured that spelling alone beats our meaning read-out at picking the single best answer, and there is a live danger that connecting it simply makes the system better at looking up words it has already seen while teaching it nothing new about meaning - a better index rather than better understanding. If that happens it will show up as recognition scores rising while the meaning scores stay flat, and that is the thing to watch for rather than a reason not to try. Second risk: I have measured what the current arrangement costs, not what connecting these would gain. The gain is genuinely untested. |  | open |
+| Q103 | Our reading material is nine separate books, and that is now the thing stopping us from checking whether the system understands anything. Here is the problem in plain terms. Most words only ever turn up in one of those books - two thirds of the words I tested draw most of their examples from a single book, and a third of them draw almost every example from one. That caused a real mistake tonight: I reported that the system could work out which word a sentence was about far better than chance, and then found that a stopwatch-simple cheat, one that knows nothing except which book a sentence came from, scored nearly as well. Once I corrected for that, the system's apparent skill largely vanished, and only came back when I deliberately picked the rare words that appear across many books. The same narrowness now blocks the more important question, which is whether the system learns what words MEAN rather than merely which word is which. There is a standard list of 999 word pairs that people have rated for similarity, and it is the normal way to check this. Of those 999 pairs, only 40 have both words spread across enough of our books to be usable. Forty is far too few to conclude anything in either direction. So the honest position is that we do not know whether the system learns meaning, and with our current reading list we cannot find out. This is not the same as asking to restart growth, which you paused for a good reason - we measured that roughly three quarters of what the system learns is noise, and feeding more material into that just makes more noise. I am asking about something different: not reading MORE, but reading WIDER. More separate sources of ordinary text, so that common words stop being tied to one book each. That does not require the learning to improve at all; it changes what we are able to measure. | The meaning question is unresolved and cannot be resolved on the current reading list. Two separate routes hit the same wall tonight: the clean version of the test has only 40 usable word pairs, and the already-completed version's result has an uncertainty range that includes zero. No amount of re-analysis fixes either, because both are consequences of which texts we have read. | Add breadth to the reading list - more separate sources of ordinary prose - purely so that common words stop being confined to one book each, and keep the growth pause exactly as it is otherwise. THE RISK OF MY OWN RECOMMENDATION, and it is real: this buys measurement, not capability. It is entirely possible we do this work, gain the ability to run the test properly, and then discover the system still learns very little about meaning - in which case we will have spent the effort to find out we were wrong, which is worth something but is not progress on the system itself. Second risk: it sits close to something you deliberately paused, and if you would rather nothing at all moves on reading until the noise problem is fixed, that is a coherent position and I will hold. |  | open |
 
 ## ANSWERED
 
