@@ -1,5 +1,34 @@
 # OVERNIGHT PLAN -- 2026-08-21. **FOUR THRUSTS, DELIBERATELY DIFFERENT IN KIND.**
 
+> # 🧭 **LATEST STATE (2026-08-21, after the owner's two COMMENTARY notes). READ THIS BLOCK FIRST.**
+> **The owner pointed at prior work on distance-to-the-grounded-foundation and said to drill it. It
+> exists, it is good, and it is not connected to anything.**
+>
+> ## WHAT THE DRILL ESTABLISHED
+> | | |
+> |---|---|
+> | **the hop measure is real** | `exp_cold_placement_usefulness_v1` -- `reach_frac_h1/h2/h3` over a **141,511-node** graph, 3 must-fail controls all firing |
+> | **how many hops are useful** | **ONE.** `40.8x` the popularity floor at h1, **`1.9x` by h3** -- *going further looks better, but guessing-by-popularity improves faster* |
+> | **the 11x lift, and its cause** | `..._recovery_opt_v1`: opaque exact **0.0262 -> 0.2930**, abstain **31% -> 3.7%**. **Cause = MORE EDGE TYPES** (gloss -> +hypernym +synonym), **not deeper search** |
+> | **a properly closed wall** | `FRONTIER_FIT_PLATEAU_REPRESENTATION_WALL`: h@10 asymptotes **0.594** across a 2x capacity jump, **dense core rules out "not enough data"** |
+>
+> ## 🔴 AND THE FINDING THAT MATTERS MOST
+> **THREE WORKING, CONTROLLED CAPABILITIES THAT NOTHING CONSUMES** -- `gap_driven_reader` (zero
+> callers), **cold placement (no `hdlab/` module, 0 of 208 registry rows)**, banked meanings (nothing
+> reads them). **That is why the owner had to remember this work: the registry-first check returns
+> NOTHING for it.**
+> *My earlier framing -- "a library with no reader" -- was too kind. **Several finished instruments,
+> none plugged in.***
+>
+> ## ⚠️ CARRY THESE
+> - **WordNet dependency must be stated** whenever cold placement is described. *"The system worked
+>   out where the word belongs" and "a dictionary told it" are different claims; only the second is
+>   supported.*
+> - **Do not quote `ratio_vs_floor` 148.76 / 570 / 427** -- all divide by a ~0.001 epsilon floor.
+> - **The hop profile of the OPTIMISED method has never been measured** -- cheapest open question here.
+> - **5 corrections to my own claims tonight**, all one family: *a quantity that pre-dated the
+>   intervention, or a companion artifact I did not open, credited to the thing I was looking at.*
+
 > # 🎯 **THE RECOMMENDATION AFTER TONIGHT, GIVEN TO THE OWNER 2026-08-21: MAKE THE BANKED MEANINGS SUPPLY THE PREDICTION.**
 > **The substrate is a library, a librarian and a filing system with no reader.** It writes down what
 > words mean and **never opens the file again.** Every other candidate improves a part that feeds a
@@ -8,7 +37,7 @@
 > | candidate | brain status | what it buys |
 > |---|---|---|
 > | **1. MEANINGS SUPPLY THE PREDICTION** ⬅️ **FOCUS** | **equation known** (prediction error) | **the only option where being WRONG about a word COSTS the system something** |
-> | 2. patch-CHOICE (which text next) | **equation UNKNOWN for the half we need** | MVT says when to LEAVE, never where to GO |
+> | 2. patch-CHOICE (which text next) 🔻 **RE-RANKED: CHEAPER THAN I SAID** | equation unknown, **BUT THE MECHANISM IS ALREADY BUILT** | MVT says when to LEAVE, never where to GO -- **and `gap_driven_reader.rank_material()` IS the where-to-go half** |
 > | 3. graded codes ON | equation known | cheap, real, **not a discovery** -- already measured at probe scale |
 > | 4. coherence monitor (F5) | reference point only | gives the PASSAGE picture a use, **not the word meanings** |
 > | 5. sleep (D8+D4) | equation fully known | **blocked**, and D8 is a published null at our scale |
