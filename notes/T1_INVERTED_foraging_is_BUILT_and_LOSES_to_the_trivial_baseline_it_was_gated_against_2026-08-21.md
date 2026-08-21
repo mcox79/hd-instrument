@@ -1,5 +1,22 @@
 # T1 INVERTED -- **"DECIDE WHAT TO READ NEXT" IS NOT MISSING. IT IS BUILT, IT LANDED HARD_PASS, AND THE TRIVIAL BASELINE BEATS IT ON EVERY LEARNING OUTCOME.**
 
+> ## 🟡 **PARTLY SUPERSEDED -- READ `notes/T1_foraging_the_negative_drilled_MVT_says_WHEN_TO_LEAVE_not_WHERE_TO_GO_2026-08-21.md` INSTEAD FOR THE HEADLINE.**
+> **WHAT STANDS:** the organ is BUILT and landed HARD_PASS; each gate was scored against whichever
+> baseline it could beat; `SINGLE_SEED_HYPOTHESIS`; and §7's mechanism (**FORAGE has the best hit
+> rate of any arm, 27.0%, and loses on attempt VOLUME**).
+> **WHAT DOES NOT:** two claims here are wrong or too strong.
+> 1. **"brain math UNPINNED / function parity only"** -- **H2 is PINNED**: Charnov 1976 MVT
+>    (`g'(t) < ρ`), Constantino & Daw 2015, Hayden 2011, Wittmann 2016. *`ORGAN_MAP` §6 STEP 1 is
+>    itself marked superseded, which `tools/organ_map_cite.py H2` returns as its FIRST line.*
+> 2. **"the leak explanation is refuted, so the finding gets stronger"** -- corpus overlap is closed,
+>    but **REGISTER MATCH is a second confound running the same direction** (see §6).
+>
+> **AND THE DEEPER POINT THIS NOTE MISSED ENTIRELY: MVT IS A RULE FOR *WHEN TO LEAVE* A PATCH. IT IS
+> SILENT ON *WHERE TO GO*.** Our patch-CHOICE function fills that silence and the map marks it
+> **UNPINNED** -- so the failure localises to the unpinned half of a half-pinned organ. **Breadth was
+> never in the currency**, which is why the organ won on its own gain rate (6.96 vs 5.90) while
+> reading its way to 63.2% biology.
+
 **Found ~20 minutes after writing tonight's plan, by the mandatory prior-work check** --
 `tools/experiment_index.py query "information foraging"` -> **scanned 8,836 cells, 2 matching, 2
 landed.** *The plan proposed BUILDING this organ. It was built a week ago.*
@@ -94,9 +111,28 @@ Positive control on what those words actually are, rather than an absence check:
 
 **Ordinary everyday English. No biology bias whatsoever.**
 
-**➡️ SO THE FINDING GETS STRONGER, NOT WEAKER: FROZEN READS FOUR BIOLOGY-HEAVY DOCUMENTS AND STILL
-GROUNDS MORE ORDINARY ENGLISH VOCABULARY THAN FORAGE READING NINETEEN CORPORA.** *The one
-explanation that would have excused the result is ruled out by construction.*
+> ## 🔴 **CORRECTED -- THE SENTENCE THAT WAS HERE OVERCLAIMED. SEE `notes/T1_foraging_the_negative_drilled_MVT_says_WHEN_TO_LEAVE_not_WHERE_TO_GO_2026-08-21.md`.**
+> **I wrote: *"the finding gets STRONGER... the one explanation that would have excused the result is
+> ruled out by construction."* THAT IS TOO STRONG.** I closed **corpus overlap** -- correctly, and it
+> stays closed -- **and then treated one refuted confound as if it were the only one.**
+>
+> **A SECOND CONFOUND IS REAL AND RUNS THE SAME DIRECTION: REGISTER MATCH.** The probe's backbone is
+> **SUBTLEX-US** (Brysbaert & New 2009) -- 51M words of film/TV subtitles, i.e. **general
+> conversational English**. And FROZEN spends **75% of its budget in OneStop English graded NEWS**,
+> while FORAGE spends **~45% in biology/anatomy textbook.** **FROZEN reads the register the probe
+> scores; FORAGE does not.**
+> **➡️ SO `FROZEN 0.0743 > FORAGE 0.0617` IS NOT CLEAN EVIDENCE THAT SELECTION LOSES TO A FIXED
+> SCHEDULE -- it substantially measures WHICH ARM READ MORE EVERYDAY ENGLISH.** *The ordering
+> `FROZEN > FORAGE >> RANDOM` is exactly what register-match predicts, and FORAGE is still **4.87x
+> RANDOM**.*
+>
+> **THE LESSON, WHICH IS THE EXPENSIVE ONE: RULING OUT THE CONFOUND YOU THOUGHT OF IS NOT RULING OUT
+> CONFOUNDING.** I ran a real check, it came back clean, and I upgraded my confidence instead of
+> asking what else points the same way. *Closing one door is not closing the room.*
+
+**FROZEN READS FOUR BIOLOGY-HEAVY DOCUMENTS AND STILL GROUNDS MORE ORDINARY ENGLISH VOCABULARY THAN
+FORAGE READING NINETEEN CORPORA** -- *but see the correction above: that is confounded by register,
+so it is not the clean inversion this note originally claimed.*
 
 ### WHAT STILL LIMITS IT
 - **One seed** -- `SINGLE_SEED_HYPOTHESIS`. No CIs, no tie handling.
