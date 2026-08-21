@@ -603,7 +603,13 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
 - **FIDELITY:** **SAME** (for the write op; the index/allocation half is unbuilt and its brain math is
   UNPINNED anyway).
 - **WIRED:** **NO**
-- **EVIDENCE:** self-test 14/14 PASS. **NO FLOOR — UNTESTED.**
+- **EVIDENCE:** self-test 14/14 PASS. **NO FLOOR — UNTESTED.** ⚠️ **AND CORRECTED 2026-08-21: THAT
+  14/14 IS A CEILING, NOT EVIDENCE. Its one-shot recall arm reads `sign_agree = 1.000`, and the same
+  task measured properly reads `hit@1 = 1.0000` at EVERY N from 1 to 2000 — WITH CA3 SWITCHED OFF
+  TOO.** *An exact cue regenerates its own DG code, so the projection alone solves it and no storage
+  is consulted.* **Do not read the self-test as a capability. Sweep CUE CORRUPTION, not N** — see the
+  re-scope under the D3 supersession entry and
+  `notes/D3s_QUEUED_TEST_SWEEPS_THE_WRONG_VARIABLE_exact_cue_recall_is_solved_by_the_projection_alone_2026-08-21.md`
 - **BLOCKS:** episodic memory; makes D4 untestable in its brain-faithful form.
 
 **D4 — Consolidation: replay scheduling**
@@ -1320,12 +1326,33 @@ Ranked by **(blocks the most) × (worst fidelity) × (we already own something t
   **MANDATORY:** report the **between-projection-draw sd** next to the CI (0.0090 at d=256). Item
   bootstraps are blind to shared-randomness variance; every cell built on a random projection must
   report it.
-- **How it can fail:** if the gain does not survive the full anchor population (2,377+ concepts vs the
-  probe's 400), or if memory/latency at d=4096 makes it unusable as a default, the answer is "capacity
-  is a probe result, not a live capability."
-- **Honest caveat, up front:** at PROBE scale this is already measured (0.7030 sign@1024; 0.78225
-  graded@4096). **This is a WIRE-IT test, not a discovery.** Do not report a re-measurement of a known
-  effect as a new finding.
+- **How it can fail:** ~~if the gain does not survive the full anchor population (2,377+ concepts vs
+  the probe's 400)~~ 🔴 **THAT HALF IS ALREADY ANSWERED -- SEE BELOW**; the live half stands: if
+  memory/latency at d=4096 makes it unusable as a default, the answer is "capacity is a probe result,
+  not a live capability."
+- 🔴 **B4 STEP 2 CORRECTED 2026-08-21 -- "AT PROBE SCALE" IS WRONG, AND THE SCALE QUESTION IS
+  SETTLED. Re-scope before authoring.**
+  `data/exp_capacity_ceiling_near_far_v1/metrics.json` reports **`n_anchors = 2377`, `n_items =
+  4000`** -- **the full-anchor number this very entry names as the bar.** *So the three figures below
+  were NOT measured on a 400-item probe; they were measured at full anchor scale, and the gain
+  survived.* **Verified in `curve_by_dimension`, not quoted from a summary:**
+  **QUANT NEAR `0.6395 → 0.7030 → 0.7380`, GRAD NEAR `0.6980 → 0.7495 → 0.78225`** across
+  d=256/1024/4096, against **six measured floors 0.4845-0.5095**, chance 0.50.
+  ➡️ **SO THE REAL JOB OF THIS STEP IS VERDICT WEIGHT, NOT SCALE:** the cell's own
+  **`HP_SCOPE = {'d4096_GRAD': ['NEAR level','FAR-NEAR gap'], 'all_other_cells': 'reported, no
+  verdict weight'}`** -- **d=1024, the setting this step is actually about, was measured but never
+  counted.**
+  ⚠️ **QUOTE THE NEAR LEVEL, NEVER THE FAR−NEAR GAP.** `gap_per_draw_d256` GRAD reads
+  **[0.047, 0.025, 0.03725]** across three projection draws (between-draw sd **0.009001**) and the
+  cell forbids resting a claim on a smaller difference. *The NEAR movement (+0.084..+0.099) is an
+  order of magnitude above that spread; the gap is not.*
+  `notes/B4s_QUEUED_TEST_CLEARS_THE_SWEEP_TELL_but_its_stated_failure_mode_was_already_answered_at_full_scale_2026-08-21.md`
+- **Honest caveat, up front, AND IT IS THE CORRECT INSTRUCTION -- FOLLOW IT LITERALLY:** the effect
+  is already measured (0.7030 sign@1024; 0.78225 graded@4096). **This is a WIRE-IT test, not a
+  discovery.** Do not report a re-measurement of a known effect as a new finding.
+  ✅ **AND THIS TEST CLEARS THE 2026-08-21 SWEEP TELL** -- its swept variable genuinely moves the
+  score, unlike D3's. *Of three queued tests checked that night, one could not run (B1), one swept a
+  dead variable (D3), and this one is sound.*
 
 ### STEP 3 — B1/B2, WHAT THE CONTEXT VECTOR CONTAINS. *Strictly after step 2.*
 - **The finding this attacks:** the FAR−NEAR gap is **capacity-INDEPENDENT** — flat to slightly
@@ -1876,9 +1903,40 @@ ours / **GAP** / **EXISTS – IS-REACHED – IS-GOOD** / **SMALLEST CAN-FAIL FLO
 - **GAP:** the ADDRESS. We have the write and no allocator, and the allocator's brain math is UNPINNED,
   so this cannot be closed by fidelity — it must be chosen and declared as ours.
 - **EXISTS** yes / **IS-REACHED** **no** (zero `hdlab/` importers) / **IS-GOOD** unknown.
-- **SMALLEST CAN-FAIL FLOOR TEST:** one-shot cued recall of N stored (context → lemma) pairs from the
-  live anchor field after a SINGLE exposure, sweeping N to find the collapse point. **Floors, each of
-  which can fail:** (i) **no-write arm** — query the untouched codebook, must sit at chance;
+- 🔴 **D3's QUEUED TEST IS SUPERSEDED AND CORRECTED 2026-08-21 BY MEASUREMENT -- SWEEP THE CUE, NOT
+  N. Do not author it as written. READ THIS FIRST.**
+  *Instrument characterisation, `tools/d3_capacity_characterisation.py` (fixed seeds; one command
+  reproduces every number).*
+  - **THERE IS NO COLLAPSE POINT IN N. `hit@1 = 1.0000` at EVERY N from 1 to 2000, sd 0.0000, at
+    BOTH sparsity 0.02 and the pinned 0.002.** *2,000 patterns in a 2,048-dim associator at perfect
+    recall is a tell, not a capacity result.*
+  - **THE CONTROL: `use_ca3=False` gives the IDENTICAL 1.0000 at every N.** *An exact cue
+    deterministically regenerates its own DG code, so the task is solved by the PROJECTION with no
+    storage consulted.* **Across all 34 grid points CA3 is NEVER better than CA3-off (delta
+    −0.0480..+0.0000)** — the same SHAPE as D2's *"indistinguishable from argmax"*, **not a shared
+    number.**
+  - 🚨 **THIS BREAKS ARM (ii) BELOW, THE ARM THE DESIGN EXISTS TO PROTECT: if CA3 is never
+    consulted, the random-address arm reads 1.0000 TOO.** *An author would get "DG address = random
+    address" and read it as "the allocator does not matter", when it means "the test never reached
+    the allocator".* **VERIFY A NON-ZERO `CA3 ON − CA3 OFF` GAP AT THE CHOSEN OPERATING POINT BEFORE
+    TRUSTING ARM (ii).**
+  - ✅ **THE KNOB THAT MOVES THE SCORE IS CUE CORRUPTION -- collapse between 25% and 40%** (N=500:
+    1.0000 → 1.0000 → **0.7707** → **0.0513**), **and it barely moves with N. THIS ORGAN'S OWN
+    `METRIC` LINE ABOVE ALREADY SAYS SO** (*"retrieval of the full pattern **from a partial cue**"*)
+    -- *the right metric was written down and then not used by the test below.*
+  - ⚠️ **A "no-write" floor that ZEROES `W` IS DEGENERATE:** `settle()` computes `sign(W @ cue)`, so
+    `W = 0` returns the ZERO VECTOR and the arm collapses for a reason unrelated to memory. **It
+    looks like a working floor and is not one.** *Use `use_ca3=False`, which removes the MECHANISM
+    while leaving the PIPELINE intact.*
+  - **SCOPE:** synthetic i.i.d. bipolar patterns are near-orthogonal; **real `(context → lemma)`
+    pairs are CORRELATED and harder, so the NUMBERS do not transfer.** *The structural point does:
+    an exact cue regenerates its own DG code whatever the inputs are.* **`IS-GOOD` remains genuinely
+    unknown -- this says the TEST could not see the organ, not that the organ is worthless.**
+  `notes/D3s_QUEUED_TEST_SWEEPS_THE_WRONG_VARIABLE_exact_cue_recall_is_solved_by_the_projection_alone_2026-08-21.md`
+- **SMALLEST CAN-FAIL FLOOR TEST — ⚠️ "sweeping N" IS SUPERSEDED BY THE BLOCK ABOVE; SWEEP CUE
+  CORRUPTION INSTEAD. The floor design below is UNCHANGED AND STILL RIGHT.** One-shot cued recall of
+  N stored (context → lemma) pairs from the live anchor field after a SINGLE exposure. **Floors, each
+  of which can fail:** (i) **no-write arm** — query the untouched codebook, must sit at chance;
   (ii) **random-address arm** — the same write op to a randomly chosen sparse address instead of the
   DG-derived one, so the test isolates the ALLOCATOR rather than the outer product;
   (iii) **shuffled-pair arm**. The organ is only interesting if it beats (ii), and (ii) is precisely
