@@ -159,6 +159,27 @@
 > difference while its own bootstrap four lines above spanned zero. *Verdict now CI-gated.*
 > `THE_MASKED_ARM_IS_NOT_SEPARABLE_...` `tools/vet_is_masked_identification_just_corpus_identity.py`
 
+> ## **A POSITIVE, PROPERLY FLOORED: THE MASKED VECTOR *DOES* CARRY WORD SIGNAL ONCE THE BOOK CONFOUND IS GONE**
+> **The re-run the previous note asked for and left undone. Same code, same arms, same scorer --
+> ONLY the 60 lemmas differ (chosen for WIDEST spread across source texts).**
+> | | RANDOM | **BALANCED** |
+> |---|---|---|
+> | median largest-corpus share | 0.695 | **0.268** |
+> | SCRAMBLE floor | -- | **0.0179** |
+> | CORPUS-ONLY floor | 0.0752 | **0.0179** |
+> | **MASKED** | 0.0972 | **0.1549** |
+> | MASKED - CORPUS_ONLY (95% CI) | +0.0220 `[-0.0419,+0.0764]` | **+0.1370 `[+0.1085,+0.1626]`** |
+> | separated? | NO | **YES** (54 of 60 lemmas) |
+> ✅ **THE MANIPULATION'S OWN CONTROL PROVES IT WORKED: CORPUS-ONLY falls 0.0752 -> 0.0179, onto
+> chance.** **Strongest floor ACTUALLY RUN = 0.0179; MASKED is 8.7x it, CI-separated.** *SCRAMBLE
+> doubles as the harness positive control -- real vectors, correspondence destroyed, everything else
+> untouched -- and lands at 0.0179, so this harness CAN produce a null.*
+> /!\ **NOT: (1) the BALANCED sample is the 60 MOST SOURCE-SPREAD lemmas -- NOT the average word, so
+> this shows signal EXISTS, not how strong it is on our vocabulary; (2) the two columns are DIFFERENT
+> POPULATIONS -- `0.0972 -> 0.1549` is NOT an improvement; (3) 0.1549 is ~1 in 6 of 60, still WEAK --
+> separated from a floor != good; (4) NOT scored against the counting bar.**
+> `THE_MASKED_VECTOR_DOES_CARRY_WORD_SIGNAL_...`
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"

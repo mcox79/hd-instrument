@@ -80,8 +80,25 @@ def main() -> int:
     if len(eligible) < N_LEMMAS:
         print("REFUSING: fewer than 60 eligible lemmas.")
         return 2
-    rng = np.random.default_rng(SEED)
-    lemmas = sorted(rng.choice(eligible, size=N_LEMMAS, replace=False).tolist())
+    def _max_share(lem: str) -> float:
+        srcs = [src for _s, src in by_lemma[lem][:N_SENT]]
+        return collections.Counter(srcs).most_common(1)[0][1] / len(srcs)
+
+    balanced = "--balanced" in sys.argv
+    if balanced:
+        # THE RE-RUN THE FIRST PASS ASKED FOR. Selecting the most source-SPREAD lemmas shrinks the
+        # confound at the source instead of trying to subtract it afterwards: if a lemma's sentences
+        # come from many books, "which book" stops being an answer to "which word".
+        # This is a BIASED SAMPLE BY CONSTRUCTION and says so -- it is the subset of vocabulary that
+        # appears across many registers, which is not the average word. It answers "is there word
+        # signal once the confound is removed", NOT "how well does the arm do on our vocabulary".
+        ranked = sorted(eligible, key=_max_share)
+        lemmas = sorted(ranked[:N_LEMMAS])
+        print("MODE: --balanced (lemmas chosen for the WIDEST spread across source texts)")
+    else:
+        rng = np.random.default_rng(SEED)
+        lemmas = sorted(rng.choice(eligible, size=N_LEMMAS, replace=False).tolist())
+        print("MODE: random lemma sample (pass --balanced for the confound-reduced re-run)")
 
     # -- HOW CONCENTRATED IS EACH LEMMA IN ONE SOURCE? The confound's own size. ------------
     shares = []
@@ -135,6 +152,41 @@ def main() -> int:
     pc: dict = {}
     masked = score(lambda s, src, l: context_vector_masked(s, l), pm)
     corpus_only = score(lambda s, src, l: corpus_vec(src), pc)
+
+    # SCRAMBLE FLOOR, and it doubles as a POSITIVE CONTROL ON THE HARNESS ITSELF. Each query keeps a
+    # real masked context vector but is scored against a lemma pool whose membership is shuffled, so
+    # the word-to-context correspondence is destroyed while every other property -- vector
+    # dimensionality, profile sizes, tie structure, the leave-one-out subtraction -- is untouched.
+    # It MUST land at chance. If it does not, the scorer is finding structure that is not there and
+    # no number above means anything. An arm that cannot produce a null cannot produce a result.
+    rs = np.random.default_rng(23)
+    real = {l: [context_vector_masked(s, l) for s, _src in by_lemma[l][:N_SENT]] for l in lemmas}
+    flat = [(l, v) for l in lemmas for v in real[l]]
+    perm = rs.permutation(len(flat))
+    shuffled: dict = {l: [] for l in lemmas}
+    for i, (lem, _v) in enumerate(flat):
+        shuffled[lem].append(flat[perm[i]][1])
+    ssums = {l: np.sum(shuffled[l], axis=0) for l in lemmas}
+    shit = stot = 0
+    for l in lemmas:
+        for q in shuffled[l]:
+            qn = np.linalg.norm(q)
+            if qn == 0:
+                continue
+            best, best_c = None, -2.0
+            for m in lemmas:
+                prof = ssums[m] - (q if m == l else 0)
+                pn = np.linalg.norm(prof)
+                if pn == 0:
+                    continue
+                c = float(np.dot(q, prof) / (qn * pn))
+                if c > best_c:
+                    best_c, best = c, m
+            stot += 1
+            shit += int(best == l)
+    scramble = shit / max(1, stot)
+    print(f"SCRAMBLE floor (word-to-context correspondence destroyed): {scramble:.4f} "
+          f"[must be ~chance {1.0 / N_LEMMAS:.4f}]")
 
     # PAIRED DIFFERENCE WITH A CI, BOOTSTRAPPED OVER LEMMAS -- the clustering unit. Queries inside
     # one lemma share its sentences and its source mix, so resampling QUERIES would understate the
