@@ -37,6 +37,56 @@ DATA_EXT = {".json", ".jsonl", ".npy", ".npz", ".csv", ".tsv", ".parquet", ".pkl
 MAX_DEPTH = 8
 
 
+def load_any(path):
+    """Read a file that may be JSON *or* JSONL, and say which. Returns (obj, note).
+
+    THIS EXISTS BECAUSE MY OWN READER WAS THE DEFECT TWICE IN ONE NIGHT (2026-08-21):
+      - `_survivors_for_handcheck.json` was recorded in a committed note as "0 parseable rows".
+        It parses perfectly. I had read a JSON dict line-by-line as JSONL.
+      - An earlier scan read only the first 2 MB of sibling JSONs, declared them unparseable, and
+        produced a "96.5% of cells saved nothing" claim that had to be voided.
+    Both times "unparseable" was a statement about the reader, not the file. So: try both formats,
+    and if both fail say UNKNOWN rather than absent -- an absence claim needs an enumeration.
+    """
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return json.load(fh), "json"
+    except Exception:                                     # noqa: BLE001 -- fall through to JSONL
+        pass
+    try:
+        rows = []
+        with open(path, encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if line:
+                    rows.append(json.loads(line))
+        if rows:
+            return rows, "jsonl (%d lines)" % len(rows)
+    except Exception as exc:                              # noqa: BLE001
+        return None, "UNREADABLE as json or jsonl (%s) -- UNKNOWN, not absent" % type(exc).__name__
+    return None, "empty"
+
+
+def sample_tell(obj):
+    """Is this file a SAMPLE of a population it did not keep? Returns a note or None.
+
+    The 2026-08-21 case that motivates it, exactly: `{"n_survivors": 1414, "sample": [100 rows]}`.
+    That file looks like saved data and IS saved data -- but it cannot answer a question about the
+    other 1,314. Deliberately narrow: an integer field whose value EXCEEDS the longest list in the
+    same dict by more than 2x. A file that kept everything has count == length and stays quiet.
+    """
+    if not isinstance(obj, dict):
+        return None
+    longest = max([len(v) for v in obj.values() if isinstance(v, list)] or [0])
+    if not longest:
+        return None
+    for k, v in obj.items():
+        if isinstance(v, int) and not isinstance(v, bool) and v > 2 * longest:
+            return (f"SAMPLE, NOT THE POPULATION: '{k}' = {v:,} but the longest list here holds "
+                    f"{longest:,}. It cannot answer a question about the other {v - longest:,}.")
+    return None
+
+
 def _populations(obj, min_entries, path="", depth=0, out=None):
     """Every path in the JSON holding a list OR dict of >= min_entries.
 
@@ -79,6 +129,20 @@ def inspect(cell, min_entries=10, data_root="data"):
             size = os.path.getsize(os.path.join(d, f))
             tag = "  <-- DATA" if f in data_files else ""
             print(f"  {f:<52}{size:>12,} B{tag}")
+            # OPEN IT. Listing a filename is not the same as knowing what is in it -- on 2026-08-21
+            # a file listed as data turned out to hold 100 rows of a 1,414-row population, and that
+            # distinction is the whole re-analysable question.
+            if f not in data_files or size > 200_000_000:
+                continue
+            obj, note = load_any(os.path.join(d, f))
+            if obj is None:
+                print(f"      {note}")
+                continue
+            for p2, kind, n2 in sorted(_populations(obj, min_entries), key=lambda r: -r[2])[:4]:
+                print(f"      {n2:>7,}  {kind:<5} {p2}   [{note}]")
+            tell = sample_tell(obj)
+            if tell:
+                print(f"      !! {tell}")
     else:
         print("\n--- sibling files ---\n  (none -- metrics.json only)")
 
@@ -157,6 +221,44 @@ def _self_test():
             print("[self-test] PASS known-absent: a summary-only fixture reports NO population")
         else:
             print("[self-test] FAIL known-absent: found a population in a summary-only fixture")
+            ok = False
+
+    # THE SAMPLE TELL, both directions. The real 2026-08-21 case must fire; a file that kept
+    # everything must stay silent, or the flag is cry-wolf and gets ignored.
+    if sample_tell({"n_survivors": 1414, "sample": [0] * 100}):
+        print("[self-test] PASS sample-tell fires on {n_survivors:1414, sample:[100]}")
+    else:
+        print("[self-test] FAIL sample-tell did NOT fire on the real 2026-08-21 case")
+        ok = False
+    if sample_tell({"n_rows": 4015, "rows": [0] * 4015}) is None:
+        print("[self-test] PASS sample-tell stays SILENT when the file kept everything")
+    else:
+        print("[self-test] FAIL sample-tell fired on a complete file (cry-wolf)")
+        ok = False
+
+    # load_any must read BOTH formats -- reading JSON as JSONL is what produced a false
+    # "0 parseable rows" in a committed note.
+    with tempfile.TemporaryDirectory() as td:
+        j = os.path.join(td, "a.json")
+        with open(j, "w", encoding="utf-8") as fh:
+            json.dump({"n_survivors": 7, "sample": [1, 2]}, fh)
+        l = os.path.join(td, "b.jsonl")
+        with open(l, "w", encoding="utf-8") as fh:
+            fh.write('{"a":1}\n{"a":2}\n')
+        oj, nj = load_any(j)
+        ol, nl = load_any(l)
+        if isinstance(oj, dict) and nj == "json" and isinstance(ol, list) and len(ol) == 2:
+            print("[self-test] PASS load_any reads JSON as JSON and JSONL as JSONL")
+        else:
+            print(f"[self-test] FAIL load_any: {nj} / {nl}")
+            ok = False
+        bad = os.path.join(td, "c.json")
+        with open(bad, "w", encoding="utf-8") as fh:
+            fh.write("{not json at all")
+        if load_any(bad)[0] is None and "UNKNOWN" in load_any(bad)[1]:
+            print("[self-test] PASS a genuinely unreadable file says UNKNOWN, not absent")
+        else:
+            print("[self-test] FAIL unreadable file did not report UNKNOWN")
             ok = False
 
     # DICTS MUST COUNT -- counting only lists undercounted the archive census by 35%.
