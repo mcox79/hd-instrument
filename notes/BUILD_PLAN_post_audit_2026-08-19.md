@@ -256,8 +256,19 @@
 > 💡 **HYPOTHESIS-PENDING-VET, flagged as reasoning not result:** our live encoder is
 > `sha256 -> random ±1`, and random codes sit near MINIMUM crosstalk by construction -- so "better
 > keys" may be closed by GEOMETRY, leaving quantity as the only lever, which is what the sweep found.
-> ***One-line test: put our encoder's `E[<ki,kj>^2]` beside the 11 already in
-> `detail.per_encoder`.*** 🧠 **BRAIN: its answer is not "write less" but "write SEPARABLY" (DG
+> ✅ ***THE ONE-LINE TEST IS RUN AND THE HYPOTHESIS IS CONFIRMED. Our live encoder measures
+> `inv_e_sq = 256.00` at d=256 -- `inv_e_sq / D = 1.000`, THE WELCH BOUND. The best of the 11
+> trained encoders manages 0.179 (MiniLM) and most manage ~0.001. WE BEAT THE BEST BY 3.2x WHILE
+> USING A THIRD OF ITS DIMENSIONALITY*** (they are anisotropic -- isoscore 0.28-0.92, `d_eff` far
+> below `D` -- so they waste the dimensions they have). *Control caught MY bug first: a "real word"
+> arm read 7.86 because I passed 8 words x 1,000 duplicates; re-run on **5,704 distinct real words**
+> it reads **255.96** vs synthetic **256.01** -- word-independence MEASURED, not assumed.*
+> ➡️ **CAPACITY ≈ c × d, so 257-1,297 items at d=256 and 1,029-5,190 at d=1024. ONLY TWO LEVERS
+> REMAIN: FEWER ITEMS (the approved sweep) and MORE DIMENSIONS (B4's queued, runnable, unrun
+> d-sweep). "Better keys" is CLOSED BY GEOMETRY; "cleverer selection" is closed because interference
+> counts keys, not which keys.** ⚠️ *The d-prediction is an EXTRAPOLATION ALONG A DIFFERENT AXIS --
+> the law varied ENCODERS at native D, not d for one encoder, and `c` is unmeasured for us (5x
+> spread). **B4's sweep is the test.*** 🧠 **BRAIN: its answer is not "write less" but "write SEPARABLY" (DG
 > pattern separation; our own self-test passes it, `input_cos 0.934 -> code_cos 0.561`). "Sparsify
 > the stored key" is CLOSED; "separate similar items BEFORE storing" is a different operation.**
 > `notes/WHY_WRITING_LESS_HELPS_the_mechanism_was_already_measured_on_our_own_substrate_2026-08-21.md`

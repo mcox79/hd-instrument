@@ -82,6 +82,50 @@ measured for our own keys. The cheap test is one line: compute `E[<ki,kj>^2]` fo
 our `d` and place it against the 11 encoders' values already in `detail.per_encoder`. If we sit at
 the good end, "better keys" is closed by geometry rather than by trying and failing.*
 
+## 5b. ✅ **THE ONE-LINE TEST IS NOW RUN, AND THE HYPOTHESIS IS CONFIRMED: OUR KEYS SIT AT THE FLOOR**
+
+**Measured with the live encoder itself (`reading_grounding_loop.py:307-308`), Gram trick, `M_keys`
+matched to the cell's 8,000.** *`inv_e_sq` = 1 / E[<ki,kj>^2]; **higher is better**.*
+
+| encoder | D | isoscore | `inv_e_sq` | **`inv_e_sq` / D** |
+|---|---|---|---|---|
+| **OURS (sha256 -> random ±1)** | **256** | 1.000 | **256.00** | **1.000** |
+| all-mpnet-base-v2 | 768 | 0.914 | 80.34 | 0.105 |
+| all-distilroberta-v1 | 768 | 0.915 | 73.52 | 0.096 |
+| all-MiniLM-L6-v2 | 384 | 0.912 | 68.88 | **0.179** *(best of the 11)* |
+| bge-small / bge-large | 384 / 1024 | 0.92 | 5.45 / 3.88 | 0.014 / 0.004 |
+| e5-base-v2 | 768 | 0.921 | 1.85 | 0.002 |
+| pythia-160m ... 2.8b | 768-2560 | 0.81-0.86 | 1.01-2.68 | ~0.001 |
+| gpt2-medium | 1024 | **0.283** | 1.01 | 0.001 |
+
+> **`inv_e_sq / D = 1.000` FOR US. THE BEST TRAINED ENCODER MANAGES 0.179 AND MOST MANAGE ~0.001.**
+> ***E[cos^2] = 1/d is the Welch bound -- the theoretical minimum for unit vectors in d dimensions.
+> We are AT it, and we beat the best trained encoder by 3.2x WHILE USING A THIRD OF ITS
+> DIMENSIONALITY.*** *Trained encoders are anisotropic (isoscore 0.28-0.92, `d_eff` far below `D`)
+> and therefore waste most of the dimensions they have.*
+
+**CONTROL RUN, AND IT CAUGHT MY OWN BUG FIRST:** *my first "real word" arm returned 7.86 instead of
+256 -- because I passed 8 words repeated 1,000 times, so most pairs were the SAME string at cos=1.
+Re-run on **5,704 distinct real words** harvested from the landed definitional facts: **inv_e_sq =
+255.96** against the synthetic **256.01**.* **Word-independence is now measured, not assumed.**
+
+### ➡️ **SO "BETTER KEYS" IS CLOSED BY GEOMETRY, AND ONLY TWO LEVERS REMAIN**
+
+**`m_crit ≈ c × inv_e_sq` and `inv_e_sq = d` for us, so capacity ≈ `c × d`.** *With the cell's
+`c` range 1.005-5.068, that is **257-1,297 items at d=256** and **1,029-5,190 at d=1024**.*
+
+| lever | status |
+|---|---|
+| **fewer items** | ✅ **the sweep you just approved** |
+| **more dimensions** | ✅ **B4's queued d-sweep -- runnable and unrun** |
+| better keys | 🚫 **CLOSED: we are at the theoretical floor** |
+| cleverer selection | 🚫 **CLOSED: interference counts keys, not which keys** |
+
+⚠️ **HONEST LIMIT ON THE d-PREDICTION:** *the law was measured ACROSS ENCODERS at their native D,
+not by varying d for a FIXED encoder. `inv_e_sq = d` for random codes is geometry and is now
+measured; that `m_crit` tracks it as we raise our own d is an **extrapolation along a different
+axis**, and `c` is unmeasured for our encoder (5x spread). **B4's sweep is the test.***
+
 ## 6. 🧠 THE BRAIN SIDE, BECAUSE THE STANDING RULE IS TO ASK
 
 **The brain faces the same problem and its answer is not "write less" -- it is "write separably":
