@@ -67,13 +67,20 @@
 > may DIAGNOSE, never DECIDE.* The 32%-vs-4% hand-score justified "bind only the definitional half";
 > the task disagrees. *"Is this a good definition" and "does this predict context" are different
 > questions and I used one as evidence for the other all session.*
-> ### ⚠️ **ALTERNATIVE EXPLANATION NOT RULED OUT:** the hybrid's per-sentence z-score, which mixes
-> two scales, is **MY invention** and sits exactly where damage would show. **The honest statement is
-> "the HYBRID is worse", NOT "the DEFINITIONS are worse".** The clean discriminator is
-> definitional-only vs distributional-only on the **48 covered items** -- next measurement.
-> ### **ANGLE B'S FILTER IS NOW UNRESOLVED AND MUST BE MARKED SO IN EVERY BRIEF** -- it has been
-> wrong twice for two different reasons (coverage 24.6%; and this). **The architectural claim -- the
-> meaning supplies the PREDICTION -- is still untouched.**
+> ### ✅ **RESOLVED SAME DAY -- MY GLUE IS EXONERATED, IT IS THE DEFINITIONS.** Scored ALONE on the
+> 48 items where both routes fire, no mixing and no z-score:
+> **DEFINITIONAL `-0.021`/item, CI `[-0.062, +0.000]` -- NO SIGNAL AT ALL**;
+> **DISTRIBUTIONAL on the SAME items `+0.188`, CI `[+0.042, +0.333]`**;
+> **PAIRED `-0.208`, CI `[-0.375, -0.042]`, SEPARATED.**
+> ### 🚫 **ANGLE B'S FILTER IS ANSWERED AGAINST THE DESIGN -- INVERT OR DROP IT, do NOT mark it
+> "unresolved".** "Bind only the definitional half" would REMOVE the signal and keep the half that
+> has none. Both supports failed independently: coverage **24.6%**, and **no signal where it fires**.
+> ### **STATED NARROWLY, BECAUSE THIS IS NOT "THE DEFINITIONS ARE BAD":** a correct definition need
+> not share vocabulary with an arbitrary sentence. *"A bottle is a container for liquids"* predicts
+> almost nothing about bottles at a picnic. **They may still suit a lookup or an inference step --
+> just not a prediction-error monitor.** The architectural claim (**meaning supplies the
+> PREDICTION**) is still untouched; what died is my claim about WHICH meanings do the predicting.
+> *Sober note: the winning side still loses to counting (+16.3 vs bar +44.2). Winning this is not winning.*
 > *Incidental: the distributional +16.3 reproduced identically here, an unplanned replication that passed.*
 > `notes/THE_TASK_DISAGREES_WITH_THE_RUBRIC_...md`
 >

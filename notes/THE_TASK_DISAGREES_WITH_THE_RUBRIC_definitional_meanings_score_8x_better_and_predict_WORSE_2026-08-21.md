@@ -1,5 +1,15 @@
 # THE TASK DISAGREES WITH THE RUBRIC: THE DEFINITIONAL MEANINGS SCORE **8x BETTER BY HAND** AND **PREDICT WORSE**
 
+> # ✅ RESOLVED SAME DAY -- **THE ALTERNATIVE EXPLANATION IS RULED OUT. IT IS THE DEFINITIONS.**
+> This note left two readings open and named the test that separates them. It was run.
+> **On the 48 items where BOTH routes fire, scored ALONE with no mixing and no z-score:**
+> **DEFINITIONAL `-0.021` per item, CI `[-0.062, +0.000]`** -- indistinguishable from zero and
+> certainly not positive. **DISTRIBUTIONAL on the SAME items `+0.188`, CI `[+0.042, +0.333]`.**
+> **PAIRED `-0.208`, CI `[-0.375, -0.042]` -- SEPARATED.**
+> **➡️ My per-sentence z-score is EXONERATED; the loss is attributable to the definitions.** The
+> caution below was the right thing to write and the right thing to then go and settle.
+> `notes/THE_DEFINITIONS_CARRY_NO_ANOMALY_SIGNAL_...md`
+
 **Pre-committed reading, written before the run.** Three outcomes were named in advance; **the third
 fired.**
 
