@@ -144,6 +144,21 @@
 > Only the ORDERING travels, and it travels because +0.3264 is not a marginal gap.**
 > `THE_IDENTIFICATION_TASK_IS_A_LOOKUP_...` `tools/vet_two_jobs_selfreference_share.py`
 
+> ## **AND THE FLOOR FOR THAT VET: THE MASKED ARM DOES NOT SEPARATE FROM "WHICH BOOK IS THIS"**
+> **I measured MASKED 0.0972 vs chance 0.0167 and then measured the RIGHT floor.** A predictor
+> knowing ONLY the source corpus, no words at all, scores **0.0752**. `MASKED - CORPUS_ONLY =
+> +0.0220, 95% CI [-0.0419, +0.0764]`, half-width 0.0592, bootstrapped over the 60 LEMMAS (the
+> clustering unit). **CI SPANS ZERO -- NOT SEPARATED.** *Cause: the shelf is separate books and
+> **the median lemma draws 69.5% of its sentences from ONE corpus; 18 of 60 draw >=90%** -- the same
+> register fault that withdrew the foraging headline (7.6x bias under a 1.2x effect).*
+> 🚫 **STOP QUOTING `0.0972 vs chance` -- chance is the WEAKEST floor available.** ⚠️ *Not refuted
+> either: 45 of 60 lemmas lean the right way, so it is UNRESOLVED at this n; the fix is a
+> corpus-BALANCED lemma sample, which is a RE-RUN and is NOT done.* ✅ **The two-jobs finding is
+> UNTOUCHED -- it rests on TARGET_ONLY 0.9687, which clears every floor here by a mile.**
+> 🔻 **AND THE TOOL I WROTE TO ENFORCE THIS PRINTED A POSITIVE ON ITS FIRST RUN**, reading the point
+> difference while its own bootstrap four lines above spanned zero. *Verdict now CI-gated.*
+> `THE_MASKED_ARM_IS_NOT_SEPARABLE_...` `tools/vet_is_masked_identification_just_corpus_identity.py`
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"
