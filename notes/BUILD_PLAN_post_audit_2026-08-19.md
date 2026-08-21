@@ -258,6 +258,17 @@
 > plans alone; 4 self-tests, 3 of them anti-cry-wolf).** **STAMPED NOT DELETED -- retirement is
 > deletion-shaped, so it is Q99 on the board.**
 > `notes/METHOD_REVIEW_2026-08-21_sixteen_withdrawals_one_fault_and_what_caught_every_one.md`
+> - ✅ **AND THE CHECK WAS THEN TURNED ON THE CLAIM THE TOP ITEM RESTS ON -- IT SURVIVES, EXACTLY.**
+>   *`STATUS`'s `## POSITION`: `SUBSTRATE - COUNTING = -0.142/item over 478 items, CI
+>   [-0.203,-0.082]`, reported beside marginals +16.3 and +29.4. Those are DIFFERENT computations, so
+>   agreement is a real constraint.* **Per-set differences -15.8/-17.6/-14.2/-9.2 -> MEAN -14.200 pp
+>   = -0.142 per item. EXACT to 3 s.f.** *And the LABEL is right: median-of-differences is -15.0, so
+>   it genuinely is a per-item MEAN and is described as one.* ✅ *Three further constraints hold: the
+>   gate is counting's UPPER bound +44.2 (discipline 18) and substrate's best CI reaches only +30.8;
+>   the note DECLARES the marginals overlap (+30.8 vs +20.0) and refuses to treat that as a test,
+>   which is the correct reason to run a paired one; untrained ~0 with CIs spanning zero.*
+>   🎯 ***5 KILLS AND 1 PASS TONIGHT -- THE CHECK DISCRIMINATES RATHER THAN CONDEMNS, which is what
+>   makes the pass worth something.*** `notes/CONSTRAINT_CHECK_the_three_way_comparison_SURVIVES_and_reconciles_exactly_2026-08-21.md`
 >
 > ## ✅ **OWNER ANSWERED Q98 (2026-08-21): *"approved, but you should do some research on why this is
 > ## as you're finding it, to understand why and potentially to give you a good idea on next optimal
