@@ -40,27 +40,44 @@ N_SENT = 41
 SEED = 7
 
 
-def _tagged_sentences(limit: int = 60000) -> list[tuple[str, str]]:
-    """(sentence, corpus_name) -- the tag is the whole point of this diagnostic."""
+def _tagged_sentences(limit: int = 300000) -> list[tuple[str, str]]:
+    """Sentences off the real shelf, sampled EVENLY across every readable corpus."""
+    # ROUND-ROBIN ACROSS THE WHOLE SHELF, NOT THE FIRST N ALPHABETICALLY.
+    # The first version filled its quota in readable_names() order and stopped at the cap. That took
+    # the first NINE corpora alphabetically -- alice, anne, arc, breadth_v1, graded_readers*,
+    # litbank, little_women, mcguffey_graded -- i.e. almost entirely novels and school readers, and
+    # it silently excluded all six textbooks, simplewiki, onestop, race, wiqa and social_iqa.
+    # MEASURED COST OF THAT BIAS: it made the shelf look like 9 sources when there are 28, put the
+    # median word at 70% concentration in one source when the true figure is 49%, and cut usable
+    # SimLex pairs from 111 to 40. I filed a board question on those wrong numbers and had to
+    # withdraw it within the hour. A CAP IS A SAMPLING DECISION; taking it in name order is a bias.
     from hdlab.corpus_registry import CorpusRegistry
     reg = CorpusRegistry()
-    out: list[tuple[str, str]] = []
+    pools = []
     for name in reg.readable_names():
         h = reg.handles.get(name)
         if h is None:
             continue
         try:
-            pool = h.pool()
+            pool = [x for x in h.pool() if 40 < len(x) < 400]
         except Exception as exc:
-            print(f"  [{name}] pool() failed: {type(exc).__name__}: {exc}", flush=True)
+            print(f'  [{name}] pool() failed: {type(exc).__name__}: {exc}', flush=True)
             continue
-        for s in pool:
-            if 40 < len(s) < 400:
+        if pool:
+            pools.append((name, pool))
+    out: list[tuple[str, str]] = []
+    i = 0
+    while len(out) < limit and any(i < len(p) for _n, p in pools):
+        for name, pool in pools:
+            if i < len(pool):
+                s = pool[i]
                 out.append((s, name))
-            if len(out) >= limit:
-                return out
+                if len(out) >= limit:
+                    break
+        i += 1
+    print(f'shelf: {len(pools)} corpora, {len(out)} sentences sampled ROUND-ROBIN',
+          flush=True)
     return out
-
 
 def main() -> int:
     # context_vector_masked takes `graded=None` = "follow the module switch", changed

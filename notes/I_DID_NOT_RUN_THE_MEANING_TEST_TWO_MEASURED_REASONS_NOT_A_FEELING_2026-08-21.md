@@ -4,6 +4,18 @@
 strongest floor of 0.0179, CI-separated, on source-balanced lemmas). The obvious follow-on is
 whether it carries MEANING signal on that same population. Here is why that is not the next move.**
 
+> # **CORRECTED: THE "40 PAIRS" FIGURE WAS MY OWN SAMPLING ARTIFACT. IT IS 111.**
+> **That count came from 9 of 28 corpora, taken alphabetically under a 60,000-sentence cap.**
+> Re-measured across the whole shelf: **7,568 lemmas with >=41 sentences (was 3,030); median
+> largest-corpus share 0.488 (was 0.695); SimLex pairs with BOTH words balanced at <=50% = 111
+> (was 40); both-covered = 829 (was 533).**
+> ***REASON ONE IS THEREFORE MUCH WEAKER THAN I WROTE IT.*** **But the DECISION stands, for the
+> arithmetic rather than the rhetoric: 111 pairs is still FEWER than the 322 the already-completed
+> version used, so a fresh balanced run would be LESS conclusive than what we already have.**
+> **REASON TWO -- the powered version exists twice -- is untouched.**
+> *I filed a board question on the wrong numbers and withdrew it within the hour.*
+> `THE_SHELF_IS_28_CORPORA_NOT_9_...`
+
 ---
 
 ## 1. REASON ONE -- **THE CONFOUND-FREE VERSION IS UNTESTABLE AT THIS n**

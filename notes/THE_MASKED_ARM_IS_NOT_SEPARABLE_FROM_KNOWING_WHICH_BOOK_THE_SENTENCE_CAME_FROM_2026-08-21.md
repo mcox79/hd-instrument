@@ -5,6 +5,30 @@ as word-specific signal, this is the floor it should have been measured against.
 
 > **RUN CONFIGURATION, stated because it is part of the measurement: `GRADED_COMPARATOR=True` (the shipped default), `CTX_D=256`, `HD_GRADED_COMPARATOR` unset. *`context_vector_masked` takes `graded=None` meaning 'follow the module switch' (DEFAULT CHANGED 2026-08-14), so these numbers inherit it -- and a number from one switch state may not be compared with one from the other. Found by running `tools/symbol_corrections.py context_vector_masked` over my own night's citations.*
 
+> # **CORRECTED THE SAME NIGHT -- THIS NOTE'S SAMPLE WAS 9 OF 28 CORPORA, TAKEN ALPHABETICALLY.**
+> **My loader filled a 60,000-sentence quota in `readable_names()` order and stopped. That took
+> `alice, anne, arc, breadth_v1, graded_readers*, litbank, little_women, mcguffey_graded` -- almost
+> entirely NOVELS AND SCHOOL READERS -- and silently excluded ALL SIX TEXTBOOKS, `simplewiki`,
+> `onestop`, `race`, `wiqa` and `social_iqa`. THE REAL SHELF IS 28 READABLE CORPORA, 286,069 usable
+> sentences.** *A cap is a sampling decision, and taking it in name order is a bias.*
+>
+> **RE-RUN ROUND-ROBIN ACROSS ALL 28, everything else identical:**
+>
+> | | this note (9 corpora, alphabetical) | **CORRECTED (28, round-robin)** |
+> |---|---|---|
+> | median largest-corpus share, balanced arm | 0.268 | **0.098** |
+> | CORPUS-ONLY floor, balanced | 0.0179 | **0.0000** |
+> | MASKED, balanced | 0.1549 | **0.1435** |
+> | **MASKED - CORPUS_ONLY, RANDOM sample** | **+0.0220, CI `[-0.0419,+0.0764]` NOT separated** | **+0.1163, CI `[+0.0520,+0.1760]` SEPARATED** |
+> | MASKED / CORPUS-ONLY, RANDOM | 0.0972 / 0.0752 | **0.2809 / 0.1646** |
+>
+> ***THE CORRECTION RUNS AGAINST MY OWN EARLIER CONCLUSION: on a properly sampled shelf the masked
+> arm SEPARATES from source-identity for TYPICAL words too, which this note reported as NOT
+> separated. I under-claimed because of a biased sample.*** **The balanced result is unchanged in
+> substance and its control is now perfect: with words spread over 28 sources, a predictor knowing
+> only the source scores EXACTLY 0.0000.**
+> `THE_SHELF_IS_28_CORPORA_NOT_9_...`
+
 ---
 
 ## 1. WHY THIS FLOOR AND NOT CHANCE

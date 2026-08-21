@@ -4,75 +4,75 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-20T18:59:15Z  |  HEAD: 0c8ccc770
+generated: 2026-08-21T21:18:36Z  |  HEAD: dfe946a2c
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 25973 min ago <-- STALE
-  - orchestrator: 34302 min ago <-- STALE
-  - research: 364 min ago <-- STALE
-  - skunkworks: 36974 min ago <-- STALE
-  - testbed: 73548 min ago <-- STALE
+  - exp_dev: 27552 min ago <-- STALE
+  - orchestrator: 35881 min ago <-- STALE
+  - research: 1944 min ago <-- STALE
+  - skunkworks: 38553 min ago <-- STALE
+  - testbed: 75127 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - substrate_director_kb_v1.staging.12232: 9 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.18720: 18 min ago, NO metrics.json yet (likely in-flight)
+  - retired_2026-08: 147 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
-  - **🔵 IN FLIGHT (2, written here IN THE SAME TURN AS EACH LAUNCH -- the rule this section's own
-    stale entry was written to enforce, and then was not followed):**
-    - **phrase-floor seed replication, seed 29** (`scratch/phrase_floor_feasibility.py`).
-      **SEEDS 7 / 101 / 13 ARE IN AND REPLICATE TIGHTLY: OURS 19.4 / 18.9 / 20.3%, strongest floor
-      7.5 / 7.4 / 8.2%, SHUFFLE 0.0% on all three.**
-    - **the HARDER floor, seed 7** (`tools/score_phrase_output_against_conceptnet_hypernyms.py`).
-      Adds **`CO_SPAN`** -- a CONTIGUOUS same-length window from the SAME sentence. `CO_SENTENCE`
-      samples words INDEPENDENTLY, which destroys syntax, so it may be beaten by mere phrase-hood
-      rather than by definitional-ness. Also adds the **ORACLE** ceiling and a **treatment-overlap**
-      column, because our definiens IS a contiguous window of that sentence and on a short sentence
-      a random window can largely BE it -- **a floor that contains the treatment is not a floor, and
-      failing to clear it would be a FALSE NEGATIVE, not a result.**
-  - *(Before that launch: nothing was running -- verified 2026-08-20 against the live process table,
-    only the status GUI, shim PID 8900 / child 28648. Not inferred from a log or a PID file.)*
-  - **🚨 THIS SECTION WAS CONFIDENTLY WRONG FOR A FULL DAY, AND IT IS THE ONE `session_start_hook.py`
-    INJECTS INTO EVERY COMPACTION RECOVERY.** The parsed copy sat at **line ~2535 under 2,300 lines of
-    archive**, said *"26 continuations in"*, and named two runs as in flight that had **finished the
-    previous afternoon** -- while the `AS OF:` line at the top of the SAME FILE named two *different*
-    runs. **A stale WHAT IS RUNNING is worse than an empty one; that exact sentence was already
-    written in the stale section, by someone who had just been burned by it.**
-    **THE STRUCTURAL CAUSE, NOW FIXED: both `session_start_hook.py` and `board.py` take the FIRST
-    line-start match, and the current sections had been buried under the archive.** They now sit at
-    the top; the archived copies below are renamed so exactly one of each literal is parsed.
-  - **✅ COMPLETED 2026-08-19, both with positive evidence in their logs, neither previously recorded
-    here:**
-    - **9-seed spoke independence sweep** (`scratch/spoke9.log`) -- **PRE-REGISTERED CONJUNCTION
-      (ratio>=0.85 AND union>=1.5 on EVERY seed): FAILS** -- 3 of 9 seeds fall under the ratio bar
-      (union clears on 9 of 9). **BUT DO NOT READ THAT AS "THE ENCOURAGING SEED WAS AN OUTLIER".**
-      The log poses that as a CONDITIONAL and the data takes the other branch: **ratio mean 0.87,
-      median 0.91, sd 0.09, min 0.70, and 6 of 9 seeds clear 0.85.** The 0.70 is the extreme, not the
-      0.94. **The honest verdict is: the pre-registered all-seeds bar FAILS and the effect is
-      BORDERLINE-AT-INDEPENDENCE, not refuted.**
-      *🚨 I first wrote "the single encouraging seed was the outlier" here, having copied the log's
-      conditional prose without checking which branch its own numbers took. Caught by reading the
-      table. That is the house error -- a narrative sentence sitting next to the data that contradicts
-      it -- and it survived into this file for one edit.*
-    - **`exp_predictive_write_gate_v1`** (`scratch/pwg_full.log`) -- `[done] 3 units in 1064s`.
-      **ACC hit@10 0.1533 vs COOC hit@10 0.3667** (seed 7); 0.1667 vs 0.3933 (seed 101). **Accumulation
-      loses to co-occurrence counting again**, consistent with everything else measured this week.
-  - **🔎 THE MACHINE ALREADY KNEW, AND THE WARNING WAS BEING READ PAST EVERY SESSION.** The hook's own
-    `[pid-reconcile]` block prints **"4 RECENT RUN(S) DEAD WITHOUT FINISHING <-- do not describe these
-    as live"**, naming `spoke9`, `onemany` and `cn_gold` as `DEAD_BUT_CLAIMED_LIVE`. It was correct
-    about LIVENESS and was ignored while this file said the opposite two lines further up.
-    **⚠️ BUT IT IS NOT RELIABLE ABOUT COMPLETION: it classifies `spoke9` as dead WITHOUT FINISHING,
-    and that run demonstrably finished** -- all 9 seeds, summary statistics and its pre-registered
-    verdict are in the log. It appears to infer "unfinished" from a missing `metrics.json`, which a
-    scratch-script run never writes. **DEAD != UNFINISHED; the reconciler conflates them, so use it
-    for liveness and read the log for completion.**
-  - **⚠️ FILE HEALTH: this file is ~272 KB / 3,373 lines against a stated cap of 8,704 B -- 31x over.**
-    `STATUS_SPEC.md` sec 2 requires the state half to be REWRITTEN IN PLACE and the never-trim half to
-    live in `STATUS_LESSONS.md`. It has instead become an append log. **NOT trimmed here on purpose:**
-    the spec's own sec 8 records that an ad-hoc byte-shave deleted a discipline that had cost two full
-    experiments to learn. A trim is a deliberate job against the spec, not a side-effect of a status
-    update.
+  - 📏 **THIS FILE IS ~870 B (3%) OVER ITS 28,672 CAP AND IS LEFT THAT WAY DELIBERATELY.**
+    *Per `STATUS_SPEC.md` sec 6 I spent both permitted actions -- compressed my own addition twice,
+    then evicted tiers 1-4 (a stale "Q92/Q95 are OPEN" block, two finished-work progress reports,
+    emphasis prose in the diagnostics and `n_grounded` entries). Step 3 is **STOP, do not descend into
+    the never-trim sections, disclose it** -- so it is disclosed here rather than paid for out of
+    DO-NOT-REDO or STANDING DISCIPLINES.* **Hand to a maintenance pass; the hook warns only past 1.5x.**
+  - ⬜ **NOTHING IS RUNNING.** Both detached diagnostics finished and were read 2026-08-21:
+    - ✅ **`exp_graded_vs_signed_query_v1` -- `np.sign` AT `:776` COSTS ALMOST NOTHING. CLOSED.**
+      `Q_GRADED` 0.0480 / median 37.0 vs `Q_SIGNED` 0.0455 / 41.0; paired **+0.0025 CI95
+      [-0.0030,+0.0080] NOT SEPARATED**. **T5b's PREDICTION IS REFUTED** -- it said magnitude moves
+      hit@1 specifically and leaves median rank alone; the opposite happened. *Real null, not
+      unreachable: positive control reproduces the C3 headline EXACTLY (0.0480), 3,708/4,000 ranks
+      changed.* **`:663`'s "worse than either" unsupported at this scale.**
+    - ✅ **`diagnose_read_with_loaded_foundation`: refusal delta 279 vs 380 = 1.36x, NOT the 22x
+      headline, which was 93% PRE-EXISTING.** *Its `n_grounded=0` is fixed at source, below.*
+  - 🔧 **FIXED -- `ReadResult.n_grounded` WAS STRUCTURALLY ALWAYS ZERO.** `substrate.py:608` read
+    `n_grounded_cumulative`; `checkpoint()` emits `cumulative_grounded` -- **the same two words
+    TRANSPOSED**, so `.get()` always defaulted and `or 0` served a wiring failure up as data, silently.
+    **A POSITIVE CONTROL WAS NOT OPTIONAL:** at 60 sentences the true value is *also* 0, so a rename
+    would have looked like success; at 600 it climbs **0->14->28->34->37->39** while the field said 0.
+    Now raises; self-tests PASS; **no landed cell affected** (cells count for themselves).
+    ⚠️ **GENERALISABLE: a STATIC scan for this bug class DOES NOT WORK** (1,925->871->801->132
+    suspects, every level dominated by legitimate reads --
+    `tools/audit_keys_read_but_never_written.py` says so in its own docstring). **WHAT FOUND IT WAS A
+    CONTRADICTION BETWEEN TWO FIELDS OF ONE OUTPUT** (`n_grounded=0` beside `anchors +68`).
+    ***Make outputs print quantities that CONSTRAIN EACH OTHER.***
+  - ⭐ **WHY WRITING LESS HELPS -- MECHANISM MEASURED ON OUR OWN SUBSTRATE (owner asked, Q98).**
+    `exp_crosstalk_capacity_law_v1_gpu_v1` `MEASURED_MECHANISM`: crosstalk `E[<ki,kj>^2]` over raw
+    keys DOMINATES Hebbian capacity, **r 0.976 / rho 0.964, n=11**; rivals `d_eff` -0.212 and
+    `IsoScore` 0.304 are weaker and their PARTIALS go NEGATIVE (-0.349/-0.499), killing
+    crosstalk-in-disguise. **Fewer keys -> less interference -> cleaner retrieval.**
+    ⚡ **DISSOLVES THE "BAD NEWS": a rate-matched RANDOM gate matching at all 4 thresholds is what
+    interference PREDICTS -- it counts HOW MANY keys, not WHICH. "Write less helps" + "choosing well
+    does not" are ONE result.** ✅ **OUR KEYS ARE AT THE WELCH BOUND: live encoder `inv_e_sq = 256.00`
+    at d=256, `inv_e_sq/D = 1.000`; best of the 11 is 0.179, most ~0.001 (anisotropic, isoscore
+    0.28-0.92). 3.2x the best at a THIRD of its D.** ➡️ **capacity ~ c x d (257-1,297 @256;
+    1,029-5,190 @1024). TWO LEVERS LEFT: FEWER ITEMS (approved sweep), MORE DIMENSIONS (B4 queued,
+    unrun). "Better keys" CLOSED BY GEOMETRY.** ⚠️ *d-prediction EXTRAPOLATES ALONG A DIFFERENT AXIS
+    (law varied ENCODERS at native D; `c` unmeasured for us, 5x spread) -- B4's sweep is the test.*
+    🚫 *Do not re-propose DO-NOT-REDO 44 or 32.* [`WHY_WRITING_LESS_HELPS_...`]
+  - **HAZARD: `data/foundation/` is READ-ONLY, ~63 MB, ONE DISK, NO BACKUP, gitignored.**
+  - **GATES: origin push needs in-session USER AUTH. Never `git add -A` on the canonical store.**
+    **Never bundle a deletion (`rm`/`Remove-Item`) with real work in one call.**
+    **Never edit `preregs/**` or any `arm_key*` file.**
+  - ✅ **BOARD EMPTY. Q98 ANSWERED: *"approved, but you should do some research on why this is as
+    you're finding it"*** -- write-rate extension AUTHORISED **with a stopping rule: extend past p90,
+    stop at the last point where the fraction of test words with NO score is still zero** (measured
+    0.0000 at every tested threshold; tie mass 0.0000 too -- only the write-nothing arm ties, 1.0000).
+  - 🧰 **USE IT: `python tools/what_did_this_cell_save.py <cell>`** -- RE-ANALYSABLE vs SUMMARY-ONLY,
+    opens siblings, reads JSON *and* JSONL, flags a SAMPLE posing as a population. **~31% of 7,905
+    cells are re-analysable (full enumeration).** *3 of 4 "must we re-run?" questions tonight were
+    already answered on disk; TWICE I asked the owner to authorise a number already saved.*
+    **OPEN THE CELL BEFORE ASKING.**
 
 ## 3. How we are doing (C1-C4, notes/SUBSTRATE_STRATEGY.md PART 1)
 - **C1** Near-neighbour 2AFC, live reading path: now=**0.6980** (was 0.6395) | floor(s)=scrambled-context **0.5095**, frequency **0.48025**, chance 0.50 | table verdict: (no verdict word in table cell)
@@ -82,11 +82,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 1 new commit(s) since last snapshot (HEAD 59627d991 -> 0c8ccc770)
+- 4 new commit(s) since last snapshot (HEAD e4172aaa7 -> dfe946a2c)
 
 ## 5. What is stuck (blocked / pending / no owner)
-- (none found)
+- **GATES: origin push needs in-session USER AUTH. Never `git add -A` on the canonical store.**
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8155, "generated_at": "2026-08-20T18:59:15Z", "head_commit": "0c8ccc7705574e2877857603586bfc8d3a3f9b53", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8158, "generated_at": "2026-08-21T21:18:36Z", "head_commit": "dfe946a2c05ac160a3df34d63323b70f2ab56cc1", "step_status": {}}
 -->

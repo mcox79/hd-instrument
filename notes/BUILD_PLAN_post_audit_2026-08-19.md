@@ -225,6 +225,28 @@
 > growth is PAUSED by standing decision, so that is a DECISION not a task.*
 > `I_DID_NOT_RUN_THE_MEANING_TEST_...`
 
+> ## **THE SHELF IS 28 CORPORA, NOT 9. MY CAP TOOK THEM ALPHABETICALLY AND I FILED A BOARD QUESTION ON IT.**
+> **A 60,000-sentence quota filled in `readable_names()` order took the first NINE corpora
+> ALPHABETICALLY** -- alice/anne/arc/breadth_v1/graded_readers*/litbank/little_women/mcguffey --
+> **almost entirely NOVELS AND SCHOOL READERS, silently excluding ALL SIX TEXTBOOKS, `simplewiki`,
+> `onestop`, `race`, `wiqa`, `social_iqa`, `worldtree`.** *A cap is a SAMPLING DECISION; taking it in
+> name order is a bias, and nothing printed said so.*
+> | | I said | **actual** |
+> |---|---|---|
+> | corpora / usable sentences | 9 / 60,000 | **28 / 286,069** |
+> | lemmas >=41 sentences | 3,030 | **7,568** |
+> | median largest-corpus share | 0.695 | **0.488** |
+> | SimLex pairs BOTH balanced | **40** | **111** |
+> 🔻 **AND IT REVERSES ONE OF MY OWN CONCLUSIONS, IN THE UNDER-CLAIMING DIRECTION: the RANDOM-sample
+> `MASKED - CORPUS_ONLY` goes from `+0.0220 CI [-0.0419,+0.0764]` NOT-separated to
+> `+0.1163 CI [+0.0520,+0.1760]` SEPARATED** (MASKED 0.2809 / CORPUS-ONLY 0.1646). *I published a
+> negative that my own biased sample produced.* ✅ **BALANCED result UNCHANGED in substance and its
+> control is now PERFECT: CORPUS-ONLY = `0.0000` exactly, SCRAMBLE = `0.0167` = chance, MASKED
+> `0.1435` CI `[+0.1191,+0.1699]`, 57 of 60 lemmas.** ⚠️ **CORPUS-ONLY 0.1646 on the full-shelf
+> RANDOM sample is STILL substantial -- the floor stays mandatory.** **Board Q103 WITHDRAWN from
+> disk within the hour, unanswered.** *Fix is in code: both tools sample ROUND-ROBIN and print
+> `shelf: N corpora, M sentences` every run.* `THE_SHELF_IS_28_CORPORA_NOT_9_...`
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"

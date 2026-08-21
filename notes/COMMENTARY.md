@@ -127,3 +127,29 @@ i think this reading and grounding thing was figured out a while ago - but you c
 ## 2026-08-21T02:22:53Z  --  the status window
 
 You should make an overngiht plan with a clear and varied plan of attack, including a few high priority organs / capabilities
+
+## 2026-08-21T02:54:54Z  --  the status window
+
+Just make sure you know that your plan to expand to other sections of the substrate overnight as needed. Don't wander, but be diligent and with purpose
+
+## 2026-08-21T13:00:04Z  --  the status window
+
+So, we did a bunch of work on this I believe - the reading part. We explicitely built something that stored the knowledge we reaed.  We also developed something that tried to sense the ~distance from any new fact to the grounded foundation - which is essentially what we need to read next. You should look for those experiments.
+
+## 2026-08-21T13:27:28Z  --  the status window
+
+to be clear, the work we did was to figure out how FAR the new words were from the ~closest grounded foundation in ~conceptual space, and how many hops it might take. We were able to get a very good sense of what else we needed to learn to fill that space from that. drill the relevant previous experimental results to learn more
+
+## 2026-08-21T15:40:17Z  --  the status window
+
+I'd like you to do an audit of all the work you've been doing - what has been successful and what those wins are, and what has not been successful, and what you did in each case that helped achieve success and failure. I'd like you to figure out a more efficient method for future development from this. Do a deep job on this - we need to optimize our approach.
+
+## 2026-08-21T18:19:51Z  --  the status window
+
+what did you find after your deep review of your methodologies and positive vs negative results? I missed your report.
+
+Also there are a lot of very old and not updated tabs in the gui - can we refresh and /or clean it up?
+
+## 2026-08-21T18:41:58Z  --  the status window
+
+I think you may have missed my point on the retrospective. I think that you may have a process flow that is not ideal for making progress on substrate - you often go for answers that might make sense in standard coding, but don't apply well here. I need you to imagine yourself as a neuroscience expert, working to recreate the human brain as an AI. You just happen to be an expert in coding too.
