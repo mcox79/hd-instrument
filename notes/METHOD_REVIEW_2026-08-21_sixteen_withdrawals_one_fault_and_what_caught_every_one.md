@@ -130,3 +130,91 @@ Moving them is a deletion-shaped change and is your call.
 2. **Run `tools/what_did_this_cell_save.py` before concluding "we must re-run" or filing a question.**
 3. **Prefer a failing assertion to a written caution** -- five prose rules were violated today by the
    person who wrote them.
+
+
+---
+
+# **UPDATE, LATER THE SAME NIGHT: 54 MORE COMMITS, AND THE ONE FAULT TURNED OUT TO HAVE THREE SIBLINGS.**
+
+*Appended rather than filed separately, so the owner still has ONE document to read.*
+**Counted from `git log`, not memory: 54 commits since the review above, 17 correction-flavoured
+(31%), 11 touching code (20% -- up from 15%).**
+
+## A. **THE REVIEW ABOVE NAMED ONE FAULT. THREE MORE EARNED THEIR PLACE.**
+
+### **FAULT 2 -- QUOTING A NUMBER PAST THE LIMITS ITS OWN SOURCE STATES. THREE INSTANCES.**
+
+| the number | what its own source said, close by |
+|---|---|
+| `0.2449` + the null band | *"These are NOT instrument numbers and may not be quoted as such."* |
+| `0.4750` | *"0.4750 is inflated by self-reference"* -- two paragraphs down |
+| `3.5x` grounding | MEANINGFUL-**OR-RELATED** combined, **n=17**, one scorer, *"both CIs touch zero"* |
+
+***THE SHAPE: THE NUMBER TRAVELS AND THE CAVEAT DOES NOT.*** **Fix shipped: `tools/cite_check.py`
+-- paste the literal, get the caveat lines nearest it.** *Self-tested on two of these three.*
+
+### **FAULT 3 -- MY OWN SAMPLING DECISION BECOMING A FINDING ABOUT THE PROJECT.**
+
+**A 60,000-sentence cap filled in alphabetical order gave me "we have read nine books" and "only 40
+of 999 test pairs are usable". THE SHELF IS 28 CORPORA AND 286,069 SENTENCES.** *I filed a board
+question on those numbers and withdrew it within the hour.* **And it made me publish a NEGATIVE
+that was pure artifact** -- *"not separated from source identity"* became **separated** (`+0.0220` ->
+`+0.1163`, CI excluding zero) once the sample was drawn round-robin. **Fix: both tools now sample
+across every corpus and PRINT what they sampled, first line, every run.**
+
+### **FAULT 4 -- A CONTROL THAT SHARED THE FLAW IT WAS CHECKING. TWICE.**
+
+1. **`cite_check`'s negative control PASSED while its search was completely broken** -- it shelled
+   out to `rg`, which is not on PATH for a subprocess here, so every query returned zero files.
+   *A broken search and an absent literal are indistinguishable.* **Fix: a SEARCH POSITIVE CONTROL.**
+2. **The corpus-confound tool printed "so it carries something the source tag does not" while its
+   OWN bootstrap, four lines above, read `[-0.0419, +0.0764]`.** *Reading a point estimate as a
+   finding while the interval spans zero -- inside the control written to prevent that.* **Fix: the
+   verdict is gated on the CI.**
+
+### **AND A RECURRING TIDINESS FAULT WORTH NAMING: THE CORRECTED HEADLINE LEFT STANDING. 3x.**
+*Each time I corrected a note's body and left its TLDR asserting the original.* **The summary is the
+section most likely to be read alone.** *Once, my own fix-up script silently failed on the TLDR
+because I asserted the match count on one substitution and not the other -- **a `replace` that
+matches nothing returns the string unchanged and reports success.***
+
+## B. ✅ **WHAT WORKED, AND IT IS ONE HABIT WITH A NEW SCOREBOARD**
+
+> ### **CHECKING PRIOR WORK CHANGED THE ANSWER EIGHT TIMES. THREE OF THOSE, THE ANSWER WAS IN THE DOCSTRING OR MAP ENTRY OF THE THING I WAS ABOUT TO CHANGE.**
+
+**The single most expensive miss:** *the plan's TOP ITEM told me to wire the definitional extractor.
+It was wired two days earlier, `substrate.py:538`, with 212 of 402 provenance rows to prove it -- and
+the function's own docstring carried three numbered corrections saying so.*
+
+**Two new reads now exist for exactly that:** `tools/symbol_corrections.py` (a symbol's own
+corrections, including INLINE COMMENTS -- it missed the most expensive case twice before I tested it
+against a real one) and `tools/cite_check.py` (a number's own caveats).
+
+**Every one was measured before being built:** *3.8% of docstrings carry a correction; 8.0% of notes
+carry a limits section.* **The ceiling-detector proposal stayed dead at 48.5%.**
+
+## TLDR (UPDATE)
+
+Since the review above I made **fifty-four more commits, a third of them corrections.**
+
+**The single fault I identified had three siblings, and they are worth knowing separately:**
+
+**One — I repeat a number and leave its warning behind.** Three times: a figure that only applies to
+one word list, a figure its own note calls inflated, a ratio resting on seventeen examples. **The
+number is memorable, the caveat isn't.**
+
+**Two — my own shortcut became a claim about the project.** My script read the first sixty thousand
+sentences alphabetically, so I announced we'd only read nine books. **We have twenty-eight sources.**
+I asked you to change the reading list because of it, then withdrew that within the hour. **Worse, it
+made me publish a negative result that vanished when I sampled properly.**
+
+**Three — twice, my safety check had the same blind spot as the thing it was checking.** One reported
+"no problems found" while it was in fact finding nothing at all, ever. **A check that can't tell
+"nothing wrong" from "I'm broken" isn't a check.**
+
+**What worked is unchanged and is now eight for eight: looking for previous work before starting.**
+Three of those eight times, the answer was written inside the very thing I was about to modify — most
+expensively, our number-one task, which had been finished two days earlier.
+
+**Two new commands now do that looking automatically**, and I measured that each would be useful
+before building it, rather than after.
