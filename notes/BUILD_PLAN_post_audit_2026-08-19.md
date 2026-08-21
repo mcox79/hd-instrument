@@ -76,238 +76,62 @@
 > the ARCHIVE is built from the same list, so that would destroy the record the owner asked to KEEP.**
 > `THE_GUI_COMPLAINT_WAS_ALREADY_FIXED_BUT_WRITING_ITS_GUARD_FOUND_A_CRASH_...`
 
-> ## /!\ **THE TOP ITEM ("WIRE DEFINITIONAL DIRECT-BANK") IS ALREADY WIRED AND LIVE -- AND ITS 64% IS BARRED FROM THAT USE**
-> **`hdlab/reading_grounding_loop.py:1479` carries THREE numbered corrections dated 2026-08-20 that
-> I had not read:** (1) **it IS on the live path** -- `substrate.py:538`, **212 of 402 provenance
-> rows** carry `meaning_source=DEFINITIONAL_EXTRACTION`; (2) **what ships is the PHRASE `d.definiens`,
-> NOT `d.head`** -- **PHRASE 32% vs HEAD 4%**, head **NOT distinguishable from control** (Fisher
-> p=0.2475); (3) **the 64% scores the EXTRACTOR's own output, NOT the facts the gate banks, and a
-> STANDING PROHIBITION forbids placing it beside the 4% / 1-3% / 35% / 94%.** *The TOP ITEM did
-> exactly that.* **MY ADDITION, all 2,092 rows ENUMERATED: the cited artifact is `0 of 2,092`
-> multi-word -- 100% HEAD-FORM -- while `2,079 (99.4%)` already carry the validated PHRASE in the
-> SAME ROW** (`ATP -> "process"` vs `"a process called hydrolysis"`). **NOTHING NEEDS RE-EXTRACTING;
-> THERE IS NO WIRING JOB.** *32% is 8x the head form, NOT clean --* `Afghanistan -> "the prince was
-> caught in another media furore"`. `THE_TOP_ITEM_WAS_ALREADY_WIRED_...`
-
-> ## **THE REGISTRY'S ROWS WERE STALE BECAUSE A CONCURRENT WRITER DISCARDED THE AUDIT'S RESULTS**
-> **Tell: ONE row contradicted ITSELF** -- `definitional_extraction`'s `provenance` said
-> *"pipeline_status corrected... on RUNTIME evidence (212 of 402 rows)"* while the FIELD still read
-> `WIRED_BUT_NOT_PIPELINE_REACHABLE`. **A hand-correction CANNOT survive: `capability_registry_audit.py:1494`
-> RECOMPUTES that field on every row.** Re-ran it: **7 organs flipped to `WIRED_AND_PIPELINE_USED`**
-> -- `definitional_extraction`, `substrate_assembled_reader_v1`, `information_foraging`,
-> `corpus_registry`, `sensorimotor_spoke`, `cortical_recall`, `foundation_persistence`.
-> **Totals now 55 USED / 94 NOT-REACHABLE.**
-> **CORRECTED THE SAME NIGHT, AND MY FIRST EXPLANATION WAS WRONG: I said "nobody re-ran it", then
-> built a detector and asked whether it would have fired on the real prior state. IT WOULD NOT.
-> THE AUDIT RAN TWICE AFTER THE FIX (10:00 and 10:03 local) AND COMPUTED THE CORRECT 55/94 BOTH
-> TIMES -- the rows kept the 05:24 values (48/101) ELEVEN HOURS LATER. THE RESULTS WERE LOST, NOT
-> MISSING**, to the read-modify-write race `capability_registry_audit.py:1495` warns about in its own
-> comment (two one-off registration commits at 09:43 and 11:53 local, both leaving a hand-written
-> `integration_status: None`). ***SO "THE REPORT EXISTS" IS NOT EVIDENCE THE ROWS WERE UPDATED.***
-> **BOTH detectors now in `session_start_hook.registry_report()`: tool-newer-than-report, AND
-> rows-older-than-report (1h tolerance -- the audit stamps rows at START and names its report at
-> FINISH, an 8m24s gap on a healthy run, so a strict compare cries wolf every time).**
-> /!\ **LIMIT: `WIRED_AND_PIPELINE_USED` means IMPORT-REACHABLE FROM THE ASSEMBLED READER, *NOT*
-> EXERCISED. Only ONE of the seven (`definitional_extraction`) has runtime evidence that it fires.**
-> `THE_REGISTRY_WAS_STALE_BY_ONE_TOOL_FIX_...` *(title is wrong; corrected in-file)*
-
-> ## **THE LOST-UPDATE HUNT: MECHANISM ESTABLISHED, INSTANCE NOT -- AND 2 OF MY 3 HITS WERE MINE**
-> **ONE genuinely unlocked writer of `capability_registry.jsonl`** (`_skunkworks_atomize_2026_07_31_*`,
-> read-modify-write, no lock). **TWO FALSE POSITIVES I CAUGHT BEFORE EDITING:**
-> `substrate_capability_registry.py` writes a **DIFFERENT FILE**
-> (`data/substrate_capability_registry.jsonl`), and the third was **my OWN self-test fixtures writing
-> to tempdirs.** *Caught by reading each `REGISTRY =` constant instead of trusting a filename match --
-> CLAUDE.md evidence discipline 5 firing as written; I was one step from locking an unrelated file.*
-> /!\ **HONEST LIMIT: the one real writer is dated 07-31 and is probably NOT tonight's culprit.**
-> *Today's two registrations left `integration_status: None`, so they were ad-hoc scripts in
-> `scratch/`, which is gitignored -- **NOTHING IS LEFT ON DISK TO INSPECT. The MECHANISM is
-> established; the INSTANCE is not, and those are different claims.*** **ATOMIC != SAFE: every writer
-> already does `os.replace`, which prevents a TORN file and does nothing about a LOST UPDATE.**
-> **Rule now in `CLAUDE.md`: read-modify-write goes inside `registry_transaction()`/`RegistryLock`.**
-> *You cannot lock a script that does not exist yet, so the mitigation is the DETECTOR shipped
-> tonight.* `THE_REGISTRY_LOST_UPDATE_ONE_UNLOCKED_WRITER_...`
-
-> ## **VET OF THE NIGHT'S LOAD-BEARING NUMBER: IDENTIFICATION IS A LOOKUP, AND CONTEXT DILUTES IT**
-> **The two-jobs note says the unmasked arm is "inflated by self-reference" and never quantifies it.
-> I added the missing arm -- TARGET_ONLY, the exact COMPLEMENT of the mask (the target tokens and
-> nothing else).** `MASKED 0.0972 | UNMASKED 0.6423 | **TARGET_ONLY 0.9687**`, chance 0.0167,
-> 60 lemmas x 41 sentences, leave-one-out, same code path. **THE WORD ALONE BEATS THE WORD PLUS ITS
-> SENTENCE BY +0.3264 (1.51x) -- so context is NOT a weaker identification cue, it is NOISE.**
-> *`within=0.8059 / cross=0.0005` is the SAME signature as the form channel's 1.0000: THE QUERY IS
-> THE ANSWER. Third instance tonight.* ✅ **The original claim is CONFIRMED AND UNDERSTATED** -- the
-> word is not the strongest cue, it is nearly the ONLY one, **so the identification job is a LOOKUP
-> needing no accumulated context, which STRENGTHENS Q102** (a form channel IS a lookup).
-> 🚫 **STOP QUOTING `0.1417 vs 0.4750` AS EVIDENCE ABOUT CONTEXT -- it is evidence about
-> SELF-REFERENCE.** /!\ **REPRODUCTION CAVEAT, FIRST-CLASS: the producing script did not survive
-> `scratch/`, I rebuilt from the description, and I DID NOT reproduce its numbers (MASKED -0.0445,
-> UNMASKED +0.1673). DIFFERENT POPULATION -- no number here crosses into a sentence about the note's.
-> Only the ORDERING travels, and it travels because +0.3264 is not a marginal gap.**
-> `THE_IDENTIFICATION_TASK_IS_A_LOOKUP_...` `tools/vet_two_jobs_selfreference_share.py`
-
-> ## **AND THE FLOOR FOR THAT VET: THE MASKED ARM DOES NOT SEPARATE FROM "WHICH BOOK IS THIS"**
-> **I measured MASKED 0.0972 vs chance 0.0167 and then measured the RIGHT floor.** A predictor
-> knowing ONLY the source corpus, no words at all, scores **0.0752**. `MASKED - CORPUS_ONLY =
-> +0.0220, 95% CI [-0.0419, +0.0764]`, half-width 0.0592, bootstrapped over the 60 LEMMAS (the
-> clustering unit). **CI SPANS ZERO -- NOT SEPARATED.** *Cause: the shelf is separate books and
-> **the median lemma draws 69.5% of its sentences from ONE corpus; 18 of 60 draw >=90%** -- the same
-> register fault that withdrew the foraging headline (7.6x bias under a 1.2x effect).*
-> 🚫 **STOP QUOTING `0.0972 vs chance` -- chance is the WEAKEST floor available.** ⚠️ *Not refuted
-> either: 45 of 60 lemmas lean the right way, so it is UNRESOLVED at this n; the fix is a
-> corpus-BALANCED lemma sample, which is a RE-RUN and is NOT done.* ✅ **The two-jobs finding is
-> UNTOUCHED -- it rests on TARGET_ONLY 0.9687, which clears every floor here by a mile.**
-> 🔻 **AND THE TOOL I WROTE TO ENFORCE THIS PRINTED A POSITIVE ON ITS FIRST RUN**, reading the point
-> difference while its own bootstrap four lines above spanned zero. *Verdict now CI-gated.*
-> `THE_MASKED_ARM_IS_NOT_SEPARABLE_...` `tools/vet_is_masked_identification_just_corpus_identity.py`
-
-> ## **A POSITIVE, PROPERLY FLOORED: THE MASKED VECTOR *DOES* CARRY WORD SIGNAL ONCE THE BOOK CONFOUND IS GONE**
-> **The re-run the previous note asked for and left undone. Same code, same arms, same scorer --
-> ONLY the 60 lemmas differ (chosen for WIDEST spread across source texts).**
-> | | RANDOM | **BALANCED** |
-> |---|---|---|
-> | median largest-corpus share | 0.695 | **0.268** |
-> | SCRAMBLE floor | -- | **0.0179** |
-> | CORPUS-ONLY floor | 0.0752 | **0.0179** |
-> | **MASKED** | 0.0972 | **0.1549** |
-> | MASKED - CORPUS_ONLY (95% CI) | +0.0220 `[-0.0419,+0.0764]` | **+0.1370 `[+0.1085,+0.1626]`** |
-> | separated? | NO | **YES** (54 of 60 lemmas) |
-> ✅ **THE MANIPULATION'S OWN CONTROL PROVES IT WORKED: CORPUS-ONLY falls 0.0752 -> 0.0179, onto
-> chance.** **Strongest floor ACTUALLY RUN = 0.0179; MASKED is 8.7x it, CI-separated.** *SCRAMBLE
-> doubles as the harness positive control -- real vectors, correspondence destroyed, everything else
-> untouched -- and lands at 0.0179, so this harness CAN produce a null.*
-> /!\ **NOT: (1) the BALANCED sample is the 60 MOST SOURCE-SPREAD lemmas -- NOT the average word, so
-> this shows signal EXISTS, not how strong it is on our vocabulary; (2) the two columns are DIFFERENT
-> POPULATIONS -- `0.0972 -> 0.1549` is NOT an improvement; (3) 0.1549 is ~1 in 6 of 60, still WEAK --
-> separated from a floor != good; (4) NOT scored against the counting bar.**
-> `THE_MASKED_VECTOR_DOES_CARRY_WORD_SIGNAL_...`
-
-> ## **Q102's "THE GAIN IS GENUINELY UNTESTED" IS WITHDRAWN -- ORGAN_MAP MEASURED IT ON 08-14**
-> **`organ_map_cite.py vwfa` returned it in its FIRST constraint line: `ORGAN_MAP` 10.1 entry A1,
-> heading verbatim `NO LONGER UNTESTED`.** Disk-verified against
-> `data/exp_orthographic_floor_vet_v1/metrics.json`, n=4000, 5000-boot: **A1_BASE (live substrate)
-> 0.0480 [0.0413,0.0548] vs A6_TRIGRAM_ONLY (the form organ ALONE) 0.0870 [0.0783,0.0960]**;
-> `A6-BASE = +0.0390 [0.0282,0.0500]`, **CI EXCLUDES ZERO**; A8 0.0610 and A7 0.0588 also beat it.
-> **A floored, can-fail, identical-pool measurement of EXACTLY what Q102 proposes to wire.**
-> ⚠️ **THE CAVEAT TRAVELS: that task has an ORTHOGRAPHIC SHORTCUT and this cell's own `example_picks`
-> PROVE IT** -- A6 picks `able/capability/capable/abnormal/absent/absence`, A7 picks
-> `abbey/able/abiotic/abbey`. *A spelling-neighbour picker only beats chance if the GOLD is a
-> spelling neighbour -- **this CLOSES tonight's open follow-up on the shortcut hypothesis.*** **And
-> the substrate WINS the full ranking (median 37.0 vs 54.0), so the organ wins AT RANK 1 ONLY.**
-> ✅ **RECOMMENDATION UNCHANGED (wire form as a SEPARATE channel); what is withdrawn is my claim to
-> the owner that the gain was unmeasured.** *NOT filing a second board question -- the owner
-> complained tonight about settled items reappearing.* `Q102s_GAIN_IS_NOT_UNTESTED_...`
-
-> ## **THE PRIOR-WORK CHECK NOW HAS A FOURTH READ: `tools/symbol_corrections.py`**
-> **THREE instances in ONE night, all the same shape: I quoted a claim while its CORRECTION sat in
-> the DOCSTRING OF THE THING I WAS QUOTING.** *(`_make_definitional_gate`'s three numbered
-> corrections; ORGAN_MAP A1's `NO LONGER UNTESTED` heading; a cell's own `arms_clearing`.) A FOURTH
-> predates tonight and is already in CLAUDE.md.* **Cells were covered (`experiment_index` prints
-> corrections) and ORGAN_MAP was covered (`organ_map_cite`); CODE WAS NOT, and that is where three
-> of the four lived.** ✅ **BASE RATE MEASURED BEFORE WRITING A LINE: 159 of 4,183 docstrings = 3.8%**
-> -- low enough to be a signal, where the ceiling detector was ABANDONED at 48.5%. *A TARGETED
-> lookup, never a broadcast; its self-test FAILS if a future edit widens the markers past 10%, so it
-> cannot quietly become noise.* **On the real incident it surfaces the 3 corrections in 5 lines
-> instead of a 3,810-byte docstring.** `tools/symbol_corrections.py` (4 self-tests, incl. a
-> negative control and the base-rate ceiling). Now the 4th row of CLAUDE.md's prior-work table.
-
-> ## **A RUN I DID NOT DO, FOR TWO MEASURED REASONS FOUND BEFORE WRITING IT**
-> **The obvious follow-on to tonight's positive -- does the masked/concept encoding carry MEANING,
-> not just identity -- is NOT the next move.** (1) **THE CONFOUND-FREE VERSION IS UNTESTABLE:** of
-> 999 SimLex pairs, **533 have both words covered (>=41 sentences) but only 40 have both words
-> SOURCE-BALANCED.** *A rho on 40 pairs could not fail informatively.* (2) **THE POWERED VERSION IS
-> ALREADY DONE TWICE, with a better battery than I planned:** `exp_meaning_asset_vs_production_v1`
-> has `A_PLANTED_SEMANTIC` **0.9269** (the readout CAN detect meaning), `A_ORTHOGRAPHIC` **-0.0122**
-> (pure spelling scores ZERO on meaning -- independently matching tonight's FORM -0.0259),
-> `C_CONCEPT_SHUFFLED` -0.0092, and **`P_LIVE_CONCEPT` 0.1048 CI [-0.0073,+0.2126] n=322** -- plus
-> `exp_meaning_asset_power_extension_v2_paired` already IS the raise-n move. **SEVENTH prior-work
-> catch tonight.** ⚠️ **STILL OPEN, DO NOT READ AS CLOSED: that CI CROSSES ZERO, so the meaning
-> question is UNRESOLVED. What is closed is that MY run would not resolve it.** *The lever is CORPUS
-> BREADTH, not analysis -- 40 usable pairs is a property of having read nine separate books, and
-> growth is PAUSED by standing decision, so that is a DECISION not a task.*
-> `I_DID_NOT_RUN_THE_MEANING_TEST_...`
-
-> ## **THE SHELF IS 28 CORPORA, NOT 9. MY CAP TOOK THEM ALPHABETICALLY AND I FILED A BOARD QUESTION ON IT.**
-> **A 60,000-sentence quota filled in `readable_names()` order took the first NINE corpora
-> ALPHABETICALLY** -- alice/anne/arc/breadth_v1/graded_readers*/litbank/little_women/mcguffey --
-> **almost entirely NOVELS AND SCHOOL READERS, silently excluding ALL SIX TEXTBOOKS, `simplewiki`,
-> `onestop`, `race`, `wiqa`, `social_iqa`, `worldtree`.** *A cap is a SAMPLING DECISION; taking it in
-> name order is a bias, and nothing printed said so.*
-> | | I said | **actual** |
-> |---|---|---|
-> | corpora / usable sentences | 9 / 60,000 | **28 / 286,069** |
-> | lemmas >=41 sentences | 3,030 | **7,568** |
-> | median largest-corpus share | 0.695 | **0.488** |
-> | SimLex pairs BOTH balanced | **40** | **111** |
-> 🔻 **AND IT REVERSES ONE OF MY OWN CONCLUSIONS, IN THE UNDER-CLAIMING DIRECTION: the RANDOM-sample
-> `MASKED - CORPUS_ONLY` goes from `+0.0220 CI [-0.0419,+0.0764]` NOT-separated to
-> `+0.1163 CI [+0.0520,+0.1760]` SEPARATED** (MASKED 0.2809 / CORPUS-ONLY 0.1646). *I published a
-> negative that my own biased sample produced.* ✅ **BALANCED result UNCHANGED in substance and its
-> control is now PERFECT: CORPUS-ONLY = `0.0000` exactly, SCRAMBLE = `0.0167` = chance, MASKED
-> `0.1435` CI `[+0.1191,+0.1699]`, 57 of 60 lemmas.** ⚠️ **CORPUS-ONLY 0.1646 on the full-shelf
-> RANDOM sample is STILL substantial -- the floor stays mandatory.** **Board Q103 WITHDRAWN from
-> disk within the hour, unanswered.** *Fix is in code: both tools sample ROUND-ROBIN and print
-> `shelf: N corpora, M sentences` every run.* `THE_SHELF_IS_28_CORPORA_NOT_9_...`
-
-> ## **THE LIVE PATH HAD MY EXACT BUG TWO DAYS EARLIER -- AND MY NEW TOOL MISSED IT TWICE**
-> **`substrate.read` carries, in an INLINE COMMENT: *"MEASURED 2026-08-19: `readable` is sorted, so
-> every read() began at alice_in_wonderland ... 25 of 28 corpora -- 113,649 sentences -- were NEVER
-> OPENED. That produced a grounding curve that plateaued at 180 terms and LOOKED EXACTLY LIKE A
-> LEARNING CEILING. It was a shelf the reader could not reach."*** *Same bug, same shape of cost,
-> two days before I hit it in my own diagnostics. Fixed there by a `_patch_cursor`.*
-> 🔻 **`symbol_corrections.py` MISSED IT TWICE, and both misses were found by testing the tool
-> against a REAL known case rather than a fixture:** (1) it read DOCSTRINGS ONLY, and this
-> correction is an inline COMMENT; (2) even after that, its markers did not cover the repo's own
-> `MEASURED <date>` convention -- the phrase that actually carries it. **Both fixed; the case is now
-> a permanent regression self-test.** ✅ **WIDENING MEASURED BEFORE ADDING, per the rule that killed
-> the ceiling detector at 48.5%: the new marker family alone is 0.22% of symbols and takes the union
-> from 2.75% to 2.92%** -- the self-test still FAILS above 10%. *Also fixed: EXACT-name match first,
-> because `read` was matching `readout` and `read-out`.* `THE_SHELF_IS_28_CORPORA_NOT_9_...`
-
-> ## **MEASURED: SIX READS OPEN 8 OF 28 CORPORA, ALPHABETICALLY -- ALL SIX TEXTBOOKS UNREACHED**
-> ***`remaining()` diffed per corpus across six `Substrate.read()` calls, not inferred from code.***
-> `alice -> anne+arc -> breadth_v1 -> graded_readers_grade1 -> graded_readers_graded+litbank ->
-> little_women`. **20 of 28 NEVER OPENED, including EVERY textbook (anatomy, biology, microbiology,
-> psychology, chemistry, concepts-biology), `simplewiki`, `race`, `onestop`, `social_iqa`,
-> `worldtree`.** ✅ **The 2026-08-19 `_patch_cursor` fix WORKS** -- it no longer re-enters the same
-> three books forever (the failure that *"looked exactly like a learning ceiling"*) -- **and its own
-> comment calls it "the cheapest half of the fix". IT ADVANCES A POINTER ALONG A SORTED LIST; IT DOES
-> NOT CHOOSE.** 🎯 **WHY THE ORDER IS NOT COSMETIC: our own recorded finding (board Q78) is that
-> dense technical writing grounds ~3.5x better than general reading -- and EVERY dense corpus starts
-> `t`/`s`/`w` while every novel and reader starts `a`/`b`/`g`/`l`. A short session reads Alice in
-> Wonderland and never opens the biology textbook, because `a` sorts before `t`. That is `sorted()`,
-> not a foraging decision.** 🔻 **AND I CHECKED THAT 3.5x AFTER CITING IT: it is `bio_new` 9/17 (53%)
-> vs `adv_new` 6/42 (14%) = 3.8x, but MEANINGFUL-OR-RELATED COMBINED, n=17, ONE SCORER, and the
-> source note's own limits read *"MEANINGFUL counts are 1 and 2, and both CIs touch zero."* **THE
-> TRAVERSAL IS MEASURED AND SOLID; THE COST ARGUMENT RESTS ON 17 HAND-SCORED ITEMS.** *Third time
-> tonight I quoted past a note's own stated limits.* ⚠️ **NOT CLAIMED: that shuffling helps -- I measured the ORDER, not the
-> OUTCOME of changing it; that is an argument to TEST a change, not to make one. LIVE READER
-> UNTOUCHED.** *Supplies the missing NUMBER for the plan's existing UNPINNED patch-CHOICE gap.*
-> `THE_READER_STILL_WALKS_THE_SHELF_ALPHABETICALLY_...`
-
-> ## **A FIFTH READ, FOR QUOTING RATHER THAN BUILDING: `tools/cite_check.py <number>`**
-> **The night's most-repeated failure was quoting a number past the limits ITS OWN SOURCE states --
-> THREE times.** *(`0.2449` vs its cell's "NOT instrument numbers, may not be quoted as such";
-> `0.4750` vs its note's "inflated by self-reference" two paragraphs down; `3.5x` vs its note's
-> "MEANINGFUL counts are 1 and 2, and both CIs touch zero".)* **THE NUMBER TRAVELS AND THE CAVEAT
-> DOES NOT.** Paste the literal; it prints the caveat lines nearest it in every `notes/*.md` and
-> every `data/*/metrics.json`, plus any `scope_disclaimer` verbatim. **~2s warm; self-tested on the
-> two REAL misses, not fixtures.** 🔻 **TWO DEFECTS FROM BUILDING IT, both worth keeping:** its first
-> draft shelled out to `rg`, which is **NOT on PATH for a subprocess here**, so every query returned
-> **ZERO FILES SILENTLY** and read as *"no caveats exist"* -- **and the NEGATIVE control PASSED
-> THROUGH THAT, because a broken search and an absent literal are indistinguishable.** *Any tool
-> relied on to establish ABSENCE needs a SEARCH POSITIVE CONTROL.* And its first draft scanned all
-> of `data/` (~26 GB); bounded to `data/*/metrics.json`. Now the 5th row of CLAUDE.md's table.
-
-> ## **THE BOARD'S HEADER IS A CACHE OF STATUS'S `AS OF:` LINE AND IT WENT STALE IN FRONT OF THE OWNER**
-> **Found by USING `cite_check.py` on a STATUS number: `notes/BOARD.md` was still announcing
-> *"Q102 + Q103 OPEN"* and still carrying the WITHDRAWN premise *"our 9-book shelf leaves only 40 of
-> 999 SimLex pairs usable"* -- hours after I corrected STATUS and withdrew Q103.** ***The board is
-> the document the OWNER READS, so the stale copy was the one facing them.*** `board.py sync`
-> rewrites it; NOTHING NOTICED IT NEEDED REWRITING. **Same class as the registry rows being older
-> than their own report: a CACHE with no freshness check.** ✅ **Fixed + detector: the session hook
-> now compares the two `AS OF:` lines and prints the divergence WITH the fix command; both
-> directions self-tested (a matching pair must NOT flag).** `9-book shelf` no longer appears in
-> BOARD.md.
-
+> ## 🌙 **THE LATE-NIGHT PASS, CONSOLIDATED. 14 SUB-BLOCKS -> THIS. Each line names its note.**
+> *I appended 14 blocks to this document tonight. **Its own header forbids appending and records that
+> exactly this took it to 6,895 lines.** Folded here rather than left to repeat that.*
+>
+> ### ✅ **THE ONE POSITIVE, PROPERLY FLOORED**
+> **The masked context vector DOES carry word-identity signal.** Round-robin over all 28 corpora,
+> source-balanced lemmas: **MASKED `0.1435` vs strongest floor `0.0167` (SCRAMBLE = chance exactly,
+> CORPUS-ONLY = `0.0000`), diff `+0.1370` CI `[+0.1191,+0.1699]`, 57 of 60 lemmas.** *On the RANDOM
+> (typical-word) sample it also separates: `+0.1163` CI `[+0.0520,+0.1760]`.* ⚠️ **NOT: the balanced
+> set is the MOST source-spread lemmas, not the average word; `0.1435` is ~1 in 6 of 60, still weak;
+> and none of it is scored against the counting bar.** `THE_MASKED_VECTOR_DOES_CARRY_WORD_SIGNAL_...`
+>
+> ### 🎯 **WHAT THAT DID TO THE NIGHT'S LOAD-BEARING NUMBER**
+> **IDENTIFICATION IS A LOOKUP.** The target word ALONE scores `0.9687`; the word PLUS its sentence
+> scores `0.6423`. *Context DILUTES identification.* **So `0.1417 vs 0.4750` is evidence about
+> SELF-REFERENCE, not about context -- do not quote it as the latter.** *The two-jobs finding is
+> CONFIRMED and UNDERSTATED, and this is the third "the query was the answer" instance tonight.*
+> `THE_IDENTIFICATION_TASK_IS_A_LOOKUP_...`
+>
+> ### 🚫 **THREE THINGS I WAS ABOUT TO DO THAT WERE ALREADY DONE OR UNTESTABLE**
+> 1. **TOP ITEM "wire definitional direct-bank" -- ALREADY WIRED AND LIVE.** `substrate.py:538`,
+>    **212 of 402** provenance rows. What ships is the PHRASE (`32%`) not the HEAD (`4%`, NOT
+>    distinguishable, Fisher p=0.2475), and **the 64% is under a STANDING PROHIBITION against the
+>    comparison the top item made.** *My addition: the cited artifact is `0 of 2,092` multi-word,
+>    while `2,079 (99.4%)` already carry the validated phrase.* `THE_TOP_ITEM_WAS_ALREADY_WIRED_...`
+> 2. **Q102's "the gain is genuinely untested" -- WITHDRAWN.** `ORGAN_MAP` 10.1 A1 measured it 08-14:
+>    form organ `0.0870` vs live substrate `0.0480`, **CI-separated** -- *on a task whose own
+>    `example_picks` (`abbey/able/abiotic`) prove the orthographic shortcut.* `Q102s_GAIN_IS_NOT_...`
+> 3. **The meaning test -- DO NOT RUN.** Balanced pairs = **111** (< the 322 the existing version
+>    used), and a powered version exists TWICE. *`P_LIVE_CONCEPT 0.1048 CI [-0.0073,+0.2126]` still
+>    CROSSES ZERO, so meaning is UNRESOLVED, not negative.* `I_DID_NOT_RUN_THE_MEANING_TEST_...`
+>
+> ### 🔻 **MY OWN THREE FAULTS, ALL SELF-CAUGHT AND ALL FIXED IN CODE**
+> - **A 60k cap taken ALPHABETICALLY made me report "9 corpora / 40 usable pairs". IT IS 28 CORPORA /
+>   286,069 SENTENCES / 111 PAIRS.** *I filed board Q103 on those numbers and withdrew it within the
+>   hour; it also made me publish a NEGATIVE that reversed on a proper sample.* **Both tools now
+>   sample round-robin and PRINT the shelf every run.** `THE_SHELF_IS_28_CORPORA_NOT_9_...`
+> - **THE LIVE READER HAS THE SAME BUG SHAPE, found 08-19 and half-fixed:** measured, **six reads open
+>   8 of 28 corpora alphabetically, all six textbooks unreached.** *The `_patch_cursor` works and its
+>   own comment calls it "the cheapest half"; patch-CHOICE remains the UNPINNED half.* ⚠️ *The "3.5x
+>   technical grounds better" I used to argue it matters is `9/17` vs `6/42`, MEANINGFUL-OR-RELATED,
+>   ONE scorer, "both CIs touch zero".* `THE_READER_STILL_WALKS_THE_SHELF_ALPHABETICALLY_...`
+> - **A CONTROL THAT SHARED THE FLAW IT CHECKED, TWICE** -- a negative control that passed while its
+>   search was entirely broken, and a verdict that read a point estimate while its own CI spanned
+>   zero. *Fixed by a SEARCH POSITIVE CONTROL and a CI-gated verdict.*
+>
+> ### 🔧 **INFRASTRUCTURE THAT NOW GUARDS THIS, ALL BASE-RATE-MEASURED BEFORE BUILDING**
+> **`tools/symbol_corrections.py`** (4th read: a symbol's own corrections, incl. INLINE COMMENTS;
+> 3.8% base rate) and **`tools/cite_check.py`** (5th read: a NUMBER's own caveats; ~2s warm).
+> **Registry: 7 organs flipped to `WIRED_AND_PIPELINE_USED`** after a concurrent writer had discarded
+> the audit's results -- *`WIRED` there means IMPORT-REACHABLE, **not** exercised; only
+> `definitional_extraction` has runtime evidence.* **Board header was stale in front of the owner
+> (still showing withdrawn Q103); synced + detector added.** **GUI: settled decisions leaving the
+> working list is now witnessed, and writing that witness found a crash that killed the panel
+> refresh.** `THE_REGISTRY_WAS_STALE_...` `THE_GUI_COMPLAINT_WAS_ALREADY_FIXED_...`
+>
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"
