@@ -6,7 +6,40 @@
 > had already withdrawn. **A reader could not tell which was live. Superseded detail lives in the
 > notes, each with a banner; it is deliberately NOT layered here.***
 >
-> ## 🅰️ **OPEN OWNER DECISIONS -- DO NOT SELF-ANSWER**
+> ## ✅ **BOTH OWNER DECISIONS ANSWERED (2026-08-21)**
+> - **Q92:** *"sure raise it, but we need a way of moving old material to archive that doesn't take
+>   this much time. Can we start storing this in substrate instead and implement an auto aging
+>   feature like the normal sleep pruning or somethng?"* -> **cap raised 8704 -> 28672** (both sides,
+>   audit in `STATUS_SPEC.md` sec 7). **The archiving request is tracked as WORK, not filing.**
+> - **Q95:** *"I'll only say that we should chase things that are brain foundational in every way."*
+>
+> ## 🎯 **THE DECISION, APPLYING Q95: SLEEP (D8+D4) IS THE TOP ITEM. NOT F5.**
+> **`ORGAN_MAP` STEP 5, its own words: *"this is the ONE place in the plan where the brain's equation
+> is FULLY PINNED and we have literally none of it."*** Nothing else on a 39-organ map says that.
+> **AND THE OWNER ASKED FOR IT IN THE SAME MESSAGE, FOR AN UNRELATED REASON** (auto-aging to end the
+> archiving cost). *Two independent routes, one target.*
+>
+> | | F5 | E3 | **D8+D4 SLEEP** |
+> |---|---|---|---|
+> | pinned? | ref point only; **norm/update/precision UNPINNED** | class only; **weights UNPINNED** | **"FULLY PINNED"** |
+> | built? | 0 cells | 3 landed | **0 cells** |
+> | **inherits today's PARTIALLY-SUBSUMED representation?** | **YES** | partly | **NO** |
+> | owner asked? | endorsed pre-constraint | -- | **YES (Q92)** |
+>
+> **FOUR READS RUN BEFORE RECOMMENDING** -- registry **0**, results archive **0 of 8,836**, notes
+> **33** (incl. a 55 KB drill that opened 9 primary sources), organ map **2 corrections**.
+> *The NOTES read is the one that mattered, and it exists only because I tested my own tool one turn
+> earlier and found it inadequate. Results archive alone says "never built"; notes alone say "already
+> drilled". Either read alone misleads.*
+> ### ⚠️ **HONEST COST:** a prior note flags *"the substrate has no replay scheduler primitive; needs
+> new infrastructure"*, and `SUBSTRATE_STRATEGY.md` puts D4 below the line needing *"a corpus stream
+> to be testable"*. **A real build, not a wiring job.**
+> ### ⚠️ **CARRY THESE CORRECTIONS:** D8's *"Roxin & Fusi 2012"* is **2013** and **shares the
+> cascade's scaling, never supported `~N`**; D4's reward-scaling is **Ambrose, Pfeiffer & Foster
+> 2016**, not Foster & Wilson 2006, which **found reverse replay and never reward modulation**.
+> **F5 and E3 are NOT withdrawn.** `notes/THE_DECISION_sleep_is_the_one_place...md`
+>
+> ## 🅰️ ~~OPEN OWNER DECISIONS~~ -- BOTH NOW ANSWERED, ABOVE
 > - **Q92** -- `notes/STATUS.md` is ~2.3x its 8,704 B cap. **The two never-trim sections ALONE are
 >   11,228 B = 1.29x the whole cap**, so the cap is unreachable without deleting what it protects.
 >   Raise it, or move those sections out behind pointers? *(Q91 superseded on that arithmetic.)*
