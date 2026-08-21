@@ -926,6 +926,44 @@ floor result that survived (4/4 same sign, 1.2x spread, no control within half t
 THAT DAY WAS SUBSEQUENTLY VIOLATED; EVERY CONTROL WRITTEN AS CODE CAUGHT SOMETHING.** Write the
 control into the script, not the caution into the prose.*
 
+## SIX WITHDRAWALS IN ONE NIGHT, ONE FAMILY: **WHAT WAS ALREADY THERE, CREDITED TO WHAT I JUST DID**
+
+**Measured 2026-08-21. Six of my own claims withdrawn in a single session. Not six mistakes -- ONE
+mistake, six costumes.** In every case a quantity, artifact or record that **pre-dated or sat beside**
+the thing under examination was attributed to it, or missed entirely.
+
+| the claim | what was actually being measured |
+|---|---|
+| *"foraging loses to the frozen schedule on every learning outcome"* | **which arm read the register the probe was written in** -- 88.2% vs 11.6% news/conversational, a **7.6x bias under a 1.2x effect** |
+| *"the leak explanation is refuted, so the finding is STRONGER"* | one confound closed; **a second, running the same direction, still live** |
+| *"3,547 cells saved no outputs; this HARD_PASS lost its data"* | **a 4 MB file my scanner's 2 MB read cap could not open** -- the bias ran OPPOSITE to the one I declared |
+| *"a 22x refusal asymmetry, the most informative thing in the run"* | **a refusal log persisted INSIDE the foundation months earlier** -- 93.2% pre-dated the read; the real ratio is 1.54x |
+| *"three islanded capabilities; the registry returns NOTHING"* | **the registry had accurate rows for two of the three** |
+| *"placement succeeds 3-15% of the time"* | **the BASELINE cell.** Its companion, landed the same day, is **11x better on the hard population** |
+
+**THE SINGLE CHEAPEST GUARD, AND IT WOULD HAVE CAUGHT FOUR OF THE SIX:**
+
+> **MEASURE THE BASELINE BEFORE THE INTERVENTION -- EVEN, ESPECIALLY, WHEN IT OBVIOUSLY MUST BE ZERO.**
+
+*One line. Cheaper than the reasoning required to convince yourself it must be zero, and unlike that
+reasoning it cannot be wrong.* **This file already says it for held-out overlap. It generalises to
+every accumulated field, every persisted log, and every counter that travels with a saved artifact.**
+
+**AND THE OTHER TWO NEED A SECOND HABIT, WHICH IS NOT THE SAME ONE:**
+
+> **A QUERY THAT RETURNS N ROWS HAS N ANSWERS. READ THEM ALL BEFORE QUOTING ANY.**
+
+*`query "cold placement"` returned **4 cells**; I opened one and reported it. **The fourth reversed
+the headline of the first.** A cell named `_v1` is not the latest word on its own question, and a
+`_selftest` sibling is not necessarily a rubber stamp -- the one I nearly skipped is what identified
+the actual mechanism of an 11x lift.*
+
+**⚠️ THE META-POINT, WHICH IS WHY THIS SECTION EXISTS RATHER THAN A LINE IN A NOTE: three of the six
+were caught only by TRYING TO USE the data, not by auditing it.** *The archive audit I ran that night
+did not find that my own hand-scores had lost their per-row labels; discovering it required
+attempting the join. **An audit checks the shape you thought to check. Using the thing checks all of
+them.***
+
 ## A FRESH READER IS NOT A HELD-OUT SPLIT -- CHECK OVERLAP, DO NOT INFER IT FROM THE CONSTRUCTION
 
 **Measured 2026-08-19.** A probe answering the owner's "one textbook or many?" built its held-out
