@@ -64,6 +64,11 @@ CI_PAT = re.compile(r"ci95|ci_9|ci_low|ci_high|conf_int|confidence_interval|half
                     r"wilson|bootstrap|credible|lower_bound|upper_bound", re.I)
 NULL_PAT = re.compile(r"permut|scramble|shuffl|null_|_null|p95|pval|p_value|binomtest|"
                       r"exact_test|mcnemar|z_score|montecarlo", re.I)
+PARTS_PAT = re.compile(r"per_unit|per_arm|per_set|per_seed|per_process|per_triple|per_encoder|"
+                       r"per_row|per_item|per_cell|per_dimension|curve_by|_per_arm|_per_set|"
+                       r"arm_accuracy|per_spoke|per_draw|_per_encoder", re.I)
+LIMIT_PAT = re.compile(r"honest_scope|honest_claim|hp_scope|scope_limit|limitations?|caveats?|"
+                       r"not_claimed|does_not_claim|out_of_scope|known_limit|narrowing", re.I)
 FLOOR_PAT = re.compile(r"floor|baseline|control|chance|prototype|orthographic|frequency_only|"
                        r"random_", re.I)
 
@@ -108,8 +113,17 @@ def assess(mp: Path):
         return None
     blob = " ".join(_keys(d))
     verdict = ""
-    for k in ("verdict", "VERDICT", "verdict_msg"):
-        if isinstance(d.get(k), str):
+    # `final_verdict` FIRST, added 2026-08-21. This tool read `verdict` and ignored `final_verdict`
+    # -- the identical defect found and fixed in tools/experiment_index.py the same day, where it
+    # showed the wrong state for 9 cells and nothing for 2. MEASURED BLAST RADIUS HERE, so nobody
+    # inflates it: of 7,812 cells with a metrics.json, 9 carry a differing `final_verdict` and
+    # exactly ONE flips the HARD_PASS classification --
+    # exp_stated_entity_fate_reading_extractor_v2_highprecision, whose `verdict` is
+    # STRICT_READY_PENDING_HANDCHECK while its `final_verdict` is HARD_PASS. That cell was
+    # therefore never audited by this gate at all. One cell does not move the census percentages;
+    # it does mean the census population was mis-derived, which is worth fixing for its own sake.
+    for k in ("final_verdict", "verdict", "VERDICT", "verdict_msg"):
+        if isinstance(d.get(k), str) and d[k].strip():
             verdict = d[k]
             break
     seeds_identical = any(len(set(b)) == 1 for b in _seed_blocks(d) if len(b) >= 2)
@@ -120,6 +134,32 @@ def assess(mp: Path):
         "has_null": bool(NULL_PAT.search(blob)),
         "has_floor": bool(FLOOR_PAT.search(blob)),
         "seeds_bit_identical": seeds_identical,
+        # TWO CHECKS ADDED 2026-08-21, from a constraint-check run over eight standing claims that
+        # went 3 PASS / 5 KILL. The split was not random: all three passes were result notes
+        # carrying (a) the constituent values behind the headline, (b) a control, (c) a stated
+        # limit. All five kills were summary headlines or same-day inferences with none of those.
+        # `has_ci`/`has_null` above already cover (b). These cover (a) and (c).
+        #
+        # (a) HAS_PARTS -- can the headline be RE-DERIVED? Every kill was caught by re-deriving an
+        # aggregate from its parts and finding they disagreed (a subset out-recalling its whole; a
+        # paired figure matching its per-set mean exactly). A cell that reports only aggregates
+        # cannot be checked that way at all. Presence of a >=2-entry per-arm/per-set structure, NOT
+        # an inference about values -- deliberately, because tonight a value-inferring detector of
+        # mine fired 3,990 false positives on dates.
+        # ⚠️ FALSE means NOT FOUND UNDER THE ARCHIVE'S NAMING CONVENTION -- it does NOT mean absent.
+        # Verified counter-example: exp_stated_entity_fate_reading_extractor_v2_highprecision reads
+        # parts=False and limit=False, yet its claim was independently checked and HOLDS. Its parts
+        # live in a SIBLING file (_survivors_handcheck_adjudicated.json, 100 per-row verdicts) and
+        # under `error_category_counts`; its limit is free text in `hand_check.note` ("fresh random
+        # sample drawn AFTER the hardening... independent of the v1 sample the filters were designed
+        # from"). This gate reads metrics.json only. Treat a False as "go and look", never as a
+        # finding -- an absence claim requires an enumeration, not a failed pattern match.
+        "has_parts": bool(PARTS_PAT.search(blob)),
+        # (c) HAS_LIMIT -- does it say what it does NOT cover? Matched on STRUCTURED FIELD NAMES the
+        # archive already uses (`honest_scope`, `HP_SCOPE`, `honest_claim`, `caveat`...), never on
+        # free text, because a free-text keyword detector here is the cry-wolf failure this project
+        # has already paid for twice (49/49 false positives once, 3,990 tonight).
+        "has_limit": bool(LIMIT_PAT.search(blob)),
     }
 
 
