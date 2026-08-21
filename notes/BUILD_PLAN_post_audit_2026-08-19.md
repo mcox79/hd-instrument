@@ -90,6 +90,22 @@
 >   AS THE SWEPT VARIABLE, and verify a non-zero CA3 ON-minus-OFF gap BEFORE trusting arm (ii).**
 >   ***NEW TELL: A SWEEP IS ONLY A TEST IF THE SCORE MOVES ACROSS IT -- check the endpoints first.***
 >   `notes/D3s_QUEUED_TEST_SWEEPS_THE_WRONG_VARIABLE_exact_cue_recall_is_solved_by_the_projection_alone_2026-08-21.md`
+> - ✅ **AND B4 -- THE THIRD CHECK -- IS SOUND, WHICH IS WHY THE TELL IS WORTH KEEPING.** Verified
+>   from `exp_capacity_ceiling_near_far_v1/metrics.json` (**not** from the map quoting it):
+>   **QUANT NEAR 0.6395 → 0.7030 → 0.7380, GRAD NEAR 0.6980 → 0.7495 → 0.78225** across d=256/1024/
+>   4096, against 6 measured floors 0.4845-0.5095. **The score MOVES (+0.084..+0.099), ~9-21x the
+>   between-draw sd, and the map's three quoted numbers verify EXACTLY.**
+>   🔴 **BUT ITS STATED FAILURE MODE IS ALREADY ANSWERED:** the map says *"if the gain does not
+>   survive the full anchor population (2,377+ concepts vs the probe's 400)"* and calls the result
+>   *"at PROBE scale"* -- **the cell reports `n_anchors = 2377`, the map's own full-population
+>   number.** ✅ **The test is still warranted for a DIFFERENT reason the cell states itself:
+>   `HP_SCOPE` gives verdict weight to `d4096_GRAD` ONLY, so d=1024 is *"reported, no verdict
+>   weight"*.** ➡️ **RE-SCOPE IT: the job is VERDICT WEIGHT FOR d=1024 ON THE LIVE PATH, not scale
+>   robustness.** ⚠️ **Quote the NEAR LEVEL, never the FAR−NEAR gap -- the gap reads 0.025 vs 0.047
+>   between projection draws and the cell forbids resting a claim on less.**
+>   📊 **NIGHT'S SCORECARD: 3 queued tests checked -- 1 could not run, 1 swept a dead variable, 1
+>   sound. THE TELL DISCRIMINATES.**
+>   `notes/B4s_QUEUED_TEST_CLEARS_THE_SWEEP_TELL_but_its_stated_failure_mode_was_already_answered_at_full_scale_2026-08-21.md`
 > - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
 >   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
 >   the headings *and their whole sections* into the header paragraph. **Every section BODY was
