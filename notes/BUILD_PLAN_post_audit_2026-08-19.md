@@ -251,6 +251,33 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## 🔻 **SCOPING CHECK -- AND IT SCOPES THE WHOLE CA3 THREAD OUT OF OUR DATA. THE REASON IS THE
+> ## REAL FINDING: THE PROBLEM IS UPSTREAM OF BOTH DG AND CA3.**
+> **Natural families on REAL data = DG codes of the SAME LEMMA in different sentences (80 lemmas x
+> 20 contexts, live `context_vector_masked` + live `DGProjection`):**
+> **WITHIN-lemma code cosine `0.0056`; CROSS-lemma `0.0015`** (≈ the `1/dg` random floor).
+> **Failure threshold from the synthetic sweep is `0.222`; even "Hebbian is FINE" sits at `0.044`.**
+> ➡️ ***REAL OVERLAP IS 40x BELOW THE FAILURE THRESHOLD. FIXING THE COMPLETION RULE WOULD CHANGE
+> NOTHING ON OUR DATA TODAY.*** *Why CA3 contributes nothing here is arm 2's answer all along --
+> our codes are so near-orthogonal that completion is never REQUIRED.*
+> 🎯 **AND THE SCOPING NUMBER IS MORE INTERESTING THAN THE FINDING: two encounters with the SAME WORD
+> give code cosine 0.0056 against 0.0015 for DIFFERENT words -- a ratio under 4, both at the random
+> floor. OUR REPRESENTATION BARELY ENCODES THAT TWO ENCOUNTERS ARE OF THE SAME WORD.** *Not DG
+> over-separating: the RAW context vectors already carry almost no same-word structure (mean cos
+> +0.0078, `E[cos^2] 0.00474` = 82% of the Welch bound, i.e. near-random by construction).*
+> ***THE EPISODIC ORGANS ARE OPERATING ON INPUTS THAT CONTAIN ALMOST NO EPISODIC STRUCTURE. THE
+> FAILURE CHASED DOWNSTREAM IS AN ENCODING FAILURE.*** ⚠️ *Whether raising same-word context
+> similarity would make the completion machinery earn its place is UNMEASURED -- a prediction of
+> this analysis, not a result of it.*
+> ✅ **STILL STANDS: Hebbian merges (−0.1021, two implementations); the local rule fixes it; 16x
+> expansion makes it 8 passes.** 🚫 **SCOPED OUT: "this explains why CA3 does nothing in our
+> substrate."**
+> 🔁 **THIRD TIME TONIGHT A SOUND MEASUREMENT HAD THE WRONG SCOPE** -- B1's real number in the wrong
+> context, the real curve for the wrong operation, now a real flaw in a regime we never enter.
+> ***THE MISSING QUESTION IS ALWAYS THE CHEAP ONE -- "DOES THIS APPLY HERE?" -- AND I KEEP REACHING
+> IT LAST.***
+> `notes/THE_CA3_FAILURE_DOES_NOT_ARISE_ON_OUR_DATA_and_the_reason_is_the_real_finding_2026-08-21.md`
+>
 > ## ✅ **AND THE ROUTE SURVIVES: THE 50-PASS PROBLEM WAS A *CAPACITY* PROBLEM. 4x THE EXPANSION
 > ## CUTS IT FROM 38 PASSES TO 8 -- INSIDE THE SUPPORTED REPLAY RANGE.**
 > | overlap | within-fam | raw cue | Hebbian | **passes @dg=1024** | **passes @dg=4096** |
