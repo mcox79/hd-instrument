@@ -292,6 +292,21 @@
 >   ➡️ **RULE: score every new mechanism against ITS OWN task's trivial baseline -- popularity,
 >   counting, spelling, recency -- NOT against random.**
 >   `notes/THE_PATTERN_ACROSS_SIX_INDEPENDENT_COMPARISONS_a_trivial_baseline_matches_or_beats_the_mechanism_2026-08-21.md`
+> - ✅ **E3b PASSES TOO (3 passes, 5 kills) -- AND THE SPLIT IS THE FINDING.** *"n=89, CI 0.22 wide"
+>   looked impossible (max normal-approx width at n=89 is 0.2078) until I opened it: the interval is
+>   on a DIFFERENCE, `[-0.2500,-0.0337]` = **0.2163**, where wider is expected. 52/89, 64/89 and
+>   19/32 all reconcile exactly, and the note itself flags its scramble as a DIFFERENT subset.*
+>   🎯 ***ALL THREE PASSES ARE CAREFULLY-WRITTEN RESULT NOTES CARRYING A CI, A CONTROL AND A STATED
+>   LIMIT. ALL FIVE KILLS ARE EITHER INHERITED SUMMARY HEADLINES (`ORGAN_MAP`'s cliff bullet, a
+>   `diagnosis.headline`) OR MY OWN SAME-DAY INFERENCES. NOT ONE FAILURE CAME FROM A RESULT NOTE;
+>   NOT ONE PASS CAME FROM A HEADLINE.***
+>   ➡️ **RULE, sharper than "check things": QUOTE THE NOTE, NEVER THE HEADLINE -- and if the note
+>   does not SHOW ITS WORKING, treat the number as UNVERIFIED rather than as evidence. The
+>   three-part test for quotability: constituent counts, a control that could fire, a stated limit.
+>   All three passes have all three; both failed headlines have none.**
+>   ⚠️ *Recorded because it matters: I SUSPECTED E3b before checking it. Opening the source first is
+>   what stopped a third manufactured violation tonight.*
+>   `notes/WHAT_PASSES_AND_WHAT_FAILS_THE_CONSTRAINT_CHECK_notes_pass_headlines_fail_2026-08-21.md`
 >
 > ## ✅ **OWNER ANSWERED Q98 (2026-08-21): *"approved, but you should do some research on why this is
 > ## as you're finding it, to understand why and potentially to give you a good idea on next optimal
