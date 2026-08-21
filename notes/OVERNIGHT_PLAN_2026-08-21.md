@@ -12,6 +12,21 @@
 > | **the 11x lift, and its cause** | `..._recovery_opt_v1`: opaque exact **0.0262 -> 0.2930**, abstain **31% -> 3.7%**. **Cause = MORE EDGE TYPES** (gloss -> +hypernym +synonym), **not deeper search** |
 > | **a properly closed wall** | `FRONTIER_FIT_PLATEAU_REPRESENTATION_WALL`: h@10 asymptotes **0.594** across a 2x capacity jump, **dense core rules out "not enough data"** |
 >
+> ## 🔧 **THE 101 "NOT REACHABLE" ROWS HAVE AN IDENTIFIED CAUSE, AND IT IS A STALE FACT**
+> **`tools/capability_registry_audit.py` was rooted at 9 entry points and `hdlab/substrate.py` was
+> NOT one of them** -- excluded by a 2026-08-13 comment stating it *"DO[ES] NOT EXIST"* with *"no git
+> history at all"*. **It exists (64,370 b) and was added by `2f9f3ae95`, whose message is "the
+> assembled substrate exists, runs end to end, and self-tests PASS".**
+> **RUNTIME CROSS-CHECK:** a real `read(n_sentences=40)` loads **37** top-level modules -> **34
+> registry rows agree, 4 are WRONG** (`definitional_extraction`, `information_foraging`,
+> `corpus_registry`, and **`substrate_assembled_reader_v1` ITSELF**). *The registry asserted the
+> assembled substrate is unreachable by the pipeline while running it loaded every other module in
+> the trace.*
+> **FIXED** -- added to both root lists (9->10, 7->8), evidence recorded at both call sites,
+> `--self-test` green before and after. *`pipeline.py` deliberately NOT added: that half of the
+> original claim is still true.*
+> **➡️ SO 101 IS AN UPPER BOUND FOR A CONCRETE REASON, NOT A VAGUE ONE. Re-audit pending.**
+>
 > ## 🔴 AND THE FINDING THAT MATTERS MOST
 > **THREE WORKING, CONTROLLED CAPABILITIES THAT NOTHING CONSUMES** -- `gap_driven_reader` (zero
 > callers), **cold placement (no `hdlab/` module, 0 of 208 registry rows)**, banked meanings (nothing
