@@ -86,11 +86,23 @@ COMPARATOR path, and it is exactly why the fix is to not route through it.*
     *A real null, not a reachability failure: positive control reproduces the landed C3 headline
     EXACTLY (0.0480) and **3,708 of 4,000 ranks changed**.* **`:663`'s "worse than either" is not
     supported at this scale.** [`BOTH_DETACHED_DIAGNOSTICS_FINISHED_...`]
-  - ⚠️ **`diagnose_read_with_loaded_foundation` -- the corpus-exhaustion GUARD WORKED** (both arms
-    read **1,060** of a requested 1,200 and said so). **BUT `n_grounded` STILL READS 0 WHILE ANCHORS
-    GREW +68 -- THE FIELD IS NOT POPULATED ON THIS PATH. It is a reachability failure and must NOT be
-    quoted as a null.** *Clean number from that run: refusal delta **279 vs 380 = 1.36x**, not the 22x
-    headline that was **93% pre-existing in the foundation**.*
+  - ✅ **`diagnose_read_with_loaded_foundation` -- guard worked (both arms read **1,060** of 1,200 and
+    said so), AND THE `n_grounded=0` IT EXPOSED IS NOW **FIXED AT SOURCE**.** *Clean number from that
+    run: refusal delta **279 vs 380 = 1.36x**, not the 22x headline that was **93% pre-existing**.*
+- 🔧 **FIXED 2026-08-21 -- `ReadResult.n_grounded` WAS STRUCTURALLY ALWAYS ZERO.**
+  `substrate.py:608` read **`n_grounded_cumulative`**; `checkpoint()` emits **`cumulative_grounded`**
+  -- **the same two words TRANSPOSED**, a key existing nowhere else in `hdlab/`, so `.get()` always
+  took its default and `or 0` served a wiring failure up as data. **No exception, no warning.**
+  **POSITIVE CONTROL WAS REQUIRED AND WAS NOT OPTIONAL:** at 60 sentences the true value is *also* 0,
+  so a rename would have looked like success; at **600 sentences / 6 checkpoints** it climbs
+  **0 -> 14 -> 28 -> 34 -> 37 -> 39** while the field reported 0. **After the fix the same read gives
+  `n_grounded = 39`, matching its own checkpoints; substrate self-tests PASS.** It now **raises**
+  rather than defaulting. **Blast radius: 1 writer, 1 reader (my own diagnostic); NO landed cell
+  affected** -- the cells compute their own counts. ⚠️ **AND THE GENERALISABLE PART: a STATIC scan for
+  this bug class DOES NOT WORK** (1,925 -> 871 -> 801 -> 132 suspects, all levels dominated by
+  legitimate reads; `tools/audit_keys_read_but_never_written.py` says so in its own docstring).
+  **WHAT FOUND IT WAS A CONTRADICTION BETWEEN TWO FIELDS OF ONE OUTPUT** -- `n_grounded=0` printed
+  beside `anchors +68`. ***Make outputs print quantities that CONSTRAIN EACH OTHER.***
 - **DONE, one command each, all from READING:** `tools/orthographic_floor_tie_mass_v1.py` (621 s).
 - **BOARD Q92 AND Q95 ARE OPEN** (Q91->Q92 superseded on new arithmetic; Q93->Q94->Q95 on a
   reversed recommendation and then a fact I had not CI-checked). Q92: this file is ~2.3x its
