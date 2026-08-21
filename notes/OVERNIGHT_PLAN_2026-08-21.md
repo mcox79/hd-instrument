@@ -1,5 +1,38 @@
 # OVERNIGHT PLAN -- 2026-08-21. **FOUR THRUSTS, DELIBERATELY DIFFERENT IN KIND.**
 
+> # 🏁 **WHERE THIS ENDED. READ ONLY THIS BLOCK UNLESS YOU NEED THE WORKING.**
+> **ALL FOUR THRUSTS BELOW ARE DEAD, and none died from being attempted -- each was already answered
+> on disk.** *T1 built, PINNED and run at 10k sentences. T2 `HARD_FAIL` on that exact mechanism.
+> T3's premise inverted -- the switch is **default-ON** and already floored. T4's hand-score already
+> existed, **blind**.*
+>
+> ## ✅ WHAT ACTUALLY LANDED (7 code changes of 57 commits)
+> | | |
+> |---|---|
+> | **`experiment_index` fixed twice** | it read `verdict` and ignored `final_verdict` -- **wrong state for 9 cells, NOTHING for 2**. Now also prints `!! CORRECTION` for the **14** rows carrying a `premise_correction`/`amendment` |
+> | **`substrate.py` `n_grounded`** | a **transposed key** made it structurally incapable of being non-zero. Fixed, positive-controlled (0 -> 39), self-tests pass |
+> | **`capability_registry_audit`** | was **never rooted at the assembled substrate** |
+> | **`before_you_start.py`** | the method's step 1 as a command |
+> | **2 capabilities registered** | cold placement; the **90%-precision entity-fate extractor** |
+>
+> ## 💎 THE TWO RESULTS THE ARCHIVE FIX IMMEDIATELY SURFACED, BOTH FILED AS FAILURES
+> 1. **A hand-checked 90%-precision reading extractor** (`HARD_PASS`, pre-registered band 0.85,
+>    negation-clean, **0.394 -> 0.90** over its predecessor). *Now `WIRE_CANDIDATE`; blocked only
+>    because **v2 saved its hand-check sample and not its 1,414 survivors**, so the volume/purity
+>    trade cannot be settled without a re-run.*
+> 2. **`MIDDLE_BAND_dense_reading_works...`** -- its own text: ***"This REFUTES 'reading can't supply
+>    the knowledge'."*** Per-process **0.45-0.69 against a 0.19 scramble floor**; the aggregate only
+>    looked bad because **the dense corpus is small (155 facts vs ~735)**.
+>
+> ## ➡️ **WHAT IS ACTUALLY NEXT**
+> **THE SCANNING IS EXHAUSTED -- two consecutive mechanical audits produced unusable populations
+> (1,925->132 suspects; 98% of `HARD_PASS` cells "unregistered", which is a curation ratio, not a
+> defect).** **THE REMAINING WORK NEEDS CELL AUTHORING**, which this session could not do:
+> **Q96 (extend the write-rate sweep past p90 -- the best point tested was the EDGE OF THE RANGE and
+> still climbing)** is the one concrete, cheap, unanswered experiment.
+> ***Method for next time is in `CLAUDE.md`: run `before_you_start.py` FIRST, and query the ACTIVITY
+> not just the artifact.***
+
 > # 🛑 **READ THIS BEFORE ANY BUILD DECISION BELOW. THREE INDEPENDENT MEASUREMENTS SAY THE SUBSTRATE'S SEMANTIC OUTPUT IS AT OR NEAR CHANCE.**
 >
 > | measurement | task | result |
