@@ -50,7 +50,28 @@ any single one does not idle the night, and so they do not contend for the same 
 
 ---
 
-## 2. T1 -- **THE SYSTEM CANNOT NOTICE WHAT IT DOES NOT KNOW**
+## 2. T1 -- 🔴 **SUPERSEDED WITHIN THE HOUR. THE ORGAN EXISTS, IS PINNED, AND HAS ALREADY BEEN RUN.**
+
+> **`tools/organ_map_cite.py H2` returned as its FIRST line: *"§6 STEP 1 (H2) is superseded."***
+> **Every clause of the T1 below was wrong** -- the organ is NOT missing
+> (`hdlab/information_foraging.py`, witnessed, registry `WIRED`), its math is **PINNED** (Charnov
+> 1976 MVT; Constantino & Daw 2015; Hayden 2011; Wittmann 2016), and **both floors I specified have
+> already been run** at 10,000 sentences per arm.
+>
+> **➡️ WHAT THE DRILL FOUND INSTEAD IS BETTER, AND IT IS A NEGATIVE THAT SURVIVES ITS OWN CONFOUNDS:
+> the organ that exists to break a 64.5% biology skew read its way to `dominant_domain =
+> textbook_biology, 0.63245` -- from a free choice over 36 corpora, having visited 19 of them --
+> WHILE WINNING on its own currency (gain rate 6.96 vs 5.90).**
+> **MVT is a rule for WHEN TO LEAVE a patch. It is silent on WHERE TO GO.** That silence is filled by
+> our patch-CHOICE function, which the map marks **UNPINNED** -- so the failure localises cleanly to
+> the unpinned half of a half-pinned organ. **Breadth was never in the currency.**
+> **`notes/T1_foraging_the_negative_drilled_MVT_says_WHEN_TO_LEAVE_not_WHERE_TO_GO_2026-08-21.md`**
+>
+> **REAL REMAINING WORK:** (1) a clean re-score on a probe **not register-matched** to either arm --
+> no new run; (2) the **patch-choice** primitive, which is the actual build target; (3) the live-path
+> call site (`IS-REACHED: no`) -- *a wiring, not a build.*
+
+## ~~2. T1 -- THE SYSTEM CANNOT NOTICE WHAT IT DOES NOT KNOW~~ **(the superseded version, kept visible on purpose)**
 
 **The single most damning line in the whole organ map:** *"seven organs do not exist at all -- and
 one of those seven is the organ that decides what to read next, which is why the system cannot
