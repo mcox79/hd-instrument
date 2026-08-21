@@ -251,6 +251,28 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## ✅ **AND THE ROUTE SURVIVES: THE 50-PASS PROBLEM WAS A *CAPACITY* PROBLEM. 4x THE EXPANSION
+> ## CUTS IT FROM 38 PASSES TO 8 -- INSIDE THE SUPPORTED REPLAY RANGE.**
+> | overlap | within-fam | raw cue | Hebbian | **passes @dg=1024** | **passes @dg=4096** |
+> |---|---|---|---|---|---|
+> | 0.50 | 0.0442 | 0.3464 | **0.7205** (already fine) | 1 | 1 |
+> | 0.80 | 0.2217 | 0.2193 | **0.1179** (fails) | 8 | **2** |
+> | **0.95** | 0.5604 | 0.0723 | **−0.1021** (merges) | **38** | **8** |
+> **`0,3,10` / `1,4,10` are the supported schedules -- 8 is INSIDE that range, 2 comfortably so.**
+> 🧠 ***AND TWO CONSTRAINTS AGREE, WHICH IS RARE HERE: EXPANSION INTO A LARGER SPARSE SPACE IS THE
+> DEFINING ARCHITECTURAL FEATURE OF DG. The change that makes the learning AFFORDABLE is the same
+> change that makes the design MORE FAITHFUL.*** *(Claim is "expansion is characteristic of DG" --
+> I have NOT verified a specific brain expansion ratio and am not quoting one.)*
+> ✅ **INDEPENDENT IMPLEMENTATION AGREES:** a slower PER-PATTERN version (no shared code path with
+> the batched one) finished in the background at dg=2048/N=600 and reproduces Hebbian's collapse --
+> **identify 0.1133** vs the batched 0.1400 at a different scale. *It also shows the gameable metric
+> again: the delta rule has the HIGHEST recovery (0.8248) while below the cue on identification.*
+> 🔻 **WITHDRAWN: "replay cannot supply the passes."** ✅ **STANDS: the incumbent merges correlated
+> memories -- now confirmed by TWO implementations.**
+> ⚠️ **COST TO QUOTE ALONGSIDE: `dg=4096` is 16x expansion and the weight matrix is `dg^2` = 16.8M
+> floats. NEVER quote "50 passes" without its dg=1024, nor "8 passes" without its 16x.**
+> `notes/THE_50_PASS_PROBLEM_WAS_A_CAPACITY_PROBLEM_4x_expansion_cuts_it_to_8_2026-08-21.md`
+>
 > ## ⚠️ **AND THE HONEST COST OF THAT RESULT: THE LOCAL RULE NEEDS ~50 PASSES. REPLAY SUPPORTS
 > ## SINGLE DIGITS. THE GAP IS AN ORDER OF MAGNITUDE AND IS UNACCOUNTED FOR.**
 > | passes | 1 | 8 | 13 | **21** | **50** | 200 |
