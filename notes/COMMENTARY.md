@@ -90,3 +90,15 @@ OP1-OP4
 ## 2026-08-20T16:06:55Z  --  the status window
 
 tehere are a lot of "no verdict" runs in the "latest results" tab - is that correct or old?
+
+## 2026-08-20T21:59:25Z  --  the status window
+
+Make sure you always have 2 high priority angles you can work on while you're waiting on results
+
+## 2026-08-20T22:11:14Z  --  the status window
+
+when evaluating what to work on next, you should do brain fidelity checks to identify what is the next most enabling feature. Also, consider doing very deep brain fidelity checks of organs or components, to make sure that each step is doing what it should be. Also, evauating each step of components / organs to idnetify the weak step and drilling in on that could be valuable
+
+## 2026-08-21T01:07:13Z  --  the status window
+
+just remember that in any sleep function, while the brain throws away detail, we can put that detail into cold storage and not lose it. We'll still want a consolidation function so we're not duplicating things, but we should never throw out useful information

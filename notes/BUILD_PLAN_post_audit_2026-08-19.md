@@ -87,6 +87,29 @@
 > *The cheap probe MEASURED and did not SET DIRECTION, as the brief required.*
 > `notes/THE_SIGN_HYPOTHESIS_IS_REFUTED_our_synapses_are_not_shared_2026-08-21.md`
 >
+> ## 📩 **OWNER COMMENTARY 2026-08-21T01:07Z -- AND TWO THIRDS OF IT ALREADY EXISTS**
+> *"in any sleep function, while the brain throws away detail, we can put that detail into cold
+> storage and not lose it. We'll still want a consolidation function so we're not duplicating things,
+> but we should never throw out useful information"*
+> ### **THE TIERING IS BUILT AND PROVEN.** Charter: *"the USER's three-tier knowledge architecture is
+> PROVEN END-TO-END (3 HARD_PASS ... all VET'd, controls clean) + WIRED into hdlab (three_tier_loop +
+> gather_reason + prelim_tier ... pytest 256 green)."* **And `prelim_tier`'s docstring OPENS with
+> *"retain-forever"* -- "never throw out useful information" is already its stated principle.**
+> ### 🚨 **AND A LIVE READ NEVER TOUCHES IT -- RUNTIME-VERIFIED, NOT FROM THE LABEL.** All three
+> import cleanly; **`Substrate().read()` in a clean process loads 44 hdlab modules and NONE of the
+> three.** *(My first probe was INVALID -- I had imported them myself, so they appeared in
+> `sys.modules`. Caught and re-run clean. CLAUDE.md warns the `WIRED_BUT_NOT_PIPELINE_REACHABLE`
+> label is wrong in BOTH directions, so it was not trusted either way.)*
+> ### 🎯 **SO SLEEP IS A WIRING PROBLEM BEFORE IT IS A BUILD PROBLEM** -- three proven, registered
+> organs the reading loop never calls. **The genuinely missing piece is the owner's MIDDLE clause:
+> consolidation/dedup.** Retain-forever without merging IS the unbounded slot growth flagged last
+> turn. **Dedup, not decay, has no implementation.**
+> ### **AND THE OWNER'S PRINCIPLE IS RIGHT ON OUR OWN RULES:** the brain discards detail because it
+> is capacity-bound and we are not. **Copying biological forgetting would copy a CONSTRAINT we do not
+> share** -- *copy the computation, sweep the parameter.*
+> Four reads run first: registry **3**, results archive **29 cells**, notes **105**.
+> `notes/THE_OWNERS_COLD_STORAGE_ALREADY_EXISTS_...md`
+>
 > ## 🅰️ ~~OPEN OWNER DECISIONS~~ -- BOTH NOW ANSWERED, ABOVE
 > - **Q92** -- `notes/STATUS.md` is ~2.3x its 8,704 B cap. **The two never-trim sections ALONE are
 >   11,228 B = 1.29x the whole cap**, so the cap is unreachable without deleting what it protects.
