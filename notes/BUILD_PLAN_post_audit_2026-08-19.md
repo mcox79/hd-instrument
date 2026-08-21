@@ -262,6 +262,23 @@
 > from 2.75% to 2.92%** -- the self-test still FAILS above 10%. *Also fixed: EXACT-name match first,
 > because `read` was matching `readout` and `read-out`.* `THE_SHELF_IS_28_CORPORA_NOT_9_...`
 
+> ## **MEASURED: SIX READS OPEN 8 OF 28 CORPORA, ALPHABETICALLY -- ALL SIX TEXTBOOKS UNREACHED**
+> ***`remaining()` diffed per corpus across six `Substrate.read()` calls, not inferred from code.***
+> `alice -> anne+arc -> breadth_v1 -> graded_readers_grade1 -> graded_readers_graded+litbank ->
+> little_women`. **20 of 28 NEVER OPENED, including EVERY textbook (anatomy, biology, microbiology,
+> psychology, chemistry, concepts-biology), `simplewiki`, `race`, `onestop`, `social_iqa`,
+> `worldtree`.** ✅ **The 2026-08-19 `_patch_cursor` fix WORKS** -- it no longer re-enters the same
+> three books forever (the failure that *"looked exactly like a learning ceiling"*) -- **and its own
+> comment calls it "the cheapest half of the fix". IT ADVANCES A POINTER ALONG A SORTED LIST; IT DOES
+> NOT CHOOSE.** 🎯 **WHY THE ORDER IS NOT COSMETIC: our own recorded finding (board Q78) is that
+> dense technical writing grounds ~3.5x better than general reading -- and EVERY dense corpus starts
+> `t`/`s`/`w` while every novel and reader starts `a`/`b`/`g`/`l`. A short session reads Alice in
+> Wonderland and never opens the biology textbook, because `a` sorts before `t`. That is `sorted()`,
+> not a foraging decision.** ⚠️ **NOT CLAIMED: that shuffling helps -- I measured the ORDER, not the
+> OUTCOME of changing it; that is an argument to TEST a change, not to make one. LIVE READER
+> UNTOUCHED.** *Supplies the missing NUMBER for the plan's existing UNPINNED patch-CHOICE gap.*
+> `THE_READER_STILL_WALKS_THE_SHELF_ALPHABETICALLY_...`
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"
