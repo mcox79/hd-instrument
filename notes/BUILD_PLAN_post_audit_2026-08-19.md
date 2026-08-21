@@ -89,6 +89,21 @@
 > THERE IS NO WIRING JOB.** *32% is 8x the head form, NOT clean --* `Afghanistan -> "the prince was
 > caught in another media furore"`. `THE_TOP_ITEM_WAS_ALREADY_WIRED_...`
 
+> ## **THE REGISTRY WAS STALE BY EXACTLY ONE TOOL FIX -- 7 LIVE ORGANS READ AS "NOT ON THE PIPELINE"**
+> **Tell: ONE row contradicted ITSELF** -- `definitional_extraction`'s `provenance` said
+> *"pipeline_status corrected... on RUNTIME evidence (212 of 402 rows)"* while the FIELD still read
+> `WIRED_BUT_NOT_PIPELINE_REACHABLE`. **Cause is NOT a bad hand-edit: `capability_registry_audit.py:1494`
+> RECOMPUTES that field on EVERY row, so a hand-correction CANNOT survive.** And the closure was right
+> all along -- **the audit was fixed at 09:49 local ("not rooted at the assembled substrate") while the
+> registry's `last_audit_utc` is 09:15:02Z = 05:15 local, FOUR HOURS EARLIER.** Re-ran it: **7 organs
+> flipped to `WIRED_AND_PIPELINE_USED`** -- `definitional_extraction`, `substrate_assembled_reader_v1`,
+> `information_foraging`, `corpus_registry`, `sensorimotor_spoke`, `cortical_recall`,
+> `foundation_persistence` (+2 hand-registered rows got their missing `integration_status`).
+> **Totals now 55 USED / 94 NOT-REACHABLE.** /!\ **LIMIT, NOT TO BE OVERSTATED: that flag means
+> IMPORT-REACHABLE FROM THE ASSEMBLED READER, *NOT* EXERCISED. Only ONE of the seven
+> (`definitional_extraction`) has independent runtime evidence that it fires.**
+> `THE_REGISTRY_WAS_STALE_BY_ONE_TOOL_FIX_...`
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"
