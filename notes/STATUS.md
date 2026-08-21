@@ -33,22 +33,24 @@ difference being 7,535 sentences read. First replicated positive from our side o
 Marginal CIs overlapped, which is NOT a test of a difference; the paired test is. `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
 
 
-## TOP ITEM -- **IT IS ALREADY WIRED AND LIVE. AND ITS HEADLINE NUMBER IS BARRED FROM THAT USE.**
+## TOP ITEM -- **THE BINDING CONSTRAINT IS REPRESENTATION ROOM, NOT READING. D1 HAS A SECOND MEASUREMENT.**
 
-**The old TOP ITEM said "WIRE DEFINITIONAL DIRECT-BANK" citing `64% vs an 8% floor`. BOTH HALVES ARE
-WRONG, and `hdlab/reading_grounding_loop.py:1479` says so in THREE numbered corrections dated
-2026-08-20 that I had not read:** (1) **it IS live** -- `substrate.py:538`, and **212 of 402
-provenance rows** carry `meaning_source=DEFINITIONAL_EXTRACTION`, which a fact cannot carry unless
-the gate fired; (2) **what ships is the PHRASE `d.definiens`, not `d.head`** -- **PHRASE 32% vs HEAD
-4%**, head **NOT distinguishable from the distributional control** (Fisher p=0.2475); (3) 🚫 **the
-64% scores the EXTRACTOR's own output, NOT the facts the gate banks, under a STANDING PROHIBITION on
-placing it beside the 4% / 1-3% / 35% / 94%.** *The TOP ITEM did exactly that.*
+*Floored identification task, balanced lemmas over all 28 corpora, chance 0.0167.*
+1. **READING MORE DOES NOT HELP.** *Queries held FIXED, only profile depth varying:* `0.1900 /
+   0.2100 / 0.2133 / 0.1900 / 0.1967` at depths 5-41 -- **rises to ~10 then flat at n=300, and the
+   live median word already gets ~10.** ⚠️ *My first cut showed a DECLINE and I nearly reported it as
+   confirming "write less": the query set was growing with the depth.*
+2. ✅ **MORE DIMENSIONS KEEPS PAYING.** `128 0.1061 | 256 0.1435 | 512 0.1776 | 1024 0.2057 |
+   2048 0.2268`, **SCRAMBLE recomputed at EVERY d, flat at chance (0.0130-0.0211)** -- so it is
+   capacity, not a metric inflating with d. ***`1024 - 256 = +0.0622, CI [+0.0443, +0.0797]`, 48 of
+   60 lemmas, EXCLUDES ZERO.*** **Still climbing at 2048, so 1024 may be the wrong target.**
 
-**MY ADDITION, all 2,092 rows ENUMERATED: the cited artifact is `0 of 2,092` multi-word -- 100%
-HEAD-FORM -- while `2,079 (99.4%)` already carry the validated PHRASE in the SAME ROW**
-(`ATP -> "process"` vs `"a process called hydrolysis"`). ***NOTHING NEEDS RE-EXTRACTING; THERE IS NO
-WIRING JOB.*** ⚠️ *32% is 8x the head form, NOT clean.*
-`THE_TOP_ITEM_WAS_ALREADY_WIRED_...` `b3_audit_scored_the_win_is_the_phrase_form_...`
+➡️ **D1's SECOND, INDEPENDENT, FLOORED MEASUREMENT** (its own was "16x dims -> +0.0843" on a
+different task; `P_LIVE_CONCEPT` was ONLY EVER RUN at d=256). ⚠️ **NOT meaning (identification is a
+LOOKUP); NOT the average word; NOT free -- rewrites every persisted store (Q65 "do whatever is
+ideal"; backup + no concurrent session).** *Prev top item "wire definitional direct-bank" CLOSED --
+already live, 212 of 402 rows.*
+`THE_LIMIT_IS_DIMENSIONAL_...` `I_NEARLY_REPORTED_THAT_MORE_READING_MAKES_IT_WORSE_...`
 
 ## 🌙 THE NIGHT OF 2026-08-21 -- FINDINGS, ALL FROM READING ARTIFACTS THAT ALREADY EXISTED
 
@@ -71,7 +73,7 @@ WIRING JOB.*** ⚠️ *32% is 8x the head form, NOT clean.*
 
 ## WHAT IS RUNNING
 
-- 📏 **THIS FILE IS ~870 B (3%) OVER ITS 28,672 CAP AND IS LEFT THAT WAY DELIBERATELY.**
+- 📏 **THIS FILE IS ~1,160 B (4.0%) OVER ITS 28,672 CAP AND IS LEFT THAT WAY DELIBERATELY.** *(Figure re-measured 2026-08-21 late: it read "~870 B (3%)" and had gone stale against my own edits -- a self-describing number that drifted, which is the fault this file spent the night correcting elsewhere.)*
   *Per `STATUS_SPEC.md` sec 6 I spent both permitted actions -- compressed my own addition twice,
   then evicted tiers 1-4 (a stale "Q92/Q95 are OPEN" block, two finished-work progress reports,
   emphasis prose in the diagnostics and `n_grounded` entries). Step 3 is **STOP, do not descend into
