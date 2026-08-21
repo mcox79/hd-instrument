@@ -251,6 +251,28 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## 🛑 **AND I DID *NOT* BUILD THE OBVIOUS NEXT TOOL, BECAUSE I CHECKED ITS BASE RATE FIRST:
+> ## 48.5% OF HARD_PASS CELLS WOULD FIRE. NOT EVERY GOOD LESSON BECOMES A TOOL.**
+> *"A perfect score usually means the task is broken" appeared THREE times tonight -- D3's self-test
+> at `sign_agree 1.000`; `CA3 OFF` at `hit@1 1.0000` for every N to 20,000; the form channel at
+> 1.0000. The meta-rule says turn lessons into CODE, so the obvious move was a ceiling detector.*
+> **MEASURED FIRST: of 2,680 HARD_PASS cells, 1,299 (48.5%) report a metric-named field at exactly
+> 1.0.** ➡️ ***A FLAG THAT FIRES ON HALF THE ARCHIVE IS NOT A FLAG -- and it would have been the
+> SECOND cry-wolf detector I shipped tonight.***
+> **The 1.0s are mostly LEGITIMATE: positive controls that SHOULD sit at ceiling, determinism
+> assertions, known-answer arms, guard checks, saturated sub-metrics in sound cells.**
+> **It cannot be narrowed the way `has_parts`/`has_limit` were: the discriminating signal is "the
+> HEADLINE claim is at 1.0", and NOTHING IN A METRICS FILE MARKS WHICH FIELD IS THE HEADLINE.**
+> *Every narrowing available is a guess about which key matters -- which is exactly what produced the
+> 3,990-false-positive `sample_tell`.*
+> ✅ **WHAT IMPROVED IS THE ORDER: earlier tonight I BUILT the detector, called it "deliberately
+> narrow" on three fixtures, and needed two more rounds. This time I ran the base-rate query BEFORE
+> writing a line -- one command, and the answer was DON'T.**
+> ➡️ **STAYS A READING HABIT, NOT A LINTER: when a number is exactly 1.0, ask whether the task could
+> have produced anything else.** ***And the general rule: MEASURE A DETECTOR'S BASE RATE BEFORE
+> WRITING IT.***
+> `notes/NOT_EVERY_LESSON_BECOMES_A_TOOL_the_ceiling_check_has_a_48_percent_base_rate_2026-08-21.md`
+>
 > ## 🚫 **DE-RISKING Q102: THE FORM CHANNEL SCORES 1.0000 ON IDENTIFICATION -- WHICH PROVES THE TASK
 > ## IS A LOOKUP, NOT THAT THE CHANNEL IS GOOD. MY OWN BENCHMARK WAS CIRCULAR.**
 > *80 lemmas, 8 held-out probes each, chance 0.0125.* **CONTEXT 0.1141 vs FORM (`CharTrigramEncoder`)
