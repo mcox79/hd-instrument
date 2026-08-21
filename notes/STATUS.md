@@ -73,7 +73,7 @@ already live, 212 of 402 rows.*
 
 ## WHAT IS RUNNING
 
-- 📏 **THIS FILE IS ~1,160 B (4.0%) OVER ITS 28,672 CAP AND IS LEFT THAT WAY DELIBERATELY.** *(Figure re-measured 2026-08-21 late: it read "~870 B (3%)" and had gone stale against my own edits -- a self-describing number that drifted, which is the fault this file spent the night correcting elsewhere.)*
+- 📏 **THIS FILE IS ~1,374 B (4.8%) OVER ITS 28,672 CAP AND IS LEFT THAT WAY DELIBERATELY.** *(Figure re-measured 2026-08-21 late: it read "~870 B (3%)" and had gone stale against my own edits -- a self-describing number that drifted, which is the fault this file spent the night correcting elsewhere.)*
   *Per `STATUS_SPEC.md` sec 6 I spent both permitted actions -- compressed my own addition twice,
   then evicted tiers 1-4 (a stale "Q92/Q95 are OPEN" block, two finished-work progress reports,
   emphasis prose in the diagnostics and `n_grounded` entries). Step 3 is **STOP, do not descend into
