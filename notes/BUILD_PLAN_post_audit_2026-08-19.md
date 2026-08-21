@@ -9,8 +9,23 @@
 > **our resolver 0.7193** vs most-recent-mention **0.5614** and subject-majority **0.3860**; oracle
 > 0.9298, honest earned 0.6842; same run, same corpus, same metric
 > (`exp_wire_coref_accumulate_situation_model_v1`, `BOTTLENECK_QUANTIFIED`). **`WIRED: YES`.**
-> ### 🎯 **AFTER A DAY WHERE EVERY MEASUREMENT PUT US AT OR BELOW COUNTING, THIS IS THE ONE PLACE ON
-> THE MAP WHERE THE SUBSTRATE IS DEMONSTRABLY AHEAD OF ITS TRIVIAL BASELINES.**
+> ### ⚠️ **CORRECTED -- I QUOTED THAT MARGIN WITHOUT A CI. n=57, AND THE STRONG FLOOR IS NOT CLEARED.**
+> All five figures DISK-VERIFIED in one block, one metric (`eval_blocks.powered.
+> query_accuracy_identity_demanding`) -- ORGAN_MAP's prose is accurate. **But n=57 and the file
+> carries NO confidence interval anywhere.** Unpaired 2-proportion test (conservative; the file lacks
+> the discordant counts a paired test needs):
+> | comparison | diff | 95% CI | |
+> |---|---|---|---|
+> | strict_cb vs **recency floor** | +0.1579 | **[-0.016, +0.332]** | **NOT SEPARATED** |
+> | earned vs **recency floor** | +0.1228 | **[-0.054, +0.299]** | **NOT SEPARATED** |
+> | strict_cb vs singleton floor | +0.3333 | [+0.161, +0.505] | SEPARATED |
+> **The whole margin over the strong floor is NINE ITEMS of 57 (41 vs 32).**
+> **HONEST VERSION: clearly ahead of the WEAK floor, ahead of the STRONG one only as a POINT
+> ESTIMATE.** Still the best-looking thing measured today; a smaller claim than I made.
+> *Also note `0.7193` is the `strict_cb` arm (`best_real_arm`); `earned` is `0.6842`.*
+> **RECOMMENDATION UNCHANGED -- this argues FOR step 4**, whose own can-fail test already reads
+> *"n in the hundreds, not n=10"*. An unproven nine-item lead is what that step exists to settle.
+> `notes/CORRECTION_the_E3_margin_over_its_STRONG_floor_is_NOT_CI_separated_at_n57_2026-08-21.md`
 > Its fidelity fix is named precisely -- replace OUR invented arithmetic (`beta=0.5, lambda=0.1`)
 > with parallel cue-based retrieval + similarity interference, score by the semantic comparator not
 > token Jaccard, **KEEP** the margin abstention (already brain-faithful). **More specified than F5's
