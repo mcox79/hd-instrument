@@ -69,6 +69,37 @@ function, which `ORGAN_MAP` marks **UNPINNED**, and which is the half that faile
 
 *Note what that phrasing concedes: the map's author already knew the dict was synthetic.*
 
+## 4b. 🔴 **I VERIFIED "A CALL SITE, NOT NEW CODE" INSTEAD OF QUOTING IT, AND IT IS NOT ACCURATE -- NOR WAS MY OWN SENTENCE ABOVE**
+
+**I wrote in §4: *"`rank_material()` IS a patch-choice function. It is the missing half."* That is
+wrong, and the source docstring says so plainly.** Read from `gap_driven_reader.py:192`:
+
+> *"Score each `candidate_docs[doc_id]` by **how many of its sentences mention `target_lemma`** (a
+> direct **lexical-occurrence proxy**) ... **this function is intentionally target-agnostic** ... the
+> load-bearing gap-awareness lives entirely in **WHICH `target_lemma` the caller passes in**."*
+
+**`rank_material` IS A WORD COUNTER.** *And tonight's recurring result is that counting beats our
+mechanisms by roughly 10x -- so wiring only this in would wire in a counter and could easily
+"succeed" while sensing nothing.*
+
+**THE ACTUAL DISTANCE-TO-FRONTIER SENSING IS TWO FUNCTIONS UPSTREAM**
+(`identify_missing_prerequisites`, line 151): among lemmas that have **co-occurred** with the
+blocked concept, keep only those that are **themselves still a gap**, via
+`state.gap_detector.familiarity(lemma, ...).is_gap`. **That is exactly the owner's description --
+and it is the ZPD shape: nearest-unknown-first.** *It also carries a structural no-leak check on its
+own signature, not merely a docstring claim.*
+
+### ➡️ SO THE REAL SCOPE IS THREE CONNECTIONS, NOT ONE
+1. **`PrereqTracker` must be FED DURING READING** (`read_and_track`) -- **it is populated nowhere on
+   the live path today**, which follows from the organ having zero callers.
+2. `next_read_target()` -> `identify_missing_prerequisites()` -> **`gap_detector`** must be called.
+3. *Then* `rank_material()` over peeked corpus material.
+
+**Only step 3 is a call site. Step 1 touches the read loop.** *`ORGAN_MAP`'s "a call site, not new
+code" describes the cheapest third of the job and names the one component that contributes no
+intelligence.* **Still small -- but I would have under-quoted it to the owner by roughly 3x had I
+repeated the line instead of opening the file.**
+
 ## 5. WHAT THIS CHANGES
 
 1. **The next build is SMALLER than I told the owner an hour ago.** I ranked "patch-choice" as
