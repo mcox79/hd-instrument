@@ -76,6 +76,19 @@
 > the ARCHIVE is built from the same list, so that would destroy the record the owner asked to KEEP.**
 > `THE_GUI_COMPLAINT_WAS_ALREADY_FIXED_BUT_WRITING_ITS_GUARD_FOUND_A_CRASH_...`
 
+> ## /!\ **THE TOP ITEM ("WIRE DEFINITIONAL DIRECT-BANK") IS ALREADY WIRED AND LIVE -- AND ITS 64% IS BARRED FROM THAT USE**
+> **`hdlab/reading_grounding_loop.py:1479` carries THREE numbered corrections dated 2026-08-20 that
+> I had not read:** (1) **it IS on the live path** -- `substrate.py:538`, **212 of 402 provenance
+> rows** carry `meaning_source=DEFINITIONAL_EXTRACTION`; (2) **what ships is the PHRASE `d.definiens`,
+> NOT `d.head`** -- **PHRASE 32% vs HEAD 4%**, head **NOT distinguishable from control** (Fisher
+> p=0.2475); (3) **the 64% scores the EXTRACTOR's own output, NOT the facts the gate banks, and a
+> STANDING PROHIBITION forbids placing it beside the 4% / 1-3% / 35% / 94%.** *The TOP ITEM did
+> exactly that.* **MY ADDITION, all 2,092 rows ENUMERATED: the cited artifact is `0 of 2,092`
+> multi-word -- 100% HEAD-FORM -- while `2,079 (99.4%)` already carry the validated PHRASE in the
+> SAME ROW** (`ATP -> "process"` vs `"a process called hydrolysis"`). **NOTHING NEEDS RE-EXTRACTING;
+> THERE IS NO WIRING JOB.** *32% is 8x the head form, NOT clean --* `Afghanistan -> "the prince was
+> caught in another media furore"`. `THE_TOP_ITEM_WAS_ALREADY_WIRED_...`
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"

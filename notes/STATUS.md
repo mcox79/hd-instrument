@@ -33,41 +33,42 @@ difference being 7,535 sentences read. First replicated positive from our side o
 Marginal CIs overlapped, which is NOT a test of a difference; the paired test is. `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
 
 
-## TOP ITEM -- **IT WAS SOLVED 8 DAYS AGO AND RANKED #1. WIRE DEFINITIONAL DIRECT-BANK.**
+## TOP ITEM -- **IT IS ALREADY WIRED AND LIVE. AND ITS HEADLINE NUMBER MUST NOT BE USED THAT WAY.**
 
-**Owner, 2026-08-21: *"i think this reading and grounding thing was figured out a while ago - but you
-clearly didn't pick up on that."*** **They are right.** `notes/opportunity_map_2026-08-13.md` item
-**#1**, verbatim:
+**The previous TOP ITEM said "WIRE DEFINITIONAL DIRECT-BANK", citing `64% MEANINGFUL (32/50) against
+an 8% floor`. BOTH HALVES ARE WRONG, AND `hdlab/reading_grounding_loop.py:1479` ALREADY SAYS SO IN
+THREE NUMBERED CORRECTIONS DATED 2026-08-20 THAT I HAD NOT READ.**
 
-> *"The extractor that reads 'X is a Y' out of real textbook prose currently runs only inside
-> experiment cells. Its facts are written to files that nothing live re-reads. **Wiring it means the
-> reading loop banks those facts into the foundation directly, at the moment of reading, WITHOUT
-> ASKING THE BROKEN COMPARATOR TO CHOOSE ANYTHING.**"*
+1. **IT IS ON THE LIVE PATH.** `substrate.py:538` builds `definition_map` and passes it to
+   `checkpoint`, so the gate fires. **Runtime evidence: 212 of 402 provenance rows from a
+   12,000-sentence read carry `meaning_source=DEFINITIONAL_EXTRACTION`**, which a fact cannot carry
+   unless it fired.
+2. **WHAT SHIPS IS THE PHRASE, NOT THE HEAD.** `substrate.py:538` stores `d.definiens`. Same rubric,
+   same scorer, same day: **PHRASE 32% MEANINGFUL vs HEAD 4%**, and the head form is **NOT
+   distinguishable from the distributional control (Fisher one-sided p = 0.2475)**.
+3. 🚫 **THE 64% DOES NOT MEASURE THE FACTS THIS GATE BANKS.** It scores the EXTRACTOR's own output
+   ("is the extracted definition right for that sentence"). **There is a STANDING PROHIBITION on
+   placing it beside the 4% / 1-3% / 35% / 94% figures** -- different scorers, rubrics and
+   populations. *The TOP ITEM did exactly that, and I was about to build on it.*
 
-**Evidence already on record: 64% MEANINGFUL (32/50) against an 8% floor**, same scorer, same rubric,
-same sampling, **pre-registered HARD_PASS band >=52%.** Ladder **v2 8% -> v3 38% -> v4 40% -> v5
-64%**. `data/foundation/reading_grounding_v5_termboundary/definitional_facts_v5.jsonl`, **2,092
-rows**. The brain-fidelity audit called that metric *"the best in the repository... the only place
-where the thing being measured is the thing the brain is judged on."*
+### 📏 **MY OWN MEASUREMENT, WHICH THE DOCSTRING DOES NOT HAVE -- THE CITED ARTIFACT IS 100% HEAD-FORM**
+*`definitional_facts_v5.jsonl`, all 2,092 rows enumerated, not sampled:*
 
-### 🚫 **AND I MUST CORRECT MY OWN HEADLINE FROM ONE TURN AGO: "READING GROUNDS ZERO" WAS WRONG.**
-I measured `n_grounded`, which is **the comparator gate only** -- and that gate is precisely the
-thing the 08-13 note says to BYPASS. **Reading DOES produce meanings.** 600 sentences of biology
-gives **15 consolidated entries**, provenance **3 `DEFINITIONAL_EXTRACTION` / 12 none**:
-
-| source | examples |
+| | |
 |---|---|
-| **DEFINITIONAL** | **`hypothesis -> a suggested explanation that one can test`**, `biology -> a science` |
-| none (distributional) | `brain -> people`, `create -> book`, `critical -> number` |
+| objects that are MULTI-WORD (the validated phrase form) | **0 of 2,092** |
+| rows carrying a multi-word `definiens_surface` **already on disk** | **2,079 of 2,092 (99.4%)** |
+| rows where the phrase DIFFERS from the head | **2,082 of 2,092 (99.5%)** |
 
-**That is the SAME split I spent today rediscovering at 32% vs 4% -- and it was already measured at
-64% vs 8%, with the fix specified and ranked #1, eight days ago.**
+**`ATP -> "process"` vs `"a process called hydrolysis"`. `Abdullah -> "minister"` vs `"the Chief
+Minister of Jammu and Kashmir"`.** ***The head form discards the differentia -- and the validated
+form is ALREADY PRESENT IN THE SAME ROWS, so nothing needs re-extracting.***
+⚠️ *The phrase route carries its own extraction errors (`Afghanistan -> "the prince was caught in
+another media furore"`); 32% is not clean, it is 8x the head form.*
 
-### 🎯 THE ACTUAL TOP ITEM
-**Wire the definitional channel to bank DIRECTLY at read time, bypassing `canonicalize`.** *The
-deadlock I described -- grounding needs anchors, anchors need grounding -- is a real property of the
-COMPARATOR path, and it is exactly why the fix is to not route through it.*
-`notes/opportunity_map_2026-08-13.md` (item #1), `notes/director_handscore_b3_v5_termboundary_2026-08-12.md`
+➡️ **SO THERE IS NO WIRING JOB HERE. The honest residue is a RE-SCOPE: the phrase is what is
+validated and what already ships; the head-form v5 artifact is not the evidence for it.**
+`b3_audit_scored_the_win_is_the_phrase_form_...` `hdlab/reading_grounding_loop.py:1479`
 
 ## 🌙 THE NIGHT OF 2026-08-21 -- FINDINGS, ALL FROM READING ARTIFACTS THAT ALREADY EXISTED
 
