@@ -1,5 +1,26 @@
 # OVERNIGHT PLAN -- 2026-08-21. **FOUR THRUSTS, DELIBERATELY DIFFERENT IN KIND.**
 
+> # 📚 **KNOWLEDGE-EVALUATION PRIOR WORK -- FOUND ON OWNER INSTRUCTION. 126 CELLS, 116 LANDED.**
+> **Owner: *"we did work on evaluating our knowledge too -- we did a ton of it. Why haven't you
+> already found all this?"*** **Correct. The four that matter:**
+>
+> | cell | what it says |
+> |---|---|
+> | **`exp_grounding_quality_readout_v1`** (08-12) | **100 BLIND rows, scored and joined 10 min later. `B3_RESOLVED.md` (08-20): 3 MEANINGFUL / 19 RELATED / 78 NOISE; `BASE-F1F3 = -0.020` CI[-0.080,+0.040] NOT separated -- the read-out fix did not move quality.** *I redid this UNBLINDED tonight.* |
+> | **`exp_meaning_asset_fair_test_v1`** (08-15, 2 h) | **`ASSET_RETRAIN_ISOL` rho 0.2581, +0.1665 over the frequency floor, CI [0.016, 0.313] -- THE ONLY 1 OF 11 ARMS TO SEPARATE, and marginally. Random control 0.0099.** *Do NOT quote as "the assets clear the floor".* |
+> | `exp_storage_quality_instrument_v1` (08-15, 59 m) | `INSTRUMENT_STILL_LOOSE`: 10/11 gates, **refused to publish any number** |
+> | `exp_meaning_asset_handlexicon_scorability_v1` | `NOT_SCORABLE`: lexicon covers **3.9%** of the instrument vocabulary, 16 SimLex pairs vs a floor of 100 |
+>
+> ## ✅ **THE PAYOFF: THE SELF-GRADING NEGATIVE NOW REPLICATES ON BLIND DATA**
+> `best_cos` vs hand verdict -- **blind n=100 separation `+0.0095`; my unblinded n=50 `-0.0316`.**
+> **Both ~zero and the sign FLIPS -- that is noise.** *The "hint of inversion" I declined to claim
+> does NOT replicate; declining was correct.* **`best_cos` carries no usable quality signal.**
+>
+> ## ⚠️ **AND THE RULE THIS EARNED (now in `CLAUDE.md`)**
+> **The prior-work trigger fired on BUILDING and I was never BUILDING -- I was hand-scoring.**
+> ➡️ **THE TRIGGER IS *STARTING ANYTHING*. AND QUERY THE ACTIVITY ("hand-score", "blind", "quality"),
+> NOT ONLY THE ARTIFACT.**
+
 > # 🧭 **LATEST STATE (2026-08-21, after the owner's two COMMENTARY notes). READ THIS BLOCK FIRST.**
 > **The owner pointed at prior work on distance-to-the-grounded-foundation and said to drill it. It
 > exists, it is good, and it is not connected to anything.**
