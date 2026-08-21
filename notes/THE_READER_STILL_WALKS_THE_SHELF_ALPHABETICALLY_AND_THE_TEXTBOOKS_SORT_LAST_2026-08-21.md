@@ -33,8 +33,21 @@ list.***
 
 ## 3. 🎯 **WHY THE ORDERING IS NOT COSMETIC: THE BEST-GROUNDING MATERIAL SORTS LAST**
 
-**This project's own recorded finding (board Q78, my own earlier claim to the owner): *"dense
-technical writing grounds about three and a half times better than general reading material."***
+**I justified this with my own board Q78 line -- *"dense technical writing grounds about three and a
+half times better than general reading material"* -- and then went and checked it.**
+
+> #### 🔻 **IT IS THINNER THAN I MADE IT SOUND, AND I QUOTED PAST THE SOURCE NOTE'S OWN LIMITS.**
+> *`notes/b3_hand_score_was_completed_and_unread_2026-08-12.md`:* **`bio_new` 9 of 17 (53%) vs
+> `adv_new` 6 of 42 (14%)** -- so the ratio is real and is **3.8x**, *but* it is
+> **MEANINGFUL-OR-RELATED COMBINED, not "grounds better"**; the technical arm is **n = 17**; there is
+> **ONE SCORER and no second witness**; and the same note says in its own limits that
+> ***"MEANINGFUL counts are 1 and 2, and both CIs touch zero."***
+> **It is offered there as the nearest thing to a POSITIVE CONTROL on a charter prediction -- not as
+> a finding about what to read.**
+
+***So the argument below is DIRECTIONAL and weakly evidenced, not established.*** **The alphabetical
+traversal is measured and solid; the claim that it costs us something rests on 17 hand-scored items
+by one person.**
 
 ***Every dense technical corpus we own begins with `t` for textbook, `s` for simplewiki, or `w` for
 worldtree. Every novel and school reader begins with `a`, `b`, `g`, `l`, `m` or `s`.***

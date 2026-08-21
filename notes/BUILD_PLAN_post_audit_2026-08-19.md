@@ -274,7 +274,11 @@
 > dense technical writing grounds ~3.5x better than general reading -- and EVERY dense corpus starts
 > `t`/`s`/`w` while every novel and reader starts `a`/`b`/`g`/`l`. A short session reads Alice in
 > Wonderland and never opens the biology textbook, because `a` sorts before `t`. That is `sorted()`,
-> not a foraging decision.** ⚠️ **NOT CLAIMED: that shuffling helps -- I measured the ORDER, not the
+> not a foraging decision.** 🔻 **AND I CHECKED THAT 3.5x AFTER CITING IT: it is `bio_new` 9/17 (53%)
+> vs `adv_new` 6/42 (14%) = 3.8x, but MEANINGFUL-OR-RELATED COMBINED, n=17, ONE SCORER, and the
+> source note's own limits read *"MEANINGFUL counts are 1 and 2, and both CIs touch zero."* **THE
+> TRAVERSAL IS MEASURED AND SOLID; THE COST ARGUMENT RESTS ON 17 HAND-SCORED ITEMS.** *Third time
+> tonight I quoted past a note's own stated limits.* ⚠️ **NOT CLAIMED: that shuffling helps -- I measured the ORDER, not the
 > OUTCOME of changing it; that is an argument to TEST a change, not to make one. LIVE READER
 > UNTOUCHED.** *Supplies the missing NUMBER for the plan's existing UNPINNED patch-CHOICE gap.*
 > `THE_READER_STILL_WALKS_THE_SHELF_ALPHABETICALLY_...`
