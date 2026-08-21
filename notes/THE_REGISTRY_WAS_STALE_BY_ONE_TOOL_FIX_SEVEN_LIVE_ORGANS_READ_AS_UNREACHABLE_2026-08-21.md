@@ -95,9 +95,15 @@ in use" flag had been corrected, and the flag still held the old value.
 **The cause was not a sloppy edit.** That flag is recomputed automatically every time the audit runs,
 so correcting it by hand can never stick -- **the next run overwrites it.**
 
-The deeper reason was simpler still: **the audit tool was fixed this morning to start from the real
-reader, and the list had last been checked four hours before that fix.** So it was stale by exactly
-one repair.
+**I first thought the checker had simply not been re-run since it was repaired this morning. That was
+wrong, and I only found out because I built a detector for it and then asked whether it would have
+caught the real case. It would not have.**
+
+**The checker DID run after the repair — twice, at 10:00 and 10:03 — and got the right answer both
+times.** The list still showed this morning's stale values eleven hours later. **The results were not
+missing, they were thrown away**: something else edited the same file at the same time, and whichever
+save landed last won. The checker's own notes warn about exactly this. **So the fact that a check
+produced a report is no evidence that anything was actually updated.**
 
 **Re-running it moved seven organs from "not on the live path" to "on it"** -- including the
 definition reader, the assembled reader itself, and the parts that choose what to read next.
