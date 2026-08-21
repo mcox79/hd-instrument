@@ -1,4 +1,8 @@
-# **THE FORM CHANNEL SITS *INSIDE* THE SHUFFLED NULL BAND ON MEANING -- AND SO DO BOTH TOKEN-EMBEDDING ARMS. MATCHED COMPARISON, IDENTICAL PAIRS, IDENTICAL GOLD, EVERY rho RECOMPUTED BY ME.**
+# **THE FORM CHANNEL SITS *INSIDE* THE SHUFFLED NULL BAND ON MEANING. MATCHED COMPARISON, IDENTICAL PAIRS, IDENTICAL GOLD, EVERY rho RECOMPUTED BY ME.**
+
+> ⚠️ **TITLE CORRECTED: the token-embedding half is NOT a finding of mine -- the cell's own
+> `arms_clearing` already records that only NORMS12 clears. See the correction block below.**
+> **AND EVERY rho HERE IS SCOPED: the cell forbids quoting them as instrument numbers.**
 
 **Follow-up to the SimLex measurement, done properly this time: instead of comparing my computed
 number against the archive's REPORTED ones, I recomputed every arm from the cell's own per-pair
@@ -49,7 +53,7 @@ shuffles rather than against my intuition about what zero means.*
 > does mean none of these rho values may be carried into a sentence about the substrate's own
 > vocabulary.** *Second time tonight a note stated its own limit and I quoted past it.*
 
-## 3. ⚠️ **AND AN UNEXPECTED ONE: BOTH TOKEN-EMBEDDING ARMS ARE ALSO INSIDE THE NULL BAND**
+## 3. ~~⚠️ **AND AN UNEXPECTED ONE**~~ **ALREADY RECORDED BY THE CELL: BOTH TOKEN-EMBEDDING ARMS ARE INSIDE THE NULL BAND**
 
 **`ASSET_V2_TOKEMB` and `ASSET_RETRAIN_TOKEMB` both score `+0.0265` -- inside `−0.0172 … +0.0426`.**
 *Their own shuffled controls score `+0.0293`, which is HIGHER.* **On this benchmark those two arms
@@ -87,10 +91,10 @@ deliberately scrambled.** That's a stronger result than "close to zero": it perf
 as noise. **Which is precisely why it's safe to switch on — it cannot make a meaning score look
 better than it is.**
 
-**An unexpected find alongside it:** two of our own learned-embedding arms also land inside that
-scrambled range, one of them scoring slightly *worse* than its own scrambled version. **On this
-benchmark they carry no more meaning than noise.** One benchmark, so not a verdict — but worth
-flagging, and only visible because I recomputed the scrambled controls next to them.
+**One thing I first called a find, which was not mine:** two of our own learned-embedding arms also
+land inside that scrambled range. **The experiment's own records already say only the human-ratings
+arm clears** — I re-derived its position rather than discovering anything. *Fourth time tonight that
+checking the existing record changed what I was about to claim.*
 
 **And a number I've been repeating turns out to have a twin.** I've quoted our best semantic asset as
 scoring 0.2701. This experiment measures 0.2449, and my own recalculation from its raw data matches
@@ -102,13 +106,15 @@ exactly the habit that produced most of tonight's withdrawals.
 
 ## QUESTIONS
 
-None. *Q102 is further strengthened: the form channel is provably noise-equivalent on meaning.*
+None. *Q102 is further strengthened: the form channel is provably noise-equivalent on meaning --
+and that conclusion survives the scope disclaimer, because noise-equivalence on a MEANING BENCHMARK
+is exactly the question Q102 turns on.*
 
 ## NEXT STEPS
 
 1. **Quote NORMS12 as `0.2449 [0.1830, 0.3036]` when citing THIS cell**, and 0.2701 only with its own
    cell named. *Same benchmark, different runs.*
-2. **The token-embedding flag deserves its own look** -- both arms inside their own shuffled band, on
-   one benchmark. *Not a verdict; a flag.*
+2. ~~The token-embedding flag deserves its own look~~ **RESOLVED: the cell's `arms_clearing` already
+   records that only NORMS12 clears. Nothing further owed.**
 3. *Method note: recomputing the SHUFFLED arms alongside the real ones is what made both findings
    visible. A null band you compute yourself beats an intuition about what zero means.*
