@@ -49,6 +49,17 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
    DROPS at 2048. **NOT the usual underpowered dodge: half-width `0.0432`, so an
    identification-sized `+0.0622` WOULD have been detected. A BOUNDED negative.**
 
+4. ⭐ **AND THE ONE CHANGE THAT MAKES IT BETTER: DROP THE UBIQUITOUS CONTEXT WORDS.** *Same
+   encoder; only the word list handed to it is filtered, as `context_vector_masked` already does
+   for the target.* `none 0.1071 | >30% 0.1291 | **>20% 0.1558** | >10% 0.0988` -- an inverted U,
+   dropping just **264 of 22,544** context words (`make, other, more, about, see`).
+   **HELD OUT (cutoff picked on one half, scored on the other, 200 splits): `+0.0433`, CI
+   `[+0.0002, +0.0994]`, `>20%` wins 184/200.** *In-sample was `+0.0487`.* ⚠️ **lower bound
+   `0.0002` -- real and ONLY JUST.** 🎯 **vs THE REAL FLOOR: `raw counting 0.0885 | ours 0.1071 |
+   ours+drop 0.1558 | idf-counting 0.1835` -- closes ~57% of the gap, DOES NOT CLEAR IT.**
+   🧠 *The brain's own operation: input that occurs everywhere carries little information and gets
+   less response. We weighted every context word equally.* `DROPPING_264_UBIQUITOUS_...`
+
 ➡️ **SO D1 (`256->1024`, which REWRITES EVERY PERSISTED STORE) improves a LOOKUP.** *Q65 = "do
 whatever is ideal"; standing caution = backup + no concurrent session; still climbing at 2048 on
 identification, so 1024 is not obviously the target.*
@@ -80,59 +91,31 @@ file already over cap.***
 
 ## WHAT IS RUNNING
 
-- 📏 **THIS FILE IS NOW ~384 B (1.3%) UNDER ITS 28,672 CAP -- the first time it has been inside it.** *It was 30,147 B (1.051x) at the start of 2026-08-21 late and peaked at 30,433 B. What paid for it was EVICTION, not trimming: the night-findings table went 7,155 B -> 3,303 B because every row's detail already existed in its own note AND in the plan's consolidated top block, so nothing here was the only copy. I had spent several passes shaving my own additions by ~150 B at a time while a section worth 24% of the file sat below them.*
-  *Per `STATUS_SPEC.md` sec 6 I spent both permitted actions -- compressed my own addition twice,
-  then evicted tiers 1-4 (a stale "Q92/Q95 are OPEN" block, two finished-work progress reports,
-  emphasis prose in the diagnostics and `n_grounded` entries). Step 3 is **STOP, do not descend into
-  the never-trim sections, disclose it** -- so it is disclosed here rather than paid for out of
-  DO-NOT-REDO or STANDING DISCIPLINES.* **Hand to a maintenance pass; the hook warns only past 1.5x.**
-- ⬜ **NOTHING IS RUNNING.** Both detached diagnostics finished and were read 2026-08-21:
-  - ✅ **`exp_graded_vs_signed_query_v1` -- `np.sign` AT `:776` COSTS ALMOST NOTHING. CLOSED.**
-    `Q_GRADED` 0.0480 / median 37.0 vs `Q_SIGNED` 0.0455 / 41.0; paired **+0.0025 CI95
-    [-0.0030,+0.0080] NOT SEPARATED**. **T5b's PREDICTION IS REFUTED** -- it said magnitude moves
-    hit@1 specifically and leaves median rank alone; the opposite happened. *Real null, not
-    unreachable: positive control reproduces the C3 headline EXACTLY (0.0480), 3,708/4,000 ranks
-    changed.* **`:663`'s "worse than either" unsupported at this scale.**
-  - ✅ **`diagnose_read_with_loaded_foundation`: refusal delta 279 vs 380 = 1.36x, NOT the 22x
-    headline, which was 93% PRE-EXISTING.** *Its `n_grounded=0` is fixed at source, below.*
-- 🔧 **FIXED -- `ReadResult.n_grounded` WAS STRUCTURALLY ALWAYS ZERO.** `substrate.py:608` read
-  `n_grounded_cumulative`; `checkpoint()` emits `cumulative_grounded` -- **the same two words
-  TRANSPOSED**, so `.get()` always defaulted and `or 0` served a wiring failure up as data, silently.
-  **A POSITIVE CONTROL WAS NOT OPTIONAL:** at 60 sentences the true value is *also* 0, so a rename
-  would have looked like success; at 600 it climbs **0->14->28->34->37->39** while the field said 0.
-  Now raises; self-tests PASS; **no landed cell affected** (cells count for themselves).
-  ⚠️ **GENERALISABLE: a STATIC scan for this bug class DOES NOT WORK** (1,925->871->801->132
-  suspects, every level dominated by legitimate reads --
-  `tools/audit_keys_read_but_never_written.py` says so in its own docstring). **WHAT FOUND IT WAS A
-  CONTRADICTION BETWEEN TWO FIELDS OF ONE OUTPUT** (`n_grounded=0` beside `anchors +68`).
-  ***Make outputs print quantities that CONSTRAIN EACH OTHER.***
-- ⭐ **WHY WRITING LESS HELPS -- MECHANISM MEASURED ON OUR OWN SUBSTRATE (owner asked, Q98).**
-  `exp_crosstalk_capacity_law_v1_gpu_v1` `MEASURED_MECHANISM`: crosstalk `E[<ki,kj>^2]` over raw
-  keys DOMINATES Hebbian capacity, **r 0.976 / rho 0.964, n=11**; rivals `d_eff` -0.212 and
-  `IsoScore` 0.304 are weaker and their PARTIALS go NEGATIVE (-0.349/-0.499), killing
-  crosstalk-in-disguise. **Fewer keys -> less interference -> cleaner retrieval.**
-  ⚡ **DISSOLVES THE "BAD NEWS": a rate-matched RANDOM gate matching at all 4 thresholds is what
-  interference PREDICTS -- it counts HOW MANY keys, not WHICH. "Write less helps" + "choosing well
-  does not" are ONE result.** ✅ **OUR KEYS ARE AT THE WELCH BOUND: live encoder `inv_e_sq = 256.00`
-  at d=256, `inv_e_sq/D = 1.000`; best of the 11 is 0.179, most ~0.001 (anisotropic, isoscore
-  0.28-0.92). 3.2x the best at a THIRD of its D.** ➡️ **capacity ~ c x d (257-1,297 @256;
-  1,029-5,190 @1024). TWO LEVERS LEFT: FEWER ITEMS (approved sweep), MORE DIMENSIONS (B4 queued,
-  unrun). "Better keys" CLOSED BY GEOMETRY.** ⚠️ *d-prediction EXTRAPOLATES ALONG A DIFFERENT AXIS
-  (law varied ENCODERS at native D; `c` unmeasured for us, 5x spread) -- B4's sweep is the test.*
-  🚫 *Do not re-propose DO-NOT-REDO 44 or 32.* [`WHY_WRITING_LESS_HELPS_...`]
-- **HAZARD: `data/foundation/` is READ-ONLY, ~63 MB, ONE DISK, NO BACKUP, gitignored.**
-- **GATES: origin push needs in-session USER AUTH. Never `git add -A` on the canonical store.**
-  **Never bundle a deletion (`rm`/`Remove-Item`) with real work in one call.**
-  **Never edit `preregs/**` or any `arm_key*` file.**
-- ✅ **BOARD EMPTY. Q98 ANSWERED: *"approved, but you should do some research on why this is as
-  you're finding it"*** -- write-rate extension AUTHORISED **with a stopping rule: extend past p90,
-  stop at the last point where the fraction of test words with NO score is still zero** (measured
-  0.0000 at every tested threshold; tie mass 0.0000 too -- only the write-nothing arm ties, 1.0000).
-- 🧰 **USE IT: `python tools/what_did_this_cell_save.py <cell>`** -- RE-ANALYSABLE vs SUMMARY-ONLY,
-  opens siblings, reads JSON *and* JSONL, flags a SAMPLE posing as a population. **~31% of 7,905
-  cells are re-analysable (full enumeration).** *3 of 4 "must we re-run?" questions tonight were
-  already answered on disk; TWICE I asked the owner to authorise a number already saved.*
-  **OPEN THE CELL BEFORE ASKING.**
+- ⬜ **NOTHING IS RUNNING.**
+- 📏 **This file sits just inside its 28,672 B cap.** *It was 30,147 B at the start of 2026-08-21
+  late. What paid for it was EVICTION, not trimming -- twice now: the night-findings table
+  (7,155 -> 3,303 B) and this section, which had filled with FINISHED work. **When it next needs
+  space, delete a duplicate; do not shave words.*** `STATUS_SPEC.md` sec 6.
+- ✅ **FINISHED AND CLOSED (one line each; detail is in the named note and in the plan's top block):**
+  - **`exp_graded_vs_signed_query_v1` -- `np.sign` at `:776` COSTS ALMOST NOTHING. CLOSED.**
+    `Q_GRADED 0.0480 / median 37.0` vs `Q_SIGNED 0.0455 / 41.0`; paired **`+0.0025` CI95
+    `[-0.0030,+0.0080]` NOT SEPARATED**; positive control reproduces the C3 headline EXACTLY.
+    **`:663`'s "worse than either" is unsupported at this scale.** ⚠️ **AND I PARTLY RE-DERIVED THIS
+    ON 08-21 LATE** on the MEANING benchmark (`graded x signed` sits between the two at d=256 and is
+    marginally best at d=1024) **without reading this entry first -- in the file I re-read every
+    continuation.** *Ninth prior-work catch; the earlier one has a CI and mine did not.*
+  - **`diagnose_read_with_loaded_foundation`: refusal delta `279 vs 380 = 1.36x`, NOT the 22x
+    headline, which was 93% PRE-EXISTING.**
+  - **`ReadResult.n_grounded` WAS STRUCTURALLY ALWAYS ZERO** -- `substrate.py:608` read
+    `n_grounded_cumulative`, `checkpoint()` emits `cumulative_grounded`, **the same two words
+    TRANSPOSED**. Now raises; self-tests PASS; no landed cell affected. **A STATIC scan for this bug
+    class DOES NOT WORK (1,925 -> 132 suspects, all legitimate reads). WHAT FOUND IT WAS A
+    CONTRADICTION BETWEEN TWO FIELDS OF ONE OUTPUT** (`n_grounded=0` beside `anchors +68`).
+    ***Make outputs print quantities that CONSTRAIN EACH OTHER.***
+  - **WHY WRITING LESS HELPS (owner Q98):** `exp_crosstalk_capacity_law_v1_gpu_v1`
+    `MEASURED_MECHANISM` -- crosstalk over raw keys DOMINATES Hebbian capacity, **r 0.976, n=11**;
+    rivals' partials go NEGATIVE. **Our keys sit AT the Welch bound, so "better keys" is closed by
+    GEOMETRY; the two remaining levers are FEWER ITEMS and MORE DIMENSIONS.**
 
 ## DO NOT REDO -- NEVER-TRIM -- stubs; detail in LESSONS
 All CLOSED. `*` = revival criterion. 1 intersection-over-argmax; 2 the "40% ceiling"; 3 syntactic
