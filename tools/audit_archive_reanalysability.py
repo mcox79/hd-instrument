@@ -26,6 +26,8 @@ _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DATA = os.path.join(_REPO, "data")
 SCORE_HINTS = ("coverage", "hits", "accuracy", "precision", "recall", "agreement", "f1")
 MIN_LIST = 20
+# a sibling JSON at least this big cannot be counts-only; credited as persisted WITHOUT parsing
+BIG_FILE_BYTES = 512_000
 
 
 def str_lists(o, depth=0):
@@ -96,7 +98,7 @@ def main():
     if "--self-test" in sys.argv:
         return _self_test()
     _self_test()          # never produce an absence figure from an unverified detector
-    scored, saved, rows = 0, 0, []
+    scored, saved, rows, big_credited = 0, 0, [], set()
     n_dirs = 0
     for name in sorted(os.listdir(DATA)):
         d = os.path.join(DATA, name)
@@ -129,15 +131,32 @@ def main():
             for f in os.listdir(d):
                 if f in ("metrics.json", "units.jsonl") or not f.endswith((".json", ".jsonl")):
                     continue
+                fp = os.path.join(d, f)
+                # 🔴 v1 READ ONLY THE FIRST 2 MB HERE, so any sibling file LARGER than that failed
+                # to parse and was swallowed by the except below -- then counted as "no outputs
+                # saved". THE BIAS RAN EXACTLY BACKWARDS: the cells that persisted the MOST data
+                # were the ones most likely to be called defective. Caught on
+                # exp_context_vector_signal_v1, whose _pass_encounters.json is 4,011,507 bytes and
+                # DOES hold its scored population.
+                #
+                # v2 read whole files and was correct but UNUSABLE -- it read gigabytes and starved
+                # the machine for over 20 minutes without finishing.
+                #
+                # v3 USES SIZE AS THE SIGNAL FOR BIG FILES. A sibling JSON above the threshold
+                # cannot plausibly be counts-only; it contains data. This credits it as persisted
+                # WITHOUT parsing it, which is a stated heuristic, not a measurement -- and it errs
+                # toward UNDER-counting the defect, the conservative direction for a claim that
+                # something is missing.
                 try:
-                    # 🔴 v1 READ ONLY THE FIRST 2 MB HERE, so any sibling file LARGER than that
-                    # failed to parse and was swallowed by the except below -- and it was counted
-                    # as "no outputs saved". THE BIAS RAN EXACTLY BACKWARDS: the cells that
-                    # persisted the MOST data were the ones most likely to be called defective.
-                    # Caught on exp_context_vector_signal_v1, whose _pass_encounters.json is
-                    # 4,011,507 bytes and DOES contain its scored population -- a cell v1 named in
-                    # its "genuinely lost" list. Read the whole file.
-                    with open(os.path.join(d, f), encoding="utf-8") as fh:
+                    size = os.path.getsize(fp)
+                except OSError:
+                    continue
+                if size >= BIG_FILE_BYTES:
+                    best = max(best, MIN_LIST)
+                    big_credited.add(name)
+                    break
+                try:
+                    with open(fp, encoding="utf-8") as fh:
                         blob_f = fh.read()
                     if f.endswith(".jsonl"):
                         for line in blob_f.splitlines()[:2000]:
@@ -152,6 +171,7 @@ def main():
         else:
             rows.append((name, m.get("verdict", "?")))
 
+    print("cells credited by FILE SIZE alone (>=%d b, heuristic) %d" % (BIG_FILE_BYTES, len(big_credited)))
     print("cell directories with a metrics.json      %d" % n_dirs)
     print("of those, cells scoring a POPULATION      %d" % scored)
     print("  persisted a >=%d-item output list       %d  (%.1f%%)"

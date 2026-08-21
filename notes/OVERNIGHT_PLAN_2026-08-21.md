@@ -164,6 +164,33 @@ bootstraps are blind to shared-randomness variance.
 
 ## 5. T4 -- **DRILL THE NEGATIVES** (owner instruction, tonight)
 
+> ### 🔴 **T4's OWN HEADLINE WAS WITHDRAWN -- MY SCANNER'S BIAS RAN BACKWARDS.**
+> I reported *"96.5% of scoring cells saved no outputs"* and *"at least 251 genuinely lost, 61 of
+> them HARD_PASS"*. **`tools/audit_archive_reanalysability.py` v1 read only the first 2 MB of each
+> sibling JSON**, so any file **bigger** than that raised `JSONDecodeError`, was swallowed by an
+> `except: continue`, and **was counted as "saved nothing."** *The cells that persisted the MOST data
+> were the ones most likely to be called defective.*
+>
+> **CAUGHT BY THE TRIPLE-CHECK RULE, ON THE ONE CELL I NAMED.** `exp_context_vector_signal_v1`'s
+> `_pass_encounters.json` is **4,011,507 bytes** and holds a **167-item** population. *It saved its
+> data. I called it unrecoverable.* **And my second charge against it -- that its HARD_PASS was
+> irregular -- is also withdrawn:** the cell **documents its amendments with reasons and preserves
+> the unamended verdict** (`prereg_literal_primary = MIDDLE_BAND_CEILING_LIMITED`), alongside
+> `no_leak_violations: 0`, `arms_differ_verified: true`, per-arm digests, `n_encounters: 8282`.
+> *I conflated an agent's non-disclosure incident with a defect in this artifact.*
+>
+> **THE FIX IS IN THE CODE, NOT THE NOTE** -- `--self-test` with four cases (negative control,
+> nested list, **a >2 MB regression fixture**, and a live control on the cell that exposed the bug),
+> and `main()` calls it **unconditionally**, so no absence figure can come from an unverified
+> detector. Verified both ways: it passes with the fix, and re-introducing the 2 MB cap reproduces
+> the swallowed `JSONDecodeError`. *v2 (read whole files) was correct but starved the machine for
+> 20+ minutes; **v3 credits large files by SIZE without parsing** -- a stated heuristic that errs
+> toward UNDER-counting the defect, the conservative direction.*
+>
+> **➡️ FOURTH APPLICATION OF THE ONE PATTERN THAT IS 4-FOR-4 TONIGHT: EVERY CAUTION WRITTEN AS PROSE
+> WAS LATER VIOLATED; EVERY CONTROL WRITTEN AS CODE CAUGHT SOMETHING.** *Corrected figures pending;
+> the T4 note's table is marked void.*
+
 Three negatives are open, and **the first is mine from tonight**:
 
 1. 🔴 **"THE DECISIVE TEST" MEASURED NOTHING, AND ITS RE-RUN WAS KILLED.** It reported a clean
