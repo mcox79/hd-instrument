@@ -51,7 +51,15 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MARKERS = re.compile(
     r"CORRECTED|CORRECTION|SUPERSEDED|NO LONGER TRUE|NO LONGER UNTESTED|WITHDRAWN|RETRACTED|"
     r"THIS IS WRONG|WAS WRONG|IS NOT TRUE|DO NOT RE-PROPOSE|DO NOT PROPOSE|STANDING PROHIBITION|"
-    r"DEFAULT CHANGED|BUT ALL THREE|HAVE MOVED",
+    r"DEFAULT CHANGED|BUT ALL THREE|HAVE MOVED|"
+    # THE REPO'S OWN CONVENTION FOR "this was measured, not assumed", and it carries the most
+    # expensive note in the codebase: substrate.read's "MEASURED 2026-08-19: readable is sorted,
+    # so every read() began at alice_in_wonderland ... 25 of 28 corpora were NEVER OPENED ...
+    # looked exactly like a learning ceiling." None of the phrases above match that line.
+    # WIDENING MEASURED BEFORE IT WAS ADDED, per the rule that killed an earlier detector at a
+    # 48.5% base rate: this family alone hits 0.22% of symbols and takes the union from
+    # 2.75% to 2.92%, comfortably under this tool's own 10% self-test ceiling.
+    r"MEASURED \d{4}-\d{2}-\d{2}",
     re.I)
 
 SEARCH_GLOBS = ("hdlab/**/*.py", "tools/*.py", "verification/*.py")
@@ -73,27 +81,57 @@ def _iter_symbols():
             rel = os.path.relpath(f, REPO).replace("\\", "/")
             for node in ast.walk(tree):
                 if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
-                    doc = ast.get_docstring(node)
-                    if doc:
-                        yield rel, node.name, node.lineno, doc
+                    doc = ast.get_docstring(node) or ""
+                    end = getattr(node, "end_lineno", node.lineno) or node.lineno
+                    yield rel, node.name, node.lineno, doc, end
                 elif isinstance(node, ast.Module):
-                    doc = ast.get_docstring(node)
-                    if doc:
-                        yield rel, "<module>", 1, doc
+                    doc = ast.get_docstring(node) or ""
+                    yield rel, "<module>", 1, doc, 0
+
+
+def _inline_comment_corrections(path: str, lo: int, hi: int) -> list[str]:
+    """Correction-bearing INLINE COMMENTS inside a symbol's line range.
+
+    ADDED 2026-08-21, AFTER THIS TOOL MISSED THE MOST EXPENSIVE INSTANCE IN THE REPO.
+    `substrate.read` carries no correction in its docstring. It carries one in a comment:
+    *"readable is sorted, so every read() began at alice_in_wonderland ... 25 of 28 corpora --
+    113,649 sentences -- were NEVER OPENED. That produced a grounding curve that plateaued at 180
+    terms and looked exactly like a learning ceiling."* A docstring-only scan cannot see that, and
+    it is exactly the class of note this tool exists to surface -- I hit the SAME bug in my own
+    diagnostics two days later.
+    """
+    try:
+        src = open(os.path.join(REPO, path), encoding="utf-8").read().splitlines()
+    except OSError:
+        return []
+    out = []
+    for ln in src[max(0, lo - 1):hi]:
+        st = ln.strip()
+        if st.startswith("#") and MARKERS.search(st):
+            out.append(st.lstrip("# ").rstrip())
+    return out
 
 
 def corrections_for(symbol: str) -> list[tuple]:
-    """(file, symbol, lineno, [correction lines]) for every symbol whose name matches."""
+    """(file, symbol, lineno, [correction lines], doc) for every symbol whose name matches.
+
+    EXACT NAME MATCH FIRST. Substring is the fallback and it is genuinely noisy on short names --
+    `read` matched `readout`, `read-out` and two unrelated atomize scripts before this was added.
+    """
     want = symbol.strip().lower()
-    out = []
-    for rel, name, lineno, doc in _iter_symbols():
+    exact, loose = [], []
+    for rel, name, lineno, doc, end in _iter_symbols():
         hay = rel.lower() if name == "<module>" else name.lower()
-        if want not in hay:
-            continue
         lines = [ln.strip() for ln in doc.splitlines() if MARKERS.search(ln)]
-        if lines:
-            out.append((rel, name, lineno, lines, doc))
-    return out
+        lines += _inline_comment_corrections(rel, lineno, end)
+        if not lines:
+            continue
+        rec = (rel, name, lineno, lines, doc)
+        if hay == want or (name != "<module>" and name.lower() == want):
+            exact.append(rec)
+        elif want in hay:
+            loose.append(rec)
+    return exact if exact else loose
 
 
 def report(symbol: str, full: bool = False) -> int:
@@ -144,6 +182,18 @@ def _self_test() -> int:
         print(f"[self-test] FAIL: matched but surfaced nothing substantive: {body[:160]!r}")
         ok = False
 
+    # THE INLINE-COMMENT REGRESSION. This tool MISSED this case on its first version, twice: once
+    # because it read docstrings only, and again because its markers did not cover the repo's
+    # "MEASURED <date>" convention. It is the most expensive correction in the codebase -- a shelf
+    # the reader could not reach, which looked exactly like a learning ceiling.
+    rd = corrections_for("read")
+    if any(h[0].endswith("substrate.py") for h in rd):
+        print("[self-test] PASS: substrate.read's INLINE-COMMENT correction is found")
+    else:
+        print(f"[self-test] FAIL: substrate.read's inline correction still missed "
+              f"(hits: {[h[0] for h in rd][:4]})")
+        ok = False
+
     # NEGATIVE CONTROL. A guard that fires on everything gets ignored -- this repo abandoned a
     # ceiling detector at a 48.5% base rate for exactly that reason.
     absent = corrections_for("zzz_no_such_symbol_anywhere")
@@ -156,7 +206,7 @@ def _self_test() -> int:
     # THE BASE RATE IS PART OF THE CONTRACT. If a future edit widens MARKERS until most docstrings
     # match, this tool becomes the thing it was built not to be, and the test says so.
     tot = marked = 0
-    for _rel, _name, _lineno, doc in _iter_symbols():
+    for _rel, _name, _lineno, doc, _end in _iter_symbols():
         tot += 1
         if MARKERS.search(doc):
             marked += 1

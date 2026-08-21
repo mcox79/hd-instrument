@@ -247,6 +247,21 @@
 > disk within the hour, unanswered.** *Fix is in code: both tools sample ROUND-ROBIN and print
 > `shelf: N corpora, M sentences` every run.* `THE_SHELF_IS_28_CORPORA_NOT_9_...`
 
+> ## **THE LIVE PATH HAD MY EXACT BUG TWO DAYS EARLIER -- AND MY NEW TOOL MISSED IT TWICE**
+> **`substrate.read` carries, in an INLINE COMMENT: *"MEASURED 2026-08-19: `readable` is sorted, so
+> every read() began at alice_in_wonderland ... 25 of 28 corpora -- 113,649 sentences -- were NEVER
+> OPENED. That produced a grounding curve that plateaued at 180 terms and LOOKED EXACTLY LIKE A
+> LEARNING CEILING. It was a shelf the reader could not reach."*** *Same bug, same shape of cost,
+> two days before I hit it in my own diagnostics. Fixed there by a `_patch_cursor`.*
+> 🔻 **`symbol_corrections.py` MISSED IT TWICE, and both misses were found by testing the tool
+> against a REAL known case rather than a fixture:** (1) it read DOCSTRINGS ONLY, and this
+> correction is an inline COMMENT; (2) even after that, its markers did not cover the repo's own
+> `MEASURED <date>` convention -- the phrase that actually carries it. **Both fixed; the case is now
+> a permanent regression self-test.** ✅ **WIDENING MEASURED BEFORE ADDING, per the rule that killed
+> the ceiling detector at 48.5%: the new marker family alone is 0.22% of symbols and takes the union
+> from 2.75% to 2.92%** -- the self-test still FAILS above 10%. *Also fixed: EXACT-name match first,
+> because `read` was matching `readout` and `read-out`.* `THE_SHELF_IS_28_CORPORA_NOT_9_...`
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"
