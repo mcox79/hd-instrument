@@ -31,9 +31,23 @@
 > > meaning), its own shuffle **-0.0163** (detection dies with structure), three noise arms at
 > > **-0.0019 / -0.028 / 0.0008**.
 > >
-> > **➡️ WE SIT AT ~11% OF A DEMONSTRATED CEILING (0.1048 vs 0.9269, same readout, n=322). NO CI IS
-> > REPORTED, so it is a point estimate.** *The question is no longer "is meaning there" -- it is
-> > "why is it at a tenth of reachable". **Measure future work against 0.9269, not against zero.***
+> > **➡️ THE CI EXISTS AND IT CROSSES ZERO. `P_LIVE_CONCEPT` rho `0.10478`, CI95
+> > `[-0.00731, +0.21257]`, n=322** (reported in `exp_meaning_asset_vs_production_v1`, not in the
+> > instrument cell). **SO OUR PRODUCTION ENCODING HAS NO *ESTABLISHED* SEMANTIC SIGNAL -- not "a
+> > small one", an UNESTABLISHED one.** *My "small, real, not an artifact" is withdrawn; the cell's own
+> > `reading_rule` says **"the incumbent itself does not clear [the zero-meaning floor]"**.*
+> >
+> > ## ✅ **BUT TWO BUILT-BUT-UNWIRED ASSETS BEAT IT, CI-SEPARATED**
+> > | arm | rho | vs incumbent | CI95 |
+> > |---|---|---|---|
+> > | **`d12\|ASSET_NORMS12`** | **0.2701** | **+0.1653** | **[0.0159, 0.3084]** |
+> > | **`d512\|ASSET_RETRAIN_ISOL`** | 0.2581 | +0.1533 | [0.0220, 0.2807] |
+> >
+> > **`ASSET_NORMS12` DOES IT AT d=12 -- 21x SMALLER THAN THE 256-d INCUMBENT.** *And
+> > `ASSET_RETRAIN_ISOL` is the same arm that cleared the frequency floor in the fair test: **two
+> > independent comparisons, one winner.***
+> > **⚠️ NEITHER CLEARS THE ZERO-MEANING FLOOR EITHER, so "wire it" is NOT yet evidenced.**
+> > *Also worth a look: **1,364 lemma collisions in a 4,096-word vocabulary.***
 >
 > ## ⚠️ TWO THINGS NOT TO MISREAD (I MISREAD BOTH, ONE TURN APART)
 > 1. **`P_LIVE_WORD` rho ~ 0 IS NOT A DEFECT.** The live word encoder is
