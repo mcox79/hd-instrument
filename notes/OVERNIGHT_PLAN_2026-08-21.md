@@ -104,7 +104,7 @@ Three negatives are open, and **the first is mine from tonight**:
    it.* **Standing rule, verbatim: a null that is exactly zero is a reachability failure, not a
    result.** Two independent bugs drove it to 0.0 and the two arms agreeing made it look robust.
    **RE-RUN with the guard; the corrected script exists at
-   `scratch/decisive_read_with_loaded_foundation_CORRECTED.py`.**
+   `tools/diagnose_read_with_loaded_foundation.py`.**
 2. **THE REFUSAL ASYMMETRY IS UNEXPLAINED AND IS PROBABLY THE REAL SIGNAL.** Same reading, two
    foundations: **v1 (4322 anchors) refused 525 times; v2 (1415 anchors) refused 11,930**, 98.7% of
    them `TAUTOLOGY_NO_ANCHOR`. *A quality-filtered foundation refusing 22x more often is either the
