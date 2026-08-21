@@ -251,6 +251,34 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## 🏆 **AND THEN IT PAID OUT PROPERLY: PATTERN COMPLETION *WORKS*, +0.2832 -- ONCE YOU MEASURE THE
+> ## OPERATION A BRAIN CAN ACTUALLY PERFORM. FIRST MECHANISM TONIGHT TO BEAT ITS BASELINE.**
+> ➡️ ***THE BASELINE THAT KEPT WINNING -- "don't complete, match the cue against the stored codes" --
+> REQUIRES AN EXPLICIT LIST OF EVERY PATTERN EVER STORED. A BRAIN HAS NO SUCH LIST; THE MEMORY IS
+> THE SYNAPSES. We were measuring a brain mechanism against a database index.***
+> **BRAIN-AVAILABLE METRIC (recover the pattern from the WEIGHTS alone, no codebook, output
+> sparsified to the stored k=47 exactly as `sparsify_after_settle=True` does), overlapping memories
+> at within-family cos 0.55, N=600:**
+> | cue kept | 20% | 10% | 6% | 4% | 2% |
+> |---|---|---|---|---|---|
+> | cue itself | 0.4461 | 0.3156 | 0.2483 | 0.2048 | 0.1446 |
+> | **completion** | **0.7294** | **0.4997** | **0.3677** | **0.2711** | **0.1701** |
+> | **gain** | **+0.2832** | **+0.1841** | **+0.1195** | **+0.0664** | **+0.0255** |
+> **POSITIVE AT EVERY LEVEL** -- the completed pattern is markedly closer to the true memory than the
+> fragment it was built from, which is the definition of the operation.
+> ⚠️ **TWO OF MY OWN MEASUREMENT ERRORS ON THE WAY, BOTH CAUGHT BY CHECKING: (1) the mean over ALL
+> pairs hid the effect (~1 pair in 30 is same-family); (2) I compared a DENSE completion against
+> SPARSE codes, which REVERSED THE SIGN until I matched sparsity as the live path does.**
+> 🚫 **NOT a live-path result (bench characterisation on synthetic overlapping families; nothing
+> wired), NOT a licence to drop our codebook (search IS available to US -- the point is that judging
+> the ORGAN against it answers a question about our architecture), and NOT free (the projection rule
+> is an `O(N^3)` pseudo-inverse; the brain does not compute those -- a plausible approximation is
+> separate and UNPINNED).**
+> 🔄 **REVISITS THE SIX-COMPARISON PATTERN: this is the first crack in it. NEW QUESTION TO ASK OF THE
+> OTHER FIVE -- *is the trivial baseline doing something a BRAIN CAN DO?* For CA3 it was not, and the
+> comparison inverted.** ⚠️ *Do NOT assume it generalises -- counting words and spelling ARE things
+> brains do.* `notes/CA3_COMPLETION_WORKS_when_you_measure_the_operation_a_BRAIN_CAN_ACTUALLY_DO_2026-08-21.md`
+>
 > ## 🎯 **AND THE NEUROSCIENCE METHOD IMMEDIATELY PAID OUT: OUR CA3 *MERGES* OVERLAPPING MEMORIES.
 > ## THE FAULT IS THE IMPORTED COMPLETION RULE -- NOT SPARSITY, NOT THE ALLOCATOR. THRESHOLD MEASURED.**
 > *Three arms; TWO OF MY OWN HYPOTHESES REFUTED before the third isolated it.*
