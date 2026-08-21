@@ -139,6 +139,19 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## 🔻 **AND MY EXPLANATION FOR THE SATURATION IS ALSO REFUTED: IT IS NOT ONE DOMINANT AXIS**
+> **I read the module's phrase "a dominant shared concreteness axis" as the MECHANISM and proposed
+> removing it. Measured on 1,028 words: PC1 explains `27.5%` (0.275/0.218/0.159/0.088/0.055 -- the
+> variance is SPREAD), and its loadings PEAK AT `0.51` ON A SENSORIMOTOR DIM while concreteness
+> loads `0.32`. IT IS NOT THE CONCRETENESS AXIS.** **Removing it: UNREL p95 cosine `0.912 -> 0.890`,
+> and the no-false-merge bar goes from admitting `0 of 120` to `4 of 120`. NEITHER IS A FIX.**
+> ✅ **WHAT SURVIVES IS THE MODULE'S OWN EXPLANATION, which I had treated as a phrase rather than a
+> finding: the metric measures "how do I perceive/interact with X, not what X specifically IS".**
+> ***Two unrelated words can genuinely be perceived and handled alike -- that is not an artifact to
+> project away, it is what the representation MEANS. 12 dims of perception cannot be a 1,028-word
+> identity code, and no rotation makes one.*** 🚫 **DO NOT propose PC removal on the grounded dims.**
+> `NOT_A_DOMINANT_AXIS_PC1_IS_27_PERCENT_...`
+
 > ## 🔻 **AND THE METRIC-CHANGE PROPOSAL I MADE ONE TURN LATER IS ANSWERED *NO* BY ITS OWN TEST**
 > **999 SimLex pairs, ALL covered by the norms, strata from HUMAN ratings not hand-picked pairs:**
 > `SYNONYM(>=8) n=120 cos 0.627 / euc 2.712 | RELATED(4-6) n=235 cos 0.551 / euc 3.804 |
