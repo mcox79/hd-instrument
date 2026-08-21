@@ -234,6 +234,31 @@
 >   reader, not the file.*** ✅ *That note's CONCLUSION survives on its real evidence --
 >   `n_survivors = 1414` vs `len(sample) = 100`, so the v1-vs-v2 volume/purity trade still cannot be
 >   settled from disk and `WIRE_CANDIDATE` stands. **Right conclusion, wrong supporting fact.***
+> ## 📋 **METHOD REVIEW DELIVERED (owner asked in COMMENTARY: *"I missed your report"* -- because I
+> ## gave it in CHAT ONLY. It is now a note.)**
+> **99 commits today, `15%` touched CODE (earlier audit: 12% -- barely moved), 77% notes-only,
+> **16 withdrawals/corrections.**
+> 🔴 ***THE FOUR BIG WITHDRAWALS WERE ONE FAULT: A NUMBER MEASURED IN ONE SETTING, APPLIED TO
+> ANOTHER.*** *(B1's tiers = relatedness LEVELS not vocabulary STRATA, inverted; "6.2 traces/lemma"
+> = one arm's numerator over another stream's denominator; "92,155 traces" = an estimator that
+> returns `L^2` for correlated inputs; "63% past 0.79" = a BIND/UNBIND threshold on a plain-sum
+> store.)* **Plus a 5th in my own tooling: a "narrow" detector that fired 3,990 times on DATES.**
+> ✅ ***WHAT CAUGHT ALL FIVE WAS ONE THING: A NUMBER PLACED BESIDE ANOTHER THAT CONSTRAINS IT.***
+> *92,155 vs 26,123 total; a subset out-recalling the whole; a "count" that is a calendar date;
+> `n_grounded=0` beside `anchors +68`.* **That is `CLAUDE.md` step 4, and it is the ONLY step that
+> paid out today -- weight it above the others.**
+> 🧰 **Both countermeasures shipped as CODE, not prose, because the prose rule already existed and
+> was violated anyway:** `tools/what_did_this_cell_save.py` and
+> `hippocampal_encoder._st_exact_cue_cannot_measure_this_organ`.
+> 🖥️ **GUI TABS DIAGNOSED AND HANDLED:** *stale because their WRITERS WERE RETIRED IN JUNE and
+> nothing took over -- `fleet_status_NOW.md` calls itself "overwritten by Testbed each cycle", last
+> written 2026-06-30, and NO tool writes it.* **17 of 23 panels are 50-97 days old; the SIX whose
+> names claim to be live state are now banner-stamped with their true date via
+> `tools/dashboard_staleness.py` (idempotent, mtime-preserving, leaves fresh panels and honest old
+> plans alone; 4 self-tests, 3 of them anti-cry-wolf).** **STAMPED NOT DELETED -- retirement is
+> deletion-shaped, so it is Q99 on the board.**
+> `notes/METHOD_REVIEW_2026-08-21_sixteen_withdrawals_one_fault_and_what_caught_every_one.md`
+>
 > ## ✅ **OWNER ANSWERED Q98 (2026-08-21): *"approved, but you should do some research on why this is
 > ## as you're finding it, to understand why and potentially to give you a good idea on next optimal
 > ## stepss"*** -- **AND THE MECHANISM WAS ALREADY MEASURED ON OUR OWN SUBSTRATE.**

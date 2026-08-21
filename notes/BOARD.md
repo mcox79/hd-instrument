@@ -75,14 +75,13 @@ I measured `n_grounded`, which is **the comparator gate only** -- and that gate 
     changed.* **`:663`'s "worse than either" unsupported at this scale.**
   - ✅ **`diagnose_read_with_loaded_foundation`: refusal delta 279 vs 380 = 1.36x, NOT the 22x
 
-_mirrored from `notes/STATUS.md` at 2026-08-21T17:45:10Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-21T18:27:33Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
-
-_No open questions. Nothing is waiting on you._
+| Q99 | The old GUI tabs are now labelled rather than removed - do you want them actually cleared out? You mentioned a lot of very old, not-updated tabs. I found why: seventeen of the twenty-three panels behind them are between fifty and ninety-seven days old, and they are leftovers from an older way of running this project that was retired in June. Nothing writes to them any more - the program that used to update them was switched off and nothing replaced it. That is why they never change. Six of them are actively misleading rather than merely old, because their names announce that they are current - things called fleet status NOW, the work queue, the waiting-on list. Those six now carry a notice at the top giving the real date they were last written, saying plainly that nothing updates them, and pointing at the three documents that ARE current. I stopped there deliberately. Actually removing them means moving or deleting your working files while you are not watching, and I do not do that on my own initiative. The notice is reversible - deleting two marker lines removes it - and nothing was thrown away. I also left alone the files that are old but never claimed to be current, like the research plan; those are just documents that have aged, not panels telling you something false. | Nothing is blocked - the misleading tabs are already labelled and safe to read. This is only about whether you want the clutter gone rather than annotated. | Move the six retired panels into a data/retired_2026-08/ folder rather than deleting them, so the tabs disappear from the GUI but nothing is lost and any of them can be pulled back. I would do that only on your say-so. RISK OF MY RECOMMENDATION: if any of those files is still wired into something I have not found - a script or a bookmark that reads it by path - moving it would break that quietly. I searched and found nothing that writes them, but I did not exhaustively search for everything that READS them, so the honest version is that I know they are not maintained and I do not know with certainty that they are unused. Leaving them banner-stamped where they are carries no such risk, which is why I did that first. |  | open |
 
 ## ANSWERED
 
