@@ -139,6 +139,21 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## ⚖️ **THE GRADED/SIGNED MISMATCH IS PROBABLY *NOT* WHY THE MEANING CHANNEL IS WEAK**
+> **B4b records that the live grounding path reads a GRADED field with a SIGN-QUANTISED query and
+> that `:663` calls that pairing "worse than either". Measured on the 829-pair MEANING benchmark:**
+> `d=256: graded x graded 0.0944 | signed x signed 0.0648 | graded x signed 0.0743` and
+> `d=1024: 0.1071 | 0.0946 | 0.1080`, **null p95 `~0.0705` at both.** *At d=256 the live pairing
+> sits BETWEEN the two; at d=1024 it is marginally the BEST.* ⚠️ **I HAVE NOT REFUTED THE CODE: its
+> "worse than either" is about the RECALL/ARGMAX task, and this is PAIRWISE MEANING -- a different
+> object. NO CIs were computed on these differences, and EVERY arm sits close to the null band, so
+> the ORDERING IS NOT ESTABLISHED.** ➡️ **WHAT IT DOES SUPPORT, WEAKLY: the documented quantisation
+> mismatch is unlikely to be the reason the LEARNED meaning channel is weak -- one more candidate
+> explanation that does not carry the weight.** *Prior work found first: the graded comparator's
+> MECHANISM was already REFUTED by a landed adversarial VET (`A_SSN 0.6395` vs `A_GGZ 0.69975`,
+> bit-exact, five artifact hypotheses killed) -- the NUMBER survives, the explanation does not.*
+> `landed_vet_graded_comparator_mechanism_refuted_2026-08-14.md`
+
 > ## 🔻 **AND THE COMBINATION QUESTION: THE CHANNELS *ARE* INDEPENDENT AND COMBINING BUYS `+0.0035`**
 > **`ORGAN_MAP` marks the hub-spoke combination rule UNPINNED and OUR-INVENTION-BEING-TESTED, so I
 > tested its PRECONDITION before inventing one. On the same 829 pairs: LEARNED (`d=1024`) `+0.1071`,
