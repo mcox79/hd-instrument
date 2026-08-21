@@ -1,6 +1,6 @@
 # STATUS -- THE RECOVERY ENTRY POINT. READ THIS, THEN THE PLAN.
 
-AS OF: 2026-08-21 LATE (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD: Q102 OPEN. Q103 FILED AND WITHDRAWN BY ME WITHIN THE HOUR -- its premise ("9 books", "only 40 usable pairs") was MY OWN 60k alphabetical CAP; the shelf is 28 corpora / 286,069 sentences / 111 balanced pairs -- MY OWN "the gain is genuinely untested" IS WITHDRAWN: ORGAN_MAP 10.1 A1 measured it 08-14, form organ 0.0870 vs live substrate 0.0480, CI-separated, on a task with a spelling shortcut; Q98 approved the write-rate extension WITH a stopping rule; Q99 done.** | 🧠 **ONE STRUCTURAL FINDING, upstream of THREE dead ends tonight: ONE REPRESENTATION IS DOING TWO JOBS THAT NEED OPPOSITE THINGS -- grounding must DELETE the word (correct, else it learns 'artery means artery'); identification needs it PRESENT -- **VETTED 08-21: the word ALONE scores 0.9687 vs 0.6423 for word+sentence (chance 0.0167), so CONTEXT DILUTES identification and the job is a LOOKUP. DO NOT quote 0.1417/0.4750 as evidence about CONTEXT -- it is SELF-REFERENCE**. THE FORM ORGANS ARE ALREADY BUILT AND UNWIRED.** | **READ `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK (76 lines, rewritten from 6,895) -- it carries the 16 withdrawals and the method -- THEN `## POSITION` BELOW**
+AS OF: 2026-08-21 LATE (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD: Q102 OPEN. Q103 FILED AND WITHDRAWN BY ME WITHIN THE HOUR -- its premise ("9 books", "only 40 usable pairs") was MY OWN 60k alphabetical CAP; the shelf is 28 corpora / 286,069 sentences / 111 balanced pairs -- MY OWN "the gain is genuinely untested" IS WITHDRAWN: ORGAN_MAP 10.1 A1 measured it 08-14, form organ 0.0870 vs live substrate 0.0480, CI-separated, on a task with a spelling shortcut; Q98 approved the write-rate extension WITH a stopping rule; Q99 done.** | 🧠 **ONE STRUCTURAL FINDING, upstream of THREE dead ends tonight: ONE REPRESENTATION IS DOING TWO JOBS THAT NEED OPPOSITE THINGS -- grounding must DELETE the word (correct, else it learns 'artery means artery'); identification needs it PRESENT -- **VETTED 08-21: the word ALONE scores 0.9687 vs 0.6423 for word+sentence (chance 0.0167), so CONTEXT DILUTES identification and the job is a LOOKUP. DO NOT quote 0.1417/0.4750 as evidence about CONTEXT -- it is SELF-REFERENCE**. THE FORM ORGANS ARE ALREADY BUILT AND UNWIRED.** | **READ `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK (133 lines, from 6,895) -- it carries the 16 withdrawals and the method -- THEN `## POSITION` BELOW**
 
 Rules: `STATUS_SPEC.md`; stubs resolve in `STATUS_LESSONS.md` (uncapped). FOUR literals
 MACHINE-PARSED, never reword: `AS OF:`, "POSITION", "TOP ITEM" and "WHAT IS RUNNING"
@@ -33,47 +33,54 @@ difference being 7,535 sentences read. First replicated positive from our side o
 Marginal CIs overlapped, which is NOT a test of a difference; the paired test is. `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
 
 
-## TOP ITEM -- **THE BINDING CONSTRAINT IS REPRESENTATION ROOM, NOT READING. D1 HAS A SECOND MEASUREMENT.**
+## TOP ITEM -- **DIMENSION BUYS THE LOOKUP, NOT THE UNDERSTANDING. D1 MUST BE ARGUED ON IDENTIFICATION.**
 
-*Floored identification task, balanced lemmas over all 28 corpora, chance 0.0167.*
-1. **READING MORE DOES NOT HELP.** *Queries held FIXED, only profile depth varying:* `0.1900 /
-   0.2100 / 0.2133 / 0.1900 / 0.1967` at depths 5-41 -- **rises to ~10 then flat at n=300, and the
-   live median word already gets ~10.** ⚠️ *My first cut showed a DECLINE and I nearly reported it as
-   confirming "write less": the query set was growing with the depth.*
-2. ✅ **MORE DIMENSIONS KEEPS PAYING.** `128 0.1061 | 256 0.1435 | 512 0.1776 | 1024 0.2057 |
-   2048 0.2268`, **SCRAMBLE recomputed at EVERY d, flat at chance (0.0130-0.0211)** -- so it is
-   capacity, not a metric inflating with d. ***`1024 - 256 = +0.0622, CI [+0.0443, +0.0797]`, 48 of
-   60 lemmas, EXCLUDES ZERO.*** **Still climbing at 2048, so 1024 may be the wrong target.**
+*Three sweeps, 28 corpora round-robin, floors recomputed at every point.*
+1. **READING MORE DOES NOT HELP.** *Queries FIXED, only profile depth varying:* `0.1900 / 0.2100 /
+   0.2133 / 0.1900 / 0.1967` (depths 5-41) -- **rises to ~10 then flat; the live median word already
+   gets ~10.** ⚠️ *My first cut showed a DECLINE and I nearly called it "write less" confirmed: the
+   query set was growing with the depth.*
+2. ✅ **DIMENSION BUYS IDENTIFICATION.** `128 0.1061 | 256 0.1435 | 512 0.1776 | 1024 0.2057 |
+   2048 0.2268`, **SCRAMBLE recomputed at every d and flat at chance.**
+   ***`1024-256 = +0.0622, CI [+0.0443,+0.0797]`, 48 of 60 lemmas, EXCLUDES ZERO.***
+3. 🔻 **AND IT DOES *NOT* BUY MEANING.** *829 SimLex pairs identical at every d, so the corpus
+   confound CANCELS; null = 200 shuffles per d.* `128 0.0974 | 256 0.0944 | 512 0.1032 |
+   1024 0.1071 | 2048 0.0874`. ***`1024-256 = +0.0127, CI [-0.0305,+0.0559]` -- SPANS ZERO*** and
+   DROPS at 2048. **NOT the usual underpowered dodge: half-width `0.0432`, so an
+   identification-sized `+0.0622` WOULD have been detected. A BOUNDED negative.**
 
-➡️ **D1's SECOND, INDEPENDENT, FLOORED MEASUREMENT** (its own was "16x dims -> +0.0843" on a
-different task; `P_LIVE_CONCEPT` was ONLY EVER RUN at d=256). ⚠️ **NOT meaning (identification is a
-LOOKUP); NOT the average word; NOT free -- rewrites every persisted store (Q65 "do whatever is
-ideal"; backup + no concurrent session).** *Prev top item "wire definitional direct-bank" CLOSED --
-already live, 212 of 402 rows.*
-`THE_LIMIT_IS_DIMENSIONAL_...` `I_NEARLY_REPORTED_THAT_MORE_READING_MAKES_IT_WORSE_...`
+➡️ **SO D1 (`256->1024`, which REWRITES EVERY PERSISTED STORE) improves a LOOKUP.** *Q65 = "do
+whatever is ideal"; standing caution = backup + no concurrent session; still climbing at 2048 on
+identification, so 1024 is not obviously the target.*
+⚠️ **SOBERING AND UNCHANGED BY ANY OF THIS: meaning rho `~0.10` against a null p95 `~0.065` -- barely
+clear of noise at EVERY dimension. Room is not what stands between us and understanding.**
+`THE_LIMIT_IS_DIMENSIONAL_...` `DIMENSION_BUYS_THE_LOOKUP_NOT_THE_UNDERSTANDING_...`
+*(Prev top item "wire definitional direct-bank" CLOSED -- already live, 212 of 402 rows.)*
 
-## 🌙 THE NIGHT OF 2026-08-21 -- FINDINGS, ALL FROM READING ARTIFACTS THAT ALREADY EXISTED
+## 🌙 THE NIGHT OF 2026-08-21 -- **ONE LINE PER FINDING. FULL TEXT IN THE NAMED NOTE.**
 
-**Full notes named; do not re-derive.**
+*Compressed from 7,155 B on 2026-08-21 late. Every row's detail is in its note AND in the plan's
+consolidated top block; nothing here is the only copy. **Do not re-expand: this section was 24% of a
+file already over cap.***
 
-| # | finding |
+| # | finding, with the number that carries it |
 |---|---|
-| **META** | **All 4 planned thrusts were already answered on disk.** T1 organ exists+PINNED+run; T2 `HARD_FAIL` on the exact test; T3 switches already default-ON (a landed cell carries a `premise_correction` field recording a PRIOR dispatch making the identical mistake); T5 already measured. **`organ_map_cite.py` answered two in its FIRST LINE.** The defect was ORDER, not omission. [`T2_superseded_and_the_NIGHT_S_META_FINDING...`] |
-| **H2** | The organ built to break a **64.5% biology skew read its way to `dominant_domain=textbook_biology 0.63245`** -- free choice over 36 corpora, 19 visited -- **while WINNING on its own currency** (gain 6.96 vs 5.90). **MVT is a LEAVE rule, silent on WHERE TO GO**; patch-CHOICE is the UNPINNED half. **Breadth was never in the currency.** *Register-inversion headline WITHDRAWN: a 7.6x register bias sits under a 1.2x margin, so the coverage comparison supports nothing either way.* [`T1_foraging_...`] |
-| **E3** | **Our coreference "salience" is PROVABLY a mention-count.** `count + 0.5*exp(-0.1*d)`: bonus capped at 0.5, counts are integers, so **a one-mention lead can never be overturned**. The cell measured `D2_salience_equals_argmax_count_fraction = 1.0` on all 89 competitive decisions; its verdict never said so. **`base_principle_b` (0.7191) did not beat a cue-integration account -- it beat a counter.** We implement **none** of the brain's top three cues. [`T2c_...`] |
-| **E3b** | That `HARD_FAIL` **cannot support its own verdict**: n=89 (CI 0.22 wide), **scramble control ABOVE the treatment** (0.5938 vs 0.5843, different subset -> unusable either way), **2 of 3 params hand-set with the sweep still CLIMBING at its boundary**. Re-label **UNDERPOWERED**. [`T2b_...`] |
-| **B4** | **Pure spelling beats the meaning read-out at rank 1 and SURVIVES the strictest tie convention** (0.0767 vs 0.0480; substrate arm has **0.0% ties** -- no defence available). **BUT the "identical median rank 37.0" WAS the artifact** -- honestly scored, the substrate WINS the full ranking **37.0 vs 54.0**. **➡️ THE DEFECT IS PRECISION AT THE TOP, NOT COVERAGE.** *`A8_MAXORTHO`, documented as "the strongest zero-meaning attack", is a z-SUM 30% BELOW its own component; the true floor is `A6`.* [`T5b_...`] |
-| **B4b** | **The live grounding path reads a GRADED field with a SIGN-QUANTISED query** -- `canonicalize:776` hardcodes `np.sign`, `canonicalize_fast` honours the switch, and **the grounding call sites use the one that cannot**. `:663` calls that pairing *"worse than either"*. **Under test now.** [`T3_...`] |
-| ⭐ **RATE** | **THE ONE ACTIONABLE LEVER: WRITE LESS.** Threshold sweep over surprise percentiles: incumbent **0.0710** -> p25 0.0961 -> p50 0.1526 -> p75 0.2268 -> **p90 0.3079 = 4.3x, no new mechanism.** **A RATE-MATCHED RANDOM GATE MATCHES IT AT EVERY THRESHOLD** (`NOT_SEPARATED`, gap *shrinking* +0.016->+0.007) -- ***so prediction-error gating is REFUTED; the gain is RATE.*** **`BEST_P1_THRESHOLD` = the HIGHEST tested: the sweep hit its edge STILL CLIMBING, so the optimum is NOT in the data.** ⛔ **every arm stays `BELOW_0.5_COOCCURRENCE` -- 4.3x and still below counting.** [`THE_RATE_SWEEP_IS_ALREADY_DONE_...`] |
-| **NORMS12** | **The strongest semantic asset we own is 12 HUMAN-MEASURED dims** (11 Lancaster sensorimotor + 1 Brysbaert concreteness) -- **rho 0.2701, +0.1653 over the incumbent, CI [0.0159, 0.3084]**, beating a **121M-token encoder** and our 256-d live encoding **at 21x smaller**. **The most brain-faithful asset is also the best-performing** (ATL hub, Cox 2024). **It IS live -- but `GROUNDED_CAP=0.45` makes the live scalar effectively two-valued** (`sofa/couch` = `dog/cat` = 0.45); **the arm that WON used the RAW vectors, which almost nothing consumes.** ⚠️ token coverage **60.4%**, type **10.3%**; usable table **36,810 NOT 39,707**. [`THE_BEST_SEMANTIC_ASSET_...`] |
-| **CHANCE?** | **CORRECTED CLAIM -- I over-reached and withdrew it.** Three measurements (SimLex CI **[-0.007, +0.213]** crosses zero; **100 BLIND** hand-scored facts **3/19/78**; `SUBSTRATE`=`RANDOM` **7-of-361**) do NOT license "at or near chance": a **fourth**, already in this file, has the trained substrate **+16.3 pp REPLICATED over an untrained codebook**. **➡️ ABOVE its untrained floor on at least one task, and `SUBSTRATE - COUNTING = -0.142` CI **[-0.203,-0.082] SEPARATED** -- measurably BEHIND counting, not merely not-ahead.** [`THREE_INDEPENDENT_MEASUREMENTS_CONVERGE_...`] |
-| ⭐ **METHOD** | **AUDIT ON OWNER INSTRUCTION, counted from `git log`: 57 commits, 68 notes, **7 (12%) touched CODE**, **29 of 57 subjects (51%) were corrections/"already done"**. **LARGEST WASTE: 7 PROPOSALS ALREADY ANSWERED ON DISK.** *Cause, one sentence: **I ran the prior-work check on what I was BUILDING, never on what I was DOING** -- and hand-scoring/sweeping/auditing are neither.* **➡️ STEP 1 IS NOW A COMMAND: `python tools/before_you_start.py "<what you are about to do>"`** (queries VERBS first; known-present control 126 cells, known-absent 0). Steps 2-5 in `CLAUDE.md`: **enumerate small populations whole** (sampling caused every withdrawal); **read every row the query returned** (a 4-row result read at row 1; row 4 reversed it); **print quantities that CONSTRAIN EACH OTHER** (found the only real bug; 5 iterations of static tooling did not); **conclude last, naming the population**. **META-RULE 5-FOR-5: prose cautions get violated, CODE controls catch things.** [`AUDIT_OF_MY_OWN_METHOD_...`] |
-| **ARCHIVE FIXED** | **`experiment_index` read `verdict` and ignored `final_verdict` -- WRONG STATE for 9 cells, NOTHING for 2.** Fixed + rebuilt; now also prints `!! CORRECTION ON THIS CELL` for the 14 rows carrying a `premise_correction`. **It surfaced two buried results and I checked BOTH: the *90%-precision* extractor HOLDS** (random sample drawn AFTER the filters were designed, per-row verdicts kept, 10 errors in 10 distinct categories; quote it **0.90 [0.826,0.945]**, precision on the 1,414 survivors) -- **but `MIDDLE_BAND_dense_reading_works...`'s *"This REFUTES 'reading can't supply the knowledge'"* DOES NOT: its five strong numbers come from a field named `per_process_strong`, the only floor is `scramble_floor_aggregate` (no per-process floor exists), seed beats reading **8 of 8**, and 165x0.2121 aggregate ~= 35 items recalled while its 8 listed processes alone cover 118 items at 0.4576 ~= 54. A SUBSET CANNOT OUT-RECALL THE WHOLE.** *Keep its failure localisation (32 facts, 0 recall = ENTITY MISMATCH); drop the headline.* |
-| **KNOWL-EVAL** | **`query "quality"` -> 126 cells, 116 landed. A BLIND 100-row hand-score was written 08-12, scored 10 min later, and written up 08-20 -- and I produced an UNBLINDED duplicate of it.** *The prior-work rule fired on BUILDING; I was never building.* **➡️ TRIGGER IS *STARTING ANYTHING*, AND QUERY THE ACTIVITY ("hand-score", "blind", "quality"), NOT ONLY THE ARTIFACT.** *Now in `CLAUDE.md`.* [`PRIOR_WORK_FOUND_...`] |
+| **META** | **All 4 planned thrusts were ALREADY ANSWERED ON DISK.** *The defect was ORDER, not omission.* [`T2_superseded_...`] |
+| **H2** | The anti-skew organ **read its way to `textbook_biology 0.63245`** while WINNING on its own currency. **MVT is a LEAVE rule, silent on WHERE TO GO.** *Register-inversion headline WITHDRAWN (7.6x bias under a 1.2x margin).* [`T1_foraging_...`] |
+| **E3** | **Coreference "salience" is PROVABLY a mention-count** -- `argmax_count_fraction = 1.0` on all 89 competitive decisions. **`base_principle_b` beat a COUNTER, not a cue account.** [`T2c_...`] |
+| **E3b** | ...and that `HARD_FAIL` **cannot support its own verdict**: n=89, scramble ABOVE treatment, 2 of 3 params hand-set. **Re-label UNDERPOWERED.** [`T2b_...`] |
+| **B4** | **Spelling beats the meaning read-out at rank 1** (`0.0767` vs `0.0480`), survives the strictest tie convention -- **but the substrate WINS the full ranking `37.0` vs `54.0`. THE DEFECT IS PRECISION AT THE TOP.** [`T5b_...`] |
+| **B4b** | **The live grounding path reads a GRADED field with a SIGN-QUANTISED query** -- `canonicalize:776` hardcodes `np.sign`; `:663` calls that pairing *"worse than either"*. [`T3_...`] |
+| ⭐ **RATE** | **WRITE LESS: `0.0710 -> 0.3079` at p90, 4.3x, no new mechanism -- BUT a RATE-MATCHED RANDOM GATE MATCHES IT AT EVERY THRESHOLD.** *So prediction-error gating is REFUTED; the gain is RATE.* ⛔ **every arm stays BELOW co-occurrence.** [`THE_RATE_SWEEP_IS_ALREADY_DONE_...`] |
+| **NORMS12** | **Our strongest semantic asset is 12 HUMAN-MEASURED dims** -- rho `0.2701`, beating a 121M-token encoder at 21x smaller. **But `GROUNDED_CAP=0.45` makes the live scalar two-valued, and the winning arm used RAW vectors almost nothing consumes.** ⚠️ token coverage 60.4%. [`THE_BEST_SEMANTIC_ASSET_...`] |
+| **CHANCE?** | **CORRECTED, I OVER-REACHED:** three measurements do NOT license "at or near chance" -- a fourth has the trained substrate **+16.3 pp REPLICATED** over an untrained codebook. **But `SUBSTRATE - COUNTING = -0.142` CI `[-0.203,-0.082]` SEPARATED: measurably BEHIND counting.** [`THREE_INDEPENDENT_MEASUREMENTS_...`] |
+| ⭐ **METHOD** | **99 commits, 15% touched code, 16 withdrawals; LARGEST WASTE = 7 proposals already answered.** *Cause: I ran the prior-work check on what I was BUILDING, never on what I was DOING.* **-> `tools/before_you_start.py`.** [`METHOD_REVIEW_...` -- **updated late with 3 more fault families**] |
+| **ARCHIVE** | **`experiment_index` ignored `final_verdict` -- WRONG STATE for 9 cells.** Fixed + rebuilt. *It surfaced the 90%-precision extractor (HOLDS, `0.90 [0.826,0.945]`) and killed `dense_reading`'s "REFUTES" headline (a SUBSET out-recalled its WHOLE).* |
+| **KNOWL-EVAL** | **A BLIND 100-row hand-score existed and I produced an UNBLINDED duplicate.** **-> the trigger is STARTING ANYTHING, and query the ACTIVITY not just the artifact.** [`PRIOR_WORK_FOUND_...`] |
 
 ## WHAT IS RUNNING
 
-- 📏 **THIS FILE IS ~1,374 B (4.8%) OVER ITS 28,672 CAP AND IS LEFT THAT WAY DELIBERATELY.** *(Figure re-measured 2026-08-21 late: it read "~870 B (3%)" and had gone stale against my own edits -- a self-describing number that drifted, which is the fault this file spent the night correcting elsewhere.)*
+- 📏 **THIS FILE IS NOW ~1,863 B (6%) UNDER ITS 28,672 CAP -- the first time it has been inside it.** *It was 30,147 B (1.051x) at the start of 2026-08-21 late and peaked at 30,433 B. What paid for it was EVICTION, not trimming: the night-findings table went 7,155 B -> 3,303 B because every row's detail already existed in its own note AND in the plan's consolidated top block, so nothing here was the only copy. I had spent several passes shaving my own additions by ~150 B at a time while a section worth 24% of the file sat below them.*
   *Per `STATUS_SPEC.md` sec 6 I spent both permitted actions -- compressed my own addition twice,
   then evicted tiers 1-4 (a stale "Q92/Q95 are OPEN" block, two finished-work progress reports,
   emphasis prose in the diagnostics and `n_grounded` entries). Step 3 is **STOP, do not descend into
