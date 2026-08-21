@@ -181,10 +181,35 @@ def status_summary(path: Path = STATUS_MD) -> str:
     size_flag = ('  <-- %.1fx OVER CAP. Do NOT byte-shave: STATUS_SPEC.md sec 7 escalation is '
                  'MOVE-to-STATUS_LESSONS first, and sec 6 forbids the agent that needs the room '
                  'from raising the cap.' % over) if over > 1.5 else ''
+
+    # THE OTHER TWO LITERALS, ADDED 2026-08-21 BECAUSE THIS GUARD HANDED OUT A FALSE GREEN.
+    # notes/STATUS_SPEC.md sec 2 names FOUR machine-parsed literals. This function guarded only the
+    # two IT consumes ('AS OF:' and '## WHAT IS RUNNING'), leaving '## POSITION' and '## TOP ITEM'
+    # guarded solely by tools/board.py. On 2026-08-21 BOTH of those headings were destroyed -- two
+    # unterminated backticks absorbed them, and their whole sections, into the STATUS.md header
+    # paragraph -- and board.py DID fail loud, exactly as designed... into notes/BOARD.md, which
+    # nothing re-reads at session start. Meanwhile _self_test() below asserted "the real
+    # notes/STATUS.md parses clean" and PASSED THE WHOLE TIME, because A CHECKER THAT CHECKS A
+    # SUBSET REPORTS GREEN ON A BROKEN FILE (STATUS.md standing discipline 3, 5th instance).
+    # TWO LESSONS, both cheap to state and expensive to re-learn:
+    #   1. A CONTROL THAT FIRES INTO A FILE NOBODY READS IS NOT YET A CONTROL. Fire it where the
+    #      reading is guaranteed -- which for this project is the session-start injection.
+    #   2. A POSITIVE CONTROL IS ONLY AS BROAD AS ITS ASSERTION. "Parses clean" meant "clean on the
+    #      two literals I happen to parse", and it read like "clean".
+    # CONTRACT: all four literals are now checked here. If any changes, change notes/STATUS_SPEC.md
+    # sec 2, tools/board.py AND this file in the same commit.
+    heading_banners = [
+        _missing_literal_banner(lit, desc, path)
+        for lit, desc in (('## POSITION', 'the POSITION heading'),
+                          ('## TOP ITEM', 'the TOP ITEM heading'))
+        if not any(ln.strip().startswith(lit) for ln in lines)
+    ]
+    heading_body = ('\n' + '\n'.join(heading_banners)) if heading_banners else ''
+
     return (
         f"[STATUS.md] {as_of_line}\n"
         f"    age: {age_days:.2f} days{age_flag}\n"
-        f"    size: {n_bytes:,} B of {STATUS_CAP_BYTES:,} B cap{size_flag}\n"
+        f"    size: {n_bytes:,} B of {STATUS_CAP_BYTES:,} B cap{size_flag}{heading_body}\n"
         f"  WHAT IS RUNNING:\n{running_body}"
     )
 
@@ -224,11 +249,44 @@ def _self_test() -> int:
             print(f"[self-test] FAIL: missing '## WHAT IS RUNNING' did NOT trigger the loud banner:\n{out}")
             ok = False
 
+    # THE TWO LITERALS board.py OWNS -- both directions, added 2026-08-21. These are the ones that
+    # actually went missing, and NOTHING in this file noticed for hours. A fixture that is complete
+    # except for ONE heading is the honest test: it proves the guard is per-literal rather than
+    # firing on any old malformed file.
+    _COMPLETE = ("# STATUS\n\nAS OF: 2099-01-01 | fixture\n\n## POSITION\n- p\n\n"
+                 "## TOP ITEM\n- t\n\n## WHAT IS RUNNING\n- nothing\n")
+    for literal in ('## POSITION', '## TOP ITEM'):
+        with tempfile.TemporaryDirectory() as td:
+            fixture = Path(td) / 'STATUS_fixture_missing_heading.md'
+            # Drop exactly ONE heading line; everything else stays valid.
+            fixture.write_text(
+                '\n'.join(ln for ln in _COMPLETE.splitlines() if ln.strip() != literal) + '\n',
+                encoding='utf-8',
+            )
+            out = status_summary(fixture)
+            if 'MISSING REQUIRED LITERAL' in out and literal in out:
+                print(f"[self-test] PASS: missing '{literal}' triggers the loud banner")
+            else:
+                print(f"[self-test] FAIL: missing '{literal}' did NOT trigger the loud banner:\n{out}")
+                ok = False
+
+    # ...and the negative direction, which is the half that would have caught the 2026-08-21 break:
+    # a file with ALL FOUR literals must stay silent, or the guard is cry-wolf and gets ignored.
+    with tempfile.TemporaryDirectory() as td:
+        fixture = Path(td) / 'STATUS_fixture_complete.md'
+        fixture.write_text(_COMPLETE, encoding='utf-8')
+        if 'MISSING REQUIRED LITERAL' not in status_summary(fixture):
+            print("[self-test] PASS: a file with all four literals triggers NO banner")
+        else:
+            print("[self-test] FAIL: a complete fixture wrongly triggered a banner")
+            ok = False
+
     # SIZE GUARD -- both directions. An over-cap fixture MUST warn, and an under-cap fixture MUST
     # NOT, because a guard that fires on a compliant file is a guard that gets ignored (the exact
     # cry-wolf failure that made read_what_the_cell_told_you.py flag 708 cells).
+    # Fixture carries all four literals so this tests the SIZE dimension ALONE.
     with tempfile.TemporaryDirectory() as td:
-        head = "# STATUS\n\nAS OF: 2099-01-01 | fixture\n\n## WHAT IS RUNNING\n- nothing\n"
+        head = _COMPLETE
         big = Path(td) / 'STATUS_fixture_over_cap.md'
         big.write_text(head + ("x" * (STATUS_CAP_BYTES * 2)), encoding='utf-8')
         out_big = status_summary(big)
