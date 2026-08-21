@@ -251,6 +251,27 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## ⚠️ **AND THE HONEST COST OF THAT RESULT: THE LOCAL RULE NEEDS ~50 PASSES. REPLAY SUPPORTS
+> ## SINGLE DIGITS. THE GAP IS AN ORDER OF MAGNITUDE AND IS UNACCOUNTED FOR.**
+> | passes | 1 | 8 | 13 | **21** | **50** | 200 |
+> |---|---|---|---|---|---|---|
+> | margin | **−0.1019** | −0.0487 | −0.0147 | **+0.0294** | **+0.0860** | +0.0975 |
+> *(raw cue = +0.0723; one-shot Hebbian incumbent = −0.1021)*
+> **Stops merging at ~15-21 passes; BEATS THE RAW CUE ONLY AT ~50; saturates by 100.**
+> ✅ **CONSTRAINT CHECK PASSES BEAUTIFULLY: at 1 pass the local rule scores −0.1019 against the
+> incumbent's −0.1021 -- agreement to 2 in 10,000, because ONE DELTA STEP FROM `W=0` *IS* THE HEBBIAN
+> OUTER PRODUCT. The incumbent is exactly the one-pass special case; we are not choosing between two
+> rules, we are choosing how long to run one.**
+> 🚫 **`ORGAN_MAP` D4 gives the supported replay schedules as Landauer & Bjork's `0,3,10` / `1,4,10`
+> -- SINGLE DIGITS TO LOW TENS. So "replay supplies the passes" IS NOT SUPPORTED at the count
+> required.** *Not filed as dead: run at ONE scale, ONE overlap level, ONE cue fraction, and the
+> required count may fall sharply with any of them -- that is the cheap next sweep and it decides
+> whether the route survives.*
+> ⚖️ **WITHDRAWN: the implication that being LOCAL made it biologically plausible. Locality is
+> NECESSARY, NOT SUFFICIENT -- pass count is a biological cost too, and ours is unpaid.** *What
+> stands: the incumbent merges (−0.1021), and the local rule fixes it and beats the pseudo-inverse.*
+> `notes/THE_LOCAL_RULE_NEEDS_50_PASSES_which_is_an_ORDER_OF_MAGNITUDE_above_supported_replay_counts_2026-08-21.md`
+>
 > ## 🔻🏆 **AND A CORRECTION PLUS THE BEST RESULT: RECOVERY-COSINE WAS GAMEABLE, AND THE
 > ## BIOLOGICALLY-LOCAL RULE BEATS BOTH THE INCUMBENT AND THE PSEUDO-INVERSE.**
 > 🔻 **CORRECTION TO MY OWN `+0.2832`: recovery-cosine REWARDS MERGING. The incumbent Hebbian rule --
