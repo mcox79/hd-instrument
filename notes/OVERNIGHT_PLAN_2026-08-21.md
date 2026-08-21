@@ -24,6 +24,17 @@
 > **➡️ THE ORDERING QUESTION IS NOT "WHICH ORGAN NEXT". IT IS "WHY IS THE OUTPUT AT CHANCE" -- AND THE
 > ANSWER IS NOT KNOWN.**
 >
+> ## 🔴 **T3'S PREMISE IS WRONG AND THIS IS THE THIRD TIME THE SAME MISTAKE HAS BEEN MADE**
+> **`GRADED_COMPARATOR` IS DEFAULT-*ON*, not default-off.** *`exp_graded_path_vs_orthographic_floor_v1`
+> carries a field literally named **`premise_correction`** for this:* **"GRADED_COMPARATOR is
+> default-ON as of `38f7a0d5c`, NOT default-OFF as the dispatch brief assumed."** **THREE INDEPENDENT
+> CONFIRMATIONS:** that field; `STATUS`'s night-of table; and tonight's runtime probe
+> (`live_constants_observed: {"CTX_D": 256, "GRADED_COMPARATOR": true}`).
+> **A prior dispatch made this mistake, the correction was written INTO A DEDICATED FIELD, and I made
+> it again anyway in this plan.** *And that cell's verdict is `DOES_NOT_CLEAR_ORTHOGRAPHIC_FLOOR` --
+> so the graded path was already tested against the floor and did not clear it.*
+> **➡️ T3 IS NOT A WIRING JOB. THERE IS NOTHING TO WIRE, AND THE TEST IS ALREADY RUN.**
+>
 > ## 🟢 **AND A SECOND EXCEPTION, RECOVERED 2026-08-21 FROM BEHIND A WRONG LABEL: ON DENSE MATERIAL, READING WORKS.**
 > **`exp_bootstrap_dense_process_article_reading_fade_v6` -- `verdict` says
 > `HARD_FAIL_dense_explicit_no_better_than_scattered`; its `final_verdict` says
@@ -300,7 +311,7 @@ any single one does not idle the night, and so they do not contend for the same 
 |---|---|---|---|---|
 | **T1** | **H2 -- decide what to read next** | **BUILD** (organ MISSING) | ⚠️ **FUNCTION parity only. The brain math here is UNPINNED** -- ORGAN_MAP says so explicitly. Not equation parity; the writeup must say so. | **UNBLOCKS SLEEP (step 5)** |
 | **T2** | **E3 -- work out who "he"/"it" refers to** | **WIDEN A WORKING ORGAN** | ORDERING is brain-derived; **our β=0.5 / λ=0.1 arithmetic on top is OUR INVENTION.** Margin-abstention already faithful. | independent |
-| **T3** | **B4 -- richer word codes on the live path** | **WIRE** (3 flags landed, all default OFF) | Equation **PINNED** (dense, graded, ~4-12 effective dims). ⚠️ **A WIRE-IT TEST, NOT A DISCOVERY** -- already measured at probe scale. | before B1/B2 |
+| **T3** | **B4 -- richer word codes on the live path** | 🔴 **PREMISE WRONG: THE SWITCH IS ALREADY DEFAULT-*ON*.** ~~3 flags landed, all default OFF~~ | Equation **PINNED**. ⚠️ **NOT A WIRE-IT TEST EITHER -- there is nothing to wire.** | -- |
 | **T4** | **DRILL THE NEGATIVES** | **AUDIT** | n/a -- this is about our evidence, not the brain | feeds all |
 
 ### 🚫 EXPLICITLY NOT TONIGHT, WITH REASONS
