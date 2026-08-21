@@ -1,5 +1,40 @@
 # OVERNIGHT PLAN -- 2026-08-21. **FOUR THRUSTS, DELIBERATELY DIFFERENT IN KIND.**
 
+> # 🏆 **BEST FINDING OF THE NIGHT: THE STRONGEST SEMANTIC ASSET WE OWN IS 12 HUMAN-MEASURED NUMBERS**
+> **`ASSET_NORMS12` = `hdlab/grounded_similarity.py` -- 11 Lancaster sensorimotor norms + 1 Brysbaert
+> concreteness norm.** *Not a trained model.*
+>
+> | arm | rho on SimLex |
+> |---|---|
+> | **`ASSET_NORMS12`** (12 human dims) | **0.2701** -- **+0.1653 over incumbent, CI [0.0159, 0.3084]** |
+> | `ASSET_V2` -- **121.1M-token encoder, 237.7M-token corpus** | 0.078-0.189 |
+> | `P_LIVE_CONCEPT` (ours, 256-d) | 0.1048, **CI crosses zero** |
+>
+> **➡️ 12 HUMAN-RATED DIMENSIONS BEAT A 121-MILLION-TOKEN ENCODER AND OUR 256-d PRODUCTION ENCODING,
+> AT 21x SMALLER.** **AND IT IS THE BRAIN-FOUNDATIONAL OPTION EXPLICITLY** -- ATL amodal hub pools
+> graded multimodal sensorimotor experience (Cox et al. 2024); Lancaster norms are *"a direct
+> behavioral measurement of exactly that signal"*. ***The most brain-faithful asset is also the
+> best-performing one -- the cleanest vindication of Q95 found so far.***
+>
+> ## 🔴 IT IS LIVE, AND IT IS CAPPED OUT OF INFLUENCING ANY DECISION
+> `GROUNDED_CAP = 0.45`, structurally below `SIMILARITY_LINK_THRESHOLD = 0.50`, **so the fallback can
+> never trigger a merge** -- deliberate and correct for THAT job. Measured live: `sofa/couch` **0.45**,
+> `dog/cat` **0.45**, `stone/idea` 0.0. **Effectively two-valued.**
+> **THE ARM THAT WON USED `grounded_vector()` (raw 12-d). THE LIVE PATH USES `grounded_similarity()`
+> (capped scalar). DIFFERENT OBJECTS.** *`grounded_vector` has exactly one other consumer,
+> `sensorimotor_spoke.py`.*
+>
+> ## ⚠️ WHAT TEMPERS IT (both from `exp_meaning_asset_norms_coverage_gap_v1`, 08-16)
+> - **usable table = 36,810 words, NOT 39,707** -- *"39,707 is the Lancaster CSV filename, not the
+>   usable asset"*. **I quoted the wrong number first.**
+> - **SimLex pair coverage = 100%; whole-corpus TOKEN coverage = 60.4%; TYPE coverage = 10.3%**;
+>   type coverage by band 0.757 / 0.602 / **0.438**. **The headline was measured where the asset is
+>   strongest.**
+> - **PRIOR NEGATIVE:** `exp_grounded_inductive_concept_encoder_heldout_new_v1` **HARD_FAIL** -- a
+>   grounded inductive encoder scored AUC **0.5879** against a **POPULARITY baseline at 0.8148**,
+>   losing by **0.2269**. *Different task, but **score any use of these vectors against POPULARITY,
+>   not only random.***
+
 > # 🔬 **THE MOST CONSEQUENTIAL THING FOUND ALL NIGHT -- AND IT WAS ALREADY ON DISK.**
 > **`exp_encoding_quality_instrument_v2` (08-15, `INSTRUMENT_VALIDATED`, 21/21 gates) SCORED OUR LIVE
 > ENCODER.** *v1 validated the instrument on 17/17 and published no number -- validate first, score
