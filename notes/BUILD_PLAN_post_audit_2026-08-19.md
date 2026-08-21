@@ -13,7 +13,21 @@
 >   audit in `STATUS_SPEC.md` sec 7). **The archiving request is tracked as WORK, not filing.**
 > - **Q95:** *"I'll only say that we should chase things that are brain foundational in every way."*
 >
-> ## 🎯 **THE DECISION, APPLYING Q95: SLEEP (D8+D4) IS THE TOP ITEM. NOT F5.**
+> ## 🔴 **SUPERSEDED 2026-08-21 -- THE DECISION BELOW IS WRONG. SEE `notes/OVERNIGHT_PLAN_2026-08-21.md`.**
+> **SLEEP IS BLOCKED AND CANNOT BE THE TOP ITEM.** The STEP 5 quote below is accurate; the
+> conclusion is not, and the SAME organ entry says why **twice**:
+> - ***"After step 1."*** *"Interleaved retention is untestable without a stream of genuinely new
+>   material to forget. **Today the loop reads the same 4 segments forever.**"* -> **the test cannot
+>   run.**
+> - **D8 is *"🅿️ PARKED-BY-SCALE"***: *"the cascade only beats simpler multistate models above ~1e6
+>   synapses; we run d = 256..4096. **A negative here is the PUBLISHED PREDICTION.**"*
+>
+> **➡️ THE TOP ITEM IS STEP 1 (H2, deciding what to read next), WHICH IS HOW YOU GET TO STEP 5.**
+> *This is the repo's own third-archive rule catching a decision made by quoting one line of a
+> two-page entry. **Quoting one section of a document is not reading it.*** The table below is kept
+> because its F5/E3 comparison and its four-reads evidence remain valid.
+>
+> ## ~~🎯 THE DECISION, APPLYING Q95: SLEEP (D8+D4) IS THE TOP ITEM. NOT F5.~~ **(WITHDRAWN, above)**
 > **`ORGAN_MAP` STEP 5, its own words: *"this is the ONE place in the plan where the brain's equation
 > is FULLY PINNED and we have literally none of it."*** Nothing else on a 39-organ map says that.
 > **AND THE OWNER ASKED FOR IT IN THE SAME MESSAGE, FOR AN UNRELATED REASON** (auto-aging to end the
