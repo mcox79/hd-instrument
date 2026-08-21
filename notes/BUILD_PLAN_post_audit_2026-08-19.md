@@ -251,6 +251,26 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## ⚖️ **AND I THEN APPLIED THAT REFRAME TO THE OTHER FIVE. IT RESCUES EXACTLY ONE OF SIX.**
+> *I flagged it as "a question to ask, not an answer to assume". Asked. **It does NOT generalise.***
+> | mechanism | trivial baseline | brain-computable? | verdict |
+> |---|---|---|---|
+> | CA3 completion | search an EXPLICIT list of all stored patterns | 🚫 **NO** | ✅ **INVERTS +0.2832** |
+> | trained substrate | second-order COUNTING | ✅ YES (statistical learning) | **LOSS STANDS** |
+> | grounded encoder | POPULARITY / frequency | ✅ YES (frequency effects) | **LOSS STANDS** |
+> | meaning read-out | pure SPELLING | ✅ YES (visual word form area) | **LOSS STANDS** |
+> | synonym rank | WINDOW co-occurrence | ✅ YES | **LOSS STANDS** |
+> | prediction gate | rate-matched RANDOM | ⚪ N/A -- an ABLATION, not a rival | **LOSS STANDS** |
+> ⚠️ ***THE TEMPTATION THIS BLOCKS: having found ONE unfair comparison, suspect them all and treat
+> every past loss as an artefact. That is wrong 5 times out of 6. A REFRAME THAT RESCUES EVERYTHING
+> RESCUES NOTHING.*** **The other four baselines are not stand-ins for brain mechanisms -- they ARE
+> brain mechanisms, and simpler than what we built.**
+> ✅ **HONEST POSITION, NOW SPLIT NOT UNIFORM: distributional inference genuinely loses to simpler
+> brain-available methods (5 measurements, unexplained away); episodic completion WORKS once the
+> substituted rule is replaced (1 measurement, bench only). AND THE SPLIT FALLS EXACTLY WHERE THE
+> FIDELITY ANALYSIS SAID IT WOULD.**
+> `notes/THE_REFRAME_RESCUES_EXACTLY_ONE_OF_SIX_the_other_five_losses_stand_2026-08-21.md`
+>
 > ## 🏆 **AND THEN IT PAID OUT PROPERLY: PATTERN COMPLETION *WORKS*, +0.2832 -- ONCE YOU MEASURE THE
 > ## OPERATION A BRAIN CAN ACTUALLY PERFORM. FIRST MECHANISM TONIGHT TO BEAT ITS BASELINE.**
 > ➡️ ***THE BASELINE THAT KEPT WINNING -- "don't complete, match the cue against the stored codes" --
