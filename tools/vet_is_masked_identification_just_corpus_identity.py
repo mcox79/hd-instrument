@@ -173,6 +173,93 @@ def main() -> int:
 
     pm: dict = {}
     pc: dict = {}
+    # -- IS IT DIMENSION-LIMITED? ------------------------------------------------------------
+    # The depth sweep showed the limit is NOT data per word (saturates near ten, which the live
+    # median word already gets). The next candidate is the representation itself. notes/PLAN.md D1
+    # asks whether to raise the live path from 256 to 1024 and records "16x the dimensions bought
+    # +0.0843 at probe scale, the largest lever measured" -- but a d-sweep on THIS task, with a
+    # floor, has not been run. The SCRAMBLE floor is recomputed AT EVERY d: if it rose with d too,
+    # a rising real curve would mean nothing. Chance is 1/60 at every d by construction.
+    if "--dims" in sys.argv:
+        print("")
+        print(f"DIMENSIONALITY SWEEP (balanced lemmas, chance {1.0 / N_LEMMAS:.4f} at every d)")
+        rs_d = np.random.default_rng(31)
+        for d in (128, 256, 512, 1024, 2048):
+            vecs = {l: [context_vector_masked(sn, l, d=d) for sn, _sr in by_lemma[l][:N_SENT]]
+                    for l in lemmas}
+            sums = {l: np.sum(vecs[l], axis=0) for l in lemmas}
+
+            def _score(vv, ss):
+                hit = tot = 0
+                for l in lemmas:
+                    for qi, q in enumerate(vv[l]):
+                        qn = np.linalg.norm(q)
+                        if qn == 0:
+                            continue
+                        best, best_c = None, -2.0
+                        for m in lemmas:
+                            prof = ss[m] - (vv[m][qi] if m == l else 0)
+                            pn = np.linalg.norm(prof)
+                            if pn == 0:
+                                continue
+                            c = float(np.dot(q, prof) / (qn * pn))
+                            if c > best_c:
+                                best_c, best = c, m
+                        tot += 1
+                        hit += int(best == l)
+                return hit / max(1, tot)
+
+            acc = _score(vecs, sums)
+            flat = [(l, v) for l in lemmas for v in vecs[l]]
+            perm = rs_d.permutation(len(flat))
+            sh = {l: [] for l in lemmas}
+            for i, (lem, _v) in enumerate(flat):
+                sh[lem].append(flat[perm[i]][1])
+            shs = {l: np.sum(sh[l], axis=0) for l in lemmas}
+            scr = _score(sh, shs)
+            print(f"   d={d:5}  hit@1={acc:.4f}   SCRAMBLE={scr:.4f}   "
+                  f"margin over scramble {acc - scr:+.4f}", flush=True)
+        # THE DECISION-RELEVANT COMPARISON GETS AN INTERVAL, not just a point difference.
+        # notes/PLAN.md D1 is specifically "256 -> 1024 on the live path", so that pair is the one
+        # that has to survive a CI. Bootstrapped over LEMMAS, the clustering unit, for the same
+        # reason as everywhere else tonight: queries inside a lemma are not independent.
+        per = {}
+        for d in (256, 1024):
+            vecs = {l: [context_vector_masked(sn, l, d=d) for sn, _sr in by_lemma[l][:N_SENT]]
+                    for l in lemmas}
+            sums = {l: np.sum(vecs[l], axis=0) for l in lemmas}
+            acc_l = {}
+            for l in lemmas:
+                hit = tot = 0
+                for qi, q in enumerate(vecs[l]):
+                    qn = np.linalg.norm(q)
+                    if qn == 0:
+                        continue
+                    best, best_c = None, -2.0
+                    for m in lemmas:
+                        prof = sums[m] - (vecs[m][qi] if m == l else 0)
+                        pn = np.linalg.norm(prof)
+                        if pn == 0:
+                            continue
+                        c = float(np.dot(q, prof) / (qn * pn))
+                        if c > best_c:
+                            best_c, best = c, m
+                    tot += 1
+                    hit += int(best == l)
+                acc_l[l] = hit / max(1, tot)
+            per[d] = acc_l
+        diff = np.array([per[1024][l] - per[256][l] for l in lemmas])
+        rb2 = np.random.default_rng(37)
+        bt = np.array([diff[rb2.integers(0, len(diff), len(diff))].mean() for _ in range(4000)])
+        lo2, hi2 = np.percentile(bt, [2.5, 97.5])
+        print("")
+        print(f"   d=1024 MINUS d=256, per-lemma paired: {diff.mean():+.4f}  "
+              f"95% CI [{lo2:+.4f}, {hi2:+.4f}]  half-width {(hi2 - lo2) / 2:.4f}")
+        print(f"   lemmas improved by 1024: {int((diff > 0).sum())} of {len(diff)}   "
+              f"CI EXCLUDES ZERO: {bool(lo2 > 0 or hi2 < 0)}")
+        print("   READ: a real dimensional gain shows the margin GROWING while SCRAMBLE stays at")
+        print("   chance. If SCRAMBLE also rises, the metric is inflating and nothing is gained.")
+
     # -- HOW MANY SENTENCES PER WORD DOES IT TAKE? ------------------------------------------
     # Tonight's positive is 8.6x its floor and still only ~1 correct in 6 of 60. Two very different
     # readings: the representation is weak, or 41 sentences is simply not enough experience of a

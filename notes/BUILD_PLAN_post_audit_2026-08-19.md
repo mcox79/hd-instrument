@@ -139,6 +139,21 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## ✅ **THE LIMIT IS DIMENSIONAL, NOT EXPERIENTIAL -- AND D1 NOW HAS A SECOND, FLOORED MEASUREMENT**
+> **Sweep with the SCRAMBLE floor RECOMPUTED AT EVERY `d` (balanced lemmas, chance 0.0167 fixed):**
+> `d=128 0.1061 | 256 0.1435 | 512 0.1776 | 1024 0.2057 | 2048 0.2268`, **SCRAMBLE stays at chance
+> throughout (0.0130-0.0211)** -- so the rise is NOT the metric inflating with dimension, which was
+> the one way this could have fooled itself. **DECISION PAIR WITH AN INTERVAL: `d=1024 - d=256 =
+> +0.0622, 95% CI [+0.0443, +0.0797]`, improved on 48 of 60 lemmas, CI EXCLUDES ZERO.**
+> 🎯 **THIS IS D1's SECOND, INDEPENDENT MEASUREMENT.** *D1's evidence was "16x dims bought +0.0843 at
+> probe scale" -- different task, different scale -- and ORGAN_MAP records `P_LIVE_CONCEPT` was ONLY
+> EVER RUN AT d=256, so no capacity claim existed there.* **And it answers the depth sweep: reading
+> saturates by ~10 sentences (the live median word already gets ~10), so the binding constraint is
+> REPRESENTATION ROOM, not reading.** ⚠️ **NOT meaning (identification is largely a LOOKUP); NOT the
+> average word; NOT free (rewrites every persisted store -- Q65: "do whatever is ideal", standing
+> caution = backup + no concurrent session); NOT saturated -- still climbing +0.0211 at 2048, so
+> 1024 may not be the right target.** `THE_LIMIT_IS_DIMENSIONAL_NOT_EXPERIENTIAL_...`
+
 > ## 🔻 **A RESULT THAT CONFIRMED WHAT I ALREADY BELIEVED, AND DID NOT SURVIVE ITS SECOND CONTROL**
 > **First cut: more sentences per word made identification WORSE** -- `0.1900 / 0.2000 / 0.1775 /
 > 0.1600 / 0.1435`, a clean monotonic decline after 10, *pointing exactly where the plan already
