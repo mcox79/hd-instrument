@@ -340,6 +340,25 @@
 >   ➡️ **CONSEQUENCE: bundle saturation does NOT explain "writing less helps", which puts the
 >   crosstalk/interference account back as the live hypothesis.**
 >   `notes/WITHDRAWN_the_63_percent_past_0_79_recovery_claim_used_a_curve_from_a_DIFFERENT_retrieval_operation_2026-08-21.md`
+> - 🎯 **AND THE OPEN QUESTION IS NOW MEASURED -- THE STORE'S OWN OPERATION. MORE TRACES *HELPS*,
+>   ACROSS THE WHOLE LIVE RANGE. NO SATURATION EXISTS.** *anchor = sum of L live context vectors;
+>   probe = a HELD-OUT context vector of the same lemma; hit@1 over 80 anchors, chance 0.0125; 80
+>   lemmas x 41+ vectors from 59,797 real sentences, 640 probes/point, `context_vector_masked`
+>   itself.* **L=1 `0.0312±0.0135` -> L=8 `0.0719` -> L=24 `0.1219` -> L=37 `0.1328±0.0263`.
+>   CI-SEPARATED L=1 vs L=37 (4.3x, and 10.6x chance).** ✅ **SHUFFLED-LABEL CONTROL COLLAPSES TO
+>   CHANCE at every point (0.0078-0.0219) -- the harness is not manufacturing it.**
+>   ➡️ **LIVE LOADS (median 10, p90 36) SIT ENTIRELY INSIDE THE IMPROVING REGION. The saturation
+>   story is now closed BY MEASUREMENT, not just by retracting a bad comparison.**
+>   ⚠️ **NOT SETTLED: (a) L=24 vs L=37 CIs OVERLAP -- flat at the top, NO OPTIMUM LOCATED, the same
+>   tell as Q96 and already an assertion in `selftest_capacity_is_measurable`; (b) absolute
+>   performance is POOR -- 0.1328 is still 87% wrong, so this says accumulation is not what is
+>   broken, NOT that the representation is good; (c) DIFFERENT TASK from the write-rate sweep.**
+>   ⚡ **THE TENSION, NOW MEASURED ON BOTH SIDES: the sweep says writing LESS helps (0.0710->0.3079,
+>   paradigmatic/syntagmatic AUC); this says writing MORE helps (0.0312->0.1328, anchor
+>   self-identification). Not contradictory -- different tasks -- but WRITING LESS HAS A COST TO THE
+>   STORE'S OWN MATCHING OPERATION, and that was invisible before tonight. Report BOTH in the
+>   approved sweep's writeup or it is half a picture.**
+>   `notes/THE_STORES_OWN_OPERATION_MEASURED_more_traces_HELPS_across_the_whole_live_range_2026-08-21.md`
 >   ⚠️ **A LOWER BOUND TWICE OVER: (a) 1,200 sentences is short and frequent words keep
 >   accumulating; (b) the capacity curve was measured on RANDOM BIPOLAR codes while live context
 >   vectors carry the known common mode -- correlation makes true capacity WORSE (discipline 16).**
