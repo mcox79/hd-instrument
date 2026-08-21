@@ -111,6 +111,22 @@
 > EXERCISED. Only ONE of the seven (`definitional_extraction`) has runtime evidence that it fires.**
 > `THE_REGISTRY_WAS_STALE_BY_ONE_TOOL_FIX_...` *(title is wrong; corrected in-file)*
 
+> ## **THE LOST-UPDATE HUNT: MECHANISM ESTABLISHED, INSTANCE NOT -- AND 2 OF MY 3 HITS WERE MINE**
+> **ONE genuinely unlocked writer of `capability_registry.jsonl`** (`_skunkworks_atomize_2026_07_31_*`,
+> read-modify-write, no lock). **TWO FALSE POSITIVES I CAUGHT BEFORE EDITING:**
+> `substrate_capability_registry.py` writes a **DIFFERENT FILE**
+> (`data/substrate_capability_registry.jsonl`), and the third was **my OWN self-test fixtures writing
+> to tempdirs.** *Caught by reading each `REGISTRY =` constant instead of trusting a filename match --
+> CLAUDE.md evidence discipline 5 firing as written; I was one step from locking an unrelated file.*
+> /!\ **HONEST LIMIT: the one real writer is dated 07-31 and is probably NOT tonight's culprit.**
+> *Today's two registrations left `integration_status: None`, so they were ad-hoc scripts in
+> `scratch/`, which is gitignored -- **NOTHING IS LEFT ON DISK TO INSPECT. The MECHANISM is
+> established; the INSTANCE is not, and those are different claims.*** **ATOMIC != SAFE: every writer
+> already does `os.replace`, which prevents a TORN file and does nothing about a LOST UPDATE.**
+> **Rule now in `CLAUDE.md`: read-modify-write goes inside `registry_transaction()`/`RegistryLock`.**
+> *You cannot lock a script that does not exist yet, so the mitigation is the DETECTOR shipped
+> tonight.* `THE_REGISTRY_LOST_UPDATE_ONE_UNLOCKED_WRITER_...`
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"

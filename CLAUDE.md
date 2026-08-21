@@ -465,6 +465,39 @@ placeholder that reads like ordinary output is how this survived undetected.
 
 Filename cap: 120 chars (incl. `.md`). Topic-slug 5-10 words snake_case; optional ALL_CAPS for emphasis.
 
+## A ONE-OFF REGISTRATION SCRIPT SILENTLY DISCARDED A FULL AUDIT -- USE `registry_transaction()`
+
+**Measured 2026-08-21.** `capability_registry_audit.py` ran twice after a morning fix to its entry
+points, at 10:00 and 10:03, and computed the correct closure both times (**55 pipeline-used / 94
+not-reachable**, up from 48/101). **Eleven hours later the rows on disk still carried the 05:24
+values**, so seven live organs -- including `definitional_extraction`, `substrate_assembled_reader_v1`
+and `corpus_registry` -- read as NOT on the pipeline while being on it.
+
+**The audit's results were not missing. They were LOST**, to the read-modify-write race
+`capability_registry_audit.py:1495` warns about in its own comment. Two one-off registrations were
+committed at 09:43 and 11:53 that day, both leaving rows with a hand-written
+`integration_status: None` that no audit run produces.
+
+**ATOMIC IS NOT SAFE.** Every writer of this file already does `os.replace`, which guarantees nobody
+observes a half-written file. **It does nothing about a lost update:** load rows -> another process
+writes -> you save your copy -> their work is gone, with no error and no corruption.
+
+**Rule: any read-modify-write of `data/capability_registry.jsonl` goes inside
+`registry_transaction()` (preferred) or `RegistryLock` from `capability_registry_audit.py`.** The
+audit itself does this; one-off scripts are the ones that do not, and they are the documented cause.
+
+**AND THE DETECTOR, because you cannot lock a script that has not been written yet:**
+`session_start_hook.registry_report()` now flags **rows older than the report** -- the fingerprint of
+a discarded audit -- with an hour of tolerance, because the audit stamps rows at START and names its
+report at FINISH (an 8m24s gap on a healthy run; the real incident was 4.8 h). It also flags a report
+older than the tools whose output it caches. **A report existing is NOT evidence the rows were
+updated**, and that was the assumption that let this sit all day.
+
+*Two false positives worth repeating, both caught by opening the file and reading its `REGISTRY =`
+constant rather than trusting a filename match: `substrate_capability_registry.py` writes a
+DIFFERENT file, and the third "writer" was this hook's own self-test fixtures writing to tempdirs.
+`notes/THE_REGISTRY_LOST_UPDATE_ONE_UNLOCKED_WRITER_AND_TWO_FALSE_POSITIVES_I_CAUGHT_2026-08-21.md`.*
+
 ## Capability tracking (durability gate)
 
 `data/capability_registry.jsonl` is the single current reference for every genuinely-built capability + its wire-or-shelve decision (supersedes `notes/capability_map.md` / `capability_scorecard.md` / `promotion_backlog.md` checkboxes -- those rotted silently; this one is machine-audited by `tools/capability_registry_audit.py`, not hand-checked). Query it before building anything that might already exist.
