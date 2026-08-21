@@ -53,6 +53,28 @@
 >   the "cliff" reading from `ORGAN_MAP` and propagated it to three documents without opening the
 >   metrics file: A DOCUMENT'S INTERPRETATION IS NOT EVIDENCE, INCLUDING OUR OWN ORGAN MAP.**
 >   `notes/WITHDRAWN_the_B1_cliff_was_me_misreading_three_similarity_levels_as_three_vocabulary_strata_2026-08-21.md`
+> - **`203e9d426` -- THE SOURCE BULLET IN `ORGAN_MAP` IS NOW CORRECTED TOO, and fixing it found TWO
+>   MORE ERRORS in the same passage.** (a) **The organ blamed is not the organ measured:** the cell
+>   scored on its OWN `n_concepts = 86` / `n_feature_tags = 76`, not the live `CONCEPT_FEATURES`
+>   (**359 words / 168 tags**, corroborated twice) -- **"~230" is neither.** (b) 🚨 **THE "CHEAP
+>   FLOOR TEST" QUEUED THERE COULD NEVER HAVE RUN: its can-fail condition needs an OUT stratum, and
+>   the OUT stratum is EMPTY -- 0 of 86 probe words outside, 29/29 triples fully inside.**
+>   ➡️ ***A WRONG INTERPRETATION IN A REFERENCE DOC DOES NOT JUST SIT THERE -- IT QUIETLY GENERATES
+>   WORK.*** *Propagation ENUMERATED not searched: exactly 5 files, 0 uncorrected instances remain.*
+> - ✅ **AND THE FOLLOW-UP IS A NULL, WHICH IS THE GOOD OUTCOME: ALL 10 queued tests in `ORGAN_MAP`
+>   were then read WHOLE (`grep` returns exactly 10; small enough to enumerate) asking "does the
+>   population its can-fail condition needs actually EXIST?". **1 of 10 was impossible -- the B1 one,
+>   now withdrawn. The other 9 are sound**: 3 already run/closed, **3 blocked WITH THE BLOCKER NAMED
+>   IN THE TEST'S OWN TEXT** (*"n in the hundreds -- not n=10"*), 2 runnable-and-unrun, 1 sub-clause.
+>   ***THE TELL: B1's was the ONLY one advertising itself as cheap WITHOUT NAMING ITS INPUT.***
+> - 🎯 **BEST-POSED UNRUN TEST ON THE MAP = D3** (one-shot cued recall, sweeping N to the collapse
+>   point; `IS-REACHED` **no -- zero `hdlab/` importers**). **It pre-empts its own most likely false
+>   positive BY NAME** -- a **random-address arm**, so the test isolates the ALLOCATOR rather than the
+>   outer product, *"precisely the arm that would be omitted by someone testing the write op"* --
+>   which is this project's single most repeated failure. Write half PINNED (Marr 1971; `hippocampal_
+>   encoder.py:179` IS that equation), allocator UNPINNED and declared ours. **Other runnable-unrun:
+>   B4's d=1024 live-path 2AFC vs 0.6395.** ⚠️ *Both need cell authoring.*
+>   `notes/ALL_TEN_QUEUED_TESTS_IN_THE_ORGAN_MAP_AUDITED_the_impossible_one_was_ISOLATED_2026-08-21.md`
 > - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
 >   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
 >   the headings *and their whole sections* into the header paragraph. **Every section BODY was
