@@ -39,6 +39,25 @@
 > **Q96**.** *Method for avoiding a repeat: `python tools/before_you_start.py "<the work>"`, and
 > query the ACTIVITY, not just the artifact.*
 >
+> ## 🧰 **LANDED SINCE THIS BLOCK WAS WRITTEN (2026-08-21, three commits, no experiment run)**
+> - **`d057c203d` -- THE STRONGEST BUILD CANDIDATE IS NOW NAMED IN `OVERNIGHT_PLAN`:** B1's tier
+>   breakdown is a **cliff** (ours `0.931 / 0.304 / 0.002` vs counting `0.859 / 0.852 / 0.830`)
+>   because its ~230-concept lexicon is **unweighted, with no frequency statistic anywhere -- so
+>   distinctiveness cannot be computed even in principle**; and the asset that addresses it
+>   (**36,810 words, 12 graded human dims, rho 0.2701**) is **already live and capped to two
+>   values**. ⚠️ **Bar is COUNTING at 0.830, not random, and a close relative already lost to
+>   `TOP_COOCCURRENT` over 3 seeds x 40k sentences.** *Both halves measured, neither connected.*
+> - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
+>   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
+>   the headings *and their whole sections* into the header paragraph. **Every section BODY was
+>   present, so the file looked complete.** Restored; `board.py` back to 0 banners.
+> - **`18f0aad67` -- AND WHY IT SAT THERE IS THE REUSABLE PART.** `board.py` **fired correctly, into
+>   a file nothing re-reads at session start**; and the session hook's own positive control said
+>   *"the real STATUS.md parses clean"* **and PASSED THE WHOLE TIME, because it guarded only the 2
+>   literals IT consumes.** ➡️ **A CONTROL THAT FIRES WHERE NOBODY READS IS NOT YET A CONTROL, AND A
+>   POSITIVE CONTROL IS ONLY AS BROAD AS ITS ASSERTION.** All 4 now guarded at session start,
+>   **proven by firing on the real pre-fix file, not only on fixtures.**
+>
 > *The table below is kept because its F5/E3 comparison and its four-reads evidence remain valid.*
 >
 > ## ~~🎯 THE DECISION, APPLYING Q95: SLEEP (D8+D4) IS THE TOP ITEM. NOT F5.~~ **(WITHDRAWN, above)**
