@@ -234,6 +234,33 @@
 >   reader, not the file.*** ✅ *That note's CONCLUSION survives on its real evidence --
 >   `n_survivors = 1414` vs `len(sample) = 100`, so the v1-vs-v2 volume/purity trade still cannot be
 >   settled from disk and `WIRE_CANDIDATE` stands. **Right conclusion, wrong supporting fact.***
+> ## 🧠 **RETROSPECTIVE REDONE AS A NEUROSCIENTIST (owner, COMMENTARY 18:41Z: *"you often go for
+> ## answers that might make sense in standard coding, but don't apply well here... imagine yourself
+> ## as a neuroscience expert"*). THE CORRECTION IS EXACT AND IT CHANGED THE CONCLUSION.**
+> **My review counted commits, code-touch %, false-positive rates. None of those asks WHICH BRAIN
+> SYSTEM we replicate or whether the model is right.** Re-read against `ORGAN_MAP`'s own fidelity
+> audit (**5/38 `fidelity SAME`; 6 WRONG-OP; 7 MISSING; 14/38 core operation UNPINNED**):
+> ➡️ ***ALL SIX of tonight's trivial-baseline losses fall on organs whose CORE OPERATION IS UNPINNED
+> AND WHERE WE SUPPLIED OUR OWN EQUATION*** (D2/CA3 -- Hopfield sign-update is OUR import; B1/B2
+> twice; B4's quantiser, *"ours, not the brain's"*; the write gate; the grounded encoder).
+> ***NOT ONE of the five `fidelity SAME` organs is among the losers*** -- and DG pattern separation,
+> one of the five, passes its behavioural signature cleanly (`input_cos 0.934 -> code_cos 0.561`).
+> ⚡ **SHARPEST, AND IT IS A LESION ARGUMENT NOT A BUG REPORT: CA3-off = CA3-on. In the brain, CA3
+> lesions DO impair one-shot recall from a PARTIAL CUE -- the defining signature of the structure.
+> Ours fails it. That is evidence THE MODEL IS WRONG, not that the test was blind.** *Next question
+> is neuroscience: completion RULE (imported Hopfield), SPARSITY REGIME (0.01-0.03 vs pinned ~0.2%),
+> or the ABSENT ALLOCATOR -- which the map already names as the gap.*
+> ✅ **AND IT REVERSES THE MOOD OF "we win when we supply, lose when we infer": THE BRAIN DOES NOT
+> INFER MEANING FROM CO-OCCURRENCE EITHER -- IT GROUNDS.** *12 human norm dims beating a 121M-token
+> encoder is the ATL hub-and-spokes account behaving as predicted (text recovers non-sensorimotor
+> meaning well, sensory poorly, motor minimally). **That is the theory CONFIRMED, not a shortfall.***
+> 🔧 **PROCESS FIX: name the BRAIN STRUCTURE -> state its computation -> state what we SUBSTITUTED ->
+> design the arm that DISTINGUISHES them.** *Done ONCE tonight (the CA3 lesion arm) and it produced
+> the best result of the night; the other ~90 commits were debugging hygiene.*
+> 🚫 **STOP REPORTING "we lose to a trivial baseline" AS A RESULT -- it is a SYMPTOM. The finding is
+> WHICH brain operation we substituted, and that is a different sentence every time.**
+> `notes/RETROSPECTIVE_REDONE_AS_A_NEUROSCIENTIST_the_failures_cluster_where_the_brains_equation_is_UNPINNED_2026-08-21.md`
+>
 > ## 📋 **METHOD REVIEW DELIVERED (owner asked in COMMENTARY: *"I missed your report"* -- because I
 > ## gave it in CHAT ONLY. It is now a note.)**
 > **99 commits today, `15%` touched CODE (earlier audit: 12% -- barely moved), 77% notes-only,
