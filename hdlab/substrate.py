@@ -605,7 +605,24 @@ class Substrate:
             row = checkpoint(self.state, self._pass_idx, source_tag=name,
                              definition_map=dict(self._definition_map) or None)
             res.checkpoints.append(row)
-            res.n_grounded = int(row.get("n_grounded_cumulative", res.n_grounded) or 0)
+            # FIXED 2026-08-21. This read asked for "n_grounded_cumulative"; checkpoint() emits
+            # "cumulative_grounded" -- THE SAME TWO WORDS, TRANSPOSED. That key exists NOWHERE in
+            # hdlab/ except at this line, so .get() always took its default and `or 0` guaranteed a
+            # clean-looking zero: ReadResult.n_grounded was STRUCTURALLY INCAPABLE of being non-zero
+            # on any read, silently, with no exception and no warning.
+            # MEASURED, 600 sentences / 6 checkpoints: cumulative_grounded climbed 0 -> 14 -> 28 ->
+            # 34 -> 37 -> 39 while this field reported 0. That is the positive control for the fix;
+            # a 60-sentence read was NOT sufficient, because there the true value is legitimately 0
+            # and renaming the key would have looked like success.
+            # It violated ReadResult's own docstring -- "every field is a COUNT OF SOMETHING THAT
+            # HAPPENED" -- by reporting a constant. Raise rather than default: a missing key here is
+            # a wiring failure, and the whole cost of the original bug was that it looked like data.
+            if "cumulative_grounded" not in row:
+                raise KeyError(
+                    "checkpoint() returned no 'cumulative_grounded'; ReadResult.n_grounded cannot be "
+                    "populated. Do NOT read a zero here as a null -- see "
+                    "notes/ReadResult_n_grounded_IS_STRUCTURALLY_ALWAYS_ZERO_a_transposed_key_name_2026-08-21.md")
+            res.n_grounded = int(row["cumulative_grounded"])
             self._pass_idx += 1
 
             st = forager.state()
