@@ -139,6 +139,24 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## ⭐ **AND THE FIRST THING TONIGHT THAT MAKES IT BETTER: DROP THE UBIQUITOUS CONTEXT WORDS**
+> **If idf is what lifts counting above us, can the substrate have it? Partly, yes.** *Same encoder
+> UNCHANGED -- only the word list handed to it is filtered, exactly as `context_vector_masked`
+> already does for the target.* **Drop context words with df above a cutoff over the 854 profiles:**
+> `none 0.1071 | >50% 0.1154 | >30% 0.1291 | **>20% 0.1558** | >10% 0.0988` -- **an inverted U, and
+> the peak drops only `264` of `22,544` context words (~1%): `make, other, more, about, see, like`.**
+> ✅ **HELD OUT, because a swept maximum is a FITTED number: cutoff chosen on one half, scored on the
+> other, 200 splits -> `+0.0433`, 95% CI `[+0.0002, +0.0994]`, EXCLUDES ZERO, and `>20%` wins 184 of
+> 200.** *In-sample was `+0.0487`; the small shrinkage plus the stable choice is what makes it
+> credible.* ⚠️ **The CI's lower bound is `0.0002` -- real at this n and ONLY JUST.**
+> 🎯 **AGAINST THE REAL FLOOR: `raw counting 0.0885 | ours 0.1071 | ours+drop 0.1558 | idf-counting
+> 0.1835`. Closes ~57% of the gap and DOES NOT CLEAR IT.**
+> 🧠 **AND IT IS THE BRAIN'S OWN OPERATION: a stimulus that occurs everywhere carries little
+> information and the brain responds to it less. We were weighting every context word equally.**
+> ⚠️ *HARD DROP, not a graded weight -- and the encoder is NOT linear (`cos 0.729` for `cv(a)+cv(b)`
+> vs `cv("a b")`), so a weighted sum is a DIFFERENT encoder needing its own justification. Meaning
+> only; untested on identification.* `DROPPING_264_UBIQUITOUS_CONTEXT_WORDS_...`
+
 > ## 🔻 **AND THE FLOOR I HAD NOT RUN ALL NIGHT: IDF-WEIGHTED COUNTING BEATS US ON MEANING, CI-SEPARATED**
 > **All night I floored against shuffles and chance. This is the rival the project actually
 > recognises, on the same 829 pairs:** `counting RAW 0.0885 | OURS d=1024 0.1071 |
