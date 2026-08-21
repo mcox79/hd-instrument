@@ -139,6 +139,22 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## 🔻 **AND THE FLOOR I HAD NOT RUN ALL NIGHT: IDF-WEIGHTED COUNTING BEATS US ON MEANING, CI-SEPARATED**
+> **All night I floored against shuffles and chance. This is the rival the project actually
+> recognises, on the same 829 pairs:** `counting RAW 0.0885 | OURS d=1024 0.1071 |
+> counting +IDF 0.1835 | supplied norms 0.2876`. ***`IDF - OURS = +0.0764`, 95% CI
+> `[+0.0263, +0.1278]`, EXCLUDES ZERO.*** ✅ **WE DO BEAT RAW COUNTING** -- the loop is not doing
+> nothing -- **but ONE standard weighting takes counting from BELOW us to comfortably ABOVE.**
+> **THE RAW->IDF STEP IS WORTH `+0.0950` WHERE OUR WHOLE LEARNED SIGNAL CLEARS ITS NULL BY `0.0440`.**
+> 🔁 **SECOND TIME TONIGHT A ROUTINE METHODOLOGICAL CHOICE OUTWEIGHED THE SUBSTRATE'S CONTRIBUTION**
+> (euclid-over-cosine `+0.0700`; idf-over-raw `+0.0950`; ours over null `0.0440`).
+> ⭐ **AND IT MAKES THE STANDING NEGATIVE CROSS-TASK: `SUBSTRATE - COUNTING = -0.142` was measured on
+> WORD RECALL; this reproduces it on MEANING with a different scorer and population. A negative that
+> survives a change of task is a much stronger negative.** ⚠️ *idf's df comes from only 854 words'
+> contexts; `0.1835` is not good either; no CI on the raw-vs-idf step itself.*
+> 🚫 **ANY future claim on this benchmark must clear `0.1835`, NOT raw counting and NOT a shuffle.**
+> `COUNTING_WITH_ONE_STANDARD_WEIGHTING_BEATS_US_ON_MEANING_TOO_...`
+
 > ## ⚖️ **THE GRADED/SIGNED MISMATCH IS PROBABLY *NOT* WHY THE MEANING CHANNEL IS WEAK**
 > **B4b records that the live grounding path reads a GRADED field with a SIGN-QUANTISED query and
 > that `:663` calls that pairing "worse than either". Measured on the 829-pair MEANING benchmark:**
