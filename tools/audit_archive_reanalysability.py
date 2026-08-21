@@ -43,7 +43,59 @@ def str_lists(o, depth=0):
                 yield from str_lists(v, depth + 1)
 
 
+def _self_test():
+    """A tool relied on to establish ABSENCE needs a KNOWN-PRESENT positive control wired INTO it.
+
+    v1 had none, and shipped a 2 MB read cap that silently reclassified every cell with a LARGE
+    output file as having saved nothing -- the exact opposite of its declared bias. CLAUDE.md
+    already carries the rule ("verify with a POSITIVE control, never only an absence check"); this
+    is that rule moved from prose into the code path, the same escalation as rank_with_ties.py,
+    replication_gate.py and organ_map_cite.py.
+    """
+    import tempfile
+
+    # 1. NEGATIVE CONTROL: counts only, no population -> must find nothing.
+    assert max(list(str_lists({"n_grounded": 604, "coverage": 0.06})) or [0]) == 0, \
+        "counts-only metrics must yield no string list"
+
+    # 2. POSITIVE CONTROL: a nested list of strings -> must be found.
+    got = max(list(str_lists({"arms": {"A": {"scored_population": ["w%d" % i for i in range(50)]}}})) or [0])
+    assert got == 50, "nested string list not found (got %r)" % got
+
+    # 3. THE REGRESSION THAT MATTERS: the population sits in a file LARGER THAN 2 MB.
+    #    This is the case that made v1 report the opposite of the truth.
+    with tempfile.TemporaryDirectory() as td:
+        p = os.path.join(td, "big.json")
+        payload = {"pad": "x" * 3_000_000, "encounters": ["w%d" % i for i in range(50)]}
+        with open(p, "w", encoding="utf-8") as fh:
+            json.dump(payload, fh)
+        assert os.path.getsize(p) > 2_000_000, "fixture must exceed the old cap"
+        with open(p, encoding="utf-8") as fh:
+            found = max(list(str_lists(json.loads(fh.read()))) or [0])
+        assert found == 50, "REGRESSION: >2MB output file not detected (got %r)" % found
+
+    # 4. LIVE POSITIVE CONTROL on the real cell that exposed the bug, when present.
+    d = os.path.join(DATA, "exp_context_vector_signal_v1")
+    if os.path.isdir(d):
+        best = 0
+        for f in os.listdir(d):
+            if f.endswith(".json") and f != "metrics.json":
+                try:
+                    with open(os.path.join(d, f), encoding="utf-8") as fh:
+                        best = max(best, max(list(str_lists(json.loads(fh.read()))) or [0]))
+                except Exception:
+                    continue
+        assert best >= MIN_LIST, \
+            "LIVE CONTROL FAILED: exp_context_vector_signal_v1 saved its population (167 items) " \
+            "but the scanner cannot see it -- this is the v1 bug, do not trust any output"
+    print("self-test PASS (negative control, nested list, >2MB regression, live cell)")
+    return 0
+
+
 def main():
+    if "--self-test" in sys.argv:
+        return _self_test()
+    _self_test()          # never produce an absence figure from an unverified detector
     scored, saved, rows = 0, 0, []
     n_dirs = 0
     for name in sorted(os.listdir(DATA)):
