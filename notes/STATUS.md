@@ -183,6 +183,17 @@ conclusion (dimensionality does nothing for addressing) STRENGTHENS. The correct
 against it is ALSO wrong: 0.0716 does NOT trace to a D=2048 draw, it is a genuine D=8192 reading
 (`BEST_ASYMMETRIC_REGIME_SWITCH_CONFIG`). Both notes fixed in place. Second correction-of-a-
 correction in one day.**
+**C37 "B1 IS A CLIFF: ours 0.931/0.304/0.002 vs counting 0.859/0.852/0.830" -- WITHDRAWN/INVERTED.
+Those are cos_syn/cos_rel/cos_unrel (SYNONYM/RELATED/UNRELATED), NOT vocabulary strata. A LOW tier-3
+is the GOAL -- vessel vs anger should read ~0 -- so OUR 0.002 IS CORRECT AND COUNTING'S 0.830 IS THE
+DEFECT: its syn-to-unrel range is 0.0285 vs our 0.9287, hence ordered_frac 0.379 vs 0.966. "The bar
+is 0.830" is VOID, it targeted the baseline's PATHOLOGY. Coverage 29/29 on ALL arms: NO tier
+measures out-of-lexicon behaviour. Survives: the cell's own coverage_scope, 86 hand-authored
+concepts, open-vocabulary "NOT claimed here". CAUSE: took "cliff" from ORGAN_MAP and propagated to
+3 docs without opening metrics.json -- the defining phrase sat in the SAME verdict sentence I lifted
+the numbers from. A DOCUMENT'S INTERPRETATION IS NOT EVIDENCE; DISK-VERIFY OUR OWN NOTES, ORGAN_MAP
+INCLUDED. Caught ONLY by asking whether the FIX could reach the problem -- which also TESTS WHETHER
+THE PROBLEM IS REAL.**
 
 
 ## STANDING DISCIPLINES -- NEVER-TRIM -- LESSONS

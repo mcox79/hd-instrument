@@ -40,13 +40,19 @@
 > query the ACTIVITY, not just the artifact.*
 >
 > ## 🧰 **LANDED SINCE THIS BLOCK WAS WRITTEN (2026-08-21, three commits, no experiment run)**
-> - **`d057c203d` -- THE STRONGEST BUILD CANDIDATE IS NOW NAMED IN `OVERNIGHT_PLAN`:** B1's tier
->   breakdown is a **cliff** (ours `0.931 / 0.304 / 0.002` vs counting `0.859 / 0.852 / 0.830`)
->   because its ~230-concept lexicon is **unweighted, with no frequency statistic anywhere -- so
->   distinctiveness cannot be computed even in principle**; and the asset that addresses it
->   (**36,810 words, 12 graded human dims, rho 0.2701**) is **already live and capped to two
->   values**. ⚠️ **Bar is COUNTING at 0.830, not random, and a close relative already lost to
->   `TOP_COOCCURRENT` over 3 seeds x 40k sentences.** *Both halves measured, neither connected.*
+> - 🚫 **`d057c203d` IS WITHDRAWN BY `d(next)` -- I MISREAD ITS OWN TABLE, AND THE MISREADING WAS
+>   INVERTED.** `0.931 / 0.304 / 0.002` are **`cos_syn` / `cos_rel` / `cos_unrel`** -- similarity to
+>   a **SYNONYM**, a **TOPICALLY RELATED** word, and an **UNRELATED** word -- **not** vocabulary
+>   strata. **A LOW tier-3 is the GOAL** (`vessel` vs `anger` should read ~0): **ours 0.002 is
+>   CORRECT and counting's 0.830 is the DEFECT** -- counting's whole synonym-to-unrelated range is
+>   **0.0285** against our **0.9287**, which is why its ordered fraction is 0.379 to our 0.966.
+>   **"The bar is COUNTING at 0.830" is VOID -- it targeted the baseline's PATHOLOGY.** *Coverage is
+>   `29/29` on all arms, so no tier here measures out-of-lexicon behaviour at all.* **What survives
+>   is the cell's OWN disclosure -- 86 hand-authored concepts, open-vocabulary "NOT claimed here" --
+>   i.e. a narrow demonstration of something that WORKS, the opposite of a cliff.** ⚠️ **I inherited
+>   the "cliff" reading from `ORGAN_MAP` and propagated it to three documents without opening the
+>   metrics file: A DOCUMENT'S INTERPRETATION IS NOT EVIDENCE, INCLUDING OUR OWN ORGAN MAP.**
+>   `notes/WITHDRAWN_the_B1_cliff_was_me_misreading_three_similarity_levels_as_three_vocabulary_strata_2026-08-21.md`
 > - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
 >   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
 >   the headings *and their whole sections* into the header paragraph. **Every section BODY was

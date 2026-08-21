@@ -24,7 +24,18 @@
 >    the knowledge'."*** Per-process **0.45-0.69 against a 0.19 scramble floor**; the aggregate only
 >    looked bad because **the dense corpus is small (155 facts vs ~735)**.
 >
-> ## 🎯 **THE STRONGEST BUILD CANDIDATE IN THE ARCHIVE -- BOTH HALVES MEASURED, NEITHER CONNECTED**
+> ## 🚫 **WITHDRAWN THE SAME NIGHT -- THE BLOCK BELOW MISREADS ITS OWN TABLE. DO NOT ACT ON IT.**
+> **`0.931 / 0.304 / 0.002` are `cos_syn` / `cos_rel` / `cos_unrel` -- SYNONYM, TOPICALLY-RELATED,
+> UNRELATED -- NOT vocabulary strata. A LOW tier-3 is the GOAL (`vessel` vs `anger` should read ~0).
+> Ours 0.002 is CORRECT; counting's 0.830 is the DEFECT -- its whole synonym-to-unrelated range is
+> 0.0285 against our 0.9287.** **"The bar is COUNTING at 0.830" is VOID: it targets the baseline's
+> worst property. Real comparator = `ordered_frac`, ours 0.966 vs window 0.379.** *Coverage is 29/29
+> on ALL arms, so nothing here measures out-of-lexicon behaviour.* **What survives is the cell's own
+> `coverage_scope` line: 86 hand-authored concepts, open-vocabulary explicitly NOT claimed -- a
+> narrow demonstration of something that WORKS.**
+> ➡️ `notes/WITHDRAWN_the_B1_cliff_was_me_misreading_three_similarity_levels_as_three_vocabulary_strata_2026-08-21.md`
+
+> ## ~~🎯 **THE STRONGEST BUILD CANDIDATE IN THE ARCHIVE -- BOTH HALVES MEASURED, NEITHER CONNECTED**~~ **(WITHDRAWN)**
 > **B1 (the concept hub) IS A COVERAGE CLIFF, and `ORGAN_MAP` says so in its own words: *"not a
 > HARD_PASS for the organ. **It is a cliff.**"***
 >

@@ -75,7 +75,7 @@ I measured `n_grounded`, which is **the comparator gate only** -- and that gate 
 - 🔧 **FIXED 2026-08-21 -- `ReadResult.n_grounded` WAS STRUCTURALLY ALWAYS ZERO.**
   `substrate.py:608` read **`n_grounded_cumulative`**; `checkpoint()` emits **`cumulative_grounded`**
 
-_mirrored from `notes/STATUS.md` at 2026-08-21T16:10:36Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-21T16:18:46Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 

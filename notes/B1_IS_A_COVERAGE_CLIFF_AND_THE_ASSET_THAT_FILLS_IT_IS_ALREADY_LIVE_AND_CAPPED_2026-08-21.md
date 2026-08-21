@@ -1,4 +1,17 @@
-# **B1 IS A COVERAGE CLIFF -- 0.931 → 0.304 → 0.002 -- AND THE ASSET THAT WOULD FILL IT IS ALREADY LIVE, ALREADY BETTER THAN A 121M-TOKEN ENCODER, AND DELIBERATELY CAPPED**
+> # 🚫🚫 **THIS ENTIRE NOTE'S HEADLINE IS WITHDRAWN. DO NOT QUOTE THE TIER TABLE BELOW.**
+> **`0.931 / 0.304 / 0.002` ARE NOT THREE VOCABULARY STRATA. They are `cos_syn` / `cos_rel` /
+> `cos_unrel` -- similarity to a SYNONYM, to a TOPICALLY RELATED word, and to an UNRELATED word.**
+> **A LOW TIER-3 IS THE GOAL: `vessel` vs `anger` SHOULD read ~0. Ours reads 0.002 (correct);
+> distributional counting reads 0.830 (an organ that thinks everything resembles everything -- its
+> whole range is 0.0285 against our 0.9287).** *So "we collapse where counting holds" is INVERTED,
+> and **"the bar is 0.830" is VOID -- it targets the baseline's PATHOLOGY.** The real comparator is
+> `ordered_frac`: ours **0.966**, window **0.379**.* **Coverage is `29/29` for ALL arms -- every
+> triple is INSIDE the lexicon, so no tier here measures out-of-lexicon behaviour at all.**
+> **What survives: the cell's OWN `coverage_scope` disclosure (86 hand-authored concepts;
+> open-vocabulary explicitly NOT claimed) -- a narrow demonstration of something that WORKS.**
+> ➡️ `notes/WITHDRAWN_the_B1_cliff_was_me_misreading_three_similarity_levels_as_three_vocabulary_strata_2026-08-21.md`
+
+# ~~**B1 IS A COVERAGE CLIFF -- 0.931 → 0.304 → 0.002 -- AND THE ASSET THAT WOULD FILL IT IS ALREADY LIVE, ALREADY BETTER THAN A 121M-TOKEN ENCODER, AND DELIBERATELY CAPPED**~~ **(HEADLINE WITHDRAWN, above)**
 
 **Two things found separately tonight. `ORGAN_MAP` itself says of the first: *"the cell measured it
 and nobody set the two beside each other."* This sets them beside each other.**
