@@ -24,6 +24,30 @@
 > **➡️ THE ORDERING QUESTION IS NOT "WHICH ORGAN NEXT". IT IS "WHY IS THE OUTPUT AT CHANCE" -- AND THE
 > ANSWER IS NOT KNOWN.**
 >
+> ## 🟢 **AND A SECOND EXCEPTION, RECOVERED 2026-08-21 FROM BEHIND A WRONG LABEL: ON DENSE MATERIAL, READING WORKS.**
+> **`exp_bootstrap_dense_process_article_reading_fade_v6` -- `verdict` says
+> `HARD_FAIL_dense_explicit_no_better_than_scattered`; its `final_verdict` says
+> `MIDDLE_BAND_dense_reading_works_per_process_aggregate_capped_by_volume`, and its message opens
+> *"(overstated conclusion CORRECTED)"*.** *Invisible to every query until tonight's
+> `experiment_index` fix.*
+>
+> | process | reading-only | (seed) |
+> |---|---|---|
+> | `igneous_rock_cycle` | **0.6923** | (0.8462) |
+> | `erosion` | **0.60** | |
+> | `electricity_generation` | **0.561** | (0.6585) |
+> | `digestion` / `combustion` | 0.50 / 0.4516 | |
+>
+> **Scramble floor ~0.1879 -> 2.4x-3.7x it, APPROACHING THE SEED.** *Its own words: **"This REFUTES
+> 'reading can't supply the knowledge'."*** **The aggregate looked bad (0.2121 vs scattered 0.2788)
+> because THE DENSE CORPUS IS SMALL -- 155 facts vs ~735** -- and 2 of 7 processes fail for NAMED
+> reasons (entity mismatch; an article that is *"descriptive not mechanistic"*).
+>
+> **⚠️ NOT A CLEAN WIN: the aggregate genuinely is below the scattered baseline, it has NEVER been
+> floored against COUNTING, and 5 of 7 is promising rather than proven.**
+> **➡️ BUT IT LOCATES THE WEAKNESS IN *WHAT WE FEED IT*, NOT IN THE READING MECHANISM** -- and every
+> chance-level number above was measured on general or scattered material.
+>
 > **THE ONE EXCEPTION WORTH PRESSING:** the **DEFINITIONAL** half hand-scores several times better
 > than the distributional half on **three independent samples** (32%/4% paired, 48%/4% same-rows,
 > 28%/6% my per-row re-score). *That is the only part of the output with a repeatable quality signal.*
