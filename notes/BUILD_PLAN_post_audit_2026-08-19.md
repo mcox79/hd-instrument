@@ -163,6 +163,20 @@
 >   FILED THE QUESTION WITHOUT OPENING THE FILE.*** **THIRD instance tonight of a control that scores
 >   well by containing nothing** (zeroed-`W`; B1's empty stratum; this).
 >   `notes/Q96_ANSWERED_FROM_DISK_the_write_less_axis_TERMINATES_IN_A_DEGENERATE_ARM_that_is_already_measured_2026-08-21.md`
+> - 🔄 **THEN Q97 ANSWERED FROM DISK TOO, AND IT REFUTES MY OWN SUSPICION -> Q98.** *The per-pair
+>   scores were ALREADY in `units.jsonl` (`result.scores.{P,S}` per arm), so the tie-mass check cost
+>   nothing -- **the SECOND time in two turns that the number I asked permission to produce was
+>   already on disk.*** **TIE MASS IS EXACTLY 0.0000 AT EVERY TESTED THRESHOLD, all 242 scores
+>   distinct, and the fraction of test words with NO score is 0.0000 EVEN AT THE EDGE.** *Only the
+>   anti-gate ties, and it ties completely (1.0000, one unique value).* ➡️ **THE DEGENERACY IS REAL
+>   BUT CONFINED TO THAT ONE ARM -- the rising curve is NOT drifting toward silence, so the gain over
+>   the tested range is not an artefact, AND THE EXTENSION IS WORTH DOING AFTER ALL.** **BUT WITH A
+>   STOPPING RULE, since "until it stops improving" still has no answer: STOP AT THE LAST POINT WHERE
+>   THE FRACTION OF TEST WORDS WITH NO SCORE IS STILL ZERO.** ⚠️ *Tie mass is a STEP function (0
+>   until nearly empty, then 1) -- a backstop, not the graded warning; zero-coverage is the graded
+>   one.* **UNCHANGED: random rate-matched matches at all four points (gain is RATE), and every arm
+>   stays `BELOW_0.5_COOCCURRENCE`.** *Position changed 3x in one night -- weight the measurement,
+>   not my judgement.*
 > - **`07c2c87aa` -- THE RECOVERY ENTRY POINT WAS BROKEN.** `STATUS.md` had **LOST 2 of its 4
 >   machine-parsed headings** (`## POSITION`, `## TOP ITEM`) -- two unterminated backticks absorbed
 >   the headings *and their whole sections* into the header paragraph. **Every section BODY was

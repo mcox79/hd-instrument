@@ -73,6 +73,37 @@ exists for the tie-convention problem in another arm.*
 from 0.5. **The curve may well be genuine up to some point** -- what is established is that its
 DESTINATION is meaningless, so "keep going until it stops improving" cannot find an optimum.*
 
+## 5. ⚡ **UPDATE, SAME NIGHT: I MEASURED §4's TEST AND IT REFUTES MY OWN SUSPICION**
+
+**The per-pair scores were ALREADY SAVED in `units.jsonl` (every `ARM|` unit carries
+`result.scores.{P,S}`), so the tie-mass check cost nothing and needed no authorisation.** *That is
+the second time in two turns that the number I asked permission to produce was already on disk.*
+
+| arm | acceptance | AUC | **tie mass** | **frac. score == 0** | unique P scores |
+|---|---|---|---|---|---|
+| `A0_INCUMBENT` | 1.0000 | 0.0710 | **0.0000** | 0.0000 | **242** |
+| `P1 @0.4039` | 0.7485 | 0.0961 | **0.0000** | 0.0000 | **242** |
+| `P1 @0.4497` | 0.5139 | 0.1526 | **0.0000** | 0.0000 | **242** |
+| `P1 @0.4862` | 0.3067 | 0.2268 | **0.0000** | 0.0000 | **242** |
+| `P1 @0.5151` **(edge)** | 0.1581 | 0.3079 | **0.0000** | **0.0000** | **242** |
+| `N2_ANTI_GATE` | 0.0000 | 0.5000 | **1.0000** | **1.0000** | **1** |
+
+**🚫 MY §2 SUSPICION IS REFUTED. Tie mass is EXACTLY ZERO at every tested threshold, all 242 scores
+remain distinct, and NOT ONE test word is left without a score even at the edge.** *The degeneracy
+is real but **confined to the anti-gate arm alone** -- it does not bleed into the measured range.*
+
+**➡️ SO THE RECOMMENDATION REVERSES: the extension IS worth doing** -- the gain across the tested
+range is not a silence artefact -- **but it needs a STOPPING RULE, because "until it stops
+improving" still has no answer.**
+
+> **THE STOPPING RULE: watch the fraction of test words that end up with NO score. It is exactly
+> 0.0000 at the edge today; the moment it leaves zero, the arm is being scored on silence.**
+> ⚠️ *Tie mass itself is a STEP function -- it stays at 0 until the store is nearly empty, then
+> jumps to 1 -- so it is a BACKSTOP, not the graded early warning. Zero-coverage is the graded one.*
+
+**UNCHANGED AND STILL CAPPING THE VALUE:** *the rate-matched random gate matches at all four
+thresholds, so the gain is RATE not prediction; and every arm remains `BELOW_0.5_COOCCURRENCE`.*
+
 ## TLDR
 
 Last night I asked you to approve extending an experiment, because the system scores better the less
