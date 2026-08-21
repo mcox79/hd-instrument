@@ -47,7 +47,7 @@ reading differs -- a clean attribution because the codebook was measured separat
 *Overlapping marginal CIs are not a test of a difference; this is. The project's standing position
 can now be stated in its strong form for this task.*
 
-### 3b. 🚨 AND THE SUBSTRATE'S SIGNAL IS **SUBSUMED** BY COUNTING -- a lossy counter on this task
+### 3b. 🚨 THE SUBSTRATE'S SIGNAL IS **PARTIALLY SUBSUMED** -- union gain **1.28x** *(corrected: first written as flat SUBSUMED on a discriminator this project had already flagged as mis-specified; cortical read 1.1x = subsumed, substrate **1.28x** = partial, sensorimotor spoke 2.2x = a real second channel)*
 On 478 anomalous sentences: both arms hit **88** where independence predicts 62.3; **substrate-only
 58 where independence predicts 83.7**. Substrate-unique rate minus independence = **`-0.0537`, CI
 `[-0.0741, -0.0330]`, EXCLUDES ZERO.** *The arms agree far more than two independent arms would --

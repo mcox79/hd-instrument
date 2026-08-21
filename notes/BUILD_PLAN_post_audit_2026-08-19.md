@@ -28,7 +28,11 @@
 > slot-inflated; one set; a surface-vs-lemma lookup bug deflating both floors) -- **never from new
 > evidence about the task.**
 >
-> ## 🚨🚨 **SUBSUMED -- THE SUBSTRATE IS A LOSSY COUNTER ON THIS TASK (2026-08-21)**
+> ## 🚨 **PARTIALLY SUBSUMED -- UNION GAIN `1.28x` (2026-08-21, corrected)**
+> *First written as flat SUBSUMED on a discriminator the 2026-08-19 spoke diagnostic had ALREADY
+> flagged as mis-specified: "AT independence and BELOW independence mean OPPOSITE things for
+> buildability... the correct discriminator is the UNION GAIN." Same discriminator:*
+> **cortical read 1.1x = SUBSUMED · SUBSTRATE 1.28x = PARTIAL · sensorimotor spoke 2.2x = REAL CHANNEL.**
 > *"Behind" and "subsumed" are different findings with opposite consequences, and I had only
 > measured the first.* On 478 anomalous sentences, did the arm put the planted word first:
 > | | observed | if INDEPENDENT |

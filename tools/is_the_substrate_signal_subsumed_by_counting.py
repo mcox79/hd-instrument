@@ -19,10 +19,25 @@ anomalous word first (pessimistic convention, ties against). Then compare the ob
 what **independence** predicts from the two marginal rates. **Reporting only "the substrate has N
 unique wins" would be meaningless** -- two arms of any quality have some disagreement by chance.
 
-**THE PRE-COMMITTED READING, written before the run:**
-- observed overlap **>>** independence prediction, and substrate-unique ~0 -> **SUBSUMED**
-- substrate-unique **materially above** what independence predicts -> **an independent contribution**
-- neither, at this n -> **UNRESOLVED**, which is not "independent" and not "subsumed"
+*** ⚠️ THE DISCRIMINATOR WAS MIS-SPECIFIED IN V1 OF THIS FILE, AND THE PROJECT HAD ALREADY SAID SO. ***
+V1 read "substrate-unique BELOW what independence predicts -> SUBSUMED". **The 2026-08-19 spoke
+diagnostic had already caught exactly that error, in its own words:** *"I wrote 'materially ABOVE
+independence -> complementary; AT OR BELOW -> subsumed', which lumps AT independence together with
+BELOW independence. **Those mean OPPOSITE things for buildability.** ... The correct discriminator is
+the UNION GAIN."* **Two arms that succeed on DIFFERENT items at chance-overlap rates is precisely the
+case where combining pays** -- that is not subsumption, it is complementarity.
+
+**SO THE PRIMARY NUMBER IS `UNION / COUNTING`**, with the ratio reported beside it as secondary.
+Reference points from that same diagnostic, on the same discriminator:
+
+| route | ratio | **union gain** | verdict then |
+|---|---|---|---|
+| cortical read | 0.55 | **1.1x** | SUBSUMED |
+| sensorimotor spoke | 0.94 | **2.2x** | a real second channel |
+
+*I built this tool without running the prior-work read on my own project's answer to the same
+question. That read is `tools/organ_map_cite.py`'s sibling discipline and it exists because of
+exactly this.*
 """
 from __future__ import annotations
 
@@ -185,10 +200,25 @@ def main():
     print("\n  substrate-unique rate MINUS what independence predicts: %+0.4f, 95%% CI [%+0.4f, %+0.4f]"
           % (obs, lo, hi))
     print("\n" + "=" * 82)
+    union = (both + s_only + c_only) / n
+    gain = union / pc if pc else float("nan")
+    print("")
+    print("  *** PRIMARY DISCRIMINATOR -- UNION GAIN (the ratio above is SECONDARY) ***")
+    print("     union hit rate %.4f / counting %.4f = **%.2fx**" % (union, pc, gain))
+    print("     reference, same discriminator, 2026-08-19: cortical read 1.1x = SUBSUMED;")
+    print("     sensorimotor spoke 2.2x = a real second channel.")
+    if gain < 1.15:
+        print("  -> SUBSUMED by union gain: combining buys almost nothing over counting alone.")
+    elif gain < 1.6:
+        print("  -> PARTIAL: combining buys something real but far less than a genuine second")
+        print("     channel. Between the cortical route and the spoke, nearer the cortical end.")
+    else:
+        print("  -> COMPLEMENTARY: combining buys a large gain -> a real second channel.")
+    print("")
     if hi < 0:
-        print("SUBSUMED: the substrate's unique wins are FEWER than independence predicts.")
-        print("-> On this task we are a LOSSY COUNTER. Building on this representation adds nothing")
-        print("   counting does not already have.")
+        print("RATIO (secondary): substrate-unique wins are FEWER than independence predicts,")
+        print("  so the two arms are positively correlated -- one signal read twice, not two")
+        print("  sources. **But read the UNION GAIN above for the buildability question.**")
     elif lo > 0:
         print("NOT SUBSUMED: the substrate wins items counting misses, MORE often than independence")
         print("   predicts -> there is an independent contribution to build on, despite the smaller total.")

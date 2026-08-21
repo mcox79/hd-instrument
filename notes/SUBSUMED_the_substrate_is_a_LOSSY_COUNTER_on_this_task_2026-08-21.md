@@ -1,5 +1,26 @@
 # **SUBSUMED**: THE SUBSTRATE'S ANOMALY SIGNAL IS A **WEAKER VERSION OF COUNTING**, NOT SOMETHING OF ITS OWN
 
+> # ⚠️ **OVERSTATED -- CORRECTED SAME DAY. THE VERDICT IS `PARTIAL`, NOT `SUBSUMED`.**
+> **My discriminator was mis-specified, and this project had ALREADY caught that exact error.** The
+> 2026-08-19 spoke diagnostic says, in its own words: *"I wrote 'materially ABOVE independence ->
+> complementary; AT OR BELOW -> subsumed', which lumps AT independence together with BELOW
+> independence. **Those mean OPPOSITE things for buildability.** ... The correct discriminator is the
+> UNION GAIN."*
+>
+> | route, same discriminator | ratio | **union / counting** | verdict |
+> |---|---|---|---|
+> | cortical read | 0.55 | **1.1x** | SUBSUMED |
+> | **THE SUBSTRATE, today** | **0.69** | **1.28x** | **PARTIAL -- nearer the cortical end** |
+> | sensorimotor spoke | 0.94 | **2.2x** | a real second channel |
+>
+> **➡️ CORRECTED CLAIM: combining the substrate with counting buys `1.28x` -- REAL, but far short of
+> a genuine second channel.** *"We are a lossy counter" was too strong; "we are mostly a lossy
+> counter, with a small genuine complement" is what the evidence supports.*
+> **The ratio finding below stands as a SECONDARY fact** -- the arms ARE positively correlated, one
+> signal read twice. **It is just not the number that answers the buildability question.**
+> *Cause: I built the tool without running the prior-work read on my own project's answer to the
+> same question. The archive held both the answer and the correction to my discriminator.*
+
 **"Behind" and "subsumed" are different findings with opposite consequences, and I had only measured
 the first.** The paired test said we score below counting. That leaves open whether we contribute
 anything counting lacks. **We do not.**
