@@ -1,6 +1,27 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
-> # 🚨 **ORGAN_MAP QUEUES F5 BEHIND STEP 4 AND CLASSES IT PHASE B -- BOARD Q93 OPEN (2026-08-21)**
+> # 🔄 **AND MY RECOMMENDATION ON IT REVERSED, ONE TURN LATER -- NOW BOARD Q94 (Q93 SUPERSEDED)**
+> I recommended *"carry on with F5"* and only THEN ran the three prior-work reads on the
+> alternative. **The reads changed the answer. Recommending before reading is the same ordering
+> error I had just finished documenting.**
+> ### **E3 IS NOT A MISSING ORGAN -- IT IS A WORKING ONE, ABOVE ITS FLOORS.** `ORGAN_MAP` STEP 4 in
+> its own words: **"a WIDEN-THE-MARGIN step on a working organ, not a rescue."**
+> **our resolver 0.7193** vs most-recent-mention **0.5614** and subject-majority **0.3860**; oracle
+> 0.9298, honest earned 0.6842; same run, same corpus, same metric
+> (`exp_wire_coref_accumulate_situation_model_v1`, `BOTTLENECK_QUANTIFIED`). **`WIRED: YES`.**
+> ### 🎯 **AFTER A DAY WHERE EVERY MEASUREMENT PUT US AT OR BELOW COUNTING, THIS IS THE ONE PLACE ON
+> THE MAP WHERE THE SUBSTRATE IS DEMONSTRABLY AHEAD OF ITS TRIVIAL BASELINES.**
+> Its fidelity fix is named precisely -- replace OUR invented arithmetic (`beta=0.5, lambda=0.1`)
+> with parallel cue-based retrieval + similarity interference, score by the semantic comparator not
+> token Jaccard, **KEEP** the margin abstention (already brain-faithful). **More specified than F5's
+> design, whose norm/update/precision are all UNPINNED.**
+> ### ⚠️ **AND ITS HARD_PASS IS n=10 (1.000).** The map already says so: can-fail test is
+> **"n in the hundreds -- not n=10."**
+> **Q94 recommendation: do step 4 first. Risk stated: it defers the read-back gap F5 was aimed at,
+> and I have reversed myself within two turns, which is itself a reason to discount me.**
+> `notes/I_RECOMMENDED_F5_BEFORE_READING_E3_...md`
+
+> # 🚨 **ORGAN_MAP QUEUES F5 BEHIND STEP 4 AND CLASSES IT PHASE B -- BOARD Q94 (2026-08-21)**
 > `ORGAN_MAP.md` in its own words: **"F5/F6 -- queue behind step 4"** (1440); **"PHASE B --
 > SUPERCHARGE. NOT STARTED. Recorded so it is not started by accident."** (1442); **"F5 does not
 > exist yet, so this is Phase B AFTER the Phase-A organ is built and floored"** (1447-49); **"No
