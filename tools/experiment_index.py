@@ -105,6 +105,34 @@ def _verdict(mp: Path):
     return None
 
 
+# ADDED 2026-08-21. A cell can carry a CORRECTION in a dedicated top-level field, and nothing read
+# them. exp_graded_path_vs_orthographic_floor_v1 has a field literally named `premise_correction`
+# saying "GRADED_COMPARATOR is default-ON ... NOT default-OFF as the dispatch brief assumed" -- a
+# prior dispatch's mistake, written down to stop the next one. It did not: the same mistake was made
+# again on 2026-08-21 while planning, because the archive never surfaced it.
+# Population is small (measured over 7,868 cells): premise_correction 2, amendment 5, amendments 4,
+# prereg_amendment 3, amendment_commit 3. Cheap to carry, and it fires exactly where it matters.
+CORRECTION_KEYS = ("premise_correction", "amendment", "amendments", "prereg_amendment",
+                   "superseded_by", "retraction")
+
+
+def _corrections(mp: Path):
+    try:
+        d = json.loads(mp.read_text(encoding="utf-8", errors="replace"))
+    except Exception:
+        return None
+    if not isinstance(d, dict):
+        return None
+    out = []
+    for k in CORRECTION_KEYS:
+        v = d.get(k)
+        if v in (None, "", [], {}):
+            continue
+        txt = v if isinstance(v, str) else json.dumps(v)
+        out.append(f"{k}: {txt}")
+    return " | ".join(out)[:400] if out else None
+
+
 def build() -> int:
     rows, n_src = [], 0
     t0 = time.time()
@@ -129,6 +157,7 @@ def build() -> int:
             if mp.exists():
                 row["landed"] = True
                 row["verdict"] = _verdict(mp)
+                row["corrections"] = _corrections(mp)
                 # NOT `src` -- that name already holds this file's SOURCE TEXT a few lines above.
                 ran_d, ran_src = _ran_date(mp)
                 row["landed_date"] = ran_d
@@ -146,6 +175,7 @@ def build() -> int:
             dt, src = _ran_date(mp)
             rows.append({"cell": d, "mtime": None, "headline": "(result only, no source file)",
                          "landed": True, "verdict": _verdict(mp),
+                         "corrections": _corrections(mp),
                          "landed_date": dt, "date_source": src})
     INDEX.parent.mkdir(parents=True, exist_ok=True)
     with open(INDEX, "w", encoding="utf-8", newline="") as fh:
@@ -222,6 +252,8 @@ def query(terms, all_terms=False, limit=40) -> int:
         print(f"{flag} {r.get('landed_date') or r.get('mtime') or '?':10s} {r['cell'][:70]}")
         if r.get("verdict"):
             print(f"         verdict: {r['verdict'][:150]}")
+        if r.get("corrections"):
+            print(f"         !! CORRECTION ON THIS CELL: {r['corrections'][:300]}")
     if len(hits) > limit:
         print(f"\n  ... {len(hits)-limit} more (raise --limit)")
     return 0
