@@ -234,6 +234,23 @@
 >   reader, not the file.*** ✅ *That note's CONCLUSION survives on its real evidence --
 >   `n_survivors = 1414` vs `len(sample) = 100`, so the v1-vs-v2 volume/purity trade still cannot be
 >   settled from disk and `WIRE_CANDIDATE` stands. **Right conclusion, wrong supporting fact.***
+> ## ✅ **Q99 ANSWERED AND DONE.** Owner: *"I want the only things in the gui to be regularly updated.
+> ## static windows that get old are useless. Evaluate what is genuinely useful here, keep it, and
+> ## make sure it's effortless to maintain."*
+> **The test that made "genuinely useful" DECIDABLE: ORPHANED vs IDLE.** *Age cannot decide it -- a
+> panel stale because NOTHING IS RUNNING returns by itself; one with NO WRITER never will.*
+> `dashboard_staleness.has_live_writer()` asks whether any tool still writes it (**excluding itself**
+> -- a tool naming every panel would certify them all healthy -- and `_`-prefixed one-offs).
+> ➡️ **9 ORPHANED panels moved to `data/retired_2026-08/` (git mv where tracked, so history follows);
+> 3 KEPT because they have live writers and are merely IDLE** (`inflight_status` <- inflight_monitor,
+> `latest_landings` <- landing_notifier, `certification`). **Report now runs CLEAN: 0 panels both
+> claim to be current and are >=30d stale.**
+> ⚠️ **`fleet_status_NOW.md` IS THE INSTRUCTIVE ONE: mtime read 4 DAYS while its own body said
+> *"Last update: 2026-06-30"*. A TIMESTAMP IS NOT EVIDENCE OF CURRENCY** -- the writer test is not
+> fooled by a touch, which is exactly why the banner-only first version could not recommend removal.
+> *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
+> `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
+>
 > ## 🧠 **RETROSPECTIVE REDONE AS A NEUROSCIENTIST (owner, COMMENTARY 18:41Z: *"you often go for
 > ## answers that might make sense in standard coding, but don't apply well here... imagine yourself
 > ## as a neuroscience expert"*). THE CORRECTION IS EXACT AND IT CHANGED THE CONCLUSION.**
