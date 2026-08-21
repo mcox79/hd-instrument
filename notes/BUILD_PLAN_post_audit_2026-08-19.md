@@ -251,6 +251,25 @@
 > *The genuinely live surfaces were never in `data/`: `notes/STATUS.md`, `notes/BOARD.md`,
 > `notes/COMMENTARY.md`.* `data/retired_2026-08/README.md` records each and the one-line restore.
 >
+> ## 🔻 **AND THE PRIOR-WORK CHECK CORRECTED MY OWN RECOMMENDATION ONE TURN AFTER FILING IT (Q101 →
+> ## Q102): THE "SEPARATE IDENTITY CODE" IS ALREADY BUILT AND SIMPLY NOT WIRED.**
+> **`notes/PLAN.md` already carries tonight's "discovery" as ONE OF ITS FOUR FOUNDATIONAL ANCHORS:**
+> *"**Word FORM and word MEANING are separate brain systems.** The visual word form area produces a
+> *form* code; meaning lives in temporal cortex. **A spelling-derived code is a FORM code, and we
+> have been calling it a meaning code.** That single confusion explains why a spell-checker beats us
+> and why our concept profile's headline 'structure' turned out to be 78% lemma collision."*
+> **AND THE ORGANS EXIST: `char_trigram_encoder.py`, `vwfa.py`, `char_positional_encoder.py` --
+> PLAN.md's own row reads "all built, none on the live path", with n-gram coding tagged
+> PINNED-BY-EVIDENCE.**
+> ➡️ ***SO THIS IS A WIRING DECISION ABOUT EXISTING, BRAIN-PINNED ORGANS -- NOT A BUILD. Cheaper,
+> lower-risk and better-evidenced than what I first told the owner.*** *Q101 resolved as superseded
+> BY ME; Q102 filed with the corrected framing. The MEASUREMENT is unchanged.*
+> ⚠️ **THE RISK CARRIED INTO Q102: spelling ALREADY beats our meaning read-out at rank 1 (0.0767 vs
+> 0.0480), so wiring it may simply produce A BETTER INDEX RATHER THAN BETTER UNDERSTANDING. The tell
+> to watch is recognition rising while meaning scores stay flat.**
+> 🔁 **THIRD TIME TONIGHT THAT CHECKING PRIOR WORK CHANGED THE ANSWER** -- after the crosstalk
+> mechanism and the `ca3_completer` saturation guard. *The archive keeps already knowing.*
+>
 > ## 🧩 **AND THE ENCODING GAP NOW HAS A NAME -- ONE CAUSE BEHIND THREE OF TONIGHT'S DEAD ENDS:
 > ## ONE REPRESENTATION IS DOING TWO JOBS THAT REQUIRE OPPOSITE THINGS.**
 > *60 lemmas x 41 real sentences, SAME code path both arms (`context_vector_masked` with a
