@@ -209,6 +209,22 @@
 > instead of a 3,810-byte docstring.** `tools/symbol_corrections.py` (4 self-tests, incl. a
 > negative control and the base-rate ceiling). Now the 4th row of CLAUDE.md's prior-work table.
 
+> ## **A RUN I DID NOT DO, FOR TWO MEASURED REASONS FOUND BEFORE WRITING IT**
+> **The obvious follow-on to tonight's positive -- does the masked/concept encoding carry MEANING,
+> not just identity -- is NOT the next move.** (1) **THE CONFOUND-FREE VERSION IS UNTESTABLE:** of
+> 999 SimLex pairs, **533 have both words covered (>=41 sentences) but only 40 have both words
+> SOURCE-BALANCED.** *A rho on 40 pairs could not fail informatively.* (2) **THE POWERED VERSION IS
+> ALREADY DONE TWICE, with a better battery than I planned:** `exp_meaning_asset_vs_production_v1`
+> has `A_PLANTED_SEMANTIC` **0.9269** (the readout CAN detect meaning), `A_ORTHOGRAPHIC` **-0.0122**
+> (pure spelling scores ZERO on meaning -- independently matching tonight's FORM -0.0259),
+> `C_CONCEPT_SHUFFLED` -0.0092, and **`P_LIVE_CONCEPT` 0.1048 CI [-0.0073,+0.2126] n=322** -- plus
+> `exp_meaning_asset_power_extension_v2_paired` already IS the raise-n move. **SEVENTH prior-work
+> catch tonight.** ⚠️ **STILL OPEN, DO NOT READ AS CLOSED: that CI CROSSES ZERO, so the meaning
+> question is UNRESOLVED. What is closed is that MY run would not resolve it.** *The lever is CORPUS
+> BREADTH, not analysis -- 40 usable pairs is a property of having read nine separate books, and
+> growth is PAUSED by standing decision, so that is a DECISION not a task.*
+> `I_DID_NOT_RUN_THE_MEANING_TEST_...`
+
 ## 🚫 **DO NOT RE-PROPOSE (each killed with numbers tonight)**
 > *B1's "coverage cliff" (**INVERTED** -- the tiers are `cos_syn/cos_rel/cos_unrel`, so 0.002 on
 > UNRELATED pairs is the GOAL and counting's 0.830 is the DEFECT); the dense-reading cell's "REFUTES"
