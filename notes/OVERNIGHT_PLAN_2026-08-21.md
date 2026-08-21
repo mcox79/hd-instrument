@@ -164,6 +164,33 @@ bootstraps are blind to shared-randomness variance.
 
 ## 5. T4 -- **DRILL THE NEGATIVES** (owner instruction, tonight)
 
+> ### ✅ **T4 RAN, AND ITS BEST FINDING IS A BUG IN T4 ITSELF.**
+> **The archive-wide question** -- *"is saving scores-but-not-outputs one careless cell or how we
+> build?"* -- **produced two numbers from scans biased in opposite directions, 96.5% and 7.0%.**
+> **BOTH ARE VOID.** `tools/audit_archive_reanalysability.py` v1 read only the **first 2 MB** of
+> each sibling file; anything larger raised `JSONDecodeError`, was swallowed by an
+> `except: continue`, and **counted as "saved no outputs."**
+> **➡️ THE BIAS RAN EXACTLY BACKWARDS: cells that persisted the MOST data were the ones most likely
+> to be called defective.**
+>
+> **CAUGHT BY THE TRIPLE-CHECK RULE, ON THE ONE CELL I NAMED.** I accused
+> `exp_context_vector_signal_v1` of being load-bearing-but-unrecoverable. **False** -- its
+> `_pass_encounters.json` is **4,011,507 bytes** and a corrected read finds a **167-item** list.
+> **And my second charge was also wrong:** the cell **documents its own amendments with reasons and
+> preserves the unamended verdict** (`prereg_literal_primary = MIDDLE_BAND_CEILING_LIMITED`), plus
+> `no_leak_violations: 0`, `arms_differ_verified: true`, per-arm digests. *That is well-instrumented
+> work. I had conflated the artifact with a separate incident about an AGENT not disclosing a
+> denial.* **Both accusations withdrawn.**
+>
+> **THE DURABLE OUTPUT: the tool now runs a POSITIVE CONTROL before it can report any absence** --
+> negative control, nested-list, a `>2 MB` regression fixture, and a live check on the cell that
+> exposed the bug; `main()` calls it unconditionally. *Verified in both directions: reintroducing
+> the cap reproduces the swallowed error.*
+> **`notes/T4_the_archive_saves_scores_not_outputs_bounded_between_7_and_96_percent_2026-08-21.md`**
+>
+> **⚠️ CORRECTED FIGURES STILL PENDING.** v2 (whole-file reads) was correct but starved the machine;
+> v3 credits large files by SIZE without parsing. **Until it lands, quote NO archive-wide number.**
+
 > ### 🔴 **T4's OWN HEADLINE WAS WITHDRAWN -- MY SCANNER'S BIAS RAN BACKWARDS.**
 > I reported *"96.5% of scoring cells saved no outputs"* and *"at least 251 genuinely lost, 61 of
 > them HARD_PASS"*. **`tools/audit_archive_reanalysability.py` v1 read only the first 2 MB of each
