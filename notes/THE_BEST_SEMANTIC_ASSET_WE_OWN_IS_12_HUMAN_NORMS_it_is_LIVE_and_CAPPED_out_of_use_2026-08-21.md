@@ -67,6 +67,50 @@ returns a full 12-dim vector -- **so this is not a coverage limit.**
 same-idea merge is a decision-safety rule. It is not a reason to withhold a 12-dimensional graded
 feature space from anything that needs graded meaning -- which, tonight, is every organ examined.*
 
+## 5. 🔴 **TWO CORRECTIONS TO THIS NOTE, AND A COVERAGE REALITY THAT TEMPERS THE PROPOSAL**
+
+**`exp_meaning_asset_norms_coverage_gap_v1` (08-16, `COVERAGE_GAP_SIZED`) had already measured all of
+this. I found it only after writing the above.**
+
+**CORRECTION 1 -- I QUOTED 39,707 WORDS. THE USABLE ASSET IS 36,810.** The cell states it in a field
+named for the error: **`"NOT_39707": "39,707 is the Lancaster CSV filename, not the usable asset"`.**
+*The real table is the Lancaster ∩ Brysbaert JOIN. I read the number off a docstring and repeated it.*
+
+**CORRECTION 2 -- THE COVERAGE IS NOT UNIFORM, AND SimLex IS ITS BEST CASE:**
+
+| | |
+|---|---|
+| **SimLex-999 pair coverage** | **1.00 -- 100%** |
+| whole-corpus **TOKEN** coverage | **0.6035** |
+| whole-corpus **TYPE** coverage | **0.1027** |
+| instrument vocab (4,096 types) | 0.6401 |
+
+| frequency band | type coverage |
+|---|---|
+| rank 0-1,000 | 0.757 |
+| rank 1,000-4,096 | 0.602 |
+| rank 4,096-16,384 | **0.438** |
+
+**➡️ THE rho 0.2701 WAS MEASURED ON A BENCHMARK THE ASSET COVERS *COMPLETELY*.** *That is not
+cherry-picking -- SimLex is common vocabulary -- but it means **the headline advantage is measured
+where the asset is strongest**, and coverage falls to 44% by the 4k-16k band.*
+
+**AS A FEATURE SPACE IT WOULD RESOLVE ~60% OF RUNNING TOKENS AND BE SILENT ON THE REST.** *Usable,
+and exactly what the module already calls itself -- a FALLBACK. **"Highest-value cheap move" stands;
+"a graded feature space for everything" does not.***
+
+## 6. ⚠️ AND A PRIOR NEGATIVE THAT MUST TRAVEL WITH ANY PROPOSAL
+
+`exp_grounded_inductive_concept_encoder_heldout_new_v1` (07-26) -- **`HARD_FAIL`**: an inductive
+concept encoder built on this grounding scored **heldout AUC 0.5879** while a **POPULARITY baseline
+scored 0.8148** -- *the encoder lost to popularity by **0.2269***, with collapse controls firing
+correctly (shuffle 0.4980).
+
+**DIFFERENT TASK** -- link prediction over a grounded graph, not similarity -- **so it does not refute
+the SimLex result.** *But the caution transfers exactly, and it is tonight's recurring theme in a
+fourth costume: **a trivial baseline beat the grounded mechanism by a wide margin.*** **Any use of
+these vectors must be scored against POPULARITY, not only against random.**
+
 ## TLDR
 
 The best measure of word meaning we own is **not a trained model**. It is **twelve numbers per word,
