@@ -27,6 +27,14 @@ STATUS_MD = REPO / 'notes' / 'STATUS.md'
 # there means changing it here in the same commit; see the SIZE GUARD note in status_summary().
 STATUS_CAP_BYTES = 28672
 PROBE_TIMEOUT_SEC = 25
+# The plan's TOP BLOCK -- its "STATE AS OF" quoted section -- has now blown up TWICE. It reached
+# 6,895 lines and 327 sub-headings (97% of the file) before 2026-08-21, was consolidated to 76, and
+# was back to 309 lines and 20 sub-headings by that evening. Its own header forbids appending and
+# records the first blow-up; that did not stop the second. 160 fires at 309 and stays silent at the
+# 133 it now sits at, leaving room for honest growth. Same medicine as STATUS_CAP_BYTES above, for
+# the same disease: sessions append findings instead of rewriting in place and nothing reports it.
+PLAN_MD = REPO / 'notes' / 'BUILD_PLAN_post_audit_2026-08-19.md'
+PLAN_TOP_BLOCK_CAP_LINES = 160
 
 # The non-negotiables. Kept SHORT on purpose: a wall of text gets skimmed, and these have to
 # survive being read every single session. Detail lives in the charter, not here.
@@ -309,6 +317,27 @@ def _self_test() -> int:
             print(f"[self-test] FAIL: registry_report raised on a missing tool dir: {exc!r}")
             ok = False
 
+    # THE PLAN'S TOP BLOCK, both directions. It has blown up twice; a guard that fires on the
+    # consolidated size would be ignored by the third time.
+    with tempfile.TemporaryDirectory() as td:
+        nl = chr(10)
+        small = Path(td) / 'small.md'
+        small.write_text("# PLAN" + nl + ("> a line" + nl) * 20 + "## NEXT" + nl, encoding='utf-8')
+        if plan_top_block_report(small, cap=160) is None:
+            print("[self-test] PASS: a consolidated plan block is NOT flagged (no cry-wolf)")
+        else:
+            print("[self-test] FAIL: flagged a 20-line top block")
+            ok = False
+        big = Path(td) / 'big.md'
+        big.write_text("# PLAN" + nl + ("> ## head" + nl + "> body" + nl) * 200 + "## NEXT" + nl,
+                       encoding='utf-8')
+        out = plan_top_block_report(big, cap=160)
+        if out and 'OVER THE' in out and 'CONSOLIDATE IN PLACE' in out:
+            print("[self-test] PASS: a 400-line top block IS flagged, with the remedy")
+        else:
+            print(f"[self-test] FAIL: oversized block not flagged ({out!r})")
+            ok = False
+
     # THE BOARD HEADER IS A COPY OF STATUS'S AS OF LINE, AND IT WENT STALE IN FRONT OF THE OWNER
     # on 2026-08-21. Both directions, because a staleness flag that fires when the two agree is a
     # flag that gets ignored.
@@ -539,6 +568,37 @@ def _board_header_stale(board_path: Path | None = None,
         return None
 
 
+def plan_top_block_report(path: Path | None = None,
+                          cap: int = PLAN_TOP_BLOCK_CAP_LINES) -> str | None:
+    """Report the plan's top block when it grows past the point of being readable.
+
+    Returns None when it is within cap -- a guard that speaks every session is one that gets
+    skimmed. Never raises: a missing plan is not a size claim.
+    """
+    try:
+        pp = Path(path) if path else PLAN_MD
+        if not pp.is_file():
+            return None
+        lines = pp.read_text(encoding='utf-8', errors='replace').split(chr(10))
+        n = 0
+        for ln in lines[1:]:
+            if ln.startswith('## '):
+                break
+            n += 1
+        subs = sum(1 for ln in lines[:n + 1] if ln.startswith('> ## '))
+        if n <= cap:
+            return None
+        return chr(10).join([
+            f"[plan-top-block] {n} lines, {subs} sub-headings -- OVER THE {cap}-LINE CAP.",
+            "    This block has blown up TWICE (6,895 lines, then 309). Its own header forbids",
+            "    appending and that did not stop the second one. CONSOLIDATE IN PLACE: fold the",
+            "    sub-blocks into one digest, keep every number and stated limit, and point each",
+            "    line at the note holding its evidence.",
+        ])
+    except (OSError, ValueError):
+        return None
+
+
 def board_report(board_path: Path | None = None) -> str:
     """Surface the count of open questions on notes/BOARD.md.
 
@@ -764,6 +824,9 @@ def main() -> int:
     # In-process (no subprocess): the board parse is a single small file read, so it costs
     # milliseconds and cannot push this hook toward its 10s budget.
     blocks.append(board_report())
+    _plan = plan_top_block_report()
+    if _plan:
+        blocks.append(_plan)
     _stale = _board_header_stale()
     if _stale:
         blocks.append(_stale)

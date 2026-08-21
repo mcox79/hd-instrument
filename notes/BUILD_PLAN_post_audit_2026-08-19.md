@@ -139,6 +139,15 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## 📏 **AND THIS BLOCK NOW HAS A SIZE GUARD, BECAUSE ITS HEADER ALONE DID NOT WORK**
+> **It has blown up TWICE: 6,895 lines / 327 sub-headings before 08-21, consolidated to 76, back to
+> 309 / 20 by that evening -- with the warning about the first blow-up at the top of the file I was
+> appending to.** ✅ **`session_start_hook.plan_top_block_report()` now reports it past 160 lines,
+> with the remedy (fold into a digest, keep every number and limit, point each line at its note).
+> Silent at the 133 it now sits at; self-tested BOTH directions.** *Same medicine as the STATUS byte
+> cap, which exists because STATUS was found at 35x its own limit for the same reason: sessions
+> APPEND instead of rewriting in place, and nothing reports it.*
+
 > ## 🧭 **METHOD -- THE ONLY RULE THAT PAID OUT**
 > ***PUT A NUMBER BESIDE ANOTHER NUMBER THAT CONSTRAINS IT.*** *It killed 5 claims and cleared 3.
 > Every big withdrawal was one fault: a number measured in one setting applied to another.*
