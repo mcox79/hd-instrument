@@ -1,0 +1,35 @@
+{
+  "anchor_name": "exp_graded_vs_signed_query_v1",
+  "what": "what np.sign at reading_grounding_loop.py:776 costs; ONE VARIABLE (query only), graded anchor field in both arms",
+  "prediction_under_test": "restoring magnitude moves hit@1 specifically and leaves median rank roughly alone (T5b)",
+  "ts_iso": "2026-08-21T03:48:29.174922+00:00",
+  "n_items": 4000,
+  "n_scored": 4000,
+  "positive_control_reproduces_c3_headline": true,
+  "q_graded_optimistic_hit_at_1": 0.048,
+  "n_pick_changed": 1774,
+  "n_rank_changed": 3708,
+  "paired_hit_at_1_graded_minus_signed": 0.0025,
+  "paired_ci95": [
+    -0.003,
+    0.008
+  ],
+  "arms": {
+    "Q_GRADED": {
+      "hit_at_1_optimistic": 0.048,
+      "hit_at_1_pessimistic": 0.048,
+      "median_rank_optimistic": 37.0,
+      "median_rank_pessimistic": 37.0,
+      "mean_tied_at_max": 1.0,
+      "frac_any_tie": 0.0
+    },
+    "Q_SIGNED": {
+      "hit_at_1_optimistic": 0.0455,
+      "hit_at_1_pessimistic": 0.0455,
+      "median_rank_optimistic": 41.0,
+      "median_rank_pessimistic": 41.0,
+      "mean_tied_at_max": 1.0,
+      "frac_any_tie": 0.0
+    }
+  }
+}
