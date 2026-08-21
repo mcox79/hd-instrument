@@ -1,0 +1,35 @@
+{
+  "anchor_name": "exp_orthographic_floor_tie_mass_v1",
+  "what": "THE MISSING TIE DIAGNOSTIC for A1_BASE vs A6_TRIGRAM_ONLY; neither landed cell computed tie mass or the pessimistic convention",
+  "reuses": "exp_orthographic_floor_vet_v1 construction by import",
+  "ts_iso": "2026-08-21T03:14:24.782862+00:00",
+  "n_items": 4000,
+  "arms": {
+    "A1_BASE": {
+      "n_scored": 4000,
+      "mean_tied_at_max": 1.0,
+      "median_tied_at_max": 1.0,
+      "max_tied_at_max": 1,
+      "frac_items_with_ANY_tie_at_max": 0.0,
+      "frac_items_ALL_SCORES_ZERO": 0.0,
+      "hit_at_1_optimistic": 0.048,
+      "hit_at_1_pessimistic": 0.048,
+      "median_rank_optimistic": 37.0,
+      "median_rank_pessimistic": 37.0,
+      "n_rank_scored": 4000
+    },
+    "A6_TRIGRAM_ONLY": {
+      "n_scored": 4000,
+      "mean_tied_at_max": 1.253,
+      "median_tied_at_max": 1.0,
+      "max_tied_at_max": 11,
+      "frac_items_with_ANY_tie_at_max": 0.15575,
+      "frac_items_ALL_SCORES_ZERO": 0.0,
+      "hit_at_1_optimistic": 0.09875,
+      "hit_at_1_pessimistic": 0.07675,
+      "median_rank_optimistic": 37.0,
+      "median_rank_pessimistic": 54.0,
+      "n_rank_scored": 4000
+    }
+  }
+}
