@@ -55,6 +55,28 @@
 > **The architectural claim is UNTOUCHED**: the meaning must supply the PREDICTION. What is
 > corrected is the FILTER. `notes/ANGLE_B_CORRECTED_the_definitional_half_covers_only_a_quarter...md`
 >
+> ## 🔻🔻 **AND THE TASK DISAGREES WITH THE RUBRIC -- THE 8x-BETTER MEANINGS PREDICT WORSE**
+> | arm, paired hit@1, 4 sets | per set | median |
+> |---|---|---|
+> | **DISTRIBUTIONAL** (accumulated profiles) | +12.5, +11.8, +20.8, +20.2 | **+16.3 pp** |
+> | **HYBRID** (definition where available, profile otherwise) | -0.8, +1.7, +13.3, +8.4 | **+5.0 pp** |
+>
+> **PAIRED: `HYBRID - DISTRIBUTIONAL = -0.107 per item over 478, CI [-0.144, -0.069]`, SEPARATED.**
+> **Substituting the extracted definition where one exists makes the system MEASURABLY WORSE.**
+> ### **THIS IS THE STANDING RULE FIRING ON MY OWN DESIGN** -- *a statistic the mechanism optimises
+> may DIAGNOSE, never DECIDE.* The 32%-vs-4% hand-score justified "bind only the definitional half";
+> the task disagrees. *"Is this a good definition" and "does this predict context" are different
+> questions and I used one as evidence for the other all session.*
+> ### ⚠️ **ALTERNATIVE EXPLANATION NOT RULED OUT:** the hybrid's per-sentence z-score, which mixes
+> two scales, is **MY invention** and sits exactly where damage would show. **The honest statement is
+> "the HYBRID is worse", NOT "the DEFINITIONS are worse".** The clean discriminator is
+> definitional-only vs distributional-only on the **48 covered items** -- next measurement.
+> ### **ANGLE B'S FILTER IS NOW UNRESOLVED AND MUST BE MARKED SO IN EVERY BRIEF** -- it has been
+> wrong twice for two different reasons (coverage 24.6%; and this). **The architectural claim -- the
+> meaning supplies the PREDICTION -- is still untouched.**
+> *Incidental: the distributional +16.3 reproduced identically here, an unplanned replication that passed.*
+> `notes/THE_TASK_DISAGREES_WITH_THE_RUBRIC_...md`
+>
 > ## 🧰 **ASSETS BUILT TODAY -- USE, DO NOT RE-DERIVE**
 > `f5_evaluation_harness.py` (REFUSES to score a detector failing the mandatory diagnostics; has
 > `compare_detectors_paired`) · `anomaly_set_frequency_matched_v8.json` + `_v8_handscores.json`
