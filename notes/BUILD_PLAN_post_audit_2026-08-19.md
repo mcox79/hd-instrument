@@ -139,6 +139,22 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## 🔻 **A RESULT THAT CONFIRMED WHAT I ALREADY BELIEVED, AND DID NOT SURVIVE ITS SECOND CONTROL**
+> **First cut: more sentences per word made identification WORSE** -- `0.1900 / 0.2000 / 0.1775 /
+> 0.1600 / 0.1435`, a clean monotonic decline after 10, *pointing exactly where the plan already
+> points ("WRITE LESS", "crosstalk DOMINATES").* **The first control CLEARED it:** leave-one-out
+> shrinks only the TARGET's profile, so a size-matched arm (drop one sentence from EVERY lemma)
+> should have exposed it -- it tracked within `0.0033` everywhere. *At that point I had a
+> controlled, theory-confirming result.* 🔻 **THE SECOND CONTROL KILLED IT: the QUERY SET was
+> growing with the depth** (300 -> 2460 items), so each step added HARDER queries while deepening
+> profiles. **Fixed-query version, same 300 queries at every depth: `0.1900 / 0.2100 / 0.2133 /
+> 0.1900 / 0.1967` -- the decline is GONE; it RISES 5->10 then is FLAT within n=300 noise.**
+> ✅ **WHAT IS TRUE: more sentences per word do NOT hurt; the only clear gain is 5->10; SO THE LIMIT
+> IS NOT DATA PER WORD -- it saturates near ten and the live median word already gets ~ten.**
+> 🚫 **DOES NOT reproduce "write less", and my first cut said it did.** ⚠️ *No CI on the fixed-query
+> points; "flat" = not distinguishable at n=300. Identification, not meaning.*
+> `I_NEARLY_REPORTED_THAT_MORE_READING_MAKES_IT_WORSE_...`
+
 > ## 📏 **AND THIS BLOCK NOW HAS A SIZE GUARD, BECAUSE ITS HEADER ALONE DID NOT WORK**
 > **It has blown up TWICE: 6,895 lines / 327 sub-headings before 08-21, consolidated to 76, back to
 > 309 / 20 by that evening -- with the warning about the first blow-up at the top of the file I was

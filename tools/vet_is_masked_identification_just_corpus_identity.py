@@ -173,6 +173,108 @@ def main() -> int:
 
     pm: dict = {}
     pc: dict = {}
+    # -- HOW MANY SENTENCES PER WORD DOES IT TAKE? ------------------------------------------
+    # Tonight's positive is 8.6x its floor and still only ~1 correct in 6 of 60. Two very different
+    # readings: the representation is weak, or 41 sentences is simply not enough experience of a
+    # word. The candidate pool stays at 60 lemmas throughout, so chance is fixed at 1/60 and the
+    # points are comparable to each other. If the curve is still climbing at 41, the limit is DATA,
+    # not the representation -- and the live median word gets about 10.
+    if "--sweep" in sys.argv:
+        print("")
+        print("SENTENCES-PER-WORD SWEEP (MASKED arm, same 60 lemmas, chance fixed at "
+              f"{1.0 / N_LEMMAS:.4f})")
+        prev = None
+        for k in (5, 10, 20, 30, N_SENT):
+            vecs = {l: [context_vector_masked(sn, l) for sn, _sr in by_lemma[l][:k]]
+                    for l in lemmas}
+            sums = {l: np.sum(vecs[l], axis=0) for l in lemmas}
+            hit = tot = 0
+            for l in lemmas:
+                for q in vecs[l]:
+                    qn = np.linalg.norm(q)
+                    if qn == 0:
+                        continue
+                    best, best_c = None, -2.0
+                    for m in lemmas:
+                        prof = sums[m] - (q if m == l else 0)
+                        pn = np.linalg.norm(prof)
+                        if pn == 0:
+                            continue
+                        c = float(np.dot(q, prof) / (qn * pn))
+                        if c > best_c:
+                            best_c, best = c, m
+                    tot += 1
+                    hit += int(best == l)
+            acc = hit / max(1, tot)
+
+            # THE ARTIFACT CONTROL, AND IT RUNS IN THE DIRECTION OF THE EFFECT.
+            # Leave-one-out shrinks only the TARGET's profile: 4-of-5 at k=5 but 40-of-41 at k=41.
+            # A profile built from fewer sentences is less averaged and can score a HIGHER cosine
+            # against a single query, so the target is flattered MOST at small k -- exactly the shape
+            # of the observed decline. This arm removes one sentence from EVERY lemma's profile, so
+            # all 60 are built from k-1 and the target has no size advantage at any point.
+            hit2 = tot2 = 0
+            for l in lemmas:
+                for qi, q in enumerate(vecs[l]):
+                    qn = np.linalg.norm(q)
+                    if qn == 0:
+                        continue
+                    best, best_c = None, -2.0
+                    for m in lemmas:
+                        drop = qi if m == l else (qi % len(vecs[m]))
+                        prof = sums[m] - vecs[m][drop]
+                        pn = np.linalg.norm(prof)
+                        if pn == 0:
+                            continue
+                        c = float(np.dot(q, prof) / (qn * pn))
+                        if c > best_c:
+                            best_c, best = c, m
+                    tot2 += 1
+                    hit2 += int(best == l)
+            acc2 = hit2 / max(1, tot2)
+
+            delta = "" if prev is None else f"   delta {acc - prev:+.4f}"
+            print(f"   n_sentences={k:3}  hit@1={acc:.4f}  (n={tot}){delta}"
+                  f"   | SIZE-MATCHED {acc2:.4f}", flush=True)
+            prev = acc
+        # THE DECISIVE VERSION: HOLD THE QUERIES FIXED, VARY ONLY PROFILE DEPTH.
+        # Above, the query set GROWS with k (300 -> 2460), so later points are scored on items the
+        # early points never saw. That is a change of population riding along with the change of
+        # depth, and this project's whole night has been about not letting those two travel
+        # together. Here the SAME 300 queries -- the first 5 sentences of each lemma -- are scored
+        # at every depth, and the ONLY thing that changes is how many sentences build the profiles
+        # they are matched against. The query itself is always excluded from its own profile.
+        print("")
+        print("   FIXED-QUERY VERSION (same 300 queries at every depth; only profile depth varies)")
+        qsets = {l: [context_vector_masked(sn, l) for sn, _sr in by_lemma[l][:5]] for l in lemmas}
+        prev2 = None
+        for k in (5, 10, 20, 30, N_SENT):
+            pv = {l: [context_vector_masked(sn, l) for sn, _sr in by_lemma[l][:k]] for l in lemmas}
+            ps = {l: np.sum(pv[l], axis=0) for l in lemmas}
+            hit = tot = 0
+            for l in lemmas:
+                for qi, q in enumerate(qsets[l]):
+                    qn = np.linalg.norm(q)
+                    if qn == 0:
+                        continue
+                    best, best_c = None, -2.0
+                    for m in lemmas:
+                        prof = ps[m] - (pv[m][qi] if m == l else 0)
+                        pn = np.linalg.norm(prof)
+                        if pn == 0:
+                            continue
+                        c = float(np.dot(q, prof) / (qn * pn))
+                        if c > best_c:
+                            best_c, best = c, m
+                    tot += 1
+                    hit += int(best == l)
+            a = hit / max(1, tot)
+            d = "" if prev2 is None else f"   delta {a - prev2:+.4f}"
+            print(f"   profile_depth={k:3}  hit@1={a:.4f}  (n={tot} fixed){d}", flush=True)
+            prev2 = a
+        print("   READ: if the last delta is still clearly positive, the limit is DATA PER WORD,")
+        print("   not the representation. The live median word gets about 10 sentences.")
+
     masked = score(lambda s, src, l: context_vector_masked(s, l), pm)
     corpus_only = score(lambda s, src, l: corpus_vec(src), pc)
 
