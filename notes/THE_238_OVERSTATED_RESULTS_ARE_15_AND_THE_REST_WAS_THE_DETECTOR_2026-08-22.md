@@ -1,4 +1,28 @@
-# **OP1/Q112 CLOSED: THE "238 OVERSTATED RESULTS" ARE AT MOST `15`. `135` WERE THE DETECTOR COMPARING QUANTITIES THAT ARE NOT COMPARABLE.**
+> # ⛔ **SUPERSEDED THE SAME HOUR. THE ANSWER IS `35`, NOT `15`. USE `THE_238_OVERSTATED_RESULTS_WERE_NEVER_238_SEVENTY_TWO_PERCENT_ARE_INVALID_COMPARISONS_2026-08-22.md`.**
+>
+> **TWO SESSIONS ADJUDICATED THE SAME QUESTION AT THE SAME TIME AND BOTH WROTE
+> `tools/adjudicate_floor_flags.py`. Theirs landed on disk before my `git add` ran, so my commit
+> `ef13dfc63` shipped THEIR file under MY commit message** -- which is why that message says `15`
+> while the tool it committed prints `35`. *A lost update with no error and no conflict: exactly
+> the hazard board Q111 was about, arriving while I was writing about it.*
+>
+> **AND THEIRS IS BETTER, on a specific and checkable point.** My commensurability test compared
+> only the LEAF metric name and its aggregator. **Theirs also checks whether the two numbers come
+> from the same BLOCK and the same `per_seed`/`per_condition` INDEX -- and `113` of the 286 flags
+> compare condition 5's floor against condition 0's treatment.** I missed that class entirely, so
+> my `135` inadmissible was an undercount and my `15` was correspondingly wrong in the other
+> direction. *My `SELF_DECLARED` regex was also too broad -- it swept `115` cells on a substring
+> match against verdict text where theirs found `1`.*
+>
+> **WHAT SURVIVES FROM THIS NOTE:** the SHAPE of the finding, which both sessions reached
+> independently -- *the flag count was never a count of overstatements, most of it is the detector
+> comparing incommensurable quantities, and the real list is small enough to read by hand.* **Two
+> independent arrivals at that conclusion is worth more than either count.**
+> **WHAT DOES NOT SURVIVE: every number in the table below.**
+
+---
+
+# ~~**OP1/Q112 CLOSED: THE "238 OVERSTATED RESULTS" ARE AT MOST `15`**~~ *(retracted -- see above)*
 
 **Owner ruling: *"re adjudicate them I think - you can do it fast, and then put this behind us."***
 **My own standing recommendation had been the opposite** -- blanket-mark all of them, on an estimate

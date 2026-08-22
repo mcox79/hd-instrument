@@ -1,0 +1,40 @@
+{"cand_id":"c0080","keep":false,"reject_reason":"expressed wish with no resolution; goal owner is 'me/I' with no name in text"}
+{"cand_id":"c0081","keep":false,"reject_reason":"expository essay on persuasion — no roster character with a goal-outcome"}
+{"cand_id":"c0082","keep":false,"reject_reason":"argument dialogue; 'mean to' is idiomatic, no goal with a resolved outcome"}
+{"cand_id":"c0083","keep":false,"reject_reason":"goal (wishes) is set 'ten years hence'; no outcome resolved in passage"}
+{"cand_id":"c0084","keep":false,"reject_reason":"expository; 'Wish' is a surname (Dave Wish), no character goal-outcome"}
+{"cand_id":"c0085","keep":false,"reject_reason":"goal owner referred to only as 'I'; no name appears in text"}
+{"cand_id":"c0086","keep":false,"reject_reason":"no explicit goal — descriptive; desire for a Grecian nose only implied"}
+{"cand_id":"c0087","keep":false,"reject_reason":"first-person narrator with no name in text"}
+{"cand_id":"c0088","keep":false,"reject_reason":"goal owner (the promise-keeper 'I') is pronoun-only; no name in text"}
+{"cand_id":"c0089","keep":false,"reject_reason":"dinner-party planning dialogue — no resolved outcome"}
+{"cand_id":"c0090","keep":false,"reject_reason":"first-person narrator with no name in text"}
+{"cand_id":"c0091","keep":false,"reject_reason":"goal owner is 'I' (addressing Marilla); no name for the owner in text"}
+{"cand_id":"c0092","keep":false,"reject_reason":"imperative instructions — no named goal owner, no resolved outcome"}
+{"cand_id":"c0093","keep":false,"reject_reason":"movie-review blurbs — no character goal with a resolved outcome"}
+{"cand_id":"c0094","keep":false,"reject_reason":"goal is a hostess's social 'hope'; owner (Miss Barry) differs from who enjoyed — unclean"}
+{"cand_id":"c0095","keep":false,"reject_reason":"goal owners are an unnamed mermaid/diver in a told fairy tale — no roster name"}
+{"cand_id":"c0096","keep":false,"reject_reason":"goal (Shackleton wanted to force a passage) has no outcome resolved in passage"}
+{"cand_id":"c0097","keep":false,"reject_reason":"scholarship outcome not resolved; goal owner 'she' unnamed in text"}
+{"cand_id":"c0098","keep":false,"reject_reason":"goal is behavior 'tomorrow' — not resolved in passage"}
+{"cand_id":"c0099","keep":false,"reject_reason":"self-help expository — no named character"}
+{"cand_id":"c0100","keep":false,"reject_reason":"the promise's content/goal is not stated in the window — cannot resolve"}
+{"cand_id":"c0101","keep":true,"id":"lw_laurie_confession_silent","text":"I want you.\" Just what Laurie longed to say, with a different meaning! As he listened, he lost his place, the music ended with a broken chord, and the musician sat silent in the dark.","roster":{"laurie":"m"},"goal_owner":"laurie","goal_text":"Laurie longed to say 'I want you'","goal_verb_lemma":"long","outcome_verb_lemma":"fail","gold_outcome_owner":"laurie","gold_outcome_polarity":"unmet","entailment":"Goal: Laurie longed to say 'I want you'. Outcome: as he listened he lost his place, the music ended, and the musician sat silent in the dark -> he never spoke the words -> UNMET.","trap_type":"natural","difficulty":"medium","resolution_has_negation":false,"corpus":"little_women.clean.txt","line_citation":"little_women.clean.txt:15277-15284","notes":"UNMET phrased affirmatively (no negation words); 'the musician' corefers to Laurie at the resolution"}
+{"cand_id":"c0102","keep":false,"reject_reason":"goal owner is first-person 'I'; named entity (Mrs. Wakefield)'s goal is only indirect"}
+{"cand_id":"c0103","keep":false,"reject_reason":"Anne assents to say prayers later — outcome is future/unresolved"}
+{"cand_id":"c0104","keep":false,"reject_reason":"outcome ambiguous — Jo is held back mid-plan (delay vs failure unclear); 'he' unnamed"}
+{"cand_id":"c0105","keep":false,"reject_reason":"expository (Streisand effect) — no resolved character goal-outcome"}
+{"cand_id":"c0106","keep":false,"reject_reason":"goal owner is 'she/waif', unnamed in text"}
+{"cand_id":"c0107","keep":false,"reject_reason":"romantic-tension scene — Meg's conflicting longing has no resolved outcome"}
+{"cand_id":"c0108","keep":false,"reject_reason":"job advertisement — no character goal-outcome"}
+{"cand_id":"c0109","keep":false,"reject_reason":"descriptive of schoolgirl quarrels — 'promising' is an adjective, no goal"}
+{"cand_id":"c0110","keep":false,"reject_reason":"no explicit goal for Jo — her wish to be invited is only inferable from her complaint"}
+{"cand_id":"c0111","keep":false,"reject_reason":"goal (Mark decided to end his life) unresolved — he is alive at the door, outcome open"}
+{"cand_id":"c0112","keep":false,"reject_reason":"financial-trouble monologue — no character goal-outcome"}
+{"cand_id":"c0113","keep":false,"reject_reason":"'trying to decide which gown' — no resolved outcome"}
+{"cand_id":"c0114","keep":false,"reject_reason":"interview/expository on tsunami-warning cost — no named character goal-outcome"}
+{"cand_id":"c0115","keep":false,"reject_reason":"Marilla's lament over her eyesight — no goal with a resolution"}
+{"cand_id":"c0116","keep":false,"reject_reason":"'great hopes for my boy' — no resolved outcome in passage"}
+{"cand_id":"c0117","keep":true,"id":"race_grace_educate_phd","text":"She entered a local college. The office for disabled students had her reading assignments put on cassette tapes so that she could listen and learn. She began studying anatomy, physiology and other health sciences. Everyone knowing her was astonished at her persistence to educate herself, restore her vision and keep focused on raising a son who would have perfect eyesight. Eventually Grace's own way worked and she earned the PhD.","roster":{"grace":"f"},"goal_owner":"grace","goal_text":"her persistence to educate herself","goal_verb_lemma":"educate","outcome_verb_lemma":"earn","gold_outcome_owner":"grace","gold_outcome_polarity":"met","entailment":"Goal: her persistence to educate herself (she entered college and studied health sciences). Outcome: 'Eventually Grace's own way worked and she earned the PhD' -> she succeeded in educating herself -> MET.","trap_type":"natural","difficulty":"easy","resolution_has_negation":false,"corpus":"race/high_test.jsonl#high13163.txt","line_citation":"race/high_test.jsonl#high13163.txt:1-3","notes":"trimmed leading cloze sentence containing a fill-in blank ('Grace began a personal _ .')"}
+{"cand_id":"c0118","keep":false,"reject_reason":"'want to be a teacher' is hypothetical; Diana's non-joining not tied to her stated goal"}
+{"cand_id":"c0119","keep":true,"id":"lw_jo_finish_book_burned","text":"My little book I was so fond of, and worked over, and meant to finish before Father got home? Have you really burned it? said Jo, turning very pale, while her eyes kindled and her hands clutched Amy nervously. \"Yes, I did! I told you I'd make you pay for being so cross yesterday, and I have, so...\" Amy got no farther, for Jo's hot temper mastered her, and she shook Amy till her teeth chattered in her head, crying in a passion of grief and anger...","roster":{"jo":"f","amy":"f"},"goal_owner":"jo","goal_text":"meant to finish her little book before Father got home","goal_verb_lemma":"finish","outcome_verb_lemma":"burn","gold_outcome_owner":"jo","gold_outcome_polarity":"unmet","entailment":"Goal: Jo meant to finish her little book before Father got home. Outcome: 'Have you really burned it?' / 'Yes, I did!' -- Amy burned the book, so it is destroyed and cannot be finished -> UNMET.","trap_type":"recency_trap","difficulty":"medium","resolution_has_negation":false,"corpus":"little_women.clean.txt","line_citation":"little_women.clean.txt:3156-3166","notes":"UNMET; the outcome ('Yes, I did!' = burned) is affirmative. Amy is the salient/most-recent actor at the resolution while the unmet goal belongs to Jo"}
