@@ -171,11 +171,35 @@
 > `ca3_completer`'s saturation guard, and the form organs already being built).
 > `METHOD_REVIEW_...` `WHAT_PASSES_AND_WHAT_FAILS_...` `THE_PATTERN_ACROSS_SIX_...`
 >
-> ## ➡️ **NEXT**
-> 1. **Q102 is with the owner** (wire the form organs). *Nothing else is blocked.*
-> 2. **The encoding gap is the real target** and is upstream of all three dead ends.
-> 3. *Nothing is running. The two runnable-unrun cells remain B4's d=1024 live-path 2AFC and D3's
->    test IF re-scoped to cue corruption -- both need cell authoring.*
+> ## ➡️ **NEXT -- REWRITTEN 2026-08-21 LATE. THE MEASUREMENT PASS CHANGED WHAT IS WORTH DOING.**
+> **1. Q102 is still the ONLY open board question** (wire the form organs). *Its evidence package is
+> now complete: form is noise-equivalent on meaning, identification is a LOOKUP, and its GAIN IS
+> MEASURED (ORGAN_MAP A1, `0.0870` vs `0.0480`, CI-separated).*
+>
+> **2. TWO BUILD CANDIDATES, BOTH BLOCKED ON CELL AUTHORING (route to `hdi_exp_dev`), BOTH NOW
+> EVIDENCED RATHER THAN GUESSED:**
+> - 🅐 **VERB MEANING FROM ITS OWN ARGUMENTS.** *Our channel scores `0.0000` on verbs across TWO
+>   benchmarks while the supplied table scores `0.2983` on the same pairs -- so it is our method, not
+>   the task.* **UNRUN: the two landed thematic/selectional cells derive a NOUN's meaning from verbs,
+>   the opposite direction.** ⚠️ *The cheap proxy (drop other verbs from context) FAILED at `+0.0069`
+>   and MAY NOT close the direction -- it never identified arguments or roles.* **Needs the
+>   parser/role-labeller.**
+> - 🅑 **THE RAW SENSORIMOTOR PROFILE HAS ONE CONSUMER** (`cortical_recall.py:86`) *while the live
+>   lexical path takes the capped scalar. The raw form is what scores `0.2983`/`0.2876`.* **NOT a cap
+>   request -- the cap governs IDENTITY and every number here is GRADED RELATEDNESS.**
+>
+> **3. THE HONEST TENSION BEHIND BOTH, WORTH THE OWNER'S EYE:** *the supplied table beats everything
+> we LEARN, on both word classes.* **Leaning on it raises scores; it is SUPPLY, not learning, and the
+> organ's docstring forbids reporting it as the substrate having learned anything.** *Owner already
+> ruled supply ADMISSIBLE (2026-08-16), so this is a PRIORITISATION question, not a permission one --
+> filed here rather than on the board, which already carries one unanswered question.*
+>
+> **4. AND THE MEASUREMENT LIMIT THAT BOUNDS ALL OF IT:** *two weighting schemes each gave `~+0.03`
+> in-sample and NEITHER separated.* **SimLex-999 cannot resolve `+0.03`; it needs ~2,300 pairs.
+> SimVerb-3500 CAN, and the power prediction held to within a few points.** *Use SimVerb for anything
+> this size.*
+>
+> **5. NOTHING IS RUNNING.** *Runnable-unrun: B4's d=1024 live-path 2AFC and D3's re-scoped test.*
 
 
 **Written 2026-08-18 end of session, at the owner's direction, to be executed after compaction.**
