@@ -74,40 +74,17 @@
 > there is a SECOND plan of record (`PLAN_grounded_semantic_organ_build.md`, 08-05) I have NOT read;
 > supersession unverified after 08-12. This changes PRIORITIES, retracts no measurement.*
 > `THE_BOTTLENECK_HAS_BEEN_NAMED_IDENTICALLY_SINCE_AUGUST_5_...`
-> ✅ **AND THE PRESCRIBED NEXT ACTIONS WERE ALREADY BUILT AND RUN -- THE ORGAN WORKS:**
-> *`bridge1_governor_grounding` **HARD_PASS** differential grounding `0.967`, unseen `0.956`, **bow
-> `0.517`**; `bridge1_confirmation_test` **RULING_CONFIRMED** (event-differing `0.500`, discourse
-> `0.500` -- the predicted failure); `bridge1_twostage_event_situation_v2` **HARD_PASS** B `1.000` and
-> C `1.000` vs governor `0.500`, **bow `0.517`/`0.500`**; open-vocab **PARTIAL_WITH_BODYPART_GAP**.*
-> 🎯 **DOUBLE DISSOCIATION, and I nearly misread it as a control failure: each subset's MATCHED
-> scramble degrades (`0.583`/`0.650`) while the UNMATCHED one does NOT (`1.000`). Ask which control
-> matched which subset BEFORE reading the numbers.**
-> 🔻 **BUT THE SCALE: n = 21/12/12/8 and `Cgen` is n=2 -- that `1.000` CARRIES NOTHING (p=0.25).**
-> ⚠️ *Open vocab `1.000 -> 0.750`; body-part stratum at chance, lift `-0.033`. Real-prose wall UNTOUCHED.*
-> 🔻 **CORRECTION TO MY OWN OWNER REPORT: "counting beats us EVERYWHERE" was SCOPED WRONG -- all 16
-> measures are the WORD-SIMILARITY channel, which both plans had already ruled out (bag-of-words
-> `0.5167` = chance HANDED THE GOLD SENSE). On the grounding organ, counting is at chance and we are not.**
-> ➡️ **LIVE FRONTIER: OPEN VOCABULARY, then REAL PROSE.** *Not another word-similarity measurement.*
-> 🔄 **I MISCHARACTERISED THE BODY-PART GAP -- it is NOT a mechanism failure.** *WordNet routes body
->   parts through BODY-PART hypernyms, so `lookup_animacy("ankle")` returns nothing; v2 patched six words
->   and **DELIBERATELY left the test words uncovered -- "covering them would defeat the point of
->   measuring the gap".** So `Bgap 0.500` is an HONEST RESOURCE HOLE.* ✅ *Real open-vocab result:
->   `Bopen_two_stage_real 1.000`, lift `0.600`, bow `0.500`.* ⚠️ **THE GENUINE OPEN-VOCAB COST IS
->   ELSEWHERE: `B_real 0.833` vs closed `1.000`; `Bgen_real 0.750` vs closed `1.000`. THAT is the frontier.**
-> 🔻 **THE OPEN-VOCAB COST IS 3 WORDS, AND IT KILLED MY OWN PROPOSED FIX THE SAME NIGHT.**
->   *`arm` (B), `hand`+`leg` (Bgen) are the ONLY closed-vs-real disagreements (Bopen/Bgap: 0; positive
->   control: both agree on woman/dog/rock/table).* **CLOSED says `inanimate/object` -- WRONG -- and
->   scores `1.000`; REAL says `animate/body_part` -- RIGHT -- and scores WORSE.** *Items are "he broke
->   her arm", "he crushed her leg", "he smashed her hand", all gold HARM.* 🔑 **THE MORE CORRECT
->   COMPONENT MAKES THE PIPELINE WORSE -- THE CONSUMER IS CALIBRATED ON THE COMPONENT'S ERROR. An
->   INTEGRATION defect, not a coverage hole.** 🔻 *My WordNet body-part fix assigns EXACTLY that losing
->   value, so it would repair `Bgap` and REGRESS `B`/`Bgen`; **my component demo could not see it -- it
->   compared the lookup against ITSELF and never asked what the consumer does.** DO NOT SHIP IT.*
->   ⚠️ *NOT PROVEN: no arm re-run with values swapped. `Bgen`'s 2 errors are exactly accounted for;
->   `B` has 2 errors and only 1 disagreeing word, so ONE IS UNEXPLAINED.*
->   ⭐ **THE BIGGER QUESTION: WHAT OTHER DOWNSTREAM LOGIC IS CALIBRATED ON A COMPONENT'S ERRORS?**
->   `A_PRINCIPLED_REPLACEMENT_...` `THE_MORE_CORRECT_LOOKUP_SCORES_WORSE_...`
-> `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
+> ✅ **THE PRESCRIBED NEXT ACTIONS WERE ALREADY BUILT AND RUN -- THE ORGAN WORKS.** *`governor_grounding`
+>   HARD_PASS `0.967` differential / `0.956` unseen / **bow `0.517`**; `confirmation_test`
+>   RULING_CONFIRMED (event-differing `0.500`, discourse `0.500` = the PREDICTED failure);
+>   `twostage_event_situation_v2` HARD_PASS **B `1.000`, C `1.000`** vs governor `0.500`, **bow
+>   `0.517`/`0.500`**; open-vocab PARTIAL.* 🎯 **DOUBLE DISSOCIATION (I nearly misread it as a control
+>   failure): each subset's MATCHED scramble degrades (`0.583`/`0.650`), the UNMATCHED one does NOT.**
+>   🔻 **SCALE: n = 21/12/12/8, and `Cgen` is n=2 -- that `1.000` CARRIES NOTHING (p=0.25).**
+>   🔻 **CORRECTION: "counting beats us EVERYWHERE" was SCOPED WRONG -- all 16 measures are the
+>   WORD-SIMILARITY channel, which both plans had ruled out (bow `0.5167` = chance HANDED THE GOLD
+>   SENSE). On the grounding organ counting is at chance and we are not.** ➡️ **FRONTIER: OPEN VOCAB,
+>   then REAL PROSE.** `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
 > ⚠️ **VERIFICATION STATUS (I had been claiming neither): those numbers are READ, NOT REPRODUCED.**
 > *Re-running gives `elapsed 0.0s` + `[resume] already done` -- checkpoints REPLAY, and **the no-op
 > re-run is INDISTINGUISHABLE FROM A PASS**.* ✅ *`--self-test` DOES recompute and reproduced the
