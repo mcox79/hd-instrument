@@ -82,5 +82,12 @@ None. Q106 and Q107 remain with the owner and neither blocks this.
    thread.* **NOT done here.**
 2. **Use `score_with_abstention.both_conventions()` for any future figure off this organ**, rather
    than re-deciding the convention each time.
-3. 🔎 **The same question is worth asking of the other three-outcome scorers in the repo** -- this
-   was found by hand on one organ, and nothing systematically checks it.
+3. ✅ **DISCHARGED THE SAME DAY -- THERE ARE NO OTHER THREE-OUTCOME ORGANS.** *Enumerated
+   `return "(NA|NONE|AMBIGUOUS|ABSTAIN|UNKNOWN)"` across all of `hdlab/`: **18 hits, every one of
+   them in `goal_typing.py`.*** ➡️ **So the six-vs-one disagreement above is the WHOLE of the
+   problem, not a sample of it, and the guard covers the only organ that needs it.**
+   ✅ *POSITIVE CONTROL: the search returned the known cases (`:1979 AMBIGUOUS`, `:1984 NONE`, the
+   `NA` family), so it is not silently matching nothing -- the failure mode that made
+   `experiment_index.py` and the first draft of `cite_check.py` unreliable.*
+   ⚠️ **STATED LIMIT: this catches a LITERAL token in a `return`. A module that returns a VARIABLE
+   holding an abstention token would not be caught, so this is a bounded enumeration, not a proof.**
