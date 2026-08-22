@@ -52,6 +52,40 @@ extra coverage (3/3 and 8/8 either way) and costs precision.***
 cases where **WordNet's dominant sense genuinely IS the body part** -- not obviously errors, but
 context would decide and this rule has none.*
 
+## 3b. 🔎 **THE FAILURE MODE IS A SILENT WRONG ANSWER, NOT AN ABSENT ONE -- AND MY FIRST DIAGNOSTIC MISSED IT**
+
+*I wrote a diagnostic asking which items the real lookup MISSES. It reported **0 misses in all four
+subsets, including the gap slice that scores `0.500`** -- while its own positive control (woman/dog/
+child/rock/table) passed. **A result that contradicts the cell had to be my test, not the cell.***
+
+**It was: I counted a miss as a FALSY RETURN. The lookup does not return nothing -- it returns
+CONFIDENTLY WRONG VALUES:**
+
+| word | what the live lookup actually returns |
+|---|---|
+| **`ankle` / `elbow` / `knee`** | 🔻 **`inanimate` / `object`** |
+| `arm` / `hand` *(in the hand-patch)* | `animate` / `body_part` |
+| `rock` / `dog` *(controls)* | correct |
+
+> ### **A LOOKUP THAT SAYS "AN ANKLE IS AN INANIMATE OBJECT" CANNOT BE CAUGHT BY ASKING WHETHER IT ANSWERED.** *Same shape as this project's standing rule that a checker sharing a flaw with what it checks hides it -- here the checker tested PRESENCE where the fault was CORRECTNESS.*
+
+## 3c. ✅ **AND WITH THAT, THE FIX IS DEMONSTRATED AT COMPONENT LEVEL, NOT JUST DISCRIMINATED**
+
+*Current lookup vs the proposed rule, over the gap words, the already-patched words and 8 controls:*
+
+| | |
+|---|---|
+| words CHANGED | **3 of 15 -- exactly `ankle`, `elbow`, `knee`** |
+| gap words now correct | ✅ **3/3** |
+| **controls unchanged** | ✅ **8/8** *(including `hammer`, which the top-3 variant broke)* |
+| already hand-patched words unchanged | ✅ **4/4** *(consistent with the supplement, not conflicting)* |
+
+***It changes precisely the words that were wrong and touches nothing else.***
+
+⚠️ *Correction: `BODY_PART_SUPPLEMENT` holds **9** words (`arm, back, face, hand, head, leg, neck,
+shoulder, wrist`), not the six I wrote twice -- the cell's own docstring says "six" and then lists
+nine. Measured from the dict.*
+
 ## 4. ⚠️ LIMITS -- **AND THE FIRST ONE IS THE REASON THIS IS A CANDIDATE, NOT A RESULT**
 
 1. 🔻 **I HAVE NOT SHOWN THIS RAISES `Bgap` FROM `0.500`.** *That needs the cell re-run, and every run
