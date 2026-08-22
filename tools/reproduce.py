@@ -30,11 +30,20 @@ COVERAGE, AND THE TWO NUMBERS ARE ON DIFFERENT POPULATIONS -- DO NOT CROSS THEM:
   **So ~21% is a property of the CHECKPOINTING archive, not of the codebase**, and quoting the 69%
   as this tool's coverage would overstate it by more than 3x.
 
-  UNDERPOWERED, RECORDED AS A DIRECTION AND NOT A VERDICT: sampling 25 sources from each class,
-  bare cells were added LATER than routed ones (median first-commit 2026-07-02 vs 2026-06-01). If
-  that holds at scale it means the harness function is falling OUT of use and coverage will shrink
-  rather than grow on its own. n=25 per class, wide ranges, and a file's first-commit date is
-  unreliable across renames -- **this is worth measuring properly before anyone plans around it.**
+  MEASURED PROPERLY 2026-08-22, AND COVERAGE SHRINKS: the share of NEW primary cells routing
+  through `get_output_dir` fell 90.8% (June) -> 47.3% (July) -> 27.2% (August), n=707-2,869 per
+  month. Not a file-generation artifact -- variant-suffix files are n<=2 per month. **So this
+  tool reaches fewer cells over time, not more**, and clearing the 275-cell backlog while new bare
+  cells keep arriving does not close the gap. *An underpowered 25-per-class sample the night before
+  called this direction correctly; that is a reason to run the powered version, not to trust the
+  sample.*
+
+  AND THE ONE-HOOK SHORTCUT IS REFUTED, RECORDED SO IT IS NOT RE-PROPOSED: redirecting inside
+  `tools/exp_checkpoint.write_metrics` instead of migrating cells would reach **85 of 1,584 bare
+  cells (5%)** -- 849 write `metrics.json` with a raw `json.dump`. The units side IS shared (208
+  call `record_unit`), which is exactly what makes a units-only redirect tempting and wrong: it
+  would force a recompute while leaving the landed `metrics.json` to be overwritten.
+  `notes/THE_REPRODUCIBILITY_HOLE_IS_GROWING_AND_THE_ONE_HOOK_SHORTCUT_IS_REFUTED_2026-08-22.md`
 
 WHAT IT REPORTS, and the three outcomes are genuinely different:
   REPRODUCED  -- fresh recompute, verdict matches the landed one. The only one that is evidence.
