@@ -1,4 +1,9 @@
-# **SEVEN LIVE ORGANS WERE READING AS "NOT ON THE PIPELINE" BECAUSE THE REGISTRY WAS STALE BY EXACTLY ONE TOOL FIX. RE-RUNNING THE AUDIT FLIPPED ALL SEVEN.**
+# **SEVEN LIVE ORGANS WERE READING AS "NOT ON THE PIPELINE". RE-RUNNING THE AUDIT FLIPPED ALL SEVEN.**
+
+# ~~**...BECAUSE THE REGISTRY WAS STALE BY EXACTLY ONE TOOL FIX**~~ **-- WRONG, AND THIS NOTE SAID SO
+IN ITS BODY WHILE ITS TITLE KEPT ASSERTING IT.** *The audit RAN twice after that fix, at 10:00 and
+10:03, and computed the correct 55/94 both times. Its results were **LOST** to a concurrent
+read-modify-write, not missing for want of a re-run. See the correction block below.*
 
 **Found by noticing that ONE row's `provenance` field contradicted its own `pipeline_status` field.**
 
