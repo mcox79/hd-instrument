@@ -60,8 +60,21 @@
 > 🚨 **THIS PLAN HAD DRIFTED: it cited `PLAN_B_grounding_..._2026-08-07` -- a USER-CONFIRMED PLAN OF
 > RECORD -- ZERO TIMES (grep), named none of its proven components, and did not carry its bottleneck.**
 >
-> **1. TWO BOARD QUESTIONS OPEN.** *Q102 (wire the form organs; package complete) and the CREDIT FORK
-> filed 08-22: build the parsing/mark-up step so the window can be replaced, or park this line.*
+> **1. 🟢 Q102 IS ANSWERED AND ITS CONDITION IS MET.** *Owner: "connect it only after it is doing the
+> job required of it... as according to the brain (which may have other supporting parts, right?)".*
+> ✅ **TESTED AGAINST THE VWFA'S DEFINING PROPERTY (INVARIANCE) AND IT PASSES: case invariance `1.0000`
+> (`cat/CAT`, `doctor/DOCTOR`, `London/LONDON`, `running/RUNNING`); position invariance `1.0000`;
+> inflection GRADED `0.31-0.51` (`child/children` `0.5059`); unrelated controls `0.0254-0.0771`.** *Organ
+> self-test reproduces, incl. `cos(entombment,burial) = -0.023` -- synonyms with different spellings at
+> ~zero, which is CORRECT for a FORM code and why it cannot inflate meaning.* ✅ **TASK BAR ALSO MET:
+> `ORGAN_MAP` A1 form `0.0870` vs live `0.0480`, CI-separated.**
+> 🧠 **"OTHER SUPPORTING PARTS" ANSWERED: in the brain the VWFA FEEDS lexical access rather than being
+> it -- so wire the form code as a SEPARATE IDENTITY CHANNEL, NEVER blended into the meaning vector.
+> Safe because it reads `rho -0.0259` on SimLex, INSIDE the shuffled null band.**
+> ⚠️ **WATCH CONDITION UNCHANGED: this may make a better INDEX without better UNDERSTANDING -- the tell
+> is recognition rising while meaning stays flat.** ⚠️ *NOT yet wired; that is a live-path change.*
+> `Q102_ANSWERED_THE_FORM_ORGAN_PASSES_THE_BRAINS_OWN_TEST_...`
+> **Q104 (the credit fork) remains OPEN.**
 >
 > **2. 🎯 DIRECTION = *ANCHOR + PROPAGATE*, set 08-06/08-07.** *Ground a SMALL affective anchor (the brain
 > does it at 4-7 months) and reason outward; good/bad is in neither grammar nor text statistics because
