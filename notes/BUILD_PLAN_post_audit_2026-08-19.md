@@ -49,118 +49,51 @@
 >    (0.0266 at L=37 vs the incumbent's 0.1328). *NORMS12's own note predicted exactly this.*
 >    `HIGHER_OVERLAP_DID_NOT_MEAN_BETTER_TASK_...`
 >
-> ## ✅ **WHAT IS ACTIONABLE AND MEASURED**
-> - **THE LOOP STOPS ACCRUING WHERE ACCRUAL STILL PAYS.** *More traces help (hit@1 `0.0312 → 0.1328`,
->   CI-separated, shuffled control at chance) and the live MEDIAN word gets **10** -- ~60% of what
->   accumulation already buys.* ⚠️ *Combines three populations: direction is solid, "1.7x" is an
->   order-of-size estimate, NOT a measurement.* `THE_MEDIAN_WORD_LEAVES_1_7x_...`
-> - **Owner Q98 APPROVED the write-rate extension** with a stopping rule: extend past p90, stop at the
->   last point where the fraction of test words with NO score is still zero (measured 0.0000
->   everywhere; tie mass 0.0000 too -- only the write-nothing arm ties, at 1.0000).
-> - **WHY writing less helps: interference.** *Crosstalk DOMINATES capacity (r 0.976, n=11; rivals'
->   partials go NEGATIVE). And OUR KEYS ARE AT THE WELCH BOUND (`inv_e_sq/D = 1.000` vs the best
->   trained encoder's 0.179) -- **"better keys" is closed by GEOMETRY.** Two levers remain: FEWER
->   ITEMS and MORE DIMENSIONS.* `WHY_WRITING_LESS_HELPS_...`
+> ## ✅ **WHAT IS ACTIONABLE AND MEASURED (pre-08-21-late; the rest is superseded by NEXT below)**
+> - **WHY WRITING LESS HELPS: INTERFERENCE.** *`exp_crosstalk_capacity_law_v1_gpu_v1`: crosstalk over
+>   raw keys DOMINATES Hebbian capacity, **r 0.976, n=11**, rivals' partials go NEGATIVE.* **Our keys
+>   sit AT the Welch bound, so "better keys" is CLOSED BY GEOMETRY -- the two remaining levers are
+>   FEWER ITEMS and MORE DIMENSIONS.** ⚠️ *And 08-21 measured MORE DIMENSIONS: it buys IDENTIFICATION,
+>   NOT MEANING.*
+> - **Owner Q98 APPROVED the write-rate extension** with a stopping rule (stop where the fraction of
+>   test words with no score leaves zero; measured 0.0000 everywhere tested). *Needs cell authoring.*
+> - **The loop stops accruing where accrual still pays** -- *but 08-21 shows identification saturates
+>   by ~10 sentences/word and the live median word already gets ~10.* `THE_MEDIAN_WORD_LEAVES_1_7x_...`
 >
-> > ## 🖥️ **AND THE OWNER'S GUI COMPLAINT (board Q100, D3) IS CLOSED -- BUT WRITING ITS GUARD FOUND A CRASH**
-> **Measured FIRST: the panel is already clean -- 1 real question, 0 legacy rows, 40 archived.** *The
-> 2026-08-20 suppression works; the list is also empty because the owner answered seven legacy rows
-> one at a time, each by typing a complaint into it.* **So nothing needed fixing -- but nothing
-> guaranteed it stays fixed.** ➡️ **THE GUARD FAILED ON RUN ONE WITH A CRASH, NOT AN ASSERTION:
-> `_wait_rows` was registered BEFORE the skip, so a suppressed row left a phantom entry that the
-> selection-restore hands to Tk -- `TclError` that KILLS THE WHOLE PANEL REFRESH, reachable by
-> select-a-decision / answer-it / wait.** *Fixed both branches; witness asserts the GENERAL form.*
-> 🔍 **AND THE EXISTING WITNESS HAD BEEN FAILING SINCE THE DAY OF THAT FIX** -- it produces the
-> IDENTICAL TclError against PRE-EDIT modules, and still demanded the behaviour the owner asked to
-> REMOVE. *A failing witness is why the crash went unseen.* 🚫 **DID NOT delete the section-9 parser:
-> the ARCHIVE is built from the same list, so that would destroy the record the owner asked to KEEP.**
-> `THE_GUI_COMPLAINT_WAS_ALREADY_FIXED_BUT_WRITING_ITS_GUARD_FOUND_A_CRASH_...`
-
-> ## 🌙 **2026-08-21 LATE, CONSOLIDATED. 26 SUB-BLOCKS -> THIS. Each line names its note.**
-> *Third consolidation of this block. The size guard I wrote this session fired at 366 lines -- and
-> only after I fixed it, having been SILENT at 373 because one column-0 heading inside a quoted
-> region stopped its scan.*
+> ## 🌙 **2026-08-21 LATE, CONSOLIDATED (3rd fold). Every line names its note.**
+> *All on 28 corpora round-robin, `GRADED_COMPARATOR=True`, floors recomputed per arm.*
 >
-> ### 🎯 **SUBSTRATE: EVERY CHEAP LEVER IS CLOSED, ONE IS OPEN**
-> *829 SimLex pairs / 60 balanced lemmas, 28 corpora round-robin, `GRADED_COMPARATOR=True`.*
-> | lever | verdict |
+> ### 🎯 **THE SUBSTRATE PICTURE**
+> | | |
 > |---|---|
-> | more sentences per word | 🚫 **saturates by ~10; the live median word already gets ~10** |
-> | more dimensions | ✅ IDENTIFICATION `+0.0622` CI `[+0.0443,+0.0797]`, SCRAMBLE flat at chance 🚫 **MEANING `+0.0127` CI `[-0.0305,+0.0559]`** *(power stated: an identification-sized effect WOULD have shown)* |
-> | combining learned + supplied | 🚫 `+0.0035`. *Channels ARE independent (`rho 0.0901`) -- **complementary is not useful***|
-> | metric change to lift the `0.45` cap | 🚫 **refused by its own test: `0 of 120` synonyms under cosine, `8 of 120` under euclid** |
-> | removing a dominant axis | 🚫 PC1 is `27.5%`, spread, not concreteness; UNREL p95 `0.912 -> 0.890` |
-> | graded/signed mismatch | 🚫 not the cause *(already measured WITH a CI in STATUS -- 9th prior-work catch)* |
-> | 🔌 **AND THE WIRING GAP, VERIFIED IN `hdlab/` -- IT IS NOT A CAP QUESTION** | *Within hdlab the CAPPED SCALAR (`grounded_similarity`) goes to `lexical_similarity.py`, the live lexical path; the RAW PROFILE (`sensorimotor_spoke.profile`) has **exactly ONE consumer, `cortical_recall.py:86`**.* **THE FORM THAT SCORES `0.2983` ON VERBS AND `0.2876` ON NOUNS IS THE RAW ONE.** ✅ **AND THIS IS NOT THE CAP ARGUMENT I ALREADY REFUSED: the cap exists to make a false IDENTITY merge impossible, and every number I measured is GRADED RELATEDNESS, a different use the cap was never about.** ⚠️ *Proposing the wiring is a BUILD and is not done here; this records the verified gap only.* |
-> | ⭐ **AND VERBS ARE NOT IMPOSSIBLE -- SUPPLIED `0.2983` WHERE WE SCORE `0.0000`** | *Same benchmark, same pairs, same scorer; sensorimotor coverage of verbs is 824 of 827 (99.6%), giving 3,487 pairs.* **SUPPLIED euclid `0.2983` (null `0.0309`), cosine `0.2673`, OURS `0.0000` (null `0.0372`).** ***A handed-over table clears its null by ~10x on the exact pairs where we score zero: THE SHORTFALL IS OURS, NOT THE TASK'S*** -- the standing "a shortfall is never a ceiling" rule made concrete. *Supplied is word-class-AGNOSTIC (`0.2983` verbs vs `0.2876` nouns) where ours collapses; those are different benchmarks so that half is indicative only.* 🚫 **SUPPLY, NOT LEARNING.** |
-> | ✅ **AND THE VERB NULL'S SCOPE, MEASURED -- IT DOES *NOT* UNDERMINE THE BANKED FACTS** | *Of the 2,092 banked definitional facts, at least **8.22%** involve a known verb (subject 1.82%, object 6.60%; LOWER BOUND -- a word absent from the 849-word SimVerb+SimLex verb list is not thereby a noun).* **BUT THE DECISIVE POINT IS THE ROUTE, NOT THE SHARE: definitional facts are READ OFF THE PAGE ("X is a Y"), NOT INFERRED FROM CO-OCCURRENCE. The verb null is about the DISTRIBUTIONAL channel, so it does not undermine them.** *I nearly blurred the two routes together; recording the distinction is the point of the check.* |
-> | ⚠️ **THE OBVIOUS FIX, CHEAP VERSION, FAILS -- AND MAY NOT SET DIRECTION** | *A verb's identity IS largely its argument structure, so: drop the 827 known verbs from each verb's context, leaving mostly arguments.* **`+0.0069` vs null `0.0390` -- still INSIDE the band (`+0.0000` unfiltered).** 🚫 **THIS DOES NOT REFUTE THE ARGUMENT-STRUCTURE HYPOTHESIS: the proxy removes VERBS, it does not identify ARGUMENTS or their ROLES.** *A faithful test needs the parser/role-labeller and is a BUILD. Per the standing rule a cheap probe may MEASURE, never SET DIRECTION.* ✅ **AND IT IS NOT PRIOR-WORK EITHER:** `exp_selectional_constraint_bridge_v1` (DOES NOT CLEAR THE FLOOR) derives a NOUN's meaning from the verbs it is an argument OF -- the OPPOSITE direction; ditto `exp_thematic_relation_supply_bridged_grounding_v2`. **Verb-from-its-own-arguments is UNRUN.** |
-> | ✅ **AND REPLICATED WITHIN SimLex -- MEMORY's EXACT REQUEST** | *Same benchmark, same scorer, same profiles, so the contrast is internally valid:* **NOUN 534 pairs `0.1310` (null `0.0843`) CLEARS | VERB 203 pairs `-0.0002` (null `0.1398`) INSIDE | ADJ 92 pairs `0.2207` (null `0.1931`) clears barely.** ***`-0.0002` here and `+0.0000` on SimVerb: TWO benchmarks, both zero.*** *SimVerb gives the POWER, SimLex gives the CONTRAST.* ⚠️ *SimLex's verb null is wide at n=203; the SimVerb replication is what makes it readable.* |
-> | ⭐ **VERBS: NO SIGNAL AT ALL** | **`rho +0.0000` vs null p95 `0.0372` on 2,651 SimVerb-3500 pairs** *(Gerz et al. 2016; cite it)*. **Not weak -- INDISTINGUISHABLE FROM A SHUFFLE**, where the noun-heavy SimLex reads `0.1071`. *Verb neighbours are their ARGUMENTS: `give/receive`, `feed/starve 1.49` share context and mean opposites, so a bag of nearby words cannot separate them -- and ours does not.* **THE CHANNEL IS WEAK ON NOUNS AND ABSENT ON VERBS.** ✅ *This is the re-measurement MEMORY's suspended verb claim asked for: n=2,651, not 86.* ⚠️ *78% verb coverage; DIFFERENT benchmark and word class -- NEVER blend with the 0.1071.* |
-> | ✅ **AND THE POWER PREDICTION HELD** | *I calculated `2.8x` more pairs were needed to resolve `+0.03`. At 2,651 the half-width fell `~0.05 -> 0.0234`, close to the `sqrt(2651/829)=1.79` predicted.* **THE BIGGER BENCHMARK DELIVERED THE PROMISED RESOLUTION -- and with it the weighting effect did NOT confirm: point estimate SHRANK to `+0.0188`, CI `[-0.0069,+0.0399]`.** *Two schemes, two benchmarks, no separation.* |
-> | **CAN THE BUNDLE CARRY A WEIGHT?** | ✅ **YES, mechanically** -- repeating each context word by its idf (the only weight addition allows) lifts in-sample `0.1071 -> 0.1402` at cap 2x, inverted U (`3x 0.1308`, `5x 0.1007`). 🚫 **BUT HELD OUT AT 2,000 SPLITS IT DOES NOT ESTABLISH:** `d=1024 +0.0302 CI [-0.0135,+0.0614]`, `d=256 +0.0071 CI [-0.0439,+0.0440]`. *Held out BEFORE reporting this time -- nothing to withdraw.* |
-> | ⭐ **AND THE POWER STATEMENT THAT FOLLOWS** | **TWO independent weighting schemes (hard drop, idf repetition) each give `~+0.03` in-sample and NEITHER separates at n=829.** *To resolve `+0.03` against a half-width of `~0.05` needs roughly `(0.05/0.03)^2 ~= 2.8x` more pairs -- about 2,300. **SimLex-999 has 999. THIS BENCHMARK CANNOT RESOLVE THE EFFECT WE KEEP SEEING.** That is a concrete reason to want a bigger meaning benchmark, and it is not a claim that the effect is real.* |
-> | the ACCUMULATION RULE | 🚫 **NO EFFECT, WITH A REACHABILITY CONTROL.** *`RAW SUM 0.1071 | UNIT-NORMALISE each sentence 0.1058 | SQRT-damped 0.1079`, nulls `~0.067` -- within `0.002` despite per-sentence norms spanning `32`-`379` (**11.9x**). **REACHED: `cos(raw,unit)` mean `0.9709` min `0.9096`, and `821 of 829` pair ranks CHANGED (99.0%).** The profiles moved thoroughly and the answer did not -- a NULL, not an unreachable arm.* |
-> | 🔻 **drop ubiquitous context words -- WITHDRAWN** | *in-sample `0.1071 -> 0.1558` at d=1024, but at **2,000** splits (was 200, Monte-Carlo noisy): **d=256 (SHIPS) `-0.0050` CI `[-0.0629,+0.0365]`; d=1024 `+0.0434` CI `[-0.0117,+0.0940]` -- NEITHER EXCLUDES ZERO.** I reported the favourable draw. **A HYPOTHESIS, NOT A RESULT.** The DISSOCIATION below is unaffected (it rests on the collapse).* |
+> | **VERBS: NO SIGNAL AT ALL** | `+0.0000` on SimVerb-3500's 2,651 pairs (null `0.0372`) **and** `-0.0002` on SimLex's 203 (null `0.1398`). Within SimLex, one scorer: **NOUN `0.1310` CLEARS, VERB INSIDE, ADJ `0.2207` barely.** *Discharges MEMORY's suspended verb claim (asked for those 222 pairs; 203 covered).* |
+> | ⭐ **AND VERBS ARE NOT IMPOSSIBLE** | **SUPPLIED norms euclid `0.2983`** on 3,487 verb pairs (null `0.0309`, coverage 824/827) **vs OURS `0.0000`.** *The shortfall is OURS, not the task's.* 🚫 **SUPPLY, NOT LEARNING.** |
+> | **THE FLOOR THAT MATTERS** | `raw counting 0.0885 \| OURS 0.1071 \| ours+drop 0.1558 \| **idf-counting 0.1835** \| supplied 0.2876`. **`IDF-OURS = +0.0764` CI `[+0.0263,+0.1278]` SEPARATED -- the standing "behind counting" negative is now CROSS-TASK.** *Any claim here must clear `0.1835`.* |
+> | **EVERY CHEAP LEVER, CLOSED** | *more sentences/word* saturates by ~10 (live median ~10); *more dimensions* buys IDENTIFICATION (`+0.0622` CI `[+0.0443,+0.0797]`) **but NOT MEANING** (`+0.0127` CI `[-0.0305,+0.0559]`, with the power to have seen it); *combining channels* `+0.0035` **though they ARE independent (`rho 0.0901`) -- complementary is not useful**; *accumulation rule* NO effect **with a reachability control** (`cos(raw,unit) 0.9709`, 99.0% of ranks moved); *PC removal* `0.912->0.890`; *graded/signed* not the cause. |
+> | 🔻 **AND ONE WITHDRAWN** | *drop-ubiquitous-words:* in-sample `0.1071->0.1558`, but at **2,000** splits (200 was Monte-Carlo noisy) `d=256 -0.0050`, `d=1024 +0.0434`, **NEITHER excludes zero. I reported the favourable draw.** |
+> | 🔀 **THE STRUCTURAL CLAIM, MEASURED ANEW** | Same filter: **MEANING `0.1071->0.1558->0.0988` (COLLAPSES); IDENTIFICATION `0.2057->0.2160->0.2169` (FLAT).** *Two jobs want different amounts of one filter.* |
+> | 📏 **THE MEASUREMENT LIMIT** | Two weighting schemes each `~+0.03` in-sample, neither separated. **SimLex-999 cannot resolve `+0.03` (needs ~2,300); SimVerb-3500 can, and the power prediction HELD.** |
+> | ✅ **CAP + METRIC, SETTLED** | `GROUNDED_CAP=0.45` is a **MEASURED SAFETY PROPERTY**, not the defect I called it. **A no-false-merge bar admits `0 of 120` synonyms under cosine, `8 of 120` under euclid -- my own metric proposal REFUSED by its own test.** *Euclid's case is the GRADED band only (`0.2876` vs `0.2176`).* |
+> | 🔌 **WIRING GAP, VERIFIED** | Raw profile has **ONE** consumer (`cortical_recall.py:86`); the live lexical path takes the capped scalar. **The raw form is what scores.** *Not a cap request.* |
 >
-> **SPLIT BY CONCRETENESS (SimLex's own `conc` cols, tertiles, 200-shuffle null PER stratum):**
-> `ABSTRACT n=274 LEARNED 0.0471 / null 0.1162 / SUPPLIED 0.1957` | `MID n=281 **0.1697** / 0.1191 /
-> 0.3211` | `CONCRETE n=274 0.1154 / 0.1123 / 0.3210`. **LEARNED is INSIDE its null on ABSTRACT and
-> LEVEL with it on CONCRETE -- only MID clears. SUPPLIED clears all three.** ⚠️ **The per-stratum
-> null is `~0.115` vs `~0.065` on the full 829 -- that is n falling to a third, so do NOT read the
-> ordering as a profile of where the signal lives. Read it as: SPLIT THREE WAYS, OUR CHANNEL MOSTLY
-> CANNOT CLEAR ITS OWN NOISE while the supplied table does everywhere.** *Flagged as a QUESTION not
-> a finding: ORGAN_MAP cites Xu et al. 2025 that text-only channels recover NON-sensorimotor
-> (abstract) meaning WELL -- ours is weakest there, but that cell is inside its noise band.*
-> ✅ **ANSWERED AT FULL POWER, WITH A POSITIVE CONTROL IN THE SAME TEST.** *Do not split -- use
-> concreteness as a CONTINUOUS moderator over all 829 pairs: correlate each pair's RANK ERROR with
-> how concrete it is.* **LEARNED `-0.0416` vs null p95 `0.0720` -> INSIDE THE NULL, NO MODERATION.
-> SUPPLIED `-0.0778` vs `0.0722` -> BETTER ON CONCRETE.** ➡️ ***The apparent "weakest on abstract"
-> was TERTILE NOISE: our channel is UNIFORMLY weak, not SELECTIVELY weak, and there is NO
-> contradiction with Xu et al. to chase.*** **The supplied channel showing the PREDICTED sensorimotor
-> moderation is the positive control that makes the learned NULL readable -- a null and its control
-> in one measurement.** ⚠️ *Supplied's margin is thin (`0.0778` vs `0.0722`): the DIRECTION is right,
-> the effect is not strong.*
-> 🚫 **A DETECTOR I DECIDED NOT TO BUILD:** notes whose BODY withdraws their own claim while the
-> TITLE still asserts it. **Base rate `30 of 12,542` (0.24%) looked usable; reading ALL 27 flags
-> gives ~2 true positives, ~7% PRECISION. BASE RATE IS NOT PRECISION.** *The manual sweep still paid
-> -- it found TWO genuinely stale titles of mine tonight, both fixed.*
-> **THE FLOOR THAT MATTERS, WHICH I HAD NOT RUN ALL NIGHT:** `raw counting 0.0885 | OURS 0.1071 |
-> ours+drop 0.1558 | **idf-counting 0.1835** | supplied 0.2876`. **`IDF-OURS = +0.0764` CI
-> `[+0.0263,+0.1278]` SEPARATED -- the standing "behind counting" negative is now CROSS-TASK.**
-> 🚫 *Any claim here must clear `0.1835`.* 🔁 **TWICE a routine methodological choice outweighed the
-> substrate's whole contribution** (euclid-over-cosine `+0.0700`, idf-over-raw `+0.0950`, ours-over-null `0.0440`).
-> 🔀 **THE STRUCTURAL CLAIM, MEASURED ANEW:** same filter -- **MEANING `0.1071->0.1558->0.0988`
-> (collapses); IDENTIFICATION `0.2057->0.2160->0.2169` (flat).**
-> ✅ **`GROUNDED_CAP=0.45` IS A MEASURED SAFETY PROPERTY, not the defect I kept calling it.**
-> **SUPPLIED beats LEARNED `2.69x` on identical pairs -- but that is SUPPLY, NOT LEARNING.**
->
-> ### 🔎 **AND THE Q102 EVIDENCE PACKAGE (still the ONE open board question)**
-> **The form channel is NOISE-EQUIVALENT on meaning** (`-0.0259`, inside the 7-arm shuffled null band)
-> **so it cannot inflate a meaning score; identification is a LOOKUP** (word ALONE `0.9687` vs
-> word+sentence `0.6423`); **and its GAIN IS MEASURED, not untested** -- ORGAN_MAP A1, form organ
-> `0.0870` vs live substrate `0.0480`, CI-separated, *on a task whose own `example_picks`
-> (`abbey/able/abiotic`) prove an orthographic shortcut.*
->
-> ### 🔧 **PROCESS / INFRASTRUCTURE**
-> **9 PRIOR-WORK CATCHES; 3 of them in the docstring or entry of the thing I was about to change, 1 in
-> STATUS itself.** -> **two new reads: `symbol_corrections.py`** (a symbol's own corrections, incl.
-> inline comments; 3.8% base rate) and **`cite_check.py`** (a NUMBER's own caveats; ~2s warm).
-> **THE TOP ITEM WAS ALREADY WIRED AND LIVE** (`substrate.py:538`, 212 of 402 provenance rows) **and
-> its 64% is barred from that use.** **THE SHELF IS 28 CORPORA / 286,069 SENTENCES, not the 9 my
-> alphabetical 60k cap showed me** -- I filed board Q103 on that and withdrew it within the hour, and
-> it had also made me publish a NEGATIVE that reversed on a proper sample. **THE LIVE READER STILL
-> WALKS THE SHELF ALPHABETICALLY: six reads open 8 of 28, all six textbooks unreached.**
-> **REGISTRY: 7 organs flipped to `WIRED_AND_PIPELINE_USED`** after a concurrent writer discarded the
-> audit's results *(WIRED = import-reachable, NOT exercised)*. **The BOARD HEADER was stale in front
-> of the owner; synced + detector added.** **GUI: settled decisions leaving the working list is now
-> witnessed, and writing that witness found a crash that killed the panel refresh.**
-> `THE_LIMIT_IS_DIMENSIONAL_...` `DIMENSION_BUYS_THE_LOOKUP_...` `SUPPLIED_BEATS_LEARNED_2_69x_...`
-> `THE_CAP_IS_PRINCIPLED_...` `MY_OWN_PROPOSAL_ANSWERED_NO_...` `NOT_A_DOMINANT_AXIS_...`
-> `COMPLEMENTARY_IS_NOT_USEFUL_...` `COUNTING_WITH_ONE_STANDARD_WEIGHTING_...`
-> `DROPPING_264_UBIQUITOUS_...` `I_NEARLY_REPORTED_THAT_MORE_READING_MAKES_IT_WORSE_...`
-> `THE_SHELF_IS_28_CORPORA_NOT_9_...` `THE_READER_STILL_WALKS_THE_SHELF_...` `THE_REGISTRY_WAS_STALE_...`
-> `Q102s_GAIN_IS_NOT_UNTESTED_...` `THE_TOP_ITEM_WAS_ALREADY_WIRED_...` `THE_GUI_COMPLAINT_...`
+> ### 🔧 **PROCESS**
+> **9 PRIOR-WORK CATCHES** -- 3 in the docstring/entry of the thing I was about to change, 1 in STATUS
+> itself. -> **`symbol_corrections.py`** (a symbol's own corrections, incl. inline comments; 3.8% base
+> rate) and **`cite_check.py`** (a NUMBER's own caveats). **THE TOP ITEM WAS ALREADY WIRED AND LIVE**
+> (212 of 402 provenance rows) **and its 64% is barred from that use.** **THE SHELF IS 28 CORPORA /
+> 286,069 SENTENCES, not the 9 my alphabetical cap showed me** -- I filed board Q103 on that and
+> withdrew it within the hour, and it had also made me publish a negative that reversed.
+> **THE LIVE READER STILL WALKS THE SHELF ALPHABETICALLY: six reads open 8 of 28, all textbooks
+> unreached.** **REGISTRY: 7 organs flipped to `WIRED_AND_PIPELINE_USED`** *(= import-reachable, NOT
+> exercised)*. **BOARD HEADER was stale in front of the owner; synced + detector added.** **GUI: a
+> witness for settled decisions found a crash that killed the panel refresh.** 🚫 **A detector I did
+> NOT build: 0.24% base rate but ~7% PRECISION -- base rate is not precision.**
+> `ON_VERBS_...` `COUNTING_WITH_ONE_STANDARD_WEIGHTING_...` `THE_LIMIT_IS_DIMENSIONAL_...`
+> `DIMENSION_BUYS_THE_LOOKUP_...` `SUPPLIED_BEATS_LEARNED_2_69x_...` `THE_CAP_IS_PRINCIPLED_...`
+> `MY_OWN_PROPOSAL_ANSWERED_NO_...` `NOT_A_DOMINANT_AXIS_...` `COMPLEMENTARY_IS_NOT_USEFUL_...`
+> `DROPPING_264_UBIQUITOUS_...` `I_NEARLY_REPORTED_...` `THE_SHELF_IS_28_CORPORA_NOT_9_...`
+> `THE_READER_STILL_WALKS_...` `THE_REGISTRY_WAS_STALE_...` `Q102s_GAIN_IS_NOT_UNTESTED_...`
+> `THE_TOP_ITEM_WAS_ALREADY_WIRED_...` `THE_GUI_COMPLAINT_...`
 >
 > ## 🧭 **METHOD -- THE ONLY RULE THAT PAID OUT**
 > ***PUT A NUMBER BESIDE ANOTHER NUMBER THAT CONSTRAINS IT.*** *It killed 5 claims and cleared 3.
