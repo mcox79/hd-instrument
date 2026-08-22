@@ -14,6 +14,56 @@ Public API:
 """
 import json
 import os
+import sys
+
+# --- SH-7 SAFETY: warn when a fresh run was ASKED FOR and did not happen ------------------------
+# SH-7 (`experiments/_seed_checkpoint.get_output_dir`) makes `HDI_FRESH_RUN=<tag>` redirect a cell
+# to an empty sibling so a re-run genuinely RECOMPUTES. It only works for cells that route their
+# output through that function. Measured 2026-08-22: among the 421 cells carrying a units.jsonl,
+# only 87 (~21%) do -- and the share of NEW cells using it has fallen from 90.8% in June to 27.2%
+# in August, so the gap widens rather than closes.
+#
+# THE DANGEROUS CASE IS NOT "the redirect is unavailable". IT IS "the operator BELIEVES THEY ARE
+# ISOLATED AND ARE NOT." A bare-OUTPUT_DIR cell silently ignores the env var, runs into the LANDED
+# directory, and overwrites metrics.json with a fresh timestamp -- so a "reproduction" both proves
+# nothing AND mutates the record it claimed to confirm. `tools/reproduce.py` refuses those cells,
+# but it has a --force, and nothing stops anyone exporting the variable by hand.
+#
+# BASE RATE CHECKED BEFORE BUILDING THIS, per the standing rule that a flag firing on most of its
+# population is not a flag: this can ONLY fire when HDI_FRESH_RUN is set, which is never during
+# ordinary runs. Its false-positive rate is zero by construction, not by tuning.
+#
+# WARN, NEVER RAISE. The unit data being written is real; only the OPERATOR'S BELIEF about
+# isolation is wrong. Killing a long run over a labelling problem would be the worse failure.
+_FRESH_ENV = "HDI_FRESH_RUN"
+_FRESH_MARKER = "__fresh_"
+_warned = set()
+
+
+def _warn_if_fresh_run_did_not_take(output_dir: str) -> bool:
+    """True if a fresh run was requested but this output dir is NOT a fresh sibling.
+
+    Returns the verdict so the self-test can assert it both ways rather than scraping stderr.
+    """
+    tag = os.environ.get(_FRESH_ENV, "").strip()
+    if not tag:
+        return False
+    if os.path.basename(os.path.normpath(output_dir)).endswith(_FRESH_MARKER + tag):
+        return False
+    key = os.path.normpath(output_dir)
+    if key not in _warned:
+        _warned.add(key)
+        sys.stderr.write(
+            "[exp_checkpoint] %s=%s IS SET BUT THIS RUN IS NOT ISOLATED.\n"
+            "    writing to: %s\n"
+            "    expected a sibling ending '%s%s'. This cell does not route its output through\n"
+            "    experiments/_seed_checkpoint.get_output_dir, so the redirect was IGNORED and this\n"
+            "    run is writing into the LANDED directory. Any 'reproduction' from it is not one,\n"
+            "    and metrics.json will be rewritten with a new timestamp.\n"
+            "    Fix: OUTPUT_DIR = fresh_run_output_dir(<the existing expression>)\n"
+            "    See tools/reproduce.py --check and notes/problems/harness_cannot_recompute/.\n"
+            % (_FRESH_ENV, tag, output_dir, _FRESH_MARKER, tag))
+    return True
 
 
 def unit_key(*parts) -> str:
@@ -48,6 +98,9 @@ def _iter_valid_records(output_dir: str):
 
 def completed_units(output_dir: str) -> set:
     """Return the set of unit_keys already durably recorded in units.jsonl."""
+    # Checked HERE as well as in record_unit because this is called FIRST, before any work: the
+    # operator finds out at second zero rather than after an hour of compute.
+    _warn_if_fresh_run_did_not_take(output_dir)
     return {rec["unit_key"] for rec in _iter_valid_records(output_dir)}
 
 
@@ -57,6 +110,7 @@ def record_unit(output_dir: str, key: str, result: dict) -> None:
     Append-only + flush + fsync: a crash mid-write leaves at most one
     unterminated trailing line, which _iter_valid_records discards on read.
     """
+    _warn_if_fresh_run_did_not_take(output_dir)
     os.makedirs(output_dir, exist_ok=True)
     path = _shard_path(output_dir)
     line = json.dumps({"unit_key": key, "result": result}) + "\n"
