@@ -33,41 +33,48 @@
 > - **WHY WRITING LESS HELPS = INTERFERENCE** (r 0.976, n=11; keys AT the Welch bound -> levers are FEWER ITEMS / MORE DIMENSIONS, and MORE DIMENSIONS buys IDENTIFICATION not MEANING). *Full entry in `STATUS.md` FINISHED AND CLOSED.*
 > - **Owner Q98 APPROVED the write-rate extension** with a stopping rule (0.0000 unscored everywhere tested). *Needs cell authoring.* **The loop stops accruing where accrual still pays** -- *but identification saturates by ~10 sentences/word and the live median already gets ~10.* `THE_MEDIAN_WORD_LEAVES_1_7x_...`
 >
-> ## 🌙 **2026-08-21 LATE, CONSOLIDATED (3rd fold). Every line names its note.**
-> *All on 28 corpora round-robin, `GRADED_COMPARATOR=True`, floors recomputed per arm.*
->
-> ### 🎯 **THE SUBSTRATE PICTURE**
-> | | |
+> ## 🌙 **2026-08-21 MEASUREMENT PASS -- 4th fold. ALL BAG-OF-WORDS; KEPT AS FLOOR, NOT DIRECTION.**
+> | finding | the number |
 > |---|---|
-> | **VERBS: NO SIGNAL AT ALL** | `+0.0000` on SimVerb-3500's 2,651 pairs (null `0.0372`) **and** `-0.0002` on SimLex's 203 (null `0.1398`). Within SimLex, one scorer: **NOUN `0.1310` CLEARS, VERB INSIDE, ADJ `0.2207` barely.** *Discharges MEMORY's suspended verb claim (asked for those 222 pairs; 203 covered).* |
-> | 🔻 **SUPERSEDED / WITHDRAWN, FOLDED** | *(a) the 12-dim verb dissociation -- **superseded by `exp_verb_event_salient_channel_v1`: 3 AFFECT dims beat all 12**; (b) drop-ubiquitous-words -- WITHDRAWN, at 2,000 splits `d=256` `-0.0050 [-0.0629,+0.0365]`, `d=1024` `+0.0434 [-0.0117,+0.0940]`, NEITHER excludes zero; (c) two weighting schemes each `~+0.03` in-sample, neither separated.* `NOT_A_DOMINANT_AXIS_...` `DROPPING_264_UBIQUITOUS_...` |
-> | ✅ **THE VERB NULL IS ROBUST TO COVERAGE -- the 41-sentence cutoff hides nothing** | *OURS stays INSIDE its null at EVERY threshold:* `T=41 646 verbs/2,651 pairs 0.0000 (null 0.0383) | T=20 730/3,061 0.0207 (0.0355) | T=10 776/3,257 0.0079 (0.0344) | T=5 801=97%/3,385 0.0213 (0.0318)`. *SUPPLIED holds `0.2735->0.2971`.* ⚠️ *SUPPLIED reads `0.2735` here vs `0.2983` earlier because this restricts to pairs OUR corpus also covers -- different pair sets.* `ON_VERBS_..._n2651` |
-> | 🎯 **AND THE CONTROL THAT SPLITS IT** | *Text-derived rival, same 2,651 pairs:* **COUNTING raw `0.0025` (null `0.0341`) INSIDE; COUNTING+idf `0.0689` (null `0.0383`) CLEARS barely; OURS `0.0000` INSIDE; SUPPLIED `0.2983`.** ***BOTH true at different scales:*** **(1) text CAN extract a little verb signal and we extract NONE -- our zero is a real deficit against a text-derived rival; (2) but every text arm is 4.3x below the human-rated one, so MOST of what is missing on verbs is missing from TEXT DISTRIBUTION, not from our encoder.** ⚠️ *Ratios of correlations, not a variance decomposition.* |
-> | ⭐ **AND VERBS ARE NOT IMPOSSIBLE** | **SUPPLIED norms euclid `0.2983`** on 3,487 verb pairs (null `0.0309`, coverage 824/827) **vs OURS `0.0000`.** *The shortfall is OURS, not the task's.* 🚫 **SUPPLY, NOT LEARNING.** |
-> | **THE FLOOR THAT MATTERS** | `raw counting 0.0885 \| OURS 0.1071 \| ours+drop 0.1558 \| **idf-counting 0.1835** \| supplied 0.2876`. **`IDF-OURS = +0.0764` CI `[+0.0263,+0.1278]` SEPARATED -- the standing "behind counting" negative is now CROSS-TASK.** *Any claim here must clear `0.1835`.* |
-> | **EVERY CHEAP LEVER, CLOSED** | *more sentences/word* saturates by ~10 (live median ~10); *more dimensions* buys IDENTIFICATION (`+0.0622` CI `[+0.0443,+0.0797]`) **but NOT MEANING** (`+0.0127` CI `[-0.0305,+0.0559]`, with the power to have seen it); *combining channels* `+0.0035` **though they ARE independent (`rho 0.0901`) -- complementary is not useful**; *accumulation rule* NO effect **with a reachability control** (`cos(raw,unit) 0.9709`, 99.0% of ranks moved); *PC removal* `0.912->0.890`; *graded/signed* not the cause. |
-> | 🔀 **THE STRUCTURAL CLAIM, MEASURED ANEW** | Same filter: **MEANING `0.1071->0.1558->0.0988` (COLLAPSES); IDENTIFICATION `0.2057->0.2160->0.2169` (FLAT).** *Two jobs want different amounts of one filter.* |
-> | ✅ **CAP + METRIC, SETTLED** | `GROUNDED_CAP=0.45` is a **MEASURED SAFETY PROPERTY**, not the defect I called it. **A no-false-merge bar admits `0 of 120` synonyms under cosine, `8 of 120` under euclid -- my own metric proposal REFUSED by its own test.** *Euclid's case is the GRADED band only (`0.2876` vs `0.2176`).* |
-> | 🔌 **WIRING GAP, VERIFIED** | Raw profile has **ONE** consumer (`cortical_recall.py:86`); the live lexical path takes the capped scalar. **The raw form is what scores.** *Not a cap request.* |
->
-> ### 🔧 **PROCESS -- FOLDED; every item's detail is in the notes listed below.**
-> **9 PRIOR-WORK CATCHES** (3 in the docstring of the thing I was changing, 1 in STATUS itself) ->
-> new reads **`symbol_corrections.py`** (3.8% base rate) and **`cite_check.py`**. **THE TOP ITEM WAS
-> ALREADY WIRED AND LIVE** (212/402 rows) and its 64% is BARRED from that use. **THE SHELF IS 28
-> CORPORA / 286,069 SENTENCES, not the 9 my alphabetical cap showed** -- I filed board Q103 on that,
-> withdrew it within the hour, and it had also made me publish a negative that reversed. **THE LIVE
-> READER STILL WALKS THE SHELF ALPHABETICALLY: 8 of 28 opened, all textbooks unreached.** **7 organs
-> flipped to `WIRED_AND_PIPELINE_USED`** *(import-reachable, NOT exercised)*. **Stale BOARD header in
-> front of the owner; GUI crash found by a witness.** 🚫 *A detector I did NOT build: 0.24% base rate
-> but ~7% PRECISION -- base rate is not precision.*
-> `ON_VERBS_...` `COUNTING_WITH_ONE_STANDARD_WEIGHTING_...` `THE_LIMIT_IS_DIMENSIONAL_...` `DIMENSION_BUYS_THE_LOOKUP_...` `SUPPLIED_BEATS_LEARNED_2_69x_...` `THE_CAP_IS_PRINCIPLED_...` `MY_OWN_PROPOSAL_ANSWERED_NO_...` `NOT_A_DOMINANT_AXIS_...` `COMPLEMENTARY_IS_NOT_USEFUL_...` `DROPPING_264_UBIQUITOUS_...` `I_NEARLY_REPORTED_...` `THE_SHELF_IS_28_CORPORA_NOT_9_...` `THE_READER_STILL_WALKS_...` `THE_REGISTRY_WAS_STALE_...` `Q102s_GAIN_IS_NOT_UNTESTED_...` `THE_TOP_ITEM_WAS_ALREADY_WIRED_...` `THE_GUI_COMPLAINT_...`
+> | **VERBS** | `+0.0000` on SimVerb's 2,651 pairs (null `0.0372`) and `-0.0002` on SimLex's 203 -- TWO benchmarks at zero, while NOUN `0.1310` clears. **WEAK ON NOUNS, ABSENT ON VERBS.** Coverage cutoff DISCHARGED (inside null at 41/20/10/5, to 97% of verbs). Control: `COUNTING raw 0.0025 \| +idf 0.0689 \| OURS 0.0000 \| SUPPLIED 0.2983` -- our zero is a REAL DEFICIT, but every text arm is 4.3x below the human-rated one. 🚫 SUPPLY != LEARNING. |
+> | **THE FLOOR** | `raw counting 0.0885 \| OURS 0.1071 \| ours+drop 0.1558 \| **idf-counting 0.1835** \| supplied 0.2876`. **`IDF - OURS = +0.0764` CI `[+0.0263,+0.1278]`.** 🚫 **ANY CLAIM MUST CLEAR `0.1835`.** |
+> | **LEVERS, CLOSED** | more sentences saturates by ~10 (live median ~10); more dimensions buys IDENTIFICATION not MEANING (`1024-256 = +0.0127` CI `[-0.0305,+0.0559]`, SPANS ZERO at half-width `0.0432`, so a bounded negative); combining channels `+0.0035` despite rho `0.0901` independence; accumulation rule NULL; PC removal, graded/signed, metric change all closed. |
+> | **SUPERSEDED** | *12-dim verb dissociation (superseded by 3 AFFECT dims beating all 12); drop-ubiquitous WITHDRAWN (`d=256 -0.0050 [-0.0629,+0.0365]`, `d=1024 +0.0434 [-0.0117,+0.0940]`, neither excludes zero); two weighting schemes `~+0.03` in-sample, neither separated.* |
+> | 🔧 **PROCESS** | **9 PRIOR-WORK CATCHES** (3 in the docstring of the thing I was changing) -> new reads `symbol_corrections.py` (3.8% base rate) + `cite_check.py`. **THE SHELF IS 28 CORPORA / 286,069 SENTENCES, not the 9 my alphabetical cap showed** -- board Q103 filed and withdrawn within the hour. **THE LIVE READER STILL WALKS IT ALPHABETICALLY: 8 of 28 opened, all textbooks unreached.** 7 organs flipped to `WIRED_AND_PIPELINE_USED` *(import-reachable, NOT exercised)*. Stale BOARD header; GUI crash found by a witness. |
+> `ON_VERBS_...` `COUNTING_WITH_ONE_STANDARD_WEIGHTING_...` `THE_LIMIT_IS_DIMENSIONAL_...` `DIMENSION_BUYS_THE_LOOKUP_...` `SUPPLIED_BEATS_LEARNED_2_69x_...` `THE_CAP_IS_PRINCIPLED_...` `COMPLEMENTARY_IS_NOT_USEFUL_...` `DROPPING_264_UBIQUITOUS_...` `THE_SHELF_IS_28_CORPORA_NOT_9_...` `THE_READER_STILL_WALKS_...` `THE_REGISTRY_WAS_STALE_...` `THE_TOP_ITEM_WAS_ALREADY_WIRED_...`
 >
 > ## 🧭 **METHOD -- THE ONLY RULE THAT PAID OUT**
 > ***PUT A NUMBER BESIDE ANOTHER NUMBER THAT CONSTRAINS IT.*** *Killed 5 claims, cleared 3; every big
 > withdrawal was ONE fault -- a number measured in one setting applied to another.* **QUOTE THE NOTE,
 > NEVER THE HEADLINE** *(all 3 passes carried a CI, a control and a limit; all 5 kills were headlines).*
 > **CHECK PRIOR WORK FIRST** -- *it changed the answer 3x that night and twice more since.*
-> ## ➡️ **NEXT -- REWRITTEN 2026-08-21 LATE. THE MEASUREMENT PASS CHANGED WHAT IS WORTH DOING.**
+> ## ➡️ **NEXT -- REWRITTEN 2026-08-22. THIS PLAN HAD DRIFTED FROM THE ARCHITECTURE IT SERVES.**
+> 🚨 **STRUCTURAL FAULT, MEASURED BY GREP: THIS FILE MENTIONED `PLAN_B_grounding_..._2026-08-07` --
+> a USER-CONFIRMED PLAN OF RECORD -- **ZERO TIMES**, named none of its four proven components, and did
+> not carry its bottleneck. I have been executing this file every turn. THAT is why tonight went where
+> it did: TWO PLANS, ONLY ONE BEING READ.**
+> 🎯 **THE BOTTLENECK, NAMED IDENTICALLY IN THREE DOCUMENTS SINCE 08-05:** *CHARTER -- "the wall is
+> producing that input from surface text"; SYNTHESIS 08-06 -- reasoning HARD_PASSed on real prose,
+> lexical meaning is the barrier; PLAN_B 08-07 -- "on REAL prose the teaching signal DOESN'T CARRY
+> (scramble does NOT collapse, gap `-0.03`; primary `0.472` < floor `0.639`)".* **ALL THREE: THE
+> REASONING WORKS WHEN FED PROPERLY; PRODUCING THE INPUT FROM REAL TEXT IS THE FAILURE.**
+> 🔻 **AND THE CHARTER ALREADY RECORDS TONIGHT'S WHOLE APPROACH AS MEASURED TO FAIL: "Bag-of-words
+> co-occurrence LACKS the sense signal (MEASURED: supervised control at chance); the brain's signal is
+> GROUNDING + SYNTAX + SITUATION." EVERY NUMBER I PRODUCED TONIGHT IS BAG-OF-WORDS CO-OCCURRENCE.**
+> ✅ **FOUR COMPONENTS ARE BUILT AND `HARD_PASS`:** *S1 12-word seed -> `wordnet_polarity_propagation`
+> -> `0.833` held-out, seed-ablation `0.000`; S2 superposition map, held-out collapse `1.000` vs
+> SCRAMBLE `0.400`, with `spoil` polarity DELIBERATELY REVERSED so a generic heuristic must fail; S4
+> LEARNED-from-exposure `1.000` vs SCRAMBLE-CONSEQUENCE `0.486`; richer context KEY `0527afeab`.*
+> ⚠️ **THEIR OWN BOUNDARY, NOT SOFTENED: MECHANISM PROOFS ON CLEAN SIGNAL AT TINY SCALE (6 words, 28
+> items, 2-way animacy key); PLAN_B says "gap 0.000 is a CLEAN-corpus artifact". DESIGN SOUND != WORKS.**
+> ⭐ **THE LEVER, FROM PLAN_B'S OWN REVISED PLAN, NEVER WORKED: CREDIT-ASSIGNMENT -- attach a shown
+> consequence to the RIGHT verb/goal, GOAL-LINKED, *NOT window co-occurrence*.** *Charter's wording:
+> feed the maintained SituationModel + coref as the extraction context, REPLACING THE LOCAL WINDOW.*
+> ⚠️ *LIMITS: I have NOT re-run those four cells (numbers quoted, module existence verified only);
+> there is a SECOND plan of record (`PLAN_grounded_semantic_organ_build.md`, 08-05) I have NOT read;
+> supersession unverified after 08-12. This changes PRIORITIES, retracts no measurement.*
+> `THE_BOTTLENECK_HAS_BEEN_NAMED_IDENTICALLY_SINCE_AUGUST_5_...`
+>
 > 🧭 **THE DIRECTION HAS A NAME AND IT WAS SET ON 2026-08-06, NOT TONIGHT: *ANCHOR + PROPAGATE*.**
 > *`SYNTHESIS_grounding_wall_definitive_2026-08-06` (237 grounding cells, 91 notes) established:* **(a)
 > the two walls are SEPARATE and we ALREADY CLEARED ONE -- following the plot HARD_PASSed on real
@@ -79,23 +86,19 @@
 > 🎯 **MY 08-21 SEED SWEEP *IS* THAT ARCHITECTURE, MEASURED FOR THE FIRST TIME -- AND I RE-DERIVED IT
 > WITHOUT READING THE SYNTHESIS.** ✅ *It also DISSOLVES what I called that result's load-bearing limit:
 > using neighbours' true values is NOT a weakness, it IS the chosen brain-faithful design.*
-> ✅ **THE PREDICTED FAILURE IS CONFIRMED *AND* THE FORK IS ANSWERED, SAME NIGHT.**
-> **(a) SIMILARITY-PROPAGATION CANNOT SEE OPPOSITION** *(SimVerb's own labels; both abort-controls
-> PASSED -- gold separates antonyms 1.88x, propagation works rho `0.2367`)*: TRUE valence diff spans
-> `0.695-1.363` across relations, **PREDICTED spans `0.302-0.336` -- FLAT**; antonyms `0.3017` vs
-> synonyms `0.3317` is the WRONG WAY; within antonyms rho `-0.0259` (n=96, null ~`+/-0.201`).
-> **(b) BUT THE SIGNAL EXISTS IN TEXT** *(full shelf, freq-matched, RANDOM negative control PASSES at
-> `8.64` lowest)*: **cond "X and/or Y" ANTONYMS `0.0782` vs SYNONYMS `0.0269` (2.91x) vs RANDOM
-> `0.0022` (34.8x)**; %never-co-occur `13.3`/`19.0`/`47.6`.
-> 🎯 **CHAIN, EVERY LINK MEASURED: antonyms CO-OCCUR -> `context_vector_masked` makes 2nd-order
-> profiles so CO-OCCURRENCE BECOMES SIMILARITY -> antonyms are our CLOSEST relation (`0.2062` > syn
-> `0.1727` > none `0.1591`) -> verbs read `0.0000`. AN INVERTED FEATURE, NOT A MISSING ONE.**
-> ➡️ **BUILDABLE ARM: a co-occurrence term that SUBTRACTS. Must beat `idf 0.0689`, not a shuffle.**
-> 🔻 **CORRECTION MADE TWICE: "the fix is already owned" IS WRONG -- `OPPOSED_PAIRS` = 6 hand-written
-> CLASS pairs, `lexical_similarity` = 86 hand-authored concepts. Coverage, not quality, is the gap.**
-> ⚠️ *LIMITS: COHYPONYMS 2nd (`0.0356`) -- detects COORDINATED not ANTONYM, lead only 2.20x; fires on
-> 7.8% of antonym co-occurrences; NO arm built; control B only `0.2367` = a WEAK propagator failing.
-> Instrument REFUSED TWICE (v1 statistic, v2 the CONTROL itself); both refusals correct.*
+> ✅ **OPPOSITION, FOLDED -- THREE RESULTS, ALL BAG-OF-WORDS, ALL KEPT AS FLOOR.** *(a) SIMILARITY-
+>   PROPAGATION CANNOT SEE OPPOSITION: TRUE valence diff spans `0.695-1.363` across relations, PREDICTED
+>   spans `0.302-0.336` (FLAT); antonyms `0.3017` vs synonyms `0.3317` is the WRONG WAY; within antonyms
+>   rho `-0.0259` (n=96, null ~`+/-0.201`); both abort-controls PASSED. (b) THE SIGNAL EXISTS IN TEXT:
+>   cond "X and/or Y" ANTONYMS `0.0782` vs SYNONYMS `0.0269` vs RANDOM `0.0022` (34.8x), RANDOM control
+>   PASSES. **Antonyms are our CLOSEST relation (`0.2062` > syn `0.1727`) because our 2nd-order encoder
+>   CONVERTS CO-OCCURRENCE INTO SIMILARITY -> verbs read `0.0000`.** (c) 🔻 **BUT THE FIX FAILED: penalising
+>   co-occurrence hurts MONOTONICALLY (best lambda `0.0`), is worse than a RANDOM penalty, and `COOC
+>   ALONE = +0.0464` -- co-occurrence is POSITIVELY correlated with similarity. Related words co-occur;
+>   the antonym effect is swamped. A correct mechanism does NOT entail its inverse is a correction.***
+>   🔻 **CORRECTION MADE TWICE: "the fix is already owned" IS WRONG -- `OPPOSED_PAIRS` = 6 hand-written
+>   class pairs, `lexical_similarity` = 86 hand-authored concepts. THE REAL ONE IS
+>   `wordnet_polarity_propagation` (S1 above), antonym-aware, and it was built two weeks before I began.**
 > `THE_ANTONYM_TRAP_IS_CONFIRMED_...` `THE_SIGNAL_FOR_OPPOSITION_IS_IN_THE_TEXT_...`
 > `THE_ANTONYM_TRAP_IS_CONFIRMED_...`
 > **1. Q102 is still the ONLY open board question** (wire the form organs). *Its evidence package is
@@ -104,33 +107,29 @@
 >
 > **2. 🔻 BOTH BUILD CANDIDATES ARE STRUCK OR REPLACED -- THE CELL THAT SETTLES THEM LANDED
 > 2026-08-17 AND I HAD NOT READ IT (`exp_verb_event_salient_channel_v1`, TENTH PRIOR-WORK CATCH):**
-> - 🚫 **🅐 VERB MEANING FROM ITS OWN ARGUMENTS -- STRUCK. NOT UNRUN: IT RAN AND IT FAILED.**
->   `S1_SLOT_FRAME` *(SUBJ+OBJ filler codes, 24d)* **raw `0.0442` NOT_SEPARATED, `survives_partial:
->   FALSE`**; `S2_SLOT_DELTA` *(OBJ-SUBJ, 12d)* **raw `0.0798` NOT_SEPARATED**, partial lower bound
->   `+0.0010`. ⚠️ **I ASSERTED THIS ALL NIGHT AS THE EXPLANATION FOR OUR VERB ZERO WITHOUT MEASURING
->   IT -- it IS the S1/S2 hypothesis. STOP REPEATING IT.**
-> - 🔄 **🅑 WIRING THE RAW SENSORIMOTOR PROFILE -- REPLACED. IT IS THE ARM THAT LOSES.** *On 3,152
->   identical pairs, partialled for concreteness AND frequency:* **12 sensorimotor `0.2639` | +3
->   AFFECT dims (valence/arousal/dominance) `0.3655` | the 3 AFFECT dims ALONE `0.3030`**; width
->   controls **NOISE `0.2469` / WRONG `0.2322` BOTH BELOW the incumbent, so it is CONTENT not width.**
->   🧠 *I went looking for SOMATOTOPY (`kick`/foot); the effector dims are already in the LOSING arm.*
->   ⚠️ *A1-vs-A0 marginal CIs do NOT overlap; **A2-vs-A0 DO** -- "3 beats 12" is suggestive only, and
->   no paired test was run.* 🚫 **SUPPLY, NOT LEARNING** (`measures_the_instrument_not_a_capability`).
->   ⚠️ *Do NOT swap my `0.2983` (3,487 pairs, euclid) with this cell's `0.2711` (3,161, own scorer).*
+> - 🚫 **🅐 VERB MEANING FROM ITS ARGUMENTS -- STRUCK, NOT UNRUN: `S1_SLOT_FRAME` raw `0.0442`
+>   NOT_SEPARATED and `survives_partial: FALSE`; `S2_SLOT_DELTA` raw `0.0798` NOT_SEPARATED. I asserted
+>   this ALL NIGHT as the explanation for our verb zero without measuring it. STOP REPEATING IT.**
+> - 🔄 **🅑 RAW SENSORIMOTOR -- REPLACED, IT IS THE ARM THAT LOSES.** *3,152 identical pairs,
+>   partialled for concreteness AND frequency:* **12 sensorimotor `0.2639` | +3 AFFECT `0.3655` | the 3
+>   AFFECT dims ALONE `0.3030`**; width controls NOISE `0.2469` / WRONG `0.2322` BOTH BELOW -> CONTENT,
+>   not width. 🧠 *I went looking for SOMATOTOPY; the effector dims sit in the LOSING arm.* ⚠️ *A1-vs-A0
+>   CIs do NOT overlap; A2-vs-A0 DO -- "3 beats 12" is suggestive only; no paired test.* 🚫 **SUPPLY,
+>   NOT LEARNING.** ⚠️ *Do NOT swap my `0.2983` (3,487 pairs, euclid) with the cell's `0.2711` (3,161).*
 >   `THE_VERB_BUILD_I_QUEUED_WAS_ALREADY_RUN_...`
-> - ⭐ **A NEIGHBOUR READ-OUT DECODES ALL 15 NORM DIMS FROM OUR OWN PROFILES** (3,000 words, K=25,
->   self-exclusion asserted): **`Concreteness 0.4671` control-top-as-predicted | `Valence 0.3069` vs
->   null `0.0385` | 15/15 on BOTH arms at 5-12x null.** 🔄 *My pairwise test an hour earlier said
->   ~nothing (3/15) and WAS THE WRONG TEST -- the space is organised LOCALLY, not globally. I did not
->   publish it.* 🎯 **AFFECT IS NOT SUPPLY-ONLY -- valence is already in what we read.**
-> - 🎯 **AND THE PRICE: ~50-100 GROUNDED WORDS ALREADY PROPAGATE; PAST ~400 MORE BUYS ~NOTHING**
->   *(concreteness, the gated column: `50 0.2114` vs null `0.1239`; `400 0.3783`; `2000 0.4323`).*
->   🔻 **BUT IDF AT 200 SEEDS (`0.2971`) BEATS OURS AT 2,000 (`0.2638`) -- 10x THE GROUNDING TO NOT
->   MATCH IT. 16th measure where counting leads; both arms SATURATE.** 🔬 **NEW DIAGNOSTIC: our
->   nearest-seed cosine is HIGHER (`0.3965` vs `0.2415`) while carrying LESS -- ANISOTROPY; `DO NOT
->   REDO 27` (common-mode) has a revival `*`, criterion NOT read, NOT claimed met.** 🔻 *2 own-script
->   defects reported: the 25-seed row is DEGENERATE (exactly 0.0000 = reachability signature), and
->   `null95` gates CONCRETENESS ONLY.* ⚠️ *Random seed = pessimistic; K unswept twice.*
+> - 📐 **THE 08-21/22 MEASUREMENT PASS, FOLDED -- ALL OF IT IS BAG-OF-WORDS CO-OCCURRENCE, WHICH THE
+>   CHARTER RECORDS AS MEASURED TO LACK THE SENSE SIGNAL. KEPT AS A FLOOR, NOT A DIRECTION.**
+>   *(a) A NEIGHBOUR READ-OUT DECODES ALL 15 NORM DIMS from our own profiles -- `Concreteness 0.4671`
+>   (control, top as predicted), `Valence 0.3069` vs null `0.0385`, **15/15 on BOTH arms at 5-12x null**;
+>   my pairwise test an hour earlier said ~nothing (3/15) and WAS THE WRONG TEST -- I did not publish it.
+>   (b) THE PRICE: **~50-100 grounded words already propagate; past ~400 more buys ~nothing** (`50 0.2114`
+>   vs null `0.1239`; `400 0.3783`; `2000 0.4323`) -- **but IDF at 200 seeds (`0.2971`) beats OURS at
+>   2,000 (`0.2638`)**. (c) NEW DIAGNOSTIC: our nearest-seed cosine is HIGHER (`0.3965` vs `0.2415`)
+>   while carrying LESS -- **ANISOTROPY**; `DO NOT REDO 27` has a revival `*`, criterion NOT read.*
+>   ⚠️ *K unswept 3x; 3,000 of 5,021 words; random seed = pessimistic; the 25-seed row was DEGENERATE
+>   (exactly 0.0000 = reachability signature) and `null95` gates CONCRETENESS ONLY.*
+>   🔻 **AND EVERY ONE OF THESE ASSIGNS ONE VALUE PER WORD, while `PLAN_B` specifies a
+>   CONTEXT-CONDITIONED SUPERPOSITION. They are a FLOOR for that architecture, not a test of it.**
 >   `THE_WEAKER_TEST_SAID_TEXT_CARRIES_NOTHING_...` `HOW_SMALL_CAN_THE_GROUNDED_SEED_BE_...`
 > **3. THE HONEST TENSION BEHIND BOTH, WORTH THE OWNER'S EYE:** *the supplied table beats everything
 > we LEARN, on both word classes.* **Leaning on it raises scores; it is SUPPLY, not learning, and the
