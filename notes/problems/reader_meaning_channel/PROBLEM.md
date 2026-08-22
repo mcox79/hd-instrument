@@ -68,6 +68,21 @@ code as a meaning code.** That is structural, not a tuning problem.
   set ON ITS OWN NEW WORDS.** *The existing evidence that norms generalise is about rare words that
   ALREADY HAVE norms. Until new words are scored, the coverage number is arithmetic, not
   capability.*
+- 🔑 **ADDED 2026-08-22 -- BEFORE NORMING A SINGLE NEW WORD, READ THIS: `+13.2` POINTS OF THAT
+  COVERAGE ARE ALREADY ON DISK AND THE LOOKUP CANNOT REACH THEM.** `hdlab/grounded_similarity.py:165`
+  is `_table().get(word.lower())` -- **a raw string match with no morphology**, so the asset holds
+  `country` and reads past `countries`, holds `release` and misses `released`. *Corpus-scale, with
+  the landed cell's `0.6035`/`0.1027` reproduced exactly first as the control:* **token coverage
+  `0.6035` -> `0.7350` under the repo's own `normalize_lemma`; type coverage `0.1027` -> `0.1633`.**
+  ➡️ **The gap from `60.35%` to the `90%` target is `29.65` points and this is `13.15` of them -- 44%
+  of the way, at ZERO data cost. So `+14,704` counts inflected forms of ALREADY-NORMED words as words
+  needing new norms.** ⚠️ *Two limits, both measured not assumed: ~4% of the recoveries are wrong
+  (`using -> us`, `angeles -> angel`, `notes -> not`), and irregulars (`women`, `feet`) are missed by
+  both methods so the ceiling is HIGHER than `0.7350`.* 🚫 **AND THE TRAP DIRECTLY ABOVE APPLIES TO
+  IT UNCHANGED -- this is COVERAGE, not CAPABILITY. No task was run. `grounded_similarity.py` was
+  deliberately NOT changed.** *The bar: a TASK score, with an information-free twin that lemmatises
+  to a RANDOM covered word required to LOSE.*
+  📎 `notes/THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_AND_THAT_IS_13_POINTS_OF_FREE_COVERAGE_2026-08-22.md`
 - *That replacing rather than blending is right.* Argued from the brain and supported by one
   HARD_FAIL (below) -- not proven.
 

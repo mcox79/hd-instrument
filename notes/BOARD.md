@@ -76,14 +76,13 @@ C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out
   ✅ **`tools/adjudicate_floor_flags.py`, self-test 7/7, imports the audit's own `scan()`; 2 positive
   controls + 1 negative control so it can neither excuse everything nor flag everything.**
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T17:46:40Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T18:02:55Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
-
-_No open questions. Nothing is waiting on you._
+| Q113 | Do you want me to hand experiment work to helper sessions while the loop runs? Here is the situation in plain terms. The loop that keeps me working overnight has produced, over its whole life so far, notes and small tools and zero changes to the actual system we are building. I wrote in the plan that this was forced on me - that the rules here simply would not let me run an experiment. I have now checked that claim properly and it was wrong. The helpers that ARE allowed to edit and run experiments do exist and are available to me right now; you told me on the 22nd that they should be. The only thing stopping me using them is a line in my own operating instructions saying I should not start a helper unless you have asked for it. So this is your switch, not a wall, and I did not want to flip it myself. What it costs either way: if you say yes, the loop can actually change the system overnight instead of only writing about it, and the two things sitting at the top of the plan - re-running one stale measurement, and enlarging the tiny 36-item test set we judge everything on - both become possible. If you say no, that is a perfectly reasonable answer and the loop stays useful but limited: it can measure things, write guards that catch mistakes, and document, which is genuinely where several real defects were caught this week - it just cannot fix them. | The top two items in the build plan both need an experiment run or a cell edited, which I cannot do myself. Until this is answered the loop can only keep finding defects it is not able to repair. | Say yes, with a limit - let me hand off experiment work, but no more than two helpers at once so you can still follow what is happening. The risk of my own recommendation, stated plainly: helpers running overnight without you watching is exactly how this project has previously ended up with results nobody vetted, and I have already duplicated work twice today by not checking what else was running. If that risk bothers you more than the stalling does, no is the right call. |  | open |
 
 ## ANSWERED
 
