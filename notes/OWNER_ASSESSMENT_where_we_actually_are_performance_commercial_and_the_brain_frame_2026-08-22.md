@@ -86,6 +86,16 @@ which I did not have in front of me tonight:*
 3. **THE BRAIN GROUNDS A SMALL ANCHOR EARLY AND REASONS OUTWARD.** *Differentiated emotion is
    confirmed at 4-7 months, years before the words attach to it. **It does not feel every word from
    scratch.***
+
+> 🔻 **AND I HAVE NOW VERIFIED THE SCALE OF THE "MACHINERY WE OWN", BECAUSE I QUOTED IT TWICE
+> WITHOUT LOOKING.** *`OPPOSED_PAIRS` = **6 hand-written CLASS pairs** (`hdlab/goal_typing.py`).
+> `lexical_similarity` = a **hand-authored 86-concept** McRae-style feature lexicon.* **So "we own the
+> similarity and opposition propagation machinery" means 86 hand-authored concepts and 6 class pairs
+> -- NOT something that reaches 3,000 words.** *The organ itself is strong on its own terms
+> (HARD_PASS, ordered_frac `0.9655` vs WINDOW `0.3793` vs random `0.1034`, scrambled ablation collapses
+> to `0.3103`) and its brain citation is specific: vATL similarity tracks FEATURE-NORM OVERLAP, **NOT
+> co-occurrence** (Cox et al. 2024). **The gap is COVERAGE, not quality.**
+
 4. **THEREFORE THE DIRECTION IS ANCHOR + PROPAGATE** -- *seed a small grounded valence anchor, wire
    words to it, spread outward by similarity and opposition.*
 
