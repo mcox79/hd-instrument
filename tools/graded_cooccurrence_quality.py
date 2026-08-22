@@ -1,4 +1,23 @@
-"""THE GRADED CO-OCCURRENCE QUALITY PROXY -- ONE MEASURE, ONE TEST, FROZEN BEFORE THE NEXT SAMPLE.
+"""SUPERSEDED 2026-08-22, BEFORE IT WAS EVER USED. Use `hdlab/quality_proxy.py` instead.
+
+WHY: hours after this file was written, the archive's OWN third repair of the same instrument --
+`cooccurs_v4`, a proximity window of 6 tokens -- was tested against the same 100 human-scored rows
+and SEPARATED human meaning from human noise at `p = 0.0038` (GOOD 0.591 vs NOISE 0.244), surviving
+Bonferroni correction for all seven tests run that day. This file's graded count reached only
+`p = 0.0349` raw / `0.1745` corrected.
+
+**The deciding difference was PROVENANCE, not the p-value.** `cooccurs_v4`'s window was derived from
+corpus structure BEFORE any result existed and was tested ONCE; this file's measure was invented by
+me while searching, which is exactly the multiplicity that disqualified it.
+
+RETAINED, NOT DELETED, because two of its controls are worth keeping:
+  - the PREFIX HAZARD it documents is real and applies to `cooccurs_v4` too (short terms match longer
+    words; measured on real data at rho -0.1492);
+  - its negative control demonstrates that a SINGLE-DRAW null check is itself a coin flip and that the
+    correct control asserts a FALSE-POSITIVE RATE (measured 0.05 over 40 draws).
+
+-------------------------------------------------------------------------------------------------
+THE GRADED CO-OCCURRENCE QUALITY PROXY -- ONE MEASURE, ONE TEST, FROZEN BEFORE THE NEXT SAMPLE.
 
 WHY THIS IS CODE AND NOT A PRE-REGISTRATION. The substance of pre-registration is fixing the measure
 and the test BEFORE seeing new data. `preregs/` is not writable here, and this project's own standing
