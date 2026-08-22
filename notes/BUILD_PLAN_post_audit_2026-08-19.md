@@ -91,6 +91,7 @@
 > | metric change to lift the `0.45` cap | 🚫 **refused by its own test: `0 of 120` synonyms under cosine, `8 of 120` under euclid** |
 > | removing a dominant axis | 🚫 PC1 is `27.5%`, spread, not concreteness; UNREL p95 `0.912 -> 0.890` |
 > | graded/signed mismatch | 🚫 not the cause *(already measured WITH a CI in STATUS -- 9th prior-work catch)* |
+> | the ACCUMULATION RULE | 🚫 **NO EFFECT, WITH A REACHABILITY CONTROL.** *`RAW SUM 0.1071 | UNIT-NORMALISE each sentence 0.1058 | SQRT-damped 0.1079`, nulls `~0.067` -- within `0.002` despite per-sentence norms spanning `32`-`379` (**11.9x**). **REACHED: `cos(raw,unit)` mean `0.9709` min `0.9096`, and `821 of 829` pair ranks CHANGED (99.0%).** The profiles moved thoroughly and the answer did not -- a NULL, not an unreachable arm.* |
 > | 🔻 **drop ubiquitous context words -- WITHDRAWN** | *in-sample `0.1071 -> 0.1558` at d=1024, but at **2,000** splits (was 200, Monte-Carlo noisy): **d=256 (SHIPS) `-0.0050` CI `[-0.0629,+0.0365]`; d=1024 `+0.0434` CI `[-0.0117,+0.0940]` -- NEITHER EXCLUDES ZERO.** I reported the favourable draw. **A HYPOTHESIS, NOT A RESULT.** The DISSOCIATION below is unaffected (it rests on the collapse).* |
 >
 > **SPLIT BY CONCRETENESS (SimLex's own `conc` cols, tertiles, 200-shuffle null PER stratum):**
