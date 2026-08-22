@@ -77,22 +77,24 @@
 > window co-occurrence.** ⚠️ *An interpretation of a design difference, NOT a measurement.*
 > ⚠️ **I DID NOT ESTABLISH THE REPLACEMENT IS UNATTEMPTED** *-- phrase queries return 0 (positive control
 > `"pattern separation"` = 12), **but `"situation"` = 55 and `"coref"` = 106: 161 cells UNENUMERATED.***
-> ✅ **ENUMERATION DONE (150 unique cells, all rows read): THE PRESCRIBED REPLACEMENT IS UNATTEMPTED --
->   AND ITS TWO INPUTS ARE BROKEN.** *`situation_model_assembly_learned_stateful_write` **HARD_FAIL**
->   (learned write <= frozen encoder on all 3); `situation_model_assembly_learned_identity_head`
->   **HARD_FAIL** (held-out `0.672` vs a `0.80` bar, **train `1.000` = MEMORISATION**);
->   `extraction_quality_gate_neural_foundation` **NO_GO** (neural coref would not install -> rule-based
->   fallback); `interactive_extraction_situation_model_loop_probe1` **never landed**.*
-> 🔑 **SO THE FRONTIER IS DEEPER THAN "BUILD THE REPLACEMENT" -- the two things it consumes do not work
->   yet, which reframes the sharpened-credit HARD_FAIL from "wrong fix chosen" to "the right fix had no
->   working inputs".** ⚠️ *That is my reading of the dependency structure; no note states it.*
-> ➡️ **REAL BLOCKING ITEM: the maintained situation model generalising to UNSEEN ENTITIES.** *Also worth
->   a cheap re-check: the coref `NO_GO` is an INSTALL failure, not a science result.*
-> 🔧 *Fixed `experiment_index.py`: `--limit` was advertised by its truncation message and NEVER PARSED
->   (stripped by the `--` filter), so >40-result questions could not be enumerated. Verified both forms;
->   self-test passes. **I first accused it of SILENT truncation -- wrong, I had cut its warning off with
->   my own `head`.*** `THE_PRESCRIBED_FIX_DEPENDS_ON_TWO_COMPONENTS_THAT_HARD_FAILED_...`
->   `THE_NAMED_LEVER_WAS_TRIED_AND_HARD_FAILED_...`
+> ✅ **ENUMERATION DONE (150 unique cells, all rows read). THE PRESCRIBED REPLACEMENT IS UNATTEMPTED, AND
+>   🔻 **MY "ITS INPUTS ARE BROKEN" CONCLUSION IS WITHDRAWN -- THEY ARE FAILED *UPGRADES*.**
+>   *`..._learned_stateful_write` says `learned-write <= MAIN_ENC`; `..._learned_identity_head` says **"no
+>   better than frozen baseline"** -- both name a WORKING comparator. The `NO_GO` was a NEURAL coref
+>   upgrade (`fastcoref` crashes on transformers 5.10.1 skew), never the prescribed one.* ✅ **THE CHARTER
+>   LISTS BOTH INPUTS AS FAITHFUL: "coref is FAITHFUL/Centering-Cb", "3/6 components are faithful (coref,
+>   situation-model binding, select+abstain)".**
+> 🔑 **PATTERN, 4th INSTANCE TONIGHT: I KEEP READING "AN ATTEMPT TO IMPROVE X FAILED" AS "X IS BROKEN"**
+>   *(also: the body-part hole dug on purpose; the `UNK` hand-off; the retracted `arm` story).* **THE TELL
+>   IS IN THE SUMMARY LINE -- a failure that CITES A COMPARATOR is a report about the comparator's RIVAL.**
+> ⚠️ **SO THE BUILD IS NOT BLOCKED FOR WANT OF PARTS -- but not therefore easy: the learned identity head
+>   scored `1.000` on train and `0.672` held-out (MEMORISATION), so generalising entity identity IS hard.
+>   My "real blocking item" from last turn is WITHDRAWN -- that blocks the UPGRADE, not the build.**
+> ➡️ **NEXT: verify the frozen Centering-Cb coref + maintained SituationModel actually RUN today (cheap,
+>   and I have NOT done it), then the prescribed build is unblocked.**
+> 🔧 *Fixed `experiment_index.py`: `--limit` was advertised by its truncation message and NEVER PARSED,
+>   so >40-result questions could not be enumerated. Both forms verified; self-test passes.*
+>   `I_KEEP_READING_A_FAILED_UPGRADE_AS_A_BROKEN_COMPONENT_...` `THE_PRESCRIBED_FIX_DEPENDS_...`
 >
 > **4. ✅ THE GROUNDING ORGAN WORKS, AND MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding`
 > HARD_PASS `0.967`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (the PREDICTED failure at
