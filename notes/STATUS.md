@@ -18,13 +18,11 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 ## POSITION
 
 ### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; NOW ENFORCED IN CODE**
-**`399` of `7,868` landed cells (`5.1%`) carry checkpoint units, so re-running them REPLAYS: same
-verdict, same numbers, `elapsed 0.0s`, no work done.** *Diagnosed on ONE cell (`61e3b39fc`), no
-detector until now.* 🔑 **`tools/reproduction_check.py` makes the unsafe reading unrepresentable --
-`ReproductionVerdict` has no `__bool__` (it raises); missing a before-snapshot returns
-`INDETERMINATE`, never a pass.** *Contract-tested on REAL data, negative-controlled both ways.*
+**`399` of `7,868` landed cells (`5.1%`) replay on re-run -- same verdict, same numbers, `elapsed
+0.0s`, no work done.** 🔑 **`tools/reproduction_check.py` makes the unsafe reading unrepresentable
+(`ReproductionVerdict` has no `__bool__`; no before-snapshot -> `INDETERMINATE`, never a pass).**
 🚫 **CASTS DOUBT ON NO LANDED NUMBER -- only on whether re-running one verifies it.**
-📎 `--census` recomputes every figure here; brief `notes/problems/harness_cannot_recompute/`.
+📎 `--census` recomputes it; brief `notes/problems/harness_cannot_recompute/`.
 
 ### 2026-08-22 -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS. THE LOOKUP CANNOT INFLECT.**
 **`grounded_similarity.py:165` is the whole lookup -- `_table().get(word.lower())`, raw string, no
@@ -38,6 +36,22 @@ sub-hypothesis REFUTED -- damage does NOT concentrate in participles (`4.9%` vs 
 it is the RULE landing on a real but unrelated word (`pales->pal`). **Validate the residue, do not
 restrict the suffix set.*** ✅ *Irregulars are worth only `+1.42` more (WordNet morphy `0.7492`), so
 REUSE `normalize_lemma` rather than adopting a heavier lemmatiser.*
+
+🔑 **AND THE VERB HOLE IS OURS, NOT THE ASSET'S.** *SimLex, one scorer, only WORD CLASS changing,
+400-shuffle nulls:* **the ASSET reads NOUN `+0.2745` (null `0.0732`) and VERB `+0.2607` (null
+`0.1241`) -- BOTH CLEAR, Fisher `z=0.192` NOT SEPARATED, on `99.6%` of SimVerb's 3,500 pairs.**
+➡️ **Against our LEARNED channel (noun clears `0.1310`, verb INSIDE its null): THE MEANING FOR VERBS
+IS AVAILABLE AND WE ARE NOT LEARNING IT.** 🧠 *ATL hub-and-spoke leans verb meaning on SENSORIMOTOR
+spokes, not distributional company -- so both halves are expected; our architecture reads text and
+expects verbs to fall out of it.* ⚠️ **ADJECTIVES `+0.1472` inside a `0.1952` null at n=111 --
+UNDERPOWERED, NOT a capability claim. UNRESOLVED.** 🚫 *Do not cross `0.2676` (3,487 pairs) with the
+archived `SUPPLIED 0.2983` (2,651).*
+🔻 **WITHDRAWN SAME DAY -- "the lookup fix IS the verb fix".** *Our own UPOS tagger over 20,000 real
+sentences says recovery is enriched for CONTENT WORDS generally: **VERB `2.58x`, NOUN `2.25x`**, ADJ
+`0.15x`, function words ~`0.00x`. My WordNet-dominant-sense proxy had said verb `1.90x` / noun
+`1.09x`; it had absorbed function words into the noun mass.* ✅ **The verb case rests on
+ENRICHMENT x DEFICIT instead: nouns recover into a channel that already HAS signal, verbs into one
+with NONE.** `THE_VERB_HOLE_IS_OURS_NOT_THE_ASSETS_...`
 🚫 **COVERAGE, NOT CAPABILITY -- NO TASK RUN; `grounded_similarity.py` DELIBERATELY UNCHANGED.**
 📎 `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...`; brief `notes/problems/lookup_does_not_lemmatise/`.
 🔓 **Board Q113 OPEN: the plan's "agent spawning is disallowed here" premise is FALSE (the `hdi_*`

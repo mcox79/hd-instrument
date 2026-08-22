@@ -30,19 +30,19 @@ AS OF: 2026-08-22, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origi
 
 **POSITION**
 ### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; NOW ENFORCED IN CODE**
-**`399` of `7,868` landed cells (`5.1%`) carry checkpoint units, so re-running them REPLAYS: same
-verdict, same numbers, `elapsed 0.0s`, no work done.** *Diagnosed on ONE cell (`61e3b39fc`), no
-detector until now.* 🔑 **`tools/reproduction_check.py` makes the unsafe reading unrepresentable --
-`ReproductionVerdict` has no `__bool__` (it raises); missing a before-snapshot returns
-`INDETERMINATE`, never a pass.** *Contract-tested on REAL data, negative-controlled both ways.*
+**`399` of `7,868` landed cells (`5.1%`) replay on re-run -- same verdict, same numbers, `elapsed
+0.0s`, no work done.** 🔑 **`tools/reproduction_check.py` makes the unsafe reading unrepresentable
+(`ReproductionVerdict` has no `__bool__`; no before-snapshot -> `INDETERMINATE`, never a pass).**
 🚫 **CASTS DOUBT ON NO LANDED NUMBER -- only on whether re-running one verifies it.**
-📎 `--census` recomputes every figure here; brief `notes/problems/harness_cannot_recompute/`.
+📎 `--census` recomputes it; brief `notes/problems/harness_cannot_recompute/`.
 ### 2026-08-22 -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS. THE LOOKUP CANNOT INFLECT.**
 **`grounded_similarity.py:165` is the whole lookup -- `_table().get(word.lower())`, raw string, no
 morphology -- so we hold `country` and read past `countries`.** **TOKEN coverage `0.6035` -> `0.7350`
 under our own `normalize_lemma` (+13.2 points, zero new norms = 44% of the way to the `90%` target),
 type `0.1027` -> `0.1633`.** ➡️ **So `+14,704 words to norm` counts inflected forms of ALREADY-NORMED
 words.** *Landed cell reproduced to 4 decimals BEFORE any delta -- that replication IS the control.*
+✅ **THE SUBSTITUTION IS SOUND, MEASURED: 3,629 pairs where both forms carry their own norms read
+median cosine `0.7605` vs a random-pair floor `-0.0131`; `4.9%` fall below that floor.** 🔻 *My
 
 **TOP ITEM -- **I HAD BEEN MEASURING THE CHANNEL BOTH PLANS OF RECORD ALREADY RULED OUT.****
 🔻 **THE SCOPING CORRECTION (08-22).** *I told the owner "a 1970s baseline beats us EVERYWHERE we have
@@ -76,7 +76,7 @@ C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out
   ✅ **`tools/adjudicate_floor_flags.py`, self-test 7/7, imports the audit's own `scan()`; 2 positive
   controls + 1 negative control so it can neither excuse everything nor flag everything.**
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T18:37:47Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T19:02:11Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
