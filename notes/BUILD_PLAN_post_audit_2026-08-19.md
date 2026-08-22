@@ -43,11 +43,12 @@
 > | 🔧 **PROCESS** | **9 PRIOR-WORK CATCHES** (3 in the docstring of the thing I was changing) -> new reads `symbol_corrections.py` (3.8% base rate) + `cite_check.py`. **THE SHELF IS 28 CORPORA / 286,069 SENTENCES, not the 9 my alphabetical cap showed** -- board Q103 filed and withdrawn within the hour. **THE LIVE READER STILL WALKS IT ALPHABETICALLY: 8 of 28 opened, all textbooks unreached.** 7 organs flipped to `WIRED_AND_PIPELINE_USED` *(import-reachable, NOT exercised)*. Stale BOARD header; GUI crash found by a witness. |
 > `ON_VERBS_...` `COUNTING_WITH_ONE_STANDARD_WEIGHTING_...` `THE_LIMIT_IS_DIMENSIONAL_...` `DIMENSION_BUYS_THE_LOOKUP_...` `SUPPLIED_BEATS_LEARNED_2_69x_...` `THE_CAP_IS_PRINCIPLED_...` `COMPLEMENTARY_IS_NOT_USEFUL_...` `DROPPING_264_UBIQUITOUS_...` `THE_SHELF_IS_28_CORPORA_NOT_9_...` `THE_READER_STILL_WALKS_...` `THE_REGISTRY_WAS_STALE_...` `THE_TOP_ITEM_WAS_ALREADY_WIRED_...`
 >
-> ## 🧭 **METHOD -- THE ONLY RULE THAT PAID OUT**
-> ***PUT A NUMBER BESIDE ANOTHER NUMBER THAT CONSTRAINS IT.*** *Killed 5 claims, cleared 3; every big
-> withdrawal was ONE fault -- a number measured in one setting applied to another.* **QUOTE THE NOTE,
-> NEVER THE HEADLINE** *(all 3 passes carried a CI, a control and a limit; all 5 kills were headlines).*
-> **CHECK PRIOR WORK FIRST** -- *it changed the answer 3x that night and twice more since.*
+> ## 🧭 **METHOD -- THE RULES THAT PAID OUT**
+> ***PUT A NUMBER BESIDE ANOTHER NUMBER THAT CONSTRAINS IT*** *(killed 5 claims, cleared 3);* **QUOTE THE
+> NOTE, NEVER THE HEADLINE;** **CHECK PRIOR WORK FIRST** *(it changed the answer 3x that night and 5x more
+> since);* ⭐ **AND 08-22: MAKE THE ARITHMETIC CLOSE TO THE REPORTED NUMBER -- three plausible stories died
+> to that one check, which was available every time and which I never ran.**
+
 > ## ➡️ **NEXT -- REWRITTEN 2026-08-22. THIS PLAN HAD DRIFTED FROM THE ARCHITECTURE IT SERVES.**
 > 🚨 **STRUCTURAL FAULT, MEASURED BY GREP: THIS FILE MENTIONED `PLAN_B_grounding_..._2026-08-07` --
 > a USER-CONFIRMED PLAN OF RECORD -- **ZERO TIMES**, named none of its four proven components, and did
