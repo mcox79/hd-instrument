@@ -34,6 +34,26 @@ re-measurement at `n=2,651`.**
 **HELD-OUT weighting gain (cap chosen on one half, scored on the other, 2,000 splits):
 `+0.0188`, 95% CI `[-0.0069, +0.0399]`, half-width `0.0234` -- DOES NOT SEPARATE.**
 
+## 2b. ✅ **REPLICATED ON A SECOND BENCHMARK -- AND THIS ONE IS THE EXACT RE-MEASUREMENT MEMORY ASKED FOR**
+
+*`MEMORY.md` says: re-measure on all 222 SimLex verb pairs before building any channel. Done --
+203 of the 222 are covered. **Same benchmark, same scorer, same 41-sentence profiles as the noun
+number, so THIS contrast is internally valid and needs no cross-population caveat.***
+
+| POS | pairs | rho | null p95 | |
+|---|---|---|---|---|
+| **NOUN** | 534 | **0.1310** | 0.0843 | ✅ clears its null |
+| **VERB** | **203** | **`-0.0002`** | 0.1398 | 🚫 **INSIDE the null band** |
+| ADJ | 92 | 0.2207 | 0.1931 | ✅ clears, barely |
+
+> ### **`-0.0002` HERE AND `+0.0000` ON SimVerb'S 2,651 PAIRS. TWO INDEPENDENT BENCHMARKS, BOTH AT ZERO.**
+
+***The two do different jobs and are stronger together: SimVerb supplies the POWER (n=2,651, null
+`0.0372`), SimLex supplies the WITHIN-BENCHMARK CONTRAST (nouns clear, verbs do not, nothing else
+changed).*** ⚠️ *SimLex's verb null is `0.1398` at n=203 -- a wide band. On its own that would be
+"underpowered"; what makes it readable is the SimVerb replication at a tight null.*
+⚠️ *ADJ at `0.2207` clears a `0.1931` null on 92 pairs -- noted, not leaned on.*
+
 ## 3. ✅ **AND THE POWER PREDICTION FROM AN HOUR AGO WAS CORRECT**
 
 *I calculated that resolving a `+0.03` effect needed roughly `2.8x` more pairs than SimLex's 829.*
