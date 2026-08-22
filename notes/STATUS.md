@@ -74,7 +74,16 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
    **NOUN 534 pairs `0.1310` (null `0.0843`) CLEARS; VERB `-0.0002` INSIDE; ADJ 92 pairs `0.2207`
    (null `0.1931`) clears barely.** ➡️ ***WEAK ON NOUNS, ABSENT ON VERBS -- not uniformly weak.***
    🧠 *A verb's neighbours are its ARGUMENTS: `give/receive`, `feed/starve 1.49` share context and
-   mean opposites. A bag of nearby words cannot separate them.* ✅ **DISCHARGES MEMORY's SUSPENDED
+   mean opposites. A bag of nearby words cannot separate them.*
+   🎯 **AND THE CONTROL THAT SPLITS IT -- a TEXT-DERIVED rival on the same 2,651 pairs:**
+   `COUNTING raw 0.0025 (null 0.0341) INSIDE | COUNTING+idf 0.0689 (null 0.0383) CLEARS barely |
+   OURS 0.0000 INSIDE | SUPPLIED norms 0.2983 (null 0.0309)`. ***BOTH TRUE AT DIFFERENT SCALES:***
+   **(1) text CAN extract a little verb signal and we extract NONE, so our zero is a REAL DEFICIT
+   against a text-derived rival; (2) but every text arm is 4.3x below the human-rated one, so MOST
+   of what is missing on verbs is missing from TEXT DISTRIBUTION, not from our encoder.**
+   ⚠️ *Ratios of correlations, NOT a variance decomposition.* **AND VERBS ARE NOT IMPOSSIBLE:
+   SUPPLIED euclid `0.2983` on 3,487 pairs, coverage 824/827 -- the shortfall is OURS, not the
+   task's.** 🚫 *SUPPLY, NOT LEARNING.* ✅ **DISCHARGES MEMORY's SUSPENDED
    verb claim, which asked for exactly these 222 SimLex pairs (203 covered) after being retired at
    n=86.** ⚠️ *78% verb coverage; the two BENCHMARKS must not be blended -- the noun-vs-verb contrast
    within SimLex is exempt.* `ON_VERBS_THE_LEARNED_CHANNEL_HAS_NO_SIGNAL_AT_ALL_n2651_...`
@@ -95,7 +104,7 @@ file already over cap.***
 
 | # | finding, with the number that carries it |
 |---|---|
-| **META** | **All 4 planned thrusts were ALREADY ANSWERED ON DISK.** *The defect was ORDER, not omission.* [`T2_superseded_...`] |
+| **META / PROCESS** | **All 4 planned thrusts were ALREADY ANSWERED ON DISK; the defect was ORDER, not omission.** *The full process ledger -- 9 prior-work catches, the 2 new reads (`symbol_corrections.py`, `cite_check.py`), the 28-corpora shelf correction, the alphabetical live reader, the registry lost-update, the stale board header, the GUI crash, and the detector I did NOT build -- now lives in the plan's consolidated top block. **Evicted from here 08-21 late: it was the only copy of nothing.*** [`METHOD_REVIEW_...`] |
 | **H2** | The anti-skew organ **read its way to `textbook_biology 0.63245`** while WINNING on its own currency. **MVT is a LEAVE rule, silent on WHERE TO GO.** *Register-inversion headline WITHDRAWN (7.6x bias under a 1.2x margin).* [`T1_foraging_...`] |
 | **E3** | **Coreference "salience" is PROVABLY a mention-count** -- `argmax_count_fraction = 1.0` on all 89 competitive decisions. **`base_principle_b` beat a COUNTER, not a cue account.** [`T2c_...`] |
 | **E3b** | ...and that `HARD_FAIL` **cannot support its own verdict**: n=89, scramble ABOVE treatment, 2 of 3 params hand-set. **Re-label UNDERPOWERED.** [`T2b_...`] |
@@ -104,9 +113,6 @@ file already over cap.***
 | ⭐ **RATE** | **WRITE LESS: `0.0710 -> 0.3079` at p90, 4.3x, no new mechanism -- BUT a RATE-MATCHED RANDOM GATE MATCHES IT AT EVERY THRESHOLD.** *So prediction-error gating is REFUTED; the gain is RATE.* ⛔ **every arm stays BELOW co-occurrence.** [`THE_RATE_SWEEP_IS_ALREADY_DONE_...`] |
 | **NORMS12** | **SUPPLIED human ratings, 12 dims -- and measured 08-21 against what we LEARNED on 829 IDENTICAL pairs, one scorer: `SUPPLIED euclid 0.2876 | SUPPLIED cosine 0.2176 | LEARNED d=1024 0.1071 | LEARNED d=256 0.0944` (nulls 0.063-0.076). 2.69x.** *The archive's 2.7x was an inference across two cells on different pair sets; this is its first honest test.* 🎯 **EUCLID BEATS COSINE BY `+0.0700`, MORE THAN OUR ENTIRE LEARNED ARM CLEARS ITS OWN NULL (`0.0440`).** ✅ **`GROUNDED_CAP=0.45` IS A MEASURED SAFETY PROPERTY, NOT A CRIPPLING -- I had been quoting it as a defect and was WRONG:** raw cosine cannot separate `sofa/couch 0.968` from `apple/orange 0.952`, so the cap sits BELOW the 0.50 merge threshold to make a false identity merge impossible BY CONSTRUCTION; only the TOP is flattened. *Its own escape clause is "this SAME metric" -- and 3 measurements say euclid beats cosine on exactly that contrast.* 🚫 **SUPPLY, NOT LEARNING -- the organ's docstring forbids reporting it as the substrate having learned perceptual structure.** ⚠️ token coverage 60.4%. [`SUPPLIED_BEATS_LEARNED_2_69x_...`] [`THE_CAP_IS_PRINCIPLED_...`] |
 | **CHANCE?** | **CORRECTED, I OVER-REACHED:** three measurements do NOT license "at or near chance" -- the trained substrate is **+16.3 pp REPLICATED** over an untrained codebook. **But `SUBSTRATE - COUNTING = -0.142` CI `[-0.203,-0.082]` SEPARATED: measurably BEHIND counting.** ⭐ **AND THAT NEGATIVE IS NOW CROSS-TASK (08-21 late).** *Same 829 SimLex MEANING pairs, different scorer, different population:* `counting RAW 0.0885 | OURS d=1024 0.1071 | counting +IDF 0.1835 | supplied norms 0.2876`; **`IDF - OURS = +0.0764` CI `[+0.0263,+0.1278]`, EXCLUDES ZERO.** ✅ *We DO beat RAW counting -- the loop is not doing nothing.* 🔻 **But ONE standard weighting (idf) is worth `+0.0950` where our whole learned signal clears its null by `0.0440`.** 🚫 **ANY CLAIM ON THIS BENCHMARK MUST CLEAR `0.1835`, NOT raw counting and NOT a shuffle -- I had been using the weak floor all night.** [`COUNTING_WITH_ONE_STANDARD_WEIGHTING_...`] [`THREE_INDEPENDENT_MEASUREMENTS_...`] |
-| ⭐ **METHOD** | **99 commits, 15% touched code, 16 withdrawals; LARGEST WASTE = 7 proposals already answered.** *Cause: I ran the prior-work check on what I was BUILDING, never on what I was DOING.* **-> `tools/before_you_start.py`.** [`METHOD_REVIEW_...` -- **updated late with 3 more fault families**] |
-| **ARCHIVE** | **`experiment_index` ignored `final_verdict` -- WRONG STATE for 9 cells.** Fixed + rebuilt. *It surfaced the 90%-precision extractor (HOLDS, `0.90 [0.826,0.945]`) and killed `dense_reading`'s "REFUTES" headline (a SUBSET out-recalled its WHOLE).* |
-| **KNOWL-EVAL** | **A BLIND 100-row hand-score existed and I produced an UNBLINDED duplicate.** **-> the trigger is STARTING ANYTHING, and query the ACTIVITY not just the artifact.** [`PRIOR_WORK_FOUND_...`] |
 
 ## WHAT IS RUNNING
 
