@@ -59,6 +59,13 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
    ours+drop 0.1558 | idf-counting 0.1835` -- closes ~57% of the gap, DOES NOT CLEAR IT.**
    🧠 *The brain's own operation: input that occurs everywhere carries little information and gets
    less response. We weighted every context word equally.* `DROPPING_264_UBIQUITOUS_...`
+5. 🔀 **AND THE SAME FILTER DISSOCIATES THE TWO JOBS -- the structural claim, measured a NEW WAY.**
+   *Identical filter on IDENTIFICATION:* `none 0.2057 | >20% 0.2160 | >10% 0.2169`.
+   **MEANING `0.1071 -> 0.1558 -> 0.0988` (sharp optimum, COLLAPSES past it); IDENTIFICATION
+   `0.2057 -> 0.2160 -> 0.2169` (FLAT).** *Moderately-common context words CARRY the semantic
+   signal, so removing them destroys meaning; identification wants only DISTINCTIVE rare context
+   and neither gains nor suffers.* ⚠️ **NOT a claim the filter HELPS identification (`+0.011`, no
+   CI, below the `~0.027` half-width). The DISSOCIATION rests on the COLLAPSE, not on that.**
 
 ➡️ **SO D1 (`256->1024`, which REWRITES EVERY PERSISTED STORE) improves a LOOKUP.** *Q65 = "do
 whatever is ideal"; standing caution = backup + no concurrent session; still climbing at 2048 on
