@@ -89,8 +89,7 @@
 >   *RETRACTED: "the open-vocab cost is 3 words (`arm`/`hand`/`leg`)" and "the consumer is calibrated on
 >   the component's error". **`he broke her arm` RETURNS `BLOCK_HIGH` = GOLD; `arm` is not a failure.**
 >   FAULT: I compared `v2.lookup_animacy` vs the real lookup and **THE CLOSED ARM DOES NOT CONSUME IT** --
->   it consumes `object_event_class` (`GOAL_OBJECT`/`ADVERSARIAL`/`ANIMATE_HARMABLE`). Name-matched a
->   function, never verified it, stacked two conclusions on it.*
+>   it consumes `object_event_class`. Name-matched a function, never verified it, built on it.*
 > ✅ **TRUE CAUSES, from calling the cell's OWN scorer with its OWN maps (event stage, subset B):**
 >   **(A) THE HARM ROUTE REQUIRES AN *UNCLASSIFIED* GOVERNOR** (`gov in force_class and gclass_narrow ==
 >   "UNK"`) -- fires for `break`/`shoot`, **BLOCKED for `beat`/`attack`, the two most violent verbs**.
