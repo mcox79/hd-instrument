@@ -15,6 +15,21 @@
 >
 > 🚫 **AND ONE DISQUALIFICATION I MUST STATE ABOUT MYSELF: I AM NOW A CONTAMINATED AUTHOR FOR THE EVAL BANK.** *I have read the per-item predictions and know exactly which items fail and why, so hand-building new gold items in this session would violate the free strongest predictor -- **DID THE TEST ITEMS EXIST BEFORE THE MECHANISM DID?** The 08-06 build used four independent surveyors fixing gold by textual entailment BEFORE any organ ran; I can no longer meet that bar on this bank.* `Q108`
 >
+> ## 🚨 **THE OWNER HAND-SCORED THE BLIND SHEET AND FOUND A STALE-ARTIFACT DEFECT (08-22). MY DIAGNOSIS OF IT WAS WRONG TWICE.**
+> **Owner, unprompted, on the first sheet anyone sat down with: *"a lot of words there are missing letters, and a lot of them unrelated."*** *They scored `75` of `150`: `1` MEANINGFUL, `15` RELATED, `31` NOISE, `28` comments.*
+> 🔻 **CORRECTION 1 -- I REPORTED `24%` NOT-WORDS AND OVERSTATED BY `2.3x`.** *My detector was "not in WordNet", which counts REAL words WordNet lacks (`archaea`, `adipocytes`, `acoelomates`, `allopolyploid`, `Abdullah`, `apps`).* **REBUILT AS A ROUND-TRIP TEST** *(stemmer output iff NOT a word AND a plausible suffix makes one -- `analysi`+`s` yes, `archaea`+anything no), which cannot share a blind spot with the damage:*
+>
+> | population | not-a-word | **TRUE STEMS** |
+> |---|---|---|
+> | the blind sheet (subj+obj) | `19.5%` | **`10.4%`** |
+> | `reading_grounding_v2_qualityfix` | `17.6%` | **`7.9%`** |
+> | 🟢 **`reading_grounding_v5_termboundary`** | `22.5%` | **`0.4%`** |
+>
+> ⚠️ **NOTE THE TRAP IN THE LAST ROW: v5 has the HIGHEST not-a-word rate and the LOWEST stem rate, because its vocabulary is technical and WordNet covers it badly. A CRUDER DETECTOR WOULD HAVE SCORED THE FIXED FOUNDATION AS THE WORST ONE.**
+> 🔻 **CORRECTION 2 -- AND IT RETIRES MY OWN TOP RECOMMENDATION: THE STEM REPAIR ALREADY SHIPPED.** *`v5` reads `0.4%` vs v2q's `7.9%`, ~20x, and the charter already recorded it (**"the v5 term-boundary fix, term corruption `16.1% -> 1.0%`"**).* **I told the owner "fix the stemmer first" one hour earlier. WITHDRAWN.** 🚫 **DO NOT RE-PROPOSE THE STEM REPAIR.**
+> 🎯 **THE REAL DEFECT IS PROVENANCE: `tools/draw_representative_blind_sample.py` DREW FROM `v2_qualityfix` WHILE `v3_definitional`, `v4_parsefix` AND `v5_termboundary` ALL SIT ON DISK WITH NOTHING MARKING WHICH IS CURRENT.** **We asked the owner for twenty minutes on a foundation three versions stale.**
+> ⚠️ **NOT CLAIMED: that v5 is the live foundation. It is a DIFFERENT ARTIFACT SHAPE** -- one `definitional_facts_v5.jsonl` where v2q has a full `store/` with concept space, provenance and refusals -- **so "sample v5 instead" is not a straight swap.** `WE_HAND_SCORED_A_THREE_VERSIONS_STALE_FOUNDATION_...`
+>
 > ## ⛳ **WHERE THIS STANDS -- RE-COUNTED 08-22, THE OLD FIGURE WAS WRONG**
 > **Measurement and correction, not building: `205` commits, **`3` touched capability code** (not the
 > "~15%" this line used to claim), 288 note-writes, **16 of my own claims withdrawn**. Performance:
