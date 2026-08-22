@@ -50,18 +50,11 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
    identification-sized `+0.0622` WOULD have been detected. A BOUNDED negative.**
 
 4. 🔻 **WITHDRAWN WITHIN THE HOUR -- "the one change that makes it better" IS NOT ESTABLISHED.**
-   *Dropping context words with df above a cutoff moves in-sample `0.1071 -> 0.1558` at `d=1024`.*
-   **I reported a held-out `+0.0433` CI `[+0.0002,+0.0994]` as EXCLUDING ZERO. It does not.**
-   *That CI came from **200** split-resamples and was MONTE-CARLO NOISY; at **2,000** splits:*
-   | d | held-out gain | 95% CI | excludes 0 |
-   |---|---|---|---|
-   | **256 (WHAT SHIPS)** | **-0.0050** | `[-0.0629, +0.0365]` | **NO** |
-   | 1024 | +0.0434 | `[-0.0117, +0.0940]` | **NO** |
-   **So: NO effect at the shipped dimension, and at `d=1024` a positive point estimate that does NOT
-   separate from zero.** ***A HYPOTHESIS, NOT A RESULT.*** *The direction survived; the claim did
-   not. I reported the favourable draw.* ⚠️ **METHOD: 200 resamples was too few to place a CI BOUND
-   -- the bound moved `+0.0002 -> -0.0117` on more resampling. Raise the resample count before
-   reading a bound that sits near zero.** `DROPPING_264_UBIQUITOUS_...`
+   *Dropping high-df context words moves in-sample `0.1071 -> 0.1558` at `d=1024`. I reported a
+   held-out `+0.0433` CI `[+0.0002,+0.0994]` as EXCLUDING ZERO from **200** resamples. At **2,000**:*
+   **`d=256` (WHAT SHIPS) `-0.0050` `[-0.0629,+0.0365]`; `d=1024` `+0.0434` `[-0.0117,+0.0940]` --
+   NEITHER excludes zero.** *I reported the favourable draw.* ⚠️ **METHOD: 200 resamples cannot place
+   a BOUND near zero; raise the count before reading one.** `DROPPING_264_UBIQUITOUS_...`
 5. 🔀 **The FILTER DISSOCIATION still stands and does NOT depend on the withdrawn claim.**
    *Same filter:* **MEANING `0.1071 -> 0.1558 -> 0.0988` (COLLAPSES past the optimum);
    IDENTIFICATION `0.2057 -> 0.2160 -> 0.2169` (FLAT).** *The dissociation rests on the COLLAPSE,
@@ -118,6 +111,14 @@ file already over cap.***
 ## WHAT IS RUNNING
 
 - ⬜ **NOTHING IS RUNNING.**
+- ⭐ **LANDED 08-21 LATE: A NEIGHBOUR READ-OUT DECODES ALL 15 NORM DIMS FROM OUR OWN PROFILES**
+  (`Concreteness 0.4671` control-top-as-predicted | `Valence 0.3069` vs null `0.0385` | **15/15 on
+  BOTH arms at 5-12x null**). 🔄 **MY PAIRWISE TEST AN HOUR EARLIER SAID ~NOTHING (3/15) AND WAS THE
+  WRONG TEST -- I DID NOT PUBLISH IT.** 🎯 *Affect is NOT supply-only: valence is already in what we
+  read.* 🔻 *IDF beats us **15 of 15** -- "behind counting" on a 15th measure.* ⚠️ **THE LIMIT: the
+  read-out USES 25 NEIGHBOURS' TRUE VALUES -- the space is ORGANISED, we cannot produce a value
+  unaided. That is GROUNDED CORE + PROPAGATION.** ⚠️ *K never swept; 3,000 of 5,021.*
+  `THE_WEAKER_TEST_SAID_TEXT_CARRIES_NOTHING_...`
 - 📏 **This file sits just inside its 28,672 B cap.** *It was 30,147 B at the start of 2026-08-21
   late. What paid for it was EVICTION, not trimming -- twice now: the night-findings table
   (7,155 -> 3,303 B) and this section, which had filled with FINISHED work. **When it next needs

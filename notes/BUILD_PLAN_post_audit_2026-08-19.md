@@ -10,38 +10,36 @@
 > **The night's work was almost entirely MEASUREMENT and CORRECTION, not building.** *99+ commits,
 > ~15% touching code, and **16 of my own claims withdrawn**. That is the honest headline.*
 >
-> ## 🧠 **THE ONE STRUCTURAL FINDING (everything else tonight is downstream of it)**
-> **ONE REPRESENTATION IS DOING TWO JOBS THAT REQUIRE OPPOSITE THINGS.**
-> *To learn what a word MEANS, `context_vector_masked` deletes the word from its own sentence -- the
-> "no-leak fix", and correct, or grounding learns "artery means artery". But that deleted word is the
-> strongest cue that two sentences concern the SAME word.* **Measured: masked hit@1 `0.1417` vs
-> unmasked `0.4750`, chance `0.0167`.** *Same-word DG codes sit at `0.0056` against a cross-word
-> `0.0015` -- both at the random floor.*
-> ➡️ **THE BRAIN DOES NOT FACE THIS: word FORM (VWFA) and word MEANING (ATL hub + spokes) are
-> SEPARATE SYSTEMS. And `notes/PLAN.md` ALREADY records this as one of its four founding anchors --
-> "a spelling-derived code is a FORM code, and we have been calling it a meaning code".**
-> ✅ **THE FORM ORGANS ARE ALREADY BUILT AND UNWIRED** (`char_trigram_encoder.py`, `vwfa.py`,
-> `char_positional_encoder.py`; PLAN.md: *"all built, none on the live path"*, n-gram coding
-> **PINNED-BY-EVIDENCE**). **So this is a WIRING decision, not a build -> board Q102.**
-> ⚠️ **THE RISK, SHARPENED BY MEASUREMENT: the form channel scores `1.0000` on identification
-> BECAUSE THE QUERY IS THE ANSWER. It will win any task where the word is the ANSWER; judge it only
-> where the word is the QUESTION. Prior: spelling already beats our meaning read-out, `0.0767` vs
-> `0.0480`.**
+> ## 🧠 **THE ONE STRUCTURAL FINDING -- FOLDED (4th fold). Q102 IS FILED; ITS PACKAGE IS COMPLETE.**
+> **ONE REPRESENTATION IS DOING TWO JOBS THAT REQUIRE OPPOSITE THINGS.** *`context_vector_masked`
+> deletes the word from its own sentence -- correct, else grounding learns "artery means artery" --
+> but that word is the strongest cue two sentences share a referent.* **masked hit@1 `0.1417` vs
+> unmasked `0.4750`, chance `0.0167`; same-word DG `0.0056` vs cross-word `0.0015`, both at floor.**
+> ➡️ **THE BRAIN DOES NOT FACE THIS: FORM (VWFA) and MEANING (ATL hub+spokes) are SEPARATE SYSTEMS**,
+> and `PLAN.md` already carries it as a founding anchor. ✅ **THE FORM ORGANS ARE BUILT AND UNWIRED**
+> (`char_trigram_encoder`, `vwfa`, `char_positional_encoder`; n-gram coding PINNED-BY-EVIDENCE) --
+> **so Q102 is a WIRING decision, not a build.**
+> ✅ **THE RISK IS DISARMED BY MEASUREMENT: the form channel reads `rho -0.0259` (p=0.41, n=999) on
+> SimLex meaning and sits INSIDE the 7-arm shuffled null band (`-0.0172..+0.0426`)** -- vs NORMS12
+> `0.2701` and our live encoding `0.1048`. *A pure index CANNOT inflate a meaning score, so it is SAFE
+> as a SEPARATE channel and clearly WRONG to BLEND into the meaning vector.* ⚠️ *Its `1.0000` on
+> identification is because THE QUERY IS THE ANSWER -- judge it only where the word is the QUESTION.*
+> 🔄 *Spelling beating our read-out (`0.0767` vs `0.0480`) therefore means THAT TASK IS PARTLY
+> SOLVABLE WITHOUT MEANING; I cannot separate that from "our read-out is weak", so the CAUSE is
+> unsettled -- never cite it about our MEANING representation without the caveat.*
+> 🚫 **SCOPE DISCLAIMER ON THE CELL: item population is the SimLex+WordSim word list, "NOT the
+> instrument's frequency-ranked vocabulary... may not be quoted as such" -- NO rho here may enter a
+> sentence about the live substrate.** ⚠️ *And do NOT swap `0.2701` with this cell's own `0.2449`
+> CI `[0.1830,0.3036]` (different cells; 0.2701 is inside its CI). WordSim353 `0.4093` = a third
+> population, also not blendable.*
 > `ONE_REPRESENTATION_TWO_OPPOSITE_JOBS_...` `THE_FORM_CHANNEL_SCORES_1_0000_...`
-> ✅ **AND THE VALID TEST IS NOW RUN: the FORM channel scores `rho = -0.0259` (p=0.41, n=999) against SimLex-999 human meaning judgements -- **ZERO meaning signal**, vs NORMS12's 0.2701 and our live encoding's 0.1048. *That DISARMS the stated risk: a pure index CANNOT inflate a meaning score or be mistaken for understanding, which makes it SAFE to wire as a SEPARATE channel -- and makes BLENDING it into the meaning vector clearly wrong (it would be pure noise there).*
-> 🔄 **AND IT REINTERPRETS A STANDING RESULT: spelling beats our meaning read-out (0.0767 vs 0.0480) -- but a channel with ZERO meaning signal cannot beat a meaning test on meaning. SO THAT READ-OUT TASK IS PARTLY SOLVABLE WITHOUT MEANING (likely gold answers that are orthographic or morphological relatives of the cue).** ⚠️ *I cannot separate that from "our read-out is so weak a meaningless signal beats it" -- both imply the task is not a pure meaning test, but the CAUSE is unsettled. Stop citing it as evidence about our MEANING representation without the caveat.*
-> `THE_FORM_CHANNEL_HAS_ZERO_MEANING_SIGNAL_...`
-> ✅ **AND RE-DONE AS A MATCHED COMPARISON (every arm's rho recomputed by me from the cell's OWN per-pair cosines, identical 999 pairs, gold verified byte-equal): THE FORM CHANNEL SITS *INSIDE* THE 7-ARM SHUFFLED NULL BAND (−0.0172 .. +0.0426) at −0.0259.** *Stronger than "near zero": it is indistinguishable from arms whose structure was deliberately destroyed, measured against a null built from this cell's own shuffles.*
-> 🔻 **AND I CORRECTED MYSELF ONE TURN LATER, TWICE, FROM THE CELL'S OWN FIELDS: (a) the token-embedding "flag" was ALREADY RECORDED -- `arms_clearing` reads exactly `["SIMLEX999|ASSET_NORMS12","WORDSIM353|ASSET_NORMS12"]`, so ONLY NORMS12 CLEARS and I re-derived the cell's own position (FOURTH prior-work catch tonight); (b) the cell carries a SCOPE DISCLAIMER I quoted past -- *"the item population is the SimLex+WordSim word list, NOT the instrument's frequency-ranked vocabulary. These are NOT instrument numbers and may not be quoted as such."* **So NONE of these rho values may be carried into a sentence about the live substrate.** *The form-channel conclusion SURVIVES -- noise-equivalence on a meaning benchmark is exactly the Q102 question.*
-> 🔍 **AND A NUMBER I KEPT QUOTING HAS A SIBLING: this cell measures `ASSET_NORMS12 rho = 0.2449` CI `[0.1830, 0.3036]` at its own path, and my recomputation reproduces it EXACTLY. The quoted `0.2701` appears here only as a substring of a per-pair cosine `0.27014` -- NOT as a rho at any numeric path; it lives in OTHER cells (`meaning_asset_fair_test_v1`, `calibrated_floor_verdict_v1`). NOT a contradiction -- 0.2701 is INSIDE 0.2449's CI -- but DIFFERENT CELLS, do not swap them.** *(WordSim353 gives 0.4093 [0.3058,0.5022]: a third population, also not blendable.)*
-> `THE_FORM_CHANNEL_SITS_INSIDE_THE_SHUFFLED_NULL_BAND_...`
+> `THE_FORM_CHANNEL_HAS_ZERO_MEANING_SIGNAL_...` `THE_FORM_CHANNEL_SITS_INSIDE_THE_SHUFFLED_NULL_BAND_...`
 >
 > ## 🔻 **THREE DEAD ENDS, ALL DOWNSTREAM OF THAT ONE CAUSE**
-> 1. **CA3 cannot complete** -- our rule MERGES correlated memories (margin **−0.1021**; the local
->    error-driven rule fixes it to **+0.0975**, beating even the pseudo-inverse's +0.0839, and 16x
->    expansion cuts it from 38 passes to **8**, inside replay's `0,3,10`). ***BUT REAL WITHIN-LEMMA
->    OVERLAP IS 0.0056 AGAINST A 0.22 FAILURE THRESHOLD -- the regime never occurs on our data, so
->    DO NOT BUILD THIS FIX.*** `CA3_MERGES_...` `THE_50_PASS_...` `THE_CA3_FAILURE_DOES_NOT_ARISE_...`
+> 1. **CA3 cannot complete** -- our rule MERGES correlated memories (margin **-0.1021**; local
+>    error-driven rule fixes it to **+0.0975** > pseudo-inverse's +0.0839; 16x expansion 38 -> **8**
+>    passes, inside replay's `0,3,10`). ***BUT REAL WITHIN-LEMMA OVERLAP IS 0.0056 vs A 0.22 FAILURE
+>    THRESHOLD -- the regime never occurs, so DO NOT BUILD IT.*** `CA3_MERGES_...` `THE_50_PASS_...`
 > 2. **Surprise cannot gate writes** -- it has real spread (sd 0.096) but is UNCORRELATED with value
 >    (r=+0.238, spans zero). ***That NAMES the mechanism for the write-gate null: gating on an
 >    uncorrelated signal IS gating at random.*** `SURPRISE_IS_REAL_BUT_UNINFORMATIVE_...`
@@ -50,11 +48,8 @@
 >    `HIGHER_OVERLAP_DID_NOT_MEAN_BETTER_TASK_...`
 >
 > ## ✅ **WHAT IS ACTIONABLE AND MEASURED (pre-08-21-late; the rest is superseded by NEXT below)**
-> - **WHY WRITING LESS HELPS: INTERFERENCE.** *`exp_crosstalk_capacity_law_v1_gpu_v1`: crosstalk over
->   raw keys DOMINATES Hebbian capacity, **r 0.976, n=11**, rivals' partials go NEGATIVE.* **Our keys
->   sit AT the Welch bound, so "better keys" is CLOSED BY GEOMETRY -- the two remaining levers are
->   FEWER ITEMS and MORE DIMENSIONS.** ⚠️ *And 08-21 measured MORE DIMENSIONS: it buys IDENTIFICATION,
->   NOT MEANING.*
+> - **WHY WRITING LESS HELPS = INTERFERENCE** (r 0.976, n=11; keys AT the Welch bound, so levers are
+>   FEWER ITEMS / MORE DIMENSIONS -- and MORE DIMENSIONS buys IDENTIFICATION, not MEANING). *Full entry in `STATUS.md` FINISHED AND CLOSED; evicted here, not the only copy.*
 > - **Owner Q98 APPROVED the write-rate extension** with a stopping rule (stop where the fraction of
 >   test words with no score leaves zero; measured 0.0000 everywhere tested). *Needs cell authoring.*
 > - **The loop stops accruing where accrual still pays** -- *but 08-21 shows identification saturates
@@ -69,7 +64,7 @@
 > | **VERBS: NO SIGNAL AT ALL** | `+0.0000` on SimVerb-3500's 2,651 pairs (null `0.0372`) **and** `-0.0002` on SimLex's 203 (null `0.1398`). Within SimLex, one scorer: **NOUN `0.1310` CLEARS, VERB INSIDE, ADJ `0.2207` barely.** *Discharges MEMORY's suspended verb claim (asked for those 222 pairs; 203 covered).* |
 > | 🔻 **AND WITH CIs, WITHIN ONE BENCHMARK, IT IS NOT ESTABLISHED AT ALL** | *I flagged last turn that the dimension differences had NO CI and crossed benchmarks. Fixed both: SimLex carries nouns, verbs AND adjectives, so the test runs on one benchmark with one scorer.* **ACTION-minus-PERCEPTUAL: NOUN `-0.0134` CI `[-0.0933,+0.0652]` \| VERB `+0.0634` CI `[-0.0738,+0.2021]` \| ADJ `-0.1555` CI `[-0.3397,+0.0302]`.** ***All three point the PREDICTED way (verb positive, noun and adj negative) and NOT ONE interval excludes zero.*** **So the dissociation is DIRECTIONALLY CONSISTENT and NOT ESTABLISHED** -- and the cross-benchmark version I reported one turn earlier looked stronger than the within-benchmark one does. *3-of-3 in the predicted direction is p=0.125 if directions were random: suggestive, not evidence.* |
 > | 🧠 **WHICH OF THE 12 DIMS CARRIES VERBS? A PARTIAL DISSOCIATION, WEAKER THAN PREDICTED** | *Dims 0-5 perceptual, 6-10 action effectors (foot/hand/head/mouth/torso), 11 concreteness.* **VERBS (n=3,487): perceptual `0.2195` \| ACTION `0.2702` \| concreteness `0.1118` \| all-12 `0.2983`. NOUNS (n=666): PERCEPTUAL `0.2834` \| action `0.2699` \| concreteness `0.0605` \| all-12 `0.3617`.** *Within verbs ACTION beats perception by `+0.051`; within nouns perception edges action by only `+0.014`.* ⚠️ **NOT the clean somatotopic double dissociation I predicted: action dims work almost as well on NOUNS (`0.2699`) as on verbs (`0.2702`), so they are NOT verb-specific.** ⚠️ *No CI on these DIFFERENCES, and the noun/verb comparison CROSSES BENCHMARKS -- only the within-population contrasts are valid. All-12 beats every subset in both, so the dims are complementary.* |
-> | ✅ **AND THE VERB NULL IS ROBUST TO COVERAGE -- the 41-sentence cutoff hides nothing** | *Every number tonight used words with >=41 sentences, which excluded 22% of verbs. Lowering the bar:* `T=41: 646 verbs / 2,651 pairs / OURS 0.0000 (null 0.0383) | T=20: 730 / 3,061 / 0.0207 (0.0355) | T=10: 776 / 3,257 / 0.0079 (0.0344) | T=5: 801 (97%) / 3,385 / 0.0213 (0.0318)`. **OURS STAYS INSIDE ITS NULL AT EVERY THRESHOLD, down to 97% verb coverage -- so the null is not the easy subset flattering us.** *SUPPLIED holds throughout (`0.2735 -> 0.2971`).* ⚠️ *SUPPLIED reads `0.2735` here vs `0.2983` earlier because this restricts to pairs OUR corpus also covers -- different pair sets, not a discrepancy.* |
+> | ✅ **THE VERB NULL IS ROBUST TO COVERAGE -- the 41-sentence cutoff hides nothing** | *OURS stays INSIDE its null at EVERY threshold:* `T=41 646 verbs/2,651 pairs 0.0000 (null 0.0383) | T=20 730/3,061 0.0207 (0.0355) | T=10 776/3,257 0.0079 (0.0344) | T=5 801=97%/3,385 0.0213 (0.0318)`. *SUPPLIED holds `0.2735->0.2971`.* ⚠️ *SUPPLIED reads `0.2735` here vs `0.2983` earlier because this restricts to pairs OUR corpus also covers -- different pair sets.* `ON_VERBS_..._n2651` |
 > | 🎯 **AND THE CONTROL THAT SPLITS IT** | *Text-derived rival, same 2,651 pairs:* **COUNTING raw `0.0025` (null `0.0341`) INSIDE; COUNTING+idf `0.0689` (null `0.0383`) CLEARS barely; OURS `0.0000` INSIDE; SUPPLIED `0.2983`.** ***BOTH true at different scales:*** **(1) text CAN extract a little verb signal and we extract NONE -- our zero is a real deficit against a text-derived rival; (2) but every text arm is 4.3x below the human-rated one, so MOST of what is missing on verbs is missing from TEXT DISTRIBUTION, not from our encoder.** ⚠️ *Ratios of correlations, not a variance decomposition.* |
 > | ⭐ **AND VERBS ARE NOT IMPOSSIBLE** | **SUPPLIED norms euclid `0.2983`** on 3,487 verb pairs (null `0.0309`, coverage 824/827) **vs OURS `0.0000`.** *The shortfall is OURS, not the task's.* 🚫 **SUPPLY, NOT LEARNING.** |
 > | **THE FLOOR THAT MATTERS** | `raw counting 0.0885 \| OURS 0.1071 \| ours+drop 0.1558 \| **idf-counting 0.1835** \| supplied 0.2876`. **`IDF-OURS = +0.0764` CI `[+0.0263,+0.1278]` SEPARATED -- the standing "behind counting" negative is now CROSS-TASK.** *Any claim here must clear `0.1835`.* |
@@ -116,11 +111,10 @@
 > **2. 🔻 BOTH BUILD CANDIDATES ARE STRUCK OR REPLACED -- THE CELL THAT SETTLES THEM LANDED
 > 2026-08-17 AND I HAD NOT READ IT (`exp_verb_event_salient_channel_v1`, TENTH PRIOR-WORK CATCH):**
 > - 🚫 **🅐 VERB MEANING FROM ITS OWN ARGUMENTS -- STRUCK. NOT UNRUN: IT RAN AND IT FAILED.**
->   *Built from parsed argument structure:* `S1_SLOT_FRAME` *(SUBJ+OBJ filler codes, 24 dims)* **raw
->   `0.0442` `NOT_SEPARATED`, and `survives_partial: FALSE`**; `S2_SLOT_DELTA` *(OBJ minus SUBJ, 12
->   dims)* **raw `0.0798` `NOT_SEPARATED`**, partial lower bound `+0.0010`. ⚠️ **AND I ASSERTED THIS
->   MECHANISM ALL NIGHT AS THE EXPLANATION FOR OUR VERB ZERO (*give/receive share arguments*)
->   WITHOUT MEASURING IT -- it is the S1/S2 hypothesis. STOP REPEATING IT.**
+>   `S1_SLOT_FRAME` *(SUBJ+OBJ filler codes, 24d)* **raw `0.0442` NOT_SEPARATED, `survives_partial:
+>   FALSE`**; `S2_SLOT_DELTA` *(OBJ-SUBJ, 12d)* **raw `0.0798` NOT_SEPARATED**, partial lower bound
+>   `+0.0010`. ⚠️ **I ASSERTED THIS ALL NIGHT AS THE EXPLANATION FOR OUR VERB ZERO WITHOUT MEASURING
+>   IT -- it IS the S1/S2 hypothesis. STOP REPEATING IT.**
 > - 🔄 **🅑 WIRING THE RAW SENSORIMOTOR PROFILE -- REPLACED. IT IS THE ARM THAT LOSES.** *On 3,152
 >   identical pairs, partialled for concreteness AND frequency:* **12 sensorimotor `0.2639` | +3
 >   AFFECT dims (valence/arousal/dominance) `0.3655` | the 3 AFFECT dims ALONE `0.3030`**; width
@@ -130,7 +124,18 @@
 >   no paired test was run.* 🚫 **SUPPLY, NOT LEARNING** (`measures_the_instrument_not_a_capability`).
 >   ⚠️ *Do NOT swap my `0.2983` (3,487 pairs, euclid) with this cell's `0.2711` (3,161, own scorer).*
 >   `THE_VERB_BUILD_I_QUEUED_WAS_ALREADY_RUN_...`
->
+> - ⭐ **AND THE FOLLOW-UP IS ANSWERED, AGAINST MY OWN FIRST TEST: A NEIGHBOUR READ-OUT DECODES
+>   ALL 15 NORM DIMENSIONS FROM OUR OWN PROFILES.** *3,000 words, K=25, self-exclusion asserted,
+>   nulls per dim.* **`Concreteness 0.4671` (control, top as predicted) | `Valence 0.3069` vs null
+>   `0.0385` | 15/15 clear on BOTH arms at 5-12x null.** 🔄 **MY PAIRWISE TEST AN HOUR EARLIER SAID
+>   ~NOTHING (3/15) AND WAS THE TEST THAT WAS WRONG -- the space is LOCALLY organised, globally not.
+>   I did not publish it; that is the only reason this is a finding and not a retraction.**
+>   🎯 **SO THE AFFECT TARGET IS NOT SUPPLY-ONLY -- valence is already in what we read.**
+>   🔻 *But IDF beats us on **15 of 15** (`0.5723`/`0.4110` vs `0.4671`/`0.3069`): "behind counting"
+>   now reproduces on a 15th measure.* ⚠️ **THE LOAD-BEARING LIMIT: the read-out USES 25 NEIGHBOURS'
+>   TRUE VALUES -- it shows the space is ORGANISED, not that we can produce a value unaided. That is
+>   a GROUNDED CORE + PROPAGATION architecture, i.e. the owner's distance-to-frontier question.**
+>   ⚠️ *K never swept; 3,000 of 5,021 eligible; no paired test per dim.* `THE_WEAKER_TEST_SAID_TEXT_CARRIES_NOTHING_...`
 > **3. THE HONEST TENSION BEHIND BOTH, WORTH THE OWNER'S EYE:** *the supplied table beats everything
 > we LEARN, on both word classes.* **Leaning on it raises scores; it is SUPPLY, not learning, and the
 > organ's docstring forbids reporting it as the substrate having learned anything.** *Owner already

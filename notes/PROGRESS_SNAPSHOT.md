@@ -4,75 +4,46 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-21T21:18:36Z  |  HEAD: dfe946a2c
+generated: 2026-08-22T01:16:14Z  |  HEAD: b64b3f34b
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 27552 min ago <-- STALE
-  - orchestrator: 35881 min ago <-- STALE
-  - research: 1944 min ago <-- STALE
-  - skunkworks: 38553 min ago <-- STALE
-  - testbed: 75127 min ago <-- STALE
+  - exp_dev: 27790 min ago <-- STALE
+  - orchestrator: 36119 min ago <-- STALE
+  - research: 2181 min ago <-- STALE
+  - skunkworks: 38791 min ago <-- STALE
+  - testbed: 75365 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - substrate_director_kb_v1.staging.18720: 18 min ago, NO metrics.json yet (likely in-flight)
-  - retired_2026-08: 147 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.20424: 41 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
-  - 📏 **THIS FILE IS ~870 B (3%) OVER ITS 28,672 CAP AND IS LEFT THAT WAY DELIBERATELY.**
-    *Per `STATUS_SPEC.md` sec 6 I spent both permitted actions -- compressed my own addition twice,
-    then evicted tiers 1-4 (a stale "Q92/Q95 are OPEN" block, two finished-work progress reports,
-    emphasis prose in the diagnostics and `n_grounded` entries). Step 3 is **STOP, do not descend into
-    the never-trim sections, disclose it** -- so it is disclosed here rather than paid for out of
-    DO-NOT-REDO or STANDING DISCIPLINES.* **Hand to a maintenance pass; the hook warns only past 1.5x.**
-  - ⬜ **NOTHING IS RUNNING.** Both detached diagnostics finished and were read 2026-08-21:
-    - ✅ **`exp_graded_vs_signed_query_v1` -- `np.sign` AT `:776` COSTS ALMOST NOTHING. CLOSED.**
-      `Q_GRADED` 0.0480 / median 37.0 vs `Q_SIGNED` 0.0455 / 41.0; paired **+0.0025 CI95
-      [-0.0030,+0.0080] NOT SEPARATED**. **T5b's PREDICTION IS REFUTED** -- it said magnitude moves
-      hit@1 specifically and leaves median rank alone; the opposite happened. *Real null, not
-      unreachable: positive control reproduces the C3 headline EXACTLY (0.0480), 3,708/4,000 ranks
-      changed.* **`:663`'s "worse than either" unsupported at this scale.**
-    - ✅ **`diagnose_read_with_loaded_foundation`: refusal delta 279 vs 380 = 1.36x, NOT the 22x
-      headline, which was 93% PRE-EXISTING.** *Its `n_grounded=0` is fixed at source, below.*
-  - 🔧 **FIXED -- `ReadResult.n_grounded` WAS STRUCTURALLY ALWAYS ZERO.** `substrate.py:608` read
-    `n_grounded_cumulative`; `checkpoint()` emits `cumulative_grounded` -- **the same two words
-    TRANSPOSED**, so `.get()` always defaulted and `or 0` served a wiring failure up as data, silently.
-    **A POSITIVE CONTROL WAS NOT OPTIONAL:** at 60 sentences the true value is *also* 0, so a rename
-    would have looked like success; at 600 it climbs **0->14->28->34->37->39** while the field said 0.
-    Now raises; self-tests PASS; **no landed cell affected** (cells count for themselves).
-    ⚠️ **GENERALISABLE: a STATIC scan for this bug class DOES NOT WORK** (1,925->871->801->132
-    suspects, every level dominated by legitimate reads --
-    `tools/audit_keys_read_but_never_written.py` says so in its own docstring). **WHAT FOUND IT WAS A
-    CONTRADICTION BETWEEN TWO FIELDS OF ONE OUTPUT** (`n_grounded=0` beside `anchors +68`).
-    ***Make outputs print quantities that CONSTRAIN EACH OTHER.***
-  - ⭐ **WHY WRITING LESS HELPS -- MECHANISM MEASURED ON OUR OWN SUBSTRATE (owner asked, Q98).**
-    `exp_crosstalk_capacity_law_v1_gpu_v1` `MEASURED_MECHANISM`: crosstalk `E[<ki,kj>^2]` over raw
-    keys DOMINATES Hebbian capacity, **r 0.976 / rho 0.964, n=11**; rivals `d_eff` -0.212 and
-    `IsoScore` 0.304 are weaker and their PARTIALS go NEGATIVE (-0.349/-0.499), killing
-    crosstalk-in-disguise. **Fewer keys -> less interference -> cleaner retrieval.**
-    ⚡ **DISSOLVES THE "BAD NEWS": a rate-matched RANDOM gate matching at all 4 thresholds is what
-    interference PREDICTS -- it counts HOW MANY keys, not WHICH. "Write less helps" + "choosing well
-    does not" are ONE result.** ✅ **OUR KEYS ARE AT THE WELCH BOUND: live encoder `inv_e_sq = 256.00`
-    at d=256, `inv_e_sq/D = 1.000`; best of the 11 is 0.179, most ~0.001 (anisotropic, isoscore
-    0.28-0.92). 3.2x the best at a THIRD of its D.** ➡️ **capacity ~ c x d (257-1,297 @256;
-    1,029-5,190 @1024). TWO LEVERS LEFT: FEWER ITEMS (approved sweep), MORE DIMENSIONS (B4 queued,
-    unrun). "Better keys" CLOSED BY GEOMETRY.** ⚠️ *d-prediction EXTRAPOLATES ALONG A DIFFERENT AXIS
-    (law varied ENCODERS at native D; `c` unmeasured for us, 5x spread) -- B4's sweep is the test.*
-    🚫 *Do not re-propose DO-NOT-REDO 44 or 32.* [`WHY_WRITING_LESS_HELPS_...`]
-  - **HAZARD: `data/foundation/` is READ-ONLY, ~63 MB, ONE DISK, NO BACKUP, gitignored.**
-  - **GATES: origin push needs in-session USER AUTH. Never `git add -A` on the canonical store.**
-    **Never bundle a deletion (`rm`/`Remove-Item`) with real work in one call.**
-    **Never edit `preregs/**` or any `arm_key*` file.**
-  - ✅ **BOARD EMPTY. Q98 ANSWERED: *"approved, but you should do some research on why this is as
-    you're finding it"*** -- write-rate extension AUTHORISED **with a stopping rule: extend past p90,
-    stop at the last point where the fraction of test words with NO score is still zero** (measured
-    0.0000 at every tested threshold; tie mass 0.0000 too -- only the write-nothing arm ties, 1.0000).
-  - 🧰 **USE IT: `python tools/what_did_this_cell_save.py <cell>`** -- RE-ANALYSABLE vs SUMMARY-ONLY,
-    opens siblings, reads JSON *and* JSONL, flags a SAMPLE posing as a population. **~31% of 7,905
-    cells are re-analysable (full enumeration).** *3 of 4 "must we re-run?" questions tonight were
-    already answered on disk; TWICE I asked the owner to authorise a number already saved.*
-    **OPEN THE CELL BEFORE ASKING.**
+  - ⬜ **NOTHING IS RUNNING.**
+  - 📏 **This file sits just inside its 28,672 B cap.** *It was 30,147 B at the start of 2026-08-21
+    late. What paid for it was EVICTION, not trimming -- twice now: the night-findings table
+    (7,155 -> 3,303 B) and this section, which had filled with FINISHED work. **When it next needs
+    space, delete a duplicate; do not shave words.*** `STATUS_SPEC.md` sec 6.
+  - ✅ **FINISHED AND CLOSED (one line each; detail is in the named note and in the plan's top block):**
+    - **`exp_graded_vs_signed_query_v1` -- `np.sign` at `:776` COSTS ALMOST NOTHING. CLOSED.**
+      `Q_GRADED 0.0480 / median 37.0` vs `Q_SIGNED 0.0455 / 41.0`; paired **`+0.0025` CI95
+      `[-0.0030,+0.0080]` NOT SEPARATED**; positive control reproduces the C3 headline EXACTLY.
+      **`:663`'s "worse than either" is unsupported at this scale.** ⚠️ **AND I PARTLY RE-DERIVED THIS
+      ON 08-21 LATE** on the MEANING benchmark (`graded x signed` sits between the two at d=256 and is
+      marginally best at d=1024) **without reading this entry first -- in the file I re-read every
+      continuation.** *Ninth prior-work catch; the earlier one has a CI and mine did not.*
+    - **`diagnose_read_with_loaded_foundation`: refusal delta `279 vs 380 = 1.36x`, NOT the 22x
+      headline, which was 93% PRE-EXISTING.**
+    - **`ReadResult.n_grounded` WAS STRUCTURALLY ALWAYS ZERO** -- `substrate.py:608` read
+      `n_grounded_cumulative`, `checkpoint()` emits `cumulative_grounded`, **the same two words
+      TRANSPOSED**. Now raises; self-tests PASS; no landed cell affected. **A STATIC scan for this bug
+      class DOES NOT WORK (1,925 -> 132 suspects, all legitimate reads). WHAT FOUND IT WAS A
+      CONTRADICTION BETWEEN TWO FIELDS OF ONE OUTPUT** (`n_grounded=0` beside `anchors +68`).
+      ***Make outputs print quantities that CONSTRAIN EACH OTHER.***
+    - **WHY WRITING LESS HELPS (owner Q98):** `exp_crosstalk_capacity_law_v1_gpu_v1`
+      `MEASURED_MECHANISM` -- crosstalk over raw keys DOMINATES Hebbian capacity, **r 0.976, n=11**;
+      rivals' partials go NEGATIVE. **Our keys sit AT the Welch bound, so "better keys" is closed by
+      GEOMETRY; the two remaining levers are FEWER ITEMS and MORE DIMENSIONS.**
 
 ## 3. How we are doing (C1-C4, notes/SUBSTRATE_STRATEGY.md PART 1)
 - **C1** Near-neighbour 2AFC, live reading path: now=**0.6980** (was 0.6395) | floor(s)=scrambled-context **0.5095**, frequency **0.48025**, chance 0.50 | table verdict: (no verdict word in table cell)
@@ -82,11 +53,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 4 new commit(s) since last snapshot (HEAD e4172aaa7 -> dfe946a2c)
+- 67 new commit(s) since last snapshot (HEAD dfe946a2c -> b64b3f34b)
 
 ## 5. What is stuck (blocked / pending / no owner)
-- **GATES: origin push needs in-session USER AUTH. Never `git add -A` on the canonical store.**
+- (none found)
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8158, "generated_at": "2026-08-21T21:18:36Z", "head_commit": "dfe946a2c05ac160a3df34d63323b70f2ab56cc1", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8158, "generated_at": "2026-08-22T01:16:14Z", "head_commit": "b64b3f34b6a917158ca2a398577a8c28612fddc9", "step_status": {}}
 -->
