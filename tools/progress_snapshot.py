@@ -722,10 +722,26 @@ def main() -> int:
         print(f'ERROR writing {OUT_MD}: {exc}', file=sys.stderr)
         return 1
 
+    # STDOUT HERE IS cp1252 ON WINDOWS, AND THE DOCS THIS SUMMARISES ARE FULL OF EMOJI.
+    # Measured 2026-08-22: `print(report)` died with UnicodeEncodeError on a U+2705 -- AFTER the
+    # snapshot file had been written correctly. So the tool did its whole job and then exited on the
+    # way out, which reads as a failed run and invites someone to "fix" a snapshot that was fine.
+    # Sanitising the STRING, not reconfiguring stdout: a module-level reconfigure mutates global
+    # state for every importer, which this repo has a documented incident about. Second tool hit by
+    # this class today (see tools/cite_check.py `_printable`); if a third appears, promote it to a
+    # shared helper rather than copying it again.
+    def _printable(s):
+        enc = (getattr(sys.stdout, 'encoding', None) or 'utf-8')
+        try:
+            s.encode(enc)
+            return s
+        except (UnicodeEncodeError, LookupError):
+            return s.encode(enc, errors='replace').decode(enc, errors='replace')
+
     if args.hook:
-        print(f'[progress-snapshot] {headline}')
+        print(_printable(f'[progress-snapshot] {headline}'))
     else:
-        print(report)
+        print(_printable(report))
     return 0
 
 

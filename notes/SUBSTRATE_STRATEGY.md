@@ -105,7 +105,21 @@ Four CAPABILITY numbers. Three HYGIENE numbers. Nothing else is a headline.
 | **C1** | **Near-neighbour 2AFC, live reading path** | **0.6980** (was 0.6395) | scrambled-context **0.5095**, frequency **0.48025**, chance 0.50 | `38f7a0d5c` (graded comparator ON) | the PRICED capacity step `d=256→1024`, worth ~**+0.05**, HELD (step 4). ~~rank-1 common-mode removal~~ — TRIED, **no effect** (step 3, `34b94e8bc`) |
 | **C2** | **Context-conditioned discrimination GAP** | **+0.1005** (0.6395 with context vs 0.5390 without) | scrambled-context **0.4975**, frequency 0.4800 | `exp_context_conditioned_near_neighbour_v1` | anything that makes the context port carry MORE than "some signal is present". The gap is real; its CONTENT is unproven |
 | **C3** | **Reading-grounding read-out quality** | **NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions | **scramble 0.80%** — a REAL FLOOR (`204eba1a0`), delta **+4.00pp** CI [+3.30, +4.70]. But scramble is the WEAKEST baseline available: FREQUENCY is **1.85%** on the same pool and the ORTHOGRAPHIC floor is ~~**UNMEASURED**~~ 🔴 **NOW MEASURED (2026-08-15 correction): standalone spelling = 8.70% [7.83, 9.60], and it BEATS us, CI-separated** (`exp_orthographic_floor_vet_v1`) | `exp_grounding_readout_known_answer_v1` (STEP 1, REPORTED). Gate HARDENED 2026-08-14 after adding a zero-meaning SPELLING channel to the base arm cleared the old criterion (`c0e6ec0da`) — note the channel is zero-meaning but the ARM is not: `A5_STRINGCTRL` = `z(base) + w*z(trigram)`, a decomposition, not a standalone floor (correction C16/C22) | ~~**separation between sister terms.**~~ 🔴 **REFUTED 2026-08-15 (DO-NOT-REDO 37)** — spelling ties `median_rank` 37.0 and the misses are not co-hyponyms. hit@1 alone is NOT the gate — a C3 claim with no string-form control arm is NOT EVALUABLE, never PASS |
-| **C4** | **Coreference, identity-demanding accuracy** | **0.7193** (earned 0.6842) | recency **0.5614**, singleton **0.3860**, oracle ceiling **0.9298** | `exp_wire_coref_accumulate_situation_model_v1` | closing earned-vs-oracle (0.6842 → 0.9298). This is a WIDEN-THE-MARGIN target on a WORKING organ |
+| **C4** | **Coreference, identity-demanding accuracy** — 🔻 **GOLD MENTIONS SUPPLIED, n=57** | **0.7193** = **41/57** (earned 0.6842) | recency **0.5614**, singleton **0.3860**, oracle ceiling **0.9298** | `exp_wire_coref_accumulate_situation_model_v1`, eval `data/eval_gold_mention_role_mcguffey_v1/` | closing earned-vs-oracle (0.6842 → 0.9298). A WIDEN-THE-MARGIN target on a WORKING organ — **but see the two limits below before quoting it** |
+
+> 🔻 **C4'S TWO LIMITS, ADDED 2026-08-22. This row feeds `tools/progress_snapshot.py`, so a caveat
+> missing here is missing from the generated scoreboard too.**
+> **(1) THE MENTIONS ARE HANDED TO IT.** `build_mention_stream` reads `passage['entities']`, a GOLD
+> mention inventory keyed by gold entity name, so the resolver decides LINKING *given* the mentions.
+> **It does not transfer to raw prose.** *(`substrate.py`'s E3 slot carried this and got the corpus
+> wrong — it said LitBank; the eval is gold-annotated **McGuffey**. Each document held half the
+> caveat. Both are corrected now.)*
+> **(2) THE SCALE IS 41 OF 57 QUERIES.** `n_queries_identity_demanding = 57`, `41/57 = 0.7193`
+> exactly, and `CORRECTION_the_E3_margin_over_its_STRONG_floor_is_NOT_CI_separated_at_n57_2026-08-21.md`
+> records that **the margin over its strong floor is NOT CI-separated at that n.**
+> ➡️ ***"We are not losing to trivial baselines" stands on that population.*** 🚫 **It may NOT be
+> quoted as coreference-on-raw-prose capability.** *Measured: of 22 files citing `0.7193` in
+> coreference context, **15 carry no caveat within 400 characters.***
 
 **C3 IS THE GATE, AND THE GATE WAS GAMEABLE UNTIL 2026-08-14.** The old criterion (**≥10%
 MEANINGFUL against a recorded floor, tautologies <10%**) is **RETIRED**: bolting a channel with no

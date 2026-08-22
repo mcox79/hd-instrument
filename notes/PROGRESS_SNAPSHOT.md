@@ -4,21 +4,76 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-22T16:04:11Z  |  HEAD: 1bb90a7a6
+generated: 2026-08-22T19:39:41Z  |  HEAD: 79511f837
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 28678 min ago <-- STALE
-  - orchestrator: 37007 min ago <-- STALE
-  - research: 209 min ago <-- STALE
-  - skunkworks: 39679 min ago <-- STALE
-  - testbed: 76253 min ago <-- STALE
+  - exp_dev: 28893 min ago <-- STALE
+  - orchestrator: 37222 min ago <-- STALE
+  - research: 424 min ago <-- STALE
+  - skunkworks: 39894 min ago <-- STALE
+  - testbed: 76468 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - substrate_director_kb_v1.staging.35808: 63 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.5400: 28 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
+  - ✅ **Q112 / OP1 ANSWERED AND CLOSED (08-22): "238 OVERSTATED RESULTS" WAS A COUNT OF FLAGS, NOT OF
+    OVERSTATEMENTS.** *7,868 metrics scanned, **286** flagged today (NOT 238 -- re-run, never quote
+    from memory).* **`INADMISSIBLE_COMPARISON` 207 (72.4%) · `UPHELD` 43 · `NOT_SUPPORTED` 35 ·
+    self-declared-failure 1.** 🔑 **The audit compares the largest floor-shaped and treatment-shaped
+    numbers ANYWHERE in a nested metrics.json without checking they are commensurable -- real rows
+    pit a REJECT RATE against an ACCURACY, and condition 5's floor against condition 0's treatment.
+    It prints "A READ LIST, NOT A VERDICT" every run; that caveat did not travel into OP1.**
+    🔻 **AND MY RECOMMENDED FIX WOULD HAVE BEEN HARMFUL: "mark all 238" would have branded ~207
+    results whose comparison was never valid.** ➡️ **REAL READ LIST = 35 CANDIDATES** (margins
+    `+0.9054` .. `+0.0106`; the bottom needs a human read). **43 are FINE and merely quote a weaker
+    floor than they hold -- a text fix.** 🔻 *I first published `32/46`; correct is `35/43` -- that
+    pass printed "79 admissible" then split `78`, and I published across a visible self-contradiction.*
+    ✅ **`tools/adjudicate_floor_flags.py`, self-test 7/7, imports the audit's own `scan()`; 2 positive
+    controls + 1 negative control so it can neither excuse everything nor flag everything.**
+    `THE_238_OVERSTATED_RESULTS_WERE_NEVER_238_...`
+  - ✅ ~~RESUME HERE -- Q112 / OP1: RE-ADJUDICATE THE 238~~ **FULLY CLOSED 08-22, ALL THREE FOLLOW-UPS
+    DONE. DO NOT REOPEN.** (1) **The 35 ARE MARKED IN PLACE** -- `tools/mark_floor_flag_candidates.py
+    --apply` wrote a `FLOOR_FLAG_CANDIDATE.md` sidecar into each cell dir, **additive and reversible;
+    NO `metrics.json` edited, NO registry row touched** (that write has a documented lost-update race).
+    Verified 35 on disk + positive control (2 marked) + negative control (an UPHELD cell is NOT
+    marked). Each says **it is a CANDIDATE and the result is NOT withdrawn**, and how to discharge it.
+    (2) 🔻 **THE 43 ARE DELIBERATELY NOT EDITED, and that is the call: they already BEAT their
+    strongest floor, so nothing they claim is wrong** -- 43 hand-edits buy no correctness and each is
+    a fresh chance to mis-transcribe a number. **Cleared by ADJUDICATION, not by rewriting.**
+    (3) ✅ **`strongest_floor_audit.py` NOW PRINTS THE 4-WAY DECOMPOSITION BESIDE THE FLAG COUNT**, not
+    20 lines below it -- **the caution was always in its output, at the bottom, and only the number
+    travelled.** The bare scare number is no longer emittable. *Fifth time a prose caution here was
+    fixed by moving it into a code path.*
+    🔻 *Its self-test asserts the marker's WORDING. The negative control caught me TWICE: I first
+    exempted the one string that tripped it (a checker sharing a flaw with what it checks), then the
+    note's own FILENAME tripped it. Now scoped to the claim body, with a non-vacuity guard.*
+    ⚠️ **13 of the 35 are NAMED in `data/capability_registry.jsonl`** -- so OP1's "they have already
+    spread" was REAL but about a THIRD the size implied. **Enumerated, not assumed.**
+  - 🗄️ **(superseded detail from the pre-compaction note)** **CURRENT WORK = Q112 / OP1: RE-ADJUDICATE THE 238 OVERSTATED RESULTS.**
+    **OWNER RULING, VERBATIM: *"re adjudicate them I think - you can do it fast, and then put this
+    behind us."*** *My own earlier recommendation was "mark them all, re-adjudicating is weeks" --
+    THE OWNER OVERRODE THAT. They are right that it can be fast IF it is MECHANICAL rather than
+    read-by-hand.*
+    **WHAT THE 238 ARE:** recorded results whose written conclusion claims more than their own
+    numbers support -- they beat no floor they had to beat -- **and they are already cited by the
+    certificate ledger and the capability list, so anything quoting those inherits the overstatement.**
+    Full statement of the decision: `notes/QUESTION_LOG.md` "OP1 -- THE ONE THE OWNER COULD NOT
+    ANSWER. REWRITTEN." (~line 489).
+    **THE TOOL EXISTS AND WAS LOCATED, NOT YET RUN FOR THIS: `tools/strongest_floor_audit.py`** --
+    scans every `data/*/metrics.json`, emits per-cell `flags`, has `--json` and `--self-test`.
+    **THE PLAN I HAD FORMED (not started):** run it with `--json`, then assign each cell a mechanical
+    disposition -- `FLOOR_BEATS_TREATMENT` (its own floor beats its own best arm) -> **NOT_SUPPORTED**;
+    `WEAKER_FLOOR_QUOTED` -> recompute best arm vs the LARGEST floor in its own metrics, UPHELD or
+    NOT_SUPPORTED accordingly; plus **EXCLUDED_FALSE_POSITIVE** with a reason. *That gives every cell
+    an individual verdict (genuine re-adjudication, which is what was asked) at mechanical speed.*
+    ⚠️ **THE TOOL'S OWN WARNING, WHICH MUST SURVIVE: "286 IS A READ LIST, NOT 286 DEFECTS."** Known
+    false-positive shapes: `run_mode: selftest`/smoke rows, a `max_` statistic compared against a
+    `mean_` one, near-ties across seeds, a DELTA read as a floor, and cells that already declare
+    themselves failures. **Filter them and REPORT HOW MANY were excluded.**
+    🔻 *The count may not be 238 today -- an earlier scan read 286. **RE-COUNT, do not quote either.***
   - 🏗️ **NEW OPERATING MODEL (OWNER 08-22) -- STRATEGY SESSION + SOLVER SESSIONS. THIS SESSION KEEPS
     THE 10k VIEW, WRITES PROBLEM BRIEFS AND INTEGRATES; A SEPARATE OPUS-4.8 SESSION SOLVES ONE
     BOUNDED PROBLEM AT A TIME.** ✅ **BUILT: `notes/problems/README.md` (protocol),
@@ -167,16 +222,19 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - **C1** Near-neighbour 2AFC, live reading path: now=**0.6980** (was 0.6395) | floor(s)=scrambled-context **0.5095**, frequency **0.48025**, chance 0.50 | table verdict: (no verdict word in table cell)
 - **C2** Context-conditioned discrimination GAP: now=**+0.1005** (0.6395 with context vs 0.5390 without) | floor(s)=scrambled-context **0.4975**, frequency 0.4800 | table verdict: (no verdict word in table cell)
 - **C3** Reading-grounding read-out quality: now=**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 ... | floor(s)=**scramble 0.80%** -- a REAL FLOOR (`204eba1a0`), delta **+4.00pp** CI ... | table verdict: NOT PASSED
-- **C4** Coreference, identity-demanding accuracy: now=**0.7193** (earned 0.6842) | floor(s)=recency **0.5614**, singleton **0.3860**, oracle ceiling **0.9298** | table verdict: (no verdict word in table cell)
+- **C4** Coreference, identity-demanding accuracy** -- 🔻 **GOLD ...: now=**0.7193** = **41/57** (earned 0.6842) | floor(s)=recency **0.5614**, singleton **0.3860**, oracle ceiling **0.9298** | table verdict: (no verdict word in table cell)
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 5 new commit(s) since last snapshot (HEAD 971c043e0 -> 1bb90a7a6)
+- nothing measurable moved since the last snapshot
 
 ## 5. What is stuck (blocked / pending / no owner)
+- from memory).* **`INADMISSIBLE_COMPARISON` 207 (72.4%) · `UPHELD` 43 · `NOT_SUPPORTED` 35 ·
+- Verified 35 on disk + positive control (2 marked) + negative control (an UPHELD cell is NOT
+- `WEAKER_FLOOR_QUOTED` -> recompute best arm vs the LARGEST floor in its own metrics, UPHELD or
 - MONOTONICALLY (`+0.0062 -> -0.0464`), in-sample best lambda is **0.0 = do not do it**, held-out
 - **a 12-WORD seed via `hdlab/wordnet_polarity_propagation.py` -> `0.833` on 12 HELD-OUT verbs**
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8159, "generated_at": "2026-08-22T16:04:11Z", "head_commit": "1bb90a7a6e617cbfaeded8bb51155e61b73e173c", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8159, "generated_at": "2026-08-22T19:39:41Z", "head_commit": "79511f837424729e8683a05a4e04f42a2a828fea", "step_status": {}}
 -->

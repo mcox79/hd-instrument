@@ -880,6 +880,21 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   comparing a resolver score in one run against floors from a different run on a different metric,
   propagated one hop from a stale docstring. **Only the 0.5614 / 0.3860 pair may be set beside the
   0.7193.** The real remaining gap is oracle 0.9298 − earned 0.6842.
+  🔻 **TWO LIMITS ADDED 2026-08-22, NEITHER OF WHICH THIS PARAGRAPH CARRIED, AND BOTH LOAD-BEARING.**
+  **(1) THE MENTIONS ARE SUPPLIED.** `build_mention_stream` reads `passage['entities']` — a GOLD
+  mention inventory keyed by gold entity name — so the resolver decides LINKING *given* the mentions
+  and this **does not transfer to raw prose**. The eval path is
+  `data/eval_gold_mention_role_mcguffey_v1/`, i.e. gold-mention-annotated McGuffey. *(This paragraph
+  had the CORPUS right where `substrate.py`'s E3 slot said LitBank — and the slot had the GOLD
+  dependency, which this paragraph omitted. **Each document held half the caveat; the slot is now
+  corrected too.**)*
+  **(2) THE SCALE IS 41 OF 57.** `n_queries_identity_demanding = 57`, and `41/57 = 0.7193` exactly.
+  `notes/CORRECTION_the_E3_margin_over_its_STRONG_floor_is_NOT_CI_separated_at_n57_2026-08-21.md`
+  already records that **the margin over its strong floor is NOT CI-separated at that n**.
+  ➡️ **So "we are not losing to trivial baselines" stands as written, on that population — but it is
+  a 57-query result with the mention inventory handed to it, and it may not be quoted as
+  coreference-on-raw-prose capability.** *Measured: of 22 files citing `0.7193` in coreference
+  context, **15 carry no caveat within 400 characters.***
   The resolver's confidence signals were VET'd at AUC
   0.65-0.75 for predicting **its own errors** — metacognition, not resolution accuracy.
   **Competitive resolution among 2+ semantically plausible antecedents has NEVER been tested at
