@@ -101,6 +101,19 @@
 > ⚠️ *Also: `John`/`Mary` get `gender=None` (non-pronouns), so gender cannot link `He`->John in my toy
 > passage. The real evaluation is the landed cells (`centering_cb_...` MIDDLE_BAND), not this.*
 > ➡️ **RUNNING WAS THE QUESTION AND THE ANSWER IS YES -- THE PRESCRIBED BUILD IS UNBLOCKED FOR PARTS.**
+> 🔎 **SCOPED (read-only, 08-22): THE PRESCRIBED BUILD FIXES THE HALF THAT WAS *NOT* THE STATED
+> BOTTLENECK.** *`_credit_targets` derives subject/object **POSITIONALLY** and links referents by **STRING
+> MATCH**; `SituationModel` already carries `agent`/`patient`, FRAME-BASED `subj_role`/`obj_role`,
+> per-event `affect`, and `CorefResolution`.* ✅ **THE ROLE HALF IS A REAL UPGRADE and is the charter's own
+> "role assignment is FRAME-based not positional" anchor.**
+> 🔻 **BUT `CausalLink` CARRIES ITS OWN VET CAVEAT IN A DATACLASS-FIELD COMMENT: "REDUCIBLE to
+> connective-else-most-recent". WIRING IT IN IMPORTS A RECENCY HEURISTIC, NOT A SOLUTION -- and attaching
+> a consequence to the right verb IS the problem. I nearly reported it as the answer.**
+> 🔻 **AND IT IS NOT A WIRING JOB: `SituationReader.read(conll_path)` needs MENTION-ANNOTATED CoNLL;
+> the loop passes RAW PROSE. Bridging = parse + mention detection on the reading path.**
+> ⭐ ➡️ **MEASURE THE SPLIT FIRST (cheap, UNRUN): of the errors at attribution precision `0.4676`, how many
+> are WRONG ROLE vs WRONG VERB? That decides whether the role upgrade alone is worth the parsing cost.**
+> `SCOPING_THE_PRESCRIBED_BUILD_...`
 > 🔧 *Fixed `experiment_index.py`: `--limit` was advertised by its truncation message and NEVER PARSED,
 >   so >40-result questions could not be enumerated. Both forms verified; self-test passes.*
 >   `I_KEEP_READING_A_FAILED_UPGRADE_AS_A_BROKEN_COMPONENT_...` `THE_PRESCRIBED_FIX_DEPENDS_...`
