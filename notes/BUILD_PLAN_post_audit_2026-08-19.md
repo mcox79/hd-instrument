@@ -49,108 +49,59 @@
 > since);* ⭐ **AND 08-22: MAKE THE ARITHMETIC CLOSE TO THE REPORTED NUMBER -- three plausible stories died
 > to that one check, which was available every time and which I never ran.**
 
-> ## ➡️ **NEXT -- REWRITTEN 2026-08-22. THIS PLAN HAD DRIFTED FROM THE ARCHITECTURE IT SERVES.**
-> 🚨 **STRUCTURAL FAULT, MEASURED BY GREP: THIS FILE MENTIONED `PLAN_B_grounding_..._2026-08-07` --
-> a USER-CONFIRMED PLAN OF RECORD -- **ZERO TIMES**, named none of its four proven components, and did
-> not carry its bottleneck. I have been executing this file every turn. THAT is why tonight went where
-> it did: TWO PLANS, ONLY ONE BEING READ.**
-> 🎯 **THE BOTTLENECK, NAMED IDENTICALLY IN THREE DOCUMENTS SINCE 08-05:** *CHARTER -- "the wall is
-> producing that input from surface text"; SYNTHESIS 08-06 -- reasoning HARD_PASSed on real prose,
-> lexical meaning is the barrier; PLAN_B 08-07 -- "on REAL prose the teaching signal DOESN'T CARRY
-> (scramble does NOT collapse, gap `-0.03`; primary `0.472` < floor `0.639`)".* **ALL THREE: THE
-> REASONING WORKS WHEN FED PROPERLY; PRODUCING THE INPUT FROM REAL TEXT IS THE FAILURE.**
-> 🔻 **AND THE CHARTER ALREADY RECORDS TONIGHT'S WHOLE APPROACH AS MEASURED TO FAIL: "Bag-of-words
-> co-occurrence LACKS the sense signal (MEASURED: supervised control at chance); the brain's signal is
-> GROUNDING + SYNTAX + SITUATION." EVERY NUMBER I PRODUCED TONIGHT IS BAG-OF-WORDS CO-OCCURRENCE.**
-> ✅ **FOUR COMPONENTS ARE BUILT AND `HARD_PASS`:** *S1 12-word seed -> `wordnet_polarity_propagation`
-> -> `0.833` held-out, seed-ablation `0.000`; S2 superposition map, held-out collapse `1.000` vs
-> SCRAMBLE `0.400`, with `spoil` polarity DELIBERATELY REVERSED so a generic heuristic must fail; S4
-> LEARNED-from-exposure `1.000` vs SCRAMBLE-CONSEQUENCE `0.486`; richer context KEY `0527afeab`.*
-> ⚠️ **THEIR OWN BOUNDARY, NOT SOFTENED: MECHANISM PROOFS ON CLEAN SIGNAL AT TINY SCALE (6 words, 28
-> items, 2-way animacy key); PLAN_B says "gap 0.000 is a CLEAN-corpus artifact". DESIGN SOUND != WORKS.**
-> ⭐ **THE LEVER, FROM PLAN_B'S OWN REVISED PLAN, NEVER WORKED: CREDIT-ASSIGNMENT -- attach a shown
-> 🔻 **AND THE FRONTIER ITSELF WAS TRIED ON 08-07 AND `HARD_FAIL`ED -- BUT NOT IN THE PRESCRIBED FORM.**
->   *`exp_sharpened_credit_assignment_v1`: `primary 0.4167` vs floor `0.6389`, `lift 0.0167` (its own
->   NO-SIGNAL band is <=0.05), attribution precision `0.4676 -> 0.4941`, coverage `23 -> 6`, reason
->   **SCRAMBLE_STILL_DOES_NOT_COLLAPSE**. The parent wall: real `0.4722` vs scrambled `0.5000`, and
->   **COVERAGE WAS EXPLICITLY NOT THE PROBLEM** (teacher fires 439/1655).*
-> 🔑 **BUT IT SHARPENED THE RULE *INSIDE* THE LOCAL WINDOW, AND BOTH DOCUMENTS SAY REPLACE THE WINDOW**
->   *(CHARTER: "feed the maintained SituationModel + coref as the extraction context, REPLACING THE LOCAL
->   WINDOW"; PLAN_B: "goal-linked consequence, NOT window co-occurrence").* **A sharper rule over the same
->   window is still window co-occurrence -- the thing both name as the defect.** ⚠️ *That reading is an
->   interpretation of a design difference, NOT a measurement.*
-> ⚠️ **I DID NOT ESTABLISH THE REPLACEMENT IS UNATTEMPTED.** *Phrase queries return 0 (positive control
->   `"pattern separation"` = 12, so the tool works), **but `"situation"` alone = 55 and `"coref"` = 106 --
->   161 cells UNENUMERATED. A search is not an enumeration.*** ➡️ **ENUMERATE THOSE 161 BEFORE BUILDING.**
->   `THE_NAMED_LEVER_WAS_TRIED_AND_HARD_FAILED_...`
-> consequence to the RIGHT verb/goal, GOAL-LINKED, *NOT window co-occurrence*.** *Charter's wording:
-> feed the maintained SituationModel + coref as the extraction context, REPLACING THE LOCAL WINDOW.*
-> ⚠️ *LIMITS: I have NOT re-run those four cells (numbers quoted, module existence verified only);
-> there is a SECOND plan of record (`PLAN_grounded_semantic_organ_build.md`, 08-05) I have NOT read;
-> supersession unverified after 08-12. This changes PRIORITIES, retracts no measurement.*
-> `THE_BOTTLENECK_HAS_BEEN_NAMED_IDENTICALLY_SINCE_AUGUST_5_...`
-> ✅ **THE PRESCRIBED NEXT ACTIONS WERE ALREADY BUILT AND RUN -- THE ORGAN WORKS.** *`governor_grounding`
->   HARD_PASS `0.967`/`0.956`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (the PREDICTED failure
->   at `0.500`); `twostage_event_situation_v2` HARD_PASS **B `1.000`, C `1.000`** vs governor `0.500`,
->   **bow `0.517`/`0.500`**.* 🎯 **DOUBLE DISSOCIATION: each subset's MATCHED scramble degrades, the
->   UNMATCHED one does not.** 🔻 **SCALE: n = 21/12/12/8, and `Cgen` is n=2 -- that `1.000` CARRIES
->   NOTHING.** 🔻 **"counting beats us EVERYWHERE" WAS SCOPED WRONG: all 16 measures are the
->   WORD-SIMILARITY channel, which both plans ruled out (bow `0.5167` = chance HANDED THE GOLD SENSE).**
->   `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
-> ✅ **OPEN VOCABULARY: CLOSED, FULLY DIAGNOSED, NOTHING REPAIRED.** *Combiner is **SITUATION > EVENT >
->   GOVERNOR**, so event-stage `None` = DECLINING.* **`B` 10/12 = `0.8333`, `Bgen` 6/8 = `0.750`, both
->   totals CLOSE EXACTLY, and ALL FOUR ERRORS HAVE AN *ADVERSARIAL* PATIENT (`enemy` x2, `rival`,
->   `thief`). THE ANIMACY MAP CANNOT EXPRESS `ADVERSARIAL` -- an EXPRESSIVENESS GAP, not a lookup bug.**
->   ✅ *WordNet supplies it 7/8 at a `0.8%` base rate; **it misses `rival` CORRECTLY** (filed under
->   `contestant`; the hostility is in the gloss) -- **A RIVAL IS AN ADVERSARY *RELATIONALLY*, so the
->   residue is EXACTLY the part both plans say needs SITUATION context.*** 🔑 **THE `== "UNK"` GUARD IS
->   A DELIBERATE HAND-OFF -- DO NOT TOUCH IT.** 🔻 **THREE RETRACTIONS GETTING THERE** *("the cost is 3
->   words" -- `arm`/`hand`/`leg` are ALL correct; the "consumer calibrated on the error" story; the
->   do-not-ship). **ROOT FAULT: compared `v2.lookup_animacy` vs the real lookup and THE CLOSED ARM DOES
->   NOT CONSUME IT.** **THE ANSWER WAS IN THE DOCSTRING AT LINE 52 -- read past twice over four turns.***
->   ⚠️ *READ not REPRODUCED; `pred_gov` not re-trained; event stage only; `stranger` fires and should not.*
->   `BOTH_OPEN_VOCAB_SUBSETS_CLOSE_...` `WORDNET_CARRIES_ADVERSARIAL_...` `SUBSET_B_IS_NOW_...` `I_RETRACT_...`
-> ⚠️ **VERIFICATION: those numbers are READ, NOT REPRODUCED.** *Re-running gives `elapsed 0.0s` -- checkpoints
->   REPLAY and **the no-op is INDISTINGUISHABLE FROM A PASS**. `--self-test` DOES recompute and reproduced
->   the pattern. Scope measured (detector positive-controlled): `399` of `7,868` landed cells, 5.1%.*
->   `RESUMABILITY_DEFEATS_REPRODUCTION_CHECKING_...`
+> ## ➡️ **NEXT -- 2026-08-22. THE POSITION LIVES IN `STATUS.md` TOP ITEM; THIS IS WHAT TO DO.**
+> 🚨 **THIS PLAN HAD DRIFTED FROM THE ARCHITECTURE IT SERVES: it cited `PLAN_B_grounding_..._2026-08-07`
+> -- a USER-CONFIRMED PLAN OF RECORD -- **ZERO TIMES** (grep), named none of its four proven components,
+> and did not carry its bottleneck. TWO PLANS, ONLY ONE BEING READ.**
 >
-> 🧭 **THE DIRECTION HAS A NAME AND IT WAS SET ON 2026-08-06, NOT TONIGHT: *ANCHOR + PROPAGATE*.**
-> *`SYNTHESIS_grounding_wall_definitive_2026-08-06` (237 grounding cells, 91 notes) established:* **(a)
-> the two walls are SEPARATE and we ALREADY CLEARED ONE -- following the plot HARD_PASSed on real
-> prose, so the reasoning machinery is NOT the barrier, lexical meaning is; (b) good/bad is NOT in
-> grammar and NOT in text statistics because ANTONYMS ARE DISTRIBUTIONAL TWINS (published valence
-> models at `r~0.75` are PARASITIC on a small hand-given seed); (c) the brain grounds a SMALL
-> affective anchor at 4-7 MONTHS and reasons outward, it does NOT feel every word; (d) therefore:
-> seed a small anchor, WIRE words to it, PROPAGATE by similarity AND OPPOSITION.**
-> 🎯 **MY 08-21 SEED SWEEP *IS* THAT ARCHITECTURE, MEASURED FOR THE FIRST TIME -- AND I RE-DERIVED IT
-> WITHOUT READING THE SYNTHESIS.** ✅ *It also DISSOLVES what I called that result's load-bearing limit:
-> using neighbours' true values is NOT a weakness, it IS the chosen brain-faithful design.*
-> ✅ **OPPOSITION, FOLDED TO 5.** *(a) similarity-propagation CANNOT see opposition: TRUE valence diff
->   spans `0.695-1.363`, PREDICTED `0.302-0.336` (FLAT), within-antonym rho `-0.0259` (n=96); both
->   abort-controls passed. (b) the signal IS in text: cond "X and/or Y" ANT `0.0782` vs SYN `0.0269` vs
->   RANDOM `0.0022`; antonyms are our CLOSEST relation because 2nd-order encoding turns CO-OCCURRENCE
->   INTO SIMILARITY. (c) 🔻 **the fix FAILED -- penalising it hurts monotonically, worse than a RANDOM
->   penalty, because `COOC ALONE = +0.0464`: related words co-occur and the antonym effect is swamped.**
->   🔻 `OPPOSED_PAIRS` = 6 class pairs, `lexical_similarity` = 86 concepts; **the real one is
->   `wordnet_polarity_propagation`, antonym-aware, built two weeks before I began.*
-> - 📐 **THE 08-21/22 MEASUREMENT PASS -- FLOOR ONLY, ALL BAG-OF-WORDS, THE CHANNEL BOTH PLANS RULED OUT
->   (`0.5167` = chance HANDED THE GOLD SENSE).** *Read-out decodes all 15 norm dims (`Valence 0.3069` vs
->   null `0.0385`); ~50-100 seeds propagate but **IDF at 200 beats OURS at 2,000**; ANISOTROPY.* ⚠️ **ALL
->   OF IT ASSIGNS ONE VALUE PER WORD where `PLAN_B` specifies a CONTEXT-CONDITIONED superposition.**
->   `THE_WEAKER_TEST_...` `HOW_SMALL_...`
-> **3. THE HONEST TENSION BEHIND BOTH, WORTH THE OWNER'S EYE:** *the supplied table beats everything
-> we LEARN, on both word classes.* **Leaning on it raises scores; it is SUPPLY, not learning, and the
-> organ's docstring forbids reporting it as the substrate having learned anything.** *Owner already
-> ruled supply ADMISSIBLE (2026-08-16), so this is a PRIORITISATION question, not a permission one --
-> filed here rather than on the board, which already carries one unanswered question.*
+> **1. Q102 remains the ONLY open board question** *(wire the form organs; evidence package complete).*
 >
-> **4. AND THE MEASUREMENT LIMIT THAT BOUNDS ALL OF IT:** *two weighting schemes each gave `~+0.03`
-> in-sample and NEITHER separated.* **SimLex-999 cannot resolve `+0.03`; it needs ~2,300 pairs.
-> SimVerb-3500 CAN, and the power prediction held to within a few points.** *Use SimVerb for anything
-> this size.*
+> **2. 🎯 THE DIRECTION IS *ANCHOR + PROPAGATE*, set 08-06/08-07, not by me.** *Ground a SMALL affective
+> anchor (the brain does it at 4-7 months) and reason outward. Good/bad is in neither grammar nor text
+> statistics because ANTONYMS ARE DISTRIBUTIONAL TWINS.* ✅ **FOUR COMPONENTS ARE BUILT AND `HARD_PASS`:**
+> *S1 a 12-word seed via `wordnet_polarity_propagation` -> `0.833` held-out, **seed-ablation `0.000`**;
+> S2 superposition map, held-out collapse `1.000` vs SCRAMBLE `0.400`, with `spoil` polarity DELIBERATELY
+> REVERSED so a generic heuristic MUST fail; S4 LEARNED-from-exposure `1.000` vs SCRAMBLE-CONSEQUENCE
+> `0.486`; richer context KEY `0527afeab`.* ⚠️ **THEIR OWN BOUNDARY: MECHANISM PROOFS ON CLEAN SIGNAL AT
+> TINY SCALE (6 words, 28 items); `PLAN_B` calls the zero gap "a CLEAN-corpus artifact". DESIGN SOUND !=
+> WORKS.** `THE_BOTTLENECK_HAS_BEEN_NAMED_...` `THE_SUBTRACT_ARM_FAILED_...`
 >
-> **5. NOTHING IS RUNNING.** *Runnable-unrun: B4's d=1024 live-path 2AFC and D3's re-scoped test.*
+> **3. 🔻 THE NAMED LEVER WAS TRIED 08-07 AND `HARD_FAIL`ED -- BUT NOT IN THE PRESCRIBED FORM.**
+> *`exp_sharpened_credit_assignment_v1`: `primary 0.4167` vs floor `0.6389`, `lift 0.0167` (its own
+> NO-SIGNAL band is <=0.05), attribution precision `0.4676 -> 0.4941`, coverage `23 -> 6`, reason
+> **SCRAMBLE_STILL_DOES_NOT_COLLAPSE**. Parent wall: real `0.4722` vs scrambled `0.5000`; **COVERAGE WAS
+> EXPLICITLY NOT THE PROBLEM** (teacher fires 439/1655).*
+> 🔑 **IT SHARPENED THE RULE *INSIDE* THE LOCAL WINDOW; BOTH DOCUMENTS SAY REPLACE THE WINDOW** *(CHARTER:
+> "the maintained SituationModel + coref as the extraction context, REPLACING THE LOCAL WINDOW"; PLAN_B:
+> "goal-linked consequence, NOT window co-occurrence").* **A sharper rule over the same window is still
+> window co-occurrence.** ⚠️ *An interpretation of a design difference, NOT a measurement.*
+> ⚠️ **I DID NOT ESTABLISH THE REPLACEMENT IS UNATTEMPTED** *-- phrase queries return 0 (positive control
+> `"pattern separation"` = 12), **but `"situation"` = 55 and `"coref"` = 106: 161 cells UNENUMERATED.***
+> ➡️ **ENUMERATE THOSE 161 BEFORE BUILDING.** *Every time I skipped that tonight, the work already existed.*
+> `THE_NAMED_LEVER_WAS_TRIED_AND_HARD_FAILED_...`
+>
+> **4. ✅ THE GROUNDING ORGAN WORKS, AND MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding`
+> HARD_PASS `0.967`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (the PREDICTED failure at
+> `0.500`); `twostage_event_situation_v2` HARD_PASS **B and C `1.000`** vs governor `0.500`.*
+> 🎯 **DOUBLE DISSOCIATION: each subset's MATCHED scramble degrades, the UNMATCHED one does not.**
+> 🔻 **SCALE: n = 21/12/12/8 and one `1.000` IS n=2 -- it CARRIES NOTHING.** 🔻 **"counting beats us
+> EVERYWHERE" was WRONG: all 16 measures are the WORD-SIMILARITY channel, which both plans ruled out
+> (bow `0.5167` = chance HANDED THE GOLD SENSE).** ⚠️ **READ, NOT REPRODUCED -- re-runs REPLAY checkpoints
+> and the no-op is INDISTINGUISHABLE FROM A PASS** *(`--self-test` does recompute; `399`/`7,868` affected).*
+> `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...` `RESUMABILITY_DEFEATS_...`
+>
+> **5. ✅ OPEN VOCABULARY: CLOSED, DIAGNOSED, NOTHING REPAIRED.** *`B` 10/12 = `0.8333`, `Bgen` 6/8 =
+> `0.750`, both CLOSE EXACTLY, and **ALL FOUR ERRORS HAVE AN *ADVERSARIAL* PATIENT**. The animacy map
+> cannot express it -- an EXPRESSIVENESS GAP. WordNet supplies it 7/8 at `0.8%`, and **misses `rival`
+> CORRECTLY: a rival is an adversary RELATIONALLY, so the residue is EXACTLY the part both plans say needs
+> SITUATION context.*** 🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF -- DO NOT TOUCH IT.**
+> 🔻 **THREE RETRACTIONS GETTING THERE; ROOT FAULT: compared `v2.lookup_animacy` vs the real lookup and
+> THE CLOSED ARM DOES NOT CONSUME IT. THE ANSWER WAS IN THE DOCSTRING AT LINE 52.**
+> `BOTH_OPEN_VOCAB_SUBSETS_CLOSE_...` `WORDNET_CARRIES_ADVERSARIAL_...` `I_RETRACT_...`
+>
+> **6. THE HONEST TENSION:** *the supplied table beats everything we LEARN on the word-similarity channel.*
+> **Owner ruled supply ADMISSIBLE (08-16), so this is PRIORITISATION, not permission.**
+
 
 
 **Written 2026-08-18 end of session, at the owner's direction, to be executed after compaction.**
