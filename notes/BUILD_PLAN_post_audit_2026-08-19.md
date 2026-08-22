@@ -40,12 +40,10 @@
 >    error-driven rule fixes it to **+0.0975** > pseudo-inverse's +0.0839; 16x expansion 38 -> **8**
 >    passes, inside replay's `0,3,10`). ***BUT REAL WITHIN-LEMMA OVERLAP IS 0.0056 vs A 0.22 FAILURE
 >    THRESHOLD -- the regime never occurs, so DO NOT BUILD IT.*** `CA3_MERGES_...` `THE_50_PASS_...`
-> 2. **Surprise cannot gate writes** -- it has real spread (sd 0.096) but is UNCORRELATED with value
->    (r=+0.238, spans zero). ***That NAMES the mechanism for the write-gate null: gating on an
->    uncorrelated signal IS gating at random.*** `SURPRISE_IS_REAL_BUT_UNINFORMATIVE_...`
-> 3. **12-dim feature context is FLAT** -- worse at every load and does not improve with more traces
->    (0.0266 at L=37 vs the incumbent's 0.1328). *NORMS12's own note predicted exactly this.*
->    `HIGHER_OVERLAP_DID_NOT_MEAN_BETTER_TASK_...`
+> 2. **Surprise cannot gate writes** -- real spread (sd 0.096) but UNCORRELATED with value (r=+0.238,
+>    spans zero). ***Gating on an uncorrelated signal IS gating at random.*** `SURPRISE_IS_REAL_...`
+> 3. **12-dim feature context is FLAT** -- worse at every load, no gain with more traces (0.0266 at
+>    L=37 vs incumbent 0.1328); NORMS12's own note predicted it. `HIGHER_OVERLAP_DID_NOT_...`
 >
 > ## ✅ **WHAT IS ACTIONABLE AND MEASURED (pre-08-21-late; the rest is superseded by NEXT below)**
 > - **WHY WRITING LESS HELPS = INTERFERENCE** (r 0.976, n=11; keys AT the Welch bound, so levers are
@@ -124,18 +122,20 @@
 >   no paired test was run.* 🚫 **SUPPLY, NOT LEARNING** (`measures_the_instrument_not_a_capability`).
 >   ⚠️ *Do NOT swap my `0.2983` (3,487 pairs, euclid) with this cell's `0.2711` (3,161, own scorer).*
 >   `THE_VERB_BUILD_I_QUEUED_WAS_ALREADY_RUN_...`
-> - ⭐ **AND THE FOLLOW-UP IS ANSWERED, AGAINST MY OWN FIRST TEST: A NEIGHBOUR READ-OUT DECODES
->   ALL 15 NORM DIMENSIONS FROM OUR OWN PROFILES.** *3,000 words, K=25, self-exclusion asserted,
->   nulls per dim.* **`Concreteness 0.4671` (control, top as predicted) | `Valence 0.3069` vs null
->   `0.0385` | 15/15 clear on BOTH arms at 5-12x null.** 🔄 **MY PAIRWISE TEST AN HOUR EARLIER SAID
->   ~NOTHING (3/15) AND WAS THE TEST THAT WAS WRONG -- the space is LOCALLY organised, globally not.
->   I did not publish it; that is the only reason this is a finding and not a retraction.**
->   🎯 **SO THE AFFECT TARGET IS NOT SUPPLY-ONLY -- valence is already in what we read.**
->   🔻 *But IDF beats us on **15 of 15** (`0.5723`/`0.4110` vs `0.4671`/`0.3069`): "behind counting"
->   now reproduces on a 15th measure.* ⚠️ **THE LOAD-BEARING LIMIT: the read-out USES 25 NEIGHBOURS'
->   TRUE VALUES -- it shows the space is ORGANISED, not that we can produce a value unaided. That is
->   a GROUNDED CORE + PROPAGATION architecture, i.e. the owner's distance-to-frontier question.**
->   ⚠️ *K never swept; 3,000 of 5,021 eligible; no paired test per dim.* `THE_WEAKER_TEST_SAID_TEXT_CARRIES_NOTHING_...`
+> - ⭐ **A NEIGHBOUR READ-OUT DECODES ALL 15 NORM DIMS FROM OUR OWN PROFILES** (3,000 words, K=25,
+>   self-exclusion asserted): **`Concreteness 0.4671` control-top-as-predicted | `Valence 0.3069` vs
+>   null `0.0385` | 15/15 on BOTH arms at 5-12x null.** 🔄 *My pairwise test an hour earlier said
+>   ~nothing (3/15) and WAS THE WRONG TEST -- the space is organised LOCALLY, not globally. I did not
+>   publish it.* 🎯 **AFFECT IS NOT SUPPLY-ONLY -- valence is already in what we read.**
+> - 🎯 **AND THE PRICE: ~50-100 GROUNDED WORDS ALREADY PROPAGATE; PAST ~400 MORE BUYS ~NOTHING**
+>   *(concreteness, the gated column: `50 0.2114` vs null `0.1239`; `400 0.3783`; `2000 0.4323`).*
+>   🔻 **BUT IDF AT 200 SEEDS (`0.2971`) BEATS OURS AT 2,000 (`0.2638`) -- 10x THE GROUNDING TO NOT
+>   MATCH IT. 16th measure where counting leads; both arms SATURATE.** 🔬 **NEW DIAGNOSTIC: our
+>   nearest-seed cosine is HIGHER (`0.3965` vs `0.2415`) while carrying LESS -- ANISOTROPY; `DO NOT
+>   REDO 27` (common-mode) has a revival `*`, criterion NOT read, NOT claimed met.** 🔻 *2 own-script
+>   defects reported: the 25-seed row is DEGENERATE (exactly 0.0000 = reachability signature), and
+>   `null95` gates CONCRETENESS ONLY.* ⚠️ *Random seed = pessimistic; K unswept twice.*
+>   `THE_WEAKER_TEST_SAID_TEXT_CARRIES_NOTHING_...` `HOW_SMALL_CAN_THE_GROUNDED_SEED_BE_...`
 > **3. THE HONEST TENSION BEHIND BOTH, WORTH THE OWNER'S EYE:** *the supplied table beats everything
 > we LEARN, on both word classes.* **Leaning on it raises scores; it is SUPPLY, not learning, and the
 > organ's docstring forbids reporting it as the substrate having learned anything.** *Owner already

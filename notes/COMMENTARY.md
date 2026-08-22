@@ -153,3 +153,15 @@ Also there are a lot of very old and not updated tabs in the gui - can we refres
 ## 2026-08-21T18:41:58Z  --  the status window
 
 I think you may have missed my point on the retrospective. I think that you may have a process flow that is not ideal for making progress on substrate - you often go for answers that might make sense in standard coding, but don't apply well here. I need you to imagine yourself as a neuroscience expert, working to recreate the human brain as an AI. You just happen to be an expert in coding too.
+
+## 2026-08-22T01:50:19Z  --  the status window
+
+how are we doing in performance now? did the perspective of being a neuroscience focused person result in better results? have we made that perspective concrete?
+
+## 2026-08-22T01:54:35Z  --  the status window
+
+also - i want you to evaluate your progress against what it would take for this to be ready commercially - I feel like I dont' have a sense of progress. are we making progress?
+
+## 2026-08-22T01:55:05Z  --  the status window
+
+we did a fuckton of work on grounding. make sure you understand all of it.

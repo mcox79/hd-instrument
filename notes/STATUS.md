@@ -64,10 +64,8 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
    **`+0.0000` on SimVerb-3500's 2,651 covered pairs (null p95 `0.0372`)** *(Gerz et al. 2016 --
    cite it)* **and `-0.0002` on SimLex's 203 verb pairs (null `0.1398`). TWO INDEPENDENT BENCHMARKS,
    BOTH AT ZERO.** *Within SimLex -- one scorer, one profile set, only word class changing --*
-   **NOUN 534 pairs `0.1310` (null `0.0843`) CLEARS; VERB `-0.0002` INSIDE; ADJ 92 pairs `0.2207`
-   (null `0.1931`) clears barely.** ➡️ ***WEAK ON NOUNS, ABSENT ON VERBS -- not uniformly weak.***
-   🧠 *A verb's neighbours are its ARGUMENTS: `give/receive`, `feed/starve 1.49` share context and
-   mean opposites. A bag of nearby words cannot separate them.*
+   **NOUN 534 `0.1310` (null `0.0843`) CLEARS; VERB `-0.0002` INSIDE; ADJ 92 `0.2207` (null `0.1931`) clears barely.**
+   🚫 *"a verb's neighbours are its ARGUMENTS" IS REFUTED -- it IS S1/S2, NOT_SEPARATED 08-17.*
    🎯 **AND THE CONTROL THAT SPLITS IT -- a TEXT-DERIVED rival on the same 2,651 pairs:**
    `COUNTING raw 0.0025 (null 0.0341) INSIDE | COUNTING+idf 0.0689 (null 0.0383) CLEARS barely |
    OURS 0.0000 INSIDE | SUPPLIED norms 0.2983 (null 0.0309)`. ***BOTH TRUE AT DIFFERENT SCALES:***
@@ -111,14 +109,15 @@ file already over cap.***
 ## WHAT IS RUNNING
 
 - ⬜ **NOTHING IS RUNNING.**
-- ⭐ **LANDED 08-21 LATE: A NEIGHBOUR READ-OUT DECODES ALL 15 NORM DIMS FROM OUR OWN PROFILES**
-  (`Concreteness 0.4671` control-top-as-predicted | `Valence 0.3069` vs null `0.0385` | **15/15 on
-  BOTH arms at 5-12x null**). 🔄 **MY PAIRWISE TEST AN HOUR EARLIER SAID ~NOTHING (3/15) AND WAS THE
-  WRONG TEST -- I DID NOT PUBLISH IT.** 🎯 *Affect is NOT supply-only: valence is already in what we
-  read.* 🔻 *IDF beats us **15 of 15** -- "behind counting" on a 15th measure.* ⚠️ **THE LIMIT: the
-  read-out USES 25 NEIGHBOURS' TRUE VALUES -- the space is ORGANISED, we cannot produce a value
-  unaided. That is GROUNDED CORE + PROPAGATION.** ⚠️ *K never swept; 3,000 of 5,021.*
-  `THE_WEAKER_TEST_SAID_TEXT_CARRIES_NOTHING_...`
+- 🎯 **SEED PRICE MEASURED: ~50-100 GROUNDED WORDS ALREADY PROPAGATE; PAST ~400 MORE BUYS ~NOTHING**
+  (concreteness, the gated column: `50 0.2114` vs null `0.1239` | `400 0.3783` | `2000 0.4323`).
+  🔻 **BUT IDF AT 200 SEEDS (`MEAN15 0.2971`) BEATS OURS AT 2,000 (`0.2638`) -- 10x THE GROUNDING
+  TO NOT MATCH IT; 16th measure where counting leads.** 🔬 *And OUR nearest-seed cosine is HIGHER
+  (`0.3965` vs `0.2415`) while carrying LESS -- ANISOTROPY. `DO NOT REDO 27` (common-mode) has a
+  revival `*`; criterion NOT yet read, NOT claimed met.* 🔻 **2 OWN-SCRIPT DEFECTS REPORTED: the
+  25-seed row is DEGENERATE (constant prediction -> exactly 0.0000, the reachability signature) and
+  `null95` gates CONCRETENESS ONLY, not MEAN15.** ⚠️ *Random seed = pessimistic; K still unswept.*
+  `HOW_SMALL_CAN_THE_GROUNDED_SEED_BE_...`
 - 📏 **This file sits just inside its 28,672 B cap.** *It was 30,147 B at the start of 2026-08-21
   late. What paid for it was EVICTION, not trimming -- twice now: the night-findings table
   (7,155 -> 3,303 B) and this section, which had filled with FINISHED work. **When it next needs
