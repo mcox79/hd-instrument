@@ -6,34 +6,28 @@
 > **I caused that by appending all night to a document whose header forbids appending.** Every entry
 > below cites the note holding its evidence; nothing is lost, and `git log` has the full sequence.*
 >
-> ## ⛳ **WHERE THIS STANDS**
-> **The night's work was almost entirely MEASUREMENT and CORRECTION, not building.** *99+ commits,
-> ~15% touching code, and **16 of my own claims withdrawn**. That is the honest headline.*
+> ## ⛳ **WHERE THIS STANDS -- RE-COUNTED 08-22, THE OLD FIGURE WAS WRONG**
+> **Measurement and correction, not building: `205` commits, **`3` touched capability code** (not the
+> "~15%" this line used to claim), 288 note-writes, **16 of my own claims withdrawn**. Performance:
+> we beat an UNTRAINED codebook by `+16.3 pp` (replicated) and LOSE TO COUNTING ON 16 MEASURES.**
+> *Commercial: not close, and single-blocker -- `55 of 210` organs are on the live path.* `OWNER_ASSESSMENT_...`
 >
-> ## 🧠 **THE ONE STRUCTURAL FINDING -- FOLDED (4th fold). Q102 IS FILED; ITS PACKAGE IS COMPLETE.**
-> **ONE REPRESENTATION IS DOING TWO JOBS THAT REQUIRE OPPOSITE THINGS.** *`context_vector_masked`
-> deletes the word from its own sentence -- correct, else grounding learns "artery means artery" --
-> but that word is the strongest cue two sentences share a referent.* **masked hit@1 `0.1417` vs
-> unmasked `0.4750`, chance `0.0167`; same-word DG `0.0056` vs cross-word `0.0015`, both at floor.**
-> ➡️ **THE BRAIN DOES NOT FACE THIS: FORM (VWFA) and MEANING (ATL hub+spokes) are SEPARATE SYSTEMS**,
-> and `PLAN.md` already carries it as a founding anchor. ✅ **THE FORM ORGANS ARE BUILT AND UNWIRED**
-> (`char_trigram_encoder`, `vwfa`, `char_positional_encoder`; n-gram coding PINNED-BY-EVIDENCE) --
-> **so Q102 is a WIRING decision, not a build.**
-> ✅ **THE RISK IS DISARMED BY MEASUREMENT: the form channel reads `rho -0.0259` (p=0.41, n=999) on
-> SimLex meaning and sits INSIDE the 7-arm shuffled null band (`-0.0172..+0.0426`)** -- vs NORMS12
-> `0.2701` and our live encoding `0.1048`. *A pure index CANNOT inflate a meaning score, so it is SAFE
-> as a SEPARATE channel and clearly WRONG to BLEND into the meaning vector.* ⚠️ *Its `1.0000` on
-> identification is because THE QUERY IS THE ANSWER -- judge it only where the word is the QUESTION.*
-> 🔄 *Spelling beating our read-out (`0.0767` vs `0.0480`) therefore means THAT TASK IS PARTLY
-> SOLVABLE WITHOUT MEANING; I cannot separate that from "our read-out is weak", so the CAUSE is
-> unsettled -- never cite it about our MEANING representation without the caveat.*
-> 🚫 **SCOPE DISCLAIMER ON THE CELL: item population is the SimLex+WordSim word list, "NOT the
-> instrument's frequency-ranked vocabulary... may not be quoted as such" -- NO rho here may enter a
-> sentence about the live substrate.** ⚠️ *And do NOT swap `0.2701` with this cell's own `0.2449`
-> CI `[0.1830,0.3036]` (different cells; 0.2701 is inside its CI). WordSim353 `0.4093` = a third
-> population, also not blendable.*
-> `ONE_REPRESENTATION_TWO_OPPOSITE_JOBS_...` `THE_FORM_CHANNEL_SCORES_1_0000_...`
-> `THE_FORM_CHANNEL_HAS_ZERO_MEANING_SIGNAL_...` `THE_FORM_CHANNEL_SITS_INSIDE_THE_SHUFFLED_NULL_BAND_...`
+> ## 🧠 **THE ONE STRUCTURAL FINDING -- 5th fold. Q102 IS FILED AND ITS PACKAGE IS COMPLETE.**
+> **ONE REPRESENTATION DOES TWO JOBS THAT NEED OPPOSITE THINGS.** *Meaning needs the word DELETED from
+> its own sentence (else grounding learns "artery means artery"); identification needs it PRESENT.*
+> **masked hit@1 `0.1417` vs unmasked `0.4750`, chance `0.0167`; same-word DG `0.0056` vs cross-word
+> `0.0015`, both at floor.** ➡️ **THE BRAIN DOES NOT FACE THIS -- FORM (VWFA) and MEANING (ATL hub+
+> spokes) ARE SEPARATE SYSTEMS**, already a founding anchor in `PLAN.md`. ✅ **THE FORM ORGANS ARE BUILT
+> AND UNWIRED** (`char_trigram_encoder`, `vwfa`, `char_positional_encoder`; n-gram coding PINNED).
+> ✅ **RISK DISARMED: the form channel reads `rho -0.0259` (p=0.41, n=999) on SimLex meaning and sits
+> INSIDE the 7-arm shuffled null band `-0.0172..+0.0426`** (vs NORMS12 `0.2701`, live encoding `0.1048`).
+> *A pure index cannot inflate a meaning score -> SAFE as a SEPARATE channel, clearly WRONG to BLEND.*
+> ⚠️ *Its `1.0000` on identification is because THE QUERY IS THE ANSWER.* 🔄 *So spelling beating our
+> read-out (`0.0767` vs `0.0480`) means THAT TASK IS PARTLY SOLVABLE WITHOUT MEANING; cause unsettled.*
+> 🚫 **SCOPE DISCLAIMER: the cell's population is the SimLex+WordSim word list, "NOT the instrument's
+> frequency-ranked vocabulary... may not be quoted as such" -- NO rho here enters a sentence about the
+> live substrate.** ⚠️ *Do NOT swap `0.2701` with the cell's own `0.2449` CI `[0.1830,0.3036]`; WordSim353
+> `0.4093` is a third population.* `ONE_REPRESENTATION_TWO_OPPOSITE_JOBS_...` `THE_FORM_CHANNEL_SCORES_1_0000_...` `THE_FORM_CHANNEL_HAS_ZERO_MEANING_SIGNAL_...` `THE_FORM_CHANNEL_SITS_INSIDE_THE_SHUFFLED_NULL_BAND_...`
 >
 > ## 🔻 **THREE DEAD ENDS, ALL DOWNSTREAM OF THAT ONE CAUSE**
 > 1. **CA3 cannot complete** -- our rule MERGES correlated memories (margin **-0.1021**; local
@@ -73,35 +67,37 @@
 > | ✅ **CAP + METRIC, SETTLED** | `GROUNDED_CAP=0.45` is a **MEASURED SAFETY PROPERTY**, not the defect I called it. **A no-false-merge bar admits `0 of 120` synonyms under cosine, `8 of 120` under euclid -- my own metric proposal REFUSED by its own test.** *Euclid's case is the GRADED band only (`0.2876` vs `0.2176`).* |
 > | 🔌 **WIRING GAP, VERIFIED** | Raw profile has **ONE** consumer (`cortical_recall.py:86`); the live lexical path takes the capped scalar. **The raw form is what scores.** *Not a cap request.* |
 >
-> ### 🔧 **PROCESS**
-> **9 PRIOR-WORK CATCHES** -- 3 in the docstring/entry of the thing I was about to change, 1 in STATUS
-> itself. -> **`symbol_corrections.py`** (a symbol's own corrections, incl. inline comments; 3.8% base
-> rate) and **`cite_check.py`** (a NUMBER's own caveats). **THE TOP ITEM WAS ALREADY WIRED AND LIVE**
-> (212 of 402 provenance rows) **and its 64% is barred from that use.** **THE SHELF IS 28 CORPORA /
-> 286,069 SENTENCES, not the 9 my alphabetical cap showed me** -- I filed board Q103 on that and
-> withdrew it within the hour, and it had also made me publish a negative that reversed.
-> **THE LIVE READER STILL WALKS THE SHELF ALPHABETICALLY: six reads open 8 of 28, all textbooks
-> unreached.** **REGISTRY: 7 organs flipped to `WIRED_AND_PIPELINE_USED`** *(= import-reachable, NOT
-> exercised)*. **BOARD HEADER was stale in front of the owner; synced + detector added.** **GUI: a
-> witness for settled decisions found a crash that killed the panel refresh.** 🚫 **A detector I did
-> NOT build: 0.24% base rate but ~7% PRECISION -- base rate is not precision.**
-> `ON_VERBS_...` `COUNTING_WITH_ONE_STANDARD_WEIGHTING_...` `THE_LIMIT_IS_DIMENSIONAL_...`
-> `DIMENSION_BUYS_THE_LOOKUP_...` `SUPPLIED_BEATS_LEARNED_2_69x_...` `THE_CAP_IS_PRINCIPLED_...`
-> `MY_OWN_PROPOSAL_ANSWERED_NO_...` `NOT_A_DOMINANT_AXIS_...` `COMPLEMENTARY_IS_NOT_USEFUL_...`
-> `DROPPING_264_UBIQUITOUS_...` `I_NEARLY_REPORTED_...` `THE_SHELF_IS_28_CORPORA_NOT_9_...`
-> `THE_READER_STILL_WALKS_...` `THE_REGISTRY_WAS_STALE_...` `Q102s_GAIN_IS_NOT_UNTESTED_...`
-> `THE_TOP_ITEM_WAS_ALREADY_WIRED_...` `THE_GUI_COMPLAINT_...`
+> ### 🔧 **PROCESS -- FOLDED; every item's detail is in the notes listed below.**
+> **9 PRIOR-WORK CATCHES** (3 in the docstring of the thing I was changing, 1 in STATUS itself) ->
+> new reads **`symbol_corrections.py`** (3.8% base rate) and **`cite_check.py`**. **THE TOP ITEM WAS
+> ALREADY WIRED AND LIVE** (212/402 rows) and its 64% is BARRED from that use. **THE SHELF IS 28
+> CORPORA / 286,069 SENTENCES, not the 9 my alphabetical cap showed** -- I filed board Q103 on that,
+> withdrew it within the hour, and it had also made me publish a negative that reversed. **THE LIVE
+> READER STILL WALKS THE SHELF ALPHABETICALLY: 8 of 28 opened, all textbooks unreached.** **7 organs
+> flipped to `WIRED_AND_PIPELINE_USED`** *(import-reachable, NOT exercised)*. **Stale BOARD header in
+> front of the owner; GUI crash found by a witness.** 🚫 *A detector I did NOT build: 0.24% base rate
+> but ~7% PRECISION -- base rate is not precision.*
+> `ON_VERBS_...` `COUNTING_WITH_ONE_STANDARD_WEIGHTING_...` `THE_LIMIT_IS_DIMENSIONAL_...` `DIMENSION_BUYS_THE_LOOKUP_...` `SUPPLIED_BEATS_LEARNED_2_69x_...` `THE_CAP_IS_PRINCIPLED_...` `MY_OWN_PROPOSAL_ANSWERED_NO_...` `NOT_A_DOMINANT_AXIS_...` `COMPLEMENTARY_IS_NOT_USEFUL_...` `DROPPING_264_UBIQUITOUS_...` `I_NEARLY_REPORTED_...` `THE_SHELF_IS_28_CORPORA_NOT_9_...` `THE_READER_STILL_WALKS_...` `THE_REGISTRY_WAS_STALE_...` `Q102s_GAIN_IS_NOT_UNTESTED_...` `THE_TOP_ITEM_WAS_ALREADY_WIRED_...` `THE_GUI_COMPLAINT_...`
 >
 > ## 🧭 **METHOD -- THE ONLY RULE THAT PAID OUT**
-> ***PUT A NUMBER BESIDE ANOTHER NUMBER THAT CONSTRAINS IT.*** *It killed 5 claims and cleared 3.
-> Every big withdrawal was one fault: a number measured in one setting applied to another.*
-> **AND: QUOTE THE NOTE, NEVER THE HEADLINE** -- all 3 passes were notes carrying a CI, a control and
-> a stated limit; all 5 kills were summary headlines or same-day inferences.
-> **AND: check prior work FIRST** -- it changed the answer 3 times tonight (the crosstalk mechanism,
-> `ca3_completer`'s saturation guard, and the form organs already being built).
-> `METHOD_REVIEW_...` `WHAT_PASSES_AND_WHAT_FAILS_...` `THE_PATTERN_ACROSS_SIX_...`
->
+> ***PUT A NUMBER BESIDE ANOTHER NUMBER THAT CONSTRAINS IT.*** *Killed 5 claims, cleared 3; every big
+> withdrawal was ONE fault -- a number measured in one setting applied to another.* **QUOTE THE NOTE,
+> NEVER THE HEADLINE** *(all 3 passes carried a CI, a control and a limit; all 5 kills were headlines).*
+> **CHECK PRIOR WORK FIRST** -- *it changed the answer 3x that night and twice more since.*
 > ## ➡️ **NEXT -- REWRITTEN 2026-08-21 LATE. THE MEASUREMENT PASS CHANGED WHAT IS WORTH DOING.**
+> 🧭 **THE DIRECTION HAS A NAME AND IT WAS SET ON 2026-08-06, NOT TONIGHT: *ANCHOR + PROPAGATE*.**
+> *`SYNTHESIS_grounding_wall_definitive_2026-08-06` (237 grounding cells, 91 notes) established:* **(a)
+> the two walls are SEPARATE and we ALREADY CLEARED ONE -- following the plot HARD_PASSed on real
+> prose, so the reasoning machinery is NOT the barrier, lexical meaning is; (b) good/bad is NOT in
+> grammar and NOT in text statistics because ANTONYMS ARE DISTRIBUTIONAL TWINS (published valence
+> models at `r~0.75` are PARASITIC on a small hand-given seed); (c) the brain grounds a SMALL
+> affective anchor at 4-7 MONTHS and reasons outward, it does NOT feel every word; (d) therefore:
+> seed a small anchor, WIRE words to it, PROPAGATE by similarity AND OPPOSITION.**
+> 🎯 **MY 08-21 SEED SWEEP *IS* THAT ARCHITECTURE, MEASURED FOR THE FIRST TIME -- AND I RE-DERIVED IT
+> WITHOUT READING THE SYNTHESIS.** ✅ *It also DISSOLVES what I called that result's load-bearing limit:
+> using neighbours' true values is NOT a weakness, it IS the chosen brain-faithful design.*
+> ⚠️ 🔻 **AND IT PREDICTS A FAILURE: propagating by SIMILARITY ALONE must give ANTONYMS THE SAME
+> VALENCE. That is likely WHY verbs read `0.0000`. Fix already owned: `OPPOSED_PAIRS`. TEST RUNNING.**
 > **1. Q102 is still the ONLY open board question** (wire the form organs). *Its evidence package is
 > now complete: form is noise-equivalent on meaning, identification is a LOOKUP, and its GAIN IS
 > MEASURED (ORGAN_MAP A1, `0.0870` vs `0.0480`, CI-separated).*
