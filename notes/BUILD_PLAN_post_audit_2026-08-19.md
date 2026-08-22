@@ -88,6 +88,17 @@
 > measures are the WORD-SIMILARITY channel, which both plans had already ruled out (bag-of-words
 > `0.5167` = chance HANDED THE GOLD SENSE). On the grounding organ, counting is at chance and we are not.**
 > ➡️ **LIVE FRONTIER: OPEN VOCABULARY, then REAL PROSE.** *Not another word-similarity measurement.*
+> 🔄 **I MISCHARACTERISED THE BODY-PART GAP -- it is NOT a mechanism failure.** *WordNet routes body
+>   parts through BODY-PART hypernyms, so `lookup_animacy("ankle")` returns nothing; v2 patched six words
+>   and **DELIBERATELY left the test words uncovered -- "covering them would defeat the point of
+>   measuring the gap".** So `Bgap 0.500` is an HONEST RESOURCE HOLE.* ✅ *Real open-vocab result:
+>   `Bopen_two_stage_real 1.000`, lift `0.600`, bow `0.500`.* ⚠️ **THE GENUINE OPEN-VOCAB COST IS
+>   ELSEWHERE: `B_real 0.833` vs closed `1.000`; `Bgen_real 0.750` vs closed `1.000`. THAT is the frontier.**
+> ✅ **CANDIDATE FIX MEASURED: WordNet's own `body_part` hypernym at the TOP sense -> animate,
+> `agent_capable=False`. Catches 3/3 uncovered gap words and 8/8 obvious body parts, flags 0/8
+> controls, 1.2% base rate on 400 random nouns. Top-3 senses gains NOTHING and flags `hammer`.**
+> 🔻 *NOT a demonstrated gain -- I cannot show it raises `Bgap` because re-runs REPLAY checkpoints.*
+> `A_PRINCIPLED_REPLACEMENT_FOR_THE_BODY_PART_WHITELIST_...`
 > `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
 > ⚠️ **VERIFICATION STATUS, STATED BECAUSE I HAD BEEN SAYING NEITHER: those numbers are READ, NOT
 > REPRODUCED.** *Re-running the cell gives `elapsed 0.0s` and 5 `[resume] already done` lines -- the
