@@ -111,8 +111,23 @@
 > a consequence to the right verb IS the problem. I nearly reported it as the answer.**
 > 🔻 **AND IT IS NOT A WIRING JOB: `SituationReader.read(conll_path)` needs MENTION-ANNOTATED CoNLL;
 > the loop passes RAW PROSE. Bridging = parse + mention detection on the reading path.**
-> ⭐ ➡️ **MEASURE THE SPLIT FIRST (cheap, UNRUN): of the errors at attribution precision `0.4676`, how many
-> are WRONG ROLE vs WRONG VERB? That decides whether the role upgrade alone is worth the parsing cost.**
+> ✅ **SPLIT MEASURED -- AND IT IS NEITHER. `73%` OF THE ERROR TYPES ARE *NOT VERBS AT ALL*.**
+> *The cell SAVED ITS POPULATION. Classified vs WordNet: of the 173 erroneous `light_lemmas`, **52% are
+> NOT WORDS** (`admir`, `alway`, `asham`, `babi`, `behav`, `capaciou` -- stemmer output) and **21% are
+> NOUNS with no verb sense** (`boy`, `friend`, `amusement`, `explanation`); only 27% are verbs.*
+> ✅ **INTERNAL CONTROL: the 113 correctly-credited lemmas are `100%` real verbs -- so my checker is not
+> the broken thing.** 🔻 **`_is_verblike` (a "morphological heuristic") IS THE DOMINANT DEFECT, and it is
+> UPSTREAM OF ROLES: a role system has no opinion about `capaciou`.**
+> 🔻 **AND SHARPENING DID NOT CHANGE THE MIX** *(52/21/27 -> 47/21/32; volume `958 -> 338` exposures)* --
+> **which is why precision moved only `0.4676 -> 0.4941`: it was aimed at clauses, and the errors were
+> never verbs.** 🔄 **SO MY LAST-TURN SCOPING IS QUALIFIED: the role upgrade is real but would leave most
+> of these errors untouched.**
+> ⚠️ **TYPES vs TOKENS: the 52/21/27 split is over LEMMA TYPES; `0.4676` is over 958 EXPOSURES, and
+> per-lemma exposure counts are NOT saved. "73% of error TYPES" is measured; "73% of erroneous CREDIT"
+> is NOT, and I will not project a repaired precision from it.**
+> ⭐ ➡️ **CHEAPEST HIGH-VALUE FIX IS NOW A MORPHOLOGY GATE (reject candidates with no WordNet verb sense),
+> NOT A ROLE SYSTEM.** ⚠️ *Must be TESTED -- it would also reject rare real verbs.*
+> `THE_CREDIT_ERRORS_ARE_NOT_WRONG_VERBS_THEY_ARE_NOT_VERBS_...`
 > `SCOPING_THE_PRESCRIBED_BUILD_...`
 > 🔧 *Fixed `experiment_index.py`: `--limit` was advertised by its truncation message and NEVER PARSED,
 >   so >40-result questions could not be enumerated. Both forms verified; self-test passes.*
