@@ -33,6 +33,15 @@
 > - **WHY WRITING LESS HELPS = INTERFERENCE** (r 0.976, n=11; keys AT the Welch bound -> levers are FEWER ITEMS / MORE DIMENSIONS, and MORE DIMENSIONS buys IDENTIFICATION not MEANING). *Full entry in `STATUS.md` FINISHED AND CLOSED.*
 > - **Owner Q98 APPROVED the write-rate extension** with a stopping rule (0.0000 unscored everywhere tested). *Needs cell authoring.* **The loop stops accruing where accrual still pays** -- *but identification saturates by ~10 sentences/word and the live median already gets ~10.* `THE_MEDIAN_WORD_LEAVES_1_7x_...`
 >
+> 🚫 **ANISOTROPY DOOR: CLOSED, NOT OPEN -- I FLAGGED `DO NOT REDO 27` WITHOUT READING IT.** *It ALREADY
+> measured this: rank-1 common-mode removal took mean pairwise cosine `0.1427 -> -0.0004` (the operation
+> FULLY WORKED), accuracy `0.6980 -> 0.6985`, d `+0.0005` CI `[-0.0043,+0.0053]`. **THE CONTROL CLOSES IT:
+> a RANDOM rank-1 direction gives mu `+0.0005`, sd `0.0012` (K=20) -- STATISTICALLY IDENTICAL, so the
+> treatment is PERTURBATION, not decorrelation-that-helps.** Sister-term errors `0.0220 -> 0.0220`, ZERO
+> converted; literal mean subtraction HURTS (`-0.0213`, CI excludes 0).* **THE OPERATION WORKED AND THE
+> TASK DID NOT CARE.** ⚠️ *The revival `*` is for FULL-COVARIANCE WHITENING, PARKED-BY-SAMPLE-SIZE
+> (`O(d^2)` = 65k-16M samples); this null closes that in NEITHER direction. Rank-1 is closed HARD.*
+>
 > ## 🌙 **2026-08-21 MEASUREMENT PASS -- 4th fold. ALL BAG-OF-WORDS; KEPT AS FLOOR, NOT DIRECTION.**
 > | finding | the number |
 > |---|---|
