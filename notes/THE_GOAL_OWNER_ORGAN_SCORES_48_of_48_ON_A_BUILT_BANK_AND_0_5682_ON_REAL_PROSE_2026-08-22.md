@@ -1,4 +1,19 @@
-# **THE PROMOTED GOAL-OWNER ORGAN SCORES `48/48` ON ITS CONSTRUCTED BANK AND `0.5682` ON REAL PROSE -- BELOW `majority` (`0.7273`) AND `first_mention` (`0.7955`), WHICH WERE DOCUMENTED IN THE SAME REPO ALL ALONG.**
+# **THE PROMOTED GOAL-OWNER ORGAN SCORES `48/48` ON ITS CONSTRUCTED BANK AND `0.6136` ON REAL PROSE -- BELOW `majority` (`0.7273`) AND `first_mention` (`0.7955`), WHICH WERE DOCUMENTED IN THE SAME REPO ALL ALONG.**
+
+> ## 🔻 **CORRECTED WITHIN THE HOUR, BY ME: THE FIRST VERSION OF THIS NOTE SAID `0.5682`.**
+> **I scored against `goal_owner` (who WANTS the thing). The documented baselines score against
+> `gold_outcome_owner` (whose OUTCOME it is) -- their `gold` field matches it `44/44` and matches
+> `goal_owner` only `41/44` -- and `gold_outcome_owner` is also the right field for a function named
+> `select_outcome_owner`. The two fields differ on 3 of 44 items.**
+> **CORRECT FIGURE: `27/44` = `0.6136`.** *The finding stands -- still below `majority` and `-0.1818`
+> below `first_mention` -- but two things change:*
+> 1. *the gap is `-0.1818`, not `-0.2273`;*
+> 2. 🔻 ***THE EXACT TIE WITH `recency` (both `25/44`) WAS AN ARTIFACT OF MY WRONG GOLD FIELD AND
+>    DISAPPEARS.** I built a whole "is it recency in disguise?" analysis on a coincidence I had
+>    manufactured. The per-item agreement numbers below are still real measurements of BEHAVIOUR;
+>    the tie that motivated computing them was not.*
+> **Second gold-field category error in one session** -- the first gave a flat `0/44`, which was
+> obviously wrong; this one gave a plausible number, which is worse.
 
 **The comparison had never been made, because the organ's witness reports NEVER-TYPED COUNTS and
 NON-REGRESSION -- not accuracy against the floors sitting in the bank's own baselines file.**
