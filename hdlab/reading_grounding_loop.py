@@ -343,6 +343,19 @@ def form_identity_vector(word: str, d: int = CTX_D) -> np.ndarray:
 
     WATCH CONDITION (owner Q102, unchanged): a better INDEX is not better UNDERSTANDING. The tell to
     watch after wiring is recognition scores rising while meaning scores stay flat.
+
+    >> THE WATCH CONDITION HAS NOW BEEN CHECKED, AND IT FIRED. DO NOT USE IN THE MEANING BAG. <<
+    CORRECTION 2026-08-22 -- MEASURED, NOT ASSUMED. Substituted for symbol_vector inside the masked
+    context bag this scores rho +0.0573 on 829 SimLex-999 pairs against its OWN null p95 of 0.0716:
+    INSIDE THE NOISE. And its PERFECT version is a null too -- lemmatising the bag (the exact,
+    lossless merge of inflectional variants that a graded form code can only approximate, and which
+    therefore UPPER-BOUNDS it) reads -0.0351 at d=1024, CI [-0.0921, +0.0218], not separated from
+    zero, on 21.8% of context tokens. Form invariance is an IDENTITY property and does not carry
+    meaning -- which is also the VWFA's actual role: it FEEDS lexical access rather than being it.
+    Recognition is where it earns its place: retrieving the right lemma from a MISMATCHED surface
+    form goes 0.0053 -> 0.9645 hit@1, where the hash is at chance.
+    LEGITIMATE CONSUMERS ARE RECOGNITION / INDEX SITES ONLY.
+    notes/FORM_INVARIANCE_CANNOT_BUY_MEANING_ITS_PERFECT_VERSION_LEMMATISATION_IS_ALSO_A_NULL_2026-08-22.md
     """
     key = (word, d)
     v = _FORM_VEC_CACHE.get(key)
