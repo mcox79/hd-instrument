@@ -228,6 +228,42 @@ def main():
     print(f"  ERROR COMPOSITION, which needs no fitted policy at all: of {n_err} errors, "
           f"{n_none} are NON-ANSWERS and {n_err - n_none} are WRONG ANSWERS.")
 
+    # ---- compare against the LANDED 2026-08-06 checkpoint, which stores its own per-item details.
+    # units.jsonl is gitignored, so this section SKIPS rather than fails when it is absent.
+    ck = os.path.join(REPO_ROOT, "data",
+                      "exp_consequence_learning_loop_oov_outcome_verb_valence_v1", "units.jsonl")
+    marker = os.path.join(os.path.dirname(ck), "_start_marker.json")
+    if os.path.exists(ck):
+        units = {}
+        with open(ck, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    u = json.loads(line)
+                    units[u.get("key") or u.get("unit_key")] = u.get("result", u)
+        main = units.get("main|full")
+        if main and main.get("score_details"):
+            det_l = main["score_details"]
+            struct_l = [d for d in det_l if d["reason"] != "abstain_fallback_to_lexicon"]
+            struct_n = [d for d in det_a if d["reason"] != "abstain_fallback_to_lexicon"]
+            when = "unknown"
+            if os.path.exists(marker):
+                with open(marker, "r", encoding="utf-8") as f:
+                    when = json.load(f).get("ts_iso", "unknown")
+            print(f"\n--- LANDED CHECKPOINT vs TODAY, same 36 items, both EMPTY overlay ---")
+            print(f"  landed run started {when}; its overlay was empty "
+                  f"(n_registered={len(main.get('registered', {}))})")
+            print(f"  {'':22s} {'landed':>10s} {'today':>10s}")
+            print(f"  {'accuracy':22s} {main['primary_accuracy']:>10.4f} {acc_a:>10.4f}")
+            print(f"  {'returns NONE':22s} "
+                  f"{sum(1 for d in det_l if d['pred'] in (None, 'NONE')):>10d} {ab_oov:>10d}")
+            print(f"  {'STRUCTURAL FIRINGS':22s} {len(struct_l):>10d} {len(struct_n):>10d}")
+            print(f"  {'  of which correct':22s} "
+                  f"{sum(1 for d in struct_l if d['correct']):>10d} "
+                  f"{sum(1 for d in struct_n if d['correct']):>10d}")
+            print("  NOTE: the VERDICT does not change -- both are far below the 0.6389 floor.")
+            print("  What changes is the DIAGNOSIS: analyses leaning on the landed run's internals")
+            print("  are reading a version in which the cascade never fired at all.")
+
     # ---- adjudicate the two pre-registered hypotheses
     met = [d for d in det_b if d["gold"] == "MET"]
     unmet = [d for d in det_b if d["gold"] == "UNMET"]

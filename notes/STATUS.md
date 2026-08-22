@@ -106,18 +106,22 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 
 - ⬜ **NOTHING IS RUNNING.**
 - 🔑 **IT IS NOT ANSWERING WRONG -- IT IS NOT ANSWERING. Of `22` errors on the OOV 36, `20` are
-  NON-ANSWERS and `2` are WRONG ANSWERS; accuracy WHEN IT COMMITS is `14/16 = 0.8750`.**
-  *A COVERAGE failure, not a DISCRIMINATION one -- matching the 08-07 charter's "HIGH-PRECISION +
-  COVERAGE-LIMITED".* ➡️ **RE-AIMS THE ONLY LIVE LEAD: in the EMPTY-overlay condition the function
-  is NOT `UNMET`-biased, it is SILENT; that bias belongs to the OVERLAY condition.** 🔻 **Ran the
-  KNOWN-ANSWER arm sitting unrun in the bank since 08-06 (the 8 in-lexicon sanity controls): having
-  the word kills abstention outright (`0/8` vs `20/36`, Fisher `p=0.0049`) and leaves accuracy at
-  chance (`4/8`, binomial `p=1.0000`) -- IT CONVERTS SILENCE INTO GUESSING.** ⚠️ *n=8 CANNOT show
-  incompetence, DECLARED before the run; INCONCLUSIVE, not a negative.* 🚫 **Empty-overlay only --
-  do NOT place beside `0.4722`, and the `9/10` structural rules here may NOT be crossed with the
-  plan's `10/19` coin-flip (different condition; UNRESOLVED).** *The "36-item bank" is the
-  `outcome_in_lexicon is False` subset of the 44, not a separate bank.*
-  `THE_ORGAN_DOES_NOT_ANSWER_WRONG_...`
+  NON-ANSWERS, `2` are WRONG ANSWERS; accuracy WHEN IT COMMITS is `14/16 = 0.8750`.** *COVERAGE, not
+  DISCRIMINATION -- the 08-07 charter's "HIGH-PRECISION + COVERAGE-LIMITED".* ➡️ **RE-AIMS THE ONLY
+  LIVE LEAD: in the EMPTY condition the function is not `UNMET`-biased, it is SILENT.** 🔻 **The
+  KNOWN-ANSWER arm unrun since 08-06 (8 in-lexicon controls): the word kills abstention (`0/8` vs
+  `20/36`, Fisher `p=0.0049`) and leaves accuracy at chance (`4/8`, `p=1.0000`) -- SILENCE INTO
+  GUESSING.** ⚠️ *n=8 cannot show incompetence, DECLARED first; INCONCLUSIVE, not a negative.*
+- 🚨 **AND THE LANDED RECORD IS STALE: the `HARD_FAIL` was measured where the cascade fired `0` of
+  `36` (every item `abstain_fallback_to_lexicon`). Landed `0.1667`/`NONE 29`/firings `0`; today
+  `0.3889`/`NONE 20`/firings `10`, `9` correct.** *Read from the landed run's OWN checkpoint -- no
+  re-run.* 🚫 **VERDICT UNCHANGED, still far below the `0.6389` floor; the DIAGNOSIS changes -- the
+  structural-rule analysis (~`20` firings) CANNOT be the landed run.** 🎯 *Free 3rd point: firings/
+  correct `0/0 -> 10/9 -> 19/10` = DECLINING MARGINAL PRECISION (hypothesis; crosses conditions).*
+  ⚠️ **RE-LANDING NEEDS A CELL RUN (routed to `hdi_exp_dev`, not done here).** 🚫 *Empty-overlay
+  only: do NOT place beside `0.4722`.* *The "36-item bank" is the `outcome_in_lexicon is False`
+  subset of the 44, not a separate bank.*
+  `THE_ORGAN_DOES_NOT_ANSWER_WRONG_...` `THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...`
 - 🔻 **MY PREDICTED FIX FAILED ITS OWN TEST.** *Subtracting co-occurrence from the verb score hurts
   MONOTONICALLY (`+0.0062 -> -0.0464`), in-sample best lambda is **0.0 = do not do it**, held-out
   `-0.0005`, and it is WORSE THAN A RANDOM PENALTY at every lambda.* **WHY: `COOC ALONE = +0.0464` --
