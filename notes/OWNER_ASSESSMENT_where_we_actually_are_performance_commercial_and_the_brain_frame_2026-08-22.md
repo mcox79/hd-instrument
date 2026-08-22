@@ -103,8 +103,10 @@ same thing.**
 
 ⚠️ 🔻 **AND IT PREDICTS A FAILURE I HAVE NOT YET TESTED: propagating by SIMILARITY alone must give
 ANTONYMS THE SAME VALENCE, because antonyms are distributional twins.** *`give/receive`,
-`feed/starve`. **The synthesis names the fix we already own -- opposition (`OPPOSED_PAIRS`), not just
-similarity.** That is the next measurement and it is cheap.*
+`feed/starve`. 🔻 **CORRECTED SAME DAY: I said "the fix we already own". IT IS NOT OURS TO OWN -- `OPPOSED_PAIRS`
+is SIX HAND-WRITTEN CLASS PAIRS in `hdlab/goal_typing.py`, not word-level antonym machinery. And the
+trap itself is now CONFIRMED: antonyms have the HIGHEST cosine of any relation in our space (`0.2062`
+vs synonyms `0.1727`), and propagated valence is FLAT across all relation types.**
 
 ## TLDR
 

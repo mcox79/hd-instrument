@@ -39,13 +39,9 @@
 > 3. **12-dim feature context is FLAT** -- worse at every load, no gain with more traces (0.0266 at
 >    L=37 vs incumbent 0.1328); NORMS12's own note predicted it. `HIGHER_OVERLAP_DID_NOT_...`
 >
-> ## ✅ **WHAT IS ACTIONABLE AND MEASURED (pre-08-21-late; the rest is superseded by NEXT below)**
-> - **WHY WRITING LESS HELPS = INTERFERENCE** (r 0.976, n=11; keys AT the Welch bound, so levers are
->   FEWER ITEMS / MORE DIMENSIONS -- and MORE DIMENSIONS buys IDENTIFICATION, not MEANING). *Full entry in `STATUS.md` FINISHED AND CLOSED; evicted here, not the only copy.*
-> - **Owner Q98 APPROVED the write-rate extension** with a stopping rule (stop where the fraction of
->   test words with no score leaves zero; measured 0.0000 everywhere tested). *Needs cell authoring.*
-> - **The loop stops accruing where accrual still pays** -- *but 08-21 shows identification saturates
->   by ~10 sentences/word and the live median word already gets ~10.* `THE_MEDIAN_WORD_LEAVES_1_7x_...`
+> ## ✅ **WHAT IS ACTIONABLE AND MEASURED (pre-08-21-late; rest superseded by NEXT below)**
+> - **WHY WRITING LESS HELPS = INTERFERENCE** (r 0.976, n=11; keys AT the Welch bound -> levers are FEWER ITEMS / MORE DIMENSIONS, and MORE DIMENSIONS buys IDENTIFICATION not MEANING). *Full entry in `STATUS.md` FINISHED AND CLOSED.*
+> - **Owner Q98 APPROVED the write-rate extension** with a stopping rule (0.0000 unscored everywhere tested). *Needs cell authoring.* **The loop stops accruing where accrual still pays** -- *but identification saturates by ~10 sentences/word and the live median already gets ~10.* `THE_MEDIAN_WORD_LEAVES_1_7x_...`
 >
 > ## 🌙 **2026-08-21 LATE, CONSOLIDATED (3rd fold). Every line names its note.**
 > *All on 28 corpora round-robin, `GRADED_COMPARATOR=True`, floors recomputed per arm.*
@@ -54,16 +50,13 @@
 > | | |
 > |---|---|
 > | **VERBS: NO SIGNAL AT ALL** | `+0.0000` on SimVerb-3500's 2,651 pairs (null `0.0372`) **and** `-0.0002` on SimLex's 203 (null `0.1398`). Within SimLex, one scorer: **NOUN `0.1310` CLEARS, VERB INSIDE, ADJ `0.2207` barely.** *Discharges MEMORY's suspended verb claim (asked for those 222 pairs; 203 covered).* |
-> | 🔻 **AND WITH CIs, WITHIN ONE BENCHMARK, IT IS NOT ESTABLISHED AT ALL** | *I flagged last turn that the dimension differences had NO CI and crossed benchmarks. Fixed both: SimLex carries nouns, verbs AND adjectives, so the test runs on one benchmark with one scorer.* **ACTION-minus-PERCEPTUAL: NOUN `-0.0134` CI `[-0.0933,+0.0652]` \| VERB `+0.0634` CI `[-0.0738,+0.2021]` \| ADJ `-0.1555` CI `[-0.3397,+0.0302]`.** ***All three point the PREDICTED way (verb positive, noun and adj negative) and NOT ONE interval excludes zero.*** **So the dissociation is DIRECTIONALLY CONSISTENT and NOT ESTABLISHED** -- and the cross-benchmark version I reported one turn earlier looked stronger than the within-benchmark one does. *3-of-3 in the predicted direction is p=0.125 if directions were random: suggestive, not evidence.* |
-> | 🧠 **WHICH OF THE 12 DIMS CARRIES VERBS? A PARTIAL DISSOCIATION, WEAKER THAN PREDICTED** | *Dims 0-5 perceptual, 6-10 action effectors (foot/hand/head/mouth/torso), 11 concreteness.* **VERBS (n=3,487): perceptual `0.2195` \| ACTION `0.2702` \| concreteness `0.1118` \| all-12 `0.2983`. NOUNS (n=666): PERCEPTUAL `0.2834` \| action `0.2699` \| concreteness `0.0605` \| all-12 `0.3617`.** *Within verbs ACTION beats perception by `+0.051`; within nouns perception edges action by only `+0.014`.* ⚠️ **NOT the clean somatotopic double dissociation I predicted: action dims work almost as well on NOUNS (`0.2699`) as on verbs (`0.2702`), so they are NOT verb-specific.** ⚠️ *No CI on these DIFFERENCES, and the noun/verb comparison CROSSES BENCHMARKS -- only the within-population contrasts are valid. All-12 beats every subset in both, so the dims are complementary.* |
+> | 🔻 **SUPERSEDED / WITHDRAWN, FOLDED** | *(a) the 12-dim verb dissociation -- **superseded by `exp_verb_event_salient_channel_v1`: 3 AFFECT dims beat all 12**; (b) drop-ubiquitous-words -- WITHDRAWN, at 2,000 splits `d=256` `-0.0050 [-0.0629,+0.0365]`, `d=1024` `+0.0434 [-0.0117,+0.0940]`, NEITHER excludes zero; (c) two weighting schemes each `~+0.03` in-sample, neither separated.* `NOT_A_DOMINANT_AXIS_...` `DROPPING_264_UBIQUITOUS_...` |
 > | ✅ **THE VERB NULL IS ROBUST TO COVERAGE -- the 41-sentence cutoff hides nothing** | *OURS stays INSIDE its null at EVERY threshold:* `T=41 646 verbs/2,651 pairs 0.0000 (null 0.0383) | T=20 730/3,061 0.0207 (0.0355) | T=10 776/3,257 0.0079 (0.0344) | T=5 801=97%/3,385 0.0213 (0.0318)`. *SUPPLIED holds `0.2735->0.2971`.* ⚠️ *SUPPLIED reads `0.2735` here vs `0.2983` earlier because this restricts to pairs OUR corpus also covers -- different pair sets.* `ON_VERBS_..._n2651` |
 > | 🎯 **AND THE CONTROL THAT SPLITS IT** | *Text-derived rival, same 2,651 pairs:* **COUNTING raw `0.0025` (null `0.0341`) INSIDE; COUNTING+idf `0.0689` (null `0.0383`) CLEARS barely; OURS `0.0000` INSIDE; SUPPLIED `0.2983`.** ***BOTH true at different scales:*** **(1) text CAN extract a little verb signal and we extract NONE -- our zero is a real deficit against a text-derived rival; (2) but every text arm is 4.3x below the human-rated one, so MOST of what is missing on verbs is missing from TEXT DISTRIBUTION, not from our encoder.** ⚠️ *Ratios of correlations, not a variance decomposition.* |
 > | ⭐ **AND VERBS ARE NOT IMPOSSIBLE** | **SUPPLIED norms euclid `0.2983`** on 3,487 verb pairs (null `0.0309`, coverage 824/827) **vs OURS `0.0000`.** *The shortfall is OURS, not the task's.* 🚫 **SUPPLY, NOT LEARNING.** |
 > | **THE FLOOR THAT MATTERS** | `raw counting 0.0885 \| OURS 0.1071 \| ours+drop 0.1558 \| **idf-counting 0.1835** \| supplied 0.2876`. **`IDF-OURS = +0.0764` CI `[+0.0263,+0.1278]` SEPARATED -- the standing "behind counting" negative is now CROSS-TASK.** *Any claim here must clear `0.1835`.* |
 > | **EVERY CHEAP LEVER, CLOSED** | *more sentences/word* saturates by ~10 (live median ~10); *more dimensions* buys IDENTIFICATION (`+0.0622` CI `[+0.0443,+0.0797]`) **but NOT MEANING** (`+0.0127` CI `[-0.0305,+0.0559]`, with the power to have seen it); *combining channels* `+0.0035` **though they ARE independent (`rho 0.0901`) -- complementary is not useful**; *accumulation rule* NO effect **with a reachability control** (`cos(raw,unit) 0.9709`, 99.0% of ranks moved); *PC removal* `0.912->0.890`; *graded/signed* not the cause. |
-> | 🔻 **AND ONE WITHDRAWN** | *drop-ubiquitous-words:* in-sample `0.1071->0.1558`, but at **2,000** splits (200 was Monte-Carlo noisy) `d=256 -0.0050`, `d=1024 +0.0434`, **NEITHER excludes zero. I reported the favourable draw.** |
 > | 🔀 **THE STRUCTURAL CLAIM, MEASURED ANEW** | Same filter: **MEANING `0.1071->0.1558->0.0988` (COLLAPSES); IDENTIFICATION `0.2057->0.2160->0.2169` (FLAT).** *Two jobs want different amounts of one filter.* |
-> | 📏 **THE MEASUREMENT LIMIT** | Two weighting schemes each `~+0.03` in-sample, neither separated. **SimLex-999 cannot resolve `+0.03` (needs ~2,300); SimVerb-3500 can, and the power prediction HELD.** |
 > | ✅ **CAP + METRIC, SETTLED** | `GROUNDED_CAP=0.45` is a **MEASURED SAFETY PROPERTY**, not the defect I called it. **A no-false-merge bar admits `0 of 120` synonyms under cosine, `8 of 120` under euclid -- my own metric proposal REFUSED by its own test.** *Euclid's case is the GRADED band only (`0.2876` vs `0.2176`).* |
 > | 🔌 **WIRING GAP, VERIFIED** | Raw profile has **ONE** consumer (`cortical_recall.py:86`); the live lexical path takes the capped scalar. **The raw form is what scores.** *Not a cap request.* |
 >
@@ -96,8 +89,18 @@
 > 🎯 **MY 08-21 SEED SWEEP *IS* THAT ARCHITECTURE, MEASURED FOR THE FIRST TIME -- AND I RE-DERIVED IT
 > WITHOUT READING THE SYNTHESIS.** ✅ *It also DISSOLVES what I called that result's load-bearing limit:
 > using neighbours' true values is NOT a weakness, it IS the chosen brain-faithful design.*
-> ⚠️ 🔻 **AND IT PREDICTS A FAILURE: propagating by SIMILARITY ALONE must give ANTONYMS THE SAME
-> VALENCE. That is likely WHY verbs read `0.0000`. Fix already owned: `OPPOSED_PAIRS`. TEST RUNNING.**
+> ✅ 🔻 **AND THAT PREDICTED FAILURE IS NOW CONFIRMED (SimVerb's OWN relation labels; BOTH abort-
+> controls PASSED -- gold separates antonyms 1.88x, propagation works at rho `0.2367`):** *TRUE valence
+> diff spans `0.695-1.363` across relations; **PREDICTED spans `0.302-0.336` -- FLAT, blind to relation
+> type**, and antonyms `0.3017` vs synonyms `0.3317` is the WRONG WAY. Within antonyms rho `-0.0259`
+> (n=96, null band ~`+/-0.201`).* 🎯 **AND MEASURED DIRECTLY ON OUR OWN ENCODER: ANTONYMS HAVE THE
+> HIGHEST COSINE OF ANY RELATION (`0.2062` > SYNONYMS `0.1727` > NONE `0.1591`) -- OPPOSITES ARE THE
+> CLOSEST THINGS IN OUR SPACE. A MECHANISTIC EXPLANATION FOR THE VERB `0.0000`.**
+> 🔻 **CORRECTION, MADE TWICE TODAY: "the fix is already owned (`OPPOSED_PAIRS`)" IS WRONG. It is SIX
+> HAND-WRITTEN CLASS PAIRS in `hdlab/goal_typing.py`, not word-level antonym machinery. I repeated the
+> synthesis without opening the symbol it named -- the exact failure `cite_check.py` exists to stop.**
+> ⚠️ *Caveat that cuts against it: control B is only `0.2367`, so this is a WEAK propagator failing.*
+> `THE_ANTONYM_TRAP_IS_CONFIRMED_...`
 > **1. Q102 is still the ONLY open board question** (wire the form organs). *Its evidence package is
 > now complete: form is noise-equivalent on meaning, identification is a LOOKUP, and its GAIN IS
 > MEASURED (ORGAN_MAP A1, `0.0870` vs `0.0480`, CI-separated).*
