@@ -53,17 +53,24 @@ helps.**
 ALTERNATIVE would be better. That test refuted `flat_store` and deflated `lookup_does_not_lemmatise`.
 This brief passes it, measured rather than argued:**
 
-| | store facts | consolidated |
+| | store `live_facts` | consolidated |
 |---|---|---|
-| fresh substrate, BEFORE any read | `0` | `0` |
-| same substrate, after reading 600 | `4` | `4` |
-| same substrate, after a second 600 | `6` | `6` |
-| 🔻 **NEW substrate -- WHAT EVERY RUN ACTUALLY DOES** | 🔻 **`0`** | 🔻 **`0`** |
+| fresh substrate, BEFORE any read | `92` | `0` |
+| same substrate, after reading ~520 | `100` | `4` |
+| same substrate, after a second ~520 | `104` | `6` |
+| 🔻 **NEW substrate -- WHAT EVERY RUN ACTUALLY DOES** | 🔻 **`92`** | 🔻 **`0`** |
+
+> 🔻 **CORRECTED WITHIN THE HOUR, AND THE FIRST VERSION OF THIS TABLE WAS WRONG.** I read
+> `state.store.facts`, which does not exist; my helper caught the `AttributeError` and silently
+> returned `len(consolidated())` instead, **so both columns showed the same number and looked
+> plausible.** The real accessor is `state.store.live_facts`. *A fallback that returns a DIFFERENT
+> QUANTITY on error is worse than a crash -- it produced a table that agreed with itself.*
+> ✅ **The brief's long-standing `92` was right all along, and my "correction" of it was the error.**
 
 > ### **THE NEXT RUN STARTS AT ZERO REGARDLESS OF WHAT THE LAST ONE REACHED. READING IS NOT CUMULATIVE.**
 
 **That is not "resuming would be better" -- it is the cost of not resuming, stated as a number.**
-*Everything a run learns is discarded at its end; a hundred runs leave exactly what one run leaves.*
+*A new run resets `104 -> 92` live facts and `6 -> 0` consolidated: back to the `107`-seed baseline. Everything learned beyond the seeds is discarded, so a hundred runs leave exactly what one run leaves.*
 ⚠️ *Small absolute counts (`n_dim=256`, ~520-sentence reads) -- the SHAPE is the finding, not the
 magnitude. And the short-read guard fired during this very measurement: 600 asked, 520 read.*
 
