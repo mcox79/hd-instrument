@@ -85,21 +85,22 @@
 >   WORD-SIMILARITY channel, which both plans had ruled out (bow `0.5167` = chance HANDED THE GOLD
 >   SENSE). On the grounding organ counting is at chance and we are not.** ➡️ **FRONTIER: OPEN VOCAB,
 >   then REAL PROSE.** `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
-> 🔻 **OPEN-VOCAB, DIAGNOSED -- AND I RETRACT TWO CLAIMS I MADE GETTING THERE.**
->   *RETRACTED: "the open-vocab cost is 3 words (`arm`/`hand`/`leg`)" and "the consumer is calibrated on
->   the component's error". **`he broke her arm` RETURNS `BLOCK_HIGH` = GOLD; `arm` is not a failure.**
->   FAULT: I compared `v2.lookup_animacy` vs the real lookup and **THE CLOSED ARM DOES NOT CONSUME IT** --
->   it consumes `object_event_class`. Name-matched a function, never verified it, built on it.*
-> ✅ **TRUE CAUSES, from calling the cell's OWN scorer with its OWN maps (event stage, subset B):**
->   **(A) THE HARM ROUTE REQUIRES AN *UNCLASSIFIED* GOVERNOR** (`gov in force_class and gclass_narrow ==
->   "UNK"`) -- fires for `break`/`shoot`, **BLOCKED for `beat`/`attack`, the two most violent verbs**.
->   **(B) ANIMACY CANNOT EXPRESS `ADVERSARIAL`** -- `enemy` -> `abstract`, so "she aided the enemy" reads
->   NEUTRAL vs gold BLOCK_HIGH. *The cell's docstring says so at line 52; I read past it.*
-> ✅ **AND THAT RESTORES THE BODY-PART FIX** *(WordNet `body_part` hypernym at top sense -> animate;
->   3/3 gap words, 0/8 controls, 1.2% base rate)*: **`crack`/`wrench`/`twist` are ALL `UNK` AND in
->   force_class, so the harm route WOULD fire if `ankle` were animate.** ⚠️ *Still UNRUN. Event stage
->   only (arm scores `0.833`; `None` falls back to the governor stage). `Bgen` not recomputed.*
->   `I_RETRACT_THE_THREE_WORD_FINDING_...` `A_PRINCIPLED_REPLACEMENT_...`
+> 🔻 **OPEN-VOCAB, DIAGNOSED -- AND I RETRACT TWO CLAIMS MADE GETTING THERE.** *RETRACTED: "the cost
+>   is 3 words (`arm`/`hand`/`leg`)" and "the consumer is calibrated on the component's error". **`he broke
+>   her arm` RETURNS `BLOCK_HIGH` = GOLD.** FAULT: I compared `v2.lookup_animacy` vs the real lookup and
+>   THE CLOSED ARM DOES NOT CONSUME IT (it uses `object_event_class`). Name-matched, never verified,
+>   built two conclusions on it.*
+> ✅ **SUBSET `B` NOW CLOSES EXACTLY: 10/12 = `0.8333` vs reported `0.833`, BOTH ERRORS THE WORD `enemy`.**
+>   *Combiner: **SITUATION > EVENT > GOVERNOR**, so event-stage `None` = DECLINING and the governor answers.*
+> 🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF, NOT A DEFECT -- DO NOT TOUCH IT.** *It stops the
+>   event stage double-handling verbs the governor knows; removing it would overrule the governor on the
+>   2 items it gets RIGHT. I had it queued as "the more interesting defect".*
+> 🎯 **THE ONE REAL DEFECT: ANIMACY CANNOT EXPRESS `ADVERSARIAL`.** *`enemy` -> `abstract` -> event says
+>   NEUTRAL and WINS; gold BLOCK_HIGH. **An EXPRESSIVENESS gap, not a lookup bug.***
+> ✅ **AND THAT RESTORES THE BODY-PART FIX** *(`crack`/`wrench`/`twist` are ALL `UNK` AND in force_class, so
+>   the harm route WOULD fire if `ankle` were animate; 3/3 gap words, 0/8 controls, 1.2% base rate).*
+>   ⚠️ *UNRUN. `pred_gov` not re-trained. Event stage only. `Bgen`'s `0.750` still unexplained.*
+>   `SUBSET_B_IS_NOW_EXACTLY_EXPLAINED_...` `I_RETRACT_THE_THREE_WORD_FINDING_...` `A_PRINCIPLED_REPLACEMENT_...`
 > ⚠️ **VERIFICATION STATUS (I had been claiming neither): those numbers are READ, NOT REPRODUCED.**
 > *Re-running gives `elapsed 0.0s` + `[resume] already done` -- checkpoints REPLAY, and **the no-op
 > re-run is INDISTINGUISHABLE FROM A PASS**.* ✅ *`--self-test` DOES recompute and reproduced the
