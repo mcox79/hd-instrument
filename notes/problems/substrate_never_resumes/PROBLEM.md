@@ -39,6 +39,22 @@ helps.**
 
 ## 3. MEASURED vs INFERRED
 
+> # 🔑 **READ THIS FIRST: THIS IS A *WIRING* JOB, NOT A BUILD. THE PERSISTENCE ORGAN EXISTS AND ITS ROUND-TRIP PASSES AT HEAD TODAY.**
+> **`hdlab/foundation_persistence.py` implements BOTH `save_foundation` and `load_foundation`, is
+> REGISTERED** (*"foundation save/reload persistence (bit-identical round-trip, resumable
+> per-segment)"*), **and its module docstring names the exact gap this brief is about:** *"every run
+> starts from an EMPTY store."*
+> ✅ **RUN ON DISK 2026-08-22, NOT QUOTED FROM THE REGISTRY -- `python hdlab/foundation_persistence.py`
+> returns `9/9` PASS**, including `store_roundtrip_identical_ok`, **`continuation_matches_uninterrupted_run_ok`**
+> and **`full_foundation_roundtrip_and_resume_grounds_ok`**. ➡️ **So resuming is not merely
+> BYTE-correct, it is BEHAVIOURALLY correct: a continued run matches an uninterrupted one, and a
+> resumed foundation actually grounds.**
+> 🔑 **THE ENTIRE GAP IS THAT NOTHING ON THE LIVE PATH CALLS `load_foundation`.** *This is the
+> WIRE-DON'T-ISLAND pattern, not a missing capability -- so DO NOT BUILD A SECOND PERSISTENCE LAYER.*
+> ⚠️ *Limit: those 9 self-tests run on their own fixtures. They establish the round-trip works; they
+> do not establish it works on a REAL foundation written by a real reading run. **Checking that on a
+> clean snapshot is the first move.***
+>
 > ### ✅ **STRENGTHENED 2026-08-22 BY A SECOND, DIFFERENT TEST -- AND THE PARAMETER NO LONGER LIES.**
 > **The measurement below counts `load_foundation` CALLS. That could miss a read that used the path
 > some other way, so the claim was re-tested AS STATED**, with a descriptor recording every READ of
