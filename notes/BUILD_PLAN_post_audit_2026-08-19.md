@@ -79,6 +79,17 @@
 > ⚠️ **WATCH CONDITION UNCHANGED: a better INDEX is not better UNDERSTANDING -- the tell is recognition
 > rising while meaning stays flat.** ⚠️ *8 pairs; NOT a downstream gain; edit NOT made.*
 > `Q102_ANSWERED_...` `THE_LIVE_IDENTITY_CODE_FAILS_...`
+> 🟢 **WIRED 2026-08-22 -- `form_identity_vector()` IS NOW ON THE LIVE PATH, ADDITIVELY.**
+> *`hdlab/reading_grounding_loop.py`: a VWFA-backed FORM code for WORDS, cached, BESIDE `symbol_vector`.*
+> ✅ **WITNESS `verification/test_form_identity_channel_is_additive_and_invariant.py` -- 6/6 PASS**,
+> *including the two that matter most: **`symbol_vector` is BYTE-IDENTICAL to its documented sha256
+> construction** (recomputed independently -> no persisted store invalidated) and **RELATION labels still
+> route through the hash** (a form code over `REL:^nmod` would be noise).*
+> ✅ **REGRESSION: all 21 of the live module's OWN self-tests PASS, 0 fail; `perirhinal_conjunctive` and
+> `substrate` still import; `context_vector_masked` unchanged.**
+> ⚠️ **A BETTER IDENTITY CODE, NOT A DEMONSTRATED DOWNSTREAM GAIN -- NOTHING CONSUMES IT YET.** *The
+> accessor exists and is witnessed; choosing consumers is the next decision.* ⚠️ **WATCH CONDITION:
+> recognition rising while meaning stays flat = a better index, not understanding.**
 > **Q104 (the credit fork) remains OPEN.**
 > ✅ **AND PRIOR WORK EMPIRICALLY CONFIRMS THE "DO NOT BLEND" HALF:**
 > *`exp_substrate_concept_encoder_v2_vwfa_late_combine_2spoke` **HARD_FAIL** -- `ARM_V2_LATE_COMBINE`
@@ -92,7 +103,6 @@
 > value only `if limit != 40`, so `--limit 40` left "40" as a SEARCH TERM and matched `vwfa` OR `40` --
 > **1,106 hits against a true 4, a 275x error I nearly acted on.** Now consumed POSITIONALLY; verified on
 > `--limit 5/40/200`, `--limit=200`, a numeric search term (`4096` -> 871), and `--self-test`.*
-> **Q104 (the credit fork) remains OPEN.**
 >
 > **2. 🎯 DIRECTION = *ANCHOR + PROPAGATE*, set 08-06/08-07.** *Ground a SMALL affective anchor (the brain
 > does it at 4-7 months) and reason outward; good/bad is in neither grammar nor text statistics because
