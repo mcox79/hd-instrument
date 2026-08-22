@@ -846,3 +846,338 @@ def test_scan_never_mutates_anything(tmp_path):
     assert p.read_bytes() == before, "the checker modified a metrics.json"
     assert rep["class_counts"][vbc.NO_FLOOR] == 1
     assert list(tmp_path.iterdir()) == [cell_dir], "the checker created a file in the data tree"
+
+
+# ===================================================================================
+# 2026-08-16 -- TWO INSTRUMENTATION DEFECTS, each with a NEGATIVE CONTROL.
+#
+# Both were FOUND, WRITTEN DOWN, AND NOT FIXED across several reports. The tests below exist so
+# the fixes cannot rot back: each defect gets a test that the FIXED behaviour holds, AND a test
+# that the CHECK ITSELF CAN FAIL, because a guard nobody has seen fire is not a guard. This repo
+# has already shipped a check (`if base in src`) that could only ever inflate its own count.
+#
+# NEITHER DEFECT NOR FIX MAKES ANY BRAIN CLAIM. This is instrumentation.
+# ===================================================================================
+
+def _tie_heavy_matching_fixture(n_anchors=1200, n_items=1200, k=15, seed=7):
+    """A candidate-pool fixture whose nuisance channel looks like a REAL trigram matrix.
+
+    Two properties are load-bearing and neither is decoration:
+      * a large EXACT-ZERO mass (most anchor/query pairs share no trigram). A smooth Gaussian
+        channel does NOT expose the defect -- measured, it reads 0.08 against chance 0.0625 --
+        so a test built on the easy channel would have passed forever.
+      * the gold's value is drawn FROM THE SAME value set, so a matched pool is constructible
+        and the test measures matching rather than an impossible request.
+    """
+    import numpy as np
+    rng = np.random.default_rng(seed)
+    w = np.linspace(1.0, 0.02, n_anchors) ** 3.0
+    w = w / w.sum()
+    dg = rng.choice(n_anchors, size=n_items, p=w)
+    gold_sets = [np.array([g], dtype=np.int64) for g in dg]
+    excl = [np.zeros(0, dtype=np.int64) for _ in range(n_items)]
+    keep = np.ones(n_items, dtype=bool)
+    levels = np.round(np.linspace(0.04, 1.0, 25), 3).astype(np.float32)
+    S = np.zeros((n_anchors, n_items), dtype=np.float32)
+    nz = rng.random((n_anchors, n_items)) >= 0.85
+    S[nz] = levels[rng.integers(0, levels.size, size=int(nz.sum()))]
+    gv = levels[rng.integers(levels.size // 2, levels.size, size=n_items)]
+    gv[rng.random(n_items) < 0.35] = 0.0
+    S[dg, np.arange(n_items)] = gv
+    return dg, gold_sets, excl, keep, S, n_anchors, n_items, k
+
+
+def _floor_battery():
+    return pytest.importorskip("tools.floor_battery")
+
+
+# ------------------------------------------------------------------ DEFECT A: the matched pool
+def test_the_matched_pool_admits_no_winning_constant():
+    """DEFECT A. `matched_candidate_sets` is supposed to produce a pool on which a ranking that
+    ignores the query cannot beat chance. Four banked cells recorded its fitted-oracle constant
+    at 0.7262 / 0.7313 / 0.7323 / 0.7354 against a chance of 0.0625, which means every number
+    computed on that pool was measuring the pool rather than the substrate.
+    """
+    fb = _floor_battery()
+    dg, gs, ex, keep, S, na, ni, k = _tie_heavy_matching_fixture()
+    _cand, _gc, diag = fb.matched_candidate_sets(dg, gs, ex, keep, k, 9, S)
+    v = diag["validity"]
+    assert v["ok"], (
+        "the matched pool admits a winning constant: fitted oracle %.4f against chance %.4f"
+        % (v["oracle_constant_hit_exp"], v["chance"]))
+    assert v["oracle_constant_hit_exp"] <= v["chance"] + v["tol"]
+    assert diag["CONSTRUCTION"] == "STRATIFIED_MARGINAL_PRESERVING"
+
+
+def test_the_matched_pool_validity_check_can_fail():
+    """NEGATIVE CONTROL FOR DEFECT A. Run the construction that shipped until 2026-08-16 through
+    the SAME check on the SAME inputs and require a REJECTION. Without this, the assertion above
+    is indistinguishable from one that always passes.
+
+    The rejection is asserted with a NUMBER, not a truthiness: the legacy pool must reproduce the
+    defect at more than 3x chance, so a check that had been quietly loosened would still fail.
+    """
+    fb = _floor_battery()
+    dg, gs, ex, keep, S, na, ni, k = _tie_heavy_matching_fixture()
+    cand_l, _gl, diag_l = fb._matched_candidate_sets_NEAREST_K_LEGACY(dg, gs, ex, keep, k, 9, S)
+    assert diag_l["CONSTRUCTION"].startswith("NEAREST_K_LEGACY")
+    v = fb.pool_admits_a_winning_constant(cand_l, gs, na, k)
+    assert not v["ok"], "the known-broken pool was NOT rejected; the validity check is inert"
+    assert v["oracle_constant_hit_exp"] > 3.0 * v["chance"], (
+        "the legacy pool no longer reproduces the defect (%.4f vs chance %.4f), so this negative "
+        "control no longer proves the check can fire"
+        % (v["oracle_constant_hit_exp"], v["chance"]))
+
+
+def test_the_matched_pool_is_still_matched_and_still_winnable():
+    """The fix must not be obtained by giving up on matching or by making the pool unwinnable.
+
+    A pool nobody can win, and a pool nobody is matched on, would BOTH satisfy the constant check
+    while being useless. Both halves are asserted against the pool's own chance.
+    """
+    import numpy as np
+    fb = _floor_battery()
+    dg, gs, ex, keep, S, na, ni, k = _tie_heavy_matching_fixture()
+    chance = 1.0 / (k + 1)
+    GOLD = np.zeros((na, ni), dtype=bool)
+    GOLD[dg, np.arange(ni)] = True
+    Sq = np.zeros((na, ni), dtype=np.float32)
+    Sq[dg, np.arange(ni)] = 1.0
+
+    def _elig(cand):
+        ok = cand[:, 0] >= 0
+        E = np.zeros((na, ni), dtype=bool)
+        cols = np.repeat(np.flatnonzero(ok)[:, None], k + 1, axis=1)
+        E[cand[ok].ravel(), cols.ravel()] = True
+        return E, ok
+
+    cand_b, _gb = fb.balanced_candidate_sets(dg, gs, ex, keep, k, seed=5)
+    Eb, okb = _elig(cand_b)
+    unmatched = float(fb.hit_at_1_both_tie_conventions(S, Eb, GOLD)["hit_exp"][okb].mean())
+    cand_m, _gm, diag = fb.matched_candidate_sets(dg, gs, ex, keep, k, 9, S)
+    Em, okm = _elig(cand_m)
+    matched = float(fb.hit_at_1_both_tie_conventions(S, Em, GOLD)["hit_exp"][okm].mean())
+    knowing = float(fb.hit_at_1_both_tie_conventions(Sq, Em, GOLD)["hit_exp"][okm].mean())
+    assert unmatched > 3.0 * chance, (
+        "the fixture's nuisance channel does not win the UNMATCHED pool (%.4f vs chance %.4f), "
+        "so 'matching neutralised it' cannot be shown" % (unmatched, chance))
+    assert matched < unmatched / 2.0, (
+        "matching no longer neutralises the nuisance channel: %.4f -> %.4f"
+        % (unmatched, matched))
+    assert knowing > 0.99, "the matched pool is not winnable by a knowing arm: %.4f" % knowing
+    assert diag["n_dropped"] < 0.25 * ni, (
+        "the matched pool dropped %d of %d items; it is no longer a measurement of the corpus"
+        % (diag["n_dropped"], ni))
+
+
+def test_the_pool_validity_check_is_reported_in_the_diagnostics():
+    """CLASSIFY, DO NOT HIDE. The measured number must travel with the pool, so a cell that banks
+    a matched pool banks the evidence about whether that pool means anything. It was previously
+    only a warning in a docstring, which is how four cells shipped it broken."""
+    fb = _floor_battery()
+    dg, gs, ex, keep, S, na, ni, k = _tie_heavy_matching_fixture()
+    _c, _g, diag = fb.matched_candidate_sets(dg, gs, ex, keep, k, 9, S)
+    for field in ("ok", "oracle_constant_hit_exp", "chance", "margin_over_chance", "tol"):
+        assert field in diag["validity"], "diagnostics lost the %r field" % field
+    for field in ("n_bins_effective", "n_distinct_donors", "n_dropped", "mean_abs_match_error"):
+        assert field in diag, "diagnostics lost the %r field" % field
+
+
+def test_the_floor_battery_self_test_passes():
+    """Its S7 now asserts the constant check and its S8 is the negative control. Run the CLI."""
+    fb_path = os.path.join(_REPO, "tools", "floor_battery.py")
+    if not os.path.exists(fb_path):
+        pytest.skip("tools/floor_battery.py is not on disk")
+    r = subprocess.run([sys.executable, fb_path, "--self-test"], cwd=_REPO,
+                       capture_output=True, text=True, timeout=900)
+    assert r.returncode == 0, "stdout:\n%s\nstderr:\n%s" % (r.stdout, r.stderr)
+    assert "S8_negative_control_legacy_pool_is_rejected" in r.stdout, (
+        "the negative control is gone from the self-test")
+
+
+# ---------------------------------------------------------------- DEFECT B: the ortho collision
+def test_a_bare_ortho_floor_name_is_unclassifiable_by_name_alone():
+    """DEFECT B, the starting condition. `orthograph` does not match `ORTHO`, so every arm named
+    with the bare abbreviation reads as a treatment arm. Asserted here so that a later
+    'simplification' back to a single regex is caught in this file rather than in a verdict."""
+    from tools.c3_gate import ORTHO_AMBIGUOUS, classify_arm_role, ortho_token_class
+    for name in ("F1b_ORTHO_PREFIX", "F_ORTHO", "F_ORTHO_ONLY"):
+        assert classify_arm_role(name) is None, "%r is no longer name-ambiguous" % name
+        assert ortho_token_class(name) == ORTHO_AMBIGUOUS
+        assert classify_arm_role(name, floor_declared=True) == "orthographic"
+
+
+def test_a_geometry_orthogonality_arm_is_never_a_floor_even_when_declared():
+    """NEGATIVE CONTROL FOR DEFECT B, direction 1. These are GEOMETRY treatments, enumerated from
+    disk: a Lowdin-orthonormal role basis, an orthogonal-subspace routing arm, an orthogonal
+    projection. A naive widening of the orthographic pattern turns every one of them into a
+    CONTROL arm, which makes it ineligible to carry its own cell's claim.
+
+    `floor_declared=True` is passed deliberately: even with the strongest possible structural
+    evidence the geometry stem must win, or the disambiguation is decorative.
+    """
+    from tools.c3_gate import ORTHO_GEOMETRY, classify_arm_role, ortho_token_class
+    # ABBREVIATED forms are included on purpose: `orthogon` alone misses ARM_ORTHOG_SUBSPACE,
+    # ORTHOG_LR, orthog_residual_max and axis_orthog_residual_max, which this test caught.
+    for name in ("ARM_ORTHOG_SUBSPACE", "C3_ORTHONORMAL", "ARM_ORTHOGONAL_PROJECTION",
+                 "orthogonal_role_basis", "hp_orthogonality", "ARM_ROLES_ORTHOGONAL_RANDOM",
+                 "ORTHOG_LR", "orthog_residual_max", "axis_orthog_residual_max"):
+        assert ortho_token_class(name) == ORTHO_GEOMETRY, "%r lost its geometry reading" % name
+        assert classify_arm_role(name) is None
+        assert classify_arm_role(name, floor_declared=True) is None, (
+            "%r became an orthographic FLOOR; a geometry treatment arm has just been deleted "
+            "from claim eligibility" % name)
+    # and the shared prefix must NOT drag the real spelling floor into the geometry bucket
+    assert ortho_token_class("A_ORTHOGRAPHIC") != ORTHO_GEOMETRY
+    assert classify_arm_role("A_ORTHOGRAPHIC") == "orthographic"
+
+
+def test_the_naive_widening_really_would_have_destroyed_treatment_arms():
+    """THE EVIDENCE FOR WHY THE CAREFUL FIX WAS NECESSARY, as an executable statement rather than
+    a claim in a report. A one-token widening is simulated and shown to sweep in the geometry
+    arms, while the shipped classifier does not. If this ever fails because the widening has
+    become harmless, the careful classifier may be simplified -- and only then."""
+    import re
+    naive = re.compile(r"ortho", re.IGNORECASE)
+    from tools.c3_gate import classify_arm_role
+    # TWO DIFFERENT PROTECTIONS, asserted separately because they are different mechanisms.
+    geometry = ("ARM_ORTHOG_SUBSPACE", "C3_ORTHONORMAL", "ARM_ORTHOGONAL_PROJECTION",
+                "orthogonal_role_basis", "hp_orthogonality", "ARM_ROLES_ORTHOGONAL_RANDOM")
+    unclassifiable = ("SPARSE_ORTHO", "ORTHO_K128", "disc_ortho")
+    every = geometry + unclassifiable
+    swept = [n for n in every if naive.search(n)]
+    assert len(swept) == len(every), (
+        "the naive widening no longer sweeps these in, so this control proves nothing")
+    # 1. GEOMETRY is protected by the stem: it holds even against the strongest structural claim.
+    destroyed = [n for n in geometry if classify_arm_role(n, floor_declared=True) == "orthographic"]
+    assert destroyed == [], "the shipped classifier destroyed %r" % destroyed
+    # 2. UNCLASSIFIABLE is protected by FAIL-CLOSED: no cell declares them, so they stay None.
+    #    (That the declaration never fires for them is asserted in the undeclared-name test.)
+    leaked = [n for n in unclassifiable if classify_arm_role(n) is not None]
+    assert leaked == [], "an unclassifiable ortho name gained a role by name alone: %r" % leaked
+
+
+def test_an_undeclared_ortho_name_is_unclassifiable_never_silently_a_floor():
+    """FAIL CLOSED, direction 2. `SPARSE_ORTHO` and `disc_ortho` carry no geometry stem AND no
+    floor declaration. They must land in the UNCLASSIFIABLE residue: not credited as a floor
+    (which would soften the bar) and not removed from eligibility (which would delete a real
+    treatment arm). `disc_ortho` is measured, not hypothetical -- it is
+    `discriminability(codes, ortho_pool, ...)`, an ORTHOGONAL-code diagnostic with no `orthogon`
+    token anywhere in its name, so the geometry stem does NOT catch it either."""
+    doc = {"per_seed": {"arms": {"SPARSE_ORTHO": {"recall": 0.4},
+                                 "BASELINE_RAW": {"recall": 0.3}},
+                        "discriminability": {"disc_ortho": 0.87}}}
+    got = vbc.declared_ortho_floors(doc)
+    assert got["floors"] == {}, "an undeclared ortho name was credited: %r" % got["floors"]
+    assert set(got["unclassifiable"]) == {"SPARSE_ORTHO", "disc_ortho"}, got["unclassifiable"]
+    ev = vbc.floor_evidence(doc)
+    assert "orthographic" not in ev["floor_roles_present"], (
+        "the cell gained an orthographic floor it never recorded")
+    assert claim_arm_eligibility(["SPARSE_ORTHO"])["eligible"], (
+        "an UNCLASSIFIABLE ortho arm lost claim eligibility; that is exactly the failure mode "
+        "the previous agent correctly declined to cause")
+
+
+def test_a_boolean_verdict_under_a_floor_shaped_ancestor_is_not_a_floor():
+    """MEASURED FALSE POSITIVE, direction 3. Both shapes below sit under an ancestor whose name
+    contains `floor`, and neither is a floor arm: one is a claim, the other a validity gate. A
+    boolean is a VERDICT. Without this refusal the first cut of the rule credited both."""
+    doc = {"clears_ortho_floor_ci_separated": {"LIVE_vs_ORTHO": True, "PRIMARY_vs_ORTHO": True},
+           "V3_space_independent_floors_must_be_identical": {
+               "ortho_identical_across_spaces": True}}
+    got = vbc.declared_ortho_floors(doc)
+    assert got["floors"] == {}, "a boolean verdict was credited as a floor: %r" % got["floors"]
+
+
+def test_an_arm_named_floor_is_not_a_floor_container():
+    """MEASURED FALSE POSITIVE, direction 4. `per_arm/FLOOR_ORTHOGRAPHIC/STRUCTURE/GOLD_ORTHO_lift`
+    -- FLOOR_ORTHOGRAPHIC is the orthographic floor ARM and GOLD_ORTHO_lift is that arm's own lift
+    statistic on the GOLD_ORTHO population. A container test that does not exclude ancestors which
+    are themselves arms credits the statistic as a second floor."""
+    doc = {"by_d": {"256": {"per_arm": {"FLOOR_ORTHOGRAPHIC": {
+        "STRUCTURE": {"GOLD_ORTHO_lift": 102.9}, "IDENTITY": {"disc_ortho_headline": 0.34}}}}}}
+    got = vbc.declared_ortho_floors(doc)
+    assert "GOLD_ORTHO_lift" not in got["floors"], got["floors"]
+    assert "disc_ortho_headline" not in got["floors"], got["floors"]
+
+
+def test_a_declared_ortho_floor_is_recognised_from_a_floor_table():
+    """The POSITIVE half: a cell that publishes its floors in one table gets its bare-`ortho`
+    floor recognised BY COHORT rather than by name -- two other members of the same table classify
+    as distinct required floor roles, so the table is a floor table."""
+    doc = {"RESULTS": {"BLOCK_A": {"hit_at_1": {
+        "F1b_ORTHO_PREFIX": 0.11, "F3_FREQUENCY": 0.09,
+        "F5_CONSTANT_PROTOTYPE_zero_query_information": 0.07, "R0_TREATMENT": 0.13}}}}
+    got = vbc.declared_ortho_floors(doc)
+    assert "F1b_ORTHO_PREFIX" in got["floors"], got
+    assert "F3_COHORT" in got["floors"]["F1b_ORTHO_PREFIX"], got["floors"]
+
+
+def test_the_delta_key_right_side_resolves_by_document_reconciliation():
+    """40 delta keys of the shape `d_{ARM}_minus_F_ORTHO` are on disk. Their own ancestors declare
+    nothing, so only a per-DOCUMENT reconciliation recovers them: the name earns a tell somewhere
+    in the cell and is then honoured at every occurrence in that cell."""
+    doc = {"floors": {"F_ORTHO": {"hit_at_1": 0.08}},
+           "bootstrap": {"deltas": {
+               "d_MA_f000_GG_minus_F_ORTHO": {"ci_lo": 0.02, "ci_hi": 0.05}}}}
+    got = vbc.declared_ortho_floors(doc)
+    assert "F_ORTHO" in got["floors"], got
+    assert vbc._floor_role_of_key("d_MA_f000_GG_minus_F_ORTHO",
+                                  set(got["floors"])) == "orthographic"
+    assert vbc._floor_role_of_key("d_MA_f000_GG_minus_F_ORTHO") is None, (
+        "the delta key resolved WITHOUT the document's declaration, so the reconciliation is not "
+        "what is doing the work and the rule is a bare name rule after all")
+    ev = vbc.floor_evidence(doc)
+    assert "orthographic" in ev["floor_roles_present"]
+
+
+def test_a_declared_ortho_floor_cannot_carry_a_claim():
+    """Half a fix is worse than none. If `F1b_ORTHO_PREFIX` starts counting as a floor for the
+    bar's bookkeeping while staying ELIGIBLE to carry the claim, a spelling floor could be
+    selected as the arm a cell's result rests on -- the identical hazard the constant floor had
+    before 2026-08-16."""
+    assert claim_arm_eligibility(["F1b_ORTHO_PREFIX"])["eligible"] is True
+    blocked = claim_arm_eligibility(["F1b_ORTHO_PREFIX"],
+                                    floor_declared_names={"F1b_ORTHO_PREFIX"})
+    assert blocked["eligible"] is False
+    assert blocked["reason"] == "CONTROL_ARM", blocked
+
+
+def test_the_only_passing_cell_has_its_declared_binding_floor_recognised():
+    """The cell carrying the corpus's only surviving MEETS_BAR declares F1b_ORTHO_PREFIX among its
+    floors, and the checker was not collecting its margin. Reads from disk; skips if the cell is
+    absent so a fresh clone still certifies."""
+    p = os.path.join(_REPO, "data", "exp_cue_to_store_translation_v1", "metrics.json")
+    _need(p)
+    m = json.load(open(p, encoding="utf-8"))
+    got = vbc.declared_ortho_floors(m)
+    assert "F1b_ORTHO_PREFIX" in got["floors"], got["floors"]
+    assert got["truncated"] is False, "the walker ran out of budget; the result is partial"
+    ev = vbc.floor_evidence(m)
+    assert "orthographic" in ev["floor_roles_with_margin_ci"], (
+        "the orthographic floor still has no CI-bearing margin collected")
+
+
+def test_a_declared_ortho_floor_is_rejected_as_a_claim_arm_end_to_end():
+    """The eligibility threading, exercised through the SELECTOR rather than the predicate.
+
+    Asserting `claim_arm_eligibility` alone would prove the rule exists without proving it is
+    REACHED. Here the same arm is offered to `_best_treatment_arm` twice -- once with the
+    document's declaration and once without -- and must be REJECTED with the declaration and
+    SELECTED without it. If the threading is ever dropped, the predicate keeps passing its own
+    unit test while the selector silently reverts.
+    """
+    per_arm = {"BLOCK::F1b_ORTHO_PREFIX": [(0.05, "F3_FREQUENCY", "frequency")]}
+    segs = {"BLOCK::F1b_ORTHO_PREFIX": ["BLOCK", "F1b_ORTHO_PREFIX"]}
+    nodes = {"BLOCK::F1b_ORTHO_PREFIX": {"hit_at_1": 0.11}}
+    prov = {"BLOCK::F1b_ORTHO_PREFIX": [vbc.ARM_PROV_CONTAINER,
+                                        vbc.MARGIN_PROVENANCE_SUBKEY + ":margin"]}
+    best_u, _p, scored_u, rejected_u = vbc._best_treatment_arm(per_arm, segs, nodes, prov, set())
+    assert best_u == "BLOCK::F1b_ORTHO_PREFIX", (
+        "without the declaration the arm is not even selectable, so this control proves nothing: "
+        "%r / rejected=%r" % (best_u, rejected_u))
+    best_d, _p2, _s2, rejected_d = vbc._best_treatment_arm(per_arm, segs, nodes, prov,
+                                                           {"F1b_ORTHO_PREFIX"})
+    assert best_d is None, "a declared spelling floor was selected as the claim arm: %r" % best_d
+    assert rejected_d["BLOCK::F1b_ORTHO_PREFIX"]["reason"] == "CONTROL_ARM", rejected_d
+    assert scored_u, "the unthreaded call scored nothing; the fixture is malformed"

@@ -310,6 +310,53 @@ def symbol_vector(sym: str, d: int = CTX_D) -> np.ndarray:
     return v
 
 
+_FORM_VEC_CACHE: Dict[Tuple[str, int], np.ndarray] = {}
+_FORM_ENCODERS: Dict[int, object] = {}
+
+
+def form_identity_vector(word: str, d: int = CTX_D) -> np.ndarray:
+    """VWFA-analog FORM code for a WORD -- an ADDITIVE identity channel BESIDE symbol_vector.
+
+    WIRED 2026-08-22 on the owner's Q102 ruling: "connect it only after it is doing the job required
+    of it ... as according to the brain (which may have other supporting parts, right?)".
+
+    THE BRAIN'S BAR IS INVARIANCE. The VWFA is defined by giving the same word the same code across
+    case/font/position -- that is what makes it a word-FORM area rather than a shape detector.
+    MEASURED 2026-08-22, same 8 pairs, this encoder vs the live symbol_vector:
+        case invariance    symbol_vector -0.0026   form organ +1.0000
+        inflection         symbol_vector +0.0208   form organ +0.4727
+        unrelated controls both ~0  <- so this ADDS invariance WITHOUT adding false similarity
+    symbol_vector is a sha256-seeded random bipolar draw, so it has NO form structure by
+    construction: it treats "cat" and "CAT" as unrelated.
+
+    ADDITIVE BY CONSTRUCTION -- symbol_vector is NOT modified and NOT replaced. Three independent
+    arguments give the same shape:
+      1. BRAIN     the VWFA FEEDS lexical access; it is not blended into it.
+      2. EMPIRICAL exp_substrate_concept_encoder_v2_vwfa_late_combine_2spoke is a HARD_FAIL --
+                   late-combining the streams scored recall@5 0.2000 against 0.2533 for the form
+                   stream ALONE ("composition HURTS relative to best single spoke").
+      3. STORES    symbol_vector's deterministic codes land in accumulated stores, so swapping it
+                   would rewrite EVERY persisted symbol code (the 256->1024 hazard).
+
+    DO NOT USE FOR RELATION LABELS. symbol_vector also encodes "REL:^nmod" and similar; a form code
+    over a relation tag is noise. This takes WORDS only.
+
+    WATCH CONDITION (owner Q102, unchanged): a better INDEX is not better UNDERSTANDING. The tell to
+    watch after wiring is recognition scores rising while meaning scores stay flat.
+    """
+    key = (word, d)
+    v = _FORM_VEC_CACHE.get(key)
+    if v is None:
+        enc = _FORM_ENCODERS.get(d)
+        if enc is None:
+            from hdlab.vwfa import VWFAEncoder      # local: keeps import order free of cycles
+            enc = VWFAEncoder(n_dim=d)
+            _FORM_ENCODERS[d] = enc
+        v = np.asarray(enc.encode_word(word), dtype=float)
+        _FORM_VEC_CACHE[key] = v
+    return v
+
+
 def _bipolar_bind(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """Bipolar XOR bind = elementwise multiply (the substrate's own binding op)."""
     return a * b
