@@ -4,15 +4,55 @@ hdlab/learner/core.py for the shared MDL model-selection engine). Adding a new h
 register it here. hdlab/learner/core.py never needs to change."""
 from __future__ import annotations
 
-from hdlab.learner.core import mdl_select
-from hdlab.learner.plugins import estimation_plugin, gam_plugin, proginduction_plugin, ruleind_plugin
+import importlib
+from collections.abc import Mapping
 
-PLUGINS = {
-    estimation_plugin.NAME: estimation_plugin,
-    ruleind_plugin.NAME: ruleind_plugin,
-    gam_plugin.NAME: gam_plugin,
-    proginduction_plugin.NAME: proginduction_plugin,
+from hdlab.learner.core import mdl_select
+
+# LAZY PLUGIN IMPORTS (2026-08-22). MEASURED CAUSE: importing this module eagerly imported four
+# plugins, two of which import EXPERIMENT CELLS, which pulled 8 cells into sys.modules and -- because
+# a cell legitimately configures itself as a script at module level -- SILENTLY REWROTE sys.stdout's
+# encoding (cp1252 -> utf-8) and set OMP_NUM_THREADS=1 for the whole process, on any `import
+# hdlab.reading_grounding_loop`. Measured: hdlab.learner alone pulls all 8; reading_grounding_loop
+# adds zero beyond it, so THIS FILE IS THE SOLE GATEWAY on the live path.
+#
+# The names are declared STATICALLY so `list(PLUGINS.keys())` -- the default candidate list in
+# learn() -- still works without importing anything. verification/test_learner_registry_is_lazy.py
+# asserts each module's own NAME still equals its declared key, so the duplication cannot rot.
+#
+# ORDER IS LOAD-BEARING: it is the default candidate order in learn(), preserved exactly from the
+# eager dict (estimation, ruleind, gam, proginduction).
+_PLUGIN_MODULES = {
+    "estimation": "hdlab.learner.plugins.estimation_plugin",
+    "ruleind": "hdlab.learner.plugins.ruleind_plugin",
+    "gam": "hdlab.learner.plugins.gam_plugin",
+    "proginduction": "hdlab.learner.plugins.proginduction_plugin",
 }
+
+
+class _LazyPlugins(Mapping):
+    """Maps plugin name -> module, importing each module only when it is first indexed.
+
+    A plain dict cannot do this: building it requires importing every plugin to read its NAME."""
+
+    def __init__(self, modules):
+        self._modules = dict(modules)
+        self._loaded = {}
+
+    def __getitem__(self, name):
+        mod = self._loaded.get(name)
+        if mod is None:
+            mod = self._loaded[name] = importlib.import_module(self._modules[name])
+        return mod
+
+    def __iter__(self):
+        return iter(self._modules)
+
+    def __len__(self):
+        return len(self._modules)
+
+
+PLUGINS = _LazyPlugins(_PLUGIN_MODULES)
 
 
 def learn(episodes, features, hypothesis_space_spec, prior=None):
