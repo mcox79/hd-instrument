@@ -64,6 +64,34 @@ NORMS cover -- **so the two may not be quoted as a change, an improvement, or a 
 are real; they answer different questions.* ⚠️ *Incidentally the asset's verb coverage (`99.6%`)
 exceeds our own channel's on the same benchmark (`2,651/3,500 = 75.7%`).*
 
+## 4b. ✅ **AND THE LOOKUP FIX *IS* THE VERB FIX -- `1.90x` VERB ENRICHMENT, MEASURED**
+
+§NEXT below asserted that lemmatising the lookup helps verbs most, *"because verbs are the most
+heavily inflected class in running text"*. **That was an assertion. Measured, on the same 64 MB
+corpus:**
+
+**`730,923` tokens are recovered by lemmatisation = `13.15%` of all tokens.** *That is independently
+computed and lands on the `+13.15` coverage points from the other direction -- **two quantities that
+constrain each other, agreeing.***
+
+| class of the recovered LEMMA | share of RECOVERED | share of ALREADY-COVERED | enrichment |
+|---|---|---|---|
+| 🔑 **VERB** | **`33.5%`** | `17.6%` | 🔑 **`1.90x`** |
+| NOUN | `54.2%` | `49.7%` | `1.09x` |
+| ADJ | `6.6%` | `21.0%` | `0.31x` |
+
+> ### **VERBS ARE NEARLY TWICE AS CONCENTRATED IN WHAT LEMMATISATION RECOVERS AS IN WHAT WE ALREADY REACH. THE COVERAGE FIX AND THE VERB HOLE ARE ONE LEVER.**
+
+**THE THREE FINDINGS CONVERGE:** the asset carries full verb signal (§1) -> our lookup cannot reach
+verbs because they are inflected (`released`, `playing`, `began`) -> repairing the lookup returns
+verbs at `1.9x` the rate of anything else.
+
+⚠️ **METHOD LIMIT, and it is real: word class here is WordNet's DOMINANT SENSE COUNT, not a tagger.**
+`run` is both a noun and a verb; such words fall in a `tie` bucket (`5.7%` of recovered mass) rather
+than being resolved. **A POS tagger over the running text would be the honest instrument** -- this is
+a lemma-level approximation, and the `1.90x` should be read as a strong indication rather than a
+pinned coefficient. *`tie` and `unknown` are reported in the raw output rather than folded away.*
+
 ## 5. LIMITS, STATED
 
 - **This is the ASSET measured directly against human ratings. It is not the substrate**, and no
