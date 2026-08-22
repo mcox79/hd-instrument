@@ -275,6 +275,29 @@ def self_test():
 def main():
     if "--self-test" in sys.argv:
         return self_test()
+
+    # OWNER VERDICT FROM THE COMMAND LINE.
+    # Added 2026-08-22 because the owner was BLOCKED: `save_owner` existed but the GUI was the
+    # ONLY way to reach it, so a stale or empty window meant the verdict could not be recorded at
+    # all. A second, independent path to the same file removes the single point of failure --
+    # same lesson as "disarm is a write, never a delete": the escape hatch must not depend on the
+    # thing that is broken.
+    #   python tools/problem_ledger.py note <slug> <DONE|MORE_NEEDED|PARKED> "free text"
+    if len(sys.argv) >= 4 and sys.argv[1] == "note":
+        slug, verdict = sys.argv[2], sys.argv[3].upper()
+        text = " ".join(sys.argv[4:])
+        if verdict not in OWNER_VERDICTS or not verdict:
+            print(f"verdict must be one of {[v for v in OWNER_VERDICTS if v]}", file=sys.stderr)
+            return 2
+        try:
+            path = save_owner(slug, verdict, text)
+        except ValueError as exc:
+            print(f"refused: {exc}", file=sys.stderr)
+            print(f"known slugs: {', '.join(r['slug'] for r in scan())}", file=sys.stderr)
+            return 2
+        print(f"wrote {path}\n  verdict: {verdict}\n  note: {text or '(none)'}")
+        return 0
+
     rows = scan()
     print(report(rows))
     if "--check" in sys.argv:

@@ -57,8 +57,17 @@ code as a meaning code.** That is structural, not a tuning problem.
 - *That a read-time mechanism can capture what the fitted ceiling diagnostic sees.* **The 0.6413 is
   a CEILING, fitted on the gold. It says THE INFORMATION IS THERE. It does not give a mechanism, and
   building one is exactly this problem.**
-- *That the gain survives on open vocabulary.* The norms rate ~36,810 words; real text is larger.
-  **Coverage at scale is the single biggest risk and is UNMEASURED.**
+- 🔻 **CORRECTED 2026-08-22: I first wrote "coverage at scale is UNMEASURED". IT IS MEASURED, and
+  the number is in `notes/LONG_TERM_PLAN.md` Phase 1, which names this exact problem as the current
+  bottleneck.** *The asset **covers `60.4%` of RUNNING TEXT but only `10.3%` of DISTINCT WORDS, and
+  coverage falls to `4%` beyond rank 64,000.*** ➡️ **So coverage is not an unknown risk -- it is a
+  KNOWN, QUANTIFIED constraint with a named work item beside it: widen the grounded core by
+  **`+14,704` words** in frequency order to reach ~90% token coverage (`+40,160` -> 95%; `+103,558`
+  -> 98%). **The ~15k option is the knee of the curve.***
+  ⚠️ **AND THE PLAN'S OWN NON-NEGOTIABLE ON THAT WIDENING, WHICH IS THE TRAP: re-score the widened
+  set ON ITS OWN NEW WORDS.** *The existing evidence that norms generalise is about rare words that
+  ALREADY HAVE norms. Until new words are scored, the coverage number is arithmetic, not
+  capability.*
 - *That replacing rather than blending is right.* Argued from the brain and supported by one
   HARD_FAIL (below) -- not proven.
 

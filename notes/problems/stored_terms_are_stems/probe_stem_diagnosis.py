@@ -21,11 +21,31 @@ import sys
 sys.path.insert(0, r"D:/AI/hd-instrument")
 
 from nltk.corpus import wordnet as wn  # noqa: E402
+_WORDSET = set()
 try:
     from nltk.corpus import words as nltk_words
-    _WORDSET = set(w.lower() for w in nltk_words.words())
+    _WORDSET |= set(w.lower() for w in nltk_words.words())
 except Exception:
-    _WORDSET = set()
+    pass
+# Function words (and, with, for, these, ...) are real words WordNet + the words-corpus omit;
+# without them the round-trip detector FALSE-POSITIVES every stopword (and+es->andes). nltk's
+# stopwords data is not downloaded here, so the closed-class list is HARDCODED (deterministic,
+# no data dependency). This is the detector's own negative control -- see validate_detector().
+_FUNCTION_WORDS = set("""
+a an the and but or nor for yet so if because as until while of at by with about against between
+into through during before after above below to from up down in out on off over under again
+further then once here there when where why how all any both each few more most other some such no
+not only own same than too very can will just should now i me my myself we our ours ourselves you
+your yours yourself yourselves he him his himself she her hers herself it its itself they them their
+theirs themselves what which who whom this that these those am is are was were be been being have has
+had having do does did doing would could may might must shall this these those also into upon
+""".split())
+_WORDSET |= _FUNCTION_WORDS
+try:
+    from nltk.corpus import stopwords as _sw
+    _WORDSET |= set(w.lower() for w in _sw.words("english"))
+except Exception:
+    pass
 
 from hdlab.thematic_role_labeler import lemma_word, lemma_verb  # noqa: E402
 
@@ -55,6 +75,25 @@ def stem_suffix(t: str):
         if is_word(t + suf):
             return suf
     return None
+
+
+def validate_detector():
+    """The detector must catch real chops (POSITIVE control) and flag NONE of a set of real words
+    including FUNCTION WORDS (NEGATIVE control). A detector that fails either cannot be trusted."""
+    positives = ["analysi", "cigarett", "apoptosi", "arteri", "statu", "acquaintanc", "heterozygou"]
+    negatives = ["analysis", "cigarette", "dog", "running", "archaea", "adipocytes",
+                 "and", "for", "her", "his", "with", "these", "than", "them", "she", "how"]
+    miss_pos = [t for t in positives if stem_suffix(t) is None]
+    false_pos = [(t, stem_suffix(t)) for t in negatives if stem_suffix(t) is not None]
+    ok = not miss_pos and not false_pos
+    print(f"=== DETECTOR CONTROLS: {'PASS' if ok else 'FAIL'} ===")
+    if miss_pos:
+        print(f"  POSITIVE control MISSED (real chops not flagged): {miss_pos}")
+    if false_pos:
+        print(f"  NEGATIVE control FALSE-POSITIVES (real words flagged): {false_pos}")
+    if ok:
+        print("  all 7 known chops flagged; all 16 real words (incl. function words) left alone")
+    return ok
 
 
 def runtime_evidence():
