@@ -106,6 +106,42 @@ targets. **Same yardstick, different populations -- exactly the crossing this pr
 verdict.** *Stated because the size of the gap makes it worth measuring properly, not because it is
 measured.*
 
+## 🧪 **THE POOL-SELECTION TEST, ON MATCHED POPULATIONS -- LARGE EFFECT, NOT ESTABLISHED**
+
+The right test: score **CONSOLIDATED terms** and **terms the substrate READ and did NOT consolidate**
+against the SAME 16 probe targets, on the same yardstick. *Targets were fixed before the pool was
+inspected, so they are not fitted to it.*
+
+| population (**unit = TERM**) | mean cosine to the 16 targets | n_terms | 95% CI |
+|---|---|---|---|
+| **CONSOLIDATED** | `0.1966` | **`24`** | `[+0.0634, +0.3173]` |
+| read but NOT consolidated | `0.0452` | 600 | `[+0.0186, +0.0713]` |
+
+**delta `+0.1514` -- roughly 4x the floor -- and 🔻 NOT CI-SEPARATED (`0.0634` vs `0.0713`, they
+just overlap).**
+✅ **THE OBVIOUS CONFOUND IS DEAD: median corpus frequency is `2` in BOTH populations**, so this is
+not "consolidated = frequent" wearing a semantic costume.
+
+> ### 🔻 **AND I CAUGHT MYSELF OVERSTATING IT. MY FIRST RUN BOOTSTRAPPED OVER 400 *DRAWS* FROM 24 *TERMS* AND REPORTED `[+0.1551, +0.2316]` vs `[-0.0190, +0.0605]` -- CLEAN SEPARATION.**
+> **The unit of analysis is the TERM, not the pair.** Resampling pairs treats 24 terms as 400
+> independent observations and shrinks the interval to something the data cannot support. *Same
+> numbers, same code, one honest choice -- and it is the difference between a result and a
+> hypothesis.*
+
+**HONEST VERDICT: the effect is LARGE and the direction is clear, but it CANNOT BE ESTABLISHED at
+`n=24`.** *Hypothesis, not finding.*
+
+### 🔑 **AND THE POOL SIZE IS ITSELF THE MORE INTERESTING NUMBER: 2,500 SENTENCES PRODUCED `30` CONSOLIDATED TERMS (24 with norms).**
+
+```
+door eyes face garden glass glove golden great green hall hear kid little manage
+moment mouse pair pool slowly swim table try win walk
+```
+
+**That is the entire consolidated output of a 2,500-sentence read.** ➡️ **Whatever the selection is
+doing, it is doing it to a set this small -- which caps what any cortical read can return and is
+why `n=24` is not fixable by scoring harder. It is fixable by consolidating more.**
+
 ## ➡️ WHAT IT CHANGES
 
 **B3' moves from *"no evidence it does anything"* to *"demonstrably the consolidation-sensitive
