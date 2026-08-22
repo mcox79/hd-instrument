@@ -146,53 +146,23 @@
 >
 > ## 🧭 **METHOD -- THE RULES THAT PAID OUT**
 > ***PUT A NUMBER BESIDE ANOTHER NUMBER THAT CONSTRAINS IT*** *(killed 5 claims, cleared 3);* **QUOTE THE NOTE, NEVER THE HEADLINE;** **CHECK PRIOR WORK FIRST** *(changed the answer 3x that night and 5x since);* ⭐ **MAKE THE ARITHMETIC CLOSE TO THE REPORTED NUMBER** *-- three plausible stories died to that one check, which was available every time and which I never ran.*
-> ## ➡️ **NEXT -- 2026-08-22 (2nd consolidation). POSITION LIVES IN `STATUS.md` TOP ITEM; THIS IS WHAT TO DO.**
-> 🚨 **THIS PLAN HAD DRIFTED: it cited `PLAN_B_grounding_..._2026-08-07` -- a USER-CONFIRMED PLAN OF
-> RECORD -- ZERO TIMES (grep), named none of its proven components, and did not carry its bottleneck.**
+> ## ➡️ **NEXT -- 2026-08-22 (3rd consolidation). THIS SECTION IS ACTIONS; CLOSED WORK IS ONE LINE EACH BELOW.**
+> 🔻 *Its previous form was 47 lines of seven STATUS REPORTS under a heading saying "THIS IS WHAT TO DO" -- and contained no action at all. Folded to numbers + a real list.*
 >
-> **1. 🟢 Q102 -- DONE, WIRED, AND FULLY WRITTEN UP IN THE DIGEST ABOVE. Not repeated here.**
-> *The numbers the digest does not carry:* **BRAIN BAR (VWFA = INVARIANCE): case `1.0000`, inflection GRADED `0.31-0.51`, unrelated `0.03-0.08`; `cos(entombment,burial) = -0.023`, so it CANNOT inflate meaning.** 🔑 **THE LIVE CODE FAILS THAT SAME BAR -- `symbol_vector` is a sha256 draw, case invariance `-0.0026` vs `+1.0000`.**
-> 🔧 *Process, kept because it nearly cost a decision: a bug in my own `--limit` flag dropped the bare value only `if limit != 40`, so `--limit 40` left "40" as a SEARCH TERM -- **1,106 hits against a true 4, a 275x error I nearly acted on.** Now consumed positionally, verified across five forms + `--self-test`.*
-> ⚠️ **NOTHING CONSUMES THE FORM CHANNEL YET.**
+> **DO NEXT, and none of these is in `notes/problems/` (those are the solver's):**
+> **A.** 🟢 **Score the goal-bearing organ on the v2 bank (`124` scorable).** The n=36 constraint that capped every margin on this line is gone; the organ's level on v2 is UNMEASURED. *Cell run -- authorized by Q113.*
+> **B.** 🟢 **B3' -- build the SCORED path for `cortical_recall`.** It is already CALLED and demonstrably consolidation-sensitive (`8/8` probes); what is missing is a task with floors. **Measure POOL SELECTION, not just ranking** -- the within-pool ranking read `+0.0675` NOT_SEPARATED, while consolidated-vs-not read `+0.1514` at n=24.
+> **C.** 🟢 **Q3 `cortex` -- it ships with a written recipe: "wire with `atom_consultation` OFF".** Its probe already reads monotone confidence `1.0 -> 0.0256`, `11/11` distinct, so the live-or-inert question is answered.
+> **D.** Fold this state block properly (`206` lines vs a `160` cap) -- the residue is v1-era detail, superseded in PRIORITY but not WRONG, so it folds to pointers rather than deletes.
 >
-> **2. 🎯 DIRECTION = *ANCHOR + PROPAGATE*, set 08-06/08-07.** *Ground a SMALL affective anchor (the brain
-> does it at 4-7 months) and reason outward; good/bad is in neither grammar nor text statistics because
-> ANTONYMS ARE DISTRIBUTIONAL TWINS.* ✅ **FOUR COMPONENTS `HARD_PASS`, AND I HAVE NOW *REPRODUCED* THREE
-> (first REPRODUCED rather than READ this session; all four REPLAY on a full re-run, `--self-test`
-> recomputes):** *S1 12-word seed -> `wordnet_polarity_propagation` -> **`0.833` held-out and `ablation
-> 0.000` BOTH IDENTICAL**, `theta_witness` RECIPROCITY `+0.603` vs BLOCK_HIGH `-0.505` SIGNS DIFFER;
-> S2 superposition map collapse **`1.000`** vs scramble `0.300`; S4 LEARNED-from-exposure **`1.000`** vs
-> scramble-consequence `0.429`, `gap_vs_hand_taught 0.000`, **`spoil_ok=True`** (reversed-polarity
-> anti-confound HOLDS); + richer context KEY `0527afeab`.* ⚠️ **REPRODUCTION DOES NOT CHANGE SCALE: still
-> 6 words / 28 items on CLEAN signal; `PLAN_B` calls the zero gap "a CLEAN-corpus artifact". SOUND != WORKS.**
->
-> **3. 🚫 THE CREDIT LEVER IS MEASURED OUT.** *`exp_sharpened_credit_assignment_v1` `HARD_FAIL`: primary `0.4167` vs floor `0.6389`, lift `0.0167`, precision `0.4676 -> 0.4941`.* 🔁 **THE WALL REPRODUCES TWICE, 15 DAYS APART, TWO LEMMATIZERS -- re-ran post-repair to `0.4722`, IDENTICAL TO FOUR DIGITS, same `SCRAMBLE_DOES_NOT_COLLAPSE`. My confound hypothesis is REFUTED and the wall is STRONGER.** *Why: `_is_verblike` fires on the SURFACE form, so the repair changed each mistake's NAME, not the DECISION.*
-> 🎯 *Precision problem is LIGHT VERBS: `53.2%` of credited exposures not loaded; `46` of 173 error types are GENUINE VERBS. **Non-verb junk is only `5.4%` of credited tokens** -- measured 3x, each closer to the decision (`73%` error-list types -> `12.2%` admitted -> `5.4%` credited); **I quoted the biggest twice first.*** 🔻 **RETRACTED: "cheapest high-value fix" -- a verb-sense gate is a PURE FILTER and does not fix base-form verbs being wrongly REJECTED.** ⚠️ *Coverage is NOT the cause (fires `439/1655`).* `I_RE_RAN_THE_WALL_...` `THE_OPERATIVE_NUMBER_IS_5_4_PERCENT_...`
->
-> **4. ✅ THE GROUNDING ORGAN WORKS, AND MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding`
-> HARD_PASS `0.967`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (PREDICTED failure at `0.500`);
-> `twostage_event_situation_v2` HARD_PASS **B and C `1.000`** vs governor `0.500`.* 🎯 **DOUBLE
-> DISSOCIATION: each subset's MATCHED scramble degrades, the UNMATCHED one does not.** 🔻 **SCALE: n =
-> 21/12/12/8 and one `1.000` IS n=2 -- it CARRIES NOTHING.** 🔻 **"counting beats us EVERYWHERE" WAS
-> WRONG: all 16 measures are the WORD-SIMILARITY channel, which both plans ruled out (bow `0.5167` =
-> chance HANDED THE GOLD SENSE).** ⚠️ *READ, not REPRODUCED; re-runs REPLAY (`399`/`7,868` cells affected).*
->
-> **5. ✅ OPEN VOCABULARY: CLOSED.** *`B` 10/12 = `0.8333`, `Bgen` 6/8 = `0.750`, both CLOSE EXACTLY, and
-> **ALL FOUR ERRORS HAVE AN *ADVERSARIAL* PATIENT**. The animacy map cannot express it -- an EXPRESSIVENESS
-> GAP. WordNet supplies it 7/8 at `0.8%`, and **misses `rival` CORRECTLY** (a rival is an adversary
-> RELATIONALLY, so the residue is EXACTLY the part both plans say needs SITUATION context).*
-> 🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF -- DO NOT TOUCH IT.** 🔻 **THREE RETRACTIONS GETTING
-> THERE; ROOT FAULT: compared `v2.lookup_animacy` vs the real lookup and THE CLOSED ARM DOES NOT CONSUME
-> IT. THE ANSWER WAS IN THE DOCSTRING AT LINE 52.**
->
-> **6. 🚫 ANISOTROPY IS CLOSED, NOT OPEN** *-- see CLOSED DOORS #4 in the digest above; not repeated.*
->
-> **7. THE HONEST TENSION:** *the supplied table beats everything we LEARN on the word-similarity channel.*
-> **Owner ruled supply ADMISSIBLE (08-16), so this is PRIORITISATION, not permission.**
-
-
-
-
+> **CLOSED, ONE LINE EACH -- numbers kept, reasoning in the named notes:**
+> **1. Q102 form organ -- DONE + WIRED** (full write-up in the digest above). *Numbers the digest lacks:* **BRAIN BAR (VWFA = INVARIANCE): case `1.0000`, inflection GRADED `0.31-0.51`, unrelated `0.03-0.08`; `cos(entombment,burial) = -0.023` so it CANNOT inflate meaning. THE LIVE CODE FAILS THAT BAR -- `symbol_vector` is a sha256 draw, case invariance `-0.0026` vs `+1.0000`.** ⚠️ **NOTHING CONSUMES THE FORM CHANNEL YET.** 🔧 *Process: my `--limit` flag dropped the bare value only `if limit != 40`, so `--limit 40` left "40" as a SEARCH TERM -- **`1,106` hits against a true `4`, a `275x` error I nearly acted on.***
+> **2. DIRECTION = ANCHOR + PROPAGATE** (set 08-06/07; ground a SMALL affective anchor -- good/bad is in neither grammar nor text statistics because **ANTONYMS ARE DISTRIBUTIONAL TWINS**). ✅ **FOUR components `HARD_PASS`, THREE now REPRODUCED:** *S1 12-word seed -> `0.833` held-out with **ablation `0.000`** both identical, `theta_witness` RECIPROCITY `+0.603` vs BLOCK_HIGH `-0.505` SIGNS DIFFER; S2 map collapse `1.000` vs scramble `0.300`; S4 learned-from-exposure `1.000` vs scramble-consequence `0.429`, `spoil_ok=True`.* ⚠️ **REPRODUCTION DOES NOT CHANGE SCALE: 6 words / 28 items on CLEAN signal. SOUND != WORKS.**
+> **3. 🚫 THE CREDIT LEVER IS MEASURED OUT.** *`HARD_FAIL` primary `0.4167` vs floor `0.6389`, lift `0.0167`, precision `0.4676 -> 0.4941`.* 🔁 **The wall reproduces TWICE, 15 days apart, two lemmatizers -- `0.4722` IDENTICAL TO FOUR DIGITS.** 🎯 *Precision problem is LIGHT VERBS: `53.2%` of credited exposures not loaded, `46` of 173 error types are GENUINE VERBS, **non-verb junk only `5.4%` of credited tokens** (measured 3x: `73%` -> `12.2%` -> `5.4%`; I quoted the biggest twice first). Coverage is NOT the cause (`439/1655`).* `I_RE_RAN_THE_WALL_...`
+> **4. ✅ THE GROUNDING ORGAN WORKS; MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding` HARD_PASS `0.967` vs **bow `0.517`**; `twostage_event_situation_v2` B and C `1.000` vs governor `0.500`; DOUBLE DISSOCIATION -- each subset's MATCHED scramble degrades, the UNMATCHED one does not.* 🔻 **SCALE: n = `21/12/12/8`, and one `1.000` IS n=2 -- it CARRIES NOTHING.** 🔻 **"counting beats us EVERYWHERE" WAS WRONG: all 16 measures are the WORD-SIMILARITY channel, which both plans ruled out (bow `0.5167` = chance HANDED THE GOLD SENSE).** ⚠️ *READ, not REPRODUCED (`399`/`7,868` cells replay).*
+> **5. ✅ OPEN VOCABULARY: CLOSED.** *`B` 10/12 = `0.8333`, `Bgen` 6/8 = `0.750`, and **ALL FOUR ERRORS HAVE AN ADVERSARIAL PATIENT** -- the animacy map cannot express it, an EXPRESSIVENESS GAP. WordNet supplies it `7/8` at a `0.8%` base rate and **misses `rival` CORRECTLY**.* 🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF -- DO NOT TOUCH IT.**
+> **6. 🚫 ANISOTROPY: CLOSED** -- see CLOSED DOORS #4 above.
+> **7. THE HONEST TENSION:** *the supplied table beats everything we LEARN on the word-similarity channel.* **Owner ruled supply ADMISSIBLE (08-16), so this is PRIORITISATION, not permission.**
 **Written 2026-08-18 end of session, at the owner's direction, to be executed after compaction.**
 Supersedes the forward-looking parts of `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md`. Its Section 7
 (the audit findings) and Section 6 (the ladder METHOD) both still stand as reference.
