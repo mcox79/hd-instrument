@@ -60,25 +60,17 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
    IDENTIFICATION `0.2057 -> 0.2160 -> 0.2169` (FLAT).** *The dissociation rests on the COLLAPSE,
    which is far too large to be noise -- not on the small gains, which are not established.*
 
-6. ⭐ **THE NIGHT'S CLEAREST SUBSTRATE RESULT: THE LEARNED CHANNEL HAS NO SIGNAL ON VERBS.**
-   **`+0.0000` on SimVerb-3500's 2,651 covered pairs (null p95 `0.0372`)** *(Gerz et al. 2016 --
-   cite it)* **and `-0.0002` on SimLex's 203 verb pairs (null `0.1398`). TWO INDEPENDENT BENCHMARKS,
-   BOTH AT ZERO.** *Within SimLex -- one scorer, one profile set, only word class changing --*
-   **NOUN 534 `0.1310` (null `0.0843`) CLEARS; VERB `-0.0002` INSIDE; ADJ 92 `0.2207` (null `0.1931`) clears barely.**
-   🚫 *"a verb's neighbours are its ARGUMENTS" IS REFUTED -- it IS S1/S2, NOT_SEPARATED 08-17.*
-   🎯 **AND THE CONTROL THAT SPLITS IT -- a TEXT-DERIVED rival on the same 2,651 pairs:**
-   `COUNTING raw 0.0025 (null 0.0341) INSIDE | COUNTING+idf 0.0689 (null 0.0383) CLEARS barely |
-   OURS 0.0000 INSIDE | SUPPLIED norms 0.2983 (null 0.0309)`. ***BOTH TRUE AT DIFFERENT SCALES:***
-   **(1) text CAN extract a little verb signal and we extract NONE, so our zero is a REAL DEFICIT
-   against a text-derived rival; (2) but every text arm is 4.3x below the human-rated one, so MOST
-   of what is missing on verbs is missing from TEXT DISTRIBUTION, not from our encoder.**
-   ⚠️ *Ratios of correlations, NOT a variance decomposition.* **AND VERBS ARE NOT IMPOSSIBLE:
-   SUPPLIED euclid `0.2983` on 3,487 pairs, coverage 824/827 -- the shortfall is OURS, not the
-   task's.** 🚫 *SUPPLY, NOT LEARNING.* ✅ **DISCHARGES MEMORY's SUSPENDED
-   verb claim, which asked for exactly these 222 SimLex pairs (203 covered) after being retired at
-   n=86.** ✅ *78% verb coverage DISCHARGED: OURS stays INSIDE its null at cutoffs 41/20/10/5 (0.0000/0.0207/
-   0.0079/0.0213 vs nulls 0.0383/0.0355/0.0344/0.0318), down to 801 of 827 verbs = 97%.* ⚠️ *the two BENCHMARKS must not be blended -- the noun-vs-verb contrast
-   within SimLex is exempt.* `ON_VERBS_THE_LEARNED_CHANNEL_HAS_NO_SIGNAL_AT_ALL_n2651_...`
+6. ⭐ **THE LEARNED CHANNEL HAS NO SIGNAL ON VERBS: `+0.0000` on SimVerb-3500's 2,651 covered pairs
+   (null p95 `0.0372`)** *(Gerz et al. 2016 -- cite it)* **and `-0.0002` on SimLex's 203 verb pairs
+   (null `0.1398`). TWO INDEPENDENT BENCHMARKS, BOTH AT ZERO.** *Within SimLex, one scorer, only word
+   class changing:* **NOUN 534 `0.1310` (null `0.0843`) CLEARS; VERB INSIDE; ADJ 92 `0.2207` (null
+   `0.1931`) clears barely.** ➡️ ***WEAK ON NOUNS, ABSENT ON VERBS.*** ✅ *Coverage cutoff DISCHARGED:
+   OURS inside its null at 41/20/10/5 sentences, down to 97% of verbs.*
+   🎯 **CONTROL THAT SPLITS IT:** `COUNTING raw 0.0025 INSIDE | COUNTING+idf 0.0689 CLEARS |
+   OURS 0.0000 INSIDE | SUPPLIED norms 0.2983`. ***Our zero is a REAL DEFICIT vs a text rival; but
+   every text arm is 4.3x below the human-rated one.*** 🚫 *SUPPLY, NOT LEARNING.*
+   🔑 **AND THE MECHANISM IS NOW KNOWN -- see the co-occurrence entry under WHAT IS RUNNING.**
+   `ON_VERBS_THE_LEARNED_CHANNEL_HAS_NO_SIGNAL_AT_ALL_n2651_...`
 
 ➡️ **SO D1 (`256->1024`, which REWRITES EVERY PERSISTED STORE) improves a LOOKUP.** *Q65 = "do
 whatever is ideal"; standing caution = backup + no concurrent session; still climbing at 2048 on
@@ -109,6 +101,17 @@ file already over cap.***
 ## WHAT IS RUNNING
 
 - ⬜ **NOTHING IS RUNNING.**
+- 🔑 **THE FORK IS ANSWERED: TEXT *DOES* SEPARATE OPPOSITES FROM SYNONYMS -- AND WE INVERT IT.**
+  *Full shelf, freq-matched, RANDOM-pair negative control PASSES (`8.64` lowest):* **cond "X and/or Y"
+  ANTONYMS `0.0782` vs SYNONYMS `0.0269` (2.91x) vs RANDOM `0.0022` (34.8x)**; %never-co-occur `13.3`
+  vs `19.0` vs `47.6`. 🎯 **THE CHAIN, EVERY LINK MEASURED: antonyms CO-OCCUR -> our encoder builds
+  2nd-order profiles and CONVERTS co-occurrence INTO SIMILARITY -> antonyms are our CLOSEST pairs
+  (`0.2062` > syn `0.1727`) -> verbs read `0.0000`. NOT a missing feature, an INVERTED one.**
+  ⚠️ *LIMITS: COHYPONYMS 2nd at `0.0356` ("cats and dogs") so it detects COORDINATED, not ANTONYM,
+  antonyms lead them only 2.20x; only 7.8% of antonym co-occurrences fire; NO arm built.*
+  ⚠️ *The instrument REFUSED TWICE first: v1 broken statistic (PMI + 0.5 smoothing), v2 broken
+  CONTROL (SimVerb `NONE` = no WordNet relation, NOT unassociated). Both refusals correct.*
+  `THE_SIGNAL_FOR_OPPOSITION_IS_IN_THE_TEXT_...`
 - 🎯 **SEED PRICE MEASURED: ~50-100 GROUNDED WORDS ALREADY PROPAGATE; PAST ~400 MORE BUYS ~NOTHING**
   (concreteness, the gated column: `50 0.2114` vs null `0.1239` | `400 0.3783` | `2000 0.4323`).
   🔻 **BUT IDF AT 200 SEEDS (`MEAN15 0.2971`) BEATS OURS AT 2,000 (`0.2638`) -- 10x THE GROUNDING

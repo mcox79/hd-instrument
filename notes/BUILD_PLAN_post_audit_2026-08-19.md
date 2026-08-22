@@ -12,22 +12,12 @@
 > we beat an UNTRAINED codebook by `+16.3 pp` (replicated) and LOSE TO COUNTING ON 16 MEASURES.**
 > *Commercial: not close, and single-blocker -- `55 of 210` organs are on the live path.* `OWNER_ASSESSMENT_...`
 >
-> ## 🧠 **THE ONE STRUCTURAL FINDING -- 5th fold. Q102 IS FILED AND ITS PACKAGE IS COMPLETE.**
-> **ONE REPRESENTATION DOES TWO JOBS THAT NEED OPPOSITE THINGS.** *Meaning needs the word DELETED from
-> its own sentence (else grounding learns "artery means artery"); identification needs it PRESENT.*
-> **masked hit@1 `0.1417` vs unmasked `0.4750`, chance `0.0167`; same-word DG `0.0056` vs cross-word
-> `0.0015`, both at floor.** ➡️ **THE BRAIN DOES NOT FACE THIS -- FORM (VWFA) and MEANING (ATL hub+
-> spokes) ARE SEPARATE SYSTEMS**, already a founding anchor in `PLAN.md`. ✅ **THE FORM ORGANS ARE BUILT
-> AND UNWIRED** (`char_trigram_encoder`, `vwfa`, `char_positional_encoder`; n-gram coding PINNED).
-> ✅ **RISK DISARMED: the form channel reads `rho -0.0259` (p=0.41, n=999) on SimLex meaning and sits
-> INSIDE the 7-arm shuffled null band `-0.0172..+0.0426`** (vs NORMS12 `0.2701`, live encoding `0.1048`).
-> *A pure index cannot inflate a meaning score -> SAFE as a SEPARATE channel, clearly WRONG to BLEND.*
-> ⚠️ *Its `1.0000` on identification is because THE QUERY IS THE ANSWER.* 🔄 *So spelling beating our
-> read-out (`0.0767` vs `0.0480`) means THAT TASK IS PARTLY SOLVABLE WITHOUT MEANING; cause unsettled.*
-> 🚫 **SCOPE DISCLAIMER: the cell's population is the SimLex+WordSim word list, "NOT the instrument's
-> frequency-ranked vocabulary... may not be quoted as such" -- NO rho here enters a sentence about the
-> live substrate.** ⚠️ *Do NOT swap `0.2701` with the cell's own `0.2449` CI `[0.1830,0.3036]`; WordSim353
-> `0.4093` is a third population.* `ONE_REPRESENTATION_TWO_OPPOSITE_JOBS_...` `THE_FORM_CHANNEL_SCORES_1_0000_...` `THE_FORM_CHANNEL_HAS_ZERO_MEANING_SIGNAL_...` `THE_FORM_CHANNEL_SITS_INSIDE_THE_SHUFFLED_NULL_BAND_...`
+> ## 🧠 **THE ONE STRUCTURAL FINDING -- 6th fold. Q102 FILED, PACKAGE COMPLETE, AWAITING OWNER.**
+> **ONE REPRESENTATION DOES TWO JOBS NEEDING OPPOSITE THINGS.** *Meaning needs the word DELETED from its own sentence (else grounding learns "artery means artery"); identification needs it PRESENT.* **masked hit@1 `0.1417` vs unmasked `0.4750`, chance `0.0167`; same-word DG `0.0056` vs cross-word `0.0015`, both at floor.**
+> ➡️ **THE BRAIN DOES NOT FACE THIS -- FORM (VWFA) and MEANING (ATL hub+spokes) ARE SEPARATE SYSTEMS**, already a `PLAN.md` founding anchor. ✅ **THE FORM ORGANS ARE BUILT AND UNWIRED** (`char_trigram_encoder`, `vwfa`, `char_positional_encoder`; n-gram coding PINNED-BY-EVIDENCE).
+> ✅ **RISK DISARMED: the form channel reads `rho -0.0259` (p=0.41, n=999) on SimLex meaning and sits INSIDE the 7-arm shuffled null band `-0.0172..+0.0426`** (vs NORMS12 `0.2701`, live encoding `0.1048`). *A pure index cannot inflate a meaning score -> SAFE as a SEPARATE channel, clearly WRONG to BLEND.* ⚠️ *Its `1.0000` on identification is because THE QUERY IS THE ANSWER.*
+> 🔄 *So spelling beating our read-out (`0.0767` vs `0.0480`) means THAT TASK IS PARTLY SOLVABLE WITHOUT MEANING; cause unsettled.* 🚫 **SCOPE DISCLAIMER: the cell's population is the SimLex+WordSim word list, "NOT the instrument's frequency-ranked vocabulary... may not be quoted as such" -- NO rho here enters a sentence about the live substrate.** ⚠️ *Do NOT swap `0.2701` with the cell's own `0.2449` CI `[0.1830,0.3036]`; WordSim353 `0.4093` is a third population.*
+> `ONE_REPRESENTATION_TWO_OPPOSITE_JOBS_...` `THE_FORM_CHANNEL_SCORES_1_0000_...` `THE_FORM_CHANNEL_HAS_ZERO_MEANING_SIGNAL_...` `THE_FORM_CHANNEL_SITS_INSIDE_THE_SHUFFLED_NULL_BAND_...`
 >
 > ## 🔻 **THREE DEAD ENDS, ALL DOWNSTREAM OF THAT ONE CAUSE**
 > 1. **CA3 cannot complete** -- our rule MERGES correlated memories (margin **-0.1021**; local
@@ -89,17 +79,24 @@
 > 🎯 **MY 08-21 SEED SWEEP *IS* THAT ARCHITECTURE, MEASURED FOR THE FIRST TIME -- AND I RE-DERIVED IT
 > WITHOUT READING THE SYNTHESIS.** ✅ *It also DISSOLVES what I called that result's load-bearing limit:
 > using neighbours' true values is NOT a weakness, it IS the chosen brain-faithful design.*
-> ✅ 🔻 **AND THAT PREDICTED FAILURE IS NOW CONFIRMED (SimVerb's OWN relation labels; BOTH abort-
-> controls PASSED -- gold separates antonyms 1.88x, propagation works at rho `0.2367`):** *TRUE valence
-> diff spans `0.695-1.363` across relations; **PREDICTED spans `0.302-0.336` -- FLAT, blind to relation
-> type**, and antonyms `0.3017` vs synonyms `0.3317` is the WRONG WAY. Within antonyms rho `-0.0259`
-> (n=96, null band ~`+/-0.201`).* 🎯 **AND MEASURED DIRECTLY ON OUR OWN ENCODER: ANTONYMS HAVE THE
-> HIGHEST COSINE OF ANY RELATION (`0.2062` > SYNONYMS `0.1727` > NONE `0.1591`) -- OPPOSITES ARE THE
-> CLOSEST THINGS IN OUR SPACE. A MECHANISTIC EXPLANATION FOR THE VERB `0.0000`.**
-> 🔻 **CORRECTION, MADE TWICE TODAY: "the fix is already owned (`OPPOSED_PAIRS`)" IS WRONG. It is SIX
-> HAND-WRITTEN CLASS PAIRS in `hdlab/goal_typing.py`, not word-level antonym machinery. I repeated the
-> synthesis without opening the symbol it named -- the exact failure `cite_check.py` exists to stop.**
-> ⚠️ *Caveat that cuts against it: control B is only `0.2367`, so this is a WEAK propagator failing.*
+> ✅ **THE PREDICTED FAILURE IS CONFIRMED *AND* THE FORK IS ANSWERED, SAME NIGHT.**
+> **(a) SIMILARITY-PROPAGATION CANNOT SEE OPPOSITION** *(SimVerb's own labels; both abort-controls
+> PASSED -- gold separates antonyms 1.88x, propagation works rho `0.2367`)*: TRUE valence diff spans
+> `0.695-1.363` across relations, **PREDICTED spans `0.302-0.336` -- FLAT**; antonyms `0.3017` vs
+> synonyms `0.3317` is the WRONG WAY; within antonyms rho `-0.0259` (n=96, null ~`+/-0.201`).
+> **(b) BUT THE SIGNAL EXISTS IN TEXT** *(full shelf, freq-matched, RANDOM negative control PASSES at
+> `8.64` lowest)*: **cond "X and/or Y" ANTONYMS `0.0782` vs SYNONYMS `0.0269` (2.91x) vs RANDOM
+> `0.0022` (34.8x)**; %never-co-occur `13.3`/`19.0`/`47.6`.
+> 🎯 **CHAIN, EVERY LINK MEASURED: antonyms CO-OCCUR -> `context_vector_masked` makes 2nd-order
+> profiles so CO-OCCURRENCE BECOMES SIMILARITY -> antonyms are our CLOSEST relation (`0.2062` > syn
+> `0.1727` > none `0.1591`) -> verbs read `0.0000`. AN INVERTED FEATURE, NOT A MISSING ONE.**
+> ➡️ **BUILDABLE ARM: a co-occurrence term that SUBTRACTS. Must beat `idf 0.0689`, not a shuffle.**
+> 🔻 **CORRECTION MADE TWICE: "the fix is already owned" IS WRONG -- `OPPOSED_PAIRS` = 6 hand-written
+> CLASS pairs, `lexical_similarity` = 86 hand-authored concepts. Coverage, not quality, is the gap.**
+> ⚠️ *LIMITS: COHYPONYMS 2nd (`0.0356`) -- detects COORDINATED not ANTONYM, lead only 2.20x; fires on
+> 7.8% of antonym co-occurrences; NO arm built; control B only `0.2367` = a WEAK propagator failing.
+> Instrument REFUSED TWICE (v1 statistic, v2 the CONTROL itself); both refusals correct.*
+> `THE_ANTONYM_TRAP_IS_CONFIRMED_...` `THE_SIGNAL_FOR_OPPOSITION_IS_IN_THE_TEXT_...`
 > `THE_ANTONYM_TRAP_IS_CONFIRMED_...`
 > **1. Q102 is still the ONLY open board question** (wire the form organs). *Its evidence package is
 > now complete: form is noise-equivalent on meaning, identification is a LOOKUP, and its GAIN IS
