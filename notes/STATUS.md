@@ -86,9 +86,8 @@ ADDRESSED THE NON-VERB SLICE, WHICH IS `5.4%` OF CREDITED TOKENS** *(measured 3x
 decision: `73%` of the error LIST -> `12.2%` of admitted TOKENS -> **`5.4%` of CREDITED tokens**; I
 quoted the biggest twice before measuring the right one).* **I RETRACT calling it "the cheapest
 high-value fix".**
-🚫 **SO THE LOCAL-WINDOW CREDIT APPROACH IS MEASURED OUT: coverage is NOT the cause (fires 439/1655),
-precision is ~47% and dominated by LIGHT VERBS, and down-weighting them by WordNet selectional breadth
-bought `+0.027`.** ➡️ ***WHICH RETURNS US TO WHAT BOTH DOCUMENTS SAID: REPLACE THE WINDOW.*** ⚠️ *That
+🚫 **LOCAL-WINDOW CREDIT IS MEASURED OUT: coverage is NOT the cause (439/1655), precision ~47% and
+dominated by LIGHT VERBS, and down-weighting them bought `+0.027`.** ➡️ ***WHICH RETURNS US TO WHAT BOTH DOCUMENTS SAID: REPLACE THE WINDOW.*** ⚠️ *That
 build supplies better ROLES but its causal component is "REDUCIBLE to connective-else-most-recent" by
 its own VET, and needs mention-annotated CoNLL the loop does not produce.*
 `I_RE_RAN_THE_WALL_...` `THE_OPERATIVE_NUMBER_IS_5_4_PERCENT_...` `SCOPING_THE_PRESCRIBED_BUILD_...`
