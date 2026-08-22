@@ -58,6 +58,7 @@ hdlab.self_improving_loop (abstain-band architecture); the self-extension loop f
 """
 from __future__ import annotations
 
+import os as _os
 from typing import Dict, List, Optional, Tuple
 
 from hdlab.goal_typing import (
@@ -96,8 +97,46 @@ def _is_verblike(tok: str) -> bool:
     claim. Excludes function words / determiners / bare nouns (the/and/nell) that sit next to the goal
     referent but are not the outcome verb. Known recall cost: a rare base-form or non-lemmatized
     irregular verb with no -ed/-ing (e.g. bare 'praise', irregular 'wept') is missed -- reported
-    honestly, not hidden."""
+    honestly, not hidden.
+
+    MEASURED 2026-08-22, and the "known recall cost" above turns out to be the dominant one: against
+    the UD-EWT tagger already loaded on the live path, over 3,000 real sentences / 62,065 tokens, this
+    test's RECALL is 0.6026 -- it never sees 3,528 of 8,877 real verbs -- and its precision is 0.5816
+    excluding the AUX tagset convention, with NOUN (3,092) the largest contaminant. See
+    notes/THE_CREDIT_MECHANISM_IS_ROLE_BASED_ALREADY_...md and VERB_GATE below."""
     return lemma_verb(tok) != tok or tok.endswith(("ed", "ing"))
+
+
+# VERB_GATE (2026-08-22, ADDITIVE, DEFAULT-OFF -- the default path is BYTE-IDENTICAL to before).
+# "morph"  = _is_verblike, the shipped suffix/lemma heuristic (default; unchanged behaviour).
+# "tagger" = the UD-EWT POS tagger under data/frontend_assets/, ALREADY trained, ALREADY loaded by
+#            hdlab.reading_grounding_loop.StructuralEncoder -- REUSE, not a parallel build.
+# Set HD_VERB_GATE=tagger to switch. Kept as a switch rather than a swap because the shipped gate is
+# what every landed credit number was measured on; replacing it outright would silently invalidate
+# them. A POS tagger needs SEQUENCE context, so the gate cannot be a per-token predicate -- the
+# tagging happens once per token list inside _credit_targets.
+VERB_GATE = _os.environ.get("HD_VERB_GATE", "morph")
+
+_TAGGER = None
+
+
+def _tagger():
+    """Lazily load the persisted UD tagger. Lazy so importing this module costs nothing when the
+    default gate is in use, and so a missing asset fails at USE, loudly, not at import."""
+    global _TAGGER
+    if _TAGGER is None:
+        from hdlab.pos_tagger import PosTagger
+        from hdlab.reading_grounding_loop import _POS_ASSET
+        root = _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
+        _TAGGER = PosTagger.load(_os.path.join(root, "data/frontend_assets", _POS_ASSET))
+    return _TAGGER
+
+
+def _verb_mask(toks):
+    """Per-token 'is this a verb' decisions for a whole token list, under the active VERB_GATE."""
+    if VERB_GATE == "tagger":
+        return [t == "VERB" for t in _tagger().tag(list(toks))]
+    return [_is_verblike(t) for t in toks]
 
 
 def _credit_targets(window_text: str, desired_referent) -> List[str]:
@@ -110,10 +149,11 @@ def _credit_targets(window_text: str, desired_referent) -> List[str]:
     if desired_referent is None:
         return []
     toks = _tokens(window_text)
+    is_verb = _verb_mask(toks)          # VERB_GATE: "morph" (default, unchanged) or "tagger"
     targets: List[str] = []
     for idx, tok in enumerate(toks):
-        if not _is_verblike(tok):
-            continue  # morphological gate (Section 7 heuristic); excludes function words / bare nouns
+        if not is_verb[idx]:
+            continue  # verb gate; excludes function words / bare nouns
         lemma = lemma_verb(tok)
         if in_lexicon(lemma, "outcome"):
             continue  # already grounded / seed-known -> not a novel credit target
