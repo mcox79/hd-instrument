@@ -1,17 +1,13 @@
 # BUILD PLAN -- WHAT TO DO NEXT, POST-AUDIT. START HERE.
 
-> # 📍 **STATE AS OF 2026-08-21 (late). ONE BLOCK, CURRENT ONLY.**
-> *This block was 6,895 lines and 327 sub-headings before this rewrite -- 97% of the file -- which is
-> exactly the failure its own predecessor warned about ("a reader could not tell which was live").
-> **I caused that by appending all night to a document whose header forbids appending.** Every entry
-> below cites the note holding its evidence; nothing is lost, and `git log` has the full sequence.*
+> # 📍 **STATE AS OF 2026-08-22. ONE BLOCK, CURRENT ONLY. DO NOT APPEND -- FOLD.**
+> *This block has blown up THREE times (6,895 lines -> 309 -> 343) against a 160-line cap, every time by appending to a document whose own header forbids it. Consolidated 08-22. **Every entry cites the note holding its evidence; nothing is lost and `git log` has the full sequence.***
 >
 > ## 🔓 **THE BLOCK BELOW'S SECOND PREMISE IS ALSO FALSE (08-22, continuation 9) -> board Q113**
 > **Q109 retracted the first (`verification/` was open). THE SECOND -- *"agent spawning is disallowed in this session"* -- IS FALSE TOO: the `hdi_*` fleet resolves, and the owner said *"agents are 'off'???? You should definitely have agents."*** ➡️ **Cell work is ONE SANCTIONED HOP away, so "~295 continuations will change the system ZERO times" no longer follows.** What blocks it is a POLICY (my instructions say do not spawn unasked), not a structure -- **Q113 asks the owner to flip it.** 🔑 *Fourth constraint I diagnosed without testing (Q103/Q104/Q108) -- and it sat in the SAME SENTENCE as the one I had already retracted.*
 > 🔑 **AND THE MEANING ASSET IS NOT SHORT OF WORDS -- THE LOOKUP CANNOT INFLECT.** `grounded_similarity.py:165` is `_table().get(word.lower())`, so we hold `country` and read past `countries`. **Token coverage `0.6035` -> `0.7350`, type `0.1027` -> `0.1633`** under our own `normalize_lemma` (landed cell reproduced to 4 decimals first as the control). **+13.2 points of running text, zero new norms = 44% of the way to the `90%` target** -- so **`+14,704 words to norm` counts inflected forms of ALREADY-NORMED words.** ⚠️ *~5 of 130 recoveries wrong; irregulars (`women`, `feet`) missed by both methods, so the ceiling is HIGHER.* 🚫 **COVERAGE, NOT CAPABILITY -- no task run, `grounded_similarity.py` deliberately UNCHANGED.** *Filed `notes/problems/lookup_does_not_lemmatise/`.* `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...`
 >
-> ## 📉 **THE LOOP'S OWN OUTPUT, MEASURED: `205` commits, **`3`** touched capability code**, 288 note-writes, **`16` of my own claims withdrawn.** Performance: we beat an UNTRAINED codebook by `+16.3 pp` (replicated) and **LOSE TO COUNTING ON 16 MEASURES**. *Commercial: not close; `55 of 210` organs on the live path.* `OWNER_ASSESSMENT_...`
-> **Q108 WITHDRAWN (premise too broad -- `verification/` was open all along); Q109 narrowed it: THE LOOP CAN MEASURE, DOCUMENT AND GUARD; IT CANNOT RUN A CELL. So defects it finds get GUARDED, not FIXED.** *And see the top block: the second premise (agents disallowed) was false too -> Q113.*
+> ## 📉 **THE LOOP'S OWN OUTPUT, MEASURED: `205` commits, **`3`** touched capability code**, 288 note-writes, **`16` of my own claims withdrawn.** Performance: we beat an UNTRAINED codebook by `+16.3 pp` (replicated) and **LOSE TO COUNTING ON 16 MEASURES**. *Commercial: not close; `55 of 210` organs on the live path.* `OWNER_ASSESSMENT_...` **Q108 WITHDRAWN (premise too broad -- `verification/` was open all along); Q109 narrowed it: THE LOOP CAN MEASURE, DOCUMENT AND GUARD; IT CANNOT RUN A CELL. So defects it finds get GUARDED, not FIXED.** *And see the top block: the second premise (agents disallowed) was false too -> Q113.*
 > 🚫 **I AM A CONTAMINATED AUTHOR FOR THE EVAL BANK** -- I have read the per-item predictions, so hand-building gold here violates *did the test items exist before the mechanism did?* The 08-06 build used four independent surveyors fixing gold by entailment BEFORE any organ ran.
 >
 > ## 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS, MACHINE-CHECKED HAND-OFF**
@@ -114,42 +110,10 @@
 > 🚨 **THIS PLAN HAD DRIFTED: it cited `PLAN_B_grounding_..._2026-08-07` -- a USER-CONFIRMED PLAN OF
 > RECORD -- ZERO TIMES (grep), named none of its proven components, and did not carry its bottleneck.**
 >
-> **1. 🟢 Q102 ANSWERED, CONDITION MET, AND NOW WIRED.** *Owner: "connect it only after it is doing the
-> job required of it... as according to the brain (which may have other supporting parts, right?)".*
-> ✅ **BRAIN BAR (VWFA = INVARIANCE): case `1.0000`, inflection GRADED `0.31-0.51`, unrelated `0.03-0.08`;
-> `cos(entombment,burial)=-0.023`, so it CANNOT inflate meaning.** 🔑 **THE LIVE CODE FAILS THAT SAME BAR:
-> `symbol_vector` is a sha256 random draw -- case invariance `-0.0026` vs `+1.0000`.**
-> 🚨 **ADDITIVE, NOT A SWAP, ON THREE INDEPENDENT ARGUMENTS: brain (VWFA FEEDS lexical access), empirical
-> (late-combine `0.2000` < form-alone `0.2533`, HARD_FAIL), stores (a swap rewrites every persisted code;
-> `symbol_vector` also encodes RELATION labels).**
-> 🟢 **WIRED + REGISTERED 2026-08-22 -- `form_identity_vector()` IS ON THE LIVE PATH, ADDITIVELY.**
-> *`hdlab/reading_grounding_loop.py`, beside `symbol_vector`; registered as
-> `form_identity_channel_vwfa_additive` under `registry_transaction` (210 -> 211 rows).*
-> ✅ **WITNESS 6/6 PASS**, *incl. **`symbol_vector` BYTE-IDENTICAL** to its sha256 construction (no store
-> invalidated) and **RELATION labels still on the hash**.* ✅ **REGRESSION: 21/21 module self-tests pass.**
-> ✅ **AND THE WATCH CONDITION IS NOW A NUMBER** *(`tools/watch_condition_recognition_vs_meaning.py`),*
-> **on the task invariance actually buys -- retrieve the right lemma from a MISMATCHED surface form
-> (`cats` -> `cat`), n=564 pairs / 400 lemmas, chance ~`0.0025`: `HASH (live) hit@1 0.0053` (NOISE) vs
-> `FORM (new) 0.9645`; hit@5 `0.0142` vs `0.9840`. Both self-match 50/50. MEANING channel `+0.095782`,
-> UNTOUCHED.**
-> 🔑 **THAT IS EXACTLY THE OWNER'S WARNED SIGNATURE -- recognition up ~182x, meaning FLAT -- AND THE
-> READING IS CORRECT: A BETTER INDEX, NOT BETTER UNDERSTANDING.** *Genuinely useful (real surfaces differ
-> from lemmas constantly and the live code fails that at chance), but a RECOGNITION result only.*
-> ⚠️ *A spelling code wins a spelling task by construction; what makes it a finding is that the INCUMBENT
-> fails the same task at chance, and that this is the VWFA's actual job.* ⚠️ **NOTHING CONSUMES IT YET.**
-> **Q104 (the credit fork) remains OPEN.**
-> ✅ **AND PRIOR WORK EMPIRICALLY CONFIRMS THE "DO NOT BLEND" HALF:**
-> *`exp_substrate_concept_encoder_v2_vwfa_late_combine_2spoke` **HARD_FAIL** -- `ARM_V2_LATE_COMBINE`
-> `recall@5 0.2000` vs `max(VWFA 0.2533, SEM 0.1667)`: **"composition HURTS relative to best single
-> spoke"**.* **BLENDING the form stream into one combined query is WORSE than the form stream ALONE --
-> which is exactly the arrangement I argued against from the brain side, now with an empirical failure
-> behind it.** *Note the form spoke `0.2533` also BEATS the semantic spoke `0.1667`.*
-> ⚠️ *smoke N=100, 3 seeds, `n_dim=2048`, recall@5 -- small. `hdlab/late_combine.py` is the blender and
-> is backward-compatible to a no-op (`alpha=0,beta=0,gamma=1` == unit-normalised semantic).*
-> 🔧 **AND I FIXED A BUG IN MY OWN `--limit` FLAG FROM EARLIER TONIGHT:** *the cleanup dropped the bare
-> value only `if limit != 40`, so `--limit 40` left "40" as a SEARCH TERM and matched `vwfa` OR `40` --
-> **1,106 hits against a true 4, a 275x error I nearly acted on.** Now consumed POSITIONALLY; verified on
-> `--limit 5/40/200`, `--limit=200`, a numeric search term (`4096` -> 871), and `--self-test`.*
+> **1. 🟢 Q102 -- DONE, WIRED, AND FULLY WRITTEN UP IN THE DIGEST ABOVE. Not repeated here.**
+> *The numbers the digest does not carry:* **BRAIN BAR (VWFA = INVARIANCE): case `1.0000`, inflection GRADED `0.31-0.51`, unrelated `0.03-0.08`; `cos(entombment,burial) = -0.023`, so it CANNOT inflate meaning.** 🔑 **THE LIVE CODE FAILS THAT SAME BAR -- `symbol_vector` is a sha256 draw, case invariance `-0.0026` vs `+1.0000`.**
+> 🔧 *Process, kept because it nearly cost a decision: a bug in my own `--limit` flag dropped the bare value only `if limit != 40`, so `--limit 40` left "40" as a SEARCH TERM -- **1,106 hits against a true 4, a 275x error I nearly acted on.** Now consumed positionally, verified across five forms + `--self-test`.*
+> ⚠️ **NOTHING CONSUMES THE FORM CHANNEL YET.**
 >
 > **2. 🎯 DIRECTION = *ANCHOR + PROPAGATE*, set 08-06/08-07.** *Ground a SMALL affective anchor (the brain
 > does it at 4-7 months) and reason outward; good/bad is in neither grammar nor text statistics because
@@ -162,20 +126,8 @@
 > anti-confound HOLDS); + richer context KEY `0527afeab`.* ⚠️ **REPRODUCTION DOES NOT CHANGE SCALE: still
 > 6 words / 28 items on CLEAN signal; `PLAN_B` calls the zero gap "a CLEAN-corpus artifact". SOUND != WORKS.**
 >
-> **3. 🚫 THE CREDIT LEVER IS MEASURED OUT (now a board question).** *`exp_sharpened_credit_assignment_v1`
-> `HARD_FAIL`: `primary 0.4167` vs floor `0.6389`, `lift 0.0167`, precision `0.4676 -> 0.4941`.*
-> 🔁 **THE WALL REPRODUCES: re-ran the parent cell today post-lemmatizer-repair -> `primary 0.4722`,
-> IDENTICAL TO FOUR DIGITS, same `SCRAMBLE_DOES_NOT_COLLAPSE`. My confound hypothesis is REFUTED and the
-> wall is STRONGER -- twice, 15 days apart, two lemmatizers.** *Why: `_is_verblike` fires on the SURFACE
-> form, so the repair changed each mistake's NAME (`babi`->`baby`), not the DECISION.*
-> 🎯 **THE PRECISION PROBLEM IS LIGHT VERBS: `53.2%` of credited exposures NOT loaded; `46` of 173 error
-> types are GENUINE VERBS (`come`,`go`,`do`,`have`,`give`). Non-verb junk is only `5.4%` of credited
-> tokens** *(measured 3x, each closer to the decision: `73%` error-list types -> `12.2%` admitted tokens ->
-> **`5.4%` credited tokens**; I quoted the biggest twice first).* 🔻 **I RETRACT "cheapest high-value fix";
-> a verb-sense gate is a PURE FILTER and does NOT fix base-form verbs being wrongly REJECTED.**
-> ⚠️ *Coverage is NOT the cause (fires 439/1655). The prescribed replacement gives better ROLES but its
-> causal half is "REDUCIBLE to connective-else-most-recent" by its own VET, and needs mention-annotated
-> CoNLL the loop does not produce.* `I_RE_RAN_THE_WALL_...` `THE_OPERATIVE_NUMBER_IS_5_4_PERCENT_...`
+> **3. 🚫 THE CREDIT LEVER IS MEASURED OUT.** *`exp_sharpened_credit_assignment_v1` `HARD_FAIL`: primary `0.4167` vs floor `0.6389`, lift `0.0167`, precision `0.4676 -> 0.4941`.* 🔁 **THE WALL REPRODUCES TWICE, 15 DAYS APART, TWO LEMMATIZERS -- re-ran post-repair to `0.4722`, IDENTICAL TO FOUR DIGITS, same `SCRAMBLE_DOES_NOT_COLLAPSE`. My confound hypothesis is REFUTED and the wall is STRONGER.** *Why: `_is_verblike` fires on the SURFACE form, so the repair changed each mistake's NAME, not the DECISION.*
+> 🎯 *Precision problem is LIGHT VERBS: `53.2%` of credited exposures not loaded; `46` of 173 error types are GENUINE VERBS. **Non-verb junk is only `5.4%` of credited tokens** -- measured 3x, each closer to the decision (`73%` error-list types -> `12.2%` admitted -> `5.4%` credited); **I quoted the biggest twice first.*** 🔻 **RETRACTED: "cheapest high-value fix" -- a verb-sense gate is a PURE FILTER and does not fix base-form verbs being wrongly REJECTED.** ⚠️ *Coverage is NOT the cause (fires `439/1655`).* `I_RE_RAN_THE_WALL_...` `THE_OPERATIVE_NUMBER_IS_5_4_PERCENT_...`
 >
 > **4. ✅ THE GROUNDING ORGAN WORKS, AND MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding`
 > HARD_PASS `0.967`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (PREDICTED failure at `0.500`);
@@ -193,10 +145,7 @@
 > THERE; ROOT FAULT: compared `v2.lookup_animacy` vs the real lookup and THE CLOSED ARM DOES NOT CONSUME
 > IT. THE ANSWER WAS IN THE DOCSTRING AT LINE 52.**
 >
-> **6. 🚫 ANISOTROPY IS CLOSED, NOT OPEN** *-- `DO NOT REDO 27` already took mean pairwise cosine
-> `0.1427 -> -0.0004` for accuracy `0.6980 -> 0.6985`, and **a RANDOM rank-1 direction gives the SAME
-> `+0.0005`** -- perturbation, not decorrelation-that-helps. The revival `*` is for FULL-COVARIANCE
-> WHITENING, parked by sample size.*
+> **6. 🚫 ANISOTROPY IS CLOSED, NOT OPEN** *-- see CLOSED DOORS #4 in the digest above; not repeated.*
 >
 > **7. THE HONEST TENSION:** *the supplied table beats everything we LEARN on the word-similarity channel.*
 > **Owner ruled supply ADMISSIBLE (08-16), so this is PRIORITISATION, not permission.**
