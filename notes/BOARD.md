@@ -62,21 +62,21 @@ C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out
 
 **WHAT IS RUNNING**
 - ⬜ **NOTHING IS RUNNING.**
-- 🔑 **IT IS NOT ANSWERING WRONG -- IT IS NOT ANSWERING. Of `22` errors on the OOV 36, `20` are
-  NON-ANSWERS, `2` are WRONG ANSWERS; accuracy WHEN IT COMMITS is `14/16 = 0.8750`.** *COVERAGE, not
-  DISCRIMINATION -- the 08-07 charter's "HIGH-PRECISION + COVERAGE-LIMITED".* ➡️ **RE-AIMS THE ONLY
-  LIVE LEAD: in the EMPTY condition the function is not `UNMET`-biased, it is SILENT.** 🔻 **The
-  KNOWN-ANSWER arm unrun since 08-06 (8 in-lexicon controls): accuracy `4/8` = CHANCE against a
-  BALANCED `0.5000` floor -- SUPPLYING THE WORD DOES NOT BUY THE ANSWER.** ⚠️ *n=8 cannot show
-  incompetence, DECLARED first; INCONCLUSIVE, not a negative.* 🔻 **I RETRACTED THE ABSTENTION HALF
-  SAME-DAY: I counted `AMBIGUOUS` as a commitment, the repo counts it as an ABSTENTION
-  (`verify_levin_lastresort_backoff.py:51`), so it is `2/8` NOT `0/8` and Fisher `p=0.2404`, NOT
-  `0.0049`. ALSO RETRACTED: "precision fell `0.8095->0.7500`" -- correctly `0.8182`, NO REGRESSION,
-  and that guard pins `(17,4,23)` and PASSES.** *Passed a positive control, a pre-registration and a
-  power calculation; broke on a definition I never looked up.* 🚨 **CHASING THAT DEFINITION FOUND A
-  REAL DEFECT: `AMBIGUOUS` is an ABSTENTION in 5 consumers INCLUDING `hdlab/consequence_learning_
+- 🚨 **THE OWNER HAND-SCORED THE BLIND SHEET AND FOUND A STALE-ARTIFACT DEFECT: we drew it from
+  `reading_grounding_v2_qualityfix` while `v3_definitional`, `v4_parsefix` AND `v5_termboundary`
+  all exist on disk.** *Owner: "a lot of words there are missing letters."* **TRUE STEM RATE (round-
+  trip detector): sheet `10.4%`, v2q `7.9%`, 🟢 `v5_termboundary` `0.4%` -- A ~20x REDUCTION THAT
+  ALREADY SHIPPED** (charter: *"v5 term-boundary fix, corruption `16.1% -> 1.0%`"*).
+  🔻 **TWO CORRECTIONS OF MY OWN, WITHIN THE HOUR: (1) I first reported `24%` using "not in
+  WordNet", which counts REAL words WordNet lacks (`archaea`, `adipocytes`, `Abdullah`) -- 2.3x
+  OVERSTATED; the round-trip test (`analysi`+`s` is a word, `archaea`+anything is not) separates
+  them, and a cruder detector would have scored the FIXED foundation as the WORST. (2) I told the
+  owner "fix the stemmer first" -- WITHDRAWN, it shipped weeks ago.**
+  ➡️ **THE REAL DEFECT IS PROVENANCE: `draw_representative_blind_sample.py` has no notion of a
+  CURRENT foundation, and four exist unmarked.** ⚠️ *v5 is a DIFFERENT ARTIFACT SHAPE (one
+  `definitional_facts_v5.jsonl` vs v2q's full `store/`), so "sample v5 instead" is NOT a straight
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T13:33:03Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T13:38:50Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
@@ -84,6 +84,7 @@ _mirrored from `notes/STATUS.md` at 2026-08-22T13:33:03Z by `tools/board.py`._
 |---|---|---|---|---|---|
 | Q107 | A tool call was DENIED in the main session (kind: permission-rule). The overnight loop STOPPED rather than routing around it. Denial text: Permission to use Bash with command cd /d/AI/hd-instrument; timeout 60 rm -f scratch/_full_cert_run.txt 2>/dev/null; nohup ./.venv/Scripts/python.exe -m pytest verification/ -q --no-header -p no:cacheprovider --deselect verification/test_all_witnesses_exit_clean.py > scratch/_cert_clean.txt 2>&1 &<br>e | Whatever step that call was part of did not happen. Per CLAUDE.md, a dropped precondition invalidates the declared gate even when the result looks fine, so nothing downstream of it should be trusted until you rule. | If this was an ESC interrupt (kind 'cancelled'), answer 'ignore' and re-arm. If a permission rule fired (kind 'permission-rule'), the step needs either a narrow allow-rule or a different approach -- say which. |  | open |
 | Q109 | The automatic loop has run six rounds today and made thirteen commits. It has found real things -- a scoring bug where our official number counts 'I cannot tell' as a wrong answer, a stale official record, and two of my own claims that turned out to be wrong -- and it has added three safety checks that now run automatically. What it has not done, and cannot do, is change the machine itself: editing an experiment or running one is routed to a helper session, and helper sessions are switched off here. So the two steps the plan calls most valuable are both out of reach: re-running one experiment so its official record matches how the machine now behaves, and enlarging the 36-question test set that every result on this line depends on. The loop is set for roughly 294 more rounds. Do you want it to keep running as a checking-and-guarding loop, to switch helper sessions on so it can also build, or to stop? | Not blocked in the sense of waiting -- the loop keeps finding real defects and can keep writing guards against them. Blocked in the sense that the defects it finds stay unfixed, and the two highest-value items on the plan both need the helper-session lane. | My recommendation is to switch helper sessions on for a bounded run aimed only at the two named jobs, rather than open-ended. THE RISK OF MY OWN RECOMMENDATION: helpers work unattended and spend real compute, and today I was wrong twice within a few hours and over-stated a question to you once, so more autonomy multiplies my errors rather than my judgement. If you would rather not, the honest second choice is to let the loop keep guarding -- it is genuinely useful and much cheaper -- and accept that the fixes wait for you. |  | open |
+| Q110 | A tool call was DENIED in the main session (kind: user-rejected). The overnight loop STOPPED rather than routing around it. Denial text: The user doesn't want to proceed with this tool use. The tool use was rejected (eg. if it was a file edit, the new_string was NOT written to the file). STOP what you are doing and wait for the user to tell you how to proceed. | Whatever step that call was part of did not happen. Per CLAUDE.md, a dropped precondition invalidates the declared gate even when the result looks fine, so nothing downstream of it should be trusted until you rule. | If this was an ESC interrupt (kind 'cancelled'), answer 'ignore' and re-arm. If a permission rule fired (kind 'permission-rule'), the step needs either a narrow allow-rule or a different approach -- say which. |  | open |
 
 ## ANSWERED
 

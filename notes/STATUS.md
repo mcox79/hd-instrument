@@ -105,6 +105,21 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 ## WHAT IS RUNNING
 
 - ⬜ **NOTHING IS RUNNING.**
+- 🚨 **THE OWNER HAND-SCORED THE BLIND SHEET AND FOUND A STALE-ARTIFACT DEFECT: we drew it from
+  `reading_grounding_v2_qualityfix` while `v3_definitional`, `v4_parsefix` AND `v5_termboundary`
+  all exist on disk.** *Owner: "a lot of words there are missing letters."* **TRUE STEM RATE (round-
+  trip detector): sheet `10.4%`, v2q `7.9%`, 🟢 `v5_termboundary` `0.4%` -- A ~20x REDUCTION THAT
+  ALREADY SHIPPED** (charter: *"v5 term-boundary fix, corruption `16.1% -> 1.0%`"*).
+  🔻 **TWO CORRECTIONS OF MY OWN, WITHIN THE HOUR: (1) I first reported `24%` using "not in
+  WordNet", which counts REAL words WordNet lacks (`archaea`, `adipocytes`, `Abdullah`) -- 2.3x
+  OVERSTATED; the round-trip test (`analysi`+`s` is a word, `archaea`+anything is not) separates
+  them, and a cruder detector would have scored the FIXED foundation as the WORST. (2) I told the
+  owner "fix the stemmer first" -- WITHDRAWN, it shipped weeks ago.**
+  ➡️ **THE REAL DEFECT IS PROVENANCE: `draw_representative_blind_sample.py` has no notion of a
+  CURRENT foundation, and four exist unmarked.** ⚠️ *v5 is a DIFFERENT ARTIFACT SHAPE (one
+  `definitional_facts_v5.jsonl` vs v2q's full `store/`), so "sample v5 instead" is NOT a straight
+  swap and v5 is NOT claimed to be the live foundation.* 🎯 **NEXT: establish at RUNTIME which
+  foundation the live loop writes.** `WE_HAND_SCORED_A_THREE_VERSIONS_STALE_FOUNDATION_...`
 - 🔑 **IT IS NOT ANSWERING WRONG -- IT IS NOT ANSWERING. Of `22` errors on the OOV 36, `20` are
   NON-ANSWERS, `2` are WRONG ANSWERS; accuracy WHEN IT COMMITS is `14/16 = 0.8750`.** *COVERAGE, not
   DISCRIMINATION -- the 08-07 charter's "HIGH-PRECISION + COVERAGE-LIMITED".* ➡️ **RE-AIMS THE ONLY
