@@ -97,9 +97,9 @@
 >   2 items it gets RIGHT. I had it queued as "the more interesting defect".*
 > 🎯 **THE ONE REAL DEFECT: ANIMACY CANNOT EXPRESS `ADVERSARIAL`.** *`enemy` -> `abstract` -> event says
 >   NEUTRAL and WINS; gold BLOCK_HIGH. **An EXPRESSIVENESS gap, not a lookup bug.***
-> ✅ **AND THAT RESTORES THE BODY-PART FIX** *(`crack`/`wrench`/`twist` are ALL `UNK` AND in force_class, so
->   the harm route WOULD fire if `ankle` were animate; 3/3 gap words, 0/8 controls, 1.2% base rate).*
->   ⚠️ *UNRUN. `pred_gov` not re-trained. Event stage only. `Bgen`'s `0.750` still unexplained.*
+> ✅ **RESTORES THE BODY-PART FIX** *(`crack`/`wrench`/`twist` are ALL `UNK` AND in force_class, so the harm
+>   route WOULD fire if `ankle` were animate; 3/3 gap words, 0/8 controls).* ⚠️ *UNRUN; `pred_gov` not
+>   re-trained; event stage only; `Bgen` `0.750` unexplained.*
 >   `SUBSET_B_IS_NOW_EXACTLY_EXPLAINED_...` `I_RETRACT_THE_THREE_WORD_FINDING_...` `A_PRINCIPLED_REPLACEMENT_...`
 > ⚠️ **VERIFICATION STATUS (I had been claiming neither): those numbers are READ, NOT REPRODUCED.**
 > *Re-running gives `elapsed 0.0s` + `[resume] already done` -- checkpoints REPLAY, and **the no-op
