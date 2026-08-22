@@ -49,23 +49,23 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
    DROPS at 2048. **NOT the usual underpowered dodge: half-width `0.0432`, so an
    identification-sized `+0.0622` WOULD have been detected. A BOUNDED negative.**
 
-4. ⭐ **AND THE ONE CHANGE THAT MAKES IT BETTER: DROP THE UBIQUITOUS CONTEXT WORDS.** *Same
-   encoder; only the word list handed to it is filtered, as `context_vector_masked` already does
-   for the target.* `none 0.1071 | >30% 0.1291 | **>20% 0.1558** | >10% 0.0988` -- an inverted U,
-   dropping just **264 of 22,544** context words (`make, other, more, about, see`).
-   **HELD OUT (cutoff picked on one half, scored on the other, 200 splits): `+0.0433`, CI
-   `[+0.0002, +0.0994]`, `>20%` wins 184/200.** *In-sample was `+0.0487`.* ⚠️ **lower bound
-   `0.0002` -- real and ONLY JUST.** 🎯 **vs THE REAL FLOOR: `raw counting 0.0885 | ours 0.1071 |
-   ours+drop 0.1558 | idf-counting 0.1835` -- closes ~57% of the gap, DOES NOT CLEAR IT.**
-   🧠 *The brain's own operation: input that occurs everywhere carries little information and gets
-   less response. We weighted every context word equally.* `DROPPING_264_UBIQUITOUS_...`
-5. 🔀 **AND THE SAME FILTER DISSOCIATES THE TWO JOBS -- the structural claim, measured a NEW WAY.**
-   *Identical filter on IDENTIFICATION:* `none 0.2057 | >20% 0.2160 | >10% 0.2169`.
-   **MEANING `0.1071 -> 0.1558 -> 0.0988` (sharp optimum, COLLAPSES past it); IDENTIFICATION
-   `0.2057 -> 0.2160 -> 0.2169` (FLAT).** *Moderately-common context words CARRY the semantic
-   signal, so removing them destroys meaning; identification wants only DISTINCTIVE rare context
-   and neither gains nor suffers.* ⚠️ **NOT a claim the filter HELPS identification (`+0.011`, no
-   CI, below the `~0.027` half-width). The DISSOCIATION rests on the COLLAPSE, not on that.**
+4. 🔻 **WITHDRAWN WITHIN THE HOUR -- "the one change that makes it better" IS NOT ESTABLISHED.**
+   *Dropping context words with df above a cutoff moves in-sample `0.1071 -> 0.1558` at `d=1024`.*
+   **I reported a held-out `+0.0433` CI `[+0.0002,+0.0994]` as EXCLUDING ZERO. It does not.**
+   *That CI came from **200** split-resamples and was MONTE-CARLO NOISY; at **2,000** splits:*
+   | d | held-out gain | 95% CI | excludes 0 |
+   |---|---|---|---|
+   | **256 (WHAT SHIPS)** | **-0.0050** | `[-0.0629, +0.0365]` | **NO** |
+   | 1024 | +0.0434 | `[-0.0117, +0.0940]` | **NO** |
+   **So: NO effect at the shipped dimension, and at `d=1024` a positive point estimate that does NOT
+   separate from zero.** ***A HYPOTHESIS, NOT A RESULT.*** *The direction survived; the claim did
+   not. I reported the favourable draw.* ⚠️ **METHOD: 200 resamples was too few to place a CI BOUND
+   -- the bound moved `+0.0002 -> -0.0117` on more resampling. Raise the resample count before
+   reading a bound that sits near zero.** `DROPPING_264_UBIQUITOUS_...`
+5. 🔀 **The FILTER DISSOCIATION still stands and does NOT depend on the withdrawn claim.**
+   *Same filter:* **MEANING `0.1071 -> 0.1558 -> 0.0988` (COLLAPSES past the optimum);
+   IDENTIFICATION `0.2057 -> 0.2160 -> 0.2169` (FLAT).** *The dissociation rests on the COLLAPSE,
+   which is far too large to be noise -- not on the small gains, which are not established.*
 
 ➡️ **SO D1 (`256->1024`, which REWRITES EVERY PERSISTED STORE) improves a LOOKUP.** *Q65 = "do
 whatever is ideal"; standing caution = backup + no concurrent session; still climbing at 2048 on

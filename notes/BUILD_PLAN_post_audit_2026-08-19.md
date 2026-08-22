@@ -91,7 +91,7 @@
 > | metric change to lift the `0.45` cap | 🚫 **refused by its own test: `0 of 120` synonyms under cosine, `8 of 120` under euclid** |
 > | removing a dominant axis | 🚫 PC1 is `27.5%`, spread, not concreteness; UNREL p95 `0.912 -> 0.890` |
 > | graded/signed mismatch | 🚫 not the cause *(already measured WITH a CI in STATUS -- 9th prior-work catch)* |
-> | ⭐ **drop ubiquitous context words** | ✅ `0.1071 -> 0.1558`; **HELD OUT `+0.0433` CI `[+0.0002,+0.0994]`**, `>20%` wins 184/200. *264 of 22,544 words; the brain's own operation.* ⚠️ *lower bound `0.0002`* |
+> | 🔻 **drop ubiquitous context words -- WITHDRAWN** | *in-sample `0.1071 -> 0.1558` at d=1024, but at **2,000** splits (was 200, Monte-Carlo noisy): **d=256 (SHIPS) `-0.0050` CI `[-0.0629,+0.0365]`; d=1024 `+0.0434` CI `[-0.0117,+0.0940]` -- NEITHER EXCLUDES ZERO.** I reported the favourable draw. **A HYPOTHESIS, NOT A RESULT.** The DISSOCIATION below is unaffected (it rests on the collapse).* |
 >
 > **THE FLOOR THAT MATTERS, WHICH I HAD NOT RUN ALL NIGHT:** `raw counting 0.0885 | OURS 0.1071 |
 > ours+drop 0.1558 | **idf-counting 0.1835** | supplied 0.2876`. **`IDF-OURS = +0.0764` CI
