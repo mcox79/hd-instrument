@@ -29,20 +29,20 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 AS OF: 2026-08-22, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | ✅ **BOARD: NOTHING OPEN.** Q113 (08-22): cell work + `hdi_*` spawns AUTHORIZED; the six `notes/problems/` briefs are the solver's, do not work them here. Q111 STANDING: testbed owns ALL integration, solvers never write `hdlab/`. Q110 STANDING: operational calls are mine, board is for owner-only decisions. Q102/106/107/108/109/112 ANSWERED/WITHDRAWN AND DISCHARGED (per STATUS_SPEC sec 3 tier 3 + the citation rule -- full text `notes/QUESTION_LOG.md`; Q109's credit-assignment investigation moved to `STATUS_LESSONS.md` "Q109 CREDIT ASSIGNMENT"). *Q103/104/108 share one pattern: filed before testing the constraint being complained about.*
 
 **POSITION**
-### 2026-08-22 -- 🚨 **`read(n_sentences=N)` IS A CEILING, AND `max_patches` BINDS FIRST**
-**`read(3000)`/`read(6000)`/`read(10000)` all returned `1,060` sentences.** Cause traced: `substrate.py:548`
-breaks at `patch_i >= max_patches` (default `4`) -- ONE LAP, unspent budget discarded. Nothing runs out of
-text. **Raise `max_patches`, not `n_sentences`.** Successive calls decay (`1,060 -> 240 -> 220`) via cached
-forager rho, never reset.
-🔻 **DEFLATED BY ITS OWN ENUMERATION: NO CELL USES THE FAILING SHAPE.** All bind `chunk = 400` and loop;
-25 such calls deliver `8,060/10,000` = **`81%`**. 🚫 *Do NOT quote the `13%` as our exposure -- that is a
-call shape appearing nowhere but its own test.*
-✅ *Guarded (`e335fa220`): `short_read` + `n_sentences_requested` on `ReadResult`, stderr banner, survives
-`to_dict()`. Docstring now carries the mechanism (`37d628d95`).*
-### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; NOW ENFORCED IN CODE**
-**`399` of `7,868` landed cells (`5.1%`) replay on re-run -- same verdict, same numbers, `elapsed
-0.0s`, no work done.** 🔑 **`tools/reproduction_check.py` makes the unsafe reading unrepresentable
-(`ReproductionVerdict` has no `__bool__`; no before-snapshot -> `INDETERMINATE`, never a pass).**
+### 2026-08-22 -- 🚨 **THE STORE FIX IS REFUTED, AND NO SOLVER WORK HAS TOUCHED THE SUBSTRATE YET**
+**3 solutions in: `eval_bank_too_small` SOLVED (a DATA file, 124 scorable), `stored_terms_are_stems`
+PARTIAL (nothing live to fix), `flat_store_destroys_the_code` REFUTED.** 🔻 **ZERO of the three
+changed `hdlab/`. Every substrate edit today is the strategy session's own.** *Owner asked; that is
+the honest answer.*
+🔑 **THE REFUTATION: addressed storage reads exact-key `0.9954` and held-out `0.1399`, against a
+first-order COUNTING floor of `0.3242` (`-0.1843`, CI excludes 0). It can RECITE, not RECOGNISE.**
+*Info-free twin `0.0000`, scramble `0.0000`, 2AFC positive control `0.7433` -- the instrument works,
+so the failure is real. Verified to six decimals against `metrics.json`.*
+🧠 **AND IT REPRODUCES A KNOWN CLIFF FROM A NEW DIRECTION** -- a circular WordNet oracle reads
+`0.8787` at exact key and `0.0365` under a partial cue. **Two unrelated mechanisms, same wall: this
+is a property of how the cue meets the store.**
+✅ **MY BRIEF ASKED THE WRONG QUESTION (owner caught it): it said WIRE the store we have. The store
+we have does not work.** ➡️ **NEW PROBLEM `store_survives_a_partial_cue` at PRIORITY 2** -- design
 
 **TOP ITEM -- **I HAD BEEN MEASURING THE CHANNEL BOTH PLANS OF RECORD ALREADY RULED OUT.****
 🔻 **THE SCOPING CORRECTION (08-22): "a 1970s baseline beats us EVERYWHERE" over 16 measures was
@@ -76,7 +76,7 @@ C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out
   RETIRED. `notes/problems/`
 - ⬜ **NOTHING IS RUNNING** *(one background agent verifying the reader brief's numbers off disk
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T21:43:50Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T21:54:38Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 

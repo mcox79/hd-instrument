@@ -34,41 +34,52 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-22 -- 🚨 **`read(n_sentences=N)` IS A CEILING, AND `max_patches` BINDS FIRST**
-**`read(3000)`/`read(6000)`/`read(10000)` all returned `1,060` sentences.** Cause traced: `substrate.py:548`
-breaks at `patch_i >= max_patches` (default `4`) -- ONE LAP, unspent budget discarded. Nothing runs out of
-text. **Raise `max_patches`, not `n_sentences`.** Successive calls decay (`1,060 -> 240 -> 220`) via cached
-forager rho, never reset.
-🔻 **DEFLATED BY ITS OWN ENUMERATION: NO CELL USES THE FAILING SHAPE.** All bind `chunk = 400` and loop;
-25 such calls deliver `8,060/10,000` = **`81%`**. 🚫 *Do NOT quote the `13%` as our exposure -- that is a
-call shape appearing nowhere but its own test.*
-✅ *Guarded (`e335fa220`): `short_read` + `n_sentences_requested` on `ReadResult`, stderr banner, survives
-`to_dict()`. Docstring now carries the mechanism (`37d628d95`).*
+### 2026-08-22 -- 🚨 **THE STORE FIX IS REFUTED, AND NO SOLVER WORK HAS TOUCHED THE SUBSTRATE YET**
+**3 solutions in: `eval_bank_too_small` SOLVED (a DATA file, 124 scorable), `stored_terms_are_stems`
+PARTIAL (nothing live to fix), `flat_store_destroys_the_code` REFUTED.** 🔻 **ZERO of the three
+changed `hdlab/`. Every substrate edit today is the strategy session's own.** *Owner asked; that is
+the honest answer.*
+🔑 **THE REFUTATION: addressed storage reads exact-key `0.9954` and held-out `0.1399`, against a
+first-order COUNTING floor of `0.3242` (`-0.1843`, CI excludes 0). It can RECITE, not RECOGNISE.**
+*Info-free twin `0.0000`, scramble `0.0000`, 2AFC positive control `0.7433` -- the instrument works,
+so the failure is real. Verified to six decimals against `metrics.json`.*
+🧠 **AND IT REPRODUCES A KNOWN CLIFF FROM A NEW DIRECTION** -- a circular WordNet oracle reads
+`0.8787` at exact key and `0.0365` under a partial cue. **Two unrelated mechanisms, same wall: this
+is a property of how the cue meets the store.**
+✅ **MY BRIEF ASKED THE WRONG QUESTION (owner caught it): it said WIRE the store we have. The store
+we have does not work.** ➡️ **NEW PROBLEM `store_survives_a_partial_cue` at PRIORITY 2** -- design
+one, bar = beat `0.3242` held-out CI-separated; **a rigorous negative is an explicit PASS.**
+🖥️ *GUI: priorities + MY RATING columns are wired (`13806bac1`) but the running window
+started 13:15, BEFORE that commit -- **it must be RESTARTED to show them.** Not a bug, a stale process.*
+📎 `RANDOM_CREDIT_BEATS_THE_REAL_MECHANISM_...`; briefs in `notes/problems/`.
 
-### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; NOW ENFORCED IN CODE**
-**`399` of `7,868` landed cells (`5.1%`) replay on re-run -- same verdict, same numbers, `elapsed
-0.0s`, no work done.** 🔑 **`tools/reproduction_check.py` makes the unsafe reading unrepresentable
-(`ReproductionVerdict` has no `__bool__`; no before-snapshot -> `INDETERMINATE`, never a pass).**
-🚫 **CASTS DOUBT ON NO LANDED NUMBER -- only on whether re-running one verifies it.**
+### 2026-08-22 -- 🚨 **`read(n_sentences=N)` IS A CEILING; `max_patches` (default 4) BINDS FIRST**
+`read(3000/6000/10000)` all returned `1,060`: `substrate.py:548` breaks at `patch_i >= max_patches` -- ONE LAP,
+budget discarded, nothing runs out of text. **Raise `max_patches`, not `n_sentences`.** Successive calls decay
+(`1,060->240->220`) via cached forager rho, never reset. 🔻 *DEFLATED BY ITS OWN ENUMERATION: no cell uses the
+failing shape -- all bind `chunk=400` and loop, delivering `81%`. Do NOT quote `13%` as our exposure.*
+✅ *Guarded `e335fa220` (`short_read` on `ReadResult`, survives `to_dict()`); mechanism in the docstring `37d628d95`.*
+
+### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; ENFORCED IN CODE**
+**`399`/`7,868` landed cells (`5.1%`) replay on re-run -- same verdict, `elapsed 0.0s`, no work done.**
+`tools/reproduction_check.py` makes the unsafe reading unrepresentable (no `__bool__`; no before-snapshot ->
+`INDETERMINATE`). 🚫 *Casts doubt on NO landed number -- only on whether re-running one verifies it.*
 📎 `--census` recomputes it; brief `notes/problems/harness_cannot_recompute/`.
 
-### 2026-08-22 -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS. THE LOOKUP CANNOT INFLECT.**
-`grounded_similarity.py:165` is `_table().get(word.lower())` -- raw string, no morphology, so we hold
-`country` and read past `countries`. **TOKEN coverage `0.6035` -> `0.7350` under our own `normalize_lemma`
-(+13.2 points, zero new norms = 44% of the way to the `90%` target)** -- so **`+14,704 words to norm` counts
-INFLECTED FORMS OF ALREADY-NORMED WORDS.** *Substitution verified sound (3,629 pairs, median cosine `0.7605`
-vs random floor `-0.0131`); irregulars add only `+1.42`, so REUSE `normalize_lemma`.*
-⛔ **AND IT IS UNREACHABLE TODAY: `read()` NEVER CONSULTS THE ASSET.** Runtime, positive-controlled: `0`
-calls to `grounded_similarity`/`grounded_vector`/`_table` across a 150-200 sentence read -- the table is never
-even loaded, matching the substrate's own B5 slot (`NEEDS_ADAPTER`). **Fix the lookup, re-run a reading task,
-and NO MOVEMENT IS THE EXPECTED RESULT.**
-🔑 **THE VERB HOLE IS OURS, NOT THE ASSET'S.** SimLex, one scorer, only word class changing, 400-shuffle
-nulls: the ASSET reads NOUN `+0.2745` (null `0.0732`) and VERB `+0.2607` (null `0.1241`) -- **BOTH CLEAR,
-Fisher `z=0.192` NOT SEPARATED**, on `99.6%` of SimVerb's pairs; our LEARNED channel has noun `0.1310` and
-**verb INSIDE its null.** ⚠️ *ADJECTIVES unresolved and UNANSWERABLE on our assets -- SimLex's `111` is the
-ceiling, WordSim353 has ONE adjective pair.* 🔻 *Withdrawn same day: "the lookup fix IS the verb fix" --
-the tagger says recovery is enriched for CONTENT WORDS (VERB `2.58x`, NOUN `2.25x`), not verbs specifically.*
-📎 `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...` `THE_VERB_HOLE_IS_OURS_...`
+### 2026-08-22 -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS; THE LOOKUP CANNOT INFLECT**
+`grounded_similarity.py:165` is a raw-string lookup: we hold `country`, miss `countries`. **TOKEN coverage
+`0.6035 -> 0.7350` via our own `normalize_lemma` (+13.2 pts, zero new norms)** -- so **`+14,704 words to norm`
+counts INFLECTED FORMS OF ALREADY-NORMED WORDS.** *Substitution verified (3,629 pairs, median `0.7605` vs random
+`-0.0131`); irregulars add only `+1.42`, so REUSE `normalize_lemma`.*
+⛔ **UNREACHABLE TODAY: `read()` NEVER CONSULTS THE ASSET** -- `0` calls, positive-controlled, table never
+loaded; matches the B5 slot (`NEEDS_ADAPTER`). **Fix the lookup, re-run a reading task, NO MOVEMENT IS EXPECTED.**
+🔑 **THE VERB HOLE IS OURS, NOT THE ASSET'S:** SimLex, only word class changing -- ASSET NOUN `+0.2745`
+(null `0.0732`) and VERB `+0.2607` (null `0.1241`) BOTH CLEAR, `z=0.192` NOT separated, on `99.6%` of SimVerb;
+our LEARNED channel has noun `0.1310` and **verb INSIDE its null.** ⚠️ *ADJECTIVES unresolved AND unanswerable
+on our assets -- SimLex's `111` is every adjective pair we own.* 🔻 *Withdrawn: "the lookup fix IS the verb
+fix" -- our UPOS tagger shows recovery enriched for CONTENT WORDS (VERB `2.58x`, NOUN `2.25x`).*
+🚫 **COVERAGE, NOT CAPABILITY -- no task run; `grounded_similarity.py` deliberately UNCHANGED.**
+📎 `THE_VERB_HOLE_IS_OURS_...`, `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...`; brief at priority 7.
 
 ### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
 
