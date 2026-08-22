@@ -46,6 +46,17 @@
     "clean": true
   },
   "majority_floor": 0.6389,
+  "negation_floor": {
+    "accuracy": 0.8055555555555556,
+    "null_p95": 0.6944444444444444,
+    "clears_null": true,
+    "majority_floor": 0.6388888888888888,
+    "mean_cues_met": 0.043478260869565216,
+    "mean_cues_unmet": 0.6923076923076923,
+    "window": 1,
+    "n": 36,
+    "caveat": "threshold selection is priced by the null; FEATURE and WINDOW selection are NOT -- both were chosen after reading the items. Safe as a FLOOR (optimistic fitting raises the bar), never as a treatment."
+  },
   "coverage": {
     "n_windows": 1655,
     "n_windows_AND_baseline": 434,
@@ -862,7 +873,7 @@
   "verdict": "HARD_FAIL",
   "verdict_msg": "HARD_FAIL: coverage AND=434 OR=1142 soft_trusted=164 (rescue_gate=False) | primary=0.4722 (floor=0.6389) | learnable_ls_acc=0.3571(11/N>=6) | scramble=0.5111 gap=-0.0389 | anti_drift_ok=True | arms_differ=True | hard_fail_reasons=['COVERAGE_NOT_RESCUED_signals_absent', 'PRIMARY_AT_OR_BELOW_CHANCE', 'SCRAMBLE_DOES_NOT_COLLAPSE_no_real_signal']",
   "summary": "HARD_FAIL: coverage AND=434 OR=1142 soft_trusted=164 (rescue_gate=False) | primary=0.4722 (floor=0.6389) | learnable_ls_acc=0.3571(11/N>=6) | scramble=0.5111 gap=-0.0389 | anti_drift_ok=True | arms_differ=True | hard_fail_reasons=['COVERAGE_NOT_RESCUED_signals_absent', 'PRIMARY_AT_OR_BELOW_CHANCE', ",
-  "elapsed_s": 66.77,
+  "elapsed_s": 73.41,
   "discriminator_fires": {
     "n_windows_AND": 434,
     "n_windows_soft_trusted": 164,

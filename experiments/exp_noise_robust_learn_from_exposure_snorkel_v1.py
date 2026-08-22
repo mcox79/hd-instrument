@@ -508,6 +508,18 @@ def _run_all(run_mode):
                       anti_drift_cases, anti_drift_ok, arms_differ, soft_rep, details)
 
 
+def _negation_floor_report(oov_rows):
+    """The strongest simple baseline anyone has run on this task. See tools/negation_floor.py --
+    it is a FLOOR, never a mechanism, and it is deliberately not wired into the verdict."""
+    try:
+        sys.path.insert(0, os.path.join(REPO_ROOT, "tools"))
+        from negation_floor import negation_floor
+        return negation_floor([r["text"] for r in oov_rows],
+                              [1 if r["gold_outcome_polarity"] == "met" else 0 for r in oov_rows])
+    except Exception as exc:                       # never let a reported floor break a run
+        return {"error": f"{type(exc).__name__}: {exc}"}
+
+
 def _aggregate(run_mode, oov_rows, majority_floor, corpus_stats, win_stats, integ, coverage,
                and_registered, soft_registered, primary, correct, met_c, unmet_c, n_met, n_unmet,
                learnable, canary, b_acc, b_correct, scr, anti_drift_cases, anti_drift_ok,
@@ -525,6 +537,13 @@ def _aggregate(run_mode, oov_rows, majority_floor, corpus_stats, win_stats, inte
                    "soft_rescue_multiple": SOFT_RESCUE_MULTIPLE, "soft_rescue_floor": SOFT_RESCUE_FLOOR},
         "corpus_stats": corpus_stats, "win_stats": win_stats, "exclusion_integrity": integ,
         "majority_floor": majority_floor,
+        # STRONGEST FLOOR ACTUALLY RUN (added 2026-08-22). Counting negation cues in the RESOLVING
+        # SENTENCE scores 0.8056 on this bank where this cell's primary scores 0.4722 and the
+        # majority floor is 0.6389 -- so every verdict here has been graded against a bar that was
+        # 0.17 too low. REPORTED, NOT GATED: the pre-registered bands are not mine to move, and a
+        # floor that changes a verdict retroactively would be exactly the "adjusting the bands"
+        # failure. Read it beside the verdict, not instead of it.
+        "negation_floor": _negation_floor_report(oov_rows),
         "coverage": coverage,
         "n_registered_and_gate": len(and_registered), "and_gate_registered": and_registered,
         "n_registered_soft_combine": len(soft_registered), "soft_combine_registered": soft_registered,
