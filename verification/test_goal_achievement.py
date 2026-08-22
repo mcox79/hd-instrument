@@ -35,7 +35,21 @@ from hdlab.goal_achievement import (  # noqa: E402
 
 # (desire, outcome, expected_verdict, expected_channel_prefix_or_None)
 CASES = [
-    ("I wanted to meet my friend.", "I met up with my friend.", "Fulfilled", "majority"),          # lemmatizer gap -> majority
+    # CORRECTED 2026-08-22. This expected "majority" with the comment "lemmatizer gap -> majority":
+    # written 2026-08-08, when lemma_verb could not take "met" -> "meet", so the relation channel
+    # missed and the verdict fell through to the majority default. THE LEMMATIZER WAS REPAIRED ON
+    # 2026-08-13 (non-word stems 8,692 -> 0; gold verb-inflection 53.50% -> 99.03%), so the relation
+    # channel now fires properly. The verdict was ALWAYS "Fulfilled" and still is -- what changed is
+    # that it is now reached by the PRINCIPLED channel instead of the fallback.
+    # THE SYSTEM IMPROVED AND THIS TEST FAILED, because it pinned a workaround for a fixed bug.
+    ("I wanted to meet my friend.", "I met up with my friend.", "Fulfilled", "relation"),
+    # ...and because the line above was the ONLY case exercising the majority fallback, replacing its
+    # expectation alone would have SILENTLY DROPPED that path from the suite. This case restores it:
+    # a clock striking nine says nothing about whether the evening was quiet, so no channel fires.
+    # NOTE the "Fulfilled" here is the FALLBACK'S DEFAULT, not a defensible reading of the pair --
+    # this case documents what the mechanism does with NO signal, which is exactly what a fallback
+    # test should pin.
+    ("I wanted a quiet evening.", "The clock struck nine.", "Fulfilled", "majority"),
     ("I wanted to save him.", "But I couldn't.", "Unfulfilled", "relation"),                        # refusal
     ("I wanted a good day.", "It was wonderful and I felt so happy.", "Fulfilled", "valence"),      # valence +
     ("I wanted a good day.", "It was a terrible, miserable disaster.", "Unfulfilled", "valence"),   # valence -

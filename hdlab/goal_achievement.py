@@ -404,9 +404,20 @@ def goal_achievement_verdict(desire: str, outcome: str, use_union_oov: Optional[
 def self_test() -> dict:
     """Mechanism-fires check: each channel decides correctly on a clear representative case."""
     cases = [
-        # irregular past 'met' is NOT lemmatized to 'meet' (known lemmatizer gap) -> relation abstains
-        # -> majority; verdict still correct. Documents the gap honestly rather than asserting a fire.
-        ("I wanted to meet my friend.", "I met up with my friend.", "Fulfilled", "majority"),
+        # CORRECTED 2026-08-22. This read: "irregular past 'met' is NOT lemmatized to 'meet' (known
+        # lemmatizer gap) -> relation abstains -> majority". That gap was REPAIRED on 2026-08-13
+        # (lemma_verb: non-word stems 8,692 -> 0, gold verb-inflection 53.50% -> 99.03%), and
+        # lemma_verb('met') now returns 'meet', so the relation channel fires as it always should
+        # have. The verdict was and remains "Fulfilled"; only the channel changed, from the FALLBACK
+        # to the PRINCIPLED one. THE SYSTEM IMPROVED AND THIS ASSERTION FAILED, because it pinned a
+        # workaround for a bug that was later fixed.
+        ("I wanted to meet my friend.", "I met up with my friend.", "Fulfilled", "relation"),
+        # This case was the ONLY one exercising the majority fallback, so correcting the line above
+        # alone would have silently dropped that path. A clock striking nine says nothing about
+        # whether the evening was quiet, so no channel fires. The "Fulfilled" is the FALLBACK'S
+        # DEFAULT (MAJORITY_CLASS), not a defensible reading of the pair -- which is exactly what a
+        # fallback test should pin.
+        ("I wanted a quiet evening.", "The clock struck nine.", "Fulfilled", "majority"),
         ("I wanted to save him.", "But I couldn't.", "Unfulfilled", None),
         ("I wanted a good day.", "It was wonderful and I felt so happy.", "Fulfilled", "valence"),
         ("I wanted a good day.", "It was a terrible, miserable disaster.", "Unfulfilled", "valence"),
