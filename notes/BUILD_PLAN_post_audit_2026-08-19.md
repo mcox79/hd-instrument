@@ -3,6 +3,13 @@
 > # 📍 **STATE AS OF 2026-08-22. ONE BLOCK, CURRENT ONLY. DO NOT APPEND -- FOLD.**
 > *This block has blown up THREE times (6,895 lines -> 309 -> 343) against a 160-line cap, every time by appending to a document whose own header forbids it. Consolidated 08-22. **Every entry cites the note holding its evidence; nothing is lost and `git log` has the full sequence.***
 >
+> ## 🚨 **UNCOMMITTED RIGHT NOW: `62` LANDED RECORDS ARE ABOUT TO BE RE-DATED BY A REPLAY THAT DID NO WORK (08-22 21:57)**
+> **Found by the restart re-read, which is the point of doing it.** `git status` shows **`66` `metrics.json` modified in the working tree; `62` of them changed ONLY `elapsed_s` and `ts_iso`** -- identical numbers, new timestamp. **`14` ran in under a second.**
+> *Worked example: `exp_bridge1_twostage_event_situation_v2` goes `elapsed_s 31.36 -> 0.0355` and `ts_iso 2026-08-05 -> 2026-08-22T02:40`. It re-ran, replayed its checkpoints, did no work, and rewrote the landed record with a fresh date.*
+> 🔻 **IF THESE COMMIT, 62 CELLS MEASURED WEEKS AGO WILL CARRY TODAY'S DATE.** Anyone dating the archive -- including the staleness checks that caught the 08-06 goal-bearing record -- will read them as fresh. *That staleness check is exactly how the re-land got started.*
+> ✅ **THIS IS `harness_cannot_recompute` (filed, priority 8) HAPPENING AT SCALE, NOT HYPOTHETICALLY.** The brief had ONE observed instance and said so; here are 62. **`tools/reproduction_check.py` can NAME a replay but nothing PREVENTS one from overwriting a landed record.**
+> 🚫 **I HAVE NOT COMMITTED OR REVERTED THEM.** They are not mine, a revert could destroy a concurrent session's work, and the 4 that changed OTHER fields may be genuine re-runs worth keeping. **Decision needed before anyone runs `git add -A`.**
+>
 > ## 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS -- THE LOOKUP CANNOT INFLECT (08-22)**
 > 🔑 **AND THE MEANING ASSET IS NOT SHORT OF WORDS -- THE LOOKUP CANNOT INFLECT.** `grounded_similarity.py:165` is `_table().get(word.lower())`, so we hold `country` and read past `countries`. **Token coverage `0.6035` -> `0.7350`, type `0.1027` -> `0.1633`** under our own `normalize_lemma` (landed cell reproduced to 4 decimals first as the control). **+13.2 points of running text, zero new norms = 44% of the way to the `90%` target** -- so **`+14,704 words to norm` counts inflected forms of ALREADY-NORMED words.** ⚠️ *~5 of 130 recoveries wrong; irregulars (`women`, `feet`) missed by both methods, so the ceiling is HIGHER.* 🚫 **COVERAGE, NOT CAPABILITY -- no task run, `grounded_similarity.py` deliberately UNCHANGED.** *Filed `notes/problems/lookup_does_not_lemmatise/`.* `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...`
 >
