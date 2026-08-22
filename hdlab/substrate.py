@@ -314,6 +314,14 @@ class ReadResult:
     # False when a foraging-ablated arm was run WITHOUT being told how many sentences the live
     # arm consumed. Recorded because an unmatched twin has twice been read as a result here.
     rate_matched: bool = True
+    # How many sentences the caller ASKED for, and whether they got materially fewer. Added
+    # 2026-08-22: read(n_sentences=3000/6000/10000) all delivered 1,060 -- silently, with no
+    # exception and no warning. n_sentences already held the truth and nobody read it, so the fix is
+    # to make the SHORTFALL itself a field a caller cannot miss rather than a number they must think
+    # to check. `n_sentences_requested = 0` means "not recorded" (an older result), never "asked for
+    # nothing".
+    n_sentences_requested: int = 0
+    short_read: bool = False
 
     def to_dict(self) -> dict:
         d = dict(self.__dict__)
@@ -675,6 +683,25 @@ class Substrate:
 
         res.elapsed_s = time.time() - t0
         res.organ_calls = dict(self._calls)
+
+        # SHORT-READ GUARD. Measured 2026-08-22: asking for 3,000 / 6,000 / 10,000 sentences all
+        # returned 1,060, across every seed and n_dim tried (960-1,500 when asked for 8,000), and
+        # successive calls fall away further (1,060 -> 240 -> 220). It was SILENT, so any number
+        # computed afterwards was quietly based on ~1,000 sentences while the caller believed it had
+        # supplied far more. Warn rather than raise: raising would break every existing caller that
+        # asks for a large read and currently gets a valid -- if smaller -- result. The result is
+        # real; only its DESCRIPTION was at risk.
+        res.n_sentences_requested = int(n_sentences)
+        res.short_read = bool(n_sentences > 0 and res.n_sentences < 0.9 * n_sentences)
+        if res.short_read:
+            print(
+                "[substrate.read] SHORT READ: asked for %d sentences, read %d (%.0f%%). Any number "
+                "computed from this read describes %d sentences, NOT %d. This is not an error and "
+                "the result is usable -- but do not quote the REQUESTED count as the corpus size. "
+                "See notes/SUBSTRATE_READ_SILENTLY_READS_A_FRACTION_OF_WHAT_YOU_ASK_FOR_2026-08-22.md"
+                % (n_sentences, res.n_sentences, 100.0 * res.n_sentences / max(1, n_sentences),
+                   res.n_sentences, n_sentences),
+                file=sys.stderr, flush=True)
         return res
 
     # -- RETRIEVAL ----------------------------------------------------------------------------
