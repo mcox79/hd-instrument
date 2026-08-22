@@ -17,7 +17,17 @@ grounding work.**
 | all 15 norm dimensions decoded | 15/15 clear | **IDF higher on 15/15** | 🔻 **swept** |
 | vs an UNTRAINED codebook | **+16.3 pp** | -- | ✅ **REPLICATED -- learning does something real** |
 
-> ### **THE ONE-LINE ANSWER: READING IS DOING SOMETHING (`+16.3 pp` over having read nothing, replicated), AND A 1970s TERM-WEIGHTING BASELINE STILL BEATS IT EVERYWHERE WE HAVE LOOKED.**
+> ### **THE ONE-LINE ANSWER: READING IS DOING SOMETHING (`+16.3 pp`, replicated), AND A 1970s TERM-WEIGHTING BASELINE BEATS IT ON EVERY MEASURE OF THE *WORD-SIMILARITY CHANNEL*.**
+
+> 🔻 **CORRECTED 2026-08-22 -- I WROTE "EVERYWHERE WE HAVE LOOKED" AND THAT WAS SCOPED WRONG.**
+> *All sixteen measures above are the WORD-SIMILARITY channel, which BOTH plans of record had already
+> ruled out as the meaning signal -- measured: bag-of-words scored **`0.5167` = CHANCE with a
+> supervised classifier HANDED THE GOLD SENSE**.* **On the GROUNDING ORGAN the picture inverts: it
+> reads `0.962`-`1.000` on differential grounding ("hit hard"=harm vs "studied hard"=not) while the
+> bag-of-words control sits at `0.500`-`0.517` ON THE SAME ITEMS.** ⚠️ *But those sets are 12-21 items
+> (one headline `1.000` is **n=2** and carries nothing), open vocabulary drops it `1.000 -> 0.750` with
+> a body-part stratum at chance, and the real-prose wall is untouched -- **so section 3's commercial
+> answer does NOT change.*** `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
 
 *Human rating tables reach `0.2876`-`0.3655`, so the task is not impossible -- the shortfall is ours.*
 

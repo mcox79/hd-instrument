@@ -74,6 +74,21 @@
 > there is a SECOND plan of record (`PLAN_grounded_semantic_organ_build.md`, 08-05) I have NOT read;
 > supersession unverified after 08-12. This changes PRIORITIES, retracts no measurement.*
 > `THE_BOTTLENECK_HAS_BEEN_NAMED_IDENTICALLY_SINCE_AUGUST_5_...`
+> ✅ **AND THE PRESCRIBED NEXT ACTIONS WERE ALREADY BUILT AND RUN -- THE ORGAN WORKS:**
+> *`bridge1_governor_grounding` **HARD_PASS** differential grounding `0.967`, unseen `0.956`, **bow
+> `0.517`**; `bridge1_confirmation_test` **RULING_CONFIRMED** (event-differing `0.500`, discourse
+> `0.500` -- the predicted failure); `bridge1_twostage_event_situation_v2` **HARD_PASS** B `1.000` and
+> C `1.000` vs governor `0.500`, **bow `0.517`/`0.500`**; open-vocab **PARTIAL_WITH_BODYPART_GAP**.*
+> 🎯 **DOUBLE DISSOCIATION, and I nearly misread it as a control failure: each subset's MATCHED
+> scramble degrades (`0.583`/`0.650`) while the UNMATCHED one does NOT (`1.000`). Ask which control
+> matched which subset BEFORE reading the numbers.**
+> 🔻 **BUT THE SCALE: n = 21/12/12/8 and `Cgen` is n=2 -- that `1.000` CARRIES NOTHING (p=0.25).**
+> ⚠️ *Open vocab `1.000 -> 0.750`; body-part stratum at chance, lift `-0.033`. Real-prose wall UNTOUCHED.*
+> 🔻 **CORRECTION TO MY OWN OWNER REPORT: "counting beats us EVERYWHERE" was SCOPED WRONG -- all 16
+> measures are the WORD-SIMILARITY channel, which both plans had already ruled out (bag-of-words
+> `0.5167` = chance HANDED THE GOLD SENSE). On the grounding organ, counting is at chance and we are not.**
+> ➡️ **LIVE FRONTIER: OPEN VOCABULARY, then REAL PROSE.** *Not another word-similarity measurement.*
+> `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
 >
 > 🧭 **THE DIRECTION HAS A NAME AND IT WAS SET ON 2026-08-06, NOT TONIGHT: *ANCHOR + PROPAGATE*.**
 > *`SYNTHESIS_grounding_wall_definitive_2026-08-06` (237 grounding cells, 91 notes) established:* **(a)
@@ -86,50 +101,22 @@
 > 🎯 **MY 08-21 SEED SWEEP *IS* THAT ARCHITECTURE, MEASURED FOR THE FIRST TIME -- AND I RE-DERIVED IT
 > WITHOUT READING THE SYNTHESIS.** ✅ *It also DISSOLVES what I called that result's load-bearing limit:
 > using neighbours' true values is NOT a weakness, it IS the chosen brain-faithful design.*
-> ✅ **OPPOSITION, FOLDED -- THREE RESULTS, ALL BAG-OF-WORDS, ALL KEPT AS FLOOR.** *(a) SIMILARITY-
->   PROPAGATION CANNOT SEE OPPOSITION: TRUE valence diff spans `0.695-1.363` across relations, PREDICTED
->   spans `0.302-0.336` (FLAT); antonyms `0.3017` vs synonyms `0.3317` is the WRONG WAY; within antonyms
->   rho `-0.0259` (n=96, null ~`+/-0.201`); both abort-controls PASSED. (b) THE SIGNAL EXISTS IN TEXT:
->   cond "X and/or Y" ANTONYMS `0.0782` vs SYNONYMS `0.0269` vs RANDOM `0.0022` (34.8x), RANDOM control
->   PASSES. **Antonyms are our CLOSEST relation (`0.2062` > syn `0.1727`) because our 2nd-order encoder
->   CONVERTS CO-OCCURRENCE INTO SIMILARITY -> verbs read `0.0000`.** (c) 🔻 **BUT THE FIX FAILED: penalising
->   co-occurrence hurts MONOTONICALLY (best lambda `0.0`), is worse than a RANDOM penalty, and `COOC
->   ALONE = +0.0464` -- co-occurrence is POSITIVELY correlated with similarity. Related words co-occur;
->   the antonym effect is swamped. A correct mechanism does NOT entail its inverse is a correction.***
->   🔻 **CORRECTION MADE TWICE: "the fix is already owned" IS WRONG -- `OPPOSED_PAIRS` = 6 hand-written
->   class pairs, `lexical_similarity` = 86 hand-authored concepts. THE REAL ONE IS
->   `wordnet_polarity_propagation` (S1 above), antonym-aware, and it was built two weeks before I began.**
-> `THE_ANTONYM_TRAP_IS_CONFIRMED_...` `THE_SIGNAL_FOR_OPPOSITION_IS_IN_THE_TEXT_...`
-> `THE_ANTONYM_TRAP_IS_CONFIRMED_...`
-> **1. Q102 is still the ONLY open board question** (wire the form organs). *Its evidence package is
-> now complete: form is noise-equivalent on meaning, identification is a LOOKUP, and its GAIN IS
-> MEASURED (ORGAN_MAP A1, `0.0870` vs `0.0480`, CI-separated).*
->
-> **2. 🔻 BOTH BUILD CANDIDATES ARE STRUCK OR REPLACED -- THE CELL THAT SETTLES THEM LANDED
-> 2026-08-17 AND I HAD NOT READ IT (`exp_verb_event_salient_channel_v1`, TENTH PRIOR-WORK CATCH):**
-> - 🚫 **🅐 VERB MEANING FROM ITS ARGUMENTS -- STRUCK, NOT UNRUN: `S1_SLOT_FRAME` raw `0.0442`
->   NOT_SEPARATED and `survives_partial: FALSE`; `S2_SLOT_DELTA` raw `0.0798` NOT_SEPARATED. I asserted
->   this ALL NIGHT as the explanation for our verb zero without measuring it. STOP REPEATING IT.**
-> - 🔄 **🅑 RAW SENSORIMOTOR -- REPLACED, IT IS THE ARM THAT LOSES.** *3,152 identical pairs,
->   partialled for concreteness AND frequency:* **12 sensorimotor `0.2639` | +3 AFFECT `0.3655` | the 3
->   AFFECT dims ALONE `0.3030`**; width controls NOISE `0.2469` / WRONG `0.2322` BOTH BELOW -> CONTENT,
->   not width. 🧠 *I went looking for SOMATOTOPY; the effector dims sit in the LOSING arm.* ⚠️ *A1-vs-A0
->   CIs do NOT overlap; A2-vs-A0 DO -- "3 beats 12" is suggestive only; no paired test.* 🚫 **SUPPLY,
->   NOT LEARNING.** ⚠️ *Do NOT swap my `0.2983` (3,487 pairs, euclid) with the cell's `0.2711` (3,161).*
->   `THE_VERB_BUILD_I_QUEUED_WAS_ALREADY_RUN_...`
-> - 📐 **THE 08-21/22 MEASUREMENT PASS, FOLDED -- ALL OF IT IS BAG-OF-WORDS CO-OCCURRENCE, WHICH THE
->   CHARTER RECORDS AS MEASURED TO LACK THE SENSE SIGNAL. KEPT AS A FLOOR, NOT A DIRECTION.**
->   *(a) A NEIGHBOUR READ-OUT DECODES ALL 15 NORM DIMS from our own profiles -- `Concreteness 0.4671`
->   (control, top as predicted), `Valence 0.3069` vs null `0.0385`, **15/15 on BOTH arms at 5-12x null**;
->   my pairwise test an hour earlier said ~nothing (3/15) and WAS THE WRONG TEST -- I did not publish it.
->   (b) THE PRICE: **~50-100 grounded words already propagate; past ~400 more buys ~nothing** (`50 0.2114`
->   vs null `0.1239`; `400 0.3783`; `2000 0.4323`) -- **but IDF at 200 seeds (`0.2971`) beats OURS at
->   2,000 (`0.2638`)**. (c) NEW DIAGNOSTIC: our nearest-seed cosine is HIGHER (`0.3965` vs `0.2415`)
->   while carrying LESS -- **ANISOTROPY**; `DO NOT REDO 27` has a revival `*`, criterion NOT read.*
->   ⚠️ *K unswept 3x; 3,000 of 5,021 words; random seed = pessimistic; the 25-seed row was DEGENERATE
->   (exactly 0.0000 = reachability signature) and `null95` gates CONCRETENESS ONLY.*
->   🔻 **AND EVERY ONE OF THESE ASSIGNS ONE VALUE PER WORD, while `PLAN_B` specifies a
->   CONTEXT-CONDITIONED SUPERPOSITION. They are a FLOOR for that architecture, not a test of it.**
+> ✅ **OPPOSITION, FOLDED TO 5.** *(a) similarity-propagation CANNOT see opposition: TRUE valence diff
+>   spans `0.695-1.363`, PREDICTED `0.302-0.336` (FLAT), within-antonym rho `-0.0259` (n=96); both
+>   abort-controls passed. (b) the signal IS in text: cond "X and/or Y" ANT `0.0782` vs SYN `0.0269` vs
+>   RANDOM `0.0022`; antonyms are our CLOSEST relation because 2nd-order encoding turns CO-OCCURRENCE
+>   INTO SIMILARITY. (c) 🔻 **the fix FAILED -- penalising it hurts monotonically, worse than a RANDOM
+>   penalty, because `COOC ALONE = +0.0464`: related words co-occur and the antonym effect is swamped.**
+>   🔻 `OPPOSED_PAIRS` = 6 class pairs, `lexical_similarity` = 86 concepts; **the real one is
+>   `wordnet_polarity_propagation`, antonym-aware, built two weeks before I began.*
+> - 📐 **THE 08-21/22 MEASUREMENT PASS, FOLDED TO A FLOOR -- ALL BAG-OF-WORDS, THE CHANNEL BOTH PLANS
+>   RULED OUT (`0.5167` = chance HANDED THE GOLD SENSE). KEPT, NOT A DIRECTION.** *A neighbour read-out
+>   decodes ALL 15 norm dims from our profiles (`Concreteness 0.4671` control-top, `Valence 0.3069` vs
+>   null `0.0385`, 15/15 at 5-12x null) -- my pairwise test said ~nothing (3/15) and WAS THE WRONG TEST.
+>   **~50-100 grounded words already propagate, past ~400 buys ~nothing, BUT IDF at 200 seeds (`0.2971`)
+>   beats OURS at 2,000 (`0.2638`).** ANISOTROPY: our nearest-seed cosine is HIGHER (`0.3965` vs `0.2415`)
+>   while carrying LESS.* ⚠️ *K unswept 3x; 25-seed row DEGENERATE; `null95` gates CONCRETENESS only;
+>   **all of it assigns ONE VALUE PER WORD where `PLAN_B` specifies a CONTEXT-CONDITIONED superposition.***
 >   `THE_WEAKER_TEST_SAID_TEXT_CARRIES_NOTHING_...` `HOW_SMALL_CAN_THE_GROUNDED_SEED_BE_...`
 > **3. THE HONEST TENSION BEHIND BOTH, WORTH THE OWNER'S EYE:** *the supplied table beats everything
 > we LEARN, on both word classes.* **Leaning on it raises scores; it is SUPPLY, not learning, and the
