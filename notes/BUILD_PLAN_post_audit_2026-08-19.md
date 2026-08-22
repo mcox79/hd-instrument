@@ -133,11 +133,11 @@
 >   penalty, because `COOC ALONE = +0.0464`: related words co-occur and the antonym effect is swamped.**
 >   🔻 `OPPOSED_PAIRS` = 6 class pairs, `lexical_similarity` = 86 concepts; **the real one is
 >   `wordnet_polarity_propagation`, antonym-aware, built two weeks before I began.*
-> - 📐 **THE 08-21/22 MEASUREMENT PASS, FOLDED TO A FLOOR -- ALL BAG-OF-WORDS, THE CHANNEL BOTH PLANS
->   RULED OUT (`0.5167` = chance HANDED THE GOLD SENSE).** *A neighbour read-out decodes all 15 norm dims
->   (`Valence 0.3069` vs null `0.0385`, 15/15 at 5-12x null); ~50-100 seeds already propagate but **IDF at
->   200 seeds (`0.2971`) beats OURS at 2,000 (`0.2638`)**; ANISOTROPY (nearest-seed cosine HIGHER, `0.3965`
->   vs `0.2415`, carrying LESS).* ⚠️ **ALL OF IT ASSIGNS ONE VALUE PER WORD where `PLAN_B` specifies a CONTEXT-CONDITIONED superposition.** `THE_WEAKER_TEST_...` `HOW_SMALL_...`
+> - 📐 **THE 08-21/22 MEASUREMENT PASS -- FLOOR ONLY, ALL BAG-OF-WORDS, THE CHANNEL BOTH PLANS RULED OUT
+>   (`0.5167` = chance HANDED THE GOLD SENSE).** *Read-out decodes all 15 norm dims (`Valence 0.3069` vs
+>   null `0.0385`); ~50-100 seeds propagate but **IDF at 200 beats OURS at 2,000**; ANISOTROPY.* ⚠️ **ALL
+>   OF IT ASSIGNS ONE VALUE PER WORD where `PLAN_B` specifies a CONTEXT-CONDITIONED superposition.**
+>   `THE_WEAKER_TEST_...` `HOW_SMALL_...`
 > **3. THE HONEST TENSION BEHIND BOTH, WORTH THE OWNER'S EYE:** *the supplied table beats everything
 > we LEARN, on both word classes.* **Leaning on it raises scores; it is SUPPLY, not learning, and the
 > organ's docstring forbids reporting it as the substrate having learned anything.** *Owner already
