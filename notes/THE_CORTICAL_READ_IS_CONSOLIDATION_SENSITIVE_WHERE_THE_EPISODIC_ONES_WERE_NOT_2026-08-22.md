@@ -75,6 +75,37 @@ blunt null as a capability statement is this project's most expensive recorded e
 work.** ➡️ **What a better test needs: a larger consolidated pool, a similarity measure without a
 structural floor, and probes whose correct answers are known in advance.**
 
+## 🔬 **RE-RUN ON THE SHARPER YARDSTICK -- AND THE INTERESTING NUMBER IS THE FLOOR, NOT THE ARM**
+
+The blunt-instrument suspicion was right. **Re-measured with the sensorimotor norms cosine, which has
+no taxonomy floor** (`cos(dog,cat) = 0.932` vs `cos(dog,democracy) = -0.693`) **and which is
+INDEPENDENT of the mechanism for a reason established earlier in this session: `read()` never
+consults the norms, so the substrate cannot have fitted to them.** 16 probes, 2,500 sentences.
+
+| arm | mean | median | n | 95% CI (bootstrap) |
+|---|---|---|---|---|
+| `recall_cortical` top-5 vs target | `0.2524` | `0.2523` | 53 | `[+0.1452, +0.3535]` |
+| **RANDOM term, same pool -- THE FLOOR** | `0.1850` | `0.1854` | 105 | `[+0.1078, +0.2673]` |
+
+**delta `+0.0675`, roughly 7x the WordNet delta -- so the blunt instrument WAS hiding it.**
+🔻 **BUT THE CIs OVERLAP HEAVILY, SO IT DOES NOT CLEAR THE BAR.** *A gate here is a CI-SEPARATED
+margin; this is not one, and the honest verdict is NOT_SEPARATED at n=53 vs 105.*
+
+> ### 🔑 **THE NUMBER I WAS NOT LOOKING FOR: THE POOL ITSELF SITS AT `0.1850` AGAINST A GLOBAL RANDOM-PAIR FLOOR OF `-0.0131`.**
+> **Whatever gets CONSOLIDATED is already far closer to the probe targets than words in general.** So
+> the decomposition worth testing is:
+> **(1) POOL-LEVEL SELECTION -- apparently strong, and doing most of the work.**
+> **(2) WITHIN-POOL RANKING -- not established (`+0.0675`, CIs overlap).**
+> ➡️ *That would mean the cortical read's value lies in WHAT IS CONSOLIDATED rather than in how it
+> ranks what it already holds -- a materially different claim from "the read-out is good", and a
+> different thing to build on.*
+
+⚠️ **AND THAT COMPARISON CROSSES POPULATIONS, SO IT IS INDICATIVE AND NOT A TEST.** The `-0.0131` was
+random pairs drawn from the WHOLE norms table; the `0.1850` is pool terms against THESE 16 probe
+targets. **Same yardstick, different populations -- exactly the crossing this project forbids in a
+verdict.** *Stated because the size of the gap makes it worth measuring properly, not because it is
+measured.*
+
 ## ➡️ WHAT IT CHANGES
 
 **B3' moves from *"no evidence it does anything"* to *"demonstrably the consolidation-sensitive
