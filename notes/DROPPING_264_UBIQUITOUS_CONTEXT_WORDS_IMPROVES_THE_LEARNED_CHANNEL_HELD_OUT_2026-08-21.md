@@ -6,6 +6,27 @@ This asks whether the substrate can have the same thing. It can, partly.**
 > **CONFIG: `GRADED_COMPARATOR=True`, passed EXPLICITLY. 28 corpora round-robin, 41 sentences per
 > word, 829 SimLex pairs, `d=1024`.**
 
+> # 🔻 **WITHDRAWN WITHIN THE HOUR. THE HELD-OUT CI IN THIS NOTE IS MONTE-CARLO NOISE.**
+> **This note reports `+0.0433`, CI `[+0.0002, +0.0994]`, "EXCLUDES ZERO". IT DOES NOT.** That
+> interval came from **200** split-resamples, which is too few to place a bound sitting that close to
+> zero. **I reported the favourable draw.** Re-run at **2,000** splits:
+>
+> | d | held-out gain | 95% CI | excludes 0 |
+> |---|---|---|---|
+> | **256 -- WHAT SHIPS** | **-0.0050** | `[-0.0629, +0.0365]` | **NO** |
+> | 1024 | +0.0434 | `[-0.0117, +0.0940]` | **NO** |
+>
+> ***NO EFFECT AT THE SHIPPED DIMENSION, and at `d=1024` a positive point estimate that does NOT
+> separate from zero. A HYPOTHESIS, NOT A RESULT.*** *The in-sample numbers and the inverted-U shape
+> below are unchanged and correct; the CLAIM built on them is withdrawn.*
+> ⚠️ **AND I NEVER TESTED THE SHIPPED DIMENSION BEFORE CLAIMING IT.** *Everything here is `d=1024`;
+> the live path is `d=256`. That check took one command and reversed the practical conclusion.*
+> **METHOD: 200 resamples is enough for a POINT ESTIMATE and not for a BOUND near zero -- the bound
+> moved `+0.0002 -> -0.0117` purely on resampling.**
+> *The FILTER DISSOCIATION (meaning collapses past the optimum, identification flat) is UNAFFECTED:
+> it rests on `0.1558 -> 0.0988` vs `0.2160 -> 0.2169`, far too large to be noise.*
+
+
 ---
 
 ## 1. THE SWEEP
@@ -84,8 +105,9 @@ so I chose the threshold on half the word-pairs and scored it on the other half,
 **The gain survives, at a bit under the headline figure, and the same threshold wins in 184 of 200
 splits.** The margin is real but slim.
 
-**This is the first change tonight that makes the system better rather than explaining why it isn't.**
-It closes a bit over half the gap to the rival — **it does not close it.**
+**I called this the first change tonight that makes the system better. That was wrong** — see the
+withdrawal at the top. The pattern in the numbers is real; the claim that it is a reliable gain is
+not, and at the size the live system actually uses there is no gain at all.
 
 **And it is not a trick borrowed from search engines.** The brain does this: something you encounter
 constantly stops producing much response. Our system was treating every surrounding word as equally
