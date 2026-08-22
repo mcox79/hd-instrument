@@ -99,6 +99,19 @@
 > base-form `praise` is REJECTED. Backwards BOTH ways.** ⚠️ *The sharpened cell HAS `units.jsonl` and is
 > STILL UNRE-RUN, so that split and its `0.4676 -> 0.4941` remain pre-repair. Types, not tokens.*
 > `I_RE_RAN_THE_WALL_...` `THE_CREDIT_ERRORS_ARE_NOT_WRONG_VERBS_...` `THE_VERB_DETECTOR_ADMITS_EVERY_PLURAL_NOUN_...`
+> 🔑 **AND WHY IT REPRODUCED TO FOUR DIGITS IS NOW MECHANICAL: THE REPAIR CHANGED THE *NAME* OF EACH
+> MISTAKE, NOT THE DECISION.** *`_is_verblike` fires on the SURFACE form before any lemma is stored, so
+> `babies` was credited as `babi` and is now credited as `baby` -- **same token, tidier label**. `8/8`
+> plural nouns still admitted.* ✅ *Invariant VERIFIED not quoted: `lemma_verb` over 6,000 forms emits
+> **0 non-words**, so the 89 non-word error lemmas are structurally impossible now -- they simply become
+> clean nouns that are ALSO still admitted.*
+> ✅ **THIS SETTLES THE SHARPENED CELL WITHOUT RE-RUNNING IT** *(it has `units.jsonl`; forcing a recompute
+> needs a deletion or harness change I will not make unilaterally)*: **`77` of its `84` real-word error
+> lemmas are STILL admitted today (`boy`, `amusement`, `carry`, `come`, `do`), so its `0.4676` and the
+> 73%-not-verbs analysis do NOT change in substance -- only the 52/21 split does, as non-words become
+> nouns. Restated: `~73%` of error types are NOUNS.**
+> ⚠️ *Types not tokens (3rd time -- no projected precision). The `-ed`/`-ing` clause is UNEXAMINED and
+> would admit `building`/`feeling`.* `WHY_THE_WALL_REPRODUCED_EXACTLY_...`
 >
 > **4. ✅ THE GROUNDING ORGAN WORKS, AND MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding`
 > HARD_PASS `0.967`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (the PREDICTED failure at
