@@ -56,6 +56,23 @@ statement -- three times in one night.** So: **adjectives are UNRESOLVED here an
 adjective population before anything is claimed either way.** *It is a lead, and the only thing worth
 saying is that it is the one class that did not clear.*
 
+### 🔻 **AND IT CANNOT BE RESOLVED WITH WHAT IS ON DISK. ENUMERATED 2026-08-22, SO NOBODY REPEATS THE SEARCH.**
+
+**Every benchmark in `data/encoder_eval_benchmarks/`, by POS:**
+
+| file | composition |
+|---|---|
+| `simlex999.txt` | `A 111` · `N 666` · `V 222` |
+| `simverb3500.txt` (+ dev/test splits) | `V 3500` — verbs only |
+| `wordsim353_combined.csv` | no POS column; **tagged it — exactly `1` adjective-adjective pair** (`smart`/`stupid`) |
+
+> ### **SimLex's `111` IS THE CEILING. There is no second adjective population to corroborate against, the way SimVerb corroborated the verb result.**
+
+➡️ **So the adjective question is not "unmeasured because nobody bothered" — it is UNANSWERABLE ON
+THE CURRENT ASSETS, and closing it needs a new adjective benchmark, not more analysis.** *Recorded
+because the verb finding above rests on TWO independent populations agreeing, and that route is
+simply not available here.*
+
 ## 4. 🚫 A NUMBER THAT MUST NOT BE CROSSED WITH THIS ONE
 
 The archive records **`SUPPLIED 0.2983` on SimVerb's `2,651` covered pairs**. **My `0.2676` is on
