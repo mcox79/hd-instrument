@@ -68,6 +68,20 @@
 > ⚠️ **THEIR OWN BOUNDARY, NOT SOFTENED: MECHANISM PROOFS ON CLEAN SIGNAL AT TINY SCALE (6 words, 28
 > items, 2-way animacy key); PLAN_B says "gap 0.000 is a CLEAN-corpus artifact". DESIGN SOUND != WORKS.**
 > ⭐ **THE LEVER, FROM PLAN_B'S OWN REVISED PLAN, NEVER WORKED: CREDIT-ASSIGNMENT -- attach a shown
+> 🔻 **AND THE FRONTIER ITSELF WAS TRIED ON 08-07 AND `HARD_FAIL`ED -- BUT NOT IN THE PRESCRIBED FORM.**
+>   *`exp_sharpened_credit_assignment_v1`: `primary 0.4167` vs floor `0.6389`, `lift 0.0167` (its own
+>   NO-SIGNAL band is <=0.05), attribution precision `0.4676 -> 0.4941`, coverage `23 -> 6`, reason
+>   **SCRAMBLE_STILL_DOES_NOT_COLLAPSE**. The parent wall: real `0.4722` vs scrambled `0.5000`, and
+>   **COVERAGE WAS EXPLICITLY NOT THE PROBLEM** (teacher fires 439/1655).*
+> 🔑 **BUT IT SHARPENED THE RULE *INSIDE* THE LOCAL WINDOW, AND BOTH DOCUMENTS SAY REPLACE THE WINDOW**
+>   *(CHARTER: "feed the maintained SituationModel + coref as the extraction context, REPLACING THE LOCAL
+>   WINDOW"; PLAN_B: "goal-linked consequence, NOT window co-occurrence").* **A sharper rule over the same
+>   window is still window co-occurrence -- the thing both name as the defect.** ⚠️ *That reading is an
+>   interpretation of a design difference, NOT a measurement.*
+> ⚠️ **I DID NOT ESTABLISH THE REPLACEMENT IS UNATTEMPTED.** *Phrase queries return 0 (positive control
+>   `"pattern separation"` = 12, so the tool works), **but `"situation"` alone = 55 and `"coref"` = 106 --
+>   161 cells UNENUMERATED. A search is not an enumeration.*** ➡️ **ENUMERATE THOSE 161 BEFORE BUILDING.**
+>   `THE_NAMED_LEVER_WAS_TRIED_AND_HARD_FAILED_...`
 > consequence to the RIGHT verb/goal, GOAL-LINKED, *NOT window co-occurrence*.** *Charter's wording:
 > feed the maintained SituationModel + coref as the extraction context, REPLACING THE LOCAL WINDOW.*
 > ⚠️ *LIMITS: I have NOT re-run those four cells (numbers quoted, module existence verified only);
@@ -75,40 +89,30 @@
 > supersession unverified after 08-12. This changes PRIORITIES, retracts no measurement.*
 > `THE_BOTTLENECK_HAS_BEEN_NAMED_IDENTICALLY_SINCE_AUGUST_5_...`
 > ✅ **THE PRESCRIBED NEXT ACTIONS WERE ALREADY BUILT AND RUN -- THE ORGAN WORKS.** *`governor_grounding`
->   HARD_PASS `0.967` differential / `0.956` unseen / **bow `0.517`**; `confirmation_test`
->   RULING_CONFIRMED (event-differing `0.500`, discourse `0.500` = the PREDICTED failure);
->   `twostage_event_situation_v2` HARD_PASS **B `1.000`, C `1.000`** vs governor `0.500`, **bow
->   `0.517`/`0.500`**; open-vocab PARTIAL.* 🎯 **DOUBLE DISSOCIATION (I nearly misread it as a control
->   failure): each subset's MATCHED scramble degrades (`0.583`/`0.650`), the UNMATCHED one does NOT.**
->   🔻 **SCALE: n = 21/12/12/8, and `Cgen` is n=2 -- that `1.000` CARRIES NOTHING (p=0.25).**
->   🔻 **CORRECTION: "counting beats us EVERYWHERE" was SCOPED WRONG -- all 16 measures are the
->   WORD-SIMILARITY channel, which both plans had ruled out (bow `0.5167` = chance HANDED THE GOLD
->   SENSE). On the grounding organ counting is at chance and we are not.** ➡️ **FRONTIER: OPEN VOCAB,
->   then REAL PROSE.** `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
-> ✅ **OPEN VOCABULARY: FULLY DIAGNOSED, ONE CAUSE, BOTH TOTALS CLOSE EXACTLY -- AND NOTHING REPAIRED.**
->   *Combiner is **SITUATION > EVENT > GOVERNOR**, so event-stage `None` = DECLINING, not failing.*
->   **`B` 10/12 = `0.8333` (errors `enemy` x2); `Bgen` 6/8 = `0.750` (errors `rival`, `thief`). ALL FOUR
->   ERRORS HAVE AN *ADVERSARIAL* PATIENT.** 🎯 **THE ANIMACY MAP CANNOT EXPRESS `ADVERSARIAL` -- an
->   EXPRESSIVENESS GAP, not a lookup bug.** ✅ *WordNet CAN supply it: 7/8 words at a `0.8%` base rate.*
-> 🔑 **IT MISSES `rival` FOR THE RIGHT REASON -- WordNet files it under `contestant`, correctly; the
->   hostility is in the gloss ("the contestant you hope to defeat"), not the taxonomy. A RIVAL IS AN
->   ADVERSARY *RELATIONALLY*, so the residue is EXACTLY the part both plans say needs SITUATION context.**
-> 🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF, NOT A DEFECT -- DO NOT TOUCH IT** *(it stops the
->   event stage double-handling verbs the governor knows; I had it queued as "the more interesting defect").*
-> 🔻 **THREE RETRACTIONS GETTING HERE** *("the cost is 3 words" -- `arm`/`hand`/`leg` are ALL handled
->   correctly; "the consumer is calibrated on the component's error"; the do-not-ship, now RESTORED).*
->   **ROOT FAULT: I compared `v2.lookup_animacy` vs the real lookup and THE CLOSED ARM DOES NOT CONSUME
->   IT.** ⚠️ **THE ANSWER WAS IN THE CELL'S DOCSTRING, LINE 52, NAMING `enemy/rival/thief` -- read past
->   twice over four turns.** ⚠️ *`pred_gov` not re-trained; event stage only; no arm run; `stranger` fires
->   and should not. Fixing 3 of 4 items would not restore `1.000`.*
+>   HARD_PASS `0.967`/`0.956`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (the PREDICTED failure
+>   at `0.500`); `twostage_event_situation_v2` HARD_PASS **B `1.000`, C `1.000`** vs governor `0.500`,
+>   **bow `0.517`/`0.500`**.* 🎯 **DOUBLE DISSOCIATION: each subset's MATCHED scramble degrades, the
+>   UNMATCHED one does not.** 🔻 **SCALE: n = 21/12/12/8, and `Cgen` is n=2 -- that `1.000` CARRIES
+>   NOTHING.** 🔻 **"counting beats us EVERYWHERE" WAS SCOPED WRONG: all 16 measures are the
+>   WORD-SIMILARITY channel, which both plans ruled out (bow `0.5167` = chance HANDED THE GOLD SENSE).**
+>   `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
+> ✅ **OPEN VOCABULARY: CLOSED, FULLY DIAGNOSED, NOTHING REPAIRED.** *Combiner is **SITUATION > EVENT >
+>   GOVERNOR**, so event-stage `None` = DECLINING.* **`B` 10/12 = `0.8333`, `Bgen` 6/8 = `0.750`, both
+>   totals CLOSE EXACTLY, and ALL FOUR ERRORS HAVE AN *ADVERSARIAL* PATIENT (`enemy` x2, `rival`,
+>   `thief`). THE ANIMACY MAP CANNOT EXPRESS `ADVERSARIAL` -- an EXPRESSIVENESS GAP, not a lookup bug.**
+>   ✅ *WordNet supplies it 7/8 at a `0.8%` base rate; **it misses `rival` CORRECTLY** (filed under
+>   `contestant`; the hostility is in the gloss) -- **A RIVAL IS AN ADVERSARY *RELATIONALLY*, so the
+>   residue is EXACTLY the part both plans say needs SITUATION context.*** 🔑 **THE `== "UNK"` GUARD IS
+>   A DELIBERATE HAND-OFF -- DO NOT TOUCH IT.** 🔻 **THREE RETRACTIONS GETTING THERE** *("the cost is 3
+>   words" -- `arm`/`hand`/`leg` are ALL correct; the "consumer calibrated on the error" story; the
+>   do-not-ship). **ROOT FAULT: compared `v2.lookup_animacy` vs the real lookup and THE CLOSED ARM DOES
+>   NOT CONSUME IT.** **THE ANSWER WAS IN THE DOCSTRING AT LINE 52 -- read past twice over four turns.***
+>   ⚠️ *READ not REPRODUCED; `pred_gov` not re-trained; event stage only; `stranger` fires and should not.*
 >   `BOTH_OPEN_VOCAB_SUBSETS_CLOSE_...` `WORDNET_CARRIES_ADVERSARIAL_...` `SUBSET_B_IS_NOW_...` `I_RETRACT_...`
-> ⚠️ **VERIFICATION STATUS (I had been claiming neither): those numbers are READ, NOT REPRODUCED.**
-> *Re-running gives `elapsed 0.0s` + `[resume] already done` -- checkpoints REPLAY, and **the no-op
-> re-run is INDISTINGUISHABLE FROM A PASS**.* ✅ *`--self-test` DOES recompute and reproduced the
-> pattern: two-stage `1.000` B and C, governor `0.500`, **bow `0.500` both**, scrambles `0.667`/`0.583`.*
-> ✅ **SCOPE MEASURED (detector positive-controlled): `399` of `7,868` landed cells, 5.1% -- NOT the
-> archive.** ➡️ *A `--fresh-units` flag is the clean fix; touches the harness, NOT done unilaterally.*
-> `RESUMABILITY_DEFEATS_REPRODUCTION_CHECKING_...`
+> ⚠️ **VERIFICATION: those numbers are READ, NOT REPRODUCED.** *Re-running gives `elapsed 0.0s` -- checkpoints
+>   REPLAY and **the no-op is INDISTINGUISHABLE FROM A PASS**. `--self-test` DOES recompute and reproduced
+>   the pattern. Scope measured (detector positive-controlled): `399` of `7,868` landed cells, 5.1%.*
+>   `RESUMABILITY_DEFEATS_REPRODUCTION_CHECKING_...`
 >
 > 🧭 **THE DIRECTION HAS A NAME AND IT WAS SET ON 2026-08-06, NOT TONIGHT: *ANCHOR + PROPAGATE*.**
 > *`SYNTHESIS_grounding_wall_definitive_2026-08-06` (237 grounding cells, 91 notes) established:* **(a)
