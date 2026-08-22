@@ -60,34 +60,26 @@
 > 🚨 **THIS PLAN HAD DRIFTED: it cited `PLAN_B_grounding_..._2026-08-07` -- a USER-CONFIRMED PLAN OF
 > RECORD -- ZERO TIMES (grep), named none of its proven components, and did not carry its bottleneck.**
 >
-> **1. 🟢 Q102 IS ANSWERED AND ITS CONDITION IS MET.** *Owner: "connect it only after it is doing the
-> job required of it... as according to the brain (which may have other supporting parts, right?)".*
-> ✅ **TESTED AGAINST THE VWFA'S DEFINING PROPERTY (INVARIANCE) AND IT PASSES: case invariance `1.0000`
-> (`cat/CAT`, `doctor/DOCTOR`, `London/LONDON`, `running/RUNNING`); position invariance `1.0000`;
-> inflection GRADED `0.31-0.51` (`child/children` `0.5059`); unrelated controls `0.0254-0.0771`.** *Organ
-> self-test reproduces, incl. `cos(entombment,burial) = -0.023` -- synonyms with different spellings at
-> ~zero, which is CORRECT for a FORM code and why it cannot inflate meaning.* ✅ **TASK BAR ALSO MET:
-> `ORGAN_MAP` A1 form `0.0870` vs live `0.0480`, CI-separated.**
-> 🧠 **"OTHER SUPPORTING PARTS" ANSWERED: in the brain the VWFA FEEDS lexical access rather than being
-> it -- so wire the form code as a SEPARATE IDENTITY CHANNEL, NEVER blended into the meaning vector.
-> Safe because it reads `rho -0.0259` on SimLex, INSIDE the shuffled null band.**
-> ⚠️ **WATCH CONDITION UNCHANGED: this may make a better INDEX without better UNDERSTANDING -- the tell
-> is recognition rising while meaning stays flat.** ⚠️ *NOT yet wired; that is a live-path change.*
-> `Q102_ANSWERED_THE_FORM_ORGAN_PASSES_THE_BRAINS_OWN_TEST_...`
-> 🔑 **AND THE LIVE IDENTITY CODE FAILS THE SAME TEST COMPLETELY.** *`symbol_vector` is a sha256-seeded
-> random bipolar draw, so it has NO form structure by construction:* **CASE INVARIANCE mean `-0.0026`
-> (hash) vs `+1.0000` (form organ); INFLECTION `+0.0208` vs `+0.4727`; and BOTH are ~0 on unrelated
-> controls -- so the form code ADDS invariance WITHOUT adding false similarity.** ***We are using a
-> demonstrably worse identity code than the one sitting unused.***
-> 🚨 **BLAST-RADIUS CHECK FIXED THE WIRING'S SHAPE: `symbol_vector` ALSO encodes RELATION LABELS
-> (`REL:^nmod` -- form similarity there is NOISE), has a second live consumer
-> (`perirhinal_conjunctive.py`), and its deterministic codes land in ACCUMULATED STORES, so swapping it
-> REWRITES EVERY PERSISTED SYMBOL CODE** *(same hazard as `256->1024`)*. ➡️ **THEREFORE THE WIRING IS
-> ADDITIVE -- a separate form-identity accessor ALONGSIDE `symbol_vector`, never a replacement.**
-> ✅ **THREE INDEPENDENT ARGUMENTS NOW AGREE ON THAT SHAPE: the brain (VWFA FEEDS lexical access), the
+> **1. 🟢 Q102 ANSWERED; ITS CONDITION IS MET AND THE WIRING'S SHAPE IS NOW FIXED.** *Owner: "connect it
+> only after it is doing the job required of it... as according to the brain (which may have other
+> supporting parts, right?)".*
+> ✅ **BRAIN BAR (VWFA = INVARIANCE): case `1.0000` on 4/4, position `1.0000`, inflection GRADED
+> `0.31-0.51`, unrelated `0.025-0.077`. Organ self-test reproduces, incl. `cos(entombment,burial)=-0.023`
+> -- synonyms spelled differently at ~zero, which is why it CANNOT inflate meaning.** ✅ **TASK BAR:
+> `ORGAN_MAP` A1 form `0.0870` vs live `0.0480`, CI-separated (spelling-shortcut caveat).**
+> 🔑 **AND THE LIVE IDENTITY CODE FAILS THE SAME TEST COMPLETELY: `symbol_vector` is a sha256 random draw
+> -- CASE INVARIANCE `-0.0026` vs the organ's `+1.0000`, INFLECTION `+0.0208` vs `+0.4727`, and BOTH ~0 on
+> unrelated, so the form code ADDS invariance WITHOUT false similarity.** ***We are using a demonstrably
+> worse identity code than the one sitting unused.***
+> 🚨 **BLAST RADIUS FIXED THE DESIGN: `symbol_vector` also encodes RELATION labels (`REL:^nmod` -- form
+> similarity there is NOISE), has a 2nd live consumer, and its codes land in ACCUMULATED STORES, so a swap
+> REWRITES EVERY PERSISTED CODE.** ➡️ **WIRING IS ADDITIVE: a form-identity accessor ALONGSIDE, never a
+> replacement.** ✅ **THREE INDEPENDENT ARGUMENTS AGREE: the brain (VWFA FEEDS lexical access), the
 > empirical HARD_FAIL (late-combine `0.2000` < form-alone `0.2533`), and store compatibility.**
-> ⚠️ *8 pairs; shows a BETTER IDENTITY CODE, NOT a downstream gain; edit NOT made.*
-> `THE_LIVE_IDENTITY_CODE_FAILS_THE_BRAINS_DEFINING_TEST_...`
+> ⚠️ **WATCH CONDITION UNCHANGED: a better INDEX is not better UNDERSTANDING -- the tell is recognition
+> rising while meaning stays flat.** ⚠️ *8 pairs; NOT a downstream gain; edit NOT made.*
+> `Q102_ANSWERED_...` `THE_LIVE_IDENTITY_CODE_FAILS_...`
+> **Q104 (the credit fork) remains OPEN.**
 > ✅ **AND PRIOR WORK EMPIRICALLY CONFIRMS THE "DO NOT BLEND" HALF:**
 > *`exp_substrate_concept_encoder_v2_vwfa_late_combine_2spoke` **HARD_FAIL** -- `ARM_V2_LATE_COMBINE`
 > `recall@5 0.2000` vs `max(VWFA 0.2533, SEM 0.1667)`: **"composition HURTS relative to best single
