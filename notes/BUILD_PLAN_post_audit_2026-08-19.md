@@ -66,15 +66,12 @@
 > TINY SCALE (6 words, 28 items); `PLAN_B` calls the zero gap "a CLEAN-corpus artifact". DESIGN SOUND !=
 > WORKS.** `THE_BOTTLENECK_HAS_BEEN_NAMED_...` `THE_SUBTRACT_ARM_FAILED_...`
 >
-> **3. 🔻 THE NAMED LEVER WAS TRIED 08-07 AND `HARD_FAIL`ED -- BUT NOT IN THE PRESCRIBED FORM.**
-> *`exp_sharpened_credit_assignment_v1`: `primary 0.4167` vs floor `0.6389`, `lift 0.0167` (its own
-> NO-SIGNAL band is <=0.05), attribution precision `0.4676 -> 0.4941`, coverage `23 -> 6`, reason
+> **3. 🔻 THE NAMED LEVER WAS TRIED 08-07 AND `HARD_FAIL`ED -- NOT IN THE PRESCRIBED FORM, AND ON BROKEN
+> PARTS (confound below).** *`exp_sharpened_credit_assignment_v1`: `primary 0.4167` vs floor `0.6389`,
+> `lift 0.0167` (its NO-SIGNAL band is <=0.05), precision `0.4676 -> 0.4941`, coverage `23 -> 6`, reason
 > **SCRAMBLE_STILL_DOES_NOT_COLLAPSE**. Parent wall: real `0.4722` vs scrambled `0.5000`; **COVERAGE WAS
-> EXPLICITLY NOT THE PROBLEM** (teacher fires 439/1655).*
-> 🔑 **IT SHARPENED THE RULE *INSIDE* THE LOCAL WINDOW; BOTH DOCUMENTS SAY REPLACE THE WINDOW** *(CHARTER:
-> "the maintained SituationModel + coref as the extraction context, REPLACING THE LOCAL WINDOW"; PLAN_B:
-> "goal-linked consequence, NOT window co-occurrence").* **A sharper rule over the same window is still
-> window co-occurrence.** ⚠️ *An interpretation of a design difference, NOT a measurement.*
+> EXPLICITLY NOT THE PROBLEM** (439/1655).* 🔑 **IT SHARPENED THE RULE *INSIDE* THE LOCAL WINDOW while both
+> documents say REPLACE THE WINDOW.** ⚠️ *An interpretation of a design difference, NOT a measurement.*
 > ⚠️ **I DID NOT ESTABLISH THE REPLACEMENT IS UNATTEMPTED** *-- phrase queries return 0 (positive control
 > `"pattern separation"` = 12), **but `"situation"` = 55 and `"coref"` = 106: 161 cells UNENUMERATED.***
 > ✅ **ENUMERATION DONE (150 unique cells, all rows read). THE PRESCRIBED REPLACEMENT IS UNATTEMPTED, AND
