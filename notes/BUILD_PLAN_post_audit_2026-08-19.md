@@ -93,6 +93,19 @@
 > | graded/signed mismatch | 🚫 not the cause *(already measured WITH a CI in STATUS -- 9th prior-work catch)* |
 > | 🔻 **drop ubiquitous context words -- WITHDRAWN** | *in-sample `0.1071 -> 0.1558` at d=1024, but at **2,000** splits (was 200, Monte-Carlo noisy): **d=256 (SHIPS) `-0.0050` CI `[-0.0629,+0.0365]`; d=1024 `+0.0434` CI `[-0.0117,+0.0940]` -- NEITHER EXCLUDES ZERO.** I reported the favourable draw. **A HYPOTHESIS, NOT A RESULT.** The DISSOCIATION below is unaffected (it rests on the collapse).* |
 >
+> **SPLIT BY CONCRETENESS (SimLex's own `conc` cols, tertiles, 200-shuffle null PER stratum):**
+> `ABSTRACT n=274 LEARNED 0.0471 / null 0.1162 / SUPPLIED 0.1957` | `MID n=281 **0.1697** / 0.1191 /
+> 0.3211` | `CONCRETE n=274 0.1154 / 0.1123 / 0.3210`. **LEARNED is INSIDE its null on ABSTRACT and
+> LEVEL with it on CONCRETE -- only MID clears. SUPPLIED clears all three.** ⚠️ **The per-stratum
+> null is `~0.115` vs `~0.065` on the full 829 -- that is n falling to a third, so do NOT read the
+> ordering as a profile of where the signal lives. Read it as: SPLIT THREE WAYS, OUR CHANNEL MOSTLY
+> CANNOT CLEAR ITS OWN NOISE while the supplied table does everywhere.** *Flagged as a QUESTION not
+> a finding: ORGAN_MAP cites Xu et al. 2025 that text-only channels recover NON-sensorimotor
+> (abstract) meaning WELL -- ours is weakest there, but that cell is inside its noise band.*
+> 🚫 **A DETECTOR I DECIDED NOT TO BUILD:** notes whose BODY withdraws their own claim while the
+> TITLE still asserts it. **Base rate `30 of 12,542` (0.24%) looked usable; reading ALL 27 flags
+> gives ~2 true positives, ~7% PRECISION. BASE RATE IS NOT PRECISION.** *The manual sweep still paid
+> -- it found TWO genuinely stale titles of mine tonight, both fixed.*
 > **THE FLOOR THAT MATTERS, WHICH I HAD NOT RUN ALL NIGHT:** `raw counting 0.0885 | OURS 0.1071 |
 > ours+drop 0.1558 | **idf-counting 0.1835** | supplied 0.2876`. **`IDF-OURS = +0.0764` CI
 > `[+0.0263,+0.1278]` SEPARATED -- the standing "behind counting" negative is now CROSS-TASK.**
