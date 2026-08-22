@@ -74,59 +74,15 @@
 > documents say REPLACE THE WINDOW.** ⚠️ *An interpretation of a design difference, NOT a measurement.*
 > ⚠️ **I DID NOT ESTABLISH THE REPLACEMENT IS UNATTEMPTED** *-- phrase queries return 0 (positive control
 > `"pattern separation"` = 12), **but `"situation"` = 55 and `"coref"` = 106: 161 cells UNENUMERATED.***
-> ✅ **ENUMERATION DONE (150 unique cells, all rows read). THE PRESCRIBED REPLACEMENT IS UNATTEMPTED, AND
->   🔻 **MY "ITS INPUTS ARE BROKEN" CONCLUSION IS WITHDRAWN -- THEY ARE FAILED *UPGRADES*.**
->   *`..._learned_stateful_write` says `learned-write <= MAIN_ENC`; `..._learned_identity_head` says **"no
->   better than frozen baseline"** -- both name a WORKING comparator. The `NO_GO` was a NEURAL coref
->   upgrade (`fastcoref` crashes on transformers 5.10.1 skew), never the prescribed one.* ✅ **THE CHARTER
->   LISTS BOTH INPUTS AS FAITHFUL: "coref is FAITHFUL/Centering-Cb", "3/6 components are faithful (coref,
->   situation-model binding, select+abstain)".**
-> 🔑 **PATTERN, 4th INSTANCE TONIGHT: I KEEP READING "AN ATTEMPT TO IMPROVE X FAILED" AS "X IS BROKEN"**
->   *(also: the body-part hole dug on purpose; the `UNK` hand-off; the retracted `arm` story).* **THE TELL
->   IS IN THE SUMMARY LINE -- a failure that CITES A COMPARATOR is a report about the comparator's RIVAL.**
-> ⚠️ **SO THE BUILD IS NOT BLOCKED FOR WANT OF PARTS -- but not therefore easy: the learned identity head
->   scored `1.000` on train and `0.672` held-out (MEMORISATION), so generalising entity identity IS hard.
->   My "real blocking item" from last turn is WITHDRAWN -- that blocks the UPGRADE, not the build.**
-> ✅ **VERIFIED BY RUNNING THEM (08-22): BOTH FROZEN COMPONENTS ARE LIVE.** *`situation_reader`'s OWN
-> self-tests pass richly -- `read_end_to_end` gives 3 sentences -> 2 entities, 5 events, **4 CROSS-SENTENCE
-> targets**; `frame_primary_wiring` fear/cherish -> EXPERIENCER, kick -> AGENT; `affect_wiring` battered ->
-> **HARM**; `frame_arity_gate` 16 cases all_pass. `coreference_resolver`'s `run_match_or_allocate` /
-> `run_strict_cb` / `run_recency_floor` all EXECUTE without error.*
-> 🔻 **BUT I HAVE NO VALID QUALITY READ ON THE COREF, AND WILL NOT PRETEND OTHERWISE:** *my ad-hoc
-> 6-mention passage scored the DEGENERATE `run_recency_floor` (everything in ONE cluster) as the BEST arm.*
-> **A metric the information-free arm WINS is not a metric -- this project's own rule, and mine failed it.**
-> ⚠️ *Also: `John`/`Mary` get `gender=None` (non-pronouns), so gender cannot link `He`->John in my toy
-> passage. The real evaluation is the landed cells (`centering_cb_...` MIDDLE_BAND), not this.*
-> ➡️ **RUNNING WAS THE QUESTION AND THE ANSWER IS YES -- THE PRESCRIBED BUILD IS UNBLOCKED FOR PARTS.**
-> 🔎 **SCOPED: `_credit_targets` derives subject/object POSITIONALLY and links referents by STRING
->   MATCH, while `SituationModel` already carries `agent`/`patient`, FRAME-BASED roles, per-event
->   `affect` and `CorefResolution`.** ✅ *Role half is a real upgrade.* 🔻 **BUT `CausalLink` carries its
->   VET caveat in a DATACLASS-FIELD COMMENT -- "REDUCIBLE to connective-else-most-recent" -- so wiring it
->   imports a RECENCY HEURISTIC; and `read(conll_path)` needs MENTION-ANNOTATED CoNLL while the loop
->   passes RAW PROSE.** `SCOPING_THE_PRESCRIBED_BUILD_...`
-> ✅ **AND THE ERROR SPLIT IS MEASURED: `73%` OF ERROR TYPES ARE *NOT VERBS AT ALL*.** *Of the 173 wrong
->   `light_lemmas`, **52% are NON-WORDS** and **21% are NOUNS with no verb sense** (`boy`, `friend`,
->   `lesson`); the 113 CORRECT ones are **100% real verbs** (internal control -- my checker is not the
->   broken thing).* 🔑 **CAUSE IS ONE LINE: `_is_verblike` = `lemma_verb(tok) != tok or -ed/-ing`, and
->   PLURALISATION CHANGES THE FORM -- so every plural noun passes (`7/10` confirmed live), while the real
->   base-form verb `praise` is REJECTED. Backwards in BOTH directions.** ⚠️ *Types, not tokens -- I will
->   not project a repaired precision.*
-> 🚨 **AND THE WALL ITSELF IS CONFOUNDED -- THE HIGHEST-VALUE ITEM IN THIS THREAD.** *`git log`: the
->   parent wall cell `fc21752f3` AND the sharpened fix `b5fdd956c` BOTH landed **2026-08-07**; the
->   lemmatizer they both depend on was repaired **2026-08-13** (`7d6036bca`): **"non-word stems 8,692 ->
->   0; gold verb-inflection 53.50% -> 99.03%"**. Every credit decision passed through it TWICE at
->   ~coin-flip accuracy.* ✅ **FINGERPRINT: the error list contains `ad` -- the repair's OWN example of the
->   old bug (`added -> ad`). So the 52% non-word share is a PRE-REPAIR ARTIFACT.**
-> ⚠️ **NOT CLAIMED: that the wall is FALSE. CLAIMED: it has NEVER been measured with working parts, while
->   BOTH plans of record treat it as SETTLED and derive their revised plans from it.**
-> ⭐ ➡️ **RE-RUN BOTH CELLS POST-REPAIR** *(a re-measurement, not a build; needs fresh-units, else they
->   replay).* **UNTIL THEN QUOTE THE WALL WITH ITS CONFOUND.** *Also open: a WordNet verb-sense gate fixes
->   both directions of `_is_verblike`; must be TESTED.*
->   `THE_REAL_PROSE_WALL_WAS_MEASURED_ON_A_LEMMATIZER_...` `THE_VERB_DETECTOR_ADMITS_EVERY_PLURAL_NOUN_...`
->   `THE_CREDIT_ERRORS_ARE_NOT_WRONG_VERBS_THEY_ARE_NOT_VERBS_...`
-> 🔧 *Fixed `experiment_index.py`: `--limit` was advertised by its truncation message and NEVER PARSED,
->   so >40-result questions could not be enumerated. Both forms verified; self-test passes.*
->   `I_KEEP_READING_A_FAILED_UPGRADE_AS_A_BROKEN_COMPONENT_...` `THE_PRESCRIBED_FIX_DEPENDS_...`
+> ✅ **ENUMERATION DONE (150 cells, all rows read): THE PRESCRIBED REPLACEMENT IS UNATTEMPTED, and 🔻 my
+>   "its inputs are broken" is WITHDRAWN -- those were failed *UPGRADES* (`learned-write <= MAIN_ENC`;
+>   "no better than frozen baseline"), and the charter LISTS BOTH INPUTS AS FAITHFUL.** ✅ **VERIFIED BY
+>   RUNNING THEM: `situation_reader` self-tests pass (3 sents -> 2 entities, 5 events, **4 CROSS-SENTENCE
+>   targets**; fear/cherish -> EXPERIENCER; battered -> HARM); the coref arms all execute.** 🔻 *But my
+>   ad-hoc coref metric was DEGENERATE -- the information-free `recency_floor` WON it, so I have no
+>   quality read.* 🔑 **PATTERN, 4th TONIGHT: I KEEP READING "AN ATTEMPT TO IMPROVE X FAILED" AS "X IS
+>   BROKEN". THE TELL IS THAT THE FAILURE CITES A COMPARATOR.**
+>   `I_KEEP_READING_A_FAILED_UPGRADE_AS_A_BROKEN_COMPONENT_...`
 >
 > **4. ✅ THE GROUNDING ORGAN WORKS, AND MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding`
 > HARD_PASS `0.967`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (the PREDICTED failure at
