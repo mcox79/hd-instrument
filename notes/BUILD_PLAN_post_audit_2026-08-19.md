@@ -41,6 +41,15 @@
 > 🧠 **BRAIN READ: consolidation is DEFINED by persisting across episodes. A system that discards its semantic store every run does not have a weak slow system -- it has none.** *Persistence half of the 08-19 replay gap (`cls_replay_cycle` built, never called); one dead attribute wide.*
 > ⚠️ **NOT MEASURED: whether loading would help. That is the EXPERIMENT, with the plan's own prediction pre-registered.** 🚫 *Do not quote `92 -> 92` -- 120 sentences is below the measured 100-400 grounding threshold.* `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
 >
+> ## 🏗️ **NEW OPERATING MODEL, OWNER 2026-08-22: STRATEGY SESSION + SOLVER SESSIONS, WITH A MACHINE-CHECKED HAND-OFF**
+> **Owner:** *"keep the long vision and longterm strategy here... create a folder with documents in which you identify hard problems to solve... I'll have a separate session dig in to specifically solve those problems. I'll use opus 4.8... while I'd like you to keep the 10k view and integrate solved issues."*
+> ✅ **BUILT: `notes/problems/README.md` (the protocol), `tools/problem_ledger.py` (the flag, self-test 7/7), and the first two briefs.**
+> 🔑 **WHY IT IS THE RIGHT SHAPE, MEASURED NOT ASSERTED: this session produced 15+ commits and ZERO touching capability code, because cell work routes to a subagent lane. THE STRATEGY SESSION CAN MEASURE, DOCUMENT AND GUARD; IT CANNOT BUILD. This opens the building lane instead of pretending the constraint is absent.**
+> ✅ **THE FLAG IS CODE, NOT A CONVENTION: a `SOLVED.md` must carry `bar`/`result`/`floor`/`controls`/`reverify`, and `problem_ledger.py` REFUSES one with no floor or no controls** -- *self-tested on exactly that case, plus a NEGATIVE control so `REFUTED` (a first-class outcome) is not flagged.* **Base rate that justifies it: 30 vetted HARD_PASS, 1 upheld.**
+> 📋 **QUEUE:** `stored_terms_are_stems` (**recommended FIRST** -- small, certain, owner-discovered, tests the loop) · `reader_meaning_channel` (**the flagship**) · then the flat store, foundation persistence, read-out discrimination, and the eval bank.
+> ⚠️ **COUPLING FLAGGED FOR WHOEVER TAKES THEM: reader and store interact -- fix the store first and you preserve a code with no meaning in it; fix the reader first and the store still destroys it. Each is independently measurable, so it is not blocking, but read both briefs.**
+> ❓ **Q111 OPEN: may solvers edit live `hdlab/` directly, or stage through `experiments/`?** *Both briefs currently assume direct access; the risk named is the documented lost-update that once destroyed a full audit.*
+>
 > ## ⛳ **WHERE THIS STANDS -- RE-COUNTED 08-22, THE OLD FIGURE WAS WRONG**
 > **Measurement and correction, not building: `205` commits, **`3` touched capability code** (not the
 > "~15%" this line used to claim), 288 note-writes, **16 of my own claims withdrawn**. Performance:
