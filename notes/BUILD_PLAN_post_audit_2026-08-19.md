@@ -94,11 +94,19 @@
 >   measuring the gap".** So `Bgap 0.500` is an HONEST RESOURCE HOLE.* ✅ *Real open-vocab result:
 >   `Bopen_two_stage_real 1.000`, lift `0.600`, bow `0.500`.* ⚠️ **THE GENUINE OPEN-VOCAB COST IS
 >   ELSEWHERE: `B_real 0.833` vs closed `1.000`; `Bgen_real 0.750` vs closed `1.000`. THAT is the frontier.**
-> ✅ **CANDIDATE FIX MEASURED: WordNet's own `body_part` hypernym at the TOP sense -> animate,
-> `agent_capable=False`. Catches 3/3 uncovered gap words and 8/8 obvious body parts, flags 0/8
-> controls, 1.2% base rate on 400 random nouns. Top-3 senses gains NOTHING and flags `hammer`.**
-> 🔻 *NOT a demonstrated gain -- I cannot show it raises `Bgap` because re-runs REPLAY checkpoints.*
-> `A_PRINCIPLED_REPLACEMENT_FOR_THE_BODY_PART_WHITELIST_...`
+> 🔻 **THE OPEN-VOCAB COST IS 3 WORDS, AND IT KILLED MY OWN PROPOSED FIX THE SAME NIGHT.**
+>   *`arm` (B), `hand`+`leg` (Bgen) are the ONLY closed-vs-real disagreements (Bopen/Bgap: 0; positive
+>   control: both agree on woman/dog/rock/table).* **CLOSED says `inanimate/object` -- WRONG -- and
+>   scores `1.000`; REAL says `animate/body_part` -- RIGHT -- and scores WORSE.** *Items are "he broke
+>   her arm", "he crushed her leg", "he smashed her hand", all gold HARM.* 🔑 **THE MORE CORRECT
+>   COMPONENT MAKES THE PIPELINE WORSE -- THE CONSUMER IS CALIBRATED ON THE COMPONENT'S ERROR. An
+>   INTEGRATION defect, not a coverage hole.** 🔻 *My WordNet body-part fix assigns EXACTLY that losing
+>   value, so it would repair `Bgap` and REGRESS `B`/`Bgen`; **my component demo could not see it -- it
+>   compared the lookup against ITSELF and never asked what the consumer does.** DO NOT SHIP IT.*
+>   ⚠️ *NOT PROVEN: no arm re-run with values swapped. `Bgen`'s 2 errors are exactly accounted for;
+>   `B` has 2 errors and only 1 disagreeing word, so ONE IS UNEXPLAINED.*
+>   ⭐ **THE BIGGER QUESTION: WHAT OTHER DOWNSTREAM LOGIC IS CALIBRATED ON A COMPONENT'S ERRORS?**
+>   `A_PRINCIPLED_REPLACEMENT_...` `THE_MORE_CORRECT_LOOKUP_SCORES_WORSE_...`
 > `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
 > ⚠️ **VERIFICATION STATUS (I had been claiming neither): those numbers are READ, NOT REPRODUCED.**
 > *Re-running gives `elapsed 0.0s` + `[resume] already done` -- checkpoints REPLAY, and **the no-op

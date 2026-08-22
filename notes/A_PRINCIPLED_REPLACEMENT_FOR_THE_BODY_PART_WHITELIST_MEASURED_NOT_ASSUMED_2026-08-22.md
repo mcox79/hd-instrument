@@ -1,5 +1,15 @@
 # **THE BODY-PART GAP HAS A PRINCIPLED FIX: WORDNET'S OWN `body_part` HYPERNYM AT THE TOP SENSE. CATCHES 3/3 OF THE DELIBERATELY-UNCOVERED WORDS AND 0/8 CONTROLS, AT A 1.2% BASE RATE.**
 
+> # 🔻 **DO NOT SHIP THIS ON THE EVIDENCE BELOW. SAME-NIGHT CORRECTION.**
+> **The value this fix assigns -- `animate`/`body_part` -- is EXACTLY the value that is already COSTING
+> accuracy on `arm`, `hand` and `leg`, the three words that account for the whole open-vocabulary
+> shortfall.** *The closed lexicon calls them `inanimate`/`object`, which is WRONG, and scores `1.000`;
+> the real lookup calls them `animate`/`body_part`, which is RIGHT, and scores worse.* **So this fix
+> would make MORE words take the losing value -- plausibly repairing `Bgap` while REGRESSING `B` and
+> `Bgen`.** ⚠️ *And the component demonstration in section 3c CANNOT see that: it compares the lookup
+> against itself and never asks what the consumer does with the value.*
+> `THE_MORE_CORRECT_LOOKUP_SCORES_WORSE_...`
+
 **A candidate fix with its error behaviour MEASURED -- not a demonstrated improvement. Read section 4
 before using it.**
 
