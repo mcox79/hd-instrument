@@ -77,8 +77,22 @@
 > window co-occurrence.** ⚠️ *An interpretation of a design difference, NOT a measurement.*
 > ⚠️ **I DID NOT ESTABLISH THE REPLACEMENT IS UNATTEMPTED** *-- phrase queries return 0 (positive control
 > `"pattern separation"` = 12), **but `"situation"` = 55 and `"coref"` = 106: 161 cells UNENUMERATED.***
-> ➡️ **ENUMERATE THOSE 161 BEFORE BUILDING.** *Every time I skipped that tonight, the work already existed.*
-> `THE_NAMED_LEVER_WAS_TRIED_AND_HARD_FAILED_...`
+> ✅ **ENUMERATION DONE (150 unique cells, all rows read): THE PRESCRIBED REPLACEMENT IS UNATTEMPTED --
+>   AND ITS TWO INPUTS ARE BROKEN.** *`situation_model_assembly_learned_stateful_write` **HARD_FAIL**
+>   (learned write <= frozen encoder on all 3); `situation_model_assembly_learned_identity_head`
+>   **HARD_FAIL** (held-out `0.672` vs a `0.80` bar, **train `1.000` = MEMORISATION**);
+>   `extraction_quality_gate_neural_foundation` **NO_GO** (neural coref would not install -> rule-based
+>   fallback); `interactive_extraction_situation_model_loop_probe1` **never landed**.*
+> 🔑 **SO THE FRONTIER IS DEEPER THAN "BUILD THE REPLACEMENT" -- the two things it consumes do not work
+>   yet, which reframes the sharpened-credit HARD_FAIL from "wrong fix chosen" to "the right fix had no
+>   working inputs".** ⚠️ *That is my reading of the dependency structure; no note states it.*
+> ➡️ **REAL BLOCKING ITEM: the maintained situation model generalising to UNSEEN ENTITIES.** *Also worth
+>   a cheap re-check: the coref `NO_GO` is an INSTALL failure, not a science result.*
+> 🔧 *Fixed `experiment_index.py`: `--limit` was advertised by its truncation message and NEVER PARSED
+>   (stripped by the `--` filter), so >40-result questions could not be enumerated. Verified both forms;
+>   self-test passes. **I first accused it of SILENT truncation -- wrong, I had cut its warning off with
+>   my own `head`.*** `THE_PRESCRIBED_FIX_DEPENDS_ON_TWO_COMPONENTS_THAT_HARD_FAILED_...`
+>   `THE_NAMED_LEVER_WAS_TRIED_AND_HARD_FAILED_...`
 >
 > **4. ✅ THE GROUNDING ORGAN WORKS, AND MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding`
 > HARD_PASS `0.967`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (the PREDICTED failure at

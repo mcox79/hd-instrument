@@ -333,11 +333,23 @@ def main() -> int:
     if cmd == "query":
         args = sys.argv[2:]
         all_terms = "--all-terms" in args
+        # --limit WAS ADVERTISED BY THE TRUNCATION MESSAGE AND NEVER PARSED (fixed 2026-08-22):
+        # the filter below stripped every "--" token, so `--limit 200` was silently discarded and
+        # the tool told you to raise a flag that did not exist. An enumeration tool whose own
+        # remedy for truncation is unimplemented cannot answer an absence question.
+        limit = 40
+        for i, a in enumerate(args):
+            if a.startswith("--limit="):
+                limit = int(a.split("=", 1)[1])
+            elif a == "--limit" and i + 1 < len(args) and args[i + 1].isdigit():
+                limit = int(args[i + 1])
         args = [a for a in args if not a.startswith("--")]
+        if limit != 40 and args and args[-1].isdigit():
+            args = args[:-1]                      # drop the bare "--limit N" value
         if not args:
             print("give at least one term", file=sys.stderr)
             return 2
-        return query(args, all_terms=all_terms)
+        return query(args, all_terms=all_terms, limit=limit)
     print(__doc__)
     return 2
 
