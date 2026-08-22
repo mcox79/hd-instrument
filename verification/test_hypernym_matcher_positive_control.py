@@ -75,4 +75,13 @@ print("      equally, so the COMPARISON stands; the absolute rate is a lower bou
 print("\nRESULT: %s" % ("PASS -- the matcher fires on real hypernyms and stays silent on random "
                         "words, so a 0.0%% floor is a real floor."
                         if not fails else "FAIL -- " + "; ".join(fails)))
-raise SystemExit(1 if fails else 0)
+# GUARDED 2026-08-22. This file is a SCRIPT (it defines zero `test_` functions) living under a name
+# pytest collects. A bare `raise SystemExit` at module level is fine when run directly and fatal
+# under collection: pytest reports it as INTERNALERROR and ABORTS THE WHOLE SESSION.
+#
+# MEASURED CONSEQUENCE: `verification/run_certification.py` -- which CLAUDE.md requires to pass on
+# main -- has exited 3 and run ZERO of its 456 collected tests since this file landed on 2026-08-20.
+# The report still said "RESULT: PASS" in its own output, because this script's print ran before the
+# crash, which is why nobody noticed.
+if __name__ == "__main__":
+    raise SystemExit(1 if fails else 0)
