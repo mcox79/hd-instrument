@@ -98,9 +98,25 @@ def test_mechanism_fires():
 
 
 def test_self_test_passes():
-    # the module's own embedded self_test (same cases) must pass
+    # the module's own embedded self_test (same cases) must pass.
+    #
+    # CORRECTED 2026-08-22: this hard-coded `== 6`, and I broke it hours earlier by adding a 7th case
+    # to the module's self_test (a genuine majority-fallback case, needed because correcting a stale
+    # expectation had left that path uncovered). I then reported the suite green, because running
+    # this FILE directly executes its `__main__` block -- which does not call this function. A count
+    # pinned to a literal fails the moment the thing it counts legitimately grows.
+    #
+    # Now asserts the PROPERTY that matters -- every case the module ships was exercised and all
+    # channels are represented -- instead of a magic number that must be edited whenever coverage
+    # improves.
     r = self_test()
-    assert r["n"] == 6
+    assert r["n"] >= 6, f"the module's self_test shrank to {r['n']} cases"
+    assert r["n"] == len(r["cases"]), \
+        f"self_test reported n={r['n']} but returned {len(r['cases'])} cases"
+    channels = {str(c).split(":")[0] for _outcome, _verdict, c in r["cases"]}
+    for required in ("relation", "valence", "contrast_override", "majority"):
+        assert required in channels, \
+            f"channel {required!r} is no longer exercised by the module's self_test ({channels})"
 
 
 def test_graceful_and_types():
