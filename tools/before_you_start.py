@@ -134,9 +134,96 @@ def main():
     else:
         print("!! %d total matches. READ EVERY ROW A QUERY RETURNED BEFORE QUOTING ANY OF THEM --" % total)
         print("   on 2026-08-21 a 4-row result was read at row 1, and row 4 reversed row 1.")
+    concurrent_work(terms)
     print("\nSTILL TO DO BY HAND: `python tools/organ_map_cite.py <ORGAN_ID>` if an organ is involved,")
     print("and grep data/capability_registry.jsonl for the capability name.")
     return 0
+
+
+def recent_commits(hours: int = 72):
+    """(subjects, error) for the last `hours` of git log. Never returns a bare empty on failure."""
+    import subprocess
+    try:
+        # `text=True` decodes with the ANSI codepage (cp1252 here), NOT utf-8. Measured 2026-08-22:
+        # one undecodable byte in a commit subject kills subprocess's reader thread, and the call
+        # then returns **stdout=None with returncode 0 and an EMPTY stderr** -- so the failure is
+        # indistinguishable from a clean empty log. This tool would have printed "nobody else is on
+        # it", its single most dangerous output. Same class as the repo's PowerShell text-mode rule.
+        out = subprocess.run(["git", "log", "--since=%d.hours" % hours, "--format=%h\t%s"],
+                             cwd=str(REPO), capture_output=True, timeout=20,
+                             encoding="utf-8", errors="replace")
+        if out.returncode != 0:
+            return [], (out.stderr or "git log failed").strip().splitlines()[0][:70]
+        if out.stdout is None:
+            return [], "git log returned rc=0 but no stdout (decode failure) -- NOT an empty log"
+        return [l for l in out.stdout.splitlines() if l.strip()], None
+    except Exception as e:                                    # noqa: BLE001
+        return [], "%s: %s" % (type(e).__name__, e)
+
+
+def open_claims():
+    """(rows, error) for queue items currently CLAIMED by somebody."""
+    try:
+        import json
+        p = REPO / "data" / "dispatch_queue.jsonl"
+        if not p.exists():
+            return [], "no data/dispatch_queue.jsonl on disk"
+        rows = []
+        for line in p.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                d = json.loads(line)
+                if d.get("status") == "claimed":
+                    rows.append(d)
+        return rows, None
+    except Exception as e:                                    # noqa: BLE001
+        return [], "%s: %s" % (type(e).__name__, e)
+
+
+def concurrent_work(terms):
+    """IS SOMEBODY ELSE DOING THIS RIGHT NOW? The three archives answer 'was it done'; none of them
+    can see work that is IN FLIGHT.
+
+    Measured 2026-08-22, two strategy sessions on one repo in one afternoon: a permissions audit was
+    answered twice 44 minutes apart, and the SAME tool file was written twice simultaneously -- the
+    second copy landed on disk before the first author staged it, so a commit shipped the other
+    session's code under its own message. **A lost update with no error, no conflict and no
+    warning.** The git-log half would have caught the first; only a CLAIM can catch the second.
+    """
+    print("-" * 78)
+    print("IS SOMEONE ELSE ALREADY ON IT?  (the archives answer 'was it DONE', never 'is it BEING")
+    print("done' -- on 2026-08-22 that gap cost two duplicated audits and one lost file)")
+
+    commits, err = recent_commits()
+    if err:
+        print("  !! recent commits UNKNOWN (%s) -- absence NOT established" % err)
+    else:
+        # Rank by HOW MANY DISTINCT TERMS a subject matches, not by recency. A single generic term
+        # ("fix", "queue") matches ~11% of a 700-commit window, and a guard that flags one commit in
+        # nine is one nobody reads. Sorting by term-overlap puts the genuine collision on line 1.
+        scored = []
+        for c in commits:
+            k = sum(1 for t in terms if t.lower() in c.lower())
+            if k:
+                scored.append((k, c))
+        scored.sort(key=lambda kc: -kc[0])
+        print("  scanned %d commits from the last 72h; %d mention your terms (best overlap first)"
+              % (len(commits), len(scored)))
+        for k, c in scored[:8]:
+            print("     >> [%d terms] %s" % (k, c[:88]))
+
+    claims, err = open_claims()
+    if err:
+        print("  !! open claims UNKNOWN (%s) -- absence NOT established" % err)
+    else:
+        hit = [c for c in claims
+               if any(t.lower() in (c.get("title", "") + " " + c.get("brief", "")).lower()
+                      for t in terms)]
+        print("  %d item(s) currently CLAIMED in the queue; %d match your terms" % (len(claims), len(hit)))
+        for c in hit[:8]:
+            print("     >> [%s] %s" % (c.get("claimed_by"), str(c.get("title"))[:70]))
+        if hit:
+            print("  ^^ TALK TO THAT OWNER BEFORE STARTING. If it is you, carry on.")
+    print("  CLAIM YOURS:  python tools/dispatch_queue.py claim <id> --by <session>")
 
 
 def _self_test():
@@ -153,6 +240,15 @@ def _self_test():
     # NEGATIVE CONTROL -- a nonsense term must return zero, proving non-zero means something.
     res2, err2 = run_query("zzqqxx_not_a_real_term")
     assert err2 is None and res2[0] == 0, "known-absent term returned %r" % (res2,)
+    # POSITIVE CONTROL ON THE CONCURRENT-WORK HALF. A `git log` that silently returns nothing reads
+    # exactly like "nobody else is on it" -- the most dangerous output this tool can produce, and
+    # the same defect that made `director_kb_query.py` useless while reporting success.
+    commits, cerr = recent_commits(hours=24 * 3650)
+    assert cerr is None, "git log failed: %s" % cerr
+    assert len(commits) > 100, "recent_commits returned %d -- it CANNOT establish absence" % len(commits)
+    claims, qerr = open_claims()
+    assert qerr is None, "queue unreadable: %s" % qerr
+    assert all("id" in c for c in claims), "a claimed row is missing its id"
     print("self-test PASS (verb extraction, activities-first ordering, "
           "known-present control %d cells, known-absent control 0)" % res[0])
     return 0
