@@ -80,27 +80,36 @@ clear of noise at EVERY dimension. Room is not what stands between us and unders
 `THE_LIMIT_IS_DIMENSIONAL_...` `DIMENSION_BUYS_THE_LOOKUP_NOT_THE_UNDERSTANDING_...`
 *(Prev top item "wire definitional direct-bank" CLOSED -- already live, 212 of 402 rows.)*
 
-## 🌙 THE NIGHT OF 2026-08-21 -- **ONE LINE PER FINDING. FULL TEXT IN THE NAMED NOTE.**
+## 🌙 THE NIGHT OF 2026-08-21 -- **COLLAPSED. NOT THE ONLY COPY: every row lives in its named note
+AND in the plan's consolidated top block. Do NOT re-expand.**
 
-*Compressed from 7,155 B on 2026-08-21 late. Every row's detail is in its note AND in the plan's
-consolidated top block; nothing here is the only copy. **Do not re-expand: this section was 24% of a
-file already over cap.***
-
-| # | finding, with the number that carries it |
+| # | the number that carries it |
 |---|---|
-| **META / PROCESS** | **All 4 planned thrusts were ALREADY ANSWERED ON DISK; the defect was ORDER, not omission.** *The full process ledger -- 9 prior-work catches, the 2 new reads (`symbol_corrections.py`, `cite_check.py`), the 28-corpora shelf correction, the alphabetical live reader, the registry lost-update, the stale board header, the GUI crash, and the detector I did NOT build -- now lives in the plan's consolidated top block. **Evicted from here 08-21 late: it was the only copy of nothing.*** [`METHOD_REVIEW_...`] |
-| **H2** | The anti-skew organ **read its way to `textbook_biology 0.63245`** while WINNING on its own currency. **MVT is a LEAVE rule, silent on WHERE TO GO.** *Register-inversion headline WITHDRAWN (7.6x bias under a 1.2x margin).* [`T1_foraging_...`] |
-| **E3** | **Coreference "salience" is PROVABLY a mention-count** -- `argmax_count_fraction = 1.0` on all 89 competitive decisions. **`base_principle_b` beat a COUNTER, not a cue account.** [`T2c_...`] |
-| **E3b** | ...and that `HARD_FAIL` **cannot support its own verdict**: n=89, scramble ABOVE treatment, 2 of 3 params hand-set. **Re-label UNDERPOWERED.** [`T2b_...`] |
-| **B4** | **Spelling beats the meaning read-out at rank 1** (`0.0767` vs `0.0480`), survives the strictest tie convention -- **but the substrate WINS the full ranking `37.0` vs `54.0`. THE DEFECT IS PRECISION AT THE TOP.** [`T5b_...`] |
-| **B4b** | **The live grounding path reads a GRADED field with a SIGN-QUANTISED query** -- `canonicalize:776` hardcodes `np.sign`; `:663` calls that pairing *"worse than either"*. [`T3_...`] |
-| ⭐ **RATE** | **WRITE LESS: `0.0710 -> 0.3079` at p90, 4.3x, no new mechanism -- BUT a RATE-MATCHED RANDOM GATE MATCHES IT AT EVERY THRESHOLD.** *So prediction-error gating is REFUTED; the gain is RATE.* ⛔ **every arm stays BELOW co-occurrence.** [`THE_RATE_SWEEP_IS_ALREADY_DONE_...`] |
-| **NORMS12** | **SUPPLIED human ratings, 12 dims -- and measured 08-21 against what we LEARNED on 829 IDENTICAL pairs, one scorer: `SUPPLIED euclid 0.2876 | SUPPLIED cosine 0.2176 | LEARNED d=1024 0.1071 | LEARNED d=256 0.0944` (nulls 0.063-0.076). 2.69x.** *The archive's 2.7x was an inference across two cells on different pair sets; this is its first honest test.* 🎯 **EUCLID BEATS COSINE BY `+0.0700`, MORE THAN OUR ENTIRE LEARNED ARM CLEARS ITS OWN NULL (`0.0440`).** ✅ **`GROUNDED_CAP=0.45` IS A MEASURED SAFETY PROPERTY, NOT A CRIPPLING -- I had been quoting it as a defect and was WRONG:** raw cosine cannot separate `sofa/couch 0.968` from `apple/orange 0.952`, so the cap sits BELOW the 0.50 merge threshold to make a false identity merge impossible BY CONSTRUCTION; only the TOP is flattened. *Its own escape clause is "this SAME metric" -- and 3 measurements say euclid beats cosine on exactly that contrast.* 🚫 **SUPPLY, NOT LEARNING -- the organ's docstring forbids reporting it as the substrate having learned perceptual structure.** ⚠️ token coverage 60.4%. [`SUPPLIED_BEATS_LEARNED_2_69x_...`] [`THE_CAP_IS_PRINCIPLED_...`] |
-| **CHANCE?** | **CORRECTED, I OVER-REACHED:** three measurements do NOT license "at or near chance" -- the trained substrate is **+16.3 pp REPLICATED** over an untrained codebook. **But `SUBSTRATE - COUNTING = -0.142` CI `[-0.203,-0.082]` SEPARATED: measurably BEHIND counting.** ⭐ **AND THAT NEGATIVE IS NOW CROSS-TASK (08-21 late).** *Same 829 SimLex MEANING pairs, different scorer, different population:* `counting RAW 0.0885 | OURS d=1024 0.1071 | counting +IDF 0.1835 | supplied norms 0.2876`; **`IDF - OURS = +0.0764` CI `[+0.0263,+0.1278]`, EXCLUDES ZERO.** ✅ *We DO beat RAW counting -- the loop is not doing nothing.* 🔻 **But ONE standard weighting (idf) is worth `+0.0950` where our whole learned signal clears its null by `0.0440`.** 🚫 **ANY CLAIM ON THIS BENCHMARK MUST CLEAR `0.1835`, NOT raw counting and NOT a shuffle -- I had been using the weak floor all night.** [`COUNTING_WITH_ONE_STANDARD_WEIGHTING_...`] [`THREE_INDEPENDENT_MEASUREMENTS_...`] |
+| **META** | All 4 planned thrusts were ALREADY ANSWERED ON DISK; the defect was ORDER, not omission. [`METHOD_REVIEW_...`] |
+| **H2/E3/B4** | Foraging read its way to `textbook_biology 0.63245` (register headline WITHDRAWN, 7.6x bias). Coref "salience" is PROVABLY a mention-count (`argmax_count_fraction 1.0`, n=89) and that HARD_FAIL is UNDERPOWERED. Spelling beats the meaning read-out at rank 1 (`0.0767` vs `0.0480`) but the substrate WINS the full ranking (`37.0` vs `54.0`) -- **the defect is PRECISION AT THE TOP.** [`T1_`,`T2b_`,`T2c_`,`T5b_`] |
+| ⭐ **RATE** | **WRITE LESS: `0.0710 -> 0.3079` at p90, 4.3x -- BUT A RATE-MATCHED RANDOM GATE MATCHES IT.** *Prediction-error gating REFUTED; the gain is RATE.* ⛔ every arm stays BELOW co-occurrence. [`THE_RATE_SWEEP_...`] |
+| **NORMS12** | 829 identical pairs, one scorer: `SUPPLIED euclid 0.2876 | cosine 0.2176 | LEARNED d=1024 0.1071 | d=256 0.0944` (nulls 0.063-0.076). **EUCLID BEATS COSINE BY `+0.0700`, MORE THAN OUR WHOLE ARM CLEARS ITS NULL (`0.0440`).** ✅ `GROUNDED_CAP=0.45` is a MEASURED SAFETY PROPERTY, not a defect -- raw cosine cannot separate `sofa/couch 0.968` from `apple/orange 0.952`. 🚫 SUPPLY, NOT LEARNING. ⚠️ token coverage 60.4%. [`SUPPLIED_BEATS_LEARNED_2_69x_`,`THE_CAP_IS_PRINCIPLED_`] |
+| **CHANCE?** | **CORRECTED, I OVER-REACHED:** the trained substrate is **+16.3 pp REPLICATED** over an untrained codebook. **But `SUBSTRATE - COUNTING = -0.142` CI `[-0.203,-0.082]` SEPARATED**, and that negative is now CROSS-TASK: `counting RAW 0.0885 | OURS 0.1071 | counting+IDF 0.1835 | supplied 0.2876`, **`IDF - OURS = +0.0764` CI `[+0.0263,+0.1278]`.** 🚫 **ANY CLAIM HERE MUST CLEAR `0.1835`, not a shuffle.** [`COUNTING_WITH_ONE_STANDARD_WEIGHTING_`,`THREE_INDEPENDENT_MEASUREMENTS_`] |
 
 ## WHAT IS RUNNING
 
 - ⬜ **NOTHING IS RUNNING.**
+- 🔻 **MY PREDICTED FIX FAILED ITS OWN TEST.** *Subtracting co-occurrence from the verb score hurts
+  MONOTONICALLY (`+0.0062 -> -0.0464`), in-sample best lambda is **0.0 = do not do it**, held-out
+  `-0.0005`, and it is WORSE THAN A RANDOM PENALTY at every lambda.* **WHY: `COOC ALONE = +0.0464` --
+  co-occurrence is POSITIVELY correlated with human similarity. Related words co-occur; the antonym
+  effect is real but SWAMPED.** *Gates passed first (OURS `+0.0062` on the exact 646/2,651).*
+  ⚠️ *idf reproduced `0.0819` here vs `0.0689` recorded -- real script difference, flagged.*
+- 🔑 **AND THE PROPAGATOR I WAS INVENTING IS BUILT AND `HARD_PASS`:** *`PLAN_B_grounding_..._2026-08-07`
+  is a **USER-CONFIRMED PLAN OF RECORD** I had never opened. Its build-order stage 1 is DONE:*
+  **a 12-WORD seed via `hdlab/wordnet_polarity_propagation.py` -> `0.833` on 12 HELD-OUT verbs**
+  (scramble `0.483`, **seed-ablation `0.000`**, random-theta `0.467`), **and its Stage A predicts the
+  OPPOSITE pole from WordNet antonyms -- the opposition mechanism distributional propagation lacks.**
+  🔻 **SO I SPENT THE NIGHT MEASURING A PROPAGATOR WORSE THAN ONE ON DISK.** ⚠️ *Numbers NOT
+  comparable (12-word polarity accuracy vs 1,000-word rank rho); the fair comparison is STRUCTURAL.*
+  ⚠️ *WordNet-SUPPLIED, not learned.* ⚠️ **AND EVERY NUMBER TONIGHT ASSIGNS ONE VALUE PER WORD, while
+  the plan specifies a CONTEXT-CONDITIONED superposition -- so they are a FLOOR, not a test of it.**
+  `THE_SUBTRACT_ARM_FAILED_...`
 - 🔑 **THE FORK IS ANSWERED: TEXT *DOES* SEPARATE OPPOSITES FROM SYNONYMS -- AND WE INVERT IT.**
   *Full shelf, freq-matched, RANDOM-pair negative control PASSES (`8.64` lowest):* **cond "X and/or Y"
   ANTONYMS `0.0782` vs SYNONYMS `0.0269` (2.91x) vs RANDOM `0.0022` (34.8x)**; %never-co-occur `13.3`
@@ -121,10 +130,8 @@ file already over cap.***
   25-seed row is DEGENERATE (constant prediction -> exactly 0.0000, the reachability signature) and
   `null95` gates CONCRETENESS ONLY, not MEAN15.** ⚠️ *Random seed = pessimistic; K still unswept.*
   `HOW_SMALL_CAN_THE_GROUNDED_SEED_BE_...`
-- 📏 **This file sits just inside its 28,672 B cap.** *It was 30,147 B at the start of 2026-08-21
-  late. What paid for it was EVICTION, not trimming -- twice now: the night-findings table
-  (7,155 -> 3,303 B) and this section, which had filled with FINISHED work. **When it next needs
-  space, delete a duplicate; do not shave words.*** `STATUS_SPEC.md` sec 6.
+- 📏 **AT ITS 28,672 B CAP. What pays for space is EVICTION, not shaving -- delete a DUPLICATE.**
+  *`STATUS_SPEC.md` sec 6.*
 - ✅ **FINISHED AND CLOSED (one line each; detail is in the named note and in the plan's top block):**
   - **`exp_graded_vs_signed_query_v1` -- `np.sign` at `:776` COSTS ALMOST NOTHING. CLOSED.**
     `Q_GRADED 0.0480 / median 37.0` vs `Q_SIGNED 0.0455 / 41.0`; paired **`+0.0025` CI95
