@@ -62,6 +62,74 @@ def parse_frontmatter(text):
     return fields, None
 
 
+# --- THE OWNER'S CHANNEL, one file per problem -----------------------------------------------
+# The owner asked for "a place for me to tell you when they're done and/or commentary on them".
+# A FILE, not a GUI-only field, for the same reason notes/COMMENTARY.md is a file: it is readable
+# and writable from a text editor, from a phone, and from any session -- the window is one way in,
+# never the only one. The strategy session reads these when deciding what to integrate.
+OWNER_VERDICTS = ("", "DONE", "MORE_NEEDED", "PARKED")
+_OWNER_FILE = "OWNER_NOTES.md"
+
+
+def owner_note_path(slug, problems_dir=PROBLEMS_DIR):
+    return os.path.join(problems_dir, slug, _OWNER_FILE)
+
+
+def load_owner(slug, problems_dir=PROBLEMS_DIR):
+    """Return {"verdict": str, "text": str}. Missing/unreadable == empty, never raises."""
+    path = owner_note_path(slug, problems_dir)
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            raw = f.read()
+    except (OSError, UnicodeDecodeError):
+        return {"verdict": "", "text": ""}
+    verdict, body = "", raw
+    if raw.startswith("---"):
+        fields, err = parse_frontmatter_loose(raw)
+        if not err:
+            verdict = fields.get("owner_verdict", "")
+            _, _, body = raw.partition("\n---")
+            body = body.partition("\n")[2]
+    if verdict not in OWNER_VERDICTS:
+        verdict = ""
+    return {"verdict": verdict, "text": body.strip()}
+
+
+def save_owner(slug, verdict, text, problems_dir=PROBLEMS_DIR):
+    """Write the owner's verdict + note. Returns the path written. Atomic via os.replace."""
+    if verdict not in OWNER_VERDICTS:
+        raise ValueError(f"verdict {verdict!r} not one of {OWNER_VERDICTS}")
+    d = os.path.join(problems_dir, slug)
+    if not os.path.isdir(d):
+        raise ValueError(f"no such problem folder: {slug}")
+    path = owner_note_path(slug, problems_dir)
+    payload = (f"---\nowner_verdict: {verdict}\n---\n\n{text.strip()}\n")
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
+        f.write(payload)
+    os.replace(tmp, path)
+    return path
+
+
+def parse_frontmatter_loose(text):
+    """Same fence parsing as parse_frontmatter, WITHOUT the SOLVED.md required-field check.
+    Kept separate on purpose: the owner's note has no evidence obligations, and reusing the
+    strict parser here would have made an empty note read as MALFORMED."""
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return {}, "no frontmatter"
+    try:
+        end = next(i for i in range(1, len(lines)) if lines[i].strip() == "---")
+    except StopIteration:
+        return {}, "frontmatter fence is never closed"
+    fields = {}
+    for raw in lines[1:end]:
+        if raw.strip() and ":" in raw:
+            k, _, v = raw.partition(":")
+            fields[k.strip()] = v.strip()
+    return fields, None
+
+
 def scan(problems_dir=PROBLEMS_DIR):
     """Enumerate from the filesystem, then reconcile -- never the reverse."""
     rows = []
@@ -169,6 +237,37 @@ def self_test():
         os.remove(os.path.join(d, "SOLVED.md"))
         assert scan(td)[0]["state"] == "OPEN"
         print("[self-test] PASS an open problem is OPEN, not malformed")
+    # 8. THE OWNER'S CHANNEL -- round trip, and the empty case must not read as an error.
+    with tempfile.TemporaryDirectory() as td:
+        d = os.path.join(td, "demo")
+        os.makedirs(d)
+        open(os.path.join(d, "PROBLEM.md"), "w", encoding="utf-8").write("brief")
+
+        assert load_owner("demo", td) == {"verdict": "", "text": ""}
+        print("[self-test] PASS an absent owner note reads as empty, not as an error")
+
+        save_owner("demo", "DONE", "looks right to me\nsecond line", td)
+        got = load_owner("demo", td)
+        assert got["verdict"] == "DONE" and "second line" in got["text"], got
+        print("[self-test] PASS owner verdict + multi-line note round-trips")
+
+        save_owner("demo", "", "just a comment, no verdict", td)
+        assert load_owner("demo", td)["verdict"] == ""
+        print("[self-test] PASS a comment with NO verdict is allowed (commentary != done)")
+
+        for bad, why in ((("demo", "SHIPPED", "x"), "an unknown verdict"),
+                         (("no_such_slug", "DONE", "x"), "a non-existent problem folder")):
+            try:
+                save_owner(*bad, problems_dir=td)
+            except ValueError:
+                print(f"[self-test] PASS writing {why} is refused")
+            else:
+                raise AssertionError(f"should have refused {why}")
+
+        # The owner's note must NOT move the problem's own state machine.
+        assert scan(td)[0]["state"] == "OPEN", "an owner note changed the problem state"
+        print("[self-test] PASS an owner note does NOT change the problem's own state")
+
     print("[self-test] RESULT: PASS")
     return 0
 

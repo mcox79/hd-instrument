@@ -240,6 +240,13 @@ except Exception:  # pragma: no cover - the window must open without it
 # THE OWNER'S SIDE CHANNEL. The only other writer in this file besides the board. Guarded like
 # every other import here: if it will not load, the box says so and points at the markdown file,
 # which works on its own.
+# THE PROBLEM TRACKER's backing store (tab 6). Guarded like every other import here: if it will
+# not load, the tab says so and points at notes/problems/, which works on its own.
+try:
+    import problem_ledger as _probs  # noqa: E402
+except Exception:  # pragma: no cover - the window must open without it
+    _probs = None
+
 try:
     import commentary as _commentary  # noqa: E402
 except Exception as _e:  # pragma: no cover - the window must open without it
@@ -810,7 +817,8 @@ class StatusWindow:
         self._build_board()       # B  (board questions + the standing decisions)
         self._build_scores()      # C  (the former THE WALLS + PROGRESS MADE, merged)
         self._build_organs()      # C
-        self._build_fidelity()    # C
+        self._build_fidelity()    # C  (RETIRED -- frame built, tab not registered)
+        self._build_problems()    # C  (tab 6: the problem tracker)
         self._build_results()     # C
         self._build_commentary()  # D  (2026-08-17: its OWN tab -- see docstring below)
         self._register_tab_sources()
@@ -1219,6 +1227,157 @@ class StatusWindow:
         self.sc_detail = self._detail(f, height=11)
         self.sc_detail.grid(row=3, column=0, sticky="ew", pady=(6, 0))
 
+    # ---- TAB 6 (replaces COPYING THE BRAIN, 2026-08-22) ----------------
+    def _build_problems(self) -> None:
+        """THE PROBLEM TRACKER -- the hand-off between this session and the solver sessions,
+        plus the owner's channel back.
+
+        WHY IT REPLACED A TAB RATHER THAN BEING ADDED: owner, 2026-08-22, *"can you replace one
+        of the stale tabs in the gui with a tracker for these slugs and a place for me to tell you
+        when they're done and/or commentary on them?"*
+
+        TWO THINGS ON ONE SCREEN, because they are one question. The LEFT half is machine state:
+        each problem, whether a solver has filed a SOLVED.md, and whether it is still awaiting the
+        strategy session's re-verification. The RIGHT half is the owner's: a verdict and a free
+        note, per problem.
+
+        THE OWNER'S NOTE IS A FILE (`notes/problems/<slug>/OWNER_NOTES.md`), not a field this
+        window owns -- same reasoning as `notes/COMMENTARY.md`: it must be writable from an editor
+        or a phone, and this window is one way in, never the only one.
+
+        THE SAVE CONFIRMATION QUOTES THE PATH. The board's Save button once failed silently for
+        hours and the owner had no way to tell; a write that cannot be seen to have landed is
+        worse than no button."""
+        f = ttk.Frame(self.nb)
+        self.nb.add(f, text="6. PROBLEMS")
+        self.tab_problems = f
+        f.columnconfigure(0, weight=1)
+        f.rowconfigure(2, weight=1)
+
+        tk.Label(f, text="HARD PROBLEMS HANDED TO SOLVER SESSIONS. Left: where each one stands. "
+                         "Right: tell me it is done, or leave a comment -- both are saved to the "
+                         "problem's own folder and I read them before integrating anything.",
+                 bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10), anchor="w", justify="left",
+                 wraplength=self._wrap_w, padx=4, pady=6).grid(row=0, column=0, sticky="ew")
+
+        self.pb_hint = tk.Label(f, text="", bg=_PANEL, fg=_DIM, font=("Segoe UI", 9),
+                                anchor="w", justify="left", wraplength=self._wrap_w, padx=4)
+        self.pb_hint.grid(row=1, column=0, sticky="ew")
+
+        frame, self.pb_tv = self._tree(
+            f,
+            cols=("slug", "state", "await", "owner", "result"),
+            widths=(260, 130, 190, 130, 460),
+            headings=("PROBLEM", "SOLVER SAYS", "WAITING ON ME?", "YOU SAY", "WHAT THEY FOUND"),
+            height=9)
+        frame.grid(row=2, column=0, sticky="nsew")
+        self.pb_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_problem_detail())
+
+        self.pb_detail = self._detail(f, height=8)
+        self.pb_detail.grid(row=3, column=0, sticky="ew", pady=(6, 0))
+
+        wrap = ttk.LabelFrame(f, text="YOUR VERDICT AND NOTES ON THE SELECTED PROBLEM")
+        wrap.grid(row=4, column=0, sticky="ew", pady=(6, 4))
+        wrap.columnconfigure(0, weight=1)
+        self.pb_box = tk.Text(wrap, height=4, wrap="word", bd=0, padx=8, pady=5,
+                              bg="#1b1b1b", fg=_FG, insertbackground=_FG,
+                              highlightthickness=1, highlightbackground=_BORDER,
+                              font=("Segoe UI", 11))
+        self.pb_box.grid(row=0, column=0, sticky="ew", padx=6, pady=5)
+
+        btns = ttk.Frame(wrap)
+        btns.grid(row=0, column=1, sticky="ns", padx=(0, 6))
+        self.pb_verdict = tk.StringVar(value="")
+        for i, (label, val) in enumerate((("Done - accept it", "DONE"),
+                                          ("Needs more", "MORE_NEEDED"),
+                                          ("Park it", "PARKED"),
+                                          ("Comment only", ""))):
+            ttk.Radiobutton(btns, text=label, value=val,
+                            variable=self.pb_verdict).grid(row=i, column=0, sticky="w")
+        ttk.Button(btns, text="Save", command=self._save_problem_note).grid(
+            row=4, column=0, sticky="ew", pady=(4, 3))
+
+        self.pb_status = tk.Label(wrap, text="", bg=_PANEL, fg=_DIM, anchor="w",
+                                  font=("Segoe UI", 9), wraplength=self._wrap_w, justify="left")
+        self.pb_status.grid(row=1, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 5))
+
+    def _selected_problem(self):
+        sel = self.pb_tv.selection()
+        if not sel:
+            return None
+        return self.pb_tv.item(sel[0], "values")[0]
+
+    def _show_problem_detail(self) -> None:
+        slug = self._selected_problem()
+        if not slug or _probs is None:
+            return
+        rows = {r["slug"]: r for r in _probs.scan()}
+        r = rows.get(slug, {})
+        fields = r.get("fields", {}) or {}
+        owner = _probs.load_owner(slug)
+        lines = [f"PROBLEM: {slug}", f"  state: {r.get('state', '?')}"]
+        if r.get("error"):
+            lines.append(f"  MALFORMED: {r['error']}")
+        for k in ("bar", "result", "floor", "controls", "reverify", "files_changed"):
+            if fields.get(k):
+                lines.append(f"  {k}: {fields[k]}")
+        lines.append(f"  brief: notes/problems/{slug}/PROBLEM.md")
+        lines.append(f"  your note: notes/problems/{slug}/OWNER_NOTES.md"
+                     + ("" if owner["text"] or owner["verdict"] else "   (nothing yet)"))
+        self._set_text(self.pb_detail, lines)
+        self.pb_verdict.set(owner["verdict"])
+        self.pb_box.delete("1.0", "end")
+        self.pb_box.insert("1.0", owner["text"])
+        self.pb_status.config(text="")
+
+    def _save_problem_note(self) -> None:
+        slug = self._selected_problem()
+        if not slug:
+            self.pb_status.config(text="Pick a problem in the list first.")
+            return
+        if _probs is None:
+            self.pb_status.config(text="NOT SAVED: tools/problem_ledger.py did not load.")
+            return
+        text = self.pb_box.get("1.0", "end").strip()
+        try:
+            path = _probs.save_owner(slug, self.pb_verdict.get(), text)
+        except Exception as exc:                       # noqa: BLE001 -- surfaced, never swallowed
+            self.pb_status.config(text=f"NOT SAVED ({exc}). Your text is still in the box.")
+            return
+        verdict = self.pb_verdict.get() or "comment only"
+        self.pb_status.config(text=f"Saved to {path}  --  verdict: {verdict}. "
+                                   f"I read this before integrating anything on {slug}.")
+
+    def _r_problems(self, s: dict) -> None:
+        """Cheap: one directory walk plus a small read per problem. No subprocess."""
+        if _probs is None:
+            self.pb_hint.config(text="tools/problem_ledger.py did not load -- tracker unavailable.")
+            return
+        rows = _probs.scan()
+        self.pb_tv.delete(*self.pb_tv.get_children())
+        awaiting = 0
+        for r in rows:
+            owner = _probs.load_owner(r["slug"])
+            wait = ""
+            if r["state"] in ("SOLVED", "PARTIAL", "REFUTED") and not r["integrated"]:
+                wait = "YES - re-verify"
+                awaiting += 1
+            elif r["integrated"]:
+                wait = "no - integrated"
+            res = (r.get("fields", {}) or {}).get("result", "")
+            if r["state"] == "MALFORMED":
+                res = f"NO EVIDENCE: {r.get('error', '')}"
+            self.pb_tv.insert("", "end", values=(
+                r["slug"], r["state"], wait,
+                owner["verdict"] or ("note" if owner["text"] else ""), res))
+        n = len(rows)
+        self.nb.tab(self.tab_problems,
+                    text=f"6. PROBLEMS ({awaiting})" if awaiting else "6. PROBLEMS")
+        self.pb_hint.config(
+            text=f"{n} problem(s). {awaiting} finished and waiting on me to re-verify and fold in. "
+                 f"'SOLVER SAYS' is their own filing; it is not accepted until I have checked it "
+                 f"on disk -- the base rate here is 30 vetted strong-passes, 1 upheld.")
+
     # ---- PANEL B ------------------------------------------------------
     def _build_organs(self) -> None:
         """THE BRAIN ORGAN MAP. Per organ: the brain structure, what it does in one plain
@@ -1266,7 +1425,14 @@ class StatusWindow:
         because the owner asked to see the band for themselves. Six points visible beats any
         adjective, including any adjective this window might have chosen for them."""
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="6. COPYING THE BRAIN")
+        # RETIRED 2026-08-22, on the owner's "replace one of the stale tabs" -- REPLACED BY
+        # "6. PROBLEMS" (_build_problems). NOT DELETED: the frame and every render path below are
+        # untouched, so restoring it is ONE line -- put the `self.nb.add(...)` back. It was chosen
+        # because its own headline reads "UNVALIDATED AS A PREDICTOR AT OUR CURRENT LOW FIDELITY"
+        # and it rests on six points, so it is a curiosity rather than a decision surface, while
+        # the problem tracker is one the owner uses every day. If that judgement is wrong, the
+        # restore costs nothing.
+        # self.nb.add(f, text="6. COPYING THE BRAIN")
         self.tab_fidelity = f
         f.columnconfigure(0, weight=1)
         f.rowconfigure(4, weight=1)
@@ -2127,6 +2293,7 @@ class StatusWindow:
         for name, fn in (("headline", self._r_headline), ("where", self._r_where),
                          ("scores", self._r_scores), ("organs", self._r_organs),
                          ("fidelity", self._r_fidelity),
+                         ("problems", self._r_problems),
                          ("board", self._r_board), ("running", self._r_running),
                          ("results", self._r_results), ("commentary", self._r_commentary)):
             try:
