@@ -13,6 +13,7 @@ Usage: python tools/session_start_hook.py
 """
 from __future__ import annotations
 import json
+import os
 import re
 import subprocess
 import sys
@@ -829,7 +830,85 @@ def registry_report(rep_dir: Path | None = None, tool_dir: Path | None = None,
     return "\n".join(out)
 
 
+SOLVER_REGISTRY = REPO / 'data' / 'hook_state' / 'solver_sessions.json'
+
+
+def _current_session() -> str:
+    """Same resolution the Stop hook uses. Empty string when unknown -- which reads as
+    'not a solver', so an unrecognised session gets the normal STATUS block."""
+    return os.environ.get("CLAUDE_SESSION_NAME", "").strip()
+
+
+def solver_slug(session: str, path: Path = SOLVER_REGISTRY) -> str | None:
+    """Which problem slug is this session solving? None == not a solver session.
+
+    REGISTRY FORMAT: {"<session key>": "<problem slug>"}. Absent/unparseable == no solvers,
+    which is the fail-safe direction: every session then gets the normal STATUS block, exactly
+    as before this function existed.
+
+    COUPLING (CLAUDE.md "a doc parsed by code is coupled to it"): the registry is written by
+    hand or by the strategy session; its key is a session key of the same shape the Stop hook
+    resolves (`auto_...`). notes/problems/README.md documents the two-session split this serves.
+    """
+    if not session:
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, ValueError, UnicodeDecodeError):
+        return None
+    if not isinstance(data, dict):
+        return None
+    slug = data.get(session)
+    return str(slug) if slug else None
+
+
+def solver_recovery_block(slug: str) -> str:
+    """What a SOLVER session gets instead of the strategy session's STATUS.md.
+
+    WHY THIS EXISTS: STATUS.md is the STRATEGY session's position -- its plan, its board, its
+    corrections. Injecting it into a solver's compaction recovery hands that session a pile of
+    state it must not act on, and buries the one document it actually needs. Measured cause:
+    both sessions run on one repo and the hook could not tell them apart.
+    """
+    out = ["== SOLVER SESSION RECOVERY ==",
+           f"    You are the SOLVER session for problem: {slug}",
+           "    You do NOT own the plan, notes/STATUS.md or notes/BOARD.md. Do not edit them.",
+           "    Your brief is the authority, and THE DISK OUTRANKS THE BRIEF -- run its",
+           "    'VERIFY BEFORE YOU START' commands before trusting any number in it.",
+           "    Finish by writing notes/problems/%s/SOLVED.md, then run:" % slug,
+           "        python tools/problem_ledger.py --check",
+           ""]
+    brief = REPO / 'notes' / 'problems' / slug / 'PROBLEM.md'
+    notes = REPO / 'notes' / 'problems' / slug / 'SOLVER_NOTES.md'
+    for label, p in (("PROBLEM.md (your brief)", brief), ("SOLVER_NOTES.md (your own state)", notes)):
+        if p.exists():
+            try:
+                text = p.read_text(encoding="utf-8")
+            except OSError as exc:
+                out.append(f"    [{label}] UNREADABLE: {exc}")
+                continue
+            out.append(f"    ---- {label}: {p.relative_to(REPO)} ----")
+            out.extend("    " + ln for ln in text.splitlines())
+            out.append("")
+        elif p is brief:
+            # LOUD, not a placeholder: a registered solver with no brief is a real misconfiguration.
+            out.append(f"    !! NO BRIEF AT {p.relative_to(REPO)} -- the session key is "
+                       f"registered as a solver but its problem folder has no PROBLEM.md.")
+    return "\n".join(out)
+
+
 def main() -> int:
+    _session = _current_session()
+    _slug = solver_slug(_session)
+    if _slug:
+        # ISOLATION (2026-08-22): a solver session gets its OWN brief, and NONE of the strategy
+        # session's state. The plan/board/commentary blocks are suppressed for the same reason
+        # STATUS is: they are this session's business, they are not the solver's, and acting on
+        # them is the leak this block exists to close.
+        blocks = [RULES, solver_recovery_block(_slug)]
+        print("\n\n".join(b for b in blocks if b))
+        return 0
+
     blocks = [RULES, "== STATUS (single source of truth -- notes/STATUS.md) =="]
     blocks.append(status_summary())
     # In-process (no subprocess): the board parse is a single small file read, so it costs
