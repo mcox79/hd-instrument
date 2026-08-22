@@ -36,12 +36,15 @@ that this helps rather than merely widens.**
 > `+0.2745` (null `0.0732`) and VERB `+0.2607` (null `0.1241`), BOTH CLEAR, Fisher `z = 0.192` NOT
 > SEPARATED -- on `99.6%` of SimVerb's pairs.** ➡️ **So verb meaning is AVAILABLE and we are not
 > reaching it.**
-> ✅ **AND THE LOOKUP IS WHY: of the `730,923` tokens lemmatisation recovers, `33.5%` are verbs
-> against `17.6%` of the already-covered mass -- `1.90x` ENRICHMENT.** *Nouns `1.09x`, adjectives
-> `0.31x`.* **Verbs are the most inflected class in running text, so they are exactly the words a
-> raw-string lookup drops.** *`THE_VERB_HOLE_IS_OURS_NOT_THE_ASSETS_2026-08-22.md`*
-> ⚠️ *Word class there is WordNet's dominant sense count, not a tagger -- a strong indication, not a
-> pinned coefficient.*
+> ✅ **AND THE LOOKUP IS WHY. Measured with our own UPOS tagger over 20,000 real sentences
+> (`209,649` classified tokens): of the tokens lemmatisation recovers, `31.8%` are VERBS against
+> `12.3%` of the already-covered mass = `2.58x`; NOUNS `2.25x`; adjectives `0.15x`; function words
+> ~`0.00x`.** *A raw-string lookup drops INFLECTED words, and inflection lives on content words.*
+> 🔻 **DO NOT READ THIS AS "the lookup fix is a VERB fix" -- I said that from a cruder proxy and
+> WITHDREW it. Verbs lead nouns by only `1.15x`.** ✅ **The verb case rests on the OTHER term:
+> nouns are recovered into a channel that already HAS noun signal (`0.1310`, clears); verbs are
+> recovered into a channel with NONE. Incremental vs nothing-to-something.**
+> *`THE_VERB_HOLE_IS_OURS_NOT_THE_ASSETS_2026-08-22.md`*
 
 **It is the cheapest large move available in Phase 1, and Phase 1 is the current bottleneck.**
 

@@ -80,7 +80,40 @@ constrain each other, agreeing.***
 | NOUN | `54.2%` | `49.7%` | `1.09x` |
 | ADJ | `6.6%` | `21.0%` | `0.31x` |
 
-> ### **VERBS ARE NEARLY TWICE AS CONCENTRATED IN WHAT LEMMATISATION RECOVERS AS IN WHAT WE ALREADY REACH. THE COVERAGE FIX AND THE VERB HOLE ARE ONE LEVER.**
+> ### **VERBS ARE NEARLY TWICE AS CONCENTRATED IN WHAT LEMMATISATION RECOVERS AS IN WHAT WE ALREADY REACH.**
+
+### 🔻 **RE-MEASURED WITH THE REAL TAGGER THE SAME HOUR -- THE HEADLINE ABOVE IS HALF RIGHT, AND I AM CORRECTING IT**
+
+**I flagged the WordNet dominant-sense method as an approximation and said a POS tagger over running
+text was the honest instrument. I then ran it** -- `hdlab/pos_tagger.py` (our own UPOS perceptron)
+over **20,000 real sentences**, `209,649` classified tokens. *Control: `chased -> VERB`,
+`released -> VERB`, `dog -> NOUN`, `the -> DET`.*
+
+| UPOS | share of RECOVERED | share of ALREADY-COVERED | enrichment |
+|---|---|---|---|
+| **VERB** | `31.8%` | `12.3%` | 🔑 **`2.58x`** |
+| **NOUN** | `63.2%` | `28.1%` | 🔑 **`2.25x`** |
+| ADJ | `2.1%` | `14.0%` | `0.15x` |
+| AUX | `1.6%` | `5.1%` | `0.31x` |
+| DET / PRON / ADP / ADV / CCONJ | ~`0%` | ~`36%` | ~`0.00x` |
+
+🔻 **WHAT CHANGES: verb enrichment is HIGHER than I reported (`2.58x`, not `1.90x`) -- but NOUNS ARE
+`2.25x`, where my proxy said `1.09x`. So this is a CONTENT-WORD fix, not a verb-specific one.**
+*The proxy's "nouns barely enriched" was an artifact: WordNet dominant-sense buckets absorbed function
+words into the already-covered noun mass and diluted it. **The tagger separates them and function
+words go to ~zero, which is the shape that makes sense** -- a raw-string lookup drops INFLECTED
+words, and inflection lives on content words.*
+🔻 **SO "THE LOOKUP FIX IS THE VERB FIX" IS TOO STRONG AND I WITHDRAW IT.** Verbs lead nouns by only
+`2.58 / 2.25 = 1.15x`, not the `1.74x` my proxy implied.
+
+> ### ✅ **BUT THE VERB ARGUMENT SURVIVES ON THE OTHER TERM, AND IT IS THE STRONGER ONE: VALUE = ENRICHMENT x DEFICIT.**
+> **Nouns are recovered at `2.25x` into a channel that ALREADY has noun signal (`0.1310`, clears).
+> Verbs are recovered at `2.58x` into a channel with NO detectable verb signal at all.** *Recovery on
+> nouns is incremental; recovery on verbs is the difference between something and nothing.*
+
+**THE THREE FINDINGS STILL CONVERGE**, just for a better-stated reason: the asset carries full verb
+signal (§1) -> our lookup drops inflected content words, verbs most of all -> and verbs are the class
+where we currently have nothing to lose.
 
 **THE THREE FINDINGS CONVERGE:** the asset carries full verb signal (§1) -> our lookup cannot reach
 verbs because they are inflected (`released`, `playing`, `began`) -> repairing the lookup returns
