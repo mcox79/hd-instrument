@@ -1,0 +1,5 @@
+---
+owner_verdict: DONE
+---
+
+flat_store_destroys_the_code — SOLVED (verdict: REFUTED). Tested the brief's fix — replace the reader's flat "averaged" store with an addressed store that keeps every item — on real held-out reading. The addressed store does beat the flat sum (0.140 vs 0.084), but both lose decisively to plain word-counting (0.324), so it never clears the bar; its strength turns out to be memorizing sentences it already saw (0.995 exact-key → 0.140 on new text). Also corrected two brief claims against the disk: the "6.93 of 7 bits destroyed" figure is a phantom (nowhere on disk; real loss ≈6.1/7), and the survivable-code fix is code format (sparser codes), not addressed storage. This confirms and extends two prior on-disk experiments and closes the "fair re-test pending" gap the plan flagged. Scope: this refutes addressing as a capability lever on the current codes; it does not resolve meaning-supply (Phase 1), which the result points back to as the real bottleneck. Ledger-valid, awaiting your re-verify + integration.

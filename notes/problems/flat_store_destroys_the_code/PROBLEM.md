@@ -1,8 +1,47 @@
 ---
-priority: 1
-review: 
-review_text: 
+priority:
+review: EXCELLENT
+review_text: Built the fix, measured it honestly, and reported that it does not work - volunteering the exact-key 0.9954 that kills it and the floor that beats it.
 ---
+
+> # ✅ **SOLVER REVIEW: EXCELLENT. ACCEPTED AS `REFUTED` -- AND A REFUTATION IS A FIRST-CLASS RESULT.**
+> *(strategy session, 2026-08-22)*
+>
+> **They were asked to fix the store. They built the fix, measured it honestly, and reported that it
+> does not work.** That is harder to hand in than a win, and it is worth more here than a win would
+> have been, because it retires a whole direction instead of nudging one.
+>
+> **THE RESULT:** addressed storage on the live reading path scores **held-out `0.1399`** against a
+> first-order counting floor of **`0.3242`** -- `-0.1843`, CI excludes zero. **It loses decisively to
+> plain word-counting.**
+>
+> **WHAT MAKES THIS EXCELLENT WORK, SPECIFICALLY:**
+> - 🔑 **They volunteered the number that kills it.** Addressed reads **`0.9954` at exact key** and
+>   collapses to `0.1399` held out. *A `0.9954` in isolation is precisely what this project has
+>   mistaken for a capability before; they ran the exact-vs-held-out diagnostic themselves and led
+>   with the collapse.*
+> - 🔑 **They used the floor that beats them.** Addressed BEATS second-order counting by `+0.1353`.
+>   **Quoting that comparison would have made this a win.** They quoted first-order, which refutes it.
+> - **The must-lose control actually loses:** an information-free addressed arm (random episodes,
+>   same count and grouping) reads `0.0000` held-out. Scramble reads `0.0000` for both arms.
+> - **And the instrument is shown to work before the failure is believed** -- 2AFC self-retrieval
+>   `0.7433` against a `0.70` gate. *Without that, `0.1399` could just be a broken harness.*
+> - *Tie density `0.87%`; `arms_must_differ_ok=True` with per-arm SHA digests; `mde_95` power figures
+>   on every delta. Nothing here is asserted where it could be measured.*
+>
+> **MY INDEPENDENT RE-VERIFICATION:** every headline reproduces to six decimals against
+> `metrics.json` -- `0.139891`, `0.324226`, `-0.184335`, `0.995446`, `addr_beats_floor_heldout=False`.
+> **Nothing to correct, which is the first time that has happened in three integrations.**
+>
+> 🧠 **THE THING THEY DID NOT CLAIM, AND IT IS THE MOST VALUABLE PART:** that exact-key -> held-out
+> cliff **reproduces a structural cap the archive already records from a completely different
+> mechanism** -- a circular WordNet oracle reading `0.8787` at exact key and `0.0365` under a partial
+> cue. **Two unrelated routes, same wall.** *That is evidence about the problem, not about their
+> implementation.*
+>
+> 🔻 **AND IT COST THIS BRIEF ITS OWN PRIORITY 1 RANKING** -- I ranked it first on the theory that the
+> store is upstream of everything. The measurement says addressing is not the lever, so the rank was
+> wrong and has been changed.
 
 > # 🥇 **PRIORITY 1 of 8 -- DO THIS FIRST.** *(ranked by the strategy session, 2026-08-22)*
 > **IT IS UPSTREAM OF EVERY OTHER PROBLEM HERE.** If the store destroys per-item information, then

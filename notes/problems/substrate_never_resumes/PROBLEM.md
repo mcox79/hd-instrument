@@ -4,7 +4,7 @@ review:
 review_text: 
 ---
 
-> # 🥈 **PRIORITY 2 of 8.** *(ranked by the strategy session, 2026-08-22)*
+> # 🥈 **PRIORITY 2 of 7.** *(ranked by the strategy session, 2026-08-22)*
 > **NOTHING THIS SYSTEM LEARNS SURVIVES THE RUN THAT LEARNED IT, so no result can ever compound.**
 > Measured 2026-08-22: `Substrate(foundation_dir=...)` was read ZERO times and no caller passed it;
 > it now raises rather than pretending.

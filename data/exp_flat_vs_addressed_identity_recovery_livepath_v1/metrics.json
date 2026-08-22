@@ -1,0 +1,223 @@
+{
+ "anchor_name": "exp_flat_vs_addressed_identity_recovery_livepath_v1",
+ "run_mode": "full",
+ "design": "notes/problems/flat_store_destroys_the_code/DESIGN.md",
+ "ts_iso": "2026-08-22T21:38:12.719745+00:00",
+ "graded_comparator": true,
+ "n_lemmas_candidates": 5490,
+ "n_episodes": 92908,
+ "store_cap": 25,
+ "V_context": 9000,
+ "chance_hit_at_1": 0.00018215,
+ "self_retrieval_2afc": {
+  "acc": 0.743333,
+  "n": 300,
+  "floor": 0.7,
+  "ok": true
+ },
+ "held_out": {
+  "A_FLAT": {
+   "hit_at_1": 0.084517
+  },
+  "A_ADDRESSED": {
+   "hit_at_1": 0.139891
+  },
+  "F_COUNT1": {
+   "hit_at_1": 0.324226
+  },
+  "F_COUNT2": {
+   "hit_at_1": 0.004554
+  }
+ },
+ "exact_key": {
+  "A_FLAT": 0.370674,
+  "A_ADDRESSED": 0.995446,
+  "F_COUNT2": 0.008379
+ },
+ "arm_acc_ci": {
+  "A_ADDRESSED_EXACT": {
+   "acc": 0.995446,
+   "ci_lo": 0.993625,
+   "ci_hi": 0.997086,
+   "sd": 0.000901
+  },
+  "A_ADDRESSED_HELD": {
+   "acc": 0.139891,
+   "ci_lo": 0.130965,
+   "ci_hi": 0.149362,
+   "sd": 0.004674
+  },
+  "A_FLAT_EXACT": {
+   "acc": 0.370674,
+   "ci_lo": 0.357923,
+   "ci_hi": 0.383424,
+   "sd": 0.006504
+  },
+  "A_FLAT_HELD": {
+   "acc": 0.084517,
+   "ci_lo": 0.077413,
+   "ci_hi": 0.091803,
+   "sd": 0.003674
+  },
+  "F_COUNT1_HELD": {
+   "acc": 0.324226,
+   "ci_lo": 0.311475,
+   "ci_hi": 0.336612,
+   "sd": 0.006305
+  },
+  "F_COUNT2_EXACT": {
+   "acc": 0.008379,
+   "ci_lo": 0.006011,
+   "ci_hi": 0.010929,
+   "sd": 0.001253
+  },
+  "F_COUNT2_HELD": {
+   "acc": 0.004554,
+   "ci_lo": 0.002914,
+   "ci_hi": 0.006375,
+   "sd": 0.000894
+  },
+  "INFOFREE_ADDRESSED_EXACT": {
+   "acc": 0.000546,
+   "ci_lo": 0.0,
+   "ci_hi": 0.001275,
+   "sd": 0.000314
+  },
+  "INFOFREE_ADDRESSED_HELD": {
+   "acc": 0.0,
+   "ci_lo": 0.0,
+   "ci_hi": 0.0,
+   "sd": 0.0
+  },
+  "SCRAMBLE_ADDRESSED_HELD": {
+   "acc": 0.0,
+   "ci_lo": 0.0,
+   "ci_hi": 0.0,
+   "sd": 0.0
+  },
+  "SCRAMBLE_FLAT_HELD": {
+   "acc": 0.0,
+   "ci_lo": 0.0,
+   "ci_hi": 0.0,
+   "sd": 0.0
+  }
+ },
+ "deltas": {
+  "d_ADDR_minus_COUNT2_HELD": {
+   "delta": 0.135337,
+   "ci_lo": 0.126412,
+   "ci_hi": 0.144809,
+   "sd": 0.004738,
+   "mde_95": 0.009286,
+   "ci_excludes_zero": true
+  },
+  "d_ADDR_minus_COUNT1_HELD": {
+   "delta": -0.184335,
+   "ci_lo": -0.197814,
+   "ci_hi": -0.170128,
+   "sd": 0.007094,
+   "mde_95": 0.013905,
+   "ci_excludes_zero": true
+  },
+  "d_ADDR_minus_FLAT_HELD": {
+   "delta": 0.055373,
+   "ci_lo": 0.045719,
+   "ci_hi": 0.065574,
+   "sd": 0.005103,
+   "mde_95": 0.010001,
+   "ci_excludes_zero": true
+  },
+  "d_ADDR_minus_SCRAMBLE_HELD": {
+   "delta": 0.139891,
+   "ci_lo": 0.130965,
+   "ci_hi": 0.149362,
+   "sd": 0.004674,
+   "mde_95": 0.009161,
+   "ci_excludes_zero": true
+  },
+  "d_ADDR_minus_INFOFREE_HELD": {
+   "delta": 0.139891,
+   "ci_lo": 0.130965,
+   "ci_hi": 0.149362,
+   "sd": 0.004674,
+   "mde_95": 0.009161,
+   "ci_excludes_zero": true
+  },
+  "d_FLAT_minus_COUNT2_HELD": {
+   "delta": 0.079964,
+   "ci_lo": 0.072678,
+   "ci_hi": 0.08725,
+   "sd": 0.00372,
+   "mde_95": 0.007292,
+   "ci_excludes_zero": true
+  },
+  "d_ADDR_minus_FLAT_EXACT": {
+   "delta": 0.624772,
+   "ci_lo": 0.61184,
+   "ci_hi": 0.637523,
+   "sd": 0.006544,
+   "mde_95": 0.012826,
+   "ci_excludes_zero": true
+  },
+  "d_ADDR_minus_INFOFREE_EXACT": {
+   "delta": 0.9949,
+   "ci_lo": 0.992896,
+   "ci_hi": 0.996721,
+   "sd": 0.000965,
+   "mde_95": 0.001891,
+   "ci_excludes_zero": true
+  }
+ },
+ "counting_floor_upper_bound_heldout": 0.336612,
+ "addr_beats_floor_heldout": false,
+ "addr_wins_exact_key": true,
+ "infofree_loses": true,
+ "tie_counts": {
+  "HELD": {
+   "A_FLAT": 0,
+   "F_COUNT1": 10,
+   "F_COUNT2": 22,
+   "A_ADDRESSED": 48
+  },
+  "EXACT": {
+   "A_FLAT": 0,
+   "F_COUNT1": 12,
+   "F_COUNT2": 34,
+   "A_ADDRESSED": 36
+  },
+  "SCRAMBLE": {
+   "A_FLAT": 0,
+   "F_COUNT1": 10,
+   "F_COUNT2": 22,
+   "A_ADDRESSED": 47
+  }
+ },
+ "tie_report_threshold_frac": 0.02,
+ "arm_digests": {
+  "A_FLAT_HELD": "0f9320d04e5f0d7e22927802f3a8560d1034f9ff60904fa17732e82666b4a273",
+  "A_ADDRESSED_HELD": "29fa38d4855ab333671ee38a9e17f4b355a60df8c3366c6b1dff85561611445d",
+  "F_COUNT1_HELD": "bc1cd9a7c37e1ee3721c6d3ec9015c7be9f4d1b405800ca7d9e202c64134c81a",
+  "F_COUNT2_HELD": "f04079da3d93f4556edcd1e6160f6c75e0406d6467380ec5037c17deb5c66ccc",
+  "SCRAMBLE_ADDRESSED_HELD": "f3c5b48940b8231800132e520a5e33b6f313a8176ecd01b6d8ca968ad4328af3",
+  "SCRAMBLE_FLAT_HELD": "f3c5b48940b8231800132e520a5e33b6f313a8176ecd01b6d8ca968ad4328af3",
+  "INFOFREE_ADDRESSED_HELD": "f3c5b48940b8231800132e520a5e33b6f313a8176ecd01b6d8ca968ad4328af3",
+  "A_FLAT_EXACT": "ec54a1b7f726d60e00eead2b49dd74c0fa0a4b28a4ee6987d19073605f717323",
+  "A_ADDRESSED_EXACT": "9c13c561f0c2543969a66beb5b30f4d06c789146699f8c5b3cdabef4c4e09b7c",
+  "F_COUNT2_EXACT": "8dd13f01e6c3df0d42d084b29f0acac52bd63f3f708010f8923c2ad52c54ecbf",
+  "INFOFREE_ADDRESSED_EXACT": "6b6958f7a96def38b58089e6b4a57b4444210224087e76a4da4b8eec27b88dae"
+ },
+ "arms_must_differ_ok": true,
+ "primary_arm_collisions": {},
+ "control_arm_collisions_expected_at_floor": {
+  "f3c5b48940b8231800132e520a5e33b6f313a8176ecd01b6d8ca968ad4328af3": [
+   "SCRAMBLE_ADDRESSED_HELD",
+   "SCRAMBLE_FLAT_HELD",
+   "INFOFREE_ADDRESSED_HELD"
+  ]
+ },
+ "scramble_removed_items": 0,
+ "infofree_removed_items": 0,
+ "verdict": "ADDRESSED_WINS_EXACT_ONLY_NOT_HELDOUT",
+ "verdict_msg": "A_ADDRESSED wins at EXACT-KEY (0.9954 vs FLAT 0.3707) but does NOT clear the counting floor upper bound 0.3366 on HELD-OUT (A_ADDRESSED_HELD=0.1399). This is the already-known exact-vs-held-out collapse (failure mode c), NOT progress: the isolation win does not reproduce once the cue is partial.",
+ "elapsed_s": 303.22
+}
