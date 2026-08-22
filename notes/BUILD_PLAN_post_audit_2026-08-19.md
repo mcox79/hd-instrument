@@ -22,7 +22,7 @@
 > ## ✅ **Q113 ANSWERED 2026-08-22 -- THE BUILD LANE IS OPEN, AND THE PROBLEMS FOLDER IS NOT MINE**
 > **Owner, verbatim: *"you can definitely start and run experiments and helpers. eliminate that line from your instructions. Remember that any 'problem' you have in the problems tab is going to be worked on, so try not to compete with that"*.**
 > ➡️ **SO: cell work and `hdi_*` spawns are AUTHORIZED — the "the loop can only measure, document and guard" constraint is RETIRED.** *That premise was doubly wrong: Q109 retracted the `verification/` half, and this retracts the rest.*
-> 🚫 **AND A NEW STANDING CONSTRAINT: THE SIX BRIEFS IN `notes/problems/` ARE THE SOLVER'S. DO NOT WORK THEM HERE** — `lookup_does_not_lemmatise`, `harness_cannot_recompute`, `substrate_never_resumes`, `reader_meaning_channel`, `flat_store_destroys_the_code`, `eval_bank_too_small`. *Filing a problem hands it away; the value I add after filing is integration, not solving.*
+> 🚫 **AND A NEW STANDING CONSTRAINT: THE TWELVE BRIEFS IN `notes/problems/` ARE THE SOLVER'S. DO NOT WORK THEM HERE** — **ENUMERATE THEM (`ls notes/problems/`) -- DO NOT MIRROR THE LIST HERE.** *This sentence said SIX for a day while TWELVE existed; a mirrored list is the staleness this plan already records for BOARD.md.* *Filing a problem hands it away; the value I add after filing is integration, not solving.*
 > 🎯 **THIS SESSION'S WORK IS THEREFORE WHAT IS *NOT* FILED:** re-landing the stale goal-bearing cell (dispatched), the `STATUS.md` structural split, tracing the short-read cause, and the B3'/Q3 scored paths.
 >
 > ## 🚨 **`Substrate.read(n_sentences=N)` DOES NOT READ `N` -- ASK FOR 8,000 AND GET ~1,000 (08-22)**

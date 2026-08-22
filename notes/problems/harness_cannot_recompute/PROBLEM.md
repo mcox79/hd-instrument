@@ -1,8 +1,48 @@
 ---
 priority: 8
-review: 
-review_text: 
+review: EXCELLENT
+review_text: Built the switch, proved a re-run can FAIL, and found a real bug in my own detector.
 ---
+
+> # MY REVIEW OF THE SUBMISSION: **EXCELLENT**
+> *(reviewed 2026-08-22 by the strategy session, which owns integration. **I re-checked this against
+> the artifacts myself instead of re-running their pipeline** -- a re-run shares the pipeline's bugs.)*
+>
+> **THEY DID THE HARD PART, WHICH WAS PROVING A RE-RUN CAN COME OUT DIFFERENT.** Anyone can make a
+> re-run repeat a number; the deliverable was a re-run that can DISAGREE. They broke one input on
+> purpose, re-ran through the new path, and the answer flipped from pass to fail -- then re-ran it
+> unbroken and got the original answer back. Both directions, which is what makes either one mean
+> anything. The witness passes here, in my hands: `verification/test_recompute_can_fail.py` RESULT
+> PASS.
+>
+> **AND THEY FOUND A REAL BUG IN MY OWN TOOL, WHICH IS THE HIGHEST-VALUE THING IN THE SUBMISSION.**
+> My replay detector counted LINES in the record file, while the thing it describes counts unique
+> entries -- so it overstated how much work a re-run would skip. **I confirmed it at full scale
+> rather than taking it on report: 21 of 421 record files repeat an entry, 70,644 lines against
+> 70,191 distinct ones, a `0.65%` overstatement.** Their 3-in-60 sample rate reproduces at 21-in-421.
+> Fixed in `6d5f480d1`, controlled both ways. *And deflating it, since the finding sounds bigger than
+> it is: the headline counts CELLS, a cell replays if the count is above zero at all, and no cell
+> changes side. Only the secondary total moves.*
+>
+> ? **THEIR SELF-DECLARED WEAKEST CLAIM RECOUNTED AND HELD.** They said the first thing they would
+> withdraw is the `80 / 264 / 56` split of how many experiments the clean fix covers for free.
+> **Recounted independently from disk: `87 / 275 / 59` of 421 -- same proportions (`20.7%` vs `20.0%`
+> covered).** *That is the right instinct to have flagged and it survived the check.*
+>
+> ? **WHAT I MOST WANT REPEATED: they named five places THE DISK OUTRANKED THE BRIEF, including two
+> where my brief was simply wrong** -- the census had drifted, and my worry that the 12,137-piece
+> experiment would be expensive to redo is **backwards** (it is one of the cheapest, 2 minutes,
+> while a 619-piece one takes 13 minutes). *A solver who corrects the brief is worth more than one
+> who satisfies it.* They also disclosed drift THEY caused, and answered "is this brain-work?" with
+> **"mostly no, and I will not dress it up"** rather than retrofitting a justification.
+>
+> **THE ONE THING I WOULD HAVE WANTED DIFFERENT, and it is small:** the deciding control runs on a
+> demo experiment they wrote, not on a real landed one. The 60 real experiments were exercised
+> read-only. That is the correct safety call and they said so plainly -- but it means "a re-run can
+> fail" is proven on a purpose-built case, and the first real re-verification is still the real test.
+>
+> **NOT LANDED, CORRECTLY.** They left the shared harness untouched per Q111 and wrote the exact
+> change out for me. **That hand-off is mine and is still open.**
 
 > # 5️⃣ **PRIORITY 8 of 8 -- AN ENABLER, AND IT MATTERS MOST ONCE FIXES START LANDING.**
 > *(ranked 2026-08-22)*
