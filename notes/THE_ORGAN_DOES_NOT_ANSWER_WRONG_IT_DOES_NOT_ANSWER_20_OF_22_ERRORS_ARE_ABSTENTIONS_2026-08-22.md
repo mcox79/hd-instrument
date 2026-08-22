@@ -128,6 +128,26 @@ tolerance wide enough to swallow the difference.*
 
 ---
 
+## 7. 🎯 THE TENSION IN 3 IS NOW A **CHECKABLE ARITHMETIC PREDICTION**, NOT A VAGUE "UNRESOLVED"
+
+**Read the coin-flip note rather than re-running anything, and the two populations are now pinned:**
+
+| | condition | population | commits | correct |
+|---|---|---|---|---|
+| **here** | EMPTY overlay | `reason` is a structural rule | **`10`** | **`9`** = `0.900` |
+| `THE_CASCADE_IS_A_COIN_FLIP_...` | overlay | goal RECOGNIZED **and** decided structurally (`19`, with `6` more falling through) | **`19`** | **`10`** = `0.5263` |
+
+> ### **IF BOTH ARE RIGHT, THE OVERLAY BUYS `+9` COMMITMENTS AND `+1` CORRECT ANSWER -- MEANING ROUGHLY `8` OF THE `9` EXTRA COMMITMENTS IT UNLOCKS ARE WRONG.**
+
+🚫 **THAT IS A HYPOTHESIS AND IS NOT CLAIMED.** *The definitions differ (the `19` also conditions on
+goal recognition), so the subtraction is not yet licensed -- **this is precisely the "no number
+crosses populations" rule, and I am writing the test rather than the conclusion.*** ✅ **THE TEST IS
+EXACT AND CHEAP: re-run the OVERLAY condition with the per-reason split and the same "structural
+rule fired" definition used here, and compare `commits` and `correct` term by term.** *Both arms now
+persist `per_item_predictions`, so this costs one run and no new instrument.*
+⚠️ **IF IT HOLDS, THE OVERLAY IS ACTIVELY HARMFUL AT THE MARGIN and "supplying the word converts
+silence into guessing" (section 3, measured at n=8) would have a second, larger witness.**
+
 ## TLDR
 
 The system is not getting these questions wrong. It is declining to answer them. On the 36-question
