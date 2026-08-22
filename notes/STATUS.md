@@ -119,7 +119,17 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   CURRENT foundation, and four exist unmarked.** ⚠️ *v5 is a DIFFERENT ARTIFACT SHAPE (one
   `definitional_facts_v5.jsonl` vs v2q's full `store/`), so "sample v5 instead" is NOT a straight
   swap and v5 is NOT claimed to be the live foundation.*
-  `WE_HAND_SCORED_A_THREE_VERSIONS_STALE_FOUNDATION_...`
+  🔻🔻 **CORRECTION 3, SAME DAY, AND IT REINSTATES THE ORIGINAL FINDING -- I WAS WRONG THREE TIMES
+  IN ALTERNATING DIRECTIONS. All NINE foundation dirs were written `2026-08-12`, THE SAME DAY, and
+  only `v1`/`v2q` are LOADABLE (`v3`/`v4`/`v5` lack ALL FOUR artifacts `load_foundation` needs). So
+  `v3`/`v4`/`v5` are NOT later versions -- they are a DIFFERENT PIPELINE's fact dumps.**
+  🔻 *WITHDRAWN: "three-versions-stale" (all one day old; `v2q` was the RIGHT artifact for the
+  question).* 🔻 *WITHDRAWN: "the stem fix already shipped" -- `0.4%` is definitional extraction's
+  DEFINIENDA vs the grounding loop's SUBJECTS at `7.9%`; **different pipelines, and I broke the
+  no-number-crosses-populations rule I had invoked twice the same day.***
+  ✅ **STANDS: the grounding loop stores ~`8%` STEMMER OUTPUT AND IS NOT KNOWN TO BE FIXED. Only the
+  `24% -> 10.4%` deflation survives from correction 1.**
+  `THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...`
 - 🚨🧠 **AND THAT CHASE FOUND THE CAUSE OF THE GENERIC-ATTRACTOR DEGENERACY: NOTHING LOADS A
   FOUNDATION. RUNTIME (counters on the functions, not grep), `foundation_dir` SET to v5, 120
   sentences: `load_foundation` calls `0`; store facts `92` -> `92`, and the `92` comes from the

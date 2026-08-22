@@ -76,7 +76,7 @@ C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out
   CURRENT foundation, and four exist unmarked.** ⚠️ *v5 is a DIFFERENT ARTIFACT SHAPE (one
   `definitional_facts_v5.jsonl` vs v2q's full `store/`), so "sample v5 instead" is NOT a straight
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T13:59:21Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T14:08:29Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 

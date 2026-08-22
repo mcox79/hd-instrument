@@ -1,4 +1,42 @@
-# ~~**24% OF THE FOUNDATION'S SUBJECT TERMS ARE NOT WORDS**~~ -- **CORRECTED WITHIN THE HOUR, TWICE OVER. THE TRUE STEM RATE IS `10.4%`, AND IT IS ALREADY FIXED IN A LATER FOUNDATION (`0.4%`). WE SAMPLED A STALE ARTIFACT.**
+# **THE GROUNDING LOOP STORES ~8% STEMMER OUTPUT. I HAVE NOW BEEN WRONG ABOUT THIS THREE TIMES IN ONE DAY, IN ALTERNATING DIRECTIONS.**
+
+> ## 🔻🔻🔻 **CORRECTION 3, AND IT LARGELY REINSTATES THE ORIGINAL FINDING. READ THIS FIRST; EVERYTHING BELOW IS THE TRAIL.**
+> **The measured numbers never moved. My interpretation of them moved three times.** Here is the
+> separation of MEASURED from INFERRED, which is what I should have written at the start.
+>
+> **MEASURED, and all of it still stands:**
+> - the blind sheet carries **`10.4%`** true stems (round-trip detector)
+> - `reading_grounding_v2_qualityfix` subjects carry **`7.9%`**
+> - `reading_grounding_v5_termboundary` definienda carry **`0.4%`**
+> - **all nine foundation directories were written on `2026-08-12` -- the SAME DAY**
+> - **only `v1` and `v2_qualityfix` are LOADABLE.** `v3`/`v4`/`v5` are missing ALL FOUR artifacts
+>   `load_foundation` requires (`store/`, `concept_space.npz`, `library_pending.json`,
+>   `manifest.json`)
+>
+> **WHAT I INFERRED AND MUST WITHDRAW:**
+> 1. 🔻 **"We hand-scored a THREE-VERSIONS-STALE foundation." WITHDRAWN.** They are all one day old.
+>    **`v3`/`v4`/`v5` are not later versions of `v2q` -- they are a DIFFERENT PIPELINE's output**
+>    (definitional extraction fact-dumps, not resumable reading-loop states). *`v2q` is the correct
+>    artifact for the question the sheet asked -- "did the grounding loop learn a meaning" -- and
+>    sampling it was right.*
+> 2. 🔻 **"The stem fix already shipped, so `fix the stemmer` is withdrawn." WITHDRAWN IN TURN.**
+>    The `0.4%` is definitional extraction's DEFINIENDA; the `7.9%` is the grounding loop's
+>    SUBJECTS. **Different pipelines, different populations -- the no-number-crosses-populations
+>    rule, which I invoked twice today and then broke here.** The charter's `16.1% -> 1.0%`
+>    term-boundary fix is about definitional extraction's TERM BOUNDARIES, **not the grounding
+>    loop's lemmatisation.**
+>
+> ➡️ **SO: THE GROUNDING LOOP'S ~`8%` STEM RATE IS REAL AND IS *NOT* KNOWN TO BE FIXED.** *My
+> original reaction was closer to right than my correction was; I over-corrected on a
+> cross-population comparison.* **What genuinely survives from correction 1 is only the `24% -> 10.4%`
+> deflation, which was a real detector defect.**
+>
+> *Recording all three swings rather than a clean final answer, because the pattern is the finding:
+> **the measurements were stable all day and my story about them was not.***
+
+---
+
+# ~~24% OF THE FOUNDATION'S SUBJECT TERMS ARE NOT WORDS~~ -- **the original headline and its first two corrections, kept for the trail**
 
 **Found by the OWNER, by hand, on the first blind sheet anyone actually sat down with.** Their
 words: *"there are a lot of words there that are missing letters, and a lot of them unrelated."*
