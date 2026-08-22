@@ -183,6 +183,26 @@ being better retained than abstract ones -- is one of the oldest findings in hum
 consolidation gate reproducing it is worth noticing. Whether ours does so FAITHFULLY or
 ACCIDENTALLY is exactly the question the paragraph above says is unanswered.*
 
+## 🔻 **THE CONCRETENESS-MATCHED FLOOR WAS RUN. THE POOL-SELECTION EFFECT IS GONE.**
+
+I said the confound had to be tested before the hypothesis could stand. It was, and it does not.
+
+| control for the SAME 24 consolidated terms vs the SAME 16 targets | control mean `Conc.M` | consolidated | control | 95% band | verdict |
+|---|---|---|---|---|---|
+| FREQUENCY-matched only | `0.223` | `0.1966` | `0.0559` | `[-0.0777, 0.1878]` | SEPARATED, `p = 0.025` |
+| **FREQUENCY + CONCRETENESS matched** | **`0.884`** *(vs consolidated `0.898`)* | `0.1966` | **`0.1891`** | `[0.1073, 0.2640]` | 🔻 **NOT SEPARATED, `p = 0.42`** |
+
+> ### **MATCH THE FLOOR ON CONCRETENESS AND THE EFFECT VANISHES: `0.1966` vs `0.1891`. THE POOL-SELECTION HYPOTHESIS IS REFUTED, NOT MERELY UNDERPOWERED.**
+
+**WHAT SURVIVES:** consolidation genuinely selects CONCRETE words (`+0.631`, `p = 0.00040`,
+frequency-matched, Bonferroni-corrected). **WHAT DIES: the reading that it selects SEMANTICALLY
+RELEVANT ones.** *Concrete words resemble other concrete words; my probes were all concrete; that
+was the whole of it.*
+
+✅ **THE INFORMATION-FREE TWIN DISCIPLINE WORKING AS INTENDED, ON ME.** *A control matched on the
+one property the arm actually has TIED it. Had I stopped at the frequency-matched floor -- which
+looked like a clean `p = 0.025` -- I would have published a semantic claim for a concreteness effect.*
+
 ## ➡️ WHAT IT CHANGES
 
 **B3' moves from *"no evidence it does anything"* to *"demonstrably the consolidation-sensitive

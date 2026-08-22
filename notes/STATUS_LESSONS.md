@@ -6396,3 +6396,109 @@ compaction recovery for a full day. Both runs named below FINISHED on 2026-08-19
   index into an uncapped `STATUS_CLOSED.md`, which was sized to land this file at ~8,580 B) are now
   undersized -- re-measure before enacting either.** Still PROPOSED, NOT ENACTED: DIRECTOR'S CALL.
   Never close the gap by evicting a never-trim entry.
+
+## C37 -- "B1 IS A CLIFF" -- FULL TEXT MOVED FROM `STATUS.md` 2026-08-22 (testbed split pass); stubbed in `STATUS.md` DO NOT REDO/CORRECTIONS list as "C37"
+
+**C37 "B1 IS A CLIFF: ours 0.931/0.304/0.002 vs counting 0.859/0.852/0.830" -- WITHDRAWN/INVERTED.**
+Those are cos_syn/cos_rel/cos_unrel (SYNONYM/RELATED/UNRELATED), NOT vocabulary strata. A LOW tier-3
+is the GOAL -- vessel vs anger should read ~0 -- so OUR 0.002 IS CORRECT AND COUNTING'S 0.830 IS THE
+DEFECT: its syn-to-unrel range is 0.0285 vs our 0.9287, hence ordered_frac 0.379 vs 0.966. "The bar
+is 0.830" is VOID, it targeted the baseline's PATHOLOGY. Coverage 29/29 on ALL arms: NO tier
+measures out-of-lexicon behaviour. Survives: the cell's own coverage_scope, 86 hand-authored
+concepts, open-vocabulary "NOT claimed here". CAUSE: took "cliff" from ORGAN_MAP and propagated to
+3 docs without opening metrics.json -- the defining phrase sat in the SAME verdict sentence I lifted
+the numbers from. A DOCUMENT'S INTERPRETATION IS NOT EVIDENCE; DISK-VERIFY OUR OWN NOTES, ORGAN_MAP
+INCLUDED. Caught ONLY by asking whether the FIX could reach the problem -- which also TESTS WHETHER
+THE PROBLEM IS REAL.
+
+## STANDING DISCIPLINES 14-18 -- FULL TEXT MOVED FROM `STATUS.md` 2026-08-22 (testbed split pass, STATUS_SPEC sec 7)
+
+`STATUS.md` was 55,070 B against the 28,672 B cap (1.92x). These five disciplines were carried there
+in full prose rather than as one-line stubs (unlike disciplines 1-13, which were already condensed).
+Moved here verbatim; `STATUS.md` now carries a one-line stub for each, per STATUS_SPEC sec 2's
+contract ("nothing may appear here that is not stubbed by name in `STATUS.md`"). 14 and 15 already
+had partial prior homes in this file (14 at "THE ERROR PATTERN THAT PRODUCED C32-C34" above; 15 at
+"STANDING DISCIPLINES -- entry added 2026-08-17" above) -- kept here anyway, in `STATUS.md`'s more
+refined final wording, so the stub contract does not depend on reconciling two phrasings.
+
+### 14. Report the CI half-width and the null p95 beside every margin -- a width is not an effect
+REPORT THE CI HALF-WIDTH AND THE NULL p95 AT THAT n BESIDE EVERY MARGIN -- A WIDTH IS NOT AN EFFECT.
+Cost 3x in one night (C32/C33/C34), each an UNDERPOWERED NULL read as a CAPABILITY STATEMENT; at
+n=86 the "floor" WAS the null distribution's own spread.
+
+### 15. A grid's resolution is part of its verdict
+A GRID'S RESOLUTION IS PART OF ITS VERDICT: an equality reported on a 3-value grid is a BIN, not a
+measurement (C35). State the swept values and the number of queries per point beside every "no
+difference".
+
+### 16. A floor is specific to the representation it was computed on, not only to the population
+A FLOOR IS SPECIFIC TO THE REPRESENTATION IT WAS COMPUTED ON, NOT ONLY TO THE POPULATION -- AND
+THIS RULE EXISTS BECAUSE RULE 8 AS WRITTEN COULD NOT CATCH THE VIOLATION. 0.5431 was computed on
+the BAG-of-words representation and quoted as "THE bar" across `STATUS.md` and the plan for two
+days -- including in the banner that corrected everyone for saying 0.5 -- then applied to arms
+built on grammatical ARCS. Rebuilt on the arc representation, a no-words attestation floor read
+0.6317 [0.5820, 0.6781] against a 0.6669 headline: the gate was meaningless and the coverage
+control could not catch it (`COVERAGE_MIN=3` dropped 0 of 242 pairs). Same population, same
+scorer, same gold -- so rules 8 and 11 both PASSED while the comparison was already void. STATE
+THE REPRESENTATION BESIDE EVERY FLOOR, AND REBUILD THE FLOOR WHENEVER THE REPRESENTATION CHANGES,
+EVEN IF NOTHING ELSE DID. Corollary, earned the same night: a control with a threshold that
+excludes nothing is not a control -- report how many items each control actually removed.
+
+### 17. Every negative gets a brain-fidelity drill, every time
+OWNER INSTRUCTION 2026-08-18 (COMMENTARY): "All negative results you should drill (safely -- we
+shouldn't be giving away any of our substrate specifics here) for brain fidelity and what we should
+do to get closer to that -- every time." A negative is not filed until it has been asked: WHICH
+BRAIN STRUCTURE performs this operation, are we REPLICATING it or SUBSTITUTING something
+convenient, and WHAT WOULD CLOSE THE GAP? This is not new doctrine -- it is the standing rule made
+non-optional and applied at the moment of the negative rather than in a later drill that may never
+happen. SAFETY CLAUSE, OWNER EXPLICIT: NEVER PUT OUR SUBSTRATE SPECIFICS INTO AN EXTERNAL QUERY.
+Research drills ask about the BIOLOGY in general terms -- "how does cortex represent grammatical
+role" -- never about our architecture, our organs, our operators, our dimensionalities or our
+results. Web search is a one-way door; a query naming our design is disclosure that cannot be
+recalled. AND THE FIRST QUESTION OF ANY SUCH DRILL IS WHETHER THE NEGATIVE IS EVEN REAL: on
+2026-08-18, FOUR of the night's "negatives" were MEASUREMENT DEFECTS, not results -- a bar computed
+on the wrong representation, an error rule applied to the wrong channel, an instrument with 10.9%
+coverage of the arm it was testing, and a corruption control that was near rank-preserving and so
+incapable of failing. Drilling a defect for brain fidelity would have produced a confident, wrong
+story about the brain. ESTABLISH THAT THE EXPERIMENT COULD HAVE SUCCEEDED BEFORE ASKING WHY THE
+BRAIN SUCCEEDS WHERE WE DID NOT.
+
+### 18. Gate on the floor's upper bound, not its point value
+GATE ON THE FLOOR'S UPPER BOUND, NOT ITS POINT VALUE -- AND IF NO ACHIEVABLE SCORE COULD CLEAR IT,
+THE POINT IS UNTESTABLE, NOT NEGATIVE. A floor is an ESTIMATE and carries its own error bar, so
+CREDIBLE BAR = floor + its own 95% half-width. Measured 08-18: WordNet 0.5431 -> 0.5944; human
+0.5943 -> 0.6918; the binding arc floor 0.6317 -> 0.6810. `U1_TYPED_CONTEXT` 0.6669 clears the
+floor and FAILS the credible bar -- this alone would have caught the night's retraction. AND THE
+SECOND HALF IS THE ONE THAT CHANGES BEHAVIOUR: WHEN A FLOOR'S HALF-WIDTH IS SO WIDE THAT NO
+ACHIEVABLE AUC COULD CLEAR ITS CREDIBLE BAR, THAT CONFIGURATION IS UNTESTABLE AND MUST NOT BE
+FILED AS A FAILURE OF THE THING BEING TESTED. This is discipline 14 one level up: a width in the
+FLOOR is not a GATE. Required per-cell n to tighten a floor: +-0.05 ~250-290, +-0.03 ~770, +-0.02
+~1,550-1,780, +-0.01 ~6,300-7,200 -- the human instrument runs at 65. BEFORE BUILDING AN ARM,
+DECIDE WHAT n ITS INSTRUMENT NEEDS; IF THAT n IS UNREACHABLE, THE ARM IS NOT YET WORTH BUILDING.
+Never buy n by loosening the matcher -- a bigger sample of an unlicensed instrument is worse than
+no sample.
+
+## Q109 CREDIT-ASSIGNMENT INVESTIGATION (2026-08-22) -- moved out of `STATUS.md`'s header, stubbed as "Q109 CREDIT ASSIGNMENT"
+
+Board Q109 asked what the autoloop should do (it can MEASURE/DOCUMENT/GUARD but not run an experiment
+or edit a cell -- routed to `hdi_exp_dev`, agents off here -- so defects it finds get GUARDED, never
+FIXED; 13 commits that day, zero capability code). Q108 was the same question with a too-broad premise
+("the build lane is closed") and was WITHDRAWN within the hour -- `verification/` was open all along
+and got used minutes later. Third wrong-premise question that week (Q103/Q104/Q108): the pattern is
+filing before testing the constraint being complained about. Q104 was also WITHDRAWN, premise wrong --
+approval was sought to build who-did-what-to-whom credit assignment; it already exists.
+`_credit_targets` bounds each verb's own clause, takes the pre-verb SUBJECT + post-verb OBJECT
+NP-head, and credits only if one links to the goal referent -- run, not read: "the girl stumbled
+badly and the man laughed loudly" -> girl `['stumble']`, man `['laugh']`; proximity cannot do that.
+
+**THE REAL HOLE WAS UPSTREAM: the morphological verb gate has RECALL 0.6026, never seeing 3,528 of
+8,877 real verbs** (vs the UD tagger already loaded on the live path). Swapped in as a default-off
+switch (`HD_VERB_GATE=tagger`): primary `0.4722 -> 0.6389`, exactly the majority floor -> still
+`HARD_FAIL`. **The paired test refuses the gain: 9 fixed / 3 broken, McNemar exact p=0.1460** -- the
+correct test is weaker than the unpaired one declined earlier (0.033). WITHDRAWN: that it is an
+improvement. SURVIVES: it changes DECISIONS (12 of 36 flipped) where the `lemma_verb` repair changed
+only labels. UNDERPOWERED != NEGATIVE: n=36 is the binding constraint on this whole line -- enlarging
+the eval bank is worth more than any further mechanism change. `per_item_predictions` now ships by
+default, so every future re-analysis of this cell is free. Separate older defect, both arms: light-verb
+canary `neutral_rate 0.0`, `24/24`+`25/25` POLAR-LOCKED where the docstring calls the wash-out "the
+pre-registered light-verb payoff".

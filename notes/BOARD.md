@@ -26,57 +26,57 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 
 ## STATUS
 
-AS OF: 2026-08-22, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | ✅ **BOARD: NOTHING OPEN. Q113 ANSWERED 2026-08-22 -- *"you can definitely start and run experiments and helpers. eliminate that line from your instructions. Remember that any 'problem' you have in the problems tab is going to be worked on, so try not to compete with that"*. 🔑 SO: CELL WORK AND `hdi_*` SPAWNS ARE AUTHORIZED, AND THE SIX BRIEFS IN `notes/problems/` ARE THE SOLVER'S -- DO NOT WORK THEM HERE.** 🔑 **Q111 STANDING: I OWN ALL INTEGRATION; solvers NEVER write `hdlab/`** -- owner, *"if we fracture our live substrate modification I fear we'll lose sight of state"*. 🔑 **Q110 STANDING: *"i don't want any more questions on bullshit like this here. you need to figure out these kinds of things on your own"* -- OPERATIONAL things are mine; the board is for decisions only the owner can make.** ✅ *Q102 (form organ wired additively), Q107 (no new allow rules needed), Q109, Q112 (the "238 overstated results" were flags, not overstatements) are ANSWERED AND DISCHARGED -- detail evicted per STATUS_SPEC sec 3 tier 3; see `notes/QUESTION_LOG.md`, the plan's state block, and `git log`.*
+AS OF: 2026-08-22, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | ✅ **BOARD: NOTHING OPEN.** Q113 (08-22): cell work + `hdi_*` spawns AUTHORIZED; the six `notes/problems/` briefs are the solver's, do not work them here. Q111 STANDING: testbed owns ALL integration, solvers never write `hdlab/`. Q110 STANDING: operational calls are mine, board is for owner-only decisions. Q102/106/107/108/109/112 ANSWERED/WITHDRAWN AND DISCHARGED (per STATUS_SPEC sec 3 tier 3 + the citation rule -- full text `notes/QUESTION_LOG.md`; Q109's credit-assignment investigation moved to `STATUS_LESSONS.md` "Q109 CREDIT ASSIGNMENT"). *Q103/104/108 share one pattern: filed before testing the constraint being complained about.*
 
 **POSITION**
 ### 2026-08-22 -- 🚨 **`read(n_sentences=N)` DOES NOT READ `N`. ASK FOR 8,000, GET ~1,000.**
-**`read(3000)`/`read(6000)`/`read(10000)` ALL returned `1,060` sentences, same 9 checkpoints, same 30
-consolidated terms. Asked `8,000`, every seed/dim stopped between `960` and `1,500`; successive calls
-fall to `240`, `220`.** 🔻 **SILENT -- yet `ReadResult.n_sentences` held the truth all along.**
-✅ **GUARDED `e335fa220`: `n_sentences_requested` + `short_read` on `ReadResult`, stderr banner under
-90% delivery, survives `to_dict()` into `metrics.json`; witness 3/3, controlled both ways.** *Warn not
-raise -- the results are REAL, only their DESCRIPTION was at risk.*
-🔻 **RETRACTS MY OWN GROWTH CURVE: chunking did not grow consolidation to 180 by reading more -- each
-CALL buys a fresh smaller allowance. The "30-term consolidation cap" WAS the read cap.**
-🚫 *NOT claimed: that every landed cell is affected (this is `Substrate.read()`; the enumeration is the
-follow-up), that any published number is wrong, or that the cause is traced.*
-📎 `SUBSTRATE_READ_SILENTLY_READS_A_FRACTION_...`
+`read(3000/6000/10000)` all returned `1,060` sentences; asked `8,000`, every seed/dim stopped between
+`960` and `1,500`, falling to `240`/`220` on repeat calls -- SILENT (`ReadResult.n_sentences` held the
+truth). ✅ **GUARDED `e335fa220`:** `n_sentences_requested` + `short_read` on `ReadResult`, stderr
+banner under 90% delivery, witness 3/3 (warn not raise -- results are real, only their description was
+at risk). 🔻 **RETRACTS MY OWN GROWTH CURVE:** chunking never grew consolidation to 180 by reading
+more -- each call buys a fresh smaller allowance; the "30-term consolidation cap" WAS the read cap.
+🚫 *Not claimed: universal effect (this is `Substrate.read()`; enumeration is the follow-up), any
+published number wrong, or cause traced.* 📎 `SUBSTRATE_READ_SILENTLY_READS_A_FRACTION_...`
 ### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; NOW ENFORCED IN CODE**
 **`399` of `7,868` landed cells (`5.1%`) replay on re-run -- same verdict, same numbers, `elapsed
+0.0s`, no work done.** 🔑 **`tools/reproduction_check.py` makes the unsafe reading unrepresentable
+(`ReproductionVerdict` has no `__bool__`; no before-snapshot -> `INDETERMINATE`, never a pass).**
+🚫 **CASTS DOUBT ON NO LANDED NUMBER -- only on whether re-running one verifies it.**
 
 **TOP ITEM -- **I HAD BEEN MEASURING THE CHANNEL BOTH PLANS OF RECORD ALREADY RULED OUT.****
-🔻 **THE SCOPING CORRECTION (08-22).** *I told the owner "a 1970s baseline beats us EVERYWHERE we have
-looked" over 16 measures.* **ALL SIXTEEN ARE THE WORD-SIMILARITY CHANNEL**, which `SUBSTRATE_CHARTER`
-(08-05) and `PLAN_grounded_semantic_organ_build` had already ruled out **and MEASURED: bag-of-words scores
-`0.5167` = CHANCE with a supervised classifier HANDED THE GOLD SENSE.** ✅ **ON THE GROUNDING ORGAN THE
-PICTURE INVERTS: `0.962`-`1.000` on differential grounding while the bow control sits at `0.500`-`0.517`
-ON THE SAME ITEMS.** *The 16 measurements stand; the word "everywhere" was wrong.*
-🧭 **THE DIRECTION HAS A NAME AND IT WAS SET 08-06/08-07, NOT BY ME: *ANCHOR + PROPAGATE*.** *Ground a
-SMALL affective anchor (the brain does this at 4-7 months) and reason outward; good/bad is in neither
-grammar nor text statistics because ANTONYMS ARE DISTRIBUTIONAL TWINS.* 🚨 **THE BUILD PLAN CITED
-`PLAN_B` ZERO TIMES (grep) -- TWO PLANS, ONLY ONE BEING READ. That is why the night went where it did.**
+🔻 **THE SCOPING CORRECTION (08-22): "a 1970s baseline beats us EVERYWHERE" over 16 measures was
+wrong -- ALL SIXTEEN ARE THE WORD-SIMILARITY CHANNEL**, which `SUBSTRATE_CHARTER` (08-05) and
+`PLAN_grounded_semantic_organ_build` had already ruled out and MEASURED (bag-of-words scores
+`0.5167` = chance, gold sense handed to the classifier). ✅ On the GROUNDING organ the picture
+inverts: `0.962-1.000` vs bow's `0.500-0.517` on the same items. The 16 measurements stand; only
+"everywhere" was wrong.
+🧭 **THE DIRECTION HAS A NAME, SET 08-06/08-07, NOT BY ME: ANCHOR + PROPAGATE** -- ground a small
+affective anchor and reason outward (antonyms are distributional twins, so good/bad is in neither
+grammar nor text statistics). 🚨 The build plan cited `PLAN_B` zero times (grep) -- two plans, only
+one read; that is why the night went where it did.
 ✅ **WHAT IS BUILT AND PASSING:** *`bridge1_governor_grounding` HARD_PASS `0.967`; `confirmation_test`
 RULING_CONFIRMED (the PREDICTED failure at `0.500`); `twostage_event_situation_v2` HARD_PASS B `1.000`
 C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out, seed-ablation `0.000`.*
 🎯 **DOUBLE DISSOCIATION: each subset's MATCHED scramble degrades, the UNMATCHED one does not.**
 
 **WHAT IS RUNNING**
-- ✅ **Q112 / OP1 ANSWERED AND CLOSED (08-22): "238 OVERSTATED RESULTS" WAS A COUNT OF FLAGS, NOT OF
-  OVERSTATEMENTS.** *7,868 metrics scanned, **286** flagged today (NOT 238 -- re-run, never quote
-  from memory).* **`INADMISSIBLE_COMPARISON` 207 (72.4%) · `UPHELD` 43 · `NOT_SUPPORTED` 35 ·
-  self-declared-failure 1.** 🔑 **The audit compares the largest floor-shaped and treatment-shaped
-  numbers ANYWHERE in a nested metrics.json without checking they are commensurable -- real rows
-  pit a REJECT RATE against an ACCURACY, and condition 5's floor against condition 0's treatment.
-  It prints "A READ LIST, NOT A VERDICT" every run; that caveat did not travel into OP1.**
-  🔻 **AND MY RECOMMENDED FIX WOULD HAVE BEEN HARMFUL: "mark all 238" would have branded ~207
-  results whose comparison was never valid.** ➡️ **REAL READ LIST = 35 CANDIDATES** (margins
-  `+0.9054` .. `+0.0106`; the bottom needs a human read). **43 are FINE and merely quote a weaker
-  floor than they hold -- a text fix.** 🔻 *I first published `32/46`; correct is `35/43` -- that
-  pass printed "79 admissible" then split `78`, and I published across a visible self-contradiction.*
-  ✅ **`tools/adjudicate_floor_flags.py`, self-test 7/7, imports the audit's own `scan()`; 2 positive
-  controls + 1 negative control so it can neither excuse everything nor flag everything.**
+- ✅ **Q112/OP1 FULLY CLOSED 08-22, DO NOT REOPEN: "238 overstated results" was a count of AUDIT
+  FLAGS (re-scan: 286), not overstatements** -- `INADMISSIBLE_COMPARISON` 207 (incommensurable
+  numbers), `UPHELD` 43, `NOT_SUPPORTED` 35 (marked in place, additive sidecar, no
+  `metrics.json`/registry touched), 1 self-declared. 13 of the 35 are already in the capability
+  registry. Tools self-tested. Full methodology: `notes/THE_238_OVERSTATED_RESULTS_WERE_NEVER_238_...md`.
+- 🏗️ **NEW OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS** -- this session keeps
+  the 10k view, writes problem briefs and integrates; a separate session solves one bounded problem
+  at a time. Built: `notes/problems/README.md`, `SOLVER_SESSION_PROMPT.md`, `tools/problem_ledger.py`
+  (self-test 7/7, refuses a `SOLVED.md` with no floor/controls), five briefs. Order:
+  `stored_terms_are_stems` -> `reader_meaning_channel` -> `flat_store_destroys_the_code` ->
+  `substrate_never_resumes` -> `eval_bank_too_small` (strategy session DISQUALIFIED from the last --
+  it has read the per-item predictions). Read-out discrimination MERGED into the reader; CLOZE stays
+  RETIRED. `notes/problems/`
+- ⬜ **NOTHING IS RUNNING** *(one background agent verifying the reader brief's numbers off disk
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T20:32:57Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T20:52:27Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
