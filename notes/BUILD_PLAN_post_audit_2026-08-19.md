@@ -85,6 +85,22 @@
 >   WORD-SIMILARITY channel, which both plans had ruled out (bow `0.5167` = chance HANDED THE GOLD
 >   SENSE). On the grounding organ counting is at chance and we are not.** ➡️ **FRONTIER: OPEN VOCAB,
 >   then REAL PROSE.** `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
+> 🔻 **OPEN-VOCAB, DIAGNOSED -- AND I RETRACT TWO CLAIMS I MADE GETTING THERE.**
+>   *RETRACTED: "the open-vocab cost is 3 words (`arm`/`hand`/`leg`)" and "the consumer is calibrated on
+>   the component's error". **`he broke her arm` RETURNS `BLOCK_HIGH` = GOLD; `arm` is not a failure.**
+>   FAULT: I compared `v2.lookup_animacy` vs the real lookup and **THE CLOSED ARM DOES NOT CONSUME IT** --
+>   it consumes `object_event_class` (`GOAL_OBJECT`/`ADVERSARIAL`/`ANIMATE_HARMABLE`). Name-matched a
+>   function, never verified it, stacked two conclusions on it.*
+> ✅ **TRUE CAUSES, from calling the cell's OWN scorer with its OWN maps (event stage, subset B):**
+>   **(A) THE HARM ROUTE REQUIRES AN *UNCLASSIFIED* GOVERNOR** (`gov in force_class and gclass_narrow ==
+>   "UNK"`) -- fires for `break`/`shoot`, **BLOCKED for `beat`/`attack`, the two most violent verbs**.
+>   **(B) ANIMACY CANNOT EXPRESS `ADVERSARIAL`** -- `enemy` -> `abstract`, so "she aided the enemy" reads
+>   NEUTRAL vs gold BLOCK_HIGH. *The cell's docstring says so at line 52; I read past it.*
+> ✅ **AND THAT RESTORES THE BODY-PART FIX** *(WordNet `body_part` hypernym at top sense -> animate;
+>   3/3 gap words, 0/8 controls, 1.2% base rate)*: **`crack`/`wrench`/`twist` are ALL `UNK` AND in
+>   force_class, so the harm route WOULD fire if `ankle` were animate.** ⚠️ *Still UNRUN. Event stage
+>   only (arm scores `0.833`; `None` falls back to the governor stage). `Bgen` not recomputed.*
+>   `I_RETRACT_THE_THREE_WORD_FINDING_...` `A_PRINCIPLED_REPLACEMENT_...`
 > ⚠️ **VERIFICATION STATUS (I had been claiming neither): those numbers are READ, NOT REPRODUCED.**
 > *Re-running gives `elapsed 0.0s` + `[resume] already done` -- checkpoints REPLAY, and **the no-op
 > re-run is INDISTINGUISHABLE FROM A PASS**.* ✅ *`--self-test` DOES recompute and reproduced the
