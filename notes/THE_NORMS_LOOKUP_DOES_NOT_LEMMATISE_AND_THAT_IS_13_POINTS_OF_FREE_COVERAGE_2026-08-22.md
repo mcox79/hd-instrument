@@ -88,6 +88,55 @@ profile -- **but plausible is what this project keeps having to withdraw.**
 coverage number, with no task measurement, is the exact move the standing rules forbid: *a statistic
 the mechanism optimises may DIAGNOSE, never DECIDE.* Coverage is that statistic here.
 
+## 4b. ✅ **THE INFERRED ASSUMPTION IS NOW MEASURED -- AND A SUB-HYPOTHESIS OF MINE IS REFUTED**
+
+Section 4 flagged as INFERRED that *"`country`'s norm is a good stand-in for `countries`"*. **The asset
+answers this directly: `3,629` morphological pairs have BOTH forms carrying their own independent
+norms.** *A worry going in was that sensorimotor ratings are non-negative, which would push every
+cosine high and make the test vacuous. **It is not: the vectors are centred (random-pair median
+`-0.0131`, p05 `-0.5955`), so cosine is informative here.***
+
+| arm | median | p05 | p95 | n |
+|---|---|---|---|---|
+| **self** (positive control) | **`1.0000`** | `1.0000` | `1.0000` | 200 |
+| **morphological pair** | **`0.7605`** | `-0.0052` | `0.9617` | **3,629** |
+| **random pair -- THE FLOOR** | **`-0.0131`** | `-0.5955` | `0.6716` | 20,000 |
+
+> ### **MEDIAN SEPARATION `+0.7736`. ONLY `2.4%` OF RANDOM PAIRS REACH THE MORPHOLOGICAL MEDIAN. THE SUBSTITUTION IS SOUND IN THE LARGE.**
+
+🔻 **AND `4.9%` OF MORPHOLOGICAL PAIRS FALL BELOW THE RANDOM MEDIAN -- the substitution actively
+misleads on about one word in twenty.**
+
+**I PREDICTED THAT DAMAGE WOULD CONCENTRATE IN PARTICIPLES** (`-ed`/`-ing` being closer to derivation,
+where meaning drifts) **AND THAT PLURALS WOULD BE SAFE. THE DATA REFUSES IT:**
+
+| suffix class | n | median | % BELOW random median |
+|---|---|---|---|
+| `-s` (plural/3sg) | 407 | `0.8177` | `4.4%` |
+| `-ing` | 1,745 | `0.7755` | `3.6%` |
+| `-ed` | 1,343 | `0.7145` | `6.6%` |
+| `-ies -> y` | 12 | `0.5569` | `0.0%` |
+| 🔻 **`-es`** | **29** | `0.7833` | 🔻 **`17.2%`** |
+| **INFLECTION (`-s`/`-es`/`-ies`)** | 448 | `0.8126` | **`5.1%`** |
+| **PARTICIPLES (`-ed`/`-ing`)** | 3,088 | `0.7516` | **`4.9%`** |
+
+**`5.1%` vs `4.9%` -- indistinguishable. Restricting the fallback to plurals would buy NOTHING.**
+⚠️ *The `-es` outlier is `17.2%` of **n=29**, which is FIVE PAIRS -- too few to carry a conclusion, and
+reported because it points somewhere.*
+
+➡️ **WHERE IT POINTS IS THE ACTIONABLE PART: the worst pairs are not morphology drifting, they are MY
+RULE LANDING ON THE WRONG WORD.** `pales -> pal` (`-0.8312`), `paled -> pal`, `doting -> dot`,
+`privates -> private` -- **a suffix strip onto a real but unrelated word**, which is exactly the `-es`
+family. *Genuine drift exists too (`hazing -> haze` `-0.7546`, `entrancing -> entrance` `-0.6957`) but
+it is the smaller half.*
+
+> ### 🔑 **SO THE FIX IS NOT "STRIP FEWER SUFFIXES", IT IS "VALIDATE THE RESIDUE" -- WHICH IS PRECISELY WHAT `normalize_lemma`'s `is_known_word` GATE ALREADY DOES AND MY CRUDE RULE LACKED.**
+> *The conservative arm was the right one to quote in the headline, and this says why rather than asserting it.*
+
+🚫 **STILL NOT A CAPABILITY CLAIM.** *Two words having similar sensorimotor profiles is not evidence
+that substituting one for the other helps a reader. It removes the objection "the profiles might be
+unrelated"; it does not establish a gain. **No task was run.***
+
 ## 5. THE POSITIVE CONTROL, stated because absence checks inherit their detector's blindness
 
 The claim "these 243 are uncovered" is an absence claim, so it is carried by a **presence** control:

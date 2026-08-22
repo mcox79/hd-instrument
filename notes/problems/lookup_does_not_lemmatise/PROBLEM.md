@@ -61,11 +61,25 @@ decimals -- 235,876 types / 5,558,698 tokens / `0.6035` / `0.1027` -- BEFORE any
 - `normalize_lemma` is more conservative (117) **and still makes the `angeles -> angel` error.**
 - `women -> woman` and `feet -> foot` are recovered by **neither** method.
 
-**INFERRED, NOT MEASURED -- this is the whole risk:**
+**MEASURED 2026-08-22 (was INFERRED until then) -- THE SUBSTITUTION ITSELF IS SOUND:** `3,629`
+morphological pairs have BOTH forms carrying their own independent norms. **Morphological pair median
+cosine `0.7605` against a random-pair floor of `-0.0131` -- separation `+0.7736`, and only `2.4%` of
+random pairs reach the morphological median.** *Self-pair positive control reads `1.0000`. The vectors
+are centred, not all-positive (random p05 `-0.5955`), so cosine is informative rather than inflated.*
+🔻 **BUT `4.9%` OF PAIRS FALL BELOW THE RANDOM MEDIAN -- the substitution actively misleads on about
+one word in twenty**, and **YOUR IMPLEMENTATION MUST REPORT ITS OWN VERSION OF THAT NUMBER.**
+🔑 **AND A SUB-HYPOTHESIS IS REFUTED, WHICH SAVES YOU A WRONG TURN: I predicted damage would
+concentrate in participles and that restricting the fallback to PLURALS would be safer. It is not --
+inflection `5.1%` vs participles `4.9%`, indistinguishable.** *The worst pairs are the RULE landing on
+a real but unrelated word (`pales -> pal` `-0.8312`, `doting -> dot`), not morphology drifting.*
+➡️ **SO: VALIDATE THE RESIDUE, DO NOT RESTRICT THE SUFFIX SET.** That is exactly what
+`normalize_lemma`'s `is_known_word` gate does.
 
-- 🔻 **That `country`'s norm is a good stand-in for `countries` FOR ANY TASK.** Plausible -- a plural
-  of a concrete noun should have nearly the same sensorimotor profile -- **but plausible is what this
-  project keeps having to withdraw.** No task was run. **Nothing here is a capability claim.**
+**STILL INFERRED, NOT MEASURED -- this is the remaining risk:**
+
+- 🔻 **That substituting the base form's norm HELPS A TASK.** Similar profiles remove the objection
+  "the two might be unrelated"; **they do not establish a gain.** No task was run. **Nothing here is a
+  capability claim, and this is the whole point of the problem.**
 - That the ceiling is above `0.7350` (implied by the missed irregulars, not measured).
 
 ## ALREADY TRIED
