@@ -4,26 +4,60 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-22T01:16:14Z  |  HEAD: b64b3f34b
+generated: 2026-08-22T05:37:52Z  |  HEAD: b11db9ab7
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 27790 min ago <-- STALE
-  - orchestrator: 36119 min ago <-- STALE
-  - research: 2181 min ago <-- STALE
-  - skunkworks: 38791 min ago <-- STALE
-  - testbed: 75365 min ago <-- STALE
+  - exp_dev: 28051 min ago <-- STALE
+  - orchestrator: 36381 min ago <-- STALE
+  - research: 2443 min ago <-- STALE
+  - skunkworks: 39052 min ago <-- STALE
+  - testbed: 75626 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - substrate_director_kb_v1.staging.20424: 41 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.41116: 28 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - ⬜ **NOTHING IS RUNNING.**
-  - 📏 **This file sits just inside its 28,672 B cap.** *It was 30,147 B at the start of 2026-08-21
-    late. What paid for it was EVICTION, not trimming -- twice now: the night-findings table
-    (7,155 -> 3,303 B) and this section, which had filled with FINISHED work. **When it next needs
-    space, delete a duplicate; do not shave words.*** `STATUS_SPEC.md` sec 6.
+  - 🔻 **MY PREDICTED FIX FAILED ITS OWN TEST.** *Subtracting co-occurrence from the verb score hurts
+    MONOTONICALLY (`+0.0062 -> -0.0464`), in-sample best lambda is **0.0 = do not do it**, held-out
+    `-0.0005`, and it is WORSE THAN A RANDOM PENALTY at every lambda.* **WHY: `COOC ALONE = +0.0464` --
+    co-occurrence is POSITIVELY correlated with human similarity. Related words co-occur; the antonym
+    effect is real but SWAMPED.** *Gates passed first (OURS `+0.0062` on the exact 646/2,651).*
+    ⚠️ *idf reproduced `0.0819` here vs `0.0689` recorded -- real script difference, flagged.*
+  - 🔑 **AND THE PROPAGATOR I WAS INVENTING IS BUILT AND `HARD_PASS`:** *`PLAN_B_grounding_..._2026-08-07`
+    is a **USER-CONFIRMED PLAN OF RECORD** I had never opened. Its build-order stage 1 is DONE:*
+    **a 12-WORD seed via `hdlab/wordnet_polarity_propagation.py` -> `0.833` on 12 HELD-OUT verbs**
+    (scramble `0.483`, **seed-ablation `0.000`**, random-theta `0.467`), **and its Stage A predicts the
+    OPPOSITE pole from WordNet antonyms -- the opposition mechanism distributional propagation lacks.**
+    🔻 **SO I SPENT THE NIGHT MEASURING A PROPAGATOR WORSE THAN ONE ON DISK.** ⚠️ *Numbers NOT
+    comparable (12-word polarity accuracy vs 1,000-word rank rho); the fair comparison is STRUCTURAL.*
+    ⚠️ *WordNet-SUPPLIED, not learned.* ⚠️ **AND EVERY NUMBER TONIGHT ASSIGNS ONE VALUE PER WORD, while
+    the plan specifies a CONTEXT-CONDITIONED superposition -- so they are a FLOOR, not a test of it.**
+    `THE_SUBTRACT_ARM_FAILED_...`
+  - 🔑 **THE FORK IS ANSWERED: TEXT *DOES* SEPARATE OPPOSITES FROM SYNONYMS -- AND WE INVERT IT.**
+    *Full shelf, freq-matched, RANDOM-pair negative control PASSES (`8.64` lowest):* **cond "X and/or Y"
+    ANTONYMS `0.0782` vs SYNONYMS `0.0269` (2.91x) vs RANDOM `0.0022` (34.8x)**; %never-co-occur `13.3`
+    vs `19.0` vs `47.6`. 🎯 **THE CHAIN, EVERY LINK MEASURED: antonyms CO-OCCUR -> our encoder builds
+    2nd-order profiles and CONVERTS co-occurrence INTO SIMILARITY -> antonyms are our CLOSEST pairs
+    (`0.2062` > syn `0.1727`) -> verbs read `0.0000`. NOT a missing feature, an INVERTED one.**
+    ⚠️ *LIMITS: COHYPONYMS 2nd at `0.0356` ("cats and dogs") so it detects COORDINATED, not ANTONYM,
+    antonyms lead them only 2.20x; only 7.8% of antonym co-occurrences fire; NO arm built.*
+    ⚠️ *The instrument REFUSED TWICE first: v1 broken statistic (PMI + 0.5 smoothing), v2 broken
+    CONTROL (SimVerb `NONE` = no WordNet relation, NOT unassociated). Both refusals correct.*
+    `THE_SIGNAL_FOR_OPPOSITION_IS_IN_THE_TEXT_...`
+  - 🎯 **SEED PRICE MEASURED: ~50-100 GROUNDED WORDS ALREADY PROPAGATE; PAST ~400 MORE BUYS ~NOTHING**
+    (concreteness, the gated column: `50 0.2114` vs null `0.1239` | `400 0.3783` | `2000 0.4323`).
+    🔻 **BUT IDF AT 200 SEEDS (`MEAN15 0.2971`) BEATS OURS AT 2,000 (`0.2638`) -- 10x THE GROUNDING
+    TO NOT MATCH IT; 16th measure where counting leads.** 🔬 *And OUR nearest-seed cosine is HIGHER
+    (`0.3965` vs `0.2415`) while carrying LESS -- ANISOTROPY. `DO NOT REDO 27` (common-mode) has a
+    revival `*`; criterion NOT yet read, NOT claimed met.* 🔻 **2 OWN-SCRIPT DEFECTS REPORTED: the
+    25-seed row is DEGENERATE (constant prediction -> exactly 0.0000, the reachability signature) and
+    `null95` gates CONCRETENESS ONLY, not MEAN15.** ⚠️ *Random seed = pessimistic; K still unswept.*
+    `HOW_SMALL_CAN_THE_GROUNDED_SEED_BE_...`
+  - 📏 **AT ITS 28,672 B CAP. What pays for space is EVICTION, not shaving -- delete a DUPLICATE.**
+    *`STATUS_SPEC.md` sec 6.*
   - ✅ **FINISHED AND CLOSED (one line each; detail is in the named note and in the plan's top block):**
     - **`exp_graded_vs_signed_query_v1` -- `np.sign` at `:776` COSTS ALMOST NOTHING. CLOSED.**
       `Q_GRADED 0.0480 / median 37.0` vs `Q_SIGNED 0.0455 / 41.0`; paired **`+0.0025` CI95
@@ -53,11 +87,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 67 new commit(s) since last snapshot (HEAD dfe946a2c -> b64b3f34b)
+- 71 new commit(s) since last snapshot (HEAD b64b3f34b -> b11db9ab7)
 
 ## 5. What is stuck (blocked / pending / no owner)
-- (none found)
+- MONOTONICALLY (`+0.0062 -> -0.0464`), in-sample best lambda is **0.0 = do not do it**, held-out
+- **a 12-WORD seed via `hdlab/wordnet_polarity_propagation.py` -> `0.833` on 12 HELD-OUT verbs**
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8158, "generated_at": "2026-08-22T01:16:14Z", "head_commit": "b64b3f34b6a917158ca2a398577a8c28612fddc9", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8158, "generated_at": "2026-08-22T05:37:52Z", "head_commit": "b11db9ab7f7c04b3613ee8da8bebdcf10d40b7f2", "step_status": {}}
 -->
