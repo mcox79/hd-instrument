@@ -26,7 +26,7 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 
 ## STATUS
 
-AS OF: 2026-08-21 LATE (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD: Q102 OPEN. Q103 FILED AND WITHDRAWN BY ME WITHIN THE HOUR -- its premise ("9 books", "only 40 usable pairs") was MY OWN 60k alphabetical CAP; the shelf is 28 corpora / 286,069 sentences / 111 balanced pairs -- MY OWN "the gain is genuinely untested" IS WITHDRAWN: ORGAN_MAP 10.1 A1 measured it 08-14, form organ 0.0870 vs live substrate 0.0480, CI-separated, on a task with a spelling shortcut; Q98 approved the write-rate extension WITH a stopping rule; Q99 done.** | 🧠 **ONE STRUCTURAL FINDING, upstream of THREE dead ends tonight: ONE REPRESENTATION IS DOING TWO JOBS THAT NEED OPPOSITE THINGS -- grounding must DELETE the word (correct, else it learns 'artery means artery'); identification needs it PRESENT -- **VETTED 08-21: the word ALONE scores 0.9687 vs 0.6423 for word+sentence (chance 0.0167), so CONTEXT DILUTES identification and the job is a LOOKUP. DO NOT quote 0.1417/0.4750 as evidence about CONTEXT -- it is SELF-REFERENCE**. THE FORM ORGANS ARE ALREADY BUILT AND UNWIRED.** | **READ `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK (76 lines, rewritten from 6,895) -- it carries the 16 withdrawals and the method -- THEN `## POSITION` BELOW**
+AS OF: 2026-08-21 LATE (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | **BOARD: Q102 OPEN. Q103 FILED AND WITHDRAWN BY ME WITHIN THE HOUR -- its premise ("9 books", "only 40 usable pairs") was MY OWN 60k alphabetical CAP; the shelf is 28 corpora / 286,069 sentences / 111 balanced pairs -- MY OWN "the gain is genuinely untested" IS WITHDRAWN: ORGAN_MAP 10.1 A1 measured it 08-14, form organ 0.0870 vs live substrate 0.0480, CI-separated, on a task with a spelling shortcut; Q98 approved the write-rate extension WITH a stopping rule; Q99 done.** | 🧠 **ONE STRUCTURAL FINDING, upstream of THREE dead ends tonight: ONE REPRESENTATION IS DOING TWO JOBS THAT NEED OPPOSITE THINGS -- grounding must DELETE the word (correct, else it learns 'artery means artery'); identification needs it PRESENT -- **VETTED 08-21: the word ALONE scores 0.9687 vs 0.6423 for word+sentence (chance 0.0167), so CONTEXT DILUTES identification and the job is a LOOKUP. DO NOT quote 0.1417/0.4750 as evidence about CONTEXT -- it is SELF-REFERENCE**. THE FORM ORGANS ARE ALREADY BUILT AND UNWIRED.** | **READ `notes/BUILD_PLAN_post_audit_2026-08-19.md` FIRST BLOCK (133 lines, from 6,895) -- it carries the 16 withdrawals and the method -- THEN `## POSITION` BELOW**
 
 **POSITION**
 ### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
@@ -41,46 +41,49 @@ difference being 7,535 sentences read. First replicated positive from our side o
 *at or below counting* on a task that did not exist when that position was formed.
 **AND THE PAIRED TEST NOW SAYS WE ARE MEASURABLY BEHIND, not merely not-ahead:
 `SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.**
-Marginal CIs overlapped, which is NOT a test of a difference; the paired test is. `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
+Marginal CIs overlapped, which is NOT a test of a difference; the paired test is.
+⚠️ **SCOPED 08-22: this and every "behind counting" number is the WORD-SIMILARITY / RECALL channel,
 
-**TOP ITEM -- **IT IS ALREADY WIRED AND LIVE. AND ITS HEADLINE NUMBER IS BARRED FROM THAT USE.****
-**The old TOP ITEM said "WIRE DEFINITIONAL DIRECT-BANK" citing `64% vs an 8% floor`. BOTH HALVES ARE
-WRONG, and `hdlab/reading_grounding_loop.py:1479` says so in THREE numbered corrections dated
-2026-08-20 that I had not read:** (1) **it IS live** -- `substrate.py:538`, and **212 of 402
-provenance rows** carry `meaning_source=DEFINITIONAL_EXTRACTION`, which a fact cannot carry unless
-the gate fired; (2) **what ships is the PHRASE `d.definiens`, not `d.head`** -- **PHRASE 32% vs HEAD
-4%**, head **NOT distinguishable from the distributional control** (Fisher p=0.2475); (3) 🚫 **the
-64% scores the EXTRACTOR's own output, NOT the facts the gate banks, under a STANDING PROHIBITION on
-placing it beside the 4% / 1-3% / 35% / 94%.** *The TOP ITEM did exactly that.*
-**MY ADDITION, all 2,092 rows ENUMERATED: the cited artifact is `0 of 2,092` multi-word -- 100%
-HEAD-FORM -- while `2,079 (99.4%)` already carry the validated PHRASE in the SAME ROW**
-(`ATP -> "process"` vs `"a process called hydrolysis"`). ***NOTHING NEEDS RE-EXTRACTING; THERE IS NO
-WIRING JOB.*** ⚠️ *32% is 8x the head form, NOT clean.*
-`THE_TOP_ITEM_WAS_ALREADY_WIRED_...` `b3_audit_scored_the_win_is_the_phrase_form_...`
+**TOP ITEM -- **I HAD BEEN MEASURING THE CHANNEL BOTH PLANS OF RECORD ALREADY RULED OUT.****
+🔻 **THE SCOPING CORRECTION (08-22).** *I told the owner "a 1970s baseline beats us EVERYWHERE we have
+looked" over 16 measures.* **ALL SIXTEEN ARE THE WORD-SIMILARITY CHANNEL**, which `SUBSTRATE_CHARTER`
+(08-05) and `PLAN_grounded_semantic_organ_build` had already ruled out **and MEASURED: bag-of-words scores
+`0.5167` = CHANCE with a supervised classifier HANDED THE GOLD SENSE.** ✅ **ON THE GROUNDING ORGAN THE
+PICTURE INVERTS: `0.962`-`1.000` on differential grounding while the bow control sits at `0.500`-`0.517`
+ON THE SAME ITEMS.** *The 16 measurements stand; the word "everywhere" was wrong.*
+🧭 **THE DIRECTION HAS A NAME AND IT WAS SET 08-06/08-07, NOT BY ME: *ANCHOR + PROPAGATE*.** *Ground a
+SMALL affective anchor (the brain does this at 4-7 months) and reason outward; good/bad is in neither
+grammar nor text statistics because ANTONYMS ARE DISTRIBUTIONAL TWINS.* 🚨 **THE BUILD PLAN CITED
+`PLAN_B` ZERO TIMES (grep) -- TWO PLANS, ONLY ONE BEING READ. That is why the night went where it did.**
+✅ **WHAT IS BUILT AND PASSING:** *`bridge1_governor_grounding` HARD_PASS `0.967`; `confirmation_test`
+RULING_CONFIRMED (the PREDICTED failure at `0.500`); `twostage_event_situation_v2` HARD_PASS B `1.000`
+C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out, seed-ablation `0.000`.*
+🎯 **DOUBLE DISSOCIATION: each subset's MATCHED scramble degrades, the UNMATCHED one does not.**
 
 **WHAT IS RUNNING**
-- 📏 **THIS FILE IS ~870 B (3%) OVER ITS 28,672 CAP AND IS LEFT THAT WAY DELIBERATELY.**
-  *Per `STATUS_SPEC.md` sec 6 I spent both permitted actions -- compressed my own addition twice,
-  then evicted tiers 1-4 (a stale "Q92/Q95 are OPEN" block, two finished-work progress reports,
-  emphasis prose in the diagnostics and `n_grounded` entries). Step 3 is **STOP, do not descend into
-  the never-trim sections, disclose it** -- so it is disclosed here rather than paid for out of
-  DO-NOT-REDO or STANDING DISCIPLINES.* **Hand to a maintenance pass; the hook warns only past 1.5x.**
-- ⬜ **NOTHING IS RUNNING.** Both detached diagnostics finished and were read 2026-08-21:
-  - ✅ **`exp_graded_vs_signed_query_v1` -- `np.sign` AT `:776` COSTS ALMOST NOTHING. CLOSED.**
-    `Q_GRADED` 0.0480 / median 37.0 vs `Q_SIGNED` 0.0455 / 41.0; paired **+0.0025 CI95
-    [-0.0030,+0.0080] NOT SEPARATED**. **T5b's PREDICTION IS REFUTED** -- it said magnitude moves
-    hit@1 specifically and leaves median rank alone; the opposite happened. *Real null, not
-    unreachable: positive control reproduces the C3 headline EXACTLY (0.0480), 3,708/4,000 ranks
-    changed.* **`:663`'s "worse than either" unsupported at this scale.**
-  - ✅ **`diagnose_read_with_loaded_foundation`: refusal delta 279 vs 380 = 1.36x, NOT the 22x
+- ⬜ **NOTHING IS RUNNING.**
+- 🔻 **MY PREDICTED FIX FAILED ITS OWN TEST.** *Subtracting co-occurrence from the verb score hurts
+  MONOTONICALLY (`+0.0062 -> -0.0464`), in-sample best lambda is **0.0 = do not do it**, held-out
+  `-0.0005`, and it is WORSE THAN A RANDOM PENALTY at every lambda.* **WHY: `COOC ALONE = +0.0464` --
+  co-occurrence is POSITIVELY correlated with human similarity. Related words co-occur; the antonym
+  effect is real but SWAMPED.** *Gates passed first (OURS `+0.0062` on the exact 646/2,651).*
+  ⚠️ *idf reproduced `0.0819` here vs `0.0689` recorded -- real script difference, flagged.*
+- 🔑 **AND THE PROPAGATOR I WAS INVENTING IS BUILT AND `HARD_PASS`:** *`PLAN_B_grounding_..._2026-08-07`
+  is a **USER-CONFIRMED PLAN OF RECORD** I had never opened. Its build-order stage 1 is DONE:*
+  **a 12-WORD seed via `hdlab/wordnet_polarity_propagation.py` -> `0.833` on 12 HELD-OUT verbs**
+  (scramble `0.483`, **seed-ablation `0.000`**, random-theta `0.467`), **and its Stage A predicts the
+  OPPOSITE pole from WordNet antonyms -- the opposition mechanism distributional propagation lacks.**
+  🔻 **SO I SPENT THE NIGHT MEASURING A PROPAGATOR WORSE THAN ONE ON DISK.** ⚠️ *Numbers NOT
+  comparable (12-word polarity accuracy vs 1,000-word rank rho); the fair comparison is STRUCTURAL.*
 
-_mirrored from `notes/STATUS.md` at 2026-08-21T22:47:09Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T04:50:30Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
 | Q102 | Same finding as my last question, but the fix is far cheaper than I told you - it is already built and just not switched on. I said the system barely notices two sentences are about the same word, because when it reads a sentence to learn what a word means it first deletes that word - correctly, or it would learn that artery means artery. But that deleted word is the strongest clue that two sentences concern the same thing. Measured: put it back and recognising which word a sentence is about goes from about 14 percent to about 48 percent, against 2 percent for guessing. One thing is doing two jobs that need opposite treatment. I then recommended building a separate way for the system to recognise a word without that leaking into what it learns. THAT RECOMMENDATION WAS WRONG IN A WAY THAT MATTERS, and I found out by checking our own notes one turn later. It is already built. We have three components that recognise a word from its spelling - the same job the brain gives to a dedicated region for written words - and our own planning document records all three as built and none of them connected to the live system. The same document also already states the exact conclusion I presented to you as tonight's discovery, listed as one of its four foundational principles: that recognising a word and understanding it are separate brain systems, that a spelling-based code is a recognition code, and that we have been mistakenly treating it as a meaning code - which it says explains why a spell-checker beats us. So this is not a build. It is a decision to connect three finished components whose brain justification our notes already record as settled rather than speculative. | Nothing is blocked. But every promising route I tested tonight ended at this same point, so testing further components downstream of it will likely keep producing the same answer in different forms. | Connect the spelling-based recognition components to the live system, keeping the current word-deleted context accumulation exactly as it is for learning meanings. The two then do the jobs they are each suited to, which is also how the brain divides them. RISK OF MY RECOMMENDATION, and it is a real one: we already measured that spelling alone beats our meaning read-out at picking the single best answer, and there is a live danger that connecting it simply makes the system better at looking up words it has already seen while teaching it nothing new about meaning - a better index rather than better understanding. If that happens it will show up as recognition scores rising while the meaning scores stay flat, and that is the thing to watch for rather than a reason not to try. Second risk: I have measured what the current arrangement costs, not what connecting these would gain. The gain is genuinely untested. |  | open |
+| Q104 | We have been trying to teach the system what words mean by having it read stories and notice what happens as a result. To learn from a consequence it first has to decide WHICH word the consequence belongs to. Right now it decides that by looking at a window of a few nearby sentences, and I have now measured that approach thoroughly: it picks the wrong word about half the time, and the wrong picks are mostly ordinary vague verbs like come, go, have and give, which are real verbs that tell you nothing about what happened. Someone already tried to fix exactly that by having a dictionary down-weight vague verbs, and it improved things by about three parts in a hundred. The obstacle itself is solid: I re-measured it today on repaired tooling and got the identical number to four decimal places. Our own design documents say the fix is to stop using a window of nearby sentences and instead use the system's running model of who is doing what to whom. That is a bigger job than it sounds. It needs text that has already been parsed and marked up with who each person is, and our reading loop does not produce that, so someone would have to build that step. And the part of it that links a cause to its effect carries a note in its own source saying it reduces to using the joining word if there is one and otherwise picking the most recent thing, which is a shortcut rather than an answer to the very problem we are trying to solve. So the question is whether to spend the effort on building the parsing and mark-up step so the better approach can be tried, or to leave this line of work and put the time somewhere else. | The current approach is measured out and I have nothing further to try on it. The replacement is scoped but needs a build I would not start without your call, because it is real effort and one half of what it delivers is known to be a shortcut. | My recommendation is to PARK this line rather than build the parsing step, because the half of the replacement that matters most for this problem is a recency shortcut by its own admission, so we could pay the whole cost and still not be able to attach consequences to the right word. THE RISK OF MY OWN RECOMMENDATION: the other half of the replacement is genuinely better, it works out who did what from grammar rather than word order, and I have NOT measured whether that alone would be enough to unblock the learning. If it would be, parking this forfeits it. |  | open |
 
 ## ANSWERED
 
