@@ -6502,3 +6502,55 @@ the eval bank is worth more than any further mechanism change. `per_item_predict
 default, so every future re-analysis of this cell is free. Separate older defect, both arms: light-verb
 canary `neutral_rate 0.0`, `24/24`+`25/25` POLAR-LOCKED where the docstring calls the wash-out "the
 pre-registered light-verb payoff".
+
+## EVICTED FROM STATUS.md ON 2026-08-22 (WHAT IS RUNNING was 84 lines and almost none of it was running)
+
+*Evicted per `STATUS_SPEC.md` sec 3/6/7 and STATUS's own standing instruction: when it fills,
+EVICT to LESSONS, do not shave. Every entry below was already CLOSED and already cited its note;
+what STATUS keeps is a one-line stub pointing here.*
+
+- ✅ **Q112/OP1 FULLY CLOSED 08-22, DO NOT REOPEN: "238 overstated results" was a count of AUDIT
+  FLAGS (re-scan: 286), not overstatements** -- `INADMISSIBLE_COMPARISON` 207 (incommensurable
+  numbers), `UPHELD` 43, `NOT_SUPPORTED` 35 (marked in place, additive sidecar, no
+  `metrics.json`/registry touched), 1 self-declared. 13 of the 35 are already in the capability
+  registry. Tools self-tested. Full methodology: `notes/THE_238_OVERSTATED_RESULTS_WERE_NEVER_238_...md`.
+
+- 🔻🔑 **SUBTRACTING CO-OCCURRENCE FROM THE VERB SCORE FAILS MONOTONICALLY** (best lambda = 0.0,
+  held-out `-0.0005`, worse than a random penalty at every lambda -- co-occurrence is POSITIVELY
+  correlated with human similarity, the antonym effect is real but swamped). **AND THE PROPAGATOR
+  BUILT TO FIX IT ALREADY EXISTS, `HARD_PASS`**: `hdlab/wordnet_polarity_propagation.py`, a 12-word
+  seed -> 0.833 on 12 held-out verbs (seed-ablation 0.000), predicting the OPPOSITE pole from
+  WordNet antonyms. Every number here assigns one value per word where the plan specifies a
+  context-conditioned superposition, so these are a FLOOR, not a test of it.
+  `notes/THE_SUBTRACT_ARM_FAILED_AND_THE_PROPAGATOR_WE_NEEDED_WAS_ALREADY_BUILT_...md`.
+- 🔑 **THE FORK IS ANSWERED: TEXT DOES SEPARATE OPPOSITES FROM SYNONYMS, AND WE INVERT IT.**
+  Freq-matched, random-pair control passes: "X and/or Y" antonyms 0.0782 vs synonyms 0.0269 (2.91x)
+  vs random 0.0022 (34.8x). Chain, every link measured: antonyms co-occur -> our encoder converts
+  co-occurrence INTO similarity -> antonyms become our CLOSEST pairs (0.2062 > syn 0.1727) -> verbs
+  read 0.0000. Not a missing feature, an inverted one. Limits: cohyponyms 2nd-closest (coordination,
+  not antonymy); only 7.8% of antonym co-occurrences fire; no arm built.
+  `notes/THE_SIGNAL_FOR_OPPOSITION_IS_IN_THE_TEXT_...md`.
+- 🎯 **SEED PRICE MEASURED: ~50-100 grounded words already propagate; past ~400 more buys
+  ~nothing** (concreteness: 50 at 0.2114 vs null 0.1239, 400 at 0.3783, 2000 at 0.4323). IDF at 200
+  seeds (0.2971) still beats ours at 2,000 (0.2638) -- 16th measure where counting leads; our
+  nearest-seed cosine is HIGHER while carrying LESS (anisotropy).
+  `notes/HOW_SMALL_CAN_THE_GROUNDED_SEED_BE_...md`.
+
+- ✅ **FINISHED AND CLOSED (one line each; detail is in the named note and in the plan's top block):**
+  - **`exp_graded_vs_signed_query_v1` -- `np.sign` at `:776` COSTS ALMOST NOTHING. CLOSED.**
+    `Q_GRADED 0.0480/median 37.0` vs `Q_SIGNED 0.0455/41.0`; paired `+0.0025` CI95
+    `[-0.0030,+0.0080]` NOT SEPARATED; `:663`'s "worse than either" is unsupported at this scale.
+    ⚠️ *Partly re-derived 08-21 without reading this entry first -- ninth prior-work catch.*
+  - **`diagnose_read_with_loaded_foundation`: refusal delta `279 vs 380 = 1.36x`, NOT the 22x
+    headline, which was 93% PRE-EXISTING.**
+  - **`ReadResult.n_grounded` WAS STRUCTURALLY ALWAYS ZERO** -- `substrate.py:608` read
+    `n_grounded_cumulative`, `checkpoint()` emits `cumulative_grounded`, **the same two words
+    TRANSPOSED**. Now raises; self-tests PASS; no landed cell affected. **A STATIC scan for this bug
+    class DOES NOT WORK (1,925 -> 132 suspects, all legitimate reads). WHAT FOUND IT WAS A
+    CONTRADICTION BETWEEN TWO FIELDS OF ONE OUTPUT** (`n_grounded=0` beside `anchors +68`).
+    ***Make outputs print quantities that CONSTRAIN EACH OTHER.***
+  - **WHY WRITING LESS HELPS (owner Q98):** `exp_crosstalk_capacity_law_v1_gpu_v1`
+    `MEASURED_MECHANISM` -- crosstalk over raw keys DOMINATES Hebbian capacity, **r 0.976, n=11**;
+    rivals' partials go NEGATIVE. **Our keys sit AT the Welch bound, so "better keys" is closed by
+    GEOMETRY; the two remaining levers are FEWER ITEMS and MORE DIMENSIONS.**
+

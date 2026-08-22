@@ -339,6 +339,46 @@ def _self_test() -> int:
             print(f"[self-test] FAIL: oversized block not flagged ({out!r})")
             ok = False
 
+        # BOTH REAL MEASUREMENT DEFECTS, AS FIXTURES. Each silently produced a WRONG NUMBER on the
+        # actual plan, in OPPOSITE directions, and each was invisible while the other was the one
+        # being fixed. Neither of the two tests above can see either -- they use blocks so far from
+        # the cap that a 16-line error does not change the verdict, which is exactly why a guard
+        # needs a fixture AT the boundary and not only far from it.
+
+        # (1) UNDER-REPORT: a column-0 heading INSIDE the quoted region must not end the block.
+        #     The original version stopped there and read 133 lines on a 373-line block.
+        inner = Path(td) / 'inner_heading.md'
+        inner.write_text(
+            "# PLAN" + nl
+            + ("> ## head" + nl + "> body" + nl) * 40      # 80 quoted lines
+            + "## DO NOT RE-PROPOSE" + nl                  # column-0 heading, INSIDE the block
+            + ("> ## head" + nl + "> body" + nl) * 40      # 80 more
+            + nl + "Real prose at column 0 ends it." + nl,
+            encoding='utf-8')
+        out = plan_top_block_report(inner, cap=160)
+        if out and '161 lines' in out:
+            print("[self-test] PASS: a column-0 heading INSIDE the block does not truncate the count")
+        else:
+            print(f"[self-test] FAIL: inner-heading block miscounted ({out!r})")
+            ok = False
+
+        # (2) OVER-REPORT: quoted regions AFTER the block must not be counted into it.
+        #     The second version swept in 16 such lines, so a block folded exactly to cap still
+        #     reported OVER and the guard could never go quiet.
+        trailing = Path(td) / 'trailing_regions.md'
+        trailing.write_text(
+            "# PLAN" + nl
+            + ("> ## head" + nl + "> body" + nl) * 50      # 100 quoted lines = the block
+            + nl + "Prose at column 0 ends the block." + nl
+            + nl + ("> a separate quoted note" + nl) * 20  # a DIFFERENT region, must not count
+            + nl + "## NEXT" + nl,
+            encoding='utf-8')
+        if plan_top_block_report(trailing, cap=110) is None:
+            print("[self-test] PASS: a separate quoted region after the block is NOT counted into it")
+        else:
+            print("[self-test] FAIL: trailing quoted region counted into the state block")
+            ok = False
+
     # THE BOARD HEADER IS A COPY OF STATUS'S AS OF LINE, AND IT WENT STALE IN FRONT OF THE OWNER
     # on 2026-08-21. Both directions, because a staleness flag that fires when the two agree is a
     # flag that gets ignored.
@@ -590,13 +630,32 @@ def plan_top_block_report(path: Path | None = None,
         heads = [i for i, ln in enumerate(lines) if ln.startswith('> ## ')]
         if not heads:
             return None
-        first, last = heads[0], heads[-1]
-        end = len(lines)
-        for i in range(last + 1, len(lines)):
-            if lines[i].startswith('## '):
-                end = i
+        first = heads[0]
+
+        # SECOND MEASUREMENT DEFECT, FIXED 2026-08-22 -- IT OVER-REPORTED BY 16 LINES AND COULD
+        # NEVER GO QUIET. The version above ran from the first `> ## ` to the next COLUMN-0 `## `
+        # after the LAST `> ## `, which in this plan is 16 lines past the block: the trailing
+        # prose, the COUPLING NOTE and the AUTOLOOP NOTE. Those last two are `>`-quoted but are
+        # SEPARATE regions -- the plan says so in its own text ("THIS FILE HAS THREE QUOTED
+        # REGIONS, NOT ONE"). So a state block folded exactly to cap still reported OVER, and the
+        # only way to silence it was to fold to ~144 to make room for content that is not the
+        # block. A guard that cannot go quiet is a guard that gets skimmed -- this function's own
+        # docstring says so.
+        #
+        # THE FIX WALKS THE BLOCK AND MUST NOT REINTRODUCE THE FIRST DEFECT. A column-0 `#`
+        # heading INSIDE the quoted region does NOT end it (that is what made the original version
+        # silent at 373 lines against a 160 cap); only real column-0 PROSE does. Blank lines are
+        # interior. The span is measured to the LAST QUOTED LINE, so trailing blanks are excluded.
+        last_quoted = first
+        i = first
+        while i < len(lines):
+            ln = lines[i]
+            if ln.startswith('>'):
+                last_quoted = i
+            elif ln.strip() and not ln.startswith('#'):
                 break
-        span = end - first
+            i += 1
+        span = last_quoted - first + 1
         if span <= cap:
             return None
         return chr(10).join([

@@ -160,21 +160,29 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 
 ## WHAT IS RUNNING
 
-- ✅ **Q112/OP1 FULLY CLOSED 08-22, DO NOT REOPEN: "238 overstated results" was a count of AUDIT
-  FLAGS (re-scan: 286), not overstatements** -- `INADMISSIBLE_COMPARISON` 207 (incommensurable
-  numbers), `UPHELD` 43, `NOT_SUPPORTED` 35 (marked in place, additive sidecar, no
-  `metrics.json`/registry touched), 1 self-declared. 13 of the 35 are already in the capability
-  registry. Tools self-tested. Full methodology: `notes/THE_238_OVERSTATED_RESULTS_WERE_NEVER_238_...md`.
-- 🏗️ **NEW OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS** -- this session keeps
-  the 10k view, writes problem briefs and integrates; a separate session solves one bounded problem
-  at a time. Built: `notes/problems/README.md`, `SOLVER_SESSION_PROMPT.md`, `tools/problem_ledger.py`
-  (self-test 7/7, refuses a `SOLVED.md` with no floor/controls), five briefs. Order:
-  `stored_terms_are_stems` -> `reader_meaning_channel` -> `flat_store_destroys_the_code` ->
-  `substrate_never_resumes` -> `eval_bank_too_small` (strategy session DISQUALIFIED from the last --
-  it has read the per-item predictions). Read-out discrimination MERGED into the reader; CLOZE stays
-  RETIRED. `notes/problems/`
-- ⬜ **NOTHING IS RUNNING** *(one background agent verifying the reader brief's numbers off disk
-  before that brief is handed over -- its table came from plan prose, not `metrics.json`).*
+- 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the
+  10k view, writes briefs and INTEGRATES; separate sessions solve one bounded problem at a time.
+  **TWELVE briefs now, not five. THE ORDER LIVES IN EACH `notes/problems/<slug>/PROBLEM.md`
+  FRONTMATTER (`priority:`), WHICH IS WHAT THE GUI RENDERS -- `README.md` describes the PROTOCOL and
+  does NOT hold the order. ENUMERATE (`ls notes/problems/`), NEVER MIRROR THE LIST** -- a mirrored
+  list is what went stale here and in the plan. **FIVE SOLVED:** `stored_terms_are_stems`,
+  `eval_bank_too_small`, `flat_store_destroys_the_code`, `harness_cannot_recompute`,
+  `cortical_read_has_no_scored_path` -- **all five REVIEWED, feedback at the TOP of each brief and a
+  grade in `review:`, per the owner's instruction.** Strategy session was DISQUALIFIED from
+  `eval_bank_too_small` (it had read the per-item predictions). `tools/problem_ledger.py`.
+- ⬜ **NOTHING IS RUNNING.** *No background agent, no queued cell, nothing awaiting integration.*
+- ✅ **INTEGRATION LANE, LANDED 08-22 (both solver hand-offs; solvers are barred from `hdlab/` by Q111):**
+  **SH-7 `HDI_FRESH_RUN=<tag>`** (`experiments/_seed_checkpoint.get_output_dir`) sends a cell to an EMPTY
+  sibling so a re-run genuinely RECOMPUTES -- no deletion, landed dir never opened for writing.
+  **The load-bearing control is the NEGATIVE one and it is a witness, not a comment:** env unset ->
+  paths byte-identical, or every landed directory in the repo is silently orphaned with nothing
+  erroring (`test_fresh_recompute_redirect.py` 6/6; I injected the bug to confirm the guard FIRES).
+  **COVERAGE `87` of `421` cells (~21%)**; `275` bare-`OUTPUT_DIR` cells keep replaying until wrapped.
+  **B3' now carries a SCORED verdict** (cortical hit@1 `0.057/0.043/0.043` vs a COUNTING floor
+  `0.090/0.103/0.097`, clearing nothing at any k) -- **still `NEEDS_ADAPTER`, but ON EVIDENCE rather
+  than on absence of evidence, which is a different claim.** *Also: `reproduction_check.unit_count`
+  counted LINES not distinct units (`21` of `421` cells repeat a key, `0.65%` overstatement -- moves
+  NO cell across the replay boundary), and `cite_check` now REPORTS files it could not read.*
 - 🚨 **STALE-ARTIFACT DEFECT IN THE BLIND SHEET: drawn from `v2_qualityfix` while `v3/v4/v5` also
   exist unmarked -- `draw_representative_blind_sample.py` has no notion of a CURRENT foundation.**
   True stem rate (round-trip detector): sheet `10.4%`, v2q `7.9%`, `v5_termboundary` `0.4%` -- but
@@ -200,47 +208,11 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   below the 0.6389 floor), diagnosis changes. Re-landing needs a fresh cell run (`hdi_exp_dev`, not
   done here). `notes/THE_ORGAN_DOES_NOT_ANSWER_WRONG_...md`,
   `notes/THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...md`.
-- 🔻🔑 **SUBTRACTING CO-OCCURRENCE FROM THE VERB SCORE FAILS MONOTONICALLY** (best lambda = 0.0,
-  held-out `-0.0005`, worse than a random penalty at every lambda -- co-occurrence is POSITIVELY
-  correlated with human similarity, the antonym effect is real but swamped). **AND THE PROPAGATOR
-  BUILT TO FIX IT ALREADY EXISTS, `HARD_PASS`**: `hdlab/wordnet_polarity_propagation.py`, a 12-word
-  seed -> 0.833 on 12 held-out verbs (seed-ablation 0.000), predicting the OPPOSITE pole from
-  WordNet antonyms. Every number here assigns one value per word where the plan specifies a
-  context-conditioned superposition, so these are a FLOOR, not a test of it.
-  `notes/THE_SUBTRACT_ARM_FAILED_AND_THE_PROPAGATOR_WE_NEEDED_WAS_ALREADY_BUILT_...md`.
-- 🔑 **THE FORK IS ANSWERED: TEXT DOES SEPARATE OPPOSITES FROM SYNONYMS, AND WE INVERT IT.**
-  Freq-matched, random-pair control passes: "X and/or Y" antonyms 0.0782 vs synonyms 0.0269 (2.91x)
-  vs random 0.0022 (34.8x). Chain, every link measured: antonyms co-occur -> our encoder converts
-  co-occurrence INTO similarity -> antonyms become our CLOSEST pairs (0.2062 > syn 0.1727) -> verbs
-  read 0.0000. Not a missing feature, an inverted one. Limits: cohyponyms 2nd-closest (coordination,
-  not antonymy); only 7.8% of antonym co-occurrences fire; no arm built.
-  `notes/THE_SIGNAL_FOR_OPPOSITION_IS_IN_THE_TEXT_...md`.
-- 🎯 **SEED PRICE MEASURED: ~50-100 grounded words already propagate; past ~400 more buys
-  ~nothing** (concreteness: 50 at 0.2114 vs null 0.1239, 400 at 0.3783, 2000 at 0.4323). IDF at 200
-  seeds (0.2971) still beats ours at 2,000 (0.2638) -- 16th measure where counting leads; our
-  nearest-seed cosine is HIGHER while carrying LESS (anisotropy).
-  `notes/HOW_SMALL_CAN_THE_GROUNDED_SEED_BE_...md`.
 - 📏 **SPLIT DONE 08-22 (testbed maintenance pass): was `55,070` B, 1.92x the `28,672` B cap.**
   Never-trim material moved to `STATUS_LESSONS.md` with stubs; closed-item detail compressed to
   citations already on disk. Next time it fills: evict to LESSONS, don't shave. `STATUS_SPEC.md`
   sec 3/6/7.
-- ✅ **FINISHED AND CLOSED (one line each; detail is in the named note and in the plan's top block):**
-  - **`exp_graded_vs_signed_query_v1` -- `np.sign` at `:776` COSTS ALMOST NOTHING. CLOSED.**
-    `Q_GRADED 0.0480/median 37.0` vs `Q_SIGNED 0.0455/41.0`; paired `+0.0025` CI95
-    `[-0.0030,+0.0080]` NOT SEPARATED; `:663`'s "worse than either" is unsupported at this scale.
-    ⚠️ *Partly re-derived 08-21 without reading this entry first -- ninth prior-work catch.*
-  - **`diagnose_read_with_loaded_foundation`: refusal delta `279 vs 380 = 1.36x`, NOT the 22x
-    headline, which was 93% PRE-EXISTING.**
-  - **`ReadResult.n_grounded` WAS STRUCTURALLY ALWAYS ZERO** -- `substrate.py:608` read
-    `n_grounded_cumulative`, `checkpoint()` emits `cumulative_grounded`, **the same two words
-    TRANSPOSED**. Now raises; self-tests PASS; no landed cell affected. **A STATIC scan for this bug
-    class DOES NOT WORK (1,925 -> 132 suspects, all legitimate reads). WHAT FOUND IT WAS A
-    CONTRADICTION BETWEEN TWO FIELDS OF ONE OUTPUT** (`n_grounded=0` beside `anchors +68`).
-    ***Make outputs print quantities that CONSTRAIN EACH OTHER.***
-  - **WHY WRITING LESS HELPS (owner Q98):** `exp_crosstalk_capacity_law_v1_gpu_v1`
-    `MEASURED_MECHANISM` -- crosstalk over raw keys DOMINATES Hebbian capacity, **r 0.976, n=11**;
-    rivals' partials go NEGATIVE. **Our keys sit AT the Welch bound, so "better keys" is closed by
-    GEOMETRY; the two remaining levers are FEWER ITEMS and MORE DIMENSIONS.**
+- ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-22 (search it by name; nothing is lost):** Q112/OP1  ("238 overstated results" was a count of AUDIT FLAGS, not overstatements -- DO NOT REOPEN); the  subtract-co-occurrence arm (fails monotonically; the propagator that would fix it already exists,  `hdlab/wordnet_polarity_propagation.py` HARD_PASS); **TEXT DOES SEPARATE OPPOSITES AND WE INVERT IT**  (antonyms `0.0782` vs synonyms `0.0269`, and our encoder turns co-occurrence INTO similarity, so  antonyms become our CLOSEST pairs); the seed price (`~50-100` grounded words already propagate, past  `~400` buys ~nothing); `np.sign` costs almost nothing; the `n_grounded` transposed-field bug; and  the crosstalk capacity law (`r 0.976`, our keys sit AT the Welch bound).
 
 ## DO NOT REDO -- NEVER-TRIM -- stubs; detail in LESSONS
 All CLOSED. `*` = revival criterion. 1 intersection-over-argmax; 2 the "40% ceiling"; 3 syntactic
