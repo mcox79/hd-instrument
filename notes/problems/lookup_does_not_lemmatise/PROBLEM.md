@@ -63,6 +63,27 @@ the way -- using data already on disk and no new norms.**
 ALREADY normed as words someone must go and norm.** Nobody should start that build before this is
 settled.
 
+## 🚨 **READ THIS BEFORE YOU MEASURE ANYTHING: `read()` DOES NOT CONSULT THIS ASSET AT ALL**
+
+**Verified at RUNTIME 2026-08-22, not quoted:** counters on `grounded_similarity`, **`grounded_vector`**
+and `_table` (positive control -- a deliberate call IS counted) register **`0` calls across a
+150-200 sentence `Substrate.read()`.** *The norms table is never even loaded.*
+
+**This corroborates the substrate's OWN B5 slot entry, which says it in the code:** *"The organ
+EXISTS, self-tests, and is invoked by `exp_sensorimotor_spoke_grounding_v1`, but **`read()` does not
+consult it**, so it is `NEEDS_ADAPTER` and not `FILLED`."*
+
+> ### ⛔ **SO FIXING THE LOOKUP CHANGES NOTHING MEASURABLE ON ANY `read()`-BASED TASK. THE COVERAGE GAIN IS REAL AND CURRENTLY UNREACHABLE.**
+> **If you fix the lookup, re-run a reading task and see no movement, THAT IS THE EXPECTED RESULT AND
+> NOT A REFUTATION.** *Score it where the asset is actually consulted, or wire B5 first and say that
+> is what you did.*
+
+⚠️ **ONE CLAIM I AM NOT MAKING:** `recall_cortical` also registered `0` calls in all three `space`
+settings, **but its sensorimotor branch may simply not have been REACHED** (150 sentences may yield
+no consolidated terms). *That is a probe limit, not a finding -- do not quote it as "cortical recall
+ignores the norms".* **Only the `read()` result is solid, and it is the one the B5 entry already
+states.**
+
 ## MEASURED vs INFERRED
 
 **MEASURED** (2026-08-22, replication of `exp_meaning_asset_norms_coverage_gap_v1` verified to four
