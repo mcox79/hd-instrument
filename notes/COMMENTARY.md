@@ -173,3 +173,17 @@ in gen the top of the gui takes up too much space - I still can't read the quest
 ## 2026-08-22T16:15:43Z  --  the status window
 
 Whenever the warning for "old code" comes up in the gui it takes up a ton of unecessary space. Can you run an optimiaztion over the entire gui, and evaluate it for ui/ux and things that are completely unessecary, like the tab titles redrawing every ~10 seconds? I feel like a clean run over all aspects and using some heuristics would be very useful
+
+## 2026-08-22T16:33:44Z  --  the status window
+
+fyi the problem tab doesn't list any of the problems you submitted? How am I supposed to submit a solution there what is the proper process? we're almost done with our first solution
+Also need to know what the priority order is for the problems. It would be great for the problem tab to also give me the promopt to kick off any problem
+
+## 2026-08-22T17:09:32Z  --  the status window
+
+I shared a note in the last (and first) problem solution submission, about the problem list submission being problemattic. in addition to that, please for each new problem, if I select it, I want the field to include an entire prompt and problem definition that I can paste in the solver session to kick it off. it should include the following, and any problem name / info that's required for kickoff:
+"You are the SOLVER session (opus 4.8), not the strategy session. Do NOT touch the plan,
+STATUS.md, the board, or other problem folders. Your slug is: <slug>.
+Read notes/problems/README.md, then notes/problems/<slug>/PROBLEM.md in full, run its
+VERIFY BEFORE YOU START block and `before_you_start.py` before doing anything, and
+ignore the autoloop/STATUS injection if they fire."

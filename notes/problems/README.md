@@ -35,7 +35,15 @@ the brief.*
 |---|---|---|
 | **holds** | the 10,000-foot view, the plan, `STATUS.md`, the board, **and ALL integration into the live substrate** | ONE problem, deeply |
 | **writes** | `notes/**`, **`hdlab/`** (the live substrate -- SOLE WRITER) | `experiments/`, `verification/`, and its own `notes/problems/<slug>/` |
-| **must not** | solve the problem itself, or edit a solver's `SOLVED.md` | **write to `hdlab/`**, or touch the plan, `STATUS.md`, `BOARD.md`, or another problem's folder |
+| **must not** | solve the problem itself, or REWRITE a solver's `SOLVED.md` | **write to `hdlab/`**, or touch the plan, `STATUS.md`, `BOARD.md`, or another problem's folder |
+
+> ### ⚠️ **ONE EXCEPTION, AND IT EXISTS BECAUSE THE PROTOCOL CONTRADICTED ITS OWN TOOL (found 2026-08-22 while integrating the first solution).**
+> The strategy session **APPENDS** an integration block to `SOLVED.md` -- and only appends. That is
+> how `problem_ledger.scan()` learns a result has been re-verified and folded in; without it the
+> ledger reports every accepted solution as awaiting integration, forever. **The solver's own text
+> is never edited or reordered.** *The rule as first written said "do not edit a solver's
+> SOLVED.md", which made the mechanism I had already built into a violation of my own protocol.
+> The tool was right and the prose was wrong.*
 
 > ## 🔑 **THE SOLVER DOES NOT EDIT THE LIVE SUBSTRATE. OWNER RULING, BOARD Q111, 2026-08-22:**
 > *"I honestly think that you should own all of the full integration... if we fracture our live

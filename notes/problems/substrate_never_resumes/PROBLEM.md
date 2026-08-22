@@ -73,12 +73,21 @@ helps.**
 - *That the `92 -> 92` is meaningful.* **It is not, and do not quote it.** 120 sentences is below
   the measured 100-400 threshold at which grounding turns on at all.
 
-### 🔗 A COUPLING YOU NEED TO KNOW BEFORE YOU START
-**The only two resumable snapshots (`v1`, `v2_qualityfix`) are the ones carrying the stem defect --
-about `7.9%` of their stored subjects are chopped-up non-words** (see the `stored_terms_are_stems`
-brief). **So the naive fix resumes contaminated data.** *That may be fine for a first measurement --
-noise in the anchor pool is arguably the thing being tested -- but it must be stated, and it may
-mean the right first move is to BUILD a clean resumable snapshot rather than load an old one.*
+### 🔗 A COUPLING THAT IS NOW DECIDED, NOT JUST FLAGGED (updated 2026-08-22 after `stored_terms_are_stems` landed and was re-verified)
+
+**The only two resumable snapshots (`v1`, `v2_qualityfix`) are EXACTLY the two built before the
+lemmatiser fix**, and `7.87%` of `v2_qualityfix`'s stored subjects are chopped-up non-words.
+**A fresh store on HEAD measures `0.00%` on the same detector** -- so the damage is a STALE DATA
+ARTIFACT, not a live defect, and it is confined to the artifacts you would be loading.
+
+> ### ➡️ **SO THE FIRST MOVE IS TO *BUILD* A CLEAN RESUMABLE SNAPSHOT, NOT TO LOAD `v2q`.**
+> *Loading an old foundation resumes `7.87%` guaranteed-junk subjects into the anchor pool -- which
+> is the very pool whose degeneracy this problem exists to measure. **You would be testing whether
+> resuming helps while feeding it the one input known to be contaminated.*** A clean snapshot costs
+> one read; the ambiguity it removes is worth far more than the read.
+
+⚠️ **AND DO NOT QUOTE THE `7.9%` AS A PROPERTY OF THE SYSTEM.** It is a property of one stale
+artifact. Any grounding-quality figure computed on `v1`/`v2_qualityfix` inherits it and must say so.
 
 ---
 

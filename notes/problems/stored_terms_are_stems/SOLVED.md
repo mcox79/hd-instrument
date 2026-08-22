@@ -73,3 +73,48 @@ running system clean requires **rebuilding and repointing the foundation with HE
 store-write to `data/foundation/` that is read-only and owner-gated, and a strategy-session
 decision, not a solver write. That is the single step between this diagnosis and the owner's
 stored terms actually being whole.
+
+---
+
+## INTEGRATED_BY_STRATEGY -- 2026-08-22, re-verified on disk
+
+**APPENDED by the strategy session. Nothing above this line was edited.**
+
+**VERDICT: PARTIAL UPHELD.** The `PARTIAL` is the honest tier -- the bar said "fix it", and the
+finding is that there was nothing live to fix. That is a better answer than the one asked for.
+
+**WHAT I RE-RAN, rather than accepting the summary:**
+
+1. **Their own `reverify` command**, end to end (89 s). Reproduces exactly: detector controls PASS
+   (7 known chops flagged, 16 real words incl. function words left alone); stale `v2_qualityfix`
+   **119/1512 = 7.87%**; fresh store on HEAD **0/141 = 0.00%**. Per-source stale rates run
+   `3.64%` (seed) to `16.73%` (`reading:bio_new`).
+2. **An INDEPENDENT spot-check I chose, on the owner's own 13 cited words**, through HEAD's live
+   `normalize_lemma`: `analysis`, `hypothesis`, `apoptosis`, `cigarette`, `cassette`,
+   `heterozygous`, `indigenous`, `status`, `elongate`, `encode`, `define`, `duplicate`,
+   `christmas`, `always` -- **all pass through UNTOUCHED.**
+   🔑 **The single word that changed is `arteries -> artery`, which is CORRECT lemmatisation, not a
+   chop -- and it doubles as the positive control for bar item 4 ("prove you did not break
+   lemmatisation"). A run where nothing changed at all would have been the suspicious result.**
+
+**WHAT THIS SETTLES:** the stem damage is a **STALE DATA ARTIFACT**, not a live defect.
+`normalize_lemma` (`hdlab/reading_grounding_loop.py:230`) resolved to an unguarded suffix stripper
+until `01093ac1f` / `7d6036bca` added an `is_known_word(residue)` gate; the `v2_qualityfix` store
+was built the day BEFORE that fix landed.
+
+**WHAT IT CHANGES ELSEWHERE, and this is the part worth carrying:**
+- 🔻 **The `7.9%` stem figure may NO LONGER be quoted as a property of the system.** It is a
+  property of one stale artifact. Any grounding-quality number computed on `v1`/`v2_qualityfix`
+  still inherits it and must say so.
+- 🎯 **It sharpens `substrate_never_resumes`:** the only two RESUMABLE snapshots are exactly the
+  two pre-fix ones. So "load an old foundation" resumes contaminated data by construction, and the
+  right first move there is to **BUILD a clean resumable snapshot**, not load `v2q`. *That brief
+  flagged the coupling; this result decides it.*
+- ✅ **The owner's hand observation was correct and worth more than the sheet it came from.** They
+  found a real defect by reading rows; it turned out to be historical, and finding that out cost
+  one solver session.
+
+**CREDIT WHERE IT IS DUE:** the solver's detector caught its OWN false positive -- function words
+(`and -> andes`, `with -> withe`) were inflating the fresh-store count to `10/92` until they were
+excluded, giving the true `0/92`. *A negative control that fires on its author is the thing this
+project keeps saying it wants.*
