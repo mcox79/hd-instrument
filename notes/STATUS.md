@@ -116,7 +116,16 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   (`verify_levin_lastresort_backoff.py:51`), so it is `2/8` NOT `0/8` and Fisher `p=0.2404`, NOT
   `0.0049`. ALSO RETRACTED: "precision fell `0.8095->0.7500`" -- correctly `0.8182`, NO REGRESSION,
   and that guard pins `(17,4,23)` and PASSES.** *Passed a positive control, a pre-registration and a
-  power calculation; broke on a definition I never looked up.*
+  power calculation; broke on a definition I never looked up.* 🚨 **CHASING THAT DEFINITION FOUND A
+  REAL DEFECT: `AMBIGUOUS` is an ABSTENTION in 5 consumers INCLUDING `hdlab/consequence_learning_
+  loop.py` ITSELF, and a WRONG ANSWER in exactly one -- the landed cell, BY OMISSION (`ok = (pred ==
+  gold)`, the word never appears).** ✅ *NOT bitten: OOV 36 has ZERO `AMBIGUOUS`, so the landed
+  primary is fine TODAY; it would be wrong on the in-lexicon 8.* ➡️ **So my retraction's "the repo
+  convention governs" was too clean -- BOTH conventions live here and I used the LANDED CELL'S; the
+  abstention claim is NOT quotable either way, the `4/8` accuracy is.** ✅ **GUARD:
+  `tools/score_with_abstention.py`, no signature returns a bare accuracy, self-test 6/6 incl. a
+  negative control and an assertion that FIRES the day the OOV 36 acquires an `AMBIGUOUS`.**
+  `THE_LANDED_CELL_SCORES_ABSTENTIONS_AS_ERRORS_BY_OMISSION_...`
 - 🚨 **AND THE LANDED RECORD IS STALE: the `HARD_FAIL` was measured where the cascade fired `0` of
   `36` (every item `abstain_fallback_to_lexicon`). Landed `0.1667`/`NONE 29`/firings `0`; today
   `0.3889`/`NONE 20`/firings `10`, `9` correct.** *Read from the landed run's OWN checkpoint -- no

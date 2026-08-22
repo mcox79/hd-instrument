@@ -73,10 +73,10 @@ C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out
   (`verify_levin_lastresort_backoff.py:51`), so it is `2/8` NOT `0/8` and Fisher `p=0.2404`, NOT
   `0.0049`. ALSO RETRACTED: "precision fell `0.8095->0.7500`" -- correctly `0.8182`, NO REGRESSION,
   and that guard pins `(17,4,23)` and PASSES.** *Passed a positive control, a pre-registration and a
-  power calculation; broke on a definition I never looked up.*
-- 🚨 **AND THE LANDED RECORD IS STALE: the `HARD_FAIL` was measured where the cascade fired `0` of
+  power calculation; broke on a definition I never looked up.* 🚨 **CHASING THAT DEFINITION FOUND A
+  REAL DEFECT: `AMBIGUOUS` is an ABSTENTION in 5 consumers INCLUDING `hdlab/consequence_learning_
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T13:07:52Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T13:11:39Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
