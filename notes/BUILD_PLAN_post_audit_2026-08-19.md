@@ -84,6 +84,22 @@
 >   BROKEN". THE TELL IS THAT THE FAILURE CITES A COMPARATOR.**
 >   `I_KEEP_READING_A_FAILED_UPGRADE_AS_A_BROKEN_COMPONENT_...`
 >
+> ✅ **AND THE WALL WAS RE-RUN POST-REPAIR: IT REPRODUCES EXACTLY.** *Both wall cells landed 2026-08-07
+> while the lemmatizer they depend on was repaired 2026-08-13 (`7d6036bca`: non-word stems `8,692 -> 0`,
+> gold verb-inflection `53.50% -> 99.03%`) -- a REAL confound, correctly identified.* 🔁 **RE-RAN
+> `fc21752f3` today (no `units.jsonl`, genuine recompute, 65.55 s): `primary 0.4722` -- IDENTICAL TO FOUR
+> DIGITS; floor `0.6389`; scramble `0.5000 -> 0.5111`, gap still NEGATIVE; SAME `HARD_FAIL`, SAME
+> `SCRAMBLE_DOES_NOT_COLLAPSE`. MY CONFOUND HYPOTHESIS IS REFUTED AND THE WALL IS STRONGER -- measured
+> TWICE, 15 days apart, on TWO lemmatizers.**
+> 🔑 **BOTH HOLD AT ONCE: the old stems WERE garbage AND cleaning them did NOT move the outcome -- so the
+> credit errors were not what was limiting this.**
+> 🔻 **THE ERROR SPLIT (still PRE-REPAIR data): `73%` of error types are NOT VERBS (52% non-words, 21%
+> nouns); the correct ones are `100%` real verbs. CAUSE IS ONE LINE: `_is_verblike` = `lemma_verb(tok) !=
+> tok or -ed/-ing`, and PLURALISATION CHANGES THE FORM -- `7/10` plural nouns admitted live, while
+> base-form `praise` is REJECTED. Backwards BOTH ways.** ⚠️ *The sharpened cell HAS `units.jsonl` and is
+> STILL UNRE-RUN, so that split and its `0.4676 -> 0.4941` remain pre-repair. Types, not tokens.*
+> `I_RE_RAN_THE_WALL_...` `THE_CREDIT_ERRORS_ARE_NOT_WRONG_VERBS_...` `THE_VERB_DETECTOR_ADMITS_EVERY_PLURAL_NOUN_...`
+>
 > **4. ✅ THE GROUNDING ORGAN WORKS, AND MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding`
 > HARD_PASS `0.967`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (the PREDICTED failure at
 > `0.500`); `twostage_event_situation_v2` HARD_PASS **B and C `1.000`** vs governor `0.500`.*
