@@ -44,6 +44,34 @@ is just wearing a different ending.**
 **Your job: make the lookup fall back to a lemma when the exact form misses, and prove on a TASK
 that this helps rather than merely widens.**
 
+## 🔻 **DEFLATED BY ITS OWN AUTHOR, 2026-08-22: THE DEFECT'S COST IS ZERO ON EVERY INSTRUMENT WE OWN**
+
+**The other session's fourth ranking test asks: does a number show THE DEFECT ITSELF costs us, or only
+that an ALTERNATIVE is better? This brief failed that test, and it fails in exactly the way
+`flat_store_destroys_the_code` did before it was refuted.** I measured rather than argued.
+
+**How many benchmark pairs can the asset answer but the raw lookup cannot reach?**
+
+| benchmark | scorable NOW | UNSCORABLE but recoverable by lemmatising | genuinely absent |
+|---|---|---|---|
+| SimLex-999 | `999` = **`100.0%`** | 🔻 **`0`** | `0` |
+| SimVerb-3500 | `3,487` = `99.6%` | 🔻 **`0`** | `13` |
+
+> ### **ZERO. BENCHMARK WORDS ARE ALREADY DICTIONARY FORMS, SO THE LEMMATISATION GAP COSTS NOTHING THERE.**
+
+**The `+13.2` coverage points are real and are entirely on RUNNING TEXT** -- where words are inflected.
+**But nothing scores on running text through this lookup, because `read()` never consults it.**
+➡️ **So the cost of the defect is currently `0` on every scoreable instrument we have, and the gain is
+unmeasurable on the one place it would appear.** *Two independent reasons this cannot be scored today,
+and I had only found the second.*
+
+**WHAT SURVIVES:** the coverage arithmetic (`0.6035 -> 0.7350`), the soundness of the substitution
+(3,629 pairs, median cosine `0.7605` vs a `-0.0131` floor), and the correction to `+14,704 words to
+norm`. **WHAT DIES: the case for doing this SOON.**
+➡️ **DO NOT START THIS UNTIL SOMETHING SCORES ON RUNNING TEXT THROUGH THIS LOOKUP.** *At that point
+the cost becomes measurable and this becomes cheap and obvious. Until then it is a fix whose benefit
+no instrument can see.*
+
 ## WHY THIS ONE
 
 > # 🔑 **ADDED 08-22 -- THIS IS ALSO THE VERB FIX, AND THAT IS THE STRONGEST ARGUMENT FOR IT.**
