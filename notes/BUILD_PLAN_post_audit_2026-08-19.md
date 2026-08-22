@@ -88,8 +88,7 @@
 > 🔻 **OPEN-VOCAB, DIAGNOSED -- AND I RETRACT TWO CLAIMS MADE GETTING THERE.** *RETRACTED: "the cost
 >   is 3 words (`arm`/`hand`/`leg`)" and "the consumer is calibrated on the component's error". **`he broke
 >   her arm` RETURNS `BLOCK_HIGH` = GOLD.** FAULT: I compared `v2.lookup_animacy` vs the real lookup and
->   THE CLOSED ARM DOES NOT CONSUME IT (it uses `object_event_class`). Name-matched, never verified,
->   built two conclusions on it.*
+>   THE CLOSED ARM DOES NOT CONSUME IT (it uses `object_event_class`). Name-matched, never verified, built two conclusions on it.*
 > ✅ **SUBSET `B` NOW CLOSES EXACTLY: 10/12 = `0.8333` vs reported `0.833`, BOTH ERRORS THE WORD `enemy`.**
 >   *Combiner: **SITUATION > EVENT > GOVERNOR**, so event-stage `None` = DECLINING and the governor answers.*
 > 🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF, NOT A DEFECT -- DO NOT TOUCH IT.** *It stops the
