@@ -79,6 +79,33 @@ features -- which is precisely the failure mode here.**
 
 ---
 
+## 3b. 🔑 THE PLAN ALREADY DECIDED THE ORDERING, AND ALREADY FOUND THE BRIDGE BETWEEN THIS AND THE READER
+
+**`notes/LONG_TERM_PLAN.md` PHASE 3 IS THIS PROBLEM, AND IT IS "BLOCKED UNTIL PHASE 1 CLEARS."**
+*Its gate is worded to catch precisely the trap in section 3: "addressed beats flat CI-separated on
+the REAL reading task, not in isolation. An isolation win is a construction proof; this project has
+repeatedly mistaken one for a capability."* **That ordering is a decision, not my inference -- do
+not re-argue it, and read Phase 1 before starting here.**
+
+> ### 🎯 **AND PHASE 1 ALREADY FOUND THE THING THAT JOINS THE TWO PROBLEMS, WHICH IS THE MOST USEFUL POINTER IN THIS BRIEF.**
+> `C1_KCAP_GRD_f005_BOOST@d1024` -- **a SPARSE, GRADED population code** -- carries meaning at
+> **`0.2801`, CI-separated above all three floors**, *and* retains **`3.5264` of 7 bits through
+> bundling: `4.0x` the incumbent and `7x` the pre-registered `0.5`-bit criterion.**
+> **"Meaning that survives superposition is the combination this programme needs and had never
+> achieved."**
+>
+> **The contrast makes the trade-off concrete:** `C4_PHASOR` wins on meaning outright (`0.3345`) and
+> **dies in bundling at `0.0097` bits.** *Meaning you cannot superpose is meaning you cannot store.*
+>
+> ⚠️ **HONEST CAVEAT, FROM THE PLAN ITSELF: the CELL fails the standing bar (`verdict_bar_check` ->
+> `FAILS_BAR`; G0/G4 failed on a degenerate denominator, not on the candidates). THE ARM IS
+> PROMISING; THE CELL IS NOT A PASS.** *Do not cite `0.2801` as a landed result.*
+>
+> ➡️ **SPARSITY IS NAMED AS THE LIVE PHASE 1 LEVER AND AS THE LARGEST FIDELITY GAP WE HAVE -- THE
+> BRAIN IS SPARSE AND WE ARE DENSE.** *But see the closed route in section 4: sparsifying the STORED
+> KEY under a partial cue is dead. Sparsity in the CODE and sparsity in the KEY are different
+> interventions and this project has already confused them once.*
+
 ## 4. ALREADY TRIED -- AND THE SHAPE OF THE FAILURE
 
 - **The mechanism has been solved THREE TIMES and islanded THREE TIMES.** The pattern is not that

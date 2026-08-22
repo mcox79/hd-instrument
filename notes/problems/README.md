@@ -6,6 +6,29 @@ separate session dig in to specifically solve those problems. I'll use opus 4.8 
 find it more interactive and able to really dig in and solve bounded issues, while I'd like you to
 keep the 10k view and integrate solved issues."*
 
+## ⚠️ READ THIS BEFORE ANY BRIEF: `notes/LONG_TERM_PLAN.md` IS THE PHASE STRUCTURE AND IT OUTRANKS THESE BRIEFS
+
+**It states five phases, each with a GATE and a KILL CONDITION, and the owner's status GUI parses it
+live.** The problem folders are how work gets HANDED OVER; **`LONG_TERM_PLAN.md` is why those
+problems are the ones worth doing, and in what order.** *A brief that contradicts it is a defect in
+the brief.*
+
+**Three things in it that a solver will otherwise re-derive or get wrong:**
+
+- **PHASE 1 IS MEANING SUPPLY AND IT IS NAMED AS THE CURRENT BOTTLENECK.** *Brain structure:
+  sensorimotor spokes feeding the anterior-temporal hub, PINNED.*
+- **PHASE 3 (ADDRESSED STORAGE) IS EXPLICITLY "BLOCKED UNTIL PHASE 1 CLEARS."** *That is the
+  reader/store coupling, already decided as an ORDERING -- do not re-argue it. Its gate is worded
+  to catch exactly the trap: "addressed beats flat CI-separated on the REAL reading task, not in
+  isolation. An isolation win is a construction proof; this project has repeatedly mistaken one for
+  a capability."*
+- **PHASE 2's KILL CONDITION FIRED on 2026-08-17** -- two independent bridging mechanisms, both
+  null, both gated, one of them the owner's own. **Do not build a third bridging variant without a
+  new reason.** *What it does NOT license: "relational bootstrapping is impossible". A child does
+  acquire most of its vocabulary this way, so a miss is a fact about OUR implementation.*
+
+---
+
 ## THE DIVISION
 
 | | strategy session (this one) | solver session |
