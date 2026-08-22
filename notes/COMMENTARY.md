@@ -165,3 +165,11 @@ also - i want you to evaluate your progress against what it would take for this 
 ## 2026-08-22T01:55:05Z  --  the status window
 
 we did a fuckton of work on grounding. make sure you understand all of it.
+
+## 2026-08-22T16:10:07Z  --  the status window
+
+in gen the top of the gui takes up too much space - I still can't read the questions on tab 3
+
+## 2026-08-22T16:15:43Z  --  the status window
+
+Whenever the warning for "old code" comes up in the gui it takes up a ton of unecessary space. Can you run an optimiaztion over the entire gui, and evaluate it for ui/ux and things that are completely unessecary, like the tab titles redrawing every ~10 seconds? I feel like a clean run over all aspects and using some heuristics would be very useful

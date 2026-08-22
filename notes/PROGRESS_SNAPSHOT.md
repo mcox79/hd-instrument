@@ -4,22 +4,34 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-22T15:47:11Z  |  HEAD: 971c043e0
+generated: 2026-08-22T16:04:11Z  |  HEAD: 1bb90a7a6
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 28661 min ago <-- STALE
-  - orchestrator: 36990 min ago <-- STALE
-  - research: 192 min ago <-- STALE
-  - skunkworks: 39662 min ago <-- STALE
-  - testbed: 76236 min ago <-- STALE
+  - exp_dev: 28678 min ago <-- STALE
+  - orchestrator: 37007 min ago <-- STALE
+  - research: 209 min ago <-- STALE
+  - skunkworks: 39679 min ago <-- STALE
+  - testbed: 76253 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - substrate_director_kb_v1.staging.35808: 46 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.35808: 63 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
-  - ⬜ **NOTHING IS RUNNING.**
+  - 🏗️ **NEW OPERATING MODEL (OWNER 08-22) -- STRATEGY SESSION + SOLVER SESSIONS. THIS SESSION KEEPS
+    THE 10k VIEW, WRITES PROBLEM BRIEFS AND INTEGRATES; A SEPARATE OPUS-4.8 SESSION SOLVES ONE
+    BOUNDED PROBLEM AT A TIME.** ✅ **BUILT: `notes/problems/README.md` (protocol),
+    `notes/problems/SOLVER_SESSION_PROMPT.md` (paste-able), `tools/problem_ledger.py` (the flag,
+    self-test 7/7 -- it REFUSES a `SOLVED.md` with no floor or no controls), and FIVE briefs.**
+    📋 *Order: `stored_terms_are_stems` (first, tests the loop) -> `reader_meaning_channel` (flagship)
+    -> `flat_store_destroys_the_code` -> `substrate_never_resumes` -> `eval_bank_too_small` (**the
+    strategy session is DISQUALIFIED from that one -- it has read the per-item predictions**).*
+    🔑 *Read-out discrimination MERGED into the reader (same task, two names); the CLOZE framing stays
+    RETIRED (ceiling is a tie with word-counting).* ❓ **Q111 OPEN: may solvers edit live `hdlab/`?**
+    *Briefs currently assume yes.* `notes/problems/`
+  - ⬜ **NOTHING IS RUNNING** *(one background agent verifying the reader brief's numbers off disk
+    before that brief is handed over -- its table came from plan prose, not `metrics.json`).*
   - 🚨 **THE OWNER HAND-SCORED THE BLIND SHEET AND FOUND A STALE-ARTIFACT DEFECT: we drew it from
     `reading_grounding_v2_qualityfix` while `v3_definitional`, `v4_parsefix` AND `v5_termboundary`
     all exist on disk.** *Owner: "a lot of words there are missing letters."* **TRUE STEM RATE (round-
@@ -159,12 +171,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 23 new commit(s) since last snapshot (HEAD 48a9048b1 -> 971c043e0)
+- 5 new commit(s) since last snapshot (HEAD 971c043e0 -> 1bb90a7a6)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - MONOTONICALLY (`+0.0062 -> -0.0464`), in-sample best lambda is **0.0 = do not do it**, held-out
 - **a 12-WORD seed via `hdlab/wordnet_polarity_propagation.py` -> `0.833` on 12 HELD-OUT verbs**
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8159, "generated_at": "2026-08-22T15:47:11Z", "head_commit": "971c043e01259c1953dd21210144c8de79ae3e84", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8159, "generated_at": "2026-08-22T16:04:11Z", "head_commit": "1bb90a7a6e617cbfaeded8bb51155e61b73e173c", "step_status": {}}
 -->
