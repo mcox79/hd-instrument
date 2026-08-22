@@ -4,22 +4,94 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-22T12:35:01Z  |  HEAD: 48a9048b1
+generated: 2026-08-22T15:47:11Z  |  HEAD: 971c043e0
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 28468 min ago <-- STALE
-  - orchestrator: 36798 min ago <-- STALE
-  - research: 2860 min ago <-- STALE
-  - skunkworks: 39469 min ago <-- STALE
-  - testbed: 76043 min ago <-- STALE
+  - exp_dev: 28661 min ago <-- STALE
+  - orchestrator: 36990 min ago <-- STALE
+  - research: 192 min ago <-- STALE
+  - skunkworks: 39662 min ago <-- STALE
+  - testbed: 76236 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - substrate_director_kb_v1.staging.35340: 33 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.35808: 46 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - ⬜ **NOTHING IS RUNNING.**
+  - 🚨 **THE OWNER HAND-SCORED THE BLIND SHEET AND FOUND A STALE-ARTIFACT DEFECT: we drew it from
+    `reading_grounding_v2_qualityfix` while `v3_definitional`, `v4_parsefix` AND `v5_termboundary`
+    all exist on disk.** *Owner: "a lot of words there are missing letters."* **TRUE STEM RATE (round-
+    trip detector): sheet `10.4%`, v2q `7.9%`, 🟢 `v5_termboundary` `0.4%` -- A ~20x REDUCTION THAT
+    ALREADY SHIPPED** (charter: *"v5 term-boundary fix, corruption `16.1% -> 1.0%`"*).
+    🔻 **TWO CORRECTIONS OF MY OWN, WITHIN THE HOUR: (1) I first reported `24%` using "not in
+    WordNet", which counts REAL words WordNet lacks (`archaea`, `adipocytes`, `Abdullah`) -- 2.3x
+    OVERSTATED; the round-trip test (`analysi`+`s` is a word, `archaea`+anything is not) separates
+    them, and a cruder detector would have scored the FIXED foundation as the WORST. (2) I told the
+    owner "fix the stemmer first" -- WITHDRAWN, it shipped weeks ago.**
+    ➡️ **THE REAL DEFECT IS PROVENANCE: `draw_representative_blind_sample.py` has no notion of a
+    CURRENT foundation, and four exist unmarked.** ⚠️ *v5 is a DIFFERENT ARTIFACT SHAPE (one
+    `definitional_facts_v5.jsonl` vs v2q's full `store/`), so "sample v5 instead" is NOT a straight
+    swap and v5 is NOT claimed to be the live foundation.*
+    🔻🔻 **CORRECTION 3, SAME DAY, AND IT REINSTATES THE ORIGINAL FINDING -- I WAS WRONG THREE TIMES
+    IN ALTERNATING DIRECTIONS. All NINE foundation dirs were written `2026-08-12`, THE SAME DAY, and
+    only `v1`/`v2q` are LOADABLE (`v3`/`v4`/`v5` lack ALL FOUR artifacts `load_foundation` needs). So
+    `v3`/`v4`/`v5` are NOT later versions -- they are a DIFFERENT PIPELINE's fact dumps.**
+    🔻 *WITHDRAWN: "three-versions-stale" (all one day old; `v2q` was the RIGHT artifact for the
+    question).* 🔻 *WITHDRAWN: "the stem fix already shipped" -- `0.4%` is definitional extraction's
+    DEFINIENDA vs the grounding loop's SUBJECTS at `7.9%`; **different pipelines, and I broke the
+    no-number-crosses-populations rule I had invoked twice the same day.***
+    ✅ **STANDS: the grounding loop stores ~`8%` STEMMER OUTPUT AND IS NOT KNOWN TO BE FIXED. Only the
+    `24% -> 10.4%` deflation survives from correction 1.**
+    `THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...`
+  - 🚨🧠 **AND THAT CHASE FOUND THE CAUSE OF THE GENERIC-ATTRACTOR DEGENERACY: NOTHING LOADS A
+    FOUNDATION. RUNTIME (counters on the functions, not grep), `foundation_dir` SET to v5, 120
+    sentences: `load_foundation` calls `0`; store facts `92` -> `92`, and the `92` comes from the
+    `107` SEED WORDS. `self.foundation_dir` is assigned at `substrate.py:378` and NEVER READ AGAIN --
+    THE PARAMETER IS DEAD.** ✅ *Enumerated with comments separated from calls: 6 files, and the only
+    live-path hit is a COMMENT at `reading_grounding_loop.py:1732`. **NO LIVE READING PATH CALLS
+    IT.*** 🔻 *Grep got it wrong BOTH ways first -- the documented trap, on the module the rule was
+    written about.*
+    🎯 **THIS MAKES THE PLAN'S OWN PREDICTION UNREACHABLE: it says the `way`-attractor (`17.7%` of
+    grounded terms) comes from "~107 generic seeds" and "predicts the degeneracy should FALL as the
+    grounded vocabulary grows". IT CANNOT GROW ACROSS RUNS. The degeneracy is ARITHMETIC, not tuning
+    or scale.** 🧠 *Consolidation is DEFINED by persisting across episodes; we have no slow store at
+    all -- the persistence half of the 08-19 replay gap, one dead attribute wide.*
+    ⚠️ **NOT MEASURED: whether loading helps. THAT IS THE EXPERIMENT, prediction already on record.**
+    🚫 *Do not quote `92 -> 92`; 120 sentences is below the 100-400 grounding threshold.*
+    `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
+  - 🔑 **IT IS NOT ANSWERING WRONG -- IT IS NOT ANSWERING. Of `22` errors on the OOV 36, `20` are
+    NON-ANSWERS, `2` are WRONG ANSWERS; accuracy WHEN IT COMMITS is `14/16 = 0.8750`.** *COVERAGE, not
+    DISCRIMINATION -- the 08-07 charter's "HIGH-PRECISION + COVERAGE-LIMITED".* ➡️ **RE-AIMS THE ONLY
+    LIVE LEAD: in the EMPTY condition the function is not `UNMET`-biased, it is SILENT.** 🔻 **The
+    KNOWN-ANSWER arm unrun since 08-06 (8 in-lexicon controls): accuracy `4/8` = CHANCE against a
+    BALANCED `0.5000` floor -- SUPPLYING THE WORD DOES NOT BUY THE ANSWER.** ⚠️ *n=8 cannot show
+    incompetence, DECLARED first; INCONCLUSIVE, not a negative.* 🔻 **I RETRACTED THE ABSTENTION HALF
+    SAME-DAY: I counted `AMBIGUOUS` as a commitment, the repo counts it as an ABSTENTION
+    (`verify_levin_lastresort_backoff.py:51`), so it is `2/8` NOT `0/8` and Fisher `p=0.2404`, NOT
+    `0.0049`. ALSO RETRACTED: "precision fell `0.8095->0.7500`" -- correctly `0.8182`, NO REGRESSION,
+    and that guard pins `(17,4,23)` and PASSES.** *Passed a positive control, a pre-registration and a
+    power calculation; broke on a definition I never looked up.* 🚨 **CHASING THAT DEFINITION FOUND A
+    REAL DEFECT: `AMBIGUOUS` is an ABSTENTION in 5 consumers INCLUDING `hdlab/consequence_learning_
+    loop.py` ITSELF, and a WRONG ANSWER in exactly one -- the landed cell, BY OMISSION (`ok = (pred ==
+    gold)`, the word never appears).** ✅ *NOT bitten: OOV 36 has ZERO `AMBIGUOUS`, so the landed
+    primary is fine TODAY; it would be wrong on the in-lexicon 8.* ➡️ **So my retraction's "the repo
+    convention governs" was too clean -- BOTH conventions live here and I used the LANDED CELL'S; the
+    abstention claim is NOT quotable either way, the `4/8` accuracy is.** ✅ **GUARD:
+    `tools/score_with_abstention.py`, no signature returns a bare accuracy, self-test 6/6 incl. a
+    negative control and an assertion that FIRES the day the OOV 36 acquires an `AMBIGUOUS`.**
+    `THE_LANDED_CELL_SCORES_ABSTENTIONS_AS_ERRORS_BY_OMISSION_...`
+  - 🚨 **AND THE LANDED RECORD IS STALE: the `HARD_FAIL` was measured where the cascade fired `0` of
+    `36` (every item `abstain_fallback_to_lexicon`). Landed `0.1667`/`NONE 29`/firings `0`; today
+    `0.3889`/`NONE 20`/firings `10`, `9` correct.** *Read from the landed run's OWN checkpoint -- no
+    re-run.* 🚫 **VERDICT UNCHANGED, still far below the `0.6389` floor; the DIAGNOSIS changes -- the
+    structural-rule analysis (~`20` firings) CANNOT be the landed run.** 🎯 *Free 3rd point: firings/
+    correct `0/0 -> 10/9 -> 19/10` = DECLINING MARGINAL PRECISION (hypothesis; crosses conditions).*
+    ⚠️ **RE-LANDING NEEDS A CELL RUN (routed to `hdi_exp_dev`, not done here).** 🚫 *Empty-overlay
+    only: do NOT place beside `0.4722`.* *The "36-item bank" is the `outcome_in_lexicon is False`
+    subset of the 44, not a separate bank.*
+    `THE_ORGAN_DOES_NOT_ANSWER_WRONG_...` `THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...`
   - 🔻 **MY PREDICTED FIX FAILED ITS OWN TEST.** *Subtracting co-occurrence from the verb score hurts
     MONOTONICALLY (`+0.0062 -> -0.0464`), in-sample best lambda is **0.0 = do not do it**, held-out
     `-0.0005`, and it is WORSE THAN A RANDOM PENALTY at every lambda.* **WHY: `COOC ALONE = +0.0464` --
@@ -87,13 +159,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 57 new commit(s) since last snapshot (HEAD b11db9ab7 -> 48a9048b1)
-- data/ directory count: 8158 -> 8159 (+1)
+- 23 new commit(s) since last snapshot (HEAD 48a9048b1 -> 971c043e0)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - MONOTONICALLY (`+0.0062 -> -0.0464`), in-sample best lambda is **0.0 = do not do it**, held-out
 - **a 12-WORD seed via `hdlab/wordnet_polarity_propagation.py` -> `0.833` on 12 HELD-OUT verbs**
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8159, "generated_at": "2026-08-22T12:35:01Z", "head_commit": "48a9048b1bda5eb9b8da53712fd0ff54ad547d9d", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8159, "generated_at": "2026-08-22T15:47:11Z", "head_commit": "971c043e01259c1953dd21210144c8de79ae3e84", "step_status": {}}
 -->

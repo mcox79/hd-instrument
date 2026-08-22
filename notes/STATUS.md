@@ -104,7 +104,19 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 
 ## WHAT IS RUNNING
 
-- ⬜ **NOTHING IS RUNNING.**
+- 🏗️ **NEW OPERATING MODEL (OWNER 08-22) -- STRATEGY SESSION + SOLVER SESSIONS. THIS SESSION KEEPS
+  THE 10k VIEW, WRITES PROBLEM BRIEFS AND INTEGRATES; A SEPARATE OPUS-4.8 SESSION SOLVES ONE
+  BOUNDED PROBLEM AT A TIME.** ✅ **BUILT: `notes/problems/README.md` (protocol),
+  `notes/problems/SOLVER_SESSION_PROMPT.md` (paste-able), `tools/problem_ledger.py` (the flag,
+  self-test 7/7 -- it REFUSES a `SOLVED.md` with no floor or no controls), and FIVE briefs.**
+  📋 *Order: `stored_terms_are_stems` (first, tests the loop) -> `reader_meaning_channel` (flagship)
+  -> `flat_store_destroys_the_code` -> `substrate_never_resumes` -> `eval_bank_too_small` (**the
+  strategy session is DISQUALIFIED from that one -- it has read the per-item predictions**).*
+  🔑 *Read-out discrimination MERGED into the reader (same task, two names); the CLOZE framing stays
+  RETIRED (ceiling is a tie with word-counting).* ❓ **Q111 OPEN: may solvers edit live `hdlab/`?**
+  *Briefs currently assume yes.* `notes/problems/`
+- ⬜ **NOTHING IS RUNNING** *(one background agent verifying the reader brief's numbers off disk
+  before that brief is handed over -- its table came from plan prose, not `metrics.json`).*
 - 🚨 **THE OWNER HAND-SCORED THE BLIND SHEET AND FOUND A STALE-ARTIFACT DEFECT: we drew it from
   `reading_grounding_v2_qualityfix` while `v3_definitional`, `v4_parsefix` AND `v5_termboundary`
   all exist on disk.** *Owner: "a lot of words there are missing letters."* **TRUE STEM RATE (round-

@@ -61,22 +61,22 @@ C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out
 🎯 **DOUBLE DISSOCIATION: each subset's MATCHED scramble degrades, the UNMATCHED one does not.**
 
 **WHAT IS RUNNING**
-- ⬜ **NOTHING IS RUNNING.**
+- 🏗️ **NEW OPERATING MODEL (OWNER 08-22) -- STRATEGY SESSION + SOLVER SESSIONS. THIS SESSION KEEPS
+  THE 10k VIEW, WRITES PROBLEM BRIEFS AND INTEGRATES; A SEPARATE OPUS-4.8 SESSION SOLVES ONE
+  BOUNDED PROBLEM AT A TIME.** ✅ **BUILT: `notes/problems/README.md` (protocol),
+  `notes/problems/SOLVER_SESSION_PROMPT.md` (paste-able), `tools/problem_ledger.py` (the flag,
+  self-test 7/7 -- it REFUSES a `SOLVED.md` with no floor or no controls), and FIVE briefs.**
+  📋 *Order: `stored_terms_are_stems` (first, tests the loop) -> `reader_meaning_channel` (flagship)
+  -> `flat_store_destroys_the_code` -> `substrate_never_resumes` -> `eval_bank_too_small` (**the
+  strategy session is DISQUALIFIED from that one -- it has read the per-item predictions**).*
+  🔑 *Read-out discrimination MERGED into the reader (same task, two names); the CLOZE framing stays
+  RETIRED (ceiling is a tie with word-counting).* ❓ **Q111 OPEN: may solvers edit live `hdlab/`?**
+  *Briefs currently assume yes.* `notes/problems/`
+- ⬜ **NOTHING IS RUNNING** *(one background agent verifying the reader brief's numbers off disk
+  before that brief is handed over -- its table came from plan prose, not `metrics.json`).*
 - 🚨 **THE OWNER HAND-SCORED THE BLIND SHEET AND FOUND A STALE-ARTIFACT DEFECT: we drew it from
-  `reading_grounding_v2_qualityfix` while `v3_definitional`, `v4_parsefix` AND `v5_termboundary`
-  all exist on disk.** *Owner: "a lot of words there are missing letters."* **TRUE STEM RATE (round-
-  trip detector): sheet `10.4%`, v2q `7.9%`, 🟢 `v5_termboundary` `0.4%` -- A ~20x REDUCTION THAT
-  ALREADY SHIPPED** (charter: *"v5 term-boundary fix, corruption `16.1% -> 1.0%`"*).
-  🔻 **TWO CORRECTIONS OF MY OWN, WITHIN THE HOUR: (1) I first reported `24%` using "not in
-  WordNet", which counts REAL words WordNet lacks (`archaea`, `adipocytes`, `Abdullah`) -- 2.3x
-  OVERSTATED; the round-trip test (`analysi`+`s` is a word, `archaea`+anything is not) separates
-  them, and a cruder detector would have scored the FIXED foundation as the WORST. (2) I told the
-  owner "fix the stemmer first" -- WITHDRAWN, it shipped weeks ago.**
-  ➡️ **THE REAL DEFECT IS PROVENANCE: `draw_representative_blind_sample.py` has no notion of a
-  CURRENT foundation, and four exist unmarked.** ⚠️ *v5 is a DIFFERENT ARTIFACT SHAPE (one
-  `definitional_facts_v5.jsonl` vs v2q's full `store/`), so "sample v5 instead" is NOT a straight
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T15:39:51Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T15:50:49Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
