@@ -601,6 +601,11 @@ def _end_to_end_self_test() -> int:
     tpath = td / 'sess.jsonl'
     tpath.write_text('', encoding='utf-8')
     session = f'_selftest_e2e_{os.getpid()}'
+    # BASELINE BEFORE THE INTERVENTION, even though it "obviously" cannot change: this suite fires
+    # real denials, and 22 of the production log's 91 rows turned out to be its own fixtures.
+    _prod_log = _repo_root() / 'data' / 'hook_state' / '_denial_halts.log'
+    _prod_before = len(_prod_log.read_text(encoding='utf-8', errors='replace').splitlines()) \
+        if _prod_log.exists() else 0
 
     autoloop = _load_tool('autoloop')
     if autoloop is None:
@@ -754,9 +759,23 @@ def _end_to_end_self_test() -> int:
     # they are inverted rather than deleted, so the new contract is enforced as hard as the old.
     check(not board_md.exists() or 'DENIED' not in board_md.read_text(encoding='utf-8'),
           "the denial is NOT filed to the owner's board (owner ruling Q110)")
-    _dlog = _repo_root() / 'data' / 'hook_state' / '_denial_halts.log'
+    # READ THE REDIRECTED LOG, NOT THE PRODUCTION ONE. This assertion pointed at
+    # data/hook_state/_denial_halts.log until 2026-08-22, which made it a FALSE PASS waiting to
+    # happen: that file already holds rows from earlier runs, so the check would have passed
+    # without this run logging anything at all. A checker that can pass while the thing it checks
+    # does not happen is the failure mode this repo has recorded four times.
+    _dlog = td / '_denial_halts.log'
     check(_dlog.exists() and 'permission-rule' in _dlog.read_text(encoding='utf-8', errors='replace'),
           "...but it IS logged, with its kind, where the session will read it")
+    # AND THE GUARD THAT WOULD HAVE CAUGHT THE POLLUTION IN THE FIRST PLACE: the suite fires REAL
+    # denials through a REAL subprocess, so if any path loses the redirect the fixtures land in the
+    # owner's production log. Assert it did not grow -- an absence check with a positive control
+    # sitting directly above it (the redirected log MUST contain the row).
+    _prod = _repo_root() / 'data' / 'hook_state' / '_denial_halts.log'
+    _prod_after = len(_prod.read_text(encoding='utf-8', errors='replace').splitlines()) \
+        if _prod.exists() else 0
+    check(_prod_after == _prod_before,
+          f"the PRODUCTION denial log did not grow ({_prod_before} -> {_prod_after})")
 
     # === SESSION SCOPING (2026-08-22) -- POSITIVE control on BOTH sides, end to end ===
     # The failure: `armed` was global, so arming the loop in a strategy session also drove a
