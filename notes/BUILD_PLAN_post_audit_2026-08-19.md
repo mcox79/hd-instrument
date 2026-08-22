@@ -108,6 +108,26 @@
 > connective-else-most-recent" -- so wiring it imports a RECENCY HEURISTIC, not a solution; I nearly
 > reported it as the answer.** 🔻 **AND IT IS NOT A WIRING JOB: `read(conll_path)` needs MENTION-ANNOTATED
 > CoNLL; the loop passes RAW PROSE.** `SCOPING_THE_PRESCRIBED_BUILD_...`
+> ✅ **AND THE ERROR SPLIT IS MEASURED: `73%` OF ERROR TYPES ARE *NOT VERBS AT ALL*.** *Of the 173 wrong
+>   `light_lemmas`, **52% are NON-WORDS** and **21% are NOUNS with no verb sense** (`boy`, `friend`,
+>   `lesson`); the 113 CORRECT ones are **100% real verbs** (internal control -- my checker is not the
+>   broken thing).* 🔑 **CAUSE IS ONE LINE: `_is_verblike` = `lemma_verb(tok) != tok or -ed/-ing`, and
+>   PLURALISATION CHANGES THE FORM -- so every plural noun passes (`7/10` confirmed live), while the real
+>   base-form verb `praise` is REJECTED. Backwards in BOTH directions.** ⚠️ *Types, not tokens -- I will
+>   not project a repaired precision.*
+> 🚨 **AND THE WALL ITSELF IS CONFOUNDED -- THE HIGHEST-VALUE ITEM IN THIS THREAD.** *`git log`: the
+>   parent wall cell `fc21752f3` AND the sharpened fix `b5fdd956c` BOTH landed **2026-08-07**; the
+>   lemmatizer they both depend on was repaired **2026-08-13** (`7d6036bca`): **"non-word stems 8,692 ->
+>   0; gold verb-inflection 53.50% -> 99.03%"**. Every credit decision passed through it TWICE at
+>   ~coin-flip accuracy.* ✅ **FINGERPRINT: the error list contains `ad` -- the repair's OWN example of the
+>   old bug (`added -> ad`). So the 52% non-word share is a PRE-REPAIR ARTIFACT.**
+> ⚠️ **NOT CLAIMED: that the wall is FALSE. CLAIMED: it has NEVER been measured with working parts, while
+>   BOTH plans of record treat it as SETTLED and derive their revised plans from it.**
+> ⭐ ➡️ **RE-RUN BOTH CELLS POST-REPAIR** *(a re-measurement, not a build; needs fresh-units, else they
+>   replay).* **UNTIL THEN QUOTE THE WALL WITH ITS CONFOUND.** *Also open: a WordNet verb-sense gate fixes
+>   both directions of `_is_verblike`; must be TESTED.*
+>   `THE_REAL_PROSE_WALL_WAS_MEASURED_ON_A_LEMMATIZER_...` `THE_VERB_DETECTOR_ADMITS_EVERY_PLURAL_NOUN_...`
+>   `THE_CREDIT_ERRORS_ARE_NOT_WRONG_VERBS_THEY_ARE_NOT_VERBS_...`
 > 🔧 *Fixed `experiment_index.py`: `--limit` was advertised by its truncation message and NEVER PARSED,
 >   so >40-result questions could not be enumerated. Both forms verified; self-test passes.*
 >   `I_KEEP_READING_A_FAILED_UPGRADE_AS_A_BROKEN_COMPONENT_...` `THE_PRESCRIBED_FIX_DEPENDS_...`
