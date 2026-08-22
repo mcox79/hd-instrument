@@ -29,20 +29,20 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 AS OF: 2026-08-22, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | ✅ **BOARD: Q113 OPEN** (may the loop hand cell work to `hdi_*` helpers? it is a POLICY, not a wall). 🔑 **Q111 STANDING: I OWN ALL INTEGRATION; solvers NEVER write `hdlab/`** -- owner, *"if we fracture our live substrate modification I fear we'll lose sight of state"*. 🔑 **Q110 STANDING: *"i don't want any more questions on bullshit like this here. you need to figure out these kinds of things on your own"* -- OPERATIONAL things are mine; the board is for decisions only the owner can make.** ✅ *Q102 (form organ wired additively), Q107 (no new allow rules needed), Q109, Q112 (the "238 overstated results" were flags, not overstatements) are ANSWERED AND DISCHARGED -- detail evicted per STATUS_SPEC sec 3 tier 3; see `notes/QUESTION_LOG.md`, the plan's state block, and `git log`.*
 
 **POSITION**
+### 2026-08-22 -- 🚨 **`read(n_sentences=N)` DOES NOT READ `N`. ASK FOR 8,000, GET ~1,000.**
+**`read(3000)`/`read(6000)`/`read(10000)` ALL returned `1,060` sentences, same 9 checkpoints, same 30
+consolidated terms. Asked `8,000`, every seed/dim stopped between `960` and `1,500`; successive calls
+fall to `240`, `220`.** 🔻 **SILENT -- yet `ReadResult.n_sentences` held the truth all along.**
+✅ **GUARDED `e335fa220`: `n_sentences_requested` + `short_read` on `ReadResult`, stderr banner under
+90% delivery, survives `to_dict()` into `metrics.json`; witness 3/3, controlled both ways.** *Warn not
+raise -- the results are REAL, only their DESCRIPTION was at risk.*
+🔻 **RETRACTS MY OWN GROWTH CURVE: chunking did not grow consolidation to 180 by reading more -- each
+CALL buys a fresh smaller allowance. The "30-term consolidation cap" WAS the read cap.**
+🚫 *NOT claimed: that every landed cell is affected (this is `Substrate.read()`; the enumeration is the
+follow-up), that any published number is wrong, or that the cause is traced.*
+📎 `SUBSTRATE_READ_SILENTLY_READS_A_FRACTION_...`
 ### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; NOW ENFORCED IN CODE**
 **`399` of `7,868` landed cells (`5.1%`) replay on re-run -- same verdict, same numbers, `elapsed
-0.0s`, no work done.** 🔑 **`tools/reproduction_check.py` makes the unsafe reading unrepresentable
-(`ReproductionVerdict` has no `__bool__`; no before-snapshot -> `INDETERMINATE`, never a pass).**
-🚫 **CASTS DOUBT ON NO LANDED NUMBER -- only on whether re-running one verifies it.**
-📎 `--census` recomputes it; brief `notes/problems/harness_cannot_recompute/`.
-### 2026-08-22 -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS. THE LOOKUP CANNOT INFLECT.**
-**`grounded_similarity.py:165` is the whole lookup -- `_table().get(word.lower())`, raw string, no
-morphology -- so we hold `country` and read past `countries`.** **TOKEN coverage `0.6035` -> `0.7350`
-under our own `normalize_lemma` (+13.2 points, zero new norms = 44% of the way to the `90%` target),
-type `0.1027` -> `0.1633`.** ➡️ **So `+14,704 words to norm` counts inflected forms of ALREADY-NORMED
-words.** *Landed cell reproduced to 4 decimals BEFORE any delta -- that replication IS the control.*
-✅ **THE SUBSTITUTION IS SOUND, MEASURED: 3,629 pairs where both forms carry their own norms read
-median cosine `0.7605` vs a random-pair floor `-0.0131`; `4.9%` fall below that floor.** 🔻 *My
 
 **TOP ITEM -- **I HAD BEEN MEASURING THE CHANNEL BOTH PLANS OF RECORD ALREADY RULED OUT.****
 🔻 **THE SCOPING CORRECTION (08-22).** *I told the owner "a 1970s baseline beats us EVERYWHERE we have
@@ -76,7 +76,7 @@ C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out
   ✅ **`tools/adjudicate_floor_flags.py`, self-test 7/7, imports the audit's own `scan()`; 2 positive
   controls + 1 negative control so it can neither excuse everything nor flag everything.**
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T19:02:11Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T20:16:47Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 

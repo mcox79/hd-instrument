@@ -17,6 +17,19 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
+### 2026-08-22 -- 🚨 **`read(n_sentences=N)` DOES NOT READ `N`. ASK FOR 8,000, GET ~1,000.**
+**`read(3000)`/`read(6000)`/`read(10000)` ALL returned `1,060` sentences, same 9 checkpoints, same 30
+consolidated terms. Asked `8,000`, every seed/dim stopped between `960` and `1,500`; successive calls
+fall to `240`, `220`.** 🔻 **SILENT -- yet `ReadResult.n_sentences` held the truth all along.**
+✅ **GUARDED `e335fa220`: `n_sentences_requested` + `short_read` on `ReadResult`, stderr banner under
+90% delivery, survives `to_dict()` into `metrics.json`; witness 3/3, controlled both ways.** *Warn not
+raise -- the results are REAL, only their DESCRIPTION was at risk.*
+🔻 **RETRACTS MY OWN GROWTH CURVE: chunking did not grow consolidation to 180 by reading more -- each
+CALL buys a fresh smaller allowance. The "30-term consolidation cap" WAS the read cap.**
+🚫 *NOT claimed: that every landed cell is affected (this is `Substrate.read()`; the enumeration is the
+follow-up), that any published number is wrong, or that the cause is traced.*
+📎 `SUBSTRATE_READ_SILENTLY_READS_A_FRACTION_...`
+
 ### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; NOW ENFORCED IN CODE**
 **`399` of `7,868` landed cells (`5.1%`) replay on re-run -- same verdict, same numbers, `elapsed
 0.0s`, no work done.** 🔑 **`tools/reproduction_check.py` makes the unsafe reading unrepresentable
