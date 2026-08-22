@@ -511,6 +511,21 @@ class Substrate:
         not the right quantity because THE LIVE ARM DOES NOT CONSUME IT"). The one-lap-of-4 bound
         was NOT documented anywhere before this docstring, which is why `n_sentences` read as a
         target for months. `ReadResult.short_read` now flags the gap on every call.
+
+        WHO PASSES `max_patches`, enumerated 2026-08-22 (12 call sites across `experiments/`,
+        `tools/`, `verification/`, `hdlab/`):
+
+            max_patches=1   exp_cortical_read_consolidated_v1, exp_predictive_write_gate_v1,
+                            exp_substrate_end_to_end_readout_v1, diag_which_role_assigner_is_live
+            max_patches=2   (1 site)      max_patches=3   exp_grounding_precision_gold_v1,
+                                                          exp_sensorimotor_spoke_grounding_v1
+            max_patches=1   x6 inside this file -- all `_selftest_*`, small n, deliberate
+
+        **`max_patches=1` IS A DIVERSITY CONSTRAINT, NOT ONLY A VOLUME ONE: that call reads ONE
+        CORPUS and stops.** It never reaches a second book, whatever `n_sentences` says. For a
+        self-test that is the point; for the three cells above it may or may not be -- it is not
+        stated in any of them, so a reader cannot tell intent from accident. **If single-corpus is
+        deliberate, say so at the call site.**
         """
         t0 = time.time()
         res = ReadResult()
