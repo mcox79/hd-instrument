@@ -100,14 +100,12 @@
 > 🔻 *NOT a demonstrated gain -- I cannot show it raises `Bgap` because re-runs REPLAY checkpoints.*
 > `A_PRINCIPLED_REPLACEMENT_FOR_THE_BODY_PART_WHITELIST_...`
 > `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
-> ⚠️ **VERIFICATION STATUS, STATED BECAUSE I HAD BEEN SAYING NEITHER: those numbers are READ, NOT
-> REPRODUCED.** *Re-running the cell gives `elapsed 0.0s` and 5 `[resume] already done` lines -- the
-> mandatory checkpoint discipline REPLAYS stored units, and **the no-op re-run is INDISTINGUISHABLE
-> FROM A PASS** (same verdict, same numbers). ✅ *`--self-test` DOES recompute and independently
-> reproduced the pattern: two-stage `1.000` on B and C, governor `0.500`, **bow `0.500` on both**,
-> matched scrambles degrading `0.667`/`0.583`.* ✅ **SCOPE MEASURED (detector positive-controlled):
-> `399` of `7,868` landed cells carry checkpoints, 5.1% -- NOT the archive.** ➡️ *A `--fresh-units`
-> flag writing to a new dir is the clean fix; it touches the harness, so NOT done unilaterally.*
+> ⚠️ **VERIFICATION STATUS (I had been claiming neither): those numbers are READ, NOT REPRODUCED.**
+> *Re-running gives `elapsed 0.0s` + `[resume] already done` -- checkpoints REPLAY, and **the no-op
+> re-run is INDISTINGUISHABLE FROM A PASS**.* ✅ *`--self-test` DOES recompute and reproduced the
+> pattern: two-stage `1.000` B and C, governor `0.500`, **bow `0.500` both**, scrambles `0.667`/`0.583`.*
+> ✅ **SCOPE MEASURED (detector positive-controlled): `399` of `7,868` landed cells, 5.1% -- NOT the
+> archive.** ➡️ *A `--fresh-units` flag is the clean fix; touches the harness, NOT done unilaterally.*
 > `RESUMABILITY_DEFEATS_REPRODUCTION_CHECKING_...`
 >
 > 🧭 **THE DIRECTION HAS A NAME AND IT WAS SET ON 2026-08-06, NOT TONIGHT: *ANCHOR + PROPAGATE*.**
