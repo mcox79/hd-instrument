@@ -1,5 +1,9 @@
 # **THE OPEN-VOCABULARY COST IS THREE WORDS -- `arm`, `hand`, `leg` -- WHERE THE REAL LOOKUP GIVES THE *MORE CORRECT* ANSWER AND SCORES *WORSE*. AND THAT DIRECTLY INDICTS THE FIX I PROPOSED AN HOUR AGO.**
 
+> # 🔻 **RETRACTED THE SAME NIGHT. `arm` SCORES CORRECTLY -- `he broke her arm` RETURNS `BLOCK_HIGH`, THE GOLD ANSWER.**
+> **THE FAULT: I compared `v2.lookup_animacy` against the real lookup, and THE CLOSED ARM DOES NOT CONSUME `lookup_animacy`** -- it consumes `object_event_class` (`GOAL_OBJECT`/`ADVERSARIAL`/`ANIMATE_HARMABLE`), a different type system. *The real causes are a `gclass_narrow == "UNK"` guard that switches the harm route OFF for `beat`/`attack`, and animacy being unable to express `ADVERSARIAL` so `enemy` reads `abstract`.*
+> `I_RETRACT_THE_THREE_WORD_FINDING_...`
+
 **I was about to ship a change that would plausibly regress the very subsets I was trying to improve.**
 
 ---
