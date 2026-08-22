@@ -142,6 +142,47 @@ moment mouse pair pool slowly swim table try win walk
 doing, it is doing it to a set this small -- which caps what any cortical read can return and is
 why `n=24` is not fixable by scoring harder. It is fixable by consolidating more.**
 
+## 🧠 **WHAT CONSOLIDATION SELECTS FOR: CONCRETENESS -- AND IT CONFOUNDS MY OWN POOL RESULT ABOVE**
+
+The pool-selection test said consolidated terms sit closer to the probe targets. **It did not ask
+WHY.** The norms carry 12 dimensions, so the question is answerable directly: compare the 24
+consolidated terms against a FREQUENCY-MATCHED non-consolidated sample on each, 5,000 resamples.
+
+| dimension | consolidated | freq-matched null | diff | p |
+|---|---|---|---|---|
+| 🔑 **`Conc.M` (concreteness)** | **`0.8976`** | `0.2664` | **`+0.631`** | **`0.00040`** ✅ survives Bonferroni x12 (`0.00417`) |
+| `Visual.mean` | `0.747` | `0.287` | `+0.460` | `0.045` — does NOT survive |
+| `Haptic.mean` | `0.586` | `0.183` | `+0.403` | `0.050` — does NOT survive |
+| the other nine | | | `|diff| <= 0.38` | `0.09`-`0.86` |
+
+*Null p95 `0.5977`, null max `0.9239`; only `2` of `5,000` frequency-matched draws reached the
+observed mean.*
+
+> ### **CONSOLIDATION SELECTS FOR CONCRETE WORDS. That is the ONE dimension that survives correction, and it is not a frequency effect -- the control is frequency-matched.**
+
+### 🔻 **AND IT CONFOUNDS MY OWN POOL-SELECTION FINDING. I SHOULD HAVE ASKED THIS FIRST.**
+
+**My 16 probe targets were `water, king, book, river, boy, bird, ship, bread, horse, door, fire,
+town, basket, seed, sun, snow` -- every one a CONCRETE NOUN.** So "consolidated terms are closer to
+the targets" (`+0.1514`) may be nothing more than **concrete words being close to other concrete
+words.** *Two properties I never separated, and the confound runs in exactly the direction that
+flatters the hypothesis.*
+
+➡️ **THE HONEST TEST IS A CONCRETENESS-MATCHED FLOOR** -- consolidated vs non-consolidated terms
+matched on `Conc.M` as well as frequency. **Until that is run, the pool-selection hypothesis is not
+merely underpowered at n=24, it is CONFOUNDED.**
+
+### ⚠️ AND "SELECTS FOR" IS CORRELATIONAL, NOT MECHANISM
+
+**Nothing here shows the consolidation gate READS concreteness.** Concrete words may simply be the
+ones that accumulate `min_confirm=4` traces across passes — mentioned more consistently, in more
+stable contexts. **The gate could be entirely blind to the property it appears to select on.**
+
+🧠 *Brain note, offered as a frame and not as evidence: the CONCRETENESS EFFECT -- concrete words
+being better retained than abstract ones -- is one of the oldest findings in human memory. A
+consolidation gate reproducing it is worth noticing. Whether ours does so FAITHFULLY or
+ACCIDENTALLY is exactly the question the paragraph above says is unanswered.*
+
 ## ➡️ WHAT IT CHANGES
 
 **B3' moves from *"no evidence it does anything"* to *"demonstrably the consolidation-sensitive
