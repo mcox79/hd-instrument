@@ -106,20 +106,23 @@
 > RE-RUNNING IT** *(it has `units.jsonl`; a recompute needs a deletion or harness change I will not make
 > unilaterally)*: **`77` of its `84` real-word errors are STILL admitted, so its `0.4676` does not move in
 > substance.** `WHY_THE_WALL_REPRODUCED_EXACTLY_...`
-> 🔻 **TOKEN-LEVEL AT LAST -- AND IT SHRINKS MY OWN CLAIM SIXFOLD.** *`412,446` tokens, same 4 corpora:*
-> **`_is_verblike` admits `70,141` (17.0%); of those `87.8%` HAVE a verb sense and only `12.2%`
-> (`8,592`) do NOT. So the gate removes `12.2%` of admitted TOKENS, not the `73%` I quoted at TYPE
-> level.** *The error TYPES are a long tail of rare junk; the token mass is ordinary verbs.* ✅ **I
-> refused to project across types/tokens THREE times -- the gap was a factor of SIX.**
-> 🔑 **AND BOTH CLAUSES LEAK, INCLUDING THE ONE I HAD NOT EXAMINED:** *`-ing` is the LARGEST source
-> (`something` 359, `thing` 331, `anything` 316, `nothing` 291, `morning` 201, `everything` 181 --
-> pronouns and quantifiers, not nouns); `-ed` admits `red` 166 and `wicked` 121 (adjectives); the
-> lemma-changed path admits `girls` 388, `boys` 274, `children` 174, `friends` 150.*
-> 🔻 **CORRECTION: I said a verb-sense gate "fixes both directions". IT DOES NOT -- it is a PURE FILTER,
-> so it cannot help the base-form verbs (`praise`) that are wrongly REJECTED. That needs a separate
-> change.** ⚠️ *Removals audited only at the top 15; token counts are over raw corpora, not credit
-> windows; this measures the FILTER, not its effect on attribution precision.*
-> `TOKEN_LEVEL_THE_GATE_REMOVES_12_PERCENT_NOT_73_...`
+> 🔻 **MEASURED THREE TIMES, EACH CLOSER TO THE DECISION, AND IT SHRANK EACH TIME: `73%` -> `12.2%` ->
+>   `5.4%`.** *`73%` = share of the old cell's ERROR LIST (types); `12.2%` = share of ADMITTED TOKENS on
+>   raw corpora (412,446 tokens); **`5.4%` = share of ACTUALLY-CREDITED TOKENS in-window** (`_credit_targets`
+>   over 12,670 credited targets, 8 referents, 18,071 sentences, the cell's own 4 corpora).* ⭐ **`5.4%` IS
+>   THE OPERATIVE NUMBER. The earlier figures answered different questions and I quoted them as if they
+>   answered this one.**
+> 🔄 **AND THE DOMINANT LEAK REVERSES IN-WINDOW: PLURAL NOUNS, not `-ing`.** *`sister` 66, `lip` 56,
+>   `friend` 37, `girl` 18, `knee` 17, `ear` 16 -- kinship and body parts, which occupy subject/object
+>   slots constantly; `something`/`anything`/`nothing` total 62 of 683 (~9%). **Credit requires
+>   subject/object linkage, and that selection step changes which error dominates.***
+> 🔻 **SO I RETRACT "THE CHEAPEST HIGH-VALUE FIX": at `5.4%` the gate is small, cheap and real -- NOT
+>   high-value. And it is a CEILING, not a gain: the wall reproduced EXACTLY through a much larger lemma
+>   change, so I would not expect this to move the verdict.** ⚠️ *8 hand-picked referents; my windows are
+>   4 consecutive sentences, the cell builds them from detected GOALS; attribution precision NOT measured.*
+> ⚠️ *Also corrected: a verb-sense gate is a PURE FILTER -- it does NOT fix base-form verbs (`praise`)
+>   being wrongly REJECTED, contrary to what I claimed.*
+>   `THE_OPERATIVE_NUMBER_IS_5_4_PERCENT_...` `TOKEN_LEVEL_THE_GATE_REMOVES_12_PERCENT_NOT_73_...`
 >
 > **4. ✅ THE GROUNDING ORGAN WORKS, AND MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding`
 > HARD_PASS `0.967`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (the PREDICTED failure at
