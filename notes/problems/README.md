@@ -62,7 +62,7 @@ important, which is why `score_counts_abstention_as_error` sits third.*
 
 | | problem | why here |
 |---|---|---|
-| **1** | `flat_store_destroys_the_code` | **UPSTREAM OF EVERYTHING.** If the store destroys per-item information, better coverage/meaning/persistence all improve what is destroyed. **The replacement store already exists, proven, called by nothing** -- a wiring job |
+| ~~1~~ | ~~`flat_store_destroys_the_code`~~ | 🔻 **REFUTED 2026-08-22 -- DO NOT START THIS.** Addressed storage held-out hit@1 `0.1399` vs a co-occurrence COUNTING floor of `0.3242`, CI-separated BELOW it. *Its isolation strength was exact-key memorisation (`0.9954`) that collapses held-out.* **It does beat the flat sum (`+0.0554`) -- a real sub-finding, and still not a capability win.** ➡️ *My "upstream of everything, a wiring job" ranking was wrong: the store was not the binding constraint. The bar caught it, which is what the bar is for.* |
 | **2** | `substrate_never_resumes` | **Nothing survives the run that learned it, so no result compounds.** Also wiring: the persistence organ passes `9/9` at HEAD. Compounds with the read cap (~1,000 sentences per call) |
 | **3** | `score_counts_abstention_as_error` | **TINY AND LIVE.** `_score` counts `AMBIGUOUS` as a wrong answer by omission, and it now bites `3` items under the learned overlay. *Near-zero cost, and it corrupts a number we actually use* |
 | **4** | `reader_meaning_channel` | **The actual goal**, and it owns the blocker the others depend on: **`read()` never consults the meaning asset at all** |
