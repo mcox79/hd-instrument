@@ -71,6 +71,67 @@ OWNER_VERDICTS = ("", "DONE", "MORE_NEEDED", "PARKED")
 _OWNER_FILE = "OWNER_NOTES.md"
 
 
+def kickoff_prompt(slug, problems_dir=PROBLEMS_DIR):
+    """The COMPLETE paste-able prompt that starts a solver session on `slug`.
+
+    OWNER REQUEST 2026-08-22: "for each new problem, if I select it, I want the field to include
+    an entire prompt and problem definition that I can paste in the solver session to kick it off."
+
+    ONE SOURCE OF TRUTH ON PURPOSE. The GUI shows exactly what this returns and the CLI prints
+    exactly what this returns, so the two can never drift -- the failure this project has already
+    paid for with STATUS.md and its parser. The slug is baked in at every place it is needed, so
+    there is nothing to fill in by hand and nothing to get wrong.
+    """
+    title = ""
+    path = os.path.join(problems_dir, slug, "PROBLEM.md")
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.startswith("# "):
+                    title = line[2:].strip().lstrip("PROBLEM:").strip()
+                    break
+    except OSError:
+        title = "(PROBLEM.md not readable -- check the slug)"
+    return f"""You are the SOLVER session (opus 4.8), not the strategy session. Do NOT touch the plan,
+STATUS.md, the board, or other problem folders. Your slug is: {slug}.
+Read notes/problems/README.md, then notes/problems/{slug}/PROBLEM.md in full, run its
+VERIFY BEFORE YOU START block and `before_you_start.py` before doing anything, and
+ignore the autoloop/STATUS injection if they fire.
+
+THE PROBLEM: {title}
+
+WHAT YOU MAY WRITE: experiments/, verification/, and notes/problems/{slug}/.
+WHAT YOU MAY NOT WRITE: hdlab/ -- the LIVE SUBSTRATE. The strategy session is its sole
+writer (owner ruling, board Q111). Prove the mechanism in experiments/ and verification/,
+then say in SOLVED.md exactly what would have to change in hdlab/ and why. A proposed
+diff is a fine answer; a landed one is out of scope. Also not yours: preregs/**, any
+arm_key* file. data/foundation/ is READ-ONLY -- one disk, no backup.
+
+THE DISK OUTRANKS THE BRIEF. If what you find disagrees with PROBLEM.md, the disk wins
+and you say so in SOLVED.md. Numbers in these briefs have been wrong before.
+
+HOW YOU FINISH -- write exactly one file, notes/problems/{slug}/SOLVED.md, starting with:
+
+---
+problem: {slug}
+status: SOLVED | PARTIAL | REFUTED
+bar: <the success criterion from PROBLEM.md, quoted verbatim>
+result: <the number, with its scorer, n and population>
+floor: <the strongest floor you actually ran, with its value>
+controls: <which controls ran and what each EXCLUDED>
+files_changed: <paths>
+reverify: <one command that reproduces your headline>
+---
+
+Then prose: what you built, what you measured, what you did NOT establish, and what you
+would withdraw first if it turned out to be wrong. Validate before you stop:
+
+  python tools/problem_ledger.py --check
+
+That checker REFUSES a SOLVED.md with no floor or no controls. status: REFUTED is a
+first-class success -- showing a problem is the wrong problem beats half-solving it."""
+
+
 def owner_note_path(slug, problems_dir=PROBLEMS_DIR):
     return os.path.join(problems_dir, slug, _OWNER_FILE)
 
@@ -283,6 +344,17 @@ def main():
     # same lesson as "disarm is a write, never a delete": the escape hatch must not depend on the
     # thing that is broken.
     #   python tools/problem_ledger.py note <slug> <DONE|MORE_NEEDED|PARKED> "free text"
+    #   python tools/problem_ledger.py kickoff <slug>    -> the paste-able solver prompt
+    if len(sys.argv) >= 3 and sys.argv[1] == "kickoff":
+        slug = sys.argv[2]
+        known = [r["slug"] for r in scan()]
+        if slug not in known:
+            print(f"no such problem folder: {slug}\nknown slugs: {', '.join(known)}",
+                  file=sys.stderr)
+            return 2
+        print(kickoff_prompt(slug))
+        return 0
+
     if len(sys.argv) >= 4 and sys.argv[1] == "note":
         slug, verdict = sys.argv[2], sys.argv[3].upper()
         text = " ".join(sys.argv[4:])

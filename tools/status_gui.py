@@ -176,6 +176,37 @@ window sets, so a note typed into the markdown from a phone is noticed identical
 drives the unread count in tab 8's own title -- the unobtrusive indicator that replaces the box
 being permanently on screen. Guarded by `verification/test_commentary_channel.py` (20 checks).
 
+THE STEADY STATE IS STILL (2026-08-22 ui/ux pass). Owner: *"can you run an optimisation over the
+entire gui, and evaluate it for ui/ux and things that are completely unnecessary, like the tab
+titles redrawing every ~10 seconds?"* Measured on the live window over three refresh cycles with
+NOTHING changed on disk: **21 tab-title writes, 24 detail-pane delete+insert rebuilds and 63
+no-op label writes -- against 2 writes that changed anything.** All three are now zero.
+
+The tab-title case was not merely wasteful, it was two features destroying each other. Every panel
+renderer wrote the WHOLE title with a COUNT; the 1-second tick wrote the WHOLE title with an AGE;
+each erased the other, and the tick's only-when-changed guard compared against its own last write,
+so once a renderer stomped the age the guard concluded nothing needed doing. The age therefore
+vanished on the first refresh and reappeared only when the age string itself rolled over. Both
+halves are now held separately and composed by ONE writer (`_apply_tab_title`), so a title carries
+its count AND its age and is written only when the composed string differs.
+
+SPACE AT THE TOP (same pass; owner, twice: *"in gen the top of the gui takes up too much space -
+I still can't read the questions on tab 3"*). Measured, on the real 1068x672 window:
+  - the OLD CODE banner cost **+75px** when shown, wrapped to two lines, taken straight out of the
+    notebook (569px -> 494px on every tab). It is one line now: **26px**. It already cost ZERO when
+    hidden -- `grid_remove`, not a blank label holding a row -- and that is unchanged and now
+    asserted.
+  - the collapsed headline strip was 54px, **21px of it a "click to expand" hint on its own grid
+    row**. The hint moved into the headline's own row: 54px -> 33px, on every tab.
+  - on tab 3 the ANSWER BOX (a FIXED row) was 169px while the READING PANE (the only WEIGHTED row,
+    and the content the owner says they cannot read) was 143px -- and the answer box's height was
+    set by a vertical stack of three buttons (97px), not by the text box in it (52px). Buttons laid
+    out in a row: the reading pane went 143px -> 201px, +41%, without cutting any content.
+  - on tabs 1, 4 and 5 the FIXED detail pane was LARGER than the WEIGHTED table (237/203/220px
+    against 134/146/216px). Tk satisfies fixed rows in full before the weighted one gets anything,
+    so those panes were not just bigger, they were bigger BY TAKING FROM the table. Trimmed -- but
+    only after each got a SCROLLBAR, because shrinking an unscrollable pane hides content silently.
+
 Keys: F5 or r = refresh now. Ctrl+1..8 = jump to a panel.
 
   python tools/status_gui.py --self-test    # renders normal / degraded / garbage states
@@ -734,8 +765,62 @@ class StatusWindow:
         t.tag_configure("mono", font=("Consolas", max(8, font_size - 1)), foreground=_DIM)
         return t
 
+    def _detail_scrolled(self, parent, **kw):
+        """A `_detail()` pane in a wrapper with its own scrollbar. Returns `(wrap, text)`.
+
+        WHY THIS EXISTS (2026-08-22 ui/ux pass). Measured, per tab, on the live 1068x672 window:
+
+            tab                 FIXED detail box      WEIGHTED table
+            1 WHERE WE ARE      237px (height=13)     134px
+            4 SCORES            203px (height=11)     146px
+            5 ORGAN MAP         220px (height=12)     216px
+
+        On three of eight tabs the detail box -- a FIXED grid row -- was LARGER than the table,
+        which is the row carrying `weight=1`. Tk's grid satisfies every fixed row in full before
+        handing what is left to the weighted one, so the box was not merely bigger, it was bigger
+        BY TAKING FROM the table first. That is the same shape as the defect this file already
+        records on the WAITING ON YOU tab, where fixed rows crushed the reading pane to 1px.
+
+        Shrinking a fixed box is only safe if nothing can then vanish out of it, and these panes
+        had NO scrollbar -- content past the declared height was simply unreachable. So the
+        scrollbar comes first and the trim comes after it, in that order. `board_detail` was given
+        the same treatment for the same reason (see `_build_board`); this generalises it, and the
+        comment there claiming "the other seven panes don't need one" is what this supersedes."""
+        wrap = ttk.Frame(parent)
+        wrap.columnconfigure(0, weight=1)
+        wrap.rowconfigure(0, weight=1)
+        t = self._detail(wrap, **kw)
+        t.grid(row=0, column=0, sticky="nsew")
+        sb = ttk.Scrollbar(wrap, orient="vertical", command=t.yview)
+        t.configure(yscrollcommand=sb.set)
+        sb.grid(row=0, column=1, sticky="ns")
+        return wrap, t
+
     @staticmethod
     def _set_text(widget: tk.Text, chunks) -> None:
+        """Rewrite a detail pane -- BUT ONLY IF ITS CONTENT ACTUALLY CHANGED (2026-08-22).
+
+        Owner: *"evaluate it for ui/ux and things that are completely unnecessary, like the tab
+        titles redrawing every ~10 seconds"*. MEASURED CAUSE, over three back-to-back render()
+        calls on an unchanged payload: **24 of 24 tk.Text rewrites produced BYTE-IDENTICAL content**
+        (8 panes x 3 cycles), and 63 of 69 Label `text=` writes were identical too -- 29 no-op
+        writes per 20s cycle against 2 real ones. Every one of those was a `delete` + re-`insert`.
+
+        A delete+insert is not free and it is not invisible: it resets the widget's SCROLL POSITION
+        to the top, which is the same defect class the board tab already carries a fix for (see
+        `_r_board`'s DEFECT B docstring -- "the delete+insert resets the text cursor to the end --
+        invisible in a diff, very visible to someone mid-sentence"). That fix disengaged one pane.
+        This one removes the cause everywhere: if nothing changed, nothing is touched.
+
+        THE COMPARISON IS ON THE CHUNK LIST, NOT ON THE RENDERED TEXT. Identical text with
+        different TAGS would be a stale colour -- a score still green after being retracted -- so
+        the signature carries each chunk's tag as well as its text. Comparing `widget.get()` would
+        share exactly that blind spot (standing discipline: a checker sharing a flaw with what it
+        checks hides it)."""
+        sig = tuple((c[0], c[1]) if isinstance(c, tuple) else (c, None) for c in chunks)
+        if getattr(widget, "_hd_sig", None) == sig:
+            return
+        widget._hd_sig = sig
         widget.configure(state="normal")
         widget.delete("1.0", "end")
         for chunk in chunks:
@@ -744,6 +829,28 @@ class StatusWindow:
             else:
                 widget.insert("end", chunk)
         widget.configure(state="disabled")
+
+    @staticmethod
+    def _set_label(widget, **kw) -> None:
+        """`widget.configure(**kw)` with every already-correct option dropped first.
+
+        Same measurement and same reason as `_set_text` above: 63 of 69 `text=` writes per three
+        cycles set a Label to the string it already held. A Tk Label re-measures itself on every
+        `text=` write and, because most of these labels wrap, that re-measure can re-flow the whole
+        panel below them. Dropping the no-ops makes the steady state genuinely still.
+
+        Never raises: a Label that has gone away mid-refresh is not worth taking a panel down for."""
+        try:
+            changed = {k: v for k, v in kw.items()
+                       if str(widget.cget(k)) != str(v)}
+        except tk.TclError:
+            changed = kw
+        if not changed:
+            return
+        try:
+            widget.configure(**changed)
+        except tk.TclError:
+            pass
 
     # ---- SCROLL + SELECTION ACROSS A REFRESH (2026-08-17, defect 3) -------
     #
@@ -838,14 +945,25 @@ class StatusWindow:
         self.headsub_lbl = tk.Label(head, text="", bg=_RED_BG, fg="#f0e6e5",
                                     font=("Segoe UI", 10), anchor="w", justify="left",
                                     padx=14, wraplength=self._wrap_w)
-        self.headsub_lbl.grid(row=1, column=0, sticky="ew", pady=(0, 9))
+        # columnspan=2 because column 1 now holds the collapse/expand hint (see below); without it
+        # these would stop short of the hint's column instead of running the full width.
+        self.headsub_lbl.grid(row=1, column=0, columnspan=2, sticky="ew", pady=(0, 9))
 
         # "YOU ARE LOOKING AT OLD CODE" -- hidden unless it is true. It lives INSIDE the headline
         # frame (row 2) rather than as a new root row, so the Notebook and the bottom bar keep their
         # existing row indices and no other layout has to move.
+        # SIZE (2026-08-22). Owner: *"whenever the warning for 'old code' comes up in the gui it
+        # takes up a ton of unnecessary space."* MEASURED, on the live 1068x672 window: shown, this
+        # label wrapped to TWO lines and grew the headline frame from 54px to 129px -- **+75px, and
+        # every one of them taken straight out of the notebook below (569px -> 494px, a 13% cut to
+        # all content on every tab)**. Hidden, it costs exactly 0px and always has: `grid_remove`
+        # in `_check_self_stale` drops it out of the geometry manager entirely rather than leaving
+        # an empty label holding the row open, and the measurement confirms the frame returns to
+        # its 54px baseline. So the fix belongs entirely on the SHOWN path -- one line, not two.
+        # 10pt not 11pt, and the text below is cut to what fits one line at this wrap width.
         self.stale_lbl = tk.Label(head, text="", bg="#5a2d00", fg="#ffd9a0", anchor="w",
                                   justify="left", padx=14, wraplength=self._wrap_w,
-                                  font=("Segoe UI", 11, "bold"))
+                                  font=("Segoe UI", 10, "bold"))
         self.stale_shown = False
         self.headbar = head
 
@@ -860,10 +978,19 @@ class StatusWindow:
         # NOTHING IS DELETED -- one click restores it, and the choice persists. Default is
         # COLLAPSED because the owner is asking for the space back NOW; a default that requires
         # them to ask again is not a fix.
+        #
+        # THE TOGGLE HINT SHARES THE HEADLINE'S ROW WHEN COLLAPSED (2026-08-22). Measured: the
+        # collapsed strip was 54px, of which the "click to expand this strip" label on its own grid
+        # row was 21px -- **39% of a strip whose whole purpose is to be small**, spent on a hint
+        # that carries no state. Moving it to COLUMN 1 of the headline's own row removes that row
+        # entirely while leaving the affordance visible and in the same place. Column 0 keeps all
+        # the weight, so the hint takes only what it needs and the headline still gets the rest.
+        # Expanded, it goes back to its own row -- there the strip is deliberately roomy and a
+        # right-aligned hint beside a 15pt two-line headline reads as clutter.
+        head.columnconfigure(1, weight=0)
         self._head_collapsed = _load_pref("headline_collapsed", True)
         self.head_toggle = tk.Label(head, text="", bg=_RED_BG, fg="#f0c8c4", anchor="e",
                                     font=("Segoe UI", 9), padx=12, cursor="hand2")
-        self.head_toggle.grid(row=3, column=0, sticky="ew", pady=(0, 3))
         for _w in (head, self.headline_lbl, self.headsub_lbl, self.head_toggle):
             _w.bind("<Button-1>", self._toggle_headline)
 
@@ -913,19 +1040,91 @@ class StatusWindow:
         "3. WAITING ON YOU": ["notes/BOARD.md"],
         "4. SCORES": ["notes/STATUS.md", "notes/VETTING_LEDGER.md"],
         "5. ORGAN MAP": ["notes/ORGAN_MAP.md"],
+        # STALE ENTRY REPAIRED 2026-08-22. Tab 6 became the problem tracker (`_build_problems`) and
+        # this table was not updated, so `_TAB_SOURCES.get("6. PROBLEMS")` missed, fell through the
+        # `srcs is None` branch and labelled the tab `[live]` -- which is the answer reserved for a
+        # tab reading live process state, and is simply false about a tab rendered from files on
+        # disk. The age comes from the ledger's own scan (`_r_problems` records it in
+        # `_tab_mtime_override`) rather than from a path list here, because the tracker reads a
+        # DIRECTORY TREE: a directory's mtime moves when a file is added but NOT when one is
+        # edited, so stat'ing `notes/problems` would report "just now" for a new folder and miss
+        # every actual edit. Verify the referent -- the age has to come from the files the panel
+        # really read.
+        "6. PROBLEMS": [],
+        # KEPT, though tab 6 is no longer this panel: `_build_fidelity`'s frame is still built and
+        # its `nb.add` is one line away from being restored (see that method). Leaving the row here
+        # means the restore stays one line, and an unmatched key costs nothing.
         "6. COPYING THE BRAIN": ["notes/ORGAN_MAP.md"],
         "7. LATEST RESULTS": None,                # newest metrics.json, computed at render
         "8. NOTE FOR ME": ["notes/COMMENTARY.md"],
     }
 
     def _register_tab_sources(self) -> None:
-        """Remember each tab's BASE title so the age suffix can be re-applied without accreting."""
+        """Remember each tab's BASE title so the count and the age can be re-applied without
+        accreting, and so neither can destroy the other -- see `_apply_tab_title`."""
         self._tab_base = {}
-        # What each tab's title currently READS, so the 1-second tick can skip the re-title when
-        # nothing changed (owner: "the tabs keep changing slightly with every update").
+        # What each tab's title currently READS, so a re-title can be skipped when nothing changed
+        # (owner: "the tabs keep changing slightly with every update").
         self._tab_text_now = {}
+        # THE TWO HALVES OF A TAB TITLE, HELD SEPARATELY (2026-08-22). See `_apply_tab_title`.
+        self._tab_count: dict = {}   # written by the panel renderers, e.g. " (9 missing)"
+        self._tab_age: dict = {}     # written by the 1s tick, e.g. "  [23h]"
         for tab_id in self.nb.tabs():
             self._tab_base[tab_id] = self.nb.tab(tab_id, "text")
+
+    def _apply_tab_title(self, tab_id) -> None:
+        """Compose base + count + age and write it ONLY if it differs from what is on screen.
+
+        *** THIS IS THE OWNER'S "tab titles redrawing every ~10 seconds", AND IT WAS TWO WRITERS
+        FIGHTING OVER ONE STRING (measured 2026-08-22). ***
+
+        There were two independent writers of every tab title and NEITHER KNEW ABOUT THE OTHER:
+
+          - the eight panel renderers (`_r_where`, `_r_scores`, `_r_organs`, `_r_board`,
+            `_r_running`, `_r_problems`, `_r_commentary`) each called `nb.tab(text=...)` with a
+            COUNT, unconditionally, on every 20s refresh;
+          - `_update_tab_ages` called `nb.tab(text=...)` with an AGE on the 1s tick.
+
+        Each wrote the WHOLE title, so each ERASED the other's half. Instrumented over one
+        render() plus one tick: **13 title writes, 13 of which changed the text**, flip-flopping
+        e.g. `'1. WHERE WE ARE (PHASE 1)'` <-> `'1. WHERE WE ARE  [29m]'`. A ttk tab re-measures
+        its label and re-lays out the whole tab strip on every such write, which is the visible
+        twitch.
+
+        AND BOTH FEATURES WERE HALF-BROKEN BY IT, which is the part that matters more than the
+        churn. `_update_tab_ages` already had an only-when-changed guard, but its cache was keyed
+        on ITS OWN last write -- so once a renderer stomped the age, the guard compared the new
+        composed string against the age it *thought* was still there, found them equal, and SKIPPED
+        the repair. The age therefore vanished on the first refresh and only reappeared when the
+        age STRING itself rolled over ("29m" -> "30m"). Measured on the live window: 6 of 8 tabs
+        were showing a count with no age, and the owner could never see both at once even though
+        both were asked for (2026-08-19: "add an 'updated' timestamp on each tab").
+
+        ONE WRITER FIXES BOTH. Each half is stored in its own dict and this function is the only
+        thing that touches `nb.tab`. The steady state is ZERO writes per cycle, and both the count
+        and the age are on screen together."""
+        base = self._tab_base.get(tab_id)
+        if not base:
+            return
+        want = base + self._tab_count.get(tab_id, "") + self._tab_age.get(tab_id, "")
+        if self._tab_text_now.get(tab_id) == want:
+            return
+        self._tab_text_now[tab_id] = want
+        try:
+            self.nb.tab(tab_id, text=want)
+        except tk.TclError:
+            # The retired fidelity frame is built but never `nb.add`ed, so it has no tab to title.
+            pass
+
+    def _set_tab_count(self, tab_widget, suffix: str) -> None:
+        """Called by a panel renderer instead of `nb.tab(text=...)`. `suffix` is the COUNT half
+        only (leading space included by the caller), never the whole title -- writing the whole
+        title is what erased the age half."""
+        tab_id = str(tab_widget)
+        if self._tab_count.get(tab_id) == suffix:
+            return
+        self._tab_count[tab_id] = suffix
+        self._apply_tab_title(tab_id)
 
     @staticmethod
     def _fmt_age(seconds: float) -> str:
@@ -1037,11 +1236,21 @@ class StatusWindow:
                 if not base:
                     continue
                 srcs = self._TAB_SOURCES.get(base, None)
-                if base == "7. LATEST RESULTS":
+                # A panel that already walked its own files during render reports the newest mtime
+                # it actually saw, which beats re-deriving it from a path list here (tab 6 reads a
+                # directory tree -- see the `_TAB_SOURCES` comment).
+                override = getattr(self, "_tab_mtime_override", {}).get(base)
+                if override:
+                    suffix = "  [%s]" % self._fmt_age(now - override)
+                elif base == "7. LATEST RESULTS":
                     m = self._newest_metrics_mtime()
                     suffix = ("  [%s]" % self._fmt_age(now - m)) if m else "  [--]"
                 elif srcs is None:
                     suffix = "  [live]"
+                elif not srcs:
+                    # An EMPTY list means "a renderer owns this one" -- say unknown until it has
+                    # run, never "live", which would be a claim about a different kind of tab.
+                    suffix = "  [--]"
                 else:
                     # *** STILL ON-THREAD I/O, AND THE DIAGNOSTICS LOG CAUGHT IT. ***
                     # After moving the data/ walk off-thread the worst UI stall fell 6,910ms ->
@@ -1059,11 +1268,16 @@ class StatusWindow:
                 # loop ran every TICK_MS (1 second) and unconditionally called `nb.tab(text=...)`
                 # on all eight tabs. Each call re-measures the tab label and re-lays out the whole
                 # Notebook, so the tab strip visibly shifted once a second as an age string grew a
-                # character ("9s" -> "10s"). Comparing first makes the common case a no-op.
-                want = base + suffix
-                if self._tab_text_now.get(tab_id) != want:
-                    self._tab_text_now[tab_id] = want
-                    self.nb.tab(tab_id, text=want)
+                # character ("9s" -> "10s").
+                #
+                # THE COMPARISON NOW LIVES IN `_apply_tab_title`, AND THAT IS THE ACTUAL FIX
+                # (2026-08-22). Comparing here was not enough: the guard cached ITS OWN last write,
+                # while eight panel renderers were overwriting the same string with a count. The
+                # guard then found its cache equal to what it wanted, skipped, and left the age
+                # erased until the age string itself rolled over. Writing only THIS HALF, and
+                # letting one composer own the string, is what stops both the churn and the loss.
+                self._tab_age[tab_id] = suffix
+                self._apply_tab_title(tab_id)
         except Exception as exc:
             _diag("tab_ages_error", err=f"{type(exc).__name__}: {exc}")
 
@@ -1142,7 +1356,7 @@ class StatusWindow:
         like every other panel. The unread count IS the "unobtrusive indicator elsewhere" that
         replaces the box being permanently visible on every tab."""
         if _commentary is None:
-            self.nb.tab(self.tab_commentary, text="8. NOTE FOR ME")
+            self._set_tab_count(self.tab_commentary, "")
             self._set_text(self.commentary_history, [
                 (f"tools/commentary.py could not be loaded ({_COMMENTARY_ERR}).\n", "warn"),
                 "You can still type into notes/COMMENTARY.md directly."])
@@ -1151,17 +1365,13 @@ class StatusWindow:
             entries = _commentary.load()
             n_unread = _commentary.count_unread()
         except Exception as exc:
-            self.nb.tab(self.tab_commentary, text="8. NOTE FOR ME")
+            self._set_tab_count(self.tab_commentary, "")
             self._set_text(self.commentary_history,
                            [(f"could not read notes/COMMENTARY.md ({type(exc).__name__}: {exc})\n",
                              "warn")])
             return
-        try:
-            self.nb.tab(self.tab_commentary,
-                        text=(f"8. NOTE FOR ME ({n_unread} unread)" if n_unread
-                              else "8. NOTE FOR ME"))
-        except tk.TclError:
-            pass
+        self._set_tab_count(self.tab_commentary,
+                            f" ({n_unread} unread)" if n_unread else "")
         if not entries:
             self._set_text(self.commentary_history,
                            [("No notes yet. Anything you type below is appended to "
@@ -1245,8 +1455,11 @@ class StatusWindow:
         frame.grid(row=2, column=0, sticky="nsew")
         self.where_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_where_detail())
 
-        self.where_detail = self._detail(f, height=13)
-        self.where_detail.grid(row=3, column=0, sticky="ew", pady=(6, 0))
+        # height 13 -> 8, and a scrollbar so the trim cannot hide anything (see `_detail_scrolled`).
+        # This box was 237px against a 134px table; the table is the scanning surface and the one
+        # thing on this tab with grid weight.
+        _wrap, self.where_detail = self._detail_scrolled(f, height=8)
+        _wrap.grid(row=3, column=0, sticky="ew", pady=(6, 0))
 
     # ---- TAB 4 (group C) ----------------------------------------------
     def _build_scores(self) -> None:
@@ -1286,8 +1499,9 @@ class StatusWindow:
         frame.grid(row=2, column=0, sticky="nsew")
         self.sc_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_score_detail())
 
-        self.sc_detail = self._detail(f, height=11)
-        self.sc_detail.grid(row=3, column=0, sticky="ew", pady=(6, 0))
+        # height 11 -> 8 with a scrollbar; was 203px against a 146px table. See `_detail_scrolled`.
+        _wrap, self.sc_detail = self._detail_scrolled(f, height=8)
+        _wrap.grid(row=3, column=0, sticky="ew", pady=(6, 0))
 
     # ---- TAB 6 (replaces COPYING THE BRAIN, 2026-08-22) ----------------
     def _build_problems(self) -> None:
@@ -1335,8 +1549,11 @@ class StatusWindow:
         frame.grid(row=2, column=0, sticky="nsew")
         self.pb_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_problem_detail())
 
-        self.pb_detail = self._detail(f, height=8)
-        self.pb_detail.grid(row=3, column=0, sticky="ew", pady=(6, 0))
+        # height 8 -> 6 with a scrollbar. This tab is the most crowded of the eight: its two hint
+        # labels, this box and the verdict LabelFrame are ALL fixed rows and together took 409px of
+        # 547px, leaving 101px for the table that lists the problems. See `_detail_scrolled`.
+        _wrap, self.pb_detail = self._detail_scrolled(f, height=6)
+        _wrap.grid(row=3, column=0, sticky="ew", pady=(6, 0))
 
         wrap = ttk.LabelFrame(f, text="YOUR VERDICT AND NOTES ON THE SELECTED PROBLEM")
         wrap.grid(row=4, column=0, sticky="ew", pady=(6, 4))
@@ -1369,10 +1586,30 @@ class StatusWindow:
             return None
         return self.pb_tv.item(sel[0], "values")[0]
 
-    def _show_problem_detail(self) -> None:
+    def _show_problem_detail(self, force: bool = False) -> None:
+        """OWNER BUG, 2026-08-22, reported twice and it made the tab unusable:
+
+            "as I write, the problem I've highlighted suddenly becomes unhighlighted, and then
+             when I try to submit it asks me to select a problem, and when I select it again the
+             text I've written is gone"
+
+        Three separate defects in a row, and this method is the third:
+          1. the 20s refresh deleted every row -> the SELECTION was destroyed (fixed in
+             `_r_problems`: skip the rebuild when nothing changed, and restore the selection when
+             it must happen);
+          2. with nothing selected, Save answered "Pick a problem in the list first";
+          3. re-selecting landed HERE, which unconditionally cleared `pb_box` -- THROWING AWAY
+             WHATEVER THEY HAD TYPED.
+
+        The rule now: the note box is only ever refilled when the SLUG CHANGES (or on an explicit
+        `force`, which is what Save uses after a successful write). Re-selecting the same problem,
+        or any refresh, leaves an in-progress note untouched. **Losing the owner's typing is the
+        worst thing this tab can do -- worse than showing them a stale note.**
+        """
         slug = self._selected_problem()
         if not slug or _probs is None:
             return
+        same_slug = (getattr(self, "_pb_loaded_slug", None) == slug)
         rows = {r["slug"]: r for r in _probs.scan()}
         r = rows.get(slug, {})
         fields = r.get("fields", {}) or {}
@@ -1386,11 +1623,29 @@ class StatusWindow:
         lines.append(f"  brief: notes/problems/{slug}/PROBLEM.md")
         lines.append(f"  your note: notes/problems/{slug}/OWNER_NOTES.md"
                      + ("" if owner["text"] or owner["verdict"] else "   (nothing yet)"))
+        # OWNER REQUEST 2026-08-22: "if I select it, I want the field to include an entire prompt
+        # and problem definition that I can paste in the solver session to kick it off."
+        # Rendered from problem_ledger.kickoff_prompt so the GUI and the CLI cannot drift -- the
+        # slug is baked in everywhere it is needed, so there is nothing to fill in by hand.
+        try:
+            lines.append("")
+            lines.append("=" * 78)
+            lines.append("PASTE THIS INTO A FRESH SOLVER SESSION (select + Ctrl-C):")
+            lines.append("=" * 78)
+            lines.extend(_probs.kickoff_prompt(slug).splitlines())
+            lines.append("=" * 78)
+            lines.append(f"(also: python tools/problem_ledger.py kickoff {slug})")
+        except Exception as exc:                       # noqa: BLE001 -- say so, never swallow
+            lines.append(f"  [kickoff prompt unavailable: {type(exc).__name__}: {exc} -- "
+                         f"run `python tools/problem_ledger.py kickoff {slug}` instead]")
         self._set_text(self.pb_detail, lines)
-        self.pb_verdict.set(owner["verdict"])
-        self.pb_box.delete("1.0", "end")
-        self.pb_box.insert("1.0", owner["text"])
-        self.pb_status.config(text="")
+        # NEVER overwrite an in-progress note. Only load when the slug actually changed.
+        if force or not same_slug:
+            self.pb_verdict.set(owner["verdict"])
+            self.pb_box.delete("1.0", "end")
+            self.pb_box.insert("1.0", owner["text"])
+            self.pb_status.config(text="")
+            self._pb_loaded_slug = slug
 
     def _save_problem_note(self) -> None:
         slug = self._selected_problem()
@@ -1407,15 +1662,29 @@ class StatusWindow:
             self.pb_status.config(text=f"NOT SAVED ({exc}). Your text is still in the box.")
             return
         verdict = self.pb_verdict.get() or "comment only"
+        self._pb_loaded_slug = slug          # the box now matches disk; safe to reload later
         self.pb_status.config(text=f"Saved to {path}  --  verdict: {verdict}. "
                                    f"I read this before integrating anything on {slug}.")
 
     def _r_problems(self, s: dict) -> None:
         """Cheap: one directory walk plus a small read per problem. No subprocess."""
         if _probs is None:
-            self.pb_hint.config(text="tools/problem_ledger.py did not load -- tracker unavailable.")
+            self._set_label(self.pb_hint,
+                            text="tools/problem_ledger.py did not load -- tracker unavailable.")
             return
         rows = _probs.scan()
+        # DO NOT REBUILD A TABLE THAT HAS NOT CHANGED. Every rebuild destroys the owner's
+        # selection, and a destroyed selection is what made Save answer "Pick a problem in the
+        # list first" while they were mid-sentence (owner report, 2026-08-22). The signature
+        # covers everything this table renders, so a real change still repaints immediately.
+        sig = tuple((r["slug"], r["state"], r["integrated"], r.get("error"),
+                     (r.get("fields", {}) or {}).get("result", ""),
+                     _probs.load_owner(r["slug"])["verdict"]) for r in rows)
+        if getattr(self, "_pb_sig", None) == sig and self.pb_tv.get_children():
+            return
+        self._pb_sig = sig
+        # It genuinely changed -- repaint, but put the selection back afterwards.
+        _keep = self._selected_problem()
         self.pb_tv.delete(*self.pb_tv.get_children())
         awaiting = 0
         for r in rows:
@@ -1432,10 +1701,37 @@ class StatusWindow:
             self.pb_tv.insert("", "end", values=(
                 r["slug"], r["state"], wait,
                 owner["verdict"] or ("note" if owner["text"] else ""), res))
+        if _keep:                                   # restore the selection the repaint destroyed
+            for iid in self.pb_tv.get_children():
+                if self.pb_tv.item(iid, "values")[0] == _keep:
+                    self.pb_tv.selection_set(iid)
+                    break
         n = len(rows)
-        self.nb.tab(self.tab_problems,
-                    text=f"6. PROBLEMS ({awaiting})" if awaiting else "6. PROBLEMS")
-        self.pb_hint.config(
+        self._set_tab_count(self.tab_problems, f" ({awaiting})" if awaiting else "")
+        # THE AGE OF WHAT THIS PANEL ACTUALLY READ, recorded here because only this scan knows
+        # which files were opened -- see the `_TAB_SOURCES["6. PROBLEMS"]` comment for why a
+        # directory mtime would have been wrong in both directions.
+        # `problem_ledger.PROBLEMS_DIR` is a str, not a Path -- wrap it rather than assume. The
+        # first draft called `.rglob` on it directly, which raised AttributeError straight into the
+        # `except` below and reported "no age" indistinguishably from "no files". A tool relied on
+        # to establish absence needs to fail LOUDLY, so the diagnostic below names which happened.
+        newest = None
+        try:
+            for f in _Path(_probs.PROBLEMS_DIR).rglob("*.md"):
+                try:
+                    mt = f.stat().st_mtime
+                except OSError:
+                    continue
+                if newest is None or mt > newest:
+                    newest = mt
+        except Exception as exc:
+            _diag("problems_mtime_scan_failed", err=f"{type(exc).__name__}: {exc}")
+            newest = None
+        if not hasattr(self, "_tab_mtime_override"):
+            self._tab_mtime_override = {}
+        self._tab_mtime_override["6. PROBLEMS"] = newest
+        self._set_label(
+            self.pb_hint,
             text=f"{n} problem(s). {awaiting} finished and waiting on me to re-verify and fold in. "
                  f"'SOLVER SAYS' is their own filing; it is not accepted until I have checked it "
                  f"on disk -- the base rate here is 30 vetted strong-passes, 1 upheld.")
@@ -1464,8 +1760,9 @@ class StatusWindow:
         frame.grid(row=1, column=0, sticky="nsew")
         self.organ_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_organ_detail())
 
-        self.organ_detail = self._detail(f, height=12)
-        self.organ_detail.grid(row=2, column=0, sticky="ew", pady=(6, 0))
+        # height 12 -> 8 with a scrollbar; was 220px against a 216px table. See `_detail_scrolled`.
+        _wrap, self.organ_detail = self._detail_scrolled(f, height=8)
+        _wrap.grid(row=2, column=0, sticky="ew", pady=(6, 0))
 
     # ---- PANEL C ------------------------------------------------------
     def _build_fidelity(self) -> None:
@@ -1841,19 +2138,33 @@ class StatusWindow:
         # Keystrokes are captured into the per-question draft as they happen, so that a refresh
         # landing between the last keypress and the button press cannot lose them.
         self.answer_box.bind("<KeyRelease>", lambda _e: self._stash_draft())
+        # THE THREE BUTTONS SIT IN A ROW, NOT A COLUMN (2026-08-22). Owner, twice: *"in gen the top
+        # of the gui takes up too much space - I still can't read the questions on tab 3."*
+        # MEASURED on the live window, this tab's five grid rows: banner 33px, hint 23px, table
+        # 146px, READING PANE 143px, answer box 169px -- so the answer box, a FIXED row, was taking
+        # MORE SPACE THAN THE READING PANE, which is the one row with `weight=1` and the only
+        # content on this tab the owner actually reads. And inside the answer box the driver was
+        # not the text box at all: the box measured 52px while this button stack measured **97px**
+        # (three 31px buttons in a vertical column), so 45px of the tab was being set by button
+        # layout alone. Laid out horizontally the stack is 31px, and every pixel saved on a FIXED
+        # row goes to the WEIGHTED one by construction.
+        #
+        # This is the tab's THIRD squeeze for the same reason (banner 64px, table 12 -> 6 -> 3
+        # rows) and the first one that takes space from something other than the content -- the
+        # earlier two had already cut the content itself as far as it goes.
         btns = ttk.Frame(ans)
-        btns.grid(row=1, column=1, sticky="ns", padx=(0, 6))
+        btns.grid(row=1, column=1, sticky="n", padx=(0, 6), pady=4)
         self.answer_btn = ttk.Button(btns, text="Save my answer", command=self._save_answer)
-        self.answer_btn.grid(row=0, column=0, sticky="ew", pady=(0, 2))
+        self.answer_btn.grid(row=0, column=0, sticky="ew", padx=(0, 2))
         # THE ESCAPE HATCH. On the night this panel was reported broken the board had ZERO open
         # questions, so every selectable row was a DECISION or a STANDING item, none of which can
         # be written -- the owner typed a real answer and the panel had nowhere to put it. This
         # button gives typed text somewhere to go REGARDLESS of what is selected: it files the text
         # as its own board row, already answered, through the same tested board.py calls.
         self.note_btn = ttk.Button(btns, text="File as a new note", command=self._file_note)
-        self.note_btn.grid(row=1, column=0, sticky="ew", pady=(0, 2))
+        self.note_btn.grid(row=0, column=1, sticky="ew", padx=(0, 2))
         ttk.Button(btns, text="Clear",
-                   command=self._clear_answer).grid(row=2, column=0, sticky="ew")
+                   command=self._clear_answer).grid(row=0, column=2, sticky="ew")
         self.answer_status = tk.Label(ans, text="", bg=_PANEL, fg=_DIM, anchor="w",
                                       font=("Segoe UI", 9), wraplength=self._wrap_w, justify="left")
         self.answer_status.grid(row=2, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 3))
@@ -2019,8 +2330,11 @@ class StatusWindow:
         frame.grid(row=1, column=0, sticky="nsew")
         self.results_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_result_detail())
 
-        self.results_detail = self._detail(f, height=8)
-        self.results_detail.grid(row=2, column=0, sticky="ew", pady=(6, 0))
+        # A scrollbar here too, though the height is unchanged: this tab's table already gets the
+        # larger share (301px vs 152px), so there is nothing to reclaim -- but silent clipping is a
+        # defect regardless of who is winning the space. See `_detail_scrolled`.
+        _wrap, self.results_detail = self._detail_scrolled(f, height=8)
+        _wrap.grid(row=2, column=0, sticky="ew", pady=(6, 0))
 
     def _copy_disarm(self) -> None:
         try:
@@ -2335,12 +2649,27 @@ class StatusWindow:
         try:
             if stale and not self.stale_shown:
                 age = _fmt_dur(max(0.0, time.time() - _SRC_MTIME_AT_IMPORT))
+                # ONE LINE, AND THE PADDING CUT 9px -> 3px (2026-08-22, owner: "takes up a ton of
+                # unnecessary space"). The old text was two sentences over a hard "\n" plus a
+                # wrapped third, measured at 66px of label inside a +75px frame growth. Everything
+                # load-bearing survives: it still says the window is OLD, still says the fix is to
+                # reopen it, and still says how long ago it loaded -- which is the part that tells
+                # the owner whether this matters. The sentence that was dropped ("anything that
+                # looks missing may already exist") is an ELABORATION of "close it and open it
+                # again", not a separate instruction, and it was costing a full extra line on every
+                # tab for as long as the banner was up.
+                # PLAIN `configure`, NOT `_set_label`, and deliberately so. The enclosing
+                # `if stale and not self.stale_shown` already makes this a TRANSITION-ONLY write,
+                # so the no-op guard would buy nothing -- and it would widen the surface that
+                # `verification/test_gui_stale_banner.py`'s `_Stub` has to implement. That stub is
+                # documented as "the smallest object `_check_self_stale` actually touches", which
+                # is what lets the witness drive the real widget without building a whole window.
+                # Adding a method call here broke it, and the witness caught it; keeping this call
+                # narrow is the fix, not teaching the stub about a helper it does not need.
                 self.stale_lbl.configure(
-                    text=("THIS WINDOW IS RUNNING OLD CODE -- CLOSE IT AND OPEN IT AGAIN.\n"
-                          f"It loaded {age} ago and the dashboard has been changed since. "
-                          "Buttons, tabs and questions added after that point are NOT on screen, "
-                          "so anything that looks missing may already exist."))
-                self.stale_lbl.grid(row=2, column=0, sticky="ew", pady=(0, 9))
+                    text=(f"THIS WINDOW IS RUNNING OLD CODE (loaded {age} ago) -- "
+                          f"CLOSE IT AND OPEN IT AGAIN TO SEE WHAT CHANGED."))
+                self.stale_lbl.grid(row=2, column=0, columnspan=2, sticky="ew", pady=(0, 3))
                 self.stale_shown = True
             elif not stale and self.stale_shown:
                 self.stale_lbl.grid_remove()
@@ -2380,14 +2709,17 @@ class StatusWindow:
         only-here."""
         if self._head_collapsed:
             self.headline_lbl.configure(font=("Segoe UI", 11, "bold"), wraplength=0)
-            self.headline_lbl.grid_configure(pady=(4, 0))
+            self.headline_lbl.grid_configure(pady=(4, 3))
             self.headsub_lbl.grid_remove()
-            self.head_toggle.configure(text="click to expand this strip")
+            # Beside the headline, not under it -- see `_build`. This is what removes the 21px row.
+            self.head_toggle.grid(row=0, column=1, sticky="e", pady=(4, 3))
+            self._set_label(self.head_toggle, text="click to expand")
         else:
             self.headline_lbl.configure(font=("Segoe UI", 15, "bold"), wraplength=self._wrap_w)
             self.headline_lbl.grid_configure(pady=(9, 2))
             self.headsub_lbl.grid()
-            self.head_toggle.configure(text="click to collapse this strip")
+            self.head_toggle.grid(row=3, column=0, columnspan=2, sticky="ew", pady=(0, 3))
+            self._set_label(self.head_toggle, text="click to collapse this strip")
 
     def _r_headline(self, s: dict) -> None:
         """The strip answers three things without a click: WHERE WE ARE, HOW WE ARE DOING against
@@ -2397,18 +2729,22 @@ class StatusWindow:
         h = _d(w.get("headline")) or None
         standing = h.get("standing") if isinstance(h, dict) else None
         bg = {"BELOW_FLOOR": _RED_BG, "ABOVE_FLOOR": _GREEN_BG}.get(standing, _AMBER_BG)
+        # Guarded like every other write in this render path -- the colour is unchanged on the vast
+        # majority of refreshes and a bg write on the strip repaints it on every tab.
         for widget in (self.headbar, self.headline_lbl, self.headsub_lbl):
-            widget.configure(bg=bg)
+            self._set_label(widget, bg=bg)
 
         # LINE 1: where we are, and the one next thing to do.
         if pl.get("status") == "OK" and _d(pl.get("current")):
             cur = _d(pl.get("current"))
             nxt = _d(pl.get("next_action")).get("text") or "NOT STATED IN THE PLAN"
-            self.headline_lbl.configure(
+            self._set_label(
+                self.headline_lbl,
                 text=f"WE ARE IN {cur.get('id')} -- {cur.get('title')}.    "
                      f"NEXT: {str(nxt)[:150]}")
         else:
-            self.headline_lbl.configure(
+            self._set_label(
+                self.headline_lbl,
                 text=f"THE PLAN IS {pl.get('status', 'MISSING')} -- "
                      f"{str(pl.get('detail', ''))[:160]}")
 
@@ -2452,13 +2788,14 @@ class StatusWindow:
                         + (f", {ags.get('n_unknown')} undated" if ags.get("n_unknown") else ""))
         else:
             bits.append(f"evidence ages {ags.get('status', 'MISSING')}")
-        self.headsub_lbl.configure(text="     |     ".join(bits), fg="#f4f4f4")
+        self._set_label(self.headsub_lbl, text="     |     ".join(bits), fg="#f4f4f4")
 
     # ---- tab 1: WHERE WE ARE ------------------------------------------
     def _r_where(self, s: dict) -> None:
         p = _d(s.get("plan"))
         tv = self.where_tv
-        _scroll_frac = self._keep_scroll(tv)   # defect 3
+        # The SELECTION as well as the scroll position (2026-08-22) -- see the restore below.
+        _scroll_frac, _sel_iid = self._keep_selection(tv)   # defect 3
         tv.delete(*tv.get_children())
         self._where_rows: dict[str, dict] = {}
         # Stashed from the payload JUST RENDERED, not read back from self._state. A direct
@@ -2466,12 +2803,12 @@ class StatusWindow:
         # live poll, or the self-test stops testing the thing that ships.
         self._where_state: dict = p
         if p.get("status") != "OK":
-            self.where_phase.configure(text=f"THE PLAN IS {p.get('status', 'MISSING')}")
-            self.where_next.configure(text=str(p.get("detail", ""))[:400])
+            self._set_label(self.where_phase, text=f"THE PLAN IS {p.get('status', 'MISSING')}")
+            self._set_label(self.where_next, text=str(p.get("detail", ""))[:400])
             for wdg in (self.where_phase, self.where_next):
-                wdg.configure(bg=_AMBER_BG)
-            self.where_phase.master.configure(bg=_AMBER_BG)
-            self.where_hint.configure(text="", fg=_AMBER)
+                self._set_label(wdg, bg=_AMBER_BG)
+            self._set_label(self.where_phase.master, bg=_AMBER_BG)
+            self._set_label(self.where_hint, text="", fg=_AMBER)
             tv.insert("", "end", values=(f"{p.get('status')}", "MISSING", "MISSING",
                                          "MISSING", "MISSING", "UNKNOWN"), tags=("warn",))
             self._set_text(self.where_detail, [
@@ -2482,19 +2819,22 @@ class StatusWindow:
             return
 
         for wdg in (self.where_phase, self.where_next):
-            wdg.configure(bg=_GREEN_BG)
-        self.where_phase.master.configure(bg=_GREEN_BG)
+            self._set_label(wdg, bg=_GREEN_BG)
+        self._set_label(self.where_phase.master, bg=_GREEN_BG)
         cur = _d(p.get("current"))
         nxt = _d(p.get("next_action"))
-        self.where_phase.configure(
+        self._set_label(
+            self.where_phase,
             text=f"WE ARE IN {cur.get('id')} -- {cur.get('title')}")
-        self.where_next.configure(
+        self._set_label(
+            self.where_next,
             text=f"THE SINGLE NEXT ACTION: {nxt.get('text') or 'NOT STATED IN THE PLAN'}\n"
                  f"(which phase: {p.get('current_basis')};  which action: {nxt.get('basis')})")
 
         con = _d(p.get("contract"))
         nv = con.get("n_violations") or 0
-        self.where_hint.configure(
+        self._set_label(
+            self.where_hint,
             text=(f"Read live from {p.get('doc')} on every refresh -- nothing on this tab is a "
                   f"copy. {nv} thing(s) the plan does not state are shown as NOT STATED IN THE "
                   f"PLAN rather than filled in; select a phase to see which. "
@@ -2520,17 +2860,23 @@ class StatusWindow:
                 ph.get("kill") or "NOT STATED IN THE PLAN",
                 _age_cell(ph),
             ), tags=(tag, "even" if i % 2 == 0 else "odd"))
+        # THE OWNER'S SELECTION SURVIVES A REFRESH HERE TOO (2026-08-22). This was the last table
+        # in the window still calling `tv.selection_set(...)` unconditionally: it re-selected the
+        # CURRENT PHASE every 20s, so clicking phase 4 to read its gate put you back on phase 1 on
+        # the next tick, and the `<<TreeviewSelect>>` that fires with it rewrote the detail pane
+        # underneath. Every other table already routes through `_restore_selection`, which keeps
+        # the owner's row if it still exists and only falls back when it does not. The current
+        # phase is now the FALLBACK -- what you get if you have not chosen -- rather than an
+        # override of what you did choose. Same defect class as "the gui flicks back to the top on
+        # every tab" (defect 3) and "it resets my selected answer to the first one".
         keep = next((k for k, v in self._where_rows.items()
                      if v.get("id") == p.get("current_id")), None)
         if self._where_rows:
-            tv.selection_set(keep or "ph0")
-            self._show_where_detail()
+            self._restore_selection(tv, (_scroll_frac, _sel_iid),
+                                    fallback_iid=keep or "ph0",
+                                    select_cb=self._show_where_detail)
         self._restore_scroll(tv, _scroll_frac)   # defect 3
-        try:
-            self.nb.tab(self.tab_where,
-                        text=f"1. WHERE WE ARE ({cur.get('id', '?')})")
-        except tk.TclError:
-            pass
+        self._set_tab_count(self.tab_where, f" ({cur.get('id', '?')})")
 
     def _show_where_detail(self) -> None:
         sel = self.where_tv.selection()
@@ -2610,9 +2956,10 @@ class StatusWindow:
         tv.delete(*tv.get_children())
         self._score_rows: dict[str, dict] = {}
         if m.get("status") != "OK":
-            self.sc_gov_title.configure(text=f"SCORE DATA IS {m.get('status', 'MISSING')}")
-            self.sc_gov_body.configure(text=str(m.get("detail", ""))[:400])
-            self.sc_hint.configure(text="", fg=_AMBER)
+            self._set_label(self.sc_gov_title,
+                            text=f"SCORE DATA IS {m.get('status', 'MISSING')}")
+            self._set_label(self.sc_gov_body, text=str(m.get("detail", ""))[:400])
+            self._set_label(self.sc_hint, text="", fg=_AMBER)
             tv.insert("", "end", values=(f"{m.get('status')}", "-", "MISSING", "MISSING", "",
                                          "UNKNOWN"), tags=("warn",))
             self._set_text(self.sc_detail, [
@@ -2624,7 +2971,7 @@ class StatusWindow:
 
         gov = _d(m.get("governing_floor"))
         if gov:
-            self.sc_gov_title.configure(text=str(gov.get("title", "")))
+            self._set_label(self.sc_gov_title, text=str(gov.get("title", "")))
             body = " ".join(str(x) for x in
                             (gov.get("plain_verdict") or gov.get("plain") or "",
                              gov.get("detail") or "") if x)
@@ -2633,17 +2980,19 @@ class StatusWindow:
             if gov.get("verify_status") in ("CHECK_PLAN", "CHECK_SOURCE"):
                 body += ("   [CHECK THE SOURCE: " + ", ".join(gov.get("verify_missing") or [])
                          + " is no longer findable in the plan.]")
-            self.sc_gov_body.configure(text=body)
+            self._set_label(self.sc_gov_body, text=body)
         else:
-            self.sc_gov_title.configure(text="NO GOVERNING FLOOR RECORDED")
-            self.sc_gov_body.configure(
+            self._set_label(self.sc_gov_title, text="NO GOVERNING FLOOR RECORDED")
+            self._set_label(
+                self.sc_gov_body,
                 text="Nothing names the strongest floor. Read every number below with that gap "
                      "in mind.")
 
         nr = m.get("n_retracted") or 0
         nd = m.get("n_disagreements") or 0
         as_of = m.get("as_of") or "an unrecorded date"
-        self.sc_hint.configure(
+        self._set_label(
+            self.sc_hint,
             text=(f"One row per part of the machine, as of {as_of}. "
                   f"Every number sits beside the floor it has to beat -- a score with no "
                   f"floor cannot be graded. {nr} claim(s) were RETRACTED and are shown in red at "
@@ -2712,13 +3061,9 @@ class StatusWindow:
                                     select_cb=self._show_score_detail)
         else:
             self._restore_scroll(tv, _kept[0])
-        try:
-            # Base label shortened 2026-08-17 (see the RUNNING tab comment above) -- "retracted"
-            # itself must survive; the self-test asserts it is in this exact string.
-            self.nb.tab(self.tab_scores,
-                        text=f"4. SCORES ({nr} retracted)" if nr else "4. SCORES")
-        except tk.TclError:
-            pass
+        # Base label shortened 2026-08-17 (see the RUNNING tab comment above) -- "retracted"
+        # itself must survive; the self-test asserts it is in this exact string.
+        self._set_tab_count(self.tab_scores, f" ({nr} retracted)" if nr else "")
 
     def _show_score_detail(self) -> None:
         sel = self.sc_tv.selection()
@@ -2816,7 +3161,8 @@ class StatusWindow:
         tv.delete(*tv.get_children())
         self._organ_rows: dict[str, dict] = {}
         if o.get("status") != "OK":
-            self.organ_hint.configure(text=f"{o.get('status')}: {o.get('detail', '')}", fg=_AMBER)
+            self._set_label(self.organ_hint,
+                            text=f"{o.get('status')}: {o.get('detail', '')}", fg=_AMBER)
             tv.insert("", "end", values=(f"{o.get('status')}", "MISSING", "?", "?", "MISSING",
                                          "UNKNOWN"), tags=("warn",))
             self._set_text(self.organ_detail,
@@ -2824,28 +3170,32 @@ class StatusWindow:
             self._restore_scroll(tv, _kept[0])
             return
         reg = _d(o.get("registry"))
-        self.organ_hint.configure(
-            text=(f"{o.get('n_organs')} organs -- {o.get('n_from_map')} from the organ map, "
-                  f"{o.get('n_overlay')} built or measured since it was last written. "
-                  f"{o.get('n_missing')} are NOT BUILT. "
-                  f"{reg.get('n_brain_structure')} of {reg.get('n_rows')} entries in the "
-                  f"capability list name a part of the brain; "
-                  f"{reg.get('n_no_brain_structure')} deliberately do not, and filling those in "
-                  f"after the fact is banned -- so the backlog is shown rather than hidden."
-                  + _panel_age_text(s.get("ages"), "brain organ map")),
-            fg=_BLUE)
+        # BUILT ONCE, WRITTEN ONCE (2026-08-22). This was three sequential `configure(text=...)`
+        # calls, the second and third of which read the label's OWN text back with `cget` and
+        # appended to it. Three writes meant three re-measures and three re-flows of a wrapped
+        # label per refresh, and reading state back out of a widget to decide what to write into it
+        # is fragile besides: it only produces the right string if it runs exactly once per render,
+        # which nothing enforced.
+        hint = (f"{o.get('n_organs')} organs -- {o.get('n_from_map')} from the organ map, "
+                f"{o.get('n_overlay')} built or measured since it was last written. "
+                f"{o.get('n_missing')} are NOT BUILT. "
+                f"{reg.get('n_brain_structure')} of {reg.get('n_rows')} entries in the "
+                f"capability list name a part of the brain; "
+                f"{reg.get('n_no_brain_structure')} deliberately do not, and filling those in "
+                f"after the fact is banned -- so the backlog is shown rather than hidden."
+                + _panel_age_text(s.get("ages"), "brain organ map"))
+        fg = _BLUE
         n_conf = o.get("n_conflicts") or 0
         if n_conf:
-            self.organ_hint.configure(
-                text=self.organ_hint.cget("text") +
-                     f"   {n_conf} organ(s) are marked CONFLICT: section 10 of the map re-audited "
+            hint += (f"   {n_conf} organ(s) are marked CONFLICT: section 10 of the map re-audited "
                      f"them and section 4 was never updated, so the document asserts BOTH a "
                      f"floored result AND untested about the same organ. This panel reports the "
-                     f"disagreement instead of picking one.", fg=_AMBER)
+                     f"disagreement instead of picking one.")
+            fg = _AMBER
         if o.get("missing_required"):
-            self.organ_hint.configure(
-                text=self.organ_hint.cget("text") +
-                     f"   MISSING FROM THE SOURCES: {o.get('missing_required')}", fg=_RED)
+            hint += f"   MISSING FROM THE SOURCES: {o.get('missing_required')}"
+            fg = _RED
+        self._set_label(self.organ_hint, text=hint, fg=fg)
 
         for i, r in enumerate(_l(o.get("rows"))):
             r = _d(r)
@@ -2875,10 +3225,7 @@ class StatusWindow:
                                     select_cb=self._show_organ_detail)
         else:
             self._restore_scroll(tv, _kept[0])
-        try:
-            self.nb.tab(self.tab_organs, text=f"5. ORGAN MAP ({o.get('n_missing')} missing)")
-        except tk.TclError:
-            pass
+        self._set_tab_count(self.tab_organs, f" ({o.get('n_missing')} missing)")
 
     def _show_organ_detail(self) -> None:
         sel = self.organ_tv.selection()
@@ -2946,6 +3293,24 @@ class StatusWindow:
 
     # ---- panel C ------------------------------------------------------
     def _r_fidelity(self, s: dict) -> None:
+        # *** THIS PANEL IS NOT ON SCREEN, SO IT ONLY RE-RENDERS WHEN ITS DATA CHANGES. ***
+        # (2026-08-22 ui/ux pass.) Tab 6 became the problem tracker and `_build_fidelity`'s
+        # `nb.add` is deliberately commented out -- but `render()` still called this every 20s,
+        # rebuilding two Treeviews (1 + 30+ rows), redrawing a 29-item scatter canvas and writing
+        # five banner labels INTO A FRAME THE NOTEBOOK DOES NOT DISPLAY. Measured: 5 of the 8 no-op
+        # label writes left in a steady-state cycle came from this invisible panel.
+        #
+        # SKIPPED, NOT DELETED, AND NOT UNCONDITIONALLY SKIPPED. The frame must stay renderable so
+        # that restoring the tab really is the one `nb.add` line that method promises, and so the
+        # self-test -- which renders three different payloads (live / all-missing / garbage) and
+        # asserts on this panel's widgets in each -- still exercises it. Keying the skip on the
+        # PAYLOAD means every one of those states still renders, while an unchanged payload on an
+        # undisplayed frame costs nothing.
+        if str(self.tab_fidelity) not in self.nb.tabs():
+            _fid_sig = repr(_strip_volatile_ages(s.get("fidelity")))
+            if getattr(self, "_fid_sig", None) == _fid_sig:
+                return
+            self._fid_sig = _fid_sig
         fd = _d(s.get("fidelity"))
         tv, tv2 = self.fid_tv, self.fid_div_tv
         _kept1 = self._keep_selection(tv)    # defect 3
@@ -3053,11 +3418,12 @@ class StatusWindow:
             self._restore_scroll(tv, _kept1[0])
         self._restore_selection(tv2, _kept2, fallback_iid=None,
                                 select_cb=lambda: self._show_fidelity_detail(True))
-        try:
-            self.nb.tab(self.tab_fidelity,
-                        text=f"6. COPYING THE BRAIN ({_d(fd.get('scatter')).get('n', '?')} pts)")
-        except tk.TclError:
-            pass
+        # The frame is deliberately NOT registered with `nb.add` (see `_build_fidelity`), so this
+        # is a no-op today -- `_set_tab_count` finds no base title and returns. Kept, and routed
+        # through the same one writer as every other panel, so that restoring the tab stays the
+        # single `nb.add` line that method promises.
+        self._set_tab_count(self.tab_fidelity,
+                            f" ({_d(fd.get('scatter')).get('n', '?')} pts)")
 
     def _show_fidelity_detail(self, from_div: bool = False) -> None:
         st = _d(getattr(self, "_fid_state", None))
@@ -3202,7 +3568,12 @@ class StatusWindow:
             pass
 
     def _board_clear_new_data_hint(self) -> None:
+        # Guarded, and it returns early when already clear: this runs on EVERY disengaged refresh,
+        # and the hint is hidden on almost all of them, so the common case was a `configure` plus a
+        # `grid_remove` on a widget that was already blank and already removed.
         try:
+            if not self.board_new_data_lbl.cget("text"):
+                return
             self.board_new_data_lbl.configure(text="")
             self.board_new_data_lbl.grid_remove()
         except tk.TclError:
@@ -3263,25 +3634,23 @@ class StatusWindow:
         standing = _l(ops.get("rows")) if ops.get("status") == "OK" else []
         n_q = b.get("n_open") or 0
         n_all = n_q + len(decisions) + len(standing)
-        try:
-            self.nb.tab(self.tab_board, text=f"3. WAITING ON YOU ({n_all})" if n_all else
-                                             "3. WAITING ON YOU")
-        except tk.TclError:
-            pass
+        self._set_tab_count(self.tab_board, f" ({n_all})" if n_all else "")
 
         # THE BANNER STATES THE BREAKDOWN IN ONE SENTENCE, in the largest text on the tab, before
         # the table below is even scanned. "0 open questions" reads as nothing to do UNLESS the
         # decisions and standing items are named in the same breath -- they are what was actually
         # missed on 2026-08-17.
         if b.get("status") != "OK":
-            self.wait_count_lbl.configure(
+            self._set_label(
+                self.wait_count_lbl,
                 text="THE BOARD COULD NOT BE READ -- see the line below.", bg=_RED_BG)
-            self.wait_banner.configure(bg=_RED_BG)
+            self._set_label(self.wait_banner, bg=_RED_BG)
         elif n_all == 0:
-            self.wait_count_lbl.configure(
+            self._set_label(
+                self.wait_count_lbl,
                 text="NOTHING IS WAITING ON YOU. No open questions, no undecided items.",
                 bg=_GREEN_BG)
-            self.wait_banner.configure(bg=_GREEN_BG)
+            self._set_label(self.wait_banner, bg=_GREEN_BG)
         else:
             # SHORTENED 2026-08-17 (third pass, defect A -- vertical space). This used to end
             # "-- click any row, type an answer, press Save.", which pushed the sentence past one
@@ -3289,13 +3658,14 @@ class StatusWindow:
             # cost 64px (two lines) of a tab that only has ~441px total, most of which needs to go
             # to the reading pane. That instruction is not lost -- it is exactly what the table's
             # own heading column now says ("click a row to read it in full below").
-            self.wait_count_lbl.configure(
+            self._set_label(
+                self.wait_count_lbl,
                 text=(f"{n_q} OPEN QUESTION{'S' if n_q != 1 else ''}  +  {len(decisions)} "
                       f"DECISION{'S' if len(decisions) != 1 else ''}  +  {len(standing)} "
                       f"STANDING ITEM{'S' if len(standing) != 1 else ''}  =  {n_all} "
                       f"ROW{'S' if n_all != 1 else ''} WAITING ON YOU"),
                 bg="#26415c")
-            self.wait_banner.configure(bg="#26415c")
+            self._set_label(self.wait_banner, bg="#26415c")
 
         # Whether the DOCUMENT can be written at all. Whether the SELECTED ROW can be written is a
         # separate question and is decided in _sync_answer_ui() -- conflating the two is what left
@@ -3319,8 +3689,8 @@ class StatusWindow:
                 text="notes/BOARD.md is not writable from here -- answer it in the file "
                      "instead.", fg=_AMBER)
         parts.append(_panel_age_text(s.get("ages"), "waiting on you").strip())
-        self.board_hint.configure(text="  ".join(x for x in parts if x),
-                                  fg=_AMBER if b.get("status") != "OK" else _BLUE)
+        self._set_label(self.board_hint, text="  ".join(x for x in parts if x),
+                        fg=_AMBER if b.get("status") != "OK" else _BLUE)
 
         # NO PLACEHOLDER ROW (removed 2026-08-17). A row reading "No open question", unselectable
         # and carrying id "-", used to be drawn here whenever BOARD.md had zero open QUESTIONS --
@@ -3363,8 +3733,19 @@ class StatusWindow:
             # sitting in the WAITING-ON-YOU list, so answering it changed nothing the owner could
             # see. Settled rows belong here, in the archive, not in the working list.
             rec_a = _d(b.get("recorded"))
-            for grp, kind in ((_l((s.get("plan") or {}).get("decisions")), "DECISION"),
-                              (_l((s.get("plan") or {}).get("standing")), "STANDING")):
+            # *** WRONG KEY, FOUND 2026-08-22: `plan["standing"]` DOES NOT EXIST. ***
+            # The standing operator rows live at `plan["operator"]["rows"]` -- which is exactly how
+            # the working list above reads them (`ops = _d(pl.get("operator"))`), so the two halves
+            # of this panel disagreed about where the data was. `_l(None)` returns [], silently, so
+            # this loop ran zero times and reported nothing wrong.
+            #
+            # THE CONSEQUENCE WAS THAT ANSWERED STANDING ITEMS WERE INVISIBLE IN BOTH VIEWS: the
+            # working list skips a row once it is answered (owner 2026-08-20, "answered rows leave
+            # the working list") and the archive could not find them to show. Measured on the live
+            # board: OP1-OP4 are all recorded as answered, the archive rendered 7 DECISION rows and
+            # ZERO STANDING rows, and those four items appeared nowhere in the window at all.
+            for grp, kind in ((_l(pl.get("decisions")), "DECISION"),
+                              (_l(_d(pl.get("operator")).get("rows")), "STANDING")):
                 for r in grp:
                     r = _d(r)
                     done = _d(rec_a.get(str(r.get("id") or "").upper()))
@@ -3374,9 +3755,14 @@ class StatusWindow:
                     self._wait_rows[iid] = dict(r, _kind="ANSWERED",
                                                 answer=done.get("answer"),
                                                 resolved=done.get("resolved"))
+                    # A DECISION carries its text in `question`; a STANDING row carries it in
+                    # `title` (the working list already reads them that way). Reading only
+                    # `question` would have given every standing row a BLANK gist cell -- an empty
+                    # cell reads as "nothing here", which is how this whole class of row went
+                    # unnoticed in the first place.
                     tv.insert("", "end", iid=iid,
                               values=(r.get("id", "?"), "%s - ANSWERED" % kind,
-                                      _gist(r.get("question", "")),
+                                      _gist(str(r.get("question") or r.get("title") or "")),
                                       "you answered: " + _verbatim(str(done.get("answer") or ""),
                                                                    120),
                                       str(done.get("resolved") or "")[:19]),
@@ -3540,7 +3926,7 @@ class StatusWindow:
             cap = (f"YOUR ANSWER TO {rid}  --  NOT ANSWERABLE: notes/BOARD.md cannot be written "
                    f"from here. Type into the ANSWER cell in the file instead.")
         try:
-            self.answer_caption.configure(text=cap)
+            self._set_label(self.answer_caption, text=cap)
         except tk.TclError:
             pass
         self.answer_btn.state(["!disabled"] if can_save else ["disabled"])
@@ -3585,7 +3971,7 @@ class StatusWindow:
         else:
             msg = "%d item(s) waiting on you. Click a row to read it in full below." % n
         try:
-            self.board_mode_lbl.configure(text=msg)
+            self._set_label(self.board_mode_lbl, text=msg)
         except tk.TclError:
             pass
 
@@ -3811,24 +4197,32 @@ class StatusWindow:
         lp = _d(s.get("loop"))
         armed = lp.get("armed")
         if armed is True:
-            self.loop_big.configure(text="THE OVERNIGHT LOOP IS ON", fg=_GREEN)
-            self.loop_sub.configure(
+            self._set_label(self.loop_big, text="THE OVERNIGHT LOOP IS ON", fg=_GREEN)
+            self._set_label(
+                self.loop_sub,
                 text=(f"It will keep working through the night without you, and will stop by "
                       f"itself after {lp.get('cap_label')} continuations. Switched on at "
                       f"{lp.get('armed_at')} by {lp.get('armed_by')}. "
                       f"{lp.get('continuations_recent_total', 0)} continuation(s) used in the "
                       f"last 24 hours."))
         elif armed is False:
-            self.loop_big.configure(text="THE OVERNIGHT LOOP IS OFF", fg=_DIM)
-            self.loop_sub.configure(text="Work stops when the current turn ends.")
+            self._set_label(self.loop_big, text="THE OVERNIGHT LOOP IS OFF", fg=_DIM)
+            self._set_label(self.loop_sub, text="Work stops when the current turn ends.")
         else:
-            self.loop_big.configure(text="OVERNIGHT LOOP: UNKNOWN", fg=_AMBER)
-            self.loop_sub.configure(text=str(lp.get("detail", "")))
-        self.disarm_box.configure(state="normal")
-        self.disarm_box.delete("1.0", "end")
-        self.disarm_box.insert("1.0", lp.get("disarm_cmd") or "python tools/autoloop.py disarm")
-        self.loop_alt.configure(text=str(lp.get("disarm_alt", ""))
-                                + f"   setting file: {lp.get('state_path')}")
+            self._set_label(self.loop_big, text="OVERNIGHT LOOP: UNKNOWN", fg=_AMBER)
+            self._set_label(self.loop_sub, text=str(lp.get("detail", "")))
+        # THE STOP COMMAND IS NOT REWRITTEN WHILE IT IS THE SAME COMMAND (2026-08-22). This box is
+        # there for the owner to SELECT AND COPY -- it is the one control in this window that stops
+        # the machine. A `delete` + `insert` every 20s destroys any selection in it, so copying the
+        # command was a race against the refresh timer. It was also the LAST unconditional
+        # delete+insert left in a steady-state cycle (measured: 3 of 3 remaining Text rebuilds).
+        want_cmd = lp.get("disarm_cmd") or "python tools/autoloop.py disarm"
+        if self.disarm_box.get("1.0", "end-1c") != want_cmd:
+            self.disarm_box.configure(state="normal")
+            self.disarm_box.delete("1.0", "end")
+            self.disarm_box.insert("1.0", want_cmd)
+        self._set_label(self.loop_alt, text=str(lp.get("disarm_alt", ""))
+                        + f"   setting file: {lp.get('state_path')}")
 
         rn = _d(s.get("running"))
         ag = _d(rn.get("agents"))
@@ -3871,8 +4265,8 @@ class StatusWindow:
         elif cl.get("status"):
             head += (f"        the pid-file claims could NOT be checked ({cl.get('status')}: "
                      f"{str(cl.get('detail'))[:90]}) -- treat this list as INCOMPLETE, not as empty")
-        self.local_head.configure(
-            text=head, fg=_RED if (cl.get("n_dead") or 0) else _BLUE)
+        self._set_label(self.local_head,
+                        text=head, fg=_RED if (cl.get("n_dead") or 0) else _BLUE)
 
         i = 0
         if not lx and not claims:
@@ -3993,11 +4387,7 @@ class StatusWindow:
         # shown, in large text, the moment this tab is opened) and the active-agent count (not
         # covered by any self-test); the dead-run count survives because
         # verification/test_status_running_panel.py asserts it is visible without opening the tab.
-        dead_tag = f" ({n_dead} dead)" if n_dead else ""
-        try:
-            self.nb.tab(self.tab_running, text=f"2. RUNNING{dead_tag}")
-        except tk.TclError:
-            pass
+        self._set_tab_count(self.tab_running, f" ({n_dead} dead)" if n_dead else "")
 
     def _show_running_detail(self) -> None:
         """The selected run's own story, above the machine-wide summary.
@@ -4056,15 +4446,16 @@ class StatusWindow:
         tv.delete(*tv.get_children())
         self._result_rows: dict[str, dict] = {}
         if res.get("status") != "OK":
-            self.results_hint.configure(
-                text=f"{res.get('status')}: {res.get('detail', '')}", fg=_AMBER)
+            self._set_label(self.results_hint,
+                            text=f"{res.get('status')}: {res.get('detail', '')}", fg=_AMBER)
             self._set_text(self.results_detail,
                            [(f"{res.get('status')}\n", "warn"), str(res.get("detail", ""))])
             self._restore_scroll(tv, _kept[0])
             return
         rows = [_d(r) for r in _l(res.get("rows"))]
         n_unvetted = sum(1 for r in rows if not _vetting(r.get("name") or "").get("vetted"))
-        self.results_hint.configure(
+        self._set_label(
+            self.results_hint,
             text=(f"The {len(rows)} most recent finished experiments. "
                   f"{res.get('n_negative')} of them are negative and "
                   f"{res.get('n_no_floor')} never named a floor at all -- a result with no "
@@ -4221,6 +4612,148 @@ def self_test() -> int:
               f"eight tabs: seven content tabs plus NOTE FOR ME on its own since 2026-08-17 "
               f"(got {len(gui.nb.tabs())})")
 
+        # ---- THE 2026-08-22 UI/UX PASS. Owner: *"can you run an optimisation over the entire
+        # gui... things that are completely unnecessary, like the tab titles redrawing every ~10
+        # seconds"*, and twice before that *"in gen the top of the gui takes up too much space -
+        # I still can't read the questions on tab 3"*. Each check below is a MEASURED defect, and
+        # each fails against the code as it stood that morning.
+        gui._update_tab_ages()
+        titles = {gui.nb.tab(t, "text") for t in gui.nb.tabs()}
+        # (1) THE COUNT AND THE AGE COEXIST. They used to overwrite each other -- two writers, each
+        # writing the WHOLE title -- so the owner could never see both, and the age was erased on
+        # the first refresh after it appeared.
+        both = [t for t in titles if "(" in t and "[" in t]
+        check(bool(both),
+              f"a tab title carries BOTH its count and its evidence age, which the two competing "
+              f"writers made impossible (got {sorted(titles)})")
+        # (2) THE STEADY STATE IS SILENT. This is the owner's "redrawing every ~10 seconds"
+        # measured directly: with nothing changed on disk, a render plus a tick must write NO tab
+        # title at all. Instrumented on the real notebook rather than inferred from the guard.
+        #
+        # SCORED AS "NO REDUNDANT WRITE" AND "NO FLIP-FLOP", NOT AS "ZERO WRITES" -- the first
+        # draft of this check asserted zero and was TIME-FLAKY: an evidence age legitimately rolled
+        # over from "26m" to "27m" mid-test, which is a real change and MUST be written. Asserting
+        # zero would have made a correct window fail once a minute, which is the same class of
+        # mistake as the board check above that demanded the owner leave questions unanswered.
+        # So the two things that are actually defects are measured directly:
+        #   (a) a write that sets a title to the string it already holds -- pure churn;
+        #   (b) a change to the base+count HALF of a title on unchanged data -- that is the
+        #       flip-flop, where one writer erases the other's half and writes it back next cycle.
+        # An age-only change is legitimate and is neither.
+        _writes = []
+        _real_tab = gui.nb.tab
+
+        def _spy(tab_id, option=None, **kw):
+            if "text" in kw:
+                try:
+                    _before = _real_tab(tab_id, "text")
+                except tk.TclError:
+                    _before = None
+                _writes.append((str(tab_id), _before, kw["text"]))
+            return _real_tab(tab_id, option) if option is not None else _real_tab(tab_id, **kw)
+
+        gui.nb.tab = _spy
+        try:
+            for _ in range(3):
+                gui.render(live)
+                gui._update_tab_ages()
+        finally:
+            gui.nb.tab = _real_tab
+        _noop = [w for w in _writes if w[1] == w[2]]
+        check(not _noop,
+              f"three refresh cycles on UNCHANGED data perform NO redundant tab re-title "
+              f"(got {len(_noop)} of {len(_writes)} writes setting a title to what it already "
+              f"said: {_noop[:3]})")
+        _flip = [w for w in _writes
+                 if w[1] is not None and w[1].split("  [")[0] != w[2].split("  [")[0]]
+        check(not _flip,
+              f"and the COUNT half of a title never changes on unchanged data -- that change is "
+              f"the two-writer flip-flop the owner saw as 'tab titles redrawing every ~10 "
+              f"seconds' (was every cycle; got {len(_flip)}: {_flip[:3]})")
+        # (3) NOTHING ELSE IS REWRITTEN EITHER. Every detail pane used to be delete+insert'ed on
+        # every cycle regardless of content -- 24 rebuilds per 3 cycles, 0 of which changed
+        # anything. A delete+insert resets that pane's scroll position and any selection in it,
+        # which is the same defect class this file already records on the board tab.
+        _rebuilds = []
+
+        def _hook(widget):
+            _orig = widget.delete
+
+            def _d2(*a, **k):
+                _rebuilds.append(str(widget))
+                return _orig(*a, **k)
+            widget.delete = _d2
+
+        _texts = []
+
+        def _walk(w):
+            for c in w.winfo_children():
+                if c.winfo_class() == "Text":
+                    _texts.append(c)
+                _walk(c)
+        _walk(root)
+        for _t in _texts:
+            _hook(_t)
+        for _ in range(3):
+            gui.render(live)
+        check(not _rebuilds,
+              f"three refresh cycles on UNCHANGED data rebuild NO text pane (was 24; got "
+              f"{len(_rebuilds)})")
+        # (4) THE STALE BANNER COSTS NOTHING WHEN IT IS FALSE, and one line when it is true.
+        # Owner: *"whenever the warning for 'old code' comes up in the gui it takes up a ton of
+        # unnecessary space."* Measured before the fix: +75px of a 569px content area, on every
+        # tab, wrapped to two lines.
+        check(not gui.stale_lbl.winfo_ismapped() and not gui.stale_shown,
+              "the OLD CODE banner is not merely blank when false -- it is out of the geometry "
+              "manager entirely, so it holds no row open")
+        _saved_mtime = globals().get("_SRC_MTIME_AT_IMPORT")
+        globals()["_SRC_MTIME_AT_IMPORT"] = time.time() - 3 * 3600
+        try:
+            gui._check_self_stale()
+            _stale_txt = gui.stale_lbl.cget("text")
+            check(gui.stale_shown and "OLD CODE" in _stale_txt,
+                  "the OLD CODE banner still appears, and still says the window is old")
+            check("\n" not in _stale_txt and len(_stale_txt) < 130,
+                  f"the OLD CODE banner is ONE line -- it was two sentences over a hard newline "
+                  f"plus a wrapped third (got {len(_stale_txt)} chars: {_stale_txt!r})")
+            check("CLOSE IT AND OPEN IT AGAIN" in _stale_txt,
+                  "the shortened banner keeps the only instruction it exists to give")
+        finally:
+            globals()["_SRC_MTIME_AT_IMPORT"] = _saved_mtime
+            gui.stale_lbl.grid_remove()
+            gui.stale_shown = False
+        # (5) THE COLLAPSED HEADLINE STRIP DOES NOT SPEND A WHOLE GRID ROW ON A HINT. Measured: the
+        # collapsed strip was 54px and 21px of it was the "click to expand" label on its own row.
+        gui._head_collapsed = True
+        gui._apply_headline_mode()
+        check(int(gui.head_toggle.grid_info().get("row", -1))
+              == int(gui.headline_lbl.grid_info().get("row", -2)),
+              "collapsed, the expand hint shares the headline's row instead of adding one")
+        gui._head_collapsed = False
+        gui._apply_headline_mode()
+        check(int(gui.head_toggle.grid_info().get("row", -1))
+              > int(gui.headsub_lbl.grid_info().get("row", -2)),
+              "expanded, the hint goes back under the subline where there is room for it")
+        gui._head_collapsed = _load_pref("headline_collapsed", True)
+        gui._apply_headline_mode()
+        # (6) THE READING PANE ON TAB 3 IS NO LONGER OUTWEIGHED BY THE ANSWER BOX. That box is a
+        # FIXED row and the reading pane is the only WEIGHTED one, so Tk satisfies the box first.
+        # Its height was being set by a vertical stack of three buttons (97px) rather than by the
+        # text box in it (52px). Checked structurally, like the other tab-3 checks above.
+        _btn_rows = {int(b.grid_info().get("row", 0))
+                     for b in (gui.answer_btn, gui.note_btn)}
+        check(len(_btn_rows) == 1,
+              f"the answer box's buttons sit in ONE row, not stacked in a column that sets the "
+              f"whole fixed row's height (rows {_btn_rows})")
+        # (7) EVERY DETAIL PANE THAT WAS SHRUNK CAN STILL REACH ITS OWN CONTENT. Trimming a pane is
+        # only safe if nothing can silently fall out of the bottom of it.
+        for _name in ("where_detail", "sc_detail", "organ_detail", "pb_detail", "results_detail",
+                      "board_detail"):
+            _pane = getattr(gui, _name, None)
+            check(_pane is not None and bool(str(_pane.cget("yscrollcommand")).strip()),
+                  f"{_name} has a scrollbar, so shrinking it cannot hide content the way an "
+                  f"unscrollable fixed-height pane does")
+
         # --- defect A (2026-08-17, THIRD PASS): the reading pane gets the majority of the
         # vertical space, deterministically -- not via a PanedWindow (removed; measured TWICE to
         # mis-size its panes, see _build_board's comment). Checked STRUCTURALLY (grid row weights
@@ -4349,9 +4882,53 @@ def self_test() -> int:
         # --- tab 3: everything waiting on the owner, in one place -----------
         bcells = [gui.board_tv.item(i, "values") for i in gui.board_tv.get_children()]
         kinds = {str(c[1]).split(" ")[0] for c in bcells}
-        check({"DECISION", "STANDING"} <= kinds,
-              f"the waiting-on-you tab carries the plan's decisions AND the standing operator "
-              f"decisions, which previously appeared in no panel at all (got {kinds})")
+        # *** THIS CHECK WAS ASSERTING THAT THE OWNER HAD NOT DONE THEIR JOB (fixed 2026-08-22). ***
+        # It demanded a DECISION row and a STANDING row UNCONDITIONALLY. But since 2026-08-20 an
+        # ANSWERED row deliberately LEAVES the working list (owner: "move the questions already
+        # answered to an archive"), so the working list empties as the owner answers things -- and
+        # on the day this was diagnosed it was legitimately empty: `status_plan` parses all 7
+        # decisions and all 4 standing rows correctly, and notes/BOARD.md records an answer for
+        # every one of D1-D7 and OP1-OP4. Nothing was failing to parse.
+        #
+        # THE NEIGHBOURING QUESTION CHECK HAD ALREADY BEEN FIXED FOR EXACTLY THIS, and its comment
+        # (below) states the rule: "a self-test that demanded an open question would start failing
+        # the moment the owner did their job." That fix was simply never applied to this line.
+        #
+        # SO IT IS NOW CONDITIONAL ON THE DATA, BOTH WAYS -- present iff genuinely outstanding --
+        # and the ARCHIVE is checked separately below, which is the assertion that actually has
+        # teeth now: a row that is answered has to be visible SOMEWHERE, and it was not.
+        pl_live = live.get("plan") if isinstance(live.get("plan"), dict) else {}
+        rec_live = ((live.get("board") or {}).get("recorded") or {}
+                    if isinstance(live.get("board"), dict) else {})
+        want_kinds = set()
+        for _grp, _kind in ((_l(pl_live.get("decisions")), "DECISION"),
+                            (_l(_d(pl_live.get("operator")).get("rows")), "STANDING")):
+            if any(not rec_live.get(str(_d(r).get("id") or "").upper()) for r in _grp):
+                want_kinds.add(_kind)
+        check(want_kinds <= kinds,
+              f"every kind with an UNANSWERED row is on the waiting-on-you tab "
+              f"(outstanding kinds {want_kinds or 'none - all answered'}, on screen {kinds})")
+        # AND THE OTHER HALF, which is what the unconditional version was really protecting: an
+        # answered row must not simply VANISH. `_r_board_apply`'s archive branch was reading
+        # `plan["standing"]`, a key that does not exist, so all four answered STANDING rows showed
+        # in NEITHER view. This check would have caught that; the old one could not.
+        _was_archive = gui.board_archive
+        gui.board_archive = True
+        gui._r_board_apply(live)
+        akinds = {str(c[1]) for c in
+                  (gui.board_tv.item(i, "values") for i in gui.board_tv.get_children())}
+        for _grp, _kind in ((_l(pl_live.get("decisions")), "DECISION"),
+                            (_l(_d(pl_live.get("operator")).get("rows")), "STANDING")):
+            n_done = sum(1 for r in _grp
+                         if rec_live.get(str(_d(r).get("id") or "").upper()))
+            if n_done:
+                check(f"{_kind} - ANSWERED" in akinds,
+                      f"{n_done} answered {_kind} row(s) are visible in the archive rather than "
+                      f"disappearing from the window entirely (archive shows {akinds})")
+        gui.board_archive = _was_archive
+        gui._r_board_apply(live)
+        bcells = [gui.board_tv.item(i, "values") for i in gui.board_tv.get_children()]
+        kinds = {str(c[1]).split(" ")[0] for c in bcells}
         # The board legitimately empties -- the owner answers questions. So the QUESTION kind is
         # asserted against the DATA rather than against a fixed expectation: a self-test that
         # demanded an open question would start failing the moment the owner did their job. This
