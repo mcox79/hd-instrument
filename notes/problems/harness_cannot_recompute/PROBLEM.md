@@ -40,6 +40,26 @@ indistinguishable unless somebody reads the elapsed time and notices it was zero
 **Your job: give the harness a way to recompute into a FRESH output directory, without deleting
 anything, and prove that a re-run through it can actually FAIL.**
 
+## ✅ **TEST 4 ANSWERED 2026-08-22, BY THE DEFECT FIRING IN THE WORKING TREE THE SAME DAY**
+
+**When this brief was written its cost was hypothetical -- "a landed cell cannot be falsified by
+re-running it" -- and it said so honestly, with ONE observed instance.**
+
+**It stopped being hypothetical hours later.** A routine `git status` during a restart re-read found
+**`63` `metrics.json` modified and `3` deleted in the working tree, of which `54` had a CHANGED
+`ts_iso` and IDENTICAL numbers.** Worked example: `exp_bridge1_twostage_event_situation_v2`,
+`elapsed_s 31.36 -> 0.0355`, `ts_iso 2026-08-05 -> 2026-08-22`. **A re-run replayed its checkpoints,
+did no work, and restamped a landed record with today's date. Oldest true date `2026-07-04`.**
+
+> ### **THAT IS THE DEFECT COSTING US, NOT AN ALTERNATIVE BEING BETTER: 54 RECORDS SILENTLY RE-DATED, CAUGHT BY A ROUTINE RE-READ RATHER THAN BY ANY GUARD.**
+
+⚠️ **AND THE HONEST LIMIT: THIS IS MISLABELLING, NOT DATA LOSS.** *`git show HEAD:<path>` returns
+every one intact, deletions included. It matters because TOOLS READ THE FILE, NOT THE HISTORY -- and a
+staleness check is exactly what started the goal-bearing re-land the same afternoon.*
+✅ *True dates preserved in `notes/TRUE_LANDED_TIMESTAMPS_BEFORE_THE_08-22_REPLAY.md`.*
+🔑 **`tools/reproduction_check.py` can NAME a replay after the fact. Nothing PREVENTS one
+overwriting a landed record, and that gap is exactly this brief.**
+
 ## WHY THIS ONE
 
 **Because "I re-ran it and it reproduced" is currently not evidence, and it is a sentence this

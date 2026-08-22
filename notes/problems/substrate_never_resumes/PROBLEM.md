@@ -47,6 +47,26 @@ helps.**
 
 ---
 
+## ✅ **TEST 4 ANSWERED 2026-08-22: THE DEFECT ITSELF COSTS US, AND HERE IS THE NUMBER**
+
+**The fourth ranking test asks whether a number shows THE DEFECT costs us, or only that an
+ALTERNATIVE would be better. That test refuted `flat_store` and deflated `lookup_does_not_lemmatise`.
+This brief passes it, measured rather than argued:**
+
+| | store facts | consolidated |
+|---|---|---|
+| fresh substrate, BEFORE any read | `0` | `0` |
+| same substrate, after reading 600 | `4` | `4` |
+| same substrate, after a second 600 | `6` | `6` |
+| 🔻 **NEW substrate -- WHAT EVERY RUN ACTUALLY DOES** | 🔻 **`0`** | 🔻 **`0`** |
+
+> ### **THE NEXT RUN STARTS AT ZERO REGARDLESS OF WHAT THE LAST ONE REACHED. READING IS NOT CUMULATIVE.**
+
+**That is not "resuming would be better" -- it is the cost of not resuming, stated as a number.**
+*Everything a run learns is discarded at its end; a hundred runs leave exactly what one run leaves.*
+⚠️ *Small absolute counts (`n_dim=256`, ~520-sentence reads) -- the SHAPE is the finding, not the
+magnitude. And the short-read guard fired during this very measurement: 600 asked, 520 read.*
+
 ## 2. WHY THIS ONE
 
 - **It converts a research problem into a wiring problem** -- or proves it does not, which is just
