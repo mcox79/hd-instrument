@@ -67,6 +67,18 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
    IDENTIFICATION `0.2057 -> 0.2160 -> 0.2169` (FLAT).** *The dissociation rests on the COLLAPSE,
    which is far too large to be noise -- not on the small gains, which are not established.*
 
+6. ⭐ **THE NIGHT'S CLEAREST SUBSTRATE RESULT: THE LEARNED CHANNEL HAS NO SIGNAL ON VERBS.**
+   **`+0.0000` on SimVerb-3500's 2,651 covered pairs (null p95 `0.0372`)** *(Gerz et al. 2016 --
+   cite it)* **and `-0.0002` on SimLex's 203 verb pairs (null `0.1398`). TWO INDEPENDENT BENCHMARKS,
+   BOTH AT ZERO.** *Within SimLex -- one scorer, one profile set, only word class changing --*
+   **NOUN 534 pairs `0.1310` (null `0.0843`) CLEARS; VERB `-0.0002` INSIDE; ADJ 92 pairs `0.2207`
+   (null `0.1931`) clears barely.** ➡️ ***WEAK ON NOUNS, ABSENT ON VERBS -- not uniformly weak.***
+   🧠 *A verb's neighbours are its ARGUMENTS: `give/receive`, `feed/starve 1.49` share context and
+   mean opposites. A bag of nearby words cannot separate them.* ✅ **DISCHARGES MEMORY's SUSPENDED
+   verb claim, which asked for exactly these 222 SimLex pairs (203 covered) after being retired at
+   n=86.** ⚠️ *78% verb coverage; the two BENCHMARKS must not be blended -- the noun-vs-verb contrast
+   within SimLex is exempt.* `ON_VERBS_THE_LEARNED_CHANNEL_HAS_NO_SIGNAL_AT_ALL_n2651_...`
+
 ➡️ **SO D1 (`256->1024`, which REWRITES EVERY PERSISTED STORE) improves a LOOKUP.** *Q65 = "do
 whatever is ideal"; standing caution = backup + no concurrent session; still climbing at 2048 on
 identification, so 1024 is not obviously the target.*
