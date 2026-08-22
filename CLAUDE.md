@@ -724,6 +724,18 @@ archives, two questions* covers "does the tool exist" (registry) and "has this b
 | Has this question already been ANSWERED? | `tools/experiment_index.py query "<kw>"` |
 | ***Have we already been WRONG about this mechanism?*** | **`python tools/organ_map_cite.py <ORGAN_ID>`** — greps the WHOLE file and prints constraints BEFORE the entry |
 | ***Has the thing I am about to CITE already corrected itself?*** | **`python tools/symbol_corrections.py <symbol>`** — prints the correction lines out of that function's OWN docstring |
+| ***Is the organ I am about to improve even CONNECTED?*** | **`python tools/slot_status.py <term>`** — reads `substrate.py`'s slot table; `NEEDS_ADAPTER` means BUILT but not on the live path, so improving it moves no downstream number |
+
+**THE SIXTH READ WAS ADDED 2026-08-22 AFTER IT COST FOUR AUTOLOOP CONTINUATIONS.** I built the whole
+case for repairing the sensorimotor norms lookup — coverage `0.6035 -> 0.7350`, verb signal clearing
+its null, word-class enrichment — and only then instrumented whether anything CALLS it. **`read()`
+registers zero calls and never even loads the table.** That was already written in `substrate.py`'s
+slot table (`B5`: *"read() does not consult it, so it is NEEDS_ADAPTER and not FILLED"*), and
+**measured: no file in `tools/` or `verification/` read that table at all**, so the one document
+recording whether an organ is wired was unreachable by every habit built to prevent this. The table
+is **28 slots: 9 `FILLED`, 8 `NEEDS_ADAPTER`, 8 `EMPTY`, 3 `EXCLUDED`** — and those four states need
+different work, so never collapse them into one "not done" count. *`before_you_start.py` now runs
+this check automatically; a read nobody has to remember is the only kind that would have caught it.*
 
 **AND A FIFTH READ, FOR QUOTING RATHER THAN BUILDING: `python tools/cite_check.py <number>`.**
 The four reads above answer *"has this been done / are we wrong about it"*. **They do not stop the

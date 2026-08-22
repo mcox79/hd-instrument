@@ -135,9 +135,47 @@ def main():
         print("!! %d total matches. READ EVERY ROW A QUERY RETURNED BEFORE QUOTING ANY OF THEM --" % total)
         print("   on 2026-08-21 a 4-row result was read at row 1, and row 4 reversed row 1.")
     concurrent_work(terms)
+    slot_status(terms)
     print("\nSTILL TO DO BY HAND: `python tools/organ_map_cite.py <ORGAN_ID>` if an organ is involved,")
     print("and grep data/capability_registry.jsonl for the capability name.")
     return 0
+
+
+def slot_status(terms):
+    """IS THE ORGAN YOU ARE ABOUT TO IMPROVE ACTUALLY CONNECTED?
+
+    Measured 2026-08-22: four autoloop continuations went into the case for repairing the
+    sensorimotor norms lookup -- coverage gain, verb signal, word-class enrichment -- before anyone
+    checked whether `read()` calls it. It does not. **That was already written in `substrate.py`'s
+    own slot table** (`B5`: *"read() does not consult it, so it is NEEDS_ADAPTER and not FILLED"*),
+    and none of the five standing prior-work reads searches that file.
+    """
+    try:
+        from tools.slot_status import find, slots
+        rows = slots()
+    except Exception as e:                                # noqa: BLE001
+        print("-" * 78)
+        print("  !! slot table UNREADABLE (%s: %s) -- wiring status UNKNOWN, not clear"
+              % (type(e).__name__, e))
+        return
+    hits = []
+    seen = set()
+    for t in terms:
+        for r in find(t, rows):
+            if r[0] not in seen:
+                seen.add(r[0])
+                hits.append(r)
+    print("-" * 78)
+    print("IS IT EVEN WIRED?  (%d slots; NEEDS_ADAPTER = built but NOT on the live path, so"
+          " improving it moves no downstream number)" % len(rows))
+    if not hits:
+        print("  no slot matches your terms. NOT evidence it is wired -- it may not be in the table.")
+        return
+    for sid, need, organ, status, _ in hits[:8]:
+        flag = "   " if status == "FILLED" else ">> "
+        print("  %s%-4s %-14s %-30s %s" % (flag, sid, status, organ[:30], need[:36]))
+    if any(h[3] != "FILLED" for h in hits):
+        print("  ^^ python tools/slot_status.py <term>   for the rationale, which says WHY not.")
 
 
 def recent_commits(hours: int = 72):
