@@ -197,8 +197,15 @@ SLOTS: List[Slot] = [
          "sentence stream this loop carries. 30s import"),
     Slot("E3", "who is 'he'", "coreference_resolver", NEEDS_ADAPTER,
          "build_mention_stream reads passage['entities'] -- a GOLD mention inventory keyed by "
-         "gold entity name. It decides linking GIVEN the mentions. Its 0.7193 vs recency 0.5614 "
-         "is true OF GOLD-ANNOTATED LITBANK and does not transfer to raw prose"),
+         "gold entity name. It decides linking GIVEN the mentions, so it does not transfer to raw "
+         "prose. CORPUS CORRECTED 2026-08-22: this row said LITBANK. The cell producing 0.7193 is "
+         "exp_wire_coref_accumulate_situation_model_v1, whose eval path is "
+         "data/eval_gold_mention_role_mcguffey_v1/ -- 36 McGUFFEY passages, NOT LitBank. The "
+         "GOLD-MENTION half of the caveat is correct and is the load-bearing one; the corpus half "
+         "was wrong, and ORGAN_MAP had the corpus right while omitting the gold dependency. SCALE, "
+         "which no citing document carries: 0.7193 is 41 of 57 identity-demanding queries, and "
+         "notes/CORRECTION_the_E3_margin_over_its_STRONG_floor_is_NOT_CI_separated_at_n57_"
+         "2026-08-21.md already records the margin is NOT CI-separated at that n"),
     Slot("Q1", "a question -> a retrieval cue", "semantic_parser", NEEDS_ADAPTER,
          "needs a TRAINED IntentClassifier + slot dicts; no fitted artifact on the ingest path"),
     Slot("Q3", "accept / clarify / refuse the answer", "cortex", NEEDS_ADAPTER,
