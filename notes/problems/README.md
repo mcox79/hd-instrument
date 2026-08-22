@@ -35,7 +35,27 @@ the brief.*
 |---|---|---|
 | **holds** | the 10,000-foot view, the plan, `STATUS.md`, the board, **and ALL integration into the live substrate** | ONE problem, deeply |
 | **writes** | `notes/**`, **`hdlab/`** (the live substrate -- SOLE WRITER) | `experiments/`, `verification/`, and its own `notes/problems/<slug>/` |
-| **must not** | solve the problem itself, or REWRITE a solver's `SOLVED.md` | **write to `hdlab/`**, or touch the plan, `STATUS.md`, `BOARD.md`, or another problem's folder |
+| **must not** | 🔻 **work a FILED problem at all** (see Q113 below), or REWRITE a solver's `SOLVED.md` | **write to `hdlab/`**, or touch the plan, `STATUS.md`, `BOARD.md`, or another problem's folder |
+
+> ### 🔑 **OWNER RULING, BOARD Q113, 2026-08-22 — AND IT CHANGES THIS TABLE IN BOTH DIRECTIONS.**
+> **Verbatim: *"you can definitely start and run experiments and helpers. eliminate that line from
+> your instructions. Remember that any 'problem' you have in the problems tab is going to be worked
+> on, so try not to compete with that."***
+>
+> **(1) THE STRATEGY SESSION MAY NOW RUN CELLS AND SPAWN `hdi_*` HELPERS.** *This table was written
+> when it could only measure, document and guard. That constraint is RETIRED — and it was doubly
+> wrong: board Q109 had already retracted the `verification/`-is-closed half.*
+>
+> **(2) FILING A PROBLEM HANDS IT AWAY, IMMEDIATELY AND IN PARALLEL.** The briefs are not a queue
+> waiting for attention; **they are being worked NOW.** So the strategy session's own build work must
+> go to what is **NOT** filed. *Before Q113 this rule cost nothing, because this session could not
+> build anyway. Now it is the difference between two sessions doing one job and two sessions doing
+> two.*
+>
+> ➡️ **THE PRACTICAL TEST BEFORE STARTING ANY BUILD HERE: is there a folder for it in
+> `notes/problems/`? If yes, it is not mine — the value I add is INTEGRATION, and integration begins
+> when a `SOLVED.md` appears.** *`python tools/problem_ledger.py` lists what is filed; check it, do
+> not recall it.*
 
 > ### ⚠️ **ONE EXCEPTION, AND IT EXISTS BECAUSE THE PROTOCOL CONTRADICTED ITS OWN TOOL (found 2026-08-22 while integrating the first solution).**
 > The strategy session **APPENDS** an integration block to `SOLVED.md` -- and only appends. That is
