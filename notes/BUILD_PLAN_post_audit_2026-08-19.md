@@ -85,25 +85,23 @@
 >   WORD-SIMILARITY channel, which both plans had ruled out (bow `0.5167` = chance HANDED THE GOLD
 >   SENSE). On the grounding organ counting is at chance and we are not.** ➡️ **FRONTIER: OPEN VOCAB,
 >   then REAL PROSE.** `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
-> ✅ **OPEN VOCABULARY: FULLY DIAGNOSED, ONE CAUSE, BOTH TOTALS CLOSE EXACTLY.**
+> ✅ **OPEN VOCABULARY: FULLY DIAGNOSED, ONE CAUSE, BOTH TOTALS CLOSE EXACTLY -- AND NOTHING REPAIRED.**
 >   *Combiner is **SITUATION > EVENT > GOVERNOR**, so event-stage `None` = DECLINING, not failing.*
->   **`B` 10/12 = `0.8333` (reported `0.833`), errors = `enemy` x2. `Bgen` 6/8 = `0.750` (reported),
->   errors = `rival`, `thief`. ALL FOUR ERRORS HAVE AN *ADVERSARIAL* PATIENT** *(`enemy` -> `abstract` ->
->   event says NEUTRAL and WINS; `rival`/`thief` -> `person` -> event DECLINES and the governor says HELP
->   -- different routes, ONE cause).* 🎯 **THE ANIMACY MAP CANNOT EXPRESS `ADVERSARIAL`; the closed map
->   has an explicit class returning BLOCK_HIGH regardless of governor. AN EXPRESSIVENESS GAP, NOT A
->   LOOKUP BUG -- no better animacy data fixes it, and WordNet has no adversarial-role class.**
-> 🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF, NOT A DEFECT -- DO NOT TOUCH IT.** *It stops the
->   event stage double-handling verbs the governor knows; removing it would overrule the governor on the
->   items it gets RIGHT. I had it queued as "the more interesting defect".*
-> 🔻 **THREE RETRACTIONS GETTING HERE:** *"the cost is 3 words (`arm`/`hand`/`leg`)" -- **all three are
->   handled CORRECTLY**; "the consumer is calibrated on the component's error"; and the do-not-ship on the
->   body-part fix (**RESTORED**: `crack`/`wrench`/`twist` are all `UNK` AND in force_class, so the harm
->   route WOULD fire if `ankle` were animate).* **ROOT FAULT: I compared `v2.lookup_animacy` vs the real
->   lookup and the closed arm DOES NOT CONSUME IT.** ⚠️ **AND THE ANSWER WAS IN THE CELL'S DOCSTRING,
->   LINE 52, NAMING `enemy/rival/thief` EXACTLY. I read past it twice over four turns.**
-> ⚠️ *`pred_gov` not re-trained (both totals closing is strong evidence, not proof); event stage only; no
->   arm run; nothing repaired.* `BOTH_OPEN_VOCAB_SUBSETS_CLOSE_ON_ONE_CAUSE_...` `SUBSET_B_IS_NOW_...`
+>   **`B` 10/12 = `0.8333` (errors `enemy` x2); `Bgen` 6/8 = `0.750` (errors `rival`, `thief`). ALL FOUR
+>   ERRORS HAVE AN *ADVERSARIAL* PATIENT.** 🎯 **THE ANIMACY MAP CANNOT EXPRESS `ADVERSARIAL` -- an
+>   EXPRESSIVENESS GAP, not a lookup bug.** ✅ *WordNet CAN supply it: 7/8 words at a `0.8%` base rate.*
+> 🔑 **IT MISSES `rival` FOR THE RIGHT REASON -- WordNet files it under `contestant`, correctly; the
+>   hostility is in the gloss ("the contestant you hope to defeat"), not the taxonomy. A RIVAL IS AN
+>   ADVERSARY *RELATIONALLY*, so the residue is EXACTLY the part both plans say needs SITUATION context.**
+> 🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF, NOT A DEFECT -- DO NOT TOUCH IT** *(it stops the
+>   event stage double-handling verbs the governor knows; I had it queued as "the more interesting defect").*
+> 🔻 **THREE RETRACTIONS GETTING HERE** *("the cost is 3 words" -- `arm`/`hand`/`leg` are ALL handled
+>   correctly; "the consumer is calibrated on the component's error"; the do-not-ship, now RESTORED).*
+>   **ROOT FAULT: I compared `v2.lookup_animacy` vs the real lookup and THE CLOSED ARM DOES NOT CONSUME
+>   IT.** ⚠️ **THE ANSWER WAS IN THE CELL'S DOCSTRING, LINE 52, NAMING `enemy/rival/thief` -- read past
+>   twice over four turns.** ⚠️ *`pred_gov` not re-trained; event stage only; no arm run; `stranger` fires
+>   and should not. Fixing 3 of 4 items would not restore `1.000`.*
+>   `BOTH_OPEN_VOCAB_SUBSETS_CLOSE_...` `WORDNET_CARRIES_ADVERSARIAL_...` `SUBSET_B_IS_NOW_...` `I_RETRACT_...`
 > ⚠️ **VERIFICATION STATUS (I had been claiming neither): those numbers are READ, NOT REPRODUCED.**
 > *Re-running gives `elapsed 0.0s` + `[resume] already done` -- checkpoints REPLAY, and **the no-op
 > re-run is INDISTINGUISHABLE FROM A PASS**.* ✅ *`--self-test` DOES recompute and reproduced the
