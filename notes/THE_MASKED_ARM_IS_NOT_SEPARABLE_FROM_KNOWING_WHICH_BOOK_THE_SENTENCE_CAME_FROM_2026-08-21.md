@@ -1,4 +1,10 @@
-# **A PREDICTOR THAT KNOWS ONLY WHICH BOOK A SENTENCE CAME FROM SCORES 0.0752. THE MASKED ARM SCORES 0.0972 AND DOES NOT SEPARATE FROM IT. "5.8x CHANCE" WAS THE WRONG FLOOR.**
+# ~~**THE MASKED ARM DOES NOT SEPARATE FROM "WHICH BOOK IS THIS"**~~ **-- REVERSED ON A PROPER SAMPLE.**
+
+**The floor finding STANDS: a predictor knowing only the source text scores `0.0752` where the
+masked arm scores `0.0972`, so `"5.8x chance"` was the wrong floor.** 🔻 **BUT THE HEADLINE
+CONCLUSION -- "not separated" -- WAS AN ARTIFACT OF MY 9-of-28-corpora ALPHABETICAL SAMPLE.**
+Round-robin over all 28: **`+0.1163`, CI `[+0.0520, +0.1760]` -- SEPARATED.** *See the correction
+block below; this title asserted the opposite for hours after the body was corrected.*
 
 **I measured `MASKED hit@1 = 0.0972` against chance `0.0167` an hour ago. Before anyone quotes that
 as word-specific signal, this is the floor it should have been measured against.**
