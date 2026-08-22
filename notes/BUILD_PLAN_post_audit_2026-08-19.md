@@ -115,22 +115,16 @@
 > RE-RUNNING IT** *(it has `units.jsonl`; a recompute needs a deletion or harness change I will not make
 > unilaterally)*: **`77` of its `84` real-word errors are STILL admitted, so its `0.4676` does not move in
 > substance.** `WHY_THE_WALL_REPRODUCED_EXACTLY_...`
-> 🔻 **MEASURED THREE TIMES, EACH CLOSER TO THE DECISION, AND IT SHRANK EACH TIME: `73%` -> `12.2%` ->
->   `5.4%`.** *`73%` = share of the old cell's ERROR LIST (types); `12.2%` = share of ADMITTED TOKENS on
->   raw corpora (412,446 tokens); **`5.4%` = share of ACTUALLY-CREDITED TOKENS in-window** (`_credit_targets`
->   over 12,670 credited targets, 8 referents, 18,071 sentences, the cell's own 4 corpora).* ⭐ **`5.4%` IS
->   THE OPERATIVE NUMBER. The earlier figures answered different questions and I quoted them as if they
->   answered this one.**
-> 🔄 **AND THE DOMINANT LEAK REVERSES IN-WINDOW: PLURAL NOUNS, not `-ing`.** *`sister` 66, `lip` 56,
->   `friend` 37, `girl` 18, `knee` 17, `ear` 16 -- kinship and body parts, which occupy subject/object
->   slots constantly; `something`/`anything`/`nothing` total 62 of 683 (~9%). **Credit requires
->   subject/object linkage, and that selection step changes which error dominates.***
-> 🔻 **SO I RETRACT "THE CHEAPEST HIGH-VALUE FIX": at `5.4%` the gate is small, cheap and real -- NOT
->   high-value. And it is a CEILING, not a gain: the wall reproduced EXACTLY through a much larger lemma
->   change, so I would not expect this to move the verdict.** ⚠️ *8 hand-picked referents; my windows are
->   4 consecutive sentences, the cell builds them from detected GOALS; attribution precision NOT measured.*
-> ⚠️ *Also corrected: a verb-sense gate is a PURE FILTER -- it does NOT fix base-form verbs (`praise`)
->   being wrongly REJECTED, contrary to what I claimed.*
+> 🔻 **MEASURED 3x, EACH CLOSER TO THE DECISION, SHRINKING EACH TIME: `73%` (old cell's ERROR LIST, types)
+>   -> `12.2%` (ADMITTED TOKENS, raw corpora) -> ⭐ **`5.4%` (ACTUALLY-CREDITED TOKENS in-window**, via the
+>   real `_credit_targets`: 12,670 targets, 8 referents, 18,071 sentences).* ⭐ **`5.4%` IS OPERATIVE; the
+>   earlier figures answered different questions and I quoted them as if they answered this one.**
+> 🔄 **DOMINANT LEAK REVERSES IN-WINDOW: PLURAL NOUNS (`sister` 66, `lip` 56, `friend` 37, `knee` 17),
+>   not `-ing` (62 of 683, ~9%) -- credit needs SUBJECT/OBJECT linkage and those nouns live there.**
+> 🎯 **AND THE REAL PRECISION PROBLEM IS LIGHT VERBS: `53.2%` of credited exposures are NOT loaded
+>   (510/958), and `46` of the 173 error types are GENUINE VERBS (`come`,`go`,`do`,`have`,`give`). My
+>   morphology thread addressed `5.4%` of a `53%` problem.** 🔻 **I RETRACT "cheapest high-value fix"; and a
+>   verb-sense gate is a PURE FILTER -- it does NOT fix base-form verbs being wrongly REJECTED.**
 >   `THE_OPERATIVE_NUMBER_IS_5_4_PERCENT_...` `TOKEN_LEVEL_THE_GATE_REMOVES_12_PERCENT_NOT_73_...`
 >
 > **4. ✅ THE GROUNDING ORGAN WORKS, AND MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding`
