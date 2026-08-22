@@ -83,6 +83,26 @@ more than a problem half-solved, and this project's most useful days have been r
 
 ---
 
+## A PROBLEM THAT WAS PROPOSED AND MERGED RATHER THAN WRITTEN
+
+**"READ-OUT DISCRIMINATION" WAS ON THE QUEUE AND HAS BEEN MERGED INTO `reader_meaning_channel`.**
+*The framing was: a related word is in the top 50 of a plain count list for most words, but we
+cannot put it FIRST -- "the answer is in reach and we cannot pick it out".*
+
+**It is not a separate problem. It is the SAME TASK measured from the other side.** The pick-the-
+right-one-of-50 instrument is exactly where the sensorimotor result was measured, and the
+co-occurrence ceiling on it (`0.3104`, converged from two unrelated feature sets) is what says the
+missing information is **not in co-occurrence at all**. *Writing both would have handed two sessions
+the same task with different names -- which is the duplicated-work failure this protocol exists to
+prevent, committed by the person writing the protocol.*
+
+⚠️ **AND A RELATED FRAMING IS RETIRED, DELIBERATELY: do not open a problem aimed at the CLOZE
+task.** Its ceiling is a tie with the dumbest available method (best achievable `0.0300` against our
+`0.0150`), and a task whose best case is a tie with word-counting is not an instrument for detecting
+understanding.
+
+---
+
 ## WHAT A SOLVER SHOULD EXPECT FROM A BRIEF
 
 Each `PROBLEM.md` has the same eight sections, in this order:
