@@ -102,6 +102,15 @@
 > CANNOT CLEAR ITS OWN NOISE while the supplied table does everywhere.** *Flagged as a QUESTION not
 > a finding: ORGAN_MAP cites Xu et al. 2025 that text-only channels recover NON-sensorimotor
 > (abstract) meaning WELL -- ours is weakest there, but that cell is inside its noise band.*
+> ✅ **ANSWERED AT FULL POWER, WITH A POSITIVE CONTROL IN THE SAME TEST.** *Do not split -- use
+> concreteness as a CONTINUOUS moderator over all 829 pairs: correlate each pair's RANK ERROR with
+> how concrete it is.* **LEARNED `-0.0416` vs null p95 `0.0720` -> INSIDE THE NULL, NO MODERATION.
+> SUPPLIED `-0.0778` vs `0.0722` -> BETTER ON CONCRETE.** ➡️ ***The apparent "weakest on abstract"
+> was TERTILE NOISE: our channel is UNIFORMLY weak, not SELECTIVELY weak, and there is NO
+> contradiction with Xu et al. to chase.*** **The supplied channel showing the PREDICTED sensorimotor
+> moderation is the positive control that makes the learned NULL readable -- a null and its control
+> in one measurement.** ⚠️ *Supplied's margin is thin (`0.0778` vs `0.0722`): the DIRECTION is right,
+> the effect is not strong.*
 > 🚫 **A DETECTOR I DECIDED NOT TO BUILD:** notes whose BODY withdraws their own claim while the
 > TITLE still asserts it. **Base rate `30 of 12,542` (0.24%) looked usable; reading ALL 27 flags
 > gives ~2 true positives, ~7% PRECISION. BASE RATE IS NOT PRECISION.** *The manual sweep still paid
