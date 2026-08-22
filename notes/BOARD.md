@@ -76,14 +76,13 @@ C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out
   RETIRED. `notes/problems/`
 - ⬜ **NOTHING IS RUNNING** *(one background agent verifying the reader brief's numbers off disk
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T20:52:27Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T21:08:37Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
-
-_No open questions. Nothing is waiting on you._
+| Q114 | When we tell the system to read a certain number of sentences, should that number be a target it has to reach, or just a maximum it is allowed to use? Right now it is neither, and nobody wrote down which was meant. Here is what we found. If you ask it to read 8,000 sentences it reads about 1,000 and stops, then reports success. The cause is now pinned to one line: it visits at most four books per reading session, leaves each one when a foraging rule decides that book has stopped paying off, and once it has left the fourth it goes home with thousands of sentences of allowance unspent. Nothing runs out of text - there were still 28 books available with a quarter of a million sentences between them. The per-book leaving rule is deliberate and documented. The four-book limit is not: it appears in no documentation, has no explanatory comment, and no document anywhere says the number you ask for is only an upper bound. So this is a design question rather than a bug report, and it is yours because both answers are defensible. If the number is a TARGET, the reader needs to keep picking up new books until it has read what you asked for, and today's experiments have been reading roughly a fifth of what they claim. If it is a CEILING, then the current behaviour is correct and the only thing wrong is that nobody said so, in which case we write it down and move on. | Every experiment that reads is affected. Our own cells lose about 19% because they read in small batches, but around twenty places in the code ask for a single book and get whatever one book yields. Until this is settled I cannot tell whether a cell that reports 40,000 sentences is describing its corpus or its request. | Treat it as a TARGET, and have the reader keep opening new books until the budget is spent or the shelf is empty. Reason: every caller already writes it as if it were a target, and a number that silently means something else is how we got here. The risk of my own recommendation, stated plainly: reading four times more text per call will make every experiment slower, and if the foraging rule is right that a book has stopped paying off, forcing more reading may add volume without adding anything worth learning - in which case the honest fix is the cheaper one, just documenting that it is a ceiling. |  | open |
 
 ## ANSWERED
 
