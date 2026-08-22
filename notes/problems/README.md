@@ -98,6 +98,20 @@ important, which is why `score_counts_abstention_as_error` sits third.*
 > *That third test is why the cheapest and largest single gain sits at 4: a `+13.2`-point improvement
 > nothing can observe is worth less this week than a wiring job that unblocks three others.*
 
+> ### 📋 **TEST 4 APPLIED TO THE OPEN BRIEFS, 2026-08-22. This is MY JUDGEMENT, not a computation -- argue with it.**
+>
+> | brief | is there a number showing the DEFECT costs us? | |
+> |---|---|---|
+> | `organ_abstains_on_two_thirds_of_v2` | **YES** -- `82/124` unanswered, accuracy `0.2339` vs a `0.6048` floor. The defect IS the number | ✅ PASSES |
+> | `reader_meaning_channel` | **YES** -- our channel `rho 0.0446` (CI includes zero) vs the asset's `0.3171`, paired `+0.2348` CI-separated. Evidence the CURRENT channel is the problem | ✅ PASSES |
+> | `score_counts_abstention_as_error` | **YES** -- `3` live items scored wrong by omission, on a number we quote | ✅ PASSES |
+> | 🔻 `lookup_does_not_lemmatise` | **NO.** Coverage would rise `0.6035 -> 0.7350` -- that is the ALTERNATIVE being better. **Nothing measures what the current lookup COSTS, and `read()` never calls it, so today it costs nothing observable** | ⚠️ **SAME SHAPE AS THE REFUTED #1** |
+> | 🔻 `substrate_never_resumes` | **NO** -- and the brief says so itself: *"That resuming would HELP. NOT MEASURED."* The persistence organ passing `9/9` is the ALTERNATIVE working | ⚠️ premise untested |
+> | 🔻 `harness_cannot_recompute` | **NO** -- `399` cells cannot be falsified by re-running, but there is **no instance where a replay concealed a wrong result.** The cost is epistemic and unquantified | ⚠️ premise untested |
+>
+> 🔑 **THE WARNING THAT MATTERS: `lookup_does_not_lemmatise` FAILS TEST 4 IN EXACTLY THE WAY `flat_store` DID** -- a large, well-measured gain from an alternative, and no measurement of what the defect costs. *It is the cheapest and largest single gain we have, and that is precisely what made the refuted one attractive too.*
+> ➡️ **THIS DOES NOT MEAN THOSE THREE ARE WRONG. It means their FIRST DELIVERABLE should be a number showing the defect costs something** -- and for two of them that number cannot exist until something else is wired, which is worth knowing BEFORE the work starts rather than after.
+
 **RE-RANK WHEN THE EVIDENCE MOVES, and say what moved.** *This order already differs from the one the
 briefs were filed in -- `reader_meaning_channel` was written as "the highest-value problem in the
 project" and is still the goal, but two upstream wiring jobs were found after it was filed.*
