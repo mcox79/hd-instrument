@@ -1,7 +1,12 @@
-# **FIVE CONSUMERS OF THIS ORGAN TREAT `AMBIGUOUS` AS AN ABSTENTION. THE ONE THAT PRODUCES THE LANDED NUMBER TREATS IT AS A WRONG ANSWER -- BY OMISSION.**
+# **SIX PLACES TREAT `AMBIGUOUS` AS AN ABSTENTION -- INCLUDING THE MODULE THAT EMITS IT. THE ONE THAT PRODUCES THE LANDED NUMBER TREATS IT AS A WRONG ANSWER, BY OMISSION.**
 
 **Found because I made the same mistake myself this morning and went looking for where the
-convention was written down.** Guard: `tools/score_with_abstention.py` (`--self-test`, 6/6).
+convention was written down.** Guard: `tools/score_with_abstention.py` (`--self-test`, 7/7).
+
+> *Counted FIVE on the first pass and corrected to SIX on the second: I had missed
+> `hdlab/goal_typing.py:2053`, which is not merely another consumer but **the source of truth,
+> sitting in the same module as the `return "AMBIGUOUS"` it classifies.** The guard now IMPORTS
+> `_LEVIN_ABSTAIN` and its self-test FAILS if the two ever diverge. Renamed to match; the citation stub `THE_LANDED_CELL_SCORES_ABSTENTIONS_AS_ERRORS_BY_OMISSION_...` is unaffected.*
 
 ---
 
@@ -9,7 +14,7 @@ convention was written down.** Guard: `tools/score_with_abstention.py` (`--self-
 
 | treats `AMBIGUOUS` as | where |
 |---|---|
-| **ABSTENTION** (5) | `verify_levin_lastresort_backoff.py:51` · `exp_verbclass_backoff_coverage_v1.py:214` · `exp_verbclass_backoff_coverage_v2.py:73` · `verify_request_response_typing.py:200` · **`hdlab/consequence_learning_loop.py:219,235`** -- *the engine itself, in words: "AMBIGUOUS -> abstain"* |
+| **ABSTENTION** (6) | **`hdlab/goal_typing.py:2053` `_LEVIN_ABSTAIN`, USED at `:2200`/`:2214` -- THE SOURCE OF TRUTH, in the very module that EMITS `AMBIGUOUS` at `:1979`** · `verify_levin_lastresort_backoff.py:51` · `exp_verbclass_backoff_coverage_v1.py:214` · `exp_verbclass_backoff_coverage_v2.py:73` · `verify_request_response_typing.py:200` · **`hdlab/consequence_learning_loop.py:219,235`** -- *the engine itself, in words: "AMBIGUOUS -> abstain"* |
 | 🔻 **WRONG ANSWER** (1) | **`exp_consequence_learning_loop_oov_outcome_verb_valence_v1.py`** -- its `_score` does `ok = (pred == gold)` and **never mentions `AMBIGUOUS` anywhere in the file** |
 
 > # **THE DISSENTER IS THE CELL WHOSE NUMBER THE ENTIRE LINE IS GRADED ON, IT DISAGREES WITH ITS OWN `hdlab` ENGINE, AND IT DISAGREES BY ACCIDENT RATHER THAN BY DECISION.**

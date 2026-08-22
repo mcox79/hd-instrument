@@ -3,10 +3,10 @@
 WHY THIS EXISTS -- A MEASURED FAILURE, 2026-08-22, MINE
 -------------------------------------------------------
 I reported that supplying a word "eliminates abstention entirely: 0/8, Fisher p = 0.0049". I had
-counted the third outcome, AMBIGUOUS, as a WRONG COMMITMENT. Five of the six consumers of this
-organ count it as an ABSTENTION. Under theirs the same data reads 2/8 and p = 0.2404 -- not
-significant. THE NUMBER PASSED A POSITIVE CONTROL, A PRE-REGISTRATION AND A POWER CALCULATION AND
-BROKE ON A DEFINITION I NEVER LOOKED UP.
+counted the third outcome, AMBIGUOUS, as a WRONG COMMITMENT. Six of the seven places in this repo
+that classify it -- INCLUDING THE MODULE THAT EMITS IT -- count it as an ABSTENTION. Under theirs
+the same data reads 2/8 and p = 0.2404 -- not significant. THE NUMBER PASSED A POSITIVE CONTROL, A
+PRE-REGISTRATION AND A POWER CALCULATION AND BROKE ON A DEFINITION I NEVER LOOKED UP.
 
 This is standing discipline 13 -- REPORT TIE CONVENTIONS BOTH WAYS, NEVER SILENTLY PICK THE
 FLATTERING ONE -- in a new costume: there the ambiguous case was a TIE in a ranking, here it is a
@@ -16,11 +16,17 @@ escalation for the classification version.
 
 THE ENUMERATED DISAGREEMENT IN THE REPO (grep `AMBIGUOUS` over the consumers of this organ)
 -------------------------------------------------------------------------------------------
-ABSTENTION (5):  verification/verify_levin_lastresort_backoff.py:51
+ABSTENTION (6):  hdlab/goal_typing.py:2053 `_LEVIN_ABSTAIN`, USED at :2200 and :2214 -- THE SOURCE
+                   OF TRUTH, in the very module that emits "AMBIGUOUS" at :1979
+                 hdlab/consequence_learning_loop.py:219,235 ("AMBIGUOUS -> abstain")
+                 verification/verify_levin_lastresort_backoff.py:51
+                 verification/verify_request_response_typing.py:200
                  experiments/exp_verbclass_backoff_coverage_v1.py:214
                  experiments/exp_verbclass_backoff_coverage_v2.py:73
-                 verification/verify_request_response_typing.py:200
-                 hdlab/consequence_learning_loop.py:219,235 ("AMBIGUOUS -> abstain")
+
+TWO FALSE POSITIVES I CHECKED RATHER THAN COUNTED: hdlab/goal_achievement.py's 7 hits are all
+SCRAMBLE-CONTROL assertion strings, and hdlab/coref.py:295 is the substring "UNAMBIGUOUS" in a
+comment. Neither is a third-outcome scorer. An enumeration is only worth as much as the reading.
 
 WRONG ANSWER (1): experiments/exp_consequence_learning_loop_oov_outcome_verb_valence_v1.py
                  -- BY OMISSION. Its `_score` does `ok = (pred == gold)` and never mentions
@@ -46,6 +52,10 @@ import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
 
 import sys
+
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if REPO_ROOT not in sys.path:
+    sys.path.insert(0, REPO_ROOT)
 from dataclasses import dataclass
 
 # The repo-majority convention, enumerated above. Kept as a named constant so a future change is
@@ -170,7 +180,20 @@ def self_test() -> int:
     print("[self-test] PASS landed OOV-36 shape is convention-free (its omission is latent, "
           "not active)")
 
-    # 5. REFUSALS.
+    # 5. COUPLING TO THE SOURCE OF TRUTH. hdlab/goal_typing.py:2053 defines `_LEVIN_ABSTAIN` and
+    #    USES it at :2200 and :2214 -- in the SAME module that emits "AMBIGUOUS" at :1979. That is
+    #    the canonical set, so this guard must not quietly diverge from it. Imported here rather
+    #    than at module level so callers do not pay for importing hdlab.
+    from hdlab.goal_typing import _LEVIN_ABSTAIN  # noqa: E402
+    canonical = tuple(t for t in ABSTAIN_MAJORITY if t is not None)
+    assert set(canonical) == set(_LEVIN_ABSTAIN), (
+        f"DIVERGED FROM THE SOURCE OF TRUTH: hdlab.goal_typing._LEVIN_ABSTAIN is "
+        f"{_LEVIN_ABSTAIN}, this module's is {canonical}. Reconcile them in one commit -- "
+        f"a doc parsed by code is coupled to it, and so is a constant.")
+    print(f"[self-test] PASS matches hdlab.goal_typing._LEVIN_ABSTAIN {tuple(_LEVIN_ABSTAIN)} "
+          f"(plus None for a missing prediction)")
+
+    # 6. REFUSALS.
     for bad, why in (((["MET"], ["MET", "MET"]), "length mismatch"), (([], []), "empty")):
         try:
             score(*bad)
