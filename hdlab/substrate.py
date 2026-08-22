@@ -375,6 +375,26 @@ class Substrate:
         self.seed = int(seed)
         self.n_dim = int(n_dim)
         self.corpora_dir = corpora_dir
+        # DEAD PARAMETER, AND IT USED TO LIE ABOUT IT. Measured 2026-08-22 with a descriptor that
+        # records every READ of the attribute: across construction plus a 120-sentence read,
+        # `self.foundation_dir` is read ZERO times (positive control: a deliberate read IS seen, so
+        # zero means zero). Nothing calls `load_foundation` on the live path either, and repo-wide
+        # NO CALLER PASSES THIS ARGUMENT AT ALL.
+        #
+        # So passing a path here silently did nothing while the caller believed a foundation was
+        # loaded -- the substrate re-entered its ~107-seed cold start every run. That is why the
+        # plan's own prediction ("the generic-attractor degeneracy should FALL as the grounded
+        # vocabulary grows") is unreachable by construction: the vocabulary cannot grow across runs.
+        #
+        # Refusing is safe precisely BECAUSE no caller passes it, and it converts a silent no-op
+        # into a loud one. `None` (the default) stays silent, so no construction anywhere changes.
+        # Whoever implements loading deletes this raise -- see notes/problems/substrate_never_resumes/.
+        if foundation_dir is not None:
+            raise NotImplementedError(
+                "Substrate(foundation_dir=...) is NOT IMPLEMENTED: the value is stored and never "
+                "read, so passing it loads nothing and every run starts cold from the seed vocab. "
+                "This raises rather than pretending, because a silent no-op here reads as a "
+                "successfully loaded foundation. See notes/problems/substrate_never_resumes/.")
         self.foundation_dir = foundation_dir
         self._built: Dict[str, Any] = {}
         self._calls: Dict[str, int] = collections.Counter()

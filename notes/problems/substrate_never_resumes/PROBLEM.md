@@ -39,6 +39,19 @@ helps.**
 
 ## 3. MEASURED vs INFERRED
 
+> ### ✅ **STRENGTHENED 2026-08-22 BY A SECOND, DIFFERENT TEST -- AND THE PARAMETER NO LONGER LIES.**
+> **The measurement below counts `load_foundation` CALLS. That could miss a read that used the path
+> some other way, so the claim was re-tested AS STATED**, with a descriptor recording every READ of
+> the attribute: **`self.foundation_dir` is read `0` times across construction plus a 120-sentence
+> read** -- *positive control: a deliberate read IS observed, so zero means zero, not a broken spy.*
+> 🔑 **AND REPO-WIDE, NO CALLER PASSES THE ARGUMENT AT ALL** (`hdlab/`, `experiments/`,
+> `verification/`, `tools/`). **The substrate has never been ASKED to load a foundation by anybody.**
+> ✅ **`Substrate(foundation_dir=...)` NOW RAISES `NotImplementedError` instead of accepting a path
+> and ignoring it.** *Safe precisely because no caller passes it; `None` stays silent so no
+> construction anywhere changes. **Whoever implements loading deletes that raise** --
+> `hdlab/substrate.py`, and `verification/test_foundation_dir_does_not_lie.py` (3/3) pins both the
+> refusal and the zero-read measurement, so wiring it up makes that test fail on purpose.*
+
 ### MEASURED -- all of this was established at RUNTIME on 2026-08-22, by instrumenting the functions
 
 | | |
