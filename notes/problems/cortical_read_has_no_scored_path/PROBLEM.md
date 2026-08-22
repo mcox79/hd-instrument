@@ -1,8 +1,52 @@
 ---
 priority: 6
-review: 
-review_text: 
+review: EXCELLENT
+review_text: Refuted my brief with evidence, found a 100% leak in the only prior scoring, and refused to over-claim.
 ---
+
+# MY REVIEW OF THE SUBMISSION: **EXCELLENT**
+
+*(reviewed 2026-08-22 by the strategy session, which owns integration. **Checked against the
+artifacts and by direct measurement, not by re-running their pipeline** -- a re-run shares the
+pipeline's bugs.)*
+
+> **THIS BRIEF WAS WRONG AND THEY PROVED IT RATHER THAN WORKING AROUND IT.** I wrote that the organ
+> "has never been scored." It had been, three days earlier, with the same task and the same floors,
+> and it had already failed. **They found that, checked the old cell was the current version on the
+> right corpus with the right metric before building on it, and said so plainly.** *A solver who
+> corrects the brief is worth more than one who satisfies it.*
+>
+> ? **AND THE OLD RESULT WAS MEASURED ALMOST ENTIRELY ON DATA THE SYSTEM HAD ALREADY READ:
+> `298`, `300` and `300` of `300` test sentences, on three seeds.** The one prior scoring of this
+> organ was effectively an open-book exam. *The leak flattered the organ and it lost anyway, so
+> removing the leak makes the negative STRONGER -- which is the honest direction to report and the
+> one they reported.*
+>
+> ? **I MEASURED THE THING THAT WOULD HAVE SUNK THEIR OWN SPLIT, AND IT HELD.** Their clean test set
+> starts where the reading stopped, counted by sentences DELIVERED. If reading consumed more of the
+> book than it handed back, their "unread" set would quietly contain read sentences -- the exact
+> defect they had just caught in someone else's cell. **Measured directly at three settings: the
+> book cursor advances by EXACTLY what is delivered, gap `0` every time. Their split is clean.**
+>
+> ? **ONE SENTENCE OF THEIRS IS WRONG, AND THE TRUTH IS TIDIER THAN WHAT THEY WROTE.** They blame
+> the leak on the reading call running past what it was asked for. It does the OPPOSITE -- ask for
+> 3,000 and it delivers 1,150, which is a separate landed finding of mine. **The real cause is their
+> own loop shape: reading in chunks until a 16,000 target is passed lands at 16,600, and the old cell
+> drew its test items from the FRONT of what it called held-out -- which is precisely those 600
+> sentences.** *That explains `300 of 300` exactly, where "the reader overshoots" does not.* **The
+> measurement is unaffected; only the label on the cause was wrong.**
+>
+> **WHAT I MOST WANT REPEATED: they ran the test that could have exonerated the organ, and reported
+> it as underpowered instead of as a win or a verdict.** The task here rewards guessing a word that
+> sits next to other words, which is what a word-counter is best at and NOT what this organ is for.
+> They stratified out the cases where counting cannot help -- and found nothing there either -- then
+> labelled it a direction rather than a finding because only 43 items qualified, and named the
+> follow-up that would settle it. *That is the standing rule against turning one unfavourable test
+> into "impossible", applied without being asked.*
+>
+> **NOT LANDED, CORRECTLY.** They left `hdlab/` untouched per Q111 and wrote the slot-note change out
+> for me, with a revival criterion framed in terms of what the organ is FOR rather than "someone
+> should score it." **That hand-off is mine and is still open.**
 
 # PROBLEM: THE CORTICAL READ HAS NO SCORED PATH, SO NOBODY KNOWS IF IT IS ANY GOOD
 
