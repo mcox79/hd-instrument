@@ -4,7 +4,7 @@ review:
 review_text: 
 ---
 
-> # 🥉 **PRIORITY 1 of 7 -- THE FLAGSHIP, AND THE BROADEST.** *(ranked 2026-08-22)*
+> # 🥉 **PRIORITY 1 of 8 -- THE FLAGSHIP, AND THE BROADEST.** *(ranked 2026-08-22)*
 > **This is the actual goal; it ranks third only because 1 and 2 are upstream of it and far more
 > bounded.** *A better reader writing into a store that destroys what it writes, on a foundation that
 > is discarded at the end of the run, cannot show what it is worth.*

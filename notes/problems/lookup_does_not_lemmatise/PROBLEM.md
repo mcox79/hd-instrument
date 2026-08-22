@@ -1,10 +1,10 @@
 ---
-priority: 6
+priority: 7
 review: 
 review_text: 
 ---
 
-> # 4️⃣ **PRIORITY 6 of 7 -- CHEAPEST AND LARGEST, BUT NOT YET MEASURABLE.** *(ranked 2026-08-22)*
+> # 4️⃣ **PRIORITY 7 of 8 -- CHEAPEST AND LARGEST, BUT NOT YET MEASURABLE.** *(ranked 2026-08-22)*
 > **The gain is real and large: token coverage `0.6035 -> 0.7350`, `+13.2` points of running text
 > from data already on disk, `44%` of the way to the plan's `90%` target for zero new norms.** It is
 > a one-line change plus its controls.
