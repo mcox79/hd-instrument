@@ -30,55 +30,51 @@ difference being 7,535 sentences read. First replicated positive from our side o
 *at or below counting* on a task that did not exist when that position was formed.
 **AND THE PAIRED TEST NOW SAYS WE ARE MEASURABLY BEHIND, not merely not-ahead:
 `SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.**
-Marginal CIs overlapped, which is NOT a test of a difference; the paired test is. `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
+Marginal CIs overlapped, which is NOT a test of a difference; the paired test is.
+⚠️ **SCOPED 08-22: this and every "behind counting" number is the WORD-SIMILARITY / RECALL channel,
+which BOTH plans of record had already ruled out as the meaning signal (bow `0.5167` = chance HANDED
+THE GOLD SENSE). It is NOT a statement about the grounding organ, where counting sits at chance and we
+do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
 
 
-## TOP ITEM -- **DIMENSION BUYS THE LOOKUP, NOT THE UNDERSTANDING. D1 MUST BE ARGUED ON IDENTIFICATION.**
+## TOP ITEM -- **I HAD BEEN MEASURING THE CHANNEL BOTH PLANS OF RECORD ALREADY RULED OUT.**
 
-*Three sweeps, 28 corpora round-robin, floors recomputed at every point.*
-1. **READING MORE DOES NOT HELP.** *Queries FIXED, only profile depth varying:* `0.1900 / 0.2100 /
-   0.2133 / 0.1900 / 0.1967` (depths 5-41) -- **rises to ~10 then flat; the live median word already
-   gets ~10.** ⚠️ *My first cut showed a DECLINE and I nearly called it "write less" confirmed: the
-   query set was growing with the depth.*
-2. ✅ **DIMENSION BUYS IDENTIFICATION.** `128 0.1061 | 256 0.1435 | 512 0.1776 | 1024 0.2057 |
-   2048 0.2268`, **SCRAMBLE recomputed at every d and flat at chance.**
-   ***`1024-256 = +0.0622, CI [+0.0443,+0.0797]`, 48 of 60 lemmas, EXCLUDES ZERO.***
-3. 🔻 **AND IT DOES *NOT* BUY MEANING.** *829 SimLex pairs identical at every d, so the corpus
-   confound CANCELS; null = 200 shuffles per d.* `128 0.0974 | 256 0.0944 | 512 0.1032 |
-   1024 0.1071 | 2048 0.0874`. ***`1024-256 = +0.0127, CI [-0.0305,+0.0559]` -- SPANS ZERO*** and
-   DROPS at 2048. **NOT the usual underpowered dodge: half-width `0.0432`, so an
-   identification-sized `+0.0622` WOULD have been detected. A BOUNDED negative.**
+🔻 **THE SCOPING CORRECTION (08-22).** *I told the owner "a 1970s baseline beats us EVERYWHERE we have
+looked" over 16 measures.* **ALL SIXTEEN ARE THE WORD-SIMILARITY CHANNEL**, which `SUBSTRATE_CHARTER`
+(08-05) and `PLAN_grounded_semantic_organ_build` had already ruled out **and MEASURED: bag-of-words scores
+`0.5167` = CHANCE with a supervised classifier HANDED THE GOLD SENSE.** ✅ **ON THE GROUNDING ORGAN THE
+PICTURE INVERTS: `0.962`-`1.000` on differential grounding while the bow control sits at `0.500`-`0.517`
+ON THE SAME ITEMS.** *The 16 measurements stand; the word "everywhere" was wrong.*
 
-4. 🔻 **WITHDRAWN WITHIN THE HOUR -- "the one change that makes it better" IS NOT ESTABLISHED.**
-   *Dropping high-df context words moves in-sample `0.1071 -> 0.1558` at `d=1024`. I reported a
-   held-out `+0.0433` CI `[+0.0002,+0.0994]` as EXCLUDING ZERO from **200** resamples. At **2,000**:*
-   **`d=256` (WHAT SHIPS) `-0.0050` `[-0.0629,+0.0365]`; `d=1024` `+0.0434` `[-0.0117,+0.0940]` --
-   NEITHER excludes zero.** *I reported the favourable draw.* ⚠️ **METHOD: 200 resamples cannot place
-   a BOUND near zero; raise the count before reading one.** `DROPPING_264_UBIQUITOUS_...`
-5. 🔀 **The FILTER DISSOCIATION still stands and does NOT depend on the withdrawn claim.**
-   *Same filter:* **MEANING `0.1071 -> 0.1558 -> 0.0988` (COLLAPSES past the optimum);
-   IDENTIFICATION `0.2057 -> 0.2160 -> 0.2169` (FLAT).** *The dissociation rests on the COLLAPSE,
-   which is far too large to be noise -- not on the small gains, which are not established.*
+🧭 **THE DIRECTION HAS A NAME AND IT WAS SET 08-06/08-07, NOT BY ME: *ANCHOR + PROPAGATE*.** *Ground a
+SMALL affective anchor (the brain does this at 4-7 months) and reason outward; good/bad is in neither
+grammar nor text statistics because ANTONYMS ARE DISTRIBUTIONAL TWINS.* 🚨 **THE BUILD PLAN CITED
+`PLAN_B` ZERO TIMES (grep) -- TWO PLANS, ONLY ONE BEING READ. That is why the night went where it did.**
 
-6. ⭐ **THE LEARNED CHANNEL HAS NO SIGNAL ON VERBS: `+0.0000` on SimVerb-3500's 2,651 covered pairs
-   (null p95 `0.0372`)** *(Gerz et al. 2016 -- cite it)* **and `-0.0002` on SimLex's 203 verb pairs
-   (null `0.1398`). TWO INDEPENDENT BENCHMARKS, BOTH AT ZERO.** *Within SimLex, one scorer, only word
-   class changing:* **NOUN 534 `0.1310` (null `0.0843`) CLEARS; VERB INSIDE; ADJ 92 `0.2207` (null
-   `0.1931`) clears barely.** ➡️ ***WEAK ON NOUNS, ABSENT ON VERBS.*** ✅ *Coverage cutoff DISCHARGED:
-   OURS inside its null at 41/20/10/5 sentences, down to 97% of verbs.*
-   🎯 **CONTROL THAT SPLITS IT:** `COUNTING raw 0.0025 INSIDE | COUNTING+idf 0.0689 CLEARS |
-   OURS 0.0000 INSIDE | SUPPLIED norms 0.2983`. ***Our zero is a REAL DEFICIT vs a text rival; but
-   every text arm is 4.3x below the human-rated one.*** 🚫 *SUPPLY, NOT LEARNING.*
-   🔑 **AND THE MECHANISM IS NOW KNOWN -- see the co-occurrence entry under WHAT IS RUNNING.**
-   `ON_VERBS_THE_LEARNED_CHANNEL_HAS_NO_SIGNAL_AT_ALL_n2651_...`
+✅ **WHAT IS BUILT AND PASSING:** *`bridge1_governor_grounding` HARD_PASS `0.967`; `confirmation_test`
+RULING_CONFIRMED (the PREDICTED failure at `0.500`); `twostage_event_situation_v2` HARD_PASS B `1.000`
+C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out, seed-ablation `0.000`.*
+🎯 **DOUBLE DISSOCIATION: each subset's MATCHED scramble degrades, the UNMATCHED one does not.**
+🔻 **SCALE: n = 21/12/12/8 and one `Cgen 1.000` IS n=2 -- that number carries NOTHING (p=0.25).**
+⚠️ **VERIFICATION: those numbers are READ, NOT REPRODUCED. Re-running gives `elapsed 0.0s` -- checkpoints
+REPLAY and the no-op is INDISTINGUISHABLE FROM A PASS.** *`--self-test` DOES recompute and reproduced the
+pattern. Scope measured: `399` of `7,868` landed cells, 5.1%.*
 
-➡️ **SO D1 (`256->1024`, which REWRITES EVERY PERSISTED STORE) improves a LOOKUP.** *Q65 = "do
-whatever is ideal"; standing caution = backup + no concurrent session; still climbing at 2048 on
-identification, so 1024 is not obviously the target.*
-⚠️ **SOBERING AND UNCHANGED BY ANY OF THIS: meaning rho `~0.10` against a null p95 `~0.065` -- barely
-clear of noise at EVERY dimension. Room is not what stands between us and understanding.**
-`THE_LIMIT_IS_DIMENSIONAL_...` `DIMENSION_BUYS_THE_LOOKUP_NOT_THE_UNDERSTANDING_...`
-*(Prev top item "wire definitional direct-bank" CLOSED -- already live, 212 of 402 rows.)*
+✅ **OPEN VOCAB FULLY DIAGNOSED, NOTHING REPAIRED:** *`B` 10/12 = `0.8333`, `Bgen` 6/8 = `0.750`, both
+totals CLOSE EXACTLY, and **ALL FOUR ERRORS HAVE AN ADVERSARIAL PATIENT** (`enemy` x2, `rival`, `thief`).*
+🎯 **THE ANIMACY MAP CANNOT EXPRESS `ADVERSARIAL` -- an EXPRESSIVENESS GAP, not a lookup bug.** ✅ *WordNet
+supplies it for 7/8 at a `0.8%` base rate.* 🔑 **IT MISSES `rival` CORRECTLY: WordNet files it under
+`contestant`, and the hostility is in the gloss, not the taxonomy -- A RIVAL IS AN ADVERSARY RELATIONALLY,
+so the residue is EXACTLY the part both plans say needs SITUATION context.**
+🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF, NOT A DEFECT -- DO NOT TOUCH IT.**
+🔻 **THREE RETRACTIONS GETTING THERE** *("the cost is 3 words" -- `arm`/`hand`/`leg` are ALL correct; the
+"consumer calibrated on the error" story; the do-not-ship).* **ROOT FAULT: compared `v2.lookup_animacy`
+vs the real lookup and THE CLOSED ARM DOES NOT CONSUME IT.** ⚠️ **THE ANSWER WAS IN THE CELL'S DOCSTRING
+AT LINE 52, NAMING `enemy/rival/thief` -- read past twice over four turns.**
+
+➡️ **FRONTIER: REAL PROSE / CREDIT-ASSIGNMENT** *(attach a shown consequence to the right verb) -- named by
+`PLAN_B` and never worked.* 🚫 **NOT another word-similarity measurement.**
+`OWNER_ASSESSMENT_...` `THE_BOTTLENECK_HAS_BEEN_NAMED_...` `BOTH_OPEN_VOCAB_SUBSETS_CLOSE_...`
 
 ## 🌙 THE NIGHT OF 2026-08-21 -- **COLLAPSED. NOT THE ONLY COPY: every row lives in its named note
 AND in the plan's consolidated top block. Do NOT re-expand.**
