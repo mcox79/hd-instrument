@@ -1,4 +1,4 @@
-# **ON 2,651 VERB PAIRS THE LEARNED CHANNEL SCORES `rho = +0.0000` AGAINST A NULL p95 OF `0.0372`. NO DETECTABLE MEANING SIGNAL AT ALL -- WHERE IT READS `0.1071` ON THE NOUN-HEAVY SimLex.**
+# **THE LEARNED CHANNEL HAS NO DETECTABLE MEANING SIGNAL ON VERBS. `+0.0000` ON SimVerb'S 2,651 PAIRS (null `0.0372`) AND `-0.0002` ON SimLex'S 203 -- TWO INDEPENDENT BENCHMARKS, BOTH AT ZERO, WHILE SimLex NOUNS CLEAR AT `0.1310`.**
 
 **`MEMORY.md` carries a SUSPENDED claim -- *"we cannot resolve verbs even when handed the answer"* --
 retired at `n=86` with the instruction to re-measure before building any verb channel. This is that
@@ -76,8 +76,10 @@ nouns and ABSENT on verbs.***
 
 ## 5. ⚠️ LIMITS
 
-1. **Different population from SimLex. NOTHING here may be blended with the `0.1071`** -- different
-   benchmark, different word class, different pairs.
+1. **THE TWO BENCHMARKS MUST NOT BE BLENDED WITH EACH OTHER** -- SimVerb's `+0.0000` and SimLex's
+   overall `0.1071` are different benchmarks and different pairs. ✅ **The NOUN-vs-VERB contrast in
+   section 2b is EXEMPT: it is one benchmark, one scorer, one profile set, with only the word class
+   changing.**
 2. **78% verb coverage.** *The 22% uncovered are rarer verbs; the covered set is the easier half.*
 3. **This is the LEARNED channel only.** *Not the supplied norms, not counting -- neither was run
    here.*
@@ -113,7 +115,9 @@ None.
 
 1. **Quote verbs and nouns SEPARATELY, always.** *`0.0000` on SimVerb-3500 and `0.1071` on SimLex are
    different benchmarks and different word classes.*
-2. **The suspended MEMORY claim can be reinstated with a real n** -- *but as "no distributional signal
-   on verbs at n=2,651", not as the original wording.*
+2. **The suspended MEMORY claim can be reinstated, and its exact request is DISCHARGED** -- it asked
+   for all 222 SimLex verb pairs; 203 are covered and read `-0.0002`. *Reinstate as "no
+   distributional signal on verbs, replicated on two benchmarks", NOT as the original wording, which
+   was about being handed the answer.*
 3. *Method note: **the power calculation that motivated this was made before the data was chosen, and
    it held.** That is the first time tonight a prediction of mine survived its own test.*
