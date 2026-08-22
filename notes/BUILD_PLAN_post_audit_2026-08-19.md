@@ -172,6 +172,7 @@
 > **5. ✅ OPEN VOCABULARY: CLOSED.** *`B` 10/12 = `0.8333`, `Bgen` 6/8 = `0.750`, and **ALL FOUR ERRORS HAVE AN ADVERSARIAL PATIENT** -- the animacy map cannot express it, an EXPRESSIVENESS GAP. WordNet supplies it `7/8` at a `0.8%` base rate and **misses `rival` CORRECTLY**.* 🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF -- DO NOT TOUCH IT.**
 > **6. 🚫 ANISOTROPY: CLOSED** -- see CLOSED DOORS #4 above.
 > **7. THE HONEST TENSION:** *the supplied table beats everything we LEARN on the word-similarity channel.* **Owner ruled supply ADMISSIBLE (08-16), so this is PRIORITISATION, not permission.**
+> 📏 **LINE-COUNT NOTE, so nobody re-derives it: THIS FILE HAS THREE QUOTED REGIONS, NOT ONE.** The state block runs to the `7.` line above; then PLAIN closing text; then FURTHER quoted notices (the filename-is-an-API coupling note, the autoloop notice). **Different counting rules include different amounts of that, which is why three measurements of "the block" disagreed (`167` / `178` / `185`).** 🚫 **DO NOT "FIX" THE COUNTER TO REPORT A SMALLER NUMBER -- that is adjusting the band, and adjusting the band is not a result.** *The cap belongs to `session_start_hook.plan_top_block_report`; if it says too long, the answer is LESS CONTENT.*
 **Written 2026-08-18 end of session, at the owner's direction, to be executed after compaction.**
 Supersedes the forward-looking parts of `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md`. Its Section 7
 (the audit findings) and Section 6 (the ladder METHOD) both still stand as reference.
