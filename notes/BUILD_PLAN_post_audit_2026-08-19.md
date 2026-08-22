@@ -70,15 +70,13 @@
 > S2 superposition map, held-out collapse `1.000` vs SCRAMBLE `0.400`, with `spoil` polarity DELIBERATELY
 > REVERSED so a generic heuristic MUST fail; S4 LEARNED-from-exposure `1.000` vs SCRAMBLE-CONSEQUENCE
 > `0.486`; richer context KEY `0527afeab`.*
-> ✅ **AND I HAVE NOW REPRODUCED THREE OF THEM -- FIRST 'REPRODUCED' RATHER THAN 'READ' IN THIS SESSION.**
-> *All four carry `units.jsonl` so a full re-run REPLAYS; `--self-test` genuinely recomputes (established
-> earlier as the available check). Ran all three:* **S1 `real 0.833` and `ablation 0.000` -- BOTH IDENTICAL
-> to landed** *(scramble `0.417` vs `0.483`, randtheta `0.333` vs `0.467` -- its own fixed config, which is
-> what makes it independent rather than a replay)*, **plus `theta_witness` RECIPROCITY `+0.603` vs
-> BLOCK_HIGH `-0.505`, signs DIFFER -- the valuation genuinely separates.** **S2 collapse `1.000` vs
-> scramble `0.300`, lift `0.700`.** **S4 learned `1.000` vs scramble-consequence `0.429`, lift `0.571`,
-> `gap_vs_hand_taught 0.000`, and `spoil_ok=True` -- the deliberately-reversed-polarity anti-confound
-> HOLDS.** ⚠️ *Reproduction does NOT change scale: these remain mechanism proofs on clean signal at 6
+> ✅ **AND I HAVE NOW *REPRODUCED* THREE OF THEM (first REPRODUCED rather than READ this session).** *All
+> four carry `units.jsonl` so a full re-run REPLAYS; `--self-test` genuinely recomputes.* **S1 `real 0.833`
+> and `ablation 0.000` BOTH IDENTICAL to landed** *(its scramble/randtheta differ -- own fixed config,
+> which is what makes it independent)*, **with `theta_witness` RECIPROCITY `+0.603` vs BLOCK_HIGH `-0.505`,
+> SIGNS DIFFER.** **S2 collapse `1.000` vs scramble `0.300`.** **S4 learned `1.000` vs scramble-consequence
+> `0.429`, `gap_vs_hand_taught 0.000`, `spoil_ok=True` (the reversed-polarity anti-confound HOLDS).**
+> ⚠️ *Reproduction does NOT change scale -- still 6 words / 28 items on clean signal.*
 > words / 28 items, exactly as `PLAN_B` says.* ⚠️ **THEIR OWN BOUNDARY: MECHANISM PROOFS ON CLEAN SIGNAL AT
 > TINY SCALE (6 words, 28 items); `PLAN_B` calls the zero gap "a CLEAN-corpus artifact". DESIGN SOUND !=
 > WORKS.** `THE_BOTTLENECK_HAS_BEEN_NAMED_...` `THE_SUBTRACT_ARM_FAILED_...`
