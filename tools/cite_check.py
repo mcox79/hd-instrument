@@ -83,10 +83,19 @@ def _hits(literal: str) -> list[str]:
     return out
 
 
+# Files this tool could not open. A caveat tool that silently skips a file reports "no caveats"
+# about a file it never read. That is the shape of the 2026-08-22 substrate incident: a helper
+# swallowed an AttributeError, returned a DIFFERENT quantity, and produced a table that agreed with
+# itself. Silence must be distinguishable from breakage, so unreadable files are COUNTED and
+# REPORTED rather than skipped.
+UNREADABLE: list = []
+
+
 def _note_caveats(path: str, literal: str, window: int) -> list[tuple]:
     try:
         lines = open(os.path.join(REPO, path), encoding="utf-8", errors="replace").read().splitlines()
-    except OSError:
+    except OSError as e:
+        UNREADABLE.append((path, "%s: %s" % (type(e).__name__, e)))
         return []
     idx = [i for i, ln in enumerate(lines) if literal in ln]
     out, seen = [], set()
@@ -103,7 +112,8 @@ def _metrics_scope(path: str) -> list[tuple]:
     """`scope_disclaimer` / `limits` fields anywhere in a metrics file, verbatim."""
     try:
         d = json.load(open(os.path.join(REPO, path), encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+    except (OSError, json.JSONDecodeError) as e:
+        UNREADABLE.append((path, "%s: %s" % (type(e).__name__, e)))
         return []
     found = []
 
@@ -168,6 +178,11 @@ def report(literal: str, window: int = 25) -> int:
                 for lineno, ln in cav[:8]:
                     print(f"    L{lineno}: {_printable(ln)}")
     print(f"\n{len(files)} file(s) contain it; {n_cav} carry caveats near it.")
+    if UNREADABLE:
+        print(f"!! {len(UNREADABLE)} file(s) COULD NOT BE READ -- their caveats are NOT in that count")
+        for pth, err in UNREADABLE[:6]:
+            print(f"     {pth}: {err}")
+        print("   Silence from an unreadable file is not absence of caveats.")
     if not n_cav:
         print("NO CAVEATS FOUND IS NOT EVIDENCE THERE ARE NONE -- it means none matched this")
         print("tool's vocabulary within the window. Widen with --window, and read the source.")
