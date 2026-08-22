@@ -757,6 +757,40 @@ def _end_to_end_self_test() -> int:
         check(board is not None and board.count_open(board_md) >= 1,
               "the filed question counts as OPEN on the board")
 
+    # === SESSION SCOPING (2026-08-22) -- POSITIVE control on BOTH sides, end to end ===
+    # The failure: `armed` was global, so arming the loop in a strategy session also drove a
+    # SOLVER session doing bounded work. Absence-only testing would not catch a scoping bug that
+    # locks everyone out, so both directions are asserted through a REAL subprocess run.
+    # FRESH keys on purpose: the denial test above HALTED `session` via GUARD 1D, so reusing it
+    # here would fail the positive control for a reason unrelated to scoping. (That is exactly
+    # what happened when this was first written, and the control caught it.)
+    _MINE = f'auto_selftest_scoped_{os.getpid()}'
+    _OTHER = f'auto_selftest_not_me_{os.getpid()}'
+
+    def fire_as(other_session):
+        env = dict(os.environ)
+        env['CLAUDE_SESSION_NAME'] = other_session
+        env['HD_AUTOLOOP_STATE'] = str(state)
+        env['HD_BOARD_PATH'] = str(board_md)
+        env['HD_COMMENTARY_PATH'] = str(td / 'COMMENTARY.md')
+        env['HD_COMMENTARY_MARK'] = str(td / 'commentary_read.json')
+        env['HD_STOP_DEDUPE_WINDOW_S'] = '0'
+        env.pop('HD_STOP_HOOK_HARD_CAP', None)
+        payload = {"stop_hook_active": False, "transcript_path": str(tpath)}
+        r = subprocess.run([sys.executable, str(Path(__file__).resolve()), other_session],
+                           input=json.dumps(payload), capture_output=True, text=True, env=env)
+        return r.stdout.strip()
+
+    autoloop.arm(0, 'e2e-scoping', state, sessions=[_MINE])
+    check(fire_as(_MINE) != "",
+          "SCOPED: the ALLOWLISTED session IS still driven (positive control)")
+    check(fire_as(_OTHER) == "",
+          f"SCOPED: a NON-allowlisted session is NOT driven (negative control)")
+
+    autoloop.arm(0, 'e2e-scoping', state)        # bare arm -> unscoped again
+    check(fire_as(_OTHER) != "",
+          "UNSCOPED: with no allowlist, every session is driven again (legacy preserved)")
+
     autoloop.disarm(state)
     print(f"[self-test] leftover temp dir (not auto-removed, by design): {td}")
     print(f"[self-test] real-repo residue: data/hook_state/*{session}* bookkeeping files only; "
@@ -1341,8 +1375,11 @@ def main() -> int:
     _in_continuation = bool(hook_input.get('stop_hook_active', False))
     if _in_continuation:
         _al = _load_tool('autoloop')
-        if _al is None or not _al.is_armed():
-            return 0                      # disarmed: original behaviour, unchanged
+        # Scoped the same way as the autoloop gate below (2026-08-22): a session that is not on
+        # the allowlist must behave EXACTLY as if the loop were disarmed, or a solver session
+        # already inside a continuation chain would keep being driven.
+        if _al is None or not _al.is_armed() or not _al.session_allowed(session):
+            return 0                      # disarmed or not-my-session: original behaviour
         # Armed: allow the chain to continue, but never faster than MIN_CONTINUATION_GAP_S.
         MIN_CONTINUATION_GAP_S = 20.0
         gap_file = state_dir / f'last_continuation_at__{session}.txt'
@@ -1507,7 +1544,12 @@ def main() -> int:
     # 3d: AUTOLOOP (2026-08-15). The owner's standing overnight-autonomy directive. Fires ONLY
     # when tools/autoloop.py reports ARMED; DISARMED is the default and the fail-safe, so this
     # signal changes nothing at all until the loop is deliberately armed.
-    have_autoloop = bool(armed)
+    # SESSION-SCOPED since 2026-08-22. `armed` alone was GLOBAL: a strategy session arming the loop
+    # also drove every OTHER session on this repo, including a solver session doing bounded work
+    # that nobody wanted continued. COUPLING: reads tools/autoloop.py session_allowed(), which
+    # consults the "sessions" allowlist in data/hook_state/autoloop.json. Absent/empty == all
+    # (legacy, unchanged). If that field is renamed, change it here in the same commit.
+    have_autoloop = bool(armed) and (_autoloop is None or _autoloop.session_allowed(session))
 
     # 3e: THE OWNER'S SIDE CHANNEL (2026-08-16). notes/COMMENTARY.md holds anything they wanted
     # looked at without interrupting the run. This gate is what makes that promise real DURING a

@@ -29,8 +29,23 @@ STATE FILE `data/hook_state/autoloop.json`:
                                       uncapped run announces itself on every turn.
     "armed_at":          str | null,  UTC ISO-8601
     "armed_by":          str | null,  free text, whoever/whatever armed it
+    "sessions":          [str] | absent,
+                                      SESSION ALLOWLIST. ABSENT or EMPTY == every session (this
+                                      is the legacy behaviour and is preserved exactly). When
+                                      non-empty, ONLY those session keys are driven by the loop.
+                                      See session_allowed().
     "note":              str
   }
+
+SESSION SCOPING (added 2026-08-22). Before this, `armed` was GLOBAL: arming the loop in one
+session drove the Stop hook in EVERY session on this repo, including a solver session doing
+bounded work that nobody wanted continued. The allowlist fixes that without changing the
+fail-safe: absent/empty still means "all", so an existing state file behaves as it always did.
+
+  COUPLING, BOTH SIDES (CLAUDE.md "a doc parsed by code is coupled to it"):
+  `data/hooks/staging/stop_hook.py` reads this via `session_allowed(session)` at its autoloop
+  gate and at its continuation-chain gate. If the field name changes here, change it there in
+  the same commit.
 
 CAP PRECEDENCE (resolve_cap): env `HD_STOP_HOOK_HARD_CAP` > this file > built-in default 10.
 The env var is kept because it predates this file and something may still set it.
@@ -85,6 +100,19 @@ def is_armed(path: Path = DEFAULT_STATE) -> bool:
     return load_state(path).get("armed") is True
 
 
+def session_allowed(session: str, path: Path = DEFAULT_STATE) -> bool:
+    """Is THIS session driven by the loop? Absent/empty allowlist == every session (legacy).
+
+    READ BY: data/hooks/staging/stop_hook.py (autoloop gate + continuation-chain gate).
+    Fail-safe note: this widens nothing. `armed` is still checked separately and independently,
+    so a junk state file is DISARMED before this function is ever consulted.
+    """
+    raw = load_state(path).get("sessions")
+    if not isinstance(raw, list) or not raw:
+        return True                       # legacy / unscoped: drive everything
+    return str(session) in {str(s) for s in raw}
+
+
 def _parse_cap(value) -> int | None:
     """Return an int cap, or None for unlimited. None is also returned for junk -- but only from
     the FILE, never from the built-in default, so junk can never silently uncap a disarmed run
@@ -131,7 +159,10 @@ def _write(path: Path, state: dict) -> None:
     os.replace(str(tmp), str(path))
 
 
-def arm(max_continuations, by: str, path: Path = DEFAULT_STATE) -> dict:
+def arm(max_continuations, by: str, path: Path = DEFAULT_STATE,
+        sessions: list | None = None) -> dict:
+    """Arm the loop. `sessions=None` clears the allowlist (drive EVERY session -- the legacy
+    behaviour of a bare `arm`). A non-empty list scopes the loop to exactly those session keys."""
     state = load_state(path)
     state.update({
         "armed": True,
@@ -141,6 +172,10 @@ def arm(max_continuations, by: str, path: Path = DEFAULT_STATE) -> dict:
         "note": ("The Stop hook will keep this session going. DISARM WITH: "
                  "python tools/autoloop.py disarm   (or set armed=false here and save)."),
     })
+    if sessions:
+        state["sessions"] = [str(s) for s in sessions]
+    else:
+        state.pop("sessions", None)       # explicit: a bare arm() means EVERY session
     _write(path, state)
     return state
 
@@ -225,6 +260,29 @@ def self_test() -> int:
     check(resolve_cap(p, env) == DEFAULT_CAP,
           "a junk cap value falls back to the DEFAULT cap, never to unlimited")
 
+    # --- SESSION ALLOWLIST, with a POSITIVE control on BOTH sides -------------------------------
+    # The failure this prevents, measured 2026-08-22: `armed` was global, so a strategy session
+    # arming the loop also drove a solver session doing bounded work nobody wanted continued.
+    arm(5, "self-test", p)
+    check(session_allowed("anySession", p) and session_allowed("otherSession", p),
+          "no allowlist -> EVERY session is driven (legacy behaviour preserved)")
+
+    arm(5, "self-test", p, sessions=["strategyKey"])
+    check(session_allowed("strategyKey", p),
+          "POSITIVE CONTROL: the allowlisted session IS driven")
+    check(not session_allowed("auto_7c6e8deae7", p),
+          "NEGATIVE CONTROL: a non-allowlisted session (the solver) is NOT driven")
+    check(is_armed(p), "scoping does not disarm -- `armed` is still true")
+
+    arm(5, "self-test", p)                       # bare arm clears the allowlist again
+    check("sessions" not in load_state(p), "a bare arm() CLEARS the allowlist")
+    check(session_allowed("auto_7c6e8deae7", p), "...and everything is driven again")
+
+    # A junk allowlist must not lock everyone out AND must not be silently trusted.
+    p.write_text('{"armed": true, "sessions": "strategyKey"}', encoding="utf-8")
+    check(session_allowed("anything", p),
+          "a NON-LIST allowlist falls back to 'all', never to 'nobody' (a lockout is a silent stop)")
+
     # env beats file
     arm(5, "self-test", p)
     check(resolve_cap(p, {ENV_CAP: "3"}) == 3, "env HD_STOP_HOOK_HARD_CAP overrides the file")
@@ -247,6 +305,9 @@ def main(argv: list[str] | None = None) -> int:
                        help="cap on continuations per session; 0 or 'unlimited' for no limit "
                             "(default: unlimited, per the owner's 'no limit' directive)")
     p_arm.add_argument("--by", default="unspecified")
+    p_arm.add_argument("--session", action="append", default=None, metavar="KEY",
+                       help="scope the loop to this session key (repeatable). Omit to drive "
+                            "EVERY session, which is the legacy behaviour.")
     sub.add_parser("disarm")
     sub.add_parser("status")
     p_cap = sub.add_parser("set-cap")
@@ -267,8 +328,13 @@ def main(argv: list[str] | None = None) -> int:
             raw = int(raw)
         except ValueError:
             pass
-        arm(raw, args.by, p)
+        arm(raw, args.by, p, sessions=args.session)
         print(status_line(p))
+        if args.session:
+            print(f"[autoloop] SCOPED to session(s): {', '.join(args.session)} "
+                  f"-- no other session is driven.")
+        else:
+            print("[autoloop] UNSCOPED: EVERY session on this repo is driven.")
         print("[autoloop] ARMED. Stop it any time with: python tools/autoloop.py disarm")
         return 0
     if args.cmd == "disarm":
