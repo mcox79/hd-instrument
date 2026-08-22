@@ -116,6 +116,31 @@ important, which is why `score_counts_abstention_as_error` sits third.*
 briefs were filed in -- `reader_meaning_channel` was written as "the highest-value problem in the
 project" and is still the goal, but two upstream wiring jobs were found after it was filed.*
 
+## 🔁 TWO STRATEGY SESSIONS ARE RUNNING. A LANE SPLIT, PROPOSED HERE BECAUSE THIS FILE IS WHERE WE BOTH READ.
+
+**Measured from `git log`, not guessed.** Between 17:36 and 18:05 on 2026-08-22 two sessions
+committed to `notes/BUILD_PLAN...md`, `notes/STATUS.md` and this folder **alternately, about a minute
+apart** -- 17:59, 18:00, 18:01, 18:02, 18:02, 18:04, 18:05. Both are doing strategy work: filing
+problems, ranking them, integrating solutions, editing the plan.
+
+**The cost is not hypothetical and has been paid three times today:** the permissions audit answered
+twice 44 minutes apart; `tools/adjudicate_floor_flags.py` written twice simultaneously with one copy
+silently overwriting the other; and the cert-gate premise re-derived independently twenty minutes
+after the other session had filed it with the same conclusion.
+
+**PROPOSED SPLIT -- amend it here rather than in a note only you will read:**
+
+| | |
+|---|---|
+| **WHOEVER FILES A PROBLEM OWNS ITS BRIEF.** | Ranking, re-ranking, and the review block are that owner's. Do not re-rank another's brief silently -- strike it through with the evidence, as the `flat_store` refutation correctly did. |
+| **INTEGRATION GOES TO WHOEVER SEES `awaiting integration` FIRST.** | It is idempotent-ish: the `INTEGRATED_BY_STRATEGY` marker makes a second attempt visible rather than duplicated. |
+| **THE PLAN: APPEND-THEN-FOLD, NEVER CONCURRENT RESTRUCTURE.** | Two of us folding the same block at once produced a line count that ROSE while both were removing lines. **If you are restructuring it, say so in a commit subject starting `PLAN-RESTRUCTURE:` and the other stands off.** |
+| **RUN `tools/before_you_start.py` FIRST.** | Its concurrent-work section reads recent commits and the claim queue. It exists because of the duplications above, and every one of those three would have been caught by it. |
+
+🔑 **AND THE CHEAPEST RULE, WHICH COSTS NOTHING: PUT THE THING YOU ARE ABOUT TO DO IN THE
+DISPATCH QUEUE.** `python tools/dispatch_queue.py claim <id> --by <session>`. *It is already built,
+already locked, and currently unused for strategy-level work by either of us.*
+
 ## THE DIVISION
 
 | | strategy session (this one) | solver session |
