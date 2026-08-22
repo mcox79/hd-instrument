@@ -98,13 +98,12 @@
 > ⚠️ *Also: `John`/`Mary` get `gender=None` (non-pronouns), so gender cannot link `He`->John in my toy
 > passage. The real evaluation is the landed cells (`centering_cb_...` MIDDLE_BAND), not this.*
 > ➡️ **RUNNING WAS THE QUESTION AND THE ANSWER IS YES -- THE PRESCRIBED BUILD IS UNBLOCKED FOR PARTS.**
-> 🔎 **SCOPED (read-only): `_credit_targets` derives subject/object POSITIONALLY and links referents by
-> STRING MATCH; `SituationModel` already carries `agent`/`patient`, FRAME-BASED roles, per-event `affect`
-> and `CorefResolution`.** ✅ *The role half is a real upgrade (the charter's own frame-not-positional
-> anchor).* 🔻 **BUT `CausalLink` carries its VET caveat in a DATACLASS-FIELD COMMENT -- "REDUCIBLE to
-> connective-else-most-recent" -- so wiring it imports a RECENCY HEURISTIC, not a solution; I nearly
-> reported it as the answer.** 🔻 **AND IT IS NOT A WIRING JOB: `read(conll_path)` needs MENTION-ANNOTATED
-> CoNLL; the loop passes RAW PROSE.** `SCOPING_THE_PRESCRIBED_BUILD_...`
+> 🔎 **SCOPED: `_credit_targets` derives subject/object POSITIONALLY and links referents by STRING
+>   MATCH, while `SituationModel` already carries `agent`/`patient`, FRAME-BASED roles, per-event
+>   `affect` and `CorefResolution`.** ✅ *Role half is a real upgrade.* 🔻 **BUT `CausalLink` carries its
+>   VET caveat in a DATACLASS-FIELD COMMENT -- "REDUCIBLE to connective-else-most-recent" -- so wiring it
+>   imports a RECENCY HEURISTIC; and `read(conll_path)` needs MENTION-ANNOTATED CoNLL while the loop
+>   passes RAW PROSE.** `SCOPING_THE_PRESCRIBED_BUILD_...`
 > ✅ **AND THE ERROR SPLIT IS MEASURED: `73%` OF ERROR TYPES ARE *NOT VERBS AT ALL*.** *Of the 173 wrong
 >   `light_lemmas`, **52% are NON-WORDS** and **21% are NOUNS with no verb sense** (`boy`, `friend`,
 >   `lesson`); the 113 CORRECT ones are **100% real verbs** (internal control -- my checker is not the
