@@ -534,6 +534,214 @@
     "light_verb_n_neutral": 0,
     "light_verb_n_polar_locked": 24
   },
+  "light_verb_detail": {
+    "be": {
+      "pos": 31,
+      "neg": 259,
+      "total": 290,
+      "verdict": "NEG"
+    },
+    "have": {
+      "pos": 17,
+      "neg": 140,
+      "total": 157,
+      "verdict": "NEG"
+    },
+    "do": {
+      "pos": 6,
+      "neg": 56,
+      "total": 62,
+      "verdict": "NEG"
+    },
+    "say": {
+      "pos": 12,
+      "neg": 97,
+      "total": 109,
+      "verdict": "NEG"
+    },
+    "try": {
+      "pos": 2,
+      "neg": 35,
+      "total": 37,
+      "verdict": "NEG"
+    },
+    "look": {
+      "pos": 2,
+      "neg": 26,
+      "total": 28,
+      "verdict": "NEG"
+    },
+    "feel": {
+      "pos": 4,
+      "neg": 1,
+      "total": 5,
+      "verdict": "POS"
+    },
+    "want": {
+      "pos": 1,
+      "neg": 3,
+      "total": 4,
+      "verdict": "NEG"
+    },
+    "think": {
+      "pos": 0,
+      "neg": 5,
+      "total": 5,
+      "verdict": "NEG"
+    },
+    "make": {
+      "pos": 3,
+      "neg": 0,
+      "total": 3,
+      "verdict": "POS"
+    },
+    "come": {
+      "pos": 3,
+      "neg": 19,
+      "total": 22,
+      "verdict": "NEG"
+    },
+    "go": {
+      "pos": 2,
+      "neg": 13,
+      "total": 15,
+      "verdict": "NEG"
+    },
+    "find": {
+      "pos": 2,
+      "neg": 19,
+      "total": 21,
+      "verdict": "NEG"
+    },
+    "ask": {
+      "pos": 2,
+      "neg": 17,
+      "total": 19,
+      "verdict": "NEG"
+    },
+    "seem": {
+      "pos": 2,
+      "neg": 28,
+      "total": 30,
+      "verdict": "NEG"
+    },
+    "begin": {
+      "pos": 2,
+      "neg": 5,
+      "total": 7,
+      "verdict": "NEG"
+    },
+    "mean": {
+      "pos": 1,
+      "neg": 3,
+      "total": 4,
+      "verdict": "NEG"
+    },
+    "know": {
+      "pos": 4,
+      "neg": 20,
+      "total": 24,
+      "verdict": "NEG"
+    },
+    "see": {
+      "pos": 0,
+      "neg": 20,
+      "total": 20,
+      "verdict": "NEG"
+    },
+    "tell": {
+      "pos": 1,
+      "neg": 3,
+      "total": 4,
+      "verdict": "NEG"
+    },
+    "get": {
+      "pos": 1,
+      "neg": 14,
+      "total": 15,
+      "verdict": "NEG"
+    },
+    "put": {
+      "pos": 0,
+      "neg": 3,
+      "total": 3,
+      "verdict": "NEG"
+    },
+    "take": {
+      "pos": 0,
+      "neg": 5,
+      "total": 5,
+      "verdict": "NEG"
+    },
+    "give": {
+      "pos": 5,
+      "neg": 0,
+      "total": 5,
+      "verdict": "POS"
+    },
+    "carry": {
+      "pos": 0,
+      "neg": 2,
+      "total": 2,
+      "verdict": "PENDING"
+    },
+    "buy": {
+      "pos": 0,
+      "neg": 1,
+      "total": 1,
+      "verdict": "PENDING"
+    }
+  },
+  "noise_detail": {
+    "walk": {
+      "pos": 0,
+      "neg": 4,
+      "total": 4,
+      "verdict": "NEG"
+    },
+    "sit": {
+      "pos": 1,
+      "neg": 7,
+      "total": 8,
+      "verdict": "NEG"
+    },
+    "speak": {
+      "pos": 5,
+      "neg": 0,
+      "total": 5,
+      "verdict": "POS"
+    },
+    "stand": {
+      "pos": 0,
+      "neg": 5,
+      "total": 5,
+      "verdict": "NEG"
+    },
+    "sigh": {
+      "pos": 0,
+      "neg": 1,
+      "total": 1,
+      "verdict": "PENDING"
+    },
+    "glance": {
+      "pos": 0,
+      "neg": 3,
+      "total": 3,
+      "verdict": "NEG"
+    },
+    "nod": {
+      "pos": 0,
+      "neg": 1,
+      "total": 1,
+      "verdict": "PENDING"
+    },
+    "pause": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    }
+  },
   "noise_canary": {
     "consolidated_count": 5,
     "consolidated_words": [
@@ -654,7 +862,7 @@
   "verdict": "HARD_FAIL",
   "verdict_msg": "HARD_FAIL: coverage AND=434 OR=1142 soft_trusted=164 (rescue_gate=False) | primary=0.4722 (floor=0.6389) | learnable_ls_acc=0.3571(11/N>=6) | scramble=0.5111 gap=-0.0389 | anti_drift_ok=True | arms_differ=True | hard_fail_reasons=['COVERAGE_NOT_RESCUED_signals_absent', 'PRIMARY_AT_OR_BELOW_CHANCE', 'SCRAMBLE_DOES_NOT_COLLAPSE_no_real_signal']",
   "summary": "HARD_FAIL: coverage AND=434 OR=1142 soft_trusted=164 (rescue_gate=False) | primary=0.4722 (floor=0.6389) | learnable_ls_acc=0.3571(11/N>=6) | scramble=0.5111 gap=-0.0389 | anti_drift_ok=True | arms_differ=True | hard_fail_reasons=['COVERAGE_NOT_RESCUED_signals_absent', 'PRIMARY_AT_OR_BELOW_CHANCE', ",
-  "elapsed_s": 75.23,
+  "elapsed_s": 66.77,
   "discriminator_fires": {
     "n_windows_AND": 434,
     "n_windows_soft_trusted": 164,

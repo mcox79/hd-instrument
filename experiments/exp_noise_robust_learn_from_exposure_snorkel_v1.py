@@ -541,6 +541,14 @@ def _aggregate(run_mode, oov_rows, majority_floor, corpus_stats, win_stats, inte
         "light_verb_canary": {k: canary[k] for k in (
             "light_verb_canary_neutral_rate", "light_verb_n_reached", "light_verb_n_neutral",
             "light_verb_n_polar_locked")},
+        # PER-VERB DETAIL (added 2026-08-22). _canary_analysis already returns light_verb_detail and
+        # this aggregate was filtering it down to four summary numbers. The neutral rate reads 0.0
+        # against a pre-registered HP3 of >=0.70 and a HARD_FAIL below 0.30 -- a gate failing at its
+        # extreme -- and the summary alone cannot say WHY: it does not distinguish "the consolidation
+        # is forcing a polarity" from "these verbs genuinely skew in this corpus". The pos/neg counts
+        # do. Same "save the population you scored" fix as per_item_predictions, one level down.
+        "light_verb_detail": canary["light_verb_detail"],
+        "noise_detail": canary["noise_detail"],
         "noise_canary": {"consolidated_count": canary["noise_canary_consolidated_count"],
                          "consolidated_words": canary["noise_canary_consolidated_words"]},
         "bootstrap_curve": soft_rep["pass_reports"],
