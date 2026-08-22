@@ -139,6 +139,23 @@
 > move); B1's queued floor test (its OUT stratum is EMPTY); a ceiling detector (48.5% base rate);
 > sparsifying the stored key (DO-NOT-REDO 44) and DG-for-grounding (32).*
 >
+> ## 🔀 **AND THE SAME FILTER DISSOCIATES THE TWO JOBS -- WHICH IS THE NIGHT'S STRUCTURAL CLAIM, MEASURED**
+> **Ran the identical df filter on IDENTIFICATION (balanced lemmas, d=1024, chance 0.0167):**
+> `none 0.2057 | >50% 0.2041 | >30% 0.2122 | >20% 0.2160 | >10% 0.2169`.
+> | df cutoff | MEANING rho | IDENTIFICATION hit@1 |
+> |---|---|---|
+> | none | 0.1071 | 0.2057 |
+> | **>20%** | **0.1558** | 0.2160 |
+> | **>10%** | **0.0988** *(collapses)* | **0.2169** *(unmoved)* |
+> ***MEANING HAS A SHARP OPTIMUM AND FALLS OFF A CLIFF PAST IT; IDENTIFICATION IS FLAT.*** *Reading:
+> the moderately-common context words CARRY the semantic signal -- drop them and meaning collapses --
+> while identification wants only DISTINCTIVE rare context, so it neither gains much nor cares.*
+> ⚠️ **I do NOT claim the filter HELPS identification: `+0.011` with NO CI, below the `~0.027`
+> half-width measured earlier on this task.** ✅ **The DISSOCIATION does not depend on that: the
+> over-drop contrast is `0.1558 -> 0.0988` against `0.2160 -> 0.2169`.**
+> 🧠 **This is the ONE STRUCTURAL FINDING measured from a new direction: the two jobs want different
+> things from the same representation, and here they want different AMOUNTS OF THE SAME FILTER.**
+
 > ## ⭐ **AND THE FIRST THING TONIGHT THAT MAKES IT BETTER: DROP THE UBIQUITOUS CONTEXT WORDS**
 > **If idf is what lifts counting above us, can the substrate have it? Partly, yes.** *Same encoder
 > UNCHANGED -- only the word list handed to it is filtered, exactly as `context_vector_masked`
