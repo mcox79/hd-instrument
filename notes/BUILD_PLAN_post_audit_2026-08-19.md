@@ -89,6 +89,15 @@
 > `0.5167` = chance HANDED THE GOLD SENSE). On the grounding organ, counting is at chance and we are not.**
 > ➡️ **LIVE FRONTIER: OPEN VOCABULARY, then REAL PROSE.** *Not another word-similarity measurement.*
 > `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
+> ⚠️ **VERIFICATION STATUS, STATED BECAUSE I HAD BEEN SAYING NEITHER: those numbers are READ, NOT
+> REPRODUCED.** *Re-running the cell gives `elapsed 0.0s` and 5 `[resume] already done` lines -- the
+> mandatory checkpoint discipline REPLAYS stored units, and **the no-op re-run is INDISTINGUISHABLE
+> FROM A PASS** (same verdict, same numbers). ✅ *`--self-test` DOES recompute and independently
+> reproduced the pattern: two-stage `1.000` on B and C, governor `0.500`, **bow `0.500` on both**,
+> matched scrambles degrading `0.667`/`0.583`.* ✅ **SCOPE MEASURED (detector positive-controlled):
+> `399` of `7,868` landed cells carry checkpoints, 5.1% -- NOT the archive.** ➡️ *A `--fresh-units`
+> flag writing to a new dir is the clean fix; it touches the harness, so NOT done unilaterally.*
+> `RESUMABILITY_DEFEATS_REPRODUCTION_CHECKING_...`
 >
 > 🧭 **THE DIRECTION HAS A NAME AND IT WAS SET ON 2026-08-06, NOT TONIGHT: *ANCHOR + PROPAGATE*.**
 > *`SYNTHESIS_grounding_wall_definitive_2026-08-06` (237 grounding cells, 91 notes) established:* **(a)

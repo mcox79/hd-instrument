@@ -55,6 +55,23 @@ ignores existing checkpoints -- recompute without deleting anything.* **That is 
 harness, it touches every experiment, and it is not mine to make unilaterally at 3am.** *Filed here;
 `--self-test` remains the available independent check in the meantime.*
 
+## 4b. ✅ **AND THE SCOPE, MEASURED RATHER THAN ASSERTED -- IT IS MUCH NARROWER THAN I IMPLIED**
+
+*Enumerated from disk across all `8,158` `data/` subdirectories:*
+
+| | |
+|---|---|
+| landed cells with `metrics.json` | **7,868** |
+| of those, carrying per-unit checkpoints that WOULD resume | **399 (5.1%)** |
+
+***So this affects 399 cells, NOT the archive.*** **The other ~95% would genuinely recompute on a
+re-run.** *I said the fix "touches every experiment in the project" -- true of the HARNESS RULE going
+forward, misleading about cells affected today.*
+
+✅ **POSITIVE CONTROL ON THE DETECTOR:** *it must find `units.jsonl` in the cell I watched resume --
+it does. **An enumeration whose detector was blind to the known case would have produced a confident
+zero**, which is the failure this project keeps catching.*
+
 ## 5. ⚠️ LIMITS
 
 1. **Tested on ONE cell.** *I have not confirmed every cell resumes this way, though the discipline is
