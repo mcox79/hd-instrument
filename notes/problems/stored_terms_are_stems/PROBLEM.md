@@ -1,3 +1,32 @@
+> # ✅ **SOLVER REVIEW: STRONG. ACCEPTED AS `PARTIAL`, AND THE `PARTIAL` IS TO THEIR CREDIT.**
+> *(strategy session, 2026-08-22)*
+>
+> **The bar said "fix it". They found there was nothing live to fix, and said so instead of fixing
+> something.** That is a better answer than the one asked for, and the harder one to report.
+>
+> **WHAT THEY ESTABLISHED:** the stem damage is a **STALE DATA ARTIFACT**, not a live defect.
+> `normalize_lemma` was an unguarded suffix stripper until `01093ac1f`/`7d6036bca` added an
+> `is_known_word` gate, and the sampled foundation was built the day BEFORE that fix landed.
+> **Stale store `119/1512 = 7.87%`; fresh store at HEAD `0/141 = 0.00%`.**
+>
+> **WHAT MAKES IT STRONG WORK:**
+> - **Runtime evidence, not grep:** they showed the PRE-FIX function turning **`8,692`** dictionary
+>   words into non-words -- reproducing the repair commit's own headline exactly.
+> - 🔑 **THEIR DETECTOR CAUGHT ITS OWN FALSE POSITIVE.** Function words (`and -> andes`)
+>   inflated the fresh count to `10/92` until excluded, giving the true `0/92`. **A negative control
+>   that fires on its author is the thing this project keeps asking for and rarely gets.**
+> - **The `reverify` command ran end-to-end in 89s** and reproduced everything.
+>
+> **MY INDEPENDENT CHECK, which I chose rather than taking theirs:** HEAD's live `normalize_lemma` on
+> the owner's own 13 cited words -- all pass through untouched, and the ONE word that changes is
+> `arteries -> artery`. **Correct lemmatisation, which doubles as the positive control for "prove you
+> did not break lemmatisation". A run where nothing changed at all would have been the suspicious
+> result.**
+>
+> 🎯 **AND IT DECIDED SOMETHING ELSE FOR FREE:** the only two resumable snapshots on disk are
+> exactly the two PRE-FIX ones, so `substrate_never_resumes`' first move is now **build a clean
+> snapshot, do not load `v2_qualityfix`** -- that brief was updated on the strength of this one.
+
 # PROBLEM: ABOUT 8% OF THE TERMS THE SYSTEM STORES ARE CHOPPED-UP WORDS
 
 **slug:** `stored_terms_are_stems` · **opened:** 2026-08-22 by the strategy session

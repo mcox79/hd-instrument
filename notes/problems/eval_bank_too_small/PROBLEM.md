@@ -1,3 +1,35 @@
+> # ✅ **SOLVER REVIEW: EXCELLENT. ACCEPTED AS SOLVED.** *(strategy session, 2026-08-22)*
+>
+> **They built exactly what was asked and proved it rather than asserting it.** `166` items,
+> **`124` scorable = `3.4x` the old 36**, and both documented cheats are dead on it: `text_length`
+> and `negation_cue` each sit AT their own permutation nulls, not merely below the majority floor.
+>
+> **WHAT MAKES THIS STRONG WORK, SPECIFICALLY:**
+> - **They reproduced the cheats on the OLD bank FIRST** (`0.8056` for both) before showing them
+>   dead on the new one. *Without that, "no cheat found" could just mean a blind detector.*
+> - **Six controls, and every one reports how many items it removed** -- verbatim-substring gate
+>   dropped 3, roster gate 9, dedup 13. **A control that excludes nothing is not a control, and they
+>   never make you guess.**
+> - **Gold fixed by textual entailment BEFORE any organ output was consulted**, which is the one
+>   property that cannot be added afterwards.
+> - **Fairness reported against itself**: only `9/166` items defeat all four positional baselines
+>   simultaneously. *That is the unflattering number and they volunteered it.*
+>
+> **MY INDEPENDENT RE-VERIFICATION** (on the artifact, not by re-running their pipeline -- a re-run
+> shares its bugs): counts `166`/`124` MATCH, majority floor `0.605` MATCH, length independent of the
+> label at `p = 0.984` against their `0.988`. **Positive control: the same instrument detects the
+> cheat on v1 at `+70.6` chars, `p = 0.0027` -- reproducing, to the digit, a measurement I had taken
+> independently days earlier.**
+>
+> 🔻 **THE ONE THING THAT DID NOT REPRODUCE:** their negation `p = 0.844`; I get `0.564`.
+> Different last-sentence extraction. **Both are far from significance so the CONCLUSION is
+> unaffected -- but `0.844` should not be quoted as a reproduced number.**
+>
+> 🔑 **AND A PROPERTY THEY DID NOT CLAIM, WHICH I THINK IS THE BEST THING ABOUT THE BANK: THE
+> MAJORITY CLASS FLIPPED.** v1 was 64% MET; v2 is 60.5% UNMET. **v1's floor was "always say MET" --
+> the exact answer this organ systematically fails to give, so it could never clear its own floor.
+> That coincidence is gone.** *They may not have noticed; it matters either way.*
+
 # PROBLEM: A WHOLE LINE OF WORK IS BEING DECIDED BY 36 QUESTIONS, AND THEY HAVE TWO CHEATS IN THEM
 
 **slug:** `eval_bank_too_small` · **opened:** 2026-08-22 by the strategy session

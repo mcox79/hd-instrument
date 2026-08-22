@@ -57,6 +57,30 @@ the brief.*
 > when a `SOLVED.md` appears.** *`python tools/problem_ledger.py` lists what is filed; check it, do
 > not recall it.*
 
+> ## 📣 **OWNER INSTRUCTION, 2026-08-22: EVERY REVIEW PUTS ITS VERDICT AT THE TOP OF `PROBLEM.md`.**
+> **Verbatim: *"on the problems tab, after you review the submissions, I want the beginning of the
+> problem description to give your feedback. how well did the solver do? I want to know"*.**
+>
+> ➡️ **SO INTEGRATION HAS A THIRD STEP, AND IT IS OWNER-FACING:** re-verify -> append the
+> `INTEGRATED_BY_STRATEGY` block to `SOLVED.md` -> **PREPEND a `SOLVER REVIEW` block to the TOP of
+> `PROBLEM.md`.** *The owner reads the problems tab, and the tab shows the problem DESCRIPTION — so a
+> verdict buried in `SOLVED.md` is a verdict they never see.*
+>
+> **WHAT THE REVIEW BLOCK MUST CONTAIN, because "they did well" is not feedback:**
+> 1. **A plain verdict in the heading** — EXCELLENT / STRONG / ADEQUATE / WEAK, and the status it was
+>    accepted at.
+> 2. **WHAT MAKES IT GOOD OR BAD, SPECIFICALLY** — name the control they ran, the number they
+>    volunteered against themselves, the thing they refused to claim. *Praise that does not cite
+>    evidence is indistinguishable from politeness.*
+> 3. 🔻 **WHAT DID NOT REPRODUCE UNDER MY OWN CHECK**, if anything — with the two numbers side by
+>    side and whether the conclusion survives it. **A review with no friction in it has not been done.**
+> 4. **ANYTHING THEY DID NOT CLAIM THAT MATTERS.** *The best property of the v2 eval bank — that its
+>    majority class flipped away from the answer the organ cannot give — was not in the submission.*
+>
+> 🚫 **DO NOT GRADE ON EFFORT OR LENGTH.** A `PARTIAL` that correctly refuses to fix a non-defect is
+> better work than a `SOLVED` that fixed the wrong thing — `stored_terms_are_stems` is the worked
+> example.
+
 > ### ⚠️ **ONE EXCEPTION, AND IT EXISTS BECAUSE THE PROTOCOL CONTRADICTED ITS OWN TOOL (found 2026-08-22 while integrating the first solution).**
 > The strategy session **APPENDS** an integration block to `SOLVED.md` -- and only appends. That is
 > how `problem_ledger.scan()` learns a result has been re-verified and folded in; without it the
