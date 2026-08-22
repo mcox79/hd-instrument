@@ -72,9 +72,26 @@ so the residue is EXACTLY the part both plans say needs SITUATION context.**
 vs the real lookup and THE CLOSED ARM DOES NOT CONSUME IT.** ⚠️ **THE ANSWER WAS IN THE CELL'S DOCSTRING
 AT LINE 52, NAMING `enemy/rival/thief` -- read past twice over four turns.**
 
-➡️ **FRONTIER: REAL PROSE / CREDIT-ASSIGNMENT** *(attach a shown consequence to the right verb) -- named by
-`PLAN_B` and never worked.* 🚫 **NOT another word-similarity measurement.**
-`OWNER_ASSESSMENT_...` `THE_BOTTLENECK_HAS_BEEN_NAMED_...` `BOTH_OPEN_VOCAB_SUBSETS_CLOSE_...`
+➡️ **FRONTIER: REAL PROSE / CREDIT-ASSIGNMENT -- AND THIS SESSION MEASURED IT TO EXHAUSTION.**
+🔁 **THE WALL REPRODUCES.** *Both wall cells landed 08-07; the lemmatizer they depend on was repaired
+08-13 (`7d6036bca`: non-word stems `8,692->0`, gold verb-inflection `53.50%->99.03%`) -- a REAL confound
+I identified. **RE-RAN it today: `primary 0.4722`, IDENTICAL TO FOUR DIGITS, same `HARD_FAIL`, same
+`SCRAMBLE_DOES_NOT_COLLAPSE`. My confound hypothesis is REFUTED and the wall is STRONGER -- measured
+twice, 15 days apart, on TWO lemmatizers.*** 🔑 *Why it reproduced: `_is_verblike` fires on the SURFACE
+form, so the repair changed each mistake's NAME (`babi`->`baby`), not the DECISION.*
+🎯 **AND THE PRECISION PROBLEM IS LIGHT VERBS, NOT JUNK.** *`53.2%` of credited exposures are NOT loaded
+(510/958). Of the 173 error types, **46 are GENUINE VERBS** (`come`,`go`,`do`,`have`,`give`,`find`,
+`bring`,`carry`,`feel`) -- real verbs carrying NO outcome information.* 🔻 **MY MORPHOLOGY THREAD
+ADDRESSED THE NON-VERB SLICE, WHICH IS `5.4%` OF CREDITED TOKENS** *(measured 3x, each closer to the
+decision: `73%` of the error LIST -> `12.2%` of admitted TOKENS -> **`5.4%` of CREDITED tokens**; I
+quoted the biggest twice before measuring the right one).* **I RETRACT calling it "the cheapest
+high-value fix".**
+🚫 **SO THE LOCAL-WINDOW CREDIT APPROACH IS MEASURED OUT: coverage is NOT the cause (fires 439/1655),
+precision is ~47% and dominated by LIGHT VERBS, and down-weighting them by WordNet selectional breadth
+bought `+0.027`.** ➡️ ***WHICH RETURNS US TO WHAT BOTH DOCUMENTS SAID: REPLACE THE WINDOW.*** ⚠️ *That
+build supplies better ROLES but its causal component is "REDUCIBLE to connective-else-most-recent" by
+its own VET, and needs mention-annotated CoNLL the loop does not produce.*
+`I_RE_RAN_THE_WALL_...` `THE_OPERATIVE_NUMBER_IS_5_4_PERCENT_...` `SCOPING_THE_PRESCRIBED_BUILD_...`
 
 ## 🌙 THE NIGHT OF 2026-08-21 -- **COLLAPSED. NOT THE ONLY COPY: every row lives in its named note
 AND in the plan's consolidated top block. Do NOT re-expand.**
@@ -84,8 +101,8 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 | **META** | All 4 planned thrusts were ALREADY ANSWERED ON DISK; the defect was ORDER, not omission. [`METHOD_REVIEW_...`] |
 | **H2/E3/B4** | Foraging read its way to `textbook_biology 0.63245` (register headline WITHDRAWN, 7.6x bias). Coref "salience" is PROVABLY a mention-count (`argmax_count_fraction 1.0`, n=89) and that HARD_FAIL is UNDERPOWERED. Spelling beats the meaning read-out at rank 1 (`0.0767` vs `0.0480`) but the substrate WINS the full ranking (`37.0` vs `54.0`) -- **the defect is PRECISION AT THE TOP.** [`T1_`,`T2b_`,`T2c_`,`T5b_`] |
 | ⭐ **RATE** | **WRITE LESS: `0.0710 -> 0.3079` at p90, 4.3x -- BUT A RATE-MATCHED RANDOM GATE MATCHES IT.** *Prediction-error gating REFUTED; the gain is RATE.* ⛔ every arm stays BELOW co-occurrence. [`THE_RATE_SWEEP_...`] |
-| **NORMS12** | 829 identical pairs, one scorer: `SUPPLIED euclid 0.2876 | cosine 0.2176 | LEARNED d=1024 0.1071 | d=256 0.0944` (nulls 0.063-0.076). **EUCLID BEATS COSINE BY `+0.0700`, MORE THAN OUR WHOLE ARM CLEARS ITS NULL (`0.0440`).** ✅ `GROUNDED_CAP=0.45` is a MEASURED SAFETY PROPERTY, not a defect -- raw cosine cannot separate `sofa/couch 0.968` from `apple/orange 0.952`. 🚫 SUPPLY, NOT LEARNING. ⚠️ token coverage 60.4%. [`SUPPLIED_BEATS_LEARNED_2_69x_`,`THE_CAP_IS_PRINCIPLED_`] |
-| **CHANCE?** | **CORRECTED, I OVER-REACHED:** the trained substrate is **+16.3 pp REPLICATED** over an untrained codebook. **But `SUBSTRATE - COUNTING = -0.142` CI `[-0.203,-0.082]` SEPARATED**, and that negative is now CROSS-TASK: `counting RAW 0.0885 | OURS 0.1071 | counting+IDF 0.1835 | supplied 0.2876`, **`IDF - OURS = +0.0764` CI `[+0.0263,+0.1278]`.** 🚫 **ANY CLAIM HERE MUST CLEAR `0.1835`, not a shuffle.** [`COUNTING_WITH_ONE_STANDARD_WEIGHTING_`,`THREE_INDEPENDENT_MEASUREMENTS_`] |
+| **NORMS12** | 829 identical pairs, one scorer: `SUPPLIED euclid 0.2876 | cosine 0.2176 | LEARNED d=1024 0.1071 | d=256 0.0944`. **EUCLID BEATS COSINE BY `+0.0700`, MORE THAN OUR WHOLE ARM CLEARS ITS NULL (`0.0440`).** ✅ `GROUNDED_CAP=0.45` is a MEASURED SAFETY PROPERTY. 🚫 SUPPLY, NOT LEARNING. [`SUPPLIED_BEATS_LEARNED_2_69x_`,`THE_CAP_IS_PRINCIPLED_`] |
+| **CHANCE?** | **CORRECTED, I OVER-REACHED:** the trained substrate is **+16.3 pp REPLICATED** over an untrained codebook. **But `SUBSTRATE - COUNTING = -0.142` CI `[-0.203,-0.082]` SEPARATED**, cross-task: `counting RAW 0.0885 | OURS 0.1071 | counting+IDF 0.1835 | supplied 0.2876`, **`IDF - OURS = +0.0764` CI `[+0.0263,+0.1278]`.** 🚫 **ANY CLAIM HERE MUST CLEAR `0.1835`.** ⚠️ *Word-similarity channel ONLY -- see TOP ITEM.* [`COUNTING_WITH_ONE_STANDARD_WEIGHTING_`] |
 
 ## WHAT IS RUNNING
 
