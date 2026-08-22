@@ -17,6 +17,35 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
+### 2026-08-22 (continuation 9) -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS. THE LOOKUP CANNOT INFLECT.**
+
+**`hdlab/grounded_similarity.py:165` is the entire lookup: `_table().get(word.lower())`.** Raw string
+match, no morphology -- so the substrate holds `country` and reads past `countries`, holds `release`
+and misses `released`.
+
+| lookup | TOKEN cov | TYPE cov |
+|---|---|---|
+| raw string -- **RUNS TODAY** | `0.6035` | `0.1027` |
+| **+ `normalize_lemma` (ours, already live on the READING path)** | **`0.7350`** | **`0.1633`** |
+
+**+13.2 points of running text from data already on disk.** The gap to the plan's `90%` target is
+`29.65` points and this is `13.15` of them -- **44% of the way, zero new norms.** ➡️ **So `+14,704
+words to norm` counts inflected forms of ALREADY-NORMED words as words needing new norms.**
+*Landed `exp_meaning_asset_norms_coverage_gap_v1` reproduced to 4 decimals (235,876 types / 5,558,698
+tokens) BEFORE any delta -- that replication IS the positive control.*
+🔎 *Found by reading the band table down: the top 1,000 words are only `75.7%` covered and carry
+`41.4%` of all tokens. **I expected function words, which the asset SHOULD be silent on. All 243
+enumerated: proper nouns, plurals, inflected verbs -- not one function word.*** ⚠️ *~5 of 130 of my
+recoveries are wrong (`using->us`, `angeles->angel`); irregulars (`women`, `feet`) missed by BOTH
+methods, so the ceiling is ABOVE `0.7350`.*
+🚫 **COVERAGE, NOT CAPABILITY -- NO TASK WAS RUN, AND `grounded_similarity.py` WAS DELIBERATELY NOT
+CHANGED.** *Filed as solver problem `lookup_does_not_lemmatise`; the deciding control is an
+information-free twin lemmatising to a RANDOM covered word, which must LOSE.*
+📎 `notes/THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_AND_THAT_IS_13_POINTS_OF_FREE_COVERAGE_2026-08-22.md`
+🔓 **ALSO: the plan's "agent spawning is disallowed in this session" premise is FALSE -- the `hdi_*`
+fleet resolves. That was the SECOND untested premise in a sentence whose first one I had already
+retracted. Board Q113 asks the owner to flip it; it is a POLICY, not a wall.**
+
 ### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
 
 | arm, paired hit@1 discrimination, 4 sets | median | verdict |

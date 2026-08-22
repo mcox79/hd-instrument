@@ -26,23 +26,23 @@ This file is **REWRITTEN IN PLACE**, never appended, so it does not scroll and n
 
 ## STATUS
 
-AS OF: 2026-08-22 (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | ✅ **Q102 ANSWERED BY OWNER, DISCHARGED, AND NOW BOUNDED BY MEASUREMENT (08-22): the form organ is WIRED ADDITIVELY (`form_identity_vector`, byte-identity of `symbol_vector` witnessed 6/6, relation labels still hashed, registry 211 rows). Judged PER CONSUMER, which is the only way the owner's "only if it is doing the job required of it" can be applied. RECOGNITION: retrieving the right lemma from a MISMATCHED surface form goes hit@1 `0.0053 -> 0.9645`, live hash AT CHANCE. ⛔ MEANING: `+0.0573` INSIDE its own null p95 `0.0716` -- and its PERFECT version is ALSO a null (lemmatising the bag = the lossless merge that UPPER-BOUNDS a form code: `-0.0351` at d=1024, CI `[-0.0921, +0.0218]`, 21.8% of tokens affected). THE MEANING PATH IS BARRED TO IT IN THE DOCSTRING. Form invariance is an IDENTITY property; the VWFA FEEDS lexical access rather than being it.** | ✅ **BOARD: NOTHING OPEN -- the owner answered Q107/Q109/Q110/Q111/Q112 on 08-22 and all but Q112 are DISCHARGED.** 🔑 **Q111: I OWN ALL INTEGRATION; solvers NEVER write `hdlab/` (*"if we fracture our live substrate modification I fear we'll lose sight of state"*); an open idea is a SECOND substrate for the research session.** 🔑 **Q110: *"i don't want any more questions on bullshit like this here. you need to figure out these kinds of things on your own"* -- OPERATIONAL things are mine to solve; the board is for decisions only they can make. The hook no longer files denials to it.** ✅ **Q107 ANSWERED BY MEASUREMENT: NO new allow rules needed -- of 28 genuine `permission-rule` denials, 26 contain a DELETION token, the other two are a harness transport error and the deliberate `preregs/` guard. ZERO from a missing allow entry. (Exactly replicates the 08-13 audit.) The fix is behavioural: stop bundling `rm` with real work.** 🔻 *Found doing it: the e2e self-test was writing fixture rows into the PRODUCTION `_denial_halts.log` -- 22 of 91 rows, `ts=2099`. Fixed via `HD_DENIAL_LOG`, positive-controlled (22 before, 22 after a full self-test).* ⚠️ **`data/hooks/staging/` IS GITIGNORED -- every stop_hook edit is WORKING-TREE ONLY and dies on any checkout/reset/clean. Same class as board Q52.**
+AS OF: 2026-08-22 (autoloop `auto_cdc11bb529`), LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | ✅ **Q102 ANSWERED BY OWNER, DISCHARGED, AND NOW BOUNDED BY MEASUREMENT (08-22): the form organ is WIRED ADDITIVELY (`form_identity_vector`, byte-identity of `symbol_vector` witnessed 6/6, relation labels still hashed, registry 211 rows). Judged PER CONSUMER, which is the only way the owner's "only if it is doing the job required of it" can be applied. RECOGNITION: retrieving the right lemma from a MISMATCHED surface form goes hit@1 `0.0053 -> 0.9645`, live hash AT CHANCE. ⛔ MEANING: `+0.0573` INSIDE its own null p95 `0.0716` -- and its PERFECT version is ALSO a null (lemmatising the bag = the lossless merge that UPPER-BOUNDS a form code: `-0.0351` at d=1024, CI `[-0.0921, +0.0218]`, 21.8% of tokens affected). THE MEANING PATH IS BARRED TO IT IN THE DOCSTRING. Form invariance is an IDENTITY property; the VWFA FEEDS lexical access rather than being it.** | ✅ **BOARD: NOTHING OPEN -- the owner answered Q107/Q109/Q110/Q111/Q112 on 08-22 and all but Q112 are DISCHARGED.** 🔑 **Q111: I OWN ALL INTEGRATION; solvers NEVER write `hdlab/` (*"if we fracture our live substrate modification I fear we'll lose sight of state"*); an open idea is a SECOND substrate for the research session.** 🔑 **Q110: *"i don't want any more questions on bullshit like this here. you need to figure out these kinds of things on your own"* -- OPERATIONAL things are mine to solve; the board is for decisions only they can make. The hook no longer files denials to it.** ✅ **Q107 ANSWERED BY MEASUREMENT: NO new allow rules needed -- of 28 genuine `permission-rule` denials, 26 contain a DELETION token, the other two are a harness transport error and the deliberate `preregs/` guard. ZERO from a missing allow entry. (Exactly replicates the 08-13 audit.) The fix is behavioural: stop bundling `rm` with real work.** 🔻 *Found doing it: the e2e self-test was writing fixture rows into the PRODUCTION `_denial_halts.log` -- 22 of 91 rows, `ts=2099`. Fixed via `HD_DENIAL_LOG`, positive-controlled (22 before, 22 after a full self-test).* 🔻 **WITHDRAWN 08-22, I WAS WRONG AND THIS WARNING WAS FALSE: `data/hooks/staging/stop_hook.py` IS TRACKED AND COMMITTED.** *`git ls-files` lists 10 files there; my session-scoping edits were already in HEAD at `1bb90a7a6`; the Q110 + `HD_DENIAL_LOG` work committed cleanly at `ca2aa5cc7`. **The directory pattern makes `git add` PRINT AN IGNORE HINT while still staging the tracked file, and I read that hint as "the file cannot be committed" without checking `git ls-files` or `git log` on it.** An enumeration would have taken one command.* ✅ **AND FIXING THE REAL DEFECT BEHIND IT: the e2e denial assertion pointed at the PRODUCTION `_denial_halts.log`, so it could pass on a stale row without this run logging anything -- a FALSE PASS of the exact class recorded four times here. Now reads the REDIRECTED log, with a new check that the production log DID NOT GROW (`92 -> 92`, measured before/after).**
 
 **POSITION**
-### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
-| arm, paired hit@1 discrimination, 4 sets | median | verdict |
+### 2026-08-22 (continuation 9) -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS. THE LOOKUP CANNOT INFLECT.**
+**`hdlab/grounded_similarity.py:165` is the entire lookup: `_table().get(word.lower())`.** Raw string
+match, no morphology -- so the substrate holds `country` and reads past `countries`, holds `release`
+and misses `released`.
+| lookup | TOKEN cov | TYPE cov |
 |---|---|---|
-| untrained codebook (nothing read) | **~0** | CIs span zero -- donates nothing |
-| **THE TRAINED SUBSTRATE** | **+16.3 pp** | **`REPLICATED`, all 4 CIs exclude zero** |
-| second-order counting (**the bar**, upper bound **+44.2**) | +29.4 pp | `REPLICATED` |
-**LEARNING BOUGHT SOMETHING REAL** -- 0 -> +16.3 pp, same representation and comparison, the only
-difference being 7,535 sentences read. First replicated positive from our side on this task.
-**AND IT DOES NOT CLEAR THE BAR** (best CI +30.8 vs gate +44.2), reproducing the standing position
-*at or below counting* on a task that did not exist when that position was formed.
-**AND THE PAIRED TEST NOW SAYS WE ARE MEASURABLY BEHIND, not merely not-ahead:
-`SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.**
-Marginal CIs overlapped, which is NOT a test of a difference; the paired test is.
-⚠️ **SCOPED 08-22: this and every "behind counting" number is the WORD-SIMILARITY / RECALL channel,
+| raw string -- **RUNS TODAY** | `0.6035` | `0.1027` |
+| **+ `normalize_lemma` (ours, already live on the READING path)** | **`0.7350`** | **`0.1633`** |
+**+13.2 points of running text from data already on disk.** The gap to the plan's `90%` target is
+`29.65` points and this is `13.15` of them -- **44% of the way, zero new norms.** ➡️ **So `+14,704
+words to norm` counts inflected forms of ALREADY-NORMED words as words needing new norms.**
+*Landed `exp_meaning_asset_norms_coverage_gap_v1` reproduced to 4 decimals (235,876 types / 5,558,698
+tokens) BEFORE any delta -- that replication IS the positive control.*
+🔎 *Found by reading the band table down: the top 1,000 words are only `75.7%` covered and carry
 
 **TOP ITEM -- **I HAD BEEN MEASURING THE CHANNEL BOTH PLANS OF RECORD ALREADY RULED OUT.****
 🔻 **THE SCOPING CORRECTION (08-22).** *I told the owner "a 1970s baseline beats us EVERYWHERE we have
@@ -76,7 +76,7 @@ C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out
   ✅ **`tools/adjudicate_floor_flags.py`, self-test 7/7, imports the audit's own `scan()`; 2 positive
   controls + 1 negative control so it can neither excuse everything nor flag everything.**
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T18:02:55Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T18:13:57Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
