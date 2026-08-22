@@ -570,30 +570,41 @@ def _board_header_stale(board_path: Path | None = None,
 
 def plan_top_block_report(path: Path | None = None,
                           cap: int = PLAN_TOP_BLOCK_CAP_LINES) -> str | None:
-    """Report the plan's top block when it grows past the point of being readable.
+    """Report the plan's quoted state block when it grows past being readable.
 
-    Returns None when it is within cap -- a guard that speaks every session is one that gets
-    skimmed. Never raises: a missing plan is not a size claim.
+    MEASURES THE `> ## ` SUB-BLOCKS THEMSELVES, NOT "everything before the first column-0 heading".
+    The first version did the latter and was SILENT AT 373 LINES against a 160 cap -- because one
+    heading in the middle of the quoted region (`## DO NOT RE-PROPOSE`) sits at column 0 while its
+    neighbours are `> ` quoted, so the scan stopped there and reported 133. **A guard that trusts a
+    document to be internally consistent cannot measure a document that is not**, and this one was
+    written the same session it failed, to catch a block that had already blown up twice.
+
+    Returns None inside cap -- a guard that speaks every session gets skimmed. Never raises.
     """
     try:
         pp = Path(path) if path else PLAN_MD
         if not pp.is_file():
             return None
         lines = pp.read_text(encoding='utf-8', errors='replace').split(chr(10))
-        n = 0
-        for ln in lines[1:]:
-            if ln.startswith('## '):
+        heads = [i for i, ln in enumerate(lines) if ln.startswith('> ## ')]
+        if not heads:
+            return None
+        first, last = heads[0], heads[-1]
+        end = len(lines)
+        for i in range(last + 1, len(lines)):
+            if lines[i].startswith('## '):
+                end = i
                 break
-            n += 1
-        subs = sum(1 for ln in lines[:n + 1] if ln.startswith('> ## '))
-        if n <= cap:
+        span = end - first
+        if span <= cap:
             return None
         return chr(10).join([
-            f"[plan-top-block] {n} lines, {subs} sub-headings -- OVER THE {cap}-LINE CAP.",
-            "    This block has blown up TWICE (6,895 lines, then 309). Its own header forbids",
-            "    appending and that did not stop the second one. CONSOLIDATE IN PLACE: fold the",
-            "    sub-blocks into one digest, keep every number and stated limit, and point each",
-            "    line at the note holding its evidence.",
+            f"[plan-state-block] {span} lines across {len(heads)} '> ##' sub-blocks "
+            f"-- OVER THE {cap}-LINE CAP.",
+            "    This block has blown up THREE times (6,895 lines, then 309, then this). Its own",
+            "    header forbids appending and that has never once stopped it.",
+            "    CONSOLIDATE IN PLACE: fold the sub-blocks into one digest, keep every number and",
+            "    stated limit, and point each line at the note holding its evidence.",
         ])
     except (OSError, ValueError):
         return None
