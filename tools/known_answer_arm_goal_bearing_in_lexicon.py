@@ -186,15 +186,30 @@ def main():
               f"gold={d['gold']:5s} pred={str(d['pred']):5s} reason={d['reason']}")
 
     # ---- the column I was not reading: ABSTENTION. Not pre-registered; flagged as post-hoc.
-    def abstains(det):
-        return sum(1 for d in det if d["pred"] in (None, "NONE"))
+    # CONVENTION, AND IT DECIDES THE RESULT: this repo counts AMBIGUOUS as an ABSTENTION --
+    # verification/verify_levin_lastresort_backoff.py:51, `_ABSTAIN = ("NA","NONE","AMBIGUOUS")`.
+    # An earlier version of this script counted AMBIGUOUS as a (wrong) COMMITMENT and reported
+    # in-lexicon abstention as 0/8 with Fisher p=0.0049. Under the repo's own convention it is
+    # 2/8 and p=0.2404 -- NOT significant. BOTH ARE PRINTED; the repo convention is the one that
+    # governs, per the standing rule that a number may not be quoted without its convention.
+    REPO_ABSTAIN = (None, "NONE", "NA", "AMBIGUOUS")
 
-    ab_oov, ab_in = abstains(det_a), abstains(det_b)
-    p_ab = fisher_exact_2x2(ab_oov, len(det_a) - ab_oov, ab_in, len(det_b) - ab_in)
+    def abstains(det, keys):
+        return sum(1 for d in det if d["pred"] in keys)
+
     print("\n--- ABSTENTION (post-hoc, NOT pre-registered -- read as a lead, not a result) ---")
-    print(f"  OOV 36       : {ab_oov}/{len(det_a)} = {ab_oov / len(det_a):.4f} return NONE")
-    print(f"  in-lexicon 8 : {ab_in}/{len(det_b)} = {ab_in / len(det_b):.4f} return NONE")
-    print(f"  Fisher exact two-sided: p = {p_ab:.4f}")
+    for label, keys in (("REPO convention (AMBIGUOUS abstains)", REPO_ABSTAIN),
+                        ("narrow (NONE only)", (None, "NONE"))):
+        a_o, a_i = abstains(det_a, keys), abstains(det_b, keys)
+        p = fisher_exact_2x2(a_o, len(det_a) - a_o, a_i, len(det_b) - a_i)
+        star = "  <-- GOVERNS" if keys is REPO_ABSTAIN else ""
+        print(f"  {label}{star}")
+        print(f"     OOV 36 {a_o}/{len(det_a)} = {a_o / len(det_a):.4f} | "
+              f"in-lexicon 8 {a_i}/{len(det_b)} = {a_i / len(det_b):.4f} | "
+              f"Fisher p = {p:.4f}")
+    ab_oov = abstains(det_a, REPO_ABSTAIN)
+    ab_in = abstains(det_b, REPO_ABSTAIN)
+    p_ab = fisher_exact_2x2(ab_oov, len(det_a) - ab_oov, ab_in, len(det_b) - ab_in)
     print(f"  accuracy AMONG NON-ABSTENTIONS  OOV: "
           f"{sum(1 for d in det_a if d['correct'])}/{len(det_a) - ab_oov} = "
           f"{sum(1 for d in det_a if d['correct']) / max(1, len(det_a) - ab_oov):.4f}"

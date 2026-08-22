@@ -4,20 +4,20 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-22T05:37:52Z  |  HEAD: b11db9ab7
+generated: 2026-08-22T12:35:01Z  |  HEAD: 48a9048b1
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 28051 min ago <-- STALE
-  - orchestrator: 36381 min ago <-- STALE
-  - research: 2443 min ago <-- STALE
-  - skunkworks: 39052 min ago <-- STALE
-  - testbed: 75626 min ago <-- STALE
+  - exp_dev: 28468 min ago <-- STALE
+  - orchestrator: 36798 min ago <-- STALE
+  - research: 2860 min ago <-- STALE
+  - skunkworks: 39469 min ago <-- STALE
+  - testbed: 76043 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - substrate_director_kb_v1.staging.41116: 28 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.35340: 33 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - ⬜ **NOTHING IS RUNNING.**
   - 🔻 **MY PREDICTED FIX FAILED ITS OWN TEST.** *Subtracting co-occurrence from the verb score hurts
@@ -87,12 +87,13 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 71 new commit(s) since last snapshot (HEAD b64b3f34b -> b11db9ab7)
+- 57 new commit(s) since last snapshot (HEAD b11db9ab7 -> 48a9048b1)
+- data/ directory count: 8158 -> 8159 (+1)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - MONOTONICALLY (`+0.0062 -> -0.0464`), in-sample best lambda is **0.0 = do not do it**, held-out
 - **a 12-WORD seed via `hdlab/wordnet_polarity_propagation.py` -> `0.833` on 12 HELD-OUT verbs**
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8158, "generated_at": "2026-08-22T05:37:52Z", "head_commit": "b11db9ab7f7c04b3613ee8da8bebdcf10d40b7f2", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** (earned 0.6842)"}, "data_dir_count": 8159, "generated_at": "2026-08-22T12:35:01Z", "head_commit": "48a9048b1bda5eb9b8da53712fd0ff54ad547d9d", "step_status": {}}
 -->

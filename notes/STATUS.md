@@ -109,9 +109,14 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   NON-ANSWERS, `2` are WRONG ANSWERS; accuracy WHEN IT COMMITS is `14/16 = 0.8750`.** *COVERAGE, not
   DISCRIMINATION -- the 08-07 charter's "HIGH-PRECISION + COVERAGE-LIMITED".* ➡️ **RE-AIMS THE ONLY
   LIVE LEAD: in the EMPTY condition the function is not `UNMET`-biased, it is SILENT.** 🔻 **The
-  KNOWN-ANSWER arm unrun since 08-06 (8 in-lexicon controls): the word kills abstention (`0/8` vs
-  `20/36`, Fisher `p=0.0049`) and leaves accuracy at chance (`4/8`, `p=1.0000`) -- SILENCE INTO
-  GUESSING.** ⚠️ *n=8 cannot show incompetence, DECLARED first; INCONCLUSIVE, not a negative.*
+  KNOWN-ANSWER arm unrun since 08-06 (8 in-lexicon controls): accuracy `4/8` = CHANCE against a
+  BALANCED `0.5000` floor -- SUPPLYING THE WORD DOES NOT BUY THE ANSWER.** ⚠️ *n=8 cannot show
+  incompetence, DECLARED first; INCONCLUSIVE, not a negative.* 🔻 **I RETRACTED THE ABSTENTION HALF
+  SAME-DAY: I counted `AMBIGUOUS` as a commitment, the repo counts it as an ABSTENTION
+  (`verify_levin_lastresort_backoff.py:51`), so it is `2/8` NOT `0/8` and Fisher `p=0.2404`, NOT
+  `0.0049`. ALSO RETRACTED: "precision fell `0.8095->0.7500`" -- correctly `0.8182`, NO REGRESSION,
+  and that guard pins `(17,4,23)` and PASSES.** *Passed a positive control, a pre-registration and a
+  power calculation; broke on a definition I never looked up.*
 - 🚨 **AND THE LANDED RECORD IS STALE: the `HARD_FAIL` was measured where the cascade fired `0` of
   `36` (every item `abstain_fallback_to_lexicon`). Landed `0.1667`/`NONE 29`/firings `0`; today
   `0.3889`/`NONE 20`/firings `10`, `9` correct.** *Read from the landed run's OWN checkpoint -- no

@@ -80,17 +80,30 @@ condition, not of the function.*
 
 ## 3. SUPPLYING THE WORD REMOVES THE SILENCE AND DOES NOT BUY THE ANSWER
 
-| | returns `NONE` | accuracy |
+> ## 🔻 **RETRACTED THE SAME DAY, BY ME, ON THE REPO'S OWN CONVENTION. THE ORIGINAL VERSION OF THIS SECTION IS BELOW SO THE ERROR IS LEGIBLE.**
+> **I counted `AMBIGUOUS` as a (wrong) COMMITMENT. This repo counts it as an ABSTENTION** --
+> `verification/verify_levin_lastresort_backoff.py:51`, `_ABSTAIN = ("NA","NONE","AMBIGUOUS")`.
+> *The in-lexicon 8 return `MET 3 / UNMET 3 / AMBIGUOUS 2`.*
+
+| under the REPO convention (governs) | abstains | accuracy |
 |---|---|---|
-| OOV 36 | **`20/36` = `0.5556`** | `0.3889` |
-| in-lexicon 8 | **`0/8` = `0.0000`** | `0.5000` |
-| Fisher exact, two-sided | **`p = 0.0049`** | |
+| OOV 36 | `20/36` = `0.5556` | `0.3889` |
+| in-lexicon 8 | **`2/8` = `0.2500`** | `0.5000` (`4/6` = `0.667` when committing) |
+| Fisher exact, two-sided | 🔻 **`p = 0.2404` -- NOT SIGNIFICANT** | |
 
-> # **HAVING THE OUTCOME VERB IN THE LEXICON ELIMINATES ABSTENTION ENTIRELY AND LEAVES ACCURACY AT CHANCE. IT CONVERTS SILENCE INTO GUESSING.**
+| ~~what I first wrote (AMBIGUOUS = commitment)~~ | ~~`0/8` = `0.0000`~~ | ~~Fisher `p = 0.0049`~~ |
+|---|---|---|
 
-*This is the same shape as the plan's already-established **"COVERAGE WITHOUT DISCRIMINATION BUYS
-NOTHING"**, arrived at independently on a different slice and a different condition.*
-⚠️ **n=8. This is a LEAD, and it is POST-HOC -- it was not pre-registered.**
+> # 🔻 **"HAVING THE WORD ELIMINATES ABSTENTION ENTIRELY" IS WITHDRAWN. IT REDUCES ABSTENTION FROM `0.5556` TO `0.2500` ON `n=8`, WHICH DOES NOT SEPARATE (`p = 0.2404`).**
+
+✅ **WHAT SURVIVES, AND IT IS THE HALF THAT MATTERED: accuracy is `4/8` either way -- AT CHANCE
+AGAINST A BALANCED `0.5000` FLOOR. SUPPLYING THE WORD STILL DOES NOT BUY THE ANSWER**, which is the
+plan's **"COVERAGE WITHOUT DISCRIMINATION BUYS NOTHING"** reached on a different slice. *The
+mechanism claim about silence is the part that fell.*
+⚠️ **n=8, POST-HOC, and now also convention-sensitive. A LEAD, and a weak one.**
+🔑 **THE LESSON: MY NUMBER SURVIVED A POSITIVE CONTROL, A PRE-REGISTRATION AND A POWER CALCULATION,
+AND STILL BROKE ON A DEFINITION I NEVER LOOKED UP.** *The repo had the convention written in a
+constant, in a file I had already opened for another reason.*
 
 ## 4. WHAT THE SCORING CONVENTION COSTS -- **STATED, NOT PROPOSED**
 
@@ -182,16 +195,27 @@ measured mine, which makes it a genuine replication rather than a confirmation.*
 
 ## 10. ⏱️ AND IT DATES THE STALENESS IN THE COMPANION NOTE TO A ONE-DAY WINDOW
 
-*Recomputed today on the SAME full 44 through the same function:* **`18` correct / `6` wrong /
-`20` na, precision `0.7500`** *(vs 08-07's `17`/`4`/`23`, precision `0.8095`).*
+*Recomputed today on the SAME full 44 through the same function, **under the repo's `_ABSTAIN`
+convention***: **`18` correct / `4` wrong / `22` abstain, precision `18/22` = `0.8182`** *(vs 08-07's
+`17`/`4`/`23`, precision `0.8095`).*
+
+> ### 🔻 **AND THIS RETRACTS THE "PRECISION REGRESSION" I FILED EARLIER TODAY.** *With `AMBIGUOUS`
+> miscounted as a wrong commitment I read `18`/`6`/`20` and `0.7500`, and reported precision as
+> having FALLEN. **Under the governing convention it is `0.8095 -> 0.8182` -- FLAT, if anything up.
+> THERE IS NO PRECISION REGRESSION.*** *`verify_levin_lastresort_backoff.py` pins the 08-07 baseline
+> `(17, 4, 23)` with `==` and **PASSES today**, which is exactly the evidence I should have read
+> before claiming drift -- an existing guard was already asserting the thing I said was unwatched.*
 
 **The 2026-08-06 landed consequence run had `0` structural firings; the 2026-08-07 verbclass
 baseline already shows `referent_mismatch` firing.** ➡️ **THE CASCADE SWITCHED ON BETWEEN
 `2026-08-06` AND `2026-08-07`** -- not by vague drift over 16 days.
-🔻 **AND THE DRIFT DID NOT STOP THERE: since 08-07 the organ gained `1` correct, gained `2` wrong
-and shed `3` abstentions -- PRECISION WHEN COMMITTING FELL `0.8095 -> 0.7500`.** *Small numbers;
-reported with them.* 🚫 **The exact commit is NOT identified -- that needs a bisect, which was not
-run. The claim is bounded by the two dates, nothing finer.**
+✅ **SINCE 08-07 THE CHANGE IS ONE ITEM, IN THE GOOD DIRECTION: `17`/`4`/`23` -> `18`/`4`/`22`. NO
+REGRESSION.** *The gained item is **`ts_tom_wish_free_potter`** -- and it is recovered today by
+**`same_class_same_referent`, NOT by the Levin backoff** that `v2` built for it. **A later tier
+reached the same item by another route**, which is why a direct call today reproduces `v2`'s AFTER
+arm rather than its BEFORE.*
+🚫 **The exact commit is NOT identified -- that needs a bisect, which was not run. The dating claim
+is bounded by the two dates, nothing finer.**
 
 ## TLDR
 
