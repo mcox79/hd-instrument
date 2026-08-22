@@ -79,6 +79,18 @@
 > route through the hash** (a form code over `REL:^nmod` would be noise).*
 > ✅ **REGRESSION: all 21 of the live module's OWN self-tests PASS, 0 fail; `perirhinal_conjunctive` and
 > `substrate` still import; `context_vector_masked` unchanged.**
+> ✅ **REGISTERED** *(`form_identity_channel_vwfa_additive`, under `registry_transaction`, 210 -> 211 rows).*
+> ✅ **AND THE WATCH CONDITION IS NOW A NUMBER, NOT AN INTENTION** *(`tools/watch_condition_recognition_vs_meaning.py`).* **RECOGNITION on the task invariance actually buys -- retrieve the right lemma from a
+> MISMATCHED surface form (`cats` -> `cat`), n=564 pairs / 400 lemmas, chance ~`0.0025`:**
+> **`HASH (live) hit@1 0.0053` (noise) vs `FORM (new) hit@1 0.9645`, hit@5 `0.0142` vs `0.9840`.**
+> *Positive control: both codes self-match 50/50.* **MEANING channel `+0.095782`, UNTOUCHED -- it never
+> calls either identity code, which is the additivity check.**
+> 🔑 **THIS IS EXACTLY THE OWNER'S WARNED SIGNATURE: recognition up ~182x, meaning FLAT. THAT READING IS
+> CORRECT AND I AM NOT DRESSING IT UP -- IT IS A BETTER INDEX, NOT BETTER UNDERSTANDING.** *Useful (real
+> corpus surfaces differ from lemmas constantly, and the live code fails that at noise), but it is a
+> RECOGNITION result and the meaning channel is provably unmoved.*
+> ⚠️ *The form arm wins a spelling task with a spelling code -- by construction. What makes it a finding
+> is that the INCUMBENT fails the same task at chance, and that this is the VWFA's actual job.*
 > ⚠️ **A BETTER IDENTITY CODE, NOT A DEMONSTRATED DOWNSTREAM GAIN -- NOTHING CONSUMES IT YET.** *The
 > accessor exists and is witnessed; choosing consumers is the next decision.* ⚠️ **WATCH CONDITION:
 > recognition rising while meaning stays flat = a better index, not understanding.**

@@ -141,18 +141,96 @@ BAR_MEETS, BAR_FAILS, BAR_NO_EVIDENCE = "MEETS_BAR", "FAILS_BAR", "NO_EVIDENCE"
 CONSTANT_FLOOR_COMPARED, NO_CONSTANT_FLOOR = "CONSTANT_FLOOR_COMPARED", "NO_CONSTANT_FLOOR"
 
 
-def classify_arm_role(name: str) -> Optional[str]:
+# ------------------------------------------------------------------ THE `ortho` TOKEN COLLISION
+# 2026-08-16, DEFECT B. The orthographic pattern above matches `orthograph`, so every arm named
+# with the bare abbreviation `ORTHO` classifies as None -- `F_ORTHO`, `F_ORTHO_ONLY` and
+# `F1b_ORTHO_PREFIX` among them. `F1b_ORTHO_PREFIX` is the DECLARED BINDING FLOOR of the block
+# carrying the corpus's only surviving MEETS_BAR, and the checker was not collecting its margin.
+#
+# THE OBVIOUS FIX IS WRONG, AND THAT IS WHY THIS IS NOT ONE REGEX. Adding a bare `ortho` token
+# would sweep in the ORTHOGONALITY arms -- a GEOMETRY treatment, not a spelling channel -- and
+# turn them into CONTROL arms, which makes them INELIGIBLE TO CARRY A CLAIM. Enumerated from disk
+# across all 7,789 banked metrics.json (scratch/enumerate_arm_key_space.py,
+# scratch/ortho_classifier_measure.py): 176 distinct keys contain `ortho`; 52 the lexicon already
+# resolves; of the remainder only 5 are genuine spelling floors, while 17 are geometry
+# (ARM_ORTHOG_SUBSPACE, C3_ORTHONORMAL, SPARSE_ORTHO's Lowdin-orthonormal role basis,
+# ARM_ORTHOGONAL_PROJECTION, ...) across 34 cells. A naive widening would have deleted those 17
+# from consideration in 34 cells to recover 5 in 10.
+#
+# SO THE SPLIT IS ON MEANING, VIA SHAPE, AND IT FAILS CLOSED:
+#   GEOMETRY   -- the name carries an `orthogon` / `orthonorm` stem. `orthographic` and
+#                 `orthogonal` share five letters and DIVERGE AT THE SIXTH, so this matches a
+#                 DIFFERENT WORD, not the shared prefix. Never a floor. (Returns None, i.e.
+#                 unchanged treatment-arm behaviour.)
+#   AMBIGUOUS  -- bare `ortho` with no geometry stem. Resolves to `orthographic` ONLY when the
+#                 CELL ITSELF declared it a floor; the caller establishes that from the document
+#                 structure and passes `floor_declared=True`. See
+#                 tools/verdict_bar_check.declared_ortho_floors for the four tells.
+#   otherwise  -- UNCLASSIFIABLE: NOT counted as a floor (so it can never soften the bar) and NOT
+#                 removed from claim eligibility (so it can never delete a real treatment arm).
+#                 It is REPORTED, never silently either.
+_ORTHO_TOKEN_RE = re.compile(r"ortho", re.IGNORECASE)
+# `orthog(?!raph)` rather than `orthogon`: the corpus abbreviates too (ARM_ORTHOG_SUBSPACE,
+# ORTHOG_LR, orthog_residual_max, axis_orthog_residual_max), and `orthogon` misses all four --
+# caught by the regression test, not by inspection. The NEGATIVE LOOKAHEAD is what keeps
+# `orthographic` itself out: the two words share `orthog` and diverge at the seventh character.
+_ORTHO_GEOMETRY_RE = re.compile(r"orthog(?!raph)|orthonorm", re.IGNORECASE)
+# The ONE explicit name rule in this fix, declared as such rather than smuggled in: this repo
+# names floor arms `F_<CHANNEL>` / `F<n>_<CHANNEL>` / `F<n><letter>_<CHANNEL>` (F_SCRAMBLE,
+# F_FREQUENCY, F3_FREQUENCY_ONLY_constant, F5_CONSTANT_PROTOTYPE, F1b_ORTHO_PREFIX). Checked
+# against the enumerated key space: NO geometry key matches it -- they are named ARM_*, HP_*,
+# SPARSE_*, C3_*, hp_*, ORTHO_K*. Case-sensitive on the leading F so it cannot fire on
+# `feat_ortho`.
+FLOOR_NAME_PREFIX_RE = re.compile(r"^F\d*[a-z]?_")
+
+ORTHO_NO_TOKEN = "NO_ORTHO_TOKEN"
+ORTHO_RESOLVED_BY_LEXICON = "RESOLVED_BY_LEXICON"
+ORTHO_GEOMETRY = "GEOMETRY_ORTHOGONALITY_NOT_A_FLOOR"
+ORTHO_AMBIGUOUS = "AMBIGUOUS_ORTHO_NEEDS_STRUCTURAL_EVIDENCE"
+
+
+def ortho_token_class(name: str) -> str:
+    """Which side of the `ortho` collision a NAME falls on, by name alone.
+
+    One of ORTHO_NO_TOKEN / ORTHO_RESOLVED_BY_LEXICON / ORTHO_GEOMETRY / ORTHO_AMBIGUOUS.
+    ORTHO_AMBIGUOUS is not a verdict -- it is a request for structural evidence.
+    """
+    s = str(name)
+    if not _ORTHO_TOKEN_RE.search(s):
+        return ORTHO_NO_TOKEN
+    if _classify_by_lexicon(s) is not None:
+        return ORTHO_RESOLVED_BY_LEXICON
+    if _ORTHO_GEOMETRY_RE.search(s):
+        return ORTHO_GEOMETRY
+    return ORTHO_AMBIGUOUS
+
+
+def _classify_by_lexicon(name: str) -> Optional[str]:
+    s = str(name)
+    for role, rx in _ROLE_RE:
+        if rx.search(s):
+            return role
+    return None
+
+
+def classify_arm_role(name: str, floor_declared: bool = False) -> Optional[str]:
     """Role of an arm/floor/delta NAME, or None if it looks like a treatment arm.
 
     Name-shape only -- deliberately. The alternative is a hand-maintained list of arm names,
     which is what went stale in FLOOR_ARM_NAMES between June and 2026-08-15 (see that constant's
     comment). Precedence is the tuple order above: `null_control` is checked LAST so that
     `F_SCRAMBLE_NULL_P95` reads as a scramble floor rather than as a null arm.
+
+    `floor_declared` is the ONE piece of information a name cannot carry: whether the DOCUMENT
+    this name came from declared it a floor. It is consulted only for an AMBIGUOUS bare-`ortho`
+    name, and its default is False, so every existing call site keeps its exact previous
+    behaviour and the change can only ever ADD a floor that the cell itself declared.
     """
-    s = str(name)
-    for role, rx in _ROLE_RE:
-        if rx.search(s):
-            return role
+    role = _classify_by_lexicon(name)
+    if role is not None:
+        return role
+    if floor_declared and ortho_token_class(name) == ORTHO_AMBIGUOUS:
+        return "orthographic"
     return None
 
 
@@ -261,7 +339,8 @@ def arm_ceiling_shape(node: Optional[dict]) -> Optional[dict]:
 
 
 def claim_arm_eligibility(name_segments: Sequence[str],
-                          node: Optional[dict] = None) -> dict:
+                          node: Optional[dict] = None,
+                          floor_declared_names: Optional[set] = None) -> dict:
     """May this arm carry the cell's CLAIM? FAIL-CLOSED: when in doubt, NOT eligible.
 
     `name_segments` is EVERY path segment that could name the arm -- not just the last one. That
@@ -272,11 +351,20 @@ def claim_arm_eligibility(name_segments: Sequence[str],
 
     `node` is the arm's own metrics dict when the caller can supply it, for the structural tell.
 
+    `floor_declared_names` is the set of bare-`ortho` names THE DOCUMENT declared to be floors
+    (see `ortho_token_class`). It must be threaded through, or the fix to the `ortho` collision
+    would be half-applied: `F1b_ORTHO_PREFIX` would start counting as a floor for the bar's
+    bookkeeping while remaining ELIGIBLE TO CARRY THE CLAIM. That is the identical hazard the
+    constant floor had before 2026-08-16 (see the CONTROL_ROLES comment above), and half a fix
+    here is worse than none. Names NOT in the set keep their previous eligibility exactly, so an
+    UNCLASSIFIABLE ortho arm is never deleted from consideration.
+
     Returns {"eligible": bool, "reason": <CLAIM_ARM_*>, "detail": ..., "evidence": ...}.
     """
     segs = [str(s) for s in name_segments if s not in (None, "", "[]")]
+    declared = floor_declared_names or set()
     for s in segs:
-        role = classify_arm_role(s)
+        role = classify_arm_role(s, floor_declared=s in declared)
         if role in CONTROL_ROLES:
             return {"eligible": False, "reason": CLAIM_ARM_CONTROL,
                     "detail": f"segment {s!r} classifies as role {role!r}", "evidence": None}

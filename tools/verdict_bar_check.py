@@ -80,9 +80,10 @@ if REPO not in sys.path:
 
 from tools.c3_gate import (  # noqa: E402  -- the ONE gate implementation, imported not forked
     BAR_FAILS, BAR_MEETS, BAR_NO_EVIDENCE, CONSTANT_FLOOR_COMPARED, CONSTANT_FLOOR_ROLE,
-    CONTROL_ROLES, NO_CONSTANT_FLOOR, REQUIRED_FLOOR_ROLES,
+    CONTROL_ROLES, FLOOR_NAME_PREFIX_RE, NO_CONSTANT_FLOOR, ORTHO_AMBIGUOUS, ORTHO_GEOMETRY,
+    REQUIRED_FLOOR_ROLES,
     arm_ceiling_shape, claim_arm_eligibility, classify_arm_role, evaluate_standing_bar,
-    min_ci_lo,
+    min_ci_lo, ortho_token_class,
 )
 
 DATA = os.path.join(REPO, "data")
@@ -413,16 +414,110 @@ def _split_comparison(key: str) -> Optional[Tuple[str, str]]:
     return None
 
 
-def _floor_role_of_key(key: str) -> Optional[str]:
+def _floor_role_of_key(key: str, declared: Optional[set] = None) -> Optional[str]:
     """Role of the floor a delta-shaped key compares AGAINST.
 
     `d_A4_BOTH_minus_F_FREQUENCY` -> frequency (the RIGHT side of `_minus_` is the floor).
     A plain floor-named key -> its own role.
+
+    `declared` is the document's set of bare-`ortho` names it declared to be floors (see
+    `declared_ortho_floors`). Passing it is what lets `d_MA_f000_GG_minus_F_ORTHO` resolve: the
+    delta key's own ancestors declare nothing, so without the document-level reconciliation the
+    margin is invisible. 40 such delta keys are on disk.
     """
+    d = declared or set()
     parts = _split_comparison(key)
     if parts:
-        return classify_arm_role(parts[1])
-    return classify_arm_role(str(key))
+        return classify_arm_role(parts[1], floor_declared=parts[1] in d)
+    k = str(key)
+    return classify_arm_role(k, floor_declared=k in d)
+
+
+# ============================================================ 4b. THE `ortho` COLLISION, PER DOC
+# See tools/c3_gate.ortho_token_class for the defect and the enumeration behind it. `ortho` is
+# ambiguous BY NAME, so the split is made on what the DOCUMENT declares, in two passes: this
+# function collects the declarations, and `floor_evidence` then applies them everywhere in the
+# same document -- including to keys whose own surroundings declare nothing.
+#
+# A path segment that DECLARES ITS CHILDREN ARE FLOORS. Distinct from _MARGIN_CONTAINER_RE: a
+# margin container says "these are comparisons", this says "these are floors".
+_FLOOR_CONTAINER_RE = re.compile(
+    r"per_floor|vs_each_floor|vs_floor|against_floor|(^|_)floors?($|_)|floor_set|floor_ci|"
+    r"required_floors|floor_arms|floor_battery", re.IGNORECASE)
+
+
+def declared_ortho_floors(m: dict) -> dict:
+    """Which bare-`ortho` names THIS document declares to be orthographic floors.
+
+    FOUR POSITIVE TELLS, any one sufficient, each a declaration by the cell itself:
+      F1 CONTAINER  an ancestor segment declares floors AND is not itself an arm. The second half
+                    is not pedantry: `per_arm/FLOOR_ORTHOGRAPHIC/STRUCTURE/GOLD_ORTHO_lift` has a
+                    `floor`-shaped ancestor, but FLOOR_ORTHOGRAPHIC is the floor ARM and
+                    GOLD_ORTHO_lift is that arm's own statistic. Measured: dropping this clause
+                    produced 2 of the 4 false positives in the first cut.
+      F2 NAMED      the name is the VALUE of a floor-naming field (`strongest_floor`, `vs`, ...).
+      F3 COHORT     it sits in a dict where >= 2 OTHER keys classify, by the unmodified lexicon,
+                    as DISTINCT members of REQUIRED_FLOOR_ROLES. A table holding a spelling floor,
+                    a frequency floor and a constant floor is a floor table.
+      F4 CONVENTION the name matches this repo's floor-arm prefix `^F\\d*[a-z]?_`. THIS IS THE ONE
+                    NAME RULE and it is declared as one. No geometry key in the enumerated space
+                    matches it.
+
+    TWO STRUCTURAL REFUSALS, both measured rather than anticipated:
+      * a BOOLEAN value is a VERDICT, never a floor arm -- this is what separates
+        `clears_ortho_floor_ci_separated: {LIVE_vs_ORTHO: true}` and
+        `V3_space_independent_floors_must_be_identical: {ortho_identical_across_spaces: true}`
+        from a real floor table. Both sit under a `floor`-shaped ancestor.
+      * for an explicit comparison key ONLY THE RIGHT SIDE is a floor candidate. `PRIMARY_vs_ORTHO`
+        names a comparison; the floor is `ORTHO`.
+
+    Returns {"floors": {name: [tells]}, "geometry": [...], "unclassifiable": [...]}. NOTHING is
+    silently dropped: the residue is returned so the rule is falsifiable by what it could not
+    decide, and `unclassifiable` is neither credited as a floor nor removed from claim
+    eligibility.
+    """
+    ambiguous: set = set()
+    geometry: set = set()
+    tells: Dict[str, set] = {}
+    budget = [MAX_NODES]
+    for kpath, node in _iter_dicts(m, budget=budget):
+        in_floor_container = any(
+            _FLOOR_CONTAINER_RE.search(str(s)) and classify_arm_role(str(s)) is None
+            for s in kpath)
+        for k, v in node.items():
+            ks = str(k)
+            cmp_parts = _split_comparison(ks)
+            nm = cmp_parts[1] if cmp_parts else ks
+            cls = ortho_token_class(nm)
+            if cls == ORTHO_GEOMETRY:
+                geometry.add(nm)
+                continue
+            if cls != ORTHO_AMBIGUOUS:
+                # a floor-naming FIELD's value is a name too, even when the key is not
+                if ks in _FLOOR_NAMING_FIELDS and isinstance(v, str):
+                    vc = ortho_token_class(v)
+                    if vc == ORTHO_GEOMETRY:
+                        geometry.add(v)
+                    elif vc == ORTHO_AMBIGUOUS:
+                        ambiguous.add(v)
+                        tells.setdefault(v, set()).add("F2_NAMED_AS_FLOOR")
+                continue
+            ambiguous.add(nm)
+            if isinstance(v, bool):
+                continue
+            if in_floor_container:
+                tells.setdefault(nm, set()).add("F1_CONTAINER")
+            if FLOOR_NAME_PREFIX_RE.match(nm):
+                tells.setdefault(nm, set()).add("F4_NAME_CONVENTION")
+            if nm == ks:
+                others = {classify_arm_role(str(o)) for o in node if str(o) != ks}
+                others = {r for r in others if r in REQUIRED_FLOOR_ROLES}
+                if len(others) >= 2:
+                    tells.setdefault(nm, set()).add("F3_COHORT")
+    floors = {n: sorted(t) for n, t in tells.items() if t}
+    return {"floors": floors, "geometry": sorted(geometry),
+            "unclassifiable": sorted(ambiguous - set(floors)),
+            "truncated": budget[0] <= 0}
 
 
 # ================================================================== 4a. THE ALLOWLIST
@@ -526,6 +621,11 @@ def floor_evidence(m: dict) -> dict:
       3. `margin_over_strongest_floor: {ci95:[lo,hi]}` beside `strongest_floor: "<NAME>"`
          (exp_meaning_asset_pretrained_positive_control_v1)
     """
+    # PASS 1: which bare-`ortho` names does THIS document declare to be floors? A name cannot
+    # answer that, so it is established from the document before any classification is done.
+    ortho = declared_ortho_floors(m)
+    declared: set = set(ortho["floors"])
+
     roles_present: Dict[str, List[str]] = {}
     pairs: List[Tuple[float, str]] = []      # (ci_lo, source) -- fed to c3_gate.min_ci_lo
     roles_with_ci: set = set()
@@ -551,16 +651,16 @@ def floor_evidence(m: dict) -> dict:
 
         # --- roles PRESENT: from dict keys, and from the VALUE of a floor-naming field
         for k, v in node.items():
-            r = classify_arm_role(k)
+            r = classify_arm_role(k, floor_declared=str(k) in declared)
             if r:
                 roles_present.setdefault(r, []).append(str(k))
             if k in _FLOOR_NAMING_FIELDS and isinstance(v, str):
-                r2 = classify_arm_role(v)
+                r2 = classify_arm_role(v, floor_declared=v in declared)
                 if r2:
                     roles_present.setdefault(r2, []).append(v)
             elif k in _FLOOR_NAMING_FIELDS and isinstance(v, dict):
                 for fk in v:
-                    r2 = classify_arm_role(fk)
+                    r2 = classify_arm_role(fk, floor_declared=str(fk) in declared)
                     if r2:
                         roles_present.setdefault(r2, []).append(str(fk))
 
@@ -589,7 +689,7 @@ def floor_evidence(m: dict) -> dict:
             """Bucket one CI-bearing floor margin under the arm that owns it, and keep BOTH the
             arm's naming segments and the arm's own metrics dict -- the claim-arm eligibility
             check needs each, and having only the tail segment is what produced the false pass."""
-            arm, segs, arm_prefix = _owning_arm(arm_path)
+            arm, segs, arm_prefix = _owning_arm(arm_path, declared)
             conv = _tie_convention(kpath)
             if conv:
                 fname = f"{fname}|{conv}"
@@ -612,7 +712,7 @@ def floor_evidence(m: dict) -> dict:
                 if isinstance(nd, dict):
                     per_arm_nodes[arm] = nd
 
-        role = _floor_role_of_key(last)
+        role = _floor_role_of_key(last, declared)
         if role in REQUIRED_FLOOR_ROLES:
             lo = _ci_lo_of(node)
             if lo is not None:
@@ -644,7 +744,7 @@ def floor_evidence(m: dict) -> dict:
         for k, v in node.items():
             if not isinstance(v, dict):
                 continue
-            if _floor_role_of_key(k) in REQUIRED_FLOOR_ROLES:
+            if _floor_role_of_key(k, declared) in REQUIRED_FLOOR_ROLES:
                 continue                                   # already handled by (i) on the child
             if not any(tok in str(k).lower()
                        for tok in ("margin", "delta", "separation", "diff", "gain")):
@@ -658,7 +758,8 @@ def floor_evidence(m: dict) -> dict:
                 if isinstance(cand, str):
                     fname = cand
                     break
-            r = classify_arm_role(fname) if fname else None
+            r = (classify_arm_role(fname, floor_declared=fname in declared)
+                 if fname else None)
             if r in REQUIRED_FLOOR_ROLES:
                 # Here the floor is named by a SIBLING FIELD, not by a path segment, so the whole
                 # path belongs to the arm and nothing is dropped. T1 is already satisfied: this
@@ -681,6 +782,18 @@ def floor_evidence(m: dict) -> dict:
         "floor_cis_without_margin_provenance": no_provenance,
         "n_floor_cis_without_margin_provenance": n_no_provenance[0],
         "tie_conventions_present": sorted(tie_conventions),
+        # THE `ortho` COLLISION, REPORTED NOT HIDDEN. `ortho_floors_declared` names what the cell
+        # itself declared and WHICH TELL earned it; `ortho_geometry` is what a naive widening
+        # would have destroyed; `ortho_unclassifiable` is the fail-closed residue -- neither
+        # credited as a floor nor removed from claim eligibility. The residue is the rule's own
+        # falsifier: if a real spelling floor keeps turning up there, the rule is too tight.
+        "ortho_floors_declared": ortho["floors"],
+        "ortho_geometry_not_floors": ortho["geometry"],
+        "ortho_unclassifiable": ortho["unclassifiable"],
+        # The declaration pass has its own node budget. If it ran out, the declarations are
+        # PARTIAL and a floor may be missing for a reason that has nothing to do with the rule --
+        # so it is surfaced rather than left to look like a clean negative.
+        "ortho_declaration_truncated": ortho["truncated"],
         "traversal_truncated": truncated,
     }
 
@@ -712,7 +825,8 @@ _CONTAINER_RE = re.compile(
 # `1024::C4_PHASOR` / `256::C4_PHASOR` and the two dimensionalities are judged apart.
 
 
-def _owning_arm(kpath: Tuple[str, ...]) -> Tuple[str, List[str], Tuple[str, ...]]:
+def _owning_arm(kpath: Tuple[str, ...],
+                declared: Optional[set] = None) -> Tuple[str, List[str], Tuple[str, ...]]:
     """(`<scope>::<arm>`, the arm's naming SEGMENTS, the path PREFIX of the arm's own dict).
 
     The SCOPE is kept deliberately. Without it, an arm name reused across populations (e.g.
@@ -745,7 +859,8 @@ def _owning_arm(kpath: Tuple[str, ...]) -> Tuple[str, List[str], Tuple[str, ...]
              # the BLOCK in the scope slot and the blocks are judged apart.
              if p and p != "[]" and p not in _CONTAINER_KEYS
              and not _CONTAINER_RE.search(p) and not _ARM_CONTAINER_RE.search(p)]
-    named = [p for p in parts if classify_arm_role(p) not in REQUIRED_FLOOR_ROLES]
+    named = [p for p in parts if classify_arm_role(p, floor_declared=p in (declared or set()))
+             not in REQUIRED_FLOOR_ROLES]
     if not named:
         return (_dot(kpath) or "<cell>"), list(parts), kpath
     arm = named[-1]
@@ -775,7 +890,8 @@ def _finite(x) -> bool:
 
 
 def classify_claim_arm(scoped: str, segs: Sequence[str], node: Optional[dict],
-                       provenance: Sequence[str], cis: Sequence[tuple]) -> dict:
+                       provenance: Sequence[str], cis: Sequence[tuple],
+                       declared: Optional[set] = None) -> dict:
     """ALLOWLIST. Is this bucket POSITIVELY a treatment arm eligible to carry a cell's claim?
 
     Returns {"role": "TREATMENT" | <a refusal reason>, "detail": ...}. Anything that is not
@@ -798,7 +914,10 @@ def classify_claim_arm(scoped: str, segs: Sequence[str], node: Optional[dict],
         return {"role": "NON_FINITE_CI",
                 "detail": "floor margins with a non-finite bound: "
                           + ", ".join(sorted(set(nonfinite))[:4]), "evidence": None}
-    elig = claim_arm_eligibility(segs, node)
+    # `declared` carries the document's bare-`ortho` floor declarations. Threading it here is
+    # what stops the fix being half-applied: a name the cell declared to be a spelling floor must
+    # not remain eligible to CARRY that cell's claim.
+    elig = claim_arm_eligibility(segs, node, floor_declared_names=declared)
     if not elig["eligible"]:
         return {"role": elig["reason"], "detail": elig["detail"], "evidence": elig["evidence"]}
     prov = set(provenance or ())
@@ -842,7 +961,8 @@ def classify_claim_arm(scoped: str, segs: Sequence[str], node: Optional[dict],
 def _best_treatment_arm(per_arm: Dict[str, list],
                         segments: Optional[Dict[str, list]] = None,
                         nodes: Optional[Dict[str, dict]] = None,
-                        provenance: Optional[Dict[str, list]] = None):
+                        provenance: Optional[Dict[str, list]] = None,
+                        declared: Optional[set] = None):
     """(best ELIGIBLE arm, its (ci_lo, floor) pairs, all scored arms, the rejected arms).
 
     "Best" = highest WITHIN-SCOPE min ci_lo among arms ELIGIBLE to carry a claim. Eligibility is
@@ -865,7 +985,8 @@ def _best_treatment_arm(per_arm: Dict[str, list],
     for scoped, cis in per_arm.items():
         segs = segments.get(scoped) or [p for p in scoped.replace("::", " ").split() if p]
         lo, src = min_ci_lo([(c[0], c[1]) for c in cis])
-        cls = classify_claim_arm(scoped, segs, nodes.get(scoped), provenance.get(scoped, []), cis)
+        cls = classify_claim_arm(scoped, segs, nodes.get(scoped), provenance.get(scoped, []),
+                                 cis, declared)
         if cls["role"] != "TREATMENT":
             rejected[scoped] = {"min_ci_lo": lo, "binding_floor": src, "reason": cls["role"],
                                 "detail": cls["detail"], "evidence": cls["evidence"]}
@@ -935,7 +1056,7 @@ def check_cell(path: str) -> dict:
     # field, never as the verdict.
     best_arm, best_pairs, arm_scores, rejected_arms = _best_treatment_arm(
         fe["per_arm_floor_cis"], fe["per_arm_name_segments"], fe["per_arm_nodes"],
-        fe["per_arm_margin_provenance"])
+        fe["per_arm_margin_provenance"], set(fe["ortho_floors_declared"]))
     pooled_lo, pooled_src = min_ci_lo(fe["floor_margin_ci_pairs"])
     bar = evaluate_standing_bar(
         floor_ci_pairs=best_pairs if best_arm else fe["floor_margin_ci_pairs"],
@@ -1043,6 +1164,12 @@ def check_cell(path: str) -> dict:
         # seeing: an unnamed rank convention is an unstated choice, and on the cell audited
         # 2026-08-16 the spelling-vs-substrate top-50 comparison REVERSES between the two.
         "tie_conventions_present": fe["tie_conventions_present"],
+        # The `ortho` collision, per cell. `ortho_unclassifiable` is the residue this rule refuses
+        # to guess at; it is carried into the record so the operator sees what was NOT decided.
+        "ortho_floors_declared": fe["ortho_floors_declared"],
+        "ortho_geometry_not_floors": fe["ortho_geometry_not_floors"],
+        "ortho_unclassifiable": fe["ortho_unclassifiable"],
+        "ortho_declaration_truncated": fe["ortho_declaration_truncated"],
         # informational ONLY -- pools scopes and includes control arms; never the verdict
         "most_conservative_comparison_anywhere": {"min_ci_lo": pooled_lo, "floor": pooled_src},
         "has_known_answer_arm": known, "has_null_arm": nulla,
