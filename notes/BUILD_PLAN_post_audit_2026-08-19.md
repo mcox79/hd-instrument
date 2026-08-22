@@ -56,104 +56,63 @@
 > since);* ⭐ **AND 08-22: MAKE THE ARITHMETIC CLOSE TO THE REPORTED NUMBER -- three plausible stories died
 > to that one check, which was available every time and which I never ran.**
 
-> ## ➡️ **NEXT -- 2026-08-22. THE POSITION LIVES IN `STATUS.md` TOP ITEM; THIS IS WHAT TO DO.**
-> 🚨 **THIS PLAN HAD DRIFTED FROM THE ARCHITECTURE IT SERVES: it cited `PLAN_B_grounding_..._2026-08-07`
-> -- a USER-CONFIRMED PLAN OF RECORD -- **ZERO TIMES** (grep), named none of its four proven components,
-> and did not carry its bottleneck. TWO PLANS, ONLY ONE BEING READ.**
+> ## ➡️ **NEXT -- 2026-08-22 (2nd consolidation). POSITION LIVES IN `STATUS.md` TOP ITEM; THIS IS WHAT TO DO.**
+> 🚨 **THIS PLAN HAD DRIFTED: it cited `PLAN_B_grounding_..._2026-08-07` -- a USER-CONFIRMED PLAN OF
+> RECORD -- ZERO TIMES (grep), named none of its proven components, and did not carry its bottleneck.**
 >
-> **1. Q102 remains the ONLY open board question** *(wire the form organs; evidence package complete).*
+> **1. TWO BOARD QUESTIONS OPEN.** *Q102 (wire the form organs; package complete) and the CREDIT FORK
+> filed 08-22: build the parsing/mark-up step so the window can be replaced, or park this line.*
 >
-> **2. 🎯 THE DIRECTION IS *ANCHOR + PROPAGATE*, set 08-06/08-07, not by me.** *Ground a SMALL affective
-> anchor (the brain does it at 4-7 months) and reason outward. Good/bad is in neither grammar nor text
-> statistics because ANTONYMS ARE DISTRIBUTIONAL TWINS.* ✅ **FOUR COMPONENTS ARE BUILT AND `HARD_PASS`:**
-> *S1 a 12-word seed via `wordnet_polarity_propagation` -> `0.833` held-out, **seed-ablation `0.000`**;
-> S2 superposition map, held-out collapse `1.000` vs SCRAMBLE `0.400`, with `spoil` polarity DELIBERATELY
-> REVERSED so a generic heuristic MUST fail; S4 LEARNED-from-exposure `1.000` vs SCRAMBLE-CONSEQUENCE
-> `0.486`; richer context KEY `0527afeab`.*
-> ✅ **AND I HAVE NOW *REPRODUCED* THREE OF THEM (first REPRODUCED rather than READ this session).** *All
-> four carry `units.jsonl` so a full re-run REPLAYS; `--self-test` genuinely recomputes.* **S1 `real 0.833`
-> and `ablation 0.000` BOTH IDENTICAL to landed** *(its scramble/randtheta differ -- own fixed config,
-> which is what makes it independent)*, **with `theta_witness` RECIPROCITY `+0.603` vs BLOCK_HIGH `-0.505`,
-> SIGNS DIFFER.** **S2 collapse `1.000` vs scramble `0.300`.** **S4 learned `1.000` vs scramble-consequence
-> `0.429`, `gap_vs_hand_taught 0.000`, `spoil_ok=True` (the reversed-polarity anti-confound HOLDS).**
-> ⚠️ *Reproduction does NOT change scale -- still 6 words / 28 items on clean signal.*
-> words / 28 items, exactly as `PLAN_B` says.* ⚠️ **THEIR OWN BOUNDARY: MECHANISM PROOFS ON CLEAN SIGNAL AT
-> TINY SCALE (6 words, 28 items); `PLAN_B` calls the zero gap "a CLEAN-corpus artifact". DESIGN SOUND !=
-> WORKS.** `THE_BOTTLENECK_HAS_BEEN_NAMED_...` `THE_SUBTRACT_ARM_FAILED_...`
+> **2. 🎯 DIRECTION = *ANCHOR + PROPAGATE*, set 08-06/08-07.** *Ground a SMALL affective anchor (the brain
+> does it at 4-7 months) and reason outward; good/bad is in neither grammar nor text statistics because
+> ANTONYMS ARE DISTRIBUTIONAL TWINS.* ✅ **FOUR COMPONENTS `HARD_PASS`, AND I HAVE NOW *REPRODUCED* THREE
+> (first REPRODUCED rather than READ this session; all four REPLAY on a full re-run, `--self-test`
+> recomputes):** *S1 12-word seed -> `wordnet_polarity_propagation` -> **`0.833` held-out and `ablation
+> 0.000` BOTH IDENTICAL**, `theta_witness` RECIPROCITY `+0.603` vs BLOCK_HIGH `-0.505` SIGNS DIFFER;
+> S2 superposition map collapse **`1.000`** vs scramble `0.300`; S4 LEARNED-from-exposure **`1.000`** vs
+> scramble-consequence `0.429`, `gap_vs_hand_taught 0.000`, **`spoil_ok=True`** (reversed-polarity
+> anti-confound HOLDS); + richer context KEY `0527afeab`.* ⚠️ **REPRODUCTION DOES NOT CHANGE SCALE: still
+> 6 words / 28 items on CLEAN signal; `PLAN_B` calls the zero gap "a CLEAN-corpus artifact". SOUND != WORKS.**
 >
-> **3. 🔻 THE NAMED LEVER WAS TRIED 08-07 AND `HARD_FAIL`ED -- NOT IN THE PRESCRIBED FORM, AND ON BROKEN
-> PARTS (confound below).** *`exp_sharpened_credit_assignment_v1`: `primary 0.4167` vs floor `0.6389`,
-> `lift 0.0167` (its NO-SIGNAL band is <=0.05), precision `0.4676 -> 0.4941`, coverage `23 -> 6`, reason
-> **SCRAMBLE_STILL_DOES_NOT_COLLAPSE**. Parent wall: real `0.4722` vs scrambled `0.5000`; **COVERAGE WAS
-> EXPLICITLY NOT THE PROBLEM** (439/1655).* 🔑 **IT SHARPENED THE RULE *INSIDE* THE LOCAL WINDOW while both
-> documents say REPLACE THE WINDOW.** ⚠️ *An interpretation of a design difference, NOT a measurement.*
-> ⚠️ **I DID NOT ESTABLISH THE REPLACEMENT IS UNATTEMPTED** *-- phrase queries return 0 (positive control
-> `"pattern separation"` = 12), **but `"situation"` = 55 and `"coref"` = 106: 161 cells UNENUMERATED.***
-> ✅ **ENUMERATION DONE (150 cells, all rows read): THE PRESCRIBED REPLACEMENT IS UNATTEMPTED, and 🔻 my
->   "its inputs are broken" is WITHDRAWN -- those were failed *UPGRADES* (`learned-write <= MAIN_ENC`;
->   "no better than frozen baseline"), and the charter LISTS BOTH INPUTS AS FAITHFUL.** ✅ **VERIFIED BY
->   RUNNING THEM: `situation_reader` self-tests pass (3 sents -> 2 entities, 5 events, **4 CROSS-SENTENCE
->   targets**; fear/cherish -> EXPERIENCER; battered -> HARM); the coref arms all execute.** 🔻 *But my
->   ad-hoc coref metric was DEGENERATE -- the information-free `recency_floor` WON it, so I have no
->   quality read.* 🔑 **PATTERN, 4th TONIGHT: I KEEP READING "AN ATTEMPT TO IMPROVE X FAILED" AS "X IS
->   BROKEN". THE TELL IS THAT THE FAILURE CITES A COMPARATOR.**
->   `I_KEEP_READING_A_FAILED_UPGRADE_AS_A_BROKEN_COMPONENT_...`
->
-> ✅ **AND THE WALL WAS RE-RUN POST-REPAIR: IT REPRODUCES EXACTLY.** *Both wall cells landed 2026-08-07
-> while the lemmatizer they depend on was repaired 2026-08-13 (`7d6036bca`: non-word stems `8,692 -> 0`,
-> gold verb-inflection `53.50% -> 99.03%`) -- a REAL confound, correctly identified.* 🔁 **RE-RAN
-> `fc21752f3` today (no `units.jsonl`, genuine recompute, 65.55 s): `primary 0.4722` -- IDENTICAL TO FOUR
-> DIGITS; floor `0.6389`; scramble `0.5000 -> 0.5111`, gap still NEGATIVE; SAME `HARD_FAIL`, SAME
-> `SCRAMBLE_DOES_NOT_COLLAPSE`. MY CONFOUND HYPOTHESIS IS REFUTED AND THE WALL IS STRONGER -- measured
-> TWICE, 15 days apart, on TWO lemmatizers.**
-> 🔑 **BOTH HOLD AT ONCE: the old stems WERE garbage AND cleaning them did NOT move the outcome -- so the
-> credit errors were not what was limiting this.**
-> 🔻 **THE ERROR SPLIT (still PRE-REPAIR data): `73%` of error types are NOT VERBS (52% non-words, 21%
-> nouns); the correct ones are `100%` real verbs. CAUSE IS ONE LINE: `_is_verblike` = `lemma_verb(tok) !=
-> tok or -ed/-ing`, and PLURALISATION CHANGES THE FORM -- `7/10` plural nouns admitted live, while
-> base-form `praise` is REJECTED. Backwards BOTH ways.** ⚠️ *The sharpened cell HAS `units.jsonl` and is
-> STILL UNRE-RUN, so that split and its `0.4676 -> 0.4941` remain pre-repair. Types, not tokens.*
-> `I_RE_RAN_THE_WALL_...` `THE_CREDIT_ERRORS_ARE_NOT_WRONG_VERBS_...` `THE_VERB_DETECTOR_ADMITS_EVERY_PLURAL_NOUN_...`
-> 🔑 **WHY IT REPRODUCED TO FOUR DIGITS: THE REPAIR CHANGED THE *NAME* OF EACH MISTAKE, NOT THE
-> DECISION.** *`_is_verblike` fires on the SURFACE form, so `babies` was credited as `babi` and is now
-> credited as `baby` -- same token, tidier label; `8/8` plural nouns still admitted. Invariant VERIFIED:
-> `lemma_verb` over 6,000 forms emits **0 non-words**.* ✅ **THIS SETTLES THE SHARPENED CELL WITHOUT
-> RE-RUNNING IT** *(it has `units.jsonl`; a recompute needs a deletion or harness change I will not make
-> unilaterally)*: **`77` of its `84` real-word errors are STILL admitted, so its `0.4676` does not move in
-> substance.** `WHY_THE_WALL_REPRODUCED_EXACTLY_...`
-> 🔻 **MEASURED 3x, EACH CLOSER TO THE DECISION, SHRINKING EACH TIME: `73%` (old cell's ERROR LIST, types)
->   -> `12.2%` (ADMITTED TOKENS, raw corpora) -> ⭐ **`5.4%` (ACTUALLY-CREDITED TOKENS in-window**, via the
->   real `_credit_targets`: 12,670 targets, 8 referents, 18,071 sentences).* ⭐ **`5.4%` IS OPERATIVE; the
->   earlier figures answered different questions and I quoted them as if they answered this one.**
-> 🔄 **DOMINANT LEAK REVERSES IN-WINDOW: PLURAL NOUNS (`sister` 66, `lip` 56, `friend` 37, `knee` 17),
->   not `-ing` (62 of 683, ~9%) -- credit needs SUBJECT/OBJECT linkage and those nouns live there.**
-> 🎯 **AND THE REAL PRECISION PROBLEM IS LIGHT VERBS: `53.2%` of credited exposures are NOT loaded
->   (510/958), and `46` of the 173 error types are GENUINE VERBS (`come`,`go`,`do`,`have`,`give`). My
->   morphology thread addressed `5.4%` of a `53%` problem.** 🔻 **I RETRACT "cheapest high-value fix"; and a
->   verb-sense gate is a PURE FILTER -- it does NOT fix base-form verbs being wrongly REJECTED.**
->   `THE_OPERATIVE_NUMBER_IS_5_4_PERCENT_...` `TOKEN_LEVEL_THE_GATE_REMOVES_12_PERCENT_NOT_73_...`
+> **3. 🚫 THE CREDIT LEVER IS MEASURED OUT (now a board question).** *`exp_sharpened_credit_assignment_v1`
+> `HARD_FAIL`: `primary 0.4167` vs floor `0.6389`, `lift 0.0167`, precision `0.4676 -> 0.4941`.*
+> 🔁 **THE WALL REPRODUCES: re-ran the parent cell today post-lemmatizer-repair -> `primary 0.4722`,
+> IDENTICAL TO FOUR DIGITS, same `SCRAMBLE_DOES_NOT_COLLAPSE`. My confound hypothesis is REFUTED and the
+> wall is STRONGER -- twice, 15 days apart, two lemmatizers.** *Why: `_is_verblike` fires on the SURFACE
+> form, so the repair changed each mistake's NAME (`babi`->`baby`), not the DECISION.*
+> 🎯 **THE PRECISION PROBLEM IS LIGHT VERBS: `53.2%` of credited exposures NOT loaded; `46` of 173 error
+> types are GENUINE VERBS (`come`,`go`,`do`,`have`,`give`). Non-verb junk is only `5.4%` of credited
+> tokens** *(measured 3x, each closer to the decision: `73%` error-list types -> `12.2%` admitted tokens ->
+> **`5.4%` credited tokens**; I quoted the biggest twice first).* 🔻 **I RETRACT "cheapest high-value fix";
+> a verb-sense gate is a PURE FILTER and does NOT fix base-form verbs being wrongly REJECTED.**
+> ⚠️ *Coverage is NOT the cause (fires 439/1655). The prescribed replacement gives better ROLES but its
+> causal half is "REDUCIBLE to connective-else-most-recent" by its own VET, and needs mention-annotated
+> CoNLL the loop does not produce.* `I_RE_RAN_THE_WALL_...` `THE_OPERATIVE_NUMBER_IS_5_4_PERCENT_...`
 >
 > **4. ✅ THE GROUNDING ORGAN WORKS, AND MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding`
-> HARD_PASS `0.967`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (the PREDICTED failure at
-> `0.500`); `twostage_event_situation_v2` HARD_PASS **B and C `1.000`** vs governor `0.500`.*
-> 🎯 **DOUBLE DISSOCIATION: each subset's MATCHED scramble degrades, the UNMATCHED one does not.**
-> 🔻 **SCALE: n = 21/12/12/8 and one `1.000` IS n=2 -- it CARRIES NOTHING.** 🔻 **"counting beats us
-> EVERYWHERE" was WRONG: all 16 measures are the WORD-SIMILARITY channel, which both plans ruled out
-> (bow `0.5167` = chance HANDED THE GOLD SENSE).** ⚠️ **READ, NOT REPRODUCED -- re-runs REPLAY checkpoints
-> and the no-op is INDISTINGUISHABLE FROM A PASS** *(`--self-test` does recompute; `399`/`7,868` affected).*
-> `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...` `RESUMABILITY_DEFEATS_...`
+> HARD_PASS `0.967`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (PREDICTED failure at `0.500`);
+> `twostage_event_situation_v2` HARD_PASS **B and C `1.000`** vs governor `0.500`.* 🎯 **DOUBLE
+> DISSOCIATION: each subset's MATCHED scramble degrades, the UNMATCHED one does not.** 🔻 **SCALE: n =
+> 21/12/12/8 and one `1.000` IS n=2 -- it CARRIES NOTHING.** 🔻 **"counting beats us EVERYWHERE" WAS
+> WRONG: all 16 measures are the WORD-SIMILARITY channel, which both plans ruled out (bow `0.5167` =
+> chance HANDED THE GOLD SENSE).** ⚠️ *READ, not REPRODUCED; re-runs REPLAY (`399`/`7,868` cells affected).*
 >
-> **5. ✅ OPEN VOCABULARY: CLOSED, DIAGNOSED, NOTHING REPAIRED.** *`B` 10/12 = `0.8333`, `Bgen` 6/8 =
-> `0.750`, both CLOSE EXACTLY, and **ALL FOUR ERRORS HAVE AN *ADVERSARIAL* PATIENT**. The animacy map
-> cannot express it -- an EXPRESSIVENESS GAP. WordNet supplies it 7/8 at `0.8%`, and **misses `rival`
-> CORRECTLY: a rival is an adversary RELATIONALLY, so the residue is EXACTLY the part both plans say needs
-> SITUATION context.*** 🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF -- DO NOT TOUCH IT.**
-> 🔻 **THREE RETRACTIONS GETTING THERE; ROOT FAULT: compared `v2.lookup_animacy` vs the real lookup and
-> THE CLOSED ARM DOES NOT CONSUME IT. THE ANSWER WAS IN THE DOCSTRING AT LINE 52.**
-> `BOTH_OPEN_VOCAB_SUBSETS_CLOSE_...` `WORDNET_CARRIES_ADVERSARIAL_...` `I_RETRACT_...`
+> **5. ✅ OPEN VOCABULARY: CLOSED.** *`B` 10/12 = `0.8333`, `Bgen` 6/8 = `0.750`, both CLOSE EXACTLY, and
+> **ALL FOUR ERRORS HAVE AN *ADVERSARIAL* PATIENT**. The animacy map cannot express it -- an EXPRESSIVENESS
+> GAP. WordNet supplies it 7/8 at `0.8%`, and **misses `rival` CORRECTLY** (a rival is an adversary
+> RELATIONALLY, so the residue is EXACTLY the part both plans say needs SITUATION context).*
+> 🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF -- DO NOT TOUCH IT.** 🔻 **THREE RETRACTIONS GETTING
+> THERE; ROOT FAULT: compared `v2.lookup_animacy` vs the real lookup and THE CLOSED ARM DOES NOT CONSUME
+> IT. THE ANSWER WAS IN THE DOCSTRING AT LINE 52.**
 >
-> **6. THE HONEST TENSION:** *the supplied table beats everything we LEARN on the word-similarity channel.*
+> **6. 🚫 ANISOTROPY IS CLOSED, NOT OPEN** *-- `DO NOT REDO 27` already took mean pairwise cosine
+> `0.1427 -> -0.0004` for accuracy `0.6980 -> 0.6985`, and **a RANDOM rank-1 direction gives the SAME
+> `+0.0005`** -- perturbation, not decorrelation-that-helps. The revival `*` is for FULL-COVARIANCE
+> WHITENING, parked by sample size.*
+>
+> **7. THE HONEST TENSION:** *the supplied table beats everything we LEARN on the word-similarity channel.*
 > **Owner ruled supply ADMISSIBLE (08-16), so this is PRIORITISATION, not permission.**
+
 
 
 
