@@ -1,4 +1,4 @@
-# **DROPPING THE ~264 CONTEXT WORDS THAT APPEAR IN MORE THAN A FIFTH OF WORD-PROFILES RAISES THE LEARNED MEANING CHANNEL FROM `0.1071` TO `0.1558`. HELD-OUT GAIN `+0.0433`, CI `[+0.0002, +0.0994]`. THE FIRST THING TONIGHT THAT MAKES THE SUBSTRATE BETTER RATHER THAN EXPLAINING WHY IT IS NOT.**
+# ~~**DROPPING ~264 UBIQUITOUS CONTEXT WORDS IMPROVES THE LEARNED MEANING CHANNEL**~~ **-- WITHDRAWN. IN-SAMPLE `0.1071 -> 0.1558` IS REAL; THE HELD-OUT CLAIM IS NOT, AND AT THE SHIPPED `d=256` THERE IS NO EFFECT AT ALL.**
 
 **The counting result showed one standard weighting (idf) takes counting from below us to above us.
 This asks whether the substrate can have the same thing. It can, partly.**
@@ -57,10 +57,10 @@ the `+0.0487` above is optimistic by construction.***
 |---|---|
 | in-sample (fitted) gain | +0.0487 |
 | **HELD-OUT gain** | **+0.0433, 95% CI `[+0.0002, +0.0994]`** |
-| CI excludes zero | **yes -- but the lower bound is `0.0002`. Marginal, not comfortable.** |
+| CI excludes zero | 🔻 **NO -- THIS ROW IS WRONG. At 2,000 splits the bound is `-0.0117`. 200 resamples could not place it.** |
 | cutoff chosen | `>20%` in **184 of 200** splits |
 
-**The small shrinkage (`0.0487 -> 0.0433`) and the stable choice are what make this credible.**
+~~The small shrinkage and the stable choice are what make this credible.~~ **THEY DO NOT. The shrinkage and the stable cutoff are both real and neither speaks to whether the interval clears zero -- which it does not.**
 
 ## 3. 🎯 WHERE IT LEAVES US AGAINST THE REAL FLOOR
 
@@ -83,7 +83,7 @@ information-retrieval clothing; this is its hard form.*
 
 ## 5. ⚠️ LIMITS
 
-1. **The CI's lower bound is `0.0002`.** *Real at this n, and only just.*
+1. 🔻 **SUPERSEDED: the bound is `-0.0117` at 2,000 splits, and `-0.0629` at the shipped `d=256`.**
 2. **A HARD DROP, not a graded weight.** *Proper idf weighting is the obvious next form and is
    untested -- the encoder is NOT linear (`cos 0.729` for `cv(a)+cv(b)` vs `cv("a b")`), so a
    weighted sum is a DIFFERENT encoder and needs its own justification.*
@@ -121,7 +121,7 @@ None.
 
 1. **The graded form is the obvious next test** -- *a proper weight rather than a hard drop.* ⚠️ *The
    encoder is NOT linear, so a weighted sum is a different encoder and must be justified, not assumed.*
-2. **Re-run identification with the same filter** -- *it may help or hurt there; untested.*
+2. ✅ **DONE: identification `0.2057 -> 0.2160 -> 0.2169` -- FLAT, and unmoved by over-dropping where meaning COLLAPSES. That dissociation stands and is the part of this note that survives.**
 3. *Method note: **the in-sample number was `+0.0487` and the honest one is `+0.0433`.** The gap is
    small only because the chosen cutoff was stable; with a jumpy optimum it would have been the whole
    effect.*
