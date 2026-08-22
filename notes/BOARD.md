@@ -61,29 +61,28 @@ C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out
 🎯 **DOUBLE DISSOCIATION: each subset's MATCHED scramble degrades, the UNMATCHED one does not.**
 
 **WHAT IS RUNNING**
-- ✅ **Q112/OP1 FULLY CLOSED 08-22, DO NOT REOPEN: "238 overstated results" was a count of AUDIT
-  FLAGS (re-scan: 286), not overstatements** -- `INADMISSIBLE_COMPARISON` 207 (incommensurable
-  numbers), `UPHELD` 43, `NOT_SUPPORTED` 35 (marked in place, additive sidecar, no
-  `metrics.json`/registry touched), 1 self-declared. 13 of the 35 are already in the capability
-  registry. Tools self-tested. Full methodology: `notes/THE_238_OVERSTATED_RESULTS_WERE_NEVER_238_...md`.
-- 🏗️ **NEW OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS** -- this session keeps
-  the 10k view, writes problem briefs and integrates; a separate session solves one bounded problem
-  at a time. Built: `notes/problems/README.md`, `SOLVER_SESSION_PROMPT.md`, `tools/problem_ledger.py`
-  (self-test 7/7, refuses a `SOLVED.md` with no floor/controls), five briefs. Order:
-  `stored_terms_are_stems` -> `reader_meaning_channel` -> `flat_store_destroys_the_code` ->
-  `substrate_never_resumes` -> `eval_bank_too_small` (strategy session DISQUALIFIED from the last --
-  it has read the per-item predictions). Read-out discrimination MERGED into the reader; CLOZE stays
-  RETIRED. `notes/problems/`
-- ⬜ **NOTHING IS RUNNING** *(one background agent verifying the reader brief's numbers off disk
+- 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the
+  10k view, writes briefs and INTEGRATES; separate sessions solve one bounded problem at a time.
+  **TWELVE briefs now, not five. THE ORDER LIVES IN EACH `notes/problems/<slug>/PROBLEM.md`
+  FRONTMATTER (`priority:`), WHICH IS WHAT THE GUI RENDERS -- `README.md` describes the PROTOCOL and
+  does NOT hold the order. ENUMERATE (`ls notes/problems/`), NEVER MIRROR THE LIST** -- a mirrored
+  list is what went stale here and in the plan. **FIVE SOLVED:** `stored_terms_are_stems`,
+  `eval_bank_too_small`, `flat_store_destroys_the_code`, `harness_cannot_recompute`,
+  `cortical_read_has_no_scored_path` -- **all five REVIEWED, feedback at the TOP of each brief and a
+  grade in `review:`, per the owner's instruction.** Strategy session was DISQUALIFIED from
+  `eval_bank_too_small` (it had read the per-item predictions). `tools/problem_ledger.py`.
+- ⬜ **NOTHING IS RUNNING.** *No background agent, no queued cell, nothing awaiting integration.*
+- ✅ **INTEGRATION LANE, LANDED 08-22 (both solver hand-offs; solvers are barred from `hdlab/` by Q111):**
+  **SH-7 `HDI_FRESH_RUN=<tag>`** (`experiments/_seed_checkpoint.get_output_dir`) sends a cell to an EMPTY
+  sibling so a re-run genuinely RECOMPUTES -- no deletion, landed dir never opened for writing.
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T21:54:38Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T23:11:04Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 
 | ID | Question | What's blocked on it | My recommendation | ANSWER | status |
 |---|---|---|---|---|---|
-
-_No open questions. Nothing is waiting on you._
+| Q115 | When we finish an experiment, we save the results and can pick up where we left off if it crashes. The side effect is that re-running a finished experiment does not redo it -- it reads back the saved answer and prints the same result in about no time. So 'I re-ran it and got the same thing' currently proves nothing, which matters because that is how we would catch a result that was wrong. I built a switch that forces a genuine redo into a fresh folder, leaving the original untouched, and proved it works both ways: unchanged inputs give the same answer, a deliberately broken input correctly flips the result from pass to fail. The problem is reach. The switch only works for experiments that get their save location from one shared piece of code, and the share of new experiments using that shared piece has dropped from about nine in ten in June to under three in ten this month. So the switch reaches fewer experiments as time goes on, not more, and there are roughly 275 older ones it cannot reach either. Fixing each of those is one line. My question is whether to make using that shared piece a requirement for new experiments, so the hole stops growing. | Right now I can fix the backlog or not, but either way new experiments keep arriving unable to be double-checked, so the gap widens no matter what I do. This is a rule about how every experiment gets written from here on, which is not a call I should make quietly on my own. | Make it a requirement for new experiments, and leave the 275 older ones to be fixed one at a time as anyone actually needs to re-check them. New experiments are where the growth is; the backlog is a fixed, priced chore that is not getting worse. THE RISK OF DOING THIS, and it is real: it puts a small extra rule on every experiment anyone writes, and if the shared piece turns out not to fit some kind of experiment we have not thought of, that rule becomes an obstacle at exactly the wrong moment. A softer version is to warn rather than require, but I will say plainly that we have measured warnings getting ignored here before. Safety net either way: as of tonight, if anyone asks for a genuine redo on an experiment the switch cannot reach, the code now says so out loud instead of quietly overwriting the original results. |  | open |
 
 ## ANSWERED
 

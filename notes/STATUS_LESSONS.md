@@ -6554,3 +6554,22 @@ what STATUS keeps is a one-line stub pointing here.*
     rivals' partials go NEGATIVE. **Our keys sit AT the Welch bound, so "better keys" is closed by
     GEOMETRY; the two remaining levers are FEWER ITEMS and MORE DIMENSIONS.**
 
+
+
+## EVICTED FROM STATUS.md ON 2026-08-22 (second pass -- room for the reproducibility findings)
+
+*Both entries were CLOSED and both cite their notes. STATUS keeps a one-line stub.*
+
+- 🔑 **THE OOV-36 ORGAN IS NOT ANSWERING WRONG, IT IS NOT ANSWERING: 20 of 22 errors are
+  NON-ANSWERS; accuracy when it commits is 14/16 = 0.8750** -- coverage-limited, not
+  discrimination-limited. Known-answer arm (8 in-lexicon controls) reads 4/8 = CHANCE (n=8
+  INCONCLUSIVE, not negative). Chasing an `AMBIGUOUS` retraction found a real defect: it is an
+  ABSTENTION in 5 consumers but a WRONG ANSWER by omission in the landed cell (OOV-36 unaffected
+  today). Guard: `tools/score_with_abstention.py`, no signature returns a bare accuracy, 6/6.
+  `notes/THE_LANDED_CELL_SCORES_ABSTENTIONS_AS_ERRORS_BY_OMISSION_...md`.
+- 🚨 **THAT ORGAN'S LANDED `HARD_FAIL` IS STALE: measured where the cascade fired 0 of 36; re-read
+  from the same checkpoint today it fires 10 of 36 (9 correct).** Verdict unchanged (still far
+  below the 0.6389 floor), diagnosis changes. Re-landing needs a fresh cell run (`hdi_exp_dev`, not
+  done here). `notes/THE_ORGAN_DOES_NOT_ANSWER_WRONG_...md`,
+  `notes/THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...md`.
+

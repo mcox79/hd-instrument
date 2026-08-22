@@ -1,6 +1,6 @@
 # STATUS -- THE RECOVERY ENTRY POINT. READ THIS, THEN THE PLAN.
 
-AS OF: 2026-08-22, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | ✅ **BOARD: NOTHING OPEN.** Q113 (08-22): cell work + `hdi_*` spawns AUTHORIZED; the six `notes/problems/` briefs are the solver's, do not work them here. Q111 STANDING: testbed owns ALL integration, solvers never write `hdlab/`. Q110 STANDING: operational calls are mine, board is for owner-only decisions. Q102/106/107/108/109/112 ANSWERED/WITHDRAWN AND DISCHARGED (per STATUS_SPEC sec 3 tier 3 + the citation rule -- full text `notes/QUESTION_LOG.md`; Q109's credit-assignment investigation moved to `STATUS_LESSONS.md` "Q109 CREDIT ASSIGNMENT"). *Q103/104/108 share one pattern: filed before testing the constraint being complained about.*
+AS OF: 2026-08-22, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | ❓ **BOARD: Q115 OPEN (08-22)** -- should using the shared save-location helper be REQUIRED for new cells, so the un-reproducible pile stops growing. Q113 (08-22): cell work + `hdi_*` spawns AUTHORIZED; the `notes/problems/` briefs are the solver's, do not work them here. Q111 STANDING: testbed owns ALL integration, solvers never write `hdlab/`. Q110 STANDING: operational calls are mine, board is for owner-only decisions. Q102/106/107/108/109/112 ANSWERED/WITHDRAWN AND DISCHARGED (per STATUS_SPEC sec 3 tier 3 + the citation rule -- full text `notes/QUESTION_LOG.md`; Q109's credit-assignment investigation moved to `STATUS_LESSONS.md` "Q109 CREDIT ASSIGNMENT"). *Q103/104/108 share one pattern: filed before testing the constraint being complained about.*
    ✅ **CLOSED TODAY (08-22), one line each, full text on disk at the named note:** the grounding
    quality answer is `3/100 MEANINGFUL, 19 RELATED, 78 NOISE` blind, scramble_ratio 0.077, no
    correctness measure exists in the cell (`THE_GROUNDING_ANSWER_...`); best-evidenced grounding
@@ -183,6 +183,18 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   than on absence of evidence, which is a different claim.** *Also: `reproduction_check.unit_count`
   counted LINES not distinct units (`21` of `421` cells repeat a key, `0.65%` overstatement -- moves
   NO cell across the replay boundary), and `cite_check` now REPORTS files it could not read.*
+  🚨 **AND THE COVERAGE NUMBER IS NOT A STATIC FACT -- IT SHRINKS.** New primary cells routing
+  through the harness fell **`90.8%` (June) -> `47.3%` (July) -> `27.2%` (August)**, n=707-2,869/mo,
+  confound ruled out (variant siblings are n<=2/mo). **So clearing the 275-cell backlog while new
+  bare cells arrive does not close the gap; the leverage is at AUTHORING time** -> `Q115`.
+  🚫 **THE ONE-HOOK SHORTCUT IS REFUTED, DO NOT RE-PROPOSE:** redirecting inside
+  `exp_checkpoint.write_metrics` reaches **`85` of `1,584` bare cells (`5%`)** -- 849 write
+  `metrics.json` with a raw `json.dump`. *The units side IS shared (208 call `record_unit`), which
+  is what makes a units-only redirect tempting and WRONG: it would force a recompute and leave the
+  landed `metrics.json` to be overwritten.* ✅ **GUARDED AT RUNTIME INSTEAD (`3ff233548`):** ask for
+  a fresh run on a cell that cannot isolate and `completed_units`/`record_unit` now SAY SO rather
+  than silently overwriting. *Can only fire when the env var is set -- zero false positives by
+  construction, 3 of its 7 tests are SILENCE tests.* `THE_REPRODUCIBILITY_HOLE_IS_GROWING_...`
 - 🚨 **STALE-ARTIFACT DEFECT IN THE BLIND SHEET: drawn from `v2_qualityfix` while `v3/v4/v5` also
   exist unmarked -- `draw_representative_blind_sample.py` has no notion of a CURRENT foundation.**
   True stem rate (round-trip detector): sheet `10.4%`, v2q `7.9%`, `v5_termboundary` `0.4%` -- but
@@ -196,18 +208,7 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   as grounded vocabulary grows" prediction UNREACHABLE (cannot grow across runs; arithmetic, not
   tuning). NOT MEASURED: whether loading helps -- that is the next experiment.
   `notes/THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...md`.
-- 🔑 **THE OOV-36 ORGAN IS NOT ANSWERING WRONG, IT IS NOT ANSWERING: 20 of 22 errors are
-  NON-ANSWERS; accuracy when it commits is 14/16 = 0.8750** -- coverage-limited, not
-  discrimination-limited. Known-answer arm (8 in-lexicon controls) reads 4/8 = CHANCE (n=8
-  INCONCLUSIVE, not negative). Chasing an `AMBIGUOUS` retraction found a real defect: it is an
-  ABSTENTION in 5 consumers but a WRONG ANSWER by omission in the landed cell (OOV-36 unaffected
-  today). Guard: `tools/score_with_abstention.py`, no signature returns a bare accuracy, 6/6.
-  `notes/THE_LANDED_CELL_SCORES_ABSTENTIONS_AS_ERRORS_BY_OMISSION_...md`.
-- 🚨 **THAT ORGAN'S LANDED `HARD_FAIL` IS STALE: measured where the cascade fired 0 of 36; re-read
-  from the same checkpoint today it fires 10 of 36 (9 correct).** Verdict unchanged (still far
-  below the 0.6389 floor), diagnosis changes. Re-landing needs a fresh cell run (`hdi_exp_dev`, not
-  done here). `notes/THE_ORGAN_DOES_NOT_ANSWER_WRONG_...md`,
-  `notes/THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...md`.
+- ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-22 (search by name):** the OOV-36 organ is  COVERAGE-limited, not discrimination-limited (`20` of `22` errors are NON-answers; `14/16 = 0.8750`  when it commits), and its landed `HARD_FAIL` is STALE -- measured where the cascade fired `0 of 36`,  re-read today it fires `10 of 36`. **Verdict unchanged, diagnosis changed.** Guard:  `tools/score_with_abstention.py`, 6/6. `THE_ORGAN_DOES_NOT_ANSWER_WRONG_...`,  `THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...`
 - 📏 **SPLIT DONE 08-22 (testbed maintenance pass): was `55,070` B, 1.92x the `28,672` B cap.**
   Never-trim material moved to `STATUS_LESSONS.md` with stubs; closed-item detail compressed to
   citations already on disk. Next time it fills: evict to LESSONS, don't shave. `STATUS_SPEC.md`
