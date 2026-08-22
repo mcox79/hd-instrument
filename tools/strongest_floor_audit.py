@@ -210,6 +210,25 @@ def main() -> int:
     # ROWS SCANNED BEFORE RESULTS, always -- silence must never read as absence.
     print(f"[floors] scanned {n_files} metrics.json files under data/")
     print(f"[floors] {len(hits)} cell(s) flagged")
+    # THE FLAG COUNT IS NOT A DEFECT COUNT, AND PRINTING IT ALONE IS HOW THAT WAS FORGOTTEN.
+    # On 2026-08-22 this number ("238") became a standing operator item asserting that many
+    # results overstated their claim. Re-adjudicated: 72.4% of flags compare two numbers this
+    # project's own rule forbids comparing. The caution at the BOTTOM of this output said so all
+    # along -- it just arrived 20 lines after the number, and only the number travelled.
+    # So the decomposition is printed HERE, beside the count it qualifies.
+    try:
+        from tools.adjudicate_floor_flags import adjudicate      # late: it imports scan() from us
+        d = {}
+        for h in hits:
+            k = adjudicate(h)["disposition"]
+            d[k] = d.get(k, 0) + 1
+        n = max(1, len(hits))
+        print("[floors] OF THOSE FLAGS -- a flag is not a defect:")
+        for k in sorted(d, key=lambda x: -d[x]):
+            print(f"    {k:24s} {d[k]:4d}  ({100 * d[k] / n:.1f}%)")
+        print("    (INADMISSIBLE_COMPARISON = the two numbers may not be compared at all.)")
+    except Exception as e:                                       # never let this break the audit
+        print(f"[floors] (adjudication unavailable: {e})")
     by = {}
     for h in hits:
         for f in h["flags"]:

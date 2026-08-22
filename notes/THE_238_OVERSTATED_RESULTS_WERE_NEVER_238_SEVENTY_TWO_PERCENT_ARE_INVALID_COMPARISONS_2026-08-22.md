@@ -104,12 +104,30 @@ standard exists to prevent.
 
 None. OP1 is answered.
 
-## NEXT STEPS
+## NEXT STEPS -- **ALL THREE DONE, SAME DAY. RECORDED HERE SO THE ITEM DOES NOT REOPEN.**
 
-1. **Mark the 35 in place** so nothing quotes them unknowingly -- and mark them as CANDIDATES with
-   their margin, not as settled overstatements.
-2. **Fix the 43 in text** -- they quote a weaker floor than they hold. Cheap, and it removes the
-   flag entirely.
-3. 🚫 **Never again read a flag count as a defect count.** The audit prints "A READ LIST, NOT A
-   VERDICT" on every run; that line is now enforced by `adjudicate_floor_flags.py` rather than
-   trusted to whoever reads it.
+1. ✅ **The 35 are marked in place.** `tools/mark_floor_flag_candidates.py --apply` wrote a
+   `FLOOR_FLAG_CANDIDATE.md` sidecar into each of the 35 cell directories -- **additive and
+   reversible; no `metrics.json` was edited and no registry row was touched.** Each states the
+   margin, both keys and both values, that **it is a candidate and the result is NOT withdrawn**,
+   and how to discharge it. Verified 35 on disk, with a positive control (two marked cells) and a
+   negative control (an UPHELD cell is NOT marked).
+   *Its self-test asserts the WORDING, because the wording is the artifact -- and its negative
+   control caught me twice: first I tried to exempt the one string that tripped it, which is a
+   checker sharing a flaw with what it checks; then the note's own FILENAME tripped it, since the
+   filename contains the word. The assertion is now scoped to the claim body, with a guard that the
+   body is non-empty so it cannot pass vacuously.*
+
+2. 🔻 **The 43 are deliberately NOT being edited, and that is the finding.** They already beat
+   their strongest floor -- **nothing they claim is wrong**, they merely cited a weaker floor in
+   prose. **43 hand-edits to write-ups buys no correctness**, and every one is a chance to
+   introduce the transcription error this whole item was about. **They are cleared by being
+   ADJUDICATED, not by being rewritten.** *If a specific one of the 43 is ever quoted as
+   load-bearing, fix that one then.*
+
+3. ✅ **The audit can no longer emit the bare number that started this.**
+   `strongest_floor_audit.py` now prints the four-way decomposition **immediately beside the flag
+   count**, not 20 lines below it. **The caution was always in its output -- at the BOTTOM -- and
+   only the number travelled.** *That is the "print quantities that CONSTRAIN EACH OTHER" rule
+   applied to the tool rather than to the reader, and it is the fifth time a prose caution here has
+   been fixed by moving it into a code path.*

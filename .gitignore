@@ -52,6 +52,10 @@ data/*
 !data/*/
 data/*/**
 !data/*/metrics.json
+# Adjudication sidecars (tools/mark_floor_flag_candidates.py). Tracked for the same reason
+# metrics.json is: a marker that dies on a checkout is a marker that does not durably exist,
+# and these are the only record that a cell's own floor beats its own treatment. ~1.5 KB each.
+!data/*/FLOOR_FLAG_CANDIDATE.md
 !data/*/results.json
 !data/*/provenance.json
 !data/*/verdict.json

@@ -120,8 +120,24 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   ✅ **`tools/adjudicate_floor_flags.py`, self-test 7/7, imports the audit's own `scan()`; 2 positive
   controls + 1 negative control so it can neither excuse everything nor flag everything.**
   `THE_238_OVERSTATED_RESULTS_WERE_NEVER_238_...`
-- 🔴 ~~RESUME HERE -- Q112 / OP1: RE-ADJUDICATE THE 238~~ **DONE, see above. Remaining: mark the 35
-  in place as CANDIDATES with their margins, and fix the 43 in text.**
+- ✅ ~~RESUME HERE -- Q112 / OP1: RE-ADJUDICATE THE 238~~ **FULLY CLOSED 08-22, ALL THREE FOLLOW-UPS
+  DONE. DO NOT REOPEN.** (1) **The 35 ARE MARKED IN PLACE** -- `tools/mark_floor_flag_candidates.py
+  --apply` wrote a `FLOOR_FLAG_CANDIDATE.md` sidecar into each cell dir, **additive and reversible;
+  NO `metrics.json` edited, NO registry row touched** (that write has a documented lost-update race).
+  Verified 35 on disk + positive control (2 marked) + negative control (an UPHELD cell is NOT
+  marked). Each says **it is a CANDIDATE and the result is NOT withdrawn**, and how to discharge it.
+  (2) 🔻 **THE 43 ARE DELIBERATELY NOT EDITED, and that is the call: they already BEAT their
+  strongest floor, so nothing they claim is wrong** -- 43 hand-edits buy no correctness and each is
+  a fresh chance to mis-transcribe a number. **Cleared by ADJUDICATION, not by rewriting.**
+  (3) ✅ **`strongest_floor_audit.py` NOW PRINTS THE 4-WAY DECOMPOSITION BESIDE THE FLAG COUNT**, not
+  20 lines below it -- **the caution was always in its output, at the bottom, and only the number
+  travelled.** The bare scare number is no longer emittable. *Fifth time a prose caution here was
+  fixed by moving it into a code path.*
+  🔻 *Its self-test asserts the marker's WORDING. The negative control caught me TWICE: I first
+  exempted the one string that tripped it (a checker sharing a flaw with what it checks), then the
+  note's own FILENAME tripped it. Now scoped to the claim body, with a non-vacuity guard.*
+  ⚠️ **13 of the 35 are NAMED in `data/capability_registry.jsonl`** -- so OP1's "they have already
+  spread" was REAL but about a THIRD the size implied. **Enumerated, not assumed.**
 - 🗄️ **(superseded detail from the pre-compaction note)** **CURRENT WORK = Q112 / OP1: RE-ADJUDICATE THE 238 OVERSTATED RESULTS.**
   **OWNER RULING, VERBATIM: *"re adjudicate them I think - you can do it fast, and then put this
   behind us."*** *My own earlier recommendation was "mark them all, re-adjudicating is weeks" --
