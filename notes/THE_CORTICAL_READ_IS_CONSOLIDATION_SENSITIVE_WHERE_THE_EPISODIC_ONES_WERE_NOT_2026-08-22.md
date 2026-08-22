@@ -48,6 +48,33 @@ probe 'king'    base: lynde 0.085 | meet 0.051 | little 0.044   ablated: swim 0.
   (does it respond at all), which is what 8/8 with a clean control can carry; nothing quantitative
   should be read off it.
 
+## 🔻 **FOLLOW-UP: IT IS SENSITIVE BUT NOT DETECTABLY *SELECTIVE* -- AND THE INSTRUMENT MAY BE THE PROBLEM**
+
+The section above flagged that the returned terms *look* unrelated. **That is measurable with a
+yardstick the substrate never sees (WordNet Wu-Palmer), against the correct floor: a RANDOM term
+drawn from the SAME consolidated pool** -- not random English, which would be a strawman.
+
+| arm (12 probes, 800 sentences, top-5) | mean | median | n |
+|---|---|---|---|
+| `recall_cortical` terms vs the target | `0.3829` | `0.3333` | 53 |
+| **RANDOM term from the same pool -- THE FLOOR** | `0.3737` | `0.3333` | 56 |
+| | **`+0.0092`** | **identical** | |
+
+*Yardstick control: `wup(dog,cat) = 0.857` vs `wup(dog,democracy) = 0.154`, so the measure does
+discriminate.*
+
+> ### **THE INFORMATION-FREE TWIN TIES THE REAL ARM. On this instrument the cortical read shows NO detectable semantic selectivity -- it responds to consolidation, but WHICH terms it returns is not distinguishable from drawing from the pool at random.**
+
+⚠️ **AND I AM NOT CALLING THAT A NULL, FOR A SPECIFIC REASON: BOTH MEDIANS ARE EXACTLY `0.3333`.**
+That is the signature of WordNet's taxonomy structure dominating the measure rather than of two arms
+genuinely tying -- **a blunt instrument, not necessarily an empty arm.** *Reading an underpowered or
+blunt null as a capability statement is this project's most expensive recorded error.*
+
+**So the honest statement is narrow: the cheapest available check does NOT show selectivity, on
+`n=53` vs `56`, with a 26-term pool, one seed, and a yardstick whose own floor may be doing the
+work.** ➡️ **What a better test needs: a larger consolidated pool, a similarity measure without a
+structural floor, and probes whose correct answers are known in advance.**
+
 ## ➡️ WHAT IT CHANGES
 
 **B3' moves from *"no evidence it does anything"* to *"demonstrably the consolidation-sensitive

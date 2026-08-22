@@ -11,7 +11,7 @@
 > **`python tools/slot_status.py` (NEW, the SIXTH prior-work read; `substrate.py`'s slot table was searched by NOTHING in `tools/` or `verification/`).** Table is **28 slots: `9` FILLED, `8` NEEDS_ADAPTER, `8` EMPTY, `3` EXCLUDED** -- *four states needing different work; never collapse them into one "not done" count.*
 > | slot | organ | what actually blocks it |
 > |---|---|---|
-> | **B3'** | `cortical_recall` | 🟢 **already CALLED by `Substrate.recall_cortical` -- only NO SCORED PATH.** Cheapest real target, and scoring is in-lane |
+> | **B3'** | `cortical_recall` | 🟢 **already CALLED; only NO SCORED PATH.** ✅ **08-22: it IS the consolidation-sensitive route -- ablating consolidation CHANGED the read on `8/8` probes, against a positive control where the same config twice is IDENTICAL `8/8`.** *The episodic routes were unchanged in 9 of 12 cells; that contrast is B3's whole reason to exist and is now demonstrated.* 🚫 **SENSITIVITY != CORRECTNESS -- the returned terms look unrelated (`water` -> `lory`/`lynde`/`swim`); no task, no floor, no CI.** `THE_CORTICAL_READ_IS_CONSOLIDATION_SENSITIVE_...` |
 > | **Q3** | `cortex` | 🟢 has a written recipe: *"wire with `atom_consultation` OFF"* |
 > | B5 | `sensorimotor_spoke` | combination rule **UNPINNED** -> a DESIGN decision, our-invention-under-test |
 > | E2 | `situation_reader` | input SHAPE mismatch (reads a FILE, not the sentence stream) + 30 s import |
