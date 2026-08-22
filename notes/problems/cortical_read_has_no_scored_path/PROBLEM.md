@@ -1,5 +1,5 @@
 ---
-priority: 6
+priority:
 review: EXCELLENT
 review_text: Refuted my brief with evidence, found a 100% leak in the only prior scoring, and refused to over-claim.
 ---

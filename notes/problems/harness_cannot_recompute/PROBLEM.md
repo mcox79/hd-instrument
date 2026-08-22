@@ -1,5 +1,5 @@
 ---
-priority: 8
+priority:
 review: EXCELLENT
 review_text: Built the switch, proved a re-run can FAIL, and found a real bug in my own detector.
 ---
