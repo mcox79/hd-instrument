@@ -60,25 +60,17 @@
 > 🚨 **THIS PLAN HAD DRIFTED: it cited `PLAN_B_grounding_..._2026-08-07` -- a USER-CONFIRMED PLAN OF
 > RECORD -- ZERO TIMES (grep), named none of its proven components, and did not carry its bottleneck.**
 >
-> **1. 🟢 Q102 ANSWERED; ITS CONDITION IS MET AND THE WIRING'S SHAPE IS NOW FIXED.** *Owner: "connect it
-> only after it is doing the job required of it... as according to the brain (which may have other
-> supporting parts, right?)".*
-> ✅ **BRAIN BAR (VWFA = INVARIANCE): case `1.0000` on 4/4, position `1.0000`, inflection GRADED
-> `0.31-0.51`, unrelated `0.025-0.077`. Organ self-test reproduces, incl. `cos(entombment,burial)=-0.023`
-> -- synonyms spelled differently at ~zero, which is why it CANNOT inflate meaning.** ✅ **TASK BAR:
-> `ORGAN_MAP` A1 form `0.0870` vs live `0.0480`, CI-separated (spelling-shortcut caveat).**
-> 🔑 **AND THE LIVE IDENTITY CODE FAILS THE SAME TEST COMPLETELY: `symbol_vector` is a sha256 random draw
-> -- CASE INVARIANCE `-0.0026` vs the organ's `+1.0000`, INFLECTION `+0.0208` vs `+0.4727`, and BOTH ~0 on
-> unrelated, so the form code ADDS invariance WITHOUT false similarity.** ***We are using a demonstrably
-> worse identity code than the one sitting unused.***
-> 🚨 **BLAST RADIUS FIXED THE DESIGN: `symbol_vector` also encodes RELATION labels (`REL:^nmod` -- form
-> similarity there is NOISE), has a 2nd live consumer, and its codes land in ACCUMULATED STORES, so a swap
-> REWRITES EVERY PERSISTED CODE.** ➡️ **WIRING IS ADDITIVE: a form-identity accessor ALONGSIDE, never a
-> replacement.** ✅ **THREE INDEPENDENT ARGUMENTS AGREE: the brain (VWFA FEEDS lexical access), the
-> empirical HARD_FAIL (late-combine `0.2000` < form-alone `0.2533`), and store compatibility.**
-> ⚠️ **WATCH CONDITION UNCHANGED: a better INDEX is not better UNDERSTANDING -- the tell is recognition
-> rising while meaning stays flat.** ⚠️ *8 pairs; NOT a downstream gain; edit NOT made.*
-> `Q102_ANSWERED_...` `THE_LIVE_IDENTITY_CODE_FAILS_...`
+> **1. 🟢 Q102 ANSWERED, CONDITION MET, AND NOW WIRED.** *Owner: "connect it only after it is doing the
+> job required of it... as according to the brain (which may have other supporting parts, right?)".*
+> ✅ **BRAIN BAR (VWFA = INVARIANCE): case `1.0000`, position `1.0000`, inflection GRADED `0.31-0.51`,
+> unrelated `0.025-0.077`; `cos(entombment,burial)=-0.023` -- synonyms spelled differently at ~zero, which
+> is why it CANNOT inflate meaning.** ✅ **TASK BAR: `ORGAN_MAP` A1 `0.0870` vs live `0.0480`, CI-separated.**
+> 🔑 **THE LIVE IDENTITY CODE FAILS THAT SAME TEST: `symbol_vector` is a sha256 random draw -- case
+> invariance `-0.0026` vs `+1.0000`, inflection `+0.0208` vs `+0.4727`, BOTH ~0 on unrelated. We were using
+> a demonstrably worse identity code than the one sitting unused.**
+> 🚨 **BLAST RADIUS FIXED THE DESIGN (additive, not a swap): `symbol_vector` also encodes RELATION labels,
+> has a 2nd live consumer, and its codes land in ACCUMULATED STORES.** ✅ **THREE INDEPENDENT ARGUMENTS
+> AGREE: brain (VWFA FEEDS lexical access), empirical (late-combine `0.2000` < form-alone `0.2533`), stores.**
 > 🟢 **WIRED 2026-08-22 -- `form_identity_vector()` IS NOW ON THE LIVE PATH, ADDITIVELY.**
 > *`hdlab/reading_grounding_loop.py`: a VWFA-backed FORM code for WORDS, cached, BESIDE `symbol_vector`.*
 > ✅ **WITNESS `verification/test_form_identity_channel_is_additive_and_invariant.py` -- 6/6 PASS**,
