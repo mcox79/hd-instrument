@@ -1,4 +1,10 @@
-> # 5️⃣ **PRIORITY 5 of 5 -- AN ENABLER, AND IT MATTERS MOST ONCE FIXES START LANDING.**
+---
+priority: 8
+review: 
+review_text: 
+---
+
+> # 5️⃣ **PRIORITY 8 of 8 -- AN ENABLER, AND IT MATTERS MOST ONCE FIXES START LANDING.**
 > *(ranked 2026-08-22)*
 > **`399` of `7,868` landed cells (`5.1%`) replay their checkpoints on re-run: same verdict, same
 > numbers, `elapsed 0.0s`, no work done. A landed cell cannot currently be falsified by re-running

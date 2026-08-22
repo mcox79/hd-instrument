@@ -70,6 +70,52 @@ def parse_frontmatter(text):
 OWNER_VERDICTS = ("", "DONE", "MORE_NEEDED", "PARKED")
 _OWNER_FILE = "OWNER_NOTES.md"
 
+# --- WHAT THE STRATEGY SESSION PUTS IN `PROBLEM.md`'s OWN FRONTMATTER ------------------------
+# Owner, 2026-08-22, twice: "I also want a priority for what problems to tackle first, on the
+# problem page", and "after you review the submissions, I want the beginning of the problem
+# description to give your feedback. how well did the solver do?"
+#
+# BOTH WERE FIRST WRITTEN AS PROSE AT THE TOP OF `PROBLEM.md` AND THE OWNER SAW NEITHER. The GUI
+# never opens that file's body: `scan()` only ever read `SOLVED.md`, and the single read of
+# `PROBLEM.md` anywhere on the GUI path is `kickoff_prompt`, which takes the first line starting
+# with "# " and breaks. The prose blocks were blockquotes ("> # ..."), so even that filter skipped
+# them. A DOC PARSED BY CODE IS COUPLED TO IT -- so the machine-readable half lives in frontmatter,
+# and the prose stays for the solver session (which DOES get the whole body, via session_start_hook).
+PRIORITY_MIN = 1
+REVIEW_GRADES = ("", "EXCELLENT", "STRONG", "ADEQUATE", "WEAK")
+_BRIEF_FILE = "PROBLEM.md"
+
+
+def parse_brief_meta(path):
+    """(priority:int|None, review:str, review_text:str, error:str|None) from PROBLEM.md frontmatter.
+
+    Deliberately TOLERANT: a brief with no frontmatter is not an error. These fields are the
+    strategy session's own annotations, not a solver contract -- unlike SOLVED.md's REQUIRED, a
+    missing priority must never make a brief read as MALFORMED.
+    """
+    try:
+        with open(path, "r", encoding="utf-8", errors="replace") as f:
+            text = f.read()
+    except OSError as e:                                   # noqa: BLE001
+        return None, "", "", "unreadable: %s" % e
+    fields, ferr = parse_frontmatter_loose(text)
+    if ferr:                                               # no fence at all == not annotated yet
+        return None, "", "", None
+    pri, err = None, None
+    raw = (fields.get("priority") or "").strip()
+    if raw:
+        try:
+            pri = int(raw)
+            if pri < PRIORITY_MIN:
+                pri, err = None, "priority=%r is below %d" % (raw, PRIORITY_MIN)
+        except ValueError:
+            err = "priority=%r is not an integer" % raw
+    review = (fields.get("review") or "").strip().upper()
+    if review and review not in REVIEW_GRADES:
+        err = err or "review=%r is not one of %s" % (review, [g for g in REVIEW_GRADES if g])
+        review = ""
+    return pri, review, (fields.get("review_text") or "").strip(), err
+
 
 def kickoff_prompt(slug, problems_dir=PROBLEMS_DIR):
     """The COMPLETE paste-able prompt that starts a solver session on `slug`.
@@ -203,9 +249,17 @@ def scan(problems_dir=PROBLEMS_DIR):
         has_brief = os.path.exists(os.path.join(d, "PROBLEM.md"))
         solved_path = os.path.join(d, "SOLVED.md")
         row = {"slug": slug, "brief": has_brief, "state": "OPEN",
-               "error": None, "fields": {}, "integrated": False}
+               "error": None, "fields": {}, "integrated": False,
+               "priority": None, "review": "", "review_text": "", "meta_error": None}
         if not has_brief:
             row["state"], row["error"] = "NO_BRIEF", "folder has no PROBLEM.md"
+        else:
+            # The strategy session's own annotations. A bad value is reported via meta_error and
+            # NEVER promoted to state=MALFORMED -- that word is reserved for a SOLVED.md claiming
+            # a result without evidence, and blurring the two would make a typo in my priority
+            # look like a solver submitting an unsupported claim.
+            (row["priority"], row["review"],
+             row["review_text"], row["meta_error"]) = parse_brief_meta(os.path.join(d, _BRIEF_FILE))
         if os.path.exists(solved_path):
             with open(solved_path, "r", encoding="utf-8") as f:
                 text = f.read()
@@ -328,6 +382,48 @@ def self_test():
         # The owner's note must NOT move the problem's own state machine.
         assert scan(td)[0]["state"] == "OPEN", "an owner note changed the problem state"
         print("[self-test] PASS an owner note does NOT change the problem's own state")
+
+        # --- PROBLEM.md frontmatter: priority + my rating of the solver ----------------------
+        # These drive the GUI's "#" and "MY RATING" columns. Both directions are checked because
+        # a validator nobody has seen FIRE is a validator nobody has tested.
+        import os as _os
+        slugdir = _os.path.join(td, _os.listdir(td)[0])
+        brief = _os.path.join(slugdir, "PROBLEM.md")
+
+        def _write_brief(fm):
+            with open(brief, "w", encoding="utf-8") as fh:
+                fh.write(fm + "\n# PROBLEM: a title line the kickoff prompt must still find\n")
+
+        _write_brief("---\npriority: 2\nreview: STRONG\nreview_text: did well\n---\n")
+        pri, rev, txt, err = parse_brief_meta(brief)
+        assert (pri, rev, txt, err) == (2, "STRONG", "did well", None), (pri, rev, txt, err)
+        print("[self-test] PASS a well-formed brief yields priority + review")
+
+        # POSITIVE CONTROL on the validator: a non-integer priority must be REPORTED, not ignored.
+        _write_brief("---\npriority: soon\n---\n")
+        pri, _rev, _txt, err = parse_brief_meta(brief)
+        assert pri is None and err and "not an integer" in err, (pri, err)
+        print("[self-test] PASS a non-integer priority is caught and named")
+
+        # ...and an unknown grade must not silently become a rating.
+        _write_brief("---\nreview: BRILLIANT\n---\n")
+        _pri, rev, _txt, err = parse_brief_meta(brief)
+        assert rev == "" and err, (rev, err)
+        print("[self-test] PASS an unknown review grade is refused")
+
+        # NEGATIVE CONTROL: a brief with NO frontmatter is not an error. Most briefs start that
+        # way, and treating "unannotated" as "malformed" would flag the whole folder.
+        _write_brief("")
+        pri, rev, txt, err = parse_brief_meta(brief)
+        assert (pri, rev, txt, err) == (None, "", "", None), (pri, rev, txt, err)
+        print("[self-test] PASS an un-annotated brief is NOT an error")
+
+        # And a bad annotation must never be promoted to state=MALFORMED -- that word is reserved
+        # for a SOLVED.md claiming a result without evidence.
+        _write_brief("---\npriority: soon\n---\n")
+        row = scan(td)[0]
+        assert row["state"] == "OPEN" and row["meta_error"], row
+        print("[self-test] PASS a bad priority reports meta_error, NOT state=MALFORMED")
 
     print("[self-test] RESULT: PASS")
     return 0

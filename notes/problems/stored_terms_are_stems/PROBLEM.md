@@ -1,3 +1,9 @@
+---
+priority: 
+review: STRONG
+review_text: Told to fix a defect, found it had already been repaired, and reported that instead. Their own detector caught its own false positive.
+---
+
 > # ✅ **SOLVER REVIEW: STRONG. ACCEPTED AS `PARTIAL`, AND THE `PARTIAL` IS TO THEIR CREDIT.**
 > *(strategy session, 2026-08-22)*
 >

@@ -116,6 +116,39 @@ def test_frontmatter_parser_rejects_near_misses():
     assert err and "key: value" in err
 
 
+def test_every_open_problem_is_ranked():
+    """The owner reads the problems tab to decide what to do next; an unranked row is a row that
+    cannot be acted on.
+
+    Owner, 2026-08-22: *"I also want a priority for what problems to tackle first, on the problem
+    page"*. The priority lives in `PROBLEM.md` frontmatter because that is what
+    `problem_ledger.scan()` reads and the GUI renders -- prose at the top of the brief was written
+    first, and the owner saw none of it.
+    """
+    unranked = [r["slug"] for r in scan()
+                if r["state"] == "OPEN" and r.get("priority") is None]
+    assert not unranked, ("open problem(s) with no priority in PROBLEM.md frontmatter: "
+                          + ", ".join(unranked))
+
+
+def test_priorities_are_unique_and_the_ranking_is_readable():
+    """Two problems sharing rank 3 is not a ranking. Also fails if the parse silently returns
+    nothing, which would make the test above pass VACUOUSLY."""
+    ranked = [(r["priority"], r["slug"]) for r in scan() if r.get("priority") is not None]
+    assert len(ranked) >= 3, ("only %d ranked problems found -- if the frontmatter parse broke, "
+                              "the unranked test above would pass on an empty set" % len(ranked))
+    pris = [p for p, _ in ranked]
+    dupes = {p for p in pris if pris.count(p) > 1}
+    assert not dupes, "duplicate priorities %s in %s" % (sorted(dupes), sorted(ranked))
+
+
+def test_no_brief_carries_a_broken_annotation():
+    """A malformed priority must be reported, never silently dropped -- otherwise a typo removes a
+    problem from the ranking and nothing says so."""
+    bad = [(r["slug"], r["meta_error"]) for r in scan() if r.get("meta_error")]
+    assert not bad, "brief frontmatter error(s): " + "; ".join("%s: %s" % b for b in bad)
+
+
 if __name__ == "__main__":
     test_no_solved_flag_is_malformed()
     print("[CHECK flags] no malformed SOLVED.md")

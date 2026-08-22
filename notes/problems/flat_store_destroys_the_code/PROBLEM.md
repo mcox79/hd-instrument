@@ -1,4 +1,10 @@
-> # 🥇 **PRIORITY 1 of 5 -- DO THIS FIRST.** *(ranked by the strategy session, 2026-08-22)*
+---
+priority: 1
+review: 
+review_text: 
+---
+
+> # 🥇 **PRIORITY 1 of 8 -- DO THIS FIRST.** *(ranked by the strategy session, 2026-08-22)*
 > **IT IS UPSTREAM OF EVERY OTHER PROBLEM HERE.** If the store destroys per-item information, then
 > improving what goes INTO it -- better coverage, better meaning, better persistence -- improves what
 > is destroyed. **Every other brief on this list is downstream of this one.**

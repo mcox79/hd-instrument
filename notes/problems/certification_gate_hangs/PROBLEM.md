@@ -1,3 +1,39 @@
+---
+priority: 5
+review: 
+review_text: 
+---
+
+> # ⚠️ **VERIFY THE PREMISE FIRST -- I HAVE EVIDENCE THIS MAY NOT BE A HANG AT ALL.**
+> *(strategy session, 2026-08-22, added while ranking this brief)*
+>
+> **The report that opened this problem said pytest "stalled" -- CPU flat at `371.4s -> 371.5s` for
+> 11+ minutes -- and it was killed after ~20 minutes having reached 33 collected items.** Before
+> treating that as a hang, check these, because they point the other way:
+>
+> - ✅ **COLLECTION COMPLETES CLEANLY: `482` tests collected in `34.7s`, exit `0`.** Whatever is
+>   slow, it is not discovery.
+> - 🔑 **`PER_WITNESS_TIMEOUT_S = 600` (`verification/test_all_witnesses_exit_clean.py:84`),
+>   and that file's own comment records TWO witnesses legitimately taking `~94s` and `~151s`** -- a
+>   120s cap had produced FALSE timeouts before. **With ~32 witnesses run as SUBPROCESSES, tens of
+>   minutes is the expected duration, not a symptom.**
+> - 🔻 **ITEM 33 SITS MID-WAY THROUGH THE WITNESS PARAMETRISATION**
+>   (`test_witness_exits_clean[...]`), so the run was moving through slow subprocess witnesses in
+>   order -- consistent with progress, not with a stall.
+> - 🚨 **AND "PARENT CPU IS FLAT" IS THIS REPO'S OWN DOCUMENTED FALSE ALARM.** `CLAUDE.md`:
+>   *"the recorded PID showed CPU 0 s and a 4 MB working set, while its child held 1,052 MB and was
+>   doing all the work... This fooled the Director twice in one session."* **A parent waiting on
+>   `subprocess.run` looks exactly like a hung process.**
+>
+> ➡️ **SO THE FIRST JOB HERE IS NOT A FIX, IT IS A MEASUREMENT: run the suite to completion
+> ONCE, with a wall-clock number per witness, and find out whether anything actually hangs.** *If it
+> merely takes 40 minutes, this problem is "the mandatory gate is too slow to run in a loop" -- a
+> real and different problem, with a different fix (parallelism, or a fast subset for the loop and
+> the full suite at land time).*
+> ⚠️ **I did NOT complete that measurement myself** -- I was mid-investigation when this was
+> filed. **Nothing above proves the gate is healthy; it argues the KILL was premature and the
+> diagnosis is unconfirmed.**
+
 # PROBLEM: THE MANDATORY CERTIFICATION GATE HANGS, SO NOTHING CAN BE CERTIFIED
 
 **slug:** `certification_gate_hangs` · **opened:** 2026-08-22 by the strategy session

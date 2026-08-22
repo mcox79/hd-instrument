@@ -31,16 +31,45 @@ the brief.*
 
 ## 🔢 **PRIORITY -- OWNER INSTRUCTION 2026-08-22: *"I also want a priority for what problems to tackle first, on the problem page"***
 
+> ## 🚨 **THE RANK AND THE RATING LIVE IN `PROBLEM.md`'s FRONTMATTER. PROSE AT THE TOP OF THE BRIEF IS NOT ENOUGH -- IT WAS TRIED AND THE OWNER SAW NOTHING.**
+> **Both instructions were first answered by prepending markdown blocks to `PROBLEM.md`. The owner
+> reported seeing neither, and the cause is structural: NOTHING ON THE GUI PATH OPENS THAT FILE'S
+> BODY.** `problem_ledger.scan()` only ever read `SOLVED.md`; the single read of `PROBLEM.md`
+> anywhere is `kickoff_prompt`, which takes the first line starting with `# ` and breaks -- and the
+> blocks were BLOCKQUOTES (`> # ...`), so even that filter skipped them.
+>
+> ```
+> ---
+> priority: 2          # integer, 1 = do this first. Open problems MUST have one (cert-enforced).
+> review:              # EXCELLENT | STRONG | ADEQUATE | WEAK -- my rating, set at integration
+> review_text:         # one line; the full review stays as prose below
+> ---
+> ```
+>
+> **A DOC PARSED BY CODE IS COUPLED TO IT:** `tools/problem_ledger.py` `parse_brief_meta()` reads
+> these; `tools/status_gui.py` renders them as the `#` and `MY RATING` columns and sorts the table by
+> rank. **Change the key names in one place and you must change the other in the same commit.**
+> ✅ *Enforced by `verification/test_problem_briefs_and_flags.py`: every OPEN problem carries an
+> integer priority, priorities are unique, and no brief carries a broken annotation. The uniqueness
+> test also fails if the parse silently returns nothing, so the ranking test cannot pass vacuously.*
+> 📝 **THE PROSE BLOCKS STAY.** They are what a SOLVER session reads -- `session_start_hook.py`
+> injects the whole brief body. Frontmatter is for the owner's window; prose is for the solver.
+
 **Every open `PROBLEM.md` now OPENS with its rank and the reason for it.** The current order, and it
-is ranked by **WHAT BLOCKS WHAT**, not by how interesting the question is:
+is ranked by **WHAT BLOCKS WHAT** and **WHAT IT COSTS** -- not by how interesting the question is.
+*A ten-minute fix that corrects a live measurement error outranks a large job that is merely
+important, which is why `score_counts_abstention_as_error` sits third.*
 
 | | problem | why here |
 |---|---|---|
-| 🥇 **1** | `flat_store_destroys_the_code` | **UPSTREAM OF EVERYTHING.** If the store destroys per-item information, better coverage/meaning/persistence all improve what is destroyed. **And the replacement store already exists, proven, called by nothing** -- a wiring job |
-| 🥈 **2** | `substrate_never_resumes` | **Nothing survives the run that learned it, so no result compounds.** Also a wiring job: the persistence organ passes `9/9` at HEAD. Compounds with the read cap (~1,000 sentences per call) |
-| 🥉 **3** | `reader_meaning_channel` | **The actual goal**, ranked third only because 1 and 2 are upstream and far more bounded. **Now owns the blocker the others depend on: `read()` never consults the meaning asset at all** |
-| **4** | `lookup_does_not_lemmatise` | Cheapest and largest (`+13.2` points, one line) **but NOT MEASURABLE until 3's adapter exists** -- nothing calls the lookup during reading |
-| **5** | `harness_cannot_recompute` | An ENABLER: it improves our ability to CHECK, not the system. **Its value rises the moment 1-3 start producing changes that need verifying** |
+| **1** | `flat_store_destroys_the_code` | **UPSTREAM OF EVERYTHING.** If the store destroys per-item information, better coverage/meaning/persistence all improve what is destroyed. **The replacement store already exists, proven, called by nothing** -- a wiring job |
+| **2** | `substrate_never_resumes` | **Nothing survives the run that learned it, so no result compounds.** Also wiring: the persistence organ passes `9/9` at HEAD. Compounds with the read cap (~1,000 sentences per call) |
+| **3** | `score_counts_abstention_as_error` | **TINY AND LIVE.** `_score` counts `AMBIGUOUS` as a wrong answer by omission, and it now bites `3` items under the learned overlay. *Near-zero cost, and it corrupts a number we actually use* |
+| **4** | `reader_meaning_channel` | **The actual goal**, and it owns the blocker the others depend on: **`read()` never consults the meaning asset at all** |
+| **5** | `certification_gate_hangs` | An enabler -- **but VERIFY THE PREMISE FIRST.** Collection completes in `34.7s`; `PER_WITNESS_TIMEOUT_S = 600` with witnesses legitimately taking 94-151s; "parent CPU flat" is this repo's documented false alarm. **It may be SLOW, not hung** |
+| **6** | `cortical_read_has_no_scored_path` | B3' is live and consolidation-sensitive (`8/8` probes, clean control). **What is missing is a task with floors** -- and it should measure POOL SELECTION, not just ranking |
+| **7** | `lookup_does_not_lemmatise` | Cheapest and largest (`+13.2` points, one line) **but NOT MEASURABLE until 4 lands** -- nothing calls the lookup during reading |
+| **8** | `harness_cannot_recompute` | Improves our ability to CHECK, not the system. **Value rises the moment 1-4 start producing changes that need verifying** |
 
 > ### 🔑 **THE RANKING RULE, SO IT CAN BE ARGUED WITH RATHER THAN TAKEN ON TRUST:**
 > **(1) Does it block other problems? (2) Is the fix a WIRING job with a proven organ, or a build?

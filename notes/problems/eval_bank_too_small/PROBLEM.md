@@ -1,3 +1,9 @@
+---
+priority: 
+review: EXCELLENT
+review_text: Built 124 scorable items and proved BOTH documented cheats dead - reproducing them on the old bank first, which is the step people skip.
+---
+
 > # ✅ **SOLVER REVIEW: EXCELLENT. ACCEPTED AS SOLVED.** *(strategy session, 2026-08-22)*
 >
 > **They built exactly what was asked and proved it rather than asserting it.** `166` items,

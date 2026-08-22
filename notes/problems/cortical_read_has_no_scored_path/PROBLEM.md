@@ -1,3 +1,9 @@
+---
+priority: 6
+review: 
+review_text: 
+---
+
 # PROBLEM: THE CORTICAL READ HAS NO SCORED PATH, SO NOBODY KNOWS IF IT IS ANY GOOD
 
 **slug:** `cortical_read_has_no_scored_path` · **opened:** 2026-08-22 by the strategy session

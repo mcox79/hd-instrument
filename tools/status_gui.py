@@ -1542,9 +1542,15 @@ class StatusWindow:
 
         frame, self.pb_tv = self._tree(
             f,
-            cols=("slug", "state", "await", "owner", "result"),
-            widths=(260, 130, 190, 130, 460),
-            headings=("PROBLEM", "SOLVER SAYS", "WAITING ON ME?", "YOU SAY", "WHAT THEY FOUND"),
+            # "#" and "MY RATING" added 2026-08-22 on owner instruction ("I also want a priority
+            # for what problems to tackle first, on the problem page" / "how well did the solver
+            # do? I want to know"). Both were first written as PROSE at the top of PROBLEM.md and
+            # the owner saw neither -- nothing on this path opens that file's body. They now come
+            # from PROBLEM.md's own frontmatter via problem_ledger.scan().
+            cols=("pri", "slug", "state", "await", "owner", "review", "result"),
+            widths=(40, 250, 120, 170, 110, 110, 380),
+            headings=("#", "PROBLEM", "SOLVER SAYS", "WAITING ON ME?", "YOU SAY",
+                      "MY RATING", "WHAT THEY FOUND"),
             height=9)
         frame.grid(row=2, column=0, sticky="nsew")
         self.pb_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_problem_detail())
@@ -1580,11 +1586,16 @@ class StatusWindow:
                                   font=("Segoe UI", 9), wraplength=self._wrap_w, justify="left")
         self.pb_status.grid(row=1, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 5))
 
+    _PB_SLUG_COL = 1        # column 0 is the priority "#"; the slug moved right when it was added.
+                            # Named rather than inlined because THREE call sites index this tuple
+                            # positionally, and a silent off-by-one here makes Save say "Pick a
+                            # problem in the list first" while a problem is plainly selected.
+
     def _selected_problem(self):
         sel = self.pb_tv.selection()
         if not sel:
             return None
-        return self.pb_tv.item(sel[0], "values")[0]
+        return self.pb_tv.item(sel[0], "values")[self._PB_SLUG_COL]
 
     def _show_problem_detail(self, force: bool = False) -> None:
         """OWNER BUG, 2026-08-22, reported twice and it made the tab unusable:
@@ -1615,6 +1626,14 @@ class StatusWindow:
         fields = r.get("fields", {}) or {}
         owner = _probs.load_owner(slug)
         lines = [f"PROBLEM: {slug}", f"  state: {r.get('state', '?')}"]
+        if r.get("priority") is not None:
+            lines.append(f"  priority: {r['priority']}  (1 = do this first)")
+        if r.get("review"):
+            lines.append(f"  MY RATING OF THE SOLVER: {r['review']}")
+            if r.get("review_text"):
+                lines.append(f"    {r['review_text']}")
+        if r.get("meta_error"):                     # never let a bad annotation fail silently
+            lines.append(f"  BRIEF FRONTMATTER PROBLEM: {r['meta_error']}")
         if r.get("error"):
             lines.append(f"  MALFORMED: {r['error']}")
         for k in ("bar", "result", "floor", "controls", "reverify", "files_changed"):
@@ -1638,7 +1657,11 @@ class StatusWindow:
         except Exception as exc:                       # noqa: BLE001 -- say so, never swallow
             lines.append(f"  [kickoff prompt unavailable: {type(exc).__name__}: {exc} -- "
                          f"run `python tools/problem_ledger.py kickoff {slug}` instead]")
-        self._set_text(self.pb_detail, lines)
+        # `_set_text` inserts each chunk VERBATIM with no separator, so a list built without "\n"
+        # renders as ONE RUN-ON LINE. Every other caller appends the newline itself; this one did
+        # not, which made the whole pane -- state, bar, result, and the paste-able kickoff prompt --
+        # a single unreadable string. Found 2026-08-22 while adding the priority/rating fields.
+        self._set_text(self.pb_detail, [ln + "\n" for ln in lines])
         # NEVER overwrite an in-progress note. Only load when the slug actually changed.
         if force or not same_slug:
             self.pb_verdict.set(owner["verdict"])
@@ -1678,6 +1701,7 @@ class StatusWindow:
         # list first" while they were mid-sentence (owner report, 2026-08-22). The signature
         # covers everything this table renders, so a real change still repaints immediately.
         sig = tuple((r["slug"], r["state"], r["integrated"], r.get("error"),
+                     r.get("priority"), r.get("review", ""),
                      (r.get("fields", {}) or {}).get("result", ""),
                      _probs.load_owner(r["slug"])["verdict"]) for r in rows)
         if getattr(self, "_pb_sig", None) == sig and self.pb_tv.get_children():
@@ -1687,7 +1711,10 @@ class StatusWindow:
         _keep = self._selected_problem()
         self.pb_tv.delete(*self.pb_tv.get_children())
         awaiting = 0
-        for r in rows:
+        # RANKED FIRST, because "a priority for what to tackle first" is meaningless if the table
+        # is alphabetical. Unranked and solved problems fall below, ties stable by slug.
+        for r in sorted(rows, key=lambda x: (x.get("priority") is None,
+                                             x.get("priority") or 0, x["slug"])):
             owner = _probs.load_owner(r["slug"])
             wait = ""
             if r["state"] in ("SOLVED", "PARTIAL", "REFUTED") and not r["integrated"]:
@@ -1698,12 +1725,16 @@ class StatusWindow:
             res = (r.get("fields", {}) or {}).get("result", "")
             if r["state"] == "MALFORMED":
                 res = f"NO EVIDENCE: {r.get('error', '')}"
+            rating = r.get("review", "")
+            if r.get("meta_error"):                 # a bad priority/review must be VISIBLE, not silent
+                rating = "?? " + str(r["meta_error"])[:40]
             self.pb_tv.insert("", "end", values=(
+                "" if r.get("priority") is None else r["priority"],
                 r["slug"], r["state"], wait,
-                owner["verdict"] or ("note" if owner["text"] else ""), res))
+                owner["verdict"] or ("note" if owner["text"] else ""), rating, res))
         if _keep:                                   # restore the selection the repaint destroyed
             for iid in self.pb_tv.get_children():
-                if self.pb_tv.item(iid, "values")[0] == _keep:
+                if self.pb_tv.item(iid, "values")[self._PB_SLUG_COL] == _keep:
                     self.pb_tv.selection_set(iid)
                     break
         n = len(rows)

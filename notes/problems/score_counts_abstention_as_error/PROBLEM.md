@@ -1,3 +1,9 @@
+---
+priority: 3
+review: 
+review_text: 
+---
+
 # PROBLEM: THE SCORER COUNTS "I DON'T KNOW" AS A WRONG ANSWER, AND IT IS NOW LIVE
 
 **slug:** `score_counts_abstention_as_error` · **opened:** 2026-08-22 by the strategy session
