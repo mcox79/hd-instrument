@@ -129,7 +129,9 @@ and you should stop and say so.
 - **The lemmatiser(s):** `lemma_word` / `lemma_verb` -- and note `hdlab/goal_typing.py:1673` carries
   a comment about `lemma_verb("damaged") == "damag"`, which is the same shape of damage
 - **The detector:** re-implement the round-trip test in §3; do not reuse a "not in WordNet" check
-- **🚫 DO NOT TOUCH:** `preregs/**`, `arm_key*`, `notes/STATUS.md`, the build plan, other problem
+- **🚫 YOU DO NOT WRITE TO `hdlab/` -- THE LIVE SUBSTRATE (owner ruling, board Q111, 2026-08-22).** *Prove the mechanism in `experiments/` and `verification/`, then state in `SOLVED.md` exactly what would have to change in `hdlab/` and why. **The strategy session re-verifies and lands it, and is the sole writer there** -- two writers on one live file already destroyed a full day's audit here, silently.*
+
+**🚫 DO NOT TOUCH:** `preregs/**`, `arm_key*`, `notes/STATUS.md`, the build plan, other problem
   folders. **`data/foundation/` is READ-ONLY, one disk, no backup -- build a NEW store, never
   overwrite one.**
 

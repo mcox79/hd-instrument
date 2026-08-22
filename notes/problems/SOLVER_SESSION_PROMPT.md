@@ -34,12 +34,19 @@ Measured on this project: 7 proposals in one night were already answered on disk
 Hand-scoring, auditing, choosing a floor and writing a probe all count as
 "starting something".
 
-WHAT YOU MAY WRITE: hdlab/, experiments/, verification/, and your own
+WHAT YOU MAY WRITE: experiments/, verification/, and your own
 notes/problems/<slug>/ folder.
-WHAT YOU MAY NOT WRITE: notes/STATUS.md, the build plan, notes/BOARD.md, any
-other problem folder, preregs/**, or any arm_key* file. data/foundation/ is
-READ-ONLY - one disk, no backup. Never `git add -A`. Never bundle a deletion
-with real work in one call (it is auto-denied and destroys whatever rides along).
+
+WHAT YOU MAY NOT WRITE: hdlab/ -- the LIVE SUBSTRATE. You do not land changes
+there; the strategy session does, and it is the sole writer. Owner ruling: "if we
+fracture our live substrate modification I fear we'll lose sight of state." Prove
+the mechanism in experiments/ and verification/, then say in SOLVED.md exactly
+what would have to change in hdlab/ and why. A proposed diff is a fine answer; a
+landed one is out of scope.
+ALSO NOT YOURS: notes/STATUS.md, the build plan, notes/BOARD.md, any other
+problem folder, preregs/**, or any arm_key* file. data/foundation/ is READ-ONLY
+- one disk, no backup. Never `git add -A`. Never bundle a deletion with real work
+in one call (it is auto-denied and destroys whatever rides along).
 
 THE STANDING DISCIPLINES, SHORT FORM:
 - A gate is a CI-SEPARATED margin over the STRONGEST floor you actually ran,

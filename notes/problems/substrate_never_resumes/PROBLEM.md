@@ -150,7 +150,9 @@ load and asserts it is better does not clear it.
 - **The save call site:** `hdlab/substrate.py:813`
 - **The snapshots:** `data/foundation/` -- **READ-ONLY, one disk, no backup. Never overwrite one;
   write a new directory.**
-- **🚫 DO NOT TOUCH:** `preregs/**`, `arm_key*`, `notes/STATUS.md`, the build plan, other problem
+- **🚫 YOU DO NOT WRITE TO `hdlab/` -- THE LIVE SUBSTRATE (owner ruling, board Q111, 2026-08-22).** *Prove the mechanism in `experiments/` and `verification/`, then state in `SOLVED.md` exactly what would have to change in `hdlab/` and why. **The strategy session re-verifies and lands it, and is the sole writer there** -- two writers on one live file already destroyed a full day's audit here, silently.*
+
+**🚫 DO NOT TOUCH:** `preregs/**`, `arm_key*`, `notes/STATUS.md`, the build plan, other problem
   folders.
 
 ---

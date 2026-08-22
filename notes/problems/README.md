@@ -33,9 +33,23 @@ the brief.*
 
 | | strategy session (this one) | solver session |
 |---|---|---|
-| **holds** | the 10,000-foot view, the plan, `STATUS.md`, the board | ONE problem, deeply |
-| **writes** | `notes/problems/*/PROBLEM.md`, plan, STATUS, integration notes | code, cells, and ONE `SOLVED.md` |
-| **must not** | solve the problem itself, or edit a solver's `SOLVED.md` | rewrite the plan, `STATUS.md`, or another problem's folder |
+| **holds** | the 10,000-foot view, the plan, `STATUS.md`, the board, **and ALL integration into the live substrate** | ONE problem, deeply |
+| **writes** | `notes/**`, **`hdlab/`** (the live substrate -- SOLE WRITER) | `experiments/`, `verification/`, and its own `notes/problems/<slug>/` |
+| **must not** | solve the problem itself, or edit a solver's `SOLVED.md` | **write to `hdlab/`**, or touch the plan, `STATUS.md`, `BOARD.md`, or another problem's folder |
+
+> ## 🔑 **THE SOLVER DOES NOT EDIT THE LIVE SUBSTRATE. OWNER RULING, BOARD Q111, 2026-08-22:**
+> *"I honestly think that you should own all of the full integration... if we fracture our live
+> substrate modification I fear we'll lose sight of state and keeping it fully updated. I want THIS
+> session to own it all and ~subcontract out the target research to that other session."*
+>
+> **SO THE HAND-BACK IS A RESULT PLUS A PROPOSED CHANGE, NOT A LANDED ONE.** Prove the mechanism in
+> `experiments/` and `verification/`, where you may write freely; state in `SOLVED.md` exactly what
+> would have to change in `hdlab/` and why. **The strategy session re-verifies and lands it.**
+>
+> *This is not ceremony. The concrete hazard it prevents is documented: two writers on one live file
+> already destroyed a full day's audit here, silently -- no error, no corruption, just a lost
+> update. And a substrate whose state is tracked in one place is the only way "what is actually
+> wired" stays answerable.*
 
 **WHY THIS EXISTS AND IS NOT BUREAUCRACY.** Measured on this project, today: 13 commits, **zero**
 touching capability code, because cell work routes to a subagent lane that is closed in the strategy

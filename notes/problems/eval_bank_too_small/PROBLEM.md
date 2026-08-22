@@ -143,7 +143,9 @@ the brief is stale and that is your finding.
 - **The build report to reuse:** `notes/research_goal_bearing_modern_eval_2026-08-06.md`
 - **The cheat detector:** `tools/floor_battery.py`
 - **The corpora:** `data/corpora/`
-- **🚫 DO NOT TOUCH:** `preregs/**`, `arm_key*`, `notes/STATUS.md`, the build plan, other problem
+- **🚫 YOU DO NOT WRITE TO `hdlab/` -- THE LIVE SUBSTRATE (owner ruling, board Q111, 2026-08-22).** *Prove the mechanism in `experiments/` and `verification/`, then state in `SOLVED.md` exactly what would have to change in `hdlab/` and why. **The strategy session re-verifies and lands it, and is the sole writer there** -- two writers on one live file already destroyed a full day's audit here, silently.*
+
+**🚫 DO NOT TOUCH:** `preregs/**`, `arm_key*`, `notes/STATUS.md`, the build plan, other problem
   folders. **Create `..._v2.jsonl`; do not edit `v1` in place** -- landed results cite it.
 
 ---

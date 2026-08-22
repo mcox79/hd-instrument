@@ -146,7 +146,9 @@ python tools/cite_check.py 0.6413        # confirm the caveats above are still t
   the meaning query**; it is a recognition index and its meaning path is barred in its docstring
 - **The assets:** the sensorimotor/Lancaster norms and the learned encoder, both on disk, both
   unwired -- locate them via the registry rather than trusting this line
-- **🚫 DO NOT TOUCH:** `preregs/**`, any `arm_key*` file, `notes/STATUS.md`, the build plan, or
+- **🚫 YOU DO NOT WRITE TO `hdlab/` -- THE LIVE SUBSTRATE (owner ruling, board Q111, 2026-08-22).** *Prove the mechanism in `experiments/` and `verification/`, then state in `SOLVED.md` exactly what would have to change in `hdlab/` and why. **The strategy session re-verifies and lands it, and is the sole writer there** -- two writers on one live file already destroyed a full day's audit here, silently.*
+
+**🚫 DO NOT TOUCH:** `preregs/**`, any `arm_key*` file, `notes/STATUS.md`, the build plan, or
   another problem's folder. **The `== "UNK"` guard in the animacy path is a deliberate hand-off.**
 
 ---
