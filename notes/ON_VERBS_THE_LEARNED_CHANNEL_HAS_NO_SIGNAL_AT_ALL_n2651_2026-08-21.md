@@ -77,6 +77,30 @@ indicative only. The supplied-vs-ours contrast WITHIN each benchmark is the vali
 🚫 **SUPPLY, NOT LEARNING. The organ's docstring forbids reporting this as the substrate having
 learned perceptual structure -- it is a reason to USE the table, not evidence of understanding.**
 
+## 2d. 🎯 **THE CONTROL THAT SPLITS THE QUESTION: IS THE VERB NULL A PROPERTY OF TEXT, OR OF OUR ENCODER?**
+
+*The existence proof above used HUMAN RATINGS -- a different KIND of information. The sharper control
+is a TEXT-DERIVED rival on the identical 2,651 pairs and the same 41 sentences per verb.*
+
+| arm | rho | null p95 | |
+|---|---|---|---|
+| COUNTING, raw | 0.0025 | 0.0341 | 🚫 inside the null |
+| **COUNTING + idf** | **0.0689** | 0.0383 | ✅ **clears -- barely, 1.8x** |
+| **OURS (bundle)** | **0.0000** | 0.0372 | 🚫 inside the null |
+| SUPPLIED norms *(NOT text-derived)* | **0.2983** | 0.0309 | ✅ clears by ~10x |
+
+> ### **BOTH READINGS ARE TRUE, AT DIFFERENT SCALES -- and neither alone is honest.**
+
+1. ***TEXT CAN EXTRACT A LITTLE VERB SIGNAL AND WE EXTRACT NONE.*** **`0.0689` clears its null where
+   our `0.0000` does not, on the same sentences.** *So our zero is a REAL DEFICIT against a
+   text-derived rival, not merely the data being hard.*
+2. ***BUT EVERY TEXT-DERIVED ARM IS FAR BELOW THE HUMAN-RATED ONE*** -- `0.0689` against `0.2983`,
+   a **4.3x** gap. **So most of what is missing on verbs is missing from TEXT DISTRIBUTION itself,
+   not from our encoder.**
+
+⚠️ *These are ratios of correlations, not a variance decomposition -- "counting reaches 23% of the
+supplied arm's rho" is the honest phrasing, and it does not mean it explains 23% of anything.*
+
 ## 3. ✅ **AND THE POWER PREDICTION FROM AN HOUR AGO WAS CORRECT**
 
 *I calculated that resolving a `+0.03` effect needed roughly `2.8x` more pairs than SimLex's 829.*
