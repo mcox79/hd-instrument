@@ -62,15 +62,12 @@
 >
 > **1. 🟢 Q102 ANSWERED, CONDITION MET, AND NOW WIRED.** *Owner: "connect it only after it is doing the
 > job required of it... as according to the brain (which may have other supporting parts, right?)".*
-> ✅ **BRAIN BAR (VWFA = INVARIANCE): case `1.0000`, position `1.0000`, inflection GRADED `0.31-0.51`,
-> unrelated `0.025-0.077`; `cos(entombment,burial)=-0.023` -- synonyms spelled differently at ~zero, which
-> is why it CANNOT inflate meaning.** ✅ **TASK BAR: `ORGAN_MAP` A1 `0.0870` vs live `0.0480`, CI-separated.**
-> 🔑 **THE LIVE IDENTITY CODE FAILS THAT SAME TEST: `symbol_vector` is a sha256 random draw -- case
-> invariance `-0.0026` vs `+1.0000`, inflection `+0.0208` vs `+0.4727`, BOTH ~0 on unrelated. We were using
-> a demonstrably worse identity code than the one sitting unused.**
-> 🚨 **BLAST RADIUS FIXED THE DESIGN (additive, not a swap): `symbol_vector` also encodes RELATION labels,
-> has a 2nd live consumer, and its codes land in ACCUMULATED STORES.** ✅ **THREE INDEPENDENT ARGUMENTS
-> AGREE: brain (VWFA FEEDS lexical access), empirical (late-combine `0.2000` < form-alone `0.2533`), stores.**
+> ✅ **BRAIN BAR (VWFA = INVARIANCE): case `1.0000`, inflection GRADED `0.31-0.51`, unrelated `0.03-0.08`;
+> `cos(entombment,burial)=-0.023`, so it CANNOT inflate meaning.** 🔑 **THE LIVE CODE FAILS THAT SAME BAR:
+> `symbol_vector` is a sha256 random draw -- case invariance `-0.0026` vs `+1.0000`.**
+> 🚨 **ADDITIVE, NOT A SWAP, ON THREE INDEPENDENT ARGUMENTS: brain (VWFA FEEDS lexical access), empirical
+> (late-combine `0.2000` < form-alone `0.2533`, HARD_FAIL), stores (a swap rewrites every persisted code;
+> `symbol_vector` also encodes RELATION labels).**
 > 🟢 **WIRED + REGISTERED 2026-08-22 -- `form_identity_vector()` IS ON THE LIVE PATH, ADDITIVELY.**
 > *`hdlab/reading_grounding_loop.py`, beside `symbol_vector`; registered as
 > `form_identity_channel_vwfa_additive` under `registry_transaction` (210 -> 211 rows).*
