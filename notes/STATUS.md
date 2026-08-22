@@ -118,8 +118,24 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   ➡️ **THE REAL DEFECT IS PROVENANCE: `draw_representative_blind_sample.py` has no notion of a
   CURRENT foundation, and four exist unmarked.** ⚠️ *v5 is a DIFFERENT ARTIFACT SHAPE (one
   `definitional_facts_v5.jsonl` vs v2q's full `store/`), so "sample v5 instead" is NOT a straight
-  swap and v5 is NOT claimed to be the live foundation.* 🎯 **NEXT: establish at RUNTIME which
-  foundation the live loop writes.** `WE_HAND_SCORED_A_THREE_VERSIONS_STALE_FOUNDATION_...`
+  swap and v5 is NOT claimed to be the live foundation.*
+  `WE_HAND_SCORED_A_THREE_VERSIONS_STALE_FOUNDATION_...`
+- 🚨🧠 **AND THAT CHASE FOUND THE CAUSE OF THE GENERIC-ATTRACTOR DEGENERACY: NOTHING LOADS A
+  FOUNDATION. RUNTIME (counters on the functions, not grep), `foundation_dir` SET to v5, 120
+  sentences: `load_foundation` calls `0`; store facts `92` -> `92`, and the `92` comes from the
+  `107` SEED WORDS. `self.foundation_dir` is assigned at `substrate.py:378` and NEVER READ AGAIN --
+  THE PARAMETER IS DEAD.** ✅ *Enumerated with comments separated from calls: 6 files, and the only
+  live-path hit is a COMMENT at `reading_grounding_loop.py:1732`. **NO LIVE READING PATH CALLS
+  IT.*** 🔻 *Grep got it wrong BOTH ways first -- the documented trap, on the module the rule was
+  written about.*
+  🎯 **THIS MAKES THE PLAN'S OWN PREDICTION UNREACHABLE: it says the `way`-attractor (`17.7%` of
+  grounded terms) comes from "~107 generic seeds" and "predicts the degeneracy should FALL as the
+  grounded vocabulary grows". IT CANNOT GROW ACROSS RUNS. The degeneracy is ARITHMETIC, not tuning
+  or scale.** 🧠 *Consolidation is DEFINED by persisting across episodes; we have no slow store at
+  all -- the persistence half of the 08-19 replay gap, one dead attribute wide.*
+  ⚠️ **NOT MEASURED: whether loading helps. THAT IS THE EXPERIMENT, prediction already on record.**
+  🚫 *Do not quote `92 -> 92`; 120 sentences is below the 100-400 grounding threshold.*
+  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
 - 🔑 **IT IS NOT ANSWERING WRONG -- IT IS NOT ANSWERING. Of `22` errors on the OOV 36, `20` are
   NON-ANSWERS, `2` are WRONG ANSWERS; accuracy WHEN IT COMMITS is `14/16 = 0.8750`.** *COVERAGE, not
   DISCRIMINATION -- the 08-07 charter's "HIGH-PRECISION + COVERAGE-LIMITED".* ➡️ **RE-AIMS THE ONLY
