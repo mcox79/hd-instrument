@@ -575,6 +575,40 @@ fifth recorded time.** Two rules follow, and they generalise well past encoding:
 `scratch/fix_status_encoding2.py` is the worked repair: round-trip detection, iterated until
 stable, verified against the characters that must be present afterwards.
 
+### THE SAME CLASH BITES ON **OUTPUT**, AND THE ROOT FIX IS ONE ENVIRONMENT VARIABLE
+
+**Measured 2026-08-22, twice in two days, in tools whose whole job is summarising these emoji-rich
+docs.** `sys.stdout.encoding` here is **`cp1252`**, so printing a line lifted out of `notes/*.md`
+raises `UnicodeEncodeError`:
+
+- **`tools/cite_check.py`** died mid-report — **after printing one caveat and before the rest**,
+  handing back a PARTIAL caveat list plus a traceback. *A caveat tool that stops halfway is worse
+  than one that refuses, because the output still looks like an answer.*
+- **`tools/progress_snapshot.py`** wrote its snapshot file **correctly** and then died on
+  `print(report)` — a completed job exiting non-zero, which reads as a failed run and invites
+  someone to "fix" a snapshot that was fine.
+
+**BOTH ARE NOW FIXED LOCALLY** with a `_printable()` that sanitises the STRING. **Sanitise the
+string; do NOT reconfigure `sys.stdout` at module level** — that mutates global state for every
+importer, and this repo has a documented incident of exactly that (`hdlab.reading_grounding_loop`
+rewriting `sys.stdout` process-wide, which crashed a live-closure audit under `redirect_stdout`).
+
+> **➡️ THE ROOT FIX, MEASURED: `PYTHONIOENCODING=utf-8` makes the failing case exit `0`** (same
+> script, same characters: default `cp1252` -> `rc=1` + `UnicodeEncodeError`; with the variable set
+> -> `rc=0`). **One line in the `env` block of `D:/AI/.claude/settings.json`, which currently has
+> none, would retire this class for every tool at once.**
+> ⚠️ **NOT DONE UNILATERALLY, and the reason is the file rather than the change:** that same
+> `settings.json` carries the hooks driving the autoloop, it lives outside the repo so it is not
+> version-controlled, and a bad write is not cheaply reversible. **Apply it deliberately, not from
+> inside a loop.**
+
+**🔻 AND A NEGATIVE, RECORDED SO IT IS NOT RE-PROPOSED: "give every tool a shared safe-print helper"
+IS NOT JUSTIFIED ON THE EVIDENCE I HAVE.** A scan for tools that read repo docs and print derived
+content returned **492 of ~500 files** — most of them one-off `_skunkworks_atomize_*` scripts. **A
+flag firing on 98% of the archive is not a flag**, so that scan cannot identify who is genuinely at
+risk, and I did not build the helper on it. *Two durable tools were hit and both are fixed; the
+environment variable is the honest general answer.*
+
 ## TWO ARCHIVES, TWO QUESTIONS -- THE REGISTRY DOES NOT TELL YOU IF THE QUESTION IS ANSWERED
 
 **Owner, 2026-08-19: *"I want to know how you missed that surprise experimental data - I thought we
