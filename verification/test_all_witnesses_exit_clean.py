@@ -28,6 +28,14 @@ READ THE PERSISTED RESULTS BEFORE RE-RUNNING: this file takes >550s (it runs eve
 writes one JSON per witness to `data/witness_exit_status/` with `returncode`, `secs`, `timed_out` and
 `run_utc`. Those files answer "which witness failed" in a second.
 
+AND THEY ARE THE ONLY LIVE PROGRESS SIGNAL WHILE IT RUNS. Under pytest, this file's stdout is
+BUFFERED -- a full-suite run sat at 28 bytes of output for minutes while it was working perfectly.
+Judging progress from that output reads as a hang. The per-witness JSONs are written and closed one
+at a time, so `ls -t data/witness_exit_status/` shows exactly where the run has reached. This is the
+project's standing rule -- observe the ARTIFACT the process produces, never a proxy for it -- applied
+to its own certification run, and it is recorded here because a buffered progress line plus a
+15-minute runtime is precisely the shape that gets a healthy run killed.
+
 AND BEWARE `rc=143` WITH `timed_out=False`: that is SIGTERM -- the witness was KILLED EXTERNALLY, not
 a failure. On 2026-08-22 two such rows (22.5s and 0.46s, against a 600s cap) were produced purely by
 an outer `timeout` killing this driver mid-flight, and were briefly mistaken for a real failure. A
