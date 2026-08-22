@@ -52,6 +52,17 @@
 > 🚨 **AND ONE WARNING THE EVIDENCE GATE IS STRUCTURALLY BLIND TO: `context_conditioned_near_neighbour_v1_SMOKE_n600` = HARD_PASS while the FULL run = `MIDDLE_BAND_FLOOR_HUGGING`. THE SMOKE PASSED AND THE FULL RUN HUGGED THE FLOOR** -- anyone counting HARD_PASS rows or citing the cell by name gets the SMOKE's answer. *It carries CI+null+floor, so only reading the PAIR catches it.*
 > ⚠️ **CHEAPEST HURDLE ONLY: the gate cannot see a written-in answer, circular gold, a skipped floor or a tuned gate. The other `178` are NOT refuted -- they are UNEVIDENCED IN THE FILE.** ✅ `tools/grounding_evidence_map.py` IMPORTS `assess` and its self-test FAILS unless it reproduces the census's `14` -- *written after I counted this twice by IMITATING the census and got `198` then `58` against a true `14`.* `THE_GROUNDING_MAP_185_LABELS_...`
 
+## 🚨 **THE AUTOMATIC QUALITY CRITERION IS REFUTED ON THE SAME ITEMS (08-22). "FOUNDATION VALIDATED" MUST BE RE-WORDED.**
+> **Ran the harness's own `cooccurs()` (IMPORTED, not reimplemented) over the SAME `100` blind human-scored rows that survived on disk. One variable, same facts, both criteria:**
+> | human label | n | co-occ pass | decoy |
+> |---|---|---|---|
+> | MEANINGFUL | 3 | `1.000` | 0.667 |
+> | RELATED | 19 | `0.842` | 0.737 |
+> | **NOISE** | **78** | 🔻 **`0.859`** | 0.705 |
+> 🔻 **COLLAPSED: human GOOD `19/22` = `0.864` vs human NOISE `67/78` = `0.859`. Difference `+0.0047`, Fisher exact `p = 1.0000`.** **THE CRITERION CANNOT TELL MEANING FROM NOISE.**
+> ✅ *What STANDS: stored facts DO beat random decoys (`0.860` vs `0.710`). But the gap is IDENTICAL for noise and meaning -- so "beats a decoy" certifies **TOPICAL ADJACENCY**, which is exactly what a reader calls NOISE when offered as a meaning (`whisky->wedding`).* 🔻 **What FALLS: the QUALITY reading of that gap.**
+> ⚠️ **I FLAGGED A CEILING CAVEAT AGAINST MYSELF AND IT WAS RIGHT: a GRADED count is monotone (`MEANINGFUL 8.0 > RELATED 4.0 > NOISE 2.0`), trend `rho +0.2279` `p 0.0349`.** 🔻 **AND I RAN FIVE TESTS ON THOSE ROWS -- Bonferroni `p = 0.1745`. THE RESULT DID NOT SURVIVE THE SEARCH THAT FOUND IT.** ✅ **FROZEN IN CODE INSTEAD: `tools/graded_cooccurrence_quality.py` -- ONE measure, ONE test, `rho>0`, `p<0.05`, **required n=150 (simulated power 0.82) below which it REFUSES TO BE READ**.** *Its own controls found (a) a live PREFIX bias -- short terms match longer words, real-data `rho -0.1492` -- and (b) that a SINGLE-DRAW negative control is itself a coin flip; it now asserts a FALSE-POSITIVE RATE, measured `0.05`.* 🚫 **UNTIL A FRESH n=150 BLIND SAMPLE EXISTS, CO-OCCURRENCE IS NOT EVIDENCE OF QUALITY IN EITHER FORM.** *Fourth independent reason this week to enlarge the eval bank.* `THE_AUTOMATIC_QUALITY_CRITERION_PASSES_86pc_...` `THE_CEILING_CAVEAT_WAS_RIGHT_...`
+
 ## 🔻 **THREE DEAD ENDS, ALL DOWNSTREAM OF THAT ONE CAUSE**
 > 1. **CA3 cannot complete** -- our rule MERGES correlated memories (margin **-0.1021**; local
 >    error-driven rule fixes it to **+0.0975** > pseudo-inverse's +0.0839; 16x expansion 38 -> **8**
