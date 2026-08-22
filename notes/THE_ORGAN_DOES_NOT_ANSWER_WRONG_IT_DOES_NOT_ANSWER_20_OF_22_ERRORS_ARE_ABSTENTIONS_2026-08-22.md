@@ -148,6 +148,51 @@ persist `per_item_predictions`, so this costs one run and no new instrument.*
 ⚠️ **IF IT HOLDS, THE OVERLAY IS ACTIVELY HARMFUL AT THE MARGIN and "supplying the word converts
 silence into guessing" (section 3, measured at n=8) would have a second, larger witness.**
 
+## 8. 🔻 **THE ARCHIVE WAS AHEAD OF ME AGAIN: ATTACKING THIS ABSTENTION HAS BEEN TRIED TWICE AND BOUGHT `1` OF `23`.**
+
+**I named the abstention as the target in section 2. Two landed cells already attacked exactly it**,
+with a Levin verb-class backoff table supplying the knowledge needed to decide:
+
+| cell, on the full 44 | coverage gain (`NA->CORRECT`) | regressions | held-out (bar `6/8`) | verdict |
+|---|---|---|---|---|
+| `exp_verbclass_backoff_coverage_v1` | **`1`** | `3` | 🔻 `4/8` | **`HARD_FAIL`** |
+| `exp_verbclass_backoff_coverage_v2` *(last-resort placement fix)* | **`1`** | `0` | 🔻 `4/8` | **`PARTIAL`** |
+
+**v2's own tier counts: `primary_cascade_no_backoff_needed 21`, `levin_last_resort_backoff 1`,
+`both_abstain 22`. It moved `na` from `23` to `22`.**
+
+> # **SUPPLYING VERB-CLASS KNOWLEDGE SO THE CASCADE CAN DECIDE CONVERTED EXACTLY ONE ABSTENTION OUT OF TWENTY-THREE, AND FAILED HELD-OUT GENERALISATION BOTH TIMES.**
+
+➡️ **SO SECTION 2's "the abstention is the named target" STANDS AS A DIAGNOSIS AND ITS OBVIOUS
+ATTACK IS ALREADY MEASURED OUT.** *This is the same shape as section 3 at larger scale: the
+knowledge was supplied, the silence barely moved, and what did move did not generalise.*
+
+## 9. ✅ AND THOSE CELLS INDEPENDENTLY REPLICATE THE SECTION-2 PROFILE, 15 DAYS EARLIER
+
+*`v1`/`v2` record a shared `baseline` on the FULL 44 from `2026-08-07`:*
+
+| | population | commits | precision when committing | abstains |
+|---|---|---|---|---|
+| **08-07 baseline** (their number, read not recomputed) | all 44 | `17` correct / `4` wrong | **`0.8095`** | **`23/44` = `52.3%`** |
+| **today, section 2** | OOV 36 | `14` correct / `2` wrong | **`0.8750`** | **`20/36` = `55.6%`** |
+
+**HIGH-PRECISION-WHEN-IT-SPEAKS AND ABSTAINS-ON-ABOUT-HALF IS STABLE ACROSS 15 DAYS, TWO
+POPULATIONS AND TWO INDEPENDENT MEASUREMENTS.** *I did not know these numbers existed when I
+measured mine, which makes it a genuine replication rather than a confirmation.*
+
+## 10. ⏱️ AND IT DATES THE STALENESS IN THE COMPANION NOTE TO A ONE-DAY WINDOW
+
+*Recomputed today on the SAME full 44 through the same function:* **`18` correct / `6` wrong /
+`20` na, precision `0.7500`** *(vs 08-07's `17`/`4`/`23`, precision `0.8095`).*
+
+**The 2026-08-06 landed consequence run had `0` structural firings; the 2026-08-07 verbclass
+baseline already shows `referent_mismatch` firing.** ➡️ **THE CASCADE SWITCHED ON BETWEEN
+`2026-08-06` AND `2026-08-07`** -- not by vague drift over 16 days.
+🔻 **AND THE DRIFT DID NOT STOP THERE: since 08-07 the organ gained `1` correct, gained `2` wrong
+and shed `3` abstentions -- PRECISION WHEN COMMITTING FELL `0.8095 -> 0.7500`.** *Small numbers;
+reported with them.* 🚫 **The exact commit is NOT identified -- that needs a bisect, which was not
+run. The claim is bounded by the two dates, nothing finer.**
+
 ## TLDR
 
 The system is not getting these questions wrong. It is declining to answer them. On the 36-question
@@ -172,10 +217,12 @@ this.
 1. **Re-run the per-reason decomposition in the OVERLAY condition** and settle whether the `9/10`
    here and the `10/19` in the plan genuinely conflict. *Cheap, and one of the two is currently
    framing the strategy.*
-2. **The abstention is now the named target, replacing "the UNMET bias"** -- which this shows to be
-   a property of the overlay condition rather than of `congruence_with_lexicon_fallback`.
-   🚫 **DIAGNOSE, DO NOT FIX: the plan has been wrong three times this week naming a component from
-   its symptom, and the honest reading of section 3 is that removing silence did not buy accuracy.**
+2. 🔻 **REVISED BY SECTION 8, WHICH I WROTE AFTER THIS LINE: the abstention is the right DIAGNOSIS
+   and the obvious ATTACK ON IT IS MEASURED OUT** -- a Levin verb-class backoff converted `1` of
+   `23` across two cells and failed held-out `4/8` against a `6/8` bar. **Do NOT propose "supply
+   knowledge so the cascade can decide" again without reading `exp_verbclass_backoff_coverage_v1`
+   and `v2` first.** 🚫 **DIAGNOSE, DO NOT FIX: sections 3 and 8 now agree at two different scales
+   that removing silence does not buy accuracy.**
 3. **Enlarging the eval bank remains the binding constraint** (this is now the seventh independent
    reason), and the 2026-08-06 construction note already says where the headroom is: RACE
    (`30-60` more estimated), `little_women` (`+6-8`), `anne_of_green_gables`; and *"do not route
