@@ -80,7 +80,12 @@ a real but unrelated word (`pales -> pal` `-0.8312`, `doting -> dot`), not morph
 - 🔻 **That substituting the base form's norm HELPS A TASK.** Similar profiles remove the objection
   "the two might be unrelated"; **they do not establish a gain.** No task was run. **Nothing here is a
   capability claim, and this is the whole point of the problem.**
-- That the ceiling is above `0.7350` (implied by the missed irregulars, not measured).
+- ✅ **CLOSED 08-22 -- "the ceiling is above `0.7350`" IS NOW MEASURED AND THE HEADROOM IS SMALL.**
+  Adding WordNet `morphy` on top of `normalize_lemma` takes token coverage `0.7350 -> 0.7492`:
+  **`+1.42` points, against the `+13.15` ours already buys. OURS CAPTURES ~`90%` OF THE AVAILABLE
+  GAIN.** ➡️ **DO NOT BUILD OR ADOPT A HEAVIER LEMMATISER -- reuse `normalize_lemma`.** *A parallel
+  build costs a dependency and buys 1.4 points.* ⚠️ *`morphy`'s own control passed 4/5 irregulars and
+  MISSED `mice -> mouse`, so `0.7492` is itself a floor, not the true ceiling.*
 
 ## ALREADY TRIED
 

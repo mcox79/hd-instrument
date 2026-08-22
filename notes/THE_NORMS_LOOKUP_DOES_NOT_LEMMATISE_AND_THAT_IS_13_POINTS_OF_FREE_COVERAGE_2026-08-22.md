@@ -137,6 +137,27 @@ it is the smaller half.*
 that substituting one for the other helps a reader. It removes the objection "the profiles might be
 unrelated"; it does not establish a gain. **No task was run.***
 
+## 4c. ✅ **THE IRREGULARS ARE WORTH `+1.4` POINTS, NOT A LARGE RESIDUAL -- SO REUSE OURS**
+
+Sections 3 and 4b twice flagged that `women -> woman` and `feet -> foot` are recovered by NEITHER
+method, making `0.7350` a floor. **How big a floor was left unmeasured. It is small.**
+
+| arm | TOKEN coverage |
+|---|---|
+| raw string -- runs today | `0.6035` |
+| **+ `normalize_lemma` (OURS)** | **`0.7350`** *(+13.15)* |
+| + WordNet `morphy` **as well** | `0.7492` *(**+1.42 more**)* |
+
+> ### **OUR OWN LEMMATISER ALREADY CAPTURES `13.15` OF THE `14.57` AVAILABLE POINTS -- ABOUT `90%`.**
+
+➡️ **SO THERE IS NO CASE FOR ADOPTING A HEAVIER LEMMATISER, AND THE STANDING REUSE RULE AND THE
+MEASUREMENT AGREE FOR ONCE.** *A parallel build here would cost a dependency and buy `1.4` points.*
+
+⚠️ **AND THE INSTRUMENT DISCLOSED ITS OWN LIMIT: `morphy`'s positive control passed `4` of `5`
+irregulars (`women`, `feet`, `children`, `went`) and **MISSED `mice -> mouse`**. So `0.7492` is
+ITSELF a floor on a perfect lemmatiser, not the true ceiling.** *Reported because a control that
+passes 5/5 tells you nothing about where it breaks.*
+
 ## 5. THE POSITIVE CONTROL, stated because absence checks inherit their detector's blindness
 
 The claim "these 243 are uncovered" is an absence claim, so it is carried by a **presence** control:
