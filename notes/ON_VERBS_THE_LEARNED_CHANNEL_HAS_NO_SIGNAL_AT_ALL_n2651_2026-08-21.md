@@ -54,6 +54,29 @@ changed).*** ⚠️ *SimLex's verb null is `0.1398` at n=203 -- a wide band. On 
 "underpowered"; what makes it readable is the SimVerb replication at a tight null.*
 ⚠️ *ADJ at `0.2207` clears a `0.1931` null on 92 pairs -- noted, not leaned on.*
 
+## 2c. ⭐ **AND VERBS ARE NOT IMPOSSIBLE -- THE SUPPLIED TABLE SCORES `0.2983` WHERE WE SCORE `0.0000`**
+
+*Same benchmark, same pairs, same scorer. Sensorimotor coverage of verbs is **824 of 827 (99.6%)**,
+so **3,487 of 3,500 pairs** are scorable -- more than our own 2,651.*
+
+| arm on SimVerb-3500 | rho | null p95 |
+|---|---|---|
+| **SUPPLIED norms12, euclid** | **`0.2983`** | 0.0309 |
+| SUPPLIED norms12, cosine | 0.2673 | 0.0328 |
+| **OURS -- the learned channel** | **`0.0000`** | 0.0372 |
+
+> ### **A HANDED-OVER TABLE OF HUMAN RATINGS CLEARS ITS NULL BY ~10x ON THE EXACT PAIRS WHERE WE SCORE ZERO. THE SHORTFALL IS OURS, NOT THE TASK'S.**
+
+**This is the project's own standing rule made concrete: *a shortfall is never a ceiling*. Verb
+similarity is recoverable from a 12-dimension human-rated representation; our distributional channel
+simply does not recover it.**
+
+*And the supplied channel is word-class-AGNOSTIC where ours collapses:* `0.2983` on verbs against
+`0.2876` on the noun-heavy SimLex. ⚠️ *Those two are DIFFERENT BENCHMARKS -- that comparison is
+indicative only. The supplied-vs-ours contrast WITHIN each benchmark is the valid one.*
+🚫 **SUPPLY, NOT LEARNING. The organ's docstring forbids reporting this as the substrate having
+learned perceptual structure -- it is a reason to USE the table, not evidence of understanding.**
+
 ## 3. ✅ **AND THE POWER PREDICTION FROM AN HOUR AGO WAS CORRECT**
 
 *I calculated that resolving a `+0.03` effect needed roughly `2.8x` more pairs than SimLex's 829.*
