@@ -162,8 +162,20 @@ def save_items(path: Path, items: list[dict]) -> None:
 # Mutating ops (all lock-guarded)
 # ---------------------------------------------------------------------------
 
+_REQUIRED_DEFAULTS = {"status": "unclaimed", "claimed_by": None, "claimed_at": None,
+                      "done_at": None, "result_fragment": None}
+
+
 def add_items(path: Path, new_items: list[dict], skip_existing: bool = True) -> int:
-    """Append new_items, skipping any whose id already exists. Returns count actually added."""
+    """Append new_items, skipping any whose id already exists. Returns count actually added.
+
+    NORMALISES every item to the shape `_mk` produces. Measured 2026-08-22: this function appended
+    a hand-built dict verbatim, and `claim()` then died on `KeyError: 'status'` -- so the queue
+    ACCEPTED a work item that could never be claimed. **A silently unclaimable item is worse than a
+    rejected one: the work looks queued and is invisible to whoever would have done it**, which is
+    the precise failure this queue exists to prevent. Filling the defaults is the fail-safe
+    direction; rejecting would drop the item on the floor.
+    """
     with _Lock(path):
         items = load_items(path)
         existing_ids = {it["id"] for it in items}
@@ -171,6 +183,9 @@ def add_items(path: Path, new_items: list[dict], skip_existing: bool = True) -> 
         for it in new_items:
             if skip_existing and it["id"] in existing_ids:
                 continue
+            for k, v in _REQUIRED_DEFAULTS.items():
+                it.setdefault(k, v)
+            it.setdefault("created_at", _now())
             items.append(it)
             existing_ids.add(it["id"])
             added += 1
@@ -660,6 +675,29 @@ def _self_test() -> int:
         print("[self-test] PASS re-seeding is idempotent (skips existing id)")
     else:
         print("[self-test] FAIL re-seed was not idempotent", file=sys.stderr)
+        ok = False
+
+    # 2b. A HAND-BUILT DICT MUST BE CLAIMABLE. Every fixture above is `_mk`-built, so none of them
+    # could ever have caught this: on 2026-08-22 `add_items` appended a caller's dict verbatim and
+    # `claim()` then died on KeyError 'status' -- 59 of the 82 rows on disk were in that state, so
+    # the queue was silently holding work nobody could pick up. **A self-test whose fixtures are all
+    # built by the canonical constructor cannot see a defect that only appears when a caller does
+    # not use it** -- the same shape as the adjudicator whose fixtures certified an invented schema.
+    # Its OWN queue file: this case adds a row, and the later stats case asserts exact totals on
+    # `qpath`. A test that perturbs a shared fixture makes a LATER test fail for a reason that has
+    # nothing to do with what it checks -- which is exactly what the first draft of this one did.
+    rawpath = tmp_dir / "queue_rawitem.jsonl"
+    raw = {"id": "t_raw", "category": "process", "title": "hand-built", "brief": "b", "priority": "M"}
+    add_items(rawpath, [raw])
+    try:
+        got = claim(rawpath, "t_raw", "agent_x")
+        if got["status"] == "claimed" and got["claimed_by"] == "agent_x":
+            print("[self-test] PASS a hand-built item (no status field) is claimable")
+        else:
+            print(f"[self-test] FAIL hand-built item claimed to a bad state: {got}", file=sys.stderr)
+            ok = False
+    except KeyError as e:
+        print(f"[self-test] FAIL hand-built item is unclaimable: KeyError {e}", file=sys.stderr)
         ok = False
 
     # 3. claim then double-claim by a different agent must fail
