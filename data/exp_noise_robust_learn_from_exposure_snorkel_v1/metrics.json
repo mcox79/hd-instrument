@@ -217,6 +217,296 @@
   },
   "fallthrough_baseline_accuracy": 0.3889,
   "primary_accuracy": 0.4722,
+  "per_item_predictions": [
+    {
+      "id": "lw_jo_laurie_snowball",
+      "outcome_lemma": "croak",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "lw_ice_rescue_amy",
+      "outcome_lemma": "drag",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "referent_mismatch",
+      "correct": false
+    },
+    {
+      "id": "lw_beth_piano_invite",
+      "outcome_lemma": "practice",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "referent_mismatch",
+      "correct": false
+    },
+    {
+      "id": "lw_beth_slippers_piano_gift",
+      "outcome_lemma": "give",
+      "gold": "MET",
+      "pred": "AMBIGUOUS",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "lw_jo_mr_laurence_confront",
+      "outcome_lemma": "admit",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "same_class_same_referent",
+      "correct": true
+    },
+    {
+      "id": "lw_aunt_march_opposition",
+      "outcome_lemma": "whisper",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": true
+    },
+    {
+      "id": "lw_meg_currant_jelly",
+      "outcome_lemma": "jell",
+      "gold": "UNMET",
+      "pred": "MET",
+      "reason": "same_class_same_referent",
+      "correct": false
+    },
+    {
+      "id": "lw_jo_editor_dashwood",
+      "outcome_lemma": "take",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "same_class_same_referent",
+      "correct": true
+    },
+    {
+      "id": "lw_laurie_proposal_rejected",
+      "outcome_lemma": "refuse",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "referent_mismatch",
+      "correct": true
+    },
+    {
+      "id": "lw_laurie_flower_table_amy",
+      "outcome_lemma": "buy",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "agg_anne_liniment_cake_ch21",
+      "outcome_lemma": "spoil",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "referent_mismatch",
+      "correct": true
+    },
+    {
+      "id": "agg_matthew_puffed_sleeves_dress_ch25",
+      "outcome_lemma": "like",
+      "gold": "MET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "agg_anne_avonlea_school_gilbert_sacrifice_ch38",
+      "outcome_lemma": "give",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "opposed_class_same_referent",
+      "correct": false
+    },
+    {
+      "id": "agg_anne_hair_dye_green_ch27",
+      "outcome_lemma": "turn",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": true
+    },
+    {
+      "id": "agg_anne_concert_recitation_encore_ch33",
+      "outcome_lemma": "encore",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "agg_anne_diana_bosom_friend_ch12",
+      "outcome_lemma": "agree",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "referent_mismatch",
+      "correct": false
+    },
+    {
+      "id": "agg_gilbert_pond_rescue_friendship_plea_ch28",
+      "outcome_lemma": "befriend",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": true
+    },
+    {
+      "id": "agg_anne_pudding_sauce_mouse_ch16",
+      "outcome_lemma": "ruin",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": true
+    },
+    {
+      "id": "agg_anne_mrs_barry_forgiveness_currant_wine_ch16_17",
+      "outcome_lemma": "relent",
+      "gold": "UNMET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "ts_tom_whitewash_fence",
+      "outcome_lemma": "whitewash",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": true
+    },
+    {
+      "id": "ts_becky_anatomy_book_confession",
+      "outcome_lemma": "whip",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "ts_tom_sugar_theft",
+      "outcome_lemma": "rap",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "grounded_result_class",
+      "correct": true
+    },
+    {
+      "id": "ts_tom_wish_free_potter",
+      "outcome_lemma": "flee",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "same_class_same_referent",
+      "correct": true
+    },
+    {
+      "id": "woz_dorothy_kansas_wish",
+      "outcome_lemma": "carry",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "same_class_same_referent",
+      "correct": true
+    },
+    {
+      "id": "woz_scarecrow_brains",
+      "outcome_lemma": "give",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "referent_mismatch",
+      "correct": false
+    },
+    {
+      "id": "woz_tin_woodman_heart",
+      "outcome_lemma": "put",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "referent_mismatch",
+      "correct": false
+    },
+    {
+      "id": "woz_lion_courage_granted",
+      "outcome_lemma": "drink",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "opposed_class_same_referent",
+      "correct": false
+    },
+    {
+      "id": "woz_lion_courage_denied",
+      "outcome_lemma": "have",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": true
+    },
+    {
+      "id": "alice_beautiful_garden",
+      "outcome_lemma": "find",
+      "gold": "MET",
+      "pred": "AMBIGUOUS",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "race_chen_situps",
+      "outcome_lemma": "improve",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "referent_mismatch",
+      "correct": true
+    },
+    {
+      "id": "race_german_dog",
+      "outcome_lemma": "come",
+      "gold": "UNMET",
+      "pred": "MET",
+      "reason": "same_class_same_referent",
+      "correct": false
+    },
+    {
+      "id": "race_davey_wiffle",
+      "outcome_lemma": "curve",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "same_class_same_referent",
+      "correct": true
+    },
+    {
+      "id": "onestop_malala",
+      "outcome_lemma": "go",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "onestop_carle_madeinfrance",
+      "outcome_lemma": "be",
+      "gold": "UNMET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "onestop_hunt_crowdfunding",
+      "outcome_lemma": "make",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "same_class_same_referent",
+      "correct": true
+    },
+    {
+      "id": "onestop_limal_dating",
+      "outcome_lemma": "find",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "same_class_same_referent",
+      "correct": true
+    }
+  ],
   "met_recall": "8/23",
   "unmet_recall": "9/13",
   "learnable_subset": {
@@ -364,7 +654,7 @@
   "verdict": "HARD_FAIL",
   "verdict_msg": "HARD_FAIL: coverage AND=434 OR=1142 soft_trusted=164 (rescue_gate=False) | primary=0.4722 (floor=0.6389) | learnable_ls_acc=0.3571(11/N>=6) | scramble=0.5111 gap=-0.0389 | anti_drift_ok=True | arms_differ=True | hard_fail_reasons=['COVERAGE_NOT_RESCUED_signals_absent', 'PRIMARY_AT_OR_BELOW_CHANCE', 'SCRAMBLE_DOES_NOT_COLLAPSE_no_real_signal']",
   "summary": "HARD_FAIL: coverage AND=434 OR=1142 soft_trusted=164 (rescue_gate=False) | primary=0.4722 (floor=0.6389) | learnable_ls_acc=0.3571(11/N>=6) | scramble=0.5111 gap=-0.0389 | anti_drift_ok=True | arms_differ=True | hard_fail_reasons=['COVERAGE_NOT_RESCUED_signals_absent', 'PRIMARY_AT_OR_BELOW_CHANCE', ",
-  "elapsed_s": 65.55,
+  "elapsed_s": 75.23,
   "discriminator_fires": {
     "n_windows_AND": 434,
     "n_windows_soft_trusted": 164,

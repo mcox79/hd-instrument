@@ -505,13 +505,13 @@ def _run_all(run_mode):
     return _aggregate(run_mode, oov_rows, majority_floor, corpus_stats, win_stats, integ,
                       coverage, and_registered, soft_registered, acc, correct, met_c, unmet_c,
                       n_met, n_unmet, learnable, canary, b_acc, b_correct, scr,
-                      anti_drift_cases, anti_drift_ok, arms_differ, soft_rep)
+                      anti_drift_cases, anti_drift_ok, arms_differ, soft_rep, details)
 
 
 def _aggregate(run_mode, oov_rows, majority_floor, corpus_stats, win_stats, integ, coverage,
                and_registered, soft_registered, primary, correct, met_c, unmet_c, n_met, n_unmet,
                learnable, canary, b_acc, b_correct, scr, anti_drift_cases, anti_drift_ok,
-               arms_differ, soft_rep):
+               arms_differ, soft_rep, details=None):
     scrambled = scr["scrambled_primary_accuracy"]
     n_learnable = learnable["n_learnable"]
     ls_acc = learnable["learnable_subset_accuracy"]
@@ -530,6 +530,12 @@ def _aggregate(run_mode, oov_rows, majority_floor, corpus_stats, win_stats, inte
         "n_registered_soft_combine": len(soft_registered), "soft_combine_registered": soft_registered,
         "fallthrough_baseline_accuracy": round(b_acc, 4),
         "primary_accuracy": round(primary, 4),
+        # SAVE THE POPULATION YOU SCORED (added 2026-08-22). `details` was already computed on every
+        # run by _score and then DISCARDED. Its absence made the VERB_GATE comparison unanswerable:
+        # two arms over the SAME 36 items need a PAIRED test (McNemar), and without per-item outcomes
+        # only an unpaired approximation is possible, which is the wrong test. A few KB here removes a
+        # whole re-run from every future re-analysis.
+        "per_item_predictions": details or [],
         "met_recall": f"{met_c}/{n_met}", "unmet_recall": f"{unmet_c}/{n_unmet}",
         "learnable_subset": learnable,
         "light_verb_canary": {k: canary[k] for k in (
