@@ -183,7 +183,11 @@ SLOTS: List[Slot] = [
          "ratings: admissible as a static offline asset, but not something the substrate learned"),
     Slot("D2", "complete a pattern from a partial cue", "ca3_completer", NEEDS_ADAPTER,
          "consumes FHRR bundles + per-spoke codebooks; the ingest path produces neither. "
-         "ALSO: UNTRACKED IN GIT -- exists only in the working tree"),
+         "CORRECTED 2026-08-22: this row said 'ALSO: UNTRACKED IN GIT -- exists only in the working "
+         "tree'. That hazard was REAL, was escalated as Q66, and was FIXED at f102e7081 ('commit "
+         "ca3_completer.py alone -- it was untracked with ZERO git history'). The file is tracked "
+         "and clean today; the row was never updated, so the architecture table carried a resolved "
+         "data-loss hazard as live. The REMAINING blocker is the input one, above"),
     Slot("R4", "promote provisional knowledge to durable knowledge", "prelim_tier", NEEDS_ADAPTER,
          "needs a TierState plus a cluster_key_fn the ingest path does not define"),
     # ---- TIER 2: comprehension ----
