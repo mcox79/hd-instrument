@@ -28,6 +28,7 @@ Usage:
 
 from __future__ import annotations
 
+import json
 import os
 
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -47,16 +48,37 @@ INDETERMINATE = "INDETERMINATE_NO_BEFORE_SNAPSHOT"
 
 
 def unit_count(output_dir: str) -> int:
-    """Number of durably recorded units. 0 means a re-run would recompute from scratch."""
+    """Number of DISTINCT durably recorded units. 0 means a re-run would recompute from scratch.
+
+    COUNTS UNIQUE `unit_key`s, NOT LINES. The first version counted lines, which OVERSTATES what a
+    re-run would actually skip: `completed_units()` builds a SET and `load_units()` builds a DICT, so
+    a unit appended twice is skipped ONCE. Found by the solver session on the `harness_cannot_recompute`
+    brief -- 3 of its 60 sampled cells had repeated keys -- and confirmed here across the whole
+    archive: 21 of 421 cells with a `units.jsonl` repeat at least one key, 70,644 lines against
+    70,191 distinct keys, a 0.65% overstatement.
+
+    WHAT THIS DOES NOT CHANGE, stated so the correction is not read as bigger than it is: the census
+    headline counts CELLS (a cell replays iff this is > 0), and no cell crosses that boundary from
+    deduplication. Only the secondary "units that would be skipped" total moves, by 453.
+
+    A line that is not valid JSON, or that carries no `unit_key`, counts as its own distinct unit --
+    the conservative direction, since an unparseable record is not demonstrably a duplicate.
+    """
     p = os.path.join(output_dir, "units.jsonl")
     if not os.path.isfile(p):
         return 0
-    n = 0
+    keys = set()
     with open(p, encoding="utf-8", errors="replace") as f:
-        for line in f:
-            if line.strip():
-                n += 1
-    return n
+        for i, line in enumerate(f):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                k = json.loads(line).get("unit_key")
+            except (ValueError, AttributeError):
+                k = None
+            keys.add(k if k is not None else ("__unparsed__", i, line[:120]))
+    return len(keys)
 
 
 def would_replay(output_dir: str):
