@@ -49,7 +49,8 @@ only." What was merged (or, for tab 8, un-merged), and why:
                               to answer one question. One row per part now: what it was, what it is
                               now, and the floor beside both. THE TWO RULES SURVIVE THE MERGE
                               INTACT -- a score is never rendered without its floor, and RETRACTIONS
-                              stay first-class rows in the same red as a loss, counted in the tab
+                              stay first-
+class rows in the same red as a loss, counted in the tab
                               title. Where the two merged sources disagree about the same part the
                               panel SAYS SO and counts it, rather than picking the flattering one.
     5. BRAIN ORGAN MAP        per organ: the brain structure, what it does in one plain sentence,
@@ -194,6 +195,7 @@ import time
 import tkinter as tk
 import traceback
 from pathlib import Path
+from pathlib import Path as _Path
 from tkinter import ttk
 
 _TOOLS_DIR = str(Path(__file__).resolve().parent)
@@ -491,6 +493,47 @@ def _panel_age_text(ages, panel_name: str) -> str:
     if not isinstance(p, dict):
         return ""
     return "   " + str(p.get("plain") or "")
+
+
+
+# ---- WINDOW PREFERENCES -----------------------------------------------------------------------
+# One tiny JSON beside the other hook state. A preference the owner sets with a click must survive
+# a restart, or they set it again every session and the fix reads as broken. Never raises: an
+# unreadable/absent file falls back to the caller's default, which is the same fail-safe direction
+# every other state file in this repo uses.
+_PREFS = _Path(__file__).resolve().parent.parent / 'data' / 'hook_state' / 'gui_prefs.json'
+
+
+def _load_pref(key, default):
+    try:
+        import json as _j
+        with open(_PREFS, 'r', encoding='utf-8') as fh:
+            data = _j.load(fh)
+        return data.get(key, default) if isinstance(data, dict) else default
+    except Exception:
+        return default
+
+
+def _save_pref(key, value):
+    try:
+        import json as _j, os as _os
+        data = {}
+        if _PREFS.exists():
+            try:
+                with open(_PREFS, 'r', encoding='utf-8') as fh:
+                    loaded = _j.load(fh)
+                if isinstance(loaded, dict):
+                    data = loaded
+            except Exception:
+                data = {}
+        data[key] = value
+        _PREFS.parent.mkdir(parents=True, exist_ok=True)
+        tmp = str(_PREFS) + '.tmp'
+        with open(tmp, 'w', encoding='utf-8', newline='\n') as fh:
+            _j.dump(data, fh, indent=2)
+        _os.replace(tmp, str(_PREFS))
+    except Exception:
+        pass          # a preference that cannot be saved must never take the window down
 
 
 class StatusWindow:
@@ -806,6 +849,24 @@ class StatusWindow:
         self.stale_shown = False
         self.headbar = head
 
+        # ---- THE HEADLINE STRIP COLLAPSES (owner, 2026-08-22) ----------------------------------
+        # Owner, twice: *"in gen the top of the gui takes up too much space - I still can't read
+        # the questions on tab 3"*. MEASURED CAUSE: this strip is a FIXED cost on EVERY tab -- a
+        # 15pt bold headline that wraps to two or three lines, plus a subline, plus padding, is
+        # ~100px of a ~752px screen. The WAITING ON YOU tab had already been squeezed twice for
+        # this (its banner trimmed 64px, its table cut 12 -> 6 -> 3 rows) and its reading pane
+        # STILL measured 1px, because the space was never on that tab to begin with.
+        #
+        # NOTHING IS DELETED -- one click restores it, and the choice persists. Default is
+        # COLLAPSED because the owner is asking for the space back NOW; a default that requires
+        # them to ask again is not a fix.
+        self._head_collapsed = _load_pref("headline_collapsed", True)
+        self.head_toggle = tk.Label(head, text="", bg=_RED_BG, fg="#f0c8c4", anchor="e",
+                                    font=("Segoe UI", 9), padx=12, cursor="hand2")
+        self.head_toggle.grid(row=3, column=0, sticky="ew", pady=(0, 3))
+        for _w in (head, self.headline_lbl, self.headsub_lbl, self.head_toggle):
+            _w.bind("<Button-1>", self._toggle_headline)
+
         self.nb = ttk.Notebook(root)
         self.nb.grid(row=1, column=0, sticky="nsew", padx=6, pady=6)
 
@@ -822,6 +883,7 @@ class StatusWindow:
         self._build_results()     # C
         self._build_commentary()  # D  (2026-08-17: its OWN tab -- see docstring below)
         self._register_tab_sources()
+        self._apply_headline_mode()
 
         bar = ttk.Frame(root)
         bar.grid(row=2, column=0, sticky="ew", padx=6, pady=(0, 6))
@@ -2304,6 +2366,29 @@ class StatusWindow:
                     traceback.format_exc(limit=3).replace("\n", " | ")
 
     # ---- headline -----------------------------------------------------
+    def _toggle_headline(self, _event=None) -> None:
+        self._head_collapsed = not self._head_collapsed
+        _save_pref("headline_collapsed", self._head_collapsed)
+        self._apply_headline_mode()
+
+    def _apply_headline_mode(self) -> None:
+        """COLLAPSED: one tight line, no wrap, subline hidden. EXPANDED: as before.
+
+        `wraplength=0` is what actually buys the space -- it disables wrapping, so a long headline
+        occupies ONE line and is clipped at the window edge rather than growing the strip to two or
+        three. The full text is one click away and also on the tab it came from, so nothing is
+        only-here."""
+        if self._head_collapsed:
+            self.headline_lbl.configure(font=("Segoe UI", 11, "bold"), wraplength=0)
+            self.headline_lbl.grid_configure(pady=(4, 0))
+            self.headsub_lbl.grid_remove()
+            self.head_toggle.configure(text="click to expand this strip")
+        else:
+            self.headline_lbl.configure(font=("Segoe UI", 15, "bold"), wraplength=self._wrap_w)
+            self.headline_lbl.grid_configure(pady=(9, 2))
+            self.headsub_lbl.grid()
+            self.head_toggle.configure(text="click to collapse this strip")
+
     def _r_headline(self, s: dict) -> None:
         """The strip answers three things without a click: WHERE WE ARE, HOW WE ARE DOING against
         the floor, and HOW MUCH OF THIS NO LONGER MATCHES ITS SOURCE."""
