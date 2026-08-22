@@ -120,6 +120,27 @@ def _metrics_scope(path: str) -> list[tuple]:
     return found
 
 
+def _printable(s: str) -> str:
+    """Make a source line safe for THIS stdout, which on Windows is cp1252, not utf-8.
+
+    Measured 2026-08-22: this tool died with `UnicodeEncodeError` on a caveat line containing an
+    emoji -- AFTER printing one caveat and BEFORE printing the rest. **A tool whose job is to show
+    you what you are about to quote past, failing halfway with a traceback, hands you a PARTIAL
+    caveat list.** Silently dropping the rest is the exact shape of the failures this tool exists to
+    catch.
+
+    Not fixed by reconfiguring stdout: that mutates global state for every importer, which this repo
+    already has a documented incident about (`hdlab.reading_grounding_loop` rewriting `sys.stdout`
+    process-wide). Sanitising the STRING keeps the blast radius at one line.
+    """
+    enc = (getattr(sys.stdout, "encoding", None) or "utf-8")
+    try:
+        s.encode(enc)
+        return s
+    except (UnicodeEncodeError, LookupError):
+        return s.encode(enc, errors="replace").decode(enc, errors="replace")
+
+
 def report(literal: str, window: int = 25) -> int:
     files = _hits(literal)
     bar = "=" * 88
@@ -145,7 +166,7 @@ def report(literal: str, window: int = 25) -> int:
                 n_cav += 1
                 print(f"\n*** {f} -- {len(cav)} CAVEAT LINE(S) NEAR THE NUMBER ***")
                 for lineno, ln in cav[:8]:
-                    print(f"    L{lineno}: {ln}")
+                    print(f"    L{lineno}: {_printable(ln)}")
     print(f"\n{len(files)} file(s) contain it; {n_cav} carry caveats near it.")
     if not n_cav:
         print("NO CAVEATS FOUND IS NOT EVIDENCE THERE ARE NONE -- it means none matched this")
@@ -186,6 +207,22 @@ def _self_test() -> int:
         print(f"[self-test] PASS: the search itself works ({len(probe)} file(s) for a known literal)")
     else:
         print("[self-test] FAIL: the SEARCH is broken -- every result below is meaningless")
+        ok = False
+
+    # ENCODING REGRESSION. Measured 2026-08-22: this tool died with UnicodeEncodeError on a caveat
+    # line containing an emoji, AFTER printing one caveat and BEFORE the rest -- handing back a
+    # PARTIAL caveat list plus a traceback. A caveat tool that stops halfway is worse than one that
+    # refuses, because the output still looks like an answer.
+    _emoji_line = "L1: \U0001F53B WITHDRAWN -- the caveat that used to crash this printer"
+    try:
+        out = _printable(_emoji_line)
+        out.encode(getattr(sys.stdout, "encoding", None) or "utf-8")
+        print("[self-test] PASS: a caveat line with non-cp1252 characters is printable")
+    except UnicodeEncodeError:
+        print("[self-test] FAIL: _printable did not make the line safe for this stdout")
+        ok = False
+    if _printable("plain ascii caveat") != "plain ascii caveat":
+        print("[self-test] FAIL: _printable altered an ASCII line -- it must be a no-op there")
         ok = False
 
     # NEGATIVE CONTROL: a literal nobody has written must report nothing, loudly.
