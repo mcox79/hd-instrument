@@ -70,6 +70,17 @@
 > **ONE REPRESENTATION, TWO JOBS NEEDING OPPOSITE THINGS:** meaning needs the word DELETED from its sentence (else grounding learns "artery means artery"); identification needs it PRESENT. **masked hit@1 `0.1417` vs unmasked `0.4750`, chance `0.0167`.** ➡️ **THE BRAIN DOES NOT FACE THIS -- VWFA and ATL hub+spokes ARE SEPARATE SYSTEMS.** *Form invariance is an IDENTITY property; the VWFA FEEDS lexical access rather than being it.*
 > ✅ *RISK DISARMED: form channel `rho -0.0259` (p=0.41, n=999) on SimLex meaning, INSIDE the shuffled null `-0.0172..+0.0426` -- safe as a SEPARATE channel, clearly wrong to BLEND.* ✅ *Prior work confirms the do-not-blend half: `..._vwfa_late_combine_2spoke` **HARD_FAIL**, late-combine `0.2000` < form-alone `0.2533`.* 🚫 **SCOPE: that cell's population is the SimLex+WordSim list, "may not be quoted as such"; do NOT swap `0.2701` with its `0.2449` CI `[0.1830,0.3036]`; WordSim353 `0.4093` is a THIRD population.** `ONE_REPRESENTATION_TWO_OPPOSITE_JOBS_...` `FORM_INVARIANCE_CANNOT_BUY_MEANING_...`
 >
+> ## 🚨 **RE-LANDED 08-22: RANDOM CREDIT ASSIGNMENT NOW BEATS THE REAL MECHANISM**
+> **The landed record was measured 08-06 where the structural cascade fired ZERO times. Re-landed at HEAD: `HARD_FAIL` STANDS and is now DECISIVE, not borderline -- THREE independent gates fire.**
+> | arm | landed 08-06 | re-landed HEAD |
+> |---|---|---|
+> | **RANDOM credit** | `0.1667` | 🔻 **`0.5278`** |
+> | SCRAMBLED labels | `0.1667` | `0.3556` |
+> | 🔻 **THE REAL MECHANISM** | `0.1667` | 🔻 **`0.3056`** |
+> | *the floor* | `0.6389` | `0.6389` |
+> **Random beats ours by `+0.2222`, scrambled by `+0.0500`. OURS IS LAST OF THE THREE.** *In the stale run all three read `0.1667` -- IDENTICAL, so the comparison could not have been informative. The separation is NEW and it went the wrong way.* 🚫 **Nothing clears the floor: `0.5278` is a defeat for the mechanism, NOT a result for randomness.**
+> 🎯 *`AMBIGUOUS` now BITES as predicted -- absent under the empty overlay, `3` items under the LEARNED overlay, all scored wrong by `_score`'s omission. Filed separately as `score_counts_abstention_as_error`.* ⚠️ *The mandatory cert gate did not complete on that run: INCONCLUSIVE, and the gate is SLOW not hung.* `RANDOM_CREDIT_BEATS_THE_REAL_MECHANISM_...`
+>
 > ## 🔎 **THE GOAL-BEARING LINE -- WHERE THE WALL ACTUALLY IS**
 > 🔻 **Q104 WITHDRAWN: the credit mechanism is ALREADY role-based.** `_credit_targets` bounds each verb's own clause and excludes bystanders STRUCTURALLY. *Run, not read: "the girl stumbled badly and the man laughed loudly" -> girl `['stumble']`, man `['laugh']`.*
 > 🎯 **THE REAL EXPOSURE WAS THE MORPHOLOGICAL GATE** `_is_verblike`: **recall `0.6026` -- `3,528` of `8,877` real verbs NEVER SEEN**; precision `0.4718` (`0.5816` excluding the AUX convention). **The missed verbs are the exact words Q104 named -- right population, BACKWARDS direction.**

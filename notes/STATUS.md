@@ -34,15 +34,16 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-22 -- 🚨 **`read(n_sentences=N)` DOES NOT READ `N`. ASK FOR 8,000, GET ~1,000.**
-`read(3000/6000/10000)` all returned `1,060` sentences; asked `8,000`, every seed/dim stopped between
-`960` and `1,500`, falling to `240`/`220` on repeat calls -- SILENT (`ReadResult.n_sentences` held the
-truth). ✅ **GUARDED `e335fa220`:** `n_sentences_requested` + `short_read` on `ReadResult`, stderr
-banner under 90% delivery, witness 3/3 (warn not raise -- results are real, only their description was
-at risk). 🔻 **RETRACTS MY OWN GROWTH CURVE:** chunking never grew consolidation to 180 by reading
-more -- each call buys a fresh smaller allowance; the "30-term consolidation cap" WAS the read cap.
-🚫 *Not claimed: universal effect (this is `Substrate.read()`; enumeration is the follow-up), any
-published number wrong, or cause traced.* 📎 `SUBSTRATE_READ_SILENTLY_READS_A_FRACTION_...`
+### 2026-08-22 -- 🚨 **`read(n_sentences=N)` IS A CEILING, AND `max_patches` BINDS FIRST**
+**`read(3000)`/`read(6000)`/`read(10000)` all returned `1,060` sentences.** Cause traced: `substrate.py:548`
+breaks at `patch_i >= max_patches` (default `4`) -- ONE LAP, unspent budget discarded. Nothing runs out of
+text. **Raise `max_patches`, not `n_sentences`.** Successive calls decay (`1,060 -> 240 -> 220`) via cached
+forager rho, never reset.
+🔻 **DEFLATED BY ITS OWN ENUMERATION: NO CELL USES THE FAILING SHAPE.** All bind `chunk = 400` and loop;
+25 such calls deliver `8,060/10,000` = **`81%`**. 🚫 *Do NOT quote the `13%` as our exposure -- that is a
+call shape appearing nowhere but its own test.*
+✅ *Guarded (`e335fa220`): `short_read` + `n_sentences_requested` on `ReadResult`, stderr banner, survives
+`to_dict()`. Docstring now carries the mechanism (`37d628d95`).*
 
 ### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; NOW ENFORCED IN CODE**
 **`399` of `7,868` landed cells (`5.1%`) replay on re-run -- same verdict, same numbers, `elapsed
@@ -52,27 +53,22 @@ published number wrong, or cause traced.* 📎 `SUBSTRATE_READ_SILENTLY_READS_A_
 📎 `--census` recomputes it; brief `notes/problems/harness_cannot_recompute/`.
 
 ### 2026-08-22 -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS. THE LOOKUP CANNOT INFLECT.**
-`grounded_similarity.py:165` is a raw-string lookup, no morphology -- holds `country`, misses
-`countries`. Token coverage `0.6035 -> 0.7350` under our own `normalize_lemma` (zero new norms, 44%
-of the way to the `90%` target), type `0.1027 -> 0.1633`. ➡️ **So "+14,704 words to norm" counts
-inflected forms of ALREADY-NORMED words.** ✅ Substitution measured SOUND: 3,629 both-normed pairs
-read median cosine `0.7605` vs random-pair floor `-0.0131` (4.9% fall below). 🔻 Sub-hypothesis
-REFUTED -- damage does not concentrate in participles; it is the rule landing on a real but unrelated
-word (`pales->pal`). REUSE `normalize_lemma`, don't adopt a heavier lemmatiser (irregulars worth only
-+1.42 more).
-
-🔑 **AND THE VERB HOLE IS OURS, NOT THE ASSET'S.** SimLex, 400-shuffle nulls: the ASSET reads NOUN
-`+0.2745` (null `0.0732`) and VERB `+0.2607` (null `0.1241`) -- BOTH CLEAR, NOT separated from each
-other. ➡️ **Against our LEARNED channel (noun clears `0.1310`, verb INSIDE its null): the meaning for
-verbs is available and we are not learning it** (ATL hub-and-spoke leans verb meaning on
-SENSORIMOTOR spokes, not distributional company, so both halves are expected). ⚠️ Adjectives
-`+0.1472` UNDERPOWERED at n=111, unresolved. 🔻 WITHDRAWN same day: "the lookup fix IS the verb fix"
--- our UPOS tagger over 20,000 sentences shows recovery enriched for CONTENT WORDS generally (VERB
-`2.58x`, NOUN `2.25x`, ADJ `0.15x`); the verb case rests on ENRICHMENT x DEFICIT instead: nouns
-recover into a channel that already has signal, verbs into one with none.
-🚫 **COVERAGE, NOT CAPABILITY -- NO TASK RUN; `grounded_similarity.py` DELIBERATELY UNCHANGED.**
-📎 `THE_VERB_HOLE_IS_OURS_NOT_THE_ASSETS_...` `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...`; brief
-`notes/problems/lookup_does_not_lemmatise/`.
+`grounded_similarity.py:165` is `_table().get(word.lower())` -- raw string, no morphology, so we hold
+`country` and read past `countries`. **TOKEN coverage `0.6035` -> `0.7350` under our own `normalize_lemma`
+(+13.2 points, zero new norms = 44% of the way to the `90%` target)** -- so **`+14,704 words to norm` counts
+INFLECTED FORMS OF ALREADY-NORMED WORDS.** *Substitution verified sound (3,629 pairs, median cosine `0.7605`
+vs random floor `-0.0131`); irregulars add only `+1.42`, so REUSE `normalize_lemma`.*
+⛔ **AND IT IS UNREACHABLE TODAY: `read()` NEVER CONSULTS THE ASSET.** Runtime, positive-controlled: `0`
+calls to `grounded_similarity`/`grounded_vector`/`_table` across a 150-200 sentence read -- the table is never
+even loaded, matching the substrate's own B5 slot (`NEEDS_ADAPTER`). **Fix the lookup, re-run a reading task,
+and NO MOVEMENT IS THE EXPECTED RESULT.**
+🔑 **THE VERB HOLE IS OURS, NOT THE ASSET'S.** SimLex, one scorer, only word class changing, 400-shuffle
+nulls: the ASSET reads NOUN `+0.2745` (null `0.0732`) and VERB `+0.2607` (null `0.1241`) -- **BOTH CLEAR,
+Fisher `z=0.192` NOT SEPARATED**, on `99.6%` of SimVerb's pairs; our LEARNED channel has noun `0.1310` and
+**verb INSIDE its null.** ⚠️ *ADJECTIVES unresolved and UNANSWERABLE on our assets -- SimLex's `111` is the
+ceiling, WordSim353 has ONE adjective pair.* 🔻 *Withdrawn same day: "the lookup fix IS the verb fix" --
+the tagger says recovery is enriched for CONTENT WORDS (VERB `2.58x`, NOUN `2.25x`), not verbs specifically.*
+📎 `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...` `THE_VERB_HOLE_IS_OURS_...`
 
 ### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
 
