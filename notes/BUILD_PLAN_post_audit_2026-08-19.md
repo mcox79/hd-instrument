@@ -112,6 +112,20 @@
 > nouns. Restated: `~73%` of error types are NOUNS.**
 > ⚠️ *Types not tokens (3rd time -- no projected precision). The `-ed`/`-ing` clause is UNEXAMINED and
 > would admit `building`/`feeling`.* `WHY_THE_WALL_REPRODUCED_EXACTLY_...`
+> 🔻 **TOKEN-LEVEL AT LAST -- AND IT SHRINKS MY OWN CLAIM SIXFOLD.** *`412,446` tokens, same 4 corpora:*
+> **`_is_verblike` admits `70,141` (17.0%); of those `87.8%` HAVE a verb sense and only `12.2%`
+> (`8,592`) do NOT. So the gate removes `12.2%` of admitted TOKENS, not the `73%` I quoted at TYPE
+> level.** *The error TYPES are a long tail of rare junk; the token mass is ordinary verbs.* ✅ **I
+> refused to project across types/tokens THREE times -- the gap was a factor of SIX.**
+> 🔑 **AND BOTH CLAUSES LEAK, INCLUDING THE ONE I HAD NOT EXAMINED:** *`-ing` is the LARGEST source
+> (`something` 359, `thing` 331, `anything` 316, `nothing` 291, `morning` 201, `everything` 181 --
+> pronouns and quantifiers, not nouns); `-ed` admits `red` 166 and `wicked` 121 (adjectives); the
+> lemma-changed path admits `girls` 388, `boys` 274, `children` 174, `friends` 150.*
+> 🔻 **CORRECTION: I said a verb-sense gate "fixes both directions". IT DOES NOT -- it is a PURE FILTER,
+> so it cannot help the base-form verbs (`praise`) that are wrongly REJECTED. That needs a separate
+> change.** ⚠️ *Removals audited only at the top 15; token counts are over raw corpora, not credit
+> windows; this measures the FILTER, not its effect on attribution precision.*
+> `TOKEN_LEVEL_THE_GATE_REMOVES_12_PERCENT_NOT_73_...`
 >
 > **4. ✅ THE GROUNDING ORGAN WORKS, AND MY OWNER REPORT WAS SCOPED WRONG.** *`governor_grounding`
 > HARD_PASS `0.967`, **bow `0.517`**; `confirmation_test` RULING_CONFIRMED (the PREDICTED failure at
