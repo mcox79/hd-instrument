@@ -70,6 +70,40 @@ would be a constant in practice and the question would not arise.*
 
 ---
 
+## 2b. AND AT THE LOW END IT IS NOT A WEIGHT AT ALL -- IT IS A DELETE
+
+`pseudo_counts_from_dictionary` does not merely down-weight a low-confidence hit:
+
+```python
+n = round(k_max * lu.confidence)
+if n <= 0:
+    continue          # no entry, ZERO influence
+```
+
+With `K_MAX = 3`, anything under confidence ~`0.167` rounds to zero. **The organ decided POS or NEG,
+and the learning loop is never told.**
+
+| | n | accuracy |
+|---|---|---|
+| survive the rounding | `263` | `0.6692` |
+| 🔻 **DISCARDED by `if n <= 0`** | **`63` = `19%` of everything it decided** | `0.6190` |
+| difference | | `+0.0502`, CI95 `[-0.0768, +0.1809]` -- **spans zero** |
+
+*Pseudo-count distribution among survivors: `3` -> 211, `2` -> 27, `1` -> 25. So the discard is not
+a rare edge case; it is a fifth of the organ's output.*
+
+⚠️ **AND THE HONEST LIMIT, WHICH CUTS AGAINST THE OBVIOUS FIX: at `n=63` I ALSO CANNOT SHOW THE
+DISCARDED ANSWERS ARE USABLE.** On their own subset they read `0.6190` against a `0.5714` majority
+floor -- a margin of `+0.0476`, CI95 `[-0.1587, +0.2381]`, **crossing zero**.
+
+**So this is a QUESTION TO SETTLE, NOT A DEFECT TO FIX.** What is established: the rounding discards
+a fifth of the organ's decisions, and there is **no measured basis** for preferring the ones it
+keeps. What is NOT established: that keeping them would help. *"Restore the discarded hits" is a
+plausible-sounding change that this evidence does not license, and shipping it on these numbers
+would be the same overclaim in the opposite direction.*
+
+---
+
 ## 3. WHAT THIS IS AND IS NOT
 
 - ✅ **IS:** a measured absence of calibration in a wired organ's confidence output, on `326` items
