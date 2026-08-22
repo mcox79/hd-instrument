@@ -839,7 +839,34 @@ def get_output_dir(anchor_name: str) -> Path:
                     f"experiments/_seed_checkpoint.get_output_dir docstring.\n"
                 )
                 name = stripped
-    return _REPO / "data" / f"exp_{name}"
+
+    base = _REPO / "data" / f"exp_{name}"
+
+    # --- SH-7 fresh-recompute isolation (added 2026-08-22) -------------------
+    # Incident: notes/problems/harness_cannot_recompute/. A landed cell cannot be falsified by
+    # re-running it -- completed_units() finds every unit already recorded, the cell skips all of
+    # them, and the SAME verdict comes back in ~0.0s having computed nothing. Measured: 403 of
+    # 7,875 landed cells replay. "I re-ran it and it matched" is currently not evidence.
+    #
+    # The only lever that turns a replay into a recompute WITHOUT deleting checkpoints (separately
+    # forbidden here, and auto-denied) is to point the cell at a DIFFERENT, EMPTY directory.
+    # HDI_FRESH_RUN=<tag> returns a NEW sibling, so completed_units() reads empty and the cell
+    # recomputes every unit; the landed dir is never opened for writing, so byte-identity is BY
+    # CONSTRUCTION rather than by cleanup. Unset env -> base unchanged, so on-disk behaviour is
+    # byte-identical to before this block for every existing cell. Same shape as SH-4/5/6.
+    #
+    # PROVEN TO BE ABLE TO FAIL, which was the whole deliverable: corrupt one input and re-run
+    # fresh -> the verdict FLIPS HARD_PASS to HARD_FAIL; re-run fresh unmodified -> it REPRODUCES.
+    # Witness: verification/test_recompute_can_fail.py.
+    #
+    # COVERAGE IS PARTIAL AND THE NUMBER IS RECOUNTED, NOT INHERITED: of 421 cells carrying a
+    # units.jsonl, 87 route output through this function (covered here for free), 275 hold a bare
+    # module-level OUTPUT_DIR (each needs a one-line wrap in fresh_run_output_dir), and 59 sources
+    # were not located. So this block covers ~21%; the rest keep replaying until migrated.
+    _fresh_tag = os.environ.get("HDI_FRESH_RUN", "").strip()
+    if _fresh_tag and not base.name.endswith(f"__fresh_{_fresh_tag}"):
+        base = base.with_name(f"{base.name}__fresh_{_fresh_tag}")
+    return base
 
 
 # --- SH-6 resolved-run-mode output isolation (added 2026-08-13) --------------
