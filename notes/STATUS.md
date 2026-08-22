@@ -17,6 +17,21 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
+### 2026-08-22 (continuation 2) -- ✅ **"READ, NOT REPRODUCED" IS NOW ENFORCED IN CODE**
+
+**The TOP ITEM's own caveat -- *re-running gives `elapsed 0.0s`, checkpoints REPLAY, and the no-op is
+INDISTINGUISHABLE FROM A PASS* -- had a note (`61e3b39fc`, ONE cell) and NO DETECTOR.** ✅ **Archive
+scale, independently recomputed and reproducing the figure exactly: `399` of `7,868` landed cells
+(`5.1%`) carry checkpoint units, plus 18 dirs with units and no `metrics.json`. ZERO unit files are
+empty -- no benign subset. Largest would skip `12,137` units.**
+🔑 **`tools/reproduction_check.py` makes the unsafe reading UNREPRESENTABLE: `ReproductionVerdict` has
+NO `__bool__` (it raises) and no attribute called `reproduced`; the only affirmative accessor is
+`is_evidence_of_reproduction()`; a missing before-snapshot returns `INDETERMINATE`, never a pass.**
+*Contract-tested against REAL data (a fabricated `units.jsonl` would certify a format I invented),
+negative-controlled both ways. `verification/test_replay_is_not_reproduction.py` 5/5.*
+🚫 **CHANGES NO LANDED NUMBER AND CASTS DOUBT ON NONE -- it bears only on whether re-running one
+verifies it.**
+
 ### 2026-08-22 (continuation 9) -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS. THE LOOKUP CANNOT INFLECT.**
 
 **`hdlab/grounded_similarity.py:165` is the entire lookup: `_table().get(word.lower())`.** Raw string
