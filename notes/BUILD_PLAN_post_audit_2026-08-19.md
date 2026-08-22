@@ -74,6 +74,20 @@
 > ⚠️ **WATCH CONDITION UNCHANGED: this may make a better INDEX without better UNDERSTANDING -- the tell
 > is recognition rising while meaning stays flat.** ⚠️ *NOT yet wired; that is a live-path change.*
 > `Q102_ANSWERED_THE_FORM_ORGAN_PASSES_THE_BRAINS_OWN_TEST_...`
+> 🔑 **AND THE LIVE IDENTITY CODE FAILS THE SAME TEST COMPLETELY.** *`symbol_vector` is a sha256-seeded
+> random bipolar draw, so it has NO form structure by construction:* **CASE INVARIANCE mean `-0.0026`
+> (hash) vs `+1.0000` (form organ); INFLECTION `+0.0208` vs `+0.4727`; and BOTH are ~0 on unrelated
+> controls -- so the form code ADDS invariance WITHOUT adding false similarity.** ***We are using a
+> demonstrably worse identity code than the one sitting unused.***
+> 🚨 **BLAST-RADIUS CHECK FIXED THE WIRING'S SHAPE: `symbol_vector` ALSO encodes RELATION LABELS
+> (`REL:^nmod` -- form similarity there is NOISE), has a second live consumer
+> (`perirhinal_conjunctive.py`), and its deterministic codes land in ACCUMULATED STORES, so swapping it
+> REWRITES EVERY PERSISTED SYMBOL CODE** *(same hazard as `256->1024`)*. ➡️ **THEREFORE THE WIRING IS
+> ADDITIVE -- a separate form-identity accessor ALONGSIDE `symbol_vector`, never a replacement.**
+> ✅ **THREE INDEPENDENT ARGUMENTS NOW AGREE ON THAT SHAPE: the brain (VWFA FEEDS lexical access), the
+> empirical HARD_FAIL (late-combine `0.2000` < form-alone `0.2533`), and store compatibility.**
+> ⚠️ *8 pairs; shows a BETTER IDENTITY CODE, NOT a downstream gain; edit NOT made.*
+> `THE_LIVE_IDENTITY_CODE_FAILS_THE_BRAINS_DEFINING_TEST_...`
 > ✅ **AND PRIOR WORK EMPIRICALLY CONFIRMS THE "DO NOT BLEND" HALF:**
 > *`exp_substrate_concept_encoder_v2_vwfa_late_combine_2spoke` **HARD_FAIL** -- `ARM_V2_LATE_COMBINE`
 > `recall@5 0.2000` vs `max(VWFA 0.2533, SEM 0.1667)`: **"composition HURTS relative to best single
