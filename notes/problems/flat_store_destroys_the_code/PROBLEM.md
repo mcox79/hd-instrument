@@ -1,3 +1,12 @@
+> # 🥇 **PRIORITY 1 of 5 -- DO THIS FIRST.** *(ranked by the strategy session, 2026-08-22)*
+> **IT IS UPSTREAM OF EVERY OTHER PROBLEM HERE.** If the store destroys per-item information, then
+> improving what goes INTO it -- better coverage, better meaning, better persistence -- improves what
+> is destroyed. **Every other brief on this list is downstream of this one.**
+> ✅ **AND IT IS THE MOST TRACTABLE OF THE TOP THREE: the replacement store ALREADY EXISTS, is
+> proven, and is called by nothing** -- built and left disconnected three separate times. *That makes
+> it a WIRING job with a working organ, not a build.*
+> 📏 *Bounded: one storage decision, with a working alternative sitting beside it.*
+
 # PROBLEM: THE WAY WE STORE THINGS DESTROYS ALMOST ALL OF WHAT WE STORE
 
 **slug:** `flat_store_destroys_the_code` · **opened:** 2026-08-22 by the strategy session

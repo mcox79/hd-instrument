@@ -29,6 +29,29 @@ the brief.*
 
 ---
 
+## 🔢 **PRIORITY -- OWNER INSTRUCTION 2026-08-22: *"I also want a priority for what problems to tackle first, on the problem page"***
+
+**Every open `PROBLEM.md` now OPENS with its rank and the reason for it.** The current order, and it
+is ranked by **WHAT BLOCKS WHAT**, not by how interesting the question is:
+
+| | problem | why here |
+|---|---|---|
+| 🥇 **1** | `flat_store_destroys_the_code` | **UPSTREAM OF EVERYTHING.** If the store destroys per-item information, better coverage/meaning/persistence all improve what is destroyed. **And the replacement store already exists, proven, called by nothing** -- a wiring job |
+| 🥈 **2** | `substrate_never_resumes` | **Nothing survives the run that learned it, so no result compounds.** Also a wiring job: the persistence organ passes `9/9` at HEAD. Compounds with the read cap (~1,000 sentences per call) |
+| 🥉 **3** | `reader_meaning_channel` | **The actual goal**, ranked third only because 1 and 2 are upstream and far more bounded. **Now owns the blocker the others depend on: `read()` never consults the meaning asset at all** |
+| **4** | `lookup_does_not_lemmatise` | Cheapest and largest (`+13.2` points, one line) **but NOT MEASURABLE until 3's adapter exists** -- nothing calls the lookup during reading |
+| **5** | `harness_cannot_recompute` | An ENABLER: it improves our ability to CHECK, not the system. **Its value rises the moment 1-3 start producing changes that need verifying** |
+
+> ### 🔑 **THE RANKING RULE, SO IT CAN BE ARGUED WITH RATHER THAN TAKEN ON TRUST:**
+> **(1) Does it block other problems? (2) Is the fix a WIRING job with a proven organ, or a build?
+> (3) Can the result be MEASURED today, or is it stranded behind something unbuilt?**
+> *That third test is why the cheapest and largest single gain sits at 4: a `+13.2`-point improvement
+> nothing can observe is worth less this week than a wiring job that unblocks three others.*
+
+**RE-RANK WHEN THE EVIDENCE MOVES, and say what moved.** *This order already differs from the one the
+briefs were filed in -- `reader_meaning_channel` was written as "the highest-value problem in the
+project" and is still the goal, but two upstream wiring jobs were found after it was filed.*
+
 ## THE DIVISION
 
 | | strategy session (this one) | solver session |

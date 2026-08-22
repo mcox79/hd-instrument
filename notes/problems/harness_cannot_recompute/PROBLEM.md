@@ -1,3 +1,14 @@
+> # 5️⃣ **PRIORITY 5 of 5 -- AN ENABLER, AND IT MATTERS MOST ONCE FIXES START LANDING.**
+> *(ranked 2026-08-22)*
+> **`399` of `7,868` landed cells (`5.1%`) replay their checkpoints on re-run: same verdict, same
+> numbers, `elapsed 0.0s`, no work done. A landed cell cannot currently be falsified by re-running
+> it.**
+> 🔻 **IT RANKS LAST BECAUSE IT IMPROVES OUR ABILITY TO CHECK, NOT THE SYSTEM ITSELF** -- and
+> nothing here says any landed number is wrong. *Its value rises sharply the moment problems 1-3
+> start producing changes that need verifying, so this is a "soon", not a "never".*
+> ✅ *A DETECTOR already exists (`tools/reproduction_check.py`) and will tell you a re-run proved
+> nothing. What is missing is the ability to make it recompute.*
+
 # A LANDED CELL CANNOT BE FALSIFIED BY RE-RUNNING IT
 
 > **If a tool call is denied, STOP and report the exact denial text verbatim. Do not retry a variant,

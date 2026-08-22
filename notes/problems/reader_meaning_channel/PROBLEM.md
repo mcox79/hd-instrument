@@ -1,3 +1,15 @@
+> # 🥉 **PRIORITY 3 of 5 -- THE FLAGSHIP, AND THE BROADEST.** *(ranked 2026-08-22)*
+> **This is the actual goal; it ranks third only because 1 and 2 are upstream of it and far more
+> bounded.** *A better reader writing into a store that destroys what it writes, on a foundation that
+> is discarded at the end of the run, cannot show what it is worth.*
+> 🔑 **AND THIS BRIEF NOW OWNS A BLOCKER THE OTHERS DEPEND ON: `read()` NEVER CONSULTS THE
+> MEANING ASSET AT ALL.** Runtime, positive-controlled: `0` calls to `grounded_similarity` /
+> `grounded_vector` / `_table` across a 150-200 sentence read -- **the norms table is never even
+> loaded.** The substrate's own B5 slot says so (`NEEDS_ADAPTER`, *"read() does not consult it"*).
+> ⚠️ **SO THE ADAPTER IS PART OF THIS PROBLEM.** Until it exists, any meaning-side improvement --
+> including PRIORITY 4 -- is real but UNMEASURABLE on a reading task. *Its hub-spoke combination rule
+> is UNPINNED, so whatever you build there is our-invention-under-test, not brain-derived.*
+
 # PROBLEM: THE READER'S MEANING CHANNEL IS THE WRONG MODALITY
 
 **slug:** `reader_meaning_channel` · **opened:** 2026-08-22 by the strategy session

@@ -1,3 +1,13 @@
+> # 4️⃣ **PRIORITY 4 of 5 -- CHEAPEST AND LARGEST, BUT NOT YET MEASURABLE.** *(ranked 2026-08-22)*
+> **The gain is real and large: token coverage `0.6035 -> 0.7350`, `+13.2` points of running text
+> from data already on disk, `44%` of the way to the plan's `90%` target for zero new norms.** It is
+> a one-line change plus its controls.
+> 🔻 **IT RANKS FOURTH FOR ONE REASON ONLY: NOTHING CALLS THE LOOKUP DURING READING.** Fix it,
+> re-run a reading task, and NO MOVEMENT IS THE EXPECTED RESULT -- that is PRIORITY 3's adapter, not
+> a refutation of this.
+> ➡️ **DO IT WITH OR AFTER PRIORITY 3, OR SCORE IT SOMEWHERE THE ASSET IS ACTUALLY CONSULTED.**
+> *If 3 lands first, this becomes very cheap and immediately measurable.*
+
 # THE MEANING LOOKUP CANNOT INFLECT -- ~13 POINTS OF COVERAGE SITTING UNREAD ON DISK
 
 > **If a tool call is denied, STOP and report the exact denial text verbatim. Do not retry a variant,

@@ -1,3 +1,20 @@
+> # 🥈 **PRIORITY 2 of 5.** *(ranked by the strategy session, 2026-08-22)*
+> **NOTHING THIS SYSTEM LEARNS SURVIVES THE RUN THAT LEARNED IT, so no result can ever compound.**
+> Measured 2026-08-22: `Substrate(foundation_dir=...)` was read ZERO times and no caller passed it;
+> it now raises rather than pretending.
+> ✅ **A WIRING JOB, NOT A BUILD, AND THAT IS WHY IT RANKS THIS HIGH:**
+> `hdlab/foundation_persistence.py` implements save AND load, is registered, and **passes `9/9` of
+> its own self-tests at HEAD** -- including `continuation_matches_uninterrupted_run` and
+> `full_foundation_roundtrip_and_resume_grounds`. **Resuming is already behaviourally correct; it is
+> simply never called.**
+> 🔻 **AND IT COMPOUNDS WITH A SECOND CAP FOUND THE SAME DAY:** one `read()` call delivers
+> ~1,000 sentences however many you ask for (raise `max_patches`, not `n_sentences`). **Capped per
+> call AND discarded between calls -- which is why the vocabulary cannot grow, and why the plan's own
+> prediction that the generic-attractor degeneracy should FALL with scale is unreachable by
+> construction rather than merely untested.**
+> ⚠️ *FIRST MOVE: build a CLEAN snapshot. The only two resumable snapshots on disk are the two
+> PRE-stemmer-fix ones, carrying `7.87%` junk.*
+
 # PROBLEM: THE SYSTEM THROWS AWAY EVERYTHING IT LEARNED, EVERY RUN
 
 **slug:** `substrate_never_resumes` · **opened:** 2026-08-22 by the strategy session
