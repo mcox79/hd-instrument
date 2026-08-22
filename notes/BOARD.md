@@ -61,22 +61,22 @@ C `1.000`; a 12-WORD seed via `wordnet_polarity_propagation` -> `0.833` held-out
 🎯 **DOUBLE DISSOCIATION: each subset's MATCHED scramble degrades, the UNMATCHED one does not.**
 
 **WHAT IS RUNNING**
-- 🔴 **RESUME HERE (written 08-22 for an imminent compaction). CURRENT WORK = Q112 / OP1: RE-ADJUDICATE THE 238 OVERSTATED RESULTS.**
-  **OWNER RULING, VERBATIM: *"re adjudicate them I think - you can do it fast, and then put this
-  behind us."*** *My own earlier recommendation was "mark them all, re-adjudicating is weeks" --
-  THE OWNER OVERRODE THAT. They are right that it can be fast IF it is MECHANICAL rather than
-  read-by-hand.*
-  **WHAT THE 238 ARE:** recorded results whose written conclusion claims more than their own
-  numbers support -- they beat no floor they had to beat -- **and they are already cited by the
-  certificate ledger and the capability list, so anything quoting those inherits the overstatement.**
-  Full statement of the decision: `notes/QUESTION_LOG.md` "OP1 -- THE ONE THE OWNER COULD NOT
-  ANSWER. REWRITTEN." (~line 489).
-  **THE TOOL EXISTS AND WAS LOCATED, NOT YET RUN FOR THIS: `tools/strongest_floor_audit.py`** --
-  scans every `data/*/metrics.json`, emits per-cell `flags`, has `--json` and `--self-test`.
-  **THE PLAN I HAD FORMED (not started):** run it with `--json`, then assign each cell a mechanical
-  disposition -- `FLOOR_BEATS_TREATMENT` (its own floor beats its own best arm) -> **NOT_SUPPORTED**;
+- ✅ **Q112 / OP1 ANSWERED AND CLOSED (08-22): "238 OVERSTATED RESULTS" WAS A COUNT OF FLAGS, NOT OF
+  OVERSTATEMENTS.** *7,868 metrics scanned, **286** flagged today (NOT 238 -- re-run, never quote
+  from memory).* **`INADMISSIBLE_COMPARISON` 207 (72.4%) · `UPHELD` 43 · `NOT_SUPPORTED` 35 ·
+  self-declared-failure 1.** 🔑 **The audit compares the largest floor-shaped and treatment-shaped
+  numbers ANYWHERE in a nested metrics.json without checking they are commensurable -- real rows
+  pit a REJECT RATE against an ACCURACY, and condition 5's floor against condition 0's treatment.
+  It prints "A READ LIST, NOT A VERDICT" every run; that caveat did not travel into OP1.**
+  🔻 **AND MY RECOMMENDED FIX WOULD HAVE BEEN HARMFUL: "mark all 238" would have branded ~207
+  results whose comparison was never valid.** ➡️ **REAL READ LIST = 35 CANDIDATES** (margins
+  `+0.9054` .. `+0.0106`; the bottom needs a human read). **43 are FINE and merely quote a weaker
+  floor than they hold -- a text fix.** 🔻 *I first published `32/46`; correct is `35/43` -- that
+  pass printed "79 admissible" then split `78`, and I published across a visible self-contradiction.*
+  ✅ **`tools/adjudicate_floor_flags.py`, self-test 7/7, imports the audit's own `scan()`; 2 positive
+  controls + 1 negative control so it can neither excuse everything nor flag everything.**
 
-_mirrored from `notes/STATUS.md` at 2026-08-22T17:34:21Z by `tools/board.py`._
+_mirrored from `notes/STATUS.md` at 2026-08-22T17:46:40Z by `tools/board.py`._
 
 ## QUESTIONS FOR YOU
 

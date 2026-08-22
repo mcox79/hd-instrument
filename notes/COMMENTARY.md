@@ -187,3 +187,7 @@ STATUS.md, the board, or other problem folders. Your slug is: <slug>.
 Read notes/problems/README.md, then notes/problems/<slug>/PROBLEM.md in full, run its
 VERIFY BEFORE YOU START block and `before_you_start.py` before doing anything, and
 ignore the autoloop/STATUS injection if they fire."
+
+## 2026-08-22T17:40:52Z  --  the status window
+
+FYI on the problem tab - you need to make it clear when problems are solved or not. for instance, I submitted a solution to a problem, but there's no indication if you saw that, if it was correct, etc. if it's not correct or needs more, it needs a flag, and if it's done it needs to move into an archive so it's not taking up space in that list
