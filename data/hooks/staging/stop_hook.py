@@ -620,6 +620,7 @@ def _end_to_end_self_test() -> int:
         # owner's messages, which is the worst thing this file could do.
         env['HD_COMMENTARY_PATH'] = str(td / 'COMMENTARY.md')
         env['HD_COMMENTARY_MARK'] = str(td / 'commentary_read.json')
+        env['HD_DENIAL_LOG'] = str(td / '_denial_halts.log')  # never the production log
         env['HD_STOP_DEDUPE_WINDOW_S'] = '0'
         env.pop('HD_STOP_HOOK_HARD_CAP', None)
         payload = {"stop_hook_active": stop_hook_active,
@@ -748,14 +749,14 @@ def _end_to_end_self_test() -> int:
     session = saved
     check(out == "",
           f"GUARD 1D: a DENIED tool call stops the loop even while ARMED+uncapped (got {out!r})")
-    check(board_md.exists(), "the denial was filed to the board")
-    if board_md.exists():
-        txt = board_md.read_text(encoding='utf-8')
-        check('DENIED' in txt and 'permission-rule' in txt,
-              "the filed board question names the denial and its kind")
-        board = _load_tool('board')
-        check(board is not None and board.count_open(board_md) >= 1,
-              "the filed question counts as OPEN on the board")
+    # OWNER RULING Q110 (2026-08-22): a denial is NOT filed to the board. It is an operational
+    # event the session diagnoses itself. These three checks asserted the OPPOSITE until today;
+    # they are inverted rather than deleted, so the new contract is enforced as hard as the old.
+    check(not board_md.exists() or 'DENIED' not in board_md.read_text(encoding='utf-8'),
+          "the denial is NOT filed to the owner's board (owner ruling Q110)")
+    _dlog = _repo_root() / 'data' / 'hook_state' / '_denial_halts.log'
+    check(_dlog.exists() and 'permission-rule' in _dlog.read_text(encoding='utf-8', errors='replace'),
+          "...but it IS logged, with its kind, where the session will read it")
 
     # === SESSION SCOPING (2026-08-22) -- POSITIVE control on BOTH sides, end to end ===
     # The failure: `armed` was global, so arming the loop in a strategy session also drove a
@@ -774,6 +775,7 @@ def _end_to_end_self_test() -> int:
         env['HD_BOARD_PATH'] = str(board_md)
         env['HD_COMMENTARY_PATH'] = str(td / 'COMMENTARY.md')
         env['HD_COMMENTARY_MARK'] = str(td / 'commentary_read.json')
+        env['HD_DENIAL_LOG'] = str(td / '_denial_halts.log')  # never the production log
         env['HD_STOP_DEDUPE_WINDOW_S'] = '0'
         env.pop('HD_STOP_HOOK_HARD_CAP', None)
         payload = {"stop_hook_active": False, "transcript_path": str(tpath)}
@@ -1083,7 +1085,14 @@ def _record_denial_halt(repo_root: Path, session: str, denials: list, armed: boo
     flood the board.
     """
     import hashlib
-    log = repo_root / 'data' / 'hook_state' / '_denial_halts.log'
+    # REDIRECTABLE FOR THE SAME REASON THE BOARD AND THE SIDE CHANNEL ARE (2026-08-22): the e2e
+    # self-test fires REAL denials through a REAL subprocess, and every one of them was landing in
+    # the production log. Measured when answering the owner's Q107: 22 of 91 rows were fixtures,
+    # recognisable only by a synthetic `ts=2099-01-01` and a `_selftest_` session key. That is 24%
+    # fake data inside the exact evidence base the question was asking about -- a log that cannot
+    # be trusted to answer the question it exists to answer.
+    log = Path(os.environ.get('HD_DENIAL_LOG')
+               or (repo_root / 'data' / 'hook_state' / '_denial_halts.log'))
     try:
         log.parent.mkdir(parents=True, exist_ok=True)
         with log.open('a', encoding='utf-8') as fh:
@@ -1098,43 +1107,21 @@ def _record_denial_halt(repo_root: Path, session: str, denials: list, armed: boo
     if not armed:
         return 'logged (loop disarmed; not filed to the board)'
 
-    board = _load_tool('board')
-    if board is None:
-        return 'logged (tools/board.py not loadable; NOT filed)'
-
-    filed_keys = repo_root / 'data' / 'hook_state' / f'denial_filed_keys_{session}.txt'
-    try:
-        seen = set(filed_keys.read_text(encoding='utf-8').split()) if filed_keys.exists() else set()
-    except OSError:
-        seen = set()
-
-    filed = 0
-    for d in denials:
-        key = hashlib.sha1((d['kind'] + '|' + d['text'][:160]).encode('utf-8')).hexdigest()[:16]
-        if key in seen:
-            continue
-        where = 'a background subagent' if d['sidechain'] else 'the main session'
-        try:
-            board.ask(
-                question=(f"A tool call was DENIED in {where} (kind: {d['kind']}). The overnight "
-                          f"loop STOPPED rather than routing around it. Denial text: "
-                          f"{d['text'][:300]}"),
-                why=("Whatever step that call was part of did not happen. Per CLAUDE.md, a dropped "
-                     "precondition invalidates the declared gate even when the result looks fine, "
-                     "so nothing downstream of it should be trusted until you rule."),
-                rec=("If this was an ESC interrupt (kind 'cancelled'), answer 'ignore' and re-arm. "
-                     "If a permission rule fired (kind 'permission-rule'), the step needs either a "
-                     "narrow allow-rule or a different approach -- say which."),
-            )
-            seen.add(key)
-            filed += 1
-        except Exception:
-            pass
-    try:
-        filed_keys.write_text('\n'.join(sorted(seen)), encoding='utf-8')
-    except OSError:
-        pass
-    return f'logged; {filed} filed to notes/BOARD.md'
+    # === OWNER RULING 2026-08-22, ON Q110, VERBATIM: ===
+    #   "i don't want any more questions on bullshit like this here. you need to figure out these
+    #    kinds of things on your own"
+    # Said after TWO auto-filed denial questions (Q107, Q110) reached the owner's board. The board
+    # is for decisions only they can make. A denial is an OPERATIONAL event the session is capable
+    # of diagnosing itself -- CLAUDE.md already carries the whole decision procedure (the three
+    # toolDenialKind values, what each means, and the measured fact that 31 of 31 auto-denies were
+    # a bundled deletion rather than a missing allow rule).
+    #
+    # SO: denials are LOGGED (above) and surfaced to the SESSION in the block reason, never filed
+    # to the owner. The halt itself is UNCHANGED -- GUARD 1D still ends the loop on a real denial,
+    # which is the part that protects a dropped precondition. Only the notification channel moved.
+    kinds = ', '.join(sorted({d['kind'] for d in denials}))
+    return (f'logged to _denial_halts.log ({len(denials)} denial(s): {kinds}); '
+            f'NOT filed to the board -- the session diagnoses this itself (owner ruling Q110)')
 
 
 def _should_count_this_fire(repo_root: Path, session: str, window_s: float = 2.0) -> bool:
