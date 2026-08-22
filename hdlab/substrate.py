@@ -482,6 +482,35 @@ class Substrate:
         SENTENCE -- a rate, deliberately not a count: `assert_gain_is_not_a_count` is called on
         the collected stream and raises if the signal ever degenerates to a constant, which is
         failure mode 6 in the organ's own docstring and the single easiest way to fake foraging.
+
+        🚨 `n_sentences` IS A CEILING, NOT A TARGET, AND `max_patches` USUALLY BINDS FIRST.
+        This call makes ONE LAP of at most `max_patches` patches (default 4) and returns, leaving
+        any unspent budget unread -- see the `patch_i >= max_patches` break below. Traced
+        2026-08-22 after `read(3000)`, `read(6000)` and `read(10000)` all returned 1,060 sentences
+        with the SAME 9 checkpoints and the SAME 30 consolidated terms:
+
+            seed=20260819, n_dim=512:
+              n_sentences=3000, max_patches=4   ->  1,060 read, budget_unspent=1,940, 4 patches
+              n_sentences=3000, max_patches=64  ->  3,000 read, budget_unspent=0,    24 patches
+            seed=20260819, n_dim=256 (re-verified independently):
+              max_patches=4 -> 1,060 (short_read=True) | max_patches=64 -> 2,920 (short_read=False)
+
+        The exact count is CONFIG-DEPENDENT -- both configs are given because quoting one as "the"
+        number is how a measurement becomes folklore. What does not move is the SHAPE: raising
+        max_patches multiplies the read; raising n_sentences alone changes nothing.
+
+        Nothing runs out of text -- all 28 corpus handles still held ~260k sentences afterwards.
+        **If you want a long read, RAISE `max_patches`; raising `n_sentences` alone does nothing.**
+
+        AND SUCCESSIVE CALLS ON ONE SUBSTRATE READ PROGRESSIVELY LESS (1,060 -> 240 -> 220): the
+        `ForagingController` is cached in `_built` and its rho threshold is never reset, so later
+        calls enter with a high bar and leave at the 2-harvest floor. Discriminated three ways on
+        the same four corpora -- carried rho 240, rho manually zeroed 1,140, fresh substrate 1,060.
+
+        The per-patch early leave is INTENDED (MVT; see the comment below stating the budget "is
+        not the right quantity because THE LIVE ARM DOES NOT CONSUME IT"). The one-lap-of-4 bound
+        was NOT documented anywhere before this docstring, which is why `n_sentences` read as a
+        target for months. `ReadResult.short_read` now flags the gap on every call.
         """
         t0 = time.time()
         res = ReadResult()
