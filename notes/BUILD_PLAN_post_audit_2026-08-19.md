@@ -113,17 +113,23 @@
 > now complete: form is noise-equivalent on meaning, identification is a LOOKUP, and its GAIN IS
 > MEASURED (ORGAN_MAP A1, `0.0870` vs `0.0480`, CI-separated).*
 >
-> **2. TWO BUILD CANDIDATES, BOTH BLOCKED ON CELL AUTHORING (route to `hdi_exp_dev`), BOTH NOW
-> EVIDENCED RATHER THAN GUESSED:**
-> - 🅐 **VERB MEANING FROM ITS OWN ARGUMENTS.** *Our channel scores `0.0000` on verbs across TWO
->   benchmarks while the supplied table scores `0.2983` on the same pairs -- so it is our method, not
->   the task.* **UNRUN: the two landed thematic/selectional cells derive a NOUN's meaning from verbs,
->   the opposite direction.** ⚠️ *The cheap proxy (drop other verbs from context) FAILED at `+0.0069`
->   and MAY NOT close the direction -- it never identified arguments or roles.* **Needs the
->   parser/role-labeller.**
-> - 🅑 **THE RAW SENSORIMOTOR PROFILE HAS ONE CONSUMER** (`cortical_recall.py:86`) *while the live
->   lexical path takes the capped scalar. The raw form is what scores `0.2983`/`0.2876`.* **NOT a cap
->   request -- the cap governs IDENTITY and every number here is GRADED RELATEDNESS.**
+> **2. 🔻 BOTH BUILD CANDIDATES ARE STRUCK OR REPLACED -- THE CELL THAT SETTLES THEM LANDED
+> 2026-08-17 AND I HAD NOT READ IT (`exp_verb_event_salient_channel_v1`, TENTH PRIOR-WORK CATCH):**
+> - 🚫 **🅐 VERB MEANING FROM ITS OWN ARGUMENTS -- STRUCK. NOT UNRUN: IT RAN AND IT FAILED.**
+>   *Built from parsed argument structure:* `S1_SLOT_FRAME` *(SUBJ+OBJ filler codes, 24 dims)* **raw
+>   `0.0442` `NOT_SEPARATED`, and `survives_partial: FALSE`**; `S2_SLOT_DELTA` *(OBJ minus SUBJ, 12
+>   dims)* **raw `0.0798` `NOT_SEPARATED`**, partial lower bound `+0.0010`. ⚠️ **AND I ASSERTED THIS
+>   MECHANISM ALL NIGHT AS THE EXPLANATION FOR OUR VERB ZERO (*give/receive share arguments*)
+>   WITHOUT MEASURING IT -- it is the S1/S2 hypothesis. STOP REPEATING IT.**
+> - 🔄 **🅑 WIRING THE RAW SENSORIMOTOR PROFILE -- REPLACED. IT IS THE ARM THAT LOSES.** *On 3,152
+>   identical pairs, partialled for concreteness AND frequency:* **12 sensorimotor `0.2639` | +3
+>   AFFECT dims (valence/arousal/dominance) `0.3655` | the 3 AFFECT dims ALONE `0.3030`**; width
+>   controls **NOISE `0.2469` / WRONG `0.2322` BOTH BELOW the incumbent, so it is CONTENT not width.**
+>   🧠 *I went looking for SOMATOTOPY (`kick`/foot); the effector dims are already in the LOSING arm.*
+>   ⚠️ *A1-vs-A0 marginal CIs do NOT overlap; **A2-vs-A0 DO** -- "3 beats 12" is suggestive only, and
+>   no paired test was run.* 🚫 **SUPPLY, NOT LEARNING** (`measures_the_instrument_not_a_capability`).
+>   ⚠️ *Do NOT swap my `0.2983` (3,487 pairs, euclid) with this cell's `0.2711` (3,161, own scorer).*
+>   `THE_VERB_BUILD_I_QUEUED_WAS_ALREADY_RUN_...`
 >
 > **3. THE HONEST TENSION BEHIND BOTH, WORTH THE OWNER'S EYE:** *the supplied table beats everything
 > we LEARN, on both word classes.* **Leaning on it raises scores; it is SUPPLY, not learning, and the

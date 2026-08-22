@@ -127,7 +127,11 @@ nouns and ABSENT on verbs.***
    overall `0.1071` are different benchmarks and different pairs. ✅ **The NOUN-vs-VERB contrast in
    section 2b is EXEMPT: it is one benchmark, one scorer, one profile set, with only the word class
    changing.**
-2. **78% verb coverage.** *The 22% uncovered are rarer verbs; the covered set is the easier half.*
+2. ✅ **78% verb coverage -- DISCHARGED, THIS LIMIT NO LONGER APPLIES.** *I wrote that the covered
+   set was "the easier half". Measured by lowering the cutoff:* `T=41: 646 verbs / OURS 0.0000 (null
+   0.0383) | T=20: 730 / 0.0207 (0.0355) | T=10: 776 / 0.0079 (0.0344) | T=5: 801 = 97% / 0.0213
+   (0.0318)`. **OURS STAYS INSIDE ITS NULL AT EVERY THRESHOLD down to 97% verb coverage, so the
+   cutoff was NOT hiding the hard verbs.** *SUPPLIED rises `0.2735 -> 0.2971` as coverage widens.*
 3. **This is the LEARNED channel only.** *Not the supplied norms, not counting -- neither was run
    here.*
 4. **`+0.0000` is a point estimate inside a null band, not a proof of exactly zero.**

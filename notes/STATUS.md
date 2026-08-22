@@ -85,7 +85,8 @@ Marginal CIs overlapped, which is NOT a test of a difference; the paired test is
    SUPPLIED euclid `0.2983` on 3,487 pairs, coverage 824/827 -- the shortfall is OURS, not the
    task's.** 🚫 *SUPPLY, NOT LEARNING.* ✅ **DISCHARGES MEMORY's SUSPENDED
    verb claim, which asked for exactly these 222 SimLex pairs (203 covered) after being retired at
-   n=86.** ⚠️ *78% verb coverage; the two BENCHMARKS must not be blended -- the noun-vs-verb contrast
+   n=86.** ✅ *78% verb coverage DISCHARGED: OURS stays INSIDE its null at cutoffs 41/20/10/5 (0.0000/0.0207/
+   0.0079/0.0213 vs nulls 0.0383/0.0355/0.0344/0.0318), down to 801 of 827 verbs = 97%.* ⚠️ *the two BENCHMARKS must not be blended -- the noun-vs-verb contrast
    within SimLex is exempt.* `ON_VERBS_THE_LEARNED_CHANNEL_HAS_NO_SIGNAL_AT_ALL_n2651_...`
 
 ➡️ **SO D1 (`256->1024`, which REWRITES EVERY PERSISTED STORE) improves a LOOKUP.** *Q65 = "do
