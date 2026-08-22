@@ -135,8 +135,7 @@
 >   RULED OUT (`0.5167` = chance HANDED THE GOLD SENSE).** *A neighbour read-out decodes all 15 norm dims
 >   (`Valence 0.3069` vs null `0.0385`, 15/15 at 5-12x null); ~50-100 seeds already propagate but **IDF at
 >   200 seeds (`0.2971`) beats OURS at 2,000 (`0.2638`)**; ANISOTROPY (nearest-seed cosine HIGHER, `0.3965`
->   vs `0.2415`, carrying LESS).* ⚠️ **ALL OF IT ASSIGNS ONE VALUE PER WORD where
->   `PLAN_B` specifies a CONTEXT-CONDITIONED superposition.** `THE_WEAKER_TEST_...` `HOW_SMALL_...`
+>   vs `0.2415`, carrying LESS).* ⚠️ **ALL OF IT ASSIGNS ONE VALUE PER WORD where `PLAN_B` specifies a CONTEXT-CONDITIONED superposition.** `THE_WEAKER_TEST_...` `HOW_SMALL_...`
 > **3. THE HONEST TENSION BEHIND BOTH, WORTH THE OWNER'S EYE:** *the supplied table beats everything
 > we LEARN, on both word classes.* **Leaning on it raises scores; it is SUPPLY, not learning, and the
 > organ's docstring forbids reporting it as the substrate having learned anything.** *Owner already
