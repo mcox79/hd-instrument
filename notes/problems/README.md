@@ -74,6 +74,27 @@ important, which is why `score_counts_abstention_as_error` sits third.*
 > ### 🔑 **THE RANKING RULE, SO IT CAN BE ARGUED WITH RATHER THAN TAKEN ON TRUST:**
 > **(1) Does it block other problems? (2) Is the fix a WIRING job with a proven organ, or a build?
 > (3) Can the result be MEASURED today, or is it stranded behind something unbuilt?**
+> **(4) 🔻 IS THE PREMISE ITSELF MEASURED -- or only the existence of a fix?** *ADDED 2026-08-22,
+> EARNED BY GETTING RANK 1 WRONG.*
+>
+> **Test 4 is the one that failed, and it failed silently.** `flat_store_destroys_the_code` was ranked
+> **1 of 8** on tests 1-3: it looked upstream of everything, the replacement store already existed and
+> was proven, and the result was measurable today. **All three were TRUE. It was refuted anyway** --
+> addressed storage scores held-out `0.1399` against a co-occurrence COUNTING floor of `0.3242`,
+> CI-separated BELOW it.
+>
+> **Because the PREMISE -- "the flat sum destroys the information, so replacing it will help" -- had
+> never been measured.** What HAD been measured was that an alternative store existed and worked in
+> isolation. **Those are different claims, and tests 1-3 cannot tell them apart.**
+>
+> ⚠️ **AND IT IS NOT MECHANICALLY DETECTABLE. I tried:** counting `MEASURED` / `INFERRED` markers
+> across all 12 briefs returns ~3 of each for every one of them, which separates nothing. *Same blunt
+> instrument that killed the docstring-promise detector this morning.* **So test 4 has to be ASKED,
+> by a person, per brief:**
+>
+> > **"Which number says the DEFECT is costing us something -- as opposed to saying an ALTERNATIVE
+> > exists?"** *If the honest answer is "none, but the fix is clearly better in principle", the brief
+> > is a HYPOTHESIS wearing a problem's clothes, and its first job is to measure its own premise.*
 > *That third test is why the cheapest and largest single gain sits at 4: a `+13.2`-point improvement
 > nothing can observe is worth less this week than a wiring job that unblocks three others.*
 
