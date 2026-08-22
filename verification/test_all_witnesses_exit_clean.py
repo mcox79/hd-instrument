@@ -15,9 +15,23 @@ zero of the real failures: a second false-green.
 This driver is named `test_*` so it IS collected, and it runs each witness as a SUBPROCESS
 so the `__main__` body actually executes. Exit code 0 is the contract.
 
-Deliberately contains NO skip, NO xfail, and NO allowlist. It is EXPECTED to be RED
-(9 failures) on `main` as of 2026-08-13. That redness is the point: quarantining the
-failures would recreate exactly the false-green this file exists to remove.
+Deliberately contains NO skip, NO xfail, and NO allowlist. Quarantining a failure would recreate
+exactly the false-green this file exists to remove.
+
+STATUS UPDATED 2026-08-22 -- THE EXPECTED REDNESS IS GONE. This docstring read "It is EXPECTED to be
+RED (9 failures) on `main` as of 2026-08-13. That redness is the point." Measured today by running
+all 32 `verify_*`/`witness_*` files as subprocesses: **32/32 exit 0**. The 9 failures have been fixed
+in the nine days since. Leaving the old text would mislead in the OPPOSITE direction -- a reader
+seeing green would conclude the driver was broken.
+
+READ THE PERSISTED RESULTS BEFORE RE-RUNNING: this file takes >550s (it runs every witness), and it
+writes one JSON per witness to `data/witness_exit_status/` with `returncode`, `secs`, `timed_out` and
+`run_utc`. Those files answer "which witness failed" in a second.
+
+AND BEWARE `rc=143` WITH `timed_out=False`: that is SIGTERM -- the witness was KILLED EXTERNALLY, not
+a failure. On 2026-08-22 two such rows (22.5s and 0.46s, against a 600s cap) were produced purely by
+an outer `timeout` killing this driver mid-flight, and were briefly mistaken for a real failure. A
+genuine timeout sets `timed_out=True`; anything else with rc=143 is the harness, not the witness.
 """
 from __future__ import annotations
 
