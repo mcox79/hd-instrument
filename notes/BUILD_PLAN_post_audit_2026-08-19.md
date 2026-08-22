@@ -46,7 +46,13 @@
 >
 > 🚫 **NOT claimed that the verb-gate swap moves the wall** -- the `lemma_verb` repair took verb inflection `53.50% -> 99.03%` and the wall reproduced to FOUR DECIMALS; that one changed LABELS, this one changes WHICH TOKENS ARE CANDIDATES. **KILL CONDITION PRE-DECLARED: if accuracy stays at `0.4722` with recall fixed, candidate SELECTION is not the limit and the whole credit thread retires.** `THE_CREDIT_MECHANISM_IS_ROLE_BASED_ALREADY_...`
 >
-> ## 🔻 **THREE DEAD ENDS, ALL DOWNSTREAM OF THAT ONE CAUSE**
+> ## 🗺️ **THE GROUNDING MAP (owner: "make sure you understand all of it"), 08-22 -- `185` LABELS -> `7` EVIDENCED ROWS -> `4` DISTINCT RESULTS**
+> **`711` grounding cells with a `metrics.json`; `185` verdict HARD_PASS; 🔻 **`7` carry BOTH a CI and a null** (all 7 also a floor); **`4` distinct full-scale after removing smoke twins.**
+> ✅ **THE FOUR:** `reading_grounding_loop_cycle2` (*the loop ACCUMULATES: foundation `185 -> 3,544` in one cycle, scramble `0.077`, no-leak+monotonicity*); `foundation_validation_harness_v1` (*mechanism `1.0` vs **scramble `0.0` AND ablation `0.0`** -- the cleanest control result in the set*); `foundation_validation_harness_v4_proximity` (*gap `0.2667` over a frequency floor `0.22`, known-answer validity gate PASSES*); **`graded_divisive_comparator`** (*n=`4,000`, `0.6395 -> 0.6997`, **d `0.0602` CI `[0.0440, 0.0762]` EXCLUDING ZERO**, four floors -- **the best-evidenced number in the grounding archive, and a `+0.06` DISCRIMINATION gain, NOT a capability***).
+> 🚨 **AND ONE WARNING THE EVIDENCE GATE IS STRUCTURALLY BLIND TO: `context_conditioned_near_neighbour_v1_SMOKE_n600` = HARD_PASS while the FULL run = `MIDDLE_BAND_FLOOR_HUGGING`. THE SMOKE PASSED AND THE FULL RUN HUGGED THE FLOOR** -- anyone counting HARD_PASS rows or citing the cell by name gets the SMOKE's answer. *It carries CI+null+floor, so only reading the PAIR catches it.*
+> ⚠️ **CHEAPEST HURDLE ONLY: the gate cannot see a written-in answer, circular gold, a skipped floor or a tuned gate. The other `178` are NOT refuted -- they are UNEVIDENCED IN THE FILE.** ✅ `tools/grounding_evidence_map.py` IMPORTS `assess` and its self-test FAILS unless it reproduces the census's `14` -- *written after I counted this twice by IMITATING the census and got `198` then `58` against a true `14`.* `THE_GROUNDING_MAP_185_LABELS_...`
+
+## 🔻 **THREE DEAD ENDS, ALL DOWNSTREAM OF THAT ONE CAUSE**
 > 1. **CA3 cannot complete** -- our rule MERGES correlated memories (margin **-0.1021**; local
 >    error-driven rule fixes it to **+0.0975** > pseudo-inverse's +0.0839; 16x expansion 38 -> **8**
 >    passes, inside replay's `0,3,10`). ***BUT REAL WITHIN-LEMMA OVERLAP IS 0.0056 vs A 0.22 FAILURE
