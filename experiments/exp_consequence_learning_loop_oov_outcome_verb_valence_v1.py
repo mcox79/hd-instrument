@@ -488,6 +488,13 @@ def _aggregate(run_mode, oov_rows, majority_floor, corpus_u, main_u, base_u, scr
         "signal_a_only": sa_u, "signal_b_only": sb_u,
         "light_verb_detail": canary["light_verb_detail"],
         "noise_detail": canary["noise_detail"],
+        # RE-LAND 2026-08-22 (additive-only, no gate logic touched): persist per-item predictions +
+        # scored population directly in metrics.json, not only in the units.jsonl checkpoint, so a
+        # reader of the landed record does not have to know the checkpoint schema to audit per-item
+        # correctness. score_details is the same 36-row list already computed by _score_with_overlay.
+        "per_item_predictions": main_u["score_details"],
+        "scored_population_n": len(main_u["score_details"]),
+        "ambiguous_pred_count": sum(1 for d in main_u["score_details"] if d.get("pred") == "AMBIGUOUS"),
     }
 
     # ---- verdict (per pre-reg bands; per-gate, never aggregate) --------------------------------

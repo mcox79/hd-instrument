@@ -34,9 +34,9 @@
   },
   "win_stats": {
     "total_sents": 22197,
-    "goal_fire": 1434,
-    "substring_dropped": 3,
-    "n_windows": 1431
+    "goal_fire": 1659,
+    "substring_dropped": 4,
+    "n_windows": 1655
   },
   "exclusion_integrity": {
     "exclusion_integrity_violations": 0,
@@ -44,268 +44,334 @@
   },
   "majority_floor": 0.6389,
   "increment_1b_ref": 0.4444,
-  "fallthrough_baseline_accuracy": 0.1667,
-  "primary_accuracy": 0.1667,
-  "met_recall": "2/23",
+  "fallthrough_baseline_accuracy": 0.3889,
+  "primary_accuracy": 0.3056,
+  "met_recall": "7/23",
   "unmet_recall": "4/13",
-  "n_registered": 0,
-  "registered": {},
+  "n_registered": 18,
+  "registered": {
+    "cry": "POS",
+    "sit": "POS",
+    "tear": "NEG",
+    "speak": "POS",
+    "look": "POS",
+    "boy": "NEG",
+    "like": "NEG",
+    "nothing": "NEG",
+    "add": "POS",
+    "sister": "POS",
+    "give": "POS",
+    "take": "NEG",
+    "keep": "NEG",
+    "come": "POS",
+    "friend": "POS",
+    "wish": "NEG",
+    "hope": "NEG",
+    "grow": "NEG"
+  },
   "learnable_subset": {
-    "n_learnable": 0,
-    "registered_eval_lemmas": [],
-    "learnable_subset_size": 0,
-    "learnable_subset_accuracy": null,
-    "learnable_subset_correct": 0
+    "n_learnable": 4,
+    "registered_eval_lemmas": [
+      "come",
+      "give",
+      "like",
+      "take"
+    ],
+    "learnable_subset_size": 6,
+    "learnable_subset_accuracy": 0.1667,
+    "learnable_subset_correct": 1
   },
   "light_verb_canary": {
-    "light_verb_canary_neutral_rate": null,
-    "light_verb_n_reached": 0,
-    "light_verb_n_neutral": 0,
-    "light_verb_n_polar_locked": 0,
-    "light_verb_reached_minconfirm": []
+    "light_verb_canary_neutral_rate": 0.8333,
+    "light_verb_n_reached": 24,
+    "light_verb_n_neutral": 20,
+    "light_verb_n_polar_locked": 4,
+    "light_verb_reached_minconfirm": [
+      "ask",
+      "be",
+      "begin",
+      "carry",
+      "come",
+      "do",
+      "feel",
+      "find",
+      "get",
+      "give",
+      "go",
+      "have",
+      "know",
+      "look",
+      "make",
+      "mean",
+      "say",
+      "see",
+      "seem",
+      "take",
+      "tell",
+      "think",
+      "try",
+      "want"
+    ]
   },
   "noise_canary": {
-    "consolidated_count": 0,
-    "consolidated_words": []
+    "consolidated_count": 2,
+    "consolidated_words": [
+      "sit",
+      "speak"
+    ]
   },
   "bootstrap_curve": [
     {
       "pass": 1,
-      "n_windows_with_teacher": 3,
-      "n_windows_credited": 2,
-      "n_new_exposure_pairs": 7,
-      "n_newly_registered_pos": 0,
-      "n_newly_registered_neg": 0,
-      "cumulative_registered": 0,
-      "n_grounded_neutral": 0,
-      "n_lemmas_pending": 7
+      "n_windows_with_teacher": 434,
+      "n_windows_credited": 343,
+      "n_new_exposure_pairs": 943,
+      "n_newly_registered_pos": 9,
+      "n_newly_registered_neg": 9,
+      "cumulative_registered": 18,
+      "n_grounded_neutral": 43,
+      "n_lemmas_pending": 220
     },
     {
       "pass": 2,
-      "n_windows_with_teacher": 3,
-      "n_windows_credited": 2,
+      "n_windows_with_teacher": 139,
+      "n_windows_credited": 105,
+      "n_new_exposure_pairs": 2,
+      "n_newly_registered_pos": 0,
+      "n_newly_registered_neg": 0,
+      "cumulative_registered": 18,
+      "n_grounded_neutral": 43,
+      "n_lemmas_pending": 220
+    },
+    {
+      "pass": 3,
+      "n_windows_with_teacher": 139,
+      "n_windows_credited": 105,
       "n_new_exposure_pairs": 0,
       "n_newly_registered_pos": 0,
       "n_newly_registered_neg": 0,
-      "cumulative_registered": 0,
-      "n_grounded_neutral": 0,
-      "n_lemmas_pending": 7
+      "cumulative_registered": 18,
+      "n_grounded_neutral": 43,
+      "n_lemmas_pending": 220
     }
   ],
   "scramble": {
-    "scrambled_primary_accuracy": 0.1667,
+    "scrambled_primary_accuracy": 0.3556,
     "scrambled_per_seed": [
-      0.1667,
-      0.1667,
-      0.1667,
-      0.1667,
-      0.1667
+      0.3333,
+      0.4722,
+      0.3333,
+      0.3333,
+      0.3056
     ]
   },
   "random_credit": {
-    "random_credit_primary_accuracy": 0.1667,
-    "random_credit_n_registered": 0,
-    "random_credit_learnable_subset_accuracy": null,
-    "random_credit_n_learnable": 0
+    "random_credit_primary_accuracy": 0.5278,
+    "random_credit_n_registered": 20,
+    "random_credit_learnable_subset_accuracy": 0.25,
+    "random_credit_n_learnable": 4
   },
   "signal_a_only": {
-    "n_registered": 11,
-    "noise_canary_consolidated_count": 0,
-    "noise_canary_consolidated_words": [],
-    "light_verb_canary_neutral_rate": 0.5333
-  },
-  "signal_b_only": {
-    "n_registered": 56,
-    "noise_canary_consolidated_count": 3,
+    "n_registered": 36,
+    "noise_canary_consolidated_count": 2,
     "noise_canary_consolidated_words": [
       "sit",
-      "speak",
-      "stand"
+      "speak"
     ],
-    "light_verb_canary_neutral_rate": 0.1304
+    "light_verb_canary_neutral_rate": 0.875
+  },
+  "signal_b_only": {
+    "n_registered": 63,
+    "noise_canary_consolidated_count": 3,
+    "noise_canary_consolidated_words": [
+      "walk",
+      "stand",
+      "glance"
+    ],
+    "light_verb_canary_neutral_rate": 0.3043
   },
   "light_verb_detail": {
     "be": {
-      "pos": 0,
-      "neg": 1,
-      "total": 1,
-      "verdict": "PENDING"
+      "pos": 76,
+      "neg": 64,
+      "total": 140,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "have": {
-      "pos": 0,
-      "neg": 1,
-      "total": 1,
-      "verdict": "PENDING"
+      "pos": 37,
+      "neg": 31,
+      "total": 68,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "do": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 17,
+      "neg": 14,
+      "total": 31,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "say": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 29,
+      "neg": 31,
+      "total": 60,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "try": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 7,
+      "neg": 12,
+      "total": 19,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "look": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 10,
+      "neg": 4,
+      "total": 14,
+      "verdict": "POS"
     },
     "feel": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 4,
+      "neg": 2,
+      "total": 6,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "want": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 8,
+      "neg": 8,
+      "total": 16,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "think": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 4,
+      "neg": 8,
+      "total": 12,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "make": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 6,
+      "neg": 8,
+      "total": 14,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "come": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 11,
+      "neg": 4,
+      "total": 15,
+      "verdict": "POS"
     },
     "go": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 4,
+      "neg": 4,
+      "total": 8,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "find": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 6,
+      "neg": 5,
+      "total": 11,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "ask": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 6,
+      "neg": 3,
+      "total": 9,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "seem": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 5,
+      "neg": 5,
+      "total": 10,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "begin": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 3,
+      "neg": 2,
+      "total": 5,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "mean": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 5,
+      "neg": 4,
+      "total": 9,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "know": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 7,
+      "neg": 7,
+      "total": 14,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "see": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 3,
+      "neg": 3,
+      "total": 6,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "tell": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 3,
+      "neg": 5,
+      "total": 8,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "get": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 2,
+      "neg": 3,
+      "total": 5,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "put": {
       "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
-    },
-    "take": {
-      "pos": 0,
       "neg": 1,
       "total": 1,
       "verdict": "PENDING"
     },
+    "take": {
+      "pos": 4,
+      "neg": 9,
+      "total": 13,
+      "verdict": "NEG"
+    },
     "give": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 8,
+      "neg": 1,
+      "total": 9,
+      "verdict": "POS"
     },
     "carry": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 1,
+      "neg": 2,
+      "total": 3,
+      "verdict": "GROUNDED_NEUTRAL"
     },
     "buy": {
       "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "neg": 1,
+      "total": 1,
+      "verdict": "PENDING"
     }
   },
   "noise_detail": {
     "walk": {
-      "pos": 0,
+      "pos": 1,
       "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "total": 1,
+      "verdict": "PENDING"
     },
     "sit": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 3,
+      "neg": 1,
+      "total": 4,
+      "verdict": "POS"
     },
     "speak": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 11,
+      "neg": 1,
+      "total": 12,
+      "verdict": "POS"
     },
     "stand": {
-      "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "pos": 1,
+      "neg": 1,
+      "total": 2,
+      "verdict": "PENDING"
     },
     "sigh": {
       "pos": 0,
@@ -321,9 +387,9 @@
     },
     "nod": {
       "pos": 0,
-      "neg": 0,
-      "total": 0,
-      "verdict": "ABSENT"
+      "neg": 1,
+      "total": 1,
+      "verdict": "PENDING"
     },
     "pause": {
       "pos": 0,
@@ -332,46 +398,338 @@
       "verdict": "ABSENT"
     }
   },
+  "per_item_predictions": [
+    {
+      "id": "lw_jo_laurie_snowball",
+      "outcome_lemma": "croak",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "lw_ice_rescue_amy",
+      "outcome_lemma": "drag",
+      "gold": "MET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "lw_beth_piano_invite",
+      "outcome_lemma": "practice",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "lw_beth_slippers_piano_gift",
+      "outcome_lemma": "give",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": true
+    },
+    {
+      "id": "lw_jo_mr_laurence_confront",
+      "outcome_lemma": "admit",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "lw_aunt_march_opposition",
+      "outcome_lemma": "whisper",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "referent_mismatch",
+      "correct": true
+    },
+    {
+      "id": "lw_meg_currant_jelly",
+      "outcome_lemma": "jell",
+      "gold": "UNMET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "lw_jo_editor_dashwood",
+      "outcome_lemma": "take",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "lw_laurie_proposal_rejected",
+      "outcome_lemma": "refuse",
+      "gold": "UNMET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "lw_laurie_flower_table_amy",
+      "outcome_lemma": "buy",
+      "gold": "MET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "agg_anne_liniment_cake_ch21",
+      "outcome_lemma": "spoil",
+      "gold": "UNMET",
+      "pred": "MET",
+      "reason": "referent_recurrence",
+      "correct": false
+    },
+    {
+      "id": "agg_matthew_puffed_sleeves_dress_ch25",
+      "outcome_lemma": "like",
+      "gold": "MET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "agg_anne_avonlea_school_gilbert_sacrifice_ch38",
+      "outcome_lemma": "give",
+      "gold": "MET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "agg_anne_hair_dye_green_ch27",
+      "outcome_lemma": "turn",
+      "gold": "UNMET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "agg_anne_concert_recitation_encore_ch33",
+      "outcome_lemma": "encore",
+      "gold": "MET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "agg_anne_diana_bosom_friend_ch12",
+      "outcome_lemma": "agree",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": true
+    },
+    {
+      "id": "agg_gilbert_pond_rescue_friendship_plea_ch28",
+      "outcome_lemma": "befriend",
+      "gold": "UNMET",
+      "pred": "AMBIGUOUS",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "agg_anne_pudding_sauce_mouse_ch16",
+      "outcome_lemma": "ruin",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": true
+    },
+    {
+      "id": "agg_anne_mrs_barry_forgiveness_currant_wine_ch16_17",
+      "outcome_lemma": "relent",
+      "gold": "UNMET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "ts_tom_whitewash_fence",
+      "outcome_lemma": "whitewash",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": true
+    },
+    {
+      "id": "ts_becky_anatomy_book_confession",
+      "outcome_lemma": "whip",
+      "gold": "MET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "ts_tom_sugar_theft",
+      "outcome_lemma": "rap",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "grounded_result_class",
+      "correct": true
+    },
+    {
+      "id": "ts_tom_wish_free_potter",
+      "outcome_lemma": "flee",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": true
+    },
+    {
+      "id": "woz_dorothy_kansas_wish",
+      "outcome_lemma": "carry",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "referent_recurrence",
+      "correct": true
+    },
+    {
+      "id": "woz_scarecrow_brains",
+      "outcome_lemma": "give",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "referent_mismatch",
+      "correct": false
+    },
+    {
+      "id": "woz_tin_woodman_heart",
+      "outcome_lemma": "put",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "referent_mismatch",
+      "correct": false
+    },
+    {
+      "id": "woz_lion_courage_granted",
+      "outcome_lemma": "drink",
+      "gold": "MET",
+      "pred": "UNMET",
+      "reason": "referent_mismatch",
+      "correct": false
+    },
+    {
+      "id": "woz_lion_courage_denied",
+      "outcome_lemma": "have",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": true
+    },
+    {
+      "id": "alice_beautiful_garden",
+      "outcome_lemma": "find",
+      "gold": "MET",
+      "pred": "AMBIGUOUS",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "race_chen_situps",
+      "outcome_lemma": "improve",
+      "gold": "UNMET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "race_german_dog",
+      "outcome_lemma": "come",
+      "gold": "UNMET",
+      "pred": "AMBIGUOUS",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "race_davey_wiffle",
+      "outcome_lemma": "curve",
+      "gold": "MET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "onestop_malala",
+      "outcome_lemma": "go",
+      "gold": "MET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "onestop_carle_madeinfrance",
+      "outcome_lemma": "be",
+      "gold": "UNMET",
+      "pred": "NONE",
+      "reason": "abstain_fallback_to_lexicon",
+      "correct": false
+    },
+    {
+      "id": "onestop_hunt_crowdfunding",
+      "outcome_lemma": "make",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "referent_recurrence",
+      "correct": true
+    },
+    {
+      "id": "onestop_limal_dating",
+      "outcome_lemma": "find",
+      "gold": "MET",
+      "pred": "MET",
+      "reason": "same_class_same_referent",
+      "correct": true
+    }
+  ],
+  "scored_population_n": 36,
+  "ambiguous_pred_count": 3,
   "gate_detail": {
     "HP1_learnable_subset": {
       "ls_acc>=0.75": false,
-      "ls_acc": null,
-      "n_learnable": 0
+      "ls_acc": 0.1667,
+      "n_learnable": 4
     },
     "HP2_primary>=0.60": {
       "pass": false,
-      "primary": 0.1667
+      "primary": 0.3056
     },
     "HP3_light_verb_neutral>=0.70": {
-      "pass": false,
-      "rate": null
+      "pass": true,
+      "rate": 0.8333
     },
     "HP4_noncircularity": {
       "scramble_in_[0.40,0.60]": false,
-      "scramble": 0.1667,
+      "scramble": 0.3556,
       "gap>=0.15": false,
       "random_credit_gap>=0.15": false,
       "single_signal_noise_ok": true,
       "exclusion_clean": true
     },
     "HP5_noise==0": {
-      "pass": true,
-      "noise_consolidated": 0
+      "pass": false,
+      "noise_consolidated": 2
     },
     "HF_primary<=floor": true,
     "HF_scramble_within_0.08": true,
     "HF_random_within_0.08": false,
     "HF_lightverb<0.30": false,
-    "HF_noise>=2": false,
-    "HF_insufficient_yield<3": true
+    "HF_noise>=2": true,
+    "HF_insufficient_yield<3": false
   },
   "verdict": "HARD_FAIL",
-  "verdict_msg": "HARD_FAIL: primary=0.1667 (floor=0.6389, inc1b=0.4444) | learnable=None(0/N>=6) | lv_neutral=None | scramble=0.1667 gap=0.0 | rand_credit_ls=None | noise_consol=0 | single_sig_noise(a=0,b=3) | excl_clean=True",
-  "summary": "HARD_FAIL: primary=0.1667 (floor=0.6389, inc1b=0.4444) | learnable=None(0/N>=6) | lv_neutral=None | scramble=0.1667 gap=0.0 | rand_credit_ls=None | noise_consol=0 | single_sig_noise(a=0,b=3) | excl_clean=True",
-  "elapsed_s": 231.31,
+  "verdict_msg": "HARD_FAIL: primary=0.3056 (floor=0.6389, inc1b=0.4444) | learnable=0.1667(4/N>=6) | lv_neutral=0.8333 | scramble=0.3556 gap=-0.05 | rand_credit_ls=0.25 | noise_consol=2 | single_sig_noise(a=2,b=3) | excl_clean=True",
+  "summary": "HARD_FAIL: primary=0.3056 (floor=0.6389, inc1b=0.4444) | learnable=0.1667(4/N>=6) | lv_neutral=0.8333 | scramble=0.3556 gap=-0.05 | rand_credit_ls=0.25 | noise_consol=2 | single_sig_noise(a=2,b=3) | excl_clean=True",
+  "elapsed_s": 253.0,
   "discriminator_fires": {
-    "max_windows_with_teacher": 3,
-    "max_exposure_pairs": 7,
+    "max_windows_with_teacher": 434,
+    "max_exposure_pairs": 943,
     "fires": true
   }
 }

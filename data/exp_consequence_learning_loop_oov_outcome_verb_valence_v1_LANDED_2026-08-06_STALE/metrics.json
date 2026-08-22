@@ -1,0 +1,377 @@
+{
+  "anchor_name": "consequence_learning_loop_oov_outcome_verb_valence_v1",
+  "run_mode": "full",
+  "config": {
+    "W": 3,
+    "MIN_CONFIRM": 3,
+    "NEUTRAL_BAND": 0.34,
+    "N_PASSES": 3,
+    "n_scramble_seeds": 5,
+    "exclude_margin": 50,
+    "n_oov_items": 36
+  },
+  "corpus_stats": {
+    "little_women.clean.txt": {
+      "total_lines": 20372,
+      "excluded_lines": 1608,
+      "n_eval_citations": 12
+    },
+    "anne_of_green_gables.clean.txt": {
+      "total_lines": 10574,
+      "excluded_lines": 1959,
+      "n_eval_citations": 12
+    },
+    "tom_sawyer.clean.txt": {
+      "total_lines": 8731,
+      "excluded_lines": 639,
+      "n_eval_citations": 4
+    },
+    "wizard_of_oz.clean.txt": {
+      "total_lines": 4640,
+      "excluded_lines": 0,
+      "n_eval_citations": 0
+    }
+  },
+  "win_stats": {
+    "total_sents": 22197,
+    "goal_fire": 1434,
+    "substring_dropped": 3,
+    "n_windows": 1431
+  },
+  "exclusion_integrity": {
+    "exclusion_integrity_violations": 0,
+    "clean": true
+  },
+  "majority_floor": 0.6389,
+  "increment_1b_ref": 0.4444,
+  "fallthrough_baseline_accuracy": 0.1667,
+  "primary_accuracy": 0.1667,
+  "met_recall": "2/23",
+  "unmet_recall": "4/13",
+  "n_registered": 0,
+  "registered": {},
+  "learnable_subset": {
+    "n_learnable": 0,
+    "registered_eval_lemmas": [],
+    "learnable_subset_size": 0,
+    "learnable_subset_accuracy": null,
+    "learnable_subset_correct": 0
+  },
+  "light_verb_canary": {
+    "light_verb_canary_neutral_rate": null,
+    "light_verb_n_reached": 0,
+    "light_verb_n_neutral": 0,
+    "light_verb_n_polar_locked": 0,
+    "light_verb_reached_minconfirm": []
+  },
+  "noise_canary": {
+    "consolidated_count": 0,
+    "consolidated_words": []
+  },
+  "bootstrap_curve": [
+    {
+      "pass": 1,
+      "n_windows_with_teacher": 3,
+      "n_windows_credited": 2,
+      "n_new_exposure_pairs": 7,
+      "n_newly_registered_pos": 0,
+      "n_newly_registered_neg": 0,
+      "cumulative_registered": 0,
+      "n_grounded_neutral": 0,
+      "n_lemmas_pending": 7
+    },
+    {
+      "pass": 2,
+      "n_windows_with_teacher": 3,
+      "n_windows_credited": 2,
+      "n_new_exposure_pairs": 0,
+      "n_newly_registered_pos": 0,
+      "n_newly_registered_neg": 0,
+      "cumulative_registered": 0,
+      "n_grounded_neutral": 0,
+      "n_lemmas_pending": 7
+    }
+  ],
+  "scramble": {
+    "scrambled_primary_accuracy": 0.1667,
+    "scrambled_per_seed": [
+      0.1667,
+      0.1667,
+      0.1667,
+      0.1667,
+      0.1667
+    ]
+  },
+  "random_credit": {
+    "random_credit_primary_accuracy": 0.1667,
+    "random_credit_n_registered": 0,
+    "random_credit_learnable_subset_accuracy": null,
+    "random_credit_n_learnable": 0
+  },
+  "signal_a_only": {
+    "n_registered": 11,
+    "noise_canary_consolidated_count": 0,
+    "noise_canary_consolidated_words": [],
+    "light_verb_canary_neutral_rate": 0.5333
+  },
+  "signal_b_only": {
+    "n_registered": 56,
+    "noise_canary_consolidated_count": 3,
+    "noise_canary_consolidated_words": [
+      "sit",
+      "speak",
+      "stand"
+    ],
+    "light_verb_canary_neutral_rate": 0.1304
+  },
+  "light_verb_detail": {
+    "be": {
+      "pos": 0,
+      "neg": 1,
+      "total": 1,
+      "verdict": "PENDING"
+    },
+    "have": {
+      "pos": 0,
+      "neg": 1,
+      "total": 1,
+      "verdict": "PENDING"
+    },
+    "do": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "say": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "try": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "look": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "feel": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "want": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "think": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "make": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "come": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "go": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "find": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "ask": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "seem": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "begin": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "mean": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "know": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "see": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "tell": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "get": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "put": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "take": {
+      "pos": 0,
+      "neg": 1,
+      "total": 1,
+      "verdict": "PENDING"
+    },
+    "give": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "carry": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "buy": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    }
+  },
+  "noise_detail": {
+    "walk": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "sit": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "speak": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "stand": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "sigh": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "glance": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "nod": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    },
+    "pause": {
+      "pos": 0,
+      "neg": 0,
+      "total": 0,
+      "verdict": "ABSENT"
+    }
+  },
+  "gate_detail": {
+    "HP1_learnable_subset": {
+      "ls_acc>=0.75": false,
+      "ls_acc": null,
+      "n_learnable": 0
+    },
+    "HP2_primary>=0.60": {
+      "pass": false,
+      "primary": 0.1667
+    },
+    "HP3_light_verb_neutral>=0.70": {
+      "pass": false,
+      "rate": null
+    },
+    "HP4_noncircularity": {
+      "scramble_in_[0.40,0.60]": false,
+      "scramble": 0.1667,
+      "gap>=0.15": false,
+      "random_credit_gap>=0.15": false,
+      "single_signal_noise_ok": true,
+      "exclusion_clean": true
+    },
+    "HP5_noise==0": {
+      "pass": true,
+      "noise_consolidated": 0
+    },
+    "HF_primary<=floor": true,
+    "HF_scramble_within_0.08": true,
+    "HF_random_within_0.08": false,
+    "HF_lightverb<0.30": false,
+    "HF_noise>=2": false,
+    "HF_insufficient_yield<3": true
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: primary=0.1667 (floor=0.6389, inc1b=0.4444) | learnable=None(0/N>=6) | lv_neutral=None | scramble=0.1667 gap=0.0 | rand_credit_ls=None | noise_consol=0 | single_sig_noise(a=0,b=3) | excl_clean=True",
+  "summary": "HARD_FAIL: primary=0.1667 (floor=0.6389, inc1b=0.4444) | learnable=None(0/N>=6) | lv_neutral=None | scramble=0.1667 gap=0.0 | rand_credit_ls=None | noise_consol=0 | single_sig_noise(a=0,b=3) | excl_clean=True",
+  "elapsed_s": 231.31,
+  "discriminator_fires": {
+    "max_windows_with_teacher": 3,
+    "max_exposure_pairs": 7,
+    "fires": true
+  }
+}
