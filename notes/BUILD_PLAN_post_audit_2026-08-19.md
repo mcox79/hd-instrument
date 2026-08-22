@@ -74,6 +74,18 @@
 > ⚠️ **WATCH CONDITION UNCHANGED: this may make a better INDEX without better UNDERSTANDING -- the tell
 > is recognition rising while meaning stays flat.** ⚠️ *NOT yet wired; that is a live-path change.*
 > `Q102_ANSWERED_THE_FORM_ORGAN_PASSES_THE_BRAINS_OWN_TEST_...`
+> ✅ **AND PRIOR WORK EMPIRICALLY CONFIRMS THE "DO NOT BLEND" HALF:**
+> *`exp_substrate_concept_encoder_v2_vwfa_late_combine_2spoke` **HARD_FAIL** -- `ARM_V2_LATE_COMBINE`
+> `recall@5 0.2000` vs `max(VWFA 0.2533, SEM 0.1667)`: **"composition HURTS relative to best single
+> spoke"**.* **BLENDING the form stream into one combined query is WORSE than the form stream ALONE --
+> which is exactly the arrangement I argued against from the brain side, now with an empirical failure
+> behind it.** *Note the form spoke `0.2533` also BEATS the semantic spoke `0.1667`.*
+> ⚠️ *smoke N=100, 3 seeds, `n_dim=2048`, recall@5 -- small. `hdlab/late_combine.py` is the blender and
+> is backward-compatible to a no-op (`alpha=0,beta=0,gamma=1` == unit-normalised semantic).*
+> 🔧 **AND I FIXED A BUG IN MY OWN `--limit` FLAG FROM EARLIER TONIGHT:** *the cleanup dropped the bare
+> value only `if limit != 40`, so `--limit 40` left "40" as a SEARCH TERM and matched `vwfa` OR `40` --
+> **1,106 hits against a true 4, a 275x error I nearly acted on.** Now consumed POSITIONALLY; verified on
+> `--limit 5/40/200`, `--limit=200`, a numeric search term (`4096` -> 871), and `--self-test`.*
 > **Q104 (the credit fork) remains OPEN.**
 >
 > **2. 🎯 DIRECTION = *ANCHOR + PROPAGATE*, set 08-06/08-07.** *Ground a SMALL affective anchor (the brain

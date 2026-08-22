@@ -337,15 +337,20 @@ def main() -> int:
         # the filter below stripped every "--" token, so `--limit 200` was silently discarded and
         # the tool told you to raise a flag that did not exist. An enumeration tool whose own
         # remedy for truncation is unimplemented cannot answer an absence question.
+        # FIXED 2026-08-22 (my own bug, same night I added the flag): the old cleanup dropped the
+        # bare value only `if limit != 40`, so `--limit 40` left "40" in the TERM list and the query
+        # became "vwfa OR 40" -- 1,106 hits against a true 4. Consume the value POSITIONALLY instead,
+        # which cannot depend on what the value happens to be.
         limit = 40
+        consumed = set()
         for i, a in enumerate(args):
             if a.startswith("--limit="):
                 limit = int(a.split("=", 1)[1])
             elif a == "--limit" and i + 1 < len(args) and args[i + 1].isdigit():
                 limit = int(args[i + 1])
-        args = [a for a in args if not a.startswith("--")]
-        if limit != 40 and args and args[-1].isdigit():
-            args = args[:-1]                      # drop the bare "--limit N" value
+                consumed.add(i + 1)               # the VALUE is consumed by position, not by value
+        args = [a for i, a in enumerate(args)
+                if not a.startswith("--") and i not in consumed]
         if not args:
             print("give at least one term", file=sys.stderr)
             return 2
