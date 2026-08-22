@@ -85,21 +85,25 @@
 >   WORD-SIMILARITY channel, which both plans had ruled out (bow `0.5167` = chance HANDED THE GOLD
 >   SENSE). On the grounding organ counting is at chance and we are not.** ➡️ **FRONTIER: OPEN VOCAB,
 >   then REAL PROSE.** `THE_GROUNDING_ORGAN_ACTUALLY_WORKS_...`
-> 🔻 **OPEN-VOCAB, DIAGNOSED -- AND I RETRACT TWO CLAIMS MADE GETTING THERE.** *RETRACTED: "the cost
->   is 3 words (`arm`/`hand`/`leg`)" and "the consumer is calibrated on the component's error". **`he broke
->   her arm` RETURNS `BLOCK_HIGH` = GOLD.** FAULT: I compared `v2.lookup_animacy` vs the real lookup and
->   THE CLOSED ARM DOES NOT CONSUME IT (it uses `object_event_class`). Name-matched, never verified, built two conclusions on it.*
-> ✅ **SUBSET `B` NOW CLOSES EXACTLY: 10/12 = `0.8333` vs reported `0.833`, BOTH ERRORS THE WORD `enemy`.**
->   *Combiner: **SITUATION > EVENT > GOVERNOR**, so event-stage `None` = DECLINING and the governor answers.*
+> ✅ **OPEN VOCABULARY: FULLY DIAGNOSED, ONE CAUSE, BOTH TOTALS CLOSE EXACTLY.**
+>   *Combiner is **SITUATION > EVENT > GOVERNOR**, so event-stage `None` = DECLINING, not failing.*
+>   **`B` 10/12 = `0.8333` (reported `0.833`), errors = `enemy` x2. `Bgen` 6/8 = `0.750` (reported),
+>   errors = `rival`, `thief`. ALL FOUR ERRORS HAVE AN *ADVERSARIAL* PATIENT** *(`enemy` -> `abstract` ->
+>   event says NEUTRAL and WINS; `rival`/`thief` -> `person` -> event DECLINES and the governor says HELP
+>   -- different routes, ONE cause).* 🎯 **THE ANIMACY MAP CANNOT EXPRESS `ADVERSARIAL`; the closed map
+>   has an explicit class returning BLOCK_HIGH regardless of governor. AN EXPRESSIVENESS GAP, NOT A
+>   LOOKUP BUG -- no better animacy data fixes it, and WordNet has no adversarial-role class.**
 > 🔑 **THE `== "UNK"` GUARD IS A DELIBERATE HAND-OFF, NOT A DEFECT -- DO NOT TOUCH IT.** *It stops the
 >   event stage double-handling verbs the governor knows; removing it would overrule the governor on the
->   2 items it gets RIGHT. I had it queued as "the more interesting defect".*
-> 🎯 **THE ONE REAL DEFECT: ANIMACY CANNOT EXPRESS `ADVERSARIAL`.** *`enemy` -> `abstract` -> event says
->   NEUTRAL and WINS; gold BLOCK_HIGH. **An EXPRESSIVENESS gap, not a lookup bug.***
-> ✅ **RESTORES THE BODY-PART FIX** *(`crack`/`wrench`/`twist` are ALL `UNK` AND in force_class, so the harm
->   route WOULD fire if `ankle` were animate; 3/3 gap words, 0/8 controls).* ⚠️ *UNRUN; `pred_gov` not
->   re-trained; event stage only; `Bgen` `0.750` unexplained.*
->   `SUBSET_B_IS_NOW_EXACTLY_EXPLAINED_...` `I_RETRACT_THE_THREE_WORD_FINDING_...` `A_PRINCIPLED_REPLACEMENT_...`
+>   items it gets RIGHT. I had it queued as "the more interesting defect".*
+> 🔻 **THREE RETRACTIONS GETTING HERE:** *"the cost is 3 words (`arm`/`hand`/`leg`)" -- **all three are
+>   handled CORRECTLY**; "the consumer is calibrated on the component's error"; and the do-not-ship on the
+>   body-part fix (**RESTORED**: `crack`/`wrench`/`twist` are all `UNK` AND in force_class, so the harm
+>   route WOULD fire if `ankle` were animate).* **ROOT FAULT: I compared `v2.lookup_animacy` vs the real
+>   lookup and the closed arm DOES NOT CONSUME IT.** ⚠️ **AND THE ANSWER WAS IN THE CELL'S DOCSTRING,
+>   LINE 52, NAMING `enemy/rival/thief` EXACTLY. I read past it twice over four turns.**
+> ⚠️ *`pred_gov` not re-trained (both totals closing is strong evidence, not proof); event stage only; no
+>   arm run; nothing repaired.* `BOTH_OPEN_VOCAB_SUBSETS_CLOSE_ON_ONE_CAUSE_...` `SUBSET_B_IS_NOW_...`
 > ⚠️ **VERIFICATION STATUS (I had been claiming neither): those numbers are READ, NOT REPRODUCED.**
 > *Re-running gives `elapsed 0.0s` + `[resume] already done` -- checkpoints REPLAY, and **the no-op
 > re-run is INDISTINGUISHABLE FROM A PASS**.* ✅ *`--self-test` DOES recompute and reproduced the
@@ -128,14 +132,11 @@
 >   🔻 `OPPOSED_PAIRS` = 6 class pairs, `lexical_similarity` = 86 concepts; **the real one is
 >   `wordnet_polarity_propagation`, antonym-aware, built two weeks before I began.*
 > - 📐 **THE 08-21/22 MEASUREMENT PASS, FOLDED TO A FLOOR -- ALL BAG-OF-WORDS, THE CHANNEL BOTH PLANS
->   RULED OUT (`0.5167` = chance HANDED THE GOLD SENSE). KEPT, NOT A DIRECTION.** *A neighbour read-out
->   decodes ALL 15 norm dims from our profiles (`Concreteness 0.4671` control-top, `Valence 0.3069` vs
->   null `0.0385`, 15/15 at 5-12x null) -- my pairwise test said ~nothing (3/15) and WAS THE WRONG TEST.
->   **~50-100 grounded words already propagate, past ~400 buys ~nothing, BUT IDF at 200 seeds (`0.2971`)
->   beats OURS at 2,000 (`0.2638`).** ANISOTROPY: our nearest-seed cosine is HIGHER (`0.3965` vs `0.2415`)
->   while carrying LESS.* ⚠️ *K unswept 3x; 25-seed row DEGENERATE; `null95` gates CONCRETENESS only;
->   **all of it assigns ONE VALUE PER WORD where `PLAN_B` specifies a CONTEXT-CONDITIONED superposition.***
->   `THE_WEAKER_TEST_SAID_TEXT_CARRIES_NOTHING_...` `HOW_SMALL_CAN_THE_GROUNDED_SEED_BE_...`
+>   RULED OUT (`0.5167` = chance HANDED THE GOLD SENSE).** *A neighbour read-out decodes all 15 norm dims
+>   (`Valence 0.3069` vs null `0.0385`, 15/15 at 5-12x null); ~50-100 seeds already propagate but **IDF at
+>   200 seeds (`0.2971`) beats OURS at 2,000 (`0.2638`)**; ANISOTROPY (nearest-seed cosine HIGHER, `0.3965`
+>   vs `0.2415`, carrying LESS).* ⚠️ **ALL OF IT ASSIGNS ONE VALUE PER WORD where
+>   `PLAN_B` specifies a CONTEXT-CONDITIONED superposition.** `THE_WEAKER_TEST_...` `HOW_SMALL_...`
 > **3. THE HONEST TENSION BEHIND BOTH, WORTH THE OWNER'S EYE:** *the supplied table beats everything
 > we LEARN, on both word classes.* **Leaning on it raises scores; it is SUPPLY, not learning, and the
 > organ's docstring forbids reporting it as the substrate having learned anything.** *Owner already
