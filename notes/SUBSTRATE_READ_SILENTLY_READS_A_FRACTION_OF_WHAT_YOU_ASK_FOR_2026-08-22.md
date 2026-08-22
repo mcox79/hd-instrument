@@ -45,6 +45,38 @@ normally**, and every downstream number is computed on ~1,000 sentences.
 count.** *One attribute, on the object every caller already holds. **This is the "make outputs print
 quantities that constrain each other" rule with the quantity already present and simply unread.***
 
+## 🔻 **BLAST RADIUS, ENUMERATED THE NEXT MORNING -- AND IT DEFLATES THIS FINDING SUBSTANTIALLY**
+
+**The alarming number above is from a call shape NOTHING IN THE CODEBASE USES.** Enumerated across
+`experiments/`, `tools/`, `verification/`, `hdlab/`:
+
+- **Literal `n_sentences` call sites: 14. Only `2` exceed 1,500 -- and both are MY OWN witness file.**
+- **Variable call sites: 16. Every experiment cell binds `chunk = 400`** and reads in a LOOP
+  (`exp_sensorimotor_spoke_grounding_v1`, `exp_cortical_read_consolidated_v1`,
+  `exp_predictive_write_gate_v1`, `exp_grounding_precision_gold_v1`,
+  `exp_substrate_end_to_end_readout_v1`). The rest are `min(...)`-bounded diagnostics.
+
+> ### **NO EXPERIMENT CELL ASKS FOR A SINGLE LARGE READ. THE PATTERN THAT FAILS AT 13% IS ONE NOBODY WRITES.**
+
+**And the pattern everyone DOES write was measured directly -- 25 successive `read(400)` calls:**
+
+```
+400 400 400 340 180 400 400 300 200 400 220 340 400 240 400 280 400 360 220 280 320 400 200 180 400
+requested 10,000  ->  delivered 8,060  =  81%     (short_read fired on 13 of 25 calls)
+```
+
+| pattern | delivery |
+|---|---|
+| one call asking `8,000` | 🔻 `13%` |
+| **25 chunked calls of `400` -- REAL USAGE** | **`81%`** |
+
+➡️ **SO THE HONEST IMPACT IS A ~19% SHORTFALL ON REAL CELLS, NOT AN ~87% ONE.** *A cell that reports
+40,000 sentences across 100 chunks probably read closer to 32,000. That is worth knowing and worth
+recording; it is NOT the catastrophe the single-call number implies.*
+
+**🚫 DO NOT QUOTE THE `13%` AS THE PROJECT'S EXPOSURE.** It is the exposure of a call shape that
+appears nowhere but in the test written to catch it. **The `81%` is the number that describes us.**
+
 ## 🚫 WHAT I AM **NOT** CLAIMING
 
 - 🚫 **NOT that every landed cell is affected.** This measures **`Substrate.read()`**. Cells that
