@@ -90,8 +90,17 @@
 > ⚠️ **SO THE BUILD IS NOT BLOCKED FOR WANT OF PARTS -- but not therefore easy: the learned identity head
 >   scored `1.000` on train and `0.672` held-out (MEMORISATION), so generalising entity identity IS hard.
 >   My "real blocking item" from last turn is WITHDRAWN -- that blocks the UPGRADE, not the build.**
-> ➡️ **NEXT: verify the frozen Centering-Cb coref + maintained SituationModel actually RUN today (cheap,
->   and I have NOT done it), then the prescribed build is unblocked.**
+> ✅ **VERIFIED BY RUNNING THEM (08-22): BOTH FROZEN COMPONENTS ARE LIVE.** *`situation_reader`'s OWN
+> self-tests pass richly -- `read_end_to_end` gives 3 sentences -> 2 entities, 5 events, **4 CROSS-SENTENCE
+> targets**; `frame_primary_wiring` fear/cherish -> EXPERIENCER, kick -> AGENT; `affect_wiring` battered ->
+> **HARM**; `frame_arity_gate` 16 cases all_pass. `coreference_resolver`'s `run_match_or_allocate` /
+> `run_strict_cb` / `run_recency_floor` all EXECUTE without error.*
+> 🔻 **BUT I HAVE NO VALID QUALITY READ ON THE COREF, AND WILL NOT PRETEND OTHERWISE:** *my ad-hoc
+> 6-mention passage scored the DEGENERATE `run_recency_floor` (everything in ONE cluster) as the BEST arm.*
+> **A metric the information-free arm WINS is not a metric -- this project's own rule, and mine failed it.**
+> ⚠️ *Also: `John`/`Mary` get `gender=None` (non-pronouns), so gender cannot link `He`->John in my toy
+> passage. The real evaluation is the landed cells (`centering_cb_...` MIDDLE_BAND), not this.*
+> ➡️ **RUNNING WAS THE QUESTION AND THE ANSWER IS YES -- THE PRESCRIBED BUILD IS UNBLOCKED FOR PARTS.**
 > 🔧 *Fixed `experiment_index.py`: `--limit` was advertised by its truncation message and NEVER PARSED,
 >   so >40-result questions could not be enumerated. Both forms verified; self-test passes.*
 >   `I_KEEP_READING_A_FAILED_UPGRADE_AS_A_BROKEN_COMPONENT_...` `THE_PRESCRIBED_FIX_DEPENDS_...`
