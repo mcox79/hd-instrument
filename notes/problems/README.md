@@ -267,6 +267,21 @@ floor: <the strongest floor actually run, with its value>
 controls: <which controls ran, and what each excluded -- a control that excludes nothing is not one>
 files_changed: <paths>
 reverify: <a single command the strategy session can run to reproduce the headline>
+
+  IT MUST NOT OVERWRITE A LANDED RECORD, AND THIS IS NOT HYPOTHETICAL -- I TRIPPED IT ON 2026-08-23.
+  Following one of these commands as written re-ran a cell IN PLACE and rewrote its landed
+  `metrics.json` with a fresh `ts_iso` and `elapsed_s`. The science was byte-identical, so the cost
+  was only the original timestamp -- but that is exactly the "54 landed records silently re-dated"
+  incident this project already carries, and the `harness_cannot_recompute` brief named this precise
+  hazard while its own protocol kept instructing people to trigger it. **3 of 5 reverify commands
+  did.**
+
+  PREFER, IN ORDER:
+    1. a scaffold-free witness      `.venv/Scripts/python.exe verification/test_<thing>.py`
+    2. a standalone measuring script that writes only to its OWN directory
+    3. `.venv/Scripts/python.exe tools/reproduce.py <cell>` -- runs the cell into an EMPTY sibling,
+       leaves the landed directory byte-identical, and reports REPRODUCED / DIVERGED / REPLAYED
+  NEVER: a bare `python experiments/<cell>.py`, which writes straight into the landed directory.
 ---
 ```
 
