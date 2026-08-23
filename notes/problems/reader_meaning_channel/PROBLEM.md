@@ -101,8 +101,35 @@ review_text:
 > cortex its interference resistance ON ITS OWN -- **cortex does not superpose a word's meaning into
 > one shared vector at all.** It keeps separate populations and addresses them. So the half of the
 > brain's answer we tried to import in isolation was never the load-bearing half.
-> ➡️ **THEREFORE: the fix is an ADDRESSED SLOT, not a sparser vector. Do not spend the week.**
+> ➡️ **THEREFORE: not a sparser vector. Do not spend the week.**
 > **REVERIFY:** `.venv/Scripts/python.exe verification/test_does_sparsity_fix_the_bundling_loss.py`
+>
+> ## ✏️ **CORRECTION 2026-08-23, SAME DAY: I SAID "USE AN ADDRESSED SLOT" BEFORE MEASURING IT**
+> The line above originally ended *"the fix is an ADDRESSED SLOT, not a sparser vector"*. **The
+> second half stands; the first half was an assertion I had not tested, written into a brief a
+> solver would act on.** So I tested it: bind the meaning code to a key, superpose with k
+> key-value distractors, unbind to recover.
+>
+> | k | plain bundle | ADDRESSED | recover w/ right key | w/ WRONG key |
+> |---|---|---|---|---|
+> | 2 | `+0.1860` | `+0.1745` | `+0.5775` | `-0.0012` |
+> | **8** | **`+0.0670`** | **`+0.0536`** | `+0.3336` | `-0.0037` |
+> | 32 | `+0.0155` | `+0.0004` | `+0.1767` | `-0.0000` |
+>
+> ✅ **ADDRESSING WORKS AS ADDRESSING:** the right key recovers the stored item at cos `+0.3336`,
+> the wrong key at `-0.0037`. **You can get back WHICH item you stored** -- the slot is real.
+> 🔻 **BUT IT BUYS NO SIGNAL: `+0.0536` addressed vs `+0.0670` plain at k=8, and it is WORSE at
+> k=32.** Binding **PERMUTES** the interference, it does not remove it -- unbinding returns the item
+> plus a noise term of the same magnitude the plain bundle already had. **Capacity is set by the
+> dimension and the NUMBER OF ITEMS, not by whether you bound them to keys.**
+>
+> ➡️ **THE RULE THAT ACTUALLY SURVIVES, AND IT IS BLUNTER THAN WHAT I FIRST WROTE: KEEP THE
+> NUMBER OF ITEMS IN ONE SUPERPOSITION SMALL, or give meaning ITS OWN STORE rather than a key into a
+> shared one.** *A key does not protect you from the other occupants.*
+> ⚠️ **OUR-INVENTION-UNDER-TEST, not brain-derived:** no recording shows neurons computing an
+> algebraic binding over two full-rank vector codes; the binding problem is open. What the brain
+> licenses is only that meaning stays *addressable* rather than stirred into one pot.
+> **REVERIFY:** `.venv/Scripts/python.exe verification/test_does_an_addressed_slot_survive_bundling.py`
 
 > **REVERIFY (tracked, runs in ~40s):**
 > `.venv/Scripts/python.exe verification/test_sensorimotor_covers_the_verb_hole.py`
