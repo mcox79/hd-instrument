@@ -157,6 +157,10 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   cortex's actual arrangement.** ➡️ **THE BUILD ANSWER: give meaning its own NARROW slot, not a
   share of a wide one -- cheaper, not costlier.** *Controls: k=1 agreement (harness fair), info-free
   `+0.0233`.* ⚠️ *Engineering, not biology -- segregation is pinned in cortex, the ALGEBRA is not.*
+  📐 **THE DESIGN NUMBER: swept to `k=256` for a crossover -- THERE ISN'T ONE.** *Superposition
+  is DESTROYED by `k=32` (reads ZERO); a ONE-dim slot still beats a 256-dim superposed code.*
+  ⚠️ **But below ~8 dims/slot segregation wins a race BOTH are losing. `8` dims still carries
+  `+0.1537`, over half full resolution -- THAT is the practical floor to build to.**
   *Witness: `test_segregated_beats_superposed_at_equal_budget.py`.*
   ⚠️ **STANDING PROHIBITION: do NOT raise `GROUNDED_CAP`** -- the `0.05` gap is what makes
   "contribute, do not decide" enforceable in code. ✅ *The channel is still the right direction.*

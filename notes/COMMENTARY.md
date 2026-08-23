@@ -203,3 +203,7 @@ I also want a priority for what problems to tackle first, on the problem page
 ## 2026-08-23T19:49:07Z  --  the status window
 
 FYI - in your problems you're giving to the solver, you should make sure to leave room for the solver, if it runs into a refute, to fully solve the problem for you a different way, not merely to come back and say "refuted". Your prompts for all of hte open problems should include this, and should emphasize brain foundational
+
+## 2026-08-23T20:05:34Z  --  the status window
+
+there are a few problems that were completed by the solver in the problems tab that you say you're waiting on me "Yes - re-verify" - what does that mean? Am I supposed to do anything? It's really not clear if that's "you" - Opus 5, or me, the user. It seems rational that it's waiting on you to verify (though you've already rated the solution?) - but I'm not clear whether you've integrated those or not. Please clarify?

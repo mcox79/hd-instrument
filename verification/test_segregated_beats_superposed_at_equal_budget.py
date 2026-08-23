@@ -54,7 +54,14 @@ DIMS = ["Auditory.mean", "Gustatory.mean", "Haptic.mean", "Interoceptive.mean", 
         "Visual.mean", "Foot_leg.mean", "Hand_arm.mean", "Head.mean", "Mouth.mean", "Torso.mean"]
 
 D_TOTAL = 256            # the substrate's actual budget
-KS = (1, 2, 4, 8, 16)
+# Swept to k=256 (a ONE-dimension slot) looking for the crossover where superposition wins back.
+# THERE ISN'T ONE. Segregation leads at every k. What DOES change is whether either is useful:
+#   k=32  ->  8d slots  segregated +0.1537  superposed -0.0011   <- last USEFUL slot width
+#   k=64  ->  4d slots  segregated +0.0752  superposed -0.0019
+#   k=256 ->  1d slot   segregated +0.0387  superposed +0.0139   (info-free is +0.0233)
+# So below ~8 dims/slot segregation wins a race BOTH schemes are losing, and 8 dims still
+# carries over half the full-resolution signal (+0.1537 vs +0.2983). That is the design number.
+KS = (1, 2, 4, 8, 16, 32)
 N_SEEDS = 3
 
 

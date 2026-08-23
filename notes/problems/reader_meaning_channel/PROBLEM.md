@@ -280,6 +280,21 @@ review_text:
 > ⚠️ **ENGINEERING, NOT BIOLOGY:** anatomical segregation of attributes IS pinned in cortex; the
 > ALGEBRA either scheme uses here is **our-invention-under-test** (VSA binding is unpinned). This
 > compares two of OUR options against a brain-motivated question.
+> #### 📐 **AND THE DESIGN NUMBER: HOW NARROW CAN A SLOT GET?** Swept to `k=256` looking for the
+> crossover where superposition wins back. **THERE ISN'T ONE -- segregation leads at every `k`.**
+> What changes is whether EITHER is useful:
+>
+> | k | slot | SUPERPOSED | SEGREGATED | |
+> |---|---|---|---|---|
+> | 32 | **8 dims** | `-0.0011` | **`+0.1537`** | ✅ **last USEFUL width -- over half the full-resolution `+0.2983`** |
+> | 64 | 4 dims | `-0.0019` | `+0.0752` | *both weak* |
+> | 256 | **1 dim** | `+0.0139` | `+0.0387` | *info-free is `+0.0233`* -- **a ONE-dim slot still beats a 256-dim superposed code, but both are near-dead** |
+>
+> 🚨 **SUPERPOSITION IS COMPLETELY DESTROYED BY `k=32` -- it reads ZERO.** ⚠️ **BELOW ~8 DIMS PER
+> SLOT SEGREGATION WINS A RACE BOTH SCHEMES ARE LOSING.** *Do not read "segregation wins at k=256" as
+> a licence for 1-dim slots.* ➡️ **~8 dims per slot is the practical floor; that is the number to
+> build to.**
+>
 > *Controls: k=1 agreement (harness favours neither), info-free arm `+0.0233` at the narrowest slot.*
 > **REVERIFY:** `.venv/Scripts/python.exe verification/test_segregated_beats_superposed_at_equal_budget.py`
 

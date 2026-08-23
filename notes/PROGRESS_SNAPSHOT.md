@@ -4,26 +4,26 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T20:02:33Z  |  HEAD: 58f95afde
+generated: 2026-08-23T20:04:10Z  |  HEAD: f6e2f1466
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30356 min ago <-- STALE
-  - orchestrator: 38685 min ago <-- STALE
-  - research: 4 min ago
-  - skunkworks: 41357 min ago <-- STALE
-  - testbed: 77931 min ago <-- STALE
+  - exp_dev: 30358 min ago <-- STALE
+  - orchestrator: 38687 min ago <-- STALE
+  - research: 0 min ago
+  - skunkworks: 41359 min ago <-- STALE
+  - testbed: 77933 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - exp_refuse_gate_on_readout_v2_membership: 12 min ago, has metrics.json
-  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 28 min ago, has metrics.json
-  - substrate_director_kb_v1.staging.28492: 32 min ago, NO metrics.json yet (likely in-flight)
-  - cornerstone_results: 115 min ago, NO metrics.json yet (likely in-flight)
-  - exp_refuse_gate_on_readout_v1: 161 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1: 163 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1_selftest: 164 min ago, has metrics.json
+  - exp_refuse_gate_on_readout_v2_membership: 14 min ago, has metrics.json
+  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 30 min ago, has metrics.json
+  - substrate_director_kb_v1.staging.28492: 33 min ago, NO metrics.json yet (likely in-flight)
+  - cornerstone_results: 117 min ago, NO metrics.json yet (likely in-flight)
+  - exp_refuse_gate_on_readout_v1: 163 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1: 165 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1_selftest: 165 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - 🧠 **THE MEANING CHANNEL: SIX MEASUREMENTS 08-23, ALL IN `notes/problems/reader_meaning_channel/`
@@ -93,11 +93,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 1 new commit(s) since last snapshot (HEAD 973e3a120 -> 58f95afde)
+- 1 new commit(s) since last snapshot (HEAD 58f95afde -> f6e2f1466)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8178, "generated_at": "2026-08-23T20:02:33Z", "head_commit": "58f95afde2f8306714ddaa38447c5e359f8979a6", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8178, "generated_at": "2026-08-23T20:04:10Z", "head_commit": "f6e2f146608dfbd078c2ba8768e2879d3c37cdac", "step_status": {}}
 -->
