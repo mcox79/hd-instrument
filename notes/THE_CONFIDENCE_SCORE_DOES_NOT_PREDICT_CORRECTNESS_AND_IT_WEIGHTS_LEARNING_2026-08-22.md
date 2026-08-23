@@ -104,6 +104,43 @@ would be the same overclaim in the opposite direction.*
 
 ---
 
+## 2c. DEFLATED 2026-08-23 BY MY OWN FOLLOW-UP: THE GAP DOES NOT ARISE WHERE THE ORGAN IS USED
+
+I ran the loop to settle whether the weighting and the discard cost anything. **The setup answered
+the question before a single arm scored, and the answer deflates sections 2 and 2b.**
+
+On the eval population the organ is actually FOR -- the OOV outcome-verbs inside the consequence
+loop -- the dictionary **commits on `6` of `33` lemmas, and all six saturate at confidence `1.0`**:
+
+| arm | lemmas injected | total pseudo-counts |
+|---|---|---|
+| WEIGHTED (ships today) | 6 | **18** |
+| NO_DISCARD | 6 | **18** |
+| FLAT_3 | 6 | **18** |
+| FLAT_1 | 6 | 6 |
+
+🔻 **THREE OF THE FOUR ARMS ARE THE SAME ARM.** There is nothing to down-weight and nothing to
+discard, because **no committed answer on this population is below saturation.**
+
+**SO THE HONEST STATUS OF THIS NOTE'S HEADLINE FINDING IS: REAL, AND NOT LOAD-BEARING WHERE IT
+MATTERS.** The uncalibrated weight and the silent discard are genuine properties of the lookup over
+`1,971` dictionary verbs. They **do not occur** on the `33`-lemma population the organ is deployed
+against. *The scope caveat in section 3 -- "a narrower and DIFFERENT population" -- turns out not to
+be a caveat but the whole story.*
+
+⚠️ **AND THE PROCESS FAILURE IS MINE AND IS THE POINT: I DID NOT ASK WHETHER THE EXPERIMENT COULD
+SUCCEED BEFORE LAUNCHING IT.** That check is this repo's highest-yield habit, it is written down in
+CLAUDE.md, it cost one command on 2026-08-21 and prevented an hour -- and I skipped it here and spent
+two launches, one of them killed at ten minutes, on a comparison whose arms were identical by
+construction. **The distinguishing quantity -- how many committed lookups on THIS population sit
+below saturation -- was one line and I never printed it.**
+
+*What would still be worth knowing, and is NOT answered: whether FLAT_1 differs. At `6` committed
+lemmas out of `33` it cannot be powered either, so the answer for this organ is that the question is
+UNTESTABLE HERE, not that the weighting is harmless in general.*
+
+---
+
 ## 3. WHAT THIS IS AND IS NOT
 
 - ✅ **IS:** a measured absence of calibration in a wired organ's confidence output, on `326` items
