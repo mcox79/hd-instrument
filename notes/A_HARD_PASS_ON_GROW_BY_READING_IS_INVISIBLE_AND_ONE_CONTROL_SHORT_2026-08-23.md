@@ -113,3 +113,18 @@ None. `Q115` and `Q116` remain open.
    before starting.
 3. The six other verdict/final_verdict disagreements are all conservative and need no action beyond
    tools reading the adjudicated field, which `tools/reproduce.py` now does.
+
+---
+
+## 5. CORRECTION, SAME DAY: THE VISIBILITY CLAIM WAS OVERSTATED
+
+§1 says the archive "presents a passing result as unfinished" and implies every tool reading
+`verdict` misses it. **`tools/experiment_index.py` already resolves `final_verdict` correctly** --
+`query "stated entity fate"` returns this cell as `HARD_PASS_CLEAN_GROW_BY_READING_VIABLE`.
+
+**So the stale field is the RAW `metrics.json` key, not the archive's main query path.** The defect is
+narrower than I wrote: tools reading the raw field directly get the wrong answer -- `tools/reproduce.py`
+did until I reordered it today -- while the tool people actually search with does not.
+
+*Recording this because overstating a visibility problem is the same error class as overstating a
+result, and I caught it only by running the query rather than assuming.*
