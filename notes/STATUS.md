@@ -1,6 +1,6 @@
 # STATUS -- THE RECOVERY ENTRY POINT. READ THIS, THEN THE PLAN.
 
-AS OF: 2026-08-22, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | ❓ **BOARD: Q115 OPEN (08-22)** -- should using the shared save-location helper be REQUIRED for new cells, so the un-reproducible pile stops growing. Q113 (08-22): cell work + `hdi_*` spawns AUTHORIZED; the `notes/problems/` briefs are the solver's, do not work them here. Q111 STANDING: testbed owns ALL integration, solvers never write `hdlab/`. Q110 STANDING: operational calls are mine, board is for owner-only decisions. Q102/106/107/108/109/112 ANSWERED/WITHDRAWN AND DISCHARGED (per STATUS_SPEC sec 3 tier 3 + the citation rule -- full text `notes/QUESTION_LOG.md`; Q109's credit-assignment investigation moved to `STATUS_LESSONS.md` "Q109 CREDIT ASSIGNMENT"). *Q103/104/108 share one pattern: filed before testing the constraint being complained about.*
+AS OF: 2026-08-23, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **ONE INLINE COMPARISON RUNNING (see WHAT IS RUNNING)** | ❓ **BOARD: Q115 OPEN (08-22)** -- should using the shared save-location helper be REQUIRED for new cells, so the un-reproducible pile stops growing. Q113 (08-22): cell work + `hdi_*` spawns AUTHORIZED; the `notes/problems/` briefs are the solver's, do not work them here. Q111 STANDING: testbed owns ALL integration, solvers never write `hdlab/`. Q110 STANDING: operational calls are mine, board is for owner-only decisions. Q102/106/107/108/109/112 ANSWERED/WITHDRAWN AND DISCHARGED (per STATUS_SPEC sec 3 tier 3 + the citation rule -- full text `notes/QUESTION_LOG.md`; Q109's credit-assignment investigation moved to `STATUS_LESSONS.md` "Q109 CREDIT ASSIGNMENT"). *Q103/104/108 share one pattern: filed before testing the constraint being complained about.*
    ✅ **CLOSED TODAY (08-22), one line each, full text on disk at the named note:** the grounding
    quality answer is `3/100 MEANINGFUL, 19 RELATED, 78 NOISE` blind, scramble_ratio 0.077, no
    correctness measure exists in the cell (`THE_GROUNDING_ANSWER_...`); best-evidenced grounding
@@ -170,7 +170,7 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   `cortical_read_has_no_scored_path` -- **all five REVIEWED, feedback at the TOP of each brief and a
   grade in `review:`, per the owner's instruction.** Strategy session was DISQUALIFIED from
   `eval_bank_too_small` (it had read the per-item predictions). `tools/problem_ledger.py`.
-- ⬜ **NOTHING IS RUNNING.** *No background agent, no queued cell, nothing awaiting integration.*
+- 🟡 **RUNNING (08-23, inline):** does the dictionary pseudo-count WEIGHTING or its silent DISCARD change what the consequence loop learns? `WEIGHTED` (ships) vs `NO_DISCARD` vs `FLAT_3` vs `FLAT_1`, scored with the parent cell's OWN `_score_with_overlay` on its landed corpus checkpoint. *Zero delta CLOSES both calibration findings as harmless; non-zero gives them a cost.*
 - ✅ **INTEGRATION LANE, LANDED 08-22 (both solver hand-offs; solvers are barred from `hdlab/` by Q111):**
   **SH-7 `HDI_FRESH_RUN=<tag>`** (`experiments/_seed_checkpoint.get_output_dir`) sends a cell to an EMPTY
   sibling so a re-run genuinely RECOMPUTES -- no deletion, landed dir never opened for writing.
@@ -195,13 +195,7 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   a fresh run on a cell that cannot isolate and `completed_units`/`record_unit` now SAY SO rather
   than silently overwriting. *Can only fire when the env var is set -- zero false positives by
   construction, 3 of its 7 tests are SILENCE tests.* `THE_REPRODUCIBILITY_HOLE_IS_GROWING_...`
-- 🚨 **STALE-ARTIFACT DEFECT IN THE BLIND SHEET: drawn from `v2_qualityfix` while `v3/v4/v5` also
-  exist unmarked -- `draw_representative_blind_sample.py` has no notion of a CURRENT foundation.**
-  True stem rate (round-trip detector): sheet `10.4%`, v2q `7.9%`, `v5_termboundary` `0.4%` -- but
-  v5 is a DIFFERENT PIPELINE's fact dump (definienda, not subjects), not a later version, and only
-  v1/v2q are LOADABLE. **STANDS: the grounding loop stores ~8% stemmer output, NOT known to be
-  fixed.** *Three of my own corrections in one day, alternating direction -- full trail:*
-  `notes/THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...md`.
+- ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-23:** the blind sheet was drawn from a STALE  foundation (`v2_qualityfix` while `v3/v4/v5` exist unmarked; the sampler has no notion of a CURRENT  foundation). **STANDS: the grounding loop stores ~`8%` stemmer output and is NOT known to be fixed.**  `THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...`
 - 🚨🧠 **THE GENERIC-ATTRACTOR DEGENERACY'S CAUSE: NOTHING LOADS A FOUNDATION.**
   `self.foundation_dir` is assigned at `substrate.py:378` and NEVER READ AGAIN -- a dead parameter;
   runtime-measured `load_foundation` calls `= 0`. Makes the plan's own "way-attractor should fall

@@ -6573,3 +6573,15 @@ what STATUS keeps is a one-line stub pointing here.*
   done here). `notes/THE_ORGAN_DOES_NOT_ANSWER_WRONG_...md`,
   `notes/THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...md`.
 
+
+
+## EVICTED FROM STATUS.md ON 2026-08-23 (third pass -- headroom for the polarity results)
+
+- 🚨 **STALE-ARTIFACT DEFECT IN THE BLIND SHEET: drawn from `v2_qualityfix` while `v3/v4/v5` also
+  exist unmarked -- `draw_representative_blind_sample.py` has no notion of a CURRENT foundation.**
+  True stem rate (round-trip detector): sheet `10.4%`, v2q `7.9%`, `v5_termboundary` `0.4%` -- but
+  v5 is a DIFFERENT PIPELINE's fact dump (definienda, not subjects), not a later version, and only
+  v1/v2q are LOADABLE. **STANDS: the grounding loop stores ~8% stemmer output, NOT known to be
+  fixed.** *Three of my own corrections in one day, alternating direction -- full trail:*
+  `notes/THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...md`.
+
