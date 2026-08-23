@@ -191,3 +191,30 @@ mode by name did not stop me committing it twenty minutes later.
 that refuted this printed `g/sentence` next to `grounded`, and the answer was visible in one line
 without any analysis. My earlier probe printed both quantities too -- I just compared the column that
 did not control for volume.
+
+---
+
+## 7. AND THE LAST OPEN THREAD CLOSES AS ARITHMETIC, NOT A DEFECT
+
+§2 flagged facts-per-episode falling `0.104 -> 0.033` as unexplained, and §6 handed it back
+unexplained after the batching account was withdrawn. **It is a type-token curve and it needed
+asking-whether-it-is-surprising before it needed investigating.**
+
+Fitting the twelve nested samples: **`facts = 8.4 x sentences^0.473`, mean absolute relative error
+`6.0%`.**
+
+**AN EXPONENT BELOW 1 MEANS NEW FACTS ARRIVE SUBLINEARLY WHILE EPISODES ARRIVE LINEARLY, SO
+FACTS-PER-EPISODE MUST FALL.** No mechanism is required and none is broken. `0.473` -- facts growing
+roughly as the SQUARE ROOT of sentences read -- sits squarely in the usual `0.4-0.6` band for
+vocabulary growth in text, which is what you would expect if facts are keyed to distinct lemmas:
+**the substrate is discovering facts at the rate text supplies new types.**
+
+⚠️ **LIMITS, because a clean fit invites over-reading:** one corpus, one seed, twelve points, two
+free parameters, fitted after the fact. **`6%` on twelve points is consistent with the curve, not a
+test of it**, and I am not claiming Heaps' law is the mechanism -- only that the falling ratio needs
+no explanation beyond sublinear type growth.
+
+✅ **SO THE WHOLE WRITE-PATH INVESTIGATION CLOSES WITH NOTHING TO FILE:** the gate discriminates
+(`12.3%` accept), the store never loses anything on nested sampling, batching buys nothing, and the
+falling ratio is arithmetic. **Three apparent anomalies, three explanations, zero defects -- and two
+of the three were my own measurement design.**
