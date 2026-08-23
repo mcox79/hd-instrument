@@ -122,3 +122,31 @@ None. `Q115` and `Q116` remain open on the board.
    scale with input and semantic yield does not.
 3. If it turns out to be loss, it is a write-rule problem and belongs on the problems list; if it is
    schedule phase, the fix is to stop sampling the store at arbitrary points.
+
+---
+
+## 5. RESOLVED THE SAME HOUR: IT WAS SCHEDULE PHASE. THE WORRY IS DISCHARGED.
+
+Ran the nested version named in §3 -- **ONE substrate, read in 150-sentence batches, store sampled
+after each**, so every sample has read everything the previous one did plus more. A decrease there
+cannot be explained by comparing separate runs.
+
+| cumulative read | 150 | 300 | 450 | 600 | 750 | 900 | 1050 | 1200 | 1350 | 1500 | 1650 | 1800 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **grounded** | 0 | 23 | 30 | 35 | 41 | 47 | 61 | 71 | 82 | 95 | 105 | **111** |
+| **facts** | 92 | 138 | 152 | 162 | 174 | 186 | 214 | 234 | 256 | 282 | 302 | **314** |
+
+✅ **NO DECREASE AT ANY OF THE TWELVE NESTED SAMPLES. Monotone throughout, both columns.**
+
+🔻 **SO "READING MORE MAY MAKE IT FORGET" IS DISCHARGED, AND THE DEFECT WAS IN HOW I SAMPLED.**
+Comparing independent runs that stopped at different points sampled a consolidation sawtooth at
+arbitrary phases. *The substrate was never the problem; my measurement design was.*
+
+**AND A SECOND THING FALLS OUT, WORTH MORE THAN THE ANSWER:** the nested read reaches `111` grounded
+and `314` facts by 1,800 sentences, where an independent single read of 1,150 reached only `68` and
+`228`. **Reading in successive batches is markedly more productive per sentence than one long read**
+-- which is exactly what the source predicts, since grounding needs `min_confirm` traces ACROSS
+passes. *That also explains the falling facts-per-episode in §2: a single long read banks episodes it
+never gets a second pass to confirm.*
+
+⚠️ **STILL NOT QUOTED AS AN INSTRUMENT NUMBER.** One corpus, one seed, one run each.
