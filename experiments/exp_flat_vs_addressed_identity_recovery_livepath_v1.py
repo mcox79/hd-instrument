@@ -100,7 +100,14 @@ TIE_REPORT_MIN = 0.02        # if argmax ties exceed this fraction, report both 
 
 
 def _out_dir(smoke: bool) -> str:
-    p = os.path.join(_REPO, "data", ANCHOR_NAME + ("_smoke" if smoke else ""))
+    # Q115 (owner ruling 2026-08-23): route through the shared helper so a re-run genuinely
+    # RECOMPUTES instead of replaying. WITHOUT this, `tools/reproduce.py` REFUSED to run the cell
+    # at all -- correctly, because HDI_FRESH_RUN would have been ignored and the "reproduction"
+    # would have written straight into the LANDED directory while reporting success. That refusal
+    # is why this line exists: on 2026-08-23 this cell's own reverify command could not be run.
+    # With the env var unset the path is returned UNCHANGED, so default behaviour is byte-identical.
+    from experiments.fresh_recompute import fresh_run_output_dir
+    p = fresh_run_output_dir(os.path.join(_REPO, "data", ANCHOR_NAME + ("_smoke" if smoke else "")))
     os.makedirs(p, exist_ok=True)
     return p
 

@@ -3,14 +3,18 @@ priority:
 review: EXCELLENT
 review_text: Refuted my brief with evidence, found a 100% leak in the only prior scoring, and refused to over-claim.
 ---
-> 🔻 **REVERIFY IS BROKEN, CHECKED 2026-08-23 AT THE OWNER'S PROMPT.** Running the command in
-> `SOLVED.md` under `HDI_FRESH_RUN` **exits 0 after `224s` and writes NOTHING** -- the fresh sibling
-> directory is EMPTY, no `metrics.json`, no `units.jsonl`. `reproduce.py` classifies it
-> `NOTHING_RECORDED_NOT_A_REPRODUCTION`. **The cell appears to depend on the LANDED directory's
-> existing state and silently no-ops against an empty one.**
-> ⚠️ **THIS DOES NOT REFUTE THE RESULT -- it means the result CANNOT CURRENTLY BE RE-CHECKED.**
-> *The landed record is untouched and its review stands on the artifacts I read at the time.* ➡️
-> **Anyone re-opening this must first make the cell produce output in a fresh directory.**
+> 🔻 **THE REVERIFY COMMAND IS WRONG -- AND MY FIRST DIAGNOSIS OF WHY WAS ALSO WRONG (08-23).**
+> Running `SOLVED.md`'s command under `HDI_FRESH_RUN` exits 0 after `224s` leaving an EMPTY fresh
+> directory. **I first wrote that the cell "silently no-ops against an empty directory". It does
+> not.** Reading `main()`: `--mode` **defaults to `"smoke"`** (line 393); in smoke mode the cell does
+> the full work and then **PRINTS instead of calling `record_unit`** (413-415), then `return 0`
+> (419-421). **The 224 seconds were real work being thrown away.**
+> ✅ **THE FIX IS ONE FLAG: the reverify command must pass `--mode full`.**
+> 🚨 **AND THE GENERAL POINT, WHICH IS BIGGER THAN THIS CELL: `tools/reproduce.py` RUNS CELLS WITH
+> NO ARGUMENTS, so it CANNOT reproduce ANY cell whose default mode is smoke -- it will report
+> `NOTHING_RECORDED` every time and look like a broken cell rather than a wrong invocation.**
+> ⚠️ **NOTHING HERE REFUTES THE RESULT.** *The landed record is untouched; the review stands on the
+> artifacts I read at the time.*
 
 # MY REVIEW OF THE SUBMISSION: **EXCELLENT**
 

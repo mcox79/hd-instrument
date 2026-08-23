@@ -61,6 +61,8 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import ast
+import io
 import subprocess
 import sys
 import time
@@ -123,6 +125,38 @@ def routes_through_get_output_dir(src: str) -> bool:
     except OSError:
         return False
     return "get_output_dir" in text or "fresh_run_output_dir" in text
+
+
+def _declared_mode_default(src_path):
+    """The cell's declared default for `--mode`, or None if it has no such flag.
+
+    PARSED, NOT PATTERN-MATCHED, and the difference is not academic: a regex written for this
+    (`add_argument\(\s*"--mode"[^)]*default\s*=\s*"(\w+)"`) broke on the nested parenthesis in
+    `choices=("smoke", "full")` and reported "no --mode" for a cell whose line 393 declares one.
+    It undercounted the smoke-defaulting cells by half.
+
+    Returns the default value ('full', 'smoke', 'self_test', ...), or None when the flag exists
+    with no explicit default, or None when there is no flag at all. Callers must treat "no flag"
+    and "no default" the same way -- neither is safe to pass `--mode full` to.
+    """
+    try:
+        tree = ast.parse(io.open(src_path, encoding="utf-8", errors="replace").read())
+    except (OSError, SyntaxError):
+        return None
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+        if getattr(node.func, "attr", None) != "add_argument":
+            continue
+        if not node.args or not isinstance(node.args[0], ast.Constant):
+            continue
+        if node.args[0].value != "--mode":
+            continue
+        for kw in node.keywords:
+            if kw.arg == "default" and isinstance(kw.value, ast.Constant):
+                return kw.value.value
+        return None
+    return None
 
 
 def _verdict_of(output_dir: str):
@@ -262,6 +296,30 @@ def reproduce(cell: str, tag: str, timeout: int, force: bool, extra: list) -> in
     env["HDI_FRESH_RUN"] = tag
     env.setdefault("PYTHONIOENCODING", "utf-8")
     cmd = [PYTHON if os.path.isfile(PYTHON) else sys.executable, src] + list(extra)
+
+    # 🔻 PASS `--mode full` WHEN THE CELL HAS ONE AND DEFAULTS TO SOMETHING ELSE.
+    # THIS TOOL SPENT 224 SECONDS "REPRODUCING" A CELL AND RECORDED NOTHING (2026-08-23).
+    # The cause was not the cell. `solverB_cortical_scored_path_v1` declares
+    # `--mode` with `default="smoke"`; in smoke mode it does the full work and then PRINTS the
+    # result instead of calling `record_unit`, then returns 0. Invoking with NO ARGUMENTS therefore
+    # burned the compute, wrote an empty fresh directory, and this tool reported
+    # NOTHING_RECORDED_NOT_A_REPRODUCTION -- which reads as "the cell is broken" when the truth was
+    # "the invocation was wrong". **A reproduction tool that runs the wrong mode does not report an
+    # inconclusive result, it reports a misleading one.**
+    #
+    # AST-measured across experiments/: 97 cells default `--mode` to `full`, but 25 default to
+    # `smoke`, 18 to None and 3 to `self_test` -- so up to 46 cells were unreproducible BY THIS TOOL
+    # for a reason that had nothing to do with the cells.
+    #
+    # Parsed, not pattern-matched: a regex for this broke on the nested parenthesis in
+    # `choices=("smoke", "full")` and undercounted the smoke-defaulting cells by half.
+    if not any(str(a).startswith("--mode") for a in extra):
+        declared = _declared_mode_default(src)
+        if declared is not None and declared != "full":
+            cmd += ["--mode", "full"]
+            print(f"[reproduce] cell declares --mode default={declared!r}; passing --mode full "
+                  f"(otherwise it records nothing and this tool would call that a non-reproduction)")
+
     print("[reproduce] running:", " ".join(cmd), f"(HDI_FRESH_RUN={tag}, timeout {timeout}s)")
 
     t0 = time.time()
