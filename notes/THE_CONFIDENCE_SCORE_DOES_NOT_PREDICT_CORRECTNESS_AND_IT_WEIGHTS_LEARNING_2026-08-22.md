@@ -96,6 +96,13 @@ a rare edge case; it is a fifth of the organ's output.*
 DISCARDED ANSWERS ARE USABLE.** On their own subset they read `0.6190` against a `0.5714` majority
 floor -- a margin of `+0.0476`, CI95 `[-0.1587, +0.2381]`, **crossing zero**.
 
+⚠️ **PARTLY WITHDRAWN 2026-08-23 -- READ THIS BEFORE THE PARAGRAPH BELOW.** Splitting one level
+further found what this aggregate averages over: among the items only the SIM-WEIGHTED vote reaches,
+the rounding KEEPS the good ones (`17/18 = 0.9444`) and drops the rest (`0.6491`). **So "no measured
+basis for preferring the ones it keeps" is TOO STRONG and is withdrawn** -- there is a basis, it is
+confined to one subgroup, and it rests on 18 post-hoc items.
+`MY_PREDICTION_WAS_RIGHT_AND_THE_CONCLUSION_IT_POINTED_AT_WAS_WRONG_2026-08-23.md`
+
 **So this is a QUESTION TO SETTLE, NOT A DEFECT TO FIX.** What is established: the rounding discards
 a fifth of the organ's decisions, and there is **no measured basis** for preferring the ones it
 keeps. What is NOT established: that keeping them would help. *"Restore the discarded hits" is a

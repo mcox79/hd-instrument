@@ -4,219 +4,86 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-22T19:39:41Z  |  HEAD: 79511f837
+generated: 2026-08-23T06:15:01Z  |  HEAD: ba760aad4
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 28893 min ago <-- STALE
-  - orchestrator: 37222 min ago <-- STALE
-  - research: 424 min ago <-- STALE
-  - skunkworks: 39894 min ago <-- STALE
-  - testbed: 76468 min ago <-- STALE
+  - exp_dev: 29528 min ago <-- STALE
+  - orchestrator: 37858 min ago <-- STALE
+  - research: 0 min ago
+  - skunkworks: 40529 min ago <-- STALE
+  - testbed: 77103 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - substrate_director_kb_v1.staging.5400: 28 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.5588: 5 min ago, NO metrics.json yet (likely in-flight)
+  - solverB_cortical_scored_path_v1__fresh_verify1: 17 min ago, has metrics.json
+  - exp_thematic_role_labeler_cue_integration_v1__fresh_integ4: 33 min ago, has metrics.json
+  - solverB_cortical_generalization_v1: 44 min ago, has metrics.json
+  - substrate_director_kb_v1: 50 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
-  - ✅ **Q112 / OP1 ANSWERED AND CLOSED (08-22): "238 OVERSTATED RESULTS" WAS A COUNT OF FLAGS, NOT OF
-    OVERSTATEMENTS.** *7,868 metrics scanned, **286** flagged today (NOT 238 -- re-run, never quote
-    from memory).* **`INADMISSIBLE_COMPARISON` 207 (72.4%) · `UPHELD` 43 · `NOT_SUPPORTED` 35 ·
-    self-declared-failure 1.** 🔑 **The audit compares the largest floor-shaped and treatment-shaped
-    numbers ANYWHERE in a nested metrics.json without checking they are commensurable -- real rows
-    pit a REJECT RATE against an ACCURACY, and condition 5's floor against condition 0's treatment.
-    It prints "A READ LIST, NOT A VERDICT" every run; that caveat did not travel into OP1.**
-    🔻 **AND MY RECOMMENDED FIX WOULD HAVE BEEN HARMFUL: "mark all 238" would have branded ~207
-    results whose comparison was never valid.** ➡️ **REAL READ LIST = 35 CANDIDATES** (margins
-    `+0.9054` .. `+0.0106`; the bottom needs a human read). **43 are FINE and merely quote a weaker
-    floor than they hold -- a text fix.** 🔻 *I first published `32/46`; correct is `35/43` -- that
-    pass printed "79 admissible" then split `78`, and I published across a visible self-contradiction.*
-    ✅ **`tools/adjudicate_floor_flags.py`, self-test 7/7, imports the audit's own `scan()`; 2 positive
-    controls + 1 negative control so it can neither excuse everything nor flag everything.**
-    `THE_238_OVERSTATED_RESULTS_WERE_NEVER_238_...`
-  - ✅ ~~RESUME HERE -- Q112 / OP1: RE-ADJUDICATE THE 238~~ **FULLY CLOSED 08-22, ALL THREE FOLLOW-UPS
-    DONE. DO NOT REOPEN.** (1) **The 35 ARE MARKED IN PLACE** -- `tools/mark_floor_flag_candidates.py
-    --apply` wrote a `FLOOR_FLAG_CANDIDATE.md` sidecar into each cell dir, **additive and reversible;
-    NO `metrics.json` edited, NO registry row touched** (that write has a documented lost-update race).
-    Verified 35 on disk + positive control (2 marked) + negative control (an UPHELD cell is NOT
-    marked). Each says **it is a CANDIDATE and the result is NOT withdrawn**, and how to discharge it.
-    (2) 🔻 **THE 43 ARE DELIBERATELY NOT EDITED, and that is the call: they already BEAT their
-    strongest floor, so nothing they claim is wrong** -- 43 hand-edits buy no correctness and each is
-    a fresh chance to mis-transcribe a number. **Cleared by ADJUDICATION, not by rewriting.**
-    (3) ✅ **`strongest_floor_audit.py` NOW PRINTS THE 4-WAY DECOMPOSITION BESIDE THE FLAG COUNT**, not
-    20 lines below it -- **the caution was always in its output, at the bottom, and only the number
-    travelled.** The bare scare number is no longer emittable. *Fifth time a prose caution here was
-    fixed by moving it into a code path.*
-    🔻 *Its self-test asserts the marker's WORDING. The negative control caught me TWICE: I first
-    exempted the one string that tripped it (a checker sharing a flaw with what it checks), then the
-    note's own FILENAME tripped it. Now scoped to the claim body, with a non-vacuity guard.*
-    ⚠️ **13 of the 35 are NAMED in `data/capability_registry.jsonl`** -- so OP1's "they have already
-    spread" was REAL but about a THIRD the size implied. **Enumerated, not assumed.**
-  - 🗄️ **(superseded detail from the pre-compaction note)** **CURRENT WORK = Q112 / OP1: RE-ADJUDICATE THE 238 OVERSTATED RESULTS.**
-    **OWNER RULING, VERBATIM: *"re adjudicate them I think - you can do it fast, and then put this
-    behind us."*** *My own earlier recommendation was "mark them all, re-adjudicating is weeks" --
-    THE OWNER OVERRODE THAT. They are right that it can be fast IF it is MECHANICAL rather than
-    read-by-hand.*
-    **WHAT THE 238 ARE:** recorded results whose written conclusion claims more than their own
-    numbers support -- they beat no floor they had to beat -- **and they are already cited by the
-    certificate ledger and the capability list, so anything quoting those inherits the overstatement.**
-    Full statement of the decision: `notes/QUESTION_LOG.md` "OP1 -- THE ONE THE OWNER COULD NOT
-    ANSWER. REWRITTEN." (~line 489).
-    **THE TOOL EXISTS AND WAS LOCATED, NOT YET RUN FOR THIS: `tools/strongest_floor_audit.py`** --
-    scans every `data/*/metrics.json`, emits per-cell `flags`, has `--json` and `--self-test`.
-    **THE PLAN I HAD FORMED (not started):** run it with `--json`, then assign each cell a mechanical
-    disposition -- `FLOOR_BEATS_TREATMENT` (its own floor beats its own best arm) -> **NOT_SUPPORTED**;
-    `WEAKER_FLOOR_QUOTED` -> recompute best arm vs the LARGEST floor in its own metrics, UPHELD or
-    NOT_SUPPORTED accordingly; plus **EXCLUDED_FALSE_POSITIVE** with a reason. *That gives every cell
-    an individual verdict (genuine re-adjudication, which is what was asked) at mechanical speed.*
-    ⚠️ **THE TOOL'S OWN WARNING, WHICH MUST SURVIVE: "286 IS A READ LIST, NOT 286 DEFECTS."** Known
-    false-positive shapes: `run_mode: selftest`/smoke rows, a `max_` statistic compared against a
-    `mean_` one, near-ties across seeds, a DELTA read as a floor, and cells that already declare
-    themselves failures. **Filter them and REPORT HOW MANY were excluded.**
-    🔻 *The count may not be 238 today -- an earlier scan read 286. **RE-COUNT, do not quote either.***
-  - 🏗️ **NEW OPERATING MODEL (OWNER 08-22) -- STRATEGY SESSION + SOLVER SESSIONS. THIS SESSION KEEPS
-    THE 10k VIEW, WRITES PROBLEM BRIEFS AND INTEGRATES; A SEPARATE OPUS-4.8 SESSION SOLVES ONE
-    BOUNDED PROBLEM AT A TIME.** ✅ **BUILT: `notes/problems/README.md` (protocol),
-    `notes/problems/SOLVER_SESSION_PROMPT.md` (paste-able), `tools/problem_ledger.py` (the flag,
-    self-test 7/7 -- it REFUSES a `SOLVED.md` with no floor or no controls), and FIVE briefs.**
-    📋 *Order: `stored_terms_are_stems` (first, tests the loop) -> `reader_meaning_channel` (flagship)
-    -> `flat_store_destroys_the_code` -> `substrate_never_resumes` -> `eval_bank_too_small` (**the
-    strategy session is DISQUALIFIED from that one -- it has read the per-item predictions**).*
-    🔑 *Read-out discrimination MERGED into the reader (same task, two names); the CLOZE framing stays
-    RETIRED (ceiling is a tie with word-counting).* ❓ **Q111 OPEN: may solvers edit live `hdlab/`?**
-    *Briefs currently assume yes.* `notes/problems/`
-  - ⬜ **NOTHING IS RUNNING** *(one background agent verifying the reader brief's numbers off disk
-    before that brief is handed over -- its table came from plan prose, not `metrics.json`).*
-  - 🚨 **THE OWNER HAND-SCORED THE BLIND SHEET AND FOUND A STALE-ARTIFACT DEFECT: we drew it from
-    `reading_grounding_v2_qualityfix` while `v3_definitional`, `v4_parsefix` AND `v5_termboundary`
-    all exist on disk.** *Owner: "a lot of words there are missing letters."* **TRUE STEM RATE (round-
-    trip detector): sheet `10.4%`, v2q `7.9%`, 🟢 `v5_termboundary` `0.4%` -- A ~20x REDUCTION THAT
-    ALREADY SHIPPED** (charter: *"v5 term-boundary fix, corruption `16.1% -> 1.0%`"*).
-    🔻 **TWO CORRECTIONS OF MY OWN, WITHIN THE HOUR: (1) I first reported `24%` using "not in
-    WordNet", which counts REAL words WordNet lacks (`archaea`, `adipocytes`, `Abdullah`) -- 2.3x
-    OVERSTATED; the round-trip test (`analysi`+`s` is a word, `archaea`+anything is not) separates
-    them, and a cruder detector would have scored the FIXED foundation as the WORST. (2) I told the
-    owner "fix the stemmer first" -- WITHDRAWN, it shipped weeks ago.**
-    ➡️ **THE REAL DEFECT IS PROVENANCE: `draw_representative_blind_sample.py` has no notion of a
-    CURRENT foundation, and four exist unmarked.** ⚠️ *v5 is a DIFFERENT ARTIFACT SHAPE (one
-    `definitional_facts_v5.jsonl` vs v2q's full `store/`), so "sample v5 instead" is NOT a straight
-    swap and v5 is NOT claimed to be the live foundation.*
-    🔻🔻 **CORRECTION 3, SAME DAY, AND IT REINSTATES THE ORIGINAL FINDING -- I WAS WRONG THREE TIMES
-    IN ALTERNATING DIRECTIONS. All NINE foundation dirs were written `2026-08-12`, THE SAME DAY, and
-    only `v1`/`v2q` are LOADABLE (`v3`/`v4`/`v5` lack ALL FOUR artifacts `load_foundation` needs). So
-    `v3`/`v4`/`v5` are NOT later versions -- they are a DIFFERENT PIPELINE's fact dumps.**
-    🔻 *WITHDRAWN: "three-versions-stale" (all one day old; `v2q` was the RIGHT artifact for the
-    question).* 🔻 *WITHDRAWN: "the stem fix already shipped" -- `0.4%` is definitional extraction's
-    DEFINIENDA vs the grounding loop's SUBJECTS at `7.9%`; **different pipelines, and I broke the
-    no-number-crosses-populations rule I had invoked twice the same day.***
-    ✅ **STANDS: the grounding loop stores ~`8%` STEMMER OUTPUT AND IS NOT KNOWN TO BE FIXED. Only the
-    `24% -> 10.4%` deflation survives from correction 1.**
-    `THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...`
-  - 🚨🧠 **AND THAT CHASE FOUND THE CAUSE OF THE GENERIC-ATTRACTOR DEGENERACY: NOTHING LOADS A
-    FOUNDATION. RUNTIME (counters on the functions, not grep), `foundation_dir` SET to v5, 120
-    sentences: `load_foundation` calls `0`; store facts `92` -> `92`, and the `92` comes from the
-    `107` SEED WORDS. `self.foundation_dir` is assigned at `substrate.py:378` and NEVER READ AGAIN --
-    THE PARAMETER IS DEAD.** ✅ *Enumerated with comments separated from calls: 6 files, and the only
-    live-path hit is a COMMENT at `reading_grounding_loop.py:1732`. **NO LIVE READING PATH CALLS
-    IT.*** 🔻 *Grep got it wrong BOTH ways first -- the documented trap, on the module the rule was
-    written about.*
-    🎯 **THIS MAKES THE PLAN'S OWN PREDICTION UNREACHABLE: it says the `way`-attractor (`17.7%` of
-    grounded terms) comes from "~107 generic seeds" and "predicts the degeneracy should FALL as the
-    grounded vocabulary grows". IT CANNOT GROW ACROSS RUNS. The degeneracy is ARITHMETIC, not tuning
-    or scale.** 🧠 *Consolidation is DEFINED by persisting across episodes; we have no slow store at
-    all -- the persistence half of the 08-19 replay gap, one dead attribute wide.*
-    ⚠️ **NOT MEASURED: whether loading helps. THAT IS THE EXPERIMENT, prediction already on record.**
-    🚫 *Do not quote `92 -> 92`; 120 sentences is below the 100-400 grounding threshold.*
-    `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
-  - 🔑 **IT IS NOT ANSWERING WRONG -- IT IS NOT ANSWERING. Of `22` errors on the OOV 36, `20` are
-    NON-ANSWERS, `2` are WRONG ANSWERS; accuracy WHEN IT COMMITS is `14/16 = 0.8750`.** *COVERAGE, not
-    DISCRIMINATION -- the 08-07 charter's "HIGH-PRECISION + COVERAGE-LIMITED".* ➡️ **RE-AIMS THE ONLY
-    LIVE LEAD: in the EMPTY condition the function is not `UNMET`-biased, it is SILENT.** 🔻 **The
-    KNOWN-ANSWER arm unrun since 08-06 (8 in-lexicon controls): accuracy `4/8` = CHANCE against a
-    BALANCED `0.5000` floor -- SUPPLYING THE WORD DOES NOT BUY THE ANSWER.** ⚠️ *n=8 cannot show
-    incompetence, DECLARED first; INCONCLUSIVE, not a negative.* 🔻 **I RETRACTED THE ABSTENTION HALF
-    SAME-DAY: I counted `AMBIGUOUS` as a commitment, the repo counts it as an ABSTENTION
-    (`verify_levin_lastresort_backoff.py:51`), so it is `2/8` NOT `0/8` and Fisher `p=0.2404`, NOT
-    `0.0049`. ALSO RETRACTED: "precision fell `0.8095->0.7500`" -- correctly `0.8182`, NO REGRESSION,
-    and that guard pins `(17,4,23)` and PASSES.** *Passed a positive control, a pre-registration and a
-    power calculation; broke on a definition I never looked up.* 🚨 **CHASING THAT DEFINITION FOUND A
-    REAL DEFECT: `AMBIGUOUS` is an ABSTENTION in 5 consumers INCLUDING `hdlab/consequence_learning_
-    loop.py` ITSELF, and a WRONG ANSWER in exactly one -- the landed cell, BY OMISSION (`ok = (pred ==
-    gold)`, the word never appears).** ✅ *NOT bitten: OOV 36 has ZERO `AMBIGUOUS`, so the landed
-    primary is fine TODAY; it would be wrong on the in-lexicon 8.* ➡️ **So my retraction's "the repo
-    convention governs" was too clean -- BOTH conventions live here and I used the LANDED CELL'S; the
-    abstention claim is NOT quotable either way, the `4/8` accuracy is.** ✅ **GUARD:
-    `tools/score_with_abstention.py`, no signature returns a bare accuracy, self-test 6/6 incl. a
-    negative control and an assertion that FIRES the day the OOV 36 acquires an `AMBIGUOUS`.**
-    `THE_LANDED_CELL_SCORES_ABSTENTIONS_AS_ERRORS_BY_OMISSION_...`
-  - 🚨 **AND THE LANDED RECORD IS STALE: the `HARD_FAIL` was measured where the cascade fired `0` of
-    `36` (every item `abstain_fallback_to_lexicon`). Landed `0.1667`/`NONE 29`/firings `0`; today
-    `0.3889`/`NONE 20`/firings `10`, `9` correct.** *Read from the landed run's OWN checkpoint -- no
-    re-run.* 🚫 **VERDICT UNCHANGED, still far below the `0.6389` floor; the DIAGNOSIS changes -- the
-    structural-rule analysis (~`20` firings) CANNOT be the landed run.** 🎯 *Free 3rd point: firings/
-    correct `0/0 -> 10/9 -> 19/10` = DECLINING MARGINAL PRECISION (hypothesis; crosses conditions).*
-    ⚠️ **RE-LANDING NEEDS A CELL RUN (routed to `hdi_exp_dev`, not done here).** 🚫 *Empty-overlay
-    only: do NOT place beside `0.4722`.* *The "36-item bank" is the `outcome_in_lexicon is False`
-    subset of the 44, not a separate bank.*
-    `THE_ORGAN_DOES_NOT_ANSWER_WRONG_...` `THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...`
-  - 🔻 **MY PREDICTED FIX FAILED ITS OWN TEST.** *Subtracting co-occurrence from the verb score hurts
-    MONOTONICALLY (`+0.0062 -> -0.0464`), in-sample best lambda is **0.0 = do not do it**, held-out
-    `-0.0005`, and it is WORSE THAN A RANDOM PENALTY at every lambda.* **WHY: `COOC ALONE = +0.0464` --
-    co-occurrence is POSITIVELY correlated with human similarity. Related words co-occur; the antonym
-    effect is real but SWAMPED.** *Gates passed first (OURS `+0.0062` on the exact 646/2,651).*
-    ⚠️ *idf reproduced `0.0819` here vs `0.0689` recorded -- real script difference, flagged.*
-  - 🔑 **AND THE PROPAGATOR I WAS INVENTING IS BUILT AND `HARD_PASS`:** *`PLAN_B_grounding_..._2026-08-07`
-    is a **USER-CONFIRMED PLAN OF RECORD** I had never opened. Its build-order stage 1 is DONE:*
-    **a 12-WORD seed via `hdlab/wordnet_polarity_propagation.py` -> `0.833` on 12 HELD-OUT verbs**
-    (scramble `0.483`, **seed-ablation `0.000`**, random-theta `0.467`), **and its Stage A predicts the
-    OPPOSITE pole from WordNet antonyms -- the opposition mechanism distributional propagation lacks.**
-    🔻 **SO I SPENT THE NIGHT MEASURING A PROPAGATOR WORSE THAN ONE ON DISK.** ⚠️ *Numbers NOT
-    comparable (12-word polarity accuracy vs 1,000-word rank rho); the fair comparison is STRUCTURAL.*
-    ⚠️ *WordNet-SUPPLIED, not learned.* ⚠️ **AND EVERY NUMBER TONIGHT ASSIGNS ONE VALUE PER WORD, while
-    the plan specifies a CONTEXT-CONDITIONED superposition -- so they are a FLOOR, not a test of it.**
-    `THE_SUBTRACT_ARM_FAILED_...`
-  - 🔑 **THE FORK IS ANSWERED: TEXT *DOES* SEPARATE OPPOSITES FROM SYNONYMS -- AND WE INVERT IT.**
-    *Full shelf, freq-matched, RANDOM-pair negative control PASSES (`8.64` lowest):* **cond "X and/or Y"
-    ANTONYMS `0.0782` vs SYNONYMS `0.0269` (2.91x) vs RANDOM `0.0022` (34.8x)**; %never-co-occur `13.3`
-    vs `19.0` vs `47.6`. 🎯 **THE CHAIN, EVERY LINK MEASURED: antonyms CO-OCCUR -> our encoder builds
-    2nd-order profiles and CONVERTS co-occurrence INTO SIMILARITY -> antonyms are our CLOSEST pairs
-    (`0.2062` > syn `0.1727`) -> verbs read `0.0000`. NOT a missing feature, an INVERTED one.**
-    ⚠️ *LIMITS: COHYPONYMS 2nd at `0.0356` ("cats and dogs") so it detects COORDINATED, not ANTONYM,
-    antonyms lead them only 2.20x; only 7.8% of antonym co-occurrences fire; NO arm built.*
-    ⚠️ *The instrument REFUSED TWICE first: v1 broken statistic (PMI + 0.5 smoothing), v2 broken
-    CONTROL (SimVerb `NONE` = no WordNet relation, NOT unassociated). Both refusals correct.*
-    `THE_SIGNAL_FOR_OPPOSITION_IS_IN_THE_TEXT_...`
-  - 🎯 **SEED PRICE MEASURED: ~50-100 GROUNDED WORDS ALREADY PROPAGATE; PAST ~400 MORE BUYS ~NOTHING**
-    (concreteness, the gated column: `50 0.2114` vs null `0.1239` | `400 0.3783` | `2000 0.4323`).
-    🔻 **BUT IDF AT 200 SEEDS (`MEAN15 0.2971`) BEATS OURS AT 2,000 (`0.2638`) -- 10x THE GROUNDING
-    TO NOT MATCH IT; 16th measure where counting leads.** 🔬 *And OUR nearest-seed cosine is HIGHER
-    (`0.3965` vs `0.2415`) while carrying LESS -- ANISOTROPY. `DO NOT REDO 27` (common-mode) has a
-    revival `*`; criterion NOT yet read, NOT claimed met.* 🔻 **2 OWN-SCRIPT DEFECTS REPORTED: the
-    25-seed row is DEGENERATE (constant prediction -> exactly 0.0000, the reachability signature) and
-    `null95` gates CONCRETENESS ONLY, not MEAN15.** ⚠️ *Random seed = pessimistic; K still unswept.*
-    `HOW_SMALL_CAN_THE_GROUNDED_SEED_BE_...`
-  - 📏 **AT ITS 28,672 B CAP. What pays for space is EVICTION, not shaving -- delete a DUPLICATE.**
-    *`STATUS_SPEC.md` sec 6.*
-  - ✅ **FINISHED AND CLOSED (one line each; detail is in the named note and in the plan's top block):**
-    - **`exp_graded_vs_signed_query_v1` -- `np.sign` at `:776` COSTS ALMOST NOTHING. CLOSED.**
-      `Q_GRADED 0.0480 / median 37.0` vs `Q_SIGNED 0.0455 / 41.0`; paired **`+0.0025` CI95
-      `[-0.0030,+0.0080]` NOT SEPARATED**; positive control reproduces the C3 headline EXACTLY.
-      **`:663`'s "worse than either" is unsupported at this scale.** ⚠️ **AND I PARTLY RE-DERIVED THIS
-      ON 08-21 LATE** on the MEANING benchmark (`graded x signed` sits between the two at d=256 and is
-      marginally best at d=1024) **without reading this entry first -- in the file I re-read every
-      continuation.** *Ninth prior-work catch; the earlier one has a CI and mine did not.*
-    - **`diagnose_read_with_loaded_foundation`: refusal delta `279 vs 380 = 1.36x`, NOT the 22x
-      headline, which was 93% PRE-EXISTING.**
-    - **`ReadResult.n_grounded` WAS STRUCTURALLY ALWAYS ZERO** -- `substrate.py:608` read
-      `n_grounded_cumulative`, `checkpoint()` emits `cumulative_grounded`, **the same two words
-      TRANSPOSED**. Now raises; self-tests PASS; no landed cell affected. **A STATIC scan for this bug
-      class DOES NOT WORK (1,925 -> 132 suspects, all legitimate reads). WHAT FOUND IT WAS A
-      CONTRADICTION BETWEEN TWO FIELDS OF ONE OUTPUT** (`n_grounded=0` beside `anchors +68`).
-      ***Make outputs print quantities that CONSTRAIN EACH OTHER.***
-    - **WHY WRITING LESS HELPS (owner Q98):** `exp_crosstalk_capacity_law_v1_gpu_v1`
-      `MEASURED_MECHANISM` -- crosstalk over raw keys DOMINATES Hebbian capacity, **r 0.976, n=11**;
-      rivals' partials go NEGATIVE. **Our keys sit AT the Welch bound, so "better keys" is closed by
-      GEOMETRY; the two remaining levers are FEWER ITEMS and MORE DIMENSIONS.**
+  - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the
+    10k view, writes briefs and INTEGRATES; separate sessions solve one bounded problem at a time.
+    **TWELVE briefs now, not five. THE ORDER LIVES IN EACH `notes/problems/<slug>/PROBLEM.md`
+    FRONTMATTER (`priority:`), WHICH IS WHAT THE GUI RENDERS -- `README.md` describes the PROTOCOL and
+    does NOT hold the order. ENUMERATE (`ls notes/problems/`), NEVER MIRROR THE LIST** -- a mirrored
+    list is what went stale here and in the plan. **FIVE SOLVED:** `stored_terms_are_stems`,
+    `eval_bank_too_small`, `flat_store_destroys_the_code`, `harness_cannot_recompute`,
+    `cortical_read_has_no_scored_path` -- **all five REVIEWED, feedback at the TOP of each brief and a
+    grade in `review:`, per the owner's instruction.** Strategy session was DISQUALIFIED from
+    `eval_bank_too_small` (it had read the per-item predictions). `tools/problem_ledger.py`.
+  - ✅ **ANSWERED, AND IT DEFLATES MY OWN FINDING (08-23):** the dictionary pseudo-count WEIGHTING and
+    its silent DISCARD are **UNTESTABLE on the deployment population** -- it commits on `6` of `33`  lemmas and **all six SATURATE**, so 3 of my 4 arms were the SAME ARM. **The calibration gap is REAL  on `1,971` dictionary verbs and ABSENT where the organ is used.** ⚠️ *I did not ask whether the  experiment COULD succeed first -- one line, skipped, paid for over two launches.*  ✅ *`WEIGHTED` read `0.4722`, reproducing the landed number to 4 digits independently.*  `THE_CONFIDENCE_SCORE_DOES_NOT_PREDICT_...`
+  - 🧠 **TWO SESSIONS, ONE ORGAN -- RECONCILED, AND IT CORRECTS ME TWICE (08-23).** A concurrent
+    session split the propagator's `83%` abstention: **`114` no-anchor-in-range vs `1,531`
+    anchors-that-disagree -- so `6` points are REACH and `78` are DISCRIMINATION.** 🔻 **I called it
+    coverage-limited twice; that was wrong and the repair is different.** They also found the cause
+    with a null AND both positive controls: **WordNet distance does not predict valence agreement at
+    all** (Spearman `-0.0023`, inside a shuffled null; antonyms `2.031` and same-synset `1.063` both
+    behave) -- and **Stage B is `307` of `326` commits, so `94%` of the organ's output rides an axis
+    measured to carry none of what it votes on.**
+    ✅ **MY OPPOSING RESULT SURVIVED ITS BASELINE, AND THE SYNTHESIS IS A MEASUREMENT:** nearest-5
+    anchor purity `0.800` vs random-5 `0.600` vs farthest-5 `0.600` on a balanced `26`/`26` set (*the
+    `0.5` I first compared against was the WRONG baseline*). Both hold because **THE 52 SEEDS ARE
+    THEMSELVES CLUSTERED BY POLARITY** -- same-polarity anchor pairs `0.2438` vs `0.2206`, gap
+    `+0.0232` against a 2,000-shuffle null `[-0.0076,+0.0087]`, OUTSIDE.
+    🔑 **SO STAGE B READS WHICH HAND-LABELLED CLUSTER A TARGET LANDED BESIDE, NOT VALENCE OFF THE
+    GRAPH. The organ's competence is inherited from where 52 seeds sit** -- far narrower than
+    "anchored valence propagates", and it predicts their thin global gradient. **Antonymy is the
+    valence-bearing relation (Stage A `0.8421`, n=19); that is where propagation belongs.**
+    *Bears on `Q116`: strengthens SUPPLY, weakens REASONING-OUTWARD -- against my own recommendation.*
+    `RECONCILING_TWO_SESSIONS_...`
+  - 🔧 **AND THE COORDINATION WAS LUCK, SO I FIXED THE MECHANISM (08-23).** I only found the other
+    session because commits collided in a `git log` I happened to run. The detector is not broken --
+    **it scans COMMITTED history, so it can only see FINISHED work.** The claim queue should have
+    covered it and **could only claim rows that ALREADY EXISTED; `add` was never on the CLI**, so
+    there was no way to say *"I am starting X"* -- which is why nobody did. **`dispatch_queue.py
+    announce "<what>" --by <session>` now adds+claims in ONE command**, and `before_you_start` shows
+    it as IN PROGRESS with the owner named (verified both directions on the real queue).
+    ⚠️ **THE COST WAS NOT DUPLICATED WORK -- IT WAS A MISSED HANDOFF: they hit the checkpoint-replay
+    problem I was mid-way through FIXING and routed around it.** *Worse, because neither side can see
+    it.*
+  - ✅ **INTEGRATION 08-22/23 -- THE LESSON IS THE HEADLINE: LANDING CODE AND RUNNING ITS TESTS IS NOT
+    INTEGRATION; USING IT IS.** I landed the reproduce-a-landed-cell mechanism, never used it, and
+    using it broke **FOUR** ways in 20 min with **every witness green**: the switch **CRASHED EVERY
+    CELL THAT IMPORTS THE HARNESS** (its witness sets the env AFTER import; a real cell sets it before
+    Python starts -- *the bug IS the ordering*); `classify_run(0,0)` returned `RECOMPUTED` for a run
+    that recorded NOTHING; the driver was blind to `19` of `423` landed dirs lacking `exp_`; and its
+    detector did not recognise the migration its own refusal prints. *Coverage corrected: `87` was a
+    STRING match, strict IMPORT gives `43` -- quote `10-21%`, never `87` alone.*
+    🎯 **PAYOFF -- FIRST GENUINE REPRODUCTION HERE:** a landed `HARD_PASS` recomputed from scratch in
+    `33.3s`, same verdict, landed dir byte-identical. *`403` of `7,875` cells replay; nothing could do
+    this before.* ✅ **AND EVERY OTHER SOLVED PROBLEM REPRODUCES EXACTLY** (ran each brief's own
+    reverify, which nobody had): stems `0/141`; bank `166`/`124`/`0.6048387`; flat-store `0.1399`
+    `[0.1310,0.1494]` vs floor `0.3242` after `215s` of REAL recompute. **THE SUBMITTED WORK IS SOUND
+    -- ahead of every defect above.** ⚠️ *`3` of `5` reverify commands re-ran a cell IN PLACE; I
+    tripped one and re-stamped a landed record (restored). Fixed; re-audited `0 of 5`.*
+    `INTEGRATION_BY_USING_IT_FOUND_FOUR_DEFECTS_...`
+  - ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-23:** the blind sheet was drawn from a STALE  foundation (`v2_qualityfix` while `v3/v4/v5` exist unmarked; the sampler has no notion of a CURRENT  foundation). **STANDS: the grounding loop stores ~`8%` stemmer output and is NOT known to be fixed.**  `THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...`
+  - ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
+  - ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-22 (search by name):** the OOV-36 organ is  COVERAGE-limited, not discrimination-limited (`20` of `22` errors are NON-answers; `14/16 = 0.8750`  when it commits), and its landed `HARD_FAIL` is STALE -- measured where the cascade fired `0 of 36`,  re-read today it fires `10 of 36`. **Verdict unchanged, diagnosis changed.** Guard:  `tools/score_with_abstention.py`, 6/6. `THE_ORGAN_DOES_NOT_ANSWER_WRONG_...`,  `THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...`
+  - 📏 **SIZE RULE (earned): when this file fills, EVICT to `STATUS_LESSONS.md` with a stub -- do NOT  shave. It was once `55,070` B against a `28,672` cap. `STATUS_SPEC.md` sec 3/6/7.**
 
 ## 3. How we are doing (C1-C4, notes/SUBSTRATE_STRATEGY.md PART 1)
 - **C1** Near-neighbour 2AFC, live reading path: now=**0.6980** (was 0.6395) | floor(s)=scrambled-context **0.5095**, frequency **0.48025**, chance 0.50 | table verdict: (no verdict word in table cell)
@@ -226,15 +93,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- nothing measurable moved since the last snapshot
+- 1 new commit(s) since last snapshot (HEAD a039efda0 -> ba760aad4)
 
 ## 5. What is stuck (blocked / pending / no owner)
-- from memory).* **`INADMISSIBLE_COMPARISON` 207 (72.4%) · `UPHELD` 43 · `NOT_SUPPORTED` 35 ·
-- Verified 35 on disk + positive control (2 marked) + negative control (an UPHELD cell is NOT
-- `WEAKER_FLOOR_QUOTED` -> recompute best arm vs the LARGEST floor in its own metrics, UPHELD or
-- MONOTONICALLY (`+0.0062 -> -0.0464`), in-sample best lambda is **0.0 = do not do it**, held-out
-- **a 12-WORD seed via `hdlab/wordnet_polarity_propagation.py` -> `0.833` on 12 HELD-OUT verbs**
+- (none found)
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8159, "generated_at": "2026-08-22T19:39:41Z", "head_commit": "79511f837424729e8683a05a4e04f42a2a828fea", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8170, "generated_at": "2026-08-23T06:15:01Z", "head_commit": "ba760aad44524a94912006ba597ee31f969a4d8d", "step_status": {}}
 -->

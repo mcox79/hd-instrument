@@ -191,3 +191,11 @@ ignore the autoloop/STATUS injection if they fire."
 ## 2026-08-22T17:40:52Z  --  the status window
 
 FYI on the problem tab - you need to make it clear when problems are solved or not. for instance, I submitted a solution to a problem, but there's no indication if you saw that, if it was correct, etc. if it's not correct or needs more, it needs a flag, and if it's done it needs to move into an archive so it's not taking up space in that list
+
+## 2026-08-22T21:01:16Z  --  the status window
+
+on the problems tab, after you review the submissions, I want the beginning of the problem description to give your feedback. how well did the solver do? I want to know
+
+## 2026-08-22T21:08:57Z  --  the status window
+
+I also want a priority for what problems to tackle first, on the problem page
