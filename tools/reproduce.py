@@ -126,13 +126,27 @@ def routes_through_get_output_dir(src: str) -> bool:
 
 
 def _verdict_of(output_dir: str):
-    """The cell's own verdict string from metrics.json, or None. Never raises."""
+    """The cell's ADJUDICATED verdict from metrics.json, or None. Never raises.
+
+    `final_verdict` IS CHECKED FIRST, AND THE ORDER USED TO BE THE OTHER WAY ROUND. Measured
+    2026-08-23: **7 landed cells carry BOTH fields and all 7 DISAGREE.** `final_verdict` is the
+    adjudicated one -- written after a hand-check was done and scored against a pre-registered band
+    -- while the top-level `verdict` was simply never updated.
+
+    THE ASYMMETRY MATTERS AND IS WORTH STATING RATHER THAN ALARMING ABOUT: in 4 of the 7 a
+    `HARD_FAIL` is merely refined into a more specific `HARD_FAIL`, and in 2 more a `PENDING`
+    resolves to `HARD_FAIL`, so reading the stale field is conservative. **In exactly ONE --
+    `exp_stated_entity_fate_reading_extractor_v2_highprecision` -- `STRICT_READY_PENDING_HANDCHECK`
+    hides a `HARD_PASS_CLEAN_GROW_BY_READING_VIABLE`.** That is a passing result the archive shows as
+    unfinished, and with the old ordering this tool would have compared a reproduction against the
+    wrong string.
+    """
     p = os.path.join(output_dir, "metrics.json")
     try:
         d = json.load(open(p, encoding="utf-8"))
     except (OSError, ValueError):
         return None
-    for key in ("verdict", "final_verdict", "verdict_msg", "status"):
+    for key in ("final_verdict", "verdict", "verdict_msg", "status"):
         v = d.get(key)
         if isinstance(v, str) and v.strip():
             return v.strip()
