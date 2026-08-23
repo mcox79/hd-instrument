@@ -143,33 +143,23 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 ## WHAT IS RUNNING
 
 - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
-- 🧠 **SOMATOTOPY HOLDS AT POWER: THE MOTOR DIMENSIONS CARRY VERBS (08-23).** **ACTION − PERCEPTUAL on verbs `+0.0651` `[+0.0306,+0.1005]`, CI-SEPARATED**, 3,487 SimVerb pairs. *At `n=222` the same test said NOTHING -- the fix was POWER, not caution.* 🔻 **SINGLE dissociation**; the noun half includes zero. ⚠️ *I framed this as "nobody had checked" -- FALSE, the 08-22 entry above says the asset clears on verbs. My prior-work check read the brief, not STATUS. The NEW part is the dimension split.* *Witness: `test_sensorimotor_covers_the_verb_hole.py`.*
-- 🚨 **AND THE CHANNEL CANNOT GATE LINKS ALONE -- THIS CHANGES WHAT PRIORITY-1 ASKS FOR (08-23).**
-  The brief says use it *INSTEAD* of co-occurrence. **As a DECIDER it cannot work, structurally.**
-  `GROUNDED_CAP 0.45` < `SIMILARITY_LINK_THRESHOLD 0.5`, so as shipped it **links `0` of `877`
-  genuinely-similar verb pairs. ZERO.** 🔻 **And uncapping is not the fix: at `0.5` unclamped it
-  links `66.0%` of similar AND `37.3%` of DISSIMILAR pairs.** 📉 **No threshold rescues it** --
-  swept `0.30`->`0.95`, best margin `+0.287` occurs AT `0.50`, where it already sits.
-  *Threshold-free **AUC `0.7002`** -- real signal, nowhere near separable.*
-  ➡️ **IT IS A CONTRIBUTOR, NOT A DECIDER.** ⚠️ *NOT a licence to raise the cap -- the `0.05` gap
-  is what makes "contribute, do not decide" enforceable in code.*
-  *Witness: `test_the_channel_cannot_gate_links_alone.py`.* *Witness: `test_sensorimotor_covers_the_verb_hole.py`.*
-- 🔍 **THE OTHER HALF OF THE PRIORITY-1 DIAGNOSIS, PRICED -- AND BOTH OBVIOUS FIXES FAIL (08-23).**
-  *Measured with the sensorimotor channel BECAUSE it has signal to lose; our own codes would confuse
-  format-loss with nothing-there.* **STORING is fine: `+0.3107` raw -> `+0.2920` in our 256-dim dense
-  bipolar format (94%), info-free arm `-0.0112`.** 🚨 **COMBINING is the bottleneck: k=2
-  distractors -> 47% of raw, k=8 -> `+0.0808` (26%, null `0.0338`).**
-  🚫 **SPARSITY DOES NOT RESCUE IT** -- swept `1%`->`100%`, every density collapses to ~`+0.08`;
-  retention says `44%` vs `26%` but ABSOLUTE says `+0.0912` vs `+0.0764`. **A RATIO WHOSE DENOMINATOR
-  YOU ALSO CHANGED IS NOT A RESULT** (I built that control first; my initial verdict said the
-  opposite). ✏️ **NOR DOES AN ADDRESSED SLOT, AND I HAD WRITTEN THAT ADVICE INTO THE BRIEF BEFORE
-  TESTING IT.** Addressing works as ADDRESSING (right key recovers at cos `+0.3336`, wrong key
-  `-0.0037`) **but buys NO signal: `+0.0536` vs `+0.0670` at k=8, WORSE at k=32 -- binding PERMUTES
-  interference, it does not remove it.**
-  ➡️ **SURVIVING RULE: keep the number of items in one superposition SMALL, or give meaning its OWN
-  STORE rather than a key into a shared one.** 🧠 *Cortex does not superpose meaning into one
-  shared vector at all -- it keeps separate populations and addresses them.* ⚠️ *Algebraic binding is
-  our-invention-under-test, not biology.* *Three witnesses; all three reverify commands in the brief.*
+- 🧠 **THE MEANING CHANNEL: SIX MEASUREMENTS 08-23, ALL IN `notes/problems/reader_meaning_channel/`
+  WITH A MAP AND A REVERIFY PER FINDING. Read the brief, not this bullet, before building.**
+  **(1) IT CANNOT GATE LINKS ALONE** -- `CAP 0.45` < `LINK_THRESHOLD 0.5` so as shipped it links `0`
+  of `877`; uncapped `66%` similar AND `37%` DISSIMILAR; no threshold beats the one already set;
+  AUC `0.7002`. ➡️ **"use it INSTEAD" must become "use it AS WELL".**
+  **(2) STORAGE IS FINE, COMBINATION IS THE BOTTLENECK** -- our format keeps `94%`; bundling with 2
+  others halves it, 8 leaves `26%`. **(3) SPARSITY does not rescue it** (every density ~`+0.08`).
+  **(4) NOR DOES AN ADDRESSED SLOT** -- binding PERMUTES interference, it does not remove it; *I put
+  that advice in the brief BEFORE testing it.* **(5) THE SAME ASSET GIVES THREE NUMBERS BY ENTRY
+  POINT** (`+0.3107`/`+0.2676`/**`+0.2463`** ← what the substrate calls). **(6) WORDNET'S EDGE IS
+  SELECTION** -- SimVerb's pairs were CHOSEN by WordNet relation; on the unselected `NONE` class
+  (60%) sensorimotor `+0.286` beats WordNet `+0.154`.
+  🧠 **THE ONE NEW BRAIN RESULT: somatotopy holds at power -- ACTION − PERCEPTUAL on verbs
+  `+0.0651` `[+0.0306,+0.1005]`, CI-separated, 3,487 pairs.** *At `n=222` it said NOTHING; the fix
+  was POWER, not caution.* 🔻 **SINGLE dissociation only.**
+  ⚠️ **STANDING PROHIBITION: do NOT raise `GROUNDED_CAP`** -- the `0.05` gap is what makes
+  "contribute, do not decide" enforceable in code. ✅ *The channel is still the right direction.*
 - ✅ **Q115 EXECUTED (08-23): new cells are GATED, the backlog is INVENTORIED.** *Pre-commit refuses a new `experiments/*.py` that writes a result without the shared helper, added files only, controlled both ways.* 🔻 **COVERAGE `~21%` IS WITHDRAWN -- the truth is `71.2%`** (`3,495` of `4,908` re-runnable; `1,413` replay). **THE "1 BY 1" LIST: `425` assert a result, `135` of those are CITED by a steering doc -- those `135` are the real list.** *`tools/reproducibility_inventory.py` regenerates it.*
 - ✅ **THE FOUNDATION LOADS NOW, AND RESUMING DOES NOT HELP GROUNDING (08-23).** *A matched read goes `168` -> `9` new groundings and precision sits at its RANDOM floor in every arm; a permuted-label DECOY matches RESUMED exactly (`0/164`), so it is anchor geometry, not meaning.* **RETIRED PREDICTION: "degeneracy falls as vocabulary grows". Persistence is NECESSARY, NOT SUFFICIENT -- never bill it as a grounding fix.** *Pinned in the constructor, positive-controlled.*
 - 🖥️ **GUI TAB 9 "SUBSTRATE" -- the whole pipeline on one screen, from `data/substrate_progress.json`.** Every row shows when it was last re-checked and goes amber at 3 days / red at 7. 🔻 **THE DURABLE LESSON: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted -- a feature that ships into a process nobody restarts has not shipped.**

@@ -6907,3 +6907,46 @@ do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_..
   (below the link threshold) -- DO NOT REMOVE IT TO IMPROVE A NUMBER.** ➡️ **Measure the ASSET
   unclamped; ask what the SUBSTRATE sees with the clamped one; NEVER compare across.**
   *Pinned: `test_which_number_is_the_meaning_asset.py`.*
+
+
+## FOLDED FROM STATUS.md 2026-08-23 (nineteenth pass, the whole meaning-channel chain)
+
+- 🧠 **SOMATOTOPY HOLDS AT POWER: THE MOTOR DIMENSIONS CARRY VERBS (08-23).** **ACTION − PERCEPTUAL on verbs `+0.0651` `[+0.0306,+0.1005]`, CI-SEPARATED**, 3,487 SimVerb pairs. *At `n=222` the same test said NOTHING -- the fix was POWER, not caution.* 🔻 **SINGLE dissociation**; the noun half includes zero. ⚠️ *I framed this as "nobody had checked" -- FALSE, the 08-22 entry above says the asset clears on verbs. My prior-work check read the brief, not STATUS. The NEW part is the dimension split.* *Witness: `test_sensorimotor_covers_the_verb_hole.py`.*
+- 🚨 **AND THE CHANNEL CANNOT GATE LINKS ALONE -- THIS CHANGES WHAT PRIORITY-1 ASKS FOR (08-23).**
+  The brief says use it *INSTEAD* of co-occurrence. **As a DECIDER it cannot work, structurally.**
+  `GROUNDED_CAP 0.45` < `SIMILARITY_LINK_THRESHOLD 0.5`, so as shipped it **links `0` of `877`
+  genuinely-similar verb pairs. ZERO.** 🔻 **And uncapping is not the fix: at `0.5` unclamped it
+  links `66.0%` of similar AND `37.3%` of DISSIMILAR pairs.** 📉 **No threshold rescues it** --
+  swept `0.30`->`0.95`, best margin `+0.287` occurs AT `0.50`, where it already sits.
+  *Threshold-free **AUC `0.7002`** -- real signal, nowhere near separable.*
+  ➡️ **IT IS A CONTRIBUTOR, NOT A DECIDER.** ⚠️ *NOT a licence to raise the cap -- the `0.05` gap
+  is what makes "contribute, do not decide" enforceable in code.*
+  *Witness: `test_the_channel_cannot_gate_links_alone.py`.*
+- 🧭 **AND WHAT NOT TO COMBINE IT WITH: WORDNET'S EDGE IS SELECTION, NOT MEANING (08-23).**
+  *Pooled it looks decisive -- margin `+0.543` vs sensorimotor `+0.287`, false alarms `7.0%` vs
+  `37.3%`.* 🔻 **BUT SimVerb's PAIRS WERE SELECTED BY WORDNET RELATION** (the file carries a
+  `SYNONYMS`/`HYPER-HYPONYMS`/`COHYPONYMS`/`NONE` column). **Hold the class fixed and it collapses:
+  on `NONE` -- `2,084` pairs, 60% of the benchmark -- sensorimotor `+0.286` vs WordNet `+0.154`.**
+  ➡️ **On the pairs a taxonomy does NOT already link -- the case a reader faces on new text -- ours
+  is nearly twice as good.** ⚠️ *NOT "WordNet is useless": it wins on hyper/hyponyms and
+  cohyponyms; a both-spokes hub is still worth testing. The POOLED number is what is refuted.*
+  ✅ **FREE ROBUSTNESS CHECK: the selection does NOT distort OUR channel** -- sensorimotor reads
+  `+0.286` on the unselected `NONE` class vs `+0.287` pooled. **A benchmark selected by a resource
+  cannot fairly score THAT resource; it can still fairly score an unrelated one.**
+  *Witness: `test_wordnet_advantage_is_selection_not_meaning.py`.* *Witness: `test_sensorimotor_covers_the_verb_hole.py`.*
+- 🔍 **THE OTHER HALF OF THE PRIORITY-1 DIAGNOSIS, PRICED -- AND BOTH OBVIOUS FIXES FAIL (08-23).**
+  *Measured with the sensorimotor channel BECAUSE it has signal to lose; our own codes would confuse
+  format-loss with nothing-there.* **STORING is fine: `+0.3107` raw -> `+0.2920` in our 256-dim dense
+  bipolar format (94%), info-free arm `-0.0112`.** 🚨 **COMBINING is the bottleneck: k=2
+  distractors -> 47% of raw, k=8 -> `+0.0808` (26%, null `0.0338`).**
+  🚫 **SPARSITY DOES NOT RESCUE IT** -- swept `1%`->`100%`, every density collapses to ~`+0.08`;
+  retention says `44%` vs `26%` but ABSOLUTE says `+0.0912` vs `+0.0764`. **A RATIO WHOSE DENOMINATOR
+  YOU ALSO CHANGED IS NOT A RESULT** (I built that control first; my initial verdict said the
+  opposite). ✏️ **NOR DOES AN ADDRESSED SLOT, AND I HAD WRITTEN THAT ADVICE INTO THE BRIEF BEFORE
+  TESTING IT.** Addressing works as ADDRESSING (right key recovers at cos `+0.3336`, wrong key
+  `-0.0037`) **but buys NO signal: `+0.0536` vs `+0.0670` at k=8, WORSE at k=32 -- binding PERMUTES
+  interference, it does not remove it.**
+  ➡️ **SURVIVING RULE: keep the number of items in one superposition SMALL, or give meaning its OWN
+  STORE rather than a key into a shared one.** 🧠 *Cortex does not superpose meaning into one
+  shared vector at all -- it keeps separate populations and addresses them.* ⚠️ *Algebraic binding is
+  our-invention-under-test, not biology.* *Three witnesses; all three reverify commands in the brief.*
