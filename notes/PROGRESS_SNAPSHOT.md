@@ -4,24 +4,24 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T19:20:45Z  |  HEAD: fd6f1385d
+generated: 2026-08-23T19:32:10Z  |  HEAD: 8e734d2be
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30314 min ago <-- STALE
-  - orchestrator: 38644 min ago <-- STALE
-  - research: 2 min ago
-  - skunkworks: 41315 min ago <-- STALE
-  - testbed: 77889 min ago <-- STALE
+  - exp_dev: 30326 min ago <-- STALE
+  - orchestrator: 38655 min ago <-- STALE
+  - research: 10 min ago
+  - skunkworks: 41327 min ago <-- STALE
+  - testbed: 77901 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - substrate_director_kb_v1.staging.8448: 35 min ago, NO metrics.json yet (likely in-flight)
-  - cornerstone_results: 73 min ago, NO metrics.json yet (likely in-flight)
-  - exp_refuse_gate_on_readout_v1: 119 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1: 122 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1_selftest: 122 min ago, has metrics.json
+  - substrate_director_kb_v1.staging.28492: 1 min ago, NO metrics.json yet (likely in-flight)
+  - cornerstone_results: 85 min ago, NO metrics.json yet (likely in-flight)
+  - exp_refuse_gate_on_readout_v1: 131 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1: 133 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1_selftest: 133 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - 🧠 **THE MEANING CHANNEL: SIX MEASUREMENTS 08-23, ALL IN `notes/problems/reader_meaning_channel/`
@@ -45,6 +45,13 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
     ⚠️ **STANDING PROHIBITION: do NOT raise `GROUNDED_CAP`** -- the `0.05` gap is what makes
     "contribute, do not decide" enforceable in code. ✅ *The channel is still the right direction.*
   - ✅ **Q115 EXECUTED (08-23): new cells are GATED, the backlog is INVENTORIED.** *Pre-commit refuses a new `experiments/*.py` that writes a result without the shared helper, added files only, controlled both ways.* 🔻 **COVERAGE `~21%` IS WITHDRAWN -- the truth is `71.2%`** (`3,495` of `4,908` re-runnable; `1,413` replay). **THE "1 BY 1" LIST: `425` assert a result, `135` of those are CITED by a steering doc -- those `135` are the real list.** *`tools/reproducibility_inventory.py` regenerates it.*
+    🎯 **TRIAGE DONE 08-23 -- THE ANSWER IS `20`, NOT `275`.** Funnel, each with its denominator:
+    `4,908` landed -> `1,413` replay -> `425` assert a result -> `135` are CITED by a steering doc ->
+    `29` carry **NEITHER a floor NOR an interval** -> **`20` CLAIM A CAPABILITY** *(the other `9` say
+    `SELFTEST`/`PENDING` about themselves -- being honest about being provisional is not the same
+    fault)*. ⚠️ **`20` IS A CEILING, NOT A TARGET: a floor run in a DIFFERENT cell does not count
+    here, and at least one row already has one.** *List: `notes/THE_Q115_TRIAGE_TWENTY_RESULTS_WANT_A_RERUN_2026-08-23.md`,
+    per-cell table `data/triage_135_cited_unverifiable.tsv`.*
   - ✅ **THE FOUNDATION LOADS NOW, AND RESUMING DOES NOT HELP GROUNDING (08-23).** *A matched read goes `168` -> `9` new groundings and precision sits at its RANDOM floor in every arm; a permuted-label DECOY matches RESUMED exactly (`0/164`), so it is anchor geometry, not meaning.* **RETIRED PREDICTION: "degeneracy falls as vocabulary grows". Persistence is NECESSARY, NOT SUFFICIENT -- never bill it as a grounding fix.** *Pinned in the constructor, positive-controlled.*
   - 🖥️ **GUI TAB 9 "SUBSTRATE" -- the whole pipeline on one screen, from `data/substrate_progress.json`.** Every row shows when it was last re-checked and goes amber at 3 days / red at 7. 🔻 **THE DURABLE LESSON: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted -- a feature that ships into a process nobody restarts has not shipped.**
   - 📘 **ENUMERATE THE FIELDS THAT EXIST BEFORE CALLING ONE MISSING** -- one line, `sorted({k for r in rows for k in r})`. *Now in `CLAUDE.md` Evidence discipline 2 (loaded every session) with both incidents that earned it, and a DO-NOT-BUILD-A-TOOL note.*
@@ -67,11 +74,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 2 new commit(s) since last snapshot (HEAD fa5f3275a -> fd6f1385d)
+- 1 new commit(s) since last snapshot (HEAD fd6f1385d -> 8e734d2be)
 
 ## 5. What is stuck (blocked / pending / no owner)
-- (none found)
+- `SELFTEST`/`PENDING` about themselves -- being honest about being provisional is not the same
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8176, "generated_at": "2026-08-23T19:20:45Z", "head_commit": "fd6f1385df6a68fc06f47a57f9ff1e9efc2f0e48", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8176, "generated_at": "2026-08-23T19:32:10Z", "head_commit": "8e734d2beae79d7a6c683e39be84edbcaac1e6d5", "step_status": {}}
 -->
