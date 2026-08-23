@@ -6659,3 +6659,9 @@ do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_..
   grade in `review:`, per the owner's instruction.** Strategy session was DISQUALIFIED from
   `eval_bank_too_small` (it had read the per-item predictions). `tools/problem_ledger.py`.
 
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (eighth pass)
+
+- 📏 **SIZE RULE (earned): when this file fills, EVICT to `STATUS_LESSONS.md` with a stub -- do NOT  shave. It was once `55,070` B against a `28,672` cap. `STATUS_SPEC.md` sec 3/6/7.**
+

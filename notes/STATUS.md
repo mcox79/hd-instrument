@@ -1,6 +1,6 @@
 # STATUS -- THE RECOVERY ENTRY POINT. READ THIS, THEN THE PLAN.
 
-AS OF: 2026-08-23, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | ❓ **BOARD: Q115 OPEN (08-22)** -- should using the shared save-location helper be REQUIRED for new cells, so the un-reproducible pile stops growing. Q113 (08-22): cell work + `hdi_*` spawns AUTHORIZED; the `notes/problems/` briefs are the solver's, do not work them here. Q111 STANDING: testbed owns ALL integration, solvers never write `hdlab/`. Q110 STANDING: operational calls are mine, board is for owner-only decisions. Q102/106/107/108/109/112 ANSWERED/WITHDRAWN AND DISCHARGED (per STATUS_SPEC sec 3 tier 3 + the citation rule -- full text `notes/QUESTION_LOG.md`; Q109's credit-assignment investigation moved to `STATUS_LESSONS.md` "Q109 CREDIT ASSIGNMENT"). *Q103/104/108 share one pattern: filed before testing the constraint being complained about.*
+AS OF: 2026-08-23, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | ❓ **BOARD: Q115 + Q116 OPEN, BOTH WAITING ON THE OWNER.** *Q115:* should the shared save-location helper be REQUIRED for new cells, so the un-reproducible pile stops growing. *Q116:* should we formally STOP trying to learn meaning from text statistics and commit to supplied knowledge + reasoning -- **evidence gathered since filing cuts partly AGAINST my own recommendation there.** Q113 (08-22): cell work + `hdi_*` spawns AUTHORIZED; the `notes/problems/` briefs are the solver's, do not work them here. Q111 STANDING: testbed owns ALL integration, solvers never write `hdlab/`. Q110 STANDING: operational calls are mine, board is for owner-only decisions. Q102/106/107/108/109/112 ANSWERED/WITHDRAWN AND DISCHARGED (per STATUS_SPEC sec 3 tier 3 + the citation rule -- full text `notes/QUESTION_LOG.md`; Q109's credit-assignment investigation moved to `STATUS_LESSONS.md` "Q109 CREDIT ASSIGNMENT"). *Q103/104/108 share one pattern: filed before testing the constraint being complained about.*
    ✅ **CLOSED TODAY (08-22), one line each, full text on disk at the named note:** the grounding
    quality answer is `3/100 MEANINGFUL, 19 RELATED, 78 NOISE` blind, scramble_ratio 0.077, no
    correctness measure exists in the cell (`THE_GROUNDING_ANSWER_...`); best-evidenced grounding
@@ -143,6 +143,15 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 ## WHAT IS RUNNING
 
 - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
+- 📘 **THE ENUMERATE RULE NOW COVERS SCHEMAS (`CLAUDE.md` Evidence discipline 2, 08-23).**
+  **Before concluding a field is missing or empty, LIST THE FIELDS THAT EXIST** -- one line,
+  `sorted({k for r in rows for k in r})`. *Earned by two opposite errors the same day: an empty
+  `gate_decision_target` read as an absent revival criterion while `revival_criteria` sat filled
+  on `41` of `42`; and in my own tool `status` matched `0` of `7,878` files while
+  `primary_verdict` was missing from the list entirely.* 🚫 **AND IT RECORDS "DO NOT BUILD A
+  TOOL FOR THIS": `audit_keys_read_but_never_written.py` already tried, five iterations, and its
+  own verdict is that a static scan CANNOT distinguish a missing key from one supplied
+  elsewhere. There are 1,168 tools; the fix is the one-liner.**
 - 🔻 **RETRACTED SAME DAY -- "THE DURABILITY GATE IS HOLLOW" WAS MY OWN WRONG-FIELD ERROR.**
   I measured `gate_decision_target` (empty on `24` of `42` shelves) and reported that shelved
   capabilities have no revival criteria. **There is a field called `revival_criteria` and it is
@@ -201,7 +210,6 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   tripped one and re-stamped a landed record (restored). Fixed; re-audited `0 of 5`.*
   `INTEGRATION_BY_USING_IT_FOUND_FOUR_DEFECTS_...`
 - ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
-- 📏 **SIZE RULE (earned): when this file fills, EVICT to `STATUS_LESSONS.md` with a stub -- do NOT  shave. It was once `55,070` B against a `28,672` cap. `STATUS_SPEC.md` sec 3/6/7.**
 
 ## DO NOT REDO -- NEVER-TRIM -- stubs; detail in LESSONS
 All CLOSED. `*` = revival criterion. 1 intersection-over-argmax; 2 the "40% ceiling"; 3 syntactic
