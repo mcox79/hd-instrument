@@ -111,12 +111,18 @@ def routes_through_get_output_dir(src: str) -> bool:
     path construction could be missed in either direction. It is used only to decide whether to
     REFUSE, and the refusal is the safe side -- a false refusal costs a message, a false acceptance
     overwrites a landed record.
+
+    AND THE DETECTOR MUST RECOGNISE THE MIGRATION IT RECOMMENDS. Until 2026-08-23 it looked only for
+    `get_output_dir`, so a cell migrated with `fresh_run_output_dir` -- the exact one-line change
+    this tool's own refusal message prints -- was STILL refused. I hit that within a minute of
+    following my own instruction. A checker that cannot see the fix it prescribes sends you round
+    the loop forever.
     """
     try:
         text = open(src, encoding="utf-8", errors="replace").read()
     except OSError:
         return False
-    return "get_output_dir" in text
+    return "get_output_dir" in text or "fresh_run_output_dir" in text
 
 
 def _verdict_of(output_dir: str):
