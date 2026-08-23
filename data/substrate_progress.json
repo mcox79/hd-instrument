@@ -135,12 +135,12 @@
       "name": "PROVE A RESULT IS REAL",
       "plain": "Re-run a past result from scratch and get the same answer, rather than replaying saved output.",
       "state": "WORKS",
-      "evidence": "5 of 5 solved problems reproduced; one cell recomputed in 33 seconds and returned 127 of 127 numbers identical",
-      "floor": "A re-run must be able to FAIL. Proven by breaking an input on purpose and watching the verdict flip, then restoring it.",
-      "gap": "Coverage is 10-21% of landed results. The rest resume from checkpoints, so re-running them proves nothing.",
-      "goal": "Route new work through the shared save-location helper so the un-reproducible pile stops growing. That is board question Q115.",
+      "evidence": "5 of 5 solved problems reproduced; 71.2% of 4,908 landed results (3,495) can be genuinely re-run today",
+      "floor": "A re-run must be able to FAIL. Proven by breaking an input on purpose and watching the verdict flip, then restoring it. And the redirect itself is positive-controlled in a fresh process, so 'it works' is not an assumption.",
+      "gap": "1,413 results still replay a saved answer instead of recomputing. Of those, 425 assert a result and 135 of THOSE are quoted by something that steers our work -- that is the list worth spending re-runs on.",
+      "goal": "Done for new work: a commit adding an experiment that writes a result is now refused unless it can be re-run. Remaining: work the 135 cited-and-unverifiable results one at a time, as the owner asked.",
       "problem": "",
-      "source": "tools/reproduce.py",
+      "source": "tools/reproducibility_inventory.py",
       "reviewed_utc": "2026-08-23T00:00:00Z"
     },
     {
