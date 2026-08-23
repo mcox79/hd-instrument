@@ -10,7 +10,44 @@ review_text:
 > credible and they cannot both be the whole story.** *Filed rather than worked, because it needs one
 > person holding the whole thing rather than my incremental measurements.*
 
-# PROBLEM: THE BUNDLE DESTROYS ~62% OF MEANING PER SENTENCE — AND EVERY ATTEMPT TO REPLACE IT HAS MADE THINGS WORSE
+> ## 🔻🔻 **READ THIS BEFORE THE REST: THE 62% IS PROBABLY ABOUT OUR CODE GEOMETRY, NOT ABOUT BUNDLING**
+> **Found 2026-08-23, hours after filing, in prior work this brief did not cite.**
+> `verification/verify_bundling_destroys_flat_sum.py` establishes:
+>
+> > *"summing B=8 near-ORTHOGONAL dense codes and recovering each in the bundle's top-B is
+> > **LOSS-FREE** (retains the full 7.000-bit ceiling). So **'adding' is NOT intrinsically
+> > destructive** -- destruction is a property of the code's GEOMETRY (correlated codes crosstalk;
+> > orthogonal ones do not)."*
+>
+> **AND OUR CODES ARE THE CORRELATED CASE, BY A LOT.** Measured on 800 real items:
+>
+> | codes | mean \|cosine\| between DIFFERENT items | max |
+> |---|---|---|
+> | **ours (sensorimotor-derived)** | 🔻 **`0.5842`** | `1.0000` *(some pairs IDENTICAL)* |
+> | truly random bipolar, same shape | `0.0498` | `0.2969` |
+>
+> **Ours are `11.7x` LESS ORTHOGONAL than random codes of the same shape.**
+>
+> 🔑 **AND THE REASON IS STRUCTURAL, NOT A TUNING MISTAKE: the sensorimotor vectors live in an
+> ELEVEN-DIMENSIONAL space.** Projecting to 256 dims cannot manufacture independent directions --
+> there are at most 11. **The codes are confined to an 11-dim subspace by construction, so they
+> crosstalk under bundling exactly as the prior work predicts.**
+>
+> ⚖️ **WHAT THIS DOES AND DOES NOT CHANGE.** The `62%` loss is REAL for our codes and the segregation
+> comparison stands as measured. **What changes is the DIAGNOSIS: "the bundle is lossy" becomes "an
+> 11-dimensional signal cannot fill a 256-dimensional code, and bundling correlated codes
+> crosstalks".** ➡️ **That points at a different fix entirely -- give the code more independent
+> directions (more source dimensions), not a different combination rule.** *Both refuted arms
+> (`STRUCTURE_HURTS`, `CONJUNCTIVE_HURTS`) changed the combination rule. None of them changed the
+> rank of the source.*
+> **REVERIFY:** the orthogonality measurement is four lines; the prior work is
+> `verification/verify_bundling_destroys_flat_sum.py`.
+
+# PROBLEM: ~62% OF MEANING IS LOST PER SENTENCE, EVERY ATTEMPT TO REPLACE THE BUNDLE HAS MADE THINGS WORSE — AND THE CAUSE IS PROBABLY THE CODE'S RANK, NOT THE BUNDLE
+
+*(Titled "the bundle destroys..." when filed. Corrected the same day -- see the block above: our
+codes are `11.7x` less orthogonal than random ones because an 11-dimensional signal cannot fill a
+256-dimensional code, and bundling NEAR-ORTHOGONAL codes is loss-free.)*
 
 **slug:** `the_bundle_destroys_meaning_but_replacing_it_hurts` · **opened:** 2026-08-23 by the
 strategy session · **status:** OPEN
@@ -163,6 +200,13 @@ small private compartment would keep more than twice as much, in sixteen times l
 **The obvious conclusion is wrong, or at least unproven.** Two experiments on file already tried
 replacing the mashing with something more structured, and both made a real task *worse*. Someone even
 built the replacement and left it switched off.
+
+**And the loss may not be about the mashing at all.** Prior work on file shows that mashing together
+codes that are *well spread out* loses nothing. Ours are not well spread out -- they are about twelve
+times more similar to each other than they should be, because the underlying information only has
+**eleven independent dimensions** and no amount of spreading it into 256 can create more. So the
+crowding is built in, and every fix tried so far changed how things are combined rather than how much
+independent information went in.
 
 The likeliest explanation, untested, is that the task doesn't want individual word meanings — it
 wants the blur. If so, the "loss" is the point, and confirming that closes the question properly.
