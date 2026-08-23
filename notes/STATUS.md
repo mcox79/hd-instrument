@@ -154,7 +154,10 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   that advice in the brief BEFORE testing it.* **(5) THE SAME ASSET GIVES THREE NUMBERS BY ENTRY
   POINT** (`+0.3107`/`+0.2676`/**`+0.2463`** ← what the substrate calls). **(6) WORDNET'S EDGE IS
   SELECTION** -- SimVerb's pairs were CHOSEN by WordNet relation; on the unselected `NONE` class
-  (60%) sensorimotor `+0.286` beats WordNet `+0.154`.
+  (60%) sensorimotor `+0.286` beats WordNet `+0.154`. **(7) A BOTH-SPOKES HUB IS NOT
+  ESTABLISHED** -- mean-of-both is the best rule tried but hub minus sensorimotor is `+0.0245`
+  `[-0.0021,+0.0520]`, includes zero. *Its NOISE control is `-0.0507` `[-0.0891,-0.0105]`, so the
+  second spoke carries REAL information -- just not enough to prove a gain at this n.*
   🧠 **THE ONE NEW BRAIN RESULT: somatotopy holds at power -- ACTION − PERCEPTUAL on verbs
   `+0.0651` `[+0.0306,+0.1005]`, CI-separated, 3,487 pairs.** *At `n=222` it said NOTHING; the fix
   was POWER, not caution.* 🔻 **SINGLE dissociation only.**
