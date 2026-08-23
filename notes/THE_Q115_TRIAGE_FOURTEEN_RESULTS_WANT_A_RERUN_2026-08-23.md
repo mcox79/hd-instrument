@@ -1,3 +1,22 @@
+<!-- CLOSING ENTRY 2026-08-23 -- THE TRIAGE IS FINISHED. READ THIS FIRST. -->
+> # ✅ **TRIAGE CLOSED. ONE ROW WAS ACTED ON, IT TIED WITH A DICTIONARY, AND ONE CRITICISM TURNED OUT TO BE UNFAIR TO US.**
+>
+> | what happened | outcome |
+> |---|---|
+> | **`hd_fact_store_source_trust_vet_v1`** -- the one row the triage said to act on, and the action was a FLOOR not a re-run | 🔻 **THE FLOOR TIES.** A dictionary and four if-statements score `1.000/1.000/1.000` on the same 160 trials. The scenario supplies conflict-detection (it IS the definition), the trust ladder, AND `relation_cardinality` for the one interesting call. *ORGAN_MAP corrected at the citation.* |
+> | **`cell4_results`** -- the OTHER no-floor capacity result ORGAN_MAP flags | ✅ **THE CRITICISM WAS WRONG, AND WRONG AGAINST US.** *"the sweep never bit"* is false: a plain random baseline BREAKS inside the swept range (`0.1580` at noise `0.5`) where this system held `1.0000`. 📐 *But the headline still needs its mechanism: `100,000 facts, recall@1=1.0` is **128 exhaustive scans of ~819 items**, not one 100,000-way lookup.* |
+> | **`exp_read_coref_hobbs_centering_resolver_v1`** -- the first re-run, done to prove the loop | ✅ Reproduced **`132` of `132`** fields, landed record untouched. **And it should never have been on the list** -- it HAS floors, under key names my regex missed. |
+> | the two **uncited** rows, hand-checked as this note instructed | 🔻 `exp_kb_time_decay_eviction_with_reingest_v1`: **its SOURCE FILE IS MISSING** (cannot be re-run at all), its verdict says `AUDIT_ONLY mode`, and the only thing citing it is THIS note. **A false positive of my own "cited" test** -- its doubled `exp_exp_` prefix means my `exp_`-stripping matcher hit something else. ✅ `exp_substrate_director_kb_ingest_v1`: `coverage=0.999 >= 0.95`, `reingest_deterministic_w_l2=0.0 < 1e-06`, `principles_1-12_preserved` -- **pre-registered thresholds and a determinism check on PLUMBING, not a capability claim.** Neither wants action. |
+>
+> ## 🧭 **WHAT THE WHOLE EXERCISE ACTUALLY YIELDED**
+> **`275` -> `20` -> `14` -> one row acted on, one criticism reversed, and a corrected question.**
+> 🔑 **THE CORRECTED QUESTION IS THE DURABLE PART: a re-run verifies the ARITHMETIC, not the
+> ARGUMENT.** Results selected *because they lack a floor* do not want re-running; they want a floor.
+> Those are different jobs with different costs and I had merged them.
+> ⚠️ **AND MY DETECTORS WERE WRONG THREE TIMES -- on JSON `null` literals, on floor-shaped key names,
+> and on the substring "cited" test.** *Every one was caught by looking at an actual row. The citing
+> documents were more reliable than any regex I wrote.*
+
 <!-- SECOND CORRECTION 2026-08-23 -- THE QUESTION ITSELF WAS SLIGHTLY WRONG. READ THIS FIRST. -->
 > # 🔻 **RE-RUNNING IS NOT THE FIX FOR MOST OF THESE. THEY DO NOT NEED A RE-RUN, THEY NEED A FLOOR.**
 >
