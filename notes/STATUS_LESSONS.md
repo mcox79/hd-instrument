@@ -7015,3 +7015,10 @@ fix" -- our UPOS tagger shows recovery enriched for CONTENT WORDS (VERB `2.58x`,
 > ## 🚨 **RANDOM CREDIT ASSIGNMENT BEATS THE REAL MECHANISM (re-landed 08-22)**
 > **`HARD_FAIL` stands and the ORDER is the finding: RANDOM `0.5278` > SCRAMBLED `0.3556` > **OURS `0.3056`**, floor `0.6389` -- ours is LAST OF THREE and all three are under the floor.** *The landed 08-06 record read `0.1667` for all three because the cascade fired zero times; re-landing is what separated them. Full table + the `AMBIGUOUS` bite in the note.*
 >
+
+
+## FOLDED FROM THE PLAN 2026-08-23 (08-21 pass, second fold)
+
+> ## 🌙 **THE 08-21 PASS -- ALL BAG-OF-WORDS; KEPT AS FLOOR, NOT DIRECTION**
+> **VERBS `+0.0000` (SimVerb 2,651 pairs, null `0.0372`) vs NOUNS `0.1310` clearing `0.0843` -- weak on nouns, ABSENT on verbs.** **The floor ladder: raw counting `0.0885` | OURS `0.1071` | idf-counting **`0.1835`** | supplied `0.2876` -- a plain counting baseline beats us and SUPPLIED beats LEARNED `2.69x`.** *Levers closed (sentences saturate ~10, dimensions buy identification not meaning); drop-ubiquitous and two weighting schemes WITHDRAWN, neither excluded zero. Atom names + the `9` prior-work catches are in the note.*
+>

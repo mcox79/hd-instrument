@@ -154,7 +154,11 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   second spoke carries REAL information -- just not enough to prove a gain at this n.*
   🧠 **THE ONE NEW BRAIN RESULT: somatotopy holds at power -- ACTION − PERCEPTUAL on verbs
   `+0.0651` `[+0.0306,+0.1005]`, CI-separated, 3,487 pairs.** *At `n=222` it said NOTHING; the fix
-  was POWER, not caution.* 🔻 **SINGLE dissociation only.**
+  was POWER, not caution.* 🔻 **SINGLE dissociation only, and the DOUBLE is CLOSED AS UNANSWERABLE
+  (08-23): the noun half reads `-0.0137` `[-0.0903,+0.0623]` -- the brain's predicted DIRECTION
+  (perceptual ahead) but ~1/5 the verb effect and ~`20,800` pairs from separable. WE OWN `666`.**
+  *NOT false -- unmeasurable on our assets, same disposition as the adjective row. Doing the power
+  calculation BEFORE the data hunt is the point.*
   ⚠️ **STANDING PROHIBITION: do NOT raise `GROUNDED_CAP`** -- the `0.05` gap is what makes
   "contribute, do not decide" enforceable in code. ✅ *The channel is still the right direction.*
 - ✅ **Q115 EXECUTED 08-23: new cells GATED at commit; backlog inventoried and TRIAGED.**
