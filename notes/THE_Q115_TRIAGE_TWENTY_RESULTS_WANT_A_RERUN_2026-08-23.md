@@ -1,3 +1,33 @@
+<!-- CORRECTION 2026-08-23, SAME DAY, AFTER RUNNING THE FIRST ONE -- READ THIS FIRST -->
+> # 🔻 **THE LIST IS `14`, NOT `20` -- AND THE FIRST RE-RUN IS WHAT FOUND THAT**
+>
+> I re-ran the cheapest row (`exp_read_coref_hobbs_centering_resolver_v1`, 0.5s) to prove the loop.
+> **It reproduced exactly: `132` of `132` numeric fields identical, verdict `HARD_PASS` both times,
+> and the landed record byte-identical with its mtime unchanged** (fresh run went to a sibling).
+>
+> **THEN I READ WHAT CITES IT, AND MY DETECTOR WAS WRONG ABOUT IT.** `ORGAN_MAP.md` describes it as
+> *"HARD_PASS at 1.000 — on n=10, **with floors FULL-vs-OFF (10 vs 0) and NOGATE precision 0.949**"*.
+> It HAS floors. My regex looked for `floor|null|baseline|shuffl|scrambl|permut` in key names and
+> matched neither `metric_c_foundation_precision_nogate` nor `..._resolver_off`.
+>
+> **RE-SCORED WITH A WIDER PATTERN (adding `_off`, `nogate`, `random`, `control`, `ablat`, `twin`,
+> `chance`): 6 of the 20 have a floor I missed** -- `cortex_integration_end_to_end_v1`/`v2`
+> (ablation arms), `cortex_integration_with_noise_channel_v1` (noise-off), `hd_fact_store_capacity_and_index_v1`
+> (positive control), `learned_codebook_generalization_gate_v1` (random-pair baseline), and the coref
+> cell itself. **➡️ THE RE-RUN LIST IS `14`.**
+>
+> ⚠️ **AND IT MAY STILL BE AN OVER-COUNT.** A floor can be named anything, or live in another cell --
+> `stated_entity_fate` is on the list and its floor was run separately today. **Check the citing
+> documents before spending compute on any row; they are more reliable than my key regex.**
+>
+> ## 🧠 WHAT THE FIRST RE-RUN ACTUALLY TAUGHT, WHICH IS NOT ABOUT THE COUNT
+> **A GENUINE REPRODUCTION VERIFIES THE ARITHMETIC, NOT THE ARGUMENT.** That cell reproduces to 132
+> fields and is still a `HARD_PASS` at `1.000` **on `n=10`**. Re-running it changed nothing about how
+> much it supports. *And its own record is scrupulous: `metric_c_precision_delta_on_minus_off = 0.0`
+> -- the author measured that the resolver adds ZERO precision and wrote the zero down. The gain is
+> COVERAGE (`10` bound vs `0`), which the verdict states.* **Both citing documents already lead with
+> the `n=10` caveat.** *This row was well handled by everyone except my detector.*
+
 # THE Q115 TRIAGE: 4,908 LANDED RESULTS, AND **20** OF THEM WANT A RE-RUN
 
 **2026-08-23, strategy session.** The owner's answer to Q115 had two halves. The first -- require the

@@ -166,7 +166,10 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 - ✅ **Q115 EXECUTED (08-23): new cells are GATED, the backlog is INVENTORIED.** *Pre-commit refuses a new `experiments/*.py` that writes a result without the shared helper, added files only, controlled both ways.* 🔻 **COVERAGE `~21%` IS WITHDRAWN -- the truth is `71.2%`** (`3,495` of `4,908` re-runnable; `1,413` replay). **THE "1 BY 1" LIST: `425` assert a result, `135` of those are CITED by a steering doc -- those `135` are the real list.** *`tools/reproducibility_inventory.py` regenerates it.*
   🎯 **TRIAGE DONE 08-23 -- THE ANSWER IS `20`, NOT `275`.** Funnel, each with its denominator:
   `4,908` landed -> `1,413` replay -> `425` assert a result -> `135` are CITED by a steering doc ->
-  `29` carry **NEITHER a floor NOR an interval** -> **`20` CLAIM A CAPABILITY** *(the other `9` say
+  `29` carry **NEITHER a floor NOR an interval** -> `20` claim a capability -> 🔻 **`14` AFTER
+  CORRECTION: `6` of the `20` HAVE floors my key-regex missed** (ablation / noise-off /
+  positive-control / random-pair arms), **found by re-running the first row and reading what cites
+  it** *(the other `9` say
   `SELFTEST`/`PENDING` about themselves -- being honest about being provisional is not the same
   fault)*. ⚠️ **`20` IS A CEILING, NOT A TARGET: a floor run in a DIFFERENT cell does not count
   here, and at least one row already has one.** *List: `notes/THE_Q115_TRIAGE_TWENTY_RESULTS_WANT_A_RERUN_2026-08-23.md`,

@@ -654,7 +654,12 @@ def _out_dir(run_mode):
     sub = {"full": "exp_read_coref_hobbs_centering_resolver_v1",
            "smoke": "exp_read_coref_hobbs_centering_resolver_v1_smoke",
            "self_test": "exp_read_coref_hobbs_centering_resolver_v1_selftest"}[run_mode]
-    d = REPO / "data" / sub
+    # Q115 (owner ruling 2026-08-23): route through the shared helper so a re-run genuinely
+    # RECOMPUTES instead of replaying a checkpoint. With HDI_FRESH_RUN unset this returns the path
+    # UNCHANGED -- so the landed directory is untouched and the default behaviour is byte-identical.
+    # With it set, the run goes to an empty sibling and the original is never opened for writing.
+    from experiments.fresh_recompute import fresh_run_output_dir
+    d = Path(fresh_run_output_dir(str(REPO / "data" / sub)))
     d.mkdir(parents=True, exist_ok=True)
     return d
 
