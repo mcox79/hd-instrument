@@ -887,19 +887,22 @@ def registry_report(rep_dir: Path | None = None, tool_dir: Path | None = None,
         out.append(f"        newest row last_audit_utc={row_ts}  report={rep_ts}Z")
         out.append("        run: python tools/capability_registry_audit.py")
 
-    # SHELVE WITHOUT A WAY BACK. Added 2026-08-23 after measuring the whole column: of 42 rows
-    # carrying gate_decision SHELVE, 24 have a COMPLETELY EMPTY gate_decision_target. The standing
-    # gate reads "WIRE (target + step noted) or SHELVE (explicit revival criteria) -- nothing stays
-    # in limbo", and a blank field satisfies the letter while abandoning the point.
+    # SHELVE WITHOUT A WAY BACK -- CORRECTED 2026-08-23, HOURS AFTER I SHIPPED THE WRONG VERSION.
     #
-    # NOT PAPERWORK. The shelved set includes organs on the goal-bearing line, and the row that
-    # exposed this records the cost in its own words: registered only "after the owner had to recall
-    # this work from memory twice because the registry-first check returns nothing for it" -- an 11x
-    # lift on the hard population recovered by human memory, not by the mechanism built for it.
+    # I first checked `gate_decision_target`, found it empty on 24 of 42 SHELVE rows, and reported
+    # "24 shelved capabilities have an EMPTY revival criterion" to every session. **THAT WAS WRONG.**
+    # There is a field called `revival_criteria` -- named for exactly the thing I was looking for --
+    # and it is filled on **41 of 42** shelves. ZERO rows lack all of `revival_criteria`,
+    # `gate_decision_target` and `superseded_by`. The gate is being honoured.
     #
-    # REPORTED, NOT ENFORCED, DELIBERATELY. Failing the hook would tempt whoever hits it to fill 24
-    # fields with plausible text, which passes the check and buries the problem properly. A revival
-    # criterion needs someone who knows the capability.
+    # THE FAULT WAS SEARCHING BY GUESSED FIELD NAME INSTEAD OF ENUMERATING THE FIELDS. One line --
+    # `sorted({k for r in rows for k in r})` -- would have shown `revival_criteria` immediately. That
+    # is this repo's own "enumerate from the filesystem, then reconcile" rule, applied to a schema.
+    #
+    # WHAT THE CHECK NOW DOES: flags only a shelve with NO way back in ANY of the three fields, which
+    # is currently zero. It stays because the risk it was built for is real -- it is just far rarer
+    # than I claimed -- and because a check whose false-alarm history is written next to it is more
+    # trustworthy than one that quietly changed.
     try:
         _blank = []
         for _line in open(REPO / 'data' / 'capability_registry.jsonl',
@@ -911,15 +914,17 @@ def registry_report(rep_dir: Path | None = None, tool_dir: Path | None = None,
                 _row = json.loads(_line)
             except ValueError:
                 continue
-            if (str(_row.get('gate_decision') or '').upper().startswith('SHELVE')
-                    and not str(_row.get('gate_decision_target') or '').strip()):
+            if str(_row.get('gate_decision') or '').upper().startswith('SHELVE') and not any(
+                    str(_row.get(_f) or '').strip()
+                    for _f in ('revival_criteria', 'gate_decision_target', 'superseded_by')):
                 _blank.append(str(_row.get('id') or _row.get('name') or '?')[:46])
         if _blank:
-            out.append("    <-- %d SHELVED capability(s) have an EMPTY revival criterion." % len(_blank))
-            out.append("        A shelve with no stated way back is abandonment that looks like a")
-            out.append("        decision. Each needs someone who knows the capability -- do NOT")
-            out.append("        bulk-fill: a plausible placeholder passes this check and hides it.")
-            out.append("        e.g. " + ", ".join(_blank[:3]))
+            out.append("    <-- %d SHELVED capability(s) name NO way back in any of revival_criteria,"
+                       % len(_blank))
+            out.append("        gate_decision_target or superseded_by. A shelve with no trigger is")
+            out.append("        abandonment that looks like a decision. Needs someone who knows the")
+            out.append("        capability -- do NOT bulk-fill, a placeholder passes and hides it.")
+            out.append("        " + ", ".join(_blank[:3]))
     except OSError:
         out.append("    (could not read the registry to check shelve criteria)")
 

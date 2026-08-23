@@ -1,3 +1,31 @@
+<!-- RETRACTED 2026-08-23, SAME DAY -- READ THIS BEFORE THE TEXT BELOW -->
+> # RETRACTED IN FULL. THE HEADLINE IS FALSE AND THE MEASUREMENT WAS OF THE WRONG FIELD.
+>
+> **THE DURABILITY GATE IS NOT HOLLOW.** There is a field called **`revival_criteria`** -- named for
+> exactly the thing this note says is missing -- and it is **filled on `41` of `42` SHELVE rows
+> (`98%`)**. **ZERO rows lack all of `revival_criteria`, `gate_decision_target` and
+> `superseded_by`.** Two examples, read in full:
+>
+> * `binder_direct_supply_grounding` -> *"successor = WorldTree definitional grounding (design-stage,
+>   gated on upstream FULL); keep as the live grounding direction"*
+> * `entity_slot_gate_cross_boundary_v1` -> *"a task where <900 write-events/slot (lower N or many
+>   more slots), OR an end-to-end-differentiable slot/attention variant..."*
+>
+> **I MEASURED `gate_decision_target`, FOUND IT EMPTY ON 24 ROWS, AND CONCLUDED THE DECISIONS HAD NO
+> TRIGGER.** The triggers were in the adjacent field the whole time.
+>
+> **THE FAULT: I SEARCHED BY A GUESSED FIELD NAME INSTEAD OF ENUMERATING THE FIELDS.** One line --
+> `sorted({k for r in rows for k in r})` -- lists `revival_criteria` immediately. That is this
+> repo's own *enumerate, then reconcile* rule, which I have cited twice today, applied to a schema
+> rather than a filesystem.
+>
+> **WHAT SURVIVES, AND IT IS ONLY THIS:** `gate_decision_target` is empty on 24 shelves, which is a
+> cosmetic inconsistency in how the rows are filled, **not** a gap in the gate. Every claim in this
+> note that depends on the criteria being absent is withdrawn.
+>
+> *The corrected check ships in `session_start_hook.registry_report()`; it now flags only a shelve
+> with no way back in ANY of the three fields, which is zero, so it is silent.*
+
 # THE SHELVE HALF OF THE DURABILITY GATE IS HOLLOW: 24 OF 42 SAY NOTHING AT ALL
 
 **2026-08-23, strategy session.** Found by following one row rather than by auditing the registry --

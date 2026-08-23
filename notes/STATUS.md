@@ -143,18 +143,15 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 ## WHAT IS RUNNING
 
 - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
-- 🚨 **THE SHELVE HALF OF THE DURABILITY GATE IS HOLLOW (08-23):** the gate says *SHELVE with
-  EXPLICIT REVIVAL CRITERIA*, and of `42` `SHELVE` rows **`24` have a COMPLETELY EMPTY
-  `gate_decision_target`** -- blank field, no detector involved. *(13 more carry explanatory text
-  with no forward-looking language -- keyword-based and SOFT; only `5` name a way back. **Do not
-  quote "37 abandoned"; the unambiguous number is `24`.**)* 🔑 **A shelve without a trigger is
-  abandonment that LOOKS LIKE THE GATE WAS SATISFIED.** *Already paid for: the row that exposed it
-  was registered only "after the owner had to recall this work from memory twice" -- an 11x lift
-  (`0.0262`->`0.2930`) recovered by memory, not by the mechanism.* **The set includes organs on the
-  goal-bearing line.** ✅ **MECHANICAL HALF DONE (`60d9e0eba`): the session-start hook now REPORTS
-  the count every session -- reports, does NOT fail, because a failing gate would be bulk-filled
-  with placeholders that pass the check and hide it.** 🔻 **The 24 per-capability judgements are NOT
-  done and I will not fake them.** `THE_SHELVE_HALF_OF_THE_DURABILITY_GATE_IS_HOLLOW_...`
+- 🔻 **RETRACTED SAME DAY -- "THE DURABILITY GATE IS HOLLOW" WAS MY OWN WRONG-FIELD ERROR.**
+  I measured `gate_decision_target` (empty on `24` of `42` shelves) and reported that shelved
+  capabilities have no revival criteria. **There is a field called `revival_criteria` and it is
+  filled on `41` of `42` (`98%`); ZERO rows lack all three of `revival_criteria` /
+  `gate_decision_target` / `superseded_by`. THE GATE IS BEING HONOURED.** 🔑 **The fault: I
+  searched by a GUESSED FIELD NAME instead of ENUMERATING the fields -- one line would have
+  listed it.** *Same enumerate-then-reconcile rule I cited twice today.* **The session-start
+  check I shipped was crying wolf and is corrected; it is now silent.**
+  `THE_SHELVE_HALF_OF_THE_DURABILITY_GATE_IS_HOLLOW_...` (retracted at the top)
 - 🧪 **BOTH PATHS DRIVEN END TO END 08-23, AND THE SUBSTRATE CAME OUT WELL.** *Same technique that
   found four tooling defects: USE it, do not test it.*
   ✅ **WRITE PATH IS HEALTHY.** Gate accepts `68` of `555` = **`12.3%`** at 1,150 sentences, so it
