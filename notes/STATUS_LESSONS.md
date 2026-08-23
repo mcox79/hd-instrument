@@ -6768,3 +6768,29 @@ do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_..
   🔻 **THE REAL BUG BEHIND *"there is STILL no priority"* WAS A STALE WINDOW: priority had been wired
   end-to-end for a day, but the GUI was launched 08-22 13:15 and never restarted.** Relaunched.
   *A feature that ships into a process nobody restarts has not shipped.*
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (thirteenth pass)
+
+- ✅ **THE FOUNDATION LOADS NOW -- AND THE PREDICTION THAT MOTIVATED IT IS DEAD (08-23).**
+  `Substrate(foundation_dir=...)` wires (`e178e80d7`); cold byte-identical at `92` facts, resumed `390`.
+  🔻 **RESUMING DOES NOT HELP GROUNDING:** a matched 4,000-sentence read goes `168` -> `9` new
+  groundings (**`~18x` LESS**, 3 seeds) and precision sits at its **RANDOM_ANCHOR floor in every arm**
+  (COLD `0.0199`=`3/151`, RESUMED `0/9`). **DECOY with permuted labels matches RESUMED EXACTLY (`0/164`
+  both) -- so it is anchor geometry, NOT meaning.** Cause = **SAME-BATCH CO-OCCURRENCE**, which cannot
+  cross a run boundary. *Reproduced before landing; solver EXCELLENT.* **Persistence is NECESSARY and NOT
+  SUFFICIENT -- never bill it as a grounding fix.** ➡️ **A THIRD INDEPENDENT INSTRUMENT NOW POINTS AT
+  `reader_meaning_channel` (rank 1).**
+- ✅ **Q115 ANSWERED BY THE OWNER (08-23): REQUIRE THE HELPER ON NEW CELLS, TRIAGE THE OLD ONES.**
+  *"def make it a requirement for new experiments, but I'd go back through the 275 older ones one at
+  a time -- we need to know what those are and how they turned out."* **The gate is LIVE** -- the
+  pre-commit hook refuses a NEW `experiments/*.py` that writes a result without the shared helper,
+  **added files only**, controlled both ways against real commits.
+  🔻 **AND THE PLAN'S COVERAGE NUMBER WAS WRONG IN OUR FAVOUR: `~21%` is WITHDRAWN, the truth is
+  `71.2%`** -- `3,495` of `4,908` landed results can be re-run today, `1,413` replay. *The old figure
+  matched `OUTPUT_DIR = helper(...)` when the common shape is a LOCAL `out_dir = get_output_dir(...)`.*
+  ⚠️ **MY OWN FIRST RE-MEASUREMENT REPEATED THAT EXACT ERROR AND READ `2` of `4,908`** -- a
+  catastrophe I nearly reported. It parses the AST now, positive-controlled in a fresh process.
+  📐 **THE "1 BY 1" LIST: of `1,413` replaying, `425` assert a result; `135` of those are CITED by
+  a doc that steers work and `290` are not. THE `135` ARE THE REAL LIST** -- re-running a result
+  nobody quotes buys nothing. `tools/reproducibility_inventory.py` regenerates it on demand.

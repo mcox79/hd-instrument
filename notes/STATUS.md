@@ -157,28 +157,19 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   said NOTHING; the fix was POWER, not more careful wording.** 🔻 **SINGLE dissociation only** --
   the noun half includes zero, so NEVER "motor for verbs, perceptual for nouns".
   ✅ *Tracked witness: `verification/test_sensorimotor_covers_the_verb_hole.py`.*
-- ✅ **Q115 ANSWERED BY THE OWNER (08-23): REQUIRE THE HELPER ON NEW CELLS, TRIAGE THE OLD ONES.**
-  *"def make it a requirement for new experiments, but I'd go back through the 275 older ones one at
-  a time -- we need to know what those are and how they turned out."* **The gate is LIVE** -- the
-  pre-commit hook refuses a NEW `experiments/*.py` that writes a result without the shared helper,
-  **added files only**, controlled both ways against real commits.
-  🔻 **AND THE PLAN'S COVERAGE NUMBER WAS WRONG IN OUR FAVOUR: `~21%` is WITHDRAWN, the truth is
-  `71.2%`** -- `3,495` of `4,908` landed results can be re-run today, `1,413` replay. *The old figure
-  matched `OUTPUT_DIR = helper(...)` when the common shape is a LOCAL `out_dir = get_output_dir(...)`.*
-  ⚠️ **MY OWN FIRST RE-MEASUREMENT REPEATED THAT EXACT ERROR AND READ `2` of `4,908`** -- a
-  catastrophe I nearly reported. It parses the AST now, positive-controlled in a fresh process.
-  📐 **THE "1 BY 1" LIST: of `1,413` replaying, `425` assert a result; `135` of those are CITED by
-  a doc that steers work and `290` are not. THE `135` ARE THE REAL LIST** -- re-running a result
-  nobody quotes buys nothing. `tools/reproducibility_inventory.py` regenerates it on demand.
-- ✅ **THE FOUNDATION LOADS NOW -- AND THE PREDICTION THAT MOTIVATED IT IS DEAD (08-23).**
-  `Substrate(foundation_dir=...)` wires (`e178e80d7`); cold byte-identical at `92` facts, resumed `390`.
-  🔻 **RESUMING DOES NOT HELP GROUNDING:** a matched 4,000-sentence read goes `168` -> `9` new
-  groundings (**`~18x` LESS**, 3 seeds) and precision sits at its **RANDOM_ANCHOR floor in every arm**
-  (COLD `0.0199`=`3/151`, RESUMED `0/9`). **DECOY with permuted labels matches RESUMED EXACTLY (`0/164`
-  both) -- so it is anchor geometry, NOT meaning.** Cause = **SAME-BATCH CO-OCCURRENCE**, which cannot
-  cross a run boundary. *Reproduced before landing; solver EXCELLENT.* **Persistence is NECESSARY and NOT
-  SUFFICIENT -- never bill it as a grounding fix.** ➡️ **A THIRD INDEPENDENT INSTRUMENT NOW POINTS AT
-  `reader_meaning_channel` (rank 1).**
+- 🔍 **AND THE OTHER HALF OF THE PRIORITY-1 DIAGNOSIS IS NOW PRICED: STORAGE IS FINE,
+  COMBINATION IS WHERE MEANING GOES (08-23).** *Measured with the sensorimotor channel precisely
+  because it HAS signal to lose -- our own codes would confound "the format destroys it" with
+  "there was nothing there".* Our store is **256 dense BIPOLAR values** (inspected: 2 distinct,
+  100% non-zero). Raw `+0.3107` -> projected `+0.3089` (**99.4%**) -> bipolar **`+0.2920` (94.0%)**;
+  info-free arm `-0.0112`. ✅ **THE REPRESENTATION IS NOT THE BOTTLENECK.**
+  🚨 **BUNDLING IS: k=2 distractors -> `+0.1468` (47% of raw), k=8 -> `+0.0808` (26%, null
+  `0.0338`), k=16 -> 16%. TWO OTHER VECTORS HALVE IT.** ➡️ **The adapter is NECESSARY AND NOT
+  SUFFICIENT** -- meaning must sit in a slot addressed on its own, not superposed with everything
+  else, or the signal we just proved exists is thrown away one step later.
+  *Witness: `verification/test_does_our_format_survive_the_meaning_signal.py`.*
+- ✅ **Q115 EXECUTED (08-23): new cells are GATED, the backlog is INVENTORIED.** *Pre-commit refuses a new `experiments/*.py` that writes a result without the shared helper, added files only, controlled both ways.* 🔻 **COVERAGE `~21%` IS WITHDRAWN -- the truth is `71.2%`** (`3,495` of `4,908` re-runnable; `1,413` replay). **THE "1 BY 1" LIST: `425` assert a result, `135` of those are CITED by a steering doc -- those `135` are the real list.** *`tools/reproducibility_inventory.py` regenerates it.*
+- ✅ **THE FOUNDATION LOADS NOW, AND RESUMING DOES NOT HELP GROUNDING (08-23).** *A matched read goes `168` -> `9` new groundings and precision sits at its RANDOM floor in every arm; a permuted-label DECOY matches RESUMED exactly (`0/164`), so it is anchor geometry, not meaning.* **RETIRED PREDICTION: "degeneracy falls as vocabulary grows". Persistence is NECESSARY, NOT SUFFICIENT -- never bill it as a grounding fix.** *Pinned in the constructor, positive-controlled.*
 - 🖥️ **GUI TAB 9 "SUBSTRATE" -- the whole pipeline on one screen, from `data/substrate_progress.json`.** Every row shows when it was last re-checked and goes amber at 3 days / red at 7. 🔻 **THE DURABLE LESSON: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted -- a feature that ships into a process nobody restarts has not shipped.**
 - 📘 **ENUMERATE THE FIELDS THAT EXIST BEFORE CALLING ONE MISSING** -- one line, `sorted({k for r in rows for k in r})`. *Now in `CLAUDE.md` Evidence discipline 2 (loaded every session) with both incidents that earned it, and a DO-NOT-BUILD-A-TOOL note.*
 - 🔻 **RETRACTED SAME DAY -- "THE DURABILITY GATE IS HOLLOW" WAS MY OWN WRONG-FIELD ERROR.** *I measured `gate_decision_target` while `revival_criteria` sat filled on `41` of `42`. It reached a note, the plan, STATUS and a session-start check. Hook corrected and verified silent; the note carries the retraction at its top.*
