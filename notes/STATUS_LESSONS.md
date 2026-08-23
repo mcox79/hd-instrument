@@ -7150,3 +7150,33 @@ started 13:15, BEFORE that commit -- **it must be RESTARTED to show them.** Not 
   *Witness: `test_segregated_beats_superposed_at_equal_budget.py`.*
   ⚠️ **STANDING PROHIBITION: do NOT raise `GROUNDED_CAP`** -- the `0.05` gap is what makes
   "contribute, do not decide" enforceable in code. ✅ *The channel is still the right direction.*
+
+
+## 2026-08-23 -- A TIMING MEASURED ONCE UNDER LOAD IS NOT A MEASUREMENT
+
+**The brief cert appeared to regress 200x.** It ran in `0.3s` early in the session and then took
+`45s` and `68s` on two consecutive pre-commit runs, which pushed a commit past a 10-minute limit.
+That looks like a real regression in a gate I installed, and a slow gate gets bypassed -- the
+installer's own docstring says so.
+
+**I went looking for the cause and had one.** Total run `36s`, but the individual test durations
+summed to `~4s`, so `~32s` was outside the tests. Running the same tests without pytest took `3.4s`.
+Disabling plugin autoload took it to `2.16s`. **Conclusion forming: a pytest plugin costs 34
+seconds.** The next step would have been to change the hook.
+
+🔻 **THEN I RE-RAN THE BASELINE THREE TIMES: `2.41s`, `1.81s`, `0.95s`.** There is no regression. The
+`45s`/`68s` were measured immediately after several heavy numpy measurement scripts -- **cold cache
+and CPU contention on a busy machine.** Disabling plugin autoload does save something (`~0.4s` vs
+`~1s`) but it is noise next to the phantom I was chasing.
+
+**WHAT SAVED IT: re-running the baseline instead of only the arms.** I had measured four variants
+(no-pytest, no-autoload, three per-plugin disables) and every one looked like evidence for the
+plugin theory, because every one was warmer than the run that started the investigation. *The
+control I nearly skipped was the cheapest one -- run the ORIGINAL thing again.*
+
+➡️ **RULE: never conclude from a single timing, and when a timing surprises you, re-run the
+UNCHANGED baseline before you re-run the variants.** A one-shot timing on a loaded machine is a
+sample of the machine, not of the code.
+
+*No change was made. The hook at ~1s is fine, and adding an env-var knob to save `0.6s` would be
+complexity for nothing -- which the installer's docstring also warns about.*
