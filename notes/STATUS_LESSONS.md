@@ -6585,3 +6585,14 @@ what STATUS keeps is a one-line stub pointing here.*
   fixed.** *Three of my own corrections in one day, alternating direction -- full trail:*
   `notes/THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...md`.
 
+
+
+## EVICTED FROM STATUS.md ON 2026-08-23 (fourth pass -- it is now owned by a filed brief)
+
+- 🚨🧠 **THE GENERIC-ATTRACTOR DEGENERACY'S CAUSE: NOTHING LOADS A FOUNDATION.**
+  `self.foundation_dir` is assigned at `substrate.py:378` and NEVER READ AGAIN -- a dead parameter;
+  runtime-measured `load_foundation` calls `= 0`. Makes the plan's own "way-attractor should fall
+  as grounded vocabulary grows" prediction UNREACHABLE (cannot grow across runs; arithmetic, not
+  tuning). NOT MEASURED: whether loading helps -- that is the next experiment.
+  `notes/THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...md`.
+

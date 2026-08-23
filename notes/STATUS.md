@@ -1,6 +1,6 @@
 # STATUS -- THE RECOVERY ENTRY POINT. READ THIS, THEN THE PLAN.
 
-AS OF: 2026-08-23, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **ONE INLINE COMPARISON RUNNING (see WHAT IS RUNNING)** | ❓ **BOARD: Q115 OPEN (08-22)** -- should using the shared save-location helper be REQUIRED for new cells, so the un-reproducible pile stops growing. Q113 (08-22): cell work + `hdi_*` spawns AUTHORIZED; the `notes/problems/` briefs are the solver's, do not work them here. Q111 STANDING: testbed owns ALL integration, solvers never write `hdlab/`. Q110 STANDING: operational calls are mine, board is for owner-only decisions. Q102/106/107/108/109/112 ANSWERED/WITHDRAWN AND DISCHARGED (per STATUS_SPEC sec 3 tier 3 + the citation rule -- full text `notes/QUESTION_LOG.md`; Q109's credit-assignment investigation moved to `STATUS_LESSONS.md` "Q109 CREDIT ASSIGNMENT"). *Q103/104/108 share one pattern: filed before testing the constraint being complained about.*
+AS OF: 2026-08-23, LOOP ARMED | branch `dataprep/mcguffey-graded-corpus` | origin push needs USER AUTH | **NOTHING IS RUNNING** | ❓ **BOARD: Q115 OPEN (08-22)** -- should using the shared save-location helper be REQUIRED for new cells, so the un-reproducible pile stops growing. Q113 (08-22): cell work + `hdi_*` spawns AUTHORIZED; the `notes/problems/` briefs are the solver's, do not work them here. Q111 STANDING: testbed owns ALL integration, solvers never write `hdlab/`. Q110 STANDING: operational calls are mine, board is for owner-only decisions. Q102/106/107/108/109/112 ANSWERED/WITHDRAWN AND DISCHARGED (per STATUS_SPEC sec 3 tier 3 + the citation rule -- full text `notes/QUESTION_LOG.md`; Q109's credit-assignment investigation moved to `STATUS_LESSONS.md` "Q109 CREDIT ASSIGNMENT"). *Q103/104/108 share one pattern: filed before testing the constraint being complained about.*
    ✅ **CLOSED TODAY (08-22), one line each, full text on disk at the named note:** the grounding
    quality answer is `3/100 MEANINGFUL, 19 RELATED, 78 NOISE` blind, scramble_ratio 0.077, no
    correctness measure exists in the cell (`THE_GROUNDING_ANSWER_...`); best-evidenced grounding
@@ -170,7 +170,8 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   `cortical_read_has_no_scored_path` -- **all five REVIEWED, feedback at the TOP of each brief and a
   grade in `review:`, per the owner's instruction.** Strategy session was DISQUALIFIED from
   `eval_bank_too_small` (it had read the per-item predictions). `tools/problem_ledger.py`.
-- 🟡 **RUNNING (08-23, inline):** does the dictionary pseudo-count WEIGHTING or its silent DISCARD change what the consequence loop learns? `WEIGHTED` (ships) vs `NO_DISCARD` vs `FLAT_3` vs `FLAT_1`, scored with the parent cell's OWN `_score_with_overlay` on its landed corpus checkpoint. *Zero delta CLOSES both calibration findings as harmless; non-zero gives them a cost.*
+- ✅ **ANSWERED, AND IT DEFLATES MY OWN FINDING (08-23):** the dictionary pseudo-count WEIGHTING and
+  its silent DISCARD are **UNTESTABLE on the deployment population** -- it commits on `6` of `33`  lemmas and **all six SATURATE**, so 3 of my 4 arms were the SAME ARM. **The calibration gap is REAL  on `1,971` dictionary verbs and ABSENT where the organ is used.** ⚠️ *I did not ask whether the  experiment COULD succeed first -- one line, skipped, paid for over two launches.*  ✅ *`WEIGHTED` read `0.4722`, reproducing the landed number to 4 digits independently.*  `THE_CONFIDENCE_SCORE_DOES_NOT_PREDICT_...`
 - ✅ **INTEGRATION LANE, LANDED 08-22 (both solver hand-offs; solvers are barred from `hdlab/` by Q111):**
   **SH-7 `HDI_FRESH_RUN=<tag>`** (`experiments/_seed_checkpoint.get_output_dir`) sends a cell to an EMPTY
   sibling so a re-run genuinely RECOMPUTES -- no deletion, landed dir never opened for writing.
@@ -196,17 +197,9 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   than silently overwriting. *Can only fire when the env var is set -- zero false positives by
   construction, 3 of its 7 tests are SILENCE tests.* `THE_REPRODUCIBILITY_HOLE_IS_GROWING_...`
 - ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-23:** the blind sheet was drawn from a STALE  foundation (`v2_qualityfix` while `v3/v4/v5` exist unmarked; the sampler has no notion of a CURRENT  foundation). **STANDS: the grounding loop stores ~`8%` stemmer output and is NOT known to be fixed.**  `THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...`
-- 🚨🧠 **THE GENERIC-ATTRACTOR DEGENERACY'S CAUSE: NOTHING LOADS A FOUNDATION.**
-  `self.foundation_dir` is assigned at `substrate.py:378` and NEVER READ AGAIN -- a dead parameter;
-  runtime-measured `load_foundation` calls `= 0`. Makes the plan's own "way-attractor should fall
-  as grounded vocabulary grows" prediction UNREACHABLE (cannot grow across runs; arithmetic, not
-  tuning). NOT MEASURED: whether loading helps -- that is the next experiment.
-  `notes/THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...md`.
+- ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
 - ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-22 (search by name):** the OOV-36 organ is  COVERAGE-limited, not discrimination-limited (`20` of `22` errors are NON-answers; `14/16 = 0.8750`  when it commits), and its landed `HARD_FAIL` is STALE -- measured where the cascade fired `0 of 36`,  re-read today it fires `10 of 36`. **Verdict unchanged, diagnosis changed.** Guard:  `tools/score_with_abstention.py`, 6/6. `THE_ORGAN_DOES_NOT_ANSWER_WRONG_...`,  `THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...`
-- 📏 **SPLIT DONE 08-22 (testbed maintenance pass): was `55,070` B, 1.92x the `28,672` B cap.**
-  Never-trim material moved to `STATUS_LESSONS.md` with stubs; closed-item detail compressed to
-  citations already on disk. Next time it fills: evict to LESSONS, don't shave. `STATUS_SPEC.md`
-  sec 3/6/7.
+- 📏 **SIZE RULE (earned): when this file fills, EVICT to `STATUS_LESSONS.md` with a stub -- do NOT  shave. It was once `55,070` B against a `28,672` cap. `STATUS_SPEC.md` sec 3/6/7.**
 - ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-22 (search it by name; nothing is lost):** Q112/OP1  ("238 overstated results" was a count of AUDIT FLAGS, not overstatements -- DO NOT REOPEN); the  subtract-co-occurrence arm (fails monotonically; the propagator that would fix it already exists,  `hdlab/wordnet_polarity_propagation.py` HARD_PASS); **TEXT DOES SEPARATE OPPOSITES AND WE INVERT IT**  (antonyms `0.0782` vs synonyms `0.0269`, and our encoder turns co-occurrence INTO similarity, so  antonyms become our CLOSEST pairs); the seed price (`~50-100` grounded words already propagate, past  `~400` buys ~nothing); `np.sign` costs almost nothing; the `n_grounded` transposed-field bug; and  the crosstalk capacity law (`r 0.976`, our keys sit AT the Welch bound).
 
 ## DO NOT REDO -- NEVER-TRIM -- stubs; detail in LESSONS
