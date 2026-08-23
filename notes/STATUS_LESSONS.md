@@ -6794,3 +6794,44 @@ do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_..
   📐 **THE "1 BY 1" LIST: of `1,413` replaying, `425` assert a result; `135` of those are CITED by
   a doc that steers work and `290` are not. THE `135` ARE THE REAL LIST** -- re-running a result
   nobody quotes buys nothing. `tools/reproducibility_inventory.py` regenerates it on demand.
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (fourteenth pass, verb-hole full text)
+
+- 🧠✅ **THE PRIORITY-1 FIX COVERS OUR VERB HOLE -- AND ITS BRIEF NEVER MENTIONED VERBS (08-23).**
+  On **SimVerb-3500**, the benchmark our own verb zero was measured on: the sensorimotor norms read
+  **`+0.3107` `[+0.2822,+0.3390]`** vs null p95 `0.0304`, covering `3,487` of `3,500` (99.6%); **ours
+  reads `+0.0000`** covering `2,651`. ⚠️ *Different coverage -> NOT a subtraction: it licenses
+  "ours is ABSENT where this one is PRESENT", nothing more.* Replicates at `+0.3109` on SimLex's 222
+  verbs -- **two independent verb benchmarks to three decimals.** On SimLex, verbs sit just below
+  nouns (`+0.3109` vs `+0.3469`) while ours falls weak->nothing: **THE VERB HOLE IS OURS, NOT THE
+  WORLD'S.**
+  🧠 **A BRAIN PREDICTION THAT COULD HAVE FAILED, HELD: ACTION − PERCEPTUAL on verbs =
+  `+0.0651` `[+0.0306,+0.1005]`, CI-SEPARATED** (paired, 3,487 pairs) -- somatotopy (*kick* recruits
+  leg motor cortex) in an offline norm table. **At `n=222` the same test read `[-0.0989,+0.2031]` and
+  said NOTHING; the fix was POWER, not more careful wording.** 🔻 **SINGLE dissociation only** --
+  the noun half includes zero, so NEVER "motor for verbs, perceptual for nouns".
+  ✅ *Tracked witness: `verification/test_sensorimotor_covers_the_verb_hole.py`.*
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (fifteenth pass)
+
+- 🧪 **BOTH PATHS DRIVEN END TO END 08-23 -- write path healthy, read path cannot refuse.** *Now carried, and kept current, by **GUI tab 9 / `data/substrate_progress.json`** stages 3 and 5. Full run in the note.*
+- ✅ **LANDING CODE AND RUNNING ITS TESTS IS NOT THE SAME ACT (08-22/23).** *I committed a brief twice while its cert was FAILING -- a piped pytest's exit code is `tail`'s.* **Now enforced by a pre-commit hook, positive-controlled, so this cannot recur by memory.**
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (sixteenth pass, two-session reconciliation)
+
+- 🧠 **TWO SESSIONS, ONE ORGAN -- RECONCILED, AND IT CORRECTS ME TWICE (08-23).** A concurrent
+  session split the propagator's `83%` abstention: **`6` points are REACH, `78` are DISCRIMINATION**
+  -- 🔻 **I called it coverage-limited twice and the repair is different.** Cause, with a null AND
+  both positive controls: **WordNet distance does not predict valence agreement at all** (Spearman
+  `-0.0023`, inside a shuffled null), and **Stage B is `307` of `326` commits -- `94%` of output on
+  an axis carrying none of what it votes on.** ✅ **MY OPPOSING RESULT SURVIVED ITS BASELINE**
+  (nearest-5 purity `0.800` vs random-5 `0.600`; the `0.5` I first used was the WRONG baseline), and
+  **the synthesis is a MEASUREMENT: the 52 seeds are themselves CLUSTERED by polarity** (`+0.0232`
+  vs a permutation null `[-0.0076,+0.0087]`). 🔑 **STAGE B READS WHICH HAND-LABELLED CLUSTER A TARGET
+  LANDED BESIDE, NOT VALENCE OFF THE GRAPH** -- competence inherited from seed placement. **Antonymy
+  IS the valence-bearing relation (Stage A `0.8421`, n=19); filed as
+  `propagate_along_the_relation_that_carries_valence`.** *Bears on `Q116` AGAINST my own
+  recommendation.* `RECONCILING_TWO_SESSIONS_...`

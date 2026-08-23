@@ -4,40 +4,37 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T18:40:53Z  |  HEAD: 0ad5dafe4
+generated: 2026-08-23T18:46:20Z  |  HEAD: 78959d675
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30274 min ago <-- STALE
-  - orchestrator: 38604 min ago <-- STALE
-  - research: 18 min ago
-  - skunkworks: 41275 min ago <-- STALE
-  - testbed: 77849 min ago <-- STALE
+  - exp_dev: 30280 min ago <-- STALE
+  - orchestrator: 38609 min ago <-- STALE
+  - research: 23 min ago
+  - skunkworks: 41281 min ago <-- STALE
+  - testbed: 77855 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - cornerstone_results: 33 min ago, NO metrics.json yet (likely in-flight)
-  - substrate_director_kb_v1.staging.41920: 41 min ago, NO metrics.json yet (likely in-flight)
-  - exp_refuse_gate_on_readout_v1: 79 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1: 82 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1_selftest: 82 min ago, has metrics.json
+  - substrate_director_kb_v1.staging.8448: 1 min ago, NO metrics.json yet (likely in-flight)
+  - cornerstone_results: 39 min ago, NO metrics.json yet (likely in-flight)
+  - exp_refuse_gate_on_readout_v1: 85 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1: 87 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1_selftest: 87 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
-  - 🧠✅ **THE PRIORITY-1 FIX COVERS OUR VERB HOLE -- AND ITS BRIEF NEVER MENTIONED VERBS (08-23).**
+  - 🧠✅ **THE PRIORITY-1 FIX COVERS OUR VERB HOLE -- ITS BRIEF NEVER MENTIONED VERBS (08-23).**
     On **SimVerb-3500**, the benchmark our own verb zero was measured on: the sensorimotor norms read
-    **`+0.3107` `[+0.2822,+0.3390]`** vs null p95 `0.0304`, covering `3,487` of `3,500` (99.6%); **ours
-    reads `+0.0000`** covering `2,651`. ⚠️ *Different coverage -> NOT a subtraction: it licenses
-    "ours is ABSENT where this one is PRESENT", nothing more.* Replicates at `+0.3109` on SimLex's 222
-    verbs -- **two independent verb benchmarks to three decimals.** On SimLex, verbs sit just below
-    nouns (`+0.3109` vs `+0.3469`) while ours falls weak->nothing: **THE VERB HOLE IS OURS, NOT THE
-    WORLD'S.**
-    🧠 **A BRAIN PREDICTION THAT COULD HAVE FAILED, HELD: ACTION − PERCEPTUAL on verbs =
-    `+0.0651` `[+0.0306,+0.1005]`, CI-SEPARATED** (paired, 3,487 pairs) -- somatotopy (*kick* recruits
-    leg motor cortex) in an offline norm table. **At `n=222` the same test read `[-0.0989,+0.2031]` and
-    said NOTHING; the fix was POWER, not more careful wording.** 🔻 **SINGLE dissociation only** --
-    the noun half includes zero, so NEVER "motor for verbs, perceptual for nouns".
-    ✅ *Tracked witness: `verification/test_sensorimotor_covers_the_verb_hole.py`.*
+    **`+0.3107`** (null p95 `0.0304`, `3,487` of `3,500` covered); **ours reads `+0.0000`** covering
+    `2,651`. ⚠️ *Different coverage -> NOT a subtraction: "ours is ABSENT where this one is
+    PRESENT", nothing more.* Replicates at `+0.3109` on SimLex's 222 verbs -- **two independent verb
+    benchmarks to three decimals**; verbs sit just below nouns there while ours falls weak->nothing,
+    so **THE VERB HOLE IS OURS, NOT THE WORLD'S.** 🧠 **And a brain prediction that could have failed,
+    held: ACTION − PERCEPTUAL on verbs `+0.0651` `[+0.0306,+0.1005]`, CI-SEPARATED** (somatotopy).
+    **At `n=222` it read `[-0.0989,+0.2031]` and said NOTHING -- the fix was POWER, not caution.**
+    🔻 **SINGLE dissociation only**; the noun half includes zero. *Witness + note:
+    `test_sensorimotor_covers_the_verb_hole.py`.*
   - 🔍 **AND THE OTHER HALF OF THE PRIORITY-1 DIAGNOSIS IS NOW PRICED: STORAGE IS FINE,
     COMBINATION IS WHERE MEANING GOES (08-23).** *Measured with the sensorimotor channel precisely
     because it HAS signal to lose -- our own codes would confound "the format destroys it" with
@@ -49,12 +46,22 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
     SUFFICIENT** -- meaning must sit in a slot addressed on its own, not superposed with everything
     else, or the signal we just proved exists is thrown away one step later.
     *Witness: `verification/test_does_our_format_survive_the_meaning_signal.py`.*
+  - 🚫 **AND SPARSITY DOES NOT RESCUE IT -- THE FIX IS AN ADDRESSED SLOT, NOT A SPARSER VECTOR
+    (08-23).** Swept density `1%`->`100%` (swept, NOT adopted -- our pinned biological `0.2%` band was
+    once the WORST point in its own sweep). 🔻 **RETENTION says sparsity wins (`44%` vs `26%`);
+    ABSOLUTE says it is a wash: `+0.0912` vs `+0.0764`, and EVERY density collapses to ~`+0.08`.**
+    *The sparse code retains a larger share of a SMALLER signal -- its k=0 is `+0.1856` vs `+0.2893`.*
+    **A RATIO WHOSE DENOMINATOR YOU ALSO CHANGED IS NOT A RESULT** -- I built that control first, and
+    it is the only reason the conclusion is right; my first verdict judged on retention and said the
+    opposite. 🧠 **THE BRAIN READING: cortex does not superpose a word's meaning into one shared
+    vector at all -- it keeps separate populations and ADDRESSES them. Sparsity was never the
+    load-bearing half.** *Witness: `test_does_sparsity_fix_the_bundling_loss.py`.*
   - ✅ **Q115 EXECUTED (08-23): new cells are GATED, the backlog is INVENTORIED.** *Pre-commit refuses a new `experiments/*.py` that writes a result without the shared helper, added files only, controlled both ways.* 🔻 **COVERAGE `~21%` IS WITHDRAWN -- the truth is `71.2%`** (`3,495` of `4,908` re-runnable; `1,413` replay). **THE "1 BY 1" LIST: `425` assert a result, `135` of those are CITED by a steering doc -- those `135` are the real list.** *`tools/reproducibility_inventory.py` regenerates it.*
   - ✅ **THE FOUNDATION LOADS NOW, AND RESUMING DOES NOT HELP GROUNDING (08-23).** *A matched read goes `168` -> `9` new groundings and precision sits at its RANDOM floor in every arm; a permuted-label DECOY matches RESUMED exactly (`0/164`), so it is anchor geometry, not meaning.* **RETIRED PREDICTION: "degeneracy falls as vocabulary grows". Persistence is NECESSARY, NOT SUFFICIENT -- never bill it as a grounding fix.** *Pinned in the constructor, positive-controlled.*
   - 🖥️ **GUI TAB 9 "SUBSTRATE" -- the whole pipeline on one screen, from `data/substrate_progress.json`.** Every row shows when it was last re-checked and goes amber at 3 days / red at 7. 🔻 **THE DURABLE LESSON: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted -- a feature that ships into a process nobody restarts has not shipped.**
   - 📘 **ENUMERATE THE FIELDS THAT EXIST BEFORE CALLING ONE MISSING** -- one line, `sorted({k for r in rows for k in r})`. *Now in `CLAUDE.md` Evidence discipline 2 (loaded every session) with both incidents that earned it, and a DO-NOT-BUILD-A-TOOL note.*
   - 🔻 **RETRACTED SAME DAY -- "THE DURABILITY GATE IS HOLLOW" WAS MY OWN WRONG-FIELD ERROR.** *I measured `gate_decision_target` while `revival_criteria` sat filled on `41` of `42`. It reached a note, the plan, STATUS and a session-start check. Hook corrected and verified silent; the note carries the retraction at its top.*
-  - 🧪 **BOTH PATHS DRIVEN END TO END 08-23 -- write path healthy, read path cannot refuse.** *Now carried, and kept current, by **GUI tab 9 / `data/substrate_progress.json`** stages 3 and 5. Full run in the note.*
+  - 🧪 **BOTH PATHS DRIVEN END TO END 08-23 -- write path healthy, read path cannot refuse.** *Carried and kept current by GUI tab 9 stages 3 and 5.*
   - 🧠 **TWO SESSIONS, ONE ORGAN -- RECONCILED, AND IT CORRECTS ME TWICE (08-23).** A concurrent
     session split the propagator's `83%` abstention: **`6` points are REACH, `78` are DISCRIMINATION**
     -- 🔻 **I called it coverage-limited twice and the repair is different.** Cause, with a null AND
@@ -69,7 +76,7 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
     `propagate_along_the_relation_that_carries_valence`.** *Bears on `Q116` AGAINST my own
     recommendation.* `RECONCILING_TWO_SESSIONS_...`
   - 🔧 **COORDINATION FIXED 08-23:** *two sessions worked one organ unaware; the claim queue could only claim PRE-EXISTING rows, so starting new work was unannounceable. `dispatch_queue.py announce` adds-and-claims in one step.*
-  - ✅ **LANDING CODE AND RUNNING ITS TESTS IS NOT THE SAME ACT (08-22/23).** *I committed a brief twice while its cert was FAILING -- a piped pytest's exit code is `tail`'s.* **Now enforced by a pre-commit hook, positive-controlled, so this cannot recur by memory.**
+  - ✅ **LANDING CODE AND RUNNING ITS TESTS IS NOT THE SAME ACT.** *A piped pytest's exit code is `tail`'s -- I committed a brief twice on a red cert. **Now enforced by a pre-commit hook**, so it cannot recur by memory.*
   - ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
 
 ## 3. How we are doing (C1-C4, notes/SUBSTRATE_STRATEGY.md PART 1)
@@ -80,11 +87,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- nothing measurable moved since the last snapshot
+- 2 new commit(s) since last snapshot (HEAD 0ad5dafe4 -> 78959d675)
 
 ## 5. What is stuck (blocked / pending / no owner)
-- 🧠 **A BRAIN PREDICTION THAT COULD HAVE FAILED, HELD: ACTION − PERCEPTUAL on verbs =
+- held: ACTION − PERCEPTUAL on verbs `+0.0651` `[+0.0306,+0.1005]`, CI-SEPARATED** (somatotopy).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8176, "generated_at": "2026-08-23T18:40:53Z", "head_commit": "0ad5dafe4f248d81a3dd4e6f1a7777c00facff4e", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8176, "generated_at": "2026-08-23T18:46:20Z", "head_commit": "78959d67544e9703eb53f001cb6109dc5ff6f468", "step_status": {}}
 -->
