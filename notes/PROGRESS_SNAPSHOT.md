@@ -4,23 +4,23 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T19:53:01Z  |  HEAD: ed4aecdc0
+generated: 2026-08-23T19:53:22Z  |  HEAD: 92aedd2e6
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30346 min ago <-- STALE
+  - exp_dev: 30347 min ago <-- STALE
   - orchestrator: 38676 min ago <-- STALE
-  - research: 2 min ago
-  - skunkworks: 41347 min ago <-- STALE
-  - testbed: 77921 min ago <-- STALE
+  - research: 3 min ago
+  - skunkworks: 41348 min ago <-- STALE
+  - testbed: 77922 min ago <-- STALE
 data/ directories touched in the last 180 min:
   - exp_refuse_gate_on_readout_v2_membership: 3 min ago, has metrics.json
   - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 19 min ago, has metrics.json
-  - substrate_director_kb_v1.staging.28492: 22 min ago, NO metrics.json yet (likely in-flight)
-  - cornerstone_results: 105 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.28492: 23 min ago, NO metrics.json yet (likely in-flight)
+  - cornerstone_results: 106 min ago, NO metrics.json yet (likely in-flight)
   - exp_refuse_gate_on_readout_v1: 152 min ago, has metrics.json
   - exp_grow_by_reading_trivial_floor_v1: 154 min ago, has metrics.json
   - exp_grow_by_reading_trivial_floor_v1_selftest: 154 min ago, has metrics.json
@@ -92,11 +92,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 1 new commit(s) since last snapshot (HEAD 60a0e13be -> ed4aecdc0)
+- 1 new commit(s) since last snapshot (HEAD ed4aecdc0 -> 92aedd2e6)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - (none found)
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8178, "generated_at": "2026-08-23T19:53:01Z", "head_commit": "ed4aecdc0210182a9c52f5a79c845ff014e64bc8", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8178, "generated_at": "2026-08-23T19:53:22Z", "head_commit": "92aedd2e6a62d517879a4725a6ccf014899950a3", "step_status": {}}
 -->

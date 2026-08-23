@@ -7022,3 +7022,13 @@ fix" -- our UPOS tagger shows recovery enriched for CONTENT WORDS (VERB `2.58x`,
 > ## 🌙 **THE 08-21 PASS -- ALL BAG-OF-WORDS; KEPT AS FLOOR, NOT DIRECTION**
 > **VERBS `+0.0000` (SimVerb 2,651 pairs, null `0.0372`) vs NOUNS `0.1310` clearing `0.0843` -- weak on nouns, ABSENT on verbs.** **The floor ladder: raw counting `0.0885` | OURS `0.1071` | idf-counting **`0.1835`** | supplied `0.2876` -- a plain counting baseline beats us and SUPPLIED beats LEARNED `2.69x`.** *Levers closed (sentences saturate ~10, dimensions buy identification not meaning); drop-ubiquitous and two weighting schemes WITHDRAWN, neither excluded zero. Atom names + the `9` prior-work catches are in the note.*
 >
+
+
+## FOLDED FROM STATUS.md 2026-08-23 (twenty-third pass, replayed-checkpoint entry)
+
+### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; ENFORCED IN CODE**
+**`399`/`7,868` landed cells (`5.1%`) replay on re-run -- same verdict, `elapsed 0.0s`, no work done.**
+`tools/reproduction_check.py` makes the unsafe reading unrepresentable (no `__bool__`; no before-snapshot ->
+`INDETERMINATE`). 🚫 *Casts doubt on NO landed number -- only on whether re-running one verifies it.*
+📎 `--census` recomputes it; brief `notes/problems/harness_cannot_recompute/`.
+

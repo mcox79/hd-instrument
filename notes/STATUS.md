@@ -61,11 +61,10 @@ failing shape -- all bind `chunk=400` and loop, delivering `81%`. Do NOT quote `
 ✅ *Guarded `e335fa220` (`short_read` on `ReadResult`, survives `to_dict()`); mechanism in the docstring `37d628d95`.*
 
 ### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; ENFORCED IN CODE**
-**`399`/`7,868` landed cells (`5.1%`) replay on re-run -- same verdict, `elapsed 0.0s`, no work done.**
-`tools/reproduction_check.py` makes the unsafe reading unrepresentable (no `__bool__`; no before-snapshot ->
-`INDETERMINATE`). 🚫 *Casts doubt on NO landed number -- only on whether re-running one verifies it.*
-📎 `--census` recomputes it; brief `notes/problems/harness_cannot_recompute/`.
-
+`tools/reproduction_check.py` makes the unsafe reading unrepresentable (no `__bool__`; no
+before-snapshot -> `INDETERMINATE`). 🚫 *Casts doubt on NO landed number -- only on whether
+re-running one verifies it.* ➡️ **Superseded in scope by the Q115 entry: coverage is `71.2%`, the
+backlog is inventoried, and the triage found one row worth acting on.**
 ### 2026-08-22 -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS; THE LOOKUP CANNOT INFLECT**
 `grounded_similarity.py` is a raw-string lookup: we hold `country`, miss `countries`. **TOKEN coverage
 `0.6035 -> 0.7350` via our own `normalize_lemma` (+13.2 pts, ZERO new norms)** -- so *"+14,704 words to
