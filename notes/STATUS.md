@@ -142,16 +142,19 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 
 ## WHAT IS RUNNING
 
-- 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the
-  10k view, writes briefs and INTEGRATES; separate sessions solve one bounded problem at a time.
-  **TWELVE briefs now, not five. THE ORDER LIVES IN EACH `notes/problems/<slug>/PROBLEM.md`
-  FRONTMATTER (`priority:`), WHICH IS WHAT THE GUI RENDERS -- `README.md` describes the PROTOCOL and
-  does NOT hold the order. ENUMERATE (`ls notes/problems/`), NEVER MIRROR THE LIST** -- a mirrored
-  list is what went stale here and in the plan. **FIVE SOLVED:** `stored_terms_are_stems`,
-  `eval_bank_too_small`, `flat_store_destroys_the_code`, `harness_cannot_recompute`,
-  `cortical_read_has_no_scored_path` -- **all five REVIEWED, feedback at the TOP of each brief and a
-  grade in `review:`, per the owner's instruction.** Strategy session was DISQUALIFIED from
-  `eval_bank_too_small` (it had read the per-item predictions). `tools/problem_ledger.py`.
+- 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
+- 🚨 **THE SHELVE HALF OF THE DURABILITY GATE IS HOLLOW (08-23):** the gate says *SHELVE with
+  EXPLICIT REVIVAL CRITERIA*, and of `42` `SHELVE` rows **`24` have a COMPLETELY EMPTY
+  `gate_decision_target`** -- blank field, no detector involved. *(13 more carry explanatory text
+  with no forward-looking language -- keyword-based and SOFT; only `5` name a way back. **Do not
+  quote "37 abandoned"; the unambiguous number is `24`.**)* 🔑 **A shelve without a trigger is
+  abandonment that LOOKS LIKE THE GATE WAS SATISFIED.** *Already paid for: the row that exposed it
+  was registered only "after the owner had to recall this work from memory twice" -- an 11x lift
+  (`0.0262`->`0.2930`) recovered by memory, not by the mechanism.* **The set includes organs on the
+  goal-bearing line.** ✅ **MECHANICAL HALF DONE (`60d9e0eba`): the session-start hook now REPORTS
+  the count every session -- reports, does NOT fail, because a failing gate would be bulk-filled
+  with placeholders that pass the check and hide it.** 🔻 **The 24 per-capability judgements are NOT
+  done and I will not fake them.** `THE_SHELVE_HALF_OF_THE_DURABILITY_GATE_IS_HOLLOW_...`
 - 🧪 **BOTH PATHS DRIVEN END TO END 08-23, AND THE SUBSTRATE CAME OUT WELL.** *Same technique that
   found four tooling defects: USE it, do not test it.*
   ✅ **WRITE PATH IS HEALTHY.** Gate accepts `68` of `555` = **`12.3%`** at 1,150 sentences, so it
@@ -200,9 +203,7 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   -- ahead of every defect above.** ⚠️ *`3` of `5` reverify commands re-ran a cell IN PLACE; I
   tripped one and re-stamped a landed record (restored). Fixed; re-audited `0 of 5`.*
   `INTEGRATION_BY_USING_IT_FOUND_FOUR_DEFECTS_...`
-- ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-23:** the blind sheet was drawn from a STALE  foundation (`v2_qualityfix` while `v3/v4/v5` exist unmarked; the sampler has no notion of a CURRENT  foundation). **STANDS: the grounding loop stores ~`8%` stemmer output and is NOT known to be fixed.**  `THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...`
 - ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
-- ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-22 (search by name):** the OOV-36 organ is  COVERAGE-limited, not discrimination-limited (`20` of `22` errors are NON-answers; `14/16 = 0.8750`  when it commits), and its landed `HARD_FAIL` is STALE -- measured where the cascade fired `0 of 36`,  re-read today it fires `10 of 36`. **Verdict unchanged, diagnosis changed.** Guard:  `tools/score_with_abstention.py`, 6/6. `THE_ORGAN_DOES_NOT_ANSWER_WRONG_...`,  `THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...`
 - 📏 **SIZE RULE (earned): when this file fills, EVICT to `STATUS_LESSONS.md` with a stub -- do NOT  shave. It was once `55,070` B against a `28,672` cap. `STATUS_SPEC.md` sec 3/6/7.**
 
 ## DO NOT REDO -- NEVER-TRIM -- stubs; detail in LESSONS

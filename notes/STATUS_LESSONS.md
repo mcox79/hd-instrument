@@ -6644,3 +6644,18 @@ do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_..
   problem I was mid-way through FIXING and routed around it.** *Worse, because neither side can see
   it.*
 
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (seventh pass)
+
+- 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the
+  10k view, writes briefs and INTEGRATES; separate sessions solve one bounded problem at a time.
+  **TWELVE briefs now, not five. THE ORDER LIVES IN EACH `notes/problems/<slug>/PROBLEM.md`
+  FRONTMATTER (`priority:`), WHICH IS WHAT THE GUI RENDERS -- `README.md` describes the PROTOCOL and
+  does NOT hold the order. ENUMERATE (`ls notes/problems/`), NEVER MIRROR THE LIST** -- a mirrored
+  list is what went stale here and in the plan. **FIVE SOLVED:** `stored_terms_are_stems`,
+  `eval_bank_too_small`, `flat_store_destroys_the_code`, `harness_cannot_recompute`,
+  `cortical_read_has_no_scored_path` -- **all five REVIEWED, feedback at the TOP of each brief and a
+  grade in `review:`, per the owner's instruction.** Strategy session was DISQUALIFIED from
+  `eval_bank_too_small` (it had read the per-item predictions). `tools/problem_ledger.py`.
+
