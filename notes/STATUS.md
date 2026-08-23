@@ -54,17 +54,17 @@ started 13:15, BEFORE that commit -- **it must be RESTARTED to show them.** Not 
 📎 `RANDOM_CREDIT_BEATS_THE_REAL_MECHANISM_...`; briefs in `notes/problems/`.
 
 ### 2026-08-22 -- 🚨 **`read(n_sentences=N)` IS A CEILING; `max_patches` (default 4) BINDS FIRST**
-`read(3000/6000/10000)` all returned `1,060`: `substrate.py:548` breaks at `patch_i >= max_patches` -- ONE LAP,
-budget discarded, nothing runs out of text. **Raise `max_patches`, not `n_sentences`.** Successive calls decay
-(`1,060->240->220`) via cached forager rho, never reset. 🔻 *DEFLATED BY ITS OWN ENUMERATION: no cell uses the
-failing shape -- all bind `chunk=400` and loop, delivering `81%`. Do NOT quote `13%` as our exposure.*
-✅ *Guarded `e335fa220` (`short_read` on `ReadResult`, survives `to_dict()`); mechanism in the docstring `37d628d95`.*
+`read(3000/6000/10000)` all returned `1,060` -- ONE LAP, budget discarded. **Raise `max_patches`, not
+`n_sentences`.** 🔻 *DEFLATED BY ITS OWN ENUMERATION: no cell uses the failing shape -- all bind
+`chunk=400` and loop, delivering `81%`. Do NOT quote `13%` as our exposure.* ✅ *Guarded in code
+(`short_read` on `ReadResult`, survives `to_dict()`).*
 
 ### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; ENFORCED IN CODE**
 `tools/reproduction_check.py` makes the unsafe reading unrepresentable (no `__bool__`; no
 before-snapshot -> `INDETERMINATE`). 🚫 *Casts doubt on NO landed number -- only on whether
 re-running one verifies it.* ➡️ **Superseded in scope by the Q115 entry: coverage is `71.2%`, the
 backlog is inventoried, and the triage found one row worth acting on.**
+
 ### 2026-08-22 -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS; THE LOOKUP CANNOT INFLECT**
 `grounded_similarity.py` is a raw-string lookup: we hold `country`, miss `countries`. **TOKEN coverage
 `0.6035 -> 0.7350` via our own `normalize_lemma` (+13.2 pts, ZERO new norms)** -- so *"+14,704 words to

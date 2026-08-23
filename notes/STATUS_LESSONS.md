@@ -7032,3 +7032,14 @@ fix" -- our UPOS tagger shows recovery enriched for CONTENT WORDS (VERB `2.58x`,
 `INDETERMINATE`). 🚫 *Casts doubt on NO landed number -- only on whether re-running one verifies it.*
 📎 `--census` recomputes it; brief `notes/problems/harness_cannot_recompute/`.
 
+
+
+## FOLDED FROM STATUS.md 2026-08-23 (twenty-fourth pass, max_patches entry)
+
+### 2026-08-22 -- 🚨 **`read(n_sentences=N)` IS A CEILING; `max_patches` (default 4) BINDS FIRST**
+`read(3000/6000/10000)` all returned `1,060`: `substrate.py:548` breaks at `patch_i >= max_patches` -- ONE LAP,
+budget discarded, nothing runs out of text. **Raise `max_patches`, not `n_sentences`.** Successive calls decay
+(`1,060->240->220`) via cached forager rho, never reset. 🔻 *DEFLATED BY ITS OWN ENUMERATION: no cell uses the
+failing shape -- all bind `chunk=400` and loop, delivering `81%`. Do NOT quote `13%` as our exposure.*
+✅ *Guarded `e335fa220` (`short_read` on `ReadResult`, survives `to_dict()`); mechanism in the docstring `37d628d95`.*
+
