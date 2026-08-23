@@ -55,6 +55,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import os
 import sys
 import time
@@ -69,6 +70,14 @@ LOCK_RETRY_SECS = 0.15
 LOCK_TIMEOUT_SECS = 10.0
 
 CATEGORIES = {
+    # ANNOUNCED WORK -- added 2026-08-23 because the queue could not express the case that matters.
+    # On 2026-08-22/23 two sessions worked the SAME organ for hours and neither knew. The
+    # concurrent-work detector in before_you_start.py scans COMMITTED history, so it can only see
+    # work that is already finished; the claim queue could only claim rows that already existed, and
+    # `add` was not exposed on the CLI at all. So there was no way to say "I am starting X" -- which
+    # is exactly why neither session said it. The cost was not duplicated work: the other session hit
+    # the replay problem I was mid-way through fixing and routed around it with a workaround.
+    "announced",
     "metrics-triage", "atom-triage", "registry-reconcile", "organ-untested",
     "organ-missing", "ledger-dangling", "litscan-dedup", "status-open-thread",
 }
@@ -235,6 +244,29 @@ def mark_done(path: Path, item_id: str) -> dict:
                 save_items(path, items)
                 return it
         raise KeyError(f"no such item: {item_id}")
+
+
+def announce(path: Path, what: str, by: str) -> dict:
+    """Register work you are STARTING NOW, and claim it, in one call.
+
+    THE OPERATION THE QUEUE DID NOT HAVE, AND ITS ABSENCE HAS A MEASURED COST. `claim` only works on
+    a row that already exists and `add` was never exposed on the CLI, so a session beginning
+    something new had no way to say so. On 2026-08-22/23 two sessions spent hours on the same organ
+    without knowing; the other one hit the checkpoint-replay problem this session was mid-way through
+    fixing and worked around it instead.
+
+    Deliberately cheap: one command, free-text description, no id to look up. A coordination step
+    that costs more than the collision it prevents will not be used -- which is the actual reason the
+    existing mechanism sat idle.
+    """
+    slug = re.sub(r"[^a-z0-9]+", "-", what.lower()).strip("-")[:48] or "work"
+    item_id = "ann-%s-%s" % (_now().replace(":", "").replace("-", ""), slug)
+    it = _mk(item_id, "announced", what[:200], what, "M", "announced by %s" % by)
+    with _Lock(path):
+        items = load_items(path)
+        items.append(it)
+        save_items(path, items)
+    return claim(path, item_id, by)
 
 
 def stats(path: Path) -> dict:
@@ -580,6 +612,10 @@ def main(argv: list[str] | None = None) -> int:
     p_claim.add_argument("id")
     p_claim.add_argument("--by", required=True)
 
+    p_ann = sub.add_parser("announce", help="register work you are STARTING NOW (add + claim)")
+    p_ann.add_argument("what", help="plain description of what you are about to work on")
+    p_ann.add_argument("--by", required=True, help="session identifier")
+
     p_release = sub.add_parser("release")
     p_release.add_argument("id")
 
@@ -614,6 +650,12 @@ def main(argv: list[str] | None = None) -> int:
             for it in items:
                 _print_item_line(it)
             print(f"-- {len(items)} item(s)")
+        return 0
+
+    if args.cmd == "announce":
+        it = announce(Path(args.queue), args.what, args.by)
+        print("[queue] announced + claimed %s by %s" % (it["id"], args.by))
+        print("        others running before_you_start.py will now see this as IN PROGRESS.")
         return 0
 
     if args.cmd == "claim":

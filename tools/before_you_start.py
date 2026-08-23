@@ -261,7 +261,7 @@ def concurrent_work(terms):
             print("     >> [%s] %s" % (c.get("claimed_by"), str(c.get("title"))[:70]))
         if hit:
             print("  ^^ TALK TO THAT OWNER BEFORE STARTING. If it is you, carry on.")
-    print("  CLAIM YOURS:  python tools/dispatch_queue.py claim <id> --by <session>")
+    print("  ANNOUNCE YOURS:  python tools/dispatch_queue.py announce '<what you are starting>' --by <session>")
 
 
 def _self_test():
