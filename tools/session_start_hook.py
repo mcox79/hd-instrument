@@ -703,9 +703,26 @@ def board_report(board_path: Path | None = None) -> str:
     except Exception as exc:
         return f"[board] ERROR reading the board ({type(exc).__name__}: {exc})"
 
+    # 🔻 ANSWERED -> OPEN IS A TRANSITION WITH NO LEGITIMATE CAUSE, AND IT HAPPENED SILENTLY.
+    # The owner answered Q115 on 2026-08-23; by the next morning the answer cell was empty and the
+    # question was open again. Nothing reported it. Surfaced FIRST and unconditionally, because a
+    # lost owner decision outranks every other line this hook prints.
+    try:
+        regressed = board.regressed_questions(Path(bp)) if hasattr(board, "regressed_questions") else []
+    except Exception:
+        regressed = []
+    warn = []
+    if regressed:
+        warn = [f"[board] \U0001f6a8 {len(regressed)} QUESTION(S) WENT FROM ANSWERED BACK TO OPEN: "
+                f"{', '.join(regressed)}",
+                "    THE OWNER'S ANSWER HAS BEEN LOST. This transition has no legitimate cause.",
+                "    Recover it from notes/BOARD_ANSWERED_ARCHIVE.md or from the commit that acted",
+                "    on it, restore it, and COMMIT the board before doing anything else."]
+
     if not rows:
-        return "[board] 0 open questions on the board"
-    lines = [f"[board] {len(rows)} OPEN QUESTION(S) ON THE BOARD <-- the owner has not answered these",
+        return '\n'.join(warn + ["[board] 0 open questions on the board"])
+    lines = warn + [
+             f"[board] {len(rows)} OPEN QUESTION(S) ON THE BOARD <-- the owner has not answered these",
              "    they are waiting on the OWNER, not on you: do not block on them, work around them"]
     for r in rows[:6]:
         lines.append(f"    {r.get('id', '?')}: {str(r.get('question', ''))[:110]}")

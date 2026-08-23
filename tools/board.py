@@ -326,10 +326,23 @@ def render_board(questions: list[dict], answered: list[dict],
     out.append(H_ANSWERED)
     out.append("")
     if answered:
+        # 🔻 TRUNCATION IS PERMANENT DELETION UNLESS THE DROPPED ROWS GO SOMEWHERE (fixed 2026-08-23).
+        # This wrote `answered[-40:]` and honestly said "showing the last 40 of 41" -- but the NEXT
+        # `load()` sees only the 40 that were written, so the 41st is gone from the only record that
+        # ever held it. **Q75 was already lost this way**, found by counting the ids the parser
+        # returns against the ids in the file. These are the owner's DECISIONS; the board is not a
+        # log we can roll, it is the record of what was settled and why.
+        #
+        # The file still shows the last 40 -- that cap exists so the document stays readable, and
+        # keeping it is right. What changes is that the overflow is APPENDED to an archive first,
+        # so "not shown here" stops meaning "destroyed".
+        # The archiving itself happens in save(), which is the function that knows the path. This
+        # comment stays here because THIS is the line that drops them.
         out.extend(render_table(A_HEADERS, answered[-40:], A_FIELDS))
         if len(answered) > 40:
             out.append("")
-            out.append(f"_(showing the last 40 of {len(answered)} answered)_")
+            out.append(f"_(showing the last 40 of {len(answered)} answered; the older ones are "
+                       f"kept in `notes/BOARD_ANSWERED_ARCHIVE.md`, not deleted)_")
     else:
         out.extend(render_table(A_HEADERS, [], A_FIELDS))
     out.append("")
@@ -397,10 +410,74 @@ def _migrate_settled(questions: list[dict], answered: list[dict]) -> tuple[list[
     return still_open, answered
 
 
+ANSWERED_SHOWN = 40
+ARCHIVE_NAME = "BOARD_ANSWERED_ARCHIVE.md"
+
+
+def _archive_answered(board_path: Path, overflow: list[dict]) -> int:
+    """Append answered rows that will not fit in the board to a permanent archive.
+
+    WHY THIS EXISTS: `render_board` writes only the last 40 answered rows, and the next `load()`
+    parses only what was written -- so a row pushed past 40 was DELETED from the only record that
+    ever held it. **Q75 had already been lost this way**, found by comparing the ids the parser
+    returns against the ids in the file.
+
+    These are the owner's DECISIONS. The 40-row cap is right -- the board has to stay readable --
+    but "not shown here" must not mean "destroyed". Appends only; never rewrites, never dedupes
+    destructively, and an id already archived is skipped rather than duplicated.
+
+    Returns the number of rows newly archived. Never raises: failing to archive must not block the
+    board from saving, but it MUST say so.
+    """
+    if not overflow:
+        return 0
+    path = board_path.parent / ARCHIVE_NAME
+    try:
+        existing = path.read_text(encoding="utf-8") if path.exists() else ""
+    except OSError:
+        existing = ""
+    if not existing:
+        existing = ("# ANSWERED QUESTIONS -- ARCHIVE\n\n"
+                    "Rows aged out of `notes/BOARD.md`, which shows only the most recent "
+                    f"{ANSWERED_SHOWN}. **Nothing here was deleted from the board by mistake; it was "
+                    "moved.** Append-only, oldest first.\n\n"
+                    "*Created 2026-08-23, after `Q75` was found to have been silently dropped.*\n")
+        try:
+            path.write_text(existing, encoding="utf-8", newline="\n")
+        except OSError:
+            return 0
+    lines, n = [], 0
+    for row in overflow:
+        rid = (row.get("id") or "").strip()
+        if rid and ("| %s |" % rid) in existing:
+            continue                       # already archived; appending again would duplicate
+        lines.append("")
+        lines.append("| %s | %s |" % (rid, (row.get("resolved") or "").strip()))
+        lines.append("")
+        lines.append("**Q:** %s" % (row.get("question") or "").strip())
+        lines.append("")
+        lines.append("**MY RECOMMENDATION:** %s" % (row.get("rec") or "").strip())
+        lines.append("")
+        lines.append("**THE OWNER'S ANSWER:** %s" % (row.get("answer") or "").strip())
+        lines.append("")
+        n += 1
+    if n:
+        try:
+            with path.open("a", encoding="utf-8", newline="\n") as fh:
+                fh.write("\n".join(lines) + "\n")
+        except OSError:
+            return 0
+    return n
+
+
 def save(board_path: Path, questions: list[dict], answered: list[dict],
          extra: list[tuple[str, list[str]]], status_path: Path = DEFAULT_STATUS) -> None:
     """Atomic rewrite-in-place: temp file + os.replace (same pattern as dispatch_queue.save_items)."""
     board_path.parent.mkdir(parents=True, exist_ok=True)
+    # ARCHIVE BEFORE WRITING, never after: if the write succeeds and the archive then fails, the
+    # rows are already gone. Ordering it this way makes the failure mode a duplicate, not a loss.
+    if len(answered) > ANSWERED_SHOWN:
+        _archive_answered(board_path, answered[:-ANSWERED_SHOWN])
     text = render_board(questions, answered, extra, status_path)
     tmp = board_path.with_suffix(board_path.suffix + ".tmp")
     with tmp.open("w", encoding="utf-8", newline="\n") as fh:
@@ -471,6 +548,37 @@ def resolve(item_id: str, answer: str | None, board_path: Path = DEFAULT_BOARD,
         if (row.get("id") or "").strip().casefold() == target:
             raise KeyError(f"{item_id} is already answered (resolved {row.get('resolved')!r})")
     raise KeyError(f"no such question: {item_id}")
+
+
+def regressed_questions(board_path: Path = DEFAULT_BOARD) -> list[str]:
+    """Ids that are OPEN now but were answered before. This transition must never happen.
+
+    🔻 WRITTEN BECAUSE IT DID HAPPEN AND NOTHING NOTICED (2026-08-23). The owner answered `Q115` at
+    `17:02`; I read that answer, acted on it, and shipped both halves of what it asked for. By the
+    next morning the answer cell was EMPTY and the question was showing as open again. The answer
+    had never been committed -- the owner types into the working file -- so the only surviving copy
+    was the verbatim quote in my own commit message.
+
+    **I could not identify what emptied it, and I am not going to guess.** What I can do is make
+    the next occurrence impossible to miss: answered -> open is a transition with no legitimate
+    cause, and it is detectable in one set-difference against the archive. A guard for a cause you
+    cannot name is still a guard, and this one would have caught the incident that motivated it.
+
+    Read-only, never raises -- it is called from the session-start path.
+    """
+    try:
+        q, _a, _e = load(board_path)
+    except Exception:
+        return []
+    open_ids = {(r.get("id") or "").strip() for r in q if not is_settled(r)}
+    if not open_ids:
+        return []
+    path = board_path.parent / ARCHIVE_NAME
+    try:
+        archived = path.read_text(encoding="utf-8") if path.exists() else ""
+    except OSError:
+        archived = ""
+    return sorted(i for i in open_ids if i and ("| %s |" % i) in archived)
 
 
 def open_questions(board_path: Path = DEFAULT_BOARD) -> list[dict]:
