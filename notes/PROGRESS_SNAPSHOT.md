@@ -4,27 +4,25 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T20:14:50Z  |  HEAD: 6482ce70d
+generated: 2026-08-23T20:33:57Z  |  HEAD: 822e38c63
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30368 min ago <-- STALE
-  - orchestrator: 38698 min ago <-- STALE
-  - research: 1 min ago
-  - skunkworks: 41369 min ago <-- STALE
-  - testbed: 77943 min ago <-- STALE
+  - exp_dev: 30387 min ago <-- STALE
+  - orchestrator: 38717 min ago <-- STALE
+  - research: 4 min ago
+  - skunkworks: 41388 min ago <-- STALE
+  - testbed: 77962 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - exp_reader_meaning_channel_combined_v1: 9 min ago, NO metrics.json yet (likely in-flight)
-  - exp_refuse_gate_on_readout_v2_membership: 25 min ago, has metrics.json
-  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 41 min ago, has metrics.json
-  - substrate_director_kb_v1.staging.28492: 44 min ago, NO metrics.json yet (likely in-flight)
-  - cornerstone_results: 127 min ago, NO metrics.json yet (likely in-flight)
-  - exp_refuse_gate_on_readout_v1: 173 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1: 176 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1_selftest: 176 min ago, has metrics.json
+  - exp_reader_meaning_channel_multispoke_v1: 0 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.33536: 7 min ago, NO metrics.json yet (likely in-flight)
+  - exp_reader_meaning_channel_combined_v1: 28 min ago, NO metrics.json yet (likely in-flight)
+  - exp_refuse_gate_on_readout_v2_membership: 44 min ago, has metrics.json
+  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 60 min ago, has metrics.json
+  - cornerstone_results: 146 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - 🧠 **THE MEANING CHANNEL: SEVEN MEASUREMENTS 08-23, ALL IN
@@ -41,6 +39,13 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
     📐 **`8` dims/slot is the practical floor** (`+0.1537`, over half full resolution); below that
     both schemes are losing. ⚠️ **SCOPE: ATTRIBUTE segregation, NOT per-item** -- addressing is free
     only when slots are TYPED. `32` attribute streams fit; per-item gives `2.56` dims at 100 items.
+    🎯 **AND THE LIVE COST IS NOW MEASURED, NOT SWEPT: `context_vector` is a
+    "bag-of-content-words bipolar bundle", so `k` = CONTENT WORDS/SENTENCE = median `6` over 3,998
+    real sentences. At `k=6` the superposed vector retains `37.6%` of baseline (`+0.1095` vs
+    `+0.2914`) -- **the reader throws away ~`62%` of the meaning signal PER SENTENCE, and a 42-dim
+    isolated slot would carry MORE than the full 256 shared (`+0.2343`).**
+    ⚠️ *Separate from the known `sign()` issue (`+0.0245`-`+0.0267` for dropping it) -- this is the
+    BUNDLING, not the normalisation. Both are live.*
     ➡️ **THE BUILD LINE: meaning gets its OWN ATTRIBUTE-TYPED SLOT, separate from whatever else the
     reading loop accumulates. NOT a slot per word -- I nearly wrote that.**
     🧠 *Brain result: somatotopy holds at power (ACTION − PERCEPTUAL on verbs `+0.0651`
@@ -82,11 +87,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- nothing measurable moved since the last snapshot
+- 2 new commit(s) since last snapshot (HEAD 6482ce70d -> 822e38c63)
+- data/ directory count: 8179 -> 8180 (+1)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8179, "generated_at": "2026-08-23T20:14:50Z", "head_commit": "6482ce70dc139cfd2458a3885c841711a1ee1b81", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8180, "generated_at": "2026-08-23T20:33:57Z", "head_commit": "822e38c639b17c60fee6dfde93e93c73c6a2d3d1", "step_status": {}}
 -->

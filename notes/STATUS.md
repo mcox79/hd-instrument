@@ -142,6 +142,13 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   📐 **`8` dims/slot is the practical floor** (`+0.1537`, over half full resolution); below that
   both schemes are losing. ⚠️ **SCOPE: ATTRIBUTE segregation, NOT per-item** -- addressing is free
   only when slots are TYPED. `32` attribute streams fit; per-item gives `2.56` dims at 100 items.
+  🎯 **AND THE LIVE COST IS NOW MEASURED, NOT SWEPT: `context_vector` is a
+  "bag-of-content-words bipolar bundle", so `k` = CONTENT WORDS/SENTENCE = median `6` over 3,998
+  real sentences. At `k=6` the superposed vector retains `37.6%` of baseline (`+0.1095` vs
+  `+0.2914`) -- **the reader throws away ~`62%` of the meaning signal PER SENTENCE, and a 42-dim
+  isolated slot would carry MORE than the full 256 shared (`+0.2343`).**
+  ⚠️ *Separate from the known `sign()` issue (`+0.0245`-`+0.0267` for dropping it) -- this is the
+  BUNDLING, not the normalisation. Both are live.*
   ➡️ **THE BUILD LINE: meaning gets its OWN ATTRIBUTE-TYPED SLOT, separate from whatever else the
   reading loop accumulates. NOT a slot per word -- I nearly wrote that.**
   🧠 *Brain result: somatotopy holds at power (ACTION − PERCEPTUAL on verbs `+0.0651`

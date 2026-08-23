@@ -314,6 +314,31 @@ review_text:
 > practical floor, which is far more than we have. The constraint is not tight -- we are simply not
 > using it.*
 >
+> #### 🎯 **AND HERE IS WHAT IT COSTS US RIGHT NOW -- THE `k` MEASURED ON THE LIVE READER**
+> Everything above is a sweep over abstract `k`. **`context_vector` is the reader's actual bundler
+> and its own docstring says what it does: a "bag-of-content-words bipolar bundle",
+> `sign(sum of its content words' vectors)`. So `k` = CONTENT WORDS PER SENTENCE.**
+>
+> **Measured on 3,998 real corpus sentences: mean `5.6`, median `6`, p75 `7`.** Re-running the
+> comparison at exactly those `k`:
+>
+> | k | slot | SUPERPOSED | SEGREGATED | superposed retains |
+> |---|---|---|---|---|
+> | 1 | 256d | `+0.2914` | `+0.2983` | 100% *(baseline)* |
+> | 5 | 51d | `+0.1127` | `+0.2625` | `38.7%` |
+> | **6 (median sentence)** | **42d** | **`+0.1095`** | **`+0.2343`** | 🔻 **`37.6%`** |
+> | 7 | 36d | `+0.0916` | `+0.2512` | `31.4%` |
+>
+> 🚨 **AT THE `k` THE READER ACTUALLY OPERATES AT, THE BAG-OF-CONTENT-WORDS BUNDLE THROWS AWAY ABOUT
+> `62%` OF THE MEANING SIGNAL** -- and **a 42-dimensional isolated slot would carry MORE than the
+> full 256 shared** (`+0.2343` vs `+0.1095`, better than double).
+>
+> ➡️ **THIS IS NO LONGER A SWEEP, IT IS A COST THE RUNNING SYSTEM IS PAYING PER SENTENCE.** *And it
+> compounds with the channel problem: the reader is losing ~62% of a signal it was not getting in the
+> first place.*
+> ⚠️ *Separate from the known `sign()` issue -- that docstring already records `+0.0245`-`+0.0267`
+> for dropping the terminal `sign`. **This is the BUNDLING, not the normalisation.*** Both are live.
+>
 > **REVERIFY:** `.venv/Scripts/python.exe verification/test_segregated_beats_superposed_at_equal_budget.py`
 
 > **REVERIFY (tracked, runs in ~40s):**

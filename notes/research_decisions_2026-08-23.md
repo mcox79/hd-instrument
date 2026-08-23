@@ -1,0 +1,1 @@
+2026-08-23: channel_combination_reliability_weighting -> notes/research_channel_combination_reliability_weighting_2026-08-23.md -- reliability-weighting and hub-and-spoke weighting are both UNPINNED for semantic channels (pinned only at low-level sensory scale / connectivity topology); concreteness-gated blend is the top-ranked unfitted arm to test next.
