@@ -174,6 +174,14 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   `exp_hd_fact_store_source_trust_vet_v1`** -- ORGAN_MAP: *"1.000/1.000/1.000, verdict PASS, NO
   FLOOR"*, *"BLOCKS every claim that rests on 'the foundation knows N things'"*. *Of the other 13:
   2 already have controls, 4 are superseded/mislabelled, 2 uncited, 5 lower-value.*
+  🔻 **AND THE FLOOR IS NOW RUN, AND IT TIES.** *A dictionary and four if-statements -- no
+  hypervectors, no store, no encoder -- score `1.000/1.000/1.000` on the SAME 160 trials.* The
+  scenario supplies everything: conflict IS *same-(s,r)-different-o*, `trust_ladder` decides
+  REPLACE vs DROP, `relation_cardinality` decides FLAG vs COMBINE. **➡️ THE NUMBER MEASURES THE
+  SCENARIO'S CONSTRUCTION, NOT THE STORE, and ORGAN_MAP is corrected at the citation.**
+  *Negative control: flatten the trust ladder -> floor falls to `0.500`.* ⚠️ **Not a charge against
+  the cell -- it calls itself a DEMONSTRATION in its first line. A charge against CITING it.**
+  *Witness: `test_source_trust_vet_has_a_trivial_floor.py`.*
   *Full sequence incl. both detector errors: `notes/THE_Q115_TRIAGE_FOURTEEN_RESULTS_WANT_A_RERUN_2026-08-23.md`.*
 - ✅ **THE FOUNDATION LOADS NOW, AND RESUMING DOES NOT HELP GROUNDING (08-23).** *A matched read goes `168` -> `9` new groundings and precision sits at its RANDOM floor in every arm; a permuted-label DECOY matches RESUMED exactly (`0/164`), so it is anchor geometry, not meaning.* **RETIRED PREDICTION: "degeneracy falls as vocabulary grows". Persistence is NECESSARY, NOT SUFFICIENT -- never bill it as a grounding fix.** *Pinned in the constructor, positive-controlled.*
 - 🖥️ **GUI TAB 9 "SUBSTRATE" -- the whole pipeline on one screen, from `data/substrate_progress.json`.** Every row shows when it was last re-checked and goes amber at 3 days / red at 7. 🔻 **THE DURABLE LESSON: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted -- a feature that ships into a process nobody restarts has not shipped.**

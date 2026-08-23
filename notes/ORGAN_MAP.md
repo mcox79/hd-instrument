@@ -1263,6 +1263,7 @@ agreement (0.3864 vs 0.3511), and the oracle check FAILED (0.534 vs a 0.70 band)
   **recall@1 = 1.0000 at 100,000 facts, HARD_PASS**, with no random-key arm, no scramble, no decoy —
   and a noise sweep 0.05-0.5 that returns 1.0 at every level, i.e. **the sweep never bit**; and
   `exp_hd_fact_store_source_trust_vet_v1` reports **1.000/1.000/1.000, verdict PASS**, no floor.
+  🔻 **THE FLOOR WAS RUN 2026-08-23 AND IT TIES: a dictionary and four if-statements -- no hypervectors, no store, no encoder -- score `1.000/1.000/1.000` on the SAME 160 trials.** The scenario supplies everything needed to solve it: conflict IS *same-(s,r)-different-o*, `trust_ladder` decides REPLACE vs DROP, and `relation_cardinality` decides the one interesting call (FLAG vs COMBINE between EQUAL-trust sources). *Negative control: flatten the trust ladder and the floor falls to `0.500`, so it genuinely uses trust rather than tying by accident.* **➡️ THE NUMBER MEASURES THE SCENARIO'S CONSTRUCTION, NOT THE STORE.** ⚠️ *Not a charge against the cell -- its first line calls itself a DEMONSTRATION and it states its honest frame. It is a charge against CITING it as evidence.* Witness: `verification/test_source_trust_vet_has_a_trivial_floor.py`.
 - **BLOCKS:** every claim that rests on "the foundation knows N things."
 
 ---
