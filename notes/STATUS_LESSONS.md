@@ -7271,3 +7271,18 @@ before-snapshot -> `INDETERMINATE`). 🚫 *Casts doubt on NO landed number -- on
 re-running one verifies it.* ➡️ **Superseded in scope by the Q115 entry: coverage is `71.2%`, the
 backlog is inventoried, and the triage found one row worth acting on.**
 
+
+
+## FOLDED FROM STATUS.md 2026-08-23 (thirty-first pass)
+
+### 2026-08-22 -- 🚨 **`read(n_sentences=N)` IS A CEILING; `max_patches` (default 4) BINDS FIRST**
+`read(3000/6000/10000)` all returned `1,060` -- ONE LAP, budget discarded. **Raise `max_patches`, not
+`n_sentences`.** 🔻 *DEFLATED BY ITS OWN ENUMERATION: no cell uses the failing shape -- all bind
+`chunk=400` and loop, delivering `81%`. Do NOT quote `13%` as our exposure.* ✅ *Guarded in code
+(`short_read` on `ReadResult`, survives `to_dict()`).*
+
+
+
+## FOLDED FROM STATUS.md AS-OF HEADER 2026-08-23 (verification story, second fold)
+
+📦 **OWNER 08-23: *"bundle complicated problems for a solver"* + *"there are solver solutions you have not yet verified?"* -- BOTH ACTED ON.** Filed **PRIORITY 3 `the_bundle_destroys_meaning_but_replacing_it_hurts`**. 🔎 **RE-VERIFIED ALL FIVE SUBMISSIONS.** *I was carrying `5` of `5` from before a compaction; the honest count mid-check was `3` of `5`.* ✅ **AFTER FIXING MY OWN TOOL IT IS `4` OF `5` AND CLIMBING: `cortical_read` reproduces `724` of `725` numeric fields identical** (the one difference is `read_seconds`, a wall-clock field). *`flat_store` re-running now.* 🔻 **AND THE TWO FAILURES WERE MY OWN TOOL: `reproduce.py` ran cells with NO ARGS, so smoke-defaulting cells did the work, PRINTED instead of recording, and got reported as broken. FIXED (AST-read the `--mode` default).** ✅ **AND I OVER-ALARMED ABOUT THE SCALE, CORRECTED SAME HOUR: of the `4,021` cells that ROUTE through the helper, `4,020` have NO `--mode` flag and exactly **`1`** defaults to smoke. So this affected ONE routed cell, not `46` -- the `25` smoke-defaulting cells are mostly not routed anyway and were already unreachable for the other reason. THE `71.2%` FIGURE STANDS.** *Neither result is refuted; full detail in the plan's top block.* 
