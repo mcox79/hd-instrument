@@ -96,3 +96,39 @@ None.
 2. The hop profile on the optimised method remains the cheapest open measurement.
 3. **Three islanded capabilities is a pattern, not three incidents** -- worth one deliberate pass
    rather than three separate rescues.
+
+
+---
+
+## SUPERSEDED IN PART, 2026-08-23 -- THE REGISTRY ROW NOW EXISTS
+
+**This note's headline -- "no registry row" -- is STALE, and by design: the row was written the same
+day, in response to this note.**
+
+`data/capability_registry.jsonl` now carries `cold_placement_new_word_to_frontier`:
+
+| field | value |
+|---|---|
+| `gate_decision` | **`SHELVE`** |
+| `integration_status` | `TRAPPED_SHARED` |
+| `pipeline_status` | `N_A` |
+| `registered_by` | *"director 2026-08-21, after the owner had to recall this work from memory twice"* |
+| `last_audit_utc` | `2026-08-22` |
+
+✅ **STILL TRUE: there is no `hdlab/` module.** The implementation lives in
+`experiments/exp_cold_placement_usefulness_v1.py` and `..._recovery_opt_v1.py`. **So the substance of
+this note holds -- the 11x result is not on the live path -- while its stated evidence does not.**
+
+⚠️ **AND THE SHELVE REASON IS WORTH READING, because it is not a judgement on the work:**
+*"SHELVED ... NOT because it is weak but because NOBODY EVER REGISTERED IT and the gate forbids
+limbo."* **That is a procedural shelve, not a shelve on merit** -- the same row records the 11x lift
+on the hard population (`0.0262 -> 0.2930`) as its evidence.
+
+🔻 **THE GATE ASKS FOR MORE THAN THIS ROW GIVES.** The standing rule is *WIRE (target + step noted) or
+SHELVE (**explicit revival criteria**)*. `gate_decision_target` explains WHY it was shelved; **it does
+not say what would bring it back.** A shelve without a revival criterion is limbo wearing the gate's
+uniform.
+
+*Not filed as a problem: it is one field on one row, the substantive content is already visible, and
+the honest next question -- whether a `MIDDLE_BAND` usefulness cell plus a `HARD_PASS` recovery cell
+justifies wiring -- belongs to whoever picks up the goal-bearing line, not to a bookkeeping brief.*
