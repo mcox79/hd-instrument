@@ -78,6 +78,32 @@ review_text:
 > seed, stage 2 is a mean over 8.*
 > **REVERIFY:** `.venv/Scripts/python.exe verification/test_does_our_format_survive_the_meaning_signal.py`
 
+> ## 🚫 **ADDED 2026-08-23: SPARSITY DOES NOT RESCUE IT -- DO NOT SPEND A WEEK ON A SPARSER CODE**
+> The obvious next move after the bundling result is the brain's own answer: **cortex is SPARSE**, a
+> few percent active, and sparse patterns interfere far less under superposition because they mostly
+> do not touch the same units. Our code is the opposite extreme -- **100% non-zero**. So: sweep
+> density 1%->100% and re-measure bundling at `k=8`. *(Swept, not adopted -- this repo's pinned
+> biological `0.2%` band was once the WORST point in its own sweep.)*
+>
+> | density | 1% | 2% | 5% | 10% | 25% | 50% | **100% (ours)** |
+> |---|---|---|---|---|---|---|---|
+> | k=0 | `+0.1856` | `+0.2218` | `+0.2567` | `+0.2882` | `+0.3049` | `+0.3022` | **`+0.2893`** |
+> | **k=8** | `+0.0817` | **`+0.0912`** | `+0.0840` | `+0.0788` | `+0.0682` | `+0.0752` | **`+0.0764`** |
+> | retained | **44%** | 41% | 33% | 27% | 22% | 25% | **26%** |
+>
+> 🔻 **JUDGED ON RETENTION, SPARSITY WINS (44% vs 26%). JUDGED ON THE SIGNAL YOU ACTUALLY END UP
+> WITH, IT IS A WASH:** best sparse `+0.0912` vs dense `+0.0764`, a difference of `+0.0147`.
+> **Every density in the sweep collapses to roughly `+0.08`.** The sparse code retains a larger share
+> of a SMALLER signal -- its `k=0` is `+0.1856` against dense's `+0.2893`. **A ratio whose denominator
+> you also changed is not a result.**
+>
+> 🧠 **AND THE BRAIN READING IS THE USEFUL PART OF THIS NEGATIVE.** Sparsity is not what buys
+> cortex its interference resistance ON ITS OWN -- **cortex does not superpose a word's meaning into
+> one shared vector at all.** It keeps separate populations and addresses them. So the half of the
+> brain's answer we tried to import in isolation was never the load-bearing half.
+> ➡️ **THEREFORE: the fix is an ADDRESSED SLOT, not a sparser vector. Do not spend the week.**
+> **REVERIFY:** `.venv/Scripts/python.exe verification/test_does_sparsity_fix_the_bundling_loss.py`
+
 > **REVERIFY (tracked, runs in ~40s):**
 > `.venv/Scripts/python.exe verification/test_sensorimotor_covers_the_verb_hole.py`
 > Write-up: `notes/THE_SENSORIMOTOR_CHANNEL_COVERS_OUR_VERB_HOLE_2026-08-23.md`.
