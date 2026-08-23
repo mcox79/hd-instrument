@@ -67,20 +67,14 @@ failing shape -- all bind `chunk=400` and loop, delivering `81%`. Do NOT quote `
 📎 `--census` recomputes it; brief `notes/problems/harness_cannot_recompute/`.
 
 ### 2026-08-22 -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS; THE LOOKUP CANNOT INFLECT**
-`grounded_similarity.py:165` is a raw-string lookup: we hold `country`, miss `countries`. **TOKEN coverage
-`0.6035 -> 0.7350` via our own `normalize_lemma` (+13.2 pts, zero new norms)** -- so **`+14,704 words to norm`
-counts INFLECTED FORMS OF ALREADY-NORMED WORDS.** *Substitution verified (3,629 pairs, median `0.7605` vs random
-`-0.0131`); irregulars add only `+1.42`, so REUSE `normalize_lemma`.*
-⛔ **UNREACHABLE TODAY: `read()` NEVER CONSULTS THE ASSET** -- `0` calls, positive-controlled, table never
-loaded; matches the B5 slot (`NEEDS_ADAPTER`). **Fix the lookup, re-run a reading task, NO MOVEMENT IS EXPECTED.**
-🔑 **THE VERB HOLE IS OURS, NOT THE ASSET'S:** SimLex, only word class changing -- ASSET NOUN `+0.2745`
-(null `0.0732`) and VERB `+0.2607` (null `0.1241`) BOTH CLEAR, `z=0.192` NOT separated, on `99.6%` of SimVerb;
-our LEARNED channel has noun `0.1310` and **verb INSIDE its null.** ⚠️ *ADJECTIVES unresolved AND unanswerable
-on our assets -- SimLex's `111` is every adjective pair we own.* 🔻 *Withdrawn: "the lookup fix IS the verb
-fix" -- our UPOS tagger shows recovery enriched for CONTENT WORDS (VERB `2.58x`, NOUN `2.25x`).*
-🚫 **COVERAGE, NOT CAPABILITY -- no task run; `grounded_similarity.py` deliberately UNCHANGED.**
-📎 `THE_VERB_HOLE_IS_OURS_...`, `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...`; brief at priority 7.
-
+`grounded_similarity.py` is a raw-string lookup: we hold `country`, miss `countries`. **TOKEN coverage
+`0.6035 -> 0.7350` via our own `normalize_lemma` (+13.2 pts, ZERO new norms)** -- so *"+14,704 words to
+norm" counts INFLECTED FORMS OF ALREADY-NORMED WORDS.* ⛔ **UNREACHABLE TODAY: `read()` NEVER CONSULTS
+THE ASSET** (`0` calls, positive-controlled). 🔑 **THE VERB HOLE IS OURS, NOT THE ASSET'S** -- asset
+NOUN `+0.2745` and VERB `+0.2607` BOTH clear their nulls; our LEARNED channel has noun `0.1310` and
+**verb INSIDE its null.** ⚠️ *ADJECTIVES unanswerable on our assets -- SimLex's `111` is every
+adjective pair we own.* 🚫 **COVERAGE, NOT CAPABILITY -- no task was run.**
+📎 Brief at priority 6; full note `THE_VERB_HOLE_IS_OURS_...`, `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...`.
 ### 2026-08-21 -- ✅ **EVICTED TO `STATUS_LESSONS.md` (search "THREE-WAY COMPARISON"): the F5
 three-way comparison that set what to build on. Closed; nothing since has moved it.**
 
