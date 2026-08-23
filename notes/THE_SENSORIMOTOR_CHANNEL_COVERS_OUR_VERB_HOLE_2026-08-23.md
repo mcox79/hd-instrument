@@ -13,12 +13,30 @@
 > verbs -- that part is true and worth fixing -- but "we were about to commission a fix without
 > checking" is FALSE. It had been checked. **I reproduced a known result and reused its headline.**
 >
-> ⚠️ **AND THE TWO MEASUREMENTS DO NOT AGREE, WHICH I AM NOT GOING TO PAPER OVER.** The 08-22 pass
-> reads the asset's SimLex verbs at `+0.2607`; I read `+0.3109`. Both clear their nulls, so the
-> QUALITATIVE conclusion is the same and independently arrived at -- but the point estimates differ
-> by more than either interval is narrow enough to shrug at. *My `+0.2651` for PERCEPTUAL-only dims is
-> suspiciously close to their `+0.2607`, so the likeliest explanation is a different dimension subset.
-> **That is a hypothesis, not a reconciliation.*** Do not quote the two as agreeing.
+> ✅ **THE DISAGREEMENT IS RESOLVED, AND THE ANSWER IS WORTH MORE THAN EITHER NUMBER.** On
+> SimVerb-3500 -- same asset, same **3,487** covered pairs -- three ENTRY POINTS give three answers:
+>
+> | entry point | rho |
+> |---|---|
+> | raw CSV, 11 `.mean` columns (mine) | `+0.3107` |
+> | cosine over `grounded_vector`, 12 z-scored dims (the 08-22 pass) | `+0.2676` |
+> | 🔻 **`grounded_similarity()` -- WHAT THE SUBSTRATE ACTUALLY CALLS** | **`+0.2463`** |
+>
+> *The coverage matching to the pair is what identified it: `3,487` of `3,500` is the shipped
+> lexicon's number, so the prior pass went through the module while I went through the CSV.*
+>
+> **The shipped function is LOWEST, and not because the asset is worse: it is double-clamped by
+> design** -- `min(0.45, max(0.0, raw))`. **56% of pairs land EXACTLY on the cap and 17% at zero, so
+> nearly three quarters carry one of two values**, and a rank correlation over that column is partly
+> measuring ties.
+>
+> ⚠️ **THE CAP IS A SAFETY PROPERTY AND MUST NOT BE REMOVED** -- it sits below
+> `SIMILARITY_LINK_THRESHOLD` so grounded similarity can never on its own create a link. Removing it
+> to make a number look better would be adjusting the instrument to suit the reading.
+>
+> ➡️ **THE RULE: measure the ASSET with the unclamped vector; ask what the SUBSTRATE will see with
+> `grounded_similarity()`; NEVER compare one against the other.** Three passes in two days did,
+> including two of mine. Pinned by `verification/test_which_number_is_the_meaning_asset.py`.
 >
 > ## ✅ WHAT IN THIS NOTE IS ACTUALLY NEW, AND SURVIVES
 > * **THE SOMATOTOPY RESULT (§4).** ACTION − PERCEPTUAL on verbs `+0.0651` `[+0.0306,+0.1005]`,

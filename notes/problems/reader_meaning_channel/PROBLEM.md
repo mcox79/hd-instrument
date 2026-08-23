@@ -24,9 +24,17 @@ review_text:
 > 🔻 **CORRECTION, SAME DAY: "nobody had checked" IS FALSE.** `STATUS.md` has carried this
 > since 08-22 (*"THE VERB HOLE IS OURS, NOT THE ASSET'S"*, asset verb `+0.2607` vs null `0.1241`,
 > brief at priority 7). **My prior-work check looked in this brief and not in STATUS.** What is NEW
-> below is the SOMATOTOPY split and the SimVerb-3500 measurement, not the headline. ⚠️ *The two
-> passes read the asset's SimLex verbs at `+0.2607` and `+0.3109` -- same qualitative answer,
-> independently reached, but DO NOT quote them as agreeing.*
+> below is the SOMATOTOPY split and the SimVerb-3500 measurement, not the headline.
+>
+> 🚨 **AND BEFORE YOU MEASURE ANYTHING HERE: THE SAME ASSET GIVES THREE DIFFERENT NUMBERS DEPENDING
+> ON WHICH ENTRY POINT YOU CALL.** Same benchmark, same `3,487` pairs -- raw CSV 11 dims `+0.3107` |
+> `grounded_vector` cosine `+0.2676` | **`grounded_similarity()` `+0.2463` <- WHAT THE SUBSTRATE
+> ACTUALLY CALLS.** The shipped one is lowest because it is double-clamped (`min(0.45, max(0.0,
+> raw))`): **56% of pairs sit exactly on the cap, 17% at zero.** ⚠️ **THE CAP IS DELIBERATE SAFETY**
+> (below the link threshold) -- **do not remove it to improve a number.** ➡️ **Measure the ASSET
+> unclamped; ask what the SUBSTRATE sees with the clamped one; never compare across.** *Three passes
+> in two days got this wrong, two of them mine.* Pinned:
+> `verification/test_which_number_is_the_meaning_asset.py`.
 >
 > ✅ **IT DOES.** On **SimVerb-3500** -- the same benchmark our verb zero was measured on -- a plain
 > cosine over the raw norms reads **`+0.3107` `[+0.2822,+0.3390]`, null p95 `0.0304`**, covering

@@ -153,8 +153,13 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   3,487 SimVerb pairs. **At `n=222` the same test read `[-0.0989,+0.2031]` and said NOTHING -- the fix
   was POWER, not more careful wording.** 🔻 **SINGLE dissociation only**; the noun half includes
   zero, so NEVER "motor for verbs, perceptual for nouns". ⚠️ *The 08-22 pass and this one read the
-  asset's SimLex verbs at `+0.2607` and `+0.3109` -- same qualitative answer, independently reached;
-  DO NOT quote them as agreeing.* *Witness: `test_sensorimotor_covers_the_verb_hole.py`.*
+  asset's SimLex verbs at different numbers -- **RESOLVED: three ENTRY POINTS, three answers on the
+  same `3,487` pairs.** raw CSV 11 dims `+0.3107` | `grounded_vector` cosine `+0.2676` |
+  **`grounded_similarity()` `+0.2463` <- WHAT THE SUBSTRATE CALLS.** *Lowest because double-clamped
+  `min(0.45, max(0.0, raw))`: **56% sit exactly on the cap, 17% at zero.*** ⚠️ **THE CAP IS SAFETY
+  (below the link threshold) -- DO NOT REMOVE IT TO IMPROVE A NUMBER.** ➡️ **Measure the ASSET
+  unclamped; ask what the SUBSTRATE sees with the clamped one; NEVER compare across.**
+  *Pinned: `test_which_number_is_the_meaning_asset.py`.* *Witness: `test_sensorimotor_covers_the_verb_hole.py`.*
 - 🔍 **THE OTHER HALF OF THE PRIORITY-1 DIAGNOSIS, PRICED -- AND BOTH OBVIOUS FIXES FAIL (08-23).**
   *Measured with the sensorimotor channel BECAUSE it has signal to lose; our own codes would confuse
   format-loss with nothing-there.* **STORING is fine: `+0.3107` raw -> `+0.2920` in our 256-dim dense
