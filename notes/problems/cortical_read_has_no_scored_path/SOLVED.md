@@ -5,7 +5,7 @@ bar: "A TASK SCORE with a CI-separated margin over the strongest floor you actua
 result: On a CLEAN held-out cloze over the consolidated pool (simplewiki, 3 seeds, n=300 items/seed, ~427-479 consolidated candidates, ranked by hit@k with 2000-sample bootstrap CIs), the best cortical arm (BOTH = context+sensorimotor concat) reaches hit@1 0.057/0.043/0.043 and hit@50 0.37/0.36/0.33, median rank 71/70/87. It reads its cue (beats SCRAMBLE and RANDOM twins) but does NOT clear the strongest floor at ANY k on ANY seed -- best_cortical_clears = False in all 15 seed x k cells. This REPRODUCES and STRENGTHENS the disk's Aug-19 run (exp_cortical_read_consolidated_v1), which the brief wrongly says never happened.
 floor: Strongest floor RUN = first-order co-occurrence counting (COOC) over the exact text the substrate read, restricted to the consolidated candidate set: hit@1 0.090/0.103/0.097, hit@50 0.71/0.75/0.70, median rank 22.0/19.5/23.5 -- it BEATS the best cortical arm at every k (e.g. seed 20260819 k=50: COOC 0.7133 CI[0.660,0.767] vs BOTH 0.3667 CI[0.313,0.420], CI-separated). Also ran: FREQ floor (hit@1 ~0.01) and the MANDATED CONCRETENESS-prior floor (hit@1 0.000 all seeds, the weakest floor).
 controls: (1) SCRAMBLE (unrelated donor sentence, target kept) hit@1 0.000 -- info-free, LOSES to cortical; EXCLUDES "the arm is a cue-independent constant". (2) RANDOM_twin (per-item random permutation of the pool) hit@1 0.000-0.007 -- info-free, LOSES; EXCLUDES "the rank metric cannot fail safely". (3) CONCRETENESS-prior floor (brief-mandated) hit@1 0.000; cortical beats it; EXCLUDES "the cortical signal is a concreteness artifact" -- the exact confound that killed the last hypothesis on this organ. (4) EPISODIC_FILTERED (episodic route, same candidate set) hit@1 0.000 while surfacing a candidate on 300/300 items -- a FAIR miss, not a reachability failure; EXCLUDES "an episodic-only arm scores the same". (5) CLEAN held-out split (sentences the substrate provably did not read, registries verified deterministic) EXCLUDES the 298-300/300 train-leak found in the Aug-19 cell.
-files_changed: experiments/solverB_cortical_scored_path_v1.py, verification/solverB_verify_cortical_scored_path.py, data/solverB_cortical_scored_path_v1/metrics.json, data/solverB_cortical_scored_path_v1/units.jsonl, notes/problems/cortical_read_has_no_scored_path/SOLVED.md (NO hdlab/ change -- proposed change described below)
+files_changed: experiments/solverB_cortical_scored_path_v1.py, experiments/solverB_cortical_generalization_v1.py (the POWERED brain-foundational follow-up, 2026-08-23), verification/solverB_verify_cortical_scored_path.py, data/solverB_cortical_scored_path_v1/metrics.json, data/solverB_cortical_scored_path_v1/units.jsonl, data/solverB_cortical_generalization_v1/metrics.json, data/solverB_cortical_generalization_v1/units.jsonl, notes/problems/cortical_read_has_no_scored_path/SOLVED.md (NO hdlab/ change -- proposed change described below)
 reverify: cd d:/AI/hd-instrument && .venv/Scripts/python.exe tools/reproduce.py solverB_cortical_scored_path_v1  # SAFE FORM (2026-08-23 integration): runs into an EMPTY sibling and leaves the landed directory byte-identical. The cell was migrated to fresh_run_output_dir to make this possible. The ORIGINAL command was `.venv/Scripts/python.exe experiments/solverB_cortical_scored_path_v1.py --mode full --seeds 3`, which re-runs IN PLACE and re-stamps the landed metrics.json.
 ---
 
@@ -191,6 +191,82 @@ is intended, is upstream of this and belongs to the strategy session.)
 3. If a live cortical read is still wanted, the lever is the retrieval SPACE, not wiring -- the
    current space loses to counting even before generalisation.
 
+---
+
+## POWERED BRAIN-FOUNDATIONAL FOLLOW-UP (2026-08-23) -- STILL REFUTED, NOW ON A FAIR TEST
+
+*Added by solver-B after the owner asked, directly: "if we can answer this with a brain foundation
+solution, we should." This SUPERSEDES the "underpowered, n=43" generalisation section above. I did
+NOT touch the strategy session's integration block below, and I did NOT write to the newly-filed
+`cortical_read_never_tested_where_it_matters/` folder -- this run answers it, so it should be
+reconciled rather than worked again (see the note at the end of this section).*
+
+**The gap I flagged as the first thing to withdraw, I closed.** New cell
+`experiments/solverB_cortical_generalization_v1.py`: train (read + consolidate) on encyclopedic
+simplewiki, hold out from NARRATIVE FICTION (6 corpora, a different domain, provably unread --
+`heldout_overlap_with_read=0`). Domain shift makes the GENERALISATION regime abundant: **177-188
+unseen-co-occurrence items per seed** (>= my n>=100 gate), where first-order co-occurrence counting
+is at floor by construction. 3 seeds, n=600 items each.
+
+**The brain-foundational lever tested by name: the PARADIGMATIC space.** Under CLS the cortical read
+should be a distributed OVERLAPPING code where similar concepts have similar patterns (the organ's
+own docstring). The organ carries such a space -- the sensorimotor hub-and-spoke (Lambon Ralph),
+`cos(dog,cat)=0.93` independent of co-occurrence. So the SPOKE and BOTH arms are the strongest
+brain-faithful version of the read, and the unseen regime is exactly where they should win.
+
+**They do not. `GENERALISES=False` on all 3 seeds, and the reason is precise:**
+
+| unseen subset (n=177-188/seed) | hit@10 | hit@50 | median rank |
+|---|---|---|---|
+| cortical SPOKE (paradigmatic) | 0.067 / 0.056 / 0.064 | 0.218 / 0.237 / 0.234 | 151 / 172 / 149 |
+| cortical BOTH | 0.073 / 0.051 / 0.064 | 0.229 / 0.243 / 0.239 | 155 / 168 / 148 |
+| **CONC floor** (cue-blind concreteness) | **0.067 / 0.056 / 0.074** | 0.156 / 0.164 / 0.170 | 158 / 177 / 156 |
+| COOC floor | 0.000 / 0.000 / 0.000 (at floor by construction) | 0.000 | full pool |
+| RANDOM / SCRAMBLE twins | 0.017-0.034 | 0.07-0.18 | ~193-254 |
+
+- **The paradigmatic read does NOT clear the concreteness floor's upper CI at ANY k on ANY seed**
+  (`cortical_clears_floor=False`, 15/15 cells). At tight k it is *identical* to a cue-blind
+  concreteness prior: hit@10 SPOKE 0.067/0.056/0.064 vs CONC 0.067/0.056/0.074.
+- **So the "generalisation signal" IS concreteness.** The sensorimotor vector's dominant axis is
+  concreteness, so ranking by sensorimotor similarity ~= ranking by "how concrete is the candidate".
+  It beats the pure-noise twins at loose k on 2 of 3 seeds -- a faint real signal -- but that signal
+  is not cue-specific meaning; it is the same concreteness confound that killed the strategy
+  session's earlier pool-selection hypothesis on this very organ.
+- **Seen regime, for contrast:** co-occurrence counting dominates (COOC hit@10 0.15-0.20 vs cortical
+  ~0.06-0.09). So the two regimes agree: counting wins where the pair was seen; concreteness (not
+  the cortical read) is all there is where it was not.
+
+**The verdict is now earned, not overstated.** Before, REFUTED rested on a co-occurrence-friendly
+cloze. Now the strongest brain-faithful space has been tested, powered (n~180x3), in the exact
+regime that should favour it, against the confound that could fake a win -- and it carries **no
+cue-specific semantic generalisation.** REFUTED means: the cortical read is not a competitive
+retriever in any regime tested; where counting fails, the organ offers only concreteness.
+
+**Is there a brain-foundational SOLUTION that would make it work?** Not a retrieval tweak. The
+bottleneck is the REPRESENTATION, not the ranking rule or dynamics: the consolidated codes do not
+encode cue-specific paradigmatic similarity, so no attractor/pattern-completion mechanism over them
+can retrieve information they do not contain (an attractor cleans up a cue toward a stored pattern;
+it cannot invent structure the store lacks). A genuine fix is a different consolidated
+representation -- one whose similarity captures second-order (paradigmatic) meaning rather than
+concreteness -- which is a BUILD of the cortical code, not a wiring or scoring change, and is out of
+scope for a solver (cannot write `hdlab/`). That is the honest answer to "can we solve it the
+brain's way": the test is now fair and powered, and it says the current cortical code is the wrong
+SHAPE, which is a fidelity-divergence build target, not a tuning knob.
+
+**Acknowledged correction from the strategy session's integration block below:** the Aug-19 leak is
+NOT caused by `read()` running *past* its request -- it UNDER-delivers (asks 3,000, delivers ~1,150).
+The real cause is loop shape (chunked reading to a 16,000 target lands at ~16,600) and the old cell
+drawing items from the FRONT of its held-out set. My clean-split measurement is unaffected; my
+earlier "overshoots" wording was wrong and this is the correct account.
+
+**Overlap with the newly-filed problem:** the strategy session filed my recommended follow-up as
+`notes/problems/cortical_read_never_tested_where_it_matters/`. This cell IS that powered test, run
+under my current slug in response to the owner's 08-23 directive. I have not written to that folder.
+Recommend the strategy session reconcile it against `data/solverB_cortical_generalization_v1/` --
+the powered generalisation result exists and is negative -- rather than assign it fresh, to avoid
+the duplicated-work failure Q113 exists to prevent.
+
+**Reverify (powered follow-up):** `cd d:/AI/hd-instrument && .venv/Scripts/python.exe experiments/solverB_cortical_generalization_v1.py --mode full --seeds 3`
 
 ---
 
@@ -216,3 +292,26 @@ evidence, which is a different claim.**
 **THEIR RECOMMENDED FOLLOW-UP IS NOW FILED** as `notes/problems/cortical_read_never_tested_where_it_matters/`.
 *They named it while their own result looked like a clean negative, and flagged their `n=43`
 generalisation null as the first thing they would withdraw. That is why it is ranked where it is.*
+
+
+---
+
+## RE-VERIFIED BY THE STRATEGY SESSION, 2026-08-23 -- GENUINE RECOMPUTE, NOT A REPLAY
+
+**`127` of `127` numeric fields IDENTICAL to the landed record.** Zero differ, zero present in one
+run and not the other (volatile timing fields excluded by name).
+
+**It is a recompute, not a replay, and both halves of that are checked rather than assumed:**
+
+- fresh sibling went **`0` -> `3` units**; `classify_run` returns `RECOMPUTED`,
+  `is_evidence_of_reproduction() == True`
+- the landed directory is **byte-identical**: `metrics.json` sha `a9c9fd05a066` and `units.jsonl`
+  sha `43171bf1a91d`, recorded before the run and unchanged after
+- full 3-seed run, ~70 minutes, through `HDI_FRESH_RUN` into a sibling
+
+*This cell needed a one-line migration to `fresh_run_output_dir` first -- without it the re-run
+would have written into the landed directory and re-stamped it, which is the hazard this brief's own
+neighbour (`harness_cannot_recompute`) identified.*
+
+✅ **THAT MAKES FIVE OF FIVE SOLVED PROBLEMS PERSONALLY REPRODUCED**, each by running it rather than
+re-reading it. **The submitted work is sound.**
