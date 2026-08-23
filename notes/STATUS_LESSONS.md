@@ -7081,3 +7081,26 @@ failing shape -- all bind `chunk=400` and loop, delivering `81%`. Do NOT quote `
 
 > ## **LANDED 08-23: GUI TAB 9 "SUBSTRATE" -- THE WHOLE PIPELINE ON ONE SCREEN**
 > **Ten stages from `data/substrate_progress.json`, validated by `tools/substrate_progress.py`** (`3557c476b`). Every row carries when it was last re-checked and **goes amber at 3 days / red at 7 -- the tab shows its own staleness.** *Three rows were rewritten within a day of building it, which is the review dates doing their job.* 🔻 **THE LESSON THAT OUTLIVES THE FEATURE: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted. A feature that ships into a process nobody restarts has not shipped.**
+
+
+## FOLDED FROM STATUS.md 2026-08-23 (twenty-sixth pass, store-refute entry)
+
+### 2026-08-22 -- 🚨 **THE STORE FIX IS REFUTED, AND NO SOLVER WORK HAS TOUCHED THE SUBSTRATE YET**
+**3 solutions in: `eval_bank_too_small` SOLVED (a DATA file, 124 scorable), `stored_terms_are_stems`
+PARTIAL (nothing live to fix), `flat_store_destroys_the_code` REFUTED.** 🔻 **ZERO of the three
+changed `hdlab/`. Every substrate edit today is the strategy session's own.** *Owner asked; that is
+the honest answer.*
+🔑 **THE REFUTATION: addressed storage reads exact-key `0.9954` and held-out `0.1399`, against a
+first-order COUNTING floor of `0.3242` (`-0.1843`, CI excludes 0). It can RECITE, not RECOGNISE.**
+*Info-free twin `0.0000`, scramble `0.0000`, 2AFC positive control `0.7433` -- the instrument works,
+so the failure is real. Verified to six decimals against `metrics.json`.*
+🧠 **AND IT REPRODUCES A KNOWN CLIFF FROM A NEW DIRECTION** -- a circular WordNet oracle reads
+`0.8787` at exact key and `0.0365` under a partial cue. **Two unrelated mechanisms, same wall: this
+is a property of how the cue meets the store.**
+✅ **MY BRIEF ASKED THE WRONG QUESTION (owner caught it): it said WIRE the store we have. The store
+we have does not work.** ➡️ **NEW PROBLEM `store_survives_a_partial_cue` at PRIORITY 2** -- design
+one, bar = beat `0.3242` held-out CI-separated; **a rigorous negative is an explicit PASS.**
+🖥️ *GUI: priorities + MY RATING columns are wired (`13806bac1`) but the running window
+started 13:15, BEFORE that commit -- **it must be RESTARTED to show them.** Not a bug, a stale process.*
+📎 `RANDOM_CREDIT_BEATS_THE_REAL_MECHANISM_...`; briefs in `notes/problems/`.
+

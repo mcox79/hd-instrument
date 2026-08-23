@@ -34,24 +34,16 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-22 -- 🚨 **THE STORE FIX IS REFUTED, AND NO SOLVER WORK HAS TOUCHED THE SUBSTRATE YET**
-**3 solutions in: `eval_bank_too_small` SOLVED (a DATA file, 124 scorable), `stored_terms_are_stems`
-PARTIAL (nothing live to fix), `flat_store_destroys_the_code` REFUTED.** 🔻 **ZERO of the three
-changed `hdlab/`. Every substrate edit today is the strategy session's own.** *Owner asked; that is
-the honest answer.*
-🔑 **THE REFUTATION: addressed storage reads exact-key `0.9954` and held-out `0.1399`, against a
-first-order COUNTING floor of `0.3242` (`-0.1843`, CI excludes 0). It can RECITE, not RECOGNISE.**
-*Info-free twin `0.0000`, scramble `0.0000`, 2AFC positive control `0.7433` -- the instrument works,
-so the failure is real. Verified to six decimals against `metrics.json`.*
+### 2026-08-22 -- 🚨 **THE STORE FIX IS REFUTED: IT CAN RECITE, NOT RECOGNISE**
+**Addressed storage reads exact-key `0.9954` and held-out `0.1399`, against a first-order COUNTING
+floor of `0.3242` (`-0.1843`, CI excludes 0).** *Info-free twin `0.0000`, scramble `0.0000`, 2AFC
+positive control `0.7433` -- the instrument works, so the failure is real.*
 🧠 **AND IT REPRODUCES A KNOWN CLIFF FROM A NEW DIRECTION** -- a circular WordNet oracle reads
 `0.8787` at exact key and `0.0365` under a partial cue. **Two unrelated mechanisms, same wall: this
 is a property of how the cue meets the store.**
 ✅ **MY BRIEF ASKED THE WRONG QUESTION (owner caught it): it said WIRE the store we have. The store
-we have does not work.** ➡️ **NEW PROBLEM `store_survives_a_partial_cue` at PRIORITY 2** -- design
-one, bar = beat `0.3242` held-out CI-separated; **a rigorous negative is an explicit PASS.**
-🖥️ *GUI: priorities + MY RATING columns are wired (`13806bac1`) but the running window
-started 13:15, BEFORE that commit -- **it must be RESTARTED to show them.** Not a bug, a stale process.*
-📎 `RANDOM_CREDIT_BEATS_THE_REAL_MECHANISM_...`; briefs in `notes/problems/`.
+we have does not work.** ➡️ `store_survives_a_partial_cue` is now **PRIORITY 3** -- design one, bar =
+beat `0.3242` held-out CI-separated; **a rigorous negative is an explicit PASS.**
 
 ### 2026-08-22 -- 🚨 **`read(n_sentences=N)` IS A CEILING; `max_patches` (default 4) BINDS FIRST**
 `read(3000/6000/10000)` all returned `1,060` -- ONE LAP, budget discarded. **Raise `max_patches`, not
