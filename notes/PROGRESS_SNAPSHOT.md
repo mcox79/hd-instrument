@@ -4,26 +4,26 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T21:10:18Z  |  HEAD: fc199958d
+generated: 2026-08-23T21:11:55Z  |  HEAD: a158d6dd2
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30424 min ago <-- STALE
-  - orchestrator: 38753 min ago <-- STALE
-  - research: 2 min ago
-  - skunkworks: 41425 min ago <-- STALE
-  - testbed: 77999 min ago <-- STALE
+  - exp_dev: 30425 min ago <-- STALE
+  - orchestrator: 38755 min ago <-- STALE
+  - research: 3 min ago
+  - skunkworks: 41426 min ago <-- STALE
+  - testbed: 78000 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - solverB_cortical_scored_path_v1__fresh_repro: 1 min ago, NO metrics.json yet (likely in-flight)
-  - substrate_director_kb_v1.staging.3080: 2 min ago, NO metrics.json yet (likely in-flight)
-  - exp_learn_from_reading_strong_arm_v1: 28 min ago, has metrics.json
-  - exp_reader_meaning_channel_multispoke_v1: 37 min ago, NO metrics.json yet (likely in-flight)
-  - exp_reader_meaning_channel_combined_v1: 64 min ago, NO metrics.json yet (likely in-flight)
-  - exp_refuse_gate_on_readout_v2_membership: 80 min ago, has metrics.json
-  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 96 min ago, has metrics.json
+  - solverB_cortical_scored_path_v1__fresh_repro: 3 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.3080: 3 min ago, NO metrics.json yet (likely in-flight)
+  - exp_learn_from_reading_strong_arm_v1: 29 min ago, has metrics.json
+  - exp_reader_meaning_channel_multispoke_v1: 38 min ago, NO metrics.json yet (likely in-flight)
+  - exp_reader_meaning_channel_combined_v1: 66 min ago, NO metrics.json yet (likely in-flight)
+  - exp_refuse_gate_on_readout_v2_membership: 82 min ago, has metrics.json
+  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 98 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - 🧠 **THE MEANING CHANNEL: SEVEN MEASUREMENTS 08-23, ALL IN
@@ -102,11 +102,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- nothing measurable moved since the last snapshot
+- 1 new commit(s) since last snapshot (HEAD fc199958d -> a158d6dd2)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8182, "generated_at": "2026-08-23T21:10:18Z", "head_commit": "fc199958d8f85ca28ed4e58a93adac47c42183af", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8182, "generated_at": "2026-08-23T21:11:55Z", "head_commit": "a158d6dd21d92614669ae6fc9d69ebc79d400bef", "step_status": {}}
 -->

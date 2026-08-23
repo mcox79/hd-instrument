@@ -3,6 +3,14 @@ priority:
 review: EXCELLENT
 review_text: Refuted my brief with evidence, found a 100% leak in the only prior scoring, and refused to over-claim.
 ---
+> 🔻 **REVERIFY IS BROKEN, CHECKED 2026-08-23 AT THE OWNER'S PROMPT.** Running the command in
+> `SOLVED.md` under `HDI_FRESH_RUN` **exits 0 after `224s` and writes NOTHING** -- the fresh sibling
+> directory is EMPTY, no `metrics.json`, no `units.jsonl`. `reproduce.py` classifies it
+> `NOTHING_RECORDED_NOT_A_REPRODUCTION`. **The cell appears to depend on the LANDED directory's
+> existing state and silently no-ops against an empty one.**
+> ⚠️ **THIS DOES NOT REFUTE THE RESULT -- it means the result CANNOT CURRENTLY BE RE-CHECKED.**
+> *The landed record is untouched and its review stands on the artifacts I read at the time.* ➡️
+> **Anyone re-opening this must first make the cell produce output in a fresh directory.**
 
 # MY REVIEW OF THE SUBMISSION: **EXCELLENT**
 

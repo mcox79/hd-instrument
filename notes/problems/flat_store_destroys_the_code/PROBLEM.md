@@ -3,6 +3,13 @@ priority:
 review: EXCELLENT
 review_text: Built the fix, measured it honestly, and reported that it does not work - volunteering the exact-key 0.9954 that kills it and the floor that beats it.
 ---
+> 🔻 **REVERIFY IS BROKEN, CHECKED 2026-08-23 AT THE OWNER'S PROMPT.** `reproduce.py` **REFUSES**,
+> and the refusal is correct: *"`exp_flat_vs_addressed_identity_recovery_livepath_v1.py` does not
+> route through `get_output_dir`, so `HDI_FRESH_RUN` would be IGNORED and the run would write into
+> the LANDED directory, overwriting `metrics.json` while this tool reported a 'reproduction'."*
+> ⚠️ **THIS DOES NOT REFUTE THE RESULT** -- the cell is one of the `1,413` that cannot be
+> genuinely re-run. **Migrating it is one line** (see the Q115 gate). ➡️ **Until then its reverify
+> command cannot verify anything, and running it WITH `--force` would overwrite the landed record.**
 
 > # ✅ **SOLVER REVIEW: EXCELLENT. ACCEPTED AS `REFUTED` -- AND A REFUTATION IS A FIRST-CLASS RESULT.**
 > *(strategy session, 2026-08-22)*

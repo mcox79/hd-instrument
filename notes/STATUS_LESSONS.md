@@ -7228,3 +7228,16 @@ complexity for nothing -- which the installer's docstring also warns about.*
 >
 
 > ## 🚨 **RANDOM CREDIT ASSIGNMENT BEATS THE REAL MECHANISM (re-landed 08-22).** **`HARD_FAIL` stands and the ORDER is the finding: RANDOM `0.5278` > SCRAMBLED `0.3556` > OURS `0.3056`, floor `0.6389` -- ours is LAST OF THREE and all three are under the floor.** *The landed 08-06 record read `0.1667` for all three because the cascade fired zero times; re-landing is what separated them.*
+
+
+## FOLDED FROM STATUS.md 2026-08-23 (twenty-eighth pass, lookup entry)
+
+### 2026-08-22 -- 🔑 **THE MEANING ASSET IS NOT SHORT OF WORDS; THE LOOKUP CANNOT INFLECT**
+`grounded_similarity.py` is a raw-string lookup: we hold `country`, miss `countries`. **TOKEN coverage
+`0.6035 -> 0.7350` via our own `normalize_lemma` (+13.2 pts, ZERO new norms)** -- so *"+14,704 words to
+norm" counts INFLECTED FORMS OF ALREADY-NORMED WORDS.* ⛔ **UNREACHABLE TODAY: `read()` NEVER CONSULTS
+THE ASSET** (`0` calls, positive-controlled). 🔑 **THE VERB HOLE IS OURS, NOT THE ASSET'S** -- asset
+NOUN `+0.2745` and VERB `+0.2607` BOTH clear their nulls; our LEARNED channel has noun `0.1310` and
+**verb INSIDE its null.** ⚠️ *ADJECTIVES unanswerable on our assets -- SimLex's `111` is every
+adjective pair we own.* 🚫 **COVERAGE, NOT CAPABILITY -- no task was run.**
+📎 Brief at priority 6; full note `THE_VERB_HOLE_IS_OURS_...`, `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...`.
