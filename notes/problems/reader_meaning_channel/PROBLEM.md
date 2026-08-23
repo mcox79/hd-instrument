@@ -17,7 +17,7 @@ review_text:
 > | 3 | **SPARSITY does not rescue that** -- every density collapses to ~`+0.08`. | **Do not spend a week on a sparser code.** |
 > | 4 | **NOR DOES AN ADDRESSED SLOT** -- addressing works, but binding PERMUTES interference rather than removing it. | *A key does not protect you from the other occupants.* **I wrote this advice before testing it; it is corrected in block 5.** |
 > | 5 | **THE SAME ASSET GIVES THREE NUMBERS** by entry point (`+0.3107` / `+0.2676` / `+0.2463`); the lowest is the one the substrate calls. | **Measure the ASSET unclamped; ask what the SUBSTRATE sees with the clamped one. Never compare across.** |
-> | 6 | **DO NOT COMBINE IT WITH WORDNET ON THIS EVIDENCE.** Pooled, WordNet looks twice as good (`+0.543` vs `+0.287`) -- but SimVerb's pairs were SELECTED by WordNet relation. Within class the edge collapses, and on the 60% with NO relation sensorimotor wins `+0.286` vs `+0.154`. | **A benchmark selected by a resource cannot fairly score that resource.** *A both-spokes hub is still worth testing; the POOLED number is not evidence for it.* |
+> | 6 | **DO NOT COMBINE IT WITH WORDNET ON THIS EVIDENCE.** Pooled, WordNet looks twice as good (`+0.543` vs `+0.287`) -- but SimVerb's pairs were SELECTED by WordNet relation. Within class the edge collapses, and on the 60% with NO relation sensorimotor wins `+0.286` vs `+0.154`. | **A benchmark selected by a resource cannot fairly score that resource.** *A both-spokes hub was then tested on the unselected class: mean-of-both is the best rule tried, but the gain over sensorimotor alone is `+0.0245` `[-0.0021,+0.0520]` -- NOT established.* |
 >
 > ✅ **WHAT DID NOT CHANGE: the channel is still the right direction, and finding 6 STRENGTHENS
 > that** -- on the pairs a taxonomy does not already link, which is the case a reader faces on new
@@ -134,6 +134,31 @@ review_text:
 > refuted is the pooled number and the conclusion a builder would have drawn from it.**
 > *A benchmark selected by a resource cannot fairly score that resource.*
 > **REVERIFY:** `.venv/Scripts/python.exe verification/test_wordnet_advantage_is_selection_not_meaning.py`
+>
+> #### 🧪 **AND I TESTED THE BOTH-SPOKES HUB PROPERLY -- IT IS NOT ESTABLISHED (08-23)**
+> The block above says *"a both-spokes hub is still worth testing"*. **Tested, on the `NONE` class
+> only, because a pooled hub test inherits the same selection bias the pooled comparison had.**
+>
+> | arm (on `NONE`, n=2,084) | margin | AUC |
+> |---|---|---|
+> | sensorimotor alone | `+0.286` | `0.6996` |
+> | WordNet alone | `+0.154` | `0.5981` |
+> | **HUB (mean of the two)** | **`+0.321`** | **`0.7155`** |
+> | HUB (max) | `+0.310` | `0.6999` |
+> | HUB (both-must-agree) | `+0.272` | `0.6854` |
+>
+> 🔻 **THE POINT ESTIMATE SAYS THE HUB WINS AND THE INTERVAL SAYS IT IS NOT ESTABLISHED:**
+> paired bootstrap, same resample both arms -- **hub minus sensorimotor `+0.0245`, 95% CI
+> `[-0.0021, +0.0520]`. Includes zero.** *I wrote "HUB WINS" off the point estimate before running
+> this; that is the third time in one day an estimate pointed one way and the interval did not.*
+>
+> ✅ **BUT THE NEGATIVE CONTROL SAYS WORDNET IS CONTRIBUTING SOMETHING REAL:** a hub built from
+> sensorimotor **+ NOISE** instead of WordNet is **`-0.0507` `[-0.0891,-0.0105]`, CI-separated
+> BELOW zero** -- adding noise actively hurts, adding WordNet does not. **So the second spoke carries
+> real information and not enough of it to prove a gain at this n.**
+> ➡️ **FOR THE BUILD: averaging the two spokes is the best combination rule of the three tried
+> (mean > max > both-must-agree), and it is a reasonable default -- but do NOT bill it as a measured
+> improvement over the sensorimotor channel alone. It is not.**
 >
 > ## 🔍 **ADDED 2026-08-23: STORAGE IS FINE; COMBINATION IS WHERE IT GOES -- YOUR DIAGNOSIS, NOW A NUMBER**
 > This brief says the system *"stores word codes that carry no meaning by construction, then combines
