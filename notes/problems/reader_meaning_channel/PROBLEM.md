@@ -109,6 +109,29 @@ review_text:
 > enforceable in code rather than hoped for in prose.
 > **REVERIFY:** `.venv/Scripts/python.exe verification/test_the_channel_cannot_gate_links_alone.py`
 >
+> ### 🧭 **AND HERE IS WHAT NOT TO COMBINE IT WITH -- MEASURED 2026-08-23**
+> The obvious second spoke is a taxonomy, and we have WordNet (supplied knowledge is admissible).
+> **Pooled, WordNet looks decisive: margin `+0.543` vs sensorimotor's `+0.287`, false alarms `7.0%`
+> vs `37.3%`. On that reading the answer is "just use WordNet".**
+>
+> 🔻 **IT IS READING ITS OWN SELECTION. SimVerb's PAIRS WERE CHOSEN BY WORDNET RELATION** -- the
+> benchmark carries a relation column (`SYNONYMS` / `HYPER/HYPONYMS` / `COHYPONYMS` / `ANTONYMS` /
+> `NONE`). Hold the relation FIXED and the edge collapses:
+>
+> | relation | n | SENSORIMOTOR | WORDNET |
+> |---|---|---|---|
+> | **`NONE`** (60% of the benchmark) | **2,084** | **`+0.286`** | `+0.154` |
+> | `HYPER/HYPONYMS` | 797 | `+0.231` | **`+0.298`** |
+> | `SYNONYMS` | 305 | **`+0.349`** | `+0.262` |
+> | `COHYPONYMS` | 190 | `+0.178` | **`+0.239`** |
+>
+> ➡️ **ON THE PAIRS A TAXONOMY DOES NOT ALREADY LINK -- THE CASE A READER ACTUALLY FACES ON NEW TEXT
+> -- THE SENSORIMOTOR CHANNEL IS NEARLY TWICE AS GOOD.** ⚠️ **NOT "WordNet is useless"**: it wins on
+> hyper/hyponyms and cohyponyms, and a hub taking BOTH spokes is still worth testing. **What is
+> refuted is the pooled number and the conclusion a builder would have drawn from it.**
+> *A benchmark selected by a resource cannot fairly score that resource.*
+> **REVERIFY:** `.venv/Scripts/python.exe verification/test_wordnet_advantage_is_selection_not_meaning.py`
+>
 > ## 🔍 **ADDED 2026-08-23: STORAGE IS FINE; COMBINATION IS WHERE IT GOES -- YOUR DIAGNOSIS, NOW A NUMBER**
 > This brief says the system *"stores word codes that carry no meaning by construction, then combines
 > them in a way that destroys most of what little arrives."* **The first half is being fixed by the
