@@ -146,7 +146,29 @@ def _verdict_of(output_dir: str):
         d = json.load(open(p, encoding="utf-8"))
     except (OSError, ValueError):
         return None
-    for key in ("final_verdict", "verdict", "verdict_msg", "status"):
+    # THE KEY LIST IS ENUMERATED, NOT GUESSED -- corrected 2026-08-23 after a guessed field name
+    # produced a whole retracted finding elsewhere the same day. Counted across all 7,878
+    # `data/*/metrics.json`: `verdict` 7,620, `verdict_msg` 7,604, `verdict_tag` 57,
+    # `verdict_detail` 50, `verdict_reason` 42, `final_verdict` 9, `primary_verdict` 8.
+    #
+    # TWO CORRECTIONS FELL OUT OF THAT COUNT:
+    #   * `status` was in the list and is present in **ZERO** files. Dead code that reads as
+    #     coverage. Removed.
+    #   * `primary_verdict` was NOT in the list and `exp_hier_concept_v1` carries it with **no**
+    #     plain `verdict`, so this function returned None for a cell that has one. Added last, after
+    #     the common keys, because on 7 of its 8 cells a plain `verdict` also exists and should win.
+    #
+    # `verdict_tag` / `verdict_detail` / `verdict_reason` are deliberately NOT included: they
+    # annotate a verdict rather than being one, and promoting an annotation to a verdict is the
+    # error this comment exists to prevent.
+    #
+    # AND `verdict_msg` IS LAST FOR EXACTLY THAT REASON -- I had it third and my own control caught
+    # it. It is a MESSAGE: median length 230 characters across the 7,584 cells that carry both,
+    # where a verdict is 10-40. With it third, `exp_hier_concept_v1` -- which has `primary_verdict`
+    # but no plain `verdict` -- returned an eight-line report instead of `HARD_FAIL`. It stays in the
+    # list only because 19 cells carry it and nothing else, so it is a last resort rather than a
+    # preference, and a caller receiving 230 characters should treat that as a message.
+    for key in ("final_verdict", "verdict", "primary_verdict", "verdict_msg"):
         v = d.get(key)
         if isinstance(v, str) and v.strip():
             return v.strip()
