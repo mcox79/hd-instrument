@@ -207,3 +207,7 @@ FYI - in your problems you're giving to the solver, you should make sure to leav
 ## 2026-08-23T20:05:34Z  --  the status window
 
 there are a few problems that were completed by the solver in the problems tab that you say you're waiting on me "Yes - re-verify" - what does that mean? Am I supposed to do anything? It's really not clear if that's "you" - Opus 5, or me, the user. It seems rational that it's waiting on you to verify (though you've already rated the solution?) - but I'm not clear whether you've integrated those or not. Please clarify?
+
+## 2026-08-23T21:36:16Z  --  the status window
+
+the solutions that were posted for problems were all carefully vetted - so you should not just chalk any of the up to "can't run" - you can and should be able to figure that out for both

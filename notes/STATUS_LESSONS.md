@@ -7241,3 +7241,23 @@ NOUN `+0.2745` and VERB `+0.2607` BOTH clear their nulls; our LEARNED channel ha
 **verb INSIDE its null.** ⚠️ *ADJECTIVES unanswerable on our assets -- SimLex's `111` is every
 adjective pair we own.* 🚫 **COVERAGE, NOT CAPABILITY -- no task was run.**
 📎 Brief at priority 6; full note `THE_VERB_HOLE_IS_OURS_...`, `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...`.
+
+
+## FOLDED FROM STATUS.md 2026-08-23 (twenty-ninth pass, store-refute entry)
+
+### 2026-08-22 -- 🚨 **THE STORE FIX IS REFUTED: IT CAN RECITE, NOT RECOGNISE**
+**Addressed storage reads exact-key `0.9954` and held-out `0.1399`, against a first-order COUNTING
+floor of `0.3242` (`-0.1843`, CI excludes 0).** *Info-free twin `0.0000`, scramble `0.0000`, 2AFC
+positive control `0.7433` -- the instrument works, so the failure is real.*
+🧠 **AND IT REPRODUCES A KNOWN CLIFF FROM A NEW DIRECTION** -- a circular WordNet oracle reads
+`0.8787` at exact key and `0.0365` under a partial cue. **Two unrelated mechanisms, same wall: this
+is a property of how the cue meets the store.**
+✅ **MY BRIEF ASKED THE WRONG QUESTION (owner caught it): it said WIRE the store we have. The store
+we have does not work.** ➡️ `store_survives_a_partial_cue` is now **PRIORITY 4** -- design one, bar =
+beat `0.3242` held-out CI-separated; **a rigorous negative is an explicit PASS.**
+
+
+
+## FOLDED FROM STATUS.md AS-OF HEADER 2026-08-23 (verification story, full text)
+
+📦 **OWNER 08-23: *"bundle complicated problems for a solver"* + *"there are solver solutions you have not yet verified? That seems like a better focus for you"* -- BOTH ACTED ON.** Filed **PRIORITY 3 `the_bundle_destroys_meaning_but_replacing_it_hurts`** (a CONTRADICTION, not a build: I measured ~`62%` meaning lost per sentence; two landed cells say replacing the bundle makes a real task WORSE). 🔎 **AND I WAS CARRYING "5 of 5 reproduced" FROM BEFORE A COMPACTION -- reviewed != verified.** **RE-RAN ALL FIVE AND IT IS `3` of `5`, NOT `5` of `5`.** ✅ `harness_cannot_recompute` PASS; `stored_terms_are_stems` `0/141 = 0.00%` exact; `eval_bank_too_small` `166`/`124` match. 🔻 **`cortical_read_has_no_scored_path`: the fresh run EXITS 0 AFTER `224s` AND WRITES NOTHING** (empty dir -> `NOTHING_RECORDED_NOT_A_REPRODUCTION`; the cell no-ops against an empty directory). 🔻 **`flat_store_destroys_the_code`: `reproduce.py` REFUSES** -- the cell does not route through `get_output_dir`, so a 'reproduction' would have OVERWRITTEN the landed record. 🔻 **AND THE CAUSE WAS MY OWN TOOL, NOT EITHER CELL.** *`reproduce.py` invokes cells with NO ARGUMENTS; `solverB_cortical...` declares `--mode default="smoke"`, and in smoke mode it DOES THE WORK THEN PRINTS INSTEAD OF RECORDING and returns 0.* **224s burned, empty dir, reported as `NOTHING_RECORDED` -- which reads as "the cell is broken" when the invocation was wrong. A reproduction tool that runs the wrong mode gives a MISLEADING answer, not an inconclusive one.** ✅ **FIXED: it now reads the declared `--mode` default (AST, not regex -- a regex broke on the nested paren in `choices=("smoke","full")` and undercounted by HALF) and passes `--mode full`.** 📐 **97 cells default `full`, 25 `smoke`, 18 `None`, 3 `self_test` -- so up to `46` were unreproducible for reasons unrelated to them, and the `71.2%` coverage figure is OPTIMISTIC (recomputing).** ✅ *`flat_store`'s cell migrated (one line, controlled both ways).* ⚠️ **NEITHER RESULT IS REFUTED.** 
