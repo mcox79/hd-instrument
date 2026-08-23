@@ -369,6 +369,32 @@ absent from the live closure. So every claim names which modules, which data, wh
 arm. Never generalise one path to the system — and never let a scoped negative harden into an
 unscoped one, which is the "don't generalise a narrow failure to impossible" rule in a new costume.
 
+> ### 🔴 **EXTENDED 2026-08-23 — THE RULE APPLIES TO A SCHEMA, NOT ONLY TO A FILESYSTEM, AND SKIPPING IT COST A WHOLE RETRACTED FINDING.**
+> I audited the capability registry for shelved capabilities that name no way back, measured
+> `gate_decision_target` empty on **24 of 42** rows, wrote it up as *"the durability gate is
+> hollow"*, put it in the plan and `STATUS.md`, and **shipped a session-start check that told every
+> future session so.**
+>
+> **There is a field called `revival_criteria`.** It is filled on **41 of 42** shelves, and **zero**
+> rows lack all of `revival_criteria` / `gate_decision_target` / `superseded_by`. The gate was being
+> honoured the whole time. *I searched for a concept by GUESSING which field held it, found a
+> plausible-looking empty one, and never asked what fields existed.*
+>
+> **THE ENUMERATION IS ONE LINE AND WOULD HAVE ENDED IT INSTANTLY:**
+> ```python
+> sorted({k for r in rows for k in r})   # lists `revival_criteria` immediately
+> ```
+> **Rule: before concluding a field is missing, absent, or empty, LIST THE FIELDS THAT EXIST.** An
+> empty field named nearly-right is indistinguishable from an absent one until you enumerate — and
+> the same day, the same check on `data/*/metrics.json` found `status` in my own tool matched **0 of
+> 7,878** files while `primary_verdict` (present, load-bearing on one cell) was missing from the
+> list. **Both errors, opposite directions, one omitted line.**
+>
+> ⚠️ **DO NOT BUILD A TOOL FOR THIS.** `tools/audit_keys_read_but_never_written.py` already exists,
+> and its author's own verdict after five iterations is *"IT DOES NOT WORK FOR ITS PURPOSE"* — a
+> static scan cannot distinguish a key that is missing from one supplied elsewhere. **The fix is the
+> one-line enumeration, not a 1,169th tool.**
+
 **2. Enumerate from the filesystem, then reconcile to the registry — never the reverse.** Two audits
 on 2026-08-13 each missed a whole working subsystem by asking "does the registry match disk?"
 instead of "what is on disk?". **62 of 141** modules have no registry row at all — including
