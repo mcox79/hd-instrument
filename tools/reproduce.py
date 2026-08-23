@@ -127,6 +127,24 @@ def routes_through_get_output_dir(src: str) -> bool:
     return "get_output_dir" in text or "fresh_run_output_dir" in text
 
 
+# 🔻 A SECOND LIMIT OF THIS TOOL, FOUND THE SAME DAY AND STATED HERE RATHER THAN LEFT IMPLICIT.
+# REPRODUCTION IS CLASSIFIED BY *UNIT COUNT* (`units.jsonl`), BUT MANY CELLS NEVER WRITE UNITS --
+# they write only `metrics.json`. `exp_flat_vs_addressed_identity_recovery_livepath_v1` has
+# `recorded units: 0` in its LANDED directory, so a fresh run of it goes `units 0 -> 0` and this
+# tool reports NOTHING_RECORDED_NOT_A_REPRODUCTION **no matter how faithfully it reproduced**.
+#
+# That is the same failure shape as the `--mode` bug fixed above: the tool reports a property of
+# ITS OWN INSTRUMENTATION as though it were a property of the cell. `--check` already prints the
+# tell ("no recorded units, so a plain re-run would already recompute") -- the classifier just does
+# not consult it.
+#
+# NOT FIXED HERE, and the reason is worth writing down: comparing `metrics.json` field-by-field is
+# a DIFFERENT test with different failure modes (volatile fields like `elapsed_s` and `ts_iso` must
+# be excluded, and the exclusion list is exactly the kind of thing that silently grows until it
+# excludes the finding). Doing it properly deserves its own pass, not a hurried branch here.
+# **Until then: for a units-less cell, run it under HDI_FRESH_RUN by hand and diff the metrics.**
+
+
 def _declared_mode_default(src_path):
     """The cell's declared default for `--mode`, or None if it has no such flag.
 
