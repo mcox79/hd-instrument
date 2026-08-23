@@ -150,3 +150,44 @@ passes. *That also explains the falling facts-per-episode in §2: a single long 
 never gets a second pass to confirm.*
 
 ⚠️ **STILL NOT QUOTED AS AN INSTRUMENT NUMBER.** One corpus, one seed, one run each.
+
+---
+
+## 6. WITHDRAWN THE SAME HOUR: THE BATCHING CLAIM IN SECTION 5 IS WRONG
+
+**Section 5 says "reading in successive batches is markedly more productive per sentence than one
+long read". THAT IS FALSE AND I AM WITHDRAWING IT.**
+
+I reached it by putting `111` grounded after **1,800** batched sentences beside `68` after **1,150**
+single-read sentences. **Raw totals at different volumes.** The batched arm simply read 650 more.
+
+Per sentence, the same two numbers say the opposite of "markedly":
+
+| | batched | single | ratio |
+|---|---|---|---|
+| grounded / sentence | `0.0617` | `0.0591` | `1.04x` |
+| facts / sentence | `0.1744` | `0.1983` | 🔻 **`0.88x` -- favours the SINGLE read** |
+
+**AND THE CONTROLLED TEST SETTLES IT.** Same corpus, same seed, same target volume, only the
+batching changing:
+
+| | read | grounded | facts | g/sentence | f/sentence |
+|---|---|---|---|---|---|
+| BATCHED (8 x 150) | 1,200 | 71 | 234 | `0.0592` | `0.1950` |
+| SINGLE (one call) | 1,150 | 68 | 228 | `0.0591` | `0.1983` |
+| **ratio** | | | | **`1.00x`** | **`0.98x`** |
+
+🔻 **NO DIFFERENCE. Batching buys nothing.** The consequence I drew from it -- that a single long
+read "banks episodes it never gets a second pass to confirm", explaining the falling
+facts-per-episode -- **also goes.** That decline remains unexplained, which is where §2 left it.
+
+⚠️ **AND THE PART WORTH KEEPING IS ABOUT ME, NOT THE SUBSTRATE.** I made this error in the very
+commit where I noted that *"the second time today a wobble I found turned out to be in my instrument
+rather than in the thing"*. **Comparing totals across populations of different size is the exact
+error I had spent the night catching in other people's work and in my own.** Knowing the failure
+mode by name did not stop me committing it twenty minutes later.
+
+**THE CHEAP GUARD, AND IT IS NOT ANOTHER RULE: PRINT THE RATE BESIDE THE TOTAL, ALWAYS.** The probe
+that refuted this printed `g/sentence` next to `grounded`, and the answer was visible in one line
+without any analysis. My earlier probe printed both quantities too -- I just compared the column that
+did not control for volume.
