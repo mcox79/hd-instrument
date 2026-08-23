@@ -4,86 +4,90 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T06:15:01Z  |  HEAD: ba760aad4
+generated: 2026-08-23T18:18:18Z  |  HEAD: d1a030b73
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 29528 min ago <-- STALE
-  - orchestrator: 37858 min ago <-- STALE
-  - research: 0 min ago
-  - skunkworks: 40529 min ago <-- STALE
-  - testbed: 77103 min ago <-- STALE
+  - exp_dev: 30252 min ago <-- STALE
+  - orchestrator: 38581 min ago <-- STALE
+  - research: 6 min ago
+  - skunkworks: 41253 min ago <-- STALE
+  - testbed: 77827 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - substrate_director_kb_v1.staging.5588: 5 min ago, NO metrics.json yet (likely in-flight)
-  - solverB_cortical_scored_path_v1__fresh_verify1: 17 min ago, has metrics.json
-  - exp_thematic_role_labeler_cue_integration_v1__fresh_integ4: 33 min ago, has metrics.json
-  - solverB_cortical_generalization_v1: 44 min ago, has metrics.json
-  - substrate_director_kb_v1: 50 min ago, NO metrics.json yet (likely in-flight)
+  - cornerstone_results: 11 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.41920: 18 min ago, NO metrics.json yet (likely in-flight)
+  - exp_refuse_gate_on_readout_v1: 57 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1: 59 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1_selftest: 59 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
-  - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the
-    10k view, writes briefs and INTEGRATES; separate sessions solve one bounded problem at a time.
-    **TWELVE briefs now, not five. THE ORDER LIVES IN EACH `notes/problems/<slug>/PROBLEM.md`
-    FRONTMATTER (`priority:`), WHICH IS WHAT THE GUI RENDERS -- `README.md` describes the PROTOCOL and
-    does NOT hold the order. ENUMERATE (`ls notes/problems/`), NEVER MIRROR THE LIST** -- a mirrored
-    list is what went stale here and in the plan. **FIVE SOLVED:** `stored_terms_are_stems`,
-    `eval_bank_too_small`, `flat_store_destroys_the_code`, `harness_cannot_recompute`,
-    `cortical_read_has_no_scored_path` -- **all five REVIEWED, feedback at the TOP of each brief and a
-    grade in `review:`, per the owner's instruction.** Strategy session was DISQUALIFIED from
-    `eval_bank_too_small` (it had read the per-item predictions). `tools/problem_ledger.py`.
-  - ✅ **ANSWERED, AND IT DEFLATES MY OWN FINDING (08-23):** the dictionary pseudo-count WEIGHTING and
-    its silent DISCARD are **UNTESTABLE on the deployment population** -- it commits on `6` of `33`  lemmas and **all six SATURATE**, so 3 of my 4 arms were the SAME ARM. **The calibration gap is REAL  on `1,971` dictionary verbs and ABSENT where the organ is used.** ⚠️ *I did not ask whether the  experiment COULD succeed first -- one line, skipped, paid for over two launches.*  ✅ *`WEIGHTED` read `0.4722`, reproducing the landed number to 4 digits independently.*  `THE_CONFIDENCE_SCORE_DOES_NOT_PREDICT_...`
+  - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
+  - ✅ **Q115 ANSWERED BY THE OWNER (08-23): REQUIRE THE HELPER ON NEW CELLS, TRIAGE THE OLD ONES.**
+    *"def make it a requirement for new experiments, but I'd go back through the 275 older ones one at
+    a time -- we need to know what those are and how they turned out."* **The gate is LIVE** -- the
+    pre-commit hook refuses a NEW `experiments/*.py` that writes a result without the shared helper,
+    **added files only**, controlled both ways against real commits.
+    🔻 **AND THE PLAN'S COVERAGE NUMBER WAS WRONG IN OUR FAVOUR: `~21%` is WITHDRAWN, the truth is
+    `71.2%`** -- `3,495` of `4,908` landed results can be re-run today, `1,413` replay. *The old figure
+    matched `OUTPUT_DIR = helper(...)` when the common shape is a LOCAL `out_dir = get_output_dir(...)`.*
+    ⚠️ **MY OWN FIRST RE-MEASUREMENT REPEATED THAT EXACT ERROR AND READ `2` of `4,908`** -- a
+    catastrophe I nearly reported. It parses the AST now, positive-controlled in a fresh process.
+    📐 **THE "1 BY 1" LIST: of `1,413` replaying, `425` assert a result; `135` of those are CITED by
+    a doc that steers work and `290` are not. THE `135` ARE THE REAL LIST** -- re-running a result
+    nobody quotes buys nothing. `tools/reproducibility_inventory.py` regenerates it on demand.
+  - ✅ **THE FOUNDATION LOADS NOW -- AND THE PREDICTION THAT MOTIVATED IT IS DEAD (08-23).**
+    `Substrate(foundation_dir=...)` wires (`e178e80d7`); cold byte-identical at `92` facts, resumed `390`.
+    🔻 **RESUMING DOES NOT HELP GROUNDING:** a matched 4,000-sentence read goes `168` -> `9` new
+    groundings (**`~18x` LESS**, 3 seeds) and precision sits at its **RANDOM_ANCHOR floor in every arm**
+    (COLD `0.0199`=`3/151`, RESUMED `0/9`). **DECOY with permuted labels matches RESUMED EXACTLY (`0/164`
+    both) -- so it is anchor geometry, NOT meaning.** Cause = **SAME-BATCH CO-OCCURRENCE**, which cannot
+    cross a run boundary. *Reproduced before landing; solver EXCELLENT.* **Persistence is NECESSARY and NOT
+    SUFFICIENT -- never bill it as a grounding fix.** ➡️ **A THIRD INDEPENDENT INSTRUMENT NOW POINTS AT
+    `reader_meaning_channel` (rank 1).**
+  - 🖥️ **GUI TAB 9 "SUBSTRATE" -- THE OWNER CAN SEE THE WHOLE PIPELINE AT ONCE (08-23).** Ten stages
+    from `data/substrate_progress.json`, `4` need work, the wall named at the top. **Every row carries when
+    it was last re-checked and goes amber at 3 days / red at 7 -- the tab shows its own staleness.**
+    `tools/substrate_progress.py --check` refuses a number with no floor, a source not on disk, or jargon.
+    🔻 **THE REAL BUG BEHIND *"there is STILL no priority"* WAS A STALE WINDOW: priority had been wired
+    end-to-end for a day, but the GUI was launched 08-22 13:15 and never restarted.** Relaunched.
+    *A feature that ships into a process nobody restarts has not shipped.*
+  - 📘 **THE ENUMERATE RULE NOW COVERS SCHEMAS (`CLAUDE.md` Evidence discipline 2, 08-23).**
+    **Before concluding a field is missing or empty, LIST THE FIELDS THAT EXIST** -- one line,
+    `sorted({k for r in rows for k in r})`. *Earned by two opposite errors the same day: an empty
+    `gate_decision_target` read as an absent revival criterion while `revival_criteria` sat filled
+    on `41` of `42`; and in my own tool `status` matched `0` of `7,878` files while
+    `primary_verdict` was missing from the list entirely.* 🚫 **AND IT RECORDS "DO NOT BUILD A
+    TOOL FOR THIS": `audit_keys_read_but_never_written.py` already tried, five iterations, and its
+    own verdict is that a static scan CANNOT distinguish a missing key from one supplied
+    elsewhere. There are 1,168 tools; the fix is the one-liner.**
+  - 🔻 **RETRACTED SAME DAY -- "THE DURABILITY GATE IS HOLLOW" WAS MY OWN WRONG-FIELD ERROR.**
+    I measured `gate_decision_target` (empty on `24` of `42` shelves) and reported that shelved
+    capabilities have no revival criteria. **There is a field called `revival_criteria` and it is
+    filled on `41` of `42` (`98%`); ZERO rows lack all three of `revival_criteria` /
+    `gate_decision_target` / `superseded_by`. THE GATE IS BEING HONOURED.** 🔑 **The fault: I
+    searched by a GUESSED FIELD NAME instead of ENUMERATING the fields -- one line would have
+    listed it.** *Same enumerate-then-reconcile rule I cited twice today.* **The session-start
+    check I shipped was crying wolf and is corrected; it is now silent.**
+    `THE_SHELVE_HALF_OF_THE_DURABILITY_GATE_IS_HOLLOW_...` (retracted at the top)
+  - 🧪 **BOTH PATHS DRIVEN END TO END 08-23 -- write path healthy, read path cannot refuse.** *Now carried, and kept current, by **GUI tab 9 / `data/substrate_progress.json`** stages 3 and 5. Full run in the note.*
   - 🧠 **TWO SESSIONS, ONE ORGAN -- RECONCILED, AND IT CORRECTS ME TWICE (08-23).** A concurrent
-    session split the propagator's `83%` abstention: **`114` no-anchor-in-range vs `1,531`
-    anchors-that-disagree -- so `6` points are REACH and `78` are DISCRIMINATION.** 🔻 **I called it
-    coverage-limited twice; that was wrong and the repair is different.** They also found the cause
-    with a null AND both positive controls: **WordNet distance does not predict valence agreement at
-    all** (Spearman `-0.0023`, inside a shuffled null; antonyms `2.031` and same-synset `1.063` both
-    behave) -- and **Stage B is `307` of `326` commits, so `94%` of the organ's output rides an axis
-    measured to carry none of what it votes on.**
-    ✅ **MY OPPOSING RESULT SURVIVED ITS BASELINE, AND THE SYNTHESIS IS A MEASUREMENT:** nearest-5
-    anchor purity `0.800` vs random-5 `0.600` vs farthest-5 `0.600` on a balanced `26`/`26` set (*the
-    `0.5` I first compared against was the WRONG baseline*). Both hold because **THE 52 SEEDS ARE
-    THEMSELVES CLUSTERED BY POLARITY** -- same-polarity anchor pairs `0.2438` vs `0.2206`, gap
-    `+0.0232` against a 2,000-shuffle null `[-0.0076,+0.0087]`, OUTSIDE.
-    🔑 **SO STAGE B READS WHICH HAND-LABELLED CLUSTER A TARGET LANDED BESIDE, NOT VALENCE OFF THE
-    GRAPH. The organ's competence is inherited from where 52 seeds sit** -- far narrower than
-    "anchored valence propagates", and it predicts their thin global gradient. **Antonymy is the
-    valence-bearing relation (Stage A `0.8421`, n=19); that is where propagation belongs.**
-    *Bears on `Q116`: strengthens SUPPLY, weakens REASONING-OUTWARD -- against my own recommendation.*
-    `RECONCILING_TWO_SESSIONS_...`
-  - 🔧 **AND THE COORDINATION WAS LUCK, SO I FIXED THE MECHANISM (08-23).** I only found the other
-    session because commits collided in a `git log` I happened to run. The detector is not broken --
-    **it scans COMMITTED history, so it can only see FINISHED work.** The claim queue should have
-    covered it and **could only claim rows that ALREADY EXISTED; `add` was never on the CLI**, so
-    there was no way to say *"I am starting X"* -- which is why nobody did. **`dispatch_queue.py
-    announce "<what>" --by <session>` now adds+claims in ONE command**, and `before_you_start` shows
-    it as IN PROGRESS with the owner named (verified both directions on the real queue).
-    ⚠️ **THE COST WAS NOT DUPLICATED WORK -- IT WAS A MISSED HANDOFF: they hit the checkpoint-replay
-    problem I was mid-way through FIXING and routed around it.** *Worse, because neither side can see
-    it.*
-  - ✅ **INTEGRATION 08-22/23 -- THE LESSON IS THE HEADLINE: LANDING CODE AND RUNNING ITS TESTS IS NOT
-    INTEGRATION; USING IT IS.** I landed the reproduce-a-landed-cell mechanism, never used it, and
-    using it broke **FOUR** ways in 20 min with **every witness green**: the switch **CRASHED EVERY
-    CELL THAT IMPORTS THE HARNESS** (its witness sets the env AFTER import; a real cell sets it before
-    Python starts -- *the bug IS the ordering*); `classify_run(0,0)` returned `RECOMPUTED` for a run
-    that recorded NOTHING; the driver was blind to `19` of `423` landed dirs lacking `exp_`; and its
-    detector did not recognise the migration its own refusal prints. *Coverage corrected: `87` was a
-    STRING match, strict IMPORT gives `43` -- quote `10-21%`, never `87` alone.*
-    🎯 **PAYOFF -- FIRST GENUINE REPRODUCTION HERE:** a landed `HARD_PASS` recomputed from scratch in
-    `33.3s`, same verdict, landed dir byte-identical. *`403` of `7,875` cells replay; nothing could do
-    this before.* ✅ **AND EVERY OTHER SOLVED PROBLEM REPRODUCES EXACTLY** (ran each brief's own
-    reverify, which nobody had): stems `0/141`; bank `166`/`124`/`0.6048387`; flat-store `0.1399`
-    `[0.1310,0.1494]` vs floor `0.3242` after `215s` of REAL recompute. **THE SUBMITTED WORK IS SOUND
-    -- ahead of every defect above.** ⚠️ *`3` of `5` reverify commands re-ran a cell IN PLACE; I
-    tripped one and re-stamped a landed record (restored). Fixed; re-audited `0 of 5`.*
-    `INTEGRATION_BY_USING_IT_FOUND_FOUR_DEFECTS_...`
-  - ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-23:** the blind sheet was drawn from a STALE  foundation (`v2_qualityfix` while `v3/v4/v5` exist unmarked; the sampler has no notion of a CURRENT  foundation). **STANDS: the grounding loop stores ~`8%` stemmer output and is NOT known to be fixed.**  `THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...`
+    session split the propagator's `83%` abstention: **`6` points are REACH, `78` are DISCRIMINATION**
+    -- 🔻 **I called it coverage-limited twice and the repair is different.** Cause, with a null AND
+    both positive controls: **WordNet distance does not predict valence agreement at all** (Spearman
+    `-0.0023`, inside a shuffled null), and **Stage B is `307` of `326` commits -- `94%` of output on
+    an axis carrying none of what it votes on.** ✅ **MY OPPOSING RESULT SURVIVED ITS BASELINE**
+    (nearest-5 purity `0.800` vs random-5 `0.600`; the `0.5` I first used was the WRONG baseline), and
+    **the synthesis is a MEASUREMENT: the 52 seeds are themselves CLUSTERED by polarity** (`+0.0232`
+    vs a permutation null `[-0.0076,+0.0087]`). 🔑 **STAGE B READS WHICH HAND-LABELLED CLUSTER A TARGET
+    LANDED BESIDE, NOT VALENCE OFF THE GRAPH** -- competence inherited from seed placement. **Antonymy
+    IS the valence-bearing relation (Stage A `0.8421`, n=19); filed as
+    `propagate_along_the_relation_that_carries_valence`.** *Bears on `Q116` AGAINST my own
+    recommendation.* `RECONCILING_TWO_SESSIONS_...`
+  - 🔧 **COORDINATION FIXED 08-23:** *two sessions worked one organ unaware; the claim queue could only claim PRE-EXISTING rows, so starting new work was unannounceable. `dispatch_queue.py announce` adds-and-claims in one step.*
+  - ✅ **LANDING CODE AND RUNNING ITS TESTS IS NOT THE SAME ACT (08-22/23).** *I committed a brief twice while its cert was FAILING -- a piped pytest's exit code is `tail`'s.* **Now enforced by a pre-commit hook, positive-controlled, so this cannot recur by memory.**
   - ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
-  - ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-22 (search by name):** the OOV-36 organ is  COVERAGE-limited, not discrimination-limited (`20` of `22` errors are NON-answers; `14/16 = 0.8750`  when it commits), and its landed `HARD_FAIL` is STALE -- measured where the cascade fired `0 of 36`,  re-read today it fires `10 of 36`. **Verdict unchanged, diagnosis changed.** Guard:  `tools/score_with_abstention.py`, 6/6. `THE_ORGAN_DOES_NOT_ANSWER_WRONG_...`,  `THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...`
-  - 📏 **SIZE RULE (earned): when this file fills, EVICT to `STATUS_LESSONS.md` with a stub -- do NOT  shave. It was once `55,070` B against a `28,672` cap. `STATUS_SPEC.md` sec 3/6/7.**
 
 ## 3. How we are doing (C1-C4, notes/SUBSTRATE_STRATEGY.md PART 1)
 - **C1** Near-neighbour 2AFC, live reading path: now=**0.6980** (was 0.6395) | floor(s)=scrambled-context **0.5095**, frequency **0.48025**, chance 0.50 | table verdict: (no verdict word in table cell)
@@ -93,11 +97,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 1 new commit(s) since last snapshot (HEAD a039efda0 -> ba760aad4)
+- 3 new commit(s) since last snapshot (HEAD 0879fdf63 -> d1a030b73)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - (none found)
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8170, "generated_at": "2026-08-23T06:15:01Z", "head_commit": "ba760aad44524a94912006ba597ee31f969a4d8d", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8176, "generated_at": "2026-08-23T18:18:18Z", "head_commit": "d1a030b73691444ebb210e591dcd3e5e4a2359e4", "step_status": {}}
 -->

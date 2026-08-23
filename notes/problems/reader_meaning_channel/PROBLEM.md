@@ -16,6 +16,36 @@ review_text:
 > including PRIORITY 4 -- is real but UNMEASURABLE on a reading task. *Its hub-spoke combination rule
 > is UNPINNED, so whatever you build there is our-invention-under-test, not brain-derived.*
 
+> ## 🧠 **ADDED 2026-08-23 BY THE STRATEGY SESSION: THE CHANNEL COVERS OUR VERB HOLE, AND THIS BRIEF DID NOT SAY SO**
+> **This brief mentioned "verb" ZERO times before this block**, while the sharpest fact about the
+> channel it replaces is that it reads **exactly `+0.0000` on verbs**. So I measured whether the
+> proposed replacement covers that hole before anyone builds it.
+>
+> ✅ **IT DOES.** On **SimVerb-3500** -- the same benchmark our verb zero was measured on -- a plain
+> cosine over the raw norms reads **`+0.3107` `[+0.2822,+0.3390]`, null p95 `0.0304`**, covering
+> **3,487 of 3,500 pairs (99.6%)**. It also reads **`+0.3109`** on SimLex's 222 verbs: *two
+> independent verb benchmarks agreeing to three decimals.* On SimLex, verbs (`+0.3109`) sit only
+> slightly below nouns (`+0.3469`) -- **our channel falls from weak to nothing across that same
+> boundary, so the verb hole is OURS, not the world's.**
+> ⚠️ **NOT A SUBTRACTION:** our channel covers 2,651 SimVerb pairs and the norms cover 3,487.
+> **Quote it as "ours is absent where this one is present", never as a gain of `0.31`.**
+>
+> 🧠 **AND THE MOTOR DIMENSIONS ARE WHAT CARRY VERBS -- WHICH IS A BRAIN PREDICTION THAT COULD HAVE FAILED.**
+> Lancaster splits into 6 PERCEPTUAL and 5 ACTION dimensions, the seam somatotopy predicts (Hauk,
+> Johnsrude & Pulvermuller 2004: *kick* recruits leg motor cortex, *pick* hand). **ACTION minus
+> PERCEPTUAL on verbs = `+0.0651` `[+0.0306,+0.1005]` -- CI-SEPARATED FROM ZERO**, paired, 3,487
+> pairs. *At `n=222` it was `[-0.0989,+0.2031]` and said nothing; the fix was power, not caution.*
+> 🔻 **A SINGLE dissociation, not a double one** -- on nouns the same test reads
+> `-0.0150` `[-0.0951,+0.0635]`. **Do NOT retell as "motor for verbs, perceptual for nouns."**
+>
+> ➡️ **WHAT THIS CHANGES FOR WHOEVER BUILDS THIS:** the channel is worth wiring for verbs
+> specifically, and if you weight or select dimensions, **the action dimensions are the load-bearing
+> ones for verbs and that is measured, not assumed.** *It says nothing about our substrate reaching
+> this ceiling -- `read()` still makes zero calls to the asset, which is this brief's other half.*
+> **REVERIFY (tracked, runs in ~40s):**
+> `.venv/Scripts/python.exe verification/test_sensorimotor_covers_the_verb_hole.py`
+> Write-up: `notes/THE_SENSORIMOTOR_CHANNEL_COVERS_OUR_VERB_HOLE_2026-08-23.md`.
+
 # PROBLEM: THE READER'S MEANING CHANNEL IS THE WRONG MODALITY
 
 **slug:** `reader_meaning_channel` · **opened:** 2026-08-22 by the strategy session
