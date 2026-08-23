@@ -143,17 +143,18 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 ## WHAT IS RUNNING
 
 - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
-- 🧠✅ **THE PRIORITY-1 FIX COVERS OUR VERB HOLE -- ITS BRIEF NEVER MENTIONED VERBS (08-23).**
-  On **SimVerb-3500**, the benchmark our own verb zero was measured on: the sensorimotor norms read
-  **`+0.3107`** (null p95 `0.0304`, `3,487` of `3,500` covered); **ours reads `+0.0000`** covering
-  `2,651`. ⚠️ *Different coverage -> NOT a subtraction: "ours is ABSENT where this one is
-  PRESENT", nothing more.* Replicates at `+0.3109` on SimLex's 222 verbs -- **two independent verb
-  benchmarks to three decimals**; verbs sit just below nouns there while ours falls weak->nothing,
-  so **THE VERB HOLE IS OURS, NOT THE WORLD'S.** 🧠 **And a brain prediction that could have failed,
-  held: ACTION − PERCEPTUAL on verbs `+0.0651` `[+0.0306,+0.1005]`, CI-SEPARATED** (somatotopy).
-  **At `n=222` it read `[-0.0989,+0.2031]` and said NOTHING -- the fix was POWER, not caution.**
-  🔻 **SINGLE dissociation only**; the noun half includes zero. *Witness + note:
-  `test_sensorimotor_covers_the_verb_hole.py`.*
+- 🧠 **SOMATOTOPY HOLDS AT POWER: THE MOTOR DIMENSIONS ARE WHAT CARRY VERBS (08-23).**
+  🔻 *I framed this as "nobody had checked whether the channel covers our verb hole" -- **FALSE,
+  the 08-22 entry above says exactly that** (asset verb `+0.2607` vs null `0.1241`). My prior-work
+  check looked in the brief, not in STATUS, and I reused its headline phrase. **The NEW part is the
+  dimension split, which nothing prior did.***
+  **Lancaster splits 6 PERCEPTUAL / 5 ACTION dims -- the seam somatotopy predicts (*kick* recruits leg
+  motor cortex). ACTION − PERCEPTUAL on verbs = `+0.0651` `[+0.0306,+0.1005]`, CI-SEPARATED**, paired,
+  3,487 SimVerb pairs. **At `n=222` the same test read `[-0.0989,+0.2031]` and said NOTHING -- the fix
+  was POWER, not more careful wording.** 🔻 **SINGLE dissociation only**; the noun half includes
+  zero, so NEVER "motor for verbs, perceptual for nouns". ⚠️ *The 08-22 pass and this one read the
+  asset's SimLex verbs at `+0.2607` and `+0.3109` -- same qualitative answer, independently reached;
+  DO NOT quote them as agreeing.* *Witness: `test_sensorimotor_covers_the_verb_hole.py`.*
 - 🔍 **THE OTHER HALF OF THE PRIORITY-1 DIAGNOSIS, PRICED -- AND BOTH OBVIOUS FIXES FAIL (08-23).**
   *Measured with the sensorimotor channel BECAUSE it has signal to lose; our own codes would confuse
   format-loss with nothing-there.* **STORING is fine: `+0.3107` raw -> `+0.2920` in our 256-dim dense

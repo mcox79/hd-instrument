@@ -1,3 +1,32 @@
+<!-- CORRECTION 2026-08-23, SAME DAY -- READ BEFORE THE TEXT BELOW -->
+> # 🔻 **THE FRAMING IS WRONG: THIS WAS ALREADY KNOWN, AND I FOUND OUT BY READING MY OWN STATUS FILE**
+>
+> This note says *"nobody had checked"* whether the sensorimotor channel covers our verb hole, and
+> presents that as its finding. **`STATUS.md` has carried the answer since 2026-08-22**, under a
+> heading using the exact phrase I reached for independently:
+>
+> > 🔑 **THE VERB HOLE IS OURS, NOT THE ASSET'S:** ASSET NOUN `+0.2745` (null `0.0732`) and VERB
+> > `+0.2607` (null `0.1241`) **BOTH CLEAR** ... our LEARNED channel has noun `0.1310` and verb
+> > INSIDE its null. *(`THE_VERB_HOLE_IS_OURS_...`, brief at priority 7)*
+>
+> **MY PRIOR-WORK CHECK LOOKED IN THE BRIEF AND NOT IN STATUS.** The brief genuinely does not mention
+> verbs -- that part is true and worth fixing -- but "we were about to commission a fix without
+> checking" is FALSE. It had been checked. **I reproduced a known result and reused its headline.**
+>
+> ⚠️ **AND THE TWO MEASUREMENTS DO NOT AGREE, WHICH I AM NOT GOING TO PAPER OVER.** The 08-22 pass
+> reads the asset's SimLex verbs at `+0.2607`; I read `+0.3109`. Both clear their nulls, so the
+> QUALITATIVE conclusion is the same and independently arrived at -- but the point estimates differ
+> by more than either interval is narrow enough to shrug at. *My `+0.2651` for PERCEPTUAL-only dims is
+> suspiciously close to their `+0.2607`, so the likeliest explanation is a different dimension subset.
+> **That is a hypothesis, not a reconciliation.*** Do not quote the two as agreeing.
+>
+> ## ✅ WHAT IN THIS NOTE IS ACTUALLY NEW, AND SURVIVES
+> * **THE SOMATOTOPY RESULT (§4).** ACTION − PERCEPTUAL on verbs `+0.0651` `[+0.0306,+0.1005]`,
+>   CI-separated on 3,487 SimVerb pairs. **Nothing prior split the dimensions.** This is the finding.
+> * **The direct SimVerb-3500 measurement** at 3,487 pairs (the prior reports SimLex numbers).
+> * **The power lesson:** the same test read `[-0.0989,+0.2031]` at `n=222` and said nothing.
+> * 🚫 **NOT NEW: "the channel covers the verb hole."** Credit the 08-22 pass.
+
 # THE PROPOSED FIX DOES COVER OUR WORST HOLE -- AND THE BRIEF FOR IT NEVER MENTIONS VERBS
 
 **2026-08-23, strategy session.** A measurement, not a build. Ran because the highest-ranked problem

@@ -21,6 +21,13 @@ review_text:
 > channel it replaces is that it reads **exactly `+0.0000` on verbs**. So I measured whether the
 > proposed replacement covers that hole before anyone builds it.
 >
+> 🔻 **CORRECTION, SAME DAY: "nobody had checked" IS FALSE.** `STATUS.md` has carried this
+> since 08-22 (*"THE VERB HOLE IS OURS, NOT THE ASSET'S"*, asset verb `+0.2607` vs null `0.1241`,
+> brief at priority 7). **My prior-work check looked in this brief and not in STATUS.** What is NEW
+> below is the SOMATOTOPY split and the SimVerb-3500 measurement, not the headline. ⚠️ *The two
+> passes read the asset's SimLex verbs at `+0.2607` and `+0.3109` -- same qualitative answer,
+> independently reached, but DO NOT quote them as agreeing.*
+>
 > ✅ **IT DOES.** On **SimVerb-3500** -- the same benchmark our verb zero was measured on -- a plain
 > cosine over the raw norms reads **`+0.3107` `[+0.2822,+0.3390]`, null p95 `0.0304`**, covering
 > **3,487 of 3,500 pairs (99.6%)**. It also reads **`+0.3109`** on SimLex's 222 verbs: *two
