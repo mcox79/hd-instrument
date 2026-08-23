@@ -143,6 +143,19 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 ## WHAT IS RUNNING
 
 - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
+- ✅ **Q115 ANSWERED BY THE OWNER (08-23): REQUIRE THE HELPER ON NEW CELLS, TRIAGE THE OLD ONES.**
+  *"def make it a requirement for new experiments, but I'd go back through the 275 older ones one at
+  a time -- we need to know what those are and how they turned out."* **The gate is LIVE** -- the
+  pre-commit hook refuses a NEW `experiments/*.py` that writes a result without the shared helper,
+  **added files only**, controlled both ways against real commits.
+  🔻 **AND THE PLAN'S COVERAGE NUMBER WAS WRONG IN OUR FAVOUR: `~21%` is WITHDRAWN, the truth is
+  `71.2%`** -- `3,495` of `4,908` landed results can be re-run today, `1,413` replay. *The old figure
+  matched `OUTPUT_DIR = helper(...)` when the common shape is a LOCAL `out_dir = get_output_dir(...)`.*
+  ⚠️ **MY OWN FIRST RE-MEASUREMENT REPEATED THAT EXACT ERROR AND READ `2` of `4,908`** -- a
+  catastrophe I nearly reported. It parses the AST now, positive-controlled in a fresh process.
+  📐 **THE "1 BY 1" LIST: of `1,413` replaying, `425` assert a result; `135` of those are CITED by
+  a doc that steers work and `290` are not. THE `135` ARE THE REAL LIST** -- re-running a result
+  nobody quotes buys nothing. `tools/reproducibility_inventory.py` regenerates it on demand.
 - ✅ **THE FOUNDATION LOADS NOW -- AND THE PREDICTION THAT MOTIVATED IT IS DEAD (08-23).**
   `Substrate(foundation_dir=...)` wires (`e178e80d7`); cold byte-identical at `92` facts, resumed `390`.
   🔻 **RESUMING DOES NOT HELP GROUNDING:** a matched 4,000-sentence read goes `168` -> `9` new
@@ -191,7 +204,7 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   IS the valence-bearing relation (Stage A `0.8421`, n=19); filed as
   `propagate_along_the_relation_that_carries_valence`.** *Bears on `Q116` AGAINST my own
   recommendation.* `RECONCILING_TWO_SESSIONS_...`
-- 🔧 **COORDINATION FIXED 08-23:** two sessions worked one organ unaware; the claim queue could only  claim rows that ALREADY EXISTED, so nobody could announce NEW work. **`dispatch_queue.py announce  "<what>" --by <session>` adds+claims in one command** and `before_you_start` shows it IN PROGRESS.  *Cost was a MISSED HANDOFF, not duplication.* `RECONCILING_TWO_SESSIONS_...`
+- 🔧 **COORDINATION FIXED 08-23:** *two sessions worked one organ unaware; the claim queue could only claim PRE-EXISTING rows, so starting new work was unannounceable. `dispatch_queue.py announce` adds-and-claims in one step.*
 - ✅ **LANDING CODE AND RUNNING ITS TESTS IS NOT THE SAME ACT (08-22/23).** *I committed a brief twice while its cert was FAILING -- a piped pytest's exit code is `tail`'s.* **Now enforced by a pre-commit hook, positive-controlled, so this cannot recur by memory.**
 - ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
 
