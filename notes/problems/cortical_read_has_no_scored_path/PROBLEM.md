@@ -13,8 +13,10 @@ review_text: Refuted my brief with evidence, found a 100% leak in the only prior
 > 🚨 **AND THE GENERAL POINT, WHICH IS BIGGER THAN THIS CELL: `tools/reproduce.py` RUNS CELLS WITH
 > NO ARGUMENTS, so it CANNOT reproduce ANY cell whose default mode is smoke -- it will report
 > `NOTHING_RECORDED` every time and look like a broken cell rather than a wrong invocation.**
-> ⚠️ **NOTHING HERE REFUTES THE RESULT.** *The landed record is untouched; the review stands on the
-> artifacts I read at the time.*
+> ✅ **AND WITH THE TOOL FIXED, IT REPRODUCES: `724` of `725` numeric fields IDENTICAL.** The single
+> difference is `/result/read_seconds` (`380.8` -> `507.4`) -- **wall-clock time, which is supposed
+> to vary.** `units 0 -> 1`, `classify_run: RECOMPUTED`, landed directory unchanged.
+> ➡️ **This solution is VERIFIED. The apparent failure was entirely my tool's invocation.**
 
 # MY REVIEW OF THE SUBMISSION: **EXCELLENT**
 

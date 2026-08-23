@@ -7261,3 +7261,13 @@ beat `0.3242` held-out CI-separated; **a rigorous negative is an explicit PASS.*
 ## FOLDED FROM STATUS.md AS-OF HEADER 2026-08-23 (verification story, full text)
 
 📦 **OWNER 08-23: *"bundle complicated problems for a solver"* + *"there are solver solutions you have not yet verified? That seems like a better focus for you"* -- BOTH ACTED ON.** Filed **PRIORITY 3 `the_bundle_destroys_meaning_but_replacing_it_hurts`** (a CONTRADICTION, not a build: I measured ~`62%` meaning lost per sentence; two landed cells say replacing the bundle makes a real task WORSE). 🔎 **AND I WAS CARRYING "5 of 5 reproduced" FROM BEFORE A COMPACTION -- reviewed != verified.** **RE-RAN ALL FIVE AND IT IS `3` of `5`, NOT `5` of `5`.** ✅ `harness_cannot_recompute` PASS; `stored_terms_are_stems` `0/141 = 0.00%` exact; `eval_bank_too_small` `166`/`124` match. 🔻 **`cortical_read_has_no_scored_path`: the fresh run EXITS 0 AFTER `224s` AND WRITES NOTHING** (empty dir -> `NOTHING_RECORDED_NOT_A_REPRODUCTION`; the cell no-ops against an empty directory). 🔻 **`flat_store_destroys_the_code`: `reproduce.py` REFUSES** -- the cell does not route through `get_output_dir`, so a 'reproduction' would have OVERWRITTEN the landed record. 🔻 **AND THE CAUSE WAS MY OWN TOOL, NOT EITHER CELL.** *`reproduce.py` invokes cells with NO ARGUMENTS; `solverB_cortical...` declares `--mode default="smoke"`, and in smoke mode it DOES THE WORK THEN PRINTS INSTEAD OF RECORDING and returns 0.* **224s burned, empty dir, reported as `NOTHING_RECORDED` -- which reads as "the cell is broken" when the invocation was wrong. A reproduction tool that runs the wrong mode gives a MISLEADING answer, not an inconclusive one.** ✅ **FIXED: it now reads the declared `--mode` default (AST, not regex -- a regex broke on the nested paren in `choices=("smoke","full")` and undercounted by HALF) and passes `--mode full`.** 📐 **97 cells default `full`, 25 `smoke`, 18 `None`, 3 `self_test` -- so up to `46` were unreproducible for reasons unrelated to them, and the `71.2%` coverage figure is OPTIMISTIC (recomputing).** ✅ *`flat_store`'s cell migrated (one line, controlled both ways).* ⚠️ **NEITHER RESULT IS REFUTED.** 
+
+
+## FOLDED FROM STATUS.md 2026-08-23 (thirtieth pass, replayed-checkpoint entry)
+
+### 2026-08-22 -- ✅ **A REPLAYED CHECKPOINT IS NOT A REPRODUCTION; ENFORCED IN CODE**
+`tools/reproduction_check.py` makes the unsafe reading unrepresentable (no `__bool__`; no
+before-snapshot -> `INDETERMINATE`). 🚫 *Casts doubt on NO landed number -- only on whether
+re-running one verifies it.* ➡️ **Superseded in scope by the Q115 entry: coverage is `71.2%`, the
+backlog is inventoried, and the triage found one row worth acting on.**
+
