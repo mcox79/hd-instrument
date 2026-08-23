@@ -139,7 +139,10 @@ saying so is better than implying an exact reproduction I did not verify.*
 - ✅ **ESTABLISHED:** WordNet path proximity between verbs carries **no detectable information**
   about valence agreement, inside the band the organ uses, with two working positive controls.
 - ✅ **ESTABLISHED:** synonymy and antonymy DO carry it.
-- 🚫 **NOT established:** that Stage B is worthless -- it clears its floor and I cannot yet say why.
+- ✅ **ESTABLISHED (section 4b, same day):** Stage B's residual signal is the similarity weighting
+  acting as a SELECTOR, not a discriminator -- it never changes an answer (100% agreement with an
+  unweighted vote on the 234 items both answer) but picks out 75 further items it answers at
+  `0.7200` against a `0.5067` floor. **Proximity carries ANSWERABILITY, not valence.**
 - 🚫 **NOT established:** that switching to lexical relations would work better. **That is the
   obvious next build and it is untested.** Antonymy reaches few words (Stage A commits `19` times).
 - 🚫 **NOT** a claim about the ANCHOR+PROPAGATE hypothesis itself. *The idea that valence must be
@@ -163,10 +166,11 @@ The map does hold the information, just somewhere else. Words listed as opposite
 good-and-bad, and words listed as meaning the same thing are close. Both checks came out right,
 which is what makes the main finding trustworthy rather than a broken measurement.
 
-The uncomfortable part: 94 out of every 100 answers the system gives come from the part that reads
-the uninformative axis — and that part still does better than guessing. **I do not know why, and I
-am not going to invent a reason**; last time I explained a surprise here, my explanation turned out
-to be wrong.
+The part that looked uncomfortable is now explained. 94 of every 100 answers come from the part
+reading the uninformative axis, and it still beats guessing — because closeness on that map turns
+out to tell you not *which* answer is right, but **whether a confident answer is available at all**.
+Where it says it can decide, it is right 72 times in 100 against a coin flip; strip that judgement
+out and keep everything else, and the answers never change — only which words get answered.
 
 ## QUESTIONS
 
