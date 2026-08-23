@@ -1009,6 +1009,7 @@ class StatusWindow:
         self._build_problems()    # C  (tab 6: the problem tracker)
         self._build_results()     # C
         self._build_commentary()  # D  (2026-08-17: its OWN tab -- see docstring below)
+        self._build_substrate()   # A  (tab 9: the ten pipeline stages, their state and gaps)
         self._register_tab_sources()
         self._apply_headline_mode()
 
@@ -1018,6 +1019,19 @@ class StatusWindow:
         self.status_lbl = ttk.Label(bar, text="starting...", anchor="w", foreground=_DIM)
         self.status_lbl.grid(row=0, column=0, sticky="ew")
         ttk.Button(bar, text="Refresh (F5)", command=self.refresh_now).grid(row=0, column=1)
+
+        # WHEN WAS THE TAB I AM LOOKING AT LAST UPDATED (owner 2026-08-23: *"it should have a time
+        # stamp on when you last updated it (each tab should have this)"*).
+        #
+        # ONE SHARED LINE, NOT ONE LABEL PER TAB, FOR TWO MEASURED REASONS. The tab titles already
+        # carry a RELATIVE age (`[23h]`) and the owner did not read it as a timestamp -- so this
+        # states the wall-clock time in full. And the owner's standing complaint about this window
+        # is vertical space (*"the top of the gui takes up too much space"*), so nine per-tab
+        # labels would spend nine rows saying one thing at a time. This spends one row, in the
+        # status bar that already exists, and follows whichever tab is in front.
+        self.tab_stamp_lbl = ttk.Label(bar, text="", anchor="w", foreground=_DIM)
+        self.tab_stamp_lbl.grid(row=1, column=0, columnspan=2, sticky="ew")
+        self.nb.bind("<<NotebookTabChanged>>", lambda _e: self._update_active_tab_stamp())
 
     # ---- PER-TAB DATA AGE (owner, 2026-08-19) ---------------------------
     # "add an 'updated' timestamp on each tab so I know when the data is new or not".
@@ -1057,6 +1071,7 @@ class StatusWindow:
         "6. COPYING THE BRAIN": ["notes/ORGAN_MAP.md"],
         "7. LATEST RESULTS": None,                # newest metrics.json, computed at render
         "8. NOTE FOR ME": ["notes/COMMENTARY.md"],
+        "9. SUBSTRATE": ["data/substrate_progress.json"],
     }
 
     def _register_tab_sources(self) -> None:
@@ -1278,8 +1293,50 @@ class StatusWindow:
                 # letting one composer own the string, is what stops both the churn and the loss.
                 self._tab_age[tab_id] = suffix
                 self._apply_tab_title(tab_id)
+            self._update_active_tab_stamp()
         except Exception as exc:
             _diag("tab_ages_error", err=f"{type(exc).__name__}: {exc}")
+
+    def _tab_evidence_mtime(self, base):
+        """Newest mtime of the files the named tab actually read, or None if it has no files.
+
+        DELIBERATELY THE SAME THREE SOURCES, IN THE SAME ORDER, AS `_update_tab_ages`: a renderer's
+        own override first, then the results tab's computed scan, then the path list. If this
+        drifted from that, the tab title and the timestamp under it would disagree about the same
+        tab -- and a dashboard that contradicts itself is worse than one that says less.
+        """
+        override = getattr(self, "_tab_mtime_override", {}).get(base)
+        if override:
+            return override
+        if base == "7. LATEST RESULTS":
+            return self._newest_metrics_mtime()
+        srcs = self._TAB_SOURCES.get(base, None)
+        if not srcs:                      # None = live state; [] = a renderer owns it
+            return None
+        return self._src_mtime_cached(base, srcs)
+
+    def _update_active_tab_stamp(self) -> None:
+        """Put the FRONT tab's last-updated wall-clock time in the status bar. Never raises."""
+        try:
+            cur = self.nb.select()
+            if not cur:
+                return
+            base = self._tab_base.get(cur) or self.nb.tab(cur, "text")
+            m = self._tab_evidence_mtime(base)
+            if m is None:
+                # Say WHY there is no timestamp. "--" reads as a bug; this reads as an answer.
+                self._set_label(self.tab_stamp_lbl, text=(
+                    "%s  --  reads live state, so there is nothing to timestamp; it is current as "
+                    "of the last refresh." % base))
+                return
+            stamp = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(m))
+            srcs = self._TAB_SOURCES.get(base) or []
+            where = (" from %s" % ", ".join(srcs[:3])) if srcs else ""
+            self._set_label(self.tab_stamp_lbl, text=(
+                "%s  --  LAST UPDATED %s (%s ago)%s"
+                % (base, stamp, self._fmt_age(time.time() - m).strip(), where)))
+        except Exception:
+            pass
 
     # ---- the side channel: its OWN tab (2026-08-17, defect 2) -----------
     def _build_commentary(self) -> None:
@@ -1460,6 +1517,143 @@ class StatusWindow:
         # thing on this tab with grid weight.
         _wrap, self.where_detail = self._detail_scrolled(f, height=8)
         _wrap.grid(row=3, column=0, sticky="ew", pady=(6, 0))
+
+    # ---- TAB 9 (group A) ----------------------------------------------
+    def _build_substrate(self) -> None:
+        """SUBSTRATE -- the ten stages of the pipeline, their state, and what is in the way.
+
+        OWNER 2026-08-23: *"I'm hoping that you can get and keep a very good understanding of the
+        substrate components, gaps, and goals for improvement. I'd like one of the tabs in the gui
+        to be a VERY clear and maintained status of our progress here."*
+
+        THE HARD WORD IS MAINTAINED, AND IT IS WHY THIS PANEL HOLDS NO PROSE OF ITS OWN. Every
+        sentence comes from `data/substrate_progress.json`, every row there carries the date it was
+        last actually re-checked, and the AGE column below turns that into something visible: amber
+        past 3 days, red past 7. A curated panel that cannot show its own staleness is a promise;
+        one that can is a control. `tools/substrate_progress.py --check` refuses a row whose
+        evidence states a number with no floor beside it, a source path that is not on disk, or
+        jargon in the plain-language field.
+
+        WHY TEN STAGES AND NOT 159 MODULES OR 40 ORGANS. Those views exist (`ORGAN_MAP.md`, the
+        capability registry) and neither answers "are we on track and what is in the way" -- the
+        question this tab is for. Ten rows fit on one screen without scrolling, which is the whole
+        point of a status tab.
+        """
+        f = ttk.Frame(self.nb)
+        self.nb.add(f, text="9. SUBSTRATE")
+        self.tab_substrate = f
+        f.columnconfigure(0, weight=1)
+        f.rowconfigure(2, weight=1)
+
+        # THE WALL, stated once at the top. If one thing is read on this tab, it is this.
+        wall = tk.Frame(f, bg=_RED_BG)
+        wall.grid(row=0, column=0, sticky="ew", pady=(4, 6))
+        wall.columnconfigure(0, weight=1)
+        self.sub_wall = tk.Label(wall, text="", bg=_RED_BG, fg="#ffffff",
+                                 font=("Segoe UI", 13, "bold"), anchor="w", padx=12,
+                                 justify="left", wraplength=self._wrap_w)
+        self.sub_wall.grid(row=0, column=0, sticky="ew", pady=(9, 2))
+        self.sub_wall_sub = tk.Label(wall, text="", bg=_RED_BG, fg="#f2dedc",
+                                     font=("Segoe UI", 10), anchor="w", justify="left",
+                                     padx=12, wraplength=self._wrap_w)
+        self.sub_wall_sub.grid(row=1, column=0, sticky="ew", pady=(0, 9))
+
+        self.sub_hint = tk.Label(f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10),
+                                 anchor="w", justify="left", wraplength=self._wrap_w,
+                                 padx=4, pady=4)
+        self.sub_hint.grid(row=1, column=0, sticky="ew")
+
+        frame, self.sub_tv = self._tree(
+            f,
+            cols=("n", "stage", "state", "age", "gap"),
+            widths=(34, 220, 96, 62, 620),
+            headings=("#", "STAGE", "HOW IT IS", "CHECKED", "WHAT IS IN THE WAY"),
+            height=10)
+        frame.grid(row=2, column=0, sticky="nsew")
+        self.sub_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_substrate_detail())
+
+        _wrap, self.sub_detail = self._detail_scrolled(f, height=9)
+        _wrap.grid(row=3, column=0, sticky="ew", pady=(6, 0))
+
+    def _show_substrate_detail(self) -> None:
+        """One stage in full. Every line is labelled with WHICH of the five fields it is, because
+        'the gap' and 'the goal' read alike in a wall of text and mean different things."""
+        try:
+            sel = self.sub_tv.selection()
+            if not sel:
+                return
+            sid = self.sub_tv.item(sel[0], "values")[0]
+            row = next((r for r in getattr(self, "_sub_rows", []) if str(r["id"]) == str(sid)), None)
+            if row is None:
+                return
+            out = [("%s. %s  --  %s\n" % (row["id"], row["name"], row["state"]), "h"),
+                   ("%s\n\n" % row["plain"], None),
+                   ("WHAT WE MEASURED: ", "h"), ("%s\n" % row["evidence"], None),
+                   ("WHAT IT HAS TO BEAT: ", "h"), ("%s\n\n" % row["floor"], None),
+                   ("WHAT IS IN THE WAY: ", "h"),
+                   ("%s\n\n" % row["gap"], "bad" if row["state"] == "BROKEN" else None),
+                   ("WHAT WOULD FIX IT: ", "h"), ("%s\n\n" % row["goal"], None)]
+            if row["problem"]:
+                out.append(("FILED AS A PROBLEM: %s (see tab 6)\n" % row["problem"], "warn"))
+            out.append(("evidence: %s\nlast re-checked %s (%.0f days ago)\n"
+                        % (row["source"], row["reviewed_utc"], row["age_days"]), "mono"))
+            self._set_text(self.sub_detail, out)
+        except Exception:
+            pass
+
+    def _r_substrate(self, _s: dict) -> None:
+        """Render the substrate tab from its file, and REPORT ITS OWN FAILURES ON THE TAB.
+
+        A validation error is shown in the panel rather than swallowed. The failure this guards is
+        the one that matters for a "maintained" tab: the file drifts, the validator would have
+        caught it, and nobody ran the validator because the tab looked fine.
+        """
+        import substrate_progress as _sp
+        try:
+            doc = _sp.load()
+        except Exception as exc:                                   # pragma: no cover
+            self._set_label(self.sub_wall, text="SUBSTRATE STATUS IS UNREADABLE")
+            self._set_label(self.sub_wall_sub, text="%s: %s" % (type(exc).__name__, exc))
+            return
+
+        errs = _sp.validate(doc)
+        rows = _sp.rows_for_display(doc)
+        self._sub_rows = rows
+
+        head = doc.get("headline", {})
+        self._set_label(self.sub_wall, text="THE WALL: %s" % head.get("the_wall", ""))
+        self._set_label(self.sub_wall_sub, text=head.get("plain", ""))
+
+        worst = max([r["age_days"] for r in rows] or [0])
+        n_bad = sum(1 for r in rows if r["state"] in ("BROKEN", "WEAK"))
+        hint = ("%d of %d stages need work. %s  Oldest row was re-checked %.0f days ago; "
+                "a row goes amber after %d days and red after %d, so this tab tells you when it "
+                "has stopped being maintained."
+                % (n_bad, len(rows), head.get("why_it_matters", ""), worst,
+                   _sp.AMBER_DAYS, _sp.RED_DAYS))
+        if errs:
+            hint = "FILE HAS %d VALIDATION ERROR(S) -- %s  ||  %s" % (len(errs), errs[0], hint)
+        self._set_label(self.sub_hint, text=hint, fg=_RED if errs else _BLUE)
+
+        sig = [(r["id"], r["state"], r["freshness"], r["gap"][:40]) for r in rows]
+        if getattr(self, "_sub_sig", None) != sig:
+            self._sub_sig = sig
+            keep = self.sub_tv.selection()
+            self.sub_tv.delete(*self.sub_tv.get_children())
+            for i, r in enumerate(rows):
+                # Colour on STATE, not on freshness: the owner scans this column to find the
+                # broken stage, and an amber row would otherwise mean two different things.
+                tone = {"BROKEN": "bad", "WEAK": "warn", "WORKS": "good"}.get(r["state"], "dim")
+                age = "%.0fd" % r["age_days"] if r["freshness"] != "FRESH" else "today"
+                if r["freshness"] == "RED":
+                    age = "%s STALE" % age
+                self.sub_tv.insert("", "end", iid="sub%s" % r["id"],
+                                   values=(r["id"], r["name"], r["state"], age, r["gap"]),
+                                   tags=(("even" if i % 2 == 0 else "odd"), tone))
+            for k in keep:
+                if self.sub_tv.exists(k):
+                    self.sub_tv.selection_set(k)
+        self._set_tab_count(self.tab_substrate, " (%d need work)" % n_bad if n_bad else "")
 
     # ---- TAB 4 (group C) ----------------------------------------------
     def _build_scores(self) -> None:
@@ -2717,7 +2911,8 @@ class StatusWindow:
                          ("fidelity", self._r_fidelity),
                          ("problems", self._r_problems),
                          ("board", self._r_board), ("running", self._r_running),
-                         ("results", self._r_results), ("commentary", self._r_commentary)):
+                         ("results", self._r_results), ("commentary", self._r_commentary),
+                         ("substrate", self._r_substrate)):
             try:
                 fn(s)
             except Exception:
@@ -4267,8 +4462,14 @@ class StatusWindow:
         else:
             agents = [_d(a) for a in _l(ag.get("agents"))]
             if not agents:
+                # THE AGE CELL SAYS "none to age", NOT "". A blank cell in a column headed
+                # TRANSCRIPT LAST WRITTEN is indistinguishable from a row whose age failed to
+                # compute -- which is the exact confusion the age-column self-test exists to catch,
+                # and it caught this row. An empty state should SAY it is empty in every column it
+                # occupies, the same rule the tab-timestamp strip follows when a tab reads live
+                # state and has nothing to stamp.
                 tv.insert("", "end", values=("", "no agents active in the last hour",
-                                             "", "", ""), tags=("dim",))
+                                             "nothing to show", "--", "none to age"), tags=("dim",))
             for i, a in enumerate(agents):
                 if a.get("stopped_by_user"):
                     state, tag = "stopped by you", "dim"
@@ -4639,9 +4840,18 @@ def self_test() -> int:
         check(gui._last_error is None,
               f"renders LIVE data with no panel error ({gui._last_error})")
         check(time.time() - t0 < 40, "live collect + render is well inside a refresh cycle")
-        check(len(gui.nb.tabs()) == 8,
-              f"eight tabs: seven content tabs plus NOTE FOR ME on its own since 2026-08-17 "
-              f"(got {len(gui.nb.tabs())})")
+        check(len(gui.nb.tabs()) == 9,
+              f"nine tabs: seven content tabs, NOTE FOR ME on its own since 2026-08-17, and "
+              f"SUBSTRATE added 2026-08-23 (got {len(gui.nb.tabs())})")
+        # The count above is a blunt pin and it did its job -- it caught the SUBSTRATE tab the
+        # moment it was added. Keep it blunt. What it protects against is a tab being registered
+        # or LOST without anyone noticing, and a count is the only assertion that catches a loss.
+        titles = [gui.nb.tab(t, "text").split("  [")[0].strip() for t in gui.nb.tabs()]
+        check(any(x.startswith("9. SUBSTRATE") for x in titles),
+              f"the SUBSTRATE tab is registered, not merely built (got {titles})")
+        check(gui._TAB_SOURCES.get("9. SUBSTRATE") == ["data/substrate_progress.json"],
+              "the SUBSTRATE tab declares the file it reads, so its title carries a real age "
+              "rather than falling through to [live]")
 
         # ---- THE 2026-08-22 UI/UX PASS. Owner: *"can you run an optimisation over the entire
         # gui... things that are completely unnecessary, like the tab titles redrawing every ~10

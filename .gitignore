@@ -46,6 +46,11 @@ data/*
 # so the queue is durable across sessions, not just this disk. See tools/dispatch_queue.py.
 !data/dispatch_queue.jsonl
 !data/dispatch_batch_do_not_touch.txt
+# The SUBSTRATE tab's data (2026-08-23). CURATED, not generated -- it is the ten-stage status the
+# owner reads, hand-maintained and validated by tools/substrate_progress.py. It lives under data/
+# because the GUI reads it, but it is source in every sense that matters, and a clone without it
+# renders an empty status tab. Allowlisted for the same reason as the dispatch queue above.
+!data/substrate_progress.json
 # DECISION 220 Tier-1 preservation sweep: keep load-bearing experimental measurements.
 # Pattern requires: (1) unignore subdirs so git traverses, (2) re-ignore their contents,
 # (3) explicit allowlist for files we want tracked.
