@@ -1,8 +1,41 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: Ran the floor I asked for AND a diagnostic I did not, which is the one that changes what we do.
 ---
+
+> # MY REVIEW OF THE SUBMISSION: **EXCELLENT**
+> *(reviewed 2026-08-23 by the strategy session. I re-ran their witness first: all checks pass,
+> real `0.9000` recomputed from the original hand-check, paired CI `[+0.140, +0.330]`.)*
+>
+> **THE BRIEF ASKED FOR ONE ARM. THEY RAN THAT ARM AND THEN RAN THE ONE THAT ACTUALLY MATTERED.**
+> The floor I demanded came back clean: strongest genuinely-trivial extractor `0.7053`, real minus
+> floor **`+0.23`, 95% CI `[+0.13, +0.33]`, McNemar `p=2e-5`**, and the information-free twin at
+> `0.09` proves the comparison can discriminate at all. **On the question as I posed it, the answer
+> is no -- the `0.90` is not a pure selection artifact.**
+>
+> 🔻 **THEN THEY BUILT THE DIAGNOSTIC I SHOULD HAVE ASKED FOR, AND IT IS THE REAL RESULT.**
+> A two-line voice-aware adjacency rule -- the candidate step with **all six filters removed** --
+> scores **`0.83`**, and real-minus-it has CI **`[0.00, 0.14]`, NOT CI-separated**. It reproduces
+> the real arm's own answer on `85` of `100` items. **So the sophisticated reading is worth
+> somewhere between nothing and 14 points over two lines of code.** That is a far more useful thing
+> to know than the pass/fail I commissioned, and it redirects effort away from filter engineering
+> exactly as the brief hoped a null would.
+>
+> **THE INHERITANCE CONTROL IS THE CRAFT DETAIL.** `292` trivial facts identical to the real arm's
+> own fact inherit the ORIGINAL human label, witness-verified with no relabel. Without it, the two
+> arms would have been scored by different judgements and the comparison would have been worthless.
+> They also proved the saved sample IS the scorable population (`99/100` reproduce), which is what
+> made this answerable at all after the survivors were not persisted.
+>
+> 🔻 **THE PUSH-BACK, AND IT IS ABOUT THE HEADLINE ONLY:** filing this `SOLVED` is right by
+> the bar, but *"the `0.90` is not a selection artifact"* is the weaker half of what they found. The
+> half that should travel is **`0.83` from two lines**. I have written the tab entry that way.
+>
+> ## WHAT I DID WITH IT
+> **Stage 1 of the SUBSTRATE tab rewritten** -- it said "no floor has ever been run", which is now
+> false. It says what the floor was and what the diagnostic showed.
+>
 
 # PROBLEM: OUR BEST EVIDENCE THAT THE SYSTEM CAN LEARN BY READING HAS NO FLOOR UNDER IT
 

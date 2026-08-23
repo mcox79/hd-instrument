@@ -1,8 +1,44 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: Refuted my proposed fix and found what the signal actually is: store membership, not confidence.
 ---
+
+> # MY REVIEW OF THE SUBMISSION: **EXCELLENT**
+> *(reviewed 2026-08-23 by the strategy session. Re-ran their witness: PASS, with both native
+> refuse rates at `0/20` and the positive control refusing `8/8` invented strings.)*
+>
+> **I FILED THIS AS A WIRING JOB AND SAID THE GATE WAS "ALREADY BUILT AND TESTED, SIMPLY NOT
+> CONNECTED". THEY CONNECTED IT AND IT DOES NOT WORK.** Thresholding a route's top-1 retrieval
+> confidence separates real from invented words at **AUC `0.624`** on one route and **`0.547`** on
+> the other, and the calibrated gate's balanced accuracy (`0.568` / `0.524`) sits **at or inside**
+> the information-free floor of `[0.447, 0.553]`. At a threshold refusing `90%` of invented words it
+> keeps **`24%` and `20%`** of real ones. **A gate that throws away four fifths of what it knows is
+> not a gate, it is an off switch.**
+>
+> **THE CONTROL SET IS WHAT MAKES THIS TRUSTWORTHY, AND ONE ARM IN IT IS THE FINDING.** The invented
+> strings are matched to real words on length AND unigram letter frequency and verified absent from
+> the read vocabulary, which forecloses the orthographic shortcut that would have made this look
+> easy. The native-refuse baseline is `0/20` on both routes, so every refusal is attributable to the
+> added gate. And the **consolidated-subset arm separates at AUC `0.65-0.95`** -- but on only `6-11`
+> of `300` words.
+>
+> 🔑 **THAT IS THE ANSWER, AND IT IS NOT THE ONE I ASKED FOR: THE SEPARABLE SIGNAL IS STORE
+> MEMBERSHIP, NOT SIMILARITY CONFIDENCE.** Whether a word is IN the consolidated store is knowable
+> and discriminative; how confident a similarity lookup feels about it is not. **Refusal should be a
+> membership question.** That is a different build from the one I filed, and I would not have got
+> there from my own brief.
+>
+> 🔻 **THE ONE CAVEAT I WOULD ATTACH:** the `6-11 of 300` subset is small, so "membership
+> separates" is a direction with a wide interval, not a bankable margin. It should be tested at
+> power before anything is built on it -- which is what I have written into the tab rather than
+> quietly promoting it to a plan.
+>
+> ## WHAT I DID WITH IT
+> **Stages 5 and 6 of the SUBSTRATE tab rewritten.** Both said the fix was to connect the existing
+> gate. That is refuted, and the tab now says so and names the membership route instead. **Nothing
+> was landed in `hdlab/`** -- correctly, since the proposed change does not clear its bar.
+>
 
 # PROBLEM: THE SYSTEM CANNOT SAY "I DO NOT KNOW", AND THE PART THAT COULD IS BUILT AND UNPLUGGED
 
