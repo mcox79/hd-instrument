@@ -4,25 +4,26 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T19:50:01Z  |  HEAD: 3e0e66d38
+generated: 2026-08-23T19:52:21Z  |  HEAD: 60a0e13be
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30343 min ago <-- STALE
-  - orchestrator: 38673 min ago <-- STALE
+  - exp_dev: 30346 min ago <-- STALE
+  - orchestrator: 38675 min ago <-- STALE
   - research: 2 min ago
-  - skunkworks: 41344 min ago <-- STALE
-  - testbed: 77918 min ago <-- STALE
+  - skunkworks: 41347 min ago <-- STALE
+  - testbed: 77921 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 16 min ago, has metrics.json
-  - substrate_director_kb_v1.staging.28492: 19 min ago, NO metrics.json yet (likely in-flight)
-  - cornerstone_results: 102 min ago, NO metrics.json yet (likely in-flight)
-  - exp_refuse_gate_on_readout_v1: 149 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1: 151 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1_selftest: 151 min ago, has metrics.json
+  - exp_refuse_gate_on_readout_v2_membership: 2 min ago, has metrics.json
+  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 18 min ago, has metrics.json
+  - substrate_director_kb_v1.staging.28492: 22 min ago, NO metrics.json yet (likely in-flight)
+  - cornerstone_results: 105 min ago, NO metrics.json yet (likely in-flight)
+  - exp_refuse_gate_on_readout_v1: 151 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1: 153 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1_selftest: 153 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - 🧠 **THE MEANING CHANNEL: SIX MEASUREMENTS 08-23, ALL IN `notes/problems/reader_meaning_channel/`
@@ -87,11 +88,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 2 new commit(s) since last snapshot (HEAD fb0307778 -> 3e0e66d38)
+- nothing measurable moved since the last snapshot
 
 ## 5. What is stuck (blocked / pending / no owner)
 - (none found)
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8177, "generated_at": "2026-08-23T19:50:01Z", "head_commit": "3e0e66d38640c79c3fd34407c4d1faf1ef432c2e", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8178, "generated_at": "2026-08-23T19:52:21Z", "head_commit": "60a0e13be3820525db6419cdd5cb1ecb46849257", "step_status": {}}
 -->

@@ -6995,3 +6995,23 @@ fix" -- our UPOS tagger shows recovery enriched for CONTENT WORDS (VERB `2.58x`,
 🚫 **COVERAGE, NOT CAPABILITY -- no task run; `grounded_similarity.py` deliberately UNCHANGED.**
 📎 `THE_VERB_HOLE_IS_OURS_...`, `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...`; brief at priority 7.
 
+
+
+## FOLDED FROM THE PLAN 2026-08-23 (SH-7 entry, second fold)
+
+> ## **LANDED 08-22: SH-7, THE SWITCH THAT MAKES A RE-RUN GENUINE**
+> **`HDI_FRESH_RUN=<tag>`** (`_seed_checkpoint.get_output_dir`, `ed9ce6273`) sends a cell to an EMPTY sibling so it recomputes -- no deletion, the landed dir never opened for writing. **The load-bearing control is the NEGATIVE one and it is a witness, not a comment: env unset -> paths byte-identical.** *Coverage is now measured by `reproducibility_inventory.py` -- see the Q115 entry above, which supersedes the `~21%` figure this entry carried.* ✅ **Guarded at RUNTIME (`3ff233548`): ask for a fresh run on a cell that cannot isolate and it warns rather than silently replaying.**
+> **B3' CARRIES A SCORED VERDICT, NOT "unscored"**: best cortical arm hit@1 `0.057/0.043/0.043` vs a COUNTING floor `0.090/0.103/0.116` -- **under its floor on every seed.** *Both 08-22 submissions reviewed EXCELLENT; each REFUTED its own brief's premise.*
+
+
+## FOLDED FROM THE PLAN 2026-08-23 (replay-redate, second fold)
+
+> ## ⚠️ **`54` LANDED RECORDS RE-DATED BY A REPLAY, `3` DELETED (08-22, a concurrent session's)**
+> **MISLABELLING, NOT DATA LOSS** -- *`git show HEAD:<path>` returns every one intact, verified.* It matters because tools read the FILE, not the history. ➡️ **This is `harness_cannot_recompute` at scale, and the Q115 ruling now owns it:** new cells are gated, and the `1,413` replaying results are inventoried by `reproducibility_inventory.py`. 🚫 **NOT committed or reverted by me.**
+
+
+## FOLDED FROM THE PLAN 2026-08-23 (random-credit entry, second fold)
+
+> ## 🚨 **RANDOM CREDIT ASSIGNMENT BEATS THE REAL MECHANISM (re-landed 08-22)**
+> **`HARD_FAIL` stands and the ORDER is the finding: RANDOM `0.5278` > SCRAMBLED `0.3556` > **OURS `0.3056`**, floor `0.6389` -- ours is LAST OF THREE and all three are under the floor.** *The landed 08-06 record read `0.1667` for all three because the cascade fired zero times; re-landing is what separated them. Full table + the `AMBIGUOUS` bite in the note.*
+>

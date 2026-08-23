@@ -208,6 +208,27 @@ pointed at something nobody else can open. It asserts the null-clearing, the act
 margin, and the information-free control, and **it does NOT assert the double dissociation**,
 because that is not established.
 
+## 6. 🚫 THE NOUN HALF IS **NOT ANSWERABLE ON OUR ASSETS** -- CLOSED 2026-08-23
+
+The double dissociation needed the noun side, so I checked whether it is reachable **before** going
+looking for more data.
+
+| | |
+|---|---|
+| ACTION − PERCEPTUAL on SimLex NOUNS | **`-0.0137`** `[-0.0903, +0.0623]`, half-width `0.0763` |
+| pairs we have | **666** (WordSim-353 would add at most ~350) |
+| 🔻 **pairs needed for that effect to separate** | **~`20,800`** |
+
+**THE DIRECTION IS THE BRAIN'S** -- negative means perceptual slightly ahead on nouns, which is what
+somatotopy predicts. **But it is about one fifth the size of the verb effect (`+0.0651`) and roughly
+thirty times the data away from testable.** *An effect that small against that variance is not a
+weak result; it is an unmeasurable one on what we own.*
+
+➡️ **SO: the SINGLE dissociation (within verbs, motor beats perceptual) is established and stays.
+The DOUBLE dissociation is CLOSED as unanswerable, not as false.** Do not spend effort here without
+a noun benchmark an order of magnitude larger. *Same disposition as the adjective row, and for the
+same reason.*
+
 ## QUESTIONS
 
 None. `Q116` remains open and this is evidence for it.
@@ -216,7 +237,7 @@ None. `Q116` remains open and this is evidence for it.
 
 1. **Put this in the `reader_meaning_channel` brief** so whoever builds it knows the channel covers
    the verb hole — and knows the somatotopy split is not established.
-2. ~~Power the dissociation on SimVerb-3500.~~ **DONE IN THIS PASS — 3,487 pairs, and it HOLDS**
+2. ~~Power the dissociation on SimVerb-3500.~~ **DONE — 3,487 pairs, and it HOLDS**
    (§4). The remaining open half is the NOUN side of the double dissociation, which needs a
    noun-only benchmark bigger than SimLex's 666.
 3. *Nothing here changes what our substrate can do. The adapter is still missing.*
