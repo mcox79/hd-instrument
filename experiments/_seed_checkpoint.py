@@ -745,6 +745,11 @@ def _selftest_config_keys() -> None:
 _selftest_config_keys()
 
 
+# SH-7 environment variable, named ONCE. It is read by get_output_dir and unset around the
+# import-time self-test; a literal in two places is how those two drifted apart.
+_FRESH_ENV = "HDI_FRESH_RUN"
+
+
 def get_output_dir(anchor_name: str) -> Path:
     """Return the canonical output directory for an experiment anchor.
 
@@ -863,7 +868,7 @@ def get_output_dir(anchor_name: str) -> Path:
     # units.jsonl, 87 route output through this function (covered here for free), 275 hold a bare
     # module-level OUTPUT_DIR (each needs a one-line wrap in fresh_run_output_dir), and 59 sources
     # were not located. So this block covers ~21%; the rest keep replaying until migrated.
-    _fresh_tag = os.environ.get("HDI_FRESH_RUN", "").strip()
+    _fresh_tag = os.environ.get(_FRESH_ENV, "").strip()
     if _fresh_tag and not base.name.endswith(f"__fresh_{_fresh_tag}"):
         base = base.with_name(f"{base.name}__fresh_{_fresh_tag}")
     return base
@@ -1213,6 +1218,20 @@ def _selftest_get_output_dir() -> None:
 
     # Save the original env value so we can restore it after the test.
     _orig = _os.environ.get("HDLAB_EXP_NAME")
+
+    # SH-7: NEUTRALISE HDI_FRESH_RUN FOR THE WHOLE SELF-TEST, AND THIS IS NOT A COSMETIC FIX.
+    # This self-test runs AT IMPORT. T1 asserts get_output_dir("myanchor_v1") ends in
+    # "exp_myanchor_v1"; with HDI_FRESH_RUN set, SH-7 appends "__fresh_<tag>" and the assertion
+    # fails -- so EVERY CELL THAT IMPORTS THIS MODULE CRASHED AT IMPORT the moment a fresh run was
+    # requested. The switch did not merely fail to redirect; it broke the harness it lives in.
+    #
+    # Measured 2026-08-23 by running a real landed cell end to end, which is the first time anyone
+    # had. THE WITNESS COULD NOT HAVE CAUGHT IT: verification/test_fresh_recompute_redirect.py
+    # imports this module and THEN sets the env, so the import-time self-test always ran clean. A
+    # real cell has the variable set before Python starts. That ordering is the whole bug.
+    #
+    # T1-T6 are about SH-4/5/6 naming; SH-7 is tested separately and must not perturb them.
+    _orig_fresh = _os.environ.pop(_FRESH_ENV, None)
     # SH-5: neutralize sys.argv for T1-T5 (they pre-date SH-5 and assume no
     # --self-test / --smoke in argv). T6 restores its own argv scope.
     _orig_argv = list(_sys.argv)
@@ -1292,6 +1311,8 @@ def _selftest_get_output_dir() -> None:
             _os.environ.pop("HDLAB_EXP_NAME", None)
         else:
             _os.environ["HDLAB_EXP_NAME"] = _orig
+        if _orig_fresh is not None:
+            _os.environ[_FRESH_ENV] = _orig_fresh
         _sys.argv = _orig_argv
 
 

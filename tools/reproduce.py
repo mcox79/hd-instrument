@@ -205,6 +205,21 @@ def reproduce(cell: str, tag: str, timeout: int, force: bool, extra: list) -> in
     print(f"[reproduce] exit {rcode} in {elapsed:.1f}s | units {units_before} -> {units_after}")
     print(f"[reproduce] classify_run: {verdict.status}")
 
+    # DID THE REDIRECT ACTUALLY TAKE? Ask the filesystem, do not infer it from the source.
+    # Measured 2026-08-23 on the first real end-to-end run: a cell whose source CONTAINS
+    # `get_output_dir` defines its OWN copy rather than importing the harness one, so SH-7 was inert.
+    # It ran to exit 0 and the sibling was never created. The static check said redirectable and the
+    # runtime truth said otherwise -- which is this repo's standing rule that static search locates
+    # candidates and runtime observation decides.
+    if not os.path.isdir(fresh):
+        print("[reproduce] *** THE REDIRECT DID NOT TAKE. The fresh sibling was never created:")
+        print("             %s" % fresh)
+        print("            The cell ran but wrote nowhere this tool can see, so NOTHING here is")
+        print("            evidence about the landed result. Most likely it defines its own")
+        print("            get_output_dir, or builds its output path some other way, so setting")
+        print("            HDI_FRESH_RUN cannot move it. The source check that accepted this cell")
+        print("            tested for the STRING, not the IMPORT.")
+
     landed_after = _dir_fingerprint(base)
     if landed_after != landed_before:
         print("[reproduce] *** THE LANDED DIRECTORY CHANGED. The isolation did not hold, so nothing")

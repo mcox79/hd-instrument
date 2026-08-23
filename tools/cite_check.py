@@ -50,6 +50,22 @@ CAVEAT = re.compile(
     r"\bn ?= ?\d{1,3}\b|not the average|NOT a claim|I am NOT claiming|what this is not",
     re.I)
 
+# A CONFIDENCE INTERVAL IS THE MOST IMPORTANT CONTEXT A NUMBER CAN HAVE, AND THIS TOOL WAS BLIND TO
+# IT. Added 2026-08-23 after running the tool on the project's own flagship number: `0.0480` returned
+# "95 file(s) contain it; 0 carry caveats near it", while a line in the archive reads
+# `A1_BASE 0.0480 [0.04125,0.05475] vs A6_TRIGRAM_ONLY 0.0870 [0.07825,0.09600]` -- the interval AND
+# the baseline that beats us. The vocabulary above is made of WORDS, so a line carrying only numbers
+# was invisible to the one tool built to stop a number travelling without its limits.
+#
+# BASE RATE MEASURED BEFORE ADDING IT, and the threshold was stated first: usable under ~15%, noise
+# over ~50%. Across 44,081 lines in notes/ that contain a decimal, 1,974 also carry a CI-shaped
+# bracket = 4.5%. It is a flag.
+#
+# AND THE VARIANT I MEASURED AND REJECTED, recorded so it is not re-proposed: "a SECOND decimal on
+# the same line" (i.e. a possible comparison) fires on 20,575 of 44,081 = 46.7%. That is at the noise
+# boundary, so it is NOT added however useful it sounds -- a flag on half the archive is not a flag.
+CI_SHAPED = re.compile(r"[\[\(]\s*[-+]?\d+\.\d+\s*,\s*[-+]?\d+\.\d+\s*[\]\)]")
+
 
 def _hits(literal: str) -> list[str]:
     """Files containing the literal, in PURE PYTHON.
@@ -102,7 +118,7 @@ def _note_caveats(path: str, literal: str, window: int) -> list[tuple]:
     for i in idx:
         for j in range(max(0, i - window), min(len(lines), i + window + 1)):
             ln = lines[j].strip()
-            if j not in seen and ln and CAVEAT.search(ln):
+            if j not in seen and ln and (CAVEAT.search(ln) or CI_SHAPED.search(ln)):
                 seen.add(j)
                 out.append((j + 1, ln[:300]))
     return out
@@ -167,7 +183,13 @@ def report(literal: str, window: int = 25) -> int:
             sc = _metrics_scope(f)
             if sc:
                 n_cav += 1
-                print(f"\n*** {f} -- SCOPE FIELDS ***")
+                # THE DISCLAIMER COVERS THE FILE, NOT NECESSARILY YOUR NUMBER, AND SAYING SO MATTERS.
+                # Measured 2026-08-23: querying `0.7193` (a coreference score) surfaced a
+                # `scope_disclaimer` reading "These are NOT instrument numbers and may not be quoted
+                # as such" -- from a DIFFERENT cell that merely contains those digits. Presented
+                # without this line it reads as a prohibition on the number you asked about.
+                print(f"\n*** {f} -- SCOPE FIELDS (they govern THIS FILE, which merely CONTAINS your")
+                print("    number -- check whether they are about the quantity you asked for) ***")
                 for k, v in sc[:4]:
                     print(f"    {k}: {v}")
         else:
@@ -238,6 +260,28 @@ def _self_test() -> int:
         ok = False
     if _printable("plain ascii caveat") != "plain ascii caveat":
         print("[self-test] FAIL: _printable altered an ASCII line -- it must be a no-op there")
+        ok = False
+
+    # CI-BRACKET REGRESSION, ON THE REAL NUMBER THAT EXPOSED THE GAP. `0.0480` is the project's
+    # flagship read-out score and this tool reported ZERO caveats for it while the archive carried
+    # its interval and the baseline that beats it. Fixture-free: if this stops firing, the tool has
+    # gone blind on the number it most needs to protect.
+    _ci_hits = 0
+    for f in _hits("0.0480")[:25]:
+        if not f.endswith(".json"):
+            _ci_hits += sum(1 for _i, ln in _note_caveats(f, "0.0480", 25) if CI_SHAPED.search(ln))
+    if _ci_hits:
+        print(f"[self-test] PASS: 0.0480 now surfaces its confidence interval ({_ci_hits} line(s))")
+    else:
+        print("[self-test] FAIL: 0.0480 surfaces NO CI line -- the CI_SHAPED pattern is not firing")
+        ok = False
+
+    # AND THE GUARD ON THE GUARD: CI_SHAPED must not match a bare pair of numbers in prose, or the
+    # 4.5% base rate that justified adding it stops holding and the tool becomes noise.
+    if CI_SHAPED.search("accuracy [0.1234, 0.5678]") and not CI_SHAPED.search("we read 0.12 and 0.56"):
+        print("[self-test] PASS: CI_SHAPED matches a bracketed interval, not two numbers in prose")
+    else:
+        print("[self-test] FAIL: CI_SHAPED is too broad or too narrow")
         ok = False
 
     # NEGATIVE CONTROL: a literal nobody has written must report nothing, loudly.

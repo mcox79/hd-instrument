@@ -46,6 +46,21 @@ RECOMPUTED = "RECOMPUTED"
 PARTIAL = "PARTIAL_REPLAY"
 INDETERMINATE = "INDETERMINATE_NO_BEFORE_SNAPSHOT"
 
+# NOTHING WAS RECORDED. Added 2026-08-23, found by USING the reproduction path on a real landed cell
+# rather than on its own witness -- the first end-to-end run of it.
+#
+# `classify_run(0, 0)` used to return RECOMPUTED, the most positive verdict this module has, with
+# `is_evidence_of_reproduction() == True`. The observed case: a real cell ran to exit 0 in 4.2s, the
+# fresh sibling directory WAS NEVER CREATED, and the run was classified as a successful recompute.
+# Had that cell written a verdict by any other route, `tools/reproduce.py` would have printed
+# REPRODUCED on a run that computed nothing.
+#
+# THIS IS THE PROJECT'S OWN "AN EMPTY REPRESENTATION SCORES PERFECTLY" FAILURE, OCCURRING INSIDE THE
+# GUARD BUILT TO STOP FALSE REPRODUCTION CLAIMS. Zero units before is genuinely the fresh-start
+# condition, so the old code read `computed = after - before <= 0` only when `before > 0` -- and the
+# empty case fell through to the success branch. The emptiest possible run got the best label.
+NOTHING_RECORDED = "NOTHING_RECORDED_NOT_A_REPRODUCTION"
+
 
 def unit_count(output_dir: str) -> int:
     """Number of DISTINCT durably recorded units. 0 means a re-run would recompute from scratch.
@@ -128,6 +143,10 @@ def classify_run(units_before, units_after, elapsed_s=None) -> ReproductionVerdi
     if units_before is None or units_after is None:
         return ReproductionVerdict(INDETERMINATE, units_before, units_after, elapsed_s)
     computed = units_after - units_before
+    # Check the EMPTY case FIRST. It used to fall through to RECOMPUTED, which made a run that
+    # recorded nothing the best-scoring outcome this function can return. See NOTHING_RECORDED.
+    if units_after <= 0:
+        return ReproductionVerdict(NOTHING_RECORDED, units_before, units_after, elapsed_s)
     if units_before > 0 and computed <= 0:
         return ReproductionVerdict(REPLAYED, units_before, units_after, elapsed_s)
     if units_before > 0 and computed > 0:
