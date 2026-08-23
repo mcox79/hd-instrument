@@ -87,6 +87,53 @@ magnitude, so it would also miss a relation that carries SIGN without carrying m
 
 ---
 
+## 4b. RESOLVED THE SAME DAY -- AND IT QUALIFIES THIS NOTE'S OWN HEADLINE
+
+I said I did not know why Stage B clears its floor and would not invent a reason. **It is none of
+the three candidates, and the answer changes what the title above should say.**
+
+**ALL THREE CANDIDATES ARE DEAD:**
+
+| candidate | test | verdict |
+|---|---|---|
+| global class prior | the anchor is **26 POS / 26 NEG** | 🔻 dead at the source, one command |
+| local imbalance | POS fraction of the IN-RANGE anchor set: mean `0.511`, median `0.512` | 🔻 dead -- no local skew |
+| lexical leakage | only `114` of `1,971` items share a synset/antonym with an anchor; drop them ALL and the margin holds at `+0.0825`, CI `[+0.0034, +0.1684]`, n=291 | 🔻 dead |
+
+**THE DECIDING CONTRAST -- STRIP THE SIMILARITY WEIGHTING AND KEEP ONLY MEMBERSHIP:**
+
+| arm | committed | organ | floor | margin | CI95 |
+|---|---|---|---|---|---|
+| **REAL** (sim-weighted) | `309` | `0.6505` | `0.5469` | `+0.1036` | `[+0.0259, +0.1812]` |
+| **BINARY** (every in-range anchor votes 1) | `241` | `0.6266` | `0.5602` | `+0.0664` | `[-0.0166, +0.1535]` |
+
+🔑 **ON THE 234 ITEMS BOTH ARMS ANSWER, THEY AGREE 100% OF THE TIME.** The weighting **never changes
+an answer.** What it changes is **which items get answered** -- and that is where the whole effect
+lives:
+
+| the 75 items REAL commits on and BINARY skips | |
+|---|---|
+| REAL accuracy on them | **`0.7200`** (54/75) |
+| majority floor on them | `0.5067` |
+| REAL accuracy on the overlap | `0.6282` |
+
+🧠 **SO THE GRADED SIMILARITY IS NOT CARRYING VALENCE. IT IS CARRYING *ANSWERABILITY*.** It does not
+tell you what the answer is; it tells you whether the anchor set is in a position to decide -- and
+the words it picks out are genuinely easier ones (`0.72` against a near-chance `0.51` floor, the
+strongest margin anywhere in this thread).
+
+⚠️ **THAT QUALIFIES THIS NOTE'S HEADLINE AND I AM NOT LEAVING IT UNQUALIFIED.** "An axis that does
+not carry it" is correct about **the answer** -- proximity does not predict WHICH pole, measured
+flat across every band. It is **incomplete** about the mechanism: the same axis predicts **where a
+confident answer is available.** Both statements are true and the second is the one that explains
+Stage B.
+
+*Reproduction note: my Stage-B reimplementation commits `309` where the shipped organ's Stage B
+commits `307`. I did not chase the two-item difference; it does not move any conclusion here, and
+saying so is better than implying an exact reproduction I did not verify.*
+
+---
+
 ## 5. WHAT THIS ESTABLISHES, AND WHAT IT DOES NOT
 
 - ✅ **ESTABLISHED:** WordNet path proximity between verbs carries **no detectable information**
