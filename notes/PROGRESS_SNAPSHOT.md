@@ -4,26 +4,26 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T19:55:39Z  |  HEAD: bf0a9d5b7
+generated: 2026-08-23T20:01:07Z  |  HEAD: 973e3a120
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30349 min ago <-- STALE
-  - orchestrator: 38678 min ago <-- STALE
-  - research: 1 min ago
-  - skunkworks: 41350 min ago <-- STALE
-  - testbed: 77924 min ago <-- STALE
+  - exp_dev: 30355 min ago <-- STALE
+  - orchestrator: 38684 min ago <-- STALE
+  - research: 2 min ago
+  - skunkworks: 41356 min ago <-- STALE
+  - testbed: 77930 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - exp_refuse_gate_on_readout_v2_membership: 6 min ago, has metrics.json
-  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 21 min ago, has metrics.json
-  - substrate_director_kb_v1.staging.28492: 25 min ago, NO metrics.json yet (likely in-flight)
-  - cornerstone_results: 108 min ago, NO metrics.json yet (likely in-flight)
-  - exp_refuse_gate_on_readout_v1: 154 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1: 156 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1_selftest: 157 min ago, has metrics.json
+  - exp_refuse_gate_on_readout_v2_membership: 11 min ago, has metrics.json
+  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 27 min ago, has metrics.json
+  - substrate_director_kb_v1.staging.28492: 30 min ago, NO metrics.json yet (likely in-flight)
+  - cornerstone_results: 114 min ago, NO metrics.json yet (likely in-flight)
+  - exp_refuse_gate_on_readout_v1: 160 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1: 162 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1_selftest: 162 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - 🧠 **THE MEANING CHANNEL: SIX MEASUREMENTS 08-23, ALL IN `notes/problems/reader_meaning_channel/`
@@ -31,10 +31,9 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
     **(1) IT CANNOT GATE LINKS ALONE** -- `CAP 0.45` < `LINK_THRESHOLD 0.5` so as shipped it links `0`
     of `877`; uncapped `66%` similar AND `37%` DISSIMILAR; no threshold beats the one already set;
     AUC `0.7002`. ➡️ **"use it INSTEAD" must become "use it AS WELL".**
-    **(2) STORAGE IS FINE, COMBINATION IS THE BOTTLENECK** -- our format keeps `94%`; bundling with 2
-    others halves it, 8 leaves `26%`. **(3) SPARSITY does not rescue it** (every density ~`+0.08`).
-    **(4) NOR DOES AN ADDRESSED SLOT** -- binding PERMUTES interference, it does not remove it; *I put
-    that advice in the brief BEFORE testing it.* **(5) THE SAME ASSET GIVES THREE NUMBERS BY ENTRY
+    **(2) STORAGE IS FINE, COMBINATION IS THE BOTTLENECK** -- format keeps `94%`; 2 distractors halve
+    it, 8 leave `26%`. **(3) SPARSITY and (4) AN ADDRESSED SLOT BOTH FAIL to rescue it** -- binding
+    PERMUTES interference rather than removing it; *I put that advice in the brief BEFORE testing it.* **(5) THE SAME ASSET GIVES THREE NUMBERS BY ENTRY
     POINT** (`+0.3107`/`+0.2676`/**`+0.2463`** ← what the substrate calls). **(6) WORDNET'S EDGE IS
     SELECTION** -- SimVerb's pairs were CHOSEN by WordNet relation; on the unselected `NONE` class
     (60%) sensorimotor `+0.286` beats WordNet `+0.154`. **(7) A BOTH-SPOKES HUB IS NOT
@@ -48,6 +47,15 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
     (perceptual ahead) but ~1/5 the verb effect and ~`20,800` pairs from separable. WE OWN `666`.**
     *NOT false -- unmeasurable on our assets, same disposition as the adjective row. Doing the power
     calculation BEFORE the data hunt is the point.*
+    🧠✅ **(7) AND THE FIX FOR BUNDLING IS SEGREGATION, MEASURED AT EQUAL BUDGET.** *Both schemes
+    get the SAME `D=256`: superposition spends it on resolution and pays in crosstalk; segregation
+    gives each item `D/k` and pays in dimensionality. Either could win.* **SEGREGATION WINS AT EVERY
+    `k` AND THE MARGIN GROWS: at `k=16` a SIXTEEN-dim isolated slot reads `+0.1949` vs a 256-dim
+    superposed code's `+0.0479` -- 16x smaller, 4x better.** 🔑 **ISOLATION BEATS RESOLUTION, which is
+    cortex's actual arrangement.** ➡️ **THE BUILD ANSWER: give meaning its own NARROW slot, not a
+    share of a wide one -- cheaper, not costlier.** *Controls: k=1 agreement (harness fair), info-free
+    `+0.0233`.* ⚠️ *Engineering, not biology -- segregation is pinned in cortex, the ALGEBRA is not.*
+    *Witness: `test_segregated_beats_superposed_at_equal_budget.py`.*
     ⚠️ **STANDING PROHIBITION: do NOT raise `GROUNDED_CAP`** -- the `0.05` gap is what makes
     "contribute, do not decide" enforceable in code. ✅ *The channel is still the right direction.*
   - ✅ **Q115 EXECUTED AND ITS TRIAGE CLOSED (08-23): new cells GATED at commit; backlog inventoried.**
@@ -85,11 +93,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 2 new commit(s) since last snapshot (HEAD daca8aeb3 -> bf0a9d5b7)
+- nothing measurable moved since the last snapshot
 
 ## 5. What is stuck (blocked / pending / no owner)
 - US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8178, "generated_at": "2026-08-23T19:55:39Z", "head_commit": "bf0a9d5b7f9caba5caeaeadc06fd47a1d05547b2", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8178, "generated_at": "2026-08-23T20:01:07Z", "head_commit": "973e3a1206e4627e9a85a23abdd962222df368b3", "step_status": {}}
 -->

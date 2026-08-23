@@ -141,10 +141,9 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   **(1) IT CANNOT GATE LINKS ALONE** -- `CAP 0.45` < `LINK_THRESHOLD 0.5` so as shipped it links `0`
   of `877`; uncapped `66%` similar AND `37%` DISSIMILAR; no threshold beats the one already set;
   AUC `0.7002`. ➡️ **"use it INSTEAD" must become "use it AS WELL".**
-  **(2) STORAGE IS FINE, COMBINATION IS THE BOTTLENECK** -- our format keeps `94%`; bundling with 2
-  others halves it, 8 leaves `26%`. **(3) SPARSITY does not rescue it** (every density ~`+0.08`).
-  **(4) NOR DOES AN ADDRESSED SLOT** -- binding PERMUTES interference, it does not remove it; *I put
-  that advice in the brief BEFORE testing it.* **(5) THE SAME ASSET GIVES THREE NUMBERS BY ENTRY
+  **(2) STORAGE IS FINE, COMBINATION IS THE BOTTLENECK** -- format keeps `94%`; 2 distractors halve
+  it, 8 leave `26%`. **(3) SPARSITY and (4) AN ADDRESSED SLOT BOTH FAIL to rescue it** -- binding
+  PERMUTES interference rather than removing it; *I put that advice in the brief BEFORE testing it.* **(5) THE SAME ASSET GIVES THREE NUMBERS BY ENTRY
   POINT** (`+0.3107`/`+0.2676`/**`+0.2463`** ← what the substrate calls). **(6) WORDNET'S EDGE IS
   SELECTION** -- SimVerb's pairs were CHOSEN by WordNet relation; on the unselected `NONE` class
   (60%) sensorimotor `+0.286` beats WordNet `+0.154`. **(7) A BOTH-SPOKES HUB IS NOT
@@ -158,6 +157,15 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   (perceptual ahead) but ~1/5 the verb effect and ~`20,800` pairs from separable. WE OWN `666`.**
   *NOT false -- unmeasurable on our assets, same disposition as the adjective row. Doing the power
   calculation BEFORE the data hunt is the point.*
+  🧠✅ **(7) AND THE FIX FOR BUNDLING IS SEGREGATION, MEASURED AT EQUAL BUDGET.** *Both schemes
+  get the SAME `D=256`: superposition spends it on resolution and pays in crosstalk; segregation
+  gives each item `D/k` and pays in dimensionality. Either could win.* **SEGREGATION WINS AT EVERY
+  `k` AND THE MARGIN GROWS: at `k=16` a SIXTEEN-dim isolated slot reads `+0.1949` vs a 256-dim
+  superposed code's `+0.0479` -- 16x smaller, 4x better.** 🔑 **ISOLATION BEATS RESOLUTION, which is
+  cortex's actual arrangement.** ➡️ **THE BUILD ANSWER: give meaning its own NARROW slot, not a
+  share of a wide one -- cheaper, not costlier.** *Controls: k=1 agreement (harness fair), info-free
+  `+0.0233`.* ⚠️ *Engineering, not biology -- segregation is pinned in cortex, the ALGEBRA is not.*
+  *Witness: `test_segregated_beats_superposed_at_equal_budget.py`.*
   ⚠️ **STANDING PROHIBITION: do NOT raise `GROUNDED_CAP`** -- the `0.05` gap is what makes
   "contribute, do not decide" enforceable in code. ✅ *The channel is still the right direction.*
 - ✅ **Q115 EXECUTED AND ITS TRIAGE CLOSED (08-23): new cells GATED at commit; backlog inventoried.**

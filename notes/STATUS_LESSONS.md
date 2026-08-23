@@ -7075,3 +7075,9 @@ failing shape -- all bind `chunk=400` and loop, delivering `81%`. Do NOT quote `
   substring "cited" test. Each caught by looking at an actual row; the citing documents beat every
   regex I wrote.**
   *Full sequence: `notes/THE_Q115_TRIAGE_FOURTEEN_RESULTS_WANT_A_RERUN_2026-08-23.md`.*
+
+
+## FOLDED FROM THE PLAN 2026-08-23 (GUI tab entry, second fold)
+
+> ## **LANDED 08-23: GUI TAB 9 "SUBSTRATE" -- THE WHOLE PIPELINE ON ONE SCREEN**
+> **Ten stages from `data/substrate_progress.json`, validated by `tools/substrate_progress.py`** (`3557c476b`). Every row carries when it was last re-checked and **goes amber at 3 days / red at 7 -- the tab shows its own staleness.** *Three rows were rewritten within a day of building it, which is the review dates doing their job.* 🔻 **THE LESSON THAT OUTLIVES THE FEATURE: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted. A feature that ships into a process nobody restarts has not shipped.**
