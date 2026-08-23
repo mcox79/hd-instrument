@@ -143,6 +143,20 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 ## WHAT IS RUNNING
 
 - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
+- 🧠✅ **THE PRIORITY-1 FIX COVERS OUR VERB HOLE -- AND ITS BRIEF NEVER MENTIONED VERBS (08-23).**
+  On **SimVerb-3500**, the benchmark our own verb zero was measured on: the sensorimotor norms read
+  **`+0.3107` `[+0.2822,+0.3390]`** vs null p95 `0.0304`, covering `3,487` of `3,500` (99.6%); **ours
+  reads `+0.0000`** covering `2,651`. ⚠️ *Different coverage -> NOT a subtraction: it licenses
+  "ours is ABSENT where this one is PRESENT", nothing more.* Replicates at `+0.3109` on SimLex's 222
+  verbs -- **two independent verb benchmarks to three decimals.** On SimLex, verbs sit just below
+  nouns (`+0.3109` vs `+0.3469`) while ours falls weak->nothing: **THE VERB HOLE IS OURS, NOT THE
+  WORLD'S.**
+  🧠 **A BRAIN PREDICTION THAT COULD HAVE FAILED, HELD: ACTION − PERCEPTUAL on verbs =
+  `+0.0651` `[+0.0306,+0.1005]`, CI-SEPARATED** (paired, 3,487 pairs) -- somatotopy (*kick* recruits
+  leg motor cortex) in an offline norm table. **At `n=222` the same test read `[-0.0989,+0.2031]` and
+  said NOTHING; the fix was POWER, not more careful wording.** 🔻 **SINGLE dissociation only** --
+  the noun half includes zero, so NEVER "motor for verbs, perceptual for nouns".
+  ✅ *Tracked witness: `verification/test_sensorimotor_covers_the_verb_hole.py`.*
 - ✅ **Q115 ANSWERED BY THE OWNER (08-23): REQUIRE THE HELPER ON NEW CELLS, TRIAGE THE OLD ONES.**
   *"def make it a requirement for new experiments, but I'd go back through the 275 older ones one at
   a time -- we need to know what those are and how they turned out."* **The gate is LIVE** -- the
@@ -165,31 +179,9 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   cross a run boundary. *Reproduced before landing; solver EXCELLENT.* **Persistence is NECESSARY and NOT
   SUFFICIENT -- never bill it as a grounding fix.** ➡️ **A THIRD INDEPENDENT INSTRUMENT NOW POINTS AT
   `reader_meaning_channel` (rank 1).**
-- 🖥️ **GUI TAB 9 "SUBSTRATE" -- THE OWNER CAN SEE THE WHOLE PIPELINE AT ONCE (08-23).** Ten stages
-  from `data/substrate_progress.json`, `4` need work, the wall named at the top. **Every row carries when
-  it was last re-checked and goes amber at 3 days / red at 7 -- the tab shows its own staleness.**
-  `tools/substrate_progress.py --check` refuses a number with no floor, a source not on disk, or jargon.
-  🔻 **THE REAL BUG BEHIND *"there is STILL no priority"* WAS A STALE WINDOW: priority had been wired
-  end-to-end for a day, but the GUI was launched 08-22 13:15 and never restarted.** Relaunched.
-  *A feature that ships into a process nobody restarts has not shipped.*
-- 📘 **THE ENUMERATE RULE NOW COVERS SCHEMAS (`CLAUDE.md` Evidence discipline 2, 08-23).**
-  **Before concluding a field is missing or empty, LIST THE FIELDS THAT EXIST** -- one line,
-  `sorted({k for r in rows for k in r})`. *Earned by two opposite errors the same day: an empty
-  `gate_decision_target` read as an absent revival criterion while `revival_criteria` sat filled
-  on `41` of `42`; and in my own tool `status` matched `0` of `7,878` files while
-  `primary_verdict` was missing from the list entirely.* 🚫 **AND IT RECORDS "DO NOT BUILD A
-  TOOL FOR THIS": `audit_keys_read_but_never_written.py` already tried, five iterations, and its
-  own verdict is that a static scan CANNOT distinguish a missing key from one supplied
-  elsewhere. There are 1,168 tools; the fix is the one-liner.**
-- 🔻 **RETRACTED SAME DAY -- "THE DURABILITY GATE IS HOLLOW" WAS MY OWN WRONG-FIELD ERROR.**
-  I measured `gate_decision_target` (empty on `24` of `42` shelves) and reported that shelved
-  capabilities have no revival criteria. **There is a field called `revival_criteria` and it is
-  filled on `41` of `42` (`98%`); ZERO rows lack all three of `revival_criteria` /
-  `gate_decision_target` / `superseded_by`. THE GATE IS BEING HONOURED.** 🔑 **The fault: I
-  searched by a GUESSED FIELD NAME instead of ENUMERATING the fields -- one line would have
-  listed it.** *Same enumerate-then-reconcile rule I cited twice today.* **The session-start
-  check I shipped was crying wolf and is corrected; it is now silent.**
-  `THE_SHELVE_HALF_OF_THE_DURABILITY_GATE_IS_HOLLOW_...` (retracted at the top)
+- 🖥️ **GUI TAB 9 "SUBSTRATE" -- the whole pipeline on one screen, from `data/substrate_progress.json`.** Every row shows when it was last re-checked and goes amber at 3 days / red at 7. 🔻 **THE DURABLE LESSON: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted -- a feature that ships into a process nobody restarts has not shipped.**
+- 📘 **ENUMERATE THE FIELDS THAT EXIST BEFORE CALLING ONE MISSING** -- one line, `sorted({k for r in rows for k in r})`. *Now in `CLAUDE.md` Evidence discipline 2 (loaded every session) with both incidents that earned it, and a DO-NOT-BUILD-A-TOOL note.*
+- 🔻 **RETRACTED SAME DAY -- "THE DURABILITY GATE IS HOLLOW" WAS MY OWN WRONG-FIELD ERROR.** *I measured `gate_decision_target` while `revival_criteria` sat filled on `41` of `42`. It reached a note, the plan, STATUS and a session-start check. Hook corrected and verified silent; the note carries the retraction at its top.*
 - 🧪 **BOTH PATHS DRIVEN END TO END 08-23 -- write path healthy, read path cannot refuse.** *Now carried, and kept current, by **GUI tab 9 / `data/substrate_progress.json`** stages 3 and 5. Full run in the note.*
 - 🧠 **TWO SESSIONS, ONE ORGAN -- RECONCILED, AND IT CORRECTS ME TWICE (08-23).** A concurrent
   session split the propagator's `83%` abstention: **`6` points are REACH, `78` are DISCRIMINATION**

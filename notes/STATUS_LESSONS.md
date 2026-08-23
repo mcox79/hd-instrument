@@ -6718,3 +6718,53 @@ do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_..
 ## EVICTED FROM STATUS.md 2026-08-23 (tenth pass)
 
 - 🔧 **COORDINATION FIXED 08-23:** two sessions worked one organ unaware; the claim queue could only  claim rows that ALREADY EXISTED, so nobody could announce NEW work. **`dispatch_queue.py announce  "<what>" --by <session>` adds+claims in one command** and `before_you_start` shows it IN PROGRESS.  *Cost was a MISSED HANDOFF, not duplication.* `RECONCILING_TWO_SESSIONS_...`
+
+
+## FOLDED FROM THE PLAN STATE BLOCK 2026-08-23 (substrate-tab entry, full text)
+
+> ## **LANDED 08-23: THE SUBSTRATE TAB -- THE WHOLE PIPELINE ON ONE SCREEN**
+> **GUI tab 9 from `data/substrate_progress.json`, validated by `tools/substrate_progress.py`** (`3557c476b`). Ten stages, `4` need work, the wall named at the top. **Every row carries when it was last re-checked and goes amber at 3 days / red at 7 -- the tab shows its own staleness**, the only version of "maintained" that survives a busy week. Validator refuses a number with no floor, a source not on disk, and jargon. Status bar now shows the front tab's wall-clock update time.
+> 🔻 **THE STALE GUI WAS THE REAL BUG BEHIND *"there is STILL no priority"*: it was wired end-to-end for a day, but the window was launched 08-22 13:15 and never restarted.** Relaunched. *A feature that ships into a process nobody restarts has not shipped.*
+>
+
+
+## FOLDED FROM THE PLAN STATE BLOCK 2026-08-23 (replay-redate alarm, full text)
+
+> ## ⚠️ **UNCOMMITTED: `54` LANDED RECORDS RE-DATED BY A REPLAY, `3` DELETED (08-22, found by the restart re-read)**
+> **`63` `metrics.json` modified + `3` deleted in the working tree. `54` have a CHANGED `ts_iso` with IDENTICAL numbers** -- e.g. `exp_bridge1_twostage_event_situation_v2`: `elapsed_s 31.36 -> 0.0355`, `ts_iso 2026-08-05 -> 2026-08-22`. A re-run replayed checkpoints, did no work, restamped the record. **Oldest true date `2026-07-04` -- seven weeks restamped as today.**
+> 🔻 **MY OWN ALARM, CORRECTED: THIS IS MISLABELLING, NOT DATA LOSS.** *`git show HEAD:<path>` returns every one intact, deletions included (verified). History keeps them even if the overwrite commits.* **It still matters because tools read the FILE, not the history -- and a staleness check is exactly what started the goal-bearing re-land today.**
+> ✅ *True dates preserved for convenience in `notes/TRUE_LANDED_TIMESTAMPS_BEFORE_THE_08-22_REPLAY.md`. The 3 deleted are the `cornerstone_results` LLM-comparison baselines.* 🚫 **NOT committed or reverted by me -- they are a concurrent session's.** ➡️ **This is `harness_cannot_recompute` (filed) happening at scale: `reproduction_check.py` can NAME a replay; nothing PREVENTS one overwriting a landed record.**
+>
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (eleventh pass)
+
+- 📘 **THE ENUMERATE RULE NOW COVERS SCHEMAS (`CLAUDE.md` Evidence discipline 2, 08-23).**
+  **Before concluding a field is missing or empty, LIST THE FIELDS THAT EXIST** -- one line,
+  `sorted({k for r in rows for k in r})`. *Earned by two opposite errors the same day: an empty
+  `gate_decision_target` read as an absent revival criterion while `revival_criteria` sat filled
+  on `41` of `42`; and in my own tool `status` matched `0` of `7,878` files while
+  `primary_verdict` was missing from the list entirely.* 🚫 **AND IT RECORDS "DO NOT BUILD A
+  TOOL FOR THIS": `audit_keys_read_but_never_written.py` already tried, five iterations, and its
+  own verdict is that a static scan CANNOT distinguish a missing key from one supplied
+  elsewhere. There are 1,168 tools; the fix is the one-liner.**
+- 🔻 **RETRACTED SAME DAY -- "THE DURABILITY GATE IS HOLLOW" WAS MY OWN WRONG-FIELD ERROR.**
+  I measured `gate_decision_target` (empty on `24` of `42` shelves) and reported that shelved
+  capabilities have no revival criteria. **There is a field called `revival_criteria` and it is
+  filled on `41` of `42` (`98%`); ZERO rows lack all three of `revival_criteria` /
+  `gate_decision_target` / `superseded_by`. THE GATE IS BEING HONOURED.** 🔑 **The fault: I
+  searched by a GUESSED FIELD NAME instead of ENUMERATING the fields -- one line would have
+  listed it.** *Same enumerate-then-reconcile rule I cited twice today.* **The session-start
+  check I shipped was crying wolf and is corrected; it is now silent.**
+  `THE_SHELVE_HALF_OF_THE_DURABILITY_GATE_IS_HOLLOW_...` (retracted at the top)
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (twelfth pass, GUI tab entry)
+
+- 🖥️ **GUI TAB 9 "SUBSTRATE" -- THE OWNER CAN SEE THE WHOLE PIPELINE AT ONCE (08-23).** Ten stages
+  from `data/substrate_progress.json`, `4` need work, the wall named at the top. **Every row carries when
+  it was last re-checked and goes amber at 3 days / red at 7 -- the tab shows its own staleness.**
+  `tools/substrate_progress.py --check` refuses a number with no floor, a source not on disk, or jargon.
+  🔻 **THE REAL BUG BEHIND *"there is STILL no priority"* WAS A STALE WINDOW: priority had been wired
+  end-to-end for a day, but the GUI was launched 08-22 13:15 and never restarted.** Relaunched.
+  *A feature that ships into a process nobody restarts has not shipped.*
