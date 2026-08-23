@@ -60,6 +60,19 @@ if git diff --cached --name-only | grep -q '^notes/problems/'; then
         exit 1
     fi
 fi
+
+# --- Q115 (owner ruling 2026-08-23): a NEW experiment must be genuinely re-runnable. -------------
+# "I think you should def make it a requirement for new experiments, but I would go back through the
+#  275 older ones one at a time." So this fires ONLY on ADDED files (diff-filter=A), never on the
+#  existing backlog -- a rule that fired on 1,413 old cells would be switched off within a day, and
+#  a switched-off rule protects nothing.
+ADDED="$(git diff --cached --name-only --diff-filter=A | grep '^experiments/.*\\.py$')"
+if [ -n "$ADDED" ]; then
+    PY="$(git rev-parse --show-toplevel)/.venv/Scripts/python.exe"
+    [ -x "$PY" ] || PY=python
+    # shellcheck disable=SC2086
+    "$PY" -X utf8 -W ignore tools/reproducibility_inventory.py --check-new $ADDED || exit 1
+fi
 exit 0
 '''
 
@@ -89,7 +102,9 @@ def install() -> int:
     except OSError:
         pass                              # Windows; git for windows runs it via sh regardless
     print("[precommit] installed at .git/hooks/pre-commit")
-    print("            guards: commits staging notes/problems/, brief cert only (~0.5s)")
+    print("            guards 1: commits staging notes/problems/ -- brief cert (~0.5s)")
+    print("            guards 2: NEW experiments/*.py that write a result -- must call the shared")
+    print("                      save-location helper, so a re-run recomputes (owner ruling Q115)")
     print("            NOT version-controlled -- a fresh clone starts unguarded; re-run this to arm it")
     return 0
 
@@ -115,13 +130,30 @@ def self_test() -> int:
         print("[self-test] FAIL hook body is wrong")
         ok = False
 
-    # NEGATIVE CONTROL: it must NOT fire for commits that touch nothing in notes/problems/.
-    # Checked structurally -- the whole body is inside the grep guard.
-    if BODY.count("if git diff --cached") == 1 and BODY.strip().endswith("exit 0"):
-        print("[self-test] PASS a commit touching nothing under notes/problems/ exits 0 immediately")
+    # NEGATIVE CONTROL: neither guard may fire on a commit that touches neither area. Checked
+    # structurally -- every guarded action sits inside its own `if`, and the body ends at exit 0.
+    if BODY.count("\nif ") == 2 and BODY.strip().endswith("exit 0"):
+        print("[self-test] PASS both guards are conditional; an unrelated commit exits 0 immediately")
     else:
-        print("[self-test] FAIL the guard is not conditional -- it would run on every commit")
+        print("[self-test] FAIL a guard is not conditional -- it would run on every commit")
         ok = False
+
+    # 🔻 THE DRIFT CHECK, ADDED BECAUSE IT ALREADY HAPPENED (2026-08-23). The Q115 gate was added to
+    # the INSTALLED hook and lost from this file within the hour, so the two disagreed and the next
+    # re-install would have silently DISARMED the gate while printing "installed". A guard that can
+    # be removed by running its own installer is worse than none, because it reports success.
+    if "diff-filter=A" in BODY and "reproducibility_inventory.py --check-new" in BODY:
+        print("[self-test] PASS the Q115 new-cell gate is present in the body this script installs")
+    else:
+        print("[self-test] FAIL the Q115 gate is MISSING -- installing would disarm it")
+        ok = False
+
+    if os.path.isfile(HOOK):
+        live = open(HOOK, encoding="utf-8", errors="replace").read()
+        same = ("diff-filter=A" in live) == ("diff-filter=A" in BODY)
+        print("[self-test] %s the installed hook and this script agree about the Q115 gate"
+              % ("PASS" if same else "FAIL"))
+        ok = ok and same
 
     print("[self-test] " + ("ALL PASS" if ok else "FAILURES ABOVE"))
     return 0 if ok else 1
