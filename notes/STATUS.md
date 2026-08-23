@@ -193,7 +193,7 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   WHICH HAND-LABELLED CLUSTER a target landed beside -- it is NOT reading valence off the graph.**
   A concurrent session's finding that WordNet distance carries no valence stands; my purity result
   survived its baseline (`0.800` vs random-5 `0.600`). Now filed as `propagate_along_the_relation`.*
-- 🔧 **COORDINATION FIXED 08-23:** *two sessions worked one organ unaware; the claim queue could only claim PRE-EXISTING rows, so starting new work was unannounceable. `dispatch_queue.py announce` adds-and-claims in one step.*
+- 🔧 **COORDINATION FIXED 08-23:** *`dispatch_queue.py announce` adds-and-claims in one step, so starting NEW work is announceable -- previously only pre-existing rows could be claimed.*
 - ✅ **LANDING CODE AND RUNNING ITS TESTS IS NOT THE SAME ACT.** *A piped pytest's exit code is `tail`'s -- I committed a brief twice on a red cert. **Now enforced by a pre-commit hook**, so it cannot recur by memory.*
 - ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
 

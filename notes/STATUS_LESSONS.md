@@ -6971,3 +6971,8 @@ do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_..
   fault)*. ⚠️ **`20` IS A CEILING, NOT A TARGET: a floor run in a DIFFERENT cell does not count
   here, and at least one row already has one.** *List: `notes/THE_Q115_TRIAGE_FOURTEEN_RESULTS_WANT_A_RERUN_2026-08-23.md`,
   per-cell table `data/triage_135_cited_unverifiable.tsv`.*
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (twenty-first pass)
+
+- 🔧 **COORDINATION FIXED 08-23:** *two sessions worked one organ unaware; the claim queue could only claim PRE-EXISTING rows, so starting new work was unannounceable. `dispatch_queue.py announce` adds-and-claims in one step.*

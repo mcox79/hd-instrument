@@ -4,25 +4,25 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T19:40:39Z  |  HEAD: b11566d12
+generated: 2026-08-23T19:43:30Z  |  HEAD: 80edb4897
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30334 min ago <-- STALE
-  - orchestrator: 38663 min ago <-- STALE
-  - research: 3 min ago
-  - skunkworks: 41335 min ago <-- STALE
-  - testbed: 77909 min ago <-- STALE
+  - exp_dev: 30337 min ago <-- STALE
+  - orchestrator: 38666 min ago <-- STALE
+  - research: 2 min ago
+  - skunkworks: 41338 min ago <-- STALE
+  - testbed: 77912 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 6 min ago, has metrics.json
-  - substrate_director_kb_v1.staging.28492: 10 min ago, NO metrics.json yet (likely in-flight)
-  - cornerstone_results: 93 min ago, NO metrics.json yet (likely in-flight)
-  - exp_refuse_gate_on_readout_v1: 139 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1: 141 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1_selftest: 142 min ago, has metrics.json
+  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 9 min ago, has metrics.json
+  - substrate_director_kb_v1.staging.28492: 13 min ago, NO metrics.json yet (likely in-flight)
+  - cornerstone_results: 96 min ago, NO metrics.json yet (likely in-flight)
+  - exp_refuse_gate_on_readout_v1: 142 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1: 144 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1_selftest: 145 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - 🧠 **THE MEANING CHANNEL: SIX MEASUREMENTS 08-23, ALL IN `notes/problems/reader_meaning_channel/`
@@ -56,6 +56,14 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
     `exp_hd_fact_store_source_trust_vet_v1`** -- ORGAN_MAP: *"1.000/1.000/1.000, verdict PASS, NO
     FLOOR"*, *"BLOCKS every claim that rests on 'the foundation knows N things'"*. *Of the other 13:
     2 already have controls, 4 are superseded/mislabelled, 2 uncited, 5 lower-value.*
+    🔻 **AND THE FLOOR IS NOW RUN, AND IT TIES.** *A dictionary and four if-statements -- no
+    hypervectors, no store, no encoder -- score `1.000/1.000/1.000` on the SAME 160 trials.* The
+    scenario supplies everything: conflict IS *same-(s,r)-different-o*, `trust_ladder` decides
+    REPLACE vs DROP, `relation_cardinality` decides FLAG vs COMBINE. **➡️ THE NUMBER MEASURES THE
+    SCENARIO'S CONSTRUCTION, NOT THE STORE, and ORGAN_MAP is corrected at the citation.**
+    *Negative control: flatten the trust ladder -> floor falls to `0.500`.* ⚠️ **Not a charge against
+    the cell -- it calls itself a DEMONSTRATION in its first line. A charge against CITING it.**
+    *Witness: `test_source_trust_vet_has_a_trivial_floor.py`.*
     *Full sequence incl. both detector errors: `notes/THE_Q115_TRIAGE_FOURTEEN_RESULTS_WANT_A_RERUN_2026-08-23.md`.*
   - ✅ **THE FOUNDATION LOADS NOW, AND RESUMING DOES NOT HELP GROUNDING (08-23).** *A matched read goes `168` -> `9` new groundings and precision sits at its RANDOM floor in every arm; a permuted-label DECOY matches RESUMED exactly (`0/164`), so it is anchor geometry, not meaning.* **RETIRED PREDICTION: "degeneracy falls as vocabulary grows". Persistence is NECESSARY, NOT SUFFICIENT -- never bill it as a grounding fix.** *Pinned in the constructor, positive-controlled.*
   - 🖥️ **GUI TAB 9 "SUBSTRATE" -- the whole pipeline on one screen, from `data/substrate_progress.json`.** Every row shows when it was last re-checked and goes amber at 3 days / red at 7. 🔻 **THE DURABLE LESSON: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted -- a feature that ships into a process nobody restarts has not shipped.**
@@ -67,7 +75,7 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
     WHICH HAND-LABELLED CLUSTER a target landed beside -- it is NOT reading valence off the graph.**
     A concurrent session's finding that WordNet distance carries no valence stands; my purity result
     survived its baseline (`0.800` vs random-5 `0.600`). Now filed as `propagate_along_the_relation`.*
-  - 🔧 **COORDINATION FIXED 08-23:** *two sessions worked one organ unaware; the claim queue could only claim PRE-EXISTING rows, so starting new work was unannounceable. `dispatch_queue.py announce` adds-and-claims in one step.*
+  - 🔧 **COORDINATION FIXED 08-23:** *`dispatch_queue.py announce` adds-and-claims in one step, so starting NEW work is announceable -- previously only pre-existing rows could be claimed.*
   - ✅ **LANDING CODE AND RUNNING ITS TESTS IS NOT THE SAME ACT.** *A piped pytest's exit code is `tail`'s -- I committed a brief twice on a red cert. **Now enforced by a pre-commit hook**, so it cannot recur by memory.*
   - ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
 
@@ -79,12 +87,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 4 new commit(s) since last snapshot (HEAD 8e734d2be -> b11566d12)
-- data/ directory count: 8176 -> 8177 (+1)
+- 2 new commit(s) since last snapshot (HEAD b11566d12 -> 80edb4897)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - (none found)
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8177, "generated_at": "2026-08-23T19:40:39Z", "head_commit": "b11566d125cd7a7ab3d20948ec8e73021d3dd242", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8177, "generated_at": "2026-08-23T19:43:30Z", "head_commit": "80edb489727568ffbe2760d851b59ed02f741aab", "step_status": {}}
 -->
