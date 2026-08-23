@@ -6,7 +6,7 @@ review_text:
 
 <!-- ORIENTATION -- WRITTEN 2026-08-23 AFTER FIVE FINDINGS LANDED ON THIS BRIEF IN ONE DAY -->
 > # 🗺️ **READ THIS FIRST: WHAT CHANGED, AND WHAT IT MEANS FOR THE BUILD**
-> **Five measurement blocks were added to this brief on 2026-08-23 and they sit above the original
+> **SIX measurement blocks were added to this brief on 2026-08-23 and they sit above the original
 > problem statement in the order they were written, not in the order you need them.** This is the
 > map. *Each block carries its own reverify command; none of it is prose you have to take on trust.*
 >
@@ -17,8 +17,11 @@ review_text:
 > | 3 | **SPARSITY does not rescue that** -- every density collapses to ~`+0.08`. | **Do not spend a week on a sparser code.** |
 > | 4 | **NOR DOES AN ADDRESSED SLOT** -- addressing works, but binding PERMUTES interference rather than removing it. | *A key does not protect you from the other occupants.* **I wrote this advice before testing it; it is corrected in block 5.** |
 > | 5 | **THE SAME ASSET GIVES THREE NUMBERS** by entry point (`+0.3107` / `+0.2676` / `+0.2463`); the lowest is the one the substrate calls. | **Measure the ASSET unclamped; ask what the SUBSTRATE sees with the clamped one. Never compare across.** |
+> | 6 | **DO NOT COMBINE IT WITH WORDNET ON THIS EVIDENCE.** Pooled, WordNet looks twice as good (`+0.543` vs `+0.287`) -- but SimVerb's pairs were SELECTED by WordNet relation. Within class the edge collapses, and on the 60% with NO relation sensorimotor wins `+0.286` vs `+0.154`. | **A benchmark selected by a resource cannot fairly score that resource.** *A both-spokes hub is still worth testing; the POOLED number is not evidence for it.* |
 >
-> ✅ **WHAT DID NOT CHANGE: the channel is still the right direction.** It carries real meaning and is
+> ✅ **WHAT DID NOT CHANGE: the channel is still the right direction, and finding 6 STRENGTHENS
+> that** -- on the pairs a taxonomy does not already link, which is the case a reader faces on new
+> text, this channel is the best one we have. It carries real meaning and is
 > the only channel we have that says anything about verbs at all -- our own reads `+0.0000` there.
 > **The findings narrow HOW to use it; none of them argue for abandoning it.**
 > ⚠️ **AND ONE STANDING PROHIBITION, because it is the obvious wrong move:** do **NOT** raise
