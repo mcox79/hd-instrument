@@ -6,7 +6,7 @@ review_text:
 
 <!-- ORIENTATION -- WRITTEN 2026-08-23 AFTER FIVE FINDINGS LANDED ON THIS BRIEF IN ONE DAY -->
 > # 🗺️ **READ THIS FIRST: WHAT CHANGED, AND WHAT IT MEANS FOR THE BUILD**
-> **SIX measurement blocks were added to this brief on 2026-08-23 and they sit above the original
+> **SEVEN measurement blocks were added to this brief on 2026-08-23 and they sit above the original
 > problem statement in the order they were written, not in the order you need them.** This is the
 > map. *Each block carries its own reverify command; none of it is prose you have to take on trust.*
 >
@@ -17,6 +17,7 @@ review_text:
 > | 3 | **SPARSITY does not rescue that** -- every density collapses to ~`+0.08`. | **Do not spend a week on a sparser code.** |
 > | 4 | **NOR DOES AN ADDRESSED SLOT** -- addressing works, but binding PERMUTES interference rather than removing it. | *A key does not protect you from the other occupants.* **I wrote this advice before testing it; it is corrected in block 5.** |
 > | 5 | **THE SAME ASSET GIVES THREE NUMBERS** by entry point (`+0.3107` / `+0.2676` / `+0.2463`); the lowest is the one the substrate calls. | **Measure the ASSET unclamped; ask what the SUBSTRATE sees with the clamped one. Never compare across.** |
+> | 7 | 🧠✅ **SEGREGATION IS THE FIX FOR BUNDLING.** At EQUAL 256-dim budget, giving each item its own `D/k` slot beats superposing: at k=16, **16 dims isolated beats 256 dims shared, `+0.1949` vs `+0.0479`.** | **THE ONE CONSTRUCTIVE FINDING. Give meaning a NARROW OWN SLOT, not a share of a wide one.** *Margin grows with k; isolation > resolution.* |
 > | 6 | **DO NOT COMBINE IT WITH WORDNET ON THIS EVIDENCE.** Pooled, WordNet looks twice as good (`+0.543` vs `+0.287`) -- but SimVerb's pairs were SELECTED by WordNet relation. Within class the edge collapses, and on the 60% with NO relation sensorimotor wins `+0.286` vs `+0.154`. | **A benchmark selected by a resource cannot fairly score that resource.** *A both-spokes hub was then tested on the unselected class: mean-of-both is the best rule tried, but the gain over sensorimotor alone is `+0.0245` `[-0.0021,+0.0520]` -- NOT established.* |
 >
 > ✅ **WHAT DID NOT CHANGE: the channel is still the right direction, and finding 6 STRENGTHENS
@@ -248,6 +249,39 @@ review_text:
 > algebraic binding over two full-rank vector codes; the binding problem is open. What the brain
 > licenses is only that meaning stays *addressable* rather than stirred into one pot.
 > **REVERIFY:** `.venv/Scripts/python.exe verification/test_does_an_addressed_slot_survive_bundling.py`
+
+> ## 🧠✅ **AND HERE IS WHAT DOES WORK -- SEGREGATION, MEASURED AT EQUAL BUDGET (08-23)**
+> Three blocks above establish that combining destroys meaning and that **sparsity does not rescue
+> it, nor does an addressed slot.** Each of those tried to make SUPERPOSITION survive. **Cortex's
+> answer is not to superpose at all** -- distinct attributes live in distinct populations, addressed
+> anatomically.
+>
+> ⚠️ **THE TAUTOLOGY TRAP, AND WHY THIS TEST FIXES THE BUDGET.** *Of course* separate storage has no
+> interference -- there is nothing to interfere with. So both schemes get the **SAME total `D=256`**:
+> superposition spends it on resolution and pays in crosstalk; segregation gives each item `D/k` and
+> pays in dimensionality. **Either could win.**
+>
+> | k | SUPERPOSED (all in 256) | SEGREGATED (each in 256/k) | segregated slot |
+> |---|---|---|---|
+> | 1 | `+0.2914` | `+0.2983` | 256 dims *(identical by construction -- the harness check)* |
+> | 2 | `+0.2296` | **`+0.2882`** | 128 dims |
+> | 4 | `+0.1397` | **`+0.2565`** | 64 dims |
+> | 8 | `+0.0929` | **`+0.2263`** | 32 dims |
+> | **16** | `+0.0479` | 🧠 **`+0.1949`** | **16 dims** |
+>
+> 🔑 **SEGREGATION WINS AT EVERY k, AND THE MARGIN GROWS WITH k. At k=16 a SIXTEEN-dimensional
+> isolated slot beats a 256-dimensional superposed code by 4x** -- a representation 16x smaller,
+> winning decisively. **ISOLATION IS WORTH FAR MORE THAN RESOLUTION**, which is the arrangement
+> cortex actually uses.
+>
+> ➡️ **FOR THE BUILD, THIS IS THE ANSWER TO THE BUNDLING PROBLEM: give meaning its own narrow slot
+> rather than a share of a wide one.** The earlier blocks say what does NOT work; this says what
+> does, and it is cheap -- narrow slots, not bigger vectors.
+> ⚠️ **ENGINEERING, NOT BIOLOGY:** anatomical segregation of attributes IS pinned in cortex; the
+> ALGEBRA either scheme uses here is **our-invention-under-test** (VSA binding is unpinned). This
+> compares two of OUR options against a brain-motivated question.
+> *Controls: k=1 agreement (harness favours neither), info-free arm `+0.0233` at the narrowest slot.*
+> **REVERIFY:** `.venv/Scripts/python.exe verification/test_segregated_beats_superposed_at_equal_budget.py`
 
 > **REVERIFY (tracked, runs in ~40s):**
 > `.venv/Scripts/python.exe verification/test_sensorimotor_covers_the_verb_hole.py`
