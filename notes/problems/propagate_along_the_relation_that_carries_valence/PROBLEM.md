@@ -102,6 +102,23 @@ verb-group) from each of the 1,971 polar held-out verbs to any anchor:
 🔑 **THE VALENCE-BEARING AXIS CAN REACH MORE ITEMS THAN THE UNINFORMATIVE ONE CURRENTLY DOES.** That
 is what makes this worth a session rather than a note.
 
+## 5b. VERIFY BEFORE YOU START
+
+1. **Re-run the two numbers this whole brief rests on** and confirm they still hold: Stage A fires on
+   `19` with accuracy `0.8421`, Stage B on `307` with `0.6482`. *Notes here go stale within hours;
+   these were measured 2026-08-23.*
+2. `python tools/before_you_start.py "propagate valence along antonymy instead of taxonomic distance"`
+   and **read every row it returns**, not the first. *`"antonymy"` returns 0 cells but `"valence"`
+   returns 29, all landed.*
+3. `python tools/organ_map_cite.py` for anything you plan to cite about the mechanism, and
+   `python tools/symbol_corrections.py dictionary_lookup` -- **that function's own docstring carries
+   the Stage A / Stage B precedence rules**, and this project has repeatedly quoted a claim whose
+   correction sat in the docstring of the thing being quoted.
+4. **Re-price the population yourself** (§5). It is one script and it decides whether the run can
+   fail informatively; do not inherit my `121` / `513` on trust.
+5. `python tools/slot_status.py polarity` -- confirm what is and is not on the live path before
+   assuming a gain here moves a downstream number.
+
 ## 6. THE BAR
 
 **A CI-SEPARATED MARGIN OVER STAGE B, ON THE ITEMS BOTH CAN ANSWER, WITH THE FLOOR RECOMPUTED ON
