@@ -81,26 +81,8 @@ fix" -- our UPOS tagger shows recovery enriched for CONTENT WORDS (VERB `2.58x`,
 🚫 **COVERAGE, NOT CAPABILITY -- no task run; `grounded_similarity.py` deliberately UNCHANGED.**
 📎 `THE_VERB_HOLE_IS_OURS_...`, `THE_NORMS_LOOKUP_DOES_NOT_LEMMATISE_...`; brief at priority 7.
 
-### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
-
-| arm, paired hit@1 discrimination, 4 sets | median | verdict |
-|---|---|---|
-| untrained codebook (nothing read) | **~0** | CIs span zero -- donates nothing |
-| **THE TRAINED SUBSTRATE** | **+16.3 pp** | **`REPLICATED`, all 4 CIs exclude zero** |
-| second-order counting (**the bar**, upper bound **+44.2**) | +29.4 pp | `REPLICATED` |
-
-**LEARNING BOUGHT SOMETHING REAL** -- 0 -> +16.3 pp, same representation and comparison, the only
-difference being 7,535 sentences read. First replicated positive from our side on this task.
-**AND IT DOES NOT CLEAR THE BAR** (best CI +30.8 vs gate +44.2), reproducing the standing position
-*at or below counting* on a task that did not exist when that position was formed.
-**AND THE PAIRED TEST NOW SAYS WE ARE MEASURABLY BEHIND, not merely not-ahead:
-`SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.**
-Marginal CIs overlapped, which is NOT a test of a difference; the paired test is.
-⚠️ **SCOPED 08-22: this and every "behind counting" number is the WORD-SIMILARITY / RECALL channel,
-which BOTH plans of record had already ruled out as the meaning signal (bow `0.5167` = chance HANDED
-THE GOLD SENSE). It is NOT a statement about the grounding organ, where counting sits at chance and we
-do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
-
+### 2026-08-21 -- ✅ **EVICTED TO `STATUS_LESSONS.md` (search "THREE-WAY COMPARISON"): the F5
+three-way comparison that set what to build on. Closed; nothing since has moved it.**
 
 ## TOP ITEM -- **I HAD BEEN MEASURING THE CHANNEL BOTH PLANS OF RECORD ALREADY RULED OUT.**
 
@@ -172,25 +154,50 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   `eval_bank_too_small` (it had read the per-item predictions). `tools/problem_ledger.py`.
 - ✅ **ANSWERED, AND IT DEFLATES MY OWN FINDING (08-23):** the dictionary pseudo-count WEIGHTING and
   its silent DISCARD are **UNTESTABLE on the deployment population** -- it commits on `6` of `33`  lemmas and **all six SATURATE**, so 3 of my 4 arms were the SAME ARM. **The calibration gap is REAL  on `1,971` dictionary verbs and ABSENT where the organ is used.** ⚠️ *I did not ask whether the  experiment COULD succeed first -- one line, skipped, paid for over two launches.*  ✅ *`WEIGHTED` read `0.4722`, reproducing the landed number to 4 digits independently.*  `THE_CONFIDENCE_SCORE_DOES_NOT_PREDICT_...`
-- ✅ **INTEGRATION, 08-22/23 -- AND THE LESSON IS THE HEADLINE: LANDING CODE AND RUNNING ITS TESTS
-  IS NOT INTEGRATION; USING IT IS.** I landed the reproduce-a-landed-cell mechanism, never used it,
-  and using it broke **FOUR** ways in 20 minutes with **every witness green**. Worst: the fresh-run
-  switch **CRASHED EVERY CELL THAT IMPORTS THE HARNESS** (import-time self-test asserts the
-  un-suffixed path) -- and its witness could not see it, because the witness imports THEN sets the
-  env while a real cell has it set before Python starts. *The bug IS the ordering.* Also:
-  `classify_run(0,0)` returned `RECOMPUTED` for a run that recorded NOTHING; the driver was blind to
-  **19 of 423** landed dirs lacking the `exp_` prefix; and its detector did not recognise the
-  migration its own refusal message prints.
-  🎯 **PAYOFF -- THE FIRST GENUINE REPRODUCTION HERE:** `exp_thematic_role_labeler_cue_integration_v1`
-  recomputed from scratch in `33.3s`, `HARD_PASS` again, landed dir byte-identical. *`403` of `7,875`
-  cells replay, so nothing could do this before.*
-  ✅ **AND EVERY OTHER SOLVED PROBLEM REPRODUCES EXACTLY** (ran each brief's OWN reverify, which
-  nobody had): stems `0/141`; bank `166`/`124`/floor `0.6048387`/`49`-`75`; flat-store held-out
-  `0.1399` `[0.1310,0.1494]` vs floor `0.3242` after `215s` of REAL recompute. **THE SUBMITTED WORK IS
-  SOUND -- say that before any defect.**
-  ⚠️ **THE PROTOCOL WAS NOT: `3` of `5` reverify commands re-ran a cell IN PLACE. I tripped one and
-  re-stamped a landed record** (science identical; restored from git) -- the `54`-re-dated-records
-  shape. **Fixed both protocol files + all 3 commands; re-audited `0 of 5` unsafe.**
+- 🧠 **TWO SESSIONS, ONE ORGAN -- RECONCILED, AND IT CORRECTS ME TWICE (08-23).** A concurrent
+  session split the propagator's `83%` abstention: **`114` no-anchor-in-range vs `1,531`
+  anchors-that-disagree -- so `6` points are REACH and `78` are DISCRIMINATION.** 🔻 **I called it
+  coverage-limited twice; that was wrong and the repair is different.** They also found the cause
+  with a null AND both positive controls: **WordNet distance does not predict valence agreement at
+  all** (Spearman `-0.0023`, inside a shuffled null; antonyms `2.031` and same-synset `1.063` both
+  behave) -- and **Stage B is `307` of `326` commits, so `94%` of the organ's output rides an axis
+  measured to carry none of what it votes on.**
+  ✅ **MY OPPOSING RESULT SURVIVED ITS BASELINE, AND THE SYNTHESIS IS A MEASUREMENT:** nearest-5
+  anchor purity `0.800` vs random-5 `0.600` vs farthest-5 `0.600` on a balanced `26`/`26` set (*the
+  `0.5` I first compared against was the WRONG baseline*). Both hold because **THE 52 SEEDS ARE
+  THEMSELVES CLUSTERED BY POLARITY** -- same-polarity anchor pairs `0.2438` vs `0.2206`, gap
+  `+0.0232` against a 2,000-shuffle null `[-0.0076,+0.0087]`, OUTSIDE.
+  🔑 **SO STAGE B READS WHICH HAND-LABELLED CLUSTER A TARGET LANDED BESIDE, NOT VALENCE OFF THE
+  GRAPH. The organ's competence is inherited from where 52 seeds sit** -- far narrower than
+  "anchored valence propagates", and it predicts their thin global gradient. **Antonymy is the
+  valence-bearing relation (Stage A `0.8421`, n=19); that is where propagation belongs.**
+  *Bears on `Q116`: strengthens SUPPLY, weakens REASONING-OUTWARD -- against my own recommendation.*
+  `RECONCILING_TWO_SESSIONS_...`
+- 🔧 **AND THE COORDINATION WAS LUCK, SO I FIXED THE MECHANISM (08-23).** I only found the other
+  session because commits collided in a `git log` I happened to run. The detector is not broken --
+  **it scans COMMITTED history, so it can only see FINISHED work.** The claim queue should have
+  covered it and **could only claim rows that ALREADY EXISTED; `add` was never on the CLI**, so
+  there was no way to say *"I am starting X"* -- which is why nobody did. **`dispatch_queue.py
+  announce "<what>" --by <session>` now adds+claims in ONE command**, and `before_you_start` shows
+  it as IN PROGRESS with the owner named (verified both directions on the real queue).
+  ⚠️ **THE COST WAS NOT DUPLICATED WORK -- IT WAS A MISSED HANDOFF: they hit the checkpoint-replay
+  problem I was mid-way through FIXING and routed around it.** *Worse, because neither side can see
+  it.*
+- ✅ **INTEGRATION 08-22/23 -- THE LESSON IS THE HEADLINE: LANDING CODE AND RUNNING ITS TESTS IS NOT
+  INTEGRATION; USING IT IS.** I landed the reproduce-a-landed-cell mechanism, never used it, and
+  using it broke **FOUR** ways in 20 min with **every witness green**: the switch **CRASHED EVERY
+  CELL THAT IMPORTS THE HARNESS** (its witness sets the env AFTER import; a real cell sets it before
+  Python starts -- *the bug IS the ordering*); `classify_run(0,0)` returned `RECOMPUTED` for a run
+  that recorded NOTHING; the driver was blind to `19` of `423` landed dirs lacking `exp_`; and its
+  detector did not recognise the migration its own refusal prints. *Coverage corrected: `87` was a
+  STRING match, strict IMPORT gives `43` -- quote `10-21%`, never `87` alone.*
+  🎯 **PAYOFF -- FIRST GENUINE REPRODUCTION HERE:** a landed `HARD_PASS` recomputed from scratch in
+  `33.3s`, same verdict, landed dir byte-identical. *`403` of `7,875` cells replay; nothing could do
+  this before.* ✅ **AND EVERY OTHER SOLVED PROBLEM REPRODUCES EXACTLY** (ran each brief's own
+  reverify, which nobody had): stems `0/141`; bank `166`/`124`/`0.6048387`; flat-store `0.1399`
+  `[0.1310,0.1494]` vs floor `0.3242` after `215s` of REAL recompute. **THE SUBMITTED WORK IS SOUND
+  -- ahead of every defect above.** ⚠️ *`3` of `5` reverify commands re-ran a cell IN PLACE; I
+  tripped one and re-stamped a landed record (restored). Fixed; re-audited `0 of 5`.*
   `INTEGRATION_BY_USING_IT_FOUND_FOUR_DEFECTS_...`
 - ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-23:** the blind sheet was drawn from a STALE  foundation (`v2_qualityfix` while `v3/v4/v5` exist unmarked; the sampler has no notion of a CURRENT  foundation). **STANDS: the grounding loop stores ~`8%` stemmer output and is NOT known to be fixed.**  `THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...`
 - ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`

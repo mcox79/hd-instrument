@@ -6596,3 +6596,29 @@ what STATUS keeps is a one-line stub pointing here.*
   tuning). NOT MEASURED: whether loading helps -- that is the next experiment.
   `notes/THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...md`.
 
+
+
+## EVICTED FROM STATUS.md ON 2026-08-23 (fifth pass -- room for the two-session reconciliation)
+
+### 2026-08-21 -- THE THREE-WAY COMPARISON THAT DECIDES WHAT F5 BUILDS ON
+
+| arm, paired hit@1 discrimination, 4 sets | median | verdict |
+|---|---|---|
+| untrained codebook (nothing read) | **~0** | CIs span zero -- donates nothing |
+| **THE TRAINED SUBSTRATE** | **+16.3 pp** | **`REPLICATED`, all 4 CIs exclude zero** |
+| second-order counting (**the bar**, upper bound **+44.2**) | +29.4 pp | `REPLICATED` |
+
+**LEARNING BOUGHT SOMETHING REAL** -- 0 -> +16.3 pp, same representation and comparison, the only
+difference being 7,535 sentences read. First replicated positive from our side on this task.
+**AND IT DOES NOT CLEAR THE BAR** (best CI +30.8 vs gate +44.2), reproducing the standing position
+*at or below counting* on a task that did not exist when that position was formed.
+**AND THE PAIRED TEST NOW SAYS WE ARE MEASURABLY BEHIND, not merely not-ahead:
+`SUBSTRATE - COUNTING = -0.142 per item over 478 items, 95% CI [-0.203, -0.082]`, SEPARATED.**
+Marginal CIs overlapped, which is NOT a test of a difference; the paired test is.
+⚠️ **SCOPED 08-22: this and every "behind counting" number is the WORD-SIMILARITY / RECALL channel,
+which BOTH plans of record had already ruled out as the meaning signal (bow `0.5167` = chance HANDED
+THE GOLD SENSE). It is NOT a statement about the grounding organ, where counting sits at chance and we
+do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_...md`
+
+
+
