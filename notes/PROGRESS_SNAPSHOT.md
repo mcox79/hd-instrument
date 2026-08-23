@@ -4,26 +4,26 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T19:53:50Z  |  HEAD: daca8aeb3
+generated: 2026-08-23T19:55:39Z  |  HEAD: bf0a9d5b7
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30347 min ago <-- STALE
-  - orchestrator: 38677 min ago <-- STALE
-  - research: 3 min ago
-  - skunkworks: 41348 min ago <-- STALE
-  - testbed: 77922 min ago <-- STALE
+  - exp_dev: 30349 min ago <-- STALE
+  - orchestrator: 38678 min ago <-- STALE
+  - research: 1 min ago
+  - skunkworks: 41350 min ago <-- STALE
+  - testbed: 77924 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - exp_refuse_gate_on_readout_v2_membership: 4 min ago, has metrics.json
-  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 20 min ago, has metrics.json
-  - substrate_director_kb_v1.staging.28492: 23 min ago, NO metrics.json yet (likely in-flight)
-  - cornerstone_results: 106 min ago, NO metrics.json yet (likely in-flight)
-  - exp_refuse_gate_on_readout_v1: 152 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1: 155 min ago, has metrics.json
-  - exp_grow_by_reading_trivial_floor_v1_selftest: 155 min ago, has metrics.json
+  - exp_refuse_gate_on_readout_v2_membership: 6 min ago, has metrics.json
+  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 21 min ago, has metrics.json
+  - substrate_director_kb_v1.staging.28492: 25 min ago, NO metrics.json yet (likely in-flight)
+  - cornerstone_results: 108 min ago, NO metrics.json yet (likely in-flight)
+  - exp_refuse_gate_on_readout_v1: 154 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1: 156 min ago, has metrics.json
+  - exp_grow_by_reading_trivial_floor_v1_selftest: 157 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - 🧠 **THE MEANING CHANNEL: SIX MEASUREMENTS 08-23, ALL IN `notes/problems/reader_meaning_channel/`
@@ -50,26 +50,19 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
     calculation BEFORE the data hunt is the point.*
     ⚠️ **STANDING PROHIBITION: do NOT raise `GROUNDED_CAP`** -- the `0.05` gap is what makes
     "contribute, do not decide" enforceable in code. ✅ *The channel is still the right direction.*
-  - ✅ **Q115 EXECUTED 08-23: new cells GATED at commit; backlog inventoried and TRIAGED.**
+  - ✅ **Q115 EXECUTED AND ITS TRIAGE CLOSED (08-23): new cells GATED at commit; backlog inventoried.**
     🔻 **COVERAGE `~21%` IS WITHDRAWN -- the truth is `71.2%`** (`3,495` of `4,908` re-runnable).
-    **THE FUNNEL: `1,413` replay -> `425` assert a result -> `135` are CITED by a steering doc -> `29`
-    lack a floor -> `20` claim a capability -> `14` after 6 turned out to HAVE floors under key names
-    my regex missed.** 🔻 **AND THE QUESTION ITSELF WAS WRONG: a re-run verifies the ARITHMETIC, NOT
-    THE ARGUMENT -- a result with no floor will re-run and still have no floor.** *Proven by running
-    the cheapest row: `132` of `132` fields identical, still `HARD_PASS` at `1.000` on `n=10`.*
-    🎯 **ONE ROW IS WORTH ACTING ON AND THE ACTION IS A FLOOR, NOT A RE-RUN:
-    `exp_hd_fact_store_source_trust_vet_v1`** -- ORGAN_MAP: *"1.000/1.000/1.000, verdict PASS, NO
-    FLOOR"*, *"BLOCKS every claim that rests on 'the foundation knows N things'"*. *Of the other 13:
-    2 already have controls, 4 are superseded/mislabelled, 2 uncited, 5 lower-value.*
-    🔻 **AND THE FLOOR IS NOW RUN, AND IT TIES.** *A dictionary and four if-statements -- no
-    hypervectors, no store, no encoder -- score `1.000/1.000/1.000` on the SAME 160 trials.* The
-    scenario supplies everything: conflict IS *same-(s,r)-different-o*, `trust_ladder` decides
-    REPLACE vs DROP, `relation_cardinality` decides FLAG vs COMBINE. **➡️ THE NUMBER MEASURES THE
-    SCENARIO'S CONSTRUCTION, NOT THE STORE, and ORGAN_MAP is corrected at the citation.**
-    *Negative control: flatten the trust ladder -> floor falls to `0.500`.* ⚠️ **Not a charge against
-    the cell -- it calls itself a DEMONSTRATION in its first line. A charge against CITING it.**
-    *Witness: `test_source_trust_vet_has_a_trivial_floor.py`.*
-    *Full sequence incl. both detector errors: `notes/THE_Q115_TRIAGE_FOURTEEN_RESULTS_WANT_A_RERUN_2026-08-23.md`.*
+    Funnel: `1,413` replay -> `425` assert a result -> `135` cited -> `29` lack a floor -> `20` claim a
+    capability -> `14` after 6 turned out to HAVE floors. **🔑 AND THE QUESTION WAS WRONG: a re-run
+    verifies the ARITHMETIC, NOT THE ARGUMENT -- a result with no floor re-runs and still has no
+    floor.** *Proven by running one: `132` of `132` fields identical, still `HARD_PASS` at `1.000` on
+    `n=10`.* 🎯 **OUTCOME: one row acted on and ITS FLOOR TIES** (a dictionary scores
+    `1.000/1.000/1.000` on the same 160 trials); **the OTHER no-floor row's criticism was WRONG AGAINST
+    US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
+    **ORGAN_MAP corrected at both citations.** ⚠️ *My detectors were wrong THREE times -- JSON `null`
+    literals, floor-shaped key names, the substring "cited" test. Each caught by reading an actual row;
+    the citing documents beat every regex I wrote.*
+    *Full sequence: `notes/THE_Q115_TRIAGE_FOURTEEN_RESULTS_WANT_A_RERUN_2026-08-23.md`.*
   - ✅ **THE FOUNDATION LOADS NOW, AND RESUMING DOES NOT HELP GROUNDING (08-23).** *A matched read goes `168` -> `9` new groundings and precision sits at its RANDOM floor in every arm; a permuted-label DECOY matches RESUMED exactly (`0/164`), so it is anchor geometry, not meaning.* **RETIRED PREDICTION: "degeneracy falls as vocabulary grows". Persistence is NECESSARY, NOT SUFFICIENT -- never bill it as a grounding fix.** *Pinned in the constructor, positive-controlled.*
   - 🖥️ **GUI TAB 9 "SUBSTRATE" -- the whole pipeline on one screen, from `data/substrate_progress.json`.** Every row shows when it was last re-checked and goes amber at 3 days / red at 7. 🔻 **THE DURABLE LESSON: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted -- a feature that ships into a process nobody restarts has not shipped.**
   - 📘 **ENUMERATE THE FIELDS THAT EXIST BEFORE CALLING ONE MISSING** -- one line, `sorted({k for r in rows for k in r})`. *Now in `CLAUDE.md` Evidence discipline 2 (loaded every session) with both incidents that earned it, and a DO-NOT-BUILD-A-TOOL note.*
@@ -92,11 +85,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 1 new commit(s) since last snapshot (HEAD 92aedd2e6 -> daca8aeb3)
+- 2 new commit(s) since last snapshot (HEAD daca8aeb3 -> bf0a9d5b7)
 
 ## 5. What is stuck (blocked / pending / no owner)
-- (none found)
+- US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8178, "generated_at": "2026-08-23T19:53:50Z", "head_commit": "daca8aeb3de5b74497bf671c3404d97c761e83c6", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8178, "generated_at": "2026-08-23T19:55:39Z", "head_commit": "bf0a9d5b7f9caba5caeaeadc06fd47a1d05547b2", "step_status": {}}
 -->

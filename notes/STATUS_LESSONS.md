@@ -7043,3 +7043,35 @@ budget discarded, nothing runs out of text. **Raise `max_patches`, not `n_senten
 failing shape -- all bind `chunk=400` and loop, delivering `81%`. Do NOT quote `13%` as our exposure.*
 ✅ *Guarded `e335fa220` (`short_read` on `ReadResult`, survives `to_dict()`); mechanism in the docstring `37d628d95`.*
 
+
+
+## FOLDED FROM STATUS.md 2026-08-23 (twenty-fifth pass, Q115 entry at full length)
+
+- ✅ **Q115 EXECUTED 08-23: new cells GATED at commit; backlog inventoried and TRIAGED.**
+  🔻 **COVERAGE `~21%` IS WITHDRAWN -- the truth is `71.2%`** (`3,495` of `4,908` re-runnable).
+  **THE FUNNEL: `1,413` replay -> `425` assert a result -> `135` are CITED by a steering doc -> `29`
+  lack a floor -> `20` claim a capability -> `14` after 6 turned out to HAVE floors under key names
+  my regex missed.** 🔻 **AND THE QUESTION ITSELF WAS WRONG: a re-run verifies the ARITHMETIC, NOT
+  THE ARGUMENT -- a result with no floor will re-run and still have no floor.** *Proven by running
+  the cheapest row: `132` of `132` fields identical, still `HARD_PASS` at `1.000` on `n=10`.*
+  🎯 **ONE ROW IS WORTH ACTING ON AND THE ACTION IS A FLOOR, NOT A RE-RUN:
+  `exp_hd_fact_store_source_trust_vet_v1`** -- ORGAN_MAP: *"1.000/1.000/1.000, verdict PASS, NO
+  FLOOR"*, *"BLOCKS every claim that rests on 'the foundation knows N things'"*. *Of the other 13:
+  2 already have controls, 4 are superseded/mislabelled, 2 uncited, 5 lower-value.*
+  🔻 **AND THE FLOOR IS NOW RUN, AND IT TIES.** *A dictionary and four if-statements -- no
+  hypervectors, no store, no encoder -- score `1.000/1.000/1.000` on the SAME 160 trials.* The
+  scenario supplies everything: conflict IS *same-(s,r)-different-o*, `trust_ladder` decides
+  REPLACE vs DROP, `relation_cardinality` decides FLAG vs COMBINE. **➡️ THE NUMBER MEASURES THE
+  SCENARIO'S CONSTRUCTION, NOT THE STORE, and ORGAN_MAP is corrected at the citation.**
+  *Negative control: flatten the trust ladder -> floor falls to `0.500`.* ⚠️ **Not a charge against
+  the cell -- it calls itself a DEMONSTRATION in its first line. A charge against CITING it.**
+  *Witness: `test_source_trust_vet_has_a_trivial_floor.py`.*
+  ✅ **TRIAGE CLOSED 08-23.** *The one row acted on: **the floor TIES** -- a dictionary scores
+  `1.000/1.000/1.000` on the same 160 trials, ORGAN_MAP corrected at the citation. The OTHER
+  no-floor row: **the criticism was wrong AGAINST US** -- a random baseline breaks inside the swept
+  range where that system held `1.0000`; ORGAN_MAP corrected there too. Both uncited rows want no
+  action (one's SOURCE FILE IS MISSING and it is `AUDIT_ONLY`; the other is plumbing thresholds).*
+  ⚠️ **MY DETECTORS WERE WRONG THREE TIMES -- JSON `null` literals, floor-shaped key names, and the
+  substring "cited" test. Each caught by looking at an actual row; the citing documents beat every
+  regex I wrote.**
+  *Full sequence: `notes/THE_Q115_TRIAGE_FOURTEEN_RESULTS_WANT_A_RERUN_2026-08-23.md`.*

@@ -160,33 +160,18 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   calculation BEFORE the data hunt is the point.*
   ⚠️ **STANDING PROHIBITION: do NOT raise `GROUNDED_CAP`** -- the `0.05` gap is what makes
   "contribute, do not decide" enforceable in code. ✅ *The channel is still the right direction.*
-- ✅ **Q115 EXECUTED 08-23: new cells GATED at commit; backlog inventoried and TRIAGED.**
+- ✅ **Q115 EXECUTED AND ITS TRIAGE CLOSED (08-23): new cells GATED at commit; backlog inventoried.**
   🔻 **COVERAGE `~21%` IS WITHDRAWN -- the truth is `71.2%`** (`3,495` of `4,908` re-runnable).
-  **THE FUNNEL: `1,413` replay -> `425` assert a result -> `135` are CITED by a steering doc -> `29`
-  lack a floor -> `20` claim a capability -> `14` after 6 turned out to HAVE floors under key names
-  my regex missed.** 🔻 **AND THE QUESTION ITSELF WAS WRONG: a re-run verifies the ARITHMETIC, NOT
-  THE ARGUMENT -- a result with no floor will re-run and still have no floor.** *Proven by running
-  the cheapest row: `132` of `132` fields identical, still `HARD_PASS` at `1.000` on `n=10`.*
-  🎯 **ONE ROW IS WORTH ACTING ON AND THE ACTION IS A FLOOR, NOT A RE-RUN:
-  `exp_hd_fact_store_source_trust_vet_v1`** -- ORGAN_MAP: *"1.000/1.000/1.000, verdict PASS, NO
-  FLOOR"*, *"BLOCKS every claim that rests on 'the foundation knows N things'"*. *Of the other 13:
-  2 already have controls, 4 are superseded/mislabelled, 2 uncited, 5 lower-value.*
-  🔻 **AND THE FLOOR IS NOW RUN, AND IT TIES.** *A dictionary and four if-statements -- no
-  hypervectors, no store, no encoder -- score `1.000/1.000/1.000` on the SAME 160 trials.* The
-  scenario supplies everything: conflict IS *same-(s,r)-different-o*, `trust_ladder` decides
-  REPLACE vs DROP, `relation_cardinality` decides FLAG vs COMBINE. **➡️ THE NUMBER MEASURES THE
-  SCENARIO'S CONSTRUCTION, NOT THE STORE, and ORGAN_MAP is corrected at the citation.**
-  *Negative control: flatten the trust ladder -> floor falls to `0.500`.* ⚠️ **Not a charge against
-  the cell -- it calls itself a DEMONSTRATION in its first line. A charge against CITING it.**
-  *Witness: `test_source_trust_vet_has_a_trivial_floor.py`.*
-  ✅ **TRIAGE CLOSED 08-23.** *The one row acted on: **the floor TIES** -- a dictionary scores
-  `1.000/1.000/1.000` on the same 160 trials, ORGAN_MAP corrected at the citation. The OTHER
-  no-floor row: **the criticism was wrong AGAINST US** -- a random baseline breaks inside the swept
-  range where that system held `1.0000`; ORGAN_MAP corrected there too. Both uncited rows want no
-  action (one's SOURCE FILE IS MISSING and it is `AUDIT_ONLY`; the other is plumbing thresholds).*
-  ⚠️ **MY DETECTORS WERE WRONG THREE TIMES -- JSON `null` literals, floor-shaped key names, and the
-  substring "cited" test. Each caught by looking at an actual row; the citing documents beat every
-  regex I wrote.**
+  Funnel: `1,413` replay -> `425` assert a result -> `135` cited -> `29` lack a floor -> `20` claim a
+  capability -> `14` after 6 turned out to HAVE floors. **🔑 AND THE QUESTION WAS WRONG: a re-run
+  verifies the ARITHMETIC, NOT THE ARGUMENT -- a result with no floor re-runs and still has no
+  floor.** *Proven by running one: `132` of `132` fields identical, still `HARD_PASS` at `1.000` on
+  `n=10`.* 🎯 **OUTCOME: one row acted on and ITS FLOOR TIES** (a dictionary scores
+  `1.000/1.000/1.000` on the same 160 trials); **the OTHER no-floor row's criticism was WRONG AGAINST
+  US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
+  **ORGAN_MAP corrected at both citations.** ⚠️ *My detectors were wrong THREE times -- JSON `null`
+  literals, floor-shaped key names, the substring "cited" test. Each caught by reading an actual row;
+  the citing documents beat every regex I wrote.*
   *Full sequence: `notes/THE_Q115_TRIAGE_FOURTEEN_RESULTS_WANT_A_RERUN_2026-08-23.md`.*
 - ✅ **THE FOUNDATION LOADS NOW, AND RESUMING DOES NOT HELP GROUNDING (08-23).** *A matched read goes `168` -> `9` new groundings and precision sits at its RANDOM floor in every arm; a permuted-label DECOY matches RESUMED exactly (`0/164`), so it is anchor geometry, not meaning.* **RETIRED PREDICTION: "degeneracy falls as vocabulary grows". Persistence is NECESSARY, NOT SUFFICIENT -- never bill it as a grounding fix.** *Pinned in the constructor, positive-controlled.*
 - 🖥️ **GUI TAB 9 "SUBSTRATE" -- the whole pipeline on one screen, from `data/substrate_progress.json`.** Every row shows when it was last re-checked and goes amber at 3 days / red at 7. 🔻 **THE DURABLE LESSON: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted -- a feature that ships into a process nobody restarts has not shipped.**
