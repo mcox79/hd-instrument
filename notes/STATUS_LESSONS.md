@@ -7104,3 +7104,49 @@ one, bar = beat `0.3242` held-out CI-separated; **a rigorous negative is an expl
 started 13:15, BEFORE that commit -- **it must be RESTARTED to show them.** Not a bug, a stale process.*
 📎 `RANDOM_CREDIT_BEATS_THE_REAL_MECHANISM_...`; briefs in `notes/problems/`.
 
+
+
+## FOLDED FROM STATUS.md 2026-08-23 (twenty-seventh pass, meaning-channel entry at full length)
+
+- 🧠 **THE MEANING CHANNEL: SIX MEASUREMENTS 08-23, ALL IN `notes/problems/reader_meaning_channel/`
+  WITH A MAP AND A REVERIFY PER FINDING. Read the brief, not this bullet, before building.**
+  **(1) IT CANNOT GATE LINKS ALONE** -- `CAP 0.45` < `LINK_THRESHOLD 0.5` so as shipped it links `0`
+  of `877`; uncapped `66%` similar AND `37%` DISSIMILAR; no threshold beats the one already set;
+  AUC `0.7002`. ➡️ **"use it INSTEAD" must become "use it AS WELL".**
+  **(2) STORAGE IS FINE, COMBINATION IS THE BOTTLENECK** -- format keeps `94%`; 2 distractors halve
+  it, 8 leave `26%`. **(3) SPARSITY and (4) AN ADDRESSED SLOT BOTH FAIL to rescue it** -- binding
+  PERMUTES interference rather than removing it; *I put that advice in the brief BEFORE testing it.* **(5) THE SAME ASSET GIVES THREE NUMBERS BY ENTRY
+  POINT** (`+0.3107`/`+0.2676`/**`+0.2463`** ← what the substrate calls). **(6) WORDNET'S EDGE IS
+  SELECTION** -- SimVerb's pairs were CHOSEN by WordNet relation; on the unselected `NONE` class
+  (60%) sensorimotor `+0.286` beats WordNet `+0.154`. **(7) A BOTH-SPOKES HUB IS NOT
+  ESTABLISHED** -- mean-of-both is the best rule tried but hub minus sensorimotor is `+0.0245`
+  `[-0.0021,+0.0520]`, includes zero. *Its NOISE control is `-0.0507` `[-0.0891,-0.0105]`, so the
+  second spoke carries REAL information -- just not enough to prove a gain at this n.*
+  🧠 **THE ONE NEW BRAIN RESULT: somatotopy holds at power -- ACTION − PERCEPTUAL on verbs
+  `+0.0651` `[+0.0306,+0.1005]`, CI-separated, 3,487 pairs.** *At `n=222` it said NOTHING; the fix
+  was POWER, not caution.* 🔻 **SINGLE dissociation only, and the DOUBLE is CLOSED AS UNANSWERABLE
+  (08-23): the noun half reads `-0.0137` `[-0.0903,+0.0623]` -- the brain's predicted DIRECTION
+  (perceptual ahead) but ~1/5 the verb effect and ~`20,800` pairs from separable. WE OWN `666`.**
+  *NOT false -- unmeasurable on our assets, same disposition as the adjective row. Doing the power
+  calculation BEFORE the data hunt is the point.*
+  🧠✅ **(7) AND THE FIX FOR BUNDLING IS SEGREGATION, MEASURED AT EQUAL BUDGET.** *Both schemes
+  get the SAME `D=256`: superposition spends it on resolution and pays in crosstalk; segregation
+  gives each item `D/k` and pays in dimensionality. Either could win.* **SEGREGATION WINS AT EVERY
+  `k` AND THE MARGIN GROWS: at `k=16` a SIXTEEN-dim isolated slot reads `+0.1949` vs a 256-dim
+  superposed code's `+0.0479` -- 16x smaller, 4x better.** 🔑 **ISOLATION BEATS RESOLUTION, which is
+  cortex's actual arrangement.** ➡️ **THE BUILD ANSWER: give meaning its own NARROW slot, not a
+  share of a wide one -- cheaper, not costlier.** *Controls: k=1 agreement (harness fair), info-free
+  `+0.0233`.* ⚠️ *Engineering, not biology -- segregation is pinned in cortex, the ALGEBRA is not.*
+  📐 **THE DESIGN NUMBER: swept to `k=256` for a crossover -- THERE ISN'T ONE.** *Superposition
+  is DESTROYED by `k=32` (reads ZERO); a ONE-dim slot still beats a 256-dim superposed code.*
+  ⚠️ **But below ~8 dims/slot segregation wins a race BOTH are losing. `8` dims still carries
+  `+0.1537`, over half full resolution -- THAT is the practical floor to build to.**
+  ⚠️ **SCOPE -- IT CHANGES THE INSTRUCTION: this is ATTRIBUTE segregation, not PER-ITEM.** *The
+  segregated arm assumes you KNOW WHICH SLOT to read; in cortex that is free because slots are
+  ANATOMICAL AND TYPED.* **At `D=256`, up to `32` ATTRIBUTE streams sit at/above the 8-dim floor;
+  PER-ITEM slots give `2.56` dims at 100 items and need an index.** ➡️ **NOT "a slot per word" --
+  I nearly wrote that. It is: MEANING GETS ITS OWN ATTRIBUTE-TYPED SLOT, separate from whatever
+  else the reading loop accumulates.** *The constraint is not tight; we are simply not using it.*
+  *Witness: `test_segregated_beats_superposed_at_equal_budget.py`.*
+  ⚠️ **STANDING PROHIBITION: do NOT raise `GROUNDED_CAP`** -- the `0.05` gap is what makes
+  "contribute, do not decide" enforceable in code. ✅ *The channel is still the right direction.*

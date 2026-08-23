@@ -296,6 +296,24 @@ review_text:
 > build to.**
 >
 > *Controls: k=1 agreement (harness favours neither), info-free arm `+0.0233` at the narrowest slot.*
+> #### ⚠️ **SCOPE, AND IT CHANGES THE BUILD INSTRUCTION: THIS IS ATTRIBUTE SEGREGATION, NOT PER-ITEM**
+> **The segregated arm assumes you KNOW WHICH SLOT TO READ.** Superposition hands you everything at
+> once with no addressing; segregation needs an address. **In cortex that is free because slots are
+> ANATOMICAL AND TYPED -- the visual area IS the visual area, no search.** That freeness holds only
+> when slots are typed by ATTRIBUTE. At `D=256`:
+>
+> | slots typed by... | k | dims/slot | verdict |
+> |---|---|---|---|
+> | **ATTRIBUTE** (cortex-style, addressing structural) | 5 / 11 / 20 / **32** | 51 / 23 / 12 / **8** | ✅ **all at or above the floor** |
+> | PER-ITEM (needs an index) | 100 | `2.56` | 🔻 far below, **and addressing is not free** |
+> | PER-ITEM | 1,000 | `0.26` | 🔻 hopeless |
+>
+> ➡️ **SO THE BUILD INSTRUCTION IS NOT "GIVE EVERY WORD ITS OWN SLOT" -- that is impossible at 256
+> dims and I nearly wrote it. IT IS: KEEP MEANING IN ITS OWN ATTRIBUTE-TYPED SLOT, SEPARATE FROM
+> WHATEVER ELSE THE READING LOOP IS ACCUMULATING.** *Up to ~32 attribute streams fit above the
+> practical floor, which is far more than we have. The constraint is not tight -- we are simply not
+> using it.*
+>
 > **REVERIFY:** `.venv/Scripts/python.exe verification/test_segregated_beats_superposed_at_equal_budget.py`
 
 > **REVERIFY (tracked, runs in ~40s):**
