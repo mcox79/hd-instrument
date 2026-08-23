@@ -154,27 +154,22 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   **At `n=222` it read `[-0.0989,+0.2031]` and said NOTHING -- the fix was POWER, not caution.**
   🔻 **SINGLE dissociation only**; the noun half includes zero. *Witness + note:
   `test_sensorimotor_covers_the_verb_hole.py`.*
-- 🔍 **AND THE OTHER HALF OF THE PRIORITY-1 DIAGNOSIS IS NOW PRICED: STORAGE IS FINE,
-  COMBINATION IS WHERE MEANING GOES (08-23).** *Measured with the sensorimotor channel precisely
-  because it HAS signal to lose -- our own codes would confound "the format destroys it" with
-  "there was nothing there".* Our store is **256 dense BIPOLAR values** (inspected: 2 distinct,
-  100% non-zero). Raw `+0.3107` -> projected `+0.3089` (**99.4%**) -> bipolar **`+0.2920` (94.0%)**;
-  info-free arm `-0.0112`. ✅ **THE REPRESENTATION IS NOT THE BOTTLENECK.**
-  🚨 **BUNDLING IS: k=2 distractors -> `+0.1468` (47% of raw), k=8 -> `+0.0808` (26%, null
-  `0.0338`), k=16 -> 16%. TWO OTHER VECTORS HALVE IT.** ➡️ **The adapter is NECESSARY AND NOT
-  SUFFICIENT** -- meaning must sit in a slot addressed on its own, not superposed with everything
-  else, or the signal we just proved exists is thrown away one step later.
-  *Witness: `verification/test_does_our_format_survive_the_meaning_signal.py`.*
-- 🚫 **AND SPARSITY DOES NOT RESCUE IT -- THE FIX IS AN ADDRESSED SLOT, NOT A SPARSER VECTOR
-  (08-23).** Swept density `1%`->`100%` (swept, NOT adopted -- our pinned biological `0.2%` band was
-  once the WORST point in its own sweep). 🔻 **RETENTION says sparsity wins (`44%` vs `26%`);
-  ABSOLUTE says it is a wash: `+0.0912` vs `+0.0764`, and EVERY density collapses to ~`+0.08`.**
-  *The sparse code retains a larger share of a SMALLER signal -- its k=0 is `+0.1856` vs `+0.2893`.*
-  **A RATIO WHOSE DENOMINATOR YOU ALSO CHANGED IS NOT A RESULT** -- I built that control first, and
-  it is the only reason the conclusion is right; my first verdict judged on retention and said the
-  opposite. 🧠 **THE BRAIN READING: cortex does not superpose a word's meaning into one shared
-  vector at all -- it keeps separate populations and ADDRESSES them. Sparsity was never the
-  load-bearing half.** *Witness: `test_does_sparsity_fix_the_bundling_loss.py`.*
+- 🔍 **THE OTHER HALF OF THE PRIORITY-1 DIAGNOSIS, PRICED -- AND BOTH OBVIOUS FIXES FAIL (08-23).**
+  *Measured with the sensorimotor channel BECAUSE it has signal to lose; our own codes would confuse
+  format-loss with nothing-there.* **STORING is fine: `+0.3107` raw -> `+0.2920` in our 256-dim dense
+  bipolar format (94%), info-free arm `-0.0112`.** 🚨 **COMBINING is the bottleneck: k=2
+  distractors -> 47% of raw, k=8 -> `+0.0808` (26%, null `0.0338`).**
+  🚫 **SPARSITY DOES NOT RESCUE IT** -- swept `1%`->`100%`, every density collapses to ~`+0.08`;
+  retention says `44%` vs `26%` but ABSOLUTE says `+0.0912` vs `+0.0764`. **A RATIO WHOSE DENOMINATOR
+  YOU ALSO CHANGED IS NOT A RESULT** (I built that control first; my initial verdict said the
+  opposite). ✏️ **NOR DOES AN ADDRESSED SLOT, AND I HAD WRITTEN THAT ADVICE INTO THE BRIEF BEFORE
+  TESTING IT.** Addressing works as ADDRESSING (right key recovers at cos `+0.3336`, wrong key
+  `-0.0037`) **but buys NO signal: `+0.0536` vs `+0.0670` at k=8, WORSE at k=32 -- binding PERMUTES
+  interference, it does not remove it.**
+  ➡️ **SURVIVING RULE: keep the number of items in one superposition SMALL, or give meaning its OWN
+  STORE rather than a key into a shared one.** 🧠 *Cortex does not superpose meaning into one
+  shared vector at all -- it keeps separate populations and addresses them.* ⚠️ *Algebraic binding is
+  our-invention-under-test, not biology.* *Three witnesses; all three reverify commands in the brief.*
 - ✅ **Q115 EXECUTED (08-23): new cells are GATED, the backlog is INVENTORIED.** *Pre-commit refuses a new `experiments/*.py` that writes a result without the shared helper, added files only, controlled both ways.* 🔻 **COVERAGE `~21%` IS WITHDRAWN -- the truth is `71.2%`** (`3,495` of `4,908` re-runnable; `1,413` replay). **THE "1 BY 1" LIST: `425` assert a result, `135` of those are CITED by a steering doc -- those `135` are the real list.** *`tools/reproducibility_inventory.py` regenerates it.*
 - ✅ **THE FOUNDATION LOADS NOW, AND RESUMING DOES NOT HELP GROUNDING (08-23).** *A matched read goes `168` -> `9` new groundings and precision sits at its RANDOM floor in every arm; a permuted-label DECOY matches RESUMED exactly (`0/164`), so it is anchor geometry, not meaning.* **RETIRED PREDICTION: "degeneracy falls as vocabulary grows". Persistence is NECESSARY, NOT SUFFICIENT -- never bill it as a grounding fix.** *Pinned in the constructor, positive-controlled.*
 - 🖥️ **GUI TAB 9 "SUBSTRATE" -- the whole pipeline on one screen, from `data/substrate_progress.json`.** Every row shows when it was last re-checked and goes amber at 3 days / red at 7. 🔻 **THE DURABLE LESSON: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted -- a feature that ships into a process nobody restarts has not shipped.**

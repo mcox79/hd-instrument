@@ -6835,3 +6835,38 @@ do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_..
   IS the valence-bearing relation (Stage A `0.8421`, n=19); filed as
   `propagate_along_the_relation_that_carries_valence`.** *Bears on `Q116` AGAINST my own
   recommendation.* `RECONCILING_TWO_SESSIONS_...`
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (seventeenth pass, the bundling chain in full)
+
+- 🔍 **AND THE OTHER HALF OF THE PRIORITY-1 DIAGNOSIS IS NOW PRICED: STORAGE IS FINE,
+  COMBINATION IS WHERE MEANING GOES (08-23).** *Measured with the sensorimotor channel precisely
+  because it HAS signal to lose -- our own codes would confound "the format destroys it" with
+  "there was nothing there".* Our store is **256 dense BIPOLAR values** (inspected: 2 distinct,
+  100% non-zero). Raw `+0.3107` -> projected `+0.3089` (**99.4%**) -> bipolar **`+0.2920` (94.0%)**;
+  info-free arm `-0.0112`. ✅ **THE REPRESENTATION IS NOT THE BOTTLENECK.**
+  🚨 **BUNDLING IS: k=2 distractors -> `+0.1468` (47% of raw), k=8 -> `+0.0808` (26%, null
+  `0.0338`), k=16 -> 16%. TWO OTHER VECTORS HALVE IT.** ➡️ **The adapter is NECESSARY AND NOT
+  SUFFICIENT** -- meaning must sit in a slot addressed on its own, not superposed with everything
+  else, or the signal we just proved exists is thrown away one step later.
+  *Witness: `verification/test_does_our_format_survive_the_meaning_signal.py`.*
+- 🚫 **AND SPARSITY DOES NOT RESCUE IT -- NOR DOES AN ADDRESSED SLOT (BOTH MEASURED)
+  (08-23).** Swept density `1%`->`100%` (swept, NOT adopted -- our pinned biological `0.2%` band was
+  once the WORST point in its own sweep). 🔻 **RETENTION says sparsity wins (`44%` vs `26%`);
+  ABSOLUTE says it is a wash: `+0.0912` vs `+0.0764`, and EVERY density collapses to ~`+0.08`.**
+  *The sparse code retains a larger share of a SMALLER signal -- its k=0 is `+0.1856` vs `+0.2893`.*
+  **A RATIO WHOSE DENOMINATOR YOU ALSO CHANGED IS NOT A RESULT** -- I built that control first, and
+  it is the only reason the conclusion is right; my first verdict judged on retention and said the
+  opposite. 🧠 **THE BRAIN READING: cortex does not superpose a word's meaning into one shared
+  vector at all -- it keeps separate populations and ADDRESSES them. Sparsity was never the
+  load-bearing half.** *Witness: `test_does_sparsity_fix_the_bundling_loss.py`.*
+  ✏️ **AND I CORRECTED MY OWN ADVICE THE SAME DAY.** *I ended that result with "the fix is an
+  ADDRESSED SLOT" and wrote it into the priority-1 brief -- an assertion I had NOT tested, in a
+  document a solver would act on.* ✅ **Addressing works as ADDRESSING: right key recovers the stored
+  item at cos `+0.3336`, wrong key `-0.0037`.** 🔻 **BUT NO SIGNAL: `+0.0536` addressed vs `+0.0670`
+  plain at k=8, and WORSE at k=32. Binding PERMUTES interference, it does not remove it** -- unbinding
+  returns the item plus a noise term of the same magnitude. **Capacity is set by the dimension and
+  the NUMBER OF ITEMS, not by whether you bound them.** ➡️ **SURVIVING RULE, blunter: keep the number
+  of items in one superposition SMALL, or give meaning its OWN STORE rather than a key into a shared
+  one.** ⚠️ *OUR-INVENTION-UNDER-TEST -- an algebraic key is one guess, not biology.*
+  *Witness: `test_does_an_addressed_slot_survive_bundling.py`.*
