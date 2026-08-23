@@ -172,35 +172,30 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   `eval_bank_too_small` (it had read the per-item predictions). `tools/problem_ledger.py`.
 - ✅ **ANSWERED, AND IT DEFLATES MY OWN FINDING (08-23):** the dictionary pseudo-count WEIGHTING and
   its silent DISCARD are **UNTESTABLE on the deployment population** -- it commits on `6` of `33`  lemmas and **all six SATURATE**, so 3 of my 4 arms were the SAME ARM. **The calibration gap is REAL  on `1,971` dictionary verbs and ABSENT where the organ is used.** ⚠️ *I did not ask whether the  experiment COULD succeed first -- one line, skipped, paid for over two launches.*  ✅ *`WEIGHTED` read `0.4722`, reproducing the landed number to 4 digits independently.*  `THE_CONFIDENCE_SCORE_DOES_NOT_PREDICT_...`
-- ✅ **INTEGRATION LANE, LANDED 08-22 (both solver hand-offs; solvers are barred from `hdlab/` by Q111):**
-  **SH-7 `HDI_FRESH_RUN=<tag>`** (`experiments/_seed_checkpoint.get_output_dir`) sends a cell to an EMPTY
-  sibling so a re-run genuinely RECOMPUTES -- no deletion, landed dir never opened for writing.
-  **The load-bearing control is the NEGATIVE one and it is a witness, not a comment:** env unset ->
-  paths byte-identical, or every landed directory in the repo is silently orphaned with nothing
-  erroring (`test_fresh_recompute_redirect.py` 6/6; I injected the bug to confirm the guard FIRES).
-  **COVERAGE `87` of `421` cells (~21%)**; `275` bare-`OUTPUT_DIR` cells keep replaying until wrapped.
-  **B3' now carries a SCORED verdict** (cortical hit@1 `0.057/0.043/0.043` vs a COUNTING floor
-  `0.090/0.103/0.097`, clearing nothing at any k) -- **still `NEEDS_ADAPTER`, but ON EVIDENCE rather
-  than on absence of evidence, which is a different claim.** *Also: `reproduction_check.unit_count`
-  counted LINES not distinct units (`21` of `421` cells repeat a key, `0.65%` overstatement -- moves
-  NO cell across the replay boundary), and `cite_check` now REPORTS files it could not read.*
-  🚨 **AND THE COVERAGE NUMBER IS NOT A STATIC FACT -- IT SHRINKS.** New primary cells routing
-  through the harness fell **`90.8%` (June) -> `47.3%` (July) -> `27.2%` (August)**, n=707-2,869/mo,
-  confound ruled out (variant siblings are n<=2/mo). **So clearing the 275-cell backlog while new
-  bare cells arrive does not close the gap; the leverage is at AUTHORING time** -> `Q115`.
-  🚫 **THE ONE-HOOK SHORTCUT IS REFUTED, DO NOT RE-PROPOSE:** redirecting inside
-  `exp_checkpoint.write_metrics` reaches **`85` of `1,584` bare cells (`5%`)** -- 849 write
-  `metrics.json` with a raw `json.dump`. *The units side IS shared (208 call `record_unit`), which
-  is what makes a units-only redirect tempting and WRONG: it would force a recompute and leave the
-  landed `metrics.json` to be overwritten.* ✅ **GUARDED AT RUNTIME INSTEAD (`3ff233548`):** ask for
-  a fresh run on a cell that cannot isolate and `completed_units`/`record_unit` now SAY SO rather
-  than silently overwriting. *Can only fire when the env var is set -- zero false positives by
-  construction, 3 of its 7 tests are SILENCE tests.* `THE_REPRODUCIBILITY_HOLE_IS_GROWING_...`
+- ✅ **INTEGRATION, 08-22/23 -- AND THE LESSON IS THE HEADLINE: LANDING CODE AND RUNNING ITS TESTS
+  IS NOT INTEGRATION; USING IT IS.** I landed the reproduce-a-landed-cell mechanism, never used it,
+  and using it broke **FOUR** ways in 20 minutes with **every witness green**. Worst: the fresh-run
+  switch **CRASHED EVERY CELL THAT IMPORTS THE HARNESS** (import-time self-test asserts the
+  un-suffixed path) -- and its witness could not see it, because the witness imports THEN sets the
+  env while a real cell has it set before Python starts. *The bug IS the ordering.* Also:
+  `classify_run(0,0)` returned `RECOMPUTED` for a run that recorded NOTHING; the driver was blind to
+  **19 of 423** landed dirs lacking the `exp_` prefix; and its detector did not recognise the
+  migration its own refusal message prints.
+  🎯 **PAYOFF -- THE FIRST GENUINE REPRODUCTION HERE:** `exp_thematic_role_labeler_cue_integration_v1`
+  recomputed from scratch in `33.3s`, `HARD_PASS` again, landed dir byte-identical. *`403` of `7,875`
+  cells replay, so nothing could do this before.*
+  ✅ **AND EVERY OTHER SOLVED PROBLEM REPRODUCES EXACTLY** (ran each brief's OWN reverify, which
+  nobody had): stems `0/141`; bank `166`/`124`/floor `0.6048387`/`49`-`75`; flat-store held-out
+  `0.1399` `[0.1310,0.1494]` vs floor `0.3242` after `215s` of REAL recompute. **THE SUBMITTED WORK IS
+  SOUND -- say that before any defect.**
+  ⚠️ **THE PROTOCOL WAS NOT: `3` of `5` reverify commands re-ran a cell IN PLACE. I tripped one and
+  re-stamped a landed record** (science identical; restored from git) -- the `54`-re-dated-records
+  shape. **Fixed both protocol files + all 3 commands; re-audited `0 of 5` unsafe.**
+  `INTEGRATION_BY_USING_IT_FOUND_FOUR_DEFECTS_...`
 - ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-23:** the blind sheet was drawn from a STALE  foundation (`v2_qualityfix` while `v3/v4/v5` exist unmarked; the sampler has no notion of a CURRENT  foundation). **STANDS: the grounding loop stores ~`8%` stemmer output and is NOT known to be fixed.**  `THE_GROUNDING_LOOP_STORES_8pc_STEMMER_OUTPUT_AND_I_WAS_WRONG_THREE_TIMES_...`
 - ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
 - ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-22 (search by name):** the OOV-36 organ is  COVERAGE-limited, not discrimination-limited (`20` of `22` errors are NON-answers; `14/16 = 0.8750`  when it commits), and its landed `HARD_FAIL` is STALE -- measured where the cascade fired `0 of 36`,  re-read today it fires `10 of 36`. **Verdict unchanged, diagnosis changed.** Guard:  `tools/score_with_abstention.py`, 6/6. `THE_ORGAN_DOES_NOT_ANSWER_WRONG_...`,  `THE_LANDED_HARD_FAIL_WAS_MEASURED_WHERE_...`
 - 📏 **SIZE RULE (earned): when this file fills, EVICT to `STATUS_LESSONS.md` with a stub -- do NOT  shave. It was once `55,070` B against a `28,672` cap. `STATUS_SPEC.md` sec 3/6/7.**
-- ✅ **CLOSED AND EVICTED TO `STATUS_LESSONS.md` 08-22 (search it by name; nothing is lost):** Q112/OP1  ("238 overstated results" was a count of AUDIT FLAGS, not overstatements -- DO NOT REOPEN); the  subtract-co-occurrence arm (fails monotonically; the propagator that would fix it already exists,  `hdlab/wordnet_polarity_propagation.py` HARD_PASS); **TEXT DOES SEPARATE OPPOSITES AND WE INVERT IT**  (antonyms `0.0782` vs synonyms `0.0269`, and our encoder turns co-occurrence INTO similarity, so  antonyms become our CLOSEST pairs); the seed price (`~50-100` grounded words already propagate, past  `~400` buys ~nothing); `np.sign` costs almost nothing; the `n_grounded` transposed-field bug; and  the crosstalk capacity law (`r 0.976`, our keys sit AT the Welch bound).
 
 ## DO NOT REDO -- NEVER-TRIM -- stubs; detail in LESSONS
 All CLOSED. `*` = revival criterion. 1 intersection-over-argmax; 2 the "40% ceiling"; 3 syntactic
