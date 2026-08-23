@@ -136,8 +136,7 @@
 >
 > ## 🔻 **CLOSED DOORS -- DO NOT REOPEN WITHOUT READING THE NOTE**
 > 1. **CA3 cannot complete** -- our rule MERGES correlated memories (margin `-0.1021`; local error-driven rule fixes it to `+0.0975`). ***BUT REAL WITHIN-LEMMA OVERLAP IS `0.0056` vs A `0.22` FAILURE THRESHOLD -- the regime never occurs, so DO NOT BUILD IT.***
-> 2. **Surprise cannot gate writes** -- real spread (sd `0.096`) but UNCORRELATED with value (r `+0.238`, spans zero). ***Gating on an uncorrelated signal IS gating at random.***
-> 3. **12-dim feature context is FLAT** -- `0.0266` at L=37 vs incumbent `0.1328`; NORMS12's own note predicted it.
+> 2. **Surprise cannot gate writes** -- real spread (sd `0.096`) but UNCORRELATED with value (r `+0.238`, spans zero). ***Gating on an uncorrelated signal IS gating at random.***  3. **12-dim feature context is FLAT** -- `0.0266` at L=37 vs incumbent `0.1328`; NORMS12's own note predicted it.
 > 4. 🚫 **ANISOTROPY / rank-1 removal: CLOSED HARD.** *Removal fully worked (`0.1427 -> -0.0004`) for accuracy `+0.0005`, and **a RANDOM rank-1 direction gives the SAME `+0.0005`** -- perturbation, not decorrelation-that-helps.* ⚠️ *The revival `*` is for FULL-COVARIANCE WHITENING, which this closes in NEITHER direction.*
 > 5. 🚫 **DIVISIVE NORMALISATION: do not re-propose** -- analytic, the denominator is a scalar and cosine is scalar-invariant.
 >
