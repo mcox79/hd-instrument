@@ -229,7 +229,20 @@ SLOTS: List[Slot] = [
          "needs a TRAINED IntentClassifier + slot dicts; no fitted artifact on the ingest path"),
     Slot("Q3", "accept / clarify / refuse the answer", "cortex", NEEDS_ADAPTER,
          "consumes torch HD tensors against its own codebooks. Probe: monotone confidence "
-         "1.0 -> 0.0256, 11/11 distinct. Wire with atom_consultation OFF"),
+         "1.0 -> 0.0256, 11/11 distinct. Wire with atom_consultation OFF. "
+         "THE COST OF LEAVING IT UNWIRED IS NOW MEASURED (2026-08-23), by driving the substrate end "
+         "to end rather than by testing an organ: of the three public read-out routes, ONLY query() "
+         "can refuse. Asked about eight INVENTED strings the system never read (zzqqxnonsense, "
+         "blorptaxis, ...), recall_sentence and recall_cortical each returned a confident five-item "
+         "ranked answer for 8 of 8 -- they cannot say 'I do not know'. query() correctly returns "
+         "known=False, n_facts=0, which is what _selftest_query_refuses_what_it_never_read protects. "
+         "DIRECTIONAL AND UNDERPOWERED, SO NOT A VERDICT (n=8 real vs 8 invented, one 400-sentence "
+         "read): the returned neighbourhoods are statistically indistinguishable -- recall_cortical "
+         "real-vs-real overlap 0.200 against real-vs-invented 0.191; recall_sentence 0.064 against "
+         "0.038. AND THE ANSWERS ARE GENERIC: for recall_cortical the top 5 items are 35% of every "
+         "slot returned across 16 cues ('war' alone is 9%), which is the same family as the "
+         "'way'-attractor the plan already records. So the unwired Q3 is not a missing nicety -- two "
+         "of three read-out routes currently answer a made-up word as readily as a learned one"),
     # ---- THE EMPTIES. Naming them is the point; an unnamed empty slot is the expensive kind. ----
     Slot("D7", "predictive relational map", None, EMPTY,
          "M = (I - gamma*P)^-1. THE ONLY SLOT WHERE THE BRAIN HANDS US A CLOSED FORM AND WE HAVE "
