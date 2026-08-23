@@ -143,6 +143,22 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 ## WHAT IS RUNNING
 
 - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
+- ✅ **THE FOUNDATION LOADS NOW -- AND THE PREDICTION THAT MOTIVATED IT IS DEAD (08-23).**
+  `Substrate(foundation_dir=...)` wires (`e178e80d7`); cold byte-identical at `92` facts, resumed `390`.
+  🔻 **RESUMING DOES NOT HELP GROUNDING:** a matched 4,000-sentence read goes `168` -> `9` new
+  groundings (**`~18x` LESS**, 3 seeds) and precision sits at its **RANDOM_ANCHOR floor in every arm**
+  (COLD `0.0199`=`3/151`, RESUMED `0/9`). **DECOY with permuted labels matches RESUMED EXACTLY (`0/164`
+  both) -- so it is anchor geometry, NOT meaning.** Cause = **SAME-BATCH CO-OCCURRENCE**, which cannot
+  cross a run boundary. *Reproduced before landing; solver EXCELLENT.* **Persistence is NECESSARY and NOT
+  SUFFICIENT -- never bill it as a grounding fix.** ➡️ **A THIRD INDEPENDENT INSTRUMENT NOW POINTS AT
+  `reader_meaning_channel` (rank 1).**
+- 🖥️ **GUI TAB 9 "SUBSTRATE" -- THE OWNER CAN SEE THE WHOLE PIPELINE AT ONCE (08-23).** Ten stages
+  from `data/substrate_progress.json`, `4` need work, the wall named at the top. **Every row carries when
+  it was last re-checked and goes amber at 3 days / red at 7 -- the tab shows its own staleness.**
+  `tools/substrate_progress.py --check` refuses a number with no floor, a source not on disk, or jargon.
+  🔻 **THE REAL BUG BEHIND *"there is STILL no priority"* WAS A STALE WINDOW: priority had been wired
+  end-to-end for a day, but the GUI was launched 08-22 13:15 and never restarted.** Relaunched.
+  *A feature that ships into a process nobody restarts has not shipped.*
 - 📘 **THE ENUMERATE RULE NOW COVERS SCHEMAS (`CLAUDE.md` Evidence discipline 2, 08-23).**
   **Before concluding a field is missing or empty, LIST THE FIELDS THAT EXIST** -- one line,
   `sorted({k for r in rows for k in r})`. *Earned by two opposite errors the same day: an empty
@@ -161,24 +177,7 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   listed it.** *Same enumerate-then-reconcile rule I cited twice today.* **The session-start
   check I shipped was crying wolf and is corrected; it is now silent.**
   `THE_SHELVE_HALF_OF_THE_DURABILITY_GATE_IS_HOLLOW_...` (retracted at the top)
-- 🧪 **BOTH PATHS DRIVEN END TO END 08-23, AND THE SUBSTRATE CAME OUT WELL.** *Same technique that
-  found four tooling defects: USE it, do not test it.*
-  ✅ **WRITE PATH IS HEALTHY.** Gate accepts `68` of `555` = **`12.3%`** at 1,150 sentences, so it
-  DISCRIMINATES rather than passing everything. **Nested sampling (ONE substrate, 12 samples, 1,800
-  sentences) shows NO DECREASE EVER** -- grounded `0->111`, facts `92->314`, monotone. *`facts = 8.4
-  x sentences^0.473`, error `6%` -- a normal type-token exponent, so falling facts/episode is
-  ARITHMETIC.* 🔻 **THREE APPARENT ANOMALIES, THREE EXPLANATIONS, ZERO DEFECTS -- AND TWO OF THE
-  THREE WERE MY OWN MEASUREMENT DESIGN.**
-  🚨 **READ PATH: TWO OF THREE ROUTES CANNOT SAY "I DO NOT KNOW".** Eight INVENTED strings never
-  read got a confident 5-item ranked answer from `recall_sentence` and `recall_cortical`, **8 of 8**;
-  only `query` returns `known=False`. **The refuse gate is BUILT (`hdlab/refuse_gate.py`, HARD_PASS)
-  and slot `Q3` is `NEEDS_ADAPTER` -- the cost of leaving it unplugged is now measured and recorded
-  on the slot.** Filed as `wire_the_refuse_gate_onto_the_readout`, **ranked 2**.
-  ⚠️ **THREE OF MY OWN CLAIMS WITHDRAWN TODAY, ALL MEASUREMENT DESIGN:** store 'frozen' (it was
-  non-monotone), 'reading more may make it forget' (schedule phase across independent runs), and
-  'batching is markedly more productive' (**`1.00x`/`0.98x` at matched volume -- I compared TOTALS at
-  DIFFERENT VOLUMES, the exact error I spent the night catching**). 🔑 **THE GUARD IS NOT A RULE:
-  PRINT THE RATE BESIDE THE TOTAL.** `THE_WRITE_PATH_IS_NON_MONOTONE_...`
+- 🧪 **BOTH PATHS DRIVEN END TO END 08-23 -- write path healthy, read path cannot refuse.** *Now carried, and kept current, by **GUI tab 9 / `data/substrate_progress.json`** stages 3 and 5. Full run in the note.*
 - 🧠 **TWO SESSIONS, ONE ORGAN -- RECONCILED, AND IT CORRECTS ME TWICE (08-23).** A concurrent
   session split the propagator's `83%` abstention: **`6` points are REACH, `78` are DISCRIMINATION**
   -- 🔻 **I called it coverage-limited twice and the repair is different.** Cause, with a null AND
@@ -193,22 +192,7 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   `propagate_along_the_relation_that_carries_valence`.** *Bears on `Q116` AGAINST my own
   recommendation.* `RECONCILING_TWO_SESSIONS_...`
 - 🔧 **COORDINATION FIXED 08-23:** two sessions worked one organ unaware; the claim queue could only  claim rows that ALREADY EXISTED, so nobody could announce NEW work. **`dispatch_queue.py announce  "<what>" --by <session>` adds+claims in one command** and `before_you_start` shows it IN PROGRESS.  *Cost was a MISSED HANDOFF, not duplication.* `RECONCILING_TWO_SESSIONS_...`
-- ✅ **INTEGRATION 08-22/23 -- THE LESSON IS THE HEADLINE: LANDING CODE AND RUNNING ITS TESTS IS NOT
-  INTEGRATION; USING IT IS.** I landed the reproduce-a-landed-cell mechanism, never used it, and
-  using it broke **FOUR** ways in 20 min with **every witness green**: the switch **CRASHED EVERY
-  CELL THAT IMPORTS THE HARNESS** (its witness sets the env AFTER import; a real cell sets it before
-  Python starts -- *the bug IS the ordering*); `classify_run(0,0)` returned `RECOMPUTED` for a run
-  that recorded NOTHING; the driver was blind to `19` of `423` landed dirs lacking `exp_`; and its
-  detector did not recognise the migration its own refusal prints. *Coverage corrected: `87` was a
-  STRING match, strict IMPORT gives `43` -- quote `10-21%`, never `87` alone.*
-  🎯 **PAYOFF -- FIRST GENUINE REPRODUCTION HERE:** a landed `HARD_PASS` recomputed from scratch in
-  `33.3s`, same verdict, landed dir byte-identical. *`403` of `7,875` cells replay; nothing could do
-  this before.* ✅ **AND EVERY OTHER SOLVED PROBLEM REPRODUCES EXACTLY** (ran each brief's own
-  reverify, which nobody had): stems `0/141`; bank `166`/`124`/`0.6048387`; flat-store `0.1399`
-  `[0.1310,0.1494]` vs floor `0.3242` after `215s` of REAL recompute. **THE SUBMITTED WORK IS SOUND
-  -- ahead of every defect above.** ⚠️ *`3` of `5` reverify commands re-ran a cell IN PLACE; I
-  tripped one and re-stamped a landed record (restored). Fixed; re-audited `0 of 5`.*
-  `INTEGRATION_BY_USING_IT_FOUND_FOUR_DEFECTS_...`
+- ✅ **LANDING CODE AND RUNNING ITS TESTS IS NOT THE SAME ACT (08-22/23).** *I committed a brief twice while its cert was FAILING -- a piped pytest's exit code is `tail`'s.* **Now enforced by a pre-commit hook, positive-controlled, so this cannot recur by memory.**
 - ✅ **EVICTED TO `STATUS_LESSONS.md` 08-23, AND NOW OWNED BY THE FILED BRIEF  `substrate_never_resumes` (priority 3):** nothing loads a foundation -- `self.foundation_dir` was  assigned and never read, `load_foundation` calls measured at `0`. **Makes the plan's own  way-attractor prediction unreachable (arithmetic, not tuning).** *NOT measured: whether loading  helps -- that is the brief's experiment, not mine.*  `THE_ASSEMBLED_SUBSTRATE_NEVER_LOADS_A_FOUNDATION_...`
 
 ## DO NOT REDO -- NEVER-TRIM -- stubs; detail in LESSONS

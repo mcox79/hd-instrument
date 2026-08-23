@@ -6665,3 +6665,41 @@ do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_..
 
 - 📏 **SIZE RULE (earned): when this file fills, EVICT to `STATUS_LESSONS.md` with a stub -- do NOT  shave. It was once `55,070` B against a `28,672` cap. `STATUS_SPEC.md` sec 3/6/7.**
 
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (ninth pass)
+
+- 🧪 **BOTH PATHS DRIVEN END TO END 08-23, AND THE SUBSTRATE CAME OUT WELL.** *Same technique that
+  found four tooling defects: USE it, do not test it.*
+  ✅ **WRITE PATH IS HEALTHY.** Gate accepts `68` of `555` = **`12.3%`** at 1,150 sentences, so it
+  DISCRIMINATES rather than passing everything. **Nested sampling (ONE substrate, 12 samples, 1,800
+  sentences) shows NO DECREASE EVER** -- grounded `0->111`, facts `92->314`, monotone. *`facts = 8.4
+  x sentences^0.473`, error `6%` -- a normal type-token exponent, so falling facts/episode is
+  ARITHMETIC.* 🔻 **THREE APPARENT ANOMALIES, THREE EXPLANATIONS, ZERO DEFECTS -- AND TWO OF THE
+  THREE WERE MY OWN MEASUREMENT DESIGN.**
+  🚨 **READ PATH: TWO OF THREE ROUTES CANNOT SAY "I DO NOT KNOW".** Eight INVENTED strings never
+  read got a confident 5-item ranked answer from `recall_sentence` and `recall_cortical`, **8 of 8**;
+  only `query` returns `known=False`. **The refuse gate is BUILT (`hdlab/refuse_gate.py`, HARD_PASS)
+  and slot `Q3` is `NEEDS_ADAPTER` -- the cost of leaving it unplugged is now measured and recorded
+  on the slot.** Filed as `wire_the_refuse_gate_onto_the_readout`, **ranked 2**.
+  ⚠️ **THREE OF MY OWN CLAIMS WITHDRAWN TODAY, ALL MEASUREMENT DESIGN:** store 'frozen' (it was
+  non-monotone), 'reading more may make it forget' (schedule phase across independent runs), and
+  'batching is markedly more productive' (**`1.00x`/`0.98x` at matched volume -- I compared TOTALS at
+  DIFFERENT VOLUMES, the exact error I spent the night catching**). 🔑 **THE GUARD IS NOT A RULE:
+  PRINT THE RATE BESIDE THE TOTAL.** `THE_WRITE_PATH_IS_NON_MONOTONE_...`
+- ✅ **INTEGRATION 08-22/23 -- THE LESSON IS THE HEADLINE: LANDING CODE AND RUNNING ITS TESTS IS NOT
+  INTEGRATION; USING IT IS.** I landed the reproduce-a-landed-cell mechanism, never used it, and
+  using it broke **FOUR** ways in 20 min with **every witness green**: the switch **CRASHED EVERY
+  CELL THAT IMPORTS THE HARNESS** (its witness sets the env AFTER import; a real cell sets it before
+  Python starts -- *the bug IS the ordering*); `classify_run(0,0)` returned `RECOMPUTED` for a run
+  that recorded NOTHING; the driver was blind to `19` of `423` landed dirs lacking `exp_`; and its
+  detector did not recognise the migration its own refusal prints. *Coverage corrected: `87` was a
+  STRING match, strict IMPORT gives `43` -- quote `10-21%`, never `87` alone.*
+  🎯 **PAYOFF -- FIRST GENUINE REPRODUCTION HERE:** a landed `HARD_PASS` recomputed from scratch in
+  `33.3s`, same verdict, landed dir byte-identical. *`403` of `7,875` cells replay; nothing could do
+  this before.* ✅ **AND EVERY OTHER SOLVED PROBLEM REPRODUCES EXACTLY** (ran each brief's own
+  reverify, which nobody had): stems `0/141`; bank `166`/`124`/`0.6048387`; flat-store `0.1399`
+  `[0.1310,0.1494]` vs floor `0.3242` after `215s` of REAL recompute. **THE SUBMITTED WORK IS SOUND
+  -- ahead of every defect above.** ⚠️ *`3` of `5` reverify commands re-ran a cell IN PLACE; I
+  tripped one and re-stamped a landed record (restored). Fixed; re-audited `0 of 5`.*
+  `INTEGRATION_BY_USING_IT_FOUND_FOUR_DEFECTS_...`
