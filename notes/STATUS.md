@@ -137,6 +137,20 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   🔻 **AND FOUR THINGS DO NOT WORK:** it **cannot gate links alone** (`66%` hit / `37%` false alarm,
   no threshold better than the one already set); **storage is fine but COMBINING destroys** (2
   distractors halve it); **sparsity** and **an addressed slot** both fail to rescue that.
+  🔻🔻 **AND TWO LANDED CELLS ALREADY REFUTED THE OBVIOUS REMEDY -- I FOUND THEM AFTER
+  MEASURING, BY CHECKING HOW THE READER CONSUMES THE VECTOR.** `exp_structured_code_vs_flat_bag_c3_v1`
+  = **`STRUCTURE_HURTS`** (`-0.0113`, CI `[-0.0195,-0.0030]`, CI-separated BELOW);
+  `exp_perirhinal_conjunctive_readout_c3_v1` = **`CONJUNCTIVE_HURTS`** (no conjunctive arm beat the
+  flat bag). **`hdlab/perirhinal_conjunctive.py` already exists as a default-off drop-in, and its
+  docstring states my finding better than I did.**
+  ⚖️ **WHAT SURVIVES: a measured COST (`62%` per sentence) -- a property of representations.**
+  🔻 **WHAT DOES NOT: "so replace the flat bag". That is exactly what both cells tested and both
+  found WORSE.** *My test asks whether INDIVIDUAL WORD MEANING survives; task c3 may not need it --
+  if similarity-by-shared-context-words is what it wants, blending is the FEATURE.*
+  ➡️ **HONEST STATE: a measured cost with NO demonstrated benefit, against two landed refutations
+  of the obvious remedy. A property of a representation is not a licence to change it.**
+  🔑 **AND A BIGGER ALARM FROM THE SAME RECORD: `A5_STRINGCTRL 0.0870` vs `live base 0.0480` -- A
+  STRING-MATCHING CONTROL BEATS THE LIVE SYSTEM ~2:1 ON THAT TASK. That outranks this thread.**
   🧠✅ **ONE THING DOES: SEGREGATION AT EQUAL BUDGET.** *Same `D=256` both ways.* **Segregation wins
   at every `k`: at `k=16`, a 16-dim isolated slot reads `+0.1949` vs a 256-dim superposed `+0.0479`.**
   📐 **`8` dims/slot is the practical floor** (`+0.1537`, over half full resolution); below that

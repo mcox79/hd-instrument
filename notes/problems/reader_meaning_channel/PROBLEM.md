@@ -17,7 +17,7 @@ review_text:
 > | 3 | **SPARSITY does not rescue that** -- every density collapses to ~`+0.08`. | **Do not spend a week on a sparser code.** |
 > | 4 | **NOR DOES AN ADDRESSED SLOT** -- addressing works, but binding PERMUTES interference rather than removing it. | *A key does not protect you from the other occupants.* **I wrote this advice before testing it; it is corrected in block 5.** |
 > | 5 | **THE SAME ASSET GIVES THREE NUMBERS** by entry point (`+0.3107` / `+0.2676` / `+0.2463`); the lowest is the one the substrate calls. | **Measure the ASSET unclamped; ask what the SUBSTRATE sees with the clamped one. Never compare across.** |
-> | 7 | 🧠✅ **SEGREGATION IS THE FIX FOR BUNDLING.** At EQUAL 256-dim budget, giving each item its own `D/k` slot beats superposing: at k=16, **16 dims isolated beats 256 dims shared, `+0.1949` vs `+0.0479`.** | **THE ONE CONSTRUCTIVE FINDING. Give meaning a NARROW OWN SLOT, not a share of a wide one.** *Margin grows with k; isolation > resolution.* |
+> | 7 | 🧠✅ **SEGREGATION IS THE FIX FOR BUNDLING.** At EQUAL 256-dim budget, giving each item its own `D/k` slot beats superposing: at k=16, **16 dims isolated beats 256 dims shared, `+0.1949` vs `+0.0479`.** | 🔻 **A MEASURED COST, NOT A VALIDATED FIX.** *Two landed cells (`STRUCTURE_HURTS`, `CONJUNCTIVE_HURTS`) show replacing the flat bag makes a real readout task WORSE. Read the STOP block first.* |
 > | 6 | **DO NOT COMBINE IT WITH WORDNET ON THIS EVIDENCE.** Pooled, WordNet looks twice as good (`+0.543` vs `+0.287`) -- but SimVerb's pairs were SELECTED by WordNet relation. Within class the edge collapses, and on the 60% with NO relation sensorimotor wins `+0.286` vs `+0.154`. | **A benchmark selected by a resource cannot fairly score that resource.** *A both-spokes hub was then tested on the unselected class: mean-of-both is the best rule tried, but the gain over sensorimotor alone is `+0.0245` `[-0.0021,+0.0520]` -- NOT established.* |
 >
 > ✅ **WHAT DID NOT CHANGE: the channel is still the right direction, and finding 6 STRENGTHENS
@@ -249,6 +249,38 @@ review_text:
 > algebraic binding over two full-rank vector codes; the binding problem is open. What the brain
 > licenses is only that meaning stays *addressable* rather than stirred into one pot.
 > **REVERIFY:** `.venv/Scripts/python.exe verification/test_does_an_addressed_slot_survive_bundling.py`
+
+> ## 🔻🔻 **STOP -- BEFORE THE SEGREGATION BLOCK BELOW: TWO LANDED EXPERIMENTS ALREADY REFUTED "REPLACE THE FLAT BAG"**
+> **I found these AFTER writing the segregation result, by checking how the reader actually consumes
+> the context vector. They are prior work and they point the other way.**
+>
+> | cell | verdict | what it measured |
+> |---|---|---|
+> | `exp_structured_code_vs_flat_bag_c3_v1` | 🔻 **`STRUCTURE_HURTS`** | *"STRUCTURED is BELOW BASE by `-0.0113` (CI `[-0.0195,-0.0030]`)"* -- **CI-separated BELOW** |
+> | `exp_perirhinal_conjunctive_readout_c3_v1` | 🔻 **`CONJUNCTIVE_HURTS`** | *"no conjunctive arm beat the flat bag; `A2_CONJ_PAIR`, `A3_CONJ_HYBRID` are CI-separated BELOW it"* |
+>
+> **AND `hdlab/perirhinal_conjunctive.py` ALREADY EXISTS** -- a default-off drop-in replacement for
+> `context_vector_masked`, properly labelled for brain fidelity. **Its docstring already states my
+> finding, and states it better:** *"the live read-out profile is a BARE FLAT SUM ... verified by
+> runtime reconstruction, bit-exact, order-invariant. Its similarity metric is therefore LINEAR in
+> how many context words two profiles share."*
+>
+> ## ⚖️ **SO WHAT SURVIVES OF MY SEGREGATION RESULT, AND WHAT DOES NOT**
+> ✅ **SURVIVES -- it is a property of REPRESENTATIONS and it is measured:** at equal budget,
+> superposing k items destroys per-item similarity, and at the reader's real `k=6` about `62%` of it
+> goes. That is true and reproducible.
+> 🔻 **DOES NOT SURVIVE -- "so replace the flat bag":** that is the exact move both cells tested and
+> **both found it CI-separated WORSE on a real readout task.** *My measurement asks whether INDIVIDUAL
+> WORD MEANING survives the representation. Task c3 may not need individual word meaning -- if
+> similarity-by-shared-context-words is what the task wants, then blending is the feature, not the
+> bug.* **A property of a representation is not a licence to change it.**
+>
+> ➡️ **THE HONEST STATE: I have a measured cost with no demonstrated benefit, against two landed
+> results showing the obvious remedy backfires.** Anyone building here must reconcile those, not pick
+> the one they like.
+> 🔑 **AND A SEPARATE ALARM FROM THE SAME RECORD, WORTH MORE THAN EITHER: `strongest floor is
+> A5_STRINGCTRL at 0.0870, live base 0.0480`. A STRING-MATCHING CONTROL BEATS THE LIVE SYSTEM NEARLY
+> 2:1 ON THAT TASK.** *That is not about bundling at all, and it outranks this whole thread.*
 
 > ## 🧠✅ **AND HERE IS WHAT DOES WORK -- SEGREGATION, MEASURED AT EQUAL BUDGET (08-23)**
 > Three blocks above establish that combining destroys meaning and that **sparsity does not rescue

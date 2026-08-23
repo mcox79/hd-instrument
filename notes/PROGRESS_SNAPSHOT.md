@@ -4,25 +4,25 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T20:33:57Z  |  HEAD: 822e38c63
+generated: 2026-08-23T20:38:54Z  |  HEAD: e08de0e80
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30387 min ago <-- STALE
-  - orchestrator: 38717 min ago <-- STALE
-  - research: 4 min ago
-  - skunkworks: 41388 min ago <-- STALE
-  - testbed: 77962 min ago <-- STALE
+  - exp_dev: 30392 min ago <-- STALE
+  - orchestrator: 38722 min ago <-- STALE
+  - research: 3 min ago
+  - skunkworks: 41393 min ago <-- STALE
+  - testbed: 77967 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - exp_reader_meaning_channel_multispoke_v1: 0 min ago, NO metrics.json yet (likely in-flight)
-  - substrate_director_kb_v1.staging.33536: 7 min ago, NO metrics.json yet (likely in-flight)
-  - exp_reader_meaning_channel_combined_v1: 28 min ago, NO metrics.json yet (likely in-flight)
-  - exp_refuse_gate_on_readout_v2_membership: 44 min ago, has metrics.json
-  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 60 min ago, has metrics.json
-  - cornerstone_results: 146 min ago, NO metrics.json yet (likely in-flight)
+  - exp_reader_meaning_channel_multispoke_v1: 5 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.33536: 12 min ago, NO metrics.json yet (likely in-flight)
+  - exp_reader_meaning_channel_combined_v1: 33 min ago, NO metrics.json yet (likely in-flight)
+  - exp_refuse_gate_on_readout_v2_membership: 49 min ago, has metrics.json
+  - exp_read_coref_hobbs_centering_resolver_v1__fresh_q115rerun: 65 min ago, has metrics.json
+  - cornerstone_results: 151 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - 🧠 **THE MEANING CHANNEL: SEVEN MEASUREMENTS 08-23, ALL IN
@@ -34,6 +34,20 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
     🔻 **AND FOUR THINGS DO NOT WORK:** it **cannot gate links alone** (`66%` hit / `37%` false alarm,
     no threshold better than the one already set); **storage is fine but COMBINING destroys** (2
     distractors halve it); **sparsity** and **an addressed slot** both fail to rescue that.
+    🔻🔻 **AND TWO LANDED CELLS ALREADY REFUTED THE OBVIOUS REMEDY -- I FOUND THEM AFTER
+    MEASURING, BY CHECKING HOW THE READER CONSUMES THE VECTOR.** `exp_structured_code_vs_flat_bag_c3_v1`
+    = **`STRUCTURE_HURTS`** (`-0.0113`, CI `[-0.0195,-0.0030]`, CI-separated BELOW);
+    `exp_perirhinal_conjunctive_readout_c3_v1` = **`CONJUNCTIVE_HURTS`** (no conjunctive arm beat the
+    flat bag). **`hdlab/perirhinal_conjunctive.py` already exists as a default-off drop-in, and its
+    docstring states my finding better than I did.**
+    ⚖️ **WHAT SURVIVES: a measured COST (`62%` per sentence) -- a property of representations.**
+    🔻 **WHAT DOES NOT: "so replace the flat bag". That is exactly what both cells tested and both
+    found WORSE.** *My test asks whether INDIVIDUAL WORD MEANING survives; task c3 may not need it --
+    if similarity-by-shared-context-words is what it wants, blending is the FEATURE.*
+    ➡️ **HONEST STATE: a measured cost with NO demonstrated benefit, against two landed refutations
+    of the obvious remedy. A property of a representation is not a licence to change it.**
+    🔑 **AND A BIGGER ALARM FROM THE SAME RECORD: `A5_STRINGCTRL 0.0870` vs `live base 0.0480` -- A
+    STRING-MATCHING CONTROL BEATS THE LIVE SYSTEM ~2:1 ON THAT TASK. That outranks this thread.**
     🧠✅ **ONE THING DOES: SEGREGATION AT EQUAL BUDGET.** *Same `D=256` both ways.* **Segregation wins
     at every `k`: at `k=16`, a 16-dim isolated slot reads `+0.1949` vs a 256-dim superposed `+0.0479`.**
     📐 **`8` dims/slot is the practical floor** (`+0.1537`, over half full resolution); below that
@@ -87,12 +101,11 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 2 new commit(s) since last snapshot (HEAD 6482ce70d -> 822e38c63)
-- data/ directory count: 8179 -> 8180 (+1)
+- 1 new commit(s) since last snapshot (HEAD 822e38c63 -> e08de0e80)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8180, "generated_at": "2026-08-23T20:33:57Z", "head_commit": "822e38c639b17c60fee6dfde93e93c73c6a2d3d1", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8180, "generated_at": "2026-08-23T20:38:54Z", "head_commit": "e08de0e8011e3d3cf7d06ed4c4905c196d6ed4e3", "step_status": {}}
 -->
