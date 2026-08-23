@@ -437,29 +437,42 @@ class Substrate:
         # plan's own prediction ("the generic-attractor degeneracy should FALL as the grounded
         # vocabulary grows") is unreachable by construction: the vocabulary cannot grow across runs.
         #
-        # Refusing is safe precisely BECAUSE no caller passes it, and it converts a silent no-op
-        # into a loud one. `None` (the default) stays silent, so no construction anywhere changes.
-        # Whoever implements loading deletes this raise -- see notes/problems/substrate_never_resumes/.
-        if foundation_dir is not None:
-            raise NotImplementedError(
-                "Substrate(foundation_dir=...) is NOT IMPLEMENTED: the value is stored and never "
-                "read, so passing it loads nothing and every run starts cold from the seed vocab. "
-                "This raises rather than pretending, because a silent no-op here reads as a "
-                "successfully loaded foundation. See notes/problems/substrate_never_resumes/.")
+        # WIRED 2026-08-23 (was a raise; before that, a silent no-op). The loading path below is the
+        # solver's prototype from notes/problems/substrate_never_resumes/, landed after its witness
+        # reproduced here: COLD 168.0 vs RESUMED 9.0 new groundings, 3 seeds, identical test text.
+        #
+        # 🚨 LAND IT FOR PERSISTENCE, NEVER BILL IT AS A GROUNDING FIX. The measurement that came
+        # with this wiring REFUTES the plan's standing prediction that the generic-attractor
+        # degeneracy is a cold-start artifact. Resuming does not reduce degeneracy -- it makes a
+        # matched re-read ~18x LESS productive (168 -> 9 new groundings), and grounding precision
+        # sits at its RANDOM_ANCHOR floor in EVERY arm (COLD 0.0199 = 3/151, RESUMED 0/9).
+        # A permuted-label DECOY arm matches RESUMED *exactly* (0/164 both), so what changes is the
+        # anchor geometry, not the meaning. Grounding here is SAME-BATCH CO-OCCURRENCE, which by
+        # construction cannot transfer across runs -- persistence is necessary for a consolidated
+        # cortical store and is NOT sufficient to make the reading mean anything.
         self.foundation_dir = foundation_dir
         self._built: Dict[str, Any] = {}
         self._calls: Dict[str, int] = collections.Counter()
         self._pass_idx = 0
         self._last_consolidated = 0
         self._patch_cursor = 0
-
-        store = HDFactStore(n_dim=self.n_dim, seed=self.seed,
-                            relation_cardinality={KNOWN_RELATION: "FUNCTIONAL",
-                                                  MEANING_RELATION: "FUNCTIONAL"},
-                            use_index=True)
-        self.state = ReadingLoopState(store=store)
         self._seed_vocab = list(seed_vocab) if seed_vocab is not None else list(SEED_VOCAB)
-        seed_known_words(self.state, self._seed_vocab, source="substrate_seed")
+
+        if foundation_dir is not None:
+            # Additive: `None` (the default, and what every caller passes today) is byte-identical
+            # to the previous behaviour, so this cannot regress an existing run.
+            from hdlab import foundation_persistence as _fp
+            self.state = _fp.load_foundation(foundation_dir)
+            # Carrying next_pass_idx keeps the Dumay-Gaskell intervening-pass rule correct across
+            # the run boundary; restarting it at 0 would silently re-arm consolidation.
+            self._pass_idx = int(_fp.load_manifest(foundation_dir).get("next_pass_idx", 0))
+        else:
+            store = HDFactStore(n_dim=self.n_dim, seed=self.seed,
+                                relation_cardinality={KNOWN_RELATION: "FUNCTIONAL",
+                                                      MEANING_RELATION: "FUNCTIONAL"},
+                                use_index=True)
+            self.state = ReadingLoopState(store=store)
+            seed_known_words(self.state, self._seed_vocab, source="substrate_seed")
 
     # -- organ access -------------------------------------------------------------------------
 

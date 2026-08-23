@@ -1,68 +1,122 @@
-"""A parameter that does nothing must say so, not accept a path and ignore it.
+"""`Substrate(foundation_dir=...)` must LOAD -- and must not be sold as a grounding fix.
 
-Measured 2026-08-22 with a descriptor recording every READ of the attribute: across construction plus
-a 120-sentence read, `Substrate.foundation_dir` is read ZERO times, and repo-wide no caller passes it.
-So a caller supplying a foundation path got a substrate that silently re-entered its ~107-seed cold
-start -- which is why the plan's "the degeneracy should fall as the vocabulary grows" prediction is
-unreachable by construction.
+HISTORY, because the name of this file only makes sense with it. This witness has asserted three
+different contracts, in order:
+
+1. The parameter was accepted and **silently ignored** -- a caller passing a path believed a
+   foundation was loaded while the substrate re-entered its 92-fact cold start every run.
+2. 2026-08-22: measured (descriptor spy, positive-controlled) that the attribute was read ZERO
+   times, so the constructor was changed to **raise** rather than pretend. This file pinned the
+   raise, and its own docstring said a future author who wired loading would see it fail.
+3. 2026-08-23: loading is **wired**. That author was the `substrate_never_resumes` solver session,
+   and this file failed on purpose exactly as designed. It now pins the loading.
+
+🚨 **THE PART THAT MATTERS MORE THAN THE WIRING.** The measurement that arrived with this wiring
+REFUTED the premise that motivated it. Resuming does not reduce the generic-attractor degeneracy
+and does not improve grounding correctness:
+
+  * COLD grounds **168** new meanings on a 4,000-sentence read; RESUMED grounds **9** -- resuming
+    makes a matched re-read ~18x LESS productive, because the recurring vocabulary is already known
+    and genuinely novel words do not clear the 0.45 similarity gate against the loaded anchors.
+  * Grounding precision sits at its RANDOM_ANCHOR floor in EVERY arm (COLD 0.0199 = 3/151,
+    RESUMED 0/9). Not CI-separated. No arm buys correctness.
+  * A permuted-label **DECOY** arm matches RESUMED *exactly* (0/164 both), so what changes across
+    the boundary is the anchor geometry, not the meaning.
+
+The cause is that grounding here is **same-batch co-occurrence**, which by construction cannot
+transfer across runs. Persistence is NECESSARY for a consolidated cortical store -- a system that
+discards its store every run has no slow system at all -- and is NOT SUFFICIENT to make the reading
+mean anything.
+
+So the last test below pins the REFUTATION, not just the wiring. A future author who finds this
+loading path and reaches for "resuming should improve grounding" is reaching for a retired
+prediction, and this file should be what tells them.
+
+Reproduce the measurement itself with:
+    .venv/Scripts/python.exe verification/test_substrate_resume_measurement.py
 """
-
+import io
+import json
 import os
-import sys
 
 import pytest
 
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if REPO_ROOT not in sys.path:
-    sys.path.insert(0, REPO_ROOT)
+from hdlab.substrate import Substrate
 
-from hdlab.substrate import Substrate  # noqa: E402
+SNAPSHOT = "data/exp_substrate_resume_solver/clean_snapshot_full"
 
 
-def test_passing_a_foundation_dir_refuses_loudly():
-    """The whole point: silence here reads as a successfully loaded foundation."""
-    with pytest.raises(NotImplementedError) as e:
-        Substrate(n_dim=64, foundation_dir="data/foundation/reading_grounding_v2_qualityfix")
-    msg = str(e.value)
-    assert "never" in msg and "read" in msg, "the refusal must say WHY, not just refuse: %r" % msg
+def _n_live(s):
+    """live_facts is a METHOD ON THE STORE, not an attribute on the state.
+
+    Spelled out because guessing this name cost a debugging round on the day this was written --
+    the repo's standing rule is to enumerate the fields that exist before asserting about one.
+    """
+    return len(s.state.store.live_facts())
 
 
-def test_the_default_still_constructs():
-    """NEGATIVE CONTROL. A guard that breaks ordinary construction would be worse than the defect."""
+def test_the_default_still_constructs_cold():
+    """NEGATIVE CONTROL, and the additive claim: `None` must be exactly the old behaviour.
+
+    If this drifts, the wiring regressed every existing caller -- and every caller in the repo
+    passes `None` today, so this is the arm that protects all of them.
+    """
     s = Substrate(n_dim=64)
     assert s.foundation_dir is None
+    assert s._pass_idx == 0, "a cold start must not inherit a pass index"
+    assert _n_live(s) == 92, "cold start is the 92-fact seed store; got %d" % _n_live(s)
 
 
-def test_the_attribute_is_still_read_zero_times():
-    """Pins the measurement itself, so a future author who wires loading sees this test fail.
+def test_two_cold_builds_agree():
+    """A determinism control, so the comparison below cannot be noise."""
+    assert _n_live(Substrate(n_dim=64, seed=11)) == _n_live(Substrate(n_dim=64, seed=11))
 
-    Carries its own POSITIVE CONTROL: a deliberate read must be observed, otherwise "zero reads"
-    would be indistinguishable from a broken spy -- the absence-check failure this repo keeps paying
-    for.
+
+@pytest.mark.skipif(not os.path.isdir(SNAPSHOT), reason="snapshot artifact absent")
+def test_passing_a_foundation_dir_actually_loads():
+    """The contract this file now exists for: passing a path LOADS, and is visibly different.
+
+    Compared against the cold arm rather than against a hardcoded number, so the assertion stays
+    true if the seed vocabulary changes.
     """
-    reads = []
+    cold = Substrate(n_dim=64, seed=11)
+    warm = Substrate(n_dim=64, seed=11, foundation_dir=SNAPSHOT)
+    assert warm.foundation_dir == SNAPSHOT
+    assert _n_live(warm) > _n_live(cold), (
+        "resumed store (%d) must carry more than cold (%d) -- otherwise loading is a no-op again, "
+        "which is the exact defect this file was created for" % (_n_live(warm), _n_live(cold)))
 
-    class Spy:
-        priv = "_spy_foundation_dir"
 
-        def __get__(self, obj, objtype=None):
-            if obj is None:
-                return self
-            reads.append(1)
-            return getattr(obj, self.priv, None)
+@pytest.mark.skipif(not os.path.isdir(SNAPSHOT), reason="snapshot artifact absent")
+def test_the_pass_index_survives_the_run_boundary():
+    """Restarting `_pass_idx` at 0 would silently re-arm consolidation.
 
-        def __set__(self, obj, v):
-            setattr(obj, self.priv, v)
+    The Dumay-Gaskell intervening-pass rule counts passes since exposure; a resumed run that
+    forgets its count is not resumed for the purpose that matters.
+    """
+    warm = Substrate(n_dim=64, seed=11, foundation_dir=SNAPSHOT)
+    manifest = json.load(io.open(os.path.join(SNAPSHOT, "manifest.json"), encoding="utf-8"))
+    assert warm._pass_idx == int(manifest["next_pass_idx"])
+    assert warm._pass_idx > 0, "the fixture must have a non-zero index or this proves nothing"
 
-    original = Substrate.__dict__.get("foundation_dir", None)
-    Substrate.foundation_dir = Spy()
-    try:
-        s = Substrate(n_dim=64)
-        assert len(reads) == 0, "construction read foundation_dir %d times" % len(reads)
-        _ = s.foundation_dir                      # POSITIVE CONTROL
-        assert len(reads) == 1, "the spy cannot see reads -- zero would prove nothing"
-    finally:
-        if original is None:
-            del Substrate.foundation_dir
-        else:                                     # pragma: no cover
-            Substrate.foundation_dir = original
+
+def test_the_refutation_is_recorded_where_the_wiring_is():
+    """PINS THE FINDING, NOT THE CODE -- the one test here that is about a claim.
+
+    A caution written as prose gets violated; this repo's standing escalation is to move it into
+    the path. The risk after wiring is not that loading breaks -- it is that someone reads
+    "foundation loading works now" and re-bills it as the fix for grounding degeneracy. That
+    prediction is RETIRED, by measurement, and the constructor comment is where a reader will be
+    standing when the thought occurs.
+    """
+    src = io.open("hdlab/substrate.py", encoding="utf-8").read()
+    i = src.find("self.foundation_dir = foundation_dir")
+    assert i > 0, "constructor assignment not found -- this test is anchored to it"
+    window = src[max(0, i - 1600):i]
+    for token in ("168", "9", "RANDOM_ANCHOR", "DECOY", "SAME-BATCH CO-OCCURRENCE"):
+        assert token in window, (
+            "the constructor no longer carries the refutation (%r missing). Persistence must not "
+            "be presented as a grounding fix; see notes/problems/substrate_never_resumes/." % token)
+    # NEGATIVE CONTROL: the window must be a real slice, or the loop above passes vacuously.
+    assert "zzq_never_appears" not in window
+    assert len(window) > 400

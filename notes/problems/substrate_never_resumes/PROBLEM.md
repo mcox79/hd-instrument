@@ -1,8 +1,53 @@
 ---
-priority: 5
-review: 
-review_text: 
+priority:
+review: EXCELLENT
+review_text: Refuted my own brief's premise, caught its own artifact, and the DECOY control proved it is bins not meaning.
 ---
+
+> # MY REVIEW OF THE SUBMISSION: **EXCELLENT**
+> *(reviewed 2026-08-23 by the strategy session, which owns integration. I re-ran their witness and
+> it reproduced to the digit: COLD `168.0` vs RESUMED `9.0` new groundings across 3 seeds, and the
+> pure-mechanism probe at COLD `0.955` / RESUMED `0.000` / DECOY `0.000`.)*
+>
+> **THEY REFUTED THE PREMISE OF MY OWN BRIEF, AND THAT IS THE BEST THING A SOLVER CAN DO HERE.** I
+> filed this expecting a wiring job -- the substrate throws its store away every run, so let it
+> resume and the generic-attractor degeneracy should fall. **They wired it, measured it, and the
+> prediction is dead.** Resuming makes a matched re-read ~18x LESS productive (`168` -> `9` new
+> groundings), and grounding precision sits at its RANDOM_ANCHOR floor in *every* arm.
+>
+> **THE MOVE THAT MAKES THIS EXCELLENT RATHER THAN MERELY CORRECT: they caught their own artifact.**
+> Their first metric counted each self-return (`canon_obj == the word`) as its own anchor, which
+> read as "every word got a distinct meaning" -- a clean, impressive-looking result that was exactly
+> backwards. A self-return is `canonicalize`'s NO-MATCH signal, a refusal. They noticed, excluded
+> it, and the apparent win evaporated. **That is the failure mode this project keeps paying for,
+> found by the one person who stood to gain from not finding it.**
+>
+> **AND THE DECOY ARM IS THE CONTROL I WOULD HAVE ASKED FOR.** Loaded anchors with the labels
+> permuted match RESUMED *exactly* (`0/164` both). A bijection on labels cannot change which vectors
+> clear a threshold, so the loaded anchors' MEANING is irrelevant to the outcome -- it is anchor
+> geometry. That converts "resuming does not help" from a result into an explanation.
+>
+> **WHAT THEY DECLINED TO CLAIM IS AS GOOD AS WHAT THEY CLAIMED.** They flag their own precision arm
+> as under-powered (`3` hits / `151` scorable against a standing bar of `>=300`), lean on it only
+> for "not above random", and name what they would withdraw first. They did not test recall/query
+> and said so. They left `hdlab/` alone and proposed the diff instead, which is the protocol.
+>
+> 🔻 **THE ONE THING I WOULD PUSH BACK ON, AND IT IS SMALL:** the headline "~18x less productive" is
+> true but easy to misread as a *regression*. A resumed substrate grounds fewer NEW words partly
+> because it already knows the recurring vocabulary -- that is the system working. The damning
+> number is not `168` vs `9`; it is **`0/164` novel words matching any loaded anchor**, which is
+> where the mechanism actually fails.
+>
+> ## WHAT I DID WITH IT
+>
+> **LANDED the wiring** in `hdlab/substrate.py` -- their diff, in shape -- **for persistence and
+> accumulation only.** Cold construction is byte-identical: still `92` live facts, `_pass_idx` `0`.
+> Resumed carries `390` and `_pass_idx` `81` from the manifest.
+> `verification/test_foundation_dir_does_not_lie.py` was rewritten: it pins the LOADING, and its
+> last test **pins the refutation itself inside the constructor comment**, positive-controlled
+> (damage the text -> the test fails). The risk after wiring was never that loading breaks; it is
+> that someone re-bills persistence as the grounding fix. That prediction is retired.
+>
 
 > # 🥈 **PRIORITY 3 of 8.** *(ranked by the strategy session, 2026-08-22)*
 > **NOTHING THIS SYSTEM LEARNS SURVIVES THE RUN THAT LEARNED IT, so no result can ever compound.**
