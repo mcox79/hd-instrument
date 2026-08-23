@@ -28,7 +28,11 @@
 > COVERAGE (`10` bound vs `0`), which the verdict states.* **Both citing documents already lead with
 > the `n=10` caveat.** *This row was well handled by everyone except my detector.*
 
-# THE Q115 TRIAGE: 4,908 LANDED RESULTS, AND **20** OF THEM WANT A RE-RUN
+# THE Q115 TRIAGE: 4,908 LANDED RESULTS, AND **14** OF THEM WANT A RE-RUN
+
+*(Titled `20` when first written. The first re-run showed 6 of those 20 DO carry floors my
+key-regex missed -- see the correction block above. The funnel below is unchanged and
+correct down to the `29`; the last row is what moved.)*
 
 **2026-08-23, strategy session.** The owner's answer to Q115 had two halves. The first -- require the
 shared save-location helper for new experiments -- shipped as a pre-commit gate. **This is the
@@ -50,7 +54,8 @@ second half, in the owner's words:**
 | of the replayers, **assert a result** (HARD_PASS / PASS / HOLD / CONFIRMED) | **425** | 8.7% of all |
 | of those, **cited by a doc that steers work** (plan / STATUS / organ map / registry) | **135** | 2.8% of all |
 | of those, carry **NEITHER a floor NOR an interval** | **29** | 0.6% of all |
-| 🎯 of those, **claim a capability** (not `SELFTEST` / `PENDING`) | **20** | **0.4% of all** |
+| of those, **claim a capability** (not `SELFTEST` / `PENDING`) | 20 | 0.4% of all |
+| 🎯 of those, **still lack a floor once floor-shaped keys are counted properly** | **14** | **0.3% of all** |
 
 **THE NUMBER THE OWNER WAS GIVEN -- `275` -- WAS WRONG, AND WRONG IN OUR FAVOUR.** It came from a
 count that matched a variable NAME rather than a call. *Re-measured with an AST walk and a
@@ -58,7 +63,13 @@ positive control that the redirect really fires in a fresh process.*
 
 ---
 
-## 2. THE 20, AND WHY THESE
+## 2. THE LIST, AND WHY THESE
+
+🔻 **SIX OF THE TWENTY BELOW ARE STRUCK -- they have floors under key names my regex missed**
+(`ablated`, `noise_off`, `nogate`, `resolver_off`, `control`, `mean_cos_random`):
+`cortex_integration_end_to_end_v1`, `..._v2`, `cortex_integration_with_noise_channel_v1`,
+`hd_fact_store_capacity_and_index_v1`, `learned_codebook_generalization_gate_v1`,
+`read_coref_hobbs_centering_resolver_v1`. **The remaining 14 are the list.**
 
 **Each is: cited by something that steers work + asserts a capability + cannot be re-run + carries
 neither a floor nor an interval in its own record.** Nothing else holds them up.
@@ -120,7 +131,7 @@ Of about **4,900** stored results, roughly **three quarters can already be re-ch
 the "275 can't" figure was wrong, and wrong in our favour. Of the rest, most either don't claim
 anything or aren't referred to by any document that guides our work.
 
-**That leaves 20.** Each one claims something, is quoted somewhere that steers what we do, cannot be
+**That leaves 14.** *(I first wrote 20; running the cheapest one showed six of them already had a baseline recorded under a name my search did not recognise.)* Each one claims something, is quoted somewhere that steers what we do, cannot be
 re-run, and has nothing else propping it up -- no comparison against a dumb baseline, no error bars.
 Those are the ones worth the compute.
 

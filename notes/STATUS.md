@@ -172,7 +172,7 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
   it** *(the other `9` say
   `SELFTEST`/`PENDING` about themselves -- being honest about being provisional is not the same
   fault)*. ⚠️ **`20` IS A CEILING, NOT A TARGET: a floor run in a DIFFERENT cell does not count
-  here, and at least one row already has one.** *List: `notes/THE_Q115_TRIAGE_TWENTY_RESULTS_WANT_A_RERUN_2026-08-23.md`,
+  here, and at least one row already has one.** *List: `notes/THE_Q115_TRIAGE_FOURTEEN_RESULTS_WANT_A_RERUN_2026-08-23.md`,
   per-cell table `data/triage_135_cited_unverifiable.tsv`.*
 - ✅ **THE FOUNDATION LOADS NOW, AND RESUMING DOES NOT HELP GROUNDING (08-23).** *A matched read goes `168` -> `9` new groundings and precision sits at its RANDOM floor in every arm; a permuted-label DECOY matches RESUMED exactly (`0/164`), so it is anchor geometry, not meaning.* **RETIRED PREDICTION: "degeneracy falls as vocabulary grows". Persistence is NECESSARY, NOT SUFFICIENT -- never bill it as a grounding fix.** *Pinned in the constructor, positive-controlled.*
 - 🖥️ **GUI TAB 9 "SUBSTRATE" -- the whole pipeline on one screen, from `data/substrate_progress.json`.** Every row shows when it was last re-checked and goes amber at 3 days / red at 7. 🔻 **THE DURABLE LESSON: the real bug behind *"there is STILL no priority"* was a GUI launched 08-22 13:15 and never restarted -- a feature that ships into a process nobody restarts has not shipped.**
