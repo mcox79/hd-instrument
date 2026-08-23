@@ -42,6 +42,42 @@ review_text:
 > specifically, and if you weight or select dimensions, **the action dimensions are the load-bearing
 > ones for verbs and that is measured, not assumed.** *It says nothing about our substrate reaching
 > this ceiling -- `read()` still makes zero calls to the asset, which is this brief's other half.*
+> ## 🔍 **ADDED 2026-08-23: STORAGE IS FINE; COMBINATION IS WHERE IT GOES -- YOUR DIAGNOSIS, NOW A NUMBER**
+> This brief says the system *"stores word codes that carry no meaning by construction, then combines
+> them in a way that destroys most of what little arrives."* **The first half is being fixed by the
+> channel swap. I measured the second half** -- using the sensorimotor channel precisely *because* it
+> demonstrably has signal to lose, so the answer is interpretable rather than confounded with "there
+> was nothing there".
+>
+> **Our substrate stores 256 DENSE BIPOLAR values, every element exactly `-1` or `+1`** (inspected:
+> 2 distinct values, 100% non-zero). Pushing the raw norms through that pipeline:
+>
+> | stage | rho | share of raw |
+> |---|---|---|
+> | raw 11 dims | `+0.3107` | 100% |
+> | projected to 256 | `+0.3089` (sd `0.0029`, 8 seeds) | **99.4%** |
+> | **+ bipolar `{-1,+1}` = OUR FORMAT** | `+0.2920` (sd `0.0087`) | **94.0%** |
+>
+> ✅ **SO THE REPRESENTATION IS NOT THE BOTTLENECK.** *Info-free control: the same pipeline on noise
+> reads `-0.0112`, so 94% is signal surviving, not projection preserving something generic.*
+>
+> 🔻 **BUT BUNDLING IS. Superposing the meaning code with k other vectors, same format:**
+>
+> | k distractors | 0 | 1 | **2** | 4 | **8** | 16 |
+> |---|---|---|---|---|---|---|
+> | rho | `+0.2778` | `+0.2299` | **`+0.1468`** | `+0.1376` | **`+0.0808`** | `+0.0483` |
+> | share of raw | 89% | 74% | **47%** | 44% | **26%** | 16% |
+>
+> 🚨 **TWO distractors HALVE it. Eight leave a quarter.** At `k=8` it is `+0.0808` against a null of
+> `0.0338` -- still present, barely, and nothing you could build a capability on.
+>
+> ➡️ **WHAT THIS MEANS FOR THE BUILD: wiring the adapter is necessary and NOT sufficient. Do not
+> superpose the meaning vector with many distractors** -- keep it in a slot addressed on its own, or
+> use a binding scheme that survives superposition. **The bottleneck is the combination step, and it
+> is now priced.** *Compare `k` against `k=0`, not against the stage-2 row: `k=0` uses one projection
+> seed, stage 2 is a mean over 8.*
+> **REVERIFY:** `.venv/Scripts/python.exe verification/test_does_our_format_survive_the_meaning_signal.py`
+
 > **REVERIFY (tracked, runs in ~40s):**
 > `.venv/Scripts/python.exe verification/test_sensorimotor_covers_the_verb_hole.py`
 > Write-up: `notes/THE_SENSORIMOTOR_CHANNEL_COVERS_OUR_VERB_HOLE_2026-08-23.md`.

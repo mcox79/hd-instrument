@@ -46,8 +46,8 @@
       "state": "BROKEN",
       "evidence": "Agreement with human judgement: ours 0.1310 on nouns and 0.0000 on action words; the unused ratings we already hold score 0.3107 on the same action-word test",
       "floor": "Ours must beat 0.0843 on nouns (it does, barely) and 0.0372 on action words (it does not). The ratings clear their own 0.0304 null with the interval's lower end at 0.2822.",
-      "gap": "THE CENTRAL DEFECT. Meaning is inferred from co-occurrence inside one batch of reading. That carries a weak signal for concrete nouns and NO detectable signal for action words. Measured 2026-08-23: the replacement channel we already own scores 0.31 on action words where ours scores 0.00, on the same test -- so the hole is ours, not the world's.",
-      "goal": "Wire the human sensory-and-movement ratings in as the meaning channel. Confirmed to cover the action-word hole, and the MOVEMENT ratings specifically are what carry action words (measured, not assumed). The blocker is that reading never consults the ratings at all -- zero calls.",
+      "gap": "THE CENTRAL DEFECT, AND IT IS NOW TWO SEPARATE FAULTS. (a) Meaning is inferred from what shared a batch of text, which carries a weak signal for objects and none for actions. (b) Even given a good meaning signal, combining it with just two other things halves it and with eight leaves a quarter. Storing it is fine -- 94% survives.",
+      "goal": "Wire in the human sensory-and-movement ratings AND stop merging meaning with everything else in the same slot. Fixing only the first gets a signal that then gets thrown away in the second. Both are measured, neither is guessed.",
       "problem": "reader_meaning_channel",
       "source": "notes/problems/reader_meaning_channel/PROBLEM.md",
       "reviewed_utc": "2026-08-23T00:00:00Z"
