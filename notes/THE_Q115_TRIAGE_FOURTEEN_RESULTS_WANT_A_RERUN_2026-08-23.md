@@ -1,3 +1,34 @@
+<!-- SECOND CORRECTION 2026-08-23 -- THE QUESTION ITSELF WAS SLIGHTLY WRONG. READ THIS FIRST. -->
+> # 🔻 **RE-RUNNING IS NOT THE FIX FOR MOST OF THESE. THEY DO NOT NEED A RE-RUN, THEY NEED A FLOOR.**
+>
+> I built this list by asking *"which un-rerunnable results want a re-run"*. **Running the first one
+> exposed the flaw in the question: a re-run verifies the ARITHMETIC, not the ARGUMENT.** That cell
+> reproduced to `132` of `132` fields and was still a `HARD_PASS` at `1.000` on `n=10`.
+>
+> **A RESULT WITH NO FLOOR WILL RE-RUN AND STILL HAVE NO FLOOR.** For every row selected *because it
+> lacks a floor*, the useful action is **run the floor**, not re-run the cell. Those are different
+> jobs with different costs, and I had merged them.
+>
+> ## 📖 THEN I READ WHAT CITES THE REMAINING 14, AS THIS NOTE ALREADY TOLD THE READER TO DO
+> The citing documents were again more accurate than my key-regex, and they SPLIT the list:
+>
+> | disposition | rows | why |
+> |---|---|---|
+> | ✅ **HAS controls already** | `encoder_alltype_transfer_v1` (shortcut controls `global_last` `0.007-0.011`, `most_frequent` `0.057-0.070`), `encoder_alltype_transfer_stress_v1` (independent entity-file harness) | **come off the list** |
+> | 🔻 **ALREADY SUPERSEDED / MISLABELLED -- a re-run proves nothing** | `encoder_retrain_persist_v1` (*"a measurement of a third, FAILED artifact"*, and *"the confound-removed cell REVERSES THE SIGN"*), `propara_schema_learned_grounded_binder_v1` (*"HARD_PASS, but msg is only SELFTEST_PASS"*), `kb_coarse_grain_at_promotion_v1` (*"task description references v2 which doesn't exist"*), `stated_entity_fate_..._highprecision` (verdict-field conflict; floor run separately today) | **come off the list** |
+> | 🎯 **CONFIRMED NO FLOOR, AND LOAD-BEARING** | **`exp_hd_fact_store_source_trust_vet_v1`** | ORGAN_MAP, verbatim: *"reports **1.000/1.000/1.000, verdict PASS, no floor**"* and *"**BLOCKS:** every claim that rests on 'the foundation knows N things'"* |
+> | ❓ uncited in any caveated context | `exp_kb_time_decay_eviction_with_reingest_v1`, `substrate_director_kb_ingest_v1` | check by hand before spending |
+>
+> ➡️ **THE ONE TO ACT ON IS `exp_hd_fact_store_source_trust_vet_v1`, AND THE ACTION IS A FLOOR, NOT A
+> RE-RUN.** A `PASS` at `1.000/1.000/1.000` with no floor, which the organ map says blocks every
+> claim resting on how much the foundation knows. *`1.000` on three metrics is exactly the shape that
+> a trivial baseline usually also achieves.*
+>
+> ⚠️ **THE COUNT WAS NEVER THE DELIVERABLE.** `275` -> `20` -> `14` -> **one row worth acting on and a
+> corrected question.** Each step came from looking at the actual rows rather than re-running a
+> query. *Recorded in full below, including the two detector errors, because the sequence is the
+> useful part.*
+
 <!-- CORRECTION 2026-08-23, SAME DAY, AFTER RUNNING THE FIRST ONE -- READ THIS FIRST -->
 > # 🔻 **THE LIST IS `14`, NOT `20` -- AND THE FIRST RE-RUN IS WHAT FOUND THAT**
 >
