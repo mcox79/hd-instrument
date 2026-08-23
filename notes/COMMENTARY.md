@@ -199,3 +199,7 @@ on the problems tab, after you review the submissions, I want the beginning of t
 ## 2026-08-22T21:08:57Z  --  the status window
 
 I also want a priority for what problems to tackle first, on the problem page
+
+## 2026-08-23T19:49:07Z  --  the status window
+
+FYI - in your problems you're giving to the solver, you should make sure to leave room for the solver, if it runs into a refute, to fully solve the problem for you a different way, not merely to come back and say "refuted". Your prompts for all of hte open problems should include this, and should emphasize brain foundational

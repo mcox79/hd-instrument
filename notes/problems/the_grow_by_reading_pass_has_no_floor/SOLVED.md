@@ -96,6 +96,37 @@ different-but-also-true fact on 4 items the real arm got wrong or where two enti
 reactant `base`). I gave the floor credit for those, which makes the floor *higher* and the real
 arm's margin *more conservative*.
 
+## BRAIN-FOUNDATIONAL READING (added on review): the error structure maps onto the brain's parsing boundary
+
+The brief (§10) pins the TASK as brain-relevant (building a situation model / event structure from
+language -- thematic-role assignment, which the brain does during comprehension) and flags the
+MECHANISM (six hand-written syntactic filters) as OURS-UNDER-TEST. This floor experiment is
+measurement hygiene, not brain science -- but the *result* has a clean brain-foundational signature,
+so I stratified by voice to test it.
+
+**Good-enough / heuristic parsing** (Bever 1970; Ferreira 2003; Townsend & Bever) says the brain
+comprehends *canonical* (active, word-order-transparent) sentences with a fast agent-verb-patient
+heuristic, and only recruits effortful syntactic analysis (left inferior frontal / Broca's) for
+*non-canonical* sentences -- passives, object-relatives, semantically reversible sentences -- where
+agent and patient cannot be read off word order. Prediction: a positional heuristic should ~tie the
+real extractor on actives and collapse on passives, and the real arm's value should live entirely in
+the non-canonical stratum.
+
+| stratum (n=100) | n | real | first_noun_after_verb (heuristic) | real - heuristic, paired 95% CI |
+|---|---|---|---|---|
+| **active** (canonical) | 68 | 0.956 | 0.941 | +0.015, [0.00, +0.04] **not separated**, p=1.0 |
+| **passive** (non-canonical) | 32 | 0.781 | 0.094 | **+0.688, [+0.44, +0.88] separated**, p=3e-5 |
+
+**Confirmed, sharply.** On canonical actives, "grab the noun after the verb" is statistically
+indistinguishable from the full apparatus (both ~0.95). On passives the heuristic collapses to 0.094
+(it grabs the location/agent after the verb instead of the subject patient), and the real arm's
+voice-handling wins by +0.69. **The entire +0.23 aggregate margin is carried by the passive stratum**
+-- exactly the canonical/non-canonical boundary at which the brain switches from heuristic to
+effortful parsing. So the mechanism, however un-brain-like its *implementation* (hand-written
+filters), has an *error profile that tracks the brain's own division of labour*: it earns its keep
+precisely where word order stops being sufficient. That is the most brain-foundational thing this
+number can say, and it was invisible before the floor was run.
+
 ## WHAT I DID NOT ESTABLISH
 
 - **Not the full 1,414.** This is n=100 -- the same fresh random sample the 0.90 was measured on
@@ -149,11 +180,17 @@ None.
 
 ## NEXT STEPS
 
-1. The interesting open question this surfaces is **recall, not precision**: the filters buy their
-   precision by discarding two thirds of the output, and a trivial method already handles 83% of what
-   survives. The lever for grow-by-reading is whether the filters can keep more of the hard sentences
-   without the precision collapsing -- a recall-vs-precision curve on the survivors, not another
-   precision point.
+1. **The brain-framed lever is recall on NON-CANONICAL sentences.** The filters buy precision by
+   discarding two thirds of the output, and the discarded set is disproportionately the hard,
+   non-canonical sentences -- which is exactly where the deep-reading machinery (and the brain's
+   effortful parser) earns its place. On the surviving population the mechanism is only tested on 32%
+   passives; a positional heuristic handles the rest. The real question for grow-by-reading is whether
+   the syntactic machinery holds precision as the filters admit MORE non-canonical sentences (object-
+   relatives, reversible SVO, coordination) -- a recall-vs-precision curve stratified by canonicity,
+   not another aggregate precision point.
 2. If the +0.07 real-over-voice-rule increment matters to a downstream decision, it needs the full
    1,414 (or a larger fresh sample) and a second adjudicator to become CI-separable or be declared a
    tie -- cheap now that the harness exists.
+3. A **semantic-reversibility** stratum (irreversible "acid dissolves metal" vs reversible "X produces
+   Y") would be the cleaner brain test than voice, since reversibility is what forces the brain onto
+   syntax; it needs per-item reversibility judgements (annotator load) and more n than 100 to resolve.
