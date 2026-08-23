@@ -4,6 +4,27 @@ review:
 review_text: 
 ---
 
+<!-- ORIENTATION -- WRITTEN 2026-08-23 AFTER FIVE FINDINGS LANDED ON THIS BRIEF IN ONE DAY -->
+> # 🗺️ **READ THIS FIRST: WHAT CHANGED, AND WHAT IT MEANS FOR THE BUILD**
+> **Five measurement blocks were added to this brief on 2026-08-23 and they sit above the original
+> problem statement in the order they were written, not in the order you need them.** This is the
+> map. *Each block carries its own reverify command; none of it is prose you have to take on trust.*
+>
+> | # | finding | what it does to the build |
+> |---|---|---|
+> | 1 | **The channel CANNOT GATE LINKS ALONE.** Capped it links `0` of `877`; uncapped `66%` similar / `37%` DISSIMILAR; no threshold better than the one already set. AUC `0.7002`. | 🚨 **THE BIGGEST ONE. The ask "use it INSTEAD" must become "use it AS WELL". Combine, do not substitute.** |
+> | 2 | **STORAGE is fine, COMBINATION is the bottleneck.** Our format keeps `94%` of a real signal; bundling with 2 other vectors halves it, 8 leaves `26%`. | **Wiring the channel is necessary and NOT sufficient.** Keep few items per superposition. |
+> | 3 | **SPARSITY does not rescue that** -- every density collapses to ~`+0.08`. | **Do not spend a week on a sparser code.** |
+> | 4 | **NOR DOES AN ADDRESSED SLOT** -- addressing works, but binding PERMUTES interference rather than removing it. | *A key does not protect you from the other occupants.* **I wrote this advice before testing it; it is corrected in block 5.** |
+> | 5 | **THE SAME ASSET GIVES THREE NUMBERS** by entry point (`+0.3107` / `+0.2676` / `+0.2463`); the lowest is the one the substrate calls. | **Measure the ASSET unclamped; ask what the SUBSTRATE sees with the clamped one. Never compare across.** |
+>
+> ✅ **WHAT DID NOT CHANGE: the channel is still the right direction.** It carries real meaning and is
+> the only channel we have that says anything about verbs at all -- our own reads `+0.0000` there.
+> **The findings narrow HOW to use it; none of them argue for abandoning it.**
+> ⚠️ **AND ONE STANDING PROHIBITION, because it is the obvious wrong move:** do **NOT** raise
+> `GROUNDED_CAP`. It sits below the link threshold on purpose, and that gap is what makes "contribute,
+> do not decide" enforceable in code rather than hoped for in prose.
+
 > # 🥉 **PRIORITY 1 of 8 -- THE FLAGSHIP, AND THE BROADEST.** *(ranked 2026-08-22)*
 > **This is the actual goal; it ranks third only because 1 and 2 are upstream of it and far more
 > bounded.** *A better reader writing into a store that destroys what it writes, on a foundation that
@@ -36,6 +57,29 @@ review_text:
 > in two days got this wrong, two of them mine.* Pinned:
 > `verification/test_which_number_is_the_meaning_asset.py`.
 >
+> ✅ **IT DOES COVER THE VERB HOLE** *(answering the question three paragraphs up -- stated in full
+> because this line once sat directly under a block whose answer was NO, and read as answering that
+> instead)*. On **SimVerb-3500** -- the same benchmark our verb zero was measured on -- a plain
+> cosine over the raw norms reads **`+0.3107` `[+0.2822,+0.3390]`, null p95 `0.0304`**, covering
+> **3,487 of 3,500 pairs (99.6%)**. It also reads **`+0.3109`** on SimLex's 222 verbs: *two
+> independent verb benchmarks agreeing to three decimals.* On SimLex, verbs (`+0.3109`) sit only
+> slightly below nouns (`+0.3469`) -- **our channel falls from weak to nothing across that same
+> boundary, so the verb hole is OURS, not the world's.**
+> ⚠️ **NOT A SUBTRACTION:** our channel covers 2,651 SimVerb pairs and the norms cover 3,487.
+> **Quote it as "ours is absent where this one is present", never as a gain of `0.31`.**
+>
+> 🧠 **AND THE MOTOR DIMENSIONS ARE WHAT CARRY VERBS -- WHICH IS A BRAIN PREDICTION THAT COULD HAVE FAILED.**
+> Lancaster splits into 6 PERCEPTUAL and 5 ACTION dimensions, the seam somatotopy predicts (Hauk,
+> Johnsrude & Pulvermuller 2004: *kick* recruits leg motor cortex, *pick* hand). **ACTION minus
+> PERCEPTUAL on verbs = `+0.0651` `[+0.0306,+0.1005]` -- CI-SEPARATED FROM ZERO**, paired, 3,487
+> pairs. *At `n=222` it was `[-0.0989,+0.2031]` and said nothing; the fix was power, not caution.*
+> 🔻 **A SINGLE dissociation, not a double one** -- on nouns the same test reads
+> `-0.0150` `[-0.0951,+0.0635]`. **Do NOT retell as "motor for verbs, perceptual for nouns."**
+>
+> ➡️ **WHAT THIS CHANGES FOR WHOEVER BUILDS THIS:** the channel is worth wiring for verbs
+> specifically, and if you weight or select dimensions, **the action dimensions are the load-bearing
+> ones for verbs and that is measured, not assumed.** *It says nothing about our substrate reaching
+> this ceiling -- `read()` still makes zero calls to the asset, which is this brief's other half.*
 > ## 🚨 **AND THIS CHANGES WHAT THE BRIEF ASKS FOR: THE CHANNEL CANNOT GATE LINKS ALONE (08-23)**
 > This brief says *"make the system get meaning from that channel **INSTEAD**"*. **As a replacement
 > DECIDER it cannot work, and that is structural rather than a tuning problem.**
@@ -65,27 +109,6 @@ review_text:
 > enforceable in code rather than hoped for in prose.
 > **REVERIFY:** `.venv/Scripts/python.exe verification/test_the_channel_cannot_gate_links_alone.py`
 >
-> ✅ **IT DOES.** On **SimVerb-3500** -- the same benchmark our verb zero was measured on -- a plain
-> cosine over the raw norms reads **`+0.3107` `[+0.2822,+0.3390]`, null p95 `0.0304`**, covering
-> **3,487 of 3,500 pairs (99.6%)**. It also reads **`+0.3109`** on SimLex's 222 verbs: *two
-> independent verb benchmarks agreeing to three decimals.* On SimLex, verbs (`+0.3109`) sit only
-> slightly below nouns (`+0.3469`) -- **our channel falls from weak to nothing across that same
-> boundary, so the verb hole is OURS, not the world's.**
-> ⚠️ **NOT A SUBTRACTION:** our channel covers 2,651 SimVerb pairs and the norms cover 3,487.
-> **Quote it as "ours is absent where this one is present", never as a gain of `0.31`.**
->
-> 🧠 **AND THE MOTOR DIMENSIONS ARE WHAT CARRY VERBS -- WHICH IS A BRAIN PREDICTION THAT COULD HAVE FAILED.**
-> Lancaster splits into 6 PERCEPTUAL and 5 ACTION dimensions, the seam somatotopy predicts (Hauk,
-> Johnsrude & Pulvermuller 2004: *kick* recruits leg motor cortex, *pick* hand). **ACTION minus
-> PERCEPTUAL on verbs = `+0.0651` `[+0.0306,+0.1005]` -- CI-SEPARATED FROM ZERO**, paired, 3,487
-> pairs. *At `n=222` it was `[-0.0989,+0.2031]` and said nothing; the fix was power, not caution.*
-> 🔻 **A SINGLE dissociation, not a double one** -- on nouns the same test reads
-> `-0.0150` `[-0.0951,+0.0635]`. **Do NOT retell as "motor for verbs, perceptual for nouns."**
->
-> ➡️ **WHAT THIS CHANGES FOR WHOEVER BUILDS THIS:** the channel is worth wiring for verbs
-> specifically, and if you weight or select dimensions, **the action dimensions are the load-bearing
-> ones for verbs and that is measured, not assumed.** *It says nothing about our substrate reaching
-> this ceiling -- `read()` still makes zero calls to the asset, which is this brief's other half.*
 > ## 🔍 **ADDED 2026-08-23: STORAGE IS FINE; COMBINATION IS WHERE IT GOES -- YOUR DIAGNOSIS, NOW A NUMBER**
 > This brief says the system *"stores word codes that carry no meaning by construction, then combines
 > them in a way that destroys most of what little arrives."* **The first half is being fixed by the
@@ -324,6 +347,12 @@ python tools/cite_check.py 0.6413        # confirm the caveats above are still t
 
 - **An UNFITTED read-time mechanism** -- no model trained on the gold -- that uses the sensorimotor
   channel to choose a word's meaning **on the live reading path**.
+- 🚨 **AND IT MUST NOT BE A SOLE-CHANNEL DECIDER. MEASURED 2026-08-23, see the block at the top:**
+  this channel alone links `66%` of genuinely-similar verb pairs **and `37%` of genuinely-dissimilar
+  ones**, at the best threshold in a `0.30`-`0.95` sweep. **A mechanism that decides on this channel
+  alone will get roughly one link in three wrong, and that is not a tuning problem** -- AUC is
+  `0.7002`, real but not separable. **Combine it; do not substitute it.** *This narrows the bar; it
+  does not lower it.*
 - **Scored on held-out text**, CI-separated over **the strongest floor actually run**, gated on the
   **floor's upper bound** (floor + its own half-width), with the floor recomputed on this
   population and this representation.
