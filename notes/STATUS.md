@@ -143,23 +143,17 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 ## WHAT IS RUNNING
 
 - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
-- 🧠 **SOMATOTOPY HOLDS AT POWER: THE MOTOR DIMENSIONS ARE WHAT CARRY VERBS (08-23).**
-  🔻 *I framed this as "nobody had checked whether the channel covers our verb hole" -- **FALSE,
-  the 08-22 entry above says exactly that** (asset verb `+0.2607` vs null `0.1241`). My prior-work
-  check looked in the brief, not in STATUS, and I reused its headline phrase. **The NEW part is the
-  dimension split, which nothing prior did.***
-  **Lancaster splits 6 PERCEPTUAL / 5 ACTION dims -- the seam somatotopy predicts (*kick* recruits leg
-  motor cortex). ACTION − PERCEPTUAL on verbs = `+0.0651` `[+0.0306,+0.1005]`, CI-SEPARATED**, paired,
-  3,487 SimVerb pairs. **At `n=222` the same test read `[-0.0989,+0.2031]` and said NOTHING -- the fix
-  was POWER, not more careful wording.** 🔻 **SINGLE dissociation only**; the noun half includes
-  zero, so NEVER "motor for verbs, perceptual for nouns". ⚠️ *The 08-22 pass and this one read the
-  asset's SimLex verbs at different numbers -- **RESOLVED: three ENTRY POINTS, three answers on the
-  same `3,487` pairs.** raw CSV 11 dims `+0.3107` | `grounded_vector` cosine `+0.2676` |
-  **`grounded_similarity()` `+0.2463` <- WHAT THE SUBSTRATE CALLS.** *Lowest because double-clamped
-  `min(0.45, max(0.0, raw))`: **56% sit exactly on the cap, 17% at zero.*** ⚠️ **THE CAP IS SAFETY
-  (below the link threshold) -- DO NOT REMOVE IT TO IMPROVE A NUMBER.** ➡️ **Measure the ASSET
-  unclamped; ask what the SUBSTRATE sees with the clamped one; NEVER compare across.**
-  *Pinned: `test_which_number_is_the_meaning_asset.py`.* *Witness: `test_sensorimotor_covers_the_verb_hole.py`.*
+- 🧠 **SOMATOTOPY HOLDS AT POWER: THE MOTOR DIMENSIONS CARRY VERBS (08-23).** **ACTION − PERCEPTUAL on verbs `+0.0651` `[+0.0306,+0.1005]`, CI-SEPARATED**, 3,487 SimVerb pairs. *At `n=222` the same test said NOTHING -- the fix was POWER, not caution.* 🔻 **SINGLE dissociation**; the noun half includes zero. ⚠️ *I framed this as "nobody had checked" -- FALSE, the 08-22 entry above says the asset clears on verbs. My prior-work check read the brief, not STATUS. The NEW part is the dimension split.* *Witness: `test_sensorimotor_covers_the_verb_hole.py`.*
+- 🚨 **AND THE CHANNEL CANNOT GATE LINKS ALONE -- THIS CHANGES WHAT PRIORITY-1 ASKS FOR (08-23).**
+  The brief says use it *INSTEAD* of co-occurrence. **As a DECIDER it cannot work, structurally.**
+  `GROUNDED_CAP 0.45` < `SIMILARITY_LINK_THRESHOLD 0.5`, so as shipped it **links `0` of `877`
+  genuinely-similar verb pairs. ZERO.** 🔻 **And uncapping is not the fix: at `0.5` unclamped it
+  links `66.0%` of similar AND `37.3%` of DISSIMILAR pairs.** 📉 **No threshold rescues it** --
+  swept `0.30`->`0.95`, best margin `+0.287` occurs AT `0.50`, where it already sits.
+  *Threshold-free **AUC `0.7002`** -- real signal, nowhere near separable.*
+  ➡️ **IT IS A CONTRIBUTOR, NOT A DECIDER.** ⚠️ *NOT a licence to raise the cap -- the `0.05` gap
+  is what makes "contribute, do not decide" enforceable in code.*
+  *Witness: `test_the_channel_cannot_gate_links_alone.py`.* *Witness: `test_sensorimotor_covers_the_verb_hole.py`.*
 - 🔍 **THE OTHER HALF OF THE PRIORITY-1 DIAGNOSIS, PRICED -- AND BOTH OBVIOUS FIXES FAIL (08-23).**
   *Measured with the sensorimotor channel BECAUSE it has signal to lose; our own codes would confuse
   format-loss with nothing-there.* **STORING is fine: `+0.3107` raw -> `+0.2920` in our 256-dim dense

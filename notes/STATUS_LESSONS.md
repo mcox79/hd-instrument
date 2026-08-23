@@ -6870,3 +6870,40 @@ do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_..
   of items in one superposition SMALL, or give meaning its OWN STORE rather than a key into a shared
   one.** ⚠️ *OUR-INVENTION-UNDER-TEST -- an algebraic key is one guess, not biology.*
   *Witness: `test_does_an_addressed_slot_survive_bundling.py`.*
+
+
+## FOLDED FROM THE PLAN STATE BLOCK 2026-08-23 (Q115 entry, full text)
+
+> ## ✅ **Q115 ANSWERED BY THE OWNER 08-23 -- REQUIRE IT ON NEW CELLS, TRIAGE THE OLD ONES**
+> **OWNER, VERBATIM:** *"def make it a requirement for new experiments, but I'd go back through the 275 older ones one at a time -- we need to know what those are and how they turned out. You can decide whether each one wants a rerun 1 by 1."*
+> ✅ **THE REQUIREMENT IS LIVE:** the pre-commit hook refuses a NEW `experiments/*.py` that writes
+> a result without the shared helper. **ADDED FILES ONLY (`diff-filter=A`), never the backlog** -- a
+> rule that fired on `1,413` old cells would be switched off within a day. *Controlled both ways
+> against real commits: non-compliant refused, compliant accepted.* The installer gained a DRIFT
+> check after the gate was added to the hook and lost from the installer within the hour.
+> 📐 **THE TRIAGE, which is the "1 by 1":** of `1,413` replaying, **`425` assert a result**
+> (`383` HARD_PASS) -- and of those, **`135` are CITED by a doc that steers work (plan / STATUS /
+> organ map / registry) and `290` are not.** **THE `135` ARE THE REAL LIST.** *Re-running a result
+> nobody quotes buys nothing; `tools/reproducibility_inventory.py` regenerates this on demand.*
+>
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (eighteenth pass, somatotopy full text)
+
+- 🧠 **SOMATOTOPY HOLDS AT POWER: THE MOTOR DIMENSIONS ARE WHAT CARRY VERBS (08-23).**
+  🔻 *I framed this as "nobody had checked whether the channel covers our verb hole" -- **FALSE,
+  the 08-22 entry above says exactly that** (asset verb `+0.2607` vs null `0.1241`). My prior-work
+  check looked in the brief, not in STATUS, and I reused its headline phrase. **The NEW part is the
+  dimension split, which nothing prior did.***
+  **Lancaster splits 6 PERCEPTUAL / 5 ACTION dims -- the seam somatotopy predicts (*kick* recruits leg
+  motor cortex). ACTION − PERCEPTUAL on verbs = `+0.0651` `[+0.0306,+0.1005]`, CI-SEPARATED**, paired,
+  3,487 SimVerb pairs. **At `n=222` the same test read `[-0.0989,+0.2031]` and said NOTHING -- the fix
+  was POWER, not more careful wording.** 🔻 **SINGLE dissociation only**; the noun half includes
+  zero, so NEVER "motor for verbs, perceptual for nouns". ⚠️ *The 08-22 pass and this one read the
+  asset's SimLex verbs at different numbers -- **RESOLVED: three ENTRY POINTS, three answers on the
+  same `3,487` pairs.** raw CSV 11 dims `+0.3107` | `grounded_vector` cosine `+0.2676` |
+  **`grounded_similarity()` `+0.2463` <- WHAT THE SUBSTRATE CALLS.** *Lowest because double-clamped
+  `min(0.45, max(0.0, raw))`: **56% sit exactly on the cap, 17% at zero.*** ⚠️ **THE CAP IS SAFETY
+  (below the link threshold) -- DO NOT REMOVE IT TO IMPROVE A NUMBER.** ➡️ **Measure the ASSET
+  unclamped; ask what the SUBSTRATE sees with the clamped one; NEVER compare across.**
+  *Pinned: `test_which_number_is_the_meaning_asset.py`.*

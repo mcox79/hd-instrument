@@ -36,6 +36,35 @@ review_text:
 > in two days got this wrong, two of them mine.* Pinned:
 > `verification/test_which_number_is_the_meaning_asset.py`.
 >
+> ## 🚨 **AND THIS CHANGES WHAT THE BRIEF ASKS FOR: THE CHANNEL CANNOT GATE LINKS ALONE (08-23)**
+> This brief says *"make the system get meaning from that channel **INSTEAD**"*. **As a replacement
+> DECIDER it cannot work, and that is structural rather than a tuning problem.**
+>
+> 🔻 **AS SHIPPED IT CONTRIBUTES EXACTLY ZERO.** `GROUNDED_CAP = 0.45` sits below
+> `lexical_similarity.SIMILARITY_LINK_THRESHOLD = 0.5`, so `grounded_similarity()` **can never reach
+> the link threshold** -- by construction. On SimVerb-3500's `877` genuinely-similar verb pairs
+> (top quartile of human rating): **`0` linked. Zero.**
+>
+> **AND UNCAPPING IS NOT THE FIX.** Unclamped, at that same `0.5`:
+>
+> | | genuinely SIMILAR (877) | genuinely DISSIMILAR (898) |
+> |---|---|---|
+> | linked | **`579` (66.0%)** | 🔻 **`335` (37.3%)** |
+>
+> **A third of genuinely-dissimilar verb pairs would link. The cap is not paranoia.**
+>
+> 📉 **AND NO THRESHOLD RESCUES IT** -- swept `0.30`→`0.95`, best hit-minus-false-alarm margin is
+> **`+0.287`, occurring AT `0.50`, where the threshold already sits.** *The design put it in the right
+> place.* Threshold-free: **AUC `0.7002`** -- real signal, well above chance, nowhere near separable.
+>
+> ➡️ **SO THE ASK MUST CHANGE: THIS CHANNEL IS A CONTRIBUTOR, NOT A DECIDER.** It carries real meaning
+> and is the only channel we have that says anything about verbs at all -- but it cannot be what
+> decides whether two words link. **Wire it in as a drop-in replacement and you get nothing (capped)
+> or one link in three wrong (uncapped).** *The cap already encodes the right reading.*
+> ⚠️ **NOT a licence to raise the cap** -- the `0.05` gap is what makes "contribute, do not decide"
+> enforceable in code rather than hoped for in prose.
+> **REVERIFY:** `.venv/Scripts/python.exe verification/test_the_channel_cannot_gate_links_alone.py`
+>
 > ✅ **IT DOES.** On **SimVerb-3500** -- the same benchmark our verb zero was measured on -- a plain
 > cosine over the raw norms reads **`+0.3107` `[+0.2822,+0.3390]`, null p95 `0.0304`**, covering
 > **3,487 of 3,500 pairs (99.6%)**. It also reads **`+0.3109`** on SimLex's 222 verbs: *two
