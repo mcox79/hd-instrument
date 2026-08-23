@@ -23,8 +23,12 @@ cell that cannot be redirected is REFUSED, loudly, with the one-line migration t
 `--force` exists and prints what it is risking.
 
 COVERAGE, AND THE TWO NUMBERS ARE ON DIFFERENT POPULATIONS -- DO NOT CROSS THEM:
-  * Of the 421 cells carrying a `units.jsonl` -- the REPLAY-PRONE population, the one SH-7 exists
-    for -- **87 route through `get_output_dir` (~21%)**, 275 are bare, 59 sources unlocated.
+  * Of the 423 cells carrying a `units.jsonl` -- the REPLAY-PRONE population, the one SH-7 exists
+    for -- a STRING match says 87 (~21%) and a strict IMPORT match says **43 (~10%)**. The string
+    number is PROVEN to overcount: one cell containing `get_output_dir` DEFINES ITS OWN and the
+    redirect was inert when run. **Treat 10-21% as the range and never quote the 87 alone.** The
+    deciding test is not a grep at all -- run the cell and check the fresh sibling was created,
+    which this tool now does.
   * Of ALL 5,897 files in `experiments/`, **69% route through it.** Most of those never produced a
     `units.jsonl` and so are not in the replay population at all.
   **So ~21% is a property of the CHECKPOINTING archive, not of the codebase**, and quoting the 69%
@@ -81,6 +85,25 @@ def _cell_source(cell: str) -> str | None:
     return None
 
 
+def _landed_dir(cell: str) -> str | None:
+    """The landed data directory, trying BOTH spellings. None if it does not exist.
+
+    NOT `data/exp_<cell>` UNCONDITIONALLY, which is what this did until 2026-08-23. Asked to check
+    `solverB_cortical_scored_path_v1`, it built `data/exp_solverB_...`, found nothing, printed
+    "(MISSING)" as one line among several -- and then gave confident advice about redirectability
+    based on a directory that does not exist. **19 of 423 landed directories do not carry the `exp_`
+    prefix**, mostly solver-authored and `writerule_*` cells, so the tool was structurally blind to
+    them while sounding certain.
+
+    Found by using the tool on a real solver result rather than on the cells it was written against.
+    """
+    for cand in (cell, "exp_" + cell) if not cell.startswith("exp_") else (cell, cell[4:]):
+        p = os.path.join(DATA, cand)
+        if os.path.isdir(p):
+            return p
+    return None
+
+
 def routes_through_get_output_dir(src: str) -> bool:
     """Does this cell's output path come from `get_output_dir` (i.e. is SH-7 able to redirect it)?
 
@@ -126,7 +149,15 @@ def _dir_fingerprint(output_dir: str):
 def check(cell: str) -> int:
     """Report whether this cell can be reproduced at all, WITHOUT running anything."""
     src = _cell_source(cell)
-    landed = os.path.join(DATA, cell if cell.startswith("exp_") else "exp_" + cell)
+    landed = _landed_dir(cell)
+    if landed is None:
+        print("cell            :", cell)
+        print("REFUSING: no landed data directory found under data/ for that name.")
+        print("  tried: data/%s and data/exp_%s" % (cell, cell))
+        print("  A missing landed directory means there is nothing to reproduce AGAINST, so any")
+        print("  answer about redirectability would be advice about a directory that does not")
+        print("  exist. Check the name with: ls data/ | grep <fragment>")
+        return 2
     units = rc.unit_count(landed)
 
     print("cell            :", cell)
@@ -171,7 +202,11 @@ def reproduce(cell: str, tag: str, timeout: int, force: bool, extra: list) -> in
         print("[reproduce] --force ON A CELL THAT CANNOT BE REDIRECTED.")
         print("  The landed directory WILL be written to. Any 'reproduction' this prints is not one.")
 
-    base = os.path.join(DATA, cell if cell.startswith("exp_") else "exp_" + cell)
+    base = _landed_dir(cell)
+    if base is None:
+        print(f"[reproduce] REFUSED: no landed data directory for {cell!r} (tried data/{cell} and")
+        print(f"            data/exp_{cell}). Nothing to reproduce against.")
+        return 2
     fresh = base + f"__fresh_{tag}"
     landed_before = _dir_fingerprint(base)
     landed_verdict = _verdict_of(base)
