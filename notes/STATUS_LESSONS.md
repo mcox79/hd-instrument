@@ -6622,3 +6622,25 @@ do not. Quote it WITH its channel.** `notes/THE_TRAINED_SUBSTRATE_SCORES_16pp_..
 
 
 
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (sixth pass -- room for the end-to-end drives)
+
+- ✅ **ANSWERED, AND IT DEFLATES MY OWN FINDING (08-23):** the dictionary pseudo-count WEIGHTING and
+  its silent DISCARD are **UNTESTABLE on the deployment population** -- it commits on `6` of `33`  lemmas and **all six SATURATE**, so 3 of my 4 arms were the SAME ARM. **The calibration gap is REAL  on `1,971` dictionary verbs and ABSENT where the organ is used.** ⚠️ *I did not ask whether the  experiment COULD succeed first -- one line, skipped, paid for over two launches.*  ✅ *`WEIGHTED` read `0.4722`, reproducing the landed number to 4 digits independently.*  `THE_CONFIDENCE_SCORE_DOES_NOT_PREDICT_...`
+
+
+
+## EVICTED FROM STATUS.md 2026-08-23 (sixth pass)
+
+- 🔧 **AND THE COORDINATION WAS LUCK, SO I FIXED THE MECHANISM (08-23).** I only found the other
+  session because commits collided in a `git log` I happened to run. The detector is not broken --
+  **it scans COMMITTED history, so it can only see FINISHED work.** The claim queue should have
+  covered it and **could only claim rows that ALREADY EXISTED; `add` was never on the CLI**, so
+  there was no way to say *"I am starting X"* -- which is why nobody did. **`dispatch_queue.py
+  announce "<what>" --by <session>` now adds+claims in ONE command**, and `before_you_start` shows
+  it as IN PROGRESS with the owner named (verified both directions on the real queue).
+  ⚠️ **THE COST WAS NOT DUPLICATED WORK -- IT WAS A MISSED HANDOFF: they hit the checkpoint-replay
+  problem I was mid-way through FIXING and routed around it.** *Worse, because neither side can see
+  it.*
+
