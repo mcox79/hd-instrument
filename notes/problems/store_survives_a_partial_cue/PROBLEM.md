@@ -1,8 +1,46 @@
 ---
 priority: 2
-review: 
-review_text: 
+review: EXCELLENT
+review_text: "Clean refutation with binding controls, and it reproduces the counting floor exactly. Its mechanistic line is the sharpest of the night: PMI already IS the calibrated familiarity read-out, so store format is not the lever. Third instrument showing an oracle clears and no unsupervised method reaches it."
 ---
+
+> # 🥇 **MY REVIEW -- EXCELLENT. RE-VERIFIED, AND IT IS THE THIRD INSTRUMENT WITH THE SAME SIGNATURE.**
+> *Reviewed 2026-08-23. Ran its reverify: ALL WITNESS CHECKS PASS.*
+>
+> ✅ **THE REFUTATION IS CLEAN AND THE CONTROLS BIND.** No calibrated-familiarity / recollection /
+> dual-process arm clears the floor: best is `CONF_GATED 0.2461` against `F_COUNT1 0.3242`
+> (`d=-0.0781`, CI excludes 0). *Info-free `0.0000`, scramble `0.0002`/`0.0000`, self-retrieval 2AFC
+> `0.9767` -- the instrument works, so the failure is real.* ✅ **It REPRODUCES the counting floor
+> `0.3242` EXACTLY from the refuted cell**, which is how you prove the instrument matches.
+> ✅ **And it reports the recite/recognise gap in its own best arm:** `REC_EXPLICIT` recites
+> `0.9122`, recognises `0.1619`.
+>
+> 🔑 **ITS SHARPEST LINE IS MECHANISTIC AND I WOULD NOT HAVE WRITTEN IT: *"PMI already IS the
+> calibrated cortical-familiarity read-out, so store FORMAT is not the lever."*** *We were
+> reimplementing, worse, the thing the counting floor already is.*
+>
+> ## 🎯 **THE CONVERGENCE -- THREE INDEPENDENT INSTRUMENTS, ONE SIGNATURE**
+> **Every one has an ORACLE that clears, and NO unsupervised method reaches it:**
+>
+> | instrument | oracle | best unsupervised | gap |
+> |---|---|---|---|
+> | this cell (partial-cue identity) | `ORACLE_UNION` **`0.4082`** | `F_COUNT1` `0.3242`, our best store `0.2461` | **`+0.0840`** CI `[+0.0769,+0.0914]` |
+> | write-rule ladder (`exp_writerule_step_ladder_v1`) | `BEST_SINGLE_ORACLE` **`0.3033`** | `SUM_ALL` `0.0100`, `RANDOM_SINGLE` `0.0367` | **`30x`** |
+> | corpus ceiling (`exp_corpus_capacity_ppmi_svd_ceiling_v1`) | fitted, held-out **`0.9606`** | every transform `0.02`-`0.13` | the whole range |
+>
+> ➡️ **THE COMPLEMENTARY SIGNAL IS DEMONSTRABLY PRESENT AND WE CANNOT SELECT IT WITHOUT AN ORACLE.**
+> *This cell says it exactly: "a real reserve of complementary episodic signal that no UNSUPERVISED
+> combiner here reaches. The missing piece is a learned control that knows WHEN to recollect, not a
+> better store."*
+> 🚫 **SO THE ROUTE THAT IS CLOSED IS "BUILD A BETTER STORE / TRANSFORM", ON THREE INSTRUMENTS.**
+> **The route that is OPEN is a CONTROL that decides which source to trust per item** -- which is
+> the same organ the priority-1 brief now targets (reliability-weighted cue combination), arriving
+> from a completely different direction. *Two briefs, one missing organ.*
+> ⚠️ **AND THE HARD PART IS UNCHANGED AND IS WHY Q118 IS ON THE BOARD:** every oracle here is
+> SUPERVISED. **A control learned from the same labels the oracle uses is the oracle wearing a
+> disguise.** *Where the selection signal comes from without labels is the open question, not how to
+> combine once you have it.*
+
 
 > # 🥈 **PRIORITY 2 of 8 -- OPENED 2026-08-22 BECAUSE THE PREVIOUS STORE BRIEF ASKED THE WRONG QUESTION.**
 > **`flat_store_destroys_the_code` asked a solver to WIRE IN the addressed store we already had. They

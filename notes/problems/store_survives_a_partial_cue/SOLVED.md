@@ -140,3 +140,11 @@ against the bar.
 3. This converges with `reader_meaning_channel`: two independent problems now point at the same
    missing piece -- a control network that decides *when* to use the second channel/store -- which is
    worth more as a shared redirect than either finding alone.
+
+---
+
+## INTEGRATED_BY_STRATEGY -- 2026-08-23
+
+Re-verified, all witness checks pass. Review EXCELLENT. Recorded as the THIRD instrument showing the same signature: an oracle clears (ORACLE_UNION 0.4082, +0.0840 CI-separated over the counting floor) and no unsupervised combiner reaches it. Closes 'build a better store' as a route; opens 'a control that decides which source to trust per item', which is the same organ the priority-1 brief targets from another direction. The unresolved part -- where a selection signal comes from WITHOUT labels -- is board Q118.
+
+*Appended by the strategy session, which owns integration (board Q111). Solver text unchanged.*
