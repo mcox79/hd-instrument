@@ -13,11 +13,12 @@
 > run** -- so stage state, gaps, who owns each gap and what came back are no longer restated here.
 > `--gaps` worst-first · `--organ B3` brain requirement with corrections FIRST · `--brief <slug>` ·
 > `--progress` · `--build` feeds GUI tab 0. **Solvers may use all of it.**
+> *(`23` briefs as of 08-24. It crashed on a stage owning MORE THAN ONE brief -- I migrated the
+> schema to a list and left the renderer behind. Fixed; a stage now shows all its briefs.)*
 >
-> ## 🏁 **PROGRESS, MEASURED FROM GIT RATHER THAN MEMORY: `16` briefs returned, `15` folded in, and NOT ONE STAGE HAD CHANGED STATE.**
-> **Activity is not movement, and a tracker cannot tell them apart -- which is why the tabs felt
-> unhelpful.** *The single change since is labelled `CORRECTION, NOT PROGRESS` in its own output;
-> stages now carry `state_note` and every change must state its reason.*
+> ## 🏁 **PROGRESS, FROM GIT NOT MEMORY (`--progress`): `16` BRIEFS RETURNED, `15` FOLDED IN, NOT ONE STAGE CHANGED STATE.**
+> **Activity is not movement, and a tracker cannot tell them apart** -- which is why the tabs felt
+> unhelpful. *Stages now carry `state_note`; every change must state its reason.*
 >
 > ## 🥇🥇 **08-24 THE SUBSTITUTABILITY WALL IS BROKEN -- FIRST UNSUPERVISED ARM TO CLEAR THAT INSTRUMENT ON MERIT**
 > **Cross-modal distillation** -- the grounded sensorimotor hub TEACHES a direction over PPMI+SVD,
@@ -25,16 +26,27 @@
 > `[0.8031,0.8720]`**, 8-seed mean `0.865`. **It beats the info-free twin's MAXIMUM over 200 draws**
 > (p95 `0.6808`, max `0.7047`), not merely its p95. *Every prior unsupervised arm scored
 > `0.02`-`0.13` -- confidently INVERTED.*
-> 🔍 **AUDITED THE LINE THAT COULD HAVE FAKED IT: the raw direction is inverted (`0.1612`) and a sign
-> flip yields `0.84`. That sign correlates against the HUB'S OWN ranking on unlabelled pairs, never
-> the gold -- and the null is oriented identically, which is why its p95 is `0.68` not `0.50`.**
-> ⚠️ **LABEL-free but NOT RESOURCE-free (the teacher is the supplied Lancaster table) and
-> TRANSDUCTIVE. Both travel with the number.**
+> 🔍 **AUDITED THE LINE THAT COULD HAVE FAKED IT: the sign correlates against the HUB'S OWN ranking
+> on unlabelled pairs, NEVER the gold** -- and the null is oriented identically, which is why its
+> p95 is `0.68` not `0.50`. ⚠️ **LABEL-free but NOT RESOURCE-free (teacher = supplied Lancaster
+> table) and TRANSDUCTIVE; both travel with the number.**
 > 🎯 **THE MECHANISM IS THE POINT: grounded alone is at chance (`0.551`), distributional alone is
-> inverted (`0.0285`). Neither carries substitutability. Their AGREEMENT does.**
-> 🚫 **STAGE 2 STAYS `BROKEN` ANYWAY** -- this lives in an experiment cell; the substrate's own write
-> rule still reads `0.051`. *Banking a research result as a capability is the exact confusion the
-> progress view exists to prevent.* ➡️ **WIRING IT IS THE HIGHEST-VALUE CAPABILITY WORK AVAILABLE.**
+> INVERTED (`0.0285`). Neither carries substitutability. Their AGREEMENT does.**
+> 🚫 **STAGE 2 STAYS `BROKEN` ANYWAY** -- this lives in a cell; the substrate's write rule still reads
+> `0.051`. *Banking a research result as a capability is the confusion the progress view prevents.*
+> ➡️ **WIRING IT IS THE HIGHEST-VALUE CAPABILITY WORK AVAILABLE.**
+>
+> ### ✅ **SPLIT BY HUB COVERAGE 08-24 -- IT REDIRECTS PHASE 1. `tools/split_distillation_by_hub_coverage.py`**
+> A RE-ANALYSIS, not a re-run (the cell saved `scored_population.json`). **Hub-covered `348` read
+> `0.8263`; the `136` the hub CANNOT SCORE AT ALL read `0.8669` CI `[0.8062,0.9220]` -- lower bound
+> ABOVE the aggregate, so `0.8388` is NOT carried by the covered subset.** 🔬 **Not a difficulty
+> artifact either -- both hub-BLIND arms are FLAT across the split (`-0.0051`, `+0.0166`).**
+> ⚠️ **"NOT WORSE", NEVER "BETTER": difference `+0.0410` CI `[-0.0353,+0.1091]` SPANS ZERO.**
+> ➡️ **PHASE 1'S "buy +14,704 hand-rated words" IS PROBABLY THE WRONG PURCHASE -- project the norms
+> we own onto features that exist for every word.** *(Banner in `notes/LONG_TERM_PLAN.md`.)*
+> 🔻 *NOT reported as a finding: the hub reads `AUC 0.0000` on the uncovered half -- a **NaN
+> artifact** (no norms there; NaN comparisons are all False, faking perfect inversion). The tool now
+> refuses any arm containing NaN and self-tests that mode.*
 >
 > ## 🧱 **THE ONE FINDING FOUR INSTRUMENTS AGREE ON: AN ORACLE CLEARS, NOTHING UNSUPERVISED REACHES IT**
 > `ORACLE_UNION` **`0.4082`** vs counting `0.3242` (partial-cue identity) · `BEST_SINGLE_ORACLE`
@@ -44,49 +56,65 @@
 > and it crashes the dominant population. **The missing organ is "notice which source to trust".**
 > ✅ **08-24 supplies the first working instance: let one source TEACH the other rather than weight
 > them.**
+> 🔁 **SAME GAP AGAIN 08-24, DIFFERENT ORGAN.** The `cortical_read` submission (re-verified `6`/`6`,
+> STRONG) concludes *"nothing self-built generalises, so SUPPLY a distributional spoke"* -- a
+> purchase. **But every self-built arm there is ALONE or CONCATENATED (`BOTH` IS a concat;
+> `teach`/`distil`/`orient` appear nowhere in the file): WEIGHTED, never TAUGHT.** ➡️ priority-3
+> `teach_the_self_built_space_instead_of_concatenating_it`. ⚠️ **A GAP, NOT A PREDICTION -- the
+> submission supplies the doubt itself: SIMILARITY IS NOT RETRIEVAL ASSOCIATION, so teaching may not
+> transfer. Distillation was shown on SUBSTITUTABILITY. NO NUMBER CROSSES TASKS.** *A clean powered
+> failure is a full PASS there.*
+> 🧠 **CARRY THIS: twice in one night the conclusion was BUY MORE and the untested cell was
+> PROJECT/TEACH WHAT WE OWN. Coverage is a property of how an asset is APPLIED, not of the asset --
+> the hand-rated table covers `348` pairs as a lookup and `484` as a teacher.**
 >
-> ## 🔻 **OUR WRITE RULE IS NOT WEAK, IT IS INVERTED**
-> `AUC 0.051` against chance `0.50`, with a known-answer arm at `0.9599`: **it confidently encodes
+> ## 🔻 **OUR WRITE RULE IS NOT WEAK, IT IS INVERTED** *(evidence + floors: `substrate_map.py`, stage 2)*
+> `AUC 0.051` against chance `0.50`, known-answer arm `0.9599`: **it confidently encodes
 > CO-OCCURRENCE where meaning needs SUBSTITUTABILITY.** *Two pre-registered `STOP_IF`s closed the
-> whole family of unsupervised first-order transforms; four tuning families moved it to `0.114` and
-> no further.* **Grounding beats random on 2 of 3 seeds and LOSES `2-3x` to counting co-occurrence
-> on 3 of 3.**
+> whole family of unsupervised first-order transforms; four tuning families reached `0.114`, no
+> further.*
 >
-> ## 🖥️ **08-24 Q119 FILED: THE REPO IS ON A USB DRIVE WHILE AN NVMe SSD SITS IDLE -- AND THAT IS THE CERTIFICATION "HANG"**
-> `Get-PhysicalDisk`: Disk 0 = WD_BLACK SN770 2TB NVMe; **Disk 1 = "USB DISK 3.2", BusType USB**, and
-> `D:` is Disk 1. **Cold open `15.40 ms`, warm `0.96 ms`. `site-packages` holds `21,036` `.py` files,
-> so ~`11,000` cold opens is ~`165 s` -- against a measured `167 s` one-line-test startup.**
-> 🔻 *TWO WRONG ANSWERS CAME FIRST: the submission blamed a concurrent session (measured idle: still
-> `167 s`), then I blamed antivirus off a **broken control** -- 1,000 COLD files against a big file I
-> had just WRITTEN, a disk read against a memory read. My own witness caught it on re-run.*
-> **Every tool in this repo pays that toll, not only the gate.**
+> ## 🖥️ **Q119 IS OPEN AND UNANSWERED: THE REPO RUNS OFF A USB STICK WHILE A 2TB NVMe SITS IDLE**
+> **Cold open `15.40 ms` vs warm `0.96 ms`; ~`11,000` cold opens ~= `165 s` against a measured
+> `167 s` one-line-test startup. Every tool here pays it** -- a `data/` grep timed out at `320 s`
+> on 08-24. *Two wrong answers came first (a concurrent session; then antivirus, off a BROKEN
+> control comparing cold files to a just-WRITTEN one). **Do not re-diagnose it -- answer Q119.***
 >
 > ## 📦 **STANDING, FROM THE OWNER (08-23/08-24)**
 > *"Bundle complicated problems for a solver, and verify the submissions."* · *"Whenever you come
-> upon hard things like this, make it a problem to give to a solver."* · **Q117 -- fix the inflated
-> bar and re-run:** done for the gate. Gold is now morphology-stripped and the floor was RE-MEASURED
-> IN HARNESS at `0.0195`, **which exposed a real sign bug: `HARD_PASS` never checked the DIRECTION of
-> the delta, so an info-free arm scoring significantly WORSE than base passed it.** *Fixed to require
-> an improvement -- stricter, not weaker.* · **Q118 -> the priority-1 brief, now SOLVED (above).**
-> ⚠️ **`A5_STRINGCTRL 0.0870` is `~78%` MORPHOLOGICAL LEAKAGE** -- stem-stripped it falls to `0.0193`
-> and OVERLAPS its own info-free twin. **Never quote it as "what a spell-checker scores".**
+> upon hard things like this, make it a problem to give to a solver."*
+> · **Q117 ANSWERED 08-24 -- *"fix the bar, and re run the past results."* TWO GATES; ONLY ONE COULD
+> BE FIXED, AND THE SPLIT IS THE POINT.** ✅ `score_space_gain...` owns a trigram arm, so it stripped
+> the gold and RE-MEASURED its own floor in-harness at `0.019500` -- *exposing a real sign bug:
+> `HARD_PASS` never checked the DIRECTION of the delta, so an info-free arm scoring WORSE than base
+> passed. Fixed: stricter, not weaker.* 🚫 `per_row_gain...` owns NO trigram arm and only imported
+> the constant, so it **now REFUSES to grade** (exit 3; refusal fired under `--smoke`).
+> **DO NOT PASTE `0.019500` INTO IT -- different scorer, different population. It would look like a
+> fix and be a fabrication.** ➡️ **PRIORITY 1 `the_gate_cannot_measure_its_own_floor`.** *Direction
+> check: this made results HARDER to publish.* · **Q118 -> priority-1 brief, SOLVED (above).**
+> ⚠️ **`A5_STRINGCTRL 0.0870` is `~78%` MORPHOLOGICAL LEAKAGE** -- stem-stripped `0.0193`, OVERLAPS
+> its own info-free twin. **Never quote it as "what a spell-checker scores".** *Stripper is the
+> promoted `hdlab/morphology_leakage.py`.*
 >
 > ## 🎓 **HOW THE REVIEWS PAY: A RE-VERIFY CONFIRMS THE ARITHMETIC, SO AUDIT THE ARGUMENT**
-> **All submissions verified, reviewed and integrated (`awaiting integration: 0`).** Every re-verify
-> passed AND every audit still found something: a routing oracle that forecloses a whole family of
-> fixes; a crux I named killed at `AUC 0.4033` (below chance); `95.65%` of one channel's errors
-> running the SAME direction as the other's; a floor that was `78%` morphology; a diagnosis naming
-> the wrong cause twice. ⚠️ **AND THE MARKER LIVES IN `SOLVED.md` (`INTEGRATED_BY_STRATEGY`), NOT
-> `PROBLEM.md`** -- my integration notes were real and invisible for six briefs until I read the
-> marker's definition.
+> **All submissions verified, reviewed and integrated (`awaiting integration: 0`). Every re-verify
+> passed AND every audit still found something** -- a routing oracle foreclosing a whole family of
+> fixes; a floor that was `78%` morphology; a diagnosis naming the wrong cause twice; and 08-24, a
+> STRONG submission concluding *buy a resource* whose every arm was ALONE-or-CONCATENATED.
+> ⚠️ **THE MARKER LIVES IN `SOLVED.md` (`INTEGRATED_BY_STRATEGY`), NOT `PROBLEM.md`** -- my
+> integration notes were real and invisible for six briefs until I read the marker's definition.
 >
 > ## 🔻 **MY OWN ERROR RATE IS THE OTHER HALF OF THE RECORD, AND IT IS NOT SMALL**
-> **Six corrections 08-23, four more 08-24.** *Four were "I read one archive and not the neighbouring
-> one" -- twice the answer sat in a file I was actively quoting.* **08-24: a false "NOBODY IS WORKING
-> THIS GAP" shipped to the GUI header (my schema held ONE brief per stage while `20` existed); a
-> stage labelled `UNTESTED` whose cell had HARD_PASSed a year earlier; an antivirus conclusion off a
-> broken control; and a tab I duplicated and then had to retire.**
+> **Six corrections 08-23; six more 08-24** -- a false "NOBODY IS WORKING THIS GAP" shipped to the
+> GUI (single-brief schema while `20` existed); a stage labelled `UNTESTED` that had HARD_PASSed a
+> year earlier; an antivirus conclusion off a broken control; a duplicated tab; **the central store
+> CRASHING because I migrated that schema and left the renderer behind; and `morphology_leakage.py`
+> promoted to `hdlab/` with ZERO registry rows -- the exact islanding the WIRE-or-SHELVE gate exists
+> to prevent, by the session enforcing it.**
 > ➡️ **Every one was caught by a control written as CODE. None by a caution written as prose.**
+> *08-24 proved the sharper version: a prose rule can be WRONG IN BOTH DIRECTIONS at once. The GUI
+> comment banning "first- or second-person pronouns" was too broad (`YOU SAY` is correct) and too
+> narrow in effect (`MY RATING` sat unfixed ONE LINE BELOW IT for a day). Now a witness.*
 >
 > ## 🚧 **RESIDUE STILL LOAD-BEARING AND NOT IN THE MAP**
 > **The channel CANNOT gate links alone** (`66%` hit / `37%` false alarm, AUC `0.7002`) -- combine,
