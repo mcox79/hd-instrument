@@ -49,19 +49,20 @@
    "name": "DECIDE WHAT WORDS MEAN",
    "plain": "Work out what a newly-read word means by relating it to words already understood.",
    "state": "BROKEN",
-   "evidence": "On the test of whether two words are INTERCHANGEABLE, our own rule scores 0.051 where pure guessing scores 0.486 and a right answer scores 0.960. It is not weak, it is BACKWARDS -- it confidently calls words similar when they merely turn up together. Counting which words co-occur beats our whole apparatus 2-3x on assigning meanings (0.048-0.065 vs 0.016-0.030, three runs).",
+   "evidence": "On the test of whether two words are INTERCHANGEABLE, our own rule scores 0.051 where pure guessing scores 0.486 and a right answer scores 0.960. It is not weak, it is BACKWARDS -- it confidently calls words similar when they merely turn up together. Counting which words co-occur beats our whole apparatus 2-3x on assigning meanings (0.048-0.065 vs 0.016-0.030, three runs).  NEW 2026-08-24, AND NOT YET OURS: letting the grounded sensory channel TEACH the word-statistics channel scores 0.839 on the same test (interval 0.803 to 0.872), against a no-information version of itself whose best of 200 tries reached 0.705. Neither channel can do it alone -- sensory alone is 0.551, statistics alone 0.029 and backwards. Their AGREEMENT carries it. This is an experiment, not the substrate.",
    "floor": "Guessing scores 0.486 on the interchangeability test and a correct answer 0.960; we read 0.051. On meaning-assignment we beat a random answer on 2 of 3 runs but lose to plain co-occurrence counting on 3 of 3. The sensory ratings score 0.599 there, but a control giving EVERY WORD THE SAME VECTOR scores 0.619 and beats them.",
    "gap": "THE CENTRAL DEFECT, AND IT IS NOW SHARPER THAN 'WEAK'. The step learns the WRONG RELATION -- which words appear together, not which words are interchangeable -- and it learns it confidently. Two pre-registered stop conditions have now closed the whole family of fixes that reshuffle word-co-occurrence counts: four tuning variants moved it from 0.052 to 0.114 and no further. The sensory ratings do not rescue it either: they point the right way but do not beat a control carrying no word-specific information at all.",
-   "goal": "CHANGED 2026-08-23, AND THE PREVIOUS GOAL IS NOW KNOWN TO BE INSUFFICIENT. It said 'wire in the human sensory ratings'. Measured on this test, those ratings do not beat a no-information control, so wiring them in would not fix the step. What the evidence points to instead: a method that is allowed to see answers reaches 0.960 on data it has never seen, so the information IS in the text and no unsupervised route we have tried reaches it. The open question -- where a learning signal comes from without being handed answers -- is on the board as Q118 and is a research question, not a sweep.",
-   "source": "notes/problems/reader_meaning_channel/PROBLEM.md",
-   "reviewed_utc": "2026-08-23T22:45:00Z",
+   "goal": "CHANGED 2026-08-24, AND FOR THE FIRST TIME IT NAMES A MEASURED ROUTE RATHER THAN A HOPE. Wire cross-modal distillation into the read-out: use the grounded table to train a direction over the word-statistics, instead of mixing the two channels at fixed weights (which is measured to DESTROY the grounded signal). Two limits travel with it: the teacher is a supplied human-rated table, so this is label-free but not resource-free; and it needs the candidate words in front of it. Neither blocks wiring; both change what may be claimed afterwards.",
+   "source": "notes/problems/where_does_a_meaning_signal_come_from_without_labels/SOLVED.md",
+   "reviewed_utc": "2026-08-24T10:30:00Z",
    "problems": [
     "where_does_a_meaning_signal_come_from_without_labels",
     "reader_meaning_channel",
     "the_prior_swamps_the_channel_instead_of_combining_with_it",
     "the_bundle_destroys_meaning_but_replacing_it_hurts",
     "does_learning_from_reading_deserve_to_continue"
-   ]
+   ],
+   "state_note": "STAYS BROKEN ON PURPOSE (2026-08-24). A route that clears the instrument was found tonight and verified, but it lives in an experiment cell. The substrate's own write rule still scores 0.051 where guessing is 0.486. Marking this WEAK now would bank a research result as a capability, which is the exact confusion this file's progress view exists to prevent."
   },
   {
    "id": 3,
