@@ -86,14 +86,19 @@
 > transform family; four tuning families reached `0.114`, no further.*
 >
 > ## 🖥️ **Q119 ANSWERED 08-24: MOVE AUTHORISED. THE MOVE ITSELF IS PENDING A QUIET WINDOW -- Q121.**
-> **MEASURED: `174 GB` / `316,265` files; `C:` has `1,433 GB` free -- space is NOT the constraint.**
-> Slowness tracks FILE COUNT, not size (`.venv` = `44,635` files opened EVERY command = the `167 s`
-> startup). **RECOMMENDED WHOLE.** 🚫 **DO NOT COPY FROM INSIDE THE LOOP:** `5` processes run out of
-> the folder including a LIVE experiment writing results, and `D:/AI/.claude/settings.json`
-> hard-codes the old path `4` times **including the hook driving this loop**.
-> ⚠️ **`.venv` must be REBUILT not copied; it must be a PLAIN FILE COPY (`data/foundation/` is
-> UNTRACKED).** 🔻 *The speed-up is INFERRED, never measured.* **Full detail + the cheap `21 GB`
-> alternative: board Q121. Do not re-diagnose the cause -- two earlier answers were wrong.**
+> **MEASURED: `174 GB` / `316,265` files; `C:` has `1,433 GB` free -- space is NOT the constraint.
+> Slowness tracks FILE COUNT (`.venv` = `44,635` files opened EVERY command = the `167 s` startup).
+> RECOMMENDED WHOLE.** ⚠️ **`.venv` must be REBUILT not copied; PLAIN FILE COPY only
+> (`data/foundation/` is UNTRACKED); and `settings.json` hard-codes the old path `4` times INCLUDING
+> the hook driving this loop.** 🔻 *Speed-up is INFERRED, never measured. Do not re-diagnose -- two
+> earlier answers were wrong.*
+> ✅ **Q121 ANSWERED 08-24: *"do it"*. TOOLING READY, COPY NOT STARTED, AND THE REASON IS MEASURED:
+> at 14:21 the repo was being written CONTINUOUSLY, seconds apart** (live experiment + CPU-runner
+> heartbeat + watchdog + orchestrator log + **the autoloop hook itself -- I am one of the writers**).
+> *A copy taken then is not risky, it is INCONSISTENT BY CONSTRUCTION.*
+> ➡️ **`tools/move_repo_to_internal_drive.py` -- `--preflight` (REFUSES unless quiet; verified it
+> fires: 10 live processes, `heartbeat.json` written `0 s` ago, exit 2), `--plan`, `--verify`.**
+> **IT NEVER DELETES FROM THE STICK.** *Run it after `autoloop.py disarm` + the experiment finishes.*
 >
 > ## 📉 **08-24 WHERE THE SUBSTRATE ACTUALLY LOSES: `34,169` SENTENCES IN, `386` FACTS OUT**
 > `exp_e2e_trace_v1` (2026-08-13, unread for 11 days; full write-up
