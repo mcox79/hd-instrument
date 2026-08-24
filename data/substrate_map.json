@@ -1220,6 +1220,32 @@
    "reverify": "\".venv/Scripts/python.exe verification/test_refuse_gate_on_readout.py\""
   }
  },
+ "progress": {
+  "window_first_commit": "2026-08-23T13:33:19-04:00",
+  "window_last_commit": "2026-08-24T08:46:21-04:00",
+  "n_commits_of_the_stage_file": 7,
+  "stage_state_changes": [],
+  "briefs_by_state": {
+   "SOLVED": 8,
+   "REFUTED": 6,
+   "OPEN": 5,
+   "PARTIAL": 1
+  },
+  "briefs_returned": 15,
+  "briefs_integrated": 13,
+  "current_states": {
+   "READ THE TEXT": "WEAK",
+   "DECIDE WHAT WORDS MEAN": "BROKEN",
+   "DECIDE WHAT TO KEEP": "WORKS",
+   "KEEP IT BETWEEN RUNS": "WORKS",
+   "GET IT BACK OUT": "WEAK",
+   "SAY \"I DON'T KNOW\"": "WEAK",
+   "KNOW WHAT IT IS MISSING": "UNTESTED",
+   "REASON OVER WHAT IT KNOWS": "UNKNOWN",
+   "PROVE A RESULT IS REAL": "WORKS",
+   "KEEP WHAT WE GAIN": "WORKS"
+  }
+ },
  "briefs_not_attached_to_a_stage": [],
  "registry": {
   "total": 212,

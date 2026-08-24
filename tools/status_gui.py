@@ -1640,14 +1640,30 @@ class StatusWindow:
                       if s.get("state") in ("BROKEN", "WEAK", "UNKNOWN", "UNTESTED")]
         unowned = [s for s in needs_work if not s.get("briefs")]
         broken = [s for s in stages if s.get("state") == "BROKEN"]
-        self._set_label(
-            self.map_head,
-            text="%d of the %d stages still need work; %d of those have nobody working them"
-                 % (len(needs_work), len(stages), len(unowned)))
+        # THE HEADLINE IS MOVEMENT, NOT ACTIVITY. A brief coming back is activity; a stage
+        # changing state is progress. They look identical on a tracker, and reporting the first
+        # as the second is how a project feels productive while standing still.
+        pr = m.get("progress") or {}
+        moved = pr.get("stage_state_changes") or []
+        if moved:
+            self._set_label(
+                self.map_head,
+                text="%d stage state change(s) since %s -- most recent: %s %s -> %s"
+                     % (len(moved), (pr.get("window_first_commit") or "?")[:10],
+                        moved[-1]["stage"], moved[-1]["from"], moved[-1]["to"]))
+        else:
+            self._set_label(
+                self.map_head,
+                text="NO STAGE HAS CHANGED STATE since %s, while %d briefs came back and %d were "
+                     "folded in" % ((pr.get("window_first_commit") or "?")[:10],
+                                    pr.get("briefs_returned", 0), pr.get("briefs_integrated", 0)))
         self._set_label(
             self.map_sub,
-            text=("A stage with no owner is a gap nothing is scheduled to close. "
-                  + ("The worst one right now is %s." % broken[0]["name"] if broken else "")))
+            text=("That is knowledge bought, not capability moved -- and the two are easy to "
+                  "confuse on a tracker. %d of %d stages still need work; %d of those have nobody "
+                  "working them.%s"
+                  % (len(needs_work), len(stages), len(unowned),
+                     ("  Worst: %s." % broken[0]["name"]) if broken else "")))
 
         sig = tuple((s.get("id"), s.get("state"),
                      tuple((x.get("slug"), x.get("state"), x.get("integrated"))

@@ -188,6 +188,9 @@ def build() -> dict:
                     "Sources: notes/ORGAN_MAP.md, data/substrate_progress.json, notes/problems/, "
                     "data/capability_registry.jsonl."),
         "organs": organs, "stages": joined, "briefs": briefs,
+        # Included in the BUILD so the GUI reads one file and never shells out to git on a
+        # refresh. It is the answer to "how much progress", and it belongs beside the state.
+        "progress": progress(),
         "briefs_not_attached_to_a_stage": [b["slug"] for b in unowned],
         "registry": load_registry(),
     }
