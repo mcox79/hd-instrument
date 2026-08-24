@@ -92,13 +92,12 @@
 > (`data/foundation/` is UNTRACKED); and `settings.json` hard-codes the old path `4` times INCLUDING
 > the hook driving this loop.** 🔻 *Speed-up is INFERRED, never measured. Do not re-diagnose -- two
 > earlier answers were wrong.*
-> ✅ **Q121 ANSWERED 08-24: *"do it"*. TOOLING READY, COPY NOT STARTED, AND THE REASON IS MEASURED:
-> at 14:21 the repo was being written CONTINUOUSLY, seconds apart** (live experiment + CPU-runner
-> heartbeat + watchdog + orchestrator log + **the autoloop hook itself -- I am one of the writers**).
-> *A copy taken then is not risky, it is INCONSISTENT BY CONSTRUCTION.*
-> ➡️ **`tools/move_repo_to_internal_drive.py` -- `--preflight` (REFUSES unless quiet; verified it
-> fires: 10 live processes, `heartbeat.json` written `0 s` ago, exit 2), `--plan`, `--verify`.**
-> **IT NEVER DELETES FROM THE STICK.** *Run it after `autoloop.py disarm` + the experiment finishes.*
+> ✅ **Q121 ANSWERED: *"do it"*. TOOLING READY, COPY DELIBERATELY NOT STARTED -- at 14:21 the repo
+> was written CONTINUOUSLY, seconds apart (live experiment + runner heartbeat + watchdog +
+> orchestrator + THE AUTOLOOP HOOK ITSELF; I am one of the writers), so a copy then is INCONSISTENT
+> BY CONSTRUCTION.** ➡️ **`tools/move_repo_to_internal_drive.py`: `--preflight` REFUSES unless quiet
+> (verified firing: 10 live procs, `heartbeat.json` `0 s` ago, exit 2) · `--plan` · `--verify`.
+> IT NEVER DELETES FROM THE STICK.** *Run after `autoloop.py disarm` + the experiment finishes.*
 >
 > ## 📉 **08-24 WHERE THE SUBSTRATE ACTUALLY LOSES: `34,169` SENTENCES IN, `386` FACTS OUT**
 > `exp_e2e_trace_v1` (2026-08-13, unread for 11 days; full write-up
@@ -138,20 +137,17 @@
 > citation. The GOLD was the defect, not the work.** *The `41` metrics hits stay UNTOUCHED.*
 >
 > ## 📦 **STANDING, FROM THE OWNER (08-23/08-24)**
-> *"Bundle complicated problems for a solver, and verify the submissions."* · *"Whenever you come
-> upon hard things like this, make it a problem to give to a solver."*
-> · **Q117 ANSWERED 08-24 -- *"fix the bar, and re run the past results."* TWO GATES; ONLY ONE COULD
-> BE FIXED, AND THE SPLIT IS THE POINT.** ✅ `score_space_gain...` owns a trigram arm, so it stripped
-> the gold and RE-MEASURED its own floor in-harness at `0.019500` -- *exposing a real sign bug:
-> `HARD_PASS` never checked the DIRECTION of the delta, so an info-free arm scoring WORSE than base
-> passed. Fixed: stricter, not weaker.* 🚫 `per_row_gain...` owns NO trigram arm and only imported
-> the constant, so it **now REFUSES to grade** (exit 3; refusal fired under `--smoke`).
-> **DO NOT PASTE `0.019500` INTO IT -- different scorer, different population. It would look like a
-> fix and be a fabrication.** ➡️ **PRIORITY 1 `the_gate_cannot_measure_its_own_floor`.** *Direction
-> check: this made results HARDER to publish.* · **Q118 -> priority-1 brief, SOLVED (above).**
-> ⚠️ **`A5_STRINGCTRL 0.0870` is `~78%` MORPHOLOGICAL LEAKAGE** -- stem-stripped `0.0193`, OVERLAPS
-> its own info-free twin. **Never quote it as "what a spell-checker scores".** *Stripper is the
-> promoted `hdlab/morphology_leakage.py`.*
+> *"Bundle complicated problems for a solver, and verify the submissions."* · *"Whenever you come upon hard things like this, make it a problem to give to a solver."*
+> · **Q117 ANSWERED + CLOSED 08-24 (*"fix the bar, and re run the past results"*). BOTH gates now
+> read `ORTHO_BAR = 0.019500`, each RE-MEASURED IN ITS OWN HARNESS on stripped gold, never copied**
+> -- `per_row_gain` owned no trigram arm so it REFUSED to grade until
+> `exp_per_row_gain_trigram_floor_calibration_v1` measured one for it, proving harness identity
+> (`A1_BASE 0.04575`, `self_retrieval 0.755853`, to 1e-9) FIRST. *Also exposed a real sign bug:
+> `HARD_PASS` never checked the delta's DIRECTION, so an info-free arm scoring WORSE than base
+> passed. Fixed -- stricter, not weaker.* 🔴 **CONSEQUENCE: on the HONEST floor the read-out WINS
+> (`0.04575` vs `0.0195`); it lost only to the leaky one.** ⚠️ *`0.04575` is still a weak reader --
+> "beats spelling" must never travel as "reads meaning well".*
+> ⚠️ **`A5_STRINGCTRL 0.0870` is `~78%` MORPHOLOGICAL LEAKAGE** -- stem-stripped `0.0193`, OVERLAPS its own info-free twin. **Never quote it as "what a spell-checker scores".** *Stripper: `hdlab/morphology_leakage.py`.*
 >
 > ## 🎓 **BOTH HALVES OF THE RECORD** *(worked examples + my full correction list: `STATUS_LESSONS.md`)*
 > **`awaiting integration: 0`. Every re-verify passed AND every audit still found something** --
@@ -163,12 +159,10 @@
 >
 > ## 🚧 **RESIDUE STILL LOAD-BEARING AND NOT IN THE MAP**
 > **Channel CANNOT gate links alone** (`66%` hit / `37%` FA, AUC `0.7002`) -- combine, never
-> substitute. **Storage is fine, COMBINING destroys** (~`62%` at the reader's real `k=6`); neither
-> sparsity nor an addressed slot rescues it. **Somatotopy holds at power** (verbs `+0.0651`
-> `[+0.0306,+0.1005]`); the noun half is **CLOSED AS UNANSWERABLE** (~`20,800` pairs needed, we own
-> `666`). ⚠️ **DO NOT raise `GROUNDED_CAP`** -- that gap is what makes "contribute, do not decide"
-> enforceable in code rather than hoped for in prose. *`54` records re-dated by a concurrent replay:
-> MISLABELLING, not data loss; Q115.*
+> substitute. **Storage is fine, COMBINING destroys** (~`62%` at `k=6`); neither sparsity nor an
+> addressed slot rescues it. **Somatotopy holds at power** (verbs `+0.0651`); the noun half is
+> **CLOSED AS UNANSWERABLE** (~`20,800` pairs needed, we own `666`). ⚠️ **DO NOT raise
+> `GROUNDED_CAP`** -- that gap makes "contribute, do not decide" enforceable in code, not hoped for.
 > 📏 **LINE-COUNT NOTE, so nobody re-derives it: THIS FILE HAS THREE QUOTED REGIONS, NOT ONE.** The state block runs to the `7.` line above; then PLAIN closing text; then FURTHER quoted notices (the filename-is-an-API coupling note, the autoloop notice). **Different counting rules include different amounts of that, which is why three measurements of "the block" disagreed (`167` / `178` / `185`).** 🚫 **DO NOT "FIX" THE COUNTER TO REPORT A SMALLER NUMBER -- that is adjusting the band, and adjusting the band is not a result.** *The cap belongs to `session_start_hook.plan_top_block_report`; if it says too long, the answer is LESS CONTENT.*
 **Written 2026-08-18 end of session, at the owner's direction, to be executed after compaction.**
 Supersedes the forward-looking parts of `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md`. Its Section 7
