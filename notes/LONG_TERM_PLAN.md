@@ -276,12 +276,27 @@ runs; the brain-fidelity gate (`3e70c3ba4`); the brain-canonical-defaults tripwi
 > features -- which exist for every word in the corpus.** *That is precisely the coverage problem
 > this phase was created to solve, addressed without adding a single hand-rated word.*
 >
-> ⚠️ **WHAT IS NOT YET MEASURED, AND IT DECIDES THE REDIRECT: whether the distilled arm is as
-> ACCURATE on the `136` pairs the hub does not cover as on the `348` it does.** The `0.8388` is the
-> aggregate; it could be carried by the covered subset. **Split it and report both.** *Until that
-> is done, treat "widening is unnecessary" as the leading hypothesis, not a finding.*
+> ✅ **MEASURED 2026-08-24, AND THE REDIRECT HOLDS. `python tools/split_distillation_by_hub_coverage.py`**
+> *This was the one number that decided it, and it was a RE-ANALYSIS, not a re-run -- the cell saved
+> its `scored_population.json`.*
+>
+> | | HUB-COVERED (`348`) | HUB-UNCOVERED (`136`) |
+> |---|---|---|
+> | **the DISTILLED arm** | `0.8263` CI `[0.7817,0.8674]` | **`0.8669` CI `[0.8062,0.9220]`** |
+> | `cosine` (hub-blind control) | `0.0304` | `0.0254` (`-0.0051`) |
+> | info-free twin (hub-blind control) | `0.6004` | `0.6171` (`+0.0166`) |
+>
+> ➡️ **THE `0.8388` IS NOT CARRIED BY THE COVERED SUBSET.** The uncovered half alone reads `0.8669`
+> with a LOWER BOUND of `0.8062` -- above the aggregate point estimate. **The distilled direction
+> works on words the hand-rated hub has never seen.**
+> 🔬 **AND THE SPLIT IS NOT A DIFFICULTY ARTIFACT, which is the only way this could have been
+> fooled:** both hub-BLIND arms are FLAT across it (`-0.0051`, `+0.0166`), so the uncovered half is
+> not an easier population. *Only the arm that uses the hub's teaching moves.*
+> ⚠️ **THE HONEST CLAIM IS "NOT WORSE", NEVER "BETTER": the difference is `+0.0410` CI
+> `[-0.0353,+0.1091]`, which SPANS ZERO.** Do not quote the `+0.04` as a gain.
 > 🚫 **AND THE TEACHER IS STILL A SUPPLIED TABLE.** Distillation makes the existing norms go
-> further; it does not make the system independent of them. *Label-free, not resource-free.*
+> further; it does not make the system independent of them. *Label-free, not resource-free -- and
+> nothing in this measurement bears on that limit.*
 
 **Brain structure:** sensorimotor spokes feeding the anterior-temporal hub. [PINNED]
 
