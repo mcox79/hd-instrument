@@ -30,10 +30,22 @@ review_text: "The fix is right and its best finding refutes the brief premise --
 > | the gate on that same one-line fixture, 120s budget | 🔻 **TIMED OUT at 121s** |
 >
 > ➡️ **The submission's own baseline for this is "quiet pytest startup is ~2s". It is not 2s here,
-> and no concurrent session is required to make it slow.** *Its cause-isolation control had already
-> excluded plugins and the repo config, so what remains is something intrinsic to file reads in this
-> environment -- on-access antivirus scanning is the classic Windows candidate, and I have NOT
-> tested that, so it is a hypothesis and not a finding.*
+> and no concurrent session is required to make it slow.**
+>
+> 🔴 **AND MY FIRST ANSWER TO "THEN WHAT IS IT" WAS ALSO WRONG, SO BOTH ARE RECORDED.** I measured
+> 1,000 small files at `46.7 ms` each against 15.6 MB in one file at `202 MB/s`, called it "604x
+> slower per byte", and concluded on-access antivirus. **The control was broken: the small files
+> were COLD and the big file had just been WRITTEN, so it came from page cache.** *I compared a disk
+> read against a memory read.* My own witness caught it on re-run, reading the same files at
+> `0.5 ms` once cached.
+>
+> ✅ **THE ACTUAL CAUSE, and it is mundane:** `Get-PhysicalDisk` reports **Disk 0 = WD_BLACK SN770
+> 2TB NVMe SSD** and **Disk 1 = "USB DISK 3.2", BusType USB** -- and `D:` is **Disk 1**. **THE
+> REPOSITORY LIVES ON A USB DRIVE.** Cold-vs-warm on the same 800 untouched files: **`15.40 ms` per
+> open cold, `0.96 ms` warm.** `site-packages` holds **21,036** `.py` files; ~11,000 cold opens at
+> 15 ms is ~165 s, which is the 167 s startup almost exactly.
+> *Antivirus is not excluded as an additional cost -- real-time protection is on and its exclusions
+> need admin to read -- but it is not needed to explain this, and my attempt to isolate it failed.*
 >
 > ⚠️ **WHY THIS MATTERS PRACTICALLY:** the default budget and the advice both rest on the wrong
 > cause. **Waiting for a quiet machine will not fix it**, and a 2700s default on a suite whose
@@ -48,9 +60,9 @@ review_text: "The fix is right and its best finding refutes the brief premise --
 > 🔻 *My `ctl_hang` run exited `3221225477` (an access violation) at 31s instead of timing out --
 > a different failure again, and I have not chased it.*
 >
-> 🎯 **FOLLOW-UP THIS EARNS, AND IT IS SMALL: measure `pytest` startup with antivirus exclusions on
-> the repo and the venv.** *If that is the cause, the whole 527-test suite becomes runnable and the
-> budget question disappears.*
+> 🎯 **FOLLOW-UP THIS EARNS: run the suite from the internal NVMe drive and measure.** *If cold
+> opens drop from 15 ms to sub-millisecond, the 527-test suite becomes runnable and the budget
+> question disappears.* **Predicted, NOT measured -- nobody has run it from the SSD.**
 
 
 > # ⚠️ **VERIFY THE PREMISE FIRST -- I HAVE EVIDENCE THIS MAY NOT BE A HANG AT ALL.**
