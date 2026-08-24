@@ -108,6 +108,35 @@ its RESULTS.* It ran **3 seeds at ~`40,000`-sentence reads**, `UNDERPOWERED: Fal
 | `20260819` | `441` | `0.0159` | `0.0023` (`0.0695`) | **`0.0476`** |
 | `7` | `398` | `0.0302` | `0.0025` (**`0.0050`**) | **`0.0653`** |
 
+## ✅✅ **08-24: THE FIRST GENUINE BRAIN-FAITHFUL WIN OF THE STRETCH -- COMBINE, DON'T SUBSTITUTE, CONFIRMED ON FAIR GOLD**
+**`exp_c3_grounded_fusion_v1` (`run_mode: full`, n=`4,000` over `5,491` anchors, 5,000x paired
+bootstrap). OWNER MARKED BOTH REMAINING PROBLEMS `DONE` 08-23 23:55/23:58.**
+🔑 **READ THE MORPHOLOGY-STRIPPED (FAIR) GOLD, NOT THE LEAKY ONE -- THE RANKING INVERTS:**
+
+| arm, FAIR gold | hit@1 | |
+|---|---|---|
+| ✅ **`FUSE_BASE_GROUNDED` -- distributional **+** grounded spoke, NO spelling** | **`0.0790`** `[0.0707,0.0875]` | **BEST ARM** |
+| `GROUNDED` alone | `0.0607` `[0.0534,0.0682]` | *fusion beats it, CI-separated* |
+| `A1_BASE` (flat bag alone) | `0.0459` `[0.0396,0.0524]` | *fusion beats it, CI-separated* |
+| 🔻 `FUSE_BASE_GROUNDED_STRING` (**+ spelling**) | 🔻 `0.0431` | **WORSE THAN THE BAG ALONE** |
+| `A5_STRINGCTRL` (honest spelling floor) | `0.0193` | *fusion beats it ~`4x`* |
+
+➡️ **THE HUB-AND-SPOKE FUSION BEATS BOTH OF ITS OWN COMPONENTS CI-SEPARATED, AND BEATS THE HONEST
+FLOOR BY ~`4x`.** *Control binds: `FUSE_RANDOM_GROUNDED` `0.0291` -- it is not "any second channel".*
+⚠️ **AND THE `0.1125` "clears the floor's upper bound" HEADLINE IS THE **WEAKER** CLAIM, NOT THE
+STRONGER ONE.** It uses the SPELLING channel scored on LEAKY gold -- morphology on both sides. **On
+fair gold that same arm COLLAPSES to `0.0431`, below the bag alone: once the leakage is stripped the
+spelling channel is ACTIVELY HARMFUL.** *The cell's own verdict is the conservative
+`COMBINE_BEATS_EITHER_BUT_NOT_THE_FLOOR`, and the brain-faithful arm indeed does not clear the LEAKY
+floor (`-0.0033`, CI includes 0). Quote the FAIR-gold row.*
+🧠 **AND IT FITS THE NIGHT'S ONE FINDING RATHER THAN CONTRADICTING IT: fusion WORKS when the two
+channels are COMPARABLE (distributional + grounded); it FAILS when one is a DOMINATING PRIOR (the
+frequency prior swamps the same grounded channel, `0.4811` -> `0.1415`).** *Same missing organ: a
+control that weights a source by how much it should be trusted HERE.*
+🎯 **THIS IS `reader_meaning_channel`'s MISSING ADAPTER, MEASURED: z-score-fuse the distributional
+cosine with the grounded sensorimotor cosine at read-out.** 🚫 **Do NOT add the spelling channel, and
+score future c3-style gates against MORPHOLOGY-STRIPPED gold.**
+
 🛑🛑 **AND A PRE-REGISTERED `STOP_IF` HAS ALREADY FIRED ON THIS WHOLE ROUTE -- `exp_corpus_capacity_
 ppmi_svd_ceiling_v1` (08-18). READ THIS BEFORE PROPOSING ANY WRITE-RULE FIX.**
 **`CORPUS_CAPACITY_CEILING__STOP_IF_iii_INFO_PRESENT_NO_UNSUPERVISED_FIRST_ORDER_TRANSFORM_REACHES_IT`**
