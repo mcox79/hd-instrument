@@ -33,6 +33,7 @@ none.
 """
 from __future__ import annotations
 
+import concurrent.futures
 import glob
 import json
 import os
@@ -40,6 +41,12 @@ import re
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Read concurrency for the file scan. Deliberately well above CPU count: the work is IO-bound (open
+# + read + substring), so the useful ceiling is how many reads the filesystem will service at once,
+# not how many cores exist. Kept modest so that running this alongside a live experiment does not
+# starve it of IO -- this repo currently has experiments writing while tools read.
+_SCAN_WORKERS = 32
 
 # Caveat vocabulary, taken from the three real misses plus the repo's standing measurement bar.
 CAVEAT = re.compile(
@@ -80,22 +87,33 @@ def _hits(literal: str) -> list[str]:
     scanned all of `data/`, which CLAUDE.md records as ~26 GB; one metrics file per cell is the part
     that carries `scope_disclaimer`.
     """
+    # PARALLELISED 2026-08-24 BECAUSE THE SERIAL VERSION HAD BECOME UNUSABLE, NOT WRONG.
+    # This scan is pure IO: open, read, substring, close. It was a serial loop, and the corpus grew
+    # under it -- `notes/*.md` is now 14,325 files averaging 16.3 KB. MEASURED on this machine:
+    # 300 files took 10.62 s, i.e. ~507 s for the full set, and a real query timed out at 500 s
+    # with NO output. The module docstring's "~2 s warm" is from when notes/ was small; a tool that
+    # takes eight minutes is one nobody runs, and this is one of the SIX MANDATED prior-work reads.
+    #
+    # Threads are the right primitive here specifically because the work is IO: CPython releases
+    # the GIL across file reads, so this scales even though it is "just threads". It is NOT a
+    # semantic change -- same files, same substring, same order (executor.map preserves input
+    # order, which keeps the report deterministic), same OSError-skip behaviour.
     lit = literal.encode("utf-8")
+
+    def _match(path):
+        try:
+            with open(path, "rb") as fh:
+                return path if lit in fh.read() else None
+        except OSError:
+            return None
+
+    paths = (sorted(glob.glob(os.path.join(REPO, "notes", "*.md")))
+             + sorted(glob.glob(os.path.join(REPO, "data", "*", "metrics.json"))))
     out = []
-    for path in glob.glob(os.path.join(REPO, "notes", "*.md")):
-        try:
-            with open(path, "rb") as fh:
-                if lit in fh.read():
-                    out.append(os.path.relpath(path, REPO).replace("\\", "/"))
-        except OSError:
-            continue
-    for path in glob.glob(os.path.join(REPO, "data", "*", "metrics.json")):
-        try:
-            with open(path, "rb") as fh:
-                if lit in fh.read():
-                    out.append(os.path.relpath(path, REPO).replace("\\", "/"))
-        except OSError:
-            continue
+    with concurrent.futures.ThreadPoolExecutor(max_workers=_SCAN_WORKERS) as ex:
+        for path in ex.map(_match, paths):
+            if path is not None:
+                out.append(os.path.relpath(path, REPO).replace("\\", "/"))
     return out
 
 
