@@ -45,6 +45,17 @@ ANCHOR_NAME = "exp_per_row_gain_c3_vet_v1" + ("_smoke" if SMOKE else "")
 OUT = os.path.join(_REPO, "data", ANCHOR_NAME)
 os.makedirs(OUT, exist_ok=True)
 
+# 2026-08-23: THIS BAR IS KNOWN TO BE INFLATED AND IS DELIBERATELY LEFT UNCHANGED.
+# Measured in data/exp_c3_surprise_weighted_vs_bundling_v1/metrics.json (run_mode full, n=4000):
+# the WordNet gold this is scored against is largely built from STEM-SHARING pairs, so a
+# character-trigram control wins without representing anything. Strip stem-sharing gold and this
+# floor falls 0.0867 -> 0.0193, whose CI [0.0153,0.0238] OVERLAPS its own info-free shuffled twin
+# [0.0135,0.0213]. ~78% of the bar is morphological leakage.
+# IT IS NOT LOWERED HERE ON PURPOSE. Lowering a gate makes every future result easier to pass, and
+# doing that on our own analysis -- of a number that has been beating us -- is the one move the
+# operating rules forbid outright. Owner decision is open as board Q117; whoever answers it changes
+# this constant, not the session that found the problem.
+# Witness: verification/test_removing_the_bundle_helps_it_just_does_not_help_enough.py
 ORTHO_BAR = 0.0870
 ORTHO_BAR_CI = (0.0783, 0.0960)
 SELF_RETRIEVAL_FLOOR = 0.70

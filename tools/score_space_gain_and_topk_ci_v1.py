@@ -55,6 +55,10 @@ ANCHOR_NAME = "exp_score_space_gain_and_topk_ci_v1" + ("_smoke" if SMOKE else ""
 OUT = os.path.join(_REPO, "data", ANCHOR_NAME)
 os.makedirs(OUT, exist_ok=True)
 
+# 2026-08-23: KNOWN INFLATED, DELIBERATELY UNCHANGED -- see the same note in
+# tools/per_row_gain_c3_vet_v1.py. ~78% of this bar is morphological leakage in the WordNet gold
+# (0.0867 -> 0.0193 on stem-stripped gold, overlapping its own info-free twin). NOT lowered here:
+# a gate is not weakened by the session whose results it constrains. Owner decision open as Q117.
 ORTHO_BAR = 0.0870
 ORTHO_BAR_CI = (0.0783, 0.0960)
 SELF_RETRIEVAL_FLOOR = 0.70
