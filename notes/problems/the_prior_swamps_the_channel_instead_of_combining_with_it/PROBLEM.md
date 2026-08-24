@@ -1,8 +1,55 @@
 ---
 priority: 2
-review:
-review_text:
+review: EXCELLENT
+review_text: "Bounded the whole solution space with oracle ceilings instead of trying rules one at a time: a perfect router scores EXACTLY the channel, so no monotone combination has headroom. Killed the crux I named -- peakedness predicts prior-error at AUC 0.4033, below chance -- and found the correlated-error mechanism I had missed: 95.65 percent of the channel wrong picks are higher-frequency than truth."
 ---
+
+> # 🥇 **MY REVIEW -- EXCELLENT. IT KILLED THE CRUX I NAMED, WITH A DIRECT MEASUREMENT.**
+> *Reviewed 2026-08-24. Re-verify PASSES, 13 substantive checks. Everything below is from that run.*
+>
+> ## ✅ **IT ANSWERED THE BRIEF BETTER THAN THE BRIEF ASKED, BY BOUNDING THE WHOLE SOLUTION SPACE**
+> Instead of trying combination rules one at a time, it ran the ORACLE CEILINGS -- and they settle it:
+>
+> | ceiling | value | what it forecloses |
+> |---|---|---|
+> | `ORACLE_ROUTE` (per-item, pick the better cue) | **`0.4811`** = the channel EXACTLY | **routing cannot help** -- the prior is wrong on `100%` of these items, so there is nothing to route TO |
+> | `ORACLE_BLEND`, monotone (prior weight `>= 0`) | `0.4748` | **no monotone blend has headroom** |
+> | lambda sweep, best | `0.4245` | below the channel |
+> | 🔓 **`SIGNED` oracle (prior weight free)** | **`0.7799`** | **headroom EXISTS -- but only via SUPPRESSION** |
+>
+> ➡️ **SO MY FRAMING WAS WRONG AT THE ORACLE LEVEL, NOT MERELY UNBUILT.** *I asked for
+> reliability-weighted combination. A PERFECT reliability weighter, given the answers, cannot beat
+> the channel here.* **The only mechanism with room is a NEGATIVE prior weight -- suppressing the
+> dominant sense (reordered-access, Duffy/Rayner 1988), which is a different organ entirely.**
+>
+> ## 🔻 **AND IT KILLED THE CRUX I EXPLICITLY NAMED**
+> My brief said the prior's error might be *"PREDICTABLE from a property we can compute (how peaked
+> the sense-frequency distribution is). Untested. It is the crux."* **Measured: `AUC(peakedness ->
+> prior-wrong) = 0.4033` -- BELOW chance.** *My proposed predictor is worse than useless.* **And no
+> other gold-blind detector fires either** (`channel-disfavours-MFS -> subordinate` `AUC 0.5114`;
+> `channel-confidence -> channel-right` `0.5396`). 🔑 **Its info-free twin detector scores `0.6572`
+> on subordinate -- HIGHER than the real one, so the detector carries no signal at all.**
+>
+> ## 🧠 **THE MECHANISTIC FINDING I HAD MISSED, AND IT EXPLAINS THE WHOLE FAILURE**
+> **`95.65%` of the channel's wrong picks on subordinate items are HIGHER-FREQUENCY than the truth.**
+> *The channel fails in the SAME DIRECTION as the prior.* ➡️ **That is CORRELATED ERROR -- precisely
+> the regime the landed `exp_attention_salience_reliability_gate_correlated_error_v1` HARD_FAIL says
+> INVERTS reliability weighting (`auc 0.3198`, below chance).** **The brief listed that as the
+> suspected regime; this confirms it with a direct count rather than an analogy.**
+>
+> ## ⚖️ **WHAT IT HONESTLY DID NOT ACHIEVE, AND SAYS SO**
+> The suppression mechanism WORKS on subordinate (`b=-1.5`: `0.7673` vs channel `0.4811`,
+> `+0.2862` CI `[+0.1761,+0.4025]`) **and CRASHES the dominant population** (`0.3103` vs prior
+> `0.5855`, `-0.2752` CI `[-0.3385,-0.2137]`). **A pure population trade-off, so the bar's
+> do-no-harm clause is not met and it reports REFUTED rather than claiming the win.** *Even a
+> split-KNOWING best-case gate reaches only `0.5252` sub / `0.4026` dom.*
+> ✅ *And the channel's own signal is confirmed real: info-free twin `0.2979` vs `0.4811`.*
+>
+> 🎯 **THE REDIRECT: the missing organ is a SUBORDINATE-CONTEXT DETECTOR -- something that recognises
+> "this context calls for the rare sense" -- and it is bottlenecked on channel quality.** *Which is
+> the same missing piece three other instruments found, arriving on a fourth and sharper: not "weight
+> your sources", but "notice when the common answer is the wrong one".*
+
 
 > # 🥈 **PRIORITY 2 — A MEASURED FAILURE OF *COMBINATION*, WITH A LANDED RECIPE AND TWO LANDED TRAPS ALREADY ON DISK.**
 > **This is not "go build reliability weighting."** That mechanism has a **HARD_PASS** and two

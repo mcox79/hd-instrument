@@ -137,3 +137,17 @@ computed not assumed, every control excludes something, and the witness passes a
    point at the same root -- the grounded channel is too frequency/co-occurrence-correlated to add
    independent signal, so what is missing is either an independent second cue or a learned control that
    knows when to trust it. The shared redirect is worth more than any one finding.
+
+---
+
+## INTEGRATED_BY_STRATEGY -- 2026-08-24
+
+Re-verified (13 checks pass). Review EXCELLENT. My brief's framing is REFUTED at the ORACLE level: a perfect per-item router scores 0.4811, exactly the channel, because the prior is wrong on 100% of these items. No monotone blend has headroom (0.4748). Only a SIGNED (suppression) rule does (0.7799), and it is a pure population trade-off.
+
+The crux I named -- that peakedness would predict when the prior is wrong -- is measured at AUC 0.4033, below chance. The info-free twin detector scores HIGHER than the real one.
+
+New mechanism recorded: 95.65% of the channel's wrong picks are higher-frequency than truth, so channel and prior fail in the SAME direction. That is the correlated-error regime the landed reliability-gate HARD_FAIL says inverts the mechanism -- suspected in the brief, confirmed here by count.
+
+REDIRECT: the missing organ is a subordinate-context detector, bottlenecked on channel quality. Fourth independent arrival at the same missing piece.
+
+*Appended by the strategy session, which owns integration (board Q111). Solver text unchanged.*
