@@ -338,7 +338,15 @@ def progress() -> dict:
         if prev is not None:
             for k, v in cur.items():
                 if prev.get(k) not in (None, v):
-                    changes.append({"when": when, "stage": k, "from": prev[k], "to": v})
+                    # A CORRECTION IS NOT MOVEMENT. If a stage was mislabelled and I fix the
+                    # label, the state changes without the substrate changing -- and on a
+                    # progress view that reads as progress. Stages may carry `state_note`
+                    # explaining a change; it is surfaced beside every change so a relabelling
+                    # can never be quietly banked as a win.
+                    note = next((s.get("state_note") for s in
+                                 json.loads(blob).get("stages", []) if s.get("name") == k), "")
+                    changes.append({"when": when, "stage": k, "from": prev[k], "to": v,
+                                    "note": note or ""})
         series.append({"rev": h, "when": when, "states": cur})
         prev = cur
     briefs = load_briefs()
@@ -375,7 +383,12 @@ def render_progress():
     if p["stage_state_changes"]:
         print("STAGE STATE CHANGES (%d):" % len(p["stage_state_changes"]))
         for c in p["stage_state_changes"]:
-            print("   %s  %-30s %s -> %s" % (c["when"][:16], c["stage"], c["from"], c["to"]))
+            print("   %s  %-28s %s -> %s" % (c["when"][:16], c["stage"], c["from"], c["to"]))
+            if c.get("note"):
+                print("        WHY: %s" % c["note"][:150])
+            else:
+                print("        WHY: (no state_note -- unexplained changes are not evidence of "
+                      "progress)")
     else:
         print("STAGE STATE CHANGES: *** NONE ***")
         print("   Not one pipeline stage has moved since the file was created. In that window")
