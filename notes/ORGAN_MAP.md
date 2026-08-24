@@ -715,6 +715,16 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
 - **BLOCKS:** nothing today.
 
 **D7 — Successor representation: the predictive relational map** *(**LABEL CORRECTED 2026-08-20: NOT MISSING.** `hdlab/successor_representation.py` is on disk and `capability_registry.jsonl` carries `successor_representation_d7_v1`. The prior *MISSING* label was stale and would have sent someone to rebuild an organ that exists -- caught by auditing all 39 organ sections against their own declared modules. Its math remains FULLY PINNED; what is unverified is whether the built organ MATCHES that math, which is a different question and still open.)*
+- 🔴 **D7 2026-08-24 — BOTH OPEN QUESTIONS IN THE HEADING ABOVE ARE NOW CLOSED, AND THE SECOND ONE CLOSED BADLY.**
+  **(1) The built organ DOES match the math** — `inv` / `solve` / `(I - gamma*P)` / `np.eye`, no
+  epochs and no optimiser. It is the closed form, not a learned stand-in.
+  **(2) It has been MEASURED AND IT LOSES.** `exp_sr_scale_ladder_v1`, FULL, 2026-08-19:
+  **`0` of `24` arms clear the credible bar**, and it DEGRADES with scale (`SR_g0.9`
+  `0.0125 -> 0.0000` from 750 to 40,000 sentences while the counting floor RISES
+  `0.0200 -> 0.0700`, all three seeds). **"Scale it up" is refuted by its own ladder.**
+  🚫 **DO NOT propose building, wiring or scaling D7 on the strength of `M = (I - γP)⁻¹` being
+  pinned. The equation is pinned; OUR IMPLEMENTATION OF IT WAS RUN AND LOST.** Detail, controls and
+  the ConceptNet look-alike it must not be confused with: further down this entry.
 - **BRAIN'S MATH:** `M(s,s') = E[Σ_{k≥0} γ^k · 1{s_k = s'} | s_0 = s]`, i.e. **`M = (I − γP)⁻¹`**.
   Place cells are rows of M; **grid cells are the eigenvectors of M**. Multi-scale: several γ run
   simultaneously (Dayan 1993 *Neural Computation* 5:613; Stachenfeld, Botvinick & Gershman 2017
@@ -722,14 +732,37 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   conditions. Related and also pinned: TEM's conjunctive code **`p = g ⊗ x`** (structural × sensory),
   where the same structural code g reused across environments gives immediate transitive-inference
   generalisation (Whittington et al. 2020 *Cell* 183:1249).
-- **OURS:** **NONE.** The nearest things: `hdlab/kg_traversal.py:89-111` does hard-argmax n-hop
+- 🔴 **D7 — "OURS: NONE / UNTESTED" IS FALSE SINCE 2026-08-18. THE ORGAN EXISTS, WAS MEASURED, AND LOST. READ THIS BEFORE PROPOSING TO BUILD OR SCALE IT.**
+  **BUILT:** `hdlab/successor_representation.py`, 435 lines, 2026-08-18 — the genuine closed form
+  (`inv` / `solve` / `(I - gamma*P)` / `np.eye`; no epochs, no optimiser), self-supervised from the
+  corpus's own transitions: no gold, no WordNet, no LLM. Registered `successor_representation_d7_v1`
+  **WIRED**, and NOT in the substrate's eager closure.
+  **MEASURED, AND NOBODY READ IT:** `exp_sr_scale_ladder_v1`, FULL run 2026-08-19 — simplewiki,
+  3 seeds, 400 items, pool FROZEN at `2,161`, NESTED rung corpora, `items_predate_mechanism: true`,
+  `_underpowered: false` at every rung. **`0` of `24` SR arms clear the credible bar** (2 gammas x
+  4 rungs x 3 seeds; the bar is the co-occurrence floor's UPPER CI).
+  🔻 **AND THE SCALING RUNS THE WRONG WAY:** 750 -> 40,000 sentences moves the counting floor
+  `0.0200 -> 0.0700` while `SR_g0.9` falls `0.0125 -> 0.0000`, same direction on all three seeds.
+  **More data makes counting better and this organ worse. "Scale it up" is refuted by its own ladder.**
+  ⚠️ **THE CELL WROTE NO `verdict` FIELD**, so the index lists it landed-with-no-verdict and the
+  result sat unread for five days while the slot table still advertised D7 as *"highest
+  value-per-effort... WE HAVE WRITTEN NONE OF IT."*
+  🚫 **DO NOT CONFLATE WITH THE 2026-07-09 `HARD_PASS_CG_SR_REACHABILITY` — I did, briefly.** That
+  is a TRAINED CONTRASTIVE code (`epochs=140`, `lambda_bind/cov/var`) over a **ConceptNet** subgraph
+  (4,440 nodes, 16 `CN_*` relations), in a KG subsystem the live reading path does not touch. **Its
+  `SR_SEEDED @2=0.434` says nothing about the closed-form organ on the reading path.** Same three
+  letters, two different organs on two different substrates.
+- **OURS (WRITTEN BEFORE THE ORGAN EXISTED; kept for the record):** **NONE.** The nearest things: `hdlab/kg_traversal.py:89-111` does hard-argmax n-hop
   (`key = E[s]*R[p]`, `scores = E @ (W @ key)`, argmax, feed the argmax entity back in — **no soft
   state between hops**); and `hdlab/multi_hop.py:69-70` has a softmax chain whose **default β = n_dim
   makes the softmax a Dirac delta, i.e. identical to hard argmax** — the module's own code says so at
   `:88-96` and records that **two prior cells were confounded by exactly this.**
-- **FIDELITY:** **MISSING**, and the nearest owned organ is silently degenerate.
-- **WIRED:** NO
-- **EVIDENCE:** none for SR. **UNTESTED.**
+- **FIDELITY:** the closed form IS implemented faithfully (see the 08-18 correction above); what
+  fails is the RESULT, not the fidelity. *The nearest OTHER owned organs remain silently degenerate.*
+- **WIRED:** registered `WIRED`, **not on the live path** (NEEDS_ADAPTER) — and on current evidence
+  wiring it would move nothing.
+- **EVIDENCE:** ~~none for SR. UNTESTED.~~ **TESTED AND LOST: `exp_sr_scale_ladder_v1` 2026-08-19,
+  `0`/`24` arms clear, degrading with scale. See the 08-18/08-19 correction at the top of this entry.**
 - **BLOCKS:** multi-hop relational reasoning; transitive inference; any "what follows from what" query
   over the 1.21M-edge CSKG.
 
