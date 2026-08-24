@@ -1942,10 +1942,19 @@ class StatusWindow:
             # OWNER 08-23, verbatim: "what does that mean? Am I supposed to do anything? It's
             # really not clear if that's 'you' - Opus 5, or me, the user."  THE COLUMN SAID
             # "WAITING ON ME?" -- written from MY point of view, in a window THEY read, where
-            # "me" resolves to the reader. NEVER use a first- or second-person pronoun in a
-            # heading or cell here: NAME THE ACTOR. Same reason the hint below says "Claude".
+            # "me" resolves to the reader.
+            #
+            # THE RULE, CORRECTED 2026-08-24 -- the first version of it was too broad AND missed a
+            # live instance one line below itself. It said "never use a first- or second-person
+            # pronoun". That is wrong about SECOND person: "YOU SAY" and "YOUR VERDICT" address the
+            # reader and resolve correctly, which is exactly what you want. The broken class is
+            # FIRST person -- "my"/"me"/"our" means Claude but reads as the owner in the owner's own
+            # window. "MY RATING" survived the original fix for that reason: the rule forbade the
+            # wrong thing, so it read as compliant.
+            # SO: FIRST PERSON IS BANNED IN ANY HEADING OR CELL HERE -- NAME THE ACTOR. Second
+            # person is fine when it means the reader.
             headings=("#", "PROBLEM", "SOLVER SAYS", "WHOSE MOVE?", "YOU SAY",
-                      "MY RATING", "WHAT THEY FOUND"),
+                      "CLAUDE RATES IT", "WHAT THEY FOUND"),
             height=9)
         frame.grid(row=2, column=0, sticky="nsew")
         self.pb_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_problem_detail())
