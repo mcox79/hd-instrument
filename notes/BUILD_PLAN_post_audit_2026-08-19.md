@@ -6,17 +6,13 @@
 > restated.** A plan that duplicates a derived view is a second copy that rots.*
 >
 > ## 🗺️ **READ THE MAP FIRST, NOT THIS FILE: `python tools/substrate_map.py`**
-> **Built 08-24 on owner instruction** -- *"I want to understand exactly how the state of the
-> substrate is, where the gaps are, what the problems you've farmed out are supposed to shore up,
-> where those solutions have gotten us and how much progress we've made."* **It JOINS ORGAN_MAP's
-> `38` organs, the `10` pipeline stages, the `21` briefs and the registry, and DERIVES on every
-> run** -- so stage state, gaps, who owns each gap and what came back are no longer restated here.
-> `--gaps` worst-first · `--organ B3` brain requirement with corrections FIRST · `--brief <slug>` ·
-> `--progress` · `--build` feeds GUI tab 0. **Solvers may use all of it.**
-> *(`23` briefs as of 08-24.)*
->
-> ## 🏁 **PROGRESS, FROM GIT NOT MEMORY (`--progress`): `16` BRIEFS RETURNED, `15` FOLDED IN, NOT ONE STAGE CHANGED STATE.**
-> **Activity is not movement, and a tracker cannot tell them apart.** *Stages carry `state_note`.*
+> **Built 08-24 on owner instruction** (*"understand exactly how the state of the substrate is, where
+> the gaps are... and how much progress we've made"*). **It JOINS the `38` organs, `10` pipeline
+> stages, `23` briefs and the registry, and DERIVES on every run**, so none of that is restated here.
+> `--gaps` · `--organ B3` (corrections FIRST) · `--brief <slug>` · `--progress` · `--build`.
+> **Solvers may use all of it.**
+> 🏁 **`--progress`, FROM GIT NOT MEMORY: `16` BRIEFS RETURNED, `15` FOLDED IN, NOT ONE STAGE CHANGED
+> STATE.** *Activity is not movement and a tracker cannot tell them apart; stages carry `state_note`.*
 >
 > ## 🥇🥇 **08-24 THE SUBSTITUTABILITY WALL IS BROKEN -- FIRST UNSUPERVISED ARM TO CLEAR THAT INSTRUMENT ON MERIT**
 > **Cross-modal distillation** -- the grounded sensorimotor hub TEACHES a direction over PPMI+SVD,
@@ -32,60 +28,57 @@
 > INVERTED (`0.0285`). Neither carries substitutability. Their AGREEMENT does.**
 > 🚫 **STAGE 2 STAYS `BROKEN` ANYWAY** -- this lives in a cell; the substrate's write rule still reads
 > `0.051`. *Banking a research result as a capability is the confusion the progress view prevents.*
-> ➡️ **WIRING IT IS THE HIGHEST-VALUE CAPABILITY WORK AVAILABLE -- AND 08-24 IT IS BLOCKED ON ONE
-> NAMED ORGAN. DO NOT START THE WIRING; BUILD THAT FIRST.** *Found by RUNNING the substrate and
-> reading `sys.modules`, not by grep or by `pipeline_status` (wrong in BOTH directions).*
-> **`hdlab/grounded_similarity` IS live and returns `0.45` for `sofa/couch`, `apple/orange` AND
-> `dog/cat` -- IDENTICAL, all three pinned at `GROUNDED_CAP`.** *Uncapped: `0.968`/`0.952`/`0.932`,
-> synonym and sibling overlapping; its docstring calls this a principled ceiling that no threshold on
-> that metric can fix.* **THAT CEILING IS WHAT DISTILLATION BREAKS** (`0.5513` -> `0.8388`).
-> 🚫 **BUT THE TAUGHT DIRECTION NEEDS A WORD-CONTEXT VECTOR AT INFERENCE AND THE LIVE PATH HAS NONE:**
-> hand lexicon ~`230` concepts; `grounded_similarity` is norms-only; and **`ppmi_sparse_encoder` is
-> CHAR-TRIGRAM (spelling) by its own docstring and is NOT in the live closure** (nor
-> `composed_encoder_v3`, nor `sensorimotor_spoke`). A distilled direction reweights a SPECIFIC SVD
-> basis -- on a spelling basis it is meaningless. ➡️ **PRIORITY 2
-> `the_live_meaning_organ_has_no_distributional_channel_to_be_taught_by`.**
-> ✅ **B5 `NEEDS_ADAPTER` is NOT a blocker** -- the teacher is needed at FIT time only, so the direction
-> is a STATIC OFFLINE-BUILT ASSET, admissible per the owner's 08-16 ruling. *Label it as such.*
-> ⚠️ **DO NOT RAISE `GROUNDED_CAP`, and it would not help: `0.968` vs `0.952` does not separate. The
-> channel is MISSING, not mis-tuned.**
-> 🔻 *HYPOTHESIS, NOT MEASURED: our meaning step reading `0.051` BACKWARDS may be caused by its only
-> live word-description being a SPELLING code -- which would make the organ and the `~78%`-morphology
-> floor the same thing. Converging, unproven.* 🔻 *And the closure list is an EAGER-IMPORT trace: it
-> cannot see lazily-imported organs and the substrate builds organs lazily. Re-derive by running a
-> read; do not quote the `36`.*
+> 🚫 **AND THE LIVE MEANING ORGAN CANNOT DO THIS JOB: `hdlab/grounded_similarity` returns `0.45` for
+> `sofa/couch`, `apple/orange` AND `dog/cat` -- IDENTICAL, all pinned at `GROUNDED_CAP`** (uncapped
+> `0.968`/`0.952`/`0.932`; its docstring calls that a principled ceiling no threshold can fix).
+> **DISTILLATION BREAKS EXACTLY THAT CEILING** (`0.5513` -> `0.8388`). ⚠️ **DO NOT RAISE
+> `GROUNDED_CAP` -- `0.968` vs `0.952` does not separate; the CHANNEL is missing, not mis-tuned.**
+> ✅ **SPLIT BY HUB COVERAGE (`tools/split_distillation_by_hub_coverage.py`, a re-analysis): covered
+> `348` -> `0.8263`; the `136` the hub CANNOT SCORE AT ALL -> `0.8669` CI `[0.8062,0.9220]`, lower
+> bound ABOVE the aggregate. Both hub-BLIND arms FLAT across the split (`-0.0051`,`+0.0166`), so not
+> a difficulty artifact.** ⚠️ *"NOT WORSE", never "better": `+0.0410` CI `[-0.0353,+0.1091]` spans
+> zero.* ➡️ **PHASE 1'S "+14,704 hand-rated words" IS PROBABLY THE WRONG PURCHASE.**
 >
-> ### ✅ **SPLIT BY HUB COVERAGE 08-24 -- IT REDIRECTS PHASE 1. `tools/split_distillation_by_hub_coverage.py`**
-> A RE-ANALYSIS, not a re-run (the cell saved `scored_population.json`). **Hub-covered `348` read
-> `0.8263`; the `136` the hub CANNOT SCORE AT ALL read `0.8669` CI `[0.8062,0.9220]` -- lower bound
-> ABOVE the aggregate, so `0.8388` is NOT carried by the covered subset.** 🔬 **Not a difficulty
-> artifact either -- both hub-BLIND arms are FLAT across the split (`-0.0051`, `+0.0166`).**
-> ⚠️ **"NOT WORSE", NEVER "BETTER": difference `+0.0410` CI `[-0.0353,+0.1091]` SPANS ZERO.**
-> ➡️ **PHASE 1'S "buy +14,704 hand-rated words" IS PROBABLY THE WRONG PURCHASE -- project the norms
-> we own onto features that exist for every word.** *(Banner in `notes/LONG_TERM_PLAN.md`.)*
-> 🔻 *NOT reported as a finding: the hub reads `AUC 0.0000` on the uncovered half -- a **NaN
-> artifact** (no norms there; NaN comparisons are all False, faking perfect inversion). The tool now
-> refuses any arm containing NaN and self-tests that mode.*
->
+> ## 🔗 **08-24 THE WHOLE MEANING CHAIN, JOINED UP -- AND IT WAS FOUR UNREAD RESULTS, NOT A NEW IDEA**
+> **1. THE READ-OUT DOES NOT CONSULT GROUNDED FACTS.** `exp_substrate_end_to_end_readout_v1` (FULL
+> 08-19) PRE-COMMITTED reading **(e)** before running, and it fired: ablating consolidation drives
+> provenance `38->0` and refusals `199->0` — it demonstrably FIRES — **and the read-out stays
+> BIT-IDENTICAL on all 3 seeds, floor included.** `control_n_provenance=[38,68,112]`, so the
+> disqualifying reading (g) does not apply. *Consolidation is not weak; it is DISCONNECTED.*
+> ⚠️ *`foraging`/`gap_detector` ablations moved NO counter, so they are NOT nulls -- cannot tell
+> "does nothing" from "switch did not fire". `episodic` moved `pool_size` `2114->2161`, so not clean.*
+> **2. THE FIX IS BUILT AND DELIBERATELY UNWIRED.** `Substrate.recall_cortical` (slot `B3'`) exists
+> and its docstring names this exact symptom. **`NEEDS_ADAPTER` ON EVIDENCE, NOT ABSENCE:** scored
+> 08-22 at `0.057/0.043/0.043` vs a counting floor `0.090/0.103/0.097`, **`0` of `15` cells clear**.
+> *NOT inert -- it beats scramble, a random twin, a concreteness prior AND the episodic route: "a
+> real, tiny, CLS-consistent difference buried under counting."* 🚫 **"That is a change to
+> `build_cortical_index`, NOT a wiring job."**
+> **3. ITS REVIVAL CRITERION IS PRIORITY 2, ALMOST WORD FOR WORD:** it earns an adapter only if its
+> retrieval SPACE beats counting **in the UNSEEN-CO-OCCURRENCE regime, on a task POWERED for it** --
+> because under CLS the cortical read's job is GENERALISATION, and a cloze whose answer co-occurs
+> with its cue **rewards the EPISODIC style, so that task is biased against what the organ is FOR.**
+> **4. THAT POWERED TEST HAS BEEN RUN** (`cortical_read_never_tested_where_it_matters`, 269/279/271
+> unseen items/seed, overlap 0): **a SUPPLIED distributional space clears CI-separated 3/3; NOTHING
+> self-built does.** ➡️ **So the open question is WHICH SPACE — which is priority 2, now unblocked.**
+> 🔻 *I placed a HOLD on priority 2 and LIFTED it the same day after reading one further source. The
+> wrong HOLD is kept visible in the brief.*
 > ## 🧱 **THE ONE FINDING FOUR INSTRUMENTS AGREE ON: AN ORACLE CLEARS, NOTHING UNSUPERVISED REACHES IT**
-> `ORACLE_UNION` **`0.4082`** vs counting `0.3242` (partial-cue identity) · `BEST_SINGLE_ORACLE`
-> **`0.3033`** vs `SUM_ALL` `0.0100` (write rule) · fitted held-out **`0.9606`** vs every transform
-> `0.02`-`0.13` (substitutability) · and on sense selection **a PERFECT router scores EXACTLY the
-> channel** (`0.4811`), so no monotone combination has headroom -- only SUPPRESSION does (`0.7799`)
-> and it crashes the dominant population. **The missing organ is "notice which source to trust".**
-> ✅ **08-24 supplies the first working instance: let one source TEACH the other rather than weight
-> them.**
-> 🔁 **SAME GAP AGAIN 08-24, DIFFERENT ORGAN.** The `cortical_read` submission (re-verified `6`/`6`,
-> STRONG) concludes *"nothing self-built generalises, so SUPPLY a distributional spoke"* -- a
-> purchase. **But every self-built arm there is ALONE or CONCATENATED (`BOTH` IS a concat;
-> `teach`/`distil`/`orient` appear nowhere in the file): WEIGHTED, never TAUGHT.** ➡️ priority-3
-> `teach_the_self_built_space_instead_of_concatenating_it`. ⚠️ **A GAP, NOT A PREDICTION -- the
-> submission supplies the doubt itself: SIMILARITY IS NOT RETRIEVAL ASSOCIATION, so teaching may not
-> transfer. Distillation was shown on SUBSTITUTABILITY. NO NUMBER CROSSES TASKS.** *A clean powered
-> failure is a full PASS there.*
-> 🧠 **CARRY THIS: twice in one night the conclusion was BUY MORE and the untested cell was
-> PROJECT/TEACH WHAT WE OWN. Coverage is a property of how an asset is APPLIED, not of the asset --
-> the hand-rated table covers `348` pairs as a lookup and `484` as a teacher.**
+> `ORACLE_UNION` **`0.4082`** vs counting `0.3242` · `BEST_SINGLE_ORACLE` **`0.3033`** vs `SUM_ALL`
+> `0.0100` · fitted held-out **`0.9606`** vs every transform `0.02`-`0.13` · and on sense selection
+> **a PERFECT router scores EXACTLY the channel** (`0.4811`), so no monotone combination has headroom
+> -- only SUPPRESSION does (`0.7799`) and it crashes the dominant population. **The missing organ is
+> "notice which source to trust"; 08-24 gives the first working instance -- let one source TEACH the
+> other rather than weight them.**
+> 🔁 **SAME GAP, DIFFERENT ORGAN.** The `cortical_read` submission (`6`/`6`, STRONG) concludes
+> *"nothing self-built generalises, so SUPPLY a distributional spoke"* -- a purchase. **But every
+> self-built arm there is ALONE or CONCATENATED (`BOTH` IS a concat; `teach`/`distil`/`orient` occur
+> nowhere in the file): WEIGHTED, never TAUGHT.** ➡️ priority-4
+> `teach_the_self_built_space_instead_of_concatenating_it`. ⚠️ **A GAP, NOT A PREDICTION** -- the
+> submission supplies the doubt: SIMILARITY IS NOT RETRIEVAL ASSOCIATION, and distillation was shown
+> on SUBSTITUTABILITY. **NO NUMBER CROSSES TASKS.** *A clean powered failure is a full PASS there.*
+> 🧠 **CARRY THIS: twice the conclusion was BUY MORE and the untested cell was TEACH WHAT WE OWN.
+> Coverage is a property of how an asset is APPLIED -- the hand-rated table covers `348` pairs as a
+> lookup and `484` as a teacher.**
 >
 > ## 🔻 **OUR WRITE RULE IS NOT WEAK, IT IS INVERTED** *(evidence + floors: `substrate_map.py`, stage 2)*
 > `AUC 0.051` vs chance `0.50`, known-answer arm `0.9599`: **it confidently encodes CO-OCCURRENCE
@@ -93,25 +86,40 @@
 > transform family; four tuning families reached `0.114`, no further.*
 >
 > ## 🖥️ **Q119 ANSWERED 08-24: MOVE AUTHORISED. THE MOVE ITSELF IS PENDING A QUIET WINDOW -- Q121.**
-> Owner: *"do it - authorized... but will you move the whole thing, or a subset?"* **MEASURED:
-> `174 GB` / `316,265` files; `C:` has `1,433 GB` free -- SPACE IS NOT THE CONSTRAINT.** `data/` is
-> `152.92 GB`; code+notes+history ~`21 GB`. **Slowness tracks FILE COUNT on the read path, not
-> size:** `.venv` `44,635` files opened EVERY command (= the `167 s` startup), `lean_oracle`
-> `121,688`, `.git` `25,243`. ➡️ **RECOMMENDED WHOLE** -- a subset strands the `153 GB` that times
-> out the search tools, plus a fast->slow shortcut in a project bitten repeatedly by hidden coupling.
-> 🚫 **DO NOT START THE COPY FROM INSIDE THE LOOP, AND THIS IS THE LOAD-BEARING PART:** `5` processes
-> run out of the folder (a LIVE experiment writing results, the KB ingest, the landing notifier, the
-> status window) -- copying under writers yields a quietly wrong copy. **And
-> `D:/AI/.claude/settings.json` hard-codes the old path `4` times, including the hook driving this
-> loop, so the move breaks its own executor mid-flight.**
-> ⚠️ **TWO TRAPS: `.venv` must be REBUILT not copied (absolute paths baked in), and it must be a
-> PLAIN FILE COPY -- `data/foundation/` is UNTRACKED and a fresh checkout would silently lose it.**
-> 🔻 *STILL NOT MEASURED: the actual speed-up. It is INFERRED from file-open timings. Cheap
-> alternative offered on Q121: move only `.venv`+code (~`21 GB`), measure, then decide on the rest
-> with a real number.* **Cold open `15.40 ms` vs warm `0.96 ms`; a `data/` grep timed out at `320 s`
-> and `cite_check.py` (documented "~2 s warm") timed out at `500 s` with NO output.** *Two wrong
-> answers came first (a concurrent session; then antivirus, off a BROKEN control comparing cold
-> files to a just-WRITTEN one). **Do not re-diagnose it.***
+> **MEASURED: `174 GB` / `316,265` files; `C:` has `1,433 GB` free -- space is NOT the constraint.**
+> Slowness tracks FILE COUNT, not size (`.venv` = `44,635` files opened EVERY command = the `167 s`
+> startup). **RECOMMENDED WHOLE.** 🚫 **DO NOT COPY FROM INSIDE THE LOOP:** `5` processes run out of
+> the folder including a LIVE experiment writing results, and `D:/AI/.claude/settings.json`
+> hard-codes the old path `4` times **including the hook driving this loop**.
+> ⚠️ **`.venv` must be REBUILT not copied; it must be a PLAIN FILE COPY (`data/foundation/` is
+> UNTRACKED).** 🔻 *The speed-up is INFERRED, never measured.* **Full detail + the cheap `21 GB`
+> alternative: board Q121. Do not re-diagnose the cause -- two earlier answers were wrong.**
+>
+> ## 📉 **08-24 WHERE THE SUBSTRATE ACTUALLY LOSES: `34,169` SENTENCES IN, `386` FACTS OUT**
+> `exp_e2e_trace_v1` (2026-08-13, unread for 11 days; full write-up
+> `notes/WHERE_THE_SUBSTRATE_LOSES_A_CENSUS_THAT_SAT_UNREAD_2026-08-24.md`). Everything upstream is
+> ordinary filtering. **THE ADMISSION GATE IS NOT: it rejects `24,939` of `25,325` -- `98.5%` -- and
+> `21,207` of those are ONE reason, `HYPOTHESIS_BELOW_COMMIT_STRENGTH`.**
+> 🎯 **AND THE READ-OUT MISSES BECAUSE THE ANSWER IS NOT ON THE MENU: of `1,353` key subjects the
+> correct answer is ABSENT from the pool `1,069` times (`79%`); PRESENT_NOT_ARGMAX only `233`. Only
+> `9` of `1,353` ever had it proposed as a hypothesis.** *That reframes much read-out work as
+> optimising the wrong stage -- four times in five no re-ranking could have helped.*
+> ⚠️ **CARRY THE CELL'S OWN LIMIT: the key is v5 definitional extraction, itself `~64%` correct, so
+> `79%` is where THE KEY'S answer was absent, not where ANY correct answer was.** *Direction solid,
+> figure not a clean measurement.* ⚠️ *Stage-5's `1,373,320` is ITEM-PASSES, not distinct items.*
+> 🔻 **A REAL DEFECT, NAMED: `canonicalize_fast:657` returns `(target, 0.0)` for an EMPTY anchor
+> field, which the caller reads as "uninformative encounter" -- AN EMPTY POOL AND A BELOW-THRESHOLD
+> ARGMAX ARE THE SAME RETURN VALUE.** Two conditions needing opposite responses, indistinguishable.
+>
+> ## 🕳️ **08-24 TWELVE FULL RUNS LANDED WITH NO `verdict` FIELD, SO NOTHING SURFACES THEM**
+> Enumerated over all `7,910` `data/*/metrics.json` (0 malformed): `170` carry no verdict-ish field,
+> `17` of them `run_mode: full`; `5` are `solverB_*` whose `SOLVED.md` carries it, leaving **`12`
+> `exp_*` cells whose conclusion may exist NOWHERE.** **TWO of the twelve have now each REVERSED a
+> build decision** (`exp_sr_scale_ladder_v1`, `exp_substrate_end_to_end_readout_v1`); **ten are still
+> unread.** ✅ Ratcheted: `verification/test_no_full_run_lands_without_a_verdict.py` -- the set may
+> shrink, never grow; positive control confirms it fires on a new name.
+> ⚠️ *A missing verdict is NOT always a lost result: `exp_e2e_trace_v1`'s own `QUALITY_CLAIM` reads
+> "NONE. This cell counts attrition; it scores nothing." Do not give it one.*
 >
 > ## 🔎 **08-24 A MANDATED CHECK WAS UNUSABLE, AND MY SHORTCUT AGREED WITH ITSELF**
 > `cite_check.py` (one of the SIX mandated reads) timed out at `500 s`, NOT broken: `notes/` grew to
@@ -140,21 +148,13 @@
 > its own info-free twin. **Never quote it as "what a spell-checker scores".** *Stripper is the
 > promoted `hdlab/morphology_leakage.py`.*
 >
-> ## 🎓 **BOTH HALVES OF THE RECORD, IN ONE PLACE** *(worked examples: `STATUS_LESSONS.md`)*
-> **REVIEWS PAY BY AUDITING THE ARGUMENT, NOT THE ARITHMETIC. `awaiting integration: 0`; every
-> re-verify passed AND every audit still found something** -- a routing oracle foreclosing a family
-> of fixes; a floor that was `78%` morphology; a STRONG submission concluding *buy a resource* whose
-> every arm was ALONE-or-CONCATENATED. ⚠️ *The integration marker lives in `SOLVED.md`, not
-> `PROBLEM.md`.*
-> **AND MY OWN ERROR RATE IS THE OTHER HALF: six corrections 08-23, six more 08-24** -- a false
-> "NOBODY IS WORKING THIS GAP" shipped to the GUI; a stage labelled `UNTESTED` that had HARD_PASSed;
-> the central store CRASHING because I migrated a schema and left the renderer behind;
-> `morphology_leakage.py` promoted with ZERO registry rows (the islanding the gate exists to
-> prevent, by the session enforcing it); and a "sweep" I called done that was `14` of `63`.
-> ➡️ **EVERY ONE CAUGHT BY A CONTROL WRITTEN AS CODE. NONE BY A CAUTION WRITTEN AS PROSE** -- and
-> 08-24 sharpened it twice: a prose rule can be WRONG IN BOTH DIRECTIONS AT ONCE (the GUI pronoun
-> ban was too broad AND missed a live instance one line below itself), and **my own hand-count of
-> this very block read `191` when the authoritative guard read `126`** -- name the denominator.
+> ## 🎓 **BOTH HALVES OF THE RECORD** *(worked examples + my full correction list: `STATUS_LESSONS.md`)*
+> **`awaiting integration: 0`. Every re-verify passed AND every audit still found something** --
+> reviews pay by auditing the ARGUMENT, not the arithmetic. *Integration marker lives in `SOLVED.md`.*
+> **My own error rate is the other half: 6 corrections 08-23, 6+ more 08-24.**
+> ➡️ **EVERY ONE CAUGHT BY A CONTROL WRITTEN AS CODE; NONE BY A CAUTION WRITTEN AS PROSE.** *08-24
+> twice sharpened: a prose rule can be wrong in BOTH directions at once, and my hand-count of this
+> block read `191` where the authoritative guard read `126` -- **name the denominator.***
 >
 > ## 🚧 **RESIDUE STILL LOAD-BEARING AND NOT IN THE MAP**
 > **Channel CANNOT gate links alone** (`66%` hit / `37%` FA, AUC `0.7002`) -- combine, never
