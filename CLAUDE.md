@@ -793,9 +793,31 @@ registers zero calls and never even loads the table.** That was already written 
 slot table (`B5`: *"read() does not consult it, so it is NEEDS_ADAPTER and not FILLED"*), and
 **measured: no file in `tools/` or `verification/` read that table at all**, so the one document
 recording whether an organ is wired was unreachable by every habit built to prevent this. The table
-is **28 slots: 9 `FILLED`, 8 `NEEDS_ADAPTER`, 8 `EMPTY`, 3 `EXCLUDED`** — and those four states need
+is **28 slots: 9 `FILLED`, 9 `NEEDS_ADAPTER`, 7 `EMPTY`, 3 `EXCLUDED`** — and those four states need
 different work, so never collapse them into one "not done" count. *`before_you_start.py` now runs
 this check automatically; a read nobody has to remember is the only kind that would have caught it.*
+
+> ### 🔴 **AND THE TABLE ITSELF WENT STALE, WITH A SELF-TEST HOLDING THE MISTAKE IN PLACE (2026-08-24).**
+> `D7` read `EMPTY` with the rationale *"THE ONLY SLOT WHERE THE BRAIN HANDS US A CLOSED FORM AND WE
+> HAVE WRITTEN NONE OF IT. Highest value-per-effort in the design."* **Both halves were false.**
+> `hdlab/successor_representation.py` is 20,563 bytes, imports, exposes
+> `SuccessorRepresentation` / `SparseSuccessorRepresentation`, and the registry carries
+> `successor_representation_d7_v1` as `WIRED`. And the question is not untested either:
+> `experiment_index.py query "successor"` returns **15 cells, 14 landed** — one
+> `HARD_PASS_CG_SR_REACHABILITY`, four `HARD_FAIL`. **ORGAN_MAP corrected the same label on
+> 2026-08-20; the slot table never caught up — and the slot table is the copy that runs
+> automatically.** *I read "highest value-per-effort, nothing written" and nearly started building it.*
+>
+> **THE MECHANISM IS THE LESSON, AND IT IS NEW: `substrate.py` carried
+> `assert "D7" in empties, "the successor representation must be reported EMPTY"`. So the moment
+> anyone corrected the table, the self-test FAILED. The guard was not protecting the fact — it was
+> LOCKING IN the error.** A test that pins a chosen VALUE rather than checking a RELATIONSHIP
+> converts a stale label into an enforced one.
+> ➡️ **Rule: a self-test over inventory asserts against the WORLD, not against a literal.** The
+> replacement reads disk — if `successor_representation.py` exists, `EMPTY` is simply not an
+> available answer for `D7`; if it is deleted, `EMPTY` becomes required again. It cannot pin either
+> answer. **Counts in docstrings are the same hazard: `slot_status.py` and this file both quoted
+> `8/8` after the table moved to `9/7`. Read counts from `slots()`, never from prose.**
 
 **AND A FIFTH READ, FOR QUOTING RATHER THAN BUILDING: `python tools/cite_check.py <number>`.**
 The four reads above answer *"has this been done / are we wrong about it"*. **They do not stop the

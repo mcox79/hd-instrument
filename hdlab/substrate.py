@@ -244,9 +244,20 @@ SLOTS: List[Slot] = [
          "'way'-attractor the plan already records. So the unwired Q3 is not a missing nicety -- two "
          "of three read-out routes currently answer a made-up word as readily as a learned one"),
     # ---- THE EMPTIES. Naming them is the point; an unnamed empty slot is the expensive kind. ----
-    Slot("D7", "predictive relational map", None, EMPTY,
-         "M = (I - gamma*P)^-1. THE ONLY SLOT WHERE THE BRAIN HANDS US A CLOSED FORM AND WE HAVE "
-         "WRITTEN NONE OF IT. Highest value-per-effort in the design. D4 is blocked behind it"),
+    Slot("D7", "predictive relational map", "successor_representation", NEEDS_ADAPTER,
+         "CORRECTED 2026-08-24: this slot read EMPTY with 'WE HAVE WRITTEN NONE OF IT. Highest "
+         "value-per-effort in the design'. BOTH HALVES WERE FALSE and the label alone would have "
+         "sent someone to rebuild a module that exists. VERIFIED FROM DISK: "
+         "hdlab/successor_representation.py is 20,563 bytes, imports, and exposes "
+         "SuccessorRepresentation / SparseSuccessorRepresentation / build_transition_matrix; "
+         "capability_registry carries successor_representation_d7_v1 as WIRED. By this file's own "
+         "definitions (EMPTY = nothing built) that is NEEDS_ADAPTER, not EMPTY. "
+         "AND THE QUESTION IS NOT UNTESTED EITHER: experiment_index query 'successor' returns 15 "
+         "cells, 14 landed -- one HARD_PASS_CG_SR_REACHABILITY, four HARD_FAIL (SR_GATED_TIEBREAK, "
+         "CG_MEMORIZED_SEARCH, TEM_compound, conformal_LLR), plus exp_sr_scale_ladder_v1 2026-08-19. "
+         "ORGAN_MAP corrected the same label on 2026-08-20; this table never caught up, and it is "
+         "the copy before_you_start.py reads automatically. M = (I - gamma*P)^-1 is still PINNED "
+         "and D4 is still blocked behind it -- what is wrong is 'nothing built' and 'untested'"),
     Slot("Q2", "work the answer out (domain-general inference)", None, EMPTY,
          "AN ENTIRE NETWORK, not an organ. reasoner == a similarity baseline on 38 of 40 "
          "questions; multi_hop's default beta = n_dim collapses its softmax to a Dirac delta"),
@@ -1249,7 +1260,21 @@ def _selftest_report_names_the_empties() -> dict:
     s = Substrate()
     rep = s.organ_report()
     empties = [r["slot"] for r in rep["rows"] if r["state"] == EMPTY]
-    assert "D7" in empties, "the successor representation must be reported EMPTY"
+    # D7 WAS ASSERTED EMPTY HERE UNTIL 2026-08-24, AND THE ASSERT IS WHAT KEPT THE STALE LABEL
+    # ALIVE: ORGAN_MAP had already corrected it on 2026-08-20, but this test would have FAILED if
+    # anyone fixed the table, so the table stayed wrong. A self-test that pins a FACT rather than
+    # checking one turns into a lock on the mistake.
+    # The replacement asserts against DISK instead of against a chosen label, so it cannot pin a
+    # falsehood: if the module is present, EMPTY is simply not an available answer for D7.
+    import os as _os
+    _sr = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "successor_representation.py")
+    if _os.path.exists(_sr):
+        assert "D7" not in empties, (
+            "hdlab/successor_representation.py exists, so D7 cannot be EMPTY ('nothing built'). "
+            "It is BUILT and off the live path -- that is NEEDS_ADAPTER. This is the label that "
+            "would send someone to rebuild an existing module.")
+    else:
+        assert "D7" in empties, "successor_representation.py is absent, so D7 must read EMPTY"
     assert "Q2" in empties and "P1" in empties, "inference and production must be reported EMPTY"
     assert rep["counts"].get(NEEDS_ADAPTER, 0) > 0, (
         "NEEDS_ADAPTER must not be collapsed into FILLED -- that is the false-coverage defect")

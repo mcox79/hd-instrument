@@ -16,7 +16,11 @@ CLAUDE.md lists FIVE prior-work reads -- the registry, `experiment_index.py`, `o
 here: **no file in `tools/` or `verification/` reads it at all.** So the one document that says
 whether an organ is WIRED was unreachable by every habit built to prevent exactly this.
 
-The table holds **28 slots: 9 `FILLED`, 8 `NEEDS_ADAPTER`, 8 `EMPTY`, 3 `EXCLUDED`.** A
+The table holds **28 slots: 9 `FILLED`, 9 `NEEDS_ADAPTER`, 7 `EMPTY`, 3 `EXCLUDED`** (corrected
+2026-08-24: D7 moved EMPTY -> NEEDS_ADAPTER; `hdlab/successor_representation.py` exists and is
+registered WIRED, so "nothing built" was false). **DO NOT HAND-EDIT THESE COUNTS -- read them from
+`slots()`, which parses the real source; a count typed into a docstring is the thing that went
+stale.** A
 `NEEDS_ADAPTER` organ can be improved all day without a single downstream number moving.
 
 *(Two of my own counts were wrong before this line settled: a regex over `Slot(` found 16 of the 28 --
