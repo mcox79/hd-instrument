@@ -1,4 +1,26 @@
 
+
+> # 🔴 **SUPERSEDED 2026-08-23 (commit `ced0d4f0a`) — THE MEASUREMENT THIS NOTE CALLS FOR WAS RUN, AND IT CAME BACK CLEAN. READ THIS BEFORE §3 OR §4.**
+> **This note says "I did not run it" of the nested-sampling test, and its §4 MAY-NOT list forbids
+> claiming the store does not lose knowledge. That test was subsequently run and it resolves the
+> anomaly in the SUBSTRATE'S FAVOUR:**
+>
+> - **Twelve NESTED samples (one substrate, sampled after every batch, so a decrease would be
+>   unambiguous): the store never loses anything.** The 200 -> 350 dip this note records was the
+>   schedule-phase artifact §3 names as the alternative, not genuine forgetting.
+> - **The falling facts-per-episode ratio is arithmetic, not a defect:** `facts = 8.4 x
+>   sentences^0.473`, 6% mean relative error. An exponent below 1 means facts arrive sublinearly
+>   while episodes arrive linearly, so the ratio MUST fall. `0.473` sits in the usual `0.4`-`0.6`
+>   band for vocabulary growth in text.
+> - *Limits carried forward from that commit, because a clean fit invites over-reading: one corpus,
+>   one seed, twelve points, two free parameters, fitted after the fact. Consistent with the curve
+>   rather than a test of it.*
+>
+> ➡️ **So §4's "MAY NOT: reading more makes the system forget" still stands — it was never
+> established and is now positively excluded. What is now ALSO permitted, which this note forbids,
+> is the statement that the store does not lose knowledge under nested sampling.**
+> *Marked here rather than only in the newer record, because the stale text is what a reader
+> following the citation arrives at first — the standing rule in CLAUDE.md, applied to my own note.*
 # READING MORE SOMETIMES LEAVES THE SYSTEM KNOWING LESS -- AND I DO NOT YET KNOW WHY
 
 **2026-08-23, strategy session.** Drove the WRITE path end to end, the same way the read-out drive
