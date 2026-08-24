@@ -37,6 +37,18 @@ CI-SEPARATED.** ⚠️ *On a task with a spelling shortcut -- which is the cavea
 
 ***So both bars are met: the brain's defining ORGAN property, and a measured TASK margin.***
 
+> ## 🔴 **SECTION 3 IS RETRACTED 2026-08-24. THE TASK MARGIN REVERSES. SECTIONS 1-2 STAND.**
+> **The "spelling shortcut" caveat above was not a caveat, it was the whole margin: the `0.0870` is
+> `~78%` MORPHOLOGICAL LEAKAGE in the WordNet gold.** Re-measured in-harness on stripped gold
+> (owner ruling Q117): **floor `0.0195`, live read-out `0.04575` — the SUBSTRATE wins, CI-separated.**
+> ➡️ **So the second bar is NOT met.** *One bar is met, not both.*
+> ✅ **BUT THE HEADLINE OF THIS NOTE STANDS, AND THAT DISTINCTION MATTERS.** The brain's defining
+> ORGAN property here is CASE INVARIANCE (`1.0000`), GRADED INFLECTION (`0.31-0.51`) and UNRELATED
+> (`0.03-0.08`) — a VWFA-style invariance criterion that has **nothing to do with the WordNet gold**
+> and is untouched by its defect. *Do not read this retraction as "the form organ failed"; read it
+> as "it passed one bar, and the evidence for the other has flipped sign."*
+> Full correction: `notes/ORGAN_MAP.md` §10.1.
+
 ## 4. 🧠 **"WHICH MAY HAVE OTHER SUPPORTING PARTS, RIGHT?" -- YES, AND IT IS THE SHARPEST PART OF THE RULING**
 
 *In the brain the VWFA does not work alone: it receives TOP-DOWN prediction from language areas and sits

@@ -1,5 +1,23 @@
 # The spelling-alone floor is measured, and it beats our read-out
 
+> ## 🔴 **SUPERSEDED 2026-08-24 — THE HEADLINE AND THIS FILE'S OWN NAME ARE NOW FALSE. THE READ-OUT WINS.**
+> **The `0.0870` floor below is `~78%` MORPHOLOGICAL LEAKAGE** — the WordNet gold was largely built
+> from stem-sharing pairs (`nation`/`national`), which a character-trigram arm gets right while
+> representing nothing. **Strip stem-sharing gold and the floor falls to `0.0195` CI
+> `[0.01525, 0.024]`, while the live read-out reads `0.04575`. So the read-out BEATS the honest
+> spelling floor; it lost only to the leaky one.**
+> Owner ruling, board Q117: *"why not fix the bar, and re run the past results. let's do this
+> right."* Re-measured IN-HARNESS by
+> `experiments/exp_per_row_gain_trigram_floor_calibration_v1.py`, which proved harness identity
+> first (`A1_BASE 0.04575`, `self_retrieval 0.755853`, both to 1e-9).
+> ⚠️ **THIS FILE IS KEPT, NOT DELETED, AND ITS NAME IS DELIBERATELY UNCHANGED** — the measurement
+> was competently done and honestly reported; the GOLD was the defect, not this work. Renaming it
+> would break every citation and erase the record of what we believed. **But the name is what gets
+> read in a directory listing without opening the file, so: do not cite this title as a finding.**
+> ⚠️ **AND DO NOT OVER-CORRECT: `0.04575` is a weak reader in absolute terms. "Beats spelling" must
+> never travel as "reads meaning well".**
+> Full correction: `notes/ORGAN_MAP.md` §10.1.
+
 2026-08-14. Cell `exp_orthographic_floor_vet_v1`. Script `tools/orthographic_floor_vet_v1.py`
 (promoted out of `scratch/` because a durable result now cites it).
 

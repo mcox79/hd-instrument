@@ -1,5 +1,17 @@
 # The graded path does NOT clear the orthographic floor, and +0.0602 was never a C3 number
 
+> ## 🔴 **PARTLY SUPERSEDED 2026-08-24 — THE FLOOR IT FAILED TO CLEAR WAS INFLATED ~4x. RE-MEASURE BEFORE QUOTING THE TITLE.**
+> **The orthographic floor used here (`0.0870`) is `~78%` MORPHOLOGICAL LEAKAGE** — the WordNet gold
+> was largely stem-sharing pairs, which a spelling arm wins without representing anything. **On
+> stripped gold that floor is `0.0195` CI `[0.01525, 0.024]`.** Owner ruling, board Q117.
+> ⚠️ **THIS DOES NOT AUTOMATICALLY FLIP THE TITLE, AND I AM NOT FLIPPING IT.** The graded-path arm
+> was ALSO scored against unstripped gold, so its number is not directly comparable to `0.0195`
+> either — comparing a leaky arm to an honest floor is the same error in the opposite direction.
+> **The honest state is UNKNOWN until this arm is re-scored on stripped gold, not "it clears now".**
+> ✅ **THE SECOND HALF OF THIS NOTE STANDS UNTOUCHED:** `+0.0602` was never a C3 number, and that
+> finding has nothing to do with the gold defect.
+> Full correction: `notes/ORGAN_MAP.md` §10.1.
+
 **Filed:** 2026-08-14 (late). **Author:** auditor (AUDIT-ONLY -- no cell authored, nothing wired,
 no live-path change, no experiment run; every number below re-derived off `metrics.json` with
 `.venv/Scripts/python.exe`).

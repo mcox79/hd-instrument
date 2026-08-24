@@ -64,6 +64,13 @@ invalidates every persisted code.*
 2. **This shows the form code is a BETTER IDENTITY CODE. It does NOT show that wiring it improves any
    downstream task** -- *the `ORGAN_MAP` A1 margin (`0.0870` vs `0.0480`) is the only task evidence, and
    it carries a spelling-shortcut caveat.*
+   > 🔴 **SHARPENED 2026-08-24 — THAT CAVEAT WAS RIGHT AND IT IS NOW DECISIVE: THE MARGIN REVERSES.**
+   > The `0.0870` was `~78%` MORPHOLOGICAL LEAKAGE in the WordNet gold. Re-measured in-harness on
+   > stripped gold (owner ruling Q117): **the floor is `0.0195` and the live read-out is `0.04575`,
+   > so the SUBSTRATE wins.** ➡️ **The only task evidence cited for the form organ now points the
+   > OTHER WAY.** *This does NOT touch section 1-3 of this note: the identity-code property
+   > (case invariance, graded inflection) is a different criterion and is untouched by the gold
+   > defect. The limit above simply became stronger than its author could know.*
 3. **I have NOT made the edit.** *The blast-radius finding is why: an additive accessor is safe, a swap
    is not, and that distinction was not obvious before checking.*
 4. 🔻 **THE Q102 WATCH CONDITION STILL STANDS** -- *a better index is not better understanding; the tell
