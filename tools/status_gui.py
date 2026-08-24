@@ -4049,7 +4049,13 @@ class StatusWindow:
         standing = _l(ops.get("rows")) if ops.get("status") == "OK" else []
         n_q = b.get("n_open") or 0
         n_all = n_q + len(decisions) + len(standing)
-        self._set_tab_count(self.tab_board, f" ({n_all})" if n_all else "")
+        # THE TAB IS CALLED "WAITING ON YOU", SO THE NUMBER ON IT COUNTS WHAT IS WAITING ON YOU.
+        # It used to show n_q + decisions + standing, which read as "(11)" while ZERO questions
+        # were open -- eleven things apparently blocking the owner when nothing was. A label that
+        # says one thing beside a number that counts another is the defect this window keeps
+        # producing; the decisions and standing rows are still shown, in the banner and the table,
+        # where they are not disguised as a demand on the reader.
+        self._set_tab_count(self.tab_board, f" ({n_q})" if n_q else "")
 
         # THE BANNER STATES THE BREAKDOWN IN ONE SENTENCE, in the largest text on the tab, before
         # the table below is even scanned. "0 open questions" reads as nothing to do UNLESS the
@@ -4800,7 +4806,21 @@ class StatusWindow:
         self._running_summary = chunks
         self._show_running_detail()
 
-        n_dead = cl.get("n_dead") or 0
+        # "77 dead" IS NOISE DRESSED AS AN ALERT. Every one of those is a leftover .pid file in
+        # scratch/ from a run that finished days ago -- the oldest measured 3.4 days. A badge that
+        # permanently reads "(77 dead)" teaches the reader to ignore the tab, which is the opposite
+        # of what an alert is for. The tab now counts only deaths RECENT enough to be news; the
+        # full list is still in the panel, where it is housekeeping rather than a demand.
+        _RECENT_DEATH_S = 6 * 3600
+        _all_claims = cl.get("claims") or []
+        n_dead_all = cl.get("n_dead") or 0
+        try:
+            n_dead = sum(1 for c in _all_claims
+                         if str(c.get("state", "")).startswith("DEAD")
+                         and float(c.get("claimed_age_s") or 0) < _RECENT_DEATH_S)
+        except Exception:                                          # noqa: BLE001
+            n_dead = n_dead_all
+        self._stale_pid_files = max(0, n_dead_all - n_dead)
         # TAB LABELS SHORTENED (2026-08-17). The seven tab labels, measured with their own font,
         # needed ~1750 px in a row to display unclipped -- more than the whole 1068 px window on
         # the owner's actual screen, forcing ttk to wrap the tab strip onto a second row before the
@@ -4808,7 +4828,11 @@ class StatusWindow:
         # shown, in large text, the moment this tab is opened) and the active-agent count (not
         # covered by any self-test); the dead-run count survives because
         # verification/test_status_running_panel.py asserts it is visible without opening the tab.
-        self._set_tab_count(self.tab_running, f" ({n_dead} dead)" if n_dead else "")
+        # Only RECENT deaths earn a badge. Stale .pid debris is reported inside the panel, where
+        # it reads as housekeeping; on the tab title it would be permanent and would train the
+        # reader to ignore a badge that is supposed to mean "something just broke".
+        self._set_tab_count(self.tab_running,
+                            f" ({n_dead} died recently)" if n_dead else "")
 
     def _show_running_detail(self) -> None:
         """The selected run's own story, above the machine-wide summary.
