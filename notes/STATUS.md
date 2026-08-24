@@ -186,9 +186,23 @@ AND IT STILL DOES NOT CLEAR ITS OWN FLOOR:**
 NO word identity beats the real grounded arms.* ➡️ **So the channel's above-chance reading is a
 GENERAL property (a constant offset -- most plausibly concreteness), NOT word-specific meaning.**
 
-## 🧱 **THE WALL, STATED COMPLETELY -- THIS IS THE HONEST STATE AND IT IS WELL EVIDENCED**
-**On one licensed instrument, one 242-pair population, chance `0.4862`, known-answer `0.9599`:**
-**NOTHING UNSUPERVISED CLEARS ITS OWN FLOOR.** Text transforms land at `0.02`-`0.13` (confidently
+## 🧱 **THE WALL -- 🔴 BROKEN 2026-08-24. READ THIS BANNER BEFORE THE SECTION BELOW IT.**
+> **THE CLAIM BELOW ("NOTHING UNSUPERVISED CLEARS ITS OWN FLOOR") WAS TRUE WHEN WRITTEN AND IS NOW
+> FALSE.** `where_does_a_meaning_signal_come_from_without_labels` came back SOLVED and re-verified:
+> **cross-modal distillation reads `0.8388` CI `[0.8031,0.8720]`** on this exact instrument, beating
+> its info-free twin's **MAXIMUM** over 200 draws (`0.7047`), with **no gold anywhere** -- the
+> grounded hub TEACHES a direction over the distributional model, on `8,000` pairs whose vocabulary
+> is disjoint from the instrument.
+> ➡️ **SO THE SECTION BELOW IS THE STATE OF THE PROBLEM *BEFORE* THAT RESULT.** It is kept because
+> every number in it still stands and is what the new arm had to beat -- but **do not quote its
+> headline.**
+> ⚠️ **AND THE LIMITS TRAVEL WITH THE FIX: LABEL-free but NOT RESOURCE-free (the teacher is the
+> supplied Lancaster table), and TRANSDUCTIVE (orientation reads the candidate pairs' inputs).**
+> 🚫 **THE SUBSTRATE ITSELF IS UNCHANGED -- stage 2 is still `BROKEN` and its write rule still reads
+> `0.051`. This is a research result, not a capability, until it is wired.**
+
+**As it stood BEFORE 2026-08-24 -- on one licensed instrument, one 242-pair population, chance
+`0.4862`, known-answer `0.9599`:** **nothing unsupervised cleared its own floor.** Text transforms land at `0.02`-`0.13` (confidently
 INVERTED -- they measure co-occurrence); the grounded channel lands at `0.599`-`0.602` but under a
 `0.6195` no-information floor; **and the ONLY arms above `0.5` on merit are a FITTED SUPERVISED model
 (`0.9606` held-out) and WordNet itself.** 🔑 **THE INFORMATION IS THERE AND EVERY UNSUPERVISED ROUTE
