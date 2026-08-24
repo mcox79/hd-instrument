@@ -288,6 +288,18 @@ reverify: <a single command the strategy session can run to reproduce the headli
 **Then prose: what was built, what was measured, what was NOT established, and what you would
 withdraw first if it turned out to be wrong.**
 
+> ### 🔑 **AND -- WHERE APPLICABLE -- A `## KEY REALIZATIONS` SECTION. OWNER INSTRUCTION 2026-08-24.**
+> **Verbatim: *"the solution submission prompts should include where applicable key realizations /
+> findings that let them make those breakthroughs"*.**
+>
+> Not a summary of the result -- the enabling MOVE that made the breakthrough possible: the
+> measurement that made it credible, the reframe that unstuck it, or the lazy default you had to drop.
+> *e.g. "stopped pasting the floor across harnesses and recomputed it in-place"; "kept the counts
+> separable instead of superposing them into d=256"; "scored against stem-stripped gold and the
+> ranking inverted".* **This is how a win teaches the next problem instead of dying as a one-off** --
+> the strategy session harvests these into `notes/ENABLING_LESSONS_brain_foundational_wins.md` at
+> integration. A REFUTATION has them too: the realization that killed the route is the deliverable.
+
 **Check the flag from anywhere:**
 ```bash
 python tools/problem_ledger.py            # every problem, its state, and what is awaiting integration
@@ -333,12 +345,25 @@ Each `PROBLEM.md` has the same eight sections, in this order:
 7. **FILES AND ENTRY POINTS** -- where to look, and what NOT to touch.
 8. **DO NOT QUOTE / DO NOT REDO** -- numbers whose caveats do not travel, and routes already closed.
 
+> **AND EVERY BRIEF URGES THE RIGHT, BRAIN-FOUNDATIONAL SOLUTION (owner 2026-08-24).** Sections 1-2
+> frame the problem as *"how does the brain do this, and can we replicate the OPERATION as exactly as
+> we can"* -- the best we can get, not the convenient available tool. The requested response is a
+> brain-faithful mechanism that clears the info-free floor, not the first thing that moves the number.
+> *This is the brief-author's half of the standing rule below; the solver's half is stated there.*
+
 ---
 
 ## THE STANDING RULES THAT APPLY TO EVERY SOLVER
 
 *Short version of `CLAUDE.md`; read it in full before landing anything.*
 
+- **🧠 PURSUE THE RIGHT, BRAIN-FOUNDATIONAL SOLUTION -- as good as we can get, not the convenient one
+  (owner 2026-08-24).** Open the problem with *"how does the brain actually do this, and can we
+  replicate that OPERATION as exactly as we can?"* -- BEFORE surveying available tools. The documented
+  way this project LOSES is reaching for a fancy available mechanism; the way it WINS is understanding
+  the brain's mechanism and copying it. **Copy the brain's COMPUTATION** (it comes from the problem we
+  share); **SWEEP its PARAMETERS** (they come from constraints we do NOT share -- never adopt a number
+  like d=256). A convenient win that does not clear the info-free floor is not a solution.
 - **A gate is a CI-separated margin over the STRONGEST floor actually run** -- never a bare number,
   and gate on the floor's UPPER bound.
 - **Build the information-free version of your winning arm and check it LOSES.** Empty, constant,
