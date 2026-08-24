@@ -1,8 +1,47 @@
 ---
 priority:
-review: 
-review_text: 
+review: EXCELLENT
+review_text: "Fixed a scorer that counted I-cannot-tell as a wrong answer, and refused to launder the verdict with it: the gated number is byte-identical at 0.3056, so HARD_FAIL stands. The one number that moves (0.5000 -> 0.5789) still does not clear its own 0.7368 floor, and it says so itself."
 ---
+
+> # 🥇 **MY REVIEW -- EXCELLENT. IT FIXED AN INSTRUMENT AND REFUSED TO CLAIM A RESCUE.**
+> *Reviewed 2026-08-24. Re-verify PASSES, 18 checks, every number recomputed live from the saved
+> overlay rather than replayed from JSON.*
+>
+> ## ✅ **THE FIX IS REAL AND ITS SCOPE IS STATED HONESTLY**
+> The scorer counted **"I cannot tell"** as a WRONG ANSWER. It no longer does. **The engine's own
+> abstain set is `_LEVIN_ABSTAIN = ('NA', 'NONE', 'AMBIGUOUS')`, so the scorer now agrees with the
+> thing it is scoring** -- and the witness checks that coupling directly rather than asserting it.
+> *Three items (`befriend`, `come`, `find`) carried `correct:False` while being abstentions.*
+>
+> 🔑 **AND THE PART THAT MAKES THIS EXCELLENT RATHER THAN MERELY CORRECT: THE GATED NUMBER DOES NOT
+> MOVE.** Coverage-weighted accuracy is `0.3056` before and after, **byte-identical**, so the
+> `HARD_FAIL` verdict stands. *A scorer fix that quietly improved the headline would be the most
+> tempting possible way to launder a failure; this one says in its own words that it is "an
+> instrument fix, not a rescue".*
+>
+> | | before | after |
+> |---|---|---|
+> | coverage-weighted accuracy (the GATED number) | `0.3056` | `0.3056` — **unchanged** |
+> | selective accuracy when it commits | `0.5000` | `0.5789` |
+> | its own floor for that number (committed-subset majority) | | **`0.7368` — still NOT cleared** |
+>
+> ➡️ **The one number that moves still does not clear its floor.** *Reported by the submission
+> itself, unprompted.*
+>
+> ## ✅ **CONTROLS, INCLUDING ONE FRAMED THE RIGHT WAY ROUND**
+> Removing exactly the three ambiguous items makes the two scoring conventions AGREE -- **so those
+> three ARE the entire disagreement**, which is a positive identification rather than an absence
+> check. The empty-overlay baseline has ZERO ambiguous predictions and is byte-identical at
+> `0.3889`, so the fix provably touches nothing there. Predictions reproduce `36/36` live.
+>
+> ⚠️ **LIMIT: `n=36`, one population.** *A 3-item shift on 19 committed items is a small base, and
+> the submission does not oversell it.*
+>
+> 🎯 **WHY IT MATTERS BEYOND THIS CELL: any scorer that treats abstention as error punishes the
+> system for the exact behaviour we are separately trying to build** -- the refuse gate is a whole
+> other brief. **Check the other scorers for the same defect.**
+
 
 # PROBLEM: THE SCORER COUNTS "I DON'T KNOW" AS A WRONG ANSWER, AND IT IS NOW LIVE
 

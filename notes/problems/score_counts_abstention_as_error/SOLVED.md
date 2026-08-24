@@ -158,3 +158,15 @@ commitment? Every signal on the disk says abstention; I scored it that way.)
 read of the live landed predictions so the tripwire actually fires. (3) If abstention behavior becomes
 interesting, add a calibration check (are the abstained items the harder ones?) -- that is the question
 this fix makes askable.
+
+---
+
+## INTEGRATED_BY_STRATEGY -- 2026-08-24
+
+Re-verified, 18 checks pass, every number recomputed live from the saved overlay. Review EXCELLENT. The scorer now agrees with the engine's own abstain set (_LEVIN_ABSTAIN = NA/NONE/AMBIGUOUS), and the witness checks that coupling directly.
+
+Recorded as integrated on the strength of what it did NOT do: the gated number is byte-identical at 0.3056, so HARD_FAIL stands, and the one number that moves (selective accuracy 0.5000 -> 0.5789) still does not clear its own committed-subset floor of 0.7368. A scorer fix that improved the headline would have been the easiest possible way to launder a failure.
+
+CARRIED FORWARD AS A STANDING CHECK: any scorer that treats abstention as error punishes the system for the behaviour the refuse-gate brief is separately trying to build. The other scorers have not been checked for the same defect.
+
+*Appended by the strategy session, which owns integration (board Q111). Solver text unchanged.*

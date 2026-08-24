@@ -1,8 +1,70 @@
 ---
 priority: 1
-review:
-review_text:
+review: EXCELLENT
+review_text: "Breaks the substitutability wall: 0.8388 CI [0.8031,0.8720] where every prior unsupervised arm scored 0.02-0.13 backwards, beating the info-free twin MAXIMUM over 200 draws. I read the orientation code -- the sign comes from the hub own ranking, not the gold, so the disqualifying test passes. Label-free but NOT resource-free (supplied Lancaster hub) and transductive; both must travel with the number."
 ---
+
+> # 🥇🥇 **MY REVIEW -- EXCELLENT. THE WALL IS BROKEN, AND I CHECKED THE ONE THING THAT COULD HAVE FAKED IT.**
+> *Reviewed 2026-08-24. Re-verify PASSES, 8 checks. I read the orientation code rather than taking
+> the claim, because that was the single place this result could have been an oracle in disguise.*
+>
+> ## ✅ **THE RESULT**
+> **Cross-modal distillation: learn a map from the grounded sensorimotor+affect hub onto the
+> distributional direction, over 8,000 arbitrary pairs whose vocabulary is DISJOINT from the
+> instrument, with no gold anywhere.** On the licensed 242-pair substitutability instrument:
+>
+> | arm | AUC | |
+> |---|---|---|
+> | fitted-on-gold oracle | `0.961` | *ceiling, NOT a capability* |
+> | 🥇 **XMODAL_DISTILL_GROUNDED** | **`0.8388`** CI `[0.8031, 0.8720]` (8-seed mean `0.865`, sd `0.034`) | ✅ **clears** |
+> | info-free twin null (200 random-hub draws) | p95 `0.6808`, **max `0.7047`** | *the floor, and it is a HIGH one* |
+> | grounded channel alone | `0.5513` | near chance |
+> | distributional cosine | `0.0285` | **backwards** |
+>
+> ➡️ **It beats the info-free twin's MAXIMUM over 200 draws, not merely its p95** (`frac >= grounded
+> = 0.000`). *Every previous unsupervised attempt on this instrument scored `0.02`-`0.13` --
+> confidently inverted. This is the first one on the right side of chance on merit.*
+>
+> ## 🔍 **THE AUDIT I ACTUALLY DID, BECAUSE ONE LINE COULD HAVE FAKED THE WHOLE THING**
+> The witness reports `raw_unoriented_direction_is_inverted raw_auc = 0.1612`. **The raw direction is
+> INVERTED and a sign flip turns it into `0.84`.** If that sign were chosen using the gold, the
+> result would be the oracle wearing a disguise -- the exact disqualifying test this brief set. **It
+> is not:**
+> ```python
+> href = hub_sim(hub, i1s, i2s)                                 # the hub's OWN similarity
+> sign = 1.0 if np.corrcoef(raw, href)[0, 1] >= 0 else -1.0     # never the labels
+> ```
+> ✅ **The sign comes from correlating against the grounded hub's own ranking on the UNLABELLED
+> pairs.** ✅ **And the null is oriented the SAME way, which is why its p95 is `0.68` rather than
+> `0.50`** -- the design charges itself for the orientation advantage instead of pocketing it.
+> ✅ **Training vocabulary is disjoint by construction:** `words_present[i] not in inst_word_set`.
+> ✅ **It saved its scored population**, and the witness recomputes the headline from it (`0.8388`
+> saved == `0.8388` recomputed).
+>
+> ## ✅ **THE CONFOUNDS ARE EXCLUDED, INCLUDING THE TWO I WOULD HAVE ASKED FOR**
+> **Concreteness** -- a concreteness-only hub reaches `0.2657`, nowhere near. **Frequency** -- a
+> frequency-only hub reaches `0.741`, but its direction is nearly ORTHOGONAL to the grounded one
+> (`cos = -0.076`), and grounded orthogonalised against frequency still reads `0.844` `[0.811,
+> 0.877]`. **Replication** -- 8 independent arbitrary-pair samples, `0.806`-`0.908`, identical sign.
+> **Licensing** -- reproduces the instrument's cached AUCs bit-for-bit.
+>
+> ## ⚠️ **WHAT IT IS NOT, AND THE SUBMISSION SHOULD CARRY THIS AS PROMINENTLY AS THE NUMBER**
+> 1. 🔻 **IT IS LABEL-FREE, NOT RESOURCE-FREE.** The teacher is the Lancaster sensorimotor+affect
+>    hub -- a SUPPLIED human-rated table. That is admissible here (a static offline-built asset is
+>    explicitly allowed) and it is NOT the evaluation's resource, so the disqualifying test passes.
+>    **But "where does a meaning signal come from without labels" is answered as: from a supplied
+>    grounded table teaching text statistics. A child is not handed that table either.**
+> 2. 🔻 **IT IS TRANSDUCTIVE.** Orientation reads the candidate pairs' INPUTS (never their labels),
+>    so the method needs the candidate set in front of it. *The cell says so; do not quote it as
+>    inductive.*
+> 3. 🔻 `0.8388` is well below the fitted oracle's `0.961`. **Headroom remains.**
+>
+> 🎯 **WHY THIS IS THE NIGHT'S RESULT ANYWAY: the grounded channel alone is at chance (`0.551`) and
+> the distributional channel alone is INVERTED (`0.0285`). Neither carries substitutability. Their
+> AGREEMENT does.** *That is the cross-modal candidate this brief listed, and it is the fourth
+> independent arrival at the same missing organ -- "notice which source to trust" -- solved here by
+> letting one source TEACH the other rather than by weighting them.*
+
 
 > # 🥇 **PRIORITY 1 — FILED ON OWNER INSTRUCTION (board Q118, 2026-08-24): *"this should be a problem to give to a solver."***
 > **This is the hardest open question in the project and it is filed as a problem rather than worked
