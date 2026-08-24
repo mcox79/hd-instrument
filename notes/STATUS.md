@@ -123,7 +123,25 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 ## WHAT IS RUNNING
 
 - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *ENUMERATED FROM DISK 08-23 23:0x: `10` open (priorities `1`-`10`, contiguous), `8` solved+reviewed. **THE PREVIOUS TEXT HERE READ `11` open / `5` reviewed -- I MIRRORED A REMEMBERED COUNT ON THE VERY LINE THAT SAYS ENUMERATE.** Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
-- 🚨🚨 **THREE SOLVER SUBMISSIONS LANDED 08-23 AND ARE UNREVIEWED -- THIS IS THE TOP ITEM ON RESUME.**
+- ✅ **TWO OF THE THREE ARE NOW REVIEWED (08-23 late). BOTH RE-VERIFIES PASS; I THEN AUDITED THE
+  ARGUMENT, NOT THE ARITHMETIC, AND BOTH AUDITS PAID.**
+  - 🥇 **P2 `does_learning_from_reading_deserve_to_continue` -- EXCELLENT.** *I attacked it with a
+    comparator it did not use (it ran TWO supplied arms and quoted the weaker) and **it held**: the
+    WordSim win survives against the stronger one CI-separated, and all three benchmarks clear the
+    strongest floor's UPPER bound.* ➡️ **MY BRIEF'S PREMISE IS REFUTED -- the sixteen prior losses
+    tested a WEAK implementation; the route is CORPUS-LIMITED, not exhausted (curve still climbing
+    at `38M` tokens).** 🔻 *Gap: no scored population saved, so the coverage question needs a re-run.*
+  - 🥈 **P1 `reader_meaning_channel` -- STRONG, and its FRAMING IS WRONG IN A WAY THAT MATTERS.**
+    Headline stands (aggregate is honest, and it STRENGTHENED its own floor). **But `84%` of that
+    aggregate is items where a frequency prior CANNOT lose. On the `53` words where the question is
+    live: grounded channel ALONE `0.4811` (above chance `0.3854`), channel **+** prior `0.1415`
+    (below chance), prior alone `0.0000` by construction.** ➡️ **THE PRIOR SWAMPS THE CHANNEL RATHER
+    THAN REPLACING IT -- adding it costs `0.3396`, more than the channel's whole margin. "The channel
+    adds nothing" and "our mixing rule destroys it" predict the SAME aggregate and imply OPPOSITE
+    next steps.** **The mechanism under test is now the COMBINATION RULE (reliability-weighted cue
+    combination), not the channel.** *Witness: `test_the_prior_swamps_the_grounded_channel_not_replaces_it.py`.*
+  - ⏳ **P3 `the_bundle_destroys_meaning_but_replacing_it_hurts` -- re-verify RUNNING (>10 min).**
+- 🚨 **THE THREE SUBMISSIONS LANDED 08-23 AND WERE FOUND BY ENUMERATING DISK, NOT BY ANY NOTIFICATION.**
   **Found by ENUMERATING `SOLVED.md` on disk, not from any notification.** Each has a `reverify:` line
   in its frontmatter; **run it before believing the headline, then write the `review:` /`review_text:`
   frontmatter into the matching `PROBLEM.md` (that is what the GUI renders).**
