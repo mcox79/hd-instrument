@@ -219,7 +219,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import queue as _queue
+import subprocess
 import sys
 import threading
 import time
@@ -324,7 +326,11 @@ _VET_TEXT = {
     "LEDGER UNAVAILABLE": ("LEDGER UNAVAILABLE", "bad"),
 }
 
-REFRESH_MS = 20000        # collection costs ~2.5s; 20s is live enough and stays cheap
+# OWNER 2026-08-24: "is 20s update too fast? Let's make it 5min or something. I can always press
+# refresh when I open the gui." -- 20s was chosen when collection cost ~2.5s, but this window is
+# read in glances, not watched, and an auto-rebuild every 20s is what made tables jump under the
+# owner's cursor. F5 / r / the REFRESH NOW button are the live path; the timer is only a backstop.
+REFRESH_MS = 300000       # 5 minutes. Manual refresh (F5, r, or the button on tab 0) is instant.
 TICK_MS = 1000
 
 # ---- DIAGNOSTICS LOG (owner request 2026-08-20: "add some kind of error log or statistics that
@@ -1554,6 +1560,33 @@ class StatusWindow:
                                 font=("Segoe UI", 10), anchor="w", justify="left",
                                 padx=12, wraplength=self._wrap_w)
         self.map_sub.grid(row=1, column=0, sticky="ew", pady=(0, 9))
+
+        # OWNER 2026-08-24, two requests in one: *"you need to relaunch the gui whenever you update
+        # it"* and *"i also don't know where the gui lives. Can you create a button on the first tab
+        # of the gui that closes it and reloads it?"*
+        # The window renders a CODE file, so a code change is invisible until the process restarts --
+        # unlike the data, which the timer picks up. This makes the restart a button instead of a
+        # thing the owner has to know a path to do.
+        btns = tk.Frame(head, bg=_RED_BG)
+        btns.grid(row=0, column=1, rowspan=2, sticky="e", padx=(8, 12))
+        tk.Button(btns, text="RESTART THIS WINDOW\n(reloads the code)", command=self._restart_gui,
+                  bg="#ffffff", fg=_RED_BG, font=("Segoe UI", 9, "bold"),
+                  relief="raised", bd=2, padx=10, pady=4, cursor="hand2").pack(pady=(0, 4))
+        tk.Button(btns, text="REFRESH NOW (F5)", command=self.refresh_now,
+                  bg=_RED_BG, fg="#ffffff", font=("Segoe UI", 9),
+                  relief="ridge", bd=1, padx=10, pady=2, cursor="hand2").pack()
+
+        # "I don't know where the gui lives" -- so say it, in the window itself, selectable.
+        pathbar = tk.Frame(f, bg=_PANEL)
+        pathbar.grid(row=3, column=0, sticky="ew", pady=(4, 0))
+        pathbar.columnconfigure(1, weight=1)
+        tk.Label(pathbar, text="THIS WINDOW IS:", bg=_PANEL, fg=_DIM,
+                 font=("Segoe UI", 8, "bold")).grid(row=0, column=0, sticky="w", padx=(4, 6))
+        _pe = tk.Entry(pathbar, font=("Consolas", 8), fg=_DIM, bg=_PANEL,
+                       relief="flat", readonlybackground=_PANEL, bd=0)
+        _pe.insert(0, "%s  %s" % (sys.executable, os.path.abspath(__file__)))
+        _pe.configure(state="readonly")   # readonly, not disabled: the owner can still select+copy
+        _pe.grid(row=0, column=1, sticky="ew")
 
         self.map_hint = tk.Label(f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10),
                                  anchor="w", justify="left", wraplength=self._wrap_w,
@@ -2986,6 +3019,50 @@ class StatusWindow:
     def _auto(self) -> None:
         self.refresh_now()
         self._schedule()
+
+    def _restart_gui(self) -> None:
+        """Relaunch this window from disk, then close this one. Owner request 2026-08-24.
+
+        WHY IT SPAWNS BEFORE IT DESTROYS: if the new process fails to start, the owner is left with
+        no window and no error. Starting first means a failure is visible -- the old window stays up
+        and says so -- rather than silent.
+
+        DETACHED, not a child: a child of this process dies with it, so the new window would be
+        killed by the very destroy() that is meant to close the old one. This is the same trap
+        CLAUDE.md documents for backgrounded experiment runs (a run backgrounded by an agent dies
+        when the agent exits); the fix is the same -- detach from the parent.
+        """
+        try:
+            script = os.path.abspath(__file__)
+            # RELAUNCH WITH THE SAME FLAGS THIS WINDOW WAS STARTED WITH. Dropping them would
+            # silently change behaviour across a restart -- and `--single-instance` in particular
+            # matters here: it KILLS other status_gui processes rather than refusing to start, so
+            # a restart that dropped it would leave the old window alive beside the new one.
+            # (It skips its own PARENT, and the new process is our child, so it would not kill us
+            # anyway -- the destroy() below is what closes this window, not the flag.)
+            argv = [a for a in sys.argv[1:] if a]
+            kw = {"cwd": os.path.dirname(os.path.dirname(script))}
+            if os.name == "nt":
+                # DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP -- survives this process exiting.
+                kw["creationflags"] = 0x00000008 | 0x00000200
+                kw["close_fds"] = True
+            else:
+                kw["start_new_session"] = True
+            subprocess.Popen([sys.executable, script] + argv, **kw)
+        except Exception as e:                      # noqa: BLE001 -- report, never take the window down
+            _diag("restart failed: %s: %s" % (type(e).__name__, e))
+            try:
+                self.map_sub.configure(
+                    text="RESTART FAILED (%s: %s) -- this window is still the OLD code. "
+                         "Relaunch by hand: %s %s" % (type(e).__name__, e, sys.executable, script))
+            except Exception:
+                pass
+            return
+        # Only now is it safe to go.
+        try:
+            self.root.destroy()
+        except Exception:
+            pass
 
     def refresh_now(self) -> None:
         if self._poll_inflight:

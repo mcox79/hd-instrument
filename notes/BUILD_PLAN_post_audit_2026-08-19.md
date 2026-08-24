@@ -34,7 +34,28 @@
 > INVERTED (`0.0285`). Neither carries substitutability. Their AGREEMENT does.**
 > 🚫 **STAGE 2 STAYS `BROKEN` ANYWAY** -- this lives in a cell; the substrate's write rule still reads
 > `0.051`. *Banking a research result as a capability is the confusion the progress view prevents.*
-> ➡️ **WIRING IT IS THE HIGHEST-VALUE CAPABILITY WORK AVAILABLE.**
+> ➡️ **WIRING IT IS THE HIGHEST-VALUE CAPABILITY WORK AVAILABLE -- AND 08-24 IT IS BLOCKED ON ONE
+> NAMED ORGAN. DO NOT START THE WIRING; BUILD THAT FIRST.** *Found by RUNNING the substrate and
+> reading `sys.modules`, not by grep or by `pipeline_status` (wrong in BOTH directions).*
+> **`hdlab/grounded_similarity` IS live and returns `0.45` for `sofa/couch`, `apple/orange` AND
+> `dog/cat` -- IDENTICAL, all three pinned at `GROUNDED_CAP`.** *Uncapped: `0.968`/`0.952`/`0.932`,
+> synonym and sibling overlapping; its docstring calls this a principled ceiling that no threshold on
+> that metric can fix.* **THAT CEILING IS WHAT DISTILLATION BREAKS** (`0.5513` -> `0.8388`).
+> 🚫 **BUT THE TAUGHT DIRECTION NEEDS A WORD-CONTEXT VECTOR AT INFERENCE AND THE LIVE PATH HAS NONE:**
+> hand lexicon ~`230` concepts; `grounded_similarity` is norms-only; and **`ppmi_sparse_encoder` is
+> CHAR-TRIGRAM (spelling) by its own docstring and is NOT in the live closure** (nor
+> `composed_encoder_v3`, nor `sensorimotor_spoke`). A distilled direction reweights a SPECIFIC SVD
+> basis -- on a spelling basis it is meaningless. ➡️ **PRIORITY 2
+> `the_live_meaning_organ_has_no_distributional_channel_to_be_taught_by`.**
+> ✅ **B5 `NEEDS_ADAPTER` is NOT a blocker** -- the teacher is needed at FIT time only, so the direction
+> is a STATIC OFFLINE-BUILT ASSET, admissible per the owner's 08-16 ruling. *Label it as such.*
+> ⚠️ **DO NOT RAISE `GROUNDED_CAP`, and it would not help: `0.968` vs `0.952` does not separate. The
+> channel is MISSING, not mis-tuned.**
+> 🔻 *HYPOTHESIS, NOT MEASURED: our meaning step reading `0.051` BACKWARDS may be caused by its only
+> live word-description being a SPELLING code -- which would make the organ and the `~78%`-morphology
+> floor the same thing. Converging, unproven.* 🔻 *And the closure list is an EAGER-IMPORT trace: it
+> cannot see lazily-imported organs and the substrate builds organs lazily. Re-derive by running a
+> read; do not quote the `36`.*
 >
 > ### ✅ **SPLIT BY HUB COVERAGE 08-24 -- IT REDIRECTS PHASE 1. `tools/split_distillation_by_hub_coverage.py`**
 > A RE-ANALYSIS, not a re-run (the cell saved `scored_population.json`). **Hub-covered `348` read

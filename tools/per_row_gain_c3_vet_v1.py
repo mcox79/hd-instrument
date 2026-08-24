@@ -70,8 +70,21 @@ os.makedirs(OUT, exist_ok=True)
 # the past results against it -- is filed as a problem brief; see notes/problems/.
 # Witness: verification/test_removing_the_bundle_helps_it_just_does_not_help_enough.py
 USE_MORPH_STRIPPED_GOLD = True
-ORTHO_BAR = None          # NOT CALIBRATED for stripped gold in this harness. Do not fill in by hand.
-ORTHO_BAR_CI = None
+# CALIBRATED 2026-08-24 by experiments/exp_per_row_gain_trigram_floor_calibration_v1.py, which
+# measures the floor IN THIS HARNESS -- it imports this file's own `_gold` and
+# `build_excitability_E`, the same C3 corpus/space/items and the same bootstrap seed:
+#   A6_TRIGRAM_ONLY = 0.019500  CI [0.015250, 0.024000]  (half-width 0.004375)
+#
+# IT COINCIDES WITH THE SIBLING'S 0.019500, AND THAT IS EARNED RATHER THAN PASTED. The identity was
+# PROVED before the value was accepted: this harness's A1_BASE (0.04575) and self_retrieval
+# (0.755853) reproduce to 1e-9 and n_items=4000 / n_anchors=5491 match, so it is provably the SAME
+# population -- which is why the same number is correct here.
+# 🔻 CORRECTION TO THIS FILE'S OWN EARLIER COMMENT: the refusal block written earlier today asserted
+# the two harnesses were "a different item construction and a different scorer". THAT WAS WRONG --
+# asserted without checking. The prescription (measure, never import) was still right, and measuring
+# is what turned the assumption into a checked fact, in the opposite direction from the guess.
+ORTHO_BAR = 0.019500
+ORTHO_BAR_CI = (0.015250, 0.024000)
 _LEGACY_LEAKY_BAR = (0.0870, (0.0783, 0.0960))   # kept for the re-run comparison, never as a gate
 
 
@@ -167,7 +180,11 @@ def main() -> int:
 
     norms: Dict[str, np.ndarray] = {k: np.linalg.norm(v, axis=1) for k, v in mats.items()}
     gain_arms = tuple(k for k in mats if k != "A1_BASE")
-    all_score_arms = ("A1_BASE",) + gain_arms + ("SCRAMBLE",)
+    # A6_TRIGRAM_ONLY is the FLOOR (pure orthographic form), deliberately NOT in `gain_arms`: it is
+    # the thing gains are measured against, not a gain. Added 2026-08-24 so this harness can measure
+    # its OWN floor instead of importing the sibling's -- see the Q117 block at the top of the file.
+    t_mat, t_cov = MS.trigram_matrix(anchors)
+    all_score_arms = ("A1_BASE",) + gain_arms + ("A6_TRIGRAM_ONLY", "SCRAMBLE")
 
     hits = {a: np.zeros(n, dtype=bool) for a in all_score_arms}
     picks = {a: [] for a in all_score_arms}
@@ -204,6 +221,13 @@ def main() -> int:
                 if qDn < 1e-9:
                     continue
                 sc = (mats["A1_BASE"][sel] @ qD) / (norms["A1_BASE"][sel] * qDn)
+            elif a == "A6_TRIGRAM_ONLY":
+                # The floor: score by SPELLING alone, same items/pool/gold as every other arm.
+                # An anchor with no trigram coverage scores a flat zero rather than being skipped --
+                # skipping would silently shrink the floor's population relative to the arms it
+                # gates, and a floor measured on an easier subset is not a floor.
+                tqL = t_mat[pos[L]] if t_cov[pos[L]] else None
+                sc = t_mat[sel] @ tqL if tqL is not None else np.zeros(sel.size)
             else:
                 if qLn < 1e-9:
                     continue
@@ -215,7 +239,7 @@ def main() -> int:
             if a == "A1_BASE":
                 base_scores = sc
                 base_pick = p
-            elif a != "SCRAMBLE":
+            elif a not in ("SCRAMBLE", "A6_TRIGRAM_ONLY"):
                 identical_to_base[a][i] = (str(p) == str(base_pick)) and bool(
                     np.allclose(sc, base_scores, atol=1e-6, rtol=1e-6))
         if (i + 1) % 500 == 0:
@@ -255,35 +279,59 @@ def main() -> int:
     # exp_grounding_readout_known_answer_v1 read on unstripped gold, so under stripped gold A1_BASE
     # legitimately differs and the guard MUST NOT be asserted -- a guard that fires when the fix is
     # working teaches the next reader to disable it.
-    if USE_MORPH_STRIPPED_GOLD or SMOKE:
+    # 2026-08-24: this now CHECKS rather than abstains. It was set to None under stripped gold
+    # because 0.048 was a LEAKY-gold number, which was right at the time -- but the calibration cell
+    # has since measured this harness's stripped-gold A1_BASE at 0.04575, so there IS a value to
+    # check against, and a disabled identity check would leave the void-plumbing guard toothless.
+    if SMOKE:
         a1_matches_c3_headline = None
+    elif USE_MORPH_STRIPPED_GOLD:
+        a1_matches_c3_headline = abs(bs["arm_acc_ci"]["A1_BASE"]["acc"] - 0.04575) < 1e-9
     else:
         a1_matches_c3_headline = abs(bs["arm_acc_ci"]["A1_BASE"]["acc"] - 0.048) < 1e-9
 
-    # REFUSE TO GATE ON AN UNCALIBRATED BAR. See the Q117 block at the top of this file: this
-    # harness owns no trigram arm, so it cannot measure its own floor, and importing the sibling's
-    # number would cross scorers and populations. Stop loudly instead of returning a verdict.
+    # VOID THE PLUMBING RATHER THAN TRUST THE CONSTANT. The floor is RE-MEASURED every run by the
+    # A6_TRIGRAM_ONLY arm above, and this refuses to gate unless it still equals ORTHO_BAR. A
+    # constant nobody re-derives drifts silently; this is the sibling's `void_plumbing` guard, and
+    # it is what makes the value above a measurement rather than an assertion.
     if ORTHO_BAR is None or ORTHO_BAR_CI is None:
-        print("[BAR NOT CALIBRATED FOR THIS GOLD -- NO GATE VERDICT ISSUED]")
-        print("  USE_MORPH_STRIPPED_GOLD = %s" % USE_MORPH_STRIPPED_GOLD)
-        print("  legacy leaky bar was %.4f %s -- ~78%% morphological leakage, comparison only"
+        print("[BAR NOT CALIBRATED -- NO GATE VERDICT ISSUED] measure it in THIS harness; "
+              "do not paste a number in.")
+        return 3
+
+    measured_a6 = bs["arm_acc_ci"]["A6_TRIGRAM_ONLY"]["acc"]
+    a6_matches_bar = abs(measured_a6 - ORTHO_BAR) < 1e-9
+    void_plumbing = bool((not SMOKE) and (
+        (not a6_matches_bar)
+        or (a1_matches_c3_headline is False)
+        or (self_retrieval < SELF_RETRIEVAL_FLOOR)))
+    if void_plumbing:
+        print("[VOID_PLUMBING -- NO GATE VERDICT ISSUED]")
+        print("  A6_TRIGRAM_ONLY measured HERE %.6f vs constant %.6f (match=%s)"
+              % (measured_a6, ORTHO_BAR, a6_matches_bar))
+        print("  A1_BASE reproduces harness headline: %s" % a1_matches_c3_headline)
+        print("  self_retrieval %.6f vs floor %.2f" % (self_retrieval, SELF_RETRIEVAL_FLOOR))
+        print("  legacy leaky bar %.4f %s -- ~78%% morphological leakage, NEVER a gate"
               % (_LEGACY_LEAKY_BAR[0], _LEGACY_LEAKY_BAR[1]))
-        print("  THIS HARNESS HAS NO A6_TRIGRAM_ONLY ARM, so it cannot measure its own floor.")
-        print("  DO NOT paste the sibling's 0.019500 here: that is a different item construction")
-        print("  and a different scorer, and no number crosses scorers or populations.")
-        print("  TO FIX: add a character-trigram control arm (hdlab/char_trigram_encoder.py is")
-        print("  already promoted) scored on the SAME items/pool/gold as the arms above, then set")
-        print("  ORTHO_BAR from what IT reads here. Filed as a problem brief; see notes/problems/.")
-        print("  Arm accuracies measured on stripped gold, for reference only (NOT a verdict):")
-        for a in all_score_arms:
-            ci = bs["arm_acc_ci"][a]
-            print("    %-22s %.6f  CI [%.6f, %.6f]" % (a, ci["acc"], ci["ci_lo"], ci["ci_hi"]))
         return 3
 
     bar_lo = ORTHO_BAR_CI[1]  # CI-separated margin requires beating the UPPER bound of the floor's CI
 
     clears_bar = {a: bool(bs["arm_acc_ci"][a]["ci_lo"] > bar_lo) for a in gain_arms}
     struct_null = {a: bool(not bs["deltas"]["d_%s_minus_BASE" % a]["ci_excludes_zero"]) for a in gain_arms}
+
+    # CLEARING THE FLOOR IS NOT PASSING, AND ON THIS HARNESS THE DIFFERENCE IS THE WHOLE VERDICT.
+    # Every gain arm here is bitwise IDENTICAL to A1_BASE, so it inherits base's clearance of the
+    # honest floor and `clears_bar` reads True for a no-op. A gain arm must additionally MOVE the
+    # number, in the right DIRECTION, by more than chance. This is the same sign-bug guard the
+    # sibling added on 2026-08-24 after an info-free arm scoring significantly WORSE than base
+    # passed its gate.
+    delta_is_improvement = {a: bool(bs["deltas"]["d_%s_minus_BASE" % a]["delta"] > 0.0)
+                            for a in gain_arms}
+    delta_excludes_zero = {a: bool(bs["deltas"]["d_%s_minus_BASE" % a]["ci_excludes_zero"])
+                           for a in gain_arms}
+    hard_pass = {a: bool(clears_bar[a] and delta_is_improvement[a] and delta_excludes_zero[a])
+                 for a in gain_arms}
     bitwise_identical_frac = {a: float(identical_to_base[a].mean()) for a in gain_arms}
 
     rep = {
@@ -307,6 +355,10 @@ def main() -> int:
                                 "frac_matched_for_random_and_magnitude_controls": frac_matched},
         "bootstrap": bs,
         "clears_bar_CI_separated": clears_bar,
+        # HARD_PASS is the verdict; clears_bar alone is NOT (a no-op arm inherits base's clearance).
+        "hard_pass": hard_pass,
+        "delta_is_an_improvement": delta_is_improvement,
+        "delta_excludes_zero": delta_excludes_zero,
         "structural_null_vs_A1_BASE": struct_null,
         "bitwise_identical_pick_fraction_vs_A1_BASE": bitwise_identical_frac,
         "per_arm": {a: {"hit_at_1": float(hits[a].mean()), "example_picks": picks[a][:10]}

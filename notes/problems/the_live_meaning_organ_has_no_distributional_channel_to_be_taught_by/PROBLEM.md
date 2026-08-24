@@ -4,7 +4,38 @@ review:
 review_text:
 ---
 
-# PROBLEM: the fix for our meaning step exists and cannot be plugged in, because the thing it plugs into is missing
+# PROBLEM: the fix for our meaning step exists, and the data it needs is already being stored and then thrown away
+
+> ## 🔴 **CORRECTED 2026-08-24, SAME DAY, BEFORE ANYONE WORKED IT. READ THIS FIRST -- THE TITLE ABOVE IS THE SECOND VERSION.**
+> **The first version of this brief said the live system has NO word-in-context description and that
+> one must be BUILT. That was wrong, and wrong in the expensive direction.** I checked further and
+> the substrate **already accumulates word-context evidence, with counts, while it reads**:
+> `_sums[lemma] += ctx_vec` (`hdlab/reading_grounding_loop.py:551`), and that module IS live.
+>
+> **Two things I then measured rather than assumed:**
+> 1. **THE COUNTS ARE RECOVERABLE.** The per-word codes are `sha256`-seeded and deterministic
+> (`:307-308`), so correlating the stored bundle against a candidate word's code returns **that
+> word's COUNT, not merely its presence**: a context word with a true count of `5` reads back
+> `+5.02 / +4.91 / +5.00 / +4.75` at 3/20/100/400 distinct context words, count-1 words read `~+1.0`,
+> and absent words read `~0.0`.
+> 2. **THE MAGNITUDE IS ALREADY EXPOSED.** `anchor_matrix()` returns `np.sign(self._sums[a])`, which
+> by its own comment throws the evidence away -- *"a dimension where 36 of 70 encounters agreed
+> becomes bit-identical to one where 70 of 70 did."* **But `freeze_graded()` already hands back the
+> same field with that quantiser omitted, and dropping it is MEASURED at `+0.0220` to `+0.0260`, CI
+> excluding zero at every normalisation level.**
+>
+> ➡️ **SO THE JOB IS NOT "BUILD A CHANNEL". IT IS: DECODE THE COUNTS THE SUBSTRATE ALREADY HAS, APPLY
+> THE PPMI+SVD TRANSFORM TO THEM, AND RUN THE TAUGHT DIRECTION ON THAT.** Much smaller, and it needs
+> no new corpus pass, no new asset and no re-reading.
+> ⚠️ **AND THE HONEST LIMIT, WHICH IS NOW THE REAL RISK: decode noise GROWS with how many distinct
+> context words an anchor has accumulated.** Separation of a count-1 word from absent words falls
+> `13.8 -> 5.8 -> 3.1 -> 1.6` standard deviations as distinct context words go `3 -> 20 -> 100 ->
+> 400`. Real anchors accumulate far more than 400. **The count ESTIMATE stays accurate; it is the
+> RARE entries that drown -- and PPMI weights rare co-occurrences heavily. Measure the signal-to-noise
+> at REALISTIC accumulation sizes before anything else. That is the crux, and I have not measured it.**
+> 🔻 *And my unbundling test used the DOCUMENTED construction (`sha256` -> bipolar draw), NOT the live
+> `context_vector`, which applies `graded` weighting by default. **It shows the approach is feasible
+> in principle; it does NOT show it works on the real stored field.** Verify against the real one.*
 
 ## THE PROBLEM IN PLAIN LANGUAGE
 
@@ -20,18 +51,27 @@ text-statistics model separates exactly this distinction -- `0.8388` where the p
 is at chance (`0.5513`) and the text model alone is backwards (`0.0285`). Neither channel can do it;
 their agreement can.
 
-**And it cannot be plugged in, because the socket does not exist.** To use the taught direction on a
-new word, you need that word's *text-statistics* description at the moment of judging. The live
-system has no such thing:
+**And it is not plugged in -- but not because the data is missing.** To use the taught direction you
+need a word's *text-statistics* description at the moment of judging. **The system is already
+collecting exactly that while it reads, and then discarding the part that matters.**
 
-- the hand-built concept list covers ~230 words and returns "cannot judge" for everything else;
-- the physical-feel table has no text statistics in it at all;
-- and the one component in the codebase named like a text-statistics model is **not one** -- it is
-  built over *character triples* (spelling fragments), so it describes how a word is SPELLED, not
-  what it appears alongside. It is also not loaded by the live system.
+- it accumulates, per word, a running record of which words appeared near it, **with counts**;
+- at read-out it keeps only the SIGN of that record -- so "36 of 70 encounters agreed" becomes
+  indistinguishable from "70 of 70 agreed". The evidence it spent the whole read gathering is
+  thrown away at the last step;
+- a method that hands back the un-thrown-away version **already exists** and is measured better;
+- meanwhile the hand-built concept list covers ~230 words and says "cannot judge" for everything
+  else, the physical-feel table contains no text statistics at all, and the one component *named*
+  like a text-statistics model is not one -- it is built over *character triples* (spelling
+  fragments), describing how a word is SPELLED. It is also not loaded by the live system.
 
-**So the job is: give the live system a real word-in-context description of a word, so the taught
-direction has something to act on.** Everything downstream of that is already built and measured.
+**So the job is: recover the counts the system already has, turn them into the kind of space the
+taught direction expects, and run it there.** No new reading, no new data, no purchase.
+
+**The risk is not "can we get the data" -- it is "is it clean enough".** The recovered counts get
+noisier the more different words a given word has been seen next to, and the rare pairings are both
+the noisiest and the ones this transform leans on hardest. **Measure that first. It decides
+everything else, and I have not measured it.**
 
 **Do not fix this by raising the `0.45` cap.** That cap is deliberate and is standing policy. It is
 also beside the point -- underneath the cap the raw numbers are `0.968` for the synonym and `0.952`
@@ -66,6 +106,21 @@ the same thing.** That is a hypothesis this work can settle, not an established 
   It is a spelling code, not a word-context code.
 - The distillation cell builds its OWN word-context space (`svds` over a word x context matrix) and
   reads the Lancaster CSV directly. **It never touches `read()` or the substrate's grounding path.**
+  Its distributional side comes from `Pstore|<word>` counts built by `raw_counts_for_window` in
+  `exp_cue_information_audit_v1` -- **explicit window co-occurrence counts, exactly the input PPMI
+  needs**, but computed in the cell rather than taken from the substrate.
+- **THE SUBSTRATE ACCUMULATES THE SAME KIND OF EVIDENCE, LIVE:** `_sums[lemma] += ctx_vec` at
+  `hdlab/reading_grounding_loop.py:551`; `reading_grounding_loop` IS in the eager closure.
+- **`anchor_matrix()` returns `np.sign(self._sums[a])`** (`:627`), discarding evidence magnitude by
+  its own comment. **`freeze_graded()` already returns the same field WITHOUT that quantiser, and
+  omitting it is measured at `+0.0220` to `+0.0260`, CI excluding zero** at every normalisation
+  level -- while divisive normalisation ON TOP is NULL (`+0.0018`, CI `[-0.0030,+0.0065]`),
+  consistent with `ORGAN_MAP`'s standing "do not re-propose" on that mechanism.
+- **COUNTS ARE RECOVERABLE FROM THE BUNDLE.** Codes are `sha256`-seeded bipolar (`:307-308`), so
+  `dot(bundle, code(c))/d` estimates c's COUNT: true-count-5 reads `+5.02/+4.91/+5.00/+4.75` at
+  3/20/100/400 distinct context words; count-1 reads `~+1.0`; absent `~0.0`.
+- **AND THE NOISE THAT LIMITS IT:** separation of a count-1 word from absent words falls
+  `13.8 -> 5.8 -> 3.1 -> 1.6` sd across those same sizes.
 - Cross-modal distillation reads `0.8388` CI `[0.8031,0.8720]`, beating its info-free twin's MAXIMUM
   over 200 draws; grounded alone `0.5513`, distributional alone `0.0285`.
 - Split by hub coverage: hub-covered `0.8263`, hub-UNCOVERED `0.8669` CI `[0.8062,0.9220]`, with
@@ -118,8 +173,17 @@ INSTRUMENT, MEASURED THROUGH THE LIVE PATH RATHER THAN IN A CELL.**
 
 To succeed:
 
-1. A word-context distributional description available **at inference**, for words the hand lexicon
-   does not cover. **Report its COVERAGE first** -- what fraction of running text gets a usable
+1. **START WITH THE DECODE SNR -- IT DECIDES WHETHER THE REST IS POSSIBLE.** On the REAL stored
+   field (not my synthetic reconstruction), at REALISTIC accumulation sizes, measure how well
+   `dot(_sums[a], code(c))` recovers the true count of `c` for `a`. **You have ground truth for
+   free**: `raw_counts_for_window` recomputes the true counts from the same sentences, so this is a
+   direct correlation, not a guess. Report it separately for FREQUENT and RARE context words --
+   PPMI leans hardest on the rare ones and they are the ones that drown.
+   **If rare-entry recovery is at noise, say so and stop: that is a complete, valuable answer**, and
+   it would mean the substrate's storage format destroys what the transform needs -- which is a far
+   more important finding than a score.
+2. Only then: PPMI+SVD over the decoded counts, available **at inference**, for words the hand
+   lexicon does not cover. **Report its COVERAGE** -- what fraction of running text gets a usable
    vector. A channel that covers little is not a channel.
 2. The taught direction applied through it, scored on the licensed instrument.
 3. **Floors recomputed on this population, not quoted from the cell.** Include the spelling control,

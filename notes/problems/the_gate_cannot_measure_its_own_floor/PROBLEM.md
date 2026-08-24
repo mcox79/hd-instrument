@@ -1,7 +1,6 @@
 ---
-priority: 1
-review:
-review_text:
+review: EXCELLENT
+review_text: "Witness 5/5 scaffold-free including a check named sibling_number_did_not_cross_harnesses -- it built a control for the exact trap the brief warned about, and named what it would withdraw first. Measured the floor IN-harness at 0.0195 CI [0.01525,0.024] and PROVED harness identity (A1_BASE 0.04575, self_retrieval 0.755853 to 1e-9) before accepting a value that coincides with the sibling. All three hunks landed. It also disproved my brief: the two harnesses are the SAME population (n_items=4000/n_anchors=5491), which I asserted otherwise without checking. Headline: on the honest floor the read-out WINS 0.04575 vs 0.0195, where on the leaky floor it lost."
 ---
 
 # PROBLEM: one of our two pass/fail gates cannot measure its own floor, so it now refuses to grade anything

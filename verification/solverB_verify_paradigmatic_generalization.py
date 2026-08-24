@@ -55,17 +55,22 @@ def _paradigmatic_corpus(seed: int = 0):
     acx = ["pet", "vet", "fur", "paw", "tail", "bark", "leash", "kennel"]
     vcx = ["road", "drive", "wheel", "fuel", "engine", "garage", "tyre", "horn"]
     dog_seen = ["pet", "vet", "leash"]                 # the ONLY context words 'dog' ever sees
+    # symmetric filler vocabulary (uninformative noise) purely to clear _build_lsa's MIN_CANDIDATES
+    # vocab guard without disturbing the animal/vehicle geometry. LETTER-ONLY: the tokenizer regex
+    # [a-z']+ strips digits, so "flr01" would collapse to "flr".
+    import string
+    filler = ["nz" + a + b for a in string.ascii_lowercase for b in string.ascii_lowercase][:60]
     sents: List[str] = []
-    for _ in range(1200):
+    for _ in range(1600):
         if rng.random() < 0.5:
             a = rng.choice(animals)
             pool = dog_seen if a == "dog" else acx
             ctx = rng.sample(pool, k=min(3, len(pool)))
-            sents.append(" ".join([a] + ctx))
+            base = [a] + ctx
         else:
             v = rng.choice(vehicles)
-            ctx = rng.sample(vcx, k=3)
-            sents.append(" ".join([v] + ctx))
+            base = [v] + rng.sample(vcx, k=3)
+        sents.append(" ".join(base + rng.sample(filler, k=2)))
     return sents, animals, vehicles
 
 
