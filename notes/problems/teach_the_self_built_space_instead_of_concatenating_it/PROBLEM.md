@@ -1,8 +1,33 @@
 ---
 priority: 4
-review:
-review_text:
+review: EXCELLENT
+review_text: Closed teach-from-what-we-own in its 3 strongest forms and shot down its OWN arbiter with an info-free twin; I re-ran both witnesses 5/5. Buy-the-map is now an evidence-based decision.
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (accepted REFUTED, integrated by strategy 2026-08-24)
+> **Why it is excellent, specifically:** it did not stop at "refuted." It ran the THREE strongest
+> brain-faithful teaching forms (rescale, rotate, propagate) and showed *more* teaching is
+> *monotonically worse* (the full metric is the worst arm on every seed) -- a diagnosis, not just a null.
+> It proved the task was winnable before calling the negative real (a supplied map clears CI-separated),
+> ran a per-arm info-free twin, and -- rarest of all -- when owner-directed to "solve it a different way"
+> it BUILT the reliability arbiter and let its OWN control kill it (the permuted-trust twin reproduces the
+> hub to 0.016, so the per-item trust signal is inert here). That is the discipline we want: build the
+> clever thing, then try hardest to refute it.
+> **What it volunteered against itself:** recomputed the floor per seed on the harder unseen population
+> (higher than the predecessor's, and refused to compare across them); flagged the supplied map's k=10
+> margin as thin and led with k=25; named the retrofit arm as least-swept and the first thing it would
+> withdraw.
+> **Reproduced under my check:** I re-ran both witnesses -- `test_teaching_does_not_rescue_unseen_retrieval.py`
+> 5/5 and `test_reliability_arbitration_ties_fixed_blend.py` 5/5. Numbers match (twin-reproduces-hub 0.016;
+> no taught arm clears). The conclusion survives fully -- no friction found in the submission.
+> **What it did not claim that matters:** the CLS-correct fix in its deep-dive (a sparse PPMI episodic
+> trace) DOES carry verified information -- it CI-beats its shuffled twin where v1 tied -- a small real
+> positive buried under the refutations, capped by how little we have read, not by the mechanism. And it
+> refines our standing "fixed-weight blending hurts" rule: blending hurts only when one source DOMINATES;
+> when the two are comparable it HELPS and no arbiter is needed. Both worth propagating.
+> **Integration:** no `hdlab/` change (a refutation). Two routes CLOSED -- grounded->distributional
+> teaching for retrieval, and a confidence/agreement per-item arbiter -- do not re-open. Lessons harvested
+> into `notes/ENABLING_LESSONS_brain_foundational_wins.md`.
 
 # PROBLEM: we concluded we must BUY a meaning resource, but we never tried letting the one we own TEACH the one we built
 
