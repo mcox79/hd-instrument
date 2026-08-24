@@ -352,6 +352,48 @@ rejecting `98.5%` for `HYPOTHESIS_BELOW_COMMIT_STRENGTH`. That is a **different 
 predictive residual. *What transfers is only the general lesson: before gating on a score, measure
 its SPREAD — a near-constant score gates at random however principled its derivation.*
 
+---
+
+# FIFTH OF THE ELEVEN: THE GROUNDED SPOKE WORKS, AND ADDS NOTHING OVER COUNTING
+
+Source: `data/exp_sensorimotor_spoke_grounding_v1/metrics.json`, FULL 2026-08-19, 3 seeds,
+`40,137` sentences read across **28 corpora** (~27 min/seed). Gold is `conceptnet_gold_v1`,
+422,082 edges, provenance-filtered, **NO WordNet source**. Powered: `n_scorable` 361/327/329 (bar
+is 300) and coverage 0.715/0.731/0.651 (bar is 50%), so its own reading (D) does not fire.
+
+**Its bar is pre-registered and honest:** *"TOP_COOCCURRENT (pre-registered). **Beating
+RANDOM_CANDIDATE is not the bar.**"* And it states its own scope: *"the sensorimotor norms are
+SUPPLIED human ratings... **no result here is the substrate having LEARNED perceptual structure.**"*
+
+## THE PAIRED TEST, WHICH IS THE CELL'S OWN DECISION RULE
+
+⚠️ **Read the PAIRED permutation, not the overlapping CIs.** The arms are scored on identical items
+and an identical candidate pool, so comparing two marginal CIs would under-power the comparison and
+I nearly did exactly that.
+
+| paired perm p vs `SPOKE_EUCLID` | seed 20260819 | seed 7 | seed 101 |
+|---|---|---|---|
+| **TOP_COOCCURRENT** *(the bar)* | **1.0000** | **1.0000** | **0.3353** |
+| SHUFFLED_NORMS *(can-fail)* | 0.0080 | 0.0145 | 0.0025 |
+| RANDOM_CANDIDATE | 0.0190 | 0.0020 | 0.0010 |
+
+✅ **THE CAN-FAIL CONTROL PASSES ON ALL THREE SEEDS.** `SHUFFLED_NORMS` permutes every profile onto
+another word with marginals preserved exactly; the real table beats it at p<0.015 throughout
+(`0.0526` vs `0.0166`, `0.0703` vs `0.0275`, `0.0699` vs `0.0182`). **So the arm IS scoring the
+norms — reading (C) does not fire, and this is not an inert organ.**
+🚫 **AND IT TIES THE BAR: `p = 1.0000 / 1.0000 / 0.3353` against `TOP_COOCCURRENT`.** That is the
+cell's pre-registered reading **(B)**: *"SPOKE ties or loses to TOP_COOCCURRENT -> the offline
+`0.6413` does NOT transfer into the substrate."*
+
+➡️ **THE SENSORIMOTOR SPOKE WORKS, CARRIES REAL INFORMATION, AND ADDS NOTHING OVER PLAIN
+CO-OCCURRENCE COUNTING ON THIS TASK.** *Not weak, not broken, not an artifact — redundant.*
+
+🔗 **AND IT AGREES WITH THE DISTILLATION RESULT RATHER THAN CONTRADICTING IT.** There, grounded
+alone sat at chance (`0.5513`) on substitutability and distributional alone was inverted, while
+their AGREEMENT reached `0.8388`. Here, grounded alone ties counting. **Both say the same thing: the
+spoke's value is not as a standalone channel.** *That is now two independent instruments pointing at
+combination rather than substitution, which is the standing four-instrument finding again.*
+
 ## TLDR
 
 We read thirty-four thousand sentences and stored three hundred and eighty-six facts.

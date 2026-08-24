@@ -30,3 +30,12 @@ Rows aged out of `notes/BOARD.md`, which shows only the most recent 40. **Nothin
 
 **THE OWNER'S ANSWER:** this has already been answered, hasn't it?
 
+
+| Q81 | 2026-08-20T15:31:35Z |
+
+**Q:** ANSWER TO D6 -- a standing decision from notes/PLAN.md section 9. THE DECISION, IN FULL: Merge this branch to origin/main? WHAT IS BLOCKED ON IT: dataprep/mcguffey-graded-corpus has been the working branch for days. WHAT WOULD HAVE HAPPENED IF NOBODY ANSWERED: HOLD. Merge needs explicit authorisation; nothing in this plan requires it.
+
+**MY RECOMMENDATION:** HOLD. Merge needs explicit authorisation; nothing in this plan requires it.
+
+**THE OWNER'S ANSWER:** Yes - merge this branch to main
+
