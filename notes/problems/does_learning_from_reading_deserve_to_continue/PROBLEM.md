@@ -1,8 +1,58 @@
 ---
 priority: 2
-review:
-review_text:
+review: EXCELLENT
+review_text: "Survives adversarial re-checking against a STRONGER comparator than it used: all three benchmarks clear the strongest floor CI-separated, and the WordSim win holds against the supplied arm the submission did not quote. Two gaps, neither overturning: the head-to-head quotes only the weaker supplied arm, and the scored population was not saved."
 ---
+
+> # 🥇 **MY REVIEW OF THE SUBMISSION -- EXCELLENT. IT SURVIVED AN ADVERSARIAL RE-CHECK.**
+> *Reviewed 2026-08-23 by the strategy session. I tried to break it against a comparator it did not
+> use, and it held. Recomputed from `data/exp_learn_from_reading_strong_arm_v1/metrics.json`
+> (`mode: full`, `38,091,176` tokens read, vocab `60,085`).*
+>
+> ## ✅ **THE GATE, RE-RUN MY WAY: CLEARS ON ALL THREE, CI-SEPARATED**
+> *The project's actual bar is a CI-separated margin over the strongest floor ACTUALLY RUN, gated on
+> that floor's UPPER bound. Recomputed per benchmark, on each one's own population:*
+>
+> | benchmark | learned arm | strongest floor (upper bound) | |
+> |---|---|---|---|
+> | SimLex-999 | `0.2552` `[0.1964,0.3141]` | idf-count `0.1235` (upper `0.1885`) | ✅ **CLEARS** |
+> | SimVerb-3500 | `0.1290` `[0.0956,0.1623]` | idf-count `0.0365` (upper `0.0717`) | ✅ **CLEARS** |
+> | WordSim-353 | `0.6301` `[0.5628,0.6975]` | idf-count `0.4120` (upper `0.5002`) | ✅ **CLEARS** |
+>
+> **AND THE SPELLING FLOOR -- the one that had been beating our shipped channel -- is `0.0104` /
+> `0.0164` / `0.0487`.** *This arm clears it by 15-40x. That is the reversal the brief asked for.*
+>
+> ## 🔍 **THE ATTACK I MADE, AND WHY IT FAILED TO BREAK IT**
+> **The head-to-head quotes `SUPPLIED_CORE`. The cell ALSO RAN `SUPPLIED_FULL`, which is higher on
+> all three** (`0.3406` / `0.3547` / `0.4395` against `0.2502` / `0.2663` / `0.4047`). *Quoting the
+> weaker of two comparators you ran yourself is exactly the "strongest floor actually run" failure,
+> so I re-scored against the stronger one:*
+>
+> - **WordSim: learned is AHEAD of `SUPPLIED_FULL` too, CI-separated** (`0.6301` vs `0.4395`). **The
+>   headline win survives the stronger comparator.**
+> - SimLex: CIs OVERLAP against **both** supplied arms -- so *"ties"* is defensible either way,
+>   though the point estimate sits `0.085` below `SUPPLIED_FULL`.
+> - SimVerb: behind both. **The submission's own "LOSES verbs" is honest and if anything UNDERSTATED.**
+>
+> ⚖️ **AND THE CHOICE OF `CORE` MAY BE PRINCIPLED, NOT EVASIVE:** `SUPPLIED_FULL` covers `2-8%`
+> FEWER pairs, so comparing against it crosses populations, while `CORE` matches the learned arm at
+> `coverage 1.000`. *That is the right instinct.* **The defect is only that the sentence never tells
+> the reader a stronger supplied arm exists.**
+>
+> ## 🔻 **THE ONE REAL GAP: THE SCORED POPULATION WAS NOT SAVED**
+> `data/exp_learn_from_reading_strong_arm_v1/` contains **`metrics.json` and nothing else.** So the
+> single check that would settle whether `SUPPLIED_FULL`'s edge is real or a coverage artifact --
+> re-scoring every arm on the intersection of pairs it covers -- **requires a full re-run.**
+> *The priority-1 submission saved its population and that audit cost minutes; this one costs hours.
+> Same standing rule, opposite outcome, and it is worth noting the STRONGER result is the less
+> examinable one.*
+>
+> ## ➡️ **WHAT THIS CHANGES: THE ROUTE IS CORPUS-LIMITED, NOT EXHAUSTED**
+> **The curve is still climbing at the ceiling on all three** (SimLex `0.089`->`0.255` across the
+> `1M`->`40M` sweep). **My brief's premise -- that sixteen prior losses meant the IDEA was dead --
+> is REFUTED, and it was refuted the right way: by building the strong version and measuring it.**
+> *The sixteen losses tested a weak implementation, which is the standing "do not generalise a
+> narrow failure to impossible" rule catching a real error of mine.*
 
 > # 🥈 **PRIORITY 2 of 9 — THE DIRECTION QUESTION, TURNED INTO AN EXPERIMENT**
 > **OWNER, Q116, 2026-08-23: *"make this into a focused problem to give to the solver so we can
