@@ -28,6 +28,7 @@ WHAT IT ANSWERS, WHICH NOTHING CURRENTLY DOES IN ONE PLACE:
 USAGE -- FOR ME AND FOR SOLVERS:
     python tools/substrate_map.py                 the whole map, one line per stage
     python tools/substrate_map.py --gaps          only what is broken or weak, worst first
+    python tools/substrate_map.py --progress      what has MOVED, vs what merely happened
     python tools/substrate_map.py --organ B3      one organ, brain requirement first
     python tools/substrate_map.py --brief <slug>  what a farmed-out problem was meant to shore up
     python tools/substrate_map.py --build         write data/substrate_map.json for the GUI
@@ -307,6 +308,87 @@ def render_brief(slug):
     return 0
 
 
+def progress() -> dict:
+    """"HOW MUCH PROGRESS HAVE WE MADE" -- answered from git, not from memory.
+
+    THE DISTINCTION THIS EXISTS TO MAKE. A brief coming back is ACTIVITY. A stage changing state
+    is PROGRESS. Those look identical on a tracker and they are not the same thing, and conflating
+    them is how a project feels productive while standing still.
+
+    Measured, never judged: stage states are replayed out of every commit of the stages file, so
+    "nothing moved" is a fact about the file's history rather than my opinion of the week.
+    """
+    import subprocess
+    sep = "|"
+    out = subprocess.run(["git", "log", "--follow", "--format=%h" + sep + "%ad",
+                          "--date=iso-strict", "--", "data/substrate_progress.json"],
+                         capture_output=True, text=True, cwd=REPO).stdout
+    revs = [l.split(sep) for l in out.splitlines() if l.strip()][::-1]
+    series, prev, changes = [], None, []
+    for h, when in revs:
+        blob = subprocess.run(["git", "show", "%s:data/substrate_progress.json" % h],
+                              capture_output=True, text=True, cwd=REPO).stdout
+        try:
+            cur = {s["name"]: s["state"] for s in json.loads(blob).get("stages", [])}
+        except Exception:                                        # noqa: BLE001
+            continue
+        if prev is not None:
+            for k, v in cur.items():
+                if prev.get(k) not in (None, v):
+                    changes.append({"when": when, "stage": k, "from": prev[k], "to": v})
+        series.append({"rev": h, "when": when, "states": cur})
+        prev = cur
+    briefs = load_briefs()
+    by_state = {}
+    for b in briefs.values():
+        by_state[b["state"]] = by_state.get(b["state"], 0) + 1
+    returned = [b for b in briefs.values()
+                if b["state"] in ("SOLVED", "PARTIAL", "REFUTED")]
+    return {
+        "window_first_commit": series[0]["when"] if series else None,
+        "window_last_commit": series[-1]["when"] if series else None,
+        "n_commits_of_the_stage_file": len(series),
+        "stage_state_changes": changes,
+        "briefs_by_state": by_state,
+        "briefs_returned": len(returned),
+        "briefs_integrated": len([b for b in returned if b["integrated"]]),
+        "current_states": series[-1]["states"] if series else {},
+    }
+
+
+def render_progress():
+    p = progress()
+    print("=" * 100)
+    print("PROGRESS -- activity is not the same thing as movement")
+    print("=" * 100)
+    print("window: %s -> %s  (%d commits of the stage file)"
+          % (p["window_first_commit"], p["window_last_commit"],
+             p["n_commits_of_the_stage_file"]))
+    print()
+    print("BRIEFS: %d returned, %d folded in.  by outcome: %s"
+          % (p["briefs_returned"], p["briefs_integrated"],
+             ", ".join("%s=%d" % kv for kv in sorted(p["briefs_by_state"].items()))))
+    print()
+    if p["stage_state_changes"]:
+        print("STAGE STATE CHANGES (%d):" % len(p["stage_state_changes"]))
+        for c in p["stage_state_changes"]:
+            print("   %s  %-30s %s -> %s" % (c["when"][:16], c["stage"], c["from"], c["to"]))
+    else:
+        print("STAGE STATE CHANGES: *** NONE ***")
+        print("   Not one pipeline stage has moved since the file was created. In that window")
+        print("   %d briefs came back and %d were folded in." % (p["briefs_returned"],
+                                                                 p["briefs_integrated"]))
+        print("   That is the honest answer to 'how much progress': we have bought a great deal of")
+        print("   KNOWLEDGE -- mostly ruling routes out -- and no measured CAPABILITY movement.")
+    print()
+    print("   SCOPE, because this number is easy to over-read: the stages file only exists from")
+    print("   %s, so this says nothing about the months before it." % (p["window_first_commit"] or "?")[:10])
+    print()
+    for k, v in sorted(p["current_states"].items()):
+        print("   %-9s %s" % (v, k))
+    return 0
+
+
 def self_test():
     ok = True
 
@@ -369,6 +451,8 @@ def main(argv):
         print("wrote %s (%d organs, %d stages, %d briefs)"
               % (OUT, len(m["organs"]), len(m["stages"]), len(m["briefs"])))
         return 0
+    if "--progress" in argv:
+        return render_progress()
     if "--organ" in argv:
         return render_organ(argv[argv.index("--organ") + 1])
     if "--brief" in argv:
