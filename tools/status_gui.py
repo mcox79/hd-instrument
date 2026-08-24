@@ -1606,7 +1606,14 @@ class StatusWindow:
                     out.append(("%s\n\n" % b["review_text"], None))
                 if b.get("reverify"):
                     out.append(("re-verify: %s\n" % b["reverify"], "mono"))
-            out.append(("what would fix it: %s\n" % (row.get("goal") or "-"), "mono"))
+            out.append(("WHAT WOULD FIX IT: ", "h"))
+            out.append(("%s\n\n" % (row.get("goal") or "-"), None))
+            # Carried over when tab 9 was retired, so nothing that tab showed is lost.
+            if row.get("state_note"):
+                out.append(("WHY THIS STATE CHANGED: ", "h"))
+                out.append(("%s\n\n" % row["state_note"], "warn"))
+            out.append(("evidence: %s\nlast re-checked %s\n"
+                        % (row.get("source") or "-", row.get("reviewed_utc") or "-"), "mono"))
             self._set_text(self.map_detail, out)
         except Exception:
             pass
@@ -1717,7 +1724,13 @@ class StatusWindow:
         point of a status tab.
         """
         f = ttk.Frame(self.nb)
-        self.nb.add(f, text="9. SUBSTRATE")
+        # RETIRED 2026-08-24, one line from restoration. Tab 0 (THE MAP) renders the SAME ten
+        # stages from the SAME file and adds the briefs working each gap plus the progress
+        # history, so this became a strict subset of tab 0 the moment tab 0 shipped. Leaving
+        # both would be the owner's actual complaint -- tabs that do not earn their place --
+        # committed by the person fixing it. The frame is still built; restore the nb.add if
+        # tab 0 ever loses the per-stage detail.
+        # self.nb.add(f, text="9. SUBSTRATE")
         self.tab_substrate = f
         f.columnconfigure(0, weight=1)
         f.rowconfigure(2, weight=1)
@@ -5053,18 +5066,24 @@ def self_test() -> int:
         check(gui._last_error is None,
               f"renders LIVE data with no panel error ({gui._last_error})")
         check(time.time() - t0 < 40, "live collect + render is well inside a refresh cycle")
-        check(len(gui.nb.tabs()) == 10,
-              f"ten tabs: THE MAP added 2026-08-24 as tab 0 -- one view of state, gaps, and who "
-              f"is working them (got {len(gui.nb.tabs())})")
+        check(len(gui.nb.tabs()) == 9,
+              f"nine tabs: THE MAP added as tab 0 and SUBSTRATE retired into it the same day, "
+              f"because tab 0 renders the same stages plus the briefs (got {len(gui.nb.tabs())})")
         # The count above is a blunt pin and it did its job -- it caught the SUBSTRATE tab the
         # moment it was added. Keep it blunt. What it protects against is a tab being registered
         # or LOST without anyone noticing, and a count is the only assertion that catches a loss.
         titles = [gui.nb.tab(t, "text").split("  [")[0].strip() for t in gui.nb.tabs()]
-        check(any(x.startswith("9. SUBSTRATE") for x in titles),
-              f"the SUBSTRATE tab is registered, not merely built (got {titles})")
-        check(gui._TAB_SOURCES.get("9. SUBSTRATE") == ["data/substrate_progress.json"],
-              "the SUBSTRATE tab declares the file it reads, so its title carries a real age "
-              "rather than falling through to [live]")
+        # The pin MOVED to tab 0 rather than being deleted when SUBSTRATE was retired: what it
+        # protects is that the stage view is REGISTERED and not merely built, and tab 0 is now the
+        # stage view. Deleting a pin because the thing it guarded was renamed is how coverage is
+        # lost quietly.
+        check(any(x.startswith("0. THE MAP") for x in titles),
+              f"the stage view is registered, not merely built (got {titles})")
+        check(gui._TAB_SOURCES.get("0. THE MAP") == ["data/substrate_map.json"],
+              "THE MAP declares the file it reads, so its title carries a real age rather than "
+              "falling through to [live]")
+        check(not any(x.startswith("9. SUBSTRATE") for x in titles),
+              "SUBSTRATE is retired, not duplicated beside the tab that superseded it")
 
         # ---- THE 2026-08-22 UI/UX PASS. Owner: *"can you run an optimisation over the entire
         # gui... things that are completely unnecessary, like the tab titles redrawing every ~10
