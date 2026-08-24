@@ -13,12 +13,10 @@
 > run** -- so stage state, gaps, who owns each gap and what came back are no longer restated here.
 > `--gaps` worst-first · `--organ B3` brain requirement with corrections FIRST · `--brief <slug>` ·
 > `--progress` · `--build` feeds GUI tab 0. **Solvers may use all of it.**
-> *(`23` briefs as of 08-24. It crashed on a stage owning MORE THAN ONE brief -- I migrated the
-> schema to a list and left the renderer behind. Fixed; a stage now shows all its briefs.)*
+> *(`23` briefs as of 08-24.)*
 >
 > ## 🏁 **PROGRESS, FROM GIT NOT MEMORY (`--progress`): `16` BRIEFS RETURNED, `15` FOLDED IN, NOT ONE STAGE CHANGED STATE.**
-> **Activity is not movement, and a tracker cannot tell them apart** -- which is why the tabs felt
-> unhelpful. *Stages now carry `state_note`; every change must state its reason.*
+> **Activity is not movement, and a tracker cannot tell them apart.** *Stages carry `state_note`.*
 >
 > ## 🥇🥇 **08-24 THE SUBSTITUTABILITY WALL IS BROKEN -- FIRST UNSUPERVISED ARM TO CLEAR THAT INSTRUMENT ON MERIT**
 > **Cross-modal distillation** -- the grounded sensorimotor hub TEACHES a direction over PPMI+SVD,
@@ -90,20 +88,17 @@
 > the hand-rated table covers `348` pairs as a lookup and `484` as a teacher.**
 >
 > ## 🔻 **OUR WRITE RULE IS NOT WEAK, IT IS INVERTED** *(evidence + floors: `substrate_map.py`, stage 2)*
-> `AUC 0.051` against chance `0.50`, known-answer arm `0.9599`: **it confidently encodes
-> CO-OCCURRENCE where meaning needs SUBSTITUTABILITY.** *Two pre-registered `STOP_IF`s closed the
-> whole family of unsupervised first-order transforms; four tuning families reached `0.114`, no
-> further.*
+> `AUC 0.051` vs chance `0.50`, known-answer arm `0.9599`: **it confidently encodes CO-OCCURRENCE
+> where meaning needs SUBSTITUTABILITY.** *Two `STOP_IF`s closed the unsupervised first-order
+> transform family; four tuning families reached `0.114`, no further.*
 >
 > ## 🖥️ **Q119 ANSWERED 08-24: MOVE AUTHORISED. THE MOVE ITSELF IS PENDING A QUIET WINDOW -- Q121.**
-> Owner: *"do it - authorized to move the project to the internal drive if there is sufficient space
-> - but will you move the whole thing, or a subset?"* **MEASURED: `174 GB` / `316,265` files; `C:`
-> has `1,433 GB` free, so SPACE IS NOT THE CONSTRAINT.** `data/` is `152.92 GB` alone; code+notes+
-> history ~`21 GB`. **But the slowness tracks FILE COUNT on the read path, not size:** `.venv` is
-> `44,635` files opened on EVERY command (that is the `167 s` startup), `lean_oracle` `121,688`,
-> `.git` `25,243`. ➡️ **RECOMMENDED WHOLE, not a subset** -- a subset leaves the `153 GB` that times
-> out the search tools on the stick, plus a fast->slow shortcut in a project repeatedly bitten by
-> hidden path coupling.
+> Owner: *"do it - authorized... but will you move the whole thing, or a subset?"* **MEASURED:
+> `174 GB` / `316,265` files; `C:` has `1,433 GB` free -- SPACE IS NOT THE CONSTRAINT.** `data/` is
+> `152.92 GB`; code+notes+history ~`21 GB`. **Slowness tracks FILE COUNT on the read path, not
+> size:** `.venv` `44,635` files opened EVERY command (= the `167 s` startup), `lean_oracle`
+> `121,688`, `.git` `25,243`. ➡️ **RECOMMENDED WHOLE** -- a subset strands the `153 GB` that times
+> out the search tools, plus a fast->slow shortcut in a project bitten repeatedly by hidden coupling.
 > 🚫 **DO NOT START THE COPY FROM INSIDE THE LOOP, AND THIS IS THE LOAD-BEARING PART:** `5` processes
 > run out of the folder (a LIVE experiment writing results, the KB ingest, the landing notifier, the
 > status window) -- copying under writers yields a quietly wrong copy. **And
@@ -117,6 +112,17 @@
 > and `cite_check.py` (documented "~2 s warm") timed out at `500 s` with NO output.** *Two wrong
 > answers came first (a concurrent session; then antivirus, off a BROKEN control comparing cold
 > files to a just-WRITTEN one). **Do not re-diagnose it.***
+>
+> ## 🔎 **08-24 A MANDATED CHECK WAS UNUSABLE, AND MY SHORTCUT AGREED WITH ITSELF**
+> `cite_check.py` (one of the SIX mandated reads) timed out at `500 s`, NOT broken: `notes/` grew to
+> `14,325` top-level `.md` files and a serial open+read costs `507 s`. Parallelised (IO-bound):
+> **`507 s` -> `4.1 s`**, self-test ALL PASS incl. its SEARCH POSITIVE CONTROL.
+> 🔻 **It caught me at once: my grep sweep said `14` files quote the leaky `0.0870`; truth is `63`
+> (`22` notes, `41` metrics).** ✅ **FOUR notes assert the reversed claim IN THEIR FILENAME** --
+> bannered, deliberately NOT flattened (one fully superseded; one only PARTLY, since its arm was
+> also scored on leaky gold and flipping it is the same error reversed; two retract a SECTION while
+> the HEADLINE stands on a different criterion). **Names left unchanged -- renaming breaks every
+> citation. The GOLD was the defect, not the work.** *The `41` metrics hits stay UNTOUCHED.*
 >
 > ## 📦 **STANDING, FROM THE OWNER (08-23/08-24)**
 > *"Bundle complicated problems for a solver, and verify the submissions."* · *"Whenever you come
@@ -134,35 +140,30 @@
 > its own info-free twin. **Never quote it as "what a spell-checker scores".** *Stripper is the
 > promoted `hdlab/morphology_leakage.py`.*
 >
-> ## 🎓 **HOW THE REVIEWS PAY: A RE-VERIFY CONFIRMS THE ARITHMETIC, SO AUDIT THE ARGUMENT**
-> **All submissions verified, reviewed and integrated (`awaiting integration: 0`). Every re-verify
-> passed AND every audit still found something** -- a routing oracle foreclosing a whole family of
-> fixes; a floor that was `78%` morphology; a diagnosis naming the wrong cause twice; and 08-24, a
-> STRONG submission concluding *buy a resource* whose every arm was ALONE-or-CONCATENATED.
-> ⚠️ **THE MARKER LIVES IN `SOLVED.md` (`INTEGRATED_BY_STRATEGY`), NOT `PROBLEM.md`** -- my
-> integration notes were real and invisible for six briefs until I read the marker's definition.
->
-> ## 🔻 **MY OWN ERROR RATE IS THE OTHER HALF OF THE RECORD, AND IT IS NOT SMALL**
-> **Six corrections 08-23; six more 08-24** -- a false "NOBODY IS WORKING THIS GAP" shipped to the
-> GUI (single-brief schema while `20` existed); a stage labelled `UNTESTED` that had HARD_PASSed a
-> year earlier; an antivirus conclusion off a broken control; a duplicated tab; **the central store
-> CRASHING because I migrated that schema and left the renderer behind; and `morphology_leakage.py`
-> promoted to `hdlab/` with ZERO registry rows -- the exact islanding the WIRE-or-SHELVE gate exists
-> to prevent, by the session enforcing it.**
-> ➡️ **Every one was caught by a control written as CODE. None by a caution written as prose.**
-> *08-24 proved the sharper version: a prose rule can be WRONG IN BOTH DIRECTIONS at once. The GUI
-> comment banning "first- or second-person pronouns" was too broad (`YOU SAY` is correct) and too
-> narrow in effect (`MY RATING` sat unfixed ONE LINE BELOW IT for a day). Now a witness.*
+> ## 🎓 **BOTH HALVES OF THE RECORD, IN ONE PLACE** *(worked examples: `STATUS_LESSONS.md`)*
+> **REVIEWS PAY BY AUDITING THE ARGUMENT, NOT THE ARITHMETIC. `awaiting integration: 0`; every
+> re-verify passed AND every audit still found something** -- a routing oracle foreclosing a family
+> of fixes; a floor that was `78%` morphology; a STRONG submission concluding *buy a resource* whose
+> every arm was ALONE-or-CONCATENATED. ⚠️ *The integration marker lives in `SOLVED.md`, not
+> `PROBLEM.md`.*
+> **AND MY OWN ERROR RATE IS THE OTHER HALF: six corrections 08-23, six more 08-24** -- a false
+> "NOBODY IS WORKING THIS GAP" shipped to the GUI; a stage labelled `UNTESTED` that had HARD_PASSed;
+> the central store CRASHING because I migrated a schema and left the renderer behind;
+> `morphology_leakage.py` promoted with ZERO registry rows (the islanding the gate exists to
+> prevent, by the session enforcing it); and a "sweep" I called done that was `14` of `63`.
+> ➡️ **EVERY ONE CAUGHT BY A CONTROL WRITTEN AS CODE. NONE BY A CAUTION WRITTEN AS PROSE** -- and
+> 08-24 sharpened it twice: a prose rule can be WRONG IN BOTH DIRECTIONS AT ONCE (the GUI pronoun
+> ban was too broad AND missed a live instance one line below itself), and **my own hand-count of
+> this very block read `191` when the authoritative guard read `126`** -- name the denominator.
 >
 > ## 🚧 **RESIDUE STILL LOAD-BEARING AND NOT IN THE MAP**
-> **The channel CANNOT gate links alone** (`66%` hit / `37%` false alarm, AUC `0.7002`) -- combine,
-> never substitute. **Storage is fine, COMBINING destroys** (~`62%` at the reader's real `k=6`), and
-> neither sparsity nor an addressed slot rescues it. **Somatotopy holds at power** (verbs `+0.0651`
+> **Channel CANNOT gate links alone** (`66%` hit / `37%` FA, AUC `0.7002`) -- combine, never
+> substitute. **Storage is fine, COMBINING destroys** (~`62%` at the reader's real `k=6`); neither
+> sparsity nor an addressed slot rescues it. **Somatotopy holds at power** (verbs `+0.0651`
 > `[+0.0306,+0.1005]`); the noun half is **CLOSED AS UNANSWERABLE** (~`20,800` pairs needed, we own
-> `666`). ⚠️ **DO NOT raise `GROUNDED_CAP`** -- the gap below the link threshold is what makes
-> "contribute, do not decide" enforceable in code rather than hoped for in prose. **`54` landed
-> records were re-dated by a concurrent session's replay: MISLABELLING, not data loss; owned by
-> Q115.**
+> `666`). ⚠️ **DO NOT raise `GROUNDED_CAP`** -- that gap is what makes "contribute, do not decide"
+> enforceable in code rather than hoped for in prose. *`54` records re-dated by a concurrent replay:
+> MISLABELLING, not data loss; Q115.*
 > 📏 **LINE-COUNT NOTE, so nobody re-derives it: THIS FILE HAS THREE QUOTED REGIONS, NOT ONE.** The state block runs to the `7.` line above; then PLAIN closing text; then FURTHER quoted notices (the filename-is-an-API coupling note, the autoloop notice). **Different counting rules include different amounts of that, which is why three measurements of "the block" disagreed (`167` / `178` / `185`).** 🚫 **DO NOT "FIX" THE COUNTER TO REPORT A SMALLER NUMBER -- that is adjusting the band, and adjusting the band is not a result.** *The cap belongs to `session_start_hook.plan_top_block_report`; if it says too long, the answer is LESS CONTENT.*
 **Written 2026-08-18 end of session, at the owner's direction, to be executed after compaction.**
 Supersedes the forward-looking parts of `PLAN_ORGAN_STEP_LADDERS_2026-08-17.md`. Its Section 7
