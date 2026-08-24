@@ -1000,6 +1000,7 @@ class StatusWindow:
         # THE ORDER IS THE ANSWER TO "what do I look at first". Group A says where we are and
         # what is happening; group B says what is stuck on the owner; group C is the evidence
         # behind both. Anything that needed two tabs to answer one question was merged.
+        self._build_map()         # A  (tab 0: THE MAP -- the join, owner 2026-08-24)
         self._build_where()       # A
         self._build_running()     # A  (the overnight loop is folded in here)
         self._build_board()       # B  (board questions + the standing decisions)
@@ -1072,6 +1073,7 @@ class StatusWindow:
         "7. LATEST RESULTS": None,                # newest metrics.json, computed at render
         "8. NOTE FOR ME": ["notes/COMMENTARY.md"],
         "9. SUBSTRATE": ["data/substrate_progress.json"],
+        "0. THE MAP": ["data/substrate_map.json"],
     }
 
     def _register_tab_sources(self) -> None:
@@ -1519,6 +1521,161 @@ class StatusWindow:
         _wrap.grid(row=3, column=0, sticky="ew", pady=(6, 0))
 
     # ---- TAB 9 (group A) ----------------------------------------------
+    # ---- PANEL 0: THE MAP ------------------------------------------------------------------
+    # OWNER 2026-08-24: "I want to understand exactly how the state of the substrate is - where the
+    # gaps are, what the problems you've farmed out to the solver are supposed to shore up, where
+    # those solutions have gotten us and how much progress we've made."
+    # Those are FOUR questions and they were spread over four tabs, so answering them meant holding
+    # three screens in your head. This tab is the JOIN: one row per pipeline stage, carrying its
+    # state, the brief that owns its gap, and what that brief bought. Rendered from
+    # data/substrate_map.json (tools/substrate_map.py --build), which DERIVES from ORGAN_MAP, the
+    # stages file, the briefs and the registry -- so it cannot drift from them.
+    def _build_map(self) -> None:
+        f = tk.Frame(self.nb, bg=_PANEL, padx=10, pady=8)
+        self.nb.add(f, text="0. THE MAP")
+        self.tab_map = f
+        f.columnconfigure(0, weight=1)
+        f.rowconfigure(2, weight=1)
+
+        head = tk.Frame(f, bg=_RED_BG)
+        head.grid(row=0, column=0, sticky="ew", pady=(4, 6))
+        head.columnconfigure(0, weight=1)
+        self.map_head = tk.Label(head, text="", bg=_RED_BG, fg="#ffffff",
+                                 font=("Segoe UI", 13, "bold"), anchor="w", padx=12,
+                                 justify="left", wraplength=self._wrap_w)
+        self.map_head.grid(row=0, column=0, sticky="ew", pady=(9, 2))
+        self.map_sub = tk.Label(head, text="", bg=_RED_BG, fg="#f2dedc",
+                                font=("Segoe UI", 10), anchor="w", justify="left",
+                                padx=12, wraplength=self._wrap_w)
+        self.map_sub.grid(row=1, column=0, sticky="ew", pady=(0, 9))
+
+        self.map_hint = tk.Label(f, text="", bg=_PANEL, fg=_BLUE, font=("Segoe UI", 10),
+                                 anchor="w", justify="left", wraplength=self._wrap_w,
+                                 padx=4, pady=4)
+        self.map_hint.grid(row=1, column=0, sticky="ew")
+
+        frame, self.map_tv = self._tree(
+            f,
+            cols=("n", "stage", "state", "owner", "bstate", "bought"),
+            widths=(30, 200, 84, 250, 120, 420),
+            headings=("#", "STAGE", "HOW IT IS", "WHO IS WORKING THE GAP", "THEIR STATUS",
+                      "WHAT IT BOUGHT"),
+            height=11)
+        frame.grid(row=2, column=0, sticky="nsew")
+        self.map_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_map_detail())
+
+        _wrap, self.map_detail = self._detail_scrolled(f, height=10)
+        _wrap.grid(row=3, column=0, sticky="ew", pady=(6, 0))
+
+    def _show_map_detail(self) -> None:
+        """One stage, end to end: what the BRAIN requires -> what we built -> the gap -> who owns
+        it -> what came back. The four questions in the order they have to be asked."""
+        try:
+            sel = self.map_tv.selection()
+            if not sel:
+                return
+            sid = self.map_tv.item(sel[0], "values")[0]
+            row = next((r for r in getattr(self, "_map_rows", []) if str(r.get("id")) == str(sid)),
+                       None)
+            if row is None:
+                return
+            b = row.get("brief")
+            out = [("%s. %s  --  %s\n" % (row.get("id"), row.get("name"), row.get("state")), "h"),
+                   ("%s\n\n" % (row.get("plain") or ""), None),
+                   ("WHAT WE MEASURED: ", "h"), ("%s\n" % (row.get("evidence") or "-"), None),
+                   ("WHAT IT HAS TO BEAT: ", "h"), ("%s\n\n" % (row.get("floor") or "-"), None),
+                   ("THE GAP: ", "h"),
+                   ("%s\n\n" % (row.get("gap") or "-"),
+                    "bad" if row.get("state") == "BROKEN" else None)]
+            if not b:
+                out.append(("NOBODY IS WORKING THIS GAP.\n", "bad"))
+                out.append(("No brief owns it, so nothing is scheduled to close it. That is a "
+                            "decision by omission, not a plan.\n\n", None))
+            else:
+                out.append(("WHO IS WORKING IT: ", "h"))
+                out.append(("%s  (status %s, my review %s, %s)\n\n"
+                            % (b.get("slug"), b.get("state"),
+                               b.get("review") or "not reviewed",
+                               "folded in" if b.get("integrated") else "NOT folded in"),
+                            None))
+                if b.get("result"):
+                    out.append(("WHAT CAME BACK: ", "h"))
+                    out.append(("%s\n\n" % b["result"], None))
+                if b.get("review_text"):
+                    out.append(("MY READ ON IT: ", "h"))
+                    out.append(("%s\n\n" % b["review_text"], None))
+                if b.get("reverify"):
+                    out.append(("re-verify: %s\n" % b["reverify"], "mono"))
+            out.append(("what would fix it: %s\n" % (row.get("goal") or "-"), "mono"))
+            self._set_text(self.map_detail, out)
+        except Exception:
+            pass
+
+    def _r_map(self, _s: dict) -> None:
+        """Render from data/substrate_map.json, and SAY SO IF IT IS MISSING OR STALE.
+
+        The tab reports its own failure rather than rendering an empty table, because an empty
+        table on a 'maintained' tab reads as 'no problems' -- the exact misreading this whole tab
+        exists to prevent.
+        """
+        import json as _json
+        import os as _os
+        path = _os.path.join(_REPO, "data", "substrate_map.json")
+        try:
+            with io.open(path, encoding="utf-8") as fh:
+                m = _json.load(fh)
+        except Exception as exc:                                  # noqa: BLE001
+            self._set_label(self.map_head, text="THE MAP CANNOT BE READ")
+            self._set_label(self.map_sub,
+                            text="%s: %s. Rebuild it with:  python tools/substrate_map.py --build"
+                                 % (type(exc).__name__, exc))
+            return
+
+        stages = m.get("stages", [])
+        self._map_rows = stages
+        order = {"BROKEN": 0, "WEAK": 1, "UNKNOWN": 2, "UNTESTED": 3, "WORKS": 4}
+        rows = sorted(stages, key=lambda s: (order.get(s.get("state"), 9), s.get("id") or 0))
+
+        unowned = [s for s in stages if not s.get("brief")
+                   and s.get("state") not in ("WORKS",)]
+        broken = [s for s in stages if s.get("state") == "BROKEN"]
+        self._set_label(
+            self.map_head,
+            text="%d of the %d stages are BROKEN or WEAK, and %d of those have NOBODY working them"
+                 % (len([s for s in stages if s.get("state") in ("BROKEN", "WEAK")]),
+                    len(stages), len(unowned)))
+        self._set_label(
+            self.map_sub,
+            text=("A stage with no owner is a gap nothing is scheduled to close. "
+                  + ("The worst one right now is %s." % broken[0]["name"] if broken else "")))
+
+        sig = tuple((s.get("id"), s.get("state"),
+                     (s.get("brief") or {}).get("slug"),
+                     (s.get("brief") or {}).get("state")) for s in rows)
+        if getattr(self, "_map_sig", None) == sig and self.map_tv.get_children():
+            return
+        self._map_sig = sig
+        self.map_tv.delete(*self.map_tv.get_children())
+        for s in rows:
+            b = s.get("brief") or {}
+            owner = b.get("slug") or "-- nobody --"
+            bstate = b.get("state") or ""
+            if b and not b.get("integrated") and bstate in ("SOLVED", "PARTIAL", "REFUTED"):
+                bstate += " (not folded in)"
+            bought = (b.get("result") or "")[:200] if b else ""
+            if not b and s.get("state") in ("BROKEN", "WEAK"):
+                bought = "NOTHING IS SCHEDULED TO CLOSE THIS"
+            tag = ("bad" if s.get("state") == "BROKEN"
+                   else "warn" if s.get("state") in ("WEAK", "UNKNOWN") else "dim")
+            self.map_tv.insert("", "end",
+                               values=(s.get("id"), s.get("name"), s.get("state"),
+                                       owner, bstate, bought), tags=(tag,))
+        self._set_label(
+            self.map_hint,
+            text=("Each row is one step of the pipeline. Click it for what the brain requires, what "
+                  "we built, what is in the way, and what the person working it found. "
+                  "Rebuild after any change:  python tools/substrate_map.py --build"))
+
     def _build_substrate(self) -> None:
         """SUBSTRATE -- the ten stages of the pipeline, their state, and what is in the way.
 
@@ -2923,7 +3080,8 @@ class StatusWindow:
                          ("problems", self._r_problems),
                          ("board", self._r_board), ("running", self._r_running),
                          ("results", self._r_results), ("commentary", self._r_commentary),
-                         ("substrate", self._r_substrate)):
+                         ("substrate", self._r_substrate),
+                         ("map", self._r_map)):
             try:
                 fn(s)
             except Exception:
@@ -4851,9 +5009,9 @@ def self_test() -> int:
         check(gui._last_error is None,
               f"renders LIVE data with no panel error ({gui._last_error})")
         check(time.time() - t0 < 40, "live collect + render is well inside a refresh cycle")
-        check(len(gui.nb.tabs()) == 9,
-              f"nine tabs: seven content tabs, NOTE FOR ME on its own since 2026-08-17, and "
-              f"SUBSTRATE added 2026-08-23 (got {len(gui.nb.tabs())})")
+        check(len(gui.nb.tabs()) == 10,
+              f"ten tabs: THE MAP added 2026-08-24 as tab 0 -- one view of state, gaps, and who "
+              f"is working them (got {len(gui.nb.tabs())})")
         # The count above is a blunt pin and it did its job -- it caught the SUBSTRATE tab the
         # moment it was added. Keep it blunt. What it protects against is a tab being registered
         # or LOST without anyone noticing, and a count is the only assertion that catches a loss.
