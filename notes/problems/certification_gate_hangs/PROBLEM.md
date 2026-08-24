@@ -1,8 +1,57 @@
 ---
 priority:
-review: 
-review_text: 
+review: EXCELLENT
+review_text: "The fix is right and its best finding refutes the brief premise -- the gate does not deadlock, faulthandler frames advance. But I measured its diagnosis on an IDLE machine: a one-line test still costs 167s with disk queue 0, so the concurrent-session attribution is wrong and the remedy that follows from it (wait for a quiet machine) will not work."
 ---
+
+> # 🥇 **MY REVIEW -- EXCELLENT FIX. AND I MEASURED ITS DIAGNOSIS ON AN IDLE MACHINE, WHERE IT DOES NOT HOLD.**
+> *Reviewed 2026-08-24. The gate's own three controls were run against the FIXED runner.*
+>
+> ## ✅ **THE FIX IS RIGHT AND IT IS THE VALUABLE PART**
+> The old gate shelled `pytest` with **no timeout anywhere in its git history** -- unbounded and
+> invisible. It now carries a wall-clock budget, `faulthandler` dumps, and a **fourth verdict,
+> `DID NOT RUN -- TIMED OUT`, that names what it was waiting on.** ✅ **Three control fixtures ship
+> with it** (`ctl_pass` / `ctl_fail` / `ctl_hang`), which is how a gate should be proven.
+> 🔑 **AND ITS BEST FINDING IS A REFUTATION OF ITS OWN BRIEF'S PREMISE: THE GATE DOES NOT DEADLOCK.**
+> Consecutive faulthandler dumps sit at DIFFERENT frames -- forward progress -- which excludes a
+> lock. *The brief said "hangs"; the evidence says "slow", and those need different repairs.*
+> ✅ It also corrects the suite size: **527 tests collected, not 458.**
+>
+> ## 🔻 **BUT THE CAUSE IS MIS-ATTRIBUTED, AND THE REMEDY THAT FOLLOWS FROM IT DOES NOT WORK**
+> The submission attributes the slowness to *"a second, concurrently-running session"* starving disk
+> I/O, and the gate's own timeout message advises *"run it when no other session is saturating the
+> disk."* **I measured it with nothing else running -- `Current Disk Queue Length = 0`, no other
+> hd-instrument process:**
+>
+> | measured on an IDLE machine | |
+> |---|---|
+> | `import pytest`, alone | **`8s`** |
+> | a ONE-LINE passing test, bare `pytest` | 🔻 **`167s`** (175s wall) |
+> | the gate on that same one-line fixture, 120s budget | 🔻 **TIMED OUT at 121s** |
+>
+> ➡️ **The submission's own baseline for this is "quiet pytest startup is ~2s". It is not 2s here,
+> and no concurrent session is required to make it slow.** *Its cause-isolation control had already
+> excluded plugins and the repo config, so what remains is something intrinsic to file reads in this
+> environment -- on-access antivirus scanning is the classic Windows candidate, and I have NOT
+> tested that, so it is a hypothesis and not a finding.*
+>
+> ⚠️ **WHY THIS MATTERS PRACTICALLY:** the default budget and the advice both rest on the wrong
+> cause. **Waiting for a quiet machine will not fix it**, and a 2700s default on a suite whose
+> one-line control costs 167s is a budget nobody can reason about.
+>
+> ## ⚖️ **WHAT I AM NOT SAYING**
+> 🚫 Not that the fix is wrong -- **it is right, and the control that "failed" for me actually
+> demonstrates it working**: instead of hanging forever, the gate stopped at its budget and printed
+> what it was blocked on and what to do. That is exactly the behaviour the brief asked for.
+> 🚫 Not that their controls were faked -- **they ran under different machine conditions than mine,
+> and they said so.** *This is one more measurement, not a contradiction of theirs.*
+> 🔻 *My `ctl_hang` run exited `3221225477` (an access violation) at 31s instead of timing out --
+> a different failure again, and I have not chased it.*
+>
+> 🎯 **FOLLOW-UP THIS EARNS, AND IT IS SMALL: measure `pytest` startup with antivirus exclusions on
+> the repo and the venv.** *If that is the cause, the whole 527-test suite becomes runnable and the
+> budget question disappears.*
+
 
 > # ⚠️ **VERIFY THE PREMISE FIRST -- I HAVE EVIDENCE THIS MAY NOT BE A HANG AT ALL.**
 > *(strategy session, 2026-08-22, added while ranking this brief)*

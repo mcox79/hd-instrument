@@ -965,9 +965,9 @@
      "slug": "certification_gate_hangs",
      "state": "SOLVED",
      "priority": null,
-     "review": "",
-     "review_text": "",
-     "integrated": false,
+     "review": "EXCELLENT",
+     "review_text": "\"The fix is right and its best finding refutes the brief premise -- the gate does not deadlock, faulthandler frames advance. But I measured its diagnosis on an IDLE machine: a one-line test still costs 167s with disk queue 0, so the concurrent-session attribution is wrong and the remedy that follows from it (wait for a quiet machine) will not work.\"",
+     "integrated": true,
      "result": "\"The gate (verification/run_certification.py) is now bounded, loud, and observable. Live controls on the FIXED runner: passing fixture -> VERDICT PASS (419s under concurrent load, within its 600s budget); broken fixture -> VERDICT FAIL (exit 1, 106s); an unbounded time.sleep(100000) fixture -> VERDICT 'DID NOT RUN -- TIMED OUT' (exit 124, killed at the budget), and the report NAMES the blocking call from a faulthandler stack. DIAGNOSIS (the premise's weak part): it does NOT deadlock. faulthandler taken while 'stuck' shows pytest STARTUP/COLLECTION blocked in filesystem reads (importlib get_dat",
      "floor": "\"Strongest baseline actually run: quiet pytest startup is ~2s and `pytest verification/ --collect-only` is 527 tests in 112s. Under a concurrent disk-heavy session the SAME operations balloon: `import pytest` alone 13s, a ONE-LINE test's pytest.main startup 419s, faulthandler blocked in get_data/read_text/stat -- i.e. the 'hang' reproduces as SLOW, and a DEADLOCK is excluded because consecutive fa",
      "reverify": "\"python -c \\\"import pathlib; d=pathlib.Path('data/certification_timing/controls/ctl_hang'); d.mkdir(parents=True, exist_ok=True); (d/'test_ctl_hang.py').write_text('import time\\\\ndef test_hangs_forever_control():\\\\n    time.sleep(100000)\\\\n')\\\" && .venv/Scripts/python.exe verification/run_certificat"
@@ -1014,9 +1014,9 @@
    "slug": "certification_gate_hangs",
    "state": "SOLVED",
    "priority": null,
-   "review": "",
-   "review_text": "",
-   "integrated": false,
+   "review": "EXCELLENT",
+   "review_text": "\"The fix is right and its best finding refutes the brief premise -- the gate does not deadlock, faulthandler frames advance. But I measured its diagnosis on an IDLE machine: a one-line test still costs 167s with disk queue 0, so the concurrent-session attribution is wrong and the remedy that follows from it (wait for a quiet machine) will not work.\"",
+   "integrated": true,
    "result": "\"The gate (verification/run_certification.py) is now bounded, loud, and observable. Live controls on the FIXED runner: passing fixture -> VERDICT PASS (419s under concurrent load, within its 600s budget); broken fixture -> VERDICT FAIL (exit 1, 106s); an unbounded time.sleep(100000) fixture -> VERDICT 'DID NOT RUN -- TIMED OUT' (exit 124, killed at the budget), and the report NAMES the blocking call from a faulthandler stack. DIAGNOSIS (the premise's weak part): it does NOT deadlock. faulthandler taken while 'stuck' shows pytest STARTUP/COLLECTION blocked in filesystem reads (importlib get_dat",
    "floor": "\"Strongest baseline actually run: quiet pytest startup is ~2s and `pytest verification/ --collect-only` is 527 tests in 112s. Under a concurrent disk-heavy session the SAME operations balloon: `import pytest` alone 13s, a ONE-LINE test's pytest.main startup 419s, faulthandler blocked in get_data/read_text/stat -- i.e. the 'hang' reproduces as SLOW, and a DEADLOCK is excluded because consecutive fa",
    "reverify": "\"python -c \\\"import pathlib; d=pathlib.Path('data/certification_timing/controls/ctl_hang'); d.mkdir(parents=True, exist_ok=True); (d/'test_ctl_hang.py').write_text('import time\\\\ndef test_hangs_forever_control():\\\\n    time.sleep(100000)\\\\n')\\\" && .venv/Scripts/python.exe verification/run_certificat"
@@ -1233,8 +1233,8 @@
  },
  "progress": {
   "window_first_commit": "2026-08-23T13:33:19-04:00",
-  "window_last_commit": "2026-08-24T09:02:27-04:00",
-  "n_commits_of_the_stage_file": 8,
+  "window_last_commit": "2026-08-24T09:35:23-04:00",
+  "n_commits_of_the_stage_file": 9,
   "stage_state_changes": [
    {
     "when": "2026-08-24T09:02:27-04:00",
@@ -1251,7 +1251,7 @@
    "PARTIAL": 1
   },
   "briefs_returned": 16,
-  "briefs_integrated": 15,
+  "briefs_integrated": 16,
   "current_states": {
    "READ THE TEXT": "WEAK",
    "DECIDE WHAT WORDS MEAN": "BROKEN",

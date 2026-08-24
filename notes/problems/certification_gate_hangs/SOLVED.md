@@ -164,3 +164,17 @@ no other session is saturating the disk.
 full-run. (2) If the gate needs to run inside a fast loop, add a fast subset for the loop and keep the
 full suite at land time -- NOT by deselecting the slow tests, but as an explicit two-tier gate. (3)
 Consider pre-warming pytest's entry-point/plugin scan, the exact step the stacks show starving.
+
+---
+
+## INTEGRATED_BY_STRATEGY -- 2026-08-24
+
+Review EXCELLENT on the fix. The gate is now bounded, loud and observable, ships three control fixtures, and its best finding refutes its own brief's premise: it does NOT deadlock -- consecutive faulthandler dumps sit at different frames, which excludes a lock. Suite size corrected to 527.
+
+CAUSE CORRECTED. This submission attributes the slowness to a concurrently-running session starving disk I/O, and the gate's timeout message advises running it when no other session is saturating the disk. Measured on an IDLE machine (Current Disk Queue Length = 0, no other hd-instrument process): import pytest alone 8s; a ONE-LINE passing test 167s; the gate on that same fixture TIMED OUT at its 120s budget. The submission's own baseline is 'quiet pytest startup is ~2s'. So no concurrent session is required, the default budget and the advice both rest on the wrong cause, and waiting for a quiet machine will not fix it.
+
+Its cause-isolation control had already excluded plugins and repo config, so what remains is intrinsic to file reads here. On-access antivirus scanning is the classic Windows candidate; NOT tested, so it is a hypothesis. Small follow-up earned: measure startup with antivirus exclusions on the repo and the venv.
+
+Not a contradiction of their controls -- they ran under different machine conditions and said so. This is one more measurement.
+
+*Appended by the strategy session, which owns integration (board Q111). Solver text unchanged.*
