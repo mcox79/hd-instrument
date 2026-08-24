@@ -316,6 +316,37 @@ exactly the "brain-faithful LOSING is presumed implementation until proven struc
 a parameter masquerading as a finding."* **That is the right call and it should not be quietly
 undone by anyone who wants a tunable knob.**
 
+### 🔬 WHY THE RESIDUAL DOES NOT DISCRIMINATE — I TESTED MY OWN EXPLANATION AND IT WAS WRONG
+
+`residual_magnitude` is `(1 - cos)/2` — a **cosine-derived scalar** between two high-dimensional
+vectors. My hypothesis was that this is pure concentration-of-measure: cosine between near-orthogonal
+high-d vectors piles up, so the gate cannot discriminate by construction. **Measured, and that is
+NOT what is happening.** (`CTX_D = 256`, read from the module rather than assumed.)
+
+| | p10 | median | p90 | range |
+|---|---|---|---|---|
+| pure chance, independent bipolar @ d=256 | 0.4609 | **0.5000** | 0.5430 | 0.387 - 0.621 |
+| **observed, 16,211 real writes** | 0.3575 | **0.4648** | 0.5237 | **0.024** - 0.606 |
+
+✅ **THE RESIDUAL CARRIES REAL INFORMATION.** The median sits `0.0352` BELOW chance, the spread is
+roughly **2x** chance, and the low tail reaches `0.024` — a near-perfect prediction that a chance
+process at this dimension essentially never produces (its own minimum over 4,000 draws was `0.387`).
+**So "nearly constant / close to gating AT RANDOM" is too strong as a mechanism, even though the
+cell's CONCLUSION (0 of 18) is right.**
+
+➡️ **THE BETTER EXPLANATION IS WHERE THE MASS IS, NOT WHETHER THERE IS SIGNAL.** The informative
+part is a thin low tail; the bulk still sits in the chance-like region. The swept thresholds land
+either in that bulk (`0.40`-`0.60`, skipping 27.9%-91.2%, i.e. cutting mostly noise) or below the
+tail (`0.25`, skipping only **5.7%** — too little volume to move any outcome). **There is no
+threshold that removes much AND removes mostly the uninformative writes.** *That is a distributional
+mismatch between the signal and the knob, not an absent signal.*
+
+⚠️ **LIMIT ON MY OWN NULL, STATED BECAUSE IT MATTERS:** I modelled chance as INDEPENDENT BIPOLAR
+vectors. The real `observed` and `predicted` are BUNDLED context sums, which are neither independent
+nor exactly bipolar. **So the chance column is an approximation and the `0.0352` shift is
+indicative, not a measured effect size.** A proper null would shuffle real profiles against real
+observations. *I did not run that, so treat the direction as solid and the magnitude as unverified.*
+
 🔗 **RELATED BUT NOT THE SAME GATE — do not merge them.** The census above shows the ADMISSION gate
 rejecting `98.5%` for `HYPOTHESIS_BELOW_COMMIT_STRENGTH`. That is a **different signal** from the
 predictive residual. *What transfers is only the general lesson: before gating on a score, measure
