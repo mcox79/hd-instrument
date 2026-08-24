@@ -543,6 +543,16 @@ class ConceptSpace:
         self._counts: Dict[str, int] = {}
         self._version = 0                                        # bumped on EVERY mutation
         self._mat_cache: Optional[Tuple[int, List[str], np.ndarray]] = None
+        # ROUTE B (2026-08-24) -- the SEPARABLE co-occurrence store. `_sums` superposes context into a
+        # fixed d=256 bundle, which provably blurs the per-word counts once a lemma has >~d distinct
+        # neighbours (notes/problems/the_live_meaning_organ_has_no_distributional_channel_to_be_taught_by/
+        # SOLVED.md). Keeping the counts SEPARABLE (hippocampal pattern-separation) is what lets an
+        # OFFLINE PPMI+SVD consolidation + grounded distillation read substitutability (AUC 0.865) that
+        # the d=256 bundle structurally cannot. DEFAULT-OFF: the memory cost is paid only when the
+        # distributional channel is being built/measured. ADDITIVE -- no `_sums` behaviour or existing
+        # read-out changes.
+        self._ctx_counts: Dict[str, "Counter[str]"] = {}
+        self.track_context_counts: bool = False
 
     def observe(self, lemma: str, ctx_vec: np.ndarray) -> None:
         if lemma not in self._sums:
@@ -552,6 +562,27 @@ class ConceptSpace:
         if self._counts.get(lemma, -1) >= 0:                     # never turn UNKNOWN into a count
             self._counts[lemma] += 1
         self._version += 1
+
+    def observe_context_counts(self, lemma: str, ctx_lemmas: Sequence[str]) -> None:
+        """ROUTE B (2026-08-24): accumulate `lemma`'s raw context-word COUNTS separably, alongside the
+        superposed `_sums`. NO-OP unless `track_context_counts` is set, so a normal read pays nothing.
+        `ctx_lemmas` is the masked context multiset -- the SAME content lemmas that built the ctx_vec
+        passed to `observe`, target excluded. ADDITIVE; touches only `_ctx_counts`."""
+        if not self.track_context_counts:
+            return
+        c = self._ctx_counts.get(lemma)
+        if c is None:
+            c = Counter()
+            self._ctx_counts[lemma] = c
+        c.update(ctx_lemmas)
+
+    def context_counts(self, lemma: str) -> "Counter[str]":
+        """The separable per-lemma context-word counts (ROUTE B). Empty Counter if untracked/unseen."""
+        return self._ctx_counts.get(lemma, Counter())
+
+    def all_context_counts(self) -> Dict[str, "Counter[str]"]:
+        """The whole separable co-occurrence store, for offline PPMI+SVD consolidation (ROUTE B)."""
+        return self._ctx_counts
 
     def trace_count(self, lemma: str) -> int:
         """Traces accumulated into `lemma`'s sum. -1 = UNKNOWN (seeded without a count, or loaded
@@ -1311,12 +1342,20 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
             return context_vector_masked(sent, lemma)
         return structural_vector_masked(sent, lemma, encoder)
 
+    # ROUTE B (2026-08-24, default-OFF): the masked context multiset for the separable count store,
+    # built once per sentence and only when tracking. `content_lemmas` below is a SET (dedup); the
+    # count store needs the multiset, so recompute from content_words with the same normaliser.
+    _ctx_multiset = ([normalize_lemma(w) for w in content_words(sentence)]
+                     if state.space.track_context_counts else None)
+
     for lemma in content_lemmas(sentence):
         if lemma in state.known_seed:
             # still track its distributional profile (comparison pool for canonicalize)
             ctx = _encode(sentence, lemma)
             if np.any(ctx != 0.0):
                 state.space.observe(lemma, ctx)
+                if _ctx_multiset is not None:
+                    state.space.observe_context_counts(lemma, [w for w in _ctx_multiset if w != lemma])
             continue
         if anchor_pool is not None and lemma in anchor_pool:
             # ANCHOR-POOL EXPANSION (default-OFF). Accumulate this lemma's profile so it can be
@@ -1325,6 +1364,8 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
             actx = _encode(sentence, lemma)
             if np.any(actx != 0.0):
                 state.space.observe(lemma, actx)
+                if _ctx_multiset is not None:
+                    state.space.observe_context_counts(lemma, [w for w in _ctx_multiset if w != lemma])
         it = state.library.items.get(lemma)
         # TWO GATES IN SERIES BLOCK A GROUNDED WORD, and that is why ablating the gap detector alone
         # changed nothing (MEASURED 2026-08-20: traces 8052 in BOTH arms). This short-circuit fires
