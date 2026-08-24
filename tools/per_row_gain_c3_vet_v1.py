@@ -45,19 +45,47 @@ ANCHOR_NAME = "exp_per_row_gain_c3_vet_v1" + ("_smoke" if SMOKE else "")
 OUT = os.path.join(_REPO, "data", ANCHOR_NAME)
 os.makedirs(OUT, exist_ok=True)
 
-# 2026-08-23: THIS BAR IS KNOWN TO BE INFLATED AND IS DELIBERATELY LEFT UNCHANGED.
-# Measured in data/exp_c3_surprise_weighted_vs_bundling_v1/metrics.json (run_mode full, n=4000):
-# the WordNet gold this is scored against is largely built from STEM-SHARING pairs, so a
-# character-trigram control wins without representing anything. Strip stem-sharing gold and this
-# floor falls 0.0867 -> 0.0193, whose CI [0.0153,0.0238] OVERLAPS its own info-free shuffled twin
-# [0.0135,0.0213]. ~78% of the bar is morphological leakage.
-# IT IS NOT LOWERED HERE ON PURPOSE. Lowering a gate makes every future result easier to pass, and
-# doing that on our own analysis -- of a number that has been beating us -- is the one move the
-# operating rules forbid outright. Owner decision is open as board Q117; whoever answers it changes
-# this constant, not the session that found the problem.
+# 2026-08-24, OWNER RULING ON BOARD Q117: *"why not fix the bar, and re run the past results.
+# let's do this right."*  The bar WAS 0.0870 and was deliberately left alone pending that ruling.
+#
+# THE DEFECT. The WordNet gold this scores against is largely built from STEM-SHARING pairs
+# (nation/national), so a character-trigram control wins them without representing anything.
+# Strip stem-sharing gold and the floor falls 0.0867 -> 0.0193, whose CI [0.0153,0.0238] OVERLAPS
+# its own info-free shuffled twin [0.0135,0.0213]. ~78% of the old bar was morphological leakage.
+#
+# WHY THIS FILE NOW REFUSES TO GATE RATHER THAN CARRYING A NEW NUMBER.
+# The sibling tool (score_space_gain_and_topk_ci_v1.py) could be fixed outright because it OWNS an
+# A6_TRIGRAM_ONLY arm, so it re-measured its own bar in its own harness and got 0.019500.
+# THIS HARNESS HAS NO TRIGRAM ARM. It only ever imported the constant. So there are exactly two
+# things it could do, and one of them is forbidden:
+#   (a) copy 0.019500 across from the sibling -- FORBIDDEN. That number belongs to a different item
+#       construction and a different scorer, and the standing rule is that NO NUMBER CROSSES
+#       SCORERS OR POPULATIONS. Copying it would look like a fix and would be a fabrication.
+#   (b) refuse to issue a verdict until a bar has been measured HERE, on THIS gold.
+# (b) is what it does. An uncalibrated gate that still returns a verdict is worse than one that
+# stops, because downstream readers cannot tell the difference between the two.
+#
+# NOTE THE DIRECTION: this makes results HARDER to publish, not easier. Nothing here lowers a bar.
+# Completing the fix -- adding the trigram arm so this harness can calibrate itself, then re-running
+# the past results against it -- is filed as a problem brief; see notes/problems/.
 # Witness: verification/test_removing_the_bundle_helps_it_just_does_not_help_enough.py
-ORTHO_BAR = 0.0870
-ORTHO_BAR_CI = (0.0783, 0.0960)
+USE_MORPH_STRIPPED_GOLD = True
+ORTHO_BAR = None          # NOT CALIBRATED for stripped gold in this harness. Do not fill in by hand.
+ORTHO_BAR_CI = None
+_LEGACY_LEAKY_BAR = (0.0870, (0.0783, 0.0960))   # kept for the re-run comparison, never as a gate
+
+
+def _gold(L):
+    """The gold this harness scores against. Stripped of morphological relatives by default.
+
+    Stripping the gold and recalibrating the bar MUST move together: scoring arms on fair gold
+    while gating them against a leaky bar is not a half-fix, it is a different wrong answer.
+    """
+    g = C3.gold_meaning_set(L)
+    if not USE_MORPH_STRIPPED_GOLD:
+        return g
+    from hdlab.morphology_leakage import strip_gold
+    return strip_gold(L, g)
 SELF_RETRIEVAL_FLOOR = 0.70
 
 
@@ -163,7 +191,7 @@ def main() -> int:
         sel = np.flatnonzero(elig)
         if sel.size == 0:
             continue
-        gold = C3.gold_meaning_set(L)
+        gold = _gold(L)
 
         qL = space.bundle(L)
         qLn = float(np.linalg.norm(qL))
@@ -223,7 +251,35 @@ def main() -> int:
              [("d_SCRAMBLE_minus_BASE", "SCRAMBLE", "A1_BASE")]
     bs = MS.paired_bootstrap(armv, deltas, 5000, C3.MASTER_SEED + 51)
 
-    a1_matches_c3_headline = abs(bs["arm_acc_ci"]["A1_BASE"]["acc"] - 0.048) < 1e-9 if not SMOKE else None
+    # THE C3 HEADLINE CROSS-CHECK IS A PLUMBING GUARD TIED TO *LEAKY* GOLD. 0.048 is what
+    # exp_grounding_readout_known_answer_v1 read on unstripped gold, so under stripped gold A1_BASE
+    # legitimately differs and the guard MUST NOT be asserted -- a guard that fires when the fix is
+    # working teaches the next reader to disable it.
+    if USE_MORPH_STRIPPED_GOLD or SMOKE:
+        a1_matches_c3_headline = None
+    else:
+        a1_matches_c3_headline = abs(bs["arm_acc_ci"]["A1_BASE"]["acc"] - 0.048) < 1e-9
+
+    # REFUSE TO GATE ON AN UNCALIBRATED BAR. See the Q117 block at the top of this file: this
+    # harness owns no trigram arm, so it cannot measure its own floor, and importing the sibling's
+    # number would cross scorers and populations. Stop loudly instead of returning a verdict.
+    if ORTHO_BAR is None or ORTHO_BAR_CI is None:
+        print("[BAR NOT CALIBRATED FOR THIS GOLD -- NO GATE VERDICT ISSUED]")
+        print("  USE_MORPH_STRIPPED_GOLD = %s" % USE_MORPH_STRIPPED_GOLD)
+        print("  legacy leaky bar was %.4f %s -- ~78%% morphological leakage, comparison only"
+              % (_LEGACY_LEAKY_BAR[0], _LEGACY_LEAKY_BAR[1]))
+        print("  THIS HARNESS HAS NO A6_TRIGRAM_ONLY ARM, so it cannot measure its own floor.")
+        print("  DO NOT paste the sibling's 0.019500 here: that is a different item construction")
+        print("  and a different scorer, and no number crosses scorers or populations.")
+        print("  TO FIX: add a character-trigram control arm (hdlab/char_trigram_encoder.py is")
+        print("  already promoted) scored on the SAME items/pool/gold as the arms above, then set")
+        print("  ORTHO_BAR from what IT reads here. Filed as a problem brief; see notes/problems/.")
+        print("  Arm accuracies measured on stripped gold, for reference only (NOT a verdict):")
+        for a in all_score_arms:
+            ci = bs["arm_acc_ci"][a]
+            print("    %-22s %.6f  CI [%.6f, %.6f]" % (a, ci["acc"], ci["ci_lo"], ci["ci_hi"]))
+        return 3
+
     bar_lo = ORTHO_BAR_CI[1]  # CI-separated margin requires beating the UPPER bound of the floor's CI
 
     clears_bar = {a: bool(bs["arm_acc_ci"][a]["ci_lo"] > bar_lo) for a in gain_arms}

@@ -1,5 +1,4 @@
 ---
-priority: 1
 review: EXCELLENT
 review_text: "Breaks the substitutability wall: 0.8388 CI [0.8031,0.8720] where every prior unsupervised arm scored 0.02-0.13 backwards, beating the info-free twin MAXIMUM over 200 draws. I read the orientation code -- the sign comes from the hub own ranking, not the gold, so the disqualifying test passes. Label-free but NOT resource-free (supplied Lancaster hub) and transductive; both must travel with the number."
 ---
