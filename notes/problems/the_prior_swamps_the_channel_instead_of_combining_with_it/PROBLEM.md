@@ -1,5 +1,5 @@
 ---
-priority: 2
+priority:
 review: EXCELLENT
 review_text: "Bounded the whole solution space with oracle ceilings instead of trying rules one at a time: a perfect router scores EXACTLY the channel, so no monotone combination has headroom. Killed the crux I named -- peakedness predicts prior-error at AUC 0.4033, below chance -- and found the correlated-error mechanism I had missed: 95.65 percent of the channel wrong picks are higher-frequency than truth."
 ---
