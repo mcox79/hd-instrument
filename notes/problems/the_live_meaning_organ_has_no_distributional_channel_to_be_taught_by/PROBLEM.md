@@ -6,7 +6,35 @@ review_text:
 
 # PROBLEM: the fix for our meaning step exists, and the data it needs is already being stored and then thrown away
 
-> ## 🛑 **HOLD 2026-08-24 — DO NOT START THIS YET. A PRE-REGISTERED RESULT FROM 08-19 SAYS IT CANNOT BE MEASURED.**
+> ## ✅ **HOLD LIFTED, SAME DAY, AND THE REASON MATTERS MORE THAN THE HOLD DID.**
+> **I placed the HOLD below after reading the 08-19 end-to-end cell. Reading one further source —
+> `B3'`'s own slot rationale — shows the HOLD was WRONG, and I am removing it rather than leaving a
+> wrong block in front of the work.**
+>
+> The 08-19 instruction was *"do not build a new channel on the grounding path until the wiring
+> defect is fixed, because that channel could not be measured **here**"*. **"Here" is that cell's
+> harness.** A harness where it CAN be measured already exists: the powered generalisation test in
+> `cortical_read_never_tested_where_it_matters` (269/279/271 unseen-co-occurrence items per seed,
+> 3 seeds, overlap 0), which scores cortical arms directly.
+>
+> **AND `B3'`'S OWN RATIONALE SAYS THE PRIOR STEP IS NOT WIRING AT ALL:**
+> *"STATE IS NEEDS_ADAPTER ON PURPOSE... SCORED 2026-08-22 AND IT STAYS NEEDS_ADAPTER ON EVIDENCE,
+> NOT ON ABSENCE OF EVIDENCE"* — best cortical arm `0.057/0.043/0.043` vs a counting floor
+> `0.090/0.103/0.097`, **0 of 15 cells clear**. It is NOT inert (beats scrambled cue, random twin,
+> concreteness prior, and the EPISODIC route) — *"a real, tiny, CLS-consistent difference buried
+> under counting."* ➡️ *"**That is a change to `build_cortical_index`, NOT a wiring job.**"*
+>
+> 🎯 **AND ITS REVIVAL CRITERION IS THIS BRIEF, ALMOST WORD FOR WORD:** *"it earns a live adapter
+> only if its retrieval SPACE beats counting in the unseen-co-occurrence regime, on a task POWERED
+> for it"* — because under CLS the cortical read's job is GENERALISATION, and a cloze whose answer
+> co-occurs with its cue **rewards the episodic style instead, so that task is biased against what
+> the organ is FOR.**
+> **The powered test has since been run, and its answer is: a SUPPLIED distributional space clears
+> 3/3; nothing self-built does.** *So this brief is not premature — it is the named revival
+> criterion, and the open question is precisely which space.*
+> 🔻 *Kept below, unedited, so the reasoning that produced the wrong HOLD stays visible.*
+>
+> ## 🛑 ~~HOLD 2026-08-24 — DO NOT START THIS YET. A PRE-REGISTERED RESULT FROM 08-19 SAYS IT CANNOT BE MEASURED.~~ **(SUPERSEDED — see above)**
 > `exp_substrate_end_to_end_readout_v1` ran FULL on 2026-08-19 and pre-committed its readings BEFORE
 > running. Its reading **(e)** fired, on all three conditions:
 > *"the `consolidation` ablation moves NO substrate route, at any seed, in either regime, while the
