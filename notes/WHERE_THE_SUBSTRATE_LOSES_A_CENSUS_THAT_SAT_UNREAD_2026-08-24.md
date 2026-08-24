@@ -212,6 +212,65 @@ stalled.
   `foraging` and `gap_detector` instrumented at all?"** Two of six switches cannot currently be
   shown to fire.
 
+---
+
+# THIRD OF THE ELEVEN: THE DISCRIMINATION CEILING, AND ONE ARM THAT WAS NEVER IMPLEMENTED
+
+Source: `data/exp_discrimination_ceiling_v1/metrics.json`, run **2026-08-19**, 4 corpora. Also
+verdict-less, also unread. **Its gold is `conceptnet_gold_v1`, provenance-filtered, NO WordNet
+source, paradigmatic only** — so it is untouched by the `~78%` morphology leakage that voided the
+WordNet-scored floors.
+
+**Its design is the good kind:** retrieval and discrimination are reported SEPARATELY, and the
+discrimination arms re-rank **the same top-50 candidate set**, so any difference is attributable to
+the ranker and not to retrieval. `items_predate_mechanism: true`.
+
+## THE CEILING RESULT: THE ANSWER IS IN THE POOL AND WE STILL MISS IT ~88% OF THE TIME
+
+`ORACLE_ceiling_diagnostic = 1.0` on all four corpora — by construction the pool always contains a
+gold answer. Yet:
+
+| corpus | n in pool | RAW | DICE | NPMI | BAG_COSINE | RANDOM |
+|---|---|---|---|---|---|---|
+| simplewiki | 1047 | 0.1356 | 0.1184 | 0.1127 | **0.1557** | 0.0392 |
+| onestop | 515 | 0.0913 | 0.0641 | **0.0485** | 0.1010 | 0.0291 |
+| mcguffey_graded | 589 | 0.0781 | 0.0866 | 0.0594 | 0.0985 | 0.0170 |
+| arc | 913 | 0.1117 | 0.1260 | 0.1216 | **0.1566** | 0.0329 |
+
+➡️ **Every arm is far above RANDOM, so the machinery is doing something. But with the answer
+GUARANTEED present, the best ranker picks it `~10-16%` of the time.** *This is the discrimination
+gap isolated from the supply gap — the complement of the `79% ABSENT` census above. Both are real
+and they are different problems.*
+✅ **The one CI-separated re-ranking win is `BAG_COSINE` on `arc`: `+0.0449` over RAW, p=`0.004`.**
+🔻 *`NPMI` on `onestop` is a CI-separated LOSS (`-0.0427`, p=`0.006`) — reweighting can hurt.*
+
+## 🔴 `SECOND_ORDER` AND `BAG_COSINE` ARE THE SAME COMPUTATION. THE ARM WAS NEVER IMPLEMENTED.
+
+**Identical hit COUNTS on all four corpora — `163/163`, `52/52`, `58/58`, `143/143`, over 3,064
+items.** Two rankers cannot agree that exactly by chance. The source says why:
+
+```python
+bagc = np.array([float(Cn[i] @ Cn[j]) for j in cand])
+sec  = np.array([float((Cn[i] * Cn[j]).sum()) for j in cand])
+```
+
+**`Cn[i] @ Cn[j]` and `(Cn[i] * Cn[j]).sum()` are the same dot product written two ways.** The
+docstring intends *"cosine between profiles restricted to shared neighbours"* — **there is no
+restriction in the code.** This is not a collapse under a parameter setting (like `multi_hop`'s
+`beta = n_dim` Dirac delta, which the slot table already records as having confounded two prior
+cells); it is the same expression twice.
+
+⚠️ **WHAT THIS VOIDS, AND ONLY THIS:** the cell pre-registered *"(iii) BAG_COSINE **or SECOND_ORDER**
+beats RAW -> our accumulate/project machinery earns its keep."* **The SECOND_ORDER half of that
+reading was never tested.** Anyone reading `SECOND_ORDER +0.0449, p=0.008` on `arc` would conclude
+the paradigmatic cue helped; it is `BAG_COSINE` counted twice.
+✅ **WHAT SURVIVES:** `RAW`, `DICE`, `NPMI`, `BAG_COSINE` and `RANDOM` are genuinely different
+computations, the positive control holds (`RAW 142` vs `RANDOM 41` hits), and **the `BAG_COSINE`
+win on `arc` stands on its own.** *The defect is one duplicated arm, not a broken cell.*
+🔗 **AND IT DOES NOT CONTRADICT THE LANDED SECOND-ORDER NEGATIVE** (`exp_readout_second_order_v1`,
+`NEW_READOUT_CLEARS_FLOOR_NO`). That cell tested the cue properly; this one simply never tested it.
+**Second-order remains closed on that evidence, not on this.**
+
 ## TLDR
 
 We read thirty-four thousand sentences and stored three hundred and eighty-six facts.
