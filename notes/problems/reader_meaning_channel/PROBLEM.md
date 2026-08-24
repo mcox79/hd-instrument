@@ -1,8 +1,57 @@
 ---
 priority: 1
-review: 
-review_text: 
+review: STRONG
+review_text: "Honest, well-controlled, and it strengthened the floor against itself -- but its own stratum table refutes its framing: the channel is the ONLY arm beating chance on subordinate senses (0.4811 vs 0.1415 combined), so the prior SWAMPS the channel rather than replacing it."
 ---
+
+> # 🥈 **MY REVIEW OF THE SUBMISSION -- STRONG. THE HEADLINE STANDS; THE FRAMING DOES NOT.**
+> *Reviewed 2026-08-23 by the strategy session. Re-verify PASSED, then I audited the argument
+> rather than the arithmetic. Witness:
+> `verification/test_the_prior_swamps_the_grounded_channel_not_replaces_it.py`.*
+>
+> **WHAT THE SOLVER DID WELL, AND IT IS MORE THAN MOST:**
+> - ✅ **It made its own bar HARDER.** It replaced the instrument's shipped uniform floor with the
+>   most-frequent-sense prior, which is `0.4778` against `0.4316`, and then failed against it. *A
+>   solver that strengthens the floor and reports a loss is the opposite of over-claiming.*
+> - ✅ **It saved the scored population** (`_scored_population.json`, 841 rows). **That is the
+>   standing rule most cells skip, and it is the only reason the audit below cost minutes instead of
+>   a re-run.** Every number here was recomputed from that file.
+> - ✅ Three controls, all binding: context-lesion, cross-item swap, and an info-free twin.
+>
+> ## 🔻 **WHAT I FOUND IN ITS OWN DATA THAT ITS HEADLINE MISSES**
+> **The aggregate is `84%` dominant-sense items (`708` of `841`) -- items where a most-frequent-sense
+> rule structurally CANNOT lose.** The `133` subordinate items are the only place the question is
+> live. Restricting every arm to the `53` words the grounded arm actually scored, on the
+> submission's own subject-weighted scorer, with chance recomputed on those same items (`0.3854`):
+>
+> | arm | subordinate-sense accuracy | |
+> |---|---|---|
+> | **`COH_HUB` -- the grounded channel ALONE** | **`0.4811`** | ✅ **above chance** |
+> | `BAYES_HUB` -- channel **+** frequency prior | `0.1415` | 🔻 **far below chance** |
+> | `MFS_PRIOR` -- the prior alone | `0.0000` | *zero BY CONSTRUCTION, not by failing* |
+>
+> ➡️ **THE CHANNEL IS THE ONLY ARM THAT BEATS CHANCE HERE, AND ADDING THE PRIOR COSTS `0.3396` --
+> more than the channel's entire margin, landing it BELOW random guessing.** *"The grounded channel
+> adds nothing" and "our way of mixing it with the prior destroys it" predict the SAME aggregate and
+> imply OPPOSITE next steps.* **The submission reports the first; its data supports the second.**
+>
+> **TWO MEASUREMENT DEFECTS, SAME SHAPE, NEITHER FATAL TO THE HEADLINE:**
+> 1. Its witness check `[5]` argues *"coherence helps exactly where the prior fails"* and cites
+>    `BAYES_HUB 0.0827` -- **an arm five times BELOW chance on that stratum.** The evidence for its
+>    own claim is `COH_HUB`, sitting unmentioned in the same table.
+> 2. Its stratum table compares arms at `n=133` against an arm at `n=80` without flagging it. The
+>    grounded arm scores only where the norms cover the word (`65.5%`), so **every cross-arm read in
+>    that table crosses populations.**
+>
+> ⚠️ **WHAT I AM *NOT* CLAIMING:** `53` words is small, I computed no CI, and the channel's coverage
+> is not random -- **this is NOT evidence it would beat chance on words it cannot score.**
+>
+> ## ➡️ **THE PROBLEM IS NOT CLOSED. IT IS RE-AIMED.**
+> **The mechanism under test should be the COMBINATION RULE, not the channel.** A rule that lets a
+> strong prior overwrite a weaker-but-correct channel is a rule that can only ever reproduce the
+> prior. *The brain's version of this question is cue combination -- reliability-weighted, not
+> fixed-weight -- and that is the thing to build next.* **This is exactly the case the owner named
+> on 08-23: a refutation is the halfway point, not the finish line.**
 
 <!-- ORIENTATION -- WRITTEN 2026-08-23 AFTER FIVE FINDINGS LANDED ON THIS BRIEF IN ONE DAY -->
 > # 🗺️ **READ THIS FIRST: WHAT CHANGED, AND WHAT IT MEANS FOR THE BUILD**
