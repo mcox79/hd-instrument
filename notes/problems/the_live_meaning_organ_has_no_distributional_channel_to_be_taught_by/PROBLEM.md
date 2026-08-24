@@ -1,0 +1,179 @@
+---
+priority: 2
+review:
+review_text:
+---
+
+# PROBLEM: the fix for our meaning step exists and cannot be plugged in, because the thing it plugs into is missing
+
+## THE PROBLEM IN PLAIN LANGUAGE
+
+Our system judges whether two words mean the same thing using a table of what words feel like
+physically -- how bright, heavy, graspable they are. **Run it live today and it gives the exact same
+answer, `0.45`, for "sofa/couch" (genuinely interchangeable) and for "apple/orange" (related but not
+interchangeable at all).** Identical. It cannot tell them apart, and the module says so in its own
+documentation: this is *"a genuine, principled ceiling... not something a different threshold on
+this SAME metric can fix."*
+
+**We found the fix this week.** Letting that physical-feel table TEACH a direction through a
+text-statistics model separates exactly this distinction -- `0.8388` where the physical table alone
+is at chance (`0.5513`) and the text model alone is backwards (`0.0285`). Neither channel can do it;
+their agreement can.
+
+**And it cannot be plugged in, because the socket does not exist.** To use the taught direction on a
+new word, you need that word's *text-statistics* description at the moment of judging. The live
+system has no such thing:
+
+- the hand-built concept list covers ~230 words and returns "cannot judge" for everything else;
+- the physical-feel table has no text statistics in it at all;
+- and the one component in the codebase named like a text-statistics model is **not one** -- it is
+  built over *character triples* (spelling fragments), so it describes how a word is SPELLED, not
+  what it appears alongside. It is also not loaded by the live system.
+
+**So the job is: give the live system a real word-in-context description of a word, so the taught
+direction has something to act on.** Everything downstream of that is already built and measured.
+
+**Do not fix this by raising the `0.45` cap.** That cap is deliberate and is standing policy. It is
+also beside the point -- underneath the cap the raw numbers are `0.968` for the synonym and `0.952`
+for the sibling, so nothing you do to a threshold separates them. The channel is missing, not
+mis-tuned.
+
+## WHY THIS ONE
+
+This is the single thing standing between a measured research win and an actual capability. The
+project's own plan calls wiring that win *"the highest-value capability work available"*, and it
+cannot start until this exists.
+
+It also explains a long-standing result rather than just unblocking one. Our meaning step scores
+`0.051` where guessing scores `0.486` -- **not weak, backwards.** A system whose only live
+word-description is a SPELLING code would behave exactly like that, and the spelling control we
+grade against was itself found to be ~78% form-matching. **The organ and its own floor may be doing
+the same thing.** That is a hypothesis this work can settle, not an established fact.
+
+## MEASURED vs INFERRED
+
+**MEASURED (I ran each of these):**
+- `hdlab.grounded_similarity` returns **`0.45` for `sofa/couch`, `apple/orange` AND `dog/cat`** --
+  identical, all three at `GROUNDED_CAP = 0.45`. Coverage `36,810` words, `12` dims.
+- Its docstring records the uncapped values: `sofa/couch 0.968`, `apple/orange 0.952`,
+  `dog/cat 0.932` -- synonym and sibling overlapping.
+- **`hdlab.grounded_similarity` IS on the live path**: it appears in the `36`-module eager closure of
+  `import hdlab.substrate`. So do `lexical_similarity` and `verb_lexical_similarity`.
+- **`hdlab.ppmi_sparse_encoder` is NOT in that closure**, nor is `composed_encoder_v3` (its only
+  `hdlab/` importer) nor `sensorimotor_spoke`.
+- **`ppmi_sparse_encoder` is character-trigram based, by its own docstring**: *"term vocabulary from
+  training sentences (char-trigrams)"*, and `encode()` sums embeddings for the text's trigrams.
+  It is a spelling code, not a word-context code.
+- The distillation cell builds its OWN word-context space (`svds` over a word x context matrix) and
+  reads the Lancaster CSV directly. **It never touches `read()` or the substrate's grounding path.**
+- Cross-modal distillation reads `0.8388` CI `[0.8031,0.8720]`, beating its info-free twin's MAXIMUM
+  over 200 draws; grounded alone `0.5513`, distributional alone `0.0285`.
+- Split by hub coverage: hub-covered `0.8263`, hub-UNCOVERED `0.8669` CI `[0.8062,0.9220]`, with
+  both hub-blind controls flat across the split. `python tools/split_distillation_by_hub_coverage.py`.
+
+**INFERRED, NOT MEASURED -- check these, do not inherit them:**
+- **That an eager-import closure means "is called at runtime". It does not.** A module can be
+  imported and never invoked, and a LAZILY imported one is invisible to that trace entirely. The
+  substrate uses lazy per-organ construction. **Confirm by running a read and observing, not by
+  repeating my list.**
+- That the substrate's meaning step being backwards is CAUSED by its word-description being a
+  spelling code. That is a hypothesis with converging support, not a measured causal claim.
+- That a word-context space built from OUR corpus will be good enough. On a RETRIEVAL task a
+  self-built one scored `0.052` and lost; on SUBSTITUTABILITY a self-built one carried the `0.8388`.
+  **Different tasks, and no number crosses tasks.** Which way it goes here is unknown.
+- I have not checked how much of our vocabulary would get a usable word-context vector from the
+  corpus we actually read. **Measure that first -- it bounds everything else.**
+
+## ALREADY TRIED
+
+- **Raising / retuning the `0.45` cap -- FORBIDDEN and pointless.** Standing instruction: do NOT
+  raise `GROUNDED_CAP`. The gap below the link threshold is what makes "contribute, do not decide"
+  enforceable in code. And the raw values (`0.968` vs `0.952`) do not separate anyway.
+- **A different threshold or metric on the SAME sensorimotor vector -- refuted in the module's own
+  docstring**, with the calibration probe showing synonym and sibling fully overlapping at the
+  p95-p99.9 tail of a 2,000-pair background.
+- **Weighting/blending two channels -- refuted across FOUR instruments.** A perfect router scores
+  EXACTLY the channel (`0.4811`), so no monotone combination has headroom. **Do not propose a fifth
+  blending rule.** Teaching is the thing that worked.
+- **A second-order/paradigmatic cue over the existing context profile -- landed negative twice**
+  (`exp_readout_second_order_v1`, `SYNTAGMATIC_CONFIRMED / NEW_READOUT_CLEARS_FLOOR_NO`).
+- **Divisive normalisation over a population pool -- DO NOT RE-PROPOSE.** `ORGAN_MAP` records the
+  analytic reason: the pool denominator is a scalar and cosine is scalar-invariant.
+- **The sensorimotor spoke alone as a retrieval channel -- FAILED** (`0.083`, below a concreteness
+  floor of `0.115`). It carries similarity, not retrieval association.
+
+## VERIFY BEFORE YOU START
+
+1. `python -c "import hdlab.grounded_similarity as G; print(G.grounded_similarity('sofa','couch'), G.grounded_similarity('apple','orange'))"`
+   -- expect **`0.45 0.45`**. If they differ, something changed and this brief's premise needs redoing.
+2. Re-derive the live closure yourself: import `hdlab.substrate`, diff `sys.modules`, and **then run
+   an actual read** and diff again. The second step is the one I did not do.
+3. `python tools/split_distillation_by_hub_coverage.py` -- the distillation numbers and controls.
+4. `python tools/slot_status.py B5` -- the sensorimotor spoke is `NEEDS_ADAPTER`; read why.
+
+## THE BAR
+
+**A CI-SEPARATED MARGIN OVER THE STRONGEST FLOOR YOU ACTUALLY RUN, ON THE LICENSED SUBSTITUTABILITY
+INSTRUMENT, MEASURED THROUGH THE LIVE PATH RATHER THAN IN A CELL.**
+
+To succeed:
+
+1. A word-context distributional description available **at inference**, for words the hand lexicon
+   does not cover. **Report its COVERAGE first** -- what fraction of running text gets a usable
+   vector. A channel that covers little is not a channel.
+2. The taught direction applied through it, scored on the licensed instrument.
+3. **Floors recomputed on this population, not quoted from the cell.** Include the spelling control,
+   on morphology-stripped gold (`hdlab/morphology_leakage.py`), because ~78% of the old spelling bar
+   was form-sharing.
+4. **An info-free twin, oriented identically to the real arm.** Orientation alone lifts a null --
+   it is why the distillation null sits at `0.68`, not `0.50`. Beat the twin's MAXIMUM, not its p95.
+5. **A degeneracy check**: build the EMPTY/constant version of your space and confirm it LOSES.
+   Sparse and empty representations score *well* on rank metrics here; this has bitten twice.
+   Use `tools/rank_with_ties.py`; report both tie conventions.
+6. Multi-seed through `tools/replication_gate.py`; quote the verdict string.
+7. **Say plainly whether the asset is built offline or learned from our own reading.** A static
+   offline-built asset IS admissible (owner, 08-16) -- but it must be LABELLED, never presented as
+   something the substrate learned. Label-free is not resource-free.
+
+**If your approach is refuted, do not stop at "refuted."** Name the strongest brain-faithful version
+of the idea and test THAT, then solve it another way if you can.
+
+**Brain framing.** Hub-and-spoke (Lambon Ralph; ATL) is PINNED: the amodal hub integrates MULTIPLE
+spokes, and we currently run essentially one. The live question is what the hub DOES to its spokes --
+we have only ever concatenated or weighted them, while cross-modal experience in the brain *shapes*
+each modality's representation. Mark every choice PINNED-BY-EVIDENCE or OUR-INVENTION-UNDER-TEST.
+Inventing is fine; mislabelling is barred.
+
+## FILES AND ENTRY POINTS
+
+| path | what it is |
+|---|---|
+| `hdlab/grounded_similarity.py` | **the live organ.** `GROUNDED_CAP = 0.45` at line 96; the ceiling is in its docstring |
+| `hdlab/lexical_similarity.py` | the ~230-concept hand lexicon; returns None off-vocabulary |
+| `hdlab/ppmi_sparse_encoder.py` | **NOT a word-context space** -- char-trigrams; and not in the live closure |
+| `hdlab/substrate.py` | the assembled reader + the 28-slot table (`tools/slot_status.py`) |
+| `experiments/exp_crossmodal_distillation_substitutability_v1.py` | the teaching mechanism; builds its own word-context space via `svds` |
+| `tools/split_distillation_by_hub_coverage.py` | the coverage split and its difficulty controls |
+| `hdlab/morphology_leakage.py` | strip form-sharing pairs from gold before scoring |
+| `tools/rank_with_ties.py`, `tools/replication_gate.py` | mandatory for rank and cross-seed claims |
+
+**Constraints.** **DO NOT raise `GROUNDED_CAP`.** Never edit `preregs/**` or any `arm_key*` file --
+harness-denied deliberately. If the only move left is to weaken a gate, stop and say so. Never bundle
+a deletion (`rm`) with real work in one call: auto-denied, and it destroys the bundled work. Do not
+write to `hdlab/` -- integration is the strategy session's (board Q111); propose the change instead.
+
+**If a tool call is denied, STOP and report the exact denial text verbatim. Do not retry a variant,
+and do not silently proceed without the denied step.** A dropped precondition invalidates the
+declared gate even when the result may be fine -- that is not yours to judge silently. Disclose it.
+
+## DO NOT QUOTE
+
+- **`0.8388`** without saying it is SUBSTITUTABILITY measured IN A CELL, label-free but **not
+  resource-free** (supplied Lancaster teacher) and transductive.
+- **`+0.0410`** (covered vs uncovered) -- CI `[-0.0353,+0.1091]` SPANS ZERO. "Not worse", never a gain.
+- **`0.052` / `0.083` / `0.115`** -- those are the RETRIEVAL task. Different task, different
+  population. No number crosses tasks.
+- **`A5_STRINGCTRL 0.0870`** -- ~78% morphological leakage. Never quote it as a spelling floor.
+- **My live-closure list of 36 modules** -- it is an EAGER-IMPORT trace and structurally cannot see
+  lazily imported organs. Quote it with its method or re-derive it by running a read.
+- Any margin without its CI half-width and the null p95 beside it.

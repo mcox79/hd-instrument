@@ -4,24 +4,68 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-24T01:22:16Z  |  HEAD: b35c2b42f
+generated: 2026-08-24T14:36:31Z  |  HEAD: 75d336e87
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30676 min ago <-- STALE
-  - orchestrator: 39005 min ago <-- STALE
-  - research: 175 min ago <-- STALE
-  - skunkworks: 41677 min ago <-- STALE
-  - testbed: 78251 min ago <-- STALE
+  - exp_dev: 31470 min ago <-- STALE
+  - orchestrator: 39799 min ago <-- STALE
+  - research: 27 min ago
+  - skunkworks: 42471 min ago <-- STALE
+  - testbed: 79045 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - substrate_director_kb_v1.staging.7352: 26 min ago, NO metrics.json yet (likely in-flight)
-  - _witness_c3_bundling_scratch: 112 min ago, NO metrics.json yet (likely in-flight)
-  - exp_flat_vs_addressed_identity_recovery_livepath_v1__fresh_verify153: 171 min ago, has metrics.json
+  - exp_aimed_reading_register_controlled_v1: 38 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.19056: 42 min ago, NO metrics.json yet (likely in-flight)
+  - exp_aimed_reading_register_controlled_v1_smoke: 45 min ago, has metrics.json
+  - solverB_cortical_paradigmatic_generalization_v1: 83 min ago, has metrics.json
+  - exp_crossmodal_distillation_substitutability_v1: 87 min ago, has metrics.json
+  - exp_crossmodal_distillation_substitutability_v1_smoke: 87 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
-  - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
+  - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *ENUMERATED FROM DISK 08-23 23:0x: `10` open (priorities `1`-`10`, contiguous), `8` solved+reviewed. **THE PREVIOUS TEXT HERE READ `11` open / `5` reviewed -- I MIRRORED A REMEMBERED COUNT ON THE VERY LINE THAT SAYS ENUMERATE.** Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
+  - ✅ **TWO OF THE THREE ARE NOW REVIEWED (08-23 late). BOTH RE-VERIFIES PASS; I THEN AUDITED THE
+    ARGUMENT, NOT THE ARITHMETIC, AND BOTH AUDITS PAID.**
+    - 🥇 **P2 `does_learning_from_reading_deserve_to_continue` -- EXCELLENT.** *I attacked it with a
+      comparator it did not use (it ran TWO supplied arms and quoted the weaker) and **it held**: the
+      WordSim win survives against the stronger one CI-separated, and all three benchmarks clear the
+      strongest floor's UPPER bound.* ➡️ **MY BRIEF'S PREMISE IS REFUTED -- the sixteen prior losses
+      tested a WEAK implementation; the route is CORPUS-LIMITED, not exhausted (curve still climbing
+      at `38M` tokens).** 🔻 *Gap: no scored population saved, so the coverage question needs a re-run.*
+    - 🥈 **P1 `reader_meaning_channel` -- STRONG, and its FRAMING IS WRONG IN A WAY THAT MATTERS.**
+      Headline stands (aggregate is honest, and it STRENGTHENED its own floor). **But `84%` of that
+      aggregate is items where a frequency prior CANNOT lose. On the `53` words where the question is
+      live: grounded channel ALONE `0.4811` (above chance `0.3854`), channel **+** prior `0.1415`
+      (below chance), prior alone `0.0000` by construction.** ➡️ **THE PRIOR SWAMPS THE CHANNEL RATHER
+      THAN REPLACING IT -- adding it costs `0.3396`, more than the channel's whole margin. "The channel
+      adds nothing" and "our mixing rule destroys it" predict the SAME aggregate and imply OPPOSITE
+      next steps.** **The mechanism under test is now the COMBINATION RULE (reliability-weighted cue
+      combination), not the channel.** *Witness: `test_the_prior_swamps_the_grounded_channel_not_replaces_it.py`.*
+    - 🥈 **P3 `the_bundle_destroys_meaning_but_replacing_it_hurts` -- STRONG. IT RETIRES A FLOOR.**
+      **Its real finding: the string control beating us ~2:1 is `78%` MORPHOLOGY** (`0.0867` ->
+      `0.0193` on stem-stripped gold, overlapping its own info-free twin). ➡️ **THAT IS Q117.**
+      🔻 *But its headline "bundling is NOT the bottleneck" is contradicted by its own paired
+      bootstrap: `RAW_COOC − A1_BASE = +0.0125 CI[+0.0057,+0.0195]`, CI-SEPARATED -- **deleting
+      superposition BEATS the shipped flat bag by `26%` of its own score.** Both are true: removing
+      the bundle HELPS and does not help ENOUGH. It grounded "not the bottleneck" on losing to the
+      floor it then demolished.* 🎯 **BUILD TARGET HERE = MORE INDEPENDENT SOURCE DIMENSIONS (an
+      11-dim signal cannot fill a 256-dim code); the count table that wins has no rank ceiling.**
+      ⚠️ **NOTE THE TWO BRIEFS POINT OPPOSITE WAYS -- P1 says the COMBINATION RULE is the target, P3
+      says it is NOT. Different organs, different faults. DO NOT MERGE THEM.**
+      *Witness: `test_removing_the_bundle_helps_it_just_does_not_help_enough.py`.*
+  - 🚨 **THE THREE SUBMISSIONS LANDED 08-23 AND WERE FOUND BY ENUMERATING DISK, NOT BY ANY NOTIFICATION.**
+    **Found by ENUMERATING `SOLVED.md` on disk, not from any notification.** Each has a `reverify:` line
+    in its frontmatter; **run it before believing the headline, then write the `review:` /`review_text:`
+    frontmatter into the matching `PROBLEM.md` (that is what the GUI renders).**
+    | when | priority / slug | its own status | the claim, in short |
+    |---|---|---|---|
+    | 17:40 | **2** `does_learning_from_reading_deserve_to_continue` | **SOLVED** | **YES, and my brief's premise is REFUTED** -- surprise-weighted PPMI-SVD over 38.09M tokens clears the idf-count floor CI-separated on all three banks and is **STILL CLIMBING at the corpus ceiling**, so the route is corpus-limited, NOT exhausted. *Loses verbs to the supplied hub (`0.129` vs `0.266`).* |
+    | 19:34 | **3** `the_bundle_destroys_meaning_but_replacing_it_hurts` | **SOLVED** | **The bundling is NOT the c3 bottleneck** -- removing superposition ENTIRELY scores BELOW the spelling floor. **And ~`78%` of that spelling floor is MORPHOLOGICAL LEAKAGE**: on stem-stripped gold it collapses `0.0867`->`0.0193` while the flat bag holds and BEATS it. |
+    | 21:23 | **1** `reader_meaning_channel` | **REFUTED** | The meaning gap is **ARCHITECTURAL, not MODAL** -- the grounded hub plus the sense-frequency prior does NOT clear the most-frequent-sense floor (`0.4702` vs `0.4778`, not separated). *It also REPLACES that instrument's shipped uniform floor with a stronger one.* |
+    ⚠️ **DO NOT PROPAGATE ANY NUMBER ABOVE UNTIL ITS `reverify:` HAS BEEN RUN HERE.** *Five submissions
+    were verified this way today and BOTH failures found were in MY checker, never in a submission --
+    so the review is real work, but the prior says start by suspecting the tool.*
   - 🧠 **THE MEANING CHANNEL: SEVEN MEASUREMENTS 08-23, ALL IN
     `notes/problems/reader_meaning_channel/` WITH AN ORIENTATION MAP AND A REVERIFY PER FINDING.
     READ THE BRIEF, NOT THIS BULLET, BEFORE BUILDING.**
@@ -98,12 +142,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 3 new commit(s) since last snapshot (HEAD 9a63f585c -> b35c2b42f)
-- data/ directory count: 8190 -> 8192 (+2)
+- 2 new commit(s) since last snapshot (HEAD 556aeb686 -> 75d336e87)
 
 ## 5. What is stuck (blocked / pending / no owner)
+- comparator it did not use (it ran TWO supplied arms and quoted the weaker) and **it held**: the
 - US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8192, "generated_at": "2026-08-24T01:22:16Z", "head_commit": "b35c2b42f48502402d4bfd11572e86a9941f4f74", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8204, "generated_at": "2026-08-24T14:36:31Z", "head_commit": "75d336e87162482a3da8235d16079c83c4aa125c", "step_status": {}}
 -->
