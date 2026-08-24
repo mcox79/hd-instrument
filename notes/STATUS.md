@@ -108,6 +108,34 @@ its RESULTS.* It ran **3 seeds at ~`40,000`-sentence reads**, `UNDERPOWERED: Fal
 | `20260819` | `441` | `0.0159` | `0.0023` (`0.0695`) | **`0.0476`** |
 | `7` | `398` | `0.0302` | `0.0025` (**`0.0050`**) | **`0.0653`** |
 
+🛑🛑 **AND A PRE-REGISTERED `STOP_IF` HAS ALREADY FIRED ON THIS WHOLE ROUTE -- `exp_corpus_capacity_
+ppmi_svd_ceiling_v1` (08-18). READ THIS BEFORE PROPOSING ANY WRITE-RULE FIX.**
+**`CORPUS_CAPACITY_CEILING__STOP_IF_iii_INFO_PRESENT_NO_UNSUPERVISED_FIRST_ORDER_TRANSFORM_REACHES_IT`**
+*Every arm below is scored on the SAME dissociation instrument and the SAME 242-pair population:*
+
+| arm | AUC | |
+|---|---|---|
+| **`C1_FITTED_ORACLE` (HELD-OUT CV, not in-sample)** | **`0.9606`** | ✅ **THE INFORMATION IS IN THE CORPUS** |
+| `K1_KNOWN_ANSWER_WORDNET` | `0.9599` | *instrument works* |
+| `N0_RANDOM_VECTOR_STORE` | `0.4862` | *chance* |
+| **`A0_INCUMBENT` -- OUR write rule** | **`0.0710`** | `BELOW_0.5_COOCCURRENCE` |
+| `B3_SECOND_ORDER_COSINE` | `0.0510` | below |
+| `B2_PPMI_SVD` k=`50`/`100`/`300`/`500` | `0.0519`/`0.0285`/`0.0230`/`0.0278` | below |
+| `B1_PPMI` | `0.0249` | below |
+
+🔑 **THE INFORMATION IS PRESENT (a FITTED model reaches `0.9606` HELD-OUT) AND NO UNSUPERVISED
+FIRST-ORDER TRANSFORM REACHES IT.** *PPMI, PPMI+SVD at four dimensionalities, second-order cosine,
+and our own write rule ALL land in `0.02`-`0.07`, deep in the co-occurrence band.*
+🔴 **THIS CORRECTS MY OWN FRAMING FROM EARLIER TONIGHT.** I wrote *"a plain distributional model over
+this corpus extracts it CI-separated while ours does not."* **ON THIS INSTRUMENT NEITHER DOES -- and
+OURS (`0.0710`) IS AHEAD OF `PPMI_SVD` (`0.0285`).** *P2's distributional win was on word-pair
+SIMILARITY RATINGS, a different task and scorer, exactly the comparison I had already flagged as
+non-transferable. Here is the direct evidence that it does not transfer.*
+➡️ **SO THE PROBLEM IS NOT "OUR MECHANISM IS UNIQUELY BAD". IT IS THAT FIRST-ORDER CO-OCCURRENCE
+TRANSFORMS AS A CLASS CANNOT PRODUCE SUBSTITUTABILITY FROM THIS CORPUS, WHILE THE INFORMATION IS
+DEMONSTRABLY THERE.** 🚫 **DO NOT propose another unsupervised first-order transform of the
+co-occurrence matrix -- that is the class the STOP_IF closed.**
+
 🧠🎯 **AND THE MECHANISTIC ANSWER WAS ALSO ALREADY ON DISK -- `exp_writerule_step_ladder_v1` (08-17)
 AND `exp_writerule_maxpool_occurrence_v1` (08-18). THIS IS THE SYNTHESIS OF THE WHOLE NIGHT:**
 **THE WRITE RULE BUILDS A CO-OCCURRENCE DETECTOR WHEN MEANING NEEDS SUBSTITUTABILITY.** On the
