@@ -918,6 +918,60 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   benchmark, not our organ. **UNTESTED.**
 - **BLOCKS:** inference beyond the literal text. Presupposes E2 + E3; correctly deferred.
 
+> ## 🔴 **ADDED 2026-08-24 — `P1`/`P2` HAD NO ENTRY IN THIS FILE AT ALL, AND THE PLAN CALLS THEM DECISIVE.**
+> **Enumerated, not searched** (`slot_status.slots()` vs a mention-check over this file, positive
+> control `B3`/`B5` both True): **`10` of the `28` slots in `hdlab/substrate.py` are absent from
+> ORGAN_MAP.** Seven are infrastructure and legitimately not brain organs (`R1 R2 R3 R4 X1 P3 B3'`
+> — "split text into units", "survive a restart"). **The remaining three are `Q2`, `P1`, `P2` —
+> exactly the slots the build plan names as "the difference between a well-organised filing system
+> and something that understands".** *You cannot build brain-foundational for an organ whose brain
+> requirement was never written down.* Confirmed not a renaming: `levelt|lemma|production|articul|
+> utterance` return ZERO hits across this file.
+> ⚠️ **`Q2` IS NOT A CLEAN ABSENCE AND I AM NOT FILING IT AS ONE.** Relational/transitive inference
+> IS covered here under **`D7`**, which lists "multi-hop relational reasoning; transitive inference"
+> in its own BLOCKS line. `Q2` may be a duplicate of `D7` under a second name rather than a missing
+> organ. **Resolve that before building either.** *`P1`/`P2` have no such cover.*
+
+**P1 / P2 — Language production: intention -> word meanings -> a string a person reads**
+- 🚫 **P1 / P2 — DO NOT START YET. Queue behind the meaning channel.**
+  <!-- COUPLING, AND THE FIRST VERSION OF THIS COMMENT WAS WRONG. This prohibition sits at the TOP
+       of the entry because organ_map_cite.py TRUNCATES an entry to ~14 lines ("... 25 more lines
+       (--verbose)"), so anything below the fold is invisible at the default call. I first assumed
+       the cause was the organ ID missing from the line and "fixed" that; MEASURED, it made no
+       difference, because line 70 of that tool EXCLUDES in-entry lines from the constraints
+       section by design -- the entry is printed right below it. The real constraint is LENGTH.
+       Keep the prohibition in the first few lines of any entry, and keep entries short. -->
+  **An organ that produces fluent strings from a read-out that cannot tell `sofa/couch` from
+  `apple/orange` would produce fluent WRONG answers** — worse than no answer, because it looks like
+  understanding. *Recorded so the gap is visible, not so it gets built next.*
+- **BRAIN'S MATH:** production is **STAGED AND FEED-FORWARD**, and the stage boundaries are among
+  the better-established results in psycholinguistics (Levelt, Roelofs & Meyer 1999 *BBS* 22:1;
+  time-course meta-analysis Indefrey & Levelt 2004 *Cognition* 92:101):
+  **conceptual preparation -> LEMMA selection (a syntactic word, no sounds yet) -> morphological /
+  phonological encoding -> phonetic encoding -> articulation.**
+  🔑 **THE LOAD-BEARING CLAIM FOR US IS THE LEMMA/LEXEME SPLIT: selecting WHICH WORD is a separate,
+  earlier operation from retrieving HOW IT SOUNDS.** *That is `P1` and `P2` respectively, and the
+  slot table already splits them that way — the split is PINNED, our naming happens to match.*
+  **The evidence is the tip-of-the-tongue state and its neuropsychology: a speaker can hold the
+  lemma (know the word, its gender, its syntax) while the form is unavailable.** A system that goes
+  straight from meaning to string has no state that can represent that, and so cannot fail the way
+  a person does.
+- **OURS:** **NONE.** Both slots are `EMPTY` in `substrate.py`. Nothing built, no negative result.
+- **FIDELITY:** MISSING — never attempted.
+- **EVIDENCE:** none. **There is no floor, no cell, and no measurement for either slot.**
+- **BLOCKS:** every output the system could give a person in its own words. Note what this does NOT
+  block: retrieval, grounding and comprehension are all measurable without it, which is exactly why
+  it stayed invisible — **nothing currently measured gets worse for its absence.**
+- ⚠️ **PINNED vs OURS-TO-INVENT, stated because the distinction is the whole discipline here:** the
+  STAGING and the LEMMA/LEXEME dissociation are PINNED-BY-EVIDENCE. **How a lemma is represented in
+  a hyperdimensional substrate, and what operation selects one, are OUR-INVENTION-UNDER-TEST** —
+  nothing in the literature says a lemma is a vector.
+- 🔻 **CITATION CONFIDENCE, HONESTLY: the two references above are quoted FROM MY OWN KNOWLEDGE, not
+  re-read off a paper in this session. The MODEL is canonical and I am confident in it; the volume
+  and page numbers are the part to verify. VERIFY BEFORE BUILDING ON THEM** — this file's own rule
+  is that a number travels and its caveat does not.
+- *(The prohibition for these slots is at the TOP of this entry, where the tool actually prints it.)*
+
 **E5 — Theta-gamma multi-item ordered buffer**
 - **BRAIN'S MATH:** one theta cycle (~125 ms) contains **~7 gamma sub-cycles (~17 ms each)**, one
   item per gamma slot, order encoded in theta-phase progression (Lisman & Idiart 1995 *Science*
