@@ -91,13 +91,23 @@ rule is that a statistic may DIAGNOSE and never DECIDE.** The OUTCOME is measure
 seeds**: SUBSTRATE grounding precision `0.0199` (**`3` hits / `151`**) against a `RANDOM_ANCHOR`
 floor, paired permutation **`p = 0.2634`** -- *not separated.* **THE SUBSTRATE GROUNDS `168`
 MEANINGS AND THREE ARE RIGHT.**
-➡️ 🔑 **AND THE TWO RESULTS ARE NOT IN CONFLICT -- THAT IS THE USEFUL PART. P2 SUCCEEDED WITHOUT
-USING THE SUBSTRATE'S GROUNDING PATH AT ALL** (a PPMI-SVD distributional model over raw simplewiki).
-**So the information IS in the text and a plain distributional model extracts it CI-separated, while
-our own grounding sits at chance on the same corpus.** ⚠️ **THE GAP IS THE EXTRACTION MECHANISM, NOT
-THE CORPUS. Scaling the input of a mechanism performing at its floor scales nothing.**
-*Underpowered caveat kept: `3`/`151` supports "not distinguishable from the floor", NOT "exactly
-zero".* *Witness: `test_reading_more_does_not_follow_grounding_is_at_chance.py`.*
+🔴 **AND THEN I CAUGHT MYSELF RUNNING PAST A PRE-REGISTRATION, WITHIN THE HOUR.** The cell that
+DEFINES this measurement (`exp_grounding_precision_gold_v1`) pre-committed, before any number
+existed: ***"(iv) fewer than ~300 scorable items -> UNDERPOWERED ... do NOT issue a verdict."***
+**`0` of `12` arms reach it; max n = `151`.** ➡️ **SO "GROUNDING IS AT CHANCE" IS NOT AN AVAILABLE
+CONCLUSION -- NOT MINE, AND NOT THE SUBMISSION'S "sits at the RANDOM_ANCHOR floor in every arm".**
+*A pre-registration I did not write is not one I may quietly outgrow.*
+✅ **WHAT IS ACTUALLY TRUE, AND IT IS SHARPER: (1) THERE IS NO POWERED MEASUREMENT OF WHETHER OUR
+GROUNDING IS CORRECT -- an ABSENT result, not a negative one. (2) The reason is itself a finding: a
+`4,000`-sentence read yields only ~`151` scorable groundings, so the instrument CANNOT REACH ITS OWN
+POWER THRESHOLD at this reading volume. (3) "Read more" still does not follow -- but neither does
+"grounding is broken".** 🎯 **THE NEXT MOVE IS A POWERED GROUNDING MEASUREMENT, NOT A SCALING RUN
+AND NOT A REBUILD.**
+⚠️ **AND A LIMIT I CHECKED ON MYSELF: the distributional result is Spearman rho on word-pair
+similarity; ours is anchor-assignment precision against ConceptNet. DIFFERENT TASKS, DIFFERENT
+SCORERS -- the numbers may NOT be compared.** *Each is judged only against ITS OWN floor. I withdrew
+"the gap IS the extraction mechanism" for resting on the forbidden verdict.*
+*Witness: `test_grounding_correctness_has_never_been_measured_at_power.py`.*
 
 ### 🗄️ **08-22 (SUPERSEDED IN ITS PREMISE, KEPT FOR ITS SCOPING CORRECTION)**
 🔻 **THE SCOPING CORRECTION (08-22): "a 1970s baseline beats us EVERYWHERE" over 16 measures was

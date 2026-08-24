@@ -1,4 +1,4 @@
-"""Vocabulary grows with reading. Grounding precision is at the random floor. Only one is an outcome.
+"""Vocabulary grows with reading. Whether grounding is CORRECT has never been measured at power.
 
 WHY THIS EXISTS -- IT CORRECTS A DIRECTION I WAS ABOUT TO SET. Across 2026-08-23 two measurements
 looked like they converged on "reading volume is the binding constraint":
@@ -20,30 +20,55 @@ disagree. So the question is what the substrate's grounding OUTCOME does, and it
         paired permutation p             0.2634   <- NOT separated
         MOST_FREQUENT_ANCHOR floor      0.0000
 
-**THE SUBSTRATE GROUNDS 168 MEANINGS AND THREE OF THEM ARE RIGHT, WHICH IS NOT DISTINGUISHABLE FROM
-RANDOM.** Reading more would grow a vocabulary whose attached meanings are at chance. **Scaling the
-input of a mechanism that performs at its floor scales nothing.**
+🔴 **AND THEN THE CORRECTION THAT THIS TEST NOW LEADS WITH, BECAUSE I RAN PAST A PRE-REGISTRATION.**
+The cell that DEFINES this measurement (`exp_grounding_precision_gold_v1`) carries a pre-committed
+reading, written before any number existed:
+
+    "(iv) fewer than ~300 scorable items -> UNDERPOWERED; report the n and the required n,
+          and do NOT issue a verdict. A width is not an effect."
+
+**EVERY ARM IS BELOW THAT THRESHOLD. 0 of 12 reach n=300; the maximum n is 151.** So "grounding is
+at chance" is NOT an available conclusion -- not mine, and not the submission's "precision sits at
+the RANDOM_ANCHOR floor in every arm". **The pre-registration forbids the verdict at this n, and a
+pre-registration I did not write is not one I may quietly outgrow.**
+
+**WHAT IS ACTUALLY TRUE, AND IT IS STILL DECISIVE FOR THE DIRECTION:**
+
+  1. **There is NO POWERED MEASUREMENT of whether the substrate's grounding is correct.** Not a
+     negative result -- an ABSENT one. We cannot currently tell.
+  2. **The reason is itself a finding: a 4,000-sentence read yields only ~151 scorable groundings**,
+     so the instrument cannot reach its own power threshold at this reading volume.
+  3. **"Read more" STILL does not follow**, but for a sharper reason than I first gave: we would be
+     scaling the input of a mechanism whose correctness has never been measured at power.
 
 WHY THE TWO RESULTS ARE NOT IN CONFLICT, WHICH IS THE USEFUL PART. The submission that SUCCEEDED did
 not use the substrate's grounding path at all -- it built a PPMI-SVD distributional model over raw
 simplewiki text. So:
 
     the information IS in the text          (distributional statistics extract it, CI-separated)
-    the substrate does NOT extract it       (its own grounding sits at the random floor)
+    whether the substrate extracts it       UNKNOWN -- never measured at power
 
-**THE GAP IS NOT READING VOLUME. IT IS THE EXTRACTION MECHANISM.** That reframes "read more" (which
-this evidence does not support) into "find out why the substrate's grounding is at chance while a
-plain distributional model over the same corpus is not" (which it does).
+**SO THE GAP IS NOT READING VOLUME, AND IT IS NOT YET DEMONSTRABLY THE MECHANISM EITHER.** ⚠️ *An
+earlier version of this file asserted "the gap IS the extraction mechanism". That inference rested
+on the at-chance verdict the pre-registration forbids, so it is withdrawn.* **What the evidence
+supports is narrower and more actionable: a plain distributional model over this corpus clears its
+floor CI-separated, and we have never been able to say whether ours does.** The next move is a
+POWERED grounding measurement, not a scaling run and not a rebuild.
+
+⚠️ **AND A LIMIT ON THE COMPARISON ITSELF, WHICH I CHECKED ON MYSELF:** the distributional result is
+Spearman rho on word-pair similarity; the substrate's is anchor-assignment precision against
+ConceptNet. **DIFFERENT TASKS, DIFFERENT SCORERS -- the numbers may NOT be compared.** Each is judged
+only against ITS OWN floor, which is the only claim made here.
 
 NOT ESTABLISHED, AND STATED SO IT CANNOT TRAVEL FURTHER THAN IT GOES:
-  * n=151 scorable with 3 hits is SMALL. The claim is "not distinguishable from the floor", NOT
-    "exactly zero" -- an underpowered test cannot prove absence of a small effect.
+  * n=151 scorable with 3 hits is SMALL and BELOW ITS OWN PRE-REGISTERED MINIMUM. It supports
+    neither "at chance" nor "working" -- an underpowered test answers nothing in either direction.
   * The precision gold is `conceptnet_gold_v1`. A different gold could score differently, and the
     submission says its coverage is 0.899.
   * Vocabulary growth and grounding precision were measured on DIFFERENT reads. This test asserts
     each against its own source and deliberately computes NO cross-quantity ratio.
 
-    .venv/Scripts/python.exe verification/test_reading_more_does_not_follow_grounding_is_at_chance.py
+    .venv/Scripts/python.exe verification/test_grounding_correctness_has_never_been_measured_at_power.py
 """
 import io
 import json
@@ -51,6 +76,9 @@ import os
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESUME = os.path.join(REPO, "data", "exp_substrate_resume_helps_v1", "metrics.json")
+# PRE-REGISTERED in exp_grounding_precision_gold_v1 reading (iv), before any number existed.
+# This is NOT a threshold I chose and NOT one I may relax -- it is the measuring cell's own band.
+PREREG_MIN_N = 300
 
 
 def find_precision_blocks(obj, out, path=""):
@@ -84,6 +112,7 @@ def main():
         len(blocks) > 0, "%d block(s)" % len(blocks))
 
     checked = 0
+    ns = []
     for path, blk in blocks:
         sub = blk["SUBSTRATE"]
         if sub.get("precision") is None:      # an arm that scored nothing is not evidence
@@ -103,19 +132,33 @@ def main():
         print("[witness]     SUBSTRATE %.4f (%s/%s)  strongest floor %s %.4f  paired p=%s"
               % (sub["precision"], sub.get("hits"), sub.get("n"), best, f["precision"], p))
         if p is not None:
-            chk("grounding is NOT separated from its floor (%s)" % path.split("/")[-2][:22],
+            chk("no separation from floor -- but see the power check below (%s)"
+                % path.split("/")[-2][:22],
                 p > 0.05,
-                "p=%.4f -- %d hits in %s is not distinguishable from random"
-                % (p, sub.get("hits", -1), sub.get("n", "?")))
+                "p=%.4f, %d hits in %s" % (p, sub.get("hits", -1), sub.get("n", "?")))
             checked += 1
+            ns.append(int(sub.get("n") or 0))
 
     chk("at least one arm was actually tested against its floor", checked > 0,
         "%d arm(s) carried a paired permutation p" % checked)
 
+    # THE LOAD-BEARING CHECK. The defining cell's pre-registration (reading iv) says fewer than
+    # ~300 scorable items is UNDERPOWERED and NO VERDICT may be issued. This asserts that we are
+    # in that regime, so the file can never quietly drift back into claiming the verdict.
+    print("[witness] scorable n per arm: %s | pre-registered requirement: %d"
+          % (sorted(ns, reverse=True), PREREG_MIN_N))
+    chk("EVERY arm is below the PRE-REGISTERED power threshold -- no verdict is available",
+        ns and max(ns) < PREREG_MIN_N,
+        "max n = %d < %d, so 'grounding is at chance' is NOT an available conclusion"
+        % (max(ns) if ns else 0, PREREG_MIN_N))
+    chk("so what we have is an ABSENT measurement, not a negative one",
+        True, "%d of %d arms powered" % (sum(1 for n in ns if n >= PREREG_MIN_N), len(ns)))
+
     print()
-    print("[witness] READ AS: vocabulary growth is a STATISTIC and it is climbing; grounding")
-    print("[witness] precision is the OUTCOME and it is at chance. 'Read more' does not follow.")
-    print("[witness] The extraction mechanism is the gap, not the corpus.")
+    print("[witness] READ AS: vocabulary growth is a STATISTIC and it is climbing; whether the")
+    print("[witness] grounding OUTCOME is correct has NEVER been measured at power (max n=151 vs")
+    print("[witness] a pre-registered 300). 'Read more' does not follow -- but neither does")
+    print("[witness] 'grounding is broken'. The next move is a POWERED measurement.")
     print("[witness] RESULT: %s" % ("ALL WITNESS CHECKS PASS" if ok else "FAILED"))
     raise SystemExit(0 if ok else 1)
 
