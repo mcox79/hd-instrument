@@ -271,6 +271,56 @@ win on `arc` stands on its own.** *The defect is one duplicated arm, not a broke
 `NEW_READOUT_CLEARS_FLOOR_NO`). That cell tested the cue properly; this one simply never tested it.
 **Second-order remains closed on that evidence, not on this.**
 
+---
+
+# FOURTH OF THE ELEVEN: A PINNED BRAIN RULE, TESTED WHERE ITS SIGNAL IS DEGENERATE
+
+Source: `data/exp_predictive_write_gate_v1/metrics.json`, FULL 2026-08-19, 3 seeds x 6 thresholds.
+Tests **the PINNED rule** — residual `x - x_hat` as the learning signal (`ORGAN_MAP` G2) — against
+the pure accumulation the substrate uses today. `UNDERPOWERED: false`.
+
+**It was a WIRING job, not a build, and it says so:** *"`hdlab/predictive_coding.py` already
+implements the equation and self-tests PASS; a runtime trace showed it is NOT among the **44** hdlab
+modules a real `Substrate.read()` loads. The organ was unwired."* *(Note `44` — a RUNTIME count from
+an actual `read()`, not the eager-import `36`. Quote the probe with the number.)*
+
+## THE RESULT: 0 OF 18 CELLS
+
+| | GATED beats rate-matched RANDOM_SKIP, CI-separated |
+|---|---|
+| 3 seeds x 6 thresholds | **0 of 18** |
+
+Deltas are tiny and lean NEGATIVE (`-0.0333` to `+0.0067`). **And skipping at all HURTS:**
+`ACCUMULATE` reads `0.0567`/`0.0300`/`0.0533` at hit@1, while both gated and random arms fall to
+`0.013`-`0.020` at the higher thresholds. *Writing less is worse, and choosing WHAT to skip by
+predictive residual is no better than choosing at random.*
+
+## 🎯 THE CELL EXPLAINED ITS OWN NEGATIVE IN ADVANCE, AND THAT IS THE VALUABLE PART
+
+> *"Residual magnitudes are nearly constant (p10 `0.3575`, median `0.4648`, p90 `0.5237`), so gating
+> on them is close to gating AT RANDOM. Without a rate-matched random arm any GATED-vs-ACCUMULATE
+> gain is attributable to WRITING LESS, not to selectivity."*
+
+**A signal with almost no spread cannot gate anything.** The rate-matched random arm is what turns
+that from a hunch into a measurement — without it, the `+0.0067` at threshold 0.25 would have read
+as a small win for selectivity.
+
+⚠️ **BRAIN-FIDELITY READING, AND IT IS NOT "PREDICTIVE CODING FAILS".** The rule is PINNED; what was
+measured is that **OUR residuals do not discriminate**, because in our representation they are
+nearly constant. That is a property of our implementation, not a refutation of the brain rule —
+exactly the "brain-faithful LOSING is presumed implementation until proven structural" case.
+➡️ **The open question is why our residual has no spread**, not whether to keep the organ.
+
+🔻 **AND THE THRESHOLD IS A CLIFF, WHICH IS WHY NO VALUE WAS ADOPTED:** *"2.5% of writes skipped at
+0.25, 76.2% at 0.50, 100% at 0.75 -- the usable band is a cliff, so a single adopted value would be
+a parameter masquerading as a finding."* **That is the right call and it should not be quietly
+undone by anyone who wants a tunable knob.**
+
+🔗 **RELATED BUT NOT THE SAME GATE — do not merge them.** The census above shows the ADMISSION gate
+rejecting `98.5%` for `HYPOTHESIS_BELOW_COMMIT_STRENGTH`. That is a **different signal** from the
+predictive residual. *What transfers is only the general lesson: before gating on a score, measure
+its SPREAD — a near-constant score gates at random however principled its derivation.*
+
 ## TLDR
 
 We read thirty-four thousand sentences and stored three hundred and eighty-six facts.
