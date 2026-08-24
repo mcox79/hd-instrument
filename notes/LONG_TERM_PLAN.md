@@ -255,6 +255,34 @@ runs; the brain-fidelity gate (`3e70c3ba4`); the brain-canonical-defaults tripwi
 
 ### PHASE 1 — MEANING SUPPLY *(the current bottleneck; start here)*
 
+> ## 🔴 **REDIRECTED 2026-08-24 — THE LEVER IS PROJECTING THE NORMS WE HAVE, NOT BUYING MORE. READ THIS BEFORE THE WORK ITEMS BELOW.**
+> **Work item 1 says "widen the grounded core to ~90% token coverage: +14,704 words". On tonight's
+> evidence that is probably the wrong purchase**, and this phase's own kill condition already
+> suspected it (*"hand-rated norms are not a scalable meaning source"*).
+>
+> `exp_crossmodal_distillation_substitutability_v1` (SOLVED, re-verified, reviewed EXCELLENT):
+> **letting the grounded hub TEACH a direction over the distributional model scores `0.8388` CI
+> `[0.8031,0.8720]` on the 242-pair substitutability instrument** -- beating its info-free twin's
+> MAXIMUM over 200 draws, with no gold anywhere.
+>
+> 🔑 **AND THE COVERAGE NUMBERS ARE THE POINT FOR THIS PHASE:**
+>
+> | arm | pairs it can score |
+> |---|---|
+> | `GROUNDED_ALONE` -- the hand-rated hub itself | **`348` of `484`** (`191` P + `157` S) |
+> | **the DISTILLED direction** | **`484` of `484`** |
+>
+> ➡️ **The distilled direction scores pairs the hub CANNOT, because it is applied to distributional
+> features -- which exist for every word in the corpus.** *That is precisely the coverage problem
+> this phase was created to solve, addressed without adding a single hand-rated word.*
+>
+> ⚠️ **WHAT IS NOT YET MEASURED, AND IT DECIDES THE REDIRECT: whether the distilled arm is as
+> ACCURATE on the `136` pairs the hub does not cover as on the `348` it does.** The `0.8388` is the
+> aggregate; it could be carried by the covered subset. **Split it and report both.** *Until that
+> is done, treat "widening is unnecessary" as the leading hypothesis, not a finding.*
+> 🚫 **AND THE TEACHER IS STILL A SUPPLIED TABLE.** Distillation makes the existing norms go
+> further; it does not make the system independent of them. *Label-free, not resource-free.*
+
 **Brain structure:** sensorimotor spokes feeding the anterior-temporal hub. [PINNED]
 
 **The problem in one line:** our only generalising meaning asset covers 60.4% of running text but just
