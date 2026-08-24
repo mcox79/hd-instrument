@@ -95,11 +95,28 @@
 > whole family of unsupervised first-order transforms; four tuning families reached `0.114`, no
 > further.*
 >
-> ## 🖥️ **Q119 IS OPEN AND UNANSWERED: THE REPO RUNS OFF A USB STICK WHILE A 2TB NVMe SITS IDLE**
-> **Cold open `15.40 ms` vs warm `0.96 ms`; ~`11,000` cold opens ~= `165 s` against a measured
-> `167 s` one-line-test startup. Every tool here pays it** -- a `data/` grep timed out at `320 s`
-> on 08-24. *Two wrong answers came first (a concurrent session; then antivirus, off a BROKEN
-> control comparing cold files to a just-WRITTEN one). **Do not re-diagnose it -- answer Q119.***
+> ## 🖥️ **Q119 ANSWERED 08-24: MOVE AUTHORISED. THE MOVE ITSELF IS PENDING A QUIET WINDOW -- Q121.**
+> Owner: *"do it - authorized to move the project to the internal drive if there is sufficient space
+> - but will you move the whole thing, or a subset?"* **MEASURED: `174 GB` / `316,265` files; `C:`
+> has `1,433 GB` free, so SPACE IS NOT THE CONSTRAINT.** `data/` is `152.92 GB` alone; code+notes+
+> history ~`21 GB`. **But the slowness tracks FILE COUNT on the read path, not size:** `.venv` is
+> `44,635` files opened on EVERY command (that is the `167 s` startup), `lean_oracle` `121,688`,
+> `.git` `25,243`. ➡️ **RECOMMENDED WHOLE, not a subset** -- a subset leaves the `153 GB` that times
+> out the search tools on the stick, plus a fast->slow shortcut in a project repeatedly bitten by
+> hidden path coupling.
+> 🚫 **DO NOT START THE COPY FROM INSIDE THE LOOP, AND THIS IS THE LOAD-BEARING PART:** `5` processes
+> run out of the folder (a LIVE experiment writing results, the KB ingest, the landing notifier, the
+> status window) -- copying under writers yields a quietly wrong copy. **And
+> `D:/AI/.claude/settings.json` hard-codes the old path `4` times, including the hook driving this
+> loop, so the move breaks its own executor mid-flight.**
+> ⚠️ **TWO TRAPS: `.venv` must be REBUILT not copied (absolute paths baked in), and it must be a
+> PLAIN FILE COPY -- `data/foundation/` is UNTRACKED and a fresh checkout would silently lose it.**
+> 🔻 *STILL NOT MEASURED: the actual speed-up. It is INFERRED from file-open timings. Cheap
+> alternative offered on Q121: move only `.venv`+code (~`21 GB`), measure, then decide on the rest
+> with a real number.* **Cold open `15.40 ms` vs warm `0.96 ms`; a `data/` grep timed out at `320 s`
+> and `cite_check.py` (documented "~2 s warm") timed out at `500 s` with NO output.** *Two wrong
+> answers came first (a concurrent session; then antivirus, off a BROKEN control comparing cold
+> files to a just-WRITTEN one). **Do not re-diagnose it.***
 >
 > ## 📦 **STANDING, FROM THE OWNER (08-23/08-24)**
 > *"Bundle complicated problems for a solver, and verify the submissions."* · *"Whenever you come
