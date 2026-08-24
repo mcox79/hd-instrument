@@ -174,8 +174,24 @@ would withdraw first if it turned out to be wrong. Validate before you stop:
 
   python tools/problem_ledger.py --check
 
-That checker REFUSES a SOLVED.md with no floor or no controls. status: REFUTED is a
-first-class success -- showing a problem is the wrong problem beats half-solving it."""
+That checker REFUSES a SOLVED.md with no floor or no controls.
+
+REFUTING THE BRIEF DOES NOT END YOUR JOB -- IT IS THE HALFWAY POINT.
+If the mechanism this brief proposes turns out to be wrong, you have not finished. You
+have earned the right to solve the problem A DIFFERENT WAY, and that is what is wanted.
+Go on to solve the REAL problem underneath the brief, with a mechanism of your choosing.
+Come back with "refuted" alone only if you have also established that the underlying
+problem is not solvable by any route you could test -- and then say which routes those
+were. The brief is my best guess at the mechanism; it is never the definition of the goal.
+
+AND ANCHOR IT IN THE BRAIN, WHICH IS THE PROJECT'S WHOLE METHOD.
+Open with "which brain structure does this, and are we replicating it or substituting
+something convenient?" -- not "did we consider the brain?". Copy the COMPUTATION exactly,
+because it derives from a problem we share; SWEEP every PARAMETER, because those derive
+from constraints we do not share. Label each choice PINNED-BY-EVIDENCE or
+OUR-INVENTION-UNDER-TEST. Inventing is encouraged; MISLABELLING is the only thing barred.
+An off-the-shelf tool that happens to be lying around is how this project loses; a
+faithful copy of the brain's operation is how it wins."""
 
 
 def owner_note_path(slug, problems_dir=PROBLEMS_DIR):

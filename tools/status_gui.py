@@ -1743,7 +1743,12 @@ class StatusWindow:
             # from PROBLEM.md's own frontmatter via problem_ledger.scan().
             cols=("pri", "slug", "state", "await", "owner", "review", "result"),
             widths=(40, 250, 120, 170, 110, 110, 380),
-            headings=("#", "PROBLEM", "SOLVER SAYS", "WAITING ON ME?", "YOU SAY",
+            # OWNER 08-23, verbatim: "what does that mean? Am I supposed to do anything? It's
+            # really not clear if that's 'you' - Opus 5, or me, the user."  THE COLUMN SAID
+            # "WAITING ON ME?" -- written from MY point of view, in a window THEY read, where
+            # "me" resolves to the reader. NEVER use a first- or second-person pronoun in a
+            # heading or cell here: NAME THE ACTOR. Same reason the hint below says "Claude".
+            headings=("#", "PROBLEM", "SOLVER SAYS", "WHOSE MOVE?", "YOU SAY",
                       "MY RATING", "WHAT THEY FOUND"),
             height=9)
         frame.grid(row=2, column=0, sticky="nsew")
@@ -1912,10 +1917,13 @@ class StatusWindow:
             owner = _probs.load_owner(r["slug"])
             wait = ""
             if r["state"] in ("SOLVED", "PARTIAL", "REFUTED") and not r["integrated"]:
-                wait = "YES - re-verify"
+                # "rated" and "integrated" are DIFFERENT states and the owner asked about
+                # exactly that gap: a review grade says I read it, NOT that it is folded in.
+                wait = ("Claude - re-verify + fold in" if r.get("review")
+                        else "Claude - review it")
                 awaiting += 1
             elif r["integrated"]:
-                wait = "no - integrated"
+                wait = "nobody - folded in"
             res = (r.get("fields", {}) or {}).get("result", "")
             if r["state"] == "MALFORMED":
                 res = f"NO EVIDENCE: {r.get('error', '')}"
@@ -1957,9 +1965,12 @@ class StatusWindow:
         self._tab_mtime_override["6. PROBLEMS"] = newest
         self._set_label(
             self.pb_hint,
-            text=f"{n} problem(s). {awaiting} finished and waiting on me to re-verify and fold in. "
-                 f"'SOLVER SAYS' is their own filing; it is not accepted until I have checked it "
-                 f"on disk -- the base rate here is 30 vetted strong-passes, 1 upheld.")
+            text=f"{n} problem(s). NOTHING ON THIS TAB NEEDS YOU -- 'WHOSE MOVE?' names who acts, "
+                 f"and {awaiting} of them say Claude. A rating means Claude read it; 'folded in' "
+                 f"means it is wired into the substrate. Those are different, and a problem is not "
+                 f"finished until it says folded in. 'SOLVER SAYS' is the solver's own filing and "
+                 f"is not accepted until Claude has re-run it on disk -- the base rate for a "
+                 f"self-declared strong pass here is 30 vetted, 1 upheld.")
 
     # ---- PANEL B ------------------------------------------------------
     def _build_organs(self) -> None:
