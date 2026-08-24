@@ -1,8 +1,39 @@
 ---
 priority:
 review: EXCELLENT
-review_text: Ran the floor I asked for AND a diagnostic I did not, which is the one that changes what we do.
+review_text: "Ran the floor I asked for AND a diagnostic I did not, which is the one that changes what we do. INTEGRATED 08-23: re-verify passes, and its own stratum check is sharper than its summary -- the whole margin over a 2-line rule sits in PASSIVE sentences (CI [+0.469,+0.875]); on ACTIVE it is not separated at all."
 ---
+
+> # ✅ **INTEGRATION NOTE, 2026-08-23 -- RE-VERIFIED, AND THIS IS A REAL POSITIVE WITH A PRECISE SCOPE.**
+> *Ran `verification/test_grow_by_reading_trivial_floor.py`: ALL CHECKS PASS. Every number below is
+> recomputed by that witness from the saved adjudicated population, not quoted from the summary.*
+>
+> ✅ **THE HEADLINE HOLDS AND ITS CONTROLS BIND.** Real extractor `0.90` (`90`/`100` hand-adjudicated)
+> vs the strongest genuinely-trivial floor `first_noun_after_verb` `0.7053`; **paired real-minus-floor
+> CI `[+0.140,+0.330]` excludes zero**, McNemar exact `p=2e-5`. *Info-free constant twin ("water")
+> `0.09`, CI-separated below. `292` inherited rows carry the ORIGINAL human labels, witness-verified,
+> so there is no silent relabel.* ✅ **And the population question is handled properly** -- precision
+> -over-emitted (`0.7053`) and accuracy-over-100 (`0.67`) are BOTH reported, and the paired test is on
+> the same `100` items.
+>
+> ## 🔑 **THE STRATUM CHECK IS SHARPER THAN THE SUBMISSION'S OWN SUMMARY -- AND IT IS THE USEFUL PART**
+> The summary says *"most of it is filter-selection plus a trivial rule, not the sophisticated
+> reading"* (a 2-line `voice_aware_adjacency` rule reaches `0.83`; real-minus-it CI `[0.00,0.14]`,
+> not separated). **True, and it undersells its own check `[6]`:**
+>
+> | stratum | n | real − 2-line heuristic | |
+> |---|---|---|---|
+> | **ACTIVE** (canonical order) | `68` | `[+0.000, +0.044]` | 🔻 **NOT separated -- the parser earns nothing here** |
+> | **PASSIVE** (non-canonical) | `32` | **`[+0.469, +0.875]`** | ✅ **DECISIVELY separated** |
+>
+> ➡️ **THE WHOLE MARGIN LIVES IN NON-CANONICAL WORD ORDER.** *That is not "the reading adds little";
+> it is "the reading adds nothing on the easy two-thirds and a great deal on the hard third".* **The
+> witness calls it a good-enough parsing signature, and that is the right reading: a rule that only
+> tracks adjacency cannot survive a passive, and ours does.**
+> 🎯 **THE CAPABILITY CLAIM TO CARRY FORWARD, SCOPED:** *the grow-by-reading extractor beats a
+> two-line adjacency rule ONLY where word order is non-canonical -- and there it beats it decisively.*
+> **Do not quote the `0.90` as a general extraction quality; quote the stratum.**
+> ⚠️ *`n=32` in the passive stratum is small; the effect is large but the interval is wide.*
 
 > # MY REVIEW OF THE SUBMISSION: **EXCELLENT**
 > *(reviewed 2026-08-23 by the strategy session. I re-ran their witness first: all checks pass,
