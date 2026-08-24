@@ -200,9 +200,7 @@ def build() -> dict:
 _ORDER = {"BROKEN": 0, "WEAK": 1, "UNKNOWN": 2, "UNTESTED": 3, "WORKS": 4}
 
 
-def _brief_line(b):
-    if not b:
-        return "        (no brief owns this gap)"
+def _one_brief_line(b):
     if b.get("state") == "NO SUCH BRIEF":
         return "        BRIEF %s -- NAMED BUT MISSING ON DISK" % b["slug"]
     bits = ["state=%s" % b.get("state")]
@@ -215,6 +213,21 @@ def _brief_line(b):
     if b.get("result"):
         out.append("          BOUGHT: %s" % b["result"][:200])
     return "\n".join(out)
+
+
+def _brief_line(briefs):
+    """Render EVERY brief attached to a stage.
+
+    A stage held ONE brief until 2026-08-24, and that single-slot schema is what shipped a false
+    "NOBODY IS WORKING THIS GAP" to the GUI header while 20 briefs existed. The field is a LIST
+    now; this renders all of them rather than silently showing the first. Accepts a bare dict too,
+    because an old cached JSON should degrade rather than crash.
+    """
+    if not briefs:
+        return "        (no brief owns this gap)"
+    if isinstance(briefs, dict):
+        return _one_brief_line(briefs)
+    return "\n".join(_one_brief_line(b) for b in briefs)
 
 
 def render(gaps_only=False):
