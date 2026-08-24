@@ -149,3 +149,11 @@ None.
    additive-accumulation mechanism, which is what the sixteen losses actually measured.
 3. The verb gap is the one place supplied still dominates the learned channel; that is where the
    sensorimotor action dimensions earn their place in the hub.
+
+---
+
+## INTEGRATED_BY_STRATEGY -- 2026-08-23
+
+Re-verified. Review: EXCELLENT -- survived an adversarial re-check against SUPPLIED_FULL, a stronger comparator than it quoted. NOTE ADDED 08-23: its distributional win is on word-pair SIMILARITY RATINGS and does NOT transfer to the substitutability instrument, where PPMI-SVD reads 0.0285 against our own write rule at 0.0710. Different task, different scorer.
+
+*Appended by the strategy session, which owns integration (board Q111). The solver's text above is unchanged.*

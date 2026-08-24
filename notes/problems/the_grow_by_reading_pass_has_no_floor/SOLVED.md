@@ -194,3 +194,11 @@ None.
 3. A **semantic-reversibility** stratum (irreversible "acid dissolves metal" vs reversible "X produces
    Y") would be the cleaner brain test than voice, since reversibility is what forces the brain onto
    syntax; it needs per-item reversibility judgements (annotator load) and more n than 100 to resolve.
+
+---
+
+## INTEGRATED_BY_STRATEGY -- 2026-08-23
+
+Re-verified (all witness checks pass). Scoped capability recorded: the extractor beats a 2-line adjacency rule ONLY on PASSIVE sentences (CI [+0.469,+0.875], n=32); on ACTIVE (n=68) it is NOT separated. Carry the stratum, never the bare 0.90.
+
+*Appended by the strategy session, which owns integration (board Q111). The solver's text above is unchanged.*

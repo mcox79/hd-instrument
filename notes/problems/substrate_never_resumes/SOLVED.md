@@ -177,3 +177,11 @@ None.
    both the degeneracy and the floor-level precision is that grounding is same-batch co-occurrence.
 3. When landing, update `verification/test_foundation_dir_does_not_lie.py` (it asserts the now-removed
    raise) so it fails intentionally rather than silently.
+
+---
+
+## INTEGRATED_BY_STRATEGY -- 2026-08-23
+
+Re-verified against its own metrics. Review: EXCELLENT. Integration correction: its claim that precision 'sits at the RANDOM_ANCHOR floor in every arm' runs past the defining cell's pre-registration (reading iv: n<300 is UNDERPOWERED, issue no verdict) -- 0 of 12 arms reach n=300. The POWERED answer is in exp_grounding_precision_gold_v1: grounding beats random on 2 of 3 seeds but loses 2-3x to counting co-occurrence on 3 of 3.
+
+*Appended by the strategy session, which owns integration (board Q111). The solver's text above is unchanged.*

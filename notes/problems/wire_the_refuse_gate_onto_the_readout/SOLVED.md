@@ -145,3 +145,11 @@ None.
    ends; the threshold sweep between them is the product call.
 3. Send "refuse a wrong answer to a KNOWN word" and "refuse a novel word IN CONTEXT" to the retrieval
    space -- those are the accessibility problems this membership fix does not address.
+
+---
+
+## INTEGRATED_BY_STRATEGY -- 2026-08-23
+
+Re-verified (familiarity gate 1.000). Wiring decision recorded: DEFAULT-OFF. Measured the arm nobody ran -- on real English the substrate has not read, the same gate refuses 85.8% at 5,200 sentences, and coverage is a function of read volume (5.1% -> 14.2% across 800 -> 5,200).
+
+*Appended by the strategy session, which owns integration (board Q111). The solver's text above is unchanged.*

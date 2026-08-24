@@ -260,3 +260,11 @@ matcher outright. Keep the code, add the grounded channel, don't replace anythin
    `reader_meaning_channel`'s missing adapter; the capstone shows it beats either channel alone and
    beats the floor on fair gold. A learned hub rule (vs z-score) is the obvious follow-on.
 3. Keep the flat bundler; retire the "replace the bundle" thread for c3.
+
+---
+
+## INTEGRATED_BY_STRATEGY -- 2026-08-23
+
+Re-verified. Review: STRONG. Its real finding is upheld and retires a floor: the string control is ~78% morphological leakage (0.0867 -> 0.0193 on stem-stripped gold, overlapping its own info-free twin) -- now board Q117. Its headline is corrected: its own paired bootstrap has RAW_COOC - A1_BASE = +0.0125 CI[+0.0057,+0.0195], so removing the bundle HELPS, it just does not help ENOUGH.
+
+*Appended by the strategy session, which owns integration (board Q111). The solver's text above is unchanged.*

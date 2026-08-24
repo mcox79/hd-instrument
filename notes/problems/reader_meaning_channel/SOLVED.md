@@ -228,3 +228,11 @@ None blocking. One worth your steer, framed in NEXT STEPS.
    This is the maximally aggressive empirical form; it is a real build and a genuinely different task.
 4. The live-path adapter is still unbuilt and is the only way any of this becomes a *reading* result
    rather than a bench result -- this brief's other, still-open half.
+
+---
+
+## INTEGRATED_BY_STRATEGY -- 2026-08-23
+
+Re-verified. Review: STRONG. Its framing is corrected -- on the 53 words where the question is live the channel ALONE beats chance (0.4811 vs 0.3854) while channel+prior lands BELOW it (0.1415), so the prior SWAMPS the channel. A successor brief was filed from this (the_prior_swamps_the_channel_instead_of_combining_with_it, priority 1).
+
+*Appended by the strategy session, which owns integration (board Q111). The solver's text above is unchanged.*
