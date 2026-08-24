@@ -136,6 +136,39 @@ TRANSFORMS AS A CLASS CANNOT PRODUCE SUBSTITUTABILITY FROM THIS CORPUS, WHILE TH
 DEMONSTRABLY THERE.** 🚫 **DO NOT propose another unsupervised first-order transform of the
 co-occurrence matrix -- that is the class the STOP_IF closed.**
 
+🛑 **A SECOND `STOP_IF` CLOSED THE "TUNE IT HARDER" ESCAPE (`exp_tuned_count_unsupervised_
+dissociation_v1`):** `TUNING_IMPROVES_ON_VANILLA_BUT_STAYS_BELOW_0.5__SUPERVISION_CONCLUSION_
+SURVIVES_A_FAIRER_TEST`. *Shifted PPMI lifts `0.0519` -> `0.1144` on held-out selection and is still
+nowhere near chance.* **Four tuning families tried; the ordering does not change.**
+
+🧠 **AND THE GROUNDED CHANNEL WAS ALREADY SCORED ON THIS EXACT INSTRUMENT TOO
+(`exp_sensorimotor_channel_discrimination_v1`) -- IT IS THE ONLY THING ON THE RIGHT SIDE OF CHANCE,
+AND IT STILL DOES NOT CLEAR ITS OWN FLOOR:**
+
+| arm | AUC | |
+|---|---|---|
+| 🔻 **`F_CONSTANT_PROTOTYPE__SM11` -- ONE VECTOR FOR EVERY WORD, ZERO word-specific information** | 🔻 **`0.6195`** | **its own floor, and the HIGHEST arm** |
+| `SM11_RAW_NEG_EUCLID` | `0.6019` | above chance, **BELOW that floor** |
+| `SM11_RAW_COSINE` | `0.5990` | above chance, **BELOW that floor** |
+| `F_SCRAMBLE__SM11_*` | `0.4669` / `0.5000` | *chance -- controls bind* |
+| `SM11_Z_COSINE` | `0.5358` | not separated |
+
+**VERDICT `SENSORIMOTOR_DISCRIMINATION__B_AT_OR_NEAR_CONSTANT_PROTOTYPE_FLOOR`.** *A vector carrying
+NO word identity beats the real grounded arms.* ➡️ **So the channel's above-chance reading is a
+GENERAL property (a constant offset -- most plausibly concreteness), NOT word-specific meaning.**
+
+## 🧱 **THE WALL, STATED COMPLETELY -- THIS IS THE HONEST STATE AND IT IS WELL EVIDENCED**
+**On one licensed instrument, one 242-pair population, chance `0.4862`, known-answer `0.9599`:**
+**NOTHING UNSUPERVISED CLEARS ITS OWN FLOOR.** Text transforms land at `0.02`-`0.13` (confidently
+INVERTED -- they measure co-occurrence); the grounded channel lands at `0.599`-`0.602` but under a
+`0.6195` no-information floor; **and the ONLY arms above `0.5` on merit are a FITTED SUPERVISED model
+(`0.9606` held-out) and WordNet itself.** 🔑 **THE INFORMATION IS THERE AND EVERY UNSUPERVISED ROUTE
+WE HAVE TRIED MISSES IT.** ⚠️ **THE NEXT MOVE IS NOT ANOTHER ARM ON THIS INSTRUMENT.** *Per the
+owner's standing rule -- when the wheels spin, go back to brain foundationality and ask what
+FUNCTION is missing -- the question is: **the brain acquires substitutability without a labelled
+oracle. What does it use that a corpus does not contain?** That is a research question, not a
+sweep.*
+
 🧠🎯 **AND THE MECHANISTIC ANSWER WAS ALSO ALREADY ON DISK -- `exp_writerule_step_ladder_v1` (08-17)
 AND `exp_writerule_maxpool_occurrence_v1` (08-18). THIS IS THE SYNTHESIS OF THE WHOLE NIGHT:**
 **THE WRITE RULE BUILDS A CO-OCCURRENCE DETECTOR WHEN MEANING NEEDS SUBSTITUTABILITY.** On the
