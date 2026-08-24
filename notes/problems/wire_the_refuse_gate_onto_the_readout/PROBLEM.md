@@ -20,12 +20,22 @@ review_text: "Refuted my proposed fix and found what the signal actually is: sto
 > by construction.** So I measured the deployment case instead: **genuine English words we have
 > simply not read**, taken from an EXTERNAL list that was not built from our store.
 >
-> | after a 2 x 1,500-sentence read | |
-> |---|---|
-> | familiarity set | **`4,429`** lemmas |
-> | real English words sampled | `4,000` (Lancaster norms) |
-> | would be ANSWERED | `376` -- **`9.4%`** |
-> | 🔻 **would be REFUSED** | `3,624` -- **`90.6%`** *(`abdomen`, `abduct`, `aardvark`)* |
+> 🔴 **MY FIRST VERSION OF THIS NUMBER WAS WRONG AND I CORRECTED IT THE SAME SESSION.** I read via
+> `read(n_sentences=1500)` x2 -> `4,429` lemmas -> *"9.4% answered"*. **That call shape is DOCUMENTED
+> AS CAPPED** (`SUBSTRATE_READ_SILENTLY_READS_A_FRACTION...`), and the shape every experiment cell
+> actually uses is a LOOP of `chunk=400`, which does not degrade. **Re-measured properly:**
+>
+> | sentences read | vocabulary | coverage of `4,000` real English words |
+> |---|---|---|
+> | `800` | `2,270` | `5.1%` answered |
+> | `1,900` | `3,949` | `8.4%` |
+> | `3,100` | `5,525` | `11.2%` |
+> | `5,200` | **`7,334`** | **`14.2%` answered -- `85.8%` REFUSED** *(`abdomen`, `abduct`, `aardvark`)* |
+>
+> 🔑 **COVERAGE IS A FUNCTION OF HOW MUCH WAS READ, NOT A CONSTANT -- AND IT IS STILL CLIMBING AT
+> `5,200` SENTENCES.** *Any coverage number quoted without its sentence count is meaningless.*
+> **The qualitative conclusion holds at EVERY point on that curve** and is what the wiring decision
+> rests on.
 >
 > ⚖️ **THIS IS NOT A DEFECT IN THE SUBMISSION AND MAY NOT BE A DEFECT AT ALL.** Refusing a word you
 > have never encountered is arguably the CORRECT conservative behaviour, and it is exactly what
@@ -41,16 +51,16 @@ review_text: "Refuted my proposed fix and found what the signal actually is: sto
 > `lookup_does_not_lemmatise` surfacing here. I wrote that fixing it "would move this number". **It
 > would, and I have now measured by how much:**
 >
-> | of the `3,624` refusals | | |
+> | of the `3,431` refusals at `5,200` sentences | | |
 > |---|---|---|
-> | inflections of words we DO know | `323` | **`8.9%`** -- coverage `9.4%` **->** `17.5%` |
-> | genuinely absent vocabulary | `3,300` | **`91.1%`** |
+> | inflections of words we DO know | `425` | **`12.4%`** -- coverage `14.2%` **->** `24.9%` |
+> | genuinely absent vocabulary | `3,006` | **`87.6%`** |
 >
-> ➡️ **LEMMATISATION NEARLY DOUBLES COVERAGE AND STILL LEAVES ~`82%` REFUSED.** *The gate refuses
-> most of English because the substrate has READ a small fraction of English (~`4,400` lemmas), not
-> because the lookup is broken.* **That is a corpus-coverage fact. A lemmatiser is worth building and
-> it does NOT change the DEFAULT-OFF decision.** *(Crude suffix stripping, which UNDER-counts
-> morphology -- so `8.9%` is a LOWER bound and this conclusion only strengthens with a real analyser.)*
+> ➡️ **LEMMATISATION NEARLY DOUBLES COVERAGE AND STILL LEAVES ~`75%` REFUSED.** *The gate refuses
+> most of English because the substrate has READ a small fraction of English (`7,334` lemmas at
+> `5,200` sentences), not because the lookup is broken.* **A lemmatiser is worth building and it does
+> NOT change the DEFAULT-OFF decision.** *(Crude suffix stripping, which UNDER-counts morphology --
+> so `12.4%` is a LOWER bound and this conclusion only strengthens with a real analyser.)*
 > *Witness: `verification/test_the_familiarity_gate_refuses_most_of_english.py` (external word list,
 > positive control that the read happened, negative control that it does not refuse everything).*
 

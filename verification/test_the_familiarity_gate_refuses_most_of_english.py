@@ -14,12 +14,27 @@ clean trace-presence boundary"). A lookup asked to separate present from absent 
 construction. **The number that decides whether this gate can be switched ON is different: what
 happens to genuine English words the reader has simply not encountered yet.**
 
-MEASURED HERE, on an EXTERNAL word list (Lancaster norms) that was not built from our store:
+MEASURED HERE, on an EXTERNAL word list (Lancaster norms) that was not built from our store.
 
-    familiarity set after the read      ~4,400 lemmas
-    real English words sampled           4,000
-    would be ANSWERED                    ~9%
-    would be REFUSED                    ~91%      <- abdomen, abduct, aardvark, abandoned
+🔴 **CORRECTED 2026-08-23, SAME SESSION: THE FIRST VERSION OF THIS TEST USED A CAPPED CALL SHAPE AND
+ITS COVERAGE NUMBER DESCRIBED MY CALL, NOT THE SUBSTRATE.** It read via
+`read(n_sentences=1500)` twice -> 4,429 lemmas -> "9.4% answered / 90.6% refused". But
+`notes/SUBSTRATE_READ_SILENTLY_READS_A_FRACTION_OF_WHAT_YOU_ASK_FOR_2026-08-22.md` documents that
+the single large call is capped, AND that the shape every experiment cell actually uses is a LOOP of
+`chunk=400`. Re-measured with the real shape, reading the TRUE count off `ReadResult.n_sentences`:
+
+    sentences read    vocabulary    coverage of 4,000 real English words
+        800             2,270            5.1% answered
+      1,900             3,949            8.4%
+      3,100             5,525           11.2%
+      4,100             6,221           12.6%
+      5,200             7,334           14.2%      <- still climbing, no saturation
+
+**COVERAGE IS A FUNCTION OF HOW MUCH WAS READ, NOT A CONSTANT.** Any coverage number quoted without
+its sentence count is meaningless -- that is this project's "no number crosses populations" rule,
+where the population is the read volume. **The qualitative conclusion is unchanged and holds at
+EVERY point on that curve: the large majority of ordinary English is refused.** The specific figure
+is not a property of the gate; it is a property of how much the substrate has read., abandoned
 
 **THIS IS NOT A DEFECT IN THE SUBMISSION AND MAY NOT BE A DEFECT AT ALL.** Refusing a word you have
 never encountered is arguably the CORRECT conservative behaviour, and it is what "contribute, do not
@@ -66,8 +81,12 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NORMS = os.path.join(REPO, "data", "grounding_testbed",
                      "Lancaster_sensorimotor_norms_for_39707_words.csv")
 N_WORDS = 4000
-N_SENT = 1500
-READ_CALLS = 2
+# THE CALL SHAPE MATTERS AND IS THE CORRECTED PART. A single large read is capped (~1,060 no matter
+# what you ask for); a LOOP of chunk=400 is what every experiment cell uses and it does not degrade.
+# Do not "simplify" this back into one big call -- that is the documented defect, and it silently
+# shrinks the vocabulary every number below is computed against.
+CHUNK = 400
+READ_CALLS = 14
 
 
 def real_word_sample(limit=N_WORDS):
@@ -97,9 +116,17 @@ def main():
         raise SystemExit(1)
 
     sub = Substrate()
+    n_read = 0
     for _ in range(READ_CALLS):
-        sub.read(corpus="simplewiki", n_sentences=N_SENT, batch=100)
+        r = sub.read(corpus="simplewiki", n_sentences=CHUNK, batch=100)
+        n = getattr(r, "n_sentences", None)
+        # NEVER substitute 0 for an unreadable count -- an earlier draft did exactly that and
+        # printed "0 sentences read" on a read that plainly happened.
+        if n is not None:
+            n_read += n
     fam = familiarity_set(sub)
+    print("[witness] sentences ACTUALLY read: %d (looped chunk=%d x %d) -- every coverage number "
+          "below is relative to THIS read volume" % (n_read, CHUNK, READ_CALLS))
 
     # POSITIVE CONTROL FIRST. If the read did not happen, every number below is trivially "refused"
     # and the test would "pass" for entirely the wrong reason. Note the read() return value is NOT
@@ -107,6 +134,12 @@ def main():
     # return, while the vocabulary below proves the read ran. Observe the artifact, not the proxy.
     chk("POSITIVE CONTROL: the read actually populated a vocabulary",
         len(fam) > 1000, "familiarity set = %d lemmas" % len(fam))
+    # GUARD AGAINST THE REGRESSION THIS TEST WAS CORRECTED FOR: if someone puts the capped single
+    # call back, the vocabulary collapses and every percentage below silently shifts.
+    chk("the LOOPED call shape reached the vocabulary it should",
+        len(fam) > 6000,
+        "%d lemmas -- the capped single-call shape yields ~4,400 and would understate coverage"
+        % len(fam))
 
     words = real_word_sample()
     chk("the external word list loaded", len(words) > 1000, "%d real English words" % len(words))
