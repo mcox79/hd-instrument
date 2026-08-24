@@ -108,9 +108,18 @@ def validate(doc, repo=REPO):
         if src and not os.path.exists(os.path.join(repo, src)):
             errs.append("%s: source %r does not exist on disk" % (tag, src))
 
-        prob = str(st.get("problem") or "")
-        if prob and not os.path.isdir(os.path.join(repo, "notes", "problems", prob)):
-            errs.append("%s: problem %r has no folder" % (tag, prob))
+        # `problems` is a LIST as of 2026-08-24. A stage is worked by several briefs; the old
+        # single `problem` string made 8 of 10 stages read as unowned while 20 briefs existed,
+        # and that false "nobody is working this" reached the GUI header.
+        probs = st.get("problems", st.get("problem") or [])
+        if isinstance(probs, str):
+            probs = [probs] if probs else []
+        if not isinstance(probs, list):
+            errs.append("%s: problems must be a list, got %s" % (tag, type(probs).__name__))
+            probs = []
+        for prob in probs:
+            if prob and not os.path.isdir(os.path.join(repo, "notes", "problems", str(prob))):
+                errs.append("%s: problem %r has no folder" % (tag, prob))
 
         for j in JARGON:
             if j.lower() in str(st.get("plain") or "").lower():
@@ -136,7 +145,7 @@ def rows_for_display(doc, now=None):
             "floor": st.get("floor", ""),
             "gap": st.get("gap", ""),
             "goal": st.get("goal", ""),
-            "problem": st.get("problem", ""),
+            "problems": st.get("problems", []),
             "source": st.get("source", ""),
             "reviewed_utc": st.get("reviewed_utc", ""),
             "age_days": age_days(st.get("reviewed_utc"), now),
@@ -157,7 +166,7 @@ def _self_test():
     good = {"headline": {"the_wall": "x", "plain": "y", "reviewed_utc": "2026-08-23T00:00:00Z"},
             "stages": [{"id": 1, "name": "N", "plain": "ordinary words", "state": "WORKS",
                         "evidence": "9 of 10", "floor": "must beat 5 of 10", "gap": "g",
-                        "goal": "t", "source": "CLAUDE.md", "problem": "",
+                        "goal": "t", "source": "CLAUDE.md", "problems": [],
                         "reviewed_utc": "2026-08-23T00:00:00Z"}]}
     chk("a well-formed document validates clean", validate(good) == [])
 

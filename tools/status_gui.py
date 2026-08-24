@@ -1579,7 +1579,7 @@ class StatusWindow:
                        None)
             if row is None:
                 return
-            b = row.get("brief")
+            bl = row.get("briefs") or []
             out = [("%s. %s  --  %s\n" % (row.get("id"), row.get("name"), row.get("state")), "h"),
                    ("%s\n\n" % (row.get("plain") or ""), None),
                    ("WHAT WE MEASURED: ", "h"), ("%s\n" % (row.get("evidence") or "-"), None),
@@ -1636,34 +1636,38 @@ class StatusWindow:
         order = {"BROKEN": 0, "WEAK": 1, "UNKNOWN": 2, "UNTESTED": 3, "WORKS": 4}
         rows = sorted(stages, key=lambda s: (order.get(s.get("state"), 9), s.get("id") or 0))
 
-        unowned = [s for s in stages if not s.get("brief")
-                   and s.get("state") not in ("WORKS",)]
+        needs_work = [s for s in stages
+                      if s.get("state") in ("BROKEN", "WEAK", "UNKNOWN", "UNTESTED")]
+        unowned = [s for s in needs_work if not s.get("briefs")]
         broken = [s for s in stages if s.get("state") == "BROKEN"]
         self._set_label(
             self.map_head,
-            text="%d of the %d stages are BROKEN or WEAK, and %d of those have NOBODY working them"
-                 % (len([s for s in stages if s.get("state") in ("BROKEN", "WEAK")]),
-                    len(stages), len(unowned)))
+            text="%d of the %d stages still need work; %d of those have nobody working them"
+                 % (len(needs_work), len(stages), len(unowned)))
         self._set_label(
             self.map_sub,
             text=("A stage with no owner is a gap nothing is scheduled to close. "
                   + ("The worst one right now is %s." % broken[0]["name"] if broken else "")))
 
         sig = tuple((s.get("id"), s.get("state"),
-                     (s.get("brief") or {}).get("slug"),
-                     (s.get("brief") or {}).get("state")) for s in rows)
+                     tuple((x.get("slug"), x.get("state"), x.get("integrated"))
+                           for x in (s.get("briefs") or []))) for s in rows)
         if getattr(self, "_map_sig", None) == sig and self.map_tv.get_children():
             return
         self._map_sig = sig
         self.map_tv.delete(*self.map_tv.get_children())
         for s in rows:
-            b = s.get("brief") or {}
-            owner = b.get("slug") or "-- nobody --"
-            bstate = b.get("state") or ""
-            if b and not b.get("integrated") and bstate in ("SOLVED", "PARTIAL", "REFUTED"):
-                bstate += " (not folded in)"
-            bought = (b.get("result") or "")[:200] if b else ""
-            if not b and s.get("state") in ("BROKEN", "WEAK"):
+            bl = s.get("briefs") or []
+            owner = ("-- nobody --" if not bl
+                     else bl[0]["slug"] + ("" if len(bl) == 1 else "  (+%d more)" % (len(bl) - 1)))
+            open_n = sum(1 for b in bl if b.get("state") == "OPEN")
+            unfolded = sum(1 for b in bl if b.get("state") in ("SOLVED", "PARTIAL", "REFUTED")
+                           and not b.get("integrated"))
+            bstate = ("" if not bl else
+                      "%d open, %d done%s" % (open_n, len(bl) - open_n,
+                                              ", %d NOT folded in" % unfolded if unfolded else ""))
+            bought = next((b.get("result") or "" for b in bl if b.get("result")), "")[:200]
+            if not bl and s.get("state") in ("BROKEN", "WEAK", "UNKNOWN", "UNTESTED"):
                 bought = "NOTHING IS SCHEDULED TO CLOSE THIS"
             tag = ("bad" if s.get("state") == "BROKEN"
                    else "warn" if s.get("state") in ("WEAK", "UNKNOWN") else "dim")

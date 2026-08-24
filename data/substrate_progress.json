@@ -16,7 +16,8 @@
   "  5. Update `reviewed_utc` ONLY when the row was actually re-checked, never as a refresh.",
   "",
   "This is 10 stages, not 159 modules and not 40 organs. The module-level view is ORGAN_MAP.md.",
-  "This is the view that answers 'are we on track and what is in the way'."
+  "This is the view that answers 'are we on track and what is in the way'.",
+  "2026-08-24: `problem` (single string) became `problems` (list). A stage is worked by SEVERAL briefs, and the single field made 8 of 10 stages read as unowned while 20 briefs existed -- a false 'nobody is working this' shipped to the GUI header."
  ],
  "schema_version": 1,
  "headline": {
@@ -35,9 +36,13 @@
    "floor": "RUN 2026-08-23. Strongest trivial method scores 0.7053 and the real one beats it with the interval excluding zero. An information-free twin scores 0.09, so the comparison can tell things apart.",
    "gap": "THE FLOOR PASSED AND A SHARPER TEST DID NOT. A two-line rule using only word order and active/passive voice -- with all six filters removed -- reaches 0.83, and the real method beats THAT by somewhere between 0.00 and 0.14, which does not exclude zero. So most of the 90% is the filters plus two lines of code, not the elaborate reading.",
    "goal": "Stop improving the filters. Either show the elaborate reading beats the two-line rule at power, or replace it with the two-line rule and spend the effort on stage 2.",
-   "problem": "",
    "source": "notes/problems/the_grow_by_reading_pass_has_no_floor/SOLVED.md",
-   "reviewed_utc": "2026-08-23T00:00:00Z"
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "problems": [
+    "the_grow_by_reading_pass_has_no_floor",
+    "lookup_does_not_lemmatise",
+    "stored_terms_are_stems"
+   ]
   },
   {
    "id": 2,
@@ -48,9 +53,15 @@
    "floor": "Guessing scores 0.486 on the interchangeability test and a correct answer 0.960; we read 0.051. On meaning-assignment we beat a random answer on 2 of 3 runs but lose to plain co-occurrence counting on 3 of 3. The sensory ratings score 0.599 there, but a control giving EVERY WORD THE SAME VECTOR scores 0.619 and beats them.",
    "gap": "THE CENTRAL DEFECT, AND IT IS NOW SHARPER THAN 'WEAK'. The step learns the WRONG RELATION -- which words appear together, not which words are interchangeable -- and it learns it confidently. Two pre-registered stop conditions have now closed the whole family of fixes that reshuffle word-co-occurrence counts: four tuning variants moved it from 0.052 to 0.114 and no further. The sensory ratings do not rescue it either: they point the right way but do not beat a control carrying no word-specific information at all.",
    "goal": "CHANGED 2026-08-23, AND THE PREVIOUS GOAL IS NOW KNOWN TO BE INSUFFICIENT. It said 'wire in the human sensory ratings'. Measured on this test, those ratings do not beat a no-information control, so wiring them in would not fix the step. What the evidence points to instead: a method that is allowed to see answers reaches 0.960 on data it has never seen, so the information IS in the text and no unsupervised route we have tried reaches it. The open question -- where a learning signal comes from without being handed answers -- is on the board as Q118 and is a research question, not a sweep.",
-   "problem": "reader_meaning_channel",
    "source": "notes/problems/reader_meaning_channel/PROBLEM.md",
-   "reviewed_utc": "2026-08-23T22:45:00Z"
+   "reviewed_utc": "2026-08-23T22:45:00Z",
+   "problems": [
+    "where_does_a_meaning_signal_come_from_without_labels",
+    "reader_meaning_channel",
+    "the_prior_swamps_the_channel_instead_of_combining_with_it",
+    "the_bundle_destroys_meaning_but_replacing_it_hurts",
+    "does_learning_from_reading_deserve_to_continue"
+   ]
   },
   {
    "id": 3,
@@ -61,9 +72,9 @@
    "floor": "Must not be near 0% (accepts nothing) or near 100% (accepts anything). 12.3% is a real filter. Growth exponent below 1.0 is the expected shape for vocabulary growth.",
    "gap": "None known. Tested under nested sampling at several reading volumes: it never lost knowledge it already had, in 12 of 12 samples.",
    "goal": "Leave it alone. This stage is not the bottleneck and re-tuning it would be motion without progress.",
-   "problem": "",
    "source": "notes/THE_WRITE_PATH_IS_NON_MONOTONE_IN_READING_VOLUME_2026-08-23.md",
-   "reviewed_utc": "2026-08-23T00:00:00Z"
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "problems": []
   },
   {
    "id": 4,
@@ -74,9 +85,11 @@
    "floor": "A cold start must be unchanged by the wiring -- verified byte-identical at 92 facts. An off-arm proves the loading is real rather than asserted.",
    "gap": "It does NOT do what we hoped. A measurement landed with the wiring: resuming makes a fresh read ground almost nothing new (9 versus 168), because genuinely new words fail to match anything in the saved memory. Correctness is at chance either way.",
    "goal": "Keep it for accumulation -- a system that discards its store every run has no long-term memory at all. Do NOT bill it as a fix for stage 2. That prediction is retired.",
-   "problem": "",
    "source": "notes/problems/substrate_never_resumes/SOLVED.md",
-   "reviewed_utc": "2026-08-23T00:00:00Z"
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "problems": [
+    "substrate_never_resumes"
+   ]
   },
   {
    "id": 5,
@@ -87,9 +100,14 @@
    "floor": "Plain first-order word-counting scores 0.324 and no memory design beat it; the best reached 0.246, a shortfall whose interval excludes zero. Scrambled and information-free versions score 0.000-0.0002, and a self-retrieval check scores 0.977, so the test works.",
    "gap": "The store can RECITE but not RECOGNISE. Crucially this is NOT a storage-format problem: word-counting already IS the same kind of signal our elaborate store was trying to be, which is why it keeps winning. But an oracle allowed to pick the best source per question scores 0.408 and BEATS counting by a margin whose interval excludes zero -- so there is real unused signal here that no automatic method reaches.",
    "goal": "Stop redesigning the store; that route is closed on three separate tests. Build the thing that decides WHICH source to trust for THIS question. The same missing piece shows up independently in the meaning step, so it is one component, not two.",
-   "problem": "",
    "source": "notes/problems/wire_the_refuse_gate_onto_the_readout/SOLVED.md",
-   "reviewed_utc": "2026-08-23T22:45:00Z"
+   "reviewed_utc": "2026-08-23T22:45:00Z",
+   "problems": [
+    "store_survives_a_partial_cue",
+    "flat_store_destroys_the_code",
+    "cortical_read_has_no_scored_path",
+    "cortical_read_never_tested_where_it_matters"
+   ]
   },
   {
    "id": 6,
@@ -100,9 +118,13 @@
    "floor": "A gate refusing the same share at random scores 0.500; this scores 0.999. The approach originally proposed -- refusing when the answer looks uncertain -- scores 0.568 and 0.524, which sits AT that 0.500 floor and does not work.",
    "gap": "Measured 2026-08-23, the arm nobody had run: on ordinary English words it simply has not read, the same gate refuses 85.8% of them, including everyday words like abdomen and abduct. Only about an eighth of that is word-endings it should have recognised; the rest is vocabulary it genuinely has never seen. And the figure is not fixed -- it refuses 94.9% after 800 sentences and 85.8% after 5,200, still improving.",
    "goal": "Ship it switched OFF by default, or on only where refusing unfamiliar words is what you want. Refusing a word you have never met is arguably correct behaviour, but nobody should read the near-perfect score as the system knowing what it knows about English. It knows what it has read.",
-   "problem": "score_counts_abstention_as_error",
    "source": "notes/problems/wire_the_refuse_gate_onto_the_readout/SOLVED.md",
-   "reviewed_utc": "2026-08-23T22:45:00Z"
+   "reviewed_utc": "2026-08-23T22:45:00Z",
+   "problems": [
+    "wire_the_refuse_gate_onto_the_readout",
+    "score_counts_abstention_as_error",
+    "organ_abstains_on_two_thirds_of_v2"
+   ]
   },
   {
    "id": 7,
@@ -113,9 +135,9 @@
    "floor": "Aimed reading must beat reading the same volume of text chosen at random. Not run.",
    "gap": "The machinery to spot a gap and go read about it exists, but nobody has shown that aiming beats not aiming. Until then the backlog is a queue, not a strategy.",
    "goal": "One comparison: same reading budget, gap-aimed versus random, scored on the same questions.",
-   "problem": "",
    "source": "notes/ORGAN_MAP.md",
-   "reviewed_utc": "2026-08-23T00:00:00Z"
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "problems": []
   },
   {
    "id": 8,
@@ -126,9 +148,11 @@
    "floor": "Must beat answering from the question's surface wording, and from the single most similar stored fact.",
    "gap": "Not the current bottleneck. Reasoning over facts whose meanings are at chance (stage 2) would measure the reasoner against corrupted inputs, and a null would not tell us which stage failed.",
    "goal": "Hold until stage 2 moves. Testing this first would waste a clean measurement on a known-bad input.",
-   "problem": "",
    "source": "hdlab/reasoner.py",
-   "reviewed_utc": "2026-08-23T00:00:00Z"
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "problems": [
+    "propagate_along_the_relation_that_carries_valence"
+   ]
   },
   {
    "id": 9,
@@ -139,9 +163,13 @@
    "floor": "A re-run must be able to FAIL. Proven by breaking an input on purpose and watching the verdict flip, then restoring it. And the redirect itself is positive-controlled in a fresh process, so 'it works' is not an assumption.",
    "gap": "1,413 results still replay a saved answer instead of recomputing. Of those, 425 assert a result and 135 of THOSE are quoted by something that steers our work -- that is the list worth spending re-runs on.",
    "goal": "Done for new work: a commit adding an experiment that writes a result is now refused unless it can be re-run. Remaining: work the 135 cited-and-unverifiable results one at a time, as the owner asked.",
-   "problem": "",
    "source": "tools/reproducibility_inventory.py",
-   "reviewed_utc": "2026-08-23T00:00:00Z"
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "problems": [
+    "harness_cannot_recompute",
+    "certification_gate_hangs",
+    "eval_bank_too_small"
+   ]
   },
   {
    "id": 10,
@@ -152,9 +180,9 @@
    "floor": "The check must be able to fire. Positive-controlled -- a deliberately blank entry is caught.",
    "gap": "None material. An earlier claim here that the shelf was 'hollow' was my own error, retracted the same day: I measured a field named nearly-right while the correct one sat filled beside it.",
    "goal": "Leave it alone. It is doing its job.",
-   "problem": "",
    "source": "data/capability_registry.jsonl",
-   "reviewed_utc": "2026-08-23T00:00:00Z"
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "problems": []
   }
  ]
 }

@@ -170,18 +170,17 @@ def build() -> dict:
     organs, stages, briefs = parse_organs(), load_stages(), load_briefs()
     joined = []
     for s in stages:
-        slug = s.get("problem") or ""
-        b = briefs.get(slug)
+        slugs = s.get("problems") or ([s["problem"]] if s.get("problem") else [])
+        attached = [dict(briefs[x], slug=x) if x in briefs
+                    else {"slug": x, "state": "NO SUCH BRIEF"} for x in slugs]
         joined.append({
             "id": s.get("id"), "name": s.get("name"), "plain": s.get("plain"),
             "state": s.get("state"), "evidence": s.get("evidence"), "floor": s.get("floor"),
             "gap": s.get("gap"), "goal": s.get("goal"), "reviewed_utc": s.get("reviewed_utc"),
-            "brief": ({"slug": slug, **b} if b else ({"slug": slug, "state": "NO SUCH BRIEF"}
-                                                     if slug else None)),
+            "briefs": attached,
         })
-    unowned = [b for b in briefs.values()
-               if b["state"] == "OPEN" and not any(j.get("brief") and j["brief"]["slug"] == b["slug"]
-                                                   for j in joined)]
+    linked = {x["slug"] for j in joined for x in j["briefs"]}
+    unowned = [b for b in briefs.values() if b["state"] == "OPEN" and b["slug"] not in linked]
     return {
         "schema_version": 1,
         "_README": ("DERIVED -- do not hand-edit. Rebuild: python tools/substrate_map.py --build. "
@@ -236,7 +235,7 @@ def render(gaps_only=False):
             print("        FLOOR   : %s" % s["floor"][:180])
         if s.get("gap"):
             print("        GAP     : %s" % s["gap"][:200])
-        print(_brief_line(s.get("brief")))
+        print(_brief_line(s.get("briefs")))
     if m["briefs_not_attached_to_a_stage"]:
         print()
         print("  OPEN BRIEFS NOT ATTACHED TO ANY STAGE (%d) -- a gap nobody is tracking, or a stage "
@@ -279,7 +278,8 @@ def render_brief(slug):
     if not b:
         print("no brief %r. known: %s" % (slug, ", ".join(sorted(briefs)[:20])))
         return 1
-    stages = [s for s in build()["stages"] if s.get("brief") and s["brief"]["slug"] == slug]
+    stages = [s for s in build()["stages"]
+              if any(x["slug"] == slug for x in (s.get("briefs") or []))]
     print("=" * 100)
     print("BRIEF %s" % slug)
     print("=" * 100)
@@ -342,11 +342,16 @@ def self_test():
     m = build()
     chk("the map joins stages", len(m["stages"]) > 0, "%d stages" % len(m["stages"]))
     chk("every stage carries a state", all(s.get("state") for s in m["stages"]))
-    attached = [s for s in m["stages"] if s.get("brief")]
-    chk("at least some stages name an owning brief", len(attached) > 0,
-        "%d of %d stages name a brief" % (len(attached), len(m["stages"])))
-    dangling = [s["brief"]["slug"] for s in m["stages"]
-                if s.get("brief") and s["brief"].get("state") == "NO SUCH BRIEF"]
+    attached = [s for s in m["stages"] if s.get("briefs")]
+    chk("most stages name an owning brief", len(attached) >= 6,
+        "%d of %d stages name at least one brief" % (len(attached), len(m["stages"])))
+    needs_work = [s for s in m["stages"] if s.get("state") in ("BROKEN", "WEAK", "UNKNOWN", "UNTESTED")]
+    unowned = [s["name"] for s in needs_work if not s.get("briefs")]
+    chk("a stage that needs work and has NO brief is reported, not hidden", True,
+        "%d of %d needing work are unowned: %s"
+        % (len(unowned), len(needs_work), ", ".join(unowned) or "none"))
+    dangling = [x["slug"] for s in m["stages"] for x in (s.get("briefs") or [])
+                if x.get("state") == "NO SUCH BRIEF"]
     chk("no stage names a brief that is not on disk", not dangling, ", ".join(dangling))
     print("[self-test] RESULT: %s" % ("PASS" if ok else "FAIL"))
     return 0 if ok else 1

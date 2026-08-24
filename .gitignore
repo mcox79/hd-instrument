@@ -51,6 +51,10 @@ data/*
 # because the GUI reads it, but it is source in every sense that matters, and a clone without it
 # renders an empty status tab. Allowlisted for the same reason as the dispatch queue above.
 !data/substrate_progress.json
+# DERIVED (tools/substrate_map.py --build), tracked anyway: the GUI's tab 0 reads it, and an
+# untracked derived file means a fresh checkout shows an error panel until someone remembers to
+# rebuild. Small, and regenerating it is one command if it ever conflicts.
+!data/substrate_map.json
 # DECISION 220 Tier-1 preservation sweep: keep load-bearing experimental measurements.
 # Pattern requires: (1) unignore subdirs so git traverses, (2) re-ignore their contents,
 # (3) explicit allowlist for files we want tracked.

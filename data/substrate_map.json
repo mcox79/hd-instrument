@@ -1,0 +1,1229 @@
+{
+ "schema_version": 1,
+ "_README": "DERIVED -- do not hand-edit. Rebuild: python tools/substrate_map.py --build. Sources: notes/ORGAN_MAP.md, data/substrate_progress.json, notes/problems/, data/capability_registry.jsonl.",
+ "organs": {
+  "A1": {
+   "id": "A1",
+   "name": "VWFA. Queue premise CONFIRMED-THEN-SUPERSEDED.",
+   "fields": {
+    "STRUCTURE": "left occipitotemporal sulcus (VWFA), between retinotopic visual cortex and lexical access.",
+    "OPERATION": "Open-bigram / position-tolerant hierarchical feature detectors (Dehaene et al. 2005; Grainger & Whitney). The literature pins the CODE and the LATENCY; it gives no learning rule and no objective. - SHAPE brain: graded activity over position-tolerant bigram/letter/morpheme detectors. OURS: vwfa.py:208-209 weighted multi-scale n-gram then sign(); char_trigram_encoder.py:92-94 bag of trigrams, order destroyed. Same family, 1-bit terminal quantiser. POSITION brain: strictly pre-lexical. OURS: off the live path entirely — the reading loop never reads characters. METRIC brain: UNPINNED. OURS: none.",
+    "GAP": "not the encoder. The gap is that A1's operation is not on the live path while an external re-implementation of it beats the live path. - NO LONGER UNTESTED. data/exp_orthographic_floor_vet_v1/metrics.json (2026-08-14T21:30Z, n=4000, 5000-sample bootstrap, a1_base_reproduces_c3_headline_exactly: true): A6_TRIGRAM_ONLY 0.0870 [0.0783, 0.0960] vs A1_BASE (live substrate) 0.0480 [0.0413, 0.0548], delta +0.0390 [0.0282, 0.0500], CI excludes zero. A7_PREFIX_ONLY 0.05875, A8_MAXORTHO 0.0610 — all three orthography-only arms beat the substrate. That is a floored, can-fail, identical-pool measurement of an A1-family operation, and the organ wins. - 🔴 CORRECTED 2026-08-23 — DO NOT QUOTE A6_TRIGRAM_ONLY / A5_STRINGCTRL 0.0870 AS \"WHAT A SPELL-CHECKER SCORES\": THAT WIN IS 78% AN ARTIFACT OF HOW THE GOLD WAS BUILT. <!-- COUPLING: the words \"CORRECTED\" and \"DO NOT\" on THIS line, together with the organ IDs on THIS line, are what make tools/organ_map_cite.py print this block BEFORE the win at L1795. Its CONSTRAINT regex matches per-line and only on lines naming the organ, so a correction whose header omits the ID is filed under \"other mentions\" and read THIRD. Do not reword. --> The WordNet gold these items are scored against is largely built from STEM-SHARING pairs (walk/walked), so a character-trigram arm wins them without representing anything. Measured on the identical construction at n=4000 (data/exp_c3_surprise_weighted_vs_bundling_v1/metrics.json, run_mode: full): strip stem-sharing gold and the trigram arm falls 0.0867 -> 0.0193, and at [0.0153, 0.0238] it OVERLAPS its own info-free shuffled twin [0.0135, 0.0213] — i.e. on leakage-free gold the spelling floor is statistically indistinguishable from noise, and A1_BASE then BEATS it (+0.0266 [+0.0191, +0.0344], paired, CI-separated). ⚠️ ARM-IDENTITY CHECKED BEFORE PROPAGATING, BECAUSE THE NAMES COLLIDE: the 2026-08-23 cell calls its arm A5_STRINGCTRL, but it builds t_mat alone (line 355) — zero substrate signal, which is THIS repo's A6_TRIGRAM_ONLY, not the z(base) + wz(trigram) fusion that exp_meaning_supply_separation_v1 calls A5_STRINGCTRL and that scores 0.1027. The two constructions share a NAME and differ by a whole channel; near-equal values (0.0867 vs 0.0870) make the collision invisible. Compare arms by their CONSTRUCTION, never by their label. 🚫 THE GATE CONSTANT ORTHO_BAR = 0.0870 IS DELIBERATELY UNCHANGED in per_row_gain_c3_vet_v1.py and score_space_gain_and_topk_ci_v1.py — a gate is not weakened by the session whose results it constrains. Owner decision open as board Q117. Witness: verification/test_removing_the_bundle_helps_it_just_does_not_help_enough.py. - 🔴 A DEFECT I REPORTED HERE AND THEN RETRACTED, SAME PASS. RECORDED BECAUSE THE ERROR IS THE POINT. I first wrote that the cell's provenance_note (\"promoted from scratch/ortho_floor_vet_trigram_only.py\") described a promotion that never happened, on the grounds that no experiments/exp_orthographic_floor_vet_v1.py exists (true: 0 of 5,777 enumerated filenames) and that the scratch copy is untracked (also true). That conclusion was WRONG. The script WAS promoted — to tools/orthographic_floor_vet_v1.py, tracked, added in commit 58a125c88 (the same commit that produced the finding), carrying an explicit header citing the CLAUDE.md scratch corollary as its reason for existing. I enumerated experiments/ and scratch/ and never enumerated tools/ — which is precisely the \"an absence claim requires an enumeration, not a search\" fault this whole section is auditing other people for, committed by the auditor inside the audit. The residual is cosmetic: a leftover copy still sits in scratch/, and deleting it would now cost nothing. No action needed. - EXISTS yes / IS-REACHED no (live path reads no characters) / IS-GOOD yes, and better than what is reached.",
+    "FLOOR TEST": "already run. The remaining question is not a floor, it is a wiring decision, and the standing rule is that a floor is cleared by understanding, never adopted — do not wire spelling in. ---"
+   },
+   "constraints": [
+    "reading loop never reads characters. METRIC brain: UNPINNED. OURS: none.",
+    "- NO LONGER UNTESTED. data/exp_orthographic_floor_vet_v1/metrics.json (2026-08-14T21:30Z,",
+    "- 🔴 CORRECTED 2026-08-23 — DO NOT QUOTE A6_TRIGRAM_ONLY / A5_STRINGCTRL 0.0870 AS \"WHAT A",
+    "<!-- COUPLING: the words \"CORRECTED\" and \"DO NOT\" on THIS line, together with the organ IDs on",
+    "whose header omits the ID is filed under \"other mentions\" and read THIRD. Do not reword. -->",
+    "make the collision invisible. Compare arms by their CONSTRUCTION, never by their label.",
+    "- 🔴 A DEFECT I REPORTED HERE AND THEN RETRACTED, SAME PASS. RECORDED BECAUSE THE ERROR IS THE",
+    "scratch/ortho_floor_vet_trigram_only.py\") described a promotion that never happened, on the",
+    "scratch/ and never enumerated tools/ — which is precisely the",
+    "standing rule is that a floor is cleared by understanding, never adopted — do not wire spelling in."
+   ],
+   "line": 1780,
+   "heading_note": ""
+  },
+  "B1": {
+   "id": "B1",
+   "name": "ATL amodal hub. Queue premise CONFIRMED as written, SUPERSEDED by an archive cell.",
+   "fields": {
+    "STRUCTURE": "anterior temporal lobe, graded transmodal hub.",
+    "OPERATION": "Confirmed against notes/lit_scan_atl_hub_and_spoke_2026-08-13.md and notes/lit_scan_cortical_learning_rule_and_sparsity_2026-08-13.md. Only qualitative dynamics (Jackson, Rogers & Lambon Ralph 2021) plus one pinned sub-fact: LATL conceptual combination is approximately ADDITIVE (Baron & Osherson 2011). The available equations belong to MODELS of the hub. - SHAPE brain: dense, graded, low effective dimensionality (4 group PCs, Huth 2012); distinctive (few-concept) features privileged. OURS: lexical_similarity.py FHRR bundle over an unweighted hand-authored CONCEPT_FEATURES frozenset — the precise inverse of the distinctiveness privilege. POSITION brain: convergence point after unimodal spokes, backward connections stronger than forward. OURS: feedforward, one-shot, no recurrence. METRIC brain: UNPINNED. OURS: designed similarity bands.",
+    "GAP": "the feature inventory is a hand-built lexicon of 230 concepts, not learned, and it is unweighted. Concretely: there is no frequency statistic anywhere in this organ, so distinctiveness cannot be computed even in principle. - NO LONGER UNTESTED. data/exp_n11c_shared_feature_lexical_similarity_v1 HARD_PASS, with three real failable floors: ordered_frac shared_feature 0.966 vs WINDOW distributional 0.379, HASH_RANDOM 0.103, SCRAMBLE 0.310 (the scramble collapses the gain, so it is earned). THE TIER BREAKDOWN -- AND READ WHAT THE TIERS ARE BEFORE READING THE NUMBERS: tier1/2/3 are cos_syn / cos_rel / cos_unrel, i.e. similarity to a SYNONYM, to a TOPICALLY RELATED word, and to an UNRELATED word (verified from per_unit[0]..per_triple, n=29, which reproduces the reported means exactly). shared_feature = (0.931, 0.304, 0.002) against window (0.859, 0.852, 0.830). A LOW tier-3 is the GOAL -- vessel vs anger should read 0 -- so the organ's 0.002 is CORRECT and the distributional 0.830 is the DEFECT: window's whole synonym-to-unrelated range is 0.0285 against shared_feature's 0.9287, which is exactly WHY its ordered fraction is 0.379 to our 0.966. Companion negative: exp_n11b_symmetric_pattern_lexical_similarity_v1 HARD_FAIL, sym 0.207 vs window 0.379, and the scramble did NOT collapse (0.207 = 0.207) — that arm's signal was an artifact. - 🚫 RETRACTED 2026-08-21 -- THIS BULLET SAID \"HONEST TIER: not a HARD_PASS for the organ. It is a cliff. 0.931 → 0.304 → 0.002 is the 230-concept hand lexicon becoming visible as a measurement.\" IT IS WRONG THREE SEPARATE WAYS, AND IT WAS QUOTED AS AUTHORITY AND PROPAGATED INTO THREE PLANNING DOCUMENTS BEFORE ANYONE OPENED metrics.json. 1. INVERTED. The tiers are relatedness LEVELS, not vocabulary STRATA (see above). 0.002 on unrelated pairs is the success criterion; window's 0.830 is the pathology. 2. THE LEXICON SIZE IS WRONG AND MATCHES NEITHER CANDIDATE. The cell scored on its OWN hand-authored inventory: n_concepts = 86, n_feature_tags = 76 (per_unit[0]), not on the live organ's CONCEPT_FEATURES, which measures 359 words / 168 tags (corroborated by STATUS_LESSONS.md hand_lexicon_baseline = 359 and word_concept_bridge_scope_2026-08-13.md). \"230\" is neither. 3. NO TIER HERE MEASURES OUT-OF-LEXICON BEHAVIOUR AT ALL. coverage reads 29/29 on all four arms, and all 86/86 distinct probe words are inside the lexicon. So the BLOCKS line about \"the 99.4% outside the hand lexicon\" was NOT confirmed by this cell -- it was never tested by it. - EXISTS yes / IS-REACHED yes (live) / IS-GOOD demonstrated only INSIDE the lexicon, on 86 concepts -- and demonstrated WELL there (ordered_frac 0.966 vs window 0.379, scramble collapses). The cell says so itself and declines to claim more: coverage_scope = \"mechanism- proof on 86 hand-authored concepts... general open-vocabulary feature coverage... is a separate, missing-LEARNING follow-up, NOT claimed here.\" That is a narrow demonstration of something that WORKS -- the opposite of a cliff. - 🚫 FLOOR TEST -- WITHDRAWN AS SPECIFIED, IT CANNOT RUN. It asked to \"re-score n11c with items stratified by whether both words are in CONCEPT_FEATURES, reporting IN/OUT separately\", with the can-fail condition \"if the OUT stratum does not lose to WINDOW, the coverage story is wrong.\" MEASURED 2026-08-21: the OUT stratum is EMPTY -- 0 of 86 distinct probe words fall outside, and 29/29 triples have all four words inside. A stratification with an empty stratum is not a can-fail test; it is untestable (STANDING DISCIPLINE 18). The real question -- open-vocabulary feature INDUCTION -- needs NEW items, not a re-scoring, and is a missing-LEARNING route. ⚠️ NOTE WHAT THIS COST: the misreading had already generated a downstream task that could never have produced a result. ---"
+   },
+   "constraints": [
+    "- NO LONGER UNTESTED. data/exp_n11c_shared_feature_lexical_similarity_v1 HARD_PASS, with",
+    "- 🚫 RETRACTED 2026-08-21 -- THIS BULLET SAID \"HONEST TIER: not a HARD_PASS for the organ. It is a",
+    "about \"the 99.4% outside the hand lexicon\" was NOT confirmed by this cell -- it was never",
+    "⚠️ NOTE WHAT THIS COST: the misreading had already generated a downstream task that could never"
+   ],
+   "line": 1842,
+   "heading_note": ""
+  },
+  "B2": {
+   "id": "B2",
+   "name": "Per-occurrence combination: how ONE encounter becomes a vector",
+   "fields": {
+    "BRAIN'S MATH": "graded population rate code (Rolls & Tovee 1995; Panzeri & Treves), pooled as a weighted sum then divisive normalisation with a POOL-SHARED denominator, r_i = x_i^n/(σ^n + Σ_j x_j^n) (Carandini & Heeger 2012 Nat Rev Neurosci 13:51-62; Heeger 1992). Ratios inside the pool PRESERVED. See §3 correction 1 for what this does and does not license.",
+    "OURS": "hdlab/grounding_acquisition_loop.py:150-162 — acc += rng.choice([-1,1], d) per content word (sha256-seeded Kanerva random index), then out = np.sign(acc); out[out==0]=1.0. d=256. A graded=True keyword exists (:158) and is DEFAULT FALSE. FHRR path hdlab/bundling.py:34-39: s = vectors.sum(0) then s/|s| per component; :41-42 uses whole-vector L2 for real input — the pool-shared form is present in the same function, applied only to the other dtype.",
+    "FIDELITY": "WRONG-OP, and the inverse of the right one. Measured: 13.85% of dimensions carry <10% of p90 evidence and are amplified to full weight — the operation does not merely discard the distinctive signal, it amplifies pure noise to maximum weight at 1 dimension in 7.",
+    "WIRED": "YES, live — with the brain-faithful mode switched OFF by default.",
+    "EVIDENCE": "data/exp_graded_divisive_comparator_v1 HARD_PASS, n=4000 held-out. LIVE 0.6395 → GRADED 0.6997, d=+0.0602 CI [0.0440,0.0762]. FLOORS measured in-cell: scrambled-context 0.4975 / 0.5065; frequency baseline 0.4800; chance 0.50. Mechanism claim WITHDRAWN (§3.3). 🔴 SCOPE, 2026-08-15 (§9 SUM-vs-SIGN adjudication) — NOT a demotion, this number reproduced. It is 2AFC, chance 0.50, 2-candidate pool, 1476 distinct target words; the same manipulation in open-vocabulary hit@1 is +0.0015, CI [-0.0055,+0.00825], null (DO-NOT-REDO 34/35). Factorially 97% of the +0.0602 is sign-removal (ENC +0.0245 / AGG +0.0240) and the divisive normaliser contributes +0.00175, CI includes zero — so this row's brain-faithful normalisation is UNTESTED-BY-THIS-CELL; what was tested is de-quantisation.",
+    "RELATED ORGAN WE OWN AND DO NOT USE": "hdlab/random_indexing.py:219 implements the order-sensitive Sahlgren variant (C[center] += roll(IDX[other], offset)), with convergence error O(√(log V / N)) ≈ 0.037 at N=8192. The live path uses the unordered bag version (:200-201). That is a RIGHT-OP-WRONG-PLACE within this organ.",
+    "BLOCKS": "everything downstream. This is the substrate's only encoder on the live path."
+   },
+   "constraints": [
+    "- RELATED ORGAN WE OWN AND DO NOT USE: hdlab/random_indexing.py:219 implements the"
+   ],
+   "line": 336,
+   "heading_note": ""
+  },
+  "B3": {
+   "id": "B3",
+   "name": "Across-occurrence accumulation: how encounters become a concept",
+   "fields": {
+    "BRAIN'S MATH": "slow replay-driven cortical consolidation into a graded synaptic weight distribution; distinctiveness is computed from those frequency statistics (CLS: McClelland, McNaughton & O'Reilly 1995; Tyler & Moss CSA — a feature's fate is DISTINCTIVENESS × CORRELATIONAL STRENGTH, both frequency statistics). The distinctiveness WEIGHT FUNCTION is UNPINNED — nothing in the literature says by how much a rare feature is up-weighted, and our one instantiation (log-IDF) was refuted (§3.2).",
+    "OURS": "hdlab/reading_grounding_loop.py::ConceptSpace.observe — self._sums[lemma] += ctx_vec, a genuine graded accumulator, correct — then anchor_matrix:450 returns np.sign(np.stack(...)) and bundle:460 returns np.sign(s). The graded quantity is built and thrown away one line before use. A dimension where 36 of 70 encounters agreed becomes bit-identical to one where 70 of 70 agreed. freeze_graded():482 exists, default OFF.",
+    "FIDELITY": "RIGHT-OP-WRONG-PLACE. The information already exists in memory.",
+    "WIRED": "YES for the destructive path; graded path wired but default-OFF.",
+    "EVIDENCE": " experiments/diag_anchor_field_geometry_v1.py, 400 concepts × 70 held-out sentences, byte-identity to the live context_vector asserted first: ‖field mean‖/‖anchor‖ = 0.5841 (SIGN) vs 0.3545 (GRADED); mean pairwise cosine 0.3397 vs 0.1319; participation ratio 126.6 vs 77.0 (sign flattens the spectrum toward noise). Under the live code 58% of every concept vector's norm is the component shared by all 400 concepts. 🔴 CORRECTED 2026-08-14: re-measured on the LIVE field (n=2377, d=256) the same ratio is 0.2997 SIGN / 0.3650 GRADED, and it is a NORM RATIO, not a variance fraction — true shared-direction energy 0.1535, PC1 0.0350. Never restate it as \"more than half the variance\". Detail at organ G3 and in notes/STATUS_LESSONS.md CORRECTION C11. Its task evidence is B2's cell, where it is not separately attributed.",
+    "BLOCKS": "near-neighbour discrimination; sense selection."
+   },
+   "constraints": [
+    "🔴 CORRECTED 2026-08-14: re-measured on the LIVE field (n=2377, d=256) the same ratio is 0.2997",
+    "energy 0.1535, PC1 0.0350. Never restate it as \"more than half the variance\". Detail at organ"
+   ],
+   "line": 367,
+   "heading_note": ""
+  },
+  "B4": {
+   "id": "B4",
+   "name": "Representation format and capacity",
+   "fields": {
+    "BRAIN'S MATH": "dense, graded, LOW effective dimensionality — first 4 group PCs define the shared space (Huth 2012 Neuron 76:1210); 65 experiential attributes across 14 domains (Binder 2016); two-thirds of temporal-pole electrodes active per exemplar (Tiesinga 2023); IT sparseness index 0.2-0.3. Explicitly NOT sparse, NOT binary. Sparse 0.2% coding is the MTL regime (Waydo 2006) — a different system; conflating them is a trap. Separately pinned and explicitly not to be imported: V1's power-law eigenspectrum (Stringer 2019).",
+    "OURS": "context path 256-dim bipolar ±1 (grounding_acquisition_loop.py:79); lexical path 8192-dim complex64 unit-phase; grounded path 12-dim real graded; concept_encoder 4096-dim ternary at 2% sparsity; gsbc_graded_encoder 32 blocks × 128, top-5 per block, unit-L1 per block (active fraction 0.039).",
+    "FIDELITY": "WRONG-OP (binary where the brain is graded) and under-capacity: 2,377 concepts in a 256-dim space.",
+    "WIRED": "YES — d=256 is the live default.",
+    "EVIDENCE": "data/exp_capacity_ceiling_near_far_v1 MIDDLE_BAND_CAPACITY_PARTIAL, n=4000. NEAR by d: QUANT [0.6395, 0.7030, 0.7380], GRAD [0.6980, 0.7495, 0.78225] at d = 256/1024/4096. Crosstalk between unrelated random-index codes falls exactly as 1/√d: 0.0498 / 0.0249 / 0.0125. FLOORS in-cell: 0.49775 / 0.5095 / 0.4845, chance 0.50. Between-projection-draw sd reported next to the CI (0.0090) — item bootstraps are blind to shared-randomness variance and every cell built on a random projection must report it. 16× the dimensionality buys +0.0843 — more than any mechanism change this program has produced.",
+    "BLOCKS": "the LEVEL of every similarity decision in the substrate. Largest measured lever owned."
+   },
+   "constraints": [],
+   "line": 394,
+   "heading_note": ""
+  },
+  "B5": {
+   "id": "B5",
+   "name": "Sensorimotor spokes: grounding for concrete concepts",
+   "fields": {
+    "BRAIN'S MATH": "modality-specific cortex feeding the hub. The hub-spoke combination rule is UNPINNED. Two hard results bound the design: left dorsal ATL represents object-colour knowledge in congenitally blind and sighted alike — a sensory-independent code coexists with the sensory-derived one (Wang, Men, Gao, Caramazza & Bi 2020 Neuron 107:383-393); and text-only channels recover non-sensorimotor meaning well, sensory poorly, motor minimally (Xu et al. 2025 Nat Hum Behav).",
+    "OURS": "hdlab/grounded_similarity.py:140-189 — 12-dim vector = 11 Lancaster sensorimotor means + Brysbaert concreteness, z-scored against the whole 39,707-word population (:146-150, which is exactly the pool-shared statistic the context path lacks, applied to the wrong 12 dimensions), then raw cosine, capped at 0.45 so it structurally cannot cross the 0.50 link threshold.",
+    "FIDELITY": "RIGHT-OP-WRONG-METRIC, and mis-applied. The module's own docstring measures that raw cosine cannot separate a synonym from a sibling: sofa/couch 0.968, happy/joyful 0.962, apple/orange 0.952, dog/cat 0.932. Literature note: sensorimotor distance is among the best predictors but \"never the overall best predictor in any single dataset\" (Johns 2023), and the claim that norms collapse near-synonyms was theoretically motivated but empirically untested — our measurement above fills that gap. - 🟢 UPDATED 2026-08-19 — THE ORGAN NOW EXISTS AS ITS OWN SLOT, AND THE METRIC GRADE HAS BEEN TESTED RATHER THAN ASSERTED. hdlab/sensorimotor_spoke.py (NEW, 3 can-fail self-tests) calls grounded_similarity's table rather than re-loading the norms, and adds B5 to hdlab/substrate.py's slot table as NEEDS_ADAPTER — the organ exists and a cell invokes it, but read() does not consult it, so it is NOT counted as filled. - THE METRIC GRADE IS UPHELD, BUT ONLY ON THE CONTRAST THIS ROW ACTUALLY NAMES, AND MY FIRST TEST OF IT FAILED. I first asserted euclid-beats-cosine using dog/cat vs dog/justice — concrete vs abstract — which BOTH metrics ace, and cosine won it 22.8 to 3.2. Re-tested on SYNONYM-vs-SIBLING, which is what the row above is about: over 10 synonym and 10 sibling pairs euclid separates by 1.348 pooled SDs, cosine by 0.511 (scratch/probe_metric_synonym_vs_sibling.py). So: cosine is the better separator FAR APART, euclid NEAR the diagonal, and near the diagonal is where meaning selection lives. Both are exposed and SWEPT by the scoring cell rather than one being adopted. - THE COMBINATION RULE REMAINS UNPINNED and the organ says so in its own docstring. \"Nearest in spoke space selects the meaning\" is OUR-INVENTION-BEING-TESTED, not a replication. The Wang 2020 bounding result travels with it so the spoke is never presented as the only route to modality knowledge. - SUPPLY, NOT LEARNING — stated in the organ and in the cell. The norms are human ratings: admissible as a static offline asset under the no-LLM-at-inference invariant, but the substrate does not GROW this spoke and no result from it may be read as learned perceptual structure.",
+    "EVIDENCE IN FLIGHT": "exp_sensorimotor_spoke_grounding_v1, scored on the GROUNDING gold (provenance-filtered ConceptNet), pre-registered to beat TOP_COOCCURRENT and not merely random, with a SHUFFLED_NORMS permutation control checked FIRST. Seed 1 of 3: the norms DO carry the arm (19 hits vs the permuted table's 6) but the arm TIES the text channel (19 vs 18). One seed. Not a result. Do not quote it as one. - ⛔ WHY IT IS SCORED THERE AND NOT ON THE READ-OUT CELL: the read-out routes were measured on 2026-08-19 to never consult the consolidated store at all, so a spoke feeding the consolidated side would have been INVISIBLE there. See the B3/D3 note below.",
+    "WIRED": "YES — but capped below the decision threshold, so it never decides anything.",
+    "EVIDENCE": "the self-documented table above. NO FLOOR. 🔴 CORRECTED 2026-08-15 (C24) — A FLOOR NOW EXISTS AND THE ORGAN SITS ON IT. On 124 both-covered blind pairs the NOISE class sits ON the random-word-pair Lancaster floor (0.8071 vs 0.8060) while non-NOISE sits at 0.8834; AUC 0.685 in-sample (notes/grounding_asset_inventory_2026-08-13.md:248-249). Wired into the C3 harness it gives A2_NORMS 0.07125 at w=0.50, below the 0.0870 standalone-spelling floor. Sensorimotor-applied-to-abstract was previously HARD_FAIL and SHELVED. Two stale framings to retire in BOTH directions: the norms are not an unwired island — hdlab/lexical_similarity.py:599 has use_grounded_fallback: bool = True, default-ON since 2026-08-11 (the live reading loop simply never calls concept_similarity) — and they are not an untapped asset, having been measured and shelved with revival criteria (DO-NOT-REDO 11).",
+    "BLOCKS": "grounding of concrete vocabulary; the 99.4% of words outside CONCEPT_FEATURES. ### C. COMPARISON, SELECTION, CONTROL"
+   },
+   "constraints": [
+    "predictors but \"never the overall best predictor in any single dataset\" (Johns 2023), and the",
+    "replication. The Wang 2020 bounding result travels with it so the spoke is never presented as",
+    "(19 vs 18). One seed. Not a result. Do not quote it as one.",
+    "on 2026-08-19 to never consult the consolidated store at all, so a spoke feeding the",
+    "- WIRED: YES — but capped below the decision threshold, so it never decides anything.",
+    "- EVIDENCE: the self-documented table above. NO FLOOR. 🔴 CORRECTED 2026-08-15",
+    "Two stale framings to retire in BOTH directions: the norms are not an unwired island —",
+    "2026-08-11 (the live reading loop simply never calls concept_similarity) — and they are not"
+   ],
+   "line": 417,
+   "heading_note": ""
+  },
+  "C1": {
+   "id": "C1",
+   "name": "Semantic comparison: scoring two representations",
+   "fields": {
+    "BRAIN'S MATH": "\"There is no cosine anywhere in the brain.\" Comparison is deep recurrent nonlinear settling; what is comparable to a similarity is the state's trajectory, computed on a code already normalised against the concurrently active population. The trajectory metric itself is UNPINNED. (Jackson 2021; Rogers 2021 eLife.)",
+    "OURS": "hdlab/reading_grounding_loop.py::canonicalize_fast:708-770 — nb = np.sign(new_raw_sum) (a THIRD binarisation, of the query, :736), then sims = (mat @ nb)/(norms·nn): cosine between two ±1 vectors, which equals 1 − 2·Hamming/d. The decision variable of this entire substrate is a Hamming distance between two 256-bit majority-vote patterns. ReadoutConfig(graded_query=True) exists (:597-616), default OFF.",
+    "FIDELITY": "RIGHT-OP-WRONG-METRIC. Ranked below B2/B3 deliberately: a cosine on a properly normalised graded code is a defensible first-order readout; a Hamming distance over prototype patterns cannot represent the distinction at all. Fix the code before litigating the metric.",
+    "WIRED": "YES",
+    "EVIDENCE": "data/exp_context_conditioned_near_neighbour_v1 MIDDLE_BAND_FLOOR_HUGGING, n=4000: A1=0.6395; FLOORS A3(scrambled)=0.4975, A4(frequency)=0.4800, chance=0.50; mean_winning_cos = 0.1476. Second-order point worth keeping: cos(a1,a2) is LOWER under sign than under the graded code at every distinctive:shared ratio — sign() makes near-neighbours look MORE separated while making the separation MEAN LESS.",
+    "BLOCKS": "sense selection; every canonicalisation decision."
+   },
+   "constraints": [],
+   "line": 477,
+   "heading_note": ""
+  },
+  "C2": {
+   "id": "C2",
+   "name": "Winner selection",
+   "fields": {
+    "BRAIN'S MATH": "graded competition implemented BY the normalisation pool, not a hard argmax (Carandini & Heeger 2012). Semantic aphasia shows selection failing specifically when a WEAK TARGET must beat a STRONG COMPETITOR (Jefferies & Lambon Ralph 2006 Brain 129:2132-2147).",
+    "OURS": "canonicalize_fast:770 int(np.argmax(sims)), first-max tie-break; same at concept_encoder:564.",
+    "FIDELITY": "WRONG-OP in form, but for a 2AFC accuracy metric argmax IS the deterministic limit of the softmax and cannot change the expected score. Low priority by the brain's own metric.",
+    "WIRED": "YES",
+    "EVIDENCE": "controlled, not tested — readout_disagreements = 0 across the graded cells; LIVE has 9 ties at n=4000, max possible shift 0.0033, and scoring ties as losses makes the delta LARGER. Adequately excluded as a confound; never independently tested.",
+    "BLOCKS": "nothing measurable. Recorded for completeness, not ranked for build."
+   },
+   "constraints": [
+    "Adequately excluded as a confound; never independently tested."
+   ],
+   "line": 498,
+   "heading_note": ""
+  },
+  "C3": {
+   "id": "C3",
+   "name": "Semantic control: how task/context reshapes the comparison",
+   "fields": {
+    "BRAIN'S MATH": "control does NOT select from a candidate list; it applies MULTIPLICATIVE GAIN to the task-relevant dimension. DCM: IFG's effective connectivity to the spoke holding the relevant feature dimension is selectively boosted, F(2,34)=3.86, p=.03 (Chiou & Lambon Ralph 2018 Cortex, PMC6006425). Same hub weights + different control settings reproduce context-dependent behaviour (Hoffman, McClelland & Lambon Ralph 2018 Psychol Rev 125:293-328). Non-dominant retrieval recruits a higher-dimensional coding regime; dimensionality change mediated 51.7% of the gradient-cognition relationship (Gao 2022 eLife). THE GAIN FUNCTION — what sets the per-dimension multiplier — is UNPINNED.",
+    "OURS": "context enters additively, as another point in the same space (context_vector_masked → canonicalize_fast); concept_similarity has no context port at all.",
+    "FIDELITY": "RIGHT-IDEA-WRONG-ALGEBRA.",
+    "WIRED": "YES for the additive form.",
+    "EVIDENCE": " Adding any context port: 0.5390 → 0.6395, d12 = +0.1005 CI [0.0795,0.1227], scrambled floor 0.4975. But the brain-faithful multiplicative version, built and tested: data/exp_task_local_normalisation_pool_v1 HARD_FAIL_GAIN_HURTS — gain g = |a_t − a_d| scored 0.6777, d = −0.0220 CI [−0.0340,−0.0097], significantly WORSE. FLOORS: 0.4953 / 0.5065 scrambled, 0.4800 frequency. Both baselines reproduced exactly (R_LIVE 0.6395, R_BASE 0.6997), so the read is licensed. MECHANISM OF THE NEGATIVE, and it unifies four separate nulls: with 70 observations per concept in a 256-dim random projection, the dimensions with the largest anchor-difference are disproportionately the worst-estimated. Every per-dimension REWEIGHTING tried is null or harmful — log-IDF null, global-field z-scoring +0.0018, pool-inverse −0.011, contrast gain −0.0220 — while the only thing that helped was removing a per-dimension DESTRUCTION. That is an estimation-noise statement. It points at B4, not at C3.",
+    "BLOCKS": "context-conditioned sense selection. STRICTLY BLOCKED BEHIND B4."
+   },
+   "constraints": [
+    "- BLOCKS: context-conditioned sense selection. STRICTLY BLOCKED BEHIND B4."
+   ],
+   "line": 512,
+   "heading_note": ""
+  },
+  "C4": {
+   "id": "C4",
+   "name": "Settling / stabilisation",
+   "fields": {
+    "BRAIN'S MATH": "recurrent attractor settling to a fixed point; CA3 completion with cue re-injection (Hasselmo 2002; Neunuebel & Knierim 2014 Neuron 81:416-427); ATL hub settling over 200-500 ms (Rogers 2021).",
+    "OURS": "NONE in the comparator. We DO own the organs — see D2.",
+    "FIDELITY": "MISSING — BY DESIGN. The standing \"reuse the owned organ\" rule must NOT fire here.",
+    "EVIDENCE": "Tyler & Moss Conceptual Structure Account (TiCS 2001; Taylor, Devereux & Tyler 2011): distinctive features are WEAKLY CORRELATED with a concept's other features, and attractor settling is driven by correlational structure — which is exactly why distinctive features are computationally fragile. Adding CA3-style completion to the comparator would make near-neighbour discrimination WORSE. And both owned implementations terminate in np.sign, so wiring them in adds a fourth prototype operator. We already have an attractor network's nonlinearity with none of its recurrent weights: all of the prototype drift, none of the completion benefit.",
+    "BLOCKS": "nothing. Revisit only after B2/B3/B4 land AND paired with real C3 gain, which is the brain's own compensator for this cost. ### D. MEMORY SYSTEMS"
+   },
+   "constraints": [
+    "(EXPLICIT NEGATIVE RECOMMENDATION — do NOT build)",
+    "- FIDELITY: MISSING — BY DESIGN. The standing \"reuse the owned organ\" rule must NOT fire here."
+   ],
+   "line": 540,
+   "heading_note": "(EXPLICIT NEGATIVE RECOMMENDATION — do NOT build)"
+  },
+  "D1": {
+   "id": "D1",
+   "name": "Dentate gyrus: pattern separation",
+   "fields": {
+    "BRAIN'S MATH": "sparse expansion + strong inhibition → decorrelation. Sparse coding level is pinned: <2×10⁶ of 10⁹ MTL neurons (0.2%) per percept; each neuron fires to 50-150 concepts (Waydo, Kraskov, Quian Quiroga, Fried & Koch 2006 J Neurosci 26:10232). DG activity changes abruptly/nonlinearly with small environmental change (Neunuebel & Knierim 2014). The nonlinearity type, expansion ratio and threshold are UNPINNED.",
+    "OURS": "hdlab/dg_pattern_separation.py:83-131 — W = N(0,1)/√input_dim fixed Gaussian expansion (hashlib-seeded, deterministic); keep top-round(sparsity·expand_dim) by |magnitude|, zero the rest, L2-normalise. Pure feedforward expand-then-kWTA, no learning. hdlab/hippocampal_encoder.py:113-116 does the same into a sparse ternary code (mask · sign(dense), sparsity 0.01-0.03).",
+    "FIDELITY": "SAME. Random expansion + k-WTA + normalise is the brain's operation, in the right order, at roughly the right sparsity.",
+    "WIRED": "NO — dg_pattern_separation has ZERO hdlab/ importers. Orphan.",
+    "EVIDENCE": "docstring reports item_purity 0.19-0.20, 35 spawned / 33 grounded. NO FLOOR — UNTESTED.",
+    "BLOCKS": "nothing today; required the moment D3 goes on the live path."
+   },
+   "constraints": [],
+   "line": 558,
+   "heading_note": ""
+  },
+  "D2": {
+   "id": "D2",
+   "name": "CA3 pattern completion. Queue premise WRONG. The organ is TESTED THREE TIMES AND LOSES.",
+   "fields": {
+    "STRUCTURE": "CA3 recurrent collaterals.",
+    "OPERATION": "Anatomy and capacity are pinned (Treves & Rolls 36,000 patterns); the UPDATE RULE is not stated in the biology. Hopfield sign-update and modern-Hopfield softmax are OUR imports. Map is correct here; confirmed. - SHAPE brain: sparse recurrent autoassociator. OURS: cleanup_family.py:121-179, iterative_attractor.py:104-126 — op-class right, every implementation terminates in sign(). POSITION brain: after DG separation, before CA1 output. OURS: consumed by gap_detector, i.e. used for FAMILIARITY, not for episodic completion. METRIC brain: output closer to the stored pattern than its degraded input (Neunuebel & Knierim 2014) — a basin measure. OURS: the cells measure exactly that, and it does not move. - NO LONGER UNTESTED. Three floored cells, all against the correct floor (plain argmax = no settling): - exp_att1_iterative_attractor_cleanup_v1 MIDDLE_BAND: best lift over argmax +0.005 (argmax 0.002 → ATT1_HIGH_TEMP 0.007), basin ratio 1.00x, cv 0.935. - exp_cleanup_graded_attractor_vs_argmax_v1: modern_hopfield 0.360 vs argmax 0.357 at the cliff, max|gap| 0.008; verdict STEP_IS_CODEBOOK_SNR_WALL_NOT_CLEANUP_RULE. - exp_att1_iterative_attractor_v2_low_storage_ratio_krotov_v1 HARD_FAIL: lift −0.020, \"mechanism truly rejected (revival exhausted)\". - THIS PROMOTES §C4 FROM A REASONED RECOMMENDATION TO A FLOORED ONE. §C4 declines to build settling on Tyler & Moss grounds. It is now also an empirical result: the settling step buys between −0.020 and +0.005 over argmax and never widens the basin. Add the citation to C4 and stop re-litigating it. - EXISTS yes / IS-REACHED yes (cleanup_family + iterative_attractor live via gap_detector; hippocampal_encoder no) / IS-GOOD no — indistinguishable from argmax.",
+    "FLOOR TEST": "none needed for the completion claim. If anyone revives it, the discriminator is the BASIN RATIO at matched recall, not accuracy, and the prior is 1.00x. ---"
+   },
+   "constraints": [
+    "- NO LONGER UNTESTED. Three floored cells, all against the correct floor (plain argmax = no",
+    "between −0.020 and +0.005 over argmax and never widens the basin. Add the citation to C4 and stop"
+   ],
+   "line": 1903,
+   "heading_note": ""
+  },
+  "D3": {
+   "id": "D3",
+   "name": "Hippocampal one-shot write / index. Queue premise CONFIRMED. Genuinely untested.",
+   "fields": {
+    "STRUCTURE": "hippocampus proper (CA3/CA1) as an INDEX into distributed neocortex.",
+    "OPERATION": "one-shot Hebbian outer product on a sparse code (Marr 1971), and hippocampal_encoder.py:179 W[ix_(nz,nz)] += outer(sub,sub) IS that equation. Allocation/index half UNPINNED — Teyler & Rudy 2007 and Goode et al. 2020 pin that the hippocampus stores a POINTER and not the content; no source pins how an address is chosen. - SHAPE brain: sparse pointer, 0.2% of MTL neurons per percept (Waydo 2006). OURS: sparse ternary at sparsity 0.01-0.03 — 5-15× denser than the pinned figure, and that is a checkable number, not a judgement. POSITION brain: fast store, read back by cortical reinstatement. OURS: not on the live path at all. METRIC brain: one-trial retrieval of the full pattern from a partial cue. OURS: a 14/14 self-test with no comparator.",
+    "GAP": "the ADDRESS. We have the write and no allocator, and the allocator's brain math is UNPINNED, so this cannot be closed by fidelity — it must be chosen and declared as ours. - EXISTS yes / IS-REACHED no (zero hdlab/ importers) / IS-GOOD unknown. - 🔴 D3's QUEUED TEST IS SUPERSEDED AND CORRECTED 2026-08-21 BY MEASUREMENT -- SWEEP THE CUE, NOT N. Do not author it as written. READ THIS FIRST. Instrument characterisation, tools/d3_capacity_characterisation.py (fixed seeds; one command reproduces every number). - THERE IS NO COLLAPSE POINT IN N. hit@1 = 1.0000 at EVERY N from 1 to 2000, sd 0.0000, at BOTH sparsity 0.02 and the pinned 0.002. 2,000 patterns in a 2,048-dim associator at perfect recall is a tell, not a capacity result.",
+    "THE CONTROL": "An exact cue deterministically regenerates its own DG code, so the task is solved by the PROJECTION with no storage consulted. Across all 34 grid points CA3 is NEVER better than CA3-off (delta −0.0480..+0.0000) — the same SHAPE as D2's \"indistinguishable from argmax\", not a shared number. - 🚨 THIS BREAKS ARM (ii) BELOW, THE ARM THE DESIGN EXISTS TO PROTECT: if CA3 is never consulted, the random-address arm reads 1.0000 TOO. An author would get \"DG address = random address\" and read it as \"the allocator does not matter\", when it means \"the test never reached the allocator\". VERIFY A NON-ZERO CA3 ON − CA3 OFF GAP AT THE CHOSEN OPERATING POINT BEFORE TRUSTING ARM (ii). - ✅ THE KNOB THAT MOVES THE SCORE IS CUE CORRUPTION -- collapse between 25% and 40% (N=500: 1.0000 → 1.0000 → 0.7707 → 0.0513), and it barely moves with N. THIS ORGAN'S OWN METRIC LINE ABOVE ALREADY SAYS SO (\"retrieval of the full pattern from a partial cue\") -- the right metric was written down and then not used by the test below. - ⚠️ A \"no-write\" floor that ZEROES W IS DEGENERATE: settle() computes sign(W @ cue), so W = 0 returns the ZERO VECTOR and the arm collapses for a reason unrelated to memory. It looks like a working floor and is not one. Use use_ca3=False, which removes the MECHANISM while leaving the PIPELINE intact.",
+    "SCOPE": "synthetic i.i.d. bipolar patterns are near-orthogonal; real (context → lemma) pairs are CORRELATED and harder, so the NUMBERS do not transfer. The structural point does: an exact cue regenerates its own DG code whatever the inputs are. IS-GOOD remains genuinely unknown -- this says the TEST could not see the organ, not that the organ is worthless. - ⚡ AND THIS WAS ALREADY KNOWN, IN CODE, IN A SIBLING ORGAN -- REUSE IT, DO NOT REBUILD. hdlab/ca3_completer.py carries a self-test literally named selftest_full_cue_is_not_where_the_action_is, whose docstring reads \"At a FULL cue both arms are at ceiling -- the saturation trap, made explicit. This is why a full-cue test of a completer measures nothing, and it is asserted here so the scope of the three earlier floored cells cannot be quietly forgotten.\" It ASSERTS the ceiling (>= 0.999) as a GUARD. Its routed_completion_discriminates curve already IS the sweep D3 needs, on a structurally different (multi-spoke bound) store -- cue kept 1.00/0.80/0.60/0.50/0.35: uncompleted 1.0 / 1.0 / 0.9766 / 0.5000 / 0.0 vs completed 1.0 / 1.0 / 0.8984 / 0.4922 / 0.0. Completion NEVER helps at any cue level, and the informative band is 0.80→0.35 kept -- which brackets consistently with the 25-40% corruption collapse measured on hippocampal_encoder tonight, by different code on different structure. So the synthetic-pattern scope caveat above is WEAKER than stated: two independent implementations agree. It also classifies its own controls correctly: FLOOR_random_overcomplete_codebook_reclassified_from_null = 0.4375, \"M>d makes a random codebook an overcomplete dictionary; snapping to it reconstructs the cue. A floor, not a null.\" ➡️ WHOEVER AUTHORS D3 SHOULD REUSE THIS HARNESS (cue-fraction sweep + oracle + null + correctly-classified floor, already built and passing) rather than author a parallel one. ⚠️ ca3_completer is the D2/cleanup family, NOT D3 -- CROSS-ORGAN corroboration, not the same measurement twice. notes/D3s_QUEUED_TEST_SWEEPS_THE_WRONG_VARIABLE_exact_cue_recall_is_solved_by_the_projection_alone_2026-08-21.md",
+    "SMALLEST CAN": "SMALLEST CAN-FAIL FLOOR TEST — ⚠️ \"sweeping N\" IS SUPERSEDED BY THE BLOCK ABOVE; SWEEP CUE CORRUPTION INSTEAD. The floor design below is UNCHANGED AND STILL RIGHT. One-shot cued recall of N stored (context → lemma) pairs from the live anchor field after a SINGLE exposure. Floors, each of which can fail: (i) no-write arm — query the untouched codebook, must sit at chance; (ii) random-address arm — the same write op to a randomly chosen sparse address instead of the DG-derived one, so the test isolates the ALLOCATOR rather than the outer product; (iii) shuffled-pair arm. The organ is only interesting if it beats (ii), and (ii) is precisely the arm that would be omitted by someone testing the write op. Report at our sparsity AND at the pinned 0.2%. ---"
+   },
+   "constraints": [
+    "- 🔴 D3's QUEUED TEST IS SUPERSEDED AND CORRECTED 2026-08-21 BY MEASUREMENT -- SWEEP THE CUE, NOT",
+    "N. Do not author it as written. READ THIS FIRST.",
+    "storage consulted. Across all 34 grid points CA3 is NEVER better than CA3-off (delta",
+    "- 🚨 THIS BREAKS ARM (ii) BELOW, THE ARM THE DESIGN EXISTS TO PROTECT: if CA3 is never",
+    "address\" and read it as \"the allocator does not matter\", when it means \"the test never reached",
+    "pairs are CORRELATED and harder, so the NUMBERS do not transfer. The structural point does:",
+    "- ⚡ AND THIS WAS ALREADY KNOWN, IN CODE, IN A SIBLING ORGAN -- REUSE IT, DO NOT REBUILD.",
+    "0.0. Completion NEVER helps at any cue level, and the informative band is 0.80→0.35 kept",
+    "- SMALLEST CAN-FAIL FLOOR TEST — ⚠️ \"sweeping N\" IS SUPERSEDED BY THE BLOCK ABOVE; SWEEP CUE"
+   ],
+   "line": 1933,
+   "heading_note": ""
+  },
+  "D4": {
+   "id": "D4",
+   "name": "Consolidation / replay scheduling. Queue premise WRONG. Heavily floored, and passing.",
+   "fields": {
+    "STRUCTURE": "hippocampal sharp-wave ripples during SWS driving neocortical integration (CLS).",
+    "OPERATION": "Re-verified against notes/drill_cascade_synapse_replay_consolidation_biology_2026-08-14.md, which opened the primary sources and corrected this map 12 ways. Pinned: event-level selectivity (large SWRs only); only REVERSE replay scales with reward (Ambrose, Pfeiffer & Foster 2016); Landauer & Bjork's schedules are 0,3,10/1,4,10, scoped to test-type practice; sleep-dependent lexical competition (Dumay & Gaskell 2007). UNPINNED: replay count per experience (unsourced, a free parameter); the selection function; the interleaving ratio (CLS pins the principle, not a number). - SHAPE/POSITION/METRIC brain: selective replay of a subset of episodes, offline, interleaved with old material, scored by RETENTION OF OLD while acquiring new. OURS: continual.py:99-111 forward + reverse-orientation replay behind an NREM decorator — right shape, islanded; the LIVE loop does one averaging op per cycle (reading_grounding_loop.py:1291), ungated and un-interleaved. - NO LONGER UNTESTED. Three floored cells: - exp_substrate_continual_NREM_replay_v1 HARD_PASS_PARTIAL — this is continual.py's own cell. ARM_BASELINE_NO_REPLAY fin_forget 0.8833 ± 0.0309 vs ARM_REPLAY_EVERY_100 0.3100 ± 0.0497, and a monotone dose-response ladder 100/500/1000 → 0.3100 / 0.4833 / 0.6367. A dose-response is a much stronger design than a single contrast and the map does not carry it. (The map says \"no floor stated in the module\" — true of the module, false of the cell.) - exp_consol_interleaved_replay_v1 HARD_PASS — INTERLEAVED mrr 0.9086 vs CONTINUAL 0.4184, SHUFFLE 0.3613, POP 0.3307, ceiling 0.9554; 4/4 signatures, arms_differ. - exp_cls_prioritized_replay_closed_loop_surprise_v1 MIDDLE_BAND — a direct test of the UNPINNED selection function using surprise as priority: closed-loop 0.576 vs uniform 0.521 vs no-replay 0.097 vs stat 0.472, chance 0.0069; delta_E 0.055 against a ≥0.08 bar. So the selection function has been probed and the priority signal is real but weak.",
+    "WHAT IS ACTUALLY UNTESTED": "D4 on REAL TEXT, and D4 AT THE LIVE CALL SITE. The map's own words (\"UNTESTED on real text\") are right; the queue's \"no floored evidence at all\" is not. - EXISTS yes / IS-REACHED no (continual.py zero importers) / IS-GOOD yes on synthetic, unknown on text. ---"
+   },
+   "constraints": [
+    "sources and corrected this map 12 ways. Pinned: event-level selectivity (large SWRs only); only",
+    "- NO LONGER UNTESTED. Three floored cells:"
+   ],
+   "line": 2010,
+   "heading_note": ""
+  },
+  "D5": {
+   "id": "D5",
+   "name": "Active working-memory maintenance",
+   "fields": {
+    "BRAIN'S MATH": "persistent-activity attractor WM vs activity-silent synaptic WM (Wang; Stokes; Mongillo — short-term facilitation holds the item with no spiking). Which dominates is CONTESTED; content/PE-gated incremental update (PBWM).",
+    "OURS": "hdlab/working_memory.py CONTAINS NO WORKING MEMORY. All 116 lines are two ValueError-raising guard functions plus envelope constants. No bank, no state, no update rule. This is a live trap for anyone auditing by filename. The actual mechanisms are hdlab/slot_attention_wm.py:151-194 — scores = einsum(\"bld,rd->brl\", tok_reps, role_query)/√d, attn = softmax(scores) over token positions (padding → −inf), fillers = einsum(\"brl,bld->brd\"), slot address addr_w = softmax(addr_logits/addr_temp) across K slots — and hdlab/situation_model_accumulate.py (see E2).",
+    "FIDELITY": "working_memory.py = MISSING. slot_attention_wm = RIGHT-OP-WRONG-METRIC (a learned softmax attention head is neither attractor persistence nor synaptic facilitation).",
+    "WIRED": "working_memory.py YES (and it does nothing); slot_attention_wm NO (gate = SHELVE); situation_model_accumulate YES.",
+    "EVIDENCE": "the chain-grade number (K=4096, recall 0.9927, cv 0.0006) belongs to an EXPERIMENT, and the module's own docstring warns that arms below k_per_bank=64 are saturated BY CONSTRUCTION. The organ as it exists in hdlab/ has NO floored evidence.",
+    "BLOCKS": "multi-sentence situation-model construction."
+   },
+   "constraints": [],
+   "line": 679,
+   "heading_note": ""
+  },
+  "D6": {
+   "id": "D6",
+   "name": "Sequence / order memory",
+   "fields": {
+    "BRAIN'S MATH": "CA3 asymmetric recurrent weights; theta phase precession compresses sequences into a cycle for plasticity. The precise learning rule is UNPINNED.",
+    "OURS": "hdlab/sequence_memory.py:70,98 — S += outer(k_next, k_prev), reverse store S_back += outer(k_prev, k_next); retrieve S @ k_prev then argmax. No normalisation, no capacity control.",
+    "FIDELITY": "SAME op-class — asymmetric Hebbian outer product is exactly the standard model.",
+    "WIRED": "NO",
+    "EVIDENCE": "exp_c3_compressed_sequence_replay_v1 HARD_PASS at every depth [1,3,5,7,10] (docstring provenance, commit a27939c5). Floor not restated in the module — PARTIALLY FLOORED.",
+    "BLOCKS": "nothing today."
+   },
+   "constraints": [],
+   "line": 699,
+   "heading_note": ""
+  },
+  "D7": {
+   "id": "D7",
+   "name": "Successor representation: the predictive relational map",
+   "fields": {
+    "BRAIN'S MATH": "M(s,s') = E[Σ_{k≥0} γ^k · 1{s_k = s'} | s_0 = s], i.e. M = (I − γP)⁻¹. Place cells are rows of M; grid cells are the eigenvectors of M. Multi-scale: several γ run simultaneously (Dayan 1993 Neural Computation 5:613; Stachenfeld, Botvinick & Gershman 2017 Nat Neurosci 20:1643; Momennejad 2017 Nat Hum Behav). Personalised PageRank ≡ SR under stated conditions. Related and also pinned: TEM's conjunctive code p = g ⊗ x (structural × sensory), where the same structural code g reused across environments gives immediate transitive-inference generalisation (Whittington et al. 2020 Cell 183:1249).",
+    "OURS": "NONE. The nearest things: hdlab/kg_traversal.py:89-111 does hard-argmax n-hop (key = E[s]R[p], scores = E @ (W @ key), argmax, feed the argmax entity back in — no soft state between hops); and hdlab/multi_hop.py:69-70 has a softmax chain whose default β = n_dim makes the softmax a Dirac delta, i.e. identical to hard argmax — the module's own code says so at :88-96 and records that two prior cells were confounded by exactly this.",
+    "FIDELITY": "MISSING, and the nearest owned organ is silently degenerate.",
+    "WIRED": "NO",
+    "EVIDENCE": "none for SR. UNTESTED.",
+    "BLOCKS": "multi-hop relational reasoning; transitive inference; any \"what follows from what\" query over the 1.21M-edge CSKG."
+   },
+   "constraints": [
+    "(LABEL CORRECTED 2026-08-20: NOT MISSING. hdlab/successor_representation.py is on disk and capability_registry.jsonl carries successor_representation_d7_v1. The prior MISSING label was stale and would have sent someone to rebuild an organ that exists -- caught by auditing all 39 organ sections against their own declared modules. Its math remains FULLY PINNED; what is unverified is whether the buil"
+   ],
+   "line": 711,
+   "heading_note": "(LABEL CORRECTED 2026-08-20: NOT MISSING. hdlab/successor_representation.py is on disk and capability_registry.jsonl carries successor_representation_d7_v1. The prior MISSING label was stale and would have sent someone to rebuild an organ that exists -- caught by auditing all 39 organ sections against their own declared modules. Its math remains FULLY PINNED; what is unverified is whether the built organ MATCHES that math, which is a different question and still open.)"
+  },
+  "D8": {
+   "id": "D8",
+   "name": "The cascade synapse: memory lifetime",
+   "fields": {
+    "BRAIN'S MATH": "(corrected 12 ways by notes/drill_cascade_synapse_replay_consolidation_biology_2026-08-14.md; the pre-correction text had the N exponent, the model attribution and the α all wrong) each synapse carries an internal depth d with TWO transition families, both falling as 2^-d: a PLASTIC one q_k = q·x^(k-1) that flips efficacy and RESETS depth to 1 in the OPPOSITE cascade, and a METAPLASTIC one p_k = q·x^k that moves k → k+1 at constant efficacy (x = 1/2; Ben Dayan Rubin & Fusi 2007 — \"the probability for BOTH transitions decreases exponentially as the synapse moves down along the cascade\"). This yields power-law forgetting f(t) t^-α with α = 1 (Fusi lab 2007/2021; α = 3/4 is the number Fusi, Drew & Abbott 2005 actually published and is what must be quoted whenever that paper is cited — α = 0.5 belongs to Benna-Fusi 2016, a different model, and must not be offered as \"the cascade\") instead of exp(-t/τ). Capacity scaling, corrected — the map previously had this exactly backwards: | model | signal decay | initial SNR | lifetime / capacity | |---|---|---|---| | binary, fast (q = O(1)) | exp(-q r t) | O(1) | log N | | cascade (Fusi, Drew & Abbott 2005 Neuron 45:599) | 1/t | √N/n | √N | | bidirectional cascade (Benna & Fusi 2016 Nat Neurosci 19:1697) | 1/√t | √N/√m | N (N/log N optimised) | So N is Benna-Fusi 2016's headline, not the cascade's — Benna & Fusi say so themselves: \"the memory lifetime in previous models of complex synapses with bounded weights scales at most as √N.\" Continuous version: a chain of variables coupled by leaky integrators with geometrically increasing time constants, ratio 4× per level (τ_k = 2^(2k+1), C_k = 2^(k-1), g_{k,k+1} = 2^(-k-2)), capacity approximately linear in K, and the SNR is  SNR(t) √N · exp(-t/T) / ( √t · √(log T) ), T = 2^(2m+1)  √N, NOT N — the map's prior N/(√K·t^0.5) overstated the predicted retention level by a factor of √N, which at N = 1024 is 32×. The √K part survives if K = m, since √(log T) √m. And the comparison baseline was wrong too: a single-state bounded or binary synapse decays exponentially (τ = 1/(qr), SNR q·√N_syn·exp(-qrt)), not as N/t; the √N/t form is the cascade itself and the Lahiri-Ganguli envelope. The only single-state model with a power law is the unbounded perfect integrator, SNR = √(N/t) — which is the one we accidentally own (see D8 OURS and the KNOWN-DEFECT register). A predicted, must-observe NEGATIVE: complex synapses pay an initial-SNR cost of 1/n (cascade) / 1/√m (Benna-Fusi). An arm that does not show early-retention LOSS is not implementing this organ. (Also corrected: Roxin & Fusi is 2013, PLoS Comput Biol 9(7):e1003146, not 2012 — and its multistage model SHARES the cascade's scaling rather than beating it, so it never supported the N claim it was cited for.) - 🅿️ PARKED-BY-SCALE — CROSSOVER N > 1e6 SYNAPSES; WE RUN d = 256..4096. Published cascade advantages use 2.5e7 and 5.4e9 synapses. At n = 10 the cascade only beats simpler multistate models above 1e6. We are two to four orders of magnitude below the crossover on d, and the relevant synapse count is likewise far below it. A negative result here is THE PUBLISHED PREDICTION, not a ceiling and not evidence against the organ. Do not queue a cascade-vs-single-state capacity bake-off expecting a win; if it is run at all, it is run to confirm the predicted null and the predicted initial-SNR cost, and it must be pre-registered as such.",
+    "OURS": "NONE. Every store in the substrate is a single-state weight: W += outer(v,k) (sequence_memory, hippocampal_encoder, kg_traversal, intent_classifier, continual, streaming_attention). The only multi-timescale-ish object is hdlab/temporal_trace.py:158-159 trace ← α·x + (1−α)·trace — one exponential timescale, and excitability.py:60,66 an EWMA (η=0.1) with a flat 0.999 decay — again one timescale.",
+    "FIDELITY": "MISSING.",
+    "WIRED": "NO",
+    "EVIDENCE": "none. UNTESTED.",
+    "BLOCKS": "retention over long horizons. This is the pinned equation behind \"don't forget\", and we have none of it. A consolidation SCHEDULE (D4) on a single-state synapse cannot buy what a multi-timescale synapse buys for free."
+   },
+   "constraints": [
+    "(MISSING, and its math is FULLY PINNED)",
+    "- BRAIN'S MATH: (corrected 12 ways by notes/drill_cascade_synapse_replay_consolidation_biology_2026-08-14.md; the pre-correction text had the N exponent, the model attribution and the α all wrong)",
+    "actually published and is what must be quoted whenever that paper is cited — α = 0.5 belongs to",
+    "Benna-Fusi 2016, a different model, and must not be offered as \"the cascade\") instead of",
+    "exp(-t/τ). Capacity scaling, corrected — the map previously had this exactly backwards:",
+    "(Also corrected: Roxin & Fusi is 2013, PLoS Comput Biol 9(7):e1003146, not 2012 — and its",
+    "multistage model SHARES the cascade's scaling rather than beating it, so it never supported the N",
+    "PREDICTION, not a ceiling and not evidence against the organ. Do not queue a cascade-vs-single-state"
+   ],
+   "line": 730,
+   "heading_note": "(MISSING, and its math is FULLY PINNED)"
+  },
+  "D9": {
+   "id": "D9",
+   "name": "Synaptic tag and capture. Queue premise CONFIRMED for the fidelity gap; the module is floored.",
+   "fields": {
+    "STRUCTURE": "dendritic spine tagging + soma-wide plasticity-related proteins.",
+    "OPERATION": "What IS pinned: the PHENOMENON (a weak-tetanus synapse consolidates if a strong event occurs nearby in time — Frey & Morris 1997 Nature 385:533), the TIMESCALES (tag 1-4 h, PRP over hours), and behavioural co-allocation within a 5 h window (Redondo & Morris 2011). What is NOT pinned: any measured functional form. The consolidate iff tag × PRP > θ rule is a device inside Clopath et al.'s RNN model, not a measured synaptic operation, and no measured value of θ exists. §2 lists D9 among \"the twelve organs whose equation is actually pinned\". That listing is withdrawn here — it pins a model, exactly as the perirhinal superadditivity coefficient did. - SHAPE brain: TWO factors with different origins (synapse-local tag, cell-wide protein pool), combined nonlinearly. OURS: excitability.py:59-61 ONE EWMA scalar per atom. There is no second factor at all, so the operation cannot be a product regardless of its form. POSITION brain: between the fast write and the durable trace. OURS: an offline row-downscale. METRIC brain: which memories survive. OURS: which rows keep their norm. - GAP, named concretely: the missing thing is the CELL-WIDE second factor, not the product. An honest build target today is \"add a soma-wide resource pool shared across atoms with a 5 h co-allocation window, and MEASURE what combination rule reproduces co-allocation\" — not \"implement tag × PRP > θ\". - NO LONGER UNTESTED as an organ. exp_excitability_gated_substrate_cpu_v1 HARD_PASS: above the capacity cliff at K=1200, gated_hi 1.000 vs ungated_hi 0.500. Real floor (ungated), real regime (past the cliff). Scope: that tests priority-proportional write gain, i.e. the EWMA importance half. It does not test two-factor tagging or co-allocation, which remain untested and unpinned. - EXISTS yes / IS-REACHED no (registry excitability_tensor_promoted_zero_consumer = SHELVE, ISLAND, zero consumers) / IS-GOOD yes for what it does.",
+    "THE ANOMALY WORTH ESCALATING": "a HARD_PASS organ with a real failable floor and zero consumers. The registry resolves that as SHELVE on the grounds of \"no consumer\" — circular, since it has no consumer because it was shelved. ---"
+   },
+   "constraints": [
+    "- NO LONGER UNTESTED as an organ. exp_excitability_gated_substrate_cpu_v1 HARD_PASS: above"
+   ],
+   "line": 2043,
+   "heading_note": ""
+  },
+  "E1": {
+   "id": "E1",
+   "name": "Role-filler binding",
+   "fields": {
+    "BRAIN'S MATH": "UNPINNED and actively CONTESTED three ways — theta-gamma phase coding (Lisman & Jensen), conjunctive mixed selectivity (Rigotti & Fusi), tensor-product representations (Smolensky). There is no settled equation to be faithful to. PINNED adjacent fact: TEM's hippocampal conjunctive code is a product, p = g ⊗ x (Whittington 2020). PINNED adjacent fact 2: LATL conceptual combination is additive (Baron & Osherson 2011) — which licenses our sum and indicts only the normaliser after it.",
+    "OURS": "hdlab/binding.py — FHRR bind = elementwise complex multiply (:27); HRR bind = circular convolution via full fft/ifft (:35-37), unbind by conjugate; BSC bind = elementwise multiply (self-inverse); bsc_bundle:104-105 sum then sign, ties → +1.",
+    "FIDELITY": "UNSCORABLE (brain math UNPINNED). Recorded honestly rather than claimed SAME. What IS scorable: the per-component complex normaliser costs 20-32% of d′ versus whole-vector L2 (near/random d′ 4.843 → 6.030; near/disjoint-random 6.070 → 8.959). Scope: those pairs come from the hand-authored lexicon, so this describes what the OPERATION does to whatever structure exists, not a capability.",
+    "WIRED": "YES",
+    "EVIDENCE": "composition mechanism VET-confirmed 4× given roles. The oracle role-key derivation has no mechanistic analog — the least defensible part of the binding story.",
+    "BLOCKS": "nothing — it works. Its INPUT (roles from syntax) is the gap; see F3/F4."
+   },
+   "constraints": [],
+   "line": 806,
+   "heading_note": ""
+  },
+  "E2": {
+   "id": "E2",
+   "name": "Situation-model register / event indexing",
+   "fields": {
+    "BRAIN'S MATH": "event-indexing with prediction-error-driven segmentation (Zwaan; Zacks & Franklin SEM — a boundary is posted when prediction error crosses threshold). The register's update rule is UNPINNED.",
+    "OURS": "hdlab/situation_model_accumulate.py:84-103 — bound = bind(role_vec, idx_vec[event]) bundled into a per-entity register; decode by unbind then cleanup_argmax = argmax_v Re(Σ conj(vocab_v)·readback)/d. CausalLinkRegister reuses the identical organ with CAUSE/EFFECT keys. situation_model_multibank.py routes by deterministic hash, not a noisy-cue argmax (the code says so explicitly). No PE signal, no segmentation.",
+    "FIDELITY": "RIGHT-OP-WRONG-PLACE / PARTIAL — has the register, has none of the PE-driven segmentation that decides when to write.",
+    "WIRED": "YES — and situation_model_multibank is live too, lazily, from situation_model_accumulate.py:154 inside make_situation_register. It is one of only four modules the whole live path gains from a lazy import.",
+    "EVIDENCE": "the closest end-to-end measurement, exp_situation_model_assembly_encoder_backed_v1: maintenance 0.4625 / coref 0.5825 / overwrite 0.4508 against floors chance 0.05 and a ref_span ceiling 0.98 — verdict LOCALIZED_WALL. The two organs it depends on (E1 binding, D5 WM) are independently confirmed but were never run together before this. Floored and failing.",
+    "BLOCKS": "multi-sentence comprehension — the north-star operation."
+   },
+   "constraints": [
+    "independently confirmed but were never run together before this. Floored and failing."
+   ],
+   "line": 826,
+   "heading_note": ""
+  },
+  "E3": {
+   "id": "E3",
+   "name": "Coreference: which later mention is which earlier entity",
+   "fields": {
+    "BRAIN'S MATH": "parallel cue-based content-addressable retrieval, not serial search — retrieval speed is flat across dependency distance; cues combine by weighted parallel constraint satisfaction, not filter-then-rank; degradation is similarity-based interference (a crosstalk profile, not a combinatorial search cost) (Lewis & Vasishth 2005; McElree SAT; Jäger, Engelmann & Vasishth 2017 meta-analysis). The cue weights and the activation equation are UNPINNED — the literature gives an ORDERING (agreement > implicit causality > grammatical role > recency > coherence relation), not numbers. Centering likewise supplies an ordering (subject > object > oblique; CONTINUE > RETAIN > SMOOTH-SHIFT > ROUGH-SHIFT), not arithmetic (Grosz, Joshi & Weinstein 1995). Late-maturing reference-set computation (children over-accept until 10-11 years) motivates a top1−top2 margin gate with abstention rather than a forced choice.",
+    "OURS": "hdlab/coreference_resolver.py:192 and hdlab/state_of_mind.py:247 share the arithmetic: salience = count + β·exp(−λ·(now − last_pos)) with β=0.5, λ=0.1 fixed, window K=5; three modes (salience argmax, strict-Cb argmax over most-recent subject-like clause, Principle-B filter); abstain if top-2 relative margin < 0.10 (:90). NAME/NOMINAL mentions resolved by normalised-token Jaccard. hdlab/coref.py:119-120 weights subject mentions 2.0, others 1.0, plus a role-parallelism bonus 0.5.",
+    "FIDELITY": "RIGHT-OP-WRONG-METRIC. The brain-side source supplies an ORDERING and we invented arithmetic on top of it — fixed β and λ are ours, not the literature's. The margin-gate abstention is a genuine fidelity win (it matches reference-set computation). Token Jaccard is not a semantic comparator.",
+    "WIRED": "YES",
+    "EVIDENCE": "exp_read_coref_hobbs_centering_resolver_v1 HARD_PASS at 1.000 — on n=10, with floors FULL-vs-OFF (10 vs 0) and NOGATE precision 0.949. n=10 is not a capability. exp_extraction_quality_gate_neural_coref_v2 = NO_GO against floors recency 0.5439 and singleton 0.4737 on metric coref_b3_f1, n=57. ⚠️ CROSS-RUN CONFLATION CORRECTED (2026-08-14). Those two floors are real and DO reproduce on disk — but they belong to that ONE experiment, on coref_b3_f1, and this doc used them as the floors for the whole organ. On the run where our own resolver is actually measured (exp_wire_coref_accumulate_situation_model_v1, identity-demanding query accuracy over 36 McGuffey passages), the same-run floors re-aggregate to recency 0.5614 and singleton 0.3860, and our resolver scores 0.7193 (earned 0.6842, oracle 0.9298). So on the only comparison that is same-corpus / same-metric / same-run, WE ARE NOT LOSING TO TRIVIAL BASELINES — we are 0.16 above recency and 0.33 above singleton. The prior \"we lose to pick-the-last-subject\" reading came from comparing a resolver score in one run against floors from a different run on a different metric, propagated one hop from a stale docstring. Only the 0.5614 / 0.3860 pair may be set beside the 0.7193. The real remaining gap is oracle 0.9298 − earned 0.6842. 🔻 TWO LIMITS ADDED 2026-08-22, NEITHER OF WHICH THIS PARAGRAPH CARRIED, AND BOTH LOAD-BEARING. (1) THE MENTIONS ARE SUPPLIED. build_mention_stream reads passage['entities'] — a GOLD mention inventory keyed by gold entity name — so the resolver decides LINKING given the mentions and this does not transfer to raw prose. The eval path is data/eval_gold_mention_role_mcguffey_v1/, i.e. gold-mention-annotated McGuffey. (This paragraph had the CORPUS right where substrate.py's E3 slot said LitBank — and the slot had the GOLD dependency, which this paragraph omitted. Each document held half the caveat; the slot is now corrected too.) (2) THE SCALE IS 41 OF 57. n_queries_identity_demanding = 57, and 41/57 = 0.7193 exactly. notes/CORRECTION_the_E3_margin_over_its_STRONG_floor_is_NOT_CI_separated_at_n57_2026-08-21.md already records that the margin over its strong floor is NOT CI-separated at that n. ➡️ So \"we are not losing to trivial baselines\" stands as written, on that population — but it is a 57-query result with the mention inventory handed to it, and it may not be quoted as coreference-on-raw-prose capability. Measured: of 22 files citing 0.7193 in coreference context, 15 carry no caveat within 400 characters. The resolver's confidence signals were VET'd at AUC 0.65-0.75 for predicting its own errors — metacognition, not resolution accuracy. Competitive resolution among 2+ semantically plausible antecedents has NEVER been tested at scale.",
+    "BLOCKS": "multi-sentence comprehension; all of E4."
+   },
+   "constraints": [
+    "⚠️ CROSS-RUN CONFLATION CORRECTED (2026-08-14). Those two floors are real and DO reproduce on",
+    "propagated one hop from a stale docstring. Only the 0.5614 / 0.3860 pair may be set beside the",
+    "corrected too.)",
+    "Competitive resolution among 2+ semantically plausible antecedents has NEVER been tested at"
+   ],
+   "line": 846,
+   "heading_note": ""
+  },
+  "E4": {
+   "id": "E4",
+   "name": "Discourse / bridging inference",
+   "fields": {
+    "BRAIN'S MATH": "causal/elaborative bridging beyond what is stated (Graesser). UNPINNED. Standing structural insight to obey: causal bridging IS coreference in disguise — hippocampal relational antecedent retrieval — so it must REUSE E3's organ, not spawn a new one.",
+    "OURS": "NONE",
+    "FIDELITY": "MISSING — never attempted; not even a negative result exists.",
+    "EVIDENCE": "the nearest measurements are the exp_propara_bridging_ cells (1 HARD_PASS, 4 HARD_FAIL) against floors prior_lesion 0.3176 and majority 0.2378. Those test bridging on a benchmark, not our organ. UNTESTED.",
+    "BLOCKS": "inference beyond the literal text. Presupposes E2 + E3; correctly deferred."
+   },
+   "constraints": [
+    "- FIDELITY: MISSING — never attempted; not even a negative result exists."
+   ],
+   "line": 904,
+   "heading_note": ""
+  },
+  "E5": {
+   "id": "E5",
+   "name": "Theta-gamma ordered buffer. Queue premise WRONG. Floored, and FAILING on real prose.",
+   "fields": {
+    "STRUCTURE": "hippocampal/cortical theta-gamma phase code.",
+    "OPERATION": "7 gamma sub-cycles (17 ms) per theta cycle (125 ms), one item per slot, order in theta phase (Lisman & Idiart 1995; Lisman & Jensen 2013; Heusser 2016). No source states how an item is written into a slot or read out. The Σ perm^k(x_k) form is Kanerva/Plate HDC — our math imported as the analogue. - SHAPE brain: 7 discrete phase-addressed slots. OURS: situation_focus.py:72,79 capacity=4, fanout=2 — verified at HEAD. 4 is a chosen constant, not the pinned 7 (it is Cowan's number, a different literature). POSITION brain: within-sentence maintenance feeding binding. OURS: not on the live path. METRIC brain: ordered recall of a multi-item list. OURS: event discrimination on prose. - NO LONGER UNTESTED. Two floored cells, both HARD_FAIL: - exp_focus_encode_shapefix_realprose_v1 HARD_FAIL — GROUNDED_CHUNKEDFOCUS gap_arm 0.0154 against a bag-of-words reference 0.1448, i.e. 1/9 of BOW; and the arm's own scramble control does not collapse (scramble_collapses: False), which means the buffer is carrying no order information at all. GROUNDED_DROP_TENSE reaches 0.1336 vs scramble 0.1337 — identical. The order channel is measurably empty. - exp_focus_encode_grounded_event_discrimination_realprose_v1 HARD_FAIL — gap_grounded 0.0542 vs scramble 0.0551 (scramble is HIGHER). - Adjacent, on the brain mechanism rather than our module: exp_substrate_theta_gamma_nested_with_brain_compensation_N4096_v1 HARD_FAIL — brain_full@16 = 0.1867 vs nested_base@16 = 1.0000. The more brain-faithful arm was 5× worse. Per the standing rule that a brain-faithful arm losing is presumed an implementation bug until proven structural, that is a BUG REPORT, not a verdict on theta-gamma.",
+    "GAP": "capacity 4 vs 7 is the least of it. The gap is that the chunk algebra destroys order, measured — and it is diagnosable to the same sign() quantiser: ChunkedFocus compresses via sign(Σ_k bind(inner_key_k, sub_k)), the 34-site defect applied to an ordered buffer. - EXISTS yes / IS-REACHED no / IS-GOOD no. ---"
+   },
+   "constraints": [
+    "- NO LONGER UNTESTED. Two floored cells, both HARD_FAIL:"
+   ],
+   "line": 2075,
+   "heading_note": ""
+  },
+  "F1": {
+   "id": "F1",
+   "name": "Lexical category (POS). Queue premise WRONG. Floored, and passing well.",
+   "fields": {
+    "STRUCTURE": "posterior middle/superior temporal cortex lexical access.",
+    "OPERATION": "Localisation is established; no equation exists. Map is correct, confirmed. The organ is therefore UNSCORABLE for fidelity and can only be judged on function.",
+    "SHAPE/POSITION/METRIC": "brain — unknown / pre-syntactic / unknown. OURS: averaged structured perceptron with Viterbi decode over a 5.3 MB learned model, lazily on the live path (reading_grounding_loop.py:300-303). Charter-compliant: our own learned mechanism. - NO LONGER UNTESTED. Three floored cells: - exp_pos_tagger_multiseed_cpu_v1 HARD_PASS — mean tag-acc 0.9063, std 0.0005 over 5 seeds, on real PTB. Cross-seed stability an order of magnitude inside any reasonable bar. - exp_pos_discriminative_perceptron_cpu_v1 HARD_PASS — 0.9499 on 18,699 tokens, and it states its own comparator: \"discriminative weighting beats the HMM 0.906\". - exp_pos_tagger_v3_hmm_cpu_v1 — verdict UNKNOWN, corpus_load_failed. A dead cell; do not count it either way.",
+    "HONEST CAVEAT": "0.906/0.950 is well below the 0.97 off-the-shelf taggers reach on UD/PTB, so this is \"works, is ours, is not state of the art\" — the correct charter trade, and it should be stated that way rather than as a headline. - EXISTS yes / IS-REACHED yes (lazily) / IS-GOOD yes, with the caveat above. - NO FURTHER FLOOR NEEDED. The right next question is not a floor on F1, it is whether arc_parser.py:19's placeholder head/deprel fields make F1's output unusable downstream (KNOWN-DEFECT #5). ---"
+   },
+   "constraints": [
+    "- NO LONGER UNTESTED. Three floored cells:",
+    "- exp_pos_tagger_v3_hmm_cpu_v1 — verdict UNKNOWN, corpus_load_failed. A dead cell; do not"
+   ],
+   "line": 2106,
+   "heading_note": ""
+  },
+  "F2": {
+   "id": "F2",
+   "name": "Dependency / argument-structure parsing",
+   "fields": {
+    "BRAIN'S MATH": "UNPINNED. LIFG/pSTS involvement established; the computation is not. The pinned part is an ALGORITHM, not a neural operation: X-bar endocentricity realised as a hand-written head-percolation priority table (Collins 1999 App. A), constituent pruning reaching 99.3% recall (Xue & Palmer 2004).",
+    "OURS": "hdlab/arc_parser.py hashed arc-factored scoring, _decode:149 per-token margin = best − second, greedy heads + cycle-break; margin is the calibrated abstain signal. hdlab/arc_labeler.py same perceptron family.",
+    "FIDELITY": "UNSCORABLE.",
+    "WIRED": "YES, lazily (same site as F1).",
+    "EVIDENCE": "arc_labeler self-test PASS. Floor not established in this audit. ⚠ arc_parser.py:19: head/deprel fields are PLACEHOLDERS in parse() — only form and upos are read at inference. Any claim resting on our dependency structure needs to check this first.",
+    "BLOCKS": "verb/role extraction; F3."
+   },
+   "constraints": [],
+   "line": 947,
+   "heading_note": ""
+  },
+  "F3": {
+   "id": "F3",
+   "name": "Thematic role assignment",
+   "fields": {
+    "BRAIN'S MATH": "MacWhinney Competition Model — role assignment integrates probabilistic cues weighted by cue VALIDITY (availability × reliability) against cue COST. This is a real, pinned equation. Soft re-ranking over survivors uses information-theoretic selectional association over WordNet classes (Resnik 1996 Cognition 61) — which replaced Katz & Fodor's hard selectional restrictions precisely because hard gates are brittle to metonymy (\"the White House announced\"); humans type-coerce rather than reject. Animacy is an early, verb-INDEPENDENT prominence cue (Bornkessel-Schlesewsky eADM); its combination rule is UNPINNED.",
+    "OURS": "hdlab/thematic_role_labeler.py:495-499 — count-based cue weights w[(f,gold)] += 1, cw[(f,gold)] += c, then argmax (perceptron family).",
+    "FIDELITY": "RIGHT-OP-WRONG-METRIC — the competition shape is right; raw counts are not cue validity, and cue cost is absent entirely.",
+    "WIRED": "YES",
+    "EVIDENCE": "modern-revalidated at +0.267 but ANIMACY-DOMINANT — one cue doing the work, which is exactly what a validity-weighted model would expose. Related floored negative: exp_syntactic_role_agent_patient_voice_probe_v1 scored 0.1792 / 0.1625 against chance 0.50 and shuffled controls 0.513/0.529, verdict ENCODER_POSITION_ONLY. 🔴 ADDED 2026-08-15 (correction C21), because a wrong number for this organ is in circulation: the revalidation cell's verdict is HARD_FAIL, not a pass — exp_thematic_role_labeler_qasrl_modern_revalidation_v1, mean_qasrl_noncanon 0.7442, n_noncanon = 3937, 5 seeds, failing precisely because animacy_only reproduces the full model within 0.05. The HARD_PASS figure (mean_full_acc 0.8666 vs positional 0.6032) is a different cell at n_test = 63 (exp_thematic_role_labeler_cue_integration_v1). \"0.95 held-out\" is not a number this organ ever produced — its only source is notes/research_next_benchmark_after_propara_trap_check_2026-08-10.md:11,301, which says \"0.95 parse coverage\"; the coverage figure was transcribed as accuracy downstream. The EVIDENCE line above was already honest; this note exists to kill the transcription, not to demote the organ.",
+    "BLOCKS": "verb-frame learning (F4)."
+   },
+   "constraints": [],
+   "line": 962,
+   "heading_note": ""
+  },
+  "F4": {
+   "id": "F4",
+   "name": "Frame induction / syntactic bootstrapping",
+   "fields": {
+    "BRAIN'S MATH": "syntactic bootstrapping (Gleitman) — the frame constrains the verb's meaning. UNPINNED as an equation. The adjacent pinned constraint is semantic bootstrapping's graded, not veto requirement (Grimshaw 1981; Pinker 1984): a hard entity-hood gate reproduces exactly the brittleness that killed hard selectional restrictions.",
+    "OURS": "hdlab/frame_induction.py — feature encoder over hdlab/learner MDL selection (G1); features are hand lists.",
+    "FIDELITY": "UNSCORABLE brain-side; FLOORED AND FAILING on its own task.",
+    "WIRED": "YES",
+    "EVIDENCE": "MIDDLE_BAND on real text and LOSES to a trivial position-majority baseline: 0.833 vs 1.000 (subject), 0.455 vs 0.545 (object). A genuine floor, and we are below it.",
+    "BLOCKS": "verb learning — but the binding constraint is UPSTREAM: the foundation contains 0 genuine verb definitions in 2,092 facts (66.7% NOUN / 28.0% PROPN / 2.3% VERB; hand inspection of the 48 VERB-tagged rows found zero real verb definitions). Wiring this organ harder cannot fix a verb population that does not exist."
+   },
+   "constraints": [],
+   "line": 993,
+   "heading_note": ""
+  },
+  "F5": {
+   "id": "F5",
+   "name": "Coherence monitor (the N400 generator)",
+   "fields": {
+    "BRAIN'S MATH": "N400 amplitude = the MAGNITUDE OF UPDATE forced on a running probabilistic situation-model representation by the incoming word — i.e. ‖Δ situation_model‖, a prediction error against the CURRENT discourse state, not against a fixed template (Rabovsky, Hansen & McClelland 2018 Nat Hum Behav; Kutas & Federmeier 2011). The reference point is pinned; the norm and the update rule are UNPINNED. The error is precision-weighted — a gain decides whether it drives revision at all (form pinned: precision × error; the precision estimator UNPINNED). The P600 is a separate discrete structural-incoherence flag with no math at all, and the field disputes whether it is a second mechanism or one graded process read two ways.",
+    "OURS": "NONE. No module computes a running-situation-model update magnitude. self_improving_loop.py:88 computes a top1 − top2 margin delta over FHRR role decodes and adopts the max — a different quantity, and its own docstring flags that it over-adopts on zero-gain margin spikes when event structure is thin. gap_detector measures item familiarity, not discourse coherence.",
+    "FIDELITY": "MISSING.",
+    "EVIDENCE": "none. UNTESTED.",
+    "BLOCKS": "knowing when comprehension has failed. PHASE-B NOTE: the human baseline here is bad — 40-50% of subjects fail to notice a controlled semantic anomaly (Barton & Sanford 1993 Mem Cogn 21:477; Erickson & Mattson 1981 Moses illusion), and the undetected error propagates into durable memory. An always-on engineered check can structurally beat the brain here, not merely match it. That is a real Phase-B opportunity — after the Phase-A organ exists."
+   },
+   "constraints": [
+    "(MISSING — and a legitimate PHASE-B target)"
+   ],
+   "line": 1009,
+   "heading_note": "(MISSING — and a legitimate PHASE-B target)"
+  },
+  "F6": {
+   "id": "F6",
+   "name": "Construction-Integration: settling a multi-sentence interpretation",
+   "fields": {
+    "BRAIN'S MATH": "Construction spreads activation loosely; Integration is constraint satisfaction: A(t+1) = normalize(A(t) · W) over a proposition-connectivity matrix W built from argument overlap and context fit, run a small fixed number of cycles — not to a formal energy minimum (Kintsch 1988 Psychol Rev; 1998). ⚠ Flagged in the source: the original matrix-update equation could not be freshly verified — \"recalled/folklore, not freshly re-verified.\" Verify before building on it. Companion: the Landscape model's coherence-break repair (passive cohort activation + active coherence-based retrieval) is UNPINNED — no threshold, no search rule.",
+    "OURS": "NONE.",
+    "FIDELITY": "MISSING.",
+    "EVIDENCE": "none. UNTESTED.",
+    "BLOCKS": "multi-sentence integration. - ACCEPTED SHARED LIMIT, recorded so it is not mistaken for a bug: garden-path reanalysis is partial in humans — thematic roles assigned along the garden path linger alongside the corrected parse (Christianson, Hollingworth, Halliwell & Ferreira 2001 Cogn Psychol 42:368). Bounded- iteration constraint satisfaction converges to a stable answer, not the correct one. That is brain-shared and is not to be engineered around in Phase A. ### G. LEARNING AND PLASTICITY"
+   },
+   "constraints": [
+    "(MISSING)",
+    "partial in humans — thematic roles assigned along the garden path linger alongside the corrected"
+   ],
+   "line": 1031,
+   "heading_note": "(MISSING)"
+  },
+  "G1": {
+   "id": "G1",
+   "name": "The cortical learning rule. Queue premise WRONG on evidence, RIGHT on the fidelity gap.",
+   "fields": {
+    "STRUCTURE": "neocortex (association cortex), slow phase; hippocampus, fast phase.",
+    "OPERATION": "Re-read notes/lit_scan_cortical_learning_rule_and_sparsity_2026-08-13.md end to end. Sensory hierarchies: a live and mathematically serious program — predictive-coding nets with purely local Hebbian plasticity provably converge to backprop's updates (Whittington & Bogacz 2017 Neural Computation 29:1229; generalised by Millidge 2022). Lexical-semantic acquisition: UNPINNED, deliberately — the scan's own words are that the slow phase is \"closer to a Hebbian/statistical- learning process operating over replayed samples than to literal backpropagated error\", and no equation is offered for either half. Also pinned and load-bearing: pure local/Hebbian rules did not beat fixed random projections at large hidden width (Illing, Gerstner & Brea 2019). - SHAPE/POSITION/METRIC brain: graded synaptic weights / slow, offline, interleaved / retention plus generalisation. OURS: learner/core.py MDL two-part-code model selection — an algorithmic-level selection principle, not a synaptic update rule. The one genuine delta rule we own is compose_freq_routing.py:110-111. - NO LONGER UNTESTED. Two floored cells, and one is the strongest evidence in this batch: - exp_learner_mdl_gate_on_acquisition_traces_v1 HARD_PASS — the MDL gate run on REAL acquisition traces, guard_invariant_held=True, 20/66 verdict changes against the schema gate with a full 2×2 confusion (T_T 7 / T_F 20 / F_T 8 / F_F 31) and a named list of the 16 lemmas it removes. A genuine can-fail comparison: an inert gate would show 0/66 changes. - exp_substrate_compose_freq_routing_v5_DEFINITIVE HARD_PASS chain-grade — the delta-rule module: FREQ_N8192 7.1647 vs BASE_N8192 7.3124 vs unigram 7.738, lift +0.1477, replicated at N=4096 (+0.1435), cv 0.0009 over 5 seeds, both sanity rails pass, v4 reproduced to +0.0057. Cross-N, cross-seed, real baseline, real ceiling — and compose_freq_routing has ZERO consumers.",
+    "THE GAP IS UNCHANGED AND NOW SHARPER": "the map says G1 \"has never been measured as a learner\". Corrected: the MDL gate and the delta rule have both been measured; the LOOP has not. What is untested is whether reading more text improves the substrate — not whether either learning primitive works. - EXISTS yes / IS-REACHED learner yes, compose_freq_routing no / IS-GOOD yes for both primitives. ---"
+   },
+   "constraints": [
+    "- NO LONGER UNTESTED. Two floored cells, and one is the strongest evidence in this batch:",
+    "- THE GAP IS UNCHANGED AND NOW SHARPER: the map says G1 \"has never been measured as a learner\".",
+    "Corrected: the MDL gate and the delta rule have both been measured; the LOOP has not. What is"
+   ],
+   "line": 2130,
+   "heading_note": ""
+  },
+  "G2": {
+   "id": "G2",
+   "name": "Prediction-error gating of plasticity. Queue premise WRONG. Floored, and the gate is INERT.",
+   "fields": {
+    "STRUCTURE": "hierarchical cortex, superficial (error) vs deep (prediction) laminae.",
+    "OPERATION": "residual = x − x̂ as the learning signal, precision-weighted (Rao & Ballard 1999 Nat Neurosci 2:79; Friston). A genuine equation with an explicit generative model. The PRECISION ESTIMATOR is UNPINNED — the form precision × error is pinned, what sets the precision is not. - SHAPE brain: graded residual vector, magnitude carries the signal. OURS: predictive_coding.py:84-86 — verified at HEAD — return 0.5 (1.0 - cos), a cosine-derived scalar in [0,1], not the L2 of the residual its docstring implies, computed on a sign()-quantised prediction. A large graded error and a small one that flips the same bits are indistinguishable. POSITION brain: gates plasticity at the moment of encoding. OURS: correct position. METRIC brain: free energy / surprise. OURS: a threshold on the scalar. - NO LONGER UNTESTED. Four cells, two of which indict the module: - exp_pc1_predictive_coding_residual_gate_v1 MIDDLE_BAND — floors present and can-fail: VAN (ungated) rec 1.000 norm 183177.2, and RND (random gate at MATCHED skip rate 0.50) rec 0.515. Result: PC_RESIDUAL_GATE_THRESH_0p3 has skip = 0.00 and norm 183177.2 — byte-identical to the ungated arm. The gate never fired. An inert knob that reads as live — the same class as KNOWN-DEFECT #6. PC_RESIDUAL_PROPORTIONAL does work: norm 91578.4 at rec 1.000, a 2× compression. - exp_predictive_coding_relative_threshold_v1 MIDDLE_BAND — the relative_threshold_gate (:176-177) scores F1 0.697 against the ABSOLUTE threshold's 0.905, worst-case margin −0.248. The brain-flavoured relative gate is decisively worse than a plain constant. - exp_lap2_9_predictive_coding_cpu_v1 HARD_PASS — residual storage reconstructs at recall 1.000 with 0.35× the bits. Both recall arms are 1.000, so the discriminator is bits, not recall; treat the 1.000 pair as suspect per the map's perfect-1.000 class. - exp_substrate_owned_predictive_coding_encoder_v1 HARD_FAIL vs word2vec — do not cite: every arm reports bpc 7.738 and the word2vec arm reports inf with lift=nan. A broken harness, not a result. - GAP, named concretely: two lines. (i) residual_magnitude should be the norm of the graded residual, not 0.5·(1−cos) of a quantised one; (ii) the default threshold produces skip=0.00, so the organ is off by default. Neither is a research question. - EXISTS yes / IS-REACHED — definition clash, resolve it: this map says WIRED: NO (meaning \"not in the live reading-loop closure\"); capability_registry says predictive_coding ALREADY_WIRED / WIRED with 5+ experiment consumers. Both are true under their own definitions. The map should say \"LIVE-PATH: NO\" rather than \"WIRED: NO\" — the word collides with the registry's and has already produced one apparent contradiction. / IS-GOOD the proportional variant yes, the threshold gates no. ---"
+   },
+   "constraints": [
+    "- NO LONGER UNTESTED. Four cells, two of which indict the module:",
+    "ungated arm. The gate never fired. An inert knob that reads as live — the same class as",
+    "- exp_substrate_owned_predictive_coding_encoder_v1 HARD_FAIL vs word2vec — do not cite:"
+   ],
+   "line": 2163,
+   "heading_note": ""
+  },
+  "G3": {
+   "id": "G3",
+   "name": "Neuromodulatory gain. Queue premise WRONG. Floored FOUR times, and it is the batch's headline.",
+   "fields": {
+    "STRUCTURE": "basal forebrain ACh and locus coeruleus NE projections to cortex.",
+    "OPERATION": "Multiplicative gain on cortical responsivity is pinned as a form (Aston-Jones & Cohen 2005 adaptive gain theory; Servan-Schreiber, Printz & Cohen 1990's gain parameter on the activation function). What SETS the gain is not pinned; the related C3 finding is that IFG boosts effective connectivity to the relevant spoke (Chiou & Lambon Ralph 2018, F(2,34)=3.86, p=.03) without specifying the multiplier. - SHAPE brain: a per-dimension (per-population) multiplier on the representation. OURS: modulators.py — five global SCALARS, one module-level state holder. A global scalar is rank-0 where the brain is rank-d. POSITION brain: applied at READ, under task control. OURS: applied to bundling RECENCY and as a HARD CUTOFF in memory.Codebook.lookup:65-69 (return name if score >= attention else None — a threshold, not a gain). METRIC brain: task-relevant discriminability. OURS: none. - NO LONGER UNTESTED. Four floored measurements, and together they make one clean statement: - exp_wave14i_neuromod_gain — verdict NEUROMOD_GAIN_COSMETIC: \"HGF improvement 0.0% < 5%. Schedules are cosmetic in our regime.\" - exp_substrate_ACh_query_conditional_read_gain_LM_v1 HARD_FAIL — per-query read-gain lift +0.0058 against a 0.03 bar; GLOBAL_BPC 5.1274 / MARGIN 5.1216 / ENTROPY 5.1355 / UNI 5.5226, replication_ok = False. - data/exp_task_local_normalisation_pool_v1 (already in the map at C3) HARD_FAIL_GAIN_HURTS — −0.0220 CI [−0.0340, −0.0097]. - exp_excitability_gated_substrate_cpu_v1 HARD_PASS — gated_hi 1.000 vs ungated_hi 0.500 at K=1200 above the capacity cliff. - THE STATEMENT THOSE FOUR MAKE, AND IT IS THE LARGEST FIDELITY GAP IN THIS BATCH: gain applied as a GLOBAL SCALAR or PER-RAW-DIMENSION is null-to-harmful in every measurement we own (0.0%, +0.0058, −0.0220); gain applied as a PER-ROW MULTIPLIER ON THE WRITE is +0.500. The brain applies gain per-population at READ under task control; we apply a scalar at bundling and a threshold at lookup. The one place we implement real multiplicative gain on the right object is excitability.py — and it is an ISLAND with zero consumers. This also completes the G3 decorrelation-drill argument with evidence: those nulls are wrong-basis and wrong-object implementations, not evidence that gain fails. - EXISTS yes (both) / IS-REACHED modulators yes but only in the two degenerate roles; excitability no / IS-GOOD the row-gain yes, the scalar no.",
+    "SMALLEST CAN": "apply excitability.py's existing row-gain to the READ side of the near-neighbour 2AFC, one variable, at the d chosen by STEP 2. Floors: (i) a RANDOM row-gain vector with the identical distribution — the arm that kills it, and the arm the four failed reweightings never ran; (ii) the ungained live arm 0.6395; (iii) in-cell scrambled context. If a random gain vector matches the learned one, the organ is decorative — exactly as exp_rank1_common_mode_removal_v1 showed a random rank-1 direction matching the real one. ---"
+   },
+   "constraints": [
+    "- NO LONGER UNTESTED. Four floored measurements, and together they make one clean statement:",
+    "it, and the arm the four failed reweightings never ran; (ii) the ungained live arm 0.6395; (iii)"
+   ],
+   "line": 2203,
+   "heading_note": ""
+  },
+  "G4": {
+   "id": "G4",
+   "name": "Basal ganglia: Go/NoGo action selection",
+   "fields": {
+    "BRAIN'S MATH": "WTA disinhibition over Go/NoGo pathways; TD learning with bootstrapped value.",
+    "OURS": "hdlab/action_selection.py:125-172 — Hebbian operator W = (Sᵀ @ O)/n; TD pred = E_cur @ M, target = E_next + γ·(E_next @ M); adaptive LR from ratio = ‖e‖/median(‖e‖) clipped; gate = argmax_i Go_i.",
+    "FIDELITY": "SAME op-class.",
+    "WIRED": "NO",
+    "EVIDENCE": "the docstring records honest decay — gonogo 0.653 @ depth 4 → 0.075 @ depth 6. That is a self-reported failure profile, not a floored capability. PARTIALLY FLOORED.",
+    "BLOCKS": "nothing today. ### H. METACOGNITION, FORAGING, AND THE STORE"
+   },
+   "constraints": [],
+   "line": 1155,
+   "heading_note": ""
+  },
+  "H1": {
+   "id": "H1",
+   "name": "Perirhinal familiarity: \"do I already know this?\"",
+   "fields": {
+    "BRAIN'S MATH": "a fast, graded, single-dimensional strength signal available BEFORE recollection completes, compared against a criterion (dual-process/SDT). The criterion-setting rule is UNPINNED; the SHAPE is pinned.",
+    "OURS": "hdlab/gap_detector.py:92-191 — run cleanup_family.iterative_attractor (temp default 8.0) to pick a winner, then compute the margin from the UNTOUCHED RAW QUERY: :117 margin = dot(q_raw, cb[best]) / (‖q‖·‖cb‖), deliberately not the attractor's settled state; :191 is_gap = margin < floor. Exact match ⇒ 1.0, shared-2-of-3 ⇒ 0.5, novel ⇒ noise floor.",
+    "FIDELITY": "SAME. A graded strength read before settling, compared to a criterion, is the brain's shape — and the module states the design reason explicitly.",
+    "WIRED": "YES",
+    "EVIDENCE": "registry gap_detector_familiarity_gate = validated_hard_pass_signal_detection_2026-08-12; the module carries an ABLATION CONTROL (the ablated arm replaces the margin with uniform(−1,1)). exp_gap_detection_autonomous_confidence_v1: AUC 1.000, d′ 5.15, against floors prereg 0.625, chance 0.50, lesion arm n=40. FLOORED AND PASSING — the healthiest organ in the map. Honest caveat: a perfect 1.000 on synthetic probes is suspect-1.000 territory; the ablation is real but the items are not real text.",
+    "BLOCKS": "nothing. Its output has nowhere to go — see H2. That is the tragedy of this row."
+   },
+   "constraints": [],
+   "line": 1168,
+   "heading_note": ""
+  },
+  "H2": {
+   "id": "H2",
+   "name": "Information foraging: deciding WHAT TO READ NEXT",
+   "fields": {
+    "BRAIN'S MATH": "UNPINNED. Candidates exist (LC-NE gain/exploration; dopaminergic information-seeking; curiosity as expected information gain) but there is no settled cortical equation for \"choose the next source given what you don't know.\" This is a real gap in the literature, not in our reading of it. 🔴 WRONG — the operation IS pinned. See §10.1/H2b-3.",
+    "OURS": "NONE. hdlab/gap_driven_reader.py:192-200 rank_material() exists but is, in its own docstring's words, \"intentionally target-agnostic\" — it ranks only what the caller hands it. Repo-wide there are zero occurrences of select_corpus / choose_corpus / next_corpus / pick_corpus / corpus_selection / corpus_scheduler. The readable universe is a hard-coded 4-entry dict (experiments/exp_reading_grounding_loop_cycle2_v1.py:132-137) plus a --segment CLI arg, while data/corpora/ holds 36 entries (verified this pass: agreement, alice_in_wonderland, arc, base_vocabulary, binder, graded_readers_, litbank_, mcguffey_, mcscript2, onestop, openstax_common, process_articles_v1, race, simplewiki, social_iqa, six OpenStax textbooks, ud_english_ewt, wiqa, worldtree, …). The 251 MB simplewiki has been on disk since 2026-07-28 and is already read by a different arc.",
+    "FIDELITY": "MISSING.",
+    "WIRED": "NO. gap_driven_reader has zero hdlab/ importers; its single importer repo-wide is one experiment cell.",
+    "EVIDENCE": "exp_gap_driven_reader_controlled_v1 = HARD_PASS, prereq precision 1.0 against floors ablated 0.0, random baseline 0.125, theoretical chance 0.1667 — but n_trials = 8, and the caller builds 4 synthetic f-string pseudoword templates per trial. The organ has never seen real text. A PASS on synthetic templates is not a floor for corpus selection. UNTESTED where it matters.",
+    "BLOCKS": "ALL self-directed growth. The loop notices individual words it does not know, but only among words already in front of it. Measured consequence: 64.5% of every definitional fact the substrate has ever produced came from one segment (bio_new, 1,118 of 1,734 distinct terms); 11,122 refusals over 3,689 distinct lemmas and 10,296 pending items are persisted and tagged by segment — and no code anywhere performs the group-by that would make the imbalance visible."
+   },
+   "constraints": [
+    "(LABEL CORRECTED 2026-08-20: NOT MISSING. hdlab/information_foraging.py is on disk, capability_registry.jsonl carries information_foraging_mvt_leave_rule, and Substrate BUILDS it at runtime -- it appears in sub._built. The prior MISSING -- and it is step 1 label was stale.)",
+    "🔴 SUPERSEDED 2026-08-14/15 — SEE §10.1/H2b BEFORE READING THIS ENTRY. The organ is NOT missing",
+    "the caller builds 4 synthetic f-string pseudoword templates per trial. The organ has never seen real"
+   ],
+   "line": 1187,
+   "heading_note": "(LABEL CORRECTED 2026-08-20: NOT MISSING. hdlab/information_foraging.py is on disk, capability_registry.jsonl carries information_foraging_mvt_leave_rule, and Substrate BUILDS it at runtime -- it appears in sub._built. The prior MISSING -- and it is step 1 label was stale.)"
+  },
+  "H3": {
+   "id": "H3",
+   "name": "Refusal / confidence gate",
+   "fields": {
+    "BRAIN'S MATH": "metacognitive criterion-setting on a graded evidence variable (SDT). Form pinned; how the criterion is SET is UNPINNED.",
+    "OURS": "reading_grounding_loop.py::_make_grounding_gate:1102 threshold on accumulated-context cosine with explicit refusal reasons (TAUTOLOGY_NO_ANCHOR, closed-class/low-information filters); hdlab/refuse_gate.py calibrates τ over every unique calibration score; hdlab/clarify_gate.py:84-85,157 three-band REFUSE / CLARIFY / ACCEPT with clarify_τ = the 10th percentile of ambiguous scores; hdlab/conformal.py:52-53 split-conformal quantile q = sorted(scores)[⌈(n+1)(1−α)⌉−1] (the one statistically principled criterion we own).",
+    "FIDELITY": "RIGHT-OP-WRONG-METRIC — shape is right; the criteria are percentile heuristics except in conformal.py, which is not wired to the grounding gate.",
+    "WIRED": "the grounding gate YES; low_information_filter, refuse_gate, clarify_gate, conformal NO.",
+    "EVIDENCE": "the gate demonstrably FIRES (11,122 refusals persisted, 7 fields, 100% populated). There is no measurement of whether it refuses the RIGHT things — no floor on refusal correctness. And state.refusals is written, counted, reloaded — and then never consulted by any decision. ⚠ low_information_filter.py:57,104: df_threshold is explicitly REPORTED_ONLY -- never a gate — a knob that looks live and is inert.",
+    "BLOCKS": "nothing directly. A working detector whose output is discarded."
+   },
+   "constraints": [
+    "And state.refusals is written, counted, reloaded — and then never consulted by any decision.",
+    "⚠ low_information_filter.py:57,104: df_threshold is explicitly REPORTED_ONLY -- never a gate"
+   ],
+   "line": 1225,
+   "heading_note": ""
+  },
+  "S1": {
+   "id": "S1",
+   "name": "Semantic long-term store: write and glass-box read-back",
+   "fields": {
+    "BRAIN'S MATH": "distributed cortical semantic memory; graded synaptic weight distribution. No equation for the store as an addressable object — UNPINNED. This is arguably a substrate engineering organ with no single brain counterpart, and is labelled so.",
+    "OURS": "hdlab/hd_fact_store.py:229 — acc += bipolar_bind(role_key(r), sym_vec(filler)) over {REL, ARG0, ARG1, SOURCE, TRUST}, then sign(). Recovery :209-210 scores = codebook @ filler_hat; j = argmax — cleanup restricted to a per-domain codebook, which is the only thing preventing cross-field argmax collisions. Genuinely glass-box: every field, including provenance and trust, recovers by role-query unbind.",
+    "FIDELITY": "RIGHT-OP-WRONG-METRIC — the fourth prototype operator; the quantiser again.",
+    "WIRED": "YES",
+    "EVIDENCE": " Of 3,544 GROUNDED_MEANING facts, 2,328 (65.7%) are self-referential tautologies (X, GROUNDED_MEANING, X); the substantive cross-grounded set is 1,216, of which roughly 35% meaningful / 25% related / 40% noise by hand audit. The original foundation-validation claim was CIRCULAR — the grounding target is selected by cosine over same-sentence context, then tested for co-occurrence in that same text; claim2b and the claim3 ablation cannot fail by construction. ⚠ Two capacity results on this store have NO FLOOR AT ALL: cell4_results reports recall@1 = 1.0000 at 100,000 facts, HARD_PASS, with no random-key arm, no scramble, no decoy — and a noise sweep 0.05-0.5 that returns 1.0 at every level. ✅ CORRECTED 2026-08-23 -- \"THE SWEEP NEVER BIT\" IS WRONG, AND WRONG AGAINST THE SYSTEM. A plain random-key baseline (no pseudoinverse, no PCA, no padding) BREAKS INSIDE that range: 0.9520 at noise 0.2 and 0.1580 at 0.5, where this system held 1.0000 at both. The range CAN bite; it did not bite THIS system, which is a fact about the system, not the sweep. ⚠️ noise_std is not scale-free, so this shows the range DISCRIMINATES, not that both arms were equally stressed. 📐 The headline still needs its mechanism beside it: n_fragments=128, per_fragment_capacity=819, in_fragment_retrieval=\"exhaustive\" -- so 100,000 facts, recall@1=1.0 is 128 INDEPENDENT EXHAUSTIVE SCANS OF 819 ITEMS, not one 100,000-way lookup. Witness: verification/test_the_100k_noise_sweep_bites_and_the_system_survives_it.py; and exp_hd_fact_store_source_trust_vet_v1 reports 1.000/1.000/1.000, verdict PASS, no floor. 🔻 THE FLOOR WAS RUN 2026-08-23 AND IT TIES: a dictionary and four if-statements -- no hypervectors, no store, no encoder -- score 1.000/1.000/1.000 on the SAME 160 trials. The scenario supplies everything needed to solve it: conflict IS same-(s,r)-different-o, trust_ladder decides REPLACE vs DROP, and relation_cardinality decides the one interesting call (FLAG vs COMBINE between EQUAL-trust sources). Negative control: flatten the trust ladder and the floor falls to 0.500, so it genuinely uses trust rather than tying by accident. ➡️ THE NUMBER MEASURES THE SCENARIO'S CONSTRUCTION, NOT THE STORE. ⚠️ Not a charge against the cell -- its first line calls itself a DEMONSTRATION and it states its honest frame. It is a charge against CITING it as evidence. Witness: verification/test_source_trust_vet_has_a_trivial_floor.py.",
+    "BLOCKS": "every claim that rests on \"the foundation knows N things.\" --- ## 5. THE KNOWN-DEFECT REGISTER Found while reading the code for this map. None is a hypothesis; each is a line you can open. | # | site | defect | |---|---|---| | 1 | hdlab/working_memory.py | Contains zero WM mechanism — two assertion guards + constants. Any claim citing it as the WM organ is misattributed. | | 2 | hdlab/multi_hop.py:88-96 | Default β = n_dim makes the \"soft Modern-Hopfield\" softmax a Dirac delta ⇒ identical to hard argmax. The code records that two prior cells were confounded by this. | | 3 | hdlab/atoms.py:54,61 | similarity() silently returns two different metrics: /n for FHRR, true cosine for HRR. Any cross-dtype threshold comparison is unsound. | | 4 | hdlab/metrics.py:34-35 | capacity_curve is a live raise NotImplementedError(\"Week 7\") stub. | | 5 | hdlab/arc_parser.py:19 | head/deprel fields are placeholders at inference; only form and upos are read. | | 6 | hdlab/low_information_filter.py:57,104 | df_threshold is REPORTED_ONLY -- never a gate — an inert knob that reads as live. | | 7 | hdlab/layer_075_structural_slot_filter.py | The \"filter\" is (hop1 ++ hop2)[:k_final] — a truncation, not a filter. | | 8 | hdlab/predictive_coding.py:84-86 | residual_magnitude is 0.5·(1 − cos), not the L2 of the residual the docstring implies. | | 9 | hdlab/_scratch_orig_goal_owner_select.py | 889-line stale duplicate of goal_owner_select.py; self-test still passes; zero consumers; registry says delete-candidate. | | 10 | data/exp_propara_process_keyed_lookup_v1/metrics.json | verdict: \"HARD_PASS\" while verdict_msg: \"SELFTEST_PASS\" and run_mode: \"self_test\". A self-test banked under a result verdict — it inflates every HARD_PASS count. | | 11 | data/cell4_results/metrics.json | recall@1 = 1.0000 at 100k facts, HARD_PASS, no comparator of any kind. | | 12 | 30 exp_substrate_capacity cells (2026-07-03) | HARD_PASS with no numeric floor key; spot-checked ones compare only against themselves. The bulk of the 296 HARD_PASS count and the weakest-evidenced block in the archive. | | 13 | data/exp_reading_grounding_loop_cycle3_groundingfix_v1 | Reports B1_tautology_rate = 0.6569 — the number that demolished the \"3,544 grounded concepts\" claim — with no floor in metrics; the refutation lives in notes, not in the cell. | | 14 | corpus defect | base_vocabulary loads as one 74,288-word pseudo-sentence. Direction of the resulting bias runs against the claim it affected, but it is a real defect. | | 15 | hdlab/situation_reader.py:108 | _INDUCED_SUBJ_NAME, _INDUCED_SUBJ_HYP = get_induced_subj_hypothesis() runs a full frame-induction training at IMPORT time, deliberately (comment at :100-107). Importing this module costs 205 seconds (190 s in the module body). Anything that imports it pays 3.5 minutes, and it is why two prior census sweeps appeared to hang. | | 16 | hdlab/harness.py | Executes self-tests as an import side-effect — import hdlab.harness prints [SELFTEST PASS] … lines and three env warnings. Not an error, but the module is not side-effect free. | | 17 | hdlab/situation_reader.py | Imports from experiments._temporal_ordering, _temporal_ordering_multiframe, _causal_network — an hdlab/ module depends on experiments/, so the repo root must be on sys.path, not just the package. That is a layering inversion. |"
+   },
+   "constraints": [
+    "✅ CORRECTED 2026-08-23 -- \"THE SWEEP NEVER BIT\" IS WRONG, AND WRONG AGAINST THE SYSTEM. A plain random-key baseline (no pseudoinverse, no PCA, no padding) BREAKS INSIDE that range: 0.9520 at noise 0.2 and 0.1580 at 0.5, where this system held 1.0000 at both. The range CAN bite; it did not bite THIS system, which is a fact about the system, not the sweep. ⚠️ noise_std is not scale-free, so this sho",
+    "| 6 | hdlab/low_information_filter.py:57,104 | df_threshold is REPORTED_ONLY -- never a gate — an inert knob that reads as live. |",
+    "| 9 | hdlab/_scratch_orig_goal_owner_select.py | 889-line stale duplicate of goal_owner_select.py; self-test still passes; zero consumers; registry says delete-candidate. |"
+   ],
+   "line": 1245,
+   "heading_note": ""
+  }
+ },
+ "stages": [
+  {
+   "id": 1,
+   "name": "READ THE TEXT",
+   "plain": "Take ordinary prose and pull out what happened to things -- which substance dissolved, which object moved.",
+   "state": "WEAK",
+   "evidence": "90 of 100 hand-checked correct, against a trivial method's 70.5 on the same items (difference +0.23, 95% CI +0.13 to +0.33)",
+   "floor": "RUN 2026-08-23. Strongest trivial method scores 0.7053 and the real one beats it with the interval excluding zero. An information-free twin scores 0.09, so the comparison can tell things apart.",
+   "gap": "THE FLOOR PASSED AND A SHARPER TEST DID NOT. A two-line rule using only word order and active/passive voice -- with all six filters removed -- reaches 0.83, and the real method beats THAT by somewhere between 0.00 and 0.14, which does not exclude zero. So most of the 90% is the filters plus two lines of code, not the elaborate reading.",
+   "goal": "Stop improving the filters. Either show the elaborate reading beats the two-line rule at power, or replace it with the two-line rule and spend the effort on stage 2.",
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "briefs": [
+    {
+     "slug": "the_grow_by_reading_pass_has_no_floor",
+     "state": "SOLVED",
+     "priority": null,
+     "review": "EXCELLENT",
+     "review_text": "\"Ran the floor I asked for AND a diagnostic I did not, which is the one that changes what we do. INTEGRATED 08-23: re-verify passes, and its own stratum check is sharper than its summary -- the whole margin over a 2-line rule sits in PASSIVE sentences (CI [+0.469,+0.875]); on ACTIVE it is not separated at all.\"",
+     "integrated": true,
+     "result": "\"Real extractor 0.90 (90/100 hand-adjudicated survivors) vs strongest genuinely-trivial floor first_noun_after_verb 0.7053 (67/95 emitted) on the SAME 100 survivor items; paired real-minus-floor +0.23, 95% CI [+0.13, +0.33], McNemar exact p=2e-5. The 0.90 is NOT a pure selection artifact -- but a 2-line voice-aware rule already reaches 0.83, so most of it is filter-selection plus a trivial rule, not the sophisticated reading.\"",
+     "floor": "\"Strongest genuinely-trivial floor = first_noun_after_verb = syntactic_object_no_filter = 0.7053 precision-over-emitted (0.67 acc over 100). Also: nearest_noun_to_verb 0.70; information-free constant twin most_frequent_entity 0.09. Filter-contribution DIAGNOSTIC voice_aware_adjacency (the real arm's candidate step minus all 6 filters) = 0.83, real-minus-it CI [0.00, 0.14] -> NOT CI-separated.\"",
+     "reverify": "\".venv/Scripts/python.exe verification/test_grow_by_reading_trivial_floor.py\""
+    },
+    {
+     "slug": "lookup_does_not_lemmatise",
+     "state": "OPEN",
+     "priority": 6,
+     "review": "",
+     "review_text": "",
+     "integrated": false,
+     "result": "",
+     "floor": "",
+     "reverify": ""
+    },
+    {
+     "slug": "stored_terms_are_stems",
+     "state": "PARTIAL",
+     "priority": null,
+     "review": "STRONG",
+     "review_text": "Told to fix a defect, found it had already been repaired, and reported that instead. Their own detector caught its own false positive.",
+     "integrated": true,
+     "result": "Fresh store built on HEAD = 0/141 distinct subjects = 0.00% true stems (reading:simplewiki 0/49, substrate_seed 0/92); stale v2_qualityfix = 119/1512 = 7.87% (reading sources 8.70-16.73%). Lemmatizer over 93,338 Lancaster+Brysbaert+WordNet forms: pre-01093ac1f lemma_verb = 8,692 non-words, HEAD = 0. Inflection preserved: verb gold 53.50%->99.03% (git 7d6036bca; witness block B passes), dogs->dog, arteries->artery, walked->walk.",
+     "floor": "Detector both controls PASS. Negative control (16 real words incl. function words) = 0 false positives ONLY after excluding function words (before that it false-flagged and->andes etc, inflating the raw rate 8.40%->7.87%); positive control = 7/7 known chops flagged. The detector scores the stale store at 7.87% and the pre-fix function at 8,692/93,338, so 0.00% on the fresh store is a measured AFTE",
+     "reverify": "cd d:/AI/hd-instrument && .venv/Scripts/python.exe notes/problems/stored_terms_are_stems/measure_before_after.py"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "DECIDE WHAT WORDS MEAN",
+   "plain": "Work out what a newly-read word means by relating it to words already understood.",
+   "state": "BROKEN",
+   "evidence": "On the test of whether two words are INTERCHANGEABLE, our own rule scores 0.051 where pure guessing scores 0.486 and a right answer scores 0.960. It is not weak, it is BACKWARDS -- it confidently calls words similar when they merely turn up together. Counting which words co-occur beats our whole apparatus 2-3x on assigning meanings (0.048-0.065 vs 0.016-0.030, three runs).",
+   "floor": "Guessing scores 0.486 on the interchangeability test and a correct answer 0.960; we read 0.051. On meaning-assignment we beat a random answer on 2 of 3 runs but lose to plain co-occurrence counting on 3 of 3. The sensory ratings score 0.599 there, but a control giving EVERY WORD THE SAME VECTOR scores 0.619 and beats them.",
+   "gap": "THE CENTRAL DEFECT, AND IT IS NOW SHARPER THAN 'WEAK'. The step learns the WRONG RELATION -- which words appear together, not which words are interchangeable -- and it learns it confidently. Two pre-registered stop conditions have now closed the whole family of fixes that reshuffle word-co-occurrence counts: four tuning variants moved it from 0.052 to 0.114 and no further. The sensory ratings do not rescue it either: they point the right way but do not beat a control carrying no word-specific information at all.",
+   "goal": "CHANGED 2026-08-23, AND THE PREVIOUS GOAL IS NOW KNOWN TO BE INSUFFICIENT. It said 'wire in the human sensory ratings'. Measured on this test, those ratings do not beat a no-information control, so wiring them in would not fix the step. What the evidence points to instead: a method that is allowed to see answers reaches 0.960 on data it has never seen, so the information IS in the text and no unsupervised route we have tried reaches it. The open question -- where a learning signal comes from without being handed answers -- is on the board as Q118 and is a research question, not a sweep.",
+   "reviewed_utc": "2026-08-23T22:45:00Z",
+   "briefs": [
+    {
+     "slug": "where_does_a_meaning_signal_come_from_without_labels",
+     "state": "OPEN",
+     "priority": 1,
+     "review": "",
+     "review_text": "",
+     "integrated": false,
+     "result": "",
+     "floor": "",
+     "reverify": ""
+    },
+    {
+     "slug": "reader_meaning_channel",
+     "state": "REFUTED",
+     "priority": null,
+     "review": "STRONG",
+     "review_text": "\"Honest, well-controlled, and it strengthened the floor against itself -- but its own stratum table refutes its framing: the channel is the ONLY arm beating chance on subordinate senses (0.4811 vs 0.1415 combined), so the prior SWAMPS the channel rather than replacing it.\"",
+     "integrated": true,
+     "result": "\"On context-conditioned word-sense selection (subject-weighted accuracy; 287 multi-sense words, 841 trials; the reused, pre-registered instrument exp_context_conditioned_sense_selection_v1), the grounded multi-spoke hub (sensory+motor+AFFECT, concreteness-gated) combined with the sense-frequency prior (brain-faithful Bayesian score) does NOT clear the strongest floor. BAYES_HUB 0.4702 vs strongest floor MFS_PRIOR 0.4778, paired-word delta -0.0075 CI[-0.033,+0.019] (NOT separated). The brain control-gated arm BAYES_HUB_GATED 0.4844, delta +0.0066 CI[-0.017,+0.031] (NOT separated). Grounded cohe",
+     "floor": "\"STRONGEST FLOOR ACTUALLY RUN = most-frequent-sense (MFS) prior = 0.4778 subject-weighted. It REPLACES the instrument's shipped uniform mean(1/k)=0.4316 floor, which was too weak: adding the sense-frequency prior (the brain's other half, omitted by every prior grounded-WSD cell) beats the grounded coherence CI-separated (+0.060 [+0.007,+0.115]).\"",
+     "reverify": "\".venv/Scripts/python.exe verification/test_reader_sense_selection_bayesian_hub.py\""
+    },
+    {
+     "slug": "the_prior_swamps_the_channel_instead_of_combining_with_it",
+     "state": "REFUTED",
+     "priority": 2,
+     "review": "EXCELLENT",
+     "review_text": "\"Bounded the whole solution space with oracle ceilings instead of trying rules one at a time: a perfect router scores EXACTLY the channel, so no monotone combination has headroom. Killed the crux I named -- peakedness predicts prior-error at AUC 0.4033, below chance -- and found the correlated-error mechanism I had missed: 95.65 percent of the channel wrong picks are higher-frequency than truth.\"",
+     "integrated": true,
+     "result": "NO gold-blind combined arm meets the bar. Subject-weighted hit@1, one masked WSD trial per (word, sentence), n = 53 subordinate words the grounded channel covers, chance 0.3854. A WINNING MECHANISM EXISTS but it is not gold-blind reachable: SUPPRESSING the dominant sense (a NEGATIVE prior weight; reordered-access, Duffy/Rayner 1988) beats the channel on subordinate -- fixed b=-1.5 scores 0.7673 vs channel 0.4811, +0.2862 CI [+0.1761, +0.4025] -- but it CRASHES the dominant population to 0.3103 vs prior 0.5855, -0.2752 CI [-0.3385, -0.2137]. It is a pure population trade-off. Every GOLD-BLIND a",
+     "floor": "strongest floor actually run = CHANNEL alone (grounded coherence) = 0.4811 on the 53 subordinate words, reproduced from disk (matches the brief exactly). Ceilings, all run: ORACLE_ROUTE (per-item pick the better cue) = 0.4811 = channel EXACTLY (prior wrong on 100% of subordinate items, routing cannot help); MONOTONE ORACLE_BLEND (prior >= 0) = 0.4748 (no headroom); SIGNED oracle (prior weight free",
+     "reverify": ".venv/Scripts/python.exe verification/test_reliability_weighted_cue_combination_subordinate_sense.py"
+    },
+    {
+     "slug": "the_bundle_destroys_meaning_but_replacing_it_hurts",
+     "state": "SOLVED",
+     "priority": null,
+     "review": "STRONG",
+     "review_text": "\"Its central finding is real and retires a floor that was steering the whole thread -- the string control that beat us 2:1 is 78% morphology and collapses into its own info-free twin on clean gold. But its headline 'bundling is not the bottleneck' is contradicted by its own paired bootstrap: removing the bundle BEATS the flat bag +0.0125 CI[+0.0057,+0.0195], CI-separated.\"",
+     "integrated": true,
+     "result": "\"Explanation (a)+(c), tested on c3 (WordNet-neighbour hit@1, GP._score_space, n=4000 items over 5491 anchors, 5000x paired bootstrap). Removing the bundle ENTIRELY (RAW_COOC = explicit per-context co-occurrence counts, zero superposition loss) scores 0.0605 and is CI-separated BELOW the spelling floor (delta -0.0262, CI [-0.0377,-0.0147]); no bundling operator and not surprise-weighting (PPMI 0.052-0.055) beats it -> the bundling is NOT the c3 bottleneck. And ~78% of the spelling floor is MORPHOLOGICAL LEAKAGE: strip stem-sharing WordNet gold and the spelling control collapses 0.0867 -> 0.0193",
+     "floor": "\"A5_STRINGCTRL (character-trigram spelling profile, MS.trigram_matrix) hit@1 0.0867, CI [0.0780,0.0958] -- the strongest no-understanding floor on record (brief's number), reproduced here and shown to be ~78% morphological leakage. Info-free floors also run: RANDOM 0.0085, SHUF_COOC (per-row-shuffled co-occurrence) 0.0177, FUSE_RANDOM_STRING 0.0780.\"",
+     "reverify": "\".venv/Scripts/python.exe verification/test_c3_bundling_is_not_the_bottleneck.py\""
+    },
+    {
+     "slug": "does_learning_from_reading_deserve_to_continue",
+     "state": "SOLVED",
+     "priority": null,
+     "review": "EXCELLENT",
+     "review_text": "\"Survives adversarial re-checking against a STRONGER comparator than it used: all three benchmarks clear the strongest floor CI-separated, and the WordSim win holds against the supplied arm the submission did not quote. Two gaps, neither overturning: the head-to-head quotes only the weaker supplied arm, and the scored population was not saved.\"",
+     "integrated": true,
+     "result": "\"YES -- decisively, and the brief's INFERRED premise (that the sixteen losses reflect the IDEA, not our IMPLEMENTATION) is REFUTED. Scorer = Spearman rho of cosine similarity vs human ratings; learned arm = surprise-weighted PPMI(-SVD) over a word x word co-occurrence matrix read from simplewiki (38.09M tokens, vocab 60,085), UNFITTED. At the corpus ceiling the strong learned arm scores: SimLex-999 rho 0.2552 (ci_half 0.059, null p95 0.048, n=998); SimVerb-3500 rho 0.1290 (ci_half 0.033, null p95 0.028, n=3471); WordSim-353 rho 0.6301 (ci_half 0.067, null p95 0.084, n=334). It clears the STRON",
+     "floor": "\"Strongest floor actually run = idf-weighted counting (a single surprise-style weighting), recomputed on each population/representation: SimLex 0.1235 (ci_half 0.065), SimVerb 0.0365 (ci_half 0.035), WordSim 0.4120 (ci_half 0.088). The learned arm clears each floor's UPPER bound CI-separated: SimLex learned-lower 0.196 > floor-upper 0.189; SimVerb 0.096 > 0.072; WordSim 0.563 > 0.500. The orthogra",
+     "reverify": "\".venv/Scripts/python.exe verification/test_learn_from_reading_strong_arm.py\""
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "DECIDE WHAT TO KEEP",
+   "plain": "Judge which of the things just read are solid enough to file, and throw the rest away.",
+   "state": "WORKS",
+   "evidence": "Accepts 68 of 555 candidates (12.3%); knowledge grows as 8.4 x sentences^0.473",
+   "floor": "Must not be near 0% (accepts nothing) or near 100% (accepts anything). 12.3% is a real filter. Growth exponent below 1.0 is the expected shape for vocabulary growth.",
+   "gap": "None known. Tested under nested sampling at several reading volumes: it never lost knowledge it already had, in 12 of 12 samples.",
+   "goal": "Leave it alone. This stage is not the bottleneck and re-tuning it would be motion without progress.",
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "briefs": []
+  },
+  {
+   "id": 4,
+   "name": "KEEP IT BETWEEN RUNS",
+   "plain": "Remember what was learned last time instead of starting from nothing every run.",
+   "state": "WORKS",
+   "evidence": "Wired 2026-08-23. A resumed start carries 390 facts against a cold start's 92, and keeps its place in the consolidation schedule.",
+   "floor": "A cold start must be unchanged by the wiring -- verified byte-identical at 92 facts. An off-arm proves the loading is real rather than asserted.",
+   "gap": "It does NOT do what we hoped. A measurement landed with the wiring: resuming makes a fresh read ground almost nothing new (9 versus 168), because genuinely new words fail to match anything in the saved memory. Correctness is at chance either way.",
+   "goal": "Keep it for accumulation -- a system that discards its store every run has no long-term memory at all. Do NOT bill it as a fix for stage 2. That prediction is retired.",
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "briefs": [
+    {
+     "slug": "substrate_never_resumes",
+     "state": "REFUTED",
+     "priority": null,
+     "review": "EXCELLENT",
+     "review_text": "Refuted my own brief's premise, caught its own artifact, and the DECOY control proved it is bins not meaning.",
+     "integrated": true,
+     "result": "\"Wiring proven both ways. On identical 4,000-sentence reads (3 seeds), COLD grounds 168 new meanings, RESUMED grounds 9 -- resuming makes a matched read ~18x LESS productive of new groundings, not more. Grounding precision vs conceptnet_gold_v1 sits at the RANDOM_ANCHOR floor in every arm (COLD 0.0199, 3/151; RESUMED 0/9). The premise 'resuming would help / degeneracy falls as vocabulary grows' is REFUTED.\"",
+     "floor": "\"PRECISION floor = RANDOM_ANCHOR (same terms, random answer): COLD SUBSTRATE 0.0199 vs RANDOM 0.0000-0.0199, not CI-separated; RESUMED 0/9. DEGENERACY floor = DECOY (loaded anchors, meanings permuted): in the pure-mechanism probe DECOY match-rate == RESUMED match-rate EXACTLY (0/164), proving the effect is anchor bins/geometry, not meaning.\"",
+     "reverify": "\"cd d:/AI/hd-instrument && .venv/Scripts/python.exe verification/test_substrate_resume_measurement.py\""
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "GET IT BACK OUT",
+   "plain": "Answer a question by finding the right thing among everything filed.",
+   "state": "WEAK",
+   "evidence": "Ask with the exact words it stored and it answers 0.912. Ask with only some of them, which is all real reading gives, and it answers 0.162. Six different memory designs were built and the best reached 0.246, against plain word-counting at 0.324.",
+   "floor": "Plain first-order word-counting scores 0.324 and no memory design beat it; the best reached 0.246, a shortfall whose interval excludes zero. Scrambled and information-free versions score 0.000-0.0002, and a self-retrieval check scores 0.977, so the test works.",
+   "gap": "The store can RECITE but not RECOGNISE. Crucially this is NOT a storage-format problem: word-counting already IS the same kind of signal our elaborate store was trying to be, which is why it keeps winning. But an oracle allowed to pick the best source per question scores 0.408 and BEATS counting by a margin whose interval excludes zero -- so there is real unused signal here that no automatic method reaches.",
+   "goal": "Stop redesigning the store; that route is closed on three separate tests. Build the thing that decides WHICH source to trust for THIS question. The same missing piece shows up independently in the meaning step, so it is one component, not two.",
+   "reviewed_utc": "2026-08-23T22:45:00Z",
+   "briefs": [
+    {
+     "slug": "store_survives_a_partial_cue",
+     "state": "REFUTED",
+     "priority": null,
+     "review": "EXCELLENT",
+     "review_text": "\"Clean refutation with binding controls, and it reproduces the counting floor exactly. Its mechanistic line is the sharpest of the night: PMI already IS the calibrated familiarity read-out, so store format is not the lever. Third instrument showing an oracle clears and no unsupervised method reaches it.\"",
+     "integrated": true,
+     "result": "NO arm beats the floor. Strongest brain-faithful store arm CONF_GATED (confidence-gated dual-process) = 0.2461 hit@1, CI [0.2348, 0.2576]; every other store arm lower (calibrated familiarity NB_LOGODDS 0.0022 / NB_MULT 0.0486, explicit recollection REC_EXPLICIT 0.1619, linear CLS FAM_REC 0.2066). Scorer = lemma-weighted hit@1, one held-out query per lemma, n = 5,490 anchor lemmas, live reading path (context_vector_masked cues, 80/20 profile/held-out split).",
+     "floor": "F_COUNT1 (first-order PPMI co-occurrence counting) = 0.3242, CI [0.3115, 0.3366] -- REPRODUCED EXACTLY from the refuted cell, so the instrument matches. Gate on the upper bound 0.3366. Also measured: an ORACLE_UNION ceiling (an oracle picking the right arm per item) = 0.4082, +0.0840 CI [+0.0769, +0.0914] above the floor.",
+     "reverify": ".venv/Scripts/python.exe verification/test_recognition_store_calibrated_familiarity_recollection.py"
+    },
+    {
+     "slug": "flat_store_destroys_the_code",
+     "state": "REFUTED",
+     "priority": null,
+     "review": "EXCELLENT",
+     "review_text": "Built the fix, measured it honestly, and reported that it does not work - volunteering the exact-key 0.9954 that kills it and the floor that beats it.",
+     "integrated": true,
+     "result": "addressed-storage held-out identity-recovery hit@1 = 0.1399 [0.1310,0.1494] (exemplar-max read-out over n=5490 candidate lemmas / 5490 held-out simplewiki queries, live reading path) is CI-separated BELOW the strongest floor; the bar is NOT met. Its headline strength is exact-key 0.9954 [0.9936,0.9971] which collapses to 0.1399 held-out (failure mode c). It DOES beat the flat sum on held-out (+0.0554 [+0.0457,+0.0656]) but that is not a capability win.",
+     "floor": "first-order co-occurrence COUNTING (F_COUNT1) held-out hit@1 = 0.3242 [0.3115,0.3366] on the IDENTICAL population; addressed is -0.1843 [-0.1978,-0.1701] BELOW it (CI excludes 0). Corroborated on disk: exp_substrate_end_to_end_readout_v1 COOC_floor 0.02 beats episodic 0.0044 and semantic 0.0056 held-out; exp_cortical_read_consolidated_v1 COOC_floor 0.0867 beats cortical 0.0567 and episodic 0.0.",
+     "reverify": "cd d:/AI/hd-instrument && .venv/Scripts/python.exe tools/reproduce.py exp_flat_vs_addressed_identity_recovery_livepath_v1  # SAFE FORM (2026-08-23). The ORIGINAL command re-ran the cell IN PLACE; I followed it and it rewrote the landed metrics.json's ts_iso and elapsed_s (science byte-identical; rec"
+    },
+    {
+     "slug": "cortical_read_has_no_scored_path",
+     "state": "REFUTED",
+     "priority": null,
+     "review": "EXCELLENT",
+     "review_text": "Refuted my brief with evidence, found a 100% leak in the only prior scoring, and refused to over-claim.",
+     "integrated": true,
+     "result": "On a CLEAN held-out cloze over the consolidated pool (simplewiki, 3 seeds, n=300 items/seed, ~427-479 consolidated candidates, ranked by hit@k with 2000-sample bootstrap CIs), the best cortical arm (BOTH = context+sensorimotor concat) reaches hit@1 0.057/0.043/0.043 and hit@50 0.37/0.36/0.33, median rank 71/70/87. It reads its cue (beats SCRAMBLE and RANDOM twins) but does NOT clear the strongest floor at ANY k on ANY seed -- best_cortical_clears = False in all 15 seed x k cells. This REPRODUCES and STRENGTHENS the disk's Aug-19 run (exp_cortical_read_consolidated_v1), which the brief wrongly ",
+     "floor": "Strongest floor RUN = first-order co-occurrence counting (COOC) over the exact text the substrate read, restricted to the consolidated candidate set: hit@1 0.090/0.103/0.097, hit@50 0.71/0.75/0.70, median rank 22.0/19.5/23.5 -- it BEATS the best cortical arm at every k (e.g. seed 20260819 k=50: COOC 0.7133 CI[0.660,0.767] vs BOTH 0.3667 CI[0.313,0.420], CI-separated). Also ran: FREQ floor (hit@1 ~",
+     "reverify": "cd d:/AI/hd-instrument && .venv/Scripts/python.exe tools/reproduce.py solverB_cortical_scored_path_v1  # SAFE FORM (2026-08-23 integration): runs into an EMPTY sibling and leaves the landed directory byte-identical. The cell was migrated to fresh_run_output_dir to make this possible. The ORIGINAL co"
+    },
+    {
+     "slug": "cortical_read_never_tested_where_it_matters",
+     "state": "OPEN",
+     "priority": 5,
+     "review": "",
+     "review_text": "",
+     "integrated": false,
+     "result": "",
+     "floor": "",
+     "reverify": ""
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "name": "SAY \"I DON'T KNOW\"",
+   "plain": "Refuse to answer when the evidence is not there, instead of guessing.",
+   "state": "WEAK",
+   "evidence": "Refusing to answer about made-up words works almost perfectly: it accepts real words it has read 1.000 of the time and rejects invented strings 0.999. But that test is easier than it looks, because the real words were exactly the words already in memory.",
+   "floor": "A gate refusing the same share at random scores 0.500; this scores 0.999. The approach originally proposed -- refusing when the answer looks uncertain -- scores 0.568 and 0.524, which sits AT that 0.500 floor and does not work.",
+   "gap": "Measured 2026-08-23, the arm nobody had run: on ordinary English words it simply has not read, the same gate refuses 85.8% of them, including everyday words like abdomen and abduct. Only about an eighth of that is word-endings it should have recognised; the rest is vocabulary it genuinely has never seen. And the figure is not fixed -- it refuses 94.9% after 800 sentences and 85.8% after 5,200, still improving.",
+   "goal": "Ship it switched OFF by default, or on only where refusing unfamiliar words is what you want. Refusing a word you have never met is arguably correct behaviour, but nobody should read the near-perfect score as the system knowing what it knows about English. It knows what it has read.",
+   "reviewed_utc": "2026-08-23T22:45:00Z",
+   "briefs": [
+    {
+     "slug": "wire_the_refuse_gate_onto_the_readout",
+     "state": "SOLVED",
+     "priority": null,
+     "review": "EXCELLENT",
+     "review_text": "\"Refuted my proposed fix and found what the signal actually is: store membership, not confidence. INTEGRATION CAVEAT ADDED 08-23: its 0.999 is read-words vs invented strings; on real English we simply have not read, the same gate refuses 90.6 percent. Wire DEFAULT-OFF.\"",
+     "integrated": true,
+     "result": "\"The bar is met -- but NOT by the brief's named mechanism. Gating recall_sentence/recall_cortical on CUE FAMILIARITY (store membership: does the cue lemma carry any encoding trace) clears BOTH arms: accept_real 1.000, refuse_invented 0.999, balanced 0.999 (mean of 3 seeds; 300 real read words vs 300 length/letter-matched invented strings; membership is an exact lookup, no estimation). The brief's proposed mechanism -- the refuse gate as a THRESHOLD on the route's top-1 similarity confidence, atom_consultation OFF -- is REFUTED at the same time: it reaches only 0.568 (recall_sentence) / 0.524 (",
+     "floor": "\"Info-free twin (a gate refusing the SAME fraction at random): balanced accuracy 0.500 (95% CI ~[0.447, 0.553]). The similarity-confidence gate (0.568 / 0.524) sits AT this floor; the familiarity gate (0.999) clears it decisively. Second floor for the level analysis: the RECOLLECTION-level gate (query()'s own stricter level -- consolidated fact required) scores balanced 0.515 for ANSWERING, i.e. a",
+     "reverify": "\".venv/Scripts/python.exe verification/test_refuse_gate_on_readout.py\""
+    },
+    {
+     "slug": "score_counts_abstention_as_error",
+     "state": "SOLVED",
+     "priority": 3,
+     "review": "",
+     "review_text": "",
+     "integrated": false,
+     "result": "\"OOV-36 (n=36), live congruence_with_lexicon_fallback. Coverage-weighted accuracy (abstain==error, the gated number) = 0.3056 = 11/36, UNCHANGED by the fix. Selective accuracy when committing = 0.5789 = 11/19 under the engine convention (NONE+AMBIGUOUS abstain) vs 0.5000 = 11/22 under the narrow convention (only NONE abstains); both_conventions().agree = False. 3-way split: 11 correct / 8 wrong / 17 abstained (14 NONE + 3 AMBIGUOUS).\"",
+     "floor": "\"The one number that moves is selective accuracy; its fair floor is the committed-subset majority class = 0.7368 = 14/19, which 0.5789 does NOT clear (this is an instrument fix, not a rescue). The gated coverage-weighted primary 0.3056 remains below the full-population majority floor 0.6389 -> verdict stays HARD_FAIL. Negative-control baseline (empty overlay) 0.3889, byte-identical before/after.\"",
+     "reverify": "\".venv/Scripts/python.exe verification/test_oov_cell_scores_abstention_as_abstention.py\""
+    },
+    {
+     "slug": "organ_abstains_on_two_thirds_of_v2",
+     "state": "OPEN",
+     "priority": 8,
+     "review": "",
+     "review_text": "",
+     "integrated": false,
+     "result": "",
+     "floor": "",
+     "reverify": ""
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "name": "KNOW WHAT IT IS MISSING",
+   "plain": "Notice which piece of knowledge would most help, so reading can be aimed rather than random.",
+   "state": "UNTESTED",
+   "evidence": "A backlog of 8,753 near-grounded items accumulates during reading",
+   "floor": "Aimed reading must beat reading the same volume of text chosen at random. Not run.",
+   "gap": "The machinery to spot a gap and go read about it exists, but nobody has shown that aiming beats not aiming. Until then the backlog is a queue, not a strategy.",
+   "goal": "One comparison: same reading budget, gap-aimed versus random, scored on the same questions.",
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "briefs": []
+  },
+  {
+   "id": 8,
+   "name": "REASON OVER WHAT IT KNOWS",
+   "plain": "Combine several stored facts to answer something never read directly.",
+   "state": "UNKNOWN",
+   "evidence": "Reasoning components are built and registered; no end-to-end measurement on the current store",
+   "floor": "Must beat answering from the question's surface wording, and from the single most similar stored fact.",
+   "gap": "Not the current bottleneck. Reasoning over facts whose meanings are at chance (stage 2) would measure the reasoner against corrupted inputs, and a null would not tell us which stage failed.",
+   "goal": "Hold until stage 2 moves. Testing this first would waste a clean measurement on a known-bad input.",
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "briefs": [
+    {
+     "slug": "propagate_along_the_relation_that_carries_valence",
+     "state": "OPEN",
+     "priority": 7,
+     "review": "",
+     "review_text": "",
+     "integrated": false,
+     "result": "",
+     "floor": "",
+     "reverify": ""
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "name": "PROVE A RESULT IS REAL",
+   "plain": "Re-run a past result from scratch and get the same answer, rather than replaying saved output.",
+   "state": "WORKS",
+   "evidence": "5 of 5 solved problems reproduced; 71.2% of 4,908 landed results (3,495) can be genuinely re-run today",
+   "floor": "A re-run must be able to FAIL. Proven by breaking an input on purpose and watching the verdict flip, then restoring it. And the redirect itself is positive-controlled in a fresh process, so 'it works' is not an assumption.",
+   "gap": "1,413 results still replay a saved answer instead of recomputing. Of those, 425 assert a result and 135 of THOSE are quoted by something that steers our work -- that is the list worth spending re-runs on.",
+   "goal": "Done for new work: a commit adding an experiment that writes a result is now refused unless it can be re-run. Remaining: work the 135 cited-and-unverifiable results one at a time, as the owner asked.",
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "briefs": [
+    {
+     "slug": "harness_cannot_recompute",
+     "state": "SOLVED",
+     "priority": null,
+     "review": "EXCELLENT",
+     "review_text": "Built the switch, proved a re-run can FAIL, and found a real bug in my own detector.",
+     "integrated": true,
+     "result": "A re-run through the proposed fresh path CAN FAIL. Deciding control flips HARD_PASS -> HARD_FAIL (corrupt one input, fresh recompute); negative control reproduces HARD_PASS (unmodified fresh recompute, RECOMPUTED, 10/10 units); the naive incident re-run REPLAYED (0/10 units, 0.000s, verdict unchanged). Proven live in a separate process on the real filesystem AND hermetically. Real-archive breadth: 60/60 stratified sampled landed cells (1..12,137 units) classify REPLAYED, every dir byte-identical (read-only).",
+     "floor": "The naive-replay baseline the fresh path must beat -- classify_run = REPLAYED_NOT_A_REPRODUCTION (0 units computed, elapsed 0.000s, verdict returned unchanged with NO work); the fresh path beats it with RECOMPUTED (all units recomputed). Real-cell floor: 60/60 sampled landed cells classify REPLAYED; strongest counting of skipped work exercised = 12,137 units in one cell.",
+     "reverify": "cd d:/AI/hd-instrument && .venv/Scripts/python.exe verification/test_recompute_can_fail.py"
+    },
+    {
+     "slug": "certification_gate_hangs",
+     "state": "SOLVED",
+     "priority": 4,
+     "review": "",
+     "review_text": "",
+     "integrated": false,
+     "result": "\"The gate (verification/run_certification.py) is now bounded, loud, and observable. Live controls on the FIXED runner: passing fixture -> VERDICT PASS (419s under concurrent load, within its 600s budget); broken fixture -> VERDICT FAIL (exit 1, 106s); an unbounded time.sleep(100000) fixture -> VERDICT 'DID NOT RUN -- TIMED OUT' (exit 124, killed at the budget), and the report NAMES the blocking call from a faulthandler stack. DIAGNOSIS (the premise's weak part): it does NOT deadlock. faulthandler taken while 'stuck' shows pytest STARTUP/COLLECTION blocked in filesystem reads (importlib get_dat",
+     "floor": "\"Strongest baseline actually run: quiet pytest startup is ~2s and `pytest verification/ --collect-only` is 527 tests in 112s. Under a concurrent disk-heavy session the SAME operations balloon: `import pytest` alone 13s, a ONE-LINE test's pytest.main startup 419s, faulthandler blocked in get_data/read_text/stat -- i.e. the 'hang' reproduces as SLOW, and a DEADLOCK is excluded because consecutive fa",
+     "reverify": "\"python -c \\\"import pathlib; d=pathlib.Path('data/certification_timing/controls/ctl_hang'); d.mkdir(parents=True, exist_ok=True); (d/'test_ctl_hang.py').write_text('import time\\\\ndef test_hangs_forever_control():\\\\n    time.sleep(100000)\\\\n')\\\" && .venv/Scripts/python.exe verification/run_certificat"
+    },
+    {
+     "slug": "eval_bank_too_small",
+     "state": "SOLVED",
+     "priority": null,
+     "review": "EXCELLENT",
+     "review_text": "Built 124 scorable items and proved BOTH documented cheats dead - reproducing them on the old bank first, which is the step people skip.",
+     "integrated": true,
+     "result": "experiments/data/goal_bearing_modern_eval_v2.jsonl = 166 items, 124 scorable (outcome_in_lexicon False), 3.4x the current 36. Scorer tools/floor_battery.py on the 124 scorable (n=124, majority floor 0.605 \"always UNMET\"): text_length_chars 0.613 vs its own null p95 0.653 (clears_own_null FALSE); negation_cue_last_sentence 0.613 vs 0.637 (FALSE); negation_cue_whole_text 0.613 vs 0.629 (FALSE); text_length_words 0.613 vs 0.653 (FALSE) -- BOTH documented cheats are DEAD. Same result on the full 166 (all_watched_at_their_null True). For contrast the two cheats were reproduced on v1's 36 first: tex",
+     "floor": "strongest trivial baseline that still CLEARS its own null on the scored subset = NONE of the length/negation cheat family (the family that scored 0.8056 on v1); the majority floor is 0.605. Diff-in-means permutation (stricter than floor_battery's fitted threshold): length p=0.988, negation-in-last p=0.844 -- both features independent of the label.",
+     "reverify": "cd d:/AI/hd-instrument && .venv/Scripts/python.exe experiments/goal_bearing_eval_v2_finalize.py  # VERIFIED SAFE 2026-08-23: this writes only the bank + baselines it owns, and regeneration is BYTE-IDENTICAL (sha256 unchanged across two runs), so it does not clobber a landed cell record. Numbers repr"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "name": "KEEP WHAT WE GAIN",
+   "plain": "Make sure a working improvement gets connected into the system instead of stranded in an experiment.",
+   "state": "WORKS",
+   "evidence": "212 registered capabilities; 0 unregistered modules; 41 of 42 shelved items name what would revive them",
+   "floor": "The check must be able to fire. Positive-controlled -- a deliberately blank entry is caught.",
+   "gap": "None material. An earlier claim here that the shelf was 'hollow' was my own error, retracted the same day: I measured a field named nearly-right while the correct one sat filled beside it.",
+   "goal": "Leave it alone. It is doing its job.",
+   "reviewed_utc": "2026-08-23T00:00:00Z",
+   "briefs": []
+  }
+ ],
+ "briefs": {
+  "certification_gate_hangs": {
+   "slug": "certification_gate_hangs",
+   "state": "SOLVED",
+   "priority": 4,
+   "review": "",
+   "review_text": "",
+   "integrated": false,
+   "result": "\"The gate (verification/run_certification.py) is now bounded, loud, and observable. Live controls on the FIXED runner: passing fixture -> VERDICT PASS (419s under concurrent load, within its 600s budget); broken fixture -> VERDICT FAIL (exit 1, 106s); an unbounded time.sleep(100000) fixture -> VERDICT 'DID NOT RUN -- TIMED OUT' (exit 124, killed at the budget), and the report NAMES the blocking call from a faulthandler stack. DIAGNOSIS (the premise's weak part): it does NOT deadlock. faulthandler taken while 'stuck' shows pytest STARTUP/COLLECTION blocked in filesystem reads (importlib get_dat",
+   "floor": "\"Strongest baseline actually run: quiet pytest startup is ~2s and `pytest verification/ --collect-only` is 527 tests in 112s. Under a concurrent disk-heavy session the SAME operations balloon: `import pytest` alone 13s, a ONE-LINE test's pytest.main startup 419s, faulthandler blocked in get_data/read_text/stat -- i.e. the 'hang' reproduces as SLOW, and a DEADLOCK is excluded because consecutive fa",
+   "reverify": "\"python -c \\\"import pathlib; d=pathlib.Path('data/certification_timing/controls/ctl_hang'); d.mkdir(parents=True, exist_ok=True); (d/'test_ctl_hang.py').write_text('import time\\\\ndef test_hangs_forever_control():\\\\n    time.sleep(100000)\\\\n')\\\" && .venv/Scripts/python.exe verification/run_certificat"
+  },
+  "cortical_read_has_no_scored_path": {
+   "slug": "cortical_read_has_no_scored_path",
+   "state": "REFUTED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "Refuted my brief with evidence, found a 100% leak in the only prior scoring, and refused to over-claim.",
+   "integrated": true,
+   "result": "On a CLEAN held-out cloze over the consolidated pool (simplewiki, 3 seeds, n=300 items/seed, ~427-479 consolidated candidates, ranked by hit@k with 2000-sample bootstrap CIs), the best cortical arm (BOTH = context+sensorimotor concat) reaches hit@1 0.057/0.043/0.043 and hit@50 0.37/0.36/0.33, median rank 71/70/87. It reads its cue (beats SCRAMBLE and RANDOM twins) but does NOT clear the strongest floor at ANY k on ANY seed -- best_cortical_clears = False in all 15 seed x k cells. This REPRODUCES and STRENGTHENS the disk's Aug-19 run (exp_cortical_read_consolidated_v1), which the brief wrongly ",
+   "floor": "Strongest floor RUN = first-order co-occurrence counting (COOC) over the exact text the substrate read, restricted to the consolidated candidate set: hit@1 0.090/0.103/0.097, hit@50 0.71/0.75/0.70, median rank 22.0/19.5/23.5 -- it BEATS the best cortical arm at every k (e.g. seed 20260819 k=50: COOC 0.7133 CI[0.660,0.767] vs BOTH 0.3667 CI[0.313,0.420], CI-separated). Also ran: FREQ floor (hit@1 ~",
+   "reverify": "cd d:/AI/hd-instrument && .venv/Scripts/python.exe tools/reproduce.py solverB_cortical_scored_path_v1  # SAFE FORM (2026-08-23 integration): runs into an EMPTY sibling and leaves the landed directory byte-identical. The cell was migrated to fresh_run_output_dir to make this possible. The ORIGINAL co"
+  },
+  "cortical_read_never_tested_where_it_matters": {
+   "slug": "cortical_read_never_tested_where_it_matters",
+   "state": "OPEN",
+   "priority": 5,
+   "review": "",
+   "review_text": "",
+   "integrated": false,
+   "result": "",
+   "floor": "",
+   "reverify": ""
+  },
+  "does_learning_from_reading_deserve_to_continue": {
+   "slug": "does_learning_from_reading_deserve_to_continue",
+   "state": "SOLVED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "\"Survives adversarial re-checking against a STRONGER comparator than it used: all three benchmarks clear the strongest floor CI-separated, and the WordSim win holds against the supplied arm the submission did not quote. Two gaps, neither overturning: the head-to-head quotes only the weaker supplied arm, and the scored population was not saved.\"",
+   "integrated": true,
+   "result": "\"YES -- decisively, and the brief's INFERRED premise (that the sixteen losses reflect the IDEA, not our IMPLEMENTATION) is REFUTED. Scorer = Spearman rho of cosine similarity vs human ratings; learned arm = surprise-weighted PPMI(-SVD) over a word x word co-occurrence matrix read from simplewiki (38.09M tokens, vocab 60,085), UNFITTED. At the corpus ceiling the strong learned arm scores: SimLex-999 rho 0.2552 (ci_half 0.059, null p95 0.048, n=998); SimVerb-3500 rho 0.1290 (ci_half 0.033, null p95 0.028, n=3471); WordSim-353 rho 0.6301 (ci_half 0.067, null p95 0.084, n=334). It clears the STRON",
+   "floor": "\"Strongest floor actually run = idf-weighted counting (a single surprise-style weighting), recomputed on each population/representation: SimLex 0.1235 (ci_half 0.065), SimVerb 0.0365 (ci_half 0.035), WordSim 0.4120 (ci_half 0.088). The learned arm clears each floor's UPPER bound CI-separated: SimLex learned-lower 0.196 > floor-upper 0.189; SimVerb 0.096 > 0.072; WordSim 0.563 > 0.500. The orthogra",
+   "reverify": "\".venv/Scripts/python.exe verification/test_learn_from_reading_strong_arm.py\""
+  },
+  "eval_bank_too_small": {
+   "slug": "eval_bank_too_small",
+   "state": "SOLVED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "Built 124 scorable items and proved BOTH documented cheats dead - reproducing them on the old bank first, which is the step people skip.",
+   "integrated": true,
+   "result": "experiments/data/goal_bearing_modern_eval_v2.jsonl = 166 items, 124 scorable (outcome_in_lexicon False), 3.4x the current 36. Scorer tools/floor_battery.py on the 124 scorable (n=124, majority floor 0.605 \"always UNMET\"): text_length_chars 0.613 vs its own null p95 0.653 (clears_own_null FALSE); negation_cue_last_sentence 0.613 vs 0.637 (FALSE); negation_cue_whole_text 0.613 vs 0.629 (FALSE); text_length_words 0.613 vs 0.653 (FALSE) -- BOTH documented cheats are DEAD. Same result on the full 166 (all_watched_at_their_null True). For contrast the two cheats were reproduced on v1's 36 first: tex",
+   "floor": "strongest trivial baseline that still CLEARS its own null on the scored subset = NONE of the length/negation cheat family (the family that scored 0.8056 on v1); the majority floor is 0.605. Diff-in-means permutation (stricter than floor_battery's fitted threshold): length p=0.988, negation-in-last p=0.844 -- both features independent of the label.",
+   "reverify": "cd d:/AI/hd-instrument && .venv/Scripts/python.exe experiments/goal_bearing_eval_v2_finalize.py  # VERIFIED SAFE 2026-08-23: this writes only the bank + baselines it owns, and regeneration is BYTE-IDENTICAL (sha256 unchanged across two runs), so it does not clobber a landed cell record. Numbers repr"
+  },
+  "flat_store_destroys_the_code": {
+   "slug": "flat_store_destroys_the_code",
+   "state": "REFUTED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "Built the fix, measured it honestly, and reported that it does not work - volunteering the exact-key 0.9954 that kills it and the floor that beats it.",
+   "integrated": true,
+   "result": "addressed-storage held-out identity-recovery hit@1 = 0.1399 [0.1310,0.1494] (exemplar-max read-out over n=5490 candidate lemmas / 5490 held-out simplewiki queries, live reading path) is CI-separated BELOW the strongest floor; the bar is NOT met. Its headline strength is exact-key 0.9954 [0.9936,0.9971] which collapses to 0.1399 held-out (failure mode c). It DOES beat the flat sum on held-out (+0.0554 [+0.0457,+0.0656]) but that is not a capability win.",
+   "floor": "first-order co-occurrence COUNTING (F_COUNT1) held-out hit@1 = 0.3242 [0.3115,0.3366] on the IDENTICAL population; addressed is -0.1843 [-0.1978,-0.1701] BELOW it (CI excludes 0). Corroborated on disk: exp_substrate_end_to_end_readout_v1 COOC_floor 0.02 beats episodic 0.0044 and semantic 0.0056 held-out; exp_cortical_read_consolidated_v1 COOC_floor 0.0867 beats cortical 0.0567 and episodic 0.0.",
+   "reverify": "cd d:/AI/hd-instrument && .venv/Scripts/python.exe tools/reproduce.py exp_flat_vs_addressed_identity_recovery_livepath_v1  # SAFE FORM (2026-08-23). The ORIGINAL command re-ran the cell IN PLACE; I followed it and it rewrote the landed metrics.json's ts_iso and elapsed_s (science byte-identical; rec"
+  },
+  "harness_cannot_recompute": {
+   "slug": "harness_cannot_recompute",
+   "state": "SOLVED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "Built the switch, proved a re-run can FAIL, and found a real bug in my own detector.",
+   "integrated": true,
+   "result": "A re-run through the proposed fresh path CAN FAIL. Deciding control flips HARD_PASS -> HARD_FAIL (corrupt one input, fresh recompute); negative control reproduces HARD_PASS (unmodified fresh recompute, RECOMPUTED, 10/10 units); the naive incident re-run REPLAYED (0/10 units, 0.000s, verdict unchanged). Proven live in a separate process on the real filesystem AND hermetically. Real-archive breadth: 60/60 stratified sampled landed cells (1..12,137 units) classify REPLAYED, every dir byte-identical (read-only).",
+   "floor": "The naive-replay baseline the fresh path must beat -- classify_run = REPLAYED_NOT_A_REPRODUCTION (0 units computed, elapsed 0.000s, verdict returned unchanged with NO work); the fresh path beats it with RECOMPUTED (all units recomputed). Real-cell floor: 60/60 sampled landed cells classify REPLAYED; strongest counting of skipped work exercised = 12,137 units in one cell.",
+   "reverify": "cd d:/AI/hd-instrument && .venv/Scripts/python.exe verification/test_recompute_can_fail.py"
+  },
+  "lookup_does_not_lemmatise": {
+   "slug": "lookup_does_not_lemmatise",
+   "state": "OPEN",
+   "priority": 6,
+   "review": "",
+   "review_text": "",
+   "integrated": false,
+   "result": "",
+   "floor": "",
+   "reverify": ""
+  },
+  "organ_abstains_on_two_thirds_of_v2": {
+   "slug": "organ_abstains_on_two_thirds_of_v2",
+   "state": "OPEN",
+   "priority": 8,
+   "review": "",
+   "review_text": "",
+   "integrated": false,
+   "result": "",
+   "floor": "",
+   "reverify": ""
+  },
+  "propagate_along_the_relation_that_carries_valence": {
+   "slug": "propagate_along_the_relation_that_carries_valence",
+   "state": "OPEN",
+   "priority": 7,
+   "review": "",
+   "review_text": "",
+   "integrated": false,
+   "result": "",
+   "floor": "",
+   "reverify": ""
+  },
+  "reader_meaning_channel": {
+   "slug": "reader_meaning_channel",
+   "state": "REFUTED",
+   "priority": null,
+   "review": "STRONG",
+   "review_text": "\"Honest, well-controlled, and it strengthened the floor against itself -- but its own stratum table refutes its framing: the channel is the ONLY arm beating chance on subordinate senses (0.4811 vs 0.1415 combined), so the prior SWAMPS the channel rather than replacing it.\"",
+   "integrated": true,
+   "result": "\"On context-conditioned word-sense selection (subject-weighted accuracy; 287 multi-sense words, 841 trials; the reused, pre-registered instrument exp_context_conditioned_sense_selection_v1), the grounded multi-spoke hub (sensory+motor+AFFECT, concreteness-gated) combined with the sense-frequency prior (brain-faithful Bayesian score) does NOT clear the strongest floor. BAYES_HUB 0.4702 vs strongest floor MFS_PRIOR 0.4778, paired-word delta -0.0075 CI[-0.033,+0.019] (NOT separated). The brain control-gated arm BAYES_HUB_GATED 0.4844, delta +0.0066 CI[-0.017,+0.031] (NOT separated). Grounded cohe",
+   "floor": "\"STRONGEST FLOOR ACTUALLY RUN = most-frequent-sense (MFS) prior = 0.4778 subject-weighted. It REPLACES the instrument's shipped uniform mean(1/k)=0.4316 floor, which was too weak: adding the sense-frequency prior (the brain's other half, omitted by every prior grounded-WSD cell) beats the grounded coherence CI-separated (+0.060 [+0.007,+0.115]).\"",
+   "reverify": "\".venv/Scripts/python.exe verification/test_reader_sense_selection_bayesian_hub.py\""
+  },
+  "score_counts_abstention_as_error": {
+   "slug": "score_counts_abstention_as_error",
+   "state": "SOLVED",
+   "priority": 3,
+   "review": "",
+   "review_text": "",
+   "integrated": false,
+   "result": "\"OOV-36 (n=36), live congruence_with_lexicon_fallback. Coverage-weighted accuracy (abstain==error, the gated number) = 0.3056 = 11/36, UNCHANGED by the fix. Selective accuracy when committing = 0.5789 = 11/19 under the engine convention (NONE+AMBIGUOUS abstain) vs 0.5000 = 11/22 under the narrow convention (only NONE abstains); both_conventions().agree = False. 3-way split: 11 correct / 8 wrong / 17 abstained (14 NONE + 3 AMBIGUOUS).\"",
+   "floor": "\"The one number that moves is selective accuracy; its fair floor is the committed-subset majority class = 0.7368 = 14/19, which 0.5789 does NOT clear (this is an instrument fix, not a rescue). The gated coverage-weighted primary 0.3056 remains below the full-population majority floor 0.6389 -> verdict stays HARD_FAIL. Negative-control baseline (empty overlay) 0.3889, byte-identical before/after.\"",
+   "reverify": "\".venv/Scripts/python.exe verification/test_oov_cell_scores_abstention_as_abstention.py\""
+  },
+  "store_survives_a_partial_cue": {
+   "slug": "store_survives_a_partial_cue",
+   "state": "REFUTED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "\"Clean refutation with binding controls, and it reproduces the counting floor exactly. Its mechanistic line is the sharpest of the night: PMI already IS the calibrated familiarity read-out, so store format is not the lever. Third instrument showing an oracle clears and no unsupervised method reaches it.\"",
+   "integrated": true,
+   "result": "NO arm beats the floor. Strongest brain-faithful store arm CONF_GATED (confidence-gated dual-process) = 0.2461 hit@1, CI [0.2348, 0.2576]; every other store arm lower (calibrated familiarity NB_LOGODDS 0.0022 / NB_MULT 0.0486, explicit recollection REC_EXPLICIT 0.1619, linear CLS FAM_REC 0.2066). Scorer = lemma-weighted hit@1, one held-out query per lemma, n = 5,490 anchor lemmas, live reading path (context_vector_masked cues, 80/20 profile/held-out split).",
+   "floor": "F_COUNT1 (first-order PPMI co-occurrence counting) = 0.3242, CI [0.3115, 0.3366] -- REPRODUCED EXACTLY from the refuted cell, so the instrument matches. Gate on the upper bound 0.3366. Also measured: an ORACLE_UNION ceiling (an oracle picking the right arm per item) = 0.4082, +0.0840 CI [+0.0769, +0.0914] above the floor.",
+   "reverify": ".venv/Scripts/python.exe verification/test_recognition_store_calibrated_familiarity_recollection.py"
+  },
+  "stored_terms_are_stems": {
+   "slug": "stored_terms_are_stems",
+   "state": "PARTIAL",
+   "priority": null,
+   "review": "STRONG",
+   "review_text": "Told to fix a defect, found it had already been repaired, and reported that instead. Their own detector caught its own false positive.",
+   "integrated": true,
+   "result": "Fresh store built on HEAD = 0/141 distinct subjects = 0.00% true stems (reading:simplewiki 0/49, substrate_seed 0/92); stale v2_qualityfix = 119/1512 = 7.87% (reading sources 8.70-16.73%). Lemmatizer over 93,338 Lancaster+Brysbaert+WordNet forms: pre-01093ac1f lemma_verb = 8,692 non-words, HEAD = 0. Inflection preserved: verb gold 53.50%->99.03% (git 7d6036bca; witness block B passes), dogs->dog, arteries->artery, walked->walk.",
+   "floor": "Detector both controls PASS. Negative control (16 real words incl. function words) = 0 false positives ONLY after excluding function words (before that it false-flagged and->andes etc, inflating the raw rate 8.40%->7.87%); positive control = 7/7 known chops flagged. The detector scores the stale store at 7.87% and the pre-fix function at 8,692/93,338, so 0.00% on the fresh store is a measured AFTE",
+   "reverify": "cd d:/AI/hd-instrument && .venv/Scripts/python.exe notes/problems/stored_terms_are_stems/measure_before_after.py"
+  },
+  "substrate_never_resumes": {
+   "slug": "substrate_never_resumes",
+   "state": "REFUTED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "Refuted my own brief's premise, caught its own artifact, and the DECOY control proved it is bins not meaning.",
+   "integrated": true,
+   "result": "\"Wiring proven both ways. On identical 4,000-sentence reads (3 seeds), COLD grounds 168 new meanings, RESUMED grounds 9 -- resuming makes a matched read ~18x LESS productive of new groundings, not more. Grounding precision vs conceptnet_gold_v1 sits at the RANDOM_ANCHOR floor in every arm (COLD 0.0199, 3/151; RESUMED 0/9). The premise 'resuming would help / degeneracy falls as vocabulary grows' is REFUTED.\"",
+   "floor": "\"PRECISION floor = RANDOM_ANCHOR (same terms, random answer): COLD SUBSTRATE 0.0199 vs RANDOM 0.0000-0.0199, not CI-separated; RESUMED 0/9. DEGENERACY floor = DECOY (loaded anchors, meanings permuted): in the pure-mechanism probe DECOY match-rate == RESUMED match-rate EXACTLY (0/164), proving the effect is anchor bins/geometry, not meaning.\"",
+   "reverify": "\"cd d:/AI/hd-instrument && .venv/Scripts/python.exe verification/test_substrate_resume_measurement.py\""
+  },
+  "the_bundle_destroys_meaning_but_replacing_it_hurts": {
+   "slug": "the_bundle_destroys_meaning_but_replacing_it_hurts",
+   "state": "SOLVED",
+   "priority": null,
+   "review": "STRONG",
+   "review_text": "\"Its central finding is real and retires a floor that was steering the whole thread -- the string control that beat us 2:1 is 78% morphology and collapses into its own info-free twin on clean gold. But its headline 'bundling is not the bottleneck' is contradicted by its own paired bootstrap: removing the bundle BEATS the flat bag +0.0125 CI[+0.0057,+0.0195], CI-separated.\"",
+   "integrated": true,
+   "result": "\"Explanation (a)+(c), tested on c3 (WordNet-neighbour hit@1, GP._score_space, n=4000 items over 5491 anchors, 5000x paired bootstrap). Removing the bundle ENTIRELY (RAW_COOC = explicit per-context co-occurrence counts, zero superposition loss) scores 0.0605 and is CI-separated BELOW the spelling floor (delta -0.0262, CI [-0.0377,-0.0147]); no bundling operator and not surprise-weighting (PPMI 0.052-0.055) beats it -> the bundling is NOT the c3 bottleneck. And ~78% of the spelling floor is MORPHOLOGICAL LEAKAGE: strip stem-sharing WordNet gold and the spelling control collapses 0.0867 -> 0.0193",
+   "floor": "\"A5_STRINGCTRL (character-trigram spelling profile, MS.trigram_matrix) hit@1 0.0867, CI [0.0780,0.0958] -- the strongest no-understanding floor on record (brief's number), reproduced here and shown to be ~78% morphological leakage. Info-free floors also run: RANDOM 0.0085, SHUF_COOC (per-row-shuffled co-occurrence) 0.0177, FUSE_RANDOM_STRING 0.0780.\"",
+   "reverify": "\".venv/Scripts/python.exe verification/test_c3_bundling_is_not_the_bottleneck.py\""
+  },
+  "the_grow_by_reading_pass_has_no_floor": {
+   "slug": "the_grow_by_reading_pass_has_no_floor",
+   "state": "SOLVED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "\"Ran the floor I asked for AND a diagnostic I did not, which is the one that changes what we do. INTEGRATED 08-23: re-verify passes, and its own stratum check is sharper than its summary -- the whole margin over a 2-line rule sits in PASSIVE sentences (CI [+0.469,+0.875]); on ACTIVE it is not separated at all.\"",
+   "integrated": true,
+   "result": "\"Real extractor 0.90 (90/100 hand-adjudicated survivors) vs strongest genuinely-trivial floor first_noun_after_verb 0.7053 (67/95 emitted) on the SAME 100 survivor items; paired real-minus-floor +0.23, 95% CI [+0.13, +0.33], McNemar exact p=2e-5. The 0.90 is NOT a pure selection artifact -- but a 2-line voice-aware rule already reaches 0.83, so most of it is filter-selection plus a trivial rule, not the sophisticated reading.\"",
+   "floor": "\"Strongest genuinely-trivial floor = first_noun_after_verb = syntactic_object_no_filter = 0.7053 precision-over-emitted (0.67 acc over 100). Also: nearest_noun_to_verb 0.70; information-free constant twin most_frequent_entity 0.09. Filter-contribution DIAGNOSTIC voice_aware_adjacency (the real arm's candidate step minus all 6 filters) = 0.83, real-minus-it CI [0.00, 0.14] -> NOT CI-separated.\"",
+   "reverify": "\".venv/Scripts/python.exe verification/test_grow_by_reading_trivial_floor.py\""
+  },
+  "the_prior_swamps_the_channel_instead_of_combining_with_it": {
+   "slug": "the_prior_swamps_the_channel_instead_of_combining_with_it",
+   "state": "REFUTED",
+   "priority": 2,
+   "review": "EXCELLENT",
+   "review_text": "\"Bounded the whole solution space with oracle ceilings instead of trying rules one at a time: a perfect router scores EXACTLY the channel, so no monotone combination has headroom. Killed the crux I named -- peakedness predicts prior-error at AUC 0.4033, below chance -- and found the correlated-error mechanism I had missed: 95.65 percent of the channel wrong picks are higher-frequency than truth.\"",
+   "integrated": true,
+   "result": "NO gold-blind combined arm meets the bar. Subject-weighted hit@1, one masked WSD trial per (word, sentence), n = 53 subordinate words the grounded channel covers, chance 0.3854. A WINNING MECHANISM EXISTS but it is not gold-blind reachable: SUPPRESSING the dominant sense (a NEGATIVE prior weight; reordered-access, Duffy/Rayner 1988) beats the channel on subordinate -- fixed b=-1.5 scores 0.7673 vs channel 0.4811, +0.2862 CI [+0.1761, +0.4025] -- but it CRASHES the dominant population to 0.3103 vs prior 0.5855, -0.2752 CI [-0.3385, -0.2137]. It is a pure population trade-off. Every GOLD-BLIND a",
+   "floor": "strongest floor actually run = CHANNEL alone (grounded coherence) = 0.4811 on the 53 subordinate words, reproduced from disk (matches the brief exactly). Ceilings, all run: ORACLE_ROUTE (per-item pick the better cue) = 0.4811 = channel EXACTLY (prior wrong on 100% of subordinate items, routing cannot help); MONOTONE ORACLE_BLEND (prior >= 0) = 0.4748 (no headroom); SIGNED oracle (prior weight free",
+   "reverify": ".venv/Scripts/python.exe verification/test_reliability_weighted_cue_combination_subordinate_sense.py"
+  },
+  "where_does_a_meaning_signal_come_from_without_labels": {
+   "slug": "where_does_a_meaning_signal_come_from_without_labels",
+   "state": "OPEN",
+   "priority": 1,
+   "review": "",
+   "review_text": "",
+   "integrated": false,
+   "result": "",
+   "floor": "",
+   "reverify": ""
+  },
+  "wire_the_refuse_gate_onto_the_readout": {
+   "slug": "wire_the_refuse_gate_onto_the_readout",
+   "state": "SOLVED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "\"Refuted my proposed fix and found what the signal actually is: store membership, not confidence. INTEGRATION CAVEAT ADDED 08-23: its 0.999 is read-words vs invented strings; on real English we simply have not read, the same gate refuses 90.6 percent. Wire DEFAULT-OFF.\"",
+   "integrated": true,
+   "result": "\"The bar is met -- but NOT by the brief's named mechanism. Gating recall_sentence/recall_cortical on CUE FAMILIARITY (store membership: does the cue lemma carry any encoding trace) clears BOTH arms: accept_real 1.000, refuse_invented 0.999, balanced 0.999 (mean of 3 seeds; 300 real read words vs 300 length/letter-matched invented strings; membership is an exact lookup, no estimation). The brief's proposed mechanism -- the refuse gate as a THRESHOLD on the route's top-1 similarity confidence, atom_consultation OFF -- is REFUTED at the same time: it reaches only 0.568 (recall_sentence) / 0.524 (",
+   "floor": "\"Info-free twin (a gate refusing the SAME fraction at random): balanced accuracy 0.500 (95% CI ~[0.447, 0.553]). The similarity-confidence gate (0.568 / 0.524) sits AT this floor; the familiarity gate (0.999) clears it decisively. Second floor for the level analysis: the RECOLLECTION-level gate (query()'s own stricter level -- consolidated fact required) scores balanced 0.515 for ANSWERING, i.e. a",
+   "reverify": "\".venv/Scripts/python.exe verification/test_refuse_gate_on_readout.py\""
+  }
+ },
+ "briefs_not_attached_to_a_stage": [],
+ "registry": {
+  "total": 212,
+  "wired": 159,
+  "shelved": 2
+ }
+}
