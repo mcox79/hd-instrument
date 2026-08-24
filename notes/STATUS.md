@@ -122,7 +122,19 @@ AND in the plan's consolidated top block. Do NOT re-expand.**
 
 ## WHAT IS RUNNING
 
-- 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
+- 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *ENUMERATED FROM DISK 08-23 23:0x: `10` open (priorities `1`-`10`, contiguous), `8` solved+reviewed. **THE PREVIOUS TEXT HERE READ `11` open / `5` reviewed -- I MIRRORED A REMEMBERED COUNT ON THE VERY LINE THAT SAYS ENUMERATE.** Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
+- 🚨🚨 **THREE SOLVER SUBMISSIONS LANDED 08-23 AND ARE UNREVIEWED -- THIS IS THE TOP ITEM ON RESUME.**
+  **Found by ENUMERATING `SOLVED.md` on disk, not from any notification.** Each has a `reverify:` line
+  in its frontmatter; **run it before believing the headline, then write the `review:` /`review_text:`
+  frontmatter into the matching `PROBLEM.md` (that is what the GUI renders).**
+  | when | priority / slug | its own status | the claim, in short |
+  |---|---|---|---|
+  | 17:40 | **2** `does_learning_from_reading_deserve_to_continue` | **SOLVED** | **YES, and my brief's premise is REFUTED** -- surprise-weighted PPMI-SVD over 38.09M tokens clears the idf-count floor CI-separated on all three banks and is **STILL CLIMBING at the corpus ceiling**, so the route is corpus-limited, NOT exhausted. *Loses verbs to the supplied hub (`0.129` vs `0.266`).* |
+  | 19:34 | **3** `the_bundle_destroys_meaning_but_replacing_it_hurts` | **SOLVED** | **The bundling is NOT the c3 bottleneck** -- removing superposition ENTIRELY scores BELOW the spelling floor. **And ~`78%` of that spelling floor is MORPHOLOGICAL LEAKAGE**: on stem-stripped gold it collapses `0.0867`->`0.0193` while the flat bag holds and BEATS it. |
+  | 21:23 | **1** `reader_meaning_channel` | **REFUTED** | The meaning gap is **ARCHITECTURAL, not MODAL** -- the grounded hub plus the sense-frequency prior does NOT clear the most-frequent-sense floor (`0.4702` vs `0.4778`, not separated). *It also REPLACES that instrument's shipped uniform floor with a stronger one.* |
+  ⚠️ **DO NOT PROPAGATE ANY NUMBER ABOVE UNTIL ITS `reverify:` HAS BEEN RUN HERE.** *Five submissions
+  were verified this way today and BOTH failures found were in MY checker, never in a submission --
+  so the review is real work, but the prior says start by suspecting the tool.*
 - 🧠 **THE MEANING CHANNEL: SEVEN MEASUREMENTS 08-23, ALL IN
   `notes/problems/reader_meaning_channel/` WITH AN ORIENTATION MAP AND A REVERIFY PER FINDING.
   READ THE BRIEF, NOT THIS BULLET, BEFORE BUILDING.**
