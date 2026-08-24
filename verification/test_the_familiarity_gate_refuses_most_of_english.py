@@ -37,6 +37,20 @@ A SECOND OBSERVATION, RECORDED BECAUSE IT POINTS AT AN OPEN PROBLEM: `abandon` i
 `abandoned` is refused. That is the morphology/lemmatisation gap already filed as its own brief
 (`lookup_does_not_lemmatise`), showing up here as refusals of inflected forms of words we HAVE read.
 
+**AND THE SIZE OF THAT LEVER IS MEASURED HERE, BECAUSE MY FIRST INSTINCT OVERSTATED IT.** On seeing
+`abandon`/`abandoned` I wrote that fixing lemmatisation "would move this number". It would, but it
+is NOT the main cause. Splitting the refusals by whether a crude base form is already known:
+
+    inflections of words we DO know     ~9% of refusals   -> coverage 9.4% -> 17.5%
+    genuinely absent vocabulary        ~91% of refusals
+
+**So lemmatisation nearly DOUBLES coverage and still leaves ~82% refused.** The gate refuses most of
+English because the substrate has read a small fraction of English (~4,400 lemmas), not because the
+lookup is broken. *That is a corpus-coverage fact, and it is the honest reason the gate is
+conservative -- a lemmatiser is worth building and will not change the wiring decision.*
+(The suffix-stripping split is crude ON PURPOSE: it under-counts morphology, so ~9% is a LOWER bound
+and the conclusion "morphology is not the main cause" only gets stronger with a better analyser.)
+
     .venv/Scripts/python.exe verification/test_the_familiarity_gate_refuses_most_of_english.py
 """
 import io
@@ -113,6 +127,35 @@ def main():
     chk("NEGATIVE CONTROL: it still answers real words it HAS read",
         len(answered) > 50, "%d answered, e.g. %s"
         % (len(answered), ", ".join(sorted(answered)[:6])))
+
+    # HOW MUCH OF THE REFUSAL IS MORPHOLOGY, NOT MISSING VOCABULARY. Crude suffix stripping, which
+    # UNDER-counts morphology -- so this is a lower bound and the conclusion below only strengthens
+    # with a real analyser.
+    sufs = ("ing", "edly", "ed", "es", "s", "ly", "er", "est", "ness", "ment", "tion", "al",
+            "ity", "able", "ance", "ence", "ful", "less")
+
+    def bases(w):
+        out = set()
+        for s in sufs:
+            if w.endswith(s) and len(w) - len(s) >= 3:
+                st = w[:-len(s)]
+                out.update({st, st + "e"})
+                if len(st) > 1 and st[-1] == st[-2]:
+                    out.add(st[:-1])
+                if st.endswith("i"):
+                    out.add(st[:-1] + "y")
+        return out
+
+    morph = [w for w in refused if bases(w) & fam]
+    share = float(len(morph)) / max(1, len(refused))
+    lifted = float(len(answered) + len(morph)) / len(words)
+    print("[witness] of the refusals, %d (%.1f%%) are inflections of KNOWN words; "
+          "lemmatising lifts coverage %.1f%% -> %.1f%%"
+          % (len(morph), 100 * share, 100.0 * len(answered) / len(words), 100 * lifted))
+    chk("morphology is NOT the main cause -- most refusals are absent vocabulary",
+        share < 0.35,
+        "%.1f%% of refusals are inflections; the other %.1f%% are words we have simply never read"
+        % (100 * share, 100 * (1 - share)))
 
     print()
     print("[witness] READ AS: 0.999 = read-vs-invented, measured correctly. ~%.0f%% = the share of"

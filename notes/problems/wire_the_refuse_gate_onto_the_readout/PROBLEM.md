@@ -36,9 +36,21 @@ review_text: "Refuted my proposed fix and found what the signal actually is: sto
 > what it has READ, which after a few thousand sentences is a small slice of the language.
 > ➡️ **WIRING DECISION: DEFAULT-OFF**, or ON only where refusing unread vocabulary is the wanted
 > behaviour.
-> 🔑 **AND A POINTER TO ANOTHER OPEN BRIEF:** `abandon` is answered while `abandoned` is refused --
-> that is `lookup_does_not_lemmatise` surfacing here as refusals of INFLECTED FORMS of words we HAVE
-> read. *Fixing that would move this number without touching the gate.*
+> 🔑 **AND A POINTER TO ANOTHER OPEN BRIEF, WITH THE LEVER MEASURED -- BECAUSE MY FIRST INSTINCT
+> OVERSTATED IT.** `abandon` is answered while `abandoned` is refused, which is
+> `lookup_does_not_lemmatise` surfacing here. I wrote that fixing it "would move this number". **It
+> would, and I have now measured by how much:**
+>
+> | of the `3,624` refusals | | |
+> |---|---|---|
+> | inflections of words we DO know | `323` | **`8.9%`** -- coverage `9.4%` **->** `17.5%` |
+> | genuinely absent vocabulary | `3,300` | **`91.1%`** |
+>
+> ➡️ **LEMMATISATION NEARLY DOUBLES COVERAGE AND STILL LEAVES ~`82%` REFUSED.** *The gate refuses
+> most of English because the substrate has READ a small fraction of English (~`4,400` lemmas), not
+> because the lookup is broken.* **That is a corpus-coverage fact. A lemmatiser is worth building and
+> it does NOT change the DEFAULT-OFF decision.** *(Crude suffix stripping, which UNDER-counts
+> morphology -- so `8.9%` is a LOWER bound and this conclusion only strengthens with a real analyser.)*
 > *Witness: `verification/test_the_familiarity_gate_refuses_most_of_english.py` (external word list,
 > positive control that the read happened, negative control that it does not refuse everything).*
 
