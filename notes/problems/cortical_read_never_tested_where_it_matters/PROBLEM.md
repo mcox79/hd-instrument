@@ -1,7 +1,6 @@
 ---
-priority: 3
-review:
-review_text:
+review: STRONG
+review_text: "Witness passes 6/6 scaffold-free, and the metric-fails-safe check is the good kind (planted->rank1 200/200, degenerate flagged AND sorted last). The three-point brain-fidelity audit and the SPOKE identity check (sensorimotor_spoke.profile == grounded_vector, cos=1.000) are what most submissions skip. Arithmetic right; the ARGUMENT has one gap -- every self-built arm is used alone or CONCATENATED (BOTH = concat, line 36), so the two channels were weighted, never made to TEACH each other, which is the mechanism that broke the substitutability wall the same day. Split out as teach_the_self_built_space_instead_of_concatenating_it."
 ---
 
 # PROBLEM: WE JUDGED THE "SETTLED KNOWLEDGE" READER ON THE ONE TASK IT IS WORST SUITED FOR
