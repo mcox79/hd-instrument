@@ -21,8 +21,22 @@ review_text:
 > about the `0.45` collapse and the recoverable counts still stands. **But a new grounded channel
 > would be unmeasurable for the same reason consolidation is: it would return a clean, meaningless
 > null and we would learn nothing.**
-> ✅ **THE PRIOR ITEM IS SMALLER: make the read-out consult grounded facts at all.** The substrate is
-> banking them (`38`/`68`/`112` provenance records per run) and the read-out never looks.
+> ✅ **THE PRIOR ITEM IS SMALLER, AND IT IS ALREADY BUILT — SO THE UNBLOCK CONDITION IS EXACT.**
+> Traced further 2026-08-24: the two routes that cell scored are `recall_sentence` (episodic store)
+> and `profile()` (accumulated context bundles). **Neither reads the consolidated fact store.** The
+> route that DOES is `Substrate.recall_cortical`, slot **B3'**, and its own docstring names this
+> exact symptom: *"THE ROUTE THAT DID NOT EXIST, and whose absence was this substrate's largest
+> measured fidelity defect: every other retrieval route addresses the episodic store, so
+> consolidation could be ablated to zero without moving the read-out at all."*
+> **It is BUILT and `NEEDS_ADAPTER` — not on the live path.** The 08-19 cell simply did not score it.
+> ➡️ **UNBLOCK CONDITION FOR THIS BRIEF: `B3' recall_cortical` on the scored read-out path.** Once
+> grounded facts are consulted at all, a new grounded channel becomes measurable and this brief
+> becomes runnable.
+> 🔗 **AND THE TWO HALVES ARE THE SAME PROJECT.** `cortical_read_never_tested_where_it_matters`
+> (integrated tonight) found that the cortical read clears its floor **only with a SUPPLIED
+> distributional space** — nothing self-built generalises. **That supplied-vs-self-built question is
+> what THIS brief is about.** So the order is: wire B3' so the fact store is read, then decide the
+> channel. *Neither half is measurable without the other, which is why both stalled.*
 > 🔻 *Recorded 5 days late because that cell landed with no `verdict` field and nothing surfaced it —
 > see `verification/test_no_full_run_lands_without_a_verdict.py`.*
 

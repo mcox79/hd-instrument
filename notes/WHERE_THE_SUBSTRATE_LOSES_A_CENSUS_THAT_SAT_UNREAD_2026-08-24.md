@@ -171,6 +171,36 @@ consolidation is — it would show a clean, meaningless null and we would learn 
 *This is the second time this week that reading a finished-but-unread result reversed the next
 build.* (The first was `exp_sr_scale_ladder_v1`.)
 
+## 🔎 TRACED THE CAUSE, AND IT IS NOT UNKNOWN — THE FIX IS BUILT AND UNWIRED
+
+The cell scores two substrate routes, and neither reads the fact store:
+
+| route | what it actually reads |
+|---|---|
+| `episodic()` | `sub.recall_sentence(...)` — the **episodic** store |
+| `semantic()` | `sub.profile()` — the accumulated **context bundles** (`_sums[lemma]`) |
+
+**The substrate exposes more routes than the cell scored:** `recall_cortical`, `consolidated`,
+`query`. And `Substrate.recall_cortical`'s own docstring names this exact symptom, in advance:
+
+> *"THE CORTICAL READ. Retrieve CONSOLIDATED concepts by content similarity to a cue. **THE ROUTE
+> THAT DID NOT EXIST, and whose absence was this substrate's largest measured fidelity defect: every
+> other retrieval route addresses the episodic store, so consolidation could be ablated to zero
+> without moving the read-out at all.** Under CLS, retrieval of consolidated knowledge is a CORTICAL
+> read; this is it."*
+
+➡️ **SO THE DEFECT WAS KNOWN, THE FIX WAS BUILT, AND IT IS SLOT `B3'` — `NEEDS_ADAPTER`, i.e. built
+and NOT on the live path.** The 08-19 cell re-measured the very defect `B3'` exists to fix, because
+it scored only the two old routes. *That is not a criticism of the cell — it pre-registered its
+readings and reported honestly. It is a statement about what was and was not on the scored path.*
+
+🔗 **AND IT JOINS UP WITH TONIGHT'S INTEGRATION.** `cortical_read_never_tested_where_it_matters`
+(re-verified 6/6, reviewed STRONG) found the cortical read clears its floor **only with a SUPPLIED
+distributional space**; nothing self-built generalises. **So B3' is built, unwired, and known to
+need a channel we have not settled.** The wiring question and the channel question are one project,
+and each was unmeasurable without the other — which is a sufficient explanation for why both
+stalled.
+
 ## WHAT THIS DOES AND DOES NOT LICENSE
 
 - ✅ **Consolidation contributes nothing measurable to the end-to-end read-out**, on a task where the
