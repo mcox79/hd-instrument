@@ -108,6 +108,32 @@ its RESULTS.* It ran **3 seeds at ~`40,000`-sentence reads**, `UNDERPOWERED: Fal
 | `20260819` | `441` | `0.0159` | `0.0023` (`0.0695`) | **`0.0476`** |
 | `7` | `398` | `0.0302` | `0.0025` (**`0.0050`**) | **`0.0653`** |
 
+🧠🎯 **AND THE MECHANISTIC ANSWER WAS ALSO ALREADY ON DISK -- `exp_writerule_step_ladder_v1` (08-17)
+AND `exp_writerule_maxpool_occurrence_v1` (08-18). THIS IS THE SYNTHESIS OF THE WHOLE NIGHT:**
+**THE WRITE RULE BUILDS A CO-OCCURRENCE DETECTOR WHEN MEANING NEEDS SUBSTITUTABILITY.** On the
+dissociation AUC (paradigmatic vs syntagmatic), where the WordNet known-answer arm reads `0.9599`
+and every info-free floor sits at chance `~0.50`:
+
+| arm | AUC | |
+|---|---|---|
+| `KNOWN_ANSWER_WORDNET_PATH_SIM` | `0.9599` | *the instrument works* |
+| info-free floors (scramble / frequency / orthographic / random store) | `0.46`-`0.54` | *chance* |
+| `S1_SINGLE_OCC` | `0.4173` | below |
+| 🔻 **`A0_SUM` -- THE SUBSTRATE'S ACTUAL WRITE RULE** | 🔻 **`0.0510`** | **`BELOW_0.5_COOCCURRENCE`** |
+| 🔻 `M1_MAXPOOL` (keep occurrences separate, best match) | `0.0299` | **WORSE** |
+| 🔻 `M2_TOPK_MEAN` k=2/3/5 | `0.0264`/`0.0240`/`0.0217` | **worse still** |
+
+🔑 **`AUC 0.051` IS NOT "AT CHANCE" -- CHANCE IS `0.50`. IT IS NEARLY PERFECTLY INVERTED.** *The
+summed profile CONFIDENTLY ranks words that appear TOGETHER as similar, when the task asks which
+words are INTERCHANGEABLE.* **It is not failing to learn; it is successfully learning the wrong
+relation.** ➡️ **THAT EXPLAINS `TOP_COOCCURRENT` BEATING IT: the substrate is a WORSE
+CO-OCCURRENCE DETECTOR THAN COUNTING CO-OCCURRENCE.**
+⚠️ **AND THE OBVIOUS FIX IS ALREADY REFUTED TWICE: max-pool and top-k mean are WORSE than summing.**
+🔻 **BUT THE INFORMATION IS THERE:** the ladder's decisive arm reads `BEST_SINGLE_ORACLE hit@1
+0.3033` against `SUM_ALL 0.0100` and `RANDOM_SINGLE 0.0367` -- **summing is worse than picking ONE
+occurrence AT RANDOM, and `30x` worse than picking the RIGHT one.** *So the gap is SELECTION, not
+capacity -- and max-pool failing says we cannot yet select by best-match.*
+
 ✅ **GROUNDING IS NOT NOISE -- it beats the random floor on `2` of `3` seeds** (so my "at chance" was
 wrong in that direction too). 🔻 **BUT A TRIVIAL "MOST CO-OCCURRING WORD" COUNT BEATS IT `2-3x` ON
 `3` OF `3` SEEDS.** *The cell PRE-COMMITTED this reading: "(iii) ... ties TOP_COOCCURRENT -> what it
