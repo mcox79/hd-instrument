@@ -1,8 +1,46 @@
 ---
 priority:
 review: EXCELLENT
-review_text: Refuted my proposed fix and found what the signal actually is: store membership, not confidence.
+review_text: "Refuted my proposed fix and found what the signal actually is: store membership, not confidence. INTEGRATION CAVEAT ADDED 08-23: its 0.999 is read-words vs invented strings; on real English we simply have not read, the same gate refuses 90.6 percent. Wire DEFAULT-OFF."
 ---
+
+> # 🔻 **INTEGRATION NOTE, ADDED 2026-08-23 WHILE WIRING THIS -- THE ARM NOBODY RAN.**
+> *The EXCELLENT rating stands and nothing below challenges the finding. Re-verify PASSED here:
+> familiarity gate `1.000`/`1.000`/`1.000`. This is about what the number MEANS for switching it on.*
+>
+> ✅ **WHY THE FINDING IS SOLID:** the refusable signal is **cue familiarity**, not answer
+> confidence, and the brief's own named mechanism is refuted in the same run (similarity threshold
+> `0.568`/`0.524` against an info-free floor of `0.500`). **The LEVEL control is what makes it
+> convincing** -- the recollection-level gate FAILS the same bar (`accept_real 0.008`), so this is
+> not "any membership check passes."
+>
+> 🔻 **BUT EVERY "REAL" ITEM WAS A WORD THE SUBSTRATE HAD JUST READ**, so the positive class is
+> defined by the very property the gate reads. *The submission says so in its own control 7 -- "a
+> clean trace-presence boundary".* **A lookup asked to separate present from absent returns `1.000`
+> by construction.** So I measured the deployment case instead: **genuine English words we have
+> simply not read**, taken from an EXTERNAL list that was not built from our store.
+>
+> | after a 2 x 1,500-sentence read | |
+> |---|---|
+> | familiarity set | **`4,429`** lemmas |
+> | real English words sampled | `4,000` (Lancaster norms) |
+> | would be ANSWERED | `376` -- **`9.4%`** |
+> | 🔻 **would be REFUSED** | `3,624` -- **`90.6%`** *(`abdomen`, `abduct`, `aardvark`)* |
+>
+> ⚖️ **THIS IS NOT A DEFECT IN THE SUBMISSION AND MAY NOT BE A DEFECT AT ALL.** Refusing a word you
+> have never encountered is arguably the CORRECT conservative behaviour, and it is exactly what
+> "contribute, do not decide" asks for. **The two numbers answer different questions:** `0.999` =
+> *does it tell read words from invented ones* (YES, decisively); `90.6%` = *what share of ordinary
+> English it refuses* (the cost of switching it on).
+> 🚫 **DO NOT read "balanced `0.999`" as "the system knows what it knows about English."** It knows
+> what it has READ, which after a few thousand sentences is a small slice of the language.
+> ➡️ **WIRING DECISION: DEFAULT-OFF**, or ON only where refusing unread vocabulary is the wanted
+> behaviour.
+> 🔑 **AND A POINTER TO ANOTHER OPEN BRIEF:** `abandon` is answered while `abandoned` is refused --
+> that is `lookup_does_not_lemmatise` surfacing here as refusals of INFLECTED FORMS of words we HAVE
+> read. *Fixing that would move this number without touching the gate.*
+> *Witness: `verification/test_the_familiarity_gate_refuses_most_of_english.py` (external word list,
+> positive control that the read happened, negative control that it does not refuse everything).*
 
 > # MY REVIEW OF THE SUBMISSION: **EXCELLENT**
 > *(reviewed 2026-08-23 by the strategy session. Re-ran their witness: PASS, with both native
