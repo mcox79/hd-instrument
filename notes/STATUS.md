@@ -81,6 +81,24 @@ MORE INDEPENDENT SOURCE DIMENSIONS (an 11-dim signal cannot fill a 256-dim code)
 with no rank ceiling is the arm that wins. **TWO ORGANS, OPPOSITE FAULTS -- DO NOT MERGE THEM.**
 🚨 **AND THE BAR ITSELF IS IN QUESTION: Q117 (spelling floor `~78%` morphological leakage).**
 
+🔴 **A DIRECTION I ALMOST SET TONIGHT AND THEN REFUTED WITH OUR OWN DATA -- READ THIS BEFORE
+PROPOSING "READ MORE".** Two measurements looked like they converged on *reading volume is the
+binding constraint*: P2 is still climbing at `38.09M` tokens, and the substrate's vocabulary is
+still climbing at `5,200` sentences (`2,270` lemmas at `800` -> `7,334` at `5,200`). **Both are
+true and the conclusion does NOT follow. Vocabulary size is an INTERNAL STATISTIC; the standing
+rule is that a statistic may DIAGNOSE and never DECIDE.** The OUTCOME is measured in
+`data/exp_substrate_resume_helps_v1`, and it is at the floor **in `12` of `12` arms across `3`
+seeds**: SUBSTRATE grounding precision `0.0199` (**`3` hits / `151`**) against a `RANDOM_ANCHOR`
+floor, paired permutation **`p = 0.2634`** -- *not separated.* **THE SUBSTRATE GROUNDS `168`
+MEANINGS AND THREE ARE RIGHT.**
+➡️ 🔑 **AND THE TWO RESULTS ARE NOT IN CONFLICT -- THAT IS THE USEFUL PART. P2 SUCCEEDED WITHOUT
+USING THE SUBSTRATE'S GROUNDING PATH AT ALL** (a PPMI-SVD distributional model over raw simplewiki).
+**So the information IS in the text and a plain distributional model extracts it CI-separated, while
+our own grounding sits at chance on the same corpus.** ⚠️ **THE GAP IS THE EXTRACTION MECHANISM, NOT
+THE CORPUS. Scaling the input of a mechanism performing at its floor scales nothing.**
+*Underpowered caveat kept: `3`/`151` supports "not distinguishable from the floor", NOT "exactly
+zero".* *Witness: `test_reading_more_does_not_follow_grounding_is_at_chance.py`.*
+
 ### 🗄️ **08-22 (SUPERSEDED IN ITS PREMISE, KEPT FOR ITS SCOPING CORRECTION)**
 🔻 **THE SCOPING CORRECTION (08-22): "a 1970s baseline beats us EVERYWHERE" over 16 measures was
 wrong -- ALL SIXTEEN ARE THE WORD-SIMILARITY CHANNEL**, which `SUBSTRATE_CHARTER` (08-05) and
