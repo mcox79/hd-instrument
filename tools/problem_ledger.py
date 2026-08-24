@@ -184,6 +184,19 @@ Come back with "refuted" alone only if you have also established that the underl
 problem is not solvable by any route you could test -- and then say which routes those
 were. The brief is my best guess at the mechanism; it is never the definition of the goal.
 
+THE CENTRAL STORE IS YOURS TOO -- USE IT BEFORE YOU READ ANYTHING ELSE.
+    python tools/substrate_map.py --organ <ID>   what the BRAIN requires here, what we built,
+                                                 whether it is wired, and what it measured --
+                                                 with CORRECTIONS AND PROHIBITIONS PRINTED FIRST.
+    python tools/substrate_map.py --gaps         every pipeline stage that is broken or weak,
+                                                 worst first, with the brief that owns each gap.
+    python tools/substrate_map.py --brief <slug> what a farmed-out problem was meant to shore up
+                                                 and what came back from it.
+It DERIVES from ORGAN_MAP, the pipeline stages, the briefs and the capability registry on every
+run, so it cannot be stale relative to them. **If it prints a constraint line for your organ, that
+line outranks this brief** -- several entries in ORGAN_MAP say SUPERSEDED or contradict themselves,
+and the store surfaces those before the entry rather than after.
+
 AND ANCHOR IT IN THE BRAIN, WHICH IS THE PROJECT'S WHOLE METHOD.
 Open with "which brain structure does this, and are we replicating it or substituting
 something convenient?" -- not "did we consider the brain?". Copy the COMPUTATION exactly,
