@@ -1206,7 +1206,7 @@ class StatusWindow:
         return cached[1] if cached else None
 
     def _src_mtime_cached(self, key, srcs):
-        """Newest mtime across `srcs`, cached 10s and refreshed OFF the drawing thread.
+        """OLDEST mtime across `srcs`, cached 10s and refreshed OFF the drawing thread.
 
         Returns the previous value immediately -- None on the very first call, which renders as
         "[--]" for one tick. Never does file I/O on the caller's thread.
@@ -1226,15 +1226,21 @@ class StatusWindow:
 
             def _scan():
                 t0 = time.time()
-                newest = None
+                # OLDEST, NOT NEWEST (2026-08-24). The tab title is a STALENESS indicator, and
+                # taking the newest of several sources lets one fresh file hide a stale one.
+                # Measured: "1. WHERE WE ARE" read [8h] because STATUS.md had just been touched,
+                # while the plan document it actually renders (LONG_TERM_PLAN.md) was SEVEN DAYS
+                # old. A staleness number that reports the freshest input is the same defect as a
+                # label whose count means something other than what it says.
+                oldest = None
                 for rel in srcs:
                     try:
                         mt = (_REPO / rel).stat().st_mtime
                     except OSError:
                         continue
-                    if newest is None or mt > newest:
-                        newest = mt
-                cache[key] = (time.time(), newest)
+                    if oldest is None or mt < oldest:
+                        oldest = mt
+                cache[key] = (time.time(), oldest)
                 running.discard(key)
                 ms = 1000 * (time.time() - t0)
                 if ms > UI_STALL_MS:
