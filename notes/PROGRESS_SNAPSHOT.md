@@ -4,27 +4,22 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-23T22:23:50Z  |  HEAD: 9a63f585c
+generated: 2026-08-24T01:22:16Z  |  HEAD: b35c2b42f
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 30497 min ago <-- STALE
-  - orchestrator: 38827 min ago <-- STALE
-  - research: 1 min ago
-  - skunkworks: 41498 min ago <-- STALE
-  - testbed: 78072 min ago <-- STALE
+  - exp_dev: 30676 min ago <-- STALE
+  - orchestrator: 39005 min ago <-- STALE
+  - research: 175 min ago <-- STALE
+  - skunkworks: 41677 min ago <-- STALE
+  - testbed: 78251 min ago <-- STALE
 data/ directories touched in the last 180 min:
-  - exp_flat_vs_addressed_identity_recovery_livepath_v1__fresh_verify151: 2 min ago, NO metrics.json yet (likely in-flight)
-  - exp_c3_surprise_weighted_vs_bundling_v1: 5 min ago, NO metrics.json yet (likely in-flight)
-  - exp_c3_surprise_weighted_vs_bundling_v1_smoke: 10 min ago, has metrics.json
-  - solverB_cortical_scored_path_v1__fresh_verify149: 12 min ago, has metrics.json
-  - exp_reader_sense_selection_bayesian_hub_v1: 25 min ago, has metrics.json
-  - substrate_director_kb_v1.staging.25424: 27 min ago, NO metrics.json yet (likely in-flight)
-  - solverB_cortical_scored_path_v1__fresh_verify148b: 36 min ago, NO metrics.json yet (likely in-flight)
-  - exp_flat_vs_addressed_identity_recovery_livepath_v1__fresh_verify148: 57 min ago, NO metrics.json yet (likely in-flight)
+  - substrate_director_kb_v1.staging.7352: 26 min ago, NO metrics.json yet (likely in-flight)
+  - _witness_c3_bundling_scratch: 112 min ago, NO metrics.json yet (likely in-flight)
+  - exp_flat_vs_addressed_identity_recovery_livepath_v1__fresh_verify153: 171 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *`11`  open, `5` solved+reviewed. Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - 🧠 **THE MEANING CHANNEL: SEVEN MEASUREMENTS 08-23, ALL IN
@@ -103,12 +98,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 2 new commit(s) since last snapshot (HEAD e7c5172ad -> 9a63f585c)
-- data/ directory count: 8189 -> 8190 (+1)
+- 3 new commit(s) since last snapshot (HEAD 9a63f585c -> b35c2b42f)
+- data/ directory count: 8190 -> 8192 (+2)
 
 ## 5. What is stuck (blocked / pending / no owner)
 - US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8190, "generated_at": "2026-08-23T22:23:50Z", "head_commit": "9a63f585c1c33c0d28615e8e854a224a59ebd3d0", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8192, "generated_at": "2026-08-24T01:22:16Z", "head_commit": "b35c2b42f48502402d4bfd11572e86a9941f4f74", "step_status": {}}
 -->
