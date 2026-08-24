@@ -129,6 +129,48 @@ prove these two switches work.*
 COOC floor moves with it, so the item population changed. Part of its EPISODIC drop to `0.0000` is
 also near-tautological — the route being scored was removed.
 
+## 🔴 THE CELL PRE-REGISTERED THIS EXACT OUTCOME, AND ITS READING IS STRONGER THAN MINE
+
+I wrote the section above before reading the cell's source. **It had already pre-committed how to
+interpret this result, on 2026-08-19, BEFORE it was run** — and my "consolidation contributes
+nothing" is the weak form of what it actually says:
+
+> **(e)** *the `consolidation` ablation moves NO substrate route, at any seed, in either regime,
+> while the control's `n_provenance` is > 0 -> outcome (i). **THE READ-OUT DOES NOT CONSULT GROUNDED
+> FACTS.** Report it as a wiring defect in the assembly and **do NOT build a new channel on the
+> grounding path until it is fixed, because that channel could not be measured here.***
+>
+> **(f)** *the `consolidation` ablation moves a substrate route -> the table is interpretable; the
+> definitions / gap_detector nulls **may now be read as facts about those organs, and only now**.*
+>
+> **(g)** *the control's `n_provenance` is 0 -> THE FIX DID NOT TAKE AND NOTHING ELSE IN THIS RUN IS
+> INTERPRETABLE. Checked FIRST, before any arm is looked at.*
+
+**ALL THREE CONDITIONS FOR (e) HOLD.** No substrate route moved on any seed; and
+`control_n_provenance = [38, 68, 112]` — every control is above zero, so **(g) does not fire and the
+run is interpretable.**
+
+➡️ **THE PRE-REGISTERED CONCLUSION IS THEREFORE: THE READ-OUT DOES NOT CONSULT GROUNDED FACTS. THAT
+IS A WIRING DEFECT IN THE ASSEMBLY, NOT A FACT ABOUT CONSOLIDATION'S QUALITY.** *Consolidation is
+not weak here; it is DISCONNECTED from the thing being scored.* The substrate banks facts
+(`38`/`68`/`112` provenance records) and the read-out never looks at them.
+
+🚫 **AND (f) DID NOT FIRE, SO THE `definitions` AND `gap_detector` NULLS ARE STILL NOT READABLE AS
+FACTS ABOUT THOSE ORGANS.** My caution above was right; the cell's reason is better than mine.
+
+## ⚠️ THIS LANDS ON OUR OWN CURRENT PLAN, AND IT ARRIVED FIVE DAYS LATE
+
+The pre-registered instruction is explicit: **do NOT build a new channel on the grounding path until
+the wiring defect is fixed, because that channel could not be measured here.**
+
+**Priority-2 brief `the_live_meaning_organ_has_no_distributional_channel_to_be_taught_by` proposes
+building exactly such a channel.** On this evidence it is **PREMATURE, NOT WRONG**: if the read-out
+does not consult grounded facts, a new grounded channel would be unmeasurable for the same reason
+consolidation is — it would show a clean, meaningless null and we would learn nothing.
+➡️ **Fix the read-out's connection to grounded facts FIRST; that is now the cheaper and prior item.**
+*This is the second time this week that reading a finished-but-unread result reversed the next
+build.* (The first was `exp_sr_scale_ladder_v1`.)
+
 ## WHAT THIS DOES AND DOES NOT LICENSE
 
 - ✅ **Consolidation contributes nothing measurable to the end-to-end read-out**, on a task where the

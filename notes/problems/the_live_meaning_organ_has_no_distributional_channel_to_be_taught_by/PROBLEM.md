@@ -6,6 +6,26 @@ review_text:
 
 # PROBLEM: the fix for our meaning step exists, and the data it needs is already being stored and then thrown away
 
+> ## 🛑 **HOLD 2026-08-24 — DO NOT START THIS YET. A PRE-REGISTERED RESULT FROM 08-19 SAYS IT CANNOT BE MEASURED.**
+> `exp_substrate_end_to_end_readout_v1` ran FULL on 2026-08-19 and pre-committed its readings BEFORE
+> running. Its reading **(e)** fired, on all three conditions:
+> *"the `consolidation` ablation moves NO substrate route, at any seed, in either regime, while the
+> control's `n_provenance` is > 0 -> **THE READ-OUT DOES NOT CONSULT GROUNDED FACTS.** Report it as
+> a wiring defect in the assembly and **DO NOT BUILD A NEW CHANNEL ON THE GROUNDING PATH UNTIL IT IS
+> FIXED, BECAUSE THAT CHANNEL COULD NOT BE MEASURED HERE.**"*
+> **MEASURED:** switching consolidation off drives provenance `38 -> 0` and refusals `199 -> 0` — it
+> demonstrably fires — and the read-out stays **BIT-IDENTICAL** on all three seeds, floor included.
+> `control_n_provenance = [38, 68, 112]`, so the disqualifying reading (g) does not apply.
+>
+> ➡️ **THIS BRIEF PROPOSES EXACTLY SUCH A CHANNEL, SO IT IS PREMATURE — NOT WRONG.** Everything below
+> about the `0.45` collapse and the recoverable counts still stands. **But a new grounded channel
+> would be unmeasurable for the same reason consolidation is: it would return a clean, meaningless
+> null and we would learn nothing.**
+> ✅ **THE PRIOR ITEM IS SMALLER: make the read-out consult grounded facts at all.** The substrate is
+> banking them (`38`/`68`/`112` provenance records per run) and the read-out never looks.
+> 🔻 *Recorded 5 days late because that cell landed with no `verdict` field and nothing surfaced it —
+> see `verification/test_no_full_run_lands_without_a_verdict.py`.*
+
 > ## 🔴 **CORRECTED 2026-08-24, SAME DAY, BEFORE ANYONE WORKED IT. READ THIS FIRST -- THE TITLE ABOVE IS THE SECOND VERSION.**
 > **The first version of this brief said the live system has NO word-in-context description and that
 > one must be BUILT. That was wrong, and wrong in the expensive direction.** I checked further and
