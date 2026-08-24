@@ -75,6 +75,71 @@ The cell enumerates code sites that discard work with **no counter, no log line,
 - `canonicalize_fast:663` (no scannable anchor) and `:668` (zero-norm query profile) — same
   indistinguishable self-return, 0 occurrences in this run.
 
+---
+
+# SECOND OF THE ELEVEN: CONSOLIDATION FIRES, AND REMOVING IT CHANGES NOTHING
+
+Source: `data/exp_substrate_end_to_end_readout_v1/metrics.json`, run **2026-08-19**, 18 units,
+3 seeds x 6 arms. Also verdict-less, also unread.
+
+**This cell retires its own headline, for the right reason:** *"The best achievable score on this
+task is 0.0300 (COOC_COS_floor, carried as an arm here) against the substrate's 0.0150, so fixing
+every defect wins a tie with a floor. The hit@1 is NOT a capability claim. What is being measured is
+the ABLATION CONTRASTS, which are within-cell paired differences and do not need the task to have
+headroom."* ✅ **Its interpretability gate passed here** (`grounding_fired_in_control: true`) —
+the note warns that *"every unit of the v2 run recorded 0"*, so v2 was uninterpretable and this run
+is not.
+
+## ITS PRE-REGISTERED QUESTION, ANSWERED: NO
+
+> *"With consolidation actually firing, does the read-out change at all? The deciding contrast is
+> `ablate=['consolidation']` against the control at the same seed."*
+
+**Held-out hit@1, all three seeds, EPISODIC / SEMANTIC / COOC floor — the consolidation-ablated arm
+is BIT-IDENTICAL to the control, including the floor** (so it is the same items and the same pool,
+i.e. a clean paired comparison). Same for `definitions`, `foraging`, `gap_detector`.
+
+## ⚠️ AN EXACTLY-ZERO NULL IS A REACHABILITY FAILURE UNTIL PROVED OTHERWISE — SO I CHECKED, AND IT SPLITS 2/2
+
+CLAUDE.md: *"a zero-WIDTH CI is a reachability failure, not a null."* Bit-identical output across
+four organs and three seeds is exactly that fingerprint. The internal counters decide it (seed
+20260819):
+
+| arm | n_episodes | n_provenance | n_refused | pool | reached? |
+|---|---|---|---|---|---|
+| (control) | 5346 | 38 | 199 | 2114 | — |
+| **consolidation** | 5346 | **0** | **0** | 2114 | **YES** |
+| **definitions** | 5346 | **31** | **209** | 2114 | **YES** |
+| episodic | **0** | 38 | 199 | **2161** | YES, but pool CHANGED |
+| foraging | 5346 | 38 | 199 | 2114 | **NOT ESTABLISHED** |
+| gap_detector | 5346 | 38 | 199 | 2114 | **NOT ESTABLISHED** |
+
+✅ **CONSOLIDATION AND DEFINITIONS ARE REAL NULLS.** Ablating consolidation drives provenance
+`38 -> 0` and refusals `199 -> 0`, so it demonstrably did something — **and the read-out did not
+move by a single item.** Definitions likewise (`38 -> 31`, `199 -> 209`). *These organs run, do
+measurable internal work, and contribute nothing to this read-out.*
+
+🚫 **FORAGING AND GAP_DETECTOR ARE NOT NULLS AND MUST NOT BE REPORTED AS SUCH.** Every counter is
+identical to the control; only `read_seconds` differs (`13.8` vs `16.2` / `11.0`). **On this
+evidence I cannot tell "the organ does nothing" from "the switch did not disable it".** *The
+episodic arm proves the ablation MACHINERY works — that is the positive control — but it does not
+prove these two switches work.*
+
+⚠️ **AND THE EPISODIC ARM IS NOT A CLEAN CONTRAST EITHER:** `pool_size` moves `2114 -> 2161` and the
+COOC floor moves with it, so the item population changed. Part of its EPISODIC drop to `0.0000` is
+also near-tautological — the route being scored was removed.
+
+## WHAT THIS DOES AND DOES NOT LICENSE
+
+- ✅ **Consolidation contributes nothing measurable to the end-to-end read-out**, on a task where the
+  ceiling is a floor. That is a real, paired, three-seed null with reachability demonstrated.
+- 🚫 **It does NOT say consolidation is useless.** The task tops out at `0.0300`; an organ could
+  matter on a task with headroom and be invisible here. **The cell says so itself and I am not
+  going past it.**
+- ➡️ **The cheapest next question is not "improve consolidation" but "is the reachability of
+  `foraging` and `gap_detector` instrumented at all?"** Two of six switches cannot currently be
+  shown to fire.
+
 ## TLDR
 
 We read thirty-four thousand sentences and stored three hundred and eighty-six facts.
