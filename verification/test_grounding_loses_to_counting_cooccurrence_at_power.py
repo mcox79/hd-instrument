@@ -224,3 +224,18 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# ---- PYTEST ENTRY POINT ------------------------------------------------------------------
+# WIRED 2026-08-23. WITHOUT THIS THE FILE IS ISLANDED: it is named test_*.py and sits in
+# verification/, so it LOOKS like it is in the certification gate, but it defines no test_
+# function, so pytest collects ZERO tests from it and run_certification.py never executes it.
+# That is the same shape as the hazard run_certification.py documents in its own comment (a
+# script-style file under a test_ name), arriving from the opposite direction: that one aborted
+# the suite loudly, this one is skipped silently. A witness the gate does not run is a witness
+# nobody runs.
+# This reads only a metrics.json, so it costs milliseconds and is safe to add to the gate.
+def test_grounding_loses_to_counting_at_power():
+    try:
+        main()
+    except SystemExit as exc:
+        assert exc.code == 0, "witness FAILED (exit %r) -- run the file directly for the detail" % (exc.code,)

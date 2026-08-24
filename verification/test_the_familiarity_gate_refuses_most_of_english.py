@@ -1,4 +1,4 @@
-"""The refuse-gate's 0.999 is read-vs-invented. On REAL words we have not read, it refuses ~90%.
+"""The refuse-gate's 0.999 is read-vs-invented. On REAL words we have not read it refuses 85.8%.
 
 WHERE THIS COMES FROM. Integrating the `wire_the_refuse_gate_onto_the_readout` submission
 (SOLVED, reviewed EXCELLENT, 2026-08-23). Its finding is real and well controlled: the refusable
@@ -34,7 +34,7 @@ the single large call is capped, AND that the shape every experiment cell actual
 its sentence count is meaningless -- that is this project's "no number crosses populations" rule,
 where the population is the read volume. **The qualitative conclusion is unchanged and holds at
 EVERY point on that curve: the large majority of ordinary English is refused.** The specific figure
-is not a property of the gate; it is a property of how much the substrate has read., abandoned
+is not a property of the gate; it is a property of how much the substrate has read.
 
 **THIS IS NOT A DEFECT IN THE SUBMISSION AND MAY NOT BE A DEFECT AT ALL.** Refusing a word you have
 never encountered is arguably the CORRECT conservative behaviour, and it is what "contribute, do not
@@ -42,7 +42,8 @@ decide" asks for. The point is that the two numbers answer different questions a
 is about deployment:
 
     0.999  = "does the gate tell read words from invented strings"   YES, decisively
-    ~91%   = "what fraction of ordinary English does it refuse"       the cost of switching it on
+    85.8%  = "what share of ordinary English does it refuse"          the cost of switching it on
+             (at 5,200 sentences -- ALWAYS quote the sentence count with it)
 
 **SO THE WIRING DECISION IS: DEFAULT-OFF, OR ON ONLY WHERE REFUSING UNREAD VOCABULARY IS WANTED.**
 Nobody should read "balanced 0.999" as "the system knows what it knows about English." It knows what
@@ -56,14 +57,14 @@ A SECOND OBSERVATION, RECORDED BECAUSE IT POINTS AT AN OPEN PROBLEM: `abandon` i
 `abandon`/`abandoned` I wrote that fixing lemmatisation "would move this number". It would, but it
 is NOT the main cause. Splitting the refusals by whether a crude base form is already known:
 
-    inflections of words we DO know     ~9% of refusals   -> coverage 9.4% -> 17.5%
-    genuinely absent vocabulary        ~91% of refusals
+    inflections of words we DO know     12.4% of refusals   -> coverage 14.2% -> 24.9%
+    genuinely absent vocabulary         87.6% of refusals
 
-**So lemmatisation nearly DOUBLES coverage and still leaves ~82% refused.** The gate refuses most of
-English because the substrate has read a small fraction of English (~4,400 lemmas), not because the
-lookup is broken. *That is a corpus-coverage fact, and it is the honest reason the gate is
+**So lemmatisation nearly DOUBLES coverage and still leaves ~75% refused.** The gate refuses most of
+English because the substrate has read a small fraction of English (7,334 lemmas at 5,200
+sentences), not because the lookup is broken. *That is a corpus-coverage fact, and it is the honest reason the gate is
 conservative -- a lemmatiser is worth building and will not change the wiring decision.*
-(The suffix-stripping split is crude ON PURPOSE: it under-counts morphology, so ~9% is a LOWER bound
+(The suffix-stripping split is crude ON PURPOSE: it under-counts morphology, so 12.4% is a LOWER bound
 and the conclusion "morphology is not the main cause" only gets stronger with a better analyser.)
 
     .venv/Scripts/python.exe verification/test_the_familiarity_gate_refuses_most_of_english.py
@@ -200,3 +201,19 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# ---- DELIBERATELY NOT WIRED INTO THE CERTIFICATION GATE ----------------------------------
+# The three metrics-reading witnesses written the same day WERE wired in (they cost
+# milliseconds). This one is different and the difference is the point: it performs 14 real
+# corpus reads (5,200 sentences) and takes minutes. run_certification.py is ALREADY timing out
+# with a crash exit -- there is an open brief for it (certification_gate_hangs) -- so adding a
+# multi-minute witness to it would make a known problem worse and would be blamed on the gate
+# rather than on this file.
+#
+# So it is a MANUAL witness, run by hand:
+#     .venv/Scripts/python.exe verification/test_the_familiarity_gate_refuses_most_of_english.py
+#
+# THIS COMMENT EXISTS SO THE ABSENCE READS AS A DECISION AND NOT AN OVERSIGHT. If the gate is
+# ever fixed and gains a slow/marked lane, move it in -- it has a positive control (the read
+# populated a vocabulary), a negative control (it does not refuse everything), and a regression
+# guard (the vocabulary must exceed what the capped single-call read shape produces).
