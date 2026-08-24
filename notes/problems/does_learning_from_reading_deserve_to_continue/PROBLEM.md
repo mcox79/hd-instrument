@@ -1,5 +1,5 @@
 ---
-priority: 2
+priority:
 review: EXCELLENT
 review_text: "Survives adversarial re-checking against a STRONGER comparator than it used: all three benchmarks clear the strongest floor CI-separated, and the WordSim win holds against the supplied arm the submission did not quote. Two gaps, neither overturning: the head-to-head quotes only the weaker supplied arm, and the scored population was not saved."
 ---

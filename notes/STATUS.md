@@ -64,8 +64,24 @@ every adjective pair we own.* 🚫 **COVERAGE, NOT CAPABILITY -- no task was run
 ### 2026-08-21 -- ✅ **EVICTED TO `STATUS_LESSONS.md` (search "THREE-WAY COMPARISON"): the F5
 three-way comparison that set what to build on. Closed; nothing since has moved it.**
 
-## TOP ITEM -- **I HAD BEEN MEASURING THE CHANNEL BOTH PLANS OF RECORD ALREADY RULED OUT.**
+## TOP ITEM -- **THE THREE REVIEWS RE-AIMED THE WORK. TWO ORGANS, TWO OPPOSITE FAULTS.**
 
+### 🥇 **08-23 (CURRENT): WHAT THE REVIEWS CHANGED, AND WHAT IS NOW THE BUILD**
+🔻 **THE SIXTEEN-LOSSES PREMISE BELOW IS REFUTED -- read the correction before the block.** P2 built
+the STRONG version of learning-from-reading and it clears the strongest floor CI-separated on all
+three banks, beating the spelling floor `15-40x`, **with the curve STILL CLIMBING at `38.09M`
+tokens.** *The losses tested a WEAK implementation. The route is CORPUS-LIMITED, not exhausted.*
+➡️ **NEXT MECHANISM, AND IT IS BRAIN-PINNED: RELIABILITY-WEIGHTED CUE COMBINATION.** P1 showed our
+fixed-weight mix lets a strong frequency prior SWAMP a weaker-but-correct grounded channel -- the
+channel alone beats chance on subordinate senses (`0.4811` vs `0.3854`), the mix lands BELOW chance
+(`0.1415`). **The brain does not combine cues at fixed weights; it weights each by its reliability
+(Ernst & Banks 2002 is the canonical measurement). Our rule cannot express that, so it can only ever
+reproduce whichever cue is louder.** 🚫 **BUT NOT ON THE BUNDLING ORGAN:** P3 says the fix THERE is
+MORE INDEPENDENT SOURCE DIMENSIONS (an 11-dim signal cannot fill a 256-dim code), and a count table
+with no rank ceiling is the arm that wins. **TWO ORGANS, OPPOSITE FAULTS -- DO NOT MERGE THEM.**
+🚨 **AND THE BAR ITSELF IS IN QUESTION: Q117 (spelling floor `~78%` morphological leakage).**
+
+### 🗄️ **08-22 (SUPERSEDED IN ITS PREMISE, KEPT FOR ITS SCOPING CORRECTION)**
 🔻 **THE SCOPING CORRECTION (08-22): "a 1970s baseline beats us EVERYWHERE" over 16 measures was
 wrong -- ALL SIXTEEN ARE THE WORD-SIMILARITY CHANNEL**, which `SUBSTRATE_CHARTER` (08-05) and
 `PLAN_grounded_semantic_organ_build` had already ruled out and MEASURED (bag-of-words scores

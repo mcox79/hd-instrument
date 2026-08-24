@@ -1,5 +1,5 @@
 ---
-priority: 3
+priority:
 review: STRONG
 review_text: "Its central finding is real and retires a floor that was steering the whole thread -- the string control that beat us 2:1 is 78% morphology and collapses into its own info-free twin on clean gold. But its headline 'bundling is not the bottleneck' is contradicted by its own paired bootstrap: removing the bundle BEATS the flat bag +0.0125 CI[+0.0057,+0.0195], CI-separated."
 ---

@@ -1,5 +1,5 @@
 ---
-priority: 1
+priority:
 review: STRONG
 review_text: "Honest, well-controlled, and it strengthened the floor against itself -- but its own stratum table refutes its framing: the channel is the ONLY arm beating chance on subordinate senses (0.4811 vs 0.1415 combined), so the prior SWAMPS the channel rather than replacing it."
 ---
