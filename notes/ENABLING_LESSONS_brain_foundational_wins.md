@@ -41,7 +41,7 @@ anywhere durable, and (b) the honest capability-vs-construction labels.
 
 ---
 
-## THE SEVEN NOT RECORDED ANYWHERE DURABLE -- highest value, ranked (recorded HERE)
+## THE EIGHT NOT RECORDED ANYWHERE DURABLE -- highest value, ranked (recorded HERE)
 
 1. **Morphological leakage in WordNet-style gold: score against a stem-stripped gold, or the "we lose to a spell-checker" verdict is an artifact.** Live as board Q117; already flipped a steering conclusion (0.0867->0.0193; read-out went losing->winning). Cites: `the_bundle...`, `the_gate...`.
 2. **Oracle-clears-but-no-unsupervised-arm-reaches-it => the miss is a per-item CONTROL / reliability-weighting network, not missing information.** THREE briefs converge on this (`store_survives_a_partial_cue`, `reader_meaning_channel`, `teach_the_self_built...`) -- the single most-pointed-at build target. Build the ORACLE_UNION as routine when a mechanism floors.
@@ -50,6 +50,7 @@ anywhere durable, and (b) the honest capability-vs-construction labels.
 5. **Task-type transfer discipline: a mechanism that wins a SIMILARITY task can actively HURT a PREDICTION/retrieval task** (more teaching = monotonically worse). Cite: `teach_the_self_built...`.
 6. **A scorer/floor fix must be direction-neutral or make results HARDER to publish -- a fix that lifts the headline is a laundered failure.** Cites: `score_counts_abstention...` (headline byte-identical), `the_gate...` (made results harder to publish).
 7. **The store REPRESENTATION is the lever -- keep memories separable, don't superpose into a fixed small vector** (the cleanest proven instance of "copy the operation, not the parameter d=256"). Cite: `the_live_meaning_organ...`.
+8. **A distilled direction can be INDUCTIVE while its one orientation BIT is irreducibly TRANSDUCTIVE to the candidate population.** A taught similarity read-out is label-free but BATCH-dependent: orient the sign over the presented pairs against the teacher (a single pair inverts, scoring the sign-flipped image, 0.16 vs 0.84). No label-free proxy batch recovers the sign; only the presented candidates do. Found while landing the meaning organ as a live capability. Cite: `the_live_meaning_organ...` integration; `hdlab/distributional_meaning_channel.py`.
 
 ---
 

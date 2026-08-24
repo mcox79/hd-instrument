@@ -1,8 +1,35 @@
 ---
 priority: 2
-review:
-review_text:
+review: EXCELLENT
+review_text: The store representation IS the lever, proven by a clean one-variable contrast. Re-verified 4/4+7/7, then LANDED as a live organ; my own live-path witness reproduces AUC 0.84, clearing the info-free twin CI-separated. One caveat found at integration: the read-out's sign bit is batch-transductive, so it landed as a BATCH capability.
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (accepted SOLVED, integrated by strategy 2026-08-24)
+> **Why it is excellent, specifically:** the cleanest one-variable contrast in the set -- hold the whole
+> downstream byte-identical (phi reproduces the landed distillation space to 3.4e-4) and swap ONLY the
+> store representation, and the separable count store scores 0.865 while the d=256 dense bundle fails its
+> own info-free twin (0.60). It recomputed the twin PER representation (only the explicit store beats its
+> own), and it volunteered its own weak points: the margin over the twin's single most-extreme draw is
+> thin, and it is transductive with a supplied grounded teacher. It also correctly refused the brief's
+> literal route ("decode the counts from the bundle") after proving on the real field that the counts are
+> unrecoverable once a lemma has >~256 neighbours -- the refutation IS the diagnosis.
+> **Reproduced under my check:** I re-ran both witnesses (4/4 lever + 7/7 decode-SNR). Then I built the
+> live organ (`hdlab/distributional_meaning_channel.py`) on the Route B separable store and ran the
+> live-path witness myself: `substitutability_batch` AUC 0.8374 CI [0.8016, 0.8727] over the 484 licensed
+> pairs, clearing the random-hub twin's p95 (0.681) by +0.121 AND its max (0.775) by +0.027, CI-separated;
+> degeneracy 0.51; OOV -> None; phi reproduces the landed space to 3.4e-4. **The bar ("measured THROUGH
+> THE LIVE PATH") is now met, by me, at integration.**
+> **What I found at integration that matters (and it is a KEY REALIZATION):** the distilled DIRECTION is
+> inductive, but its single orientation SIGN BIT is irreducibly transductive to a matched-co-occurrence
+> candidate population. A fit-once global sign scores the instrument at 0.16 -- the sign-inverted image of
+> 0.84 -- and no label-free proxy batch recovers the right sign; only orienting over the PRESENTED batch
+> against the grounded teacher (still label-free, never gold) does. So the organ is landed as a BATCH
+> read-out ("which of these could replace X?"), NOT a single-pair drop-in -- documented in the organ and
+> registry.
+> **Integration:** landed `hdlab/distributional_meaning_channel.py` + the Route B separable store on
+> `ConceptSpace` (increment 1); registered WIRED as a batch capability; witnesses in `verification/`.
+> Label kept: offline-consolidated, SUPPLIED grounded teacher, label-free -- never "learned live from
+> nothing". Enabling lesson harvested into `notes/ENABLING_LESSONS_brain_foundational_wins.md`.
 
 # PROBLEM: the fix for our meaning step exists, and the data it needs is already being stored and then thrown away
 

@@ -140,3 +140,32 @@ live substrate and taking the number there) belongs to the strategy session by r
 2. Choose Route A (promote the offline PPMI+SVD space as a labelled static asset) vs Route B (add the explicit sparse count store to ConceptSpace). My recommendation is B if the long-term vision needs the channel to keep learning from reading, else A for the fastest live-path number. Both are validated by the same demonstration here.
 3. Land the wiring and take the substitutability number THROUGH the live `grounded_similarity` path -- that is the one step this solve leaves to you, and it is the step your ruling reserves for you.
 4. Keep the label: the PPMI+SVD space is offline-built and the grounded teacher is supplied; never present the channel as learned-live-from-nothing.
+
+---
+
+## INTEGRATED_BY_STRATEGY 2026-08-24
+
+Re-verified both witnesses (4/4 lever, 7/7 decode-SNR). LANDED as a live organ:
+- `hdlab/reading_grounding_loop.py` `ConceptSpace` -- Route B separable co-occurrence store
+  (`_ctx_counts` + `track_context_counts` + `observe_context_counts`/`context_counts`/
+  `all_context_counts`, additive + default-OFF, wired at both read-loop observe sites). Witness
+  `verification/test_route_b_separable_context_store.py` 3/3.
+- `hdlab/distributional_meaning_channel.py` -- consolidates that store (PPMI+SVD, byte-for-byte port)
+  and distils the grounded hub into a taught substitutability read-out. Registered WIRED in
+  `data/capability_registry.jsonl` as a BATCH capability. Data-free self-test
+  `verification/test_distributional_meaning_channel.py` (routine); heavy live-path acceptance witness
+  `verification/witness_distributional_meaning_channel.py`.
+
+LIVE-PATH NUMBER (reproduced by strategy, `witness_distributional_meaning_channel.py`, 2026-08-24):
+`substitutability_batch` AUC **0.8374** CI [0.8016, 0.8727] over the 484 licensed pairs (fit-pool
+disjoint arm 0.8389), clearing the random-hub info-free twin **p95 0.6809 AND max 0.7745**
+CI-separated; degeneracy 0.5121; OOV -> None; phi reproduces the landed space to 3.4e-4; live-store
+roundtrip exact for 5491 lemmas. **The bar ("measured THROUGH THE LIVE PATH rather than in a cell") is
+met.**
+
+KEY REALIZATION recorded (feeds `notes/ENABLING_LESSONS_brain_foundational_wins.md`): the distilled
+direction is inductive but the single orientation SIGN BIT is irreducibly transductive to a
+matched-co-occurrence candidate population (global sign -> 0.16, the inverted image). The organ orients
+that bit LABEL-FREE over the presented batch against the grounded teacher, so it is a BATCH read-out,
+not a trustworthy single-pair drop-in. Do NOT naively replace `grounded_similarity`'s single-pair cap
+with it. Rating: EXCELLENT (review at top of PROBLEM.md).
