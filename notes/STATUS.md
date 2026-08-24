@@ -97,12 +97,24 @@ existed: ***"(iv) fewer than ~300 scorable items -> UNDERPOWERED ... do NOT issu
 **`0` of `12` arms reach it; max n = `151`.** ➡️ **SO "GROUNDING IS AT CHANCE" IS NOT AN AVAILABLE
 CONCLUSION -- NOT MINE, AND NOT THE SUBMISSION'S "sits at the RANDOM_ANCHOR floor in every arm".**
 *A pre-registration I did not write is not one I may quietly outgrow.*
-✅ **WHAT IS ACTUALLY TRUE, AND IT IS SHARPER: (1) THERE IS NO POWERED MEASUREMENT OF WHETHER OUR
-GROUNDING IS CORRECT -- an ABSENT result, not a negative one. (2) The reason is itself a finding: a
-`4,000`-sentence read yields only ~`151` scorable groundings, so the instrument CANNOT REACH ITS OWN
-POWER THRESHOLD at this reading volume. (3) "Read more" still does not follow -- but neither does
-"grounding is broken".** 🎯 **THE NEXT MOVE IS A POWERED GROUNDING MEASUREMENT, NOT A SCALING RUN
-AND NOT A REBUILD.**
+🔴🔴 **AND THEN A SECOND CORRECTION THAT RETIRES THE FIRST: THE POWERED MEASUREMENT ALREADY EXISTS
+AND I HAD NOT OPENED IT.** *I quoted `exp_grounding_precision_gold_v1`'s power RULE without reading
+its RESULTS.* It ran **3 seeds at ~`40,000`-sentence reads**, `UNDERPOWERED: False`, `n_scorable`
+**`441`/`441`/`398`**. **THE ANSWER HAS BEEN ON DISK ALL ALONG:**
+
+| seed | n | SUBSTRATE | RANDOM (paired p) | 🔻 **TOP_COOCCURRENT** |
+|---|---|---|---|---|
+| `101` | `441` | `0.0272` | `0.0045` (**`0.0110`**) | **`0.0590`** |
+| `20260819` | `441` | `0.0159` | `0.0023` (`0.0695`) | **`0.0476`** |
+| `7` | `398` | `0.0302` | `0.0025` (**`0.0050`**) | **`0.0653`** |
+
+✅ **GROUNDING IS NOT NOISE -- it beats the random floor on `2` of `3` seeds** (so my "at chance" was
+wrong in that direction too). 🔻 **BUT A TRIVIAL "MOST CO-OCCURRING WORD" COUNT BEATS IT `2-3x` ON
+`3` OF `3` SEEDS.** *The cell PRE-COMMITTED this reading: "(iii) ... ties TOP_COOCCURRENT -> what it
+has learned is co-occurrence, this project's standing diagnosis arriving on a third instrument."*
+**The observed case is WORSE than the tie it anticipated.** 🎯 **THE MECHANISM IS BEATEN, ON ITS OWN
+TASK AND ITS OWN GOLD, BY THE SIMPLEST SUMMARY OF THE SAME TEXT -- and "read more" does not follow,
+because these are already `10x` the reading volume of the underpowered arm.**
 ⚠️ **AND A LIMIT I CHECKED ON MYSELF: the distributional result is Spearman rho on word-pair
 similarity; ours is anchor-assignment precision against ConceptNet. DIFFERENT TASKS, DIFFERENT
 SCORERS -- the numbers may NOT be compared.** *Each is judged only against ITS OWN floor. I withdrew

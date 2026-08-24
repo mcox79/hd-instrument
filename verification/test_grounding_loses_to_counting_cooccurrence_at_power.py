@@ -1,4 +1,4 @@
-"""Vocabulary grows with reading. Whether grounding is CORRECT has never been measured at power.
+"""At power, the substrate's grounding beats random but LOSES 2-3x to counting co-occurrence.
 
 WHY THIS EXISTS -- IT CORRECTS A DIRECTION I WAS ABOUT TO SET. Across 2026-08-23 two measurements
 looked like they converged on "reading volume is the binding constraint":
@@ -32,28 +32,48 @@ at chance" is NOT an available conclusion -- not mine, and not the submission's 
 the RANDOM_ANCHOR floor in every arm". **The pre-registration forbids the verdict at this n, and a
 pre-registration I did not write is not one I may quietly outgrow.**
 
-**WHAT IS ACTUALLY TRUE, AND IT IS STILL DECISIVE FOR THE DIRECTION:**
+🔴🔴 **AND THEN A SECOND CORRECTION, WHICH RETIRES THE FIRST: A POWERED MEASUREMENT ALREADY EXISTS
+AND I HAD NOT LOOKED AT IT.** I wrote "there is NO powered measurement of whether grounding is
+correct". **That was wrong.** `data/exp_grounding_precision_gold_v1/metrics.json` -- the SAME cell
+whose pre-registration I had just quoted -- ran three seeds at `n_read ~40,000` and reports
+`UNDERPOWERED: False`, `min_scorable_required: 300`, `n_scorable` = **441 / 441 / 398**.
 
-  1. **There is NO POWERED MEASUREMENT of whether the substrate's grounding is correct.** Not a
-     negative result -- an ABSENT one. We cannot currently tell.
-  2. **The reason is itself a finding: a 4,000-sentence read yields only ~151 scorable groundings**,
-     so the instrument cannot reach its own power threshold at this reading volume.
-  3. **"Read more" STILL does not follow**, but for a sharper reason than I first gave: we would be
-     scaling the input of a mechanism whose correctness has never been measured at power.
+*I quoted that cell's power rule while never opening its results. The underpowered arm was the
+RESUME cell (a 4,000-sentence read); the DEFINING cell had the answer at power all along.* **Same
+fault as every other one tonight: I read one archive and not the neighbouring one.**
+
+**THE POWERED ANSWER, ALL THREE SEEDS:**
+
+    seed        n     SUBSTRATE                RANDOM_ANCHOR        TOP_COOCCURRENT
+    101        441    0.0272 [.0136,.0431]     0.0045   p=0.0110    0.0590 [.0385,.0816]
+    20260819   441    0.0159 [.0045,.0272]     0.0023   p=0.0695    0.0476 [.0295,.0680]
+    7          398    0.0302 [.0151,.0477]     0.0025   p=0.0050    0.0653 [.0427,.0905]
+
+  1. **The substrate BEATS the random floor on 2 of 3 seeds** (p=0.011, p=0.005; the third at
+     p=0.069). **So grounding is NOT noise** -- and my "at chance" was wrong in that direction too.
+  2. 🔻 **BUT A TRIVIAL "MOST CO-OCCURRING WORD" BASELINE SCORES 2-3x HIGHER ON EVERY SEED.** The
+     cell PRE-COMMITTED this reading: *"(iii) SUBSTRATE beats RANDOM but ties TOP_COOCCURRENT -> what
+     it has learned is co-occurrence, which is this project's standing diagnosis arriving on a third
+     instrument."* **The observed case is worse than the tie it anticipated.**
+  3. **Absolute precision is ~1.6-3.0% either way.** Whatever is being assigned, it is rarely the
+     gold neighbour.
+  4. **"Read more" still does not follow** -- these are ~40,000-sentence reads, ten times the volume
+     of the underpowered arm, and the ordering does not improve.
 
 WHY THE TWO RESULTS ARE NOT IN CONFLICT, WHICH IS THE USEFUL PART. The submission that SUCCEEDED did
 not use the substrate's grounding path at all -- it built a PPMI-SVD distributional model over raw
 simplewiki text. So:
 
     the information IS in the text          (distributional statistics extract it, CI-separated)
-    whether the substrate extracts it       UNKNOWN -- never measured at power
+    the substrate extracts SOME of it       beats random on 2/3 seeds, at power
+    but counting co-occurrence does better  2-3x, on 3 of 3 seeds
 
-**SO THE GAP IS NOT READING VOLUME, AND IT IS NOT YET DEMONSTRABLY THE MECHANISM EITHER.** ⚠️ *An
-earlier version of this file asserted "the gap IS the extraction mechanism". That inference rested
-on the at-chance verdict the pre-registration forbids, so it is withdrawn.* **What the evidence
-supports is narrower and more actionable: a plain distributional model over this corpus clears its
-floor CI-separated, and we have never been able to say whether ours does.** The next move is a
-POWERED grounding measurement, not a scaling run and not a rebuild.
+**SO THE GAP IS NOT READING VOLUME.** These are ~40,000-sentence reads -- ten times the underpowered
+arm -- and the ordering does not improve. ⚠️ *An earlier version of this file asserted "the gap IS
+the extraction mechanism" while resting on a forbidden verdict; that phrasing is withdrawn, but the
+powered data now supports a precise version of it:* **the mechanism is beaten, on its own task and
+its own gold, by the simplest possible summary of the same text.** *A mechanism that does not beat
+the baseline it is meant to explain is not yet doing the thing it is for.*
 
 ⚠️ **AND A LIMIT ON THE COMPARISON ITSELF, WHICH I CHECKED ON MYSELF:** the distributional result is
 Spearman rho on word-pair similarity; the substrate's is anchor-assignment precision against
@@ -68,7 +88,7 @@ NOT ESTABLISHED, AND STATED SO IT CANNOT TRAVEL FURTHER THAN IT GOES:
   * Vocabulary growth and grounding precision were measured on DIFFERENT reads. This test asserts
     each against its own source and deliberately computes NO cross-quantity ratio.
 
-    .venv/Scripts/python.exe verification/test_grounding_correctness_has_never_been_measured_at_power.py
+    .venv/Scripts/python.exe verification/test_grounding_loses_to_counting_cooccurrence_at_power.py
 """
 import io
 import json
@@ -79,6 +99,7 @@ RESUME = os.path.join(REPO, "data", "exp_substrate_resume_helps_v1", "metrics.js
 # PRE-REGISTERED in exp_grounding_precision_gold_v1 reading (iv), before any number existed.
 # This is NOT a threshold I chose and NOT one I may relax -- it is the measuring cell's own band.
 PREREG_MIN_N = 300
+POWERED = os.path.join(REPO, "data", "exp_grounding_precision_gold_v1", "metrics.json")
 
 
 def find_precision_blocks(obj, out, path=""):
@@ -151,14 +172,52 @@ def main():
         ns and max(ns) < PREREG_MIN_N,
         "max n = %d < %d, so 'grounding is at chance' is NOT an available conclusion"
         % (max(ns) if ns else 0, PREREG_MIN_N))
-    chk("so what we have is an ABSENT measurement, not a negative one",
-        True, "%d of %d arms powered" % (sum(1 for n in ns if n >= PREREG_MIN_N), len(ns)))
+    chk("that RESUME arm is underpowered", True,
+        "%d of %d arms powered" % (sum(1 for n in ns if n >= PREREG_MIN_N), len(ns)))
+
+    # ---- THE POWERED CELL, WHICH I INITIALLY FAILED TO OPEN -------------------------------
+    # Same cell whose pre-registration is quoted above. It ran ~40,000-sentence reads and IS
+    # powered. Quoting a cell's rules while never reading its results is how the first version
+    # of this file came to claim no powered measurement existed.
+    if not os.path.exists(POWERED):
+        print("[witness] FAIL missing the powered cell: %s" % POWERED)
+        raise SystemExit(1)
+    with io.open(POWERED, encoding="utf-8") as fh:
+        pm = json.load(fh)
+
+    beats_random, loses_to_cooc, powered_units = 0, 0, 0
+    print()
+    for uk, u in sorted(pm["units"].items()):
+        sub, rnd = u.get("SUBSTRATE", {}), u.get("RANDOM_ANCHOR", {})
+        cooc = u.get("TOP_COOCCURRENT", {})
+        if sub.get("precision") is None:
+            continue
+        powered_units += 1
+        p = rnd.get("paired_perm_p_vs_SUBSTRATE")
+        print("[witness]   seed %-10s n=%-5s UNDERPOWERED=%-6s SUBSTRATE %.4f  RANDOM %.4f (p=%s)"
+              "  TOP_COOCCURRENT %.4f"
+              % (uk.split("|")[-1], u.get("n_scorable"), u.get("UNDERPOWERED"),
+                 sub["precision"], rnd.get("precision", float("nan")), p,
+                 cooc.get("precision", float("nan"))))
+        chk("  this arm IS powered by its own rule (seed %s)" % uk.split("|")[-1],
+            u.get("UNDERPOWERED") is False and (u.get("n_scorable") or 0) >= PREREG_MIN_N,
+            "n_scorable=%s required=%s" % (u.get("n_scorable"), u.get("min_scorable_required")))
+        if p is not None and p < 0.05:
+            beats_random += 1
+        if cooc.get("precision") is not None and cooc["precision"] > sub["precision"]:
+            loses_to_cooc += 1
+
+    chk("grounding is NOT noise -- it beats the random floor on most seeds",
+        beats_random >= 2, "%d of %d seeds separated from RANDOM_ANCHOR"
+        % (beats_random, powered_units))
+    chk("but a TRIVIAL co-occurrence count beats it on EVERY seed",
+        loses_to_cooc == powered_units,
+        "%d of %d seeds: TOP_COOCCURRENT > SUBSTRATE" % (loses_to_cooc, powered_units))
 
     print()
-    print("[witness] READ AS: vocabulary growth is a STATISTIC and it is climbing; whether the")
-    print("[witness] grounding OUTCOME is correct has NEVER been measured at power (max n=151 vs")
-    print("[witness] a pre-registered 300). 'Read more' does not follow -- but neither does")
-    print("[witness] 'grounding is broken'. The next move is a POWERED measurement.")
+    print("[witness] READ AS: at power, grounding beats random but LOSES 2-3x to counting")
+    print("[witness] co-occurrence, on every seed, at ~40,000-sentence reads. 'Read more' does")
+    print("[witness] not follow. The mechanism does not beat the baseline it is supposed to explain.")
     print("[witness] RESULT: %s" % ("ALL WITNESS CHECKS PASS" if ok else "FAILED"))
     raise SystemExit(0 if ok else 1)
 
