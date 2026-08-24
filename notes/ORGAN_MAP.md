@@ -1796,6 +1796,30 @@ ours / **GAP** / **EXISTS – IS-REACHED – IS-GOOD** / **SMALLEST CAN-FAIL FLO
   [0.0413, 0.0548]**, delta +0.0390 [0.0282, 0.0500], CI excludes zero. `A7_PREFIX_ONLY` 0.05875,
   `A8_MAXORTHO` 0.0610 — all three orthography-only arms beat the substrate. That is a floored,
   can-fail, identical-pool measurement of an A1-family operation, and the organ **wins**.
+- 🔴 **CORRECTED 2026-08-23 — DO NOT QUOTE `A6_TRIGRAM_ONLY` / `A5_STRINGCTRL` `0.0870` AS "WHAT A
+  SPELL-CHECKER SCORES": THAT WIN IS ~78% AN ARTIFACT OF HOW THE GOLD WAS BUILT.**
+  <!-- COUPLING: the words "CORRECTED" and "DO NOT" on THIS line, together with the organ IDs on
+       THIS line, are what make tools/organ_map_cite.py print this block BEFORE the win at L1795.
+       Its CONSTRAINT regex matches per-line and only on lines naming the organ, so a correction
+       whose header omits the ID is filed under "other mentions" and read THIRD. Do not reword. -->
+
+  **The WordNet gold these items are scored against is largely built from STEM-SHARING pairs**
+  (`walk`/`walked`), so a character-trigram arm wins them without representing anything. Measured on
+  the identical construction at n=4000 (`data/exp_c3_surprise_weighted_vs_bundling_v1/metrics.json`,
+  `run_mode: full`): strip stem-sharing gold and the trigram arm falls **`0.0867` -> `0.0193`**, and
+  at `[0.0153, 0.0238]` it **OVERLAPS its own info-free shuffled twin `[0.0135, 0.0213]`** — i.e.
+  **on leakage-free gold the spelling floor is statistically indistinguishable from noise, and
+  `A1_BASE` then BEATS it (+0.0266 [+0.0191, +0.0344], paired, CI-separated).**
+  ⚠️ **ARM-IDENTITY CHECKED BEFORE PROPAGATING, BECAUSE THE NAMES COLLIDE:** the 2026-08-23 cell
+  calls its arm `A5_STRINGCTRL`, but it builds `t_mat` alone (line 355) — **zero substrate signal,
+  which is THIS repo's `A6_TRIGRAM_ONLY`, not the `z(base) + w*z(trigram)` fusion that
+  `exp_meaning_supply_separation_v1` calls `A5_STRINGCTRL` and that scores `0.1027`.** *The two
+  constructions share a NAME and differ by a whole channel; near-equal values (`0.0867` vs `0.0870`)
+  make the collision invisible. Compare arms by their CONSTRUCTION, never by their label.*
+  🚫 **THE GATE CONSTANT `ORTHO_BAR = 0.0870` IS DELIBERATELY UNCHANGED** in
+  `per_row_gain_c3_vet_v1.py` and `score_space_gain_and_topk_ci_v1.py` — *a gate is not weakened by
+  the session whose results it constrains.* **Owner decision open as board Q117.**
+  Witness: `verification/test_removing_the_bundle_helps_it_just_does_not_help_enough.py`.
 - 🔴 **A DEFECT I REPORTED HERE AND THEN RETRACTED, SAME PASS. RECORDED BECAUSE THE ERROR IS THE
   POINT.** I first wrote that the cell's `provenance_note` (*"promoted from
   scratch/ortho_floor_vet_trigram_only.py"*) described a promotion that never happened, on the
