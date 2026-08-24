@@ -1,5 +1,5 @@
 ---
-priority: 2
+priority:
 review: EXCELLENT
 review_text: "Clean refutation with binding controls, and it reproduces the counting floor exactly. Its mechanistic line is the sharpest of the night: PMI already IS the calibrated familiarity read-out, so store format is not the lever. Third instrument showing an oracle clears and no unsupervised method reaches it."
 ---

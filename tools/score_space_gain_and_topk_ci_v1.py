@@ -55,12 +55,37 @@ ANCHOR_NAME = "exp_score_space_gain_and_topk_ci_v1" + ("_smoke" if SMOKE else ""
 OUT = os.path.join(_REPO, "data", ANCHOR_NAME)
 os.makedirs(OUT, exist_ok=True)
 
-# 2026-08-23: KNOWN INFLATED, DELIBERATELY UNCHANGED -- see the same note in
-# tools/per_row_gain_c3_vet_v1.py. ~78% of this bar is morphological leakage in the WordNet gold
-# (0.0867 -> 0.0193 on stem-stripped gold, overlapping its own info-free twin). NOT lowered here:
-# a gate is not weakened by the session whose results it constrains. Owner decision open as Q117.
-ORTHO_BAR = 0.0870
-ORTHO_BAR_CI = (0.0783, 0.0960)
+# ---------------------------------------------------------------------------------------------
+# 2026-08-24, OWNER RULING ON BOARD Q117: *"why not fix the bar, and re run the past results.
+# let's do this right."*  So the gold is now MORPHOLOGY-STRIPPED and the bar is re-measured on it.
+#
+# WHY BOTH HAD TO MOVE TOGETHER. ~78% of the old 0.0870 bar was the WordNet gold rewarding
+# form-sharing neighbours (nation/national), which a character-trigram control wins without
+# representing anything. Lowering the CONSTANT alone would have compared a fair bar against
+# leaky arm scores -- and this file's own `void_plumbing` guard would have caught it, because it
+# recomputes A6_TRIGRAM_ONLY and requires it to equal ORTHO_BAR exactly. That guard is why the
+# change is a re-measurement rather than an edit.
+#
+# THE VALUE BELOW IS MEASURED IN *THIS* HARNESS on stripped gold. It is deliberately NOT the
+# 0.0193 from exp_c3_surprise_weighted_vs_bundling_v1: that belongs to a different item
+# construction (n=3,988), and no number crosses populations.
+USE_MORPH_STRIPPED_GOLD = True
+# MEASURED IN THIS HARNESS on stripped gold, 2026-08-24, n_items=4000 / n_anchors=5491:
+#   A6_TRIGRAM_ONLY = 0.019500  CI [0.015250, 0.024000]
+# (exp_c3_surprise_weighted_vs_bundling_v1 independently reads 0.0193 on ITS item construction --
+#  a free cross-check, and still not the number used here.)
+ORTHO_BAR = 0.019500
+ORTHO_BAR_CI = (0.015250, 0.024000)
+_LEGACY_LEAKY_BAR = (0.0870, (0.0783, 0.0960))   # kept for the re-run comparison, never as a gate
+
+
+def _gold(L):
+    """The gold this harness scores against. Stripped of morphological relatives by default."""
+    g = C3.gold_meaning_set(L)
+    if not USE_MORPH_STRIPPED_GOLD:
+        return g
+    from hdlab.morphology_leakage import strip_gold
+    return strip_gold(L, g)
 SELF_RETRIEVAL_FLOOR = 0.70
 PROJDRAW_SD_CEILING = 0.0024  # measured, exp_graded_path_vs_orthographic_floor_v1 (on=0.0009, off=0.0024)
 
@@ -210,7 +235,7 @@ def main() -> int:
         sel = np.flatnonzero(elig)
         if sel.size == 0:
             continue
-        gold = C3.gold_meaning_set(L)
+        gold = _gold(L)
         gsel = np.array([j for j, a in enumerate(sel) if anchors[a] in gold], dtype=np.int64)
 
         q = space.bundle(L)
@@ -277,13 +302,39 @@ def main() -> int:
     deltas = [("d_%s_minus_BASE" % a, a, "A1_BASE") for a in gain_arms]
     bs = MS.paired_bootstrap(armv, deltas, 5000, C3.MASTER_SEED + 71)
 
+    # THE BAR IS NOT CALIBRATED FOR THIS GOLD UNTIL IT HAS BEEN MEASURED ON IT. Refuse to gate --
+    # loudly, printing the number to calibrate with -- rather than fall back to the leaky 0.0870,
+    # which would silently compare a leaky bar against fair scores. An uncalibrated gate that
+    # returns a verdict is worse than one that stops.
+    measured_a6 = bs["arm_acc_ci"]["A6_TRIGRAM_ONLY"]
+    if ORTHO_BAR is None:
+        print("[BAR NOT CALIBRATED FOR THIS GOLD -- no gate verdict issued]")
+        print("  USE_MORPH_STRIPPED_GOLD = %s" % USE_MORPH_STRIPPED_GOLD)
+        print("  A6_TRIGRAM_ONLY measured HERE: %.6f  CI [%.6f, %.6f]"
+              % (measured_a6["acc"], measured_a6["ci_lo"], measured_a6["ci_hi"]))
+        print("  legacy leaky bar was %.4f %s -- for comparison only, never as a gate"
+              % (_LEGACY_LEAKY_BAR[0], _LEGACY_LEAKY_BAR[1]))
+        print("  SET: ORTHO_BAR = %.6f ; ORTHO_BAR_CI = (%.6f, %.6f)"
+              % (measured_a6["acc"], measured_a6["ci_lo"], measured_a6["ci_hi"]))
+        raise SystemExit(3)
+
     bar_lo = ORTHO_BAR_CI[1]
     clears_bar = {a: bool(bs["arm_acc_ci"][a]["ci_lo"] > bar_lo) for a in gain_arms}
     delta_excludes_zero = {a: bool(bs["deltas"]["d_%s_minus_BASE" % a]["ci_excludes_zero"])
                            for a in gain_arms}
     exceeds_projdraw_sd = {a: bool(abs(bs["deltas"]["d_%s_minus_BASE" % a]["delta"]) > PROJDRAW_SD_CEILING)
                            for a in gain_arms}
-    hard_pass = {a: bool(clears_bar[a] and delta_excludes_zero[a] and exceeds_projdraw_sd[a])
+    # 🔴 SIGN BUG FOUND 2026-08-24 WHILE RE-RUNNING UNDER THE FAIR BAR (owner ruling, Q117).
+    # `delta_excludes_zero` is symmetric: it is True for an arm that is significantly WORSE than
+    # base. With the old leaky bar (0.0870) nothing ever cleared `clears_bar`, so this never fired.
+    # Under the fair bar (0.0195) SCORE_GAIN_RANDOM -- an INFORMATION-FREE arm scoring 0.03775
+    # against base 0.04575 -- satisfied all three conditions and was reported HARD_PASS.
+    # A gate that credits a significant DECREASE as a pass is broken. Requiring the delta to be
+    # POSITIVE makes it STRICTER, so this is a correction and not a weakening.
+    delta_is_an_improvement = {a: bool(bs["deltas"]["d_%s_minus_BASE" % a]["delta"] > 0.0)
+                               for a in gain_arms}
+    hard_pass = {a: bool(clears_bar[a] and delta_excludes_zero[a]
+                         and delta_is_an_improvement[a] and exceeds_projdraw_sd[a])
                 for a in gain_arms}
     bitwise_identical_frac = {a: float(identical_to_base[a].mean()) for a in gain_arms}
     any_gain_arm_visible = any(bitwise_identical_frac[a] < 1.0 for a in
@@ -300,7 +351,14 @@ def main() -> int:
         hits["A6_TRIGRAM_ONLY"].astype(float), top50["A6_TRIGRAM_ONLY"].astype(float),
         5000, C3.MASTER_SEED + 91)
 
-    a1_matches_headline = abs(bs["arm_acc_ci"]["A1_BASE"]["acc"] - 0.048) < 1e-9 if not SMOKE else None
+    # THE REPRODUCTION GUARD IS PINNED TO THE GOLD, so it had to be re-measured alongside the bar.
+    # 0.048 is A1_BASE on the LEAKY gold; on morphology-stripped gold this harness reads 0.04575
+    # (measured 2026-08-24, n_items=4000). Leaving 0.048 here made the tool declare its own
+    # plumbing void on every fair-gold run -- correctly, since it genuinely no longer reproduced
+    # the landed headline. Two constants, one cause: both were fixed to the old gold.
+    A1_BASE_EXPECTED = 0.04575 if USE_MORPH_STRIPPED_GOLD else 0.048
+    a1_matches_headline = (abs(bs["arm_acc_ci"]["A1_BASE"]["acc"] - A1_BASE_EXPECTED) < 1e-9
+                           if not SMOKE else None)
     a6_matches_bar = abs(bs["arm_acc_ci"]["A6_TRIGRAM_ONLY"]["acc"] - ORTHO_BAR) < 1e-9 if not SMOKE else None
     void_plumbing = bool((not SMOKE) and (
         (a1_matches_headline is False) or (a6_matches_bar is False) or self_retrieval < SELF_RETRIEVAL_FLOOR))
@@ -366,8 +424,8 @@ def main() -> int:
     with open(p + ".tmp", "wb") as fh:
         fh.write(json.dumps(rep, indent=1).encode("utf-8"))
     os.replace(p + ".tmp", p)
-    print("A1_BASE reproduces 0.0480:", a1_matches_headline)
-    print("A6_TRIGRAM_ONLY reproduces 0.0870:", a6_matches_bar)
+    print("A1_BASE reproduces the expected value for this gold:", a1_matches_headline)
+    print("A6_TRIGRAM_ONLY reproduces the calibrated bar:", a6_matches_bar)
     print("SELF_RETRIEVAL:", self_retrieval, "(floor 0.70)")
     print("VOID_PLUMBING:", void_plumbing)
     print("bitwise identical to A1_BASE (gain arms):", bitwise_identical_frac)

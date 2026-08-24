@@ -1,10 +1,10 @@
 ---
-priority: 1
+priority: 2
 review:
 review_text:
 ---
 
-> # 🥇 **PRIORITY 1 — A MEASURED FAILURE OF *COMBINATION*, WITH A LANDED RECIPE AND TWO LANDED TRAPS ALREADY ON DISK.**
+> # 🥈 **PRIORITY 2 — A MEASURED FAILURE OF *COMBINATION*, WITH A LANDED RECIPE AND TWO LANDED TRAPS ALREADY ON DISK.**
 > **This is not "go build reliability weighting."** That mechanism has a **HARD_PASS** and two
 > **HARD_FAIL**s in this repo already, and they tell you the exact conditions under which it works.
 > **Your job is to determine whether our case is the passing regime or the failing one — and if it
