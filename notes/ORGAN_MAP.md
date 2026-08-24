@@ -298,6 +298,9 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
 - **WIRED:** NO
 
   🔴 **SEE §10.1 — NO LONGER UNTESTED: `exp_orthographic_floor_vet_v1` A6_TRIGRAM_ONLY 0.0870 [0.0783,0.0960] vs live 0.0480; the orthography-only arm WINS. (Provenance is sound: `tools/orthographic_floor_vet_v1.py`, tracked at `58a125c88`.)**
+  🔴 **CORRECTED 2026-08-24 — A6_TRIGRAM_ONLY DOES NOT WIN. That `0.0870` is ~78% MORPHOLOGICAL
+  LEAKAGE in the gold. Re-measured on stripped gold the floor is `0.0195` and the live read-out is
+  `0.04575`, so the SUBSTRATE WINS. DO NOT QUOTE THE LINE ABOVE. Full correction in §10.1.**
   `superseded_untouched_since_2026-07-03`. **UNTESTED — no floored number.**
 - **BLOCKS:** nothing today. The live path never reads characters.
 
@@ -465,7 +468,10 @@ FIDELITY · WIRED (runtime) · EVIDENCE (+ its floor) · BLOCKS.
   class sits **ON** the random-word-pair Lancaster floor (**0.8071 vs 0.8060**) while non-NOISE sits
   at 0.8834; AUC 0.685 **in-sample** (`notes/grounding_asset_inventory_2026-08-13.md:248-249`).
   Wired into the C3 harness it gives `A2_NORMS` **0.07125** at w=0.50, **below** the 0.0870
-  standalone-spelling floor. Sensorimotor-applied-to-abstract was previously HARD_FAIL and SHELVED.
+  standalone-spelling floor. *(⚠️ 2026-08-24: that `0.0870` comparison is against the LEAKY floor.
+  The honest floor is `0.0195`, which `A2_NORMS 0.07125` would CLEAR. The "below the floor" reading
+  here is superseded; §10.1 has the correction. Re-measure before quoting either way -- `0.07125`
+  was itself scored on unstripped gold, so it is not directly comparable to `0.0195` either.)* Sensorimotor-applied-to-abstract was previously HARD_FAIL and SHELVED.
   **Two stale framings to retire in BOTH directions:** the norms are *not* an unwired island —
   `hdlab/lexical_similarity.py:599` has `use_grounded_fallback: bool = True`, default-ON since
   2026-08-11 (the live *reading loop* simply never calls `concept_similarity`) — and they are *not*
@@ -1816,9 +1822,26 @@ ours / **GAP** / **EXISTS – IS-REACHED – IS-GOOD** / **SMALLEST CAN-FAIL FLO
   `exp_meaning_supply_separation_v1` calls `A5_STRINGCTRL` and that scores `0.1027`.** *The two
   constructions share a NAME and differ by a whole channel; near-equal values (`0.0867` vs `0.0870`)
   make the collision invisible. Compare arms by their CONSTRUCTION, never by their label.*
-  🚫 **THE GATE CONSTANT `ORTHO_BAR = 0.0870` IS DELIBERATELY UNCHANGED** in
-  `per_row_gain_c3_vet_v1.py` and `score_space_gain_and_topk_ci_v1.py` — *a gate is not weakened by
-  the session whose results it constrains.* **Owner decision open as board Q117.**
+  ✅ **SUPERSEDED 2026-08-24 — Q117 IS ANSWERED AND BOTH GATE CONSTANTS HAVE MOVED. The text that
+  stood here ("`ORTHO_BAR = 0.0870` IS DELIBERATELY UNCHANGED ... Owner decision open as board
+  Q117") was correct only until the owner ruled, and is now wrong in three ways at once: the
+  decision is closed, and BOTH files carry a different number.**
+  Owner: *"why not fix the bar, and re run the past results. let's do this right."*
+  **Both tools now read `ORTHO_BAR = 0.019500` CI `[0.015250, 0.024000]`, each RE-MEASURED IN ITS
+  OWN HARNESS on morphology-stripped gold — never copied.** `score_space_gain_and_topk_ci_v1.py`
+  owned a trigram arm already; `per_row_gain_c3_vet_v1.py` did not, so it REFUSED to grade until
+  `experiments/exp_per_row_gain_trigram_floor_calibration_v1.py` measured one for it. That
+  calibration proved harness identity FIRST (`A1_BASE 0.04575` and `self_retrieval 0.755853`
+  reproduce to 1e-9, `n_items=4000 / n_anchors=5491` identical), which is what licenses the two
+  harnesses agreeing rather than making it a leak. Three independent reads: `0.019500`, `0.0195`,
+  `0.0193`.
+  🔴 **AND THE CONSEQUENCE REVERSES THE WIN RECORDED AT L1795 AND L300: on the HONEST floor the
+  live read-out BEATS the orthography-only arm (`0.04575` vs `0.0195`). It LOST only against the
+  leaky floor (`0.0480` vs `0.0870`).** *Anywhere this file says the orthography-only arm WINS,
+  that is on LEAKY gold and is superseded.* ⚠️ **`0.04575` is still a weak reader in absolute terms
+  — "beats spelling" must never travel as "reads meaning well".**
+  Each tool now recomputes the floor every run and REFUSES to gate if it disagrees with the
+  constant (`void_plumbing`), so this number cannot drift silently again.
   Witness: `verification/test_removing_the_bundle_helps_it_just_does_not_help_enough.py`.
 - 🔴 **A DEFECT I REPORTED HERE AND THEN RETRACTED, SAME PASS. RECORDED BECAUSE THE ERROR IS THE
   POINT.** I first wrote that the cell's `provenance_note` (*"promoted from
