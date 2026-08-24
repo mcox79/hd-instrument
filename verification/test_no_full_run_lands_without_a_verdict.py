@@ -42,17 +42,32 @@ VERDICTISH = ("verdict", "verdict_msg", "verdict_tag", "verdict_detail", "verdic
 
 # Grandfathered 2026-08-24. THIS LIST MAY SHRINK, NEVER GROW. Removing a name means either the cell
 # gained a verdict or its result was adjudicated and written down somewhere durable.
+# READING STATUS annotated 2026-08-24. A name here means "landed FULL with no verdict field"; it
+# does NOT mean "unread". Eight of the twelve now have their conclusion written down somewhere
+# durable -- the point of the annotation is that the next person can see WHICH, instead of
+# re-deriving results that are already adjudicated. (I miscounted these as "ten unread" and then
+# "seven unread" before actually listing them. Name the denominator.)
 KNOWN_VERDICTLESS_FULL = {
-    "exp_cortical_read_consolidated_v1",
-    "exp_discrimination_ceiling_v1",
-    "exp_e2e_trace_v1",
-    "exp_grounding_precision_gold_v1",
+    # --- ADJUDICATED: conclusion recorded elsewhere, do not re-derive ---
+    "exp_cortical_read_consolidated_v1",    # in B3's slot rationale: 298-300 of 300 items already
+                                            # read; the leak FAVOURED the organ and it lost anyway
+    "exp_grounding_precision_gold_v1",      # commit 838cb8ffd: beats the random floor 2 of 3 seeds,
+                                            # but counting co-occurrence beats it 2-3x on 3 of 3
+    # --- READ 2026-08-24, written up in
+    #     notes/WHERE_THE_SUBSTRATE_LOSES_A_CENSUS_THAT_SAT_UNREAD_2026-08-24.md ---
+    "exp_e2e_trace_v1",                     # the loss census; 34,169 sentences -> 386 facts.
+                                            # Its QUALITY_CLAIM is "scores nothing" -- a verdict
+                                            # would be WRONG here. Do not add one.
+    "exp_substrate_end_to_end_readout_v1",  # pre-registered reading (e) fired: the read-out does
+                                            # not consult grounded facts
+    "exp_discrimination_ceiling_v1",        # oracle 1.0 and we still miss ~88%; and SECOND_ORDER
+                                            # is BAG_COSINE written twice
+    "exp_predictive_write_gate_v1",         # 0 of 18 vs a rate-matched random skip
+    "exp_sensorimotor_spoke_grounding_v1",  # beats its shuffled twin, ties counting: redundant
+    "exp_sr_scale_ladder_v1",               # 0 of 24, degrades with scale; written up in ORGAN_MAP D7
+    # --- STILL UNREAD: four ---
     "exp_meaning_asset_coverage_probe_v1",
     "exp_meaning_asset_floor_hardening_v1",
-    "exp_predictive_write_gate_v1",
-    "exp_sensorimotor_spoke_grounding_v1",
-    "exp_sr_scale_ladder_v1",          # the incident above; its result IS now written up in ORGAN_MAP D7
-    "exp_substrate_end_to_end_readout_v1",
     "exp_substrate_resume_helps_v1",
     "exp_wire_definitional_v1",
 }
