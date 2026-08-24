@@ -1,8 +1,62 @@
 ---
 priority: 3
-review:
-review_text:
+review: STRONG
+review_text: "Its central finding is real and retires a floor that was steering the whole thread -- the string control that beat us 2:1 is 78% morphology and collapses into its own info-free twin on clean gold. But its headline 'bundling is not the bottleneck' is contradicted by its own paired bootstrap: removing the bundle BEATS the flat bag +0.0125 CI[+0.0057,+0.0195], CI-separated."
 ---
+
+> # 🥈 **MY REVIEW OF THE SUBMISSION -- STRONG. THE DISCOVERY IS REAL; THE HEADLINE OVERSHOOTS IT.**
+> *Reviewed 2026-08-23 by the strategy session. Re-verify PASSED (~13 min). Everything below is
+> recomputed from `data/exp_c3_surprise_weighted_vs_bundling_v1/metrics.json` (`run_mode: full`,
+> `4,000` items, `5,491` anchors). Witness:
+> `verification/test_removing_the_bundle_helps_it_just_does_not_help_enough.py`.*
+>
+> ## ✅ **THE REAL FINDING, AND IT RETIRES A FLOOR THAT HAS BEEN STEERING THIS THREAD**
+> **The string control that beats us ~2:1 is MOSTLY MORPHOLOGY.** Strip stem-sharing pairs out of
+> the WordNet gold and it collapses **`0.0867` -> `0.0193`** -- *`78%` of it was spelling overlap
+> between morphologically related words* -- and at `0.0193 [0.0153,0.0238]` it **OVERLAPS its own
+> info-free shuffled twin** (`0.0173 [0.0135,0.0213]`). **On leakage-free gold the string floor is
+> statistically indistinguishable from noise, and the distributional arms beat it CI-separated.**
+> 🔑 *This is the single most useful thing to come out of the three submissions: `A5_STRINGCTRL`
+> `0.0870` has been quoted all week as the bar any arm must clear. **Most of that bar was an
+> artifact of how the gold was built.***
+> ✅ *Also excellent: a cosine-invariance guard proving a SHARED permutation is not a null, and a
+> per-row shuffle that genuinely destroys structure. It caught a control that would have been fake.*
+>
+> ## 🔻 **WHAT ITS OWN PAIRED BOOTSTRAP SAYS AGAINST ITS HEADLINE**
+> **The headline is "the bundling is NOT the c3 bottleneck." The same `metrics.json` contains:**
+>
+> | paired delta, full gold, 5000x bootstrap | value | |
+> |---|---|---|
+> | **`RAW_COOC` − `A1_BASE`** *(delete the bundle entirely vs the shipped flat bag)* | **`+0.0125` CI `[+0.0057,+0.0195]`** | ✅ **EXCLUDES ZERO** |
+>
+> ➡️ **DELETING SUPERPOSITION IS WORTH `+0.0125` -- about `26%` OF THE FLAT BAG'S OWN SCORE
+> (`0.0480`) -- AND IT IS CI-SEPARATED.**
+>
+> **HOW BOTH ARE TRUE, AND WHY THE FRAMING STILL MATTERS.** The submission's argument is: removing
+> the bundle *still loses to the spelling floor*, therefore bundling is not what limits c3. **The
+> first half is correct** (`0.0605` vs `0.0867`, CI-separated). ⚠️ **But the SAME submission then
+> demolishes that comparator as leakage.** *Against the floor it retired, the argument does not
+> carry; against the actual shipped system, removing the bundle WINS.*
+>
+> 🎯 **THE ACCURATE STATEMENT: removing the bundle HELPS, CI-separated, and does NOT help ENOUGH to
+> clear the task.** *That is a different claim from "bundling costs nothing", and only one of them
+> tells the next reader to keep looking at the representation.* **"Not the bottleneck" reads as
+> "stop working on it"; a CI-separated `+0.0125` from deleting superposition -- on the very task
+> where two replacement operators LOST -- says those two were the WRONG REPLACEMENTS, not evidence
+> of no cost.**
+>
+> ⚠️ **WHAT I AM NOT CLAIMING:** `+0.0125` is small and nowhere near clearing the task; the cell did
+> NOT compute this pair as a paired delta on stripped gold (point estimates `0.0582` vs `0.0459`
+> agree in sign and size); and `RAW_COOC` is an explicit count table, **not a deployable
+> representation** -- it BOUNDS what the bundle costs, it is not a proposal to ship.
+>
+> ## ➡️ **AND THIS CONFIRMS THE BLOCK ABOVE RATHER THAN REPLACING IT**
+> The pre-filing correction on this brief said the `62%` is about **code RANK** -- an 11-dimensional
+> source cannot fill a 256-dim code, so our codes are `11.7x` less orthogonal than random ones and
+> crosstalk under bundling. **A count table has no rank ceiling at all, and it is the arm that wins.
+> Those two findings agree.** 🎯 **The build target is MORE INDEPENDENT SOURCE DIMENSIONS, not a
+> different combination rule** -- *which is the opposite lesson from priority 1, where the
+> combination rule IS the target. Two different organs, two different faults; do not merge them.*
 
 > # 🥉 **PRIORITY 3 — A MEASURED COST AND TWO LANDED REFUTATIONS OF THE OBVIOUS FIX. RECONCILE THEM.**
 > **This is a contradiction, not a build.** I measured that the reader's bundle destroys most of the
