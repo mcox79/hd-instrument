@@ -553,6 +553,12 @@ class ConceptSpace:
         # read-out changes.
         self._ctx_counts: Dict[str, "Counter[str]"] = {}
         self.track_context_counts: bool = False
+        # ROUTE B change 2 (the_reader_reads_too_shallow SOLVED; default-OFF, SEPARATE opt-in flag so
+        # the existing seed-known-only tracking that distributional_meaning_channel relies on is left
+        # byte-for-byte unchanged): when set, the read loop accumulates co-occurrence for EVERY content
+        # lemma read, not just seed-known ones -- giving the distributional channel live coverage to
+        # score comprehension. ADDITIVE; touches only `_ctx_counts`.
+        self.track_all_content_lemmas: bool = False
 
     def observe(self, lemma: str, ctx_vec: np.ndarray) -> None:
         if lemma not in self._sums:
@@ -565,10 +571,11 @@ class ConceptSpace:
 
     def observe_context_counts(self, lemma: str, ctx_lemmas: Sequence[str]) -> None:
         """ROUTE B (2026-08-24): accumulate `lemma`'s raw context-word COUNTS separably, alongside the
-        superposed `_sums`. NO-OP unless `track_context_counts` is set, so a normal read pays nothing.
-        `ctx_lemmas` is the masked context multiset -- the SAME content lemmas that built the ctx_vec
-        passed to `observe`, target excluded. ADDITIVE; touches only `_ctx_counts`."""
-        if not self.track_context_counts:
+        superposed `_sums`. NO-OP unless `track_context_counts` or `track_all_content_lemmas` is set, so
+        a normal read pays nothing. `ctx_lemmas` is the masked context multiset -- the SAME content
+        lemmas that built the ctx_vec passed to `observe`, target excluded. ADDITIVE; touches only
+        `_ctx_counts`."""
+        if not (self.track_context_counts or self.track_all_content_lemmas):
             return
         c = self._ctx_counts.get(lemma)
         if c is None:
@@ -1346,7 +1353,16 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
     # built once per sentence and only when tracking. `content_lemmas` below is a SET (dedup); the
     # count store needs the multiset, so recompute from content_words with the same normaliser.
     _ctx_multiset = ([normalize_lemma(w) for w in content_words(sentence)]
-                     if state.space.track_context_counts else None)
+                     if (state.space.track_context_counts or state.space.track_all_content_lemmas)
+                     else None)
+
+    # ROUTE B change 2 (the_reader SOLVED; gated by track_all_content_lemmas, default-OFF): accumulate
+    # co-occurrence for EVERY content lemma so the distributional meaning channel has live coverage to
+    # score comprehension. When ON it OWNS the tracking -- the seed-known-only calls below are skipped
+    # to avoid double-counting; when OFF, the seed-known-only behaviour is byte-for-byte preserved.
+    if state.space.track_all_content_lemmas and _ctx_multiset is not None:
+        for _tgt in set(_ctx_multiset):
+            state.space.observe_context_counts(_tgt, [w for w in _ctx_multiset if w != _tgt])
 
     for lemma in content_lemmas(sentence):
         if lemma in state.known_seed:
@@ -1354,7 +1370,7 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
             ctx = _encode(sentence, lemma)
             if np.any(ctx != 0.0):
                 state.space.observe(lemma, ctx)
-                if _ctx_multiset is not None:
+                if _ctx_multiset is not None and not state.space.track_all_content_lemmas:
                     state.space.observe_context_counts(lemma, [w for w in _ctx_multiset if w != lemma])
             continue
         if anchor_pool is not None and lemma in anchor_pool:
@@ -1364,7 +1380,7 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
             actx = _encode(sentence, lemma)
             if np.any(actx != 0.0):
                 state.space.observe(lemma, actx)
-                if _ctx_multiset is not None:
+                if _ctx_multiset is not None and not state.space.track_all_content_lemmas:
                     state.space.observe_context_counts(lemma, [w for w in _ctx_multiset if w != lemma])
         it = state.library.items.get(lemma)
         # TWO GATES IN SERIES BLOCK A GROUNDED WORD, and that is why ablating the gap detector alone

@@ -19,7 +19,10 @@ from collections import Counter
 
 import numpy as np
 
-from hdlab.reading_grounding_loop import ConceptSpace
+from hdlab.reading_grounding_loop import (
+    ConceptSpace, ReadingLoopState, seed_known_words, process_sentence,
+    content_lemmas, HDFactStore, KNOWN_RELATION, MEANING_RELATION,
+)
 
 
 def test_default_off_is_a_true_noop():
@@ -58,8 +61,63 @@ def test_additive_sums_path_untouched():
     print("PASS additive_sums_path_untouched")
 
 
+def test_broad_flag_enables_tracking_without_track_context_counts():
+    # ROUTE B change 2 (the_reader SOLVED): the NEW opt-in flag enables the count store ON ITS OWN,
+    # with track_context_counts left OFF -- so it cannot disturb the existing seed-known-only path.
+    s = ConceptSpace()
+    assert s.track_all_content_lemmas is False, "the broad flag must be OFF by default"
+    s.observe_context_counts("cat", ["furry", "pet"])            # both flags off -> no-op
+    assert s.all_context_counts() == {}
+    s.track_all_content_lemmas = True                            # broad flag alone
+    s.observe_context_counts("cat", ["furry", "pet"])
+    assert s.context_counts("cat") == Counter({"furry": 1, "pet": 1})
+    print("PASS broad_flag_enables_tracking_without_track_context_counts")
+
+
+def _reading_state(seed):
+    st = HDFactStore(n_dim=2048, seed=seed,
+                     relation_cardinality={KNOWN_RELATION: "FUNCTIONAL", MEANING_RELATION: "FUNCTIONAL"})
+    state = ReadingLoopState(store=st)
+    seed_known_words(state, ["engine", "harvest"], f"seed_broad_{seed}")   # only 2 of the content words
+    return state
+
+
+def test_broad_flag_read_tracks_all_content_lemmas_no_double_count():
+    # The read-loop half of change 2: with the broad flag ON, EVERY content lemma read gets a separable
+    # count-store entry (the coverage the distributional channel was missing), while the narrow flag
+    # still tracks ONLY seed-known lemmas. CAN-FAIL: if the broadening did not fire, the non-seed words
+    # would be absent; if it double-counted, engine->harvest would be 2.
+    sent = "The engine and the tractor waited inside the barn before harvest."
+    content = set(content_lemmas(sent))
+    seedset = {"engine", "harvest"}
+    nonseed = content - seedset
+    assert nonseed, f"fixture must contain non-seed content words to prove broadening; content={content}"
+
+    narrow = _reading_state(11)
+    narrow.space.track_context_counts = True
+    process_sentence(narrow, sent, "n0", pass_idx=0)
+    tracked_narrow = set(narrow.space.all_context_counts())
+    assert tracked_narrow and tracked_narrow <= seedset, (
+        f"narrow path must track ONLY seed-known lemmas, got {tracked_narrow}")
+
+    broad = _reading_state(11)
+    broad.space.track_all_content_lemmas = True
+    process_sentence(broad, sent, "b0", pass_idx=0)
+    tracked_broad = set(broad.space.all_context_counts())
+    assert content <= tracked_broad, f"broad path must track ALL content lemmas; missing {content - tracked_broad}"
+    assert nonseed <= tracked_broad, "the non-seed words (the coverage gap the channel needs) are now tracked"
+
+    eng = broad.space.context_counts("engine")
+    if "harvest" in eng:
+        assert eng["harvest"] == 1, (
+            "double-count: engine->harvest must be 1 -- the all-lemmas loop OWNS tracking when broad is on")
+    print("PASS broad_flag_read_tracks_all_content_lemmas_no_double_count")
+
+
 if __name__ == "__main__":
     test_default_off_is_a_true_noop()
     test_on_keeps_counts_separable()
     test_additive_sums_path_untouched()
-    print("3/3 WITNESSES PASSED")
+    test_broad_flag_enables_tracking_without_track_context_counts()
+    test_broad_flag_read_tracks_all_content_lemmas_no_double_count()
+    print("5/5 WITNESSES PASSED")

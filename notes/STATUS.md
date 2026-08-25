@@ -37,7 +37,13 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 C: with exact prior versions; `import hdlab.substrate`, `board.py self-test`, and a witness test all PASS.
 All 15 `hd_*` scheduled tasks + 22 launcher scripts re-pointed D:->C:; only 6 necessary tasks enabled; 6
 legacy daemons killed. Claude history + memory (689 files) migrated to the `c--AI` tag. **`D:\AI` is an
-UNTOUCHED backup** until the owner deletes it. Nothing landed in `hdlab/` this round.
+UNTOUCHED backup** until the owner deletes it.
+🔌 **LANDED THIS ROUND (flag-gated, default-OFF):** Route B `ConceptSpace.track_all_content_lemmas` --
+`the_reader` SOLVED change 2. The read loop can now accumulate co-occurrence for EVERY content lemma, not
+just seed-known ones, giving `distributional_meaning_channel` the live coverage it needs to score the p2
+gate (was ~55 pairs, structurally too few). Additive, default-OFF; existing seed-known-only path byte-for-
+byte preserved (witness `test_route_b_separable_context_store.py` 5/5). `the_reader` change 1 (grounding-
+state selection hook) still deferred -- more invasive, its own deliberate landing.
 🗂️ **OPEN QUEUE RE-RANKED:** p1 `organ_abstains_on_two_thirds_of_v2` (goal-outcome organ refuses 2/3 --
 the live goal-bearing blocker; a refusal is more tractable than a wrong answer); p2
 `meaning_read_out_untested_on_the_own_metric` (the transfer GATE that unblocks the meaning-read-out WIRING
