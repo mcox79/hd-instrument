@@ -1,8 +1,32 @@
 ---
 priority: 5
-review: 
-review_text: 
+review: EXCELLENT
+review_text: Built the instrument where the defect BITES (benchmark words in real inflected forms); lemmatise-on-miss inserts real meaning (rho 0.206 where the live lookup is MUTE), clears the strongest floor +0.185 CI-separated, the mandated info-free twin loses, BASE-oracle~=fix, replicated 3/3. I re-verified (WITNESS PASS) and LANDED the one-line fix. Held-out proven; read()-path gain awaits B5.
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (accepted SOLVED, integrated by strategy 2026-08-25)
+> **Why it is excellent, specifically:** the brief had correctly deflated ITSELF ("the defect costs 0
+> on every instrument we own") -- and the solver saw that was a statement about where the defect was
+> LOOKED FOR, not whether it costs anything, and BUILT THE INSTRUMENT WHERE IT BITES: benchmark
+> word-pairs shown in real inflected surface forms that occur in the corpus and miss the exact-string
+> table. That converted an unmeasurable coverage statistic into a CI-separated task result. It ran the
+> mandated info-free twin (random covered word) -- it LOSES on all four populations; it added a BASE
+> gold-lemma oracle that turns every negative into a diagnosis (LEMMA ~= BASE and false_rate ~= 0 => the
+> fix is faithful; where it does not clear, BASE does not clear either => the asset's ceiling, not the
+> fix); it ran MORE floors than mandated and caught a low-n frequency confound; and it hand-checked the
+> false recoveries -- 4 of 5 were its own synthetic inflector's collisions, not the lemmatiser's (true
+> error ~0.1%, lives->life). Brain-pinned to masked morphological priming (Rastle & Davis 2008).
+> **Reproduced under my check:** re-ran `verification/test_lemmatised_grounding_task.py` -- WITNESS
+> PASS: SimVerb-test LEMMA rho 0.2059, margin +0.1848 CI [0.1282,0.2323] ABOVE, twin loses,
+> false_rate 0.007. Matches the submission.
+> **Honestly NOT established:** this is not a live-path result -- `read()` still does not consult the
+> asset; it proves the fix's MEANING VALUE on a held-out task, not a read()-based number.
+> **Integration:** I LANDED the one-line lemmatise-on-miss change in `hdlab/grounded_similarity.py`
+> `grounded_vector` NOW (not waiting for B5), because it is additive (fires only on a miss), proven,
+> and it benefits every caller of the grounded lookup -- including the meaning organs landed this week
+> (their grounded spoke now covers inflected words). grounded_similarity self-test still passes.
+> Scoped honestly: held-out proven; the read()-path gain still awaits the B5 read() adapter (priority
+> 3, unbuilt). KEY REALIZATION harvested to notes/ENABLING_LESSONS_brain_foundational_wins.md.
 
 > # 4️⃣ **PRIORITY 7 of 8 -- CHEAPEST AND LARGEST, BUT NOT YET MEASURABLE.** *(ranked 2026-08-22)*
 > **The gain is real and large: token coverage `0.6035 -> 0.7350`, `+13.2` points of running text

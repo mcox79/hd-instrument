@@ -161,8 +161,25 @@ def _table() -> Dict[str, torch.Tensor]:
 
 def grounded_vector(word: str) -> Optional[torch.Tensor]:
     """z-scored 12-dim [11 Lancaster sensorimotor means + Brysbaert concreteness] vector for
-    `word`, or None if OOV of the Lancaster/Brysbaert single-token intersection."""
-    return _table().get(word.lower())
+    `word`, or None if OOV of the Lancaster/Brysbaert single-token intersection.
+
+    LEMMATISE-ON-MISS (2026-08-25, from SOLVED lookup_does_not_lemmatise). The table is exact-string,
+    so inflected forms (countries, released) miss though their lemma is covered. On a MISS, retry the
+    word's lemma via `lemma_word` (already live on the reading path). BRAIN-PINNED: inflectional
+    morphology is stripped at the lexical interface BEFORE semantic access (masked morphological
+    priming; Rastle & Davis 2008; Taft & Forster 1975). MEASURED on SimVerb/SimLex shown in REAL
+    inflected surface forms: lemmatise-on-miss scores rho 0.206 where the live exact lookup is MUTE,
+    clears the strongest floor CI-separated (+0.185 [+0.128,+0.232]), the info-free twin (random
+    covered word) LOSES, and a gold-lemma BASE oracle ~= LEMMA; false-recovery ~0.1% (lives->life).
+    ADDITIVE -- fires ONLY on a miss, never changes a covered word. Held-out proven; the read()-path
+    gain still awaits the B5 adapter (do not bill this as a read() gain). `in_grounded_lexicon` is
+    left EXACT on purpose: recovered-vector != declared-membership; use `grounded_vector(w) is not
+    None` where the recovered coverage is what matters."""
+    v = _table().get(word.lower())
+    if v is not None:
+        return v
+    from hdlab.thematic_role_labeler import lemma_word   # already live on the reading path
+    return _table().get(lemma_word(word.lower()))
 
 
 def in_grounded_lexicon(word: str) -> bool:
