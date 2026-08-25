@@ -1,5 +1,4 @@
 ---
-priority: 2
 review: EXCELLENT
 review_text: The store representation IS the lever, proven by a clean one-variable contrast. Re-verified 4/4+7/7, then LANDED as a live organ; my own live-path witness reproduces AUC 0.84, clearing the info-free twin CI-separated. One caveat found at integration: the read-out's sign bit is batch-transductive, so it landed as a BATCH capability.
 ---
