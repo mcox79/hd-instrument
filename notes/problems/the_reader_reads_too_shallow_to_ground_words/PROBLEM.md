@@ -1,8 +1,32 @@
 ---
 priority: 1
-review:
-review_text:
+review: EXCELLENT
+review_text: EXCELLENT PARTIAL. DEPTH half robustly solved (stay-until-grounded/spaced grounds +250-351 words every seed, twin loses, brain-pinned); COMPREHENSION half is an honest budget TRADEOFF (breadth vs richness; volume is the unlock). Re-verified 78/78. I DEFERRED landing the proposed read-loop changes (core behavior change, needs flag-gating).
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (accepted PARTIAL, integrated by strategy 2026-08-25)
+> **Why it is excellent (grading on quality, not the verdict):** it solved the DEPTH half robustly and
+> brain-foundationally -- stay-until-grounded / spaced / develop-past-grounding beat the fixed schedule
+> CI-separated on ALL THREE seeds (+250 / +351 / +74-163), the info-free revisit-at-random twin LOSES
+> CI-separated every seed, and a RANDTARGET control (revisit a RANDOM pending word) grounds the MOST yet
+> does not separate comprehension -- so the depth win is specifically about revisiting-by-grounding-STATE,
+> not just revisiting. Pinned to the spacing effect / criterion learning / CLS. Rigorous where it
+> mattered: SIGN-ROBUST separability (the read-out sign is transductive and flipped for one arm), a
+> neighbour-richness COUNT that cannot share the AUC's sign blind spot, and a 3-seed replication that
+> CORRECTED a single-seed HARD_PASS into an honest tradeoff. It volunteered what it did not establish.
+> **The decisive finding:** depth and comprehension TRADE OFF at fixed reading budget -- you buy breadth
+> (ground many words) OR richness (deep vectors for fewer), because a reader blind to the eval spends each
+> exposure either starting a new word or deepening an old one. The unlock is reading VOLUME (the same
+> lever the distributional-channel result landed on).
+> **Reproduced under my check:** re-ran `verification/test_depth_grounding_revisit.py` -- WITNESS PASSED,
+> 78 checks reproduce independently. DEVELOP_vs_FROZEN comprehension = +0.0495 sep / +0.0479 not-sep /
+> -0.0156 not-sep (1/3), and every depth CI-separation matches.
+> **Integration:** I did NOT land the proposed read-loop changes this round. They change what EVERY
+> read() grounds (a core selection-policy change affecting other running sessions) and broaden
+> co-occurrence tracking to ALL lemmas (a large memory increase) -- both warrant flag-gating and a
+> deliberate landing, not an hourly commit, especially as the depth win does not move the wall
+> (comprehension) at this budget. Recorded PROVEN-FOR-DEPTH, proposed; ready to wire when a deliberate
+> read-loop update is scheduled.
 
 # PROBLEM: the reader reads a little of everything and never reads any one thing enough times to learn it
 
