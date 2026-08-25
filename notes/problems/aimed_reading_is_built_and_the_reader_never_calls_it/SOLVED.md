@@ -118,3 +118,26 @@ None.
 3. **Only then wire the organ into `substrate.read()`.** The wiring is correct to do, but this
    brief's measurements say it will not move general-vocab coverage on its own -- so it should follow
    a depth fix and a comprehension metric, not precede them.
+
+---
+
+## INTEGRATED_BY_STRATEGY 2026-08-24
+
+Re-verified `verification/test_aimed_reading_learning_progress.py`: WITNESS PASSED -- coverage table
+(FROZEN 0.0510 > FORAGE 0.0407 > FORAGE_LP 0.0254 > RANDOM 0.0240), the 2335/665 register partition,
+99.03% LP-firing, and all four checks' pass-flags reproduce independently from the saved populations.
+Accepted **REFUTED**, rating **STRONG** (review at top of PROBLEM.md). No `hdlab/` change.
+
+CLOSURE recorded -- do not re-open on coverage: aimed reading (surprise OR learning-progress currency)
+beats reading-at-random but LOSES to the fixed 4-corpus schedule CI-separated on register-controlled
+held-out coverage; the learning-progress signal is INERT (ties a random target). The bottleneck is
+grounding DEPTH, not source choice.
+
+DOCK from EXCELLENT: the `controls` field carries a literal `<FILL v4 verdict>` -- the fresh-seed
+replication arm was never filled in.
+
+REDIRECTED WORK (the gap this points at, NOT re-opening this brief): (1) a DEPTH fix
+(stay-until-grounded / spaced repetition, both pinned); (2) a COMPREHENSION metric rather than
+vocabulary coverage. Wiring `information_foraging` into `substrate.read()` is correct-to-do but must
+FOLLOW those two -- the same "wire an organ into the read loop only after the upstream fix" caution
+that applies to today's landed `distributional_meaning_channel` (batch-transductive) organ.

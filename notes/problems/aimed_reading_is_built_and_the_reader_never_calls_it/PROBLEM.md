@@ -1,8 +1,36 @@
 ---
 priority: 3
-review:
-review_text:
+review: STRONG
+review_text: Aiming beats random but LOSES to the fixed schedule; the learning-progress signal ties a random target (inert at this scale). I re-ran the witness -- coverage, partition, 99% LP-firing, every pass-flag reproduce from the saved populations. The bottleneck is grounding DEPTH, not source choice. (Docked from EXCELLENT: the v4 seed-replication field was left unfilled.)
 ---
+
+> ## SOLVER REVIEW -- STRONG (accepted REFUTED, integrated by strategy 2026-08-24)
+> **Why it is strong, specifically:** it built the STRONGEST brain-faithful version (a
+> learning-progress reader, not just the shipped surprise reader) before concluding anything, and it
+> ran TWO info-free twins that did the decisive work -- a random-CORPUS twin AND a random-TARGET twin.
+> The random-target twin is the key move: `FORAGE_LP` ties it (delta -0.0002, CI spans 0), which proves
+> the learning-progress signal carries NO information for what to read at this scale -- exactly the
+> discipline (an info-free control that reproduces the arm kills it). It controlled the register bias by
+> stratifying on FROZEN-reachability and equal-weighting, and FROZEN still won in BOTH strata. And it
+> volunteered its own biggest caveat: coverage measures vocabulary BREADTH, not comprehension, so aimed
+> reading "may be being judged by the wrong yardstick."
+> **Reproduced under my check:** I re-ran `verification/test_aimed_reading_learning_progress.py` -- the
+> coverage table (FROZEN 0.0510 > FORAGE 0.0407 > LP 0.0254), the 2335/665 partition, the 99% LP-firing,
+> and all four checks' pass-flags reproduce independently from the saved populations. The conclusion
+> survives fully.
+> **What did NOT reproduce / the gap:** the `controls` field carries a literal `<FILL v4 verdict>` --
+> the fresh-seed replication arm (v4) is claimed as a control but its verdict was never filled in (its
+> register cell was still running mid-session). The v1/v2/v3 refutation is complete and reproduces; the
+> seed-robustness claim is unbacked. That is the one dock from EXCELLENT.
+> **What matters forward (a GAP, not a fix):** the brief's own evidence says the real bottleneck is
+> grounding DEPTH -- a chooser reads a little of everything and grounds nothing enough; the fixed list
+> wins by reading a few things deeply (~4 encounters to ground). So the redirected work is (1) a DEPTH
+> fix (stay-until-grounded / spaced repetition -- itself pinned), and (2) a COMPREHENSION metric, not
+> vocabulary coverage. **Wiring the forager into `substrate.read()` is correct-to-do but must FOLLOW
+> those two, not precede them -- do not wire it expecting a coverage gain.** (Note: this same "wire an
+> organ into the read loop" caution applies to the new meaning organ landed today.)
+> **Integration:** no `hdlab/` change (a refutation). Closure recorded; the depth-fix + comprehension
+> metric are the redirected work.
 
 > # 🥈 **PRIORITY 2 — THE ORGAN IS BUILT, PINNED, WITNESSED, REGISTERED WIRED, AND THE LIVE READER DOES NOT CALL IT.**
 > **This is not a build.** `hdlab/information_foraging.py` exists (38,533 bytes), its rule is pinned
