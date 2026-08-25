@@ -1,5 +1,4 @@
 ---
-priority: 4
 review: EXCELLENT
 review_text: Closed teach-from-what-we-own in its 3 strongest forms and shot down its OWN arbiter with an info-free twin; I re-ran both witnesses 5/5. Buy-the-map is now an evidence-based decision.
 ---
