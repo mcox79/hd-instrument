@@ -1,5 +1,4 @@
 ---
-priority: 3
 review: STRONG
 review_text: Aiming beats random but LOSES to the fixed schedule; the learning-progress signal ties a random target (inert at this scale). I re-ran the witness -- coverage, partition, 99% LP-firing, every pass-flag reproduce from the saved populations. The bottleneck is grounding DEPTH, not source choice. (Docked from EXCELLENT: the v4 seed-replication field was left unfilled.)
 ---
