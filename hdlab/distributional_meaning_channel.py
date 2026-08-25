@@ -9,6 +9,16 @@ other?" -- higher is more substitutable. The signal is LABEL-FREE: it never touc
 labels, or the benchmark. It is distilled from a supplied perceptual+affective TEACHER (the grounded
 hub) across arbitrary word pairs; the distributional space amplifies that weak teacher.
 
+SCOPE -- SUBSTITUTABILITY ONLY, NOT THE GENERAL MEANING READ-OUT (2026-08-25). The distilled
+direction is tuned to SUBSTITUTABILITY (synonym vs mere associate) and wins on that licensed
+instrument (AUC ~0.84). The SAME direction is ACTIVELY BAD at general word-SIMILARITY: on WordSim-353
+it scores rho -0.24, BELOW raw reading (exp_reader_meaning_integration_diag_v1, the "SUBSTITUTIVE"
+arm; notes/problems/aimed_reading_is_built_and_the_reader_never_calls_it/FORWARD_WORK.md,
+owner-accepted). Substitutability and general relatedness are near-opposite here, so do NOT use this
+organ as the general meaning read-out. The general meaning mechanism is COMPLEMENTARY FUSION
+(equal-weight z-fusion of the reading spoke + the grounded spoke, ~0.45 WordSim, beats both), NOT
+distillation.
+
 This is the live-organ form of the SOLVED proof
   notes/problems/the_live_meaning_organ_has_no_distributional_channel_to_be_taught_by/SOLVED.md
   experiments/exp_distributional_channel_store_representation_v1.py  (arm B_EXPLICIT_STORE)
