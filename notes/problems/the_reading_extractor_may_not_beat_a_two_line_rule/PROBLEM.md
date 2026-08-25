@@ -1,5 +1,5 @@
 ---
-priority: 3
+priority: 5
 review:
 review_text:
 ---

@@ -1,5 +1,4 @@
 ---
-priority: 5
 review: EXCELLENT
 review_text: Built the instrument where the defect BITES (benchmark words in real inflected forms); lemmatise-on-miss inserts real meaning (rho 0.206 where the live lookup is MUTE), clears the strongest floor +0.185 CI-separated, the mandated info-free twin loses, BASE-oracle~=fix, replicated 3/3. I re-verified (WITNESS PASS) and LANDED the one-line fix. Held-out proven; read()-path gain awaits B5.
 ---

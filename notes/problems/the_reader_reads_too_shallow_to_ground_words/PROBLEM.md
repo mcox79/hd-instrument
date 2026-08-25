@@ -1,5 +1,4 @@
 ---
-priority: 1
 review: EXCELLENT
 review_text: EXCELLENT PARTIAL. DEPTH half robustly solved (stay-until-grounded/spaced grounds +250-351 words every seed, twin loses, brain-pinned); COMPREHENSION half is an honest budget TRADEOFF (breadth vs richness; volume is the unlock). Re-verified 78/78. I DEFERRED landing the proposed read-loop changes (core behavior change, needs flag-gating).
 ---
