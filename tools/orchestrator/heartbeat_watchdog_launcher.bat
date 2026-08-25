@@ -26,8 +26,8 @@ REM  is now the single canonical restarter, and its singleton kills any stale da
 REM  before spawning exactly one.
 
 setlocal
-set PYTHONW=D:\AI\hd-instrument\.venv\Scripts\pythonw.exe
-set SCRIPT=D:\AI\hd-instrument\tools\orchestrator\heartbeat_watchdog.py
+set PYTHONW=C:\AI\hd-instrument\.venv\Scripts\pythonw.exe
+set SCRIPT=C:\AI\hd-instrument\tools\orchestrator\heartbeat_watchdog.py
 
 REM Singleton: kill any existing heartbeat_watchdog python/pythonw processes
 REM (correct PID extraction) so exactly one fresh instance runs after launch.

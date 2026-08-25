@@ -16,7 +16,7 @@
 $ErrorActionPreference = "Continue"
 $ProgressPreference = "SilentlyContinue"
 
-$repo = "D:/AI/hd-instrument"
+$repo = "C:/AI/hd-instrument"
 $dataDir = Join-Path $repo "data"
 $stateDir = Join-Path $dataDir ".metrics_sync"
 $lockPath = Join-Path $stateDir ".lock"

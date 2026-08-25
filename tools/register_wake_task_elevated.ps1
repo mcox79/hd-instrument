@@ -3,7 +3,7 @@
 # REQUIRES UAC + user opt-in (run only after testing with -DryRun).
 
 $TaskName = "hd_wake_stopped_sessions"
-$ScriptPath = "D:\AI\hd-instrument\tools\wake_stopped_claude_sessions.ps1"
+$ScriptPath = "C:\AI\hd-instrument\tools\wake_stopped_claude_sessions.ps1"
 
 if (-not (Test-Path $ScriptPath)) {
     Write-Host "FAIL: wake script not found at $ScriptPath" -ForegroundColor Red

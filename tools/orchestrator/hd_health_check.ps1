@@ -12,7 +12,7 @@ param(
 $ErrorActionPreference = 'Continue'
 Set-StrictMode -Off
 
-$root = 'd:/AI/hd-instrument'
+$root = 'C:/AI/hd-instrument'
 $log = "$root/data/events/orchestrator.log"
 $now = (Get-Date).ToString('HH:mm:ss')
 $actions = @()

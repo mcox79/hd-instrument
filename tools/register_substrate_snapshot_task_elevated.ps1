@@ -3,7 +3,7 @@
 # REQUIRES UAC (S4U logon registration needs admin). Run from elevated PowerShell.
 
 $TaskName = "hd_substrate_snapshot"
-$LauncherPath = "D:\AI\hd-instrument\tools\substrate_snapshot_cron.bat"
+$LauncherPath = "C:\AI\hd-instrument\tools\substrate_snapshot_cron.bat"
 
 if (-not (Test-Path $LauncherPath)) {
     Write-Host "FAIL: launcher not found at $LauncherPath" -ForegroundColor Red

@@ -6,7 +6,7 @@
 # gone stale. Read-only on the remote side; only writes the local cache file.
 # ASCII only.
 $ErrorActionPreference = "Continue"
-$repo = "D:/AI/hd-instrument"
+$repo = "C:/AI/hd-instrument"
 $dst  = Join-Path $repo "data/remote_state_cache.json"
 $tmp  = "$dst.pull.tmp"
 $src  = "marsh@home:C:/dev/hd-instrument/data/remote_state_cache.json"

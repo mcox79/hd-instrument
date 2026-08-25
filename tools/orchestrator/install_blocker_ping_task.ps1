@@ -8,8 +8,8 @@ $ErrorActionPreference = "Stop"
 $taskName = "hd_blocker_ping"
 $bashExe = "C:\Program Files\Git\bin\bash.exe"
 $scriptPath = "/d/AI/hd-instrument/tools/blocker_ping_once.sh"
-$winScriptPath = "D:\AI\hd-instrument\tools\blocker_ping_once.sh"
-$workingDir = "D:\AI\hd-instrument"
+$winScriptPath = "C:\AI\hd-instrument\tools\blocker_ping_once.sh"
+$workingDir = "C:\AI\hd-instrument"
 
 if (-not (Test-Path $winScriptPath)) {
     Write-Error ("blocker_ping_once.sh not at " + $winScriptPath)

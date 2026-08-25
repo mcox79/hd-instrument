@@ -18,8 +18,8 @@ REM  a single, race-free authority. Pattern mirrors remote_state_emitter_launche
 REM  `start /B pythonw ...` then `exit /b 0` so the task action exits clean with the
 REM  supervisor orphaned-alive.
 
-set PYTHONW=D:\AI\hd-instrument\tools\dashboard\.venv\Scripts\pythonw.exe
-if not exist "%PYTHONW%" set PYTHONW=D:\AI\hd-instrument\tools\dashboard\.venv\Scripts\python.exe
+set PYTHONW=C:\AI\hd-instrument\tools\dashboard\.venv\Scripts\pythonw.exe
+if not exist "%PYTHONW%" set PYTHONW=C:\AI\hd-instrument\tools\dashboard\.venv\Scripts\python.exe
 
-start "hd_dashboard_supervisor" /B "%PYTHONW%" "D:\AI\hd-instrument\tools\dashboard\supervisor.py" --host 0.0.0.0 --port 8765
+start "hd_dashboard_supervisor" /B "%PYTHONW%" "C:\AI\hd-instrument\tools\dashboard\supervisor.py" --host 0.0.0.0 --port 8765
 exit /b 0

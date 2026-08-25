@@ -21,7 +21,7 @@
 #      original launch. So a fresh VS Code launch via this script is the reliable path.
 #
 # Coexistence: doesn't touch the hooks themselves; doesn't modify any other process.
-# Reversible: launching without this script (just `code D:\AI\hd-instrument`) -> no env var ->
+# Reversible: launching without this script (just `code C:\AI\hd-instrument`) -> no env var ->
 #             hook is no-op = original behavior.
 
 param(
@@ -30,7 +30,7 @@ param(
     [string]$Session
 )
 
-$projectRoot = 'D:\AI\hd-instrument'
+$projectRoot = 'C:\AI\hd-instrument'
 $env:CLAUDE_SESSION_NAME = $Session
 
 Write-Output ('Launching VS Code for session: ' + $Session)

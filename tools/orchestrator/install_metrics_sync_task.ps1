@@ -11,7 +11,7 @@
 $ErrorActionPreference = "Stop"
 
 $taskName = "hd_metrics_sync"
-$scriptPath = "D:/AI/hd-instrument/tools/orchestrator/local_metrics_sync.ps1"
+$scriptPath = "C:/AI/hd-instrument/tools/orchestrator/local_metrics_sync.ps1"
 
 if (-not (Test-Path $scriptPath)) {
     Write-Error ("sync script not at " + $scriptPath)

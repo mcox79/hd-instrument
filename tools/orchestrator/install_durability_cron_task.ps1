@@ -8,8 +8,8 @@
 $ErrorActionPreference = "Stop"
 
 $taskName = "hd_durability_cron"
-$pythonExe = "D:/AI/hd-instrument/.venv/Scripts/python.exe"
-$scriptPath = "D:/AI/hd-instrument/tools/substrate_durability_cron_v1.py"
+$pythonExe = "C:/AI/hd-instrument/.venv/Scripts/python.exe"
+$scriptPath = "C:/AI/hd-instrument/tools/substrate_durability_cron_v1.py"
 
 if (-not (Test-Path $scriptPath)) { Write-Error ("durability cron not at " + $scriptPath); exit 1 }
 if (-not (Test-Path $pythonExe)) { Write-Error ("venv python not at " + $pythonExe); exit 1 }
@@ -20,7 +20,7 @@ try { Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction 
 $action = New-ScheduledTaskAction `
     -Execute $pythonExe `
     -Argument ("`"" + $scriptPath + "`" --check-remote --keep-snapshots 7 --remote-path C:/dev/hd-instrument") `
-    -WorkingDirectory "D:/AI/hd-instrument"
+    -WorkingDirectory "C:/AI/hd-instrument"
 
 # Daily at 04:10 local + StartWhenAvailable (catches a missed run if the laptop was asleep).
 $dailyTrigger = New-ScheduledTaskTrigger -Daily -At 4:10AM

@@ -13,7 +13,7 @@
 # means "check every 5 min whether it's turned on."
 
 $TaskName = "hd_autorefill_watcher"
-$LauncherPath = "D:\AI\hd-instrument\tools\autorefill_cron.bat"
+$LauncherPath = "C:\AI\hd-instrument\tools\autorefill_cron.bat"
 
 if (-not (Test-Path $LauncherPath)) {
     Write-Host "FAIL: launcher not found at $LauncherPath" -ForegroundColor Red
@@ -65,6 +65,6 @@ Get-ScheduledTask -TaskName $TaskName | Format-List TaskName, State, @{N='Logon'
 Write-Host ""
 Write-Host "Task is registered but the WATCHER ITSELF is still disabled." -ForegroundColor Yellow
 Write-Host "Enable it with:"
-Write-Host "  New-Item -ItemType File -Force D:\AI\hd-instrument\data\autorefill_enabled.flag"
+Write-Host "  New-Item -ItemType File -Force C:\AI\hd-instrument\data\autorefill_enabled.flag"
 Write-Host "Disable anytime (no task-scheduler surgery needed) by deleting that file."
 Write-Host "Manage the task: schtasks /Query /TN $TaskName /FO LIST   |   schtasks /End /TN $TaskName   |   schtasks /Delete /TN $TaskName /F"

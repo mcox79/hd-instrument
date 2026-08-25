@@ -7,7 +7,7 @@
 #   data\log\visibility_watchdog_alert.md - present only when alert is active
 
 $ErrorActionPreference = 'Continue'
-$root = 'D:\AI\hd-instrument'
+$root = 'C:\AI\hd-instrument'
 $snapshot = Join-Path $root 'data\local_dashboard_snapshot.json'
 $alert = Join-Path $root 'data\log\visibility_watchdog_alert.md'
 $log = Join-Path $root 'data\log\visibility_watchdog.log'
@@ -57,9 +57,9 @@ Generated: $(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss')
 
 $($problems -join "`r`n")
 
-Relaunch command (run from D:\AI\hd-instrument):
+Relaunch command (run from C:\AI\hd-instrument):
 ``````powershell
-`$cwd = 'D:\AI\hd-instrument'
+`$cwd = 'C:\AI\hd-instrument'
 `$py = Join-Path `$cwd '.venv\Scripts\pythonw.exe'
 Start-Process -FilePath `$py -ArgumentList 'tools\local_dashboard_monitor.py' -WorkingDirectory `$cwd -RedirectStandardError (Join-Path `$cwd 'data\log\local_dashboard_monitor.err.log') -WindowStyle Hidden -PassThru
 ``````

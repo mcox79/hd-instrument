@@ -92,7 +92,7 @@ foreach ($uuid in $sessionMap.Keys) {
 }
 
 # Step 2: read fleet status to determine which roles are stale
-$statusPath = "D:\AI\hd-instrument\data\fleet_status_NOW.md"
+$statusPath = "C:\AI\hd-instrument\data\fleet_status_NOW.md"
 if (-not (Test-Path $statusPath)) {
     Write-Host "FAIL: $statusPath missing — cannot determine stale sessions" -ForegroundColor Red
     exit 1
@@ -130,7 +130,7 @@ if ($staleRoles.Count -eq 0) {
 # data/session_local/role_uuid_map.json. If absent, just list available
 # sessions and let USER pick.
 
-$roleMapPath = "D:\AI\hd-instrument\data\session_local\role_uuid_map.json"
+$roleMapPath = "C:\AI\hd-instrument\data\session_local\role_uuid_map.json"
 if (-not (Test-Path $roleMapPath)) {
     Write-Host ""
     Write-Host "ROLE-UUID MAP MISSING at $roleMapPath" -ForegroundColor Yellow

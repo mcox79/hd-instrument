@@ -15,8 +15,8 @@
 $ErrorActionPreference = "Stop"
 
 $taskName = "hd_capability_registry_audit"
-$pythonExe = "D:/AI/hd-instrument/.venv/Scripts/python.exe"
-$scriptPath = "D:/AI/hd-instrument/tools/capability_registry_audit.py"
+$pythonExe = "C:/AI/hd-instrument/.venv/Scripts/python.exe"
+$scriptPath = "C:/AI/hd-instrument/tools/capability_registry_audit.py"
 
 if (-not (Test-Path $scriptPath)) { Write-Error ("capability_registry_audit.py not at " + $scriptPath); exit 1 }
 if (-not (Test-Path $pythonExe)) { Write-Error ("venv python not at " + $pythonExe); exit 1 }
@@ -26,7 +26,7 @@ try { Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction 
 $action = New-ScheduledTaskAction `
     -Execute $pythonExe `
     -Argument ("`"" + $scriptPath + "`"") `
-    -WorkingDirectory "D:/AI/hd-instrument"
+    -WorkingDirectory "C:/AI/hd-instrument"
 
 $dailyTrigger = New-ScheduledTaskTrigger -Daily -At 5:15AM
 
