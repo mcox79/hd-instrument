@@ -50,6 +50,34 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-26 — CONSOLIDATION (deviation #5) REFRAMED: the store not the schedule was the divergence — SPARSE coding
+  is the primary anti-forgetting lever, selective replay works ONLY in the sparse regime, and the real gap is a
+  retention↔generalisation TRADEOFF (content-bound)** (from `one_store_does_two_jobs_and_consolidation_is_a_single_average`,
+  integrated PARTIAL/EXCELLENT, owner-DONE; witness `test_consolidation_real_reading.py` PASS, re-verified first-hand).
+  On REAL simplewiki reading (era fixed): **(A)** dense/overlapping cortex — uniform interleaved replay prevents
+  catastrophic forgetting CI-separated (SEQ 0.076 → 0.349) but SELECTIVE replay is a zero-sum WASH (no lever at any
+  budget). **(B)** SPARSE k-WTA pattern-separated cortex (the brain-faithful architecture) — sparse coding SHARPLY
+  reduces interference (an EQUAL-CAPACITY dense-hidden control collapses to 0.000 → **sparsity, not capacity, is
+  causal**; French 1991), AND selective interleaved replay NOW BEATS the uniform twin CI-separated (keep=0.01 0.784 vs
+  0.680; keep=0.02 0.979 vs 0.896). **So the brief's mechanism IS met, but ONLY in the sparse regime — the earlier
+  dense-cortex "selection isn't a lever" negative was a modelling artifact.** **(C) retention↔generalisation TRADEOFF:**
+  the sparse cortex RETAINS (0.68–1.0) but does NOT generalise (~0.05); overlapping generalises slightly but forgets →
+  ONE store cannot do both (the two-store premise, measured). **(D) FORK B:** the LIVE store is separable-row
+  (SEP_LOOKUP 1.0, never forgets) → **catastrophic forgetting is NOT the live binding constraint.** **(E) CONTENT WALL:**
+  generalisation is at the first-order floor for EVERY arm → representation/content-bound. **Effect on the audit:** D4
+  (sparse+graded) is now tested on REAL TEXT and is **load-bearing on the WRITE as well as the READ (p2)** — but
+  COMPLEMENTARY to replay (CLS: sparse-encode + replay-extract-structure are different jobs; O'Reilly & McClelland 1994),
+  NOT "sparse beats replay"; the SELECTION function is regime-dependent (zero-sum dense / a real lever sparse), correcting
+  the flat negative; **deviation #5 is reframed** — "one store, single average" is not causing forgetting (live store is
+  already hippocampal-separable); the gap is the retention↔generalisation tradeoff → two-store CLS + sparse coding, and
+  generalisation itself is content-bound (routes to the meaning-supply line, converging with every recent result).
+  ⚠️ Independent literature-fidelity scan CORRECTED two over-claims (sparse is complementary-not-superior to replay;
+  DG neurogenesis is DOUBLE-EDGED — Akers/Frankland 2014 — so the idealised disjoint-units arm OVERSTATES retention).
+  🔌 hdlab landing EARNED (ordered): PRIMARY make the consolidated cortical code SPARSE/k-WTA (default-off; the same
+  deviation-#4 lever as the cortical-read p2); SECONDARY wire `continual.replay_cycle` as uniform interleaved replay
+  (default-off, selective variant only in the sparse regime); KEEP the separable fast store. Coordinate with the p2
+  cortical-read landing (both are the sparse-code lever). Synthetic-on-real-text construction proof — measure end-to-end.
+
 - **2026-08-26 — CONTENT-ADDRESSABLE RETRIEVAL: bar MET, and it RE-FRAMES the fix — the missing organ is cue-based
   RETRIEVAL (additive Lewis-Vasishth), NOT "separate the store"** (from `content_addressable_retrieval_over_a_separated_store`,
   integrated SOLVED/EXCELLENT, owner-DONE; witness `verify_content_addressable_register_retrieval.py` PASS, re-verified

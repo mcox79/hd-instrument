@@ -1,8 +1,28 @@
 ---
-priority: 5
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "INTEGRATED 2026-08-26 (owner-DONE). EXCELLENT; verdict PARTIAL. Re-read the FULL SOLVED fresh + re-verified scaffold-free FIRST-HAND (test_consolidation_real_reading.py 8/8 WITNESS PASS). THE STORE, NOT THE SCHEDULE, was the divergence: on real simplewiki reading (era fixed), making the cortical code SPARSE + pattern-separated (k-WTA) FLIPS the verdict. (A) dense cortex: uniform interleaved replay stops forgetting CI-sep (SEQ 0.076->0.349) but SELECTIVE is a zero-sum wash. (B) SPARSE cortex: sparse coding is the PRIMARY anti-forgetting lever (an EQUAL-CAPACITY dense-hidden control collapses to 0.000 -> sparsity causal, NOT capacity; French 1991), AND selective replay CI-beats the uniform twin (keep0.01 0.784 vs 0.680; keep0.02 0.979 vs 0.896). The brief's mechanism IS met, but ONLY in the sparse regime; the earlier dense 'selection isn't a lever' negative was a modelling artifact. (C) retention<->generalisation TRADEOFF (sparse retains 0.68-1.0 but doesn't generalise ~0.05; overlapping generalises but forgets) = why the brain keeps TWO stores. (D) FORK B: the LIVE store is separable-row (never forgets) -> catastrophic forgetting is NOT the live constraint. (E) generalisation is at the first-order floor for every arm -> CONTENT-bound. A model of the strengthened protocol: the 'leave the family, ask the biology' move (dense->sparse multi-layer cortex, different IN KIND), multiple honest self-corrections (fork B, scarcity confound, the v1 artifact, neurogenesis is double-edged), and an INDEPENDENT literature-fidelity scan that corrected 2 of its OWN over-claims (sparse is complementary-not-superior to replay per CLS; DG neurogenesis is double-edged, Akers/Frankland 2014). 4 AUDIT UPDATEs folded (D4 on real text; sparse coding is the primary anti-forgetting lever + load-bearing on WRITE as well as READ, complementary to replay; selection is regime-dependent not a flat negative; deviation #5 reframed to the retention/generalisation tradeoff). hdlab landing EARNED (ordered): PRIMARY sparse k-WTA cortical code (default-off; the same deviation-#4 lever as the p2 cortical-read); SECONDARY uniform interleaved replay via continual.replay_cycle (default-off, selective variant only in the sparse regime); KEEP the separable fast store -> queued, coordinate with p2. Generalisation routes to the meaning-supply line (converges with every recent result). NO hdlab landing yet."
 ---
+
+> ## SOLVER REVIEW (strategy, 2026-08-26 — integrated on owner-DONE; full SOLVED re-read fresh)
+> **Grade: EXCELLENT. Verdict: PARTIAL.** Re-verified scaffold-free first-hand (`test_consolidation_real_reading.py`
+> 8/8 WITNESS PASS).
+> - **The decisive finding — the STORE, not the schedule, was the divergence.** On real reading, making the cortical
+>   code SPARSE + pattern-separated (k-WTA) FLIPS the verdict: in a dense store selective replay is a zero-sum wash
+>   (the solver's own earlier v1 negative), but in a sparse store sparse coding is the PRIMARY anti-forgetting lever
+>   (equal-capacity dense control collapses to 0.000 → sparsity is causal) AND selective replay CI-beats the uniform
+>   twin (0.784 vs 0.680). The brief's mechanism is met — only in the brain's sparse regime.
+> - **Two-store necessity, measured:** sparse RETAINS (0.68–1.0) but doesn't GENERALISE (~0.05); overlapping
+>   generalises but forgets → one store cannot do both (the problem's title, quantified).
+> - **Fork B:** the LIVE store is already separable-row (never forgets) → forgetting is not the live constraint; the
+>   real wall is content (generalisation at the first-order floor for every arm) — converges with every recent result.
+> - **Model of the protocol:** "leave the family, ask the biology" (dense→sparse multi-layer, different in kind);
+>   honest self-corrections (fork B, scarcity confound, v1 artifact); an INDEPENDENT literature scan that corrected two
+>   of its own over-claims (sparse is complementary-not-superior to replay; DG neurogenesis is double-edged).
+> **Folded:** 4 AUDIT UPDATEs (deviation #5 reframed to the retention/generalisation tradeoff; sparse coding primary +
+> load-bearing on WRITE+READ; selection regime-dependent). hdlab landing EARNED (ordered: sparse k-WTA code PRIMARY,
+> uniform interleaved replay SECONDARY, keep the fast store) — queued, coordinate with the p2 cortical-read (same
+> sparse-code lever). Generalisation routes to the meaning-supply line.
 
 # PROBLEM: one store does two jobs the brain keeps separate, and "consolidation" is a single averaging step -- not the brain's selective, schema-gated, interleaved replay
 

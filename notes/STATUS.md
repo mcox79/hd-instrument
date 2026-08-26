@@ -31,7 +31,19 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- 🔀 **PHASE PIVOT (owner-authorized): from building isolated PARTS to WIRING them together + measuring the reader END-TO-END**
+### 2026-08-26 (LATEST) -- ✅ **p5 one_store INTEGRATED (owner-DONE, EXCELLENT/PARTIAL): the STORE not the schedule was the divergence -- SPARSE coding is the primary anti-forgetting lever; the gap is a retention↔generalisation TRADEOFF (content-bound)**
+On real reading, making the cortical code SPARSE + pattern-separated (k-WTA) FLIPS the verdict: dense cortex -> selective
+replay is a zero-sum wash; SPARSE cortex -> sparse coding is the PRIMARY anti-forgetting lever (equal-capacity dense
+control collapses to 0.000 -> sparsity causal) AND selective replay CI-beats the uniform twin (0.784 vs 0.680). Two-store
+necessity measured (sparse retains 0.68-1.0 but generalises ~0.05). FORK B: the live store never forgets -> forgetting is
+NOT the live constraint; the wall is CONTENT (generalisation at the first-order floor -- converges with every recent
+result). Re-verified 8/8; a model of the protocol (leave-the-family + an independent literature scan correcting 2 of its
+own over-claims). 4 AUDIT UPDATEs folded (deviation #5 reframed to the tradeoff; sparse coding load-bearing on WRITE+READ).
+🔌 hdlab landing EARNED (ordered: sparse k-WTA code PRIMARY = the p2 cortical-read's lever; uniform interleaved replay
+SECONDARY; keep the fast store) -> queued, coordinate with p2. *Queue after p5: NEW p2 resolve_retrieval_interference
+(fan effect, solver-surfaced) + p1 wire-and-measure = 2 AVAILABLE TO START; p6/p7 awaiting owner review.*
+
+### 2026-08-26 -- 🔀 **PHASE PIVOT (owner-authorized): from building isolated PARTS to WIRING them together + measuring the reader END-TO-END**
 Owner 2026-08-26 asked *"is everything integrated, tied together, and have we tested it end to end?"* -- honest answer:
 NO. Every validated organ (N400 segmentation, feature-similarity whitening, content-addressable additive retrieval,
 DG/CA3 gate) is landed **off-path / default-off / synthetic-proof-only**, each with its own "measure on the LIVE task
