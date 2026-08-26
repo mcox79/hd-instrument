@@ -42,8 +42,11 @@ UNTOUCHED backup** until the owner deletes it.
 `the_reader` SOLVED change 2. The read loop can now accumulate co-occurrence for EVERY content lemma, not
 just seed-known ones, giving `distributional_meaning_channel` the live coverage it needs to score the p2
 gate (was ~55 pairs, structurally too few). Additive, default-OFF; existing seed-known-only path byte-for-
-byte preserved (witness `test_route_b_separable_context_store.py` 5/5). `the_reader` change 1 (grounding-
-state selection hook) still deferred -- more invasive, its own deliberate landing.
+byte preserved (witness `test_route_b_separable_context_store.py` 5/5). **TWO PROVEN-READY DELIBERATE hdlab LANDINGS PENDING** (each needs its own witness + a downstream
+check -- land deliberately, NOT as a tail-of-round commit): (1) `the_reader` change 1 -- grounding-state
+selection hook in the read loop; (2) p5 `the_reading_extractor` -- REPLACE the perceptron patient-selection
+path in `hdlab/situation_reader.py` with a word-order + PRECISE-voice rule (passive -> PATIENT before the
+predicate; +0.10 on passives; do not weight animacy as an English role cue).
 🗂️ **OPEN QUEUE RE-RANKED:** p1 `organ_abstains_on_two_thirds_of_v2` (goal-outcome organ refuses 2/3 --
 the live goal-bearing blocker; a refusal is more tractable than a wrong answer); p2
 `meaning_read_out_untested_on_the_own_metric` (the transfer GATE that unblocks the meaning-read-out WIRING
