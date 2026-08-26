@@ -2182,7 +2182,8 @@ class StatusWindow:
         # It genuinely changed -- repaint, but put the selection back afterwards.
         _keep = self._selected_problem()
         self.pb_tv.delete(*self.pb_tv.get_children())
-        awaiting = 0
+        awaiting = 0        # solver result the OWNER has marked done -> Claude's move to fold in
+        owner_pending = 0   # solver result the owner has NOT marked done -> the OWNER's move to review
         # RANKED FIRST, because "a priority for what to tackle first" is meaningless if the table
         # is alphabetical. Unranked and solved problems fall below, ties stable by slug.
         for r in sorted(rows, key=lambda x: (x.get("priority") is None,
@@ -2190,11 +2191,18 @@ class StatusWindow:
             owner = _probs.load_owner(r["slug"])
             wait = ""
             if r["state"] in ("SOLVED", "PARTIAL", "REFUTED") and not r["integrated"]:
-                # "rated" and "integrated" are DIFFERENT states and the owner asked about
-                # exactly that gap: a review grade says I read it, NOT that it is folded in.
-                wait = ("Claude - re-verify + fold in" if r.get("review")
-                        else "Claude - review it")
-                awaiting += 1
+                # THE GATE IS THE OWNER'S VERDICT (standing rule, reinforced 2026-08-26): Claude
+                # integrates ONLY when owner_verdict: DONE is on disk. So a solver result the owner has
+                # NOT yet marked done is the OWNER'S move (review it, then mark done), not Claude's --
+                # labelling it "Claude" is exactly what made a submitted problem look like it was
+                # waiting on Claude when it was waiting on the reader. Only AFTER the owner's DONE is it
+                # Claude's move to re-verify + fold in (the review grade is written at that step).
+                if owner.get("verdict") == "DONE":
+                    wait = "Claude - re-verify + fold in"
+                    awaiting += 1
+                else:
+                    wait = "YOU - review + mark done"
+                    owner_pending += 1
             elif r["integrated"]:
                 wait = "nobody - folded in"
             res = (r.get("fields", {}) or {}).get("result", "")
@@ -2216,7 +2224,9 @@ class StatusWindow:
                     self.pb_tv.selection_set(iid)
                     break
         n = len(rows)
-        self._set_tab_count(self.tab_problems, f" ({awaiting})" if awaiting else "")
+        # the badge shows what needs the OWNER (owner_pending) -- this is the owner's window, so the
+        # actionable-for-them count is the one that should pull their eye to the tab.
+        self._set_tab_count(self.tab_problems, f" ({owner_pending})" if owner_pending else "")
         # THE AGE OF WHAT THIS PANEL ACTUALLY READ, recorded here because only this scan knows
         # which files were opened -- see the `_TAB_SOURCES["6. PROBLEMS"]` comment for why a
         # directory mtime would have been wrong in both directions.
@@ -2239,16 +2249,21 @@ class StatusWindow:
         if not hasattr(self, "_tab_mtime_override"):
             self._tab_mtime_override = {}
         self._tab_mtime_override["6. PROBLEMS"] = newest
+        if owner_pending:
+            needs = (f"{owner_pending} NEED YOU: 'WHOSE MOVE?' says 'YOU - review + mark done'. A solver has "
+                     f"filed a result and Claude will NOT fold it in until you mark it done (in the box below). ")
+        else:
+            needs = "NOTHING ON THIS TAB NEEDS YOU right now -- 'WHOSE MOVE?' names who acts. "
         self._set_label(
             self.pb_hint,
             text=f"{n} problem(s). Tick the ASSIGNED box (first column) to mark one you've handed to a "
                  f"solver -- it is just your who's-working-what view and changes nothing else. "
-                 f"NOTHING ON THIS TAB NEEDS YOU -- 'WHOSE MOVE?' names who acts, "
-                 f"and {awaiting} of them say Claude. A rating means Claude read it; 'folded in' "
-                 f"means it is wired into the substrate. Those are different, and a problem is not "
-                 f"finished until it says folded in. 'SOLVER SAYS' is the solver's own filing and "
-                 f"is not accepted until Claude has re-run it on disk -- the base rate for a "
-                 f"self-declared strong pass here is 30 vetted, 1 upheld.")
+                 f"{needs}"
+                 f"{awaiting} say Claude (you already marked them done; waiting to be folded in). A rating "
+                 f"means Claude read it; 'folded in' means it is wired into the substrate. Those are "
+                 f"different, and a problem is not finished until it says folded in. 'SOLVER SAYS' is the "
+                 f"solver's own filing and is not accepted until Claude has re-run it on disk -- the base "
+                 f"rate for a self-declared strong pass here is 30 vetted, 1 upheld.")
 
     # ---- PANEL B ------------------------------------------------------
     def _build_organs(self) -> None:
