@@ -1,8 +1,29 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Re-verified scaffold-free (WITNESS PASS) and DECISIVE -- it re-frames the meaning line. Phase (a): the home metric WAS scoring frequency, proven BY CONSTRUCTION -- on a frequency-EXACT-matched candidate pool raw counting reads exactly chance (0.5000/0.2000, zero-width CI). Phase (b): on that fair metric, concreteness-stripped grounded meaning beats the STRONGER PPMI floor's upper bound CI-separated at every pool size (0.741 vs 0.558 at K=1), info-free twins losing; concreteness, coverage and pseudoreplication all controlled. p2's discrimination finding crosses to the top-1 metric in the SAME currency (accuracy@1, de-confounded). So the 'stage 2 broken / wiring NO' verdict was measured on a frequency-unfair test -- on the fair test meaning WINS. Converged: the deeper control-gated mechanism collapses to grounded-alone (no crossover to gate at this ~200-year-old-corpus scale). The wiring is re-opened and is mine to land (Q111)."
 ---
+
+> # MY REVIEW -- EXCELLENT, AND DECISIVE: IT RE-FRAMES THE MEANING LINE. THE OWN METRIC WAS SCORING FREQUENCY.
+> *Reviewed 2026-08-26 (owner marked DONE). Re-verified scaffold-free: `verification/test_ownmetric_frequency_controlled.py` -> WITNESS PASS. Reproduced first-hand: the raw-vs-PMI collapse (x5-x10), COUNT = exactly chance under EXACT frequency-matching (0.5000 [0.5000,0.5000] at K=1; 0.2000 at K=4), and grounded-no-concreteness beating the PPMI floor's upper bound (0.741 vs 0.558 at K=1).*
+>
+> ## PHASE (a) -- THE CONFOUND IS PROVEN BY CONSTRUCTION, NOT A p-VALUE
+> Build the candidate pool so the gold partner and its distractors have IDENTICAL raw co-occurrence counts with the term, and raw-count argmax is flat by construction -> it reads exactly chance with a zero-width CI. Counting's entire 2-3x "win" on the home metric was raw frequency. (The solver even caught its own artifact: a stochastic tie-break made seed 7's flat arm read 0.148 and tripped a false COUNT-WINS; an analytic expected-hit estimator removed it -- a checker-shares-a-flaw catch.)
+>
+> ## PHASE (b) -- ON THE FAIR METRIC, MEANING WINS, AND THE CONTROLS ALL BIND
+> Against the STRONGER floor (PPMI, which rides the global rarity that within-item matching leaves behind), concreteness-stripped grounded meaning clears the floor's UPPER bound CI-separated at every K (1/4/9), info-free twins (shuffled grounding, random pick) at chance. Concreteness is controlled (grounded-no-conc beats conc-only), coverage is controlled (covered-only pools put the twin at chance), pseudoreplication is controlled (term-clustered bootstrap). This is the measurement bar, met.
+>
+> ## IT CLOSES p2's OPEN CAVEAT IN THE SAME CURRENCY
+> STATUS carried the discrimination-AUC reframe as "the solver's controlled finding but NOT yet scaffold-witnessed (reverify covers top-1 only)." This resolves it: p2's discrimination finding CROSSES to the top-1 metric -- same scorer (accuracy@1), de-confounded by frequency control, now scaffold-witnessed. Not a different scorer.
+>
+> ## CONVERGED, AND THE NEGATIVE IS INFORMATIVE (THE SOLVER OPERATING PROTOCOL WORKED)
+> The solver iterated deeper before submitting instead of shipping the first clear: ATL-hub agreement = grounded-alone (not separated); semantic-control-gated spoke weighting does NOT help, because the crossover it assumes is absent -- the distributional reading spoke is worse than grounded on BOTH abstract (-0.10) and concrete (-0.14) terms, so there is nothing to gate. At this archaic (McGuffey-derived, ~200-year-old) corpus scale, plain concreteness-stripped sensorimotor cosine is the optimal brain-faithful read-out. A clean convergence.
+>
+> ## HONEST LIMITS (as flagged, withdraw-first)
+> Robust and defended last: grounded beats the strongest floor CI-separated in EXACT mode at every K, twins losing; COUNT exactly chance under exact matching. Softer (withdraw first): nearest-mode wins of the weaker arms clear only the paired test, not the stricter nearest floor's upper bound. The win is CONTEXT-FREE (isolated word pairs; the cache stores provenance pairs, not sentences) -- the brain's context-driven selection is a next build, not tested here. Scope = grounded-covered terms only (~55-75%); gold incompleteness biases AGAINST the meaning arm (conservative).
+>
+> ## WHAT THIS CHANGES -- THE WIRING IS RE-OPENED
+> Retire top-1-argmax-over-co-occurrents grounding precision as the arbiter of "is stage 2 broken" -- it conflates a weak frequency bias with meaning. **Re-open p2's "wiring NO":** the meaning read-out should rank candidates by the grounded sensorimotor spoke (NOT raw count) on the grounded-covered population, and the co-occurrence store must be extended to grounded terms (p2's 0/441 gap -- the Route B `track_all_content_lemmas` flag I landed default-off is exactly that channel). Do NOT add control-gated distributional weighting at this corpus scale. **This is the meaning-read-out WIRING, and it is now mine to build/land (Q111) -- packaged next.**
 
 # PROBLEM: our "stage 2 is broken" verdict rests on a home metric that may be scoring FREQUENCY, not MEANING
 

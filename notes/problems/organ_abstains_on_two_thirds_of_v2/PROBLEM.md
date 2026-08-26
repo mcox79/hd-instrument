@@ -1,8 +1,26 @@
 ---
-priority: 1
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Re-verified scaffold-free: the organ says 'I don't know' to 82 of 124 because BOTH the goal side (42 items) and the outcome side (32) are out-of-vocabulary for its small hand-built word lists, all terminating at goal_typing.py:1984. The two gaps COMPOUND -- only 7/82 even reach an outcome candidate, so broadening goal recognition (my brief's named suspect) converts ~nothing (3/42); the outcome side is the harder, unnamed wall. Deciding control: forced to answer, the grounded channel loses to its own info-free twin (0.5385 < base rate 0.6154), so the silence is HONEST -- the organ correctly lacks the meaning to speak. Remedy is UPSTREAM broad grounded meaning supply, not more hand-listed words -- the SAME missing organ the meaning line just re-opened. Corrected my brief (both sides; not Sherlock-specific)."
 ---
+
+> # MY REVIEW -- EXCELLENT. A HARD DIAGNOSTIC BAR MET IN FULL, AND IT CORRECTED MY BRIEF WITH DISK EVIDENCE.
+> *Reviewed 2026-08-26 (owner marked DONE). Re-verified scaffold-free: `verification/test_goal_abstention_diagnosis.py` reproduces 82/124 (acc 0.2339), the partition (A=42 no-goal / B1=32 outcome-verb-unknown / 7 other / 1 too-short), the silence line (`lexicon_predict -> NONE` for all 82), base rate 0.5976, and the 7/82 compounding ceiling -- directly from the live organ, reading no artifact.*
+>
+> ## THE DIAGNOSIS IS COMPLETE AND CONTROLLED
+> The bar was: name the mechanism WITH the line, show it firing at runtime on specific items, partition the 82, run the deciding control. All met. Every abstention terminates at `hdlab/goal_typing.py:1984` (`lexicon_predict -> NONE`), reached because the 4-tier congruence cascade and the Levin last-resort backoff all abstained first (backoff fired on 0 of the 82). Only 16/124 items are decided by the real congruence machinery.
+>
+> ## THE FINDING THAT FLIPPED THE RECOMMENDATION -- THE TWO GAPS COMPOUND
+> My brief fingered `find_desired_state` (the goal side) as "the likely upstream suspect." Disk says it is HALF the story (42/82) and the OUTCOME side (32) is the structurally harder wall. Even with PERFECT goal recognition only 3/42 items reach an outcome candidate; only 10/124 have BOTH a recognized goal AND an outcome candidate -> the whole closed-inventory congruence family is ceilinged at ~10-16/124. **Broadening goal recognition alone converts almost nothing; it just moves the silence downstream.** That correction was earned by running the cascade tier-by-tier at runtime, not by grepping the module.
+>
+> ## THE DECIDING CONTROL -- THE SILENCE IS HONEST
+> Forced to answer, the grounded outcome-valence channel covers 13/82 and scores 0.5385, BELOW that subset's base rate (0.6154) and below its own info-free twin (mean 0.457, p95 0.6923). So the abstention carries no reachable signal -- the organ correctly reports it lacks the meaning to decide, which is preferable to base-rate noise. Converting silence to noise is not progress: force-majority lifts the whole bank to 0.629, which only TIES the base rate by construction.
+>
+> ## WHERE I PUSHED, AND WHAT IT HONESTLY WITHDRAWS
+> The strong "silence is information-bearing" claim rests on a 13-item forced-answer control -- small. The solver scoped its claim to match (the weak "no reachable signal," not a precise effect size) and flagged it withdraw-first, along with the ~0.69 real-fix ceiling being ESTIMATED, not built, and the 4/3 tail characterized by count only. That is the right behavior. The CORE diagnosis (82 abstain / the mechanism / the compounding ceiling) is independent of the 13-item control and reproduced first-hand.
+>
+> ## WHAT THIS CHANGES
+> This is a DIAGNOSIS, not a fix -- correctly, the solver did not hand-extend the closed lexicons (not brain-faithful: a closed word list is not how a situation model grounds an outcome, and the compounding ceiling proves it cannot close the gap). The remedy is UPSTREAM: give `find_desired_state` / `find_actual_state_candidates` a grounded membership test drawing on broad grounded meaning supply (reader_meaning_channel / Phase-1). **This is the SAME missing organ the meaning line just re-opened (`the_own_metric`): broad grounded word-meaning is now the common blocker for BOTH the goal-bearing line AND the meaning-read-out wiring.** Route into the meaning-supply build; do NOT patch the goal organ locally.
 
 # PROBLEM: ON THE NEW TEST SET THE ORGAN DOES NOT ANSWER TWO-THIRDS OF THE TIME
 
