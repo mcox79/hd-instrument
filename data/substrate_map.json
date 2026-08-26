@@ -8,7 +8,7 @@
    "fields": {
     "STRUCTURE": "left occipitotemporal sulcus (VWFA), between retinotopic visual cortex and lexical access.",
     "OPERATION": "Open-bigram / position-tolerant hierarchical feature detectors (Dehaene et al. 2005; Grainger & Whitney). The literature pins the CODE and the LATENCY; it gives no learning rule and no objective. - SHAPE brain: graded activity over position-tolerant bigram/letter/morpheme detectors. OURS: vwfa.py:208-209 weighted multi-scale n-gram then sign(); char_trigram_encoder.py:92-94 bag of trigrams, order destroyed. Same family, 1-bit terminal quantiser. POSITION brain: strictly pre-lexical. OURS: off the live path entirely — the reading loop never reads characters. METRIC brain: UNPINNED. OURS: none.",
-    "GAP": "not the encoder. The gap is that A1's operation is not on the live path while an external re-implementation of it beats the live path. - NO LONGER UNTESTED. data/exp_orthographic_floor_vet_v1/metrics.json (2026-08-14T21:30Z, n=4000, 5000-sample bootstrap, a1_base_reproduces_c3_headline_exactly: true): A6_TRIGRAM_ONLY 0.0870 [0.0783, 0.0960] vs A1_BASE (live substrate) 0.0480 [0.0413, 0.0548], delta +0.0390 [0.0282, 0.0500], CI excludes zero. A7_PREFIX_ONLY 0.05875, A8_MAXORTHO 0.0610 — all three orthography-only arms beat the substrate. That is a floored, can-fail, identical-pool measurement of an A1-family operation, and the organ wins. - 🔴 CORRECTED 2026-08-23 — DO NOT QUOTE A6_TRIGRAM_ONLY / A5_STRINGCTRL 0.0870 AS \"WHAT A SPELL-CHECKER SCORES\": THAT WIN IS 78% AN ARTIFACT OF HOW THE GOLD WAS BUILT. <!-- COUPLING: the words \"CORRECTED\" and \"DO NOT\" on THIS line, together with the organ IDs on THIS line, are what make tools/organ_map_cite.py print this block BEFORE the win at L1795. Its CONSTRAINT regex matches per-line and only on lines naming the organ, so a correction whose header omits the ID is filed under \"other mentions\" and read THIRD. Do not reword. --> The WordNet gold these items are scored against is largely built from STEM-SHARING pairs (walk/walked), so a character-trigram arm wins them without representing anything. Measured on the identical construction at n=4000 (data/exp_c3_surprise_weighted_vs_bundling_v1/metrics.json, run_mode: full): strip stem-sharing gold and the trigram arm falls 0.0867 -> 0.0193, and at [0.0153, 0.0238] it OVERLAPS its own info-free shuffled twin [0.0135, 0.0213] — i.e. on leakage-free gold the spelling floor is statistically indistinguishable from noise, and A1_BASE then BEATS it (+0.0266 [+0.0191, +0.0344], paired, CI-separated). ⚠️ ARM-IDENTITY CHECKED BEFORE PROPAGATING, BECAUSE THE NAMES COLLIDE: the 2026-08-23 cell calls its arm A5_STRINGCTRL, but it builds t_mat alone (line 355) — zero substrate signal, which is THIS repo's A6_TRIGRAM_ONLY, not the z(base) + wz(trigram) fusion that exp_meaning_supply_separation_v1 calls A5_STRINGCTRL and that scores 0.1027. The two constructions share a NAME and differ by a whole channel; near-equal values (0.0867 vs 0.0870) make the collision invisible. Compare arms by their CONSTRUCTION, never by their label. 🚫 THE GATE CONSTANT ORTHO_BAR = 0.0870 IS DELIBERATELY UNCHANGED in per_row_gain_c3_vet_v1.py and score_space_gain_and_topk_ci_v1.py — a gate is not weakened by the session whose results it constrains. Owner decision open as board Q117. Witness: verification/test_removing_the_bundle_helps_it_just_does_not_help_enough.py. - 🔴 A DEFECT I REPORTED HERE AND THEN RETRACTED, SAME PASS. RECORDED BECAUSE THE ERROR IS THE POINT. I first wrote that the cell's provenance_note (\"promoted from scratch/ortho_floor_vet_trigram_only.py\") described a promotion that never happened, on the grounds that no experiments/exp_orthographic_floor_vet_v1.py exists (true: 0 of 5,777 enumerated filenames) and that the scratch copy is untracked (also true). That conclusion was WRONG. The script WAS promoted — to tools/orthographic_floor_vet_v1.py, tracked, added in commit 58a125c88 (the same commit that produced the finding), carrying an explicit header citing the CLAUDE.md scratch corollary as its reason for existing. I enumerated experiments/ and scratch/ and never enumerated tools/ — which is precisely the \"an absence claim requires an enumeration, not a search\" fault this whole section is auditing other people for, committed by the auditor inside the audit. The residual is cosmetic: a leftover copy still sits in scratch/, and deleting it would now cost nothing. No action needed. - EXISTS yes / IS-REACHED no (live path reads no characters) / IS-GOOD yes, and better than what is reached.",
+    "GAP": "not the encoder. The gap is that A1's operation is not on the live path while an external re-implementation of it beats the live path. - NO LONGER UNTESTED. data/exp_orthographic_floor_vet_v1/metrics.json (2026-08-14T21:30Z, n=4000, 5000-sample bootstrap, a1_base_reproduces_c3_headline_exactly: true): A6_TRIGRAM_ONLY 0.0870 [0.0783, 0.0960] vs A1_BASE (live substrate) 0.0480 [0.0413, 0.0548], delta +0.0390 [0.0282, 0.0500], CI excludes zero. A7_PREFIX_ONLY 0.05875, A8_MAXORTHO 0.0610 — all three orthography-only arms beat the substrate. That is a floored, can-fail, identical-pool measurement of an A1-family operation, and the organ wins. - 🔴 CORRECTED 2026-08-23 — DO NOT QUOTE A6_TRIGRAM_ONLY / A5_STRINGCTRL 0.0870 AS \"WHAT A SPELL-CHECKER SCORES\": THAT WIN IS 78% AN ARTIFACT OF HOW THE GOLD WAS BUILT. <!-- COUPLING: the words \"CORRECTED\" and \"DO NOT\" on THIS line, together with the organ IDs on THIS line, are what make tools/organ_map_cite.py print this block BEFORE the win at L1795. Its CONSTRAINT regex matches per-line and only on lines naming the organ, so a correction whose header omits the ID is filed under \"other mentions\" and read THIRD. Do not reword. --> The WordNet gold these items are scored against is largely built from STEM-SHARING pairs (walk/walked), so a character-trigram arm wins them without representing anything. Measured on the identical construction at n=4000 (data/exp_c3_surprise_weighted_vs_bundling_v1/metrics.json, run_mode: full): strip stem-sharing gold and the trigram arm falls 0.0867 -> 0.0193, and at [0.0153, 0.0238] it OVERLAPS its own info-free shuffled twin [0.0135, 0.0213] — i.e. on leakage-free gold the spelling floor is statistically indistinguishable from noise, and A1_BASE then BEATS it (+0.0266 [+0.0191, +0.0344], paired, CI-separated). ⚠️ ARM-IDENTITY CHECKED BEFORE PROPAGATING, BECAUSE THE NAMES COLLIDE: the 2026-08-23 cell calls its arm A5_STRINGCTRL, but it builds t_mat alone (line 355) — zero substrate signal, which is THIS repo's A6_TRIGRAM_ONLY, not the z(base) + wz(trigram) fusion that exp_meaning_supply_separation_v1 calls A5_STRINGCTRL and that scores 0.1027. The two constructions share a NAME and differ by a whole channel; near-equal values (0.0867 vs 0.0870) make the collision invisible. Compare arms by their CONSTRUCTION, never by their label. ✅ SUPERSEDED 2026-08-24 — Q117 IS ANSWERED AND BOTH GATE CONSTANTS HAVE MOVED. The text that stood here (\"ORTHO_BAR = 0.0870 IS DELIBERATELY UNCHANGED ... Owner decision open as board Q117\") was correct only until the owner ruled, and is now wrong in three ways at once: the decision is closed, and BOTH files carry a different number. Owner: \"why not fix the bar, and re run the past results. let's do this right.\" Both tools now read ORTHO_BAR = 0.019500 CI [0.015250, 0.024000], each RE-MEASURED IN ITS OWN HARNESS on morphology-stripped gold — never copied. score_space_gain_and_topk_ci_v1.py owned a trigram arm already; per_row_gain_c3_vet_v1.py did not, so it REFUSED to grade until experiments/exp_per_row_gain_trigram_floor_calibration_v1.py measured one for it. That calibration proved harness identity FIRST (A1_BASE 0.04575 and self_retrieval 0.755853 reproduce to 1e-9, n_items=4000 / n_anchors=5491 identical), which is what licenses the two harnesses agreeing rather than making it a leak. Three independent reads: 0.019500, 0.0195, 0.0193. 🔴 AND THE CONSEQUENCE REVERSES THE WIN RECORDED AT L1795 AND L300: on the HONEST floor the live read-out BEATS the orthography-only arm (0.04575 vs 0.0195). It LOST only against the leaky floor (0.0480 vs 0.0870). Anywhere this file says the orthography-only arm WINS, that is on LEAKY gold and is superseded. ⚠️ 0.04575 is still a weak reader in absolute terms — \"beats spelling\" must never travel as \"reads meaning well\". Each tool now recomputes the floor every run and REFUSES to gate if it disagrees with the constant (void_plumbing), so this number cannot drift silently again. Witness: verification/test_removing_the_bundle_helps_it_just_does_not_help_enough.py. - 🔴 A DEFECT I REPORTED HERE AND THEN RETRACTED, SAME PASS. RECORDED BECAUSE THE ERROR IS THE POINT. I first wrote that the cell's provenance_note (\"promoted from scratch/ortho_floor_vet_trigram_only.py\") described a promotion that never happened, on the grounds that no experiments/exp_orthographic_floor_vet_v1.py exists (true: 0 of 5,777 enumerated filenames) and that the scratch copy is untracked (also true). That conclusion was WRONG. The script WAS promoted — to tools/orthographic_floor_vet_v1.py, tracked, added in commit 58a125c88 (the same commit that produced the finding), carrying an explicit header citing the CLAUDE.md scratch corollary as its reason for existing. I enumerated experiments/ and scratch/ and never enumerated tools/ — which is precisely the \"an absence claim requires an enumeration, not a search\" fault this whole section is auditing other people for, committed by the auditor inside the audit. The residual is cosmetic: a leftover copy still sits in scratch/, and deleting it would now cost nothing. No action needed. - EXISTS yes / IS-REACHED no (live path reads no characters) / IS-GOOD yes, and better than what is reached.",
     "FLOOR TEST": "already run. The remaining question is not a floor, it is a wiring decision, and the standing rule is that a floor is cleared by understanding, never adopted — do not wire spelling in. ---"
    },
    "constraints": [
@@ -18,12 +18,16 @@
     "<!-- COUPLING: the words \"CORRECTED\" and \"DO NOT\" on THIS line, together with the organ IDs on",
     "whose header omits the ID is filed under \"other mentions\" and read THIRD. Do not reword. -->",
     "make the collision invisible. Compare arms by their CONSTRUCTION, never by their label.",
+    "✅ SUPERSEDED 2026-08-24 — Q117 IS ANSWERED AND BOTH GATE CONSTANTS HAVE MOVED. The text that",
+    "OWN HARNESS on morphology-stripped gold — never copied. score_space_gain_and_topk_ci_v1.py",
+    "that is on LEAKY gold and is superseded. ⚠️ 0.04575 is still a weak reader in absolute terms",
+    "— \"beats spelling\" must never travel as \"reads meaning well\".",
     "- 🔴 A DEFECT I REPORTED HERE AND THEN RETRACTED, SAME PASS. RECORDED BECAUSE THE ERROR IS THE",
     "scratch/ortho_floor_vet_trigram_only.py\") described a promotion that never happened, on the",
     "scratch/ and never enumerated tools/ — which is precisely the",
     "standing rule is that a floor is cleared by understanding, never adopted — do not wire spelling in."
    ],
-   "line": 1780,
+   "line": 1873,
    "heading_note": ""
   },
   "B1": {
@@ -40,7 +44,7 @@
     "about \"the 99.4% outside the hand lexicon\" was NOT confirmed by this cell -- it was never",
     "⚠️ NOTE WHAT THIS COST: the misreading had already generated a downstream task that could never"
    ],
-   "line": 1842,
+   "line": 1952,
    "heading_note": ""
   },
   "B2": {
@@ -58,7 +62,7 @@
    "constraints": [
     "- RELATED ORGAN WE OWN AND DO NOT USE: hdlab/random_indexing.py:219 implements the"
    ],
-   "line": 336,
+   "line": 339,
    "heading_note": ""
   },
   "B3": {
@@ -76,7 +80,7 @@
     "🔴 CORRECTED 2026-08-14: re-measured on the LIVE field (n=2377, d=256) the same ratio is 0.2997",
     "energy 0.1535, PC1 0.0350. Never restate it as \"more than half the variance\". Detail at organ"
    ],
-   "line": 367,
+   "line": 370,
    "heading_note": ""
   },
   "B4": {
@@ -91,7 +95,7 @@
     "BLOCKS": "the LEVEL of every similarity decision in the substrate. Largest measured lever owned."
    },
    "constraints": [],
-   "line": 394,
+   "line": 397,
    "heading_note": ""
   },
   "B5": {
@@ -103,7 +107,7 @@
     "FIDELITY": "RIGHT-OP-WRONG-METRIC, and mis-applied. The module's own docstring measures that raw cosine cannot separate a synonym from a sibling: sofa/couch 0.968, happy/joyful 0.962, apple/orange 0.952, dog/cat 0.932. Literature note: sensorimotor distance is among the best predictors but \"never the overall best predictor in any single dataset\" (Johns 2023), and the claim that norms collapse near-synonyms was theoretically motivated but empirically untested — our measurement above fills that gap. - 🟢 UPDATED 2026-08-19 — THE ORGAN NOW EXISTS AS ITS OWN SLOT, AND THE METRIC GRADE HAS BEEN TESTED RATHER THAN ASSERTED. hdlab/sensorimotor_spoke.py (NEW, 3 can-fail self-tests) calls grounded_similarity's table rather than re-loading the norms, and adds B5 to hdlab/substrate.py's slot table as NEEDS_ADAPTER — the organ exists and a cell invokes it, but read() does not consult it, so it is NOT counted as filled. - THE METRIC GRADE IS UPHELD, BUT ONLY ON THE CONTRAST THIS ROW ACTUALLY NAMES, AND MY FIRST TEST OF IT FAILED. I first asserted euclid-beats-cosine using dog/cat vs dog/justice — concrete vs abstract — which BOTH metrics ace, and cosine won it 22.8 to 3.2. Re-tested on SYNONYM-vs-SIBLING, which is what the row above is about: over 10 synonym and 10 sibling pairs euclid separates by 1.348 pooled SDs, cosine by 0.511 (scratch/probe_metric_synonym_vs_sibling.py). So: cosine is the better separator FAR APART, euclid NEAR the diagonal, and near the diagonal is where meaning selection lives. Both are exposed and SWEPT by the scoring cell rather than one being adopted. - THE COMBINATION RULE REMAINS UNPINNED and the organ says so in its own docstring. \"Nearest in spoke space selects the meaning\" is OUR-INVENTION-BEING-TESTED, not a replication. The Wang 2020 bounding result travels with it so the spoke is never presented as the only route to modality knowledge. - SUPPLY, NOT LEARNING — stated in the organ and in the cell. The norms are human ratings: admissible as a static offline asset under the no-LLM-at-inference invariant, but the substrate does not GROW this spoke and no result from it may be read as learned perceptual structure.",
     "EVIDENCE IN FLIGHT": "exp_sensorimotor_spoke_grounding_v1, scored on the GROUNDING gold (provenance-filtered ConceptNet), pre-registered to beat TOP_COOCCURRENT and not merely random, with a SHUFFLED_NORMS permutation control checked FIRST. Seed 1 of 3: the norms DO carry the arm (19 hits vs the permuted table's 6) but the arm TIES the text channel (19 vs 18). One seed. Not a result. Do not quote it as one. - ⛔ WHY IT IS SCORED THERE AND NOT ON THE READ-OUT CELL: the read-out routes were measured on 2026-08-19 to never consult the consolidated store at all, so a spoke feeding the consolidated side would have been INVISIBLE there. See the B3/D3 note below.",
     "WIRED": "YES — but capped below the decision threshold, so it never decides anything.",
-    "EVIDENCE": "the self-documented table above. NO FLOOR. 🔴 CORRECTED 2026-08-15 (C24) — A FLOOR NOW EXISTS AND THE ORGAN SITS ON IT. On 124 both-covered blind pairs the NOISE class sits ON the random-word-pair Lancaster floor (0.8071 vs 0.8060) while non-NOISE sits at 0.8834; AUC 0.685 in-sample (notes/grounding_asset_inventory_2026-08-13.md:248-249). Wired into the C3 harness it gives A2_NORMS 0.07125 at w=0.50, below the 0.0870 standalone-spelling floor. Sensorimotor-applied-to-abstract was previously HARD_FAIL and SHELVED. Two stale framings to retire in BOTH directions: the norms are not an unwired island — hdlab/lexical_similarity.py:599 has use_grounded_fallback: bool = True, default-ON since 2026-08-11 (the live reading loop simply never calls concept_similarity) — and they are not an untapped asset, having been measured and shelved with revival criteria (DO-NOT-REDO 11).",
+    "EVIDENCE": "the self-documented table above. NO FLOOR. 🔴 CORRECTED 2026-08-15 (C24) — A FLOOR NOW EXISTS AND THE ORGAN SITS ON IT. On 124 both-covered blind pairs the NOISE class sits ON the random-word-pair Lancaster floor (0.8071 vs 0.8060) while non-NOISE sits at 0.8834; AUC 0.685 in-sample (notes/grounding_asset_inventory_2026-08-13.md:248-249). Wired into the C3 harness it gives A2_NORMS 0.07125 at w=0.50, below the 0.0870 standalone-spelling floor. (⚠️ 2026-08-24: that 0.0870 comparison is against the LEAKY floor. The honest floor is 0.0195, which A2_NORMS 0.07125 would CLEAR. The \"below the floor\" reading here is superseded; §10.1 has the correction. Re-measure before quoting either way -- 0.07125 was itself scored on unstripped gold, so it is not directly comparable to 0.0195 either.) Sensorimotor-applied-to-abstract was previously HARD_FAIL and SHELVED. Two stale framings to retire in BOTH directions: the norms are not an unwired island — hdlab/lexical_similarity.py:599 has use_grounded_fallback: bool = True, default-ON since 2026-08-11 (the live reading loop simply never calls concept_similarity) — and they are not an untapped asset, having been measured and shelved with revival criteria (DO-NOT-REDO 11).",
     "BLOCKS": "grounding of concrete vocabulary; the 99.4% of words outside CONCEPT_FEATURES. ### C. COMPARISON, SELECTION, CONTROL"
    },
    "constraints": [
@@ -113,10 +117,11 @@
     "on 2026-08-19 to never consult the consolidated store at all, so a spoke feeding the",
     "- WIRED: YES — but capped below the decision threshold, so it never decides anything.",
     "- EVIDENCE: the self-documented table above. NO FLOOR. 🔴 CORRECTED 2026-08-15",
+    "here is superseded; §10.1 has the correction. Re-measure before quoting either way -- 0.07125",
     "Two stale framings to retire in BOTH directions: the norms are not an unwired island —",
     "2026-08-11 (the live reading loop simply never calls concept_similarity) — and they are not"
    ],
-   "line": 417,
+   "line": 420,
    "heading_note": ""
   },
   "C1": {
@@ -131,7 +136,7 @@
     "BLOCKS": "sense selection; every canonicalisation decision."
    },
    "constraints": [],
-   "line": 477,
+   "line": 483,
    "heading_note": ""
   },
   "C2": {
@@ -148,7 +153,7 @@
    "constraints": [
     "Adequately excluded as a confound; never independently tested."
    ],
-   "line": 498,
+   "line": 504,
    "heading_note": ""
   },
   "C3": {
@@ -165,7 +170,7 @@
    "constraints": [
     "- BLOCKS: context-conditioned sense selection. STRICTLY BLOCKED BEHIND B4."
    ],
-   "line": 512,
+   "line": 518,
    "heading_note": ""
   },
   "C4": {
@@ -182,7 +187,7 @@
     "(EXPLICIT NEGATIVE RECOMMENDATION — do NOT build)",
     "- FIDELITY: MISSING — BY DESIGN. The standing \"reuse the owned organ\" rule must NOT fire here."
    ],
-   "line": 540,
+   "line": 546,
    "heading_note": "(EXPLICIT NEGATIVE RECOMMENDATION — do NOT build)"
   },
   "D1": {
@@ -197,7 +202,7 @@
     "BLOCKS": "nothing today; required the moment D3 goes on the live path."
    },
    "constraints": [],
-   "line": 558,
+   "line": 564,
    "heading_note": ""
   },
   "D2": {
@@ -212,7 +217,7 @@
     "- NO LONGER UNTESTED. Three floored cells, all against the correct floor (plain argmax = no",
     "between −0.020 and +0.005 over argmax and never widens the basin. Add the citation to C4 and stop"
    ],
-   "line": 1903,
+   "line": 2013,
    "heading_note": ""
   },
   "D3": {
@@ -237,7 +242,7 @@
     "0.0. Completion NEVER helps at any cue level, and the informative band is 0.80→0.35 kept",
     "- SMALLEST CAN-FAIL FLOOR TEST — ⚠️ \"sweeping N\" IS SUPERSEDED BY THE BLOCK ABOVE; SWEEP CUE"
    ],
-   "line": 1933,
+   "line": 2043,
    "heading_note": ""
   },
   "D4": {
@@ -252,7 +257,7 @@
     "sources and corrected this map 12 ways. Pinned: event-level selectivity (large SWRs only); only",
     "- NO LONGER UNTESTED. Three floored cells:"
    ],
-   "line": 2010,
+   "line": 2120,
    "heading_note": ""
   },
   "D5": {
@@ -267,7 +272,7 @@
     "BLOCKS": "multi-sentence situation-model construction."
    },
    "constraints": [],
-   "line": 679,
+   "line": 685,
    "heading_note": ""
   },
   "D6": {
@@ -282,24 +287,26 @@
     "BLOCKS": "nothing today."
    },
    "constraints": [],
-   "line": 699,
+   "line": 705,
    "heading_note": ""
   },
   "D7": {
    "id": "D7",
    "name": "Successor representation: the predictive relational map",
    "fields": {
-    "BRAIN'S MATH": "M(s,s') = E[Σ_{k≥0} γ^k · 1{s_k = s'} | s_0 = s], i.e. M = (I − γP)⁻¹. Place cells are rows of M; grid cells are the eigenvectors of M. Multi-scale: several γ run simultaneously (Dayan 1993 Neural Computation 5:613; Stachenfeld, Botvinick & Gershman 2017 Nat Neurosci 20:1643; Momennejad 2017 Nat Hum Behav). Personalised PageRank ≡ SR under stated conditions. Related and also pinned: TEM's conjunctive code p = g ⊗ x (structural × sensory), where the same structural code g reused across environments gives immediate transitive-inference generalisation (Whittington et al. 2020 Cell 183:1249).",
-    "OURS": "NONE. The nearest things: hdlab/kg_traversal.py:89-111 does hard-argmax n-hop (key = E[s]R[p], scores = E @ (W @ key), argmax, feed the argmax entity back in — no soft state between hops); and hdlab/multi_hop.py:69-70 has a softmax chain whose default β = n_dim makes the softmax a Dirac delta, i.e. identical to hard argmax — the module's own code says so at :88-96 and records that two prior cells were confounded by exactly this.",
-    "FIDELITY": "MISSING, and the nearest owned organ is silently degenerate.",
-    "WIRED": "NO",
-    "EVIDENCE": "none for SR. UNTESTED.",
+    "BRAIN'S MATH": "M(s,s') = E[Σ_{k≥0} γ^k · 1{s_k = s'} | s_0 = s], i.e. M = (I − γP)⁻¹. Place cells are rows of M; grid cells are the eigenvectors of M. Multi-scale: several γ run simultaneously (Dayan 1993 Neural Computation 5:613; Stachenfeld, Botvinick & Gershman 2017 Nat Neurosci 20:1643; Momennejad 2017 Nat Hum Behav). Personalised PageRank ≡ SR under stated conditions. Related and also pinned: TEM's conjunctive code p = g ⊗ x (structural × sensory), where the same structural code g reused across environments gives immediate transitive-inference generalisation (Whittington et al. 2020 Cell 183:1249). - 🔴 D7 — \"OURS: NONE / UNTESTED\" IS FALSE SINCE 2026-08-18. THE ORGAN EXISTS, WAS MEASURED, AND LOST. READ THIS BEFORE PROPOSING TO BUILD OR SCALE IT. BUILT: hdlab/successor_representation.py, 435 lines, 2026-08-18 — the genuine closed form (inv / solve / (I - gammaP) / np.eye; no epochs, no optimiser), self-supervised from the corpus's own transitions: no gold, no WordNet, no LLM. Registered successor_representation_d7_v1 WIRED, and NOT in the substrate's eager closure. MEASURED, AND NOBODY READ IT: exp_sr_scale_ladder_v1, FULL run 2026-08-19 — simplewiki, 3 seeds, 400 items, pool FROZEN at 2,161, NESTED rung corpora, items_predate_mechanism: true, _underpowered: false at every rung. 0 of 24 SR arms clear the credible bar (2 gammas x 4 rungs x 3 seeds; the bar is the co-occurrence floor's UPPER CI). 🔻 AND THE SCALING RUNS THE WRONG WAY: 750 -> 40,000 sentences moves the counting floor 0.0200 -> 0.0700 while SR_g0.9 falls 0.0125 -> 0.0000, same direction on all three seeds. More data makes counting better and this organ worse. \"Scale it up\" is refuted by its own ladder. ⚠️ THE CELL WROTE NO verdict FIELD, so the index lists it landed-with-no-verdict and the result sat unread for five days while the slot table still advertised D7 as \"highest value-per-effort... WE HAVE WRITTEN NONE OF IT.\" 🚫 DO NOT CONFLATE WITH THE 2026-07-09 HARD_PASS_CG_SR_REACHABILITY — I did, briefly. That is a TRAINED CONTRASTIVE code (epochs=140, lambda_bind/cov/var) over a ConceptNet subgraph (4,440 nodes, 16 CN_ relations), in a KG subsystem the live reading path does not touch. Its SR_SEEDED @2=0.434 says nothing about the closed-form organ on the reading path. Same three letters, two different organs on two different substrates. - OURS (WRITTEN BEFORE THE ORGAN EXISTED; kept for the record): NONE. The nearest things: hdlab/kg_traversal.py:89-111 does hard-argmax n-hop (key = E[s]R[p], scores = E @ (W @ key), argmax, feed the argmax entity back in — no soft state between hops); and hdlab/multi_hop.py:69-70 has a softmax chain whose default β = n_dim makes the softmax a Dirac delta, i.e. identical to hard argmax — the module's own code says so at :88-96 and records that two prior cells were confounded by exactly this.",
+    "FIDELITY": "the closed form IS implemented faithfully (see the 08-18 correction above); what fails is the RESULT, not the fidelity. The nearest OTHER owned organs remain silently degenerate.",
+    "WIRED": "registered WIRED, not on the live path (NEEDS_ADAPTER) — and on current evidence wiring it would move nothing.",
+    "EVIDENCE": "none for SR. UNTESTED. TESTED AND LOST: exp_sr_scale_ladder_v1 2026-08-19, 0/24 arms clear, degrading with scale. See the 08-18/08-19 correction at the top of this entry.",
     "BLOCKS": "multi-hop relational reasoning; transitive inference; any \"what follows from what\" query over the 1.21M-edge CSKG."
    },
    "constraints": [
-    "(LABEL CORRECTED 2026-08-20: NOT MISSING. hdlab/successor_representation.py is on disk and capability_registry.jsonl carries successor_representation_d7_v1. The prior MISSING label was stale and would have sent someone to rebuild an organ that exists -- caught by auditing all 39 organ sections against their own declared modules. Its math remains FULLY PINNED; what is unverified is whether the buil"
+    "(LABEL CORRECTED 2026-08-20: NOT MISSING. hdlab/successor_representation.py is on disk and capability_registry.jsonl carries successor_representation_d7_v1. The prior MISSING label was stale and would have sent someone to rebuild an organ that exists -- caught by auditing all 39 organ sections against their own declared modules. Its math remains FULLY PINNED; what is unverified is whether the buil",
+    "🚫 DO NOT propose building, wiring or scaling D7 on the strength of M = (I - γP)⁻¹ being",
+    "the ConceptNet look-alike it must not be confused with: further down this entry.",
+    "🚫 DO NOT CONFLATE WITH THE 2026-07-09 HARD_PASS_CG_SR_REACHABILITY — I did, briefly. That"
    ],
-   "line": 711,
+   "line": 717,
    "heading_note": "(LABEL CORRECTED 2026-08-20: NOT MISSING. hdlab/successor_representation.py is on disk and capability_registry.jsonl carries successor_representation_d7_v1. The prior MISSING label was stale and would have sent someone to rebuild an organ that exists -- caught by auditing all 39 organ sections against their own declared modules. Its math remains FULLY PINNED; what is unverified is whether the built organ MATCHES that math, which is a different question and still open.)"
   },
   "D8": {
@@ -323,7 +330,7 @@
     "multistage model SHARES the cascade's scaling rather than beating it, so it never supported the N",
     "PREDICTION, not a ceiling and not evidence against the organ. Do not queue a cascade-vs-single-state"
    ],
-   "line": 730,
+   "line": 769,
    "heading_note": "(MISSING, and its math is FULLY PINNED)"
   },
   "D9": {
@@ -337,7 +344,7 @@
    "constraints": [
     "- NO LONGER UNTESTED as an organ. exp_excitability_gated_substrate_cpu_v1 HARD_PASS: above"
    ],
-   "line": 2043,
+   "line": 2153,
    "heading_note": ""
   },
   "E1": {
@@ -352,7 +359,7 @@
     "BLOCKS": "nothing — it works. Its INPUT (roles from syntax) is the gap; see F3/F4."
    },
    "constraints": [],
-   "line": 806,
+   "line": 845,
    "heading_note": ""
   },
   "E2": {
@@ -369,7 +376,7 @@
    "constraints": [
     "independently confirmed but were never run together before this. Floored and failing."
    ],
-   "line": 826,
+   "line": 865,
    "heading_note": ""
   },
   "E3": {
@@ -389,7 +396,7 @@
     "corrected too.)",
     "Competitive resolution among 2+ semantically plausible antecedents has NEVER been tested at"
    ],
-   "line": 846,
+   "line": 885,
    "heading_note": ""
   },
   "E4": {
@@ -400,12 +407,13 @@
     "OURS": "NONE",
     "FIDELITY": "MISSING — never attempted; not even a negative result exists.",
     "EVIDENCE": "the nearest measurements are the exp_propara_bridging_ cells (1 HARD_PASS, 4 HARD_FAIL) against floors prior_lesion 0.3176 and majority 0.2378. Those test bridging on a benchmark, not our organ. UNTESTED.",
-    "BLOCKS": "inference beyond the literal text. Presupposes E2 + E3; correctly deferred."
+    "BLOCKS": "inference beyond the literal text. Presupposes E2 + E3; correctly deferred. > ## 🔴 ADDED 2026-08-24 — P1/P2 HAD NO ENTRY IN THIS FILE AT ALL, AND THE PLAN CALLS THEM DECISIVE. > Enumerated, not searched (slot_status.slots() vs a mention-check over this file, positive > control B3/B5 both True): 10 of the 28 slots in hdlab/substrate.py are absent from > ORGAN_MAP. Seven are infrastructure and legitimately not brain organs (R1 R2 R3 R4 X1 P3 B3' > — \"split text into units\", \"survive a restart\"). The remaining three are Q2, P1, P2 — > exactly the slots the build plan names as \"the difference between a well-organised filing system > and something that understands\". You cannot build brain-foundational for an organ whose brain > requirement was never written down. Confirmed not a renaming: levelt|lemma|production|articul| > utterance return ZERO hits across this file. > ⚠️ Q2 IS NOT A CLEAN ABSENCE AND I AM NOT FILING IT AS ONE. Relational/transitive inference > IS covered here under D7, which lists \"multi-hop relational reasoning; transitive inference\" > in its own BLOCKS line. Q2 may be a duplicate of D7 under a second name rather than a missing > organ. Resolve that before building either. P1/P2 have no such cover."
    },
    "constraints": [
-    "- FIDELITY: MISSING — never attempted; not even a negative result exists."
+    "- FIDELITY: MISSING — never attempted; not even a negative result exists.",
+    "> requirement was never written down. Confirmed not a renaming: levelt|lemma|production|articul|"
    ],
-   "line": 904,
+   "line": 943,
    "heading_note": ""
   },
   "E5": {
@@ -419,7 +427,7 @@
    "constraints": [
     "- NO LONGER UNTESTED. Two floored cells, both HARD_FAIL:"
    ],
-   "line": 2075,
+   "line": 2185,
    "heading_note": ""
   },
   "F1": {
@@ -435,7 +443,7 @@
     "- NO LONGER UNTESTED. Three floored cells:",
     "- exp_pos_tagger_v3_hmm_cpu_v1 — verdict UNKNOWN, corpus_load_failed. A dead cell; do not"
    ],
-   "line": 2106,
+   "line": 2216,
    "heading_note": ""
   },
   "F2": {
@@ -450,7 +458,7 @@
     "BLOCKS": "verb/role extraction; F3."
    },
    "constraints": [],
-   "line": 947,
+   "line": 1040,
    "heading_note": ""
   },
   "F3": {
@@ -465,7 +473,7 @@
     "BLOCKS": "verb-frame learning (F4)."
    },
    "constraints": [],
-   "line": 962,
+   "line": 1055,
    "heading_note": ""
   },
   "F4": {
@@ -480,7 +488,7 @@
     "BLOCKS": "verb learning — but the binding constraint is UPSTREAM: the foundation contains 0 genuine verb definitions in 2,092 facts (66.7% NOUN / 28.0% PROPN / 2.3% VERB; hand inspection of the 48 VERB-tagged rows found zero real verb definitions). Wiring this organ harder cannot fix a verb population that does not exist."
    },
    "constraints": [],
-   "line": 993,
+   "line": 1086,
    "heading_note": ""
   },
   "F5": {
@@ -496,7 +504,7 @@
    "constraints": [
     "(MISSING — and a legitimate PHASE-B target)"
    ],
-   "line": 1009,
+   "line": 1102,
    "heading_note": "(MISSING — and a legitimate PHASE-B target)"
   },
   "F6": {
@@ -513,7 +521,7 @@
     "(MISSING)",
     "partial in humans — thematic roles assigned along the garden path linger alongside the corrected"
    ],
-   "line": 1031,
+   "line": 1124,
    "heading_note": "(MISSING)"
   },
   "G1": {
@@ -529,7 +537,7 @@
     "- THE GAP IS UNCHANGED AND NOW SHARPER: the map says G1 \"has never been measured as a learner\".",
     "Corrected: the MDL gate and the delta rule have both been measured; the LOOP has not. What is"
    ],
-   "line": 2130,
+   "line": 2240,
    "heading_note": ""
   },
   "G2": {
@@ -544,7 +552,7 @@
     "ungated arm. The gate never fired. An inert knob that reads as live — the same class as",
     "- exp_substrate_owned_predictive_coding_encoder_v1 HARD_FAIL vs word2vec — do not cite:"
    ],
-   "line": 2163,
+   "line": 2273,
    "heading_note": ""
   },
   "G3": {
@@ -559,7 +567,7 @@
     "- NO LONGER UNTESTED. Four floored measurements, and together they make one clean statement:",
     "it, and the arm the four failed reweightings never ran; (ii) the ungained live arm 0.6395; (iii)"
    ],
-   "line": 2203,
+   "line": 2313,
    "heading_note": ""
   },
   "G4": {
@@ -574,7 +582,7 @@
     "BLOCKS": "nothing today. ### H. METACOGNITION, FORAGING, AND THE STORE"
    },
    "constraints": [],
-   "line": 1155,
+   "line": 1248,
    "heading_note": ""
   },
   "H1": {
@@ -589,7 +597,7 @@
     "BLOCKS": "nothing. Its output has nowhere to go — see H2. That is the tragedy of this row."
    },
    "constraints": [],
-   "line": 1168,
+   "line": 1261,
    "heading_note": ""
   },
   "H2": {
@@ -608,7 +616,7 @@
     "🔴 SUPERSEDED 2026-08-14/15 — SEE §10.1/H2b BEFORE READING THIS ENTRY. The organ is NOT missing",
     "the caller builds 4 synthetic f-string pseudoword templates per trial. The organ has never seen real"
    ],
-   "line": 1187,
+   "line": 1280,
    "heading_note": "(LABEL CORRECTED 2026-08-20: NOT MISSING. hdlab/information_foraging.py is on disk, capability_registry.jsonl carries information_foraging_mvt_leave_rule, and Substrate BUILDS it at runtime -- it appears in sub._built. The prior MISSING -- and it is step 1 label was stale.)"
   },
   "H3": {
@@ -626,7 +634,7 @@
     "And state.refusals is written, counted, reloaded — and then never consulted by any decision.",
     "⚠ low_information_filter.py:57,104: df_threshold is explicitly REPORTED_ONLY -- never a gate"
    ],
-   "line": 1225,
+   "line": 1318,
    "heading_note": ""
   },
   "S1": {
@@ -645,7 +653,7 @@
     "| 6 | hdlab/low_information_filter.py:57,104 | df_threshold is REPORTED_ONLY -- never a gate — an inert knob that reads as live. |",
     "| 9 | hdlab/_scratch_orig_goal_owner_select.py | 889-line stale duplicate of goal_owner_select.py; self-test still passes; zero consumers; registry says delete-candidate. |"
    ],
-   "line": 1245,
+   "line": 1338,
    "heading_note": ""
   }
  },
@@ -674,14 +682,14 @@
     },
     {
      "slug": "lookup_does_not_lemmatise",
-     "state": "OPEN",
-     "priority": 4,
-     "review": "",
-     "review_text": "",
-     "integrated": false,
-     "result": "",
-     "floor": "",
-     "reverify": ""
+     "state": "SOLVED",
+     "priority": null,
+     "review": "EXCELLENT",
+     "review_text": "Built the instrument where the defect BITES (benchmark words in real inflected forms); lemmatise-on-miss inserts real meaning (rho 0.206 where the live lookup is MUTE), clears the strongest floor +0.185 CI-separated, the mandated info-free twin loses, BASE-oracle~=fix, replicated 3/3. I re-verified (WITNESS PASS) and LANDED the one-line fix. Held-out proven; read()-path gain awaits B5.",
+     "integrated": true,
+     "result": "\"On SimVerb-3500 TEST (held-out, n=2490 inflected verb pairs), lemmatising the grounded-norms lookup scores Spearman rho=0.2059 vs human similarity; paired-bootstrap margin over the strongest floor actually run (orthographic 0.0211) = +0.1848, CI95 [+0.1271,+0.2346] ABOVE, and LEMMA point > floor upper CI. Replicated on SimVerb-dev (n=418, margin +0.2334 [+0.0989,+0.3641]) and SimLex-999 nouns (n=447, margin +0.1604 [+0.0268,+0.2911]). replication_gate: REPLICATED 3/3, no info-free control reproduced half the effect.\"",
+     "floor": "\"strongest floor actually run = max(scramble/random-covered-word TWIN, orthographic trigram-Jaccard, corpus-frequency best-channel), recomputed per population on its own pairs. SimVerb-test strongest=ORTHO 0.0211 (TWIN 0.0078, FREQ -0.0487); SimVerb-dev strongest=FREQ 0.0270; SimLex-noun strongest=FREQ 0.0807. LEMMA clears the MAX of the three CI-separated on all three primary populations.\"",
+     "reverify": "\".venv/Scripts/python.exe verification/test_lemmatised_grounding_task.py\""
     },
     {
      "slug": "stored_terms_are_stems",
@@ -701,16 +709,16 @@
    "name": "DECIDE WHAT WORDS MEAN",
    "plain": "Work out what a newly-read word means by relating it to words already understood.",
    "state": "BROKEN",
-   "evidence": "On the test of whether two words are INTERCHANGEABLE, our own rule scores 0.051 where pure guessing scores 0.486 and a right answer scores 0.960. It is not weak, it is BACKWARDS -- it confidently calls words similar when they merely turn up together. Counting which words co-occur beats our whole apparatus 2-3x on assigning meanings (0.048-0.065 vs 0.016-0.030, three runs).  NEW 2026-08-24, AND NOT YET OURS: letting the grounded sensory channel TEACH the word-statistics channel scores 0.839 on the same test (interval 0.803 to 0.872), against a no-information version of itself whose best of 200 tries reached 0.705. Neither channel can do it alone -- sensory alone is 0.551, statistics alone 0.029 and backwards. Their AGREEMENT carries it. This is an experiment, not the substrate.",
-   "floor": "Guessing scores 0.486 on the interchangeability test and a correct answer 0.960; we read 0.051. On meaning-assignment we beat a random answer on 2 of 3 runs but lose to plain co-occurrence counting on 3 of 3. The sensory ratings score 0.599 there, but a control giving EVERY WORD THE SAME VECTOR scores 0.619 and beats them.",
-   "gap": "THE CENTRAL DEFECT, AND IT IS NOW SHARPER THAN 'WEAK'. The step learns the WRONG RELATION -- which words appear together, not which words are interchangeable -- and it learns it confidently. Two pre-registered stop conditions have now closed the whole family of fixes that reshuffle word-co-occurrence counts: four tuning variants moved it from 0.052 to 0.114 and no further. The sensory ratings do not rescue it either: they point the right way but do not beat a control carrying no word-specific information at all.",
+   "evidence": "On a FAIR test -- pick a word's true relative when the decoys appear exactly as often, so 'guess the commonest' cannot win -- our sense-based meaning signal scores 0.741 where the strongest frequency method scores 0.558 and guessing scores 0.500 (three runs; no-information versions of the signal at chance). Under that fair matching plain co-occurrence counting reads EXACTLY chance by construction -- its earlier 2-3x 'win' (0.048-0.065 vs 0.016-0.030) was entirely word-frequency. LIVE, though, the substrate's own write rule still scores 0.051 on the interchangeability test (guessing 0.486, right answer 0.960): the fair-test win lives in an experiment and is not yet wired in.",
+   "floor": "On the fair test the signal must beat the strongest frequency method (0.558) and chance (0.500) with separated intervals and a no-information twin losing -- it does, at 0.741. LIVE, the write rule reads 0.051 against guessing 0.486; that is the number the wiring must move once the proven signal is connected.",
+   "gap": "THE DEFECT IS NO LONGER 'MEANING IS BACKWARDS' -- it is 'the proven meaning signal is UNWIRED and context-free'. A fair test showed the sense-based signal beats frequency at picking a word's true relative, reversing the old 'counting beats us' story (which was measured on a test that scored frequency). What remains: the live reader still uses the old backwards rule, and the winning signal was measured on isolated word pairs, not on words read in a sentence -- where the brain does its selection. The build to wire it in and test it in context is queued as the board's top priority.",
    "goal": "CHANGED 2026-08-24, AND FOR THE FIRST TIME IT NAMES A MEASURED ROUTE RATHER THAN A HOPE. Wire cross-modal distillation into the read-out: use the grounded table to train a direction over the word-statistics, instead of mixing the two channels at fixed weights (which is measured to DESTROY the grounded signal). Two limits travel with it: the teacher is a supplied human-rated table, so this is label-free but not resource-free; and it needs the candidate words in front of it. Neither blocks wiring; both change what may be claimed afterwards.",
-   "reviewed_utc": "2026-08-24T10:30:00Z",
+   "reviewed_utc": "2026-08-26T05:22:04Z",
    "briefs": [
     {
      "slug": "where_does_a_meaning_signal_come_from_without_labels",
      "state": "SOLVED",
-     "priority": 1,
+     "priority": null,
      "review": "EXCELLENT",
      "review_text": "\"Breaks the substitutability wall: 0.8388 CI [0.8031,0.8720] where every prior unsupervised arm scored 0.02-0.13 backwards, beating the info-free twin MAXIMUM over 200 draws. I read the orientation code -- the sign comes from the hub own ranking, not the gold, so the disqualifying test passes. Label-free but NOT resource-free (supplied Lancaster hub) and transductive; both must travel with the number.\"",
      "integrated": true,
@@ -846,14 +854,14 @@
     },
     {
      "slug": "cortical_read_never_tested_where_it_matters",
-     "state": "OPEN",
-     "priority": 3,
-     "review": "",
-     "review_text": "",
-     "integrated": false,
-     "result": "",
-     "floor": "",
-     "reverify": ""
+     "state": "PARTIAL",
+     "priority": null,
+     "review": "STRONG",
+     "review_text": "\"Witness passes 6/6 scaffold-free, and the metric-fails-safe check is the good kind (planted->rank1 200/200, degenerate flagged AND sorted last). The three-point brain-fidelity audit and the SPOKE identity check (sensorimotor_spoke.profile == grounded_vector, cos=1.000) are what most submissions skip. Arithmetic right; the ARGUMENT has one gap -- every self-built arm is used alone or CONCATENATED (BOTH = concat, line 36), so the two channels were weighted, never made to TEACH each other, which is the mechanism that broke the substitutability wall the same day. Split out as teach_the_self_built_space_instead_of_concatenating_it.\"",
+     "integrated": true,
+     "result": "\"Powered generalisation test (train simplewiki, test held-out narrative fiction; 3 seeds; 269/279/271 UNSEEN-co-occurrence items/seed; pool 274-329; rank_with_ties both conventions; 2000-boot CIs; overlap=0). THE BAR IS CLEARED -- but only by a SUPPLIED distributional retrieval space, never by one built from our own reading. A supplied distributional foundation (GloVe, glass-box lookup, NOT an LLM) ranking the consolidated pool clears the strongest floor CI-separated 3/3 (hit@25 0.377, lo 0.29-0.34 vs floor upper 0.20-0.25; median rank 37 of ~300). NO space built from our reading clears it: cu",
+     "floor": "\"Strongest floor RUN on the UNSEEN population = concreteness prior (CONC, cue-blind): hit@10 0.115, hit@25 upper-CI 0.197/0.247/0.221 across seeds. Also run: FREQ (hit@10 0.011), COOC (0.000, at construction-floor by the definition of unseen), and info-free twins SCRAMBLE (0.033) / RANDOM (0.040). Gate = floor's UPPER CI vs arm's PESSIMISTIC-convention LOWER CI (adversarial to the arm).\"",
+     "reverify": "\".venv/Scripts/python.exe verification/solverB_verify_paradigmatic_generalization.py  # scaffold-free: proves a distributional space retrieves a target from cue words it NEVER co-occurred with (the mechanism), the metric fails safe, the GloVe ceiling is coherent. Headline numbers are in data/solverB"
     }
    ]
   },
@@ -892,14 +900,14 @@
     },
     {
      "slug": "organ_abstains_on_two_thirds_of_v2",
-     "state": "OPEN",
-     "priority": 6,
-     "review": "",
-     "review_text": "",
-     "integrated": false,
-     "result": "",
-     "floor": "",
-     "reverify": ""
+     "state": "SOLVED",
+     "priority": null,
+     "review": "EXCELLENT",
+     "review_text": "\"Re-verified scaffold-free: the organ says 'I don't know' to 82 of 124 because BOTH the goal side (42 items) and the outcome side (32) are out-of-vocabulary for its small hand-built word lists, all terminating at goal_typing.py:1984. The two gaps COMPOUND -- only 7/82 even reach an outcome candidate, so broadening goal recognition (my brief's named suspect) converts ~nothing (3/42); the outcome side is the harder, unnamed wall. Deciding control: forced to answer, the grounded channel loses to its own info-free twin (0.5385 < base rate 0.6154), so the silence is HONEST -- the organ correctly lacks the meaning to speak. Remedy is UPSTREAM broad grounded meaning supply, not more hand-listed words -- the SAME missing organ the meaning line just re-opened. Corrected my brief (both sides; not Sherlock-specific).\"",
+     "integrated": true,
+     "result": "\"All 82/124 abstentions terminate at hdlab/goal_typing.py:1984 -- lexicon_predict `return \\\"NONE\\\"` (2 return \\\"AMBIGUOUS\\\"), surfaced by congruence_with_lexicon_fallback at goal_typing.py:2199-2201/2218. They terminate there because the 4-tier congruence cascade abstained first. PARTITION of the 82 by first point of failure (organ_base, no overlay, v2's 124 scorable, reproduced to the digit -- acc 0.2339): 42 no goal construction recognized (find_desired_state returns None); 32 goal recognized but outcome verb class unknown (find_actual_state_candidates empty -- CLASS_REGISTRY OOV); 4 outcome",
+     "floor": "\"Base rates RECOMPUTED per converted subset (never imported): the 82 abstentions base rate 0.5976 (majority UNMET, 49/82); Class A (42) 0.5952; Class B1 (32) 0.6250; the 42 COMMITTED items base rate 0.6190 with the organ at 29/42 = 0.690 (ABOVE it); v2 all-124 majority floor 0.6048. Nothing on v2 clears its own null (strongest_that_clears_its_own_null=None, verified in the landed measurement), so ",
+     "reverify": "\".venv/Scripts/python.exe verification/test_goal_abstention_diagnosis.py\""
     }
    ]
   },
@@ -928,14 +936,14 @@
    "briefs": [
     {
      "slug": "propagate_along_the_relation_that_carries_valence",
-     "state": "OPEN",
-     "priority": 5,
+     "state": "SOLVED",
+     "priority": 3,
      "review": "",
      "review_text": "",
      "integrated": false,
-     "result": "",
-     "floor": "",
-     "reverify": ""
+     "result": "\"Signed lexical-relation propagation (antonym FLIPS valence; synonymy/derivational/verb-group/similar-to PRESERVE it), accuracy vs Warriner human valence gold on the 1,971 polar held-out verbs. HEADLINE: 0.7258 on 485 committed items (24.6% coverage), CI95 [0.6844,0.7646], vs the majority floor RECOMPUTED on those 485 = 0.5546 -> CI-separated over the floor. Per hop: 1-hop 0.8403 on 119 (CI-lo 0.7692 > own floor 0.5798) = 6x the shipped antonym stage's 19 at the SAME accuracy; 2-hop 0.6977 on 387; 3-hop 0.6460 on 483 (monotonic decay). HONEST NULL on the LITERAL bar: LEX and Stage B both commi",
+     "floor": "\"Majority-class floor RECOMPUTED on each arm's own committed subset: 0.5546 on LEX_SIGNED 2-hop (485), 0.5798 on 1-hop (119), 0.5472 on Stage B (307); full-population floor 0.5165. Stage B is NOT itself a valence floor (af3be862f: its residual is answerability + seed-clustering, not valence).\"",
+     "reverify": ".venv/Scripts/python.exe verification/test_signed_lexical_valence_propagation.py"
     }
    ]
   },
@@ -1001,14 +1009,14 @@
  "briefs": {
   "aimed_reading_is_built_and_the_reader_never_calls_it": {
    "slug": "aimed_reading_is_built_and_the_reader_never_calls_it",
-   "state": "OPEN",
-   "priority": 2,
-   "review": "",
-   "review_text": "",
-   "integrated": false,
-   "result": "",
-   "floor": "",
-   "reverify": ""
+   "state": "REFUTED",
+   "priority": null,
+   "review": "STRONG",
+   "review_text": "Aiming beats random but LOSES to the fixed schedule; the learning-progress signal ties a random target (inert at this scale). I re-ran the witness -- coverage, partition, 99% LP-firing, every pass-flag reproduce from the saved populations. The bottleneck is grounding DEPTH, not source choice. (Docked from EXCELLENT: the v4 seed-replication field was left unfilled.)",
+   "integrated": true,
+   "result": "register-controlled held-out coverage (3000-word probe, 2335 reachable / 665 unreachable by FROZEN's own corpora, equal-weighted; grounded-subject coverage; 10,000 sentences/arm; substrate seed 20260814). FROZEN 0.0510; FORAGE surprise 0.0407 (FORAGE-FROZEN CI [-0.0188,-0.0018]); FORAGE_LP learning-progress-target 0.0254 (CI [-0.0340,-0.0170]); FORAGE_LPFULL full-learning-progress 0.0206 (CI [-0.0382,-0.0223]). No aimed variant beats the fixed schedule; all three CI-separated BELOW it.",
+   "floor": "strongest floor = FROZEN, the incumbent fixed 4-corpus schedule, register-controlled coverage 0.0510 (upper bound cleared by no aimed arm). Info-free twins: RANDOM (uniform random corpus choice) 0.0240; FORAGE_RANDTARGET (random target) 0.0256.",
+   "reverify": "D:/AI/hd-instrument/.venv/Scripts/python.exe verification/test_aimed_reading_learning_progress.py"
   },
   "certification_gate_hangs": {
    "slug": "certification_gate_hangs",
@@ -1034,14 +1042,14 @@
   },
   "cortical_read_never_tested_where_it_matters": {
    "slug": "cortical_read_never_tested_where_it_matters",
-   "state": "OPEN",
-   "priority": 3,
-   "review": "",
-   "review_text": "",
-   "integrated": false,
-   "result": "",
-   "floor": "",
-   "reverify": ""
+   "state": "PARTIAL",
+   "priority": null,
+   "review": "STRONG",
+   "review_text": "\"Witness passes 6/6 scaffold-free, and the metric-fails-safe check is the good kind (planted->rank1 200/200, degenerate flagged AND sorted last). The three-point brain-fidelity audit and the SPOKE identity check (sensorimotor_spoke.profile == grounded_vector, cos=1.000) are what most submissions skip. Arithmetic right; the ARGUMENT has one gap -- every self-built arm is used alone or CONCATENATED (BOTH = concat, line 36), so the two channels were weighted, never made to TEACH each other, which is the mechanism that broke the substitutability wall the same day. Split out as teach_the_self_built_space_instead_of_concatenating_it.\"",
+   "integrated": true,
+   "result": "\"Powered generalisation test (train simplewiki, test held-out narrative fiction; 3 seeds; 269/279/271 UNSEEN-co-occurrence items/seed; pool 274-329; rank_with_ties both conventions; 2000-boot CIs; overlap=0). THE BAR IS CLEARED -- but only by a SUPPLIED distributional retrieval space, never by one built from our own reading. A supplied distributional foundation (GloVe, glass-box lookup, NOT an LLM) ranking the consolidated pool clears the strongest floor CI-separated 3/3 (hit@25 0.377, lo 0.29-0.34 vs floor upper 0.20-0.25; median rank 37 of ~300). NO space built from our reading clears it: cu",
+   "floor": "\"Strongest floor RUN on the UNSEEN population = concreteness prior (CONC, cue-blind): hit@10 0.115, hit@25 upper-CI 0.197/0.247/0.221 across seeds. Also run: FREQ (hit@10 0.011), COOC (0.000, at construction-floor by the definition of unseen), and info-free twins SCRAMBLE (0.033) / RANDOM (0.040). Gate = floor's UPPER CI vs arm's PESSIMISTIC-convention LOWER CI (adversarial to the arm).\"",
+   "reverify": "\".venv/Scripts/python.exe verification/solverB_verify_paradigmatic_generalization.py  # scaffold-free: proves a distributional space retrieves a target from cue words it NEVER co-occurred with (the mechanism), the metric fails safe, the GloVe ceiling is coherent. Headline numbers are in data/solverB"
   },
   "does_learning_from_reading_deserve_to_continue": {
    "slug": "does_learning_from_reading_deserve_to_continue",
@@ -1089,36 +1097,58 @@
   },
   "lookup_does_not_lemmatise": {
    "slug": "lookup_does_not_lemmatise",
-   "state": "OPEN",
-   "priority": 4,
+   "state": "SOLVED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "Built the instrument where the defect BITES (benchmark words in real inflected forms); lemmatise-on-miss inserts real meaning (rho 0.206 where the live lookup is MUTE), clears the strongest floor +0.185 CI-separated, the mandated info-free twin loses, BASE-oracle~=fix, replicated 3/3. I re-verified (WITNESS PASS) and LANDED the one-line fix. Held-out proven; read()-path gain awaits B5.",
+   "integrated": true,
+   "result": "\"On SimVerb-3500 TEST (held-out, n=2490 inflected verb pairs), lemmatising the grounded-norms lookup scores Spearman rho=0.2059 vs human similarity; paired-bootstrap margin over the strongest floor actually run (orthographic 0.0211) = +0.1848, CI95 [+0.1271,+0.2346] ABOVE, and LEMMA point > floor upper CI. Replicated on SimVerb-dev (n=418, margin +0.2334 [+0.0989,+0.3641]) and SimLex-999 nouns (n=447, margin +0.1604 [+0.0268,+0.2911]). replication_gate: REPLICATED 3/3, no info-free control reproduced half the effect.\"",
+   "floor": "\"strongest floor actually run = max(scramble/random-covered-word TWIN, orthographic trigram-Jaccard, corpus-frequency best-channel), recomputed per population on its own pairs. SimVerb-test strongest=ORTHO 0.0211 (TWIN 0.0078, FREQ -0.0487); SimVerb-dev strongest=FREQ 0.0270; SimLex-noun strongest=FREQ 0.0807. LEMMA clears the MAX of the three CI-separated on all three primary populations.\"",
+   "reverify": "\".venv/Scripts/python.exe verification/test_lemmatised_grounding_task.py\""
+  },
+  "meaning_read_out_untested_on_the_own_metric": {
+   "slug": "meaning_read_out_untested_on_the_own_metric",
+   "state": "PARTIAL",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "EXCELLENT, re-integrated off owner-DONE final content. TOP-1 (the brief's scorer, re-verified PASS): read-outs lose to counting -> no wiring for top-1 argmax. The owner-directed DISCRIMINATION reframe flips it: on HARD negatives counting falls BELOW chance (0.210, actively prefers co-occurrents) while GROUNDED hits 0.728 CI-separated, info-free twin at chance -> the read-outs DO carry real conceptual meaning; \"they lose\" was a property of the frequency-dominated top-1 SCORER, not the organs. Concreteness-controlled residual 0.648 (distributional spoke does NOT survive). PREVIEWS the metric-fairness answer (priority 2). Discrimination numbers not yet scaffold-witnessed (reverify covers top-1 only). Meaning organs NOT broken; grounded-weighted discrimination is the direction.",
+   "integrated": true,
+   "result": "\"On the reproduced own-metric instrument (grounding precision vs data/conceptnet_gold_v1; 3 seeds; n=441/398/441 scorable grounded terms), TOP_COOC and SUBSTRATE reproduce the landed cell TO THE DIGIT (TOP_COOC 0.0476/0.0653/0.0590; SUBSTRATE 0.0159/0.0302/0.0272). THE BRIEF'S READ-OUTS LOSE TO COUNTING, CI-SEPARATED BELOW IT, ON EVERY SEED: FUSION 0.0068/0.0226/0.0091, taught-direction CHANNEL 0.0204/0.0101/0.0136, second-order READING 0.0091/0.0201/0.0227 -- all with paired (read-out - counting) CI excluding zero on the low side. The borrowed-scorer wins do NOT transfer. The strongest brain-",
+   "floor": "\"TOP_COOC = raw first-order co-occurrence COUNTING (argmax over the term's co-occurrents) = the landed TOP_COOCCURRENT, reproduced exactly: 0.0476/0.0653/0.0590, ci_hi 0.0680/0.0905/0.0816. It is the STRONGER counting floor: PMI-normalised counting (TOP_PPMI) collapses to 0.0045/0.0126/0.0045 (pooled 0.0070, ~8x worse), so the metric rewards raw FREQUENCY and any normalisation destroys the signal.",
+   "reverify": "\".venv/Scripts/python.exe verification/test_meaning_readout_own_metric.py\""
+  },
+  "no_automatic_reliability_signal_reaches_the_source_oracle": {
+   "slug": "no_automatic_reliability_signal_reaches_the_source_oracle",
+   "state": "PARTIAL",
+   "priority": 2,
    "review": "",
    "review_text": "",
    "integrated": false,
-   "result": "",
-   "floor": "",
-   "reverify": ""
+   "result": "\"The strongest learned own-geometry arbiter ARB_ROUTE = 0.3281 hit@1, CI [0.3153, 0.3403] (scorer = lemma hit@1, n=5490 held-out recall population, the bar instrument). It does NOT clear the counting floor's upper bound (0.3366) CI-separated -- point estimate +0.0039 over F_COUNT1=0.3242, well inside noise, vs an oracle ceiling of 0.4091 (+0.085). The signal is REAL but INSUFFICIENT: on the recall instrument own-response geometry predicts the COMPETENT source's per-item reliability well (COUNT1 response-entropy AUC 0.708, margin 0.696, self-consistency 0.658; single-shot peak-z is also 0.647 h",
+   "floor": "\"PRIMARY (recall, the bar): counting floor F_COUNT1 (first-order PMI co-occurrence) = 0.3242, CI [0.3115, 0.3366], REPRODUCED EXACTLY from the refuted store cell (the instrument matches by construction); gate on the UPPER bound 0.3366. Best static single source = COUNT1 itself; the fixed z-blend FAM_REC = 0.2066 (below floor). Ceiling = ORACLE_UNION 0.4091 CI [0.3962, 0.4220] (reproduces the store",
+   "reverify": "\".venv/Scripts/python.exe verification/test_reliability_geometry_gate_diagnosis.py\""
   },
   "organ_abstains_on_two_thirds_of_v2": {
    "slug": "organ_abstains_on_two_thirds_of_v2",
-   "state": "OPEN",
-   "priority": 6,
-   "review": "",
-   "review_text": "",
-   "integrated": false,
-   "result": "",
-   "floor": "",
-   "reverify": ""
+   "state": "SOLVED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "\"Re-verified scaffold-free: the organ says 'I don't know' to 82 of 124 because BOTH the goal side (42 items) and the outcome side (32) are out-of-vocabulary for its small hand-built word lists, all terminating at goal_typing.py:1984. The two gaps COMPOUND -- only 7/82 even reach an outcome candidate, so broadening goal recognition (my brief's named suspect) converts ~nothing (3/42); the outcome side is the harder, unnamed wall. Deciding control: forced to answer, the grounded channel loses to its own info-free twin (0.5385 < base rate 0.6154), so the silence is HONEST -- the organ correctly lacks the meaning to speak. Remedy is UPSTREAM broad grounded meaning supply, not more hand-listed words -- the SAME missing organ the meaning line just re-opened. Corrected my brief (both sides; not Sherlock-specific).\"",
+   "integrated": true,
+   "result": "\"All 82/124 abstentions terminate at hdlab/goal_typing.py:1984 -- lexicon_predict `return \\\"NONE\\\"` (2 return \\\"AMBIGUOUS\\\"), surfaced by congruence_with_lexicon_fallback at goal_typing.py:2199-2201/2218. They terminate there because the 4-tier congruence cascade abstained first. PARTITION of the 82 by first point of failure (organ_base, no overlay, v2's 124 scorable, reproduced to the digit -- acc 0.2339): 42 no goal construction recognized (find_desired_state returns None); 32 goal recognized but outcome verb class unknown (find_actual_state_candidates empty -- CLASS_REGISTRY OOV); 4 outcome",
+   "floor": "\"Base rates RECOMPUTED per converted subset (never imported): the 82 abstentions base rate 0.5976 (majority UNMET, 49/82); Class A (42) 0.5952; Class B1 (32) 0.6250; the 42 COMMITTED items base rate 0.6190 with the organ at 29/42 = 0.690 (ABOVE it); v2 all-124 majority floor 0.6048. Nothing on v2 clears its own null (strongest_that_clears_its_own_null=None, verified in the landed measurement), so ",
+   "reverify": "\".venv/Scripts/python.exe verification/test_goal_abstention_diagnosis.py\""
   },
   "propagate_along_the_relation_that_carries_valence": {
    "slug": "propagate_along_the_relation_that_carries_valence",
-   "state": "OPEN",
-   "priority": 5,
+   "state": "SOLVED",
+   "priority": 3,
    "review": "",
    "review_text": "",
    "integrated": false,
-   "result": "",
-   "floor": "",
-   "reverify": ""
+   "result": "\"Signed lexical-relation propagation (antonym FLIPS valence; synonymy/derivational/verb-group/similar-to PRESERVE it), accuracy vs Warriner human valence gold on the 1,971 polar held-out verbs. HEADLINE: 0.7258 on 485 committed items (24.6% coverage), CI95 [0.6844,0.7646], vs the majority floor RECOMPUTED on those 485 = 0.5546 -> CI-separated over the floor. Per hop: 1-hop 0.8403 on 119 (CI-lo 0.7692 > own floor 0.5798) = 6x the shipped antonym stage's 19 at the SAME accuracy; 2-hop 0.6977 on 387; 3-hop 0.6460 on 483 (monotonic decay). HONEST NULL on the LITERAL bar: LEX and Stage B both commi",
+   "floor": "\"Majority-class floor RECOMPUTED on each arm's own committed subset: 0.5546 on LEX_SIGNED 2-hop (485), 0.5798 on 1-hop (119), 0.5472 on Stage B (307); full-population floor 0.5165. Stage B is NOT itself a valence floor (af3be862f: its residual is answerability + seed-clustering, not valence).\"",
+   "reverify": ".venv/Scripts/python.exe verification/test_signed_lexical_valence_propagation.py"
   },
   "reader_meaning_channel": {
    "slug": "reader_meaning_channel",
@@ -1175,6 +1205,17 @@
    "floor": "\"PRECISION floor = RANDOM_ANCHOR (same terms, random answer): COLD SUBSTRATE 0.0199 vs RANDOM 0.0000-0.0199, not CI-separated; RESUMED 0/9. DEGENERACY floor = DECOY (loaded anchors, meanings permuted): in the pure-mechanism probe DECOY match-rate == RESUMED match-rate EXACTLY (0/164), proving the effect is anchor bins/geometry, not meaning.\"",
    "reverify": "\"cd d:/AI/hd-instrument && .venv/Scripts/python.exe verification/test_substrate_resume_measurement.py\""
   },
+  "teach_the_self_built_space_instead_of_concatenating_it": {
+   "slug": "teach_the_self_built_space_instead_of_concatenating_it",
+   "state": "REFUTED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "Closed teach-from-what-we-own in its 3 strongest forms and shot down its OWN arbiter with an info-free twin; I re-ran both witnesses 5/5. Buy-the-map is now an evidence-based decision.",
+   "integrated": true,
+   "result": "\"Letting the grounded/sensorimotor spoke TEACH the self-built PPMI+SVD space does NOT rescue unseen-co-occurrence retrieval, and it HURTS. Full power, 3 seeds, 267/269/279 UNSEEN items (all >=200), pool 274-329, rank_with_ties both conventions, 2000-boot CIs. Three grounded-teaching mechanisms of increasing strength -- diagonal reweighting (the proven substitutability port), a full K x K bilinear metric, and grounded retrofitting -- ALL fail: none clears the concreteness floor at ANY k on ANY seed, each scores at or below its own oriented info-free twin's MAXIMUM, and each scores BELOW the raw",
+   "floor": "\"Strongest floor recomputed PER SEED on the UNSEEN population = the concreteness prior CONC (cue-blind), hit@10 upper-CI 0.161/0.164/0.172 (hit@25 0.221/0.197/0.251; hit@50 0.300/0.316/0.333). Also run: FREQ (much weaker, hit@10 upper-CI <=0.037), COOC (at construction-floor on unseen), a per-arm oriented INFO-FREE TWIN (random-hub distillation, twin MAX the bar), and RANDOM permutation. Gate = fl",
+   "reverify": "\"Teaching refuted: `.venv/Scripts/python.exe verification/test_teaching_does_not_rescue_unseen_retrieval.py` (5/5). Arbitration-hub tie/refuted-by-info-free-twin: `.venv/Scripts/python.exe verification/test_reliability_arbitration_ties_fixed_blend.py` (5/5: mechanism correct, fusion beats the weaker"
+  },
   "the_bundle_destroys_meaning_but_replacing_it_hurts": {
    "slug": "the_bundle_destroys_meaning_but_replacing_it_hurts",
    "state": "SOLVED",
@@ -1185,6 +1226,17 @@
    "result": "\"Explanation (a)+(c), tested on c3 (WordNet-neighbour hit@1, GP._score_space, n=4000 items over 5491 anchors, 5000x paired bootstrap). Removing the bundle ENTIRELY (RAW_COOC = explicit per-context co-occurrence counts, zero superposition loss) scores 0.0605 and is CI-separated BELOW the spelling floor (delta -0.0262, CI [-0.0377,-0.0147]); no bundling operator and not surprise-weighting (PPMI 0.052-0.055) beats it -> the bundling is NOT the c3 bottleneck. And ~78% of the spelling floor is MORPHOLOGICAL LEAKAGE: strip stem-sharing WordNet gold and the spelling control collapses 0.0867 -> 0.0193",
    "floor": "\"A5_STRINGCTRL (character-trigram spelling profile, MS.trigram_matrix) hit@1 0.0867, CI [0.0780,0.0958] -- the strongest no-understanding floor on record (brief's number), reproduced here and shown to be ~78% morphological leakage. Info-free floors also run: RANDOM 0.0085, SHUF_COOC (per-row-shuffled co-occurrence) 0.0177, FUSE_RANDOM_STRING 0.0780.\"",
    "reverify": "\".venv/Scripts/python.exe verification/test_c3_bundling_is_not_the_bottleneck.py\""
+  },
+  "the_gate_cannot_measure_its_own_floor": {
+   "slug": "the_gate_cannot_measure_its_own_floor",
+   "state": "SOLVED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "\"Witness 5/5 scaffold-free including a check named sibling_number_did_not_cross_harnesses -- it built a control for the exact trap the brief warned about, and named what it would withdraw first. Measured the floor IN-harness at 0.0195 CI [0.01525,0.024] and PROVED harness identity (A1_BASE 0.04575, self_retrieval 0.755853 to 1e-9) before accepting a value that coincides with the sibling. All three hunks landed. It also disproved my brief: the two harnesses are the SAME population (n_items=4000/n_anchors=5491), which I asserted otherwise without checking. Headline: on the honest floor the read-out WINS 0.04575 vs 0.0195, where on the leaky floor it lost.\"",
+   "integrated": true,
+   "result": "\"The orthographic floor for the per_row_gain_c3_vet_v1 harness = A6_TRIGRAM_ONLY hit@1 = 0.0195, 95% CI [0.01525, 0.024] (half-width 0.004375), scorer = argmax-over-eligible-pool cosine on morphology-stripped WordNet gold, n_items=4000 / n_anchors=5491 -- measured IN that harness (A1_BASE 0.04575 and self_retrieval 0.755853 both reproduced to 1e-9), not imported.\"",
+   "floor": "\"A6_TRIGRAM_ONLY (character-trigram, pure orthographic form) = 0.0195, CI [0.01525, 0.024]. It is the strongest no-understanding floor on this task and it SEPARATES CI-cleanly from both of its own information-free twins (donor-query 0.008, null p95 0.01025; row-permuted 0.011, null p95 0.01375), so it is a real signal, not noise.\"",
+   "reverify": "\".venv/Scripts/python.exe verification/test_the_gate_can_measure_its_own_floor.py\""
   },
   "the_grow_by_reading_pass_has_no_floor": {
    "slug": "the_grow_by_reading_pass_has_no_floor",
@@ -1197,6 +1249,39 @@
    "floor": "\"Strongest genuinely-trivial floor = first_noun_after_verb = syntactic_object_no_filter = 0.7053 precision-over-emitted (0.67 acc over 100). Also: nearest_noun_to_verb 0.70; information-free constant twin most_frequent_entity 0.09. Filter-contribution DIAGNOSTIC voice_aware_adjacency (the real arm's candidate step minus all 6 filters) = 0.83, real-minus-it CI [0.00, 0.14] -> NOT CI-separated.\"",
    "reverify": "\".venv/Scripts/python.exe verification/test_grow_by_reading_trivial_floor.py\""
   },
+  "the_live_meaning_organ_has_no_distributional_channel_to_be_taught_by": {
+   "slug": "the_live_meaning_organ_has_no_distributional_channel_to_be_taught_by",
+   "state": "SOLVED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "The store representation IS the lever, proven by a clean one-variable contrast. Re-verified 4/4+7/7, then LANDED as a live organ; my own live-path witness reproduces AUC 0.84, clearing the info-free twin CI-separated. One caveat found at integration: the read-out's sign bit is batch-transductive, so it landed as a BATCH capability.",
+   "integrated": true,
+   "result": "brain-foundational explicit-count store -> PPMI+SVD consolidation -> grounded-hub distillation scores substitutability AUC 0.865 (8 seeds, seed0 CI [0.803,0.872]) on the 484-pair licensed instrument, clearing its own info-free twin p95 0.716 by +0.087 CI-separated AND beating the twin MAX 0.790; holding that pipeline byte-identical and swapping ONLY the store representation, the live d=256 dense-bundle store fails (decoded-from-bundle 0.617, raw-bundle 0.603, neither beats its own twin). The store representation is the lever.",
+   "floor": "strongest floor recomputed PER REPRESENTATION = the random-hub info-free twin. For the explicit store, twin p95 0.716 / MAX 0.790 (both cleared); constant-prototype 0.5431 and morphology-stripped char-trigram spelling 0.500 are non-binding. For both bundle arms the twin p95 (0.642, 0.621) is NOT cleared.",
+   "reverify": ".venv/Scripts/python.exe verification/test_store_representation_is_the_distributional_lever.py"
+  },
+  "the_meaning_win_is_offline_context_free_and_unwired": {
+   "slug": "the_meaning_win_is_offline_context_free_and_unwired",
+   "state": "OPEN",
+   "priority": 1,
+   "review": "",
+   "review_text": "",
+   "integrated": false,
+   "result": "",
+   "floor": "",
+   "reverify": ""
+  },
+  "the_own_metric_may_reward_frequency_not_meaning": {
+   "slug": "the_own_metric_may_reward_frequency_not_meaning",
+   "state": "SOLVED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "\"Re-verified scaffold-free (WITNESS PASS) and DECISIVE -- it re-frames the meaning line. Phase (a): the home metric WAS scoring frequency, proven BY CONSTRUCTION -- on a frequency-EXACT-matched candidate pool raw counting reads exactly chance (0.5000/0.2000, zero-width CI). Phase (b): on that fair metric, concreteness-stripped grounded meaning beats the STRONGER PPMI floor's upper bound CI-separated at every pool size (0.741 vs 0.558 at K=1), info-free twins losing; concreteness, coverage and pseudoreplication all controlled. p2's discrimination finding crosses to the top-1 metric in the SAME currency (accuracy@1, de-confounded). So the 'stage 2 broken / wiring NO' verdict was measured on a frequency-unfair test -- on the fair test meaning WINS. Converged: the deeper control-gated mechanism collapses to grounded-alone (no crossover to gate at this ~200-year-old-corpus scale). The wiring is re-opened and is mine to land (Q111).\"",
+   "integrated": true,
+   "result": "\"The own metric WAS scoring frequency; on a frequency-fair version, MEANING wins. Frequency-controlled own metric = the identical top-1 argmax task on a candidate pool where the gold partner and K non-gold co-occurrent distractors are count-matched, all grounded-covered (data/conceptnet_gold_v1; 3 seeds; term-clustered bootstrap; n well over the 300 floor: exact-match n=2066-2371 trials/512-465 terms, nearest-match n=2486 trials/536 terms). PHASE (a): under EXACT count matching the counting arm (TOP_COOC) scores EXACTLY chance (0.500/0.200/0.100 at K=1/4/9, zero-width CI -- flat by constructio",
+   "floor": "\"STRONGEST frequency floor recomputed on the matched population = PPMI (positive PMI argmax), 0.555 [0.532,0.578] at exact K=1 / 0.226 at K=4 / 0.598 at nearest K=1. PPMI is STRONGER than raw COUNT here because within-item count matching does not remove GLOBAL rarity, which PMI exploits (gold neighbours are globally rarer). Meaning is gated over PPMI's upper bound, not the neutralised COUNT. On th",
+   "reverify": "\".venv/Scripts/python.exe verification/test_ownmetric_frequency_controlled.py\""
+  },
   "the_prior_swamps_the_channel_instead_of_combining_with_it": {
    "slug": "the_prior_swamps_the_channel_instead_of_combining_with_it",
    "state": "REFUTED",
@@ -1208,10 +1293,43 @@
    "floor": "strongest floor actually run = CHANNEL alone (grounded coherence) = 0.4811 on the 53 subordinate words, reproduced from disk (matches the brief exactly). Ceilings, all run: ORACLE_ROUTE (per-item pick the better cue) = 0.4811 = channel EXACTLY (prior wrong on 100% of subordinate items, routing cannot help); MONOTONE ORACLE_BLEND (prior >= 0) = 0.4748 (no headroom); SIGNED oracle (prior weight free",
    "reverify": ".venv/Scripts/python.exe verification/test_reliability_weighted_cue_combination_subordinate_sense.py"
   },
+  "the_reader_reads_too_shallow_to_ground_words": {
+   "slug": "the_reader_reads_too_shallow_to_ground_words",
+   "state": "PARTIAL",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "EXCELLENT PARTIAL. DEPTH half robustly solved (stay-until-grounded/spaced grounds +250-351 words every seed, twin loses, brain-pinned); COMPREHENSION half is an honest budget TRADEOFF (breadth vs richness; volume is the unlock). Re-verified 78/78. I DEFERRED landing the proposed read-loop changes (core behavior change, needs flag-gating).",
+   "integrated": true,
+   "result": "\"DEPTH (words grounded, budget 6000 distinct sentence-reads, 3 seeds, ~14.3k-sentence deduped pool of the 4 FROZEN corpora, grounding_acquisition_loop MIN_CONFIRM=4 criterion): the stay-until-grounded/develop mechanism beats the fixed schedule CI-separated on EVERY seed -- DEVELOP grounds 803/892/864 vs FROZEN 729 (paired coverage CI [0.007,0.061]/[0.047,0.101]/[0.033,0.089]); STAY 979 (+250, CI [0.087,0.142] every seed); SPACED 1080; info-free twin RANDOM 244-302 loses CI-separated every seed. COMPREHENSION (substitutability separability AUC on the licensed ~430-pair instrument, sign-robust):",
+   "floor": "\"FROZEN (incumbent fixed 4-corpus prefix; deterministic, grounds 729 every seed) and the info-free twin RANDOM (uniform-random sentence selection, same budget; grounds 244-302). Comprehension degeneracy floor: random-counts channel ~0.5 separability.\"",
+   "reverify": "\".venv/Scripts/python.exe verification/test_depth_grounding_revisit.py\""
+  },
+  "the_reading_extractor_may_not_beat_a_two_line_rule": {
+   "slug": "the_reading_extractor_may_not_beat_a_two_line_rule",
+   "state": "SOLVED",
+   "priority": null,
+   "review": "EXCELLENT",
+   "review_text": "EXCELLENT, re-integrated off owner-DONE final content. Headline re-verified (WITNESS PASS, ELABORATE_DOES_NOT_BEAT_TWO_LINE_REPLACE): the elaborate perceptron reader LOSES to a two-line word-order+voice rule at power (n=17,330) -> REPLACE (do NOT route patient selection through the perceptron; do not weight animacy for English). Best simple reader = word order + PRECISE voice (0.7950). Deeper (owner-directed): the two-line rule is NOT the ceiling -- it COLLAPSES on reversible object-relatives (the brain's dorsal-parser regime, below the twin), where a FILLER-GAP mechanism recovers it (oracle 1.000; real-parser +0.21 CI-separated); frontier = a STRONGER PARSER + construction gate. Brain-fidelity probe: structural point-to-antecedent is OVER-accurate; a CUE-BASED RETRIEVAL model reproduces the human similarity-interference drop (Gordon 2001). Only the headline witness was re-run this round; the filler-gap + cue-retrieval witnesses exist and should be re-verified before landing on them. Proven-ready landing: precise-voice selector in situation_reader.",
+   "integrated": true,
+   "result": "\"(1) BRIEF ANSWERED -- QA-SRL v2 gold PATIENT selection, n=17,330 held-out (span-accuracy): the elaborate perceptron cue-integration reader (hdlab.thematic_role_labeler) = 0.7511 LOSES to the two-line word-order+voice rule = 0.7661; elaborate-minus-two-line = -0.0149, 95% CI [-0.0188,-0.0112] BELOW -> REPLACE (full PASS). (2) BEST SIMPLE READER -- word order + PRECISE voice (aux+participle) = 0.7950, beats crude two-line (+0.0289) and elaborate (+0.0439). (3) TWO-LINE IS NOT THE CEILING -- on reversible OBJECT-RELATIVES/CLEFTS (the brain's dorsal-parser regime) the two-line rule COLLAPSES (syn",
+   "floor": "\"Per-regime strongest floor recomputed on each population. Natural QA-SRL (n=17,330): floor = the two-line rule = 0.7661; the elaborate reader fails to clear it. Fronted regime (object-relatives/clefts): floor = the two-line rule, which there scores 0.001 (synthetic) / 0.080 (real) -- BELOW the info-free TWIN (0.29-0.46), so the two-line rule is not even a floor there; the filler-gap mechanism cle",
+   "reverify": "\".venv/Scripts/python.exe verification/test_reader_vs_twoline_qasrl_power.py  (headline REPLACE); also verification/test_reader_fillergap_reversible_objrel.py (two-line is not the ceiling) and verification/test_reader_cue_retrieval_interference.py (fidelity: cue-retrieval reproduces human interferen"
+  },
+  "the_relcl_parser_is_too_weak_for_filler_gap_role_assignment": {
+   "slug": "the_relcl_parser_is_too_weak_for_filler_gap_role_assignment",
+   "state": "OPEN",
+   "priority": 4,
+   "review": "",
+   "review_text": "",
+   "integrated": false,
+   "result": "",
+   "floor": "",
+   "reverify": ""
+  },
   "where_does_a_meaning_signal_come_from_without_labels": {
    "slug": "where_does_a_meaning_signal_come_from_without_labels",
    "state": "SOLVED",
-   "priority": 1,
+   "priority": null,
    "review": "EXCELLENT",
    "review_text": "\"Breaks the substitutability wall: 0.8388 CI [0.8031,0.8720] where every prior unsupervised arm scored 0.02-0.13 backwards, beating the info-free twin MAXIMUM over 200 draws. I read the orientation code -- the sign comes from the hub own ranking, not the gold, so the disqualifying test passes. Label-free but NOT resource-free (supplied Lancaster hub) and transductive; both must travel with the number.\"",
    "integrated": true,
@@ -1233,8 +1351,8 @@
  },
  "progress": {
   "window_first_commit": "2026-08-23T13:33:19-04:00",
-  "window_last_commit": "2026-08-24T09:35:23-04:00",
-  "n_commits_of_the_stage_file": 9,
+  "window_last_commit": "2026-08-26T01:23:05-04:00",
+  "n_commits_of_the_stage_file": 10,
   "stage_state_changes": [
    {
     "when": "2026-08-24T09:02:27-04:00",
@@ -1245,13 +1363,13 @@
    }
   ],
   "briefs_by_state": {
-   "OPEN": 5,
-   "SOLVED": 9,
-   "REFUTED": 6,
-   "PARTIAL": 1
+   "REFUTED": 8,
+   "SOLVED": 16,
+   "PARTIAL": 5,
+   "OPEN": 2
   },
-  "briefs_returned": 16,
-  "briefs_integrated": 16,
+  "briefs_returned": 29,
+  "briefs_integrated": 27,
   "current_states": {
    "READ THE TEXT": "WEAK",
    "DECIDE WHAT WORDS MEAN": "BROKEN",
@@ -1266,11 +1384,12 @@
   }
  },
  "briefs_not_attached_to_a_stage": [
-  "aimed_reading_is_built_and_the_reader_never_calls_it"
+  "the_meaning_win_is_offline_context_free_and_unwired",
+  "the_relcl_parser_is_too_weak_for_filler_gap_role_assignment"
  ],
  "registry": {
-  "total": 212,
-  "wired": 159,
+  "total": 215,
+  "wired": 162,
   "shelved": 2
  }
 }
