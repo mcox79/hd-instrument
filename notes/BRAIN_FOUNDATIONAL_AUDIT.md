@@ -72,8 +72,12 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
   paradigmatic meaning) → DEPRIORITISE. (4) **Tier 5 `predictive_coding.py` RIGHT-OP-WRONG-METRIC confirmed** + a
   companion positive: the residual is graded in salience (ρ 0.77) and the EST relative-threshold machinery there is
   correct but UNWIRED. ⚠️ Synthetic construction proof — the N400 organ (graded content-PE + EST boundary + wire to
-  `situation_model_accumulate`) is a **PROVEN-READY hdlab landing, queued as a focused build with its own witness**
-  (alongside the cortical-read organ). NO hdlab landing yet.
+  `situation_model_accumulate`) is **LANDED 2026-08-26 as `hdlab/n400_coherence_monitor.py`** — off-path
+  WIRE_CANDIDATE, witness `test_n400_coherence_monitor_organ.py` PASS (running-reset F1 1.0 > never-reset anchor 0.44;
+  a near-orthogonal binding-like code is unsegmentable F1 0.0 — the content-space finding; coherent stream quiet),
+  reuses the pinned `predictive_coding.running_avg_update`, registered `n400_coherence_monitor_v1`. **Next:** wire a
+  posted boundary → advance `situation_model_accumulate`'s event slot, and MEASURE on the live reader before any
+  capability claim (the win is still a synthetic construction proof).
 
 - **2026-08-26 — DEVIATION #2 (`sign()`) BINDING REGIME: CONFIRMED-but-LATENT, coupled to B4** (from
   `the_sign_quantiser_makes_the_substrate_an_averaging_machine`, **RE-INTEGRATED PROPERLY on the owner's per-problem
@@ -266,7 +270,7 @@ Grouped by the brain's functional tiers. `[P]` = brain equation PINNED, `[U]` = 
 - **Thematic role assignment** (Competition Model: cue validity `[P]`) — `thematic_role_labeler.py`. **RIGHT-OP-WRONG-METRIC:** raw counts are not cue-validity; cue *cost* absent; animacy-dominant; HARD_FAIL on real text.
 - **Role–filler binding** (theta-gamma / conjunctive / tensor-product — **UNPINNED & 3-way CONTESTED** `[U]`) — `binding.py` (FHRR complex-multiply). **OPERATOR VALIDATED 2026-08-26** (see §2b): at EQUAL storage FHRR beats the writable brain theories (TPR/conjunctive), so it is an efficient choice, NOT the "deepest deviation." ➡️ **The deviation is one level up — the flat-superposition RETRIEVAL (shared with E2/E3): the brain SEPARATES into slots + retrieves CONTENT-ADDRESSABLY; a faithful version beats FHRR ~5x under a partial cue.** The owned fix (`ca3_completer` + `dg_pattern_separation`, both default-off) is unwired.
 - **Situation-model register / event indexing** (SEM, PE-segmented `[U]`) — `situation_model_accumulate.py`/`_multibank`, `situation_reader.py`. **RIGHT-OP-WRONG-PLACE:** has the register; **missing the prediction-error segmentation that decides WHEN to write.**
-- **N400 coherence monitor** (running-model update magnitude; reference `[P]`, norm `[U]`) — **MISSING, but now SPEC'D + EXISTENCE-PROVEN 2026-08-26 (§2b).** The norm that WORKS is a GRADED forward CONTENT prediction error `1 − cos(content, running_event_gist)` (running reset per event), boundary-posted via the EST `relative_threshold_gate`; it segments discourse and fills the situation model 0.988 vs ≤0.762 floors. The norm that FAILS is the literal `||Δregister||` in the binding space (ties no-op). Build target sharpened; PROVEN-READY hdlab landing queued.
+- **N400 coherence monitor** (running-model update magnitude; reference `[P]`, norm `[U]`) — **BUILT 2026-08-26 (§2b): `hdlab/n400_coherence_monitor.py`** (off-path WIRE_CANDIDATE, witness PASS). No longer MISSING. The norm that WORKS is a GRADED forward CONTENT prediction error `1 − cos(content, running_event_gist)` (running reset per event), boundary-posted via the EST relative threshold; it segments discourse and fills the situation model 0.988 vs ≤0.762 floors. The norm that FAILS is the literal `||Δregister||` in the binding space (ties no-op). **Still ISLAND** — wire to `situation_model_accumulate` + measure on the live reader before any capability claim.
 - **Construction-Integration** (Kintsch `[P]-ish`) — **MISSING.**
 
 ### TIER 4 — MEMORY SYSTEMS

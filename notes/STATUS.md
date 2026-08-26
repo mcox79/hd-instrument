@@ -31,7 +31,18 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- ✅ **p4 prediction_error INTEGRATED (owner-DONE, EXCELLENT): the brain's missing UPDATE signal (N400 event-segmentation) is BUILT + proven; fills the MISSING F5 organ**
+### 2026-08-26 (LATEST) -- 🔧 **N400 coherence-monitor ORGAN LANDED (F5, off-path) -- the MISSING event-segmentation organ is now in hdlab**
+WIRE-DON'T-ISLAND follow-through on the integrated prediction_error win: **`hdlab/n400_coherence_monitor.py`** promotes
+the validated N400 mechanism (a GRADED forward CONTENT prediction error vs the RUNNING event gist, reset per event, EST
+relative threshold) into a real organ. **Off-path / DEFAULT-SAFE** (importing it changes NO existing behaviour). Witness
+`test_n400_coherence_monitor_organ.py` PASS -- it proves the two load-bearing findings FIRST-HAND: the RUNNING RESET
+(F1 1.0 > never-reset anchor 0.44) and the CONTENT SPACE (a near-orthogonal binding-like code is unsegmentable, F1 0.0 =
+the p1 sign_quantiser coupling). Reuses the pinned `predictive_coding.running_avg_update`; registered
+`n400_coherence_monitor_v1` (WIRE_CANDIDATE, ISLAND). Audit F5 moved **MISSING → BUILT.** **Still a synthetic
+construction proof:** wiring it live (boundary → advance `situation_model_accumulate`) + a live-reader measurement is the
+next step, before any capability claim. One of the two queued organ landings done; the cortical-read CLS pair remains.
+
+### 2026-08-26 -- ✅ **p4 prediction_error INTEGRATED (owner-DONE, EXCELLENT): the brain's missing UPDATE signal (N400 event-segmentation) is BUILT + proven; fills the MISSING F5 organ**
 `the_substrate_does_not_learn_or_update_by_prediction_error` SOLVED via the UPDATE/SEGMENTATION framing. Re-verified
 scaffold-free first-hand (`verify_prediction_error_event_segmentation.py` PASS). A GRADED forward CONTENT prediction
 error against the RUNNING (reset-per-event) situation-model state segments a discourse near-perfectly -- within-event
@@ -41,10 +52,11 @@ boundary F1 0.987, all 9 cells, at a MATCHED boundary rate (win is POSITION not 
 in the near-orthogonal binding space ties no-op = **the p1 sign_quantiser coupling made concrete**. Deviation #6 SPLIT
 (UPDATE half = build, WINS; LEARNING half = rigorous negative, deprioritise). 4 AUDIT UPDATEs folded; review + SOLVER
 REVIEW in PROBLEM.md; priority cleared.
-🔧 **TWO PROVEN-READY hdlab LANDINGS QUEUED (deliberate; each needs its own witness + a LIVE-task check before any
-capability claim -- architecture/organ builds, NOT floor-beaters; WIRE-DON'T-ISLAND hygiene, done as focused passes):**
-(1) the **N400 organ** (graded content-PE + EST `relative_threshold_gate` boundary + wire `situation_model_accumulate`);
-(2) the **cortical-read CLS matched pair** (graded sparse+inhibited `space="overlap"` read + p2-recollection-gate routing).
+🔧 **PROVEN-READY hdlab LANDINGS (WIRE-DON'T-ISLAND hygiene; each still needs a LIVE-task check before any capability claim):**
+(1) ✅ **N400 organ LANDED 2026-08-26** as `hdlab/n400_coherence_monitor.py` (off-path WIRE_CANDIDATE; witness
+`test_n400_coherence_monitor_organ.py` PASS; registered `n400_coherence_monitor_v1`; reuses the pinned EST
+`running_avg_update`) -- NEXT: wire a posted boundary → advance `situation_model_accumulate`'s event slot + measure live.
+(2) the **cortical-read CLS matched pair** (graded sparse+inhibited `space="overlap"` read + p2-recollection-gate routing) -- still queued.
 *Queue: p1 two-systems, p3 content-addressable retrieval, p5 one-store, p6 meaning-wiring, p7 relcl -- all open, unique;
 sign_quantiser + prediction_error cleared (integrated).*
 
