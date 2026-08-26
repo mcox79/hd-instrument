@@ -47,11 +47,13 @@ set. **NEW QUEUE (all three foundational fixes now sit ABOVE the downstream capa
   PREDICTION-ERROR learning + update signal (we learn by cloze, and never update the situation model on surprise;
   the PE organ is islanded + never fires, the N400 monitor is MISSING). Foundational. **p5** meaning-wiring;
   **p6** relcl-parser.
-➡️ **ONE genuinely-foundational deviation remains UNQUEUED: CONSOLIDATION** (audit deviation #5 -- one-store-two-
-jobs; single-average not selective/schema-gated replay; the FAITHFUL `continual.py` is islanded) -- ready to
-package next. **Beyond predictive-coding + consolidation, the remaining audit items are CAPABILITY (meaning, coref,
-discourse, ToM, production), NOT deep foundation -- do not dress those up as foundational.** (additive-vs-
-multiplicative control C3 is foundational too but BLOCKED behind p1.)
+➡️ **CONSOLIDATION NOW PACKAGED (p5) -- THE FOUNDATIONAL SET IS COMPLETE.** Every real foundational deviation the
+audit surfaced is now queued: **p1** representation (sign→graded + dense→sparse), **p2** memory-READ, **p3**
+binding operator, **p4** prediction-error (learn+update signal), **p5** consolidation (memory-WRITE / selective
+replay). **No genuinely-foundational deviation remains unqueued.** Beyond these the audit items are CAPABILITY
+(meaning-wiring p6, relcl p7, and unpackaged: coref / discourse / ToM / production), NOT deep foundation -- DO NOT
+fabricate foundations to fill the queue (owner 2026-08-26). (additive-vs-multiplicative control C3 is foundational
+but BLOCKED behind p1.)
 Both proven-ready organ landings DONE (DG/CA3 recall gate -- SPARSE, the brain's sparse coding entering the memory
 path; valence Stage-B -- default-off). LONG_TERM_PLAN §3 reconciled with the meaning re-frame (was a stale hazard
 for the working solvers). *Meaning-wiring demotion below binding is a recommendation; re-rank if disagreed.*
