@@ -50,10 +50,25 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
-- **2026-08-26 — DEVIATION #2 (`sign()` QUANTISER) REFUTED AS THE AVERAGING-MACHINE LEVER; the wall is meaning
-  SUPPLY, and there are TWO SIMILARITY SYSTEMS** (from `the_sign_quantiser_makes_the_substrate_an_averaging_machine`,
-  integrated REFUTED-VALUABLE; **owner-authorized in-session 2026-08-26: "be as brain foundational as possible";**
-  headline re-verified scaffold-free PASS + the stale-premise correction confirmed on disk). **Three load-bearing
+- **⚠️ CORRECTION 2026-08-26 (same day) — this entry was folded from a PREMATURE integration; the solver's FINAL
+  verdict is PARTIAL, not REFUTED, and the demotion below is TOO STRONG.** The strategy session integrated the
+  READ-OUT half off the owner's DIRECTIONAL "be as brain foundational as possible" while the solver was still
+  iterating. The read-out finding (below) STANDS. But the solver then added the BINDING/superposition regime: **sign()
+  IS a real averaging machine there** — recovering B bound role-filler pairs from a bundle, GRADED beats SIGN by a
+  CI-separated, GROWING margin for CORRELATED (graded-semantic) fillers (B6 0.98 vs 0.73 → B12 0.67 vs 0.36), raising
+  the capacity cliff B*=8 → B*=12. **It is COUPLED to B4 (dense→sparse):** shipping graded-semantic fillers through a
+  SIGNED bundle re-creates the averaging machine — a joint sign()+B4 GUARDRAIL at the BINDING SITES, NOT a "flip
+  binding sites for a free win." So DEVIATION #2 is **not dead — it MOVES from the read-out to the binding sites,
+  coupled with B4**, and connects to the binding/memory line (p3 content-addressable retrieval, p5 one-store). The
+  problem is RE-OPENED, awaiting the owner's review of the PARTIAL result + a real owner-DONE, then a proper
+  re-integration (re-verify the binding-capacity finding; this correction folds in fully then). **§8 lever #1 is
+  demoted only AS A READ-OUT lever, not as a binding-site guardrail.**
+
+- **2026-08-26 — DEVIATION #2 (`sign()` QUANTISER) REFUTED AS THE AVERAGING-MACHINE LEVER *ON THE READ-OUT*; the
+  read-out wall is meaning SUPPLY, and there are TWO SIMILARITY SYSTEMS** (from
+  `the_sign_quantiser_makes_the_substrate_an_averaging_machine`; **read-out half only — see the CORRECTION banner
+  above: the FINAL verdict is PARTIAL, the binding regime is a real sign()+B4 guardrail**; headline re-verified
+  scaffold-free PASS + the stale-premise correction confirmed on disk). **Three load-bearing
   corrections:** (1) **STALE PREMISE** — `GRADED_COMPARATOR`/`graded_query` have been **default-ON since 2026-08-14**
   (env `HD_GRADED_COMPARATOR` defaults "1"; confirmed in `reading_grounding_loop.py`). The comparator field+query are
   already graded; the only unconditional live `sign()` left is the banking query (`canonicalize()`), measured ~0 cost.
@@ -340,10 +355,15 @@ human relatedness/similarity, not taxonomic WordNet, or the associative system r
 The current problem queue (p1–p4) captures **only one** of the top brain-fidelity levers. The biggest
 cross-cutting deviations are **not queued.** Candidates, ranked by leverage (blast radius × tractability):
 
-1. **~~The `sign()` → graded path~~ — DEMOTED 2026-08-26 (REFUTED, §2b).** Not the averaging-machine lever; the
-   graded switch is already ON and buys ~null on the real task. **REPLACED at the top by the meaning-SUPPLY /
-   TWO-SIMILARITY-SYSTEMS / SEMANTIC-CONTROL line** — build the feature-similarity system (grounding + structured
-   local context) that the substrate lacks, and the IFG semantic-control gate that selects it by task. **Package this.**
+1. **The `sign()` → graded path — DEMOTED *as a READ-OUT lever* 2026-08-26; but ALIVE as a BINDING-SITE guardrail
+   (§2b CORRECTION).** On the read-out the graded switch is already ON and buys ~null. **BUT** in the
+   binding/superposition regime sign() IS a real averaging machine for CORRELATED fillers, coupled to B4 (graded
+   fillers + a signed bundle re-creates the averaging machine; capacity cliff B*=8→B*=12) — so keep it as a joint
+   sign()+B4 guardrail on the binding/memory line (p3, p5), NOT a read-out change. **At the read-out, REPLACED at the
+   top by the meaning-SUPPLY / TWO-SIMILARITY-SYSTEMS / SEMANTIC-CONTROL line** — build the feature-similarity system
+   (grounding + structured local context) and the IFG semantic-control gate. **Packaged (new p1).** *(sign_quantiser
+   is RE-OPENED, awaiting owner review of the PARTIAL result; the binding-regime correction folds in fully at
+   re-integration.)*
 2. **The cortical-read organ (deviation #3) — VALIDATED-BUT-CONTENT-BOUND 2026-08-26 (§2b).** The read beats the
    wrong memory ~10× but the residual wall is the consolidated CONTENT (data/scale), not the read op. Land the CLS
    matched-pair read default-off (architecture hygiene); route the residual to the content/supply lane (item #1).
