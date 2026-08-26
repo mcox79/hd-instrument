@@ -71,8 +71,10 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
   from "SAME but orphan" toward a **proven role**; D2 (CA3 completion) gains the **self-certifying confidence** it
   lacked (for this use it no longer just "terminates in sign and buys nothing"). Answers board Q118 — a label-free
   selection signal IS CA3 completion confidence. **NOT closed:** deviation #3's *cortical-consolidated* read — this
-  is the *episodic* recollection side. Lever for more = reading VOLUME (coverage), not a better gate. Organ recorded
-  as the proven-ready deliberate landing (off the live path).
+  is the *episodic* recollection side. Lever for more = reading VOLUME (coverage), not a better gate. **Organ LANDED
+  2026-08-26 as `hdlab/dg_ca3_recollection_gate.py`** (off-path WIRE_CANDIDATE, witness `test_dg_ca3_recollection_gate_organ.py`
+  PASS, registered `dg_ca3_recollection_gate_v1`) — so D1 (DG separation) now has a live, importable, self-certifying
+  recollection organ; wire it into the episodic retrieval path (see p2 `the_consolidated_cortical_store...`).
 
 ---
 

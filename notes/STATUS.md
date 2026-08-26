@@ -38,9 +38,10 @@ was the episodic store (no separable traces), and rebuilt it the hippocampus's w
 separation + CA3 completion.** Recollection now **SELF-CERTIFIES** (top-5% precision 0.938 vs counting 0.533 on the
 same items) and dual-process routing beats the counting floor CI-separated for the FIRST time (route 0.365 vs UB
 0.336), ~half the oracle headroom; info-free twin loses, scramble -> 0.00. **Answers board Q118: a label-free
-selection signal IS CA3 completion confidence.** 🔌 **NEW #1 PROVEN-READY DELIBERATE LANDING:** promote the DG/CA3
-recollection-gate organ to hdlab (off live path, no behaviour change; witness `test_dg_ca3_recollection_self_certifies.py`
-passes) in the dedicated pass. Fed the first **AUDIT UPDATE** into `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (memory tier /
+selection signal IS CA3 completion confidence.** 🔌 **DG/CA3 RECOLLECTION-GATE ORGAN LANDED** -> `hdlab/dg_ca3_recollection_gate.py`
+(off-path WIRE_CANDIDATE, no behaviour change; witness `test_dg_ca3_recollection_gate_organ.py` PASS; registered
+`dg_ca3_recollection_gate_v1`). Wire into the episodic retrieval path (p2 `cortical_store` build) + scale with
+reading VOLUME. Fed the first **AUDIT UPDATE** into `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (memory tier /
 deviation #2; D1 DG moves off "orphan", D2 CA3 gains a self-certifying confidence -- but the cortical-consolidated
 read, deviation #3, is NOT closed). **Lever for more = reading VOLUME (coverage), not a cleverer gate.**
 ✅ **p3 `propagate_along_the_relation` ALSO INTEGRATED (EXCELLENT):** signed valence propagation replaces the
