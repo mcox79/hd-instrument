@@ -1,8 +1,23 @@
 ---
-priority: 2
-review:
-review_text: "PREMATURELY integrated 2026-08-26 then RE-OPENED the same day (strategy error). The strategy session integrated the READ-OUT half (status REFUTED) off the owner's DIRECTIONAL 'be as brain foundational as possible' -- treating a direction as an owner-DONE for THIS problem -- while the solver was still iterating. The solver then delivered a FINAL verdict of PARTIAL: the read-out refutation stands, but in the BINDING/superposition regime sign() IS a real averaging machine for CORRELATED (graded-semantic) fillers, COUPLED to B4 (dense->sparse) -- shipping graded fillers through a SIGNED bundle re-creates the averaging machine (a joint sign()+B4 guardrail, NOT a 'flip binding sites for a win'). Re-opened to await the owner's review of the FINAL PARTIAL result and a real owner_verdict:DONE, then a proper full re-integration (re-verify the binding-capacity finding + fold the coupled-with-B4 AUDIT UPDATE). The over-strong 'demote the format foundation' edit to BRAIN_FOUNDATIONAL_AUDIT.md/STATUS is being corrected: the read-out finding holds, but the format foundation is a live BINDING-SITE guardrail, not dead."
+priority:
+review: EXCELLENT
+review_text: "RE-INTEGRATED 2026-08-26 on the owner's per-problem owner_verdict:DONE (after an earlier PREMATURE integration off a directional 'yes' was reverted -- see the process note in this file's history). Outcome PARTIAL, work EXCELLENT. All THREE regimes re-verified scaffold-free FIRST-HAND: (1) READ-OUT REFUTED -- test_sign_quantiser_not_the_bottleneck_on_hit1.py PASS (graded vs sign +0.0015 NULL; the whole faithful code-format family + a self-supervised CBOW learner tie counting ~0.05, all CI-below the 0.171 generic-word floor; only WordNet-SUPERVISED beats it -> the read-out wall is meaning SUPPLY, not the sign). (2) BINDING CONFIRMED -- exp_superposition_capacity_binding_v1 reproduces: graded beats sign for CORRELATED bound codes, capacity cliff B*=8->12 at d=256 (B8 0.88/0.58, B12 0.67/0.36), correlation-specific. (3) LIVE LATENT -- exp_live_binding_load_signgap_v1 reproduces verdict SIGN_SAFE_TODAY_BUT_BITES_IF_BINDING_MADE_FAITHFUL: real load mean B=2.85 (14% B>4), atomic fillers |cos|0.06 -> gap +0.013 (~0 today); graded-semantic fillers |cos|0.25 -> +0.044, +0.087 on the B>4 tail. So the brief's instinct about the OPERATION was right but named the wrong PLACE: sign() is NOT the averaging machine at the read-out, but IS one at BINDING for correlated codes -- a LATENT guardrail COUPLED to the graded-code (B4) fix, not a current bug and not a standalone win. FOLDED: audit deviation #2 = PARTIAL (read-out refuted + binding latent-coupled-to-B4); the read-out's two-similarity-systems finding drives the new p1 build; the binding guardrail recorded against the B4/binding line (p3, p5) -- when B4 makes fillers graded-semantic, the sign()-on-a-bundle sites (situation_focus, role_slot_summarizer, event_bundle, CA3 cleanup_family) go graded in the SAME change. NO hdlab landing (latent; do NOT land standalone). A model of the strengthened protocol: refuted the surface question, swept the whole faithful family, doubted the TARGET (found the two-systems map), then found the real regime where the operation DOES bite and live-verified it as latent."
 ---
+
+> ## SOLVER REVIEW (strategy, 2026-08-26 — re-integrated on the owner's per-problem owner-DONE)
+> **Grade: EXCELLENT. Outcome: PARTIAL.** All three regimes re-verified scaffold-free first-hand.
+> - **READ-OUT — REFUTED.** `sign()` is null on the real open-vocab task (+0.0015); the whole brain-faithful
+>   code-format family + a faithful self-supervised CBOW learner all tie plain counting (~0.05), below the 0.171
+>   generic-word floor; only WordNet-SUPERVISED learning beats it. The read-out "averaging machine" is a meaning-SUPPLY
+>   + measurement-axis + structure problem, not the quantiser. (Drove the new **p1** two-similarity-systems build.)
+> - **BINDING — CONFIRMED.** For CORRELATED bound codes, graded beats sign; capacity cliff **B\*=8→12** at d=256,
+>   correlation-specific. The brief's instinct about the OPERATION was right — it just named the wrong PLACE.
+> - **LIVE — LATENT.** Real binding load is mean B=2.85 with atomic near-orthogonal fillers, so it does **not** bite
+>   today (gap ~0); it bites (+0.087 on the B>4 tail) only once binding is made brain-faithful (graded-semantic
+>   fillers). So it is a **GUARDRAIL coupled to the graded-code (B4) fix**, not a current bug and not a standalone win.
+> **Folded:** audit deviation #2 = PARTIAL; the binding guardrail recorded against the B4/binding line (p3, p5) — when
+> B4 makes fillers graded-semantic, the `sign()`-on-a-bundle sites (`situation_focus`, `role_slot_summarizer`,
+> `event_bundle`, CA3 `cleanup_family`) go graded in the SAME change, gated on the two binding cells. No hdlab landing.
 
 # PROBLEM: a `sign()` at the end of almost every step throws away signal STRENGTH and keeps only DIRECTION -- turning the substrate into an averaging machine, where the brain codes GRADED
 

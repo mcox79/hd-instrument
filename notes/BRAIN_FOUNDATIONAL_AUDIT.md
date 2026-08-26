@@ -50,26 +50,30 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
-- **⚠️ CORRECTION 2026-08-26 (same day) — this entry was folded from a PREMATURE integration; the solver's FINAL
-  verdict is PARTIAL, not REFUTED, and the demotion below is TOO STRONG.** The strategy session integrated the
-  READ-OUT half off the owner's DIRECTIONAL "be as brain foundational as possible" while the solver was still
-  iterating. The read-out finding (below) STANDS. But the solver then added the BINDING/superposition regime: **sign()
-  IS a real averaging machine there** — recovering B bound role-filler pairs from a bundle, GRADED beats SIGN by a
-  CI-separated, GROWING margin for CORRELATED (graded-semantic) fillers (B6 0.98 vs 0.73 → B12 0.67 vs 0.36), raising
-  the capacity cliff B*=8 → B*=12. **It is COUPLED to B4 (dense→sparse):** shipping graded-semantic fillers through a
-  SIGNED bundle re-creates the averaging machine — a joint sign()+B4 GUARDRAIL at the BINDING SITES, NOT a "flip
-  binding sites for a free win." So DEVIATION #2 is **not dead — it MOVES from the read-out to the binding sites,
-  coupled with B4**, and connects to the binding/memory line (p3 content-addressable retrieval, p5 one-store). The
-  problem is RE-OPENED, awaiting the owner's review of the PARTIAL result + a real owner-DONE, then a proper
-  re-integration (re-verify the binding-capacity finding; this correction folds in fully then). **§8 lever #1 is
-  demoted only AS A READ-OUT lever, not as a binding-site guardrail.**
+- **2026-08-26 — DEVIATION #2 (`sign()`) BINDING REGIME: CONFIRMED-but-LATENT, coupled to B4** (from
+  `the_sign_quantiser_makes_the_substrate_an_averaging_machine`, **RE-INTEGRATED PROPERLY on the owner's per-problem
+  owner-DONE**; the binding drill + live verification re-verified scaffold-free first-hand, both reproduce). This is the
+  ADDITIVE binding half that makes the FINAL verdict **PARTIAL** — the read-out refutation (next entry) STANDS. In the
+  binding/superposition regime sign() IS a real averaging machine for CORRELATED bound codes: recovering B role-filler
+  pairs from a bundle (MAP-VSA, 512-filler cleanup, d=256), GRADED beats SIGN by a CI-separated, GROWING margin (B6
+  0.98/0.73, B8 0.88/0.58, B12 0.67/0.36 — reproduced), raising the capacity cliff **B\*=8 → 12** for correlated codes
+  (~50% capacity loss at d=256; correlation-specific — RANDOM gap +0.08 vs CORRELATED +0.146). **BUT LIVE VERIFICATION
+  shows it does NOT bite today:** the real StructuralEncoder binds at mean B=2.85 (median 3; 14% B>4) with ATOMIC
+  near-orthogonal fillers (|cos| 0.063) → recovery gap +0.013 (~0 for B≤4). It becomes real ONLY when binding is made
+  brain-faithful (graded-semantic fillers, |cos| 0.248) → gap +0.044 overall, **+0.087 on the 14% B>4 tail** (verdict
+  `SIGN_SAFE_TODAY_BUT_BITES_IF_BINDING_MADE_FAITHFUL`, reproduced first-hand). **So deviation #2 at binding is a
+  GUARDRAIL COUPLED to the graded-code (B4) fix — NOT a current bug, NOT a standalone win:** when B4 makes fillers
+  graded-semantic, the `sign()`-on-a-bundle sites (`situation_focus.py`, `role_slot_summarizer.py`, `event_bundle.py`,
+  CA3 `cleanup_family.py`) must go graded in the SAME change, gated on `exp_live_binding_load_signgap_v1` /
+  `exp_superposition_capacity_binding_v1`. Connects to the binding/memory line (p3 content-addressable retrieval, p5
+  one-store). **NO hdlab landing now** (latent; the solver's explicit guidance: do NOT land it standalone). §8 lever #1
+  (`sign→graded`) is demoted only AS A READ-OUT lever; it is ALIVE as this binding-site guardrail.
 
 - **2026-08-26 — DEVIATION #2 (`sign()` QUANTISER) REFUTED AS THE AVERAGING-MACHINE LEVER *ON THE READ-OUT*; the
   read-out wall is meaning SUPPLY, and there are TWO SIMILARITY SYSTEMS** (from
-  `the_sign_quantiser_makes_the_substrate_an_averaging_machine`; **read-out half only — see the CORRECTION banner
-  above: the FINAL verdict is PARTIAL, the binding regime is a real sign()+B4 guardrail**; headline re-verified
-  scaffold-free PASS + the stale-premise correction confirmed on disk). **Three load-bearing
-  corrections:** (1) **STALE PREMISE** — `GRADED_COMPARATOR`/`graded_query` have been **default-ON since 2026-08-14**
+  `the_sign_quantiser_makes_the_substrate_an_averaging_machine` — the READ-OUT half of the PARTIAL verdict; the binding
+  half is the entry ABOVE; headline re-verified scaffold-free PASS + the stale-premise correction confirmed on disk).
+  **Three load-bearing corrections:** (1) **STALE PREMISE** — `GRADED_COMPARATOR`/`graded_query` have been **default-ON since 2026-08-14**
   (env `HD_GRADED_COMPARATOR` defaults "1"; confirmed in `reading_grounding_loop.py`). The comparator field+query are
   already graded; the only unconditional live `sign()` left is the banking query (`canonicalize()`), measured ~0 cost.
   The audit's "graded flags exist default-OFF" (§5.2) is WRONG. (2) **REFUTED** — on the REAL open-vocab hit@1 task,

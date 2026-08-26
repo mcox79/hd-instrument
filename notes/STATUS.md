@@ -31,7 +31,7 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- ⚠️ **CORRECTION + PROCESS FIX: sign() was PREMATURELY integrated (a directional "yes" is NOT a per-problem owner-DONE) -- RE-OPENED. Owner rule reinforced: do NOT integrate without an explicit per-problem DONE.**
+### 2026-08-26 (LATEST) -- ✅ **sign() RE-INTEGRATED properly on owner-DONE (verdict PARTIAL); + PROCESS FIX: a directional "yes" is NOT a per-problem owner-DONE (rule reinforced)**
 **What went wrong:** I integrated `the_sign_quantiser...` (its READ-OUT half, status REFUTED) off the owner's
 DIRECTIONAL "be as brain foundational as possible" -- treating a direction as a per-problem finalization. The solver
 was STILL iterating and delivered a FINAL verdict of **PARTIAL**: the read-out refutation stands, BUT in the
@@ -40,10 +40,16 @@ B4 (dense->sparse)** -- graded beats sign CI-separated and GROWING (capacity cli
 GUARDRAIL at the BINDING SITES, **NOT** a "flip binding sites for a win." So my "demote the format foundation" was too
 strong -- the format is a LIVE binding-site guardrail (connects to p3 content-addressable retrieval + p5 one-store),
 demoted only AS A READ-OUT lever.
-**Fix applied this turn:** RE-OPENED (`the_sign_quantiser...` priority restored to p2, premature review cleared,
-owner_verdict reverted to pending); `BRAIN_FOUNDATIONAL_AUDIT.md` §2b + §8 corrected with a banner; awaiting the
-OWNER's review of the PARTIAL result + a real owner-DONE, then a proper full re-integration (re-verify the
-binding-capacity finding + fold the coupled-with-B4 AUDIT UPDATE).
+**RESOLVED:** the owner then FULLY SUBMITTED it (`owner_verdict: DONE`), and it was RE-INTEGRATED properly. All THREE
+regimes re-verified scaffold-free FIRST-HAND: READ-OUT **REFUTED** (sign null; faithful format family + self-supervised
+CBOW tie counting ~0.05, below the 0.171 floor -> meaning-SUPPLY wall); BINDING **CONFIRMED** (graded beats sign for
+CORRELATED codes, cliff B\*=8->12 at d=256); LIVE **LATENT** (verdict `SIGN_SAFE_TODAY_BUT_BITES_IF_BINDING_MADE_FAITHFUL`
+reproduced -- real load meanB=2.85, atomic |cos|0.06 -> gap +0.013 ~0 today; graded-semantic |cos|0.25 -> +0.087 on the
+B>4 tail). **Verdict PARTIAL, EXCELLENT.** Priority cleared; review + SOLVER REVIEW in PROBLEM.md; audit §2b has clean
+binding-regime + read-out entries; §8 lever #1 demoted only as a READ-OUT lever, ALIVE as a binding-site guardrail.
+**Guardrail recorded (B4/binding line, p3+p5):** when B4 makes fillers graded-semantic, the sign()-on-a-bundle sites
+(`situation_focus`, `role_slot_summarizer`, `event_bundle`, CA3 `cleanup_family`) go graded in the SAME change. NO
+hdlab landing (latent, not a current bug). The **p1 two-systems build stands**.
 🔒 **STANDING RULE REINFORCED (owner 2026-08-26): DO NOT integrate ANYTHING without an explicit per-problem owner-DONE.
 A chat "yes" to a direction or a recommendation is NOT a done signal. When uncertain, ASK or WAIT -- never infer DONE.**
 WHAT STILL STANDS (correctly integrated -- real owner-DONE or unaffected): **cortical_store** (owner-DONE, PARTIAL),

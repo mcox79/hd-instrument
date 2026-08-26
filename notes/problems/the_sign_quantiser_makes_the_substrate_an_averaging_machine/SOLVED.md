@@ -5,7 +5,7 @@ bar: "On a REAL downstream task (open-vocabulary read-out hit@1, or the meaning/
 result: "On the C3 open-vocab hit@1 instrument (n=4000 items, 5491 anchors, argmax over the whole anchor field vs generous WordNet gold): graded vs sign = +0.0015 CI[-0.0055,+0.0083] NULL (ci_hw 0.0069, null_p95 0.0068). The best faithful code-format arm (divisive normalisation = anchor-field centering, DN_CENTER) = 0.0537 vs sign 0.0465, +0.0073 CI[+0.0000,+0.0145] (ci_hw 0.0073, null_p95 0.0072 -- WITHIN NOISE, seed-flips), twin loses robustly. The ENTIRE brain-faithful code-format family (sign, graded, divisive-norm read-out center/z/CH, IDF composition, in-place sparse, DG expansive-sparse 2->2048 k-WTA) lands 0.029-0.062 -- ALL 0.09-0.14 CI-BELOW the best-constant averaging floor 0.171. DECISIVE (drilled finer): a SELF-SUPERVISED brain-faithful predictive learner (from-scratch CBOW-NS: predict the masked word, online delta-rule, co-learned representation) lands at 0.0428, ~= the co-occurrence cosine 0.0480 (delta -0.0053, CI incl 0) -- exactly as Levy&Goldberg 2014 predict (CBOW-NS implicitly factorises shifted PMI, so it carries the SAME distributional information as the cosine). It only beats its info-free twin (+0.0333 CI-sep), i.e. weak-but-real, and is 0.096 CI-BELOW the prototype floor. The ONLY arm that exceeded the ceiling -- a linear associator at held-out 0.1081 (+0.0618 vs cosine) -- was SUPERVISED on WordNet-derived gold-anchor labels; the brain gets no such labels from reading. So NO unsupervised method (counting, graded, divisive-norm, sparse, DG-expand, or a faithful self-supervised learner) beats the averaging floor; only supplied-answer supervision does. FINER DRILLS then reframed it: on WordNet-INDEPENDENT human ratings the unsupervised distribution DOES carry meaning -- it captures RELATEDNESS (WordSim rho 0.25, twin-loses) though NOT SIMILARITY (SimLex 0.04); GROUNDING captures both and best (0.42/0.21); the SIMILARITY axis the WordNet instrument demands is recovered by brain-faithful STRUCTURE (narrow ordered context: SimLex 0.075->0.112) not by any read-out format. So on the READ-OUT the averaging machine is a measurement-axis + structure/grounding + semantic-control matter, never the sign(). BUT in the BINDING/SUPERPOSITION regime the sign() IS a real averaging machine: recovering B bound role-filler pairs from a bundle (MAP-VSA, 512-filler cleanup, 300 trials, d=256), GRADED beats SIGN by a CI-separated and GROWING margin for CORRELATED fillers (B6 0.98 vs 0.73; B8 0.88 vs 0.58; B12 0.67 vs 0.36), raising the capacity cliff from B*=8 to B*=12 (mean gap CORRELATED +0.146 vs RANDOM +0.080). So the brief is HALF right: sign() is not the read-out bottleneck but IS a superposition-capacity lever for correlated bound codes -- flip it at the binding sites, not the read-out."
 floor: "BEST_CONSTANT (always name the single highest-gold-degree anchor, 'change') = 0.1710, d-independent -- the strongest averaging/prototype strategy. Also: nearest-centroid PROTOTYPE 0.1388 ('work', brittle -- flips to 0.0 at d=1024 by identity change, do not lean on it), POPULARITY 0.0185, SCRAMBLE(info-free) 0.008, RANDOM 0.0101. Every code-format read-out arm is CI-separated BELOW 0.171; the learned associator (0.108) closes ~2/3 of the gap but is still CI-below it."
 controls: "info-free twin (deranged donor query) -- every arm's real hit@1 >> its scramble (0.008) CI-separated, so the read-out carries real per-item signal, and the twin does NOT reproduce the divisive-norm gain (excludes item-difficulty/base-rate). best-constant + nearest-centroid-prototype + popularity + random floors, all recomputed on this population. d-sweep 256->1024 separates FORMAT from CAPACITY. byte-identity self-test: equal-weight composition builder == context_vector_masked (IDF arm differs ONLY by weight). learned-associator probe: 50/50 train/test split (no leak), held-out eval. DRILL controls: Spearman rho on WordNet-INDEPENDENT human ratings with a frequency-product floor (~0) and shuffled-vector twins (~0); rho on the common intersection of pairs all reps cover (fair head-to-head); context-window is the ONLY variable in the structure drill. BINDING controls: shuffle-bundle info-free floor at chance (1/512); RANDOM-vs-CORRELATED filler conditions isolate the correlation effect; bootstrap CI on the graded-minus-sign gap at each B; self-test (B=1 inverts exactly, shuffle->chance, capacity degrades with load)."
-files_changed: "experiments/exp_divisive_normalisation_readout_v1.py (format sweep: sign/graded/divnorm/IDF/sparse/DG-expand + floors + twin + d-sweep), experiments/exp_learned_readout_probe_v1.py (SUPERVISED linear-associator probe), experiments/exp_predictive_learner_readout_v1.py (SELF-SUPERVISED brain-faithful CBOW learner), experiments/exp_taxonomic_vs_thematic_gold_v1.py (DRILL 1+2: reps vs human relatedness/similarity + grounding + fusion), experiments/exp_structured_context_similarity_v1.py (DRILL 4: context-window sweep recovers similarity), experiments/exp_superposition_capacity_binding_v1.py (DRILL 5: sign-vs-graded superposition capacity, random vs correlated bound codes), verification/test_sign_quantiser_not_the_bottleneck_on_hit1.py (scaffold-free witness), data/exp_divisive_normalisation_readout_v1{,_idf,_d1024}/metrics.json, data/exp_learned_readout_probe_v1/metrics.json, data/exp_predictive_learner_readout_v1/metrics.json, data/exp_taxonomic_vs_thematic_gold_v1/metrics.json, data/exp_structured_context_similarity_v1/metrics.json, data/exp_superposition_capacity_binding_v1/metrics.json. NO hdlab/ modified."
+files_changed: "experiments/exp_divisive_normalisation_readout_v1.py (format sweep: sign/graded/divnorm/IDF/sparse/DG-expand + floors + twin + d-sweep), experiments/exp_learned_readout_probe_v1.py (SUPERVISED linear-associator probe), experiments/exp_predictive_learner_readout_v1.py (SELF-SUPERVISED brain-faithful CBOW learner), experiments/exp_taxonomic_vs_thematic_gold_v1.py (DRILL 1+2: reps vs human relatedness/similarity + grounding + fusion), experiments/exp_structured_context_similarity_v1.py (DRILL 4: context-window sweep recovers similarity), experiments/exp_superposition_capacity_binding_v1.py (DRILL 5: sign-vs-graded superposition capacity, random vs correlated bound codes), experiments/exp_live_binding_load_signgap_v1.py (LIVE VERIFICATION: real StructuralEncoder load B, filler correlation, atomic-vs-semantic sign gap), verification/test_sign_quantiser_not_the_bottleneck_on_hit1.py (scaffold-free witness), data/exp_divisive_normalisation_readout_v1{,_idf,_d1024}/metrics.json, data/exp_learned_readout_probe_v1/metrics.json, data/exp_predictive_learner_readout_v1/metrics.json, data/exp_taxonomic_vs_thematic_gold_v1/metrics.json, data/exp_structured_context_similarity_v1/metrics.json, data/exp_superposition_capacity_binding_v1/metrics.json, data/exp_live_binding_load_signgap_v1/metrics.json. NO hdlab/ modified."
 reverify: ".venv/Scripts/python.exe verification/test_sign_quantiser_not_the_bottleneck_on_hit1.py  (headline: sign not the bottleneck. Drill reproducers, deterministic, own-dir-only: .venv/Scripts/python.exe experiments/exp_taxonomic_vs_thematic_gold_v1.py --mode full  and  experiments/exp_structured_context_similarity_v1.py --mode full)"
 ---
 
@@ -130,20 +130,46 @@ needlessly lowers the correlated-code capacity that graded would keep. **This is
 WHICH sites` answer: strength matters at the SUPERPOSITION-of-correlated-bound-codes sites (binding
 bundle / CA3 completion / working-memory buffer), NOT the read-out.**
 
-**UNIFIED CONCLUSION -- the brief was HALF right, and now it is LOCATED.** Two regimes, opposite
-answers:
+**LIVE VERIFICATION (does the binding win bite in the LIVE substrate? -- turning the construction
+proof into a live claim).** Recon + a live measurement over real curriculum text
+(`exp_live_binding_load_signgap_v1`, StructuralEncoder, n=6,020 encodings):
+- **No reachable on-stream site meets all three conditions (B>4 AND correlated AND sign()).** The one
+  correlated-code binder (StructuralEncoder) has **mean B=2.85** (confirms the 2.82 on disk), is
+  already GRADED by default, and is islanded; the live sign()+high-B site (`hd_fact_store`, B=5-6)
+  binds role-HETEROGENEOUS fillers, not similar concepts.
+- **The deeper reason, measured:** the substrate binds ATOMIC RANDOM symbols (`symbol_vector`), so
+  fillers are near-orthogonal (**pairwise |cos| 0.06**) -- the correlated regime never arises. The
+  SAME fillers under a brain-faithful graded-semantic code are genuinely **correlated (|cos| 0.25)**.
+- **Sign-vs-graded recovery at the LIVE load:** ATOMIC (current) gap **+0.013** overall, **~0 for
+  B<=4** -- `sign()` is SAFE today. SEMANTIC (brain-faithful) gap **+0.044** overall, **+0.087 on the
+  14% tail with B>4** -- it opens up.
+
+So the binding `sign()` problem is a **live NON-issue TODAY** (load mostly <=4; codes atomic/
+orthogonal), and it becomes a real liability **exactly when binding is made brain-faithful** (graded
+semantic fillers). **The `sign()->graded` binding fix is COUPLED to the graded-semantic-code fidelity
+fix (B4): flipping the bundle to graded in isolation buys ~0 now; making fillers graded/semantic
+WITHOUT also keeping the bundle graded RE-CREATES the averaging machine, worst on the B>4 tail.** This
+also explains why `sign()` reads null everywhere live: atomic symbols at sub-cliff load.
+
+**UNIFIED CONCLUSION -- the brief was HALF right, LOCATED, and shown to be LATENT-not-current.** Three
+findings, one picture:
 - **READ-OUT regime (open-vocab hit@1):** `sign()` is NOT the bottleneck (refuted). The averaging
   machine there is a confluence with nothing to do with `sign()`: (1) a MEASUREMENT-axis mismatch (an
   associative/relatedness representation graded against taxonomic/similarity gold); (2) a real
   SIMILARITY-axis gap filled brain-faithfully by GROUNDING and STRUCTURED/local context, not any
   read-out format; (3) a missing SEMANTIC CONTROL to gate the two similarity systems by task.
-- **BINDING/SUPERPOSITION regime (correlated bound codes):** `sign()` IS a real averaging machine
-  (confirmed) -- it collapses correlated bundles onto the shared prototype and caps capacity at ~8
-  where graded reaches ~12 (d=256). THIS is where "keep strength" pays, and where to flip the sites.
+- **BINDING/SUPERPOSITION regime (correlated bound codes):** `sign()` IS a real averaging machine in
+  principle (confirmed on the synthetic benchmark: caps correlated-code capacity at B*=8 where graded
+  reaches 12, d=256) -- BUT it does NOT bite in the LIVE substrate today (load mean 2.85, mostly <=4;
+  fillers are atomic/orthogonal, |cos| 0.06, so gap ~0). It becomes real only when binding is made
+  BRAIN-FAITHFUL (graded semantic fillers, |cos| 0.25 -> gap +0.044, +0.087 on the B>4 tail). So it is
+  a LATENT liability coupled to the graded-code (B4) fidelity program, not a current bug.
 
-So the mechanism the brief named is REAL but MIS-LOCATED: it is a binding/working-memory capacity
-lever for correlated codes, not the read-out bottleneck. That precision -- refute one regime, confirm
-and quantify the other, and name the sites -- is the deliverable.
+So the mechanism the brief named is REAL but (a) MIS-LOCATED -- a binding/working-memory capacity lever
+for correlated codes, not the read-out bottleneck -- and (b) LATENT, not current: it is dormant while
+binding uses atomic symbols at sub-cliff load, and activates precisely under the fidelity improvements
+the project is pursuing. That precision -- refute the read-out regime, confirm-and-quantify the binding
+mechanism, then show it is a coupled future guardrail rather than a present fix -- is the deliverable.
 
 ## What I built and measured
 
@@ -309,19 +335,22 @@ and quantify the other, and name the sites -- is the deliverable.
 
 ## PROPOSED hdlab CHANGE (strategy lands it; board Q111)
 
-1. **Flip `sign()` -> graded at the BINDING / SUPERPOSITION sites, NOT the read-out.** The measured
-   capacity lever is there: any site that SUMS multiple BOUND (role-filler) codes and then `sign()`s
-   the bundle is throwing away ~50% of correlated-code capacity at d=256 (cliff B*=8 -> 12). Candidate
-   sites to audit for a graded bundle: the role-filler bundle / working-memory buffer
-   (`situation_focus.py`, `role_slot_summarizer.py`), CA3 completion (`cleanup_family.py`
-   `sign_quantize=True`), and any `_bundle`/`np.sign(sum(...))` that superposes correlated bound codes.
-   Propose: a graded (non-`sign`) bundle option at these sites, default-off, gated on a per-site
-   superposition-recovery test like this cell's. Do NOT flip the READ-OUT `sign()` (`canonicalize():896`
-   etc.) -- that is null on the real task (~0 measured).
-2. **Optional, default-OFF, brain-faithful micro-win (read-out):** expose divisive normalisation
+1. **Do NOT flip `sign()` for a CURRENT win -- there is no live site where it pays.** Live verification:
+   the read-out flip is null; the binding flip is ~0 today (load mean 2.85 <=cliff; fillers atomic/
+   orthogonal). Flipping binding-bundle sites in isolation buys nothing now.
+2. **COUPLED GUARDRAIL -- enforce a graded bundle JOINTLY with the graded-semantic-code (B4) fix.** The
+   real result: making fillers brain-faithful (graded/semantic, correlated) WITHOUT also keeping the
+   superposition bundle graded RE-CREATES the averaging machine (gap +0.044 overall, +0.087 on the 14%
+   of encodings with B>4). So whenever a `sign()`-on-a-bundle site (`situation_focus.py`,
+   `role_slot_summarizer.py`, `event_bundle.py` `_bipolar_quantize`, CA3 `cleanup_family.py`) is moved
+   to graded/semantic fillers, its bundle MUST become graded in the same change, gated on a per-site
+   superposition-recovery test like `exp_live_binding_load_signgap_v1` / `exp_superposition_capacity_
+   binding_v1`. Bind the two fidelity fixes together; do NOT ship graded-semantic fillers with a signed
+   bundle. Do NOT touch the read-out `sign()` (`canonicalize():896`) -- null.
+3. **Optional, default-OFF, brain-faithful micro-win (read-out):** expose divisive normalisation
    (`freeze_graded(normalise="center")`) as a `ReadoutConfig` option (`center_field: bool`) in
    `canonicalize_fast`. Direction-correct (+0.007, twin-losing) -- an *option*, never a capability claim.
-3. **RE-POINT the effort to SUPPLY, not the read-out.** The averaging machine is a meaning-*supply*
+4. **RE-POINT the effort to SUPPLY, not the read-out.** The averaging machine is a meaning-*supply*
    gap: no unsupervised read-out (counting, format, or a faithful self-supervised learner) beats the
    generic-word floor on this corpus; only supplied WordNet supervision did. So the lever is grounding
    / a knowledge source feeding the reader (LONG_TERM_PLAN Phase 1 / `reader_meaning_channel` /
@@ -394,13 +423,39 @@ sites" answer. The numbers and controls are unambiguous in both regimes.
    feature-similarity by task (fixed fusion hurts similarity). This is `reader_meaning_channel` +
    grounding + a new "semantic control gating" problem -- NOT the `sign()`.
 4. Optional: land the default-off `center_field` divisive-normalisation option (micro-win, fidelity).
-5. **LAND the graded bundle at the binding/superposition sites (the real, measured win).** Audit the
-   `sign()`-on-a-bundle sites that superpose BOUND codes (`situation_focus.py` WM buffer,
-   `role_slot_summarizer.py`, `cleanup_family.py` CA3 `sign_quantize`), add a graded option gated on a
-   per-site superposition-recovery test (like `exp_superposition_capacity_binding_v1`), default-off.
-   This is the brief's `keep strength` fix, correctly located: +50% correlated-code capacity at d=256.
+5. **COUPLE the graded bundle to the graded-semantic-code (B4) fix -- do NOT land it standalone.** Live
+   verification shows the binding `sign()` is a live NON-issue today (atomic codes, load <=4). It
+   becomes real ONLY when binding is made brain-faithful (graded/semantic fillers): then a signed
+   bundle re-creates the averaging machine (+0.044, +0.087 on the B>4 tail). So when B4 makes fillers
+   graded/semantic, the `sign()`-on-a-bundle sites (`situation_focus.py`, `role_slot_summarizer.py`,
+   `event_bundle.py`, CA3 `cleanup_family.py`) must go graded in the SAME change, gated on
+   `exp_live_binding_load_signgap_v1` / `exp_superposition_capacity_binding_v1`. Not a standalone win.
 6. Deepest push (separate program): the role-filler BINDING operation itself is unpinned / 3-way
    contested -- which binding theory (theta-gamma / conjunctive / tensor-product) sets the true capacity
    is a deliberate binding-theory program, not this slug.
 
 INTEGRATED_BY_STRATEGY: 2026-08-26 -- REFUTED-VALUABLE, owner-authorized in-session ("be as brain foundational as possible"). Re-verified scaffold-free (test_sign_quantiser_not_the_bottleneck_on_hit1.py PASS; stale-premise HD_GRADED_COMPARATOR=default-ON confirmed on disk). The `sign()` (audit deviation #2 / the #1 leverage lever) is NOT the averaging-machine bottleneck: the whole brain-faithful code-format family + a faithful self-supervised CBOW learner all tie plain counting (~0.05), below the 0.171 generic-word floor; only WordNet-SUPERVISED learning beats it -> the wall is meaning SUPPLY. 3 AUDIT UPDATEs folded (deviation #2 refuted/re-pointed; §8 lever #1 demoted; §7 bounded; NEW two-similarity-systems row + measured semantic-control need). Review in PROBLEM.md; priority cleared. The brain-foundational next build packaged as `the_substrate_has_one_meaning_system_where_the_brain_has_two`. Optional default-off center_field micro-win NOT landed (within noise). Committed (no push).
+
+## SOLVER ADDENDUM (2026-08-26, POST-INTEGRATION -- please RE-VERIFY & RE-FOLD, owner-directed)
+
+The `INTEGRATED_BY_STRATEGY` block above integrated the **READ-OUT half only** (status REFUTED). After
+it, the owner directed further pushes and I added TWO regimes that were NOT in that integration and
+that **change the verdict to PARTIAL**:
+
+1. **BINDING/SUPERPOSITION (DRILL 5, `exp_superposition_capacity_binding_v1`).** `sign()` DOES lower
+   superposition capacity for CORRELATED bound codes (cliff B*=8->12 at d=256, CI-separated,
+   correlation-specific). The brief's mechanism is REAL in this regime -- refuted at the read-out,
+   confirmed here.
+2. **LIVE VERIFICATION (`exp_live_binding_load_signgap_v1`).** It does NOT bite live today: real
+   StructuralEncoder load mean B=2.85 (mostly <=4), fillers atomic/orthogonal (|cos| 0.06) -> gap
+   +0.013 (~0). It becomes real ONLY under brain-faithful graded-semantic fillers (|cos| 0.25 -> gap
+   +0.044, +0.087 on the 14% of encodings with B>4). So `sign()->graded` at binding is a **guardrail
+   COUPLED to the graded-code (B4) fix**, not a standalone win.
+
+**For re-integration:** (a) update the status/verdict to PARTIAL (read-out refuted; binding real but
+latent-coupled); (b) add the AUDIT UPDATE that the `sign()` deviation #2 is COUPLED to B4 at the
+binding sites -- shipping graded-semantic fillers with a signed bundle re-creates the averaging machine;
+(c) the "flip binding sites for a win" reading is wrong -- it is a joint-with-B4 guardrail. The read-out
+integration above stands; these two regimes are additive to it. Ledger status set to PARTIAL.
+
+INTEGRATED_BY_STRATEGY: 2026-08-26 (FINAL, RE-INTEGRATION ON OWNER-DONE -- supersedes the earlier premature marker above). EXCELLENT; outcome PARTIAL. The earlier marker integrated the READ-OUT half off a DIRECTIONAL owner "yes" while the solver was still iterating; that was reverted (see OWNER_NOTES/PROBLEM.md history) and this is the proper re-integration on the owner's per-problem owner_verdict:DONE. ALL THREE regimes re-verified scaffold-free FIRST-HAND: (1) READ-OUT REFUTED (test_sign_quantiser_not_the_bottleneck_on_hit1.py PASS -- sign null; whole faithful format family + self-supervised CBOW tie counting ~0.05, below the 0.171 floor; only WordNet-supervised beats it -> meaning-SUPPLY wall). (2) BINDING CONFIRMED (exp_superposition_capacity_binding_v1 reproduces -- graded beats sign for CORRELATED codes, cliff B*=8->12 at d=256). (3) LIVE LATENT (exp_live_binding_load_signgap_v1 reproduces SIGN_SAFE_TODAY_BUT_BITES_IF_BINDING_MADE_FAITHFUL -- real load meanB=2.85, atomic |cos|0.06 -> gap +0.013 ~0 today; graded-semantic |cos|0.25 -> +0.087 on the B>4 tail). VERDICT: sign() is not the averaging machine at the read-out but IS at binding for correlated codes -- a LATENT guardrail COUPLED to the graded-code (B4) fix, NOT a current bug, NOT a standalone win. FOLDED into BRAIN_FOUNDATIONAL_AUDIT.md (§2b: deviation #2 = PARTIAL, binding-regime entry + read-out entry; §8 lever #1 demoted only as a read-out lever, alive as a binding-site guardrail). Review + SOLVER REVIEW block in PROBLEM.md; priority cleared. The read-out two-similarity-systems finding drives the new p1 build (the_substrate_has_one_meaning_system_where_the_brain_has_two). GUARDRAIL recorded for the B4/binding line (p3, p5): when B4 makes fillers graded-semantic, the sign()-on-a-bundle sites (situation_focus, role_slot_summarizer, event_bundle, CA3 cleanup_family) go graded in the SAME change, gated on the two binding cells. NO hdlab landing now. Committed (no push).
