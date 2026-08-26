@@ -31,7 +31,22 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- ✅ **p1 TWO-SYSTEMS BUILD INTEGRATED (owner-DONE, EXCELLENT/PARTIAL): the missing FEATURE-SIMILARITY meaning system is BUILT + proven; the semantic-control SWITCH is REFUTED (fixed fusion wins)**
+### 2026-08-26 (LATEST) -- ✅ **p3 content_addressable_retrieval INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the missing organ is cue-based RETRIEVAL (additive Lewis-Vasishth); it RE-FRAMES the fix**
+Content-addressable retrieval over the SEPARATED register beats the LIVE exact-key routes CI-separated under a partial
+cue (SEP_CA 0.991 vs HASH 0.287; twins at chance; tie at a full cue -- the Nakazawa CA3 dissociation). Re-verified 8/8
+scaffold-free first-hand. **RE-FRAMES the fix (honest self-corrections):** an EQUAL-STORAGE flat store TIES -> separation
+is NOT the lever; the genuinely-missing organ is content-addressable RETRIEVAL (the cue-MATCH); the CA3 iterative settle
+is NOT load-bearing (1-step argmax ties); DG did NOT help (rigorous negative). **NEW deviation:** the retrieval RULE
+should be ADDITIVE (Lewis-Vasishth, already pinned for E3) not a MULTIPLICATIVE composite (which orthogonalises on one
+wrong feature and collapses) -- but DEFLATED to mostly-a-tie by the owner-directed real-grounded drill (additive = the
+right default for robustness + partial-cue support, not a big everyday lift). REAL open problem = similarity-INTERFERENCE
+(the fan effect), which should NOT be "solved" (brain-correct behaviour). 4 AUDIT UPDATEs folded (E2 retrieval deviation;
+E1/E2/E3 re-location sharpened; owned fix half-owned; additive retrieval rule). hdlab landing EARNED (default-off additive
+`decode_cue` over the separated multibank register + FHRR adapter for `ca3_completer`) -> queued as a focused default-off
+landing w/ its own witness. SYNTHETIC construction proof -- measure on the LIVE reading/QA task before any capability claim.
+*Queue after p3: p5 one-store (awaiting owner review), p6 meaning-wiring, p7 relcl. Genuinely-open (no submission): p6, p7 -- THIN.*
+
+### 2026-08-26 -- ✅ **p1 TWO-SYSTEMS BUILD INTEGRATED (owner-DONE, EXCELLENT/PARTIAL): the missing FEATURE-SIMILARITY meaning system is BUILT + proven; the semantic-control SWITCH is REFUTED (fixed fusion wins)**
 The re-point's #1 brain-foundational lever, delivered. Re-read the FULL SOLVED FRESH (standing rule, owner 2026-08-26
 "read it all again every time" -- the solver had added a finer nonlinear-distinctiveness drill + the strong-associative
 gate re-test since the WIP read) and re-verified scaffold-free FIRST-HAND (`test_two_meaning_systems_feature_similarity_and_gate.py`

@@ -50,6 +50,41 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-26 — CONTENT-ADDRESSABLE RETRIEVAL: bar MET, and it RE-FRAMES the fix — the missing organ is cue-based
+  RETRIEVAL (additive Lewis-Vasishth), NOT "separate the store"** (from `content_addressable_retrieval_over_a_separated_store`,
+  integrated SOLVED/EXCELLENT, owner-DONE; witness `verify_content_addressable_register_retrieval.py` PASS, re-verified
+  first-hand). Content-addressable retrieval over the SEPARATED register (match the partial cue against the stored slots,
+  read the clean slot) beats the LIVE exact-key routes CI-separated under a partial cue: **SEP_CA 0.991 [0.988,0.993] vs
+  the exact-key HASH route 0.287 and the naive flat register 0.068**; twins at chance (~0.05); at a FULL cue everything
+  ties (the Nakazawa CA3 partial-cue dissociation, predicted not swept); generalises across D×load×rho. **BUT the drills
+  RE-FRAME the fix, with multiple honest self-corrections:** (1) an **EQUAL-TOTAL-STORAGE flat store (`FLAT_MATCHED`)
+  recovers to 1.000** — so separation is NOT uniquely necessary; the flat register's partial-cue failure is
+  CAPACITY/crosstalk, curable by separation OR dimension. **The genuinely-missing, brain-foundational mechanism is
+  content-addressable RETRIEVAL (the cue-MATCH), which the substrate lacks entirely; separation (DG / multibank) is its
+  storage-EFFICIENT substrate, not the lever.** (2) The **CA3 iterative settle is NOT load-bearing** — 1-step argmax
+  (SEP_ARGMAX 0.990) ties SEP_CA in every regime (the 1-step match is already the MAP estimate). (3) **DG pattern
+  separation did NOT help** in any tested regime (worse at rho=0, neutral at rho=0.5) — a rigorous negative on the DG→CA3
+  pairing the binding SOLVED flagged. (4) **LOAD-BEARING NEGATIVE reproduced on the register:** CA3 cleanup on the flat
+  readback TIES argmax exactly (0.607=0.607) — you cannot clean your way out of superposition; the fix is architecture.
+  **NEW DEVIATION (the deeper E2/E3 fidelity gap):** our register retrieves by a MULTIPLICATIVE composite key (`bind` the
+  cue features, match one vector); FHRR bind orthogonalises the whole composite on any one wrong/missing feature, so a
+  partial/competitor-dominated cue COLLAPSES. **The brain's PINNED cue-based retrieval (Lewis & Vasishth 2005; ACT-R;
+  already pinned for E3 coref) is ADDITIVE:** activation = Σ_f w_f·sim(cue_f, item_f), retrieve the max — degrading
+  GRACEFULLY (additive 0.33–0.70 vs composite 0.03–0.04 under a dropped/interfering feature). ⚠️ **Honestly DEFLATED by
+  the owner-directed real-grounded drill:** with the substrate's OWN grounded feature vectors (real graded similarity) the
+  additive-vs-composite gap is mostly a TIE (clean/near/dropped tie; additive only edges under a truly-dissimilar
+  corruption, which real similarity makes rare) — so additive is the RIGHT DEFAULT (never worse, natively serves partial
+  cues, no unphysical collapse) but the everyday lift is SMALL. **The REAL open problem is similarity-INTERFERENCE
+  resolution (the fan effect) — and it should NOT be "solved": the fan effect / false memories are real human behaviour, a
+  faithful model must EXHIBIT it. Open it as its own problem, not a switch here.** **Effect on the audit:** E2 gains a
+  RETRIEVAL deviation (missing content-addressable read path — both registers' `decode()` require the exact key); the
+  E1/E2/E3 re-location is SHARPENED (the lever is content-addressable RETRIEVAL, separation is the substrate); the owned
+  fix is HALF-owned (`ca3_completer` needs an FHRR [Re;Im] adapter + its settle is un-earned; `dg_pattern_separation`
+  didn't help); the retrieval RULE should be ADDITIVE (Lewis-Vasishth), not a multiplicative composite. 🔌 hdlab landing
+  EARNED (a default-off additive `decode_cue` over the separated multibank register + an FHRR adapter for `ca3_completer`)
+  — queued as a focused default-off landing with its own witness; SYNTHETIC construction proof, measure on the LIVE
+  reading/QA task before any capability claim.
+
 - **2026-08-26 — THE TWO-SIMILARITY-SYSTEMS BUILD: the FEATURE-SIMILARITY system is BUILT + PROVEN; the
   SEMANTIC-CONTROL SWITCH is REFUTED (fixed fusion wins)** (from `the_substrate_has_one_meaning_system_where_the_brain_has_two`,
   integrated PARTIAL/EXCELLENT, owner-DONE; witness `test_two_meaning_systems_feature_similarity_and_gate.py` PASS,

@@ -1,8 +1,27 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "INTEGRATED 2026-08-26 (owner-DONE). EXCELLENT; SOLVED. Re-read the FULL SOLVED fresh (the solver added the additive-vs-multiplicative retrieval-rule drill + the real-grounded deflation, findings 8-10, since the earlier read) and re-verified scaffold-free FIRST-HAND (verify_content_addressable_register_retrieval.py 8/8 PASS: p=0.7 SEP_CA 0.986 vs HASH 0.291 vs FLAT 0.058, twins ~0.04; load-bearing negative CA3_ON_FLAT 0.610 = FLAT_CK 0.610; additive vs composite + real-grounded drills reproduce). BAR MET: content-addressable retrieval over the separated register beats the LIVE exact-key routes CI-separated under a partial cue (0.991 vs 0.287), twins at chance, the Nakazawa CA3 partial-cue dissociation (tie at full cue). A MODEL of the strengthened protocol -- the drills RE-FRAME the fix with multiple honest self-corrections: (1) an EQUAL-STORAGE flat store TIES (FLAT_MATCHED 1.0) -> separation is NOT uniquely necessary; the genuinely-missing organ is content-addressable RETRIEVAL (the cue-MATCH), separation is its storage-efficient substrate. (2) CA3 iterative settle is NOT load-bearing (1-step argmax ties it). (3) DG did NOT help (rigorous negative). (4) NEW deviation: the retrieval RULE is MULTIPLICATIVE (composite key orthogonalises on one wrong feature -> collapse) where the brain's is ADDITIVE (Lewis-Vasishth, already pinned for E3) -> degrades gracefully; HONESTLY DEFLATED by the real-grounded drill (mostly a TIE with real features; additive is the right default for robustness, not a big lift). The REAL open problem = similarity-INTERFERENCE resolution (the fan effect), which should NOT be 'solved' (brain-correct behaviour). Judgment call resolved: bar's INTENT met (brain-faithful content-addressable retrieval beats exact-key CI-separated, twins losing) though the specific named organs (ca3_completer settle, dg) are NOT the load-bearing pieces -- SOLVED with that noted. 4 AUDIT UPDATEs folded (E2 gains a retrieval deviation; E1/E2/E3 re-location SHARPENED -- retrieval is the lever, separation the substrate; owned fix HALF-owned; retrieval rule should be ADDITIVE). hdlab landing EARNED (default-off additive decode_cue over the separated multibank register + FHRR adapter for ca3_completer) -> queued as a focused default-off landing with its own witness. SYNTHETIC construction proof -- measure on the LIVE reading/QA task before any capability claim. NO hdlab landing yet."
 ---
+
+> ## SOLVER REVIEW (strategy, 2026-08-26 — integrated on owner-DONE; full SOLVED re-read fresh)
+> **Grade: EXCELLENT. Verdict: SOLVED** (and it RE-FRAMES the fix). Re-verified scaffold-free first-hand
+> (`verify_content_addressable_register_retrieval.py` 8/8 PASS).
+> - **BAR MET:** content-addressable retrieval over the separated register beats the LIVE exact-key routes CI-separated
+>   under a partial cue (SEP_CA 0.991 vs HASH 0.287 vs FLAT 0.068; twins at chance; tie at a full cue — the Nakazawa CA3
+>   partial-cue dissociation, predicted not swept).
+> - **Honest re-framing (multiple self-corrections):** an EQUAL-STORAGE flat store TIES → separation is NOT the lever;
+>   the missing organ is content-addressable RETRIEVAL (the cue-MATCH), separation is its storage substrate. CA3 settle
+>   is not load-bearing (1-step argmax ties it); DG did NOT help (rigorous negative); CA3-cleanup-on-flat ties argmax
+>   (can't clean out of superposition).
+> - **NEW deviation:** the retrieval RULE is MULTIPLICATIVE (one wrong feature orthogonalises the composite → collapse)
+>   where the brain's is ADDITIVE (Lewis-Vasishth, already pinned for E3) → graceful degradation. **Honestly deflated**
+>   by the real-grounded drill (mostly a tie with the substrate's real features; additive is the right default for
+>   robustness + partial-cue support, not a big everyday lift). The REAL open problem — similarity-interference (the
+>   fan effect) — should NOT be "solved" (it's brain-correct behaviour); open it separately.
+> **Folded:** 4 AUDIT UPDATEs (E2 retrieval deviation; E1/E2/E3 re-location sharpened; owned fix half-owned; retrieval
+> rule should be additive). hdlab landing EARNED (default-off additive `decode_cue` + FHRR adapter) — queued as a focused
+> landing with its own witness. Synthetic construction proof — measure on the live reading/QA task before any claim.
 
 # PROBLEM: we blend many bindings into ONE vector and un-mix on demand; the brain SEPARATES into slots and retrieves by MATCHING a (partial) cue -- and that is ~5x better under a degraded cue
 
