@@ -60,8 +60,8 @@ goals/outcomes without it) AND the meaning-read-out wiring (the read-out needs g
 That is the highest-leverage gap.
 🗂️ **OPEN QUEUE (enumerated from disk 08-26): 3 open** -- `no_automatic_reliability_signal_reaches_the_source_oracle`
 (p3), `propagate_along_the_relation_that_carries_valence` (p4), `the_relcl_parser_is_too_weak_for_filler_gap_role_assignment`
-(p5); **the two just-integrated are cleared.** ⏱️ **30-min ARCHITECT cron re-created this session (session-only -- dies on
-exit, re-create it).**
+(p5); **the two just-integrated are cleared.** ⏱️ **30-min ARCHITECT cron LIVE (session-only `15610e6f`; survived
+compaction -- dies on session EXIT, re-create it then).**
 
 ### 2026-08-25 (post-move) -- 🖥️ **MOVED OFF THE USB TO `C:\AI\hd-instrument`; OPEN QUEUE RE-RANKED**
 **The project now runs from the internal drive (`C:\AI`), not the USB (`D:\AI`).** Copy byte-verified
