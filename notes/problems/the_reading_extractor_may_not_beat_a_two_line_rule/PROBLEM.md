@@ -1,8 +1,36 @@
 ---
-priority: 5
-review:
-review_text:
+review: EXCELLENT
+review_text: EXCELLENT, re-integrated off owner-DONE final content. Headline re-verified (WITNESS PASS, ELABORATE_DOES_NOT_BEAT_TWO_LINE_REPLACE): the elaborate perceptron reader LOSES to a two-line word-order+voice rule at power (n=17,330) -> REPLACE (do NOT route patient selection through the perceptron; do not weight animacy for English). Best simple reader = word order + PRECISE voice (0.7950). Deeper (owner-directed): the two-line rule is NOT the ceiling -- it COLLAPSES on reversible object-relatives (the brain's dorsal-parser regime, below the twin), where a FILLER-GAP mechanism recovers it (oracle 1.000; real-parser +0.21 CI-separated); frontier = a STRONGER PARSER + construction gate. Brain-fidelity probe: structural point-to-antecedent is OVER-accurate; a CUE-BASED RETRIEVAL model reproduces the human similarity-interference drop (Gordon 2001). Only the headline witness was re-run this round; the filler-gap + cue-retrieval witnesses exist and should be re-verified before landing on them. Proven-ready landing: precise-voice selector in situation_reader.
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (REPLACE + the two-line rule is not the ceiling; owner-DONE re-integration 2026-08-25)
+> **Re-verified (WITNESS PASS):** `test_reader_vs_twoline_qasrl_power.py` reproduces `ELABORATE_DOES_NOT_BEAT_TWO_LINE_REPLACE`
+> (elaborate 0.776 < two-line 0.793 at n=2685; twin loses; animacy-only ~= twin).
+> **Headline:** at power (n=17,330 QA-SRL patient items) the elaborate perceptron reader LOSES to a two-line
+> word-order+voice rule (0.7511 vs 0.7661, CI-separated) and collapses worst on reversible items -- the
+> brain-predicted failure of its animacy cue for word-order-dominant English (Competition Model). REPLACE it;
+> do NOT route patient selection through the perceptron; do not weight animacy as an English role cue. Best
+> simple reader = word order + PRECISE voice morphology (0.7950).
+> **The deeper, owner-directed reframe (the real payload):** the two-line rule is NOT the ceiling. On reversible
+> object-relatives/clefts -- the brain's DORSAL-STREAM regime (BA44 + arcuate; Friederici 2011) -- the two-line
+> rule COLLAPSES (0.001 synthetic / 0.080 real, BELOW the info-free twin), while a FILLER-GAP/movement mechanism
+> recovers it (oracle-parse 1.000; real-parser +0.21 CI-separated ABOVE). The real-parser arm is net-negative
+> overall from weak-parser false positives on canonical clauses -> the frontier is a STRONGER PARSER + a
+> construction gate, NOT more cue-integration. Brain-fidelity probe: structural point-to-antecedent is
+> OVER-accurate (the tell of a convenient substitute -- flat 1.000, no similarity effect), whereas a CUE-BASED
+> RETRIEVAL mechanism reproduces the human similarity-interference drop (Gordon 2001, CI-separated across a
+> temperature sweep).
+> **Why EXCELLENT:** brain-foundational throughout (Competition Model; dorsal filler-gap; cue-based retrieval);
+> full control stack (info-free twin, weight-scramble, single-cue ablations, reversibility stratification,
+> oracle-vs-real-parser, the Gordon fidelity probe); caught the QA-SRL isPassive trap; and did NOT stop at the
+> refutation -- it found the brain-faithful frontier.
+> **HONEST RE-VERIFICATION SCOPE:** only the headline witness was re-run this round (PASS). The deeper findings
+> have their own witnesses (`test_reader_fillergap_reversible_objrel.py`, `test_reader_cue_retrieval_interference.py`)
+> -- re-verify those before landing anything on them.
+> **hdlab landing (PROVEN-READY, deliberate -- Q111):** the ~4-line precise-voice flip in `hdlab/situation_reader.py`
+> (passive -> PATIENT before the predicate); needs a `situation_reader` witness + downstream check. The
+> filler-gap/cue-retrieval frontier is a NEW problem to package, not a landing.
+> **Integration:** `owner_verdict: DONE` confirmed; re-integrated off final content; review recorded; priority cleared.
 
 # PROBLEM: the elaborate "read the text" step may be no better than a two-line rule -- prove it earns its keep, or replace it
 

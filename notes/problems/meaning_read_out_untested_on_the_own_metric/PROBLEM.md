@@ -1,6 +1,6 @@
 ---
 review: EXCELLENT
-review_text: EXCELLENT REFUTED+PARTIAL, re-verified PASS (instrument reproduces to the digit; READOUT_TIES_OR_LOSES_COUNTING confirmed all 3 seeds). The read-outs LOSE to counting on the own metric -> WIRING = NO. Honest sub-threshold brain signal (TOPK_GROUNDED beats its twin, CI touches zero). Surfaced the metric is carried by RAW FREQUENCY (PMI collapses 8x) -> packaged metric-fairness + TOPK_GROUNDED-pursuit as new problems. No hdlab landed (the answer is not to wire).
+review_text: EXCELLENT, re-integrated off owner-DONE final content. TOP-1 (the brief's scorer, re-verified PASS): read-outs lose to counting -> no wiring for top-1 argmax. The owner-directed DISCRIMINATION reframe flips it: on HARD negatives counting falls BELOW chance (0.210, actively prefers co-occurrents) while GROUNDED hits 0.728 CI-separated, info-free twin at chance -> the read-outs DO carry real conceptual meaning; "they lose" was a property of the frequency-dominated top-1 SCORER, not the organs. Concreteness-controlled residual 0.648 (distributional spoke does NOT survive). PREVIEWS the metric-fairness answer (priority 2). Discrimination numbers not yet scaffold-witnessed (reverify covers top-1 only). Meaning organs NOT broken; grounded-weighted discrimination is the direction.
 ---
 
 > ## SOLVER REVIEW -- EXCELLENT (REFUTED the premise + honest PARTIAL; integrated by strategy 2026-08-25)
@@ -21,7 +21,26 @@ review_text: EXCELLENT REFUTED+PARTIAL, re-verified PASS (instrument reproduces 
 > transform loses BECAUSE it de-emphasises frequency. That questions whether the metric tests MEANING or
 > FREQUENCY. Packaged as: (1) is the grounding-precision metric a fair test of meaning?; (2) push
 > TOPK_GROUNDED + the 3 brain-faithful encoding arms over threshold on a fair metric.
-> **Integration:** no `hdlab/` landed (the answer is NOT to wire). Review recorded; priority cleared.
+> **FINAL CONTENT (owner-DONE re-integration 2026-08-25) -- THE DISCRIMINATION REFRAME, and it validates the metric-fairness problem:** owner-directed deeper work reframed the whole result. TOP-1 argmax (the brief's
+> scorer, re-verified PASS): read-outs lose to counting. But scored as DISCRIMINATION (rank gold neighbours
+> above non-neighbours -- what the ATL hub actually emits), the read-outs WIN: on HARD negatives (co-occurring
+> non-neighbours, counting stripped of its frequency edge) COUNT falls to 0.210 (BELOW chance -- it actively
+> prefers co-occurrents), while GROUNDED hits 0.728 CI-separated above, info-free twin at chance. **So "the
+> read-outs lose" is a property of the frequency-dominated TOP-1 SCORER, not the read-outs** -- exactly the
+> metric-fairness hypothesis (p2 successor, priority 2), now PREVIEWED as answered: on a fair discrimination
+> metric, grounded meaning beats counting. Concreteness-controlled (v4/v5): ~half the grounded 0.728 was a
+> concreteness confound, but a residual genuine sensorimotor signal survives (0.648, twin at chance); the
+> distributional spoke does NOT survive (0.360) -- it is a co-occurrence proxy. Equal-weight fusion DILUTES the
+> good grounded spoke with the bad reading spoke -> grounded-weighted beats fusion (a licensed re-weighting to sweep).
+> **HONEST RE-VERIFICATION SCOPE:** the scaffold-free reverify (`test_meaning_readout_own_metric.py`) covers the
+> TOP-1 headline ONLY (re-verified PASS); the discrimination numbers are the solver's controlled finding
+> (info-free twin at chance, concreteness-matched control) but are NOT yet covered by a scaffold-free witness --
+> they land properly via the metric-fairness problem (priority 2), which builds exactly this frequency-controlled
+> discrimination metric.
+> **Integration:** no `hdlab/` landed. WIRING for TOP-1 argmax meaning-assignment = NO (read-outs lose there),
+> but the meaning organs are NOT broken -- grounded-weighted DISCRIMINATION is the brain-faithful read-out
+> direction, carried forward by the metric-fairness problem. `owner_verdict: DONE` confirmed; re-integrated off
+> final content; priority cleared.
 
 # PROBLEM: the meaning wins are on BORROWED scorers -- do they beat plain counting on the substrate's OWN metric, where the stage is actually broken?
 
