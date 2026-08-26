@@ -1,8 +1,28 @@
 ---
-priority: 1
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "INTEGRATED 2026-08-26 (owner-DONE). EXCELLENT; verdict PARTIAL (bar #1 MET, bar #2 rigorous-negative-as-valid-outcome). Re-read the FULL SOLVED fresh (the solver added a finer nonlinear-distinctiveness drill + the strong-associative gate re-test since my earlier read) and re-verified scaffold-free FIRST-HAND (test_two_meaning_systems_feature_similarity_and_gate.py PASS: SimLex DFW 0.2907 vs RAW 0.2449 d=0.0458 CI_lo 0.0187 twin 0.0139; SimVerb DFW 0.2865 vs RAW 0.2638 d=0.0227 CI_lo 0.0083; both bars). BAR #1 MET: the missing FEATURE-SIMILARITY system built brain-faithfully -- the ATL's 'privilege DISTINCTIVE features' = DECORRELATION (whiten away the dominant shared concreteness axis, top PC 26.7%); distinctive-feature-weighted grounding beats RAW grounding CI-separated on two HELD-OUT golds and LOWERS relatedness (the brain signature); a REPRESENTATION-level op, different-in-kind from the refuted sign/graded/sparse read-out family. FINER DRILL = a fidelity BOUNDARY (linear whitening sufficient; per-concept nonlinear distinctiveness doesn't add on a 12-dim continuous space, semantic-dementia signature doesn't reproduce -> next gain is richer feature SUPPLY). BAR #2 REFUTED robustly (two systems better FUSED than SWITCHED): the task-gate ties its random-switch control and LOSES to a fixed blend once the associative system is strong (gate-fixed -0.026 CI[-0.048,-0.006]); the brain reason is that IFG control is context-driven and a decontextualised word pair gives it nothing to gate on -> fixed multiplicative INTEGRATION is the faithful op for graded rating (recovers both axes, mean 0.378). Model of the strengthened protocol (strengthened the COMPETITOR to test the gate, not tuned the gate). 3 AUDIT UPDATEs folded (Tier-2 ATL whitening fix+number; semantic-control re-pointed to fixed fusion; two-systems row confirmed+built). hdlab landing EARNED (whitening default-off + fixed fusion) -> queued as a focused default-off landing with its own witness. NO hdlab landing yet."
 ---
+
+> ## SOLVER REVIEW (strategy, 2026-08-26 — integrated on owner-DONE; full SOLVED re-read fresh)
+> **Grade: EXCELLENT. Verdict: PARTIAL** (bar #1 met; bar #2 a rigorous, brief-named valid negative). Re-verified
+> scaffold-free first-hand (`test_two_meaning_systems_feature_similarity_and_gate.py` PASS).
+> - **BAR #1 — the missing feature-similarity system, BUILT.** The ATL's "privilege distinctive features" =
+>   DECORRELATION: whiten away the dominant shared axis (concreteness, top PC 26.7% of grounding variance). The
+>   whitened rep beats RAW grounded cosine CI-separated on two HELD-OUT similarity golds (SimLex +0.046, SimVerb
+>   +0.023) and LOWERS relatedness — the brain signature. A representation-level op, different-in-kind from the
+>   refuted sign/graded/sparse read-out family; info-free twin loses, floors cleared, whitening gold-blind + held-out.
+> - **BAR #2 — the semantic-control SWITCH, REFUTED.** Fixed multiplicative FUSION beats the task-gate even with a
+>   STRONG associative system (gate−fixed −0.026 CI-sep) and the gate ties its random-switch control. The brain reason:
+>   IFG control resolves competition using CONTEXT; a decontextualised word pair gives it nothing to gate on. So the
+>   faithful op for graded RATING is fixed fusion (recovers both axes, mean 0.378); the gate belongs to a later
+>   selection task (WSD). Rigorous — the decisive move was strengthening the competitor, not tuning the gate.
+> - **Finer drill = a fidelity boundary:** linear whitening suffices; a per-concept nonlinear distinctiveness does not
+>   add on a 12-dim continuous space and the semantic-dementia signature does not reproduce → the next gain is richer
+>   feature SUPPLY, not a fancier transform. Converges with the session's "supply is the wall" theme.
+> **Folded:** 3 AUDIT UPDATEs (Tier-2 ATL whitening fix; semantic-control re-pointed to fixed fusion; two-systems row
+> confirmed+built). hdlab landing EARNED (whitening default-off + fixed fusion) — queued as a focused default-off
+> landing with its own witness (measure on the live read-out before any capability claim).
 
 # PROBLEM: we have ONE meaning system (associative relatedness) where the brain has TWO -- build the missing FEATURE-SIMILARITY system (grounding + structured local context) and the SEMANTIC-CONTROL gate that selects between them by task
 

@@ -31,7 +31,27 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- 🔧 **N400 coherence-monitor ORGAN LANDED (F5, off-path) -- the MISSING event-segmentation organ is now in hdlab**
+### 2026-08-26 (LATEST) -- ✅ **p1 TWO-SYSTEMS BUILD INTEGRATED (owner-DONE, EXCELLENT/PARTIAL): the missing FEATURE-SIMILARITY meaning system is BUILT + proven; the semantic-control SWITCH is REFUTED (fixed fusion wins)**
+The re-point's #1 brain-foundational lever, delivered. Re-read the FULL SOLVED FRESH (standing rule, owner 2026-08-26
+"read it all again every time" -- the solver had added a finer nonlinear-distinctiveness drill + the strong-associative
+gate re-test since the WIP read) and re-verified scaffold-free FIRST-HAND (`test_two_meaning_systems_feature_similarity_and_gate.py`
+PASS). **BAR #1 MET:** the ATL's "privilege DISTINCTIVE features" = DECORRELATION (WHITEN away the dominant shared
+concreteness axis, top PC 26.7% of grounding variance); distinctive-feature-weighted grounding beats RAW grounding
+CI-separated on two HELD-OUT golds (SimLex +0.046 CI_lo 0.019, SimVerb +0.023 CI_lo 0.008) and LOWERS relatedness (the
+brain signature) -- a REPRESENTATION-level op, different-in-kind from the refuted sign/graded/sparse read-out family.
+**BAR #2 REFUTED robustly:** the two systems are better FUSED than SWITCHED (fixed multiplicative fusion beats the
+task-gate even with a STRONG associative system, gate−fixed −0.026 CI-sep; the gate ties its random-switch control) --
+IFG control is context-driven, a decontextualised word pair gives it nothing to gate on, so the switch belongs to a later
+SELECTION task (WSD), NOT graded rating. **FINER DRILL = a fidelity BOUNDARY:** linear whitening suffices; a per-concept
+nonlinear distinctiveness doesn't add on a 12-dim continuous space (the next gain is richer feature SUPPLY, not a fancier
+transform -- converges with the session's "supply is the wall" theme). 3 AUDIT UPDATEs folded; §8 lever #1 DELIVERED;
+review + SOLVER REVIEW in PROBLEM.md; priority cleared.
+🔌 **hdlab landing EARNED (queued as a focused default-off landing w/ its own witness):** the distinctive-feature
+WHITENING transform (default-off `distinctive=True` on the grounding carrier) + a FIXED two-system fusion -- NOT a
+task-switch gate. Measure on the live read-out before any capability claim.
+*Queue: p3 content-addressable retrieval + p5 one-store (both awaiting owner review), p6 meaning-wiring, p7 relcl. p1 integrated.*
+
+### 2026-08-26 -- 🔧 **N400 coherence-monitor ORGAN LANDED (F5, off-path) -- the MISSING event-segmentation organ is now in hdlab**
 WIRE-DON'T-ISLAND follow-through on the integrated prediction_error win: **`hdlab/n400_coherence_monitor.py`** promotes
 the validated N400 mechanism (a GRADED forward CONTENT prediction error vs the RUNNING event gist, reset per event, EST
 relative threshold) into a real organ. **Off-path / DEFAULT-SAFE** (importing it changes NO existing behaviour). Witness

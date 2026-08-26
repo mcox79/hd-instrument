@@ -50,6 +50,37 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-26 — THE TWO-SIMILARITY-SYSTEMS BUILD: the FEATURE-SIMILARITY system is BUILT + PROVEN; the
+  SEMANTIC-CONTROL SWITCH is REFUTED (fixed fusion wins)** (from `the_substrate_has_one_meaning_system_where_the_brain_has_two`,
+  integrated PARTIAL/EXCELLENT, owner-DONE; witness `test_two_meaning_systems_feature_similarity_and_gate.py` PASS,
+  re-verified first-hand). The re-point's #1 lever, delivered. **BAR #1 MET — the missing feature-similarity system,
+  built brain-faithfully:** the ATL's "privilege DISTINCTIVE features" = DECORRELATION (WHITEN away the dominant shared
+  axis — concreteness, the top PC is 26.7% of the grounding variance — which is exactly the grounding carrier's own
+  documented "raw cosine can't separate synonym from sibling; apple/orange 0.952" ceiling, stated as a bug). The
+  distinctive-feature-weighted grounding rep beats RAW grounded cosine **CI-separated on two HELD-OUT similarity golds**
+  (SimLex 0.291 vs 0.245, +0.046 CI_lo 0.019; SimVerb 0.287 vs 0.264, +0.023 CI_lo 0.008 — reproduced first-hand) and
+  it LOWERS relatedness (the exact brain signature — specialises toward alike-in-kind); it beats the ASSOCIATIVE
+  co-occurrence rep on similarity by +0.197/+0.233; info-free twin (shuffled grounding rows) loses (~0.014), floors
+  cleared, whitening fit gold-blind + vocab-disjoint, hyperparams fit only on a dev split. **A REPRESENTATION-level op
+  (suppress shared covariance), different-in-kind from the refuted sign/graded/sparse read-out family.** **FINER DRILL
+  (a fidelity BOUNDARY, honestly found):** LINEAR whitening is SUFFICIENT — a per-concept NONLINEAR distinctiveness (the
+  sharper McRae/semantic-dementia account) does NOT add on a 12-dim CONTINUOUS grounding space (Δ 0.000) and the
+  zebra→horse signature does NOT reproduce, because that space lacks the rich binary "few-concepts-have-this-feature"
+  structure the account assumes → the next distinctiveness gain is a RICHER FEATURE SUPPLY, not a fancier transform.
+  **BAR #2 REFUTED (robustly; a brief-named valid outcome) — the two systems are better FUSED than SWITCHED:** a
+  task-gate does not beat the best FIXED blend even with a STRONG associative system (gate−fixed −0.026 CI[−0.048,−0.006])
+  or on a conflict population, and it ties its random-switch control on a mixed pool. The brain-grounded reason (NOT an
+  exhausted-engineering wall): the IFG gate resolves COMPETITION using CONTEXT, and a decontextualised word pair gives
+  it nothing to gate on — so for graded similarity/relatedness RATING the faithful op is FIXED multiplicative
+  INTEGRATION (recovers BOTH axes, mean 0.378 > feature-pure 0.309 > associative-pure 0.338); the gate's proving ground
+  is a genuine-selection task (homonym WSD), owned by `reader_meaning_channel` (which HARD_FAILED there) and deliberately
+  not re-built here. **Effect on the audit:** (a) Tier-2 ATL/sensorimotor RIGHT-OP-WRONG-METRIC now has a fix + a number
+  (whitening); (b) the "semantic control THIN" gap is RE-POINTED — the near-term win is the FIXED two-system fusion, the
+  task-switch gate is a later SELECTION-task deliverable, NOT for graded rating; (c) the two-similarity-systems row (from
+  the sign_quantiser drill) is CONFIRMED + BUILT. Converges with the session theme: the remaining wall is meaning SUPPLY
+  (richer features), not the transform. 🔌 hdlab landing EARNED (the whitening transform as a default-off option on the
+  grounding carrier + fixed two-system fusion) — queued as a focused default-off landing with its own witness.
+
 - **2026-08-26 — F5 (N400 COHERENCE MONITOR): the MISSING organ now has a validated build spec + a decisive
   existence proof; and DEVIATION #6 SPLITS** (from `the_substrate_does_not_learn_or_update_by_prediction_error`,
   integrated EXCELLENT, owner-DONE; witness `verify_prediction_error_event_segmentation.py` PASS, re-verified
@@ -395,10 +426,12 @@ cross-cutting deviations are **not queued.** Candidates, ranked by leverage (bla
    binding/superposition regime sign() IS a real averaging machine for CORRELATED fillers, coupled to B4 (graded
    fillers + a signed bundle re-creates the averaging machine; capacity cliff B*=8→B*=12) — so keep it as a joint
    sign()+B4 guardrail on the binding/memory line (p3, p5), NOT a read-out change. **At the read-out, REPLACED at the
-   top by the meaning-SUPPLY / TWO-SIMILARITY-SYSTEMS / SEMANTIC-CONTROL line** — build the feature-similarity system
-   (grounding + structured local context) and the IFG semantic-control gate. **Packaged (new p1).** *(sign_quantiser
-   is RE-OPENED, awaiting owner review of the PARTIAL result; the binding-regime correction folds in fully at
-   re-integration.)*
+   top by the meaning-SUPPLY / TWO-SIMILARITY-SYSTEMS / SEMANTIC-CONTROL line.** **✅ DELIVERED 2026-08-26 (§2b,
+   integrated PARTIAL/EXCELLENT):** the feature-similarity system is BUILT + proven (distinctive-feature WHITENING beats
+   raw grounding CI-separated on held-out SimLex/SimVerb; specialises toward similarity); the semantic-control SWITCH is
+   REFUTED (fixed multiplicative FUSION beats the task-gate even with a strong associative system) — so the near-term
+   wire is the whitening transform + a FIXED two-system fusion, NOT a switch; the gate is a later selection-task (WSD)
+   deliverable. Residual = meaning SUPPLY (richer features, per the finer drill's fidelity boundary).
 2. **The cortical-read organ (deviation #3) — VALIDATED-BUT-CONTENT-BOUND 2026-08-26 (§2b).** The read beats the
    wrong memory ~10× but the residual wall is the consolidated CONTENT (data/scale), not the read op. Land the CLS
    matched-pair read default-off (architecture hygiene); route the residual to the content/supply lane (item #1).
