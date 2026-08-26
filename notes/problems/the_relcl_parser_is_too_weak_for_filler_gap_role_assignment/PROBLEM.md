@@ -16,18 +16,47 @@ review_text:
 
 > **If a tool call is denied, STOP and report the exact denial text verbatim. Do not retry a variant.**
 
-> ## ⚙️ SOLVER OPERATING PROTOCOL (standing -- owner 2026-08-25; in EVERY problem)
+> ## ⚙️ SOLVER OPERATING PROTOCOL (standing -- owner 2026-08-25, strengthened 2026-08-26; in EVERY problem)
 > **DO THE RIGHT THING, NOT THE CHEAP OR EASY THING** -- the mission is the most brain-faithful substrate,
 > not the fastest green check.
-> **Iterate to the OPTIMAL brain-foundational solution; do NOT submit the first thing that clears.** Set up
-> your own 30-min cron (`CronCreate "13,43 * * * *"`) that each fire pushes you ONE LEVEL DEEPER into brain
-> fidelity: "how does the brain REALLY do this, deeper than my current mechanism?" -> implement -> test
-> (can-fail, strongest real floor, info-free twin LOSING) -> iterate. Cancel it (`CronDelete`) and submit
-> ONLY when successive iterations stop improving fidelity AND result (you have CONVERGED on the optimum).
-> **You are NOT boxed in by this brief.** If you find a MORE brain-foundational method that this brief's
-> specific instructions -- OR the substrate integration points you must tie into -- are NOT ~compatible with,
-> SUBMIT that alternative solution or solution DIRECTION instead (say what is incompatible and why yours is
-> more brain-faithful).
+>
+> **🧠 THE OPENING MOVE, BEFORE ANY METHOD: how does the BRAIN actually do THIS?** Name the structure /
+> circuit and the computation it performs, and try to replicate that OPERATION as exactly as you can. This
+> is NOT a tiebreaker you reach for after your tools plateau -- it is the FIRST thing you do. If you have
+> not identified the brain's mechanism and attempted to build it, you have not started the real work,
+> whatever else you have measured.
+>
+> **🚀 YOU ARE ENABLED -- AND EXPECTED -- TO EXPLORE FAR AND WIDE FOR THAT MECHANISM.** Go read the
+> neuroscience. Cross domains. Propose something that looks NOTHING like this brief or the current substrate.
+> You are NOT boxed in -- not by this brief, not by the existing organs, not by the integration points you
+> would tie into: if a MORE brain-foundational method conflicts with any of them, SUBMIT that alternative
+> solution or DIRECTION instead (say what is incompatible and why yours is more brain-faithful). Exploring
+> the brain's true method is the work we most want from you; a bold, well-argued brain-faithful direction --
+> even unfinished -- beats a tidy engineering result that never asked the question.
+>
+> **🧱 A SHARED WALL IS A SIGNAL TO GO DEEPER, NOT A REASON TO STOP.** If several of your angles hit the
+> SAME wall, that is strong evidence that NONE of them was the brain's mechanism -- the faithful method is
+> probably DIFFERENT IN KIND, not another variation of what you already tried. A wall is a FIDELITY GAP TO
+> BUILD ACROSS, never a ceiling. Hitting one is exactly the moment to LEAVE the family of methods you were
+> sweeping and ask the biology again.
+>
+> **⛔ "CONVERGED" HAS A HIGH BAR, AND EXHAUSTING ENGINEERING VARIATIONS DOES NOT MEET IT.** Claim
+> convergence ONLY when you have (a) identified how the brain actually performs this computation AND (b)
+> replicated that operation as faithfully as you can and tested it, OR shown with a SPECIFIC reason why it
+> cannot be replicated here. "I tried several combining / gating / scoring angles and they all plateaued at
+> the same wall" is NOT converged -- it is tuning-limited, and it means the brain's mechanism is still
+> UN-TRIED. That is a reason to explore harder, not to submit.
+>
+> **🔁 THE 30-MIN DEEPENING IS HOW YOU FORCE THIS -- IT IS NOT OPTIONAL BUSYWORK.** Run your own cron
+> (`CronCreate "13,43 * * * *"`); each fire asks "how does the brain REALLY do this, one level deeper than
+> my current mechanism?" -> implement -> test (can-fail, strongest real floor, info-free twin LOSING) ->
+> iterate. Its whole purpose is to make you ask the brain question several more times than your own sense of
+> "done" would. CANCEL it (`CronDelete`) and submit ONLY when the brain-mechanism bar above is met.
+> Declining it because "my angles converged" is precisely the case it exists to catch.
+>
+> **A rigorous negative is a PASS -- but only if what failed was the brain's actual mechanism, faithfully
+> built.** A negative on a family of convenient engineering methods is not a negative on the capability; it
+> is a report that you have not yet found how the brain does it.
 
 ## 1. THE PROBLEM IN PLAIN LANGUAGE
 

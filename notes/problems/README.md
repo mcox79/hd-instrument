@@ -371,13 +371,23 @@ Each `PROBLEM.md` has the same eight sections, in this order:
   instructions, not just briefs).** The mission is the most brain-faithful substrate, not the fastest
   green check. A cheaper path that is less brain-faithful is the wrong path even when it clears the floor.
 - **🔁 ITERATE TO THE OPTIMAL BRAIN-FOUNDATIONAL SOLUTION -- do NOT submit the first thing that clears
-  (owner 2026-08-25).** Run your own 30-min cron (`CronCreate "13,43 * * * *"`) that each fire probes ONE
-  LEVEL DEEPER into brain fidelity (implement -> test with a can-fail floor + info-free twin LOSING ->
-  iterate); CANCEL it (`CronDelete`) and submit ONLY when successive iterations stop improving fidelity AND
-  result (CONVERGED). And you are NOT boxed in: if a MORE brain-foundational method conflicts with a brief's
-  specific instructions OR the substrate integration points you tie into, SUBMIT that alternative
-  solution/DIRECTION instead, saying what is incompatible and why yours is more brain-faithful. **Every open
-  brief now carries this verbatim as a `SOLVER OPERATING PROTOCOL` block, and every NEW brief must include it.**
+  (owner 2026-08-25; STRENGTHENED 2026-08-26 after a solver called a problem "converged" having only
+  exhausted engineering variations -- self-consistency / response-shape / evidence / learned-gate, all
+  hitting the same wall -- and never going out of its way to find the brain's actual mechanism).** The
+  OPENING MOVE on every problem is "how does the BRAIN actually do this?" -- name the structure/circuit and
+  replicate the OPERATION as exactly as you can, BEFORE surveying tools. **"CONVERGED" IS NOT "my angles all
+  hit the same wall": a shared wall across variations means NONE of them was the brain's mechanism -- it is a
+  FIDELITY GAP TO BUILD ACROSS and a signal to go DEEPER / WIDER, not a ceiling. Convergence may be claimed
+  ONLY once the brain's actual mechanism has been identified and either replicated-and-tested or shown
+  un-replicable with a SPECIFIC reason.** The solver is ENABLED and EXPECTED to explore far afield (read the
+  neuroscience, cross domains, propose something unlike the brief or the current substrate); NOT boxed in --
+  if a MORE brain-foundational method conflicts with a brief's instructions OR the integration points it ties
+  into, SUBMIT that alternative solution/DIRECTION instead, saying what is incompatible and why yours is more
+  brain-faithful. Run your own 30-min deepening cron (`CronCreate "13,43 * * * *"`) to FORCE the brain
+  question repeatedly (implement -> test with a can-fail floor + info-free twin LOSING -> iterate); it is not
+  optional busywork, and declining it because "my angles converged" is the exact case it exists to catch.
+  **Every open brief carries this verbatim as a `SOLVER OPERATING PROTOCOL` block (strengthened 2026-08-26),
+  and every NEW brief must include it.**
 - **🧠 PURSUE THE RIGHT, BRAIN-FOUNDATIONAL SOLUTION -- as good as we can get, not the convenient one
   (owner 2026-08-24).** Open the problem with *"how does the brain actually do this, and can we
   replicate that OPERATION as exactly as we can?"* -- BEFORE surveying available tools. The documented
