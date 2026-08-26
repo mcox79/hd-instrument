@@ -1,7 +1,7 @@
 ---
 priority: 2
-review:
-review_text:
+review: EXCELLENT
+review_text: "INTEGRATED 2026-08-26 (owner-DONE, status PARTIAL). Re-verified scaffold-free first-hand: test_cortical_store_read_path.py WITNESS PASS (all 5 assertions incl. the 6-unit real-data headline -- memorises-not-transfers 6/6, cortical beats episodic in-domain 3/3, beats twin 3/3, unseen no-clear 6/6). A precise BOTH: the READ-PATH half is validated (the brain-faithful cortical read beats the WRONG episodic memory ~10x on transfer, CI-separated over its info-free twin, ablation bites -- the 0.0000 becomes a real drop); the FLOOR half is not met (ties counting in-domain, at/below twin on powered unseen-cooc) -- so the residual wall is the consolidated CONTENT/CODE, the brief's own outcome-B. The brain-foundational drill was deep and honest (deviation #4 sparse+inhibition LOAD-BEARING on the read: 0.025->0.156; NEW deviation: recurrent attractor completion HURTS ranking by re-promoting hubs; deviation #5 CLOSED BY TEST -- the interleaved-online CLS process is MORE data-hungry than batch and shares its data-bound ceiling, so process-fidelity is a false lever when the constraint is DATA). 3 AUDIT UPDATEs folded into BRAIN_FOUNDATIONAL_AUDIT.md (dev #3 refined, dev #4 load-bearing on the read, new attractor-hurts-ranking deviation). hdlab landing (the CLS matched pair -- graded sparse+inhibited space=overlap cortical read routed against episodic by the p2 recollection gate) is architecture-validation NOT a floor-beater; scoped as the next focused default-off landing with its own witness. Converges with the sign_quantiser refutation + the meaning re-frame: the wall is meaning SUPPLY/CONTENT (grounding + scale), not the read mechanism, the code format, or the sign()."
 ---
 
 # PROBLEM: we answer every question out of the fast episodic memory and NEVER read the consolidated cortical store we bothered to write -- a missing cortical-read organ, not a representational ceiling

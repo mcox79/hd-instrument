@@ -50,6 +50,35 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-26 — DEVIATION #3 (WRONG MEMORY) REFINED: the cortical READ is real and fixable, but the wall is
+  the consolidated CONTENT/CODE, not the read** (from `the_consolidated_cortical_store_is_written_but_never_read`,
+  integrated PARTIAL/EXCELLENT, owner-DONE; witness `test_cortical_store_read_path.py` PASS). Built the actual CLS
+  read (consolidation by `continual.replay_cycle` → read by pattern completion) and ran the two controls no prior
+  cortical problem had: the **live EPISODIC arm** ("wrong memory") and the **consolidation-ablation positive
+  control**. Result, 6 held-out units: the brain-faithful cortical read **beats the episodic path ~7-10× on
+  transfer, CI-separated over its info-free twin in-domain** (0.484 vs episodic 0.064 vs twin 0.158), and ablating
+  consolidation collapses it to 0 while episodic is invariant (the 0.0000 becomes a real drop). **BUT** it does NOT
+  clear the first-order counting floor (ties 0.474 in-domain) and on the **powered unseen-cooc regime it sits
+  at/below its own twin at no k on any unit** → no cue-specific transfer on genuinely novel queries. **So the
+  read-path defect is real and worth wiring, but the standing "memorises-not-transfers" wall is NOT dissolved by
+  the read alone — the residual is the consolidated CONTENT/CODE.** Reframe the missing-organ verdict (dev #3):
+  "missing cortical-read organ **AND** transfer-bearing consolidated content." Two deeper findings folded in:
+  **(a) DEVIATION #4 (dense vs sparse+graded) is LOAD-BEARING ON THE READ** — a dense frequency-summed associator
+  collapses to hubs (0.025); **k-WTA sparse coding + frequency-normalised inhibition rescues it to 0.156**, beating
+  cosine. Couple B4 with the cortical-read work, not only the `sign()` line. **(b) NEW DEVIATION — recurrent
+  ATTRACTOR completion (CA3-class) HURTS pool-RANKING**: settling re-promotes concept-code hubs (a hub jumps rank
+  2→0, robust across temperature 1-64), so the faithful semantic *ranking* read is a **graded population read**, and
+  the attractor is a *recognition* op, not a ranking op (`cleanup_family`'s modern-Hopfield variant terminates in
+  `sign()` — another dev #2 site). **(c) DEVIATION #5 tested and closed:** the interleaved-online CLS process
+  (`continual.py` replay actually building the code) is **more data-hungry than batch SVD** and shares its
+  data-bound ceiling (SGNS ≈ SVD-of-shifted-PPMI; Levy & Goldberg 2014) — it fails the seen-cooc positive control at
+  our ~2400-8000-sentence scale. So "make the code-learning more brain-faithful" is a FALSE lever when the constraint
+  is the DATA the process needs; the honest deepening names the binding constraint (lifetime-scale experience). The
+  hippocampus (which we have) is what the brain uses for zero-experience concepts; cortical transfer needs experience
+  we lack. ⚠️ Proposed hdlab landing (the CLS matched pair — graded sparse+inhibited `space="overlap"` cortical read
+  routed against episodic by the p2 recollection-confidence gate) is architecture validation, NOT a floor-beater;
+  land default-off. **Re-points §8 lever #2 (cortical-read): validated-but-content-bound, not a stand-alone win.**
+
 - **2026-08-26 — E1 (BINDING) RE-LOCATED: the OPERATOR is VALIDATED; the deviation is the flat-superposition
   RETRIEVAL** (from `the_core_binding_operator_may_not_be_brain_faithful`, integrated EXCELLENT). At EQUAL storage
   our compressed FHRR bind **beats the two WRITABLE brain theories** (tensor-product / TEM product; Rigotti-Fusi
@@ -164,7 +193,7 @@ Grouped by the brain's functional tiers. `[P]` = brain equation PINNED, `[U]` = 
 
 ### TIER 4 — MEMORY SYSTEMS
 - **DG pattern separation** `[U]` (level ~0.2% `[P]`) — `dg_pattern_separation.py`. **SAME** — but orphan (WIRED NO), untested.
-- **CA3 completion** (auto-assoc; update rule = our Hopfield import `[U]`) — `cleanup_family.py`/`iterative_attractor.py`. **RIGHT-OP-WRONG-METRIC:** terminates in `sign()`; measured settling buys nothing.
+- **CA3 completion** (auto-assoc; update rule = our Hopfield import `[U]`) — `cleanup_family.py`/`iterative_attractor.py`. **RIGHT-OP-WRONG-METRIC:** terminates in `sign()`; measured settling buys nothing. **2026-08-26 (§2b): recurrent attractor completion HURTS semantic pool-RANKING** — it re-promotes concept-code hubs (robust across temperature); the faithful ranking read is a *graded population read*, not a settled attractor (the attractor is a recognition op). *Consistent with the binding load-bearing negative: CA3 cleanup on a flat superposed read TIES argmax.*
 - **Hippocampal one-shot write** (Marr `[P]`; allocation `[U]`) — `hippocampal_encoder.py`. **SAME (write op)** — index/allocation half missing; its 14/14 self-test is a **ceiling, not evidence** (exact cue solved by projection alone).
 - **Consolidation / replay** (SWR; selection function `[U]`) — live: `reading_grounding_loop.py::checkpoint`; faithful: `continual.py` (**ISLANDED**). **WRONG-OP-CLASS at the live site:** single averaging op, ungated/un-interleaved/un-budgeted.
 - **Working memory** (attractor vs synaptic — CONTESTED `[U]`) — `working_memory.py` **contains no WM (filename trap)**; `slot_attention_wm.py` = learned softmax head. **MISSING / RIGHT-OP-WRONG-METRIC.**
@@ -220,8 +249,11 @@ thin/UNPINNED and, structurally, "IS coreference in disguise → must reuse the 
    *Caveat: "one-line fix" is half-right — removing it buys +0.0602 on 2AFC but ~null on open-vocab hit@1.*
 3. **WE QUERY THE WRONG MEMORY** — retrieval answers out of the fast episodic (hippocampal) codes and **never
    reads the consolidated cortical store** (ablating consolidation moved the read-out by 0.0000). The standing
-   "memorises but does not transfer" negative is the *signature of hippocampus-only retrieval* — a **MISSING
-   cortical-read organ**, not a representational ceiling.
+   "memorises but does not transfer" negative is the *signature of hippocampus-only retrieval*. **REFINED
+   2026-08-26 (measured, §2b):** reading the store the brain's way DOES beat the episodic path ~10× on transfer
+   (CI-separated over the twin), so the cortical-read organ is real and fixable — BUT it does not clear counting
+   and carries no cue-specific signal on powered unseen queries, so the wall is **BOTH a MISSING cortical-read
+   organ AND transfer-bearing consolidated CONTENT** (data/lifetime-scale, not the read op).
 4. **DENSE where the brain is SPARSE + GRADED** (B4) — the largest measured single lever we own (16× dims).
 5. **ONE STORE DOING TWO JOBS** — fast hippocampal binding and slow cortical consolidation are conflated; the
    faithful consolidation engine (`continual.py`) is **islanded**.
