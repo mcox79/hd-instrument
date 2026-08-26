@@ -50,6 +50,40 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-26 — DEVIATION #2 (`sign()` QUANTISER) REFUTED AS THE AVERAGING-MACHINE LEVER; the wall is meaning
+  SUPPLY, and there are TWO SIMILARITY SYSTEMS** (from `the_sign_quantiser_makes_the_substrate_an_averaging_machine`,
+  integrated REFUTED-VALUABLE; **owner-authorized in-session 2026-08-26: "be as brain foundational as possible";**
+  headline re-verified scaffold-free PASS + the stale-premise correction confirmed on disk). **Three load-bearing
+  corrections:** (1) **STALE PREMISE** — `GRADED_COMPARATOR`/`graded_query` have been **default-ON since 2026-08-14**
+  (env `HD_GRADED_COMPARATOR` defaults "1"; confirmed in `reading_grounding_loop.py`). The comparator field+query are
+  already graded; the only unconditional live `sign()` left is the banking query (`canonicalize()`), measured ~0 cost.
+  The audit's "graded flags exist default-OFF" (§5.2) is WRONG. (2) **REFUTED** — on the REAL open-vocab hit@1 task,
+  graded vs sign = `+0.0015` NULL, and the ENTIRE brain-faithful code-format family (graded / divisive-norm at read-out
+  or composition / in-place sparse / DG expansive-sparse) **plus a faithful self-supervised CBOW learner** ALL land at
+  the same distributional ceiling ~`0.05`, all CI-BELOW a generic-word averaging floor `0.171`. The read-out is
+  strictly WORSE than naming the average thing — "averaging machine" is a signal-EXTRACTION failure, not a quantiser
+  artifact. Only WordNet-**SUPERVISED** learning exceeds the floor (`0.108`); the brain gets no such labels from
+  reading (CBOW-NS ≈ shifted-PMI factorisation, Levy & Goldberg 2014 — the self-supervised learner and the counting
+  cosine are two compressions of one signal and land together). **So the loss is a meaning-SUPPLY gap (grounding /
+  knowledge source), UPSTREAM of the `sign()` and every read-out mechanism.** (3) **NEW & first-class — TWO SIMILARITY
+  SYSTEMS, measured on our own reps:** the distribution/co-occurrence channel carries **ASSOCIATIVE RELATEDNESS**
+  (WordSim ρ `0.25`, twin loses) but ~0 **FEATURE SIMILARITY** (SimLex `0.04`); GROUNDING carries **both** (`0.42`/`0.21`).
+  This is the ATL-feature-similarity vs LIFG/pMTG-associative dissociation, now quantified here. Consequences: (a)
+  grading meaning against WordNet **TAXONOMIC** gold systematically UNDER-credits the associative channel we actually
+  have — prefer human relatedness/similarity or a relation-controlled gold as the standing meaning metric; (b) the
+  SIMILARITY axis is recovered by brain-faithful **STRUCTURE** (narrow ordered context: SimLex `0.075→0.112` as window
+  0→±1) and by grounding, **not** by any read-out format; (c) the two systems need **SEMANTIC CONTROL** (IFG,
+  task-gated multiplicative gain) — a fixed blend HELPS relatedness but HURTS similarity, so the currently-THIN
+  semantic-control deviation now has a concrete measured need. **Effect on this audit:** DEVIATION #2 re-pointed from
+  "quantiser/format lever" to "meaning-SUPPLY + two-systems + semantic-control"; §8 lever #1 (`sign→graded`) DEMOTED;
+  §7 (meaning present-but-unwired) BOUNDED (distribution alone is insufficient on the taxonomic/similarity axis — it
+  carries relatedness; supply/grounding + structure carry similarity). ⚠️ Corpus-age is NOT this instrument's confound
+  (`load_corpus_v5` is MODERN — OneStopEnglish + OpenStax — the solver's disk-checked correction; the confound here is
+  taxonomic-gold-vs-associative-representation, not archaism). Optional default-off micro-win NOT yet landed:
+  divisive-normalisation `center_field` read-out option (direction-correct `+0.007` but within noise — an option, never
+  a capability). **This is the concrete brain-foundational re-point: the foundation is not the code FORMAT — it is the
+  two-similarity-systems architecture (grounding + structured context) + semantic-control gating + meaning supply.**
+
 - **2026-08-26 — DEVIATION #3 (WRONG MEMORY) REFINED: the cortical READ is real and fixable, but the wall is
   the consolidated CONTENT/CODE, not the read** (from `the_consolidated_cortical_store_is_written_but_never_read`,
   integrated PARTIAL/EXCELLENT, owner-DONE; witness `test_cortical_store_read_path.py` PASS). Built the actual CLS
@@ -243,10 +277,13 @@ thin/UNPINNED and, structurally, "IS coreference in disguise → must reuse the 
    only 5 SAME. Including **the central binding operation (3-way contested)**. Honestly labelled, but it means
    "brain-faithful" is *undefined* for a large fraction of the substrate; those parts are bets, and should be
    named as bets.
-2. **THE `sign()` QUANTISER EVERYWHERE** (34 sites / 12 modules) → the system becomes a prototype/averaging
-   machine (`sign(shared+distinctive)=sign(shared)`). **The SUM it sits on is faithful (additive combination);
-   only the terminal normaliser is not.** Graded flags exist **default-OFF** (`freeze_graded`, `graded_query`).
-   *Caveat: "one-line fix" is half-right — removing it buys +0.0602 on 2AFC but ~null on open-vocab hit@1.*
+2. **~~THE `sign()` QUANTISER EVERYWHERE~~ — REFUTED 2026-08-26 AS THE AVERAGING-MACHINE LEVER (see §2b).** The
+   34-site `sign()` was theorised to make the system an averaging machine. **It does not, and the graded flags are
+   already default-ON (since 08-14), not default-OFF.** On the real open-vocab task graded vs sign is NULL, and the
+   whole brain-faithful code-format family + a self-supervised learner all tie plain counting below a generic-word
+   floor. **The SUM is faithful; the terminal normaliser is a non-issue.** The real deviation is one level up:
+   **meaning SUPPLY + the TWO SIMILARITY SYSTEMS (associative relatedness vs feature similarity) + SEMANTIC CONTROL
+   gating.** The averaging machine is a signal-EXTRACTION/supply failure, not a quantiser artifact.
 3. **WE QUERY THE WRONG MEMORY** — retrieval answers out of the fast episodic (hippocampal) codes and **never
    reads the consolidated cortical store** (ablating consolidation moved the read-out by 0.0000). The standing
    "memorises but does not transfer" negative is the *signature of hippocampus-only retrieval*. **REFINED
@@ -286,8 +323,15 @@ downstream fix is a better filing system for empty folders," and every phase is 
 **beats the strongest frequency floor CI-separated** (0.741 vs 0.558; info-free twins lose) — the old "counting
 beats us" was measured on a metric that was secretly scoring frequency. **So meaning is present-but-unwired and
 context-free, not empty.** The block has moved from "there is nothing to route" to "route it, and condition it on
-context" (the p1 build). The plan's Phase-1 "supply more norms" lever is also downgraded (projecting the norms we
+context." The plan's Phase-1 "supply more norms" lever is also downgraded (projecting the norms we
 have covers the gap). **Reconcile the plan's §3 diagnosis with this before quoting it.**
+
+**BOUNDED 2026-08-26 (§2b — the `sign()` refutation drills):** "meaning present-but-unwired" is TRUE for the
+**ASSOCIATIVE RELATEDNESS** system (distribution carries it, WordSim ρ 0.25) — that read-out we can wire. It is
+**NOT** true for the **FEATURE SIMILARITY** system (distribution ~0 on SimLex): that axis is genuinely thin and must
+be BUILT brain-faithfully from grounding + structured local context, then GATED against the associative system by
+semantic control. So "present-but-unwired" splits: one system to wire, a second system to build. Grade meaning on
+human relatedness/similarity, not taxonomic WordNet, or the associative system reads as broken when it is not.
 
 ---
 
@@ -296,14 +340,17 @@ have covers the gap). **Reconcile the plan's §3 diagnosis with this before quot
 The current problem queue (p1–p4) captures **only one** of the top brain-fidelity levers. The biggest
 cross-cutting deviations are **not queued.** Candidates, ranked by leverage (blast radius × tractability):
 
-1. **The `sign()` → graded path (deviation #2).** One cross-cutting change flips the whole substrate off
-   "averaging machine." Graded flags already exist default-OFF; the work is proving graded wins downstream and
-   flipping them. *Half-fix caveat noted — pair with B4.* **Not queued → package.**
-2. **The missing cortical-read organ (deviation #3).** Could flip the programme's standing "memorises-not-transfers"
-   negative by reading the store we already write. **Not queued → package.**
-3. **Meaning wiring + context-conditioning — p1, ALREADY QUEUED.** The fair-metric win made it actionable.
-4. **Dense → sparse+graded code (B4, deviation #4).** Largest measured single lever (16× dims = +0.0843).
-   **Not queued → package (couples with #1).**
+1. **~~The `sign()` → graded path~~ — DEMOTED 2026-08-26 (REFUTED, §2b).** Not the averaging-machine lever; the
+   graded switch is already ON and buys ~null on the real task. **REPLACED at the top by the meaning-SUPPLY /
+   TWO-SIMILARITY-SYSTEMS / SEMANTIC-CONTROL line** — build the feature-similarity system (grounding + structured
+   local context) that the substrate lacks, and the IFG semantic-control gate that selects it by task. **Package this.**
+2. **The cortical-read organ (deviation #3) — VALIDATED-BUT-CONTENT-BOUND 2026-08-26 (§2b).** The read beats the
+   wrong memory ~10× but the residual wall is the consolidated CONTENT (data/scale), not the read op. Land the CLS
+   matched-pair read default-off (architecture hygiene); route the residual to the content/supply lane (item #1).
+3. **Meaning wiring + context-conditioning — QUEUED (p6).** The fair-metric win made it actionable; now bounded by
+   §2b — wire the ASSOCIATIVE read-out we have, but the SIMILARITY axis needs the item-#1 build, not wiring.
+4. **Dense → sparse+graded code (B4, deviation #4).** Now measured LOAD-BEARING on the cortical READ (0.025→0.156),
+   NOT on the open-vocab read-out (null there). Couple with the cortical-read work (#2), not the retired `sign()` line.
 5. **The binding operator (E1) — RESOLVED 2026-08-26 (p3, EXCELLENT).** The operator is VALIDATED at equal
    storage (beats the writable brain theories); the REAL lever is one level up — the flat-superposition
    **RETRIEVAL**. Wire the owned content-addressable path (`ca3_completer` + `dg_pattern_separation`) into the

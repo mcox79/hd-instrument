@@ -31,7 +31,45 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- ✅ **p3 BINDING INTEGRATED (EXCELLENT): the OPERATOR is VALIDATED; the deviation RE-LOCATES to the RETRIEVAL architecture**
+### 2026-08-26 (LATEST) -- ✅ **BRAIN-FOUNDATIONAL RE-POINT EXECUTED (owner said YES): p2 cortical_store + sign() INTEGRATED; the representation-FORMAT foundation is DEMOTED; the second-meaning-system BUILD is packaged p1**
+**INTEGRATED (owner-DONE, PARTIAL/EXCELLENT): `the_consolidated_cortical_store_is_written_but_never_read`.**
+Re-verified scaffold-free (`test_cortical_store_read_path.py` WITNESS PASS, 6-unit headline). A precise BOTH: the
+brain-faithful cortical read BEATS the WRONG (episodic) memory ~10x on transfer, CI-separated over its twin, ablation
+bites (0.0000 -> a real drop) -- the read-path defect is REAL and fixable; BUT it ties first-order counting in-domain
+and sits at/below its own twin on the powered unseen regime -- so the **residual wall is the consolidated CONTENT/CODE,
+not the read.** Deep drill: dev #4 (sparse+inhibition) LOAD-BEARING on the read (0.025->0.156); NEW dev (recurrent
+attractor completion HURTS ranking -- re-promotes hubs, so the faithful ranking read is a GRADED population read);
+dev #5 CLOSED BY TEST (online CLS process is MORE data-hungry than batch, same data-bound ceiling). 3 AUDIT UPDATEs
+folded; committed `f325b1839`. The proposed hdlab CLS matched-pair read is scoped as the next default-off landing
+(architecture hygiene + the proven dev-#4 read-op; NOT a floor-beater).
+✅ **sign_quantiser INTEGRATED 2026-08-26 (owner-authorized in-session "be as brain foundational as possible"; REFUTED-VALUABLE -- a rigorous negative is a PASS). Re-verified scaffold-free PASS; stale-premise confirmed on disk; 3 AUDIT UPDATEs folded; priority cleared; the second-system BUILD packaged as p1.**
+- **`the_sign_quantiser...` -- REFUTED, and it re-points the whole audit.** The `sign()` quantiser (audit DEVIATION
+  #2 / the #1 leverage lever) is NOT the averaging-machine bottleneck: graded vs sign = `+0.0015` NULL on the REAL
+  open-vocab hit@1 task (re-verified PASS), the graded switch is ALREADY default-ON since 08-14 (confirmed on disk),
+  and the ENTIRE brain-faithful code-format family (graded/divnorm/sparse/DG-expand) + a faithful self-supervised
+  CBOW learner ALL tie plain counting (~`0.05`), all below a generic-word floor (`0.171`). Only WordNet-SUPERVISED
+  learning beats it -> **the wall is meaning SUPPLY, upstream of the sign() and every read-out format.** NEW &
+  first-class: the TWO SIMILARITY SYSTEMS are measurable on our reps (distribution carries ASSOCIATIVE relatedness
+  WordSim `0.25` but ~0 feature SIMILARITY SimLex `0.04`; grounding carries both `0.42`/`0.21`) + a measured need for
+  SEMANTIC CONTROL (task-gating). ⚠️ Corpus-age is NOT this instrument's confound (`load_corpus_v5` is MODERN, not
+  McGuffey -- the solver's disk-checked correction; reconcile with the standing McGuffey note per instrument).
+⏳ **STILL AWAITING OWNER -- do NOT integrate (no owner_verdict):** **`the_substrate_does_not_learn_or_update_by_prediction_error` -- SOLVED (a clean POSITIVE):** a GRADED forward
+  prediction error (N400 = ||Delta situation-model||) segments a discourse and gets the right content into memory --
+  within-event cross-role recovery ~`0.99` vs baselines ~`0.52`/`0.44`, CI-separated, twins lose. Awaiting owner review.
+🔗 **THE CONVERGENCE (the strategic headline):** cortical_store + sign_quantiser + the 08-26 meaning re-frame ALL land
+on the SAME wall -- meaning SUPPLY/CONTENT + the two-similarity-systems architecture (grounding + tight-window
+structure) + semantic-control gating -- **NOT the code FORMAT, the read MECHANISM, or the `sign()`.**
+📋 **STRATEGIC FORK RESOLVED (owner 2026-08-26: "be as brain foundational as possible") -> EXECUTED.** (1) sign()
+refutation accepted + integrated; audit updates folded; representation-FORMAT foundation DEMOTED (audit §8 lever #1).
+(2) queue re-pointed -- the second-meaning-system BUILD is now p1, above representation-format. (3) standing meaning
+metric -> human relatedness/similarity, NOT taxonomic WordNet. GUARDRAIL held against the "buy-more-norms treadmill":
+the new p1 is a NARROW testable BUILD (feature-similarity from grounding + tight-window structure + a semantic-control
+gate), NOT "supply more norms" (projecting the ones we own already covers the gap).
+*Queue after re-point: **p1** `the_substrate_has_one_meaning_system_where_the_brain_has_two` (NEW brain-foundational
+build), **p3** content-addressable retrieval, **p5** one-store, **p6** meaning-wiring, **p7** relcl -- all
+genuinely-open, priorities unique; **p4** prediction-error awaiting owner. sign() cleared (integrated).*
+
+### 2026-08-26 -- ✅ **p3 BINDING INTEGRATED (EXCELLENT): the OPERATOR is VALIDATED; the deviation RE-LOCATES to the RETRIEVAL architecture**
 The binding foundation is RESOLVED. At EQUAL storage our compressed FHRR bind **BEATS the two writable brain
 theories** (tensor-product, conjunctive) -- an efficient choice, NOT a liability; TPR loses to FHRR in every
 exact-cue cell. ➡️ **The real deviation is one level up: flat-superposition RETRIEVAL.** We superpose many bindings
