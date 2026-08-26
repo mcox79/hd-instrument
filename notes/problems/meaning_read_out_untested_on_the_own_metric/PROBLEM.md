@@ -31,6 +31,10 @@ This is a discipline check, not a new organ. The brain's semantic hub integrates
 assignment task, beats the simplest text summary (co-occurrence counting). Copy the OPERATION
 (integrate spokes / apply the taught direction) exactly; do NOT import a number from another task.
 This is the project's "no number crosses scorers" rule turned into an experiment.
+**EXTENDED 2026-08-25 (owner: "always be as brain-faithful as possible"):** the reading spoke's
+co-occurrence ENCODING is itself a brain mechanism, not just plumbing -- so beyond the plain read-out,
+also test the three brain-faithful encoding refinements in section 7B. We want the MOST brain-faithful
+version that clears, not merely a version that clears.
 
 ## 4. MEASURED vs INFERRED
 
@@ -67,13 +71,61 @@ CI-separated over that floor's UPPER bound, with an information-free twin (shuff
 direction) LOSING. Save the scored population. HOW WE WOULD KNOW IT FAILED: it ties or loses counting
 on the own metric -- then the borrowed-scorer wins do not fix the broken stage, and that is the
 (valuable) result to report.
+**AND test not just the plain read-out but the three BRAIN-FAITHFUL ENCODING ARMS in 7B, each against
+the same counting floor with its OWN info-free twin.**
+
+## 7B. THE BRAIN-FAITHFUL ENCODING ARMS -- FOLD THESE IN (owner 2026-08-25: "always be as brain-faithful as possible")
+
+The read-out reads a co-occurrence store that change 2 now fills for EVERY content word
+(`track_all_content_lemmas`, hdlab/reading_grounding_loop.py). But that store's ENCODING is a FLAT,
+UNIFORM, NEVER-FORGETTING bag -- three places the brain does something specific. Build the plain store
+AND each refinement below as a separate ARM; COPY the computation, SWEEP the parameter (the warrant is
+the BRAIN mechanism, NOT a word2vec default -- do not adopt an ML number).
+
+**ARM A -- GRADED TEMPORAL WINDOW** (vs the flat sentence bag).
+- BRAIN (PINNED): associative binding falls off with temporal/serial distance -- Temporal Context Model
+  (Howard & Kahana 2002); contiguity + recency in free recall.
+- COPY: weight each co-occurrence by a decreasing function of token distance d between target and context
+  word (e.g. exp(-d/tau) or 1/d), not a flat 1 per in-sentence pair.
+- SWEEP: window width / tau. Needs the store to carry POSITION, not just a multiset.
+
+**ARM B -- PREDICTION-ERROR / SURPRISE-WEIGHTED ENCODING** (vs uniform counting). SAME MECHANISM AS p3.
+- BRAIN (PINNED): encoding is gain-modulated by attention + prediction error -- surprising pairings are
+  written more strongly (LC-NE novelty/salience; dopamine RPE; Rescorla-Wagner / TD: update ~ error).
+  This is the ONLINE form of the pattern-separation the OFFLINE PPMI currently stands in for.
+- COPY: weight each update by its surprise under the CURRENT store BEFORE the update
+  (surprise = -log P(context|target), pre-update). Expected pairings add little; surprising ones a lot.
+- SWEEP: surprise gain / temperature.
+- TRAP (control it): surprise-from-the-store uses the store to weight the store -- keep it NON-CIRCULAR
+  (pre-update probability ONLY) and require the info-free twin (SHUFFLED surprise weights) to LOSE.
+  Cross-reference p3 -- this is its reliability signal in encoding form.
+
+**ARM C -- DECAY + CONSOLIDATION** (vs unbounded additive counts).
+- BRAIN (PINNED): hippocampal traces decay (Ebbinghaus) and consolidate to cortex (CLS systems
+  consolidation). Recent + repeated survive; one-off old fade. Also bounds the store's growth the brain's
+  own way (the change-2 memory caveat).
+- COPY: decay counts by elapsed exposures (multiply by rho^dt) and/or promote stable co-occurrences to a
+  slower store; recent weighs more.
+- SWEEP: decay half-life.
+- HONEST CAVEAT (fair game to LOSE): at our corpus scale the episodic tier fires on only ~10% of items
+  (teach_the_self_built SOLVED) -- decay makes it sparser and may HURT here even though it is more
+  faithful. A faithful mechanism that loses at THIS data scale is a real, reportable result; do not force it.
+
+**SCORING (every arm, identical):** the arm's store -> the SAME PPMI+SVD read-out -> scored on the OWN
+metric against the SAME first-order COUNTING floor, floor recomputed on the arm's own population, EACH arm
+with its OWN info-free twin that MUST LOSE. Report which arm(s) clear counting CI-separated over the
+floor's upper bound. Plain change-2 store = baseline arm; the three refinements are judged against it AND
+against counting.
 
 ## 8. FILES AND ENTRY POINTS
 
 - `data/exp_grounding_precision_gold_v1/` -- the own-metric instrument and the counting floor.
 - `hdlab/meaning_fusion.py`, `hdlab/distributional_meaning_channel.py` -- the read-outs to score.
-- Prove in `experiments/` + `verification/`; propose any hdlab wiring in `SOLVED.md` (strategy lands
-  it, board Q111). Do NOT write `hdlab/`.
+- `hdlab/reading_grounding_loop.py` -- `ConceptSpace.observe_context_counts` + `process_sentence` (the
+  co-occurrence ENCODING site; `track_all_content_lemmas` fills it for all content words). The three 7B
+  arms are variants of THIS encoding step -- prototype them here in a can-fail cell, do not land hdlab/.
+- Prove in `experiments/` + `verification/`; propose any hdlab wiring in `SOLVED.md` (strategy lands it,
+  board Q111). Do NOT write `hdlab/`.
 
 ## DO NOT QUOTE / DO NOT REDO
 
