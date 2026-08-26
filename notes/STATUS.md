@@ -31,7 +31,21 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- ✅ **p3 content_addressable_retrieval INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the missing organ is cue-based RETRIEVAL (additive Lewis-Vasishth); it RE-FRAMES the fix**
+### 2026-08-26 (LATEST) -- 🔀 **PHASE PIVOT (owner-authorized): from building isolated PARTS to WIRING them together + measuring the reader END-TO-END**
+Owner 2026-08-26 asked *"is everything integrated, tied together, and have we tested it end to end?"* -- honest answer:
+NO. Every validated organ (N400 segmentation, feature-similarity whitening, content-addressable additive retrieval,
+DG/CA3 gate) is landed **off-path / default-off / synthetic-proof-only**, each with its own "measure on the LIVE task
+before any capability claim" caveat. **The PARTS are validated + integrated as islands; the composed reader has NEVER
+been measured end-to-end.** That is the accumulating WIRE-DON'T-ISLAND debt. ➡️ **NEW p1
+`wire_the_validated_organs_into_the_live_reader_and_measure_end_to_end`** -- compose 2-3 landed organs into the live
+reader behind flags, measure end-to-end vs today's baseline (identical inputs), per-organ ablation. **DECISIVE EITHER
+WAY:** a win = the first end-to-end capability number + wire it in; a well-diagnosed LOSS = we learn the binding
+constraint (almost certainly the front-end, event-extraction ~0.32) which re-points the whole programme. This also
+answers "almost out of problems?": the NEXT problems are wiring + end-to-end measurement, not more isolated parts.
+🔧 **Strategy's own hdlab debt to enable it:** land the content-addressable additive `decode_cue` (+ FHRR adapter) and
+wire the N400 boundary -> situation_model_accumulate -- the earned wirings from the last two integrations.
+
+### 2026-08-26 -- ✅ **p3 content_addressable_retrieval INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the missing organ is cue-based RETRIEVAL (additive Lewis-Vasishth); it RE-FRAMES the fix**
 Content-addressable retrieval over the SEPARATED register beats the LIVE exact-key routes CI-separated under a partial
 cue (SEP_CA 0.991 vs HASH 0.287; twins at chance; tie at a full cue -- the Nakazawa CA3 dissociation). Re-verified 8/8
 scaffold-free first-hand. **RE-FRAMES the fix (honest self-corrections):** an EQUAL-STORAGE flat store TIES -> separation
