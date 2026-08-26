@@ -1,8 +1,29 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Re-verified scaffold-free (witness PASS, reproduced first-hand incl. adjectives 0.8845). The valence organ reasoned good/bad along the WRONG link (taxonomic 'nearby in a dictionary map', measured to carry NO good/bad signal). The solver replaced it with SIGNED propagation along the links that DO carry valence -- opposite-of FLIPS, same-meaning PRESERVES -- reaching 0.726 on 485 words (vs the shipped 0.660 on 326) over its own floor, with the decisive control binding: scramble which links flip-vs-preserve and it collapses to a coin toss (0.49). The literal 'beat the old method head-to-head' bar TIES, and the solver correctly showed WHY it is the wrong instrument (the two methods answer near-disjoint word sets BY CONSTRUCTION) -- invoking the protocol's alternative-direction clause rather than gaming it. Deep brain-faithful findings: opposition is IRREDUCIBLE (antonyms are similar in EVERY feature space, so the flip must be an explicit relation, not read off similarity); the structure is universal across parts of speech (sharpest on adjectives); the vote magnitude already encodes GRADED valence (rho 0.400 with continuous human ratings), so the one real deviation is a binary readout for a graded brain quantity. Lands a Stage-B replacement in the valence organ (recorded proven-ready, default-off)."
 ---
+
+> # MY REVIEW -- EXCELLENT. IT REPLACES A LINK THAT CARRIES NO VALENCE WITH THE ONES THAT DO, AND PROVES OPPOSITION IS IRREDUCIBLE.
+> *Reviewed 2026-08-26 (owner-DONE). Re-verified scaffold-free: `verification/test_signed_lexical_valence_propagation.py` PASS -- 1-hop 0.8403 (CI-lo 0.7742 > floor 0.5798, n=119); signed 2-hop 0.7258 (485) vs sign-blind 0.6810; SIGN-SCRAMBLE twin -> chance 0.49; shuffle-label null p(>=real)=0.000; disjointness LEX 485 / Stage B 307 / overlap 44; grounded carries valence rho 0.0429 OUTSIDE null (taxonomic -0.0023 inside); opposition SHAPE antonym true-rating corr -0.556 yet embodied 0.270 ~ synonym 0.266; graded readout rho 0.400; adjectives HAND 0.8845.*
+>
+> ## WHY EXCELLENT
+> The shipped organ votes by TAXONOMIC distance -- a link already measured to carry NO valence (Spearman -0.0023). The solver replaced it with SIGNED propagation over the links that DO transfer affect (antonym FLIPS -1; synonym/derivational/similar-to/verb-group PRESERVE +1), reaching 0.726 on 485 words over its own-subset floor 0.555. **The decisive control -- which the brief did not ask for -- is the SIGN-SCRAMBLE twin:** randomise which relations flip vs preserve, keep the topology, and it collapses to chance with no tail. That is what turns "propagation works" into "the signed RELATION is what makes it work."
+>
+> ## THE LITERAL BAR TIES, AND THE SOLVER SHOWED WHY IT IS THE WRONG INSTRUMENT
+> The bar asked for a paired margin over Stage B on shared items. LEX and Stage B commit on only 44 of 1,971 (near-disjoint), and there they tie. **This is not a dodge -- it is a consequence of the brief's OWN prior finding:** because taxonomic distance carries no valence, it selects DIFFERENT neighbours than the valence-bearing relations, so the overlap is a tiny easy set no mechanism can separate on. The solver invoked the protocol's "submit the right instrument if the brief's is incompatible" clause and compared each arm to its own-subset floor with info-free twins -- the correct, difficulty-controlled test.
+>
+> ## THE DEEP BRAIN-FAITHFUL FINDINGS (this is a fidelity drill, not just a fix)
+> - **Opposition is IRREDUCIBLE.** Antonyms are similar in EVERY space we can build -- embodied sensorimotor AND lexical (antonym 0.270 vs synonym 0.266, identical) -- yet flip valence on the human rating (-0.556). So NO similarity metric, however grounded, can supply the flip; a valence organ MUST carry an explicit opposition operator. The sharpest statement: "-0.56 on the brain metric, 0.00 in the geometry."
+> - **Embodied space is the deeper GROUNDING but the weaker AXIS.** Embodied similarity carries valence where taxonomy did not (rho 0.043 outside null), but diffusely (0.562); the lexical PRESERVE relations are valence-SPECIFIC and sharper (0.726). "More brain-foundational substrate" and "better operator" came apart, and both answers are real.
+> - **Graded, not binary.** The signed-vote magnitude tracks the continuous human rating at rho 0.400 -- the binary pole readout hides ~half the signal. **The one real fidelity gap is the readout**, not the mechanism.
+> - **Universal across POS**, sharpest on ADJECTIVES (hand-run 0.8845 vs verbs 0.726) -- measured directly on ratings, anchor-independent.
+>
+> ## HONEST LIMITS (flagged, withdraw-first)
+> Not a paired win over Stage B (explicit tie on the underpowered overlap); the 1-hop 0.8403 is n=119; SINGLE value per lemma, NO context -- the plan's actual target is context-conditioned valence, out of scope here; the embodied axis is weak; the full-coverage hybrid (0.597 on 1962) trades accuracy for breadth.
+>
+> ## WHAT THIS CHANGES
+> **hdlab landing:** replace Stage B (taxonomic vote) in `hdlab/wordnet_polarity_propagation.py` with signed lexical-relation propagation (subsumes Stage A; coverage 326->485, accuracy 0.660->0.726) AND expose the graded valence (vote magnitude). It changes an existing organ -> **default-off flag + witness; recorded as a proven-ready deliberate landing.** **AUDIT UPDATE:** the affect/valence tier -- previously "built but un-audited for fidelity" -- now has a verdict (`notes/BRAIN_FOUNDATIONAL_AUDIT.md`): taxonomic Stage B is UNFAITHFUL (carries no valence); the faithful shape is signed relations + an explicit irreducible opposition operator + a graded readout; the deviation is binary-for-graded.
 
 # PROBLEM: THE ACCURATE HALF OF THE ORGAN COVERS 1% AND THE INACCURATE HALF DOES THE WORK
 

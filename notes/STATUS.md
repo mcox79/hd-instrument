@@ -42,8 +42,20 @@ selection signal IS CA3 completion confidence.** 🔌 **NEW #1 PROVEN-READY DELI
 recollection-gate organ to hdlab (off live path, no behaviour change; witness `test_dg_ca3_recollection_self_certifies.py`
 passes) in the dedicated pass. Fed the first **AUDIT UPDATE** into `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (memory tier /
 deviation #2; D1 DG moves off "orphan", D2 CA3 gains a self-certifying confidence -- but the cortical-consolidated
-read, deviation #3, is NOT closed). **Lever for more = reading VOLUME (coverage), not a cleverer gate.** p3
-(`propagate_along_the_relation`, valence) submits shortly; priority reshuffle to follow with p2+p3+the audit.
+read, deviation #3, is NOT closed). **Lever for more = reading VOLUME (coverage), not a cleverer gate.**
+✅ **p3 `propagate_along_the_relation` ALSO INTEGRATED (EXCELLENT):** signed valence propagation replaces the
+taxonomic Stage B (which carries NO valence); the sign-scramble twin proves the RELATION'S SIGN carries good/bad
+(0.726 on 485 vs shipped 0.660 on 326). Deep: **opposition is IRREDUCIBLE** (antonyms similar in every feature
+space, so the flip must be an explicit relation) and the **graded readout is hidden** (vote magnitude rho 0.400 with
+continuous ratings); universal across POS, sharpest on adjectives (0.8845). 🔌 **Stage-B replacement in
+`wordnet_polarity_propagation.py` recorded as a proven-ready deliberate landing (default-off + witness).** AUDIT
+UPDATE folded in (affect/valence tier now fidelity-scored). ➡️ **PRIORITY RESHUFFLE DONE (with p2+p3+the audit):
+packaged the audit's top-2 unqueued brain-faithfulness deviations. NEW QUEUE (brain-faithfulness blast radius):
+p1 `the_sign_quantiser_makes_the_substrate_an_averaging_machine` (the cross-cutting `sign→graded` fix, ~34 sites);
+p2 `the_consolidated_cortical_store_is_written_but_never_read` (the wrong-memory / cortical-read fix -- complement
+to p2-reliability's episodic win); p3 `the_meaning_win...` (meaning wiring, was p1); p4 `the_relcl_parser...`.
+Two organ landings pending (proven-ready deliberate): the DG/CA3 recollection gate + the valence Stage-B
+replacement.** *(The meaning-wiring demotion 1->3 is a recommendation -- higher blast radius sits above it; re-rank if you disagree.)*
 
 ### 2026-08-26 -- 🧠 **WHOLE-SUBSTRATE BRAIN-FOUNDATIONAL AUDIT, RECONCILED -> `notes/BRAIN_FOUNDATIONAL_AUDIT.md`**
 Owner asked whether the substrate had been evaluated deeply against the brain foundation for large-scale gaps /

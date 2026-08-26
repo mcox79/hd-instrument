@@ -50,6 +50,19 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work — newest first)
 
+- **2026-08-26 — AFFECT / VALENCE TIER now has a fidelity verdict** (from `propagate_along_the_relation_that_carries_valence`,
+  integrated EXCELLENT). This tier was flagged "built but never fidelity-scored" (§6 scope gap); it now has one.
+  `wordnet_polarity_propagation.py`'s shipped **Stage B (taxonomic path-similarity vote) is UNFAITHFUL** — taxonomic
+  distance carries NO valence (Spearman −0.0023, inside its null). **The faithful shape** is SIGNED propagation along
+  the relations that transfer affect (antonym FLIPS, synonym/derivational/verb-group PRESERVE), plus an **explicit,
+  irreducible opposition operator**: antonyms are similar in EVERY feature space (embodied 0.270 ≈ synonym 0.266) yet
+  flip the human valence rating (−0.556), so no similarity metric can supply the flip — it must be an explicit
+  relation `[P]`. **The one real deviation is the READOUT:** valence is a graded bipolar axis (Osgood; OFC), but the
+  organ reports a discrete pole — the signed-vote magnitude already tracks the continuous rating at ρ 0.400, so the
+  binary readout hides ~half the signal. Signed propagation reaches 0.726 on 485 words (vs shipped 0.660 on 326);
+  universal across POS, sharpest on adjectives (0.8845). Organ recorded as a proven-ready deliberate landing
+  (Stage-B replacement, default-off + witness).
+
 - **2026-08-26 — MEMORY TIER / DEVIATION #2 advanced** (from `no_automatic_reliability_signal_reaches_the_source_oracle`,
   integrated EXCELLENT). A **DG pattern-separation + CA3 completion recollection gate** was built and re-verified:
   recollection now **self-certifies** (top-5% precision 0.938 vs counting 0.533 on the same items) and dual-process
