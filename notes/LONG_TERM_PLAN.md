@@ -105,6 +105,19 @@ file: under the conservative convention WE are above spelling +0.0641 [+0.0456,+
 
 ## 3. THE DIAGNOSIS — why every architectural fix has measured null
 
+> ## 🔴 CORRECTION 2026-08-26 — READ BEFORE §3'S "EMPTY FOLDERS / SUPPLY BEFORE ARCHITECTURE" DIAGNOSIS.
+> The premise below — *"you cannot route meaning that was never supplied; every downstream fix is a better
+> filing system for empty folders"* — is **WEAKENED by a 2026-08-26 result.** On a FREQUENCY-CONTROLLED (fair)
+> metric the grounded meaning signal **BEATS the strongest frequency floor CI-separated** (0.741 vs 0.558;
+> info-free twins lose): the old "counting beats us" was measured on a metric that secretly scored FREQUENCY,
+> not meaning. **So the folders are not empty — meaning is PRESENT-but-UNWIRED and context-free.** "Supply
+> before architecture" still holds where coverage is genuinely missing, but the block has moved from "there is
+> nothing to route" to "route it, and condition it on context" (the `the_meaning_win...` problem). The related
+> memory-side null ("retrieval fine, selection fails") is also re-read by the audit as a POSITION error — we
+> query the fast episodic store and never read the consolidated cortical one (a missing organ, not a ceiling).
+> **Reconcile the rest of §3 with this before acting on it. Full picture: `notes/BRAIN_FOUNDATIONAL_AUDIT.md`
+> §7 + deviations #2/#3.**
+
 Six months of interventions on retrieval, selection, re-weighting, re-scoring, coherence and capacity all
 measured null or negative. That is not six months of bad luck; it is a signature.
 
