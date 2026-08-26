@@ -17,6 +17,14 @@ review_text:
 
 > **If a tool call is denied, STOP and report the exact denial text verbatim. Do not retry a variant.**
 
+> **📐 COUPLED FIX -- DENSE -> SPARSE (folded in here per owner 2026-08-26, to keep the queue focused).** The
+> `sign()` quantiser and our DENSE code are the SAME representation deviation seen from two angles: the brain
+> codes GRADED *and* SPARSE + higher-dimensional; we code 1-bit *and* dense (~2,377 concepts in 256 dims). The
+> largest measured single lever we own is dimensionality -- 16x dims buys +0.0843. So this brief's real target is
+> the representation FORMAT: test GRADED (drop the terminal `sign()`) AND sweep dimensionality / sparsity together,
+> because meaning that survives superposition needs both (a graded code that is also sparse enough not to
+> collide). Report which of the two -- losing strength, or lacking capacity -- dominates on the real task.
+
 > ## ⚙️ SOLVER OPERATING PROTOCOL (standing -- owner 2026-08-25, strengthened 2026-08-26; in EVERY problem)
 > **DO THE RIGHT THING, NOT THE CHEAP OR EASY THING** -- the mission is the most brain-faithful substrate,
 > not the fastest green check.

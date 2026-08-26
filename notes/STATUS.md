@@ -31,7 +31,24 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- ✅ **p2 `no_automatic_reliability_signal` INTEGRATED (EXCELLENT) -> a self-certifying DG/CA3 recollection organ that beats the counting floor**
+### 2026-08-26 (LATEST) -- 🧠 **FOUNDATION-FIRST QUEUE: the last two un-attacked foundations packaged (owner-directed)**
+Owner 2026-08-26: *"attack the foundations first -- if what we have is predicated on anything non-foundational in a
+BLOCKING way, we should attack those foundations first."* Confirmed the queue is foundation-first and CLOSED the
+set. **NEW QUEUE (all three foundational fixes now sit ABOVE the downstream capability work):**
+- **p1 `the_sign_quantiser_makes_the_substrate_an_averaging_machine`** -- the representation FORMAT fix
+  (`sign→graded` + dense→sparse folded in; the brain codes graded+sparse, we code 1-bit+dense; ~34 sign sites,
+  16x-dims = +0.0843). BLOCKING.
+- **p2 `the_consolidated_cortical_store_is_written_but_never_read`** -- read the long-term memory we write but
+  never consult (a POSITION error blocking transfer). BLOCKING.
+- **p3 `the_core_binding_operator_may_not_be_brain_faithful`** (NEW) -- our single most central operation is
+  UNPINNED / 3-way contested; test brain-motivated alternatives vs FHRR on a binding-STRESS task. NOT proven-
+  blocking (unfalsified) -- a rigorous negative VALIDATES the invention. The last un-attacked foundation.
+- **p4 `the_meaning_win...`** (meaning wiring, was p3); **p5 `the_relcl_parser...`** (was p4).
+Both proven-ready organ landings DONE (DG/CA3 recall gate -- SPARSE, the brain's sparse coding entering the memory
+path; valence Stage-B -- default-off). LONG_TERM_PLAN §3 reconciled with the meaning re-frame (was a stale hazard
+for the working solvers). *Meaning-wiring demotion below binding is a recommendation; re-rank if disagreed.*
+
+### 2026-08-26 -- ✅ **p2 `no_automatic_reliability_signal` INTEGRATED (EXCELLENT) -> a self-certifying DG/CA3 recollection organ that beats the counting floor**
 The "which source to trust" problem is SOLVED by going DEEPER than the brief (the strengthened-protocol behaviour,
 first live proof of it): the solver BUILT the brief's own-geometry mechanism, REFUTED it, found the real bottleneck
 was the episodic store (no separable traces), and rebuilt it the hippocampus's way -- **dentate-gyrus pattern
