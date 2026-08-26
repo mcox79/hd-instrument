@@ -27,9 +27,16 @@ import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
 
 import sys
+import json
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROBLEMS_DIR = os.path.join(REPO_ROOT, "notes", "problems")
+
+# WHO'S-WORKING-WHAT state (owner 2026-08-26: "checkboxes to mark a problem that I've assigned to a
+# solver ... hard to see which ones I'm actively working on"). A private marker set from the GUI's
+# problem tracker (a clickable checkbox column); read by the GUI and by tools/problem_queue.py so both
+# agree. It gates NOTHING in the pipeline -- it is purely the owner's "actively assigned" view.
+ASSIGNED_PATH = os.path.join(REPO_ROOT, "data", "hook_state", "assigned_problems.json")
 
 REQUIRED = ("problem", "status", "bar", "result", "floor", "controls", "files_changed", "reverify")
 VALID_STATUS = ("SOLVED", "PARTIAL", "REFUTED")
@@ -247,6 +254,33 @@ def save_owner(slug, verdict, text, problems_dir=PROBLEMS_DIR):
     return path
 
 
+def load_assigned(path=ASSIGNED_PATH):
+    """The set of slugs the owner has marked 'assigned to a solver'. Never raises: a missing or
+    corrupt file reads as the empty set (an at-a-glance marker must not break the tracker)."""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return set(data) if isinstance(data, list) else set(data.get("assigned", []))
+    except (OSError, ValueError):
+        return set()
+
+
+def set_assigned(slug, value, path=ASSIGNED_PATH):
+    """Add (value=True) or remove (value=False) a slug from the assigned set. Atomic via os.replace.
+    Returns the new set. Prunes nothing else -- callers/scan drop slugs no longer in play."""
+    cur = load_assigned(path)
+    if value:
+        cur.add(slug)
+    else:
+        cur.discard(slug)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(sorted(cur), f, indent=0)
+    os.replace(tmp, path)
+    return cur
+
+
 def parse_frontmatter_loose(text):
     """Same fence parsing as parse_frontmatter, WITHOUT the SOLVED.md required-field check.
     Kept separate on purpose: the owner's note has no evidence obligations, and reusing the
@@ -271,6 +305,7 @@ def scan(problems_dir=PROBLEMS_DIR):
     rows = []
     if not os.path.isdir(problems_dir):
         return rows
+    assigned = load_assigned()
     for slug in sorted(os.listdir(problems_dir)):
         d = os.path.join(problems_dir, slug)
         if not os.path.isdir(d):
@@ -279,7 +314,8 @@ def scan(problems_dir=PROBLEMS_DIR):
         solved_path = os.path.join(d, "SOLVED.md")
         row = {"slug": slug, "brief": has_brief, "state": "OPEN",
                "error": None, "fields": {}, "integrated": False,
-               "priority": None, "review": "", "review_text": "", "meta_error": None}
+               "priority": None, "review": "", "review_text": "", "meta_error": None,
+               "assigned": slug in assigned}
         if not has_brief:
             row["state"], row["error"] = "NO_BRIEF", "folder has no PROBLEM.md"
         else:

@@ -1970,8 +1970,8 @@ class StatusWindow:
             # do? I want to know"). Both were first written as PROSE at the top of PROBLEM.md and
             # the owner saw neither -- nothing on this path opens that file's body. They now come
             # from PROBLEM.md's own frontmatter via problem_ledger.scan().
-            cols=("pri", "slug", "state", "await", "owner", "review", "result"),
-            widths=(40, 250, 120, 170, 110, 110, 380),
+            cols=("asgn", "pri", "slug", "state", "await", "owner", "review", "result"),
+            widths=(74, 40, 250, 120, 170, 110, 110, 380),
             # OWNER 08-23, verbatim: "what does that mean? Am I supposed to do anything? It's
             # really not clear if that's 'you' - Opus 5, or me, the user."  THE COLUMN SAID
             # "WAITING ON ME?" -- written from MY point of view, in a window THEY read, where
@@ -1986,11 +1986,19 @@ class StatusWindow:
             # wrong thing, so it read as compliant.
             # SO: FIRST PERSON IS BANNED IN ANY HEADING OR CELL HERE -- NAME THE ACTOR. Second
             # person is fine when it means the reader.
-            headings=("#", "PROBLEM", "SOLVER SAYS", "WHOSE MOVE?", "YOU SAY",
+            headings=("ASSIGNED", "#", "PROBLEM", "SOLVER SAYS", "WHOSE MOVE?", "YOU SAY",
                       "CLAUDE RATES IT", "WHAT THEY FOUND"),
             height=9)
         frame.grid(row=2, column=0, sticky="nsew")
+        self.pb_tv.column("asgn", anchor="center", stretch=False)
         self.pb_tv.bind("<<TreeviewSelect>>", lambda _e: self._show_problem_detail())
+        # OWNER 2026-08-26: "can we have checkboxes to mark a problem that I've assigned to a solver?
+        # It's getting hard to see which ones I'm actively working on." The first column is a clickable
+        # checkbox; a left-click on it toggles the ASSIGNED marker (persisted via
+        # problem_ledger.set_assigned, read back through scan()). Clicks on any other column fall
+        # through to normal row selection. This marker GATES NOTHING -- it is purely the owner's
+        # who's-working-what view (integrated problems show no box).
+        self.pb_tv.bind("<Button-1>", self._pb_toggle_assigned, add="+")
 
         # height 8 -> 6 with a scrollbar. This tab is the most crowded of the eight: its two hint
         # labels, this box and the verdict LabelFrame are ALL fixed rows and together took 409px of
@@ -2023,10 +2031,37 @@ class StatusWindow:
                                   font=("Segoe UI", 9), wraplength=self._wrap_w, justify="left")
         self.pb_status.grid(row=1, column=0, columnspan=2, sticky="ew", padx=8, pady=(0, 5))
 
-    _PB_SLUG_COL = 1        # column 0 is the priority "#"; the slug moved right when it was added.
-                            # Named rather than inlined because THREE call sites index this tuple
+    _PB_SLUG_COL = 2        # columns 0,1 are the ASSIGNED checkbox and the priority "#"; the slug is
+                            # third. Named rather than inlined because call sites index this tuple
                             # positionally, and a silent off-by-one here makes Save say "Pick a
                             # problem in the list first" while a problem is plainly selected.
+    _PB_CHECKED = "☑"    # a ticked box, the ASSIGNED cell when a solver is on it
+    _PB_UNCHECKED = "☐"  # an empty box, the ASSIGNED cell when the problem is unclaimed
+
+    def _pb_toggle_assigned(self, event):
+        """Left-click on the ASSIGNED checkbox column -> toggle the owner's 'assigned to a solver'
+        marker for that row. Clicks on any other column return None so normal selection proceeds."""
+        if _probs is None:
+            return None
+        if self.pb_tv.identify("region", event.x, event.y) != "cell":
+            return None
+        if self.pb_tv.identify_column(event.x) != "#1":      # "#1" is the first (ASSIGNED) column
+            return None
+        iid = self.pb_tv.identify_row(event.y)
+        if not iid:
+            return None
+        vals = self.pb_tv.item(iid, "values")
+        if not vals or vals[0] == "":                        # integrated rows carry no checkbox
+            return None
+        slug = vals[self._PB_SLUG_COL]
+        was_on = (vals[0] == self._PB_CHECKED)
+        try:
+            _probs.set_assigned(slug, not was_on)
+        except Exception as exc:                             # a marker write must never crash the GUI
+            _diag("assign_toggle_failed", err=f"{type(exc).__name__}: {exc}")
+            return None
+        self.pb_tv.set(iid, "asgn", self._PB_UNCHECKED if was_on else self._PB_CHECKED)
+        return "break"                                       # consume the click (do not also select)
 
     def _selected_problem(self):
         sel = self.pb_tv.selection()
@@ -2138,7 +2173,7 @@ class StatusWindow:
         # list first" while they were mid-sentence (owner report, 2026-08-22). The signature
         # covers everything this table renders, so a real change still repaints immediately.
         sig = tuple((r["slug"], r["state"], r["integrated"], r.get("error"),
-                     r.get("priority"), r.get("review", ""),
+                     r.get("priority"), r.get("review", ""), r.get("assigned"),
                      (r.get("fields", {}) or {}).get("result", ""),
                      _probs.load_owner(r["slug"])["verdict"]) for r in rows)
         if getattr(self, "_pb_sig", None) == sig and self.pb_tv.get_children():
@@ -2168,7 +2203,10 @@ class StatusWindow:
             rating = r.get("review", "")
             if r.get("meta_error"):                 # a bad priority/review must be VISIBLE, not silent
                 rating = "?? " + str(r["meta_error"])[:40]
+            box = "" if r["integrated"] else (self._PB_CHECKED if r.get("assigned")
+                                              else self._PB_UNCHECKED)
             self.pb_tv.insert("", "end", values=(
+                box,
                 "" if r.get("priority") is None else r["priority"],
                 r["slug"], r["state"], wait,
                 owner["verdict"] or ("note" if owner["text"] else ""), rating, res))
@@ -2203,7 +2241,9 @@ class StatusWindow:
         self._tab_mtime_override["6. PROBLEMS"] = newest
         self._set_label(
             self.pb_hint,
-            text=f"{n} problem(s). NOTHING ON THIS TAB NEEDS YOU -- 'WHOSE MOVE?' names who acts, "
+            text=f"{n} problem(s). Tick the ASSIGNED box (first column) to mark one you've handed to a "
+                 f"solver -- it is just your who's-working-what view and changes nothing else. "
+                 f"NOTHING ON THIS TAB NEEDS YOU -- 'WHOSE MOVE?' names who acts, "
                  f"and {awaiting} of them say Claude. A rating means Claude read it; 'folded in' "
                  f"means it is wired into the substrate. Those are different, and a problem is not "
                  f"finished until it says folded in. 'SOLVER SAYS' is the solver's own filing and "

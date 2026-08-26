@@ -1,85 +1,68 @@
 #!/usr/bin/env python3
-"""problem_queue.py -- an at-a-glance, tick-in-place checklist of OPEN problems.
+"""problem_queue.py -- a READ-ONLY markdown MIRROR of the GUI's ASSIGNED checkboxes.
 
 WHY THIS EXISTS (owner 2026-08-26): "can we have checkboxes to mark a problem that I've assigned to a
-solver? It's getting hard to see which ones I'm actively working on." This renders every OPEN problem
-as a GitHub-style markdown checkbox in ONE file, `notes/problems/QUEUE.md`, that any editor/GUI shows.
+solver? It's getting hard to see which ones I'm actively working on." The real checkboxes live in the
+GUI (`tools/status_gui.py`, tab 6 PROBLEMS -- the clickable ASSIGNED column). This tool renders the
+SAME shared state to `notes/problems/QUEUE.md` for anyone who prefers a plain-text/phone view.
 
-  [x] = you've assigned it to a solver (actively being worked)
-  [ ] = open / available to assign
+  [x] = assigned to a solver (actively being worked)      [ ] = open / available to assign
 
-HOW IT STAYS TRUE (the board.py pattern -- REWRITE IN PLACE, PRESERVE THE OWNER'S EDITS):
-  Running `python tools/problem_queue.py` re-reads the problem folders and rewrites QUEUE.md so it
-  ADDS any new open problem (unchecked), DROPS any that got integrated, and KEEPS your existing ticks
-  (matched by slug). So ticking a box is durable across refreshes; you never lose your marks, and the
-  list never goes stale. Ticking a box changes NOTHING else -- it is a private "who's working what"
-  marker, not a state the rest of the pipeline reads.
+ONE SOURCE OF TRUTH. Both the GUI and this tool read the assigned set from `problem_ledger`
+(`load_assigned()` / `set_assigned()`, backed by `data/hook_state/assigned_problems.json`). You TICK
+in the GUI; this file is regenerated from that state and editing it by hand does nothing. So the two
+can never disagree, and the marker GATES NOTHING in the pipeline -- it is purely the who's-working-what
+view.
 
   "Open" here means exactly what the queue means everywhere else: a PROBLEM.md with a `priority:` and
   no `review:` (a solved+reviewed problem has left the queue and does not appear).
 
 USAGE
-  python tools/problem_queue.py            # refresh notes/problems/QUEUE.md, print a summary
+  python tools/problem_queue.py            # regenerate notes/problems/QUEUE.md from the shared state
   python tools/problem_queue.py --print    # also print the checklist to stdout
 """
 from __future__ import annotations
 
 import argparse
 import os
-import re
 import sys
 
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+import problem_ledger  # noqa: E402  -- owns the OPEN scan and the shared assigned-state
+
 PROBLEMS_DIR = os.path.join(_REPO, "notes", "problems")
 QUEUE_PATH = os.path.join(PROBLEMS_DIR, "QUEUE.md")
 
-# a checklist line: "- [x] **p3** the_slug ..."  -- we key on the (checked, slug) pair
-_LINE_RE = re.compile(r"^\s*-\s*\[(?P<mark>[ xX])\]\s*(?:\*\*p?\d+\*\*\s*)?(?P<slug>[a-z0-9_]+)", re.MULTILINE)
-
-
-def _frontmatter_field(text: str, field: str) -> str:
-    """Return the value of a top-of-file `field:` line, or '' if absent/empty."""
-    m = re.search(rf"(?m)^{re.escape(field)}:[ \t]*(.*)$", text)
-    return (m.group(1).strip() if m else "")
-
 
 def scan_open_problems() -> list[tuple[int, str]]:
-    """Every OPEN problem as (priority, slug): has a priority, no review. Sorted by priority."""
+    """Every OPEN problem as (priority, slug): has a priority, no review. Sorted by priority.
+    Delegates to problem_ledger.scan() so there is ONE definition of 'open' across the tools."""
     out: list[tuple[int, str]] = []
-    for name in sorted(os.listdir(PROBLEMS_DIR)):
-        pf = os.path.join(PROBLEMS_DIR, name, "PROBLEM.md")
-        if not os.path.isfile(pf):
+    for r in problem_ledger.scan():
+        prio = r.get("priority")
+        if prio is None or r.get("review"):
             continue
-        with open(pf, "r", encoding="utf-8") as fh:
-            text = fh.read()
-        prio = _frontmatter_field(text, "priority")
-        review = _frontmatter_field(text, "review")
-        if not prio or review:
-            continue
-        try:
-            out.append((int(prio), name))
-        except ValueError:
-            continue  # a non-integer priority is malformed; the ledger flags it, not us
+        out.append((int(prio), r["slug"]))
     return sorted(out, key=lambda t: (t[0], t[1]))
 
 
 def read_existing_ticks() -> set[str]:
-    """Slugs the owner has already ticked in QUEUE.md (preserved across refreshes)."""
-    if not os.path.isfile(QUEUE_PATH):
-        return set()
-    with open(QUEUE_PATH, "r", encoding="utf-8") as fh:
-        text = fh.read()
-    return {m.group("slug") for m in _LINE_RE.finditer(text) if m.group("mark") in ("x", "X")}
+    """The SHARED 'assigned to a solver' set -- the SAME state the GUI's tab-6 checkboxes write
+    (problem_ledger.load_assigned). QUEUE.md is a read-only MIRROR of it, so the two never diverge."""
+    return problem_ledger.load_assigned()
 
 
 def render(open_problems: list[tuple[int, str]], ticked: set[str]) -> str:
     n_assigned = sum(1 for _, slug in open_problems if slug in ticked)
     lines = [
-        "# Problem queue -- tick `[x]` when you've assigned a problem to a solver",
+        "# Problem queue -- a READ-ONLY MIRROR of the GUI's ASSIGNED checkboxes",
         "",
         "`[x]` = assigned / actively being worked by a solver.  `[ ]` = open, available to assign.",
-        "Refresh with `python tools/problem_queue.py` -- it adds new open problems (unchecked), drops",
-        "integrated ones, and KEEPS your ticks. Ticking a box is a private marker; it changes nothing else.",
+        "**Tick problems in the GUI (tab 6, PROBLEMS -- the ASSIGNED column), not here.** This file is",
+        "regenerated from that shared state by `python tools/problem_queue.py`; editing it does nothing.",
         "",
         f"**{n_assigned} of {len(open_problems)} open problems assigned.**",
         "",

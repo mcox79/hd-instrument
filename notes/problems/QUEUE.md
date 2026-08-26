@@ -1,8 +1,8 @@
-# Problem queue -- tick `[x]` when you've assigned a problem to a solver
+# Problem queue -- a READ-ONLY MIRROR of the GUI's ASSIGNED checkboxes
 
 `[x]` = assigned / actively being worked by a solver.  `[ ]` = open, available to assign.
-Refresh with `python tools/problem_queue.py` -- it adds new open problems (unchecked), drops
-integrated ones, and KEEPS your ticks. Ticking a box is a private marker; it changes nothing else.
+**Tick problems in the GUI (tab 6, PROBLEMS -- the ASSIGNED column), not here.** This file is
+regenerated from that shared state by `python tools/problem_queue.py`; editing it does nothing.
 
 **0 of 5 open problems assigned.**
 
