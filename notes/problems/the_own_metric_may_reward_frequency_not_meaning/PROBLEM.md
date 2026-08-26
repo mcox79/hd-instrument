@@ -1,0 +1,105 @@
+---
+priority: 2
+review:
+review_text:
+---
+
+# PROBLEM: our "stage 2 is broken" verdict rests on a home metric that may be scoring FREQUENCY, not MEANING
+
+**slug:** `the_own_metric_may_reward_frequency_not_meaning` - **opened:** 2026-08-25 by the strategy session
+**status:** OPEN - **the confound is first-hand and re-verified (from p2), not relayed**
+
+> **PRIORITY NOTE:** filed at `2` as the direct successor to `meaning_read_out_untested_on_the_own_metric`
+> (p2, just integrated). It sits UNDER the whole meaning line, so on evidence it may deserve to sit above
+> some of it. Re-rank against the goal-bearing line (p1) if you judge that higher.
+
+> **If a tool call is denied, STOP and report the exact denial text verbatim. Do not retry a variant.**
+
+## 1. THE PROBLEM IN PLAIN LANGUAGE
+
+We call the meaning stage "broken" because, on our home test, plain word-counting beats our meaning
+organs 2-3x. The home test: for a word the reader grounded, pick ONE partner word; you score a hit if
+that partner is a known related word (a ConceptNet neighbour). p2 just showed something alarming about
+this test: **the score is carried almost entirely by RAW FREQUENCY.** Normalise frequency out (PMI) and
+the score collapses ~8x. Every genuinely meaning-based method loses on this test PRECISELY BECAUSE it
+stops rewarding "just pick the most frequent partner." So the test may be rewarding "guess the commonest
+neighbour" -- which is frequency, not meaning. If that is true, "beat counting on this test" is not a
+fair bar for a meaning read-out; it asks meaning to win a frequency contest.
+
+## 2. WHY THIS ONE
+
+It sits UNDER the whole meaning line. The "stage 2 is broken" diagnosis, the "counting beats us" wall,
+and the p2 wiring decision (NO) ALL rest on this one metric. If the metric conflates meaning with
+frequency, those conclusions are measuring the wrong thing and a real meaning win could be invisible.
+This is the project's own standing lesson -- *a benchmark selected by a resource cannot fairly score that
+resource* -- applied to our home yardstick. Get it right and everything downstream is re-framed on solid
+ground; get it wrong and we keep declaring meaning broken on a frequency test.
+
+## 3. HOW THE BRAIN DOES THIS (frame + discipline)
+
+The brain assigns the CONTEXT-APPROPRIATE meaning, not the most frequent associate -- sense selection is
+driven by current context, and frequency is a PRIOR that context overrides (PINNED: lexical-ambiguity
+resolution; the most-frequent-sense is a baseline the brain BEATS when context demands). A fair meaning
+test must therefore reward picking the RIGHT partner even when it is NOT the most frequent one. The
+discipline: separate the two things the metric currently confounds -- frequency (a prior) and meaning
+(context-appropriate relatedness) -- and check whether our read-outs win on the meaning part once
+frequency is held fixed.
+
+## 4. MEASURED vs INFERRED
+
+MEASURED (p2, re-verified to the digit): on the current metric, TOP_COOC (raw-frequency argmax)
+`0.048-0.065` beats every meaning read-out (`0.007-0.023`), and PMI-normalised counting collapses to
+`0.004-0.013` (~8x below raw) -- the metric rewards raw frequency; normalising it out destroys the
+signal. Oracle ceiling ~`0.46-0.50` (the gold partner is reachable ~half the time -> misses are RANKING
+failures, not coverage).
+INFERRED (the open question, decisive either way): that a FREQUENCY-CONTROLLED version of the metric
+(where raw-frequency argmax cannot win by frequency alone) either (a) ERASES counting's advantage -- the
+metric was scoring frequency -- or (b) PRESERVES it -- the metric is fair and meaning genuinely loses.
+
+## 5. ALREADY TRIED (do not re-run)
+
+- The read-outs vs counting on the CURRENT metric -- done (p2, they lose CI-separated). Do NOT re-run.
+- TOPK_GROUNDED (frequency-salience selects, grounded hub discriminates) on the CURRENT metric -- done
+  (p2: beats its twin CI-separated, beats counting numerically, CI touches zero -- sub-threshold). Its
+  re-test belongs on the FAIR metric (phase b below), NOT the current one.
+Query `experiment_index.py query "grounding precision"`, `query "frequency"`, `query "most frequent"` and
+check the ledger first.
+
+## 6. VERIFY BEFORE YOU START (the disk outranks this brief)
+
+- Read `data/exp_grounding_precision_gold_v1/` + `experiments/exp_meaning_readout_own_metric_v1.py` and
+  reproduce the raw-vs-PMI 8x collapse yourself. Confirm how the candidate pool is built (what counting
+  argmaxes over) and that the gold is ConceptNet neighbours.
+- Confirm the confound in one check: are the GOLD partners themselves usually the HIGH-FREQUENCY
+  co-occurrents? If the gold answer IS typically the most frequent co-occurrent, that is the confound.
+
+## 7. THE BAR
+
+**Phase (a) -- is the metric fair?** Build a FREQUENCY-CONTROLLED own-metric (copy the brain's separation
+of prior from meaning): candidates frequency-matched to the gold so raw-frequency argmax cannot win by
+frequency alone, OR gold restricted to items that are NOT the top-frequency co-occurrent -- state which
+and why it isolates meaning, and keep it powered (>= ~300 scorable items). Re-measure counting there.
+**Phase (b) -- does meaning win on the fair metric?** On that frequency-controlled metric, does a meaning
+read-out -- and TOPK_GROUNDED + the 3 brain-faithful encoding arms (graded temporal window /
+prediction-error weighting / decay; specified in the p2 brief section 7B) -- beat a FREQUENCY floor
+CI-separated over its upper bound, info-free twin LOSING?
+**DECISIVE EITHER WAY:** if counting's CI-separated advantage DISAPPEARS under frequency control, the
+metric was scoring frequency and the "stage 2 broken / wiring NO" conclusions must be RE-FRAMED on the
+fair metric. If counting STILL wins under frequency control, the metric is fair and meaning genuinely
+loses -- report that; it closes the line honestly. HOW WE WOULD KNOW IT FAILED (as a problem): no
+frequency-controlled metric can be built that BOTH stays powered AND removes the confound -- then say so.
+
+## 8. FILES AND ENTRY POINTS
+
+- `data/exp_grounding_precision_gold_v1/`, `experiments/exp_meaning_readout_own_metric_v1.py` (+ `_ksweep`)
+  -- the current metric, the p2 read-outs, and the counting floor.
+- `data/conceptnet_gold_v1` -- the gold neighbours.
+- The 3 brain-faithful encoding arms are specified in
+  `notes/problems/meaning_read_out_untested_on_the_own_metric/PROBLEM.md` section 7B -- reuse for phase (b).
+- Prove in `experiments/` + `verification/`; propose any hdlab wiring in `SOLVED.md` (strategy lands it,
+  board Q111). Do NOT write `hdlab/`.
+
+## DO NOT QUOTE / DO NOT REDO
+
+- Do NOT re-run the read-outs vs counting on the CURRENT metric (p2 did it).
+- Do NOT quote the borrowed-scorer numbers (WordSim `0.45`, substitutability `0.84`) here -- different scorers.
