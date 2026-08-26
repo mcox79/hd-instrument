@@ -48,8 +48,11 @@ read, deviation #3, is NOT closed). **Lever for more = reading VOLUME (coverage)
 taxonomic Stage B (which carries NO valence); the sign-scramble twin proves the RELATION'S SIGN carries good/bad
 (0.726 on 485 vs shipped 0.660 on 326). Deep: **opposition is IRREDUCIBLE** (antonyms similar in every feature
 space, so the flip must be an explicit relation) and the **graded readout is hidden** (vote magnitude rho 0.400 with
-continuous ratings); universal across POS, sharpest on adjectives (0.8845). 🔌 **Stage-B replacement in
-`wordnet_polarity_propagation.py` recorded as a proven-ready deliberate landing (default-off + witness).** AUDIT
+continuous ratings); universal across POS, sharpest on adjectives (0.8845). 🔌 **Stage-B replacement LANDED in
+`hdlab/wordnet_polarity_propagation.py`** -- `dictionary_lookup(..., signed_propagation=True)`, DEFAULT-OFF
+(byte-identical when off; verified IDENTICAL to the proven cell mechanism across 22 probes); witness
+`test_valence_signed_propagation_landing.py` PASS. Turn on when the valence organ's consumer wants the wider,
+sharper axis. AUDIT
 UPDATE folded in (affect/valence tier now fidelity-scored). ➡️ **PRIORITY RESHUFFLE DONE (with p2+p3+the audit):
 packaged the audit's top-2 unqueued brain-faithfulness deviations. NEW QUEUE (brain-faithfulness blast radius):
 p1 `the_sign_quantiser_makes_the_substrate_an_averaging_machine` (the cross-cutting `sign→graded` fix, ~34 sites);

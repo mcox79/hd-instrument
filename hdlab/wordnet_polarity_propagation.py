@@ -64,6 +64,20 @@ VOTE_MARGIN = 0.15             # Stage-B abstain floor on the normalized vote ma
 VOTE_MARGIN_SATURATE = 0.50    # NEW (combined pre-reg): margin at which confidence saturates to 1.0
 K_MAX = MIN_CONFIRM            # NEW: max pseudo-count == a fully-confirmed consequence lock (= 3)
 
+# ---- signed lexical-relation propagation (DEFAULT-OFF replacement for Stage B) --------------------
+# Promoted from experiments/exp_signed_lexical_valence_propagation_v1.py (problem
+# propagate_along_the_relation_that_carries_valence, SOLVED + integrated EXCELLENT 2026-08-26).
+# Antonymy FLIPS valence (-1); synonymy / similar-to / verb-group / derivational / also-see PRESERVE
+# it (+1). Taxonomic path-similarity (Stage B) carries NO valence (Spearman -0.0023, af3be862f), so
+# signed propagation over the valence-bearing relations replaces it: 0.726 on 485 vs Stage B's 0.660
+# on 326, and the SIGN is load-bearing (sign-scramble twin -> chance). Opposition is IRREDUCIBLE --
+# it is invisible in every feature geometry (antonym rating-corr -0.556 yet embodied 0.270 ~ synonym
+# 0.266) so the flip must be an explicit relation. DEFAULT OFF: dictionary_lookup(...) is byte-
+# identical unless signed_propagation=True. gamma is sweep-flat (the sign dominates the vote).
+SIGNED_H_MAX = 2               # propagate up to 2 hops (valence is a short-range signed spread)
+SIGNED_GAMMA = 0.5             # per-hop decay
+SIGNED_MARGIN = 0.0            # abstain only on an exact tie (vote == 0); never buy accuracy with a gate
+
 
 # =============================================================================================
 # ANCHOR (derived from the already-vetted seed lexicon; zero new seed-authoring)
@@ -134,6 +148,100 @@ def _antonyms(word: str) -> FrozenSet[str]:
 
 
 # =============================================================================================
+# signed lexical-relation graph + propagator (DEFAULT-OFF; clean-lift of
+# exp_signed_lexical_valence_propagation_v1.{signed_neighbours,signed_reach,predict_signed}, credited)
+# =============================================================================================
+_signed_neigh_cache: Dict[str, Dict[str, set]] = {}
+
+
+def _signed_neighbours(word: str) -> Dict[str, set]:
+    """{neighbour: set_of_signs} over VALENCE-BEARING verb-sense relations. Antonymy -1 (FLIP);
+    synonymy / derivational / similar-to / also-see / verb-group +1 (PRESERVE). A neighbour reachable
+    by both carries {+1,-1} and is treated sign-ambiguous downstream (honest, never guessed)."""
+    if word in _signed_neigh_cache:
+        return _signed_neigh_cache[word]
+    out: Dict[str, set] = {}
+
+    def add(w, s):
+        w = w.lower().replace("_", " ")
+        if w == word:
+            return
+        out.setdefault(w, set()).add(s)
+
+    for w2 in _FLIP.get(word, ()):                                # curated flip-opposites: antonymy
+        add(w2, -1)
+    try:
+        for s in wn.synsets(word, pos=wn.VERB):
+            for lem in s.lemmas():
+                add(lem.name(), +1)                              # synonymy (same synset): preserve
+                for ant in lem.antonyms():                       # antonymy: FLIP
+                    add(ant.name(), -1)
+                for d in lem.derivationally_related_forms():     # derivational: preserve
+                    add(d.name(), +1)
+            for rel in (s.similar_tos(), s.also_sees(), s.verb_groups()):   # near-syn: preserve
+                for s2 in rel:
+                    for lem2 in s2.lemmas():
+                        add(lem2.name(), +1)
+    except Exception as e:  # record + re-raise (never a phantom empty neighbourhood)
+        raise RuntimeError(f"wordnet signed-neighbour lookup failed for {word!r}: {e}")
+    _signed_neigh_cache[word] = out
+    return out
+
+
+def _signed_reach(target: str, anchors: FrozenSet[str], h_max: int) -> Dict[str, tuple]:
+    """Signed BFS from `target` to depth h_max. {anchor: (depth, sign)}, sign in {+1,-1,0}; 0 == the
+    shortest paths disagree on sign (excluded from the vote). depth >= 1 (anchors != target)."""
+    depth_of = {target: 0}
+    signs_at = {target: {+1}}
+    cur = [target]
+    for d in range(1, h_max + 1):
+        nxt: Dict[str, set] = {}
+        for u in cur:
+            us = signs_at[u]
+            for v, edge_signs in _signed_neighbours(u).items():
+                if v in depth_of and depth_of[v] < d:
+                    continue                                     # already reached shallower
+                for us1 in us:
+                    for e in edge_signs:
+                        nxt.setdefault(v, set()).add(us1 * e)
+        for v, ss in nxt.items():
+            if v not in depth_of:
+                depth_of[v] = d
+            if depth_of[v] == d:
+                signs_at.setdefault(v, set()).update(ss)
+        cur = [v for v in nxt if depth_of[v] == d]
+    out: Dict[str, tuple] = {}
+    for a in anchors:
+        d = depth_of.get(a)
+        if d is None or d < 1:
+            continue
+        ss = signs_at[a]
+        sign = (+1 if ss == {+1} else (-1 if ss == {-1} else 0))
+        out[a] = (d, sign)
+    return out
+
+
+def _signed_predict(reach: Dict[str, tuple], poles: Dict[str, int],
+                    gamma: float = SIGNED_GAMMA, margin: float = SIGNED_MARGIN,
+                    hop_cap: int = SIGNED_H_MAX):
+    """Vote = sum pole*sign*gamma^(depth-1) over reached anchors. Returns (polarity|None, vote, n).
+    Abstain on a tie (vote == 0), n == 0, or |vote|/n < margin. Sign-ambiguous anchors (sign 0) do
+    not vote. The |vote| MAGNITUDE tracks continuous human valence (Spearman 0.400) -- graded output."""
+    vote = 0.0
+    n = 0
+    for a, (d, sign) in reach.items():
+        if d > hop_cap or sign == 0:
+            continue
+        vote += poles[a] * sign * (gamma ** (d - 1))
+        n += 1
+    if n == 0 or vote == 0.0:
+        return None, vote, n
+    if abs(vote) / n < margin:
+        return None, vote, n
+    return ("POS" if vote > 0 else "NEG"), vote, n
+
+
+# =============================================================================================
 # DictLookup record + dictionary_lookup (the extended contract; anchor_propagate 3c logic UNCHANGED)
 # =============================================================================================
 class DictLookup(NamedTuple):
@@ -158,9 +266,25 @@ def _anchor_verb_synsets(anchor_words: FrozenSet[str]) -> Dict[str, list]:
 
 def dictionary_lookup(lemma: str,
                       anchor_words: FrozenSet[str] = ANCHOR_WORDS,
-                      anchor_polarity: Dict[str, str] = ANCHOR_POLARITY) -> DictLookup:
+                      anchor_polarity: Dict[str, str] = ANCHOR_POLARITY,
+                      signed_propagation: bool = False) -> DictLookup:
     """Look up `lemma`'s result-valence against the anchor. Stage A (antonym opposition) first, then
-    Stage B (neighbor vote). Deterministic, glass-box. Returns DictLookup (polarity None == abstain)."""
+    Stage B (neighbor vote). Deterministic, glass-box. Returns DictLookup (polarity None == abstain).
+
+    signed_propagation=True (DEFAULT OFF) REPLACES Stage A+B with signed lexical-relation propagation
+    (antonym flips, synonym/verb-group/derivational preserve; taxonomy carries no valence) -- proven
+    to beat the taxonomic Stage B (0.726 vs 0.660) at wider coverage, and it SUBSUMES Stage A (the
+    antonym-of-anchor case is the 1-hop flip). Default OFF => this function is byte-identical."""
+    if signed_propagation:
+        poles = {a: (+1 if anchor_polarity[a] == "POS" else -1) for a in anchor_words}
+        reach = _signed_reach(lemma, anchor_words, SIGNED_H_MAX)
+        pol, vote, n = _signed_predict(reach, poles)
+        if pol is None:
+            return DictLookup(None, 0.0, "abstain", round(abs(vote) / n, 6) if n else 0.0, n)
+        nmargin = abs(vote) / n                              # graded valence intensity (rho 0.400)
+        conf = max(0.0, min(1.0, (nmargin - VOTE_MARGIN) / (VOTE_MARGIN_SATURATE - VOTE_MARGIN)))
+        return DictLookup(pol, conf, "signed", round(nmargin, 6), n)
+
     # ---- Stage A: antonym opposition (higher precedence) -----------------------------------------
     anto = _antonyms(lemma) & anchor_words
     if anto:
@@ -226,9 +350,10 @@ def pseudo_counts_from_dictionary(lookups: Dict[str, DictLookup],
 
 
 def lookups_for(lemmas, anchor_words: FrozenSet[str] = ANCHOR_WORDS,
-                anchor_polarity: Dict[str, str] = ANCHOR_POLARITY) -> Dict[str, DictLookup]:
+                anchor_polarity: Dict[str, str] = ANCHOR_POLARITY,
+                signed_propagation: bool = False) -> Dict[str, DictLookup]:
     """Convenience: {lemma: dictionary_lookup(lemma)} over an iterable of lemmas."""
-    return {lm: dictionary_lookup(lm, anchor_words, anchor_polarity) for lm in lemmas}
+    return {lm: dictionary_lookup(lm, anchor_words, anchor_polarity, signed_propagation) for lm in lemmas}
 
 
 # =============================================================================================
@@ -247,6 +372,17 @@ def self_test() -> dict:
     assert lu1 == lu2, "GLASS-BOX FAILURE: non-deterministic dictionary_lookup"
     assert lu1.stage in ("antonym", "neighbor", "abstain")
     assert 0.0 <= lu1.confidence <= 1.0
+
+    # (2b) SIGNED PROPAGATION (default-off replacement for Stage B): default is BYTE-IDENTICAL, and the
+    # relation SIGN is load-bearing (preserve keeps the pole, antonym flips it, ambiguous does not vote).
+    assert dictionary_lookup("ruin") == dictionary_lookup("ruin", signed_propagation=False), \
+        "default must equal signed_propagation=False (byte-identical)"
+    _poles = {"good": +1, "bad": -1}
+    assert _signed_predict({"good": (1, +1)}, _poles)[0] == "POS", "preserve keeps the pole"
+    assert _signed_predict({"good": (1, -1)}, _poles)[0] == "NEG", "antonym flips the pole"
+    assert _signed_predict({"good": (1, 0)}, _poles)[0] is None, "sign-ambiguous does not vote"
+    _lus = dictionary_lookup("ruin", signed_propagation=True)
+    assert _lus.stage in ("signed", "abstain") and 0.0 <= _lus.confidence <= 1.0
 
     # (3) abstain never crashes + yields no pseudo-count.
     lu_oov = dictionary_lookup("zzznotarealverb")

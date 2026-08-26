@@ -60,8 +60,10 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
   relation `[P]`. **The one real deviation is the READOUT:** valence is a graded bipolar axis (Osgood; OFC), but the
   organ reports a discrete pole — the signed-vote magnitude already tracks the continuous rating at ρ 0.400, so the
   binary readout hides ~half the signal. Signed propagation reaches 0.726 on 485 words (vs shipped 0.660 on 326);
-  universal across POS, sharpest on adjectives (0.8845). Organ recorded as a proven-ready deliberate landing
-  (Stage-B replacement, default-off + witness).
+  universal across POS, sharpest on adjectives (0.8845). **LANDED 2026-08-26** in
+  `hdlab/wordnet_polarity_propagation.py` as `dictionary_lookup(..., signed_propagation=True)` (DEFAULT-OFF,
+  byte-identical when off, verified identical to the proven cell mechanism; witness
+  `test_valence_signed_propagation_landing.py` PASS) -- turn on when the consumer wants the wider/sharper axis.
 
 - **2026-08-26 — MEMORY TIER / DEVIATION #2 advanced** (from `no_automatic_reliability_signal_reaches_the_source_oracle`,
   integrated EXCELLENT). A **DG pattern-separation + CA3 completion recollection gate** was built and re-verified:
