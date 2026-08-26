@@ -31,7 +31,24 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- ✅ **sign() RE-INTEGRATED properly on owner-DONE (verdict PARTIAL); + PROCESS FIX: a directional "yes" is NOT a per-problem owner-DONE (rule reinforced)**
+### 2026-08-26 (LATEST) -- ✅ **p4 prediction_error INTEGRATED (owner-DONE, EXCELLENT): the brain's missing UPDATE signal (N400 event-segmentation) is BUILT + proven; fills the MISSING F5 organ**
+`the_substrate_does_not_learn_or_update_by_prediction_error` SOLVED via the UPDATE/SEGMENTATION framing. Re-verified
+scaffold-free first-hand (`verify_prediction_error_event_segmentation.py` PASS). A GRADED forward CONTENT prediction
+error against the RUNNING (reset-per-event) situation-model state segments a discourse near-perfectly -- within-event
+cross-role recovery **0.988 [0.980,0.995]** vs FIXED 0.523 / RANDOM 0.438 / FORM_NOVELTY 0.737 (floor) / PERMUTED 0.487,
+boundary F1 0.987, all 9 cells, at a MATCHED boundary rate (win is POSITION not rate). **Fills the audit's MISSING F5
+(N400 coherence monitor).** Key: the residual must be graded AND in a CONTENT-similar space -- the naive `||Δregister||`
+in the near-orthogonal binding space ties no-op = **the p1 sign_quantiser coupling made concrete**. Deviation #6 SPLIT
+(UPDATE half = build, WINS; LEARNING half = rigorous negative, deprioritise). 4 AUDIT UPDATEs folded; review + SOLVER
+REVIEW in PROBLEM.md; priority cleared.
+🔧 **TWO PROVEN-READY hdlab LANDINGS QUEUED (deliberate; each needs its own witness + a LIVE-task check before any
+capability claim -- architecture/organ builds, NOT floor-beaters; WIRE-DON'T-ISLAND hygiene, done as focused passes):**
+(1) the **N400 organ** (graded content-PE + EST `relative_threshold_gate` boundary + wire `situation_model_accumulate`);
+(2) the **cortical-read CLS matched pair** (graded sparse+inhibited `space="overlap"` read + p2-recollection-gate routing).
+*Queue: p1 two-systems, p3 content-addressable retrieval, p5 one-store, p6 meaning-wiring, p7 relcl -- all open, unique;
+sign_quantiser + prediction_error cleared (integrated).*
+
+### 2026-08-26 -- ✅ **sign() RE-INTEGRATED properly on owner-DONE (verdict PARTIAL); + PROCESS FIX: a directional "yes" is NOT a per-problem owner-DONE (rule reinforced)**
 **What went wrong:** I integrated `the_sign_quantiser...` (its READ-OUT half, status REFUTED) off the owner's
 DIRECTIONAL "be as brain foundational as possible" -- treating a direction as a per-problem finalization. The solver
 was STILL iterating and delivered a FINAL verdict of **PARTIAL**: the read-out refutation stands, BUT in the

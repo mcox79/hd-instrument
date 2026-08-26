@@ -50,6 +50,31 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-26 — F5 (N400 COHERENCE MONITOR): the MISSING organ now has a validated build spec + a decisive
+  existence proof; and DEVIATION #6 SPLITS** (from `the_substrate_does_not_learn_or_update_by_prediction_error`,
+  integrated EXCELLENT, owner-DONE; witness `verify_prediction_error_event_segmentation.py` PASS, re-verified
+  first-hand). The brain's UPDATE signal was MISSING, not impossible. A **GRADED forward CONTENT prediction error
+  against the RUNNING (reset-per-event) situation-model state** — `e = 1 − cos(content, running_event_gist)`,
+  boundary-posted via the existing EST `relative_threshold_gate` (Reynolds/Zacks/Braver 2007, already in
+  `predictive_coding.py`) — segments a discourse near-perfectly and fills the situation model: downstream within-event
+  cross-role recovery **0.988 [0.980,0.995]** vs FIXED 0.523 / RANDOM 0.438 / FORM_NOVELTY 0.737 (strongest floor) /
+  PERMUTED_SURPRISE 0.487, boundary F1 0.987, WIN in all 9 D×coherence cells, at a MATCHED boundary rate (so the win
+  is boundary POSITION, not rate). **Key dissociation — the p1 coupling made concrete:** the naive `||Δregister||` in
+  the near-orthogonal BINDING space TIES no-segmentation (0.202 vs 0.198); the residual must be graded AND computed in
+  a CONTENT-similar space, not the sign-quantised/near-orthogonal one. Escapes the two prior negatives' trap:
+  FORM_NOVELTY (surprise vs a whole-stream anchor that NEVER resets) caps at 0.737 — the RUNNING RESET is what makes it
+  the N400. Foundationality drill: the win does not hinge on the predictor (running-mean / last-item / online
+  Rao-Ballard learned transition all win identically). **Effect on the audit:** (1) **F5 (§4 Tier 3) MISSING → spec'd +
+  existence-proven.** (2) **E2's "missing the PE segmentation that decides WHEN to write" confirmed + actionable** —
+  advance `situation_model_accumulate`'s event slot on an F5 boundary (0.20→0.99 in-instrument). (3) **DEVIATION #6
+  SPLITS into two rows with OPPOSITE verdicts:** the UPDATE half (N400/SEM segmentation) is missing-buildable-and-WINS
+  → BUILD; the LEARNING half ("cloze not forward-PC") is a RIGOROUS NEGATIVE (forward-PC does NOT beat cloze on
+  paradigmatic meaning) → DEPRIORITISE. (4) **Tier 5 `predictive_coding.py` RIGHT-OP-WRONG-METRIC confirmed** + a
+  companion positive: the residual is graded in salience (ρ 0.77) and the EST relative-threshold machinery there is
+  correct but UNWIRED. ⚠️ Synthetic construction proof — the N400 organ (graded content-PE + EST boundary + wire to
+  `situation_model_accumulate`) is a **PROVEN-READY hdlab landing, queued as a focused build with its own witness**
+  (alongside the cortical-read organ). NO hdlab landing yet.
+
 - **2026-08-26 — DEVIATION #2 (`sign()`) BINDING REGIME: CONFIRMED-but-LATENT, coupled to B4** (from
   `the_sign_quantiser_makes_the_substrate_an_averaging_machine`, **RE-INTEGRATED PROPERLY on the owner's per-problem
   owner-DONE**; the binding drill + live verification re-verified scaffold-free first-hand, both reproduce). This is the
@@ -241,7 +266,7 @@ Grouped by the brain's functional tiers. `[P]` = brain equation PINNED, `[U]` = 
 - **Thematic role assignment** (Competition Model: cue validity `[P]`) — `thematic_role_labeler.py`. **RIGHT-OP-WRONG-METRIC:** raw counts are not cue-validity; cue *cost* absent; animacy-dominant; HARD_FAIL on real text.
 - **Role–filler binding** (theta-gamma / conjunctive / tensor-product — **UNPINNED & 3-way CONTESTED** `[U]`) — `binding.py` (FHRR complex-multiply). **OPERATOR VALIDATED 2026-08-26** (see §2b): at EQUAL storage FHRR beats the writable brain theories (TPR/conjunctive), so it is an efficient choice, NOT the "deepest deviation." ➡️ **The deviation is one level up — the flat-superposition RETRIEVAL (shared with E2/E3): the brain SEPARATES into slots + retrieves CONTENT-ADDRESSABLY; a faithful version beats FHRR ~5x under a partial cue.** The owned fix (`ca3_completer` + `dg_pattern_separation`, both default-off) is unwired.
 - **Situation-model register / event indexing** (SEM, PE-segmented `[U]`) — `situation_model_accumulate.py`/`_multibank`, `situation_reader.py`. **RIGHT-OP-WRONG-PLACE:** has the register; **missing the prediction-error segmentation that decides WHEN to write.**
-- **N400 coherence monitor** (running-model update magnitude; reference `[P]`, norm `[U]`) — **MISSING.** No module computes ‖Δsituation-model‖. A clean Phase-B target.
+- **N400 coherence monitor** (running-model update magnitude; reference `[P]`, norm `[U]`) — **MISSING, but now SPEC'D + EXISTENCE-PROVEN 2026-08-26 (§2b).** The norm that WORKS is a GRADED forward CONTENT prediction error `1 − cos(content, running_event_gist)` (running reset per event), boundary-posted via the EST `relative_threshold_gate`; it segments discourse and fills the situation model 0.988 vs ≤0.762 floors. The norm that FAILS is the literal `||Δregister||` in the binding space (ties no-op). Build target sharpened; PROVEN-READY hdlab landing queued.
 - **Construction-Integration** (Kintsch `[P]-ish`) — **MISSING.**
 
 ### TIER 4 — MEMORY SYSTEMS
@@ -313,8 +338,10 @@ thin/UNPINNED and, structurally, "IS coreference in disguise → must reuse the 
 4. **DENSE where the brain is SPARSE + GRADED** (B4) — the largest measured single lever we own (16× dims).
 5. **ONE STORE DOING TWO JOBS** — fast hippocampal binding and slow cortical consolidation are conflated; the
    faithful consolidation engine (`continual.py`) is **islanded**.
-6. **ADDITIVE where control is MULTIPLICATIVE** (IFG gain, C3); **CLOZE where learning is FORWARD-PREDICTIVE**
-   (encoder objective is bidirectional MLM, not prediction-error).
+6. **ADDITIVE where control is MULTIPLICATIVE** (IFG gain, C3); **CLOZE where learning is FORWARD-PREDICTIVE** —
+   **SPLIT 2026-08-26 (§2b) into two rows with OPPOSITE verdicts:** the UPDATE/segmentation half (the N400 coherence
+   monitor, F5) is missing-buildable-and-WINS → BUILD; the LEARNING half ("we learn by cloze not forward-PC") is a
+   RIGOROUS NEGATIVE (forward-PC does NOT beat cloze on paradigmatic meaning) → DEPRIORITISE. Do not couple them.
 7. **~54% OF THE CODE IS UNREACHABLE** — built-but-unwired islands; several *faithful* organs (DG separation,
    cascade-adjacent, `continual.py`) sit unwired.
 

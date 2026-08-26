@@ -1,8 +1,24 @@
 ---
-priority: 4
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "INTEGRATED 2026-08-26 (owner-DONE). EXCELLENT; SOLVED via the UPDATE/SEGMENTATION framing (one of the two admissible bar framings). Re-verified scaffold-free FIRST-HAND (verify_prediction_error_event_segmentation.py PASS). The brain's UPDATE signal was MISSING, not impossible: a GRADED forward CONTENT prediction error against the RUNNING (reset-per-event) situation-model state (N400 = 1-cos(content, running_event_gist)), boundary-posted via the existing EST relative_threshold_gate, segments a discourse near-perfectly -- downstream within-event cross-role recovery 0.988 [0.980,0.995] vs FIXED 0.523 / RANDOM 0.438 / FORM_NOVELTY 0.737 (strongest floor) / PERMUTED_SURPRISE 0.487, boundary F1 0.987, WIN in all 9 cells, at a MATCHED boundary rate (so the win is POSITION not rate). Deep + honest: dissociation (naive ||Delta register|| in the near-orthogonal binding space TIES no-op -> the residual must be graded AND in a CONTENT-similar space = the p1 sign_quantiser coupling made concrete); escapes the two prior negatives' trap (form-novelty vs a never-resetting anchor caps at 0.737; the RUNNING RESET is the N400); foundationality drill (running-mean/last-item/online-learned-transition all win, so the result doesn't hinge on the convenient predictor); honest sub-negatives (a precision estimator HURTS; the LEARNING framing is a rigorous negative -- forward-PC does not beat cloze on paradigmatic meaning). FOLDED into BRAIN_FOUNDATIONAL_AUDIT.md: F5 (N400 monitor) MISSING -> spec'd + existence-proven; E2 missing-PE-segmentation confirmed+actionable; deviation #6 SPLIT (UPDATE=build, LEARNING=deprioritise); Tier 5 predictive_coding RIGHT-OP-WRONG-METRIC confirmed. The N400 organ (graded content-PE + EST boundary + wire situation_model_accumulate) is a PROVEN-READY hdlab landing, queued as a focused build with its own witness (NO hdlab landing yet -- synthetic construction proof; measure on the live reader before any capability claim)."
 ---
+
+> ## SOLVER REVIEW (strategy, 2026-08-26 — integrated on owner-DONE)
+> **Grade: EXCELLENT. Outcome: SOLVED (UPDATE/SEGMENTATION framing).** Re-verified scaffold-free first-hand
+> (`verify_prediction_error_event_segmentation.py` PASS).
+> - **The missing UPDATE signal, built.** A GRADED forward CONTENT prediction error against the RUNNING
+>   (reset-per-event) situation-model state segments a discourse near-perfectly (within-event cross-role recovery
+>   **0.988** vs 0.52/0.44 baselines and a 0.737 form-novelty floor; boundary F1 0.987; WIN in all 9 cells), at a
+>   matched boundary RATE — so the win is boundary POSITION, not rate (the control that killed the prior write-gate).
+> - **Why the two prior "surprise" negatives died:** they measured FORM novelty against a never-resetting anchor; the
+>   RUNNING RESET to the current-event gist is what makes it the N400. And the residual must live in a CONTENT-similar
+>   space — the naive `||Δregister||` in the near-orthogonal binding space ties no-op (the p1 coupling made concrete).
+> - **Honest negatives kept:** a precision estimator hurts; the LEARNING framing (forward-PC beating cloze) is a
+>   rigorous negative → deviation #6 splits (UPDATE = build, LEARNING = deprioritise).
+> **Folded:** audit F5 (N400 monitor) MISSING → spec'd + existence-proven; E2 confirmed/actionable; deviation #6 split;
+> Tier 5 `predictive_coding` confirmed. The N400 organ is a **PROVEN-READY hdlab landing, queued with its own witness**
+> (no landing yet — synthetic proof; measure on the live reader first).
 
 # PROBLEM: the brain LEARNS and UPDATES by prediction error -- its single most pervasive computation -- and we do neither (we learn by cloze and never update on surprise)
 
