@@ -1,8 +1,29 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Re-verified scaffold-free (witness PASS, reproduced first-hand). A MODEL of the strengthened protocol: it REFUTED the surface question (is our bind operator wrong?) -- at EQUAL storage our compressed FHRR bind BEATS the two writable brain theories (tensor-product, conjunctive), so the operator is VALIDATED as efficient, not a liability -- then went one level DEEPER and located the REAL deviation: the flat-superposition RETRIEVAL architecture. We cram many bindings into one vector and un-mix on demand; the brain SEPARATES into slots and retrieves CONTENT-ADDRESSABLY, so a partial cue still works. Built the brain version (theta-gamma content-addressable separation) and stressed both with a degraded cue: it recovers ~5x more often (0.128 vs 0.025 at D64/N16/p0.9), CI-separated, at EQUAL storage, every info-free twin losing. Load-bearing negative: routing FHRR through the real CA3 attractor TIES argmax -- you cannot clean your way out of superposition, the fix is the STORAGE architecture. The substrate ALREADY OWNS the parts (ca3_completer, dg_pattern_separation, both default-off) but wires them so the advantage is lost. Honestly scoped as a synthetic construction proof, NOT a downstream win. Re-locates audit deviation E1 (operator validated; deviation is the retrieval, shared with E2/E3)."
 ---
+
+> # MY REVIEW -- EXCELLENT. IT REFUTED THE SURFACE QUESTION, VALIDATED THE OPERATOR AGAINST THE BRAIN THEORIES, AND RE-LOCATED THE DEVIATION ONE LEVEL UP.
+> *Reviewed 2026-08-26 (owner-DONE). Re-verified scaffold-free: `verification/verify_binding_operator_stress.py` PASS -- GUARD confirms FHRR_percomp == `hdlab.bundling.bundle` (the baseline IS the live op); info-free twins all lose (<0.008); HEADLINE theta 0.1281 [0.1164,0.1408] vs FHRR 0.0247 [0.0196,0.0310] CI-separated; CA3 attractor cleanup TIES argmax (0.0236 vs 0.0247); normaliser percomp 0.4003 < L2 0.5330; content-addressable theta 0.3865 > hash-routed multibank 0.1965 CI-separated.*
+>
+> ## WHY EXCELLENT
+> The brief asked "is our central operation, the bind, non-brain-faithful?" The solver answered it AND then did the harder, more valuable thing: it showed the question was aimed one level too low. **The bind OPERATOR is fine** -- at equal storage the compressed FHRR multiply beats the two brain theories you can actually write as an equation (tensor-product / Whittington TEM product; Rigotti-Fusi conjunctive), so it is an efficient choice, not a lazy one. TPR loses to FHRR in every exact-cue cell. That is a rigorous VALIDATION of the invention -- exactly the "a negative validates the foundation" outcome the brief framed as a full PASS.
+>
+> ## THE REAL DEVIATION, LOCATED AND MEASURED
+> The deviation is the flat-superposition RETRIEVAL built on the operator: we superpose many bindings into one vector and un-mix on demand; the brain SEPARATES (a few slots) and retrieves CONTENT-ADDRESSABLY (match the -- possibly partial -- cue, then complete). Under a degraded cue the brain mechanism (theta-gamma temporal separation) recovers **~5x more often, CI-separated, at EQUAL storage footprint**, every info-free twin losing -- and the win was PREDICTED by the CA3 partial-cue dissociation (Nakazawa 2002), not found by sweeping. The `theta_blind_slot` twin (random slot pick) loses CI-separated, so the role->slot MATCHING carries the information, not just clean storage.
+>
+> ## THE LOAD-BEARING NEGATIVE
+> Routing the FHRR readback through the brain's own CA3 attractor (`hdlab.iterative_attractor`, alpha=0.5) TIES argmax -- for a single noisy readback vs a near-orthogonal codebook, argmax is already the MAP estimate. **You cannot clean your way out of superposition crosstalk; you have to not superpose.** This kills the tempting "add attractor cleanup to the flat read" fix and points all the way back to the storage architecture -- a genuinely valuable negative.
+>
+> ## HONEST LIMITS (flagged, withdraw-first) -- and my scope
+> It is a SYNTHETIC-ALGEBRA construction proof, NOT a downstream comprehension win (the standing "isolation win is not a capability" lesson -- so the proposed changes MUST be measured on the live reading task before any capability claim). The theta win is REGIME-SPECIFIC (partial-cue / low-D interference; theta has a ~7-item capacity cliff and FHRR wins at exact cue). Roles are random/near-orthogonal, so the fan effect (where DG pattern separation would matter) is untested. All flagged withdraw-first. Exemplary.
+>
+> ## WHAT THIS CHANGES
+> **The binding foundation is RESOLVED (validated) and RE-LOCATED to the retrieval architecture (shared with E2/E3).** Two hdlab changes are earned (Q111, I land them):
+> - **A (small, safe, strongly evidenced):** the per-component superposition normaliser in `hdlab/bundling.py` only ever hurts (L2/raw-sum beat it 32/32, it wins zero); add a `norm="l2"` option -- WITH the coupled cosine readout in `hdlab/atoms.py:similarity` (which assumes per-component unit magnitude), landed together, DEFAULT-OFF, measured live before flipping. *Owner-flagged: touches the shared similarity path in two files, wants care.*
+> - **B (the real lever):** give the SEPARATED store (`situation_model_multibank`) a CONTENT-ADDRESSABLE retrieval path for partial cues (route `decode()` through the owned, default-off `ca3_completer` instead of the exact-key hash), paired with `dg_pattern_separation`. This is where the 5x lives -- a capability build measured on the live situation-model task, recorded as the proven-ready direction.
+> **AUDIT UPDATE folded into `BRAIN_FOUNDATIONAL_AUDIT.md`: E1 re-tagged (operator validated at equal storage; deviation is the flat-superposition retrieval; unifies E1/E2/E3 under cue-based content-addressable retrieval).**
 
 # PROBLEM: our single most central operation -- binding a role to a filler -- is an OUR-INVENTION with no settled brain equation, and everything is built on top of it
 
