@@ -61,6 +61,18 @@ BECAUSE it de-emphasises frequency. New priority-2 problem `the_own_metric_may_r
 (phase a: build a frequency-controlled metric; phase b: re-test TOPK_GROUNDED + the 3 brain-faithful encoding
 arms on it). The sub-threshold brain signal TOPK_GROUNDED (salience-select + grounded-discriminate) beats its
 twin CI-separated but its CI touches zero -- promising, not yet a win.
+🧠✅ **UPDATE 2026-08-25 (p2 owner-DONE re-integration): THE METRIC-FAIRNESS ANSWER IS PREVIEWED, AND POSITIVE.**
+p2's final content scored the SAME ConceptNet gold as DISCRIMINATION (rank neighbours above non-neighbours)
+instead of top-1 argmax: on HARD negatives (co-occurring non-neighbours) COUNT falls to `0.210` -- BELOW chance,
+it PREFERS co-occurrents -- while GROUNDED reads `0.728` CI-separated, info-free twin at chance. **So the meaning
+organs are NOT broken: they distinguish a true neighbour from a mere co-occurrent, which counting CANNOT; "the
+read-outs lose" was a property of the frequency-dominated TOP-1 scorer.** Concreteness-controlled residual `0.648`
+(the distributional/reading spoke does NOT survive -- it is a co-occurrence proxy; grounded-weighted beats equal
+fusion). ⚠️ These discrimination numbers are the solver's CONTROLLED finding but NOT yet scaffold-witnessed (the
+reverify covers top-1 only) -- they LAND via the metric-fairness problem. ➡️ **The meaning-line direction is now
+GROUNDED-WEIGHTED DISCRIMINATION, not top-1 argmax.** (p5 also re-integrated owner-DONE: elaborate reader REPLACED
+by a two-line rule, but the two-line rule is NOT the ceiling -- a filler-gap/dorsal-parser + cue-based-retrieval
+FRONTIER is a new problem to package.)
 
 ### 2026-08-25 -- 🧠 **MEANING STAGE RESOLVED INTO TWO ORGANS + FULLY PACKAGED; HOURLY ARCHITECT LOOP RUNNING**
 **The meaning mechanism is resolved, and it is NOT one thing -- two live organs landed this session,
