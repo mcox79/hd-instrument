@@ -78,8 +78,12 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
   (whitening); (b) the "semantic control THIN" gap is RE-POINTED — the near-term win is the FIXED two-system fusion, the
   task-switch gate is a later SELECTION-task deliverable, NOT for graded rating; (c) the two-similarity-systems row (from
   the sign_quantiser drill) is CONFIRMED + BUILT. Converges with the session theme: the remaining wall is meaning SUPPLY
-  (richer features), not the transform. 🔌 hdlab landing EARNED (the whitening transform as a default-off option on the
-  grounding carrier + fixed two-system fusion) — queued as a focused default-off landing with its own witness.
+  (richer features), not the transform. 🔌 hdlab landing **LANDED 2026-08-26**: the distinctive-feature WHITENING read-out is in
+  `hdlab/grounded_similarity.py` (`distinctive_grounded_vector` / `distinctive_grounded_similarity`, a NEW uncapped
+  meaning read-out; the capped link score is byte-identical), witness `test_distinctive_feature_grounding_organ.py`
+  PASS (distinctive rho 0.292 > raw 0.245 on SimLex through the organ's own transform; whitened covariance is exactly
+  identity), registered `distinctive_feature_grounding_v1` (WIRE_CANDIDATE, ISLAND). Use it as the feature-similarity
+  axis + a FIXED two-system fusion, NOT a switch; measure on the live read-out before any capability claim.
 
 - **2026-08-26 — F5 (N400 COHERENCE MONITOR): the MISSING organ now has a validated build spec + a decisive
   existence proof; and DEVIATION #6 SPLITS** (from `the_substrate_does_not_learn_or_update_by_prediction_error`,

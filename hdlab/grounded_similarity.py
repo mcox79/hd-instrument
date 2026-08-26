@@ -74,7 +74,7 @@ from __future__ import annotations
 import csv
 import os
 import statistics
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 import torch
 
@@ -205,6 +205,73 @@ def grounded_similarity(word_a: str, word_b: str) -> Optional[float]:
         return None
     raw = _raw_cos(va, vb)
     return min(GROUNDED_CAP, max(0.0, raw))
+
+
+# ---------------------------------------------------------------------------------------------
+# THE ATL DISTINCTIVE-FEATURE (feature-similarity) READ-OUT -- default-separate, ADDITIVE.
+# ---------------------------------------------------------------------------------------------
+# Landed 2026-08-26 from problem the_substrate_has_one_meaning_system_where_the_brain_has_two
+# (integrated PARTIAL/EXCELLENT). The brain has TWO similarity systems: the ATL amodal hub computes
+# FEATURE / correlational similarity weighted toward DISTINCTIVE features (Patterson, Nestor & Rogers
+# 2007; Lambon Ralph controlled-semantic-cognition), and a distributed system computes ASSOCIATIVE
+# relatedness. This carrier's OWN docstring measures the ATL failure mode: raw cosine cannot separate a
+# synonym from a perceptually-similar sibling (apple/orange 0.952 ~ sofa/couch) because a DOMINANT SHARED
+# axis (concreteness / general salience -- the top principal component is ~27% of the variance) swamps the
+# discriminating dims. The ATL's actual operation is that failure stated in reverse: PRIVILEGE DISTINCTIVE
+# FEATURES == DECORRELATION -- WHITEN the shared covariance (equalise variance across principal axes). On
+# HELD-OUT similarity golds the whitened rep beats RAW grounded cosine CI-separated (SimLex +0.046, SimVerb
+# +0.023) and LOWERS relatedness (the brain signature -- specialises toward "alike-in-kind"). DEV-SELECTED
+# (SimVerb-dev500): k_drop=0, whiten=True == pure whitening.
+#
+# This is a NEW, UNCAPPED MEANING-READ-OUT path (a ranking score). The capped grounded_similarity() LINK
+# score above is UNCHANGED and byte-identical -- a cap would destroy a similarity RANKING, and this is not a
+# link decision. Nothing calls this unless a consumer asks for the feature-similarity axis. MEASURE on the
+# live read-out before any capability claim (per the SOLVED caution).
+
+_distinctive_cache: Optional[Tuple[torch.Tensor, torch.Tensor]] = None  # (mu[12], W[12,12])
+
+
+def _distinctive_transform() -> Tuple[torch.Tensor, torch.Tensor]:
+    """Fit + cache the ATL distinctive-feature WHITENING transform from the FULL grounding table:
+    (mu, W) with W = eigvecs(cov) * 1/sqrt(eigvals) (k_drop=0, whiten=True, dev-selected). A word's
+    feature vector is (grounded_vector(w) - mu) @ W. Fit on the whole population -- gold-blind by
+    construction (the experiment's benchmark-exclusion only kept held-out EVAL words out of the fit,
+    which is N/A at inference)."""
+    global _distinctive_cache
+    if _distinctive_cache is None:
+        t = _table()
+        X = torch.stack([t[w] for w in sorted(t)]).double()          # (N, 12) z-scored per dim
+        mu = X.mean(dim=0)
+        Xc = X - mu
+        cov = (Xc.T @ Xc) / Xc.shape[0]
+        evals, evecs = torch.linalg.eigh(cov)                        # ascending; k_drop=0 keeps all
+        scale = 1.0 / torch.sqrt(evals + 1e-8)                        # whiten: equalise the variance
+        W = evecs * scale.unsqueeze(0)                               # (12, 12) whitening projection
+        _distinctive_cache = (mu, W)
+    return _distinctive_cache
+
+
+def distinctive_grounded_vector(word: str) -> Optional[torch.Tensor]:
+    """The z-scored grounding vector WHITENED by the ATL distinctive-feature transform (suppress the
+    dominant shared concreteness axis, privilege distinctive features). None if OOV. The raw
+    grounded_vector() is unchanged; this is the additive feature-similarity read-out path."""
+    v = grounded_vector(word)
+    if v is None:
+        return None
+    mu, W = _distinctive_transform()
+    return ((v.double() - mu) @ W)
+
+
+def distinctive_grounded_similarity(word_a: str, word_b: str) -> Optional[float]:
+    """Cosine over the distinctive-feature-WHITENED grounding vectors -- the ATL "alike-in-kind"
+    (FEATURE-similarity) meaning read-out. UNCAPPED (a ranking score, not a link decision -- the capped
+    grounded_similarity() is the link score and is unchanged). Beats raw grounded cosine CI-separated on
+    held-out SimLex/SimVerb and specialises toward similarity (lowers relatedness). None if either OOV."""
+    a = distinctive_grounded_vector(word_a)
+    b = distinctive_grounded_vector(word_b)
+    if a is None or b is None:
+        return None
+    return _raw_cos(a.float(), b.float())
 
 
 def coverage_stats() -> dict:

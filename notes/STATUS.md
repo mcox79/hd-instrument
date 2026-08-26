@@ -46,9 +46,12 @@ SELECTION task (WSD), NOT graded rating. **FINER DRILL = a fidelity BOUNDARY:** 
 nonlinear distinctiveness doesn't add on a 12-dim continuous space (the next gain is richer feature SUPPLY, not a fancier
 transform -- converges with the session's "supply is the wall" theme). 3 AUDIT UPDATEs folded; §8 lever #1 DELIVERED;
 review + SOLVER REVIEW in PROBLEM.md; priority cleared.
-🔌 **hdlab landing EARNED (queued as a focused default-off landing w/ its own witness):** the distinctive-feature
-WHITENING transform (default-off `distinctive=True` on the grounding carrier) + a FIXED two-system fusion -- NOT a
-task-switch gate. Measure on the live read-out before any capability claim.
+🔌 **hdlab landing DONE 2026-08-26:** the distinctive-feature WHITENING read-out is LANDED in
+`hdlab/grounded_similarity.py` (`distinctive_grounded_vector`/`distinctive_grounded_similarity` -- a NEW uncapped
+meaning read-out; the capped link score is byte-identical). Witness `test_distinctive_feature_grounding_organ.py` PASS
+(distinctive rho 0.292 > raw 0.245 on SimLex through the organ's OWN transform; whitened covariance exactly identity),
+registered `distinctive_feature_grounding_v1` (WIRE_CANDIDATE, ISLAND). Use it as the feature-similarity axis + a FIXED
+two-system fusion, NOT a switch. ⚠️ MEASURE on the live read-out before any capability claim.
 *Queue: p3 content-addressable retrieval + p5 one-store (both awaiting owner review), p6 meaning-wiring, p7 relcl. p1 integrated.*
 
 ### 2026-08-26 -- 🔧 **N400 coherence-monitor ORGAN LANDED (F5, off-path) -- the MISSING event-segmentation organ is now in hdlab**
