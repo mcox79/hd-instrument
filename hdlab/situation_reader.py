@@ -317,9 +317,35 @@ def _build_spacy_pred_gate():
     return pred_gate_fn
 
 
+_IRREGULAR_PARTICIPLES = frozenset({
+    "done", "gone", "seen", "taken", "given", "known", "shown", "broken", "chosen", "driven",
+    "eaten", "written", "spoken", "stolen", "frozen", "hidden", "bitten", "beaten", "worn", "torn",
+    "sworn", "drawn", "thrown", "grown", "blown", "flown", "held", "built", "sent", "spent", "lost",
+    "found", "caught", "taught", "bought", "brought", "fought", "sought", "thought", "kept", "left",
+    "felt", "meant", "dealt", "made", "said", "paid", "laid", "led", "read", "hit", "cut", "put",
+    "set", "cost", "hurt", "shut", "split", "spread", "cast", "burst",
+})
+
+
+def _is_passive_predicate(toks: Optional[List[str]], pred_idx: int) -> bool:
+    """PRECISE-VOICE detector (`the_reading_extractor` SOLVED; brain-faithful -- voice is the ONLY cue
+    on reversible passives, MacWhinney's Competition Model). A clause reads passive when the predicate
+    has PAST-PARTICIPLE morphology AND a BE-auxiliary sits within 3 tokens before it (the surface
+    'was X-ed' pattern). Heuristic on surface tokens; returns False when `toks` is None (no signal)."""
+    if not toks or not (0 <= pred_idx < len(toks)):
+        return False
+    be = {"be", "is", "am", "are", "was", "were", "been", "being"}
+    if not any(str(toks[i]).lower() in be for i in range(max(0, pred_idx - 3), pred_idx)):
+        return False
+    p = str(toks[pred_idx]).lower()
+    return p.endswith("ed") or p.endswith("en") or p in _IRREGULAR_PARTICIPLES
+
+
 def _pick_role_mentions(pred_idx: int, sent_noms: List[dict], *,
                         gate_intransitive: bool = False,
-                        pred_lemma: Optional[str] = None
+                        pred_lemma: Optional[str] = None,
+                        toks: Optional[List[str]] = None,
+                        precise_voice: bool = False
                         ) -> Tuple[Optional[dict], Optional[dict]]:
     """Positional mention selection (single source of truth for both head-strings and, since
     2026-08-05, frame-primary role labeling): subj-mention = the subject-mention (rank 0) if
@@ -346,12 +372,20 @@ def _pick_role_mentions(pred_idx: int, sent_noms: List[dict], *,
     obj_m = after[0] if after else None
     if gate_intransitive and pred_lemma is not None and is_strictly_intransitive(pred_lemma):
         obj_m = None
+    # PRECISE-VOICE (the_reading_extractor SOLVED; default-OFF -> byte-identical). On a PASSIVE clause the
+    # PATIENT is the SURFACE SUBJECT (before the predicate) and the AGENT is the by-phrase nominal (after):
+    # "the metal was dissolved by the acid" -> patient=metal, agent=acid. The default positional rule
+    # (patient = nearest AFTER) is exactly wrong there, so swap when the flag is ON and the clause is passive.
+    if precise_voice and _is_passive_predicate(toks, pred_idx):
+        subj_m, obj_m = obj_m, subj_m
     return subj_m, obj_m
 
 
 def _assign_roles(pred_idx: int, sent_noms: List[dict], *,
                   lemma: Optional[str] = None,
-                  gate_intransitive: bool = False) -> Tuple[str, str]:
+                  gate_intransitive: bool = False,
+                  toks: Optional[List[str]] = None,
+                  precise_voice: bool = False) -> Tuple[str, str]:
     """Glass-box structural role assignment against the sentence's gold mention heads:
     AGENT = the subject-mention (rank 0) if before/at the predicate else nearest preceding
     nominal; PATIENT = nearest nominal strictly after the predicate. '?' when none.
@@ -365,7 +399,8 @@ def _assign_roles(pred_idx: int, sent_noms: List[dict], *,
     pred_lemma = lemma_verb(lemma) if (gate_intransitive and lemma is not None) else None
     subj_m, obj_m = _pick_role_mentions(pred_idx, sent_noms,
                                         gate_intransitive=gate_intransitive,
-                                        pred_lemma=pred_lemma)
+                                        pred_lemma=pred_lemma,
+                                        toks=toks, precise_voice=precise_voice)
     agent = subj_m["head"] if subj_m is not None else "?"
     patient = obj_m["head"] if obj_m is not None else "?"
     return agent, patient
