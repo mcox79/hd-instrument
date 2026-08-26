@@ -50,6 +50,25 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-26 — E1 (BINDING) RE-LOCATED: the OPERATOR is VALIDATED; the deviation is the flat-superposition
+  RETRIEVAL** (from `the_core_binding_operator_may_not_be_brain_faithful`, integrated EXCELLENT). At EQUAL storage
+  our compressed FHRR bind **beats the two WRITABLE brain theories** (tensor-product / TEM product; Rigotti-Fusi
+  conjunctive) — TPR loses to FHRR in every exact-cue cell. **So E1's "UNSCORABLE, the deepest deviation, our
+  central op has no brain equation" framing is mis-located: the operator is an EFFICIENT choice, validated, not a
+  liability.** The REAL deviation is one level up (the superposition-and-unbind RETRIEVAL, shared with E2/E3): we
+  superpose many bindings into one vector and un-mix on demand; the brain SEPARATES into slots and retrieves
+  CONTENT-ADDRESSABLY, so a brain-faithful version (theta-gamma temporal separation) beats FHRR **CI-separated by
+  ~5x under a PARTIAL cue at equal storage** (0.128 vs 0.025), info-free twins losing (predicted by the CA3
+  partial-cue dissociation, Nakazawa 2002). **Load-bearing negative:** routing FHRR through the real CA3 attractor
+  TIES argmax — you cannot clean your way out of superposition; the fix is the STORAGE architecture, not a terminal
+  cleanup. **Sharpens E1:** the per-component normaliser only ever HURTS (L2/raw-sum beat it 32/32 on binding
+  recovery, wins zero). **Confirms E2:** `situation_model_multibank` routes by deterministic hash (exact key only,
+  no partial-cue path); the owned `ca3_completer` (default-off) is the content-addressable fix, realised only over
+  the SEPARATED store. **UNIFIES E1/E2/E3** under one brain mechanism — cue-based content-addressable retrieval with
+  similarity interference (Lewis & Vasishth 2005; McElree; Nakazawa 2002). ⚠️ Synthetic construction proof — the
+  fix (owned `ca3_completer` + `dg_pattern_separation`, unwired) must be measured on the LIVE reading task before
+  any capability claim.
+
 - **2026-08-26 — GOALS/REWARD & METACOGNITION tiers fidelity-scored (strategy extension, closing the §6 scope gap).**
   **GOALS/REWARD:** only two organs are PINNABLE and both are already in the ORGAN_MAP — `action_selection` (BG
   Go/NoGo + TD) is **SAME op-class**, and `successor_representation` (D7) is a **FULLY-PINNED closed form** (faithful
@@ -138,7 +157,7 @@ Grouped by the brain's functional tiers. `[P]` = brain equation PINNED, `[U]` = 
 
 ### TIER 3 — COMBINATORICS & STRUCTURE
 - **Thematic role assignment** (Competition Model: cue validity `[P]`) — `thematic_role_labeler.py`. **RIGHT-OP-WRONG-METRIC:** raw counts are not cue-validity; cue *cost* absent; animacy-dominant; HARD_FAIL on real text.
-- **Role–filler binding** (theta-gamma / conjunctive / tensor-product — **UNPINNED & 3-way CONTESTED** `[U]`) — `binding.py` (FHRR complex-multiply). **UNSCORABLE.** *This is our central operation and it has no settled brain equation to be faithful to — the deepest deviation in the substrate.*
+- **Role–filler binding** (theta-gamma / conjunctive / tensor-product — **UNPINNED & 3-way CONTESTED** `[U]`) — `binding.py` (FHRR complex-multiply). **OPERATOR VALIDATED 2026-08-26** (see §2b): at EQUAL storage FHRR beats the writable brain theories (TPR/conjunctive), so it is an efficient choice, NOT the "deepest deviation." ➡️ **The deviation is one level up — the flat-superposition RETRIEVAL (shared with E2/E3): the brain SEPARATES into slots + retrieves CONTENT-ADDRESSABLY; a faithful version beats FHRR ~5x under a partial cue.** The owned fix (`ca3_completer` + `dg_pattern_separation`, both default-off) is unwired.
 - **Situation-model register / event indexing** (SEM, PE-segmented `[U]`) — `situation_model_accumulate.py`/`_multibank`, `situation_reader.py`. **RIGHT-OP-WRONG-PLACE:** has the register; **missing the prediction-error segmentation that decides WHEN to write.**
 - **N400 coherence monitor** (running-model update magnitude; reference `[P]`, norm `[U]`) — **MISSING.** No module computes ‖Δsituation-model‖. A clean Phase-B target.
 - **Construction-Integration** (Kintsch `[P]-ish`) — **MISSING.**
@@ -253,9 +272,10 @@ cross-cutting deviations are **not queued.** Candidates, ranked by leverage (bla
 3. **Meaning wiring + context-conditioning — p1, ALREADY QUEUED.** The fair-metric win made it actionable.
 4. **Dense → sparse+graded code (B4, deviation #4).** Largest measured single lever (16× dims = +0.0843).
    **Not queued → package (couples with #1).**
-5. **The binding operator (E1) — our central op is unpinned/contested.** Deserves a deliberate "which brain
-   binding theory, tested to converge" program rather than continued reliance on an unexamined default.
-   **Not queued → package.**
+5. **The binding operator (E1) — RESOLVED 2026-08-26 (p3, EXCELLENT).** The operator is VALIDATED at equal
+   storage (beats the writable brain theories); the REAL lever is one level up — the flat-superposition
+   **RETRIEVAL**. Wire the owned content-addressable path (`ca3_completer` + `dg_pattern_separation`) into the
+   separated store, measured on the live task (~5x under partial cue). See §2b + the binding SOLVED Rec B.
 6. **Fidelity-audit the affect / goals / metacognition systems** — built but never scored against the brain.
 7. **Promote Theory of Mind** from `experiments/` into a real organ.
 8. p2 (reliability signal), p3 (valence propagation), p4 (relcl parser) — the existing queue, unchanged.
