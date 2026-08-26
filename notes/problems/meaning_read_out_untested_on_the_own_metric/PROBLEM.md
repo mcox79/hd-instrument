@@ -1,8 +1,27 @@
 ---
-priority: 2
-review:
-review_text:
+review: EXCELLENT
+review_text: EXCELLENT REFUTED+PARTIAL, re-verified PASS (instrument reproduces to the digit; READOUT_TIES_OR_LOSES_COUNTING confirmed all 3 seeds). The read-outs LOSE to counting on the own metric -> WIRING = NO. Honest sub-threshold brain signal (TOPK_GROUNDED beats its twin, CI touches zero). Surfaced the metric is carried by RAW FREQUENCY (PMI collapses 8x) -> packaged metric-fairness + TOPK_GROUNDED-pursuit as new problems. No hdlab landed (the answer is not to wire).
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (REFUTED the premise + honest PARTIAL; integrated by strategy 2026-08-25)
+> **Re-verified (WITNESS PASS):** `verification/test_meaning_readout_own_metric.py` reproduces the own-metric
+> instrument TO THE DIGIT and confirms `READOUT_TIES_OR_LOSES_COUNTING_ON_OWN_METRIC` on all 3 powered seeds.
+> **Decisive finding:** the meaning read-outs (fusion, taught direction, second-order reading) LOSE to
+> first-order co-occurrence COUNTING, CI-separated BELOW it, every seed -- the WordSim/substitutability wins
+> do NOT transfer to the own metric. **So the two decisions this gate governs are settled: (a) stage 2 is NOT
+> fixed by these read-outs; (b) WIRING = NO -- do not wire them into the live reader.** A rigorous negative is
+> an explicit PASS.
+> **Why EXCELLENT (grading quality, not verdict):** reproduces the instrument exactly; ran the mandated
+> info-free twin AND extra controls (oracle ceilings prove misses are RANKING failures, not coverage); the
+> vectorized scorers match the live organ APIs to <3e-15; and it did NOT overclaim -- the brain-foundational
+> TOPK_GROUNDED mechanism (frequency-salience selects, grounded hub discriminates) beats its shuffled twin
+> CI-separated and beats counting NUMERICALLY, but its CI touches zero, and it is reported as sub-threshold.
+> **The deeper thing it surfaced (now packaged, per owner "package significant problems for solvers"):** the
+> own metric is carried by RAW FREQUENCY -- PMI-normalising it collapses the signal 8x, so every meaning
+> transform loses BECAUSE it de-emphasises frequency. That questions whether the metric tests MEANING or
+> FREQUENCY. Packaged as: (1) is the grounding-precision metric a fair test of meaning?; (2) push
+> TOPK_GROUNDED + the 3 brain-faithful encoding arms over threshold on a fair metric.
+> **Integration:** no `hdlab/` landed (the answer is NOT to wire). Review recorded; priority cleared.
 
 # PROBLEM: the meaning wins are on BORROWED scorers -- do they beat plain counting on the substrate's OWN metric, where the stage is actually broken?
 
