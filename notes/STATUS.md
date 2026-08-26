@@ -43,7 +43,15 @@ set. **NEW QUEUE (all three foundational fixes now sit ABOVE the downstream capa
 - **p3 `the_core_binding_operator_may_not_be_brain_faithful`** (NEW) -- our single most central operation is
   UNPINNED / 3-way contested; test brain-motivated alternatives vs FHRR on a binding-STRESS task. NOT proven-
   blocking (unfalsified) -- a rigorous negative VALIDATES the invention. The last un-attacked foundation.
-- **p4 `the_meaning_win...`** (meaning wiring, was p3); **p5 `the_relcl_parser...`** (was p4).
+- **p4 `the_substrate_does_not_learn_or_update_by_prediction_error`** (NEW 2026-08-26) -- the brain's core
+  PREDICTION-ERROR learning + update signal (we learn by cloze, and never update the situation model on surprise;
+  the PE organ is islanded + never fires, the N400 monitor is MISSING). Foundational. **p5** meaning-wiring;
+  **p6** relcl-parser.
+➡️ **ONE genuinely-foundational deviation remains UNQUEUED: CONSOLIDATION** (audit deviation #5 -- one-store-two-
+jobs; single-average not selective/schema-gated replay; the FAITHFUL `continual.py` is islanded) -- ready to
+package next. **Beyond predictive-coding + consolidation, the remaining audit items are CAPABILITY (meaning, coref,
+discourse, ToM, production), NOT deep foundation -- do not dress those up as foundational.** (additive-vs-
+multiplicative control C3 is foundational too but BLOCKED behind p1.)
 Both proven-ready organ landings DONE (DG/CA3 recall gate -- SPARSE, the brain's sparse coding entering the memory
 path; valence Stage-B -- default-off). LONG_TERM_PLAN §3 reconciled with the meaning re-frame (was a stale hazard
 for the working solvers). *Meaning-wiring demotion below binding is a recommendation; re-rank if disagreed.*
