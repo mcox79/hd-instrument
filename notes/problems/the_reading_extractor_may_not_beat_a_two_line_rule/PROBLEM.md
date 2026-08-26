@@ -1,8 +1,30 @@
 ---
-priority: 5
-review:
-review_text:
+review: EXCELLENT
+review_text: EXCELLENT REPLACE-verdict + a better reader found. Re-verified WITNESS PASS (ELABORATE_DOES_NOT_BEAT_TWO_LINE_REPLACE reproduces). At power (n=17,330) the elaborate perceptron reader LOSES to a two-line word-order+voice rule (0.7511 vs 0.7661, CI-separated) and collapses worst on reversible items -> does NOT earn its keep, REPLACE (a full PASS per the bar). Brain-grounded (English is word-order-dominant, Competition Model / Bates+Kliegl 1984; the reader leaned on animacy, the wrong cue). PUSH: word order + PRECISE voice morphology (0.7950) beats both. hdlab landing (precise-voice flip in situation_reader; do NOT route patient selection through the perceptron) recorded PROVEN-READY as a deliberate landing.
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (REPLACE verdict + the better reader found; integrated by strategy 2026-08-25)
+> **Re-verified (WITNESS PASS):** `verification/test_reader_vs_twoline_qasrl_power.py` independently reproduces
+> `ELABORATE_DOES_NOT_BEAT_TWO_LINE_REPLACE` -- elaborate 0.776 < two-line 0.793, the info-free twin loses,
+> animacy-only ~= twin (the wrong cue).
+> **Decisive finding:** at real power (n=17,330 QA-SRL patient items, 173x the old n=100) the elaborate
+> perceptron cue-integration reader (`thematic_role_labeler`) LOSES to a two-line word-order+voice rule
+> (0.7511 vs 0.7661, CI-separated below) and collapses WORST on reversible items (-0.12) -- exactly where the
+> brain says syntax is the only cue. **So the machinery does NOT earn its keep -> REPLACE (a full PASS).**
+> **Why EXCELLENT (grading quality):** brain-foundational throughout (English word-order dominance --
+> Competition Model, Bates/Kliegl 1984; reversibility stratification is the brain's own syntax-vs-plausibility
+> instrument); full control stack (info-free twin; weight-scramble proving a FAIR trained shot; single-cue
+> ablations exposing the reader's learned validity leans on animacy, the wrong cue for English); caught a real
+> TRAP (QA-SRL's isPassive is a property of the QUESTION, not the sentence clause); and it did NOT stop at the
+> refutation -- it found the BETTER brain-faithful reader (word order + PRECISE aux+participle voice, 0.7950,
+> beats both).
+> **hdlab landing (recorded PROVEN-READY, deliberate -- Q111):** add the ~4-line precise-voice flip to
+> `hdlab/situation_reader.py::_pick_role_mentions`/`_assign_roles` (passive -> PATIENT = nearest nominal BEFORE
+> the predicate; else AFTER); do NOT route patient selection through the perceptron; do not weight animacy as an
+> English role cue. It needs a `situation_reader` witness + a downstream check, so it lands as a deliberate
+> follow-up (like `the_reader` change 1), not a tail-of-round commit. The elaborate-loses headline is robust
+> (CI-separated, witness-reproduced); the +0.029 precise-voice margin is the piece to withdraw first.
+> **Integration:** review recorded; priority cleared; no hdlab landed this round (deliberate landing recorded).
 
 # PROBLEM: the elaborate "read the text" step may be no better than a two-line rule -- prove it earns its keep, or replace it
 
