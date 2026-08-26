@@ -21,6 +21,19 @@ review_text:
 
 ---
 
+> ## ⚙️ SOLVER OPERATING PROTOCOL (standing -- owner 2026-08-25; in EVERY problem)
+> **DO THE RIGHT THING, NOT THE CHEAP OR EASY THING** -- the mission is the most brain-faithful substrate,
+> not the fastest green check.
+> **Iterate to the OPTIMAL brain-foundational solution; do NOT submit the first thing that clears.** Set up
+> your own 30-min cron (`CronCreate "13,43 * * * *"`) that each fire pushes you ONE LEVEL DEEPER into brain
+> fidelity: "how does the brain REALLY do this, deeper than my current mechanism?" -> implement -> test
+> (can-fail, strongest real floor, info-free twin LOSING) -> iterate. Cancel it (`CronDelete`) and submit
+> ONLY when successive iterations stop improving fidelity AND result (you have CONVERGED on the optimum).
+> **You are NOT boxed in by this brief.** If you find a MORE brain-foundational method that this brief's
+> specific instructions -- OR the substrate integration points you must tie into -- are NOT ~compatible with,
+> SUBMIT that alternative solution or solution DIRECTION instead (say what is incompatible and why yours is
+> more brain-faithful).
+
 ## 1. THE PROBLEM IN PLAIN LANGUAGE
 
 We ask the system, about a passage: **did the thing the character wanted actually happen?** Three

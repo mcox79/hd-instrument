@@ -357,6 +357,17 @@ Each `PROBLEM.md` has the same eight sections, in this order:
 
 *Short version of `CLAUDE.md`; read it in full before landing anything.*
 
+- **⚙️ DO THE RIGHT THING, NOT THE CHEAP OR EASY THING (owner 2026-08-25 -- applies to ALL project
+  instructions, not just briefs).** The mission is the most brain-faithful substrate, not the fastest
+  green check. A cheaper path that is less brain-faithful is the wrong path even when it clears the floor.
+- **🔁 ITERATE TO THE OPTIMAL BRAIN-FOUNDATIONAL SOLUTION -- do NOT submit the first thing that clears
+  (owner 2026-08-25).** Run your own 30-min cron (`CronCreate "13,43 * * * *"`) that each fire probes ONE
+  LEVEL DEEPER into brain fidelity (implement -> test with a can-fail floor + info-free twin LOSING ->
+  iterate); CANCEL it (`CronDelete`) and submit ONLY when successive iterations stop improving fidelity AND
+  result (CONVERGED). And you are NOT boxed in: if a MORE brain-foundational method conflicts with a brief's
+  specific instructions OR the substrate integration points you tie into, SUBMIT that alternative
+  solution/DIRECTION instead, saying what is incompatible and why yours is more brain-faithful. **Every open
+  brief now carries this verbatim as a `SOLVER OPERATING PROTOCOL` block, and every NEW brief must include it.**
 - **🧠 PURSUE THE RIGHT, BRAIN-FOUNDATIONAL SOLUTION -- as good as we can get, not the convenient one
   (owner 2026-08-24).** Open the problem with *"how does the brain actually do this, and can we
   replicate that OPERATION as exactly as we can?"* -- BEFORE surveying available tools. The documented
