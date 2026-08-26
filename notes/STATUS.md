@@ -49,7 +49,15 @@ the live goal-bearing blocker; a refusal is more tractable than a wrong answer);
 `meaning_read_out_untested_on_the_own_metric` (the transfer GATE that unblocks the meaning-read-out WIRING
 I own); p3 reliability-signal-to-oracle; p4 valence-propagation; p5 stage-1 extractor. Two integrated
 problems had stale `priority:` lines cleared (`the_reader_reads_too_shallow`, `lookup_does_not_lemmatise`).
-➡️ **THE WIRING (meaning read-out -> live reader) IS STILL MINE (Q111), STILL GATED on p2.**
+➡️ **p2 RESOLVED 2026-08-25 (EXCELLENT, re-verified PASS): the read-outs LOSE to first-order COUNTING on
+the OWN metric, CI-separated, every seed -- the WordSim/substitutability wins do NOT transfer. WIRING = NO
+(do NOT wire meaning_fusion / distributional_meaning_channel into the live reader for meaning assignment).**
+🔎 **THE LIVE MEANING-LINE QUESTION IS NOW WHETHER THE OWN METRIC EVEN TESTS MEANING:** p2 found the metric
+is carried by RAW FREQUENCY (PMI-normalising it collapses the score ~8x), so every meaning transform loses
+BECAUSE it de-emphasises frequency. New priority-2 problem `the_own_metric_may_reward_frequency_not_meaning`
+(phase a: build a frequency-controlled metric; phase b: re-test TOPK_GROUNDED + the 3 brain-faithful encoding
+arms on it). The sub-threshold brain signal TOPK_GROUNDED (salience-select + grounded-discriminate) beats its
+twin CI-separated but its CI touches zero -- promising, not yet a win.
 
 ### 2026-08-25 -- 🧠 **MEANING STAGE RESOLVED INTO TWO ORGANS + FULLY PACKAGED; HOURLY ARCHITECT LOOP RUNNING**
 **The meaning mechanism is resolved, and it is NOT one thing -- two live organs landed this session,
