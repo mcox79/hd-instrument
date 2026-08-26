@@ -44,9 +44,11 @@ constraint (almost certainly the front-end, event-extraction ~0.32) which re-poi
 answers "almost out of problems?": the NEXT problems are wiring + end-to-end measurement, not more isolated parts.
 🔧 **Strategy's own hdlab debt to enable it:** ✅ the additive content-addressable retrieval ALGORITHM is now a
 STANDALONE organ (`hdlab/content_addressable_retrieval.py::AdditiveCueRetrieval`, witness PASS -- additive 32/32 vs
-composite 0/32 under a dropped feature; registered `content_addressable_retrieval_v1`, off-path). REMAINING (substantial,
-dedicated passes): extend the live register to STORE per-feature codes + a `decode_cue` on it; wire the N400 boundary ->
-`situation_model_accumulate`.
+composite 0/32 under a dropped feature; registered `content_addressable_retrieval_v1`, off-path). REMAINING wirings (extend the register to
+STORE per-feature codes + a `decode_cue` on it; wire the N400 boundary -> `situation_model_accumulate`) are the
+COMPOSITION steps the **p1 wire-and-measure brief MEASURES** -- so they are GATED ON the p1 end-to-end result (strategy
+lands them ON A WIN, Q111), NOT pre-paid. 🚫 Do NOT pre-land an unmeasured live wiring (measure-before-capability-claim).
+The importable ALGORITHMS (content-addressable, N400, whitening, DG/CA3) are landed; the live COMPOSITION is what p1 tests.
 
 ### 2026-08-26 -- ✅ **p3 content_addressable_retrieval INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the missing organ is cue-based RETRIEVAL (additive Lewis-Vasishth); it RE-FRAMES the fix**
 Content-addressable retrieval over the SEPARATED register beats the LIVE exact-key routes CI-separated under a partial
