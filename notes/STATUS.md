@@ -31,7 +31,24 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- 🧠 **TWO OWNER-DONE SOLUTIONS INTEGRATED; THE MEANING LINE IS RE-FRAMED AND THE "WIRING NO" IS RE-OPENED**
+### 2026-08-26 (LATEST) -- 🧠 **WHOLE-SUBSTRATE BRAIN-FOUNDATIONAL AUDIT, RECONCILED -> `notes/BRAIN_FOUNDATIONAL_AUDIT.md`**
+Owner asked whether the substrate had been evaluated deeply against the brain foundation for large-scale gaps /
+deviations. It HAD (three scattered audits) but never reconciled or kept current. Produced ONE living reconciled
+map (merges ORGAN_MAP's 38 organs + component ledger's 14 + LONG_TERM_PLAN §4). **Headline: only 5 of 38 organs
+compute the brain's actual equation; 14 core operations are UNPINNED even in neuroscience (incl. our central
+BINDING op) so they are inventions-under-test, not replications; 7 organs are MISSING; ~54% of code is
+unreachable.** Two defects outrank any single organ: **(1) we query the WRONG memory** -- answer from the fast
+episodic store, never read the consolidated cortical one (a MISSING cortical-read organ, not a ceiling); **(2) a
+`sign()` quantiser everywhere** turns the system into an averaging machine (graded flags exist default-OFF).
+**IT RE-RANKS THE QUEUE:** the biggest cross-cutting deviations -- `sign→graded`, the cortical-read organ,
+dense→sparse coding, the binding operator -- are NOT in p1-p4 and outrank most of the queue on blast radius;
+package them as builds converge (p1 meaning-wiring already captures one lever). **Corrections it forced:** the
+07-30 component ledger's "coreference/discourse ABSENT" is STALE (both heavily built now); affect/goals/
+metacognition are BUILT but never fidelity-scored (a scope gap in the old audit); the plan's "meaning is empty"
+premise is weakened by this session's fair-metric re-frame. 🔁 **LIVING REFERENCE:** every brief now cites the
+audit; solvers report `AUDIT UPDATE`s during their work; integration folds them back in (README standing rules).
+
+### 2026-08-26 -- 🧠 **TWO OWNER-DONE SOLUTIONS INTEGRATED; THE MEANING LINE IS RE-FRAMED AND THE "WIRING NO" IS RE-OPENED**
 **Both re-verified scaffold-free (first-hand, reading no artifact), graded EXCELLENT, priorities cleared.**
 🥇 **`the_own_metric_may_reward_frequency_not_meaning` (was p2) -- DECISIVE, and it OVERTURNS the meaning-line verdict.**
 The home metric ("for a grounded word, pick one partner that is a ConceptNet neighbour") **WAS scoring frequency, proven

@@ -388,6 +388,14 @@ Each `PROBLEM.md` has the same eight sections, in this order:
   optional busywork, and declining it because "my angles converged" is the exact case it exists to catch.
   **Every open brief carries this verbatim as a `SOLVER OPERATING PROTOCOL` block (strengthened 2026-08-26),
   and every NEW brief must include it.**
+- **📖 THE BRAIN-FOUNDATIONAL AUDIT IS THE SHARED, LIVING REFERENCE (owner 2026-08-26).**
+  `notes/BRAIN_FOUNDATIONAL_AUDIT.md` is the ONE reconciled map of every organ/system vs the brain -- brain
+  structure, whether the brain's equation is PINNED or something we are INVENTING, our current fidelity, and the
+  known deviation. **Every brief references it**, and the `SOLVER OPERATING PROTOCOL` block instructs the solver to
+  read the entry for the system it touches and to report any verdict that is wrong/stale/incomplete -- or any NEW
+  deviation -- as an **`AUDIT UPDATE`** note in its submission. **INTEGRATION HAS A FOURTH STEP:** the strategy
+  session re-verifies each `AUDIT UPDATE` and **folds it into `BRAIN_FOUNDATIONAL_AUDIT.md`** (updating the
+  `updated:` date). The audit is living; it gets truer as the work proceeds, and it re-ranks what we build.
 - **🧠 PURSUE THE RIGHT, BRAIN-FOUNDATIONAL SOLUTION -- as good as we can get, not the convenient one
   (owner 2026-08-24).** Open the problem with *"how does the brain actually do this, and can we
   replicate that OPERATION as exactly as we can?"* -- BEFORE surveying available tools. The documented

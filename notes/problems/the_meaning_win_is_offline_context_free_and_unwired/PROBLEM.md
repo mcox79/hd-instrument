@@ -60,6 +60,13 @@ review_text:
 > **A rigorous negative is a PASS -- but only if what failed was the brain's actual mechanism, faithfully
 > built.** A negative on a family of convenient engineering methods is not a negative on the capability; it
 > is a report that you have not yet found how the brain does it.
+>
+> **📖 REFERENCE THE BRAIN-FOUNDATIONAL AUDIT, AND HELP KEEP IT TRUE.** Before you start, read the entry for the
+> system you are touching in `notes/BRAIN_FOUNDATIONAL_AUDIT.md` -- it gives the brain structure, whether the
+> brain's equation is PINNED or something we are INVENTING, our current fidelity, and the known deviation, so you
+> inherit that instead of re-deriving it. If your work shows a verdict there is WRONG, STALE, or INCOMPLETE, or you
+> find a NEW deviation, put a short **AUDIT UPDATE** note in your submission -- the strategy session folds it into
+> the audit at integration. The audit is a living, shared map and you help maintain it.
 
 ## 1. THE PROBLEM IN PLAIN LANGUAGE
 
