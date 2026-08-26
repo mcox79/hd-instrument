@@ -125,10 +125,12 @@ hypothesis this brief must confront and attribute, not assume.
   task-switch gate, which was refuted) where the reader assigns/compares word meaning.
 - `hdlab/dg_ca3_recollection_gate.py` -- **self-certifying recollection gate** (DG separation + CA3 completion
   confidence). Wire: route which memory to trust / when to accept a retrieval.
-- **content-addressable ADDITIVE retrieval** (Lewis-Vasishth cue-match over the separated register) -- the just-integrated
-  `content_addressable_retrieval` result. Its hdlab `decode_cue` landing is IMMINENT (strategy is landing it); until then
-  its exact op is in `experiments/exp_content_addressable_register_retrieval_v1.py`. Use ADDITIVE multi-feature activation,
-  NOT a multiplicative composite-key match.
+- `hdlab/content_addressable_retrieval.py::AdditiveCueRetrieval` -- **content-addressable ADDITIVE retrieval** (LANDED
+  2026-08-26): add items as per-feature FHRR codes, retrieve by a PARTIAL cue via additive Lewis-Vasishth activation
+  (argmax). Import it and feed it the register's per-feature slot codes (entity/event/role). Use ADDITIVE activation, NOT
+  a multiplicative composite-key match (which orthogonalises on one wrong feature); fan penalty DEFAULT-OFF (regime-
+  specific). *(Extending the live register to STORE per-feature codes + a `decode_cue` on the register itself is the
+  separate downstream wiring strategy still owes; this organ is the algorithm, ready to compose.)*
 - Existing subsystems it plugs into: `hdlab/situation_model_multibank.py` / `situation_model_accumulate.py` (the register),
   `hdlab/reading_grounding_loop.py` (the live read loop), `hdlab/meaning_fusion.py` (the general meaning read-out).
 

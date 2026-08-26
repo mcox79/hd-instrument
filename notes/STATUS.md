@@ -42,8 +42,11 @@ reader behind flags, measure end-to-end vs today's baseline (identical inputs), 
 WAY:** a win = the first end-to-end capability number + wire it in; a well-diagnosed LOSS = we learn the binding
 constraint (almost certainly the front-end, event-extraction ~0.32) which re-points the whole programme. This also
 answers "almost out of problems?": the NEXT problems are wiring + end-to-end measurement, not more isolated parts.
-🔧 **Strategy's own hdlab debt to enable it:** land the content-addressable additive `decode_cue` (+ FHRR adapter) and
-wire the N400 boundary -> situation_model_accumulate -- the earned wirings from the last two integrations.
+🔧 **Strategy's own hdlab debt to enable it:** ✅ the additive content-addressable retrieval ALGORITHM is now a
+STANDALONE organ (`hdlab/content_addressable_retrieval.py::AdditiveCueRetrieval`, witness PASS -- additive 32/32 vs
+composite 0/32 under a dropped feature; registered `content_addressable_retrieval_v1`, off-path). REMAINING (substantial,
+dedicated passes): extend the live register to STORE per-feature codes + a `decode_cue` on it; wire the N400 boundary ->
+`situation_model_accumulate`.
 
 ### 2026-08-26 -- ✅ **p3 content_addressable_retrieval INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the missing organ is cue-based RETRIEVAL (additive Lewis-Vasishth); it RE-FRAMES the fix**
 Content-addressable retrieval over the SEPARATED register beats the LIVE exact-key routes CI-separated under a partial
