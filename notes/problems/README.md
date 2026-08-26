@@ -252,6 +252,16 @@ them, not around tidiness.
 
 ## THE FLAG -- MACHINE-CHECKED, NOT A WORD IN PROSE
 
+> ### 🚫 **A `SOLVED.md` IS NOT A DONE SIGNAL -- INTEGRATE ONLY ON THE OWNER'S FINAL VERDICT (owner 2026-08-25, EMPHATIC).**
+> The owner runs the solver sessions and ITERATES a solution across many prompts; a `SOLVED.md` on disk is
+> WORK-IN-PROGRESS, updated repeatedly until the owner submits the FINAL prompt. **The strategy session
+> integrates a problem ONLY when `owner_verdict: DONE` is present in `notes/problems/<slug>/OWNER_NOTES.md`.**
+> A `SOLVED.md` with no matching `owner_verdict: DONE` is NOT ready -- do NOT re-verify-and-fold-in, do NOT
+> write a review, do NOT clear its priority, do NOT mark it INTEGRATED. *Earned the hard way: integrating off
+> `SOLVED.md` presence marked `meaning_read_out` and `the_reading_extractor` "folded in" while the owner was
+> still working them. When auditing what was integrated, check each against `owner_verdict: DONE` and REVERT
+> any that lack it.*
+
 **When a problem is solved, the solver writes exactly one file: `notes/problems/<slug>/SOLVED.md`.**
 
 It must begin with this block, and **`tools/problem_ledger.py` refuses it otherwise** -- so the flag

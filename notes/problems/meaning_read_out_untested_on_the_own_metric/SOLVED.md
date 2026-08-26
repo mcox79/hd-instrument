@@ -5,9 +5,8 @@ bar: "On the substrate's OWN meaning-assignment / grounding-precision instrument
 result: "On the reproduced own-metric instrument (grounding precision vs data/conceptnet_gold_v1; 3 seeds; n=441/398/441 scorable grounded terms), TOP_COOC and SUBSTRATE reproduce the landed cell TO THE DIGIT (TOP_COOC 0.0476/0.0653/0.0590; SUBSTRATE 0.0159/0.0302/0.0272). THE BRIEF'S READ-OUTS LOSE TO COUNTING, CI-SEPARATED BELOW IT, ON EVERY SEED: FUSION 0.0068/0.0226/0.0091, taught-direction CHANNEL 0.0204/0.0101/0.0136, second-order READING 0.0091/0.0201/0.0227 -- all with paired (read-out - counting) CI excluding zero on the low side. The borrowed-scorer wins do NOT transfer. The strongest brain-foundational mechanism I could build -- frequency selects the top-K salient co-occurrents, the grounded hub picks the most sensorimotor-similar one (TOPK_GROUNDED) -- beats counting NUMERICALLY at every K in {5,10,15,20,30} (best pooled TOPK30_GROUNDED 0.0703 vs counting 0.0570, d=+0.0133) and beats its INFO-FREE (shuffled-grounding) twin CI-separated (pooled d=+0.027, CI [+0.014,+0.041]) -- but does NOT beat counting CI-separated even pooled at n=1280 (best d=+0.0133, CI [-0.0008,+0.0273], touches zero). No route tested clears the bar."
 floor: "TOP_COOC = raw first-order co-occurrence COUNTING (argmax over the term's co-occurrents) = the landed TOP_COOCCURRENT, reproduced exactly: 0.0476/0.0653/0.0590, ci_hi 0.0680/0.0905/0.0816. It is the STRONGER counting floor: PMI-normalised counting (TOP_PPMI) collapses to 0.0045/0.0126/0.0045 (pooled 0.0070, ~8x worse), so the metric rewards raw FREQUENCY and any normalisation destroys the signal."
 controls: "INFO-FREE TWINS ALL LOSE: shuffled-grounding fusion (FUSION_SHUFFLE_B ~= FUSION, so fusion's grounding adds nothing here); random-teacher taught direction (CHANNEL_RANDHUB_B ~0.00); random candidate / random vocab (~chance); shuffled-grounding TOPK (TOPK*_GROUNDED_SHUF 0.034-0.050, CI-separated BELOW the real TOPK*_GROUNDED at every K>=10). ORACLE CEILINGS (a gold neighbour is reachable among co-occurrents 0.46-0.50, in the vocab 0.80-0.83) prove the misses are RANKING failures, not coverage. The vectorized scorers reproduce the live organ APIs meaning_fusion.similarity_batch / distributional_meaning_channel.substitutability_batch to <3e-15 (asserted every run). Instrument reproduced to the digit vs the landed exp_grounding_precision_gold_v1."
-files_changed: "experiments/exp_meaning_readout_own_metric_v1.py, experiments/exp_meaning_readout_own_metric_v1_ksweep.py, verification/test_meaning_readout_own_metric.py, notes/problems/meaning_read_out_untested_on_the_own_metric/SOLVED.md"
+files_changed: "experiments/exp_meaning_readout_own_metric_v1.py, experiments/exp_meaning_readout_own_metric_v1_ksweep.py, experiments/exp_meaning_readout_own_metric_v2_brainfaithful.py, experiments/exp_meaning_readout_own_metric_v3_discrimination.py, experiments/exp_meaning_readout_own_metric_v4_concreteness_control.py, experiments/exp_meaning_readout_own_metric_v5_concreteness_matched.py, verification/test_meaning_readout_own_metric.py, notes/problems/meaning_read_out_untested_on_the_own_metric/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_meaning_readout_own_metric.py"
-INTEGRATED_BY_STRATEGY: "2026-08-25 -- EXCELLENT; re-verified PASS (headline confirmed to the digit); WIRING DECISION = NO (read-outs lose to counting on the own metric); metric-fairness + TOPK_GROUNDED-pursuit packaged as new problems"
 ---
 
 # What the brief asked, and the answer
@@ -139,3 +138,88 @@ None.
    vocab (today it covers 0/441 of the scored terms); (b) add a meaning-assignment read that restricts
    to the top-K frequent co-occurrents and ranks by grounded-hub similarity. Neither should land until
    the effect clears a bar.
+
+# ADDENDUM (post-integration, 2026-08-25): a BRAIN-FOUNDATIONAL alternative that DIFFERS from the brief -- score DISCRIMINATION, not top-1
+
+Owner asked to test brain-foundational routes that DIFFER from the brief's frame and report what they
+mean / how they perform / what they require. The brief scores TOP-1 RETRIEVAL (precision@1: is the
+single argmax anchor a gold neighbour?). But the ATL semantic hub -- and these read-outs -- do NOT
+emit a single argmax; they emit a GRADED similarity, and their proven wins (WordSim, substitutability)
+are DISCRIMINATION tasks. So I scored the SAME ConceptNet gold as a relatedness AUC (rank gold
+neighbours above non-neighbours). **This is a DIFFERENT SCORER; its AUC does NOT cross to the top-1
+precision above.** Cell: `experiments/exp_meaning_readout_own_metric_v3_discrimination.py`.
+
+**HOW IT PERFORMS (pooled 3 seeds; matched to grounded-covered pairs so no number crosses populations):**
+- RANDOM negatives (random non-neighbours): COUNT 0.641, READING 0.719, GROUNDED 0.760, FUSION 0.804.
+  Every read-out beats counting CI-separated; info-free grounded twin at chance (0.488).
+- HARD negatives (co-occurring NON-neighbours, matched on co-occurrence -- "tell the gold neighbour
+  from a mere co-occurrent"; counting is stripped of its frequency advantage): **COUNT 0.210
+  (BELOW chance -- it ACTIVELY PREFERS co-occurrents over gold neighbours), READING 0.352 (below
+  chance -- the distributional spoke partly tracks co-occurrence), GROUNDED 0.728 (well above chance),
+  FUSION 0.589.** GROUNDED and FUSION beat COUNT CI-separated; the info-free grounded twin is at chance
+  (0.489), so the 0.728 is REAL grounded meaning, not a bias.
+
+**WHAT IT MEANS.** The read-outs DO capture the meaning step's core competence -- distinguishing a true
+conceptual neighbour from a mere co-occurrent -- which is exactly what co-occurrence CANNOT do (counting
+is anti-correlated, 0.21, on the hard task). The brief's TOP-1 metric could not see this because its
+argmax is dominated by frequency. So the "read-outs lose" headline is a property of the SCORER, not of
+the read-outs: on the brain-faithful discrimination scorer they win decisively. Two further findings:
+(1) the GROUNDED (sensorimotor) spoke carries the meaning signal (0.73); the READING (distributional)
+spoke does NOT on hard negatives (0.35, below chance) -- it is a co-occurrence proxy. (2) EQUAL-WEIGHT
+FUSION IS SUBOPTIMAL: averaging good grounded (0.73) with bad reading (0.35) yields diluted fusion
+(0.59). For meaning-vs-association discrimination, grounded-WEIGHTED (or grounded-alone) beats fusion.
+
+**WHAT IT REQUIRES TO FUNCTION PROPERLY.** (a) Score meaning assignment as RANKING/DISCRIMINATION (does
+it rank real neighbours above co-occurrents?), not top-1 argmax over a frequency-rich pool. (b) Weight
+the GROUNDED spoke heavily (or use it alone) for the real-neighbour-vs-co-occurrent decision -- equal
+weight dilutes it; this is a licensed re-weighting of `meaning_fusion`, swept not adopted. (c) The
+grounded discrimination only applies where sensorimotor norms cover BOTH words (~55-75% of pairs);
+outside that, there is currently no meaning signal that beats counting. (d) If the distributional spoke
+is used at all, extend the store to grounded terms (the 0/441 wiring gap).
+
+**CONCRETENESS CONTROL (run 2026-08-25; cells v4 + v5) -- the caveat is now CLOSED, and it MATTERS.**
+The grounded 0.73 is LARGELY a concreteness effect: concreteness-alone (the 1 Brysbaert dim) scores
+AUC 0.706 on the hard task, ~= the full 0.726 (v4). But it is not ONLY concreteness. On
+concreteness-MATCHED hard negatives (each positive paired with a co-occurring non-neighbour of nearly
+identical concreteness; mean gap 0.018 z-units), a RESIDUAL sensorimotor-meaning signal SURVIVES:
+  GROUNDED (11 sensorimotor dims, concreteness removed) AUC=0.648 [0.639,0.658] -- above chance;
+  READING (distributional spoke) AUC=0.360 -- does NOT survive (carries nothing beyond concreteness);
+  COUNT 0.207 (still anti-correlated); CONC_ONLY 0.502 (match confirmed); info-free twin 0.486 (chance).
+So the honest, fully-controlled statement: the GROUNDED SENSORIMOTOR spoke carries a GENUINE but MODEST
+conceptual-meaning signal (~0.65) that co-occurrence and the distributional spoke cannot; roughly half
+of the raw 0.73 was a concreteness/imageability confound (itself a real semantic dimension, but coarse).
+
+**WHAT I WOULD WITHDRAW FIRST / did NOT establish.** The discrimination AUC is NOT the brief's scorer,
+so it does not overturn the top-1 result -- it reframes what the top-1 result means. And the residual
+sensorimotor signal, while robust (0.648, twin at chance), is modest -- do not claim the grounded spoke
+"solves" meaning; claim it carries real conceptual signal that frequency and distribution do not.
+
+**BRAIN-FIDELITY AUDIT (drill 2026-08-25) -- the findings above are what pinned mechanisms PREDICT.**
+An independent mechanism-fidelity drill (ATL hub; Lambon Ralph/Rogers/Chen; Jefferies semantic control;
+Kutas/Federmeier N400; Connell/Lynott sensorimotor norms; Rogers/Plaut attractor cleanup) audited the
+four load-bearing choices:
+1. HUB INTEGRATION. PINNED: ATL integration is NON-LINEAR and CONTROL-GATED, with a LEARNED, graded,
+   task-dependent spoke weight (semantic-control network, L-IFG/pMTG, up-weights the task-relevant
+   spoke). OUR-INVENTION: our fixed equal-weight ADDITIVE z-fusion -- the largest fidelity divergence.
+   The measured dilution (fused 0.59 sits BETWEEN grounded 0.73 and reading 0.35) is the signature of an
+   additive average with a bad summand; "weight grounded more for concrete concepts" is the pinned
+   prediction (concrete concepts are sensorimotor-carried, low semantic diversity), NOT a task artifact.
+2. READ-OUT FORM. PINNED: the meaning read-out is GRADED goodness-of-fit (the N400 scales continuously
+   with semantic fit); winner-take-all is a LATER downstream decision. So GRADED DISCRIMINATION (AUC) is
+   the brain-faithful scorer and TOP-1 ARGMAX is the artifact -- it scores a downstream stage where raw
+   frequency dominates. This is independent theory support for the whole reframe.
+3. GROUNDED SPOKE. PINNED: sensorimotor strength predicts word processing BETTER than concreteness
+   (Connell & Lynott 2012); concreteness is a half-confound (imageability/context-availability). The
+   drill PREDICTED concreteness-only should underperform the full sensorimotor spoke -- which the v5
+   control confirms. Use the 11 sensorimotor dims as content; treat concreteness as a GATING signal, not
+   a representational dimension.
+4. SELECTION. PINNED: meaning assignment is ATTRACTOR CLEANUP onto a STORED-CONCEPT inventory (Rogers
+   2004; Plaut & Shallice; Chen 2017), NOT argmax over raw co-occurrents -- which structurally removes
+   the frequency-wins problem (co-occurrents are not attractors; cleanup is similarity- not
+   frequency-driven). OUR-INVENTION: our argmax over raw co-occurrents. NOTE: a WEAKER form of this
+   (restrict candidates to grounded concepts, pick by grounded sim; cells v2) was already tested and did
+   NOT beat counting on top-1 -- so the full attractor-cleanup build is a real NEXT experiment with a
+   modest prior, not a settled win.
+The forward mechanisms (control-gated graded gain on the two spokes; graded scorer with a swept
+decision-temperature; stored-inventory attractor cleanup) are hdlab BUILDS and belong to the strategy
+session; they are refinements of an established finding, not blockers on this result.
