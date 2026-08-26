@@ -46,7 +46,13 @@ byte preserved (witness `test_route_b_separable_context_store.py` 5/5). **TWO PR
 check -- land deliberately, NOT as a tail-of-round commit): (1) `the_reader` change 1 -- grounding-state
 selection hook in the read loop; (2) p5 `the_reading_extractor` -- REPLACE the perceptron patient-selection
 path in `hdlab/situation_reader.py` with a word-order + PRECISE-voice rule (passive -> PATIENT before the
-predicate; +0.10 on passives; do not weight animacy as an English role cue).
+predicate; +0.10 on passives; do not weight animacy as an English role cue). **SCOPED 2026-08-25:**
+situation_reader's PATIENT selection is currently POSITIONAL-NO-VOICE (`_pick_role_mentions` = nearest
+nominal strictly after the predicate = p5's inferior 0.663 arm); the precise-voice flip needs a PASSIVE
+SIGNAL at that site (BE-aux within 3 tokens before the pred + past participle) that is NOT wired there
+today (the `passive` construction cue lives in `frame_induction`, not at patient selection). So it is a
+real multi-part change (detector + flag-gated thread through `_pick_role_mentions`/`_assign_roles` +
+witness + downstream check on the situation pipeline), NOT ~4 lines -- a deliberate landing.
 🗂️ **OPEN QUEUE RE-RANKED:** p1 `organ_abstains_on_two_thirds_of_v2` (goal-outcome organ refuses 2/3 --
 the live goal-bearing blocker; a refusal is more tractable than a wrong answer); p2
 `meaning_read_out_untested_on_the_own_metric` (the transfer GATE that unblocks the meaning-read-out WIRING
