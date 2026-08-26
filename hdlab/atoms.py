@@ -46,12 +46,25 @@ def make_atoms(k: int, n: int, dtype: torch.dtype, generator: torch.Generator) -
     return out
 
 
-def similarity(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
-    """Real part of normalized inner product (FHRR) or cosine similarity (HRR), last-dim broadcast."""
+def similarity(a: torch.Tensor, b: torch.Tensor, cosine: bool = False) -> torch.Tensor:
+    """Real part of normalized inner product (FHRR) or cosine similarity (HRR), last-dim broadcast.
+
+    cosine=False (DEFAULT, byte-identical): FHRR uses /n (assumes per-component unit magnitude, ||v||=sqrt(n)).
+    cosine=True: TRUE cosine for the complex branch too -- the readout COUPLED to bundle(..., norm="l2").
+      A /n readout on an L2-normalised bundle is miscalibrated, so L2 bundling MUST read back with cosine=True.
+    """
     t0 = time.perf_counter_ns()
     if a.is_complex():
-        n = a.shape[-1]
-        result = (a * b.conj()).sum(dim=-1).real / n
+        if cosine:                                            # coupled to bundle(norm="l2"); DEFAULT-OFF
+            dot = (a * b.conj()).sum(dim=-1).real
+            na = a.norm(dim=-1)
+            nb = b.norm(dim=-1)
+            denom = na * nb
+            safe = torch.where(denom > 0, denom, torch.ones_like(denom))
+            result = dot / safe
+        else:
+            n = a.shape[-1]
+            result = (a * b.conj()).sum(dim=-1).real / n
     else:
         dot = (a * b).sum(dim=-1)
         na = a.norm(dim=-1)

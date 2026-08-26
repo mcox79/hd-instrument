@@ -9,10 +9,18 @@ import torch
 from . import modulators, tracing
 
 
-def bundle(vectors: torch.Tensor) -> torch.Tensor:
+def bundle(vectors: torch.Tensor, norm: str | None = None) -> torch.Tensor:
     """Superpose (k, n) -> (n,). With recency=0: uniform sum. With recency>0: geometric decay toward older items.
 
     FHRR: per-component magnitude renormalization. HRR: whole-vector L2 normalization.
+
+    norm=None (DEFAULT, byte-identical): the above -- FHRR per-component renorm.
+    norm="l2": whole-vector L2 for the FHRR (complex) branch too. The per-component normaliser is the
+      inverse of the faithful op and only ever HURTS role-filler recovery (evidence: problem
+      the_core_binding_operator_may_not_be_brain_faithful -- L2/raw-sum beat per-component 32/32, it wins
+      zero). REQUIRES the coupled readout atoms.similarity(..., cosine=True); a /n readout on an L2 bundle
+      is miscalibrated. DEFAULT-OFF -- measure on the LIVE task before flipping (an isolation win is not a
+      capability).
     """
     t0 = time.perf_counter_ns()
     state = modulators.current()
@@ -34,12 +42,16 @@ def bundle(vectors: torch.Tensor) -> torch.Tensor:
         s = vectors.sum(dim=0)
 
     if is_complex:
-        mag = s.abs()
-        mag = torch.where(mag > 0, mag, torch.ones_like(mag))
-        out = s / mag.to(s.dtype)
+        if norm == "l2":                                      # whole-vector L2 (brain-motivated); DEFAULT-OFF
+            nrm = s.norm()
+            out = s / nrm if float(nrm) > 0 else s
+        else:                                                 # DEFAULT: per-component unit-torus (unchanged)
+            mag = s.abs()
+            mag = torch.where(mag > 0, mag, torch.ones_like(mag))
+            out = s / mag.to(s.dtype)
     else:
-        norm = s.norm()
-        out = s / norm if float(norm) > 0 else s
+        nrm = s.norm()
+        out = s / nrm if float(nrm) > 0 else s
 
     tracing.emit(
         "bundling.bundle",
