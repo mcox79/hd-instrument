@@ -43,16 +43,17 @@ STORAGE. **The substrate ALREADY OWNS the fix (`ca3_completer` + `dg_pattern_sep
 wires them so the advantage is lost.** Synthetic construction proof, NOT a downstream win -- measure LIVE before any
 capability claim. AUDIT UPDATED (E1 re-located; unifies E1/E2/E3 under content-addressable retrieval). Re-verified
 scaffold-free (`verify_binding_operator_stress.py` PASS).
-🔌 **TWO hdlab changes earned, BOTH HELD FOR THE OWNER (not solo-landed):**
-- **Rec A (owner judgement call, escalated by the solver):** the per-component superposition normaliser
-  (`bundling.py`) only ever HURTS (L2/raw-sum beat it 32/32, wins zero). Add a `norm="l2"` option WITH the coupled
-  cosine readout in `atoms.py:similarity` -- DEFAULT-OFF, two CORE files landed together. It touches the shared
-  similarity path, so it wants the owner's eyes. HELD for owner go.
-- **Rec B (the real 5x lever, a build):** give `situation_model_multibank` a CONTENT-ADDRESSABLE retrieval path for
-  partial cues (route `decode()` through the owned default-off `ca3_completer` instead of the exact-key hash),
-  paired with `dg_pattern_separation`; measure on the live situation-model task (E2's LOCALIZED_WALL harness).
-  Connects to p2 (the READ half of the same memory architecture). Candidate next problem OR fold into p2 -- owner call.
-*Queue: p3 cleared (gap is normal); open = p1, p2, p4, p5, p6, p7.*
+🔌 **BOTH DONE (owner 2026-08-26: "do the right thing, not the easy thing; move to be more brain-foundational"):**
+- ✅ **Rec A LANDED (default-OFF):** `bundling.bundle(vectors, norm="l2")` + the coupled `atoms.similarity(..., cosine=True)`
+  readout -- the per-component normaliser only ever HURTS (L2/raw-sum beat it 32/32). Witness
+  `test_bundle_l2_normaliser_coupled.py` PASS (default BYTE-IDENTICAL; L2+cosine 0.419 >= default 0.344 under a
+  partial cue; regression clean). ⚠️ MEASURE ON THE LIVE READING TASK BEFORE FLIPPING (isolation win != capability).
+- ✅ **Rec B PACKAGED as p3** `content_addressable_retrieval_over_a_separated_store` -- the RE-LOCATED foundational
+  deviation and the ~5x lever: wire content-addressable retrieval (`ca3_completer` + `dg_pattern_separation`,
+  owned/default-off) over the SEPARATED `situation_model_multibank` store (which routes by exact-key hash, no
+  partial-cue path); prove on the LIVE situation-model task. UNIFIES E1/E2/E3 under one brain mechanism. Coordinate
+  with p2 (the READ half). **This is the brain-foundational path made concrete.**
+*Queue: p3 now = content-addressable retrieval (the re-located binding deviation); open p1-p7, unique.*
 
 ### 2026-08-26 -- 🧠 **FOUNDATION-FIRST QUEUE: the last two un-attacked foundations packaged (owner-directed)**
 Owner 2026-08-26: *"attack the foundations first -- if what we have is predicated on anything non-foundational in a
