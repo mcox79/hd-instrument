@@ -48,7 +48,23 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ---
 
-## 2b. AUDIT UPDATES (from integrated solver work — newest first)
+## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
+
+- **2026-08-26 — GOALS/REWARD & METACOGNITION tiers fidelity-scored (strategy extension, closing the §6 scope gap).**
+  **GOALS/REWARD:** only two organs are PINNABLE and both are already in the ORGAN_MAP — `action_selection` (BG
+  Go/NoGo + TD) is **SAME op-class**, and `successor_representation` (D7) is a **FULLY-PINNED closed form** (faithful
+  but MEASURED-AND-LOST). The goal-COMPREHENSION organs (`goal_typing`, `goal_outcome_relation(_grounded)`,
+  `goal_achievement`, `outcome_event_extraction`, `parse_goal_extraction`) are **UNSCORABLE** — goal / means-end
+  comprehension is a cognitive-level function with NO pinned neural equation, so they are OUR-INVENTIONS judged on
+  task, not brain-fidelity (like the POS/parse organs F1/F2). Their live weakness (`organ_abstains`: refuses 2/3)
+  is a **COVERAGE** gap — missing broad grounded meaning — NOT a fidelity flaw. `self_manager` (DA vigor / ACC-EVC
+  halting) mirrors the neuromodulatory G3 deviation (global scalars, not per-dimension task-driven gain).
+  **METACOGNITION (TIER 5):** `gap_detector` is **SAME** ("the healthiest organ"); the abstention family
+  (`refuse_gate` / `conformal` / `clarify_gate`) has a real deviation — **no floor on refusal CORRECTNESS**, and
+  `state.refusals` is written, counted, reloaded, then never consulted. **NET:** affect (p3) + goals + metacognition
+  are now scored; the honest finding is that the higher cognitive tiers are largely **UNSCORABLE** (brain equation
+  unpinned), so "brain-faithful" is undefined there and they are inventions judged on task — the fidelity levers
+  concentrate in the reading→meaning→memory pipeline.
 
 - **2026-08-26 — AFFECT / VALENCE TIER now has a fidelity verdict** (from `propagate_along_the_relation_that_carries_valence`,
   integrated EXCELLENT). This tier was flagged "built but never fidelity-scored" (§6 scope gap); it now has one.
