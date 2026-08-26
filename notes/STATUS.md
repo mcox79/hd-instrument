@@ -56,7 +56,14 @@ REVIEW in PROBLEM.md; priority cleared.
 (1) ✅ **N400 organ LANDED 2026-08-26** as `hdlab/n400_coherence_monitor.py` (off-path WIRE_CANDIDATE; witness
 `test_n400_coherence_monitor_organ.py` PASS; registered `n400_coherence_monitor_v1`; reuses the pinned EST
 `running_avg_update`) -- NEXT: wire a posted boundary → advance `situation_model_accumulate`'s event slot + measure live.
-(2) the **cortical-read CLS matched pair** (graded sparse+inhibited `space="overlap"` read + p2-recollection-gate routing) -- still queued.
+(2) the **cortical-read CLS matched pair** -- STILL QUEUED; SCOPED 2026-08-26 (do not repeat this / do not land theater):
+the deviation-#4 rescue (k-WTA sparse coding + frequency-normalised inhibition, 0.025→0.156) is SPECIFIC to the
+ASSOCIATIVE (Hebbian frequency-summed) read over the OVERLAPPING (PPMI+SVD) code -- it rescues hub collapse THERE. On
+the current GRADED cosine read (`cortical_recall`) sparsity is INERT, and imposing it is the fidelity THEATER the
+submission itself flagged (the graded read is sparsity-robust 0.34-0.39). So a faithful landing needs the
+overlapping-code + associative-read path BUILT (a real build, not a heartbeat cram); a naive k-WTA option on the cosine
+read would be theater. Land when that path exists; MEASURE LIVE before any capability claim (it is architecture-
+validation, not a floor-beater).
 *Queue: p1 two-systems, p3 content-addressable retrieval, p5 one-store, p6 meaning-wiring, p7 relcl -- all open, unique;
 sign_quantiser + prediction_error cleared (integrated).*
 
