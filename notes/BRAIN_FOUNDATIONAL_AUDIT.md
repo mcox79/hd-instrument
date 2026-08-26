@@ -48,6 +48,21 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ---
 
+## 2b. AUDIT UPDATES (from integrated solver work — newest first)
+
+- **2026-08-26 — MEMORY TIER / DEVIATION #2 advanced** (from `no_automatic_reliability_signal_reaches_the_source_oracle`,
+  integrated EXCELLENT). A **DG pattern-separation + CA3 completion recollection gate** was built and re-verified:
+  recollection now **self-certifies** (top-5% precision 0.938 vs counting 0.533 on the same items) and dual-process
+  routing beats the counting floor CI-separated for the first time (0.365 vs UB 0.336), capturing ~half the oracle
+  headroom; info-free twin loses, scramble collapses to 0.00. **Effect on this audit:** D1 (DG separation) moves
+  from "SAME but orphan" toward a **proven role**; D2 (CA3 completion) gains the **self-certifying confidence** it
+  lacked (for this use it no longer just "terminates in sign and buys nothing"). Answers board Q118 — a label-free
+  selection signal IS CA3 completion confidence. **NOT closed:** deviation #3's *cortical-consolidated* read — this
+  is the *episodic* recollection side. Lever for more = reading VOLUME (coverage), not a better gate. Organ recorded
+  as the proven-ready deliberate landing (off the live path).
+
+---
+
 ## 3. THE SCORECARD (from ORGAN_MAP §1 tally, 38 organs)
 
 | fidelity of our op vs the brain's | count |

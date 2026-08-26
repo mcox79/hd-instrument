@@ -31,7 +31,21 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- 🧠 **WHOLE-SUBSTRATE BRAIN-FOUNDATIONAL AUDIT, RECONCILED -> `notes/BRAIN_FOUNDATIONAL_AUDIT.md`**
+### 2026-08-26 (LATEST) -- ✅ **p2 `no_automatic_reliability_signal` INTEGRATED (EXCELLENT) -> a self-certifying DG/CA3 recollection organ that beats the counting floor**
+The "which source to trust" problem is SOLVED by going DEEPER than the brief (the strengthened-protocol behaviour,
+first live proof of it): the solver BUILT the brief's own-geometry mechanism, REFUTED it, found the real bottleneck
+was the episodic store (no separable traces), and rebuilt it the hippocampus's way -- **dentate-gyrus pattern
+separation + CA3 completion.** Recollection now **SELF-CERTIFIES** (top-5% precision 0.938 vs counting 0.533 on the
+same items) and dual-process routing beats the counting floor CI-separated for the FIRST time (route 0.365 vs UB
+0.336), ~half the oracle headroom; info-free twin loses, scramble -> 0.00. **Answers board Q118: a label-free
+selection signal IS CA3 completion confidence.** 🔌 **NEW #1 PROVEN-READY DELIBERATE LANDING:** promote the DG/CA3
+recollection-gate organ to hdlab (off live path, no behaviour change; witness `test_dg_ca3_recollection_self_certifies.py`
+passes) in the dedicated pass. Fed the first **AUDIT UPDATE** into `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (memory tier /
+deviation #2; D1 DG moves off "orphan", D2 CA3 gains a self-certifying confidence -- but the cortical-consolidated
+read, deviation #3, is NOT closed). **Lever for more = reading VOLUME (coverage), not a cleverer gate.** p3
+(`propagate_along_the_relation`, valence) submits shortly; priority reshuffle to follow with p2+p3+the audit.
+
+### 2026-08-26 -- 🧠 **WHOLE-SUBSTRATE BRAIN-FOUNDATIONAL AUDIT, RECONCILED -> `notes/BRAIN_FOUNDATIONAL_AUDIT.md`**
 Owner asked whether the substrate had been evaluated deeply against the brain foundation for large-scale gaps /
 deviations. It HAD (three scattered audits) but never reconciled or kept current. Produced ONE living reconciled
 map (merges ORGAN_MAP's 38 organs + component ledger's 14 + LONG_TERM_PLAN §4). **Headline: only 5 of 38 organs

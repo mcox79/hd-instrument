@@ -1,8 +1,23 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Re-verified scaffold-free (witness PASS, reproduced first-hand). A MODEL of going deeper: the solver BUILT the brief's own-geometry mechanism, REFUTED it, localised the real bottleneck (the episodic store had no separable traces), and rebuilt the brain's actual circuit -- dentate-gyrus pattern separation + CA3 completion. Recollection now SELF-CERTIFIES (94% precise when confident vs ~53% for counting on the same items), and trusting it only when confident BEATS the counting floor CI-separated for the first time (route 0.365 vs floor UB 0.336, +0.041), capturing ~half the oracle headroom; info-free twin loses, scramble collapses to 0.00. Answers board Q118 -- the selection signal IS CA3 completion confidence. Lands a new hippocampal organ (recorded proven-ready); the path to more is reading VOLUME, not a cleverer gate. Advances the brain audit's #2 deviation (the memory systems)."
 ---
+
+> # MY REVIEW -- EXCELLENT. A MODEL OF THE STRENGTHENED PROTOCOL: REFUTED THE BRIEF'S MECHANISM, WENT DEEPER, BUILT THE BRAIN'S ACTUAL CIRCUIT.
+> *Reviewed 2026-08-26 (owner-DONE). Re-verified scaffold-free: `verification/test_dg_ca3_recollection_self_certifies.py` PASS -- floor F_COUNT1 0.3242 (UB 0.3366) reproduced to the digit; DG/CA3 self-certifies (top-5% precision 0.938 vs familiarity 0.533 on the SAME items); word-overlap recollection does NOT (0.080); dual-process route 0.3650 clears the floor's UPPER bound CI-separated; SCRAMBLE collapses confident precision to 0.000.*
+>
+> ## WHY EXCELLENT
+> The brief proposed reading reliability off the existing sources' OWN response geometry (self-consistency, entropy, margin, participation-ratio). The solver **built that and refuted it** -- own-geometry reads a competent source's reliability but not a weak source's rare unique wins, which is exactly where the oracle's reserve lives. Instead of stopping at that wall, it asked what the signal would even certify and found **the real bottleneck is the episodic store itself**: word-overlap recollection is not self-certifying at any strictness (its most confident 2% are right 0.073 where familiarity is 0.264). It then rebuilt the store the hippocampus's way -- DG expansive projection + k-WTA (~2%) pattern separation, CA3 nearest-code completion, completion overlap = intrinsic confidence, dual-process routing (recollection when confident, else PMI familiarity). **This is precisely the "a shared wall means none of your angles was the brain's mechanism -- go deeper" behaviour the protocol now demands.**
+>
+> ## THE BAR IS MET, BY A MORE BRAIN-FAITHFUL MECHANISM (which the brief authorised)
+> An AUTOMATIC per-item reliability signal beats the counting floor CI-separated (route 0.365 vs UB 0.336; +0.041 CI [+0.036,+0.046]), info-free twin (shuffled firing flag) LOSING CI-separated, capturing ~half the oracle headroom (0.324 -> 0.365 -> 0.404). It copies the brain's computation exactly (Yonelinas dual-process recognition; CLS; Treves-Rolls DG/CA3; Ernst-Banks reliability weighting) and sweeps the parameters (D=2048, k~2%, one-step completion -- all flagged tunable). **It answers board Q118 -- where a selection signal comes from WITHOUT labels: it is CA3 completion confidence.**
+>
+> ## HONEST LIMITS (flagged, withdraw-first) -- AND MY LABEL CALL
+> Captures ~HALF the oracle, not full; coverage-limited (~10-20% of items whose held-out cue matches a stored episode); overall recollection hit@1 is weak (0.179) -- **the win is the CONFIDENCE, used for routing, not the read-out**; the organ is PROPOSED, not yet landed. The solver flagged a soft SOLVED-vs-STRONG-but-open call. **My call is SOLVED / EXCELLENT:** the bar was "beat counting CI-separated, moving toward the oracle, info-free twin losing" -- all met unambiguously; "reach the full oracle" was never required, and the controls are clean (two projection seeds; scramble collapse; floor to the digit, gated on UB).
+>
+> ## WHAT THIS CHANGES
+> It **advances the audit's #2 large-scale deviation** (`notes/BRAIN_FOUNDATIONAL_AUDIT.md`: the memory systems / "a missing self-certifying episodic read"): a DG+CA3 recollection gate whose confidence is TRUSTWORTHY now exists, promoting `dg_pattern_separation` from orphan toward a proven role and giving CA3 completion a self-certifying confidence it lacked. *(It does NOT close deviation #3's cortical-consolidated read -- this is the episodic side.)* **The path to more is reading VOLUME** -- coverage grows with episodic reading, the SAME episodic tier the meaning line needs, so read-more pays twice -- NOT a cleverer gate. **hdlab landing:** the DG/CA3 recollection gate is recorded as the proven-ready deliberate landing (new off-path hippocampal organ + witness; no live-path behaviour change); landing in the dedicated pass.
 
 # PROBLEM: an oracle that picks the best source per question beats everything -- but no AUTOMATIC signal reaches it. Find one.
 
