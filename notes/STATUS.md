@@ -31,7 +31,30 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- 🧠 **FOUNDATION-FIRST QUEUE: the last two un-attacked foundations packaged (owner-directed)**
+### 2026-08-26 (LATEST) -- ✅ **p3 BINDING INTEGRATED (EXCELLENT): the OPERATOR is VALIDATED; the deviation RE-LOCATES to the RETRIEVAL architecture**
+The binding foundation is RESOLVED. At EQUAL storage our compressed FHRR bind **BEATS the two writable brain
+theories** (tensor-product, conjunctive) -- an efficient choice, NOT a liability; TPR loses to FHRR in every
+exact-cue cell. ➡️ **The real deviation is one level up: flat-superposition RETRIEVAL.** We superpose many bindings
+into one vector and un-mix on demand; the brain SEPARATES into slots + retrieves CONTENT-ADDRESSABLY, so a partial
+cue still works -- a brain-faithful version (theta-gamma) recovers **~5x more under a degraded cue, CI-separated, at
+equal storage** (0.128 vs 0.025), twins losing (predicted by the CA3 partial-cue dissociation, Nakazawa 2002).
+**Load-bearing negative:** CA3 cleanup on a flat read TIES argmax -- you cannot clean out of superposition; fix the
+STORAGE. **The substrate ALREADY OWNS the fix (`ca3_completer` + `dg_pattern_separation`, both default-off) but
+wires them so the advantage is lost.** Synthetic construction proof, NOT a downstream win -- measure LIVE before any
+capability claim. AUDIT UPDATED (E1 re-located; unifies E1/E2/E3 under content-addressable retrieval). Re-verified
+scaffold-free (`verify_binding_operator_stress.py` PASS).
+🔌 **TWO hdlab changes earned, BOTH HELD FOR THE OWNER (not solo-landed):**
+- **Rec A (owner judgement call, escalated by the solver):** the per-component superposition normaliser
+  (`bundling.py`) only ever HURTS (L2/raw-sum beat it 32/32, wins zero). Add a `norm="l2"` option WITH the coupled
+  cosine readout in `atoms.py:similarity` -- DEFAULT-OFF, two CORE files landed together. It touches the shared
+  similarity path, so it wants the owner's eyes. HELD for owner go.
+- **Rec B (the real 5x lever, a build):** give `situation_model_multibank` a CONTENT-ADDRESSABLE retrieval path for
+  partial cues (route `decode()` through the owned default-off `ca3_completer` instead of the exact-key hash),
+  paired with `dg_pattern_separation`; measure on the live situation-model task (E2's LOCALIZED_WALL harness).
+  Connects to p2 (the READ half of the same memory architecture). Candidate next problem OR fold into p2 -- owner call.
+*Queue: p3 cleared (gap is normal); open = p1, p2, p4, p5, p6, p7.*
+
+### 2026-08-26 -- 🧠 **FOUNDATION-FIRST QUEUE: the last two un-attacked foundations packaged (owner-directed)**
 Owner 2026-08-26: *"attack the foundations first -- if what we have is predicated on anything non-foundational in a
 BLOCKING way, we should attack those foundations first."* Confirmed the queue is foundation-first and CLOSED the
 set. **NEW QUEUE (all three foundational fixes now sit ABOVE the downstream capability work):**
