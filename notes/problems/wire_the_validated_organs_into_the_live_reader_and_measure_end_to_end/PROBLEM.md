@@ -1,7 +1,7 @@
 ---
-priority: 1
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Integrated PARTIAL/EXCELLENT 2026-08-26 (owner-DONE) -- the DECISIVE result that picks the next stage. A rigorous, well-attributed NEGATIVE = a full PASS per the bar. Re-verified scaffold-free first-hand (test_wire_organs_endtoend.py, 9/9 PASS). Composed 3 validated organs into a real McGuffey entity-role reading task, organs OFF vs ON, identical inputs. VERDICT: the FRONT-END (event/role extraction) is the binding constraint -- end-to-end 0.483 [0.410,0.556] BELOW the trivial majority floor 0.781, while the SAME organs on CLEAN/oracle inputs hit event 1.000 / role 0.983 CI-separated over the majority floor AND the exact-key live baseline (twin loses) -- the oracle-vs-live contrast localises the wall to the front-end, not the organs. Error taxonomy: MISASSIGNMENT-dominant (role 86 > entity 50 > miss 30; 104 OUT-OF-SCOPE roles). Stage 4 PROVED the lever: a brain-faithful verb-argument role assigner lifts end-to-end 0.483->0.736 CI-separated (biggest error class = quotative/dialogue postverbal speaker). TWO caught+RETRACTED overreaches (Stage 5 'organs add nothing'; first Stage 6 'meaning supply fails') -> Stage 7 clean instrument shows content-addressable MEANING retrieval DOES recover lexically-disjoint paraphrase cues (0.528 CI-sep vs collapsed count 0.217) -- REAL but PARTIAL. Composition is a late algebraic MERGE (Norris) not a feedforward cascade. FHRR CONFIRMED FAITHFUL (SEM/Franklin 2020 uses HRR+bundling+CLS = our machinery) -> keep it; store-organization (sparse/indexed) + case-frame content are the FHRR-compatible fidelity gaps. KEY: the learned front-end organ (hdlab/thematic_role_labeler.py, Competition Model, richer roles) ALREADY EXISTS + is ISLANDED since 08-10 -- the fix is WIRE+MEASURE it, not build new. Grade EXCELLENT (decisive attribution, error taxonomy, self-retractions, brain-fidelity drills). NO hdlab landed (the decision-shaping negative: do NOT wire the swamped organs as a comprehension lift). Branch B fired -> front-end packaged as the new top problem."
 ---
 
 # PROBLEM: we have a SHELF of validated brain organs proven only in ISOLATION -- compose them into the LIVE reader and measure END-TO-END, because a functional brain is the parts WORKING TOGETHER, not a pile of parts that each pass alone
@@ -244,3 +244,38 @@ organ outputs) LOSING CI-separated**, CI half-width + null p95 reported. Attribu
 - Do NOT claim a capability from a synthetic arm -- the number that counts is measured through the LIVE reader on the
   identical inputs as the baseline.
 - No number crosses the isolated instruments and the live task -- recompute the floor on the live population.
+
+---
+
+## SOLVER REVIEW (strategy session, 2026-08-26 — INTEGRATED, owner-DONE — the DECISIVE result)
+
+**Grade EXCELLENT. Verdict PARTIAL** (a rigorous, well-attributed negative that DIAGNOSES + PROVES the lever = a full
+PASS per the bar). Re-verified scaffold-free first-hand — `test_wire_organs_endtoend.py` 9/9 PASS, every load-bearing
+claim reproduced (organs 1.000 clean / 0.483 end-to-end below the 0.781 floor; misassignment-dominant; the verb-argument
+front-end moves 0.483→0.736; meaning retrieval recovers paraphrase cues where counting is blind).
+
+**Why EXCELLENT — this is the model of what a wire-and-measure should be.** (1) It answered the brief's "single most
+valuable finding" decisively: the oracle-vs-live contrast LOCALISES the wall to the front-end (the organs are not broken;
+they hit 1.000 clean and collapse only through the noisy front-end). (2) The error taxonomy (miss vs misassign-role vs
+misassign-entity vs out-of-scope) — a re-labelling of output already produced — turned "the front-end is the wall" from
+an assertion into an attributed finding, and named the mechanism (quotative/dialogue postverbal speaker → verb-argument
+structure). (3) It didn't stop at the diagnosis — Stage 4 BUILT the fix and moved the end-to-end number +0.253
+CI-separated. (4) It caught and RETRACTED **two** of its own overreaches (Stage 5 "organs add nothing"; first Stage 6
+"meaning supply fails"), each killed by a can-fail control, not by re-reading its own numbers — and Stage 7's clean
+instrument recovered the real, partial meaning-recognition capability. (5) A literature dive OVERTURNED the brief's own
+PINNED composition claim (reading is a late algebraic MERGE, Norris, not a feedforward cascade). (6) A machinery-fidelity
+drill CONFIRMED FHRR faithful (SEM/Franklin 2020 — a peer-reviewed brain event-memory model — binds role→filler with
+HRR + bundling + a CLS split: our exact machinery), and found the real FHRR-compatible gaps (sparse/indexed store,
+case-frame content). (7) WIRE-DON'T-ISLAND discipline exposed that the learned front-end organ ALREADY EXISTS
+(`hdlab/thematic_role_labeler.py`, Competition Model, richer roles) and is islanded — so the fix is wire+measure, not
+rebuild; its Stage-4 hand-cascade honestly re-derived a worse subset.
+
+**Effect on the programme — this SELECTS the next stage (Branch B, `NEXT_STAGE_after_wire_and_measure.md`).** The
+front-end is the measured binding constraint; the downstream memory organs are validated (partial on meaning cues) but
+do not move the aggregate on this task. So the next build is the FRONT-END: wire + measure the existing learned
+Competition-Model role labeler (richer roles for the 104 out-of-scope; graded constraint-satisfaction over its
+animacy-dominance HARD_FAIL), composing the already-integrated verb-selectional-preference (predictive reader) and the
+filler-gap resolver (relcl) for the two-animate residual. Packaged as the new top-priority problem.
+
+**No hdlab landed this integration** (Q111) — the decision-shaping negative is explicit: do NOT wire the swamped organs
+as a comprehension lift. AudIT UPDATEs folded into `notes/BRAIN_FOUNDATIONAL_AUDIT.md` §2b + the binding/§8/§1 corrections.

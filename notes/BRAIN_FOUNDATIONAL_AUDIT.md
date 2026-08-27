@@ -27,13 +27,19 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
   fix for binding (E1), the consolidated-memory read (E2), coreference (E3), the fan effect (context reinstatement = one
   more cue feature), AND — newly — reversible-sentence PARSING (filler-gap role binding = "retrieve the filler from a
   partial cue"; the discrete rule is its noise→0 limit). Five problems that looked unrelated are ONE operation reused.
-  **This is why the programme is WIRE-AND-MEASURE, RETRIEVAL-FIRST (§8): nailing retrieval is predicted to fix parsing,
-  memory, coref, and interference at once, not one organ.**
-- **The single biggest LIVE defect: we ask every question of the WRONG memory** — the fast episodic "sketchpad," never
-  the consolidated long-term store that was written but never read back. This is the most concrete instance of the
-  retrieval convergence above (the read path is exact-key, with no content-addressable/partial-cue retrieval). *(The
-  once-co-headline `sign()` "averaging machine" defect was REFUTED this session as the read-out lever — graded is already
-  on and buys ~null; it survives only as a binding-site guardrail. See §5 #2.)*
+  **This is why the retrieval organs were built RETRIEVAL-FIRST.**
+- **🧭 BUT THE COMPOSITION WAS MEASURED END-TO-END (2026-08-26, §2b) AND IT RE-POINTS THE PROGRAMME: the binding
+  constraint is the FRONT-END (event/role extraction), NOT the memory/retrieval stages.** Composed into a real reading
+  task, the organs work perfectly on CLEAN inputs (event 1.000) but the whole reader scores BELOW a trivial "always say
+  agent" floor end-to-end — every downstream organ is swamped by a front-end that mislabels who-did-what-to-whom
+  (misassignment-dominant). A brain-faithful verb-argument front-end recovers most of it (0.48→0.74 CI-sep). So the
+  retrieval convergence is REAL (the organs are the right operation, validated on clean inputs + partial on meaning cues)
+  but its live payoff is FRONT-END-GATED. **The next lever is the front-end (verb-argument role assignment), not more
+  downstream organs — and the learned organ for it already exists, islanded (`thematic_role_labeler.py`).**
+- **The single biggest MEMORY defect (real, but downstream of the front-end): we ask every question of the WRONG memory**
+  — the fast episodic "sketchpad," never the consolidated long-term store (read path is exact-key, no partial-cue
+  retrieval). *(The once-co-headline `sign()` "averaging machine" defect was REFUTED this session; it survives only as a
+  binding-site guardrail. And FHRR binding is now CONFIRMED faithful — a published model, SEM/Franklin 2020 — see §5 #1.)*
 - **The systems we DO build well are lopsided toward reading:** coreference, goals/reward, valence, and
   metacognition are richly built; **Theory of Mind is absent, dedicated meaning-selection (semantic control) is
   thin, and the speaking side is essentially one file.** This substrate is a reader, not a speaker.
@@ -58,6 +64,51 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 ---
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
+
+- **2026-08-26 — 🧭 THE DECISIVE WIRE-AND-MEASURE: the composed organs FAIL end-to-end through the LIVE front-end but
+  WORK on clean inputs → the FRONT-END (event/role extraction) is the binding constraint, not the memory organs; FHRR is
+  CONFIRMED faithful; the fix is an EXISTING islanded learned organ** (from
+  `wire_the_validated_organs_into_the_live_reader_and_measure_end_to_end`, integrated PARTIAL/EXCELLENT, owner-DONE;
+  witness `test_wire_organs_endtoend.py` 9/9 PASS, re-verified first-hand). **This is the result that PICKS THE NEXT
+  STAGE — Branch B fired (`NEXT_STAGE_after_wire_and_measure.md`).** Three validated organs (content-addressable additive
+  retrieval, the distinctive-feature meaning read-out, a top-down coherence merge) composed into a real McGuffey
+  entity-role reading task (57 passages, 178 gold queries), organs OFF vs ON, identical inputs. **VERDICT — a rigorous,
+  well-attributed NEGATIVE = a full PASS:** end-to-end through the LIVE front-end the composed reader answers at 0.483
+  [0.410,0.556] — BELOW the trivial majority-role floor 0.781; but on CLEAN/oracle inputs the SAME pipeline recovers the
+  right event (hit@1 1.000) and role (0.983), beating the majority floor AND the exact-key live baseline (recency 0.730)
+  CI-separated, info-free twin losing. **The oracle-vs-live contrast LOCALISES the wall to the front-end — the organs are
+  not broken.** Error taxonomy (the cheap decisive control, done FIRST): MISASSIGNMENT-dominant (role-label 86 > entity
+  50 > miss 30; 104 gold roles OUT-OF-SCOPE for an agent/patient front-end). **Stage 4 PROVED the lever:** a brain-faithful
+  verb-argument role assigner (verb-class + quotative inversion + animacy) lifts front-end in-scope 0.36→0.82 and
+  end-to-end 0.483→0.736 CI-separated (biggest single error class = quotative/dialogue POSTVERBAL speaker); it ties (not
+  clears) the 0.908 in-scope majority floor, residual = the out-of-scope roles + two-animate who-did-what (needs verb
+  selectional preference). **TWO caught+RETRACTED overreaches** (Stage 5 "organs add nothing" — a surface-cue no-headroom
+  artifact; first Stage 6 "meaning supply fails" — three confounds), resolved by **Stage 7's clean instrument: content-
+  addressable MEANING retrieval DOES recover lexically-disjoint paraphrase cues (0.528 [0.434,0.623] CI-separated over the
+  collapsed count 0.217 and the twin 0.179) — REAL but PARTIAL** (0.528 << the exact-word ceiling 0.783). So the organs
+  add value on the task they are FOR (recognise-not-recite), which the surface task could not show. **COMPOSITION FIDELITY
+  (overturns the brief's §3):** the brain-faithful reading composition is a **late algebraic MERGE of forward-computed
+  streams (Norris/McQueen/Cutler 2000 "Merge") + bounded revision — NOT a feedforward cascade, NOT recurrence.** **🔒
+  FHRR CONFIRMED FAITHFUL — do NOT replace (converges with the owner-lock):** SEM (Franklin, Norman, Ranganath, Zacks &
+  Gershman 2020, Psych Review — a peer-reviewed brain event-memory model) binds role→filler with **HRR circular
+  convolution + bundling and a hippocampus/cortex CLS split = our exact machinery**; binding-by-synchrony is partly
+  disconfirmed; VSA is the best-specified computational-level theory with a neural existence proof (Eliasmith SPA/Spaun).
+  → **the audit's "central binding op UNPINNED → our-invention" framing is CORRECTED to "unpinned at the neural-
+  IMPLEMENTATION level; a defensible PUBLISHED model (SEM)"** (see §5 #1). The real FHRR-compatible fidelity gaps
+  (flagged, do NOT chase as a comprehension fix — they do not move this front-end-bound number): a sparse/indexed +
+  boundary-gated STORE of FHRR codes (wire the shelved dg_ca3 gate + N400 segmentation — the same sparse-code lever as
+  consolidation) and a role-labeled CASE-FRAME content unit (McRae role×filler asymmetry disproves bag-of-words). **F5
+  N400 fidelity gap:** the monitor segments on a running-mean CONTENT gist with NO schema/goal term, but boundary
+  PLACEMENT is top-down-laden (Zacks 2007) — seed an "expected content" prior before wiring segmentation live. **🔌 NO
+  hdlab landed (the decision-shaping negative): do NOT wire the swamped downstream organs as a comprehension lift.**
+  **🧠 WIRE-DON'T-ISLAND FINDING: the learned front-end organ ALREADY EXISTS + is ISLANDED** —
+  `hdlab/thematic_role_labeler.py` (a LEARNED averaged-perceptron Competition-Model role labeler, roles incl.
+  AGENT/PATIENT/EXPERIENCER/RECIPIENT/GOAL — addressing the 104 out-of-scope, 228 verb frames, real animacy lexicon,
+  registered `..._islanded_2026-08-10`, ZERO live wirings). The Stage-4 hand-cascade re-derived a worse subset. **So the
+  re-pointed FRONT-END fix is to WIRE + MEASURE this existing organ (its own revalidation HARD_FAILED on modern prose as
+  animacy-dominant — a genuine wire-and-measure, not a slam-dunk), + `hdlab/learner/` for selectional preference,
+  composing the integrated predictive-reader verb-preference + the relcl filler-gap resolver** — packaged as the new
+  top-priority problem.
 
 - **2026-08-26 — THE READER'S MISSING FORWARD-PREDICTION LOOP is BUILT: the verb pre-activates its argument's GROUNDED
   features and the resulting −log P surprisal is a real graded difficulty signal — closing the #1 architecture-fidelity
@@ -576,9 +627,14 @@ thin/UNPINNED and, structurally, "IS coreference in disguise → must reuse the 
 ## 5. THE LARGE-SCALE DEVIATIONS (we do it, not the brain's way)
 
 1. **MOST OF THE ARCHITECTURE IS INVENTION, NOT REPLICATION** — 14/38 core operations UNPINNED, 4 UNSCORABLE,
-   only 5 SAME. Including **the central binding operation (3-way contested)**. Honestly labelled, but it means
-   "brain-faithful" is *undefined* for a large fraction of the substrate; those parts are bets, and should be
-   named as bets.
+   only 5 SAME. Honestly labelled, but it means "brain-faithful" is *undefined* for a large fraction of the substrate;
+   those parts are bets, and should be named as bets. **CORRECTED 2026-08-26 for BINDING (§2b, wire-and-measure machinery
+   drill): the central binding operation is NOT a bare "our-invention" — FHRR is UNPINNED at the neural-IMPLEMENTATION
+   level, but it is a DEFENSIBLE, PUBLISHED brain model:** SEM (Franklin, Norman, Ranganath, Zacks & Gershman 2020, Psych
+   Review) binds role→filler with HRR circular convolution + bundling + a CLS split — our exact machinery — and VSA is the
+   best-specified computational-level theory with a neural existence proof (Eliasmith SPA/Spaun). **Owner-locked: KEEP
+   FHRR; do NOT propose replacing the binding algebra.** The fidelity lever is STORE ORGANIZATION (dense bundle →
+   sparse/indexed + case-frame content), which is FHRR-compatible.
 2. **~~THE `sign()` QUANTISER EVERYWHERE~~ — REFUTED 2026-08-26 AS THE AVERAGING-MACHINE LEVER (see §2b).** The
    34-site `sign()` was theorised to make the system an averaging machine. **It does not, and the graded flags are
    already default-ON (since 08-14), not default-OFF.** On the real open-vocab task graded vs sign is NULL, and the

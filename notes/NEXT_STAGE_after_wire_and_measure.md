@@ -1,5 +1,13 @@
 # NEXT-STAGE decision tree — pre-staged for when p1 (wire-and-measure) lands
 
+> **✅ FIRED 2026-08-26 — BRANCH B (with nuance). p1 landed a rigorous, well-attributed NEGATIVE: the FRONT-END
+> (event/role extraction) is the binding constraint (organs 1.000 on clean inputs, 0.483 end-to-end below the 0.781
+> floor; a brain-faithful verb-argument front-end recovers it 0.48→0.74). The downstream memory organs are validated
+> (partial on meaning cues) but do not move the aggregate. → Executing Branch B: the FRONT-END problem is packaged as
+> the new top priority (WIRE + MEASURE the EXISTING islanded learned `thematic_role_labeler.py`, richer roles + graded
+> constraint-satisfaction, composing the integrated predictive-reader verb-preference + the relcl filler-gap). NOT a
+> pure front-end story: meaning-based recognition works partially (Stage 7) and FHRR is confirmed faithful (keep it).**
+
 **Written 2026-08-26 (strategy), while p1 `wire_the_validated_organs_into_the_live_reader_and_measure_end_to_end`
 is an active WIP. Purpose: the moment p1 is owner-FINALIZED, execute the right branch immediately instead of
 starting to plan then.** p1 is the DECISIVE fork — it composes the retrieval organs (content-addressable retrieval +

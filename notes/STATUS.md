@@ -31,7 +31,35 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- ✅ **p2 predictive-reader INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the reader's missing FORWARD-PREDICTION loop is BUILT -- the verb pre-activates its argument's grounded features, surprisal is a real difficulty signal, and it UNIFIES with relcl (flags reversible cases for syntax)**
+### 2026-08-26 (LATEST) -- 🧭✅ **p1 WIRE-AND-MEASURE INTEGRATED (owner-DONE, EXCELLENT/PARTIAL) -- THE DECISIVE RESULT: the composed organs FAIL end-to-end but WORK on clean inputs → the FRONT-END is the binding constraint (Branch B fired). FHRR CONFIRMED faithful. The fix is an EXISTING islanded learned organ.**
+The phase-defining measurement, delivered as a rigorous, well-attributed NEGATIVE (= a full PASS per the bar).
+Re-verified scaffold-free FIRST-HAND (`test_wire_organs_endtoend.py`, 9/9 PASS). Composed 3 validated organs into a real
+McGuffey entity-role reading task, organs OFF vs ON, identical inputs. **End-to-end through the LIVE front-end: 0.483
+[0.410,0.556] — BELOW the trivial majority floor 0.781.** But on CLEAN/oracle inputs the SAME organs hit event 1.000 /
+role 0.983, beating the majority floor + the exact-key baseline CI-separated (twin loses) — **the oracle-vs-live contrast
+LOCALISES the wall to the FRONT-END; the organs are not broken.** Errors are MISASSIGNMENT-dominant (role 86 > entity 50
+> miss 30; 104 OUT-OF-SCOPE roles). **Stage 4 PROVED the lever:** a brain-faithful verb-argument role assigner lifts
+end-to-end 0.483→0.736 CI-sep (biggest error = quotative postverbal speaker). **TWO caught+RETRACTED overreaches** →
+Stage 7 clean instrument: content-addressable MEANING retrieval DOES recover paraphrase cues (0.528 CI-sep vs count
+0.217) — REAL but PARTIAL. Composition = late algebraic MERGE (Norris), not a cascade. **🔒 FHRR CONFIRMED FAITHFUL**
+(SEM/Franklin 2020 = HRR+bundling+CLS = our machinery) → keep it; the audit's "binding op unpinned→invention" framing
+CORRECTED; store-organization (sparse/indexed) + case-frame content are the FHRR-compatible gaps. 5 AUDIT UPDATEs folded
+(§2b + §5 binding correction + §1 front-end-is-the-wall). **🔌 NO hdlab landed** (the decision-shaping negative: do NOT
+wire the swamped organs as a comprehension lift). Review EXCELLENT + SOLVER REVIEW; priority cleared.
+🧭 **BRANCH B FIRED (`NEXT_STAGE_after_wire_and_measure.md`) — THE NEXT STAGE IS THE FRONT-END.**
+📦 **PACKAGED (Branch B execution + restore the ≥3 floor) — NEW p1 `the_live_front_end_mislabels_who_did_what_to_whom`:**
+the front-end is the measured wall. **KEY (WIRE-DON'T-ISLAND): the learned organ ALREADY EXISTS** —
+`hdlab/thematic_role_labeler.py` (learned Competition-Model role labeler, richer roles incl. EXPERIENCER/RECIPIENT/GOAL
+for the 104 out-of-scope, 228 verb frames, islanded since 08-10, ZERO live wirings; its revalidation HARD_FAILED on
+modern prose as animacy-dominant). So the problem is **WIRE + MEASURE it into the live reader** (graded constraint-
+satisfaction over its animacy-dominance; compose the integrated predictive-reader verb-selectional-preference + the relcl
+filler-gap resolver for the two-animate residual), NOT build a new extractor. *Queue: p1 front-end (NEW, the wall) = TOP;
+p2 entity-tracking (downstream of the front-end); p8 meaning-context (data-ready, lowest). Proven-ready hdlab landing
+PENDING: the forward-prediction organ. p1-wire-and-measure cleared (integrated).*
+⏳ **NOTE:** `theory_of_mind_is_proven_only_in_a_synthetic_microworld` was submitted alongside but is NOT owner-DONE (no
+OWNER_NOTES) — WIP, left alone; integrate only on an explicit owner_verdict.
+
+### 2026-08-26 -- ✅ **p2 predictive-reader INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the reader's missing FORWARD-PREDICTION loop is BUILT -- the verb pre-activates its argument's grounded features, surprisal is a real difficulty signal, and it UNIFIES with relcl (flags reversible cases for syntax)**
 The #1 architecture-fidelity gap (feed-forward → predictive) closed. Re-verified scaffold-free FIRST-HAND
 (`verify_predictive_reader.py`, 8/8 PASS). BOTH bar routes met on held-out REAL QA-SRL (modern text): the verb (+role)
 pre-activates the expected argument's GROUNDED features (Altmann-Kamide/McRae), −log P softmax surprisal beats REACTIVE
