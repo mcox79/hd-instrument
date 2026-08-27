@@ -306,3 +306,19 @@ in-pipeline (this step); the two halves are validated. **REMAINING for the FULL 
 retrieval -> meaning on ONE cross-sentence gold): swap p1's improved front-end into the SEAM + add the meaning channel;
 best run when p1 lands (avoids the moving target). The harness is READY.**
 - Commit: see git log (strategy: full-composition harness + in-pipeline integration test -- step 13).
+
+### 2026-08-27 -- STEP 14: MEANING axis earns its keep in comprehension (recognise-not-recite) ✅
+Built `experiments/exp_meaning_channel_paraphrase_comprehension_v1.py`: answer a PARAPHRASED who-did-what question
+("what did X PURSUE?" when the story said "chased") on LitBank, retrieving the event among the doc's ~100 candidate
+verbs. **Result (n=5939 paraphrase items):** OFF exact-match **0.0000** (structurally fails on paraphrase, by
+construction) | ON conceptual_meaning **0.7500 [0.739,0.762]** | TWIN random **0.0101**. ON - OFF +0.75 CI-sep;
+ON - TWIN +0.74 CI-sep. **-> the landed conceptual channel RECOVERS who-did-what under paraphrase (recognise-not-recite)
+where exact word-matching cannot; the info-free twin loses.** **HONEST CAVEAT: the paraphrases are WordNet synonyms and
+the channel is WordNet-based -> mild in-domain circularity (the channel recognising its own source's synonymy). A fully
+independent test needs NON-WordNet paraphrases (PPDB / a human paraphrase set) -- the meaning-op-routing solver (p3) +
+a follow-on cover this; here it is a legitimate demonstration of the channel's paraphrase-recovery FUNCTION, so caveated.**
+**CONSOLIDATION STATE -- ALL THREE ORGAN AXES individually earn their keep in comprehension:** FRONT-END 0.739 vs 0.519
+(STEP 9); ENTITY/character-tracking 0.184 vs 0.058 in-pipeline (STEP 13); MEANING 0.750 vs 0.010 paraphrase (this step);
+each with its info-free twin LOSING. The FULL end-to-end (all three composed on ONE cross-sentence gold + p1's improved
+front-end) is the remaining decisive test, ready to fire when p1 lands (harness STEP 13; seam + meaning channel wired).
+- Commit: see git log (strategy: meaning axis earns its keep in comprehension -- step 14).
