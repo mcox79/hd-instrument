@@ -31,7 +31,23 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- ✅ **FRONT-END NON-CANONICAL FIX INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- 1st of 3 parallel solvers: a ROUTED graded cue-competition (Competition Model) beats the front-end on non-canonical structure; the residual is UPSTREAM (meaning-supply + coref + incremental parser), NOT a cue defect**
+### 2026-08-27 (LATEST) -- ✅ **MEANING OPERATION-ROUTING INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- 2nd of 3 parallel solvers: meaning-similarity is OPERATION-SPECIFIC per word class; the adjective SIGNED-MAGNITUDE op clears CI-separation AT POWER on an independent human gold; the magnitude CODE is FPE(log degree), validated to 240k human trials**
+`the_meaning_read_out_is_one_operation_where_the_brain_has_three` (parallel solver p3). Re-verified scaffold-free
+FIRST-HAND (`verify_perclass_meaning_operations.py` ALL CHECKS PASS). The adjective signed-magnitude op (GloVe projection
+onto a bipolar axis ANCHORED by the explicit WordNet antonym relation) recovers human magnitude CI-separated over BOTH
+the incumbent conceptual cosine AND the random-axis twin on an INDEPENDENT non-WordNet gold (Warriner VAD + Brysbaert,
+n~3600-5300 -- the n=111 power wall RESOLVED): **valence 0.724 vs incumbent 0.165 (+0.559 CI-sep)**, Moyer distance effect
+present. **REFINES the brief: the cosine is wrong for adjectives ONLY** (verbs win with the gloss). Exceptional depth
+(probes A-H, all controlled): opposition RELATIONAL not geometric; ATOM single-axis REFUTED; perceptual grounding doubles
+concreteness; intensity is MARKEDNESS not geometry; the magnitude CODE is FPE(log degree) in FHRR (log PINNED by Laughlin
+efficient coding), **VALIDATED against 240k human number-comparison trials** (Weber kernel predicts RT rho 0.96). Self-caught
+a signed-rho bug; honest negatives (VerbNet does not beat the gloss). AUDIT UPDATE folded (§2b). 🔌 **NO hdlab landed;
+EARNED proven-ready:** `scalar_adjective_operation` + operation-routing-by-word-class + FPE-log upgrade of quality_relation
+Ch.B. Review EXCELLENT + SOLVER REVIEW; priority cleared. 📦 **NO successor packaged.**
+🎯 **CONSOLIDATION: 2 of 3 parallel solvers integrated (p1 front-end + p3 meaning). p2 (entity store) submitted, AWAITS
+owner_verdict. QUEUED hdlab landings: graded_role_assigner (p1, weights fitted -- resume) + scalar_adjective_operation (p3).**
+
+### 2026-08-27 -- ✅ **FRONT-END NON-CANONICAL FIX INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- 1st of 3 parallel solvers: a ROUTED graded cue-competition (Competition Model) beats the front-end on non-canonical structure; the residual is UPSTREAM (meaning-supply + coref + incremental parser), NOT a cue defect**
 `the_front_end_mishandles_non_canonical_argument_structure` (parallel solver p1). Re-verified scaffold-free FIRST-HAND
 (`test_noncanonical_role_assigner.py` 6/6 PASS, held-out n=4078). A HYBRID graded cue-competition assigner (MacWhinney/Bates
 Competition Model over the landed `graded_competition`; learned validities) beats the composed front-end on the

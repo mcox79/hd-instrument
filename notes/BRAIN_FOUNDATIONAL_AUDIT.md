@@ -65,6 +65,49 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-27 — MEANING-SIMILARITY IS OPERATION-SPECIFIC PER WORD CLASS, and the adjective SIGNED-MAGNITUDE op clears
+  CI-separation AT POWER on an independent human gold; the cosine is wrong for ADJECTIVES ONLY (verbs are already served
+  by the gloss); and the magnitude CODE is FPE(log degree), validated to human behaviour** (from
+  `the_meaning_read_out_is_one_operation_where_the_brain_has_three`, integrated SOLVED/EXCELLENT, owner-DONE; witness
+  `verify_perclass_meaning_operations.py` ALL CHECKS PASS, re-verified first-hand). **Resolves the prior "one cosine loses
+  adjectives + verbs" deviation and CORRECTS it to ONE class:** the feature-overlap conceptual cosine WINS nouns (0.599)
+  and VERBS (0.492 vs blended 0.152 — a definition is a relational description), and loses ADJECTIVES only (0.479<0.585,
+  no signed-magnitude structure). **The adjective op = GloVe projection onto a bipolar dimension axis ANCHORED by the
+  explicit WordNet antonym relation** — recovers the human magnitude CI-separated over BOTH the incumbent cosine AND the
+  info-free random-axis twin on an ADEQUATELY-POWERED INDEPENDENT non-WordNet gold (Warriner VAD + Brysbaert, n~3600–5300,
+  the SimLex n=111 power wall RESOLVED): **valence 0.724 vs incumbent 0.165 (+0.559 CI-sep) vs random 0.067 (+0.657
+  CI-sep)**, dominance/concreteness/arousal all CI-sep at full power, shuffled-gold twin ~0, **MOYER distance effect
+  present** (an analog graded scale, not a binary flag). The n=111 wall was the SIMILARITY-gold instrument (conflates
+  dimension-membership with degree), not the op — the magnitude-native RECOVERY/ORDERING task is the right instrument.
+  **NEW substructure (deeper drills, each controlled):** (1) **"adjectives" is a 3-WAY class** — gradable-denotational
+  (per-dim magnitude) / evaluative (Osgood VAD affect) / classificatory (wooden/medical → the TAXONOMIC noun op is
+  already right); a gradability gate routes; (2) the adjective op is TWO sub-ops — **DIMENSION/POLARITY = geometric
+  (SemAxis) + DEGREE/INTENSITY = MARKEDNESS (frequency/AoA), NOT geometry** (on WordNet-independent crowd
+  intensity-ordering golds the SemAxis is at its random floor while frequency/AoA orders intensity CI-above chance,
+  shuffled-freq twin at chance — Horn/Zipf/Greenberg, developmental "big" before "enormous"); (3) **OPPOSITION is
+  RELATIONAL not geometric** (raw GloVe cosine separates antonyms/synonyms at AUC 0.356 — INVERTS; opposition needs the
+  explicit relation / definitional channel — the SAME antonym relation the landed `wordnet_polarity_propagation` valence
+  organ uses → record opposition as a shared relational primitive); (4) **ATOM's single shared magnitude axis is REFUTED**
+  on our rep (the 4 dim axes are largely orthogonal, shared component 0.446 ~ random 0.379) → keep per-dimension axes
+  INDEPENDENT; (5) **grounding source is per-dimension** — evaluative from antonym poles, denotational (concreteness) from
+  Lancaster PERCEPTUAL strength (recovery 0.26→0.53 CI-sep); (6) **the magnitude CODE is FPE(log degree) in FHRR** — the
+  substrate's Fractional Power Encoding (`hdlab/binding`, `hdlab/quality_relation` Ch.B) is currently LINEAR
+  (uniform-resolution = a linear number line = WRONG); encoding LOG(degree) yields the tuned Weber number-neuron code
+  (scale-invariant kernel, log-Gaussian tuning), the **log PINNED by Laughlin efficient coding** (the info-max transform
+  of the Zipfian degree is ~log: CDF~log R 0.96 vs linear 0.07), the reference-point comparator = native
+  `unbind(FPE_log x, FPE_log ref)=FPE_log(x/ref)` (corr 1.000), and **VALIDATED against 240k human number-comparison
+  trials** (the FPE-log kernel predicts human RT rho 0.96 / error 0.92, beats a difference kernel CI-sep, size effect
+  CI-sep). (7) **dimension/standard SELECTION = the semantic-control organ** (context selects the scale, 0.661 vs MFS
+  0.529 CI-sep) — wire the router to context-override WSD, not a global axis. **CORRECTIONS to the audit:** VerbNet (429
+  classes) + FrameNet (1221 frames) are LIVE in nltk (OWNED, not "not-yet-owned"), but the explicit verb op does NOT beat
+  the gloss (net-neutral) — keep verbs on the gloss; rating-recovery rho is monotone-BLIND to log-compression/tuned
+  coding (validate the code on confusability/comparison, done in PROBE E/H). 🔌 **NO hdlab landed; EARNED proven-ready:** a
+  `scalar_adjective_operation` (per-dim bipolar axes, appropriate grounding source, independent axes, opposition from the
+  relation, degree from markedness, FPE-log encoded) + operation-ROUTE the meaning read-out by word class (gradability
+  gate; noun/verb/classificatory-adj stay on the gloss) + wire dimension SELECTION to semantic-control + upgrade
+  `quality_relation` Ch.B linear→log. **Completes the MEANING operation-routing line (p3 of the 3 parallel solvers).**
+
+
 - **2026-08-27 — NON-CANONICAL role assignment: a routed graded CUE-COMPETITION (Competition Model) beats the front-end
   on non-canonical structure CI-separated; the reduced-relative residual is a verb-subcat SUPPLY bound (broken with
   WordNet) + an ARCHITECTURE gap (incremental parsing + reanalysis), NOT a cue-mechanism defect** (from

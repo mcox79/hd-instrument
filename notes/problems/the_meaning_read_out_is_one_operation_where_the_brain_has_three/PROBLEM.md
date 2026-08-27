@@ -1,8 +1,32 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Bar MET decisively; re-verified FIRST-HAND (verify_perclass_meaning_operations.py ALL CHECKS PASS). The adjective SIGNED-MAGNITUDE op (GloVe projection onto a bipolar axis ANCHORED by the explicit WordNet antonym relation) recovers human magnitude CI-separated over BOTH the incumbent conceptual cosine AND the info-free random-axis twin, on an ADEQUATELY-POWERED, INDEPENDENT, non-WordNet human gold (Warriner VAD + Brysbaert, n~3600-5300 -- the SimLex n=111 power wall RESOLVED): valence 0.724 vs incumbent 0.165 (+0.559 CI-sep) vs random 0.067 (+0.657 CI-sep); dominance/concreteness/arousal all CI-sep at full power (witness subset confirms valence+dominance); shuffled-gold twin ~0; MOYER distance effect present (far>near +0.318). Per-class operation-specificity reproduced (cosine WINS nouns 0.599 + verbs 0.492, LOSES adjectives 0.479<0.585). REFINES the brief: the cosine is wrong for adjectives ONLY (verbs already served by the gloss channel -- a definition IS a relational description; only the blended distributional vector fails verbs). Exceptional depth (probes A-H): opposition is RELATIONAL not geometric (raw cosine AUC 0.356 inverts -> needs the explicit relation); ATOM single-axis REFUTED (independent per-dim axes); perceptual grounding DOUBLES concreteness (0.26->0.53); intensity is MARKEDNESS (frequency/AoA) not geometry; the magnitude CODE is FPE(log degree) in FHRR (log PINNED by Laughlin efficient coding), VALIDATED against 240k human number-comparison trials (Weber kernel predicts RT rho 0.96, beats a difference kernel CI-sep). Self-caught a signed-rho orientation bug + honest negatives (VerbNet does not beat the gloss). '3-way adjective class' (gradable-magnitude/evaluative-VAD/classificatory-taxonomic) supersedes a single adjective op. NO hdlab landed; a `scalar_adjective_operation` + operation-routing + an FPE-log upgrade of quality_relation Ch.B are EARNED proven-ready."
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (integrated 2026-08-27 by the strategy session)
+> **Re-verified FIRST-HAND, scaffold-free:** strategy ran `verification/verify_perclass_meaning_operations.py` -> ALL
+> CHECKS PASS. Confirmed: adjective signed-magnitude valence rho 0.698 vs incumbent 0.117 (+0.58 CI-sep) / random 0.048
+> (+0.65 CI-sep); dominance CI-sep; per-class specificity (nouns 0.599, verbs 0.492 win the cosine; adjectives 0.479<0.585
+> lose); Moyer distance effect (far 0.911 > near 0.593); verb relational op beats the blended cosine +0.27 with the
+> shuffled-structure twin losing. **Bar MET** -- the adjective op CI-separates at power on an INDEPENDENT non-WordNet human
+> gold, resolving the n=111 wall. **Adversarial audit -- a model of depth and honesty:** (1) the op is brain-PINNED
+> (Walsh ATOM signed magnitude; opposition anchored by the explicit antonym relation, since antonyms are geometrically
+> similar -- the landed valence organ already proved this); (2) it REFINES the brief on disk (the cosine is wrong for
+> adjectives ONLY -- verbs win with the gloss because a definition is relational; only the blended vector fails verbs);
+> (3) the power fix was 'project before you buy' (Warriner/Brysbaert were already on disk, and DODGE the
+> benchmark-selection confound the fetchable WordNet-derived sets carry); (4) the deep probes (A-H) are exceptional and
+> each controlled -- opposition is relational not geometric, ATOM's single axis is refuted, perceptual grounding doubles
+> concreteness, intensity is markedness not geometry, and the magnitude CODE is FPE(log degree) validated against 240k
+> human number-comparison trials (the log PINNED by Laughlin efficient coding); (5) exemplary self-correction (caught a
+> signed-rho orientation bug; reported honest negatives -- VerbNet does not beat the gloss, pairwise similarity is the
+> wrong currency). **hdlab:** NO file landed (Q111); EARNED proven-ready -- a new `hdlab/scalar_adjective_operation.py`
+> (per-dimension bipolar axes, evaluative-from-antonym-poles / denotational-from-Lancaster-perceptual-strength,
+> independent axes, opposition from the explicit relation, degree from MARKEDNESS, encoded as FPE(log degree) in FHRR);
+> operation-ROUTE the meaning read-out by word class with a gradability gate (noun/verb/classificatory-adj stay on the
+> gloss); wire dimension SELECTION to the semantic-control (context-override WSD) organ; upgrade `quality_relation` Ch.B
+> linear->log. Do NOT replace the verb gloss with VerbNet (net-neutral). AUDIT UPDATE folded (§2b). Completes the MEANING
+> operation-routing line (p3).
 
 # PROBLEM: the meaning read-out uses ONE similarity operation (feature-overlap cosine) where the brain uses a DIFFERENT operation per word class -- nouns by taxonomic overlap, adjectives by SIGNED-MAGNITUDE on a scale, verbs by relational/argument-structure -- and one cosine is the wrong operator for two of the three
 
