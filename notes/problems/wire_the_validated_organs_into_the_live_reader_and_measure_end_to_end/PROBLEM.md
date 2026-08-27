@@ -131,6 +131,18 @@ hypothesis this brief must confront and attribute, not assume.
   a multiplicative composite-key match (which orthogonalises on one wrong feature); fan penalty DEFAULT-OFF (regime-
   specific). *(Extending the live register to STORE per-feature codes + a `decode_cue` on the register itself is the
   separate downstream wiring strategy still owes; this organ is the algorithm, ready to compose.)*
+- **THE FREQUENCY PRIOR (most-frequent-sense) as the reader's sense default -- NOT-YET-LANDED, needs a build first**
+  (added 2026-08-26 from `the_meaning_win_is_offline_context_free_and_unwired`, integrated PARTIAL). That submission
+  proved the frequency prior (Duffy & Rayner reordered-access) beats the uniform floor CI-separated on the WSD
+  instrument (MFS 0.4637 vs 0.3995) and is the ONLY meaning-selection signal that works -- but it is UNWIRED because the
+  live reader is SENSE-BLIND (`ConceptSpace` superposes all senses of a lemma into ONE blended vector, so it has no
+  per-sense representation to default over). Wiring it is therefore a real BUILD (give the reader per-sense
+  representations + an MFS default), NOT a flag flip -- and it must be MEASURED downstream here before any capability
+  claim (measure-before-capability-claim; the WSD-instrument win does NOT transfer automatically). ⚠️ Do NOT wire any
+  CONTEXT-conditioning channel for sense-selection (grounded or associative): none beat the prior on this corpus, and
+  context OVERRIDING frequency is DATA-limited (needs a modern WSD benchmark, none on disk). This is the disciplined
+  home for that wiring -- captured here, gated on this brief's end-to-end number, rather than spawned as one more
+  isolated-part problem.
 - Existing subsystems it plugs into: `hdlab/situation_model_multibank.py` / `situation_model_accumulate.py` (the register),
   `hdlab/reading_grounding_loop.py` (the live read loop), `hdlab/meaning_fusion.py` (the general meaning read-out).
 

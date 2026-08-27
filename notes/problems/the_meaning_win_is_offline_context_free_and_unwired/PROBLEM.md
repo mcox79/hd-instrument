@@ -1,7 +1,7 @@
 ---
-priority: 6
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Integrated PARTIAL/EXCELLENT 2026-08-26 (owner-DONE). Rigorous negative done at high quality: reused the pre-registered WSD instrument, put the EXACT offline-winning rep (GNOC) on the context task, leakage-controlled, and POWER-CHECKED then WITHDREW its own 'grounding hurts' sub-claim (n=49 -0.044 -> n=154 +0.017). Re-verified scaffold-free first-hand (test_meaning_win_context_transfer.py PASS, all 4 checks incl. the power-check). Conditioning the read-out on context does NOT beat the frequency prior in either meaning system; the offline win is context-free + similarity-typed; subordinate-override is data-limited (needs a modern WSD gold, none on disk). Wire-able residual = the frequency PRIOR, gated on a live measurement (reader is sense-blind). No hdlab landing this integration."
 ---
 
 # PROBLEM: meaning now beats frequency on a FAIR test -- but only OFFLINE, on isolated word pairs, and it has never been wired into the live reader or shown to help real comprehension
@@ -208,3 +208,33 @@ grounded-covered, held-out population, with all floors recomputed on that popula
 - Do NOT grade the live task against the old top-1-argmax-over-co-occurrents grounding-precision metric.
 - Do NOT carry any offline number (0.741 etc.) onto the live task -- different scorer and population; no
   number crosses. Recompute every floor on the live population.
+
+---
+
+## SOLVER REVIEW (strategy session, 2026-08-26 — INTEGRATED, owner-DONE)
+
+**Grade EXCELLENT. Verdict PARTIAL (bar option 3: a rigorous negative that CLOSES the context-selection wiring +
+delivers a concrete positive redirection).** Re-verified scaffold-free first-hand — `test_meaning_win_context_transfer.py`
+PASS, all four witness checks reproduced (MFS 0.4637 vs uniform 0.3995 CI-sep; subordinate GNOC at chance, ties its
+twin; prototype reads dominant only; at power grounded≈associative FUSE−DIST +0.0166 straddling zero).
+
+**What earned EXCELLENT (the work quality, not the outcome):** it reused the pre-registered instrument rather than
+inventing a favourable one; it put the *exact* offline-winning representation (GNOC) on the new task, closing the
+"you never gave grounding a fair shot" gap; it is leakage-controlled (corpus removal + answer-masking + held-out
+prototype); and — the model-honesty move — it **power-checked a mechanistic sub-claim and WITHDREW it** when it
+didn't replicate (the n=49 "grounding hurts −0.044" → n=154 "+0.017, straddles zero"). It named a *specific* data
+reason for the un-testable cell (subordinate senses attested once → n=6) rather than a vague "converged."
+
+**What it establishes for the substrate:**
+1. The brief's mechanism (wire grounded read-out + condition on context → beats counting) is **REFUTED for
+   context-SELECTION**; no context channel — grounded or associative — beats the frequency prior on this instrument.
+2. The **frequency PRIOR (MFS)** is a real, brain-faithful (Duffy & Rayner) WIRE-ABLE gain, currently unwired because
+   the reader is **sense-blind** (one blended vector per lemma). → follow-on wire-and-measure build (gated on a live
+   downstream number; not a flag flip, and not pre-paid).
+3. Grounded feature-similarity belongs to SIMILARITY (the two-systems split), **not** selection — with *no*
+   CI-separated evidence it is actively worse (the "hurts" claim is withdrawn; do not re-quote it).
+4. The DEFINING capability — context OVERRIDING frequency on subordinate senses — is **data-limited**, not
+   mechanism-limited: it needs a MODERN balanced contextual WSD gold (SCWS/WiC/SemCor), none on disk.
+
+**No hdlab modified this integration** (Q111 honoured; the proposed diff is a live architectural change, deferred to
+a gated build). AUDIT UPDATEs folded into `notes/BRAIN_FOUNDATIONAL_AUDIT.md` §2b (new entry), §7, §6, §8-lever-#3.

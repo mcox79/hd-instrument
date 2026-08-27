@@ -31,7 +31,33 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- ✅ **p5 one_store INTEGRATED (owner-DONE, EXCELLENT/PARTIAL): the STORE not the schedule was the divergence -- SPARSE coding is the primary anti-forgetting lever; the gap is a retention↔generalisation TRADEOFF (content-bound)**
+### 2026-08-26 (LATEST) -- ✅ **p6 meaning_win INTEGRATED (owner-DONE, EXCELLENT/PARTIAL): the offline meaning win does NOT transfer to context-SELECTION; the wire-able residual is the frequency PRIOR (gated); + the ARCHITECTURE-MODIFICATION convergence is answered by the WIRE-AND-MEASURE pivot, not more parts**
+`the_meaning_win_is_offline_context_free_and_unwired` SOLVED as a rigorous negative (bar option 3). Re-read the FULL
+SOLVED FRESH (standing rule) -- and it MATTERED: the FINAL version WITHDRAWS the WIP "grounding hurts the associative
+channel (−0.044, n=49)" claim under a power-check (n~154 → +0.017, straddles 0); memory corrected. Re-verified
+scaffold-free FIRST-HAND (`test_meaning_win_context_transfer.py` PASS, all 4 checks incl. the power-check). Conditioning
+the grounded read-out on context does NOT beat the frequency prior in EITHER meaning system (MFS 0.4637 > uniform 0.3995
+CI-sep; every context arm below it; on the frequency-defeating subordinate items grounded is at chance + ties its
+info-free twin -0.0043). The offline win is CONTEXT-FREE + SIMILARITY-typed. **Wire-able residual = the frequency PRIOR**
+(Duffy & Rayner reordered-access) -- but a LIVE ARCHITECTURAL change, not a flag: the reader is SENSE-BLIND (one blended
+vector per lemma) → it needs per-sense representations first → GATED on a downstream measurement, packaged into the
+wire-and-measure lane, NOT pre-paid. Subordinate-OVERRIDE (context beating frequency) is DATA-limited: needs a MODERN
+WSD benchmark (SCWS/WiC/SemCor), NONE on disk -- an ACQUISITION need surfaced to the owner, not more architecture.
+3 AUDIT UPDATEs folded (§2b new entry; §7 condition-on-context tested-negative; §6 semantic-control THIN substrate;
+§8-lever-#3 refuted). Review EXCELLENT + SOLVER REVIEW in PROBLEM.md; priority cleared. **NO hdlab landing this
+integration** (Q111 honoured; the proposed diff is a live architectural change, deferred to a gated build).
+🧭 **STRATEGIC (owner 2026-08-26 "so many solutions point to architecture modifications -- how are we responding?"):**
+YES, correct -- nearly every recent submission surfaces a substrate architecture change. The RESPONSE is the
+WIRE-AND-MEASURE PIVOT (p1): the accumulated validated organs are default-off ISLANDS; the disciplined move is to
+COMPOSE + MEASURE them end-to-end (prove the modifications earn a live capability, or diagnose the binding constraint)
+BEFORE finding more parts. The modifications CLUSTER (retrieval architecture · code sparsity/grading · meaning
+content-supply · missing control/update organs), and healthily include REFUTATIONS that PRUNE the invention pile
+(sign-readout, semantic-switch, DG-separation, "grounding-hurts"). This integration MODELS the response: I did NOT spawn
+another isolated-part problem; the frequency-prior wiring goes into the wire-and-measure lane, gated on a live number.
+*Queue after p6: p1 wire-and-measure (now also carries the frequency-prior sense-default build) + p2
+resolve_retrieval_interference = 2 AVAILABLE; p7 relcl SOLVED but awaiting OWNER review (no OWNER_NOTES yet -- not integrable).*
+
+### 2026-08-26 -- ✅ **p5 one_store INTEGRATED (owner-DONE, EXCELLENT/PARTIAL): the STORE not the schedule was the divergence -- SPARSE coding is the primary anti-forgetting lever; the gap is a retention↔generalisation TRADEOFF (content-bound)**
 On real reading, making the cortical code SPARSE + pattern-separated (k-WTA) FLIPS the verdict: dense cortex -> selective
 replay is a zero-sum wash; SPARSE cortex -> sparse coding is the PRIMARY anti-forgetting lever (equal-capacity dense
 control collapses to 0.000 -> sparsity causal) AND selective replay CI-beats the uniform twin (0.784 vs 0.680). Two-store

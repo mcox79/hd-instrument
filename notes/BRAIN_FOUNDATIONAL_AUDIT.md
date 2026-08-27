@@ -50,6 +50,40 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-26 — THE OFFLINE MEANING WIN DOES NOT TRANSFER TO CONTEXT-SELECTION: the wire-able half is the frequency
+  PRIOR (unwired, the reader is sense-blind); NO context channel beats it; the frequency-defeating cell is DATA-limited**
+  (from `the_meaning_win_is_offline_context_free_and_unwired`, integrated PARTIAL/EXCELLENT, owner-DONE; witness
+  `test_meaning_win_context_transfer.py` PASS, re-verified first-hand — all four checks including the power-check).
+  The just-integrated offline win (grounded feature-similarity beats the frequency floor on isolated pairs) was put
+  into the CONTEXT-conditioned WSD instrument (v3 definitional, 288 words / 841 trials, leakage-controlled: eval
+  sentences removed from the RI-fit corpus, symmetric answer-masking, held-out experience prototype) using the EXACT
+  offline-winning rep (GNOC = concreteness-stripped 11-dim sensorimotor cosine). **REFUTED for context-SELECTION:**
+  the frequency prior (MFS) 0.4637 beats uniform 0.3995 CI-sep [0.4303,0.4975] (the WORKING half, UNWIRED); NO context
+  arm beats it — CTX_GNOC 0.4159, CTX_DIST 0.3976, CTX_FUSE 0.4431, CTXFREE_GNOC 0.3796, all below the prior. On the
+  81 subordinate-congruent (frequency-defeating) items — the ONLY place context could add value — grounded is at
+  chance (0.407 vs uniform 0.338, NOT separated) and **TIES its shuffled-grounding twin** (Δ −0.0043 CI [−0.063,+0.053]):
+  the OPPOSITE of the offline base, where the twin LOST decisively (0.468 vs 0.741) — so there is no context-selection
+  signal to destroy. **HONEST POWER-CORRECTION (the owner's "confirm it" prompt forced it):** the first pass claimed
+  fusing grounding into the associative channel HURTS (FUSE−DIST −0.044 CI-sep, n=49 words); re-run AT POWER (n~154)
+  it flips to +0.017 CI [−0.027,+0.063] and straddles zero → **the "grounding hurts / is the wrong system" claim is
+  WITHDRAWN.** What survives: the two context channels are statistically INDISTINGUISHABLE and both sit below the
+  prior (consistent with the two-systems LENS — grounded feature-similarity has no special advantage for a
+  relatedness/associative SELECTION task — but with NO CI-separated evidence it is worse). **Un-testable cell, with a
+  SPECIFIC reason:** context OVERRIDING frequency on subordinate senses cannot be tested here because subordinate
+  senses are attested ONCE (prototype n=6; label subordinate n=81 at chance) — a DATA limit of the ~200-year-old
+  McGuffey corpus, not a mechanism limit; the decisive re-test needs a MODERN balanced contextual WSD gold
+  (SCWS/WiC/SemCor), NONE on disk. **Effect on the audit:** §7 "route it, and condition it on context" — the
+  condition-on-context half is now TESTED and NEGATIVE (see §7); §6 semantic-control THIN is confirmed and its
+  near-term substrate is the frequency prior, not a grounded context channel; the offline meaning-win row is marked
+  CONTEXT-FREE + SIMILARITY-typed. **🔌 NO hdlab landing this integration.** The one well-supported gain (wire the MFS
+  frequency prior as the reader's sense default) is a LIVE ARCHITECTURAL change, not a flag flip: the reader's
+  ConceptSpace is sense-blind (one blended vector per lemma → floor (b) == MFS), so wiring a per-sense DEFAULT
+  requires the reader to FIRST have per-sense representations. That belongs in the wire-and-measure lane, GATED on a
+  live downstream comprehension measurement (measure-before-capability-claim), NOT pre-paid — packaged as a follow-on
+  build. Do NOT wire any context-conditioning channel for selection (moves no number here); wire grounding where
+  SIMILARITY matters (the whitening + fixed two-system fusion), its proven role. The subordinate-OVERRIDE capability
+  is filed MODERN-BENCHMARK-CONTINGENT (an acquisition need, surfaced to the owner).
+
 - **2026-08-26 — CONSOLIDATION (deviation #5) REFRAMED: the store not the schedule was the divergence — SPARSE coding
   is the primary anti-forgetting lever, selective replay works ONLY in the sparse regime, and the real gap is a
   retention↔generalisation TRADEOFF (content-bound)** (from `one_store_does_two_jobs_and_consolidation_is_a_single_average`,
@@ -455,7 +489,11 @@ thin/UNPINNED and, structurally, "IS coreference in disguise → must reuse the 
   the **N400 coherence monitor**, **Construction-Integration**, **corpus-selection foraging** ("what to read
   next"), the **cascade synapse** (parked-by-scale), and **discourse bridging of the unstated**.
 - **Theory of Mind — ABSENT** (mechanism exists in `experiments/`, never promoted).
-- **Dedicated semantic control — THIN** (one primitive + scattered sub-parts).
+- **Dedicated semantic control — THIN** (one primitive + scattered sub-parts). **CONFIRMED 2026-08-26 (§2b):** even
+  additive context-coherence with the offline-winning grounded rep is at chance on the frequency-defeating items and
+  ties its info-free twin; its near-term working substrate is the frequency PRIOR (+ the associative channel on
+  data-rich senses), NOT a grounded context channel — and a real test of context OVERRIDING the prior needs a modern
+  WSD benchmark not on disk.
 - **Language production — THIN** (one file; the expressive half of a brain is missing).
 - **Scope gap in the audit itself:** affect, goals/reward, and metacognition are **built but never fidelity-scored**
   against the brain — likely deviations are hiding there, unmeasured.
@@ -473,6 +511,17 @@ beats us" was measured on a metric that was secretly scoring frequency. **So mea
 context-free, not empty.** The block has moved from "there is nothing to route" to "route it, and condition it on
 context." The plan's Phase-1 "supply more norms" lever is also downgraded (projecting the norms we
 have covers the gap). **Reconcile the plan's §3 diagnosis with this before quoting it.**
+
+**TESTED 2026-08-26 (§2b — `the_meaning_win...` negative): the "condition it on context" half does NOT transfer.**
+The offline win is CONTEXT-FREE and SIMILARITY-typed. Put into a leakage-controlled context-conditioned WSD
+instrument, NO context channel — grounded OR associative, label OR experience-prototype — beats the frequency PRIOR,
+and on the frequency-defeating (subordinate) items the grounded channel is at chance and ties its info-free twin
+(no context-selection signal). So the block splits AGAIN: the **frequency PRIOR** (most-frequent-sense; Duffy &
+Rayner reordered-access) is a real WIRE-ABLE gain (beats uniform CI-sep) but NOT a flag flip — the reader is
+SENSE-BLIND (one blended vector per lemma → no per-sense representation to default over); context OVERRIDING
+frequency is UN-TESTABLE here (subordinate senses attested once) and needs a MODERN WSD benchmark (SCWS/WiC/SemCor,
+none on disk). Wire grounding for SIMILARITY, the frequency prior for the sense default; do NOT wire a
+context-selection channel until a modern instrument shows one earning its keep.
 
 **BOUNDED 2026-08-26 (§2b — the `sign()` refutation drills):** "meaning present-but-unwired" is TRUE for the
 **ASSOCIATIVE RELATEDNESS** system (distribution carries it, WordSim ρ 0.25) — that read-out we can wire. It is
@@ -502,8 +551,12 @@ cross-cutting deviations are **not queued.** Candidates, ranked by leverage (bla
 2. **The cortical-read organ (deviation #3) — VALIDATED-BUT-CONTENT-BOUND 2026-08-26 (§2b).** The read beats the
    wrong memory ~10× but the residual wall is the consolidated CONTENT (data/scale), not the read op. Land the CLS
    matched-pair read default-off (architecture hygiene); route the residual to the content/supply lane (item #1).
-3. **Meaning wiring + context-conditioning — QUEUED (p6).** The fair-metric win made it actionable; now bounded by
-   §2b — wire the ASSOCIATIVE read-out we have, but the SIMILARITY axis needs the item-#1 build, not wiring.
+3. **Meaning wiring + context-conditioning — CONTEXT-SELECTION REFUTED 2026-08-26 (§2b, `the_meaning_win...`
+   integrated PARTIAL).** Conditioning the read-out on context does NOT beat the frequency prior in EITHER meaning
+   system; the offline win is context-FREE + similarity-typed. **The wire-able residual is the frequency PRIOR** (a
+   real gain, but a LIVE architectural change because the reader is sense-blind → packaged as a follow-on
+   wire-and-measure build, gated on a downstream comprehension number). Do NOT wire a context-selection channel;
+   context OVERRIDING frequency is MODERN-BENCHMARK-CONTINGENT (SCWS/WiC/SemCor, none on disk — an acquisition need).
 4. **Dense → sparse+graded code (B4, deviation #4).** Now measured LOAD-BEARING on the cortical READ (0.025→0.156),
    NOT on the open-vocab read-out (null there). Couple with the cortical-read work (#2), not the retired `sign()` line.
 5. **The binding operator (E1) — RESOLVED 2026-08-26 (p3, EXCELLENT).** The operator is VALIDATED at equal
