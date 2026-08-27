@@ -26,13 +26,12 @@ MEASUREMENT tables below, then the step log tail. Do NOT re-derive; the disk + `
   (its `graded_role_assigner` organ LANDED) + p3 `the_meaning_read_out_is_one_operation_where_the_brain_has_three`.
 
 **IMMEDIATE NEXT ACTIONS (in order):**
-1. **LAND the p3 `scalar_adjective_operation` organ** — per-dimension bipolar signed-magnitude axes (evaluative from
-   WordNet antonym poles; denotational from Lancaster perceptual strength), opposition from the explicit relation, DEGREE
-   from MARKEDNESS (freq/AoA), encoded FPE(log degree) in FHRR; + operation-ROUTE the meaning read-out by word class
-   (gradability gate; nouns/verbs/classificatory-adj stay on the gloss); wire dimension-selection to semantic_control;
-   upgrade `quality_relation` Ch.B linear→log. **This is a LARGE multi-part build → PACKAGE IT AS A PROBLEM (owner 08-27:
-   use problems for large projects), don't grind it solo.** Full validated design is in
-   `notes/problems/the_meaning_read_out_is_one_operation_where_the_brain_has_three/SOLVED.md` + audit §2b.
+1. **The scalar-magnitude meaning channel build is NOW A PACKAGED PROBLEM** (owner 08-27: use problems for large builds):
+   `notes/problems/build_the_composed_scalar_magnitude_meaning_channel/` (priority 1) — a solver COMPOSES the p3-proven
+   sub-ops (SemAxis dimension/pole + markedness degree + FPE-log Weber code + Lancaster grounding) into ONE deployable
+   magnitude channel + operation-router, validates the COMPOSED thing, and proposes the hdlab diff. **INTEGRATE it when
+   owner-DONE (reverify first-hand), then LAND the proposed `scalar_adjective_operation` + router + `quality_relation` Ch.B
+   FPE-log upgrade (Q111 — strategy lands hdlab).** Full validated piece-wise design is in the p3 SOLVED + audit §2b.
 2. **WIRE the landed organs into the LIVE reader** (the composition step, default-off flags, measure OFF-vs-ON):
    `graded_role_assigner.hybrid_role_patient` into `resolve_patient`'s fall-through; the meaning operation-routing.
 3. **Run the FULL whole-reader end-to-end measurement** — harness `experiments/exp_composed_reader_litbank_full_v1.py`

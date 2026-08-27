@@ -47,8 +47,9 @@ Ch.B. Review EXCELLENT + SOLVER REVIEW; priority cleared. 📦 **NO successor pa
 🎯 **CONSOLIDATION: 2 of 3 parallel solvers integrated (p1 front-end + p3 meaning). p2 (entity store) submitted, AWAITS
 owner_verdict — integrate when owner-DONE.** 🔌 **`graded_role_assigner` (p1) is LANDED (commit 540cdb8c1, witness PASS,
 default-off ISLAND).** **RESUME-HERE (read `notes/CONSOLIDATION_PHASE_LOG.md` steps 0-16 for the full durable ledger):
-PENDING = (1) land the p3 `scalar_adjective_operation` organ (per-dim bipolar axes + Lancaster grounding + markedness +
-FPE-log — a LARGE multi-part build → PACKAGE AS A PROBLEM per owner 08-27, don't grind it solo); (2) wire the landed
+PENDING = (1) ✅ PACKAGED as a PROBLEM (owner 08-27): `build_the_composed_scalar_magnitude_meaning_channel` (p1) — a solver
+composes the p3-proven magnitude sub-ops into one deployable channel + router + FPE-log Ch.B upgrade; INTEGRATE + LAND when
+owner-DONE; (2) wire the landed
 front-end/meaning organs into resolve_patient / the meaning read-out (flagged, live-measured — the composition step); (3)
 the full whole-reader end-to-end measurement (harness `exp_composed_reader_litbank_full_v1.py` ready). All 3 organ axes
 individually validated in comprehension (front-end 0.74 vs 0.52; entity 0.18 vs 0.06; meaning paraphrase 0.75 vs 0.01).**
