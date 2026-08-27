@@ -58,6 +58,14 @@ p2 entity-tracking (downstream of the front-end); p8 meaning-context (data-ready
 PENDING: the forward-prediction organ. p1-wire-and-measure cleared (integrated).*
 ⏳ **NOTE:** `theory_of_mind_is_proven_only_in_a_synthetic_microworld` was submitted alongside but is NOT owner-DONE (no
 OWNER_NOTES) — WIP, left alone; integrate only on an explicit owner_verdict.
+🔌 **HDLAB LANDING DONE (heartbeat, WIRE-DON'T-ISLAND): the forward-prediction organ is LANDED** —
+`hdlab/predictive_reader.py::PredictiveReader` (`fit(triples)` → `predict`/`surprisal`/`precision`; reuses the validated
+`build_centroids` + `-log P` math over `grounded_similarity.grounded_vector`), DEFAULT-SAFE/off-path. Witness
+`verification/test_predictive_reader_organ.py` PASS (self-contained construction proof over the REAL grounded space:
+predictive surprisal 0.502 << wrong-verb twin 1.851; acc@1 0.923 vs chance 0.333; precision tight 0.985 > diffuse 0.678).
+Registered `predictive_reader_v1` (WIRE_CANDIDATE, ISLAND). **Directly serves the top-priority front-end problem** — it
+supplies the verb→argument SELECTIONAL PREFERENCE for the two-animate who-did-what cases. No longer "pending". MEASURE on
+the live reader before any capability claim.
 
 ### 2026-08-26 -- ✅ **p2 predictive-reader INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the reader's missing FORWARD-PREDICTION loop is BUILT -- the verb pre-activates its argument's grounded features, surprisal is a real difficulty signal, and it UNIFIES with relcl (flags reversible cases for syntax)**
 The #1 architecture-fidelity gap (feed-forward → predictive) closed. Re-verified scaffold-free FIRST-HAND
