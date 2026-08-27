@@ -65,6 +65,56 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-27 — THE MISSING ATL CONCEPTUAL/DEFINITIONAL MEANING HUB IS BUILT + PROVEN as a second meaning system; the two
+  systems DOUBLE-DISSOCIATE; and the deepest finding is that MEANING-SIMILARITY IS OPERATION-SPECIFIC PER WORD CLASS (one
+  cosine is the wrong operator for adjectives + verbs)** (from `the_reader_has_no_conceptual_meaning_channel`, integrated
+  SOLVED/EXCELLENT, owner-DONE; witness `test_conceptual_meaning_channel.py` PASS, re-verified first-hand). Closes the #0
+  next step the meaning-context integration named: the reader had ONLY the associative/co-occurrence system (at chance on
+  human meaning-IDENTITY). **BUILT — the amodal ATL CONCEPTUAL HUB (Controlled Semantic Cognition; Lambon Ralph/Jefferies/
+  Patterson/Rogers 2017):** a glass-box STATIC asset = per-word WordNet gloss+genus/hypernym feature bag, distinctive-feature
+  weighted by global IDF (the sparse-space analog of the ATL's privilege-distinctive-features operation), cosine — NO
+  learning, NO LLM. **IDENTITY WIN (bar MET) vs a STEELMANNED competitor** (GloVe-300, not the reader's weak 0.04
+  co-occurrence): SimLex-999 (human similarity, OFF-WordNet) **0.5210 vs 0.3705, +0.1505 CI[0.0855,0.2149] CI-separated
+  over GloVe's upper bound**; SimVerb 0.4988 vs 0.2199 (+0.2788); the info-free shuffled-gloss twin LOSES (p95 ~0.04–0.065);
+  gloss CONTENT alone (zero taxonomy graph) already ties GloVe (0.40) → the win is definitional content, not a WordNet-
+  taxonomy lookup artefact. **The distinctive-feature operation earns its keep:** IDF beats UNWEIGHTED feature overlap
+  CI-sep (a second confirmation of the `lexical_similarity.py` "unweighted overlap is the INVERSE of privileging distinctive
+  features" WRONG-OP). **TWO-SYSTEM DOUBLE DISSOCIATION (the real brain signature, real-but-PARTIAL):** on the SAME SimLex
+  pairs, conceptual tracks SIMILARITY (0.521) over association (0.342) while GloVe tracks association ≥ similarity; crossover
+  +0.197 CI-sep; and GloVe wins WordSim-353 RELATEDNESS (0.610 vs 0.403) CI-sep → conceptual/definitional = the IDENTITY
+  system, distributional/associative = the RELATEDNESS system, each winning its own axis (channels OVERLAP — Mirman 2017 /
+  Jackson 2015 — not an orthogonal split). **SUPPLY-DEPENDENT distinctiveness (extends the prior two-systems SOLVED):** the
+  literature-proposed ATL covariance-DISTILLATION (SVD+whiten over gloss features) does NOT beat sparse IDF (a fidelity
+  BOUNDARY) → one ATL principle (privilege distinctive features), two supply-dependent realisations — DENSE grounding →
+  whiten (suppress a dominant shared axis), SPARSE definitional → IDF; the prior SOLVED's "next distinctiveness gain is a
+  richer feature SUPPLY" is confirmed (the definitional space IS that supply). **ROUTING vs FUSION reconciled (§4 below):**
+  for decontextualised graded RATING a fixed FUSION ties/beats demand-ROUTING (route−fusion −0.030, TIE leaning fusion) —
+  semantic control is COMPETITION-GATED (Badre/Wagner; Jefferies) and inert on easy items → **the brief's "route, fusion
+  hard-failed" is WSD-SPECIFIC; routing/control's true home is context SELECTION = the already-built semantic-control organ
+  (`context_override...`, trigger AUC 0.79).** So the faithful two-channel design = conceptual hub as a 2nd representation,
+  DEMAND-ROUTED for identity/similarity, FUSED for graded rating, conflict-gated SELECTION handled by semantic control.
+  **THE DEEPEST FINDING (a NEW cross-cutting fidelity principle) — MEANING-SIMILARITY IS OPERATION-SPECIFIC PER WORD CLASS,
+  so a single cosine is the wrong operator for two of three classes:** NOUNS = taxonomic feature/genus overlap (the gloss
+  channel's home, 0.599); ADJECTIVES = SIGNED-MAGNITUDE distance on a shared oriented scale with opposition = the two POLES
+  of one axis (Walsh ATOM/IPS magnitude; Moyer distance-effect; Kennedy degree semantics) — feature-overlap cosine has no
+  order/sign, structurally wrong (adj: conceptual 0.479 < GloVe 0.585); VERBS = relational/argument-structure (gloss carries
+  it 0.492; GloVe's single blended vector fails 0.152). The adjective op BUILT from OWNED resources (GloVe scale-membership
+  + WordNet antonym-pole SIGNED opposition, SemAxis-style; NO new data) lifts SimLex adjectives 0.585→0.623 with the
+  INFO-FREE RANDOM-AXIS control LOSING (0.553) — **DIRECTIONALLY confirmed, mechanism nailed, but CI-separation
+  POWER-LIMITED (n=111 adj pairs: +0.038 CI[−0.050,0.127] vs GloVe, +0.070 CI[−0.002,0.151] vs random) → a POWER limit,
+  not a mechanism failure; honestly NOT allowed to gate SOLVED.** The meaning read-out should be OPERATION-ROUTED BY WORD
+  CLASS — the natural home for the semantic-control router (route by word-class demand as well as task demand). **Effect on
+  the audit (§6 semantic control / §7 meaning):** the meaning system is now explicitly TWO channels (conceptual IDENTITY +
+  associative RELATEDNESS), the ATL conceptual hub is BUILT + validated (no longer "the reader has one meaning system"), the
+  distinctive-feature op is supply-dependent, and a new operation-specific-per-word-class principle supersedes "the
+  adjective gap is missing supply" (it is a wrong-OPERATION, fixable from owned resources). **Tested-negative, do NOT wire:**
+  SVD distillation over definitional features; a task-SWITCH gate for graded rating (fusion wins); the grounded SENSORIMOTOR
+  spoke for adjectives (LOSES CI-sep — it is sensorimotor, not scalar-magnitude); a symbolic antonym-flag as if it were the
+  mechanism; a GPU learned hub over a SINGLE spoke (premature — earns its keep only reconciling ≥2 heterogeneous spokes,
+  Silberer & Lapata 2014). 🔌 **NO hdlab landed; QUEUED proven-ready for the consolidation:** the conceptual/definitional
+  channel (default-off, gated on the SimLex/SimVerb margins) + demand-routing + operation-routing-by-word-class, composing
+  with the semantic-control router. **p3 of 3 in-flight — its integration COMPLETES the trilogy and fires the CONSOLIDATION.**
+
 - **2026-08-27 — THE SUBSTRATE-WIDE "DISCRETE WHERE THE BRAIN IS GRADED" DEVIATION IS RESOLVED: the discrete parser/
   role-assigner is MEASURED to be the noise→0 argmax COLLAPSE of a graded Bayesian cue-competition, and the maintained
   distribution's ENTROPY is a shared gold-free DIFFICULTY currency that beats the shipped binary route-conflict** (from

@@ -1,13 +1,16 @@
 # CONSOLIDATION PHASE -- EXECUTION PLAN (the debt-drawdown + end-to-end measurement)
 
-**created: 2026-08-27 by the strategy session** · **STATUS: ARMED, NOT STARTED** · living skeleton.
+**created: 2026-08-27 by the strategy session** · **STATUS: 🎯 ACTIVE — TRIGGER MET 2026-08-27 (all 3 in-flight integrated); begin executing next round** · living skeleton.
 **Trigger:** the three in-flight problems integrate (`discrete_where_the_brain_is_graded_in_parsing_and_role_assignment` p1,
 `wire_entity_tracking_end_to_end_on_running_narrative` p2, `the_reader_has_no_conceptual_meaning_channel` p3). Greenlit by
 the owner ("we need the consolidation phase for sure"); WHEN + policy recorded in `STATUS.md` (2026-08-27 LATEST POSITION).
-**PROGRESS (2026-08-27): p2 (entity-end-to-end) + p1 (discrete-graded) INTEGRATED (both EXCELLENT) -> their landing specs
-are FINAL (rows E/F/E2 for the entity line; row I for the graded-competition/difficulty currency). Awaiting p3
-(`the_reader_has_no_conceptual_meaning_channel`, owner-DONE, integrating next) -> when it lands, ALL 3 in-flight are in and
-the CONSOLIDATION FIRES.**
+**PROGRESS (2026-08-27): ALL 3 in-flight INTEGRATED (all EXCELLENT) -> p2 entity-end-to-end (rows E/F/E2), p1
+discrete-graded (row I), p3 conceptual-meaning (rows G/J). 🎯 THE TRIGGER IS MET; THE CONSOLIDATION IS ACTIVE. Execute the
+sequence below across subsequent FOCUSED rounds (one deliberate step per round — this is a multi-organ build, not a
+heartbeat cram). Suggested order: (1) build the ROLE-BALANCED comprehension gold (§3, blocked on nothing now that all 3
+define what it scores); (2) land the independent/self-contained organs (I graded-competition, G conceptual channel, E
+graded binder) default-off with witnesses; (3) land the front-end (C incremental builder, D role fix) + relcl (H); (4)
+wire the composition topology (§2) end-to-end; (5) measure OFF-vs-ON on the role-balanced gold with floors + twins.**
 
 > **WHY THIS DOC EXISTS:** a multi-organ consolidation improvised across 30-min heartbeats is how landings get mis-ordered
 > or double-done, and how a queued fix gets forgotten. This is the ordered plan to execute against when the trigger fires --
@@ -45,7 +48,8 @@ in-flight problem that refines it has integrated, so we land FINAL form once (no
 | E | ACT-R salience binder + **GRADED write** (`entity_binding...` + `wire_entity_tracking...`) | drop-in ACT-R base-level activation for the pronoun-branch `salience()`; **write the pronoun's event into the register by softmax(activation/temp), temp swept ~2.0 -- NOT hard argmax (divisive-normalization interior optimum, +0.0268 CI-sep; uniform hedging HURTS)**; no settling for the pick | **p2 ✅ INTEGRATED 08-27 (spec final)** | QUEUED |
 | F | entity-augment of the situation model (`the_situation_model_tracks_words_not_entities`) | augment the forward predictor's top-down context w/ the active entity's role-conditioned state; **AUGMENT not replace**; bind by salience not content. **NB (p2 measured): wire the composed entity readout for RETRIEVAL ("what did X do"), NOT as a predictive prior on running narrative (entity-augment of the next-object predictor HURTS -0.219, even under oracle linking)** | **p2 ✅ INTEGRATED 08-27 (spec final)** | QUEUED |
 | E2 | **sparse per-entity trace store** (`wire_entity_tracking...`, fan effect MEASURED 0.695->0.608) | DG-style k-WTA (~1-5%) conjunctive encode at each event + CA3 attractor completion -- **NOT a pointer** (a pointer fixes cross-entity lookup, not within-register superposition crosstalk); keep the bundle as a gist. Shared lever with the dense->sparse consolidation deviation | **p2 (store-design/consolidation target)** | BUILD PROPOSAL (not a landed fix) |
-| G | reordered-access meaning read (`context_override...`) | default-off per-sense read = frequency prior + structured-context log-likelihood; routed by organ B; **NO settling / grounding-for-selection / diagnosticity** | **p3 conceptual-meaning** | QUEUED |
+| G | reordered-access meaning read (`context_override...`) | default-off per-sense read = frequency prior + structured-context log-likelihood; routed by organ B; **NO settling / grounding-for-selection / diagnosticity** | **p3 ✅ INTEGRATED 08-27** | QUEUED |
+| J | **ATL conceptual/definitional channel + operation-routing** (`the_reader_has_no_conceptual_meaning_channel`) | new glass-box STATIC asset = per-word WordNet gloss+genus feature bag, global-IDF distinctive-feature weighted, cosine; default-off, gated on the held-out SimLex/SimVerb margins. **DEMAND-ROUTE** (identity/similarity→conceptual, relatedness→associative, **FUSE for decontextualised graded rating**, conflict-gated SELECTION→the semantic-control organ B). **OPERATION-ROUTE by word class** (noun→taxonomic overlap; adjective→GloVe scale-membership + WordNet-antonym signed-magnitude; verb→gloss relational). **Do NOT wire:** SVD distillation, task-switch gate for rating, grounded-sensorimotor for adjectives, symbolic antonym-flag, a GPU hub over one spoke | **p3 ✅ INTEGRATED 08-27 (spec final)** | QUEUED |
 | H | relcl filler-gap resolver + route-conflict (`the_relcl_parser...`) | specialised resolver + two always-on competing scorers + a conflict term (NOT if/else) | folds into C/D front-end | QUEUED (gated on a live number) |
 
 **Retrieval-first memory read (folds under the composition, from `content_addressable_retrieval...` +

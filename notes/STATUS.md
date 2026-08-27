@@ -31,7 +31,28 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- ✅ **DISCRETE→GRADED INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- RESOLVES the substrate-wide "discrete where the brain is graded" deviation: the discrete parser/role organs are the noise→0 argmax COLLAPSE of a graded Bayesian competition, and the distribution's ENTROPY is a shared difficulty currency that beats the shipped binary conflict. 2 of 3 consolidation-gating problems now integrated**
+### 2026-08-27 (LATEST) -- 🎯✅ **CONCEPTUAL-MEANING CHANNEL INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- the missing ATL conceptual/definitional hub is BUILT + PROVEN (two systems DOUBLE-DISSOCIATE); AND ALL 3 IN-FLIGHT ARE NOW INTEGRATED -> THE CONSOLIDATION TRIGGER IS MET, THE CONSOLIDATION PHASE IS ACTIVE**
+`the_reader_has_no_conceptual_meaning_channel` (p3, the LAST in-flight). Re-verified scaffold-free FIRST-HAND
+(`test_conceptual_meaning_channel.py` PASS -- ran it myself). **Bar MET:** the missing ATL amodal CONCEPTUAL/definitional
+hub is BUILT as a glass-box static asset (WordNet gloss+genus, distinctive-feature IDF, cosine; NO learning/LLM) and beats
+a STEELMANNED associative competitor (GloVe-300, not the reader's weak 0.04 system) on human meaning-IDENTITY off-WordNet:
+SimLex 0.5210 vs 0.3705 (+0.1505 CI-sep), SimVerb +0.2788; shuffled-gloss twin LOSES; IDF beats unweighted overlap CI-sep.
+**DOUBLE DISSOCIATION** (conceptual->similarity, associative->relatedness; crossover +0.197 CI-sep; GloVe wins WordSim
+relatedness) -> two systems each winning its own axis. Routing sub-clause = a RECONCILING NEGATIVE (fusion ties/beats
+routing for graded rating; routing's home is context selection = the semantic-control organ). Fidelity boundary: ATL
+covariance-distillation ties sparse IDF -> distinctiveness is SUPPLY-DEPENDENT (dense->whiten, sparse->IDF). DEEPEST
+finding (directional, honestly not gating SOLVED): meaning-similarity is OPERATION-SPECIFIC per word class (one cosine
+wrong for adjectives=signed-magnitude, verbs=relational). AUDIT UPDATE folded (§2b + §6/§7). 🔌 **NO hdlab landed; the
+conceptual channel + demand-routing + operation-routing QUEUED proven-ready for the consolidation.** Review EXCELLENT +
+SOLVER REVIEW; priority cleared. 📦 **NO successor packaged (consolidation policy -- queue drained to zero, by design).**
+🎯🎯 **THE 3-PROBLEM TRILOGY IS COMPLETE (all EXCELLENT): parser/role = graded (discrete is the argmax collapse); entity
+tracking = attribution-not-prediction + graded binding; meaning = a second ATL conceptual channel. THE CONSOLIDATION
+TRIGGER IS MET.** The queue is at ZERO ranked-open (by design). **THE CONSOLIDATION PHASE IS NOW ACTIVE** -- execute
+`notes/CONSOLIDATION_PHASE_PLAN.md` across subsequent focused rounds: land the queued organs (A/B done; C-I) in final form,
+build a ROLE-BALANCED comprehension gold, and measure the composed reader end-to-end (organs OFF-vs-ON, floors +
+info-free-twins-must-lose). This is a deliberate MULTI-ROUND build, NOT a heartbeat cram -- one focused step per round.
+
+### 2026-08-27 -- ✅ **DISCRETE→GRADED INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- RESOLVES the substrate-wide "discrete where the brain is graded" deviation: the discrete parser/role organs are the noise→0 argmax COLLAPSE of a graded Bayesian competition, and the distribution's ENTROPY is a shared difficulty currency that beats the shipped binary conflict. 2 of 3 consolidation-gating problems now integrated**
 `discrete_where_the_brain_is_graded_in_parsing_and_role_assignment` (p1 of 3 in-flight). Re-verified scaffold-free
 FIRST-HAND (`verify_graded_competition_parsing_role.py` ALL CHECKS PASS, live on the real QA-SRL front-end -- suspected my
 own checker, ran it). **Bar MET via the AND/OR difficulty-signal clause.** A single graded cue-based competition

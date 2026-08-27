@@ -1,8 +1,31 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Bar MET (identity win + double dissociation); re-verified FIRST-HAND (scaffold-free witness PASS). The missing ATL amodal CONCEPTUAL/definitional hub is BUILT as a glass-box static asset (WordNet gloss+genus, distinctive-feature IDF-weighted, cosine; NO learning, NO LLM) and beats a STEELMANNED associative competitor (GloVe-300, not the reader's weak 0.04 co-occurrence) on human meaning-IDENTITY off-WordNet: SimLex 0.5210 vs 0.3705 (+0.1505 CI[0.0855,0.2149], CI-sep over GloVe's upper bound), SimVerb 0.4988 vs 0.2199. Info-free twin (shuffled glosses) LOSES (p95 ~0.04-0.065); the distinctive-feature op earns its keep (IDF beats unweighted overlap CI-sep). DOUBLE DISSOCIATION confirmed (conceptual->similarity 0.521>assoc 0.342; GloVe->relatedness; crossover +0.197 CI-sep; GloVe wins WordSim relatedness) -> two systems, each winning its own axis (real-but-partial). ROUTING sub-clause is a RECONCILING NEGATIVE: for decontextualised graded rating FUSION ties/beats demand-routing (reconciles the disk's 'fused>switch'; routing/control's home is context SELECTION = the already-built semantic-control organ). Tested-negative (do not wire): SVD covariance-distillation (ties sparse IDF -> supply-dependent distinctiveness: dense->whiten, sparse->IDF); task-switch gate for rating; grounded SENSORIMOTOR spoke for adjectives (loses CI-sep). DEEPEST FINDING (directional, honestly NOT gating SOLVED): meaning-similarity is OPERATION-SPECIFIC per word class -- one cosine is the wrong operator for adjectives (signed-magnitude) and verbs (relational); adjective op built from OWNED resources lifts 0.585->0.623 with random-axis control losing, CI-separation power-limited at n=111. NO hdlab landed; the conceptual channel + demand-routing + operation-routing-by-word-class QUEUED proven-ready for the consolidation. LAST of the 3 in-flight -> fires the consolidation trigger."
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (integrated 2026-08-27 by the strategy session)
+> **Re-verified FIRST-HAND, scaffold-free:** strategy ran `verification/test_conceptual_meaning_channel.py` -> PASS.
+> Confirmed live: SimLex conceptual 0.5210 vs GloVe 0.3705 (+0.1505 CI[0.0855,0.2149], CI-separated), SimVerb +0.2788,
+> shuffled-gloss twin loses (p95 ~0.04-0.065), IDF beats unweighted overlap CI-sep, double dissociation holds (crossover
+> CI_lo 0.1140; GloVe wins WordSim relatedness CI_lo 0.0949). **Bar MET** -- the identity clause on an OFF-WordNet human
+> gold against a STEELMANNED competitor (the load-bearing choice: beating GloVe, not the reader's 0.04 system, makes the
+> win credible), twin losing, plus the double dissociation. **Adversarial audit passed:** the "is it just WordNet
+> provenance?" objection is answered three ways (off-WordNet gold; twin losing; a lookup artefact would inflate BOTH golds
+> equally, but the representation tracks similarity>relatedness while GloVe does the reverse). Gloss CONTENT alone (zero
+> taxonomy) already ties GloVe (0.40), so the win is definitional content, not taxonomy lookup. The ROUTING sub-clause is a
+> RECONCILING NEGATIVE, honestly reported: for decontextualised graded rating FUSION ties/beats demand-routing -> the
+> brief's "route, fusion hard-failed" is WSD-specific, reconciled with the disk's prior 'fused>switch'; routing/control's
+> home is context SELECTION (the already-built semantic-control organ). The solver correctly did NOT let the DIRECTIONAL,
+> power-limited (n=111) adjective operation gate SOLVED. **Fidelity boundary earned:** the literature's proposed ATL
+> covariance-DISTILLATION does NOT beat sparse IDF -> the distinctive-feature op is SUPPLY-DEPENDENT (dense->whiten,
+> sparse->IDF). **Deepest finding (insight, directional):** meaning-similarity is OPERATION-SPECIFIC per word class -- one
+> cosine is the wrong operator for adjectives (signed-magnitude) and verbs (relational). **hdlab:** NO file landed (Q111);
+> the conceptual/definitional channel (default-off, gated on the held-out SimLex/SimVerb margins) + demand-routing
+> (identity->conceptual, relatedness->associative, FUSE for graded rating) + operation-routing-by-word-class is QUEUED
+> proven-ready for the consolidation, composing with the semantic-control router. Do NOT wire the tested-negatives (SVD
+> distillation; task-switch gate for rating; grounded-sensorimotor for adjectives). AUDIT UPDATE folded (§2b + §6/§7
+> meaning entries). **LAST of the 3 in-flight -> the CONSOLIDATION TRIGGER is now MET.**
 
 # PROBLEM: the reader only has an ASSOCIATIVE (word-company / co-occurrence) meaning system -- it is at CHANCE on human "do these two words mean the same thing?", because it lacks the brain's CONCEPTUAL / definitional meaning hub
 
