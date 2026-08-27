@@ -31,7 +31,23 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- ✅ **MEANING-CONTEXT INTEGRATED (owner-DONE, EXCELLENT/SOLVED) — BATCH 3 of 3 COMPLETE: CONTEXT overrides the frequency prior on MODERN data (the McGuffey data-limit confirmed; SemCor acquisition VINDICATED), and the missing SEMANTIC-CONTROL organ (LIFG/pMTG conflict trigger + suppression) is BUILT**
+### 2026-08-27 (LATEST) -- ✅ **INCREMENTAL PARSER INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the batch UD parser is REPLACEABLE — an incremental left-corner builder finds a verb's arguments better (less over-generation); closes the STRUCTURAL half of feed-forward→predictive; surfaces a substrate-wide DISCRETE→GRADED deviation**
+`the_argument_parser_is_batch_where_the_brain_is_incremental` — a clean WIN. Re-verified scaffold-free FIRST-HAND
+(verify_incremental_argstruct_builder.py PASS). The incremental left-corner builder (eager verb-slot projection, bounded
+Now-or-Never, NO arc graph) beats the batch UD parser at candidate-argument identification (+0.0352 F1, n=28,149) via a
+precision gain (+0.0998; the batch parser over-generates +1.03 args/predicate); genuinely incremental (prefix-consistent
+0.985 vs 0.941, glass-box). HONEST: the win is the EAGER BOUNDED good-enough attachment, NOT prediction/revision (both
+~0 on edited prose) — but revision IS brain-faithful (garden-path positive control +0.0852, zero false-fire). Downstream:
+the batch parse doesn't earn its place for word-order role assignment; structure helps on passives (+0.0344). Closes the
+STRUCTURAL instance of "feed-forward→predictive" (the incremental builder + the predictive reader = two levels of one
+predictive front-end; relcl the tail). AUDIT UPDATE folded (§2b + Tier-1 batch-parse-replaceable + Beber structure/role
+separation). 🔌 **hdlab landing EARNED → QUEUED proven-ready** (new incremental-builder organ behind a flag as the
+candidate source; role assigner unchanged; revision default-OFF). 📦 **SUCCESSOR packaged** =
+`discrete_where_the_brain_is_graded_in_parsing_and_role_assignment` (substrate-wide: parsing + role assignment are
+discrete where the brain does graded cue-based competition = noise→0 limit of Lewis-Vasishth; test on non-canonical/
+ambiguous populations). *(2 new submissions in this round; a 2nd — likely entity-binding — integrated next.)*
+
+### 2026-08-27 -- ✅ **MEANING-CONTEXT INTEGRATED (owner-DONE, EXCELLENT/SOLVED) — BATCH 3 of 3 COMPLETE: CONTEXT overrides the frequency prior on MODERN data (the McGuffey data-limit confirmed; SemCor acquisition VINDICATED), and the missing SEMANTIC-CONTROL organ (LIFG/pMTG conflict trigger + suppression) is BUILT**
 `context_override_of_the_frequency_prior_on_a_modern_wsd_benchmark` — the meaning-context question RESOLVED. Re-verified
 scaffold-free FIRST-HAND (test_context_override_frequency.py PASS). On held-out SUBORDINATE-congruent SemCor items
 (MFS=0 by construction), a structured context-likelihood read recovers the rarer sense at 0.39-0.46, beating chance

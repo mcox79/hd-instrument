@@ -65,6 +65,35 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-27 — THE BATCH DEPENDENCY PARSER IS REPLACEABLE: an INCREMENTAL left-corner builder beats it at finding a
+  verb's arguments (the structural half of "feed-forward where the brain is predictive"); + a substrate-wide
+  DISCRETE→GRADED deviation surfaced** (from `the_argument_parser_is_batch_where_the_brain_is_incremental`, integrated
+  SOLVED/EXCELLENT, owner-DONE; witness `verify_incremental_argstruct_builder.py` PASS, re-verified first-hand). A
+  brain-faithful INCREMENTAL LEFT-CORNER argument-structure builder (left-to-right, eager verb-slot projection, bounded
+  Now-or-Never buffer, NO arc graph) beats the BATCH UD parser (`candidate_generator`/`arc_parser`) at candidate-argument
+  identification on modern QA-SRL (n=28,149): **F1 0.6201 vs 0.5849 (+0.0352 CI-sep) via a precision gain +0.0998** — the
+  batch parser OVER-GENERATES +1.03 args/predicate. Genuinely incremental (prefix-consistency 0.985 vs 0.941; glass-box,
+  no dependency-heads). Beats the crude positional floor +0.0264 at higher precision; info-free twin loses −0.177.
+  **HONEST attribution:** the F1 win is the EAGER BOUNDED "good-enough" attachment (Now-or-Never; Ferreira/Frazier), NOT
+  prediction (ablates +0.0007 NS) or revision (ablates −0.0101 on edited prose) — BUT revision IS brain-faithful
+  (garden-path positive control: re-attaches +0.0852 CI-sep, ZERO false-fire), so revision is default-OFF "don't
+  reanalyse unless forced." Downstream: the batch parse does NOT earn its place for word-order role assignment (even
+  all-nominals matches it), but structure helps on the non-canonical PASSIVE slice (+0.0344). **Effect on the audit:**
+  **(Tier 1, arc_parser)** — as a CANDIDATE GENERATOR feeding role assignment on modern prose, the batch arc parse is
+  MEASURABLY REPLACEABLE; the structural front-end is an INCREMENTAL/PREDICTIVE build target. **(Tier 3, role
+  assignment)** — Beber 2025 (VLSM+TMS+fMRI) double dissociation: structure-BUILDING (frontal/pMTG) and role-BINDING
+  (posterior-temporal/angular) are SEPARATE ORGANS — keep the candidate/structure builder and the role assigner separate,
+  never fuse. **The "feed-forward where the brain is predictive" gap now has its STRUCTURAL instance closed** — the
+  incremental builder + the predictive reader are the two levels (structure + semantics) of one predictive front-end,
+  relcl the specialised tail. **NEW substrate-wide deviation — DISCRETE where the brain is GRADED:** this builder + the
+  role assigner make hard discrete decisions where human parsing is graded probabilistic competition — the *noise→0
+  limit of graded cue-based retrieval* (Lewis & Vasishth 2005), the SAME mechanism as reversible role binding and the
+  retrieval convergence (§1). **Honestly bounded (decompose-the-wall):** on canonical English the graded win is small
+  (oracle ceiling +0.028, weak fit signal AUC 0.59) — a task ceiling + a p1 signal-quality symptom, NOT a clean lever —
+  so the graded attack belongs on NON-CANONICAL/ambiguous populations → packaged as a substrate-wide successor problem.
+  🔌 **hdlab landing EARNED, QUEUED proven-ready:** the incremental builder as a new organ behind a flag as the candidate
+  source (role assigner unchanged; prediction ON, revision OFF; route to relcl) — measure live.
+
 - **2026-08-27 — CONTEXT OVERRIDES THE FREQUENCY PRIOR ON MODERN DATA (the McGuffey data-limit confirmed), and the
   MISSING ORGAN is SEMANTIC CONTROL (LIFG/pMTG) — a gold-blind conflict trigger + graded suppression of the dominant
   sense** (from `context_override_of_the_frequency_prior_on_a_modern_wsd_benchmark`, integrated SOLVED/EXCELLENT,

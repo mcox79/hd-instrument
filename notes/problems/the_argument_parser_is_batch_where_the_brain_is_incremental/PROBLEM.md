@@ -1,7 +1,7 @@
 ---
-priority: 1
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Integrated SOLVED/EXCELLENT 2026-08-27 (owner-DONE). Re-verified scaffold-free first-hand (verify_incremental_argstruct_builder.py PASS). A brain-faithful INCREMENTAL LEFT-CORNER argument-structure builder (left-to-right, eager verb-slot projection, bounded Now-or-Never buffer, NO arc graph) beats the BATCH UD parser at candidate-argument identification on modern QA-SRL prose (n=28,149): F1 0.6201 vs 0.5849, +0.0352 [+0.0314,+0.0389] via a large PRECISION gain +0.0998 at a smaller recall cost -- the batch parser OVER-GENERATES +1.03 args/predicate. Genuinely incremental (prefix-consistency 0.985 vs batch 0.941; glass-box -- takes NO dependency-heads, cannot launder the batch parse). Beats the crude POSITIONAL2 floor +0.0264 AT HIGHER precision; info-free twin (random attachment) LOSES -0.177. HONEST ATTRIBUTION: the F1 win is the EAGER BOUNDED LEFT-CORNER attachment (Now-or-Never good-enough; Ferreira/Frazier), NOT prediction (ablates +0.0007 NS on canonical prose) or revision (ablates -0.0101, slightly net-negative on edited prose) -- BUT the revision mechanism IS brain-faithful (positive control on genuine garden paths: re-attaches +0.0852 CI-sep, ZERO false-fire on canonical). DOWNSTREAM (honest): the batch parse does NOT earn its place for word-order role assignment (even all-nominals matches/beats it), but structure helps on the non-canonical PASSIVE slice (+0.0344 CI-sep). Grade EXCELLENT (clean win, 7 strong controls, honest attribution + a garden-path positive control, glass-box incrementality). hdlab landing EARNED -> QUEUED proven-ready (a NEW incremental-builder organ replacing candidate_generator's arc-parse candidate source behind a flag; role assigner unchanged; revision default-OFF, fire on garden-path conflict; route to relcl on relativizers). Successor packaged = the substrate-wide DISCRETE->GRADED deviation (parsing + role assignment both discrete where the brain does graded cue-based competition; test on non-canonical/ambiguous populations)."
 ---
 
 # PROBLEM: the reader finds a sentence's arguments with a BATCH dependency parser (parse the whole sentence, then read off structure) -- but the brain builds structure INCREMENTALLY and PREDICTIVELY, word by word, revising as it goes
@@ -181,3 +181,37 @@ assigner. On a real reading population, floors recomputed on it:
 - Do NOT rebuild the role assigner (converged) or reproduce a UD tree (the batch convenience being replaced).
 - Do NOT score only on canonical prose -- test where incrementality matters (garden-path / reversible), hold era fixed.
 - No number crosses populations/scorers -- recompute every floor on the live population.
+
+---
+
+## SOLVER REVIEW (strategy session, 2026-08-27 — INTEGRATED, owner-DONE)
+
+**Grade EXCELLENT. Verdict SOLVED.** Re-verified scaffold-free first-hand — `verify_incremental_argstruct_builder.py`
+PASS (incremental beats batch +0.025–0.035 CI-sep; twin loses −0.145; beats the positional floor +0.031; prefix-consistent
+0.989 vs 0.943).
+
+**Why EXCELLENT.** It replaced a convenient batch dependency parser with the brain's actual method — incremental,
+left-to-right, eager "good-enough" attachment with a Now-or-Never bounded buffer — and *measured* it beating the batch
+parse at finding a verb's arguments, chiefly by not over-generating (precision +0.10; the batch parser emitted a full
+extra argument per predicate). And it was scrupulous about *why* it wins: the gain is the eager bounded attachment, NOT
+prediction or revision (both ablate to ~zero on edited prose) — but it proved the revision machinery is genuinely the
+brain's with a garden-path positive control (+0.085, zero false-fire on clean sentences), so revision is default-off
+"don't reanalyse unless forced" (Ferreira good-enough), not broken. The downstream check was honest and decisive: the
+batch parse doesn't even earn its place for word-order role assignment, but structure helps exactly where it should
+(passives). Glass-box throughout (the builder takes no dependency-heads, so it can't be laundering the batch parse).
+
+**Strategic yield (the reason this matters beyond one organ):** two audit-level findings. (1) It closes the
+"feed-forward where the brain is predictive" gap at the STRUCTURAL level — the incremental builder + the predictive
+reader are the two levels (structure + semantics) of one predictive front-end, with the relcl filler-gap as the
+specialised tail. (2) The owner-requested deeper drill surfaced a **substrate-wide DISCRETE→GRADED deviation**: this
+builder (and the role assigner) make hard discrete decisions where human parsing is graded probabilistic competition —
+which is the *noise→0 limit of graded cue-based retrieval* (Lewis-Vasishth), the SAME mechanism the retrieval convergence
+keeps surfacing. Honestly bounded: on canonical English the graded win is small (oracle ceiling +0.028, weak fit signal
+AUC 0.59) — a task ceiling, not a clean lever — so the graded attack belongs on non-canonical/ambiguous populations.
+
+**hdlab landing EARNED, QUEUED proven-ready** (Q111): land the incremental builder as a new organ and wire it behind a
+flag as the candidate source, replacing `candidate_generator`'s arc-parse generation (the converged role assigner
+unchanged — keep structure and role as SEPARATE organs, Beber 2025 double dissociation); prediction ON, revision OFF
+(fire only on garden-path conflict), route to relcl on relativizers. Measure live. AUDIT UPDATEs folded (§2b + Tier-1
+candidate-generator-replaceable + the discrete→graded deviation). **Successor packaged** = the substrate-wide
+discrete→graded gap.
