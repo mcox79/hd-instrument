@@ -42,7 +42,14 @@ def _positional_only(toks, pos, v, cands):
 
 
 def _in_span(pred_1based, gold_span_0based) -> bool:
-    return pred_1based is not None and (pred_1based - 1) in set(gold_span_0based)
+    # SUPERSEDED-BUG FIX: the QA-SRL patient is a HALF-OPEN (start,end) span, not a 2-element set. (v1 originally
+    # scored `in {start,end}`, capping the oracle at ~0.49 -> flat 0.32; see v2 + LOG STEP 9. Corrected here for
+    # hygiene; the DEFINITIVE measurement is exp_composed_reader_role_balanced_measure_v2.py.)
+    if pred_1based is None:
+        return False
+    g = gold_span_0based
+    idxs = set(range(g[0], g[1])) if (len(g) == 2 and g[1] > g[0]) else set(g)
+    return (pred_1based - 1) in idxs
 
 
 def _boot_ci(correct, seed, n_boot=2000):

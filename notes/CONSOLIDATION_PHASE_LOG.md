@@ -35,7 +35,7 @@ if things aren't working like we expect, LIBERALLY run brain-foundationality res
 |----------|--------|
 | ROLE-BALANCED comprehension gold | ✅ BUILT + VERIFIED 2026-08-27 (`exp_role_balanced_comprehension_gold_v1.py`; 9446 items, positional floor 0.500, can-fail PASS; gold rebuildable-deterministic) |
 | composed-reader end-to-end harness (OFF-vs-ON) | 🔬 STARTED 2026-08-27 (`exp_composed_reader_role_balanced_measure_v1.py`; harness+gold validated -- ON beats floor+twin CI-sep; DIAGNOSIS: relcl arm rare-by-design, need to wire the ACCURACY lever = learned assigner D + incremental candidates) |
-| the payoff number (composed reader vs floors, twins losing) | ⬜ NOT MEASURED |
+| the payoff number (composed reader vs floors, twins losing) | ✅ FRONT-END MEASURED 2026-08-27: composed front-end **0.739 vs positional floor 0.519 (+0.212 CI-sep)**, twin 0.296 loses (n=8225, role-balanced). Full-reader (entity+meaning, cross-sentence) = still to measure. |
 
 ---
 
@@ -212,3 +212,24 @@ organ behaves exactly as its integration said (rare, real on its slice). **The c
 incremental_parser candidates into the composed reader, sharpen scoring to the patient HEAD, and re-measure OFF (live
 positional baseline) vs ON (composed) -- that is the real front-end payoff test on the fair gold.
 - Commit: see git log (strategy: first composed-reader measurement + diagnosis -- consolidation step 8).
+
+### 2026-08-27 -- STEP 9: THE FRONT-END PAYOFF (a scoring-bug wall drilled + fixed, then the real number) ✅
+**Owner directive lived out ("anytime we face a wall we research drill to make sure we're implementing correctly").**
+STEP 8's flat 0.32 + "incremental adds nothing" looked like a wall. Drilled it with an ORACLE-CEILING probe (can the
+method even succeed?): ceiling was 0.49 -- IMPOSSIBLE if the candidates contained the answer. **Root cause = a bug in MY
+OWN checker:** QA-SRL patient spans are HALF-OPEN `(start,end)`, but `_in_span` scored membership in the 2-element SET
+`{start,end}` -- so "the air" `[3,5)` was checked against {3,5} and missed the head "air" at index 4. Fix to
+`range(start,end)`: **oracle 0.49 -> 0.97** and the real result appeared. (Fixed v1 + v2; v2 is definitive.)
+**DEFINITIVE MEASUREMENT (`exp_composed_reader_role_balanced_measure_v2.py`, full n=8225):**
+  * FLOOR positional (guess by position, no voice) : 0.5191 [0.508,0.530]  (a coin-flip -- the balanced gold works)
+  * COMPOSED front-end (voice + word-order + relcl) : **0.7387 [0.729,0.748]  -> +0.2118 CI-sep over the floor**
+  * info-free TWIN (random nominal)                 : 0.2964  (loses by +0.4345 CI-sep)
+  * pre-verbal (hard/reversible) patients 0.582 vs post-verbal 0.875 -- headroom on the reversibles.
+**-> THE FRONT-END ORGANS EARN THEIR KEEP ON A FAIR MODERN TEST: from a ~0.52 position-guess floor to 0.74, CI-separated,
+the scrambled control destroying it.** This is the consolidation's first real PAYOFF number (front-end role assignment).
+**HONEST sub-findings:** (1) restricting the patient search to the incremental parser's argument slots slightly HURTS
+(-0.008 CI-sep below resolving over all nominals) -- the incremental parser's value is broad-parse candidate precision,
+not single-patient-ID, so it is NOT the lever here; (2) the LEARNED assigner (D) is still un-wired -- the pre-verbal 0.582
+is where it (+ more voice/structure work) could lift the number. **SCOPE: this is the FRONT-END (who-did-what) payoff;
+the FULL composed reader (entity tracking + meaning) on a CROSS-SENTENCE gold is a further measurement.**
+- Commit: see git log (strategy: front-end payoff measured + scoring-bug fix -- consolidation step 9).
