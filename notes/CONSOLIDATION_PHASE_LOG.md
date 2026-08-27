@@ -336,3 +336,15 @@ STATUS updated. **NO hdlab landed; EARNED proven-ready: `graded_role_assigner` H
 (`exp_composed_reader_litbank_full_v1.py`) + run the FULL whole-reader measurement with the improved front-end -- the
 consolidation payoff.** p2 (entity store) + p3 (meaning op-routing) submitted, await owner_verdict: DONE.
 - Commit: see git log (strategy: integrate p1 front-end non-canonical fix -- step 15).
+
+### 2026-08-27 -- STEP 16: LANDED graded_role_assigner (the p1 earned front-end wiring) ✅
+`hdlab/graded_role_assigner.py` -- the Competition-Model non-canonical patient route. `hybrid_role_patient` keeps
+resolve_patient BYTE-IDENTICAL on canonical/confident routes; invokes a graded cue competition (learned validities over
+`graded_competition`) ONLY on the marked non-canonical fall-through (strong passive / relativizer-less object gap /
+unaccusative). Ported voice_cues/gap_config/cue_supports/competition_pick/hybrid_pick VERBATIM; the offline-fit validities
+baked as DEFAULT_VALIDITIES (fit by logistic on the role-balanced train split, seed 20260827; passive_weak -2.99 = the -ed
+garden-path distrusted). Witness `test_graded_role_assigner_organ.py` PASS first-hand: reduced object-relatives 4/4 vs
+resolve_patient 0/4; canonical byte-identical (routing not replacement); shuffled-validity twin 1/4 loses; passive_weak<0.
+Registered `graded_role_assigner_v1` (BUILT/ISLAND, default-safe). NOT yet wired into resolve_patient (a flagged wiring +
+live measure is the composition step). NEXT: land `scalar_adjective_operation` (the p3 earned organ).
+- Commit: see git log (strategy: land graded_role_assigner organ -- step 16).
