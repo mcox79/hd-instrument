@@ -1,7 +1,7 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Integrated SOLVED/EXCELLENT 2026-08-27 (owner-DONE). Re-verified scaffold-free first-hand (verify_entity_structured_situation_model.py PASS). Bar MET via AUGMENT (the brain keeps BOTH a global gist AND entity nodes): an entity-structured situation model (the bag-of-words gist PLUS the active entity's ROLE-CONDITIONED accumulated state, retrieved by entity identity via the situation-register decode) beats the bag-of-words gist ALONE CI-separated on modern QA-SRL reconstructed documents predicting a recurring entity's next argument -- BAG+ENTITY 2.777 vs BAG 2.832 (+0.0545 [+0.0430,+0.0671]), REPLICATED on an independent test split (+0.0402 [+0.0216,+0.0599]). Strong controls: the info-free twin (random other entity's history) ACTIVELY HURTS (-0.06) -> the win requires the CORRECT entity; role-CONDITIONED beats role-BLIND +0.0217 CI-sep -> the register's role structure earns its place; naive REPLACEMENT of the gist LOSES (-0.0355) -> augment, not replace (brain-faithful); glass-box (ridge over grounded features + entity identity, no external model). UNIFIES with the retrieval convergence: swapping the ridge for cue-based content-addressable retrieval (Lewis-Vasishth) makes the entity win LARGER (+0.072-0.085 vs bag). SHARP two-channel finding: entity PREDICTION uses meaning-memory (content-addressable), but entity BINDING (who a mention refers to) is dominated by SALIENCE/RECENCY (Centering: recency 0.493 >> content 0.308) -- so keep content retrieval for the prediction channel, salience for the pronoun pick. HONEST: the effect is real but SMALL (coarse grounded space + ~2 items/entity -- the p1 representation coupling). Grade EXCELLENT (clean win, replicated, strong controls, self-corrected replace->augment, unifies with retrieval). hdlab landing EARNED -> QUEUED proven-ready (default-off entity-augment of the forward predictor's context; salience-based binding). Successor packaged = the binding half on a modern pronoun corpus (coref/Centering -- QA-SRL cannot test pronouns)."
 ---
 
 # PROBLEM: the reader's running "situation model" is a bag of content-word meanings, not a set of tracked ENTITIES -- so it cannot follow WHO is who across sentences, and its top-down predictions are entity-blind
@@ -179,3 +179,33 @@ model conditions the reader). On a held-out modern population where entity ident
 - Do NOT rebuild coref or content-addressable retrieval; this is WIRING existing organs into the situation model.
 - Do NOT score on ~200-year-old McGuffey prose without holding corpus era fixed; prefer modern reconstructed documents.
 - No number crosses populations/scorers; the bag-of-words discourse gist is the floor -- recompute it on your population.
+
+---
+
+## SOLVER REVIEW (strategy session, 2026-08-27 — INTEGRATED, owner-DONE)
+
+**Grade EXCELLENT. Verdict SOLVED.** Re-verified scaffold-free first-hand — `verify_entity_structured_situation_model.py`
+PASS (BAG+ENTITY 2.795 < BAG 2.847 CI-sep; info-free twin loses; role-conditioned beats role-blind; cue-based-retrieval
+swap makes the win larger +0.072).
+
+**Why EXCELLENT.** A clean, replicated win with the controls that make it trustworthy: the info-free twin (correct
+entity's history replaced by a random entity's) doesn't just fail to help — it *actively hurts*, which proves the model
+is genuinely tracking who-is-who. It self-corrected the naive form (throwing away the gist and keeping only the entity
+memory LOSES; you must AUGMENT — which is how the brain does it, both a global gist and entity nodes). It showed the
+ROLE-STRUCTURE specifically earns its place (role-conditioned beats a role-blind entity bag). And it unifies with the
+session's retrieval convergence a fourth time — swapping the regression for cue-based content-addressable retrieval makes
+the entity win *larger*. The standout is a sharp, brain-faithful DISSOCIATION: the two halves of entity tracking are
+different computations — **predicting what an entity does next uses the richer MEANING-MEMORY (content-addressable
+retrieval), but resolving WHO a mention refers to is dominated by simple SALIENCE/RECENCY (Centering, 0.493 vs 0.308)**.
+So keep content retrieval for the prediction channel and salience for the pronoun pick — a real architectural finding.
+
+**Honest limits:** the effect is real but small (coarse 12-dim grounded space + ~2 items/entity — the standing
+representation-quality coupling); the binding-half validation needs a modern pronoun-bearing corpus (QA-SRL arguments are
+non-groundable pronouns' referents but the gold doesn't test pronoun resolution) — packaged as the successor.
+
+**hdlab landing EARNED, QUEUED proven-ready** (Q111): augment the forward predictor's top-down context with the active
+entity's role-conditioned accumulated state (retrieved from `situation_model_accumulate` by identity, role-conditioned
+decode) — do NOT replace the gist; bind mentions by SALIENCE (the symbolic coref/Centering resolver + lexical identity),
+NOT the cue-based-activation coref pick (prior HARD_FAIL). A live-wiring composition — measure on the live reader before
+any capability claim. AUDIT UPDATE folded (§2b). **Successor packaged** = the entity-BINDING half on a modern pronoun
+corpus (does the coref organ / salience add over string-identity?).

@@ -31,7 +31,21 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- ✅ **FRONT-END FIX INTEGRATED (owner-DONE, EXCELLENT/PARTIAL): the wall is RECOVERED 0.48→0.75 (CI-sep over the live baseline); the lever is WORD ORDER + quote-exclusion + a learnable speech-verb class — thematic-fit & animacy REFUTED — but it's majority-floor-bound on the agent-saturated gold [BATCH 1 of 3; next-steps held per owner]**
+### 2026-08-27 (LATEST) -- ✅ **ENTITY-STRUCTURED SITUATION MODEL INTEGRATED (owner-DONE, EXCELLENT/SOLVED): AUGMENT the gist with role-conditioned entity memory (beats bag-of-words CI-sep, replicated) — and entity tracking is TWO channels: PREDICT-via-content, BIND-via-salience [BATCH 2 of 3]**
+`the_situation_model_tracks_words_not_entities` — a clean WIN. Re-verified scaffold-free FIRST-HAND
+(verify_entity_structured_situation_model.py PASS). The entity-structured model (gist + the active entity's
+ROLE-CONDITIONED state, retrieved by identity) beats the bag-of-words gist CI-separated (+0.0545, replicated on an
+independent split +0.0402); info-free twin (random entity) ACTIVELY HURTS; role-conditioned beats role-blind; naive
+REPLACEMENT loses → AUGMENT not replace (brain-faithful). UNIFIES with the retrieval convergence a 4th time (content-
+addressable retrieval makes the win larger). SHARP DISSOCIATION: entity PREDICTION uses meaning-memory (content-
+addressable); entity BINDING is dominated by SALIENCE/RECENCY (Centering) — keep retrieval for prediction, salience for
+the pronoun pick. HONEST small effect (coarse grounded space — the p1 coupling). AUDIT UPDATE folded (§2b). 🔌 **hdlab
+landing EARNED → QUEUED proven-ready** (default-off entity-augment of the forward predictor's context; salience-based
+binding). 📦 **SUCCESSOR packaged** = `entity_binding_needs_a_modern_pronoun_corpus` (the binding half: does coref/salience
+add over string-identity? QA-SRL can't test pronouns). **⏳ BATCH 2 of 3 (p8 meaning-context still coming). NEXT-STEPS
+HELD per owner.**
+
+### 2026-08-27 -- ✅ **FRONT-END FIX INTEGRATED (owner-DONE, EXCELLENT/PARTIAL): the wall is RECOVERED 0.48→0.75 (CI-sep over the live baseline); the lever is WORD ORDER + quote-exclusion + a learnable speech-verb class — thematic-fit & animacy REFUTED — but it's majority-floor-bound on the agent-saturated gold [BATCH 1 of 3; next-steps held per owner]**
 `the_live_front_end_mislabels_who_did_what_to_whom` — the Branch-B top-priority problem, delivered. Re-verified
 scaffold-free FIRST-HAND (6/6 PASS). The fair brain-faithful assigner (core-mention + QUOTE EXCLUSION + speech-verb/
 quotative class + the organ's perceptron over selected mentions) beats the live positional baseline CI-separated (0.483
