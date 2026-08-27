@@ -252,3 +252,23 @@ Competition-Model assigner. **Decision for next rounds: (a) the FULL composed re
 gold) is the consolidation's headline goal and tests the OTHER landed organs; (b) wiring D lifts the front-end hard cases.
 Lean (a) -- the front-end already earns its keep (+0.21 CI-sep); the full-reader payoff is the open question.**
 - Commit: see git log (strategy: drill front-end headroom -- consolidation step 10).
+
+### 2026-08-27 -- STEP 11: PARALLELIZE -- packaged 3 mechanism-gap solver problems (owner prompt) 🔀
+Owner: "are you sure some of these aren't good opportunities for parallel solver sessions?" -- YES. The split:
+STRATEGY (mine, not solver-able): wiring the LANDED organs into the live reader + the OFF-vs-ON measurements (hdlab
+composition, Q111, no new mechanism). SOLVER (parallel-able): the NEW brain-MECHANISM gaps the measurement SURFACES.
+**Policy update: the drain-to-trigger phase is DONE (consolidation active); during active consolidation, measurement-
+surfaced mechanism gaps ARE packaged as PARALLEL solver work (this does not re-grow a pre-consolidation queue -- it
+parallelizes discovery while strategy does the wiring).** Packaged (priorities unique 1/2/3):
+  1. `the_front_end_mishandles_non_canonical_argument_structure` (p1) -- the STEP-10 headroom: learned graded cue
+     integration (Competition Model) where morphology/voice OVERRIDE order; fix reduced relatives + fronting + the 26%
+     undetected passives. Bar: beat the composed front-end's 0.582 pre-verbal slice CI-sep, shuffled-validity twin losing.
+  2. `the_entity_store_is_a_dense_bundle_that_fans` (p2) -- the MEASURED fan effect (0.695->0.608): sparse DG k-WTA
+     conjunctive encode + CA3 completion (NOT a pointer). Bar: reduce the fan SLOPE CI-sep vs the dense bundle, twin losing.
+  3. `the_meaning_read_out_is_one_operation_where_the_brain_has_three` (p3) -- operation-routing by word class
+     (adjective signed-magnitude, verb relational); resolve the adjective op's n=111 power limit. Bar: beat the single
+     cosine per-class CI-sep on a powered gold, random-axis twin losing.
+**These run in PARALLEL (solver sessions). Strategy CONTINUES its lane: the full composed-reader cross-sentence
+measurement (character tracking + meaning) + wiring the landed organs.** Integrate each solver result only on
+owner_verdict: DONE (standing rule).
+- Commit: see git log (strategy: parallelize -- package 3 mechanism-gap solver problems -- step 11).
