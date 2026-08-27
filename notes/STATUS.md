@@ -31,7 +31,18 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- ✅ **INCREMENTAL PARSER INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the batch UD parser is REPLACEABLE — an incremental left-corner builder finds a verb's arguments better (less over-generation); closes the STRUCTURAL half of feed-forward→predictive; surfaces a substrate-wide DISCRETE→GRADED deviation**
+### 2026-08-27 (LATEST) -- ✅ **ENTITY-BINDING INTEGRATED (owner-DONE, EXCELLENT/SOLVED): binding (who a pronoun is) is GRAMMATICAL-PROMINENCE salience, NOT recency (which is at chance on hard cases) and NOT semantics — completes the BIND half of entity tracking**
+`entity_binding_needs_a_modern_pronoun_corpus` — a clean WIN. Re-verified scaffold-free FIRST-HAND (test_gap_pronoun_binding.py
+6/6 PASS). On GAP (n=1773 human-labeled same-gender ambiguous pronouns) a grammatical-prominence salience binder resolves
+at 0.699, beating string-identity 0.508 (+0.191), recency 0.514 (+0.184), and the shuffled-salience twin (+0.181), all
+CI-sep. STRIKING: RECENCY IS AT CHANCE on the hard cases — the cue is GRAMMATICAL PROMINENCE (Centering subject-preference);
+binding is structural, NOT semantic (implicit-causality doesn't replicate). Acquired 3 foundation corpora (GAP, IC norms,
+LitBank). ACT-R base-level activation unifies the cues (+0.213 over the live formula). AUDIT UPDATE folded (§2b). 🔌 **hdlab
+landing EARNED → QUEUED proven-ready** (drop-in ACT-R base-level activation for the pronoun-branch salience()). 📦
+**SUCCESSOR packaged** = `wire_entity_tracking_end_to_end_on_running_narrative` (compose bind + predict + coref threads on
+LitBank; the downstream marginal value of correct pronoun linking). *(2nd of 2 integrations this round — parser + binding.)*
+
+### 2026-08-27 -- ✅ **INCREMENTAL PARSER INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the batch UD parser is REPLACEABLE — an incremental left-corner builder finds a verb's arguments better (less over-generation); closes the STRUCTURAL half of feed-forward→predictive; surfaces a substrate-wide DISCRETE→GRADED deviation**
 `the_argument_parser_is_batch_where_the_brain_is_incremental` — a clean WIN. Re-verified scaffold-free FIRST-HAND
 (verify_incremental_argstruct_builder.py PASS). The incremental left-corner builder (eager verb-slot projection, bounded
 Now-or-Never, NO arc graph) beats the batch UD parser at candidate-argument identification (+0.0352 F1, n=28,149) via a

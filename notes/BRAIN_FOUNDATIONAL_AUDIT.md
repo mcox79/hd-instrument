@@ -65,6 +65,23 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-27 — ENTITY BINDING (who a pronoun refers to) is GRAMMATICAL-PROMINENCE SALIENCE, not recency and not
+  semantics — validated on hard same-gender ambiguous pronouns** (from `entity_binding_needs_a_modern_pronoun_corpus`,
+  integrated SOLVED/EXCELLENT, owner-DONE; witness `test_gap_pronoun_binding.py` 6/6 PASS, re-verified first-hand).
+  Completes the BIND half of entity tracking (the PREDICT half was the entity-structured situation model). On GAP
+  (n=1773 human-labeled same-gender ambiguous pronouns) a grammatical-prominence salience binder resolves at **0.699,
+  beating string-identity 0.508 (+0.191), most-recent-mention/RECENCY 0.514 (+0.184), and the shuffled-salience twin
+  0.490 (+0.181), all CI-separated**. **STRIKING REFINEMENT:** on the HARD ambiguous cases **RECENCY IS AT CHANCE** — the
+  load-bearing cue is GRAMMATICAL PROMINENCE (Centering's subject-preference Cf-ranking), NOT recency (which only
+  correlated with prominence on the easy QA-SRL cases). Binding is STRUCTURAL/salience, NOT semantic (the
+  implicit-causality semantic cue does not replicate + loses to its scramble — consistent with the entity-tracking
+  dissociation: predict-via-content, bind-via-salience). Acquired 3 foundation corpora (GAP, Ferstl IC norms, LitBank).
+  The unifying mechanism = **ACT-R base-level activation** `B = ln Σ w_role·dt^−d` (prominence + recency + frequency in
+  one scalar; beats the live `salience()` +0.213 on running narrative). 🔌 **hdlab landing EARNED, QUEUED proven-ready:**
+  a drop-in ACT-R base-level activation for the pronoun-branch `salience()`; no settling for the pick. **Successor:** wire
+  entity tracking (bind + predict + coref threads) end-to-end on running narrative (LitBank) and measure the downstream
+  marginal value of correct pronoun linking.
+
 - **2026-08-27 — THE BATCH DEPENDENCY PARSER IS REPLACEABLE: an INCREMENTAL left-corner builder beats it at finding a
   verb's arguments (the structural half of "feed-forward where the brain is predictive"); + a substrate-wide
   DISCRETE→GRADED deviation surfaced** (from `the_argument_parser_is_batch_where_the_brain_is_incremental`, integrated

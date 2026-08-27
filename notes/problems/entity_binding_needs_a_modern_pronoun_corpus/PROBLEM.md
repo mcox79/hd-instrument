@@ -1,7 +1,7 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Integrated SOLVED/EXCELLENT 2026-08-27 (owner-DONE). Re-verified scaffold-free first-hand (test_gap_pronoun_binding.py 6/6 PASS). A GRAMMATICAL-PROMINENCE salience binder resolves same-gender ambiguous pronouns at 0.6988 [0.677,0.719] on GAP test (n=1773 human-labeled), beating string-identity 0.5076 (+0.191 CI-sep), most-recent-mention/RECENCY 0.5144 (+0.184 CI-sep), majority, and the info-free shuffled-salience twin 0.4901 (+0.1805 CI-sep). STRIKING REFINEMENT of the entity-tracking finding: on the HARD ambiguous cases RECENCY IS AT CHANCE -- the load-bearing binding cue is GRAMMATICAL PROMINENCE (subject-preference; Centering Cf-ranking by grammatical role), not recency (recency correlated with prominence on the easy QA-SRL cases only). Controls strong: string-identity excludes lexical overlap; most-recent-mention excludes recency (at chance); shuffled-salience twin excludes the ranking carrying no info; leave-one-cue-out (recency/frequency marginal 0.0, role +0.0344 CI-sep); IC-lexicon scramble twin + cross-split (implicit-causality/SEMANTIC cue does NOT replicate -> binding is structural/salience, not semantic -- consistent with the entity-tracking dissociation). Acquired 3 foundation corpora (GAP, Ferstl IC norms, LitBank running-narrative). KEY: ACT-R base-level activation B=ln(sum w_role*dt^-d) unifies grammatical prominence + recency + frequency and beats the live salience() formula +0.213 on running narrative. Grade EXCELLENT (clean win, recency-at-chance is a decisive control, honest semantic-cue negative, 3 assets acquired). hdlab landing EARNED -> QUEUED proven-ready (drop-in ACT-R base-level activation for the pronoun-branch salience(); do NOT build settling for the pick). Successor packaged = wire entity tracking (bind + predict) end-to-end on running narrative (LitBank)."
 ---
 
 # PROBLEM: we validated PREDICTING what an entity does next, but the other half of entity tracking -- resolving WHO a mention (especially a pronoun) refers to -- is untested on real pronouns, and the evidence says it is a SALIENCE problem, not a meaning-memory one
@@ -159,3 +159,30 @@ Floors recomputed on that population:
 - Do NOT use content retrieval as the pronoun pick (HARD_FAIL); salience is the binding mechanism.
 - Do NOT test on QA-SRL (no pronoun gold) or archaic McGuffey without era controls.
 - No number crosses populations/scorers -- recompute every floor on the pronoun population.
+
+---
+
+## SOLVER REVIEW (strategy session, 2026-08-27 — INTEGRATED, owner-DONE)
+
+**Grade EXCELLENT. Verdict SOLVED.** Re-verified scaffold-free first-hand — `test_gap_pronoun_binding.py` 6/6 PASS.
+
+**Why EXCELLENT.** It completes the binding half of entity tracking and *sharpens* what the prediction work found. The
+prediction work said "recency beats content for binding" — but that was on easy cases. On the genuinely hard ones
+(same-gender ambiguous pronouns, GAP), this shows **recency is at chance**, and the real cue is **grammatical prominence**
+(the subject-preference of Centering theory) — beating string-identity and recency by +0.19, with the shuffled-salience
+twin losing cleanly. So binding is a structural/salience computation, not a semantic one (the implicit-causality
+*semantic* cue was tested and honestly reported to not replicate and to lose to its scramble). It acquired three real
+foundation corpora to do this (GAP, the Ferstl implicit-causality norms, and LitBank running narrative), and found the
+unifying mechanism: ACT-R base-level activation (`B = ln Σ w_role·dt^−d`) combines grammatical prominence + recency +
+frequency in one principled scalar and beats the live salience formula by +0.213 on running narrative.
+
+**Effect on the substrate:** entity tracking now has both channels validated on real data — **predict** what an entity
+does via content-addressable meaning-memory, **bind** who a pronoun means via grammatical-prominence salience (ACT-R
+activation). Confirms the two-channel dissociation and the salience-not-content binding mechanism.
+
+**hdlab landing EARNED, QUEUED proven-ready** (Q111): a drop-in ACT-R base-level activation for the pronoun-branch
+`salience()` (unifies prominence/recency/frequency; beats the live formula +0.213); do NOT build settling for the pick.
+AUDIT UPDATE folded (§2b — binding = grammatical-prominence salience, recency inert on hard cases). **Successor packaged**
+= wire entity tracking end-to-end on running narrative (LitBank): compose the corrected binder + coref threads + the
+entity-prediction channel and measure the downstream marginal value of correct pronoun linking (the bar's second task
+GAP snippets couldn't support).
