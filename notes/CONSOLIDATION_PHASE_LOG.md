@@ -23,7 +23,7 @@ if things aren't working like we expect, LIBERALLY run brain-foundationality res
 | B | semantic-control gate | `hdlab/semantic_control.py` | `test_semantic_control_organ.py` | semantic_control_v1 | ✅ LANDED (pre-phase) |
 | I | graded-competition organ + difficulty currency | `hdlab/graded_competition.py` | `test_graded_competition_organ.py` | graded_competition_v1 | ✅ LANDED 2026-08-27 (commit below) |
 | J | ATL conceptual/definitional channel + operation-routing | `hdlab/conceptual_meaning.py` | `test_conceptual_meaning_organ.py` | conceptual_meaning_v1 | ✅ LANDED 2026-08-27 (commit below) |
-| E | ACT-R salience binder + GRADED softmax write | (pending) | (pending) | (pending) | ⬜ QUEUED |
+| E | ACT-R salience binder + GRADED softmax write | `hdlab/salience_binder.py` | `test_salience_binder_organ.py` | salience_binder_v1 | ✅ LANDED 2026-08-27 (commit below) |
 | F | entity-augment of the situation model | (pending) | (pending) | (pending) | ⬜ QUEUED |
 | C | incremental left-corner builder | (pending) | (pending) | (pending) | ⬜ QUEUED |
 | D | front-end role-assignment fix | (pending) | (pending) | (pending) | ⬜ QUEUED |
@@ -80,4 +80,23 @@ design); one deliberate step per focused round.
 - NOT YET WIRED. Composition step: DEMAND-ROUTE (identity->conceptual, relatedness->associative; FUSE for graded
   rating; conflict-gated SELECTION -> semantic_control) + OPERATION-ROUTE by word class. Do NOT wire the
   tested-negatives (SVD distillation; task-switch gate; grounded-sensorimotor for adjectives; GPU hub over 1 spoke).
-- Commit: see git log (strategy: land conceptual_meaning organ -- consolidation step 2).
+- Commit: d4bb6f76d (+ bfcc8ad13 log correction) (strategy: land conceptual_meaning organ -- consolidation step 2).
+
+### 2026-08-27 -- STEP 3: landed the SALIENCE BINDER (ACT-R + Centering prominence; graded write) (queue row E) ✅
+- **`hdlab/salience_binder.py`** created -- the pronoun-BIND half of entity tracking. `actr_activation(history,
+  now)` = B = ln sum_k w(role_k)*dt_k^-decay (ACT-R base-level, Anderson & Schooler); prominence weights =
+  Centering Cf-ranking (SUBJECT 4 > POSSESSIVE 2.5 > OBJECT 2 > OTHER 1). `bind` = hard argmax (the default);
+  `graded_write` = Nref-faithful softmax(activation/temp), temp~2.0. **BRAIN-FOUNDATIONAL COHERENCE: `graded_write`
+  REUSES `hdlab.graded_competition.softmax` (gain=1/temp) -- the SAME divisive-normalization op as the parser's
+  role competition (Lewis-Vasishth cue-based retrieval IS an ACT-R model); verified byte-equal in the witness.**
+  Ported `_actr_score`/`ROLE_W`/`_dt` + the graded write VERBATIM. DEFAULT-SAFE (new module, nothing imports it).
+- **Witness `verification/test_salience_binder_organ.py`** -- self-contained construction proof, run FIRST-HAND,
+  PASS: [1] grammatical PROMINENCE overrides RECENCY (subject-x2-older beats other-recent; the binder picks the
+  prominent entity, a recency baseline picks the wrong recent one) -- the load-bearing brain claim; [2] ACT-R
+  monotonicity; [3] graded_write == graded_competition.softmax (winner mass 0.551, interior optimum); [4]
+  glass-box + info-free twin loses (shuffled-activation hits the prominent entity 0.273 ~ 1/4 chance; a uniform
+  write carries no winner -> the ACTIVATION weighting binds, not mere hedging).
+- **Registered** `salience_binder_v1` (kind=organ, status=BUILT, gate=WIRE_CANDIDATE, integration=ISLAND).
+- NOT YET WIRED. Dissociation to honor at composition: BIND by salience (this organ), PREDICT by content-addressable
+  retrieval (a different channel); wire the composed readout for RETRIEVAL, not as a predictive prior.
+- Commit: see git log (strategy: land salience_binder organ -- consolidation step 3).
