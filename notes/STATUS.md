@@ -63,9 +63,15 @@ currency; separate-pools-never-fuse; discrete=argmax-collapse) — logged in `CO
 (D front-end role-fix, F entity-augment) are WIRING-into-existing-organs done AT the composition step. ✅ THE ROLE-BALANCED
 COMPREHENSION GOLD IS BUILT + VERIFIED** (`exp_role_balanced_comprehension_gold_v1.py`; 9446 modern QA-SRL items,
 positional-only floor 0.500 vs the McGuffey 0.78 saturation, can-fail PASS; 534 object-relative reversibles as the hard
-slice; gold rebuildable-deterministic). **NEXT: wire the newly-landed FRONT-END organs into the composed reader (build on
-`exp_wire_organs_endtoend_v1.py`) and measure OFF-vs-ON on this gold -- the 0.5 floor is the bar to clear CI-separated,
-info-free twins losing. This 2nd half is the STRATEGY session's work (hdlab wiring; no solver round).** *Owner discipline for this phase: do the RIGHT things not the easy ones; if things aren't working as
+slice; gold rebuildable-deterministic). **FIRST composed-reader measurement RUN + DIAGNOSED (STEP 8, owner directive to drill the surprise):** the harness+gold
+are VALIDATED (ON beats the positional floor +0.099 CI-sep + the info-free twin +0.195 CI-sep), but the relcl arm is
+inert on AGGREGATE (+0.001) -- a FAITHFUL reproduction of the integration's "fires on ~0.75% of QA-SRL" bound (relcl gate
+fires 1.32%; on its TRUE is_object_gap slice ON 0.231 > OFF 0.154 -- real, just rare). The low absolute accuracy = the
+CRUDE two_line baseline, NOT the learned front-end fix. **CONCLUSION: I measured the wrong lever; the role-assignment
+ACCURACY driver is the LEARNED assigner (front-end fix D: core-mention + quote-exclusion + speech-verb + perceptron, took
+0.48->0.75) + incremental candidate precision -- NOT yet wired.** **NEXT: wire D + incremental_parser candidates into the
+composed reader, sharpen scoring to the patient HEAD, re-measure OFF(live) vs ON(composed) on the fair gold. Strategy's
+work (hdlab wiring; no solver round). Full detail in `CONSOLIDATION_PHASE_LOG.md` STEP 8.** *Owner discipline for this phase: do the RIGHT things not the easy ones; if things aren't working as
 expected, LIBERALLY run brain-foundationality research drills, finer resolution if needed.*
 
 ### 2026-08-27 -- ✅ **DISCRETE→GRADED INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- RESOLVES the substrate-wide "discrete where the brain is graded" deviation: the discrete parser/role organs are the noise→0 argmax COLLAPSE of a graded Bayesian competition, and the distribution's ENTROPY is a shared difficulty currency that beats the shipped binary conflict. 2 of 3 consolidation-gating problems now integrated**

@@ -34,7 +34,7 @@ if things aren't working like we expect, LIBERALLY run brain-foundationality res
 | artifact | status |
 |----------|--------|
 | ROLE-BALANCED comprehension gold | ✅ BUILT + VERIFIED 2026-08-27 (`exp_role_balanced_comprehension_gold_v1.py`; 9446 items, positional floor 0.500, can-fail PASS; gold rebuildable-deterministic) |
-| composed-reader end-to-end harness (OFF-vs-ON) | ⬜ NOT STARTED |
+| composed-reader end-to-end harness (OFF-vs-ON) | 🔬 STARTED 2026-08-27 (`exp_composed_reader_role_balanced_measure_v1.py`; harness+gold validated -- ON beats floor+twin CI-sep; DIAGNOSIS: relcl arm rare-by-design, need to wire the ACCURACY lever = learned assigner D + incremental candidates) |
 | the payoff number (composed reader vs floors, twins losing) | ⬜ NOT MEASURED |
 
 ---
@@ -188,3 +188,27 @@ wiring; no solver round -- the mechanisms are already proven), optionally using 
   (build on `exp_wire_organs_endtoend_v1.py`) and measure OFF-vs-ON on this gold -- the positional floor (0.5) is the
   bar the composed reader must clear CI-separated, with info-free twins losing.
 - Commit: see git log (strategy: build role-balanced comprehension gold -- consolidation step 7).
+
+### 2026-08-27 -- STEP 8: FIRST composed-reader measurement + DIAGNOSIS (owner directive: drill the surprise) 🔬
+Built `experiments/exp_composed_reader_role_balanced_measure_v1.py` (OFF=two_line voice-aware, ON=+relcl object-gap arm,
+FLOOR=positional-only, TWIN=random nominal), scored patient-in-span with bootstrap CIs. **Smoke (n=988 aligned):**
+FLOOR 0.220, OFF 0.318, ON 0.319, TWIN 0.124. **ON beats FLOOR +0.099 CI-sep and TWIN +0.195 CI-sep** (voice+structure
+beats pure position; the info-free twin loses -> the gold + harness WORK). BUT **ON-OFF = +0.001 NOT_SEP** (the relcl arm
+is inert on aggregate) and the absolute accuracy is LOW (0.32) -- a SURPRISE.
+**DRILLED to finer resolution (2 probes), and the surprise is UNDERSTOOD -- NOT a bug:**
+1. **The relcl gate fires on 1.32% of items (13/988)** -- a faithful reproduction of the integration's honest "fires on
+   ~0.75% of QA-SRL, aggregate +0.001" bound. The relcl organ was NEVER the aggregate lever; its value is rare hard
+   sentences. On the is_object_gap-FIRED slice (its TRUE domain, n=13) **ON 0.231 > OFF 0.154** -- it DOES help where it
+   fires; the aggregate just dilutes it by rarity.
+2. **My "reversible slice" proxy (pre-verbal & non-passive) was a BAD isolation** -- inspection shows those items are
+   mostly odd QA-SRL annotations / fronted subjects, NOT object-relative clauses. Isolate by `is_object_gap`, not position.
+3. **The low absolute accuracy is the CRUDE two_line baseline, NOT the learned front-end FIX.** I measured the wrong
+   lever: the real role-assignment accuracy driver is the LEARNED assigner (front-end fix D: core-mention selection +
+   quote-exclusion + speech-verb + perceptron, which took 0.48->0.75 in the integration) + the incremental_parser's
+   candidate PRECISION -- NEITHER is wired into this measurement yet (D is a wiring-into-thematic_role_labeler item).
+**CONCLUSION (rigorous, honest):** the harness + gold are validated (defeat the positional floor, twin loses); the relcl
+organ behaves exactly as its integration said (rare, real on its slice). **The composed-reader PAYOFF is NOT yet measured
+-- it needs the ACCURACY lever wired: the learned role-assigner (D) + incremental candidates.** NEXT ROUND: wire D +
+incremental_parser candidates into the composed reader, sharpen scoring to the patient HEAD, and re-measure OFF (live
+positional baseline) vs ON (composed) -- that is the real front-end payoff test on the fair gold.
+- Commit: see git log (strategy: first composed-reader measurement + diagnosis -- consolidation step 8).
