@@ -33,7 +33,7 @@ if things aren't working like we expect, LIBERALLY run brain-foundationality res
 ## MEASUREMENT (step 2-4)
 | artifact | status |
 |----------|--------|
-| ROLE-BALANCED comprehension gold | ⬜ NOT STARTED |
+| ROLE-BALANCED comprehension gold | 🔵 DESIGNED 2026-08-27 (QA-SRL agent/patient balanced; build-on wire-and-measure harness); builder = next round |
 | composed-reader end-to-end harness (OFF-vs-ON) | ⬜ NOT STARTED |
 | the payoff number (composed reader vs floors, twins losing) | ⬜ NOT MEASURED |
 
@@ -161,3 +161,15 @@ just asserted) when organs are wired:
    task-triggered readout of one graded distribution, not a separate mechanism.
 **Owner discipline in force: if the composed measurement surprises us, run brain-foundationality drills at finer
 resolution before tuning.** The wiring's brain-foundationality is a GATE on the composition step, logged here.
+
+### 2026-08-27 -- STEP 6: MEASUREMENT DESIGN (verify-before-building; the design gate) 🔵
+Assessed existing assets (NOT a from-scratch build): the wire-and-measure harness `exp_wire_organs_endtoend_v1.py`
+(+ witness `test_wire_organs_endtoend.py`, 9/9 at integration) already composes the MEMORY/MEANING organs and found
+the FRONT-END is the wall on the AGENT-SATURATED McGuffey gold. **Decision: BUILD ON it** -- (a) swap the gold for a
+ROLE-BALANCED modern one, (b) wire in the newly-landed FRONT-END organs. **Gold = QA-SRL** (`load_patient_items`:
+modern sentences w/ labeled agent+patient spans + voice), sampled BALANCED across agent-vs-patient answer position AND
+canonical-vs-non-canonical, so the majority floor is ~0.5 not 0.78 (the front-end fix's clean win lives here:
+two-animate 0.93 vs 0.50). Design gate recorded in PLAN section 3 (real baseline + can-fail two-animate discriminator +
+one variable OFF-vs-ON). **NEXT ROUND: write the role-balanced gold builder cell + verify the majority floor is ~0.5
+(can-fail: if the sampled set is still agent-saturated, the balance failed).** This is MY work (strategy owns hdlab
+wiring; no solver round -- the mechanisms are already proven), optionally using helper agents for mechanical parts.

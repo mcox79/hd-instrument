@@ -90,6 +90,18 @@ ROLE-BALANCED metric or on modern QA-SRL. **So the consolidation must BUILD a ro
 (the one measurement task that is genuinely blocked-on-nothing but DEFERRED here because the 3 in-flight define what it
 must score -- entity-linking columns from p2, graded role targets from p1, meaning-identity items from p3).
 
+- **CONCRETE CONSTRUCTION (assessed 2026-08-27 -- verify-before-building):** BUILD ON the existing harness
+  `experiments/exp_wire_organs_endtoend_v1.py` (+ witness `test_wire_organs_endtoend.py`); do NOT duplicate it. That
+  harness wired the MEMORY/MEANING organs (content_addressable_retrieval, n400, dg_ca3, grounded_similarity) on the
+  AGENT-SATURATED McGuffey gold and found the FRONT-END is the wall. The consolidation (a) SWAPS the gold for a
+  ROLE-BALANCED modern one and (b) WIRES IN the newly-landed FRONT-END organs (incremental_parser -> role assigner +
+  relcl_resolver; salience_binder; graded_competition difficulty; conceptual_meaning). **The role-balanced gold =
+  built from QA-SRL** (`load_patient_items`: modern sentences with labeled AGENT + PATIENT spans + voice): sample so
+  the answer is balanced across agent-position vs patient-position AND canonical vs non-canonical (passive/two-animate),
+  so the MAJORITY floor is ~0.5 (or 1/K), NOT 0.78. The front-end fix already showed the clean win lives here
+  (QA-SRL two-animate 0.93 vs majority 0.50). **DESIGN GATE (before the full run): a real baseline (positional/majority
+  on the balanced set) + a can-fail discriminator (the two-animate reversible slice where word order is the only cue)
+  + ONE variable per arm (organs OFF vs ON).**
 - **Protocol:** organs OFF vs ON, IDENTICAL inputs (reuse the `test_wire_organs_endtoend.py` harness pattern).
 - **Floors, recomputed on the gold's OWN population:** majority-role; string-identity entity linking; exact-key retrieval;
   MFS meaning default; positional role baseline. The BAR = CI-separated over the strongest floor's UPPER bound.
