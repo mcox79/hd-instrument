@@ -31,7 +31,24 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- ✅ **ENTITY-STRUCTURED SITUATION MODEL INTEGRATED (owner-DONE, EXCELLENT/SOLVED): AUGMENT the gist with role-conditioned entity memory (beats bag-of-words CI-sep, replicated) — and entity tracking is TWO channels: PREDICT-via-content, BIND-via-salience [BATCH 2 of 3]**
+### 2026-08-27 (LATEST) -- ✅ **MEANING-CONTEXT INTEGRATED (owner-DONE, EXCELLENT/SOLVED) — BATCH 3 of 3 COMPLETE: CONTEXT overrides the frequency prior on MODERN data (the McGuffey data-limit confirmed; SemCor acquisition VINDICATED), and the missing SEMANTIC-CONTROL organ (LIFG/pMTG conflict trigger + suppression) is BUILT**
+`context_override_of_the_frequency_prior_on_a_modern_wsd_benchmark` — the meaning-context question RESOLVED. Re-verified
+scaffold-free FIRST-HAND (test_context_override_frequency.py PASS). On held-out SUBORDINATE-congruent SemCor items
+(MFS=0 by construction), a structured context-likelihood read recovers the rarer sense at 0.39-0.46, beating chance
+(0.17-0.25) + both info-free twins CI-sep, surviving leave-one-DOCUMENT-out. THE MISSING ORGAN BUILT = SEMANTIC CONTROL:
+a gold-blind conflict trigger (AUC 0.79-0.81 vs twin 0.58) gating graded suppression of the dominant sense, net-positive
+CI-sep, lifting override cases +0.007-0.033. Retired 4 wrong turns (grounded-for-selection, settling=argmax tautology,
+diagnosticity, fusion→routing, role-binding). AUDIT UPDATE folded (§2b + §6 semantic-control no-longer-only-THIN + §7).
+🔌 **hdlab landing EARNED → QUEUED proven-ready** (default-off reordered-access read + the semantic-control organ; NO
+settling/grounding/diagnosticity). 📦 **SUCCESSOR packaged** = `the_reader_has_no_conceptual_meaning_channel` (the #0
+next step: the reader is at CHANCE on human meaning-IDENTITY because it only has the associative system — add the ATL
+conceptual/definitional hub as a demand-ROUTED 2nd channel, NOT fused).
+🎯 **THE 3-PROBLEM BATCH IS COMPLETE (owner submitted all 3; all EXCELLENT):** front-end role assignment RECOVERED
+(0.48→0.75, word-order+quote-exclusion); entity-structured situation model (predict-via-content + bind-via-salience);
+meaning-context override + semantic control. Queue: p1 argument-parser (batch→incremental, assigned+WIP), p2
+entity-binding (assigned+WIP), p8→ the conceptual-meaning channel (NEW). **NEXT-STEPS RECOMMENDATION delivered to owner.**
+
+### 2026-08-27 -- ✅ **ENTITY-STRUCTURED SITUATION MODEL INTEGRATED (owner-DONE, EXCELLENT/SOLVED): AUGMENT the gist with role-conditioned entity memory (beats bag-of-words CI-sep, replicated) — and entity tracking is TWO channels: PREDICT-via-content, BIND-via-salience [BATCH 2 of 3]**
 `the_situation_model_tracks_words_not_entities` — a clean WIN. Re-verified scaffold-free FIRST-HAND
 (verify_entity_structured_situation_model.py PASS). The entity-structured model (gist + the active entity's
 ROLE-CONDITIONED state, retrieved by identity) beats the bag-of-words gist CI-separated (+0.0545, replicated on an

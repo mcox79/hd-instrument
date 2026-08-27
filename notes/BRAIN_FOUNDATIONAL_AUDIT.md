@@ -65,6 +65,37 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-27 — CONTEXT OVERRIDES THE FREQUENCY PRIOR ON MODERN DATA (the McGuffey data-limit confirmed), and the
+  MISSING ORGAN is SEMANTIC CONTROL (LIFG/pMTG) — a gold-blind conflict trigger + graded suppression of the dominant
+  sense** (from `context_override_of_the_frequency_prior_on_a_modern_wsd_benchmark`, integrated SOLVED/EXCELLENT,
+  owner-DONE; witness `test_context_override_frequency.py` PASS, re-verified first-hand). **VINDICATES the SemCor
+  acquisition (owner-directed):** the meaning_win result's "no context channel beats the frequency prior" was a
+  ~200-year-old-corpus DATA limit, now confirmed — on held-out SUBORDINATE-congruent SemCor items (gold sense strictly
+  less frequent; MFS=0 by construction) a structured context-likelihood read (held-out sense prototypes over BAG + local
+  positional collocations) **recovers the rarer sense at 0.39–0.46 vs MFS 0.0000, beating UNIFORM chance (0.17–0.25) and
+  both info-free twins CI-separated, SURVIVING leave-one-DOCUMENT-out** (real understanding, not topic memorization).
+  **THE MISSING ORGAN, BUILT — SEMANTIC CONTROL:** the reader had the look-up but not the LIFG/pMTG CONTROL that
+  SUPPRESSES the habitual sense when context disagrees. A GOLD-BLIND two-sided conflict trigger (coherence of the best
+  non-dominant sense minus the dominant) predicts "the prior is wrong" at **AUC 0.79–0.81 (shuffled-context twin 0.58)**;
+  conflict-gated GRADED suppression of the dominant sense is NET-POSITIVE CI-separated and lifts the frequency-OVERRIDE
+  cases **+0.007–0.033** (gain attributable to the real trigger — the shuffled-trigger twin loses). **RETIRED FOUR levers
+  with strong controls (all honestly reported):** grounded read-out for selection (refuted); SETTLING (formally IDENTICAL
+  to the argmax read — McClelland 2013 — a tautology, not a finding); DIAGNOSTICITY word-weighting (null); FUSION of the
+  associative + conceptual channels (HARD-FAILED → the CSC-faithful design is demand ROUTING, not fusion); compositional
+  role-binding (HARD-FAILED → sense is resolved by topical/collocational context the bag captures). **HONEST:** all on the
+  SemCor instrument (naturalistic-context ceiling ~0.39); the net semantic-control gain is modest (63% dominant,
+  trigger-quality-limited) — quote the TRIGGER (AUC 0.79 gold-blind) + the override-case gain, not the aggregate.
+  **Effect on the audit (§6 semantic control THIN; §7 meaning re-frame):** semantic control is no longer only "THIN" — a
+  brain-faithful conflict-trigger + suppression organ is BUILT + validated (the LIFG/pMTG gate the two-systems integration
+  flagged as needed); the meaning re-frame's context-override cell is now POSITIVE on modern data. 🔌 **hdlab landing
+  EARNED, QUEUED proven-ready:** a default-off per-sense reordered-access read (frequency prior + structured-context
+  log-likelihood) + the semantic-control conflict-trigger + graded-suppression organ; do NOT wire settling /
+  grounding-for-selection / diagnosticity — a live-wiring composition, measure before any capability claim. **THE #0
+  HIGHEST-PRIORITY NEXT STEP (owner-driven, packaged as the successor):** the reader is at CHANCE on human-graded
+  meaning-IDENTITY (WiC) because it only has the ASSOCIATIVE (co-occurrence) system — add the ATL CONCEPTUAL/DEFINITIONAL
+  meaning hub (WordNet/dictionary gloss + relational closure, a glass-box static asset) as a SECOND, DEMAND-ROUTED channel
+  (conceptual for meaning-identity, associative for fine online selection); do NOT FUSE (fusion hard-failed).
+
 - **2026-08-27 — THE SITUATION MODEL SHOULD BE ENTITY-STRUCTURED (AUGMENT the gist, don't replace it) — and entity
   tracking is TWO computations: PREDICT-via-content, BIND-via-salience** (from `the_situation_model_tracks_words_not_entities`,
   integrated SOLVED/EXCELLENT, owner-DONE; witness `verify_entity_structured_situation_model.py` PASS, re-verified

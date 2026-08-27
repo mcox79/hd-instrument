@@ -1,7 +1,7 @@
 ---
-priority: 8
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Integrated SOLVED/EXCELLENT 2026-08-27 (owner-DONE). Re-verified scaffold-free first-hand (test_context_override_frequency.py PASS). VINDICATES the SemCor acquisition (owner-directed): CONTEXT overrides the frequency prior on MODERN data -- exactly the McGuffey data-limit the meaning_win result hypothesized. On held-out SUBORDINATE-congruent SemCor items (gold sense strictly less frequent; MFS=0 by construction), a structured context-likelihood read (held-out sense prototypes over BAG + local positional collocations) recovers the rarer sense at 0.39-0.46 vs MFS 0.0000, and beats UNIFORM chance (0.17-0.25) + both info-free twins (SHUFFLE/SCRAMBLE) CI-separated, SURVIVING leave-one-DOCUMENT-out (not topic memorization). THE MISSING ORGAN BUILT = SEMANTIC CONTROL (LIFG/pMTG): a GOLD-BLIND two-sided conflict trigger (coherence of best non-dominant minus dominant) predicts 'the prior is wrong' at AUC 0.79-0.81 (shuffled-context twin 0.58); conflict-gated GRADED suppression of the dominant sense is NET-POSITIVE CI-separated and lifts the frequency-OVERRIDE cases +0.007-0.033 (gain attributable to the real trigger -- shuffled-trigger twin loses). The reader was 'a brain with look-up but no CONTROL'. RETIRED FOUR wrong turns (all HARD-FAILED/null, honestly): grounded read-out for selection; SETTLING (formally IDENTICAL to argmax, McClelland 2013 -- a tautology, not a finding); DIAGNOSTICITY word-weighting; FUSION of associative+conceptual (routing not fusion); compositional role-binding (sense is topical/collocational, the bag captures it). HONEST: numbers are on the SemCor instrument (naturalistic-context ceiling ~0.39); the semantic-control NET gain is modest (63% dominant, trigger-quality-limited) -- quote the TRIGGER (AUC 0.79 gold-blind) + the override-case gain, not the net. Grade EXCELLENT (resolves the data-blocked question, builds the semantic-control organ, retires 4 levers with strong controls + self-corrections). hdlab landing EARNED -> QUEUED proven-ready (default-off reordered-access read + the semantic-control conflict-trigger+suppression organ; NO settling/grounding-for-selection/diagnosticity). Successor packaged = the #0 highest-priority next step: the ATL CONCEPTUAL/DEFINITIONAL meaning channel (the reader is at CHANCE on human meaning-identity because it only has the associative system; demand-ROUTED, not fused)."
 ---
 
 # PROBLEM: can CONTEXT override the frequency habit and pick a word's RARER, context-appropriate meaning? -- now testable, because the modern data that was missing is on disk
@@ -195,3 +195,38 @@ grounded-covered, held-out, floors recomputed on that population:
   (the retired frequency-unfair metric).
 - Do NOT test the override on McGuffey (the confound this brief exists to remove); do NOT re-run the single-cosine
   context-likelihood as the headline (it is the floor).
+
+---
+
+## SOLVER REVIEW (strategy session, 2026-08-27 — INTEGRATED, owner-DONE)
+
+**Grade EXCELLENT. Verdict SOLVED** (the bar met and strengthened, plus a deeper brain-foundational advance).
+Re-verified scaffold-free first-hand — `test_context_override_frequency.py` PASS (context 0.46 vs MFS 0 and chance 0.25;
+twins lose; leave-one-doc-out survives; trigger AUC 0.81 vs twin 0.58; suppression lifts the override cases CI-sep).
+
+**Why EXCELLENT — and strategically important.** It answers the meaning-line question that had been stuck: on our old
+200-year-old corpus no context channel could beat the frequency habit, and this proves that was a DATA limit, not a
+mechanism one — on modern sense-labelled text, context *does* override frequency and pick the rarer meaning (~0.39–0.46
+vs 0% for the habit, 16–25% for scrambled context), and it survives hiding the whole source document (real understanding,
+not topic memorising). It **vindicates the SemCor acquisition** (the owner-directed data grab). Then, on the owner's
+fidelity challenge ("if we were truly copying the brain, wouldn't it work better?"), it found + built the genuinely
+MISSING organ: **semantic control** — the reader had the look-up part but not the LIFG/pMTG control that actively
+SUPPRESSES the habitual meaning when the sentence disagrees. A gold-blind two-sided conflict trigger spots when the
+prior is wrong (AUC 0.79, vs a scrambled-context twin at 0.59) and gates graded suppression, lifting the hard
+rarer-meaning cases by up to ~a quarter at a tiny cost on the easy ones — the same trade-off the brain makes.
+
+**Rigor:** it retired FOUR plausible levers with strong controls and self-corrections — grounded-read-out-for-selection
+(refuted), settling (formally identical to the argmax read — a tautology, not a finding, McClelland 2013), diagnosticity
+word-weighting (null), fusion of the associative + conceptual channels (hard-failed → the brain-faithful design is demand
+ROUTING, not fusion), and compositional role-binding (sense is resolved by topical/collocational context the bag already
+captures). Honest scope throughout (all numbers on the SemCor instrument; the net semantic-control gain is modest and
+trigger-quality-limited — quote the trigger AUC and the override-case gain, not the aggregate).
+
+**hdlab landing EARNED, QUEUED proven-ready** (Q111): a default-off per-sense reordered-access read (frequency prior +
+structured-context log-likelihood) + the **semantic-control organ** (the gold-blind conflict trigger + conflict-gated
+graded suppression — the substrate's missing semantic-control network). Do NOT wire settling / grounding-for-selection /
+diagnosticity. A live-wiring composition — measure on the live reading/coref task before any capability claim. AUDIT
+UPDATE folded (§2b + the meaning re-frame / semantic-control entries). **Successor packaged** = the #0 highest-priority
+next step the solver named: the ATL CONCEPTUAL/DEFINITIONAL meaning channel (the reader is at CHANCE on human
+meaning-identity because it only has the associative co-occurrence system; add the conceptual hub as a second,
+demand-ROUTED channel — not fused).
