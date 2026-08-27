@@ -292,3 +292,17 @@ now clearing the fair floor, re-running it is the payoff -- BUT the front-end so
 parallel, so this end-to-end test is best run either (a) as a BASELINE with the current landed front-end now, or (b) after
 p1 lands (avoids a moving target). Leaning (b) to avoid double-measuring; meanwhile prep the full-composition harness.
 - Commit: see git log (strategy: landing-verification -- all organs reproduce payoffs -- step 12).
+
+### 2026-08-27 -- STEP 13: FULL-COMPOSITION harness built + IN-PIPELINE integration test PASS ✅ (character-tracking half)
+Built `experiments/exp_composed_reader_litbank_full_v1.py` -- runs the LANDED `hdlab/salience_binder` INSIDE the
+end-to-end reader (front-end mention stream -> entity binding -> the REAL situation-model register decode) on LitBank,
+not just as a unit. This is the full-composition harness; the `annotate`/mention-stream step is the PLUGGABLE FRONT-END
+SEAM the improved front-end (solver p1) slots into (one-line swap, no rebuild). **IN-PIPELINE RESULT (60 docs, 5469
+pronoun queries):** ACT-R salience (landed organ) **0.1836 [0.154,0.213]** vs STRING_IDENTITY 0.0578 (**+0.1258 CI-sep**)
+vs SHUFFLED_TWIN 0.1015 (ACT-R **+0.0821 CI-sep**). Reproduces the integration's cross-sentence payoff (0.174 vs 0.059
++0.115; twin +0.073) IN-PIPELINE -> **the character-tracking half of the full reader COMPOSES end-to-end with the landed
+organ.** **STATE:** front-end payoff MEASURED (0.739 vs 0.519, STEP 9); entity/character-tracking payoff MEASURED
+in-pipeline (this step); the two halves are validated. **REMAINING for the FULL end-to-end (front-end -> entity ->
+retrieval -> meaning on ONE cross-sentence gold): swap p1's improved front-end into the SEAM + add the meaning channel;
+best run when p1 lands (avoids the moving target). The harness is READY.**
+- Commit: see git log (strategy: full-composition harness + in-pipeline integration test -- step 13).
