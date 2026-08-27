@@ -65,6 +65,50 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-27 — ENTITY TRACKING COMPOSED END-TO-END ON RUNNING NARRATIVE: correct pronoun linking buys cross-sentence
+  ATTRIBUTION, NOT anticipatory PREDICTION — a clean, brain-real DISSOCIATION** (from
+  `wire_entity_tracking_end_to_end_on_running_narrative`, integrated SOLVED/EXCELLENT, owner-DONE; witness
+  `test_entity_tracking_end_to_end.py` 7/7 PASS, re-verified first-hand, 183s, on the real
+  `hdlab.situation_model_accumulate` register). Composes the two separately-validated halves of entity tracking (the ACT-R
+  salience BINDER + the content-addressable PREDICT channel) + coref threads on LitBank novels, varying ONLY how pronouns
+  link. **BAR MET on cross-sentence who-did-what** (decode what an entity did at a queried sentence): salience-bound ACT-R
+  linking **0.1739 beats string-identity 0.0589 CI-separated** (pronoun subset +0.115, full +0.0249), and the info-free
+  shuffled-link twin (pronoun→random compatible entity) **LOSES (ACT-R +0.0731 CI-sep)** → CORRECT binding, not merely a
+  link, is the source. **DECISIVE THE OTHER WAY on PREDICTION:** adding the entity state to the discourse gist HURTS the
+  next-object predictor (−0.219), correct linking is not better than string-identity (−0.099), and this holds even for
+  ORACLE linking (−0.131) → **the value of coreference for the situation model is RETRIEVABILITY of an entity's event
+  history, not a predictive prior.** Neurally supported: Step-2 (pronoun→REACTIVATES the referent's stored representation)
+  is PINNED by direct evidence (Dijksterhuis 2024 *Science* single-unit; Ding/ten Oever/Martin 2023 MEG), but Step-3
+  (reinstatement→improves prediction) is UNTESTED in humans and here measures NULL — the loop does not auto-close;
+  item-episodic retrieval (hippocampal) and entity-AGNOSTIC generalized event knowledge (schema/verb-thematic-fit,
+  mPFC/cerebellar) are separable systems (Preston & Eichenbaum; Knowlton & Squire; Brown-Schmidt/Duff 2020: amnesia SPARES
+  online prediction). **DEEPENING WIN (the cron's purpose): GRADED activation-weighted binding BEATS hard argmax**
+  downstream (SOFT 0.2051 > HARD 0.1783, +0.0268 CI-sep) with a uniform-weight control WORSE than hard (0.1322) → it is the
+  ACTIVATION weighting, not mere hedging; a temperature sweep is a textbook INTERIOR optimum (peak temp~2.0, both
+  winner-take-all and uniform worse) = the divisive-normalization family (Carandini & Heeger 2012: `a^n/(σ^n+Σa^n)` nests
+  uniform/graded/argmax; intermediate n is the canonical cortical computation). **Record: mis-binding under ambiguity is a
+  graded activation-WEIGHTED multi-entity update (Nref-faithful), the SHAPE pinned, the temperature a fitted parameter (no
+  biological constant).** **FAN EFFECT MEASURED** (oracle decode 0.6954→0.6079 as entity event-count grows 1-3→17+) →
+  **upgrade the standing dense→sparse deviation from SUSPECTED to MEASURED on running narrative**; the faithful fix is a
+  pattern-separated per-entity trace store (sparse DG-style k-WTA conjunctive encode + CA3 attractor completion — NOT a
+  pointer, which fixes cross-entity lookup but not within-register superposition crosstalk; Norman & O'Reilly 2003
+  explicitly names fan effects), keeping the bundle as a gist. **Honest deflations (reported against self):** the
+  string-identity margin is partly STRUCTURAL (a pronoun can't string-match a name → floor ~0 on pronouns by construction),
+  so the load-bearing controls are ACT-R>twin and graded>hard; **ACT-R does NOT clearly beat simple RECENCY downstream**
+  (+0.0129 NOT separated) — the expensive ACT-R form's isolated-pick advantage does not propagate; only 28% of the oracle
+  ceiling (0.618) recovered; the dilution stratification is INCONCLUSIVE (candidate-count proxy saturated: 9,006/9,078 in
+  the 3+ bucket). **PROHIBITION honored:** framed as a computational-level decomposition (salience selects → content
+  reinstates → conditions readout), NOT a strict serial two-stage brain architecture (Kehler & Rohde; ACT-R additive
+  activation; McKoon & Ratcliff resonance argue JOINT scoring). **Effect on the audit:** the coreference/binding + discourse
+  situation-model entries gain (i) the measured attribution-not-prediction dissociation, (ii) graded activation-weighted
+  binding as the brain-correct competitive SHAPE, (iii) the fan effect promoted to measured evidence for dense→sparse. The
+  entity's real contribution to PREDICTION, if any, is its current abstract SCHEMA-ROLE (a SEPARATE organ; Cohn & Paczynski
+  2013 role-not-identity; Chen/Norman 2021 role and filler must be kept separate), NOT the coreference channel. 🔌 **NO
+  hdlab landed; QUEUED proven-ready for the consolidation:** a GRADED activation-weighted softmax pronoun-write into the
+  entity register (temp swept ~2.0; NOT hard argmax; NOT a predictive prior; keep salience-based binding). The sparse store
+  is a BUILD proposal (consolidation/store-design target), not a landed fix. **This closes the ENTITY LINE** (BIND +
+  PREDICT + compose): p2 of the 3 in-flight consolidation-gating problems, now integrated.
+
 - **2026-08-27 — ENTITY BINDING (who a pronoun refers to) is GRAMMATICAL-PROMINENCE SALIENCE, not recency and not
   semantics — validated on hard same-gender ambiguous pronouns** (from `entity_binding_needs_a_modern_pronoun_corpus`,
   integrated SOLVED/EXCELLENT, owner-DONE; witness `test_gap_pronoun_binding.py` 6/6 PASS, re-verified first-hand).

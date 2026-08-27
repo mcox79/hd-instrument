@@ -31,7 +31,30 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- 🧭 **CONSOLIDATION PHASE GREENLIT (owner) + STARTED: the debt-drawdown of proven-but-unwired fixes; semantic-control organ LANDED; PAUSE new organ-problems when the 3 in-flight land**
+### 2026-08-27 (LATEST) -- ✅ **ENTITY TRACKING COMPOSED END-TO-END INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- the ENTITY LINE IS CLOSED: correct pronoun linking buys cross-sentence ATTRIBUTION, NOT prediction (a clean dissociation); graded activation-weighted binding is the brain-correct win; 1 of 3 consolidation-gating problems now integrated**
+`wire_entity_tracking_end_to_end_on_running_narrative` (p2 of the 3 in-flight) -- a clean WIN + a real dissociation.
+Re-verified scaffold-free FIRST-HAND (`test_entity_tracking_end_to_end.py` 7/7 PASS, 183s, on the REAL
+`hdlab.situation_model_accumulate` register -- suspected my own checker, ran it). Composing the ACT-R salience binder +
+coref threads + the real entity register on LitBank novels: **BAR MET on cross-sentence who-did-what** -- salience-bound
+linking 0.1739 beats string-identity 0.0589 CI-sep (pronoun subset +0.115), and the info-free shuffled-link twin LOSES
+(ACT-R +0.0731 CI-sep) -> CORRECT binding, not any link, is the source. **DISSOCIATION (decisive the other way):** correct
+linking does NOT improve anticipatory prediction -- entity-augment HURTS the gist (-0.219), correct-vs-string-identity
+-0.099, even ORACLE -0.131 -> coreference feeds RETRIEVAL, not a predictive prior (neurally supported: reactivation is
+PINNED, reinstatement->prediction is untested + here NULL). **DEEPENING WIN:** activation-weighted GRADED binding beats
+hard argmax +0.0268 CI-sep (uniform hedging HURTS -> the activation weighting carries it); a temperature sweep is a
+divisive-normalization INTERIOR optimum (peak temp~2.0). **FAN EFFECT MEASURED** (oracle decode 0.695->0.608 with
+event-count) -> dense->sparse deviation upgraded from suspected to MEASURED. Honest deflations reported against self
+(string-identity margin partly structural; ACT-R ~ recency downstream NOT separated; dilution test inconclusive/saturated
+proxy). AUDIT UPDATE folded (§2b). 🔌 **NO hdlab landed; QUEUED proven-ready for the consolidation** (graded
+activation-weighted softmax pronoun-write; sparse per-entity store = a BUILD proposal). Review EXCELLENT + SOLVER REVIEW;
+priority cleared. 📦 **NO successor packaged (consolidation policy -- let the queue drain).**
+🎯 **CONSOLIDATION TRIGGER STATUS: 1 of 3 in-flight integrated (this one).** The owner reports ALL 3 problems now
+SUBMITTED in the GUI -- but a SOLVED.md is the solver's WIP, NOT a done signal. The other two
+(`discrete_where_the_brain_is_graded_in_parsing_and_role_assignment` p1, `the_reader_has_no_conceptual_meaning_channel` p3)
+have SOLVED.md but NO `owner_verdict: DONE` yet -> LEFT ALONE, awaiting the owner's verdict. When both reach owner-DONE and
+integrate, the CONSOLIDATION PHASE fires (`notes/CONSOLIDATION_PHASE_PLAN.md`).
+
+### 2026-08-27 -- 🧭 **CONSOLIDATION PHASE GREENLIT (owner) + STARTED: the debt-drawdown of proven-but-unwired fixes; semantic-control organ LANDED; PAUSE new organ-problems when the 3 in-flight land**
 Owner greenlit the consolidation phase and asked WHEN. **Decided + recorded (owner: "implement your recommendations"):**
 **(1) THE TRIGGER = when the 3 in-flight problems integrate** (`discrete_where_the_brain_is_graded...`,
 `wire_entity_tracking_end_to_end...`, `the_reader_has_no_conceptual_meaning_channel`). They REFINE the exact organs the

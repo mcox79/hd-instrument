@@ -1,8 +1,30 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Bar MET on cross-sentence who-did-what; re-verified FIRST-HAND 7/7 (183s, scaffold-free, real hdlab register). A clean brain-real DISSOCIATION: correct pronoun linking buys ATTRIBUTION (an entity's pronoun-referenced history stays retrievable) but NOT anticipation (does not improve next-argument prediction, even with ORACLE linking). Load-bearing NON-STRUCTURAL controls hold: ACT-R > shuffled-link twin +0.0731 CI-sep (correct binding, not any link); graded > hard argmax +0.0268 CI-sep. Reported AGAINST itself: the string-identity margin is partly structural (a pronoun can't string-match a name), and ACT-R does NOT clearly beat simple recency downstream (+0.0129 NOT separated). DEEPENING WIN: activation-weighted GRADED binding is a divisive-normalization INTERIOR optimum (peak temp~2.0; uniform hedging HURTS -> it's the activation weighting). Fan effect MEASURED (oracle decode 0.695->0.608 with event-count) -> upgrades dense->sparse from suspected to measured. NO hdlab landed; the entity-write landing (graded softmax binding) is QUEUED proven-ready for the consolidation."
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (integrated 2026-08-27 by the strategy session)
+> **Re-verified FIRST-HAND, scaffold-free:** `verification/test_entity_tracking_end_to_end.py` 7/7 PASS (183s), run
+> by strategy, not trusting the headline. The witness recomputes live on real LitBank through the REAL
+> `hdlab.situation_model_accumulate` multibank register (ORACLE = gold coref); proper doc-clustered bootstrap CIs.
+> **Bar MET** on cross-sentence who-did-what: ACT-R salience-bound linking beats string-identity CI-separated (pronoun
+> subset +0.115, full +0.0249), and the info-free shuffled-link twin LOSES (ACT-R +0.0731 CI-sep) -> CORRECT binding,
+> not merely a link, is the source. **The finding is a DISSOCIATION** (measuring BOTH admissible tasks is the whole
+> result): correct pronoun linking buys cross-sentence ATTRIBUTION, NOT anticipatory prediction (entity augment of the
+> gist HURTS -0.219; correct vs string-identity -0.099; even ORACLE -0.131) -- neurally supported (item-episodic
+> retrieval vs entity-agnostic schema/verb prediction are separable; hippocampal amnesia spares online prediction).
+> **Adversarial audit passed:** the solver flags the string-identity margin as partly structural and stands on the
+> non-structural controls; ACT-R ~ recency downstream is reported against self (NOT separated); the dilution
+> stratification is reported INCONCLUSIVE (proxy saturated), not spun. **Deepening win (the cron's purpose):**
+> activation-weighted GRADED binding beats hard argmax (+0.0268 CI-sep) with a uniform-weight control confirming the
+> activation weighting is essential (uniform HURTS) -- a divisive-normalization interior optimum (Carandini & Heeger;
+> peak temp~2.0). **Fan effect MEASURED** (0.695->0.608 with event-count) -> the dense-bundle register IS the shortcut;
+> evidence now backs the pattern-separated store. **hdlab:** NO file landed (Q111); the one accuracy-relevant change
+> (graded activation-weighted softmax binding, temp a swept hyperparameter) is QUEUED proven-ready for the consolidation
+> with the entity line; the sparse-store redesign is an evidence-backed BUILD proposal, not a landed fix. AUDIT UPDATE
+> folded (§2b). Completes the entity line (BIND + PREDICT + compose): correct linking serves RETRIEVAL, not a predictive
+> prior, on running narrative at the current representation.
 
 # PROBLEM: we validated the two halves of entity tracking SEPARATELY (bind a pronoun by salience; predict what an entity does by meaning-memory) -- but never composed them end-to-end on running narrative to show correct pronoun linking actually improves comprehension
 
