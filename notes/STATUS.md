@@ -48,9 +48,14 @@ SOLVER REVIEW; priority cleared. 📦 **NO successor packaged (consolidation pol
 🎯🎯 **THE 3-PROBLEM TRILOGY IS COMPLETE (all EXCELLENT): parser/role = graded (discrete is the argmax collapse); entity
 tracking = attribution-not-prediction + graded binding; meaning = a second ATL conceptual channel. THE CONSOLIDATION
 TRIGGER IS MET.** The queue is at ZERO ranked-open (by design). **THE CONSOLIDATION PHASE IS NOW ACTIVE** -- execute
-`notes/CONSOLIDATION_PHASE_PLAN.md` across subsequent focused rounds: land the queued organs (A/B done; C-I) in final form,
-build a ROLE-BALANCED comprehension gold, and measure the composed reader end-to-end (organs OFF-vs-ON, floors +
+`notes/CONSOLIDATION_PHASE_PLAN.md` (the ordered plan) across subsequent focused rounds: land the queued organs (A/B done; C-J)
+in final form, build a ROLE-BALANCED comprehension gold, and measure the composed reader end-to-end (organs OFF-vs-ON, floors +
 info-free-twins-must-lose). This is a deliberate MULTI-ROUND build, NOT a heartbeat cram -- one focused step per round.
+📋 **RUNNING LOG (compaction-survival, owner-requested): `notes/CONSOLIDATION_PHASE_LOG.md` -- the durable step-by-step ledger
+with commit hashes + verification; READ IT to resume mid-phase.** **STEP 1 DONE: the graded-competition organ is LANDED**
+(`hdlab/graded_competition.py` + witness `test_graded_competition_organ.py` PASS + registered `graded_competition_v1`;
+default-safe island). *Owner discipline for this phase: do the RIGHT things not the easy ones; if things aren't working as
+expected, LIBERALLY run brain-foundationality research drills, finer resolution if needed.*
 
 ### 2026-08-27 -- ✅ **DISCRETE→GRADED INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- RESOLVES the substrate-wide "discrete where the brain is graded" deviation: the discrete parser/role organs are the noise→0 argmax COLLAPSE of a graded Bayesian competition, and the distribution's ENTROPY is a shared difficulty currency that beats the shipped binary conflict. 2 of 3 consolidation-gating problems now integrated**
 `discrete_where_the_brain_is_graded_in_parsing_and_role_assignment` (p1 of 3 in-flight). Re-verified scaffold-free
