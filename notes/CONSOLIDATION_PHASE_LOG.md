@@ -233,3 +233,22 @@ not single-patient-ID, so it is NOT the lever here; (2) the LEARNED assigner (D)
 is where it (+ more voice/structure work) could lift the number. **SCOPE: this is the FRONT-END (who-did-what) payoff;
 the FULL composed reader (entity tracking + meaning) on a CROSS-SENTENCE gold is a further measurement.**
 - Commit: see git log (strategy: front-end payoff measured + scoring-bug fix -- consolidation step 9).
+
+### 2026-08-27 -- STEP 10: DRILL the front-end headroom (pre-verbal 0.582) -> localized to voice-recall + uncovered reversibles 🔬
+Broke the pre-verbal (hard) slice down by construction:
+  * gold-passive pre-verbal (n=3595): `precise_passive` DETECTS only 0.742 (2667/3595). Where DETECTED acc=0.802;
+    overall passive acc=0.626 -> **voice detection is too STRICT (BE-aux + participle); ~26% of passives are missed**
+    (got/being/reduced passives, _is_participle gaps), and a missed passive -> the pre-verbal patient is lost.
+  * relcl-gate object-relatives (n=44): acc 0.773 -> the relcl organ WORKS where it fires.
+  * **"other pre-verbal" (n=408): acc 0.076 (!!)** -- pre-verbal patients that are neither detected-passives nor
+    object-gap relatives (reduced relatives "the book written...", fronting/topicalization, relativizers the gate
+    misses). resolve_patient defaults to the WRONG post-verbal pick -> near-total loss.
+**LOCALIZED: the front-end headroom is (a) voice-detection RECALL and (b) UNCOVERED reversible constructions -- exactly
+the cues the LEARNED cue-integrating assigner (fix D, MacWhinney Competition Model: learned order+voice+morphology
+validities) handles that the crude precise_passive + narrow relcl gate do NOT.** This CONFIRMS STEP 9's note: D is the
+front-end accuracy lever for the hard cases (the brain-faithful move -- graded learned cue integration, not more hand
+rules). NOT a tuning job (do NOT hand-patch precise_passive -- that is the easy thing); the right thing is the learned
+Competition-Model assigner. **Decision for next rounds: (a) the FULL composed reader (entity + meaning, cross-sentence
+gold) is the consolidation's headline goal and tests the OTHER landed organs; (b) wiring D lifts the front-end hard cases.
+Lean (a) -- the front-end already earns its keep (+0.21 CI-sep); the full-reader payoff is the open question.**
+- Commit: see git log (strategy: drill front-end headroom -- consolidation step 10).
