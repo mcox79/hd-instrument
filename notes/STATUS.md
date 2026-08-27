@@ -31,7 +31,25 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- ✅ **ENTITY-BINDING INTEGRATED (owner-DONE, EXCELLENT/SOLVED): binding (who a pronoun is) is GRAMMATICAL-PROMINENCE salience, NOT recency (which is at chance on hard cases) and NOT semantics — completes the BIND half of entity tracking**
+### 2026-08-27 (LATEST) -- 🧭 **CONSOLIDATION PHASE GREENLIT (owner) + STARTED: the debt-drawdown of proven-but-unwired fixes; semantic-control organ LANDED; PAUSE new organ-problems when the 3 in-flight land**
+Owner greenlit the consolidation phase and asked WHEN. **Decided + recorded (owner: "implement your recommendations"):**
+**(1) THE TRIGGER = when the 3 in-flight problems integrate** (`discrete_where_the_brain_is_graded...`,
+`wire_entity_tracking_end_to_end...`, `the_reader_has_no_conceptual_meaning_channel`). They REFINE the exact organs the
+consolidation composes (parser+role-assigner / entity / meaning) — measuring the composed reader before they land would
+measure a moving target + force double-landing. **(2) WHEN they land: PAUSE new organ-problem packaging** — do NOT
+auto-package a successor for those 3; let the queue DRAIN into the consolidation (land every proven fix in its final
+form + build a ROLE-BALANCED comprehension gold + measure the composed reader end-to-end — the payoff number the
+agent-saturated McGuffey gold can't give). **(3) MEANWHILE, draw down the debt NOW** with the fixes INDEPENDENT of the
+in-flight work (default-off, zero regression). 🔌 **DEBT-DRAWDOWN PROGRESS:** ✅ **semantic-control organ LANDED**
+(`hdlab/semantic_control.py::SemanticControl` — gold-blind conflict trigger + graded suppression of the prior;
+default-SAFE uncalibrated no-op; witness `test_semantic_control_organ.py` PASS; registered `semantic_control_v1`) — the
+in-flight conceptual-meaning solver uses it as its router. **STILL QUEUED for the consolidation (land as rounds free /
+at the trigger):** the front-end role-assignment fix (interacts w/ discrete-graded → land at the trigger), the ACT-R
+salience binder + entity-augment (interacts w/ entity-end-to-end → at the trigger), the incremental-builder organ
+(interacts w/ discrete-graded → at the trigger), the reordered-access meaning read. *Queue: p1 discrete-graded, p2
+entity-end-to-end, p3 conceptual-meaning channel — the 3 in-flight; NO successors packaged for them (consolidation policy).*
+
+### 2026-08-27 -- ✅ **ENTITY-BINDING INTEGRATED (owner-DONE, EXCELLENT/SOLVED): binding (who a pronoun is) is GRAMMATICAL-PROMINENCE salience, NOT recency (which is at chance on hard cases) and NOT semantics — completes the BIND half of entity tracking**
 `entity_binding_needs_a_modern_pronoun_corpus` — a clean WIN. Re-verified scaffold-free FIRST-HAND (test_gap_pronoun_binding.py
 6/6 PASS). On GAP (n=1773 human-labeled same-gender ambiguous pronouns) a grammatical-prominence salience binder resolves
 at 0.699, beating string-identity 0.508 (+0.191), recency 0.514 (+0.184), and the shuffled-salience twin (+0.181), all
