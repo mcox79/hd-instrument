@@ -19,6 +19,13 @@ open it as its own problem, not a switch here."*)
 > it far better than our feature-only rule, using information our cue does not carry: CONTEXT. Foundational to the whole
 > memory/coreference/comprehension line (E2/E3).
 
+> **🔗 COUPLED TO p1 (`wire_the_validated_organs...`, strategy 2026-08-26).** This is the SAME retrieval architecture --
+> the audit's #1 live deviation ("we query the wrong memory") -- seen from the INTERFERENCE side. p1's first end-to-end
+> composition is the content-addressable retrieval build over the live register; THIS problem is what that build must
+> ALSO get right (exhibit the fan effect while resolving it by CONTEXT reinstatement + encoding-time separation, not
+> engineer it away). Coordinate: a shared retrieval build serves both, and the CONTEXT signal you add here is the same
+> discourse/situation-model state p1 threads through the reader. Do the mechanism here; prove it end-to-end in p1.
+
 > **If a tool call is denied, STOP and report the exact denial text verbatim. Do not retry a variant.**
 
 > ## ⚙️ SOLVER OPERATING PROTOCOL (standing -- owner 2026-08-25, strengthened 2026-08-26; in EVERY problem)

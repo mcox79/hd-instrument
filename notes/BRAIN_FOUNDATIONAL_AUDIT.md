@@ -534,6 +534,24 @@ human relatedness/similarity, not taxonomic WordNet, or the associative system r
 
 ## 8. LEVERAGE RANKING — and how it reshuffles the queue
 
+> **🧭 STRATEGIC DECISIONS 2026-08-26 (owner: "do the right things, not the easy ones; most effective + most brain
+> foundational"). The programme is now WIRE-AND-MEASURE, sequenced by this ranking — not more isolated parts:**
+> 1. **RETRIEVAL ARCHITECTURE FIRST (the #1 LIVE deviation, §5 #3 "we query the wrong memory").** The live reader
+>    stores/retrieves by exact-key hash with no partial-cue path; three integrations (binding, content_addressable,
+>    cortical_store) all re-located their fix here. The FIRST end-to-end composition (p1) is content-addressable
+>    additive retrieval over the live register + the recollection gate, measured on a cross-event/partial-cue task —
+>    and it DOUBLES as the front-end attribution test (no gain on the ~0.32 front-end ⇒ the front-end is the wall).
+>    p2 (fan effect) is the SAME machinery from the interference side — coupled, one shared build.
+> 2. **THE CODE (sparse+graded, B4/D4)** — load-bearing on the retrieval READ; couple with #1, not the retired sign() line.
+> 3. **MISSING CONTROL/UPDATE ORGANS** (N400 segmentation, the frequency PRIOR sense-default) — follow-on compositions in p1.
+> 4. **MEANING CONTENT/SUPPLY** — the recurring wall; the SIMILARITY axis is built (whitening), the CONTEXT-SELECTION
+>    axis is **DATA-blocked, DEFERRED** (see below).
+> **🚫 DEFERRED — the modern-WSD-benchmark acquisition (SCWS/WiC/SemCor).** It is the only way to test context OVERRIDING
+> frequency (`the_meaning_win...` §2b), but it BLOCKS NOTHING on the critical path and opening it now is the
+> find-more-parts trap the owner flagged. Acquire it ONLY after the retrieval wire-and-measure tells us whether
+> meaning-selection is even on the critical path. The front-end fix is already in flight (p7 relcl parser, awaiting owner).
+> **🚫 NO new find-a-part problems** until the accumulated modifications are proven to compose (or diagnosed as swamped).
+
 The current problem queue (p1–p4) captures **only one** of the top brain-fidelity levers. The biggest
 cross-cutting deviations are **not queued.** Candidates, ranked by leverage (blast radius × tractability):
 

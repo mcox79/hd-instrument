@@ -146,6 +146,28 @@ hypothesis this brief must confront and attribute, not assume.
 - Existing subsystems it plugs into: `hdlab/situation_model_multibank.py` / `situation_model_accumulate.py` (the register),
   `hdlab/reading_grounding_loop.py` (the live read loop), `hdlab/meaning_fusion.py` (the general meaning read-out).
 
+## 4c. THE SEQUENCING PRIOR (strategy, brain-foundational -- START HERE, then sweep)
+
+You may compose any subset, but the strategy session gives you a grounded ORDER rather than a blind sweep, because the
+brain-foundational audit already ranks the deviations. **LEAD WITH THE RETRIEVAL ARCHITECTURE.** It is the audit's
+**#1 LIVE deviation** (`BRAIN_FOUNDATIONAL_AUDIT.md` §5 #3: *"we query the WRONG memory"* -- the live reader stores +
+retrieves by EXACT-KEY HASH and has NO partial-cue path; the brain separates into slots (DG) and retrieves
+CONTENT-ADDRESSABLY from a partial cue (CA3), then reads the CONSOLIDATED store). **THREE independent integrations
+(binding, content_addressable, cortical_store) each re-located their fix to this SAME cluster** -- it has the widest
+blast radius on the shelf. Concretely, the FIRST end-to-end measurement:
+- Extend the live register to STORE per-feature slot codes and RETRIEVE via `content_addressable_retrieval.AdditiveCueRetrieval`
+  (additive Lewis-Vasishth), replacing the exact-key hash route -- measured on a CROSS-EVENT / PARTIAL-CUE query task
+  (answer a question whose cue is degraded / spans events), vs the exact-key baseline on identical inputs.
+- Route which retrieval to trust through `dg_ca3_recollection_gate` (the self-certifying confidence).
+**This ALSO doubles as the front-end attribution test:** if wiring brain-faithful retrieval onto the current ~0.32
+event-extraction front-end shows NO end-to-end gain, that is the decisive evidence that the FRONT-END is the binding
+constraint (the single most important thing to learn) -- a well-diagnosed loss, not a failure. THEN, as follow-on
+compositions: N400 segmentation -> event-slot advance; the feature-similarity / frequency-prior meaning read-out.
+**COUPLED PROBLEM:** `resolve_retrieval_interference_among_similar_memories` (p2, the fan effect) is the SAME
+content-addressable machinery seen from the interference side -- getting retrieval brain-correct means it must EXHIBIT
+the fan effect (a real human signature) while resolving interference by CONTEXT reinstatement + encoding-time
+separation, NOT engineer it away. Coordinate; a shared retrieval build serves both.
+
 ## 5. ALREADY TRIED / KNOWN (do not re-derive)
 
 - Each organ's ISOLATED win is DONE and re-verified -- do NOT re-run the synthetic construction proofs; this brief is the

@@ -31,7 +31,30 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- ✅ **p6 meaning_win INTEGRATED (owner-DONE, EXCELLENT/PARTIAL): the offline meaning win does NOT transfer to context-SELECTION; the wire-able residual is the frequency PRIOR (gated); + the ARCHITECTURE-MODIFICATION convergence is answered by the WIRE-AND-MEASURE pivot, not more parts**
+### 2026-08-26 (LATEST) -- 🧭 **STRATEGIC DECISIONS IMPLEMENTED (owner: "do the right things, not the easy ones; most effective + most brain-foundational"): the programme is WIRE-AND-MEASURE, sequenced RETRIEVAL-FIRST; benchmark acquisition DEFERRED**
+Owner asked which decisions move the substrate forward most effectively + most brain-foundationally, given that nearly
+every submission surfaces a substrate architecture change. **Decided + implemented (docs, not just prose):**
+**(1) The programme is WIRE-AND-MEASURE, not more isolated parts** -- p1 stays the top priority; NO new find-a-part
+problems until the accumulated modifications are proven to compose (or diagnosed as swamped).
+**(2) SEQUENCE IT RETRIEVAL-FIRST** -- the audit's #1 LIVE deviation is "we query the WRONG memory" (the live reader
+stores/retrieves by EXACT-KEY HASH, no partial-cue path; the brain does DG-separate + CA3 content-addressable + read
+the consolidated store). THREE integrations (binding, content_addressable, cortical_store) all re-located their fix to
+this SAME cluster -- widest blast radius on the shelf. So p1's FIRST end-to-end composition = content-addressable
+additive retrieval over the live register + the recollection gate, on a cross-event/partial-cue task -- which DOUBLES
+as the front-end attribution test (no gain on the ~0.32 event-extraction front-end ⇒ the front-end is the wall, the
+single most important thing to learn). Added as p1 §4c "SEQUENCING PRIOR". Follow-on: N400 segmentation, the meaning
+read-out / frequency prior.
+**(3) COUPLE p2 (fan effect) as retrieval's companion** -- same content-addressable machinery from the interference
+side; one shared build serves both (noted in both briefs). Do the mechanism in p2, prove it end-to-end in p1.
+**(4) DEFER the modern-WSD-benchmark acquisition (SCWS/WiC/SemCor)** -- it is the ONLY way to test context OVERRIDING
+frequency, but it BLOCKS NOTHING on the critical path; opening it now is the find-more-parts trap. Acquire ONLY after
+the retrieval wire-and-measure says whether meaning-selection is even on the critical path.
+**(5) The FRONT-END fix is already in flight -- p7 relcl parser (SOLVED, AWAITING YOUR REVIEW).** Integrating it
+improves the ~0.32 event-extraction front-end the retrieval cluster composes on. → **owner action: review p7.**
+Folded into audit §8 (a 🧭 strategic-decisions block heads the leverage ranking). Committed.
+*Queue: p1 wire-and-measure (retrieval-first) + p2 fan-effect (coupled) = 2 AVAILABLE; p7 relcl awaiting OWNER review.*
+
+### 2026-08-26 -- ✅ **p6 meaning_win INTEGRATED (owner-DONE, EXCELLENT/PARTIAL): the offline meaning win does NOT transfer to context-SELECTION; the wire-able residual is the frequency PRIOR (gated); + the ARCHITECTURE-MODIFICATION convergence is answered by the WIRE-AND-MEASURE pivot, not more parts**
 `the_meaning_win_is_offline_context_free_and_unwired` SOLVED as a rigorous negative (bar option 3). Re-read the FULL
 SOLVED FRESH (standing rule) -- and it MATTERED: the FINAL version WITHDRAWS the WIP "grounding hurts the associative
 channel (−0.044, n=49)" claim under a power-check (n~154 → +0.017, straddles 0); memory corrected. Re-verified
