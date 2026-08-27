@@ -546,10 +546,13 @@ human relatedness/similarity, not taxonomic WordNet, or the associative system r
 > 3. **MISSING CONTROL/UPDATE ORGANS** (N400 segmentation, the frequency PRIOR sense-default) — follow-on compositions in p1.
 > 4. **MEANING CONTENT/SUPPLY** — the recurring wall; the SIMILARITY axis is built (whitening), the CONTEXT-SELECTION
 >    axis is **DATA-blocked, DEFERRED** (see below).
-> **🚫 DEFERRED — the modern-WSD-benchmark acquisition (SCWS/WiC/SemCor).** It is the only way to test context OVERRIDING
-> frequency (`the_meaning_win...` §2b), but it BLOCKS NOTHING on the critical path and opening it now is the
-> find-more-parts trap the owner flagged. Acquire it ONLY after the retrieval wire-and-measure tells us whether
-> meaning-selection is even on the critical path. The front-end fix is already in flight (p7 relcl parser, awaiting owner).
+> **✅ ACQUIRED 2026-08-26 (owner-directed), but SHELVED BEHIND retrieval-first.** The modern-WSD-benchmark data block
+> is REMOVED: **SemCor** (sense-tagged text via nltk — subordinate senses attested MANY times, the exact thing McGuffey
+> lacked; VET: 1,872 multiply-sensed lemmas in 80/352 files) + **WiC** (5428/638/1400 balanced human-judged binary
+> contextual-sense pairs, in repo) are VETTED and loadable (`tools/load_wsd_benchmarks.py`, `data/wsd_benchmarks/MANIFEST.md`).
+> SCWS (the continuous-modulation frame) NOT acquired — canonical mirrors dead. The asset is READY but the WORK stays
+> BEHIND the retrieval wire-and-measure (the sequencing is unchanged — acquiring the data does not reprioritise the
+> lane; it just removes the block for when we reach it). The front-end fix is already in flight (p7 relcl, awaiting owner).
 > **🚫 NO new find-a-part problems** until the accumulated modifications are proven to compose (or diagnosed as swamped).
 
 The current problem queue (p1–p4) captures **only one** of the top brain-fidelity levers. The biggest

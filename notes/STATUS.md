@@ -46,9 +46,17 @@ single most important thing to learn). Added as p1 §4c "SEQUENCING PRIOR". Foll
 read-out / frequency prior.
 **(3) COUPLE p2 (fan effect) as retrieval's companion** -- same content-addressable machinery from the interference
 side; one shared build serves both (noted in both briefs). Do the mechanism in p2, prove it end-to-end in p1.
-**(4) DEFER the modern-WSD-benchmark acquisition (SCWS/WiC/SemCor)** -- it is the ONLY way to test context OVERRIDING
-frequency, but it BLOCKS NOTHING on the critical path; opening it now is the find-more-parts trap. Acquire ONLY after
-the retrieval wire-and-measure says whether meaning-selection is even on the critical path.
+**(4) MODERN-WSD-BENCHMARK -- owner over-rode the deferral ("get it, it's easy") -> ✅ ACQUIRED + VETTED 2026-08-26,
+but SHELVED behind retrieval-first (acquiring the data does NOT reprioritise the lane).** **SemCor** (sense-tagged text
+via nltk -- subordinate senses attested MANY times: `point` 9 / `field` 10 / `light` 8 subordinate senses each >=2x in
+80/352 files; the exact property McGuffey lacked, where rare senses appeared ONCE) + **WiC** (5428/638/1400 balanced
+human-judged "same-sense?" pairs, in repo) remove the data block on testing "can context OVERRIDE the frequency prior."
+VETTED loader `tools/load_wsd_benchmarks.py` + `data/wsd_benchmarks/MANIFEST.md`. SCWS (continuous-modulation frame) NOT
+acquired -- canonical mirrors dead (404/401); optional follow-up. Note: the "none on disk" claim was CURRENTLY true but
+understated -- the July `exp_learned_context_wsd_semcor_verbs_v1.py` already imports `nltk.corpus.semcor` (the corpora
+just weren't re-downloaded after the C: move). The follow-on meaning problem (context-likelihood as constraint-
+satisfaction over a PRE-STORED sense inventory, tested on WiC+SemCor prototypes, grounded-covered subset) is
+READY-TO-PACKAGE when sequencing reaches the meaning lane -- NOT now (retrieval-first holds; no new find-a-part problems).
 **(5) The FRONT-END fix is already in flight -- p7 relcl parser (SOLVED, AWAITING YOUR REVIEW).** Integrating it
 improves the ~0.32 event-extraction front-end the retrieval cluster composes on. → **owner action: review p7.**
 Folded into audit §8 (a 🧭 strategic-decisions block heads the leverage ranking). Committed.
