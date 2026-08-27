@@ -272,3 +272,23 @@ parallelizes discovery while strategy does the wiring).** Packaged (priorities u
 measurement (character tracking + meaning) + wiring the landed organs.** Integrate each solver result only on
 owner_verdict: DONE (standing rule).
 - Commit: see git log (strategy: parallelize -- package 3 mechanism-gap solver problems -- step 11).
+
+### 2026-08-27 -- STEP 12: LANDING-VERIFICATION -- every landed organ reproduces its validated payoff ✅ (WIRE-DON'T-ISLAND)
+While the 3 mechanism-gap solvers run in PARALLEL, strategy verified the ENTITY half of the composed reader composes
+end-to-end: **`hdlab/salience_binder.actr_activation` == the harness `_actr_score` BYTE-FOR-BYTE** (ROLE_PROMINENCE ==
+ROLE_W, decay 2.0) -> the entity-tracking integration's validated CROSS-SENTENCE payoff (ACT-R salience 0.174 vs
+string-identity 0.059, +0.115 CI-sep, shuffled twin losing) TRANSFERS EXACTLY to the landed organ (stronger than a
+re-run: the landed organ IS the validated binder). **Consolidated landing-verification (all 6 organs):**
+  * FRONT-END (relcl_resolver + incremental_parser + voice): MEASURED end-to-end on the fair gold -- composed 0.739 vs
+    positional floor 0.519 (+0.212 CI-sep), twin losing (STEP 9).
+  * ENTITY (salience_binder): byte-reproduces the validated +0.115 cross-sentence payoff (this step).
+  * graded_competition / conceptual_meaning / predictive_reader / semantic_control: each self-contained construction-
+    proof witness PASS (STEPS 1-5 + pre-phase), reproducing the validated mechanism (entropy>binary-conflict; synonyms
+    >>unrelated + twin loses; predictive surprisal>reactive; conflict-trigger AUC).
+-> **THE LANDING PHASE IS VERIFIED-COMPOSING: all 6 organs are default-off islands that each reproduce their proven
+result.** **THE ONE REMAINING DECISIVE TEST = the FULL composition end-to-end (front-end -> entity -> retrieval ->
+meaning -> answer on a CROSS-SENTENCE gold), which the wire-and-measure showed was FRONT-END-gated.** With the front-end
+now clearing the fair floor, re-running it is the payoff -- BUT the front-end solver (p1) is improving the front-end in
+parallel, so this end-to-end test is best run either (a) as a BASELINE with the current landed front-end now, or (b) after
+p1 lands (avoids a moving target). Leaning (b) to avoid double-measuring; meanwhile prep the full-composition harness.
+- Commit: see git log (strategy: landing-verification -- all organs reproduce payoffs -- step 12).
