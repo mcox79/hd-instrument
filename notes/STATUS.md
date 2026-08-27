@@ -31,7 +31,35 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- ✅ **p7 relcl parser INTEGRATED (owner-DONE, EXCELLENT/SOLVED): a SPECIALISED filler-gap circuit (route AROUND the HARMFUL arc parser) solves reversible role assignment -- and it UNIFIES with p3 retrieval (filler-gap role binding IS cue-based content-addressable retrieval)**
+### 2026-08-26 (LATEST) -- ✅ **p2 predictive-reader INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the reader's missing FORWARD-PREDICTION loop is BUILT -- the verb pre-activates its argument's grounded features, surprisal is a real difficulty signal, and it UNIFIES with relcl (flags reversible cases for syntax)**
+The #1 architecture-fidelity gap (feed-forward → predictive) closed. Re-verified scaffold-free FIRST-HAND
+(`verify_predictive_reader.py`, 8/8 PASS). BOTH bar routes met on held-out REAL QA-SRL (modern text): the verb (+role)
+pre-activates the expected argument's GROUNDED features (Altmann-Kamide/McRae), −log P softmax surprisal beats REACTIVE
++0.199 and an info-free WRONG-VERB twin +0.095 (pseudo-disambig 0.589 vs twin 0.514 AT CHANCE); surprisal is a valid
+graded difficulty signal (Spearman 0.239 vs distributional thematic-fit; reversibility AUC 0.619). **THE FREQUENCY
+CONFOUND decisively excluded** (frequency-matched distractors + train-only base rates + a twin with IDENTICAL frequency
+structure at chance). Glass-box (grounded features + verb key only). Five literature drills; PRECISION-WEIGHTING built
+(Friston); the full CROSS-SENTENCE DISCOURSE hierarchy composing the REAL `n400_coherence_monitor` across reconstructed
+documents BUILT + WINS (+0.088, twin HURTS). **HONEST MODEST size** — ceiling'd by the 12-dim grounded space (the p1
+representation-quality coupling: the MACHINERY is correct now, the PAYOFF scales with representation). **THE UNIFICATION:**
+one forward predictor gives BOTH an anticipation win on IRREVERSIBLE role assignment AND a "hand-to-syntax" flag on
+REVERSIBLE cases — the exact regime relcl exists for; the two compose (surprisal feeds the relcl route-conflict). LOCUS-
+faithful (ATL + angular gyrus). 🔌 **NO hdlab landed, but a landing is EARNED + QUEUED (proven-ready deliberate):** BUILD
+the forward-prediction organ — a verb×role → grounded-centroid table (offline-built static asset) + −log P surprisal + a
+per-verb PRECISION scalar; default-off; wire surprisal ONCE as shared difficulty infra (relcl route-conflict/write-gating/
+N400 confidence). A focused build (the offline table), NOT a heartbeat-cram → the next deliberate hdlab landing. AUDIT
+UPDATEs folded (§2b new entry; Tier-5 forward-half-built + the forward predictor + N400 monitor = two levels of one
+hierarchy; ATL/AG locus; relcl cross-link; precision PINNED-and-built). Review EXCELLENT + SOLVER REVIEW; priority cleared.
+🧭 **NEXT-STAGE NOTE:** this makes **branch B's key organ ready** (`notes/NEXT_STAGE_after_wire_and_measure.md`) — if p1's
+attribution shows the front-end is the wall, the predictive reader is already built to lead that branch.
+📦 **PACKAGED (restore the ≥3-open floor after p2 cleared) — NEW p2 `the_situation_model_tracks_words_not_entities`:**
+the solver's NAMED next foundational build — the running situation-model gist is a bag-of-content-words mean, ENTITY-BLIND;
+wire the coreference organ + content-addressable retrieval so mentions bind to persistent ENTITIES and the top-down
+prediction is entity-structured. On the convergence (coref + situation model + forward predictor + retrieval), ranked
+below p1. *Queue: p1 wire-and-measure (retrieval-first, WIP in) = TOP; p2 entity-tracking (new, ready); p8 meaning-context
+(data-ready, lowest). Proven-ready hdlab landing PENDING: the forward-prediction organ. p2-predictive + p7 cleared.*
+
+### 2026-08-26 -- ✅ **p7 relcl parser INTEGRATED (owner-DONE, EXCELLENT/SOLVED): a SPECIALISED filler-gap circuit (route AROUND the HARMFUL arc parser) solves reversible role assignment -- and it UNIFIES with p3 retrieval (filler-gap role binding IS cue-based content-addressable retrieval)**
 The front-end fix, delivered -- and it lands on the retrieval-first cluster. Re-verified scaffold-free FIRST-HAND
 (`verify_relcl_incremental_fillergap_parser.py`, 8/8 PASS). A brain-faithful incremental filler-gap resolver (active-filler
 over UPOS + closed-class relativizers, NO dependency graph) beats the two-line floor CI-separated on a powered BALANCED

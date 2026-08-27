@@ -1,7 +1,7 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Integrated SOLVED/EXCELLENT 2026-08-26 (owner-DONE). Re-verified scaffold-free first-hand (verify_predictive_reader.py, 8/8 PASS). BOTH bar routes met: a brain-faithful forward predictor -- the verb (+role) pre-activates the expected argument's GROUNDED semantic features (Altmann-Kamide/McRae thematic fit), read out as -log P surprisal under softmax competition -- beats an identical REACTIVE reader AND an info-free WRONG-VERB twin on held-out REAL QA-SRL anticipation (surprisal +0.199 vs reactive, +0.095 vs twin; pseudo-disambiguation 0.589 vs twin 0.514 AT CHANCE; only the verb-conditioned arm clears top-1 chance); and its surprisal is a valid graded difficulty signal (Spearman 0.239 vs distributional thematic-fit, twin ~0; reversibility AUC 0.619 -- UNIFIES with relcl: the margin flags the reversible cases syntax must carry). THE FREQUENCY CONFOUND (the central trap) is controlled three ways -- frequency-matched distractors, train-only base rates, and a twin with IDENTICAL frequency structure sitting at chance. Glass-box (grounded features + a verb key only; no word-form, no external model). DEEP: five literature drills PINNED the finer choices (predict MEANING features not word-FORM, Nieuwland; precision-weighting, Friston -- built, high-precision verbs +0.157 vs low +0.046 CI-sep; hierarchical top-down -- BUILT within-clause AND the full CROSS-SENTENCE discourse version composing the real n400_coherence_monitor across reconstructed documents, discourse beats local +0.088, twin HURTS). HONEST: effect is CI-separated but MODEST, ceiling'd by the 12-dim grounded space (the p1 representation-quality coupling) -- the machinery is correct now, the payoff scales with representation. NO hdlab landed: the forward-prediction organ (verb x role -> centroid table + -log P surprisal + a per-verb precision scalar, offline-built) is QUEUED as a proven-ready default-off landing; the live value is a difficulty/anticipation SIGNAL, measure on the live reader first. AUDIT UPDATEs folded (2b + tier-5 predictive/predictive_coding hierarchy + ATL/AG locus + relcl cross-link + precision-weighting PINNED-and-built)."
 ---
 
 # PROBLEM: the reader only REACTS to each word; the brain PREDICTS the next one -- the verb pre-activates its expected argument before it arrives, and surprisal (prediction error) is the brain's core processing signal we do not compute
@@ -189,3 +189,41 @@ arrives) and compute per-word surprisal. On a held-out population, floors recomp
 - Do NOT score on the ~200-year-old McGuffey continuations without holding corpus era fixed across the predictive and
   reactive arms (the age confound); prefer modern text.
 - No number crosses populations/scorers -- recompute every floor on the scored population.
+
+---
+
+## SOLVER REVIEW (strategy session, 2026-08-26 — INTEGRATED, owner-DONE)
+
+**Grade EXCELLENT. Verdict SOLVED** (both bar routes met; the live-reading capability is a separate gate, shared with
+every organ). Re-verified scaffold-free first-hand — `verify_predictive_reader.py` 8/8 PASS, every direction + CI-separation
+reproduced (anticipation surprisal +0.138 vs twin; pseudo-disambiguation 0.575 vs 0.512 at-chance twin; Spearman 0.231
+vs 0 twin; reversibility AUC 0.585; Bicknell agent+verb sharpens; precision high vs low +0.106; hierarchical L0→L3
+monotone; the cross-sentence discourse build beats local + twin loses; the honest reset<no-reset dissociation).
+
+**Why EXCELLENT.** (1) The literature drills changed a build choice *before* a wrong version was written — Nieuwland's
+failed FORM-prediction replication said predict MEANING FEATURES, not the word, so our coarse 12-dim grounded space is
+aligned with the *robust* level (its coarseness a virtue). (2) The primary control is the right one: a WRONG-VERB twin
+(identical machinery, only the verb→expectation binding scrambled, IDENTICAL frequency structure) sitting AT CHANCE —
+which airtightly excludes the field's central confound (that anticipation is a frequency effect) and "any centroid wins."
+(3) It didn't stop at the win — it BUILT the brain-foundational architecture: precision-weighting (Friston constraint
+strength — the predictive benefit scales with the verb's selectional-preference sharpness, CI-separated), hierarchical
+top-down prediction, and the full CROSS-SENTENCE discourse hierarchy composing the *actual* `n400_coherence_monitor`
+across reconstructed real documents (finding 9, "the real build"). (4) It is honest to a fault about size (modest,
+representation-ceiling'd — the p1 coupling) and about every residual (the reversibility twin isn't fully at chance; the
+precision per-verb Spearman is weak; validated against proxies not human RT/ERP).
+
+**The unification (why this matters for the programme).** One forward predictor produces BOTH an anticipation win on
+IRREVERSIBLE role assignment AND a "hand-to-syntax" difficulty flag on REVERSIBLE cases — exactly the regime the relcl
+filler-gap parser exists for. Semantics predicts what it can; its surprisal margin flags what only syntax can resolve;
+and the same surprisal feeds write-gating and the N400 confidence. It is the missing WORD/FEATURE level of the
+predictive hierarchy, complementary to (not competing with) the backward-looking event coherence monitor.
+
+**No hdlab landed this integration** (Q111). The forward-prediction organ is a genuinely NEW, design-settled,
+self-contained organ (a verb×role→grounded-centroid table + −log P softmax surprisal + a per-verb precision scalar,
+offline-built from a predicate-argument corpus — a static asset, admissible per the pivot). It EARNS a default-off
+landing, but building the offline table + module + witness properly is a focused build, not a heartbeat-cram — so it is
+**QUEUED as a proven-ready deliberate landing** (scoped in STATUS/audit), to compose into the p1 wire-and-measure and
+feed the relcl route-conflict. Its value is a difficulty/anticipation SIGNAL — measure on the live reader before any
+capability claim. AUDIT UPDATEs folded into `notes/BRAIN_FOUNDATIONAL_AUDIT.md` §2b + the Tier-5 entries. The solver's
+named next foundational build — ENTITY-LEVEL discourse tracking (wire coref into the situation model) — is packaged as a
+new problem.

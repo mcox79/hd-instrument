@@ -59,6 +59,43 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-26 — THE READER'S MISSING FORWARD-PREDICTION LOOP is BUILT: the verb pre-activates its argument's GROUNDED
+  features and the resulting −log P surprisal is a real graded difficulty signal — closing the #1 architecture-fidelity
+  gap (feed-forward → predictive)** (from `the_reader_is_feed_forward_where_the_brain_is_predictive`, integrated
+  SOLVED/EXCELLENT, owner-DONE; witness `verify_predictive_reader.py` 8/8 PASS, re-verified first-hand). The relcl drill's
+  top gap ("FEED-FORWARD where the brain is PREDICTIVE") is now a built, validated mechanism. **BOTH bar routes met on
+  held-out REAL QA-SRL** (modern text — the McGuffey age confound does not apply): a role-specific grounded-feature
+  forward predictor (verb → the expected argument's ATL-spoke features; the literature-standard thematic-fit prototype,
+  Altmann-Kamide/McRae) read out as −log P softmax surprisal **beats an identical REACTIVE reader by +0.199 and an
+  info-free WRONG-VERB twin by +0.095** (pseudo-disambiguation 0.589 vs the twin 0.514 AT CHANCE; only the verb-conditioned
+  arm clears top-1 chance), AND its surprisal is a **valid graded difficulty signal** (Spearman 0.239 vs an independent
+  distributional thematic-fit measure, twin ~0; reversibility AUC 0.619). **THE FREQUENCY CONFOUND (the field's central
+  trap) is decisively excluded:** frequency-matched distractors + TRAIN-ONLY base rates + a WRONG-VERB twin with IDENTICAL
+  frequency structure sitting at chance. Glass-box (grounded features + a verb KEY only — no word-form, no external model).
+  **PINNED build choices (5 literature drills):** predict MEANING FEATURES not word-FORM (Nieuwland 2018 — our coarse
+  12-dim grounded space is aligned with the ROBUST level); agent+verb JOINTLY constrain the patient (Bicknell — built,
+  +0.037); **PRECISION-WEIGHTING built** (Friston constraint strength — HIGH-precision verbs +0.157 vs LOW +0.046, CI-sep;
+  the precision term `predictive_coding.py` was missing); **HIERARCHICAL top-down prediction built** — within-clause
+  (L0→L1 verb→L2 +agent→L3 +EVENT, monotone CI-sep) AND the full **CROSS-SENTENCE DISCOURSE hierarchy** that runs the
+  ACTUAL `n400_coherence_monitor` across reconstructed real documents to top-down condition the word predictor (discourse
+  beats local +0.088; the random-document twin HURTS) — the real fronto-temporal generative hierarchy, composing two
+  organs we already have. **HONEST:** the effect is CI-separated but MODEST, ceiling'd by the 12-dim grounded space (the
+  representation-quality coupling with p1 — the MACHINERY is correct now; the PAYOFF scales with representation). **THE
+  UNIFICATION:** one forward predictor produces BOTH an anticipation win on IRREVERSIBLE role assignment AND a
+  "hand-to-syntax" difficulty flag on REVERSIBLE cases (its margin collapses to ~0 there) — the exact regime the relcl
+  filler-gap parser exists for. Semantics predicts what it can; its surprisal flags what only syntax resolves; the same
+  surprisal feeds write-gating + the N400 confidence. **LOCUS-faithful:** verb-argument thematic prediction localises to
+  ATL (entity features) + angular gyrus (verb+noun combination), distinct from IFG (structure) — so predicting in our
+  grounded (ATL-spoke) space matches the region, not just the behaviour. **🔌 NO hdlab landed this integration, but a
+  landing is EARNED and QUEUED (proven-ready deliberate):** BUILD the forward-prediction organ — a verb×role →
+  grounded-centroid selectional-preference table (offline-built from a predicate-argument corpus; a static asset,
+  admissible per the pivot) + a −log P softmax surprisal readout + a per-verb PRECISION scalar; reuses
+  `grounded_similarity.grounded_vector`; DEFAULT-OFF; wire surprisal ONCE as shared difficulty infrastructure (relcl
+  route-conflict / write-gating / N400 confidence); condition on agent+verb (Bicknell); do NOT predict word-forms or route
+  through `predictive_coding.predict`'s sign()-quantised residual. A focused build (the offline table), not a
+  heartbeat-cram — measure on the live reader before any capability claim. **Tier-5 sharpened (see §4); the forward
+  predictor + the N400 coherence monitor are TWO LEVELS of ONE predictive hierarchy, not competitors.**
+
 - **2026-08-26 — REVERSIBLE-SENTENCE ROLE ASSIGNMENT SOLVED by a SPECIALISED filler-gap circuit (route AROUND the arc
   parser, which is HARMFUL not weak); and it UNIFIES with the p3 content-addressable retrieval — filler-gap role binding
   IS cue-based retrieval** (from `the_relcl_parser_is_too_weak_for_filler_gap_role_assignment`, integrated SOLVED/EXCELLENT,
@@ -504,7 +541,7 @@ Grouped by the brain's functional tiers. `[P]` = brain equation PINNED, `[U]` = 
 - **Long-term semantic store** (no single brain analogue `[U]`) — `hd_fact_store.py`. **RIGHT-OP-WRONG-METRIC** ("the fourth prototype operator"); 65.7% of grounded facts are self-referential tautologies.
 
 ### TIER 5 — CONTROL, PREDICTION, METACOGNITION
-- **Prediction / predictive coding** (residual precision-weighted `[P]`) — `predictive_coding.py`, `slot_attention_wm.py`. **RIGHT-OP-WRONG-METRIC:** residual computed on a `sign()`-quantised prediction (big & small flips indistinguishable); no precision term; WIRED NO; MIDDLE_BAND. *Encoder objective is also cloze, not forward-PC — see DEVIATIONS.*
+- **Prediction / predictive coding** (residual precision-weighted `[P]`) — `predictive_coding.py`, `slot_attention_wm.py`. **RIGHT-OP-WRONG-METRIC:** residual computed on a `sign()`-quantised prediction (big & small flips indistinguishable); no precision term; WIRED NO; MIDDLE_BAND. *Encoder objective is also cloze, not forward-PC — see DEVIATIONS.* **FORWARD HALF NOW BUILT 2026-08-26 (§2b, predictive-reader SOLVED):** a role-specific grounded-feature forward predictor (verb → expected argument features) with GRADED −log P softmax surprisal (NOT the sign()-quantised residual) beats reactive + an at-chance wrong-verb twin on real anticipation, and PRECISION-WEIGHTING is validated (the missing term — high-precision verbs carry the benefit). The forward predictor (WORD/FEATURE level, ATL/angular) + the `n400_coherence_monitor` (EVENT level, frontal, backward-gist) are **TWO LEVELS of ONE predictive hierarchy**, composed across sentences (the discourse build). Organ landing QUEUED (proven-ready, default-off). *This entry's `sign()`/no-precision defects are the exact things the forward build avoids.*
 - **Attention / information foraging** (MVT leave rule `[P]`) — `information_foraging.py`, `gap_driven_reader.py`, `corpus_registry.py`, `self_manager.py` (ACC/EVC halting), `situation_focus.py`. **The leave-rule exists but "WHAT TO READ NEXT" is effectively MISSING:** readable universe is a hard-coded 4-entry dict vs 36 corpora on disk; downgraded to MIDDLE_BAND (FROZEN beats FORAGE); the organ has never seen real text.
 - **Metacognition / familiarity / abstention** (SDT criterion `[U]`) — `gap_detector.py` (**SAME — "the healthiest organ," AUC 1.000**, but its output has nowhere to go because foraging is unbuilt), plus a rich family: `refuse_gate.py`, `conformal.py`, `clarify_gate.py`, `completeness_checker.py`, `reachability_audit.py`, `quality_proxy.py`, `coref_distractor_suppress.py`. **Deviation:** no floor on refusal *correctness*; `state.refusals` written, counted, reloaded, then **never consulted**.
 - **Reasoning over knowledge** (constraint satisfaction) — `reasoner.py` (**FAITHFUL, banked**), `multi_hop.py`, `gather_reason.py`, `glass_box_loop.py`, `kg_traversal.py`. Coverage-bound, not mechanism-bound.
