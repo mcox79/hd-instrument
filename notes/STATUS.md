@@ -31,7 +31,23 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- 🧭✅ **p1 WIRE-AND-MEASURE INTEGRATED (owner-DONE, EXCELLENT/PARTIAL) -- THE DECISIVE RESULT: the composed organs FAIL end-to-end but WORK on clean inputs → the FRONT-END is the binding constraint (Branch B fired). FHRR CONFIRMED faithful. The fix is an EXISTING islanded learned organ.**
+### 2026-08-27 (LATEST) -- ✅ **FRONT-END FIX INTEGRATED (owner-DONE, EXCELLENT/PARTIAL): the wall is RECOVERED 0.48→0.75 (CI-sep over the live baseline); the lever is WORD ORDER + quote-exclusion + a learnable speech-verb class — thematic-fit & animacy REFUTED — but it's majority-floor-bound on the agent-saturated gold [BATCH 1 of 3; next-steps held per owner]**
+`the_live_front_end_mislabels_who_did_what_to_whom` — the Branch-B top-priority problem, delivered. Re-verified
+scaffold-free FIRST-HAND (6/6 PASS). The fair brain-faithful assigner (core-mention + QUOTE EXCLUSION + speech-verb/
+quotative class + the organ's perceptron over selected mentions) beats the live positional baseline CI-separated (0.483
+→ 0.747; role-balanced macro 0.191 > majority 0.125). **REFUTES two brief premises:** naive organ wiring is WORSE (0.385);
+thematic-fit is NOT the fix — **WORD ORDER dominates English role assignment** (QA-SRL two-animate 0.918 where animacy is
+chance; MacWhinney/Bates PINNED). 4 lit-VET'd deepening passes, self-corrected (thematic-fit = real-but-low-validity,
+Dowty/Cai; speech-verb class brain-faithfully LEARNABLE from quote co-occurrence, beats a proper null; normalized-recurrence
+> perceptron at equal accuracy). **PARTIAL:** ties (not clears) the 78%-agent majority floor on McGuffey plain accuracy —
+the clean win is role-balanced + modern QA-SRL (0.93 vs 0.50), pending a role-balanced gold. CONVERGED for natural-corpus
+role labeling. AUDIT UPDATE folded (§2b + thematic-role Tier-1). 🔌 **hdlab landing EARNED → QUEUED proven-ready** (default-off
+quote-exclusion + speech-verb + core-mention wiring; NO thematic-fit — a multi-part live wiring = focused deliberate build).
+📦 **SUCCESSOR packaged** = `the_argument_parser_is_batch_where_the_brain_is_incremental` (the proximity audit's #1 remaining
+front-end gap: a batch UD parser vs incremental/predictive structure). **⏳ BATCH 1 of 3 (owner submitting all 3; p2
+entity-tracking already in, p8 meaning-context coming). NEXT-STEPS RECOMMENDATION HELD until all 3 integrated, per owner.**
+
+### 2026-08-26 -- 🧭✅ **p1 WIRE-AND-MEASURE INTEGRATED (owner-DONE, EXCELLENT/PARTIAL) -- THE DECISIVE RESULT: the composed organs FAIL end-to-end but WORK on clean inputs → the FRONT-END is the binding constraint (Branch B fired). FHRR CONFIRMED faithful. The fix is an EXISTING islanded learned organ.**
 The phase-defining measurement, delivered as a rigorous, well-attributed NEGATIVE (= a full PASS per the bar).
 Re-verified scaffold-free FIRST-HAND (`test_wire_organs_endtoend.py`, 9/9 PASS). Composed 3 validated organs into a real
 McGuffey entity-role reading task, organs OFF vs ON, identical inputs. **End-to-end through the LIVE front-end: 0.483

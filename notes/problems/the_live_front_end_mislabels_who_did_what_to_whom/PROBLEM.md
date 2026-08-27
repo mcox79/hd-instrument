@@ -1,7 +1,7 @@
 ---
-priority: 1
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Integrated PARTIAL/EXCELLENT 2026-08-27 (owner-DONE). Re-verified scaffold-free first-hand (test_frontend_role_who_did_what.py, 6/6 PASS). The front-end wall is REAL and RECOVERED: the fair brain-faithful assigner (core-mention selection + QUOTE EXCLUSION + a learnable SPEECH-VERB/quotative class + the organ's graded perceptron over selected mentions) = 0.747 [0.680,0.809] end-to-end on McGuffey, BEATS the live positional baseline 0.483 CI-separated; role-balanced macro 0.191 > majority-macro 0.125. On modern QA-SRL two-animate (n=564, animacy structurally chance 0.500): learned WORD-ORDER(+voice) = 0.918, and adding THEMATIC-FIT is net-negative everywhere. REFUTES two brief premises on disk: (1) naively wiring the learned organ is WORSE (0.385 -- over-generation 9.96 cand/clause + no quotative cue); (2) fixing animacy-dominance via thematic-fit does NOT help -- WORD ORDER dominates English role assignment (PINNED, MacWhinney/Bates cue-validity; the two-animate 0.918 is its modern echo). Deepening (4 lit-VET'd passes, multiple self-corrections): thematic-fit is a REAL but LOW-VALIDITY backup cue (pure/order-removed 0.585 CI-sep above chance + its shuffled twin, correctly dominated by order -- Dowty 1991 indeterminacy + Cai 2022 human analog of additive-fit-hurts); the speech-verb class is genuinely SEMANTIC + brain-faithfully LEARNABLE from quote co-occurrence (verba dicendi; beats a proper NULL DISTRIBUTION on the role-balanced metric, not a lucky single-draw twin); normalized-recurrence dynamics (Spivey-Knowlton) is a more brain-faithful integrator than the perceptron at EQUAL accuracy (its difficulty-signal payoff unproven on this word-order-dominant corpus). VERDICT PARTIAL: the rigorous-negative branch -- it TIES (does not clear) the agent-saturated 78% majority floor on McGuffey plain accuracy; the clean floor-clearing win is on the role-balanced metric + modern QA-SRL (0.93 vs 0.50), pending a role-balanced reading gold. Judged CONVERGED for natural-corpus role labeling (mechanism identified+replicated+tested; further gains need DATA, not mechanisms). Grade EXCELLENT (rigorous, lit-VET'd, self-corrected, refutes the brief on disk). hdlab landing EARNED (the quote-exclusion + speech-verb + core-mention wiring beats the live baseline CI-sep) -> QUEUED proven-ready (default-off; NO thematic-fit). Proximity audit named the biggest remaining front-end gap (the batch UD parser vs incremental/predictive structure) -> packaged as the successor."
 ---
 
 # PROBLEM: the live reader's FIRST step -- working out who did what to whom -- is the measured wall; it MISLABELS roles (mostly agent-vs-patient between two people), and a LEARNED organ that could fix it already exists, ISLANDED
@@ -201,3 +201,40 @@ live reader behind a flag, identical inputs. On a real reading population, floor
 - Do NOT build a rule-priority cascade or a new hand extractor -- wire + improve the existing LEARNED organ, graded.
 - Do NOT score only on McGuffey -- the existing organ HARD_FAILED on modern prose; test both, hold era fixed across arms.
 - No number crosses populations/scorers -- recompute every floor on the live population.
+
+---
+
+## SOLVER REVIEW (strategy session, 2026-08-27 — INTEGRATED, owner-DONE)
+
+**Grade EXCELLENT. Verdict PARTIAL** (the brief's rigorous-negative branch, with the residual precisely localized).
+Re-verified scaffold-free first-hand — `test_frontend_role_who_did_what.py` 6/6 PASS.
+
+**Why EXCELLENT — a model of disk-outranks-brief rigor.** It refuted BOTH of the brief's premises by *measuring* them:
+naively wiring the learned organ is WORSE (0.385 — it labels words inside quotes and gets "said Fred" backwards), and
+"fix animacy-dominance with thematic-fit" does not help because **word order dominates English role assignment** — the
+actual brain-faithful cue hierarchy (MacWhinney/Bates cue-validity, PINNED; the two-animate 0.918-where-animacy-is-chance
+is its modern echo). The fix that works is truer to the brain and simpler: ignore quoted spans, know speech verbs put
+the speaker postverbal, lean on word order — recovering the wall 0.48→0.75 CI-separated. Four literature-VET'd deepening
+passes, each with a self-correction: it caught its own info-free-twin overclaim (a permuted-role twin preserves the 78%
+agent marginal, so it isn't a clean control on a saturated set), a bug leaking word-order into the thematic-fit arm
+(fixed → pure thematic-fit is a real 0.585 low-validity cue, not noise — Dowty indeterminacy + Cai 2022), and a
+lucky-single-draw verb-class artifact (→ a proper 40-draw null distribution, against which the *learned* speech class
+still wins on the role-balanced metric). It showed the speech-verb cue is brain-faithfully LEARNABLE from quote
+co-occurrence (not a hand patch), and that normalized-recurrence dynamics is a more faithful integrator than the
+perceptron at equal accuracy. It judged the mechanism CONVERGED honestly — further gains need DATA (a role-balanced
+gold, human difficulty measures), not new mechanisms.
+
+**What it establishes for the substrate:** the front-end IS improvable brain-faithfully, and the lever is word order +
+quote exclusion + a learnable speech-verb class — NOT thematic-fit or animacy. The clean floor-clearing win is blocked
+only by an agent-saturated McGuffey query gold (78% agent); on the role-balanced metric and modern QA-SRL the fix beats
+the trivial prior. This is decision-shaping: it confirms the wire-and-measure's Branch-B diagnosis AND delivers the fix.
+
+**hdlab landing EARNED, QUEUED proven-ready** (Q111): wire the specific improved assigner into `situation_reader` /
+`thematic_role_labeler` default-OFF — QUOTE EXCLUSION in `_pick_role_mentions`, a SPEECH-VERB class (from WordNet
+`verb.communication` / distributionally-learned, NOT a hand list) as a graded `role_feats` cue, and the learned
+perceptron over SELECTED core mentions only; do NOT add thematic-fit. It beats the live baseline CI-separated, so the
+landing is a real recovery (a multi-part live wiring — a focused deliberate landing, not a batch-cram). AUDIT UPDATEs
+folded (thematic-role entry: word-order dominant PINNED; thematic-fit real-but-low-validity TESTED; normalized-recurrence
+faithful; the organ's training-distribution confound). **The successor packaged** = the biggest remaining front-end
+fidelity gap the proximity audit named: the batch UD dependency parser vs the brain's incremental/predictive
+structure-building.

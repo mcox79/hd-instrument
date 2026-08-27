@@ -65,6 +65,40 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-27 — THE FRONT-END WALL IS RECOVERED (0.48→0.75, CI-separated) — and the lever is WORD ORDER + quote
+  exclusion + a learnable speech-verb class, NOT thematic-fit or animacy (both refuted); PARTIAL (majority-floor-bound on
+  an agent-saturated gold)** (from `the_live_front_end_mislabels_who_did_what_to_whom`, integrated PARTIAL/EXCELLENT,
+  owner-DONE; witness `test_frontend_role_who_did_what.py` 6/6 PASS, re-verified first-hand). Executes the wire-and-measure's
+  Branch B AND delivers the fix. On the live McGuffey entity-role task the fair brain-faithful assigner (core-mention
+  selection + QUOTE EXCLUSION + a speech-verb/quotative class + the organ's graded perceptron over SELECTED mentions) =
+  **0.747 [0.680,0.809], beating the live positional baseline 0.483 CI-separated** (role-balanced macro 0.191 > majority
+  0.125). **REFUTES two premises on disk:** (1) naively wiring the learned organ is WORSE (0.385 — it over-generates 9.96
+  candidates/clause and labels quoted-span nominals + `said Fred` speakers as PATIENT); (2) fixing animacy-dominance via
+  thematic-fit does NOT help — **WORD ORDER dominates English role assignment** (learned order+voice = 0.918 on QA-SRL
+  two-animate where animacy is exactly chance 0.500; MacWhinney/Bates/Kliegl 1984 cue-validity, PINNED). Deepening (4
+  lit-VET'd passes, self-corrected): **thematic-fit is a REAL but LOW-VALIDITY backup cue** (pure/order-removed 0.585
+  CI-sep above chance + its shuffled twin, correctly dominated by order — Dowty 1991 indeterminacy prediction; additive-fit
+  HURTS, the Cai/Zhao/Pickering 2022 human analog) → **TESTED: not a role-labeling lever for English** (keep it for the
+  predictive reader's anticipation job). The **speech-verb cue is genuinely SEMANTIC + brain-faithfully LEARNABLE from
+  quote co-occurrence** (verba dicendi; beats a proper 40-draw NULL DISTRIBUTION on the role-balanced metric — a single
+  random draw is NOT a valid twin, a caught overclaim). **Normalized-recurrence dynamics (Spivey-Knowlton 1996) is a more
+  brain-faithful cue-integrator than the perceptron at EQUAL accuracy** (its settling-time difficulty signal unproven on
+  this word-order-dominant corpus — needs human RT / a cue-conflict gold). **VERDICT PARTIAL:** ties (does not clear) the
+  agent-saturated 78% majority floor on McGuffey plain accuracy — the rigorous-negative branch; the clean floor-clearing
+  win is on the role-balanced metric + modern QA-SRL (0.93 vs 0.50), pending a role-balanced reading gold. **CONVERGED for
+  natural-corpus role labeling** (the brain's mechanism is identified + replicated + tested; further gains need DATA, not
+  mechanisms). **Effect on the audit (thematic-role entry, Tier 1):** the `thematic_role_labeler` "animacy-dominance
+  HARD_FAIL" is partly a MEASUREMENT ARTIFACT (a fixed positional strawman at 0.48; a learned order+voice model does 0.93)
+  — its real deviation is a TRAINING-DISTRIBUTION confound (McGuffey-canonical confounds animacy with role). Word order
+  (+verb-class/quotative) is the PINNED dominant English cue. 🔌 **hdlab landing EARNED, QUEUED proven-ready:** wire the
+  specific improved assigner into `situation_reader`/`thematic_role_labeler` DEFAULT-OFF (quote exclusion in
+  `_pick_role_mentions` + a WordNet-`verb.communication`/distributionally-learned speech-verb graded cue + the perceptron
+  over selected core mentions; NO thematic-fit) — beats the live baseline CI-sep, a multi-part live wiring = a focused
+  deliberate landing. **PROXIMITY-AUDIT: the biggest remaining front-end fidelity gap is the batch UD dependency parser
+  (`candidate_generator.py`) vs the brain's INCREMENTAL/PREDICTIVE structure-building** — the "feed-forward where the brain
+  is predictive" gap one level down (structure, not semantics), composing with the predictive reader + relcl filler-gap →
+  packaged as the successor problem.
+
 - **2026-08-26 — 🧭 THE DECISIVE WIRE-AND-MEASURE: the composed organs FAIL end-to-end through the LIVE front-end but
   WORK on clean inputs → the FRONT-END (event/role extraction) is the binding constraint, not the memory organs; FHRR is
   CONFIRMED faithful; the fix is an EXISTING islanded learned organ** (from
