@@ -163,10 +163,18 @@ blast radius on the shelf. Concretely, the FIRST end-to-end measurement:
 event-extraction front-end shows NO end-to-end gain, that is the decisive evidence that the FRONT-END is the binding
 constraint (the single most important thing to learn) -- a well-diagnosed loss, not a failure. THEN, as follow-on
 compositions: N400 segmentation -> event-slot advance; the feature-similarity / frequency-prior meaning read-out.
-**COUPLED PROBLEM:** `resolve_retrieval_interference_among_similar_memories` (p2, the fan effect) is the SAME
-content-addressable machinery seen from the interference side -- getting retrieval brain-correct means it must EXHIBIT
-the fan effect (a real human signature) while resolving interference by CONTEXT reinstatement + encoding-time
-separation, NOT engineer it away. Coordinate; a shared retrieval build serves both.
+**COUPLED PROBLEM — NOW INTEGRATED (2026-08-26, SOLVED/EXCELLENT):** `resolve_retrieval_interference_among_similar_memories`
+(the fan effect) is the SAME content-addressable machinery from the interference side, and it delivered the concrete
+retrieval detail you need: **add the encoding CONTEXT as one more per-item feature to `AdditiveCueRetrieval`** (it is
+already feature-agnostic — no organ change). On the synthetic instrument, `content + w_ctx·context` resolves
+similar-competitor interference CI-separated (0.928 vs 0.400 at 8 competitors), leak-safe, while still EXHIBITING the
+residual fan effect and correctly COLLAPSING when context is non-separable. **So the retrieval composition you wire is:
+per-feature slot codes {entity,event,role,CONTEXT} → additive Lewis-Vasishth retrieve, with the CONTEXT sourced from
+the situation-model / reading-loop context vector in its GRADED form (`context_vector(graded=True)`, NOT the sign()
+default — sign makes context lossy).** THE LOAD-BEARING OPEN QUESTION this brief must answer: is the substrate's ACTUAL
+context separable across genuinely similar memories? (the synthetic boundary shows the mechanism collapses when it is
+not — so measure it, do not assume it). A fixed w_ctx; NO multiplicative gate, NO ACT-R fan penalty, NO per-trial
+diagnosticity weighting (a soft oracle). Do the mechanism (done); prove it end-to-end HERE.
 
 ## 5. ALREADY TRIED / KNOWN (do not re-derive)
 

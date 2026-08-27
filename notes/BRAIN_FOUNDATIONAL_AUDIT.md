@@ -50,6 +50,39 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-26 — SIMILAR-MEMORY INTERFERENCE (the fan effect) RESOLVED IN PRINCIPLE: the missing organ is CONTEXT
+  REINSTATEMENT at retrieval — the SAME additive rule, given one context feature** (from
+  `resolve_retrieval_interference_among_similar_memories`, integrated SOLVED/EXCELLENT, owner-DONE; witness
+  `test_context_interference_resolution.py` 6 assertions PASS, re-verified first-hand). Closes the open loop the
+  content_addressable integration explicitly handed over ("the fan effect… open it as its own problem"). On a
+  same-content-cluster interference instrument built on the REAL organ (`AdditiveCueRetrieval`; each memory = per-feature
+  FHRR codes {entity,event,role} + a TCM Howard-Kahana drifting CONTEXT code + payload; a CLUSTER shares entity/event/role
+  and differs only in encoding context): adding the encoding context to the additive Lewis-Vasishth activation
+  (CTX_ADD = content + w_ctx·context) resolves interference **CI-separated at every fan level** — K=8 (9 near-identical
+  competitors) CTX_ADD hit@1 **0.928 [0.880,0.957] vs the context-free additive baseline 0.400 [0.331,0.473]**, paired
+  Δ +0.528 CI[+0.450,+0.606]; the baseline is bit-identical to the live `AdditiveCueRetrieval` argmax (0 mismatches).
+  **Genuinely LEAK-SAFE cue combination:** info-free twins (shuffled / random context) LOSE CI-separated; context ALONE
+  is 0.306 ≪ the exact-context oracle 0.994 and ≤ content-only — neither weak cue resolves it alone, their SUM does
+  (Bayesian cue integration). **Residual fan effect EXHIBITED** (CTX_ADD 0.972→0.928 as K 1→8; content-only steeper
+  0.722→0.400; also in the latency/activation-margin dimension) — the ACT-R noisy competitive read makes the fan cost
+  EMERGE, not a penalty. **Decisive NEGATIVE boundary:** competitors encoded ADJACENT in time (non-separable context)
+  collapse CTX_ADD to 0.494 — context resolves interference ONLY when it is separable (names WHY interference can be
+  irreducible). Survives content-correlated (CMR) context (0.95→0.77) and partial-fragment reinstatement (30% ctx →
+  0.917). **Self-caught soft-oracle:** a diagnosticity-weighted arm beat the exact-context oracle (impossible unless
+  peeking) → demoted to a labelled ceiling; headline is fixed-weight CTX_ADD. **Effect on the audit (E2/E3):** the
+  additive cue-retrieval rule is COMPLETE only WITH a context cue; context enters ADDITIVELY (one more Lewis-Vasishth
+  feature), not as a multiplicative gate. **DG re-framed** — tested with the REAL `dg_separate` organ at encoding on the
+  content code it is NEUTRAL (DG_CONTENT 0.367 ~ CONTENT_ONLY 0.372); the faithful hippocampal separator is
+  context-INDEXING (Teyler-Rudy), NOT content-sparsification (extends the prior DG-at-retrieval negative). **The
+  substrate's REAL `context_vector` is content-derived (bag-of-words, Kanerva/BEAGLE) and `sign()`-quantized** → the
+  faithful wiring regime is the content-correlated one, and it should use the organ's GRADED context (`graded=True`), not
+  the lossy sign() default (a fresh, concrete instance of deviation #4 at the context feature). 🔌 **NO new hdlab organ**
+  — `AdditiveCueRetrieval` is already feature-agnostic, so context reinstatement is a USAGE (add a `context` feature to
+  stored items + cue), not a new organ. The live wiring (store the situation-model/reading-loop GRADED context as a
+  per-item feature) is a COMPOSITION folded into the p1 retrieval-first wire-and-measure, GATED on a live coref/
+  situation-model number — SYNTHETIC construction proof; the load-bearing open question is whether the substrate's ACTUAL
+  context is separable across genuinely similar memories (the boundary shows the mechanism collapses when it is not).
+
 - **2026-08-26 — THE OFFLINE MEANING WIN DOES NOT TRANSFER TO CONTEXT-SELECTION: the wire-able half is the frequency
   PRIOR (unwired, the reader is sense-blind); NO context channel beats it; the frequency-defeating cell is DATA-limited**
   (from `the_meaning_win_is_offline_context_free_and_unwired`, integrated PARTIAL/EXCELLENT, owner-DONE; witness
@@ -138,7 +171,10 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
   corruption, which real similarity makes rare) — so additive is the RIGHT DEFAULT (never worse, natively serves partial
   cues, no unphysical collapse) but the everyday lift is SMALL. **The REAL open problem is similarity-INTERFERENCE
   resolution (the fan effect) — and it should NOT be "solved": the fan effect / false memories are real human behaviour, a
-  faithful model must EXHIBIT it. Open it as its own problem, not a switch here.** **Effect on the audit:** E2 gains a
+  faithful model must EXHIBIT it. Open it as its own problem, not a switch here.** **[RESOLVED 2026-08-26 — see the
+  newest §2b entry: the missing organ is CONTEXT REINSTATEMENT at retrieval (same additive rule + a context feature);
+  it resolves interference CI-separated while still exhibiting the residual fan effect, and collapses when context is
+  non-separable.]** **Effect on the audit:** E2 gains a
   RETRIEVAL deviation (missing content-addressable read path — both registers' `decode()` require the exact key); the
   E1/E2/E3 re-location is SHARPENED (the lever is content-addressable RETRIEVAL, separation is the substrate); the owned
   fix is HALF-owned (`ca3_completer` needs an FHRR [Re;Im] adapter + its settle is un-earned; `dg_pattern_separation`

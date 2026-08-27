@@ -1,7 +1,7 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Integrated SOLVED/EXCELLENT 2026-08-26 (owner-DONE). Re-verified scaffold-free first-hand (test_context_interference_resolution.py, 6 assertions PASS incl. the boundary collapse + leak guard). The missing organ for similar-competitor interference is CONTEXT REINSTATEMENT at retrieval -- the SAME additive Lewis-Vasishth rule given one more feature (encoding context, TCM). CTX_ADD 0.928 vs the context-free additive baseline 0.400 at 8 competitors, CI-separated at every K; info-free twins lose; genuinely LEAK-SAFE cue combination (context alone 0.306 << oracle 0.994); residual fan effect exhibited; and it correctly COLLAPSES (0.494) when context is non-separable. Brain-faithful throughout (TCM Howard-Kahana context, Teyler-Rudy indexing, ACT-R noisy read). Notably the solver caught + demoted its OWN soft-oracle (diagnosticity-weighting peeks). SYNTHETIC construction proof on the real organ -- the live capability (is the substrate's REAL context separable across similar memories?) is GATED on the p1 wire-and-measure. No new hdlab organ (AdditiveCueRetrieval is already feature-agnostic -- context is just another feature); the live wiring is folded into p1's retrieval-first composition."
 ---
 
 # PROBLEM: our memory is fooled by SIMILAR competing memories (the fan effect) -- the brain resolves which one to retrieve using CONTEXT and encoding-time separation, and our feature-only additive cue cannot
@@ -179,3 +179,36 @@ no separable context to reinstate) is a full PASS and re-points the memory line 
 - Do NOT let CONTEXT leak the target identity -- control it (a context that uniquely names the target is an oracle, not a
   mechanism); the win must survive a context that only BIASES, not identifies.
 - No number crosses the synthetic competitor instrument and a real coref/text task -- recompute the floor on each.
+
+---
+
+## SOLVER REVIEW (strategy session, 2026-08-26 — INTEGRATED, owner-DONE)
+
+**Grade EXCELLENT. Verdict SOLVED** (bar met on the interference instrument; the live-text capability is a separate
+gate, shared with every retrieval organ). Re-verified scaffold-free first-hand — `test_context_interference_resolution.py`
+6 assertions PASS, reproduced: CONTENT_ONLY bit-identical to the live `AdditiveCueRetrieval` (0 mismatches); CTX_ADD
+0.928 vs 0.400 at K=8, CI-separated at every K; info-free twins lose; leak guard (CTX_ALONE 0.306 ≪ oracle 0.994);
+residual fan effect present; boundary collapse to 0.494 when context is non-separable.
+
+**Why EXCELLENT (the work quality):** it is brain-faithful end-to-end (TCM Howard-Kahana drifting context, Teyler-Rudy
+context-indexing, Lewis-Vasishth additive cue, ACT-R noisy competitive read — the fan cost EMERGES from the read, not a
+penalty); it reframes the problem correctly ("which VARIABLE separates these memories" — context, not "match content
+better"); the win is genuine CUE COMBINATION, not a leaked oracle (context alone can't identify; the twins that TIE
+content prove the signal is real); it characterises the decisive NEGATIVE boundary (non-separable context → collapse);
+and — the model-honesty move — **it caught its OWN soft-oracle** (a diagnosticity-weighted arm beat the exact-context
+oracle → impossible unless peeking → demoted to a labelled ceiling). The deep drill (owner-directed "is the proximity
+machinery faithful?") tested the REAL DG organ (neutral on content → confirms the faithful separator is
+context-indexing, not sparsification), showed partial-fragment reinstatement suffices, and found the fan cost in latency.
+
+**What it establishes:** the additive cue-retrieval rule is COMPLETE only WITH a context cue; without it,
+similar-competitor interference is irreducible. Context enters ADDITIVELY (one more Lewis-Vasishth feature), not as a gate.
+
+**Honest limit (gated, not a flaw):** SYNTHETIC — FHRR codes + a synthetic TCM context engineered to be separable at the
+headline operating point. Whether the substrate's REAL context (bag-of-words, `sign()`-quantized) is separable across
+genuinely similar memories is OPEN; the boundary population shows the mechanism collapses when it is not. The faithful
+operating point is the CMR content-correlated regime (win weaker but survives, 0.95→0.77) with the GRADED context.
+
+**No new hdlab organ** (Q111): `AdditiveCueRetrieval` is already feature-agnostic, so context reinstatement is a USAGE
+(add a `context` feature to the stored items + cue), not a new organ. The live wiring — store the situation-model/
+reading-loop GRADED context as a per-item feature — is a COMPOSITION folded into the p1 retrieval-first wire-and-measure,
+gated on a live coref/situation-model measurement. AUDIT UPDATEs folded into `notes/BRAIN_FOUNDATIONAL_AUDIT.md` §2b.

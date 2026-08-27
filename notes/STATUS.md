@@ -31,7 +31,30 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- 🧭 **STRATEGIC DECISIONS IMPLEMENTED (owner: "do the right things, not the easy ones; most effective + most brain-foundational"): the programme is WIRE-AND-MEASURE, sequenced RETRIEVAL-FIRST; benchmark acquisition DEFERRED**
+### 2026-08-26 (LATEST) -- ✅ **p2 resolve_retrieval_interference INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the missing organ for the fan effect is CONTEXT REINSTATEMENT at retrieval -- the SAME additive rule + one context feature; on the RETRIEVAL-FIRST critical path**
+The fan-effect companion to the retrieval-first wire-and-measure, delivered. Re-verified scaffold-free FIRST-HAND
+(`test_context_interference_resolution.py`, 6 assertions PASS). Adding the encoding CONTEXT (TCM Howard-Kahana) to the
+additive Lewis-Vasishth activation resolves interference among genuinely SIMILAR memories CI-separated at every fan
+level (CTX_ADD 0.928 vs the context-free additive baseline 0.400 at 8 competitors; baseline bit-identical to the live
+`AdditiveCueRetrieval`). **Genuinely LEAK-SAFE cue combination** (context alone 0.306 << oracle 0.994; info-free twins
+lose) -- not a leaked second key. **Residual fan effect EXHIBITED** (emerges from an ACT-R noisy read, not a penalty) and
+correctly COLLAPSES (0.494) when context is non-separable -- the honest boundary. Brain-faithful throughout (TCM context,
+Teyler-Rudy context-INDEXING not DG sparsification -- tested with the REAL dg_separate organ, neutral on content). The
+solver caught + demoted its OWN soft-oracle (diagnosticity-weighting peeks) -- the "suspect your own checker" discipline.
+🔌 **NO new hdlab organ:** `AdditiveCueRetrieval` is already feature-agnostic, so context reinstatement is a USAGE (add a
+`context` feature), not a new organ. **The live wiring folds into p1's retrieval-first composition** (store the
+situation-model/reading-loop GRADED context -- NOT the sign() default -- as a per-item feature; fixed w_ctx; no gate, no
+fan penalty), GATED on a live coref/situation-model number. SYNTHETIC construction proof -- the LOAD-BEARING open
+question p1 must answer: is the substrate's ACTUAL context separable across similar memories? (the boundary shows the
+mechanism collapses when it is not). AUDIT UPDATEs folded (§2b new entry; the content_addressable fan-effect loop marked
+RESOLVED; DG re-framed to context-indexing; context_vector sign()/graded = deviation #4 at the context feature). p1 §4c
+sharpened with the validated context-feature detail. Review EXCELLENT + SOLVER REVIEW in PROBLEM.md; priority cleared.
+*Queue: p1 wire-and-measure (WIP submission in) = the live proving ground for BOTH retrieval organs; p7 relcl awaiting
+OWNER review; **NEW p8** `context_override_of_the_frequency_prior_on_a_modern_wsd_benchmark` (packaged to restore the
+≥3-open floor after p2 cleared -- DATA-READY via the acquired SemCor+WiC, but ranked LOWEST so retrieval-first holds).
+p2 cleared (integrated).*
+
+### 2026-08-26 -- 🧭 **STRATEGIC DECISIONS IMPLEMENTED (owner: "do the right things, not the easy ones; most effective + most brain-foundational"): the programme is WIRE-AND-MEASURE, sequenced RETRIEVAL-FIRST; benchmark acquisition DEFERRED**
 Owner asked which decisions move the substrate forward most effectively + most brain-foundationally, given that nearly
 every submission surfaces a substrate architecture change. **Decided + implemented (docs, not just prose):**
 **(1) The programme is WIRE-AND-MEASURE, not more isolated parts** -- p1 stays the top priority; NO new find-a-part
