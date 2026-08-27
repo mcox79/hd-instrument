@@ -67,8 +67,9 @@ design); one deliberate step per focused round.
   WordNet gloss+genus definitional-feature cosine. Ported `_def_bag`/`build_global_idf`/`ConceptualChannel`/
   `_sparse_cos` VERBATIM with the headline cfg {gloss,lemmas,hyper,hyper_levels:2}. The global IDF (distinctive-
   feature weighting over ALL ~117k synsets) is an offline-built, DISK-CACHED static asset
-  (`data/hdlab_conceptual_idf/global_idf.json`, 2.8 MB, committed so it works out-of-the-box). DEFAULT-SAFE
-  (new module, nothing imports it yet).
+  (`data/hdlab_conceptual_idf/global_idf.json`, 2.8 MB). **CORRECTION: the cache is gitignored (derived-data
+  policy) so it is NOT committed -- the organ REBUILDS + re-caches it on first use (~30-60s, one pass over all
+  synsets); rebuildable, not a committed artifact.** DEFAULT-SAFE (new module, nothing imports it yet).
 - **Witness `verification/test_conceptual_meaning_organ.py`** -- self-contained construction proof over WordNet
   directly (no external gold), run FIRST-HAND, PASS: synonyms 0.834 vs unrelated 0.010 (margin +0.824);
   info-free twin (real word vs a RANDOM other word's definition) 0.011 LOSES; glass-box (no gold in signature;
