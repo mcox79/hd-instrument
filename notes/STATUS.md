@@ -56,6 +56,9 @@ pre-activate expected fillers; surprisal = the core difficulty signal). Architec
 but ranked BEHIND p1 retrieval-first (do not jump it) and scoped to BUILD ON the existing `predictive_coding` +
 `n400_coherence_monitor` machinery, not re-derive it. *Queue: p1 wire-and-measure (retrieval-first, WIP in) = TOP; p2
 predictive-reader (ready, behind p1); p8 meaning-context (data-ready, lowest). p7 cleared (integrated).*
+🧭 **NEXT-STAGE READY:** when p1 lands owner-finalized, its per-stage ATTRIBUTION selects the branch — see
+`notes/NEXT_STAGE_after_wire_and_measure.md` (A: retrieval WINS → consolidate+scale; B: front-end is the wall →
+predictive-reader/front-end; C: content is the wall → meaning-supply). p1 is the decisive fork; p2/p8 are re-ranked by it.
 
 ### 2026-08-26 -- ✅ **p2 resolve_retrieval_interference INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the missing organ for the fan effect is CONTEXT REINSTATEMENT at retrieval -- the SAME additive rule + one context feature; on the RETRIEVAL-FIRST critical path**
 The fan-effect companion to the retrieval-first wire-and-measure, delivered. Re-verified scaffold-free FIRST-HAND
