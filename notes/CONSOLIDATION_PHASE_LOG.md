@@ -27,7 +27,7 @@ if things aren't working like we expect, LIBERALLY run brain-foundationality res
 | F | entity-augment of the situation model | (pending) | (pending) | (pending) | ⬜ QUEUED |
 | C | incremental left-corner builder | `hdlab/incremental_parser.py` | `test_incremental_parser_organ.py` | incremental_parser_v1 | ✅ LANDED 2026-08-27 (commit below) |
 | D | front-end role-assignment fix | (pending) | (pending) | (pending) | ⬜ QUEUED |
-| H | relcl filler-gap resolver + route-conflict | (pending) | (pending) | (pending) | ⬜ QUEUED |
+| H | relcl filler-gap resolver + route-conflict | `hdlab/relcl_resolver.py` | `test_relcl_resolver_organ.py` | relcl_resolver_v1 | ✅ LANDED 2026-08-27 (commit below) |
 | E2 | sparse per-entity trace store (DG k-WTA + CA3) | (BUILD proposal, not a landed fix) | -- | -- | ⬜ BUILD TARGET |
 
 ## MEASUREMENT (step 2-4)
@@ -114,7 +114,33 @@ design); one deliberate step per focused round.
   +0.0352 F1); glass-box.
 - **Registered** `incremental_parser_v1` (kind=organ, status=BUILT, gate=WIRE_CANDIDATE, integration=ISLAND).
 - NOT YET WIRED. Composition: wire as the CANDIDATE SOURCE feeding the role assigner; route reversibles to relcl.
-- Commit: see git log (strategy: land incremental_parser organ -- consolidation step 4).
+- Commit: cedda5832 (strategy: land incremental_parser organ -- consolidation step 4).
+
+### 2026-08-27 -- STEP 5: landed the RELATIVE-CLAUSE FILLER-GAP RESOLVER (queue row H) ✅
+- **`hdlab/relcl_resolver.py`** created -- reversible-sentence role assignment the brain's way. `resolve_patient(
+  toks, pos, v)` = the active-filler object-gap rule (Frazier): the fronted filler is the PATIENT exactly when the
+  object slot is empty (gap) and a subject nominal intervenes; else word-order. Glass-box over UPOS + closed-class
+  relativizers, NO arc graph (route AROUND the arc parser, which is HARMFUL here). Ports arm_fillergap_incremental
+  + helpers VERBATIM. DEFAULT-SAFE (new module; leaves canonical clauses == the two-line rule).
+- **Witness `verification/test_relcl_resolver_organ.py`** -- self-contained construction proof, run FIRST-HAND,
+  PASS: the REVERSIBLE object-gap 'the doctor that the lawyer chased' -> patient=doctor where the word-order
+  baseline picks the WRONG lawyer (the discriminator); subject-gap + canonical fall to word-order (gate off);
+  passive -> pre-aux subject; glass-box (no heads/gold in signature).
+- **Registered** `relcl_resolver_v1` (kind=organ, status=BUILT, gate=WIRE_CANDIDATE, integration=ISLAND).
+- BRAIN-FOUNDATIONAL COHERENCE: the discrete filler-gap rule is the noise->0 limit of graded cue-based retrieval --
+  the SAME primitive as graded_competition (wiring rule 5).
+- NOT YET WIRED. Composition: reversible-case route after the role assigner; expose the route-CONFLICT as a
+  gold-free difficulty signal (two competing scorers + a conflict term, NOT if/else).
+- Commit: see git log (strategy: land relcl_resolver organ -- consolidation step 5).
+
+### ISLAND-ORGAN LANDINGS COMPLETE (2026-08-27)
+All self-contained new-module organs are now landed + witnessed + registered: predictive_reader, semantic_control
+(pre-phase) + graded_competition, conceptual_meaning, salience_binder, incremental_parser, relcl_resolver (this
+phase). **REMAINING queue rows are WIRING-INTO-EXISTING-ORGANS, done AT the composition step, not as islands:**
+D (front-end role-fix: quote-exclusion + speech-verb into situation_reader/thematic_role_labeler), F (entity-augment
+of the situation model), E2 (sparse per-entity store = a BUILD proposal). **NEXT: build the ROLE-BALANCED comprehension
+gold (the measurement instrument), then wire the composition (§2) honoring the 5 brain-foundationality rules, then
+measure OFF-vs-ON.**
 
 ## 🧠 IS THE *WIRING* BRAIN-FOUNDATIONAL, TOO? (owner check 2026-08-27 -- tracked here, enforced at the composition step)
 Landing brain-faithful organs is necessary but NOT sufficient -- the COMPOSITION must be brain-faithful too. The
