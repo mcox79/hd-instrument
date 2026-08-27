@@ -31,7 +31,33 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-26 (LATEST) -- ✅ **p2 resolve_retrieval_interference INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the missing organ for the fan effect is CONTEXT REINSTATEMENT at retrieval -- the SAME additive rule + one context feature; on the RETRIEVAL-FIRST critical path**
+### 2026-08-26 (LATEST) -- ✅ **p7 relcl parser INTEGRATED (owner-DONE, EXCELLENT/SOLVED): a SPECIALISED filler-gap circuit (route AROUND the HARMFUL arc parser) solves reversible role assignment -- and it UNIFIES with p3 retrieval (filler-gap role binding IS cue-based content-addressable retrieval)**
+The front-end fix, delivered -- and it lands on the retrieval-first cluster. Re-verified scaffold-free FIRST-HAND
+(`verify_relcl_incremental_fillergap_parser.py`, 8/8 PASS). A brain-faithful incremental filler-gap resolver (active-filler
+over UPOS + closed-class relativizers, NO dependency graph) beats the two-line floor CI-separated on a powered BALANCED
+held-out reversible set (INC 0.9533 vs 0.4994 at n=4800, ties the oracle 0.9981); **the general `arc_parser` is
+MEASURABLY HARMFUL (0.198 < info-free twin 0.305), route AROUND it.** Non-degenerate (PICK_FRONTED control), glass-box
+guarded (takes no `heads` arg, invariant to permuting arc heads), gate no-leak + net-positive. **HONEST real-text bound:
+fires on 0.75% of QA-SRL, aggregate +0.001** -- the value is CORRECTNESS on the rare hard sentences a situation model
+needs, not a headline. **THE DEEP RESULT (two literature drills):** the discrete rule is the noise→0 COMPETENCE LIMIT of
+GRADED ADDITIVE CUE-BASED CONTENT-ADDRESSABLE RETRIEVAL (= the p3 operation) -- built + measured, it reproduces
+similarity-interference (+0.10 CI-sep) over the substrate's REAL grounded vectors + the reversibility/locality effects
+the discrete rule cannot; center-embedding collapse (0.048) is the RETRIEVAL half -> p3, not a parser upgrade. **So
+filler-gap role binding UNIFIES with E1/E2/E3** (computational HOMOLOGY, gated on amnesia counter-evidence, NOT neural
+identity). Corrects the neural localisation (reversible role binding → pMTG, NOT BA44-movement; Beber 2025). 🔌 **NO new
+hdlab organ:** the resolver + the route-conflict UPGRADE (two always-on competing scorers + a conflict term, NOT if/else
+-- the solver's own architecture-fidelity finding) fold into p1's retrieval-first composition (front-end the retrieval
+sits on), gated on a live number -- consistent with the p2 treatment. AUDIT UPDATEs folded (§2b new entry; tier-1
+arc_parser HARMFUL; tier-2 role-labeler mechanism + pMTG localisation; E1/E2/E3 unification extends to the parser). p1
+§4b sharpened with the filler-gap front-end detail. Review EXCELLENT + SOLVER REVIEW; priority cleared.
+📦 **PACKAGED (to restore the ≥3-open floor after p7 cleared) -- NEW p2 `the_reader_is_feed_forward_where_the_brain_is_predictive`:**
+the #1 architecture-fidelity gap the relcl drill surfaced (the reader only REACTS; the brain PREDICTS -- verbs
+pre-activate expected fillers; surprisal = the core difficulty signal). Architecture-WIDE, highest blast radius remaining,
+but ranked BEHIND p1 retrieval-first (do not jump it) and scoped to BUILD ON the existing `predictive_coding` +
+`n400_coherence_monitor` machinery, not re-derive it. *Queue: p1 wire-and-measure (retrieval-first, WIP in) = TOP; p2
+predictive-reader (ready, behind p1); p8 meaning-context (data-ready, lowest). p7 cleared (integrated).*
+
+### 2026-08-26 -- ✅ **p2 resolve_retrieval_interference INTEGRATED (owner-DONE, EXCELLENT/SOLVED): the missing organ for the fan effect is CONTEXT REINSTATEMENT at retrieval -- the SAME additive rule + one context feature; on the RETRIEVAL-FIRST critical path**
 The fan-effect companion to the retrieval-first wire-and-measure, delivered. Re-verified scaffold-free FIRST-HAND
 (`test_context_interference_resolution.py`, 6 assertions PASS). Adding the encoding CONTEXT (TCM Howard-Kahana) to the
 additive Lewis-Vasishth activation resolves interference among genuinely SIMILAR memories CI-separated at every fan

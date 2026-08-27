@@ -50,6 +50,46 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-26 — REVERSIBLE-SENTENCE ROLE ASSIGNMENT SOLVED by a SPECIALISED filler-gap circuit (route AROUND the arc
+  parser, which is HARMFUL not weak); and it UNIFIES with the p3 content-addressable retrieval — filler-gap role binding
+  IS cue-based retrieval** (from `the_relcl_parser_is_too_weak_for_filler_gap_role_assignment`, integrated SOLVED/EXCELLENT,
+  owner-DONE; witness `verify_relcl_incremental_fillergap_parser.py` 8/8 PASS, re-verified first-hand). On sentences where
+  word order underdetermines who-did-what-to-whom ("the doctor that the lawyer chased"), a brain-faithful INCREMENTAL
+  filler-gap resolver (active-filler strategy over UPOS + closed-class relativizers, **NO dependency graph**) beats the
+  precise-voice two-line floor **CI-separated on a POWERED BALANCED held-out reversible set** — INC 0.9533 [0.9473,0.9592]
+  vs 0.4994 at n=4800, ties the ORACLE 0.9981. **The general arc parser is MEASURABLY HARMFUL** here (FILLERGAP_ARCPARSER
+  0.198, BELOW the info-free twin 0.305): greedy first-order unlabelled decoding mis-attaches the embedded-verb→antecedent
+  arc, so routing role assignment through it loses to guessing. **Non-degenerate + glass-box:** a PICK_FRONTED degeneracy
+  control (0.487, capped ~0.50 by the balanced design) isolates gap-DIRECTION resolution (INC−PICK_FRONTED +0.466); the
+  resolver's signature takes NO `heads` arg and is invariant to permuting the arc heads → the win is function-words+position,
+  not laundered parser output. **Gate no-leak, net-POSITIVE:** the two-condition construction gate (attached relativizer +
+  empty object slot) leaves canonical clauses untouched (INC==two-line) and is net-positive overall (the prior ungated arm
+  was −0.107). **HONEST real-text bound:** on QA-SRL the gate fires on 0.75% of items and moves the aggregate by +0.001 —
+  genuine reversibles are <1% of real text, so the value is CORRECTNESS on rare hard sentences a situation model needs,
+  NOT a headline metric. **THE DEEP FIDELITY RESULT (two literature drills):** the discrete resolver is the **noise→0
+  COMPETENCE LIMIT of GRADED ADDITIVE CUE-BASED CONTENT-ADDRESSABLE RETRIEVAL** (Lewis & Vasishth 2005; McElree 2000; the
+  active-filler strategy EMERGES from it, Dotlacil 2021) — the SAME additive operation as the p3 store. Built + measured,
+  it reproduces what the discrete rule structurally cannot: similarity-based interference (dissimilar 0.957 vs same-type
+  0.857, +0.10 CI-sep) over the substrate's REAL grounded vectors (interference tracks real similarity: near 0.645 < far
+  0.766), the reversibility contrast, and the subject<object asymmetry from dependency-locality decay (Gibson DLT). The
+  center-embedding outer-gap collapse (0.048, oracle 1.000) matches human breakdown and is the RETRIEVAL half — its fix is
+  the p3 mechanism, not a parser upgrade. **So filler-gap role binding UNIFIES with E1/E2/E3 under one cue-based
+  content-addressable retrieval primitive** — reused at the sentence gap and the episodic store. **Framing caveat
+  (honestly flagged):** this is a Marr-level computational HOMOLOGY, NOT a neural identity — single-sentence syntax is
+  intact in amnesia (Ullman DP model; Kurczek & Duff 2020), so the "parser-retrieval = hippocampal CA3" link is
+  under-test. **NEURAL-LOCALISATION CORRECTION for the audit:** reversible role binding localises to POSTERIOR-TEMPORAL /
+  pMTG / inferior-parietal (Beber et al. 2025 lesion dissociation; Matchin & Hickok 2020), NOT a BA44 "syntactic movement"
+  operator (Grodzinsky & Santi 2008 is now minority; BA44 supports WM/sequencing). **ARCHITECTURE-FIDELITY findings (a
+  second drill, whole-pipeline):** the modules are largely fine but the WIRING copies an engineering NLP stack — (1)
+  FEED-FORWARD where the brain is PREDICTIVE (verbs pre-activate fillers; N400 = prediction error; the biggest gap,
+  architecture-wide) → packaged as a NEW problem; (2) STAGED tag→parse→interpret where the brain is INTERACTIVE/parallel
+  and "good-enough" → noted; (3) an if/else route-gate where the brain runs PARALLEL COMPETING STREAMS whose DISAGREEMENT
+  is the error signal (semantic P600) — the route-CONFLICT is a validated gold-free difficulty readout (heuristic error
+  1.000 when routes conflict vs 0.093 when they agree). **🔌 NO new hdlab organ this integration:** the specialised
+  resolver + the route-conflict UPGRADE (two always-on competing scorers + a conflict term, NOT if/else) fold into the p1
+  retrieval-first wire-and-measure (the front-end the retrieval composition sits on), gated on a live number — consistent
+  with the p2 treatment; the resolver's value is only measurable end-to-end (aggregate +0.001).
+
 - **2026-08-26 — SIMILAR-MEMORY INTERFERENCE (the fan effect) RESOLVED IN PRINCIPLE: the missing organ is CONTEXT
   REINSTATEMENT at retrieval — the SAME additive rule, given one context feature** (from
   `resolve_retrieval_interference_among_similar_memories`, integrated SOLVED/EXCELLENT, owner-DONE; witness
@@ -423,7 +463,7 @@ Grouped by the brain's functional tiers. `[P]` = brain equation PINNED, `[U]` = 
 ### TIER 1 — PERCEPTION & LEXICAL FORM
 - **Visual word form** (VWFA) `[U]` — `vwfa.py`/`char_*`. **RIGHT-OP-WRONG-METRIC:** 1-bit terminal quantiser; trigram order destroyed (position is a hashed atom, not a rotation).
 - **Lexical category / POS** (post. temporal) `[U]` — `pos_tagger.py`+`perceptron.py`. **UNSCORABLE** (brain unpinned); own learned perceptron, HARD_PASS 0.906.
-- **Dependency / argument-structure parse** (LIFG/pSTS) `[U]` — `arc_parser.py`. **UNSCORABLE**, and a real hole: head/deprel fields are **PLACEHOLDERS at inference** (only form+upos read). *This is the parser the p4 relcl brief is about.*
+- **Dependency / argument-structure parse** (LIFG/pSTS) `[U]` — `arc_parser.py`. **UNSCORABLE**, and a real hole: head/deprel fields are **PLACEHOLDERS at inference** (only form+upos read). **SHARPENED 2026-08-26 (§2b, p4 relcl SOLVED): for filler-gap / reversible role assignment the general arc parser is MEASURABLY HARMFUL, not merely weak** (0.198 vs a random-nominal twin 0.305 — greedy first-order unlabelled decoding mis-attaches the embedded-verb→antecedent arc). **Route AROUND it:** a specialised incremental filler-gap resolver over UPOS + closed-class relativizers (no arc graph) reaches oracle level (0.953) where the arc route scores below chance. Do NOT invest in a stronger general parser for this.
 
 ### TIER 2 — SEMANTIC MEMORY (meaning)
 - **Amodal concept hub** (ATL) `[U]` (sub-fact: combination ≈ additive `[P]`) — `lexical_similarity.py`. **WRONG-OP:** unweighted feature overlap is the *inverse* of the brain privileging distinctive features; feature dict hand-built.
@@ -435,7 +475,7 @@ Grouped by the brain's functional tiers. `[P]` = brain equation PINNED, `[U]` = 
 - **Semantic control** (IFG, multiplicative gain `[P]`; gain function `[U]`) — `context_vector_masked`; dedicated organ is `modern_hopfield_readout.py` (softmax sharpen/blend) + scattered sub-parts. **RIGHT-IDEA-WRONG-ALGEBRA:** context enters *additively*, not as multiplicative gain; the faithful multiplicative version scored WORSE — but that is an estimation-noise result **blocked behind the dense-code defect (B4)**, not evidence against the brain. **Dedicated semantic control is THIN** — a gap.
 
 ### TIER 3 — COMBINATORICS & STRUCTURE
-- **Thematic role assignment** (Competition Model: cue validity `[P]`) — `thematic_role_labeler.py`. **RIGHT-OP-WRONG-METRIC:** raw counts are not cue-validity; cue *cost* absent; animacy-dominant; HARD_FAIL on real text.
+- **Thematic role assignment** (Competition Model: cue validity `[P]`) — `thematic_role_labeler.py`. **RIGHT-OP-WRONG-METRIC:** raw counts are not cue-validity; cue *cost* absent; animacy-dominant; HARD_FAIL on real text. **BRAIN-PINNED MECHANISM 2026-08-26 (§2b, p4 relcl SOLVED):** for the reversible non-canonical regime the faithful operation is GRADED ADDITIVE CUE-BASED CONTENT-ADDRESSABLE RETRIEVAL (Lewis & Vasishth 2005; McElree 2000) — the SAME operation as the p3 store; our validated discrete filler-gap resolver is its noise→0 competence limit. **LOCALISATION CORRECTION:** reversible role binding is POSTERIOR-TEMPORAL / pMTG / inferior-parietal (Beber 2025; Matchin & Hickok 2020), **NOT** a BA44 "syntactic movement" operator (soften any BA44-movement text). Unifies with E1/E2/E3 (computational homology, under-test — intact single-sentence syntax in amnesia).
 - **Role–filler binding** (theta-gamma / conjunctive / tensor-product — **UNPINNED & 3-way CONTESTED** `[U]`) — `binding.py` (FHRR complex-multiply). **OPERATOR VALIDATED 2026-08-26** (see §2b): at EQUAL storage FHRR beats the writable brain theories (TPR/conjunctive), so it is an efficient choice, NOT the "deepest deviation." ➡️ **The deviation is one level up — the flat-superposition RETRIEVAL (shared with E2/E3): the brain SEPARATES into slots + retrieves CONTENT-ADDRESSABLY; a faithful version beats FHRR ~5x under a partial cue.** The owned fix (`ca3_completer` + `dg_pattern_separation`, both default-off) is unwired.
 - **Situation-model register / event indexing** (SEM, PE-segmented `[U]`) — `situation_model_accumulate.py`/`_multibank`, `situation_reader.py`. **RIGHT-OP-WRONG-PLACE:** has the register; **missing the prediction-error segmentation that decides WHEN to write.**
 - **N400 coherence monitor** (running-model update magnitude; reference `[P]`, norm `[U]`) — **BUILT 2026-08-26 (§2b): `hdlab/n400_coherence_monitor.py`** (off-path WIRE_CANDIDATE, witness PASS). No longer MISSING. The norm that WORKS is a GRADED forward CONTENT prediction error `1 − cos(content, running_event_gist)` (running reset per event), boundary-posted via the EST relative threshold; it segments discourse and fills the situation model 0.988 vs ≤0.762 floors. The norm that FAILS is the literal `||Δregister||` in the binding space (ties no-op). **Still ISLAND** — wire to `situation_model_accumulate` + measure on the live reader before any capability claim.

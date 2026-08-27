@@ -1,7 +1,7 @@
 ---
-priority: 7
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Integrated SOLVED/EXCELLENT 2026-08-26 (owner-DONE). Re-verified scaffold-free first-hand (verify_relcl_incremental_fillergap_parser.py, 8/8 PASS). A brain-faithful incremental filler-gap resolver (active-filler over UPOS + closed-class relativizers, NO dependency graph) beats the precise-voice two-line floor CI-separated on a powered BALANCED held-out reversible set (INC 0.9533 vs 0.4994 at n=4800, ties the oracle 0.9981), and the general arc parser is MEASURABLY HARMFUL (0.198 < info-free twin 0.305), not merely weak. Non-degenerate (PICK_FRONTED control 0.487 capped; INC-PICK_FRONTED +0.466); glass-box guarded (takes no heads arg, invariant to permuting arc heads -- not laundered parser output); construction-gate no-leak (canonical INC==two-line, net-POSITIVE overall). HONEST real-text bound: fires on 0.75% of QA-SRL, aggregate +0.001 -- the value is CORRECTNESS on rare hard sentences, not a headline number. DEEP brain-fidelity drill (2 literature drills): the discrete rule is the noise->0 COMPETENCE limit of GRADED ADDITIVE CUE-BASED CONTENT-ADDRESSABLE RETRIEVAL (= the p3 operation), which reproduces similarity-interference (+0.10 CI-sep) + reversibility + locality over the substrate's REAL grounded vectors -- UNIFYING filler-gap with E1/E2/E3 (computational homology, gated on amnesia counter-evidence, NOT neural identity). Corrects the neural localisation (reversible role binding -> pMTG, not BA44-movement; Beber 2025, Matchin & Hickok 2020). NO new hdlab organ this integration: the resolver + route-conflict upgrade fold into p1's retrieval-first composition (front-end the retrieval sits on), gated on a live measurement -- consistent with the p2 treatment. AUDIT UPDATEs folded (2b + tier-1 arc_parser HARMFUL + thematic_role_labeler mechanism/localisation + E1/E2/E3 unification extends to the parser)."
 ---
 
 # PROBLEM: the REPLACE verdict was proven on easy sentences -- the brain's hard regime (reversible non-canonical / filler-gap) is untested at power, and the parser that would handle it is too weak
@@ -166,3 +166,42 @@ complete, stop investing here and redirect to stage 2.
 - Do NOT quote "the two-line rule beats the elaborate reader" as "the brain's syntactic parsing is unnecessary"
   -- that is shown only on the canonical-heavy regime; the reversible non-canonical regime is untested at power.
 - Do NOT re-run the aggregate QA-SRL comparison; the open question is the HARD regime, at power, with a stronger parser.
+
+---
+
+## SOLVER REVIEW (strategy session, 2026-08-26 — INTEGRATED, owner-DONE)
+
+**Grade EXCELLENT. Verdict SOLVED** (bar met on the powered reversible set the bar explicitly authorised; the real-text
+aggregate is honestly bounded, not a shortfall). Re-verified scaffold-free first-hand —
+`verify_relcl_incremental_fillergap_parser.py` 8/8 PASS, every headline reproduced (INC 0.954 vs two-line 0.500 vs arc
+0.199 vs twin 0.313; gate no-leak; center-embedding collapse 0.067; the cue-retrieval unification + grounded-similarity
+interference + parallel-route conflict signal).
+
+**Why EXCELLENT — this is a model submission.** (1) It read the REAL front-end's output before designing, and that
+turned the problem: the arc parser makes *lawyer* the root of "the doctor that the lawyer chased" → the fix is NOT a
+stronger general parser but a specialised function-word circuit (and the arc parser is HARMFUL, 0.198 < twin, not weak).
+(2) It built the BALANCED subject/object set that makes the win non-degenerate, and a PICK_FRONTED degeneracy control
+that isolates gap-DIRECTION resolution (the trap that inflated the prior oracle to 1.000). (3) A glass-box guard written
+as a *signature* (the resolver takes no `heads` arg) proves the win is function-words+position, not laundered parser
+output. (4) It was brutally honest about real text (fires 0.75%, aggregate +0.001) and let a real-text refutation of its
+first loose gate flip the design to the safe two-condition gate. (5) Two literature drills took the fidelity question
+seriously and produced a major result: the discrete rule is the **noise→0 competence limit of graded additive cue-based
+content-addressable retrieval** — the SAME operation as the p3 store — which reproduces the similarity-interference the
+discrete rule structurally cannot, over the substrate's REAL grounded vectors. This UNIFIES filler-gap role binding with
+E1/E2/E3, carefully framed as a computational homology (gated on the amnesia/Ullman counter-evidence), not a neural
+identity. (6) It corrects the substrate's neural localisation with 2025 lesion evidence (reversible role binding → pMTG,
+not a BA44 "movement" operator).
+
+**Effect on the substrate:** stage-1 role assignment on reversible non-canonical clauses is SOLVED at oracle level, and
+the fix routes AROUND the (harmful) arc parser. The residual (center-embedding) is the RETRIEVAL half — the p3 mechanism,
+not a parser upgrade. The whole thing lands on the retrieval-first cluster: filler-gap = structure-building +
+content-addressable retrieval.
+
+**No new hdlab organ this integration** (Q111). The proposed diff (a specialised default-off resolver in
+`situation_reader`/`thematic_role_labeler`) is real and proven, but (a) the solver's OWN architecture-fidelity finding
+upgrades the design from an `if/else` gate to **two always-on competing scorers + a route-conflict term** (the conflict
+predicts error 1.000 vs 0.093, a gold-free difficulty signal), and (b) its value is correctness on rare hard sentences,
+only measurable end-to-end. So it folds into the p1 retrieval-first wire-and-measure (the front-end the retrieval
+composition sits on), gated on a live number — consistent with the p2 fan-effect treatment. AUDIT UPDATEs folded into
+`notes/BRAIN_FOUNDATIONAL_AUDIT.md` §2b + the tier-1/tier-2 entries. Two forward opportunities the solver surfaced
+(a PREDICTIVE reader; good-enough/noisy-channel parsing) — the first is packaged as a new (lowest-but-real) problem.

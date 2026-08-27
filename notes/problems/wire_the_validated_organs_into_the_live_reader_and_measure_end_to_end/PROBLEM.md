@@ -143,8 +143,19 @@ hypothesis this brief must confront and attribute, not assume.
   context OVERRIDING frequency is DATA-limited (needs a modern WSD benchmark, none on disk). This is the disciplined
   home for that wiring -- captured here, gated on this brief's end-to-end number, rather than spawned as one more
   isolated-part problem.
+- **THE FILLER-GAP ROLE-ASSIGNMENT FIX (front-end) -- validated 2026-08-26 (`the_relcl...` integrated SOLVED), NOT-YET-LANDED.**
+  For reversible non-canonical clauses ("the doctor that the lawyer chased") the current front-end fails: the two-line
+  rule gets ~half wrong and the general `arc_parser` is HARMFUL (0.198 < a random twin). The fix is a specialised
+  incremental filler-gap resolver over UPOS + closed-class relativizers (NO arc graph, ~30 lines), gated by two
+  conditions (attached relativizer + empty object slot) so it never fires on canonical clauses -- 0.953 on the hard
+  regime, oracle-level. **Wire it AROUND `arc_parser` (do not route role assignment through the arc parse), as TWO
+  ALWAYS-ON competing scorers + a route-CONFLICT term (not an if/else gate -- the conflict is a gold-free "am I in
+  trouble" signal), NOT the naive gate.** ⚠️ Its aggregate real-text lift is ~0 (genuine reversibles are <1% of text) --
+  land it for CORRECTNESS on the rare hard sentences a situation model needs, and the center-embedding residual is the
+  RETRIEVAL half (route to the same content-addressable mechanism above -- filler-gap role binding IS cue-based retrieval).
 - Existing subsystems it plugs into: `hdlab/situation_model_multibank.py` / `situation_model_accumulate.py` (the register),
-  `hdlab/reading_grounding_loop.py` (the live read loop), `hdlab/meaning_fusion.py` (the general meaning read-out).
+  `hdlab/reading_grounding_loop.py` (the live read loop), `hdlab/meaning_fusion.py` (the general meaning read-out),
+  `hdlab/situation_reader.py` / `thematic_role_labeler.py` (stage-1 role assignment — the filler-gap wiring target).
 
 ## 4c. THE SEQUENCING PRIOR (strategy, brain-foundational -- START HERE, then sweep)
 
