@@ -52,12 +52,14 @@ TRIGGER IS MET.** The queue is at ZERO ranked-open (by design). **THE CONSOLIDAT
 in final form, build a ROLE-BALANCED comprehension gold, and measure the composed reader end-to-end (organs OFF-vs-ON, floors +
 info-free-twins-must-lose). This is a deliberate MULTI-ROUND build, NOT a heartbeat cram -- one focused step per round.
 📋 **RUNNING LOG (compaction-survival, owner-requested): `notes/CONSOLIDATION_PHASE_LOG.md` -- the durable step-by-step ledger
-with commit hashes + verification; READ IT to resume mid-phase.** **STEPS 1-3 DONE: graded-competition organ + ATL conceptual/definitional meaning channel + ACT-R salience binder LANDED**
-(`hdlab/graded_competition.py`, `hdlab/conceptual_meaning.py`, `hdlab/salience_binder.py`; witnesses
-`test_graded_competition_organ.py` / `test_conceptual_meaning_organ.py` / `test_salience_binder_organ.py` PASS first-hand;
-registered `graded_competition_v1` / `conceptual_meaning_v1` / `salience_binder_v1`; all default-safe islands). BRAIN-FOUNDATIONAL
-COHERENCE: the salience binder's graded write REUSES the graded-competition softmax (one divisive-normalization op, byte-equal).
-Next landings: C/D (front-end incremental builder + role-fix) + H (relcl), then the ROLE-BALANCED gold + wire + measure. *Owner discipline for this phase: do the RIGHT things not the easy ones; if things aren't working as
+with commit hashes + verification; READ IT to resume mid-phase.** **STEPS 1-4 DONE: graded-competition + ATL conceptual channel + ACT-R salience binder + INCREMENTAL PARSER LANDED**
+(`hdlab/graded_competition.py`, `conceptual_meaning.py`, `salience_binder.py`, `incremental_parser.py`; witnesses all PASS
+first-hand; registered `graded_competition_v1` / `conceptual_meaning_v1` / `salience_binder_v1` / `incremental_parser_v1`;
+all default-safe islands). BRAIN-FOUNDATIONAL COHERENCE: the salience binder's graded write REUSES the graded-competition
+softmax (one divisive-normalization op, byte-equal). **WIRING brain-foundationality is a GATE on the composition step**
+(late-algebraic-MERGE-not-cascade; top-down-meets-bottom-up; one shared graded currency; separate-pools-never-fuse;
+discrete=argmax-collapse) -- principles + enforcement logged in `CONSOLIDATION_PHASE_LOG.md`. Next landings: D (front-end
+role-fix) + H (relcl), then F (entity-augment), then the ROLE-BALANCED gold + wire + measure. *Owner discipline for this phase: do the RIGHT things not the easy ones; if things aren't working as
 expected, LIBERALLY run brain-foundationality research drills, finer resolution if needed.*
 
 ### 2026-08-27 -- ✅ **DISCRETE→GRADED INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- RESOLVES the substrate-wide "discrete where the brain is graded" deviation: the discrete parser/role organs are the noise→0 argmax COLLAPSE of a graded Bayesian competition, and the distribution's ENTROPY is a shared difficulty currency that beats the shipped binary conflict. 2 of 3 consolidation-gating problems now integrated**

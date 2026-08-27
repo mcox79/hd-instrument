@@ -25,7 +25,7 @@ if things aren't working like we expect, LIBERALLY run brain-foundationality res
 | J | ATL conceptual/definitional channel + operation-routing | `hdlab/conceptual_meaning.py` | `test_conceptual_meaning_organ.py` | conceptual_meaning_v1 | ✅ LANDED 2026-08-27 (commit below) |
 | E | ACT-R salience binder + GRADED softmax write | `hdlab/salience_binder.py` | `test_salience_binder_organ.py` | salience_binder_v1 | ✅ LANDED 2026-08-27 (commit below) |
 | F | entity-augment of the situation model | (pending) | (pending) | (pending) | ⬜ QUEUED |
-| C | incremental left-corner builder | (pending) | (pending) | (pending) | ⬜ QUEUED |
+| C | incremental left-corner builder | `hdlab/incremental_parser.py` | `test_incremental_parser_organ.py` | incremental_parser_v1 | ✅ LANDED 2026-08-27 (commit below) |
 | D | front-end role-assignment fix | (pending) | (pending) | (pending) | ⬜ QUEUED |
 | H | relcl filler-gap resolver + route-conflict | (pending) | (pending) | (pending) | ⬜ QUEUED |
 | E2 | sparse per-entity trace store (DG k-WTA + CA3) | (BUILD proposal, not a landed fix) | -- | -- | ⬜ BUILD TARGET |
@@ -99,4 +99,39 @@ design); one deliberate step per focused round.
 - **Registered** `salience_binder_v1` (kind=organ, status=BUILT, gate=WIRE_CANDIDATE, integration=ISLAND).
 - NOT YET WIRED. Dissociation to honor at composition: BIND by salience (this organ), PREDICT by content-addressable
   retrieval (a different channel); wire the composed readout for RETRIEVAL, not as a predictive prior.
-- Commit: see git log (strategy: land salience_binder organ -- consolidation step 3).
+- Commit: c6726d9bf (strategy: land salience_binder organ -- consolidation step 3).
+
+### 2026-08-27 -- STEP 4: landed the INCREMENTAL LEFT-CORNER ARGUMENT BUILDER (queue row C) ✅
+- **`hdlab/incremental_parser.py`** created -- the parser's STRUCTURAL front-end done the brain's way:
+  `incremental_build(toks, pos[, predictor])` reads LEFT-TO-RIGHT under a bounded Now-or-Never buffer, eager
+  left-corner subject bind + eager patient fill; prediction ON (reuses predictive_reader), revision OFF (default,
+  per the integration). Ports `incremental_build`/`_g`/`_cos`/`_lemma` VERBATIM. DEFAULT-SAFE (new module; with
+  predictor=None the structural core runs). Keep structure-BUILDING and role-BINDING SEPARATE (Beber 2025).
+- **Witness `verification/test_incremental_parser_organ.py`** -- self-contained construction proof, run FIRST-HAND,
+  PASS: canonical SVO recovered {subj,obj}; LEFT-CORNER nearest-nominal subject bind (not a distant one); genuinely
+  INCREMENTAL (every prefix parse's bindings subset the full parse -- no retraction, the Now-or-Never property);
+  BOUNDED good-enough (<=3 args/verb, does NOT over-generate -- the precision mechanism that beats the batch parser
+  +0.0352 F1); glass-box.
+- **Registered** `incremental_parser_v1` (kind=organ, status=BUILT, gate=WIRE_CANDIDATE, integration=ISLAND).
+- NOT YET WIRED. Composition: wire as the CANDIDATE SOURCE feeding the role assigner; route reversibles to relcl.
+- Commit: see git log (strategy: land incremental_parser organ -- consolidation step 4).
+
+## 🧠 IS THE *WIRING* BRAIN-FOUNDATIONAL, TOO? (owner check 2026-08-27 -- tracked here, enforced at the composition step)
+Landing brain-faithful organs is necessary but NOT sufficient -- the COMPOSITION must be brain-faithful too. The
+composition step (§2 of the PLAN) is held to these architecture principles, each PINNED, and will be VALIDATED (not
+just asserted) when organs are wired:
+1. **LATE ALGEBRAIC MERGE, not a feedforward cascade** (Norris/McQueen/Cutler 2000 "Merge"): parallel forward-computed
+   streams merged late + bounded revision -- established by the wire-and-measure integration (NOT a cascade, NOT
+   recurrence). The §2 arrows are DATA DEPENDENCIES, not a strict pipeline.
+2. **TOP-DOWN prediction meets BOTTOM-UP evidence** (predictive coding; Friston): the predictive reader's expectation
+   meets the incremental stream; surprisal = prediction error. Not pure feed-forward.
+3. **ONE shared graded currency, reused -- not re-implemented** (already enforced): the divisive-normalization softmax
+   is ONE op used by graded_competition AND salience_binder (verified byte-equal); the maintained-distribution
+   ENTROPY = predictive_reader surprisal = N400 confidence is ONE difficulty signal feeding all consumers.
+4. **SEPARATE POOLS stay separate -- never fuse** (the dissociations we measured): attachment vs role-binding (Beber);
+   associative vs conceptual meaning (route/fuse-for-rating, do NOT fuse for identity); bind-by-salience vs
+   predict-by-content (entity tracking). Fusing any of these is a fidelity regression, gated against.
+5. **Discrete organs are the noise->0 argmax COLLAPSE of the graded competition** -- the discrete front-end is the
+   task-triggered readout of one graded distribution, not a separate mechanism.
+**Owner discipline in force: if the composed measurement surprises us, run brain-foundationality drills at finer
+resolution before tuning.** The wiring's brain-foundationality is a GATE on the composition step, logged here.
