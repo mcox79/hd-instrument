@@ -1,8 +1,31 @@
 ---
-priority: 1
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Bar MET; re-verified FIRST-HAND (test_noncanonical_role_assigner.py 6/6 PASS). A HYBRID graded cue-competition assigner (MacWhinney/Bates Competition Model over the landed graded_competition organ; learned cue validities) beats the composed front-end on the non-canonical slice CI-separated (0.6000 vs 0.5758, +0.0242 CI[0.0146,0.0343]), NET-POSITIVE overall (+0.0113 CI[0.0064,0.0162]) with CANONICAL PRESERVED (-0.001 NOT_SEP), shuffled-validity twin LOSING (+0.3843), seed-robust. Gain attributed to graded integration (COMPETITION-DISCRETE +0.051; drop-robust-voice -0.439 = the dominant lever; drop-gap -0.020). KEY ARCHITECTURAL FINDING: a FLAT integrator is NET-NEGATIVE (canonical -0.041, relcl 0.85->0.55) -> the faithful Competition Model ROUTES (word-order stays high-validity, overridden only on marked cues), it does NOT replace the cascade. Deep drills (past the brief, all controlled): the 408 bucket is 95.6% REACHABLE (mechanism gap, ~60% relativizer-less reduced object-relatives, not noise); verb-subcat SUPPLY bound CI-proven (transitivity cue monotone in corpus exposure, +0.108 on well-attested) then BROKEN with WordNet verb frames (coverage 30->99%); the incremental-parser+reanalysis architecture route is a RIGOROUS NEGATIVE, root-caused to (a) meaning-representation quality (the reanalysis trigger; oracle-trigger restores canonical -> operation right, signal weak = 12-dim grounded ceiling), (b) parser sophistication on long sentences (NOT a memory/buffer bound), (c) an unwired coref organ (~25%). Exemplary honesty: WITHDREW its own '~7 points from coref' claim when the anti-gaming twin showed real coref BELOW a random-antecedent twin. HONEST modest magnitude (slice 0.576->0.600, overall 0.739->0.751). NO hdlab landed; the v2 HYBRID graded_role_assigner (default-off, routed) is EARNED proven-ready."
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (integrated 2026-08-27 by the strategy session)
+> **Re-verified FIRST-HAND, scaffold-free:** strategy ran `verification/test_noncanonical_role_assigner.py` -> 6/6 PASS
+> (held-out test n=4078, split by sentence). Confirmed: HYBRID 0.6000 beats the front-end 0.5758 on the non-canonical
+> slice (+0.0242 CI-sep, paired lo 0.0146), shuffled-validity twin loses (0.2157, +0.3843), canonical preserved
+> (-0.001 NOT_SEP), net-positive overall (+0.0113 CI-sep), robust voice recall 0.73->0.76, `passive_weak` learned NEGATIVE
+> (-2.99). **Bar MET.** **Adversarial audit passed and the submission is a model of rigor:** (1) the brain-faithful
+> mechanism is the routed Competition Model (graded learned cue integration over the landed `graded_competition`, where
+> morphology/voice override word order ONLY on marked cues) -- the FLAT-integrator net-negative control proves routing is
+> the fidelity lever, not "replace the cascade"; (2) attribution is clean (graded integration +0.051 over the discrete
+> rule; robust voice is the dominant lever); (3) the deep drills localise the true residual with rigorous negatives -- the
+> reduced-relative ceiling is a verb-subcat SUPPLY bound (CI-proven, monotone in exposure) BROKEN with WordNet frames, and
+> the remaining wall is ARCHITECTURE (incremental predictive parsing + reanalysis) whose bottleneck is meaning-rep quality
+> (the reanalysis trigger), parser sophistication, and an unwired coref organ; (4) the incremental-reanalysis route was
+> tested and is a rigorous root-caused NEGATIVE (net-negative, not shipped); (5) **the solver WITHDREW its own '~7 points
+> from coref' overclaim when the anti-gaming twin caught it (real coref below a random-antecedent twin)** -- the discipline
+> working exactly as intended. **Honest modest magnitude** (not inflated). **hdlab:** NO file landed (Q111); the DEPLOYABLE
+> v2 HYBRID `graded_role_assigner` (robust graded voice + relativizer-less gap + cue-support builder + graded competition
+> over `graded_competition.net_activation`/`map_pick` with offline-fit validities; wired as a HYBRID route inside
+> `resolve_patient`, default-OFF, canonical byte-identical on confident routes) is EARNED proven-ready. Do NOT: flat-replace
+> the cascade; wire the incremental-reanalysis route or blind pronoun resolution (both net-negative); trust the weak
+> participle cue; claim coref recovery without a cross-sentence gold. AUDIT UPDATE folded. Completes the FRONT-END fix (p1);
+> the true residual routes to meaning-supply + coref + the incremental structure-builder (existing lines).
 
 # PROBLEM: the composed front-end reads who-did-what well on canonical sentences but COLLAPSES on non-canonical argument structure (reduced relatives, fronting, and ~26% of passives it fails to detect) -- the reversible cases where word order misleads
 

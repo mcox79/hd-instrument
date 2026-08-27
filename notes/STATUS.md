@@ -31,7 +31,27 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- 🎯✅ **CONCEPTUAL-MEANING CHANNEL INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- the missing ATL conceptual/definitional hub is BUILT + PROVEN (two systems DOUBLE-DISSOCIATE); AND ALL 3 IN-FLIGHT ARE NOW INTEGRATED -> THE CONSOLIDATION TRIGGER IS MET, THE CONSOLIDATION PHASE IS ACTIVE**
+### 2026-08-27 (LATEST) -- ✅ **FRONT-END NON-CANONICAL FIX INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- 1st of 3 parallel solvers: a ROUTED graded cue-competition (Competition Model) beats the front-end on non-canonical structure; the residual is UPSTREAM (meaning-supply + coref + incremental parser), NOT a cue defect**
+`the_front_end_mishandles_non_canonical_argument_structure` (parallel solver p1). Re-verified scaffold-free FIRST-HAND
+(`test_noncanonical_role_assigner.py` 6/6 PASS, held-out n=4078). A HYBRID graded cue-competition assigner (MacWhinney/Bates
+Competition Model over the landed `graded_competition`; learned validities) beats the composed front-end on the
+non-canonical slice **0.6000 vs 0.5758 (+0.0242 CI-sep)**, net-positive overall (+0.0113 CI-sep), CANONICAL PRESERVED,
+shuffled-validity twin LOSING, seed-robust. **KEY: a FLAT integrator is NET-NEGATIVE -> the faithful Competition Model
+ROUTES (word-order stays high-validity, overridden only on marked cues), does NOT replace the cascade.** Deep drills
+(rigorous, controlled): the 408 bucket is 95.6% REACHABLE (mechanism gap, mostly relativizer-less reduced relatives);
+verb-subcat SUPPLY bound CI-proven then BROKEN with WordNet frames (30->99%); the incremental-parser+reanalysis ARCHITECTURE
+route is a rigorous root-caused NEGATIVE (bottleneck = meaning-rep quality of the reanalysis trigger + parser sophistication
++ unwired coref). The solver WITHDREW its own '~7pt coref' overclaim (anti-gaming twin). Honest MODEST magnitude
+(slice 0.576->0.600, overall 0.739->0.751). AUDIT UPDATE folded (§2b; front-end "converged" scoped to canonical only).
+🔌 **NO hdlab landed; EARNED proven-ready:** a `graded_role_assigner` HYBRID route inside `resolve_patient` (robust graded
+voice + relativizer-less gap + graded competition + offline validities; confident routes byte-identical; default-off).
+Review EXCELLENT + SOLVER REVIEW; priority cleared. 📦 **NO successor packaged** (the residual routes to EXISTING lines:
+meaning-supply, coref, incremental-parser).
+🎯 **CONSOLIDATION: p1 integrated -> the improved front-end plugs into the full-reader harness
+(`exp_composed_reader_litbank_full_v1.py` SEAM). NEXT: land the `graded_role_assigner` (focused build) + run the FULL
+whole-reader measurement with the improved front-end. p2 (entity store) + p3 (meaning op-routing) submitted, AWAIT owner_verdict.**
+
+### 2026-08-27 -- 🎯✅ **CONCEPTUAL-MEANING CHANNEL INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- the missing ATL conceptual/definitional hub is BUILT + PROVEN (two systems DOUBLE-DISSOCIATE); AND ALL 3 IN-FLIGHT ARE NOW INTEGRATED -> THE CONSOLIDATION TRIGGER IS MET, THE CONSOLIDATION PHASE IS ACTIVE**
 `the_reader_has_no_conceptual_meaning_channel` (p3, the LAST in-flight). Re-verified scaffold-free FIRST-HAND
 (`test_conceptual_meaning_channel.py` PASS -- ran it myself). **Bar MET:** the missing ATL amodal CONCEPTUAL/definitional
 hub is BUILT as a glass-box static asset (WordNet gloss+genus, distinctive-feature IDF, cosine; NO learning/LLM) and beats

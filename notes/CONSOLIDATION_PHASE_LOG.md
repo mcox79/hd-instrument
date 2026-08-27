@@ -322,3 +322,17 @@ a follow-on cover this; here it is a legitimate demonstration of the channel's p
 each with its info-free twin LOSING. The FULL end-to-end (all three composed on ONE cross-sentence gold + p1's improved
 front-end) is the remaining decisive test, ready to fire when p1 lands (harness STEP 13; seam + meaning channel wired).
 - Commit: see git log (strategy: meaning axis earns its keep in comprehension -- step 14).
+
+### 2026-08-27 -- STEP 15: INTEGRATED p1 (front-end non-canonical fix, owner-DONE, EXCELLENT) ✅
+Re-verified FIRST-HAND (`test_noncanonical_role_assigner.py` 6/6 PASS, held-out n=4078). A HYBRID graded cue-competition
+assigner (Competition Model over the landed `graded_competition`) beats the front-end on the non-canonical slice
+**0.6000 vs 0.5758 (+0.0242 CI-sep)**, net-positive overall (+0.0113 CI-sep), canonical preserved, twin losing, seed-robust.
+FLAT-integrator net-negative -> the faithful method ROUTES (word-order dominant, override only on marked cues). Deep drills:
+verb-subcat SUPPLY bound broken with WordNet frames; the residual is ARCHITECTURE (incremental parsing + reanalysis)
+bottlenecked by meaning-rep quality + coref + parser -> routes to EXISTING lines, not more cues. Solver withdrew its own
+7pt coref overclaim (anti-gaming twin). review EXCELLENT + SOLVER REVIEW; priority cleared; AUDIT UPDATE folded (§2b);
+STATUS updated. **NO hdlab landed; EARNED proven-ready: `graded_role_assigner` HYBRID route (default-off).**
+**NEXT: (a) land `graded_role_assigner` as a focused build; (b) swap it into the full-reader harness SEAM
+(`exp_composed_reader_litbank_full_v1.py`) + run the FULL whole-reader measurement with the improved front-end -- the
+consolidation payoff.** p2 (entity store) + p3 (meaning op-routing) submitted, await owner_verdict: DONE.
+- Commit: see git log (strategy: integrate p1 front-end non-canonical fix -- step 15).

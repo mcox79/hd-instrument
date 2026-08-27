@@ -65,6 +65,42 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-27 — NON-CANONICAL role assignment: a routed graded CUE-COMPETITION (Competition Model) beats the front-end
+  on non-canonical structure CI-separated; the reduced-relative residual is a verb-subcat SUPPLY bound (broken with
+  WordNet) + an ARCHITECTURE gap (incremental parsing + reanalysis), NOT a cue-mechanism defect** (from
+  `the_front_end_mishandles_non_canonical_argument_structure`, integrated SOLVED/EXCELLENT, owner-DONE; witness
+  `test_noncanonical_role_assigner.py` 6/6 PASS, re-verified first-hand). **Scopes the prior front-end "CONVERGED for
+  natural-corpus role labeling (gains need DATA not mechanisms)" to CANONICAL/aggregate only** — the NON-canonical slice
+  has a real MECHANISM gain. A HYBRID graded cue-competition assigner (MacWhinney/Bates Competition Model: additive
+  learned-validity cue integration over the landed `graded_competition` `net_activation`/`map_pick`, morphology/voice
+  overriding word order) beats the composed front-end on the pre-verbal/non-canonical slice **0.6000 vs 0.5758 (+0.0242
+  CI-sep)**, net-positive overall (+0.0113 CI-sep), canonical PRESERVED, shuffled-validity twin losing, seed-robust.
+  **KEY ARCHITECTURE FINDING: a FLAT integrator is NET-NEGATIVE (canonical −0.041, relcl 0.85→0.55) → the faithful
+  Competition Model ROUTES (word-order validity stays high, overridden ONLY on marked cues) — it does NOT replace the
+  cascade.** Learned validities are brain-consistent (order 1.67, passive_strong 3.23, **passive_weak −2.99** — the
+  `-ed` past/participle garden-path correctly distrusted; animacy +0.47, small-but-positive where order is uninformative,
+  refining not contradicting "word order dominates"). **The reduced-relative headroom (the 408 bucket, 95.6% REACHABLE →
+  a mechanism gap not annotation noise; ~60% relativizer-LESS reduced object-relatives) is a verb-SUBCATEGORIZATION
+  SUPPLY bound** — CI-proven (the Trueswell/MacDonald transitivity cue helps monotone in corpus exposure, +0.108
+  CI[0.061,0.162] on well-attested verbs, ~0 on unseen) — **now BROKEN with WordNet verb FRAMES (coverage 30%→99%, a
+  static asset).** Supplying it EXPOSED the true binding residual: **CLAUSE STRUCTURE — an ARCHITECTURE gap (incremental
+  predictive parsing + reanalysis), tested as a rigorous root-caused NEGATIVE**: the incremental-parser+reanalysis route
+  lifts the slice but CRASHES canonical (net-negative), root-caused to (a) the reanalysis TRIGGER being
+  meaning-representation-limited (oracle-trigger restores canonical → the OPERATION is right, the SIGNAL is weak = the
+  12-dim grounded-space ceiling, the standing p1 coupling), (b) parser sophistication on long sentences (NOT a
+  Now-or-Never/buffer bound — buffer sweep identical), (c) an unwired COREFERENCE organ (~25% of the bucket). **The
+  solver WITHDREW its own "~7 points from coref" overclaim when the anti-gaming twin caught it** (real Centering-recency
+  coref scored BELOW a random-antecedent twin; the landed coref organ needs multi-sentence discourse it lacks on isolated
+  sentences — do NOT wire blind pronoun resolution here, it net-hurts). **Also: ~1% of "errors" are a metric-fairness
+  ruler misfire (right head, wrong span index) — a same-referent-lenient role-span scorer fixes it free.** **Effect on
+  the audit:** role assignment's non-canonical residual is UPSTREAM-bound (meaning-representation SUPPLY for the
+  reanalysis trigger + the coref organ + the incremental structure-builder), with verb-subcat now SUPPLIED (WordNet
+  frames); drop "converged" for the non-canonical slice; keep it for canonical order-dominant items. 🔌 **NO hdlab landed;
+  EARNED proven-ready:** a `graded_role_assigner` (robust graded voice + relativizer-less gap + cue-support builder +
+  graded competition + offline validities) wired as a HYBRID route inside `resolve_patient` (confident routes
+  byte-identical; competition only on the non-canonical fall-through), default-off. **This closes the FRONT-END fix (p1);
+  the residual routes to the existing meaning-supply / coref / incremental-parser lines.**
+
 - **2026-08-27 — THE MISSING ATL CONCEPTUAL/DEFINITIONAL MEANING HUB IS BUILT + PROVEN as a second meaning system; the two
   systems DOUBLE-DISSOCIATE; and the deepest finding is that MEANING-SIMILARITY IS OPERATION-SPECIFIC PER WORD CLASS (one
   cosine is the wrong operator for adjectives + verbs)** (from `the_reader_has_no_conceptual_meaning_channel`, integrated
