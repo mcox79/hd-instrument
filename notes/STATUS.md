@@ -31,7 +31,29 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- ✅ **ENTITY TRACKING COMPOSED END-TO-END INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- the ENTITY LINE IS CLOSED: correct pronoun linking buys cross-sentence ATTRIBUTION, NOT prediction (a clean dissociation); graded activation-weighted binding is the brain-correct win; 1 of 3 consolidation-gating problems now integrated**
+### 2026-08-27 (LATEST) -- ✅ **DISCRETE→GRADED INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- RESOLVES the substrate-wide "discrete where the brain is graded" deviation: the discrete parser/role organs are the noise→0 argmax COLLAPSE of a graded Bayesian competition, and the distribution's ENTROPY is a shared difficulty currency that beats the shipped binary conflict. 2 of 3 consolidation-gating problems now integrated**
+`discrete_where_the_brain_is_graded_in_parsing_and_role_assignment` (p1 of 3 in-flight). Re-verified scaffold-free
+FIRST-HAND (`verify_graded_competition_parsing_role.py` ALL CHECKS PASS, live on the real QA-SRL front-end -- suspected my
+own checker, ran it). **Bar MET via the AND/OR difficulty-signal clause.** A single graded cue-based competition
+(additive-log cue activation → softmax MAINTAINED DISTRIBUTION over candidate role-fillers) IS the pinned Bayesian/FLMP
+posterior for discrete cue integration (McClelland 2013 -- a COPIED operation), and the discrete organs are its noise→0
+argmax COLLAPSE (graded argmax == the discrete resolver on EVERY item, 0.0[0.0,0.0]). The maintained-distribution ENTROPY
+is a valid GOLD-FREE difficulty signal: predicts discrete error +0.384 CI-sep, higher on literature-hard object-extraction
++0.42, info-free twins LOSE (random-settling +0.000, shuffled-validity +0.073), and **it BEATS the substrate's shipped
+BINARY route-conflict on REAL QA-SRL (AUC 0.646 vs 0.512, +0.133 CI-sep).** **The ACCURACY clause is a principled
+MAP-optimality THEOREM** (graded cannot beat its own argmax on gold accuracy → the value is the DISTRIBUTION/uncertainty,
+not the point estimate), NOT a shortfall -- recorded so the audit stops implying a graded accuracy win is available on
+English. New deviations logged (dynamics settling-vs-racing UNPINNED; argmax = task-triggered collapse, expose the
+distribution); cross-linguistic framing corrected (accuracy-win = German ~50% case, not "freer word order"). AUDIT UPDATE
+folded (§1 deviation RESOLVED + §2b + cross-linguistic). 🔌 **NO hdlab landed; QUEUED proven-ready for the consolidation**
+(a shared `graded_competition` organ + entropy-as-shared-difficulty-currency feeding N400/write-gating/predictive-reader
+surprisal; attachment + role binding kept SEPARATE). Review EXCELLENT + SOLVER REVIEW; priority cleared. 📦 **NO successor
+packaged (consolidation policy).**
+🎯 **CONSOLIDATION TRIGGER STATUS: 2 of 3 in-flight integrated** (this + entity-tracking). The LAST one,
+`the_reader_has_no_conceptual_meaning_channel` (p3), is owner-DONE and integrates NEXT round -- when it lands, the
+CONSOLIDATION PHASE fires (`notes/CONSOLIDATION_PHASE_PLAN.md`).
+
+### 2026-08-27 -- ✅ **ENTITY TRACKING COMPOSED END-TO-END INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- the ENTITY LINE IS CLOSED: correct pronoun linking buys cross-sentence ATTRIBUTION, NOT prediction (a clean dissociation); graded activation-weighted binding is the brain-correct win; 1 of 3 consolidation-gating problems now integrated**
 `wire_entity_tracking_end_to_end_on_running_narrative` (p2 of the 3 in-flight) -- a clean WIN + a real dissociation.
 Re-verified scaffold-free FIRST-HAND (`test_entity_tracking_end_to_end.py` 7/7 PASS, 183s, on the REAL
 `hdlab.situation_model_accumulate` register -- suspected my own checker, ran it). Composing the ACT-R salience binder +

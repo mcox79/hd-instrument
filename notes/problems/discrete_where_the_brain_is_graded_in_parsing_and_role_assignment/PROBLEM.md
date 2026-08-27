@@ -1,8 +1,33 @@
 ---
-priority: 1
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Bar MET via the AND/OR DIFFICULTY-SIGNAL clause; re-verified FIRST-HAND (scaffold-free witness ALL CHECKS PASS). The discrete parser/role-assigner is MEASURED to be the noise->0 argmax COLLAPSE of a graded Bayesian cue-competition (additive-log->softmax = the pinned Bayesian/FLMP posterior, McClelland 2013; graded argmax == discrete resolver EXACTLY, 0.0[0.0,0.0]). The maintained-distribution ENTROPY is a valid GOLD-FREE difficulty signal: predicts discrete error +0.384 CI-sep, higher on literature-hard object-extraction +0.42, info-free twins LOSE (random-settling +0.000, shuffled-validity +0.073 ~18%), and it BEATS the substrate's shipped BINARY route-conflict on REAL QA-SRL (AUC 0.646 vs 0.512, +0.133 CI-sep; first-hand smoke +0.159). The ACCURACY clause is a principled MAP-optimality THEOREM (graded cannot beat its own argmax on gold accuracy -> the value is the DISTRIBUTION/uncertainty, not the point estimate), NOT a shortfall. RESOLVES the substrate-wide discrete->graded deviation. NO hdlab landed; a graded_competition organ + entropy-as-shared-difficulty-currency QUEUED proven-ready for the consolidation."
 ---
+
+> ## SOLVER REVIEW -- EXCELLENT (integrated 2026-08-27 by the strategy session)
+> **Re-verified FIRST-HAND, scaffold-free:** strategy ran `verification/verify_graded_competition_parsing_role.py` -> ALL
+> CHECKS PASS (bounded smoke config, live on the real QA-SRL front-end; not trusting the headline). Confirmed live:
+> entropy(error-correct) +0.384 CI-sep, hard-easy +0.413, random-settling twin +0.000 (loses), shuffled-validity twin
+> +0.073 (weaker), graded entropy BEATS the binary route-conflict on REAL QA-SRL (AUC 0.672 vs 0.514), graded TIES the
+> discrete resolver on accuracy with NO canonical leak, attachment margin non-degenerate (1.010). The one non-PASS line
+> (`entropy_beats_binary_conflict_synth`) is the EXPECTED, un-gated diagnostic (templated conflict is near-perfect by
+> construction) -- reported by the solver, not a gated claim. **Bar MET** via the brief's explicit AND/OR difficulty-signal
+> clause. **Adversarial audit passed:** (1) the additive-log->softmax combination IS the pinned Bayesian/FLMP posterior for
+> discrete cue integration (McClelland 2013) -- COPIED operation, not a convenient stand-in; (2) the ACCURACY tie is a real
+> MAP-optimality THEOREM (graded argmax == the discrete resolver on every item, empirically 0.0[0.0,0.0]; argmax is the
+> accuracy-optimal point estimate) -> honestly a principled negative on the accuracy sub-goal, NOT spun as a win; (3) the
+> genuine "graded > discrete" bite is a DIFFICULTY-signal win (beats the shipped binary conflict on REAL text), correctly
+> scoped -- no accuracy claim; (4) honest deflations held (point-entropy is for ERROR-flagging not RT; one difficulty
+> measure uses the discrete rule's own error as a gold-free proxy, corroborated by the INDEPENDENT Gordon/Gibson
+> hard-construction measure; population largely synthetic + real-QA-SRL generalization; "Beber 2025" flagged as a contested
+> citation, conclusion rests on the verified Matchin-Hickok/Friederici/eADM). **RESOLVES the substrate-wide DISCRETE->GRADED
+> deviation** (a §1 audit headline): the discrete organs are the task-triggered argmax collapse of one graded Bayesian
+> competition; the maintained-distribution entropy is a shared gold-free difficulty currency (the continuous generalization
+> of the relcl binary route-conflict, same currency as the predictive reader's surprisal + N400). **hdlab:** NO file landed
+> (Q111); a shared `graded_competition` organ (additive-cue->softmax, entropy/margin/cycles readouts; argmax reproduces the
+> discrete resolver exactly) + wiring the entropy as the shared difficulty signal (feeding N400/write-gating/route-conflict/
+> predictive-reader surprisal) is QUEUED proven-ready for the consolidation, with attachment and role binding kept as
+> SEPARATE pools. AUDIT UPDATE folded (§1 deviation resolved + §2b + cross-linguistic correction). p1 of 3 in-flight.
 
 # PROBLEM: our parser and role assigner make HARD, DISCRETE decisions (commit to one attachment / one role) where the brain runs GRADED probabilistic competition -- a substrate-wide deviation that only bites on ambiguous / non-canonical input
 

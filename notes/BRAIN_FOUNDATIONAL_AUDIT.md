@@ -65,6 +65,50 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-27 — THE SUBSTRATE-WIDE "DISCRETE WHERE THE BRAIN IS GRADED" DEVIATION IS RESOLVED: the discrete parser/
+  role-assigner is MEASURED to be the noise→0 argmax COLLAPSE of a graded Bayesian cue-competition, and the maintained
+  distribution's ENTROPY is a shared gold-free DIFFICULTY currency that beats the shipped binary route-conflict** (from
+  `discrete_where_the_brain_is_graded_in_parsing_and_role_assignment`, integrated SOLVED/EXCELLENT, owner-DONE; witness
+  `verify_graded_competition_parsing_role.py` ALL CHECKS PASS, re-verified first-hand, scaffold-free on the real QA-SRL
+  front-end). **Closes the standing §1 cross-cutting deviation** (surfaced by the incremental-parser + relcl SOLVEDs).
+  **The MECHANISM is PINNED, not our invention:** a single graded cue-based competition — additive-log cue activation →
+  softmax MAINTAINED DISTRIBUTION over candidate role-fillers — **IS the Bayesian/FLMP posterior for discrete cue
+  integration** (McClelland 2013: softmax units exactly compute Bayesian posteriors with `net = log P(h)+Σlog P(e|h)`;
+  Massaro-Friedman FLMP; the COPIED operation), and the discrete organs are its **noise→0 argmax collapse** (graded argmax
+  == the discrete fixed-priority resolver on EVERY item, 0.0[0.0,0.0]). **THE WIN (difficulty-signal clause of the bar,
+  MET):** the maintained-distribution normalized ENTROPY is a valid gold-free difficulty signal — predicts where the
+  discrete rule ERRS +0.384 [+0.377,+0.391] CI-sep (n=7200), is CI-sep higher on the literature-hard object-extraction
+  constructions +0.420 (Gordon/Gibson, a measure NOT derived from our cues), the settling-view cycles-to-settle
+  corroborates (+0.845, McRae normalized recurrence), and **it BEATS the substrate's shipped BINARY route-conflict on REAL
+  QA-SRL (AUC 0.646 vs 0.512 near-chance, +0.133 [+0.123,+0.144] CI-sep)** — the continuous graded competition, not merely
+  detecting conflict, is the value. Info-free twins LOSE: random-settling −0.004 (null p95 +0.001), shuffled-cue-validity
+  +0.071 (~18% of real). **THE ACCURACY CLAUSE IS A THEOREM, NOT A SHORTFALL — record this so the audit STOPS implying a
+  graded ACCURACY win is available:** by MAP-optimality (Bishop §1.5) the argmax of the posterior is the accuracy-optimal
+  point estimate, so graded competition provably CANNOT beat its own argmax on gold accuracy; graded's unique value is the
+  DISTRIBUTION (uncertainty/difficulty/underspecification), never the point estimate. **CROSS-LINGUISTIC CORRECTION** (apply
+  wherever the audit repeats "freer-word-order → graded wins"): per MacWhinney/Bates/Kliegl 1984 the accuracy-win
+  population is "NO single cue near-ceiling reliable" (GERMAN-style ~50%-ambiguous case), NOT "freer word order" (Italian is
+  free-order but single-cue/agreement-dominated); English word-order dominance (93%; ~50% of variance) is a
+  correctly-inherited INPUT fact, not a model deficiency. **NEW deviations recorded:** (i) the competition DYNAMICS
+  (settling/normalized-recurrence vs racing/LCA/ACT-R) is NEURALLY UNRESOLVED for sentence processing — mark UNPINNED; we
+  straddle it (entropy = distributional/race view + cycles = settling view, they AGREE); LCA is the successor if a
+  commitment is needed. (ii) argmax is a TASK-TRIGGERED COLLAPSE, not the default output (Swets 2008) — the brain-faithful
+  default is a MAINTAINED DISTRIBUTION (underspecification), collapse-to-one a later task-driven step (a buildable
+  refinement: expose the distribution). **ONE SHARED GRADED DIFFICULTY CURRENCY (cross-organ):** the maintained-distribution
+  entropy is the CONTINUOUS generalization of the relcl BINARY route-conflict (which it beats) and the same currency as the
+  predictive reader's surprisal (Levy) and the N400 — record a single shared graded difficulty signal feeding
+  N400/write-gating/route-conflict, with attachment and role binding as SEPARATE POOLS (Matchin-Hickok/Friederici/eADM;
+  same additive+softmax FORM, distinct cue weights — do NOT fuse). **Honest bounds:** point-entropy is validated for
+  DECISION-ERROR flagging, not reading TIME (surprisal/entropy-reduction are the RT currencies, untested here); one
+  difficulty measure uses the discrete rule's own error as a gold-free proxy (corroborated by the independent
+  hard-construction measure); population largely synthetic + real-QA-SRL generalization; the ACCURACY-win population
+  (German ~50% case) is named but UNTESTED; "Beber 2025" is a contested citation (conclusion rests on verified
+  Matchin-Hickok/Friederici/eADM). 🔌 **NO hdlab landed; QUEUED proven-ready for the consolidation:** a shared
+  `hdlab/graded_competition.py` (additive-cue→softmax, entropy/margin/cycles; argmax == the discrete resolver, drop-in) +
+  wire the entropy as the shared difficulty currency; make the softmax gain a PRECISION term (Friston; reuse the
+  predictive-reader precision-weighting); expose the DISTRIBUTION downstream (collapse under task pressure). p1 of the 3
+  in-flight consolidation-gating problems, now integrated.
+
 - **2026-08-27 — ENTITY TRACKING COMPOSED END-TO-END ON RUNNING NARRATIVE: correct pronoun linking buys cross-sentence
   ATTRIBUTION, NOT anticipatory PREDICTION — a clean, brain-real DISSOCIATION** (from
   `wire_entity_tracking_end_to_end_on_running_narrative`, integrated SOLVED/EXCELLENT, owner-DONE; witness

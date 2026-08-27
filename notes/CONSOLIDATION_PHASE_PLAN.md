@@ -4,8 +4,10 @@
 **Trigger:** the three in-flight problems integrate (`discrete_where_the_brain_is_graded_in_parsing_and_role_assignment` p1,
 `wire_entity_tracking_end_to_end_on_running_narrative` p2, `the_reader_has_no_conceptual_meaning_channel` p3). Greenlit by
 the owner ("we need the consolidation phase for sure"); WHEN + policy recorded in `STATUS.md` (2026-08-27 LATEST POSITION).
-**PROGRESS: p2 (entity-end-to-end) INTEGRATED 2026-08-27 (EXCELLENT) -> its entity-line landing spec is now FINAL (rows
-E/F below). Awaiting p1 + p3 owner_verdict: DONE (both SUBMITTED, not yet owner-finalized).**
+**PROGRESS (2026-08-27): p2 (entity-end-to-end) + p1 (discrete-graded) INTEGRATED (both EXCELLENT) -> their landing specs
+are FINAL (rows E/F/E2 for the entity line; row I for the graded-competition/difficulty currency). Awaiting p3
+(`the_reader_has_no_conceptual_meaning_channel`, owner-DONE, integrating next) -> when it lands, ALL 3 in-flight are in and
+the CONSOLIDATION FIRES.**
 
 > **WHY THIS DOC EXISTS:** a multi-organ consolidation improvised across 30-min heartbeats is how landings get mis-ordered
 > or double-done, and how a queued fix gets forgotten. This is the ordered plan to execute against when the trigger fires --
@@ -37,8 +39,9 @@ in-flight problem that refines it has integrated, so we land FINAL form once (no
 |---|---|---|---|---|
 | A | forward-prediction organ (`the_reader_is_feed_forward...`) | `hdlab/predictive_reader.py` | -- | ✅ **LANDED** `predictive_reader_v1` |
 | B | semantic-control gate (`context_override...`) | `hdlab/semantic_control.py` | -- | ✅ **LANDED** `semantic_control_v1` |
-| C | incremental left-corner builder (`the_argument_parser_is_batch...`) | new organ, candidate source; role assigner unchanged; prediction ON / revision OFF; route to relcl | **p1 discrete-graded** | QUEUED |
-| D | front-end role-assignment fix (`the_live_front_end_mislabels...`) | `situation_reader`/`thematic_role_labeler`: quote-exclusion in mention-pick + speech-verb graded cue + perceptron over selected core mentions; **NO thematic-fit** | **p1 discrete-graded** | QUEUED |
+| C | incremental left-corner builder (`the_argument_parser_is_batch...`) | new organ, candidate source; role assigner unchanged; prediction ON / revision OFF; route to relcl | **p1 ✅ INTEGRATED 08-27** | QUEUED |
+| D | front-end role-assignment fix (`the_live_front_end_mislabels...`) | `situation_reader`/`thematic_role_labeler`: quote-exclusion in mention-pick + speech-verb graded cue + perceptron over selected core mentions; **NO thematic-fit** | **p1 ✅ INTEGRATED 08-27** | QUEUED |
+| I | **graded-competition organ + shared difficulty currency** (`discrete_where_the_brain_is_graded...`) | new `hdlab/graded_competition.py` = additive-cue→softmax maintained distribution (entropy/margin/cycles); **argmax reproduces the discrete resolver exactly (drop-in)**; wire the ENTROPY as the shared gold-free DIFFICULTY currency (replaces/augments the binary route-conflict it beats +0.133 AUC; feeds N400/write-gating/predictive-reader surprisal); softmax gain = a PRECISION term (reuse predictive-reader); expose the DISTRIBUTION (collapse under task pressure); **attachment + role binding stay SEPARATE pools — do NOT fuse**. Expect a FIDELITY+UNCERTAINTY win, NOT a gold-accuracy jump (MAP theorem) | **p1 ✅ INTEGRATED 08-27 (spec final)** | QUEUED |
 | E | ACT-R salience binder + **GRADED write** (`entity_binding...` + `wire_entity_tracking...`) | drop-in ACT-R base-level activation for the pronoun-branch `salience()`; **write the pronoun's event into the register by softmax(activation/temp), temp swept ~2.0 -- NOT hard argmax (divisive-normalization interior optimum, +0.0268 CI-sep; uniform hedging HURTS)**; no settling for the pick | **p2 ✅ INTEGRATED 08-27 (spec final)** | QUEUED |
 | F | entity-augment of the situation model (`the_situation_model_tracks_words_not_entities`) | augment the forward predictor's top-down context w/ the active entity's role-conditioned state; **AUGMENT not replace**; bind by salience not content. **NB (p2 measured): wire the composed entity readout for RETRIEVAL ("what did X do"), NOT as a predictive prior on running narrative (entity-augment of the next-object predictor HURTS -0.219, even under oracle linking)** | **p2 ✅ INTEGRATED 08-27 (spec final)** | QUEUED |
 | E2 | **sparse per-entity trace store** (`wire_entity_tracking...`, fan effect MEASURED 0.695->0.608) | DG-style k-WTA (~1-5%) conjunctive encode at each event + CA3 attractor completion -- **NOT a pointer** (a pointer fixes cross-entity lookup, not within-register superposition crosstalk); keep the bundle as a gist. Shared lever with the dense->sparse consolidation deviation | **p2 (store-design/consolidation target)** | BUILD PROPOSAL (not a landed fix) |
