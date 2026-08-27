@@ -45,7 +45,13 @@ a signed-rho bug; honest negatives (VerbNet does not beat the gloss). AUDIT UPDA
 EARNED proven-ready:** `scalar_adjective_operation` + operation-routing-by-word-class + FPE-log upgrade of quality_relation
 Ch.B. Review EXCELLENT + SOLVER REVIEW; priority cleared. 📦 **NO successor packaged.**
 🎯 **CONSOLIDATION: 2 of 3 parallel solvers integrated (p1 front-end + p3 meaning). p2 (entity store) submitted, AWAITS
-owner_verdict. QUEUED hdlab landings: graded_role_assigner (p1, weights fitted -- resume) + scalar_adjective_operation (p3).**
+owner_verdict — integrate when owner-DONE.** 🔌 **`graded_role_assigner` (p1) is LANDED (commit 540cdb8c1, witness PASS,
+default-off ISLAND).** **RESUME-HERE (read `notes/CONSOLIDATION_PHASE_LOG.md` steps 0-16 for the full durable ledger):
+PENDING = (1) land the p3 `scalar_adjective_operation` organ (per-dim bipolar axes + Lancaster grounding + markedness +
+FPE-log — a LARGE multi-part build → PACKAGE AS A PROBLEM per owner 08-27, don't grind it solo); (2) wire the landed
+front-end/meaning organs into resolve_patient / the meaning read-out (flagged, live-measured — the composition step); (3)
+the full whole-reader end-to-end measurement (harness `exp_composed_reader_litbank_full_v1.py` ready). All 3 organ axes
+individually validated in comprehension (front-end 0.74 vs 0.52; entity 0.18 vs 0.06; meaning paraphrase 0.75 vs 0.01).**
 
 ### 2026-08-27 -- ✅ **FRONT-END NON-CANONICAL FIX INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- 1st of 3 parallel solvers: a ROUTED graded cue-competition (Competition Model) beats the front-end on non-canonical structure; the residual is UPSTREAM (meaning-supply + coref + incremental parser), NOT a cue defect**
 `the_front_end_mishandles_non_canonical_argument_structure` (parallel solver p1). Re-verified scaffold-free FIRST-HAND
