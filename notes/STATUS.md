@@ -60,8 +60,12 @@ COHERENCE: the salience binder's graded write REUSES the graded-competition soft
 byte-equal); the relcl discrete rule is the noise→0 limit of the same cue-based retrieval. **WIRING brain-foundationality
 is a GATE on the composition step** (late-algebraic-MERGE-not-cascade; top-down-meets-bottom-up; one shared graded
 currency; separate-pools-never-fuse; discrete=argmax-collapse) — logged in `CONSOLIDATION_PHASE_LOG.md`. **REMAINING rows
-(D front-end role-fix, F entity-augment) are WIRING-into-existing-organs done AT the composition step. NEXT: build the
-ROLE-BALANCED comprehension gold (the measurement instrument), then wire the composition, then measure OFF-vs-ON.** *Owner discipline for this phase: do the RIGHT things not the easy ones; if things aren't working as
+(D front-end role-fix, F entity-augment) are WIRING-into-existing-organs done AT the composition step. ✅ THE ROLE-BALANCED
+COMPREHENSION GOLD IS BUILT + VERIFIED** (`exp_role_balanced_comprehension_gold_v1.py`; 9446 modern QA-SRL items,
+positional-only floor 0.500 vs the McGuffey 0.78 saturation, can-fail PASS; 534 object-relative reversibles as the hard
+slice; gold rebuildable-deterministic). **NEXT: wire the newly-landed FRONT-END organs into the composed reader (build on
+`exp_wire_organs_endtoend_v1.py`) and measure OFF-vs-ON on this gold -- the 0.5 floor is the bar to clear CI-separated,
+info-free twins losing. This 2nd half is the STRATEGY session's work (hdlab wiring; no solver round).** *Owner discipline for this phase: do the RIGHT things not the easy ones; if things aren't working as
 expected, LIBERALLY run brain-foundationality research drills, finer resolution if needed.*
 
 ### 2026-08-27 -- ✅ **DISCRETE→GRADED INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- RESOLVES the substrate-wide "discrete where the brain is graded" deviation: the discrete parser/role organs are the noise→0 argmax COLLAPSE of a graded Bayesian competition, and the distribution's ENTROPY is a shared difficulty currency that beats the shipped binary conflict. 2 of 3 consolidation-gating problems now integrated**

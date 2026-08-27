@@ -33,7 +33,7 @@ if things aren't working like we expect, LIBERALLY run brain-foundationality res
 ## MEASUREMENT (step 2-4)
 | artifact | status |
 |----------|--------|
-| ROLE-BALANCED comprehension gold | 🔵 DESIGNED 2026-08-27 (QA-SRL agent/patient balanced; build-on wire-and-measure harness); builder = next round |
+| ROLE-BALANCED comprehension gold | ✅ BUILT + VERIFIED 2026-08-27 (`exp_role_balanced_comprehension_gold_v1.py`; 9446 items, positional floor 0.500, can-fail PASS; gold rebuildable-deterministic) |
 | composed-reader end-to-end harness (OFF-vs-ON) | ⬜ NOT STARTED |
 | the payoff number (composed reader vs floors, twins losing) | ⬜ NOT MEASURED |
 
@@ -173,3 +173,18 @@ two-animate 0.93 vs 0.50). Design gate recorded in PLAN section 3 (real baseline
 one variable OFF-vs-ON). **NEXT ROUND: write the role-balanced gold builder cell + verify the majority floor is ~0.5
 (can-fail: if the sampled set is still agent-saturated, the balance failed).** This is MY work (strategy owns hdlab
 wiring; no solver round -- the mechanisms are already proven), optionally using helper agents for mechanical parts.
+
+### 2026-08-27 -- STEP 7: BUILT the ROLE-BALANCED comprehension gold ✅ (the fair measuring stick)
+- **`experiments/exp_role_balanced_comprehension_gold_v1.py`** -- builds a MODERN role-balanced who-did-what test
+  from QA-SRL (labeled agent+patient spans + voice). Balances the PATIENT's POSITION relative to the verb: POST-verbal
+  (canonical active SVO -- the easy majority case) vs PRE-verbal (passive + object-relative -- the reversible
+  discriminator), sampling EQUAL counts so a POSITIONAL-ONLY reader scores ~0.5 by construction.
+- **Ran FIRST-HAND, can-fail PASS:** full build = **9446 items (4723 pre / 4723 post); positional-only floor 0.500;
+  majority-role floor 0.500** (vs the McGuffey 0.78 saturation this replaces); 5883 passives + 534 object-relative
+  reversibles. The can-fail asserts the floor is ~0.5 (if the sample were still agent-saturated the balance failed).
+- Saved `data/role_balanced_comprehension_gold_v1/{gold.jsonl, meta.json}` (gitignored -> REBUILDABLE via the
+  DETERMINISTIC cell -- fixed prefixes, no RNG). Commit tracks the reproducible builder cell.
+- **This is the MEASUREMENT INSTRUMENT.** NEXT: wire the newly-landed FRONT-END organs into the composed reader
+  (build on `exp_wire_organs_endtoend_v1.py`) and measure OFF-vs-ON on this gold -- the positional floor (0.5) is the
+  bar the composed reader must clear CI-separated, with info-free twins losing.
+- Commit: see git log (strategy: build role-balanced comprehension gold -- consolidation step 7).
