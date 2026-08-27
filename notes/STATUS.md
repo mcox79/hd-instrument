@@ -46,7 +46,11 @@ default-SAFE uncalibrated no-op; witness `test_semantic_control_organ.py` PASS; 
 in-flight conceptual-meaning solver uses it as its router. **STILL QUEUED for the consolidation (land as rounds free /
 at the trigger):** the front-end role-assignment fix (interacts w/ discrete-graded → land at the trigger), the ACT-R
 salience binder + entity-augment (interacts w/ entity-end-to-end → at the trigger), the incremental-builder organ
-(interacts w/ discrete-graded → at the trigger), the reordered-access meaning read. *Queue: p1 discrete-graded, p2
+(interacts w/ discrete-graded → at the trigger), the reordered-access meaning read. **📋 THE ORDERED EXECUTION PLAN FOR THIS PHASE IS WRITTEN:
+`notes/CONSOLIDATION_PHASE_PLAN.md` (ARMED, not started) — the dependency-ordered landing sequence (A/B landed; C–H gated
+on the matching in-flight problem), the end-to-end composition topology, and the measurement design (build a ROLE-BALANCED
+gold first; organs OFF-vs-ON; floors + info-free-twins-must-lose). Execute against it when the trigger fires; refine per
+each SOLVED at landing.** *Queue: p1 discrete-graded, p2
 entity-end-to-end, p3 conceptual-meaning channel — the 3 in-flight; NO successors packaged for them (consolidation policy).*
 
 ### 2026-08-27 -- ✅ **ENTITY-BINDING INTEGRATED (owner-DONE, EXCELLENT/SOLVED): binding (who a pronoun is) is GRAMMATICAL-PROMINENCE salience, NOT recency (which is at chance on hard cases) and NOT semantics — completes the BIND half of entity tracking**
