@@ -6,6 +6,45 @@ commit hashes and verification, so a fresh session can resume mid-phase without 
 
 **READ THIS + `notes/CONSOLIDATION_PHASE_PLAN.md` (the ordered plan) + `notes/STATUS.md` (LATEST position) to resume.**
 
+## ⏸️ RESUME STATE — SNAPSHOT AS OF 2026-08-27 (pre-compaction; the SINGLE authoritative "where we are + do this next")
+**We are MID-BUILD of the full substrate consolidation.** A fresh session: read THIS block, then the LANDING LEDGER +
+MEASUREMENT tables below, then the step log tail. Do NOT re-derive; the disk + `git log` outrank the chat summary.
+
+**DONE (all committed, HEAD ~3e70a9baa):**
+- **8 organs LANDED in `hdlab/`** (all default-off ISLANDS, each with a witness `verification/test_*_organ.py` PASS +
+  registered): `predictive_reader`, `semantic_control` (pre-phase) + `graded_competition`, `conceptual_meaning`,
+  `salience_binder`, `incremental_parser`, `relcl_resolver`, `graded_role_assigner` (this phase). BRAIN-FOUNDATIONAL
+  COHERENCE proven: salience_binder's graded write == graded_competition softmax byte-for-byte; relcl = noise→0 limit of
+  the same retrieval; graded_role_assigner routes over graded_competition.
+- **The ROLE-BALANCED fair gold BUILT + verified** (`exp_role_balanced_comprehension_gold_v1.py`; positional floor 0.500,
+  defeats the McGuffey 0.78 saturation).
+- **ALL 3 organ axes individually validated in comprehension** (each vs a real floor, info-free twin losing):
+  FRONT-END who-did-what **0.739 vs positional 0.519** (STEP 9); ENTITY cross-sentence character-tracking **0.184 vs
+  string-identity 0.058** in-pipeline with the LANDED binder (STEP 13); MEANING paraphrase recovery **0.750 vs exact-match
+  0.010** (STEP 14).
+- **2 of 3 parallel solvers INTEGRATED (owner-DONE, both EXCELLENT):** p1 `the_front_end_mishandles_non_canonical_argument_structure`
+  (its `graded_role_assigner` organ LANDED) + p3 `the_meaning_read_out_is_one_operation_where_the_brain_has_three`.
+
+**IMMEDIATE NEXT ACTIONS (in order):**
+1. **LAND the p3 `scalar_adjective_operation` organ** — per-dimension bipolar signed-magnitude axes (evaluative from
+   WordNet antonym poles; denotational from Lancaster perceptual strength), opposition from the explicit relation, DEGREE
+   from MARKEDNESS (freq/AoA), encoded FPE(log degree) in FHRR; + operation-ROUTE the meaning read-out by word class
+   (gradability gate; nouns/verbs/classificatory-adj stay on the gloss); wire dimension-selection to semantic_control;
+   upgrade `quality_relation` Ch.B linear→log. **This is a LARGE multi-part build → PACKAGE IT AS A PROBLEM (owner 08-27:
+   use problems for large projects), don't grind it solo.** Full validated design is in
+   `notes/problems/the_meaning_read_out_is_one_operation_where_the_brain_has_three/SOLVED.md` + audit §2b.
+2. **WIRE the landed organs into the LIVE reader** (the composition step, default-off flags, measure OFF-vs-ON):
+   `graded_role_assigner.hybrid_role_patient` into `resolve_patient`'s fall-through; the meaning operation-routing.
+3. **Run the FULL whole-reader end-to-end measurement** — harness `experiments/exp_composed_reader_litbank_full_v1.py`
+   READY with a pluggable front-end SEAM; swap the improved front-end in + add the meaning channel.
+4. **INTEGRATE p2 `the_entity_store_is_a_dense_bundle_that_fans`** (sparse DG+CA3 store, the fan-effect fix) — SUBMITTED
+   (SOLVED.md on disk) but AWAITS `owner_verdict: DONE`; LEAVE IT ALONE until then, then integrate (reverify first-hand).
+
+**STANDING DISCIPLINE for this phase:** integrate ONLY on `owner_verdict: DONE`; every landing default-off + witnessed +
+registered; commit NO push; do the RIGHT thing not the easy one; at a wall/surprise run the oracle-ceiling/implementation
+check + brain-foundationality drills BEFORE tuning; use problems for large builds.
+
+
 ## THE GOAL (one paragraph)
 All 3 in-flight problems integrated 2026-08-27 (the trilogy: graded parser/role; entity attribution-not-prediction;
 conceptual meaning channel) -> the consolidation TRIGGER is met. The phase: (1) LAND every proven-but-islanded fix
