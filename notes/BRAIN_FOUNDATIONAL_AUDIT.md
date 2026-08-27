@@ -19,12 +19,21 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 - **Only 5 of 38 organs compute the brain's actual equation.** For **12** neuroscience has written down the
   equation, so "build the brain's version" is even a well-posed instruction; for **14** the core operation is a
   mystery *even in neuroscience*, so we are inventing (honestly labelled) — including **our single most central
-  operation, binding**. **7 organs don't exist in code at all.**
+  operation, binding**. **7 organs began this session absent in code; several were built this session** (the N400
+  coherence monitor; the feature-similarity meaning read-out; the additive content-addressable retrieval organ — see §2b).
 - **~54% of the code is unreachable** from any live entry point — built-but-unwired islands.
-- **Two defects are bigger than any single organ:** (1) **we ask every question of the wrong memory** — the fast
-  episodic "sketchpad," never the consolidated long-term store that was written but never read back; (2) a
-  **`sign()` quantiser at the end of almost every step** throws away signal strength and keeps only direction,
-  which quietly turns the whole system into an averaging machine.
+- **🧠 THE CONVERGENCE (the load-bearing insight from this session's integrations): ONE brain operation is the answer
+  almost everywhere we looked — additive, cue-based, content-addressable RETRIEVAL (Lewis & Vasishth 2005).** It is the
+  fix for binding (E1), the consolidated-memory read (E2), coreference (E3), the fan effect (context reinstatement = one
+  more cue feature), AND — newly — reversible-sentence PARSING (filler-gap role binding = "retrieve the filler from a
+  partial cue"; the discrete rule is its noise→0 limit). Five problems that looked unrelated are ONE operation reused.
+  **This is why the programme is WIRE-AND-MEASURE, RETRIEVAL-FIRST (§8): nailing retrieval is predicted to fix parsing,
+  memory, coref, and interference at once, not one organ.**
+- **The single biggest LIVE defect: we ask every question of the WRONG memory** — the fast episodic "sketchpad," never
+  the consolidated long-term store that was written but never read back. This is the most concrete instance of the
+  retrieval convergence above (the read path is exact-key, with no content-addressable/partial-cue retrieval). *(The
+  once-co-headline `sign()` "averaging machine" defect was REFUTED this session as the read-out lever — graded is already
+  on and buys ~null; it survives only as a binding-site guardrail. See §5 #2.)*
 - **The systems we DO build well are lopsided toward reading:** coreference, goals/reward, valence, and
   metacognition are richly built; **Theory of Mind is absent, dedicated meaning-selection (semantic control) is
   thin, and the speaking side is essentially one file.** This substrate is a reader, not a speaker.
@@ -442,7 +451,7 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 | RIGHT-OP, WRONG-METRIC | 13 / 38 |
 | RIGHT-OP, WRONG-PLACE | 3 / 38 |
 | WRONG-OP | 6 / 38 |
-| **MISSING entirely** | **7 / 38** |
+| **MISSING entirely** | **6 / 38** (was 7; the N400 coherence monitor was BUILT 2026-08-26, §2b) |
 | UNSCORABLE (brain math UNPINNED) | 4 / 38 |
 
 | how well the brain itself is pinned | count |
@@ -561,9 +570,10 @@ thin/UNPINNED and, structurally, "IS coreference in disguise → must reuse the 
 
 ## 6. THE LARGE-SCALE GAPS (absent or thin systems)
 
-- **7 organs MISSING outright**, the load-bearing ones being: the **cortical-read organ** (fixes deviation #3),
-  the **N400 coherence monitor**, **Construction-Integration**, **corpus-selection foraging** ("what to read
-  next"), the **cascade synapse** (parked-by-scale), and **discourse bridging of the unstated**.
+- **6 organs MISSING outright** (was 7; the **N400 coherence monitor was BUILT 2026-08-26**, §2b — off-path, awaiting
+  live wiring), the load-bearing remainder being: the **cortical-read organ** (fixes deviation #3),
+  **Construction-Integration**, **corpus-selection foraging** ("what to read next"), the **cascade synapse**
+  (parked-by-scale), and **discourse bridging of the unstated**.
 - **Theory of Mind — ABSENT** (mechanism exists in `experiments/`, never promoted).
 - **Dedicated semantic control — THIN** (one primitive + scattered sub-parts). **CONFIRMED 2026-08-26 (§2b):** even
   additive context-coherence with the offline-winning grounded rep is at chance on the frequency-defeating items and
