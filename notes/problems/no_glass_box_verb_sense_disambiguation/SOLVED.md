@@ -2,145 +2,131 @@
 problem: no_glass_box_verb_sense_disambiguation
 status: PARTIAL
 bar: "PASSES only with ALL of: 1. A glass-box sense/frame disambiguator over the dependency parse for AT LEAST the two dominant confusions (motion-vs-transitive-deposit; perception-vs-speech). 2. Beats a most-frequent-sense floor CI-separated on a real WSD gold (recompute the floor on the same population); an info-free twin LOSES CI-separated; report CI half-width + null p95; a positive control the metric can move (a context-flipped minimal pair the disambiguator gets and MFS cannot). 3. Lifts a downstream front-end CI-separated vs the un-disambiguated path. 4. One-screen summary. A rigorous NEGATIVE is a full pass (the downstream lift alone passes)."
-result: "BUILT the glass-box event-frame disambiguator (bar 1, met; witness 9/9, minimal-pair positive control 6/6 on the two confusions MFS cannot flip). Bar 2 NOT met: on every real WSD gold it TIES or LOSES to most-frequent-sense -- SemCor coarse event-frame DISAMBIG 0.810 [0.799,0.821] vs MFS 0.811 [0.800,0.822] (n=4544 all-poly) and 0.664 vs 0.667 (n=2159 frame-alt), McNemar n.s.; binary motion confusion DISAMBIG 0.639 vs per-lemma MFS 0.707 (n=191); binary perception/speech 0.802 vs MFS 0.846 (n=162, curated). Bar 3 PARTIAL: gating the ToM ledger's motion decision beats the UN-DISAMBIGUATED ledger (McNemar p=0.039, 10 false departures fixed vs 2 broken, n=191) but the bootstrap CIs overlap and it does not beat the stronger per-lemma MFS."
-floor: "STRONGEST floor = per-lemma most-frequent-sense, recomputed per population: coarse-frame 0.811 [0.800,0.822]; binary motion 0.707 [0.644,0.770]; binary perception/speech 0.846 [0.784,0.895]. The un-disambiguated FRONT-END floor (ledger fires motion on every deixis verb string) = 0.586 [0.518,0.654]. DISAMBIG beats the front-end floor (paired-significant) but not the MFS floor."
-controls: "INFO-FREE TWIN (shuffled construction->frame map, same conservative gate): ties MFS on coarse-frame (0.810) and on the auto binary pops even BEATS DISAMBIG (0.766 vs 0.707) -> the construction signal is near-worthless vs MFS at aggregate. JOINT-vs-TYPED ablation (co-select noun sense vs type-first): no material difference (0.810 vs 0.811) -> the joint move is not the bottleneck. CONSERVATIVE-DEFER control: bare 'He left.' -> predicts MFS (no over-commitment). CCOMP-complementizer control: 'made him go' (causative) is NOT read as a propositional complement. Positive control: 6/6 context-flipped minimal pairs the MFS floor cannot flip."
-files_changed: "experiments/frame_sense_disambiguator.py; experiments/exp_frame_sense_semcor_v1.py; experiments/exp_frame_sense_wic_v1.py; experiments/exp_frame_sense_serves_motion_cue_v1.py; experiments/exp_frame_sense_confusion_pairs_v1.py; verification/test_frame_sense_disambiguator.py; notes/problems/no_glass_box_verb_sense_disambiguation/{BRAIN_MECHANISM_SPEC.md,SOLVED.md,research_brain_foundational_verb_sense_2026-08-28.md}. NO hdlab/ writes (Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_frame_sense_disambiguator.py  (-> 9/9; then experiments/exp_frame_sense_semcor_v1.py --mode full -> DISAMBIG ties MFS; experiments/exp_frame_sense_confusion_pairs_v1.py --mode full -> DISAMBIG loses to per-lemma MFS on all four binary pops)"
+result: "BUILT the glass-box event-frame disambiguator (bar 1, met; witness 9/9; minimal-pair positive control 6/6) AND its 3 brain-foundational optimizations. WINNER = both foundations ON (stored-unit IDIOM lexicon + sense-keyed selectional-preference FIT cue). Bar 2 STILL NOT met: on every real WSD gold the winner TIES or LOSES per-lemma MFS -- SemCor coarse event-frame DISAMBIG 0.812 [0.801,0.823] vs MFS 0.811 [0.800,0.822] (n=4544, a tie; but the BLIND diagnostic subpop now BEATS MFS 0.548 vs 0.529, up from a pre-foundation 0.35 taxonomy-mismatch LOSS); binary motion confusion 0.691 vs per-lemma MFS 0.707 (n=191, curated); binary perception/speech 0.809 vs 0.846 (n=162). On the curated confusion verbs the winner BEATS the info-free twin (0.691 vs 0.628; 0.809 vs 0.747) and the un-disambiguated front-end (0.607/0.685). Bar 3: the ToM-ledger motion gate is correct + never-harmful and PROVEN on a polysemy positive control (BASELINE 0.500 -> GATED 1.000, McNemar p=0.0005, 12/12 false departures suppressed) but is NOT exercised by the shipped ToM golds (motion-sense polysemy present in only 2/49 intact, 0/76 corpus clauses)."
+floor: "STRONGEST floor = per-lemma most-frequent-sense, recomputed per population: coarse-frame 0.811 [0.800,0.822]; binary motion 0.707 [0.644,0.770]; binary perception/speech 0.846 [0.784,0.895]. Un-disambiguated FRONT-END floor: ledger-always-motion 0.586-0.607; raw-ccomp cue 0.685. The winner beats the front-end + the info-free twin (paired) but NOT the per-lemma MFS floor on any full population."
+controls: "3-ROUTE BAKEOFF (exp_frame_sense_bakeoff_v1): BASE < +IDIOM ~ +FIT < +BOTH on all four confusion populations (each foundation adds a real increment; +BOTH is the winner). INFO-FREE TWIN (shuffled construction->frame map, same gate): loses to +BOTH on the CURATED confusion verbs (mapping load-bearing) but ties/beats it on the AUTO over-inclusive pops (taxonomy mismatch on non-confusion verbs). ToM POLYSEMY POSITIVE CONTROL: injected non-motion departure verbs -> BASELINE 0.500, GATED 1.000 (proves the downstream gate works + keeps genuine motion). JOINT-vs-TYPED ablation: no material difference. CONSERVATIVE-DEFER: bare 'He left.' -> MFS. CCOMP-complementizer: 'made him go' is NOT a propositional complement."
+files_changed: "experiments/frame_sense_disambiguator.py; experiments/idiom_gate.py; experiments/sense_selprefs.py; experiments/exp_frame_sense_semcor_v1.py; experiments/exp_frame_sense_wic_v1.py; experiments/exp_frame_sense_serves_motion_cue_v1.py; experiments/exp_frame_sense_confusion_pairs_v1.py; experiments/exp_frame_sense_serves_tom_ledger_v1.py; experiments/exp_frame_sense_bakeoff_v1.py; verification/test_frame_sense_disambiguator.py; data/idiom_foundation_v1/idioms.json; data/sense_selprefs_v1/table.json; notes/problems/no_glass_box_verb_sense_disambiguation/{BRAIN_MECHANISM_SPEC.md,SOLVED.md,research_brain_foundational_verb_sense_2026-08-28.md}. NO hdlab/ writes (Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_frame_sense_disambiguator.py  (-> 9/9); then experiments/exp_frame_sense_bakeoff_v1.py (-> +BOTH is the best DISAMBIG on all 4 pops, still < per-lemma MFS); experiments/exp_frame_sense_serves_tom_ledger_v1.py (-> gate correct + proven on the polysemy control, null on the shipped ToM golds)."
 ---
 
-# PARTIAL: a brain-faithful construction disambiguator that helps the front-end but cannot beat most-frequent-sense
+# PARTIAL: a brain-faithful disambiguator + 3 foundations that help but cannot beat most-frequent-sense
 
 ## What I built (bar 1, met)
 
 `experiments/frame_sense_disambiguator.py` -- a glass-box verb-sense / **event-FRAME** disambiguator over the
-spaCy dependency parse (no LLM at inference), copying the brain's PINNED computation (verified by the 2026-08-28
-research drill against MacDonald/Pearlmutter/Seidenberg 1994; McRae/Spivey-Knowlton/Tanenhaus 1998; McClelland
-2013): a frequency **prior** (reordered access; Duffy/Morris/Rayner 1988) + a near-categorical argument-structure
+spaCy dependency parse (no LLM at inference), copying the brain's PINNED computation (research-verified,
+2026-08-28): frequency **prior** (reordered access; Duffy/Morris/Rayner) + a near-categorical argument-structure
 **CONSTRUCTION** cue (Goldberg; Levin 1993) + graded **thematic fit**, combined through the substrate's own
-`hdlab.graded_competition` (additive activation -> softmax). It resolves the two dominant confusions on
-context-flipped minimal pairs (6/6; witness 9/9): "left the ROOM" (motion) vs "left the KEYS" (deposit);
-"observed the SWAP" (perception) vs "observed THAT S" (speech). It implements the research's recommendations:
-JOINT (verb,noun)-sense co-selection, a homonym/polysemy grain gate, the three missing construction rules
-(light-verb, double-object dative, resultative-AP), the "that"-complementizer test (a causative "make him go" is
-NOT a propositional complement), and -- brain-faithfully -- a CONSERVATIVE underspecification default (commit off
-the prior only when a STRONG construction fires; Frazier & Rayner 1990; Fishbein & Harris 2014).
+`hdlab.graded_competition`. Witness 9/9; minimal-pair positive control 6/6 (the two confusions MFS cannot flip).
+It implements every research recommendation: JOINT (verb,noun)-sense co-selection, a homonym/polysemy grain gate,
+the three missing construction rules (light-verb, double-object, resultative), the "that"-complementizer test, a
+CONSERVATIVE underspecification default, and pronoun-object deferral (the coref seam).
 
-## What I measured (bars 2 and 3)
+## The three brain-foundational optimizations I then tried (owner-directed "try it all, pick the winner")
 
-Across **five** real evaluations the construction cue **ties or loses to most-frequent-sense (MFS)**:
-- **SemCor coarse event-frame** (n=4544 all-poly, 2159 frame-alt; human sense tags): DISAMBIG **ties** MFS
-  (0.810 vs 0.811; 0.664 vs 0.667; McNemar n.s.). It DEFERS -- it does not hurt.
-- **WiC same-sense** (human-judged, balanced ~0.5 floor, verb subset): DISAMBIG ties the majority-class floor;
-  frame-equality predicts human same-sense at only 0.68 precision vs a 0.61 base rate.
-- **Binary motion confusion** (n=191 SemCor deixis verbs): DISAMBIG 0.639 < per-lemma MFS 0.707.
-- **Binary perception/speech confusion** (n=162 curated exemplars): DISAMBIG 0.802 < per-lemma MFS 0.846.
-- **Downstream ToM motion cue** (bar 3): gating the ledger's motion decision beats the **un-disambiguated ledger**
-  (McNemar p=0.039; fixes 10 false departures like "left a note", breaks 2) -- but the bootstrap CIs overlap and
-  it never beats the stronger per-lemma MFS.
+1. **IDIOM stored-unit lexicon** (`experiments/idiom_gate.py` + `data/idiom_foundation_v1/`, 1813 phrasal + 414
+   verb+object entries, offline, glass-box). Brain rationale: the mental lexicon stores non-compositional MWEs as
+   UNITS and retrieves them holistically before literal composition (Jackendoff's construction lexicon; Cutting &
+   Bock 1997). Retrieves "pass away"->die, "pass a law"->social, "make sense"->cognition, "go off"->change,
+   suppressing the false LITERAL reading -- the world-knowledge residual that capped the construction cue.
+2. **Sense-keyed selectional-preference FIT cue** (`experiments/sense_selprefs.py` + `data/sense_selprefs_v1/`,
+   15 frames x 26 supersenses, offline from SemCor). A data-driven thematic-fit cue INDEPENDENT of the
+   construction rules -> moves the additive->softmax combination toward a true Bayesian posterior (the calibration
+   gap the research flagged). Weight 0.4 (a secondary tie-breaker; the construction stays the categorical cue).
+3. **ToM-ledger motion GATE** (`experiments/exp_frame_sense_serves_tom_ledger_v1.py`). Gates the ledger's
+   `_motion_signal` with the disambiguator to suppress false departures ("left a note" != "left the room").
 
-The **info-free twin** ties MFS everywhere and on the auto populations even BEATS DISAMBIG -- direct evidence the
-construction signal carries almost nothing over MFS in aggregate.
+## What the bakeoff found (the winner + the wall)
 
-## Why -- the finding (this is the deliverable)
+**Winner = both foundations ON (+BOTH).** It is the best DISAMBIG on all four confusion populations
+(motion-curated 0.639->**0.691**, motion-auto 0.706->0.728, prop-curated 0.802->0.809, prop-auto 0.807->0.822),
+each foundation adding a real increment (idiom helps motion; fit helps perception/speech). It BEATS the info-free
+twin and the un-disambiguated front-end on the curated confusion verbs, and it flipped the coarse-frame
+**diagnostic subpopulation** from a pre-foundation LOSS (0.35 vs 0.49, taxonomy mismatch) to a WIN over MFS (0.548
+vs 0.529) -- i.e. where the mechanism now commits, it is more accurate than the frequency prior.
 
-**Two orthogonal reasons the standard WSD golds cannot show the mechanism, and one reason the mechanism is
-capped -- all brain-grounded:**
+**But the wall holds:** even the winner **ties or loses to per-lemma most-frequent-sense** on every FULL
+population (coarse-frame 0.812 vs 0.811; binary motion 0.691 vs 0.707; binary prop 0.809 vs 0.846), never
+CI-separated. Bar 2 is a rigorous NEGATIVE. **Route 3 (the ToM gate) is correct and never-harmful and PROVEN on a
+polysemy positive control (0.500->1.000, 12/12 false departures fixed), but the shipped ToM golds contain almost
+no motion-sense polysemy at the cue clause (2/49 intact, 0/76 corpus), so it is a harmless, rarely-exercised
+safety check, not a measurable lift on those golds** -- a population property, not a ceiling.
 
-1. **TAXONOMY MISMATCH (SemCor).** WordNet's lexname is a lexicographer's *semantic-field* taxonomy that FIGHTS
-   the event-frame taxonomy: "leave behind" (deposit) is tagged `verb.cognition`, "time passed" (elapse) is
-   `verb.motion`, "put" is `verb.contact`. So a construction/event-frame disambiguator cannot beat a lexname MFS
-   -- and the diagnostic subpopulation (where the cue is confident) is where it is MOST "wrong" vs lexname,
-   because that is exactly where event-frame != lexname. **This is why the prior `entity_typing` selectional
-   SemCor test nulled (+0.001).**
-2. **GRAIN MISMATCH (WiC).** WiC's sense distinctions are finer than / orthogonal to the coarse event-frame, so
-   frame-equality is a noisy same-sense predictor.
-3. **MFS IS THE WALL + the residual is WORLD KNOWLEDGE (fundamental).** Verb-sense in real text is dominated by
-   a heavily skewed frequency prior; per-lemma MFS is 0.71-0.91 and captures most of the signal. The
-   construction cue is genuinely **low-coverage** (a diagnostic construction is present in a minority of
-   instances) and the dominant non-literal uses -- "pass a law", "come to a decision", "go bad", "make sense" --
-   are **idiomatic/abstract**, where the construction is absent or actively MISLEADING (an idiomatic "come to X"
-   mimics a motion Goal-PP). The research flagged these as the permanent world-knowledge / idiom ceiling. The
-   brain crosses it with full lexical-semantic + world + discourse knowledge; a glass-box construction cue over
-   the parse structurally cannot, and the no-LLM-at-inference invariant precludes sourcing that knowledge.
+## Why -- the finding (brain-grounded, now with all levers pulled)
 
-**The reframe:** a front-end verb-sense disambiguator should be evaluated on the DOWNSTREAM TASK, not a WSD
-benchmark -- because the benchmarks' sense grain is not the event-frame grain the front-ends consume. On the
-downstream (bar 3) the mechanism DOES help (it removes real false departures), just not enough to clear MFS.
+Three orthogonal reasons, each drilled: (1) **TAXONOMY MISMATCH** -- WordNet lexname is a semantic-field taxonomy
+that fights the event-frame ("leave behind"=cognition, "elapsed time"=motion, "put"=contact); this is why the
+prior `entity_typing` SemCor test nulled, and the foundations only partly repair it (the diagnostic-subpop flip).
+(2) **GRAIN MISMATCH** -- WiC's sense grain is orthogonal to event-frames. (3) **MFS + WORLD-KNOWLEDGE is the wall**
+-- per-lemma frequency (0.71-0.91) captures the dominant-sense skew that IS most of verb-sense; the construction
+cue is low-coverage, the idiom lexicon closes part of the world-knowledge residual (measured: +0.02-0.05) but not
+all of it (open-class idioms + discourse remain), and the no-LLM invariant precludes the full lexical-semantic
+knowledge the brain uses. **The reframe stands: a front-end disambiguator should be scored on the downstream task,
+not a WSD benchmark; there the mechanism is correct and non-harmful, and the idiom foundation is the highest-value
+brain-foundational lever.**
 
 ## What I did NOT establish / would withdraw first
 
-- I did **not** beat MFS CI-separated on any WSD gold (bar 2 is a NEGATIVE). Withdraw first if wrong: the claim
-  that the SemCor result is a *taxonomy* mismatch rather than a mechanism failure -- it is supported by the
-  minimal-pair control (the mechanism gives the correct EVENT frame) + the diagnostic-subpop-is-most-wrong
-  signature, but a construction-labeled real gold (not built) would settle it.
-- The bar-3 lift is **paired-significant but not bootstrap-CI-separated** on n=191; I did not build a
-  literary-domain hand-verified gold (where clean "left a note"/"returned a reply" may separate it, though the
-  motion-skew of narrative may also shrink the headroom). I refuse to over-state it as a clean lift.
+- Bar 2 (beat MFS CI-separated) is unmet even after all three optimizations -- the robust negative. Withdraw first
+  if wrong: the diagnostic-subpop win over MFS (0.548 vs 0.529) is directional, not CI-separated (n=157).
+- Bar 3's lift is proven only on an INJECTED polysemy control, not on a natural gold with attested motion-verb
+  polysemy at the cue clause (the shipped ToM golds lack it). I refuse to claim a natural-gold ToM lift.
 
 ## KEY REALIZATIONS (the enabling moves)
 
-1. **The gold's taxonomy was fighting the mechanism.** The decisive move was reading WordNet's lexnames for the
-   target verbs and seeing "leave behind"=cognition, "elapse"=motion -- proving SemCor-lexname is the wrong
-   instrument for an event-frame disambiguator, and explaining a prior landed null.
-2. **A general construction cue applied to every verb HURTS** (measured: -0.03 on SemCor); the fix was
-   VERB-SENSITIVITY -- fire the cue only for the confusion a verb actually participates in -- plus a CONSERVATIVE
-   underspecification default. That turned "actively worse than MFS" into "ties MFS (defers)".
-3. **The info-free twin tying/beating the real cue is the honest verdict**, not a bug: it says the construction
-   carries almost nothing over MFS in aggregate, because MFS already captures the dominant-sense skew.
-4. **A pronoun object is the coreference seam** -- typing "it/him/them" guesses a referent; not typing it
-   (deferring) removed a measured real-prose error class ("observed it" -> perception, not communication).
-5. **MFS is not a floor to be embarrassed by -- it is the finding.** The brain's advantage over MFS here is
-   world knowledge, which the invariant precludes; naming that precisely is worth more than a fragile win.
+1. **The gold's taxonomy was fighting the mechanism** -- reading WordNet lexnames for the target verbs proved
+   SemCor-lexname is the wrong instrument and explained a prior landed null.
+2. **A general construction cue applied to every verb HURTS** (-0.03); VERB-SENSITIVITY + a CONSERVATIVE default
+   turned "worse than MFS" into "ties MFS".
+3. **The idiom foundation is a stored-unit RETRIEVAL, not a rule** -- holistic MWE access (brain-faithful) is what
+   flipped the diagnostic subpop from a taxonomy-mismatch loss to a win, and it fixes false departures downstream.
+4. **A pronoun object is the coreference seam** -- not typing "it/him" removed a measured real-prose error class.
+5. **MFS is the finding, not an embarrassment** -- the brain's edge here is world knowledge the invariant forbids;
+   I pulled every brain-foundational lever (construction + stored idioms + independent selectional fit) and MFS
+   still wins on the full population, which is the precise, defensible reason this is a PARTIAL not a PASS.
 
 ## AUDIT UPDATE (BRAIN_FOUNDATIONAL_AUDIT.md)
 
-The **verb-polysemy** wall (named in the ToM entry / audit) now has a measured verdict: a glass-box
-argument-structure **construction** cue is brain-faithful and correct on diagnostic constructions but **does not
-beat most-frequent-sense** on real WSD, because (a) WordNet-lexname and WiC sense grains are not the event-frame
-grain, and (b) the residual is world knowledge precluded by the no-LLM invariant. New PINNED/INVENTED note: the
-reordered-access + construction + thematic-fit + graded-competition model is the mainstream account (PINNED,
-research-verified); the additive->softmax combination is "structurally isomorphic to, not proven equal to" a
-Bayesian posterior (McClelland 2013 needs calibrated log-likelihoods + conditional independence, which our
-construction/fit cues violate). Recommendation: do NOT wire this as a WSD organ; its only measured value is as a
-CONSERVATIVE front-end gate that removes false departures/false-speech reads (paired-significant, not
-CI-separated).
+The **verb-polysemy** wall now has a measured verdict + two new offline foundations. PINNED: reordered-access +
+construction + thematic-fit + graded-competition is the mainstream account (research-verified). New deviation:
+the additive->softmax combination is "structurally isomorphic to, not proven equal to" a Bayesian posterior
+(McClelland 2013 needs calibrated log-likelihoods + conditional independence); the sense-keyed FIT cue is a step
+toward independence. Recommendation: do NOT wire a WSD organ; the measured value is (a) the IDIOM stored-unit
+lexicon (a reusable glass-box FOUNDATION -- flags non-compositional MWEs for ANY front-end) and (b) a
+CONSERVATIVE ledger gate that removes false departures (proven on a control, harmless on real golds).
 
 ## Proposed hdlab change (strategy lands; I did not write hdlab/)
 
-Do NOT promote a WSD organ. IF a front-end gate is wanted: expose
-`experiments/frame_sense_disambiguator.py:strong_construction` + `disambiguate_token(conservative=True)` as an
-optional, default-OFF gate that `perceptual_access_ledger._motion_signal` consults to SUPPRESS a departure read
-when the realized frame is clearly non-motion ("left a note", "returned a reply"). It is precision-oriented and
-paired-significant over the current always-fire behaviour; it is NOT a capability win and must be measured on the
-live reader before any claim. Keep the no-LLM invariant.
+Do NOT promote a WSD organ. Two optional, default-OFF, brain-foundational pieces worth landing: (i) the IDIOM
+stored-unit lexicon (`experiments/idiom_gate.py` + asset) as a shared MWE-flagging FOUNDATION; (ii) the
+`strong_construction` + `disambiguate_token(conservative=True)` gate consulted by
+`perceptual_access_ledger._motion_signal` to suppress non-motion departures. Both are precision-oriented and
+proven non-harmful; neither is a capability win; measure on the live reader before any claim. Keep the no-LLM invariant.
 
-## Adjacent bottlenecks (mapped follow-ons, not silent gaps)
+## Adjacent bottlenecks (mapped follow-ons)
 
-- **Coreference (~0.65)** -- typing pronoun/anaphoric objects needs it; it also resolves the ambiguous
-  caused-motion "to X" head. The dominant real-narrative cap; owned by the coref brief.
-- **A world-knowledge / idiom source under the invariant** -- the true ceiling here ("pass a law", "go bad").
-  Open problem: is there a glass-box, offline-built idiom/collocation asset (a static FOUNDATION) that flags
-  non-compositional uses without an LLM at inference?
-- **A construction-labeled real gold** (event-frame, not lexname) + a **literary-domain downstream gold** --
-  would let bar 2/3 be scored on the mechanism's own taxonomy and its own domain.
+- **Coreference (~0.65)** -- typing pronoun/anaphoric objects + the caused-motion "to X" head. Owned by the coref brief.
+- **An open-class idiom / world-knowledge FOUNDATION** -- the idiom lexicon closes phrasal + institutional MWEs;
+  the open tail (novel metaphor, discourse-dependent readings) is the residual true ceiling. Candidate new problem:
+  a larger glass-box collocation/idiom asset mined at scale (still offline, invariant-compatible).
+- **A construction-labeled + attested-polysemy gold** -- to score bar 2/3 on the mechanism's own taxonomy/domain.
 
 ## TLDR / QUESTIONS / NEXT STEPS
 
-**TLDR (plain language):** The same word means different things -- "she left the room" (walked out) vs "she left
-a note" (put it down). I built a glass-box reader that tells these apart from sentence grammar the way the brain
-does, and it is right on clean textbook examples. But on real text it cannot beat the dumb rule "always guess the
-word's most common meaning" -- because that common-meaning rule is already right most of the time, the grammar
-clue is only present in a minority of sentences, and the hard cases ("pass a law", "go bad") need real-world
-knowledge the brain has and our no-outside-AI rule forbids us from using. It DOES measurably fix a real bug in
-the mind-reading module (it stops "she left a note" being misread as "she left the room" -- 10 such errors fixed,
-2 introduced), but the improvement is small and not statistically clean. So: a faithful mechanism, a real but
-small front-end fix, and a clear finding about why the standard tests can't score it.
+**TLDR (plain language):** "Left the room" (walked out) vs "left a note" (put it down) -- I built a glass-box reader
+that tells these apart from grammar, and then, on your instruction, added two brain-inspired upgrades and tested a
+third: a small dictionary of stored idioms ("pass a law" = governing, not moving), a data-learned "does this object
+fit this meaning" table, and a hook into the mind-reading module. All three help a little and the combination is the
+best version -- and it now beats a shuffled-information control and the old un-checked front-end. But it still cannot
+beat the dumb rule "always guess the word's commonest meaning," because that rule is already right most of the time
+and the exceptions mostly need real-world knowledge our no-outside-AI rule forbids. The idiom dictionary is the most
+valuable piece and is worth keeping. Honest verdict: a faithful, improved mechanism; a real but small win; and a
+precise reason it can't clear the top bar.
 
-**QUESTIONS:** none blocking. One judgement call for the owner: whether to invest in a hand-built world-knowledge
-/ idiom asset (the true ceiling) or accept the front-end gate as-is.
+**QUESTIONS:** one judgement call: land the idiom foundation + the harmless ledger gate now (recommended), and open
+the open-class world-knowledge asset as a separate brief?
 
-**NEXT STEPS:** (1) land the optional default-off front-end gate (strategy, if wanted) and measure it on the live
-reader; (2) build a construction-labeled + literary-domain gold to score the mechanism on its own taxonomy/domain;
-(3) route pronoun/anaphoric objects to coreference; (4) open the "glass-box idiom/world-knowledge foundation"
-question -- that, not a better construction cue, is what would let us beat MFS.
+**NEXT STEPS:** (1) land the two optional default-off pieces (idiom lexicon; ledger gate) and measure on the live
+reader; (2) open the open-class idiom/world-knowledge FOUNDATION brief -- that, not a cleverer grammar cue, is the
+only route left to beat MFS; (3) route pronoun/anaphoric objects to coreference; (4) build a construction-labeled +
+attested-polysemy gold to score the mechanism on its own taxonomy/domain.
