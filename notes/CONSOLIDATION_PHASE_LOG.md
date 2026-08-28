@@ -6,47 +6,43 @@ commit hashes and verification, so a fresh session can resume mid-phase without 
 
 **READ THIS + `notes/CONSOLIDATION_PHASE_PLAN.md` (the ordered plan) + `notes/STATUS.md` (LATEST position) to resume.**
 
-## ⏸️ RESUME STATE — SNAPSHOT AS OF 2026-08-27 (pre-compaction; the SINGLE authoritative "where we are + do this next")
-**We are MID-BUILD of the full substrate consolidation.** A fresh session: read THIS block, then the LANDING LEDGER +
-MEASUREMENT tables below, then the step log tail. Do NOT re-derive; the disk + `git log` outrank the chat summary.
+## ✅ RESUME STATE — UPDATED 2026-08-28 (the CONSOLIDATION PHASE IS COMPLETE; we are in the NEXT PHASE — read `notes/STATUS.md` for the LIVE authority, injected every session)
+**The full-substrate consolidation is DONE.** `notes/STATUS.md` is the current authoritative recovery entry point (this block
+is the durable consolidation-phase ledger tail). Do NOT re-derive; the disk + `git log` outrank the chat summary.
 
-**DONE (all committed, HEAD ~3e70a9baa):**
-- **8 organs LANDED in `hdlab/`** (all default-off ISLANDS, each with a witness `verification/test_*_organ.py` PASS +
-  registered): `predictive_reader`, `semantic_control` (pre-phase) + `graded_competition`, `conceptual_meaning`,
-  `salience_binder`, `incremental_parser`, `relcl_resolver`, `graded_role_assigner` (this phase). BRAIN-FOUNDATIONAL
-  COHERENCE proven: salience_binder's graded write == graded_competition softmax byte-for-byte; relcl = noise→0 limit of
-  the same retrieval; graded_role_assigner routes over graded_competition.
-- **The ROLE-BALANCED fair gold BUILT + verified** (`exp_role_balanced_comprehension_gold_v1.py`; positional floor 0.500,
-  defeats the McGuffey 0.78 saturation).
-- **ALL 3 organ axes individually validated in comprehension** (each vs a real floor, info-free twin losing):
-  FRONT-END who-did-what **0.739 vs positional 0.519** (STEP 9); ENTITY cross-sentence character-tracking **0.184 vs
-  string-identity 0.058** in-pipeline with the LANDED binder (STEP 13); MEANING paraphrase recovery **0.750 vs exact-match
-  0.010** (STEP 14).
-- **2 of 3 parallel solvers INTEGRATED (owner-DONE, both EXCELLENT):** p1 `the_front_end_mishandles_non_canonical_argument_structure`
-  (its `graded_role_assigner` organ LANDED) + p3 `the_meaning_read_out_is_one_operation_where_the_brain_has_three`.
+**CONSOLIDATION COMPLETE — everything landed + witnessed + registered (default-off islands):**
+- **Reader organs:** `predictive_reader`, `semantic_control`, `graded_competition`, `conceptual_meaning`, `salience_binder`,
+  `incremental_parser`, `relcl_resolver`, `graded_role_assigner`, `situation_register_setreturn` (decode_set).
+- **Composition mechanisms VALIDATED:** the ENTITY×MEANING axes COMPOSE (STEP 18); the brain-faithful combination rule is
+  CONVERGENT-CUE (log-Bayes product) not an independent AND → `hdlab/convergent_cue_reader.py` LANDED (beats the strongest
+  floor 0.700→0.744 CI-sep, integrated p3).
+- **The 3 parallel-solver trilogy + downstream ALL INTEGRATED (owner-DONE, EXCELLENT):** front-end non-canonical
+  (`graded_role_assigner`), entity-store fan (ADDRESSING-collision, not blur → `decode_set` set-return LANDED; the factorized
+  two-system store is a proven-ready follow-on), meaning-operation-routing, convergent-cue composition.
 
-**IMMEDIATE NEXT ACTIONS (in order):**
-1. **The scalar-magnitude meaning channel build is NOW A PACKAGED PROBLEM** (owner 08-27: use problems for large builds):
-   `notes/problems/build_the_composed_scalar_magnitude_meaning_channel/` (priority 1) — a solver COMPOSES the p3-proven
-   sub-ops (SemAxis dimension/pole + markedness degree + FPE-log Weber code + Lancaster grounding) into ONE deployable
-   magnitude channel + operation-router, validates the COMPOSED thing, and proposes the hdlab diff. **INTEGRATE it when
-   owner-DONE (reverify first-hand), then LAND the proposed `scalar_adjective_operation` + router + `quality_relation` Ch.B
-   FPE-log upgrade (Q111 — strategy lands hdlab).** Full validated piece-wise design is in the p3 SOLVED + audit §2b.
-2. ✅ **DONE (STEP 17): WIRED `graded_role_assigner.hybrid_role_patient` into the composed front-end + measured OFF-vs-ON
-   leak-free** (held-out n=4078): overall 0.739->0.751 (+0.011 CI-sep), hard pre-verbal slice 0.576->0.600 (+0.024),
-   canonical preserved, twin losing -- the LANDED organ reproduces the solver's held-out lift.
-   **STILL PENDING within #2: the MEANING operation-routing wiring** (route adjective->signed-magnitude; but the deployable
-   scalar-magnitude channel is action #1, a packaged solver problem -- so this sub-item waits on that integration).
-3. **[NOW THE HEADLINE] Run the FULL whole-reader end-to-end measurement** — harness
-   `experiments/exp_composed_reader_litbank_full_v1.py` READY with a pluggable front-end SEAM (STEP 13); swap the improved
-   front-end (graded_role_assigner) into the SEAM + add the meaning channel, measure on ONE cross-sentence gold OFF-vs-ON.
-   The front-end moving-target gate (p1 landed + wired, STEP 17) is CLEARED -> this decisive test is unblocked.
-4. **INTEGRATE p2 `the_entity_store_is_a_dense_bundle_that_fans`** (sparse DG+CA3 store, the fan-effect fix) — SUBMITTED
-   (SOLVED.md on disk) but AWAITS `owner_verdict: DONE`; LEAVE IT ALONE until then, then integrate (reverify first-hand).
+**NEWEST (2026-08-28) — stranded solutions integrated + p1 fully landed + NEXT PHASE framed (see STATUS for detail):**
+- **THEORY OF MIND integrated (EXCELLENT):** `hdlab/belief_partition.py` LANDED (per-agent false-belief, 1.000 on real-English
+  passages). Residual = the observation-cue front-end. Owner MUSED a dedicated re-eval solver (corpus-mined gold + the
+  observation front-end) — package as a follow-on.
+- **p1 SCALAR-MAGNITUDE RULER fully LANDED:** `hdlab/fractional_power_encoding.py` (log-Weber code) + `hdlab/scalar_adjective_operation.py`
+  (the ruler) + `hdlab/meaning_operation_router.py` (word-class routing) — all witnessed + registered. → the learner's
+  substrate-validation dependency is SATISFIED. Follow-on refinements (NOT blocking): `quality_relation` Ch.B linear→FPE-log
+  (regrounding the lexicon) + wire dim-select to `semantic_control`.
+- **NEXT PHASE = comprehension → REASONING** (p1's comparison is the first glass-box reasoning primitive; the meaning system
+  is now multi-operation + demand-routed). **Learn-from-reading is PROVEN-worth-continuing but OFF** — being optimized +
+  safety-validated as a solver problem BEFORE it grows the foundation (owner: validate hard first).
 
-**STANDING DISCIPLINE for this phase:** integrate ONLY on `owner_verdict: DONE`; every landing default-off + witnessed +
-registered; commit NO push; do the RIGHT thing not the easy one; at a wall/surprise run the oracle-ceiling/implementation
-check + brain-foundationality drills BEFORE tuning; use problems for large builds.
+**IN FLIGHT (solvers; integrate ONLY on `owner_verdict: DONE`):** `optimize_and_validate_the_learner_before_it_grows_the_foundation`
+(p2), `the_reader_cannot_choose_what_to_read_next` (p3 foraging), `dimensional_phase_diagram_audit_of_the_current_organs`
+(p4, STILL RUNNING — has a SOLVED.md but the owner is iterating; leave alone).
+
+**STRATEGY-OWNED REMAINING (mine, Q111):** the 2 p1 follow-on refinements; the factorized two-system store landing (heavy →
+remote); the N400 PE event-segmentation wiring; the FULL 3-axis end-to-end measurement (heavy → remote); package the ToM
+dedicated re-eval solver.
+
+**STANDING DISCIPLINE:** integrate ONLY on `owner_verdict: DONE`; every landing default-off + witnessed + registered; commit
+NO push; do the RIGHT thing not the easy one; heavy/long runs → the REMOTE GPU box; at a wall/surprise run brain-foundationality
+drills BEFORE tuning; use problems for large builds.
 
 
 ## THE GOAL (one paragraph)
