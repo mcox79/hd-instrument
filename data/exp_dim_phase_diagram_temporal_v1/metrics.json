@@ -1,0 +1,126 @@
+{
+  "anchor": "dim_phase_diagram_temporal_v1",
+  "family": "multi_timescale_temporal_context (graded_temporal_context / factorized_entity_store)",
+  "d_grid": [
+    256,
+    512,
+    1024,
+    2048,
+    4096
+  ],
+  "lags": [
+    0,
+    1,
+    2,
+    5,
+    10,
+    25,
+    100
+  ],
+  "horizon": 500,
+  "contiguity": {
+    "256": {
+      "kernel": {
+        "0": 1.0,
+        "1": 0.7584,
+        "2": 0.6485,
+        "5": 0.5163,
+        "10": 0.4196,
+        "25": 0.2839,
+        "100": 0.0925
+      },
+      "crosstalk_floor": 0.0929,
+      "one_over_sqrt_d": 0.0625
+    },
+    "512": {
+      "kernel": {
+        "0": 1.0,
+        "1": 0.7599,
+        "2": 0.6478,
+        "5": 0.5173,
+        "10": 0.4184,
+        "25": 0.2844,
+        "100": 0.0894
+      },
+      "crosstalk_floor": 0.0915,
+      "one_over_sqrt_d": 0.0442
+    },
+    "1024": {
+      "kernel": {
+        "0": 1.0,
+        "1": 0.7606,
+        "2": 0.6475,
+        "5": 0.5178,
+        "10": 0.4178,
+        "25": 0.2847,
+        "100": 0.0885
+      },
+      "crosstalk_floor": 0.0899,
+      "one_over_sqrt_d": 0.0312
+    },
+    "2048": {
+      "kernel": {
+        "0": 1.0,
+        "1": 0.761,
+        "2": 0.6473,
+        "5": 0.5181,
+        "10": 0.4176,
+        "25": 0.2848,
+        "100": 0.088
+      },
+      "crosstalk_floor": 0.0903,
+      "one_over_sqrt_d": 0.0221
+    },
+    "4096": {
+      "kernel": {
+        "0": 1.0,
+        "1": 0.7612,
+        "2": 0.6472,
+        "5": 0.5182,
+        "10": 0.4174,
+        "25": 0.2849,
+        "100": 0.0878
+      },
+      "crosstalk_floor": 0.0903,
+      "one_over_sqrt_d": 0.0156
+    }
+  },
+  "resolution": [
+    {
+      "d": 256,
+      "graded_recall": 1.0,
+      "graded_runnerup_is_neighbor": 1.0,
+      "orthogonal_recall": 1.0,
+      "orthogonal_runnerup_is_neighbor": 0.05
+    },
+    {
+      "d": 512,
+      "graded_recall": 1.0,
+      "graded_runnerup_is_neighbor": 1.0,
+      "orthogonal_recall": 1.0,
+      "orthogonal_runnerup_is_neighbor": 0.017
+    },
+    {
+      "d": 1024,
+      "graded_recall": 1.0,
+      "graded_runnerup_is_neighbor": 1.0,
+      "orthogonal_recall": 1.0,
+      "orthogonal_runnerup_is_neighbor": 0.017
+    },
+    {
+      "d": 2048,
+      "graded_recall": 1.0,
+      "graded_runnerup_is_neighbor": 1.0,
+      "orthogonal_recall": 1.0,
+      "orthogonal_runnerup_is_neighbor": 0.017
+    },
+    {
+      "d": 4096,
+      "graded_recall": 1.0,
+      "graded_runnerup_is_neighbor": 1.0,
+      "orthogonal_recall": 1.0,
+      "orthogonal_runnerup_is_neighbor": 0.067
+    }
+  ],
+  "elapsed_s": 0.2
+}

@@ -1,0 +1,52 @@
+{
+  "anchor": "dim_phase_diagram_stacked_v1",
+  "D": 1024,
+  "n_nodes": 60,
+  "chain_len": 6,
+  "rho": 0.5,
+  "n_reps": 60,
+  "chance": 0.0167,
+  "arms": {
+    "DEFAULT (undirected + correlated + argmax)": [
+      0.4167,
+      0.4167,
+      0.2,
+      0.0667,
+      0.0167,
+      0.0
+    ],
+    "+DIRECTED (permutation protection)": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "+DIRECTED +CA3 completion (matched fixes)": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "+DIRECTED +DG-sparse (MISMATCHED store)": [
+      0.5333,
+      0.3333,
+      0.2333,
+      0.1667,
+      0.1,
+      0.1333
+    ]
+  },
+  "shuffled_twin_matched": [
+    0.1667,
+    0.2167,
+    0.1167,
+    0.1,
+    0.1333,
+    0.4
+  ],
+  "elapsed_s": 0.4
+}

@@ -160,3 +160,17 @@ and it redirects the memory line from "read path" to "what gets consolidated."
   test is whether reading it helps.
 - Do NOT carry any number between the episodic (DG/CA3) instrument and this cortical-read instrument -- different
   path, different population, no number crosses.
+
+---
+
+> ## 📎 REINFORCING DATAPOINT (2026-08-28, routed from the dimensional phase-diagram audit — NOT a reopen)
+> The `dimensional_phase_diagram_audit_of_the_current_organs` submission (integrated EXCELLENT, owner-DONE) measured the
+> cortical/consolidated READ regime directly (`exp_addressed_store_partial_cue_v1`) and it is the audit's **biggest LIVE
+> lever**: a RELATED (partial) cue retrieves the right family at **1.00 with a DISTRIBUTED semantic code but ~0.11 (≈chance)
+> with the exact-key hash the substrate currently reads** → **+0.88 generalisation headroom**; the real-WordNet arm confirms
+> (nn-sim 0.41 vs 0.05). This reproduces this problem's own "read-path validated, floor half not met" split from the READ-CODE
+> side: the residual wall is the consolidated CONTENT/CODE **format** (exact-key hash vs distributed/overlapping code), exactly
+> the outcome-B named here. The audit deliberately did NOT build the wiring (Q113 role-separation — it would compete with this
+> filed work); it hands this problem a strong datapoint that the **read regime (distributed-cue vs exact-key)** is where the
+> generalisation headroom lives. Also reinforces `cortical_read_never_tested_where_it_matters`. Fix direction (audit's): DG
+> sparse pattern-separation + a distributed/semantic read key, NOT more dimensions (N ruled out as a lever everywhere).

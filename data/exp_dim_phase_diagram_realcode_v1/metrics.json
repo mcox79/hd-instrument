@@ -1,0 +1,86 @@
+{
+  "anchor": "dim_phase_diagram_realcode_v1",
+  "D": 1024,
+  "n_words": 120,
+  "n_random_baseline_expected_cos": 0.0312,
+  "mean_abs_cos": {
+    "real_dense": 0.039,
+    "dg_sparse": 0.0182,
+    "rand_orth": 0.0248
+  },
+  "m_grid": [
+    2,
+    4,
+    8,
+    16,
+    24,
+    32,
+    48
+  ],
+  "recovery": [
+    {
+      "M": 2,
+      "real_dense": 1.0,
+      "real_dense_twin": 0.0,
+      "dg_sparse": 1.0,
+      "dg_sparse_twin": 0.0,
+      "rand_orth": 1.0,
+      "rand_orth_twin": 0.0
+    },
+    {
+      "M": 4,
+      "real_dense": 0.9788,
+      "real_dense_twin": 0.0213,
+      "dg_sparse": 1.0,
+      "dg_sparse_twin": 0.0,
+      "rand_orth": 1.0,
+      "rand_orth_twin": 0.0
+    },
+    {
+      "M": 8,
+      "real_dense": 0.925,
+      "real_dense_twin": 0.075,
+      "dg_sparse": 1.0,
+      "dg_sparse_twin": 0.0,
+      "rand_orth": 1.0,
+      "rand_orth_twin": 0.0
+    },
+    {
+      "M": 16,
+      "real_dense": 0.8456,
+      "real_dense_twin": 0.1544,
+      "dg_sparse": 0.9981,
+      "dg_sparse_twin": 0.0019,
+      "rand_orth": 1.0,
+      "rand_orth_twin": 0.0
+    },
+    {
+      "M": 24,
+      "real_dense": 0.7767,
+      "real_dense_twin": 0.2233,
+      "dg_sparse": 0.99,
+      "dg_sparse_twin": 0.01,
+      "rand_orth": 1.0,
+      "rand_orth_twin": 0.0
+    },
+    {
+      "M": 32,
+      "real_dense": 0.7366,
+      "real_dense_twin": 0.2634,
+      "dg_sparse": 0.9798,
+      "dg_sparse_twin": 0.0202,
+      "rand_orth": 0.9977,
+      "rand_orth_twin": 0.0023
+    },
+    {
+      "M": 48,
+      "real_dense": 0.7116,
+      "real_dense_twin": 0.2884,
+      "dg_sparse": 0.9614,
+      "dg_sparse_twin": 0.0386,
+      "rand_orth": 0.9859,
+      "rand_orth_twin": 0.0141
+    }
+  ],
+  "elapsed_s": 2.4
+}

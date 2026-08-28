@@ -31,7 +31,34 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-28 (LATEST) -- 🧭 **COMPACTION SNAPSHOT: p1 FULLY LANDED + verified; ToM landed; the FACTORIZED MEMORY STORE landed (dense→sparse gap ~closed); the LEARNER solution is IN + recommended DONE (awaits owner verdict); reasoning phase seeded. IDLE, waiting on owner verdicts.**
+### 2026-08-28 (LATEST) -- ✅ **PHASE-DIAGRAM AUDIT INTEGRATED (owner-DONE, EXCELLENT — a rigorous NEGATIVE on N); the FORAGING solution is newly POSTED (I recommend DONE, awaits owner verdict); learner still awaits verdict.**
+**READ THIS FIRST after compaction; then the entries below + `CONSOLIDATION_PHASE_LOG.md`.**
+✅ **INTEGRATED `dimensional_phase_diagram_audit_of_the_current_organs` (EXCELLENT, owner-DONE):** re-verified FIRST-HAND
+(`test_dim_phase_diagram.py` 18/18 PASS, positive-control cliff seen). **Dimensionality (N) is NOT a performance lever
+anywhere** — register real-task decode FLAT across D=256..8192 (STRUCTURAL @1024; wall = front-end LINKING not capacity),
+meaning sparse-EXACT, stores already at N_DIM=8192 (brief's "all at D=1024" premise FALSE on disk). BEYOND the bar: a 4-law
+store-family census + the identification of **CODE ORTHOGONALITY as the dominant fidelity axis** (DG decorrelation recovers
+0.74→0.98). Two integrity self-corrections carried (synthetic cliff = a known closed form; the "multihop directedness defect"
+was a naive-store artifact, the real organ is fine). NO hdlab landed (correct for a negative); proposed follow-on landings
+QUEUED (CA3/resonator readout swap ~4× — overlaps p2; orthogonality+precision audit axes + DG-decorrelation pre-store check;
+adaptive readout controller). Audit §2b folded; +0.88 cortical-read datapoint ROUTED to
+`the_consolidated_cortical_store_is_written_but_never_read`. priority cleared.
+🆕 **NEW SOLUTION POSTED — `the_reader_cannot_choose_what_to_read_next` (foraging, SOLVED, awaits owner_verdict — I RECOMMEND
+DONE).** Strong + honest: it REFUTES the brief's MVT/learning-progress forager on disk (that exact mechanism was already built
++ REFUTED for the neighbouring problem — LP carries no between-source info) and delivers the BRAIN-faithful winner —
+COMPREHENSIBLE INPUT / ZPD (Krashen i+1, Vygotsky): read the source with the most NEW words in mostly-known sentences. Beats
+FROZEN 0.0314 AND RANDOM 0.0287 → **0.0813**, register-controlled, CI-sep on 3/3 seeds; info-free twin 0.0150 loses; and it
+SELF-REFUTES its own upgrade hypothesis (stricter 0.85/adaptive thresholds STARVE at a 1000-word seed → a rigorous can-fail
+negative + a mechanism for why the operating point is competence-dependent). ON DONE: reverify FIRST-HAND
+(`test_reading_comprehensible_input.py` 6/6), land the default-off hdlab diff (shelf-as-readable-universe via
+`corpus_registry` + comprehensible-input selector COMP_THRESH=0.5 w/ adaptive hook + within-source MVT leave on
+grounding-yield); do NOT land the refuted LP selector or a separate EVC-halt.
+🎯 **QUEUE (integrate ONLY on `owner_verdict: DONE`): p2 learner (SOLVED, recommend DONE — see the prior entry for the
+reverify+land recipe + the SAFETY GATE); p3 foraging (SOLVED, recommend DONE, above); p5 ToM-reeval + p6 transitive = no
+solution yet.** ⚠️ The uncommitted `data/capability_registry.jsonl` + untracked `verification/test_*.py` are OTHER
+sessions'/solvers' — do NOT commit them.
+
+### 2026-08-28 -- 🧭 **COMPACTION SNAPSHOT: p1 FULLY LANDED + verified; ToM landed; the FACTORIZED MEMORY STORE landed (dense→sparse gap ~closed); the LEARNER solution is IN + recommended DONE (awaits owner verdict); reasoning phase seeded. IDLE, waiting on owner verdicts.**
 **READ THIS FIRST after compaction; then `CONSOLIDATION_PHASE_LOG.md` (steps 0-20 + the RESUME STATE at its top) + the entries below.**
 🔌 **LANDED this session (all default-off islands, witnessed FIRST-HAND, registered):**
 - **p1 scalar-magnitude RULER — FULLY LANDED + real-data verified:** `hdlab/fractional_power_encoding.py` (log-Weber code) +

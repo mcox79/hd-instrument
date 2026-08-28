@@ -65,6 +65,28 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — DIMENSIONALITY (N) IS NOT A FIDELITY/PERFORMANCE LEVER ANYWHERE; the real axis is CODE ORTHOGONALITY (+ readout
+  + sparsity), and the substrate is NOT uniformly D=1024** (from `dimensional_phase_diagram_audit_of_the_current_organs`,
+  integrated SOLVED/EXCELLENT, owner-DONE; witness `test_dim_phase_diagram.py` 18/18 PASS re-verified FIRST-HAND, positive-control
+  cliff seen 0.526→0.988). A full-pass NEGATIVE on the owner's "did we probe each piece at full dimensionality" question:
+  the load-sensitive REGISTER decodes FLAT across D=256..8192 (0.60→0.61, CIs overlap) → **STRUCTURAL @1024** (the wall is
+  front-end LINKING — ACT-R 0.17 vs oracle 0.60 — not capacity); MEANING is sparse-EXACT (K*≈256, not rising at 1024); and the
+  memory stores were ALREADY pinned to **N_DIM=8192** on disk → **the substrate is NOT uniformly D=1024** (correct any claim that
+  says so). **PROMOTE CODE ORTHOGONALITY / FEATURE_OVERLAP to a first-class fidelity axis:** it DOMINATES N (ρ0.0→0.651 vs
+  ρ0.8→0.026 at fixed D), real WordNet codes ARE correlated (0.039 vs 0.025 ideal) and cost capacity, and DG sparse pattern
+  separation recovers it (dense M32 0.742 → DG-sparse 0.979). This makes concrete the standing flag that our
+  **iid-random / maximal-orthogonality code is an unflagged OUR-INVENTION** — the fix is DG decorrelation before autoassociative
+  storage, NOT more dimensions. **Store families obey FOUR distinct capacity laws** (vector-bundle ~N/log2(N); sparse Willshaw
+  > bundle; matrix-Hebbian relational ~16·N ≈190× the bundle = the real multihop store; multi-timescale temporal set by the
+  PERIOD spectrum, not 1/√D) → **no single capacity number crosses store families.** Other BEYOND-N verdicts: binding DEPTH is
+  NOT a lever (exact-invertible bind, depth1≈depth5); numeric PRECISION bites only at q=2 (sign-binary 0.311 vs full 0.653); the
+  register argmax "cliff" is largely a READOUT artifact (CA3/SIC joint completion 0.644→0.971). **Two corrections carried:** the
+  synthetic cliff REPRODUCES the closed-form `k_cliff_scaling.k_cliff(N)=0.87·N/log2(N)` (a positive control, NOT a new law); and
+  the naive "multihop directedness defect" is a naive-commutative-store artifact — the real `kg_traversal.KGStore`+`multi_hop`
+  organ is directed by construction (8-hop clean) and is fine. **DO NOT** raise D as a capacity fix (ruled out everywhere) or
+  quote one capacity number across families. hdlab: NONE landed (a negative); proposed follow-on landings QUEUED (CA3/resonator
+  readout swap; orthogonality+precision audit axes + DG-decorrelation pre-store check; adaptive readout controller).
+
 - **2026-08-28 — THE SCALAR-MAGNITUDE "RULER" IS COMPOSED + PROVEN, and it re-frames meaning as OPERATION-SPECIFIC: pole+degree
   are ONE oriented place code (not three stacked ops), and the magnitude system is a COMPARISON system where the incumbent
   cosine INVERTS** (from `build_the_composed_scalar_magnitude_meaning_channel`, integrated SOLVED/EXCELLENT, owner-DONE +

@@ -1,0 +1,58 @@
+{
+  "anchor": "dim_phase_diagram_cleanup_rule_v1",
+  "d": 256,
+  "v": 100,
+  "n_reps": 40,
+  "chance": 0.01,
+  "rows": [
+    {
+      "D": 256,
+      "M": 16,
+      "argmax": 0.9984,
+      "sic": 1.0,
+      "sic_gain": 0.0016,
+      "sic_shuffled_twin": 0.1031
+    },
+    {
+      "D": 256,
+      "M": 32,
+      "argmax": 0.9227,
+      "sic": 1.0,
+      "sic_gain": 0.0773,
+      "sic_shuffled_twin": 0.0297
+    },
+    {
+      "D": 256,
+      "M": 48,
+      "argmax": 0.7766,
+      "sic": 1.0,
+      "sic_gain": 0.2234,
+      "sic_shuffled_twin": 0.025
+    },
+    {
+      "D": 256,
+      "M": 64,
+      "argmax": 0.6414,
+      "sic": 0.9871,
+      "sic_gain": 0.3457,
+      "sic_shuffled_twin": 0.0281
+    },
+    {
+      "D": 256,
+      "M": 96,
+      "argmax": 0.4349,
+      "sic": 0.325,
+      "sic_gain": -0.1099,
+      "sic_shuffled_twin": 0.012
+    },
+    {
+      "D": 256,
+      "M": 128,
+      "argmax": 0.3219,
+      "sic": 0.2041,
+      "sic_gain": -0.1178,
+      "sic_shuffled_twin": 0.0082
+    }
+  ],
+  "elapsed_s": 21.0
+}

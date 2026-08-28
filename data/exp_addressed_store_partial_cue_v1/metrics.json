@@ -1,0 +1,45 @@
+{
+  "anchor": "addressed_store_partial_cue_v1",
+  "D": 512,
+  "n_fam": 12,
+  "per_fam": 8,
+  "N": 96,
+  "chance_family": 0.0833,
+  "chance_item": 0.0104,
+  "sep": 0.55,
+  "related_cue": {
+    "semantic": 1.0,
+    "exact_key": 0.1225,
+    "shuffled_twin": 0.1175
+  },
+  "degraded_cue": {
+    "f_grid": [
+      0.0,
+      0.3,
+      0.5,
+      0.7,
+      0.9
+    ],
+    "semantic": {
+      "0.0": 1.0,
+      "0.3": 0.3633,
+      "0.5": 0.2033,
+      "0.7": 0.1133,
+      "0.9": 0.0833
+    },
+    "exact_key": {
+      "0.0": 1.0,
+      "0.3": 0.1833,
+      "0.5": 0.13,
+      "0.7": 0.1,
+      "0.9": 0.1
+    }
+  },
+  "real_arm": {
+    "n_words": 80,
+    "semantic_mean_nn_sim": 0.4089,
+    "exact_key_mean_nn_sim": 0.0468,
+    "note": "semantic store has real neighbour structure (partial-cue-completable); random-key store does not"
+  },
+  "elapsed_s": 7.2
+}

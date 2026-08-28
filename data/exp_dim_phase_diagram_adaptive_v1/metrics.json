@@ -1,0 +1,58 @@
+{
+  "anchor": "dim_phase_diagram_adaptive_v1",
+  "d": 256,
+  "v": 100,
+  "n_reps": 40,
+  "gate": "top1-top2 margin < 0.15 -> escalate argmax to CA3/SIC",
+  "rows": [
+    {
+      "M": 8,
+      "argmax": 1.0,
+      "ca3_all": 1.0,
+      "adaptive": 1.0,
+      "escalation_frac": 0.0,
+      "adaptive_randgate_control": 1.0
+    },
+    {
+      "M": 16,
+      "argmax": 0.9984,
+      "ca3_all": 1.0,
+      "adaptive": 1.0,
+      "escalation_frac": 0.022,
+      "adaptive_randgate_control": 0.9984
+    },
+    {
+      "M": 32,
+      "argmax": 0.9227,
+      "ca3_all": 1.0,
+      "adaptive": 0.9875,
+      "escalation_frac": 0.189,
+      "adaptive_randgate_control": 0.9328
+    },
+    {
+      "M": 48,
+      "argmax": 0.7766,
+      "ca3_all": 1.0,
+      "adaptive": 0.9536,
+      "escalation_frac": 0.343,
+      "adaptive_randgate_control": 0.8562
+    },
+    {
+      "M": 64,
+      "argmax": 0.6414,
+      "ca3_all": 0.9871,
+      "adaptive": 0.8809,
+      "escalation_frac": 0.425,
+      "adaptive_randgate_control": 0.7949
+    },
+    {
+      "M": 96,
+      "argmax": 0.4349,
+      "ca3_all": 0.325,
+      "adaptive": 0.4148,
+      "escalation_frac": 0.472,
+      "adaptive_randgate_control": 0.3727
+    }
+  ],
+  "elapsed_s": 13.0
+}

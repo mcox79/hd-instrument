@@ -1,0 +1,294 @@
+{
+  "anchor": "dim_phase_diagram_axes_v1",
+  "op": {
+    "d": 1024,
+    "m": 32,
+    "v": 100,
+    "n_banks": 8,
+    "rho": 0.0,
+    "q": 0,
+    "depth": 1
+  },
+  "n_reps": 40,
+  "axes": [
+    {
+      "axis": "V_cleanup_width",
+      "var": "v",
+      "fixed": {
+        "d": 1024,
+        "m": 32,
+        "v": 100,
+        "n_banks": 8,
+        "rho": 0.0,
+        "q": 0,
+        "depth": 1
+      },
+      "rows": [
+        {
+          "v": 20,
+          "acc": 1.0,
+          "twin": 0.0484,
+          "chance": 0.05,
+          "k_per_bank": null
+        },
+        {
+          "v": 50,
+          "acc": 1.0,
+          "twin": 0.0219,
+          "chance": 0.02,
+          "k_per_bank": null
+        },
+        {
+          "v": 100,
+          "acc": 1.0,
+          "twin": 0.0117,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "v": 200,
+          "acc": 1.0,
+          "twin": 0.0039,
+          "chance": 0.005,
+          "k_per_bank": null
+        },
+        {
+          "v": 500,
+          "acc": 1.0,
+          "twin": 0.0023,
+          "chance": 0.002,
+          "k_per_bank": null
+        },
+        {
+          "v": 1000,
+          "acc": 1.0,
+          "twin": 0.0016,
+          "chance": 0.001,
+          "k_per_bank": null
+        }
+      ]
+    },
+    {
+      "axis": "B_routing_sparsity",
+      "var": "n_banks",
+      "fixed": {
+        "d": 1024,
+        "m": 64,
+        "v": 100,
+        "n_banks": 8,
+        "rho": 0.0,
+        "q": 0,
+        "depth": 1
+      },
+      "rows": [
+        {
+          "n_banks": 1,
+          "acc": 0.9891,
+          "twin": 0.0121,
+          "chance": 0.01,
+          "k_per_bank": 64
+        },
+        {
+          "n_banks": 2,
+          "acc": 0.9996,
+          "twin": 0.0141,
+          "chance": 0.01,
+          "k_per_bank": 32
+        },
+        {
+          "n_banks": 4,
+          "acc": 1.0,
+          "twin": 0.0082,
+          "chance": 0.01,
+          "k_per_bank": 16
+        },
+        {
+          "n_banks": 8,
+          "acc": 1.0,
+          "twin": 0.0086,
+          "chance": 0.01,
+          "k_per_bank": 8
+        },
+        {
+          "n_banks": 16,
+          "acc": 1.0,
+          "twin": 0.0066,
+          "chance": 0.01,
+          "k_per_bank": 4
+        },
+        {
+          "n_banks": 32,
+          "acc": 1.0,
+          "twin": 0.0086,
+          "chance": 0.01,
+          "k_per_bank": 2
+        }
+      ]
+    },
+    {
+      "axis": "R_code_orthogonality",
+      "var": "rho",
+      "fixed": {
+        "d": 1024,
+        "m": 32,
+        "v": 100,
+        "n_banks": 8,
+        "rho": 0.0,
+        "q": 0,
+        "depth": 1
+      },
+      "rows": [
+        {
+          "rho": 0.0,
+          "acc": 1.0,
+          "twin": 0.0117,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "rho": 0.1,
+          "acc": 1.0,
+          "twin": 0.0117,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "rho": 0.2,
+          "acc": 1.0,
+          "twin": 0.0102,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "rho": 0.4,
+          "acc": 1.0,
+          "twin": 0.0102,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "rho": 0.6,
+          "acc": 0.3141,
+          "twin": 0.0086,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "rho": 0.8,
+          "acc": 0.2414,
+          "twin": 0.0102,
+          "chance": 0.01,
+          "k_per_bank": null
+        }
+      ]
+    },
+    {
+      "axis": "Q_precision",
+      "var": "q",
+      "fixed": {
+        "d": 1024,
+        "m": 32,
+        "v": 100,
+        "n_banks": 8,
+        "rho": 0.0,
+        "q": 0,
+        "depth": 1
+      },
+      "rows": [
+        {
+          "q": 0,
+          "acc": 1.0,
+          "twin": 0.0117,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "q": 2,
+          "acc": 1.0,
+          "twin": 0.0109,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "q": 3,
+          "acc": 1.0,
+          "twin": 0.0133,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "q": 4,
+          "acc": 1.0,
+          "twin": 0.0109,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "q": 8,
+          "acc": 1.0,
+          "twin": 0.0141,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "q": 16,
+          "acc": 1.0,
+          "twin": 0.0117,
+          "chance": 0.01,
+          "k_per_bank": null
+        }
+      ]
+    },
+    {
+      "axis": "K_binding_depth",
+      "var": "depth",
+      "fixed": {
+        "d": 1024,
+        "m": 16,
+        "v": 100,
+        "n_banks": 8,
+        "rho": 0.0,
+        "q": 0,
+        "depth": 1
+      },
+      "rows": [
+        {
+          "depth": 1,
+          "acc": 1.0,
+          "twin": 0.0141,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "depth": 2,
+          "acc": 1.0,
+          "twin": 0.0125,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "depth": 3,
+          "acc": 1.0,
+          "twin": 0.0109,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "depth": 4,
+          "acc": 1.0,
+          "twin": 0.0109,
+          "chance": 0.01,
+          "k_per_bank": null
+        },
+        {
+          "depth": 5,
+          "acc": 1.0,
+          "twin": 0.0031,
+          "chance": 0.01,
+          "k_per_bank": null
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 31.3
+}

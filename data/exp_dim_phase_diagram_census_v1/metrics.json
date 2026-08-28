@@ -1,0 +1,106 @@
+{
+  "anchor": "dim_phase_diagram_census_v1",
+  "store_family": "directed_hebbian_W_relational (kg_traversal/multi_hop)",
+  "n_ent": 400,
+  "n_rel": 40,
+  "d_grid": [
+    512,
+    1024,
+    2048
+  ],
+  "n_reps": 5,
+  "rows": [
+    {
+      "n_dim": 512,
+      "k_cliff_bundle_pred": 49,
+      "chance": 0.0025,
+      "loads": {
+        "256": {
+          "T": 256,
+          "acc": 1.0,
+          "twin": 0.0202,
+          "T_over_dim": 0.5,
+          "T_over_kcliff": 5.22
+        },
+        "1024": {
+          "T": 1024,
+          "acc": 1.0,
+          "twin": 0.0,
+          "T_over_dim": 2.0,
+          "T_over_kcliff": 20.9
+        },
+        "4096": {
+          "T": 4096,
+          "acc": 0.9822,
+          "twin": 0.0,
+          "T_over_dim": 8.0,
+          "T_over_kcliff": 83.59
+        },
+        "8192": {
+          "T": 8192,
+          "acc": 0.7602,
+          "twin": 0.0,
+          "T_over_dim": 16.0,
+          "T_over_kcliff": 167.18
+        },
+        "14336": {
+          "T": 14336,
+          "acc": 0.4473,
+          "twin": 0.0,
+          "T_over_dim": 28.0,
+          "T_over_kcliff": 292.57
+        }
+      }
+    },
+    {
+      "n_dim": 1024,
+      "k_cliff_bundle_pred": 89,
+      "chance": 0.0025,
+      "loads": {
+        "512": {
+          "T": 512,
+          "acc": 1.0,
+          "twin": 0.0,
+          "T_over_dim": 0.5,
+          "T_over_kcliff": 5.75
+        },
+        "2048": {
+          "T": 2048,
+          "acc": 1.0,
+          "twin": 0.0,
+          "T_over_dim": 2.0,
+          "T_over_kcliff": 23.01
+        },
+        "8192": {
+          "T": 8192,
+          "acc": 0.9959,
+          "twin": 0.0,
+          "T_over_dim": 8.0,
+          "T_over_kcliff": 92.04
+        }
+      }
+    },
+    {
+      "n_dim": 2048,
+      "k_cliff_bundle_pred": 162,
+      "chance": 0.0025,
+      "loads": {
+        "1024": {
+          "T": 1024,
+          "acc": 1.0,
+          "twin": 0.0,
+          "T_over_dim": 0.5,
+          "T_over_kcliff": 6.32
+        },
+        "4096": {
+          "T": 4096,
+          "acc": 1.0,
+          "twin": 0.0,
+          "T_over_dim": 2.0,
+          "T_over_kcliff": 25.28
+        }
+      }
+    }
+  ],
+  "elapsed_s": 82.1
+}

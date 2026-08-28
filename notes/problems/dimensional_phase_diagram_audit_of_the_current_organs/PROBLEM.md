@@ -1,8 +1,50 @@
 ---
-priority: 4
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "A rigorous, decisive NEGATIVE on the owner's question — dimensionality (N) is NOT a performance lever anywhere in the substrate — re-verified 18/18 FIRST-HAND (positive-control cliff SEEN 0.526→0.988, info-free twins at chance). Real-task register decode FLAT across D=256..8192 (STRUCTURAL, wall is front-end linking not capacity), meaning sparse-EXACT (no fixed D), memory stores were ALREADY at N_DIM=8192 → the brief's 'all at D=1024, never swept' premise is FALSE on disk. Goes BEYOND the bar: a 4-law store-family census (bundle ~N/log2N vs matrix-Hebbian ~16N differ ~190x), and it identifies the REAL fidelity axis — CODE ORTHOGONALITY dominates N (ρ0.0→0.65 vs ρ0.8→0.03; real WordNet codes ARE correlated, DG decorrelation recovers 0.74→0.98). TWO integrity self-corrections raise trust: its synthetic cliff REPRODUCES the existing closed-form k_cliff_scaling (a positive control, not a new law) and its 'multihop directedness defect' was on a NAIVE commutative store — the real kg_traversal organ is directed by construction (8-hop clean) → downgraded to a caution, not a substrate gap. Routed the +0.88 cortical-read headroom to the FILED problems rather than claiming it (Q113). NO hdlab landed by the solver (correct — it's a negative); proposed follow-on landings queued."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-28 (strategy session; grade EXCELLENT)
+> **Re-verified FIRST-HAND** (`verification/test_dim_phase_diagram.py`, **18/18 PASS**, 0 fail — suspected my own checker, ran
+> the live recompute myself). Positive control fires (`flat_D256_M64` 0.526 collapses vs `flat_D1024_M64` 0.988 recovers → the
+> harness demonstrably SEES a cliff); info-free random-key twin at chance (0.013 ≈ 1/100).
+> **Result (answers the owner's exact question, a full-pass NEGATIVE on N):** dimensionality is NOT a lever anywhere.
+> (1) The load-sensitive REGISTER: real-task oracle decode is FLAT across D=256..8192 (0.60→0.61, CIs overlap) → **STRUCTURAL**
+> at D=1024; the wall is front-end LINKING (ACT-R 0.17 vs oracle 0.60), not capacity. (2) MEANING is sparse-EXACT (K*≈256, not
+> rising at 1024). (3) The memory stores were ALREADY pinned to N_DIM=8192 on disk → the brief's "all at D=1024, never swept"
+> premise is **false on disk** (verified). So the composed reader's modest absolute numbers are NOT a D-artifact.
+> **Argument audit (not just arithmetic):** the NEGATIVE is interpretable precisely because the positive control + the
+> per-D-recomputed floors + info-free twins (all losing) rule out a blind harness. The BEYOND-N axes behave coherently:
+> orthogonality is a strong lever (ρ0.0 0.651 vs ρ0.8 0.026), binding DEPTH is not (depth1≈depth5), precision bites only at
+> q=2 (sign-binary 0.311 vs full 0.653), and a CA3/SIC joint-completion readout recovers the register cliff (argmax 0.644 →
+> 0.971) — i.e. the register "cliff" is largely a **readout** artifact, not dimensions.
+> **Two integrity self-corrections (the mark of quality — carried into the audit):** (a) the solver's synthetic cliff
+> REPRODUCES the existing closed form `hdlab.k_cliff_scaling.k_cliff(N)=0.87·N/log2(N)` → it is a positive control on the
+> harness, explicitly NOT claimed as a new law. (b) Its first-pass "multihop directedness DEFECT" was on a NAIVE
+> commutative-bind edge store; the substrate's REAL multihop organ (`kg_traversal.KGStore` + `multi_hop`) is directed by
+> construction (relation-typed key + asymmetric Hebbian W) and reasons perfectly to 8 hops at every D → **downgraded to a
+> naive-storage caution, NOT a substrate gap**. Both are exactly the honest self-correction the operating protocol asks for.
+> **Store-family census (beyond the bar):** the substrate runs FOUR distinct capacity laws — vector-bundle ~N/log2(N)
+> (register + `vsa_cleanup_memory.capacity_curve` cross-validate), sparse Willshaw > bundle (DG raises it), matrix-Hebbian
+> relational ~16·N (~190× the bundle — the actual multihop memory), multi-timescale temporal (floor set by the PERIOD
+> spectrum, not 1/√D). **No single capacity number crosses families** — recorded so nobody quotes one across them.
+> **Brain-fidelity / AUDIT:** the dominant fidelity axis is CODE ORTHOGONALITY / FEATURE_OVERLAP, not N — real WordNet codes
+> are correlated (0.039 vs 0.025 ideal) and cost capacity; DG sparse pattern separation recovers it (dense M32 0.742 → DG
+> sparse 0.979). This reinforces the audit's standing flag that our iid-random / maximal-orthogonality code is an unflagged
+> OUR-INVENTION. Folded to §2b (+ the register-STRUCTURAL@1024 verdict + the not-uniformly-D=1024 correction).
+> **To the solver's credit:** it routed the biggest LIVE lever — the cortical/consolidated READ regime (+0.88 generalisation
+> headroom: a distributed semantic cue retrieves at 1.00 where the exact-key hash reads ~chance 0.11) — to the ALREADY-FILED
+> problems (`the_consolidated_cortical_store_is_written_but_never_read`, `cortical_read_never_tested_where_it_matters`) rather
+> than claiming it under this slug (Q113 role-separation). Datapoint attached there.
+> **hdlab:** NONE landed by the solver (correct — Q111, and a negative needs none). **PROPOSED follow-on landings QUEUED (NOT
+> this commit — substantial builds, some overlapping p2): (1) swap the register argmax cleanup for CA3/resonator JOINT
+> completion (the ~4× readout lever); (2) add code-orthogonality + numeric-precision as first-class audit axes + a
+> DG-decorrelation check before autoassociative storage; (3) optionally the confidence-gated ADAPTIVE readout controller.**
+> DO NOT (carried from the submission): raise D anywhere as a capacity fix (ruled out); build a multihop directedness fix
+> (already handled); quote any single capacity number across store families. Honest scope: this is a DIAGNOSTIC — it changes
+> INTERPRETATION (the fidelity lever is orthogonality/readout/sparsity, not dimensions), it does not itself add capability.
+> *Note: the solver's own 20-min deepening cron lives in the SOLVER's session (crons are session-scoped) — not deletable from
+> here and harmless (a deepening probe on a now-closed problem); it lapses with that session.*
 
 # PROBLEM: every current reader organ + the composition was validated at ONE fixed dimensionality (D=1024 default) and NEVER swept — run the dimensional phase-diagram audit and classify each observed ceiling as STRUCTURAL vs UNDER-DIMENSIONED, recomputing the floor + info-free twin AT EACH D
 
