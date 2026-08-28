@@ -5,7 +5,7 @@ bar: "Recovery of the OVERLOADED regime, CI-separated over the argmax baseline, 
 result: "SYNTHETIC live register (D=256 FIXED, V=100, n_reps=40, unit=entity, 2000-boot): at overload M=64 the theta-gamma serial decode-and-suppress readout on the linear superposition recovers argmax 0.509 -> 0.983 (paired +0.454 [+0.426,+0.479]); recovery window M in [16,64] (up to +0.49). REAL LitBank (D=1024 FIXED, 100 docs, gold coref, unit=entity, 2000-boot): INERT on the bulk (argmax=serial=1.000 for <=63 events/entity); on the high-fan tail (91 entities with >=64 events, up to 260) argmax 0.959 -> serial 1.000 (+0.041 [+0.031,+0.053]) and CA1-gated 0.995 (+0.037 [+0.029,+0.045])."
 floor: "argmax (the organ's current cleanup_argmax readout) recomputed per load AND per population: synthetic 0.509 @M64 / 0.339 @M96; REAL 0.959 in the 64+ bin. Per-entity majority-verb floor on real load = 0.138 (64+ bin). Info-free twins (shuffled-key serial) LOSE CI-separated at every load: synthetic 0.027 @M64 (chance 0.01), REAL 0.044 (64+ bin)."
 controls: "(1) shuffled-key twin (info-free serial: joint machinery runs, keys wrong) LOSES CI-sep everywhere -- excludes 'the iteration helps regardless of the keys'. (2) per-slot modern-Hopfield ATTRACTOR ties argmax exactly (0.529=0.529 @M64) -- excludes 'generic completion'; proves the gain is known-key CROSSTALK CANCELLATION, since a codebook attractor has no manifold on the register's separated i.i.d. codes (O'Reilly & McClelland 1994). (3) renorm-vs-rawsum decomposition + an argmax_rawsum control -- locates the per-component bundle renorm as breaking serial (serial_renorm 0.119 << serial_rawsum 0.983 @M64), excluding a trace-representation confound. (4) POSITIVE CONTROL: the harness sees the cliff (argmax fans 1.0->0.085 with load). (5) hub-bias reproduced on a ranking task with a CHANCE info-free control and settling-DEPTH scaling -- excludes a metric that cannot fail. (6) CA1-comparator exact-match gate REFUSES the resonator's spurious divergence at extreme overload (M>=96 -> argmax fallback) -- excludes 'always complete'. (7) REAL-load inertness on low-fan entities -- excludes a false current-task win. Scaffold-free witness 12/12 PASS."
-files_changed: "experiments/exp_register_completion_readout_v1.py, experiments/exp_register_readout_vs_store_lever_v1.py, experiments/exp_readout_recall_vs_rank_reconciliation_v1.py, experiments/exp_register_completion_real_litbank_v1.py, verification/test_register_completion_readout.py, notes/problems/the_register_reads_by_argmax_not_recurrent_completion/{SOLVED.md, research_readout_routing_brain_drill_2026-08-28.md} (NO hdlab/ change -- proposed diff below; board Q111)"
+files_changed: "experiments/exp_register_completion_readout_v1.py, experiments/exp_register_readout_vs_store_lever_v1.py, experiments/exp_readout_recall_vs_rank_reconciliation_v1.py, experiments/exp_register_completion_real_litbank_v1.py, experiments/exp_register_completion_correlated_fillers_v1.py, verification/test_register_completion_readout.py, notes/problems/the_register_reads_by_argmax_not_recurrent_completion/{SOLVED.md, research_readout_routing_brain_drill_2026-08-28.md} (NO hdlab/ change -- proposed diff below; board Q111)"
 reverify: ".venv/Scripts/python.exe verification/test_register_completion_readout.py"
 ---
 
@@ -121,6 +121,17 @@ shuffled-key twin 0.044, majority-verb floor 0.138. A real-load recovery on book
 5. **The unexpected wall (spurious resonator solutions) was drilled, not hacked.** A partial reconstruction
    match IS the mismatch/novelty signal; accept completion only on a near-exact match. The brain has this
    mechanism, so we could too.
+6. **DEEPENING that reversed my own prediction (`exp_register_completion_correlated_fillers_v1.py`):** I
+   expected correlated fillers (real verbs are semantically correlated -- the audit's flagged iid-code
+   OUR-INVENTION) to DEGRADE the serial read-out. The disk says the opposite: serial stays at **1.000
+   exact-id recovery from iid (mean|cos| 0.035) to strongly-correlated (0.123)**, because its crosstalk
+   cancellation is keyed on the ORTHOGONAL event-slot keys, not on filler dissimilarity -- while **argmax
+   COLLAPSES (0.757 -> 0.136)** because it relies on separability. The lever's edge GROWS with correlation
+   (+0.243 -> +0.864 CI-sep). Two consequences: (a) the iid-code assumption is NOT load-bearing for the
+   read-out -- the KNOWN-KEY structure is; and this is the sharp form of the reconciliation (keys make
+   completion correlation-robust for RECALL; exp3's KEYLESS ranking + settling gives hub bias). (b) since
+   real verbs ARE correlated, the real-load benefit (exp4 +0.041, measured with the register's iid codes) is
+   if anything an UNDER-estimate -- argmax on real correlated fillers is worse than iid predicts.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 
@@ -133,9 +144,16 @@ shuffled-key twin 0.044, majority-verb floor 0.138. A real-load recovery on book
   accumulator. (Consistent with the existing flag on `norm="l2"` in `bundling.bundle` that per-component
   renorm "only ever HURTS role-filler recovery".)
 - **Reconciliation logged:** recurrent completion is the correct read-out for RECALL of a known-key
-  superposition on SEPARATED codes; it HURTS RANK over CORRELATED codes (hub bias, O'Reilly & McClelland
-  1994 separation/completion tradeoff). Route by query structure; gate "when to complete" by the CA1
-  comparator exact-match test.
+  superposition; it HURTS RANK over CORRELATED codes (hub bias, O'Reilly & McClelland 1994
+  separation/completion tradeoff). Route by query structure; gate "when to complete" by the CA1 comparator
+  exact-match test.
+- **REVISION to the audit's flagged item ("the FHRR iid-random-code assumption is an unflagged
+  OUR-INVENTION"):** for the register READ-OUT, the iid assumption is NOT load-bearing -- serial decode is
+  correlation-INVARIANT (1.000 exact recovery from mean|cos| 0.035 to 0.123) because it cancels crosstalk
+  using the orthogonal KEYS, not filler separability; argmax is the one that needs separated codes (it
+  collapses 0.757->0.136 under correlation). The load-bearing property is the KNOWN-KEY structure. (This
+  does NOT retract the iid caveat for STORAGE CAPACITY / for the ranking store -- only for the known-key
+  read-out.)
 
 ## PROPOSED hdlab CHANGE (strategy lands it -- board Q111; I do not write hdlab/)
 

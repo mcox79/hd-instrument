@@ -226,6 +226,42 @@ small rate-limited integration, NOT a wholesale overwrite.
   The 458MB parse cache + SimVerb are already shipped + byte-verified on marsh@home. Resolution is an
   OWNER decision: grant a one-time `preregs/` write, or route the remote runs through the strategy lane.
 
+## FIDELITY PHASE 3 -- REMOTE ARCHITECTURE DRILLS (full 15M runs, 2026-08-28)
+
+Four brain-foundational drills, self-dispatched to the remote CPU box. Two wins, two honest partials:
+
+- **SEMANTIC-CONTROL ROUTING -- WIN** (`exp_semantic_control_routing_v1`, HARD_PASS). IFG-style dynamic
+  per-query control (task-set gain over channels) beats the best FIXED reliability-weighted blend on a
+  pooled similarity+relatedness+verb eval; the shuffled-gate twin loses. Pooled TASKSET 0.274 vs
+  FIXED_BLEND 0.262; the gain is on RELATEDNESS routing (REL: 0.544 vs 0.495, routes to the window
+  channel) and flat on similarity. Validates the semantic-control organ: dynamic routing > one static
+  blend. (The gold-blind CONFLICT variant 0.253 underperforms the task-set gain -- a deepening target.)
+- **GROUNDING SUPPLY -- WIN** (`exp_grounding_supply_v1`, HARD_PASS). Richer grounding fused with text
+  beats text-alone on the NON-WordNet MEN gold +0.1275 [ci_half .021] CI-sep, and the CROSSOVER holds
+  (FUSED MEN-delta +0.1275 vs SimLex +0.0345; RICH MEN +0.0535 vs SimLex -0.0103). Binder-65 alone =
+  0.633 on MEN. The learner-vs-WordNet gap is a real, closable SUPPLY gap; grounding earns its keep on
+  the experiential/associative axis where taxonomic WordNet is weakest.
+- **EXEMPLAR SELECTIONAL PREFERENCE -- honest partial** (MIDDLE_BAND). Beats its FEATURE_SHUFFLE twin
+  (+0.013 CI-sep, real grounded signal) but LOSES to word-identity even on RARE verbs (rare EXEMPLAR
+  0.056 vs WORDID 0.176; pooled -0.043 vs 0.149). NOT a brain-gap at this scale: the exemplar/feature-
+  generalisation advantage is a LOW-DATA / true-zero-count phenomenon; at 15M read-tokens counting has
+  enough data (the standing corpus-limited theme). The 12-dim grounded feature space is also too thin
+  for verb participants. To SEE the brain's advantage: test at low token budgets / genuinely unseen
+  verb-filler pairs -- a regime test, not a fix.
+- **DEPENDENCY-PATH CONTEXT -- rigorous negative** (MIDDLE_BAND). Length-2 grandparent+sibling path
+  columns beat their PATH_SHUFFLE twin (SimLex +0.050, SimVerb +0.046 CI-sep) but do NOT beat the
+  immediate (deprel, filler) context (SimVerb vs_DEP1 -0.021, CI-sep BELOW; SimLex -0.024 ns); WordSim
+  hurt. NOT a wall: the immediate dependency context IS the brain's grammatical-context mechanism and
+  ALREADY won (BAR #1) -- it saturates the paradigmatic signal; longer paths add sparsity/noise. The
+  only untested brain-faithful variant is true SECOND-ORDER similarity (Lin 1998 similar-not-identical
+  contexts), but diminishing returns.
+
+**Genuine follow-on drilled:** scale the grounding win -- PREDICT Binder's 65 brain-derived attributes
+across the whole vocabulary (from Lancaster + distributional) for BROAD brain-based grounding, not the
+536-word Binder subset. (Infra note: the remote auto-sync `hd_metrics_sync` was found DISABLED -- runs
+completed cleanly on the box but had to be pulled manually; re-enable `schtasks /change /tn
+hd_metrics_sync /enable`. Runner also writes a double-prefixed `data/exp_exp_<name>/` path (SH-4).)
+
 ## TLDR
 
 The brief's plan -- make the learner update the brain's way (online, from error) -- is a proven dead
