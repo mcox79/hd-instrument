@@ -4,27 +4,27 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-08-28T17:48:51Z  |  HEAD: fe4b3f3a4
+generated: 2026-08-28T19:02:16Z  |  HEAD: 258c707b5
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 37422 min ago <-- STALE
-  - orchestrator: 45752 min ago <-- STALE
-  - research: 239 min ago <-- STALE
-  - skunkworks: 48423 min ago <-- STALE
-  - testbed: 84997 min ago <-- STALE
+  - exp_dev: 37496 min ago <-- STALE
+  - orchestrator: 45825 min ago <-- STALE
+  - research: 312 min ago <-- STALE
+  - skunkworks: 48497 min ago <-- STALE
+  - testbed: 85071 min ago <-- STALE
 data/ directories touched in the last 180 min:
   - logs: 0 min ago, NO metrics.json yet (likely in-flight)
   - local_cpu_queue: 0 min ago, NO metrics.json yet (likely in-flight)
+  - exp_binder_attr_prediction_grounding_v1: 1 min ago, has metrics.json
   - hook_state: 2 min ago, NO metrics.json yet (likely in-flight)
-  - exp_reading_grounding_depth_diagnostic_v1: 6 min ago, has metrics.json
-  - exp_perceptual_access_distance_v1_smoke: 116 min ago, has metrics.json
-  - exp_perceptual_access_distance_v1: 117 min ago, has metrics.json
-  - exp_perceptual_access_intact_v1_smoke: 121 min ago, has metrics.json
-  - exp_perceptual_access_corpus_v1_smoke: 121 min ago, has metrics.json
+  - exp_register_completion_divergence_drill_v1: 7 min ago, has metrics.json
+  - .metrics_sync: 8 min ago, NO metrics.json yet (likely in-flight)
+  - exp_reading_grounding_depth_diagnostic_v1: 10 min ago, has metrics.json
+  - exp_register_completion_correlated_fillers_v1: 16 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *ENUMERATED FROM DISK 08-23 23:0x: `10` open (priorities `1`-`10`, contiguous), `8` solved+reviewed. **THE PREVIOUS TEXT HERE READ `11` open / `5` reviewed -- I MIRRORED A REMEMBERED COUNT ON THE VERY LINE THAT SAYS ENUMERATE.** Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - ✅ **TWO OF THE THREE ARE NOW REVIEWED (08-23 late). BOTH RE-VERIFIES PASS; I THEN AUDITED THE
@@ -144,13 +144,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 14 new commit(s) since last snapshot (HEAD 38e69efff -> fe4b3f3a4)
-- data/ directory count: 8458 -> 8477 (+19)
+- nothing measurable moved since the last snapshot
 
 ## 5. What is stuck (blocked / pending / no owner)
 - comparator it did not use (it ran TWO supplied arms and quoted the weaker) and **it held**: the
 - US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8477, "generated_at": "2026-08-28T17:48:51Z", "head_commit": "fe4b3f3a4dae89d46c00655636f2f58799a5544a", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8493, "generated_at": "2026-08-28T19:02:16Z", "head_commit": "258c707b54dd17f6b20e7b3b1611eda514a93a25", "step_status": {}}
 -->
