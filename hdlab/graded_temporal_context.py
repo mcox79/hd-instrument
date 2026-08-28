@@ -49,3 +49,42 @@ class GradedTemporalContext:
         """The temporal-context code at continuous time `t`: exp(i(omega*t + phase)), complex64 (FHRR-bindable)."""
         ang = self.omega * float(t) + self.phase
         return torch.polar(torch.ones(self.d, dtype=torch.float64), ang).to(torch.complex64)
+
+
+class EventSegmentedContext:
+    """Graded temporal context whose drift JUMPS at EVENT BOUNDARIES -- so contiguity is HIGH within an event and CUT
+    across a boundary at the same real-time lag (Baldassano 2017; DuBrow & Davachi 2013; Zwaan event-indexing: subjective
+    temporal distance is LARGER across boundaries, and within-event order memory is better than across).
+
+    Implemented as WARPED TIME: within an event `tau` advances by 1 per step; at a boundary it jumps by `boundary_jump`.
+    `ctx(t)[k] = exp(i(omega_k * tau(t) + phi_k))`, unit-magnitude (FHRR-bindable). The BOUNDARIES are an INPUT (a
+    prediction-error boundary detector -- e.g. the N400 coherence monitor -- supplies them; that wiring is a follow-on).
+    This is the "when-to-segment" structure of the factorized episodic store (landing-step 3)."""
+
+    def __init__(self, boundaries, d: int = DEFAULT_D, seed: int = 20260828, boundary_jump: float = 8.0,
+                 min_period: float = 2.0, horizon: int = 1000) -> None:
+        self.d = int(d)
+        self.boundaries = set(int(b) for b in boundaries)
+        tau = [0.0] * (horizon + 2)
+        for t in range(1, horizon + 2):
+            tau[t] = tau[t - 1] + 1.0 + (boundary_jump if t in self.boundaries else 0.0)
+        self._tau = tau
+        g = torch.Generator().manual_seed(int(seed))
+        lo, hi = math.log(min_period), math.log(4.0 * max(tau[horizon], 1.0))
+        periods = torch.exp(torch.linspace(lo, hi, d, dtype=torch.float64))
+        self.omega = (2.0 * math.pi) / periods
+        self.phase = torch.rand(d, generator=g, dtype=torch.float64) * (2.0 * math.pi)
+
+    def _warp(self, t: float) -> float:
+        i = int(math.floor(t))
+        if i < 0:
+            return self._tau[0]
+        if i + 1 >= len(self._tau):
+            return self._tau[-1]
+        frac = t - i
+        return self._tau[i] * (1.0 - frac) + self._tau[i + 1] * frac
+
+    def ctx(self, t: float) -> torch.Tensor:
+        """Temporal-context code at continuous time `t`, warped so drift jumps at event boundaries. complex64."""
+        ang = self.omega * self._warp(t) + self.phase
+        return torch.polar(torch.ones(self.d, dtype=torch.float64), ang).to(torch.complex64)

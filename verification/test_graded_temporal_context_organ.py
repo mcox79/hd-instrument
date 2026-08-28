@@ -17,7 +17,7 @@ import torch
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from hdlab import binding  # noqa: E402
-from hdlab.graded_temporal_context import GradedTemporalContext  # noqa: E402
+from hdlab.graded_temporal_context import GradedTemporalContext, EventSegmentedContext  # noqa: E402
 from hdlab.lexical_similarity import _cos_complex  # noqa: E402
 from hdlab.situation_model_accumulate import unit_phase_vec  # noqa: E402
 
@@ -59,6 +59,18 @@ def main() -> int:
     sim = float(_cos_complex(recovered, x))
     print(f"[3] bindable: unbind(bind(x, ctx(t)), ctx(t)) ~= x, cos={sim:.4f}")
     assert sim > 0.99, "the temporal context must be a clean FHRR bind/unbind key"
+
+    # [4] EVENT BOUNDARY: contiguity is CUT across a boundary but preserved within an event (same real-time lag)
+    esc = EventSegmentedContext(boundaries=[5], d=D, seed=20260828, boundary_jump=8.0)
+    within = float(_cos_complex(esc.ctx(1.0), esc.ctx(3.0)))    # lag 2, no boundary between -> high contiguity
+    across = float(_cos_complex(esc.ctx(4.0), esc.ctx(6.0)))    # lag 2, boundary at 5 between -> cut
+    uni = GradedTemporalContext(d=D, seed=20260828)
+    uni_within = float(_cos_complex(uni.ctx(1.0), uni.ctx(3.0)))
+    uni_across = float(_cos_complex(uni.ctx(4.0), uni.ctx(6.0)))
+    print(f"[4] event boundary: within-event {within:.3f} vs across-boundary {across:.3f} "
+          f"(uniform clock: {uni_within:.3f} vs {uni_across:.3f}, no gap)")
+    assert within > across + 0.15, "an event boundary must CUT contiguity (within >> across at the same lag)"
+    assert abs(uni_within - uni_across) < 0.05, "the uniform clock must have NO within/across gap (isolates the boundary effect)"
 
     print("\nALL WITNESS ASSERTIONS PASSED -- the graded temporal context carries a smooth temporal-contiguity kernel")
     print("(peaks at zero lag, decays with |dt|; an orthogonal slot key does not), is unit-magnitude, and binds/unbinds")
