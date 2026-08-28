@@ -412,3 +412,59 @@ Each `PROBLEM.md` has the same eight sections, in this order:
 - **Save the population you scored, not just the score.**
 - **If a tool call is denied: STOP and report the denial verbatim.** Do not retry a variant.
 - **Ask whether the experiment COULD have succeeded before asking why it did not.**
+
+## 🖥️ REMOTE RUNS (CPU **and** GPU) -- how a solver dispatches a heavy run without writing a prereg
+
+**The standing rule:** heavy/long runs go to the remote box (marsh@home) -- lightweight probes/self-tests stay
+inline. But solvers are scope-barred from `preregs/**`, origin push, and remote ops, and the remote pipeline
+(`tools/orchestrator/queue_add.sh`) REQUIRES a prereg -- so a solver dead-ends. **The bridge:** you drop a
+request file; a STRATEGY session validates it, writes the prereg, ships the data, and queues it.
+
+**HOW (solver side):**
+1. Make your cell **remote-safe**: (a) it must NOT import spaCy at module level (remote has no spaCy -- put any
+   `import spacy` INSIDE the parse function the cell never calls on remote); (b) it must LOAD a pre-parsed cache,
+   never parse; (c) it must declare every data dependency as a `# KB_REFERENT: <path>` comment (auto-shipped);
+   (d) it must expose `--self-test` (or `--smoke`) and be GREEN locally before you request.
+2. Drop `notes/problems/<your-slug>/REMOTE_RUN_REQUEST_<cell>.md` with this front-matter:
+   ```
+   ---
+   cell: experiments/exp_yourcell_v1.py
+   mode: full                         # or: args: "--mode full --k 50"
+   queue: remote_cpu_queue            # CPU (numpy/scipy/sklearn, NO torch)
+   #  OR: queue: overnight_queue      # GPU runner (RTX 4060 Ti) -- REQUIRED if your cell `import torch`
+   timeout_s: 3600
+   results_path: data/exp_yourcell_v1/metrics.json
+   self_test: green
+   question: one-line question
+   gate: EXEMPLAR beats FLOOR CI-separated AND beats the info-free TWIN (recompute floors per population)
+   kb_referents:
+     - data/.../your_parsed_cache.jsonl
+     - data/.../your_gold.txt
+   ---
+   (free-form notes: arms, floor, twin, population)
+   ```
+3. Tell strategy (or wait for the strategy heartbeat/watcher to pick it up).
+
+**CPU vs GPU (both supported):**
+- **`remote_cpu_queue`** -- numpy/scipy/sklearn cells with **NO** `import torch`. Runs on the remote CPU.
+- **`overnight_queue`** -- cells that `import torch` and use CUDA. Runs on the **GPU** (RTX 4060 Ti). A torch-LESS
+  cell here is REJECTED (it idles the GPU). Omit `queue:` and the fulfiller auto-routes: torch -> GPU, else CPU.
+
+**HOW (strategy side -- fulfils the request):**
+```
+.venv/Scripts/python.exe tools/fulfill_remote_run_request.py --request notes/problems/<slug>/REMOTE_RUN_REQUEST_<cell>.md
+#   add --dry-run to validate + preview the prereg and queue command without writing/shipping/queuing
+```
+The fulfiller (`tools/fulfill_remote_run_request.py`) runs guardrails (rejects: no KB_REFERENT; no
+--self-test/--smoke; module-level spaCy on the cell or its imported experiments.* siblings; torch-less on the GPU
+queue; a failing --self-test), auto-writes `preregs/<date>_<cell>.md`, and dispatches via `queue_add.sh` to the
+chosen queue (which auto-ships the script + siblings + any missing KB_REFERENT data). It logs to
+`data/remote_run_requests_log.jsonl`.
+
+**RESULTS** return to your `results_path` via the ~20-min `local_metrics_sync.ps1` pull, or on demand
+`python tools/orchestrator/scp_recover_landing.py --verify-after <cell_name>`. You read the verdict there; strategy
+does NOT integrate on it (WIP until `owner_verdict: DONE`).
+
+**GOTCHA -- full vs smoke:** the remote runner invokes your cell by a fixed convention. If your cell defaults to
+SMOKE when `--mode` is absent (e.g. `smoke = args.mode != "full"`), make sure the runner convention passes
+`--mode full` OR make your cell default to full for the real run -- otherwise it silently runs the smoke sample.

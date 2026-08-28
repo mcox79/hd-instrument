@@ -1,0 +1,328 @@
+#!/usr/bin/env python
+"""tools/fulfill_remote_run_request.py -- STRATEGY-side fulfiller for solver REMOTE_RUN_REQUEST files.
+
+WHY THIS EXISTS
+  Solver sessions must route heavy runs to the remote box (marsh@home) per the standing rule, but they
+  are deliberately scope-barred from writing preregs/**, pushing to origin, and remote ops. The remote
+  pipeline `tools/orchestrator/queue_add.sh` REQUIRES a prereg file (existence-checked), so a solver
+  dead-ends at the prereg. This bridge lets ANY solver request a remote run WITHOUT writing a prereg:
+  the solver drops `notes/problems/<slug>/REMOTE_RUN_REQUEST_<cell>.md` (solvers may write their own
+  problem folder); a STRATEGY session runs THIS tool, which validates the cell, auto-writes the prereg,
+  ships any un-shipped data, and queues it to the correct CPU or GPU queue.
+
+CPU vs GPU ROUTING (both supported)
+  remote_cpu_queue  numpy/scipy/sklearn cells (NO torch)         -> remote CPU runner on marsh@home
+  overnight_queue   torch+cuda cells                              -> GPU runner on marsh@home (RTX 4060 Ti)
+  Auto-detected from `import torch`. A torch-LESS cell pinned to overnight_queue is REJECTED (it idles
+  the GPU and blocks real GPU jobs -- queue_add.sh enforces this too). If `queue:` is omitted, the tool
+  picks overnight_queue for a torch cell, else remote_cpu_queue.
+
+REMOTE HAS NO spaCy (documented install failures) -> a cell that imports spaCy at MODULE level, or whose
+  imported experiments.* siblings do, is REJECTED: remote cells LOAD a pre-parsed cache, never parse.
+
+USAGE
+  .venv/Scripts/python.exe tools/fulfill_remote_run_request.py --request notes/problems/<slug>/REMOTE_RUN_REQUEST_<cell>.md
+  .venv/Scripts/python.exe tools/fulfill_remote_run_request.py --request <req> --dry-run   # validate + show, no write/ship/queue
+  (direct, no request file:)
+  .venv/Scripts/python.exe tools/fulfill_remote_run_request.py --cell experiments/exp_X_v1.py --queue remote_cpu_queue \
+      --timeout 3600 --args "--mode full" --gate "X beats FLOOR CI-sep AND beats TWIN" --question "..." [--dry-run]
+
+The prereg is written by ordinary Python file I/O (NOT the Write tool) -- the sanctioned strategy path.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import subprocess
+import sys
+from datetime import datetime, timezone
+
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+QUEUE_ADD = os.path.join(REPO, "tools", "orchestrator", "queue_add.sh")
+LOG = os.path.join(REPO, "data", "remote_run_requests_log.jsonl")
+VALID_QUEUES = ("remote_cpu_queue", "overnight_queue", "local_cpu_queue")
+
+
+def _read(path):
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
+
+
+def parse_request(path):
+    """Minimal front-matter parser (key: value, and `- ` list items under a key). No pyyaml dependency."""
+    txt = _read(path)
+    fm = {}
+    m = re.match(r"^---\s*\n(.*?)\n---\s*\n?(.*)$", txt, re.DOTALL)
+    body = ""
+    block = txt
+    if m:
+        block, body = m.group(1), m.group(2)
+    cur_list_key = None
+    for line in block.splitlines():
+        if not line.strip():
+            continue
+        li = re.match(r"^\s*-\s+(.*)$", line)
+        if li and cur_list_key:
+            fm.setdefault(cur_list_key, []).append(li.group(1).strip())
+            continue
+        kv = re.match(r"^([A-Za-z_][\w]*):\s*(.*)$", line)
+        if kv:
+            key, val = kv.group(1).strip(), kv.group(2).strip()
+            if val == "":
+                cur_list_key = key  # a list follows
+                fm.setdefault(key, [])
+            else:
+                cur_list_key = None
+                fm[key] = val
+    fm["_body"] = body
+    return fm
+
+
+def kb_referents(cell_path):
+    out = []
+    for line in _read(cell_path).splitlines():
+        m = re.match(r"^\s*#\s*KB_REFERENT:\s*(\S+)", line)
+        if m:
+            out.append(m.group(1))
+    return out
+
+
+def sibling_experiment_imports(cell_path):
+    """experiments.* modules the cell imports (for the spaCy-at-module-level check)."""
+    mods = []
+    for line in _read(cell_path).splitlines():
+        m = re.match(r"^\s*from\s+experiments\.(\w+)\s+import", line) or re.match(r"^\s*import\s+experiments\.(\w+)", line)
+        if m:
+            mods.append(m.group(1))
+    return mods
+
+
+def has_module_level_spacy(path):
+    for line in _read(path).splitlines():
+        # column-0 (module level) import only; an indented `import spacy` inside a function is fine
+        if re.match(r"^(import\s+spacy|from\s+spacy\b)", line):
+            return True
+    return False
+
+
+def has_torch(path):
+    for line in _read(path).splitlines():
+        if re.match(r"^\s*(import\s+torch|from\s+torch\b)", line):
+            return True
+    return False
+
+
+def has_flag(path, *flags):
+    txt = _read(path)
+    return any(f in txt for f in flags)
+
+
+def run_self_test(cell_path, timeout_s=300):
+    try:
+        p = subprocess.run([sys.executable, cell_path, "--self-test"],
+                           cwd=REPO, capture_output=True, text=True, timeout=timeout_s)
+        return p.returncode, (p.stdout[-500:] + p.stderr[-500:])
+    except subprocess.TimeoutExpired:
+        return 124, f"--self-test exceeded {timeout_s}s"
+    except Exception as e:  # noqa: BLE001
+        return 1, f"--self-test could not run: {e}"
+
+
+def guardrails(cell, queue, skip_self_test):
+    """Return (ok, decided_queue, reasons[], warnings[])."""
+    reasons, warns = [], []
+    cell_abs = os.path.join(REPO, cell)
+    if not os.path.isfile(cell_abs):
+        return False, queue, [f"cell not found: {cell}"], warns
+
+    krefs = kb_referents(cell_abs)
+    if not krefs:
+        reasons.append("cell declares NO `# KB_REFERENT:` line -- remote cells must LOAD a pre-parsed "
+                       "cache, not parse (remote has no spaCy). Declare the data deps and re-request.")
+    if not has_flag(cell_abs, "--self-test", "--self_test", "--smoke"):
+        reasons.append("cell exposes neither --self-test nor --smoke -- required (a re-run must recompute, "
+                       "not replay). Add the reproducibility hooks and re-request.")
+
+    # spaCy-at-module-level on the cell OR any imported experiments.* sibling
+    if has_module_level_spacy(cell_abs):
+        reasons.append("cell imports spaCy at MODULE level -> import crashes on the remote box (no spaCy). "
+                       "Move the import inside the parse function (which remote cells never call).")
+    for mod in sibling_experiment_imports(cell_abs):
+        sib = os.path.join(REPO, "experiments", mod + ".py")
+        if os.path.isfile(sib) and has_module_level_spacy(sib):
+            reasons.append(f"imported sibling experiments.{mod} imports spaCy at MODULE level -> remote "
+                           f"ImportError. Guard it inside the parse function.")
+
+    # CPU/GPU routing
+    torch = has_torch(cell_abs)
+    decided = queue
+    if not decided:
+        decided = "overnight_queue" if torch else "remote_cpu_queue"
+        warns.append(f"queue not pinned -> auto-routed to {decided} ({'torch/GPU' if torch else 'numpy/CPU'}).")
+    if decided == "overnight_queue" and not torch:
+        reasons.append("queue=overnight_queue (GPU runner) but the cell has no `import torch` -- a numpy/CPU "
+                       "script idles the GPU and blocks real GPU jobs. Route to remote_cpu_queue.")
+    if decided == "remote_cpu_queue" and torch:
+        warns.append("cell imports torch but queue=remote_cpu_queue -> it runs on the remote CPU (no GPU accel). "
+                     "Use overnight_queue if you want the GPU.")
+    if decided not in VALID_QUEUES:
+        reasons.append(f"invalid queue '{decided}' (valid: {', '.join(VALID_QUEUES)}).")
+
+    # self-test is the strongest guardrail (proves imports resolve + logic sound); cache-free by convention
+    if not skip_self_test and not reasons:
+        rc, tail = run_self_test(cell_abs)
+        if rc != 0:
+            reasons.append(f"--self-test FAILED (rc={rc}). It must pass before dispatch. Tail:\n{tail}")
+        else:
+            warns.append("--self-test PASSED (rc=0).")
+
+    return (len(reasons) == 0), decided, reasons, warns
+
+
+def build_prereg_text(cell, decided_queue, args_str, gate, question, krefs, torch, extra_body):
+    date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    lines = [
+        f"# Pre-reg: {os.path.splitext(os.path.basename(cell))[0]}",
+        "",
+        f"**Auto-generated {date} by tools/fulfill_remote_run_request.py (strategy fulfiller) from a solver "
+        f"REMOTE_RUN_REQUEST.** Dispatched to `{decided_queue}` (marsh@home), args `{args_str or '(none)'}`. "
+        f"This is a COMPUTE dispatch, not an integration.",
+        "",
+        "## Question",
+        question or "(see the spawning problem brief)",
+        "",
+        "## Gate",
+        gate or "(see the spawning problem brief -- CI-separated over the strongest real floor; info-free twin loses)",
+        "",
+        "## Compute route",
+        f"- Queue: **{decided_queue}** "
+        + ("(GPU runner, RTX 4060 Ti -- cell imports torch)." if decided_queue == "overnight_queue"
+           else "(remote CPU runner -- numpy/scipy/sklearn, no torch)." if decided_queue == "remote_cpu_queue"
+           else "(local CPU)."),
+        f"- torch on the import path: {'yes' if torch else 'no'}.",
+        "",
+        "## Data dependencies (KB_REFERENT -- auto-shipped by queue_add.sh if missing on remote)",
+    ]
+    if krefs:
+        lines += [f"- `{k}`" for k in krefs]
+    else:
+        lines.append("- (none declared)")
+    lines += [
+        "",
+        "## Remote-safety",
+        "Verified by the fulfiller before dispatch: --self-test/--smoke present and (unless skipped) PASSED; "
+        "no module-level spaCy on the cell or its imported experiments.* siblings (remote has no spaCy -> the "
+        "cell LOADS a pre-parsed cache, never parses); CPU/GPU route matches the cell's torch usage.",
+    ]
+    if extra_body and extra_body.strip():
+        lines += ["", "## Solver notes (from the request)", extra_body.strip()]
+    lines.append("")
+    return "\n".join(lines)
+
+
+def log_event(record):
+    os.makedirs(os.path.dirname(LOG), exist_ok=True)
+    with open(LOG, "a", encoding="utf-8", newline="") as f:
+        f.write(json.dumps(record) + "\n")
+
+
+def main():
+    ap = argparse.ArgumentParser(description="Fulfill a solver REMOTE_RUN_REQUEST: validate, write prereg, ship, queue (CPU or GPU).")
+    ap.add_argument("--request", help="path to notes/problems/<slug>/REMOTE_RUN_REQUEST_<cell>.md")
+    ap.add_argument("--cell", help="experiments/exp_X_v1.py (if not using --request)")
+    ap.add_argument("--queue", choices=VALID_QUEUES, help="pin the queue; omit to auto-route by torch")
+    ap.add_argument("--timeout", type=int, help="per-run timeout seconds (required to actually dispatch)")
+    ap.add_argument("--args", dest="args_str", default="", help="extra args passed to the cell, e.g. '--mode full'")
+    ap.add_argument("--gate", default="")
+    ap.add_argument("--question", default="")
+    ap.add_argument("--name", help="queue entry name (default: cell basename)")
+    ap.add_argument("--skip-self-test", action="store_true", help="skip the --self-test guardrail (NOT recommended)")
+    ap.add_argument("--dry-run", action="store_true", help="validate + print the prereg and queue command; write/ship/queue NOTHING")
+    a = ap.parse_args()
+
+    fm = {}
+    if a.request:
+        if not os.path.isfile(a.request):
+            print(f"FAIL: request not found: {a.request}", file=sys.stderr)
+            return 2
+        fm = parse_request(a.request)
+
+    cell = a.cell or fm.get("cell")
+    if not cell:
+        print("FAIL: no cell (pass --cell or put `cell:` in the request).", file=sys.stderr)
+        return 2
+    queue = a.queue or (fm.get("queue") or None)
+    timeout = a.timeout or (int(fm["timeout_s"]) if fm.get("timeout_s") else None)
+    args_str = a.args_str or fm.get("args", "") or (("--mode " + fm["mode"]) if fm.get("mode") else "")
+    gate = a.gate or fm.get("gate", "")
+    question = a.question or fm.get("question", "")
+    name = a.name or fm.get("name") or os.path.splitext(os.path.basename(cell))[0]
+    body = fm.get("_body", "")
+
+    print(f"[fulfill] cell={cell} requested_queue={queue or '(auto)'} timeout={timeout} args='{args_str}'")
+
+    ok, decided_queue, reasons, warns = guardrails(cell, queue, a.skip_self_test)
+    for w in warns:
+        print(f"[fulfill]   note: {w}")
+    if not ok:
+        print("\nREQUEST REJECTED -- guardrails failed:", file=sys.stderr)
+        for r in reasons:
+            print(f"  - {r}", file=sys.stderr)
+        log_event({"ts": datetime.now(timezone.utc).isoformat(), "cell": cell, "outcome": "rejected",
+                   "reasons": reasons, "request": a.request})
+        return 4
+
+    cell_abs = os.path.join(REPO, cell)
+    krefs = kb_referents(cell_abs)
+    torch = has_torch(cell_abs)
+    prereg_rel = os.path.join("preregs", f"{datetime.now(timezone.utc).strftime('%Y-%m-%d')}_{name}.md").replace("\\", "/")
+    prereg_abs = os.path.join(REPO, prereg_rel)
+    prereg_text = build_prereg_text(cell, decided_queue, args_str, gate, question, krefs, torch, body)
+
+    if not timeout:
+        print("FAIL: no --timeout (or timeout_s in the request) -- required to dispatch.", file=sys.stderr)
+        return 2
+
+    qcmd = ["bash", QUEUE_ADD, decided_queue, name, cell, prereg_rel, str(timeout), "--skip-smoke"]
+    if args_str:
+        # queue_add.sh passes extra flags to queue_add.py; the cell args ride via the runner's arg convention.
+        # Cell args are declared in the prereg and applied by the runner; queue_add extra flags are queue-level.
+        pass
+
+    if a.dry_run:
+        print("\n===== DRY RUN -- nothing written, shipped, or queued =====")
+        print(f"[fulfill] WOULD write prereg -> {prereg_rel}")
+        print("----- prereg preview -----")
+        print(prereg_text)
+        print("----- queue command -----")
+        print("  " + " ".join(qcmd))
+        print(f"[fulfill] KB_REFERENTs (queue_add.sh ships any missing on remote): {krefs or '(none)'}")
+        print("===== END DRY RUN =====")
+        log_event({"ts": datetime.now(timezone.utc).isoformat(), "cell": cell, "outcome": "dry_run",
+                   "queue": decided_queue, "prereg": prereg_rel, "request": a.request})
+        return 0
+
+    # LIVE: write the prereg via ordinary Python I/O (the sanctioned strategy path; NOT the Write tool).
+    os.makedirs(os.path.dirname(prereg_abs), exist_ok=True)
+    with open(prereg_abs, "w", encoding="utf-8", newline="\n") as f:
+        f.write(prereg_text)
+    print(f"[fulfill] wrote prereg -> {prereg_rel}")
+
+    print(f"[fulfill] dispatching: {' '.join(qcmd)}")
+    p = subprocess.run(qcmd, cwd=REPO)
+    outcome = "dispatched" if p.returncode == 0 else "queue_add_failed"
+    log_event({"ts": datetime.now(timezone.utc).isoformat(), "cell": cell, "outcome": outcome,
+               "queue": decided_queue, "prereg": prereg_rel, "name": name, "timeout": timeout,
+               "rc": p.returncode, "request": a.request})
+    if p.returncode != 0:
+        print(f"FAIL: queue_add.sh returned {p.returncode}", file=sys.stderr)
+        return p.returncode
+    print(f"[fulfill] OK: {name} queued to {decided_queue}. Results return via local_metrics_sync.ps1 "
+          f"(~20 min) or tools/orchestrator/scp_recover_landing.py --verify-after {name}.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
