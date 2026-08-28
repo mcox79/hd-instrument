@@ -1,8 +1,50 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "SOLVED with a MORE brain-faithful mechanism than the brief asked — a rigorous, honest, self-refuting result. Re-verified FIRST-HAND: fast machinery witness 6/6 (inline) + full multi-seed headline HARD_PASS (ran on remote, synced back). The brief's MVT-forager on a value/gap/learning-progress signal was already built + REFUTED on disk (neighbouring aimed_reading: loses to FROZEN 3/3 seeds; the LP signal carries no between-source info — its twin doesn't lose). The solver replaced it with COMPREHENSIBLE INPUT / ZPD (Krashen i+1; Vygotsky; Metcalfe ROPL): read the source with the most NEW learnable words in mostly-already-known sentences. Register-controlled held-out coverage 0.0813 vs FROZEN 0.0314 (+0.0499 CI-sep, all 3 seeds' CIs>0) AND vs RANDOM 0.0287 (+0.0526); info-free twin CI_SHUFFLED 0.0150 loses (+0.0663 CI-sep). The register control removes FROZEN's ~7.6x register over-representation, and the win HOLDS in the FROZEN-UNREACHABLE stratum FROZEN structurally cannot cover. Self-refuted its own upgrade hypothesis: stricter CI_085/CI_ADAPTIVE arms STARVE at 0.012/0.011 (a 1000-word seed reading adult text clears almost no 85%-known sentence) → the optimal comprehensibility threshold is COMPETENCE-DEPENDENT (low now, rises with vocabulary = ROPL) — a mechanism for WHY, not a bug. Honest: caught the brief's straw floor and re-aimed at FROZEN+RANDOM; named depth-of-encounter (spaced revisitation) as the next fidelity increment. hdlab landing QUEUED (default-off): shelf-as-readable-universe via corpus_registry + comprehensible-input selector (COMP_THRESH 0.5, adaptive hook) + within-source MVT leave on grounding-yield; do NOT land the refuted LP selector or a separate EVC-halt."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-28 (strategy session; grade EXCELLENT)
+> **Re-verified FIRST-HAND:** the fast machinery witness `verification/test_reading_comprehensible_input.py` **6/6 PASS**
+> (ran it inline — register-controlled metric, stricter-threshold-admits-no-more, tiny end-to-end all green), and the
+> heavy full multi-seed headline (`run_ci_zpd_parallel.py --budget 6000 --seeds 0,1,2`) **HARD_PASS** — it ran on the
+> remote box (the run I unblocked: hdlab + corpora synced + the closed_class_lexicon spaCy fix) and synced back
+> (`data/exp_reading_comprehensible_input_zpd_v1{,_parallel}/metrics.json` both HARD_PASS; the `exp_exp_*` CELL_CRASHED
+> entry is the stale pre-fix attempt, superseded).
+> **Result:** register-controlled held-out coverage — COMPREHENSIBLE-INPUT reader **0.0813** vs the strongest floor
+> **FROZEN 0.0314 (+0.0499 CI-sep, all 3 seeds' CIs>0)** and vs **RANDOM 0.0287 (+0.0526)**; info-free twin
+> CI_SHUFFLED **0.0150 loses (+0.0663 CI-sep)**.
+> **Argument audit (not just arithmetic):** the brief asked for an MVT information-forager on a value/gap/learning-
+> progress signal — but that EXACT mechanism was already built + run for the neighbouring `aimed_reading...` and is
+> REFUTED on disk (it LOSES to FROZEN register-controlled 3/3 seeds, and the learning-progress arm's info-free twin
+> does NOT lose → the signal carries no between-source information). The solver diagnosed WHY (LP = the derivative of
+> two noisy estimates, unusable in the few-samples-per-source regime; fraction-known is directly observable) and
+> replaced it with the brain-faithful winner (comprehensible input / ZPD). The REGISTER control is the decisive one:
+> stratifying the probe on FROZEN-reachability + equal-weighting removes FROZEN's ~7.6x register over-representation,
+> and the win survives in the stratum FROZEN structurally can't reach — so it is not a difficulty artifact. The
+> info-free twin (comprehensibility scores permuted across corpora) loses CI-sep → the comprehensibility signal is
+> load-bearing. And it SELF-REFUTES its own fidelity upgrade: the stricter CI_085 / CI_ADAPTIVE arms STARVE (0.012/
+> 0.011) because a 1000-word seed reading adult corpora clears almost no 85%-known sentence — vindicating the plain
+> 0.5 threshold AND giving a mechanism (the optimal comprehensibility threshold is competence-dependent, rising with
+> the vocabulary = Metcalfe's ROPL / the 85%-rule over developmental time). That is a can-fail arm doing exactly its
+> job.
+> **Brain-fidelity:** the winning mechanism (comprehensible input i+1; the within-source MVT leave-rule on a
+> grounding-yield currency — Charnov 1976 — is where the foraging economics genuinely earns its place) is PINNED; the
+> COMP_THRESH operating point is honestly OUR-INVENTION (competence-relative). The solver correctly REFUTED two brief
+> elements as redundant on top of comprehensible-input + within-source MVT (a separate EVC-halt = the zero-marginal
+> limit the MVT stop-rule already computes; the LP corpus-selector carries no info) — faithful can mean SIMPLER.
+> **To the solver's credit:** it caught the brief's own straw floor (an independent-AND 0.119 below either solo) and
+> re-aimed at the true floors (FROZEN + RANDOM); it is the proper home for the parked, proven v6 result. AUDIT UPDATE
+> folded (§2b — the MVT forager is REFUTED for corpus SELECTION; the working "what to read next" is comprehensible
+> input; MVT's faithful role is within-source leave only).
+> **hdlab landing QUEUED (Q111 — proven-ready, default-off; NOT this commit):** (1) shelf-as-readable-universe via
+> `hdlab.corpus_registry` (replace the hard-coded 4-entry dict); (2) a comprehensible-input source selector consuming
+> the reader's own known-vocabulary state (argmax over live corpora of #distinct new words in ≥COMP_THRESH-known
+> sentences; COMP_THRESH 0.5 with an adaptive-raise hook = ROPL); (3) keep the within-source MVT leave-rule on
+> grounding-yield. **Do NOT land** the refuted LP corpus-selector or a separate EVC-halt. Turning it loose on live
+> autonomous growth is a separate owner-gated step (depends on the learner's safety gate). Honest deflations
+> preserved: depth-of-encounter (words need 6–20 spaced encounters, not 4) is the named next fidelity increment;
+> re-test at a larger seed vocab to see COMP_THRESH rise (the ROPL signature).
 
 # PROBLEM: the reader cannot CHOOSE what to read next — its "readable universe" is a hard-coded 4-entry dict against ~34 corpora on disk, and the foraging organ has never seen real text (FROZEN beats FORAGE) — build the brain-faithful reading-foraging policy (MVT leave-rule + value-of-information from the gap/novelty signal, EVC-gated halting) that picks the next reading to maximize learning value, beating frozen-order AND random selection with an info-free twin losing
 

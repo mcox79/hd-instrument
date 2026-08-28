@@ -1,0 +1,225 @@
+{
+  "anchor_name": "reading_grounding_depth_diagnostic_v1",
+  "run_mode": "full",
+  "verdict": "DIAGNOSTIC",
+  "verdict_msg": "REACHED(enc>=1)=0.3375 vs LEARNED(grounded)=0.0644 -> reached/learned ratio 5.2x; of probe words seen >=4x, 66% still UNgrounded (pure depth loss).",
+  "summary": "REACHED(enc>=1)=0.3375 vs LEARNED(grounded)=0.0644 -> reached/learned ratio 5.2x; of probe words seen >=4x, 66% still UNgrounded (pure depth loss).",
+  "ts_iso": "2026-08-28T18:52:39.513672+00:00",
+  "selftest": {
+    "selftest_ok": true,
+    "n_reachable": 2335,
+    "n_unreachable": 665
+  },
+  "result": {
+    "arm": "CI_050",
+    "seed": 0,
+    "n_sentences_read": 3000,
+    "elapsed_s": 180.9,
+    "n_grounded_total": 630,
+    "n_distinct_content_words_encountered": 5807,
+    "reached_vs_learned": {
+      "grounded_coverage": 0.064364,
+      "encounter_ge_1_coverage": 0.337547,
+      "encounter_ge_2_coverage": 0.288339,
+      "encounter_ge_4_coverage": 0.186762,
+      "encounter_ge_8_coverage": 0.095189,
+      "encounter_ge_16_coverage": 0.034261
+    },
+    "grounding_quality_wordnet": {
+      "n_pairs": 630,
+      "n_scorable": 567,
+      "n_related": 199,
+      "wn_agreement": 0.35097,
+      "wn_scorable_frac": 0.9,
+      "mean_wup": 0.398489
+    },
+    "grounding_gap": {
+      "probe_encountered_ge4": 832,
+      "of_those_grounded": 283,
+      "of_those_NOT_grounded": 549,
+      "grounding_rate_on_reached_repeated": 0.340144,
+      "example_gap_words": [
+        "above",
+        "accept",
+        "access",
+        "account",
+        "action",
+        "active",
+        "activity",
+        "address",
+        "advance",
+        "advice",
+        "afford",
+        "africa",
+        "agency",
+        "agree",
+        "alcohol",
+        "allen",
+        "allow",
+        "although",
+        "among",
+        "amount",
+        "anderson",
+        "angry",
+        "animal",
+        "anne",
+        "apart"
+      ]
+    },
+    "wall_decomposition": {
+      "n_ungrounded_repeated": 549,
+      "by_failure_reason": {
+        "C_pending_ge4_traces_CONSOLIDATION_FAIL": 323,
+        "B_refused_TAUTOLOGY_NO_ANCHOR": 197,
+        "B_refused_CLOSED_CLASS_SUBJECT": 23,
+        "A_never_flagged_extraction_miss": 6
+      },
+      "examples": {
+        "C_pending_ge4_traces_CONSOLIDATION_FAIL": [
+          "above",
+          "accept",
+          "account",
+          "action",
+          "address",
+          "advance",
+          "advice",
+          "agency",
+          "agree",
+          "allen",
+          "anderson",
+          "animal"
+        ],
+        "B_refused_TAUTOLOGY_NO_ANCHOR": [
+          "access",
+          "active",
+          "activity",
+          "afford",
+          "africa",
+          "alcohol",
+          "allow",
+          "angry",
+          "apart",
+          "appeal",
+          "apple",
+          "apply"
+        ],
+        "B_refused_CLOSED_CLASS_SUBJECT": [
+          "although",
+          "among",
+          "amount",
+          "below",
+          "beyond",
+          "despite",
+          "due",
+          "former",
+          "herself",
+          "keeping",
+          "neither",
+          "onto"
+        ],
+        "A_never_flagged_extraction_miss": [
+          "bite",
+          "decide",
+          "dollar",
+          "foot",
+          "interest",
+          "mile"
+        ]
+      },
+      "anchor_refusal_cosine": {
+        "sense_match_thresh": 0.45,
+        "n_with_best_cos": 197,
+        "median_best_cos": 0.3609,
+        "max_best_cos": 0.4488,
+        "min_best_cos": 0.216,
+        "near_miss_0p35_to_0p45": 107,
+        "moderate_0p20_to_0p35": 90,
+        "far_below_0p20": 0,
+        "reading": "near-miss dominant => raise recall by lowering thresh (cheap); far-below dominant => no grounded anchor exists => needs distributional/affective meaning channel."
+      }
+    },
+    "depth_curve_p_grounded_given_k_encounters": {
+      "1": {
+        "n": 1209,
+        "p_grounded": 0.0
+      },
+      "2": {
+        "n": 1910,
+        "p_grounded": 0.0
+      },
+      "3": {
+        "n": 331,
+        "p_grounded": 0.0
+      },
+      "4": {
+        "n": 575,
+        "p_grounded": 0.3565
+      },
+      "5": {
+        "n": 178,
+        "p_grounded": 0.2809
+      },
+      "6": {
+        "n": 286,
+        "p_grounded": 0.4021
+      },
+      "7": {
+        "n": 147,
+        "p_grounded": 0.3265
+      },
+      "8": {
+        "n": 152,
+        "p_grounded": 0.2829
+      },
+      "9": {
+        "n": 100,
+        "p_grounded": 0.3
+      },
+      "10": {
+        "n": 109,
+        "p_grounded": 0.1835
+      },
+      "11": {
+        "n": 65,
+        "p_grounded": 0.2769
+      },
+      "12": {
+        "n": 85,
+        "p_grounded": 0.2118
+      },
+      "13": {
+        "n": 44,
+        "p_grounded": 0.3182
+      },
+      "14": {
+        "n": 51,
+        "p_grounded": 0.1765
+      },
+      "15": {
+        "n": 42,
+        "p_grounded": 0.119
+      },
+      "16": {
+        "n": 46,
+        "p_grounded": 0.2174
+      },
+      "17": {
+        "n": 29,
+        "p_grounded": 0.1034
+      },
+      "18": {
+        "n": 38,
+        "p_grounded": 0.1842
+      },
+      "19": {
+        "n": 29,
+        "p_grounded": 0.0345
+      },
+      "20": {
+        "n": 381,
+        "p_grounded": 0.0892
+      }
+    },
+    "headline": "REACHED(enc>=1)=0.3375 vs LEARNED(grounded)=0.0644 -> reached/learned ratio 5.2x; of probe words seen >=4x, 66% still UNgrounded (pure depth loss)."
+  }
+}

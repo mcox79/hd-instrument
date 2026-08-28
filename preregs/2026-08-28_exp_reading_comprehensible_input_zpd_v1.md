@@ -3,10 +3,10 @@
 **Auto-generated 2026-08-28 by tools/fulfill_remote_run_request.py (strategy fulfiller) from a solver REMOTE_RUN_REQUEST.** Dispatched to `remote_cpu_queue` (marsh@home), args `--mode full`. This is a COMPUTE dispatch, not an integration.
 
 ## Question
-On an INDEPENDENT machine, does comprehensible-input/ZPD source-selection beat FROZEN and RANDOM register-controlled, and does the graded per-word partial-credit selector (CI_GRADED) match the 0.5-threshold selector (CI_050) WITHOUT starving like the strict CI_085/CI_ADAPTIVE arms?
+On an INDEPENDENT machine, does comprehensible-input/ZPD source-selection beat FROZEN and RANDOM register-controlled; does the graded per-word partial-credit selector match the 0.5-threshold selector WITHOUT starving; and does judging comprehensibility over a LOCAL word window (CI_GRADED_WIN) beat the whole-sentence graded selector (CI_GRADED)?
 
 ## Gate
-CI_050 AND CI_GRADED each beat FROZEN AND RANDOM on register-controlled coverage, CI-separated on all seeds (bootstrap CI, delta lower bound > 0); the info-free twin CI_SHUFFLED LOSES CI-separated; the strict CI_085/CI_ADAPTIVE arms STARVE (grounded << CI_050) as a can-fail reference. Recompute floors per population; no number crosses scorers/populations.
+CI_050, CI_GRADED and CI_GRADED_WIN each beat FROZEN AND RANDOM on register-controlled coverage, CI-separated on all seeds (bootstrap CI, delta lower bound > 0); the info-free twin CI_SHUFFLED LOSES CI-separated; the strict CI_085/CI_ADAPTIVE arms STARVE (grounded << CI_050) as a can-fail reference. Recompute floors per population; no number crosses scorers/populations.
 
 ## Compute route
 - Queue: **remote_cpu_queue** (remote CPU runner -- numpy/scipy/sklearn, no torch).
@@ -15,42 +15,43 @@ CI_050 AND CI_GRADED each beat FROZEN AND RANDOM on register-controlled coverage
 ## Data dependencies (KB_REFERENT -- auto-shipped by queue_add.sh if missing on remote)
 - `data/corpora/base_vocabulary/cleaned/base_vocabulary_ordered.csv`
 - `data/corpora`
+- `data/closed_class_lexicon_v1.json`
 
 ## Remote-safety
 Verified by the fulfiller before dispatch: --self-test/--smoke present and (unless skipped) PASSED; no module-level spaCy on the cell or its imported experiments.* siblings (remote has no spaCy -> the cell LOADS a pre-parsed cache, never parses); CPU/GPU route matches the cell's torch usage.
 
 ## Solver notes (from the request)
-# Remote run request — comprehensible-input/ZPD reader, independent-machine replication + graded arm
+<!-- RERUN 2026-08-28: first remote attempt FAILED (exit 1, 30s) = ModuleNotFoundError: spacy.
+     Cause: reading_grounding_loop -> closed_class_lexicon.get_closed_class_set() calls _spacy_stop_words()
+     to BUILD the set, but it LOADS data/closed_class_lexicon_v1.json if present (spaCy-free). Fix: ship
+     that pre-built cache (added to kb_referents above). Also fixed a double-"exp_" output-dir name so
+     results land at results_path. -->
 
-**What / why.** Independent-machine (off-laptop) replication of the SOLVED result for
-`the_reader_cannot_choose_what_to_read_next`, now including the anti-starvation `CI_GRADED` arm. The
-local 3-seed run gave HARD_PASS (CI_050 register-controlled 0.081 vs FROZEN 0.031 / RANDOM 0.029,
-CI-separated all seeds; twin 0.015 loses; CI_GRADED 0.081 matches; CI_085/CI_ADAPTIVE starve at 0.012/0.011).
-This confirms it on a second machine and exercises the remote pipeline (owner standing rule: heavy runs
-go off the laptop).
 
-**Arms (7):** FROZEN [floor], RANDOM [floor/info-free], CI_050 [proven], CI_085 & CI_ADAPTIVE [starved
-can-fail refs], CI_GRADED [graded per-word x^2 partial credit — the brain-faithful anti-starvation
-selector], CI_SHUFFLED [info-free twin: comprehensibility scores permuted]. Config (cell defaults, run
-BARE=full): 6000 sentences/arm, seeds 0/1/2, register-controlled coverage metric, bootstrap CI (4000).
+# Remote run — comprehensible-input/ZPD reader: independent replication + graded-selector component optimization
 
-**Floor / twin / population.** Strongest floor = FROZEN (fixed 4-corpus schedule), register-controlled
-0.031; second floor RANDOM 0.029. Info-free twin = CI_SHUFFLED (0.015). Grounded-subject population saved
-per (arm, seed) in units.jsonl; metrics.json carries per_arm_summary + per_arm units.
+**What / why.** Off-laptop (independent-machine) confirmation of the SOLVED result for
+`the_reader_cannot_choose_what_to_read_next`, plus a brain-foundational component optimization of the
+winning selector. Local 3-seed run gave HARD_PASS (CI_050 register-controlled 0.081 vs FROZEN 0.031 /
+RANDOM 0.029, CI-separated all seeds; twin 0.015 loses; CI_GRADED 0.081 matches; CI_085/CI_ADAPTIVE starve
+at 0.012/0.011).
 
-**Remote-safe:** no module-level spaCy anywhere in the import chain (reading uses a glass-box lemmatizer,
-`hdlab.thematic_role_labeler.lemma_word`); defaults to FULL when run bare (the documented runner gotcha);
-writes a RUNNING metrics.json after EVERY (arm,seed) unit so a mid-run crash never loses completed work,
-and is resumable per unit via units.jsonl. `--self-test` GREEN locally.
+**Arms (8):** FROZEN [floor], RANDOM [floor/info-free], CI_050 [proven 0.5 threshold], CI_085 & CI_ADAPTIVE
+[starved can-fail refs], CI_GRADED [graded per-word x^2 partial credit, whole-sentence — anti-starvation
+fix], **CI_GRADED_WIN [graded x^2 over a LOCAL +-4-word window — the finer-locality component optimization
+(N400 integration window / research 2026-08-28 granularity point)]**, CI_SHUFFLED [info-free twin:
+comprehensibility scores permuted]. Config (cell defaults, run BARE=full): 6000 sentences/arm, seeds
+0/1/2, register-controlled coverage metric, bootstrap CI (4000).
 
-## ⚠️ BLOCKER FOR THE FULFILLER (strategy): the remote repo is STALE
-Verified 2026-08-28 on marsh@home: `C:/dev/hd-instrument/hdlab/corpus_registry.py` is ABSENT, and
-`.../base_vocabulary/cleaned/base_vocabulary_ordered.csv` is ABSENT (data/corpora dir exists but is an
-older set). This cell imports `hdlab.corpus_registry`, `hdlab.information_foraging`,
-`hdlab.reading_grounding_loop` (+ transitive: grounding_acquisition_loop, thematic_role_labeler,
-hd_fact_store, codec, role_slot_summarizer, cleanup_family, gap_detector, ...). `queue_add.sh` Pattern 5b
-only auto-ships `cleanup_family` / `reachability_audit`, NOT these — so the remote self-test will
-`ModuleNotFoundError` until the remote repo's `hdlab/` is synced to current. **Please sync `hdlab/`
-(and the base_vocabulary CSV) to marsh@home before/with fulfilling** (the two sibling experiment cells
-auto-ship fine via Pattern 6). Run `tools/fulfill_remote_run_request.py --request <this file> --dry-run`
-first to confirm the KB_REFERENT/guardrail set.
+**Floor / twin / population.** Strongest floor = FROZEN (register-controlled 0.031); second RANDOM 0.029.
+Info-free twin = CI_SHUFFLED (0.015). Grounded-subject population saved per (arm, seed) in units.jsonl.
+
+**Remote-safe + crash-safe:** no module-level spaCy in the import chain (glass-box lemmatizer
+`hdlab.thematic_role_labeler.lemma_word`); DEFAULTS TO FULL when run bare (runner gotcha handled);
+writes a RUNNING metrics.json after EVERY (arm,seed) unit (a mid-run crash loses nothing) and is resumable
+per unit via units.jsonl; `--self-test` GREEN locally.
+
+**Data note (not a blocker for the watcher — hdlab deps auto-ship):** base_vocabulary_ordered.csv is small
+and declared (auto-ships). `data/corpora` exists on marsh@home but may be an OLDER set; if the run fails on
+missing/incompatible corpus data, that bulk data isn't in git and needs a one-time strategy/owner sync of
+`data/corpora` — I'll flag it from the watcher log / results if so.

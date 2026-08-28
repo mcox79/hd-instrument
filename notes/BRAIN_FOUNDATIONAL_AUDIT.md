@@ -65,6 +65,24 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — READING FORAGING ("what to read next"): the MVT value/gap/LEARNING-PROGRESS forager is REFUTED for
+  corpus SELECTION; the brain-faithful mechanism is COMPREHENSIBLE INPUT / ZPD; MVT's faithful role is within-source
+  LEAVE only** (from `the_reader_cannot_choose_what_to_read_next`, integrated SOLVED/EXCELLENT, owner-DONE; fast witness
+  6/6 + full multi-seed HARD_PASS re-verified FIRST-HAND). The attention/information-foraging + gap_detector entries
+  should record: (a) the MVT forager on a value/gap/learning-progress signal LOSES to the fixed curriculum
+  register-controlled 3/3 seeds AND its learning-progress arm's info-free twin does NOT lose — the LP signal carries NO
+  between-source information (LP = the time-derivative of two noisy estimates, unusable in the few-episodes-per-source
+  regime; fraction-known is a directly-observable low-variance state statistic). (b) The WORKING "what to read next"
+  mechanism is COMPREHENSIBLE INPUT (Krashen i+1; Vygotsky ZPD; Metcalfe region-of-proximal-learning): read the source
+  with the most NEW words in ≥COMP_THRESH-already-known sentences — 0.0813 register-controlled coverage vs FROZEN 0.0314
+  / RANDOM 0.0287, CI-sep 3/3 seeds, info-free twin 0.0150 loses. (c) The optimal comprehensibility threshold is
+  COMPETENCE-DEPENDENT (LOW at a small seed vocabulary, rising with it = ROPL): stricter 0.85/adaptive arms STARVE. (d)
+  MVT's faithful home is the WITHIN-source LEAVE-rule on a grounding-yield currency (Charnov 1976), NOT between-source
+  selection; a separate EVC-halt is redundant (the zero-marginal limit the MVT stop-rule already computes). The
+  gap_detector's home is per-item novelty, not between-source choice. hdlab landing QUEUED (default-off): corpus_registry
+  shelf + comprehensible-input selector + within-source MVT leave. Next fidelity increment: depth-of-encounter (spaced
+  revisitation; words need 6–20 encounters, not 4).
+
 - **2026-08-28 — THEORY OF MIND: the OBSERVATION-CUE RESIDUAL now has a brain-faithful mechanism — a per-agent
   PERCEPTUAL-ACCESS REGISTRATION LEDGER — and the landed lexical extractor is exposed as a non-generalising OUR-INVENTION
   stand-in** (from `theory_of_mind_residual_is_the_observation_cue_front_end`, integrated SOLVED/EXCELLENT, owner-DONE;
