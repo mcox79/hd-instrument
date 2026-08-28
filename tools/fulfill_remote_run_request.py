@@ -428,7 +428,12 @@ def main():
         print("FAIL: no --timeout (or timeout_s in the request) -- required to dispatch.", file=sys.stderr)
         return 2
 
-    qcmd = [_resolve_bash(), QUEUE_ADD, decided_queue, name, cell, prereg_rel, str(timeout), "--skip-smoke"]
+    # Pass queue_add.sh's path with FORWARD slashes: a Windows backslash absolute path handed to bash can be
+    # eaten as escape sequences (`\A`->`A`) -> `C:AIhd-instrument...` not found. git-bash tolerates it, but the
+    # forward-slash form eliminates the class regardless of which bash resolves (belt-and-suspenders, and it is
+    # identical for the initial and --rerun paths -- the qcmd is built once).
+    qcmd = [_resolve_bash(), QUEUE_ADD.replace("\\", "/"), decided_queue, name, cell, prereg_rel,
+            str(timeout), "--skip-smoke"]
     if a.rerun:
         qcmd.append("--allow-duplicate")
     if args_str:
