@@ -32,10 +32,15 @@ MEASUREMENT tables below, then the step log tail. Do NOT re-derive; the disk + `
    magnitude channel + operation-router, validates the COMPOSED thing, and proposes the hdlab diff. **INTEGRATE it when
    owner-DONE (reverify first-hand), then LAND the proposed `scalar_adjective_operation` + router + `quality_relation` Ch.B
    FPE-log upgrade (Q111 — strategy lands hdlab).** Full validated piece-wise design is in the p3 SOLVED + audit §2b.
-2. **WIRE the landed organs into the LIVE reader** (the composition step, default-off flags, measure OFF-vs-ON):
-   `graded_role_assigner.hybrid_role_patient` into `resolve_patient`'s fall-through; the meaning operation-routing.
-3. **Run the FULL whole-reader end-to-end measurement** — harness `experiments/exp_composed_reader_litbank_full_v1.py`
-   READY with a pluggable front-end SEAM; swap the improved front-end in + add the meaning channel.
+2. ✅ **DONE (STEP 17): WIRED `graded_role_assigner.hybrid_role_patient` into the composed front-end + measured OFF-vs-ON
+   leak-free** (held-out n=4078): overall 0.739->0.751 (+0.011 CI-sep), hard pre-verbal slice 0.576->0.600 (+0.024),
+   canonical preserved, twin losing -- the LANDED organ reproduces the solver's held-out lift.
+   **STILL PENDING within #2: the MEANING operation-routing wiring** (route adjective->signed-magnitude; but the deployable
+   scalar-magnitude channel is action #1, a packaged solver problem -- so this sub-item waits on that integration).
+3. **[NOW THE HEADLINE] Run the FULL whole-reader end-to-end measurement** — harness
+   `experiments/exp_composed_reader_litbank_full_v1.py` READY with a pluggable front-end SEAM (STEP 13); swap the improved
+   front-end (graded_role_assigner) into the SEAM + add the meaning channel, measure on ONE cross-sentence gold OFF-vs-ON.
+   The front-end moving-target gate (p1 landed + wired, STEP 17) is CLEARED -> this decisive test is unblocked.
 4. **INTEGRATE p2 `the_entity_store_is_a_dense_bundle_that_fans`** (sparse DG+CA3 store, the fan-effect fix) — SUBMITTED
    (SOLVED.md on disk) but AWAITS `owner_verdict: DONE`; LEAVE IT ALONE until then, then integrate (reverify first-hand).
 
@@ -73,7 +78,7 @@ if things aren't working like we expect, LIBERALLY run brain-foundationality res
 |----------|--------|
 | ROLE-BALANCED comprehension gold | ✅ BUILT + VERIFIED 2026-08-27 (`exp_role_balanced_comprehension_gold_v1.py`; 9446 items, positional floor 0.500, can-fail PASS; gold rebuildable-deterministic) |
 | composed-reader end-to-end harness (OFF-vs-ON) | 🔬 STARTED 2026-08-27 (`exp_composed_reader_role_balanced_measure_v1.py`; harness+gold validated -- ON beats floor+twin CI-sep; DIAGNOSIS: relcl arm rare-by-design, need to wire the ACCURACY lever = learned assigner D + incremental candidates) |
-| the payoff number (composed reader vs floors, twins losing) | ✅ FRONT-END MEASURED 2026-08-27: composed front-end **0.739 vs positional floor 0.519 (+0.212 CI-sep)**, twin 0.296 loses (n=8225, role-balanced). Full-reader (entity+meaning, cross-sentence) = still to measure. |
+| the payoff number (composed reader vs floors, twins losing) | ✅ FRONT-END MEASURED 2026-08-27: composed front-end **0.739 vs positional floor 0.519 (+0.212 CI-sep)**, twin 0.296 loses (n=8225, role-balanced). ✅ **+graded_role_assigner WIRED (STEP 17, held-out n=4078): 0.739->0.751 (+0.011 CI-sep), hard pre-verbal 0.576->0.600, canonical preserved.** Full-reader (entity+meaning, cross-sentence) = still to measure (action #3). |
 
 ---
 
@@ -386,3 +391,24 @@ resolve_patient 0/4; canonical byte-identical (routing not replacement); shuffle
 Registered `graded_role_assigner_v1` (BUILT/ISLAND, default-safe). NOT yet wired into resolve_patient (a flagged wiring +
 live measure is the composition step). NEXT: land `scalar_adjective_operation` (the p3 earned organ).
 - Commit: see git log (strategy: land graded_role_assigner organ -- step 16).
+
+### 2026-08-27 -- STEP 17: WIRED graded_role_assigner into the composed front-end + measured OFF-vs-ON (leak-free) ✅
+The composition-step confirmation for the p1 earned organ (IMMEDIATE-NEXT-ACTION #2). Built
+`experiments/exp_wire_graded_assigner_measure_v1.py` -- drives the LANDED organ's baked `DEFAULT_VALIDITIES` (the static
+asset, not the solver's fresh fit) over the composed front-end's candidate set, on the ROLE-BALANCED gold's HELD-OUT test
+split (sentence-level, rng(20260827), first half = test -- the validities were fit on the COMPLEMENT, so LEAK-FREE).
+ONE variable OFF->ON = `resolve_patient` (discrete voice+relcl) vs `hybrid_role_patient` (+graded Competition-Model route
+on the non-canonical fall-through). **RESULT (held-out n=4078):**
+  * PRE-verbal hard/reversible slice (n=1980): OFF 0.5758 -> **ON 0.6000 (+0.0242 CI-sep, paired [+0.0146,+0.0333])**
+  * OVERALL (n=4078):                            OFF 0.7393 -> **ON 0.7506 (+0.0113 CI-sep, paired [+0.0066,+0.0157])**
+  * POST-verbal canonical (n=2098):              OFF 0.8937 -> ON 0.8928 (-0.0010 NOT_SEP -- **canonical PRESERVED**)
+  * info-free shuffled-validity TWIN loses on the PRE slice (+0.0121 CI-sep) -> the LEARNED validities carry it.
+**-> the LANDED graded_role_assigner reproduces the solver's held-out lift EXACTLY (0.6000 vs 0.5758 pre; +0.0113 overall)
+when wired in a strategy-owned harness -- the baked static organ delivers, not just the in-test fit.** HONEST: the
+magnitude is MODEST (+0.011 overall) as the solver flagged; the value is the hard non-canonical slice + canonical
+untouched (routing not replacement), not a large aggregate swing. This is a landing-VERIFICATION (reproduces an
+already-validated result in-pipeline), not a new discovery. **NEXT (action #3, the consolidation HEADLINE): the FULL
+whole-reader end-to-end (front-end -> entity -> meaning on ONE cross-sentence gold) with this improved front-end swapped
+into the `exp_composed_reader_litbank_full_v1.py` SEAM + the meaning channel added.** The front-end moving-target gate
+(p1 landed) is now cleared, so the decisive test is unblocked.
+- Commit: see git log (strategy: wire graded_role_assigner + measure OFF-vs-ON -- step 17).
