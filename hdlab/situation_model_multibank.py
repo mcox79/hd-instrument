@@ -44,7 +44,12 @@ from typing import Dict, List, Tuple
 import torch
 
 from . import binding, bundling
-from .situation_model_accumulate import cleanup_argmax, cleanup_set, unit_phase_vec
+from .situation_model_accumulate import (
+    cleanup_argmax,
+    cleanup_set,
+    decode_serial_pooled_slots,
+    unit_phase_vec,
+)
 from .working_memory import assert_k_per_bank_in_discriminating_regime  # noqa: F401 (re-export for callers)
 
 
@@ -78,6 +83,7 @@ class MultiBankAccumulateRegister:
         generator: torch.Generator,
         max_event_slots: int = 8,
         n_banks: int = 8,
+        bundle_norm: str = "percomp",
     ) -> None:
         if n_banks < 1:
             raise ValueError(f"n_banks must be >= 1; got {n_banks}")
@@ -85,6 +91,12 @@ class MultiBankAccumulateRegister:
         self.d = int(d)
         self.max_event_slots = int(max_event_slots)
         self.n_banks = int(n_banks)
+        # bundle_norm="percomp" (DEFAULT) -> per-component renorm (norm=None), BYTE-IDENTICAL to prior behavior.
+        # "divnorm" -> pooled Carandini-Heeger divisive norm at each per-bank bundle, so an OVERLOADED bank stays
+        # serially readable (via decode_serial_pooled). Mirrors AccumulateRegister; opt-in, nothing changes until a
+        # caller passes bundle_norm="divnorm". Landed 2026-08-28 from `the_register_bundle_renorm_breaks_the_serial_readout`.
+        self.bundle_norm = str(bundle_norm)
+        self._bundle_norm_arg = None if self.bundle_norm == "percomp" else self.bundle_norm
         self.role_vecs: Dict[str, torch.Tensor] = {
             r: unit_phase_vec(self.d, generator) for r in self.role_vocab
         }
@@ -111,7 +123,7 @@ class MultiBankAccumulateRegister:
             raise KeyError(f"no events recorded for entity {entity!r} in bank {bank_id}")
         if len(events) == 1:
             return events[0]
-        return bundling.bundle(torch.stack(events, dim=0))
+        return bundling.bundle(torch.stack(events, dim=0), norm=self._bundle_norm_arg)
 
     def decode(self, entity: str, event_idx: int) -> Tuple[str, Dict[str, float]]:
         """Route to entity's bank by event_idx, unbind, cleanup-argmax over role_vocab."""
@@ -142,7 +154,24 @@ class MultiBankAccumulateRegister:
             all_events.extend(bank_events)
         if len(all_events) == 1:
             return all_events[0]
-        return bundling.bundle(torch.stack(all_events, dim=0))
+        return bundling.bundle(torch.stack(all_events, dim=0), norm=self._bundle_norm_arg)
+
+    def decode_serial_bank(self, entity: str, bank_id: int, n_iter: int = 6) -> List[str]:
+        """Theta-gamma serial (gain-matched) readout of ALL events in ONE bank, reading the bank's NORMALIZED
+        register. On a `bundle_norm="divnorm"` register this recovers an OVERLOADED bank that per-slot argmax loses to
+        crosstalk (mirrors AccumulateRegister.decode_serial_pooled at the bank level -- the compose regime the p5
+        witness N8 measured: k_per_bank~60, serial 0.733->1.000). ADDITIVE / default-safe: decode()/decode_set()
+        byte-unchanged. Returns the decoded role per event stored in the bank (bank-local event order). event slots
+        are the idx_vecs the bank's stored events were bound with, in stored order (bank-local)."""
+        events = self._events.get(entity, {}).get(bank_id)
+        if not events:
+            raise KeyError(f"no events recorded for entity {entity!r} in bank {bank_id}")
+        m = len(events)
+        trace = self._bank_register(entity, bank_id)                # the NORMALIZED per-bank register
+        keys = [self.idx_vecs[s] for s in range(m)]                 # bank-local sequential slots
+        role_mat = torch.stack([self.role_vecs[r] for r in self.role_vocab], dim=0)
+        est = decode_serial_pooled_slots(trace, keys, role_mat, n_iter=n_iter)
+        return [self.role_vocab[i] for i in est]
 
     def entities(self) -> List[str]:
         """Entity ids with at least one recorded event."""

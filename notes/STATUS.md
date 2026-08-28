@@ -59,11 +59,17 @@ register; the store-norm-agnostic partner of the landed `decode_serial`). Witnes
 **7/7 PASS FIRST-HAND** (divnorm store recovers overload M=64 → 1.000 vs per-component 0.188 under the SAME gain-matched
 readout = the positive control isolating the STORE norm; twin 0.016 loses; argmax decode() 0.656≥0.453 no-regression;
 `percomp` register bit-identical to default). Regression-guarded: set-return witness + MultiBank/CausalLink construct OK.
-⚠️ QUEUED remainder (mechanical, additive/default-off): thread `bundle_norm` into `MultiBankAccumulateRegister`
-(`_bank_register`, line 114) + a per-bank pooled read, and register `decode_gated` (the CA1-gate). Registry catalog entry
-PENDING (`capability_registry.jsonl` mid-edit by another session — no clobber). **NOW that `bundling.bundle` has the
-divnorm option, the "read-terminal bundle-store norm audit" is a packageable next brief** (switch the enumerated
-read-terminal callers off per-component; measure the LIKELY consumers).
+✅ **MULTIBANK divnorm threading LANDED 2026-08-28 (completes the register-normalization line on the DEFAULT backend):**
+`MultiBankAccumulateRegister` (what `make_situation_register` returns by default) now takes `bundle_norm="percomp"`
+(default, byte-identical) threaded into both bundle sites + a per-bank `decode_serial_bank` gain-matched readout. Witness
+`test_multibank_divisive_norm_organ.py` **7/7 PASS FIRST-HAND** (overloaded bank divnorm 1.000 vs per-component 0.188;
+twin 0.016 loses; argmax no-regression; percomp bank bit-identical to default; n_banks=8 default round-trips).
+Regression-guarded (set-return + multibank drop-in still PASS). So pooled divisive norm + gain-matched serial readout are
+now available on BOTH register backends (flat + multibank), all opt-in.
+⚠️ QUEUED remainder of the register line: register `decode_gated` (the CA1 help-vs-hurt gate — the one substantive
+readout piece left). Registry catalog entries for the landed divnorm/serial organs PENDING (`capability_registry.jsonl`
+mid-edit by another session — no clobber). **The "read-terminal bundle-store norm audit" (p6) is packaged** — solvers can
+now measure which callers to switch, since `bundling.bundle` has the divnorm option on both backends.
 🎯 **QUEUE now (owner flagged the queue was thin + that recent solutions named unpackaged concerns — MINED + packaged 4,
 owner pushed "why only 2?"): p3 `the_name_branch_shatters_one_character_into_many_entities`; p4
 `no_glass_box_verb_sense_disambiguation` (WIP SOLVED, not owner-DONE); p5 `the_reader_has_no_coherence_next_mention_prior`
