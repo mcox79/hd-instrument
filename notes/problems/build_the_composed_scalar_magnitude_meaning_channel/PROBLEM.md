@@ -1,8 +1,40 @@
 ---
-priority: 1
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Re-verified FIRST-HAND (verify_composed_magnitude_channel.py ALL CHECKS PASS). The composed magnitude channel (dimension-routed grounded ORIENTED place code + FPE-log Weber comparator) beats the strongest single sub-op (pooled 0.441 vs 0.359, +0.081 CI-sep) AND the incumbent cosine (0.071) CI-separated; the word-class operation-ROUTER beats a gloss-only reader (0.616 vs 0.424) AND a magnitude-only reader (0.339) with NO N/V regression; FPE-log preserves Weber on-substrate (LOG ratio-CV 0.000 vs LINEAR 0.686), comparator unbind decodes log-ratio corr 1.000. As a COMPARISON system it beats the incumbent CLEANLY: relative-comparison 0.758 vs 0.552 (+0.206 CI-sep), Moyer distance effect +0.340, semantic-congruity AUC 1.000 where the incumbent gloss cosine INVERTS to 0.215. The solver CORRECTED the brief to be MORE brain-faithful (pole+degree are ONE oriented place code, not three stacked ops -- opponent pools->peaked code->oriented axis). Honest deflations upheld (the sub-op win is concreteness-routing; gate is coarse; markedness/FPE-log's value is comparison+Weber not static recovery; frontier is DATA-blocked). ACCEPTED; the hdlab landing is a substantial multi-module port (queued, careful build)."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-28 (strategy session; grade EXCELLENT; owner-DONE + authorized in-session)
+> **Re-verified FIRST-HAND** (`verification/verify_composed_magnitude_channel.py`, ALL CHECKS PASS — ran it myself).
+> **Result:** the composed magnitude "ruler" (dimension-select → grounded ORIENTED place code → markedness fine-degree →
+> FPE-log Weber comparator) beats every single sub-op (pooled 0.441 vs best sub-op 0.359, +0.081 CI-sep) AND the incumbent
+> cosine (0.071) CI-separated; the word-class operation-ROUTER beats BOTH a gloss-only reader (0.616 vs 0.424, misses
+> magnitude) AND a magnitude-only reader (0.339, destroys N/V similarity) with the N/V read-outs IDENTICAL under routing
+> (exact no-regression). Substrate: FPE-log preserves Weber (LOG ratio-CV 0.000 vs LINEAR 0.686), the comparator `unbind`
+> decodes the log-ratio at corr 1.000, a different-pole code decorrelates.
+> **Argument audit (where the win is CLEAN):** as a COMPARISON system (the brain's actual use of magnitude), it beats the
+> incumbent decisively — "which is more X" 0.758 vs 0.552 (+0.206 CI-sep), the Moyer distance effect +0.340, and it
+> separates graded comparison from categorical opposition at AUC 1.000 where the incumbent gloss cosine INVERTS (0.215 —
+> it ranks antonyms as MORE similar than same-pole pairs). Info-free twins lose (random-axis, shuffled-degree, structure-free
+> FPE). **To the solver's credit:** a research drill on the composition CORRECTED the brief to be MORE brain-faithful — pole
+> and degree are NOT two stacked operations; the brain fuses them into ONE oriented place code (opponent pools → peaked
+> log-Gaussian code → oriented axis: Roitman/Nieder/Verguts&Fias/SNARC), and the disk confirms it (within-scale oriented
+> ordering 0.72 ≈ markedness 0.77). An opponent-pool readout drill found the linear projection MONOTONE-EQUIVALENT (the
+> place-code stage is load-bearing, the opponent-readout stage is not for recovery) — a rigorous honest negative.
+> **Honest deflations upheld (why it's excellent-not-overclaimed):** the CI-win over the best single sub-op is driven by ONE
+> dimension (concreteness routing to the perceptual axis; the 3 evaluative dims tie antonym-SemAxis by construction) — the
+> decisive claims are the +0.40 over the incumbent and the comparison-system win; the gradability gate is coarse (sharper
+> gate = has_antonym-or-satellite AND NOT pertainym-relational, built here); markedness/FPE-log do NOT improve static
+> recovery (their value is fine ordering + the Weber comparison code); the deeper frontier (comparison-class re-anchoring,
+> negativity bias, congruity RT) is DATA-blocked, not mechanism-blocked.
+> **hdlab LANDING — ACCEPTED, QUEUED as a careful multi-module port (NOT rushed):** the `ScalarMagnitudeChannel` imports FOUR
+> experiment modules (FPE fractional-power encoding, the antonym/perceptual axis machinery, Warriner/Lancaster/freq loaders)
+> that must be relocated into `hdlab/` cleanly first (an hdlab organ cannot import `experiments/`). The landing = (1) port
+> FPE + the semantic-axis machinery + the offline loaders to hdlab; (2) ADD `hdlab/scalar_adjective_operation.py`
+> (`ScalarMagnitudeChannel`); (3) UPGRADE `hdlab/quality_relation.py` Ch.B LINEAR→FPE-log + pole/dim binding + the
+> grounded-degree lexicon; (4) ROUTE the meaning read-out by word class (gradable adj → magnitude; else gloss) with the
+> sharper gate; wire dimension-selection to `hdlab/semantic_control`. This is the immediate-next dedicated landing; the
+> learner problem's substrate-validation half depends on it. AUDIT UPDATE folded (§2b). Priority cleared.
 
 # PROBLEM: the scalar-adjective magnitude operation is PROVEN PIECE-BY-PIECE but not COMPOSED — build the ONE deployable magnitude meaning channel (dimension/pole + markedness degree + FPE-log Weber code + per-dimension grounding) with operation-routing by word class, validated composed, proposing the hdlab diff
 

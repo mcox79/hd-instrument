@@ -31,7 +31,32 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- 🧭 **NEXT PHASE FRAMED + THE LEARNER PACKAGED (owner-directed): comprehension→REASONING; and the learn-from-reading learner is PROVEN-but-OFF → OPTIMIZE + safety-validate it as a solver problem BEFORE it grows the foundation, p1 LANDED FIRST**
+### 2026-08-28 (LATEST) -- ✅✅ **TWO STRANDED SOLUTIONS INTEGRATED (owner-authorized in-session): THEORY OF MIND (belief-partition organ LANDED) + p1 SCALAR-MAGNITUDE RULER (accepted EXCELLENT; hdlab landing = a careful multi-module port, QUEUED)**
+Owner clarified the stranded-solution handling: ToM was the one that "missed the verdict" → integrate; p1 was owner-DONE →
+integrate; the phase-diagram is STILL RUNNING → left alone (reverted my premature edits). Both re-verified FIRST-HAND.
+**✅ THEORY OF MIND INTEGRATED (EXCELLENT):** `theory_of_mind_is_proven_only_in_a_synthetic_microworld` (reverify 2/2 PASS).
+Per-agent belief partition (an agent who did NOT observe keeps the STALE binding = false belief) on the substrate's OWN
+organs: belief-acc **1.000** on 26 real-English false-belief passages, CI-sep over shared-reality 0.357 (leaks → fails
+false-belief), always-initial 0.643, twin losing; reality intact; interference-robust. 🔌 **LANDED `hdlab/belief_partition.py`**
+(`BeliefPartition` + `believed_location` gate; witness PASS; registered `belief_partition_v1`, default-off). Honest scope:
+authored real-English gold (mechanism demo, not corpus-general), 1.000 uses ORACLE observation (end-to-end 0.821), first-order
+only; residual = the OBSERVATION-CUE front-end. `state_of_mind.py` is coref (mislabelled), NOT ToM. **📦 OWNER MUSING: ToM may
+want a DEDICATED solver re-eval (strengthen: corpus-mined gold + the observation-cue front-end) — PACKAGE as a follow-on
+AFTER p1 (owner "P1 first").**
+**✅ p1 SCALAR-MAGNITUDE RULER ACCEPTED (EXCELLENT, owner-DONE):** `build_the_composed_scalar_magnitude_meaning_channel`
+(reverify ALL PASS). The composed magnitude "ruler" + word-class operation-ROUTER beats every sub-op + the incumbent cosine
+CI-sep, router beats gloss-only + magnitude-only with EXACT N/V no-regression, FPE-log preserves Weber; as a COMPARISON
+system it beats the incumbent CLEANLY (0.758 vs 0.552, distance effect +0.340, congruity AUC 1.000 vs incumbent 0.215 —
+the cosine INVERTS). Solver CORRECTED the brief: pole+degree = ONE oriented place code (not three ops). 🔌 **hdlab LANDING
+ACCEPTED but QUEUED as a careful MULTI-MODULE port (NOT rushed tonight): the channel imports 4 experiment modules (FPE
+encoding + semantic-axis machinery + loaders) that must be relocated to hdlab first; then ADD `scalar_adjective_operation`,
+UPGRADE `quality_relation` Ch.B linear→FPE-log, ROUTE the meaning read-out by word class, wire dim-select to
+`semantic_control`. THE IMMEDIATE-NEXT DEDICATED LANDING.** Both AUDIT UPDATEs folded (§2b). 🎯 **QUEUE: p1 accepted
+(landing queued); learner (p2, gated on the p1 LANDING for its substrate-validation half; rule-optimization half runs now);
+foraging (p3); phase-diagram (p4, STILL RUNNING). NEXT STRATEGY (mine): the p1 hdlab multi-module landing → then the learner's
+substrate-validation unblocks; plus the factorized-store + N400 + full 3-axis remain (heavy → remote).**
+
+### 2026-08-27 -- 🧭 **NEXT PHASE FRAMED + THE LEARNER PACKAGED (owner-directed): comprehension→REASONING; and the learn-from-reading learner is PROVEN-but-OFF → OPTIMIZE + safety-validate it as a solver problem BEFORE it grows the foundation, p1 LANDED FIRST**
 Owner steer this session: (1) NEXT PHASE = the reader crosses from COMPREHENSION to REASONING — p1's magnitude/COMPARISON op
 is the first glass-box reasoning primitive; the meaning system becomes multi-operation + demand-routed (the pattern the whole
 substrate converged on). (2) **LEARNING FROM READING is PROVEN-worth-continuing (Q116 owner-DONE: a PPMI-SVD arm over 38M

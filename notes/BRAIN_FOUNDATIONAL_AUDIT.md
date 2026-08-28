@@ -65,6 +65,32 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — THE SCALAR-MAGNITUDE "RULER" IS COMPOSED + PROVEN, and it re-frames meaning as OPERATION-SPECIFIC: pole+degree
+  are ONE oriented place code (not three stacked ops), and the magnitude system is a COMPARISON system where the incumbent
+  cosine INVERTS** (from `build_the_composed_scalar_magnitude_meaning_channel`, integrated SOLVED/EXCELLENT, owner-DONE +
+  authorized in-session; witness `verify_composed_magnitude_channel.py` ALL PASS re-verified FIRST-HAND). Completes the p3
+  meaning-operation-routing line: the composed magnitude channel (dimension-select → grounded ORIENTED signed-magnitude place
+  code → markedness fine-degree → FPE-log Weber comparator) beats the strongest single sub-op (+0.081 CI-sep) AND the
+  incumbent cosine (+0.40 CI-sep); the word-class ROUTER beats gloss-only (0.616 vs 0.424) AND magnitude-only (0.339) with
+  EXACT N/V no-regression. **CORRECTS the "three operations" framing to be MORE brain-faithful:** pole and degree are NOT two
+  separable operations — the brain fuses them into ONE oriented place code (opponent pools → peaked log-Gaussian → oriented
+  axis: Roitman 2007, Nieder, Verguts & Fias 2004, SNARC), confirmed on-disk (within-scale oriented ordering 0.72 ≈ markedness
+  0.77). The faithful decomposition = {dimension-select (semantic control); ONE grounded oriented magnitude place code;
+  markedness fine-degree; FPE-log Weber code}. **The magnitude system is a COMPARISON system** (Moyer distance effect;
+  Holyoak congruity) — measured as one it beats the incumbent CLEANLY (relative-comparison 0.758 vs 0.552 +0.206 CI-sep,
+  distance effect +0.340, semantic-congruity AUC 1.000 where the incumbent gloss cosine INVERTS to 0.215: it ranks antonyms
+  as MORE similar than same-pole pairs — a concrete measured instance of "opposition is irreducible / a cosine is the wrong
+  operator for magnitude"). **PINNED/INVENTED:** the combination = ONE oriented place code (PINNED); an opponent-pool readout
+  is MONOTONE-EQUIVALENT to the linear projection for recovery (the place-code stage is load-bearing, the opponent-readout is
+  not — a rigorous negative). `quality_relation` Channel B is LINEAR FPE (uniform-resolution = the WRONG magnitude code) → the
+  upgrade to FPE(log) + pole/dim binding preserves Weber (proven on the real degrees) and makes the comparator a native
+  `unbind`. **hdlab LANDING QUEUED (careful multi-module port, NOT rushed):** ADD `scalar_adjective_operation`; UPGRADE
+  quality_relation Ch.B linear→FPE-log; ROUTE the meaning read-out by word class (gradable adj → magnitude, else gloss; gate =
+  has_antonym-or-satellite AND NOT pertainym-relational); wire dimension-select to `semantic_control`. HONEST: the sub-op
+  CI-win is concreteness-routing (evaluative dims tie by construction); the gate is coarse; markedness/FPE-log value is
+  comparison + the Weber code, not static recovery; the deeper frontier (comparison-class re-anchoring, negativity bias,
+  congruity RT) is DATA-blocked, not mechanism-blocked.
+
 - **2026-08-28 — THEORY OF MIND is no longer synthetic-only: first-order FALSE BELIEF validated on REAL TEXT on the
   substrate's own organs; the live reader has NO belief tracking and needs a per-agent belief partition (TPJ)** (from
   `theory_of_mind_is_proven_only_in_a_synthetic_microworld`, integrated SOLVED/EXCELLENT, owner-authorized in-session;
