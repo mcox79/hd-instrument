@@ -31,7 +31,38 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-28 (LATEST) -- ✅✅ **TWO STRANDED SOLUTIONS INTEGRATED (owner-authorized in-session): THEORY OF MIND (belief-partition organ LANDED) + p1 SCALAR-MAGNITUDE RULER (accepted EXCELLENT; hdlab landing = a careful multi-module port, QUEUED)**
+### 2026-08-28 (LATEST) -- 🧭 **COMPACTION SNAPSHOT: p1 FULLY LANDED + verified; ToM landed; the FACTORIZED MEMORY STORE landed (dense→sparse gap ~closed); the LEARNER solution is IN + recommended DONE (awaits owner verdict); reasoning phase seeded. IDLE, waiting on owner verdicts.**
+**READ THIS FIRST after compaction; then `CONSOLIDATION_PHASE_LOG.md` (steps 0-20 + the RESUME STATE at its top) + the entries below.**
+🔌 **LANDED this session (all default-off islands, witnessed FIRST-HAND, registered):**
+- **p1 scalar-magnitude RULER — FULLY LANDED + real-data verified:** `hdlab/fractional_power_encoding.py` (log-Weber code) +
+  `hdlab/scalar_adjective_operation.py` (the ruler) + `hdlab/meaning_operation_router.py` (word-class routing). Reproduces
+  the human comparison win on real Warriner data 0.758 (`exp_p1_landed_organs_live_payoff_v1.py`). FOLLOW-ON refinements
+  (NOT blocking): `quality_relation` Ch.B linear→FPE-log regrounding + wire dim-select to `semantic_control`.
+- **Theory of Mind:** `hdlab/belief_partition.py` (per-agent false-belief, 1.000 on real-English passages). Residual = the
+  observation-cue front-end (packaged as p5 `theory_of_mind_residual_is_the_observation_cue_front_end`).
+- **FACTORIZED two-system memory store (the p2 proven-ready follow-on — the named dense→sparse fidelity gap, ~CLOSED):**
+  `hdlab/graded_temporal_context.py` (GradedTemporalContext + EventSegmentedContext — the "when" + event boundaries) +
+  `hdlab/factorized_entity_store.py` (content × context × order + race-to-stop set-return + gist routing); the sparse-DG
+  "what" half was ALREADY landed (`hdlab/dg_pattern_separation.py`). REMAINING (follow-on): sparse-DG content backend merge;
+  path-integration scaffold; wire the N400 boundary detector → EventSegmentedContext; LitBank-scale validation → REMOTE box.
+🎯 **QUEUE (integrate ONLY on `owner_verdict: DONE`): p2 `optimize_and_validate_the_learner_before_it_grows_the_foundation`
+= SOLVED, awaits verdict — I RECOMMEND DONE. It is EXCELLENT-caliber + PARTIAL(mixed): dependency-typed (grammar-shaped)
+context beats PPMI CI-sep + 2.5x data-efficient (BAR1 WIN); online==batch so the update-rule premise is refuted-by-argument
+(BAR2 escape); net-neutral-not-harmful in the full pool (BAR3); the SAFETY GATE fired — growth adds real value BUT corrupts
+~1-in-4 previously-correct answers UNIFORMLY → NOT safe to turn on UNCONDITIONAL growth, safe only behind a regression-checked/
+versioned-rollback gate. ON DONE: reverify FIRST-HAND (`verify_structured_context_learner.py`), land the dependency-typed
+learner + reliability-weighted fusion, KEEP foundation-growth OFF behind the gate. p4 phase-diagram = SOLVED, awaits verdict
+(a rigorous NEGATIVE, EXCELLENT, reverified — no hdlab landing, just fold audit; ready). p3 foraging + p5 ToM-reeval + p6
+transitive-comparison = no solution yet.**
+🧭 **NEXT PHASE = comprehension→REASONING** (p1's comparison is the first glass-box reasoning primitive; the comprehension
+baseline is essentially established — the full-3-axis was RE-SCOPED to a low-priority completeness check, dominated by the
+broad entity+meaning axes, see LOG STEP 20 REFINEMENT). First reasoning problem PACKAGED (PROPOSED, owner steers):
+`transitive_comparison_reasoning_over_the_magnitude_ordering` (p6). **NEXT STRATEGY STEPS (mine): integrate the learner on
+DONE; the comparison-in-comprehension measurement (first reasoning-phase reader test); the p1 follow-on refinements. Heavy
+runs (full-3-axis, factorized-store LitBank validation) → REMOTE box.** ⚠️ **The uncommitted `data/capability_registry.jsonl`
+lines + untracked `verification/test_*.py` are OTHER sessions'/solvers' — NOT this session's; do NOT commit them.**
+
+### 2026-08-28 -- ✅✅ **TWO STRANDED SOLUTIONS INTEGRATED (owner-authorized in-session): THEORY OF MIND (belief-partition organ LANDED) + p1 SCALAR-MAGNITUDE RULER (accepted EXCELLENT; hdlab landing = a careful multi-module port, QUEUED)**
 Owner clarified the stranded-solution handling: ToM was the one that "missed the verdict" → integrate; p1 was owner-DONE →
 integrate; the phase-diagram is STILL RUNNING → left alone (reverted my premature edits). Both re-verified FIRST-HAND.
 **✅ THEORY OF MIND INTEGRATED (EXCELLENT):** `theory_of_mind_is_proven_only_in_a_synthetic_microworld` (reverify 2/2 PASS).
