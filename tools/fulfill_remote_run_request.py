@@ -403,6 +403,14 @@ def main():
     gate = a.gate or fm.get("gate", "")
     question = a.question or fm.get("question", "")
     name = a.name or fm.get("name") or os.path.splitext(os.path.basename(cell))[0]
+    # The remote runner exports HDLAB_EXP_NAME = this entry name, and cells build their output dir as
+    # data/exp_<HDLAB_EXP_NAME>. A cell basename already begins with "exp_", so passing it verbatim yields a
+    # DOUBLE-prefix data/exp_exp_<name>/ (the shared get_output_dir strips it via SH-4, but roll-your-own
+    # OUTPUT_DIR cells do not -> results land where nobody looks). Strip a leading "exp_" so HDLAB_EXP_NAME is
+    # the anchor: both conventions then produce the correct single-prefix data/exp_<name>/ that the request's
+    # results_path declares. get_output_dir's own strip makes this idempotent (harmless if already stripped).
+    if name.startswith("exp_"):
+        name = name[len("exp_"):]
     body = fm.get("_body", "")
 
     print(f"[fulfill] cell={cell} requested_queue={queue or '(auto)'} timeout={timeout} args='{args_str}'")
