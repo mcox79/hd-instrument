@@ -65,6 +65,38 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — THE ~0.65 COREF CAP IS BROKEN + DIAGNOSED ON REAL NARRATIVE, and the fix REVERSES a prior §2b HARD_FAIL
+  as population-specific** (from `coreference_is_capped_at_065_on_real_narrative`, integrated SOLVED/EXCELLENT, owner-DONE;
+  witness re-verified FIRST-HAND against the current file — ALL 8 checks PASS). The reader's rigid hard-tiered pronoun pick
+  (`coreference_resolver._pick_strict_cb`) is replaced by the brain's actual reference computation — **GRADED cue-based
+  retrieval** (Lewis & Vasishth 2005; McElree 2003): a softmax over the pinned **ACT-R base-level activation**
+  (recency×frequency×role), reusing the LANDED `graded_competition` organ verbatim. **PINNED result:** on LitBank (100
+  novels, 50 held-out) competitive pronouns (≥2 gn-compatible priors, n=4693), graded **0.775** vs the incumbent hard-tier
+  recomputed same-population **0.603** (+0.172 CI-sep, half-width 0.031); info-free twins collapse (0.055/0.044). **The cap
+  was the TIER, and its mechanism is now measured:** the rigid subject-first tier scores BELOW plain recency (0.603 <
+  0.717) — it picks subjects ~2.2 sentences STALER because strict-Cb has NO graded recency decay within the subject class;
+  the brain's dt^−d decay is exactly what the hard rule discarded (copy-the-computation, made quantitative). **HONESTY
+  (MAP-optimality theorem):** graded-argmax == the argmax of the same net → graded TIES ACT-R base-level activation (0.782,
+  NOT_SEP); the accuracy win is over the incumbent TIER, and the graded FORM's unique value is the calibrated DISTRIBUTION.
+  **Track B (legible uncertainty):** posterior normalized-entropy predicts its OWN errors **AUC 0.806** vs the incumbent
+  margin **0.617 same-population** (apples-to-apples); deferring the highest-entropy 33% lifts kept accuracy 0.775→0.894
+  CI-sep, random twin flat; gain-invariant for argmax so Track A is untouched. Brain-faithful "flat posterior → defer"
+  (Levy 2008; the Nref "hold both" ERP, Nieuwland & Van Berkum 2008). **REVERSES the 08-27 §2b finding** ("cue-based-
+  activation coref pick HARD_FAILED −0.1348; resolving WHO is dominated by simple SALIENCE/RECENCY"): that HARD_FAIL was
+  **population-specific** (QA-SRL/McGuffey — short, dense, few entities, where the hard Centering tier + pure salience
+  excel); on REAL narrative graded ACT-R retrieval is the WINNER and the hard tier is the WORST arm. **The right mechanism
+  is population-dependent** — a clean instance of "no number crosses populations." **New PINNED sub-claim:** pronoun
+  reference is a **two-term Bayesian computation** (Kehler & Rohde 2013) — a Centering LIKELIHOOD (grammatical
+  role/topichood, what we compute) × a coherence-driven next-mention PRIOR (verb-semantics/discourse, what we do NOT
+  compute); the ~19% structural residual is the prior-decisive cases (the two-system boundary, not a tuning failure), and a
+  slice is LitBank ANNOTATION-FIAT ambiguity (ezCoref) where entropy-defer is the brain-faithful output. Optimization
+  levers tested + REJECTED with numbers (parallelism, gender/animacy pre-filter → pool 39.9→39.3 null, lexical IC → frame
+  n=0, role-weighting exhausted) → the ~0.78 structural ceiling is DEMONSTRATED. hdlab landing QUEUED (Q111, opt-in
+  default-off `run_graded_retrieval` + entropy-abstain; existing behaviour byte-identical). **NET: the coref organ's
+  "competitive resolution is the open case" is resolved for the PRONOUN branch; the NEW open case is the NAME/NOMINAL
+  branch — it shatters 65.6% of multi-name gold entities (single-head-token cache root cause) and caps who-did-what
+  (oracle-coref 0.62 vs binder 0.17), the highest-leverage entity-tracking follow-on.**
+
 - **2026-08-28 — THE MISSING SPACE DIMENSION IS NOW BUILT: a first-class per-entity LOCATION REGISTER (Zwaan & Radvansky
   event-indexing SPACE), COMPOSED with the (entity,role,event) binding, not bolted on** (from
   `situation_model_has_no_spatial_location_dimension`, integrated SOLVED/EXCELLENT, owner-DONE; three witnesses

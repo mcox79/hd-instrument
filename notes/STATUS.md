@@ -31,7 +31,36 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-28 (LATEST) -- ✅ **THE MISSING SPACE ORGAN INTEGRATED (p1, owner-DONE, EXCELLENT): the situation model now has a per-entity LOCATION REGISTER — the Zwaan event-indexing SPACE dimension, genuinely absent until now, built the brain's way and serving the ToM cue. Queue now: p2 learner SOLVED-awaiting-verdict; p3/p4/p5 open for solvers.**
+### 2026-08-28 (LATEST) -- ✅ **COREF (p3) INTEGRATED (owner-DONE, EXCELLENT): the ~0.65 coreference cap is BROKEN + DIAGNOSED on real narrative — the reader's rigid pronoun tier is replaced by the brain's GRADED cue-based retrieval, +0.17 CI-sep, with a calibrated 'I'm unsure' abstain. Queue now: p2 learner SOLVED-awaiting; p4/p5 open for solvers.**
+**READ THIS FIRST after compaction; then the entries below.**
+✅ **INTEGRATED `coreference_is_capped_at_065_on_real_narrative` (p3, EXCELLENT, owner-DONE):** reverified FIRST-HAND
+against the CURRENT file (`test_coref_graded_cue_retrieval.py`, ALL 8 checks PASS — the solver strengthened Track B
+between submission and the DONE verdict, so I re-ran fresh, not my earlier read). Mechanism COPIED (PINNED): the rigid
+hard-tiered pronoun pick (`_pick_strict_cb`) → brain-faithful GRADED cue-based retrieval (Lewis-Vasishth/McElree — softmax
+over the pinned ACT-R base-level activation, reusing the LANDED `graded_competition`). TRACK A: graded **0.775** vs the
+incumbent hard-tier recomputed same-population **0.603** (+0.172 CI-sep); the tier was the CAP (below plain recency 0.717
+— it lacks the brain's graded recency decay, picks subjects ~2.2 sentences staler); info-free twins collapse. HONEST
+(volunteered): graded TIES ACT-R by the MAP-optimality theorem — the win is over the incumbent TIER + the calibrated
+DISTRIBUTION, not the point estimate. TRACK B: posterior entropy predicts its own errors AUC **0.806** vs the incumbent
+margin 0.617 same-population; deferring 33% lifts kept accuracy 0.775→0.894, random twin flat (Track A untouched —
+gain-invariant). Residual ~19% = the missing 2nd Bayesian term (Kehler-Rohde coherence PRIOR), a separate build; ceiling
+DEMONSTRATED (levers rejected with numbers). Review + SOLVER REVIEW in PROBLEM.md; priority cleared; AUDIT §2b folded
+(newest + coref-organ entry): **REVERSES the 08-27 coref HARD_FAIL as POPULATION-SPECIFIC** (McGuffey short/dense vs real
+narrative — no number crosses populations).
+🔌 **hdlab landing QUEUED (Q111 — careful port, opt-in default-off, existing behaviour byte-identical):** add
+`run_graded_retrieval(stream, gain, d, flag_thr)` to `hdlab/coreference_resolver.py` (ACT-R activation over gn-compatible
+entities → `graded_pick` + entropy abstain), replacing the coarse strict-Cb integer margin (AUC 0.617) with the entropy
+posterior (0.806); name/nominal branch untouched.
+📦 **HIGHEST-LEVERAGE ADJACENCY NOW MEASURED (clean follow-on candidate, verdict-independent):** the NAME/NOMINAL coref
+branch SHATTERS 65.6% of multi-name gold entities (root cause = the LitBank cache stores single HEAD TOKENS), capping the
+whole who-did-what / entity-tracking / situation-model stack (oracle-coref 0.62 vs binder 0.17). This is the untouched
+half of coreference (the pronoun half is now solved) — a genuinely clean, high-leverage gap to package next.
+⚠️ **WIRE-DON'T-ISLAND DEBT is now 7 queued careful ports, 0 landed this cycle** (coref `run_graded_retrieval`;
+`location_register`+`perceptual_access` coupled; comprehensible-input selector; `decode_serial`+`decode_gated`;
+`transitive_ordering`; p1 `quality_relation` FPE-log). These are careful multi-step ports with witnesses — landing them is
+its own focused pass, RECOMMENDED as the next dedicated effort (not rushed at an integration tail).
+
+### 2026-08-28 -- ✅ **THE MISSING SPACE ORGAN INTEGRATED (p1, owner-DONE, EXCELLENT): the situation model now has a per-entity LOCATION REGISTER — the Zwaan event-indexing SPACE dimension, genuinely absent until now, built the brain's way and serving the ToM cue. Queue now: p2 learner SOLVED-awaiting-verdict; p3/p4/p5 open for solvers.**
 **READ THIS FIRST after compaction; then the entries below.**
 ✅ **INTEGRATED `situation_model_has_no_spatial_location_dimension` (p1, EXCELLENT, owner-DONE):** reverified FIRST-HAND, ran
 all three witnesses myself — `test_location_register.py` 13/13; `exp_location_register_where_is_x_v1.py` HARD_PASS (REGISTER
