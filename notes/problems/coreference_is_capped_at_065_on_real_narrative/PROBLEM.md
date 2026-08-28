@@ -16,7 +16,45 @@ You build + validate in `experiments/`; strategy lands any hdlab change (Q111). 
 > the ~0.65 cap on multi-character prose. Two acceptable wins (either passes the bar): raise the accuracy, OR make the
 > uncertainty legible so downstream organs stop silently trusting a wrong link. **Re-rank per the owner.**
 
-<<<PROTOCOL>>>
+> **If a tool call is denied, STOP and report the exact denial text verbatim. Do not retry a variant.**
+
+> ## ⚙️ SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25, strengthened 2026-08-26; in EVERY problem)
+> **DO THE RIGHT THING, NOT THE CHEAP OR EASY THING** — the mission is the most brain-faithful substrate,
+> not the fastest green check.
+>
+> **🧠 THE OPENING MOVE, BEFORE ANY METHOD: how does the BRAIN actually do THIS?** Name the structure /
+> circuit and the computation it performs, and try to replicate that OPERATION as exactly as you can. This
+> is NOT a tiebreaker you reach for after your tools plateau — it is the FIRST thing you do.
+>
+> **🚀 YOU ARE ENABLED — AND EXPECTED — TO EXPLORE FAR AND WIDE FOR THAT MECHANISM.** Go read the
+> neuroscience. Cross domains. Propose something that looks NOTHING like this brief or the current substrate.
+> If a MORE brain-foundational method conflicts with this brief or the existing organs, SUBMIT that alternative
+> solution or DIRECTION instead (say what is incompatible and why yours is more brain-faithful).
+>
+> **🧱 A SHARED WALL IS A SIGNAL TO GO DEEPER, NOT A REASON TO STOP.** If several angles hit the SAME wall,
+> the faithful method is probably DIFFERENT IN KIND. A wall is a FIDELITY GAP TO BUILD ACROSS, never a ceiling.
+>
+> **⛔ "CONVERGED" HAS A HIGH BAR.** Claim it ONLY when you have (a) identified how the brain performs this
+> computation AND (b) replicated that operation as faithfully as you can and tested it, OR shown a SPECIFIC
+> reason it cannot be replicated here. Exhausting engineering variations is NOT convergence.
+>
+> **🔁 THE 30-MIN DEEPENING CRON (`CronCreate "13,43 * * * *"`) — RUN THIS CHECKLIST EACH FIRE AND ACT ON IT
+> (owner 2026-08-28; this is how you keep pushing without being told):**
+> (1) DO THE RIGHT THING, not the cheap one — and if there is high-value ADJACENT info we can gather that raises
+> fidelity OR PROVES THE POINT (a control, a distance/robustness curve, an ablation, a second gold), GO GET IT.
+> (2) What is LEFT that rationally fits THIS problem? Enumerate + do it. If ADJACENT components bottleneck it, MAP
+> THEM OUT (name the component, the on-disk evidence, the leverage) as candidate follow-ons, never silent gaps.
+> (3) Any OPTIMIZATIONS left for this module, or brain-foundational FIDELITY to look at more closely with another
+> research drill? If yes, RUN it.
+> (4) Hit an UNEXPECTED WALL? Run a FINER brain-foundational research drill — do NOT stop. If the BRAIN can do this
+> and WE can't, UNDERSTAND why (the brain succeeds where our mechanism fails) then BUILD across — never a ceiling.
+> Each fire: implement → test (can-fail, strongest real floor, info-free twin LOSING) → iterate. CANCEL
+> (`CronDelete`) + submit ONLY when the brain-mechanism bar is met AND this checklist yields nothing more of value.
+>
+> **A rigorous negative is a PASS — but only if what failed was the brain's actual mechanism, faithfully built.**
+>
+> **📖 REFERENCE `notes/BRAIN_FOUNDATIONAL_AUDIT.md`** for the systems you touch; inherit its PINNED/INVENTED verdicts;
+> put a short **AUDIT UPDATE** in your submission for any verdict you find wrong/stale or any new deviation.
 
 ## 1. THE PROBLEM IN PLAIN LANGUAGE
 To understand a story you must track WHO each "he/she/they/it/the man" refers to. Our coreference resolver
