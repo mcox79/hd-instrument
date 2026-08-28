@@ -31,7 +31,31 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-28 (LATEST) -- ✅ **THEORY-OF-MIND OBSERVATION-CUE RESIDUAL INTEGRATED (owner-DONE, EXCELLENT): the last ToM weak link — reading "did agent A witness the change?" from prose — is now a brain-faithful PERCEPTUAL-ACCESS REGISTRATION LEDGER, lifting end-to-end false-belief 0.50→0.99 past the 0.821 residual.**
+### 2026-08-28 (LATEST) -- ✅✅ **TWO MORE INTEGRATED (owner-DONE, both EXCELLENT) + QUEUE REFILLED: p3 FORAGING (comprehensible-input/ZPD) + p4 REGISTER-READOUT (theta-gamma serial decode). Solvers were out of work → packaged 3 new high-value briefs.**
+**READ THIS FIRST after compaction; then the entries below.**
+✅ **`the_reader_cannot_choose_what_to_read_next` INTEGRATED (EXCELLENT):** re-verified FIRST-HAND (fast witness 6/6 +
+full multi-seed HARD_PASS, ran on remote). The brief's MVT/learning-progress forager was already REFUTED on disk;
+replaced with COMPREHENSIBLE INPUT / ZPD — coverage 0.0813 vs FROZEN 0.0314 (+0.0499 CI-sep 3/3) + RANDOM 0.0287, twin
+loses; self-refutes its own stricter-threshold upgrade (competence-dependent = ROPL). hdlab landing QUEUED (corpus_registry
+shelf + comprehensible-input selector + within-source MVT leave; NOT the LP selector/EVC-halt).
+✅ **`the_register_reads_by_argmax_not_recurrent_completion` INTEGRATED (EXCELLENT):** re-verified FIRST-HAND (ALL checks
+PASS). A MECHANISM CORRECTION: the register cliff is an argmax-READOUT artifact; the brain reads a superposition by
+THETA-GAMMA SERIAL decode-and-suppress (Lisman&Idiart 1995), NOT CA3 attractor completion — gain = known-key CROSSTALK
+CANCELLATION (Hopfield attractor ties argmax). +0.454 CI-sep at overload; INERT on bulk / recovers high-fan tail;
+readout(2×)⊥store(8×) compose to 12-16×; help-vs-hurt RESOLVED via a CA1-comparator gate. Corrects the phase-diagram
+CA3-completion §2b entry. hdlab landing QUEUED (additive decode_serial + decode_gated on AccumulateRegister).
+🆕 **OWNER FLAGGED NO OPEN PROBLEMS → PACKAGED 3 new solver briefs** (this session's on-disk-evidenced adjacencies, each
+8-section + enriched protocol + can-fail bar): `coreference_is_capped_at_065_on_real_narrative` (priority 3, HIGH — coref
+~0.65 caps ToM/entity/situation/SPACE; raise it OR make a confidence-gated abstain legible), `no_glass_box_verb_sense_disambiguation`
+(priority 4, BROAD — the polysemy wall that bit the ToM extractor + gold labels; frame-selection over the parse),
+`the_register_bundle_renorm_breaks_the_serial_readout` (priority 5, register-readout's strongest adjacency — per-component
+renorm 0.119 vs raw-sum 0.983 breaks serial; brain-faithful divisive/homeostatic normalization).
+🎯 **QUEUE now (6 ranked-open, unique 1-6): p1 SPACE organ, p2 learner (SOLVED-awaiting-verdict), p3 coref, p4 verb-WSD,
+p5 bundle-renorm, p6 transitive-comparison.** 🔌 **hdlab landings QUEUED (careful ports, NOT yet landed): perceptual_access
+(ToM), comprehensible-input selector (foraging), decode_serial+decode_gated (register readout).** ⚠️ **p2 learner still
+awaits owner verdict.** Infra: metrics-sync revived + double-prefix naming fixed + watcher fully backgrounded.
+
+### 2026-08-28 -- ✅ **THEORY-OF-MIND OBSERVATION-CUE RESIDUAL INTEGRATED (owner-DONE, EXCELLENT): the last ToM weak link — reading "did agent A witness the change?" from prose — is now a brain-faithful PERCEPTUAL-ACCESS REGISTRATION LEDGER, lifting end-to-end false-belief 0.50→0.99 past the 0.821 residual.**
 `theory_of_mind_residual_is_the_observation_cue_front_end` (p5). Re-verified FIRST-HAND: 4 witnesses PASS (ledger 6/6,
 occlusion 6/6, sequential 4/4, testimony 3/3). Ledger cue acc **0.992 [0.980,1.000] vs the LANDED lexical extractor 0.500
 CI-sep** (info-free twin loses; the extractor collapses 0.808→0.500 on real corpus prose = the residual); END-TO-END
