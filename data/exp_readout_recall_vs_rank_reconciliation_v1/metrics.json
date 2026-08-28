@@ -1,0 +1,224 @@
+{
+  "anchor": "readout_recall_vs_rank_reconciliation_v1",
+  "rank_depth_curve": [
+    {
+      "n": 114,
+      "n_items": 120,
+      "n_hubs": 6,
+      "steps": 0,
+      "graded_hit1": 0.8947,
+      "attractor_hit1": 0.8947,
+      "chance_hit1": 0.0263,
+      "graded_target_rank": 0.37,
+      "attractor_target_rank": 0.37,
+      "graded_hub_rank": 56.42,
+      "attractor_hub_rank": 56.42
+    },
+    {
+      "n": 114,
+      "n_items": 120,
+      "n_hubs": 6,
+      "steps": 1,
+      "graded_hit1": 0.8947,
+      "attractor_hit1": 0.5175,
+      "chance_hit1": 0.0263,
+      "graded_target_rank": 0.37,
+      "attractor_target_rank": 4.16,
+      "graded_hub_rank": 56.42,
+      "attractor_hub_rank": 13.25
+    },
+    {
+      "n": 114,
+      "n_items": 120,
+      "n_hubs": 6,
+      "steps": 2,
+      "graded_hit1": 0.8947,
+      "attractor_hit1": 0.3596,
+      "chance_hit1": 0.0263,
+      "graded_target_rank": 0.37,
+      "attractor_target_rank": 10.75,
+      "graded_hub_rank": 56.42,
+      "attractor_hub_rank": 12.83
+    },
+    {
+      "n": 114,
+      "n_items": 120,
+      "n_hubs": 6,
+      "steps": 4,
+      "graded_hit1": 0.8947,
+      "attractor_hit1": 0.2807,
+      "chance_hit1": 0.0263,
+      "graded_target_rank": 0.37,
+      "attractor_target_rank": 23.46,
+      "graded_hub_rank": 56.42,
+      "attractor_hub_rank": 21.72
+    },
+    {
+      "n": 114,
+      "n_items": 120,
+      "n_hubs": 6,
+      "steps": 8,
+      "graded_hit1": 0.8947,
+      "attractor_hit1": 0.2719,
+      "chance_hit1": 0.0263,
+      "graded_target_rank": 0.37,
+      "attractor_target_rank": 25.86,
+      "graded_hub_rank": 56.42,
+      "attractor_hub_rank": 36.48
+    }
+  ],
+  "cue_degradation_curve": [
+    {
+      "cue_gamma": 0.9,
+      "graded_hit1": 1.0,
+      "attractor_hit1": 1.0,
+      "gap": 0.0
+    },
+    {
+      "cue_gamma": 0.85,
+      "graded_hit1": 1.0,
+      "attractor_hit1": 0.7281,
+      "gap": 0.2719
+    },
+    {
+      "cue_gamma": 0.8,
+      "graded_hit1": 0.8947,
+      "attractor_hit1": 0.2807,
+      "gap": 0.614
+    },
+    {
+      "cue_gamma": 0.75,
+      "graded_hit1": 0.7193,
+      "attractor_hit1": 0.0965,
+      "gap": 0.6228
+    },
+    {
+      "cue_gamma": 0.7,
+      "graded_hit1": 0.4123,
+      "attractor_hit1": 0.0351,
+      "gap": 0.3772
+    }
+  ],
+  "rank_boot": {
+    "n": 114,
+    "n_items": 120,
+    "n_hubs": 6,
+    "steps": 4,
+    "graded_hit1": 0.8947,
+    "attractor_hit1": 0.2807,
+    "chance_hit1": 0.0263,
+    "graded_target_rank": 0.37,
+    "attractor_target_rank": 23.46,
+    "graded_hub_rank": 56.42,
+    "attractor_hub_rank": 21.72,
+    "graded_minus_attractor_hit1": {
+      "mean": 0.5873,
+      "lo": 0.5,
+      "hi": 0.6757,
+      "hw": 0.0878
+    }
+  },
+  "gate_across_load": [
+    {
+      "M": 8,
+      "argmax": 1.0,
+      "serial": 1.0,
+      "gated": 1.0,
+      "gate_tracks_best": true,
+      "choice": {
+        "argmax_inert": 20
+      }
+    },
+    {
+      "M": 32,
+      "argmax": 0.9297,
+      "serial": 1.0,
+      "gated": 1.0,
+      "gate_tracks_best": true,
+      "choice": {
+        "serial": 20
+      }
+    },
+    {
+      "M": 48,
+      "argmax": 0.7854,
+      "serial": 1.0,
+      "gated": 1.0,
+      "gate_tracks_best": true,
+      "choice": {
+        "serial": 20
+      }
+    },
+    {
+      "M": 64,
+      "argmax": 0.6508,
+      "serial": 1.0,
+      "gated": 1.0,
+      "gate_tracks_best": true,
+      "choice": {
+        "serial": 20
+      }
+    },
+    {
+      "M": 96,
+      "argmax": 0.4359,
+      "serial": 0.3266,
+      "gated": 0.4359,
+      "gate_tracks_best": true,
+      "choice": {
+        "argmax_fallback": 20
+      }
+    },
+    {
+      "M": 128,
+      "argmax": 0.3277,
+      "serial": 0.2121,
+      "gated": 0.3277,
+      "gate_tracks_best": true,
+      "choice": {
+        "argmax_fallback": 20
+      }
+    }
+  ],
+  "mixed_workload": {
+    "recall_detail": {
+      "argmax": 0.6427,
+      "serial": 1.0,
+      "gated": 1.0,
+      "gate_choice": {
+        "serial": 30
+      }
+    },
+    "rank_detail": {
+      "n": 114,
+      "n_items": 120,
+      "n_hubs": 6,
+      "steps": 4,
+      "graded_hit1": 0.8947,
+      "attractor_hit1": 0.2807,
+      "chance_hit1": 0.0263,
+      "graded_target_rank": 0.37,
+      "attractor_target_rank": 23.46,
+      "graded_hub_rank": 56.42,
+      "attractor_hub_rank": 21.72
+    },
+    "policies": {
+      "always_graded": {
+        "recall": 0.6427,
+        "rank": 0.8947,
+        "aggregate": 0.7687
+      },
+      "always_complete": {
+        "recall": 1.0,
+        "rank": 0.2807,
+        "aggregate": 0.6403
+      },
+      "gated": {
+        "recall": 1.0,
+        "rank": 0.8947,
+        "aggregate": 0.9474
+      }
+    }
+  },
+  "elapsed_s": 15.7
+}

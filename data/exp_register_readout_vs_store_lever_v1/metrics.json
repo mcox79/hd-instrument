@@ -1,0 +1,145 @@
+{
+  "anchor": "register_readout_vs_store_lever_v1",
+  "d": 256,
+  "v": 100,
+  "n_banks": 8,
+  "chance": 0.01,
+  "n_reps": 25,
+  "m_grid": [
+    32,
+    64,
+    128,
+    256,
+    384,
+    512
+  ],
+  "rows": {
+    "32": {
+      "max_bank_load": 9,
+      "flat_argmax": {
+        "acc": 0.9237,
+        "lo": 0.9062,
+        "hi": 0.9413
+      },
+      "flat_serial": {
+        "acc": 1.0,
+        "lo": 1.0,
+        "hi": 1.0
+      },
+      "multibank_argmax": {
+        "acc": 1.0,
+        "lo": 1.0,
+        "hi": 1.0
+      },
+      "multibank_serial": {
+        "acc": 1.0,
+        "lo": 1.0,
+        "hi": 1.0
+      }
+    },
+    "64": {
+      "max_bank_load": 13,
+      "flat_argmax": {
+        "acc": 0.65,
+        "lo": 0.6344,
+        "hi": 0.6656
+      },
+      "flat_serial": {
+        "acc": 1.0,
+        "lo": 1.0,
+        "hi": 1.0
+      },
+      "multibank_argmax": {
+        "acc": 1.0,
+        "lo": 1.0,
+        "hi": 1.0
+      },
+      "multibank_serial": {
+        "acc": 1.0,
+        "lo": 1.0,
+        "hi": 1.0
+      }
+    },
+    "128": {
+      "max_bank_load": 20,
+      "flat_argmax": {
+        "acc": 0.3244,
+        "lo": 0.3103,
+        "hi": 0.3384
+      },
+      "flat_serial": {
+        "acc": 0.2109,
+        "lo": 0.2006,
+        "hi": 0.2209
+      },
+      "multibank_argmax": {
+        "acc": 0.9969,
+        "lo": 0.9953,
+        "hi": 0.9984
+      },
+      "multibank_serial": {
+        "acc": 1.0,
+        "lo": 1.0,
+        "hi": 1.0
+      }
+    },
+    "256": {
+      "max_bank_load": 40,
+      "flat_argmax": {
+        "acc": 0.1533,
+        "lo": 0.1469,
+        "hi": 0.16
+      },
+      "flat_serial": null,
+      "multibank_argmax": {
+        "acc": 0.9137,
+        "lo": 0.907,
+        "hi": 0.9203
+      },
+      "multibank_serial": {
+        "acc": 1.0,
+        "lo": 1.0,
+        "hi": 1.0
+      }
+    },
+    "384": {
+      "max_bank_load": 60,
+      "flat_argmax": {
+        "acc": 0.1098,
+        "lo": 0.1042,
+        "hi": 0.1156
+      },
+      "flat_serial": null,
+      "multibank_argmax": {
+        "acc": 0.757,
+        "lo": 0.7505,
+        "hi": 0.7633
+      },
+      "multibank_serial": {
+        "acc": 1.0,
+        "lo": 1.0,
+        "hi": 1.0
+      }
+    },
+    "512": {
+      "max_bank_load": 78,
+      "flat_argmax": {
+        "acc": 0.0845,
+        "lo": 0.0798,
+        "hi": 0.0897
+      },
+      "flat_serial": null,
+      "multibank_argmax": {
+        "acc": 0.6227,
+        "lo": 0.6163,
+        "hi": 0.6291
+      },
+      "multibank_serial": {
+        "acc": 0.9019,
+        "lo": 0.8822,
+        "hi": 0.922
+      }
+    }
+  },
+  "elapsed_s": 54.5
+}

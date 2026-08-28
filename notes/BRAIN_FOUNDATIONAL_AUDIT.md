@@ -65,6 +65,25 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — REGISTER READOUT: the capacity "cliff" is largely an ARGMAX-READOUT artifact; the brain reads a
+  superposition by THETA-GAMMA SERIAL DECODE-AND-SUPPRESS (Lisman & Idiart 1995), NOT CA3 attractor completion — and
+  the gain is known-key CROSSTALK CANCELLATION** (from `the_register_reads_by_argmax_not_recurrent_completion`,
+  integrated SOLVED/EXCELLENT, owner-DONE; witness re-verified FIRST-HAND, ALL checks PASS). CORRECTS the phase-diagram
+  audit's own §2b entry (which said "a CA3/SIC joint-completion readout recovers the register cliff argmax 0.644→0.971"):
+  the mechanism is not attractor completion — a per-slot modern-Hopfield ATTRACTOR ties argmax exactly (no manifold on
+  the register's separated i.i.d. codes; O'Reilly & McClelland 1994). The recovery is theta-gamma SERIAL decode (decode
+  strongest → inhibition-of-return → decode next from the residual) reading the LINEAR raw sum, and its gain is
+  known-key crosstalk cancellation. Numbers: synthetic D=256 argmax 0.509→serial 0.983 @M=64 (+0.454 CI-sep); real
+  LitBank D=1024 INERT on the bulk (<64 events, no false current-task win), recovers the high-fan tail (91 entities ≥64
+  events: 0.959→1.000, +0.041 CI-sep). **The readout lever (~2×) is DISTINCT from p2's sparse store (~8×) and they
+  COMPOSE to 12–16× at fixed D.** **Help-vs-hurt is real and RESOLVED:** attractor/graded-completion HURTS RANKING (hub
+  bias +0.587) — so completion is for RECALL, the graded read is for RANK, and a CA1-comparator exact-match gate routes
+  by query structure (beats both blanket policies 0.968 vs 0.802/0.668; refuses spurious resonator divergence at M≥96).
+  **New fidelity wall:** the register's per-component BUNDLE RENORM is non-brain-faithful — it breaks the serial readout
+  (serial must read the raw linear sum); flagged as the strongest adjacency. The resonator DIVERGENCE at extreme
+  overload is a TRUE capacity bound (not a readout artifact) → distribute load = the store (p2). hdlab landing QUEUED
+  (additive `decode_serial` + `decode_gated` on AccumulateRegister, no storage change; `cleanup_argmax` stays default).
+
 - **2026-08-28 — READING FORAGING ("what to read next"): the MVT value/gap/LEARNING-PROGRESS forager is REFUTED for
   corpus SELECTION; the brain-faithful mechanism is COMPREHENSIBLE INPUT / ZPD; MVT's faithful role is within-source
   LEAVE only** (from `the_reader_cannot_choose_what_to_read_next`, integrated SOLVED/EXCELLENT, owner-DONE; fast witness

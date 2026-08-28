@@ -1,0 +1,60 @@
+{
+  "anchor": "register_completion_divergence_drill_v1",
+  "d": 256,
+  "v": 100,
+  "n_reps": 30,
+  "k_cliff": 28,
+  "m_grid": [
+    64,
+    80,
+    96,
+    112,
+    128,
+    160
+  ],
+  "rows": [
+    {
+      "m": 64,
+      "argmax": 0.6427,
+      "serial": 1.0,
+      "graded": 1.0,
+      "graded_restart": 1.0
+    },
+    {
+      "m": 80,
+      "argmax": 0.5167,
+      "serial": 0.5008,
+      "graded": 0.5221,
+      "graded_restart": 0.6296
+    },
+    {
+      "m": 96,
+      "argmax": 0.4292,
+      "serial": 0.3243,
+      "graded": 0.3229,
+      "graded_restart": 0.3122
+    },
+    {
+      "m": 112,
+      "argmax": 0.3711,
+      "serial": 0.2467,
+      "graded": 0.2464,
+      "graded_restart": 0.2375
+    },
+    {
+      "m": 128,
+      "argmax": 0.3203,
+      "serial": 0.2062,
+      "graded": 0.206,
+      "graded_restart": 0.1914
+    },
+    {
+      "m": 160,
+      "argmax": 0.2427,
+      "serial": 0.1458,
+      "graded": 0.1375,
+      "graded_restart": 0.1317
+    }
+  ],
+  "elapsed_s": 229.5
+}

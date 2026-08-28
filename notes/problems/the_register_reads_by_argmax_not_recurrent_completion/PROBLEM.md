@@ -1,8 +1,49 @@
 ---
-priority: 4
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "SOLVED with a MORE brain-faithful mechanism than the brief hypothesized — a rigorous, deeply-controlled correction. Re-verified FIRST-HAND (test_register_completion_readout.py, ALL checks PASS). The brief guessed CA3 recurrent attractor completion; the solver found the brain reads a superposition by THETA-GAMMA SERIAL DECODE-AND-SUPPRESS (Lisman & Idiart 1995: decode strongest -> inhibition-of-return -> decode next from the residual), and the gain is known-key CROSSTALK CANCELLATION, not generic completion — the Hopfield attractor CONTROL ties argmax (a codebook attractor has no manifold on the register's separated i.i.d. codes). Synthetic (D=256 FIXED): argmax 0.509 -> serial 0.983 at overload M=64 (+0.454 CI-sep); recovery window M in [16,64]. REAL LitBank (D=1024, gold coref): correctly INERT on the bulk (argmax=serial=1.000 for <64 events — no false current-task win), recovers the high-fan tail (91 entities >=64 events: argmax 0.959 -> serial 1.000, +0.041 CI-sep). Lever separation (bar 3): readout (2x) and p2's sparse store (8x) are DISTINCT and COMPOSE to 12-16x at fixed D. Help-vs-hurt RESOLVED (bar 4, the meat): attractor completion HURTS ranking (hub bias +0.587), so a CA1-COMPARATOR exact-match gate routes by query structure — completes for recall, degrades to the graded read for rank — beating both blanket policies (gated 0.968 vs always-graded 0.802 / always-complete 0.668). SEVEN controls (info-free shuffled-key twin loses everywhere; attractor ties argmax; renorm-vs-rawsum locates a bundle-renorm bug that breaks serial; positive control sees the cliff; hub-bias reproduced with a chance control + settling-depth scaling; CA1-gate refuses spurious divergence at M>=96; real-load inertness). THREE deepening drills (found the non-brain-faithful per-component bundle renorm; serial is correlation-INVARIANT while argmax collapses 0.78->0.21 -> the real-load +0.041 is an UNDER-estimate on correlated verbs; the divergence wall is a TRUE capacity bound -> the store is the fix, exactly p2). hdlab landing QUEUED (additive decode_serial + decode_gated on AccumulateRegister, no storage change). Strongest flagged adjacency: the bundle-renorm fidelity gap."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-28 (strategy session; grade EXCELLENT)
+> **Re-verified FIRST-HAND** (`verification/test_register_completion_readout.py`, ALL checks PASS — ran it myself,
+> suspected my own checker). Positive control fires (argmax fans 1.0→0.085 with load → the harness sees the cliff);
+> info-free shuffled-key twin at chance everywhere.
+> **Result — a MECHANISM CORRECTION (the protocol's "submit a more brain-faithful alternative" in action):** the brief
+> hypothesized CA3 recurrent attractor completion; the solver found the brain reads a linear superposition by
+> **theta-gamma SERIAL decode-and-suppress** (Lisman & Idiart 1995 — decode the strongest, inhibition-of-return, decode
+> the next from the residual). Synthetic (D=256 FIXED, unit=entity): argmax **0.509 → serial 0.983 at overload M=64
+> (+0.454 CI-sep)**, recovery window M∈[16,64]. On REAL LitBank (D=1024, gold coref) it is **correctly INERT on the
+> bulk** (argmax=serial=1.000 for <64 events — no false current-task win, as the brief demanded) and recovers the
+> **high-fan tail** (91 entities ≥64 events: 0.959 → 1.000, +0.041 CI-sep).
+> **Argument audit (not just arithmetic) — the controls are the strength here:** (a) the info-free shuffled-key twin
+> (same iteration, wrong keys) LOSES CI-sep at every load → excludes "the iteration helps regardless of the keys". (b)
+> A per-slot modern-Hopfield ATTRACTOR ties argmax EXACTLY (0.529=0.529 @M64) → excludes "generic completion" and
+> proves the gain is **known-key CROSSTALK CANCELLATION** (a codebook attractor has no manifold on the register's
+> separated i.i.d. codes — O'Reilly & McClelland 1994). This is the decisive control — it names the actual operation.
+> (c) A renorm-vs-rawsum decomposition + an argmax_rawsum control locate the per-component **bundle renorm** as what
+> breaks serial (serial_renorm 0.119 << serial_rawsum 0.983) → excludes a trace-representation confound AND surfaces a
+> real fidelity gap. **Bar 3 (lever separation):** readout (~2×) and p2's sparse store (~8×) are DISTINCT and COMPOSE
+> to 12–16× at fixed D (both/store/flat all measured). **Bar 4 (the help-vs-hurt tension — the meat):** attractor
+> completion HURTS ranking via hub bias (+0.587 CI-sep, hubs rise in rank), and BOTH halves of the falsifiable
+> prediction hold (scales with settling depth + cue degradation); the resolution is a **CA1-comparator exact-match
+> gate** that routes by query structure — completes for recall, degrades to the graded read for rank — and beats BOTH
+> blanket policies (gated 0.968 vs always-graded 0.802 / always-complete 0.668), and REFUSES the resonator's spurious
+> divergence at M≥96 (argmax fallback). That is exactly the brief's "a readout that knows WHEN to complete".
+> **Three deepening drills (owner's push):** (1) component fidelity → found + measured the non-brain-faithful bundle
+> renorm; (2) correlated fillers → **serial is correlation-INVARIANT** (keyed on orthogonal keys) while argmax
+> collapses 0.78→0.21 → the real-load +0.041 is an UNDER-estimate on real correlated verbs; (3) the divergence wall,
+> drilled with a graded/stochastic resonator → it is a TRUE capacity bound (not a hard-commit artifact) → the
+> brain-faithful fix is to DISTRIBUTE load = p2's store. **Honest scope:** the real-load win is deliberately modest
+> (+0.041, tail-only) and the solver never claims a current-task win — faithful to the brief's own framing that this is
+> a book-scale CAPACITY lever. **AUDIT UPDATE folded (§2b).**
+> **hdlab landing QUEUED (Q111 — proven-ready, additive, NOT this commit):** add `decode_serial` (theta-gamma serial
+> decode-and-suppress on the LINEAR superposition — must read the raw sum, NOT the per-component-renormed bundle) +
+> `decode_gated` (the CA1-comparator query-type router) to `AccumulateRegister`, **no storage change**; keep the current
+> `cleanup_argmax` as the default and the graded read for ranking. **Adjacencies surfaced (candidate future briefs):
+> STRONGEST = the per-component bundle-renorm fidelity gap (a clean focused-solver brief); + the resonator divergence
+> bound routes to p2's store.**
+
+# PROBLEM: the live situation register (and the cleanup path generally) reads out by a single-best `argmax` POINT-ESTIMATE where the brain's CA3 reads by RECURRENT PATTERN COMPLETION — the phase-diagram audit MEASURED this as an artificial capacity cliff (argmax 0.644 → joint-completion 0.971 at overload, ~4× load recovery), i.e. a READOUT artifact, not a dimensionality limit. Build the brain-faithful recurrent-completion / resonator readout, prove it recovers the overloaded regime CI-separated over argmax — AND resolve the standing tension that recurrent completion HELPS overloaded set-decode but HURTS ranked retrieval (it re-promotes hubs)
 
 # PROBLEM: the live situation register (and the cleanup path generally) reads out by a single-best `argmax` POINT-ESTIMATE where the brain's CA3 reads by RECURRENT PATTERN COMPLETION — the phase-diagram audit MEASURED this as an artificial capacity cliff (argmax 0.644 → joint-completion 0.971 at overload, ~4× load recovery), i.e. a READOUT artifact, not a dimensionality limit. Build the brain-faithful recurrent-completion / resonator readout, prove it recovers the overloaded regime CI-separated over argmax — AND resolve the standing tension that recurrent completion HELPS overloaded set-decode but HURTS ranked retrieval (it re-promotes hubs)
 
