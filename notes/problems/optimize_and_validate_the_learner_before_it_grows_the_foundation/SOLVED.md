@@ -228,10 +228,10 @@ small rate-limited integration, NOT a wholesale overwrite.
 
 ## FIDELITY PHASE 3 -- REMOTE ARCHITECTURE DRILLS (full 15M runs, 2026-08-28)
 
-Seven brain-foundational drills, self-dispatched to the remote CPU box. Four wins (the sixth reopens the
-exemplar partial and CLOSES it at the correct regime); the dependency-path and intrinsic-control partials
-each resolve to an UNDERSTOOD negative (saturation; and a real-but-small intrinsic signal against an
-already-near-optimal blend):
+Eight brain-foundational drills, self-dispatched to the remote CPU box. Four wins (the sixth closes the
+exemplar partial at the correct regime); three resolve to an UNDERSTOOD negative -- dependency-path
+saturation; a real-but-small intrinsic control signal against an already-near-optimal blend; and
+context-modulation losing to the denoised mean vector on out-of-context similarity:
 
 - **SEMANTIC-CONTROL ROUTING -- WIN** (`exp_semantic_control_routing_v1`, HARD_PASS). IFG-style dynamic
   per-query control (task-set gain over channels) beats the best FIXED reliability-weighted blend on a
@@ -322,6 +322,40 @@ already-near-optimal blend):
   not an internal-conflict estimator. This closes the flagged deepening target: the gold-blind gate
   underperforms because the intrinsic signal is weak AND the headroom is tiny at this scale, not because a
   mechanism is missing. (Chasing the 0.0108 gap harder would be filler, not a wall.)
+
+- **CONTEXT-MODULATION vs SENSE-AVERAGING -- rigorous negative, CLOSES the "sense-averaging is the ceiling"
+  hypothesis** (`exp_multiproto_sense_learner_v1`, full 15M run 2026-08-28; reframed from discrete k-means
+  to CONTINUOUS context-modulation per the brain-foundational verification -- Li 2021 / CSC: the brain
+  keeps one graded representation context continuously modulates, not discrete senses). Tests whether the
+  similarity ceiling (learned ~0.27 SimLex vs ~0.67 human) is a SENSE-AVERAGING artifact of collapsing a
+  word's occurrences into ONE mean vector. Keeping the full occurrence-context TOKEN CLOUD (context-
+  modulated exemplars, senses emerge -- the brain-faithful representation) and scoring similarity over the
+  cloud does NOT beat the single mean vector -- it LOSES CI-separated on BOTH readouts: TOKEN_CLOUD_AVGSIM
+  SimLex 0.124 vs SINGLE_VEC 0.270 (paired delta -0.146 CI [-0.211,-0.083]); TOKEN_CLOUD_MAXSIM 0.119
+  (-0.151 CI [-0.225,-0.071]); SimVerb same direction. The cloud carries REAL signal (beats its budget-
+  matched RANDOM_CLOUD twin +0.079 to +0.176; arms differ, coverage 27 rows/word matched -- NOT degenerate),
+  but the AGGREGATE MEAN DENOISES better than the noisy per-occurrence cloud for OUT-OF-CONTEXT similarity.
+  The discrete k-means arms (correctly demoted to a labelled approximation by the literature check) did
+  WORST (0/9 gates). CONCLUSION: sense-averaging is NOT the ceiling's cause -- the ceiling lives elsewhere
+  (data scale / grounding / the fundamental limit of unsupervised distributional similarity), NOT in
+  sense-collapse. SCOPE (the honest caveat that keeps this from over-generalising): this is OUT-OF-CONTEXT
+  similarity (SimLex/SimVerb, isolated word pairs); the brain's context-modulation advantage is for
+  IN-CONTEXT meaning, and the LIVE READER reads words IN context -- so whether context-modulation helps
+  actual comprehension (vs context-free similarity scoring) is the more brain-relevant question. A
+  prior-work check (2026-08-28) found that IN-CONTEXT question ALREADY ANSWERED, NEGATIVE, FOUR independent
+  ways: exp_context_conditioned_sense_selection_v1/v2 (context-selected sense vectors + a cross-item
+  context-swap twin -- literally this mechanism -- HARD_FAIL, and swapping the WRONG sentence barely changes
+  accuracy: true context carries almost no separable signal for this substrate yet), exp_learned_context_
+  wsd_semcor_verbs_v1 (real SemCor, context classifier vs static MFS -- HARD_FAIL, lift +0.0012 n.s., and
+  NEGATIVE-significant with MORE context data), and p6 "meaning_win" (conditioning the read-out on context
+  does NOT beat the frequency prior; subordinate items at chance). So there is NO CROSSOVER -- context-
+  modulation of the distributional read-out is not a lever in EITHER regime. (The one narrower open
+  sub-question -- rare/subordinate-sense override promoted by strong context -- has SemCor+WiC data staged
+  on disk but was DELIBERATELY SHELVED behind retrieval-first work; it needs an explicit owner un-shelve,
+  not a solver drill.) The brain-foundational verification EARNED ITS KEEP either way: it stopped us building
+  the discrete-cluster proxy (which did do worst) and correctly named the brain's mechanism; the complete
+  finding is that context-modulation of the distributional read-out does not lift similarity OR in-context
+  comprehension on this substrate as currently built -- the meaning limit lives elsewhere.
 
 (Infra note, flag to owner -- not solver-fixable: the remote auto-sync `hd_metrics_sync` is DISABLED -- runs
 completed cleanly on the box but had to be pulled manually; re-enable `schtasks /change /tn hd_metrics_sync
