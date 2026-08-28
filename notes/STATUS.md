@@ -64,19 +64,21 @@ readout = the positive control isolating the STORE norm; twin 0.016 loses; argma
 PENDING (`capability_registry.jsonl` mid-edit by another session — no clobber). **NOW that `bundling.bundle` has the
 divnorm option, the "read-terminal bundle-store norm audit" is a packageable next brief** (switch the enumerated
 read-terminal callers off per-component; measure the LIKELY consumers).
-🎯 **QUEUE now (owner flagged the queue was thin + that recent solutions named unpackaged concerns — MINED + packaged 2):
-p3 `the_name_branch_shatters_one_character_into_many_entities`; p4 `no_glass_box_verb_sense_disambiguation` (WIP SOLVED, not
-owner-DONE); p5 `the_reader_has_no_coherence_next_mention_prior` (NEW — coref's 2nd Bayesian term / the ~19% residual);
-p6 `read_terminal_bundle_stores_normalize_per_component_not_pooled` (NEW — the p5 general rule, UNBLOCKED by the divnorm
-landing); + p2 learner SOLVED-awaiting-verdict. 4 genuinely-open-for-solvers (p3/p4/p5/p6).**
-📋 **IDENTIFIED-CONCERN PIPELINE (from recent solutions' adjacency sections — ranked; packaged 2, holding the rest with
-reasons):** PACKAGED — coherence next-mention prior (p5), read-terminal bundle-norm audit (p6). HELD — (a) shallow SRL /
-predicate-argument front-end (SPACE + coref flagged it, but 4 role-assignment problems already integrated: non-canonical,
-who-did-what, relcl filler-gap, graded roles — need to confirm a DISTINCT gap before packaging, else overlap); (b)
-grammatical-role assignment on ARCHAIC literary prose (coref adjacency 6, SUSPECTED-UNMEASURED — a corpus-age parse-noise
-concern; a PROBE to size first, not a build); (c) object-destination / caused-motion tracking (SPACE) — folds into p3
-entity-status + p5 coherence-prior, not separate; (d) event-boundary wiring (spatial shift → event slot) — a wiring
-follow-on, mine to land not a solver brief.
+🎯 **QUEUE now (owner flagged the queue was thin + that recent solutions named unpackaged concerns — MINED + packaged 4,
+owner pushed "why only 2?"): p3 `the_name_branch_shatters_one_character_into_many_entities`; p4
+`no_glass_box_verb_sense_disambiguation` (WIP SOLVED, not owner-DONE); p5 `the_reader_has_no_coherence_next_mention_prior`
+(coref's 2nd Bayesian term / the ~19% residual); p6 `read_terminal_bundle_stores_normalize_per_component_not_pooled` (the
+p5 general rule, UNBLOCKED by the divnorm landing); p7 `no_shared_shallow_predicate_argument_front_end` (the shared
+argument-structure wall named by SPACE + who-did-what + coref; verify-not-duplicate then build-or-wire); p8
+`role_assignment_is_untested_on_archaic_literary_prose` (the corpus-age parse-noise confound, coref adjacency 6 —
+measure-first, a null retires it); + p2 learner SOLVED-awaiting-verdict. 6 genuinely-open-for-solvers (p3–p8).**
+📋 **IDENTIFIED-CONCERN PIPELINE (from recent solutions' adjacency sections — 4 PACKAGED, 2 genuinely NOT standalone):**
+PACKAGED — coherence next-mention prior (p5), read-terminal bundle-norm audit (p6), shared shallow SRL front-end (p7),
+archaic-prose role-assignment measurement (p8). NOT-STANDALONE (with reasons, not arbitrary holds): (a) object-destination
+/ caused-motion goal-vs-recipient (SPACE) — the SPACE solver localized its fix to the ENTITY-STATUS of the "to X" head =
+a direct consumer of p3 name-clustering + p5 coherence-prior, so it is resolved BY those, not a separate build; (b)
+event-boundary wiring (a spatial shift advances the situation-model event slot) — a Q111 hdlab WIRING task strategy owns
+(mine to land), not a solver brief. If the owner wants either as a standalone brief anyway, say so and I package it.
 
 ### 2026-08-28 -- ✅ **COREF (p3) INTEGRATED (owner-DONE, EXCELLENT): the ~0.65 coreference cap is BROKEN + DIAGNOSED on real narrative — the reader's rigid pronoun tier is replaced by the brain's GRADED cue-based retrieval, +0.17 CI-sep, with a calibrated 'I'm unsure' abstain. Queue now: p2 learner SOLVED-awaiting; p4/p5 open for solvers.**
 **READ THIS FIRST after compaction; then the entries below.**
