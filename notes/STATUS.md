@@ -31,7 +31,36 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-28 (LATEST) -- ✅✅ **TWO MORE INTEGRATED (owner-DONE, both EXCELLENT) + QUEUE REFILLED: p3 FORAGING (comprehensible-input/ZPD) + p4 REGISTER-READOUT (theta-gamma serial decode). Solvers were out of work → packaged 3 new high-value briefs.**
+### 2026-08-28 (LATEST) -- 🧭 **COMPACTION SNAPSHOT: comprehension→REASONING phase ACTIVE — the FIRST reasoning primitive (transitive-comparison) is integrated. Many integrations landed today; queue at 5 ranked-open; only the LEARNER (p2) awaits an owner verdict. Remote self-service dispatch is LIVE.**
+**READ THIS FIRST after compaction; then the entries below.**
+✅ **INTEGRATED THIS SESSION (all owner-DONE, EXCELLENT, reverified FIRST-HAND; hdlab landings QUEUED as careful ports, NOT
+yet landed):** p1 scalar-magnitude RULER; ToM belief-partition; FACTORIZED memory store; **dimensional phase-diagram** (a
+rigorous NEGATIVE on N — dimensionality is NOT a lever anywhere; the real axes are code-ORTHOGONALITY + READOUT +
+read-REGIME); **ToM-residual** (perceptual-access registration LEDGER — observation cue 0.99 vs 0.50 lexical); **foraging**
+(comprehensible-input/ZPD beats FROZEN+RANDOM CI-sep 3/3, self-refutes its own upgrade); **register-readout** (theta-gamma
+SERIAL decode-and-suppress CORRECTS the CA3-completion guess; +0.454 at overload; CA1-gate resolves recall-vs-rank);
+**transitive-comparison — THE FIRST REASONING PRIMITIVE** (delta-rule magnitude-line integration answers un-stated pairs
+1.000 vs 0.500; the mechanism is SELECTED by a measured human signature — the distance-effect DIRECTION rules out chaining).
+🎯 **QUEUE (5 ranked-open, unique; integrate ONLY on `owner_verdict: DONE`): p1 `situation_model_has_no_spatial_location_dimension`
+(the missing SPACE organ — highest leverage; a solver is drilling it); p2 `optimize_and_validate_the_learner_before_it_grows_the_foundation`
+= SOLVED, AWAITS OWNER VERDICT (I recommend DONE — the ONLY item on the owner's plate); p3 `coreference_is_capped_at_065_on_real_narrative`;
+p4 `no_glass_box_verb_sense_disambiguation`; p5 `the_register_bundle_renorm_breaks_the_serial_readout`. All 4 no-solution
+briefs were freshly packaged this session.**
+🔌 **hdlab landings QUEUED (careful ports, Q111, NOT yet landed — the WIRE-DON'T-ISLAND debt): `perceptual_access` (ToM —
+must consume organ-coref to drop its spaCy-model dependency); comprehensible-input selector (foraging); `decode_serial` +
+`decode_gated` on AccumulateRegister (register readout — read the RAW sum); `transitive_ordering` (reasoning); + p1
+`quality_relation` Ch.B linear→FPE-log.**
+🖥️ **REMOTE-DISPATCH SELF-SERVICE LIVE:** a solver drops `notes/problems/<slug>/REMOTE_RUN_REQUEST_<cell>.md` → the
+`hd_remote_run_watcher` scheduled task (every 5 min, **pythonw/windowless**) auto-runs `tools/fulfill_remote_run_request.py`
+→ CPU (`remote_cpu_queue`) or GPU (`overnight_queue`). Shareable brief: `notes/problems/REMOTE_RUNS_SOLVER_BRIEF.md`.
+Infra fixed this session: `hd_metrics_sync` revived (results auto-pull); entry-name double-prefix (`exp_exp_*`) fixed;
+git-bash/WSL-stub rc=127 fixed; remote hdlab + reading corpora synced; closed_class_lexicon made spaCy-free.
+🧠 **OWNER DIRECTIVE baked in:** every brief's 30-min deepening cron + the README now carry the 4-point KEEP-PUSHING
+checklist (do-right-not-cheap + gather adjacent proof; map adjacent issues as follow-ons; optimization/fidelity drills; a
+finer brain-foundational drill on any unexpected wall). ⚠️ **Uncommitted `notes/PROGRESS_SNAPSHOT.md`, untracked
+`verification/test_*.py`, and solver research notes are OTHER sessions'/solvers' — NOT this session's; do NOT commit them.**
+
+### 2026-08-28 -- ✅✅ **TWO MORE INTEGRATED (owner-DONE, both EXCELLENT) + QUEUE REFILLED: p3 FORAGING (comprehensible-input/ZPD) + p4 REGISTER-READOUT (theta-gamma serial decode). Solvers were out of work → packaged 3 new high-value briefs.**
 **READ THIS FIRST after compaction; then the entries below.**
 ✅ **`the_reader_cannot_choose_what_to_read_next` INTEGRATED (EXCELLENT):** re-verified FIRST-HAND (fast witness 6/6 +
 full multi-seed HARD_PASS, ran on remote). The brief's MVT/learning-progress forager was already REFUTED on disk;
