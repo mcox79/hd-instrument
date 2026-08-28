@@ -412,3 +412,27 @@ whole-reader end-to-end (front-end -> entity -> meaning on ONE cross-sentence go
 into the `exp_composed_reader_litbank_full_v1.py` SEAM + the meaning channel added.** The front-end moving-target gate
 (p1 landed) is now cleared, so the decisive test is unblocked.
 - Commit: see git log (strategy: wire graded_role_assigner + measure OFF-vs-ON -- step 17).
+
+### 2026-08-27 -- STEP 18: THE ENTITY x MEANING axes COMPOSE end-to-end (headline part 1) ✅
+Built `experiments/exp_composed_reader_entity_meaning_paraphrase_v1.py` -- the first measurement that COMPOSES two
+landed organs on ONE cross-sentence task instead of validating each on its own gold. Task: answer a PARAPHRASED
+who-did-what about a PRONOUN-LINKED entity on LitBank -- correct requires BOTH the entity binding (landed
+`salience_binder`) AND the meaning match (landed `conceptual_meaning`): `ok = (pred_verb==v) AND (argmax_c sim(q,c)==v)`.
+**RESULT (60 docs, n=3681 pronoun queries):**
+  * single-axis context: meaning-solo 0.6998, entity-solo(ACT-R) 0.1668
+  * FULL (entity + meaning)                : **0.1190 [0.0976,0.1424]**
+  * ENTITY_OFF (string-identity + meaning) : 0.0337  -> the ENTITY axis is worth **+0.0853 CI-sep**
+  * MEANING_OFF (entity + exact decode)    : 0.0000  -> the MEANING axis is worth **+0.1190 CI-sep** (exact fails on paraphrase)
+  * TWIN (shuffled binding + meaning)      : 0.0660  -> FULL beats it **+0.0530 CI-sep** (info-free binding loses)
+**-> BOTH organs are LOAD-BEARING in the SAME reader; neither is inert.** `FULL 0.119 ~= meaning-solo 0.700 x
+entity-solo 0.167 (=0.117)` -> the two axes compose ~INDEPENDENTLY (each a necessary factor; a strict conjunction).
+This is genuinely NEW (STEP-13 = entity only/exact-match; STEP-14 = meaning only/not-entity-tracked; this = both composed).
+**HONEST DEFLATIONS (reported against self):** (1) the ABSOLUTE FULL (0.119) is LOW -- expected for a strict conjunction
+of two moderate independent capabilities on the HARDEST (pronoun-contributed, paraphrased) subset; the point is
+axis-necessity, not the absolute. (2) entity-solo 0.167 is the STEP-13 register-decode ceiling -- the SAME dense
+entity store `p2` (sparse DG+CA3) is refining, so entity-solo (and FULL) has KNOWN headroom p2 targets; this is a
+BASELINE, one-swap when p2 lands. (3) meaning-solo 0.700 keeps STEP-14's mild WordNet-circularity caveat (WordNet
+paraphrases scored by a WordNet channel) -- a non-WordNet paraphrase set is the clean follow-on. **CONSOLIDATION STATE:
+front-end axis DONE (landed+wired, STEP 17); entity+meaning now shown to COMPOSE (this step). The FULL 3-axis end-to-end
+(add the front-end role assigner to a gold that ALSO has non-canonical structure) + the p2/scalar-refined re-run remain.**
+- Commit: see git log (strategy: entity x meaning compose end-to-end -- consolidation step 18).
