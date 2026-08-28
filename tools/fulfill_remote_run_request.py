@@ -62,6 +62,7 @@ LOG = os.path.join(REPO, "data", "remote_run_requests_log.jsonl")
 VALID_QUEUES = ("remote_cpu_queue", "overnight_queue", "local_cpu_queue")
 REPO_REMOTE = "C:/dev/hd-instrument"   # marsh@home repo root (matches queue_add.sh)
 SSH_TARGET = "marsh@home"
+_NO_WINDOW = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0  # keep ssh/scp/bash windowless under the Scheduled Task
 
 
 def _ssh(ps_cmd, timeout=30):
@@ -69,7 +70,7 @@ def _ssh(ps_cmd, timeout=30):
     try:
         return subprocess.run(
             ["ssh", "-o", "ConnectTimeout=10", SSH_TARGET, f'powershell -Command "{ps_cmd}"'],
-            capture_output=True, text=True, timeout=timeout)
+            capture_output=True, text=True, timeout=timeout, creationflags=_NO_WINDOW)
     except Exception:  # noqa: BLE001 -- unreachable remote -> caller treats as unverifiable
         return None
 
@@ -126,7 +127,7 @@ def ship_hdlab_modules(cell_abs, dry_run):
             continue
         try:
             sp = subprocess.run(["scp", "-o", "ConnectTimeout=10", local, f"{SSH_TARGET}:{REPO_REMOTE}/hdlab/"],
-                                capture_output=True, text=True, timeout=300)
+                                capture_output=True, text=True, timeout=300, creationflags=_NO_WINDOW)
             report.append((mod, "shipped" if sp.returncode == 0 else f"SHIP-FAILED rc={sp.returncode}"))
         except Exception as e:  # noqa: BLE001
             report.append((mod, f"SHIP-ERROR {e}"))
@@ -159,7 +160,7 @@ def ship_kb_referents(krefs, dry_run):
         _ssh(f"New-Item -ItemType Directory -Force -Path '{remote_dir}' | Out-Null")
         try:
             sp = subprocess.run(["scp", "-o", "ConnectTimeout=10", local, f"{SSH_TARGET}:{remote_dir}/"],
-                                capture_output=True, text=True, timeout=1800)
+                                capture_output=True, text=True, timeout=1800, creationflags=_NO_WINDOW)
             report.append((ref, "shipped" if sp.returncode == 0 else f"SHIP-FAILED rc={sp.returncode}"))
         except Exception as e:  # noqa: BLE001
             report.append((ref, f"SHIP-ERROR {e}"))
@@ -243,7 +244,7 @@ def has_flag(path, *flags):
 def run_self_test(cell_path, timeout_s=300):
     try:
         p = subprocess.run([sys.executable, cell_path, "--self-test"],
-                           cwd=REPO, capture_output=True, text=True, timeout=timeout_s)
+                           cwd=REPO, capture_output=True, text=True, timeout=timeout_s, creationflags=_NO_WINDOW)
         return p.returncode, (p.stdout[-500:] + p.stderr[-500:])
     except subprocess.TimeoutExpired:
         return 124, f"--self-test exceeded {timeout_s}s"
@@ -478,7 +479,7 @@ def main():
               "will likely REJECT. Proceeding so you see the authoritative gate.", file=sys.stderr)
 
     print(f"[fulfill] dispatching: {' '.join(qcmd)}")
-    p = subprocess.run(qcmd, cwd=REPO)
+    p = subprocess.run(qcmd, cwd=REPO, creationflags=_NO_WINDOW)
     outcome = "dispatched" if p.returncode == 0 else "queue_add_failed"
     log_event({"ts": datetime.now(timezone.utc).isoformat(), "cell": cell, "outcome": outcome,
                "queue": decided_queue, "prereg": prereg_rel, "name": name, "timeout": timeout,

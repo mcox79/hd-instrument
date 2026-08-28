@@ -8,7 +8,7 @@
 $ErrorActionPreference = "Stop"
 
 $taskName   = "hd_remote_run_watcher"
-$py         = "C:/AI/hd-instrument/.venv/Scripts/python.exe"
+$py         = "C:/AI/hd-instrument/.venv/Scripts/pythonw.exe"   # windowless (no console popup); subprocesses use CREATE_NO_WINDOW
 $scriptPath = "C:/AI/hd-instrument/tools/remote_run_request_watcher.py"
 
 if (-not (Test-Path $py))         { Write-Error ("venv python not at " + $py); exit 1 }

@@ -40,6 +40,7 @@ LOCK = os.path.join(REPO, "data", "remote_run_request_watcher.lock")
 REQ_GLOB = os.path.join(REPO, "notes", "problems", "*", "REMOTE_RUN_REQUEST_*.md")
 MAX_ATTEMPTS = 3
 LOCK_STALE_S = 3600
+_NO_WINDOW = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0  # keep the fulfiller subprocess windowless
 
 
 def _now():
@@ -94,7 +95,7 @@ def dispatch(req, rerun, dry_run):
         cmd.append("--rerun")
     if dry_run:
         cmd.append("--dry-run")
-    p = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True)
+    p = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True, creationflags=_NO_WINDOW)
     return p.returncode, (p.stdout[-800:] + p.stderr[-400:])
 
 
