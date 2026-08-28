@@ -228,7 +228,7 @@ small rate-limited integration, NOT a wholesale overwrite.
 
 ## FIDELITY PHASE 3 -- REMOTE ARCHITECTURE DRILLS (full 15M runs, 2026-08-28)
 
-Four brain-foundational drills, self-dispatched to the remote CPU box. Two wins, two honest partials:
+Five brain-foundational drills, self-dispatched to the remote CPU box. Three wins, two honest partials:
 
 - **SEMANTIC-CONTROL ROUTING -- WIN** (`exp_semantic_control_routing_v1`, HARD_PASS). IFG-style dynamic
   per-query control (task-set gain over channels) beats the best FIXED reliability-weighted blend on a
@@ -256,11 +256,29 @@ Four brain-foundational drills, self-dispatched to the remote CPU box. Two wins,
   only untested brain-faithful variant is true SECOND-ORDER similarity (Lin 1998 similar-not-identical
   contexts), but diminishing returns.
 
-**Genuine follow-on drilled:** scale the grounding win -- PREDICT Binder's 65 brain-derived attributes
-across the whole vocabulary (from Lancaster + distributional) for BROAD brain-based grounding, not the
-536-word Binder subset. (Infra note: the remote auto-sync `hd_metrics_sync` was found DISABLED -- runs
-completed cleanly on the box but had to be pulled manually; re-enable `schtasks /change /tn
-hd_metrics_sync /enable`. Runner also writes a double-prefixed `data/exp_exp_<name>/` path (SH-4).)
+- **BROAD BRAIN-BASED GROUNDING via Binder-attribute prediction -- WIN** (`exp_binder_attr_prediction_grounding_v1`,
+  HARD_PASS, full 15M run 2026-08-28). The grounding-supply win (drill above) was proven on only the ~434
+  SURVEYED Binder words -- a narrow island. This scales it: a Ridge predictor (alpha=300, chosen by OOF CV)
+  fit on the 428 surveyed Binder words maps Lancaster-sensorimotor + Brysbaert-concreteness + the learned
+  DEP_TYPED distributional embedding onto the 65 brain-derived Binder attributes, then GENERALISES that
+  grounding to **15,319 words** vocab-wide (a ~36x coverage expansion off the 428-word survey). All four
+  gates pass: (a) the predictor carries real signal, CI-separated above its shuffled-target twin;
+  (b) the broad PREDICTED grounding beats BOTH the thin Lancaster floor AND text-alone on the non-WordNet
+  MEN gold CI-separated -- GRND_BROAD vs LANC12 +0.026 [0.007,0.045] and vs TEXT +0.071 [0.043,0.099];
+  FUSED stronger still (vs LANC12 +0.054, vs TEXT +0.099 [0.081,0.120]); (c) the CROSSOVER holds -- the
+  grounding benefit is ~0 on WordNet-ish SimLex (GRND vs TEXT +0.0004 ns; FUSED +0.028) but large on
+  associative MEN (+0.071 / +0.099), exactly the experiential-axis signature; (d) the info-free twin loses
+  hard (BINDER_PRED vs BINDER_PRED_SHUF +0.202 [0.161,0.239]) and RANDOM is the MEN floor. So the
+  neurobiological Binder attribute space is a REAL property of concepts, not an accident of the 434-word
+  survey: the supply gap named in the grounding-supply drill is not just real but **manufacturable
+  vocab-wide** -- broad brain-based grounding can be predicted for thousands of words and still earns its
+  keep on the associative axis where taxonomic WordNet is weakest. This is the concrete way to grow the
+  grounded similarity spoke past the surveyed island (feeds BAR 5 item 1).
+
+(Infra note, flag to owner -- not solver-fixable: the remote auto-sync `hd_metrics_sync` is DISABLED -- runs
+completed cleanly on the box but had to be pulled manually; re-enable `schtasks /change /tn hd_metrics_sync
+/enable`. The runner also writes a double-prefixed `data/exp_exp_<name>/` path (SH-4). Both mean any solver
+remote run needs an orchestrator pull until fixed.)
 
 ## TLDR
 
