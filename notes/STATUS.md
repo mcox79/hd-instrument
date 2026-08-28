@@ -31,7 +31,26 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- ✅ **MEANING OPERATION-ROUTING INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- 2nd of 3 parallel solvers: meaning-similarity is OPERATION-SPECIFIC per word class; the adjective SIGNED-MAGNITUDE op clears CI-separation AT POWER on an independent human gold; the magnitude CODE is FPE(log degree), validated to 240k human trials**
+### 2026-08-27 (LATEST) -- 🧩🧠 **CONSOLIDATION STEPS 17-19: front-end WIRED + measured; the ENTITY×MEANING axes COMPOSE end-to-end (both load-bearing); a brain-foundationality drill on the COMPOSITION found the combination-rule fidelity gap and HANDED IT OFF as a solver problem**
+Three focused strategy steps this session (all committed, HEAD 5152ee15e; full ledger `notes/CONSOLIDATION_PHASE_LOG.md`
+STEPS 17-19). **STEP 17 — wired the landed `graded_role_assigner` into the composed front-end + measured OFF-vs-ON
+leak-free** (held-out n=4078): overall 0.739->0.751 (+0.011 CI-sep), hard pre-verbal slice 0.576->0.600 (+0.024),
+canonical preserved, twin losing — the LANDED organ reproduces the solver's held-out lift (baked static validities deliver).
+**STEP 18 — first COMPOSITION of two landed organs on ONE cross-sentence task** (`exp_composed_reader_entity_meaning_paraphrase_v1.py`;
+answer a PARAPHRASED who-did-what about a PRONOUN-LINKED entity — needs entity-binding AND meaning-recognition): FULL 0.119
+vs ENTITY_OFF 0.034 (+0.085) vs MEANING_OFF 0.000 (+0.119) vs twin 0.066 (+0.053), all CI-sep -> **BOTH axes load-bearing;
+neither inert**; FULL ≈ meaning-solo 0.700 × entity-solo 0.167 (composes ~independently). **STEP 19 — brain-foundationality
+drill on the WIRING** (owner "ensure brain foundational"): separate-pools is EVIDENCE-PINNED (double dissociation: semantic
+dementia vs hippocampal amnesia) ✅, but the strict INDEPENDENT AND is only a late-merge decision — the faithful RETRIEVAL
+mechanism is CLS CONVERGENT-CUE pattern completion (meaning cue gives TOP-DOWN support to the entity read), which should
+BEAT the independent product. **HANDED OFF (owner 08-27 "handoff significant problems to the solvers"):
+`compose_the_reader_by_convergent_cue_not_independent_conjunction` (p3) — READ-side counterpart of p2's store fix; baseline
+to beat 0.119; must PRESERVE the double dissociation.** AUDIT UPDATE folded (§2b). 🎯 **CONSOLIDATION STATE: front-end axis
+DONE (landed+wired); entity+meaning shown to COMPOSE. 3 solver problems in flight — p1 `build_the_composed_scalar_magnitude_meaning_channel`
+(solver working), p2 `the_entity_store_is_a_dense_bundle_that_fans` (SOLVED, AWAITS owner_verdict), p3 convergent-cue (NEW,
+just packaged). Integrate each ONLY on owner_verdict: DONE. The FULL 3-axis end-to-end + the p2/p3-refined re-run remain.**
+
+### 2026-08-27 -- ✅ **MEANING OPERATION-ROUTING INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- 2nd of 3 parallel solvers: meaning-similarity is OPERATION-SPECIFIC per word class; the adjective SIGNED-MAGNITUDE op clears CI-separation AT POWER on an independent human gold; the magnitude CODE is FPE(log degree), validated to 240k human trials**
 `the_meaning_read_out_is_one_operation_where_the_brain_has_three` (parallel solver p3). Re-verified scaffold-free
 FIRST-HAND (`verify_perclass_meaning_operations.py` ALL CHECKS PASS). The adjective signed-magnitude op (GloVe projection
 onto a bipolar axis ANCHORED by the explicit WordNet antonym relation) recovers human magnitude CI-separated over BOTH
