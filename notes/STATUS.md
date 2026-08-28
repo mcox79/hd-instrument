@@ -46,9 +46,14 @@ mechanism is CLS CONVERGENT-CUE pattern completion (meaning cue gives TOP-DOWN s
 BEAT the independent product. **HANDED OFF (owner 08-27 "handoff significant problems to the solvers"):
 `compose_the_reader_by_convergent_cue_not_independent_conjunction` (p3) — READ-side counterpart of p2's store fix; baseline
 to beat 0.119; must PRESERVE the double dissociation.** AUDIT UPDATE folded (§2b). 🎯 **CONSOLIDATION STATE: front-end axis
-DONE (landed+wired); entity+meaning shown to COMPOSE. 3 solver problems in flight — p1 `build_the_composed_scalar_magnitude_meaning_channel`
-(solver working), p2 `the_entity_store_is_a_dense_bundle_that_fans` (SOLVED, AWAITS owner_verdict), p3 convergent-cue (NEW,
-just packaged). Integrate each ONLY on owner_verdict: DONE. The FULL 3-axis end-to-end + the p2/p3-refined re-run remain.**
+DONE (landed+wired); entity+meaning shown to COMPOSE. 4 solver problems in flight, THREE now SOLVED-awaiting-owner_verdict
+(integration imminent — LEAVE ALONE until owner-DONE): p1 `build_the_composed_scalar_magnitude_meaning_channel` (SOLVED),
+p2 `the_entity_store_is_a_dense_bundle_that_fans` (SOLVED), p3 `compose_the_reader_by_convergent_cue_not_independent_conjunction`
+(SOLVED); p4 `dimensional_phase_diagram_audit_of_the_current_organs` (owner-surfaced dimensionality audit, no solution yet).
+Integrate each ONLY on owner_verdict: DONE. 🔌 **NEXT STRATEGY STEP (mine, Q111, DEFERRED behind p2/p3 to avoid a register
+moving-target): wire+measure the BUILT-but-ISLAND `n400_coherence_monitor` (prediction-error EVENT-SEGMENTATION = the
+"when to write" the situation register is missing) into the live register OFF-vs-ON.** The FULL 3-axis end-to-end + the
+p2/p3-refined re-run remain (all gated on the imminent integrations).**
 
 ### 2026-08-27 -- ✅ **MEANING OPERATION-ROUTING INTEGRATED (owner-DONE, EXCELLENT/SOLVED) -- 2nd of 3 parallel solvers: meaning-similarity is OPERATION-SPECIFIC per word class; the adjective SIGNED-MAGNITUDE op clears CI-separation AT POWER on an independent human gold; the magnitude CODE is FPE(log degree), validated to 240k human trials**
 `the_meaning_read_out_is_one_operation_where_the_brain_has_three` (parallel solver p3). Re-verified scaffold-free
