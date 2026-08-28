@@ -42,16 +42,18 @@ from datetime import datetime, timezone
 
 
 def _resolve_bash():
-    """Full path to git-bash. `bash` is on PATH in an interactive git-bash shell but NOT in the minimal
-    PATH of the hd_remote_run_watcher Scheduled Task -> `bash queue_add.sh` returned rc=127 (command not
-    found) under the watcher. Resolve to a full path so auto-dispatch works headless."""
-    b = shutil.which("bash")
-    if b:
-        return b
+    """Full path to GIT-bash. Under the hd_remote_run_watcher Scheduled Task (minimal PATH), a bare `bash`
+    is either absent (rc=127) OR -- worse -- resolves to the Windows Store/WSL stub
+    (`...\\WindowsApps\\bash.EXE`), which MANGLES Windows paths (backslashes stripped ->
+    `C:AIhd-instrument...`, No such file). So check git-bash's canonical locations FIRST, and only accept a
+    PATH `bash` that is NOT the WindowsApps stub. git-bash handles Windows paths AND bundles scp/ssh."""
     for c in (r"C:\Program Files\Git\bin\bash.exe", r"C:\Program Files\Git\usr\bin\bash.exe",
               r"C:\Program Files (x86)\Git\bin\bash.exe"):
         if os.path.isfile(c):
             return c
+    b = shutil.which("bash")
+    if b and "WindowsApps" not in b:
+        return b
     return "bash"
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
