@@ -8,6 +8,10 @@ import torch
 
 from . import modulators, tracing
 
+# Semi-saturation constant for norm="divnorm" (pooled Carandini-Heeger). 0.0 -> pure pooled scalar (RMS-like);
+# the serial-readout recovery is parameter-FLAT across sigma (SWEPT, not adopted -- it is the OPERATION that matters).
+DIVNORM_SIGMA = 0.0
+
 
 def bundle(vectors: torch.Tensor, norm: str | None = None) -> torch.Tensor:
     """Superpose (k, n) -> (n,). With recency=0: uniform sum. With recency>0: geometric decay toward older items.
@@ -45,6 +49,16 @@ def bundle(vectors: torch.Tensor, norm: str | None = None) -> torch.Tensor:
         if norm == "l2":                                      # whole-vector L2 (brain-motivated); DEFAULT-OFF
             nrm = s.norm()
             out = s / nrm if float(nrm) > 0 else s
+        elif norm == "divnorm":                               # POOLED divisive normalization (Carandini-Heeger 2012)
+            # ONE scalar over the pool: S / (sigma + mean|S|) -- a global rescale that PRESERVES the linear/relative
+            # structure (unlike the per-component branch), so a superposition stays serially decodable. Landed
+            # 2026-08-28 from the integrated `the_register_bundle_renorm_breaks_the_serial_readout` (SOLVED/EXCELLENT,
+            # owner-DONE): per-component 0.367 -> divisive 0.988 @M=64 on the register's serial readout. DEFAULT-OFF;
+            # a read-terminal bundle (not re-bound) should use this, NOT per-component. DIVNORM_SIGMA=0.0 -> RMS-like
+            # pooled scalar (the recovery is parameter-flat: an OPERATION, not a tuned number).
+            pooled = s.abs().mean()
+            denom = (DIVNORM_SIGMA + pooled).clamp_min(1e-12)
+            out = s / denom.to(s.dtype)
         else:                                                 # DEFAULT: per-component unit-torus (unchanged)
             mag = s.abs()
             mag = torch.where(mag > 0, mag, torch.ones_like(mag))

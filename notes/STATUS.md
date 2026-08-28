@@ -52,11 +52,18 @@ cosine), not RE-BOUND, must use a POOLED/scalar divisive gain, never per-compone
 caller is READ-terminal (none re-bind), and the `sign()`-on-a-bundle sites are the SAME wrong-op. Folded to §2b; **the
 "read-terminal bundle-store norm audit" is the flagged next candidate brief** (after the p5 landing gives `bundling.bundle`
 the divnorm option — a solver could then measure the LIKELY consumers + switch them).
-🔌 **hdlab landing QUEUED (Q111 — careful COUPLED port, default-off/opt-in):** `norm="divnorm"` on `bundling.bundle` +
-`bundle_norm="percomp"` (default) arg on AccumulateRegister/multibank + the gain-matched `decode_serial_pooled` (the
-store-norm-agnostic generalization of the LANDED `decode_serial` — g≈1 on raw sum → identical). Land TOGETHER (store
-option without the gain-matched readout breaks serial callers). This + register `decode_gated` = the register-readout
-line's remaining landings; they land as one "register normalization + serial readout" bundle.
+🔌 **hdlab landing CORE LANDED 2026-08-28 (Q111, default-off/opt-in, byte-identical when off):** `norm="divnorm"` (pooled
+Carandini-Heeger, `DIVNORM_SIGMA=0.0`) added to `bundling.bundle`; `bundle_norm="percomp"` (default) constructor arg on
+`AccumulateRegister` threaded into `register()`; gain-matched `decode_serial_pooled` method added (reads the normalized
+register; the store-norm-agnostic partner of the landed `decode_serial`). Witness `test_register_divisive_norm_organ.py`
+**7/7 PASS FIRST-HAND** (divnorm store recovers overload M=64 → 1.000 vs per-component 0.188 under the SAME gain-matched
+readout = the positive control isolating the STORE norm; twin 0.016 loses; argmax decode() 0.656≥0.453 no-regression;
+`percomp` register bit-identical to default). Regression-guarded: set-return witness + MultiBank/CausalLink construct OK.
+⚠️ QUEUED remainder (mechanical, additive/default-off): thread `bundle_norm` into `MultiBankAccumulateRegister`
+(`_bank_register`, line 114) + a per-bank pooled read, and register `decode_gated` (the CA1-gate). Registry catalog entry
+PENDING (`capability_registry.jsonl` mid-edit by another session — no clobber). **NOW that `bundling.bundle` has the
+divnorm option, the "read-terminal bundle-store norm audit" is a packageable next brief** (switch the enumerated
+read-terminal callers off per-component; measure the LIKELY consumers).
 🎯 **QUEUE now: p3 `the_name_branch_shatters_one_character_into_many_entities` + p4 `no_glass_box_verb_sense_disambiguation`
 open for solvers (p4 now has a WIP SOLVED.md — NOT owner-DONE, left alone); p2 learner SOLVED-awaiting-verdict. p5 closed.**
 

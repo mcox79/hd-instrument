@@ -144,6 +144,63 @@ def decode_serial_slots(
     return est
 
 
+def _pooled_gain(trace: torch.Tensor, total: torch.Tensor) -> torch.Tensor:
+    """Least-squares complex scalar g minimizing ||total - g*trace||^2 = <trace,total>/<trace,trace>. Lands g*trace on
+    the reconstruction scale so the linear residual subtraction isolates one slot -- itself a POOLED divisive-
+    normalization step at readout (one scalar over the whole vector), the same op-class as the store norm by design."""
+    num = torch.sum(torch.conj(trace) * total)
+    den = torch.sum(torch.conj(trace) * trace)
+    if float(den.real) <= 1e-12:
+        return torch.ones((), dtype=trace.dtype)
+    return num / den
+
+
+def decode_serial_pooled_slots(
+    trace: torch.Tensor,
+    keys: List[torch.Tensor],
+    role_mat: torch.Tensor,
+    n_iter: int = 6,
+    order_by_conf: bool = True,
+) -> List[int]:
+    """Theta-gamma SERIAL decode-and-suppress made SCALE-EQUIVARIANT by pooled gain control -- the store-norm-agnostic
+    readout. Verbatim port of the validated readout in experiments/exp_register_divisive_norm_v1.py. Identical to
+    decode_serial_slots EXCEPT each iteration re-estimates ONE scalar gain matching the trace to the current
+    reconstruction. On the raw sum g~=1 -> reduces to decode_serial_slots exactly; on a POOLED/scalar-normalized store
+    (bundle_norm="divnorm") g~=the stored scale -> reads it identically; on the PER-COMPONENT store NO single scalar g
+    matches (the distortion is per-component) -> the readout fails (the positive control). Returns the decoded role
+    INDEX per key.
+    """
+    m = len(keys)
+    est = [_serial_argmax(binding.unbind(trace, keys[s]), role_mat) for s in range(m)]  # scale-invariant init
+    for _ in range(n_iter):
+        recon = [binding.bind(role_mat[est[s]], keys[s]) for s in range(m)]
+        total = recon[0].clone()
+        for s in range(1, m):
+            total = total + recon[s]
+        g = _pooled_gain(trace, total)
+        gtrace = g * trace                                  # trace lifted onto the reconstruction scale
+        if order_by_conf:
+            order = sorted(
+                range(m),
+                key=lambda s: -_serial_margin(binding.unbind(gtrace - (total - recon[s]), keys[s]), role_mat),
+            )
+        else:
+            order = list(range(m))
+        changed = False
+        for s in order:
+            residual = gtrace - (total - recon[s])          # suppress the OTHER slots' gain-matched estimates
+            new = _serial_argmax(binding.unbind(residual, keys[s]), role_mat)
+            if new != est[s]:
+                total = total - recon[s]
+                recon[s] = binding.bind(role_mat[new], keys[s])
+                total = total + recon[s]
+                est[s] = new
+                changed = True
+        if not changed:
+            break
+    return est
+
+
 class AccumulateRegister:
     """FHRR situation-model register: bind(role_vec, event_idx_vec) per event, accumulate via bundle.
 
@@ -159,11 +216,19 @@ class AccumulateRegister:
         generator: torch.Generator,
         max_event_slots: int = 8,
         overwrite: bool = False,
+        bundle_norm: str = "percomp",
     ) -> None:
         self.role_vocab = list(role_vocab)
         self.d = int(d)
         self.overwrite = bool(overwrite)
         self.max_event_slots = int(max_event_slots)
+        # bundle_norm="percomp" (DEFAULT) -> the incumbent per-component renorm (norm=None), BYTE-IDENTICAL to prior
+        # behavior. "divnorm" -> pooled Carandini-Heeger divisive norm (a legit bounded, serially-readable stored
+        # state; landed 2026-08-28 from `the_register_bundle_renorm_breaks_the_serial_readout`). A "divnorm" register
+        # must be read by the gain-matched decode_serial_pooled (decode()/decode_serial's argmax path is scale-
+        # invariant and works either way). Opt-in: nothing changes until a caller passes bundle_norm="divnorm".
+        self.bundle_norm = str(bundle_norm)
+        self._bundle_norm_arg = None if self.bundle_norm == "percomp" else self.bundle_norm
         self.role_vecs: Dict[str, torch.Tensor] = {
             r: unit_phase_vec(self.d, generator) for r in self.role_vocab
         }
@@ -191,7 +256,7 @@ class AccumulateRegister:
             raise KeyError(f"no events recorded for entity {entity!r}")
         if len(events) == 1:
             return events[0]
-        return bundling.bundle(torch.stack(events, dim=0))
+        return bundling.bundle(torch.stack(events, dim=0), norm=self._bundle_norm_arg)
 
     def decode(self, entity: str, event_idx: int) -> Tuple[str, Dict[str, float]]:
         """Unbind entity's register by event_idx's key, then cleanup-argmax over role_vocab."""
@@ -242,6 +307,33 @@ class AccumulateRegister:
         keys = [self.idx_vecs[i] for i in event_idxs]
         role_mat = torch.stack([self.role_vecs[r] for r in self.role_vocab], dim=0)  # (V,d) organ's own codebook
         est = decode_serial_slots(rawsum, keys, role_mat, n_iter=n_iter)
+        return [self.role_vocab[i] for i in est]
+
+    def decode_serial_pooled(self, entity: str, event_idxs: List[int] = None, n_iter: int = 6) -> List[str]:
+        """Store-norm-AGNOSTIC theta-gamma serial readout: read the entity's NORMALIZED register() (whatever
+        bundle_norm it was built with) via the gain-matched serial decode-and-suppress. This is the readout the
+        `bundle_norm="divnorm"` store needs -- a pooled/scalar-normalized register is a legit bounded state and this
+        reads it to the raw-sum ceiling, while the argmax path (decode()) stays scale-invariant. On a `bundle_norm=
+        "percomp"` register it FAILS (no single scalar matches a per-component distortion -- the positive control).
+        ADDITIVE / default-safe: register(), decode(), decode_set(), decode_serial() are byte-unchanged.
+
+        Landed 2026-08-28 from the integrated `the_register_bundle_renorm_breaks_the_serial_readout` (SOLVED/EXCELLENT,
+        owner-DONE; witness test_register_divisive_norm.py). Pairs with decode_serial (its raw-sum, unit-gain special
+        case). event_idxs: which event-slot keys the stored bindings used, in stored order (defaults to sequential).
+        Returns the decoded role name per stored event.
+        """
+        events = self._events.get(entity)
+        if not events:
+            raise KeyError(f"no events recorded for entity {entity!r}")
+        m = len(events)
+        if event_idxs is None:
+            event_idxs = list(range(m))
+        if len(event_idxs) != m:
+            raise ValueError(f"event_idxs length {len(event_idxs)} != {m} stored events for {entity!r}")
+        trace = self.register(entity)                                       # the NORMALIZED register (bundle_norm-aware)
+        keys = [self.idx_vecs[i] for i in event_idxs]
+        role_mat = torch.stack([self.role_vecs[r] for r in self.role_vocab], dim=0)
+        est = decode_serial_pooled_slots(trace, keys, role_mat, n_iter=n_iter)
         return [self.role_vocab[i] for i in est]
 
     def entities(self) -> List[str]:
