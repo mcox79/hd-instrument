@@ -62,9 +62,18 @@ the hook guards holds; and the cells are the solver's, not mine to rewrite in an
 🎯 **QUEUE now (integrate ONLY on `owner_verdict: DONE`): p2 `optimize_and_validate_the_learner_before_it_grows_the_foundation`
 = SOLVED, AWAITS OWNER VERDICT (I recommend DONE — reverify `verify_structured_context_learner.py`, land the dependency-typed
 learner + reliability-weighted fusion, KEEP foundation-growth OFF behind the regression-checked/rollback gate); p3
-`coreference_is_capped_at_065_on_real_narrative` (open — and now the CONFIRMED #1 real-narrative cap: it bounds SPACE
-tracking AND resolves the ambiguous-caused-motion residual); p4 `no_glass_box_verb_sense_disambiguation` (open); p5
-`the_register_bundle_renorm_breaks_the_serial_readout` (open). 3 genuinely-open-for-solvers (p3/p4/p5); p1 now closed.**
+`coreference_is_capped_at_065_on_real_narrative` = **SOLVED, AWAITS OWNER VERDICT (I recommend DONE — reverified
+FIRST-HAND, witness ALL 8 checks PASS; EXCELLENT)**: brain-faithful GRADED cue-based retrieval (softmax over the pinned
+Lewis-Vasishth/ACT-R activation, reusing the LANDED `graded_competition`) beats the incumbent hard subject-first tier
+0.603→0.775 (+0.172 CI-sep) on 50 held-out LitBank novels' COMPETITIVE pronoun subset (n=4693); the tier is the measured
+cap (BELOW plain recency 0.717); info-free twins lose; posterior ENTROPY is a calibrated abstain (AUC 0.63→0.77, deferring
+31.8% lifts kept acc to 0.866, random twin flat). HONEST: graded TIES ACT-R by the MAP theorem — the win is over the
+incumbent TIER + the distribution, not the point estimate; the ~19% residual needs the brain's 2nd Bayesian term
+(coherence next-mention PRIOR, mapped follow-on). REVERSES the 08-27 §2b coref HARD_FAIL as POPULATION-SPECIFIC
+(McGuffey short/dense favors the hard tier; real narrative favors graded). ON DONE: land the opt-in default-off
+`run_graded_retrieval` + entropy-abstain diff into `hdlab/coreference_resolver.py`, fold the §2b reversal. p4
+`no_glass_box_verb_sense_disambiguation` (open); p5 `the_register_bundle_renorm_breaks_the_serial_readout` (open). Now:
+2 SOLVED-awaiting-verdict (p2 learner, p3 coref — BOTH I recommend DONE); 2 genuinely-open-for-solvers (p4/p5); p1 closed.**
 🖥️ **REMOTE-DISPATCH SELF-SERVICE remains LIVE** (`hd_remote_run_watcher`, every 5 min, pythonw/windowless; brief at
 `notes/problems/REMOTE_RUNS_SOLVER_BRIEF.md`). ⚠️ **Uncommitted `notes/PROGRESS_SNAPSHOT.md`, `data/capability_registry.jsonl`,
 untracked `verification/test_*.py` + solver research notes are OTHER sessions'/solvers' — do NOT commit them.**
