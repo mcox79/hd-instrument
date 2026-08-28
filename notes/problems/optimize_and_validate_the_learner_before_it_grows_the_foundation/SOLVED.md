@@ -228,7 +228,9 @@ small rate-limited integration, NOT a wholesale overwrite.
 
 ## FIDELITY PHASE 3 -- REMOTE ARCHITECTURE DRILLS (full 15M runs, 2026-08-28)
 
-Five brain-foundational drills, self-dispatched to the remote CPU box. Three wins, two honest partials:
+Six brain-foundational drills, self-dispatched to the remote CPU box. Four wins (the sixth reopens the
+exemplar partial and CLOSES it at the correct regime); the dependency-path partial stands as understood
+saturation:
 
 - **SEMANTIC-CONTROL ROUTING -- WIN** (`exp_semantic_control_routing_v1`, HARD_PASS). IFG-style dynamic
   per-query control (task-set gain over channels) beats the best FIXED reliability-weighted blend on a
@@ -241,13 +243,14 @@ Five brain-foundational drills, self-dispatched to the remote CPU box. Three win
   (FUSED MEN-delta +0.1275 vs SimLex +0.0345; RICH MEN +0.0535 vs SimLex -0.0103). Binder-65 alone =
   0.633 on MEN. The learner-vs-WordNet gap is a real, closable SUPPLY gap; grounding earns its keep on
   the experiential/associative axis where taxonomic WordNet is weakest.
-- **EXEMPLAR SELECTIONAL PREFERENCE -- honest partial** (MIDDLE_BAND). Beats its FEATURE_SHUFFLE twin
+- **EXEMPLAR SELECTIONAL PREFERENCE -- honest partial** (MIDDLE_BAND). **[RESOLVED by drill #6 below --
+  the MIDDLE_BAND was an untested-regime artifact, not a wall.]** Beats its FEATURE_SHUFFLE twin
   (+0.013 CI-sep, real grounded signal) but LOSES to word-identity even on RARE verbs (rare EXEMPLAR
   0.056 vs WORDID 0.176; pooled -0.043 vs 0.149). NOT a brain-gap at this scale: the exemplar/feature-
   generalisation advantage is a LOW-DATA / true-zero-count phenomenon; at 15M read-tokens counting has
   enough data (the standing corpus-limited theme). The 12-dim grounded feature space is also too thin
   for verb participants. To SEE the brain's advantage: test at low token budgets / genuinely unseen
-  verb-filler pairs -- a regime test, not a fix.
+  verb-filler pairs -- a regime test, not a fix. Drill #6 ran exactly that regime and the advantage appeared.
 - **DEPENDENCY-PATH CONTEXT -- rigorous negative** (MIDDLE_BAND). Length-2 grandparent+sibling path
   columns beat their PATH_SHUFFLE twin (SimLex +0.050, SimVerb +0.046 CI-sep) but do NOT beat the
   immediate (deprel, filler) context (SimVerb vs_DEP1 -0.021, CI-sep BELOW; SimLex -0.024 ns); WordSim
@@ -274,6 +277,30 @@ Five brain-foundational drills, self-dispatched to the remote CPU box. Three win
   vocab-wide** -- broad brain-based grounding can be predicted for thousands of words and still earns its
   keep on the associative axis where taxonomic WordNet is weakest. This is the concrete way to grow the
   grounded similarity spoke past the surveyed island (feeds BAR 5 item 1).
+
+- **FEATURE-GENERALISATION AT THE UNSEEN / LOW-DATA REGIME -- WIN, closes the exemplar partial (#3)**
+  (`exp_selpref_unseen_lowdata_v1`, HARD_PASS, full 15M run 2026-08-28, independently VETTED =
+  UPHOLD-WITH-QUALIFICATION). The exemplar partial tested only the DATA-RICH regime with a thin 12-dim
+  space -- the wrong regime and the wrong feature space. This re-runs at the regime where the brain's
+  advantage SHOWS: a 2AFC over GENUINELY-UNSEEN, independently-VERIFIED-zero-count verb-argument pairs
+  (true filler vs a frequency-matched distractor), swept over 1M/2M/15M tokens, with the new 65-dim
+  predicted-Binder feature space. Feature-generalisation BEATS word-identity counting CI-separated on
+  unseen pairs at every budget -- 2AFC 0.83 / 0.85 / 0.89 vs counting's forced 0.50 (an absent PPMI cell
+  is exactly 0, so counting CANNOT generalise; paired delta +0.33 -> +0.39, ci_half <= 0.026). Info-free
+  twins lose (shuffle/random at chance); richer features beat thin (Binder-65 > Lancaster-12 +0.19 CI-sep);
+  exemplar pooling beats mean-centroid (+0.056) -- the standing "copy the operation, do not compress it."
+  Every unseen pair was INDEPENDENTLY VERIFIED zero training co-occurrence (756/1106/3404). **LEAK-PROOF
+  (the vet's decisive check): the pure human-sensorimotor Lancaster-12 arm -- zero corpus-co-occurrence
+  path -- ALSO beats counting on unseen CI-sep, so the win cannot be a corpus-leak artifact.**
+  **QUALIFICATION (from the vet, folded in honestly): the SEEN column is DEGENERATE** -- on seen pairs the
+  true filler is retained in the exemplar set, so EVERY arm (even random) self-matches at ceiling ~1.0.
+  So the crossover shows the feature advantage is CONFINED to the unseen regime, NOT that counting has a
+  genuine data-rich advantage -- it is a saturated comparison, not proof of a counting advantage on seen
+  data. Re-auditability gap: the cell emits only summaries (no `scored_population`), so the exact 0.886
+  must be re-run to recompute -- add `scored_population` per budget before the hdlab diff lands. NET: the
+  exemplar "wall" was an untested-regime artifact; the substrate CAN generalise selectional preference to
+  genuinely-unseen pairs where counting is mathematically silent -- the "where counting/WordNet is silent"
+  OOV value that BAR 3 could not test on WordNet-covered golds.
 
 (Infra note, flag to owner -- not solver-fixable: the remote auto-sync `hd_metrics_sync` is DISABLED -- runs
 completed cleanly on the box but had to be pulled manually; re-enable `schtasks /change /tn hd_metrics_sync
