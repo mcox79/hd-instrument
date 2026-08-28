@@ -69,6 +69,15 @@ hdlab drift). ⚠️ **CONFIRMED GOTCHA: the remote runner invokes cells BARE (n
 The one ready run `exp_exemplar_selpref_v1` (learner fidelity phase) FAILED for exactly this → **AWAITING OWNER**: patch the
 cell to default FULL + re-dispatch (`fulfill_remote_run_request.py … --rerun`), route to the solver, or make the runner pass
 `--mode full`. The bridge itself worked flawlessly.
+✅ **SELF-SERVICE LIVE 2026-08-28: solvers queue their own CPU/GPU runs with NO strategy in the loop.**
+`tools/remote_run_request_watcher.py` on Windows scheduled task `hd_remote_run_watcher` (every 5 min) auto-runs the
+fulfiller on any NEW/CHANGED `REMOTE_RUN_REQUEST` (seed-on-first-run; retry-capped; state
+`data/remote_run_request_watcher_state.json`). **Remote `C:/dev/hd-instrument` was DEEPLY STALE — now RESYNCED:** all
+`hdlab/*.py` + subpackages (learner/dashboard) shipped, and the missing reading corpora (30 dirs incl. onestop = the
+FROZEN schedule's source) scp'd (`data/_corpora_sync.log`). **The foraging run `exp_reading_comprehensible_input_zpd_v1`
+is QUEUED (pending) on remote_cpu_queue** (~2h). ⚠️ exemplar_selpref + grounding_supply still `failed` on the smoke-default
+bug (solver hardening the cells). ⚠️ SSH-under-scheduled-task auth is unverified until the first live auto-dispatch — watch
+`data/remote_run_request_watcher_log.jsonl`.
 
 ### 2026-08-28 -- 🧭 **COMPACTION SNAPSHOT: p1 FULLY LANDED + verified; ToM landed; the FACTORIZED MEMORY STORE landed (dense→sparse gap ~closed); the LEARNER solution is IN + recommended DONE (awaits owner verdict); reasoning phase seeded. IDLE, waiting on owner verdicts.**
 **READ THIS FIRST after compaction; then `CONSOLIDATION_PHASE_LOG.md` (steps 0-20 + the RESUME STATE at its top) + the entries below.**

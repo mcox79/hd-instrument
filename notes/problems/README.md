@@ -443,7 +443,9 @@ request file; a STRATEGY session validates it, writes the prereg, ships the data
    ---
    (free-form notes: arms, floor, twin, population)
    ```
-3. Tell strategy (or wait for the strategy heartbeat/watcher to pick it up).
+3. That's it -- **the standing watcher (`hd_remote_run_watcher`, every 5 min) auto-dispatches it** to the right CPU/GPU
+   queue. You do NOT need to ping strategy or run anything. It fires on a NEW request or when you EDIT an existing one
+   (an edit re-runs it with `--rerun`, resetting a failed remote entry). Watch `data/remote_run_request_watcher_log.jsonl`.
 
 **CPU vs GPU (both supported):**
 - **`remote_cpu_queue`** -- numpy/scipy/sklearn cells with **NO** `import torch`. Runs on the remote CPU.
