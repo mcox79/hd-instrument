@@ -65,6 +65,27 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-27 — COMPOSITION-BY-INDEPENDENT-CONJUNCTION deviation TESTED + RESOLVED at the READ side: the brain-faithful
+  CONVERGENT-CUE rule (log-Bayes product of the two posteriors) beats the strongest floor, fused is refuted, and the double
+  dissociation is preserved** (from `compose_the_reader_by_convergent_cue_not_independent_conjunction`, integrated
+  SOLVED/EXCELLENT, owner-DONE; witness `test_convergent_cue_composed_reader.py` 7/7 PASS re-verified FIRST-HAND). Replaces
+  the STEP-18 independent post-hoc AND with `argmax_c [log softmax(epi/tau_e) + w·log softmax(sem/tau_s)]` = CA3 pattern
+  completion (Norman & O'Reilly 2003) + reliability-weighted cue combination (Ma/Beck/Latham/Pouget 2006; Ernst-Banks 2002;
+  Hemmer & Steyvers 2009). **Held-out n=3681:** convergent **0.7438 beats the STRONGEST floor meaning-solo 0.6998 (+0.044
+  CI-sep [0.030,0.058])**; shuffled-MEANING twin collapses (0.041); **shuffled-EPISODIC twin FALLS BELOW meaning-solo** →
+  the win needs REAL episodic evidence = genuine convergence (not meaning relabeled); FUSED one-pool loses (+0.384) and its
+  lesion read 0.134 < separated entity-solo 0.178; **double dissociation preserved**; lift LOCALISED (rescues 20.5% of
+  meaning-solo-WRONG, keeps 97.6% of RIGHT); equal-weight (w=1) below meaning-solo → reliability weighting load-bearing.
+  **NEW PINNED/INVENTED line:** the combination rule (product of posteriors) = **PINNED**; the reliability weight `w` being
+  **CALIBRATED (not emergent)** = **OUR-INVENTION-UNDER-TEST** (our two cue codes aren't one shared PPC population, so the
+  automatic-gain story does not give the cross-cue ratio for free). **The RULE is AT CEILING** (0.744 vs argmax-union oracle
+  0.750, NOT_SEP); the residual headroom is the DENSE episodic store, and the gain rises monotonically with episodic
+  reliability → **FORWARD HOOK: convergent-cue + p2's sparse DG+CA3 store should COMPOUND** (predicted w→1, larger gain;
+  recalibrate on the sparse store when p2 lands). **Straw-floor correction (to the solver's credit):** the STEP-18/brief
+  baseline (independent-AND 0.119) is LOWER than either system alone — not a valid floor; the claim is the CI-sep beat over
+  meaning-solo 0.70 + the controls. **LANDED `hdlab/convergent_cue_reader.py`** (`convergent_pick`, witness PASS, registered
+  `convergent_cue_reader_v1`, default-off ISLAND). Supersedes the "combination rule is a fidelity gap" status of the entry below.
+
 - **2026-08-27 — COMPOSITION FIDELITY: the entity and meaning systems COMPOSE end-to-end (both load-bearing in one reader),
   but the COMBINATION RULE is a fidelity gap — the brain uses CONVERGENT-CUE pattern completion, not an independent
   post-hoc conjunction** (strategy fidelity extension, CONSOLIDATION STEP 18 measurement + STEP 19 brain-foundationality

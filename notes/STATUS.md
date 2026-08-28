@@ -31,7 +31,27 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- 🧩🧠 **CONSOLIDATION STEPS 17-19: front-end WIRED + measured; the ENTITY×MEANING axes COMPOSE end-to-end (both load-bearing); a brain-foundationality drill on the COMPOSITION found the combination-rule fidelity gap and HANDED IT OFF as a solver problem**
+### 2026-08-27 (LATEST) -- ✅ **CONVERGENT-CUE COMPOSITION INTEGRATED (owner-DONE, EXCELLENT) -- the p3 handoff came back SOLVED: the brain's retrieval rule (log-Bayes PRODUCT of the episodic + meaning posteriors) BEATS the strongest floor, fused is refuted, the double dissociation holds -> hdlab organ LANDED**
+`compose_the_reader_by_convergent_cue_not_independent_conjunction` (the p3 I packaged + handed off THIS session; owner
+finalized it fast). Re-verified scaffold-free FIRST-HAND (`test_convergent_cue_composed_reader.py` 7/7 PASS). The
+convergent-cue read `argmax_c [log softmax(epi/tau_e) + w·log softmax(sem/tau_s)]` (CA3 pattern completion +
+reliability-weighted cue combination) **beats the STRONGEST floor meaning-solo 0.6998 -> 0.7438 (+0.044 CI-sep
+[0.030,0.058])** held-out n=3681. Decisive control: the shuffled-EPISODIC twin FALLS BELOW meaning-solo -> the win needs
+REAL episodic evidence = genuine convergence (not meaning relabeled); fused one-pool loses (+0.384) + kills the
+dissociation; double dissociation preserved; lift localised (rescues 20.5% of meaning-solo-WRONG). Brain-faithful: product
+rule PINNED, calibrated `w` honestly OUR-INVENTION. **The solver CAUGHT my brief's straw floor (0.119, below either solo)
+and re-aimed correctly at meaning-solo** -- upheld the measurement bar better than my brief. Rule AT ceiling (0.744 vs
+oracle 0.750); residual = the dense store -> **gain predicted to COMPOUND with p2's sparse store**. 🔌 **hdlab LANDED
+(Q111): `hdlab/convergent_cue_reader.py` (`convergent_pick`; ports pick_convergent_rw + tau calibration verbatim;
+DEFAULT_W=12 dense-store calibration; graceful degradation = the dissociation); witness `test_convergent_cue_reader_organ.py`
+PASS first-hand; registered `convergent_cue_reader_v1` (BUILT/ISLAND, default-safe).** Review EXCELLENT + SOLVER REVIEW;
+priority cleared; AUDIT UPDATE folded (§2b). 🎯 **CONSOLIDATION QUEUE: p3 DONE. REMAINING in flight — p1
+`build_the_composed_scalar_magnitude_meaning_channel` (SOLVED, awaits owner_verdict), p2 `the_entity_store_is_a_dense_bundle_that_fans`
+(SOLVED, awaits owner_verdict), p4 `dimensional_phase_diagram_audit_of_the_current_organs` (owner-surfaced, no solution yet).
+Integrate p1/p2 ONLY on owner_verdict: DONE. NEXT strategy step (mine, deferred behind p2): wire the N400 PE event-segmentation
+into the live register; then the FULL 3-axis end-to-end with the convergent-cue read + p2's store.**
+
+### 2026-08-27 -- 🧩🧠 **CONSOLIDATION STEPS 17-19: front-end WIRED + measured; the ENTITY×MEANING axes COMPOSE end-to-end (both load-bearing); a brain-foundationality drill on the COMPOSITION found the combination-rule fidelity gap and HANDED IT OFF as a solver problem**
 Three focused strategy steps this session (all committed, HEAD 5152ee15e; full ledger `notes/CONSOLIDATION_PHASE_LOG.md`
 STEPS 17-19). **STEP 17 — wired the landed `graded_role_assigner` into the composed front-end + measured OFF-vs-ON
 leak-free** (held-out n=4078): overall 0.739->0.751 (+0.011 CI-sep), hard pre-verbal slice 0.576->0.600 (+0.024),

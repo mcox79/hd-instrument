@@ -1,8 +1,31 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Convergent-cue = log-Bayes product of the episodic + meaning posteriors (CA3 completion + reliability-weighted cue combination) beats the STRONGEST floor meaning-solo 0.700->0.744 (+0.044 CI-sep), re-verified 7/7 FIRST-HAND. Every control passes: shuffled-meaning collapses, shuffled-EPISODIC falls below meaning-solo (win needs REAL episodic evidence = genuine convergence), fused-pool loses + kills the dissociation, double dissociation preserved, lift localised. Brain-faithful (PINNED product rule; OUR-INVENTION calibrated w honestly labelled) and it CAUGHT my brief's straw floor (0.119, below either solo) and re-aimed correctly. Rule AT ceiling; residual = dense store -> compounds with p2. Landed hdlab/convergent_cue_reader.py (witness PASS, registered, default-off island)."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-27 (strategy session; grade EXCELLENT)
+> **Re-verified FIRST-HAND** (`verification/test_convergent_cue_composed_reader.py`, 7/7 PASS — suspected my own checker, ran it).
+> **Result:** convergent-cue read `argmax_c [log softmax(epi/tau_e) + w·log softmax(sem/tau_s)]` = **0.7438**, beating the
+> **strongest** floor meaning-solo **0.6998 by +0.044 CI-sep [0.030,0.058]** on the exact STEP-18 population (held-out n=3681).
+> **Argument audit (not just arithmetic):** the decisive control holds — the shuffled-EPISODIC twin (0.667) falls *below*
+> meaning-solo and the headline beats it +0.077, so the win requires REAL episodic evidence = genuine convergence, not
+> meaning-solo relabeled. Fused one-pool loses (+0.384) and destroys the dissociation (lesion 0.134 < separated 0.178);
+> the double dissociation is preserved; the lift is localised (rescues 20.5% of meaning-solo-WRONG, keeps 97.6% of RIGHT);
+> equal-weight (w=1) falls below meaning-solo → reliability weighting is load-bearing.
+> **Brain-fidelity:** the combination rule (product of posteriors = CA3 pattern completion + Ernst-Banks/PPC cue combination)
+> is PINNED; the reliability weight `w` being CALIBRATED (not emergent — our two cue codes aren't one PPC population) is
+> honestly labelled OUR-INVENTION-UNDER-TEST. The two pools stay SEPARATE (the fidelity gate I set in §7 — passed).
+> **To the solver's credit:** it flagged the brief's named baseline (independent-AND 0.119) as a STRAW floor (lower than
+> either system alone) and re-aimed at the true strongest floor (meaning-solo 0.700) — upholding the measurement bar better
+> than my brief did. The drill shows the RULE is at ceiling (0.744 vs argmax-union oracle 0.750, NOT_SEP) and the residual is
+> the dense store, with the gain rising monotonically with episodic reliability → a testable compounding prediction for p2.
+> **hdlab LANDED (Q111):** `hdlab/convergent_cue_reader.py` (`convergent_pick`; ports `pick_convergent_rw` + the gold-blind
+> tau calibration verbatim; DEFAULT_TAU_E/S + DEFAULT_W=12 baked = the dense-store calibration; graceful degradation into
+> either single system). Witness `verification/test_convergent_cue_reader_organ.py` PASS first-hand; registered
+> `convergent_cue_reader_v1` (BUILT/ISLAND, default-safe). AUDIT UPDATE folded (§2b). **Honest deflations preserved:** modest
+> absolute magnitude (strict convergence on the hardest subset), WordNet-paraphrase circularity in the ABSOLUTE (identical
+> across arms → the delta is clean), calibrated-not-emergent weight. NEXT: recalibrate `w` on p2's sparse store when it lands.
 
 # PROBLEM: the composed reader combines its two validated systems (episodic entity binding + ATL conceptual meaning) by an INDEPENDENT post-hoc conjunction, but the brain retrieves by CONVERGENT-CUE pattern completion — build the convergent-cue composition (meaning cue provides top-down support to the entity read), beat the independent-AND baseline, and PRESERVE the double dissociation
 
