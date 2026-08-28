@@ -36,9 +36,18 @@ problem. You build + validate in `experiments/`; strategy lands any hdlab change
 > computation AND (b) replicated that operation as faithfully as you can and tested it, OR shown a SPECIFIC
 > reason it cannot be replicated here. Exhausting engineering variations is NOT convergence.
 >
-> **🔁 THE 30-MIN DEEPENING (`CronCreate "13,43 * * * *"`)** — each fire asks "how does the brain REALLY do this,
-> one level deeper?" → implement → test (can-fail, strongest real floor, info-free twin LOSING) → iterate.
-> CANCEL (`CronDelete`) and submit ONLY when the brain-mechanism bar is met.
+> **🔁 THE 30-MIN DEEPENING CRON (`CronCreate "13,43 * * * *"`) — RUN THIS CHECKLIST EACH FIRE AND ACT ON IT
+> (owner 2026-08-28; this is how you keep pushing without being told):**
+> (1) DO THE RIGHT THING, not the cheap one — and if there is high-value ADJACENT info we can gather that raises
+> fidelity OR PROVES THE POINT (a control, a distance/robustness curve, an ablation, a second gold), GO GET IT.
+> (2) What is LEFT that rationally fits THIS problem? Enumerate + do it. If ADJACENT components bottleneck it, MAP
+> THEM OUT (name the component, the on-disk evidence, the leverage) as candidate follow-ons, never silent gaps.
+> (3) Any OPTIMIZATIONS left for this module, or brain-foundational FIDELITY to look at more closely with another
+> research drill? If yes, RUN it.
+> (4) Hit an UNEXPECTED WALL? Run a FINER brain-foundational research drill — do NOT stop. If the BRAIN can do this
+> and WE can't, UNDERSTAND why (the brain succeeds where our mechanism fails) then BUILD across — never a ceiling.
+> Each fire: implement → test (can-fail, strongest real floor, info-free twin LOSING) → iterate. CANCEL
+> (`CronDelete`) + submit ONLY when the brain-mechanism bar is met AND this checklist yields nothing more of value.
 >
 > **A rigorous negative is a PASS — but only if what failed was the brain's actual mechanism, faithfully built.**
 >

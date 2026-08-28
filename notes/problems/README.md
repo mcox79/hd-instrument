@@ -388,6 +388,21 @@ Each `PROBLEM.md` has the same eight sections, in this order:
   optional busywork, and declining it because "my angles converged" is the exact case it exists to catch.
   **Every open brief carries this verbatim as a `SOLVER OPERATING PROTOCOL` block (strengthened 2026-08-26),
   and every NEW brief must include it.**
+- **🔁 WHAT THE 30-MIN DEEPENING CRON MUST ASK — AND ACT ON — EACH FIRE (owner 2026-08-28; baked in so you keep
+  pushing WITHOUT being told, because the owner should not have to periodically re-issue these).** Do not just
+  log the checklist — DO what it surfaces:
+  1. **Do the RIGHT thing, not the cheap one — and if there is high-value ADJACENT information we can gather that
+     raises fidelity OR PROVES THE POINT, go get it** (a control, a distance/robustness curve, an ablation, a
+     second gold, a known-answer arm). A result that proves the mechanism is worth more than a faster green check.
+  2. **What is LEFT to do that rationally fits THIS problem?** Enumerate it and do it. If ADJACENT components have
+     issues that bottleneck this one, **MAP THEM OUT** — name the component, the on-disk evidence, the leverage —
+     as candidate follow-on problems in your submission, never as silent gaps.
+  3. **Any OPTIMIZATIONS left for this module, or brain-foundational FIDELITY to look at more closely with another
+     research drill?** If yes, run the drill — don't leave fidelity on the table.
+  4. **Hit an UNEXPECTED WALL? Run a FINER brain-foundational research drill — do NOT stop.** If the BRAIN can do
+     this and WE can't, that is a fidelity gap you must UNDERSTAND (why the brain succeeds where our mechanism
+     fails) and then BUILD across — never a ceiling, never "bounded value" or "benchmark artifact".
+  CANCEL the cron + submit ONLY when the brain-mechanism bar is met AND this checklist yields nothing more of value.
 - **📖 THE BRAIN-FOUNDATIONAL AUDIT IS THE SHARED, LIVING REFERENCE (owner 2026-08-26).**
   `notes/BRAIN_FOUNDATIONAL_AUDIT.md` is the ONE reconciled map of every organ/system vs the brain -- brain
   structure, whether the brain's equation is PINNED or something we are INVENTING, our current fidelity, and the
