@@ -31,7 +31,7 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-28 (LATEST) -- 🧭 **COMPACTION SNAPSHOT: comprehension→REASONING phase ACTIVE — the FIRST reasoning primitive (transitive-comparison) is integrated. Many integrations landed today; queue at 5 ranked-open; only the LEARNER (p2) awaits an owner verdict. Remote self-service dispatch is LIVE.**
+### 2026-08-28 (LATEST) -- 🧭 **COMPACTION SNAPSHOT: comprehension→REASONING phase ACTIVE — the FIRST reasoning primitive (transitive-comparison) is integrated. Many integrations landed today; queue at 5 ranked-open; TWO solutions await an owner verdict — the LEARNER (p2) AND the new SPACE organ (p1). Remote self-service dispatch is LIVE.**
 **READ THIS FIRST after compaction; then the entries below.**
 ✅ **INTEGRATED THIS SESSION (all owner-DONE, EXCELLENT, reverified FIRST-HAND; hdlab landings QUEUED as careful ports, NOT
 yet landed):** p1 scalar-magnitude RULER; ToM belief-partition; FACTORIZED memory store; **dimensional phase-diagram** (a
@@ -42,8 +42,8 @@ SERIAL decode-and-suppress CORRECTS the CA3-completion guess; +0.454 at overload
 **transitive-comparison — THE FIRST REASONING PRIMITIVE** (delta-rule magnitude-line integration answers un-stated pairs
 1.000 vs 0.500; the mechanism is SELECTED by a measured human signature — the distance-effect DIRECTION rules out chaining).
 🎯 **QUEUE (5 ranked-open, unique; integrate ONLY on `owner_verdict: DONE`): p1 `situation_model_has_no_spatial_location_dimension`
-(the missing SPACE organ — highest leverage; a solver is drilling it); p2 `optimize_and_validate_the_learner_before_it_grows_the_foundation`
-= SOLVED, AWAITS OWNER VERDICT (I recommend DONE — the ONLY item on the owner's plate); p3 `coreference_is_capped_at_065_on_real_narrative`;
+(the missing SPACE organ — highest leverage; now SOLVED, AWAITS OWNER VERDICT); p2 `optimize_and_validate_the_learner_before_it_grows_the_foundation`
+= SOLVED, AWAITS OWNER VERDICT (I recommend DONE); p3 `coreference_is_capped_at_065_on_real_narrative`;
 p4 `no_glass_box_verb_sense_disambiguation`; p5 `the_register_bundle_renorm_breaks_the_serial_readout`. All 4 no-solution
 briefs were freshly packaged this session.**
 🔌 **hdlab landings QUEUED (careful ports, Q111, NOT yet landed — the WIRE-DON'T-ISLAND debt): `perceptual_access` (ToM —
