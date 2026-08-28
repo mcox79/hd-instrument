@@ -5,7 +5,7 @@ bar: "A brain-faithful normalization for the superposition register (copy divisi
 result: "Pooled DIVISIVE normalization (Carandini-Heeger / homeostatic) of the register bundle + a gain-matched serial readout RECOVERS the overloaded register to the raw-sum ceiling: per-slot filler-recovery accuracy @M=64 (D=256 FIXED, V=100, n=30 entities/load, synthetic controlled-load AccumulateRegister) serial:per-component 0.325 -> serial:divisive 1.000, headline +0.675 CI-sep [+0.646,+0.703] hw 0.028; recovery window M={48,64,96,128}; divisive TIES raw-sum at every load (delta<0.001)."
 floor: "Strongest floor actually run = the LIVE organ's own per-component renorm store read by the SAME gain-matched readout, serial 0.325 @M64 (and the current organ end-to-end argmax-on-per-component 0.512 @M64, worst-arm); info-free shuffled-key twin 0.029 @M64 (twin_null_p95 per load); chance 0.01."
 controls: "(1) POSITIVE CONTROL -- per-component store under the BEST (gain-matched) readout still cannot recover (0.325 vs 1.000): isolates the STORE norm, not the readout, as the constraint, and the harness sees the renorm break at M>=48 while M=8 is fine. (2) SCALE-INVARIANCE -- scalar-norm argmax bit-identical to raw-sum argmax (diff<1e-6): excludes an argmax regression. (3) INFO-FREE TWIN -- shuffled-key serial 0.029 LOSES CI-sep (excludes machinery-without-keys). (4) NAIVE-vs-GAIN-MATCHED -- naive serial on an L2 store 0.117 << gain-matched 0.988 (excludes 'any readout works'; store & readout normalization must MATCH). (5) PARAMETER SWEEP -- serial flat (=1.000) across C-H sigma {0..64} and homeostatic target {0.1..100}: excludes a tuned constant."
-files_changed: "experiments/exp_register_divisive_norm_v1.py, verification/test_register_divisive_norm.py, notes/problems/the_register_bundle_renorm_breaks_the_serial_readout/SOLVED.md"
+files_changed: "experiments/exp_register_divisive_norm_v1.py, verification/test_register_divisive_norm.py, notes/problems/the_register_bundle_renorm_breaks_the_serial_readout/SOLVED.md, notes/problems/the_register_bundle_renorm_breaks_the_serial_readout/ADJACENT_COMPONENTS_brain_fidelity_map.md"
 reverify: ".venv/Scripts/python.exe verification/test_register_divisive_norm.py"
 ---
 
@@ -41,6 +41,25 @@ single member of the normalization family that is NOT a pooled/scalar gain, and 
   serves **BOTH** the argmax cleanup path AND the theta-gamma serial readout. Per-component renorm is *not* required for
   either; it is strictly worse for both. No principled either/or -- the same normalization does both jobs.
 
+## RESEARCH VERIFICATION (two adversarial literature drills, 2026-08-28 -- "use research liberally to verify")
+
+I did not rest on cited-from-memory claims; two drills were tasked to REFUTE the mechanism. Result: the claim survives,
+with the labeling SHARPENED (this is the PINNED-vs-OUR-INVENTION discipline done properly):
+- **Pooled divisive normalization is DIRECTLY CONFIRMED** in sensory + decision/value cortex (Carandini & Heeger 2012;
+  Louie & Glimcher 2011/2017, LIP/OFC) -- the divisor is genuinely a POOLED quantity (shared scalar, preserves relative
+  ratios). Its application to a hippocampal/WM *memory register* is a **STRUCTURALLY-MOTIVATED EXTENSION BY ANALOGY**,
+  not a recorded hippocampal circuit -> labeled **OUR-EXTENSION-UNDER-TEST**, not PINNED. The closest direct precedent
+  for a *pooled bundle renormalization* is Eliasmith's NEF/SPA near-unit-radius semantic pointers and Frady/Kleyko/
+  Sommer 2018 (bundle capacity ~4, normalization/thresholding sets retrieval SNR) -- both a POOLED/global constraint.
+- **The per-component objection is REFUTED, strengthening the negative half:** Turrigiano homeostatic scaling is slow
+  (hours), weight-level, and uniform-multiplicative (PRESERVES relative ratios) -- it argues *for* structure-preservation,
+  not for per-component renorm. The nearest per-cell divisive mechanism (photoreceptor/olfactory adaptation) is
+  history-based and structure-preserving. **No fast biological mechanism performs instantaneous per-component magnitude
+  erasure (`S_i/|S_i|`)** -> "don't renormalize per-component" is well-grounded; "use pooled divisive normalization" is
+  the faithful analogy, labeled as such.
+- **The per-component-vs-pooled distinction itself is NOT a term of art in the VSA/HDC primary literature** (Plate,
+  Kanerva, Eliasmith, Frady) -> OUR-INVENTION-UNDER-TEST as a *framing*, even though each side's biology is as above.
+
 ## What I built (experiments/ only -- no hdlab write, per Q111)
 
 Two **matched** pooled-normalization steps (the brain applies divisive normalization at BOTH store and readout):
@@ -70,6 +89,13 @@ Two **matched** pooled-normalization steps (the brain applies divisive normaliza
   `the_core_binding_operator_may_not_be_brain_faithful` already showed beat per-component 32/32.
 - **Info-free twin loses** (0.029 vs 1.000 @M64). **Parameter-flat**: serial=1.000 across C-H sigma and homeostatic
   target -- the recovery is a property of the OPERATION, not a tuned number.
+- **MEASURED ON THE DEFAULT BACKEND, IN THE COMPOSE REGIME (witness N8).** `make_situation_register` defaults to
+  `MultiBankAccumulateRegister`, whose `decode()` reads a per-BANK bundle (same `bundling.bundle` per-component renorm)
+  at a smaller per-bank load. Distributing M=384 events across 8 banks (k_per_bank~60, an overloaded bank), the norm fix
+  recovers the per-bank serial readout **0.733 -> 1.000 (+0.293 CI-sep, hw~0.02)** and improves argmax **0.654 -> 0.765**.
+  So the p2 store lever (distribute load) and this norm fix **COMPOSE**: the store makes per-bank load tractable, the norm
+  fix makes each bank serial-readable. This is the 12-16x compose the brief names -- now measured with the norm fix in
+  place, not inferred from "same code path."
 
 ## What I did NOT establish (and would withdraw first if wrong)
 
@@ -81,6 +107,16 @@ Two **matched** pooled-normalization steps (the brain applies divisive normaliza
   the resonator's intrinsic capacity limit -- nothing about normalization could. **First thing I'd withdraw** is any
   reading that divisive normalization "fixes overload at M>=96"; it fixes the *readability of the linear structure*, and
   distributing load past the resonator's capacity is the sparse-store's job.
+  **Research drill B located this precisely in the brain's subsystem architecture, and it is a stronger frame than
+  "capacity bound":** whether normalizing a dense bundle is brain-faithful DEPENDS on the subsystem. Under a WORKING-
+  MEMORY reading (bounded, few items -- the register's operating regime; theta-gamma holds ~7+-2, Frady bundle capacity
+  ~4) normalization IS the load-bearing lever (Eliasmith near-unit-radius; Frady capacity-SNR). Under an EPISODIC/LTM
+  reading (many items) the brain does NOT hold a dense normalized bundle at all -- it PATTERN-SEPARATES (sparse DG ~2-4%)
+  before combining (Marr 1971; Treves & Rolls 1994 capacity ~N/(a ln 1/a) collapses as a->dense; O'Reilly & McClelland
+  1994; Yassa & Stark 2011; Norman & O'Reilly 2003 CLS). **My measured M-transition IS that subsystem boundary:**
+  normalization recovers the register in the WM regime (M<=64), and the M>=96 divergence is exactly where the faithful
+  answer switches to sparse separation (p2). So the fix is brain-faithful *for the WM register it operates on*, and it
+  does not -- and should not -- try to be the episodic-storage mechanism.
 - **Real-narrative (LitBank) load is inherited, not re-measured here.** The effect is a pure algebraic property
   (a scalar rescale preserves the linear sum; a per-component one does not), demonstrated on controlled load. The parent
   `the_register_reads_by_argmax_not_recurrent_completion` already showed serial on the raw linear sum recovers the real
@@ -126,6 +162,18 @@ Two **matched** pooled-normalization steps (the brain applies divisive normaliza
   its correct scope is **torus-closure for RE-BINDING an atom only**; a *terminal superposition register* should use a
   pooled divisive norm. This is a general substrate rule: **every bundle store that is READ (not re-bound) should
   normalize by a pooled scalar, never per-component.**
+- **LABELING (from research verification):** record the register-normalization mechanism as
+  **OUR-EXTENSION-UNDER-TEST**, not PINNED -- pooled divisive normalization is confirmed in sensory/decision cortex and
+  extended by analogy to the WM register (direct pooled precedent: Eliasmith NEF/SPA near-unit-radius; Frady/Kleyko/
+  Sommer 2018). The NEGATIVE (per-component instantaneous renorm has no fast biological analogue) is well-grounded.
+- **SUBSYSTEM BOUNDARY (a durable framing the audit should carry):** dense-bundle normalization is brain-faithful under
+  the **working-memory** reading (bounded items, the register regime); under an **episodic/LTM** reading the brain
+  pattern-separates (sparse DG) rather than normalizing a dense trace. The register's measured M-transition (norm
+  recovers at M<=64; resonator diverges at M>=96) IS that WM->episodic boundary -- so the norm lever (this problem) and
+  the sparse-store lever (p2) are the SAME dichotomy the CLS literature draws (Norman & O'Reilly 2003), and they compose.
+- **ADJACENCY MAP:** a general substrate audit -- `bundling.bundle`'s per-component default is sub-optimal for its ENTIRE
+  measured read-terminal consumer set, and the `sign()`-on-a-bundle sites are the same wrong-op -- is written up in
+  `ADJACENT_COMPONENTS_brain_fidelity_map.md` (this folder). Fold its candidate follow-ons into the audit's gap list.
 
 ## Proposed hdlab diff (strategy lands it -- Q111; I do NOT write hdlab/)
 
@@ -157,10 +205,16 @@ them together, and keep `bundle_norm` default `"percomp"` so no existing caller 
   ceiling but that ceiling itself falls at extreme overload (0.296 @M96) -- a *true* capacity bound. Distributing load
   (multibank / sparse DG) is what raises it; this problem and p2 COMPOSE (parent measured 12-16x). Not mine to build,
   but the norm fix is a prerequisite for the compose to be serial-readable.
-- **Every OTHER bundle store that is READ, not re-bound, inherits this bug.** `situation_model_multibank`,
-  `factorized_entity_store`, `event_bundle`, and any `bundling.bundle` caller whose output is later unbind+decoded (not
-  re-bound as an operand) is currently per-component-renormed. A one-line audit (`grep` callers of `bundling.bundle`,
-  classify re-bound vs read-terminal) would map the blast radius; the read-terminal ones should switch to `norm="divnorm"`.
+- **Every OTHER bundle store that is READ, not re-bound, inherits this bug -- NOW MAPPED (owner asked to evaluate
+  adjacent components).** I enumerated `bundling.bundle`'s callers and classified them by consumption in
+  `ADJACENT_COMPONENTS_brain_fidelity_map.md`: **all enumerated callers are READ-terminal** (`situation_model_multibank`,
+  `selection_weighted_sharded_typer`, `script_grain_acquisition_loop`, `goal_achievement` via unbind+cleanup;
+  `lexical_similarity`/`verb_lexical_similarity`/`quality_relation` via cosine) -- I found NO caller that re-binds the
+  bundle, so the per-component default is sub-optimal for its whole consumer set. My witness N3 (argmax:divnorm >=
+  argmax:percomp at every load) is the general evidence for the cleanup_argmax family; the cosine-readout consumers need
+  their own probe (a distinct readout). The `sign()`-on-a-bundle sites (`grounding_acquisition_loop`, `situation_focus`,
+  `role_slot_summarizer`, `event_bundle`; audit lines ~1001/1176) are the SAME wrong-op in a bipolar code -- one "pooled
+  divisive normalization at read-terminal bundles" principle covers both families. Ranked candidate follow-ons are in the map.
 
 ## TLDR (plain language)
 
