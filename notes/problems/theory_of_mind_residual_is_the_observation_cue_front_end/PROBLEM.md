@@ -1,8 +1,54 @@
 ---
-priority: 5
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "The ToM residual — reading 'did agent A witness the change?' from prose — is SOLVED by a brain-faithful per-agent PERCEPTUAL-ACCESS REGISTRATION LEDGER that replaces the landed lexical keyword extractor. Re-verified 4/4 witnesses FIRST-HAND (ledger 6/6, occlusion 6/6, sequential 4/4, testimony 3/3). Cue accuracy on the corpus-grounded gold: ledger 0.992 [0.980,1.000] vs the LANDED lexical extractor recomputed per-gold 0.500 [0.439,0.561], CI-separated (info-free twin 0.500 loses; majority 0.500); END-TO-END through the landed belief_partition 0.992 vs lexical 0.500 vs oracle 1.000, past the 0.821 residual. Mechanism PINNED (Butterfill&Apperly registration; Zwaan event-indexing SPACE; Talmy PATH-in-the-satellite-not-the-verb; Harris&Koenig testimony): a STICKY per-agent ledger, false belief = the ledger STALE vs reality (maps exactly onto the landed believed_location gate). Deep beyond the bar: per-modality OCCLUSION field (6/6, coarse single-gate fails 2/6), SEQUENTIAL registration (4/4: last-registered, motion-persistence, ignorance≠false-belief, multi-agent divergence), TESTIMONY-with-reliability (3/3: believed-lie→false-matching-lie, distrust→discount), and a DISTANCE experiment PROVING the intact-window spatial-chance is a WINDOWING artifact (full-text spatial route 0.99 at K=0..20 vs a 3-sentence window →0.00). Scrupulously honest scope (two-gold frame-vs-intact split named, intact-scene scarcity + verb-POLYSEMY + coref-cap walls flagged precisely, exact 0.992 gold-quality-bounded ~90% label precision but the 0.98-vs-0.50 gap dwarfs it). hdlab landing QUEUED (careful port — promote perceptual_access + extend belief_partition to a sequence ledger; needs wiring to the coref/situation-model organs to drop the spaCy-parse proxy)."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-28 (strategy session; grade EXCELLENT)
+> **Re-verified FIRST-HAND** — all 4 witnesses ran + PASS (suspected my own checker, ran them):
+> `test_perceptual_access_ledger.py` **6/6**, `test_perceptual_field_occlusion.py` **6/6**,
+> `test_sequential_registration.py` **4/4**, `test_testimony_reliability.py` **3/3**.
+> **Result (bar MET, and exceeded):** the observation-cue front-end is a per-agent **perceptual-access registration
+> ledger** (`observed = RULE0 explicit-narrator-statement, else RULE1 co-present-&-in-perceptual-field, OR RULE2
+> informed`). Cue accuracy on the CORPUS-GROUNDED gold: **ledger 0.992 [0.980,1.000] vs the LANDED lexical extractor
+> 0.500 [0.439,0.561]** (CI-separated by ~0.44), over majority 0.500 and the info-free twin 0.500 (both lose);
+> HELD-OUT 0.985 on 5 unseen phrasing draws (n=1230) rules out overfit. **END-TO-END through the LANDED
+> `belief_partition`: ledger 0.992 vs lexical 0.500 vs oracle 1.000 — past the 0.821 in-situ residual.**
+> **Argument audit (not just arithmetic):** the lexical baseline is the *landed* extractor recomputed per-gold — it
+> collapses 0.808 (its own authored phrasings) → 0.500 (chance) on diverse real corpus prose, which **is** the
+> residual the brief targets. Per-class dissociation localizes the entire win to NOT-OBSERVED classes (depart 1.000,
+> occlude 0.980 vs lexical 0.000) → it genuinely READS the cue, not a relabeled prior. The intact-window spatial
+> chance (0.52) is **proven a WINDOWING artifact**, not a mechanism failure, by the distance experiment (the
+> full-text spatial route holds 0.99 across K=0..20 filler sentences; a 3-sentence window collapses to 0.00) —
+> validating Zwaan's incremental-situation-model claim. The solver is scrupulously honest: two complementary golds
+> (frame-gold isolates the SPATIAL mechanism; intact-gold gives realism where the win is RULE 0's explicit-marker
+> coverage), and it explicitly **bars** quoting the intact 0.930 as a spatial-inference result. Beyond the bar it
+> built + witnessed a per-modality OCCLUSION field (the FANToM/Ullman wall — vision needs light+LOS+not-closed-opaque
+> +attending+awake, audition penetrates dark but needs sound, touch needs contact; 6/6 where a coarse gate fails
+> 2/6), SEQUENTIAL registration over event chains (last-registered-not-final; motion-persistence; ignorance=None as a
+> first-class state ≠ false belief; multi-agent divergence — 4/4), and TESTIMONY with reliability (believed-lie →
+> false belief matching the lie; distrusted source discounted — 3/3). The sequence exposed + fixed two real bugs a
+> single move hides (occlusion window read one sentence PAST the event; RULE 0 leaked a move-1 marker onto move 2 —
+> markers are EVENT-LOCAL). **Brain-fidelity:** the whole mechanism is PINNED (Butterfill & Apperly 2013 registration;
+> Zwaan & Radvansky event-indexing SPACE; Talmy 1985 PATH-in-the-satellite; Harris & Koenig 2006 testimony) — "PATH
+> lives in the satellite not the verb" avoids the verb-whitelist trap the brain doesn't have, and "false belief = the
+> ledger being stale" maps exactly onto the landed `believed_location(observed, initial, final)` gate.
+> **Honest deflations preserved:** intact false-belief SCENES are too sparse to mine at scale (verb POLYSEMY + idiom
+> bound automatic mining — named precisely, the deliverable for bar #4); label precision ~90%; coref is a simple
+> proxy (multi-character prose is coref-capped ~0.65); first-order belief only; the exact 0.992 is gold-quality-bounded.
+> **AUDIT UPDATE folded (§2b).**
+> **hdlab landing QUEUED (Q111 — a careful multi-module port, NOT this commit; proven-ready, witnesses are the gates):**
+> promote `experiments/perceptual_access_ledger.py` → `hdlab/perceptual_access.py` (default-off island like
+> `belief_partition`); wire `observed()` → `belief_partition.form_belief(...)` **over the FULL running situation model,
+> not windows**; extend `belief_partition` from the binary gate to a SEQUENCE registration ledger + IGNORANCE(None) +
+> asserted-location testimony. **⚠️ Landing prerequisite:** the module currently uses an internal **spaCy parse proxy**
+> for mention/event localisation — promoting it as-is would give hdlab a spaCy dependency (the exact remote-unsafe
+> pattern just fixed in `closed_class_lexicon`). So the landing should CONSUME the substrate's coref / situation-model
+> organs (the solver's own recommendation) rather than re-parsing — which is why it is a careful port, not a drop-in.
+> **Adjacent gaps the solver surfaced (candidate future briefs, ranked): (1) NO SPACE dimension in the situation
+> model — a genuinely MISSING, high-leverage organ (per-entity location-over-time register); (2) coref ~0.65 on real
+> narrative; (3) verb-sense/POLYSEMY glass-box WSD; (4) object-state-change event extraction; (5) wire
+> belief_partition into the live reader + add belief-questions to the reading task (strategy's VALUE-gating adjacency).**
 
 # PROBLEM: theory-of-mind's belief mechanism is LANDED and perfect with oracle observation (1.000), but the end-to-end drops to 0.821 because reading "did this character WITNESS the change?" from prose is unsolved — build the brain-faithful observation-cue front-end (perceptual access / "seeing = knowing"), validate it beats the lexical baseline CI-separated on a CORPUS-mined false-belief gold, twin losing
 

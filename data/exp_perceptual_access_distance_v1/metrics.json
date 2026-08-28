@@ -1,0 +1,53 @@
+{
+  "anchor_name": "perceptual_access_distance_v1",
+  "verdict": "MEASURED",
+  "run_mode": "full",
+  "seed": 20260828,
+  "Ks": [
+    0,
+    2,
+    5,
+    10,
+    20
+  ],
+  "n_not_observed_items": 123,
+  "by_distance": {
+    "0": {
+      "full": 0.991869918699187,
+      "windowed": 0.991869918699187,
+      "twin": 0.43089430894308944,
+      "n": 123
+    },
+    "2": {
+      "full": 0.991869918699187,
+      "windowed": 0.0,
+      "twin": 0.42276422764227645,
+      "n": 123
+    },
+    "5": {
+      "full": 0.991869918699187,
+      "windowed": 0.0,
+      "twin": 0.4715447154471545,
+      "n": 123
+    },
+    "10": {
+      "full": 1.0,
+      "windowed": 0.0,
+      "twin": 0.5121951219512195,
+      "n": 123
+    },
+    "20": {
+      "full": 0.991869918699187,
+      "windowed": 0.0,
+      "twin": 0.4796747967479675,
+      "n": 123
+    }
+  },
+  "gates": {
+    "full_robust_at_max_distance": true,
+    "windowed_collapses_with_distance": true,
+    "full_beats_windowed_at_max": true
+  },
+  "ts_iso": "2026-08-28T15:52:01.020588+00:00",
+  "elapsed_s": 10.7
+}

@@ -1,0 +1,932 @@
+{
+  "anchor_name": "perceptual_access_intact_v1",
+  "verdict": "MEASURED",
+  "run_mode": "full",
+  "seed": 20260828,
+  "n_items": 86,
+  "n_candidates_not_obs": 43,
+  "n_candidates_obs": 247,
+  "cue_accuracy": {
+    "LEXICAL": {
+      "acc": 0.5813953488372093,
+      "ci": [
+        0.47674418604651164,
+        0.686046511627907
+      ]
+    },
+    "LEDGER": {
+      "acc": 0.9302325581395349,
+      "ci": [
+        0.872093023255814,
+        0.9767441860465116
+      ]
+    },
+    "LEDGER_SPATIAL_ONLY": {
+      "acc": 0.5348837209302325,
+      "ci": [
+        0.43023255813953487,
+        0.6395348837209303
+      ]
+    },
+    "TWIN": {
+      "acc": 0.5813953488372093,
+      "ci": [
+        0.47674418604651164,
+        0.686046511627907
+      ]
+    },
+    "MAJORITY": 0.5
+  },
+  "per_tier": {
+    "ignorant": {
+      "lex": 0.3,
+      "led": 1.0,
+      "n": 30
+    },
+    "absence": {
+      "lex": 0.125,
+      "led": 0.25,
+      "n": 8
+    },
+    "irony": {
+      "lex": 0.2,
+      "led": 1.0,
+      "n": 5
+    },
+    "witness": {
+      "lex": 0.9069767441860465,
+      "led": 1.0,
+      "n": 43
+    }
+  },
+  "gates": {
+    "ledger_beats_lexical_ci": true,
+    "ledger_beats_majority": true,
+    "ledger_beats_twin_ci": true,
+    "ledger_ge_lexical": true
+  },
+  "dump": [
+    {
+      "agent": "But Hepzibah",
+      "tier": "ignorant",
+      "marker": "But Hepzibah did not see",
+      "gold": false,
+      "lexical": false,
+      "ledger": false,
+      "book": "77_the_house_of_the_seven_gables.txt",
+      "text": "Its vastness made it nothing. But Hepzibah did not see that, just as there comes a warm sunbeam into every cottage window, so comes a lovebeam of God's care and pity for every separate need. At last, "
+    },
+    {
+      "agent": "Oak",
+      "tier": "ignorant",
+      "marker": "Oak did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "27_far_from_the_madding_crowd.txt",
+      "text": "Gabriel suddenly missed Farmer Boldwood from his place at the bottom of the table. How long he had been gone Oak did not know; but he had apparently withdrawn into the encircling dusk. Whilst he was t"
+    },
+    {
+      "agent": "Herr Sung",
+      "tier": "ignorant",
+      "marker": "Herr Sung did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "351_of_human_bondage.txt",
+      "text": "At last even the placidity of Professor Erlin was moved, and he insisted that his wife should speak to the Chinaman. She took him aside in his turn and expostulated; he was ruining the girl's reputati"
+    },
+    {
+      "agent": "George",
+      "tier": "absence",
+      "marker": "in George's absence",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "1023_bleak_house.txt",
+      "text": "He has a curious way of limping round the gallery with his shoulder against the wall and tacking off at objects he wants to lay hold of instead of going straight to them, which has left a smear all ro"
+    },
+    {
+      "agent": "Sol",
+      "tier": "irony",
+      "marker": "unknown to Sol",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "502_desert_gold.txt",
+      "text": "The horse jumped and wheeled, ready to run. It was doubtful if any one unknown to Sol could ever have caught him. Gale's low call reassured him, and he went on grazing."
+    },
+    {
+      "agent": "Tarzan",
+      "tier": "ignorant",
+      "marker": "Tarzan knew nothing",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "78_tarzan_of_the_apes.txt",
+      "text": "He noted the extreme care which the woman took that none of the matter should touch her hands, and once when a particle spattered upon one of her fingers he saw her plunge the member into a vessel of "
+    },
+    {
+      "agent": "Annette",
+      "tier": "ignorant",
+      "marker": "Annette knew nothing",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "3268_the_mysteries_of_udolpho.txt",
+      "text": "Emily now lost her patience, and her fear of being overheard increasing, she was even nearly about to leave the door, when she considered, that Annette might, possibly, know something of the situation"
+    },
+    {
+      "agent": "Ralph",
+      "tier": "irony",
+      "marker": "unknown to Ralph",
+      "gold": false,
+      "lexical": false,
+      "ledger": false,
+      "book": "1245_night_and_day.txt",
+      "text": "He left the room. The Hilberys\u2019 house was tall, possessing many stories and passages with closed doors, all, once he had passed the drawing-room floor, unknown to Ralph. He mounted as high as he could"
+    },
+    {
+      "agent": "Hurstwood",
+      "tier": "absence",
+      "marker": "in Hurstwood's absence",
+      "gold": false,
+      "lexical": true,
+      "ledger": true,
+      "book": "233_sister_carrie_a_novel.txt",
+      "text": "She could not persuade herself as to the advisability of her promise, or that now, having given her word, she ought to keep it. She went over the whole ground in Hurstwood's absence, and discovered li"
+    },
+    {
+      "agent": "Carol",
+      "tier": "ignorant",
+      "marker": "Carol did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "543_main_street.txt",
+      "text": "And they\u2019ve been ridiculing it, all this while!\u201d She was huddled on the couch. Vida was stroking her hair, muttering, \u201cI shouldn\u2019t----\u201d Shrouded in shame, Carol did not know when Vida slipped away. Th"
+    },
+    {
+      "agent": "Ernest",
+      "tier": "ignorant",
+      "marker": "Ernest did not see",
+      "gold": false,
+      "lexical": false,
+      "ledger": false,
+      "book": "2084_the_way_of_all_flesh.txt",
+      "text": "We talked the situation over, and decided first to get the children away, and then to come to terms with Ellen concerning their future custody; as for herself, I proposed that we should make her an al"
+    },
+    {
+      "agent": "Mrs Chiley",
+      "tier": "ignorant",
+      "marker": "Mrs Chiley did not see",
+      "gold": false,
+      "lexical": false,
+      "ledger": false,
+      "book": "41286_miss_marjoribanks.txt",
+      "text": "But still he had very good connections and a nice position, and had always a chance of being Bishop of Carlingford; and in marriage it is well known that one never can have everything one wants. So th"
+    },
+    {
+      "agent": "Philip",
+      "tier": "ignorant",
+      "marker": "Philip did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "351_of_human_bondage.txt",
+      "text": "There were three or four thousand books, but everyone knew how badly they sold, and it was not probable that they would fetch more than a hundred pounds. Philip did not know how much his uncle would l"
+    },
+    {
+      "agent": "English",
+      "tier": "irony",
+      "marker": "unknown to English",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "33_the_scarlet_letter.txt",
+      "text": "But through the remainder of Hester's life there were indications that the recluse of the scarlet letter was the object of love and interest with some inhabitant of another land. Letters came, with ar"
+    },
+    {
+      "agent": "Bles",
+      "tier": "ignorant",
+      "marker": "Bles did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "15265_the_quest_of_the_silver_fleece_a_novel.txt",
+      "text": "For a while she lay in her chair, in happy, dreamy pleasure at sun and bird and tree. Bles did not know yet that she was down; but soon he would come searching, for he came each hour, and she pressed "
+    },
+    {
+      "agent": "Chip",
+      "tier": "absence",
+      "marker": "during Chip's absence",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "1206_the_flying_u_ranch.txt",
+      "text": "They'll drive their sheep right into your dooryard and tell 'en to help themselves to anything that happens to look good to them. Oh, they're sure modest and retiring!\u201d Weary, who had charge of the ou"
+    },
+    {
+      "agent": "Dorothea",
+      "tier": "ignorant",
+      "marker": "Dorothea did not see",
+      "gold": false,
+      "lexical": false,
+      "ledger": false,
+      "book": "145_middlemarch.txt",
+      "text": "In their conversation before marriage, Mr. Casaubon had often dwelt on some explanation or questionable detail of which Dorothea did not see the bearing; but such imperfect coherence seemed due to the"
+    },
+    {
+      "agent": "Tommy",
+      "tier": "irony",
+      "marker": "unknown to Tommy",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "1155_the_secret_adversary.txt",
+      "text": "He would watch events, and any time he chose could, after all, join the assembly, modelling his behaviour on that of the new arrival. The man who came up the staircase with a furtive, soft-footed trea"
+    },
+    {
+      "agent": "Tess",
+      "tier": "ignorant",
+      "marker": "Tess knew nothing",
+      "gold": false,
+      "lexical": false,
+      "ledger": false,
+      "book": "110_tess_of_the_durbervilles_a_pure_woman.txt",
+      "text": "They were not worldly young fellows, but fraternizing with dairy-folk would have struck unpleasantly upon their biased niceness, apart from their views of the match. Upheld by the momentum of the time"
+    },
+    {
+      "agent": "Elizabeth",
+      "tier": "ignorant",
+      "marker": "Elizabeth knew nothing",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "1342_pride_and_prejudice.txt",
+      "text": "There is nothing he would not do for her.\u201d The picture-gallery, and two or three of the principal bedrooms, were all that remained to be shown. In the former were many good paintings; but Elizabeth kn"
+    },
+    {
+      "agent": "Mary",
+      "tier": "absence",
+      "marker": "in Mary's absence",
+      "gold": false,
+      "lexical": true,
+      "ledger": true,
+      "book": "4276_north_and_south.txt",
+      "text": "The Boucher children, left motherless orphans, claimed what of Margaret's care she could bestow; and she went pretty often to see Mary Higgins, who had charge of them. The two families were living in "
+    },
+    {
+      "agent": "Arthur",
+      "tier": "ignorant",
+      "marker": "Arthur did not notice",
+      "gold": false,
+      "lexical": false,
+      "ledger": false,
+      "book": "345_dracula.txt",
+      "text": "As he did so the narrow black velvet band which she seems always to wear round her throat, buckled with an old diamond buckle which her lover had given her, was dragged a little up, and showed a red m"
+    },
+    {
+      "agent": "Miss Maitland",
+      "tier": "absence",
+      "marker": "while Miss Maitland was out",
+      "gold": false,
+      "lexical": false,
+      "ledger": true,
+      "book": "2084_the_way_of_all_flesh.txt",
+      "text": "Towneley was still in Mrs Jupp's house when the policeman came. He had heard a disturbance, and going down to Ernest's room while Miss Maitland was out of doors, had found him lying, as it were, stunn"
+    },
+    {
+      "agent": "Jimmy",
+      "tier": "ignorant",
+      "marker": "Jimmy did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "2005_piccadilly_jim.txt",
+      "text": "Gaping at them from the open doorway, wonderfully respectable and butlerlike in swallow-tails, stood his father. How he came to be there, and why he was there, Jimmy did not know. But there he was."
+    },
+    {
+      "agent": "Wolfe",
+      "tier": "ignorant",
+      "marker": "Wolfe did not see",
+      "gold": false,
+      "lexical": false,
+      "ledger": false,
+      "book": "876_life_in_the_ironmills_or_the_korl_woman.txt",
+      "text": "I'm a-goin' now to let her in.\u201d He let her in. Wolfe did not see her. She crept into a corner of the cell, and stood watching him."
+    },
+    {
+      "agent": "Tillie",
+      "tier": "absence",
+      "marker": "in Tillie's absence",
+      "gold": false,
+      "lexical": true,
+      "ledger": true,
+      "book": "44_the_song_of_the_lark.txt",
+      "text": "The club had decided to put on \u201cThe Drummer Boy of Shiloh,\u201d a very ambitious undertaking because of the many supers needed and the scenic difficulties of the act which took place in Andersonville Pris"
+    },
+    {
+      "agent": "Thomas",
+      "tier": "ignorant",
+      "marker": "Thomas did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "434_the_circular_staircase.txt",
+      "text": "When he left it was after two. He had gone up to the house--Thomas did not know why--and at three o'clock he was shot at the foot of the circular staircase. The following morning Louise had been ill."
+    },
+    {
+      "agent": "Jaggers",
+      "tier": "ignorant",
+      "marker": "Jaggers knew nothing",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "1400_great_expectations.txt",
+      "text": "I keep no money here; but if you would rather Mr. Jaggers knew nothing of the matter, I will send it to you.\u201d \u201cThank you, Miss Havisham; I have not the least objection to receiving it from him.\u201d She r"
+    },
+    {
+      "agent": "Big Medicine",
+      "tier": "ignorant",
+      "marker": "Big Medicine did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "1206_the_flying_u_ranch.txt",
+      "text": "Big Medicine saw them start, and came bellowing up from the far side of the huddle like a bull challenging to combat from across a meadow. Big Medicine did not know what it was all about, but he scent"
+    },
+    {
+      "agent": "Rena",
+      "tier": "ignorant",
+      "marker": "Rena did not see",
+      "gold": false,
+      "lexical": false,
+      "ledger": false,
+      "book": "472_the_house_behind_the_cedars.txt",
+      "text": "Blessed be de name er de Lawd.\" He accompanied this sententious quotation with a wicked look from under his half-closed eyelids that Rena did not see. The following morning Wain drove her in his buggy"
+    },
+    {
+      "agent": "Buck",
+      "tier": "ignorant",
+      "marker": "Buck did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "215_the_call_of_the_wild.txt",
+      "text": "But Spitz, cold and calculating even in his supreme moods, left the pack and cut across a narrow neck of land where the creek made a long bend around. Buck did not know of this, and as he rounded the "
+    },
+    {
+      "agent": "Rena",
+      "tier": "ignorant",
+      "marker": "Rena did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "472_the_house_behind_the_cedars.txt",
+      "text": "\"You ain't gwine ter be gone long, is you, Miss Rena?\" he inquired, when Rena came out dressed for the journey in her best frock, with broad white collar and cuffs. Rena did not know. She had been ask"
+    },
+    {
+      "agent": "Edna",
+      "tier": "absence",
+      "marker": "during Edna's absence",
+      "gold": false,
+      "lexical": true,
+      "ledger": true,
+      "book": "160_the_awakening_and_selected_short_stories.txt",
+      "text": "These were a surprise to her. Arobin had sent them, and had had Celestine distribute them during Edna's absence. Her bedroom was adjoining, and across a small passage were the dining-room and kitchen."
+    },
+    {
+      "agent": "Western",
+      "tier": "ignorant",
+      "marker": "Western did not see",
+      "gold": false,
+      "lexical": false,
+      "ledger": false,
+      "book": "6593_history_of_tom_jones_a_foundling.txt",
+      "text": "In reality, it is only because they have the same thing in their heads, and their thoughts are turned the same way. Thus, that Sophia saw, and that Western did not see, the plain symptoms of love in J"
+    },
+    {
+      "agent": "Leonce",
+      "tier": "absence",
+      "marker": "during Leonce's absence",
+      "gold": false,
+      "lexical": true,
+      "ledger": true,
+      "book": "160_the_awakening_and_selected_short_stories.txt",
+      "text": "Old Madame Pontellier had come herself and carried them off to Iberville with their quadroon. The old madame did not venture to say she was afraid they would be neglected during Leonce's absence; she "
+    },
+    {
+      "agent": "Rawdon",
+      "tier": "ignorant",
+      "marker": "Rawdon did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "599_vanity_fair.txt",
+      "text": "The old bucks and habitues, who ordinarily stand gaping and grinning out of the great front window of the Club, had not arrived at their posts as yet--the newspaper-room was almost empty. One man was "
+    },
+    {
+      "agent": "The Doctor",
+      "tier": "ignorant",
+      "marker": "The Doctor knew nothing",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "41286_miss_marjoribanks.txt",
+      "text": "\"Perhaps not, papa,\" said Lucilla, with a little sigh. The Doctor knew nothing about the great social experiment which it had entered into Miss Marjoribanks's mind to make for the regeneration of her "
+    },
+    {
+      "agent": "Margaret",
+      "tier": "ignorant",
+      "marker": "Margaret did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "2891_howards_end.txt",
+      "text": "On his arrival he called at all the livery-stables in the village, and had a few minutes' serious conversation with the proprietors. What he said, Margaret did not know--perhaps not the truth; but new"
+    },
+    {
+      "agent": "Honour",
+      "tier": "ignorant",
+      "marker": "Honour knew nothing",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "6593_history_of_tom_jones_a_foundling.txt",
+      "text": "Nothing could equal the dilemma to which Jones was now reduced. Honour knew nothing of any acquaintance that subsisted between him and Lady Bellaston, and she was almost the last person in the world t"
+    },
+    {
+      "agent": "Lenehan",
+      "tier": "ignorant",
+      "marker": "Lenehan did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "2814_dubliners.txt",
+      "text": "The young man who had seen Mac in Westmoreland Street asked was it true that Mac had won a bit over a billiard match. Lenehan did not know: he said that Holohan had stood them drinks in Egan\u2019s. He lef"
+    },
+    {
+      "agent": "Edward",
+      "tier": "ignorant",
+      "marker": "Edward knew nothing",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "2775_the_good_soldier.txt",
+      "text": "Do you intend to let me pull things together? If not I shall retire to Hendon on my jointure.\" (Hendon represented a convent to which she occasionally went for what is called a \"retreat\" in Catholic c"
+    },
+    {
+      "agent": "Umslopogaas",
+      "tier": "ignorant",
+      "marker": "Umslopogaas did not know",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "711_allan_quatermain.txt",
+      "text": "Just above where the haft entered the head were scored a number of little nicks, each nick representing a man killed in battle with the weapon. The axe itself was made of the most beautiful steel, and"
+    },
+    {
+      "agent": "Tommy",
+      "tier": "irony",
+      "marker": "unknown to Tommy",
+      "gold": false,
+      "lexical": true,
+      "ledger": false,
+      "book": "1155_the_secret_adversary.txt",
+      "text": "The signal knock, the demand for a number, and the reply \u201cCorrect.\u201d Two knocks followed in quick succession on the door below. The first man was quite unknown to Tommy, who put him down as a city cler"
+    },
+    {
+      "agent": "Anne",
+      "tier": "witness",
+      "marker": "Anne saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "105_persuasion.txt",
+      "text": "He was ordered to walk to keep off the gout, and Mrs Croft seemed to go shares with him in everything, and to walk for her life to do him good. Anne saw them wherever she went. Lady Russell took her o"
+    },
+    {
+      "agent": "Lord Orville",
+      "tier": "witness",
+      "marker": "Lord Orville saw",
+      "gold": true,
+      "lexical": false,
+      "ledger": true,
+      "book": "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world.txt",
+      "text": "Brown, I went to Madame Duval, and besought that she would not suffer me to be again parted from her. I fancy-that Lord Orville saw what passed; for scarcely was I at liberty, ere he returned. Methoug"
+    },
+    {
+      "agent": "Philip",
+      "tier": "witness",
+      "marker": "Philip watched",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "351_of_human_bondage.txt",
+      "text": "She sat down in her husband's chair; and as she thought of her desire to love the friendless, crippled boy and her eager wish that he should love her--she was a barren woman and, even though it was cl"
+    },
+    {
+      "agent": "Philip",
+      "tier": "witness",
+      "marker": "Philip saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "351_of_human_bondage.txt",
+      "text": "I've been here so many years now, I don't know what I shall do when he comes to go.\" Philip saw that she was really fond of the old man. She washed and dressed him, gave him his food, and was up half "
+    },
+    {
+      "agent": "Robinson Crusoe",
+      "tier": "witness",
+      "marker": "Robinson Crusoe saw",
+      "gold": true,
+      "lexical": false,
+      "ledger": true,
+      "book": "155_the_moonstone.txt",
+      "text": "As soon as his back was turned, I went to my writing desk to start the story. There I have sat helpless (in spite of my abilities) ever since; seeing what Robinson Crusoe saw, as quoted above--namely,"
+    },
+    {
+      "agent": "Miss Rachel",
+      "tier": "witness",
+      "marker": "Miss Rachel saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "155_the_moonstone.txt",
+      "text": "While they were still together, my lady appeared on the terrace. Miss Rachel saw her--said a few last words to Mr. Franklin--and suddenly went back into the house again, before her mother came up with"
+    },
+    {
+      "agent": "Jo",
+      "tier": "witness",
+      "marker": "Jo saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "514_little_women.txt",
+      "text": "Meg was asked at once, and the tight slippers tripped about so briskly that none would have guessed the pain their wearer suffered smilingly. Jo saw a big red headed youth approaching her corner, and "
+    },
+    {
+      "agent": "Professor",
+      "tier": "witness",
+      "marker": "Professor saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "514_little_women.txt",
+      "text": "It was not, however, and her panic subsided as she remembered that even if it had been and one of her own tales in it, there would have been no name to betray her. She had betrayed herself, however, b"
+    },
+    {
+      "agent": "Stephen",
+      "tier": "witness",
+      "marker": "Stephen saw",
+      "gold": true,
+      "lexical": false,
+      "ledger": true,
+      "book": "4217_a_portrait_of_the_artist_as_a_young_man.txt",
+      "text": "He rose nimbly and went towards the door, set it ajar and said: --A draught is said to be a help in these matters. As he came back to the hearth, limping slightly but with a brisk step, Stephen saw th"
+    },
+    {
+      "agent": "Emily",
+      "tier": "witness",
+      "marker": "Emily saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "3268_the_mysteries_of_udolpho.txt",
+      "text": "As they advanced, these vapours thickened, and Barnardine, believing the torch was expiring, stopped for a moment to trim it. As he then rested against a pair of iron gates, that opened from the passa"
+    },
+    {
+      "agent": "Bridget",
+      "tier": "witness",
+      "marker": "Bridget saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "4051_lady_bridget_in_the_nevernever_land_a_story_of_australian_life.txt",
+      "text": "The man got up; stretched his long, lean frame, shuddering as if it had been on the rack. He drew two deep breaths, braced himself, wiped the blood from his lip, put on the stony mask which Bridget sa"
+    },
+    {
+      "agent": "Emma",
+      "tier": "witness",
+      "marker": "Emma watched",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "158_emma.txt",
+      "text": "The ladies had not been long in the drawing-room, before the other ladies, in their different divisions, arrived. Emma watched the entree of her own particular little friend; and if she could not exul"
+    },
+    {
+      "agent": "Syme",
+      "tier": "witness",
+      "marker": "Syme saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "1695_the_man_who_was_thursday_a_nightmare.txt",
+      "text": "And still through all this insane publicity the three cabs toiled after it, until they came to be regarded as part of a procession, and perhaps the advertisement of a circus. They went at such a rate "
+    },
+    {
+      "agent": "Ernest",
+      "tier": "witness",
+      "marker": "Ernest saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "2084_the_way_of_all_flesh.txt",
+      "text": "Ellen had had hard times since she had left Battersby, but they had left little trace upon her. Ernest saw only the fresh-looking smiling face, the dimpled cheek, the clear blue eyes and lovely sphinx"
+    },
+    {
+      "agent": "Carrie",
+      "tier": "witness",
+      "marker": "Carrie saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "233_sister_carrie_a_novel.txt",
+      "text": "Hale sadly, \u201chow delightful it would be.\u201d \u201cAnd yet they do say,\u201d said Carrie, \u201cthat no one is ever happy.\u201d She had heard so much of the canting philosophy of the grapeless fox. \u201cI notice,\u201d said Mrs. H"
+    },
+    {
+      "agent": "George",
+      "tier": "witness",
+      "marker": "George observed",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "8867_the_magnificent_ambersons.txt",
+      "text": "I thought she'd feel better when we turned over the insurance to her--gave it to her absolutely, without any strings to it. She looks about a thousand years old!\u201d \u201cShe looks quite girlish, sometimes, "
+    },
+    {
+      "agent": "Jock",
+      "tier": "witness",
+      "marker": "Jock saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "12677_personality_plus_some_experiences_of_emma_mcchesney_and_her_son_jock.txt",
+      "text": "He was stuttering with anger. With a mingling of despair and boldness Jock saw the advantage of that stuttering moment and seized on it. He stepped close to the broad table-desk, resting both hands on"
+    },
+    {
+      "agent": "George",
+      "tier": "witness",
+      "marker": "George saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "8867_the_magnificent_ambersons.txt",
+      "text": "His decision was the result of no timidity, nor of a too sensitive delicacy. What he felt was, that if he interrupted the scene in his grandfather's room, just at this time, one of the three gentlemen"
+    },
+    {
+      "agent": "The Professor",
+      "tier": "witness",
+      "marker": "The Professor watched",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "345_dracula.txt",
+      "text": "Her faint became a profound slumber. The Professor watched whilst I went downstairs with Quincey Morris, and sent one of the maids to pay off one of the cabmen who were waiting. I left Quincey lying d"
+    },
+    {
+      "agent": "Mr Bloom",
+      "tier": "witness",
+      "marker": "Mr Bloom beheld",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "4300_ulysses.txt",
+      "text": "He put his boot on what he had spat, wiping his sole along it, and bent, showing a rawskinned crown, scantily haired. Mr Bloom beheld it. Mastering his troubled breath, he said: \u2014I\u2019ll take this one."
+    },
+    {
+      "agent": "Clara",
+      "tier": "witness",
+      "marker": "Clara saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "217_sons_and_lovers.txt",
+      "text": "The hatred of her went so hot down his veins, he dropped his cards. \u201cWe'll stop, then,\u201d he said, but his voice was still a challenge. Clara saw his mouth shut hard. Again he glanced at her."
+    },
+    {
+      "agent": "Sergeant",
+      "tier": "witness",
+      "marker": "Sergeant saw",
+      "gold": true,
+      "lexical": false,
+      "ledger": true,
+      "book": "155_the_moonstone.txt",
+      "text": "Godfrey Ablewhite off by the railway; and I went to your favourite walk in the shrubbery, to try for another chance of speaking to you--the last chance, for all I knew to the contrary, that I might ha"
+    },
+    {
+      "agent": "Tryon",
+      "tier": "witness",
+      "marker": "Tryon watched",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "472_the_house_behind_the_cedars.txt",
+      "text": "More than once, during the second week after his return, he went out riding with her; she was a graceful horsewoman, perfectly at home in the saddle, and appearing to advantage in a riding-habit. She "
+    },
+    {
+      "agent": "Christina",
+      "tier": "witness",
+      "marker": "Christina saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "2084_the_way_of_all_flesh.txt",
+      "text": "He could see that they eyed him from time to time with a surprise not unmixed with indignation, and knew very well what they were thinking. Christina saw the change which had come over him--how much f"
+    },
+    {
+      "agent": "Kennicott",
+      "tier": "witness",
+      "marker": "Kennicott observed",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "543_main_street.txt",
+      "text": "His leg was thrust out before him, resting on a starch-box and covered with a leather-bound horse-blanket. His drab courageous wife drove the wagon, and she helped Kennicott support him as he hobbled "
+    },
+    {
+      "agent": "Paul",
+      "tier": "witness",
+      "marker": "Paul saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "217_sons_and_lovers.txt",
+      "text": "Her pulse was very irregular. \u201cLet US settle you down,\u201d said Annie. \u201cPerhaps nurse will be so late.\u201d \u201cAy,\u201d said the mother--\u201ctry.\u201d They turned the clothes back. Paul saw his mother like a girl curled "
+    },
+    {
+      "agent": "Tarzan",
+      "tier": "witness",
+      "marker": "Tarzan saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "78_tarzan_of_the_apes.txt",
+      "text": "Up went the hunting knife, and then the woman turned to one side and soon a guttural \"ah\" proclaimed that her search had at last been successful. Immediately she turned and left the hut, and as she pa"
+    },
+    {
+      "agent": "Marguerite",
+      "tier": "witness",
+      "marker": "Marguerite watched",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "60_the_scarlet_pimpernel.txt",
+      "text": "Surely not, with his gentle blue eyes, which were looking so tenderly and longingly after little Suzanne, who was being led away from the pleasant TETE-A-TETE by her stern mother. Marguerite watched h"
+    },
+    {
+      "agent": "Hurstwood",
+      "tier": "witness",
+      "marker": "Hurstwood watched",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "233_sister_carrie_a_novel.txt",
+      "text": "This poker room was much like the other one, only it was a back room in a better drinking resort. Hurstwood watched a while, and then, seeing an interesting game, joined in. As before, it went easy fo"
+    },
+    {
+      "agent": "Mulvey",
+      "tier": "witness",
+      "marker": "Mulvey watched",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "3457_the_man_of_the_forest.txt",
+      "text": "They had been drinkin' sorta free. An' I didn't like the way Mulvey watched me. So I went out an' into the store, but kept a-lookin' for Las Vegas."
+    },
+    {
+      "agent": "Lady Bridget",
+      "tier": "witness",
+      "marker": "Lady Bridget watched",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "4051_lady_bridget_in_the_nevernever_land_a_story_of_australian_life.txt",
+      "text": "'But if you don't mind darling. I'd better just see if anything has started the beasts.' Lady Bridget watched him disappear round the knoll. The curlews went on wailing, and as if in answer a night ow"
+    },
+    {
+      "agent": "But Bridget",
+      "tier": "witness",
+      "marker": "But Bridget saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "4051_lady_bridget_in_the_nevernever_land_a_story_of_australian_life.txt",
+      "text": "Bridget drew aside against the wall, so that Oola, again springing over the window sill, did not observe her. But Bridget saw the watch and chain with the iron key attached to it which the gin had sto"
+    },
+    {
+      "agent": "Beebe",
+      "tier": "witness",
+      "marker": "Beebe saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "2641_a_room_with_a_view.txt",
+      "text": "Mr. Beebe saw that Lucy--very properly--did not wish to discuss her action, so after a sincere expression of sympathy, he said, \u201cI have had an absurd letter from Miss Alan. That was really what brough"
+    },
+    {
+      "agent": "Steerforth",
+      "tier": "witness",
+      "marker": "Steerforth observed",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "766_david_copperfield.txt",
+      "text": "For example, when Mrs. Steerforth observed, more in jest than earnest, that she feared her son led but a wild life at college, Miss Dartle put in thus: \u2018Oh, really? You know how ignorant I am, and tha"
+    },
+    {
+      "agent": "Thornton",
+      "tier": "witness",
+      "marker": "Thornton watched",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "4276_north_and_south.txt",
+      "text": "Mrs. Thornton watched for her son, who was still in the mill. He came out, looked up at them--the pale cluster of faces--and smiled good courage to them, before he locked the factory-door."
+    },
+    {
+      "agent": "Archer",
+      "tier": "witness",
+      "marker": "Archer saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "541_the_age_of_innocence.txt",
+      "text": "Ah, here's May arriving, and you will want to hurry away to her,\" she added, but without moving; and her eyes turned back from the door to rest on the young man's face. The drawing-rooms were beginnin"
+    },
+    {
+      "agent": "Matthew",
+      "tier": "witness",
+      "marker": "Matthew saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "45_anne_of_green_gables.txt",
+      "text": "A Queen\u2019s Girl |THE next three weeks were busy ones at Green Gables, for Anne was getting ready to go to Queen\u2019s, and there was much sewing to be done, and many things to be talked over and arranged. "
+    },
+    {
+      "agent": "Chauvelin",
+      "tier": "witness",
+      "marker": "Chauvelin watched",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "60_the_scarlet_pimpernel.txt",
+      "text": "Many bowed to her as she did so, and from the royal box there came also a quick and gracious salute. Chauvelin watched her intently all through the commencement of the third act, as she sat enthralled"
+    },
+    {
+      "agent": "Marilla",
+      "tier": "witness",
+      "marker": "Marilla saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "45_anne_of_green_gables.txt",
+      "text": "Allan took a mouthful of hers and a most peculiar expression crossed her face; not a word did she say, however, but steadily ate away at it. Marilla saw the expression and hastened to taste the cake. "
+    },
+    {
+      "agent": "Elizabeth",
+      "tier": "witness",
+      "marker": "Elizabeth saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "1342_pride_and_prejudice.txt",
+      "text": "Very little was said by either; Kitty was too much afraid of him to talk; Elizabeth was secretly forming a desperate resolution; and perhaps he might be doing the same. They walked towards the Lucases"
+    },
+    {
+      "agent": "Drouet",
+      "tier": "witness",
+      "marker": "Drouet saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "233_sister_carrie_a_novel.txt",
+      "text": "They rambled weakly forward, losing nearly all the expression which was intended, and making the thing dull in the extreme, when Carrie came in. One glance at her, and both Hurstwood and Drouet saw pl"
+    },
+    {
+      "agent": "Tarzan",
+      "tier": "witness",
+      "marker": "Tarzan saw",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "78_tarzan_of_the_apes.txt",
+      "text": "Presently his keen eyes caught the faintest suspicion of smoke on the far northern horizon, and he wondered over the cause of such a thing out on the great water. About the same time the look-out on t"
+    },
+    {
+      "agent": "Emily",
+      "tier": "witness",
+      "marker": "Emily observed",
+      "gold": true,
+      "lexical": true,
+      "ledger": true,
+      "book": "3268_the_mysteries_of_udolpho.txt",
+      "text": "Aubert, as if struck with some sudden remembrance, 'the convent of St. Clair!' Emily observed the clouds of grief, mingled with a faint expression of horror, gathering on his brow; his countenance bec"
+    }
+  ],
+  "ts_iso": "2026-08-28T15:18:45.068346+00:00",
+  "elapsed_s": 4.2
+}

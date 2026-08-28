@@ -65,6 +65,36 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — THEORY OF MIND: the OBSERVATION-CUE RESIDUAL now has a brain-faithful mechanism — a per-agent
+  PERCEPTUAL-ACCESS REGISTRATION LEDGER — and the landed lexical extractor is exposed as a non-generalising OUR-INVENTION
+  stand-in** (from `theory_of_mind_residual_is_the_observation_cue_front_end`, integrated SOLVED/EXCELLENT, owner-DONE;
+  4 witnesses re-verified FIRST-HAND). Reading "did agent A witness the change?" is NOT a keyword problem — it is a
+  SITUATION-MODEL read: **`observed = RULE0 explicit-narrator-statement (event-local), else RULE1 co-present-AND-in-the-
+  perceptual-field, OR RULE2 informed`**, maintained as a STICKY per-agent ledger; **false belief = the ledger being
+  STALE vs reality** (maps exactly onto the landed `believed_location(observed, initial, final)` gate). PINNED (Butterfill
+  & Apperly 2013 registration; Zwaan & Radvansky event-indexing SPACE dimension; Talmy 1985 PATH-lives-in-the-satellite-
+  not-the-verb; Harris & Koenig 2006 testimony). **The landed lexical extractor is an OUR-INVENTION stand-in that does NOT
+  generalise: 0.808 on its own phrasings → 0.500 (chance) on real corpus prose**; the ledger reads 0.992 [0.980,1.000]
+  CI-sep, lifting the end-to-end belief accuracy 0.50→0.99 past the 0.821 residual. **New first-class sub-mechanisms /
+  walls to record:** (a) **OCCLUSION / perceptual availability** as a PINNED PER-MODALITY FIELD (vision needs light+LOS+
+  not-closed-opaque+attending+awake; audition penetrates dark/thin-barriers but needs a non-silent event; touch needs
+  contact) over an occluder ontology, UNKNOWN as a first-class value — the precisely-diagnosed NLP-vs-brain wall (FANToM
+  Kim 2023; Ullman 2023 transparent-bag), previously unnamed in the ToM entry. (b) **VERB POLYSEMY** as a cross-cutting
+  text-front-end fidelity wall (the brain uses full lexical semantics; our glass-box reader cannot) — distinct from coref.
+  (c) **SEQUENTIAL registration**: belief over a CHAIN = the last change the agent perceived (sticky per-agent cell,
+  world-track separate) with the MOTION-PERSISTENCE exception (watched-into-an-occluder registers the destination) and
+  IGNORANCE (registration=None) as a state distinct from false belief; epistemic markers are EVENT-LOCAL. `belief_partition`'s
+  binary gate should extend to this. (d) **TWO-ROUTE dissociation**: an EXPLICIT-STATEMENT route (narrator asserts the mind-
+  state; local) vs a SPATIAL-INFERENCE route (needs the FULL incremental situation model — Zwaan); on intact 3-sentence
+  WINDOWS the spatial route is at CHANCE because the cause is out-of-window (PROVEN a windowing artifact: full-text spatial
+  route holds 0.99 at K=0..20, windowed→0.00) → the deployed front-end must run over the running model, not windows.
+  **The diagnosed walls are OCCLUSION + verb POLYSEMY, NOT coreference.** hdlab landing QUEUED (promote
+  `hdlab/perceptual_access.py` + extend `belief_partition` to a sequence ledger — must consume the coref/situation-model
+  organs to avoid a spaCy dependency). **Surfaced a genuinely MISSING organ (highest-leverage adjacency): NO SPACE
+  dimension in the situation model — `situation_model_accumulate`/`factorized_entity_store`/`event_bundle` bind
+  (entity,role,event) but track no per-entity location-over-time register** (the Zwaan SPACE dimension, PINNED, absent;
+  the ledger implements a minimal one inline as a stopgap).
+
 - **2026-08-28 — DIMENSIONALITY (N) IS NOT A FIDELITY/PERFORMANCE LEVER ANYWHERE; the real axis is CODE ORTHOGONALITY (+ readout
   + sparsity), and the substrate is NOT uniformly D=1024** (from `dimensional_phase_diagram_audit_of_the_current_organs`,
   integrated SOLVED/EXCELLENT, owner-DONE; witness `test_dim_phase_diagram.py` 18/18 PASS re-verified FIRST-HAND, positive-control

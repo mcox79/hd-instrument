@@ -1,0 +1,395 @@
+{
+  "anchor_name": "perceptual_access_corpus_v1",
+  "verdict": "MEASURED",
+  "run_mode": "full",
+  "seed": 20260828,
+  "n_items": 246,
+  "n_not_observed": 123,
+  "n_observed": 123,
+  "cue_accuracy": {
+    "LEXICAL": {
+      "acc": 0.5,
+      "ci": [
+        0.43902439024390244,
+        0.556910569105691
+      ],
+      "hw": 0.0589430894308943
+    },
+    "LEDGER": {
+      "acc": 0.991869918699187,
+      "ci": [
+        0.9796747967479674,
+        1.0
+      ],
+      "hw": 0.010162601626016288
+    },
+    "TWIN": {
+      "acc": 0.4878048780487805,
+      "ci": [
+        0.42276422764227645,
+        0.5528455284552846
+      ],
+      "hw": 0.06504065040650406
+    },
+    "ALWAYS_OBSERVED": 0.5,
+    "ALWAYS_NOT_OBSERVED": 0.5,
+    "MAJORITY_FLOOR": 0.5
+  },
+  "per_class": {
+    "occlude": {
+      "lex": 0.0,
+      "led": 0.9803921568627451,
+      "n": 51
+    },
+    "depart": {
+      "lex": 0.0,
+      "led": 1.0,
+      "n": 72
+    },
+    "present": {
+      "lex": 1.0,
+      "led": 0.9879518072289156,
+      "n": 83
+    },
+    "return": {
+      "lex": 1.0,
+      "led": 1.0,
+      "n": 40
+    }
+  },
+  "end_to_end_belief_acc": {
+    "ORACLE": {
+      "acc": 1.0,
+      "ci": [
+        1.0,
+        1.0
+      ]
+    },
+    "LEXICAL": {
+      "acc": 0.5,
+      "ci": [
+        0.43902439024390244,
+        0.5610772357723572
+      ]
+    },
+    "LEDGER": {
+      "acc": 0.991869918699187,
+      "ci": [
+        0.9796747967479674,
+        1.0
+      ]
+    },
+    "landed_lexical_insitu_0p821": 0.821
+  },
+  "gates": {
+    "ledger_beats_lexical_ci": true,
+    "ledger_beats_majority": true,
+    "ledger_beats_twin_ci": true,
+    "e2e_ledger_beats_lexical_ci": true,
+    "e2e_ledger_beats_0p821": true
+  },
+  "verify_sample": [
+    {
+      "cue_clause": "slept till four o'clock",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "217_sons_and_lovers.txt"
+    },
+    {
+      "cue_clause": "was asleep now",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "76_adventures_of_huckleberry_finn.txt"
+    },
+    {
+      "cue_clause": "was asleep, or at the earliest, breakfas",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "2891_howards_end.txt"
+    },
+    {
+      "cue_clause": "walked away from the table",
+      "cls": "depart",
+      "observed_gold": false,
+      "book": "974_the_secret_agent_a_simple_tale.txt"
+    },
+    {
+      "cue_clause": "disappeared from the house",
+      "cls": "depart",
+      "observed_gold": false,
+      "book": "155_the_moonstone.txt"
+    },
+    {
+      "cue_clause": "retired to the library",
+      "cls": "depart",
+      "observed_gold": false,
+      "book": "1342_pride_and_prejudice.txt"
+    },
+    {
+      "cue_clause": "was asleep--snoring",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "4051_lady_bridget_in_the_nevernever_land_a_story_of_australian_life.txt"
+    },
+    {
+      "cue_clause": "was asleep on the lounge",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "9830_the_beautiful_and_damned.txt"
+    },
+    {
+      "cue_clause": "passed out",
+      "cls": "depart",
+      "observed_gold": false,
+      "book": "174_the_picture_of_dorian_gray.txt"
+    },
+    {
+      "cue_clause": "was unconscious",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "110_tess_of_the_durbervilles_a_pure_woman.txt"
+    },
+    {
+      "cue_clause": "passed off her sulky reply with a laugh",
+      "cls": "depart",
+      "observed_gold": false,
+      "book": "351_of_human_bondage.txt"
+    },
+    {
+      "cue_clause": "flew to the door, face alight, eyes glowing",
+      "cls": "depart",
+      "observed_gold": false,
+      "book": "45_anne_of_green_gables.txt"
+    },
+    {
+      "cue_clause": "lay fast asleep, not in his usual spreadeagle",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "514_little_women.txt"
+    },
+    {
+      "cue_clause": "slept, or appeared to sleep, for so",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "730_oliver_twist.txt"
+    },
+    {
+      "cue_clause": "lay insensible",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "2852_the_hound_of_the_baskervilles.txt"
+    },
+    {
+      "cue_clause": "passed out from the porch of the library",
+      "cls": "depart",
+      "observed_gold": false,
+      "book": "4217_a_portrait_of_the_artist_as_a_young_man.txt"
+    },
+    {
+      "cue_clause": "was asleep",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "1023_bleak_house.txt"
+    },
+    {
+      "cue_clause": "ran out of doors",
+      "cls": "depart",
+      "observed_gold": false,
+      "book": "74_the_adventures_of_tom_sawyer.txt"
+    },
+    {
+      "cue_clause": "stole out she caught a few words",
+      "cls": "depart",
+      "observed_gold": false,
+      "book": "4276_north_and_south.txt"
+    },
+    {
+      "cue_clause": "stepped off",
+      "cls": "depart",
+      "observed_gold": false,
+      "book": "217_sons_and_lovers.txt"
+    },
+    {
+      "cue_clause": "slept, all the year round, with his",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "1023_bleak_house.txt"
+    },
+    {
+      "cue_clause": "was asleep in a minute",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "969_the_tenant_of_wildfell_hall.txt"
+    },
+    {
+      "cue_clause": "flew off immediately on his small, sturdy legs",
+      "cls": "depart",
+      "observed_gold": false,
+      "book": "4051_lady_bridget_in_the_nevernever_land_a_story_of_australian_life.txt"
+    },
+    {
+      "cue_clause": "was in the dark",
+      "cls": "occlude",
+      "observed_gold": false,
+      "book": "974_the_secret_agent_a_simple_tale.txt"
+    },
+    {
+      "cue_clause": "slipped out to run",
+      "cls": "depart",
+      "observed_gold": false,
+      "book": "113_the_secret_garden.txt"
+    },
+    {
+      "cue_clause": "came home on her",
+      "cls": "return",
+      "observed_gold": true,
+      "book": "113_the_secret_garden.txt"
+    },
+    {
+      "cue_clause": "returned, in much the same tone with w",
+      "cls": "return",
+      "observed_gold": true,
+      "book": "1206_the_flying_u_ranch.txt"
+    },
+    {
+      "cue_clause": "looked on, perhaps deserved that little recompense",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "766_david_copperfield.txt"
+    },
+    {
+      "cue_clause": "looked on the expedition",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "2641_a_room_with_a_view.txt"
+    },
+    {
+      "cue_clause": "beheld, is unembittered laughter",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "543_main_street.txt"
+    },
+    {
+      "cue_clause": "got back rather late",
+      "cls": "return",
+      "observed_gold": true,
+      "book": "217_sons_and_lovers.txt"
+    },
+    {
+      "cue_clause": "got back on the stage, she found that",
+      "cls": "return",
+      "observed_gold": true,
+      "book": "233_sister_carrie_a_novel.txt"
+    },
+    {
+      "cue_clause": "got back to his shabby little room he",
+      "cls": "return",
+      "observed_gold": true,
+      "book": "351_of_human_bondage.txt"
+    },
+    {
+      "cue_clause": "stayed there for some time",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "27_far_from_the_madding_crowd.txt"
+    },
+    {
+      "cue_clause": "watched from beneath half-closed lids what seemed bu",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "78_tarzan_of_the_apes.txt"
+    },
+    {
+      "cue_clause": "stayed there nearly a week",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "1260_jane_eyre_an_autobiography.txt"
+    },
+    {
+      "cue_clause": "beheld me with all the marks",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "829_gullivers_travels_into_several_remote_nations_of_the_world.txt"
+    },
+    {
+      "cue_clause": "sat beside a small fire burning red",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "2807_to_have_and_to_hold.txt"
+    },
+    {
+      "cue_clause": "had returned to a late dinner, after some",
+      "cls": "return",
+      "observed_gold": true,
+      "book": "158_emma.txt"
+    },
+    {
+      "cue_clause": "remained there a month",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "351_of_human_bondage.txt"
+    },
+    {
+      "cue_clause": "gazed about him in his toga",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "4300_ulysses.txt"
+    },
+    {
+      "cue_clause": "looked on his hat, his stick, his boots",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "4300_ulysses.txt"
+    },
+    {
+      "cue_clause": "re-entered, pale",
+      "cls": "return",
+      "observed_gold": true,
+      "book": "1260_jane_eyre_an_autobiography.txt"
+    },
+    {
+      "cue_clause": "got back to his office",
+      "cls": "return",
+      "observed_gold": true,
+      "book": "233_sister_carrie_a_novel.txt"
+    },
+    {
+      "cue_clause": "stayed there with me to dinner--if I",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "766_david_copperfield.txt"
+    },
+    {
+      "cue_clause": "witnessed with great amazement, not understanding what",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks.txt"
+    },
+    {
+      "cue_clause": "re-entered the log-house",
+      "cls": "return",
+      "observed_gold": true,
+      "book": "120_treasure_island.txt"
+    },
+    {
+      "cue_clause": "sat at the window watching the evening inv",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "2814_dubliners.txt"
+    },
+    {
+      "cue_clause": "looked on with some amusement",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "158_emma.txt"
+    },
+    {
+      "cue_clause": "beheld that familiar",
+      "cls": "present",
+      "observed_gold": true,
+      "book": "599_vanity_fair.txt"
+    }
+  ],
+  "ts_iso": "2026-08-28T14:53:54.284923+00:00",
+  "elapsed_s": 12.2
+}

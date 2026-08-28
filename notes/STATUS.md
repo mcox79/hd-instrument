@@ -31,7 +31,24 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-28 (LATEST) -- ✅ **PHASE-DIAGRAM AUDIT INTEGRATED (owner-DONE, EXCELLENT — a rigorous NEGATIVE on N); the FORAGING solution is newly POSTED (I recommend DONE, awaits owner verdict); learner still awaits verdict.**
+### 2026-08-28 (LATEST) -- ✅ **THEORY-OF-MIND OBSERVATION-CUE RESIDUAL INTEGRATED (owner-DONE, EXCELLENT): the last ToM weak link — reading "did agent A witness the change?" from prose — is now a brain-faithful PERCEPTUAL-ACCESS REGISTRATION LEDGER, lifting end-to-end false-belief 0.50→0.99 past the 0.821 residual.**
+`theory_of_mind_residual_is_the_observation_cue_front_end` (p5). Re-verified FIRST-HAND: 4 witnesses PASS (ledger 6/6,
+occlusion 6/6, sequential 4/4, testimony 3/3). Ledger cue acc **0.992 [0.980,1.000] vs the LANDED lexical extractor 0.500
+CI-sep** (info-free twin loses; the extractor collapses 0.808→0.500 on real corpus prose = the residual); END-TO-END
+through the landed `belief_partition` 0.992 vs oracle 1.000. Mechanism PINNED (Butterfill&Apperly registration; Zwaan
+event-indexing SPACE; Talmy PATH-in-the-satellite; Harris&Koenig testimony); **false belief = the ledger STALE vs
+reality**. Beyond the bar: per-modality OCCLUSION field (6/6), SEQUENTIAL registration (4/4), TESTIMONY reliability (3/3);
+the intact-window spatial-chance PROVEN a WINDOWING artifact (distance exp: full-text 0.99 at K=0..20 vs windowed→0.00).
+Honest scope preserved (two-gold split, intact-scene scarcity, verb-polysemy + coref caps, exact 0.992 gold-bounded).
+Review + SOLVER REVIEW block in PROBLEM.md; priority cleared; AUDIT §2b folded. 🔌 **hdlab landing QUEUED (careful port):
+promote `hdlab/perceptual_access.py` + extend `belief_partition` to a SEQUENCE registration ledger (+ IGNORANCE=None +
+asserted-location testimony) — must CONSUME the coref/situation-model organs to drop the internal spaCy-parse proxy, else
+hdlab gains a spaCy dependency (the pattern just fixed in `closed_class_lexicon`).** 📦 **5 adjacent-gap solver-brief
+candidates surfaced — HIGHEST LEVERAGE: the situation model has NO SPACE dimension (a per-entity location-over-time
+register is a genuinely MISSING brain-foundational organ — Zwaan SPACE; the ledger stopgaps it inline).** 🎯 **QUEUE now:
+p2 learner + p3 foraging = SOLVED-awaiting-verdict; p4 register-readout + p6 transitive = no solver yet.**
+
+### 2026-08-28 -- ✅ **PHASE-DIAGRAM AUDIT INTEGRATED (owner-DONE, EXCELLENT — a rigorous NEGATIVE on N); the FORAGING solution is newly POSTED (I recommend DONE, awaits owner verdict); learner still awaits verdict.**
 **READ THIS FIRST after compaction; then the entries below + `CONSOLIDATION_PHASE_LOG.md`.**
 ✅ **INTEGRATED `dimensional_phase_diagram_audit_of_the_current_organs` (EXCELLENT, owner-DONE):** re-verified FIRST-HAND
 (`test_dim_phase_diagram.py` 18/18 PASS, positive-control cliff seen). **Dimensionality (N) is NOT a performance lever
