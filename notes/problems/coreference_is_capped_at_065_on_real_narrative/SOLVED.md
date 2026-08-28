@@ -2,7 +2,7 @@
 problem: coreference_is_capped_at_065_on_real_narrative
 status: SOLVED
 bar: "PASSES with EITHER track, ALL of its items. Track A (raise accuracy): a graded cue-based-retrieval resolver beats the incumbent ~0.65 CI-separated on REAL narrative (LitBank gold, held-out), recompute the incumbent floor on the SAME population; an info-free twin (shuffled cue activations / random-antecedent) LOSES CI-separated; report CI half-width + null p95; a positive control that the metric moves. Track B (legible uncertainty): an entropy/margin ABSTAIN flag on the retrieval posterior such that, on the KEPT subset, accuracy is CI-separated-higher than the un-gated resolver on the same items, the abstain rate is < a stated cap (not 'abstain on everything'), and a DOWNSTREAM organ measurably degrades GRACEFULLY when fed the flag vs silently inheriting the wrong link; info-free twin (random abstain) LOSES. A rigorous NEGATIVE is a full pass (Track B alone passes)."
-result: "Track A PASSES. LitBank, 100 novels, 50 held-out, competitive pronoun-antecedent subset (>=2 gn-compatible prior gold entities, n=4693 TEST decisions), scorer = link-level argmax==gold: brain-faithful GRADED cue-based retrieval 0.7752 [0.7313,0.8176] vs the INCUMBENT hard-tiered strict-Cb pick recomputed on the SAME population 0.6030 [0.5449,0.6544]; delta +0.1722 [0.1415,0.2032], half-width 0.031, null-p95 0.031, band ABOVE. Positive control: graded fixes 1073 incumbent errors, breaks 265 (net +808). Track B PASSES items a,b,d: posterior entropy (softmax gain=8 tuned on DEV for calibration -- gain-invariant for argmax, so Track A untouched) predicts its own errors AUC 0.806 (the landed pronoun signal reached 0.627); deferring the highest-entropy 33.0% lifts kept-subset accuracy 0.7752->0.8935, delta +0.118 CI-sep, random-abstain twin flat 0.7751. Track B item c NOT met on the tested downstream (mapped as an adjacency)."
+result: "Track A PASSES. LitBank, 100 novels, 50 held-out, competitive pronoun-antecedent subset (>=2 gn-compatible prior gold entities, n=4693 TEST decisions), scorer = link-level argmax==gold: brain-faithful GRADED cue-based retrieval 0.7752 [0.7313,0.8176] vs the INCUMBENT hard-tiered strict-Cb pick recomputed on the SAME population 0.6030 [0.5449,0.6544]; delta +0.1722 [0.1415,0.2032], half-width 0.031, null-p95 0.031, band ABOVE. Positive control: graded fixes 1073 incumbent errors, breaks 265 (net +808). Track B PASSES items a,b,d: posterior entropy (softmax gain=8 tuned on DEV for calibration -- gain-invariant for argmax, so Track A untouched) predicts its own errors AUC 0.806 vs the incumbent's own margin signal 0.617 recomputed on the SAME population (apples-to-apples); deferring the highest-entropy 33.0% lifts kept-subset accuracy 0.7752->0.8935, delta +0.118 CI-sep, random-abstain twin flat 0.7751. Track B item c NOT met on the tested downstream (mapped as an adjacency)."
 floor: "Incumbent strict-Cb tiered pick (hdlab _pick_strict_cb) recomputed in-place on LitBank held-out = 0.6030 [0.5449,0.6544] -- the floor the bar names; graded lo 0.7313 > floor hi 0.6544 (CI-separated over the floor's upper bound). Additional floors run same-population: recency 0.7172, ACT-R base-level activation (d=2.0) 0.7824. HONEST: graded TIES ACT-R (delta -0.0072, NOT_SEP) -- graded_competition's MAP-optimality theorem forbids beating the argmax of the same net; the win is over the incumbent's hard TIER, not the best point estimate."
 controls: "(1) info-free twin random-antecedent -> 0.0548, LOSES CI-sep (excludes 'any linking helps'). (2) info-free twin shuffled-cue-supports -> 0.0435, LOSES CI-sep (excludes 'the cue geometry not identities carries it'). (3) random-abstain twin at matched rate -> kept 0.7751 = full 0.7752 (excludes 'deferring anything raises kept acc'; the entropy flag is informative). (4) recency 0.7172 and ACT-R 0.7824 floors recomputed same-population (excludes floor cherry-picking; graded's win is over the TIER, ties the strongest arm). (5) DEV/TEST split by document, weights tuned on 50 DEV novels, all headlines on the disjoint 50 TEST novels (excludes tuning-to-gold). (6) parallelism-cue ablation: Smyth-1994 parallelism as a 6th cue -> DEV weight 0.0 (excludes 'a stronger structural cue was left out'). (7) agreement/animacy-filter ablation (exp_coref_agreement_animacy_filter_v1): adding NLTK name-gender gazetteer + animacy pruning to the PINNED agreement filter shrinks the mean candidate pool only 39.9->39.3 and moves graded accuracy 0.7752->0.7774 (null) -- excludes 'a leaky agreement filter is the cap'; the pool TAIL does not bind, the structurally-salient competitors do."
 files_changed: "experiments/exp_coref_graded_cue_retrieval_litbank_v1.py, experiments/exp_coref_abstain_downstream_whodidwhat_v1.py, experiments/exp_coref_agreement_animacy_filter_v1.py, verification/test_coref_graded_cue_retrieval.py, notes/problems/coreference_is_capped_at_065_on_real_narrative/SOLVED.md. No hdlab/ write (Q111); proposed hdlab diff below."
@@ -80,7 +80,14 @@ next-mention PRIOR channel, a separate situation-model build (KEY REALIZATION 5,
 1. **The incumbent's hard TIER, not "coref" writ large, is the cap -- and it is worse than recency on real prose.**
    Recomputing the incumbent's own pick rule in-place on LitBank (0.603 < recency 0.717) turned a vague "~0.65 cap" into
    a specific mechanism: a rigid most-recent-subject priority mis-ranks exactly when the referent is not a recent
-   grammatical subject. Measuring the floor in-place was the move; the quoted 0.65 hid this.
+   grammatical subject. Measuring the floor in-place was the move; the quoted 0.65 hid this. **The failure mechanism is
+   now quantified:** on the 2012 cases where the tier is wrong and the graded activation is right, the tier picks
+   entities a mean 3.42 sentences away vs the correct antecedent at 1.20 -- it grabs a subject 2.2 sentences STALER,
+   because strict-Cb ranks by "most-recent-subject-sentence" with NO graded recency decay WITHIN the subject class. The
+   graded ACT-R activation demotes stale entities via dt^-d. This is the copy-the-computation lesson made quantitative:
+   the hard rule discarded the graded decay, and that decay is exactly what it needed. (Role-WEIGHTING, by contrast, is
+   exhausted: uniform 0.783 ~= current 0.792 ~= Lappin-Leass-ish 0.793, within noise -- the decay, not the role weights,
+   is the lever.)
 2. **Reuse the pinned RETRIEVAL CURRENCY, don't hand-roll cues.** A first version blended separate z-scored Centering
    cues and LOST to ACT-R by -0.025. The fix was to make the graded net the softmax over the pinned Lewis-Vasishth/
    ACT-R base-level activation itself (recency x frequency x role) -- which IS the retrieval currency -- with the
@@ -140,23 +147,52 @@ Add an **opt-in graded retrieval pick** to `hdlab/coreference_resolver.py` (defa
 entities, computes the ACT-R base-level activation `A_i = ln(sum_k w_role(k)*dt_k^-d)`, then `graded_pick` (import
 `hdlab.graded_competition`) -> argmax pick + normalized-entropy confidence; if `flag_thr` is set, ABSTAIN (assign None)
 when entropy > flag_thr. This (a) beats the current `_pick_strict_cb` on real narrative by +0.17, and (b) replaces the
-coarse integer strict-Cb margin with the entropy posterior (AUC 0.63 -> 0.77) as the first-class abstain signal the
+coarse integer strict-Cb margin with the entropy posterior (AUC 0.617 -> 0.806, same population) as the first-class abstain signal the
 ToM cue / entity tracking / situation model consume. Keep the name/nominal branch untouched. Wire the entropy as the
 same gold-free difficulty currency already used by `graded_competition` (one currency across consumers).
 
 # ADJACENCIES MAPPED (candidate follow-on problems)
 
-1. **The coherence next-mention PRIOR channel** (the residual's real fix). A glass-box P(referent) from verb-semantic /
-   coherence-relation expectations -- the brain's second Bayesian term. Gated by the open brief
-   `no_glass_box_verb_sense_disambiguation`; a lexical IC cue alone is insufficient on real prose (frame ~absent). This
-   is a SITUATION-MODEL / predictive-reader build, not a resolver tweak. Leverage: the ~19% structural residual.
-2. **Name/entity clustering is the who-did-what bottleneck, not the pronoun link.** exp2: the downstream decode sits at
-   ~0.17 for COMMIT/ABSTAIN/RANDOM alike vs ORACLE-coref 0.62; the pronoun link is not its binding constraint. Leverage:
-   downstream who-did-what, entity tracking. On-disk evidence: `data/_exp2_coref_abstain_out.json`.
-3. **FHRR register capacity (the fan effect).** who-did-what decode collapses as competing-antecedent fan grows (prior
-   cell: 1-3 cands 0.31 -> 17+ 0.16). This is the addressed-storage problem, orthogonal to coref. Leverage: any
-   register-backed reader.
-4. **Downstream consumption of the abstain flag.** The ToM observation cue / "where is X" should be re-measured with the
+1. **The coherence next-mention PRIOR channel** (the residual's real fix) -- and it is SUBSTRATE-NATIVE, not a
+   from-scratch build. The full Kehler & Rohde (2013) resolver is `P(referent|pronoun) ~ P(pronoun|referent) x
+   P(referent)`: this SOLVER built the LIKELIHOOD term (the graded Centering/ACT-R retrieval). The missing PRIOR
+   `P(referent)` is the next-mention expectation -- exactly what the substrate's PREDICTIVE-READER organ already
+   computes (forward pre-activation; audit: "PREDICTING what an entity does next uses content-addressable retrieval").
+   Concrete proposal: MULTIPLY the graded retrieval posterior by the predictive reader's next-entity expectation before
+   argmax, and re-measure on the ~19% structurally-dominated residual. A lexical IC cue alone is insufficient (frame
+   ~absent on real prose), and even a generic semantic-fit feature bought only +0.3 F1 in published systems (Heinzerling
+   et al. 2017) -- so gate expectations, but this is the ONE remaining accuracy lever. Leverage: the structural residual.
+   CAVEAT (raises the true ceiling): part of that residual is LitBank ANNOTATION-FIAT gold (ezCoref/Bleak House) where
+   the reference is genuinely ambiguous -- so 0.775 UNDER-states true accuracy, and the movable fraction is smaller than
+   19%.
+2. **[FLAG TO STRATEGY -- HIGHEST-LEVERAGE ADJACENT TOOL] Name/entity clustering (the landed string-overlap name branch)
+   is badly under-performing on real narrative, and it -- not the pronoun link -- is the who-did-what bottleneck.**
+   MEASURED on LitBank 100 novels: **65.6% of multi-name gold entities are SHATTERED** (their name mentions split across
+   >=2 predicted clusters), and 19.5% of predicted clusters MERGE >=2 gold entities (name-mention purity 0.819). Cause:
+   the branch matches on a SINGLE head token, so "Elizabeth" / "Bennet" / "Lizzy" / "Miss Bennet" fragment into separate
+   entities. Effect: a correctly-bound pronoun cannot retrieve its referent's events when the referent's identity is
+   scattered -> the downstream decode sits at ~0.17 (COMMIT/ABSTAIN/RANDOM alike) vs ORACLE-coref 0.62 (exp2). Fix = a
+   name-unification / nominal-alias pass (full-span match + honorific/surname handling). Leverage: caps the entire
+   who-did-what + entity-tracking + situation-model stack. Candidate follow-on problem.
+3. **[FLAG] The landed pronoun CONFIDENCE signal is weak -- shown APPLES-TO-APPLES.** The incumbent's own pronoun
+   confidence (the strict-Cb integer margin) recomputed on THIS LitBank competitive population predicts its errors at
+   AUC 0.617 (matching the 0.627 `exp_coref_self_confidence_calibration_v2` reported on its own harness). This SOLVER's
+   calibrated posterior entropy reaches AUC 0.806 on the SAME population -- a drop-in replacement that comes FREE with
+   the proposed graded resolver (not a separate build). Leverage: any organ that reads coref confidence (refuse gate,
+   ToM defer, clarify gate). This flag is FIXED BY the same hdlab diff below, not a new problem.
+4. **[FLAG] The LitBank mention cache (`data/litbank/who_did_what_events.json`) stores only a single HEAD TOKEN per
+   mention.** This is what forces the name-clustering shatter (flag 2), blocks name-gender inference beyond single-token
+   first names (the agreement-filter probe fired rarely for this reason), and blocks any semantic/selectional cue. Fix =
+   extend the loader to carry full mention spans + the LitBank entity TYPE (PER/FAC/GPE/...). Leverage: unblocks flags
+   2-3 and the coherence channel (adjacency 1).
+5. **FHRR register capacity (the fan effect).** who-did-what decode collapses as competing-antecedent fan grows (prior
+   cell: 1-3 cands 0.31 -> 17+ 0.16). The addressed-storage problem, orthogonal to coref, reconfirmed with
+   coref-specific evidence. Leverage: any register-backed reader.
+6. **[SUSPECTED, UNMEASURED] Grammatical-role assignment on archaic literary prose.** Both the incumbent tier and this
+   resolver's subjecthood cue read spaCy `nsubj`->SUBJECT off 200-year-old long-sentence prose; parse noise there
+   degrades the subjecthood signal for everyone. Not measured here (honest label); a role-accuracy spot-check on LitBank
+   vs gold would size it. Leverage: the subjecthood cue + the incumbent tier.
+7. **Downstream consumption of the abstain flag.** The ToM observation cue / "where is X" should be re-measured with the
    entropy flag once they are the LINK-bottlenecked consumer (they weren't in the who-did-what test). Leverage: graceful
    degradation across the reading stack.
 
@@ -190,3 +226,28 @@ item did not (it is a different bottleneck). Awaiting your `owner_verdict: DONE`
 2. (Strategy) Fold the AUDIT UPDATE into `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (the coref entry + the §2b reversal).
 3. (Follow-on problem) The coherence-driven next-mention PRIOR channel -- the residual's real fix -- as a
    situation-model build, not a resolver tweak.
+
+---
+INTEGRATED_BY_STRATEGY: 2026-08-28 (grade EXCELLENT; owner_verdict: DONE). Re-verified FIRST-HAND against the CURRENT
+file (test_coref_graded_cue_retrieval.py, ALL 8 checks PASS -- ran it myself; the solver strengthened Track B between
+submission and the DONE verdict, so I re-ran fresh rather than trust my earlier read). The ~0.65 coref cap is BROKEN +
+DIAGNOSED on real narrative: the reader's rigid hard-tiered pronoun pick (_pick_strict_cb) is replaced by the brain's
+graded cue-based retrieval (Lewis-Vasishth 2005 / McElree 2003 -- softmax over the pinned ACT-R base-level activation,
+reusing the LANDED graded_competition organ). TRACK A PASSES: graded 0.775 [0.731,0.818] vs the incumbent hard-tier
+recomputed on the SAME population 0.603 [0.545,0.654], +0.172 CI-sep (half-width 0.031, null-p95 0.031); info-free twins
+collapse (0.055/0.044); positive control fixes 1073 / breaks 265. Cap mechanism MEASURED: the tier scores BELOW plain
+recency (0.603<0.717) -- it picks subjects 2.2 sentences staler because strict-Cb lacks the brain's graded dt^-d decay.
+TRACK B: entropy predicts its own errors AUC 0.806 vs the incumbent margin 0.617 SAME population (apples-to-apples);
+deferring 33% lifts kept acc 0.775->0.894 CI-sep, random twin flat; gain-invariant for argmax (Track A untouched).
+HONEST (volunteered): by the MAP-optimality theorem graded TIES ACT-R (0.782, NOT_SEP) -- the win is over the incumbent
+TIER + the calibrated distribution, not the point estimate; optimization levers (parallelism, gender/animacy pre-filter
+pool 39.9->39.3 null, lexical IC frame n=0, role-weighting) tested + REJECTED with numbers, so the ~0.78 structural
+ceiling is demonstrated; the residual ~19% is the brain's 2nd Bayesian term (Kehler-Rohde coherence next-mention PRIOR),
+a separate situation-model build. Track B item (c) NOT met on who-did-what -- correctly localized as name-clustering +
+register-capacity bottlenecked (oracle-coref 0.62 vs 0.17), not link-bottlenecked; Track A alone is a full pass. Review
++ SOLVER REVIEW block in PROBLEM.md; priority cleared. AUDIT UPDATE folded (BRAIN_FOUNDATIONAL_AUDIT.md 2b, newest +
+the coref entry): REVERSES the 08-27 coref cue-based-activation HARD_FAIL as POPULATION-SPECIFIC. hdlab landing QUEUED
+(Q111 -- opt-in default-off run_graded_retrieval + entropy-abstain on coreference_resolver.py, existing behavior
+byte-identical). NO hdlab written this commit (Q111). Top adjacency now MEASURED for a clean follow-on: name/entity
+clustering shatters 65.6% of multi-name gold entities (single-head-token cache root cause) -> caps the whole
+who-did-what/entity-tracking stack.

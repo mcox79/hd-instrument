@@ -228,16 +228,18 @@ small rate-limited integration, NOT a wholesale overwrite.
 
 ## FIDELITY PHASE 3 -- REMOTE ARCHITECTURE DRILLS (full 15M runs, 2026-08-28)
 
-Six brain-foundational drills, self-dispatched to the remote CPU box. Four wins (the sixth reopens the
-exemplar partial and CLOSES it at the correct regime); the dependency-path partial stands as understood
-saturation:
+Seven brain-foundational drills, self-dispatched to the remote CPU box. Four wins (the sixth reopens the
+exemplar partial and CLOSES it at the correct regime); the dependency-path and intrinsic-control partials
+each resolve to an UNDERSTOOD negative (saturation; and a real-but-small intrinsic signal against an
+already-near-optimal blend):
 
 - **SEMANTIC-CONTROL ROUTING -- WIN** (`exp_semantic_control_routing_v1`, HARD_PASS). IFG-style dynamic
   per-query control (task-set gain over channels) beats the best FIXED reliability-weighted blend on a
   pooled similarity+relatedness+verb eval; the shuffled-gate twin loses. Pooled TASKSET 0.274 vs
   FIXED_BLEND 0.262; the gain is on RELATEDNESS routing (REL: 0.544 vs 0.495, routes to the window
   channel) and flat on similarity. Validates the semantic-control organ: dynamic routing > one static
-  blend. (The gold-blind CONFLICT variant 0.253 underperforms the task-set gain -- a deepening target.)
+  blend. (The gold-blind CONFLICT variant 0.253 underperforms the task-set gain -- a deepening target,
+  now RESOLVED by drill #7 below.)
 - **GROUNDING SUPPLY -- WIN** (`exp_grounding_supply_v1`, HARD_PASS). Richer grounding fused with text
   beats text-alone on the NON-WordNet MEN gold +0.1275 [ci_half .021] CI-sep, and the CROSSOVER holds
   (FUSED MEN-delta +0.1275 vs SimLex +0.0345; RICH MEN +0.0535 vs SimLex -0.0103). Binder-65 alone =
@@ -302,10 +304,70 @@ saturation:
   genuinely-unseen pairs where counting is mathematically silent -- the "where counting/WordNet is silent"
   OOV value that BAR 3 could not test on WordNet-covered golds.
 
+- **INTRINSIC SEMANTIC-CONTROL DEMAND -- rigorous negative, RESOLVES the routing deepening target**
+  (`exp_semantic_control_intrinsic_demand_v1`, MIDDLE_BAND, full 15M run 2026-08-28). Tests whether a
+  GOLD-BLIND, brain-faithful intrinsic demand signal -- inter-channel DISAGREEMENT (spread of the channels'
+  verdicts) and retrieval AMBIGUITY (entropy of a word's nearest-neighbour similarities) -- can route
+  WITHOUT the task label and close the FIXED_BLEND->TASKSET_ORACLE gap. Three findings: (1) THE GAP ITSELF
+  IS TINY at 15M -- TASKSET_ORACLE 0.2735 vs FIXED_BLEND 0.2627, +0.0108 CI [0.004,0.018] -- the fixed
+  reliability-weighted blend is already near-optimal POOLED; per-item routing has little headroom. The real
+  routing value is CONCENTRATED on RELATEDNESS (per-task oracle REL 0.5445 vs fixed 0.4975, +0.047), diluted
+  in the pool by the larger SIM+VERB item sets. (2) AMBIGUITY carries a REAL, non-artifactual signal (beats
+  FIXED CI-sep; its SHUFFLED twin loses CI-sep BELOW) but closes ~none of the gap (+0.0007, ~6.5%);
+  DISAGREEMENT and the reused CONFLICT_PRIOR (reproduced 0.2528->0.2532) do NOT beat fixed. (3) Per the
+  brain-foundational verification, the oracle = TOP-DOWN PFC TASK-SET = a LEGITIMATE second brain route
+  (Badre & Wagner), NOT an oracle cheat -- and the integrated reader HAS the task demand from reading context.
+  CONCLUSION: a purely intrinsic gate is real-but-small and NOT load-bearing; the brain-faithful routing
+  signal is the reader's CONTEXT-PROVIDED demand (the demand-routing already integrated = the top-down route),
+  not an internal-conflict estimator. This closes the flagged deepening target: the gold-blind gate
+  underperforms because the intrinsic signal is weak AND the headroom is tiny at this scale, not because a
+  mechanism is missing. (Chasing the 0.0108 gap harder would be filler, not a wall.)
+
 (Infra note, flag to owner -- not solver-fixable: the remote auto-sync `hd_metrics_sync` is DISABLED -- runs
 completed cleanly on the box but had to be pulled manually; re-enable `schtasks /change /tn hd_metrics_sync
 /enable`. The runner also writes a double-prefixed `data/exp_exp_<name>/` path (SH-4). Both mean any solver
 remote run needs an orchestrator pull until fixed.)
+
+## BRAIN-FOUNDATIONAL VERIFICATION (external literature scan, 2026-08-28)
+
+Every load-bearing brain claim in this submission was independently verified against the
+neuroscience/psycholinguistics literature (routed through the research lane) and marked
+PINNED-BY-EVIDENCE / OUR-INVENTION / CONTRADICTED, so no invention is mislabelled as brain-pinned:
+
+- **Taxonomic/similarity vs thematic/relatedness routing -- PINNED (strong neural double-dissociation).**
+  Schwartz et al. 2011 (PNAS): ATL lesions -> taxonomic/feature-similarity errors, TPJ/angular-gyrus lesions
+  -> thematic/relatedness errors (also Mirman & Graziano; de Zubicaray 2018). Directly licenses routing
+  SimLex-similarity vs WordSim-relatedness to different systems; reliability-weighted fusion is the right
+  shape (both systems co-activate automatically -- the dissociation is in hub-weighting, not separate pipelines).
+- **Semantic control = intrinsic conflict/competition -- PINNED, WITH a correction to the framing.** Implicit
+  competition/ambiguity engages LIFG automatically (Rodd 2005/2012; Badre & Wagner 2007; Noonan/Jefferies
+  2013), supporting drill #7's disagreement+ambiguity demand signal. **CORRECTION: the oracle-task-label arm
+  is NOT "cheating" -- top-down PFC task-set is a genuine SECOND brain route** (Badre & Wagner). Frame drill
+  #7's two arms as two real brain routes (intrinsic conflict vs top-down task-set), not intrinsic-vs-oracle.
+- **CLS growth (keep-both-stores + rate-limited blend) -- PINNED, WITH a finer-fidelity upgrade.**
+  McClelland/O'Reilly/Norman 1995; Kumaran/Hassabis/McClelland 2016. NUANCE: a FLAT integration rate is a
+  simplification -- cortical integration is schema-dependent (fast for schema-consistent, slow for novel;
+  McClelland 2013; Tse 2007). Finer fidelity for BAR 5: gate the blend rate on prediction-error/novelty, not a constant.
+- **Grammatical-relation -> similarity (BAR 1) -- PARTIALLY PINNED; warrant DOWNGRADED honestly.** The brain
+  tracks distributional statistics (pMTG/LIFG RSA, Carota/Kriegeskorte 2017 -- pinned) and Harris 1954 was
+  grammatical, but NO neural study shows similarity is organised by grammatical-RELATION co-occurrence
+  specifically vs linear proximity. The dependency->similarity mapping is **brain-CONSISTENT (warrant inherited
+  from the ATL/TPJ dissociation), not brain-ORGANISED (directly measured)** -- the grammatical-relation
+  specificity is linguistic (Harris; Levy & Goldberg 2014), not neural. Relabel accordingly in the audit.
+- **Polysemy = discrete senses -- CONTRADICTED for related senses (the one real fidelity fix).** Li 2021
+  ("Word Senses as Clusters of Meaning Modulations"); Lambon Ralph CSC / ATL graded hub; Yee & Thompson-Schill
+  2016: the brain does NOT store discrete senses -- it keeps ONE graded representation that context
+  continuously MODULATES; senses emerge in processing. Discrete clustering is brain-faithful ONLY at the
+  HOMONYMY pole (bank=river/finance). **ACTION TAKEN: drill #8 was reframed BEFORE it landed** -- from discrete
+  k-means multi-prototype (an NLP proxy) to continuous CONTEXT-MODULATED token-cloud/exemplar representation
+  (senses emerge, k not imposed), with k-means kept only as an explicitly-labelled engineering approximation
+  and discreteness reserved for a homonymy arm that must be DISCOVERED, not handed. This extends drill #6's own
+  finding (exemplar pooling beat mean-centroid) up to the type representation: the single mean vector IS the
+  sense-averaging compression the ceiling may reflect.
+
+**Biggest fidelity risk identified + retired:** the only claim that was our-invention-mislabelled-as-brain was
+drill #8's discrete sense-clustering; it was caught by research and reframed before any compute was spent on
+the wrong mechanism -- the intended value of verifying with literature before over-investing.
 
 ## TLDR
 

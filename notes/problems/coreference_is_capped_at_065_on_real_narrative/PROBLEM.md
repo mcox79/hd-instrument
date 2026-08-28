@@ -1,8 +1,48 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Owner-DONE. The ~0.65 coref cap is BROKEN, DIAGNOSED, and honestly bounded on real narrative. Re-verified FIRST-HAND against the current file (`verification/test_coref_graded_cue_retrieval.py`, ALL 8 checks PASS — ran it myself; the solver strengthened Track B between submission and DONE, so I re-ran fresh). Mechanism COPIED (PINNED): the reader's rigid hard-tiered pronoun pick (`_pick_strict_cb`) is replaced by the brain's actual reference computation — GRADED cue-based retrieval (Lewis & Vasishth 2005; McElree 2003): a softmax over the pinned ACT-R base-level activation (recency×frequency×role), reusing the LANDED `graded_competition` organ verbatim. TRACK A PASSES the bar: on LitBank (100 novels, 50 held-out TEST), the COMPETITIVE pronoun-antecedent subset (≥2 gn-compatible prior gold entities, n=4693), graded 0.7752 [0.7313,0.8176] vs the INCUMBENT hard-tier recomputed on the SAME population 0.6030 [0.5449,0.6544] — +0.1722 CI-sep (half-width 0.031, null-p95 0.031); info-free twins collapse (random 0.0548, shuffled-cue 0.0435, lose by +0.72); positive control fixes 1073 incumbent errors / breaks 265 (net +808). The CAP's mechanism is now MEASURED and surprising: the incumbent's rigid subject-first tier scores BELOW plain recency (0.603 < 0.717) — on the 2012 tier-wrong/graded-right cases it grabs a subject a mean 2.2 sentences STALER (3.42 vs 1.20) because strict-Cb has NO graded recency decay within the subject class; the brain's dt^-d decay is exactly what it discarded (copy-the-computation, made quantitative). TRACK B passes at the resolver output: posterior normalized-entropy (softmax gain=8 tuned on DEV; GAIN-INVARIANT for argmax so Track A is untouched — no leak) predicts its OWN errors AUC 0.806 vs the INCUMBENT margin signal 0.617 recomputed on the SAME population (apples-to-apples, no number crossing); deferring the highest-entropy 33% lifts kept-subset accuracy 0.775→0.894 CI-sep, random-abstain twin flat 0.775 — the brain-faithful 'flat posterior → defer' (Levy 2008; the Nref 'hold both' ERP, Nieuwland & Van Berkum 2008). SCRUPULOUSLY HONEST (volunteered): by `graded_competition`'s MAP-optimality theorem graded-argmax == the argmax of the same net, so graded TIES ACT-R base-level activation (0.782, NOT_SEP) — the accuracy win is over the incumbent TIER, and the graded FORM's unique value is the calibrated DISTRIBUTION (Track B), not the point estimate. Optimization levers tested + REJECTED with numbers (owner 'is there more?'): parallelism/backward-center/first-mention/frequency cues → DEV weight ~0; a faithful NLTK gender-gazetteer + animacy pre-filter → pool 39.9→39.3, accuracy null (the pool TAIL doesn't bind, the structurally-salient competitors do); lexical implicit-causality → decisive frame n=0 in real prose; role-weighting exhausted (0.783≈0.792≈0.793). The ~0.78 structural ceiling is DEMONSTRATED not asserted; the only remaining accuracy lever is the coherence next-mention PRIOR (the 2nd Kehler-Rohde Bayesian term), a separate situation-model build. Track B item (c) NOT met on the who-did-what downstream — correctly localized as name-clustering + FHRR register-capacity bottlenecked (oracle-coref 0.62 vs binder 0.17), NOT link-bottlenecked; a mapped adjacency, not a coref failure (and the bar takes Track A alone as a full pass). AUDIT UPDATE folded (§2b): REVERSES the 08-27 coref cue-based-activation HARD_FAIL as POPULATION-SPECIFIC (McGuffey short/dense favors the hard tier; real narrative favors graded) — the right mechanism is population-dependent. hdlab landing QUEUED (Q111, opt-in default-off `run_graded_retrieval` + entropy-abstain on `coreference_resolver.py`; existing behavior byte-identical). Highest-leverage adjacency now MEASURED for a clean follow-on: name/entity clustering shatters 65.6% of multi-name gold entities (single-head-token cache root cause) and caps the whole who-did-what/entity-tracking stack."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-28 (strategy session; grade EXCELLENT; owner_verdict: DONE)
+> **Re-verified FIRST-HAND against the current file** (`verification/test_coref_graded_cue_retrieval.py`, ALL 8 checks
+> PASS — ran it myself; the solver strengthened Track B between submission and the DONE verdict, so I re-ran fresh rather
+> than trust my earlier read). **Result:** the reader's rigid hard-tiered pronoun pick (`_pick_strict_cb`) is replaced by
+> the brain's actual reference computation — **graded cue-based retrieval** (Lewis & Vasishth 2005; McElree 2003): a
+> softmax over the pinned **ACT-R base-level activation** (recency×frequency×role), reusing the LANDED
+> `graded_competition` organ verbatim.
+> **Argument audit (not just arithmetic) — the controls + the honesty are the strength:** (a) TRACK A meets the bar —
+> graded **0.775 [0.731,0.818]** vs the INCUMBENT hard-tier recomputed on the SAME population **0.603 [0.545,0.654]**,
+> **+0.172 CI-sep** (half-width 0.031, null-p95 0.031); info-free twins collapse (0.055 / 0.044); positive control fixes
+> 1073 / breaks 265. (b) The CAP's mechanism is now MEASURED: the rigid subject-first tier scores **below plain recency**
+> (0.603 < 0.717) — on the 2012 tier-wrong/graded-right cases it picks a subject **2.2 sentences staler** (3.42 vs 1.20)
+> because strict-Cb lacks graded recency decay; the brain's dt^-d decay is what it discarded. (c) TRACK B — posterior
+> entropy predicts its OWN errors **AUC 0.806** vs the incumbent margin **0.617 on the SAME population** (apples-to-apples,
+> no number crossing); deferring 33% lifts kept accuracy **0.775→0.894** CI-sep, random twin flat; the gain is
+> gain-invariant for argmax so **Track A is untouched** (no leak). (d) The **MAP-optimality theorem** is volunteered:
+> graded-argmax == the same net's argmax, so graded TIES ACT-R (0.782, NOT_SEP) — the win is over the incumbent TIER, the
+> graded form's unique value is the calibrated DISTRIBUTION. (e) Optimization levers tested + REJECTED with numbers
+> (parallelism, extra Centering cues, a faithful gender/animacy pre-filter → pool 39.9→39.3 null, lexical IC → frame n=0)
+> — the ~0.78 structural ceiling is DEMONSTRATED, not asserted.
+> **Brain-foundational discipline:** copy the OPERATION (activation-sum → softmax), sweep only weights/decay/gain; the
+> residual ~19% is the brain's SECOND Bayesian term (Kehler & Rohde 2013 coherence next-mention PRIOR — verb-semantics /
+> discourse expectations) that we do not compute — the plateau is the two-system boundary, not a tuning failure; and a
+> slice of the residual is LitBank ANNOTATION-FIAT ambiguity (ezCoref) where entropy-defer is the brain-faithful output
+> (the Nref ERP). **AUDIT UPDATE folded (§2b):** REVERSES the 08-27 coref cue-based-activation HARD_FAIL as
+> POPULATION-SPECIFIC (McGuffey short/dense favors the hard tier; real narrative favors graded) — the right mechanism is
+> population-dependent; and a new PINNED sub-claim (pronoun reference = a two-term Bayesian computation).
+> **Honest boundaries (preserved):** Track B item (c) did NOT pass on the who-did-what downstream — correctly localized
+> (exp2) as name-clustering + FHRR register-capacity bottlenecked (oracle-coref 0.62 vs binder 0.17), NOT the pronoun
+> link; Track A alone is a full pass of the bar.
+> **hdlab landing QUEUED (Q111 — opt-in, default-off, existing behaviour byte-identical; NOT this commit):**
+> `run_graded_retrieval(stream, gain, d, flag_thr)` on `hdlab/coreference_resolver.py` — ACT-R activation over
+> gn-compatible entities → `graded_pick` (import `hdlab.graded_competition`) → argmax + normalized-entropy confidence;
+> abstain when entropy > flag_thr. Replaces the coarse integer strict-Cb margin (AUC 0.617) with the entropy posterior
+> (AUC 0.806) as the first-class abstain signal the ToM cue / entity tracking / situation model consume — the name/nominal
+> branch stays untouched. **Top adjacency surfaced + now MEASURED for a clean follow-on:** name/entity clustering shatters
+> **65.6% of multi-name gold entities** (single-head-token cache = the root cause) and caps the whole who-did-what /
+> entity-tracking / situation-model stack (oracle-coref 0.62 vs 0.17).
+
 
 # PROBLEM: coreference on real multi-character narrative is measured at ~0.65 and it CAPS every organ that resolves who-is-who on prose (the ToM observation cue, entity tracking, the situation model, "where is X?") — build a brain-faithful coreference that beats the ~0.65 incumbent CI-separated on real narrative, OR make a confidence-gated ABSTAIN a first-class signal downstream organs consume so they degrade gracefully instead of silently inheriting a wrong link
 

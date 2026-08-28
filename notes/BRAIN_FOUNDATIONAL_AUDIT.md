@@ -1223,8 +1223,15 @@ Heavily built: `coref.py`, `coreference_resolver.py`, `coref_distractor_suppress
 `event_centrality_coref.py`, `scene_segment.py`, `state_of_mind.py`, `entity_slot_gate.py`, `slot_attention_wm.py`,
 `situation_reader.py`, `event_bundle.py`. **RIGHT-OP-WRONG-METRIC:** invented arithmetic (`count + β·exp(−λΔ)`)
 over a pinned *ordering*; **mentions are SUPPLIED (gold), so it does not transfer to raw prose**; margin over the
-strong floor NOT CI-separated at n=57. *Competitive antecedent resolution among 2+ plausible referents remains the
-real open case.*
+strong floor NOT CI-separated at n=57. ~~*Competitive antecedent resolution among 2+ plausible referents remains the
+real open case.*~~ **MEASURED + FIXED 2026-08-28 (§2b, `coreference_is_capped_at_065_on_real_narrative` SOLVED/EXCELLENT,
+owner-DONE):** the PRONOUN branch is now brain-faithful GRADED cue-based retrieval (softmax over pinned ACT-R activation,
+reusing `graded_competition`) — 0.775 vs the incumbent hard-tier 0.603 (+0.172 CI-sep) on LitBank held-out competitive
+pronouns; the incumbent hard tier was the CAP (below plain recency 0.717). Ties ACT-R by the MAP theorem; posterior
+entropy = a calibrated abstain (AUC 0.617→0.806). Residual ~19% = the missing 2nd Bayesian term (coherence PRIOR). The
+NAME/NOMINAL branch is now the open case: it SHATTERS 65.6% of multi-name gold entities (single-head-token cache root
+cause) and caps who-did-what (oracle-coref 0.62 vs binder 0.17). hdlab landing QUEUED (opt-in default-off
+`run_graded_retrieval`).
 
 ### DISCOURSE / BRIDGING — (also corrected from "ABSENT")
 Exists as *relation* inference (`situation_model_accumulate` CausalLinkRegister, `goal_outcome_relation*`,
