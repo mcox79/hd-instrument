@@ -65,6 +65,27 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-27 — COMPOSITION FIDELITY: the entity and meaning systems COMPOSE end-to-end (both load-bearing in one reader),
+  but the COMBINATION RULE is a fidelity gap — the brain uses CONVERGENT-CUE pattern completion, not an independent
+  post-hoc conjunction** (strategy fidelity extension, CONSOLIDATION STEP 18 measurement + STEP 19 brain-foundationality
+  drill; `experiments/exp_composed_reader_entity_meaning_paraphrase_v1.py`; NOT a solver integration). On a LitBank
+  paraphrased pronoun who-did-what task (answer "what did X PURSUE?" when the story said "chased" — needs BOTH the
+  pronoun-linked entity AND the paraphrase recognition), composing the landed `salience_binder` (episodic) + landed
+  `conceptual_meaning` (ATL) shows **BOTH axes load-bearing**: FULL 0.1190 [0.0976,0.1424] vs ENTITY_OFF (string-identity)
+  0.0337 (+0.0853 CI-sep) vs MEANING_OFF (exact) 0.0000 (+0.1190) vs shuffled-binding twin 0.0660 (+0.0530). **FIDELITY
+  VERDICT (STEP-19 drill):** (a) keeping the two as SEPARATE POOLS is EVIDENCE-PINNED by the canonical DOUBLE DISSOCIATION
+  (semantic dementia spares episodic binding; hippocampal amnesia spares semantics) — the composition RESPECTS this ✅;
+  (b) BUT the strict independent AND (FULL ≈ entity-solo 0.167 × meaning-solo 0.700 = 0.117, i.e. treated as statistically
+  INDEPENDENT) is only a LATE-MERGE decision (Norris "Merge") — for the RETRIEVAL step the faithful mechanism is CLS
+  CONVERGENT-CUE pattern completion where the meaning cue provides TOP-DOWN support to the hippocampal read, so it should
+  BEAT the independent product by rescuing weak-binding cases. **DEVIATION (new, under-test):** composition-by-independent-
+  conjunction where the brain composes by convergent-cue retrieval. **QUEUED as the READ-side fix** (problem
+  `compose_the_reader_by_convergent_cue_not_independent_conjunction`, priority 3) — the counterpart of p2's WRITE/STORE-side
+  sparse DG+CA3 fix; both are the content-addressable-retrieval convergence flagged 4× by the entity work. Individual organs
+  UNCHANGED / no regression. **Deflations honoured:** absolute FULL low (strict conjunction of two moderate independent
+  capabilities on the hardest subset); entity-solo 0.167 = the dense-store ceiling p2 refines (this is a BASELINE); meaning
+  keeps the WordNet-circularity caveat.
+
 - **2026-08-27 — MEANING-SIMILARITY IS OPERATION-SPECIFIC PER WORD CLASS, and the adjective SIGNED-MAGNITUDE op clears
   CI-separation AT POWER on an independent human gold; the cosine is wrong for ADJECTIVES ONLY (verbs are already served
   by the gloss); and the magnitude CODE is FPE(log degree), validated to human behaviour** (from

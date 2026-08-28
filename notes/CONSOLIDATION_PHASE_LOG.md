@@ -436,3 +436,32 @@ paraphrases scored by a WordNet channel) -- a non-WordNet paraphrase set is the 
 front-end axis DONE (landed+wired, STEP 17); entity+meaning now shown to COMPOSE (this step). The FULL 3-axis end-to-end
 (add the front-end role assigner to a gold that ALSO has non-canonical structure) + the p2/scalar-refined re-run remain.**
 - Commit: see git log (strategy: entity x meaning compose end-to-end -- consolidation step 18).
+
+### 2026-08-27 -- STEP 19: BRAIN-FOUNDATIONALITY DRILL on the COMPOSITION (owner check "ensure brain foundational") 🧠
+Ran the finer-resolution fidelity drill the owner asks for on the STEP-18 WIRING itself (not the organs -- those are
+each landed brain-faithful: salience_binder = ACT-R base-level + Centering; conceptual_meaning = ATL amodal hub).
+**THREE fidelity levels, checked as a neuroscientist:**
+1. **Are the two SYSTEMS separate in the brain? YES -- PINNED by a canonical DOUBLE DISSOCIATION.** Semantic dementia
+   (bilateral ATL atrophy) degrades conceptual identity (cannot recognise pursue==chase) but SPARES episodic/relational
+   binding; hippocampal amnesia spares semantics but destroys relational who-did-what binding. -> keeping entity and
+   meaning as SEPARATE POOLS (wiring rule 4) is EVIDENCE-PINNED, not our invention. **The STEP-18 composition RESPECTS
+   this** (two separate readouts; MEANING_OFF and ENTITY_OFF each degrade independently) -> FAITHFUL. ✅
+2. **Is the COMBINATION RULE (my strict independent AND) brain-faithful? PARTIALLY -- and this is the fidelity GAP.**
+   The AND is defensible as a LATE MERGE of two parallel streams at the DECISION (Norris/McQueen/Cutler "Merge", wiring
+   rule 1). BUT for the RETRIEVAL step specifically it is NOT the deepest-fidelity mechanism: episodic retrieval is
+   CONVERGENT-CUE PATTERN COMPLETION (CLS / hippocampal) -- the meaning cue ("pursue") and the entity cue (X) should
+   JOINTLY address the content-addressable situation register, with meaning providing TOP-DOWN SUPPORT to the
+   hippocampal read (predictive-coding facilitation). My AND treats the two retrievals as INDEPENDENT and combines them
+   post-hoc -> it FORBIDS the top-down semantic facilitation the brain uses, so it likely UNDER-estimates the composed
+   capability. This is exactly the "content-addressable retrieval convergence" the entity-tracking integration flagged 4x.
+3. **Do the organs stay faithful IN the composition? YES** -- used unchanged; no fidelity regression introduced by wiring.
+**DRILL VERDICT:** the STEP-18 composition is a VALID DISSOCIATION and late-merge-consistent (faithful for the DECISION),
+but the brain-faithful RETRIEVAL mechanism is CONVERGENT-CUE (meaning ⊗ entity jointly addressing the store, top-down
+support), NOT an independent AND. **Testable brain-foundational prediction: convergent-cue retrieval BEATS the STEP-18
+independent-AND baseline (0.119) -- recovering entity-solo MISSES via semantic facilitation -- WHILE preserving the double
+dissociation (a fused-into-one-pool control must LOSE the dissociation and is refuted as a fidelity regression).**
+**-> This is a SIGNIFICANT NEW MECHANISM (how two dissociable systems COMBINE at read), measurement-surfaced, with a
+baseline to beat -> HANDED OFF as a solver problem (owner 08-27: "handoff significant problems to the solvers"):
+`compose_the_reader_by_convergent_cue_not_independent_conjunction` (priority 3). AUDIT UPDATE folded (§2b).** STEP-18's
+result STANDS (both axes load-bearing); this drill defines the next fidelity step, it does not retract anything.
+- Commit: see git log (strategy: brain-foundationality drill + package convergent-cue handoff -- step 19).
