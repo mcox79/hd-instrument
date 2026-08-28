@@ -54,9 +54,11 @@ negative + a mechanism for why the operating point is competence-dependent). ON 
 `corpus_registry` + comprehensible-input selector COMP_THRESH=0.5 w/ adaptive hook + within-source MVT leave on
 grounding-yield); do NOT land the refuted LP selector or a separate EVC-halt.
 🎯 **QUEUE (integrate ONLY on `owner_verdict: DONE`): p2 learner (SOLVED, recommend DONE — see the prior entry for the
-reverify+land recipe + the SAFETY GATE); p3 foraging (SOLVED, recommend DONE, above); p5 ToM-reeval + p6 transitive = no
-solution yet.** ⚠️ The uncommitted `data/capability_registry.jsonl` + untracked `verification/test_*.py` are OTHER
-sessions'/solvers' — do NOT commit them.
+reverify+land recipe + the SAFETY GATE); p3 foraging (SOLVED, recommend DONE, above); p4 `the_register_reads_by_argmax_not_recurrent_completion`
+(NEWLY PACKAGED this session — the phase-diagram audit's #1 follow-on lever: swap the register's argmax cleanup for CA3
+recurrent pattern completion, a book-scale CAPACITY lever NOT a current-task win, must resolve the completion-helps-decode /
+hurts-ranking tension; no solver yet); p5 ToM-reeval + p6 transitive = no solution yet.** ⚠️ The uncommitted
+`data/capability_registry.jsonl` + untracked `verification/test_*.py` are OTHER sessions'/solvers' — do NOT commit them.
 
 ### 2026-08-28 -- 🧭 **COMPACTION SNAPSHOT: p1 FULLY LANDED + verified; ToM landed; the FACTORIZED MEMORY STORE landed (dense→sparse gap ~closed); the LEARNER solution is IN + recommended DONE (awaits owner verdict); reasoning phase seeded. IDLE, waiting on owner verdicts.**
 **READ THIS FIRST after compaction; then `CONSOLIDATION_PHASE_LOG.md` (steps 0-20 + the RESUME STATE at its top) + the entries below.**
