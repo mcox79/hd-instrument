@@ -31,7 +31,24 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- ✅ **ENTITY-STORE FAN FIX INTEGRATED (owner-DONE, EXCELLENT) -- the p2 submission CORRECTED the brief (the fan is an ADDRESSING COLLISION, not superposition blur) then built the maximally faithful FACTORIZED two-system store; hdlab cheap core LANDED (SET-RETURN decode)**
+### 2026-08-27 (LATEST) -- 🧭 **NEXT PHASE FRAMED + THE LEARNER PACKAGED (owner-directed): comprehension→REASONING; and the learn-from-reading learner is PROVEN-but-OFF → OPTIMIZE + safety-validate it as a solver problem BEFORE it grows the foundation, p1 LANDED FIRST**
+Owner steer this session: (1) NEXT PHASE = the reader crosses from COMPREHENSION to REASONING — p1's magnitude/COMPARISON op
+is the first glass-box reasoning primitive; the meaning system becomes multi-operation + demand-routed (the pattern the whole
+substrate converged on). (2) **LEARNING FROM READING is PROVEN-worth-continuing (Q116 owner-DONE: a PPMI-SVD arm over 38M
+simplewiki tokens beats floors 15-40x, STILL CLIMBING at the corpus ceiling; fuses with the hub on WordSim) BUT is currently
+OFF — every reading/learning organ is an ISLAND; the foundation is STATIC offline-built (the pivot design). We are NOT
+learning at runtime.** (3) Owner: "set the learner as a problem to OPTIMIZE before you turn it on… validate the shit out of it
+with the UPDATED substrate before it grows the foundation." **📦 PACKAGED `optimize_and_validate_the_learner_before_it_grows_the_foundation`
+(priority 2):** beat the PPMI-SVD baseline with a brain-faithful ONLINE PREDICTIVE/Hebbian learner (not batch factorization),
+NET-IMPROVE the updated substrate (fused/demand-routed with conceptual_meaning + p1's ruler, no regression, dissociations
+preserved), and a HARD SAFETY GATE (growing the foundation must improve downstream comprehension, info-free growth control
+not helping, corruption-risk quantified) — a rigorous "don't turn it on yet" is a PASS. **🔗 HARD DEPENDENCY: p1 must be
+LANDED first** (validate the learner against the COMPLETE meaning system, not a stale target) — the rule-optimization half is
+p1-independent and can start now; the substrate-validation half waits for p1. 🎯 **QUEUE: p1 (SOLVED, awaits owner_verdict —
+integrate FIRST), learner (p2, gated on p1), phase-diagram (p4). NEXT STRATEGY (mine): integrate p1 when owner-DONE → then
+the learner solver runs; the FACTORIZED two-system store + N400 segmentation + full 3-axis remain, heavy runs → remote box.**
+
+### 2026-08-27 -- ✅ **ENTITY-STORE FAN FIX INTEGRATED (owner-DONE, EXCELLENT) -- the p2 submission CORRECTED the brief (the fan is an ADDRESSING COLLISION, not superposition blur) then built the maximally faithful FACTORIZED two-system store; hdlab cheap core LANDED (SET-RETURN decode)**
 `the_entity_store_is_a_dense_bundle_that_fans` (p2). Re-verified FIRST-HAND: **core witness 21/21 + frontier witness 26/26**
 (ran both myself). One of the strongest submissions. **Diagnosis:** the measured LitBank fan (decode 0.945@few->0.657@many,
 slope 0.288) is an ADDRESSING COLLISION + argmax readout, NOT superposition blur -- unique-(entity,slot) decodes at 1.0000
