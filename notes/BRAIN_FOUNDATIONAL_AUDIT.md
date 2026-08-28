@@ -65,6 +65,25 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — REASONING PHASE HAS ITS FIRST PRIMITIVE: TRANSITIVE-COMPARISON over a MAGNITUDE LINE, and the mechanism
+  is SELECTED by a MEASURED human signature (not asserted)** (from `transitive_comparison_reasoning_over_the_magnitude_ordering`,
+  integrated SOLVED/EXCELLENT, owner-DONE; witness re-verified FIRST-HAND, ALL checks PASS). The reader now reads pairwise
+  comparisons (A>B, B>C) and answers the UN-STATED pair (A vs C). PINNED: relational integration by **delta-rule /
+  value-transfer settling** (Frank-Rudy-O'Reilly 2003; Dusek & Eichenbaum hippocampal relational memory) onto a bounded
+  FHRR **magnitude line** (item_key ⊗ FPE(position) — the parietal ATOM number-line), read natively by FPE — a COPIED
+  computation, NOT a symbolic sort. Un-stated-pair sign accuracy 1.000 vs the ASSOCIATION-MATCHED net-win floor 0.500
+  (+0.500 CI-sep; the Dusek/Eichenbaum control where association gives zero signal by construction — isolates integration
+  from associative strength), twin loses, stated-only at chance; grounded on real words via the landed p1 ruler (human
+  concreteness order 1.000 vs 0.673). **Method note for the audit: a distance effect ALONE does NOT distinguish a
+  magnitude line from a discrete rank code (both show it as a readout-noise property); the distance-effect DIRECTION does
+  — serial chaining gives a NEGATIVE slope (far pairs need more hops), a magnitude line gives the human POSITIVE slope
+  (far pairs easier). The human positive symbolic-distance effect + end-anchor effect SELECT the magnitude line and RULE
+  OUT chaining.** Two-systems boundary: on a GROUNDED, directly-readable 1-D axis, integration TIES direct-reading —
+  reasoning's VALUE is on NOVEL / text-defined orderings you cannot read off (integration 0.845 vs a local reader 0.500
+  on never-stated pairs). The GROUNDED bottleneck is the p1 front-end reading CLOSE comparisons at ~60% (the top
+  adjacency). hdlab landing QUEUED (default-off `transitive_ordering.py`). This is the comprehension→REASONING phase's
+  first organ.
+
 - **2026-08-28 — REGISTER READOUT: the capacity "cliff" is largely an ARGMAX-READOUT artifact; the brain reads a
   superposition by THETA-GAMMA SERIAL DECODE-AND-SUPPRESS (Lisman & Idiart 1995), NOT CA3 attractor completion — and
   the gain is known-key CROSSTALK CANCELLATION** (from `the_register_reads_by_argmax_not_recurrent_completion`,

@@ -238,3 +238,20 @@ None blocking. One decision for the owner/strategy: whether to prioritise the **
 2. File adjacency 1 (p1 close-pair discrimination) and adjacency 2 (comparative-sentence parser) as follow-on problems.
 3. The 30-min deepening cron keeps drilling (finer hippocampal implementations; the manifold-aware read-out) until the
    checklist is dry; I cancel it and finalise on the owner's verdict.
+
+---
+INTEGRATED_BY_STRATEGY: 2026-08-28 (grade EXCELLENT). Re-verified FIRST-HAND (test_transitive_ordering_reasoning.py,
+ALL checks PASS). The FIRST reasoning primitive: a delta-rule / value-transfer settling (Frank-Rudy-O'Reilly 2003;
+Dusek/Eichenbaum) integrates overlapping pairwise comparisons into ONE magnitude ordering in a bounded FHRR
+magnitude-line register (item_key (x) FPE(position)), read out natively by FPE -- NOT a symbolic sort. Un-stated
+transitive pairs 1.000 vs the ASSOCIATION-MATCHED floor 0.500 (+0.500 CI-sep; the Dusek/Eichenbaum control isolating
+integration from associative strength); twin loses; stated-only at chance. Grounded on REAL words via the landed p1
+ruler (human concreteness order 1.000 vs 0.673, +0.327 CI-sep). THE STRONGEST result: the mechanism is SELECTED by a
+MEASURED human signature -- serial chaining and the magnitude line tie on accuracy (~0.69) but have OPPOSITE
+distance-effect DIRECTION (magnitude +0.93 = human far-easier; chaining -0.98 = far-harder), so the human positive
+symbolic-distance effect RULES OUT chaining. Honest: the distance effect alone is a readout-noise property of any
+ordered code (the DIRECTION discriminates); integration ties direct-reading on a grounded 1-D axis (two-systems regime;
+reasoning's home is NOVEL/text-defined orderings). Review + SOLVER REVIEW block in PROBLEM.md; priority cleared. AUDIT
+UPDATE folded (2b). hdlab landing QUEUED (default-off hdlab/transitive_ordering.py: the delta-rule magnitude-line
+integrator over the FHRR register + native FPE readout, consuming the p1 ruler). Top adjacency: the p1 close-comparison
+reading front-end (~60%) caps the grounded reasoning path. NO hdlab written this commit (Q111).

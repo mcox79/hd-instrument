@@ -1,8 +1,40 @@
 ---
-priority: 6
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "The FIRST reasoning primitive — SOLVED, and brain-faithful in a deep way: the mechanism is SELECTED by a MEASURED human signature, not asserted. Re-verified FIRST-HAND (test_transitive_ordering_reasoning.py, ALL checks PASS). A delta-rule / value-transfer settling (Frank-Rudy-O'Reilly 2003; Dusek/Eichenbaum hippocampal relational integration) integrates overlapping pairwise comparisons into ONE magnitude ordering held in a bounded FHRR magnitude-line register (item_key ⊗ FPE(position), parietal ATOM), read out natively by FPE — NOT a symbolic sort. Answers UN-STATED transitive pairs 1.000 vs the association floor 0.500 (+0.500 CI-sep) on the ASSOCIATION-MATCHED internal pairs (the Dusek/Eichenbaum control where net-win association gives ZERO signal by construction — isolates relational integration from associative strength); the info-free twin (shuffled premise directions -> random ordering) loses; stated-only lookup at chance. Grounded on REAL words via the LANDED p1 ruler: recovers the human concreteness order 1.000 vs association 0.673 (+0.327 CI-sep). Reasoning-adds-value: on never-stated pairs a noisy text reader cannot answer, integration 0.845 vs local 0.500 (+0.326 CI-sep). THE STRONGEST result: serial chaining and the magnitude line reach identical overall accuracy (~0.69) but OPPOSITE distance-effect DIRECTION (magnitude +0.93 = far pairs EASIER = human; chaining -0.98 = far HARDER), so the human positive symbolic-distance effect FORCES the magnitude-line and RULES OUT chaining (Eichenbaum) — plus the end-anchor effect (2nd human signature). Scrupulously honest: the distance effect ALONE is a readout-noise property of ANY ordered code (magnitude AND rank both show it) — the DIRECTION is the discriminator (a careful non-overclaim); integration TIES direct-reading on a grounded 1-D axis (two-systems regime — reasoning's home is NOVEL/text-defined orderings, proven in exp4); the p1 close-comparison front-end (~60%) is the grounded bottleneck, flagged as the top adjacency. hdlab landing QUEUED (default-off transitive_ordering.py)."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-28 (strategy session; grade EXCELLENT)
+> **Re-verified FIRST-HAND** (`verification/test_transitive_ordering_reasoning.py`, ALL checks PASS — ran it myself).
+> **Result (the first REASONING operation on the substrate):** read pairwise comparisons (A>B, B>C), integrate them into
+> ONE magnitude ordering, answer the UN-STATED pair (A vs C). Mechanism: a delta-rule / value-transfer settling
+> (Frank-Rudy-O'Reilly 2003; hippocampal relational integration, Dusek & Eichenbaum) places items on a bounded FHRR
+> **magnitude line** (item_key ⊗ FPE(position) — the parietal ATOM), read out natively by FPE — a COPIED computation,
+> not a symbolic sort. Un-stated transitive-pair sign accuracy **1.000 vs the association floor 0.500 (+0.500 CI-sep,
+> half-width 0.000)** at N=7 clean premises; 0.672 vs 0.510 under 20% premise corruption.
+> **Argument audit (not just arithmetic) — the controls are the strength:** (a) the floor is the ASSOCIATIVE net-win
+> ranking, evaluated on the **association-MATCHED internal pairs where #wins−#losses gives ZERO signal by construction**
+> (the Dusek/Eichenbaum control) → the +0.500 is genuine relational INTEGRATION, not associative strength. (b) The
+> info-free twin (shuffled premise directions → random ordering) loses CI-sep (0.48–0.52, null p95 0.73–0.80). (c)
+> Stated-only lookup at chance on un-stated pairs → excludes memorisation. (d) Float-vs-register localisation:
+> integration is EXACT + N-independent → any capacity limit is a STORAGE cost, not an integration failure. **The single
+> most brain-foundational move:** the solver did NOT assert the mechanism from the brief — it MEASURED a human signature
+> that SELECTS it. On the SAME premises, serial chaining and the magnitude line reach identical overall accuracy (~0.69)
+> but **opposite distance-effect DIRECTION** — magnitude slope +0.93 (far pairs EASIER, the human positive symbolic-
+> distance effect) vs chaining −0.98 (far pairs need more hops → HARDER). The human direction rules out chaining and
+> pins the magnitude line. And it HONESTLY refined the bar: EXP5 shows the distance effect *alone* is a readout-noise
+> property of any ordered code (magnitude AND discrete-rank both show +0.91) — so the DIRECTION, not the mere presence,
+> is the discriminator. The end-anchor effect is a second emergent human signature.
+> **Substrate-native + grounded:** built on the LANDED p1 ruler + the FHRR register; on REAL words the integration
+> recovers the human concreteness order 1.000 vs association 0.673 (+0.327 CI-sep, n=200), premise reliability 0.86.
+> **Honest boundaries (preserved):** on a GROUNDED, directly-readable 1-D axis, integration TIES direct-reading — the
+> two-systems regime; reasoning's VALUE is on NOVEL / text-defined orderings you cannot just read off (exp4: integration
+> 0.845 vs local-reader 0.500 on never-stated pairs). The grounded bottleneck is the p1 front-end reading CLOSE
+> comparisons at ~60% — flagged as the top adjacency (a candidate brief). **AUDIT UPDATE folded (§2b).**
+> **hdlab landing QUEUED (Q111 — proven-ready, default-off; NOT this commit):** `hdlab/transitive_ordering.py` (the
+> delta-rule magnitude-line integrator over the FHRR register + native FPE read-out), consuming the landed p1 ruler for
+> the grounded case. This is the first REASONING organ — the comprehension→reasoning phase has its foundation. **Top
+> adjacency surfaced: the p1 close-comparison reading front-end (~60%) caps the grounded reasoning path.**
 
 # PROBLEM: the reader can COMPARE two things on a scale (p1) but cannot REASON over comparisons — build transitive-comparison / ordering (read pairwise "A > B, B > C" from text, build the magnitude ORDERING, answer the UN-STATED "A vs C"), the first REASONING operation, validated CI-separated over a no-ordering floor with an info-free twin losing
 
