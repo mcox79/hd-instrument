@@ -1,10 +1,44 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Corrected the brief's premise then solved the real problem brain-faithfully. Re-verified FIRST-HAND: core 21/21 + frontier 26/26. The measured fan is an ADDRESSING COLLISION (unique-address decode 1.0 at every load; top-m recovers the set at ~1.0 -- the dense bundle never loses info), NOT superposition blur. Fix = finer conjunctive temporal key (TCM) + SET-RETURN read (CA3 reactivation): slope 0.288->0.000 CI-sep, info-free order twin loses. Built the maximally faithful FACTORIZED two-system store (sparse DG exact-recall + graded context, read separately) -> BOTH fan-flat 0.001 AND contiguity 0.585 on real LitBank, where a single key trades them; matches Bausch 2026 single-unit data + TEM. Sparse DG relocated to its true home (high-load exact-recall capacity, holds 1.0 to N=800 where the organ falls to 0.78), residual similarity-gated not count-gated. Honest deflations self-flagged. LANDED the cheap core fix (decode_set set-return on both register backends, witness PASS, registered); QUEUED the factorized two-system store as a proven-ready follow-on."
 ---
 
 # PROBLEM: the situation-model entity store is a DENSE FHRR bundle whose decode DEGRADES as a character accumulates events (a measured fan effect) -- the faithful fix is a SPARSE, pattern-separated per-entity trace store (DG k-WTA + CA3 completion), NOT a pointer
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-27 (strategy session; grade EXCELLENT)
+> **Re-verified FIRST-HAND** — `test_entity_store_fan.py` **21/21** + `test_entity_store_frontier.py` **26/26** (both run
+> myself; suspected my own checker). One of the strongest submissions: it **corrected the brief's premise**, then solved
+> the real problem the brain's way, then built the maximally faithful store and validated it on real data.
+> **Diagnosis (decisive, honest):** the measured LitBank fan (decode 0.945@few → 0.657@many, slope 0.288) is an
+> **ADDRESSING COLLISION + argmax readout, NOT superposition blur** — unique-(entity,slot) addresses decode at **1.0000 at
+> every load level**, a top-m read recovers the co-slot set at ~1.0, and 22.7% of (entity,sentence) keys hold >1 verb (a
+> busy character acts several times per context). "Ask whether the experiment could have SUCCEEDED first" falsified the
+> superposition premise in one check — exactly the discipline we prize.
+> **Fix (brain-faithful, CI-sep):** a FINER conjunctive temporal key (TCM continuous drift) OR a SET-RETURN read (CA3
+> context-cued reactivation) flattens the slope **0.288 → ~0.000**; the info-free shuffled-order twin LOSES (1.000 vs
+> 0.502, null p95 0.520); the finer index carries the specific-action info. Sparse coding is NEUTRAL for the measured fan
+> (FINER_CTX === FINER_CTX_SPARSE) — the lever is the KEY + the READ.
+> **Frontier (built + measured):** the maximally faithful store is FACTORIZED — sparse DG k-WTA exact-recall × graded
+> multi-timescale temporal context × within-moment order, bound only at storage, read separately, with schema/gist routing
+> and a race-to-stop set-return. On real LitBank it gets **BOTH** a flat fan (0.001) AND temporal contiguity (0.585) where
+> a single graded key is stuck trading them (0.194 / 0.585). Independently confirmed by **Bausch et al. 2026 (Nature,
+> human single-unit: content & context are SEPARATE populations bound by timing)** + TEM. Sparse DG relocated to its true
+> home — high-unique-load exact-recall capacity (holds 1.0 to N=800 where the multibank organ falls to 0.78; residual
+> **similarity-gated 3.5× not count-gated**) — so the brief's sparse mechanism was right, for a different regime than the
+> measured fan. Reconstructive DRM intrusions (5.5×), event-boundary contiguity cut, path-integration transfer, and a
+> local-rule SR predictor all measured, each with an info-free twin losing.
+> **Honest deflations (self-flagged, preserved):** the fan fix is retrievability, not a downstream comprehension win;
+> set-return ≈ a pointer on THIS data (the distinction is the mechanism + graceful degradation in the high-load/partial-cue
+> regime, not the LitBank number); Part-3 sparse superiority partly a dimension effect; kWTA partial-cue robustness a real
+> UNFIXED deficit (needs the iterative CA3 completer); spaCy verbs + oracle linking stand-ins (the diagnosis is robust to them).
+> **hdlab LANDED (Q111, the cheap proven core):** `cleanup_set` + `decode_set` (SET-return) on BOTH register backends
+> (`situation_model_accumulate` + `situation_model_multibank`); additive, `decode()` byte-unchanged. Witness
+> `verification/test_situation_setreturn_organ.py` PASS on both backends; registered `situation_register_setreturn_v1`.
+> **QUEUED proven-ready (larger follow-on hdlab landings, NOT in this commit, per owner "land the cheap fix first"):** the
+> finer conjunctive temporal key; the FACTORIZED two-system store (sparse DG exact-recall + graded context); schema/gist
+> interception; the CMR race-to-stop; the path-integration + local-rule-SR scaffolds. AUDIT UPDATE folded (§2b). Heavy
+> LitBank-scale validations of the factorized store route to the REMOTE GPU box.
 
 **slug:** `the_entity_store_is_a_dense_bundle_that_fans` - **opened:** 2026-08-27 by the strategy session
 (the fan effect the entity-tracking integration MEASURED and flagged: oracle decode falls 0.695 -> 0.608 as an entity's

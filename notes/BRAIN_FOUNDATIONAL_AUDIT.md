@@ -65,6 +65,34 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-27 — THE ENTITY-STORE "FAN" IS AN ADDRESSING COLLISION, NOT SUPERPOSITION BLUR; the fix is the KEY + the READ
+  (finer conjunctive temporal context + SET-RETURN), and dense→sparse is the HIGH-LOAD CAPACITY fix, not the fan fix**
+  (from `the_entity_store_is_a_dense_bundle_that_fans`, integrated SOLVED/EXCELLENT, owner-DONE; reverify witnesses
+  `test_entity_store_fan.py` 21/21 + `test_entity_store_frontier.py` 26/26 re-verified FIRST-HAND). **CORRECTS the prior
+  fan-effect entry** (which called the fan "within-register SUPERPOSITION crosstalk" fixed by "sparse DG k-WTA + CA3
+  completion, NOT a pointer"). **Measured on LitBank (28,569 queries, oracle linking):** the fan (decode 0.945@few →
+  0.657@many, slope 0.288) is an ADDRESSING COLLISION on a coarse (entity,sentence) key + an ARGMAX read — unique-(entity,
+  slot) addresses decode at **1.0000 at every load level**, a top-m read recovers the co-slot set at ~1.0, and 22.7% of
+  addresses hold >1 verb. **The dense bundle does NOT lose information.** The faithful fix is a FINER CONJUNCTIVE temporal
+  key (TCM continuous drift) + a SET-RETURN read (CA3 context-cued reactivation): slope **0.288 → ~0.000 CI-sep**, info-free
+  shuffled-order twin LOSES (1.000 vs 0.502). Sparse coding is NEUTRAL for the measured fan (FINER_CTX === FINER_CTX_SPARSE).
+  **Sparse DG's true home = the high-unique-load EXACT-RECALL regime** (holds 1.0 to N=800 where the multibank organ falls
+  to 0.78; residual SIMILARITY-gated 3.5× not count-gated) — the brief's mechanism was right for a DIFFERENT regime.
+  **The maximally faithful store is FACTORIZED** (sparse DG exact-recall × graded multi-timescale context × within-moment
+  order, bound only at storage, read separately): on real LitBank it gets BOTH a flat fan (0.001) AND temporal contiguity
+  (0.585) where a single graded key trades them (0.194/0.585) — **independently confirmed by Bausch et al. 2026 (Nature,
+  human single-unit: content & context SEPARATE populations bound by timing) + TEM**. Also measured (each with an info-free
+  twin losing): reconstructive DRM intrusions (5.5×), event-boundary contiguity cut, path-integration relational transfer,
+  a local-rule SR next-event predictor. **NEW PINNED/INVENTED:** set-vs-argmax read + the factorized separate-populations
+  store = PINNED (Bausch/TEM); the `rel_margin` set-return threshold = OUR-INVENTION (the CMR race-to-stop is the faithful
+  self-terminating stop). **Q1 unification:** DG conjunctive separation and TCM context reinstatement are ONE architecture
+  (the finer context IS the drift). **LANDED (cheap core):** `cleanup_set` + `decode_set` SET-return on both register
+  backends (witness PASS, registered `situation_register_setreturn_v1`, additive/default-safe). **QUEUED proven-ready:** the
+  finer conjunctive key; the FACTORIZED two-system store; schema/gist; race-to-stop; path-integration + SR scaffolds. **Honest
+  scope:** the fan fix is retrievability, not a downstream comprehension win; set-return ≈ a pointer on this data (the value
+  is the mechanism + graceful degradation in the high-load/partial-cue regime); kWTA partial-cue robustness needs the
+  iterative CA3 completer (unfixed). Heavy LitBank-scale validations of the factorized store → remote GPU box.
+
 - **2026-08-27 — COMPOSITION-BY-INDEPENDENT-CONJUNCTION deviation TESTED + RESOLVED at the READ side: the brain-faithful
   CONVERGENT-CUE rule (log-Bayes product of the two posteriors) beats the strongest floor, fused is refuted, and the double
   dissociation is preserved** (from `compose_the_reader_by_convergent_cue_not_independent_conjunction`, integrated

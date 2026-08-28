@@ -47,6 +47,38 @@ def cleanup_argmax(
     return best, scores
 
 
+def cleanup_set(
+    readback: torch.Tensor, vocab: Dict[str, torch.Tensor], rel_margin: float = 0.5
+) -> Tuple[List[str], Dict[str, float]]:
+    """FHRR SET readout = CA3 context-cued reactivation of the whole event set bound at a context,
+    instead of the single argmax. Returns EVERY vocab symbol whose cleanup score clears a margin
+    relative to the peak (score >= rel_margin * peak, score > 0), sorted by score descending.
+
+    Landed 2026-08-27 from the integrated `the_entity_store_is_a_dense_bundle_that_fans` (SOLVED/EXCELLENT,
+    owner-DONE; witnesses test_entity_store_fan.py 21/21 + test_entity_store_frontier.py 26/26, re-verified
+    FIRST-HAND). The measured LitBank "fan" (decode accuracy 0.945@few-events -> 0.657@many, slope 0.288) is
+    NOT superposition blur: unique-(entity,slot) addresses decode at 1.0000 at EVERY load level, and the dense
+    bundle keeps the information (a top-m read recovers the co-slot set at ~1.0). The fan is an ARGMAX-vs-SET
+    readout artifact on a COARSE key where 22.7% of (entity,sentence) addresses hold >1 distinct verb (a busy
+    character does several things per context). SET-return alone flattens the slope 0.288 -> 0.0003 (CI-sep),
+    with an info-free shuffled-order twin LOSING (1.000 vs 0.502). This is the brain's read: CA3 pattern
+    completion reactivates the whole set bound to the reinstated context (Nakazawa 2002; Bramao 2022).
+
+    `rel_margin` is a DEPLOYABLE threshold (OUR-INVENTION, not brain-pinned): the pinned part is set-vs-argmax;
+    the maximally faithful stop is the CMR race-to-stop (self-terminating, no oracle set size) validated in the
+    frontier (F1 0.928 vs fixed-k 0.781) -- a follow-on. Paired brain-faithful fix (caller-side): a FINER
+    conjunctive temporal key (within-sentence order = TCM drift) so co-context actions get distinct addresses;
+    it flattens the fan equally and is where the finer index carries the specific-action info (twin loses)."""
+    d = readback.shape[0]
+    scores: Dict[str, float] = {}
+    for name, v in vocab.items():
+        scores[name] = float(torch.real(torch.sum(torch.conj(v) * readback))) / d
+    peak = max(scores.values()) if scores else 0.0
+    thresh = rel_margin * peak
+    keep = sorted((r for r, s in scores.items() if s > 0.0 and s >= thresh), key=lambda r: -scores[r])
+    return keep, scores
+
+
 class AccumulateRegister:
     """FHRR situation-model register: bind(role_vec, event_idx_vec) per event, accumulate via bundle.
 
@@ -101,6 +133,14 @@ class AccumulateRegister:
         reg = self.register(entity)
         readback = binding.unbind(reg, self.idx_vecs[event_idx])
         return cleanup_argmax(readback, self.role_vecs)
+
+    def decode_set(self, entity: str, event_idx: int, rel_margin: float = 0.5) -> Tuple[List[str], Dict[str, float]]:
+        """SET-return decode (CA3 context-cued reactivation): return ALL roles bound at (entity, event_idx)
+        whose cleanup score clears the margin, not just the argmax. Flattens the addressing-collision fan where
+        a coarse key holds >1 role (see cleanup_set). Additive / default-safe: decode() is unchanged."""
+        reg = self.register(entity)
+        readback = binding.unbind(reg, self.idx_vecs[event_idx])
+        return cleanup_set(readback, self.role_vecs, rel_margin=rel_margin)
 
     def entities(self) -> List[str]:
         """Entity ids with at least one recorded event."""

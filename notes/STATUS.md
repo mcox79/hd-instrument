@@ -31,7 +31,31 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-27 (LATEST) -- ✅ **CONVERGENT-CUE COMPOSITION INTEGRATED (owner-DONE, EXCELLENT) -- the p3 handoff came back SOLVED: the brain's retrieval rule (log-Bayes PRODUCT of the episodic + meaning posteriors) BEATS the strongest floor, fused is refuted, the double dissociation holds -> hdlab organ LANDED**
+### 2026-08-27 (LATEST) -- ✅ **ENTITY-STORE FAN FIX INTEGRATED (owner-DONE, EXCELLENT) -- the p2 submission CORRECTED the brief (the fan is an ADDRESSING COLLISION, not superposition blur) then built the maximally faithful FACTORIZED two-system store; hdlab cheap core LANDED (SET-RETURN decode)**
+`the_entity_store_is_a_dense_bundle_that_fans` (p2). Re-verified FIRST-HAND: **core witness 21/21 + frontier witness 26/26**
+(ran both myself). One of the strongest submissions. **Diagnosis:** the measured LitBank fan (decode 0.945@few->0.657@many,
+slope 0.288) is an ADDRESSING COLLISION + argmax readout, NOT superposition blur -- unique-(entity,slot) decodes at 1.0000
+at EVERY load level; top-m recovers the co-slot set at ~1.0; 22.7% of (entity,sentence) keys hold >1 verb. **Fix
+(brain-faithful, CI-sep):** finer conjunctive temporal key (TCM drift) + SET-RETURN read (CA3 reactivation) flatten slope
+0.288->~0.000, info-free order twin loses (1.0 vs 0.502). **Frontier (built + real-data validated):** the maximally
+faithful store is FACTORIZED (sparse DG exact-recall x graded temporal context, read separately, bound only at storage) ->
+BOTH fan-flat 0.001 AND contiguity 0.585 on real LitBank where a single key trades them; matches Bausch 2026 human
+single-unit data + TEM. Sparse DG relocated to its true home (high-load exact-recall capacity: holds 1.0 to N=800 where the
+organ falls to 0.78; residual similarity-gated 3.5x). Honest deflations self-flagged (retrievability not comprehension;
+set-return ~= pointer on this data; kWTA partial-cue deficit unfixed). 🔌 **hdlab LANDED (cheap proven core, Q111):
+`cleanup_set` + `decode_set` (SET-return) on BOTH register backends (`situation_model_accumulate` +
+`situation_model_multibank`); additive, decode() byte-unchanged; witness `test_situation_setreturn_organ.py` PASS both
+backends; registered `situation_register_setreturn_v1`.** 📦 **QUEUED proven-ready follow-on hdlab landings (larger, NOT
+this commit): finer conjunctive temporal key; the FACTORIZED two-system store (sparse DG + graded context); schema/gist;
+CMR race-to-stop; path-integration + local-rule-SR scaffolds -- heavy LitBank-scale validations route to the remote GPU
+box.** Review EXCELLENT + SOLVER REVIEW; priority cleared; AUDIT UPDATE folded (§2b, corrects the fan-effect entry).
+🎯 **CONSOLIDATION QUEUE: p2 + p3 DONE. REMAINING — p1 `build_the_composed_scalar_magnitude_meaning_channel` (SOLVED,
+awaits owner_verdict), p4 `dimensional_phase_diagram_audit_of_the_current_organs` (no solution yet). NEXT strategy steps
+(mine): the N400 PE event-segmentation wiring + the factorized-store follow-on landing + the FULL 3-axis end-to-end (now
+with the convergent-cue read + set-return decode + p2's store direction). The convergent-cue gain is predicted to COMPOUND
+with the sparse store (recalibrate w).**
+
+### 2026-08-27 -- ✅ **CONVERGENT-CUE COMPOSITION INTEGRATED (owner-DONE, EXCELLENT) -- the p3 handoff came back SOLVED: the brain's retrieval rule (log-Bayes PRODUCT of the episodic + meaning posteriors) BEATS the strongest floor, fused is refuted, the double dissociation holds -> hdlab organ LANDED**
 `compose_the_reader_by_convergent_cue_not_independent_conjunction` (the p3 I packaged + handed off THIS session; owner
 finalized it fast). Re-verified scaffold-free FIRST-HAND (`test_convergent_cue_composed_reader.py` 7/7 PASS). The
 convergent-cue read `argmax_c [log softmax(epi/tau_e) + w·log softmax(sem/tau_s)]` (CA3 pattern completion +

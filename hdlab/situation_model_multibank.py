@@ -44,7 +44,7 @@ from typing import Dict, List, Tuple
 import torch
 
 from . import binding, bundling
-from .situation_model_accumulate import cleanup_argmax, unit_phase_vec
+from .situation_model_accumulate import cleanup_argmax, cleanup_set, unit_phase_vec
 from .working_memory import assert_k_per_bank_in_discriminating_regime  # noqa: F401 (re-export for callers)
 
 
@@ -119,6 +119,16 @@ class MultiBankAccumulateRegister:
         reg = self._bank_register(entity, bank_id)
         readback = binding.unbind(reg, self.idx_vecs[event_idx])
         return cleanup_argmax(readback, self.role_vecs)
+
+    def decode_set(self, entity: str, event_idx: int, rel_margin: float = 0.5) -> Tuple[List[str], Dict[str, float]]:
+        """SET-return decode (CA3 context-cued reactivation): route to the entity's bank, unbind, and return
+        ALL roles whose cleanup score clears the margin instead of the single argmax -- the fix for the
+        addressing-collision fan (a coarse key holding >1 role). Additive / default-safe: decode() unchanged.
+        See hdlab.situation_model_accumulate.cleanup_set for the mechanism + provenance."""
+        bank_id = stable_bank_id(event_idx, self.n_banks)
+        reg = self._bank_register(entity, bank_id)
+        readback = binding.unbind(reg, self.idx_vecs[event_idx])
+        return cleanup_set(readback, self.role_vecs, rel_margin=rel_margin)
 
     def register(self, entity: str) -> torch.Tensor:
         """Full API-parity with AccumulateRegister.register(): bundle of ALL of the entity's
