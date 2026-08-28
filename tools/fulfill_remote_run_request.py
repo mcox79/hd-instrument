@@ -43,6 +43,98 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUEUE_ADD = os.path.join(REPO, "tools", "orchestrator", "queue_add.sh")
 LOG = os.path.join(REPO, "data", "remote_run_requests_log.jsonl")
 VALID_QUEUES = ("remote_cpu_queue", "overnight_queue", "local_cpu_queue")
+REPO_REMOTE = "C:/dev/hd-instrument"   # marsh@home repo root (matches queue_add.sh)
+SSH_TARGET = "marsh@home"
+
+
+def _ssh(ps_cmd, timeout=30):
+    """Run a PowerShell command on the remote box; returns CompletedProcess (or None on failure)."""
+    try:
+        return subprocess.run(
+            ["ssh", "-o", "ConnectTimeout=10", SSH_TARGET, f'powershell -Command "{ps_cmd}"'],
+            capture_output=True, text=True, timeout=timeout)
+    except Exception:  # noqa: BLE001 -- unreachable remote -> caller treats as unverifiable
+        return None
+
+
+def hdlab_import_closure(cell_abs, max_hops=3):
+    """Bounded BFS over `hdlab.<mod>` imports starting from the cell (matches module- AND function-level
+    imports). Returns the set of hdlab module names the run may need. queue_add.sh only auto-ships a tiny
+    hdlab allow-list, so the remote (which drifts behind local) is missing everything else -- this closes
+    that gap. Bounded hops (not a full resolver); the remote --self-test gate catches anything deeper."""
+    pat = re.compile(r"(?:from|import)\s+hdlab\.(\w+)")
+    seen, frontier, hops = set(), set(pat.findall(_read(cell_abs))), 0
+    while frontier and hops < max_hops:
+        nxt = set()
+        for mod in list(frontier):
+            if mod in seen:
+                continue
+            seen.add(mod)
+            p = os.path.join(REPO, "hdlab", mod + ".py")
+            if os.path.isfile(p):
+                nxt |= set(pat.findall(_read(p)))
+        frontier = nxt - seen
+        hops += 1
+    return sorted(seen | frontier)
+
+
+def ship_hdlab_modules(cell_abs, dry_run):
+    """scp-ship (if MISSING on remote) the cell's hdlab dependency closure. Ship-if-missing is additive and
+    safe -- it never overwrites a present module (avoids clobbering a concurrent remote run). A STALE-but-
+    present hdlab module is a separate, rarer problem the orchestrator's hdlab sync owns."""
+    report = []
+    for mod in hdlab_import_closure(cell_abs):
+        local = os.path.join(REPO, "hdlab", mod + ".py")
+        if not os.path.isfile(local):
+            continue  # not a local hdlab source module (e.g. a subpackage/name) -- skip quietly
+        if dry_run:
+            report.append((mod, "would-ship-if-missing"))
+            continue
+        remote_path = f"{REPO_REMOTE}/hdlab/{mod}.py"
+        r = _ssh(f"if (Test-Path '{remote_path}') {{ 'YES' }} else {{ 'NO' }}")
+        if r is not None and "YES" in (r.stdout or ""):
+            report.append((mod, "present"))
+            continue
+        try:
+            sp = subprocess.run(["scp", "-o", "ConnectTimeout=10", local, f"{SSH_TARGET}:{REPO_REMOTE}/hdlab/"],
+                                capture_output=True, text=True, timeout=300)
+            report.append((mod, "shipped" if sp.returncode == 0 else f"SHIP-FAILED rc={sp.returncode}"))
+        except Exception as e:  # noqa: BLE001
+            report.append((mod, f"SHIP-ERROR {e}"))
+    return report
+
+
+def ship_kb_referents(krefs, dry_run):
+    """For each `# KB_REFERENT` path: verify it exists on the remote; scp it if it is missing.
+    Best-effort -- an unreachable remote or a ship failure is a WARNING, not a hard stop, because
+    queue_add.py's PROT-022 existence check on the remote is the authoritative backstop (it will
+    REJECT the dispatch if a referent is genuinely absent). Returns a list of (ref, status)."""
+    report = []
+    for ref in krefs:
+        remote_path = f"{REPO_REMOTE}/{ref}"
+        if dry_run:
+            report.append((ref, "would-verify-on-remote"))
+            continue
+        r = _ssh(f"if (Test-Path '{remote_path}') {{ 'YES' }} else {{ 'NO' }}")
+        if r is None:
+            report.append((ref, "UNVERIFIABLE (remote unreachable) -- PROT-022 will backstop"))
+            continue
+        if "YES" in (r.stdout or ""):
+            report.append((ref, "present"))
+            continue
+        local = os.path.join(REPO, ref)
+        if not os.path.isfile(local):
+            report.append((ref, "MISSING on remote AND local -- cannot ship"))
+            continue
+        remote_dir = os.path.dirname(remote_path)
+        _ssh(f"New-Item -ItemType Directory -Force -Path '{remote_dir}' | Out-Null")
+        try:
+            sp = subprocess.run(["scp", "-o", "ConnectTimeout=10", local, f"{SSH_TARGET}:{remote_dir}/"],
+                                capture_output=True, text=True, timeout=1800)
+            report.append((ref, "shipped" if sp.returncode == 0 else f"SHIP-FAILED rc={sp.returncode}"))
+        except Exception as e:  # noqa: BLE001
+            report.append((ref, f"SHIP-ERROR {e}"))
+    return report
 
 
 def _read(path):
@@ -298,7 +390,12 @@ def main():
         print(prereg_text)
         print("----- queue command -----")
         print("  " + " ".join(qcmd))
-        print(f"[fulfill] KB_REFERENTs (queue_add.sh ships any missing on remote): {krefs or '(none)'}")
+        print(f"[fulfill] KB_REFERENTs (fulfiller verifies on remote + scp-ships any missing before queuing):")
+        for ref, st in ship_kb_referents(krefs, dry_run=True):
+            print(f"    - {ref}  [{st}]")
+        print(f"[fulfill] hdlab dependency closure (ship-if-missing on remote; closes queue_add.sh's drift gap):")
+        for mod, st in ship_hdlab_modules(cell_abs, dry_run=True):
+            print(f"    - hdlab.{mod}  [{st}]")
         print("===== END DRY RUN =====")
         log_event({"ts": datetime.now(timezone.utc).isoformat(), "cell": cell, "outcome": "dry_run",
                    "queue": decided_queue, "prereg": prereg_rel, "request": a.request})
@@ -309,6 +406,18 @@ def main():
     with open(prereg_abs, "w", encoding="utf-8", newline="\n") as f:
         f.write(prereg_text)
     print(f"[fulfill] wrote prereg -> {prereg_rel}")
+
+    # Ship the cell's hdlab dependency closure if missing on remote (closes queue_add.sh's drift gap).
+    for mod, st in ship_hdlab_modules(cell_abs, dry_run=False):
+        print(f"[fulfill] hdlab.{mod}: {st}")
+
+    # Ship any un-shipped KB_REFERENT data to the remote (PROT-022 on the runner is the backstop).
+    ship_report = ship_kb_referents(krefs, dry_run=False)
+    for ref, st in ship_report:
+        print(f"[fulfill] KB_REFERENT {ref}: {st}")
+    if any("MISSING on remote AND local" in st for _, st in ship_report):
+        print("[fulfill] WARN: a KB_REFERENT is absent on BOTH remote and local -- queue_add.py PROT-022 "
+              "will likely REJECT. Proceeding so you see the authoritative gate.", file=sys.stderr)
 
     print(f"[fulfill] dispatching: {' '.join(qcmd)}")
     p = subprocess.run(qcmd, cwd=REPO)

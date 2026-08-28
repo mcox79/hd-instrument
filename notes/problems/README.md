@@ -465,6 +465,11 @@ chosen queue (which auto-ships the script + siblings + any missing KB_REFERENT d
 `python tools/orchestrator/scp_recover_landing.py --verify-after <cell_name>`. You read the verdict there; strategy
 does NOT integrate on it (WIP until `owner_verdict: DONE`).
 
-**GOTCHA -- full vs smoke:** the remote runner invokes your cell by a fixed convention. If your cell defaults to
-SMOKE when `--mode` is absent (e.g. `smoke = args.mode != "full"`), make sure the runner convention passes
-`--mode full` OR make your cell default to full for the real run -- otherwise it silently runs the smoke sample.
+**GOTCHA -- full vs smoke (CONFIRMED 2026-08-28, cost one dispatch):** the remote runner invokes your cell **BARE**
+(it passes `--timeout` but NOT `--mode full` -- there is no per-entry cell-args field). So a cell that derives
+smoke from `mode != "full"` (default = smoke) runs the SMOKE sample on remote, and if its smoke cache wasn't
+shipped it fails in ~5s (`MISSING PARSE CACHE`). **Make your cell default to FULL for the real run** (e.g.
+`smoke = bool(args.smoke) or args.mode == "smoke"` -- bare == full), or declare the smoke cache as a
+`# KB_REFERENT` so the smoke run at least completes. The fulfiller emits a SMOKE-DEFAULT WARNING when it detects
+the `mode != "full"` pattern. To re-dispatch after fixing a failed entry, add `--rerun` (resets the terminal
+remote entry via `--allow-duplicate`).
