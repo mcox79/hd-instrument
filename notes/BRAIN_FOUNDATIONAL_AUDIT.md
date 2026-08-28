@@ -65,6 +65,23 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — THEORY OF MIND is no longer synthetic-only: first-order FALSE BELIEF validated on REAL TEXT on the
+  substrate's own organs; the live reader has NO belief tracking and needs a per-agent belief partition (TPJ)** (from
+  `theory_of_mind_is_proven_only_in_a_synthetic_microworld`, integrated SOLVED/EXCELLENT, owner-authorized in-session;
+  witness `test_theory_of_mind_realtext.py` 2/2 PASS re-verified FIRST-HAND). The per-agent belief-partition mechanism (an
+  agent who did NOT observe a change keeps the STALE binding = false belief; belief tracks KNOWLEDGE not vision) runs on
+  `hdlab.binding` + `cleanup_argmax` (not hand-rolled numpy) and scores belief-acc **1.000** on 26 real-English false-belief
+  passages, CI-separated over the shared-reality floor 0.357 (which LEAKS the observer's knowledge to the agent and fails
+  false-belief), the trivial always-initial floor 0.643, and the info-free twin; true-belief controls (saw/informed) make it
+  can-fail; reality intact; robust to location interference. **DEVIATION:** the situation model is SINGLE-PERSPECTIVE; a
+  faithful reader needs PER-AGENT belief partitions (Saxe TPJ/mPFC keeps belief separate from the observer's own knowledge).
+  **LANDED `hdlab/belief_partition.py`** (`BeliefPartition` + the `believed_location` knowledge-gate; witness PASS; registered
+  `belief_partition_v1`, default-off island). **RESIDUAL = the OBSERVATION-CUE front-end** (did agent A witness event E? from
+  text — a lexical version 0.808, dropping end-to-end to 0.821): same front-end-is-the-wall class as the verb-argument role
+  assigner; route with the reader front-end work. HONEST SCOPE: the gold is AUTHORED real-English narrative (a mechanism
+  demonstration, not corpus-generality); first-order only. `hdlab/state_of_mind.py` is coreference, MISLABELLED — do NOT wire
+  it as ToM.
+
 - **2026-08-27 — THE ENTITY-STORE "FAN" IS AN ADDRESSING COLLISION, NOT SUPERPOSITION BLUR; the fix is the KEY + the READ
   (finer conjunctive temporal context + SET-RETURN), and dense→sparse is the HIGH-LOAD CAPACITY fix, not the fan fix**
   (from `the_entity_store_is_a_dense_bundle_that_fans`, integrated SOLVED/EXCELLENT, owner-DONE; reverify witnesses
