@@ -57,25 +57,37 @@ def _ssh(ps_cmd, timeout=30):
         return None
 
 
-def hdlab_import_closure(cell_abs, max_hops=3):
-    """Bounded BFS over `hdlab.<mod>` imports starting from the cell (matches module- AND function-level
-    imports). Returns the set of hdlab module names the run may need. queue_add.sh only auto-ships a tiny
-    hdlab allow-list, so the remote (which drifts behind local) is missing everything else -- this closes
-    that gap. Bounded hops (not a full resolver); the remote --self-test gate catches anything deeper."""
-    pat = re.compile(r"(?:from|import)\s+hdlab\.(\w+)")
-    seen, frontier, hops = set(), set(pat.findall(_read(cell_abs))), 0
-    while frontier and hops < max_hops:
-        nxt = set()
-        for mod in list(frontier):
-            if mod in seen:
+def hdlab_import_closure(cell_abs, max_hops=6):
+    """Bounded BFS over BOTH `hdlab.<mod>` AND `experiments.<mod>` imports, starting from the cell, collecting
+    every hdlab module reachable (module- AND function-level imports). queue_add.sh ships the sibling EXPERIMENTS
+    but NOT the hdlab modules THOSE siblings import, so a cell -> sibling-experiment -> hdlab.X chain leaves X
+    missing on the (drifted) remote -- exactly the gap_driven_reader class. Traversing the full import graph closes
+    it. Bounded hops (not an infinite resolver); the remote --self-test gate catches anything deeper."""
+    pat_hd = re.compile(r"(?:from|import)\s+hdlab\.(\w+)")
+    pat_exp = re.compile(r"(?:from|import)\s+experiments\.(\w+)")
+    hd_seen, exp_seen = set(), set()
+    txt0 = _read(cell_abs)
+    hd_front, exp_front = set(pat_hd.findall(txt0)), set(pat_exp.findall(txt0))
+    hops = 0
+    while (hd_front or exp_front) and hops < max_hops:
+        new_hd, new_exp = set(), set()
+        for mod in list(hd_front):
+            if mod in hd_seen:
                 continue
-            seen.add(mod)
+            hd_seen.add(mod)
             p = os.path.join(REPO, "hdlab", mod + ".py")
             if os.path.isfile(p):
-                nxt |= set(pat.findall(_read(p)))
-        frontier = nxt - seen
+                t = _read(p); new_hd |= set(pat_hd.findall(t)); new_exp |= set(pat_exp.findall(t))
+        for mod in list(exp_front):
+            if mod in exp_seen:
+                continue
+            exp_seen.add(mod)
+            p = os.path.join(REPO, "experiments", mod + ".py")
+            if os.path.isfile(p):
+                t = _read(p); new_hd |= set(pat_hd.findall(t)); new_exp |= set(pat_exp.findall(t))
+        hd_front, exp_front = new_hd - hd_seen, new_exp - exp_seen
         hops += 1
-    return sorted(seen | frontier)
+    return sorted(hd_seen | hd_front)
 
 
 def ship_hdlab_modules(cell_abs, dry_run):
@@ -262,6 +274,15 @@ def guardrails(cell, queue, skip_self_test):
     if decided not in VALID_QUEUES:
         reasons.append(f"invalid queue '{decided}' (valid: {', '.join(VALID_QUEUES)}).")
 
+    # Soft check for the CONFIRMED runner-bare-invocation gotcha (2026-08-28): the remote runner invokes a
+    # cell BARE (+ --timeout), NOT with --mode full. A cell whose default (no flags) is SMOKE will run the
+    # smoke sample on remote -- and fail if its smoke cache was not shipped (exactly what bit exemplar_selpref).
+    celltxt = _read(cell_abs)
+    if re.search(r"mode\s*!=\s*['\"]full['\"]", celltxt):
+        warns.append("SMOKE-DEFAULT WARNING: the cell derives smoke from `mode != \"full\"`, so the runner's "
+                     "BARE invocation runs SMOKE, not full. Either make the cell default to FULL for the real "
+                     "run, or declare the SMOKE cache as a KB_REFERENT so the smoke run at least completes.")
+
     # self-test is the strongest guardrail (proves imports resolve + logic sound); cache-free by convention
     if not skip_self_test and not reasons:
         rc, tail = run_self_test(cell_abs)
@@ -331,6 +352,7 @@ def main():
     ap.add_argument("--question", default="")
     ap.add_argument("--name", help="queue entry name (default: cell basename)")
     ap.add_argument("--skip-self-test", action="store_true", help="skip the --self-test guardrail (NOT recommended)")
+    ap.add_argument("--rerun", action="store_true", help="reset a terminal (failed/done/canceled) remote entry in place via --allow-duplicate")
     ap.add_argument("--dry-run", action="store_true", help="validate + print the prereg and queue command; write/ship/queue NOTHING")
     a = ap.parse_args()
 
@@ -378,6 +400,8 @@ def main():
         return 2
 
     qcmd = ["bash", QUEUE_ADD, decided_queue, name, cell, prereg_rel, str(timeout), "--skip-smoke"]
+    if a.rerun:
+        qcmd.append("--allow-duplicate")
     if args_str:
         # queue_add.sh passes extra flags to queue_add.py; the cell args ride via the runner's arg convention.
         # Cell args are declared in the prereg and applied by the runner; queue_add extra flags are queue-level.
