@@ -51,10 +51,13 @@ narrative — no number crosses populations).
 `run_graded_retrieval(stream, gain, d, flag_thr)` to `hdlab/coreference_resolver.py` (ACT-R activation over gn-compatible
 entities → `graded_pick` + entropy abstain), replacing the coarse strict-Cb integer margin (AUC 0.617) with the entropy
 posterior (0.806); name/nominal branch untouched.
-📦 **HIGHEST-LEVERAGE ADJACENCY NOW MEASURED (clean follow-on candidate, verdict-independent):** the NAME/NOMINAL coref
-branch SHATTERS 65.6% of multi-name gold entities (root cause = the LitBank cache stores single HEAD TOKENS), capping the
-whole who-did-what / entity-tracking / situation-model stack (oracle-coref 0.62 vs binder 0.17). This is the untouched
-half of coreference (the pronoun half is now solved) — a genuinely clean, high-leverage gap to package next.
+📦 **HIGHEST-LEVERAGE ADJACENCY NOW MEASURED → PACKAGED as p3 `the_name_branch_shatters_one_character_into_many_entities`:**
+the NAME/NOMINAL coref branch SHATTERS 65.6% of multi-name gold entities (root cause = the LitBank cache stores single HEAD
+TOKENS), capping the whole who-did-what / entity-tracking / situation-model stack (oracle-coref 0.62 vs binder 0.17). The
+untouched half of coreference (pronoun half solved) — brief frames it as content-addressable complete-or-separate onto a
+person-identity node (DG separation / CA3 completion; Bruce-Young PINs; Heim file cards), bar = cluster quality CI-sep over
+the token-overlap floor + who-did-what lift toward oracle. **Queue is now 3 genuinely-open-for-solvers: p3 (name-clustering,
+NEW), p4 (verb-WSD), p5 (register-renorm); + p2 learner SOLVED-awaiting-verdict.**
 ⚠️ **WIRE-DON'T-ISLAND DEBT is now 7 queued careful ports, 0 landed this cycle** (coref `run_graded_retrieval`;
 `location_register`+`perceptual_access` coupled; comprehensible-input selector; `decode_serial`+`decode_gated`;
 `transitive_ordering`; p1 `quality_relation` FPE-log). These are careful multi-step ports with witnesses — landing them is
