@@ -65,6 +65,42 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — THE MISSING SPACE DIMENSION IS NOW BUILT: a first-class per-entity LOCATION REGISTER (Zwaan & Radvansky
+  event-indexing SPACE), COMPOSED with the (entity,role,event) binding, not bolted on** (from
+  `situation_model_has_no_spatial_location_dimension`, integrated SOLVED/EXCELLENT, owner-DONE; three witnesses
+  re-verified FIRST-HAND — test_location_register.py 13/13, where-is-X HARD_PASS, serves-ToM HARD_PASS). This CLOSES the
+  "NO SPACE dimension in the situation model" gap that the ToM §2b entry named as the highest-leverage MISSING organ.
+  **PINNED (computation COPIED):** per-entity location STATE as presence intervals `(node, t_open, t_close)`, updated
+  ONLY by MOTION events read off the realized **PATH satellite / Source-Goal-Path**, **deixis dominating** (come/return
+  vs go/leave — Talmy 1985; Papafragou 2008), **Goal-over-Source** (Lakusta & Landau 2005), explicit RETURN override;
+  PERSISTING between updates. Neural referents: hippocampal place / entorhinal grid allocentric map (O'Keefe & Nadel;
+  Moser & Moser), parahippocampal place area, Speer & Zacks 2009 (location-change firing during ordinary reading).
+  **NOT a manner-verb whitelist** ("she florped out" still departs via the satellite — the whitelist is the
+  implementation trap the ToM solver had already proven). **OUR-INVENTION-UNDER-TEST (swept + labelled):** the
+  REPRESENTATION — categorical **topological scene nodes** (Rinck, Hahnel, Bower & Glowalla 1997 rule OUT metric/Euclidean
+  coords for narrative space), with an FHRR-bound alternative giving the identical answer (round-trip cos 1.000 → the
+  SPACE dimension lives in the substrate's own binding algebra). **Deviations to record:** (a) SPACE is the WEAKEST /
+  most-effortful event-indexing dimension (Zwaan, Langston & Graesser 1995) → the register is LAZY/on-demand (updates
+  only on motion, queries on demand) — a faithful match, not a shortcut; (b) raw-prose motion EXTRACTION is gated at
+  **0.909 Goal precision** (VerbNet **Destination-vs-Recipient** event frames + ATL WordNet place-typing + an
+  argument-structure gate — the brain's actual Goal-vs-Addressee mechanism, Rappaport Hovav & Levin 2008), residual =
+  ambiguous **caused-motion** (throw/send) that carries zero verb-class signal and needs the coref/entity-STATUS of the
+  "to X" head (a direct coreference consumer, mapped). **Hierarchy BUILT** (region containment: "in the study" ⊨ "in the
+  house" 1.000 vs flat 0.500; Wiener & Mallot 2003; Peer & Epstein 2025) — the cognitive map is nested REGIONS, not flat
+  places. **Deictic-center SKIPPED on evidence** (Deictic Shift Theory refuted-as-worth-building: spatial-alone
+  discontinuity doesn't reliably cost reading time — Rinck & Weber 2003; tracking ABSOLUTE per-entity location is the
+  better choice than a single moving center). Numbers: "where is X at T?" REGISTER 1.000 [1.000,1.000] vs strongest
+  stateless floor 0.417 [0.354,0.479] (n=240 construction gold), info-free twin 0.422 landing EXACTLY at floor (100%
+  correctly-ordered tracking); distance-flat 0.967 at K=0..20 while windowed/last-mention collapse; SERVES the ToM cue on
+  real mined LitBank clauses (0.976 vs lexical 0.500, n=246) → DELETES the inline spaCy-proxy `PresenceState` stopgap the
+  ToM residual entry flagged. Convergence MEASURED not asserted (conveyance/passenger-with-vehicle a real brain-can-we-
+  can't gap but 1/7182 sentences = 0.01% → documented follow-on). Honest scope: the CI-sep headline is on CONSTRUCTION
+  gold isolating TRACKING; the real-prose burden is carried by the serve + the 0.909 gate + hand-verified motions.
+  hdlab landing QUEUED (Q111 — careful multi-fn port `hdlab/location_register.py`, default-on gates; point the queued
+  `perceptual_access` landing at it). **NET: the situation model's MISSING-organ count drops by one; SPACE is now a
+  wired-pending, brain-faithful dimension; coref (~0.65) is confirmed the dominant real-narrative cap AND the resolver of
+  the caused-motion residual (p3).**
+
 - **2026-08-28 — REASONING PHASE HAS ITS FIRST PRIMITIVE: TRANSITIVE-COMPARISON over a MAGNITUDE LINE, and the mechanism
   is SELECTED by a MEASURED human signature (not asserted)** (from `transitive_comparison_reasoning_over_the_magnitude_ordering`,
   integrated SOLVED/EXCELLENT, owner-DONE; witness re-verified FIRST-HAND, ALL checks PASS). The reader now reads pairwise

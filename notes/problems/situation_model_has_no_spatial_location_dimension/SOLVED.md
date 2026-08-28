@@ -210,3 +210,28 @@ None.
    argument-structure extraction errors.
 3. Optional wiring: use the register's spatial shifts as an event-boundary signal to advance
    `situation_model_accumulate`'s event slot (a spatial shift IS an event boundary, Zwaan).
+
+---
+INTEGRATED_BY_STRATEGY: 2026-08-28 (grade EXCELLENT; owner_verdict: DONE). Re-verified FIRST-HAND, ran all three myself:
+test_location_register.py -> 13/13 test groups; exp_location_register_where_is_x_v1.py -> HARD_PASS (REGISTER 1.000
+[1.000,1.000] vs strongest floor last-mention-location 0.417 [0.354,0.479], twin 0.422 AT floor, all 4 gates);
+exp_location_register_serves_tom_v1.py -> HARD_PASS (served cue 0.976 [0.951,0.992] vs lexical 0.500, e2e belief 0.976).
+The genuinely MISSING, PINNED organ built: the Zwaan & Radvansky event-indexing SPACE dimension is now a first-class
+per-entity LOCATION REGISTER (presence intervals; where_is/present_in_scene/region_of) that COMPOSES with the (entity,
+role, event) binding (FHRR round-trip cos 1.000), not a replacement. Mechanism COPIED (PINNED): motion off the PATH
+satellite, deixis dominating, Goal-over-Source, RETURN override -- NOT a manner-verb whitelist. Representation swept +
+labelled OUR-INVENTION (categorical scene nodes, Rinck 1997; FHRR-bound alternative identical). CLEANEST control: the
+info-free twin lands EXACTLY at floor (0.422 ~ 0.417) -> 100% correctly-ordered tracking, zero lexical prior. Distance-
+robustness: register flat 0.967 at K=0..20 while windowed/last-mention COLLAPSE -> maintained STATE. WIRE-DON'T-ISLAND:
+the serve reproduces the ToM cue on real mined LitBank clauses and DELETES the inline spaCy-proxy stopgap. THE WALL
+drilled the brain's way: VerbNet Destination-vs-Recipient + ATL place-typing gates raise Goal precision 0.219->0.909,
+communication false-goals 0.573->0.000; residual = ambiguous caused-motion needing coref (mapped). Two research drills,
+MEASURED verdicts: hierarchical containment BUILT (P=0.46), deictic-center SKIPPED (P=0.22). Convergence MEASURED not
+asserted (conveyance 1/7182 = 0.01% -> documented follow-on). Honest scope preserved: the CI-sep headline is on
+CONSTRUCTION gold isolating TRACKING; the real-prose burden is carried by the serve (0.976) + gate precision (0.909) +
+hand-verified motions -- refusing to fabricate a circular auto-mined natural gold was the right call. Review + SOLVER
+REVIEW block in PROBLEM.md; priority cleared. AUDIT UPDATE folded (BRAIN_FOUNDATIONAL_AUDIT.md 2b). hdlab landing QUEUED
+(Q111 -- careful multi-fn port, default-on gates: hdlab/location_register.py, and point the queued perceptual_access
+landing at it instead of the inline PresenceState stopgap; keep FHRR-compatible, no metric coords, lazy). NO hdlab
+written this commit (Q111). Top adjacency: coreference (~0.65) caps real-narrative tracking AND resolves the caused-
+motion residual -- already packaged as p3.
