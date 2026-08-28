@@ -35,9 +35,24 @@ import argparse
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 from datetime import datetime, timezone
+
+
+def _resolve_bash():
+    """Full path to git-bash. `bash` is on PATH in an interactive git-bash shell but NOT in the minimal
+    PATH of the hd_remote_run_watcher Scheduled Task -> `bash queue_add.sh` returned rc=127 (command not
+    found) under the watcher. Resolve to a full path so auto-dispatch works headless."""
+    b = shutil.which("bash")
+    if b:
+        return b
+    for c in (r"C:\Program Files\Git\bin\bash.exe", r"C:\Program Files\Git\usr\bin\bash.exe",
+              r"C:\Program Files (x86)\Git\bin\bash.exe"):
+        if os.path.isfile(c):
+            return c
+    return "bash"
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUEUE_ADD = os.path.join(REPO, "tools", "orchestrator", "queue_add.sh")
@@ -259,6 +274,18 @@ def guardrails(cell, queue, skip_self_test):
             reasons.append(f"imported sibling experiments.{mod} imports spaCy at MODULE level -> remote "
                            f"ImportError. Guard it inside the parse function.")
 
+    # RUN-TIME spaCy risk in the hdlab dependency closure: a closure module that imports spaCy (even inside a
+    # function) crashes the remote at RUN time if that path is reached -- self-test may not exercise it (this
+    # bit foraging via closed_class_lexicon). WARN, don't reject: a guarded parse-only import (never called
+    # remotely) is genuinely safe, so a hard reject would false-positive.
+    spacy_mods = [m for m in hdlab_import_closure(cell_abs)
+                  if os.path.isfile(os.path.join(REPO, "hdlab", m + ".py"))
+                  and re.search(r"(?m)^\s*(import\s+spacy|from\s+spacy\b)", _read(os.path.join(REPO, "hdlab", m + ".py")))]
+    if spacy_mods:
+        warns.append("RUN-TIME spaCy RISK: hdlab closure module(s) import spaCy: " + ", ".join(spacy_mods) +
+                     " -- if the run reaches that path the remote (no spaCy) CRASHES even though self-test passed. "
+                     "Make the module degrade without spaCy (e.g. freeze the constant) or keep the path unreached.")
+
     # CPU/GPU routing
     torch = has_torch(cell_abs)
     decided = queue
@@ -399,7 +426,7 @@ def main():
         print("FAIL: no --timeout (or timeout_s in the request) -- required to dispatch.", file=sys.stderr)
         return 2
 
-    qcmd = ["bash", QUEUE_ADD, decided_queue, name, cell, prereg_rel, str(timeout), "--skip-smoke"]
+    qcmd = [_resolve_bash(), QUEUE_ADD, decided_queue, name, cell, prereg_rel, str(timeout), "--skip-smoke"]
     if a.rerun:
         qcmd.append("--allow-duplicate")
     if args_str:
