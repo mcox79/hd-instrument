@@ -47,14 +47,15 @@ AFTER p1 (owner "P1 first").**
 (reverify ALL PASS). The composed magnitude "ruler" + word-class operation-ROUTER beats every sub-op + the incumbent cosine
 CI-sep, router beats gloss-only + magnitude-only with EXACT N/V no-regression, FPE-log preserves Weber; as a COMPARISON
 system it beats the incumbent CLEANLY (0.758 vs 0.552, distance effect +0.340, congruity AUC 1.000 vs incumbent 0.215 —
-the cosine INVERTS). Solver CORRECTED the brief: pole+degree = ONE oriented place code (not three ops). 🔌 **hdlab LANDING
-ACCEPTED but QUEUED as a careful MULTI-MODULE port (NOT rushed tonight): the channel imports 4 experiment modules (FPE
-encoding + semantic-axis machinery + loaders) that must be relocated to hdlab first; then ADD `scalar_adjective_operation`,
-UPGRADE `quality_relation` Ch.B linear→FPE-log, ROUTE the meaning read-out by word class, wire dim-select to
-`semantic_control`. THE IMMEDIATE-NEXT DEDICATED LANDING.** Both AUDIT UPDATEs folded (§2b). 🎯 **QUEUE: p1 accepted
-(landing queued); learner (p2, gated on the p1 LANDING for its substrate-validation half; rule-optimization half runs now);
-foraging (p3); phase-diagram (p4, STILL RUNNING). NEXT STRATEGY (mine): the p1 hdlab multi-module landing → then the learner's
-substrate-validation unblocks; plus the factorized-store + N400 + full 3-axis remain (heavy → remote).**
+the cosine INVERTS). Solver CORRECTED the brief: pole+degree = ONE oriented place code (not three ops). 🔌 **hdlab LANDING SUBSTANTIVELY DONE 2026-08-28 (the two HEADLINE deliverables + the FPE foundation landed + witnessed,
+default-off islands): `hdlab/fractional_power_encoding.py` (log-Weber code) + `hdlab/scalar_adjective_operation.py` (the
+magnitude RULER) + `hdlab/meaning_operation_router.py` (word-class routing). All three registered; witnesses PASS first-hand.
+→ THE LEARNER'S SUBSTRATE-VALIDATION DEPENDENCY (conceptual_meaning + scalar_adjective_operation + the router) IS SATISFIED —
+"✅ p1 landed" SIGNAL SENT TO OWNER.** FOLLOW-ON refinements (NOT in the learner's path, tracked): `quality_relation` Ch.B
+linear→FPE-log (needs regrounding its lexicon with the grounded-degree data) + wire dim-select to `semantic_control`.
+Both AUDIT UPDATEs folded (§2b). 🎯 **QUEUE: p1 landed (2 refinements follow-on); learner (p2, substrate-validation NOW
+UNBLOCKED + rule-optimization already runnable); foraging (p3); phase-diagram (p4, STILL RUNNING). NEXT STRATEGY (mine):
+the 2 p1 follow-on refinements; the factorized-store + N400 + full 3-axis remain (heavy → remote).**
 
 ### 2026-08-27 -- 🧭 **NEXT PHASE FRAMED + THE LEARNER PACKAGED (owner-directed): comprehension→REASONING; and the learn-from-reading learner is PROVEN-but-OFF → OPTIMIZE + safety-validate it as a solver problem BEFORE it grows the foundation, p1 LANDED FIRST**
 Owner steer this session: (1) NEXT PHASE = the reader crosses from COMPREHENSION to REASONING — p1's magnitude/COMPARISON op

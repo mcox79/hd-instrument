@@ -377,3 +377,13 @@ experiment modules that must be relocated to hdlab first: FPE encoding + the sem
 then ADD scalar_adjective_operation.py + UPGRADE quality_relation Ch.B linear->FPE-log + ROUTE by word class + wire
 dimension-selection to semantic_control). The immediate-next dedicated landing; the learner problem's substrate-validation
 half depends on it.
+
+---
+hdlab LANDING (2026-08-28, strategy, Q111) -- the two HEADLINE deliverables + the FPE foundation are LANDED + witnessed
+(default-off islands), so the learner's substrate-validation dependency (conceptual_meaning + scalar_adjective_operation +
+the operation-router) is SATISFIED:
+  * `hdlab/fractional_power_encoding.py` (step 1: the log-Weber magnitude code) -- witness test_fractional_power_encoding_organ.py PASS; registered fractional_power_encoding_v1.
+  * `hdlab/scalar_adjective_operation.py` (step 2: the composed magnitude "ruler" = deliverable 1) -- witness test_scalar_adjective_operation_organ.py PASS; registered scalar_adjective_operation_v1.
+  * `hdlab/meaning_operation_router.py` (step 3: word-class routing = deliverable 2) -- witness test_meaning_operation_router_organ.py PASS; registered meaning_operation_router_v1.
+FOLLOW-ON refinements (NOT in the learner's dependency, tracked): the `quality_relation` Channel-B linear->FPE-log upgrade
+(needs regrounding its 23-word lexicon with the grounded-degree data) + wiring dimension-select to `hdlab/semantic_control`.
