@@ -14,6 +14,10 @@ kb_referents:
 ---
 # REMOTE_RUN_REQUEST -- exp_exemplar_selpref_v1 (fidelity phase, solver problem: optimize_and_validate_the_learner...)
 
+**RE-FIRE 2026-08-28c** (prior re-fire hit an rc=127 backslash-path bug in the fulfiller --rerun branch; retrying to test if it's fixed): cell hardened -- per-arm checkpointing (metrics.json written incrementally with
+`partial: true`/`arms_done` so a late failure/timeout keeps completed arms) AND the smoke-default bug
+fixed (bare invocation now == FULL; the remote runner passes no `--mode`). Self-test green.
+
 **This is a TEMPLATE + a live request.** A solver drops a file like this in its own problem folder to request a
 remote run without writing a prereg (solvers are scope-barred from preregs/**). A STRATEGY session then runs:
 
