@@ -403,6 +403,51 @@ PINNED-BY-EVIDENCE / OUR-INVENTION / CONTRADICTED, so no invention is mislabelle
 drill #8's discrete sense-clustering; it was caught by research and reframed before any compute was spent on
 the wrong mechanism -- the intended value of verifying with literature before over-investing.
 
+## RESEARCH DRILL -- WHY UNSUPERVISED MEANING FALLS SHORT OF HUMAN (online literature, 2026-08-28)
+
+Per the owner's directive to RESEARCH walls (online literature), not only test them, a literature drill on
+the core wall (our unsupervised learner ~0.27-0.29 SimLex vs ~0.67 human) returned four load-bearing
+findings (lit-scan = hypotheses-pending-VET, not verdicts):
+
+- **WE ARE BELOW OUR OWN METHOD'S FLOOR.** Pure static distributional models reach ~0.37-0.44 SimLex (best
+  single text model ~0.56; dependency > window, Levy & Goldberg 2014); our ~0.27-0.29 sits BELOW that band.
+  So there is FREE HEADROOM WITHIN distributional methods before grounding is even needed -- the shortfall is
+  likely weighting/denoising and/or DATA SCALE (our 15M SimpleWiki vs the billions the ~0.4 numbers use), NOT
+  a text-only wall. DIAGNOSE FIRST -- needs no new mechanism. (Honest caveat: the ~0.4 numbers are on far
+  larger corpora, so part of the gap is certainly data volume, not a bug.)
+- **THE DOMINANT LEVER FOR SIMILARITY IS STRUCTURE, NOT GROUNDING.** SimLex scores genuine similarity, not
+  association -- the axis raw co-occurrence conflates. The interventions that actually reach human level
+  INJECT EXPLICIT LEXICAL STRUCTURE: retrofitting to WordNet/PPDB (Faruqui 2015) + counter-fitting with
+  antonym-repulsion (Mrksic 2016) lift ~0.37 -> 0.68-0.76 (AT/ABOVE human 0.67). Grounding helps but
+  selectively (concrete nouns, abstract handling), not the SimLex dominant factor. This is the
+  computational-level instantiation of HUB-AND-SPOKE (the ATL imposes amodal TAXONOMIC organization on
+  experience; Lambon Ralph 2017).
+- **THE CONTEXT-MODULATION NEGATIVE (drill #8 + the 4 in-context cells) IS "RIGHT TOOL, WRONG TASK/REP."**
+  The brain's context-modulation is feature-selection over a GROUNDED/STRUCTURED representation for
+  PREDICTION/INFERENCE (prefrontal semantic control toward a goal; Yee & Thompson-Schill 2016). Our
+  distributional context-modulation reweights CO-OCCURRENCE dims that conflate similarity with association --
+  conditioning on the sentence pulls TOWARD associates (kitchen->cake) and AWAY from the taxonomic-similarity
+  axis SimLex scores. So the negative is not "context is useless" -- context-selection over a STRUCTURE-POOR
+  distributional representation cannot help; the fix is a better (structured/grounded) representation, not
+  more context. Both the ceiling AND the context-modulation negatives point to the SAME missing ingredient:
+  TAXONOMIC/RELATIONAL STRUCTURE.
+- **TOP REPLICATE-NEXT (glass-box, offline-foundation-admissible): counter-fit the dependency-typed PPMI-SVD
+  space to WordNet synonym/antonym + hypernymy as a STATIC OFFLINE ASSET** -- highest measured leverage,
+  transparent attract/repel update, no LLM (= the "ideal foundation from existing tools, offline" pivot).
+  RISK (stated): WordNet is a curated ORACLE -- retrofit can IMPORT the answer for test-derived pairs. It
+  counts ONLY if evaluated on HELD-OUT relations + a DISJOINT similarity gold (proving it reorganizes
+  geometry / generalizes to unseen pairs, as the literature reports, not memorizing SimLex). NB the substrate
+  already has a SUPERVISED WordNet CHANNEL (0.52 on WordNet golds); retrofit differs by baking structure INTO
+  the learned vectors -- its value is on OOV / held-out, exactly where both the supervised channel and the
+  raw learner are weak.
+
+RESEARCH-SURFACED NEXT STEPS (the VERIFY step, prior-work-gated): (1) diagnose the 0.27-vs-0.40 shortfall
+(weighting / denoising / data-scale) -- free headroom; (2) prototype WordNet retrofit/counter-fit as an
+offline asset, evaluated on HELD-OUT relations + a 2nd gold to guard the oracle risk; (3) re-file the
+context-modulation negative as task-specific (earmark for a prediction/inference benchmark, not similarity).
+Sources: Hill 2015 (SimLex), Faruqui 2015 (retrofitting), Mrksic 2016 (counter-fitting), Lambon Ralph 2017
+(hub-and-spoke), Yee & Thompson-Schill 2016 (context).
+
 ## TLDR
 
 The brief's plan -- make the learner update the brain's way (online, from error) -- is a proven dead
