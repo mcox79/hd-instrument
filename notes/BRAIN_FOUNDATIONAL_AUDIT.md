@@ -65,6 +65,43 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — THE REGISTER'S PER-COMPONENT BUNDLE RENORM WALL IS RESOLVED: the brain-faithful fix is POOLED DIVISIVE
+  NORMALIZATION, and it generalises to a SUBSTRATE-WIDE rule for read-terminal bundles** (from
+  `the_register_bundle_renorm_breaks_the_serial_readout`, integrated SOLVED/EXCELLENT, owner-DONE; witness
+  `test_register_divisive_norm.py` 8/8 re-verified FIRST-HAND). The register's per-component renorm (`S_i/|S_i|`,
+  `hdlab/bundling.py` default) — a non-invertible per-channel magnitude-erasure — is the OUR-INVENTION outlier that breaks
+  the theta-gamma serial readout. **PINNED computation:** a cortical/hippocampal population SUMS its inputs (linear
+  superposition) and controls magnitude by **DIVISIVE NORMALIZATION** — dividing the summed response by a **POOLED gain**,
+  ONE scalar over the pool (Carandini & Heeger 2012, canonical cortical computation) — plus homeostatic synaptic scaling
+  (Turrigiano 2008). A pooled/scalar divisor is a global rescale that preserves the linear/relative structure exactly, so
+  the strongest component stays largest and suppress-and-repeat still decodes. **Numbers:** serial:per-component 0.367 →
+  serial:divisive 0.988 @M=64 (+0.62 CI-sep), TIES the raw-sum ceiling at every load; argmax NO-REGRESSION and IMPROVES
+  0.529→0.644 (scale-invariant → bit-identical to raw-sum argmax); info-free twin 0.027 loses; PARAMETER-FLAT (serial=1.000
+  across every C-H sigma + homeostatic target → the OPERATION, not a tuned number). **POSITIVE CONTROL:** even the
+  gain-matched serial readout cannot recover the per-component store (0.367 vs 0.988) → the STORE norm is the constraint.
+  **One divisive normalization serves BOTH the argmax cleanup AND the serial readout — no raw-sum shadow copy needed**
+  (the brief's fidelity question, answered positively). **COMPOSE (measured):** on the DEFAULT multibank backend (M=384/8
+  banks) serial 0.733→1.000, argmax 0.654→0.765 → the p2 store-distribution lever + this norm fix are the 12-16× compose.
+  **LABELING (2 adversarial drills):** pooled divisive normalization is DIRECTLY CONFIRMED in sensory/decision cortex but
+  its application to a WM/memory register is **OUR-EXTENSION-UNDER-TEST** (not PINNED; pooled precedent Eliasmith NEF/SPA,
+  Frady/Kleyko/Sommer 2018); the NEGATIVE half is well-grounded — per-component instantaneous magnitude-erasure has NO fast
+  biological analogue (Turrigiano scaling is slow/weight-level/structure-PRESERVING). **Honest scope:** M≥96 is a TRUE
+  capacity bound (divisive serial == raw-sum serial, both fall), NOT a norm win — the measured M-transition IS the
+  **WM→episodic (CLS) boundary** (normalize a bounded WM bundle vs sparse-DG-pattern-separate a large one), i.e. exactly
+  the p2 sparse-store lever; so this norm fix and p2 are the two halves of CLS and they compose. **GENERAL SUBSTRATE RULE
+  (owner's evaluate-adjacent-components directive applied — `ADJACENT_COMPONENTS_brain_fidelity_map.md`):** *a bundle that
+  is READ (unbind+cleanup, or cosine-compared) — not RE-BOUND as an operand — must be normalized by a POOLED/SCALAR
+  divisive gain, never by a per-component nonlinearity.* Every enumerated `bundling.bundle` caller is READ-terminal (none
+  re-bind → the per-component default is sub-optimal for its ENTIRE consumer set); the `sign()`-on-a-bundle sites
+  (`grounding_acquisition_loop`, `situation_focus`, `role_slot_summarizer`, `event_bundle` — audit ~1001/1176, "graded
+  beats sign CI-sep growing") are the SAME wrong-op in a bipolar code. **The per-component renorm's correct scope narrows
+  to torus-closure for RE-BINDING an atom only.** Wall status: OPEN → MECHANISM-IDENTIFIED-AND-BUILT. **hdlab landing
+  QUEUED (Q111, careful coupled default-off port):** `norm="divnorm"` on `bundling.bundle` + a `bundle_norm="percomp"`
+  (default) arg on AccumulateRegister/multibank + the gain-matched `decode_serial_pooled` (the store-norm-agnostic
+  generalization of the `decode_serial` landed this session — g≈1 on raw sum → identical); the read-terminal-bundle
+  substrate audit is the flagged next candidate brief. NET: the register-readout §2b wall is closed; a substrate-wide
+  bundle-normalization fidelity rule is now stated + partially measured.
+
 - **2026-08-28 — THE ~0.65 COREF CAP IS BROKEN + DIAGNOSED ON REAL NARRATIVE, and the fix REVERSES a prior §2b HARD_FAIL
   as population-specific** (from `coreference_is_capped_at_065_on_real_narrative`, integrated SOLVED/EXCELLENT, owner-DONE;
   witness re-verified FIRST-HAND against the current file — ALL 8 checks PASS). The reader's rigid hard-tiered pronoun pick

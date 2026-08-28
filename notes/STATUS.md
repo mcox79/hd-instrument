@@ -31,7 +31,36 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-28 (LATEST) -- ✅ **COREF (p3) INTEGRATED (owner-DONE, EXCELLENT): the ~0.65 coreference cap is BROKEN + DIAGNOSED on real narrative — the reader's rigid pronoun tier is replaced by the brain's GRADED cue-based retrieval, +0.17 CI-sep, with a calibrated 'I'm unsure' abstain. Queue now: p2 learner SOLVED-awaiting; p4/p5 open for solvers.**
+### 2026-08-28 (LATEST) -- ✅ **REGISTER BUNDLE-RENORM (p5) INTEGRATED (owner-DONE, EXCELLENT): the per-component renorm that broke the serial readout is RESOLVED — the brain-faithful fix is POOLED divisive normalization (one shared scalar), which recovers the overloaded register to the raw-sum ceiling AND generalises to a substrate-wide rule. Composes with the `decode_serial` I landed this session. Queue now: p3 name-clustering + p4 verb-WSD open; p2 learner SOLVED-awaiting.**
+**READ THIS FIRST after compaction; then the entries below.**
+✅ **INTEGRATED `the_register_bundle_renorm_breaks_the_serial_readout` (p5, EXCELLENT, owner-DONE):** reverified FIRST-HAND
+(`test_register_divisive_norm.py`, ALL 8 checks PASS). The register's per-component bundle renorm (`S_i/|S_i|`,
+`bundling.py` default — a non-invertible per-channel magnitude-erasure) is the OUR-INVENTION outlier that breaks the
+theta-gamma serial readout; the brain-faithful fix is POOLED DIVISIVE NORMALIZATION (Carandini-Heeger 2012 — one shared
+scalar over the pool), preserving the linear structure exactly. serial:per-component 0.367 → divisive **0.988** @M=64
+(+0.62 CI-sep), TIES raw-sum at every load; argmax no-regression + IMPROVES 0.529→0.644 (scale-invariant = bit-identical
+to raw-sum); info-free twin 0.027 loses; PARAMETER-FLAT (the operation, not a number). POSITIVE CONTROL: even the
+gain-matched readout can't recover the per-component store (0.367 vs 0.988) → the STORE norm is the constraint. One norm
+serves BOTH readouts (no shadow copy). COMPOSE measured on the DEFAULT multibank backend (serial 0.733→1.000) = the p2
+lever + this norm fix. Scrupulous labeling (2 adversarial drills): pooled divisive norm = OUR-EXTENSION-UNDER-TEST;
+per-component instantaneous erasure has NO fast biological analogue. Honest scope: M≥96 is a TRUE capacity bound (= the p2
+sparse-store lever / the WM→episodic CLS boundary), not a norm win; write-stability moot (stateless register). Review +
+SOLVER REVIEW in PROBLEM.md; priority cleared; AUDIT §2b folded (wall RESOLVED + the general rule).
+🧠🔧 **OWNER DIRECTIVE APPLIED (evaluate adjacent components for brain-foundation + optimization):** the solver's
+`ADJACENT_COMPONENTS_brain_fidelity_map.md` surfaced a GENERAL SUBSTRATE RULE — *a bundle that is READ (unbind+cleanup or
+cosine), not RE-BOUND, must use a POOLED/scalar divisive gain, never per-component.* Every enumerated `bundling.bundle`
+caller is READ-terminal (none re-bind), and the `sign()`-on-a-bundle sites are the SAME wrong-op. Folded to §2b; **the
+"read-terminal bundle-store norm audit" is the flagged next candidate brief** (after the p5 landing gives `bundling.bundle`
+the divnorm option — a solver could then measure the LIKELY consumers + switch them).
+🔌 **hdlab landing QUEUED (Q111 — careful COUPLED port, default-off/opt-in):** `norm="divnorm"` on `bundling.bundle` +
+`bundle_norm="percomp"` (default) arg on AccumulateRegister/multibank + the gain-matched `decode_serial_pooled` (the
+store-norm-agnostic generalization of the LANDED `decode_serial` — g≈1 on raw sum → identical). Land TOGETHER (store
+option without the gain-matched readout breaks serial callers). This + register `decode_gated` = the register-readout
+line's remaining landings; they land as one "register normalization + serial readout" bundle.
+🎯 **QUEUE now: p3 `the_name_branch_shatters_one_character_into_many_entities` + p4 `no_glass_box_verb_sense_disambiguation`
+open for solvers (p4 now has a WIP SOLVED.md — NOT owner-DONE, left alone); p2 learner SOLVED-awaiting-verdict. p5 closed.**
+
+### 2026-08-28 -- ✅ **COREF (p3) INTEGRATED (owner-DONE, EXCELLENT): the ~0.65 coreference cap is BROKEN + DIAGNOSED on real narrative — the reader's rigid pronoun tier is replaced by the brain's GRADED cue-based retrieval, +0.17 CI-sep, with a calibrated 'I'm unsure' abstain. Queue now: p2 learner SOLVED-awaiting; p4/p5 open for solvers.**
 **READ THIS FIRST after compaction; then the entries below.**
 ✅ **INTEGRATED `coreference_is_capped_at_065_on_real_narrative` (p3, EXCELLENT, owner-DONE):** reverified FIRST-HAND
 against the CURRENT file (`test_coref_graded_cue_retrieval.py`, ALL 8 checks PASS — the solver strengthened Track B

@@ -1,8 +1,48 @@
 ---
-priority: 5
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Owner-DONE. The flagged fidelity wall is RESOLVED: the register's per-component bundle renorm (S_i/|S_i|, hdlab/bundling.py default — a non-invertible per-channel magnitude-erasure) is the OUR-INVENTION outlier that breaks the theta-gamma serial readout; the brain-faithful fix is POOLED divisive normalization (Carandini & Heeger 2012 — ONE shared scalar over the pool), which preserves the linear structure exactly and serves BOTH readouts. Re-verified FIRST-HAND (`verification/test_register_divisive_norm.py`, ALL 8 checks PASS — ran it myself). Copy-the-computation / sweep-the-parameter done cleanly: RESULT (D=256 FIXED, V=100, per-slot filler-recovery, bootstrap CI over entities) serial:per-component 0.367 → serial:divisive 0.988 @M=64, +0.62 CI-sep [+0.58,+0.62] hw 0.037; TIES the raw-sum ceiling at every load (Δ<0.001); argmax NO-REGRESSION and in fact improves 0.529→0.644 (scale-invariant → bit-identical to raw-sum argmax); info-free shuffled-key twin 0.027 LOSES CI-sep; PARAMETER-FLAT (serial=1.000 across every C-H sigma AND homeostatic target → the OPERATION, not a tuned number). POSITIVE CONTROL (the strength): even the best gain-matched serial readout CANNOT recover the per-component store (0.367 vs 0.988) — isolates the STORE norm, not the readout, as the constraint, and the harness sees the break at M≥48 while M=8 is fine. The brief's fidelity question is answered POSITIVELY: one divisive normalization serves BOTH the argmax cleanup AND the serial readout — NO raw-sum shadow copy needed (store & readout norm must MATCH: naive serial on a scaled store 0.117 → pooled-gain 0.988). COMPOSE (measured, not inferred): on the DEFAULT multibank backend in the compose regime (M=384/8 banks, k_per_bank≈60) the norm fix recovers serial 0.733→1.000 (+0.29 CI-sep) and argmax 0.654→0.765 — so the p2 store-distribution lever and this norm fix are the 12-16× compose, now measured with the norm in place. SCRUPULOUS brain-fidelity discipline (2 adversarial literature drills tasked to REFUTE): pooled divisive normalization is DIRECTLY CONFIRMED in sensory/decision cortex but its application to a WM/memory register is labeled OUR-EXTENSION-UNDER-TEST (not PINNED; closest pooled precedent Eliasmith NEF/SPA near-unit-radius + Frady/Kleyko/Sommer 2018), while the NEGATIVE half is stronger — per-component instantaneous magnitude-erasure has NO fast biological analogue (Turrigiano scaling is slow/weight-level/structure-PRESERVING). HONEST scope (withdraw-first): M≥96 is a TRUE capacity bound (divisive serial == raw-sum serial there, both fall) NOT a norm win — the M-transition IS the brain's WM→episodic (CLS) boundary (normalize a bounded bundle vs sparse-pattern-separate a large one = the p2 lever); real-narrative D=1024 load inherited from the parent (divisive serial == raw-sum serial, proven, so the parent's 0.959→1.000 high-fan recovery transfers), not re-run; write-stability moot (AccumulateRegister is stateless — register() re-bundles fresh each read). Directly COMPLEMENTS the `decode_serial` I landed this session (which reads the RAW sum to bypass the renorm): decode_serial_pooled is the gain-matched generalization (g≈1 on raw sum → reduces to the landed decode_serial). Applied the owner's evaluate-adjacent-components directive (`ADJACENT_COMPONENTS_brain_fidelity_map.md`): a GENERAL substrate rule surfaced — every `bundling.bundle` caller is READ-terminal (none re-bind), so the per-component default is sub-optimal substrate-wide, and the `sign()`-on-a-bundle sites are the SAME wrong-op — folded to the audit as a candidate follow-on. hdlab landing QUEUED (Q111, careful COUPLED port, default-off/opt-in): `norm=\"divnorm\"` on `bundling.bundle` + a `bundle_norm=\"percomp\"` (default) constructor arg on AccumulateRegister/multibank + the gain-matched `decode_serial_pooled` — land TOGETHER (the store option without the gain-matched readout breaks serial callers)."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-28 (strategy session; grade EXCELLENT; owner_verdict: DONE)
+> **Re-verified FIRST-HAND** (`verification/test_register_divisive_norm.py`, ALL 8 checks PASS — ran it myself).
+> **Result:** the register's per-component bundle renorm (`S_i/|S_i|`, `hdlab/bundling.py` default — a non-invertible
+> per-channel magnitude-erasure) is the OUR-INVENTION outlier that breaks the theta-gamma serial readout; the
+> brain-faithful fix is **POOLED divisive normalization** (Carandini & Heeger 2012 — one shared scalar over the pool),
+> which preserves the linear structure exactly and serves BOTH readouts.
+> **Argument audit (not just arithmetic) — the controls + the honesty are the strength:** (a) serial:per-component 0.367
+> → serial:divisive **0.988 @M=64, +0.62 CI-sep** (hw 0.037), TIES the raw-sum ceiling at every load; (b) argmax
+> NO-REGRESSION and IMPROVES 0.529→0.644 — scale-invariant, so a scalar-normed store gives **bit-identical** argmax to
+> raw-sum (no-regression proven by identity, not just CI); (c) **POSITIVE CONTROL (the strongest move):** even the
+> gain-matched serial readout CANNOT recover the per-component store (0.367 vs 0.988) → the constraint is the STORE norm,
+> not the readout, and the harness sees the break at M≥48 while M=8 is fine; (d) info-free shuffled-key twin 0.027 LOSES
+> CI-sep; (e) store & readout norm must MATCH (naive serial on a scaled store 0.117 → pooled-gain 0.988); (f)
+> PARAMETER-FLAT (serial=1.000 across every sigma + homeostatic target) → the OPERATION, not a tuned number.
+> **The brief's fidelity question, answered POSITIVELY:** one divisive normalization serves BOTH the argmax cleanup AND
+> the serial readout — no raw-sum shadow copy needed.
+> **COMPOSE (measured):** on the DEFAULT multibank backend (M=384/8 banks, k_per_bank≈60) the norm fix recovers serial
+> 0.733→1.000 (+0.29 CI-sep) and argmax 0.654→0.765 — the p2 store-distribution lever and this norm fix are the 12-16×
+> compose, now measured with the norm in place, not inferred.
+> **Brain-fidelity discipline (2 adversarial literature drills tasked to REFUTE):** pooled divisive normalization is
+> DIRECTLY CONFIRMED in sensory/decision cortex, but its application to a WM/memory register is honestly labeled
+> **OUR-EXTENSION-UNDER-TEST** (not PINNED; pooled precedent Eliasmith NEF/SPA, Frady/Kleyko/Sommer 2018); the NEGATIVE
+> half is stronger — per-component instantaneous magnitude-erasure has NO fast biological analogue (Turrigiano scaling is
+> slow/weight-level/structure-PRESERVING). **Honest scope (withdraw-first):** M≥96 is a TRUE capacity bound (divisive
+> serial == raw-sum serial, both fall) NOT a norm win — the M-transition IS the WM→episodic (CLS) boundary, i.e. the p2
+> sparse-store lever; real-narrative D=1024 load inherited from the parent (divisive serial == raw-sum serial → the
+> parent's 0.959→1.000 high-fan recovery transfers), not re-run; write-stability moot (stateless register).
+> **Reconciled with this session's landing:** directly complements the `decode_serial` I landed this session (reads the
+> RAW sum to bypass the renorm); `decode_serial_pooled` is the gain-matched generalization (g≈1 on raw sum → reduces to
+> the landed `decode_serial`). **Applied the owner's evaluate-adjacent-components directive** (`ADJACENT_COMPONENTS_brain_fidelity_map.md`):
+> a GENERAL substrate rule — every `bundling.bundle` caller is READ-terminal (none re-bind), so the per-component default
+> is sub-optimal substrate-wide, and the `sign()`-on-a-bundle sites are the SAME wrong-op — folded to the audit (§2b + the
+> per-component-normaliser scope) and flagged as the next candidate brief. **AUDIT UPDATE folded (§2b).**
+> **hdlab landing QUEUED (Q111 — careful COUPLED port, default-off/opt-in; NOT this commit):** `norm="divnorm"` on
+> `bundling.bundle` (pooled Carandini-Heeger) + a `bundle_norm="percomp"` (default) constructor arg on
+> `AccumulateRegister`/`situation_model_multibank` threading into the `register()`/`_bank_register()` bundle calls + the
+> gain-matched `decode_serial_pooled` method. Land TOGETHER (the store option without the gain-matched readout would break
+> any serial caller assuming raw scale); default `"percomp"` keeps every current caller bit-identical until opted in.
+
 
 # PROBLEM: the situation register bundles superposed traces with a PER-COMPONENT RENORMALIZATION, and that renorm is not brain-faithful — it BREAKS the theta-gamma serial decode-and-suppress readout (serial_renorm 0.119 << serial_rawsum 0.983 at overload). Determine the brain-faithful bundling/normalization for a superposition register (does the brain renormalize a population sum per-component, or preserve the linear sum with divisive/homeostatic gain?), build it, and prove it PRESERVES the serial-readable linear structure without regressing capacity — CI-separated over the current renorm, twin losing
 
