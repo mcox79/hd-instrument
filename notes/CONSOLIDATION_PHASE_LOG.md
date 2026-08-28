@@ -461,3 +461,39 @@ baseline to beat -> HANDED OFF as a solver problem (owner 08-27: "handoff signif
 `compose_the_reader_by_convergent_cue_not_independent_conjunction` (priority 3). AUDIT UPDATE folded (§2b).** STEP-18's
 result STANDS (both axes load-bearing); this drill defines the next fidelity step, it does not retract anything.
 - Commit: see git log (strategy: brain-foundationality drill + package convergent-cue handoff -- step 19).
+
+### 2026-08-28 -- STEP 20: DESIGN GATE for the FULL 3-AXIS END-TO-END (the comprehension baseline; heavy → remote) 🔵
+The consolidation's remaining HEADLINE + the baseline the REASONING phase builds on. All axes are now landed (front-end
+graded_role_assigner + incremental_parser + relcl_resolver; entity salience_binder + set-return decode; meaning
+conceptual_meaning + scalar_adjective_operation + meaning_operation_router + convergent_cue_reader). This step SPECIFIES
+the decisive measurement before the heavy build (DESIGN GATE before FULL). **It re-runs the original 2026-08-26
+wire-and-measure question — "does the composed reader work end-to-end, or does the front-end swamp it?" — now that the
+front-end is FIXED.** Robust to the in-flight solvers (learner/foraging/ToM/phase-diagram change NONE of the 3 axes).
+
+**GOLD:** LitBank paraphrased pronoun who-did-what (the STEP-18 / convergent-cue task already exercises ENTITY+MEANING;
+this ADDS the front-end axis). Question form: "what did [pronoun-linked entity E] [paraphrase q of the true verb v]?".
+
+**THE THREE AXES + how they compose (the probe surfaced the key design point):**
+  1. FRONT-END = correct AGENT/PATIENT attribution of each verb to entities. The LitBank stream currently attributes via
+     spaCy dep (gov_verb + role_class) — the ORACLE-ish parse. The landed front-end REFINES non-canonical attribution
+     (graded_role_assigner over the marked fall-through). ONE-VARIABLE OFF→ON on this axis = spaCy attribution vs
+     landed-front-end-refined attribution. (Design note: the convergent-cue harness reads `m["gov_verb"]` directly; add a
+     front-end SEAM there so the event's entity-attribution can be swapped oracle vs landed.)
+  2. ENTITY = bind pronouns to entities (salience_binder) + register decode (set-return); vs string-identity floor.
+  3. MEANING = match the paraphrase (convergent_cue_reader: conceptual + the routed ruler); vs exact-match floor.
+
+**MEASUREMENT:** all-organs-OFF (string-identity binding + exact-match meaning + spaCy attribution) vs all-ON (landed
+front-end + salience binding + convergent-cue meaning). FLOORS recomputed per arm; INFO-FREE TWINS (shuffled binding +
+shuffled meaning cue) MUST LOSE. CAN-FAIL: the composed reader must beat the floors CI-separated with twins losing;
+DECISIVE either way (a rigorous negative localising the residual binding constraint is a PASS, per the original
+wire-and-measure).
+
+**BUILD PLAN:** extend `experiments/exp_convergent_cue_composed_reader_v1.py` (entity+meaning) with the front-end SEAM +
+an all-OFF-vs-all-ON arm. SMOKE inline (few docs) to validate the harness; the FULL LitBank run (FHRR register + front-end
++ meaning over ~100 docs) is HEAVY → the REMOTE GPU box (queue-compliant `--self-test`/`--smoke`/`metrics.json` + prereg).
+
+**HONEST OPEN RISK:** the composition may be dominated by one axis (the original finding was front-end-swamped); with the
+front-end now fixed the test is whether the full reader clears the floor, or a residual constraint (coref quality, the
+observation/attribution front-end) still binds. Either outcome is decisive + informative. **STATUS: DESIGNED, not built —
+the build is the next dedicated step (smoke inline, full remote).**
+- Commit: see git log (strategy: design gate for the full 3-axis end-to-end -- consolidation step 20).
