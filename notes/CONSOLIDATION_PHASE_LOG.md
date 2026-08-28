@@ -36,9 +36,14 @@ is the durable consolidation-phase ledger tail). Do NOT re-derive; the disk + `g
 (p2), `the_reader_cannot_choose_what_to_read_next` (p3 foraging), `dimensional_phase_diagram_audit_of_the_current_organs`
 (p4, STILL RUNNING — has a SOLVED.md but the owner is iterating; leave alone).
 
-**STRATEGY-OWNED REMAINING (mine, Q111):** the 2 p1 follow-on refinements; the factorized two-system store landing (heavy →
-remote); the N400 PE event-segmentation wiring; the FULL 3-axis end-to-end measurement (heavy → remote); package the ToM
-dedicated re-eval solver.
+**STRATEGY-OWNED REMAINING (mine, Q111) — UPDATED 2026-08-28 (post-compaction authority is `notes/STATUS.md`):** DONE since:
+p1 FULLY landed + verified (ruler+router+FPE); ToM landed (belief_partition); the FACTORIZED two-system store CORE landed
+(graded_temporal_context + event_segmented_context + factorized_entity_store; sparse-DG "what" was already `dg_pattern_separation`);
+ToM re-eval packaged (p5); reasoning phase seeded (transitive-comparison p6). STILL REMAINING: the 2 p1 follow-on refinements
+(Ch.B regrounding + dim-select→semantic_control); the factorized-store follow-ons (sparse-DG content merge, path-integration,
+wire N400 boundaries→EventSegmentedContext) + its LitBank-scale validation (→ remote); the comparison-in-comprehension
+measurement (first reasoning-phase reader test). The FULL 3-axis was RE-SCOPED to a low-priority remote completeness check
+(STEP 20 REFINEMENT). INTEGRATE the learner on owner DONE (recommend DONE).
 
 **STANDING DISCIPLINE:** integrate ONLY on `owner_verdict: DONE`; every landing default-off + witnessed + registered; commit
 NO push; do the RIGHT thing not the easy one; heavy/long runs → the REMOTE GPU box; at a wall/surprise run brain-foundationality
