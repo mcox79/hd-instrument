@@ -79,6 +79,71 @@ def cleanup_set(
     return keep, scores
 
 
+def _serial_scores(readback: torch.Tensor, role_mat: torch.Tensor) -> torch.Tensor:
+    """Re(<role_v, readback>) for every filler v; role_mat (V,d) complex, readback (d,) complex -> (V,) real.
+    Same cleanup scoring convention as cleanup_argmax (the /d normalization is argmax-invariant, omitted here)."""
+    return torch.real(torch.conj(role_mat) @ readback)
+
+
+def _serial_argmax(readback: torch.Tensor, role_mat: torch.Tensor) -> int:
+    return int(torch.argmax(_serial_scores(readback, role_mat)))
+
+
+def _serial_margin(readback: torch.Tensor, role_mat: torch.Tensor) -> float:
+    """Gold-blind decode confidence = (top1 - top2) cleanup score / d (an SNR proxy = cue completeness)."""
+    s = _serial_scores(readback, role_mat)
+    top2 = torch.topk(s, 2).values
+    return float((top2[0] - top2[1]) / readback.shape[0])
+
+
+def decode_serial_slots(
+    trace: torch.Tensor,
+    keys: List[torch.Tensor],
+    role_mat: torch.Tensor,
+    n_iter: int = 6,
+    order_by_conf: bool = True,
+) -> List[int]:
+    """Theta-gamma SERIAL decode-and-suppress readout of a SUPERPOSED multi-slot trace (Lisman & Idiart 1995;
+    = successive-interference cancellation / resonator iterate). Verbatim port of the validated readout in
+    experiments/exp_register_completion_readout_v1.py.
+
+    Init each slot with an independent argmax, then iterate: reconstruct every slot's estimated binding and,
+    for each slot (processed strongest-margin FIRST when order_by_conf), decode the RESIDUAL with the OTHER
+    slots' current estimates SUBTRACTED (inhibition-of-return). Confident slots clean up ambiguous ones.
+    n_iter = the gamma-cycle budget (a swept PARAMETER, not an adopted number). Same FHRR bind/unbind algebra
+    as the organ. Returns the decoded role INDEX (into role_mat's row order) per key. The gain over independent
+    per-slot argmax is known-key CROSSTALK CANCELLATION on the RAW LINEAR SUM (a per-slot Hopfield attractor
+    ties argmax on i.i.d. separated codes -- no manifold; O'Reilly & McClelland 1994), NOT generic completion.
+    """
+    m = len(keys)
+    est = [_serial_argmax(binding.unbind(trace, keys[s]), role_mat) for s in range(m)]
+    for _ in range(n_iter):
+        recon = [binding.bind(role_mat[est[s]], keys[s]) for s in range(m)]
+        total = recon[0].clone()
+        for s in range(1, m):
+            total = total + recon[s]
+        if order_by_conf:
+            order = sorted(
+                range(m),
+                key=lambda s: -_serial_margin(binding.unbind(trace - (total - recon[s]), keys[s]), role_mat),
+            )
+        else:
+            order = list(range(m))
+        changed = False
+        for s in order:
+            residual = trace - (total - recon[s])          # suppress the OTHER slots' estimated bindings
+            new = _serial_argmax(binding.unbind(residual, keys[s]), role_mat)
+            if new != est[s]:
+                total = total - recon[s]
+                recon[s] = binding.bind(role_mat[new], keys[s])
+                total = total + recon[s]
+                est[s] = new
+                changed = True
+        if not changed:
+            break
+    return est
+
+
 class AccumulateRegister:
     """FHRR situation-model register: bind(role_vec, event_idx_vec) per event, accumulate via bundle.
 
@@ -141,6 +206,43 @@ class AccumulateRegister:
         reg = self.register(entity)
         readback = binding.unbind(reg, self.idx_vecs[event_idx])
         return cleanup_set(readback, self.role_vecs, rel_margin=rel_margin)
+
+    def decode_serial(self, entity: str, event_idxs: List[int] = None, n_iter: int = 6) -> List[str]:
+        """Theta-gamma SERIAL decode-and-suppress readout of ALL of an entity's occupied event slots at once,
+        reading the RAW LINEAR SUM of the accumulated bindings (NOT the per-component-renorm register()). Recovers
+        overloaded-register capacity that independent per-slot argmax cleanup (decode()) loses to crosstalk.
+        ADDITIVE / default-safe: register(), decode() and decode_set() are byte-unchanged.
+
+        Landed 2026-08-28 from the integrated `the_register_reads_by_argmax_not_recurrent_completion`
+        (SOLVED/EXCELLENT, owner-DONE; witness test_register_completion_readout.py). The register capacity
+        "cliff" is largely an ARGMAX-READOUT artifact: the RAW linear sum stays serially decodable where the
+        per-slot argmax collapses (synthetic D=256: argmax 0.509 -> serial 0.983 at M=64 events, +0.454 CI-sep).
+        The gain is known-key CROSSTALK CANCELLATION (a per-slot modern-Hopfield attractor ties argmax exactly on
+        the register's i.i.d. separated codes -- no manifold to complete), NOT generic pattern completion (theta-
+        gamma multiplexing, Lisman & Idiart 1995; successive-interference cancellation).
+
+        Reads the RAW SUM, so it also bypasses the per-component bundle renorm that BREAKS the serial structure
+        (renorm 0.119 << rawsum 0.983 at M=64 -- the open p5 bundle-renorm fidelity gap); once that normalization
+        is made brain-faithful this reads the live register directly.
+
+        event_idxs: which event-slot keys the stored bindings used, in stored (add_event) order. Defaults to
+        range(len(events)) -- the standard sequential-accumulate pattern the readout result validated; pass explicit
+        idxs if events were accumulated at non-sequential slots. Returns the decoded role name per stored event
+        (same order as the add_event calls / event_idxs).
+        """
+        events = self._events.get(entity)
+        if not events:
+            raise KeyError(f"no events recorded for entity {entity!r}")
+        m = len(events)
+        if event_idxs is None:
+            event_idxs = list(range(m))
+        if len(event_idxs) != m:
+            raise ValueError(f"event_idxs length {len(event_idxs)} != {m} stored events for {entity!r}")
+        rawsum = torch.stack(events, dim=0).sum(dim=0)                       # raw linear superposition (NOT renorm)
+        keys = [self.idx_vecs[i] for i in event_idxs]
+        role_mat = torch.stack([self.role_vecs[r] for r in self.role_vocab], dim=0)  # (V,d) organ's own codebook
+        est = decode_serial_slots(rawsum, keys, role_mat, n_iter=n_iter)
+        return [self.role_vocab[i] for i in est]
 
     def entities(self) -> List[str]:
         """Entity ids with at least one recorded event."""

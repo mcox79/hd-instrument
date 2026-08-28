@@ -58,10 +58,16 @@ untouched half of coreference (pronoun half solved) — brief frames it as conte
 person-identity node (DG separation / CA3 completion; Bruce-Young PINs; Heim file cards), bar = cluster quality CI-sep over
 the token-overlap floor + who-did-what lift toward oracle. **Queue is now 3 genuinely-open-for-solvers: p3 (name-clustering,
 NEW), p4 (verb-WSD), p5 (register-renorm); + p2 learner SOLVED-awaiting-verdict.**
-⚠️ **WIRE-DON'T-ISLAND DEBT is now 7 queued careful ports, 0 landed this cycle** (coref `run_graded_retrieval`;
-`location_register`+`perceptual_access` coupled; comprehensible-input selector; `decode_serial`+`decode_gated`;
-`transitive_ordering`; p1 `quality_relation` FPE-log). These are careful multi-step ports with witnesses — landing them is
-its own focused pass, RECOMMENDED as the next dedicated effort (not rushed at an integration tail).
+✅ **WIRE-DON'T-ISLAND: `AccumulateRegister.decode_serial` LANDED 2026-08-28** (the theta-gamma serial readout, the proven
++0.454 overload-recovery core of the integrated register-readout problem). Additive/default-safe: `register()`/`decode()`/
+`decode_set()` byte-unchanged; reads the RAW linear sum (bypasses the p5 bundle-renorm). Witness
+`verification/test_register_serial_readout_organ.py` 6/6 PASS FIRST-HAND (M=64 serial 1.000 vs argmax 0.453; shuffled-key
+twin 0.031 loses = known-key crosstalk cancellation, not generic completion). ⚠️ Registry catalog entry PENDING
+(`data/capability_registry.jsonl` is mid-edit by another session — will register when clear, do NOT clobber it).
+⚠️ **WIRE-DON'T-ISLAND DEBT now 6 careful ports queued** (coref `run_graded_retrieval` — confirmed a cross-validated port,
+NOT a clean lift; `location_register`+`perceptual_access` coupled/spaCy; comprehensible-input selector; register
+`decode_gated` CA1-gate — the larger half; `transitive_ordering`; p1 `quality_relation` FPE-log). Remaining are careful
+multi-step ports; landing them one at a time WITH cross-validation against each experiment's real numbers (as done here).
 
 ### 2026-08-28 -- ✅ **THE MISSING SPACE ORGAN INTEGRATED (p1, owner-DONE, EXCELLENT): the situation model now has a per-entity LOCATION REGISTER — the Zwaan event-indexing SPACE dimension, genuinely absent until now, built the brain's way and serving the ToM cue. Queue now: p2 learner SOLVED-awaiting-verdict; p3/p4/p5 open for solvers.**
 **READ THIS FIRST after compaction; then the entries below.**
