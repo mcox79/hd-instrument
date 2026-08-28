@@ -52,7 +52,9 @@ whether it is SAFE to, it does not do the growing.**
 > (1) DO THE RIGHT THING, not the cheap one — and if there is high-value ADJACENT info we can gather that raises
 > fidelity OR PROVES THE POINT (a control, a distance/robustness curve, an ablation, a second gold), GO GET IT.
 > (2) What is LEFT that rationally fits THIS problem? Enumerate + do it. If ADJACENT components bottleneck it, MAP
-> THEM OUT (name the component, the on-disk evidence, the leverage) as candidate follow-ons, never silent gaps.
+> THEM OUT (name the component, the on-disk evidence, the leverage) as candidate follow-ons, never silent gaps — AND
+> EVALUATE each for BRAIN-FOUNDATIONAL FIDELITY + OPTIMIZATION POTENTIAL (is it the brain's actual mechanism or an
+> OUR-INVENTION placeholder? a higher-fidelity / higher-yield version worth building?) — that evaluation seeds the next problem.
 > (3) Any OPTIMIZATIONS left for this module, or brain-foundational FIDELITY to look at more closely with another
 > research drill? If yes, RUN it.
 > (4) Hit an UNEXPECTED WALL? Run a FINER brain-foundational research drill — do NOT stop. If the BRAIN can do this

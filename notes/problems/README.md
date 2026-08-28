@@ -396,7 +396,10 @@ Each `PROBLEM.md` has the same eight sections, in this order:
      second gold, a known-answer arm). A result that proves the mechanism is worth more than a faster green check.
   2. **What is LEFT to do that rationally fits THIS problem?** Enumerate it and do it. If ADJACENT components have
      issues that bottleneck this one, **MAP THEM OUT** — name the component, the on-disk evidence, the leverage —
-     as candidate follow-on problems in your submission, never as silent gaps.
+     as candidate follow-on problems in your submission, never as silent gaps. **AND EVALUATE each adjacent component
+     for BRAIN-FOUNDATIONAL FIDELITY + OPTIMIZATION POTENTIAL (owner 2026-08-28): is it the brain's ACTUAL mechanism or
+     an OUR-INVENTION placeholder? is there a higher-fidelity or higher-yield version worth building? — that evaluation
+     is itself the seed of the next high-value problem, so make it, don't just name the component.**
   3. **Any OPTIMIZATIONS left for this module, or brain-foundational FIDELITY to look at more closely with another
      research drill?** If yes, run the drill — don't leave fidelity on the table.
   4. **Hit an UNEXPECTED WALL? Run a FINER brain-foundational research drill — do NOT stop.** If the BRAIN can do
