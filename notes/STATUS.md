@@ -59,6 +59,16 @@ reverify+land recipe + the SAFETY GATE); p3 foraging (SOLVED, recommend DONE, ab
 recurrent pattern completion, a book-scale CAPACITY lever NOT a current-task win, must resolve the completion-helps-decode /
 hurts-ranking tension; no solver yet); p5 ToM-reeval + p6 transitive = no solution yet.** ⚠️ The uncommitted
 `data/capability_registry.jsonl` + untracked `verification/test_*.py` are OTHER sessions'/solvers' — do NOT commit them.
+🖥️ **REMOTE-DISPATCH BRIDGE LIVE (owner-authorized 2026-08-28) — solvers request heavy CPU/GPU runs without preregs:**
+`tools/fulfill_remote_run_request.py` reads a solver-dropped `notes/problems/<slug>/REMOTE_RUN_REQUEST_<cell>.md`,
+runs guardrails (no spaCy on import path; has `--self-test`/`--smoke`; KB_REFERENT declared; CPU/GPU route matches torch;
+self-test PASS; SMOKE-DEFAULT warning), auto-writes the prereg (subprocess I/O — works despite the `preregs/**` Write-tool
+deny), ships the cell's hdlab dep-closure + KB_REFERENT data if missing on remote, then `queue_add.sh` → `remote_cpu_queue`
+(numpy) or `overnight_queue` (torch/GPU). Protocol in `notes/problems/README.md`. **PROVEN live** (auto-fixed a real remote
+hdlab drift). ⚠️ **CONFIRMED GOTCHA: the remote runner invokes cells BARE (no `--mode full`) → a smoke-default cell fails.**
+The one ready run `exp_exemplar_selpref_v1` (learner fidelity phase) FAILED for exactly this → **AWAITING OWNER**: patch the
+cell to default FULL + re-dispatch (`fulfill_remote_run_request.py … --rerun`), route to the solver, or make the runner pass
+`--mode full`. The bridge itself worked flawlessly.
 
 ### 2026-08-28 -- 🧭 **COMPACTION SNAPSHOT: p1 FULLY LANDED + verified; ToM landed; the FACTORIZED MEMORY STORE landed (dense→sparse gap ~closed); the LEARNER solution is IN + recommended DONE (awaits owner verdict); reasoning phase seeded. IDLE, waiting on owner verdicts.**
 **READ THIS FIRST after compaction; then `CONSOLIDATION_PHASE_LOG.md` (steps 0-20 + the RESUME STATE at its top) + the entries below.**
