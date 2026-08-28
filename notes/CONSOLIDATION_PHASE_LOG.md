@@ -497,3 +497,23 @@ front-end now fixed the test is whether the full reader clears the floor, or a r
 observation/attribution front-end) still binds. Either outcome is decisive + informative. **STATUS: DESIGNED, not built —
 the build is the next dedicated step (smoke inline, full remote).**
 - Commit: see git log (strategy: design gate for the full 3-axis end-to-end -- consolidation step 20).
+
+### 2026-08-28 -- STEP 20 REFINEMENT (worked the design harder before building -- RE-SCOPED, do the right thing not the mechanical thing) ⚠️
+Drilling the composition before building surfaced a load-bearing asymmetry: **the three axes are NOT equally broad.**
+The FRONT-END fix (`graded_role_assigner`) only changes NON-CANONICAL role assignment (passives, reduced relatives),
+which fire on ~1% of natural narrative (STEP 10: relcl fires on ~1% of QA-SRL; the landed lift is +0.011 overall,
++0.024 on the rare pre-verbal slice). ENTITY (pronoun linking) and MEANING (paraphrase) are BROAD (every query).
+**CONSEQUENCE: a "full 3-axis on ONE natural gold" is DOMINATED by entity+meaning -- which STEP 18 ALREADY measured
+(both load-bearing) -- with the front-end a tiny rare-case sliver.** So the full-3-axis is a COMPLETENESS CHECK, not the
+decisive headline STEP 20 framed; and the corpus-mismatch (front-end on sentence-level QA-SRL vs entity/meaning on
+cross-sentence LitBank) makes forcing all three onto one gold partly artificial. **RE-SCOPE:** (a) the COMPREHENSION
+BASELINE is essentially ESTABLISHED -- each axis earns its keep on its OWN fair gold (front-end 0.739 vs 0.519 STEP 9;
+entity 0.184 vs 0.058 STEP 13; meaning 0.750 vs 0.010 STEP 14; p1 comparison 0.758 vs 0.552) AND entity+meaning COMPOSE
+(STEP 18) -- so comprehension is validated axis-by-axis + on the one non-rare-dominated composition. (b) DEMOTE the
+full-3-axis to a LOW-PRIORITY remote completeness check (it will mostly reproduce STEP 18). (c) The genuinely HIGHER-LEVERAGE
+next measurement is the reader's NEW capability -- p1's COMPARISON in a COMPREHENSION context ("which was bigger, X or Y?"
+from a passage) -- the first REASONING-phase measurement, distinct from re-running the broad axes. **The neuroscientist-
+strategist call: don't build a mechanically-impressive mega-measurement that mostly re-derives STEP 18; measure the new
+capability the phase actually needs.** STEP 20's harness/seam plan still holds IF the full-3-axis is later wanted; it is
+just no longer the headline.
+- Commit: see git log (strategy: STEP 20 refinement -- re-scope the full 3-axis, redirect to comparison-in-comprehension).
