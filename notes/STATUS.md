@@ -74,10 +74,14 @@ cell to default FULL + re-dispatch (`fulfill_remote_run_request.py … --rerun`)
 fulfiller on any NEW/CHANGED `REMOTE_RUN_REQUEST` (seed-on-first-run; retry-capped; state
 `data/remote_run_request_watcher_state.json`). **Remote `C:/dev/hd-instrument` was DEEPLY STALE — now RESYNCED:** all
 `hdlab/*.py` + subpackages (learner/dashboard) shipped, and the missing reading corpora (30 dirs incl. onestop = the
-FROZEN schedule's source) scp'd (`data/_corpora_sync.log`). **The foraging run `exp_reading_comprehensible_input_zpd_v1`
-is QUEUED (pending) on remote_cpu_queue** (~2h). ⚠️ exemplar_selpref + grounding_supply still `failed` on the smoke-default
-bug (solver hardening the cells). ⚠️ SSH-under-scheduled-task auth is unverified until the first live auto-dispatch — watch
-`data/remote_run_request_watcher_log.jsonl`.
+FROZEN schedule's source) scp'd (`data/_corpora_sync.log`). ✅ **WATCHER VERIFIED FULLY WORKING 2026-08-28** (auto-dispatch under the Scheduled Task, minimal-PATH context): fixed a
+subtle rc=127 — the task PATH made bare `bash` resolve to the WindowsApps/WSL stub (mangles Windows paths); the fulfiller
+now uses git-bash's full path (`_resolve_bash`), and ssh/scp resolve from System32. The solver-hardened **exemplar_selpref
+is RUNNING** via watcher auto-dispatch (end-to-end proven); **grounding_supply** un-parked (auto-dispatches next fire).
+⚠️ **foraging is PARKED** — it FAILS at RUN time on `from spacy... import STOP_WORDS` deep in `hdlab/closed_class_lexicon.py`
+(reached only in the full run, so self-test passed; remote has NO spaCy). Fix before it can run remotely: make
+`closed_class_lexicon._spacy_stop_words()` degrade without spaCy (freeze the STOP_WORDS constant / try-except) — an hdlab
+follow-up. The fulfiller now WARNS pre-dispatch when an hdlab-closure module imports spaCy.
 
 ### 2026-08-28 -- 🧭 **COMPACTION SNAPSHOT: p1 FULLY LANDED + verified; ToM landed; the FACTORIZED MEMORY STORE landed (dense→sparse gap ~closed); the LEARNER solution is IN + recommended DONE (awaits owner verdict); reasoning phase seeded. IDLE, waiting on owner verdicts.**
 **READ THIS FIRST after compaction; then `CONSOLIDATION_PHASE_LOG.md` (steps 0-20 + the RESUME STATE at its top) + the entries below.**
