@@ -5,7 +5,7 @@ bar: "A per-entity LOCATION REGISTER organ (presence intervals updated by motion
 result: "'Where is X at T?' node-exact accuracy: REGISTER 1.000 [1.000,1.000] vs strongest stateless floor last-mention-location 0.417 [0.354,0.479], n=240 (construction gold: real English motion verbs, by-construction node labels, 4 discriminating structures x 60). Info-free shuffled-order twin 0.422 (null p95 0.468) LOSES CI-separated. Real-PROSE: SERVES the ToM cue 0.972 [0.947,0.992] vs lexical floor 0.500 on real mined LitBank presence clauses (n=246); motion-extraction gate 0.909 Goal precision on 186 real LitBank 'to X' tokens."
 floor: "STRONGEST of four stateless floors recomputed on the same population: last-mention-location 0.417 [0.354,0.479] (hi 0.479); most-recent-scene 0.250; first-location 0.000; most-frequent-location 0.000. Register lower CI 1.000 > floor upper CI 0.479. Serve floor: lexical keyword extractor 0.500 (CI-separated, register-served 0.972)."
 controls: "(1) INFO-FREE TWIN: register on shuffled-order text -> 0.422, LOSES CI-separated and lands AT floor level (0.417), so the win is 100% correctly-ordered tracking not a lexical prior. (2) POSITIVE CONTROLS per-type: REENTRY 1.000 vs last-mention 0.000, PERSIST 1.000 vs 0.000, STALE 1.000 vs 0.667 -- excludes 'metric cannot move'. (3) DISTANCE-ROBUSTNESS: register flat 0.967 at K=0..20 while WINDOWED (0.967->0.000 at K>=2) and last-mention (1.000->0.000 at K>=5) COLLAPSE -- excludes 'local read'. (4) ABLATION real prose: place-typing + motion-frame gates raise Goal precision 0.219->0.909, communication-verb false-goals 0.573->0.000 (n=96) -- excludes 'gates do nothing'. (5) SERVE presence agreement with the stopgap 0.967 overall, 0.985 on presence-decisive classes."
-files_changed: "experiments/location_register.py; experiments/exp_location_register_where_is_x_v1.py; experiments/exp_location_register_distance_v1.py; experiments/exp_location_register_serves_tom_v1.py; experiments/exp_location_register_verbclass_gate_v1.py; verification/test_location_register.py; notes/problems/situation_model_has_no_spatial_location_dimension/{SOLVED.md, research_motion_goal_vs_addressee_and_spatial_situation_model_2026-08-28.md}"
+files_changed: "experiments/location_register.py; experiments/exp_location_register_where_is_x_v1.py; experiments/exp_location_register_distance_v1.py; experiments/exp_location_register_serves_tom_v1.py; experiments/exp_location_register_verbclass_gate_v1.py; experiments/exp_location_register_hierarchy_v1.py; verification/test_location_register.py; notes/problems/situation_model_has_no_spatial_location_dimension/{SOLVED.md, research_motion_goal_vs_addressee_and_spatial_situation_model_2026-08-28.md, research_deictic_center_and_hierarchical_spatial_frameworks_2026-08-28.md}"
 reverify: ".venv/Scripts/python.exe verification/test_location_register.py   # 12/12 ; then .venv/Scripts/python.exe experiments/exp_location_register_where_is_x_v1.py   # HARD_PASS, REGISTER 1.000 vs floor 0.417"
 ---
 
@@ -52,6 +52,26 @@ distance in narrative spatial models), plus the FHRR-bound alternative giving th
    drive communication-verb false-goals **0.573 -> 0.000** (n=96 -- the dominant real-prose false-positive
    source, "said/told/gave *to X*"). Ambiguous caused-motion stays 0.167 (the mapped residual).
 
+## Brain-foundational optimization pushed this round (hierarchical / region-based structure)
+A second finer research drill (`research_deictic_center_and_hierarchical_spatial_frameworks_...md`) evaluated
+two candidate extensions and **corroborated the build decisions**:
+- **HIERARCHICAL / region-based containment -> BUILT** (research verdict BUILD, P=0.46; Wiener & Mallot 2003
+  region-based navigation; Hirtle & Jonides 1985; Kim & Maguire 2018 + Peer & Epstein 2025 local/global
+  containment dissociation). The cognitive map is nested REGIONS, not flat places -- a reader who knows X is
+  in the study knows X is in the house. Added a shallow place-containment relation (curated room/outdoor
+  taxonomy + WordNet part-meronymy) with `region_of` and `is_in_region`. Measured
+  (`exp_location_register_hierarchy_v1`, n=240 "is X in the house / outdoors?" queries): **HIERARCHICAL 1.000
+  [1.000,1.000] vs FLAT_EXACT 0.500, STRING_MATCH 0.500, info-free TWIN 0.487** -- CI-separated. A flat
+  exact-node register CANNOT answer "in the house?" when the fine node is a room; the hierarchy resolves it.
+- **Narrative DEICTIC CENTER / Deictic Shift Theory -> SKIPPED, evidence-based** (research verdict SKIP,
+  P=0.22). The full shifting-deictic-center apparatus is REFUTED as worth building for this task: spatial-alone
+  discontinuity does not reliably cost reading time (Zwaan, Magliano & Graesser 1995; Rinck & Weber 2003), and
+  tracking ABSOLUTE per-entity location (what the register does) is the better engineering choice than a single
+  moving center. Confirmed on-disk: the serve return-class divergence is 4/4 genuine deictic-center cases
+  ("returned to his hotel/office/work" -- the register correctly reports the specific place), 0/4 register bugs.
+  One within-scene-furniture goal case ("returned to the kitchen fire") was fixed (goal-path furniture ->
+  present-in-scene), lifting the serve cue to 0.976.
+
 ## The wall I drilled (owner: "if the brain can do it, we should be able to also")
 Running the register on RAW literary prose exposed a precision wall: a bare "to X" PP was read as a spatial
 Goal regardless of the verb, so "said **to** Alice", "gave it **to** her", "pointed **to** the door" (X =
@@ -70,6 +90,27 @@ Result: raw-prose false motion-reads fell **51 -> 6**, precision **0.22 -> 0.91*
 2008; Levin 1993) and that the one irreducible residual -- **ambiguous caused-motion verbs** (throw/send/pass),
 where verb class carries zero signal -- needs the **coreference/entity-status** of the "to X" head (character
 -> Recipient, location -> Goal), a mapped follow-on, not WordNet animacy typing.
+
+## Convergence check (probed the untested phenomena, MEASURED the regime -- not hand-waved)
+Before claiming the module is done I probed the phenomena I had NOT tested, to find an unexpected wall:
+- **Multi-entity / group / distributive motion -- SOLID (no wall).** Conjoined subjects ("Tom and Huck went
+  out to the cave" -> both -> cave), plural "they" (given coref), group nouns ("the children ran into the
+  orchard" -> orchard), and distributive one-moves-other-stays ("Anna went to the cellar" -> Anna cellar, Ben
+  stays) all resolve correctly. The register distributes a group's motion to its members via conjoined-subject
+  handling; the plural-pronoun-to-set resolution is the coref organ's job (mapped).
+- **Dynamic containment / conveyance -- a REAL gap, but MEASURED at 0.01% of text.** "Holmes stepped into the
+  cab. The cab drove to Baker Street." leaves Holmes at 'cab', not Baker Street (the brain relocates a
+  passenger WITH the vehicle -- a moving reference frame). This IS a brain-can-we-can't gap and a natural
+  extension of the hierarchy (a dynamic containment edge whose parent moves). But conveyance-boarding occurs
+  in **1 / 7,182 sentences (0.01%)** across three novels -- so per the "measure the regime where the brain's
+  advantage shows" discipline, it is a documented follow-on, not worth the added complexity for this corpus.
+
+**Convergence verdict (owner's strict bar):** the brain's mechanism has been identified and replicated-and-
+tested for every phenomenon that occurs at meaningful frequency (Talmy PATH/deixis; Zwaan event-indexing
+intervals; VerbNet Destination-vs-Recipient frames; region-based hierarchical maps), and BOTH research drills
+corroborated the build/skip calls. The remaining gaps are either MEASURED-rare (conveyance 0.01%) or belong to
+mapped ADJACENT organs (coref ~0.65; object-destination tracking; a shallow role-labeler) -- not this-module
+walls. A further this-module drill would be manufactured busywork.
 
 ## What I did NOT establish (withdraw-first if wrong)
 - **The CI-separated "where is X" headline is on a CONSTRUCTION gold** (real English motion verbs + real place
@@ -113,8 +154,9 @@ only on motion, queries on demand); (b) raw-prose motion EXTRACTION is gated at 
 
 ## Proposed hdlab landing (strategy lands; Q111 -- I do not write hdlab/)
 1. **Promote `experiments/location_register.py` -> `hdlab/location_register.py`** as a first-class organ:
-   `LocationRegister.read(text, entities)` / `where_is` / `present_in_scene` / `intervals_of`, with the three
-   glass-box gates (place-typing, motion-frame, argument-structure) ON by default.
+   `LocationRegister.read(text, entities)` / `where_is` / `present_in_scene` / `intervals_of` / `region_of` /
+   `is_in_region` (hierarchical scene membership), with the three glass-box gates (place-typing, motion-frame,
+   argument-structure) ON by default.
 2. **Have the queued `perceptual_access` landing CONSUME it** instead of re-implementing the inline
    `PresenceState` stopgap (`experiments/perceptual_access_ledger.py`): the register supplies the presence/co-
    location bit (serve shows 0.985 decisive-class agreement, 0.972 composed cue). Removes the inline
