@@ -84,6 +84,7 @@ class MultiBankAccumulateRegister:
         max_event_slots: int = 8,
         n_banks: int = 8,
         bundle_norm: str = "percomp",
+        leak: float = 0.0,
     ) -> None:
         if n_banks < 1:
             raise ValueError(f"n_banks must be >= 1; got {n_banks}")
@@ -91,6 +92,10 @@ class MultiBankAccumulateRegister:
         self.d = int(d)
         self.max_event_slots = int(max_event_slots)
         self.n_banks = int(n_banks)
+        # leak=0.0 (DEFAULT) -> flat per-bank sum, BYTE-IDENTICAL. leak>0 -> the asymmetric leaky/recency WRITE applied
+        # PER BANK (composes with sharding: each bank is smaller, so the geometric leak is milder per bank). Landed
+        # 2026-08-29 from `the_register_write_path_has_a_hard_capacity_wall` (mirrors AccumulateRegister.leak).
+        self.leak = float(leak)
         # bundle_norm="percomp" (DEFAULT) -> per-component renorm (norm=None), BYTE-IDENTICAL to prior behavior.
         # "divnorm" -> pooled Carandini-Heeger divisive norm at each per-bank bundle, so an OVERLOADED bank stays
         # serially readable (via decode_serial_pooled). Mirrors AccumulateRegister; opt-in, nothing changes until a
@@ -123,6 +128,13 @@ class MultiBankAccumulateRegister:
             raise KeyError(f"no events recorded for entity {entity!r} in bank {bank_id}")
         if len(events) == 1:
             return events[0]
+        if self.leak > 0.0:
+            # asymmetric leaky/recency WRITE per bank: weight event i by (1-leak)^(k-1-i) (newest weight 1).
+            k = len(events)
+            lam = 1.0 - self.leak
+            w = torch.tensor([lam ** (k - 1 - i) for i in range(k)], dtype=torch.float32)
+            wc = torch.complex(w, torch.zeros_like(w)).to(events[0].dtype)
+            return (torch.stack(events, dim=0) * wc.unsqueeze(-1)).sum(dim=0)
         return bundling.bundle(torch.stack(events, dim=0), norm=self._bundle_norm_arg)
 
     def decode(self, entity: str, event_idx: int) -> Tuple[str, Dict[str, float]]:

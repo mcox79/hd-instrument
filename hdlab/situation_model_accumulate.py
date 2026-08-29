@@ -259,11 +259,20 @@ class AccumulateRegister:
         max_event_slots: int = 8,
         overwrite: bool = False,
         bundle_norm: str = "percomp",
+        leak: float = 0.0,
     ) -> None:
         self.role_vocab = list(role_vocab)
         self.d = int(d)
         self.overwrite = bool(overwrite)
         self.max_event_slots = int(max_event_slots)
+        # leak=0.0 (DEFAULT) -> flat running sum, BYTE-IDENTICAL to prior behavior. leak>0 -> the brain's ASYMMETRIC
+        # leaky/recency WRITE S_j = (1-leak)*S_{j-1} + new (Warden & Miller 2007; Konecky 2017, PINNED-WEAK): recent
+        # events dominate, old are geometrically suppressed, so recent context stays recoverable at ANY load where the
+        # flat sum saturates (landed 2026-08-29 from `the_register_write_path_has_a_hard_capacity_wall`, SOLVED/
+        # EXCELLENT). A FIXED geometric lambda^age is the faithful per-trace form (a single-store power law is emergent
+        # from mixing exponentials). The leaky mode buys RECENT by decaying OLD (a fundamental single-store trade); pair
+        # it with a salience-gated commit to HDFactStore for far-old events. Opt-in: nothing changes until leak>0.
+        self.leak = float(leak)
         # bundle_norm="percomp" (DEFAULT) -> the incumbent per-component renorm (norm=None), BYTE-IDENTICAL to prior
         # behavior. "divnorm" -> pooled Carandini-Heeger divisive norm (a legit bounded, serially-readable stored
         # state; landed 2026-08-28 from `the_register_bundle_renorm_breaks_the_serial_readout`). A "divnorm" register
@@ -292,12 +301,23 @@ class AccumulateRegister:
             self._events.setdefault(entity, []).append(bound)
 
     def register(self, entity: str) -> torch.Tensor:
-        """Entity's current register: bundle of all accumulated events, or the sole event if one."""
+        """Entity's current register: bundle of all accumulated events, or the sole event if one.
+
+        With leak>0, returns the ASYMMETRIC leaky/recency-weighted RAW sum S = sum_i (1-leak)^(k-1-i) * event_i
+        (event k-1 is newest, weight 1; older events geometrically suppressed). The argmax cleanup (decode()) is
+        scale-invariant so it reads this as the RECENT readout; per-component renorm would distort direction (the
+        parent's measured rule -- read the raw recency-weighted sum)."""
         events = self._events.get(entity)
         if not events:
             raise KeyError(f"no events recorded for entity {entity!r}")
         if len(events) == 1:
             return events[0]
+        if self.leak > 0.0:
+            k = len(events)
+            lam = 1.0 - self.leak
+            w = torch.tensor([lam ** (k - 1 - i) for i in range(k)], dtype=torch.float32)
+            wc = torch.complex(w, torch.zeros_like(w)).to(events[0].dtype)
+            return (torch.stack(events, dim=0) * wc.unsqueeze(-1)).sum(dim=0)
         return bundling.bundle(torch.stack(events, dim=0), norm=self._bundle_norm_arg)
 
     def decode(self, entity: str, event_idx: int) -> Tuple[str, Dict[str, float]]:
@@ -418,6 +438,7 @@ def make_situation_register(
     max_event_slots: int = 8,
     backend: str = "multibank",
     n_banks: int = 8,
+    leak: float = 0.0,
 ):
     """Backend-selectable factory for the situation-model entity-event register.
 
@@ -451,13 +472,13 @@ def make_situation_register(
     with the same args, since this branch does exactly that).
     """
     if backend == "flat":
-        return AccumulateRegister(role_vocab, d, generator, max_event_slots=max_event_slots)
+        return AccumulateRegister(role_vocab, d, generator, max_event_slots=max_event_slots, leak=leak)
     if backend == "multibank":
         # Deferred import: situation_model_multibank imports FROM this module
         # (cleanup_argmax/unit_phase_vec), so a module-level import here would be circular.
         from .situation_model_multibank import MultiBankAccumulateRegister
         return MultiBankAccumulateRegister(
-            role_vocab, d, generator, max_event_slots=max_event_slots, n_banks=n_banks
+            role_vocab, d, generator, max_event_slots=max_event_slots, n_banks=n_banks, leak=leak
         )
     raise ValueError(f"unknown backend {backend!r}; expected 'multibank' or 'flat'")
 
