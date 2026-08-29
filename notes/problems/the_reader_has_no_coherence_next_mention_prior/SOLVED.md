@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. A coherence next-mention PRIOR channel (built 
 result: "RIGOROUS NEGATIVE (a full pass per the bar). On the LitBank structurally-dominated pronoun-coref residual (n=205 TEST decisions, the graded likelihood-only resolver's structurally-dominated errors, doc-bootstrap 95% CI), the faithful coherence next-mention PRIOR (SELECTIONAL-fit via the predictive-reader verb-role grounded centroid + THEMATIC/coherence-relation re-mention, fused as a Bayesian product, fusion weight tuned on DEV-residual = its best shot, wp=1.5) recovers 0.0683 [0.0306,0.1078] vs likelihood-only 0.0 (0/205 by construction) -- BUT its own info-free twin (20-shuffle-averaged shuffled prior) recovers MORE, 0.1005 [0.0833,0.1199]; prior-minus-twin = -0.0322 [-0.0671,+0.0050], half-width 0.036, null p95 0.036, band NOT_SEP. The coherence prior does NOT beat its own noise -> it carries no usable signal on the residual. ORACLE ceilings (best-case pick per channel) confirm it: SELECTIONAL 1.5%, THEMATIC 1.0%, COMBINED 2.9% -- vs a fine-grained TOKEN-DISTANCE oracle 37.6%. The residual is intra-sentential SYNTACTIC binding (64%), not coherence-prior-decisive. POSITIVE CONTROL passes: on constructed coherence-decisive minimal pairs the SAME prior mechanism flips the pick correctly -- selectional 8/8, implicit-causality 8/8 -- where the structural likelihood and an info-free shuffle are at chance (~5/8). Scorer = argmax==gold link accuracy on the fixed residual population."
 floor: "The strongest floor actually run = the info-free 20-shuffle-averaged coherence-prior twin on the SAME residual population = 0.1005 [0.0833,0.1199]; the real coherence prior 0.0683 [0.0306,0.1078] does NOT clear it (prior-minus-twin -0.0322, NOT_SEP, null p95 0.036). Trivial floor: likelihood-only = 0.0 on the residual (0/205 by construction -- any perturbation 'beats' it, which is why the twin is the meaningful floor). Reachability ceiling (an oracle, not a floor): the fine-grained token-distance channel recovers 37.6% of the residual as a best-case pick, quantifying that the residual IS partly reachable -- by finer syntactic locality, NOT by the coherence prior."
 controls: "(1) info-free twin = the coherence prior with per-candidate scores SHUFFLED, averaged over 20 shuffles -> the twin (0.100) BEATS the real prior (0.068), excluding 'the prior carries residual signal'. (2) ORACLE-ceiling decomposition (best-case pick per channel on the residual): selectional 1.5%, thematic 1.0%, combined 2.9%, fine-distance 37.6% -> excludes 'a better fusion weight would rescue the coherence prior' (even the oracle is near-chance) and localizes the reachable signal to fine distance. (3) COHERENCE-prior tradeoff curve (residual acc vs structure-decisive acc across fusion weights): at every weight residual barely rises (max 0.068 @ w=1.5) while structure-decisive collapses 1.000->0.648 -> excludes 'some weight lifts residual without regressing'. (4) FINE-DISTANCE tradeoff curve: residual rises to 0.283 but structure-decisive falls to 0.814 monotonically -> excludes 'the fine-distance signal is gateable non-regressing' (every residual gain costs an equal-or-greater structure-decisive loss). (5) NO-REGRESSION check at the DEV-residual-optimal weight: broke 1279/3638 structure-decisive -> confirms the residual 'lift' is unattainable without catastrophic regression. (6) POSITIVE CONTROL: the prior flips 8/8 constructed selectional pairs + 8/8 implicit-causality pairs; the structural likelihood and info-free shuffle sit at chance (~5/8) -> excludes 'the mechanism is broken / the metric cannot move' (it can; the population lacks the cases). (7) parse-based Hobbs syntactic-antecedent oracle (spaCy, separate diagnostic) = 28.8% on the intra-sentential residual, TYING raw linear-nearest -> excludes 'a dependency parse rescues the syntactic channel' (parse noise on archaic prose). DEV/TEST split by document; the coherence prior's selectional centroids learned on DEV docs only; fusion weight tuned on DEV-residual; all headlines on the disjoint TEST residual."
-files_changed: "experiments/exp_coref_coherence_next_mention_prior_v1.py, verification/test_coref_coherence_next_mention_prior.py, notes/problems/the_reader_has_no_coherence_next_mention_prior/SOLVED.md. No hdlab/ write (Q111); proposed hdlab direction below."
+files_changed: "experiments/exp_coref_coherence_next_mention_prior_v1.py (incl. the brain_faithful_cue_binding arm), verification/test_coref_coherence_next_mention_prior.py, notes/problems/the_reader_has_no_coherence_next_mention_prior/SOLVED.md, notes/problems/the_reader_has_no_coherence_next_mention_prior/research_intrasentential_binding_mechanism_2026-08-29.md. No hdlab/ write (Q111); proposed hdlab direction below."
 reverify: ".venv/Scripts/python.exe verification/test_coref_coherence_next_mention_prior.py"
 ---
 
@@ -67,6 +67,40 @@ I reconstructed the actual sentences behind the residual. It decomposes cleanly:
   the dependency parse is unreliable on 200-year-old literary prose (it mis-attaches the relative clause in the very
   first example: it parses the *mare* as humming the tune, not the parson).
 
+## Leading with biology: the brain mechanism, researched, built, and measured (a 4-lane literature drill)
+
+Because "the brain can do it, so can we" -- I did NOT stop at the coherence-prior negative. I ran a 4-lane literature
+drill (`research_intrasentential_binding_mechanism_2026-08-29.md`, persisted verbatim) on HOW the brain resolves
+intra-sentential binding, then BUILT the mechanism it surfaced and measured it. The drill's verdict:
+
+- **The brain does NOT bind via an explicit parse tree.** Kush (2013); Kush, Lidz & Phillips (2015): the retrieval
+  system cannot use c-command as a hierarchical RELATION; it uses ITEM-LEVEL structural PROXIES (clause-mate-hood, a
+  LOCAL-domain feature, subjecthood) as WEIGHTED cues that CORRELATE with c-command, combined NONLINEARLY (Parker 2019).
+- **It works on PARTIAL/underspecified structure and degrades gracefully.** Ferreira & Patson (2007) good-enough
+  processing; Frazier-Clifton Construal + Swets et al. (2008): relative-clause attachment is the paradigm case of
+  goal-modulated underspecification; Hemforth et al. (2000): attachment and binding run in PARALLEL, not gated.
+- **Grammatical prominence (subjecthood) > linear recency, and is durable** (Gordon-Grosz-Gilliom; Gernsbacher et al.).
+- **Principle B is applied early + largely structurally** (Chow-Lewis-Phillips 2014 hard/immediate; Badecker-Straub
+  graded -- a live dispute).
+
+**So the brain-faithful mechanism is cue-based retrieval with item-level structural-proxy cues -- NOT the brief's
+coherence prior, and NOT a full parse tree. I built exactly that** (`brain_faithful_cue_binding` arm): added fine
+linear-distance, clause-mate-hood / Principle-B (from `gov_verb`), relative-clause-head, and local-subjecthood as
+WEIGHTED cues to the graded retrieval, jointly re-tuned on DEV. **Result: it recovers 0/205 of the residual.** Only the
+Principle-B cue took a small, correct-signed weight (-0.5: a pronoun avoids its clause-mate); the others tuned to 0. DEV
+full 0.7985 -> 0.7996 (negligible), TEST full 0.775 -> 0.771 (slightly down).
+
+**Why the faithful mechanism recovers nothing -- the sharpened, research-grounded diagnosis:** the mechanism is correct,
+but our item-level structural PROXIES are DEGRADED. The brain computes clause-mate-hood / local-domain features from its
+own RELIABLE incremental parse; we compute them from a NOISY spaCy parse on 200-year-old prose, so they carry no usable
+signal after the ACT-R currency. And the proxies that DO fire are EXCLUSIONARY (Principle B rules a candidate OUT); they
+never POSITIVELY identify which of ~44 remaining candidates is the antecedent, because that needs the relative-clause
+attachment RELATION (parson<->he) -- exactly the relational information Kush shows retrieval cannot use without reliable
+structure. **The wall is PROXY QUALITY, bottlenecked by the PARSER on archaic prose -- a named, brain-grounded,
+ADJACENT-COMPONENT limitation, not a wrong mechanism and not a missing coherence prior.** Good-enough processing
+predicts graceful degradation on partial structure; we observe ZERO contribution, i.e. our proxies are below the noise
+floor, not merely coarse -- the parse is too unreliable to yield even a weak proxy.
+
 ## The positive control -- the mechanism works, the population lacks the cases (bar item 3)
 
 On CONSTRUCTED coherence-decisive minimal pairs the same prior mechanism flips the pick correctly: **selectional 8/8**
@@ -118,6 +152,14 @@ here (thematic-connective oracle 2/59).
    (global weight, entropy, intra-sentential presence, Principle-B, parse-Hobbs) broke more structure-decisive cases
    than it fixed residual cases -- the same "precision-gate or it hurts" lesson from the verb-sense solve, here with the
    verdict that the gating *signal itself* (the parse structure) is what we lack.
+6. **Leading with the biology relocated the wall precisely (the owner's push, and it paid off).** I assumed the
+   intra-sentential residual needed a full PARSE TREE. The literature drill (Kush 2013) said the brain does NOT use
+   c-command as a tree relation for retrieval -- it uses ITEM-LEVEL structural PROXIES as weighted cues, on PARTIAL
+   structure with graceful degradation. So I built the brain's ACTUAL mechanism (structural-proxy cues, jointly tuned)
+   rather than a parse-and-override. It still recovered 0 -- which is a SHARPER result: the wall is not "we need a parse
+   tree the brain doesn't even use", it is "our item-level PROXIES are below the noise floor because the upstream parse
+   is unreliable on archaic prose." That reframes the fix from "build a syntactic binder" to "fix the parser / proxy
+   quality" (adjacent component 1) -- a different, more precise, and higher-leverage next problem.
 
 # AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 
@@ -150,23 +192,59 @@ The measured, brain-faithful levers, in order:
 3. **Richer lexical semantics (p1)** would lift the selectional channel's oracle above 1.5% -- the standing
    representation-quality lane, out of scope here.
 
-# ADJACENCIES MAPPED (candidate follow-on problems), each evaluated for brain-fidelity + optimization potential
+# ADJACENT COMPONENTS -- capabilities / limitations / opportunities / brain-foundational status (seeds the next problems)
 
-1. **[HIGHEST LEVERAGE] Parse-based syntactic-locality pronoun binding for the intra-sentential residual.**
-   MEASURED: 64% of the residual is intra-sentential; a token-distance oracle recovers 37.6% but is ungateable without
-   the parse; an off-the-shelf spaCy Hobbs rule ties linear-nearest at 28.8% (parse noise). Brain-fidelity: HIGH and
-   PINNED -- reference resolution is a syntax-semantics-discourse interface, and Binding Theory (Principle B) + minimal
-   structural distance are the brain's mechanism for intra-sentential anaphora. Optimization: the substrate's
-   incremental parser (just integrated) is the right source; the open question is its robustness on archaic literary
-   prose. This is the REAL fix the brief was reaching for.
-2. **Archaic-prose parse quality (the corpus-age confound as a parser problem).** MEASURED: spaCy mis-attaches the
-   relative clause on the first residual example (mare hums, not parson). Brain-fidelity: N/A (a tooling gap), but it
-   caps every syntactic channel on LitBank. Optimization: measure the incremental parser's LitBank accuracy vs gold; a
-   modern-prose coref gold (OntoNotes) would separate parser-noise from mechanism.
-3. **Richer lexical/grounded semantics for selectional preference (p1 coupling).** MEASURED: selectional oracle 1.5% on
-   the person-heavy residual vs 8/8 on clean object pairs -- the coarse 12-dim grounded space cannot separate two
-   people. Brain-fidelity: the ATL flexible-hub representation is richer than our lookup (a known deviation). This is
-   the standing p1 representation-quality lane.
+Per the owner's directive (2026-08-29): understanding each adjacent component's capabilities, limitations, optimization
+opportunities, and brain-foundational status is how we PLAN the next problems. Each below is a candidate follow-on with
+on-disk evidence + leverage.
+
+1. **[HIGHEST LEVERAGE] The PARSER / `gov_verb`-`role` extraction (spaCy `en_core_web_sm`) -- the ROOT bottleneck.**
+   - CAPABILITIES: supplies the governing verb + grammatical role per mention (the cache's `gov_verb`/`role`), which
+     powers subjecthood, the ACT-R role weighting, and (attempted) clause-mate/Principle-B proxies.
+   - LIMITATIONS (MEASURED): unreliable on 200-year-old literary prose -- it mis-attaches the relative clause on the
+     first residual example ("mare" hums, not "parson"); a Hobbs rule built on it ties raw linear-nearest (28.8%); the
+     brain-faithful structural-proxy cues built on it recover 0/205 of the residual (proxies below the noise floor).
+   - OPPORTUNITY: this single component caps EVERY syntactic channel. A more robust parser would let the (already
+     brain-faithful) cue-based binding mechanism actually fire. Measure the substrate's just-integrated
+     `incremental_parser` accuracy vs gold on LitBank; test a stronger model (`en_core_web_trf`) or a modern-prose gold
+     (OntoNotes) to separate parser-noise from mechanism.
+   - BRAIN STATUS: **OUR-INVENTION / convenient off-the-shelf tool, NOT brain-foundational.** The brain's incremental
+     parser is reliable and feeds item-level structural proxies (Kush 2013); ours is a noisy substitute. This is the #1
+     adjacent problem to open, and it gates the real coref fix.
+2. **The GRADED COREF RESOLVER (`exp_coref_graded_cue_retrieval_litbank_v1`, the likelihood).**
+   - CAPABILITIES: brain-faithful cue-based retrieval (Lewis-Vasishth/McElree), 0.775 on the competitive subset, a
+     calibrated entropy abstain signal. PINNED mechanism.
+   - LIMITATIONS: computes recency in SENTENCE buckets (blind within a sentence); the candidate pool is the WHOLE
+     document (mean 45) where the brain's attentional focus is ~4 entities; the residual DEFINITION uses GLOBAL cues
+     (max-subjecthood over the pool) where the brain uses LOCAL prominence (Cb).
+   - OPPORTUNITY: finer (token/clause) recency granularity in the ACT-R currency -- but only worth it GATED by reliable
+     structure (component 1), else it regresses (measured tradeoff curve). A local-focus (Cb) prominence cue matching
+     the brain's Centering ranking.
+   - BRAIN STATUS: PINNED and faithful; the deviation is the sentence-bucket granularity (an OUR-INVENTION parameter).
+3. **The GROUNDED SEMANTIC SPACE (12-dim, `grounded_similarity`).**
+   - CAPABILITIES: separates concrete object classes cleanly (positive control: selectional fit 8/8 water-vs-jug).
+   - LIMITATIONS (MEASURED): cannot separate two PEOPLE (selectional oracle 1.5% on the person-heavy residual); too
+     coarse for real selectional preference at antecedent-discrimination fidelity.
+   - OPPORTUNITY: a richer / contextual lexical representation would lift the selectional channel -- the standing p1
+     representation-quality lane. Testable: re-run the selectional oracle on a richer space.
+   - BRAIN STATUS: known deviation -- the ATL is a flexible context-dependent hub, richer than a 12-dim context-free
+     lookup (per the predictive-reader audit).
+4. **MENTION DETECTION / candidate pool (`data/litbank/who_did_what_events.json`, single-head-token cache).**
+   - CAPABILITIES: supplies mentions + gold clusters + roles.
+   - LIMITATIONS (MEASURED): stores only a single HEAD TOKEN per mention (parent's flag 4); the pool is polluted with
+     mis-extracted "entities" (possessives like "my"/"us", mis-parses like "hwome") and averages 45 gn-compatible
+     candidates; the agreement filter barely prunes (parent: pool 39.9->39.3 null).
+   - OPPORTUNITY: full mention spans + entity TYPE + a real animacy/type filter would shrink the pool toward the brain's
+     small attentional focus and remove pollution -- may make the residual easier for every channel.
+   - BRAIN STATUS: OUR-INVENTION placeholder; the brain tracks a small set of discourse-active entities, not 45.
+5. **The PREDICTIVE READER (`hdlab/predictive_reader`) as the coherence-prior source (the brief's proposal).**
+   - CAPABILITIES: verb-role -> expected-argument grounded features + -log P surprisal (validated, integrated).
+   - LIMITATIONS (MEASURED here): as a `P(referent)` source for coref it is dead on the residual (oracle 1.5-2.9%) --
+     it predicts feature-space, and the residual is person-heavy (grounded-blind) + intra-sentential (syntax, not
+     selectional fit).
+   - OPPORTUNITY: it is the RIGHT source for the OBJECT/selectional residual slice IF the grounded space (component 3)
+     is richer -- coupled to p1.
+   - BRAIN STATUS: PINNED for anticipation; MIS-APPLIED as the coref prior for this population (the brief's error).
 
 ---
 
