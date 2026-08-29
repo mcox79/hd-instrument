@@ -65,6 +65,30 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-29 — THE COREF RESIDUAL IS THE ANTI-TYPICAL WINOGRAD CORE, a SEMANTIC/WORLD-KNOWLEDGE bound — NOT a
+  coherence-prior, NOT parse-quality, NOT a static KG** (from integrated `the_reader_has_no_coherence_next_mention_prior`,
+  owner-DONE, a RIGOROUS NEGATIVE = full pass; reverified 11/11 first-hand). **REFINES/REFUTES the earlier coref
+  two-term-Bayes sub-claim** (that the ~19% structural residual is the coherence-PRIOR-decisive half of a
+  LIKELIHOOD×PRIOR computation). Measured on the LitBank competitive-pronoun residual (n=205, TEST, doc-bootstrap): a
+  faithful coherence next-mention prior (selectional-fit + thematic, Bayesian-product fused, DEV-tuned) recovers 0.068
+  but its 20-shuffle **info-free twin recovers MORE (0.100, NOT_SEP)** — it does not beat its own noise (oracle ceiling
+  2.9%). **SIX** independent brain-faithful channels are all dead/anti-predictive: coherence prior, fine linear distance
+  (37.6% oracle but UNGATEABLE — regresses structure-decisive ≥ it fixes), item-level structural-proxy cues (Kush 2013,
+  0/205), **clean-parse structure on cross-domain GAP (modern Wikipedia, BELOW chance 0.256 → the wall is
+  SEMANTIC_WALL_NOT_PARSE_WALL)**, WordNet selectional (2.0%), ConceptNet/CSKG commonsense (2.8% DESPITE 86.8%
+  coverage — the KB *connects* every candidate but cannot *discriminate*). **UNIFYING INSIGHT:** the residual is BY
+  CONSTRUCTION the anti-typical cases (gold is NOT most-recent/max-subjecthood/most-frequent), so every typicality-tracking
+  cue is anti-predictive — ONE structural reason for six identical failures. The **positive control passes** (the SAME
+  prior flips 8/8 selectional + 8/8 implicit-causality constructed pairs where the structural likelihood is at chance) →
+  the mechanism is faithful and works; the population lacks the cases. **NET: the ~0.78 pronoun-coref ceiling is a REAL
+  bound for a glass-box no-LLM structural resolver; the two-system boundary is SYNTAX×SEMANTICS×WORLD-KNOWLEDGE, not
+  LIKELIHOOD×coherence-PRIOR.** The residual is a defer-and-flag case (the parent's Track B entropy abstain), not a
+  resolve case. **Real levers = separate follow-ons:** the SITUATION MODEL accumulating specific-discourse entity facts +
+  reasoning (Garrod-Sanford RESOLUTION; the brain builds this-discourse knowledge BY READING, not from a static KG) +
+  richer DISTRIBUTIONAL semantics (the ATL PDP hub is distributional, NOT symbolic — a KG is not implementation-faithful;
+  the p1 lane). **LANDED:** only the separately-measured pool cleanup (+0.022 CI-sep, twin loses) — a person-feature
+  agreement filter (`is_first_second_person_artifact`/`keep_after_pool_cleanup` in `hdlab/graded_coref_pick.py`); the
+  coherence prior / fine-distance / structural-proxy / static-KG cues were all NOT landed (measured dead).
 - **2026-08-28 — THE LEARN-FROM-READING LEARNER IS VALIDATED + SAFE TO GROW THE FOUNDATION ONLY BEHIND A CLS GATE
   (default-OFF): the brain-faithful lever is CONTEXT SHAPE (grammatical relations), NOT the update rule** (from
   `optimize_and_validate_the_learner_before_it_grows_the_foundation`, integrated SOLVED/EXCELLENT, owner-DONE; witness

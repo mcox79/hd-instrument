@@ -119,3 +119,41 @@ def hard_tier_pick(candidate_priors: Sequence[Sequence[Tuple[int, str]]], p_sent
     if best_i >= 0:
         return best_i
     return int(max(range(len(candidate_priors)), key=lambda i: max(s for s, _r in candidate_priors[i])))
+
+
+# ── Person-feature agreement: candidate-pool cleanup (the measured +0.022 CI-separated pool-cleanup win) ──────────
+# Landed 2026-08-29 from the integrated `the_reader_has_no_coherence_next_mention_prior` (the coherence prior was a
+# RIGOROUS NEGATIVE / EXCELLENT, owner-DONE: measured dead on the residual). Drilling "any more optimizations?" surfaced
+# a SEPARATE, twin-controlled win in the candidate POOL: the graded resolver's pool (mean ~39) is polluted with clusters
+# whose only mentions are 1st/2nd-person pronouns ("I"/"we"/"my") -- extraction artifacts the agreement filter wrongly
+# admits as candidates for a 3rd-person pronoun. Dropping them lifts full LitBank accuracy 0.775 -> 0.797 (+0.022 CI-sep
+# [+0.007,+0.040]); the info-free RANDOM-drop twin LOSES (0.756, beaten +0.041) -- so it removes POLLUTION, not pool
+# size. Brain-foundational: the brain never tracks a first-person SPEAKER as a 3rd-person referent (a person-feature the
+# agreement filter should exclude). spaCy-FREE (pure head-string logic). ADDITIVE / opt-in: a pre-filter the caller
+# applies to its candidate pool BEFORE graded_antecedent_pick; existing callers are byte-unchanged.
+
+# 1st/2nd-person pronoun forms -- a candidate headed ONLY by these is a mis-extracted speaker, never a 3rd-person
+# antecedent (exp_coref_pool_cleanup_v1's ARTIFACT set, extended with the 2nd-person reflexives).
+FIRST_SECOND_PERSON = frozenset("i we me us my our you your myself ourselves yourself yourselves".split())
+# 3rd-person pronoun forms (the resolvable pronouns + their genitives/reflexives; exp's NOMINAL_PRON set).
+THIRD_PERSON_PRON = frozenset("he she it they him her them his its their himself herself itself themselves".split())
+
+
+def is_first_second_person_artifact(mention_heads: Sequence[str]) -> bool:
+    """True iff a candidate CLUSTER is a mis-extracted 1st/2nd-person speaker artifact to EXCLUDE from a 3rd-person
+    pronoun's candidate pool: EVERY mention head is a pronoun AND at least one is 1st/2nd-person. A cluster with any
+    non-pronoun head (a real named entity) is spared; a purely 3rd-person-pronoun cluster is spared (no 1st/2nd
+    member). The person-feature agreement fix the brain applies automatically (a first-person speaker is never a
+    3rd-person referent). spaCy-free."""
+    hs = [h.lower() for h in mention_heads]
+    if not hs:
+        return False
+    return (all(h in FIRST_SECOND_PERSON or h in THIRD_PERSON_PRON for h in hs)
+            and any(h in FIRST_SECOND_PERSON for h in hs))
+
+
+def keep_after_pool_cleanup(candidate_heads: Sequence[Sequence[str]]) -> List[int]:
+    """Given each candidate cluster's mention-head list, return the indices to KEEP after dropping 1st/2nd-person
+    pronoun artifacts (the measured +0.022 CI-separated pool cleanup; the info-free random-drop twin loses). Apply
+    this to the candidate pool BEFORE graded_antecedent_pick to remove agreement pollution, not pool size."""
+    return [i for i, heads in enumerate(candidate_heads) if not is_first_second_person_artifact(heads)]

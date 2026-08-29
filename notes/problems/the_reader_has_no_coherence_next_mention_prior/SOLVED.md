@@ -45,7 +45,13 @@ The **ORACLE ceilings** (best-case argmax per channel, no fusion) show this is n
 **1.5%**, THEMATIC **1.0%**, COMBINED **2.9%** on the residual -- near chance even as oracles. The coherence prior has
 no purchase on this population.
 
-## Why -- the residual is INTRA-SENTENTIAL SYNTACTIC BINDING, not a coherence prior (the diagnosis)
+## Why -- FIRST diagnosis: intra-sentential structure (LATER CORRECTED to a SEMANTIC wall -- read on)
+
+> **NOTE (read the two sections after this one): this "syntactic binding" diagnosis was my FIRST reading and it is
+> PARTLY WRONG.** The cross-domain GAP test below proves a CLEAN parse still does NOT recover the residual (below
+> chance), and the world-knowledge drill shows the real disambiguator is SEMANTIC/world-knowledge, not a parse tree.
+> The section is kept because the token-distance measurement (37.6% oracle, ungateable) is real and load-bearing; only
+> its *interpretation* as "needs a parse" was superseded. The final verdict is SEMANTIC_WALL / anti-typical Winograd core.
 
 I reconstructed the actual sentences behind the residual. It decomposes cleanly:
 - **64% is INTRA-SENTENTIAL** -- the antecedent is in the pronoun's own sentence: "the parson, who, as **he** rode,
@@ -379,3 +385,17 @@ is identical.
    (a) the SITUATION MODEL accumulating specific-discourse entity facts + reasoning over them (Garrod-Sanford RESOLUTION;
    the substrate's n400/situation-model program); (b) richer DISTRIBUTIONAL semantics for the fast selectional layer
    (p1). NOT a static commonsense KG (measured dead).
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-29 (grade: EXCELLENT; rigorous negative = full pass)
+
+Integrated by the strategy/architect session. Reverified FIRST-HAND: `test_coref_coherence_next_mention_prior.py` **11/11 PASS**. Argument adversarially audited and sound (info-free twin is the correct floor; six-channel refutation is internally consistent via the anti-typical-by-construction insight; positive control 8/8+8/8; the cross-domain GAP test corrected the solver's own parse-quality diagnosis → SEMANTIC_WALL).
+
+**LANDED (Q111):** the one earned win — the separately-measured **pool cleanup** (+0.022 CI-separated, info-free random-drop twin loses). Person-feature agreement filter `is_first_second_person_artifact` + `keep_after_pool_cleanup` added to `hdlab/graded_coref_pick.py` (additive/opt-in; existing callers byte-unchanged). Witness `verification/test_coref_pool_cleanup_organ.py` **7/7 PASS**.
+
+**NOT landed** (all measured dead/anti-predictive on the residual): a coherence next-mention prior, a fine-distance override, a structural-proxy binder, a static-KG plausibility cue.
+
+**Audit:** folded into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b. Review + `> ## ✅ SOLVER REVIEW` block written into PROBLEM.md; priority cleared.
+
+**Residual's real levers = separate follow-on problems** (not resolved here): (a) the SITUATION MODEL accumulating specific-discourse entity facts + reasoning (Garrod-Sanford RESOLUTION); (b) richer DISTRIBUTIONAL semantics (p1). NOT a static commonsense KG.

@@ -1,8 +1,27 @@
 ---
-priority: 5
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "RIGOROUS NEGATIVE (owner-DONE) = a full pass, integrated 2026-08-29. Reverified FIRST-HAND (test_coref_coherence_next_mention_prior.py 11/11 PASS). The brief's coherence next-mention PRIOR is REFUTED as the residual's fix: the faithful prior (selectional + thematic, Bayesian-product fused, DEV-tuned) recovers 0.068 on the n=205 residual but its 20-shuffle info-free TWIN recovers MORE (0.100, NOT_SEP) -- it does not beat its own noise. SIX independent brain-faithful channels are all measured dead/anti-predictive (coherence prior 2.9% oracle, clean-parse structure BELOW chance on cross-domain GAP, WordNet selectional 2.0%, ConceptNet/CSKG 2.8% despite 86.8% coverage, item-level structural proxies 0/205). UNIFYING INSIGHT (why all six fail identically): the residual is BY CONSTRUCTION the anti-typical cases, so every typicality-tracking cue points the wrong way -- the Winograd core, a SEMANTIC/specific-discourse-knowledge bound, not coherence-prior/parse/static-KG. The POSITIVE CONTROL passes (8/8 selectional + 8/8 implicit-causality on constructed pairs where the mechanism CAN move the metric). Exemplary: led with biology (two 4-lane literature drills), and the cross-domain GAP test CORRECTED the solver's own parse-quality diagnosis (SEMANTIC_WALL_NOT_PARSE_WALL). LANDED the one thing it earns -- the separately-measured POOL CLEANUP (+0.022 CI-sep, info-free random-drop twin loses): a person-feature agreement filter dropping 1st/2nd-person pronoun artifacts from a 3rd-person pronoun's candidate pool, into hdlab/graded_coref_pick.py (is_first_second_person_artifact + keep_after_pool_cleanup, additive/opt-in), witness test_coref_pool_cleanup_organ.py 7/7. Did NOT land any coherence prior / fine-distance override / structural-proxy binder / static-KG cue (all six measured dead). The residual's real levers = separate follow-ons (situation model + p1 distributional semantics), NOT a static commonsense KG."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-29 (grade: EXCELLENT; rigorous negative = full pass)
+> **Verdict:** the coherence next-mention prior is a RIGOROUS NEGATIVE (owner-DONE) — a full pass per §7. Reverified
+> first-hand (`test_coref_coherence_next_mention_prior.py` **11/11 PASS**). The argument is airtight and adversarially
+> sound: (1) the honest floor is the 20-shuffle **info-free twin** (0.100), not likelihood-only (0/205 by construction),
+> and the real prior (0.068) fails to clear it → carries no usable signal; (2) **six** independent brain-faithful channels
+> all measured dead/anti-predictive; (3) one structural reason unifies them — the residual is **anti-typical by
+> construction** (the Winograd core), so every typicality cue is anti-predictive; (4) the **positive control** passes
+> (8/8 + 8/8), proving the mechanism works and the population lacks the cases, not a broken tool. **Exemplary practice:**
+> two 4-lane biology-first literature drills, and a **cross-domain GAP test that corrected the solver's own** parse-quality
+> diagnosis to SEMANTIC_WALL_NOT_PARSE_WALL.
+> **Landed (Q111):** the one earned win — the separately-measured **pool cleanup** (+0.022 CI-separated, info-free
+> random-drop twin loses): a person-feature agreement filter (`is_first_second_person_artifact` +
+> `keep_after_pool_cleanup`) into `hdlab/graded_coref_pick.py`, additive/opt-in, witness
+> `verification/test_coref_pool_cleanup_organ.py` **7/7 PASS**. **Did NOT land** any coherence prior, fine-distance
+> override, structural-proxy binder, or static-KG plausibility cue — all six are measured dead on the residual.
+> **Audit:** folded into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b — the coref residual is a SEMANTIC/world-knowledge bound; the
+> ~0.78 glass-box no-LLM ceiling is REAL; the two-system boundary is SYNTAX×SEMANTICS×WORLD-KNOWLEDGE, not
+> LIKELIHOOD×coherence-PRIOR. Real residual levers = separate follow-ons (situation model + p1), NOT a static KG.
 
 # PROBLEM: pronoun reference is a TWO-TERM Bayesian computation (Kehler & Rohde 2013) — a Centering LIKELIHOOD (grammatical role / topichood, which the integrated graded coref resolver now computes) × a coherence-driven next-mention PRIOR P(referent) (verb-semantic / discourse-coherence expectations, which the substrate does NOT compute). The graded resolver's ~19% structural residual is EXACTLY the prior-decisive cases (no structural cue points to the gold antecedent). Build the missing coherence next-mention PRIOR channel — SUBSTRATE-NATIVE (the predictive-reader organ already computes a next-entity expectation) — multiply it into the graded coref posterior, and validate it lifts resolution on the structurally-dominated residual CI-separated over the likelihood-only resolver with the info-free twin losing
 
