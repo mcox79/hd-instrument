@@ -31,7 +31,31 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-29 (LATEST) -- 🧭 **COMPACTION SNAPSHOT: a HEAVY integration+landing session. NOTHING owner-DONE awaits integration; queue = 6 ranked-open (3 actively worked by solvers); 9 hdlab organs LANDED this session (all committed + witnessed + default-off, but UN-REGISTERED — the catalog file is blocked by a stale bulk reformat that is NOT this session's). Reader is in the comprehension→REASONING phase; the reader stays STATIC (learn-from-reading validated but growth-OFF behind a CLS gate).**
+### 2026-08-29 (LATEST) -- ✅ **INTEGRATED the coref COHERENCE-PRIOR REFUTATION (owner-DONE/EXCELLENT, a rigorous negative = full pass); LANDED the pool-cleanup win; PACKAGED the residual's MEASURED real lever as a new brief (p5 discourse-fact reasoning).**
+**Newest first; the COMPACTION SNAPSHOT below carries the fuller recovery context (its queue facts are SUPERSEDED by this entry).**
+✅ **INTEGRATED `the_reader_has_no_coherence_next_mention_prior`** (owner-DONE, EXCELLENT; reverified 11/11 FIRST-HAND):
+the coherence next-mention PRIOR is REFUTED as the coref residual's fix — SIX brain-faithful channels all measured
+dead/anti-predictive on the ANTI-TYPICAL residual (the Winograd core; the residual is BY CONSTRUCTION the cases where the
+typical answer is wrong, so every typicality cue points the wrong way). The disambiguator is a SPECIFIC-DISCOURSE fact,
+not a coherence prior / parser / static KG (the KB reads 2.8% discrimination DESPITE 86.8% coverage). Positive control
+passes (8/8+8/8; the mechanism works, the population lacks the cases). Cross-domain GAP test corrected the solver's own
+parse-quality diagnosis → SEMANTIC_WALL. **LANDED the one earned win — POOL CLEANUP** (+0.022 CI-sep, info-free
+random-drop twin loses): a person-feature agreement filter (`is_first_second_person_artifact` / `keep_after_pool_cleanup`)
+into `hdlab/graded_coref_pick.py` (additive/opt-in), witness `test_coref_pool_cleanup_organ.py` 7/7. Did NOT land any
+coherence prior / fine-distance / structural-proxy / static-KG cue (all six measured dead). Audit §2b folded; commit `26625b18c`.
+📦 **PACKAGED `situation_model_has_no_discourse_fact_reasoning` (NEW brief, priority 5)** — the residual's MEASURED real
+lever AND the comprehension→REASONING frontier: a reading-built QUERYABLE per-entity `(entity, relation, value)` FACT store
++ a bridging/RESOLUTION operator (Garrod-Sanford), can-fail bar (CI-sep over the fact-BLIND reader, info-free twin loses,
+a static-KG arm must NOT reproduce the lift). Scoped UPSTREAM of p3 (which binds an ALREADY-RESOLVED entity) and distinct
+from the existing entity-node work; NOT a static KG (measured dead). Commit `38d63f14e`.
+🎯 **QUEUE now 6 open (integrate ONLY on `owner_verdict: DONE`): p3 `pronoun_to_event_binding_caps_who_did_what` (ASSIGNED),
+p4 `situation_model_has_no_tested_temporal_order_comprehension`, p5 `situation_model_has_no_discourse_fact_reasoning` (NEW),
+p6 `read_terminal_bundle_stores_normalize_per_component_not_pooled` (ASSIGNED/WIP), p7 `no_shared_shallow_predicate_argument_front_end`
+(ASSIGNED/WIP), p8 `role_assignment_is_untested_on_archaic_literary_prose`.** 3 assigned, 3 open-unassigned (p4, p5, p8).
+Nothing owner-DONE awaiting (the ledger's "awaiting integration: 2" = p6/p7 WIP SOLVEDs, NO owner-DONE — leave alone). The
+9 landed organs remain UN-REGISTERED (catalog still blocked by the stale reformat — unchanged, not this session's to fix).
+
+### 2026-08-29 -- 🧭 **COMPACTION SNAPSHOT: a HEAVY integration+landing session. NOTHING owner-DONE awaits integration; queue = 6 ranked-open (3 actively worked by solvers); 9 hdlab organs LANDED this session (all committed + witnessed + default-off, but UN-REGISTERED — the catalog file is blocked by a stale bulk reformat that is NOT this session's). Reader is in the comprehension→REASONING phase; the reader stays STATIC (learn-from-reading validated but growth-OFF behind a CLS gate).**
 **READ THIS FIRST after compaction; then the entries below.**
 ✅ **INTEGRATED THIS SESSION (all owner-DONE, EXCELLENT, reverified FIRST-HAND):** the LEARNER (p2 — validated, growth-OFF
 behind the CLS gate; the brain lever is CONTEXT SHAPE / grammatical relations, not the update rule [online==batch]);
