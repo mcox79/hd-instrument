@@ -8,6 +8,6 @@ regenerated from that shared state by `python tools/problem_queue.py`; editing i
 
 - [x] **p3** pronoun_to_event_binding_caps_who_did_what
 - [x] **p4** situation_model_has_no_tested_temporal_order_comprehension
-- [ ] **p5** situation_model_has_no_discourse_fact_reasoning
-- [x] **p6** read_terminal_bundle_stores_normalize_per_component_not_pooled
+- [x] **p5** situation_model_has_no_discourse_fact_reasoning
+- [ ] **p6** the_register_write_path_has_a_hard_capacity_wall
 - [ ] **p8** role_assignment_is_untested_on_archaic_literary_prose
