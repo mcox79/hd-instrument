@@ -5,7 +5,7 @@ bar: "BUILD path: a shared shallow predicate-argument extractor (agent/theme/goa
 result: "A shared dispatch (compose validated organs) whose PP-role router is the BRAIN'S event-semantic mechanism -- preposition-telicity (Place-vs-Path) + VerbNet event-class + object-animacy + the caused-motion construction (NOT a verb list) -- validated on FrameNet 1.7's INDEPENDENT frame-element gold (58,808 aligned real-prose items). It recovers the role TYPING the conflated inline rule cannot: location 0.401, path 0.396, source 0.424, recipient 0.152, direction 0.060 -- every one CI-separated ABOVE the inline floor's structural 0.000 (info-free twin below each); theme 0.477 vs 0.418 (+0.059 CI-sep), agent 0.753 vs 0.736 (+0.017). Goal-vs-recipient mislabeling 9.1% vs the inline rule's 27.7% (3x fewer). Caused-motion theme-attribution 8/8. Positive control (minimal pairs) decisive 0.886 vs inline 0.648. Corroborated on QA-SRL-typed (location 0.679 / path 0.745 / source 0.759 vs 0.000; theme 0.818 vs 0.668). ONE honest loss: goal RECALL 0.378 vs the inline blunt-grabber's 0.477 (a precision/recall trade -- the grabber calls EVERY spatial PP a goal, scoring 0.000 on all other roles)."
 floor: "The current LIVE fragmented inline extraction, recomputed per role on each population: agent/patient positional (situation_reader) + INLINE = 'the object of the FIRST spatial PP under the verb = GOAL' (no typing -- everything spatial is called goal; no recipient/location/path/source). Its FrameNet goal accuracy is 0.477; its accuracy on every other spatial/transfer role is 0.000 by construction. Also run: TWIN (preposition->role AND verb-class maps randomly permuted) and RANDOM."
 controls: "(1) info-free TWIN loses EVERY role (goal 0.012 vs 0.378; location 0.210 vs 0.401; recipient 0.000 vs 0.152; ...); (2) RANDOM loses every role; (3) INLINE is structurally 0.000 on location/path/source/recipient -- it conflates them into 'goal'; (4) HARNESS SANITY: the fixed INLINE goal baseline reproduces 0.4770 across independent runs -- a broken checkpoint-reuse rescore that zeroed every arm AND changed INLINE was caught by exactly this invariant (INLINE cannot move if only the router changes); (5) minimal-pair CONTRAST set (self-motion/active/locative, gate must NOT fire); (6) the Destination-cue precision guard: adding the verb-frame goal cue raised goal +0.061 but dropped location -0.073, proving the goal-vs-location boundary is graded and a hard rule over-fires."
-files_changed: "experiments/exp_shared_predarg_frontend_v1.py; experiments/exp_shared_predarg_frontend_v2.py; notes/problems/no_shared_shallow_predicate_argument_front_end/minimal_pair_role_gold_v1.jsonl; data/exp_shared_predarg_frontend_v2/{metrics.json,verbnet_event_classes.json}; data/exp_shared_predarg_frontend_v2_cue5/metrics.json"
+files_changed: "experiments/exp_shared_predarg_frontend_v1.py; experiments/exp_shared_predarg_frontend_v2.py; notes/problems/no_shared_shallow_predicate_argument_front_end/minimal_pair_role_gold_v1.jsonl; data/exp_shared_predarg_frontend_v2/{metrics.json,verbnet_event_classes.json}; data/exp_shared_predarg_frontend_v2_cue5/metrics.json; data/exp_shared_predarg_frontend_v2_oracleparse/metrics.json (parse-vs-router ablation)"
 reverify: ".venv/Scripts/python.exe experiments/exp_shared_predarg_frontend_v2.py --self-test"
 ---
 
@@ -115,20 +115,27 @@ continuous telicity weighting (Competition-Model), not a hard gate -- an identif
 | agent/theme binder | graded cue-competition, word-order dominant + voice (Competition Model, PINNED) | **BRAIN-FOUNDATIONAL** (reuses graded_role_assigner) | none; theme +0.059/+0.150 CI-sep |
 | PP-role router (v2) | preposition-telicity + VerbNet event-class + animacy (Jackendoff/Talmy/Zwarts, PINNED) | **BRAIN-FOUNDATIONAL** (v1's verb-list placeholder REPLACED) | graded telicity weight for the goal/location boundary |
 | caused-motion gate | constructional, theme-bound, verb-independent (Goldberg, PINNED) | **BRAIN-FOUNDATIONAL** (v2; 8/8) | wider VerbNet Destination coverage |
-| the parse it runs on | incremental left-corner predictive builder (audit PINNED) | **PLACEHOLDER**: uses the BATCH arc parser (audit: heads are inference placeholders); ~25% of goal misses are parse-attachment | swap to the validated islanded `incremental_parser` |
+| the parse it runs on | incremental left-corner predictive builder (audit PINNED) | **PLACEHOLDER**: uses the BATCH arc parser (audit: heads are inference placeholders). ORACLE-PARSE ablation QUANTIFIES the cost: an oracle PP-attachment recovers path +0.177, location +0.103, source +0.096 (PARSE-LIMITED) but only goal +0.028, recipient +0.042 (ROUTER-limited) | swap to the validated islanded `incremental_parser` -- biggest lever for spatial-role recall |
 | recipient span pick | animacy + transfer/comm frame (PINNED) | **WEAK**: correct typing but low absolute (0.152) | better recipient-span head selection; larger gold |
 | goal/location eval gold | brain separates goal/location/path/source | **FIXED**: QA-SRL "where" conflated them (disqualified); now FrameNet FE gold + PropBank ARGM-GOL/LOC available | fetch/build a caused-motion-dense gold for the theme-attribution residual |
 
 # 6. ADJACENT COMPONENTS -> candidate NEXT PROBLEMS (owner: this seeds the plan)
 
-- **Batch arc parser vs the incremental builder.** The router runs on `candidate_generator`/`arc_parser`
-  (batch, heads are inference placeholders per the audit); ~25% of FrameNet goal misses are
-  parse-attachment. The validated `incremental_parser` (islanded, F1 0.62 vs 0.58) is the brain-faithful
-  candidate source. LEVERAGE: raises every role's recall. **Candidate problem: wire the incremental builder
-  as the shared front-end's parse.**
+- **Batch arc parser vs the incremental builder -- HIGHEST-VALUE, now QUANTIFIED.** The router runs on
+  `candidate_generator`/`arc_parser` (batch, heads are inference placeholders per the audit). An ORACLE-PARSE
+  ablation (give the router gold PP-attachment, keep its typing job) on the prepositional-span subpopulation
+  recovers **path +0.177 (0.570->0.747), location +0.103 (0.520->0.623), source +0.096 (0.753->0.849)** --
+  these spatial roles are PARSE-LIMITED, the batch parser is a real ceiling. (goal +0.028 / recipient +0.042
+  are router-limited.) The validated `incremental_parser` (islanded, F1 0.62 vs the batch 0.58) is the
+  brain-faithful candidate source. LEVERAGE: the largest single recall lever for the spatial roles.
+  **Candidate problem: wire the incremental builder as the shared front-end's parse.** (Ablation harness
+  note: its verdict is HARNESS_SANITY_FAILED only because the sanity reference used the full-population INLINE
+  0.477 vs the subset's legitimate 0.694; twin_sanity passed and the batch-vs-oracle gaps are population-
+  matched -- the finding is valid, the label is a mis-set reference.)
 - **The graded goal-vs-location boundary.** Proven graded by the cue5 tradeoff (goal +0.061 / location
   -0.073 under a hard rule). Brain mechanism = continuous telicity/boundedness weighting. **Candidate
-  problem: a graded Competition-Model PP-role integrator.**
+  problem: a graded Competition-Model PP-role integrator** -- but note the oracle ablation shows the goal
+  ROUTER headroom is small (+0.028), so this is a LOW-marginal-value refinement; the parse swap dominates.
 - **`thematic_role_labeler` (islanded).** Its own QA-SRL revalidation HARD_FAILED as a "disguised single-cue
   animacy rule"; the v2 binder (word-order+voice) is the better-validated agent/patient path. LEVERAGE: do
   NOT wire the perceptron; it is a placeholder for the graded binder. **Flag: deprecate/retrain.**
