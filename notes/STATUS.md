@@ -31,7 +31,33 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-29 (LATEST) -- ✅ **INTEGRATED p7 `no_shared_shallow_predicate_argument_front_end` (owner-DONE, PARTIAL/STRONG): the shared EVENT-SEMANTIC predicate-argument FRONT-END. QUEUED its hdlab landing as ONE careful dedicated follow-on (verified portable but a ~300-line multi-dependency port + live-reader de-dup — not a heartbeat tail).**
+### 2026-08-29 (LATEST) -- ✅ **INTEGRATED p6 `read_terminal_bundle_stores_normalize_per_component_not_pooled` (owner-DONE, a rigorous negative/PARTIAL, EXCELLENT): NO hdlab landing earned + an AUDIT CORRECTION (register divnorm demoted to OUR-EXTENSION-UNDER-TEST). PACKAGED the measured #1 gap it found as a new brief (the register WRITE-path capacity wall).**
+**Newest first; the entries below carry the fuller context.**
+✅ **INTEGRATED `read_terminal_bundle_stores_normalize_per_component_not_pooled` (rigorous negative/PARTIAL, EXCELLENT,
+owner-DONE; reverified W1–W11 ALL PASS FIRST-HAND):** the brief's blanket "switch EVERY read-terminal caller to divnorm"
+is REFUTED by per-caller live measurement — divnorm ≥ per-component ONLY for a direction-sensitive read under OVERLOAD
+(largest for the gain-matched serial decode), and the only two callers with both (register + multibank) were ALREADY
+switched by the parent last session. Every other caller measured neutral-to-harmful (typer HURTS at low load; cosine /
+goal_achievement NULL). Discriminator = READOUT-CLASS + LOAD. EXEMPLARY self-correction: an apparent gain-matched typer
+win (+0.0139) was REJECTED as non-brain-faithful per-role L2 (load-fragile); PPC magnitude-as-reliability refuted.
+🚫 **hdlab landing: NONE earned** — register+multibank already divnorm; switching anything else is measured
+neutral-to-harmful. The result IS "no change."
+🧠 **AUDIT CORRECTION folded (§2b):** the earlier "a read-terminal bundle must be pooled-divisive-normed" rule was too
+broad + mis-attributed → replaced with the readout+load rule + three gating conditions; **the register divnorm is DEMOTED
+from implied PINNED to OUR-EXTENSION-UNDER-TEST** (an exhaustively-searched absence, ~28 sources — right computational
+CLASS, not circuit-measured; "do NOT claim PINNED"). A genuine rigor upgrade. Commit `43628c8fb`.
+📦 **PACKAGED `the_register_write_path_has_a_hard_capacity_wall` (NEW brief, priority 6)** — the measured #1 gap: the
+register's FLAT running-sum WRITE has a hard capacity wall (recent-recovery 0.125 @256) that read-norm CANNOT move; the
+brain-faithful fix is an ASYMMETRIC continuous leaky/recency write (`S = λ·S + bind(role,item)`, primate-PFC recency
+gradient, Warden-Miller 2007/Konecky 2017 — PINNED-WEAK, STRONGER support than the read-side divnorm) + a content/salience-
+gated hand-off into the existing `HDFactStore` (NOT recency-chunked CLS, NOT symmetric divisive-at-write — both ruled out).
+Commit `873dc3555`.
+🎯 **QUEUE now 5 open: p3 who-did-what binding (ASSIGNED, WIP submitted), p4 TIME dimension (ASSIGNED), p5 discourse-fact
+reasoning (ASSIGNED), p6 `the_register_write_path_has_a_hard_capacity_wall` (NEW, open), p8 archaic-prose (open).** Nothing
+owner-DONE awaiting (ledger "awaiting: 1" = p3 WIP SOLVED, NO owner-DONE — leave alone). The 9 landed organs + the QUEUED
+predarg landing remain the wire-don't-island debt (catalog still blocked).
+
+### 2026-08-29 -- ✅ **INTEGRATED p7 `no_shared_shallow_predicate_argument_front_end` (owner-DONE, PARTIAL/STRONG): the shared EVENT-SEMANTIC predicate-argument FRONT-END. QUEUED its hdlab landing as ONE careful dedicated follow-on (verified portable but a ~300-line multi-dependency port + live-reader de-dup — not a heartbeat tail).**
 **Newest first; the entries below carry the fuller context.**
 ✅ **INTEGRATED `no_shared_shallow_predicate_argument_front_end` (p7, PARTIAL/STRONG, owner-DONE; reverified 14/14
 FIRST-HAND):** the reader had THREE inline copies of argument-structure extraction and the validated role organs sat
