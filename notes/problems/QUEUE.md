@@ -4,10 +4,11 @@
 **Tick problems in the GUI (tab 6, PROBLEMS -- the ASSIGNED column), not here.** This file is
 regenerated from that shared state by `python tools/problem_queue.py`; editing it does nothing.
 
-**0 of 5 open problems assigned.**
+**3 of 6 open problems assigned.**
 
-- [ ] **p1** the_substrate_has_one_meaning_system_where_the_brain_has_two
-- [ ] **p3** content_addressable_retrieval_over_a_separated_store
-- [ ] **p5** one_store_does_two_jobs_and_consolidation_is_a_single_average
-- [ ] **p6** the_meaning_win_is_offline_context_free_and_unwired
-- [ ] **p7** the_relcl_parser_is_too_weak_for_filler_gap_role_assignment
+- [ ] **p3** pronoun_to_event_binding_caps_who_did_what
+- [ ] **p4** situation_model_has_no_tested_temporal_order_comprehension
+- [x] **p5** the_reader_has_no_coherence_next_mention_prior
+- [x] **p6** read_terminal_bundle_stores_normalize_per_component_not_pooled
+- [x] **p7** no_shared_shallow_predicate_argument_front_end
+- [ ] **p8** role_assignment_is_untested_on_archaic_literary_prose

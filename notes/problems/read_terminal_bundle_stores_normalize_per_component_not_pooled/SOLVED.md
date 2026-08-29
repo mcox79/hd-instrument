@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of (per read-terminal caller you evaluate -- cover at
 result: "Per-caller, LIVE recompute on each caller's OWN validated task. TYPER (selection_weighted_sharded_typer, role-typing, n_test=24): divnorm on the read-terminal sup_map does NOT help -- HURTS at low load (-0.0625 [-0.101,-0.024] @n_train=8, CI-sep). Owner-pushed drill: the BRAIN-FAITHFUL decision-population normalization (shared pooled divisor, Carandini-Heeger, ratio-preserving) is ARGMAX-INVARIANT -> byte-identical to the floor (INERT); the only decision-moving norm (per-role L2 equalization) is NON-brain-faithful (erases magnitude-as-reliability, PPC) AND load-fragile (+0.0139 [+0.004,+0.028] @n=40 but -0.0556 [-0.097,-0.014] @n=8). COSINE consumers (lexical_similarity 29-triple task): ordered_frac IDENTICAL 0.9655 (NULL); divnorm raises the between-tier link-decision d' (+11% syn-vs-related, +51% syn-vs-unrelated) but the decision is already saturated (d'>5) so it is unused now. goal_achievement: <=6 attributes -> cannot overload -> neutral. register+multibank: already switched (parent)."
 floor: "The per-component (S_i/|S_i|) default, recomputed on each caller's own population: TYPER PERCOMP mean_acc 0.8333 (n_train=40, 5 seeds, bit-for-bit faithful to the landed organ); COSINE PERCOMP ordered_frac 0.9655 (29 triples, == landed n11c); readout-principle grid per-component argmax/serial recomputed per load."
 controls: "INFO-FREE TWINS lose: typer scrambled-label 0.507 vs 0.750; cosine scrambled-feature 0.207-0.310 vs 0.9655. POSITIVE CONTROLS that MOVE the metric: readout-principle grid at m=64 overload divnorm-minus-percomp +0.115 argmax / +0.621 gain-matched-serial; cosine graded-discriminability d' 1.02->1.44 at N=128. FAITHFULNESS GATE: typer PERCOMP == landed 0.8333. 4-ARM BRAIN-FIDELITY TEST (research-designed): shared-pool==floor (argmax-invariant); per-role-L2 is the only decision-mover and is non-faithful+load-fragile. ROUND-TRIP CONTROL: unbind-key norm inert under argmax cleanup."
-files_changed: "experiments/exp_read_terminal_divnorm_readout_principle_v1.py, experiments/exp_read_terminal_divnorm_cosine_family_v1.py, experiments/exp_read_terminal_divnorm_typer_v1.py, experiments/exp_read_terminal_divnorm_sign_family_v1.py, verification/test_read_terminal_divnorm.py, notes/problems/read_terminal_bundle_stores_normalize_per_component_not_pooled/SOLVED.md, notes/research_divisive_norm_decision_stage_reliability_2026-08-29.md"
+files_changed: "experiments/exp_read_terminal_divnorm_readout_principle_v1.py, experiments/exp_read_terminal_divnorm_cosine_family_v1.py, experiments/exp_read_terminal_divnorm_typer_v1.py, experiments/exp_read_terminal_divnorm_sign_family_v1.py, experiments/exp_read_terminal_divnorm_attractor_v1.py, verification/test_read_terminal_divnorm.py, notes/problems/read_terminal_bundle_stores_normalize_per_component_not_pooled/SOLVED.md, notes/research_divisive_norm_decision_stage_reliability_2026-08-29.md, notes/research_hippocampal_pfc_divisive_normalization_memory_register_2026-08-29.md"
 reverify: ".venv/Scripts/python.exe verification/test_read_terminal_divnorm.py"
 ---
 
@@ -39,7 +39,7 @@ inert for every un-switched caller.
 | goal_achievement | argmax cleanup | <=6 attributes (cannot overload) | **neutral** | **per-component** (keep) |
 | lexical/verb similarity, quality_relation | cosine `Re<a,b>/d` | 2-5 features | **NULL** ordered_frac identical; d' headroom unused | **per-component** (keep) |
 
-## The two owner-pushed drills (this is where the real understanding is)
+## The five owner-pushed drills (this is where the real understanding is)
 
 ### DRILL 1 -- the typer, drilled to a brain mechanism (and an apparent win rejected)
 
@@ -100,6 +100,46 @@ encode_word (few chars) and few-role events are LOW-load -> `sign()` neutral; en
 should drop `sign()` for a graded read. The fix is GRADED, not `divnorm` (wrong code). Follow-on #2 now has its
 mechanism + the per-caller load discriminator.
 
+### DRILL 4 -- the CA3-completion ITERATIVE ATTRACTOR (script_grain), the last unmeasured readout
+
+`script_grain_acquisition_loop` matches a trace register against a codebook of prototypes via
+`hdlab.cleanup_family.iterative_attractor` (a modern-Hopfield / Ramsauer-2021 softmax attractor; Treves-Rolls
+CA3/DG). Reading the source: the attractor **L2-normalizes the query+codebook and takes a SOFTMAX over the
+codebook cosine scores -- and a softmax over a pool IS a divisive normalization (exp/sum-exp).** So the
+CA3-completion readout ALREADY applies pooled divisive normalization AT RETRIEVAL -- it is the attractor analog
+of the serial decode's gain-matched readout, and it is MORE brain-faithful (in the divisive-norm sense) than the
+raw per-slot argmax callers. MEASURED (12 types, prototype load 8, degraded-cue sweep, info-free scrambled-signature
+twin collapses to chance ~1/12): for a CLEAN cue the store norm is an exact NULL (percomp == divnorm); under a
+DEGRADED cue (partial pattern-completion -- the actual CA3 use case) divnorm gives a small, consistent robustness
+gain (+0.012 @noise=3, **+0.066 @noise=4, all 5 seeds positive**) -- the same direction-preservation benefit as
+argmax-at-overload, now surfacing as robustness to a partial cue. So the attractor's own softmax+L2 is the primary
+(brain-faithful) divisive normalization; a store-side divnorm is a secondary robustness lever that only appears under
+heavy cue degradation. Weak candidate for a store switch; strong illustration that the unified principle
+(direction-preservation helps a direction-sensitive read under STRESS -- overload OR cue degradation) holds across
+all four readout classes (serial, argmax, cosine, attractor).
+
+### DRILL 5 -- the brain-faithful PPC "magnitude-as-reliability" combine, TESTED and REFUTED (the LOO weight earns its keep)
+
+The research drill flagged the typer's LOO-fit `shard_weights_` as the least-brain-faithful piece and proposed
+retiring it for a self-calibrating PPC magnitude-as-reliability combine (a straight raw SUM of per-role
+evidence, since in probabilistic population codes per-source magnitude IS the reliability code). I built it and
+measured it directly (per-component store, no combine-norm; raw-sum and per-trial-margin-weighted arms vs the
+LOO floor, across load). **It LOSES badly, CI-separated at every load: raw -0.076 @n=8, -0.153 @n=16, -0.191
+@n=40; margin similar (0.556 vs the 0.750 LOO floor @n=40).** Info-free twin collapses for all arms.
+
+**Why (the real understanding):** PPC magnitude-as-reliability only holds when a population's gain is calibrated
+to its PRECISION. The typer's per-role evidence magnitude reflects BINDING STRENGTH (how many terms / how strong
+the sub-bundle), NOT class-DISCRIMINATIVENESS -- a role can fire strongly yet be uninformative about MET-vs-UNMET.
+The LOO weight measures exactly the decision-relevant reliability (does this role's readout predict the held-out
+label?), which magnitude cannot recover. So the LOO weight is doing real work. Moreover, an offline-*learned*
+precision weight is itself a documented brain mechanism (experience-dependent synaptic reweighting; the research
+note's option (ii), PMC9393257) -- so the LOO weight is brain-DEFENSIBLE, not un-faithful; its only non-faithful
+aspect is being batch-fit rather than online-learned (same values, no accuracy change). **So the "retire
+shard_weights_ for PPC magnitude" follow-on is REFUTED in its naive form; any faithful "make magnitude encode
+discriminativeness" version converges back to computing the LOO weight.** This closes the typer's optimization
+space with understanding: there is no accuracy optimization available; the only fidelity refinement is
+online-vs-offline weight learning, which does not move the number.
+
 ## KEY REALIZATIONS
 
 1. **The discriminator is READOUT + LOAD, not read-terminal-vs-rebound.** Reframing from "is this bundle read
@@ -127,21 +167,26 @@ mechanism + the per-caller load discriminator.
 |---|---|---|---|---|
 | `bundling.bundle` per-component default | correct torus-closure for a RE-BOUND atom | distorts direction at a read; useless-to-harmful there | (this problem: divnorm for overloaded serial reads) | per-component magnitude-erasure has **NO fast biological analogue** (Turrigiano scaling is slow/structure-preserving) -- **OUR-INVENTION** |
 | register/multibank divnorm + serial decode | recovers an overloaded serial readout | benefit is load-gated | none pending | computation (pooled divisive norm) PINNED in cortex; **application to a memory register = OUR-EXTENSION-UNDER-TEST** (not cited in hippocampal/PFC WM readout) |
-| **typer `shard_weights_` (LOO-fit explicit per-role weight)** | works (0.8333) | **offline-fit, not self-calibrating; it is the piece that makes divnorm harmful (stacking two reliability mechanisms)** | **HIGH-VALUE FOLLOW-ON: replace with magnitude-as-reliability (PPC self-calibrating gain -- scale each shard's stored evidence by contributing-exemplar count / inverse-variance), then the combine is a straight raw SUM and the LOO weight is RETIRED** | closer to slow learned synaptic reweighting but fit offline -> **LESS brain-faithful than a PPC gain** |
+| **typer `shard_weights_` (LOO-fit explicit per-role weight)** | works (0.8333); **MEASURED to EARN ITS KEEP (DRILL 5): it encodes class-DISCRIMINATIVENESS, which per-role magnitude does not** | offline batch-fit rather than online-learned | **the naive PPC "magnitude-as-reliability, retire the weight" follow-on is REFUTED (DRILL 5: -0.19 CI-sep); the only remaining refinement is ONLINE learning of the same weight (no accuracy change)** | it IS a learned precision weight = a documented brain mechanism (experience-dependent synaptic reweighting, PMC9393257) -> **brain-DEFENSIBLE**, only its batch-fit (vs online) is non-faithful |
 | `cleanup_argmax` readout | robust winner-take-all | scale-invariant -> cannot exploit graded magnitude; discards what divnorm preserves | a graded/serial readout where magnitude is load-bearing | WTA is brain-plausible (cortical competition); the graded serial decode is the higher-fidelity read under load |
 | `_cos_complex` ATL similarity readout | exact normalized cosine under per-component (self-sim=1.0) | calibration COUPLED to per-component; can't use divnorm d' headroom without a normalized-cosine read | divnorm + normalized cosine IF the lexicon scales to noisy/open-vocab | graded ATL similarity PINNED (Lambon Ralph 2024); readout faithful |
 | `sign()`-on-a-bundle bipolar family (`char_positional_encoder`, `situation_focus`, `event_bundle`, `grounding_acquisition_loop`, `role_slot_summarizer`) | cheap bipolar superposition | **MEASURED (DRILL 3): sign() discards the graded vote margin -> loses to GRADED at overload, +0.17 @m=64, growing with load; neutral at low load.** `norm="divnorm"` does NOT apply (bipolar code) | **drop `sign()` for the GRADED sum at the OVERLOADING sites (encode_sentence, situation_focus at capacity, event_bundle many-role); a pooled gain is argmax-inert so graded is the lever** | `sign()` is a per-component quantiser = the same wrong-op class; the fix is GRADED, not divnorm -- map's follow-on #2, now mechanism-backed |
 | `goal_achievement` 6-attribute vocabulary | glass-box utility channel | 6 attributes = cannot overload, and plausibly UNDER-dimensioned for real desires | expand/learn the attribute set (separate problem) | the 6-attribute set is a hand-authored **OUR-INVENTION** worth a fidelity review |
-| `script_grain_acquisition_loop` iterative attractor | Hopfield cleanup for CA3/DG matching | the ONE readout I did not measure; could benefit from divnorm IF it overloads | targeted measurement of the attractor under load | attractor dynamics brain-plausible (CA3); unmeasured here |
+| `script_grain_acquisition_loop` iterative attractor | Hopfield/softmax cleanup for CA3/DG matching; **its softmax+L2 IS divisive normalization at retrieval (already brain-faithful)** | **MEASURED (DRILL 4): store norm NULL for a clean cue; small robustness gain from divnorm under a DEGRADED cue (+0.066 @heavy noise, all seeds)** | store-side divnorm only as a weak degraded-cue robustness lever; the readout is already divisively normalized | attractor dynamics PINNED-ish (CA3, Treves-Rolls); **2025 trend (Kim & Kim) is AWAY from a GLOBAL pooled inhibition toward ASSEMBLY-SELECTIVE (one scalar per stored pattern) -- a higher-fidelity refinement for any pooled-divisor store** |
+| **register/multibank WRITE path (`AccumulateRegister.add_event`) -- NEW** | accumulates events into the store | **UNTESTED: the whole read_terminal family tested only the READ side** | **the one place with a MEASURED primate correlate (Buschman 2011: multi-item suppression is strongest at ENCODING, not readout) -> the write/accumulate path may need its own gain control** | encoding-stage normalization is measured in primate cortex (Buschman 2011) but we never tested our write path -- **candidate next problem** |
+| serial decode `decode_serial_pooled` (theta-gamma + least-squares pooled gain) | reads an overloaded register to ceiling | our coupling of serial decode + pooled gain is not a documented brain mechanism | -- | **UNFILLED SEAM: Lisman-Idiart theta-gamma has NO gain term; Heeger-Mackey 2019 ORGaNICs has a pooled-divisor eq that ALSO emits gamma -- never connected. Our organ is a NOVEL bridge (theoretically motivated, not circuit-cited)** |
 
 ## What I did NOT establish / would withdraw first
 
 - goal_achievement is bounded by its 6-attribute load + the grid, not run end-to-end on its own dataset -- the
   first claim I would withdraw if pushed (though the load bound is structural).
-- The `sign()` bipolar family and the `script_grain` attractor are classified/flagged, not measured.
+- The `sign()` family (DRILL 3) and `script_grain` attractor (DRILL 4) are now MEASURED on synthetic analogs
+  faithful to their readouts; I did NOT re-run each real sign() caller on its own end-to-end task (classified by
+  readout+load instead) -- that is follow-on #2's job.
 - The typer's "stacking two reliability mechanisms" harm mechanism is a NOVEL SYNTHESIS from the literature
-  (P<=0.50), not a directly-cited brain result. The research note proposes a further decisive test (it is
-  partly run here: shared-pool is inert, per-role-L2 is the non-faithful mover).
+  (P<=0.50), not a directly-cited brain result -- but the 4-arm test + DRILL 5 both corroborate it on disk.
+- The register divnorm brain-fidelity stays OUR-EXTENSION-UNDER-TEST (exhaustively searched, not upgradable to
+  PINNED without the Kamiński/Kyzar dataset reanalysis).
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md, §2b register-norm / general rule)
 
@@ -160,10 +205,21 @@ and mis-attributed. Corrected, measured + literature-grounded rule:
 >     which no brain model does and which is measured-harmful (typer). The brain leaves per-source RAW magnitude
 >     intact because magnitude IS the reliability code (Ma/Beck/Latham/Pouget PPC; Ernst & Banks MLE).
 > (iii) the map's "no caller re-binds" is wrong -- the typer sub-bundle is a re-bound unbind key.
-> Brain-fidelity labels (reconfirmed by the 2026-08-29 drill): pooled divisive normalization at a DECISION/combine
-> population = PINNED (measured LIP/OFC/MSTd); at a hippocampal/WM memory register = OUR-EXTENSION-UNDER-TEST;
-> per-component magnitude-erasure = OUR-INVENTION (no fast biological analogue). Recommended defaults: divnorm for
-> register+multibank (landed); per-component everywhere else enumerated.
+> Brain-fidelity labels (reconfirmed + STRENGTHENED by TWO 2026-08-29 research drills):
+> - pooled divisive normalization at a DECISION/combine population = **PINNED** (measured LIP/OFC/MSTd, 11 primary
+>   sources).
+> - at a hippocampal/WM memory-register READOUT = **OUR-EXTENSION-UNDER-TEST** -- now an *exhaustively-searched
+>   absence* (4 lanes, ~28 sources): no paper fits the pooled Carandini-Heeger equation to real hippocampal/PFC
+>   multi-item WM data. Closest misses ruled out explicitly: Bhatia 2019 CA1 "subthreshold divisive normalization"
+>   (measured but single-cell feedforward, wrong locus); Buschman 2011 pooled suppression (measured but at ENCODING,
+>   unlabeled); Hahn 2021 divisive-norm fit (crow NCL, wrong species/region). WM-capacity THEORY does converge on
+>   global divisive normalization (Schneegans/Bays 2024; Wei/Wang/Compte 2012) -> we are in the right computational
+>   CLASS, not circuit-measured. Cheapest close = reanalysis of the public Kamiński 2017 / Kyzar 2024 human
+>   intracranial dataset (DANDI #469). **Do NOT claim PINNED for the register divnorm.**
+> - per-component magnitude-erasure = **OUR-INVENTION**, now confirmed across FIVE fast-mechanism classes (shunting
+>   inhibition, STD/STF, homeostatic scaling, presynaptic homeostasis, photoreceptor adaptation) with zero
+>   counter-examples -- every fast biological divisor is POOLED/shared, never per-component.
+> Recommended defaults: divnorm for register+multibank (landed); per-component everywhere else enumerated.
 
 ## Proposed hdlab change (strategy lands it, Q111)
 
@@ -195,14 +251,23 @@ None.
 
 1. (strategy) Re-verify `verification/test_read_terminal_divnorm.py` and fold the AUDIT UPDATE (three gating
    conditions) into `notes/BRAIN_FOUNDATIONAL_AUDIT.md`; harvest the research note into the enabling-lessons file.
-2. (candidate follow-on, HIGH -- the real brain-faithful optimization) **Retire the typer's LOO-fit
-   `shard_weights_` in favor of a PPC-style self-calibrating magnitude** (scale each role-shard's stored evidence
-   by its reliability so the combine is a raw SUM). This is the adjacent component that is genuinely less
-   brain-faithful; the research note (d) scopes it.
+2. (follow-on REFUTED by DRILL 5) the naive "retire the typer's LOO `shard_weights_` for a PPC
+   magnitude-as-reliability raw sum" is measured-worse (-0.19 CI-sep): the typer's magnitude encodes binding
+   strength, not class-discriminativeness. The LOO weight is a brain-defensible learned precision weight; the
+   only remaining refinement is learning it ONLINE (same values, no accuracy change) -- LOW priority. **The new
+   HIGH candidate is the register WRITE/encode path (item 4), which has a measured brain correlate.**
 3. (candidate follow-on, MEDIUM -- now mechanism-backed by DRILL 3) the `sign()`-on-a-bundle bipolar family:
    drop `sign()` for the graded sum at the OVERLOADING sites (encode_sentence, situation_focus at capacity,
    event_bundle many-role); measured +0.17 @overload, neutral at low load; `norm="divnorm"` does not apply
    (bipolar code -> the fix is GRADED). Map's follow-on #2, with the per-caller load discriminator.
-4. (candidate follow-on, LOW) `script_grain_acquisition_loop` iterative attractor -- the one unmeasured readout;
-   measure IF its trace bundles overload. And a fidelity review of goal_achievement's 6-attribute vocabulary.
-5. (no action) register + multibank stay on divnorm; nothing else switches.
+4. (candidate follow-on, HIGH -- surfaced by the fidelity drill, has a MEASURED primate correlate) **the
+   register WRITE/ENCODE path (`AccumulateRegister.add_event`), not tested by this whole read_terminal family.**
+   Buschman 2011 measured multi-item suppression strongest at ENCODING, not readout -- unlike the read-terminal
+   sweep (mostly "no change"), this one has a measured brain correlate suggesting it could be fruitful.
+5. (candidate follow-on, LOW / research-scope) reanalyze the public Kamiński/Kyzar human intracranial dataset
+   (DANDI #469, load 1-3, hippocampus+medial-frontal) by fitting the pooled Carandini-Heeger form -- the cheapest
+   path to upgrade the register divnorm label from OUR-EXTENSION to PINNED (or refute it at that locus).
+6. (candidate follow-on, LOW) `script_grain` attractor is measured (DRILL 4); if a pooled-divisor store is ever
+   built, prefer an ASSEMBLY-SELECTIVE divisor (one scalar per stored pattern; Kim & Kim 2025) over one global
+   scalar. And the theta-gamma <-> pooled-gain seam (Heeger-Mackey ORGaNICs) is an open theory bridge.
+7. (no action) register + multibank stay on divnorm; nothing else switches.

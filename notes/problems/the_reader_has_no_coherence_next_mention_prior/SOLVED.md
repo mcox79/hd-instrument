@@ -122,6 +122,46 @@ lexical SEMANTICS -- the no-LLM boundary + the p1 representation lane -- NOT a m
 fires when structure decides (GAP full set, LitBank non-residual); the residual is precisely where structure does NOT
 decide, on modern AND archaic prose alike.
 
+## WORLD-KNOWLEDGE DRILL -- the residual is the anti-typical WINOGRAD CORE (the owner's push, drilled to the floor)
+
+The GAP test said the wall is SEMANTIC. A second 4-lane research drill (`research_world_knowledge_for_reference_2026-08-29.md`)
+established HOW the brain does it (fast selectional plausibility via the ATL PDP hub + slow situation-model RESOLUTION,
+Garrod-Sanford; world-knowledge integrates as fast as word meaning, Hagoort 2004) and the glass-box no-LLM CEILING (no
+fully-automatic STATIC-KG system cracks Winograd WSC-273; the one full-set 57% used LIVE web search -- not admissible;
+the bottleneck is knowledge coverage + probabilistic multi-fact reasoning categorical logic cannot express -- Sharma et
+al.). The no-LLM invariant permits a STATIC knowledge FOUNDATION, and the substrate has a 1.21M-edge ConceptNet/CSKG +
+WordNet. So I MEASURED the world-knowledge ORACLE ceilings on the residual (the discipline: measure before building).
+
+**Every glass-box channel is dead or anti-predictive on the residual -- SIX of them, independently:**
+
+| channel (brain-faithful mechanism) | residual oracle | why it fails |
+|---|---|---|
+| coherence next-mention prior (Kehler-Rohde) | 2.9% (beaten by its info-free twin) | decisive cases ~absent in real prose |
+| fine linear distance (recency at token grain) | 37.6% oracle but UNGATEABLE | regresses structure-decisive >= it fixes |
+| item-level structural-proxy cues (Kush 2013) | 0% recovered | proxies below noise floor |
+| CLEAN-parse structure (cross-domain GAP) | BELOW chance (0.256) | a good parse does not recover it |
+| WordNet-supersense selectional plausibility | 2.0% (0/29 distinct-supersense) | both candidates are typical fillers |
+| ConceptNet/CSKG commonsense connectivity | 2.8% DESPITE 86.8% coverage | KB connects but does not DISCRIMINATE |
+
+**THE UNIFYING INSIGHT (and it is why all six fail identically): the residual is BY CONSTRUCTION the ANTI-TYPICAL
+cases** -- gold is the candidate that is NOT most-recent, NOT max-subjecthood, NOT most-frequent (measured: gold's
+recency-rank ~2; the resolver grabs the most-frequent/topical entity 36% of the time). So EVERY cue that tracks
+typicality -- salience, structure, selectional plausibility, commonsense connectivity -- is anti-predictive on it. The
+disambiguating information is the SPECIFIC-DISCOURSE event ("who did what to whom in THIS text"), which a COMMONSENSE KG
+structurally does not contain (concept-level, not this-discourse facts -- measured: 86.8% coverage but 2.8% discrimination)
+and selectional plausibility cannot supply (both candidates are typical fillers of the verb). This is the **Winograd
+core**, and the brain resolves it with the SLOW situation-model RESOLUTION stage over specific-discourse world-knowledge
+built BY READING -- not a static KG.
+
+**Brain-foundational verdict (the honest bound, with its specific measured reasons):** this is NOT "the brain can do it
+and we fundamentally cannot." The brain uses (a) rich DISTRIBUTIONAL semantics (the ATL PDP hub -- our 12-dim grounded
+space is the p1 gap; a symbolic KG is not implementation-faithful, Rogers & McClelland) and (b) a SITUATION MODEL that
+accumulates SPECIFIC-ENTITY facts from the text itself + reasons over them. A static commonsense KG + single-hop
+plausibility (measured dead) is the wrong tool -- it is the documented Winograd ceiling. The real, brain-foundational
+levers are the SITUATION MODEL (accumulate this-discourse facts) + richer distributional semantics (p1) -- both are
+existing substrate programs, and both are the correct next problems. Under the no-LLM invariant, a slice of the residual
+(specific interpersonal world-facts) is a genuine bound.
+
 ## The positive control -- the mechanism works, the population lacks the cases (bar item 3)
 
 On CONSTRUCTED coherence-decisive minimal pairs the same prior mechanism flips the pick correctly: **selectional 8/8**
