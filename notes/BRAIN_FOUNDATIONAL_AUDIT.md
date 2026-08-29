@@ -65,6 +65,38 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-29 — THE SITUATION-MODEL CAUSATION DIMENSION now has a FORCE-DYNAMIC TYPER (CAUSE/ENABLE/PREVENT); the live
+  `_read_causation` was a connective/adjacency PLACEHOLDER** (from integrated `causation_has_no_force_dynamic_typing`,
+  owner-DONE, SOLVED/EXCELLENT; reverified 16/16 first-hand). **Mechanism PINNED:** force dynamics (Talmy 1988; Wolff 2007)
+  — CAUSE/ENABLE/PREVENT fall out of a discrete truth-table over (patient-tendency, concur/oppose, endstate-reached);
+  precedence GATES (the integrated TIME register — 1.000 vs 0.000 serve), force dynamics TYPES, plausibility validates.
+  Typing beats BOTH the placeholder (0.929 vs 0.190) AND precedence-only CI-sep on connective-neutral pairs; force-class-
+  shuffle twin loses; PREVENT killer 0.900 vs 0.000 (only force dynamics represents a prevented endstate). **OUR-INVENTION-
+  WITH-A-MEASURED-BOUND:** the verb-lexicon (FrameNet Causation family, 422 verbs — EXTERNAL, escapes the construction-proof;
+  ENABLE barely lexicalized, 1/391) + the patient-tendency input (world-knowledge — a lexicon caps CAUSE-vs-ENABLE at 0.500
+  for tendency-ambiguous verbs, but Wolff's force ARITHMETIC recovers it from AFFECTOR MAGNITUDE: weak→ENABLE/strong→CAUSE,
+  a glass-box estimator lifts 0.500→1.000). **APPLICABILITY BOUND:** most narrative causation is connective-linked clause
+  pairs (the Trabasso NETWORK level) that force dynamics LABELS but a verb lexicon doesn't type. **CITATION CORRECTION:** the
+  causation meta-analysis is Feng, Wang, Liu, Wang, Tian & Fan (2021) Front. Hum. Neurosci. 15:666179 (localizes discourse
+  causal inference generally; does NOT dissociate CAUSE/ENABLE/PREVENT) — NOT "Kang et al. 2021" (a misattribution in the
+  brief/scoping/probe). **Landing QUEUED** (promote `_force_dynamics_lexicon.py` + a TYPED `CausalLink` into
+  `situation_reader._read_causation`). Deviation: large-scale automatic-extraction real-text unestablished (#1 follow-on).
+- **2026-08-29 — CORPUS-AGE PARSE CONFOUND: SUSPECTED-UNMEASURED → MEASURED-BOUNDED (RETIRED for the aggregate — organ-level
+  conclusions that trust the spaCy parse STAND)** (from integrated `role_assignment_is_untested_on_archaic_literary_prose`,
+  owner-DONE, SOLVED/EXCELLENT — a rigorous negative + a built fix; reverified 26/26 first-hand). **The wholesale fear is
+  REFUTED:** spaCy's subject-ID is NOT CI-separably degraded on 19c literary prose (LitBank 0.94 ≥ modern 0.89, flat to 40+
+  tokens; 70% of literary subjects are easy pronouns); correcting ALL 59 role errors in the coref cache moves coref accuracy
+  by −0.0009 (a shuffle positive control DOES move it 0.61→0.53, so the null is meaningful; ~10–20% error needed to degrade,
+  actual ~0.6%). So every organ that reads the spaCy role (coref subjecthood, Centering tier, SPACE motion gate, who-did-what)
+  is NOT confound-capped in aggregate — a standing worry is retired. **ONE CHARACTERIZED EXCEPTION:** subject-verb INVERSION
+  ("replied he" → spaCy tags "he" a direct object) + archaic morphology, +0.22 CI-sep, ~4–12/1000 verbs (dialogue). **FIX
+  BUILT (PINNED — Competition Model/eADM; Bresnan; Iatridou & Embick; Pinker & Ullman): a glass-box POSITION-DOMINANT +
+  cue-OVERRIDE subject stage** (case / conditional-trigger / locative-inversion unaccusative-class / quote-aware +
+  a stored archaic-morphology lexicon) — inversion 0.47→0.83 CI-sep, twin loses, register-invariant, lifts modern too
+  (no regression); the cue-first REPLACEMENT was self-refuted (position-dominant+override is faithful, = `graded_role_assigner`'s
+  design). **EME EXTREME:** Shakespeare (165× denser morphology) collapses spaCy's POS tagger (subject acc 0.07) but the
+  cascade + stored lexicon recovers to 0.75 (respects case — thee-accusative control 0.78). **Landing QUEUED** (add the
+  cue-override subject stage to `graded_role_assigner` + rebuild the who-did-what cache) — a concrete INPUT to the assembly (p3).
 - **2026-08-29 — THE REGISTER WRITE PATH IS FIXED (asymmetric leaky recency write + salience-gated consolidation); and the
   SUPERPOSITION-REGISTER FORM IS NOW PINNED AT THE READOUT LEVEL (a partial retirement of "VSA binding unpinned")** (from
   integrated `the_register_write_path_has_a_hard_capacity_wall`, owner-DONE, SOLVED/EXCELLENT; reverified 11/11 first-hand).

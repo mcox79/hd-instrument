@@ -1,8 +1,30 @@
 ---
-priority: 8
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "SOLVED (owner-DONE) integrated 2026-08-29 — a RIGOROUS NEGATIVE that RETIRES a suspected confound + a built brain-faithful fix for the one real exception. Reverified FIRST-HAND: test_role_parse_accuracy_archaic.py 26/26 PASS. THE WHOLESALE FEAR IS REFUTED (organ-level conclusions STAND): spaCy's subject-ID is NOT degraded on 19c literary prose — natural LitBank 0.94 ≥ modern textbook 0.89, FLAT to 40+ token sentences (70% of literary subjects are easy pronouns); the archaic-vs-modern gap is NOT CI-separable (perm null p95 0.098 > gap 0.051). Downstream cost ~0: the coref cache's roles are provably spaCy-derived (19 nominative-pronoun-as-OBJECT labels a human would never write), but correcting ALL 59 errors moves coref accuracy by −0.0009; a sensitivity curve shows ~10–20% error is needed before coref degrades, and spaCy's actual ~0.6% is far below — the confound is REAL but IMMATERIAL to aggregate coref. THE ONE REAL EXCEPTION (register-isolated by content+length-matched minimal pairs): subject-verb INVERSION ('replied he' → spaCy tags 'he' a DIRECT OBJECT) + archaic morphology, +0.22 CI-sep; on real dialogue-tag inversion spaCy is 0.47; incidence ~4–12/1000 verbs (concentrated in dialogue) + archaic morphology 0.77%. THE BRAIN-FAITHFUL FIX (PINNED — Competition Model/eADM; Bresnan; Iatridou & Embick; Pinker & Ullman): a glass-box POSITION-DOMINANT + cue-OVERRIDE subject stage (case / conditional-auxiliary-trigger / locative-inversion unaccusative-class / quote-aware reporting-frame + a small STORED archaic-morphology lexicon) recovers real dialogue inversion 0.47→0.83 CI-sep, info-free twin 0.23 LOSES, register-invariant (archaic 0.91 ≈ modern 0.96), and LIFTS modern too 0.76→0.89 (no regression). PUSHED FURTHER: the solver REFUTED its OWN 'cue-first replacement' instinct (a cue-first REPLACEMENT loses on canonical cases — position-dominant+override is the faithful shape, matching graded_role_assigner's design); and at the EME extreme (Shakespeare, 165× denser morphology) spaCy's POS tagger COLLAPSES (subject accuracy 0.07) but the brain-faithful cascade + stored lexicon RECOVERS it to 0.75 (thee-accusative case control 0.78 — it respects case). Grade EXCELLENT (a rigorous negative retiring a confound with a positive control + a sensitivity curve, PLUS a built PINNED register-invariant fix for the bounded exception, PLUS self-refutation, PLUS the EME extreme). hdlab landing QUEUED (Q111 — coupled): add the position-dominant + cue-override subject stage to graded_role_assigner (reference impls exp_role_cue_repair_inversion_v1.repaired_subject_span + exp_role_cue_first_subject_v1.full_cue_subject) + rebuild data/litbank/who_did_what_events.json through it. AUDIT §2b folded (corpus-age parse confound: SUSPECTED-UNMEASURED → MEASURED-BOUNDED — retired for the aggregate, one characterized inversion exception + the EME register-extreme, both with a built fix). Honest caveat (I concur): the fix is proven on constructed + hand-built inversion sets; automatic-extraction scale-up is implied. NEXT PROBLEMS primed: (1) an archaic-morphology POS/role lexicon (gated on EME/KJV being on the live path); (2) a case-override for incremental_parser (fails dialogue inversion 0.000)."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-29 (grade: EXCELLENT; SOLVED owner-DONE — rigorous negative + a built fix)
+> **Verdict:** a rigorous negative that RETIRES a suspected confound, plus a built brain-faithful fix for the one real
+> exception. Reverified first-hand (`test_role_parse_accuracy_archaic.py` **26/26 PASS**).
+> **The wholesale fear is REFUTED — organ-level conclusions STAND:** spaCy's subject-ID is NOT degraded on 19c prose
+> (LitBank 0.94 ≥ modern 0.89, flat to 40+ tokens; the archaic-vs-modern gap is NOT CI-separable). **Downstream cost ~0:**
+> correcting ALL 59 role errors moves coref accuracy by **−0.0009**; a sensitivity curve shows ~10–20% error is needed to
+> degrade coref and spaCy's actual is ~0.6% — real but immaterial. (A positive control — the shuffle — DOES move it, so the
+> null is meaningful, not underpowered.)
+> **The one real exception:** subject-verb INVERSION ("replied he" → spaCy tags "he" a direct object) + archaic morphology,
+> +0.22 CI-sep, ~4–12/1000 verbs (dialogue). **The fix (PINNED — Competition Model/eADM; Bresnan; Pinker & Ullman):** a
+> glass-box position-dominant + cue-override subject stage (case / conditional-trigger / locative-inversion / quote-aware +
+> a stored archaic-morphology lexicon) recovers inversion **0.47→0.83** CI-sep, twin 0.23 loses, register-invariant, and
+> lifts modern too (no regression).
+> **Pushed further:** self-refuted its own "cue-first replacement" instinct (position-dominant+override is faithful,
+> matching `graded_role_assigner`); and at the Shakespeare EME extreme spaCy collapses (0.07) while the cascade recovers to
+> 0.75 (respecting case). **Grade EXCELLENT.**
+> **Landing QUEUED (Q111 — coupled):** add the cue-override subject stage to `graded_role_assigner` (ref impls
+> `exp_role_cue_repair_inversion_v1.repaired_subject_span`) + rebuild `data/litbank/who_did_what_events.json` through it.
+> **Audit** §2b folded: the corpus-age parse confound is **SUSPECTED-UNMEASURED → MEASURED-BOUNDED** (retired for the
+> aggregate; one inversion exception + the EME extreme, both with a built fix). **Next primed:** an archaic-morphology lexicon;
+> a case-override for `incremental_parser`.
 
 # PROBLEM: every organ that reads a grammatical role (the coref subjecthood cue, the incumbent Centering tier, the SPACE motion gate, the who-did-what reader) gets that role from a spaCy dependency parse of the reading corpus — but the corpus is 100–200-year-old literary prose (LitBank / McGuffey), and spaCy's parser is trained on modern text, so the `nsubj`/`dobj`/`nmod` labels the whole stack trusts may be systematically DEGRADED on archaic long-sentence prose and NO organ has measured it. This is a SUSPECTED-UNMEASURED confound flagged by the coref integration (adjacency 6). MEASURE the parser's role accuracy on archaic prose vs a gold (and vs modern prose), quantify how much it degrades the downstream role cues, and — if it degrades CI-separated — build the brain-faithful fix; a rigorous NULL (the parse is fine, not the bottleneck) is a full pass that RETIRES the confound
 

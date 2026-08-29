@@ -240,3 +240,15 @@ None.
    Shakespeare/KJV are on the live reading path.
 3. **Optional deepening (mine, if directed):** grow the inversion gold (n=30->~100) to tighten the +0.367, and add
    a full-NP long-subject archaic oversample to firm the wholesale null on the hardest sentences.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-29 (grade: EXCELLENT; SOLVED owner-DONE — rigorous negative + built fix)
+
+Integrated by strategy. Reverified FIRST-HAND: `test_role_parse_accuracy_archaic.py` **26/26 PASS**. Argument adversarially audited and sound: the wholesale "archaic parse is degraded" fear is REFUTED (spaCy subject-ID NOT CI-separably worse on 19c prose; correcting all 59 role errors moves coref by −0.0009; the shuffle positive control DOES move it, so the null is meaningful) — **organ-level conclusions that trusted the parse STAND**. The one real exception (subject-verb inversion) is characterized + given a PINNED, register-invariant, glass-box fix (inversion 0.47→0.83 CI-sep, twin loses, no modern regression), with the solver self-refuting its own cue-first-replacement instinct and validating at the EME extreme.
+
+**hdlab landing QUEUED (Q111 — coupled):** add the position-dominant + cue-override subject stage to `graded_role_assigner` (reference impls `exp_role_cue_repair_inversion_v1.repaired_subject_span` + `exp_role_cue_first_subject_v1.full_cue_subject`) + rebuild `data/litbank/who_did_what_events.json` through it. Recorded in the STATUS wire-don't-island debt.
+
+**Audit §2b folded:** the corpus-age parse confound is **SUSPECTED-UNMEASURED → MEASURED-BOUNDED** — retired for the aggregate (organ conclusions stand), with one characterized inversion exception + the EME register-extreme, both with a built fix. Review + `> ## ✅ SOLVER REVIEW` block in PROBLEM.md; priority cleared.
+
+**Next problems primed:** (1) an archaic-morphology POS/role lexicon (material for EME/KJV, gated on those corpora being on the live path); (2) a case-override for `incremental_parser` (fails dialogue inversion 0.000). Also relevant: this fix is a concrete INPUT to the assembly (p3) — the live reader's role path gets the inversion/case cascade.

@@ -236,3 +236,15 @@ brain-faithful bound with a named fix, not an open question.)
    labels the discourse-level network, not just single clauses.
 4. Strategy: land the typer in hdlab (proposal above), reusing the TIME precedence gate; propagate the
    Feng-et-al. citation correction into PROBLEM.md/the scoping doc/the probe.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-29 (grade: EXCELLENT; SOLVED owner-DONE)
+
+Integrated by strategy. Reverified FIRST-HAND: `test_causal_force_dynamic_typing.py` **16/16 PASS**. Argument adversarially audited and sound: force-dynamic typing beats BOTH the placeholder AND precedence-only CI-separated on connective-neutral pairs; the force-class-shuffle twin loses; the PREVENT killer (0.900 vs 0.000) proves only force dynamics represents a prevented endstate; the external FrameNet lexicon (built before the gold) escapes the construction-proof; the one wall (tendency-ambiguous verbs) is understood AND crossed via affector magnitude; a real-text point estimate + measured applicability bounds + a citation correction round it out.
+
+**hdlab landing QUEUED (Q111 — coupled live-path):** promote `experiments/_force_dynamics_lexicon.py` (lexicon + Wolff typer + endstate/negation detector) as the CAUSATION typer; replace `situation_reader._read_causation`'s untyped link with a TYPED `CausalLink(cause, outcome, {CAUSE,ENABLE,PREVENT}, endstate_reached)`; precedence GATES (reuse the TIME register), force dynamics TYPES; gate ENABLE to lexically-fixed letting verbs until the patient-tendency input exists. Recorded in the STATUS wire-don't-island debt.
+
+**Audit §2b folded** (new CAUSATION organ; Wolff computation PINNED, verb-lexicon + patient-tendency OUR-INVENTION-with-a-measured-bound; CITATION CORRECTION "Kang et al. 2021" → Feng et al. 2021). Review + `> ## ✅ SOLVER REVIEW` block in PROBLEM.md; priority cleared.
+
+**Next problems primed:** (1) a full patient-tendency estimator (affector-magnitude first term proven); (2) a TARGETED verb-sense gate (a handful of frame-polysemous verbs + hortative "let" — named targets); (3) type the Trabasso causal-network edges. #1 remaining follow-on = large-scale real-text with automatic extraction + a 2nd adjudicator.
