@@ -104,8 +104,16 @@ selection is deterministic glass-box here; weights are the OUR-INVENTION dial). 
   frame) fires. This is EXACTLY the Competition Model (position has high validity in English, overridden by
   morphology only on marked constructions) and `graded_role_assigner`'s own design -- so the post-hoc repair and
   the graded assigner are the faithful shape, and a naive cue-first parser is not. The residual full-NP
-  locative/subjunctive inversion ("So was the thing seated", "Were the danger known") needs an AGREEMENT +
-  OBLIQUENESS cue neither arm implements (low incidence; drilled below).
+  locative/subjunctive inversion ("So was the thing seated", "Were the danger known") is now ALSO SOLVED by a
+  second research drill (Bresnan 1994; Levin & Rappaport Hovav 1995; Iatridou & Embick 1994) + build: the full
+  brain-faithful cascade `full_cue_subject` (position-dominant + case / conditional-auxiliary-trigger /
+  unaccusative-verb-class + obliqueness + number-agreement / reporting-frame overrides + a stored
+  archaic-morphology lexicon) recovers the collapsed set (n=8 hand-built DEMONSTRATION 1.00 -- cues PINNED, not
+  fit to the set), real dialogue inversion (n=30 INDEPENDENT 0.87), archaic morphology (0.83, raw 0.00), with NO
+  modern regression (0.89 >= raw 0.76). **HONEST caveat: collapsed=1.00 is an n=8 demonstration I iterated the
+  code against; the robust INDEPENDENT numbers are dialogue-inversion 0.87 and no-modern-regression 0.89. One
+  known limit remains -- cross-clause pronoun scoping (a nominative pronoun in a DIFFERENT clause) needs clause
+  segmentation, which the substrate's scene_segment / incremental_parser can supply at wiring time.**
 - **The downstream null is on the coref cache population (100 LitBank docs).** A dialogue-dense corpus would carry
   more inversion, so "immaterial" is scoped to this corpus's dialogue density.
 
@@ -169,15 +177,24 @@ on dialogue inversion** (measured) -- it inherits the same inversion weakness an
 
 # FOR STRATEGY -- proposed hdlab change (Q111; you land it)
 
-Do NOT retrain or swap the parser (invariant). Instead, add a brain-faithful, glass-box **subject-cue repair**
-as a separate post-parse stage, and prefer wiring it into the islanded `graded_role_assigner`:
-- **CASE cue:** a nominative pronoun (he/she/they/I/we) attached to a verb as a non-subject IS its subject.
-- **QUOTE-AWARE VERB-FRAME cue:** a reporting verb's speaker is the nominal OUTSIDE quotation marks (overrides a
-  quote-internal nsubj).
-- Keep the parser's own nsubj whenever it found one outside quotes (canonical unchanged; measured no regression,
-  +0.09 on modern). Then rebuild `data/litbank/who_did_what_events.json` through the repaired role source.
-Reference impl + proof: `experiments/exp_role_cue_repair_inversion_v1.py` (`repaired_subject_span`). Expected live
-effect: small on aggregate coref (the confound is bounded) but a correctness gain on dialogue-speaker role tracking.
+Do NOT retrain or swap the parser (invariant). Instead, add a brain-faithful, glass-box **POSITION-DOMINANT +
+cue-OVERRIDE subject stage** (a naive cue-first REPLACEMENT was tested and LOST), and wire it into the islanded
+`graded_role_assigner` (whose current cues are order/adjacency/passive/gap/unacc/byagent/animacy -- it has NO
+case, conditional-trigger, reporting-frame, or subject-inversion cue). Add, fired in this order, overriding
+position only on marked constructions and otherwise keeping the parser's own subject (no canonical regression):
+- **CASE:** a nominative pronoun (he/she/they/I/we) near a verb IS its subject (scope to the verb's clause).
+- **CONDITIONAL-AUXILIARY TRIGGER:** clause-initial were/had/should -> the following non-oblique nominal is the
+  protasis subject.
+- **LOCATIVE/DIRECTIVE INVERSION:** an unaccusative/copular/passive verb with no pre-verbal nominal subject ->
+  the post-verbal NON-OBLIQUE (not PP-internal) nominal, number-agreeing with the verb, is the subject.
+- **QUOTE-AWARE REPORTING-FRAME:** a reporting verb's speaker is the nominal OUTSIDE quotation marks.
+- **ARCHAIC-MORPHOLOGY LEXICON** (stored, not a rule engine -- Pinker & Ullman words-and-rules): thou/ye=nom
+  pronoun, -est/-eth/hath/hast/art/quoth=finite verb; patch POS before the cascade.
+Then rebuild `data/litbank/who_did_what_events.json` through the repaired role source.
+Reference impls + proof: `experiments/exp_role_cue_repair_inversion_v1.py` (`repaired_subject_span`, the
+dialogue-inversion subset) and `experiments/exp_role_cue_first_subject_v1.py` (`full_cue_subject`, the complete
+cascade incl. locative/conditional/morphology). Expected live effect: small on aggregate coref (the confound is
+bounded) but a real correctness gain on dialogue-speaker + inverted-clause role tracking.
 
 ---
 
