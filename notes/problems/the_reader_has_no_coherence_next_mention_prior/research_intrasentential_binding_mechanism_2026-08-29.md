@@ -72,10 +72,19 @@ WEIGHTED cues to the graded retrieval, jointly re-tuned on DEV. **Result: it rec
 Principle-B cue took a small, correct-signed weight; the rest tuned to 0; DEV full 0.7985->0.7996, TEST full slightly
 down).
 
-**Why (the sharpened, research-grounded diagnosis):** the mechanism is faithful, but our item-level structural PROXIES
-are degraded -- they are extracted from a NOISY spaCy parse on 200-year-old prose (the brain's proxies come from its own
-reliable incremental parse). And the proxies that DO fire are EXCLUSIONARY (Principle B rules a candidate OUT); they
-never POSITIVELY identify which of ~44 remaining candidates is the antecedent, because that requires the relative-clause
-attachment RELATION (parson<->he) -- exactly the relational information Kush shows retrieval cannot use without reliable
-structure. So the wall is PROXY QUALITY, bottlenecked by the PARSER on archaic prose -- a named, brain-grounded,
-adjacent-component limitation, not a wrong mechanism.
+**First diagnosis (later CORRECTED):** the mechanism is faithful, but our item-level structural PROXIES are degraded --
+extracted from a NOISY spaCy parse on 200-year-old prose. So the wall looked like PROXY QUALITY bottlenecked by the
+PARSER on archaic prose.
+
+## CROSS-DOMAIN TEST -- the correction (2026-08-29, `exp_coref_residual_crossdomain_gap_v1`)
+I tested the "parser is the bottleneck" diagnosis on a CLEAN-parse corpus: GAP (Webster et al. 2018, modern Wikipedia
+prose, gender-balanced ambiguous pronouns, 2-candidate A-vs-B), where spaCy parses reliably. Result:
+- FULL GAP set (n=1799): the clean parse FIRES -- subjecthood 0.684, recency 0.525 (chance 0.5). So on modern prose the
+  cues carry real signal and the parse is good.
+- GAP RESIDUAL (recency-wrong AND subjecthood-not-decisive, n=437): clean-parse structural cues score BELOW chance --
+  dep-distance 0.160, Principle-B clause-mate 0.167, combined 0.256. Structure is ANTI-predictive on the residual.
+=> **A GOOD PARSE DOES NOT RECOVER THE RESIDUAL. The "parser is the bottleneck" diagnosis was WRONG (too optimistic).**
+The residual -- on modern AND archaic prose -- is fixed by SEMANTICS / WORLD-KNOWLEDGE ("the RIDER is the parson, not
+the mare"; the syntax is genuinely ambiguous). The wall is the NO-LLM boundary + the p1 rich-semantics lane, NOT the
+parser. Verdict: SEMANTIC_WALL_NOT_PARSE_WALL. This re-ranks the adjacent components: rich lexical semantics /
+world-knowledge is #1; the parser gates the FULL set (subjecthood) but not the residual.

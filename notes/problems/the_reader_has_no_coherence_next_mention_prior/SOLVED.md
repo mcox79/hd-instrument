@@ -2,10 +2,10 @@
 problem: the_reader_has_no_coherence_next_mention_prior
 status: REFUTED
 bar: "PASSES only with ALL of: 1. A coherence next-mention PRIOR channel (built in experiments/): P(referent) from verb-semantic / coherence-relation expectation, fused into the graded coref posterior as a Bayesian product. Copy the computation; SWEEP the prior's features + fusion weight. 2. On the STRUCTURALLY-DOMINATED residual (the ~19% where grammar gives no signal, recomputed on the same population), likelihood x prior beats the likelihood-only resolver CI-separated; the info-free twin (shuffled prior / random next-mention expectation) LOSES CI-separated; report CI half-width + null p95; no number crosses populations. 3. NO REGRESSION on the structure-decisive cases (where grammar already resolves it, the prior must not corrupt the answer -- byte-or-CI-equal), and a POSITIVE control the metric can move (a coherence-decisive minimal pair the prior gets and the likelihood-only resolver cannot). 4. One-screen summary. A rigorous NEGATIVE is a FULL PASS (e.g. 'a faithful coherence prior lifts the residual < the CI on real prose because a large slice is LitBank annotation-fiat ambiguity -- so the ~0.78 coref ceiling is a REAL bound, not a missing mechanism', with the positive control confirming the metric CAN move on constructed coherence-decisive pairs)."
-result: "RIGOROUS NEGATIVE (a full pass per the bar). On the LitBank structurally-dominated pronoun-coref residual (n=205 TEST decisions, the graded likelihood-only resolver's structurally-dominated errors, doc-bootstrap 95% CI), the faithful coherence next-mention PRIOR (SELECTIONAL-fit via the predictive-reader verb-role grounded centroid + THEMATIC/coherence-relation re-mention, fused as a Bayesian product, fusion weight tuned on DEV-residual = its best shot, wp=1.5) recovers 0.0683 [0.0306,0.1078] vs likelihood-only 0.0 (0/205 by construction) -- BUT its own info-free twin (20-shuffle-averaged shuffled prior) recovers MORE, 0.1005 [0.0833,0.1199]; prior-minus-twin = -0.0322 [-0.0671,+0.0050], half-width 0.036, null p95 0.036, band NOT_SEP. The coherence prior does NOT beat its own noise -> it carries no usable signal on the residual. ORACLE ceilings (best-case pick per channel) confirm it: SELECTIONAL 1.5%, THEMATIC 1.0%, COMBINED 2.9% -- vs a fine-grained TOKEN-DISTANCE oracle 37.6%. The residual is intra-sentential SYNTACTIC binding (64%), not coherence-prior-decisive. POSITIVE CONTROL passes: on constructed coherence-decisive minimal pairs the SAME prior mechanism flips the pick correctly -- selectional 8/8, implicit-causality 8/8 -- where the structural likelihood and an info-free shuffle are at chance (~5/8). Scorer = argmax==gold link accuracy on the fixed residual population."
+result: "RIGOROUS NEGATIVE (a full pass per the bar). On the LitBank structurally-dominated pronoun-coref residual (n=205 TEST decisions, the graded likelihood-only resolver's structurally-dominated errors, doc-bootstrap 95% CI), the faithful coherence next-mention PRIOR (SELECTIONAL-fit via the predictive-reader verb-role grounded centroid + THEMATIC/coherence-relation re-mention, fused as a Bayesian product, fusion weight tuned on DEV-residual = its best shot, wp=1.5) recovers 0.0683 [0.0306,0.1078] vs likelihood-only 0.0 (0/205 by construction) -- BUT its own info-free twin (20-shuffle-averaged shuffled prior) recovers MORE, 0.1005 [0.0833,0.1199]; prior-minus-twin = -0.0322 [-0.0671,+0.0050], half-width 0.036, null p95 0.036, band NOT_SEP. The coherence prior does NOT beat its own noise -> it carries no usable signal on the residual. ORACLE ceilings (best-case pick per channel) confirm it: SELECTIONAL 1.5%, THEMATIC 1.0%, COMBINED 2.9% -- vs a fine-grained TOKEN-DISTANCE oracle 37.6%. The residual is intra-sentential SYNTACTIC binding (64%), not coherence-prior-decisive. POSITIVE CONTROL passes: on constructed coherence-decisive minimal pairs the SAME prior mechanism flips the pick correctly -- selectional 8/8, implicit-causality 8/8 -- where the structural likelihood and an info-free shuffle are at chance (~5/8). BRAIN-FAITHFUL cue-based binding (Kush 2013 item-level structural proxies, jointly re-tuned) also recovers 0/205. CROSS-DOMAIN CONFIRMATION (exp_coref_residual_crossdomain_gap_v1, GAP modern Wikipedia prose, clean spaCy parse): on the GAP residual (recency+subjecthood fail, n=437) clean-parse structural cues score 0.256 -- BELOW chance 0.5 -- so a GOOD parse does NOT recover the residual; the wall is SEMANTIC/world-knowledge, not parse-quality (verdict SEMANTIC_WALL_NOT_PARSE_WALL). Scorer = argmax==gold link accuracy on the fixed residual population."
 floor: "The strongest floor actually run = the info-free 20-shuffle-averaged coherence-prior twin on the SAME residual population = 0.1005 [0.0833,0.1199]; the real coherence prior 0.0683 [0.0306,0.1078] does NOT clear it (prior-minus-twin -0.0322, NOT_SEP, null p95 0.036). Trivial floor: likelihood-only = 0.0 on the residual (0/205 by construction -- any perturbation 'beats' it, which is why the twin is the meaningful floor). Reachability ceiling (an oracle, not a floor): the fine-grained token-distance channel recovers 37.6% of the residual as a best-case pick, quantifying that the residual IS partly reachable -- by finer syntactic locality, NOT by the coherence prior."
 controls: "(1) info-free twin = the coherence prior with per-candidate scores SHUFFLED, averaged over 20 shuffles -> the twin (0.100) BEATS the real prior (0.068), excluding 'the prior carries residual signal'. (2) ORACLE-ceiling decomposition (best-case pick per channel on the residual): selectional 1.5%, thematic 1.0%, combined 2.9%, fine-distance 37.6% -> excludes 'a better fusion weight would rescue the coherence prior' (even the oracle is near-chance) and localizes the reachable signal to fine distance. (3) COHERENCE-prior tradeoff curve (residual acc vs structure-decisive acc across fusion weights): at every weight residual barely rises (max 0.068 @ w=1.5) while structure-decisive collapses 1.000->0.648 -> excludes 'some weight lifts residual without regressing'. (4) FINE-DISTANCE tradeoff curve: residual rises to 0.283 but structure-decisive falls to 0.814 monotonically -> excludes 'the fine-distance signal is gateable non-regressing' (every residual gain costs an equal-or-greater structure-decisive loss). (5) NO-REGRESSION check at the DEV-residual-optimal weight: broke 1279/3638 structure-decisive -> confirms the residual 'lift' is unattainable without catastrophic regression. (6) POSITIVE CONTROL: the prior flips 8/8 constructed selectional pairs + 8/8 implicit-causality pairs; the structural likelihood and info-free shuffle sit at chance (~5/8) -> excludes 'the mechanism is broken / the metric cannot move' (it can; the population lacks the cases). (7) parse-based Hobbs syntactic-antecedent oracle (spaCy, separate diagnostic) = 28.8% on the intra-sentential residual, TYING raw linear-nearest -> excludes 'a dependency parse rescues the syntactic channel' (parse noise on archaic prose). DEV/TEST split by document; the coherence prior's selectional centroids learned on DEV docs only; fusion weight tuned on DEV-residual; all headlines on the disjoint TEST residual."
-files_changed: "experiments/exp_coref_coherence_next_mention_prior_v1.py (incl. the brain_faithful_cue_binding arm), verification/test_coref_coherence_next_mention_prior.py, notes/problems/the_reader_has_no_coherence_next_mention_prior/SOLVED.md, notes/problems/the_reader_has_no_coherence_next_mention_prior/research_intrasentential_binding_mechanism_2026-08-29.md. No hdlab/ write (Q111); proposed hdlab direction below."
+files_changed: "experiments/exp_coref_coherence_next_mention_prior_v1.py (incl. the brain_faithful_cue_binding arm), experiments/exp_coref_residual_crossdomain_gap_v1.py (the CROSS-DOMAIN GAP test that corrected the diagnosis), verification/test_coref_coherence_next_mention_prior.py, notes/problems/the_reader_has_no_coherence_next_mention_prior/SOLVED.md, notes/problems/the_reader_has_no_coherence_next_mention_prior/research_intrasentential_binding_mechanism_2026-08-29.md. No hdlab/ write (Q111); proposed hdlab direction below."
 reverify: ".venv/Scripts/python.exe verification/test_coref_coherence_next_mention_prior.py"
 ---
 
@@ -101,6 +101,27 @@ ADJACENT-COMPONENT limitation, not a wrong mechanism and not a missing coherence
 predicts graceful degradation on partial structure; we observe ZERO contribution, i.e. our proxies are below the noise
 floor, not merely coarse -- the parse is too unreliable to yield even a weak proxy.
 
+## CROSS-DOMAIN TEST -- and it CORRECTED my own diagnosis (the decisive push)
+
+I claimed above the wall was "proxy quality bottlenecked by the noisy archaic-prose parser." I TESTED that claim on a
+CLEAN-parse corpus and it was too optimistic. GAP (Webster et al. 2018 -- modern Wikipedia prose, gender-balanced
+ambiguous pronouns, a 2-candidate A-vs-B task) is parsed RELIABLY by spaCy (`exp_coref_residual_crossdomain_gap_v1`).
+On the FULL GAP set the clean parse fires and the cues carry signal (subjecthood 0.684 >> recency 0.525 >> chance 0.5).
+**But on the GAP RESIDUAL (the analog: recency-wrong AND subjecthood-not-decisive, n=437), the CLEAN-parse structural
+cues score 0.16-0.26 -- BELOW chance (0.5).** Dependency-distance 0.160, Principle-B clause-mate 0.167, combined 0.256.
+
+**Structure -- even a perfect parse -- is ANTI-predictive on the residual**, because the residual by construction selects
+for cases where structure and salience point the WRONG way and the gold is fixed by SOMETHING ELSE. That something is
+SEMANTICS / WORLD-KNOWLEDGE. Even the "syntactic" LitBank cases are really semantic: "the parson, who, as he rode,
+hummed" needs the world-fact that the RIDER is the parson, not the mare -- the syntax genuinely attaches the relative
+clause to "mare" (spaCy is not even wrong there; the string is ambiguous). **VERDICT: SEMANTIC_WALL_NOT_PARSE_WALL.**
+
+So the corrected, cross-domain-robust diagnosis: the ~0.78 coref residual is a REAL bound set by WORLD-KNOWLEDGE / rich
+lexical SEMANTICS -- the no-LLM boundary + the p1 representation lane -- NOT a missing coherence prior (refuted) and NOT
+(primarily) a fixable parser (a clean parse does not recover it). The brain-faithful cue-based mechanism is correct and
+fires when structure decides (GAP full set, LitBank non-residual); the residual is precisely where structure does NOT
+decide, on modern AND archaic prose alike.
+
 ## The positive control -- the mechanism works, the population lacks the cases (bar item 3)
 
 On CONSTRUCTED coherence-decisive minimal pairs the same prior mechanism flips the pick correctly: **selectional 8/8**
@@ -156,10 +177,15 @@ here (thematic-connective oracle 2/59).
    intra-sentential residual needed a full PARSE TREE. The literature drill (Kush 2013) said the brain does NOT use
    c-command as a tree relation for retrieval -- it uses ITEM-LEVEL structural PROXIES as weighted cues, on PARTIAL
    structure with graceful degradation. So I built the brain's ACTUAL mechanism (structural-proxy cues, jointly tuned)
-   rather than a parse-and-override. It still recovered 0 -- which is a SHARPER result: the wall is not "we need a parse
-   tree the brain doesn't even use", it is "our item-level PROXIES are below the noise floor because the upstream parse
-   is unreliable on archaic prose." That reframes the fix from "build a syntactic binder" to "fix the parser / proxy
-   quality" (adjacent component 1) -- a different, more precise, and higher-leverage next problem.
+   rather than a parse-and-override.
+7. **A CROSS-DOMAIN test corrected my OWN diagnosis -- the biggest single realization, and it required pushing past the
+   first negative.** After the structural cues recovered 0 on LitBank, I blamed the noisy archaic-prose PARSER. I tested
+   that on GAP (modern Wikipedia prose, clean parse) and was WRONG: on the GAP residual, CLEAN-parse structural cues
+   score BELOW chance (0.256). A perfect parse does NOT recover the residual. The residual is fixed by SEMANTICS /
+   WORLD-KNOWLEDGE ("the RIDER is the parson, not the mare"), on modern AND archaic prose alike -- the no-LLM boundary,
+   not the parser. The lesson: when a mechanism fails, test the DIAGNOSIS on a domain where the suspected cause is
+   absent, before committing to "fix component X." I nearly filed "fix the parser" as the #1 next problem; the
+   cross-domain test showed the real #1 is rich lexical semantics / world-knowledge (p1 + the no-LLM boundary).
 
 # AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 
@@ -196,39 +222,48 @@ The measured, brain-faithful levers, in order:
 
 Per the owner's directive (2026-08-29): understanding each adjacent component's capabilities, limitations, optimization
 opportunities, and brain-foundational status is how we PLAN the next problems. Each below is a candidate follow-on with
-on-disk evidence + leverage.
+on-disk evidence + leverage. **RANKING CORRECTED by the cross-domain GAP test: WORLD-KNOWLEDGE / rich SEMANTICS (#1) is
+the real residual bottleneck; the PARSER (#2) gates the FULL set but NOT the residual (a clean parse leaves the residual
+below chance).**
 
-1. **[HIGHEST LEVERAGE] The PARSER / `gov_verb`-`role` extraction (spaCy `en_core_web_sm`) -- the ROOT bottleneck.**
-   - CAPABILITIES: supplies the governing verb + grammatical role per mention (the cache's `gov_verb`/`role`), which
-     powers subjecthood, the ACT-R role weighting, and (attempted) clause-mate/Principle-B proxies.
-   - LIMITATIONS (MEASURED): unreliable on 200-year-old literary prose -- it mis-attaches the relative clause on the
-     first residual example ("mare" hums, not "parson"); a Hobbs rule built on it ties raw linear-nearest (28.8%); the
-     brain-faithful structural-proxy cues built on it recover 0/205 of the residual (proxies below the noise floor).
-   - OPPORTUNITY: this single component caps EVERY syntactic channel. A more robust parser would let the (already
-     brain-faithful) cue-based binding mechanism actually fire. Measure the substrate's just-integrated
-     `incremental_parser` accuracy vs gold on LitBank; test a stronger model (`en_core_web_trf`) or a modern-prose gold
-     (OntoNotes) to separate parser-noise from mechanism.
-   - BRAIN STATUS: **OUR-INVENTION / convenient off-the-shelf tool, NOT brain-foundational.** The brain's incremental
-     parser is reliable and feeds item-level structural proxies (Kush 2013); ours is a noisy substitute. This is the #1
-     adjacent problem to open, and it gates the real coref fix.
-2. **The GRADED COREF RESOLVER (`exp_coref_graded_cue_retrieval_litbank_v1`, the likelihood).**
+1. **[HIGHEST LEVERAGE -- the real residual bottleneck] WORLD-KNOWLEDGE / rich lexical SEMANTICS (the grounded space +
+   the no-LLM boundary).**
+   - CAPABILITIES: the grounded space separates concrete object classes (positive control: selectional fit 8/8).
+   - LIMITATIONS (MEASURED, cross-domain): the residual is fixed by semantics/world-knowledge, and NO glass-box channel
+     reaches it -- selectional oracle 1.5% on LitBank (person-heavy, grounded-blind), and clean-parse structural cues
+     score BELOW chance (0.256) on the GAP residual. The disambiguator "the RIDER is the parson not the mare" is
+     world-knowledge the no-LLM invariant precludes and the 12-dim grounded space cannot encode.
+   - OPPORTUNITY: a richer/contextual lexical-semantic representation (the standing p1 lane) is the ONLY lever that
+     could move the residual within the no-LLM invariant; the irreducible remainder (specific world-facts, e.g. who did
+     what in a Wikipedia bio) is a genuine bound. Measure how far a richer space lifts the selectional oracle.
+   - BRAIN STATUS: the ATL flexible context-dependent hub is far richer than our 12-dim context-free lookup (a known
+     deviation); the brain ALSO has world-knowledge our no-LLM substrate deliberately excludes.
+2. **The PARSER / `gov_verb`-`role` extraction (spaCy `en_core_web_sm`) -- gates the FULL set, NOT the residual.**
+   - CAPABILITIES: supplies governing verb + grammatical role (subjecthood is the strongest single cue -- GAP full-set
+     0.684); powers the ACT-R role weighting and the item-level structural proxies where structure DOES decide.
+   - LIMITATIONS (MEASURED): unreliable on 200-year-old prose (mis-attaches the first residual example); structural
+     proxies built on it recover 0/205 of the LitBank residual. **BUT the cross-domain GAP test shows this is NOT the
+     residual's root cause: even a CLEAN parse leaves the residual below chance.** The noisy parse costs us on the
+     FULL set (where a better parse would sharpen subjecthood), not on the residual.
+   - OPPORTUNITY: a register-robust parser (the brain reads Dickens fine -- this is a training-domain mismatch, not a
+     fundamental limit) would improve FULL-set accuracy; the substrate's own `incremental_parser` is brain-foundational
+     in ALGORITHM (left-corner, Now-or-Never, good-enough, prediction-based revision -- Christiansen & Chater; Ferreira),
+     but it needs POS input and produces only verb-argument slots, not clause-embedding structure. Extending it +
+     robustifying POS on literary prose is a real follow-on.
+   - BRAIN STATUS: the extraction TOOL (spaCy) is OUR-INVENTION/convenient; the substrate's `incremental_parser`
+     ALGORITHM is brain-foundational. Its input (POS) and coverage (no embedding structure) are the gaps.
+3. **The GRADED COREF RESOLVER (`exp_coref_graded_cue_retrieval_litbank_v1`, the likelihood).**
    - CAPABILITIES: brain-faithful cue-based retrieval (Lewis-Vasishth/McElree), 0.775 on the competitive subset, a
      calibrated entropy abstain signal. PINNED mechanism.
    - LIMITATIONS: computes recency in SENTENCE buckets (blind within a sentence); the candidate pool is the WHOLE
      document (mean 45) where the brain's attentional focus is ~4 entities; the residual DEFINITION uses GLOBAL cues
      (max-subjecthood over the pool) where the brain uses LOCAL prominence (Cb).
    - OPPORTUNITY: finer (token/clause) recency granularity in the ACT-R currency -- but only worth it GATED by reliable
-     structure (component 1), else it regresses (measured tradeoff curve). A local-focus (Cb) prominence cue matching
-     the brain's Centering ranking.
+     structure (the parser, component 2), else it regresses (measured tradeoff curve). A local-focus (Cb) prominence cue
+     matching the brain's Centering ranking.
    - BRAIN STATUS: PINNED and faithful; the deviation is the sentence-bucket granularity (an OUR-INVENTION parameter).
-3. **The GROUNDED SEMANTIC SPACE (12-dim, `grounded_similarity`).**
-   - CAPABILITIES: separates concrete object classes cleanly (positive control: selectional fit 8/8 water-vs-jug).
-   - LIMITATIONS (MEASURED): cannot separate two PEOPLE (selectional oracle 1.5% on the person-heavy residual); too
-     coarse for real selectional preference at antecedent-discrimination fidelity.
-   - OPPORTUNITY: a richer / contextual lexical representation would lift the selectional channel -- the standing p1
-     representation-quality lane. Testable: re-run the selectional oracle on a richer space.
-   - BRAIN STATUS: known deviation -- the ATL is a flexible context-dependent hub, richer than a 12-dim context-free
-     lookup (per the predictive-reader audit).
+   - (The 12-dim GROUNDED SEMANTIC SPACE is folded into component 1: it separates concrete objects 8/8 but cannot
+     separate two people, oracle 1.5% -- the p1 representation lane.)
 4. **MENTION DETECTION / candidate pool (`data/litbank/who_did_what_events.json`, single-head-token cache).**
    - CAPABILITIES: supplies mentions + gold clusters + roles.
    - LIMITATIONS (MEASURED): stores only a single HEAD TOKEN per mention (parent's flag 4); the pool is polluted with
@@ -242,7 +277,7 @@ on-disk evidence + leverage.
    - LIMITATIONS (MEASURED here): as a `P(referent)` source for coref it is dead on the residual (oracle 1.5-2.9%) --
      it predicts feature-space, and the residual is person-heavy (grounded-blind) + intra-sentential (syntax, not
      selectional fit).
-   - OPPORTUNITY: it is the RIGHT source for the OBJECT/selectional residual slice IF the grounded space (component 3)
+   - OPPORTUNITY: it is the RIGHT source for the OBJECT/selectional residual slice IF the grounded space (component 1)
      is richer -- coupled to p1.
    - BRAIN STATUS: PINNED for anticipation; MIS-APPLIED as the coref prior for this population (the brief's error).
 
@@ -252,17 +287,16 @@ on-disk evidence + leverage.
 
 The reader still misses about 1-in-5 of the genuinely hard "who is *she*?" cases. The brief guessed the fix was a
 *meaning* step -- guess who the story is about to talk about next. I built that step exactly as the brain does it and
-**measured that it doesn't help these cases at all** -- it does no better than a scrambled version of itself. The
-reason, which I found by reading the actual sentences: two-thirds of the hard cases are settled **inside one sentence**
-by grammar ("the parson, who, as **he** rode, hummed a tune" -> *he* = parson), and our reader measures "how recent" in
-whole-sentence steps, so it's blind within a sentence. A finer, word-by-word version of the *same* memory mechanism
-could in principle fix 38% of them -- but only if the reader knows the sentence's grammatical structure (a parse),
-because word-nearness only means "the antecedent" inside certain grammar (relative clauses); applied blindly it breaks
-more easy cases than it fixes. On 200-year-old novels the parser is too noisy to supply that cleanly. So the honest
-answer: the remaining cases need **grammar + rich word-meaning + world knowledge**, not a meaning-based next-mention
-guess -- and I proved the meaning mechanism *works* on clean textbook examples (8/8), it's just the wrong tool for these
-particular hard cases. This closes the open question the previous problem left: the ~0.78 ceiling is a real bound for
-this kind of fix, and the real next step is a grammar/parse-based binding step, which I've written up as the follow-on.
+**measured that it doesn't help these cases at all** -- it does no better than a scrambled version of itself. I then
+tested every brain-faithful alternative: a finer word-by-word memory cue, and the brain's own structural-binding cues
+(the way the brain uses grammar without a full parse tree). None recovered the hard cases. Crucially, I then checked
+whether the problem was just our noisy parser on 200-year-old prose by testing on CLEAN modern text (Wikipedia): a
+perfect parse *still* does not recover the hard cases (it does worse than a coin flip on them). So the hard residual is
+not a grammar problem at all -- it is settled by **world knowledge** ("the one riding the mare is the parson, not the
+mare"; "the one who dumped her boyfriend is Cheryl"). Our reader deliberately has no outside AI and only a coarse
+12-feature meaning space, so it cannot supply that world knowledge. That is the wall -- and per the owner's push I am now
+drilling exactly HOW the brain applies world knowledge to reference, to find a glass-box, no-outside-AI way to replicate
+it (a knowledge-base / plausibility cue built from the substrate's static knowledge foundation). See the follow-up drill.
 
 ## QUESTIONS
 None -- the bar is met as a rigorous negative (the faithful coherence prior fails to beat its info-free twin on the

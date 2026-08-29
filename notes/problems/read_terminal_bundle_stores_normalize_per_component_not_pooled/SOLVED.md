@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of (per read-terminal caller you evaluate -- cover at
 result: "Per-caller, LIVE recompute on each caller's OWN validated task. TYPER (selection_weighted_sharded_typer, role-typing, n_test=24): divnorm on the read-terminal sup_map does NOT help -- HURTS at low load (-0.0625 [-0.101,-0.024] @n_train=8, CI-sep). Owner-pushed drill: the BRAIN-FAITHFUL decision-population normalization (shared pooled divisor, Carandini-Heeger, ratio-preserving) is ARGMAX-INVARIANT -> byte-identical to the floor (INERT); the only decision-moving norm (per-role L2 equalization) is NON-brain-faithful (erases magnitude-as-reliability, PPC) AND load-fragile (+0.0139 [+0.004,+0.028] @n=40 but -0.0556 [-0.097,-0.014] @n=8). COSINE consumers (lexical_similarity 29-triple task): ordered_frac IDENTICAL 0.9655 (NULL); divnorm raises the between-tier link-decision d' (+11% syn-vs-related, +51% syn-vs-unrelated) but the decision is already saturated (d'>5) so it is unused now. goal_achievement: <=6 attributes -> cannot overload -> neutral. register+multibank: already switched (parent)."
 floor: "The per-component (S_i/|S_i|) default, recomputed on each caller's own population: TYPER PERCOMP mean_acc 0.8333 (n_train=40, 5 seeds, bit-for-bit faithful to the landed organ); COSINE PERCOMP ordered_frac 0.9655 (29 triples, == landed n11c); readout-principle grid per-component argmax/serial recomputed per load."
 controls: "INFO-FREE TWINS lose: typer scrambled-label 0.507 vs 0.750; cosine scrambled-feature 0.207-0.310 vs 0.9655. POSITIVE CONTROLS that MOVE the metric: readout-principle grid at m=64 overload divnorm-minus-percomp +0.115 argmax / +0.621 gain-matched-serial; cosine graded-discriminability d' 1.02->1.44 at N=128. FAITHFULNESS GATE: typer PERCOMP == landed 0.8333. 4-ARM BRAIN-FIDELITY TEST (research-designed): shared-pool==floor (argmax-invariant); per-role-L2 is the only decision-mover and is non-faithful+load-fragile. ROUND-TRIP CONTROL: unbind-key norm inert under argmax cleanup."
-files_changed: "experiments/exp_read_terminal_divnorm_readout_principle_v1.py, experiments/exp_read_terminal_divnorm_cosine_family_v1.py, experiments/exp_read_terminal_divnorm_typer_v1.py, verification/test_read_terminal_divnorm.py, notes/problems/read_terminal_bundle_stores_normalize_per_component_not_pooled/SOLVED.md, notes/research_divisive_norm_decision_stage_reliability_2026-08-29.md"
+files_changed: "experiments/exp_read_terminal_divnorm_readout_principle_v1.py, experiments/exp_read_terminal_divnorm_cosine_family_v1.py, experiments/exp_read_terminal_divnorm_typer_v1.py, experiments/exp_read_terminal_divnorm_sign_family_v1.py, verification/test_read_terminal_divnorm.py, notes/problems/read_terminal_bundle_stores_normalize_per_component_not_pooled/SOLVED.md, notes/research_divisive_norm_decision_stage_reliability_2026-08-29.md"
 reverify: ".venv/Scripts/python.exe verification/test_read_terminal_divnorm.py"
 ---
 
@@ -83,6 +83,23 @@ The headroom is real and becomes usable only if the ATL lexicon scales to open-v
 the raw `Re<a,b>/d` readout loses its self-sim=1.0 calibration under divnorm. A forward-looking optimization,
 honestly bounded to a regime the organ does not yet occupy.
 
+### DRILL 3 -- the `sign()`-on-a-bundle BIPOLAR family (the brief's "same wrong-op"), MEASURED
+
+The brief calls the `sign()`-on-a-bundle sites the same wrong-op in a bipolar code but `norm="divnorm"` is
+FHRR-complex-only, so it does not apply to them. I built the bipolar analog grid (MAP-VSA {-1,+1}, per-slot
+argmax dot-cleanup, over load): SIGN(sum) vs GRADED(sum) vs POOLED(sum/mean|sum|). Result mirrors the FHRR
+finding exactly: at low load (m<=16) SIGN==GRADED==POOLED==1.000 (no gap); at overload GRADED beats SIGN with a
+GROWING margin (+0.038 @m=32, +0.123 @m=48, +0.173 @m=64); and POOLED ~= GRADED (a global scalar is
+argmax-invariant). **So `sign()` is the per-component wrong-op in exactly the same way per-component renorm is
+in FHRR -- it discards the graded vote margin a direction-sensitive read needs under load -- and the lever is
+DROPPING sign() (keeping the graded sum), NOT adding a pooled gain** (the pooled gain only pays off for an
+iterative serial read, same as FHRR). This confirms the audit's "GRADED beats SIGN, growing margin" via one
+unified readout+load mechanism across both code formats. Classifying the real sign() callers by readout+load:
+encode_word (few chars) and few-role events are LOW-load -> `sign()` neutral; encode_sentence (many words),
+`situation_focus` at capacity, and `event_bundle` with many roles OVERLOAD a direction-sensitive read -> those
+should drop `sign()` for a graded read. The fix is GRADED, not `divnorm` (wrong code). Follow-on #2 now has its
+mechanism + the per-caller load discriminator.
+
 ## KEY REALIZATIONS
 
 1. **The discriminator is READOUT + LOAD, not read-terminal-vs-rebound.** Reframing from "is this bundle read
@@ -113,7 +130,7 @@ honestly bounded to a regime the organ does not yet occupy.
 | **typer `shard_weights_` (LOO-fit explicit per-role weight)** | works (0.8333) | **offline-fit, not self-calibrating; it is the piece that makes divnorm harmful (stacking two reliability mechanisms)** | **HIGH-VALUE FOLLOW-ON: replace with magnitude-as-reliability (PPC self-calibrating gain -- scale each shard's stored evidence by contributing-exemplar count / inverse-variance), then the combine is a straight raw SUM and the LOO weight is RETIRED** | closer to slow learned synaptic reweighting but fit offline -> **LESS brain-faithful than a PPC gain** |
 | `cleanup_argmax` readout | robust winner-take-all | scale-invariant -> cannot exploit graded magnitude; discards what divnorm preserves | a graded/serial readout where magnitude is load-bearing | WTA is brain-plausible (cortical competition); the graded serial decode is the higher-fidelity read under load |
 | `_cos_complex` ATL similarity readout | exact normalized cosine under per-component (self-sim=1.0) | calibration COUPLED to per-component; can't use divnorm d' headroom without a normalized-cosine read | divnorm + normalized cosine IF the lexicon scales to noisy/open-vocab | graded ATL similarity PINNED (Lambon Ralph 2024); readout faithful |
-| `sign()`-on-a-bundle bipolar family (`grounding_acquisition_loop`, `situation_focus`, `role_slot_summarizer`, `event_bundle`) | cheap bipolar superposition | per-component nonlinearity discards graded structure (same wrong-op class); `norm="divnorm"` does NOT apply (different code) | a graded / pooled-divisive read (the bipolar analog) | `sign()` is a per-component quantiser with **no divisive-norm analog** -- map's follow-on #2 |
+| `sign()`-on-a-bundle bipolar family (`char_positional_encoder`, `situation_focus`, `event_bundle`, `grounding_acquisition_loop`, `role_slot_summarizer`) | cheap bipolar superposition | **MEASURED (DRILL 3): sign() discards the graded vote margin -> loses to GRADED at overload, +0.17 @m=64, growing with load; neutral at low load.** `norm="divnorm"` does NOT apply (bipolar code) | **drop `sign()` for the GRADED sum at the OVERLOADING sites (encode_sentence, situation_focus at capacity, event_bundle many-role); a pooled gain is argmax-inert so graded is the lever** | `sign()` is a per-component quantiser = the same wrong-op class; the fix is GRADED, not divnorm -- map's follow-on #2, now mechanism-backed |
 | `goal_achievement` 6-attribute vocabulary | glass-box utility channel | 6 attributes = cannot overload, and plausibly UNDER-dimensioned for real desires | expand/learn the attribute set (separate problem) | the 6-attribute set is a hand-authored **OUR-INVENTION** worth a fidelity review |
 | `script_grain_acquisition_loop` iterative attractor | Hopfield cleanup for CA3/DG matching | the ONE readout I did not measure; could benefit from divnorm IF it overloads | targeted measurement of the attractor under load | attractor dynamics brain-plausible (CA3); unmeasured here |
 
@@ -182,8 +199,10 @@ None.
    `shard_weights_` in favor of a PPC-style self-calibrating magnitude** (scale each role-shard's stored evidence
    by its reliability so the combine is a raw SUM). This is the adjacent component that is genuinely less
    brain-faithful; the research note (d) scopes it.
-3. (candidate follow-on, LOW) the `sign()`-on-a-bundle bipolar family -- a graded/pooled read is the analog;
-   `norm="divnorm"` does not apply. Map's follow-on #2, now with the corrected rule.
+3. (candidate follow-on, MEDIUM -- now mechanism-backed by DRILL 3) the `sign()`-on-a-bundle bipolar family:
+   drop `sign()` for the graded sum at the OVERLOADING sites (encode_sentence, situation_focus at capacity,
+   event_bundle many-role); measured +0.17 @overload, neutral at low load; `norm="divnorm"` does not apply
+   (bipolar code -> the fix is GRADED). Map's follow-on #2, with the per-caller load discriminator.
 4. (candidate follow-on, LOW) `script_grain_acquisition_loop` iterative attractor -- the one unmeasured readout;
    measure IF its trace bundles overload. And a fidelity review of goal_achievement's 6-attribute vocabulary.
 5. (no action) register + multibank stay on divnorm; nothing else switches.
