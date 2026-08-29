@@ -65,6 +65,41 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-29 — THE SITUATION MODEL NOW HAS A DISCOURSE-FACT-STORE + BRIDGING RESOLUTION organ (the comprehension→REASONING
+  frontier), PROVEN on inter-sentential fact-decisive reference; and the coref-residual lever is REFINED — it is the
+  SYNTACTIC binder, NOT the fact store** (from integrated `situation_model_has_no_discourse_fact_reasoning`, owner-DONE,
+  SOLVED/EXCELLENT; reverified 25/25 first-hand). **NEW organ:** a reading-built, queryable per-entity discourse-fact store
+  + 2-hop bridging RESOLUTION (glass-box, no LLM) recovers inter-sentential fact-decisive reference the fact-BLIND reader
+  cannot (0.998 vs 0.504 chance, +0.494 CI-sep, ALL controls at chance — info-free twin, KG-only-null, ablation; the
+  KG-only-null at chance closes the parent's "KB connects but can't discriminate" puzzle — it lacks the discourse-specific
+  binding). **PINNED:** the COMPUTATION (Garrod-Sanford BONDING/RESOLUTION; Kintsch CI; hippocampal relational binding +
+  pronoun-driven concept-cell reactivation; Haviland-Clark +181ms bridging cost). **OUR-INVENTION-UNDER-TEST:** the FHRR
+  representation + confidence threshold. **FIDELITY CLOSURES BUILT:** (1b) the 2nd bridge hop's symbolic hard match →
+  GRADED PPMI+SVD distributional coherence (ATL PDP analog) that GENERALIZES to held-out edges 0.700 vs symbolic chance
+  0.492 (ATL-distributional deviation partly CLOSED, not just named); (1c) the dense FHRR bundle's crosstalk wall (~K/D
+  capacity law) is held FLAT to K=512 by hippocampal PATTERN SEPARATION (relation-indexed, Marr 1971 DG) — dense is adequate
+  at D≥1024 for realistic per-entity load K~64, sparse/indexed is the faithful scaling store. **COREF-RESIDUAL entry
+  REFINED:** the earlier "the residual's real lever is the situation model accumulating specific-discourse facts" is REFUTED
+  by measurement — a reading-built fact store is DEAD on the anti-typical residual (oracle 0.039) because the residual gold
+  is freshly introduced (mean 0.65 facts, 58% zero) and bound intra-sententially (Centering Cb-absence; Sturt 2003). The
+  residual's lever is the **intra-sentential SYNTACTIC binder** + richer p1 semantics; the fact store serves INTER-sentential
+  reference (its actual population), not the residual. **DEVIATION remaining:** L1 accuracy is on a CONSTRUCTED population
+  (idealized extraction + exact KG edges); real-text is unmeasured (the #1 follow-on). **Landing QUEUED** (new organ,
+  discourse-age-gated, FHRR, relation-indexed; wired for QA/next-event/bridging/ToM, not a coref patch).
+- **2026-08-29 — THE SITUATION-MODEL TIME DIMENSION now has a QUERYABLE before/after register (Zwaan-Radvansky event-
+  indexing TIME; Reichenbach E/R/S; hippocampal-entorhinal temporal context / MTL time cells — PINNED)** (from integrated
+  `situation_model_has_no_tested_temporal_order_comprehension`, owner-DONE, SOLVED/EXCELLENT; reverified 8/8 first-hand).
+  A queryable before/after register scores 1.000 vs the naive "telling order = event order" floor 0.272 (twin loses;
+  flashback positive control 1.000 vs 0.000); real prose has narration order wrong on 8.7% of event pairs (a live signal).
+  **Representation MEASURED:** discrete toposort is adequate for ordering accuracy + robustness; the continuous magnitude
+  line (transitive_ordering) reproduces the human distance-effect + calibration signature but NOT accuracy and NOT the
+  forward asymmetry → keep discrete primary, layer continuous as a confidence read-out. **Serve:** temporal order constrains
+  causal DIRECTION (1.000 vs 0.000). **Deviations recorded:** (a) tense EXTRACTION used a fixed 3-token "had"-window
+  (OUR-INVENTION placeholder for the brain's clause-level aux→participle syntactic dependency) — partially fixed here (a
+  clause-pluperfect binder, recall 0.911→0.941); (b) perfect ASPECT's resultant-STATE channel is DROPPED (27% of
+  "had"-pluperfects are copular "had been X" — a different dimension, the ENTITY/state channel — Ferretti/Kutas/McRae 2007);
+  (c) the continuous line is a settled magnitude, not a drifting TCM context, so it lacks forward-contiguity asymmetry.
+  **Landing QUEUED** (promote `_temporal_order_register.py` → hdlab + fix `situation_reader._read_timeline`/`_read_causation`).
 - **2026-08-29 — THE WHO-DID-WHAT CAP IS A HYBRID (metric-artifact + a small binder lever + a discourse-specific-memory
   residual), NOT a missing structural Cb binder; ACT-R base-level activation is ALREADY the optimal structural binder;
   pronoun→event binding is FOCUS-DRIVEN** (from integrated `pronoun_to_event_binding_caps_who_did_what`, owner-DONE,

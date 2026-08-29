@@ -1,8 +1,28 @@
 ---
-priority: 4
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "SOLVED (owner-DONE) integrated 2026-08-29 — bar MET; reverified FIRST-HAND test_temporal_order_register.py 8/8 PASS. The situation-model TIME dimension: a QUERYABLE before/after register validated on real prose — before/after 1.000 [1.000,1.000] vs the naive 'telling order = event order' floor 0.272, info-free twin loses (p95 0.602), past-perfect flashback positive control 1.000 vs 0.000; real prose shows narration order wrong on 8.7% of event pairs (a LIVE signal, hand-adjudicated 22 reorderings = 0 confident errors). Representation fork DECIDED BY MEASUREMENT (discrete toposort primary — adequate for accuracy + robustness; the continuous magnitude line reused from transitive_ordering reproduces the human distance-effect + calibration signature but adds NO accuracy — a caught+removed tiebreak-vs-truth confound → layer continuous as a confidence read-out only). Wire-don't-island serve: temporal order constrains causal DIRECTION (1.000 vs the order-agnostic default's 0.000 on flashback-causal). Wall drilled the brain's way: the real-prose cap is tense EXTRACTION, not ordering — the fixed 3-token 'had'-window misses inverted pluperfects; built a clause-level aux→participle binder (event-pluperfect recall 0.911→0.941, ~6% residual); reframed that 27% of 'had'-pluperfects are copular 'had been X' = a resultant-STATE channel (a different dimension) that had inflated the apparent wall. HONEST correction of the brief (disk outranks it): 'nothing composes tense into a before/after model' was FALSE — the mechanism was already built (two HARD_PASS cells 2026-07-24) AND wired; the genuinely-missing piece was the QUERYABLE/tested register + concrete live-wiring fixes, which the solver built + validated. Grade EXCELLENT. hdlab landing QUEUED (verdict-independent, coupled live-wiring): promote experiments/_temporal_order_register.py → hdlab/temporal_order_register.py + fix situation_reader._read_timeline (whole-passage, drop the 'had'-only gate, apply the clause-pluperfect binder) + point _read_causation at the register. AUDIT §2b folded. TWO ready next problems: CAUSATION via force dynamics (fully scoped + de-risked — PACKAGED this round) + a per-entity resultant-STATE register."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-29 (grade: EXCELLENT; SOLVED owner-DONE)
+> **Verdict:** bar MET, comprehensively. Reverified first-hand (`test_temporal_order_register.py` **8/8 PASS**). A
+> QUERYABLE before/after register validated on real prose: before/after **1.000** vs the naive "telling order = event
+> order" floor **0.272**, info-free twin loses (p95 0.602), past-perfect flashback positive control **1.000 vs 0.000**;
+> real prose shows narration order wrong on **8.7%** of event pairs (a live signal — hand-adjudicated, 0 confident errors).
+> **Representation fork decided BY MEASUREMENT:** discrete toposort primary (adequate for accuracy + robustness); the
+> continuous magnitude line (reused from `transitive_ordering`) reproduces the human distance-effect + calibration but adds
+> **no accuracy** — a caught+removed tiebreak confound → layer it as a confidence read-out only. **Wire-don't-island serve:**
+> temporal order constrains causal DIRECTION (1.000 vs the order-agnostic 0.000 on flashback-causal). **Wall drilled the
+> brain's way:** the real-prose cap is tense EXTRACTION, not ordering — built a clause-level aux→participle binder for
+> inverted pluperfects (recall 0.911→0.941), and reframed that 27% of "had"-pluperfects are copular "had been X" (a
+> resultant-STATE channel — a different dimension) that had inflated the apparent wall.
+> **Honest correction of the brief (disk outranks it):** "nothing composes tense" was FALSE — the mechanism was already
+> built + wired (2026-07-24); the genuinely-missing piece was the queryable/tested register + live-wiring fixes, which the
+> solver built. **Grade EXCELLENT.**
+> **Landing QUEUED (Q111 — coupled live-wiring, verdict-independent):** promote `experiments/_temporal_order_register.py`
+> → `hdlab/temporal_order_register.py`; fix `situation_reader._read_timeline` (whole-passage, drop the "had"-only gate,
+> apply the clause-pluperfect binder); point `_read_causation` at the register. **Audit** §2b folded. **Two ready next
+> problems:** CAUSATION via force dynamics (fully scoped + de-risked — packaged this round) + a per-entity resultant-STATE register.
 
 # PROBLEM: tense/aspect is EXTRACTED (situation_reader parses VBD / VBN+had / VBN+be) and STORED (event_bundle has a TENSE slot), and the memory store has a "when" clock (graded_temporal_context) — but the reader has NO tested TEMPORAL-ORDER COMPREHENSION: nothing composes tense + aspect + temporal connectives into a per-event ORDER model that answers "did event X happen before event Y?" when narration order ≠ event order (past-perfect FLASHBACK "she had left before he arrived"; "meanwhile"; "after he ate, he slept"). This is the Zwaan & Radvansky event-indexing TIME dimension — the sibling of the just-built SPACE dimension. Build the composition — a per-event temporal-order register from the already-extracted tense/aspect + explicit connectives — and validate it answers before/after on real narrative CI-separated over the NARRATION-ORDER floor with the info-free twin losing. A rigorous NEGATIVE (narration order already suffices, or temporal comprehension is not the cap) is a full pass
 

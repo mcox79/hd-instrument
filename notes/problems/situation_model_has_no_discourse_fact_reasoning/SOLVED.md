@@ -318,3 +318,15 @@ measurement is named as the #1 follow-on either way.
    the sparse/indexed multi-fact store for many-fact / long-narrative scaling (a literal DG sparse-code variant is
    the deeper fidelity move); (d) the downstream consumers (next-event prediction / bridging inference / QA / ToM)
    that reuse this store.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-29 (grade: EXCELLENT; SOLVED owner-DONE — two-level result)
+
+Integrated by strategy. Reverified FIRST-HAND: `test_discfact_store_bridging.py` **25/25 PASS**. A two-level result: **L2** refuted this brief's specific target (the reading-built fact store is DEAD on the anti-typical coref residual — its gold has ~no accumulated facts, so it is intra-sentential/the parser's job, the 7th channel dead there); **L1** built + proved the underlying reasoning-frontier capability on an inter-sentential fact-decisive population (0.998 vs 0.504 chance, +0.494 CI-sep, all controls at chance; recovers 0.996 of fact-blind errors), with two owner-pushed fidelity closures (distributional bridge generalizes to held-out edges; pattern separation for scaling).
+
+**Strategy owns the mis-scope:** I packaged the fact store as the anti-typical residual's "measured real lever"; the measurement bar caught it — the residual's lever is the intra-sentential SYNTACTIC binder + richer p1, not the fact store. (The capability the brief was reaching for IS real; it just serves inter-sentential reference, not the anti-typical residual.)
+
+**hdlab landing QUEUED (Q111 — a NEW situation-model organ, verdict-independent):** promote the reading-built discourse-fact store + graded 2-hop bridging RESOLUTION (discourse-age-gated: candidates with ≥1 prior fact, NOT same-clause; FHRR; relation-indexed for scaling), wired for downstream consumers (QA / next-event / bridging / ToM), NOT a coref patch. Recorded in the STATUS wire-don't-island debt.
+
+**Audit §2b folded** (new discourse-fact-store organ entry + REFINE the coref-residual entry: its lever is the syntactic binder). Review + `> ## ✅ SOLVER REVIEW` block in PROBLEM.md; priority cleared. **#1 follow-on:** a natural-text measurement (the L1 population is constructed).

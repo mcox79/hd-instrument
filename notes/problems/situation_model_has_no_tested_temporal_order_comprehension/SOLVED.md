@@ -225,3 +225,15 @@ None.
 5. **Optional fidelity: a drifting temporal-context representation** only if a downstream episodic RECALL task
    needs the forward-contiguity asymmetry our settled magnitude line lacks (a recall signature, not a
    before/after judgment capability).
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-29 (grade: EXCELLENT; SOLVED owner-DONE)
+
+Integrated by strategy. Reverified FIRST-HAND: `test_temporal_order_register.py` **8/8 PASS**. The TIME dimension: a queryable before/after register (1.000 vs naive floor 0.272; twin loses; flashback control 1.000 vs 0.000; 8.7% real-prose live signal), representation fork decided by measurement (discrete primary, continuous = confidence read-out), causal-direction serve, and the extraction wall drilled (clause-pluperfect binder 0.911→0.941). Honestly corrected the brief's "nothing composes tense" premise (the mechanism was pre-built + wired; the missing piece was the queryable/tested register + live-wiring, which the solver built).
+
+**hdlab landing QUEUED (Q111 — coupled live-wiring, verdict-independent):** promote `experiments/_temporal_order_register.py` → `hdlab/temporal_order_register.py`; fix `situation_reader._read_timeline` (whole-passage, drop the "had"-only gate, apply the clause-pluperfect binder); point `_read_causation` at the register. Recorded in the STATUS wire-don't-island debt.
+
+**Audit §2b folded.** Review + `> ## ✅ SOLVER REVIEW` block in PROBLEM.md; priority cleared.
+
+**Two ready next problems:** (1) CAUSATION via force dynamics (Talmy/Wolff CAUSE/ENABLE/PREVENT) — fully scoped + de-risked (a built probe: PREVENT-killer 1.000 vs 0.000) — **PACKAGED this round** as `causation_has_no_force_dynamic_typing`; (2) a per-entity resultant-STATE register for the dropped 27% "had been X" channel (feeds the ENTITY dimension) — flagged.
