@@ -55,8 +55,10 @@ the foundation; a dedicated careful effort, not a heartbeat-tail task.**
 SPARSE-CODE store (the multibank/sparse-DG line I've been landing) → RELATIONAL REASONING (the transitive_ordering line
 landed this session) — folds into existing lines, no new brief needed. **This closes the NEXT-PHASE-seeding directive: the
 learn-at-runtime capability is PROVEN-and-SAFE-behind-a-gate but stays OFF; the foundation remains static.**
-🎯 **QUEUE now: p5 coherence-prior, p6 bundle-norm audit, p7 shallow-SRL, p8 archaic-prose open for solvers. p2 closed.
-NEXT SUCCESSOR TO PACKAGE (from p3): clause-level pronoun→event binding (the proven +0.444 who-did-what lever).**
+🎯 **QUEUE now: p3 `pronoun_to_event_binding_caps_who_did_what` (NEW — the successor the name-clustering refutation PROVED
+is THE who-did-what lever, +0.444; wire the tracked-but-unused clause_role/Centering-Cb into the graded scorer); p5
+coherence-prior; p6 bundle-norm audit; p7 shallow-SRL; p8 archaic-prose. 5 ranked-open for solvers. p2 closed. NOTHING
+awaiting an owner verdict.**
 
 ### 2026-08-28 -- ✅ **NAME-CLUSTERING (p3) INTEGRATED as a RIGOROUS NEGATIVE (owner-DONE, EXCELLENT): it REFUTES the premise of the brief I packaged — name clustering is NOT the who-did-what cap; PRONOUN→EVENT BINDING is (+0.444), proven by decomposition. The measurement bar caught my own strategic read.**
 **READ THIS FIRST after compaction; then the entries below.**
