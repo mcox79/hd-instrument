@@ -489,6 +489,50 @@ counter-fit path is next touched). Sources: Hale 2001, Levy 2008, Tomasello 2003
 Roller et al. 2018, Levy et al. 2015, Nickel & Kiela 2017, Rogers & McClelland 2004, Rabovsky et al. 2018,
 Kuperberg & Jaeger 2016, Huettig & Mani 2016.
 
+## RESEARCH DRILL 3 -- FOUNDATIONAL WALLS (binding / composition-reasoning / grounded-spoke; online literature, 2026-08-29)
+
+Three deeper walls beneath the learner (lit-scan = hypotheses-pending-VET):
+
+- **WALL E -- NEURAL BINDING (the core op): the literature CONFIRMS keep-FHRR and NAMES the store-org lever.**
+  Grid cells (discovered empirically) fall out of the SAME equation as FHRR fractional binding (SSP; Dumont &
+  Eliasmith 2020) -- CONVERGENCE, not just compatibility = the strongest evidence a VSA-like bind is NEURALLY
+  realised (rebuts "core op is our-invention" at the implementation level; cf. SEM/Franklin 2020). Temporal/
+  gamma synchrony is a grouping/attention TAG, NOT a role-filler algebra (Shadlen & Movshon 1999) -- do NOT
+  chase it. The one brain-faithful upgrade the literature names = the STORE-ORG lever already in memory: dense
+  random FHRR -> SPARSE BLOCK CODES (cortical sparsity; Frady/Kleyko/Sommer 2021) + a RESONATOR-network
+  factorising read-out (Frady et al. 2020) -- glass-box, offline, can-fail vs dense-FHRR at equal N.
+- **WALL F -- COMPOSITION + RELATIONAL REASONING (the declared next phase; HIGHEST-LEVERAGE next move).**
+  Systematicity (Fodor & Pylyshyn 1988) is functionally SETTLED IN OUR FAVOUR: role-filler binding (which we
+  OWN) composes a sentence as sum(role (x) filler) and reasons by UNBINDING. The brain caps relational arity at
+  ~4 (Halford 1998); RLPFC integrates relations -- so the glass-box target is SMALL (arity <=3-4, explicit
+  integrate op). #1 primitive to build NEXT = RELATIONAL ANALOGY / STRUCTURE-MAPPING by VSA UNBINDING
+  (Kanerva's Dollar-of-Mexico->Peso: answer ~ (target (x) source^-1) (x) known_filler, cleaned up) -- structure-
+  mapping (Gentner 1983) made glass-box using only bind/unbind/cleanup we already have; systematic, arity-
+  bounded, and it delivers GENERALISATION TO UNSEEN FILLERS (the learner's current gap). PRIOR-WORK FLAG:
+  exp_anchor_pool_expansion_v1 = COMPARATOR_IS_BINDING -- VET whether analogy-by-unbinding is genuinely new vs
+  the existing comparator BEFORE building. #2 (scoring layer) = sequential predictive meaning-update (Sentence-
+  Gestalt; the N400 lever from research drill 2). Cross-link: SSP fractional binding (Wall E) IS the substrate
+  for the p1 scalar-magnitude comparison -- building E upgrades p1.
+- **WALL G -- GROUNDED-SPOKE NULL, RECONCILED.** Supply won (it injected real MISSING feature CONTENT); the
+  SPOKE was null because a raw grounded-cosine LINEARLY blended with co-occurrence = two CORRELATED channels ~
+  a rescaled copy (no new discriminative power), AND the ATL hub does NONLINEAR compression that DECORRELATES
+  surface-modality from conceptual similarity (which semantic-dementia patients lose; Lambon Ralph 2017). A
+  raw-cosine spoke IS the linear blend the hub model says is insufficient -- so the null is the PREDICTED
+  result of skipping the hub nonlinearity (evidence FOR the hub model, not against grounding). FIX = a LEARNED
+  HUB BOTTLENECK (grounded features -> k-dim amodal code via a cross-modal PREDICTIVE objective, encoding the
+  NON-REDUNDANT part), spoke = cosine in HUB space not raw; route by concreteness/relation-type (concrete+
+  associative wins, abstract+taxonomic flat -- pre-register the interaction). Can-fail vs the raw-cosine null arm.
+
+RANKING (research lane): **Wall F (relational analogy by unbinding) = highest-leverage next** (IS the declared
+reasoning phase; near-zero new machinery on the binding op we own; delivers the learner's missing
+generalisation-to-unseen-fillers; upgrades p1 via SSP). Then **Wall E (sparse-block + resonator store)**
+(confirms + keeps FHRR; the one brain-faithful store upgrade the literature names). Then **Wall G (learned hub
+bottleneck spoke)** (narrower repair, gated on a concreteness x relation interaction). These are NEXT-PHASE /
+substrate-touching builds (the reasoning program), NOT learner-problem solver drills -- for the owner to launch
+as the reasoning phase. Sources: Dumont & Eliasmith 2020, Frady/Kleyko/Sommer 2021, Frady et al. 2020,
+Smolensky 1990, Fodor & Pylyshyn 1988, Halford 1998, Christoff 2001, Gentner 1983, Rabovsky 2018, Lambon Ralph
+2017, Shadlen & Movshon 1999, Franklin 2020, Whittington 2020 (Tolman-Eichenbaum Machine).
+
 ## TLDR
 
 The brief's plan -- make the learner update the brain's way (online, from error) -- is a proven dead
