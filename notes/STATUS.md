@@ -195,7 +195,10 @@ floor, niche, solver-said-skip). **The WHO-DID-WHAT BINDER (from integrated p3 `
 2026-08-29): STEP-1 re-instrument the live who-did-what metric as a situation-model EVENT-SET recall (the biggest lever —
 lifts the ceiling 0.589→1.000) + STEP-2 wire the graded binder + gender agreement + person-exclusion onto the live path
 (replacing inline ACT-R + the worse strict-Cb organ; +0.083 live/+0.136 re-instrumented) with MEASURED no-regression —
-COUPLED live-harness work (person-exclusion core already landed in `graded_coref_pick`).**
+COUPLED live-harness work (person-exclusion core already landed in `graded_coref_pick`).** ⚠️ **COORDINATE THESE TWO: the
+predarg de-dup and the who-did-what binder BOTH rewrite `situation_reader`'s argument-structure/who-did-what path
+(`_assign_roles`/`_assign_frame_primary_roles`/positional agent-patient) — do them as ONE coordinated `situation_reader`
+landing with a single measured-no-regression pass (likely REMOTE), not piecemeal, to avoid conflict/rework.**
 
 ### 2026-08-28 -- ✅ **THE LEARN-FROM-READING LEARNER (p2) INTEGRATED (owner-DONE, EXCELLENT): the "can we grow the foundation by reading?" question is RESOLVED — YES, but ONLY behind a brain-faithful CLS keep-both-stores gate, DEFAULT-OFF. The brain lever is CONTEXT SHAPE (grammatical relations), not the update rule (online==batch). The reader stays STATIC until an explicit gated growth step.**
 **READ THIS FIRST after compaction; then the entries below.**
