@@ -27,10 +27,13 @@ brain-foundational fidelity + leverage, to seed the next problems.
    location register's interval bookkeeping). High incidence, PINNED brain basis, currently absent.
 
 2. **CAUSATION is a connective placeholder and now has its missing ingredient.** The live causal organ is
-   order-agnostic (verified: `situation_reader._read_causation` + `_causal_network` docstring). Cause
-   MUST precede effect (Zwaan -- temporal order constrains causation); the TIME register supplies exactly
-   that (Phase C serve: 1.000 vs 0.000 on flashback-causal). **Candidate next problem: a causal-direction /
-   plausibility organ** that consumes the temporal precedence constraint instead of the order-agnostic default.
+   order-agnostic (verified: `situation_reader._read_causation` + `_causal_network` docstring) with NO Wolff
+   CAUSE/ENABLE/PREVENT typing on disk. Cause MUST precede effect (Zwaan); the TIME register supplies that
+   (Phase C serve: 1.000 vs 0.000 on flashback-causal). **FULLY SCOPED as the next problem in
+   `next_problem_scoping_causation_force_dynamics_2026-08-29.md`:** force dynamics (Talmy/Wolff) TYPES the
+   causal-network edges CAUSE/ENABLE/PREVENT from a glass-box VerbNet/FrameNet force lexicon; precedence gates;
+   knowledge validates. Killer test = PREVENT (outcome never happens). Cautionary precedent: do-calculus
+   routing HARD_FAILed -> force-dynamic route is the brain-faithful bet. Research P~=0.45.
 
 ## Fidelity notes carried forward (mapped, not walls for THIS problem)
 - Tense EXTRACTION for EVENTS is solid (event-pluperfect recall 0.911 window -> 0.941 clause-binder; ~6%

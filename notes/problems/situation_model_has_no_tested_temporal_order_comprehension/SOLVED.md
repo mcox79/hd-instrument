@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. A per-event temporal-ORDER register (built in 
 result: "before(x,y) node-exact accuracy on the construction gold that ISOLATES the ordering mechanism (real English tense/connectives, 4 discriminating structures, n=103 committed pairs / 98 items): COMPOSED register (default narration OVERRIDDEN by tense/aspect+connective cues) = 1.000 [1.000,1.000] vs the recomputed NARRATION-ORDER floor 0.272 [0.194,0.349]. Positive control (past-perfect FLASHBACK subset): register 1.000 vs narration 0.000. Downstream SERVE (flashback-causal direction, n=12): temporal-constrained cause-before-effect 1.000 [1.000,1.000] vs order-agnostic narration 0.000."
 floor: "NARRATION-ORDER floor (telling order == event order), recomputed on the SAME population = 0.272 [0.194,0.349] full-pop / 0.000 on the non-linear (flashback/reorder) subset. Register lower CI 1.000 > floor upper CI 0.349. Serve floor (order-agnostic narration causal direction) 0.000."
 controls: "(1) INFO-FREE TWIN (edge-direction scrambled -- destroys BOTH tense and connective info, keeps coverage): full-pop 0.527, null p95 0.602 -> LOSES CI-separated (register 1.000 > 0.602). (2) POSITIVE CONTROL: past-perfect flashback subset register 1.000 vs narration 0.000 -> the metric CAN move / narration provably cannot get these. (3) LINEAR no-regression: register 1.000 == narration on linear-order items (no over-reordering). (4) SERVE TWIN: causal-direction twin 0.472 (p95 0.727), temporal 1.000 loses it; linear-causal control 1.000 == 1.000. (5) REPRESENTATION control (Phase B): tiebreak==truth confound REMOVED (random true order, unrelated index tiebreak) -> the continuous line adds NO accuracy over discrete (max continuous-discrete = 0.0)."
-files_changed: "experiments/_temporal_order_register.py; experiments/exp_temporal_order_before_after_v1.py; experiments/exp_temporal_order_distance_effect_v1.py; experiments/exp_temporal_order_serves_causal_v1.py; experiments/exp_temporal_order_extraction_recall_v1.py; verification/test_temporal_order_register.py; notes/problems/situation_model_has_no_tested_temporal_order_comprehension/{SOLVED.md, real_prose_hand_adjudication_2026-08-29.md, adjacent_components_brain_fidelity_map_2026-08-29.md}"
+files_changed: "experiments/_temporal_order_register.py; experiments/exp_temporal_order_before_after_v1.py; experiments/exp_temporal_order_distance_effect_v1.py; experiments/exp_temporal_order_serves_causal_v1.py; experiments/exp_temporal_order_extraction_recall_v1.py; experiments/exp_causal_force_dynamics_probe_v1.py (de-risking probe for the causation next-problem); verification/test_temporal_order_register.py; notes/problems/situation_model_has_no_tested_temporal_order_comprehension/{SOLVED.md, real_prose_hand_adjudication_2026-08-29.md, adjacent_components_brain_fidelity_map_2026-08-29.md, next_problem_scoping_causation_force_dynamics_2026-08-29.md}"
 reverify: ".venv/Scripts/python.exe verification/test_temporal_order_register.py   # 8/8 ; then .venv/Scripts/python.exe experiments/exp_temporal_order_before_after_v1.py --mode full   # HARD_PASS 1.000 vs 0.272, twin p95 0.602 ; and .venv/Scripts/python.exe experiments/exp_temporal_order_serves_causal_v1.py --mode full   # HARD_PASS temporal 1.000 vs narration 0.000"
 ---
 
@@ -205,9 +205,18 @@ None.
    `_read_timeline` (whole-passage, drop the had-gate, clause-pluperfect binder), point `_read_causation` at
    the temporal register for causal direction. Highest-CERTAINTY gain (a built-but-under-firing organ becomes
    live, queryable, correctly-firing).
-2. **Next problem -- CAUSATION direction/plausibility** (the least genuinely-built Zwaan dimension; live organ
-   is a connective placeholder). It now has its missing ingredient: the TIME register's precedence constraint
-   (cause precedes effect; Phase C serve 1.000 vs 0.000). Highest-leverage NEW dimension.
+2. **Next problem -- CAUSATION via FORCE DYNAMICS (fully scoped in `next_problem_scoping_causation_force_dynamics_2026-08-29.md`).**
+   The least genuinely-built Zwaan dimension (live organ = connective + adjacency placeholder; NO Wolff
+   CAUSE/ENABLE/PREVENT typing on disk -- verified). Brain mechanism: force dynamics (Talmy/Wolff) TYPES the
+   edges of the causal network (Trabasso), precedence GATES (reuse the TIME register + the landed
+   `exp_causal_bitemporal_composition` harness), knowledge VALIDATES. Glass-box lexicon exists (VerbNet->Event
+   Force Dynamics; FrameNet Causation family). KILLER can-fail test: **PREVENT** ("the sandbags prevented the
+   flood" -> no flood node), where the link-the-nearest placeholder fails by construction. Cautionary disk
+   precedent: formal do-calculus routing already HARD_FAILed -> the force-dynamic (perceptual/conceptual)
+   route is the more brain-faithful bet. **DE-RISKED with a built probe** (`exp_causal_force_dynamics_probe_v1`):
+   glass-box force-dynamic typing scores 1.000 on the PREVENT killer (vs placeholder 0.000) and 1.000 on
+   CAUSE-vs-ENABLE where a verb-shuffle twin is at chance 0.499 -- the core bet is demonstrated; the P~=0.45
+   risk now sits only on the full problem's extraction/lexicon-coverage/real-prose extras, not the typing.
 3. **Next problem -- a per-entity prior/resultant-STATE register** for the DROPPED copular-aspect channel
    (MEASURED 27% of real 'had'-constructions: "had been X"). Feeds the ENTITY dimension; PINNED
    (Ferretti/Kutas/McRae 2007). High incidence, currently absent.
