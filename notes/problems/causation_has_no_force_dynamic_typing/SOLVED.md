@@ -5,8 +5,8 @@ bar: "CI-separated 3-way accuracy over BOTH the placeholder AND precedence-only 
 result: "force-dynamic 3-way+sequential typing accuracy 0.929 [0.833,1.000] (bootstrap, half-width 0.083; exact CAUSE/ENABLE/PREVENT/SEQUENTIAL match; n=42 pooled = Set A 24 + Set C 10 + Set B 8; connective-neutral constructed minimal pairs, extraction GIVEN). Set A 0.958, Set C (PREVENT killer) 0.900 vs placeholder 0.000, CAUSE-vs-ENABLE verb isolation 1.000."
 floor: "the connective/adjacency PLACEHOLDER 0.190 [0.071,0.310] AND precedence-only 0.190 [0.071,0.310] (both type-blind -> majority), recomputed on this population; frequency-matched random-label 0.293. FD lower CI 0.833 > every floor upper CI. Robustness floor: pure-FrameNet-only lexicon (backoff dropped) 0.738 [0.595,0.857] STILL beats the placeholder CI-separated."
 controls: "(1) force-class-SHUFFLE info-free twin: mean 0.383, p95 0.500, LOSES (FD lo 0.833 > p95) -> excludes riding connective/order leakage. (2) CAUSE-vs-ENABLE verb ISOLATION (endstate held constant, both reached): FD 1.000 vs verb-shuffle twin p95 0.500 -> excludes the endstate-polarity confound, isolates the verb-force contribution. (3) PRECEDENCE-ONLY (TIME organ alone -> direction not type -> majority): beaten CI-sep -> force dynamics adds the entire type signal. (4) frequency-matched RANDOM-label 0.293: beaten. (5) pure-FrameNet robustness (drop the narrative backoff): win survives -> not a backoff artifact."
-files_changed: "experiments/_force_dynamics_lexicon.py, experiments/exp_causal_force_dynamic_typer_v1.py, experiments/exp_causal_force_lexicon_coverage_v1.py, verification/test_causal_force_dynamic_typing.py, notes/problems/causation_has_no_force_dynamic_typing/research_force_dynamics_brain_mechanism_2026-08-29.md, data/force_dynamics_lexicon_v1/lexicon.json (cache)"
-reverify: ".venv/Scripts/python.exe verification/test_causal_force_dynamic_typing.py   # scaffold-free, 12/12 PASS, recomputes every headline from source"
+files_changed: "experiments/_force_dynamics_lexicon.py, experiments/exp_causal_force_dynamic_typer_v1.py, experiments/exp_causal_force_lexicon_coverage_v1.py, experiments/exp_causal_tendency_recovery_v1.py, verification/test_causal_force_dynamic_typing.py, notes/problems/causation_has_no_force_dynamic_typing/research_force_dynamics_brain_mechanism_2026-08-29.md, data/force_dynamics_lexicon_v1/lexicon.json (cache)"
+reverify: ".venv/Scripts/python.exe verification/test_causal_force_dynamic_typing.py   # scaffold-free, 14/14 PASS, recomputes every headline from source"
 ---
 
 # SOLVED — a force-dynamic CAUSE/ENABLE/PREVENT causal typer, with the brain-faithful bound measured
@@ -72,6 +72,20 @@ research content, and it answers the owner's "if you hit a wall, understand WHY"
   lexicon TYPES the single-force-verb clause relations (a bounded subset) and LABELS network edges; it
   needs verb-sense disambiguation for precision on real text.
 
+## PUSH — BUILDING ACROSS THE TENDENCY WALL (owner push: "if the brain can do it, we can once we understand")
+The wall is NOT a dead end. The research says HOW the brain sets patient tendency, and one term is
+recoverable from a real linguistic cue. **Wolff's force ARITHMETIC** (`exp_causal_tendency_recovery_v1.py`,
+witnesses W12-W13): when the endstate is reached, a WEAK affector (a *nudge*, a *breeze*) means the
+patient's own force made up the difference -> concordant -> ENABLE; a STRONG affector (a *winch*, a
+*heave*) means it overcame the patient -> discordant -> CAUSE. Affector force magnitude is encoded in
+manner/instrument words. Result: on the 14 tendency-ambiguous pairs the verb-lexicon cap **0.500 rises to
+1.000** with a glass-box affector-magnitude lexicon; the info-free magnitude-SHUFFLE twin stays at chance
+(0.499, p95 0.714 < 1.000) so the lift is genuinely the cue; and it **generalises to HELD-OUT affectors**
+(gust/bulldozer/ripple/sledgehammer: 0.500 -> 1.000). This is a MECHANISM DEMONSTRATION (constructed
+pairs, like the de-risk probe) that the missing tendency dimension is RECOVERABLE -- it turns the 0.50
+wall into a buildable path. It is NOT yet a real-text result (the cue needs the affector manner/instrument
+stated -- a coverage bound; the complementary PATIENT-AFFORDANCE source is named, not built).
+
 ## What I did NOT establish (and would withdraw first if wrong)
 - **Real-text end-to-end 3-way ACCURACY.** The typer score is on CONSTRUCTED connective-neutral minimal
   pairs with extraction GIVEN (as the SPACE/TIME construction golds isolate their mechanism). The near-0.9
@@ -79,9 +93,11 @@ research content, and it answers the owner's "if you hit a wall, understand WHY"
   a hollow construction proof (twin loses, precedence loses, PREVENT killer, pure-FrameNet survives), but
   they do NOT substitute for a hand-labelled real-prose accuracy — **the #1 follow-on** (same honest gap
   the parent discourse-fact problem left). The coverage cell is the realistic bound on where it applies.
-- **The tendency-ambiguous CAUSE-vs-ENABLE cases** — I claim the typer ONLY where tendency is lexically
-  fixed (PREVENT/Thwarting/Hindering always oppose; prototypical CAUSE verbs where the patient does not
-  tend). I do NOT claim CAUSE-vs-ENABLE for open/move/turn — that is the measured 0.50 wall.
+- **The tendency-ambiguous CAUSE-vs-ENABLE cases** — the base typer claims these ONLY where tendency is
+  lexically fixed (PREVENT/Thwarting/Hindering always oppose; prototypical CAUSE verbs). The push cell
+  shows the missing dimension is RECOVERABLE from affector magnitude (0.50 -> 1.00, mechanism demo), but
+  I do NOT claim a real-text CAUSE-vs-ENABLE number: that needs the affector manner/instrument stated,
+  held-out affectors on natural prose, and the complementary patient-affordance source built.
 - The endstate detector is a keyword negation/failure detector; it misses positive-surface prevention
   descriptions ("the dog stayed in" for a would-be escape) — the one Set C miss — which needs the same
   patient-tendency world-knowledge as the wall (a unifying limitation).
@@ -102,6 +118,11 @@ research content, and it answers the owner's "if you hit a wall, understand WHY"
    once turns two "misses" into one measured, brain-explained bound with a concrete fix.
 4. **PREVENT is the sharpest win precisely because it needs a never-happened node.** The placeholder's
    own docstring ("links cause->outcome") is why it scores 0.000 on Set C: there is no outcome to link.
+5. **A wall named as "needs world-knowledge" was crossable by force ARITHMETIC, not more knowledge.** The
+   CAUSE-vs-ENABLE tendency I first called a world-knowledge gap is partly recoverable from a cue already
+   IN the sentence (affector force magnitude), via Wolff's own force-vector arithmetic: weak-affector +
+   success => the patient must have contributed => ENABLE. Understanding the brain's MECHANISM (not just
+   "the brain uses world-knowledge") revealed a buildable path the "needs a KB" framing would have missed.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 - **NEW situation-model CAUSATION organ (force-dynamic typer).** Was: connective + most-recent-adjacency
@@ -117,21 +138,42 @@ research content, and it answers the owner's "if you hit a wall, understand WHY"
   inference generally; it does **not** dissociate CAUSE/ENABLE/PREVENT. Soften any claim that a
   meta-analysis localises the force-dynamic typer. (Full basis in the research note.)
 
-## Adjacent components — brain-fidelity + optimization potential (seeds for next problems)
-1. **Patient-disposition / world-knowledge input for CAUSE-vs-ENABLE (HIGH leverage, PINNED gap).** The
-   0.50 wall's fix. Brain-faithful mechanism: force vectors from perception/knowledge set patient
-   tendency. The substrate has candidate seeds — the `verbnet_affectedness_lexicon_v1` (Dowty/Beavers
-   proto-patient affectedness, a change-of-state prior) and the grounding assets. A "does the patient tend
-   toward this endstate?" typed input would lift CAUSE-vs-ENABLE off its lexical cap. Currently ABSENT.
-2. **Glass-box VERB-SENSE DISAMBIGUATION (already a filed problem: `no_glass_box_verb_sense_disambiguation`).**
-   The measured precision bound: broad Cause_* frames over-admit light verbs (do/give/take/see), so
-   distinct-verb coverage is high-recall/low-precision (14.5% honest vs 67% inflated). A sense gate on
-   the lexicon is exactly what real-text precision needs — this problem gives it a concrete consumer.
-3. **CLAUSE-level force dynamics vs DISCOURSE-level causal NETWORK (Trabasso).** Most narrative causation
-   is connective-linked clause pairs, not single force verbs. Force dynamics LABELS network edges; the
-   live `_causal_network` builds the (untyped) network. Composing the two — force-dynamic TYPES on the
-   Trabasso network edges — is the natural next integration (the PROBLEM.md §3 "OUR-SYNTHESIS" is
-   unbuilt). PINNED at each level, the composition is our synthesis.
+## Adjacent components — capability / limitation / opportunity / brain-foundational status (owner push #2)
+Evaluated for BOTH brain-foundational fidelity AND optimization potential, to seed next problems.
+1. **Patient-tendency / world-knowledge input for CAUSE-vs-ENABLE — the wall's full fix (HIGH leverage).**
+   *Capability now:* NONE in the base typer; the push cell recovers ONE term (affector magnitude) as a
+   mechanism demo. *Limitation:* affector magnitude is present only when manner/instrument is stated; the
+   other tendency sources are unbuilt. *Brain status:* PINNED that patient tendency comes from perception/
+   knowledge (Wolff & Song 2003); the specific cue-combination humans use online is an OPEN empirical
+   question (no ERP/neural CAUSE-vs-ENABLE dissociation exists — a genuine gap). *Opportunity:* a
+   glass-box tendency estimator combining (a) affector magnitude [built], (b) PATIENT AFFORDANCE (a ball
+   rolls, a crate does not — seed from `verbnet_affectedness_lexicon_v1` Dowty/Beavers proto-patient
+   change-of-state, or CapableOf-style dispositions), (c) directional/gravity cues ("down the slope" =
+   aligned). A strong, well-scoped next problem with a proven partial already in hand.
+2. **Glass-box VERB-SENSE DISAMBIGUATION (filed: `no_glass_box_verb_sense_disambiguation`).** *Capability:*
+   the lexicon has high RECALL on force verbs. *Limitation (measured here):* LOW precision on real text —
+   broad Cause_* frames over-admit light verbs (do/give/take/see), inflating relation-coverage to 67%
+   while honest distinct-verb coverage is 14.5%. *Brain status:* WSD is PINNED-needed (the brain resolves
+   sense before role/force assignment; left posterior temporal). *Opportunity:* a sense gate on the
+   lexicon is exactly what turns 14.5% into real precision — this problem is a concrete downstream consumer
+   that gives that problem a measurable target.
+3. **CLAUSE-level force dynamics vs DISCOURSE-level causal NETWORK (Trabasso & van den Broek).**
+   *Capability:* the live `_causal_network` builds an (untyped) cause->effect network from connectives +
+   adjacency; this typer types single-force-verb CLAUSES. *Limitation:* most narrative causation is
+   connective-linked clause pairs (network level), which the verb lexicon does not lexically type. *Brain
+   status:* both levels PINNED; the network<->force-dynamics COMPOSITION is OUR-SYNTHESIS (PROBLEM.md §3,
+   unbuilt). *Opportunity:* run the force-dynamic TYPER over the network EDGES (label each Trabasso edge
+   CAUSE/ENABLE/PREVENT) — the natural integration, directly buildable on both existing organs.
+4. **The endstate/negation detector (built here, coarse).** *Capability:* default-reached + negation/
+   failure override; scores Set C. *Limitation:* keyword-based, misses positive-surface prevention ("the
+   dog stayed in") — the same patient-tendency world-knowledge gap as #1. *Brain status:* PINNED that a
+   prevented endstate is actively represented via negation-as-simulation (Kaup et al.; Wolff/Barbey/
+   Hausknecht virtual forces). *Opportunity:* a graded outcome-vs-goal comparator (did the outcome match
+   the patient's tended endstate?) — shares the tendency machinery of #1, so #1 subsumes it.
+5. **TIME precedence register (integrated, EXCELLENT) — the direction GATE this typer relies on.**
+   *Capability:* queryable before/after, serves causal direction 1.000 vs 0.000. *Brain status:*
+   PINNED-faithful (Reichenbach; MTL time cells). *Fit:* healthy; this typer consumes it as the direction
+   gate, no change needed. Confirms the composition strategy (precedence GATES, force dynamics TYPES).
 
 ## What strategy would change in hdlab/ (Q111 — I propose, do not land)
 Promote `_force_dynamics_lexicon.py` (lexicon + typer + endstate detector) into hdlab as the CAUSATION
@@ -164,8 +206,9 @@ brain-faithful bound with a named fix, not an open question.)
 ## NEXT STEPS
 1. **Real-prose accuracy serve** — hand-adjudicate ~20 real narrative force-verb sentences and run the
    full pipeline (extraction + endstate detection + typing); the #1 unestablished number.
-2. **File the patient-disposition/world-knowledge input** as the follow-on that lifts the CAUSE-vs-ENABLE
-   0.50 wall (adjacent #1; seed from the affectedness lexicon / grounding).
+2. **Extend the tendency estimator** (adjacent #1) from the built affector-magnitude term to a full
+   glass-box estimator (+ patient affordance from the affectedness lexicon + directional/gravity cues),
+   and test on HELD-OUT affectors + hand-labelled real prose — the push cell is the proven first term.
 3. **Compose force-dynamic types onto the Trabasso causal-network edges** (adjacent #3) so the typer
    labels the discourse-level network, not just single clauses.
 4. Strategy: land the typer in hdlab (proposal above), reusing the TIME precedence gate; propagate the
