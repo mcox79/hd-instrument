@@ -178,8 +178,15 @@ containment (study⊨house, garden⊨outside, unknown→None). Remaining SPACE f
 + `perceptual_access` decoupling (drop its spaCy-parse proxy → consume organ-coref); the `to_fhrr_readout` representation
 sweep (keeps this module torch-free).
 Remaining queued landings are
-the CAREFUL PORTS (`perceptual_access`+the SPACE extraction adapter, comprehensible-input, `quality_relation` FPE-log,
-the learner [growth-OFF], the p3 person-node opt-in) — each a dedicated effort, not a heartbeat-tail task.
+the CAREFUL PORTS (comprehensible-input, `quality_relation` FPE-log, the learner [growth-OFF]) — each a dedicated effort,
+not a heartbeat-tail task. **RETIRED as SUBSUMED 2026-08-29: the queued `perceptual_access` hdlab landing is NO LONGER
+NEEDED — VERIFIED first-hand that the ToM observation cue is now assembled from two LANDED spaCy-free organs:
+`location_register.present_in_scene` (the co-presence bit: agent departed → False, present → True) feeding
+`belief_partition` (the belief update) — exactly the pipeline the SPACE serve proved e2e (0.976). The
+`perceptual_access_ledger` (10 spaCy refs) was the INLINE stopgap the SPACE organ replaced; only its prose→events
+EXTRACTION adapter stays experiment-side (correctly a spaCy front-end, not an hdlab organ). Debt reduced by recognizing
+the capability is already covered, not by deferring.** The p3 person-node opt-in was also EVALUATED + NOT landed (ties the
+floor, niche, solver-said-skip — locking a tie-the-floor organ isn't wire-don't-island's intent).
 ✅ **GRADED COREF RETRIEVAL CORE LANDED 2026-08-28: `hdlab/graded_coref_pick.py` (`graded_antecedent_pick`)** — the
 reusable, spaCy-FREE CORE of the integrated coref win (`coreference_is_capped_at_065_on_real_narrative`): graded cue-based
 antecedent retrieval (ACT-R base-level activation + Centering cues → `graded_competition` softmax → pick + normalized-
