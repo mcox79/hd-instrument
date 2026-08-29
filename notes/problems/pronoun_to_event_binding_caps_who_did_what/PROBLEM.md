@@ -1,8 +1,34 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: STRONG
+review_text: "SOLVED (owner-DONE) integrated 2026-08-29 — bar MET, with exemplary drilling that CORRECTED the brief's own premise. Reverified FIRST-HAND: test_coref_graded_binder_serves_whodidwhat.py 13/13 PASS. A brain-faithful clause-level graded pronoun→event binder (graded Centering cue-competition via hdlab.graded_competition + gender agreement + person-feature exclusion) LIFTS live who-did-what CI-separated over the ACT-R incumbent: LIVE 0.143→0.226 (+0.083 CI-sep [hw 0.026]); re-instrumented event-set metric 0.249→0.385 (+0.136 CI-sep [hw 0.043]); the info-free random-binding twin LOSES in all 3 DEV/TEST splits; positive control moves; register isolated (direct decode, fixed clustering). TWO drilling findings reshape the causal story, both PROVEN: (1) the 0.589 perfect-binding ceiling was a METRIC ARTIFACT (the live readout scored most-common-verb-per-sentence, discarding multi-event clauses) — re-instrumenting as a situation-model EVENT-SET recall lifts the ceiling to 1.000 (the single highest-leverage change); (2) the residual is DISCOURSE-SPECIFIC-MEMORY-bound — a within-document entity-event oracle recovers it where generic typicality is DEAD (66% cov, beats twin +0.138), while a coherence/selectional prior is measured dead (0.029, loses to twin) — so the wall is a missing build (the phase-1 situation model) with a PROVEN mechanism, not a capability ceiling. HONEST BOUNDS (owner-flagged, I concur): the absolute lift is MODEST (~18% of the +0.44 headroom — who-did-what is NOT pushed to ceiling); the brief's SPECIFIC Cb/clause_role attribution does NOT hold (clause_role-shuffle twin beaten only 1/3; on CLEAN teacher-forced binding ACT-R base-level activation is ALREADY the optimal structural binder, +0.0 for geometry cues) — the OVERALL binder (graded cues + agreement + person-exclusion) is the win, not the named cue. Grade STRONG (bar met, brain-mechanism-drilled, self-corrected the premise; not EXCELLENT because the lift is modest and the brief's central hypothesis was refuted — the solver's honesty about that is a strength). hdlab landing: the earned STEP-1 (re-instrument the live who-did-what metric as event-set recall — the biggest lever) + STEP-2 (wire the graded binder + agreement + person-exclusion onto the live path, replacing inline ACT-R + the worse strict-Cb organ) are COUPLED live-path/measured-no-regression work → QUEUED as a careful follow-on (person-exclusion core already landed in graded_coref_pick). AUDIT §2b folded: the who-did-what cap is a HYBRID (metric-artifact decode ceiling + a small candidate-set/binder lever + a discourse-specific-memory residual), NOT a missing structural Cb binder; pronoun→event binding is FOCUS-DRIVEN. STEP-3 (wire the situation model into who-did-what) is the successor — packaged/flagged separately."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-29 (grade: STRONG; SOLVED owner-DONE)
+> **Verdict:** bar MET, with exemplary drilling that CORRECTED the brief's own premise. Reverified first-hand
+> (`test_coref_graded_binder_serves_whodidwhat.py` **13/13 PASS**). A brain-faithful clause-level graded pronoun→event
+> binder (graded Centering cue-competition via `hdlab.graded_competition` + gender agreement + person-feature exclusion)
+> lifts live who-did-what CI-separated over the ACT-R incumbent — **LIVE 0.143→0.226 (+0.083)**; re-instrumented event-set
+> metric **0.249→0.385 (+0.136)**; info-free random twin loses in all 3 splits; positive control moves; register isolated.
+> **Two proven drilling findings reshape the causal story:** (1) the 0.589 "perfect-binding ceiling" was a **METRIC
+> ARTIFACT** (the readout scored most-common-verb-per-sentence, discarding multi-event clauses) → re-instrumenting as a
+> situation-model EVENT-SET recall lifts the ceiling to **1.000** (the single highest-leverage change); (2) the residual is
+> **discourse-specific-memory-bound** — a within-document entity-event oracle recovers it where generic typicality is DEAD
+> (66% cov, beats twin +0.138), coherence/selectional priors measured dead (0.029) → the wall is a missing build with a
+> proven mechanism, not a capability ceiling.
+> **Honest bounds (I concur):** the absolute lift is MODEST (~18% of the +0.44 headroom); the brief's SPECIFIC Cb/clause_role
+> attribution does **NOT** hold (clause_role-shuffle twin beaten only 1/3; on clean teacher-forced binding ACT-R is already
+> the optimal *structural* binder) — the OVERALL binder is the win, not the named cue. The solver's honesty about its own
+> brief's refuted hypothesis is a strength.
+> **Grade STRONG** (bar met, brain-mechanism-drilled, self-corrected; not EXCELLENT because the lift is modest and the
+> central hypothesis was refuted).
+> **Landing (Q111):** the earned STEP-1 (re-instrument the live who-did-what metric as event-set recall — the biggest
+> lever) + STEP-2 (wire the graded binder + agreement + person-exclusion onto the live path, replacing inline ACT-R + the
+> worse strict-Cb organ) are COUPLED live-path / measured-no-regression work → **QUEUED** as a careful follow-on (the
+> person-exclusion core is already landed in `graded_coref_pick`). **Audit** §2b folded: the who-did-what cap is a HYBRID
+> (metric-artifact decode ceiling + a small binder lever + a discourse-specific-memory residual), pronoun→event binding is
+> FOCUS-DRIVEN. **STEP-3** (wire the built-but-unwired situation model — `decode_set` + `CausalLinkRegister` — into
+> who-did-what) is the successor problem, packaged separately.
 
 # PROBLEM: the reader resolves a pronoun to its ANTECEDENT (which entity — the integrated graded coref) but does NOT bind the resolved entity to the CLAUSE's EVENT/action, and THIS — proven by decomposition, not asserted — is the dominant cap on who-did-what: perfect pronoun→event binding on the SAME clustering recovers the WHOLE who-did-what gap (0.161 → 0.606, +0.444 CI-separated), while better name clustering adds +0.000. Build a clause-level GRADED pronoun→event binder that wires the tracked-but-UNUSED clause_role / Centering-Cb topicality into the graded scorer, and lift who-did-what CI-separated over the live path toward that ceiling with the info-free twin losing
 

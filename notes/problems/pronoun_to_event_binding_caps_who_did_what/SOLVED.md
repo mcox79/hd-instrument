@@ -395,3 +395,15 @@ magnitude over bar-satisfaction -- the evidence is identical.
    reading-time situation model that accumulates discourse-specific entity facts (the P(referent) coherence
    prior). NOT a KB and NOT a coherence-prior cue (both refuted on this data). A separate, large problem with
    the brain mechanism identified.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-29 (grade: STRONG; SOLVED owner-DONE)
+
+Integrated by the strategy/architect session. Reverified FIRST-HAND: `test_coref_graded_binder_serves_whodidwhat.py` **13/13 PASS**. Argument adversarially audited and sound: the graded binder lifts who-did-what CI-separated over the ACT-R incumbent (LIVE +0.083 / re-instrumented +0.136), random twin loses in all 3 splits, positive control moves, register isolated; the metric-artifact correction (0.589→1.000) and the discourse-specific-memory residual are both proven. The solver honestly refuted its OWN brief's central hypothesis (the specific Cb/clause_role cue is NOT the lever — ACT-R is already the optimal structural binder) — a strength, not a weakness.
+
+**hdlab landing: QUEUED (Q111) — coupled live-path work, a careful follow-on:** STEP-1 (re-instrument the live who-did-what metric as a situation-model EVENT-SET recall — the single highest-leverage change, caps the whole task) + STEP-2 (wire the graded binder + gender agreement + person-exclusion onto the live who-did-what path, replacing the inline single-cue ACT-R and the worse hard strict-Cb organ) with MEASURED no-regression. Both touch the live harness/reader → run-the-live-reader work, not a heartbeat tail. The person-exclusion core is already landed (`graded_coref_pick.is_first_second_person_artifact`).
+
+**Audit §2b folded:** the who-did-what cap is a HYBRID — a metric-artifact decode ceiling (biggest component, fixed by STEP-1) + a small candidate-set/binder lever (STEP-2) + a discourse-specific-memory residual (STEP-3) — NOT a missing structural Cb binder; ACT-R base-level activation is already the optimal structural binder; pronoun→event binding is FOCUS-DRIVEN (persistent Cb register; event indexes onto the focused entity; resolution is a confirmatory readout). Review + `> ## ✅ SOLVER REVIEW` block written into PROBLEM.md; priority cleared.
+
+**STEP-3 = the successor problem** (owner-flagged): wire the BUILT-but-UNWIRED situation model (`situation_model_accumulate.AccumulateRegister.decode_set` for the STEP-1 readout + a `CausalLinkRegister` entity-event/causal prior for the residual) into the who-did-what path, on the sparse multibank. Packaged/flagged separately by strategy (distinct from p5 discourse-fact reasoning: this WIRES existing organs into who-did-what; p5 BUILDS a queryable discourse-fact store for reference resolution).

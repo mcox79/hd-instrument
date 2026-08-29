@@ -65,6 +65,29 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-29 — THE WHO-DID-WHAT CAP IS A HYBRID (metric-artifact + a small binder lever + a discourse-specific-memory
+  residual), NOT a missing structural Cb binder; ACT-R base-level activation is ALREADY the optimal structural binder;
+  pronoun→event binding is FOCUS-DRIVEN** (from integrated `pronoun_to_event_binding_caps_who_did_what`, owner-DONE,
+  SOLVED/STRONG; reverified 13/13 first-hand). **REFINES the earlier name-clustering §2b framing** (which located the
+  who-did-what cap at pronoun→event binding). A brain-faithful clause-level graded binder (graded Centering cue-competition
+  via `graded_competition` + gender agreement + person-exclusion) DOES lift who-did-what CI-separated over the ACT-R
+  incumbent (LIVE 0.143→0.226 +0.083; re-instrumented event-set 0.249→0.385 +0.136; random twin loses all 3 splits), BUT
+  the lift is MODEST (~18% of the +0.44 headroom) and decomposes into THREE parts, each measured: **(1) a METRIC ARTIFACT**
+  — the live who-did-what readout scored most-common-verb-per-sentence, discarding multi-event clauses; re-instrumenting as
+  a situation-model EVENT-SET recall (over `situation_model_accumulate`) lifts the perfect-binding ceiling 0.589→**1.000**
+  (the "39% undecodable" was not a capability limit) — the single highest-leverage fix; **(2) a small candidate-set/binder
+  lever** — the graded binder + gender agreement + person-exclusion, a MODEST generic lift (NOT the brief's named Cb cue:
+  the clause_role-shuffle twin is beaten only 1/3, and on CLEAN teacher-forced binding ACT-R base-level activation is
+  ALREADY optimal — every geometry-heavy hand-config is WORSE, so the tracked Cb/clause_role adds ~0); **(3) a
+  discourse-specific-memory residual** — the anti-typical core, PROVEN recoverable by a within-document entity-event
+  affinity oracle (66% cov, beats its twin +0.138) where generic typicality is DEAD (coherence/selectional prior 0.029,
+  loses to twin) → the residual needs the phase-1 SITUATION MODEL (an entity-keyed event/fact memory accumulated while
+  reading), NOT a KB or coherence prior (both measured dead — the same anti-typical Winograd core as the coref-residual
+  entry). **Mechanism:** pronoun→event binding is FOCUS-DRIVEN (Grosz/Joshi/Weinstein Centering; a persistent Cb focus
+  register; the event indexes onto the focused entity; resolution is a confirmatory readout — Gernsbacher Structure
+  Building; Zwaan-Radvansky event-indexing). **No hdlab landed this round** — STEP-1 (re-instrument the metric) + STEP-2
+  (wire the graded binder onto the live path) are COUPLED live-path/measured-no-regression work, QUEUED; STEP-3 (wire the
+  built-but-unwired `decode_set` + `CausalLinkRegister` into who-did-what on the sparse multibank) is the successor problem.
 - **2026-08-29 — CORRECTION: the read-terminal divnorm rule is READOUT-CLASS + LOAD, not "every read-terminal bundle";
   and the register divnorm is OUR-EXTENSION-UNDER-TEST, NOT PINNED** (from integrated
   `read_terminal_bundle_stores_normalize_per_component_not_pooled`, owner-DONE, a rigorous negative / PARTIAL EXCELLENT;
