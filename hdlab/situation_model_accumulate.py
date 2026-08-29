@@ -201,6 +201,48 @@ def decode_serial_pooled_slots(
     return est
 
 
+def _decode_argmax_slots(trace: torch.Tensor, keys: List[torch.Tensor], role_mat: torch.Tensor) -> List[int]:
+    """Independent per-slot argmax cleanup (the cheap readout): unbind each key, argmax over role_mat."""
+    return [_serial_argmax(binding.unbind(trace, keys[s]), role_mat) for s in range(len(keys))]
+
+
+def _recon_residual(est: List[int], keys: List[torch.Tensor], role_mat: torch.Tensor, trace: torch.Tensor) -> float:
+    """CA1-comparator (Vinogradova 2001) match/mismatch: reconstruct the superposition from the decoded estimates and
+    measure how much of the stored trace it FAILS to explain. GOLD-BLIND (no truth). residual = ||trace - sum_s
+    bind(est_s, key_s)|| / ||trace||. Low = the readout explains the trace (a near-exact match certifies the decode)."""
+    recon = binding.bind(role_mat[est[0]], keys[0]).clone()
+    for s in range(1, len(keys)):
+        recon = recon + binding.bind(role_mat[est[s]], keys[s])
+    return float(torch.linalg.vector_norm(trace - recon) / torch.linalg.vector_norm(trace).clamp_min(1e-12))
+
+
+def decode_gated_slots(
+    trace: torch.Tensor,
+    keys: List[torch.Tensor],
+    role_mat: torch.Tensor,
+    n_iter: int = 6,
+    clean_eps: float = 0.05,
+    accept_eps: float = 0.15,
+) -> Tuple[List[int], str]:
+    """The readout that KNOWS WHEN to complete -- CA1 comparator (Vinogradova 2001) as an EXACT-MATCH gate. Verbatim
+    port of the validated gate in experiments/exp_readout_recall_vs_rank_reconciliation_v1.py (register-readout bar
+    item 4). Resolves the completion-helps-decode / hurts-ranking tension WITHOUT an oracle:
+      (1) if argmax already reconstructs the trace (residual < clean_eps: full cue / low load) -> keep cheap argmax
+          (completion inert; Nakazawa full-cue result);
+      (2) else run serial and ACCEPT it ONLY if it (near-)EXACTLY reconstructs the trace (residual < accept_eps). The
+          TRUE joint solution reconstructs the stored sum exactly; a SPURIOUS diverged solution at extreme overload
+          reconstructs only PARTIALLY (a partial match IS the mismatch/novelty signal) -> REJECTED in favour of argmax.
+    So it captures serial's overload gain where serial genuinely wins AND refuses serial's divergence at extreme
+    overload -- tracking the better arm at every load. Returns (est_role_indices, which) with which in
+    {"argmax_inert", "serial", "argmax_fallback"}.
+    """
+    est_a = _decode_argmax_slots(trace, keys, role_mat)
+    if _recon_residual(est_a, keys, role_mat, trace) < clean_eps:
+        return est_a, "argmax_inert"
+    est_s = decode_serial_slots(trace, keys, role_mat, n_iter=n_iter)
+    return (est_s, "serial") if _recon_residual(est_s, keys, role_mat, trace) < accept_eps else (est_a, "argmax_fallback")
+
+
 class AccumulateRegister:
     """FHRR situation-model register: bind(role_vec, event_idx_vec) per event, accumulate via bundle.
 
@@ -335,6 +377,34 @@ class AccumulateRegister:
         role_mat = torch.stack([self.role_vecs[r] for r in self.role_vocab], dim=0)
         est = decode_serial_pooled_slots(trace, keys, role_mat, n_iter=n_iter)
         return [self.role_vocab[i] for i in est]
+
+    def decode_gated(self, entity: str, event_idxs: List[int] = None, n_iter: int = 6,
+                     clean_eps: float = 0.05, accept_eps: float = 0.15) -> Tuple[List[str], str]:
+        """CA1-comparator GATED readout of an entity's occupied event slots on the RAW LINEAR SUM: cheap per-slot
+        argmax when it already reconstructs the trace (low load / full cue), else serial decode ACCEPTED only if it
+        near-exactly reconstructs (captures serial's overload recovery) else argmax fallback (refuses serial's
+        divergence at extreme overload). Tracks the better readout at EVERY load with NO oracle. ADDITIVE /
+        default-safe: register(), decode(), decode_set(), decode_serial(), decode_serial_pooled() are byte-unchanged.
+
+        Landed 2026-08-28 from the integrated `the_register_reads_by_argmax_not_recurrent_completion` (SOLVED/EXCELLENT,
+        owner-DONE; bar item 4, witness test_register_completion_readout.py). Returns (roles_per_stored_event, which)
+        with which in {"argmax_inert", "serial", "argmax_fallback"}. event_idxs default to sequential (the validated
+        accumulate pattern).
+        """
+        events = self._events.get(entity)
+        if not events:
+            raise KeyError(f"no events recorded for entity {entity!r}")
+        m = len(events)
+        if event_idxs is None:
+            event_idxs = list(range(m))
+        if len(event_idxs) != m:
+            raise ValueError(f"event_idxs length {len(event_idxs)} != {m} stored events for {entity!r}")
+        rawsum = torch.stack(events, dim=0).sum(dim=0)                      # raw linear superposition (NOT renorm)
+        keys = [self.idx_vecs[i] for i in event_idxs]
+        role_mat = torch.stack([self.role_vecs[r] for r in self.role_vocab], dim=0)
+        est, which = decode_gated_slots(rawsum, keys, role_mat, n_iter=n_iter,
+                                        clean_eps=clean_eps, accept_eps=accept_eps)
+        return [self.role_vocab[i] for i in est], which
 
     def entities(self) -> List[str]:
         """Entity ids with at least one recorded event."""

@@ -66,10 +66,18 @@ readout = the positive control isolating the STORE norm; twin 0.016 loses; argma
 twin 0.016 loses; argmax no-regression; percomp bank bit-identical to default; n_banks=8 default round-trips).
 Regression-guarded (set-return + multibank drop-in still PASS). So pooled divisive norm + gain-matched serial readout are
 now available on BOTH register backends (flat + multibank), all opt-in.
-⚠️ QUEUED remainder of the register line: register `decode_gated` (the CA1 help-vs-hurt gate — the one substantive
-readout piece left). Registry catalog entries for the landed divnorm/serial organs PENDING (`capability_registry.jsonl`
-mid-edit by another session — no clobber). **The "read-terminal bundle-store norm audit" (p6) is packaged** — solvers can
-now measure which callers to switch, since `bundling.bundle` has the divnorm option on both backends.
+✅ **`decode_gated` LANDED 2026-08-28 → the REGISTER-READOUT + NORMALIZATION LINE IS COMPLETE.** `AccumulateRegister.decode_gated`
+(CA1-comparator, Vinogradova 2001): keep cheap argmax when it reconstructs the trace; accept serial only when it near-exactly
+reconstructs (its genuine overload recovery); else argmax fallback (refuses serial's divergence). Witness
+`test_register_gated_readout_organ.py` **5/5 PASS FIRST-HAND** — tracks the better arm at EVERY load (M=8 argmax-inert 1.000;
+M=64 serial 1.000 vs argmax 0.520; M=128/256 fallback and, picking per-instance, gated 0.344 BEATS both blanket policies
+argmax 0.258 / serial 0.224). Regression: prior serial witness still 6/6. **The full register line landed this session (all
+default-off/opt-in, byte-identical when off): `decode_serial`, `decode_serial_pooled`, `bundle_norm="divnorm"` on BOTH
+backends (flat + multibank), `decode_gated`.** ⚠️ Registry catalog entries for these organs still PENDING
+(`capability_registry.jsonl` mid-edit by another session — no clobber; register when clear). Remaining queued landings are
+the CAREFUL PORTS (coref `run_graded_retrieval`, `location_register`+`perceptual_access`, `transitive_ordering`,
+comprehensible-input, `quality_relation` FPE-log) — each a dedicated effort, not a heartbeat-tail task. **p6 (read-terminal
+bundle-norm audit) is packaged** — solvers can measure which callers to switch now that divnorm exists on both backends.
 🎯 **QUEUE now (owner flagged the queue was thin + that recent solutions named unpackaged concerns — MINED + packaged 4,
 owner pushed "why only 2?"): p3 `the_name_branch_shatters_one_character_into_many_entities`; p4
 `no_glass_box_verb_sense_disambiguation` (WIP SOLVED, not owner-DONE); p5 `the_reader_has_no_coherence_next_mention_prior`
