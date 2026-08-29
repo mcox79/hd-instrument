@@ -31,7 +31,31 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-29 (LATEST) -- 🔌 **LANDED the shared PREDICATE-ARGUMENT FRONT-END core into hdlab (wire-don't-island; the PROMOTE half of the queued p7 landing, done in an idle window — verdict-independent, p7 is owner-DONE).**
+### 2026-08-29 (LATEST) -- ✅ **INTEGRATED p3 `pronoun_to_event_binding_caps_who_did_what` (owner-DONE, SOLVED, STRONG): the graded pronoun→event binder LIFTS who-did-what, and drilling CORRECTED the brief's own premise (the cap is a HYBRID: metric-artifact + a small binder lever + a discourse-specific-memory residual). Landing QUEUED (coupled live-path).**
+**Newest first; the entries below carry the fuller context.**
+✅ **INTEGRATED `pronoun_to_event_binding_caps_who_did_what` (SOLVED/STRONG, owner-DONE; reverified 13/13 FIRST-HAND):**
+a brain-faithful clause-level graded pronoun→event binder (graded Centering cue-competition via `graded_competition` +
+gender agreement + person-exclusion) LIFTS live who-did-what CI-separated over the ACT-R incumbent (LIVE 0.143→0.226
++0.083; re-instrumented event-set 0.249→0.385 +0.136; random twin loses all 3 splits; positive control moves; register
+isolated). **Two PROVEN drilling findings reshaped the brief's causal story:** (1) the 0.589 "perfect-binding ceiling"
+was a METRIC ARTIFACT — re-instrumenting who-did-what as a situation-model EVENT-SET recall lifts the ceiling to 1.000
+(the single biggest lever); (2) the residual is DISCOURSE-SPECIFIC-MEMORY-bound (a within-doc entity-event oracle beats
+its twin +0.138 where generic typicality is DEAD) → a missing build with a proven mechanism, not a ceiling. **HONEST
+bounds:** the lift is MODEST (~18% of headroom); the brief's SPECIFIC Cb/clause_role attribution does NOT hold (ACT-R is
+already the optimal STRUCTURAL binder) — the OVERALL binder is the win; the solver honestly refuted its own brief's
+hypothesis. Grade STRONG. Audit §2b folded (the cap is a HYBRID; pronoun→event binding is FOCUS-DRIVEN). Commit `f8436add7`.
+🔌 **hdlab landing QUEUED (coupled live-path, in the wire-don't-island debt below):** STEP-1 re-instrument the live
+who-did-what metric as event-set recall (biggest lever, caps the task) + STEP-2 wire the graded binder + agreement +
+person-exclusion onto the live path (replacing inline ACT-R + the worse strict-Cb organ) with MEASURED no-regression.
+🧭 **STEP-3 (the situation-model residual) CONVERGES WITH IN-FLIGHT p5** `situation_model_has_no_discourse_fact_reasoning`
+(the discourse-specific memory the who-did-what residual needs IS p5's build) — so NOT packaged as a separate problem
+(would duplicate p5); the specific `decode_set` + `CausalLinkRegister`→who-did-what WIRING folds into the queued binder
+landing / revisit after p5 resolves.
+🎯 **QUEUE now 4 open: p4 TIME dimension (ASSIGNED, WIP), p5 discourse-fact reasoning (ASSIGNED, WIP), p6 register
+write-path (open), p8 archaic-prose (open).** Nothing owner-DONE awaiting (ledger "awaiting: 2" = p4/p5 WIP SOLVEDs). The
+predarg CORE is landed; the who-did-what binder + situation-model wiring are the newest wire-don't-island debt.
+
+### 2026-08-29 -- 🔌 **LANDED the shared PREDICATE-ARGUMENT FRONT-END core into hdlab (wire-don't-island; the PROMOTE half of the queued p7 landing, done in an idle window — verdict-independent, p7 is owner-DONE).**
 **Newest first; the entries below carry the fuller context.**
 🔌 **LANDED `hdlab/predicate_argument_frontend.py` (commit `a45c18a38`) — the shared event-semantic predicate-argument
 front-end CORE.** During an idle stretch (nothing owner-DONE, queue healthy, 3 solutions in owner review) I promoted the
@@ -167,7 +191,11 @@ WordNet place-typing, composing the landed binder/passive/animacy organs), witne
 7/7. REMAINING (the WIRE half, still queued): route `situation_reader` through it DEFAULT-OFF + de-dup the 3 inline
 arg-structure copies (`location_register._goal_node`, `parse_goal_extraction`, the inline who-did-what rule) with MEASURED
 no-regression — run-the-live-reader work.** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
-floor, niche, solver-said-skip).
+floor, niche, solver-said-skip). **The WHO-DID-WHAT BINDER (from integrated p3 `pronoun_to_event_binding_caps_who_did_what`,
+2026-08-29): STEP-1 re-instrument the live who-did-what metric as a situation-model EVENT-SET recall (the biggest lever —
+lifts the ceiling 0.589→1.000) + STEP-2 wire the graded binder + gender agreement + person-exclusion onto the live path
+(replacing inline ACT-R + the worse strict-Cb organ; +0.083 live/+0.136 re-instrumented) with MEASURED no-regression —
+COUPLED live-harness work (person-exclusion core already landed in `graded_coref_pick`).**
 
 ### 2026-08-28 -- ✅ **THE LEARN-FROM-READING LEARNER (p2) INTEGRATED (owner-DONE, EXCELLENT): the "can we grow the foundation by reading?" question is RESOLVED — YES, but ONLY behind a brain-faithful CLS keep-both-stores gate, DEFAULT-OFF. The brain lever is CONTEXT SHAPE (grammatical relations), not the update rule (online==batch). The reader stays STATIC until an explicit gated growth step.**
 **READ THIS FIRST after compaction; then the entries below.**
