@@ -175,8 +175,18 @@ containment (study⊨house, garden⊨outside, unknown→None). Remaining SPACE f
 + `perceptual_access` decoupling (drop its spaCy-parse proxy → consume organ-coref); the `to_fhrr_readout` representation
 sweep (keeps this module torch-free).
 Remaining queued landings are
-the CAREFUL PORTS (coref `run_graded_retrieval`, `perceptual_access`+the SPACE extraction adapter, comprehensible-input,
-`quality_relation` FPE-log) — each a dedicated effort, not a heartbeat-tail task.
+the CAREFUL PORTS (`perceptual_access`+the SPACE extraction adapter, comprehensible-input, `quality_relation` FPE-log,
+the learner [growth-OFF], the p3 person-node opt-in) — each a dedicated effort, not a heartbeat-tail task.
+✅ **GRADED COREF RETRIEVAL CORE LANDED 2026-08-28: `hdlab/graded_coref_pick.py` (`graded_antecedent_pick`)** — the
+reusable, spaCy-FREE CORE of the integrated coref win (`coreference_is_capped_at_065_on_real_narrative`): graded cue-based
+antecedent retrieval (ACT-R base-level activation + Centering cues → `graded_competition` softmax → pick + normalized-
+entropy ABSTAIN). Caller supplies each candidate's prior-mention list `[(sentence, role), …]`; store-agnostic. Witness
+`test_graded_coref_pick_organ.py` **6/6 PASS FIRST-HAND**: graded picks the higher-ACTIVATION candidate where the rigid
+most-recent-subject `hard_tier_pick` picks the STALE subject (the +0.172 mechanism); entropy calibrates (tied 1.000 >
+dominant 0.000 = the abstain); degenerate handled; spaCy-free. ⚠️ **Still QUEUED (the resolver-stream wiring):** the opt-in
+`run_graded_retrieval` on `coreference_resolver.py` that builds the candidate prior-mentions from the live TrackedEntity
+stream + cross-validates against the held-out LitBank numbers — the careful part; this landed the store-agnostic scoring
+CORE (same land-the-clean-core lens as transitive_ordering / location_register / idiom_lexicon).
 ✅ **FIRST REASONING ORGAN LANDED 2026-08-28: `hdlab/transitive_ordering.py` (`TransitiveOrderingLine`)** — the
 comprehension→REASONING phase now has its first organ IN the substrate (not just experiments). Delta-rule magnitude-line
 integrator: read pairwise comparisons → settle into ONE bounded parietal magnitude line → bind each item to its FPE
