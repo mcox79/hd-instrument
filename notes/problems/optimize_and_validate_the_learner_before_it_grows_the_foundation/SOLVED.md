@@ -448,6 +448,47 @@ context-modulation negative as task-specific (earmark for a prediction/inference
 Sources: Hill 2015 (SimLex), Faruqui 2015 (retrofitting), Mrksic 2016 (counter-fitting), Lambon Ralph 2017
 (hub-and-spoke), Yee & Thompson-Schill 2016 (context).
 
+## RESEARCH DRILL 2 -- THE THREE REMAINING WALLS (online literature, 2026-08-28)
+
+Each wall the experiments exposed now has a brain-fidelity audit (lit-scan = hypotheses-pending-VET; none is a ceiling -- all are gaps to build across):
+
+- **WALL B -- PARSER DOMAIN-TRANSFER (drill #1's 46% simplewiki head-agreement).** Cross-domain collapse is
+  driven MOSTLY by LEXICAL/OOV mismatch, NOT structural divergence (SimpleWiki has EWT's syntax, different
+  words/register). Human parsing is INCREMENTAL + PREDICTIVE (surprisal; Hale 2001, Levy 2008) and USAGE-BASED
+  /lexicalised (Tomasello) so it generalises. FIX (#1, cheap, glass-box, conf ~0.55): IN-DOMAIN SELF-TRAINING
+  -- parse raw SimpleWiki with the current parser, keep high-confidence trees, retrain + delexicalise brittle
+  features. UNBLOCKS the banked dependency-context win. (#2, bigger: incremental left-corner parser, Lewis &
+  Vasishth 2005.)
+- **WALL C -- UNSUPERVISED IS-A ACQUISITION.** KEY: directional is-a is recoverable from PURE co-occurrence
+  only WEAKLY -- the Distributional Inclusion Hypothesis is fragile and supervised distributional detectors
+  CHEAT (memorise prototypical hypernyms, collapse under a lexical split; Levy, Remus, Biemann & Dagan 2015).
+  This PREDICTS the sibling drill #10 (distributional is-a via WeedsPrec) may return a rigorous NEGATIVE --
+  and validates its directionality control. What DOES recover it: HEARST PATTERNS ("X and other Y") + SVD
+  smoothing (Roller, Kiela & Nickel 2018) -- BEATS distributional on detection/direction/entailment -- and
+  geometric hierarchy embeddings (Poincare; Nickel & Kiela 2017). FIX (#1, glass-box, offline): Hearst-pattern
+  + SVD-smoothed is-a MINING -- a strictly-better, SELF-SOURCED alternative (mined from text the substrate
+  reads) to hand-copied WordNet supply; a real step toward the brain-faithful endpoint, and a better structure
+  source than WordNet for the counter-fit path. (#2 developmental endpoint: progressive differentiation,
+  Rogers & McClelland 2004 PDP, needs a feature-norm foundation.)
+- **WALL D -- PREDICTIVE/GENERATIVE MEANING vs SIMILARITY READ-OUT (highest-leverage move).** The brain's
+  semantic machinery is fundamentally PREDICTIVE/GENERATIVE; the N400 is a SEMANTIC PREDICTION ERROR (update
+  to a distributed meaning rep), NOT a similarity score (Rabovsky, Hansen & McClelland 2018 -- Sentence-Gestalt
+  reproduces the N400 better than lexical surprisal; Kuperberg & Jaeger 2016). MISSING: a generative/predictive
+  meaning read-out (predict the held-out word / fill the gap / infer the entailed, report the update/error) --
+  NOT a static similarity vector. This is exactly where CONTEXT-MODULATION should pay off (drill #8 "failed"
+  only on the wrong task). FIX (#1, glass-box, the declared reasoning-phase direction): a "semantic-update"
+  predictor over the learned vectors, scored on a PREDICTION benchmark (cloze/gap-fill + an N400-analog update
+  magnitude), NOT similarity, WITH the Huettig & Mani 2016 "prediction-not-necessary" null as an arm. The
+  substrate already has a predictive_coding organ to build on.
+
+RANKING (research lane's call): **Wall D = highest-leverage** (most faithful to how the brain computes meaning;
+opens the reasoning phase; rehabilitates the context-modulation negative) but research-grade (conf ~0.50).
+**Wall B goes FIRST by urgency** (cheap, high-confidence, UNBLOCKS a banked win -- do the hard blocking thing).
+**Wall C = opportunistic** (biggest proven lever but already suppliable; take the Hearst+SVD miner when the
+counter-fit path is next touched). Sources: Hale 2001, Levy 2008, Tomasello 2003, Lewis & Vasishth 2005,
+Roller et al. 2018, Levy et al. 2015, Nickel & Kiela 2017, Rogers & McClelland 2004, Rabovsky et al. 2018,
+Kuperberg & Jaeger 2016, Huettig & Mani 2016.
+
 ## TLDR
 
 The brief's plan -- make the learner update the brain's way (online, from error) -- is a proven dead

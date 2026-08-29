@@ -91,6 +91,30 @@ brain-foundational lever.**
 5. **The idiom foundation is a stored-unit RETRIEVAL, not a rule** (holistic MWE access -- brain-faithful), and a
    pronoun object is the COREFERENCE seam (not typing "it/him" removed a measured error class).
 
+## WALLS DRILLED (this session, each a fixed implementation bug -- "brain-faithful losing = presumed bug")
+
+1. **PRIOR-MISMATCH CONFOUND** -- the disambiguator used WordNet's global prior while the floor used the corpus
+   MFS, so "gains"/"breaks" were prior artifacts. FIX: inject the SAME train-MFS prior into both -> the fair test.
+2. **CONSERVATIVE GATE REVERTED CONTEXT MOVES** -- the underspecification gate only accepted moves off MFS for a
+   strong LOCAL construction, silently reverting legitimate CONTEXT-driven (reordered-access) moves (WIDE_CONSTR
+   0.739 < CTX 0.761). FIX: the gate yields to a decisive context vote too -> WIDE_CONSTR 0.750, p=0.019.
+3. **comm_obj vs cog_obj CONFLATION** -- a coarse 'proposition' object type collapsed noun.communication (reply,
+   message) with noun.cognition (point, idea, reason), so 'see the point' read as communication not cognition.
+   FIX: split the abstract-object type by its own semantic field -> 'see the point'->cognition, 'return a
+   reply'->communication, both correct; motion win intact.
+4. **PERCEPTION vs COGNITION ('the I-see wall') -- DRILLED with a finer research probe, PARTLY crossed.** The
+   brain uses the COMPLEMENT TYPE (Barwise & Perry 1983; Sweetser 1990 mind-as-body metaphor; corroborated by the
+   dispatched lit-scan): a naked-infinitive/participial SMALL CLAUSE ('saw him LEAVE/LEAVING') = direct PERCEPTION;
+   a finite THAT-clause ('saw THAT S') = epistemic COGNITION; an abstract object ('saw the POINT') = cognition. I
+   implemented `has_percept_smallclause` + the that-clause + comm_obj/cog_obj object split -> correct on 7/7
+   constructed minimal pairs. It does NOT lift the SemCor perception/cognition NUMBER, because that population's
+   residual is TWO irreducible classes (measured): (a) bare 'I see' / discourse backchannels (need cross-sentence
+   pragmatics -- a marked ellipsis, no single-sentence cue, no-LLM-precluded), and (b) WordNet LEXNAME-TAXONOMY
+   quirks ('discover an avocado' is gold `verb.cognition` regardless of the concrete object). The mechanism is
+   MORE brain-faithful; the SemCor residual is a documented, understood structural ceiling. Research: aspect is
+   NOT a clean discriminator (Vendler), and UNDERSPECIFICATION (defer-to-prior) is the brain-faithful default
+   (Frazier & Rayner; Frisson & Pickering) -- both already in the mechanism.
+
 ## AUDIT UPDATE (BRAIN_FOUNDATIONAL_AUDIT.md)
 
 The **verb-polysemy** wall now has a measured verdict + two new offline foundations. PINNED: reordered-access +

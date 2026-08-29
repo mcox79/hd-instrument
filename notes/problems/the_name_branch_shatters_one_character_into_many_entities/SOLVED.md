@@ -205,18 +205,39 @@ Given the refutation, the diff is SMALL and OPT-IN, and it is NOT sold as a who-
 
 # ADJACENCIES MAPPED (candidate follow-on problems -- ranked by the who-did-what decomposition)
 
-1. **[HIGHEST LEVERAGE -- half the REAL who-did-what cap] The who-did-what STORE / fan effect, and its fix
-   is ALREADY BUILT AND UNWIRED.** The FHRR `AccumulateRegister` per-entity dense bundle decode collapses as
-   an entity accumulates events (Anderson/Reder fan effect; Radvansky 2005 -- specifically in the
-   fine-grained isolated-proposition regime our decode occupies). **My own numbers prove it and prove it
-   HURTS to unify:** HEAD_OPB (fragmented head-token names + perfect pronouns) = 0.606 BEATS ORACLE (unified
-   gold names + perfect pronouns) = 0.562 -- unifying an entity's mentions makes its register BIGGER, so it
-   decodes WORSE (the multibank-vs-flat crossover). Drill 2: the brain-faithful store is a sparse
-   pattern-separated INDEXED store (Teyler-DiScenna; Cohen-Eichenbaum), NOT one superposition, and
-   **`hdlab/situation_model_multibank.py` (MultiBankRegister) is a drop-in, already-validated fix that the
-   reading-path organs do not import** (they use `situation_model_accumulate`). Cheapest highest-leverage
-   who-did-what move on the board. Leverage: every register-backed reader. (Verify the multibank capacity
-   numbers on disk before landing -- I did not re-measure them.)
+1. **[HIGHEST LEVERAGE -- half the REAL who-did-what cap] The who-did-what STORE / fan effect. "How the
+   brain manages it" (research drills 2 & 4, the owner's directed question) -- and part of the fix is
+   ALREADY BUILT AND UNWIRED.** The FHRR `AccumulateRegister` sums ALL of an entity's events into ONE dense
+   per-entity vector; decode collapses as events accumulate (Anderson/Reder fan effect; Radvansky 2005 --
+   exactly the fine-grained isolated-proposition regime our decode occupies). **My own control arm proves it
+   and proves unifying HURTS:** HEAD_OPB (fragmented head-token names, few events each) = 0.606 BEATS ORACLE
+   (correctly-unified gold names, many events each) = 0.562. **The brain does NOT do unlimited
+   per-entity superposition** (drills 2 & 4, VERIFIED-sourced): (a) it holds only a SMALL actively-bound
+   working set -- ~4 chunks (Cowan 2001), ~4-6 role-bindings / 2-3 propositions (LISA/DORA, Hummel-Holyoak
+   2003; Halford-Cowan-Andrews 2007 extend the ~4 limit to BINDINGS, not just items) -- and everything else
+   lives as SEPARATE conjunctively-coded traces, because synchrony binding is "capacity-limited, impractical
+   for LTM storage -> must be AUGMENTED WITH CONJUNCTIVE CODING" (Hummel et al. 2004); (b) the LTM store is
+   CONTEXT-INDEXED, retrieved by entity+CONTEXT, never entity-alone (Tulving-Thomson encoding specificity
+   1973; Howard-Kahana TCM 2002 -- item+drifting-context is the cue; entity-alone conflates every encounter
+   and hits the fan wall), via CA3 pattern COMPLETION that only works because DG pattern-SEPARATED the
+   overlapping traces first (Marr; Treves-Rolls). (c) The brain ALSO gist-abstracts and forgets verbatim
+   detail (Sachs 1967; Kintsch 1990; fuzzy-trace) -- **but that is a biological CAPACITY CONSTRAINT (a
+   PARAMETER we do NOT share), not a computation to copy (owner 2026-08-28: be brain-foundational in
+   MECHANISM, but we can EXCEED the brain and need not throw away data).** So we copy the brain's
+   interference-avoiding STRUCTURE (a)+(b) -- context-indexed sparse conjunctive traces, DG-separation /
+   CA3-completion, a small active binding set, entity+context retrieval -- and KEEP FULL RETENTION of every
+   event, which lets us clear who-did-what BETTER than a forgetful brain would. The eval (recover every
+   action) stays a fair target; the brain's forgetting is not a reason to lower it. (Retain the salience /
+   gist LAYER too, as an additional index -- not as a replacement for the full store; and mark any
+   reconstructed/gist-derived output uncertain, per the Sulin-Dooling false-memory risk.) **The build order
+   this implies:** (i) the drop-in sparse-sharded
+   `hdlab/situation_model_multibank.py` (MultiBankRegister) -- already validated, but the reading-path
+   organs import `situation_model_accumulate` instead, so it is UNWIRED (cheapest first step; verify its
+   capacity numbers before landing, I did not re-measure); (ii) deeper: a CONTEXT-INDEXED conjunctive event
+   store keyed by entity+context (not entity-alone) with a small active binding set; (iii) gist/salience
+   abstraction rather than exhaustive verbatim retention. This is the p2/addressed-storage line + the
+   `research_entity_store_*` trio (08-27); my decomposition adds the who-did-what-specific evidence that it,
+   not name clustering, is the cap. Leverage: every register-backed reader.
 2. **[HIGH -- the other half of the cap] Pronoun-to-event binding, done at the CLAUSE level not as a staged
    pipeline.** Perfect pronoun coref lifts who-did-what 0.16 -> 0.61; the simple ACT-R binder reaches only
    0.31 even with gold names. Drill 2: the staged "resolve-pronoun-THEN-bind" frame "has no direct empirical
