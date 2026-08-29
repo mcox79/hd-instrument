@@ -75,8 +75,17 @@ argmax 0.258 / serial 0.224). Regression: prior serial witness still 6/6. **The 
 default-off/opt-in, byte-identical when off): `decode_serial`, `decode_serial_pooled`, `bundle_norm="divnorm"` on BOTH
 backends (flat + multibank), `decode_gated`.** ⚠️ Registry catalog entries for these organs still PENDING
 (`capability_registry.jsonl` mid-edit by another session — no clobber; register when clear). Remaining queued landings are
-the CAREFUL PORTS (coref `run_graded_retrieval`, `location_register`+`perceptual_access`, `transitive_ordering`,
-comprehensible-input, `quality_relation` FPE-log) — each a dedicated effort, not a heartbeat-tail task. **p6 (read-terminal
+the CAREFUL PORTS (coref `run_graded_retrieval`, `location_register`+`perceptual_access`, comprehensible-input,
+`quality_relation` FPE-log) — each a dedicated effort, not a heartbeat-tail task.
+✅ **FIRST REASONING ORGAN LANDED 2026-08-28: `hdlab/transitive_ordering.py` (`TransitiveOrderingLine`)** — the
+comprehension→REASONING phase now has its first organ IN the substrate (not just experiments). Delta-rule magnitude-line
+integrator: read pairwise comparisons → settle into ONE bounded parietal magnitude line → bind each item to its FPE
+place code in an FHRR register → answer UN-STATED pairs by native FPE read-out (NOT a symbolic sort; Frank-Rudy-O'Reilly
+2003 / Dusek-Eichenbaum). Witness `test_transitive_ordering_organ.py` **5/5 PASS FIRST-HAND**: un-stated pairs 1.000 vs
+the association-MATCHED floor 0.500 (+0.500 — relational integration, not associative strength; the Dusek/Eichenbaum
+control); info-free twin (shuffled premise directions) loses (1.000 vs 0.587); the human distance-effect DIRECTION (far
+pairs EASIER, 0.800 vs 0.480 — rules out serial chaining). Leaf module, imports clean. hdlab port of the ungrounded core;
+the grounded case (consuming the p1 ruler) + the chaining-vs-magline discriminator remain as controls/follow-ons. **p6 (read-terminal
 bundle-norm audit) is packaged** — solvers can measure which callers to switch now that divnorm exists on both backends.
 🎯 **QUEUE now (owner flagged the queue was thin + that recent solutions named unpackaged concerns — MINED + packaged 4,
 owner pushed "why only 2?"): p3 `the_name_branch_shatters_one_character_into_many_entities`; p4
