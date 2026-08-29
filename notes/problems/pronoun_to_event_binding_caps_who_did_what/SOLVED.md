@@ -251,6 +251,46 @@ drilled to a brain mechanism; none is a capability ceiling.**
 
 # ADJACENCIES EVALUATED (candidate follow-on problems -- brain-foundational fidelity + optimization potential)
 
+> ## FURTHER PUSHES + ADJACENT-COMPONENT EVALUATION (added this round, owner directive "keep pushing + evaluate adjacents")
+>
+> **A. `hdlab/situation_model_accumulate.py` -- THE decisive adjacent component, and it is ALREADY BUILT and
+> UNWIRED (evaluated on disk).** Capabilities: an `AccumulateRegister` that binds (entity -> events) and
+> decodes a single event, a SET of events (`decode_set`), serial/gated/pooled slot decodes, AND a separate
+> `CausalLinkRegister` (add_causal_link, query_link_polarity, query_effect_of). **This means BOTH of this
+> problem's open fixes already have their organ:** (i) STEP 1 (re-instrument who-did-what as an event-SET
+> readout, ceiling 0.589->1.000) is literally "score over `AccumulateRegister.decode_set` instead of the
+> slot-tally"; (ii) STEP 3's discourse-specific prior (the proven residual mechanism) is what the
+> entity-event register + causal-link register are FOR -- query "what did entity X do / cause" to supply the
+> P(referent) prior. **Limitation / brain-fidelity deviation:** it is the FLAT DENSE FHRR register, which
+> suffers the fan effect as events accumulate (sibling flagged the sparse `situation_model_multibank`
+> MultiBankRegister as the faithful fix, built-but-unwired). **-> THE NEXT PROBLEM: wire the situation model
+> into the who-did-what path (metric via decode_set + binder-prior via the entity-event/causal register),
+> on the sparse multibank.** Highest cross-cutting leverage; every register-backed reader benefits.
+>
+> **B. SIZED the STEP-3 opportunity (semantic discourse oracle, `--semantic`).** My exact-match discourse
+> oracle (0.66 coverage, 0.16 acc, beats twin +0.138) is a LOWER bound. A WordNet-verb-SIMILARITY version
+> WIDENS coverage 0.66->0.85 but is NOISIER (acc 0.108, beats twin +0.093) -- so a crude semantic proxy does
+> NOT beat exact-match; both cap the discourse-specific mechanism at ~10-16% of the residual with glass-box
+> proxies. **Implication:** the situation-model payoff on the residual is REAL but requires a GROUNDED/
+> contextual event memory (not WordNet), i.e. the phase-1 meaning-supply build -- this sizes the next problem
+> and rules out a cheap WordNet shortcut.
+>
+> **C. FIDELITY GAP found in my own binder (evaluated, mapped): gender agreement is a HARD FILTER, but the
+> feature-agreement drill says it is a GRADED cue** (Badecker-Straub 2002; mismatching feature-sharing
+> distractors still compete). On this NOISY corpus (22.5% coverage, archaic) a hard `_gn_compat` gate can
+> silently DROP the true antecedent when the inferred gender is wrong. **-> a fidelity fix worth testing:
+> include wrong-gender candidates but DOWN-WEIGHT them (an agreement cue in the net), so a strong other-cue
+> can override a bad gender guess.** Expected payoff small (agreement saturates) but strictly more faithful.
+>
+> **D. ANIMACY lever is UNAVAILABLE in the base cache** (measured: `ent_type` is None for all 29,103 base
+> mentions; only `load_enriched` adds it). -> a cache-regeneration adjacency, low marginal value (personal-
+> pronoun candidates are mostly animate anyway).
+>
+> **E. `hdlab/graded_competition` is used only for the PICK; its native value is the maintained DISTRIBUTION
+> (entropy = the Nref "two candidates tie -> defer" signal).** I under-used it. -> wiring the binder's entropy
+> into an abstain/defer gate (do not force a bind when the top-2 tie) is a brain-faithful uncertainty win
+> (Nref; the existing `flag_unresolved`), separate from accuracy.
+
 1. **[HIGHEST -- the real who-did-what cap; FIX PROVEN in STEP 1 above] The DEFINITIONAL DECODE CEILING
    (0.606) is a METRIC ARTIFACT.** 39% of pronoun queries do not decode even with perfect binding UNDER THE
    LIVE METRIC ("most-common verb per (cluster,sentence) slot"), which collapses multi-verb clauses. The

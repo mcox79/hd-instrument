@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. A per-event temporal-ORDER register (built in 
 result: "before(x,y) node-exact accuracy on the construction gold that ISOLATES the ordering mechanism (real English tense/connectives, 4 discriminating structures, n=103 committed pairs / 98 items): COMPOSED register (default narration OVERRIDDEN by tense/aspect+connective cues) = 1.000 [1.000,1.000] vs the recomputed NARRATION-ORDER floor 0.272 [0.194,0.349]. Positive control (past-perfect FLASHBACK subset): register 1.000 vs narration 0.000. Downstream SERVE (flashback-causal direction, n=12): temporal-constrained cause-before-effect 1.000 [1.000,1.000] vs order-agnostic narration 0.000."
 floor: "NARRATION-ORDER floor (telling order == event order), recomputed on the SAME population = 0.272 [0.194,0.349] full-pop / 0.000 on the non-linear (flashback/reorder) subset. Register lower CI 1.000 > floor upper CI 0.349. Serve floor (order-agnostic narration causal direction) 0.000."
 controls: "(1) INFO-FREE TWIN (edge-direction scrambled -- destroys BOTH tense and connective info, keeps coverage): full-pop 0.527, null p95 0.602 -> LOSES CI-separated (register 1.000 > 0.602). (2) POSITIVE CONTROL: past-perfect flashback subset register 1.000 vs narration 0.000 -> the metric CAN move / narration provably cannot get these. (3) LINEAR no-regression: register 1.000 == narration on linear-order items (no over-reordering). (4) SERVE TWIN: causal-direction twin 0.472 (p95 0.727), temporal 1.000 loses it; linear-causal control 1.000 == 1.000. (5) REPRESENTATION control (Phase B): tiebreak==truth confound REMOVED (random true order, unrelated index tiebreak) -> the continuous line adds NO accuracy over discrete (max continuous-discrete = 0.0)."
-files_changed: "experiments/_temporal_order_register.py; experiments/exp_temporal_order_before_after_v1.py; experiments/exp_temporal_order_distance_effect_v1.py; experiments/exp_temporal_order_serves_causal_v1.py; verification/test_temporal_order_register.py; notes/problems/situation_model_has_no_tested_temporal_order_comprehension/{SOLVED.md, real_prose_hand_adjudication_2026-08-29.md}"
+files_changed: "experiments/_temporal_order_register.py; experiments/exp_temporal_order_before_after_v1.py; experiments/exp_temporal_order_distance_effect_v1.py; experiments/exp_temporal_order_serves_causal_v1.py; experiments/exp_temporal_order_extraction_recall_v1.py; verification/test_temporal_order_register.py; notes/problems/situation_model_has_no_tested_temporal_order_comprehension/{SOLVED.md, real_prose_hand_adjudication_2026-08-29.md, adjacent_components_brain_fidelity_map_2026-08-29.md}"
 reverify: ".venv/Scripts/python.exe verification/test_temporal_order_register.py   # 8/8 ; then .venv/Scripts/python.exe experiments/exp_temporal_order_before_after_v1.py --mode full   # HARD_PASS 1.000 vs 0.272, twin p95 0.602 ; and .venv/Scripts/python.exe experiments/exp_temporal_order_serves_causal_v1.py --mode full   # HARD_PASS temporal 1.000 vs narration 0.000"
 ---
 
@@ -75,15 +75,24 @@ toposort) over the WHOLE passage and exposes `before(x, y)`:
 Running the register on raw LitBank exposed a real-prose PRECISION wall -- but it is an **EXTRACTION** wall,
 not an ordering-logic wall. Trace of the one confident error found (Persuasion): "precisely such had the
 paragraph originally **stood** ... but sir walter had **improved** it" -> the register said improved-before-
-stood (WRONG). Cause: the shared extractor's fixed **3-token `had`-lookback** misses a pluperfest whose
+stood (WRONG). Cause: the shared extractor's fixed **3-token `had`-lookback** misses a pluperfect whose
 participle is 4 tokens from `had` (subject-aux inversion + adverb), so "stood" is mistagged simple-past.
 **The brain binds the perfect auxiliary to its participle via a CLAUSE-LEVEL syntactic dependency (left-IFG
 parse of "have + V-en"), not a fixed window.** I built that: `promote_clause_pluperfect` binds a `had` to
 the next content verb in its clause, bounded by clause breaks / subordinators / intervening finite verbs
-(possession-`had` guarded). MEASURED: recovers **+31 pluperfects** across 25 novels (11.1% -> 12.5%),
-converts the stood/improved confident-WRONG to an **abstain**, with **no construction-gold regression** and
-**no reorder-count blow-up (131 -> 131, so not over-firing)**. Residual: a possession-`had` + coordination
-edge case ("had a book and read it") a full dependency parse would resolve -- mapped follow-on.
+(possession-`had` guarded). Converts the stood/improved confident-WRONG to an **abstain**, no construction-
+gold regression, no reorder-count blow-up (131 -> 131, so not over-firing).
+
+**Then I QUANTIFIED the wall against a dependency-parse reference** (`exp_temporal_order_extraction_recall_v1`,
+spaCy `en_core_web_sm` aux-dependency = a `had`-governed participle; spaCy itself errs on archaic syntax so
+this is a LOWER bound). On 139 real-LitBank reference pluperfects, the story REFRAMED the wall:
+- **27% are COPULAR/stative "had been X"** ("had been an excellent woman", "had been ill") -- a prior STATE,
+  NOT an orderable event. Our extractor correctly SKIPS these; spaCy's "pluperfect" reference over-counts by
+  including them. This is the DROPPED perfect-ASPECT resultant-state channel (a different dimension -- below).
+- **EVENT-pluperfect recall** (the ordering-relevant 101): fixed-WINDOW **0.911**, +CLAUSE-binder **0.941**
+  (+0.030). **So the tense-extraction wall for EVENT ordering is SMALL (~6% residual)** -- the ordering
+  mechanism is NOT extraction-capped in practice, and a full syntactic parse buys only ~6% on events. The
+  earlier alarming "recall ~0.81" was an artefact of counting copular STATES as missed events.
 
 ## What I did NOT establish (withdraw-first if wrong)
 - **The 1.000 CI-separated headline is on a CONSTRUCTION gold that ISOLATES the ordering mechanism** (real
@@ -118,6 +127,12 @@ edge case ("had a book and read it") a full dependency parse would resolve -- ma
    COINCIDED with the ground-truth order (identity chronology). Randomizing the true order (tiebreak unrelated
    to truth -- as real prose has narration != chronology) showed a near-tie. The continuous line's genuine,
    non-confounded value is the human distance-effect signature + calibration, NOT accuracy.
+5. **Splitting the extraction "wall" by aspect flipped it from a problem into a next-problem.** The raw
+   pluperfect recall (~0.81) looked like a real cap until I split the reference: 27% of "had"-pluperfects are
+   copular STATES ("had been an excellent woman"), which are not events and are correctly skipped. On genuine
+   EVENTS the recall is 0.941. So the ordering mechanism is not extraction-capped -- and the copular 27% is not
+   a bug but a DIFFERENT dimension (prior entity state) we do not yet build. Measuring the RIGHT denominator
+   turned a false wall into the highest-incidence next-problem.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 The situation-model TIME dimension: **brain structure PINNED** (Zwaan & Radvansky event-indexing TIME;
@@ -133,19 +148,23 @@ entity/state dimension -- Ferretti/Kutas/McRae 2007); (c) the continuous line is
 drifting TCM context, so it lacks the forward-contiguity asymmetry.
 
 ## Adjacent components (evaluated for brain-fidelity + optimization, per owner 2026-08-28)
+Full disk-grounded 5-dimension map: `adjacent_components_brain_fidelity_map_2026-08-29.md` (Zwaan's TIME /
+SPACE / CAUSATION / ENTITIES / GOALS, each with built-status + brain-fidelity + leverage). Highlights:
 - **`hdlab/situation_reader._read_timeline` (the live TIME wiring) -- UNDER-FIRES; a WIRING fix, high leverage.**
-  It gates on `"had" in sentence` (drops connective-only reorderings) and runs PER-SENTENCE (no cross-sentence
-  flashback frame, no reference-time carried forward), and exposes no `before(x,y)`. Fidelity gap vs the
-  discourse-linked reference time (PADILIH). **Fix proposed below.**
-- **The shared tense EXTRACTOR (fixed 3-token had-window) -- OUR-INVENTION placeholder.** The brain uses a
-  clause-level aux->participle dependency. My `promote_clause_pluperfect` is a bounded fix; a full syntactic
-  dependency parse would close the residual (possession-`had` coordination). **Candidate follow-on.**
-- **The causal extractor (`_causal_network` / `_read_causation`) -- OUR-INVENTION placeholder, order-agnostic.**
-  Its own VET says it is "reducible to connective-else-most-recent," not genuine causal reasoning. The temporal
-  register now constrains its DIRECTION (Phase C serve) but not its plausibility/force-dynamics. **Candidate
-  follow-on** (a real causal-plausibility organ that consumes the temporal precedence constraint).
-- **Perfect ASPECT resultant-state -- a DROPPED channel.** "had V-en" carries a resultant state feeding the
-  entity/state dimension, not just order. A higher-fidelity aspect organ is a candidate follow-on.
+  Gates on `"had" in sentence` (drops connective-only reorderings) + runs PER-SENTENCE (no cross-sentence
+  flashback frame, no reference-time carried forward -- PADILIH); exposes no `before(x,y)`. **Fix proposed below.**
+- **CAUSATION (`_causal_network` / `_read_causation`) -- the LEAST genuinely-built dimension, and it now has
+  its missing ingredient.** Live organ is order-agnostic + "reducible to connective-else-most-recent" (its OWN
+  VET), despite heavy `exp_causal_*` exploration. Cause MUST precede effect; the TIME register supplies exactly
+  that (Phase C: 1.000 vs 0.000). **Strongest candidate NEXT PROBLEM: a genuine causal-direction/plausibility
+  organ consuming the temporal precedence constraint.**
+- **Perfect-ASPECT resultant/prior-STATE channel -- a DROPPED channel, and it is HIGH-INCIDENCE.** MEASURED:
+  **27% of real 'had'-pluperfects are copular "had been X"** (prior entity STATES) that nothing consumes as
+  entity state-history. **Candidate NEXT PROBLEM: a per-entity prior/resultant-STATE register** (feeds the
+  ENTITY dimension; composes with the SPACE register's interval bookkeeping). PINNED (Ferretti/Kutas/McRae 2007).
+- **The shared tense EXTRACTOR (fixed 3-token had-window) -- OUR-INVENTION placeholder, but EVENT recall is
+  already 0.941** (clause-binder). A full syntactic parse buys only ~6% on events -> LOW priority vs the two above.
+- **ENTITIES/coref (~0.65 real-prose)** caps who-moved/who-did-what across all dimensions -- a standing cap (mapped).
 
 ## Proposed hdlab landing (strategy lands; Q111 -- I do not write hdlab/)
 1. **Promote `experiments/_temporal_order_register.py` -> `hdlab/temporal_order_register.py`** as a first-class
@@ -181,14 +200,19 @@ which I fixed the brain's way by binding "had" to its verb across the clause.
 ## QUESTIONS
 None.
 
-## NEXT STEPS
-1. **Strategy: land the wiring fix** -- promote the register to `hdlab/`, fix `_read_timeline` (whole-passage,
-   drop the had-gate, clause-pluperfect binder), point `_read_causation` at the temporal register for causal
-   direction. This is the highest-leverage change (it turns a built-but-under-firing organ into a live,
-   queryable, correctly-firing one).
-2. **Follow-on problem: a syntactic aux->participle dependency** to close the tense-extraction residual (the
-   fixed had-window is the real-prose precision cap; the ordering logic is already correct).
-3. **Follow-on problem: a genuine causal-plausibility organ** that consumes the temporal precedence constraint
-   (the current causal extractor is order-agnostic + reducible to connective-else-recent).
-4. **Optional fidelity: a drifting temporal-context representation** if the forward-contiguity asymmetry
-   (which our settled magnitude line lacks) turns out to matter for a downstream memory/order task.
+## NEXT STEPS (ranked; the push-round adjacency map sharpened these)
+1. **Strategy: land the wiring fix** -- promote the register to `hdlab/temporal_order_register.py`, fix
+   `_read_timeline` (whole-passage, drop the had-gate, clause-pluperfect binder), point `_read_causation` at
+   the temporal register for causal direction. Highest-CERTAINTY gain (a built-but-under-firing organ becomes
+   live, queryable, correctly-firing).
+2. **Next problem -- CAUSATION direction/plausibility** (the least genuinely-built Zwaan dimension; live organ
+   is a connective placeholder). It now has its missing ingredient: the TIME register's precedence constraint
+   (cause precedes effect; Phase C serve 1.000 vs 0.000). Highest-leverage NEW dimension.
+3. **Next problem -- a per-entity prior/resultant-STATE register** for the DROPPED copular-aspect channel
+   (MEASURED 27% of real 'had'-constructions: "had been X"). Feeds the ENTITY dimension; PINNED
+   (Ferretti/Kutas/McRae 2007). High incidence, currently absent.
+4. **Lower priority: a syntactic aux->participle parser** -- buys only ~6% on EVENT pluperfect recall (already
+   0.941); do it only if the causal/state organs need higher tense precision.
+5. **Optional fidelity: a drifting temporal-context representation** only if a downstream episodic RECALL task
+   needs the forward-contiguity asymmetry our settled magnitude line lacks (a recall signature, not a
+   before/after judgment capability).
