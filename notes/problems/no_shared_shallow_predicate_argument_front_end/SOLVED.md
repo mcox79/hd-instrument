@@ -143,6 +143,16 @@ majority-recovery; the strict re-test is what the effect actually is.** Files:
 `experiments/exp_shared_predarg_frontend_v3_topdown.py`,
 `data/exp_shared_predarg_frontend_v3_topdown_strict/metrics.json`.
 
+**Fraction of the parse gap recovered (B_OPEN vs batch vs oracle, strict):** path 60% (+0.122), source 92%
+(+0.066) -- a MAJORITY where the parser is weakest; goal 22%, location 19%, recipient 10% -- a MINORITY.
+**Why-drill on the goal/location residual (is it the coarse object representation?):** re-fit the selectional
+scorer on a richer PPMI-SVD object vector (`..._richrep/metrics.json`). Result -- mostly NEGATIVE, a clean
+localization: the richer rep helps ONLY location (selectional signal +0.034->+0.059; absolute +0.024), HURTS
+goal (-0.029), and is null on path/source/recipient. So the residual is NOT a general representation wall --
+location is marginally representation-bound (a real but small p1-coupling), the rest is the genuine
+goal-vs-location attachment ambiguity + the parser's raw attachment quality. **The remaining prize is a better
+ATTACHMENT ALGORITHM (the full incremental-builder swap), not a richer representation** -- a separate build.
+
 # 5. COMPONENT BRAIN-FIDELITY AUDIT (owner: every component must be brain-foundational)
 
 | component | brain mechanism | our status | fix / next lever |
