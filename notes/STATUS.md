@@ -74,8 +74,18 @@ M=64 serial 1.000 vs argmax 0.520; M=128/256 fallback and, picking per-instance,
 argmax 0.258 / serial 0.224). Regression: prior serial witness still 6/6. **The full register line landed this session (all
 default-off/opt-in, byte-identical when off): `decode_serial`, `decode_serial_pooled`, `bundle_norm="divnorm"` on BOTH
 backends (flat + multibank), `decode_gated`.** ⚠️ Registry catalog entries for these organs still PENDING
-(`capability_registry.jsonl` mid-edit by another session — no clobber; register when clear). Remaining queued landings are
-the CAREFUL PORTS (coref `run_graded_retrieval`, `location_register`+`perceptual_access`, comprehensible-input,
+(`capability_registry.jsonl` mid-edit by another session — no clobber; register when clear). ✅ **SPACE TRACKING ORGAN LANDED 2026-08-28: `hdlab/location_register.py` (`LocationRegister`)** — the Zwaan event-indexing
+SPACE dimension's brain-faithful TRACKING core, DECOUPLED from spaCy. Cleanly separated: the prose→motion-event EXTRACTION
+(the spaCy adapter reusing `PerceptualAccessLedger`) stays in `experiments/location_register.py`; this organ consumes the
+ABSTRACT events `(entity, kind, node, t)` [kind ∈ arrive/return/depart/stative/present/absent] → presence intervals →
+`where_is`/`present_in_scene`/`region_of`/`is_in_region`/`last_seen`. spaCy-FREE + no experiment imports (verified at import).
+Witness `test_location_register_organ.py` **5/5 PASS FIRST-HAND**: where-is tracking 1.000 over 36 probes; scrambled-event
+twin fails (0.583); persistence flat across filler clauses; departure→AWAY + last_seen recovers the named place; region
+containment (study⊨house, garden⊨outside, unknown→None). Remaining SPACE follow-ons QUEUED: the prose-extraction adapter
++ `perceptual_access` decoupling (drop its spaCy-parse proxy → consume organ-coref); the `to_fhrr_readout` representation
+sweep (keeps this module torch-free).
+Remaining queued landings are
+the CAREFUL PORTS (coref `run_graded_retrieval`, `perceptual_access`+the SPACE extraction adapter, comprehensible-input,
 `quality_relation` FPE-log) — each a dedicated effort, not a heartbeat-tail task.
 ✅ **FIRST REASONING ORGAN LANDED 2026-08-28: `hdlab/transitive_ordering.py` (`TransitiveOrderingLine`)** — the
 comprehension→REASONING phase now has its first organ IN the substrate (not just experiments). Delta-rule magnitude-line
