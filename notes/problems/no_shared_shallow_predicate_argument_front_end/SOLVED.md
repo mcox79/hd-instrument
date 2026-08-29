@@ -270,3 +270,15 @@ cancellation); worked around non-destructively with `mv`, leaving harmless `_STA
 A cue5 rescore was BROKEN by stale-checkpoint reuse (all arms zeroed, INLINE baseline moved); detected via
 the baseline-invariance control, the valid result restored from metrics_BEFORE_cue5.json, and the cue re-run
 cleanly in a fresh dir. No hdlab/ file was written this session.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-29 (grade: STRONG; PARTIAL owner-DONE)
+
+Integrated by the strategy/architect session. Reverified FIRST-HAND: `exp_shared_predarg_frontend_v2.py --self-test` **14/14 PASS**. Argument adversarially audited and sound: the five-role typing win is on an INDEPENDENT gold (FrameNet FE) with the info-free twin below each role; the one loss (goal recall) is a correctly-characterized precision/recall trade; two measurement leaks were self-caught (checkpoint-reuse zeroing; candidate-opening twin artifact → strict re-test).
+
+**QUEUED (Q111) — the hdlab landing, ONE careful dedicated follow-on (recorded in the STATUS wire-don't-island debt):** create `hdlab/predicate_argument_frontend.py` = the event-semantic PP-router (`route_predicate_arguments` + `_route_one_pp`) + the v1 parse helpers (`_cands`/`_pp_args_for_verb`/`_goal_belongs_to`) + the live-nltk VerbNet event-class lookup (`get_event_classes` / `is_destination_verb`) + the WordNet place-typing subsystem (`is_place_ground`), composing the landed `graded_role_assigner` / `relcl_resolver` / `thematic_role_labeler` / `animacy_lexicon` organs; add a witness. THEN route `situation_reader` through it DEFAULT-OFF and de-duplicate the three inline argument-structure copies (`location_register._goal_node`, `parse_goal_extraction`, the inline who-did-what rule) with MEASURED no-regression. Strategy verified the core is portable (~300-line multi-dependency port), but a faithful port + live-reader no-regression is a dedicated effort, not a heartbeat tail — rushing it risks a subtly-wrong organ (the place-typing/VerbNet subsystems carry real correctness surface). The validated mechanism is preserved + green in `experiments/exp_shared_predarg_frontend_v2.py` (self-test 14/14).
+
+**Audit:** folded into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b. Review + `> ## ✅ SOLVER REVIEW` block written into PROBLEM.md; priority cleared.
+
+**Next-lever follow-ons (mapped in §6, not resolved here):** the incremental-parser swap (the biggest quantified lever — spatial roles are PARSE-limited); a graded telicity PP-integrator for the goal-vs-location boundary (low marginal value per the oracle); a recipient-span resolver + real gold; a hand-labeled LitBank caused-motion goal-vs-addressee gold; deprecate the islanded single-cue `thematic_role_labeler`.

@@ -65,6 +65,34 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-29 — SPATIAL-ROLE ASSIGNMENT IS GRADED EVENT-SEMANTICS (preposition-telicity + VerbNet event-class + animacy +
+  the constructional caused-motion gate), NOT a curated motion-verb list; and there is NO shared predicate-argument
+  front-end — the role organs are ISLANDED** (from integrated `no_shared_shallow_predicate_argument_front_end`, owner-DONE,
+  PARTIAL/STRONG; reverified 14/14 first-hand). **Scope fact:** `situation_reader` (inline positional who-did-what),
+  `location_register._goal_node`, and `parse_goal_extraction` each re-derive argument structure inline with their OWN
+  passive detectors; the landed `thematic_role_labeler` / `graded_role_assigner` / `incremental_parser` / relcl resolver
+  read `WIRED` in the registry but `gate_decision: WIRE_CANDIDATE`, `used_by` = tests only (registered+witnessed, NOT on a
+  live path). **Mechanism:** the brain types spatial roles by GRADED cue-integration — the PREPOSITION's telicity as the
+  primary Place-vs-Path cue (Jackendoff Place/Path; Talmy Figure/Ground; Zwarts boundedness), modulated by the verb's
+  VerbNet event-class and object animacy; place vs path are separable networks (Kemmerer & Tranel 2003: frontal operculum
+  vs supramarginal gyrus); caused-motion is CONSTRUCTIONAL (Goldberg — binds the goal to the moved THEME, any verb can
+  enter, "she sneezed the napkin off the table"). A curated motion-verb list is the wrong SHAPE. **Validation:** on FrameNet
+  1.7 FE gold (58,808 items) the event-semantic router recovers location/path/source/recipient/direction — five roles the
+  conflating inline rule scores exactly 0.000 on — all CI-separated, info-free twin below each; theme/agent above; goal-vs-
+  recipient mislabel 27.7%→9.1%; caused-motion 8/8. **Bounds:** goal RECALL loses to the blunt inline grabber (precision/
+  recall trade); the goal-vs-location boundary at shared prepositions (at/in) is GRADED by verb telicity (a hard Destination
+  gate trades goal +0.061 for location −0.073); the spatial-role ceiling is PP-ATTACHMENT (batch arc parser UAS ~0.79 is a
+  placeholder — oracle-parse recovers path +0.18/location +0.10/source +0.10; a verb-led anticipatory attacher [Altmann &
+  Kamide; pMTG expectation + LIFG builder] recovers a MODEST CI-sep slice, the full incremental-parser swap is the bigger
+  lever) — NOT a representation wall (richer-rep drill negative). **Brief correction:** the "coref caused-motion 'to X'
+  residual" does NOT exist in coref.py — it lives only in `location_register._COMM_TRANSFER_BLOCK`. **QUEUED (one careful
+  landing, not yet landed):** create `hdlab/predicate_argument_frontend.py` (the event-semantic router + v1 parse helpers +
+  live-nltk VerbNet lookup + WordNet place-typing, composing the landed binder/passive/animacy organs) + route
+  `situation_reader` default-off + de-dup the 3 inline copies with measured no-regression — a ~300-line multi-dependency
+  port + run-the-reader work, a dedicated effort (the validated mechanism stays green in `exp_shared_predarg_frontend_v2`).
+  **Component fidelity:** agent/theme binder + PP-role router + caused-motion gate are now
+  BRAIN-FOUNDATIONAL; the parse/PP-attachment is a PLACEHOLDER with a proven brain-faithful partial fix; the single-cue
+  `thematic_role_labeler` is a placeholder to deprecate.
 - **2026-08-29 — THE COREF RESIDUAL IS THE ANTI-TYPICAL WINOGRAD CORE, a SEMANTIC/WORLD-KNOWLEDGE bound — NOT a
   coherence-prior, NOT parse-quality, NOT a static KG** (from integrated `the_reader_has_no_coherence_next_mention_prior`,
   owner-DONE, a RIGOROUS NEGATIVE = full pass; reverified 11/11 first-hand). **REFINES/REFUTES the earlier coref

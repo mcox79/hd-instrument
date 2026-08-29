@@ -1,8 +1,35 @@
 ---
-priority: 7
-review:
-review_text:
+priority:
+review: STRONG
+review_text: "PARTIAL (owner-DONE) integrated 2026-08-29. Reverified FIRST-HAND: exp_shared_predarg_frontend_v2.py --self-test 14/14 PASS. Scope finding confirmed (no shared front-end; role organs islanded/WIRE_CANDIDATE). The core WIN is decisive on an INDEPENDENT gold (FrameNet 1.7 FE, 58,808 items): the event-semantic PP-router (preposition-telicity + VerbNet event-class + animacy + constructional caused-motion — Jackendoff/Talmy/Zwarts, NOT a verb list) recovers location/path/source/recipient/direction — five roles the conflating inline rule scores exactly 0.000 on — every one CI-separated with the info-free twin below each; theme +0.059 and agent +0.017 CI-sep; goal-vs-recipient mislabel 9.1% vs 27.7%; caused-motion 8/8; positive control 0.886 vs 0.648. Brain-foundational upgrade (v1 verb-list → v2 event-semantics) is exemplary, and TWO measurement leaks were self-caught (checkpoint-reuse zeroing via baseline-invariance; a candidate-opening twin artifact via the info-free twin → strict re-test shows the parse-attachment gain is modest-but-real: eager slot-opening CI-sep on all 5 roles, selectional 4/5). HONEST bounds owned: goal RECALL 0.378 < the blunt inline grabber's 0.477 (a precision/recall trade — the grabber calls every spatial PP goal); recipient absolute low (0.152); the goal-vs-location boundary is graded (hard Destination cue trades goal +0.061 for location −0.073, correctly NOT adopted); richer-rep drill NEGATIVE (residual is ATTACHMENT, not representation). Grade STRONG not EXCELLENT: the bar's SECOND half (a downstream front-end lift via wiring — wire-don't-island) is DEFERRED to the strategy landing (the owner accepted PARTIAL and assigned it to strategy). QUEUED the full hdlab landing as ONE careful dedicated follow-on (I verified the core is portable but it is a ~300-line multi-dependency port — the event-semantic router + the v1 parse helpers + the live-nltk VerbNet event-class lookup + the WordNet place-typing subsystem, composing the landed binder/passive/animacy organs — and the live-reader no-regression de-dup is run-the-reader work; rushing it mid-heartbeat risks a subtly-wrong organ): create hdlab/predicate_argument_frontend.py, route situation_reader through it DEFAULT-OFF, and de-duplicate the three inline copies (location_register._goal_node, parse_goal_extraction, the inline who-did-what rule) with measured no-regression. Recorded in the STATUS wire-don't-island debt list. Audit §2b folded."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-29 (grade: STRONG; PARTIAL owner-DONE)
+> **Verdict:** a STRONG PARTIAL. Reverified first-hand (`exp_shared_predarg_frontend_v2.py --self-test` **14/14 PASS**).
+> The core is a genuine, brain-foundational win: on FrameNet's **independent** expert gold (58,808 real-prose items) the
+> event-semantic PP-router recovers **five spatial/transfer roles the conflating inline rule scores exactly 0.000 on**
+> (location/path/source/recipient/direction), every one CI-separated with the info-free twin below each; theme/agent also
+> above; goal-vs-recipient mislabel cut 27.7%→9.1%; caused-motion 8/8; positive control 0.886 vs 0.648. The **v1→v2
+> upgrade** (curated motion-verb list → preposition-telicity + VerbNet event-class + animacy + constructional caused-motion;
+> Jackendoff/Talmy/Zwarts) is the right, brain-faithful move.
+> **Rigor:** exemplary — **two measurement leaks self-caught** (a checkpoint-reuse rescore that zeroed every arm, caught by
+> baseline-invariance; a candidate-opening twin artifact, caught by the info-free twin → the strict re-test shows the
+> verb-led attachment gain is *modest-but-real*, not the majority-recovery the leak implied).
+> **Honest bounds (owned):** goal *recall* 0.378 < the blunt inline grabber's 0.477 (a precision/recall trade, not a
+> mechanism failure); recipient absolute low (0.152); the goal-vs-location boundary is graded (hard Destination cue trades
+> goal +0.061 for location −0.073 — correctly **not adopted**); a richer-representation drill was NEGATIVE (the residual is
+> ATTACHMENT quality, not representation — the incremental-parser swap is the real lever, a separate follow-on).
+> **Why STRONG not EXCELLENT:** the bar had two halves — (a) the extractor beats inline [DONE, decisively] AND (b) a
+> *downstream* front-end lift via wiring [DEFERRED]. The owner accepted the PARTIAL and assigned the wiring to strategy.
+> **Queued (Q111 — ONE careful dedicated landing, recorded in the STATUS wire-don't-island debt):** create
+> `hdlab/predicate_argument_frontend.py` (the event-semantic router + the v1 parse helpers + the live-nltk VerbNet
+> event-class lookup + the WordNet place-typing subsystem, composing the landed binder / passive-detector / animacy
+> organs) + a witness; then route `situation_reader` through it DEFAULT-OFF and de-duplicate the three inline copies
+> (`location_register._goal_node`, `parse_goal_extraction`, the inline who-did-what rule) with MEASURED no-regression —
+> the coupled, run-the-live-reader half of wire-don't-island. I verified the core is portable (~300-line multi-dependency
+> port), but a faithful port + live-reader no-regression is a dedicated effort, not a heartbeat tail (rushing it risks a
+> subtly-wrong organ — the place-typing/VerbNet subsystems have real correctness surface). **Audit:** folded into
+> `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
 
 # PROBLEM: multiple reader organs re-implement ARGUMENT-STRUCTURE extraction (who is the agent, what is the moved theme, which PP is the goal) INLINE and ad-hoc, and the shared residual — caused-motion "eased/struck THEM to the ground" (the theme moves, the agent stays), participial "went ON" (continue not motion) — bit the SPACE organ's goal extraction and the who-did-what front-end alike. There is no SHARED shallow predicate-argument (semantic-role) front-end that robustly maps parsed spans to agent/theme/goal/instrument roles. FIRST verify whether the landed role organs already provide this on raw prose (if so, this is a WIRING problem); if they do not (the SPACE solver's inline argument-structure gate suggests they do not), build the shared shallow SRL over the dependency parse, validate it beats the current inline/ad-hoc extraction CI-separated on a real-prose role gold with the info-free twin losing, and show it lifts a downstream front-end (SPACE goal precision or who-did-what)
 
