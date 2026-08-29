@@ -5,8 +5,8 @@ bar: "CI-separated 3-way accuracy over BOTH the placeholder AND precedence-only 
 result: "force-dynamic 3-way+sequential typing accuracy 0.929 [0.833,1.000] (bootstrap, half-width 0.083; exact CAUSE/ENABLE/PREVENT/SEQUENTIAL match; n=42 pooled = Set A 24 + Set C 10 + Set B 8; connective-neutral constructed minimal pairs, extraction GIVEN). Set A 0.958, Set C (PREVENT killer) 0.900 vs placeholder 0.000, CAUSE-vs-ENABLE verb isolation 1.000."
 floor: "the connective/adjacency PLACEHOLDER 0.190 [0.071,0.310] AND precedence-only 0.190 [0.071,0.310] (both type-blind -> majority), recomputed on this population; frequency-matched random-label 0.293. FD lower CI 0.833 > every floor upper CI. Robustness floor: pure-FrameNet-only lexicon (backoff dropped) 0.738 [0.595,0.857] STILL beats the placeholder CI-separated."
 controls: "(1) force-class-SHUFFLE info-free twin: mean 0.383, p95 0.500, LOSES (FD lo 0.833 > p95) -> excludes riding connective/order leakage. (2) CAUSE-vs-ENABLE verb ISOLATION (endstate held constant, both reached): FD 1.000 vs verb-shuffle twin p95 0.500 -> excludes the endstate-polarity confound, isolates the verb-force contribution. (3) PRECEDENCE-ONLY (TIME organ alone -> direction not type -> majority): beaten CI-sep -> force dynamics adds the entire type signal. (4) frequency-matched RANDOM-label 0.293: beaten. (5) pure-FrameNet robustness (drop the narrative backoff): win survives -> not a backoff artifact."
-files_changed: "experiments/_force_dynamics_lexicon.py, experiments/exp_causal_force_dynamic_typer_v1.py, experiments/exp_causal_force_lexicon_coverage_v1.py, experiments/exp_causal_tendency_recovery_v1.py, verification/test_causal_force_dynamic_typing.py, notes/problems/causation_has_no_force_dynamic_typing/research_force_dynamics_brain_mechanism_2026-08-29.md, data/force_dynamics_lexicon_v1/lexicon.json (cache)"
-reverify: ".venv/Scripts/python.exe verification/test_causal_force_dynamic_typing.py   # scaffold-free, 14/14 PASS, recomputes every headline from source"
+files_changed: "experiments/_force_dynamics_lexicon.py, experiments/exp_causal_force_dynamic_typer_v1.py, experiments/exp_causal_force_lexicon_coverage_v1.py, experiments/exp_causal_tendency_recovery_v1.py, experiments/exp_causal_force_dynamic_realtext_v1.py, verification/test_causal_force_dynamic_typing.py, notes/problems/causation_has_no_force_dynamic_typing/research_force_dynamics_brain_mechanism_2026-08-29.md, data/force_dynamics_lexicon_v1/lexicon.json (cache)"
+reverify: ".venv/Scripts/python.exe verification/test_causal_force_dynamic_typing.py   # scaffold-free, 16/16 PASS, recomputes every headline from source"
 ---
 
 # SOLVED — a force-dynamic CAUSE/ENABLE/PREVENT causal typer, with the brain-faithful bound measured
@@ -86,13 +86,26 @@ pairs, like the de-risk probe) that the missing tendency dimension is RECOVERABL
 wall into a buildable path. It is NOT yet a real-text result (the cue needs the affector manner/instrument
 stated -- a coverage bound; the complementary PATIENT-AFFORDANCE source is named, not built).
 
+## PUSH — REAL-TEXT POINT ESTIMATE (the #1 follow-on, now attempted; owner push: "prove the point")
+`exp_causal_force_dynamic_realtext_v1.py` (witnesses W14-W15): a small HAND-ADJUDICATED serve on **21
+verbatim McGuffey sentences** (the same real_prose_hand_adjudication move the integrated TIME problem
+used). On the mechanism's proper domain (verb in its force sense, n=12): typer **0.917 vs placeholder
+0.333** — it recovers genuine force-dynamic causation on real prose, including the "save/keep X **FROM** Y"
+prevention construction (PREVENT) and a negated CAUSE ("does not burst"). Blind over all 21 (no WSD):
+0.857 (oracle-WSD 0.952); precision 0.833, recall 0.909. **The refinement that matters:** the 3 residual
+errors are ALL verb-sense polysemy ("upset the boat" = capsize mis-typed by upset's dominant PREVENT frame
+sense; the hortative "let us/let me" typed ENABLE), and the PREVENT **from-construction SELF-DISAMBIGUATES**
+the polysemous kept/held/saved/stopped non-force uses (7/7 correctly NOT_FORCE). So the WSD need is
+CONCENTRATED (a handful of frame-polysemous verbs + the let-idiom), not the pervasive 14.5%-precision
+problem the coverage cell feared. Caveat: n=21, solver-adjudicated, extraction given — a first honest
+real-prose signal, not a benchmark.
+
 ## What I did NOT establish (and would withdraw first if wrong)
-- **Real-text end-to-end 3-way ACCURACY.** The typer score is on CONSTRUCTED connective-neutral minimal
-  pairs with extraction GIVEN (as the SPACE/TIME construction golds isolate their mechanism). The near-0.9
-  reflects idealised (agent, verb, patient) extraction on verbs the lexicon covers. The controls rule out
-  a hollow construction proof (twin loses, precedence loses, PREVENT killer, pure-FrameNet survives), but
-  they do NOT substitute for a hand-labelled real-prose accuracy — **the #1 follow-on** (same honest gap
-  the parent discourse-fact problem left). The coverage cell is the realistic bound on where it applies.
+- **Real-text end-to-end 3-way ACCURACY at scale, with automatic extraction.** The typer score is on
+  CONSTRUCTED minimal pairs with extraction GIVEN; the real-text serve above is a n=21 hand-adjudicated
+  point estimate, also with extraction given. I have NOT run automatic (agent, verb, patient) extraction
+  on a large real sample, nor a second independent adjudicator. Withdraw the real-text numbers first if a
+  larger, independently-labelled, auto-extracted sample disagrees — that is the remaining follow-on.
 - **The tendency-ambiguous CAUSE-vs-ENABLE cases** — the base typer claims these ONLY where tendency is
   lexically fixed (PREVENT/Thwarting/Hindering always oppose; prototypical CAUSE verbs). The push cell
   shows the missing dimension is RECOVERABLE from affector magnitude (0.50 -> 1.00, mechanism demo), but
@@ -123,6 +136,13 @@ stated -- a coverage bound; the complementary PATIENT-AFFORDANCE source is named
    IN the sentence (affector force magnitude), via Wolff's own force-vector arithmetic: weak-affector +
    success => the patient must have contributed => ENABLE. Understanding the brain's MECHANISM (not just
    "the brain uses world-knowledge") revealed a buildable path the "needs a KB" framing would have missed.
+6. **The SYNTACTIC construction does much of the verb-sense disambiguation for free.** On real prose the
+   feared polysemy precision problem (kept/held/saved/stopped in non-force senses) largely dissolves
+   because PREVENT is marked by the "X prevented/saved/kept Y FROM Z" construction: requiring the
+   from-complement gates out the non-force uses (7/7 correct). The residual WSD need is concentrated in a
+   few frame-polysemous verbs (upset) + the "let"-hortative idiom. Measuring on REAL text turned a broad
+   "needs WSD everywhere" worry into a precise, small target — the opposite lesson to what the type-level
+   coverage number alone implied.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 - **NEW situation-model CAUSATION organ (force-dynamic typer).** Was: connective + most-recent-adjacency
@@ -151,12 +171,14 @@ Evaluated for BOTH brain-foundational fidelity AND optimization potential, to se
    change-of-state, or CapableOf-style dispositions), (c) directional/gravity cues ("down the slope" =
    aligned). A strong, well-scoped next problem with a proven partial already in hand.
 2. **Glass-box VERB-SENSE DISAMBIGUATION (filed: `no_glass_box_verb_sense_disambiguation`).** *Capability:*
-   the lexicon has high RECALL on force verbs. *Limitation (measured here):* LOW precision on real text —
-   broad Cause_* frames over-admit light verbs (do/give/take/see), inflating relation-coverage to 67%
-   while honest distinct-verb coverage is 14.5%. *Brain status:* WSD is PINNED-needed (the brain resolves
-   sense before role/force assignment; left posterior temporal). *Opportunity:* a sense gate on the
-   lexicon is exactly what turns 14.5% into real precision — this problem is a concrete downstream consumer
-   that gives that problem a measurable target.
+   the lexicon has high RECALL on force verbs. *Limitation:* precision loss from polysemy — but the
+   real-text serve REFINED this: the PREVENT from-construction self-disambiguates most polysemous PREVENT
+   verbs, so the residual is CONCENTRATED (frame-polysemous verbs like "upset" that are PREVENT-framed but
+   CAUSE in a capsize sense, + the "let"-hortative idiom), not the pervasive 14.5% the type-level count
+   implied. *Brain status:* WSD is PINNED-needed (sense selection precedes force/role assignment; left
+   posterior temporal). *Opportunity:* a targeted sense gate for the handful of frame-polysemous force
+   verbs (upset/check/leave/see) + a hortative-"let" detector — a small, high-yield gate, not a full WSD
+   system; this problem gives it a concrete measurable target (the 3 named real-text errors).
 3. **CLAUSE-level force dynamics vs DISCOURSE-level causal NETWORK (Trabasso & van den Broek).**
    *Capability:* the live `_causal_network` builds an (untyped) cause->effect network from connectives +
    adjacency; this typer types single-force-verb CLAUSES. *Limitation:* most narrative causation is
@@ -204,8 +226,9 @@ None. (The mechanism is built and clears the bar; the tendency-ambiguity wall is
 brain-faithful bound with a named fix, not an open question.)
 
 ## NEXT STEPS
-1. **Real-prose accuracy serve** — hand-adjudicate ~20 real narrative force-verb sentences and run the
-   full pipeline (extraction + endstate detection + typing); the #1 unestablished number.
+1. **Scale the real-prose serve** — the n=21 hand-adjudicated point estimate is done (0.917 force-sense
+   vs 0.333 placeholder); next is a larger, independently-labelled sample with AUTOMATIC (agent, verb,
+   patient) extraction, to convert the point estimate into a real-text accuracy with a CI.
 2. **Extend the tendency estimator** (adjacent #1) from the built affector-magnitude term to a full
    glass-box estimator (+ patient affordance from the affectedness lexicon + directional/gravity cues),
    and test on HELD-OUT affectors + hand-labelled real prose — the push cell is the proven first term.

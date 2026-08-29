@@ -4,9 +4,9 @@ status: SOLVED
 bar: "PASSES only with ALL of: (1) the live reader's role assignment routed through a parse -> predicate_argument_frontend -> the graded who-did-what binder (built+measured in experiments/, composing the LANDED organs; a proposed hdlab/situation_reader diff, NOT an hdlab/ write); (2) Lifts end-to-end who-did-what / role accuracy CI-separated over BOTH floors on real narrative -- (a) the current POSITIONAL reader recomputed on the same population, AND (b) the content-lemma-overlap COUNTING floor from the prior attempt; the info-free twin LOSES CI-separated, report CI half-width + null p95; (3) NO REGRESSION on the cases the positional reader already gets right; (4) one-screen summary + the proposed hdlab/situation_reader diff. A rigorous NEGATIVE is a FULL PASS."
 result: "POSITIVE, bar met on the fair/achievable floors. Family-grain end-to-end role accuracy (scorer = committed-role==gold-role at the queried (entity, non-final clause); n=178 target queries over 57 real McGuffey passages; trial-bootstrap 2000x): the WIRED role path (parse -> route_predicate_arguments + quotative inversion -> graded binder, with a good-enough positional FALLBACK = HYBRID) scores 0.742 [0.680,0.803] vs the current POSITIONAL reader 0.517 [0.438,0.590] -- paired +0.225 [+0.150,+0.303] CI-separated ABOVE (half-width 0.077, null p95 0.091). At the STRICT exact-match grain 0.702 vs 0.483 (the win is not a grain artifact). QUOTATIVE inversion is the dominant lever: +0.253 [+0.177,+0.333] CI-sep. Per-role recovery (positional 0.000 -> wired): GOAL 1.00, RECIPIENT 0.50, EXPERIENCER 0.38 (with the already-wired frame labeler), AGENT 0.58->0.83."
 floor: "(a) POSITIONAL reader recomputed on the same population = 0.517 family / 0.483 exact (reproduces the prior negative's 0.483 headline). (b) content-lemma-overlap COUNTING floor, family grain: on the wired reader's OWN matched store 0.708 (beaten marginally +0.022 [+0.000,+0.050]); on the POSITIONAL store 0.466 (beaten +0.264 [+0.160,+0.360] CI-sep); on the ORACLE store 0.983 (NOT beaten, -0.253 [-0.318,-0.190]) -- the inherited oracle-INPUT number the prior negative established NO front-end-driven reader can beat. Majority-role floor 0.781 (all) / 0.615 (non-agent) / 0.837 (predarg-scope)."
-controls: "info-free ROLE twin (thematic labels detached from heads, same head multiset) LOSES +0.292 [+0.192,+0.396] CI-sep -> the role-ASSIGNMENT logic carries the gain, not head extraction. QUOTATIVE-OFF ablation isolates the speech-verb lever (+0.253 CI-sep). EXTRACT-lever (predarg extraction + recency, no binder) vs positional isolates the router. BINDER-lever (positional extraction + graded binder) vs positional +0.006 NOT_SEP AND random-BIND twin TIES (+0.000) -> HONEST: the McGuffey role metric is parse-derived + majority-agent-fallback-masked, so it CANNOT see the binder (its who-did-what value is LitBank +0.136 CI-sep, landed). HYBRID good-enough fallback cuts regression 12->6 of 92 positional-correct. Positive control: the router recovers GOAL(garden)+RECIPIENT(beggar)+passive-agent(acid) off the REAL parse -- roles the positional rule scores 0.000 on. ORACLE-role upper bound 0.983 localises the residual to the front-end."
-files_changed: "experiments/exp_wire_predarg_binder_live_reader_v1.py (new); verification/test_wire_predarg_binder_live_reader.py (new, 8/8 PASS); data/exp_wire_predarg_binder_live_reader_v1/metrics.json (new); notes/problems/wire_the_predarg_frontend_and_binder_into_the_live_reader/{SOLVED.md, PROPOSED_HDLAB_DIFF.md, research_quotative_copula_role_assignment_2026-08-29.md}. hdlab/ UNTOUCHED (proposed diff only, Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_wire_predarg_binder_live_reader.py"
+controls: "info-free ROLE twin (thematic labels detached from heads, same head multiset) LOSES +0.292 [+0.192,+0.396] CI-sep -> the role-ASSIGNMENT logic carries the gain, not head extraction. QUOTATIVE-OFF ablation isolates the speech-verb lever (+0.253 CI-sep). EXTRACT-lever (predarg extraction + recency, no binder) vs positional isolates the router. 2nd BINDING-SENSITIVE metric (which entity filled the role-slot, mis-bind fails): PREDARG beats POSITION 0.807 vs 0.636 (+0.171 CI-sep ABOVE) -- confirms the wiring on a metric the role-labeling one is blind to. BINDER-lever (positional extraction + graded binder) vs positional +0.006 NOT_SEP; and on the binding-sensitive PRONOUN subset (n=47, the binder's own population) the random-BIND twin TIES the graded binder (+0.000 NOT_SEP) -> CONFIRMED by a DIRECT binding control (not just asserted): McGuffey structurally lacks the same-gender referential competition the binder resolves, so its who-did-what value lives on LitBank (+0.136 CI-sep, landed). HYBRID good-enough fallback cuts regression 12->6 of 92 positional-correct. Positive control: the router recovers GOAL(garden)+RECIPIENT(beggar)+passive-agent(acid) off the REAL parse -- roles the positional rule scores 0.000 on. ORACLE-role upper bound 0.983 localises the residual to the front-end."
+files_changed: "experiments/exp_wire_predarg_binder_live_reader_v1.py (new; role metric + binding-sensitive who-did-what metric); verification/test_wire_predarg_binder_live_reader.py (new, 10/10 PASS); data/exp_wire_predarg_binder_live_reader_v1/metrics.json (new); notes/problems/wire_the_predarg_frontend_and_binder_into_the_live_reader/{SOLVED.md, PROPOSED_HDLAB_DIFF.md, research_quotative_copula_role_assignment_2026-08-29.md}. hdlab/ UNTOUCHED (proposed diff only, Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_wire_predarg_binder_live_reader.py   (10/10 PASS)"
 ---
 
 # Wire the predicate-argument front-end + graded binder into the live reader, measured end-to-end
@@ -78,15 +78,29 @@ Family-grain end-to-end role accuracy [95% CI], 178 queries / 57 passages, boots
 - No-regression: PREDARG 12/92, **HYBRID 6/92 (6.5%)**.
 - ORACLE-role upper bound 0.983 -- the residual is front-end-bound, as the prior negative found.
 
+**2nd, BINDING-SENSITIVE metric (deepening -- "which ENTITY filled the role-slot at clause C", inverted so a
+mis-bound pronoun directly fails; the role metric above is binding-blind + majority-masked):**
+- PREDARG 0.807 [0.757,0.855] vs POSITION 0.636 [0.551,0.714] -- **+0.171 CI-sep ABOVE** (all mentions);
+  pronoun-only 0.894 vs 0.703 (+0.19). So the wiring beats positional on a SECOND, independent metric.
+- **The graded BINDER still ties even here:** on the pronoun-only subset (n=47, the binder's designed
+  population) the random-BIND twin (0.894) EQUALS the graded binder (0.894), +0.000 NOT_SEP. This is a DIRECT
+  binding control (mis-binding a pronoun fails the query), so it CONFIRMS -- not merely asserts -- that
+  McGuffey has almost no same-gender referential COMPETITION: when a pronoun is resolved, the gn-compatible
+  pool is effectively one entity, so random == graded == recency. The binder's value requires the two-animate
+  competition that LitBank has and McGuffey does not (landed LitBank lift +0.136 CI-sep). This is a corpus
+  property, not a binder failure.
+
 ## What I did NOT establish (withdraw first if wrong)
 - **NOT a beat of the ORACLE-store counting floor (0.983).** No front-end-driven reader can (it retrieves a gold
   binding from a store of gold bindings). I beat counting on matched/positional stores; I explicitly do NOT claim the
   0.98. If someone rules that the literal bar requires beating 0.98, this is a PARTIAL, not a SOLVED -- I state the
   number so the call is the owner's.
-- **The BINDER's who-did-what value is INVISIBLE on this instrument.** It is exercised (147 items, 70% of ambiguous)
-  but the random-BIND twin TIES it (+0.000), because the role label is parse-derived and the majority-agent fallback
-  masks binding errors. Its value is real but lives on LitBank (+0.136 CI-sep, landed) -- I cite, do not re-derive.
-  First thing I withdraw: any claim the binder lifts the McGuffey number.
+- **The BINDER's who-did-what value is INVISIBLE on this corpus -- CONFIRMED by a direct binding control.** It is
+  exercised (147 items, 70% of ambiguous), but on a BINDING-SENSITIVE who-did-what metric restricted to pronoun
+  mentions (n=47, the binder's own population), the random-BIND twin TIES the graded binder (+0.000). Mis-binding a
+  pronoun fails that query, so the tie is decisive: McGuffey has almost no same-gender referential COMPETITION (the
+  gn-compatible pool is usually one entity). Its value is real but lives on LitBank (+0.136 CI-sep, landed) -- I cite,
+  do not re-derive. First thing I withdraw: any claim the binder lifts a McGuffey number.
 - **The non-agent AGGREGATE lift is not CI-separated** (+0.051 NOT_SEP, n=39, noisy) -- the per-role recoveries
   (goal/recipient/experiencer) are real but small-count; the big lift is agent recovery (quotative) + the object family.
 - **The parse cap is NOT the wall on McGuffey** (g2-g6 parses confidently: mean arc margin 14.2, 2.1% no-verb). The
@@ -113,6 +127,10 @@ Family-grain end-to-end role accuracy [95% CI], 178 queries / 57 passages, boots
 - **THE FALLBACK IS THE BRAIN'S, NOT A HACK.** The residual regressions were copula/AUX clauses the UPOS parse leaves
   verbless; the fix -- use structure when you have it, linear position when you do not -- is Ferreira good-enough
   dual-route processing, PINNED, and it halved the regression.
+- **PROVE A NEGATIVE WITH A CONTROL, NOT AN ARGUMENT.** "The binder is invisible on McGuffey" started as an argument
+  (parse-derived label + majority mask). Building the INVERTED binding-sensitive metric (which entity filled the slot,
+  restricted to pronouns) turned it into a measured fact: the random-bind twin TIES the graded binder (n=47), so the
+  corpus genuinely lacks the competition -- a positive-control-shaped way to earn the right to defer to LitBank.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 1. **`predicate_argument_frontend` (the event-semantic router) has a QUOTATIVE-INVERSION fidelity gap (NEW).** Its
@@ -127,11 +145,23 @@ Family-grain end-to-end role accuracy [95% CI], 178 queries / 57 passages, boots
    clauses yield no router verb and fall back to the majority prior; "be" assigns no agent (theta-theory / RRG). A
    copula-argument rule (subject + predicate-nominal as theme/attribute) would recover ~5 residual McGuffey cases --
    candidate follow-on, brain-faithful but neuro-thin.
+4. **THE "PARSE-THEN-ROUTE" PIPELINE SHAPE IS A FIDELITY GAP (NEW, load-bearing for the next phase).** A 2nd research
+   drill (`research_archaic_literary_prose_parse_wall_2026-08-29.md`) pins that skilled reading is INCREMENTAL: roles
+   are assigned word-by-word from verb-class expectations + thematic fit + animacy + word order + discourse, BEFORE a
+   complete tree (MacDonald 1994 Psych Rev 101:676; McRae 1998 JML 38:283; Altmann & Kamide 1999; Frank & Bod 2011
+   Psych Sci 22:829 -- human reading times track SEQUENTIAL, not hierarchical, structure). So computing a full parse
+   and THEN routing roles is the wrong SHAPE; the faithful form makes the parse ONE GRADED CUE, not a gate -- i.e. an
+   incremental multi-cue constraint-satisfaction role assigner (which the ISLANDED `hdlab/thematic_role_labeler.py`
+   Competition Model already is, per the prior negative's audit). My hybrid (structure-when-available, position-else)
+   is a first step toward this, but the fully faithful next build demotes the parse to a cue. And the parser's
+   archaic-prose failure is EXPOSURE / domain adaptation, measured exactly (Gildea 2001: 86.3 -> 80.6 F1
+   news -> literature) -- an implementation gap, not a ceiling, because humans read Dickens fine.
 
 ## Adjacent components evaluated (fidelity + optimization; seeds for next problems)
 | component | on-disk evidence | brain-foundational status | leverage |
 |---|---|---|---|
-| the parse (UD-EWT arc parser) on ARCHAIC prose | modern UAS 0.7868 cited; McGuffey confident but LitBank/Dickens untested | OUR-INVENTION (parser choice); the brain parses Dickens fine -> implementation gap | the sibling p8 owns it; compounds with this wiring on harder corpora |
+| the parse (UD-EWT arc parser) on ARCHAIC prose | modern UAS 0.7868 cited; McGuffey confident but LitBank/Dickens untested; Gildea 2001 measured 86.3->80.6 F1 news->lit | OUR-INVENTION (parser choice); the brain parses Dickens fine -> EXPOSURE/adaptation gap | p8 owns it; but see below -- retraining the parser is the HALF-measure |
+| the ROLE-ASSIGNMENT SHAPE (parse-then-route) | works, +0.225; but drill pins reading as INCREMENTAL (parse before tree) | OUR-INVENTION shape; faithful = incremental multi-cue constraint-satisfaction (parse as ONE cue) -- PINNED | HIGHEST-fidelity next build; the islanded thematic_role_labeler Competition Model is the existing learned form |
 | the graded binder's who-did-what | landed +0.136 CI-sep on LitBank; here exercised 147x but metric-invisible | PINNED (Lewis-Vasishth) | needs a BINDING-SENSITIVE instrument in the live reader (LitBank who-did-what), not the role metric |
 | the frame labeler (experiencer) | recovers experiencer 0.00->0.38 but over-fires (hurts aggregate) | PINNED axis, OUR-INVENTION gate | tighten the OOV experiencer gate before default-ON |
 | copula / predicate-nominal roles | ~5 residual regressions | PINNED-by-theory, neuro-thin | a small copula-argument rule in the router |
@@ -164,8 +194,11 @@ None.
 ## NEXT STEPS
 1. Land the diff (recommended default HYBRID); wire the router's quotative-inversion fix (Change 1) -- it is the
    biggest lever and helps EVERY caller of the router, not just the reader.
-2. Measure the graded binder's who-did-what lift on the LIVE reader over LitBank (its binding-sensitive population),
-   not the McGuffey role metric -- close the "binder wired but unmeasured here" loop.
+2. Measure the graded binder's who-did-what lift by re-running the ASSEMBLED pipeline (real arc parse -> router ->
+   binder) over LitBank (Bleak House etc.), the ONLY corpus here with the two-animate same-gender competition that
+   exercises coreference -- I CONFIRMED McGuffey cannot (random-bind twin ties graded on its pronoun subset, n=47).
+   This also yields the archaic-prose parse-quality cap for the sibling p8 in one shot. This is a clean NEXT PROBLEM
+   (the LitBank raw CoNLL is on disk; the binding-sensitive who-did-what scorer already exists in this cell).
 3. Sibling p8 (`role_assignment_is_untested_on_archaic_literary_prose`): quantify the parse UAS cap on LitBank/Dickens
    and hand the parse-quality lift there; this wiring compounds with it.
 4. Small brain-faithful follow-on: a copula-argument rule in the router (subject + predicate-nominal as theme/attribute)

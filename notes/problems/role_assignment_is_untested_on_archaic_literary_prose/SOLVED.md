@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. Measured parser role accuracy on archaic prose
 result: "spaCy subject-identification accuracy is NOT wholesale-degraded on archaic prose: natural archaic literary prose (hand gold, blind, n=52 LitBank sentences) 0.9423 [0.8654,1.0] >= natural modern textbook prose (same standard, n=55) 0.8909 [0.80,0.9636]; large unbiased UD-EWT modern anchor (n=1527) 0.905 [0.891,0.919], FLAT across length to 40+ tokens. The degradation is CONSTRUCTION-SPECIFIC (subject-verb inversion + archaic morphology), isolated by content+length-matched minimal pairs (n=23): archaic 0.739 vs modernized 0.957, paired +0.217 [0.087,0.391] (excludes 0); on real LitBank dialogue-tag inversion (n=30) spaCy 0.467. Corpus incidence: 70% of subjects are pronouns spaCy gets right; inversion ~4-12/1000 finite verbs @ ~60% spaCy error; archaic morphology 0.77% of sentences."
 floor: "spaCy-roles floor, recomputed per population: (Phase C fix) spaCy raw subject-ID on real LitBank dialogue inversion 0.4667 -- cue-repair 0.8333 [0.70,0.9667] is CI-separated ABOVE it (+0.367). (Phase B downstream) incumbent coref strict-Cb pick with spaCy roles 0.6129 [0.6029,0.6227] on 9139 competitive LitBank instances. (Phase A) modern reference arms above."
 controls: "(1) INFO-FREE TWIN (random nominal, all cue selection destroyed) -> 0.2333 on inversion, LOSES CI-separated to cue-repair 0.8333 (excludes 'any reattachment helps'; the CASE+FRAME cue geometry carries it). (2) DOWNSTREAM POSITIVE CONTROL: shuffling the cache roles drops coref strict-Cb 0.6129->0.5277, and a sensitivity sweep degrades it monotonically with simulated subject-error rate (0%=0.612, 10%=0.605, 20%=0.594, 50%=0.560) -> the metric CAN move, so the ~0 actual delta is a real NULL not a dead metric. (3) PERMUTATION NULL on the natural archaic-vs-modern gap: p95=0.0983 > |gap 0.051| -> not separable (wholesale null). (4) PROVENANCE control: 19 nominative-pronoun-labeled-OBJECT + 10 reporting-inversion errors exist in the coref cache -- a human never labels 'he' an object, PROVING the roles are parser-derived. (5) REGISTER-INVARIANCE: the SAME cue weights give archaic 0.913 ~= modern 0.957 (gap 0.043) -> the fix is not tuned to one register. (6) NO CANONICAL REGRESSION: the repair leaves canonical sentences unchanged and even lifts modern textbook prose 0.764->0.855."
-files_changed: "experiments/exp_role_parse_accuracy_probe_v1.py, experiments/exp_role_confound_incidence_litbank_v1.py, experiments/exp_role_confound_downstream_coref_v1.py, experiments/exp_role_cue_repair_inversion_v1.py, experiments/exp_role_cue_first_subject_v1.py (cue-first-vs-post-hoc + incremental_parser adjacent eval), verification/test_role_parse_accuracy_archaic.py, notes/problems/role_assignment_is_untested_on_archaic_literary_prose/{archaic_subject_gold_v1.jsonl, modern_subject_gold_v1.jsonl, register_minimal_pairs_v1.jsonl, build_role_gold.py, build_minpairs.py, sample_role_sentences.py, SOLVED.md}. No hdlab/ write (Q111); proposed hdlab diff below."
+files_changed: "experiments/exp_role_parse_accuracy_probe_v1.py, experiments/exp_role_confound_incidence_litbank_v1.py, experiments/exp_role_confound_downstream_coref_v1.py, experiments/exp_role_cue_repair_inversion_v1.py, experiments/exp_role_cue_first_subject_v1.py (cue-first-vs-post-hoc + full cascade + incremental_parser adjacent eval), experiments/exp_role_shakespeare_eme_v1.py (register-invariance at the EME extreme + POS-layer eval), verification/test_role_parse_accuracy_archaic.py, notes/problems/role_assignment_is_untested_on_archaic_literary_prose/{archaic_subject_gold_v1.jsonl, modern_subject_gold_v1.jsonl, register_minimal_pairs_v1.jsonl, build_role_gold.py, build_minpairs.py, sample_role_sentences.py, SOLVED.md}. No hdlab/ write (Q111); proposed hdlab diff below."
 reverify: ".venv/Scripts/python.exe verification/test_role_parse_accuracy_archaic.py   # 16/16 PASS"
 ---
 
@@ -156,10 +156,25 @@ selection is deterministic glass-box here; weights are the OUR-INVENTION dial). 
    `incremental_parser` should consult a case/agreement cue, not just position. Candidate follow-on: a
    non-canonical / inversion arm for the incremental parser (its own consolidation report already flagged
    prediction/revision as ~neutral on clean prose; inversion is the untested marked case).
-3. **Archaic MORPHOLOGY (thou/hath/-est/quoth) collapses spaCy's tokenizer+tagger.** 0.77% of LitBank (low), but
-   the substrate reads Shakespeare/tinyshakespeare/KJV where it is common. A small archaic-morphology lexicon
-   (thou=nom-2sg pronoun; -est=2sg finite verb; quoth=say) feeding the POS/role stage is a cheap, PINNED,
-   glass-box fix -- candidate next problem gated on whether those corpora are on the live reading path.
+3. **Archaic MORPHOLOGY (thou/hath/-est/quoth) collapses spaCy's POS tagger -- MEASURED on real Early-Modern-
+   English, and it is the deepest wall of all** (`exp_role_shakespeare_eme_v1.py`). Morphology density is 0.014%
+   in 19c LitBank but **2.31% in tinyshakespeare (165x)** -- so this is negligible for LitBank but dense for EME.
+   On 929 real Shakespeare "thou"-as-subject instances (DEFINITIONAL gold: thou is nominative): **spaCy tags
+   "thou" as a PRON only 0.1% of the time** (the POS LAYER collapses, not just the dependency parse), and spaCy's
+   subject accuracy is **0.073** (vs 0.94 on 19c) -- register-invariance does NOT hold for the modern-trained
+   tool at the EME extreme. **The brain-faithful cascade + a small STORED archaic-morphology lexicon recovers it
+   to 0.749** (a conservative lower bound -- verse line-fragmentation adds gold-pairing noise), with the "thee"
+   (accusative) control at 0.778 (it respects the case distinction, not blindly subject-ifying 2nd-person
+   pronouns). This VALIDATES the PINNED account (archaic morphology is STORED lexical knowledge, not productive
+   rules -- Pinker & Ullman): the fix is a stored lexicon, and it makes role assignment register-invariant where
+   the statistical tool is not. **Candidate next problem: an archaic-morphology POS/role lexicon** -- material
+   for any EME/KJV corpus, gated on whether those are put on the live reading path (Shakespeare is NOT today).
+4. **The POS TAGGER is a NEWLY-EVALUATED adjacent component and is the FOUNDATION the whole role stack stands
+   on.** My cue cascade assumes spaCy POS is robust on archaic prose (true for 19c: only the dependency parse
+   degrades). On EME it is NOT: spaCy tags "thou" as PRON 0.1% of the time. So the register-robustness order is:
+   POS is fine on 19c but COLLAPSES on EME; the dependency/subject layer degrades on specific 19c constructions
+   (inversion) and collapses on EME. Both layers are fixed by the SAME brain-faithful move -- a stored lexicon +
+   cue-based (Competition-Model) assignment independent of modern surface distributions.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md -- strategy to re-verify + fold in)
 
