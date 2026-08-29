@@ -190,7 +190,12 @@ PREDICATE-ARGUMENT FRONT-END (from integrated p7): ✅ CORE LANDED 2026-08-29 (c
 WordNet place-typing, composing the landed binder/passive/animacy organs), witness `test_predicate_argument_frontend_organ.py`
 7/7. REMAINING (the WIRE half, still queued): route `situation_reader` through it DEFAULT-OFF + de-dup the 3 inline
 arg-structure copies (`location_register._goal_node`, `parse_goal_extraction`, the inline who-did-what rule) with MEASURED
-no-regression — run-the-live-reader work.** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
+no-regression — run-the-live-reader work.** ⚠️ **DESIGN-GATE FINDING (2026-08-29): `situation_reader`'s live role path is
+POSITIONAL (`_assign_roles`/`_pick_role_mentions`: agent=subject-mention, patient=nearest post-predicate nominal) and has
+NO dependency parse (heads) — but `route_predicate_arguments` REQUIRES (tokens, upos, heads, verb_idx). So the predarg
+live-wiring is GATED on supplying `situation_reader` a parse (the `incremental_parser` or a lightweight heads source) —
+i.e. the parser-swap (p7 adjacency #1) is a PREREQUISITE of the predarg de-dup, not a downstream optimization. Sequence:
+parse source → predarg front-end on the live path → who-did-what binder → single remote no-regression pass.** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
 floor, niche, solver-said-skip). **The WHO-DID-WHAT BINDER (from integrated p3 `pronoun_to_event_binding_caps_who_did_what`,
 2026-08-29): STEP-1 re-instrument the live who-did-what metric as a situation-model EVENT-SET recall (the biggest lever —
 lifts the ceiling 0.589→1.000) + STEP-2 wire the graded binder + gender agreement + person-exclusion onto the live path
