@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. A reading-built, QUERYABLE per-entity discours
 result: "TWO-LEVEL. (L1, the CAPABILITY -- PASS) On a built INTER-SENTENTIAL fact-decisive reference population (state-a-role-then-refer-by-action; roles/actions split DEV/TEST, bridges drawn from the static CSKG, reading-built name->role extracted from the text): fact-store+2-hop-bridge = 0.998 [0.994,1.000] (n=500, item bootstrap) vs the fact-BLIND graded resolver floor 0.504 [0.460,0.548]; store-minus-floor +0.494 [+0.450,+0.536] band ABOVE. Survives 3-candidate (chance 0.33): 0.344 -> 1.000 (+0.656 ABOVE). RECOVERS 0.996 of the 248 cases the fact-blind reader gets WRONG (band ABOVE). (L2, the LitBank anti-typical residual -- REFUTED as fact-decisive) the store is DEAD there: bridge oracle 0.039 (5/127), the fused arm is mildly ANTI-predictive (fused-minus-twin -0.033, band BELOW), because the residual GOLD carries a mean of 0.65 accumulated facts (58% exactly ZERO) vs the wrong pick's 13.4 -- it is FRESHLY INTRODUCED and bound INTRA-SENTENTIALLY, so there is nothing to bridge to (confirmed mechanistically: Centering Cb-absence + Sturt 2003 first-pass structural binding). (L1b, BRAIN-FIDELITY UPGRADE) replacing the 2nd bridge hop's static-KG HARD MATCH with a GRADED DISTRIBUTIONAL coherence (PPMI+SVD over the KG's role-action co-occurrence, the ATL PDP analog) GENERALIZES to HELD-OUT real edges: on knowledge-completion items (edge removed) graded = 0.700 [0.660,0.740] vs the hard match's chance 0.492 (graded-minus-hard +0.208 ABOVE; twin/ablation at chance) -- the distributional mechanism recovers role->action knowledge the KG never stored. Scorer = argmax==gold link accuracy."
 floor: "The fact-BLIND reader recomputed on each population: (L1) the real graded structural resolver (hdlab.graded_competition, DEV-tuned) = 0.504 [0.460,0.548] on the 2-candidate set (chance) and 0.344 on the 3-candidate set; store CI-separated ABOVE both. Info-free twin (shuffled entity<->attribute binding) = 0.544; KG-only-null (generic KG, no reading-built binding) = 0.508; ablation (IS-A fact stripped) = 0.508 -- ALL at chance, each store-minus-control band ABOVE. (L2) on the LitBank residual the fact-blind floor is 0/205 by construction, so the meaningful floor is the info-free twin (facts shuffled across entities); the fused bridge does NOT beat it (band BELOW)."
 controls: "(1) info-free twin (entity<->attribute binding SHUFFLED within the item) -> chance 0.544, store-minus-twin +0.454 ABOVE -> excludes 'the task shape alone wins'; it is the SPECIFIC reading-built binding. (2) KG-only-null (the generic CSKG role->action bridge WITHOUT the reading-built name->role fact, scoring the candidate's surface name) -> chance 0.508, store-minus-kg +0.490 ABOVE -> excludes 'the static KG alone discriminates' (it connects but cannot discriminate -- the parent's exact finding; the store supplies the missing hop). (3) ablation (IS-A fact removed from the store) -> chance 0.508, store-minus-ablation +0.490 ABOVE -> the lift IS the accumulated facts, not the harness. (4) SPECIFICITY / discourse-age gate (fact-ABSENT items: the deciding role is never stated) -> store 0.568 vs floor 0.572, band NOT_SEP -> the operator fires ON-TARGET only. (5) graceful degradation under knowledge-coverage loss (drop bridge edges p=0..0.9) -> 0.998,0.884,0.784,0.614,0.538 monotone, no cliff -> the brain-faithful good-enough prediction + it bounds real-world applicability by KG coverage. (6) reading-built + NO LEAK (self-test: a fact at sent s is invisible to a query before sent s; facts built only from mentions with sent < p_sent). (7) held-out: roles/actions split DEV/TEST so every TEST bridge is out of the weight tuning. (8) L2 diagnosis positive-control: the accumulated-fact count gold-vs-pick (0.65 vs 13.4) is the structural REASON the store cannot apply to the residual. (9) FHRR representation fidelity: the entity->attribute fact stored in situation_model_accumulate.RelationRegister is retrieved faithfully and resolves the same pronoun -> the symbolic store is a faithful proxy for the FHRR-bound store."
-files_changed: "experiments/exp_discfact_store_bridging_residual_v1.py (L2 negative + diagnosis + DiscourseFactStore + bridge operator + CSKG generic bridge), experiments/exp_discfact_store_bridging_capability_v1.py (L1 positive: inter-sentential fact-decisive population + full control suite + recovery + 3-cand + coverage curve + specificity), experiments/exp_discfact_store_bridging_graded_v1.py (L1b BRAIN-FIDELITY UPGRADE: graded PPMI+SVD distributional bridge, held-out-edge generalization vs the symbolic hard match), verification/test_discfact_store_bridging.py (20/20, scaffold-free, incl. FHRR fidelity + graded-bridge generalization), notes/problems/situation_model_has_no_discourse_fact_reasoning/{SOLVED.md, research_discourse_fact_resolution_brain_mechanism_2026-08-29.md}. NO hdlab/ write (Q111); proposed hdlab direction below."
+files_changed: "experiments/exp_discfact_store_bridging_residual_v1.py (L2 negative + diagnosis + DiscourseFactStore + bridge operator + CSKG generic bridge), experiments/exp_discfact_store_bridging_capability_v1.py (L1 positive: inter-sentential fact-decisive population + full control suite + recovery + 3-cand + coverage curve + specificity), experiments/exp_discfact_store_bridging_graded_v1.py (L1b BRAIN-FIDELITY UPGRADE: graded PPMI+SVD distributional bridge, held-out-edge generalization vs the symbolic hard match), experiments/exp_discfact_store_multifact_load_v1.py (L1c ROBUSTNESS: multi-fact-per-entity load wall in the FHRR store + the hippocampal pattern-separation fix), verification/test_discfact_store_bridging.py (25/25, scaffold-free, incl. FHRR fidelity + graded-bridge generalization + multi-fact load/pattern-separation), notes/problems/situation_model_has_no_discourse_fact_reasoning/{SOLVED.md, research_discourse_fact_resolution_brain_mechanism_2026-08-29.md}. NO hdlab/ write (Q111); proposed hdlab direction below."
 reverify: ".venv/Scripts/python.exe verification/test_discfact_store_bridging.py"
 ---
 
@@ -103,6 +103,34 @@ k=20/50/100/300 -- the distributional-smoothing signature: over-compression and 
 lookup is blind** -- exactly the brain's advantage, and its 0.70 (not ceiling) is the honest bound set by the
 sparse KG's distributional density, NOT a hard coverage wall.
 
+## LEVEL 1c -- does the capability survive MULTI-FACT load, and does the brain's pattern-separation fix hold it?
+
+Levels 1/1b used ONE fact per entity. A real situation model accumulates MANY facts per character, and the FHRR
+store the brief names BUNDLES them (`reg = sum_i bind(rel_i, val_i)`); retrieving the deciding attribute by
+unbinding ISA returns value + CROSSTALK that grows with the fact-load K (the bundle capacity law,
+`hdlab/binding.py` `k_50% ~ N`). So I measured whether the resolution survives realistic load, on a CLEAN bridge
+(full KG) so the ONLY error source is store crosstalk, sweeping K and the dimension D:
+
+| store (resolution acc) | K=1 | K=64 | K=128 | K=256 | K=512 |
+|---|---|---|---|---|---|
+| **dense FHRR bundle (D=1024)** | 1.00 | 1.00 | 0.90 | 0.67 | 0.54 |
+| **relation-INDEXED / pattern-separated (D=1024)** | 1.00 | 1.00 | 1.00 | 1.00 | **1.00** |
+| dense FHRR bundle (D=4096, 4x capacity) | 1.00 | 1.00 | 1.00 | 0.93 | 0.70 |
+
+The **interference wall is real and measured**: the dense bundle degrades from 1.0 to 0.54 as fact-load grows
+(role recovery 1.0 -> 0.12), the crosstalk scaling `~K/D` the capacity law predicts. **The brain's fix works
+exactly**: hippocampal-style SPARSE PATTERN SEPARATION (Marr 1971 dentate gyrus; O'Reilly & McClelland 1994;
+CLS 1995) -- here a relation-INDEXED store (each relation in its own slot, no cross-fact overlap) -- holds
+resolution FLAT at 1.000 across ALL loads. **4x the dimension pushes the wall ~4x out** (capacity), confirming
+the scaling law on our organ. The info-free twin (shuffled ISA binding) is at chance (0.46).
+
+**The honest, load-bearing read:** at the substrate's dimensionality (D>=1024; the live stores run D=8192) the
+dense bundle is ALREADY adequate for a situation model's realistic per-entity load (resolution 1.0 up to K~64
+facts). The wall only bites at HUNDREDS of facts -- lifetime-episodic-memory scale -- which is exactly where the
+brain deploys pattern separation. So the proven capability is ROBUST in its operating regime, and I have located
++ measured + fixed the wall beyond it (the same dense->sparse/indexed store-organization axis the read-terminal
+/ fan-store line already identified as the substrate's fidelity lever -- built on here, credited).
+
 # What I did NOT establish (and would withdraw first if wrong)
 
 1. **Real-text accuracy is NOT established.** The Level-1 population is CONSTRUCTED. The near-1.0 reflects
@@ -122,9 +150,13 @@ sparse KG's distributional density, NOT a hard coverage wall.
 3. **L2's residual bound is the exact-KG/no-LLM boundary**, not "unrecoverable by any route": the residual's
    real levers are a reliable intra-sentential SYNTACTIC binder (the parent's named follow-on) + richer
    distributional semantics (p1), NOT a discourse-fact store. I did not build those.
-4. **The FHRR fidelity check is single-filler-exact.** Multi-fact-per-entity storage introduces bundling
-   interference (the sparse/indexed-store fidelity axis); I used the symbolic store for the measurement and
-   verified only the single-filler FHRR case.
+4. **[NOW MEASURED -- see Level 1c] Multi-fact storage.** The FHRR dense bundle DOES degrade under high
+   fact-load (measured: 1.0 -> 0.54 at K=512, D=1024), and relation-indexed pattern separation fixes it (flat
+   1.0). What I did NOT do: build the SPARSE-CODE (DG-style) variant (I used relation-indexed slots as the
+   pattern-separation proxy -- the same interference-removal principle, but a distributed sparse code is the
+   more literal DG analog), nor measure at the live D=8192 (I used D<=4096; the wall moves out with D, so the
+   live regime is safer, not worse). The capability's realistic-load robustness (K~dozens) is established; the
+   extreme-load fix is demonstrated but not landed.
 
 # KEY REALIZATIONS (the enabling moves)
 
@@ -164,6 +196,12 @@ sparse KG's distributional density, NOT a hard coverage wall.
    always the lowest-id candidate, so "chance" was 100%. Randomizing the gold's entity id restored a genuine 0.5
    floor. The lesson (again): a floor that is suspiciously perfect is a construction artifact -- check the
    tie-break before trusting the baseline.
+9. **A capacity wall must be PROBED IN THE RIGHT REGIME or it hides.** My first multi-fact run (D=1024, K<=16)
+   showed NO degradation and I nearly concluded "no wall." The capacity law (`k_50% ~ N`) said the wall is near
+   K~D, so K=16 was 60x too low to see it. Pushing K into the hundreds revealed the clean degradation curve AND
+   located the wall (K~128-256 at D=1024) AND showed realistic loads (K~dozens) sit safely below it. "Ask whether
+   the experiment could even succeed" applies to walls too: compute WHERE the wall should be before concluding
+   there isn't one.
 
 # AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 
@@ -176,9 +214,13 @@ sparse KG's distributional density, NOT a hard coverage wall.
   threshold. **FIDELITY UPGRADE BUILT (Level 1b):** the 2-hop bridge's 2nd hop was a symbolic hard match; I
   replaced it with a GRADED DISTRIBUTIONAL coherence (PPMI+SVD over the KG's co-occurrence -- the ATL PDP
   analog), which GENERALIZES to held-out `role->action` edges (0.70 vs the hard match's chance 0.49) -- so the
-  ATL-distributional deviation is now partly CLOSED, not just named. Remaining DEVIATION: real-text accuracy
-  unmeasured (bounded by extraction + KG density); the distributional space is KG-derived, not coupled to the
-  grounded sensorimotor (p1) space.
+  ATL-distributional deviation is now partly CLOSED, not just named. **STORE CAPACITY MEASURED (Level 1c):** the
+  dense FHRR bundle degrades under multi-fact load (crosstalk ~K/D, the capacity law on our organ) but is
+  adequate at D>=1024 for a situation model's realistic per-entity load (K~64); hippocampal PATTERN SEPARATION
+  (relation-indexed) holds it flat to K=512 -- the dense sum is a low-load shortcut, the sparse/indexed store is
+  the faithful representation for scaling (the read-terminal / fan-store axis). Remaining DEVIATION: real-text
+  accuracy unmeasured (bounded by extraction + KG density); the distributional space is KG-derived, not coupled
+  to the grounded sensorimotor (p1) space; a literal DG sparse-code store (vs the relation-indexed proxy) untested.
 - **COREF residual entry -- REFINE.** The parent's audit note says the coref residual's real lever is "the
   SITUATION MODEL accumulating specific-discourse entity facts." **This is now REFINED by measurement:** a
   reading-built discourse-fact store is DEAD on the anti-typical residual because the residual gold is freshly
@@ -204,11 +246,14 @@ sparse KG's distributional density, NOT a hard coverage wall.
    noisy (the standing corpus-age confound). BRAIN STATUS: the extraction TOOL (spaCy) is convenient/OUR-
    INVENTION; the substrate's incremental_parser is the brain-foundational algorithm but produces only verb-arg
    slots. OPTIMIZATION: extend it to copula/appositive attributes; robustify on literary prose.
-3. **Multi-fact-per-entity STORAGE (the FHRR store capacity).** CAPABILITY: single-filler FHRR bind is exact
-   (verified). LIMITATION: many facts per entity bundle into one register -> retrieval interference (the
-   dense-bundle fidelity axis). BRAIN STATUS: the hippocampal store is SPARSE/pattern-separated, not a dense
-   sum. OPTIMIZATION: a sparse/indexed per-entity fact store (ties directly to the read-terminal / fan-store
-   store-organization line). A follow-on.
+3. **[NOW MEASURED -- Level 1c] Multi-fact-per-entity STORAGE (the FHRR store capacity).** CAPABILITY: single-
+   filler exact (verified); dense bundle adequate up to K~64 facts at D>=1024 (measured); relation-indexed
+   pattern separation holds resolution FLAT to K=512. LIMITATION (measured): the dense bundle degrades past the
+   capacity wall (K~128-256 at D=1024, ~K/D crosstalk). BRAIN STATUS: the hippocampal store is SPARSE/pattern-
+   separated (DG); the dense sum is the OUR-INVENTION shortcut, adequate only in the low-load regime. OPTIMIZATION
+   (built as a proxy, land for scaling): a relation-indexed / sparse-code per-entity fact store -- the same
+   dense->sparse/indexed axis the read-terminal / fan-store line named. Needed only for many-fact / long-narrative
+   scaling, NOT for the situation model's realistic per-entity load.
 4. **The intra-sentential SYNTACTIC binder (the RESIDUAL's actual lever, NOT this mechanism).** This is where
    the anti-typical coref residual is recoverable (37.6% fine-distance oracle, the parent's finding), and it is
    a DIFFERENT organ. Named here so strategy does not mis-assign the residual to the fact store.
@@ -269,5 +314,7 @@ measurement is named as the #1 follow-on either way.
    graded distributional bridge is built and generalizes] a HYBRID hard+graded bridge (in-vocab ceiling AND
    held-out generalization) + coupling the distributional action space to the p1 grounded representation lane;
    (b) validation on a REAL inter-sentential fact-decisive corpus (the #1 thing to harden -- real extraction +
-   coverage); (c) the sparse/indexed multi-fact-per-entity store; (d) the downstream consumers (next-event
-   prediction / bridging inference / QA / ToM) that reuse this store.
+   coverage); (c) [PARTLY DONE in Level 1c: interference wall measured + relation-indexed fix demonstrated] land
+   the sparse/indexed multi-fact store for many-fact / long-narrative scaling (a literal DG sparse-code variant is
+   the deeper fidelity move); (d) the downstream consumers (next-event prediction / bridging inference / QA / ToM)
+   that reuse this store.
