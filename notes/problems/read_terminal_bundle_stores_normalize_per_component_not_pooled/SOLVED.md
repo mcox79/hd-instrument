@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of (per read-terminal caller you evaluate -- cover at
 result: "Per-caller, LIVE recompute on each caller's OWN validated task. TYPER (selection_weighted_sharded_typer, role-typing, n_test=24): divnorm on the read-terminal sup_map does NOT help -- HURTS at low load (-0.0625 [-0.101,-0.024] @n_train=8, CI-sep). Owner-pushed drill: the BRAIN-FAITHFUL decision-population normalization (shared pooled divisor, Carandini-Heeger, ratio-preserving) is ARGMAX-INVARIANT -> byte-identical to the floor (INERT); the only decision-moving norm (per-role L2 equalization) is NON-brain-faithful (erases magnitude-as-reliability, PPC) AND load-fragile (+0.0139 [+0.004,+0.028] @n=40 but -0.0556 [-0.097,-0.014] @n=8). COSINE consumers (lexical_similarity 29-triple task): ordered_frac IDENTICAL 0.9655 (NULL); divnorm raises the between-tier link-decision d' (+11% syn-vs-related, +51% syn-vs-unrelated) but the decision is already saturated (d'>5) so it is unused now. goal_achievement: <=6 attributes -> cannot overload -> neutral. register+multibank: already switched (parent)."
 floor: "The per-component (S_i/|S_i|) default, recomputed on each caller's own population: TYPER PERCOMP mean_acc 0.8333 (n_train=40, 5 seeds, bit-for-bit faithful to the landed organ); COSINE PERCOMP ordered_frac 0.9655 (29 triples, == landed n11c); readout-principle grid per-component argmax/serial recomputed per load."
 controls: "INFO-FREE TWINS lose: typer scrambled-label 0.507 vs 0.750; cosine scrambled-feature 0.207-0.310 vs 0.9655. POSITIVE CONTROLS that MOVE the metric: readout-principle grid at m=64 overload divnorm-minus-percomp +0.115 argmax / +0.621 gain-matched-serial; cosine graded-discriminability d' 1.02->1.44 at N=128. FAITHFULNESS GATE: typer PERCOMP == landed 0.8333. 4-ARM BRAIN-FIDELITY TEST (research-designed): shared-pool==floor (argmax-invariant); per-role-L2 is the only decision-mover and is non-faithful+load-fragile. ROUND-TRIP CONTROL: unbind-key norm inert under argmax cleanup."
-files_changed: "experiments/exp_read_terminal_divnorm_readout_principle_v1.py, experiments/exp_read_terminal_divnorm_cosine_family_v1.py, experiments/exp_read_terminal_divnorm_typer_v1.py, experiments/exp_read_terminal_divnorm_sign_family_v1.py, experiments/exp_read_terminal_divnorm_attractor_v1.py, verification/test_read_terminal_divnorm.py, notes/problems/read_terminal_bundle_stores_normalize_per_component_not_pooled/SOLVED.md, notes/research_divisive_norm_decision_stage_reliability_2026-08-29.md, notes/research_hippocampal_pfc_divisive_normalization_memory_register_2026-08-29.md"
+files_changed: "experiments/exp_read_terminal_divnorm_readout_principle_v1.py, experiments/exp_read_terminal_divnorm_cosine_family_v1.py, experiments/exp_read_terminal_divnorm_typer_v1.py, experiments/exp_read_terminal_divnorm_sign_family_v1.py, experiments/exp_read_terminal_divnorm_attractor_v1.py, experiments/exp_read_terminal_divnorm_sign_real_callers_v1.py, experiments/exp_read_terminal_divnorm_write_path_v1.py, verification/test_read_terminal_divnorm.py, notes/problems/read_terminal_bundle_stores_normalize_per_component_not_pooled/SOLVED.md, notes/research_divisive_norm_decision_stage_reliability_2026-08-29.md, notes/research_hippocampal_pfc_divisive_normalization_memory_register_2026-08-29.md"
 reverify: ".venv/Scripts/python.exe verification/test_read_terminal_divnorm.py"
 ---
 
@@ -99,6 +99,17 @@ encode_word (few chars) and few-role events are LOW-load -> `sign()` neutral; en
 `situation_focus` at capacity, and `event_bundle` with many roles OVERLOAD a direction-sensitive read -> those
 should drop `sign()` for a graded read. The fix is GRADED, not `divnorm` (wrong code). Follow-on #2 now has its
 mechanism + the per-caller load discriminator.
+
+**IMPORTANT correction from executing it on the REAL callers** (`exp_read_terminal_divnorm_sign_real_callers_v1.py`,
+W8; owner asked me to land the fix, and doing so corrected the synthetic number): on `situation_focus.FlatFocus`
+(role-recovery, NESTED position->role->filler unbind) and `char_positional_encoder.encode_sentence` (word-membership
+by cosine), graded >= sign and the gap grows with load, BUT the effect is **MODEST -- +0.02..0.045 at high overload
+(FlatFocus +0.038 CI-sep @n=24; encode_sentence +0.045 CI-sep @n=12), FAR below the synthetic grid's +0.173.** The
+real callers' CORRELATED (char-based word HDs) and NESTED (double-unbind) structure damps the graded margin that
+random i.i.d. atoms + a single-level decode maximized. And FlatFocus's INTENDED regime is the Cowan capacity ~4
+(ChunkedFocus), where it is a NULL. So the ONE landable sign()->graded win is `encode_sentence` at realistic sentence
+lengths, and it is SMALL. **Lesson: measure a fix on the REAL caller, not the idealized synthetic proxy -- the grid
+overstated it ~4x.**
 
 ### DRILL 4 -- the CA3-completion ITERATIVE ATTRACTOR (script_grain), the last unmeasured readout
 

@@ -5,7 +5,7 @@ bar: "BUILD path: a shared shallow predicate-argument extractor (agent/theme/goa
 result: "A shared dispatch (compose validated organs) whose PP-role router is the BRAIN'S event-semantic mechanism -- preposition-telicity (Place-vs-Path) + VerbNet event-class + object-animacy + the caused-motion construction (NOT a verb list) -- validated on FrameNet 1.7's INDEPENDENT frame-element gold (58,808 aligned real-prose items). It recovers the role TYPING the conflated inline rule cannot: location 0.401, path 0.396, source 0.424, recipient 0.152, direction 0.060 -- every one CI-separated ABOVE the inline floor's structural 0.000 (info-free twin below each); theme 0.477 vs 0.418 (+0.059 CI-sep), agent 0.753 vs 0.736 (+0.017). Goal-vs-recipient mislabeling 9.1% vs the inline rule's 27.7% (3x fewer). Caused-motion theme-attribution 8/8. Positive control (minimal pairs) decisive 0.886 vs inline 0.648. Corroborated on QA-SRL-typed (location 0.679 / path 0.745 / source 0.759 vs 0.000; theme 0.818 vs 0.668). ONE honest loss: goal RECALL 0.378 vs the inline blunt-grabber's 0.477 (a precision/recall trade -- the grabber calls EVERY spatial PP a goal, scoring 0.000 on all other roles)."
 floor: "The current LIVE fragmented inline extraction, recomputed per role on each population: agent/patient positional (situation_reader) + INLINE = 'the object of the FIRST spatial PP under the verb = GOAL' (no typing -- everything spatial is called goal; no recipient/location/path/source). Its FrameNet goal accuracy is 0.477; its accuracy on every other spatial/transfer role is 0.000 by construction. Also run: TWIN (preposition->role AND verb-class maps randomly permuted) and RANDOM."
 controls: "(1) info-free TWIN loses EVERY role (goal 0.012 vs 0.378; location 0.210 vs 0.401; recipient 0.000 vs 0.152; ...); (2) RANDOM loses every role; (3) INLINE is structurally 0.000 on location/path/source/recipient -- it conflates them into 'goal'; (4) HARNESS SANITY: the fixed INLINE goal baseline reproduces 0.4770 across independent runs -- a broken checkpoint-reuse rescore that zeroed every arm AND changed INLINE was caught by exactly this invariant (INLINE cannot move if only the router changes); (5) minimal-pair CONTRAST set (self-motion/active/locative, gate must NOT fire); (6) the Destination-cue precision guard: adding the verb-frame goal cue raised goal +0.061 but dropped location -0.073, proving the goal-vs-location boundary is graded and a hard rule over-fires."
-files_changed: "experiments/exp_shared_predarg_frontend_v1.py; experiments/exp_shared_predarg_frontend_v2.py; notes/problems/no_shared_shallow_predicate_argument_front_end/minimal_pair_role_gold_v1.jsonl; data/exp_shared_predarg_frontend_v2/{metrics.json,verbnet_event_classes.json}; data/exp_shared_predarg_frontend_v2_cue5/metrics.json; data/exp_shared_predarg_frontend_v2_oracleparse/metrics.json (parse-vs-router ablation)"
+files_changed: "experiments/exp_shared_predarg_frontend_v1.py; experiments/exp_shared_predarg_frontend_v2.py; notes/problems/no_shared_shallow_predicate_argument_front_end/minimal_pair_role_gold_v1.jsonl; data/exp_shared_predarg_frontend_v2/{metrics.json,verbnet_event_classes.json}; data/exp_shared_predarg_frontend_v2_cue5/metrics.json; data/exp_shared_predarg_frontend_v2_oracleparse/metrics.json (parse-vs-router ablation); experiments/exp_shared_predarg_frontend_v3_topdown.py; data/exp_shared_predarg_frontend_v3_topdown_strict/metrics.json (verb-driven attachment, de-confounded)"
 reverify: ".venv/Scripts/python.exe experiments/exp_shared_predarg_frontend_v2.py --self-test"
 ---
 
@@ -108,6 +108,41 @@ impossible if only the router changes). The clean run (harness sanity: INLINE go
 The finding is that the goal-vs-location boundary at shared prepositions is GRADED, and the faithful fix is
 continuous telicity weighting (Competition-Model), not a hard gate -- an identified next layer, below.
 
+# 4b. The parse ceiling, drilled to the brain's mechanism -- verb-led anticipatory attachment
+
+The oracle ablation localized the spatial-role ceiling to PP-ATTACHMENT (the batch parser is a placeholder,
+UAS ~0.79). Biology drill: PP-attachment is VERB-LED ANTICIPATORY -- the verb projects its expected argument
+slots BEFORE the argument arrives (Altmann & Kamide 1999; MacDonald constraint-satisfaction; pMTG generates
+the expectation, LIFG builds/fills the slot), a graded competition where the verb's argument-structure
+expectation + the PP-object's selectional fit override structural locality. Built as a verb-driven attacher
+composing the LANDED `predictive_reader` (predict(verb,role) selectional centroid + precision) + `arc_parser`
+margins (tie-gate) + the baked VerbNet event-class table -- two brain sub-mechanisms: (a) EAGER SLOT-OPENING
+(open the expected-role PP the greedy parser never attached), (b) SELECTIONAL SCORING (which candidate fits
+the verb's expected role).
+
+**The first run was a CONFOUND, caught by the info-free twin** -- a permissive "any opened PP inside the gold
+span counts" match let the shuffled twin match the treatment AND both exceed the oracle (a candidate-opening
+artifact, not the mechanism). Re-tested under STRICT one-PP-per-role matching (ceiling check: 0 of 5 arms
+exceed the oracle), held-out (zero train/test sentence overlap, PredictiveReader fit on TRAIN triples only),
+the two mechanisms separate cleanly and BOTH are real:
+
+| role | batch | +slot-open (B-A) | +selectional (B-C, twin loses) | oracle |
+|---|---|---|---|---|
+| goal | 0.637 | +0.049 [.039,.060] ABOVE | +0.056 [.038,.075] ABOVE | 0.867 |
+| location | 0.617 | +0.042 [.031,.054] ABOVE | +0.034 [.017,.052] ABOVE | 0.838 |
+| path | 0.552 | +0.122 [.103,.139] ABOVE | +0.076 [.055,.096] ABOVE | 0.755 |
+| source | 0.774 | +0.066 [.049,.084] ABOVE | +0.005 [.000,.012] NOT-sep | 0.846 |
+| recipient | 0.413 | +0.027 [.013,.043] ABOVE | +0.092 [.045,.139] ABOVE | 0.664 |
+
+Eager slot-opening is CI-separated above the batch parser on ALL 5 roles (biggest on PATH +0.122, where the
+batch parser is weakest); the verb-driven selectional signal beats its shuffle on 4/5 (not source -- "from X"
+is preposition-determined, so verb-class adds nothing there). Both brain sub-mechanisms are REAL, glass-box,
+and MODEST -- the oracle ceiling stays larger, so a full incremental-parser swap remains the bigger lever.
+**KEY REALIZATION: the info-free twin caught a measurement leak that made a modest real effect look like a
+majority-recovery; the strict re-test is what the effect actually is.** Files:
+`experiments/exp_shared_predarg_frontend_v3_topdown.py`,
+`data/exp_shared_predarg_frontend_v3_topdown_strict/metrics.json`.
+
 # 5. COMPONENT BRAIN-FIDELITY AUDIT (owner: every component must be brain-foundational)
 
 | component | brain mechanism | our status | fix / next lever |
@@ -115,7 +150,7 @@ continuous telicity weighting (Competition-Model), not a hard gate -- an identif
 | agent/theme binder | graded cue-competition, word-order dominant + voice (Competition Model, PINNED) | **BRAIN-FOUNDATIONAL** (reuses graded_role_assigner) | none; theme +0.059/+0.150 CI-sep |
 | PP-role router (v2) | preposition-telicity + VerbNet event-class + animacy (Jackendoff/Talmy/Zwarts, PINNED) | **BRAIN-FOUNDATIONAL** (v1's verb-list placeholder REPLACED) | graded telicity weight for the goal/location boundary |
 | caused-motion gate | constructional, theme-bound, verb-independent (Goldberg, PINNED) | **BRAIN-FOUNDATIONAL** (v2; 8/8) | wider VerbNet Destination coverage |
-| the parse it runs on | incremental left-corner predictive builder (audit PINNED) | **PLACEHOLDER**: uses the BATCH arc parser (audit: heads are inference placeholders). ORACLE-PARSE ablation QUANTIFIES the cost: an oracle PP-attachment recovers path +0.177, location +0.103, source +0.096 (PARSE-LIMITED) but only goal +0.028, recipient +0.042 (ROUTER-limited) | swap to the validated islanded `incremental_parser` -- biggest lever for spatial-role recall |
+| the parse / PP-attachment | verb-led ANTICIPATORY attachment (Altmann&Kamide; pMTG expectation + LIFG builder, PINNED) | **PLACEHOLDER (batch arc parser) with a PROVEN brain-faithful PARTIAL fix.** Oracle ablation: perfect attachment recovers path +0.18/location +0.10/source +0.10. A verb-driven attacher (eager slot-opening + selectional scoring, composing landed `predictive_reader`) is CI-separated above batch on all 5 roles (slot-open) + 4/5 (selectional signal), strict-matched, twin loses -- but MODEST (see 4b) | (1) verb-driven attachment now (modest, glass-box); (2) full `incremental_parser` swap = the bigger remaining lever |
 | recipient span pick | animacy + transfer/comm frame (PINNED) | **WEAK**: correct typing but low absolute (0.152) | better recipient-span head selection; larger gold |
 | goal/location eval gold | brain separates goal/location/path/source | **FIXED**: QA-SRL "where" conflated them (disqualified); now FrameNet FE gold + PropBank ARGM-GOL/LOC available | fetch/build a caused-motion-dense gold for the theme-attribution residual |
 
@@ -127,7 +162,10 @@ continuous telicity weighting (Competition-Model), not a hard gate -- an identif
   recovers **path +0.177 (0.570->0.747), location +0.103 (0.520->0.623), source +0.096 (0.753->0.849)** --
   these spatial roles are PARSE-LIMITED, the batch parser is a real ceiling. (goal +0.028 / recipient +0.042
   are router-limited.) The validated `incremental_parser` (islanded, F1 0.62 vs the batch 0.58) is the
-  brain-faithful candidate source. LEVERAGE: the largest single recall lever for the spatial roles.
+  brain-faithful candidate source. LEVERAGE: the largest single recall lever for the spatial roles -- and a
+  verb-driven attacher (eager slot-opening + selectional scoring) already recovers a MODEST CI-separated
+  slice of it (all 5 roles slot-open, 4/5 selectional; strict-matched, twin loses; see 4b), proving the
+  mechanism works and leaving the full incremental-builder swap as the larger remaining prize.
   **Candidate problem: wire the incremental builder as the shared front-end's parse.** (Ablation harness
   note: its verdict is HARNESS_SANITY_FAILED only because the sanity reference used the full-population INLINE
   0.477 vs the subset's legitimate 0.694; twin_sanity passed and the batch-vs-oracle gaps are population-

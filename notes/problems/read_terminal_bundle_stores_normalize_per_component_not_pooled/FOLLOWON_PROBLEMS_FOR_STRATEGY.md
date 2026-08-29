@@ -25,30 +25,44 @@ register (`bundling.bundle` consumers). Nobody has asked whether the register's 
 (`hdlab/situation_model_accumulate.py::AccumulateRegister.add_event`, and the multibank equivalent) needs its own gain
 control -- separate from, and possibly different in form from, the already-landed read-terminal `divnorm`.
 
-**Why this one / Test-4 (does the defect cost us?).** INDIRECT-YES, and it is the strongest of any candidate here:
-**Buschman, Siegel, Roy & Miller 2011 (PNAS 108:11252) MEASURED** multi-item target-information suppression in primate
-LIP/LPFC/FEF that is **strongest at ENCODING, not maintenance/readout.** That is a measured primate correlate for a
-computation we have never tested on our write path. Unlike the read-terminal sweep (which came back "no change needed"
-for every un-switched caller), this one starts from a positive measured brain result -- so its first deliverable can be
-a genuine premise test with a real prior, not a fishing expedition.
+**Why this one / Test-4 (does the defect cost us?).** YES -- NOW MEASURED (`exp_read_terminal_divnorm_write_path_v1.py`,
+witness W9), and it is the biggest, cleanest limitation this whole investigation found. **The register's write path is a
+FLAT running sum with a HARD capacity wall** (~0.2-0.25*D events; at D=256, ~50-64). Past the wall, recovery collapses
+for ALL events -- including the most RECENT ones (recent-4 recovery falls to 0.14 at N=256, chance=0.01). **And
+read-time normalization CANNOT move this wall at all** -- raw==divnorm at EVERY load (argmax is scale-invariant; once
+events are summed to saturation the information is destroyed, not merely mis-scaled). This is exactly why the whole
+read_terminal sweep came back null: **capacity is set at WRITE, and we were only ever normalizing at READ.**
 
-**Brain mechanism / fidelity.** Divisive normalization at a DECISION/sensory population = PINNED. At a memory-register
-= OUR-EXTENSION (see #3). Encoding-stage suppression = MEASURED (Buschman 2011), but the original authors did not label
-it "divisive normalization" (later theory did), so the FORM of the write-path gain is INFERRED, not pinned.
+**The measured fix direction (a capacity lever no read norm can provide).** A WRITE-time leaky/suppressive
+accumulation `S_j = (1-a) S_{j-1} + bind(role_j, key_j)` (the Buschman 2011 encoding-suppression analog; each new event
+suppresses the existing store, bounding the active set) keeps the most-recent events recoverable at ANY total load:
+**leaky recent-4 recovery = 1.000 through N=256**, where the flat sum is at 0.14. Info-free twin (shuffled keys)
+collapses to chance. This is graceful degradation (Cowan) vs a hard wall.
 
-**MEASURED vs INFERRED.** MEASURED: the read-path is norm-null/harmful for every un-switched caller (this problem);
-encoding-stage suppression exists in primate cortex (Buschman 2011). INFERRED (to prove): whether our
-`AccumulateRegister` write path benefits from a gain control, and in what form (per-event decay? pooled gain at
-accumulate time? a write-time divisive step?).
+**The trade + the FULL brain-faithful solution (this is the design space for strategy).** Leaky is NOT a free win: it
+BUYS unbounded recent-context capacity by SACRIFICING old events (uniform/all-event recovery drops -- old events decay
+away). So the choice is task-shaped: a READER needs recent context (recency-biased recall -> leaky/recency is right); a
+whole-narrative situation model needs ALL events (-> you cannot just decay them). The COMPLETE brain-faithful answer
+pairs a bounded/leaky active buffer with CONSOLIDATION of displaced items into a separate store (hippocampal->cortical
+transfer; chunking) -- which `hdlab/situation_focus.py::ChunkedFocus` already PROTOTYPES (it chunks the oldest units
+into a nested store) but the core `AccumulateRegister` does NOT use. Two partial existing levers are also unwired for
+this: the `recency` modulator in `hdlab/bundling.py` (OFF by default -- it IS essentially this leaky write) and the
+`multibank` sharding (spreads events across banks -> less per-bank crosstalk = a capacity extension).
 
-**Fix direction / first deliverable.** Add a write-time gain option to a COPY of the accumulate path in `experiments/`
-(do not touch `hdlab/`); measure serial + argmax readout accuracy vs the current write path at overload, with an
-info-free twin and the register's own can-fail floor. If a write-time gain beats the read-only `divnorm` at overload
-CI-separated -> a real new capability; if null -> a clean closure with the Buschman prior explained.
+**MEASURED vs INFERRED.** MEASURED: the flat-write capacity wall; read-norm cannot move it; a write-time leaky gain
+gives unbounded recent capacity (W9). INFERRED (to prove per strategy's build): the best FORM (leaky/recency vs
+per-event divisive vs bounded-buffer+consolidation), and how it composes with multibank sharding + the p2 sparse store.
 
-**Pointers.** `hdlab/situation_model_accumulate.py::AccumulateRegister.add_event`;
-`notes/research_hippocampal_pfc_divisive_normalization_memory_register_2026-08-29.md` (d)(2) + Buschman 2011 citation;
-the register witness `verification/test_register_divisive_norm_organ.py` (the read-side baseline to beat).
+**Fix direction / first deliverable for strategy.** Decide the register's capacity architecture: (1) turn on/validate
+the recency-weighted (leaky) write for reader organs that need recent context; (2) wire a consolidation/chunk path
+(reuse ChunkedFocus) for organs that need all events; (3) measure both composed with multibank sharding. The
+read-terminal `divnorm` stays as-is (it is the right READ-side op once the write path is fixed).
+
+**Pointers.** `experiments/exp_read_terminal_divnorm_write_path_v1.py` (W9, the measured limitation);
+`hdlab/situation_model_accumulate.py::AccumulateRegister.add_event` (the flat write); `hdlab/bundling.py` (the OFF-by-
+default `recency` modulator = the leaky write); `hdlab/situation_focus.py::ChunkedFocus` (the consolidation prototype);
+`hdlab/situation_model_multibank.py` (sharding = a capacity extension); `notes/research_hippocampal_pfc_divisive_
+normalization_memory_register_2026-08-29.md` (d)(2) + Buschman 2011.
 
 ---
 
@@ -58,16 +72,23 @@ the register witness `verification/test_register_divisive_norm_organ.py` (the re
 discards the graded vote margin. `norm="divnorm"` does NOT apply (it is FHRR-complex-only) -- the fix is to keep the
 GRADED integer sum at the sites where a direction-sensitive read OVERLOADS.
 
-**Why this one / Test-4 (does the defect cost us?).** YES -- MEASURED. On the bipolar readout+load grid
-(`exp_read_terminal_divnorm_sign_family_v1.py`, witness W5): at low load SIGN==GRADED==1.000 (no gap); at overload
-GRADED beats SIGN with a GROWING margin (+0.038 @m=32, +0.123 @m=48, **+0.173 @m=64**). POOLED==GRADED (a global scalar
-is argmax-invariant), so **the lever is DROPPING `sign()`, not adding a pooled gain.** The audit's pre-existing
-"GRADED beats SIGN, growing margin" flag is now mechanism-backed by the unified readout+load rule.
+**Why this one / Test-4 (does the defect cost us?).** YES but SMALL -- and this is the CORRECTED, real-caller number
+(the synthetic grid OVERSTATED it). On the synthetic random-atom grid (`exp_read_terminal_divnorm_sign_family_v1.py`,
+W5) GRADED beats SIGN by +0.173 @m=64. But when I MEASURED it on the REAL overloading callers on their OWN readouts
+(`exp_read_terminal_divnorm_sign_real_callers_v1.py`, W8), the effect is **MUCH smaller**: graded >= sign, gap grows
+with load, but only **+0.02..0.045 at high overload** (FlatFocus role-recovery +0.038 CI-sep @n=24; encode_sentence
+word-membership +0.045 CI-sep @n=12) -- because the real callers have CORRELATED (char-based word HDs) and NESTED
+(position->role->filler double-unbind) structure that damps the graded margin, unlike the idealized random-atom
+single-level grid. **So this is a real but MODEST win, not the substrate-wide +0.17 the synthetic grid implied.**
 
-**Which real sites (classified by readout+load, from reading the code):**
-- OVERLOAD -> drop sign for graded: `char_positional_encoder.encode_sentence` (sign_bundle over many words),
-  `situation_focus` (bounded-capacity superposition AT capacity), `event_bundle` (many-role events).
-- LOW-load -> `sign()` neutral, leave it: `char_positional_encoder.encode_word` (few chars), few-role events.
+**Which real sites (classified + MEASURED by readout+load):**
+- `char_positional_encoder.encode_sentence` (sign over many words, single cosine read): **+0.045 CI-sep @12-word
+  sentences** -- the ONE landable win, and it sits at realistic sentence lengths. The best candidate.
+- `situation_focus.FlatFocus` (sign over N superposed events, NESTED unbind read): +0.038 @n=24 BUT its INTENDED
+  operating regime is the Cowan capacity ~4 chunks (ChunkedFocus), where it is a NULL (0.451==0.451 @n=4). So no
+  practical benefit at its real load. Keep sign.
+- LOW-load / few-role -> `sign()` neutral, leave it: `char_positional_encoder.encode_word` (few chars),
+  `event_bundle.encode_event` (4 roles).
 
 **Brain mechanism / fidelity.** `sign()` is a per-component quantiser = the same wrong-op class as per-component FHRR
 renorm; per-component magnitude erasure has NO fast biological analogue (OUR-INVENTION, confirmed 5 mechanism classes).
@@ -76,10 +97,17 @@ Keeping the graded sum is the brain-faithful direction (graded population codes)
 **MEASURED vs INFERRED.** MEASURED: the synthetic bipolar grid (sign loses at overload). INFERRED (first deliverable):
 confirm graded beats sign on each REAL overloading caller's OWN validated task + info-free twin.
 
-**Fix direction.** At each overloading site, replace `sign(sum)` (or `bsc_bundle`) with the graded sum read by
-dot/cosine cleanup; re-validate on that caller's task. Cheap (no new store, no new readout).
+**Fix direction.** Replace `sign(sum)` with the graded sum read by the SAME cleanup at the SINGLE-read overloading
+site that operates at realistic load -- **`char_positional_encoder.encode_sentence`** (drop the sentence-level sign,
+keep the word-level; +0.045 CI-sep at 12-word sentences). Do NOT bother with FlatFocus (null at its chunked capacity)
+or low-load sites. Cheap (no new store/readout), but a SMALL win -- rank accordingly.
 
-**Pointers.** `experiments/exp_read_terminal_divnorm_sign_family_v1.py`; witness W5;
+**MEASURED vs INFERRED.** MEASURED: graded>=sign on both real callers (W8), modest, growing with load; synthetic
+grid overstates it (W5). The magnitude on the OTHER real sites (grounding_acquisition_loop, role_slot_summarizer) is
+INFERRED, not measured.
+
+**Pointers.** `experiments/exp_read_terminal_divnorm_sign_real_callers_v1.py` (the REAL-caller measurement, W8 -- the
+authoritative number); `experiments/exp_read_terminal_divnorm_sign_family_v1.py` (synthetic grid, W5, OVERSTATES);
 `hdlab/char_positional_encoder.py` (`_sign_bundle`, `encode_word/encode_sentence`), `hdlab/situation_focus.py`,
 `hdlab/event_bundle.py`, `hdlab/grounding_acquisition_loop.py` (`_bundle`), `hdlab/role_slot_summarizer.py`. This is the
 adjacency map's follow-on #2, now with the mechanism + the per-caller load discriminator.
@@ -198,15 +226,19 @@ Mackey 2019, ORGaNICs, PNAS 116:22783).
 
 | # | slug | leverage | Test-4 (defect costs us?) | measured? | fix ready? |
 |---|---|---|---|---|---|
-| 1 | register write/encode-path gain control | HIGH | INDIRECT-YES (Buschman 2011 primate correlate) | read-side null MEASURED; write-side to prove | scope ready, fix TBD by the problem |
-| 2 | sign() -> graded at overloading sites | MEDIUM | YES (+0.17 @overload, measured) | YES (synthetic grid + site classification) | **fix ready** (drop sign, keep graded, named sites) |
+| 1 | register write/encode-path capacity | **HIGH (biggest gap found)** | **YES -- MEASURED (W9): flat-write hard capacity wall; read-norm cannot move it; write-time gain gives unbounded recent capacity** | YES (W9) | direction MEASURED (leaky write / consolidation); strategy picks the architecture |
+| 2 | sign() -> graded at `encode_sentence` | LOW-MEDIUM | YES but SMALL (+0.045 CI-sep on the REAL caller; synthetic grid's +0.17 OVERSTATED) | YES on 2 real callers (W8) | fix ready but MODEST -- only `encode_sentence` at realistic length; FlatFocus null at its capacity |
 | 3 | fit pooled-divnorm to Kaminski/Kyzar data | LOW/research | NO (label only) | absence exhaustively searched | protocol fully specified |
 | 4 | goal_achievement 6-attribute dimensioning | LOW | NO (premise unmeasured) | NO | not ready -- measure premise first |
 | 5 | assembly-selective vs global divisor | LOW | NO (trend-inferred) | NO | first-deliverable specified |
 | 6 | online-learn the typer precision weight | LOW | NO (no accuracy change) | LOO earns-its-keep MEASURED (DRILL 5) | fix specified, low value |
 | 7 | theta-gamma <-> pooled-gain (ORGaNICs) seam | LOW/theory | NO (label only) | seam identified | research question |
 
-**One honesty note for strategy:** only #2 is a fix that is ready to land as-is (measured effect + named sites + known
-direction). #1 is the highest LEVERAGE but is a genuine new problem whose fix must be measured first (it has the best
-prior of any of them -- a real primate correlate). #4 is the one component whose limitation I do NOT yet understand well
-enough to drive a fix -- its first job is to measure its own premise, and it should not be filed as a fix.
+**One honesty note for strategy (updated after measuring #2 on the real callers):** #2 is ready to land but is a
+SMALL win (+0.045 CI-sep at `encode_sentence`, realistic sentence length) -- the synthetic grid's +0.17 did NOT
+transfer, because real callers have correlated/nested structure; FlatFocus is a null at its Cowan-chunked capacity.
+So #2 is landable-but-low-value, not a substrate-wide win. #1 is the highest LEVERAGE but is a genuine new problem
+whose fix must be measured first (best prior of any -- a real primate correlate, Buschman 2011). #4 is the one
+component whose limitation I do NOT yet understand well enough to drive a fix -- its first job is to measure its own
+premise, not to be filed as a fix. **General lesson this episode taught: measure the fix on the REAL caller, not the
+idealized synthetic proxy -- the random-atom single-level grid overstated the win ~4x.**
