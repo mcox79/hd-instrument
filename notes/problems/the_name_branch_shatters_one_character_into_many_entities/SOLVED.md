@@ -160,6 +160,30 @@ clustering.
    Cb-topicality + the convention into the EXISTING graded cue-retrieval scorer (0.775 on pronouns), so it is
    the SAME lever as adjacency 2 (pronoun-event binding) -- which is why wiring `clause_role`/Cb matters far
    beyond this rare case.
+   **I then BUILT and DECISIVELY MEASURED the brain's cues on the tie subset (owner: "do the right thing and
+   get it done") -- a rigorous NEGATIVE.** Decision-level accuracy on the ~80 resolvable ambiguous ties:
+   baseline (structural) 0.735; recency 0.709; topicality-accumulated 0.734; topicality-most-recent-subject
+   0.759; eldest-daughter convention 0.675 (ACTIVELY WORSE); combined 0.734; and the **info-free twin
+   (scrambled clause-roles) 0.738 == combined -- no topicality signal survives**. So NONE of the
+   brain-faithful cues beats the structural baseline at this scale, and the convention is not just a null but
+   HARMFUL. The last piece of the WHY (corrected 2026-08-28 after owner pushback -- I had wrongly called this
+   "forbidden external knowledge"): **which sister is eldest is DISCOURSE-INTERNAL -- a reader LEARNS it from
+   the text and keeps it in memory** (the novel establishes birth order / who bare-"Miss Bennet" denotes),
+   so it is NOT forbidden world knowledge and NOT a bespoke lookup. The real gap is a MISSING ORGAN: our
+   person node keeps only SURFACE features (name forms, gender), not learned RELATIONAL/ordinal facts
+   ("eldest", "married-to"). "First-introduced" backfired precisely because it is a blind proxy that does
+   NOT learn+keep the eldest fact from the establishing text. The fix is an entity-keyed FACT store (=
+   adjacency 1 generalized from events to facts) that accumulates per-character facts as it reads and is
+   retrieved by cue -- exactly the "keep it in memory" competence. Our reader ALREADY keeps a PARTIAL such
+   memory: the person node accumulates each character's name-forms in text order, so once bare "Miss Bennet"
+   is bound to a sister it re-binds consistently (which is why the ambiguous ties are rare -- most re-uses
+   are already handled by accumulated surface memory). What it does NOT keep is the relational/semantic facts
+   the eldest-convention needs. So the honest answer to "if the brain can do it, can we?": YES in principle,
+   via the entity-fact store -- but that store's confirmable payoff is broad (who-did-what, predicate
+   resolution, ToM), not this ~80-decision rare case, so it is not justified for the sister case alone. The
+   topicality cue's real, confirmable payoff is likewise on the far larger PRONOUN population (adjacency 2).
+   All cues are pinned in `tiebreak_mode` (off/recency/prominence/subject/first/topic/convention/combined)
+   with the info-free twin, default OFF, so this rigorous negative is reproducible and not re-attempted blind.
 7. **A control arm I added to decompose the null accidentally MEASURED the register fan effect -- and it
    says unifying aliases HURTS who-did-what.** HEAD_OPB (fragmented head-token names + perfect pronoun
    binding) = 0.606 BEATS ORACLE (correctly-unified gold names + perfect pronouns) = 0.562. The only

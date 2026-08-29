@@ -579,6 +579,43 @@ store/architecture change -> owner nod before building past the diagnostic). Sou
 O'Reilly 1995, Kumaran/Hassabis/McClelland 2016, Whittington 2020 (TEM), Poduval 2026, Frady/Kleyko/Sommer
 2021, Barlow 1961, Kanerva 2009, Cohen/Chung/Sompolinsky 2020, Soft-ZCA "Isotropy Matters" 2024.
 
+**CORRECTION (direct code-read during the diagnostic build, 2026-08-29) -- the "our analogy fails BECAUSE
+real codes are non-orthogonal" premise was OVERCLAIMED and is NOT established for our substrate.** The prior
+analogy HARD_FAILs (exp_analogy_candidate_inference_heldout_edge_v1/v2) used `build_random_content` = RANDOM
+near-orthogonal codes (NOT correlated real codes), and their OWN docstrings attribute the failure to CORPUS
+RELATION-SPARSITY, not code correlation (the denser-corpus sibling dense_corpus_v1 = HARD_PASS on the same
+random codes). So NO prior cell measured random-vs-correlated codes; the code-orthogonality -> analogy-failure
+chain is a HYPOTHESIS, not a finding. The LITERATURE reconciliation (brain factorises; CLS/TEM; the tension
+exists in principle) STANDS; its application to OUR failure is UN-VET'd. The whitening diagnostic
+(exp_whitening_similarity_binding_tradeoff_v1, built + green) is the FIRST test of the tradeoff on REAL
+correlated codes -- but at ~1.8M tokens (the only real-corpus PPMI-SVD asset on disk; the 15M dependency-typed
+codes are not a standalone asset, and the exp_cue_*/exp_corpus_capacity PPMI-SVD lineage currently FAILS TO
+IMPORT -- tools/floor_battery.py missing as_constant_matrix/constant_prototype_floor; flag to Testbed). Its
+smoke (under-capacity) shows whitening MONOTONICALLY HURTS SimLex (0.11->0.04) AND recall (0.90->0.70) -- a
+hint the single-code tradeoff may have NO joint window (which would mandate the factorised two-code store),
+but that is under-capacity smoke, not the answer. Read the code-orthogonality resolution above as
+hypothesis-pending-THIS-VET, not established.
+
+## RESEARCH DRILL -- CURRICULUM / READING-ORDER (online literature, 2026-08-29): a PROVABLE NULL for our batch learner, which CONVERGES on the recipe-diagnostic already queued.
+
+Batch PPMI-SVD is ORDER-INVARIANT: the count matrix is a SUM (commutative), so any read-order / curriculum
+-> IDENTICAL matrix -> IDENTICAL embeddings (RiverText 2025: PPMI count tensors are permutation-invariant).
+PROVABLE NULL -- do NOT author a read-order cell on the batch learner. AND the "starting small" /
+progressive-differentiation benefit a curriculum gives a SLOW ONLINE learner, our BATCH SVD ALREADY GETS FOR
+FREE: Saxe/McClelland/Ganguli 2019 prove SVD learns coarse->fine in singular-value order, and our rank-k
+truncation KEEPS exactly that coarse-to-fine hierarchy (a brain-foundational bonus: the batch SVD computes in
+closed form what a curriculum-trained online net only approximates over developmental time). Every POSITIVE
+order effect in the literature lives in an ONLINE/recurrent learner (Elman 1993 -- itself famously
+non-replicated, Rohde & Plaut 1999; Huebner & Willits 2018 SRN-only); every FIXED-BUDGET BATCH test came back
+NULL (BabyLM 2025 curriculum "largely unsuccessful"; age-ordered grammar 2023 null vs random -- the lever
+there was corpus-SELECTION, not order). THE REAL data-efficiency lever (order-invariant) = the
+Levy-Goldberg-Dagan 2015 hyperparameter suite (context-smoothing alpha=0.75, shifted-PPMI, eigenvalue-weighting
+p=0.5, subsampling) -- which is EXACTLY what the queued recipe-diagnostic (exp_recipe_diagnostic_ppmi_svd_knobs_
+v1) already tests. So curriculum CONVERGES on an experiment already running; no new cell needed. Curriculum
+bites ONLY for an online/staged learner (the growth path) and even there is mostly null at fixed data. Sources:
+Saxe/McClelland/Ganguli 2019, Levy/Goldberg/Dagan 2015, BabyLM 2025, Rohde & Plaut 1999, Huebner & Willits
+2018, RiverText 2025.
+
 ## TLDR
 
 The brief's plan -- make the learner update the brain's way (online, from error) -- is a proven dead
