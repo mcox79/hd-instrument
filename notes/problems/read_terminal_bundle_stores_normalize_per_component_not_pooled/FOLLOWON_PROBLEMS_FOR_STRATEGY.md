@@ -39,15 +39,30 @@ suppresses the existing store, bounding the active set) keeps the most-recent ev
 **leaky recent-4 recovery = 1.000 through N=256**, where the flat sum is at 0.14. Info-free twin (shuffled keys)
 collapses to chance. This is graceful degradation (Cowan) vs a hard wall.
 
-**The trade + the FULL brain-faithful solution (this is the design space for strategy).** Leaky is NOT a free win: it
-BUYS unbounded recent-context capacity by SACRIFICING old events (uniform/all-event recovery drops -- old events decay
-away). So the choice is task-shaped: a READER needs recent context (recency-biased recall -> leaky/recency is right); a
-whole-narrative situation model needs ALL events (-> you cannot just decay them). The COMPLETE brain-faithful answer
-pairs a bounded/leaky active buffer with CONSOLIDATION of displaced items into a separate store (hippocampal->cortical
-transfer; chunking) -- which `hdlab/situation_focus.py::ChunkedFocus` already PROTOTYPES (it chunks the oldest units
-into a nested store) but the core `AccumulateRegister` does NOT use. Two partial existing levers are also unwired for
-this: the `recency` modulator in `hdlab/bundling.py` (OFF by default -- it IS essentially this leaky write) and the
-`multibank` sharding (spreads events across banks -> less per-bank crosstalk = a capacity extension).
+**BRAIN-FIDELITY VERDICT (research drill `notes/research_register_write_path_asymmetric_recency_suppression_2026-08-29.md`,
+13 primary-verified sources -- this CORRECTS two things below).**
+- **Buschman 2011 does NOT support the recency claim** -- its display is SIMULTANEOUS (a set-SIZE/load effect, no
+  temporal order to be asymmetric about). The RIGHT, decisive evidence is **Warden & Miller 2007 (Cereb Cortex) +
+  Konecky, Smith & Olson 2017 (J Neurophysiol)** -- two convergent primate-PFC single-unit studies with SEQUENTIAL
+  presentation, measuring a monotonic recency gradient (population decoding 66% newest / 45% middle / 39% oldest). So
+  the write-time gain is **ASYMMETRIC/leaky = MEASURED, PINNED-WEAK (P~0.65)** -- materially STRONGER brain support than
+  the read-side divnorm ever had (which is OUR-EXTENSION with zero direct citations). Symmetric divisive-at-write is
+  the WRONG-locus op (a shared divisor treats every item identically -- exactly what the sequential-encoding brain does NOT do).
+- **Graded/continuous leak is MORE brain-faithful than a hard bounded queue** (Watters 2026 Gain model beats slot in
+  88% of sessions; Hahn 2021; Daume 2024; the CDA "neural slot" evidence collapsed under a 10-lab replication). Use a
+  continuous exponential leak `S = lambda*S + bind(role,item)`, sweep lambda; a bounded queue is the less-faithful fallback.
+
+**The trade + the CORRECTED second-store architecture (this is the design space for strategy).** Leaky is NOT a free
+win: it buys unbounded recent capacity by DECAYING old events. To keep OLD events too you need a second store -- BUT the
+research REFUTES the obvious analogy: hippocampal->cortical CLS consolidation (and a recency-chunked `ChunkedFocus`) is
+the WRONG model, because CLS is organized by CONTENT/SCHEMA-congruence + salience, NOT by recency/eviction-order, and
+solves a different (catastrophic-interference, hours-scale) problem. **The correct second store already exists: the
+separable-row, content-addressed, never-forgets `HDFactStore`** (from the integrated `one_store_does_two_jobs...`). What
+is missing is a **CONTENT/SALIENCE-gated hand-off** from the register into it (commit what is salient/schema-congruent,
+NOT FIFO-in-eviction-order) -- and that gate PARTIALLY EXISTS: the MDL/schema-congruence gate family in
+`script_grain_acquisition_loop`/`grounding_acquisition_loop`. So the fix is NOT "leaky buffer + recency chunking"; it is
+"leaky recency write + a content/salience-gated commit to HDFactStore." Partial existing levers: the `recency` modulator
+in `hdlab/bundling.py` (OFF by default = the leaky write) and `multibank` sharding (per-bank capacity extension).
 
 **Write-gain FORM fidelity (MEASURED, W10 -- narrows the design space).** The form matters decisively, and it rules
 one option OUT: a SYMMETRIC pooled divisive rescale at write (S/(mean|S|) each step) does NOT extend capacity --
@@ -65,16 +80,22 @@ gives unbounded recent capacity (W9); the FORM matters and symmetric divisive do
 (to prove per strategy's build): the best asymmetric form (fixed vs activity-adaptive leak vs bounded queue), the
 consolidation mechanism (reuse ChunkedFocus), and how it composes with multibank sharding + the p2 sparse store.
 
-**Fix direction / first deliverable for strategy.** Decide the register's capacity architecture: (1) turn on/validate
-the recency-weighted (leaky) write for reader organs that need recent context; (2) wire a consolidation/chunk path
-(reuse ChunkedFocus) for organs that need all events; (3) measure both composed with multibank sharding. The
-read-terminal `divnorm` stays as-is (it is the right READ-side op once the write path is fixed).
+**Fix direction / first deliverable for strategy (updated by the research drill).** (1) Add a CONTINUOUS leaky/recency
+write option to `AccumulateRegister.add_event` (`S = lambda*S + bind(role,item)`, sweep lambda; the recency modulator in
+`bundling.py` is this, OFF/unwired) for reader organs that need recent context -- the graded-vs-step discriminator
+(continuous leak vs hard queue) is a cheap can-fail test, literature predicts graded wins. (2) For organs that need OLD
+events too, do NOT build recency-chunked consolidation -- wire a **content/salience-gated commit into the existing
+`HDFactStore`** (reuse the MDL/schema-congruence gate from `script_grain`/`grounding_acquisition_loop`; commit by
+salience, not eviction-order). (3) Compose with `multibank` sharding. The read-terminal `divnorm` stays as-is.
+**Candidate next problem this spawns (MEDIUM):** the content/salience-gated register->HDFactStore hand-off.
 
-**Pointers.** `experiments/exp_read_terminal_divnorm_write_path_v1.py` (W9, the measured limitation);
-`hdlab/situation_model_accumulate.py::AccumulateRegister.add_event` (the flat write); `hdlab/bundling.py` (the OFF-by-
-default `recency` modulator = the leaky write); `hdlab/situation_focus.py::ChunkedFocus` (the consolidation prototype);
-`hdlab/situation_model_multibank.py` (sharding = a capacity extension); `notes/research_hippocampal_pfc_divisive_
-normalization_memory_register_2026-08-29.md` (d)(2) + Buschman 2011.
+**Pointers.** `experiments/exp_read_terminal_divnorm_write_path_v1.py` (W9 limitation + W10 gain-form fidelity);
+`hdlab/situation_model_accumulate.py::AccumulateRegister.add_event` (flat write); `hdlab/bundling.py` (OFF-by-default
+`recency` modulator); `HDFactStore` (the content-addressed second store, from `one_store_does_two_jobs...`);
+`script_grain_acquisition_loop`/`grounding_acquisition_loop` (the MDL/schema-congruence gate to reuse for the hand-off);
+`hdlab/situation_model_multibank.py` (sharding); **brain evidence: Warden & Miller 2007 + Konecky 2017 (asymmetric
+recency, the CORRECT cite), NOT Buschman 2011 (load, not order)**; `notes/research_register_write_path_asymmetric_
+recency_suppression_2026-08-29.md` (full).
 
 ---
 
