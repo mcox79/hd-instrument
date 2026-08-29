@@ -31,7 +31,35 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-28 (LATEST) -- ✅ **REGISTER BUNDLE-RENORM (p5) INTEGRATED (owner-DONE, EXCELLENT): the per-component renorm that broke the serial readout is RESOLVED — the brain-faithful fix is POOLED divisive normalization (one shared scalar), which recovers the overloaded register to the raw-sum ceiling AND generalises to a substrate-wide rule. Composes with the `decode_serial` I landed this session. Queue now: p3 name-clustering + p4 verb-WSD open; p2 learner SOLVED-awaiting.**
+### 2026-08-28 (LATEST) -- ✅ **VERB-SENSE (p4) INTEGRATED (owner-DONE, EXCELLENT): the verb-polysemy wall is BUILT — a glass-box event-FRAME disambiguator that tells "left the room" from "left a note" by grammar + idioms + CONTEXT, beats most-frequent-sense, and makes the event-miner measurably more precise. Its SPINE is a self-correction (owner caught a wrong "MFS is a wall"; the fix was the omitted brain lever, CONTEXT, + a reliability gate). Queue: p3 name-clustering (WIP) open; p2 learner SOLVED-awaiting.**
+**READ THIS FIRST after compaction; then the entries below.**
+✅ **INTEGRATED `no_glass_box_verb_sense_disambiguation` (p4, EXCELLENT, owner-DONE):** reverified FIRST-HAND, ran all
+three myself — `test_frame_sense_disambiguator.py` 11/11; `exp_frame_sense_serves_motion_cue_v2` BAR-3 HARD_PASS
+(DISAMBIG+context **0.685** [0.655,0.713] beats the un-disambiguated front-end **0.611** [0.580,0.642] CI-sep, McNemar
+p=8e-06, twin loses, 5-fold CV n=961); `exp_frame_sense_context_broad_v1` BAR-2 (reliability-gated context 0.691 beats
+MFS 0.679; un-gated context HURTS → the per-verb GATE is the lever). Mechanism COPIED (PINNED, 4-lane research drill):
+frequency PRIOR (reordered access) + argument-structure CONSTRUCTION (Goldberg/Levin) + COMPLEMENT-TYPE (Barwise&Perry) +
+stored-unit IDIOM lexicon + thematic FIT + reliability-gated CONTEXT, through `graded_competition`, underspecification
+default. **THE SPINE = the self-correction this project prizes:** 'MFS is a wall' was the solver's error → OWNER caught it
+(brain-faithful losing = presumed impl-bug) → the fix was the OMITTED brain lever CONTEXT + a Friston precision-weighting
+GATE. HONEST caveats preserved: BAR-3 TIES the MFS-binary oracle (win = removing false motion events); BAR-2 small
+(+0.007); context IN-DOMAIN (out-of-domain regresses → the bottleneck is in-domain sense-tagged DATA, not volume);
+perception/speech unhelped (no-LLM precluded). Review + SOLVER REVIEW in PROBLEM.md; priority cleared; AUDIT §2b folded
+(verb-polysemy wall BUILT).
+🔌 **hdlab landing QUEUED (Q111 — careful spaCy-coupled multi-module port):** `frame_sense_disambiguator.py` +
+`context_prior.py` + `data/{idiom_foundation_v1, context_prior_v1}`; the **IDIOM stored-unit lexicon is the spaCy-free
+FOUNDATION** that can land first (a shared MWE-flagging asset — like I did with location_register's spaCy-free core). Do
+NOT promote a WSD organ.
+🧠🔧 **ADJACENCIES EVALUATED (owner directive):** (1) the coarse **EVENT-FRAME is a candidate SHARED PRIMITIVE** — wiring
+it into `situation_model` + `location_register` + the ToM ledger banks the BAR-3 win into the live reader (a QUEUED wiring
+follow-on, mine); (2) pronoun/anaphoric-object typing folds into the coref line (p3 + p5), not a new brief; (3) an
+open-class idiom/collocation FOUNDATION mined at scale (offline, invariant-compatible) is the residual world-knowledge
+lever — a candidate future problem.
+🎯 **QUEUE now: p3 `the_name_branch_shatters_one_character_into_many_entities` (WIP SOLVED, not owner-DONE) open; p5
+coherence-prior, p6 bundle-norm audit, p7 shallow-SRL, p8 archaic-prose open for solvers; + p2 learner SOLVED-awaiting.
+p4 closed.**
+
+### 2026-08-28 -- ✅ **REGISTER BUNDLE-RENORM (p5) INTEGRATED (owner-DONE, EXCELLENT): the per-component renorm that broke the serial readout is RESOLVED — the brain-faithful fix is POOLED divisive normalization (one shared scalar), which recovers the overloaded register to the raw-sum ceiling AND generalises to a substrate-wide rule. Composes with the `decode_serial` I landed this session. Queue now: p3 name-clustering + p4 verb-WSD open; p2 learner SOLVED-awaiting.**
 **READ THIS FIRST after compaction; then the entries below.**
 ✅ **INTEGRATED `the_register_bundle_renorm_breaks_the_serial_readout` (p5, EXCELLENT, owner-DONE):** reverified FIRST-HAND
 (`test_register_divisive_norm.py`, ALL 8 checks PASS). The register's per-component bundle renorm (`S_i/|S_i|`,

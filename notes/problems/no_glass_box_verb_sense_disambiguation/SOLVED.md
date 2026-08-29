@@ -180,3 +180,29 @@ model is the bottleneck to CI-separation); (2) understand why context helps MOTI
 confusion (is the coarse comm/cog split too noisy, or the contexts less separable?); (3) land the idiom lexicon +
 the harmless ledger gate; (4) route pronoun/anaphoric objects to coreference. The verdict is PARTIAL, but the
 trajectory is a brain-foundational WIN in progress, not a ceiling.
+
+---
+INTEGRATED_BY_STRATEGY: 2026-08-28 (grade EXCELLENT; owner_verdict: DONE). NOTE: the FINAL verdict is ALL FOUR BARS CLEAR
+(OWNER_NOTES + the front-matter result + the NOTE at the top of this file); the "PARTIAL / MFS is a wall" prose in the
+body above is the RETAINED RECORD of the corrected path, not the final verdict. Re-verified FIRST-HAND, ran all three
+myself: test_frame_sense_disambiguator.py -> 11/11; exp_frame_sense_serves_motion_cue_v2.py -> BAR-3 HARD_PASS
+(DISAMBIG+context 0.685 [0.655,0.713] beats the un-disambiguated front-end 0.611 [0.580,0.642] CI-sep, McNemar p=8e-06,
+twin loses, 5-fold CV n=961); exp_frame_sense_context_broad_v1.py -> BAR-2 (reliability-gated context 0.691 beats MFS
+0.679; un-gated context HURTS -> the per-verb reliability GATE is the lever). A glass-box event-FRAME disambiguator for
+the two dominant confusions: frequency PRIOR (reordered access) + argument-structure CONSTRUCTION (Goldberg/Levin) +
+COMPLEMENT-TYPE rule (Barwise&Perry) + stored-unit IDIOM lexicon + thematic FIT + reliability-gated CONTEXT, through
+graded_competition, underspecification as default -- all research-validated (4-lane brain drill). THE SPINE = the
+self-correction this project prizes: 'MFS is a wall' was the solver's error (owner caught it: brain-faithful losing =
+presumed impl-bug); the fix was the OMITTED brain lever CONTEXT + a Friston precision-weighting reliability GATE (trust
+context only for the 163/1379 verbs where it beats MFS on train). Three confounds drilled+fixed (prior mismatch;
+gate-reverts-context; comm/cog conflation). Measured fair optimization sweep (grounded NEGATIVE; out-of-domain bootstrap
+REGRESSES -> bottleneck is in-domain data not volume; cross-sentence NEGATIVE; coref NEGLIGIBLE; calibration approximate
+ECE ~0.21). Honest caveats preserved: BAR-3 TIES the MFS-binary oracle (win = removing false motion events, not beating
+an oracle); BAR-2 small (+0.007); context IN-DOMAIN (out-of-domain regresses); perception/speech unhelped (no-LLM
+precluded). Review + SOLVER REVIEW block in PROBLEM.md; priority cleared. AUDIT UPDATE folded (BRAIN_FOUNDATIONAL_AUDIT.md
+2b: verb-polysemy wall BUILT). hdlab landing QUEUED (Q111 -- careful spaCy-coupled multi-module port; the IDIOM
+stored-unit lexicon is the spaCy-free FOUNDATION that can land first; do NOT promote a WSD organ). NO hdlab written this
+commit (Q111). Adjacencies EVALUATED (owner directive): the coarse EVENT-FRAME is a candidate SHARED PRIMITIVE (queued
+wiring follow-on, mine -- bank the bar-3 win into situation_model + location_register + the ToM ledger); pronoun/object
+typing folds into the coref line (p3 + p5); an open-class idiom/collocation FOUNDATION mined at scale is the residual
+world-knowledge lever (offline, invariant-compatible).

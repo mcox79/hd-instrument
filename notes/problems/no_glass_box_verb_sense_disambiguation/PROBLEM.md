@@ -1,8 +1,51 @@
 ---
-priority: 4
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Owner-DONE. A glass-box event-FRAME verb-sense disambiguator that beats most-frequent-sense on the broad task AND lifts the downstream event-miner — with a compelling SELF-CORRECTION as its spine. Re-verified FIRST-HAND (ran all three myself): verification/test_frame_sense_disambiguator.py 11/11; exp_frame_sense_serves_motion_cue_v2 BAR-3 HARD_PASS; exp_frame_sense_context_broad_v1 BAR-2 gated-context beats MFS. Mechanism COPIED (PINNED, research-validated by a 4-lane brain-foundational drill): a frequency PRIOR (reordered access — Duffy/Morris/Rayner) + a near-categorical argument-structure CONSTRUCTION cue (Goldberg; Levin 1993) + the Barwise&Perry/Gisborne COMPLEMENT-TYPE discriminator ('saw him leave'=perception vs 'saw that S'=cognition vs 'saw the point'=cognition) + a stored-unit IDIOM lexicon (1852 phrasal + 566 object MWEs — holistic MWE retrieval, Jackendoff/Cutting&Bock) + graded thematic FIT + a reliability-gated CONTEXT cue, all combined through the substrate's own graded_competition, with Frazier&Rayner UNDERSPECIFICATION as the default. BAR 1 (glass-box disambiguator for both dominant confusions): witness 11/11, minimal-pair positive control 6/6. BAR 2 (beat MFS CI-sep, twin loses): the reliability-GATED context cue beats MFS on the broad frame-alternating multiclass — 5-fold pooled Δaccuracy +0.007 CI [+0.002,+0.012] (excludes 0), McNemar p=0.003, override precision 0.558 (verified first-hand at CTX_GATED 0.691 vs MFS 0.679, single-split p=0.049); the info-free shuffled-label-context TWIN loses below null p95; the positive control is the context-flipped minimal pairs. BAR 3 (downstream lift, the load-bearing result): the mined MOTION-event decision — the exact call the ToM ledger / any event-miner makes — 5-fold CV n=961, DISAMBIG+context 0.685 [0.655,0.713] BEATS the un-disambiguated verb-string front-end 0.611 [0.580,0.642] CI-separated, McNemar p=8e-06 (160 fixed / 89 broken), motion precision 0.611→0.677, info-free twin loses → HARD_PASS. THE SPINE (the self-correction, exactly the discipline this project prizes): the solver first filed PARTIAL concluding 'MFS is a wall'; the OWNER caught it (the brain does this, so a brain-faithful mechanism must — 'brain-faithful losing = presumed impl-bug until proven structural'); the fix was the brain's OMITTED lever — CONTEXT (reordered access) — plus a per-verb RELIABILITY GATE (Friston precision-weighting: trust context only for the 163/1379 verbs where it beats MFS on TRAIN), which turned un-gated context (which HURTS the broad task) into a robust win. The SAME precision-weighting insight fixed both the construction cue AND the context cue. THREE confound/bugs drilled + fixed en route: (a) a WordNet-vs-corpus PRIOR MISMATCH inflated fake gains/breaks → matched-prior one-variable test; (b) a conservative gate silently REVERTED context-driven moves → honor a decisive discourse vote; (c) a coarse 'proposition' type conflated comm/cog objects → split comm_obj/cog_obj ('see the point'→cognition). MEASURED optimization sweep (all brain-foundational, fair): grounded-context NEGATIVE (representation isn't the issue), large-corpus BOOTSTRAP scale-up NEGATIVE (out-of-domain data REGRESSES 0.761→0.700 — the bottleneck is IN-DOMAIN sense-tagged data, not volume; in-domain oracle proves +0.045 headroom), cross-sentence NEGATIVE (local suffices), coref-for-anaphoric-objects NEGLIGIBLE, diagnostic-word MARGINAL; calibration done (hand weights near-accuracy-optimal, but the softmax is OVERCONFIDENT ECE 0.245→0.209 because the cues aren't conditionally independent → the additive→softmax=Bayesian-posterior claim is structurally isomorphic with an accuracy-optimal argmax but the CONFIDENCE is approximate, kept as an honest caveat). SCRUPULOUS honest caveats (withdraw-first): the BAR-3 lift is over the un-disambiguated front-end (what the ledger does) and TIES the stronger per-lemma-MFS-binary oracle 0.685 (McNemar p=1.0) — the win is REMOVING false motion events, not beating an oracle prior; BAR-2's broad effect is small (+0.007); the context model is IN-DOMAIN (SemCor), out-of-domain transfer is unproven (measured to regress); CONTEXT does NOT help the perception/speech confusion ('see a bird' vs 'see your point' share contexts — needs deeper semantics the no-LLM invariant precludes); the residual ceiling is precisely characterized (bare 'I see'/discourse backchannels + WordNet lexname-taxonomy quirks). hdlab landing QUEUED (Q111 — a careful spaCy-coupled multi-module port; the IDIOM stored-unit lexicon is the spaCy-free FOUNDATION that can land first; do NOT promote a WSD organ or claim an exact Bayesian posterior). AUDIT UPDATE folded (§2b: verb-polysemy wall BUILT). Adjacencies EVALUATED (owner directive): the event-frame is a candidate SHARED PRIMITIVE to wire into situation_model + location_register + the ToM ledger (a queued wiring follow-on, mine); the pronoun/anaphoric-object typing folds into the coref line (p3 name-clustering + p5 coherence-prior); an open-class idiom/collocation FOUNDATION mined at scale is the residual world-knowledge lever (invariant-compatible, offline)."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-28 (strategy session; grade EXCELLENT; owner_verdict: DONE)
+> **Re-verified FIRST-HAND** (ran all three myself): `verification/test_frame_sense_disambiguator.py` → **11/11**;
+> `exp_frame_sense_serves_motion_cue_v2.py` → **BAR-3 HARD_PASS** (DISAMBIG+context 0.685 [0.655,0.713] beats the
+> un-disambiguated front-end 0.611 [0.580,0.642] CI-sep, McNemar p=8e-06, twin loses, 5-fold CV n=961);
+> `exp_frame_sense_context_broad_v1.py` → **BAR-2** (reliability-gated context 0.691 beats MFS 0.679, un-gated context
+> HURTS → the gate is the lever).
+> **Result:** a glass-box event-FRAME disambiguator for the two dominant confusions (motion-vs-deposit;
+> perception-vs-speech) — frequency PRIOR (reordered access) + argument-structure CONSTRUCTION (Goldberg/Levin) +
+> COMPLEMENT-TYPE rule (Barwise&Perry) + stored-unit IDIOM lexicon (holistic MWE retrieval) + thematic FIT +
+> reliability-gated CONTEXT, combined through `graded_competition`, with underspecification as the default. All
+> research-validated (a 4-lane brain-foundational drill: Sweetser, Barwise&Perry, Goldberg/Levin, Frazier&Rayner,
+> Friston precision-weighting).
+> **Argument audit (not just arithmetic) — the SELF-CORRECTION is the strength, and it is exactly this project's
+> discipline:** the solver first filed PARTIAL ('MFS is a wall'); the OWNER caught it (a brain-faithful mechanism must
+> match the brain — 'brain-faithful losing = presumed impl-bug until proven structural'); the fix was the OMITTED lever
+> — CONTEXT (reordered access) — plus a **per-verb reliability GATE** (Friston precision-weighting): trust context only
+> for the 163/1379 verbs where it beats MFS on TRAIN. Un-gated context HURTS the broad task; the gate flips it to a win.
+> The SAME precision-weighting insight fixed both the construction and the context cue. Three confounds drilled + fixed
+> en route: (a) a WordNet-vs-corpus PRIOR MISMATCH (matched-prior one-variable test); (b) a conservative gate reverting
+> context moves (honor a decisive discourse vote); (c) comm/cog object conflation (split comm_obj/cog_obj). Rigorous
+> controls throughout: info-free twin loses below null p95, context-flipped minimal-pair positive control, McNemar.
+> **Measured, fair optimization sweep:** grounded-context NEGATIVE, large-corpus bootstrap NEGATIVE (out-of-domain
+> REGRESSES 0.761→0.700 — the bottleneck is IN-DOMAIN sense-tagged data, not volume; in-domain oracle +0.045 headroom),
+> cross-sentence NEGATIVE, coref-object NEGLIGIBLE; calibration honest (near-accuracy-optimal weights, but the softmax is
+> overconfident ECE ~0.21 — the additive→softmax=Bayesian claim is structurally isomorphic with an accuracy-optimal
+> argmax, confidence only approximately calibrated).
+> **Honest boundaries (preserved, withdraw-first):** BAR-3 lift is over the un-disambiguated front-end and TIES the
+> per-lemma-MFS-binary oracle (p=1.0) — the win is removing false motion events, not beating an oracle; BAR-2's effect is
+> small (+0.007, CI-sep on the paired delta); the context model is IN-DOMAIN (out-of-domain regresses); CONTEXT does NOT
+> help perception/speech (shared contexts — needs semantics the no-LLM invariant precludes); the residual ceiling is
+> precisely characterized. **AUDIT UPDATE folded (§2b: verb-polysemy wall BUILT).**
+> **hdlab landing QUEUED (Q111 — careful spaCy-coupled multi-module port; NOT this commit):** promote
+> `frame_sense_disambiguator.py` + `context_prior.py` + `data/{idiom_foundation_v1, context_prior_v1}` → hdlab; the
+> **IDIOM stored-unit lexicon is the spaCy-free FOUNDATION** that can land first (a shared MWE-flagging asset for any
+> front-end); an optional default-OFF gate has `perceptual_access_ledger._motion_signal` consult the disambiguator to
+> suppress non-motion departures. Do NOT promote a WSD organ, adopt out-of-domain context data, or claim an exact
+> Bayesian posterior. **Adjacencies EVALUATED (owner directive):** (1) the coarse EVENT-FRAME is a candidate SHARED
+> PRIMITIVE — wiring it into `situation_model` + `location_register` + the ToM ledger banks the BAR-3 win into the live
+> reader (a queued wiring follow-on, mine); (2) pronoun/anaphoric-object typing folds into the coref line (p3
+> name-clustering + p5 coherence-prior), not a separate brief; (3) an open-class idiom/collocation FOUNDATION mined at
+> scale (offline, invariant-compatible) is the residual world-knowledge lever — a candidate future problem.
+
 
 # PROBLEM: there is no glass-box verb-sense / POLYSEMY disambiguator, and it is a cross-cutting wall every text front-end pays — "left the room" (depart) vs "left a letter" (deposit), "returned home" vs "returned a reply" (said), "observed the move" (watched) vs "observed" (remarked), "passed away" (died) vs time-passed — build a minimal brain-faithful sense/frame disambiguator over the dependency parse (motion-vs-transitive, perception-vs-speech) that beats the most-frequent-sense floor CI-separated, twin losing, and lifts a downstream front-end
 

@@ -65,6 +65,36 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — THE VERB-POLYSEMY WALL IS BUILT: a glass-box event-FRAME disambiguator beats most-frequent-sense with
+  CONTEXT (reordered access) + a per-verb reliability GATE, and lifts the downstream event-miner — a SELF-CORRECTION of a
+  wrong 'MFS is a wall' verdict** (from `no_glass_box_verb_sense_disambiguation`, integrated SOLVED/EXCELLENT, owner-DONE;
+  all three witnesses re-verified FIRST-HAND — witness 11/11, BAR-3 HARD_PASS, BAR-2 gated-context > MFS). **PINNED
+  (research-validated, a 4-lane brain-foundational drill):** verb sense is selected by a frequency PRIOR (reordered
+  access — Duffy/Morris/Rayner) + a near-categorical argument-structure CONSTRUCTION cue (Goldberg; Levin 1993) + the
+  COMPLEMENT-TYPE discriminator ('saw him leave'=perception vs 'saw that S'=cognition — Barwise & Perry 1983; Sweetser
+  mind-as-body) + holistic stored-unit IDIOM retrieval (Jackendoff; Cutting & Bock) + graded thematic FIT + a
+  reliability-gated CONTEXT cue, combined through the substrate's own `graded_competition`, with Frazier & Rayner
+  UNDERSPECIFICATION as the default. **THE CORRECTION (the discipline in action):** the solver first concluded 'MFS is a
+  wall' (PARTIAL); the OWNER caught it (a brain-faithful mechanism must match the brain — 'brain-faithful losing =
+  presumed impl-bug until proven structural'); the omitted lever was CONTEXT, and the key move was a **per-verb
+  RELIABILITY GATE (Friston precision-weighting)** — un-gated context HURTS the broad task, but trusting it only for the
+  163/1379 verbs where it beats MFS on train flips it to a robust win. **Numbers:** BAR-2 gated context beats MFS on the
+  broad frame-alternating multiclass (Δacc +0.007 CI [+0.002,+0.012], McNemar p=0.003, override precision 0.558);
+  info-free shuffled-label-context twin loses below null p95. BAR-3 (the load-bearing downstream lift): the mined
+  MOTION-event decision — the exact call the ToM ledger makes — DISAMBIG+context 0.685 [0.655,0.713] beats the
+  un-disambiguated verb-string front-end 0.611 [0.580,0.642] CI-sep, McNemar p=8e-06, twin loses. **Deviations to
+  record:** (a) the additive→softmax combiner has an accuracy-optimal ARGMAX but only APPROXIMATELY-calibrated confidence
+  (ECE ~0.21) because the cues are not conditionally independent — 'additive→softmax = Bayesian posterior' is structurally
+  isomorphic, not exact; (b) the win is over the UN-DISAMBIGUATED front-end and TIES the per-lemma-MFS-binary oracle (the
+  value is REMOVING false motion events, not beating an oracle prior); (c) CONTEXT is IN-DOMAIN (SemCor) — out-of-domain
+  bootstrap REGRESSES (0.761→0.700), so **the bottleneck is IN-DOMAIN sense-tagged data, not model cleverness or volume**
+  (in-domain oracle +0.045 headroom); (d) CONTEXT does not help the perception/speech confusion (shared contexts — needs
+  semantics the no-LLM invariant precludes). **hdlab landing QUEUED (careful spaCy-coupled multi-module port):** the IDIOM
+  stored-unit lexicon (1852 phrasal + 566 object MWEs) is the spaCy-FREE FOUNDATION that can land first (a shared
+  MWE-flagging asset); do NOT promote a WSD organ. **NET: the verb-polysemy wall that bit the ToM extractor + the mined
+  gold is BUILT; the coarse EVENT-FRAME is a candidate SHARED PRIMITIVE to wire into situation_model + location_register +
+  the ToM ledger (a queued wiring follow-on).**
+
 - **2026-08-28 — THE REGISTER'S PER-COMPONENT BUNDLE RENORM WALL IS RESOLVED: the brain-faithful fix is POOLED DIVISIVE
   NORMALIZATION, and it generalises to a SUBSTRATE-WIDE rule for read-terminal bundles** (from
   `the_register_bundle_renorm_breaks_the_serial_readout`, integrated SOLVED/EXCELLENT, owner-DONE; witness
