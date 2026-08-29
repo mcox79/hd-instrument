@@ -31,7 +31,29 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-29 (LATEST) -- ✅ **INTEGRATED TWO situation-model dimensions (both owner-DONE, EXCELLENT): TIME (a queryable before/after register) + DISCOURSE-FACT REASONING (a two-level result — my brief's coref-residual target REFUTED, but the reasoning-frontier capability BUILT+PROVEN). PACKAGED the CAUSATION force-dynamics brief to refill the empty assignable queue. Both hdlab landings QUEUED.**
+### 2026-08-29 (LATEST) -- ✅ **INTEGRATED the register WRITE-PATH fix (owner-DONE, EXCELLENT — leaky-recency write + salience-gated consolidation; the superposition-register FORM is now PINNED at the readout level). PACKAGED the ASSEMBLY-PHASE problem (wire the validated role organs into the live reader — a SOLVER problem, correcting the earlier "wiring is strategy-only" under-scoping).**
+**Newest first; the entries below carry the fuller context.**
+✅ **INTEGRATED `the_register_write_path_has_a_hard_capacity_wall` (SOLVED/EXCELLENT, owner-DONE; reverified 11/11
+FIRST-HAND):** the brain's write path — a CONTINUOUS asymmetric leaky/recency write holds recent-4 recovery = 1.000 at
+every load where the STRONGEST flat floor (flat sum + the landed serial readout) collapses (CI-sep from N=128); graded
+primate fade-curve; a salience-gated 2nd store (weighted-OR PE+congruence) beats FIFO 0.643 vs 0.247; the self-derived-
+salience negative control reproduces an on-disk HARD_FAIL (salience must be independent). Owner-pushed multi-timescale
+deepening (~3× window) with two self-caught citation corrections. **AUDIT UPGRADE:** the substrate's superposition-register
+FORM is now PINNED at the population-code READOUT level (Watters 2026 — a dent in "VSA binding unpinned", at readout not the
+bind() algebra). Landing QUEUED (a full concrete diff exists; default-off `leak` param + a consolidation helper). Awaiting-integration now **0**.
+📦 **PACKAGED `wire_the_predarg_frontend_and_binder_into_the_live_reader` (NEW brief, priority 3) — the ASSEMBLY-PHASE
+unblocker.** The design-gate audit found `situation_reader` assigns roles POSITIONALLY with no parse, so the landed predarg
+front-end + who-did-what binder are ISLANDED. **KEY REFRAME (owner asked "can solvers do the wiring?"): YES** — the wiring
+is a SOLVER problem (build+validate in `experiments/`, propose the hdlab diff; strategy does only the final mechanical
+`hdlab/` write, Q111), correcting my earlier under-scoping that treated wiring as strategy-only. Can-fail bar: end-to-end
+who-did-what/role lift CI-sep over BOTH the positional reader AND the content-lemma COUNTING floor (a prior generic wiring
+found that floor beats a naive wired reader), info-free twin loses, NO regression. Commit `25d74bec7`.
+🎯 **QUEUE now 4 open: p3 assembly (NEW, open), causation (open), p6-writepath→INTEGRATED (dropped), p8 archaic-prose
+(ASSIGNED).** 2 open-unassigned (assembly, causation). Nothing owner-DONE awaiting. MORE ready problems primed (p5 natural-
+text validation; p4 resultant-STATE register; the write-path's multi-timescale successor). **Landings QUEUED: predarg
+CORE landed; the who-did-what binder, TIME register, discourse-fact organ, and leaky-write are ready hdlab landings.**
+
+### 2026-08-29 -- ✅ **INTEGRATED TWO situation-model dimensions (both owner-DONE, EXCELLENT): TIME (a queryable before/after register) + DISCOURSE-FACT REASONING (a two-level result — my brief's coref-residual target REFUTED, but the reasoning-frontier capability BUILT+PROVEN). PACKAGED the CAUSATION force-dynamics brief to refill the empty assignable queue. Both hdlab landings QUEUED.**
 **Newest first; the entries below carry the fuller context.**
 ✅ **INTEGRATED `situation_model_has_no_tested_temporal_order_comprehension` (p4, SOLVED/EXCELLENT, owner-DONE; reverified
 8/8 FIRST-HAND):** the TIME dimension — a QUERYABLE before/after register (1.000 vs the naive "telling order = event order"
@@ -225,7 +247,11 @@ REGISTER (from integrated p4, 2026-08-29): promote `experiments/_temporal_order_
 point `_read_causation` at the register — a direct organ promotion + live-wiring fixes.** **THE DISCOURSE-FACT-STORE ORGAN
 (from integrated p5, 2026-08-29): promote the reading-built discourse-fact store + graded 2-hop bridging RESOLUTION as a
 NEW situation-model organ (discourse-age-gated, FHRR, relation-indexed for scaling), wired for downstream QA/next-event/
-bridging/ToM — NOT a coref patch. A substantial new-organ landing.** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
+bridging/ToM — NOT a coref patch. A substantial new-organ landing.** **THE LEAKY-RECENCY WRITE + CONSOLIDATION (from
+integrated `the_register_write_path_has_a_hard_capacity_wall`, 2026-08-29 — a FULL concrete diff exists in that folder's
+`PROPOSED_HDLAB_DIFF.md`): (1) a `leak` param on `AccumulateRegister` (0.0 = flat/byte-identical default; >0 = asymmetric
+leaky recency write) threaded through `make_situation_register` + the multibank backend; (2) a thin `register_consolidation`
+salience-gate helper (max(w_pe·PE, w_cong·CONG) → commit to `HDFactStore`). Additive/default-off — a clean, ready landing.** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
 floor, niche, solver-said-skip). **The WHO-DID-WHAT BINDER (from integrated p3 `pronoun_to_event_binding_caps_who_did_what`,
 2026-08-29): STEP-1 re-instrument the live who-did-what metric as a situation-model EVENT-SET recall (the biggest lever —
 lifts the ceiling 0.589→1.000) + STEP-2 wire the graded binder + gender agreement + person-exclusion onto the live path
