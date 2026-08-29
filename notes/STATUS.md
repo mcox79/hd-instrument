@@ -31,7 +31,43 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-28 (LATEST) -- ✅ **THE LEARN-FROM-READING LEARNER (p2) INTEGRATED (owner-DONE, EXCELLENT): the "can we grow the foundation by reading?" question is RESOLVED — YES, but ONLY behind a brain-faithful CLS keep-both-stores gate, DEFAULT-OFF. The brain lever is CONTEXT SHAPE (grammatical relations), not the update rule (online==batch). The reader stays STATIC until an explicit gated growth step.**
+### 2026-08-29 (LATEST) -- 🧭 **COMPACTION SNAPSHOT: a HEAVY integration+landing session. NOTHING owner-DONE awaits integration; queue = 6 ranked-open (3 actively worked by solvers); 9 hdlab organs LANDED this session (all committed + witnessed + default-off, but UN-REGISTERED — the catalog file is blocked by a stale bulk reformat that is NOT this session's). Reader is in the comprehension→REASONING phase; the reader stays STATIC (learn-from-reading validated but growth-OFF behind a CLS gate).**
+**READ THIS FIRST after compaction; then the entries below.**
+✅ **INTEGRATED THIS SESSION (all owner-DONE, EXCELLENT, reverified FIRST-HAND):** the LEARNER (p2 — validated, growth-OFF
+behind the CLS gate; the brain lever is CONTEXT SHAPE / grammatical relations, not the update rule [online==batch]);
+NAME-CLUSTERING (p3, a RIGOROUS NEGATIVE that REFUTED THE PREMISE OF THE BRIEF I PACKAGED — the who-did-what cap is
+PRONOUN→EVENT BINDING [+0.444 proven], NOT name clustering; the head token IS the surname so the floor is strong);
+VERB-SENSE (p4 — the verb-polysemy wall BUILT via CONTEXT + a per-verb reliability gate; a self-correction the owner
+drove); REGISTER BUNDLE-RENORM (p5-earlier — pooled divisive norm); + earlier SPACE, ToM-residual, register-readout,
+transitive-comparison, foraging, phase-diagram.
+🔌 **9 hdlab ORGANS LANDED this session (all default-off/opt-in, byte-identical when off, witnessed FIRST-HAND; committed
+but the capability_registry catalog entries are PENDING — see below):** `belief_partition`; the full REGISTER-READOUT +
+NORMALIZATION line = `decode_serial` + `decode_serial_pooled` + `bundle_norm="divnorm"` on BOTH backends (flat
+AccumulateRegister + MultiBank) + `decode_gated` (CA1 comparator); `transitive_ordering` (FIRST reasoning organ);
+`location_register` (SPACE tracking core, spaCy-free); `idiom_lexicon` (spaCy-free MWE foundation); `graded_coref_pick`
+(graded cue-based antecedent-retrieval core, spaCy-free). ⚠️ **The queued `perceptual_access` landing was RETIRED as
+SUBSUMED** (verified: the ToM observation cue = landed `location_register.present_in_scene` → `belief_partition`).
+⚠️ **REGISTRATION BLOCKER (unresolved, NOT this session's to fix):** `data/capability_registry.jsonl` has a STALE 470-line
+bulk reformat (235 add / 235 remove of EXISTING organ ids) uncommitted since ~2026-08-28 05:17 — I cannot `git add` the
+file without clobbering it, so the 9 landed organs stay UN-catalogued (their code + witnesses are committed + green). **A
+commit or revert of that change by the owner/owning-session unblocks registering all 9.**
+🎯 **QUEUE (6 ranked-open, integrate ONLY on `owner_verdict: DONE`): p3 `pronoun_to_event_binding_caps_who_did_what` (the
+PROVEN +0.444 who-did-what lever — wire the tracked-but-unused clause_role/Centering-Cb into the graded scorer; `hdlab/graded_coref_pick`
+is the landed scoring core it can use); p4 `situation_model_has_no_tested_temporal_order_comprehension` (NEW — the Zwaan
+TIME dimension, sibling of the built SPACE organ, honestly scoped: tense IS extracted+stored, the COMPOSITION into
+before/after comprehension is untested); p5 `the_reader_has_no_coherence_next_mention_prior` (WIP); p6
+`read_terminal_bundle_stores_normalize_per_component_not_pooled` (WIP); p7 `no_shared_shallow_predicate_argument_front_end`
+(WIP); p8 `role_assignment_is_untested_on_archaic_literary_prose`.** p5/p6/p7 have solver WIP SOLVEDs (NOT owner-DONE —
+leave alone). ⚠️ **Uncommitted `notes/problems/{p5,p6}/SOLVED.md` + untracked `verification/test_*.py` are OTHER
+sessions'/solvers' — do NOT commit them.**
+🔌 **REMAINING wire-don't-island debt (all careful/coupled ports — dedicated efforts, NOT heartbeat-tail tasks):** the
+LEARNER (dependency-typed learner + reliability-weighted fusion, foundation-growth STAYS OFF behind the CLS
+keep-both-stores/regression-checked-rollback gate — the landing to get RIGHT); coref `run_graded_retrieval` (the
+resolver-STREAM wiring over TrackedEntity + cross-validation — the core `graded_coref_pick` IS landed); comprehensible-input
+(foraging); `quality_relation` FPE-log; the event-frame shared-primitive wiring (from p4 verb-sense). The p3 person-node
+clustering opt-in was EVALUATED + NOT landed (ties the floor, niche, solver-said-skip).
+
+### 2026-08-28 -- ✅ **THE LEARN-FROM-READING LEARNER (p2) INTEGRATED (owner-DONE, EXCELLENT): the "can we grow the foundation by reading?" question is RESOLVED — YES, but ONLY behind a brain-faithful CLS keep-both-stores gate, DEFAULT-OFF. The brain lever is CONTEXT SHAPE (grammatical relations), not the update rule (online==batch). The reader stays STATIC until an explicit gated growth step.**
 **READ THIS FIRST after compaction; then the entries below.**
 ✅ **INTEGRATED `optimize_and_validate_the_learner_before_it_grows_the_foundation` (p2, EXCELLENT, owner-DONE):** the most
 consequential organ — it can GROW the static offline-built foundation — validated to the standard the owner demanded.
