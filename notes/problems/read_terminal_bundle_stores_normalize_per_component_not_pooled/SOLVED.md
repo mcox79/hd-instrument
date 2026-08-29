@@ -313,3 +313,15 @@ None.
    built, prefer an ASSEMBLY-SELECTIVE divisor (one scalar per stored pattern; Kim & Kim 2025) over one global
    scalar. And the theta-gamma <-> pooled-gain seam (Heeger-Mackey ORGaNICs) is an open theory bridge.
 7. (no action) register + multibank stay on divnorm; nothing else switches.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-29 (grade: EXCELLENT; rigorous negative / PARTIAL owner-DONE)
+
+Integrated by the strategy/architect session. Reverified FIRST-HAND: `test_read_terminal_divnorm.py` **ALL CHECKS PASS** (W1–W11, scaffold-free on real organs/tasks). Argument adversarially audited and sound: the blanket premise is refuted by per-caller live measurement (info-free twins collapse, positive controls move); an apparent typer win was self-rejected as non-brain-faithful (per-role L2, load-fragile); the write-path capacity wall + the asymmetric-leaky fix are measured (W9/W10/W11) and primate-PFC-grounded.
+
+**hdlab landing: NONE earned** — register + multibank are already on divnorm (parent landing); every other enumerated read-terminal caller is measured neutral-to-harmful (typer HURTS at low load; cosine/goal_achievement NULL). The correct result is "no change," plus optional (skipped, low-value) one-line guard comments at the un-switched `bundling.bundle` sites.
+
+**Audit correction folded (§2b):** the earlier "a read-terminal bundle must be pooled-divisive-normed, never per-component" rule was too broad + mis-attributed → replaced with the readout+load rule + three gating conditions; the register divnorm is DEMOTED from implied PINNED to OUR-EXTENSION-UNDER-TEST (an exhaustively-searched absence, ~28 sources — right computational CLASS, not circuit-measured; "do NOT claim PINNED"). Review + `> ## ✅ SOLVER REVIEW` block written into PROBLEM.md; priority cleared.
+
+**The real capability win is a NEW build problem** (fully scoped in the solver's FOLLOWON): an asymmetric continuous leaky/recency WRITE on `AccumulateRegister.add_event` (sweep λ) + a content/salience-gated commit into the existing `HDFactStore` for what decays out (reuse the MDL/schema gate) — NOT a new consolidation mechanism. Packaged separately by strategy.

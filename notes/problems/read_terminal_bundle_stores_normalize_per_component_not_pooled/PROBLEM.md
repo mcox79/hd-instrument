@@ -1,8 +1,33 @@
 ---
-priority: 6
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "RIGOROUS NEGATIVE / PARTIAL (owner-DONE) integrated 2026-08-29 = a full pass per the bar. Reverified FIRST-HAND: test_read_terminal_divnorm.py ALL CHECKS PASS (W1–W11, scaffold-free on real organs/tasks). The brief's blanket 'switch EVERY read-terminal caller to divnorm' is REFUTED by per-caller live measurement: divnorm ≥ per-component ONLY for a DIRECTION-SENSITIVE read under OVERLOAD, largest for the gain-matched serial decode — and the only two callers with both (register + multibank) were ALREADY switched by the parent divnorm landing. No other enumerated caller should switch, each MEASURED: typer sup_map HURTS at low load (−0.0375 CI-sep, divnorm double-counts the explicit shard weights); typer sub-bundle inert (round-trip key); goal_achievement can't overload (≤6 attrs); cosine consumers NULL (ordered_frac identical, d' headroom unused). The discriminator is READOUT-CLASS + LOAD, not read-terminal-vs-rebound. EXEMPLARY self-correction (owner-pushed): an apparent gain-matched typer win (+0.0139 CI-sep @n=40) was REJECTED after a 4-arm brain-fidelity test + literature — it is non-brain-faithful per-role L2 equalization, load-fragile (−0.0556 @n=8); the brain-faithful shared-pool norm is ARGMAX-INVARIANT (inert). The PPC magnitude-as-reliability alternative to the LOO weight is refuted (−0.2167 CI-sep). BIGGEST FINDING (new, measured): capacity is set at the register WRITE path, not READ — the flat running-sum has a hard capacity wall (recent-event recovery 0.125 @256) that read-time divnorm CANNOT move (raw==divnorm every load); the brain-faithful fix is an ASYMMETRIC CONTINUOUS leaky/recency write (recovers recent @256 → 1.0, reproduces the primate-PFC 66/45/39 recency gradient — Warden-Miller 2007/Konecky 2017), a fundamental single-store trade needing a content/salience-gated hand-off into the existing HDFactStore (NOT a new CLS mechanism). AUDIT CORRECTION folded (§2b): the earlier 'a read-terminal bundle must be pooled-divisive-normed' rule was too broad + mis-attributed → replaced with the readout+load rule + three gating conditions; the register divnorm is DEMOTED from implied PINNED to OUR-EXTENSION-UNDER-TEST (an exhaustively-searched absence, ~28 sources — no paper fits pooled Carandini-Heeger to real hippocampal/PFC multi-item WM data; we are in the right computational CLASS, not circuit-measured). hdlab landing: NONE earned (register+multibank already divnorm; switching anything else is measured neutral-to-harmful) — the result IS 'no change'. The write-path fix is a NEW build problem (packaged separately)."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-29 (grade: EXCELLENT; rigorous negative / PARTIAL owner-DONE)
+> **Verdict:** a rigorous negative = a full pass, and an exemplary one. Reverified first-hand
+> (`test_read_terminal_divnorm.py` **ALL CHECKS PASS**, W1–W11, scaffold-free on the real organs/tasks). The brief's
+> blanket "switch every read-terminal caller to divnorm" is **refuted** by per-caller live measurement: divnorm beats
+> per-component **only** for a direction-sensitive read under overload (largest for the gain-matched serial decode), and
+> the only two callers with both (register + multibank) were **already switched** by the parent. Every other caller
+> measured neutral-to-harmful (typer HURTS −0.0375 CI-sep at low load; cosine/goal_achievement NULL). The real
+> discriminator is **readout-class + load**, not read-terminal-vs-rebound.
+> **Exemplary self-correction (owner-pushed):** an apparent gain-matched typer win (+0.0139 CI-sep) was **rejected** after
+> a 4-arm brain-fidelity test — it's non-brain-faithful per-role L2 equalization, load-fragile; the brain-faithful
+> shared-pool norm is argmax-invariant (inert). The PPC magnitude-as-reliability alternative is also refuted (−0.217).
+> **Biggest finding (new, measured):** capacity is set at the register **WRITE** path, not read — the flat running-sum has
+> a hard capacity wall (recent-recovery 0.125 @256) that read-time divnorm **cannot** move; the brain-faithful fix is an
+> **asymmetric continuous leaky/recency write** (recovers recent @256→1.0; reproduces the primate-PFC 66/45/39 recency
+> gradient — Warden-Miller 2007/Konecky 2017), a fundamental single-store trade needing a content/salience-gated hand-off
+> into the existing `HDFactStore` (not a new CLS mechanism).
+> **Audit correction (folded §2b):** the earlier "a read-terminal bundle must be pooled-divisive-normed" rule was too
+> broad + mis-attributed → replaced with the readout+load rule + three gating conditions; **the register divnorm is
+> demoted from implied PINNED to OUR-EXTENSION-UNDER-TEST** (an exhaustively-searched absence, ~28 sources — no paper fits
+> pooled Carandini-Heeger to real hippocampal/PFC multi-item WM data; right computational CLASS, not circuit-measured). A
+> genuine rigor upgrade.
+> **hdlab landing: NONE earned** — register+multibank already divnorm; switching anything else is measured
+> neutral-to-harmful. The result IS "no change." **The write-path fix is a NEW build problem** (packaged separately as the
+> next brief).
 
 # PROBLEM: the register bundle-renorm result generalizes to a SUBSTRATE-WIDE fidelity rule the p5 solver measured and mapped — a bundle that is READ (unbind+cleanup, or cosine-compared), NOT re-bound as an operand, must be normalized by a POOLED/scalar divisive gain (Carandini-Heeger), never by the per-component `S_i/|S_i|` default; EVERY enumerated `bundling.bundle` caller is READ-terminal (none re-bind), so the default is sub-optimal for the whole consumer set, and the `sign()`-on-a-bundle sites are the SAME wrong-op in a bipolar code. Now that `bundling.bundle` has the LANDED `norm="divnorm"` option, switch the enumerated read-terminal callers to pooled divisive norm and MEASURE each on its OWN task — CI-separated over the per-component floor with the info-free twin losing, or a rigorous per-caller NULL closing it
 

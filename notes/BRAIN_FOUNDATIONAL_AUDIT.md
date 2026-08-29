@@ -65,6 +65,33 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-29 — CORRECTION: the read-terminal divnorm rule is READOUT-CLASS + LOAD, not "every read-terminal bundle";
+  and the register divnorm is OUR-EXTENSION-UNDER-TEST, NOT PINNED** (from integrated
+  `read_terminal_bundle_stores_normalize_per_component_not_pooled`, owner-DONE, a rigorous negative / PARTIAL EXCELLENT;
+  reverified W1–W11 ALL PASS first-hand). **REFINES/REFUTES** the earlier §2b implication that "a read-terminal bundle
+  must be pooled-divisive-normed, never per-component." **Corrected rule (measured per-caller + literature-grounded):**
+  per-component renorm (`S_i/|S_i|`) distorts a bundle's DIRECTION; pooled divisive norm (a SHARED scalar — Carandini-
+  Heeger, ratio-preserving) preserves it, so divnorm ≥ per-component **only for a DIRECTION-SENSITIVE read, the gap grows
+  with STORE LOAD, and is LARGEST for the gain-matched ITERATIVE serial decode** (register serial 0.37→0.99); MODEST for
+  per-slot argmax; UNUSED by low-load/coarse tasks. Among all enumerated `bundling.bundle` callers only
+  `situation_model_accumulate` + `multibank` have BOTH overload and the serial readout — already switched; every other is
+  measured neutral-to-harmful (typer HURTS −0.0375 at low load; cosine/goal_achievement NULL) → keep per-component.
+  **Three gating conditions:** (i) benefit needs OVERLOAD + a direction-sensitive readout — a shared pooled divisor is
+  ARGMAX-INVARIANT, hence inert for pure winner-take-all; (ii) do NOT stack an automatic normalization gain onto a pipeline
+  that already carries an explicit learned precision/reliability weight (measured-harmful — the brain leaves per-source RAW
+  magnitude intact because magnitude IS the reliability code; PPC MLE); (iii) the map's "no caller re-binds" is false (the
+  typer sub-bundle is a re-bound unbind key, though inert). **Fidelity labels:** pooled divnorm at a DECISION/combine
+  population = **PINNED** (measured LIP/OFC/MSTd, 11 sources); at a hippocampal/WM memory-register READOUT (the register
+  divnorm) = **OUR-EXTENSION-UNDER-TEST** — an exhaustively-searched absence (4 lanes, ~28 sources; closest misses ruled
+  out — Bhatia 2019 wrong locus, Buschman 2011 is ENCODING, Hahn 2021 wrong species; WM-capacity THEORY converges on
+  global divnorm — Schneegans/Bays 2024, Wei/Wang/Compte 2012 — so right computational CLASS, not circuit-measured).
+  **DO NOT claim PINNED for the register divnorm.** per-component magnitude-erasure = **OUR-INVENTION** (every fast
+  biological divisor is pooled/shared, never per-component — 5 mechanism classes, zero counter-examples). **NEW gap
+  located (measured):** register CAPACITY is set at the WRITE path, not read — the flat running-sum has a hard capacity
+  wall (recent-recovery 0.125 @256) read-norm cannot move; the brain-faithful fix is an ASYMMETRIC CONTINUOUS leaky/recency
+  write (reproduces the primate-PFC 66/45/39 recency gradient; Warden-Miller 2007/Konecky 2017 = MEASURED/PINNED-WEAK), a
+  single-store trade needing a content/salience-gated hand-off into the existing `HDFactStore` (NOT a new CLS mechanism) —
+  packaged as a new build problem. **No hdlab change landed** (the result is "no further switching").
 - **2026-08-29 — SPATIAL-ROLE ASSIGNMENT IS GRADED EVENT-SEMANTICS (preposition-telicity + VerbNet event-class + animacy +
   the constructional caused-motion gate), NOT a curated motion-verb list; and there is NO shared predicate-argument
   front-end — the role organs are ISLANDED** (from integrated `no_shared_shallow_predicate_argument_front_end`, owner-DONE,
