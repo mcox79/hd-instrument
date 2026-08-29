@@ -65,6 +65,36 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — NAME CLUSTERING IS NOT THE WHO-DID-WHAT CAP: a RIGOROUS NEGATIVE that CORRECTS the coref §2b entry — the
+  head-token name branch is a STRONG floor (head=surname), and the who-did-what cap is PRONOUN→EVENT BINDING + the
+  register FAN, not name clustering** (from `the_name_branch_shatters_one_character_into_many_entities`, integrated
+  SOLVED/EXCELLENT [rigorous negative], owner-DONE; witness re-verified FIRST-HAND ALL 9 checks PASS + the register-lift
+  arm +0.0149 CI-sep). **CORRECTS the immediately-prior coref §2b framing** (which — from the brief STRATEGY packaged —
+  said "name/nominal clustering shatters 65.6% of multi-name entities → caps who-did-what, oracle-coref 0.62 vs binder
+  0.17"): the solver BUILT the brain-faithful complete-or-separate person-identity-node organ (PIN — Bruce&Young 1986;
+  CA3-completion/DG-separation; conflicting-given-name VETO = pattern separation; ACT-R salience tie-break) + a
+  full-span+entity-type cache loader, then the disk REFUTED both premises. **(1)** The organ TIES the strong floor (B³-F
+  0.785 vs the live head-token-Jaccard floor 0.770, NOT_SEP; more PRECISE 0.90 vs 0.82 but trades recall) — because the
+  head token IS the surname, single-token clustering already unifies surname-family forms; the brief's own full-span fix
+  BACKFIRES (0.705 CI-sep below, over-merge); info-free twin loses. **(2)** Decomposition of the 0.17→0.62 who-did-what
+  gap: swapping the organ in does NOT lift who-did-what (+0.010 NOT_SEP); PERFECT pronoun binding on the SAME head
+  clusters recovers the WHOLE gap (HEAD_OPB 0.606 vs 0.161, **+0.444 CI-sep**), and given perfect pronouns better name
+  clustering adds **+0.000** — and unifying aliases actually HURTS who-did-what (HEAD_OPB 0.606 > ORACLE 0.562 = the
+  register FAN effect). **So the who-did-what cap = PRONOUN→EVENT BINDING + register capacity, NOT name clustering.**
+  **PINNED:** structured person-node slots (given/surname/title/gender) are the right representation for the single-novel
+  timescale; the head=surname floor is strong. **Deviations/levers to record:** (a) the real dominant lever is
+  clause-level graded PRONOUN→EVENT binding (+0.444 ceiling), which needs the tracked-but-UNUSED `clause_role`/Centering-
+  Cb topicality wired into the graded scorer — this is now the **3rd measurement** flagging clause_role/Cb as
+  tracked-but-unused; (b) the sparse `MultiBankAccumulateRegister` (built, and its divnorm+serial readout LANDED this
+  session, but NOT WIRED into the reader) lifts who-did-what +0.0149 CI-sep on the oracle config (masked on the live
+  system until pronoun binding is fixed) — the register FAN is real; (c) same-surname disambiguation ('which Miss
+  Bennet') is rare (~80 resolvable/100 novels) and every brain cue measured (Centering-Cb topicality; the eldest-daughter
+  convention) is null-or-worse against an info-free twin — the eldest fact needs an entity-fact store we lack (a missing
+  organ, not forbidden knowledge). **hdlab landing QUEUED (small, opt-in):** the full-span+entity-type cache LOADER +
+  an opt-in default-off `run_person_node_clustering` for high-precision same-surname CHARACTER separation; do NOT replace
+  `_resolve_name_branch`. **NET: the highest cross-cutting leverage is the entity-keyed FACT/EVENT store (multibank,
+  built-but-unwired) + clause-level pronoun→event binding — NOT name clustering.**
+
 - **2026-08-28 — THE VERB-POLYSEMY WALL IS BUILT: a glass-box event-FRAME disambiguator beats most-frequent-sense with
   CONTEXT (reordered access) + a per-verb reliability GATE, and lifts the downstream event-miner — a SELF-CORRECTION of a
   wrong 'MFS is a wall' verdict** (from `no_glass_box_verb_sense_disambiguation`, integrated SOLVED/EXCELLENT, owner-DONE;

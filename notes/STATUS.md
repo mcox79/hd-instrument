@@ -31,7 +31,35 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-28 (LATEST) -- ✅ **VERB-SENSE (p4) INTEGRATED (owner-DONE, EXCELLENT): the verb-polysemy wall is BUILT — a glass-box event-FRAME disambiguator that tells "left the room" from "left a note" by grammar + idioms + CONTEXT, beats most-frequent-sense, and makes the event-miner measurably more precise. Its SPINE is a self-correction (owner caught a wrong "MFS is a wall"; the fix was the omitted brain lever, CONTEXT, + a reliability gate). Queue: p3 name-clustering (WIP) open; p2 learner SOLVED-awaiting.**
+### 2026-08-28 (LATEST) -- ✅ **NAME-CLUSTERING (p3) INTEGRATED as a RIGOROUS NEGATIVE (owner-DONE, EXCELLENT): it REFUTES the premise of the brief I packaged — name clustering is NOT the who-did-what cap; PRONOUN→EVENT BINDING is (+0.444), proven by decomposition. The measurement bar caught my own strategic read.**
+**READ THIS FIRST after compaction; then the entries below.**
+✅ **INTEGRATED `the_name_branch_shatters_one_character_into_many_entities` (p3, EXCELLENT — a rigorous NEGATIVE, owner-DONE):**
+reverified FIRST-HAND (ran both myself) — `test_name_entity_clustering.py` ALL 9 checks PASS (torch-free);
+`exp_name_clustering_serves_whodidwhat_v1.py --prove-register` → multibank +0.0149 CI-sep [0.0081,0.0215] on the oracle
+config. The solver BUILT the brain-faithful mechanism (content-addressable complete-or-separate person-identity-node
+organ [PIN/CA3-DG] + a full-span+entity-type cache loader), then the disk REFUTED both brief premises: **(1)** the organ
+TIES the strong floor (0.785 vs 0.770 NOT_SEP; more precise, trades recall) — the head token IS the surname, so
+single-token clustering already unifies surname forms, and the brief's own full-span fix BACKFIRES (0.705); **(2)** the
+0.17→0.62 who-did-what gap is PRONOUN→EVENT BINDING (perfect pronouns recover +0.444 CI-sep; name clustering adds +0.000;
+unifying aliases even HURTS = the register fan). REAL levers proven: pronoun→event binding (+0.444 dominant) + the sparse
+MultiBankRegister (+0.0149). Same-surname disambiguation drilled to the bottom (every brain cue null-or-worse vs twin).
+Review + SOLVER REVIEW in PROBLEM.md; priority cleared; AUDIT §2b folded (CORRECTS the earlier coref name-clustering
+framing). **🧠 STRATEGY OWNS IT:** I packaged this brief from the coref adjacency's 0.62-vs-0.17 read; the solver
+correctly decomposed that gap to pronoun binding, not clustering — the measurement bar applied to my own strategic read
+and caught the error.
+🔌 **hdlab landing QUEUED (Q111 — small, opt-in, NOT a who-did-what fix):** the full-span+entity-type cache LOADER
+(additive, zero-risk) + an opt-in default-off `run_person_node_clustering` on `coreference_resolver.py` for high-precision
+same-surname CHARACTER separation; do NOT replace `_resolve_name_branch` (the floor is strong).
+🧠🔧 **ADJACENCIES EVALUATED (owner directive) → the REAL levers this refutation proved:** (a) **clause-level
+PRONOUN→EVENT BINDING is THE dominant who-did-what lever (+0.444)** — wire the tracked-but-UNUSED `clause_role`/Centering-Cb
+topicality into the graded scorer (3rd time flagged tracked-but-unused); **TO PACKAGE as the successor brief.** (b) the
+entity-keyed FACT/EVENT store (the multibank, built + its divnorm/serial readout LANDED this session but NOT wired into
+the reader) = highest cross-cutting leverage (who-did-what + disambiguation + predicate + ToM) — a wiring+capability
+follow-on. (c) nominal/definite-description binding — semantic, ~40% ceiling, hard, lower.
+🎯 **QUEUE now: p5 coherence-prior, p6 bundle-norm audit, p7 shallow-SRL, p8 archaic-prose open for solvers; + p2 learner
+SOLVED-awaiting. p3 closed (rigorous negative). NEXT SUCCESSOR TO PACKAGE: clause-level pronoun→event binding.**
+
+### 2026-08-28 -- ✅ **VERB-SENSE (p4) INTEGRATED (owner-DONE, EXCELLENT): the verb-polysemy wall is BUILT — a glass-box event-FRAME disambiguator that tells "left the room" from "left a note" by grammar + idioms + CONTEXT, beats most-frequent-sense, and makes the event-miner measurably more precise. Its SPINE is a self-correction (owner caught a wrong "MFS is a wall"; the fix was the omitted brain lever, CONTEXT, + a reliability gate). Queue: p3 name-clustering (WIP) open; p2 learner SOLVED-awaiting.**
 **READ THIS FIRST after compaction; then the entries below.**
 ✅ **INTEGRATED `no_glass_box_verb_sense_disambiguation` (p4, EXCELLENT, owner-DONE):** reverified FIRST-HAND, ran all
 three myself — `test_frame_sense_disambiguator.py` 11/11; `exp_frame_sense_serves_motion_cue_v2` BAR-3 HARD_PASS

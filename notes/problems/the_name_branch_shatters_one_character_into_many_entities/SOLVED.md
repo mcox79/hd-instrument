@@ -377,3 +377,29 @@ The evidence is identical; flip the frontmatter to REFUTED at integration if you
 3. (Follow-on problems) File adjacency 1 (pronoun-to-event binding over ALL pronouns -- the measured who-did-
    what lever) and adjacency 2 (the fan-effect store), which the decomposition shows are where the who-did-
    what points actually are.
+
+---
+INTEGRATED_BY_STRATEGY: 2026-08-28 (grade EXCELLENT; owner_verdict: DONE). A RIGOROUS NEGATIVE -- the highest-value kind,
+and the bar's own rigorous-negative clause anticipated exactly this. It refutes the premise of the brief STRATEGY
+packaged (name clustering caps who-did-what), having first BUILT the mechanism the brief asked for. Re-verified
+FIRST-HAND (ran both myself): verification/test_name_entity_clustering.py ALL 9 checks PASS (torch-free);
+exp_name_clustering_serves_whodidwhat_v1.py --prove-register -> multibank_over_flat_ORACLE +0.0149 [0.0081,0.0215] band
+ABOVE (masked on the live HEAD config -0.0007 NOT_SEP until pronoun binding is fixed). Built (bar 1 DONE, the RIGHT
+mechanism): a content-addressable COMPLETE-OR-SEPARATE person-identity-node organ (PIN/CA3-DG; conflicting-given-name
+VETO = pattern separation; ACT-R salience tie-break) + a full-span+entity-type LOADER enriching the head-token LitBank
+cache in place (100% alignment). TWO REFUTATIONS: (1) cluster quality TIES the strong floor (0.785 vs 0.770 NOT_SEP;
+more precise 0.90 vs 0.82, trades recall) -- root cause the brief missed: head token IS the surname, so single-token
+clustering already unifies surname forms; the brief's full-span fix BACKFIRES (0.705 CI-sep below); twin loses; positive
+control moves. (2) the downstream premise REFUTED by decomposition: perfect pronoun binding on the SAME head clusters
+recovers the WHOLE 0.17->0.62 gap (+0.444 CI-sep), name clustering adds +0.000 -> the cap is PRONOUN->EVENT BINDING +
+register fan, NOT name clustering (unifying aliases even HURTS who-did-what = the fan effect). Real fix proven: pronoun
+binding (+0.444 dominant lever) + the sparse MultiBankRegister (+0.0149 oracle). Same-surname disambiguation drilled to
+the bottom (every brain cue null-or-worse with an info-free twin; understood why). Review + SOLVER REVIEW block in
+PROBLEM.md; priority cleared. AUDIT UPDATE folded (BRAIN_FOUNDATIONAL_AUDIT 2b coref). hdlab landing QUEUED (Q111 --
+small, opt-in, NOT a who-did-what fix: the full-span+entity-type LOADER + an opt-in default-off run_person_node_clustering
+for high-precision same-surname character separation; do NOT replace _resolve_name_branch). NO hdlab written this commit
+(Q111). Adjacencies EVALUATED (owner directive): (a) pronoun->event binding at the clause level = THE dominant lever
+(+0.444), packaged as the successor brief; (b) the entity-keyed FACT/EVENT store (multibank built-but-unwired) = highest
+cross-cutting leverage; (c) nominal/definite-description binding = hard, lower. STRATEGY OWNS IT: this refuted MY brief's
+premise (packaged from the coref adjacency's 0.62-vs-0.17 read); the solver correctly decomposed that gap to pronoun
+binding -- the measurement bar applied to my own strategic read and caught the error. The system working as designed.
