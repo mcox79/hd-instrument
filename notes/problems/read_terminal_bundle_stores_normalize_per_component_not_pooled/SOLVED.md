@@ -249,8 +249,14 @@ None.
 
 ## NEXT STEPS
 
-1. (strategy) Re-verify `verification/test_read_terminal_divnorm.py` and fold the AUDIT UPDATE (three gating
-   conditions) into `notes/BRAIN_FOUNDATIONAL_AUDIT.md`; harvest the research note into the enabling-lessons file.
+> **📁 ALL follow-on intel for strategy is packaged in
+> `notes/problems/read_terminal_bundle_stores_normalize_per_component_not_pooled/FOLLOWON_PROBLEMS_FOR_STRATEGY.md`**
+> -- seven candidate problems as file-ready briefs (slug, statement, Test-4 defect-cost answer, brain mechanism
+> PINNED/OUR-INVENTION, MEASURED-vs-INFERRED, fix direction, priority, pointers) + a ranking table. The items below
+> are the short version.
+
+1. (strategy) Re-verify `verification/test_read_terminal_divnorm.py` (14/14) and fold the AUDIT UPDATE (three gating
+   conditions) into `notes/BRAIN_FOUNDATIONAL_AUDIT.md`; harvest the two research notes into the enabling-lessons file.
 2. (follow-on REFUTED by DRILL 5) the naive "retire the typer's LOO `shard_weights_` for a PPC
    magnitude-as-reliability raw sum" is measured-worse (-0.19 CI-sep): the typer's magnitude encodes binding
    strength, not class-discriminativeness. The LOO weight is a brain-defensible learned precision weight; the
