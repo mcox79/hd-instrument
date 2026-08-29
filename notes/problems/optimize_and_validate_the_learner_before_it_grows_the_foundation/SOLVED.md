@@ -533,6 +533,52 @@ as the reasoning phase. Sources: Dumont & Eliasmith 2020, Frady/Kleyko/Sommer 20
 Smolensky 1990, Fodor & Pylyshyn 1988, Halford 1998, Christoff 2001, Gentner 1983, Rabovsky 2018, Lambon Ralph
 2017, Shadlen & Movshon 1999, Franklin 2020, Whittington 2020 (Tolman-Eichenbaum Machine).
 
+**VET UPDATE (archive + code read, 2026-08-29) -- Wall F's #1 is TEMPERED, and it reveals the REAL reasoning-
+phase wall = CODE ORTHOGONALITY.** Analogy-by-unbinding is NOT a new primitive: bind / unbind (conjugate-
+multiply inverse) / cleanup (hdlab/vsa_cleanup_memory.py, cleanup_family.py) / role-filler compose (bundle)
+ALL already exist + are self-tested in hdlab. AND it has been TESTED: exp_analogy_map_v1 = HARD_PASS acc 1.000
+but SMOKE-ONLY on RANDOM iid codes (the algebra works on ideal near-orthogonal codes, which FHRR guarantees);
+on GROUNDED/real concept edges exp_analogy_candidate_inference_heldout_edge_v1/v2 both
+HARD_FAIL_ANALOGY_TIES_FLOOR_AND_FLAT (top1 ~0.02, structure_genuine=False), exp_analogy_chain_transfer +
+exp_comparator_resonator_primitive also HARD_FAIL. The COMPARATOR_IS_BINDING verdict was MISREAD -- it means
+"the comparator IS the binding CONSTRAINT/bottleneck (candidate supply is not the gate, the grounded read-out
+is)," NOT "the comparator already unbinds." SO: analogy-by-unbinding works on random codes and FAILS on real
+concept codes -- because REAL LEARNED CONCEPT CODES ARE NOT ORTHOGONAL, so unbind produces a filler too noisy
+for cleanup. This is THE deepest fidelity axis already flagged in memory ("the FHRR iid-random-code assumption
+is an unflagged OUR-INVENTION; CODE ORTHOGONALITY, not N, is the fidelity axis"). The reasoning phase does NOT
+gate on a new analogy primitive -- it gates on CODE ORTHOGONALITY: making learned concept codes separable
+enough that unbind+cleanup recovers the right filler. That is the real next wall, and it CONNECTS Wall E's
+sparse-block-code store (sparsity/expansion recoding IS how the brain separates codes) to Wall F (reasoning) --
+resolve code orthogonality and BOTH the store upgrade AND the reasoning primitive unlock together. Next: a
+research drill on how the brain achieves separable concept codes (dentate-gyrus pattern separation, sparse
+expansion coding, decorrelation) is dispatched.
+
+**CODE-ORTHOGONALITY RESEARCH DRILL -- RESOLVED (online literature, 2026-08-29): the brain FACTORISES the
+tension; a cheap decisive diagnostic tests it.** The similarity-vs-separability tension has NO single-code
+solution (full whitening flattens the discriminative directions). The brain's answer is FACTORISATION:
+(1) TWO STORES (CLS -- hippocampus DG/CA3 ORTHOGONALISES for episodic binding; neocortex + EC->CA1 concept
+path keeps OVERLAPPING similarity codes; human dual-code single-neuron evidence 2025-26); (2) ONE CODE, TWO
+FACTORS (TEM: structural/similarity basis g (x) a separable identity factor -- bind on the separable factor,
+carry similarity in g); (3) the engineering knob (Poduval 2026: an FHRR phasor width w slides correlated<->
+orthogonal, and factorisation only converges at the orthogonal end -- OUR wall as a dial on OUR basis). This
+EXPLAINS the prior DG-pattern-separation HARD_FAILs: naive separation DESTROYS similarity (its literal
+function) -- the wrong tool on the wrong code. **RANK-1 DECISIVE DIAGNOSTIC (cheap, glass-box, can-fail either
+way): the Soft-ZCA / kernel-width SWEEP.** Fit ONE offline map W(eps) = (Sigma + eps*I)^(-1/2) on the learned
+concept covariance; sweep eps from identity (similarity, bad binding) -> whitening (near-orthogonal, clean
+binding, flattened similarity); at each eps measure BOTH SimLex-rho AND analogy-unbind top-1 on the SAME
+codes. If an eps window clears BOTH floors -> one whitened code reconciles the tension (cheap win: wire the
+map before every bind/unbind). If NO eps clears both -> one code provably cannot do both -> forces RANK-2:
+the FACTORISED two-code store (each concept = learned similarity PAYLOAD s + a fresh near-orthogonal identity
+atom id; bind/unbind on id, s rides as payload = CLS two-store + TEM g(x)x -- and the memory's iid-random-atom
+assumption is CORRECT for id, WRONG for the concept code s). Resonator networks are NOT the fix (they solve
+factor-search assuming a separable codebook -- a downstream tool, do not re-propose as the cure). This
+SHARPENS the memory fidelity axis (hypothesis-pending-VET): not "orthogonality vs N" but "WHICH code carries
+similarity vs WHICH carries bindable identity -- a FACTORISATION, with a continuous correlation<->separability
+knob (whitening eps / kernel width w)". The Rank-1 sweep is being built now (glass-box, decisive; Rank-2 is a
+store/architecture change -> owner nod before building past the diagnostic). Sources: McClelland/McNaughton/
+O'Reilly 1995, Kumaran/Hassabis/McClelland 2016, Whittington 2020 (TEM), Poduval 2026, Frady/Kleyko/Sommer
+2021, Barlow 1961, Kanerva 2009, Cohen/Chung/Sompolinsky 2020, Soft-ZCA "Isotropy Matters" 2024.
+
 ## TLDR
 
 The brief's plan -- make the learner update the brain's way (online, from error) -- is a proven dead

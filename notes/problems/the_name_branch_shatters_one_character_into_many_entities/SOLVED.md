@@ -129,7 +129,38 @@ clustering.
    from surname alone -- the disambiguator must be an INDEPENDENT salience signal (the ACT-R decay
    tiebreak), and some same-surname residual is expected, not eliminable. This reframed a "precision bug"
    into a fidelity-confirming property and set the correct (modest) expectation for the fix.
-6. **A control arm I added to decompose the null accidentally MEASURED the register fan effect -- and it
+6. **The same-surname over-merge wall, fully drilled (owner: "drill any negative so we fully understand
+   it").** I added an ACT-R recency salience tiebreak (lever A) as the drill's PRIORITY-1 fix, then
+   evaluated it on its TARGET (PER entities with a same-surname same-gender sibling) at both the aggregate
+   AND the decision level (`--surname-eval`, `--tie-dump`). Findings: (a) the ambiguous same-surname ties
+   are RARE -- 112 across 100 novels, ~83 resolvable -- and MANY are not real sibling ambiguity at all but
+   the organ's OWN shatter (one gold entity split into two nodes: "Jarndyce"/"Durbeyfield"/"Oak"), so the
+   aggregate B-cubed cannot move (dilution). (b) RECENCY does not merely fail, it is ANTI-INFORMATIVE
+   (decision acc 0.709 < 0.735 baseline; "pick the most-recent candidate" is right only 0.699): the tie is
+   almost always ESTABLISHED-node vs FRESH-SHARD, and recency picks the fresh shard, which is usually the
+   wrong one. (c) The ONLY cue that beats baseline is SUBJECT / Centering-Cb (0.759) -- the discourse TOPIC,
+   the brain's actual mechanism (resolve an ambiguous form to what the passage is ABOUT, not the most recent
+   mention) -- but +0.024 on ~83 decisions is not CI-separable. So this is a RARE, LOW-LEVERAGE wall, not a
+   "brain-can-we-can't" gap: the brain's cue (topic) is directionally reproduced but unconfirmable at scale,
+   recency was the wrong axis, and the structural baseline already handles 73%. Pinned as witness N8 +
+   default-OFF so the recency null is not re-attempted blind. (Modes swept: off/recency/prominence/subject/
+   first via `tiebreak_mode`; all vs-off NOT_SEP.)
+   **The literature drill (`notes/research_same_surname_sibling_disambiguation_2026-08-28.md`) confirms and
+   deepens this:** (i) recency is a CATEGORY ERROR not a tuning miss -- co-present siblings tie on distance
+   by construction, and when two candidates match every cue, graded activation-ratio retrieval assigns EQUAL
+   probability (cue-overload theory, Watkins & Watkins 1975), so a recency tiebreak is mathematically
+   incapable of beating chance on true ties; the fix must be a cue that DIFFERS between candidates. (ii) That
+   cue is the Centering backward-looking center Cb (grammatical-role TOPICALITY), and -- load-bearing -- this
+   is the THIRD independent measurement of the SAME missing ingredient: `clause_role` is tracked in the
+   substrate but never used in any pick (T2c 2026-08-21 = salience formula's recency term inert + clause_role
+   unused; the pronoun-binding work; now this). (iii) The 19c "Miss [Surname]" = ELDEST-daughter convention
+   is REAL + primary-text-VERIFIED (0/35 exceptions in P&P narration; Mitchell 1996), period-scoped to
+   LitBank -- a cheap cue that DIFFERS between siblings. (iv) Global prominence is RULED OUT (backfires
+   25-40% on secondary-sister scenes -- matching my measured `prominence` regression). The fix folds
+   Cb-topicality + the convention into the EXISTING graded cue-retrieval scorer (0.775 on pronouns), so it is
+   the SAME lever as adjacency 2 (pronoun-event binding) -- which is why wiring `clause_role`/Cb matters far
+   beyond this rare case.
+7. **A control arm I added to decompose the null accidentally MEASURED the register fan effect -- and it
    says unifying aliases HURTS who-did-what.** HEAD_OPB (fragmented head-token names + perfect pronoun
    binding) = 0.606 BEATS ORACLE (correctly-unified gold names + perfect pronouns) = 0.562. The only
    explanation is the fan effect: unifying an entity's mentions makes its event register BIGGER, so it
@@ -247,7 +278,11 @@ Given the refutation, the diff is SMALL and OPT-IN, and it is NOT sold as a who-
    (reduces false writes). A Kehler-Rohde coherence prior is a small (+0.3 F1), coverage-limited tie-break,
    NOT the main lever; extending graded retrieval to all pronouns is masked by the capacity wall until
    adjacency 1 lands. Cross-ref the SOLVED problem `wire_entity_tracking_end_to_end_on_running_narrative`.
-   Leverage: the entire who-did-what / entity-tracking stack.
+   **CONVERGENT MISSING INGREDIENT (surfaced 3x now): grammatical-role TOPICALITY (the Centering Cb) is
+   tracked in `clause_role` but never used in any decision** -- T2c (08-21) found it inert in the salience
+   formula, the pronoun work needs it, and my same-surname null (KEY REALIZATION 6) is the third measurement.
+   Wiring a Cb/topicality feature into the graded cue-retrieval scorer is the ONE fix that serves pronoun
+   binding AND same-surname nominal disambiguation. Leverage: the entire who-did-what / entity-tracking stack.
 3. **[MEDIUM-LOW -- the largest intrinsic name-clustering residual, but genuinely hard and SEMANTIC]
    Nominal/definite-description binding.** 76% of the organ's straggler mentions are epithets ("the girl",
    "this suitor") with no proper name. Drill 3 CORRECTED my hypothesis: these do NOT bind to the active
