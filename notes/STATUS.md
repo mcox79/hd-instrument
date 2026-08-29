@@ -31,7 +31,31 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-29 (LATEST) -- ✅ **INTEGRATED p3 `pronoun_to_event_binding_caps_who_did_what` (owner-DONE, SOLVED, STRONG): the graded pronoun→event binder LIFTS who-did-what, and drilling CORRECTED the brief's own premise (the cap is a HYBRID: metric-artifact + a small binder lever + a discourse-specific-memory residual). Landing QUEUED (coupled live-path).**
+### 2026-08-29 (LATEST) -- ✅ **INTEGRATED TWO situation-model dimensions (both owner-DONE, EXCELLENT): TIME (a queryable before/after register) + DISCOURSE-FACT REASONING (a two-level result — my brief's coref-residual target REFUTED, but the reasoning-frontier capability BUILT+PROVEN). PACKAGED the CAUSATION force-dynamics brief to refill the empty assignable queue. Both hdlab landings QUEUED.**
+**Newest first; the entries below carry the fuller context.**
+✅ **INTEGRATED `situation_model_has_no_tested_temporal_order_comprehension` (p4, SOLVED/EXCELLENT, owner-DONE; reverified
+8/8 FIRST-HAND):** the TIME dimension — a QUERYABLE before/after register (1.000 vs the naive "telling order = event order"
+floor 0.272; twin loses; flashback control 1.000 vs 0.000; 8.7% real-prose live signal). Representation fork decided BY
+MEASUREMENT (discrete primary; the continuous magnitude line reproduces the human distance-effect but adds no accuracy →
+confidence read-out only). Serve: temporal order constrains causal DIRECTION (1.000 vs 0.000). Wall drilled to tense
+EXTRACTION (clause-pluperfect binder 0.911→0.941). Honestly corrected the brief's "nothing composes tense" premise.
+✅ **INTEGRATED `situation_model_has_no_discourse_fact_reasoning` (p5 — MY brief, SOLVED/EXCELLENT, owner-DONE; reverified
+25/25 FIRST-HAND): a TWO-LEVEL result.** L2 — the fact store is DEAD on the anti-typical coref residual (gold has ~no
+accumulated facts → intra-sentential/syntactic, the 7th channel dead there); **STRATEGY OWNS the mis-scope** (I packaged
+the fact store as that residual's lever; the residual's lever is the SYNTACTIC binder, consistent with the p3/coherence
+findings). L1 — the reasoning-frontier CAPABILITY is BUILT+PROVEN on inter-sentential fact-decisive reference (0.998 vs
+0.504 chance, +0.494 CI-sep, all controls at chance; the KG-only-null at chance closes the parent's "connects but can't
+discriminate" puzzle), with two owner-pushed fidelity closures (distributional bridge generalizes to held-out edges;
+pattern separation for scaling). Commit `2988c900d`; audit §2b folded (both organs + REFINE coref-residual).
+📦 **PACKAGED `causation_has_no_force_dynamic_typing` (NEW brief, priority 4)** — the p4-successor + the least-built Zwaan
+dimension: a force-dynamic causal TYPER (Talmy/Wolff CAUSE/ENABLE/PREVENT truth-table over the (agent,patient,predicate)
+extraction + a substrate-native force lexicon), gated by the just-built TIME precedence register, de-risked (PREVENT-killer
+probe 1.000 vs 0.000). NOT do-calculus (HARD_FAILED). Commit `16ed1c4ea`.
+🎯 **QUEUE now 3 open: p6 register write-path (ASSIGNED/WIP), p8 archaic-prose (ASSIGNED), causation (NEW, open).** Refilled
+the assignable queue (was 0 unassigned → now 1: causation). Nothing owner-DONE awaiting. MORE ready next problems primed
+(p4's per-entity resultant-STATE register; p5's natural-text measurement) for future refills.
+
+### 2026-08-29 -- ✅ **INTEGRATED p3 `pronoun_to_event_binding_caps_who_did_what` (owner-DONE, SOLVED, STRONG): the graded pronoun→event binder LIFTS who-did-what, and drilling CORRECTED the brief's own premise (the cap is a HYBRID: metric-artifact + a small binder lever + a discourse-specific-memory residual). Landing QUEUED (coupled live-path).**
 **Newest first; the entries below carry the fuller context.**
 ✅ **INTEGRATED `pronoun_to_event_binding_caps_who_did_what` (SOLVED/STRONG, owner-DONE; reverified 13/13 FIRST-HAND):**
 a brain-faithful clause-level graded pronoun→event binder (graded Centering cue-competition via `graded_competition` +
@@ -195,7 +219,13 @@ POSITIONAL (`_assign_roles`/`_pick_role_mentions`: agent=subject-mention, patien
 NO dependency parse (heads) — but `route_predicate_arguments` REQUIRES (tokens, upos, heads, verb_idx). So the predarg
 live-wiring is GATED on supplying `situation_reader` a parse (the `incremental_parser` or a lightweight heads source) —
 i.e. the parser-swap (p7 adjacency #1) is a PREREQUISITE of the predarg de-dup, not a downstream optimization. Sequence:
-parse source → predarg front-end on the live path → who-did-what binder → single remote no-regression pass.** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
+parse source → predarg front-end on the live path → who-did-what binder → single remote no-regression pass.** **THE TIME
+REGISTER (from integrated p4, 2026-08-29): promote `experiments/_temporal_order_register.py` → `hdlab/temporal_order_register.py`
++ fix `situation_reader._read_timeline` (whole-passage, drop the "had"-only gate, apply the clause-pluperfect binder) +
+point `_read_causation` at the register — a direct organ promotion + live-wiring fixes.** **THE DISCOURSE-FACT-STORE ORGAN
+(from integrated p5, 2026-08-29): promote the reading-built discourse-fact store + graded 2-hop bridging RESOLUTION as a
+NEW situation-model organ (discourse-age-gated, FHRR, relation-indexed for scaling), wired for downstream QA/next-event/
+bridging/ToM — NOT a coref patch. A substantial new-organ landing.** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
 floor, niche, solver-said-skip). **The WHO-DID-WHAT BINDER (from integrated p3 `pronoun_to_event_binding_caps_who_did_what`,
 2026-08-29): STEP-1 re-instrument the live who-did-what metric as a situation-model EVENT-SET recall (the biggest lever —
 lifts the ceiling 0.589→1.000) + STEP-2 wire the graded binder + gender agreement + person-exclusion onto the live path
