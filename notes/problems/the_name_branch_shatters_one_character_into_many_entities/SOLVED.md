@@ -1,8 +1,8 @@
 ---
 problem: the_name_branch_shatters_one_character_into_many_entities
-status: REFUTED
+status: PARTIAL
 bar: "PASSES only with ALL of: (1) a cross-mention name/nominal ENTITY-CLUSTERING organ (content-addressable complete-or-separate onto a person-identity node over FULL-SPAN features; copy the computation, sweep features+threshold); (2) cluster quality beats the token-overlap floor CI-separated on REAL narrative (LitBank held-out; B-cubed F or purity; info-free twin LOSES CI-separated; CI half-width + null p95; no number crosses populations); (3) a POSITIVE control the metric can move (an alias re-entry the merger gets and single-token-overlap cannot); (4) SERVES a downstream capability (wire-don't-island): unifying the aliases LIFTS the who-did-what decode toward the oracle-coref ceiling (from ~0.17 measurably UP toward 0.62), CI-separated vs the current clustering on the same task; (5) a one-screen summary. A rigorous NEGATIVE is a FULL PASS (e.g. 'full-span content-addressable clustering does NOT beat token-overlap once the cache is fixed - the real cap is X' - with the positive control confirming the metric can move - closes the question)."
-result: "REFUTED via the bar's own explicit negative clause. On LitBank (100 novels, held-out 50-doc TEST, non-pronoun PER mentions, B-cubed F, bootstrap over docs, theta selected on DEV): the brain-faithful structured complete-or-separate organ scores 0.7848 [0.759,0.810] vs the LIVE head-token-Jaccard floor recomputed in-place 0.7703 [0.748,0.793] -- delta +0.0145 hw 0.017 NOT_SEP (a TIE, not the required CI-separated win; it IS markedly more precise, B-cubed P 0.902 vs 0.820, separating same-surname people, but trades recall 0.707 vs 0.742). On PROPER-NAMES-ONLY the organ 0.864 TIES the strong floor 0.877 (NOT_SEP). The brief's proposed data fix -- full-span features -- BACKFIRES: full-span Jaccard 0.705 << floor 0.770 (-0.066 CI-sep BELOW, over-merge). Bar item 4 (serve who-did-what) is REFUTED by a clean decomposition (below): swapping the organ for the incumbent name clustering does NOT lift who-did-what (pronoun-query acc 0.1715 vs 0.1614, +0.010 NOT_SEP); the 0.17->0.62 gap is PRONOUN BINDING, not name clustering (perfect pronoun binding on the SAME head-token clustering = 0.606, +0.444 CI-sep; better name clustering given perfect pronouns = +0.000 NOT_SEP)."
+result: "PARTIAL -- the organ is a real brain-faithful build that TIES the strong floor (bar item 2 = a tie, not a beat) and is more precise, and the brief's downstream who-did-what premise is REFUTED (bar item 4), a rigorous negative that closes the question per the bar's own clause. On LitBank (100 novels, held-out 50-doc TEST, non-pronoun PER mentions, B-cubed F, bootstrap over docs, theta selected on DEV): the brain-faithful structured complete-or-separate organ scores 0.7848 [0.759,0.810] vs the LIVE head-token-Jaccard floor recomputed in-place 0.7703 [0.748,0.793] -- delta +0.0145 hw 0.017 NOT_SEP (a TIE, not the required CI-separated win; it IS markedly more precise, B-cubed P 0.902 vs 0.820, separating same-surname people, but trades recall 0.707 vs 0.742). On PROPER-NAMES-ONLY the organ 0.864 TIES the strong floor 0.877 (NOT_SEP). The brief's proposed data fix -- full-span features -- BACKFIRES: full-span Jaccard 0.705 << floor 0.770 (-0.066 CI-sep BELOW, over-merge). Bar item 4 (serve who-did-what) is REFUTED by a clean decomposition (below): swapping the organ for the incumbent name clustering does NOT lift who-did-what (pronoun-query acc 0.1715 vs 0.1614, +0.010 NOT_SEP); the 0.17->0.62 gap is PRONOUN BINDING, not name clustering (perfect pronoun binding on the SAME head-token clustering = 0.606, +0.444 CI-sep; better name clustering given perfect pronouns = +0.000 NOT_SEP)."
 floor: "The LIVE hdlab.coreference_resolver._resolve_name_branch mechanism (single-head-token normalized-token Jaccard over accumulated surface tokens) recomputed IN-PLACE on the same LitBank population: B-cubed F 0.7703 [0.7482,0.7929] all-PER; 0.877 [0.852,0.901] proper-names-only. Additional floors run same-population: full-span Jaccard 0.7046 (WORSE, over-merge); info-free twin (shuffled name features) 0.5967."
 controls: "(1) info-free TWIN (shuffled name features, same pipeline) -> B-cubed F 0.597, LOSES CI-sep by +0.175 (excludes 'any structured pass helps'; the organ uses real name information). (2) POSITIVE control (fixture): the organ UNIFIES an alias re-entry the head floor SHATTERS (Elizabeth/Elizabeth Bennet/Miss Bennet -> 1 cluster vs 2) and SEPARATES the same-surname sibling (Jane Bennet) + gender-distinct man (Mr Darcy) -> the metric CAN move. (3) full-span-Jaccard control isolates DATA vs MECHANISM: the data fix alone BACKFIRES, so any win is the mechanism, not the cache. (4) who-did-what DECOMPOSITION arms (direct link-bottlenecked decode, isolates clustering from FHRR register capacity): HEAD_OPB (head names + perfect pronoun binding) 0.606 vs HEAD 0.161 = +0.444 CI-sep (isolates pronoun-binding as THE cap); ORGAN_OPB vs HEAD_OPB +0.000 NOT_SEP (name clustering irrelevant given perfect pronouns); GOLDNAME_ACTR 0.305 (perfect names + real ACT-R pronouns still capped by pronoun binding); SHUF_NAME twin 0.070 collapses (downstream metric can move)."
 files_changed: "experiments/exp_name_entity_clustering_v1.py (the clustering organ + full-span loader + B-cubed/purity/shatter-merge metrics + floors + twin), experiments/exp_name_clustering_serves_whodidwhat_v1.py (the who-did-what serve + the pronoun-binding-vs-name-clustering decomposition), verification/test_name_entity_clustering.py (scaffold-free witness, 8/8 PASS), notes/problems/the_name_branch_shatters_one_character_into_many_entities/SOLVED.md. NO hdlab/ write (Q111). Proposed hdlab diff below."
@@ -98,9 +98,15 @@ clustering.
    integrated graded cue-based resolver. But the decisive arm (ORGAN_OPB vs HEAD_OPB, both PERFECT pronouns)
    is binder-independent and still shows name clustering is not the lever -- so the refutation does not rest
    on the binder's quality.
-3. **The direct decode removes register capacity.** On the FHRR register the fan effect is an ADDITIONAL
-   cap (and unifying aliases makes clusters bigger -> MORE fan), which only reinforces "name clustering is
-   not the who-did-what lever." An FHRR-backend confirmation is a mapped remote follow-up, not run here.
+3. **The direct decode removes register capacity -- and I then PROVED the register lever on the REAL FHRR
+   store (owner: "do you propose the RIGHT solution?").** Holding clustering + binding fixed and varying ONLY
+   the store backend (`exp_name_clustering_serves_whodidwhat_v1.prove_register`), the built sparse
+   `MultiBankRegister` LIFTS who-did-what over the flat dense register **+0.0149 CI-sep [0.009,0.022]** on the
+   ORACLE config (0.601->0.616, D=1024) -- so the store is a REAL lever and the already-built organ fixes it.
+   It is MODEST at D=1024 (the flat register is not catastrophically fan-limited at that dimension) and it is
+   MASKED on the live system (HEAD names + ACT-R pronouns: multibank vs flat -0.0007 NOT_SEP) because pronoun
+   binding is the binding constraint upstream. So the register fix is confirmed but GATED behind pronoun
+   binding -- the proposed solution is proven and correctly ORDERED (pronoun binding first, then the store).
 4. **Nominal/epithet binding is unsolved and is the largest intrinsic residual** (76% of the organ's
    straggler mentions are descriptions like "the girl"/"this suitor" with no proper name). This is a
    different competence (discourse-focus / situation-model binding), mapped as adjacency 3, not built here.
@@ -193,6 +199,14 @@ clustering.
    mildly COUNTERPRODUCTIVE on the capacity-limited register -- and it points straight at the real fix (wire
    the already-built sparse `MultiBankRegister`). I would not have seen this without the perfect-binding
    decomposition arm; a bare "organ doesn't lift who-did-what" null would have hidden it.
+8. **Refuting the brief is the halfway point -- I PROVED the right solution's register half, not just mapped
+   it.** Rather than leave "wire the multibank" as an unverified adjacency, I measured it on the REAL FHRR
+   store (`prove_register`): the built `MultiBankRegister` lifts who-did-what +0.0149 CI-sep on the ORACLE
+   config, and is masked on the live system until pronoun binding is fixed. That closes the loop from
+   diagnosis to a proven, correctly-ordered fix (pronoun binding first, then the store) -- and shows the
+   right solution lives entirely in the ADJACENT organs (store + binder), never in name clustering. The
+   pronoun-binding half is diagnosed with a decisive ceiling (HEAD_OPB 0.606) but its build is the adjacent
+   pronoun problem's; the store half is proven here.
 
 # AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 
@@ -287,8 +301,11 @@ Given the refutation, the diff is SMALL and OPT-IN, and it is NOT sold as a who-
    reconstructed/gist-derived output uncertain, per the Sulin-Dooling false-memory risk.) **The build order
    this implies:** (i) the drop-in sparse-sharded
    `hdlab/situation_model_multibank.py` (MultiBankRegister) -- already validated, but the reading-path
-   organs import `situation_model_accumulate` instead, so it is UNWIRED (cheapest first step; verify its
-   capacity numbers before landing, I did not re-measure); (ii) deeper: a CONTEXT-INDEXED conjunctive event
+   organs import `situation_model_accumulate` instead, so it is UNWIRED. **PROVEN in-scope
+   (`prove_register`): swapping the flat register for the built multibank LIFTS who-did-what +0.0149 CI-sep
+   on the ORACLE config (0.601->0.616, D=1024) -- modest at D=1024, and MASKED on the live system (-0.0007
+   NOT_SEP) until pronoun binding (lever ii below) is fixed. So the store fix is real and correctly ordered
+   AFTER pronoun binding.** (ii) deeper: a CONTEXT-INDEXED conjunctive event
    store keyed by entity+context (not entity-alone) with a small active binding set; (iii) gist/salience
    abstraction rather than exhaustive verbatim retention. This is the p2/addressed-storage line + the
    `research_entity_store_*` trio (08-27); my decomposition adds the who-did-what-specific evidence that it,
@@ -344,11 +361,11 @@ acting on -- it redirects effort away from name clustering and toward the pronou
 
 ## QUESTIONS
 
-None -- the measurement is clear and the refutation is clean. Flagging one JUDGEMENT for the owner: I graded
-this REFUTED (per the bar's own "a rigorous negative is a full pass" clause) rather than PARTIAL, because the
-high-value deliverable is the decomposition that redirects the line, not the tie-with-the-floor organ. If you
-would rather see it as PARTIAL (a real brain-faithful build that ties the floor and is more precise, plus a
-refuted premise), the evidence is identical; only the label differs.
+None -- the measurement is clear. LABEL (owner asked): set to PARTIAL -- a real, validated, brain-faithful
+build that TIES the strong floor and is MORE PRECISE, PLUS the brief's downstream premise REFUTED, PLUS a
+proven forward fix (the register lever). REFUTED is also defensible (the bar's "a rigorous negative is a full
+pass" clause applies), but PARTIAL is the more accurate one-liner for a real build that ties rather than beats.
+The evidence is identical; flip the frontmatter to REFUTED at integration if you prefer -- your call.
 
 ## NEXT STEPS
 

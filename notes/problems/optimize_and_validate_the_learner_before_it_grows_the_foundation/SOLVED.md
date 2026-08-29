@@ -617,6 +617,66 @@ relational-data DENSITY + code CAPACITY (sparsity). The overclaim is now empiric
 just flagged -- the whitening negative REDIRECTS the code-side lever from decorrelation to sparse-capacity
 (Wall E).
 
+## RESEARCH DRILL -- ABSTRACT-CONCEPT REPRESENTATION (online literature, 2026-08-29): a ROUTING shift, not a missing sense; the affect hope is mostly redundant.
+
+The brain handles abstract words (freedom, justice, because) with the SAME hub-and-spoke machinery as
+concrete, but turns two dials: abstract meaning leans MORE on the amodal HUB + language network (left IFG/MTG/
+ATL) and LESS on sensory spokes -- PINNED (Wang 2010 meta-analysis; Lambon Ralph 2017). Maps directly onto
+Wall-G's learned-hub bottleneck. TWO honest corrections that redirect the fix: (1) the "abstract = emotion"
+hope is MOSTLY WRONG -- affect characterises only a SUBSET (emotion words), and cross-linguistically concrete
+words can be MORE emotional (Winter 2023); (2) affect is largely RECOVERABLE FROM DISTRIBUTIONAL co-occurrence
+already (Recchia & Louwerse 2015; valence ~16-34% of meaning variance), so an affect spoke is PARTIALLY
+REDUNDANT with a strong distributional channel. NET: abstract meaning is dominantly LINGUISTIC/DISTRIBUTIONAL
+integrated at an amodal hub, with affect/interoception/social a real-but-SECONDARY subset-specific spoke -> the
+biggest lever is a STRONGER distributional channel + concreteness-routed hub weighting, NOT a new grounding
+norm (connects to the data-scale finding). REPLICATE-NEXT (#1, can-fail): route by Brysbaert concreteness
+(abstract -> up-weight distributional, down-weight sensory) + Warriner-VAD + Lancaster-interoception spokes
+routed to abstract words, integrated via the Wall-G learned hub; GATE = the affect spoke raises ABSTRACT-item
+similarity CI-sep OVER A STRONG DISTRIBUTIONAL-ONLY baseline AND the gain is LARGER for abstract than concrete
+(the interaction is the discriminator); NULL (a LIVE outcome given the redundancy) -> the abstract gap is a
+distributional-STRENGTH problem, not a grounding-source gap -> redirect to a stronger channel. Do NOT build
+metaphor mappings (brittle, not a clean asset). THE GENUINE UN-CLOSED SUB-WALL: RELATIONAL/LOGICAL abstracts
+(because, if, not, causes) need a STRUCTURAL/relational representation NO norm table supplies -- that is the
+REASONING-PHASE frontier (the p1 comparison-op direction), not the grounding lane; a norm-table win on
+"freedom/justice" must NOT mask that "because/if" is unaddressed. Cheap first step: enumerate-from-disk whether
+Lancaster interoception + Warriner VAD are already ingested + whether the hub routes by concreteness. Sources:
+Wang 2010, Lambon Ralph 2017, Winter 2023, Kousta/Vigliocco 2011, Recchia & Louwerse 2015, Borghi 2019,
+Warriner 2013, Lancaster Sensorimotor Norms 2020, Utsumi 2022.
+
+## REMOTE EXPERIMENT RESULTS -- PARSER + IS-A (landed + VET'd, 2026-08-29)
+
+- **PARSER wire-don't-island (exp_dependency_context_own_parser_v1) -- RIGOROUS NEGATIVE.** Positive control
+  reproduces BAR1 at 5M (DEP_SPACY vs WIN2: SimLex +0.061, SimVerb +0.040, CI-sep). But the substrate's OWN
+  parser's dependency context does NOT beat the window (DEP_ARCPARSER vs WIN2: SimLex +0.026 ns, SimVerb -0.007
+  ns -- BLOCKED), and the higher-UAS RICHFEAT variant does NOT lift it (ns). So the BAR1 win does NOT survive
+  on the own parser, and a better UD-EWT parser does NOT fix it -> the blocker is DOMAIN TRANSFER
+  (UD-EWT->simplewiki, ~46% head-agreement), NOT parser quality. Fix = Wall B IN-DOMAIN SELF-TRAINING. Confirms
+  the wire-don't-island wall + its fix.
+- **IS-A directional extraction (exp_directional_hypernymy_inclusion_v1) -- APPARENT PASS REFUTED BY VET =
+  FREQUENCY CONFOUND.** The cell read PASS (WeedsPrec directional 2AFC 0.6425 vs chance 0.5; cosine control at
+  exactly 0.5). BUT the independent VET supplied the ONE missing control -- a pure FREQUENCY-DIRECTION baseline
+  ("the more-frequent word is the hypernym," NO inclusion/PPMI/distributional rep at all) -- which scores 2AFC
+  0.6350 on the SAME 400 pairs. WeedsPrec adds only +0.0075 (inside noise); hypernyms are the more-frequent
+  word in 63.5% of pairs = the same signal (textbook Levy et al. 2015 lexical-memorization/generality trap:
+  WeedsPrec(a,b) rises with b's support size, which tracks frequency). So asymmetric distributional inclusion
+  does NOT extract directional is-a BEYOND FREQUENCY-ORDERING -- reclassify PASS -> MEASURED_MECHANISM
+  (frequency artifact). CONFIRMS research-drill-2 Wall C + Levy 2015: unsupervised DISTRIBUTIONAL is-a is
+  genuinely weak; the fix is HEARST-PATTERN mining (+SVD), NOT distributional inclusion. The cosine/random
+  controls were legitimate but INSUFFICIENT (exclude symmetric-measure + noise, not frequency) -> a
+  FREQUENCY-RANK FLOOR is now MANDATORY for any directional-relation claim on this substrate. REVIVAL: re-run
+  with a frequency/support-MATCHED eval (stratified pairs, or WeedsPrec residualised on log-freq-rank) showing
+  a CI-separated margin OVER THE FREQUENCY BASELINE, not over 0.5. RE-AUDITABILITY FLAG: no scored_population
+  persisted -> the 0.6425 cannot be independently recomputed without rebuilding PPMI.
+- **counter-fit A + recipe-diagnostic B: OPTIONAL Layer-1 follow-ons, not run to completion (not blocking).**
+  Counter-fit FAILED-loud on remote (DISCRIMINATOR_TOO_SPARSE: the word-level 70/30 train/held split left too
+  few DISJOINT SimLex/WordSim pairs -- 94/38 < the 100 minimum; SimVerb 294 was fine -- so the oracle guard
+  correctly refused to score rather than emit an invalid number). Recipe-diagnostic silently ran SMOKE only (a
+  cell --mode default="smoke" bug vs the bare==FULL invariant -> 150k not 15M). BOTH are cheap cell fixes
+  (default->full; SimVerb-primary disjoint gold / relation-level split) -- the cells are being left in a
+  CORRECT, re-runnable state, but NEITHER is re-dispatched: the core submission does not depend on them, and
+  the recipe-diagnostic is largely redundant with the curriculum drill's data-scale finding. Run them later
+  only if the specific numbers (does WordNet structure GENERALISE; exact recipe-vs-data-scale split) are wanted.
+
 ## RESEARCH DRILL -- CURRICULUM / READING-ORDER (online literature, 2026-08-29): a PROVABLE NULL for our batch learner, which CONVERGES on the recipe-diagnostic already queued.
 
 Batch PPMI-SVD is ORDER-INVARIANT: the count matrix is a SUM (commutative), so any read-order / curriculum
