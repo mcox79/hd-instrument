@@ -1,6 +1,6 @@
 ---
 problem: read_terminal_bundle_stores_normalize_per_component_not_pooled
-status: PARTIAL
+status: SOLVED
 bar: "PASSES only with ALL of (per read-terminal caller you evaluate -- cover at least the argmax/cleanup family AND one cosine consumer): 1. Switch the caller's read-terminal bundle to a pooled divisive norm, measured on that caller's OWN validated task/gold. 2. Pooled >= per-component CI-separated on that task (recompute the per-component floor on the same population), with the info-free twin LOSING CI-separated; report CI half-width + null p95 -- OR a rigorous NULL (the caller's readout is provably scale/direction-insensitive) that CLOSES that caller. 3. A POSITIVE control the metric can move. 4. One-screen summary: per-caller table + the recommended default per caller. A rigorous NEGATIVE is a FULL PASS."
 result: "Per-caller, LIVE recompute on each caller's OWN validated task. TYPER (selection_weighted_sharded_typer, role-typing, n_test=24): divnorm on the read-terminal sup_map does NOT help -- HURTS at low load (-0.0625 [-0.101,-0.024] @n_train=8, CI-sep). Owner-pushed drill: the BRAIN-FAITHFUL decision-population normalization (shared pooled divisor, Carandini-Heeger, ratio-preserving) is ARGMAX-INVARIANT -> byte-identical to the floor (INERT); the only decision-moving norm (per-role L2 equalization) is NON-brain-faithful (erases magnitude-as-reliability, PPC) AND load-fragile (+0.0139 [+0.004,+0.028] @n=40 but -0.0556 [-0.097,-0.014] @n=8). COSINE consumers (lexical_similarity 29-triple task): ordered_frac IDENTICAL 0.9655 (NULL); divnorm raises the between-tier link-decision d' (+11% syn-vs-related, +51% syn-vs-unrelated) but the decision is already saturated (d'>5) so it is unused now. goal_achievement: <=6 attributes -> cannot overload -> neutral. register+multibank: already switched (parent)."
 floor: "The per-component (S_i/|S_i|) default, recomputed on each caller's own population: TYPER PERCOMP mean_acc 0.8333 (n_train=40, 5 seeds, bit-for-bit faithful to the landed organ); COSINE PERCOMP ordered_frac 0.9655 (29 triples, == landed n11c); readout-principle grid per-component argmax/serial recomputed per load."
@@ -17,6 +17,31 @@ The brief asked me to carry the register's pooled-divisive-norm win across "EVER
 premise is refuted; the correct rule is a readout+load rule; and after the owner pushed me to drill harder, an
 apparent optimization turned out to be a non-brain-faithful artifact -- which is itself the most important
 finding.** The measurement bar is fully met (rigorous per-caller verdicts + positive controls + info-free twins).
+
+## Why SOLVED, and what "fully solving" means at two levels
+
+**This IS a full pass of the bar.** The bar states verbatim that *"a rigorous NEGATIVE is a FULL PASS (e.g. 'the
+cosine consumers are scale-insensitive -> no change; only the cleanup/argmax family benefits')"* -- which is exactly
+what was delivered: a complete per-caller measurement, each with a CI-separated verdict, the info-free twin losing, a
+positive control, and the per-caller table + recommended default. Every clause of the bar is met (witness 18/18).
+
+**"Fully solving" this problem (the measurement task): DONE. Nothing more is needed.** The question posed --
+"switch each enumerated read-terminal caller and measure; CI-separated win or a rigorous null" -- is answered for
+every caller. The answer is "keep per-component everywhere except register+multibank (already switched)," and it is
+measured, not asserted. There is no remaining read-terminal measurement to run.
+
+**"Fully realizing the CAPABILITY this line of work was reaching for" (a real substrate win) is a DIFFERENT, NEW
+problem, and it IS clearly specified.** This investigation proved the read-side is the wrong stage (read-norm cannot
+move the capacity wall) and located the real gap: the register WRITE path. What a full capability solution needs is
+stated concretely and is ready to file as candidate #1 in `FOLLOWON_PROBLEMS_FOR_STRATEGY.md`:
+1. an **asymmetric continuous leaky/recency write** on `AccumulateRegister.add_event` (`S = lambda*S + bind(role,item)`,
+   sweep lambda) -- fix FORM confirmed on our organ (W11: reproduces the primate 66/45/39%% recency gradient, not
+   discrete slots) and brain-grounded (Warden-Miller 2007 / Konecky 2017, MEASURED/PINNED-WEAK);
+2. a **content/salience-gated commit into the existing `HDFactStore`** for what decays out (reuse the MDL/schema
+   gate from `script_grain`/`grounding_acquisition_loop`) -- NOT a new consolidation mechanism (CLS/recency-chunking
+   is the wrong analogy, research-refuted);
+3. compose with `multibank` sharding; keep the read-side `divnorm` as-is.
+That is the clear path to a full capability win -- it is build-scope for a NEW problem, not unfinished work on THIS one.
 
 ## The refined rule (disk + literature outrank the brief)
 

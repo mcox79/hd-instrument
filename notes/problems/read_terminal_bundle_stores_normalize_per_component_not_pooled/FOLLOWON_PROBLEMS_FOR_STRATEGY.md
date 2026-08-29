@@ -80,10 +80,13 @@ gives unbounded recent capacity (W9); the FORM matters and symmetric divisive do
 (to prove per strategy's build): the best asymmetric form (fixed vs activity-adaptive leak vs bounded queue), the
 consolidation mechanism (reuse ChunkedFocus), and how it composes with multibank sharding + the p2 sparse store.
 
-**Fix direction / first deliverable for strategy (updated by the research drill).** (1) Add a CONTINUOUS leaky/recency
-write option to `AccumulateRegister.add_event` (`S = lambda*S + bind(role,item)`, sweep lambda; the recency modulator in
-`bundling.py` is this, OFF/unwired) for reader organs that need recent context -- the graded-vs-step discriminator
-(continuous leak vs hard queue) is a cheap can-fail test, literature predicts graded wins. (2) For organs that need OLD
+**Fix direction / first deliverable for strategy (updated by the research drill + W11).** (1) Add a CONTINUOUS
+leaky/recency write option to `AccumulateRegister.add_event` (`S = lambda*S + bind(role,item)`, sweep lambda; the
+recency modulator in `bundling.py` is this, OFF/unwired) for reader organs that need recent context. **MEASURED (W11):
+the continuous leak reproduces a GRADED monotonic recency gradient on our organ (recovery 1.0 -> 0.72 -> 0.40 across
+recency positions, several intermediate = the primate-PFC 66/45/39%% shape), whereas a hard bounded QUEUE is a STEP
+(perfect inside, chance outside, ZERO intermediate = discrete slots). So the continuous leak is BOTH the more
+brain-faithful AND the confirmed form -- use it, not a queue.** (2) For organs that need OLD
 events too, do NOT build recency-chunked consolidation -- wire a **content/salience-gated commit into the existing
 `HDFactStore`** (reuse the MDL/schema-congruence gate from `script_grain`/`grounding_acquisition_loop`; commit by
 salience, not eviction-order). (3) Compose with `multibank` sharding. The read-terminal `divnorm` stays as-is.

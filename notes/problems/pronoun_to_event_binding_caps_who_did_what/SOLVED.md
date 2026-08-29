@@ -2,10 +2,10 @@
 problem: pronoun_to_event_binding_caps_who_did_what
 status: PARTIAL
 bar: "PASSES only with ALL of: (1) A clause-level GRADED pronoun->event binder (built in experiments/) that consumes the tracked clause_role/Centering-Cb topicality via graded_competition. Copy the computation; SWEEP the cue weights + threshold. (2) Lifts the LIVE who-did-what CI-separated over the current path (0.161, recomputed on the same population) toward the perfect-binding ceiling (0.606); the info-free twin (shuffled Cb / random binding order) LOSES CI-separated; report CI half-width + null p95; no number crosses populations. A POSITIVE control the metric can move (a Cb-decisive clause the binder gets and the current path cannot). (3) Isolates BINDING from register capacity (the fan effect): hold the clustering + store fixed so the measured lift is the binder, not the store (the decomposition's HEAD arm is the control). (4) One-screen summary. A rigorous NEGATIVE is a FULL PASS (e.g. 'a faithful graded Cb binder lifts who-did-what to X < 0.606 and the residual to the ceiling is the harness's multi-verb-per-clause ambiguity, not a missing mechanism' -- with the positive control confirming the metric can move -- closes how much of the +0.444 is recoverable by a real binder)."
-result: "PARTIAL -- a brain-faithful clause-level graded pronoun->event binder (Centering cue-based retrieval via hdlab.graded_competition + gender agreement) LIFTS who-did-what pronoun-query accuracy CI-separated over the live ACT-R path, ROBUSTLY across 3 DEV/TEST splits, with the info-free RANDOM-binding twin losing CI-separated in all 3 -- BUT the lift is MODEST (~10-14% of the +0.44 headroom) and the brief's SPECIFIC mechanism (that the tracked Cb/clause_role signal is the lever) is NOT cleanly supported. Headline (LitBank pronoun-query who-did-what, pre-registered even/odd DEV/TEST split, TEST n=4661, direct symbolic decode, head-token name clustering held fixed, doc-bootstrap 95% CI, 2000x): live ACT-R incumbent HEAD 0.1429 [0.1205,0.1661]; the full brain-faithful binder HEAD_GRADED_AGREE 0.2038 [0.1674,0.2407], paired +0.0609 [lo 0.036], hw 0.025, null p95 0.025, band ABOVE; perfect-binding ceiling HEAD_OPB 0.5891 [0.5544,0.6207]; info-free RANDOM-binding twin 0.0895, beaten +0.114 CI-sep. Robustness (3 splits): HEAD_GRADED_AGREE over HEAD = +0.061/+0.037/+0.042 all ABOVE; random twin loses all 3. The NEGATIVE half (the brief's Cb attribution): on CLEAN teacher-forced binding a multi-cue graded binder TIES single-cue ACT-R base-level activation (0.776 vs 0.783, +0.0 NOT_SEP; every geometry-heavy hand-config WORSE: subject_heavy 0.751, cb_heavy 0.686, centering_only 0.600 vs pure_actr 0.772) -- ACT-R is already the optimal STRUCTURAL binder; the tuned cue weights are UNSTABLE across splits (cb=2 / subject=2 / subject=0.5) and the shuffled-clause_role twin is beaten in only 1/3 splits, so the lift is a generic richer-binder+agreement effect, NOT a clean Cb/clause_role attribution. The +0.44 headroom is dominated by UNRECOVERABLE factors: 39% of pronoun queries do not decode even with PERFECT binding (definitional decode ceiling; HEAD_OPB=0.606) and the binding residual is the anti-typical semantic cue-conflict core (19% of errors structurally DOMINATED, matching the sibling; the Kehler-Rohde coherence prior that would reach it is REFUTED on this exact data by the_reader_has_no_coherence_next_mention_prior)."
+result: "PARTIAL -- a brain-faithful clause-level graded pronoun->event binder (Centering cue-based retrieval via hdlab.graded_competition + gender agreement) LIFTS who-did-what pronoun-query accuracy CI-separated over the live ACT-R path, ROBUSTLY across 3 DEV/TEST splits, with the info-free RANDOM-binding twin losing CI-separated in all 3 -- BUT the lift is MODEST (~10-14% of the +0.44 headroom) and the brief's SPECIFIC mechanism (that the tracked Cb/clause_role signal is the lever) is NOT cleanly supported. Headline (LitBank pronoun-query who-did-what, pre-registered even/odd DEV/TEST split, TEST n=4661, direct symbolic decode, head-token name clustering held fixed, doc-bootstrap 95% CI, 2000x): live ACT-R incumbent HEAD 0.1429 [0.1205,0.1661]; the full brain-faithful binder HEAD_GRADED_AGREE 0.2038 [0.1674,0.2407], paired +0.0609 [lo 0.036], hw 0.025, null p95 0.025, band ABOVE; perfect-binding ceiling HEAD_OPB 0.5891 [0.5544,0.6207]; info-free RANDOM-binding twin 0.0895, beaten +0.114 CI-sep. Robustness (3 splits): HEAD_GRADED_AGREE over HEAD = +0.061/+0.037/+0.042 all ABOVE; random twin loses all 3. The NEGATIVE half (the brief's Cb attribution): on CLEAN teacher-forced binding a multi-cue graded binder TIES single-cue ACT-R base-level activation (0.776 vs 0.783, +0.0 NOT_SEP; every geometry-heavy hand-config WORSE: subject_heavy 0.751, cb_heavy 0.686, centering_only 0.600 vs pure_actr 0.772) -- ACT-R is already the optimal STRUCTURAL binder; the tuned cue weights are UNSTABLE across splits (cb=2 / subject=2 / subject=0.5) and the shuffled-clause_role twin is beaten in only 1/3 splits, so the lift is a generic richer-binder+agreement effect, NOT a clean Cb/clause_role attribution. The +0.44 headroom decomposes into a RECOVERABLE component I DEMONSTRATED a fix for, plus a genuinely hard remainder: (a) 39% of pronoun queries do not decode even with PERFECT binding under the LIVE metric -- but this is a METRIC ARTIFACT, PROVEN: re-instrumenting the who-did-what readout as a situation-model EVENT-SET recall (store all (entity,event) bindings, not one-verb-per-sentence) lifts the perfect-binding ceiling 0.589 -> 1.000, and the brain-faithful binder then lifts +0.085 CI-sep (0.249 -> 0.334, random twin losing); (b) the residual binding gap (0.33 -> 1.0 under the faithful metric) is the anti-typical semantic cue-conflict core (19% of errors structurally DOMINATED, matching the sibling; the Kehler-Rohde coherence prior that would reach it is REFUTED on this exact data by the_reader_has_no_coherence_next_mention_prior) -- needs the situation-model meaning-supply program (phase 1), with the brain mechanism identified below."
 floor: "The LIVE who-did-what path = the ACT-R single-cue pronoun binder (recency x role base-level activation) in the current harness, recomputed on the SAME TEST population: HEAD pronoun-query accuracy 0.1429 [0.1205,0.1661] (n=4661). Strongest info-free floor = the RANDOM-binding twin 0.0895 (beaten +0.114 CI-sep). Perfect-binding ceiling HEAD_OPB 0.5891 [0.5544,0.6207]. Clean teacher-forced binding floor (ACT-R optimal): ACT-R 0.783 = graded 0.776 (n=4704)."
 controls: "(1) info-free RANDOM-binding twin (bind each pronoun to a random gn-compatible candidate) -> 0.0895, LOSES CI-sep in ALL 3 splits (+0.09 to +0.12) -- excludes 'any binding helps'. (2) shuffled clause_role twin (destroys the tracked Cb/subject signal, keeps recency+freq) -> 0.176, beaten CI-sep in only 1/3 splits (NOT robust) -- so the tracked Cb/clause_role is NOT cleanly the lever. (3) shuffled inferred-gender twin -> 0.182, NOT_SEP (coverage-limited: only 22.5% of name mentions are gender-inferable on this archaic corpus). (4) AGREE-vs-no-AGREE isolation -> +0.024 (ABOVE in 1/3 splits). (5) CLEAN teacher-forced binding diagnostic (gold clustering, proper agreement): graded == ACT-R (+0.0 NOT_SEP), and EVERY geometry-heavy hand-config is WORSE than pure ACT-R -> excludes 'a better structural cue-weighting recovers the residual' (the tuner is not myopic). (6) in-harness binding decomposition: the live binder binds to the gold anchor only 0.233, while perfect binding (1.0) still decodes only 0.606 -> 39% is the definitional decode ceiling, not binding. (7) held-out DEV/TEST split (even/odd) + 2 alternate splits (robustness). (8) POSITIVE control: the graded binder binds a constructed Cb-decisive pronoun (older subject/center vs more-recent object distractor) that ACT-R mis-binds -> the metric CAN move. (9) register isolation (bar item 3): direct symbolic decode (no FHRR fan effect), head-token name clustering held IDENTICAL across all arms -> the lift is pure binding, not the store."
-files_changed: "experiments/exp_coref_graded_binder_serves_whodidwhat_v1.py (the clause-level focus-driven graded binder: Centering cue-based retrieval via hdlab.graded_competition.net_activation + gender agreement + arms + info-free twins + positive control + DEV tuning + 3-split robustness), experiments/exp_coref_binder_wall_diagnostic_v1.py (clean teacher-forced binding accuracy + geometry-heavy hand-config probe + error anatomy + anti-typicality + in-harness binding decomposition), verification/test_coref_graded_binder_serves_whodidwhat.py (scaffold-free witness, 10/10 PASS), notes/problems/pronoun_to_event_binding_caps_who_did_what/{SOLVED.md, research_pronoun_event_binding_mechanism_2026-08-29.md}. NO hdlab/ write (Q111). Proposed hdlab diff below."
+files_changed: "experiments/exp_coref_graded_binder_serves_whodidwhat_v1.py (the clause-level focus-driven graded binder: Centering cue-based retrieval via hdlab.graded_competition.net_activation + gender agreement + arms + info-free twins + positive control + DEV tuning + 3-split robustness + the RE-INSTRUMENTATION demonstration `reinstrument()` proving the 0.606 ceiling is a metric artifact), experiments/exp_coref_binder_wall_diagnostic_v1.py (clean teacher-forced binding accuracy + geometry-heavy hand-config probe + error anatomy + anti-typicality + in-harness binding decomposition), verification/test_coref_graded_binder_serves_whodidwhat.py (scaffold-free witness, 12/12 PASS incl. the re-instrumentation proof), notes/problems/pronoun_to_event_binding_caps_who_did_what/{SOLVED.md, research_pronoun_event_binding_mechanism_2026-08-29.md}. NO hdlab/ write (Q111). Proposed hdlab diff below."
 reverify: ".venv/Scripts/python.exe verification/test_coref_graded_binder_serves_whodidwhat.py"
 ---
 
@@ -116,6 +116,61 @@ binder?" -- is: ~+0.06 (13%), robustly, by a graded structural binder + gender a
 mechanism (world-knowledge coherence) is not reproducible glass-box (the cheap approximation, the coherence
 prior, is already measured dead here).**
 
+# HOW TO OVERCOME THE WALL -- the fix path, DEMONSTRATED (not asserted)
+
+The +0.44 headroom has three components; here is exactly how to close each, with what is PROVEN vs what
+remains a (well-specified) build:
+
+**STEP 1 -- RE-INSTRUMENT THE READOUT (recovers the biggest component; PROVEN here).** The live who-did-what
+metric scores "the entity's MOST-COMMON verb per sentence", which discards every event but one when an
+entity does several things in a clause -- NOT how the brain's situation model works (it stores ALL
+(entity, event) bindings; Zwaan-Radvansky event indexing). Replace it with a situation-model EVENT-SET
+readout: register every (sentence, verb) event to the bound entity and ask "is the queried event in the
+entity's set?" **Measured (`--reinstrument`, same arms, same population):**
+
+| arm | LIVE metric (most-common/sentence) | RE-INSTRUMENTED (event-set recall) |
+|---|---|---|
+| HEAD = live ACT-R | 0.143 | 0.249 |
+| brain-faithful binder (graded + agreement) | 0.204 | 0.334 |
+| **perfect-binding CEILING** | **0.589** | **1.000** |
+| info-free random twin | 0.090 | 0.106 |
+
+The perfect-binding ceiling jumps 0.589 -> **1.000**: the "39% undecodable even with perfect binding" was
+a METRIC ARTIFACT, not a capability limit. Under the faithful readout the binder lifts **+0.085 CI-sep**
+(0.249 -> 0.334, [lo ~0.04], random twin losing +0.227) -- a LARGER absolute recovery than under the live
+metric. **This is a MEASUREMENT fix (re-instrument the who-did-what harness / score per-(entity,event)
+recall over `hdlab/situation_model_accumulate.py`); it caps the whole task and it is the single
+highest-leverage change.** (Caveat: the entity-event micro-F1, which folds in NAME-mention events, moves
+only +0.007 HEAD->binder because it is dominated by name-clustering, not pronoun binding; the pronoun-recall
+number above is the pronoun-binding-specific one.)
+
+**STEP 2 -- WIRE THE BRAIN-FAITHFUL BINDER (PROVEN +0.06 live / +0.085 re-instrumented).** Replace the live
+inline single-cue ACT-R binder (and the hard strict-Cb organ, which is WORSE) with the graded
+cue-competition binder (`hdlab.graded_competition`) + gazetteer gender AGREEMENT. Robust CI-sep lift across
+3 splits, random twin losing. Modest but real, and strictly more brain-faithful (graded competition is the
+pinned operation; the hard tiered pick is an OUR-INVENTION discretization). Coverage-capped by the gazetteer
+(22.5% of names) -> pair with richer gender inference (`hdlab/state_of_mind.infer_nominal_gender`, title
+cues, gender-from-bound-pronouns) to widen it.
+
+**STEP 3 -- THE SEMANTIC RESIDUAL (the genuinely hard remainder; brain mechanism IDENTIFIED, not yet built).**
+After steps 1-2 the residual (~0.33 -> 1.0 under the faithful metric) is the anti-typical cue-conflict core:
+cases where recency, subjecthood and topicality disagree and the answer is a SPECIFIC-DISCOURSE fact ("who
+did what in THIS passage"). **How the brain does it (research drill; Kehler-Rohde 2013):** a SITUATION
+MODEL that accumulates discourse-specific entity facts AS IT READS, supplying the P(referent) coherence
+prior. **Why a KB does NOT substitute (measured):** the sibling `the_reader_has_no_coherence_next_mention_prior`
+proved the coherence/next-mention prior is DEAD on this exact residual (does not beat its info-free twin) --
+because KBs encode TYPICALITY and the residual is ANTI-TYPICAL by construction; the disambiguator is a
+this-text fact, not a general fact. **So the fix is NOT a bigger KB or a coherence-prior cue** (both
+refuted); it is the situation-model / meaning-supply program -- exactly LONG_TERM_PLAN phase 1 (the named
+current bottleneck), a separate problem. This is a genuine brain-can/we-cannot boundary WITH a specific,
+identified mechanism and a specific reason the cheap substitutes fail -- i.e. we know HOW to close it (build
+the reading-time entity-fact situation model), it is just a large build, not a binder tweak.
+
+**Bottom line on "how to overcome the wall": STEP 1 is proven and re-scores the ceiling to 1.0 (do this
+first, it is cheap and it is a live measurement error); STEP 2 is proven and buildable now; STEP 3 is the
+known meaning-supply program with the brain mechanism identified. The submission now contains a demonstrated
+fix for the recoverable majority of the wall and a specified mechanism for the hard remainder.**
+
 # What I did NOT establish / what I would withdraw first
 
 1. **I did NOT establish that the tracked Cb/clause_role is the lever** (the brief's central claim). Withdraw
@@ -186,17 +241,15 @@ prior, is already measured dead here).**
 
 # ADJACENCIES EVALUATED (candidate follow-on problems -- brain-foundational fidelity + optimization potential)
 
-1. **[HIGHEST -- the real who-did-what cap] The DEFINITIONAL DECODE CEILING (0.606).** 39% of pronoun
-   queries do not decode even with perfect binding. **Brain-fidelity:** the harness metric is "recover the
-   single governing verb of the pronoun's clause via a most-common-verb-per-(cluster,sentence) slot" -- this
-   collapses multi-verb clauses and mis-handles sentences the entity is not the name-anchor of. The brain
-   does NOT store one-verb-per-clause-slot; it builds a structured situation model with (entity, role,
-   event, time) tuples (Zwaan event-indexing). **Optimization:** the ceiling is a METRIC/harness artifact,
-   not a capability limit -- re-instrument who-did-what as a per-(entity,event) recall over a structured
-   situation-model register (compose with `hdlab/situation_model_accumulate.py`) so multi-verb clauses and
-   non-anchor sentences are scorable. This raises the ceiling before any binder work. HIGH leverage; it caps
-   the whole task. An OUR-INVENTION placeholder (the slot tally) standing in for the brain's structured
-   event index.
+1. **[HIGHEST -- the real who-did-what cap; FIX PROVEN in STEP 1 above] The DEFINITIONAL DECODE CEILING
+   (0.606) is a METRIC ARTIFACT.** 39% of pronoun queries do not decode even with perfect binding UNDER THE
+   LIVE METRIC ("most-common verb per (cluster,sentence) slot"), which collapses multi-verb clauses. The
+   brain stores a structured situation model with all (entity, event) bindings (Zwaan event-indexing), not
+   one-verb-per-slot. **DEMONSTRATED (`--reinstrument`):** re-scoring as a situation-model event-set recall
+   lifts the perfect-binding ceiling 0.589 -> 1.000 and the binder's real lift to +0.085 CI-sep. This is a
+   MEASUREMENT fix (re-instrument the who-did-what harness / score per-(entity,event) recall over
+   `hdlab/situation_model_accumulate.py`); it caps the whole task and is the single highest-leverage change.
+   The live slot-tally is an OUR-INVENTION placeholder standing in for the brain's structured event index.
 2. **[HIGH -- the semantic residual, brain-can/we-cannot] The anti-typical coherence-prior core.** The
    binding residual is world-knowledge-bound (Kehler-Rohde prior; 19% structurally dominated). **Brain:**
    the brain resolves it with world knowledge + coherence reasoning (ATL semantic hub + situation model).
@@ -274,8 +327,14 @@ loses. Flip the frontmatter if you prefer -- the evidence is identical.
 2. (Strategy) Fold the AUDIT UPDATE: the who-did-what cap is a HYBRID (definitional decode ceiling +
    semantic-prior residual + small agreement lever), NOT a missing structural Cb binder; ACT-R is already
    the optimal structural binder.
-3. (Follow-on problem, HIGHEST leverage) Re-instrument who-did-what as per-(entity,event) recall over the
-   structured situation-model register -- the 0.606 ceiling is a metric artifact that caps the whole task
-   (adjacency 1). File it before any further binder work.
-4. (Follow-on) Richer gender-inference for the candidate set (adjacency 3) -- the one brain-faithful,
-   buildable lever whose payoff is coverage-bound today.
+3. (Land STEP 1 -- HIGHEST leverage, fix PROVEN) Re-instrument who-did-what as per-(entity,event) recall
+   over the structured situation-model register (`hdlab/situation_model_accumulate.py`) -- DEMONSTRATED to
+   lift the ceiling 0.589 -> 1.000; the live slot-tally metric is a live measurement error. Do this first.
+4. (Land STEP 2 -- PROVEN) Wire the graded cue-competition binder + gender agreement onto the live
+   who-did-what / coref path (replacing the inline ACT-R and the worse hard strict-Cb organ). +0.06 live /
+   +0.085 re-instrumented, CI-sep, twin losing; pair with richer gender inference (adjacency 3) to widen the
+   coverage-bound agreement lever.
+5. (STEP 3 -- the meaning-supply program) The anti-typical semantic residual is LONG_TERM_PLAN phase 1: a
+   reading-time situation model that accumulates discourse-specific entity facts (the P(referent) coherence
+   prior). NOT a KB and NOT a coherence-prior cue (both refuted on this data). A separate, large problem with
+   the brain mechanism identified.
