@@ -113,12 +113,21 @@ decays out, the commit must be by SALIENCE not eviction-order, and the salience 
 ## FIDELITY DEEPENING (post-submission push, owner-requested: "if the brain can do it, we can once we understand it")
 
 Interrogating my OWN solution for the biggest remaining fidelity gap surfaced one, and it is real: **the submitted
-register uses a SINGLE exponential timescale, but the brain's memory spans a CONTINUUM of timescales** (a hierarchy
-of intrinsic neuronal time constants -- Bernacchia 2011, Murray 2014; a cascade of synaptic variables giving
-power-law forgetting -- Fusi 2005, Benna-Fusi 2016). A single geometric leak has ONE recoverable window ~1/(1-lambda);
-the brain does not. So I built and measured a **MULTI-TIMESCALE CASCADE write** (`exp_register_multitimescale_cascade_v1.py`):
-K running sums at leaks spanning fast->slow (0.5..0.995), each event read from the timescale holding the clearest
-trace (a gold-blind best-margin readout -- the same CA1-comparator confidence `decode_gated` already uses).
+register uses a SINGLE exponential timescale, but the brain's WM holds a MEASURED SPECTRUM of timescales.** Grounded
+by a dedicated research drill (`research_multitimescale_cascade_2026-08-29.md`, primary-verified): Bernacchia, Seo,
+Lee & Wang 2011 (Nat Neurosci, PMID 21317906) MEASURE a power-law RESERVOIR of memory time constants (100s of ms to
+10s of s) in monkey PFC single units -- the WM stage; Murray 2014 confirms a hierarchy of intrinsic timescales
+across cortex. So "carry a SPECTRUM, not one lambda" is **PINNED (P~0.80)**. So I built and measured a
+**MULTI-TIMESCALE register** (`exp_register_multitimescale_cascade_v1.py`): K running sums at leaks spanning
+fast->slow (0.5..0.995), each event read from the timescale holding the clearest trace (a gold-blind best-margin
+readout -- the same CA1-comparator confidence `decode_gated` already uses).
+
+**CITATION CORRECTION (the drill caught my own overreach):** I first credited Fusi 2005 / Benna-Fusi 2016 for this.
+They are the SYNAPTIC-CONSOLIDATION stage and are MODELS; their per-synapse capacity theorem comes from BIDIRECTIONAL
+COUPLING (value flows fast->slow) and does NOT transfer to my INDEPENDENT superposition sums. And what I measured is
+TEMPORAL REACH (recency window), NOT Benna-Fusi capacity scaling (a superposition register's simultaneous capacity is
+set by D). The WM-stage spectrum claim rests on Bernacchia+Murray (measured); the K-independent-sums+best-margin
+readout is my OUR-INVENTION implementation of that pinned spectrum.
 
 **MEASURED (D=256, 30 trials, bootstrap 2000x):** the cascade recovers ~3x more of the recency window than a single
 leak, CI-separated at every load, WITHOUT sacrificing recent recovery, and -- decisively -- the reach stays FINITE, so
@@ -136,14 +145,14 @@ cascade's recovery-vs-position curve is a SMOOTH graded gradient over ~24 positi
 cliff at position 6 -- a materially better match to the brain's graded/power-law retention than my submitted form.
 
 **What this means (honest):** (1) my single-leak solution is a correct FIRST-ORDER approximation that PASSES the bar,
-but the higher-fidelity brain form is a **multi-timescale cascade** -- I flag this as the strongest next-problem seed,
-not a silent gap. (2) The cascade EXTENDS the active buffer ~3x but does NOT replace consolidation -- its reach is
+but the higher-fidelity brain form is a **multi-timescale spectrum** -- I flag this as a high-value next-problem seed,
+not a silent gap. (2) The spectrum EXTENDS the active buffer ~3x but does NOT replace consolidation -- its reach is
 finite at extreme load, so the salience-gated 2nd store is genuinely necessary (this strengthens, not weakens, the
 two-store architecture). (3) The gain is partly a resource story (5 sums vs 1) -- the pure-fidelity win is the GRADIENT
-SHAPE (graded over a wide window, the brain's spectrum) and it composes with the 2nd store. Brain-status of the
-multi-timescale mechanism is being grounded by a dedicated research drill (Fusi/Benna-Fusi/Murray primary sources);
-preliminary label **PINNED (strong)** -- a hierarchy of intrinsic timescales is directly measured in primate cortex.
-Witness locks it (checks 10-11).
+SHAPE (graded over a wide window, the brain's measured spectrum) and it composes with the 2nd store. (4) A more
+faithful COUPLED superposition cascade (value flowing fast->slow) is possible but ~ a reparameterised bank of leaks
+(gamma-shaped kernels), so it changes the forgetting-curve SHAPE not the capability -- a can-fail test to run LAST
+(P~0.35-0.40 it beats independent sums). Witness locks the measured result (checks 10-11).
 
 ## KEY REALIZATIONS
 
@@ -184,20 +193,26 @@ on our organ, add:
 > and the VTA/LC-separate-circuit brain fact). CLS/recency-chunked consolidation stays REFUTED as the 2nd-store analogy.
 >
 > **NEW FIDELITY NOTE (post-submission deepening):** a SINGLE geometric leak is a FIRST-ORDER approximation; the brain's
-> memory is MULTI-TIMESCALE (a hierarchy of intrinsic neuronal time constants -- Bernacchia 2011, Murray 2014 primate
-> cortex; a synaptic cascade giving power-law forgetting -- Fusi 2005, Benna-Fusi 2016). MEASURED on our organ: a
-> multi-timescale CASCADE write (K leaks fast->slow, read per-event from the clearest-trace level) recovers ~3x more of
-> the recency window than a single leak (CI-separated at every load), with a smooth graded gradient, WITHOUT sacrificing
-> recent -- and its reach stays FINITE, so the salience-gated 2nd store is still needed. The higher-fidelity write form is
-> the CASCADE; single-lambda is the correct first approximation. (multi-timescale = **PINNED (strong)**, primate-measured.)
+> WM holds a MEASURED SPECTRUM of timescales (a power-law reservoir of time constants in primate PFC single units --
+> Bernacchia 2011 PMID 21317906; a hierarchy across cortex -- Murray 2014). MEASURED on our organ: a multi-timescale
+> register (K leaks fast->slow, read per-event from the clearest-trace level) recovers ~3x more of the recency window
+> than a single leak (CI-separated at every load), with a smooth graded gradient, WITHOUT sacrificing recent -- and its
+> reach stays FINITE, so the salience-gated 2nd store is still needed. WM multi-timescale spectrum = **PINNED (P~0.80)**.
+> CORRECTION: Fusi 2005 / Benna-Fusi 2016 are the CONSOLIDATION stage + MODELS (bidirectional-coupling capacity theorem);
+> do NOT cross-credit them to the WM stage, and the measured ~3x is TEMPORAL REACH, not Benna-Fusi capacity scaling.
+> **SEPARATE AUDIT UPGRADE (from the same drill, for the VSA-binding entry):** Watters 2026 (PMC12893052) is DIRECT
+> single-unit+population evidence that primate frontal cortex holds multi-item WM as a GAIN-WEIGHTED SUPERPOSITION
+> (weighted vector sum) beating discrete slots -- so the substrate's superposition-REGISTER FORM (weighted-combination
+> readout) is now **PINNED at the population-code level**, a meaningful dent in "VSA binding is unpinned" (caveat: it
+> pins the weighted-combination READOUT, NOT the `bind()` algebra itself).
 
 ## Adjacent-component evaluation (owner-requested -- capability / limitation / optimization / brain-status; seeds next problems)
 
 | component | capability | limitation | optimization opportunity | brain-foundational status |
 |---|---|---|---|---|
 | `AccumulateRegister` flat write | accumulates a whole event history in O(1) space | hard capacity wall; recent lost past ~0.25*D even with serial readout | **THIS problem: add a `leak` write option (proposed diff)** | flat sum = **OUR-INVENTION** (no biological analogue); leaky recency = PINNED-WEAK |
-| **MULTI-TIMESCALE cascade write** (this deepening) | **MEASURED: recovers ~3x more of the recency window than single-lambda (CI-sep), smooth graded gradient, recent unharmed** | needs K sums (partly a resource story); reach still finite -> 2nd store still needed | **the strongest next-problem seed: a cascade `leak` spectrum on the register (Fusi/Benna-Fusi)** -- higher-fidelity than the single-lambda I submitted | multi-timescale memory = **PINNED (strong)** -- hierarchy of intrinsic timescales measured in primate cortex (Bernacchia 2011, Murray 2014; Fusi 2005, Benna-Fusi 2016) |
-| `situation_focus.ChunkedFocus` (Cowan ~4-chunk WM focus) | a small attentional focus over the register | **if implemented as a HARD fixed-slot count**, it is the discrete-slot form our own write-path result argues against | **a GRADED competitive focus (effective ~4 from competition, not a literal 4 slots)** -- same graded-beats-slots lesson as this problem | Cowan-4 is behavioral; direct neural evidence favors a GRADED resource (Watters 2026, Daume 2024) -> a fixed-slot impl is **OUR-INVENTION** worth a fidelity audit |
+| **MULTI-TIMESCALE register spectrum** (this deepening) | **MEASURED: recovers ~3x more of the recency window than single-lambda (CI-sep), smooth graded gradient, recent unharmed** | needs K sums (partly a resource story); measures TEMPORAL REACH not capacity; reach still finite -> 2nd store still needed | **high-value next-problem seed: a `leak` SPECTRUM on the register** -- higher-fidelity than the single-lambda I submitted | WM multi-timescale spectrum = **PINNED (P~0.80)** -- power-law reservoir of time constants MEASURED in primate PFC (Bernacchia 2011 PMID 21317906; Murray 2014). NB: Fusi 2005 / Benna-Fusi 2016 are the CONSOLIDATION stage + MODELS -- do NOT cross-credit; their capacity theorem needs bidirectional coupling my independent sums lack |
+| `situation_focus.ChunkedFocus` (Cowan ~4-chunk WM focus) | a small attentional focus over the register | **if implemented as a HARD fixed-slot count**, it is the discrete-slot form our own write-path result argues against | **a GRADED gain-weighted focus (effective ~4 from competition, not a literal 4 slots)** -- same graded-beats-slots lesson as this problem | Cowan-4 is behavioral; the strong direct-neural cite is **Watters 2026 (PMC12893052)** -- primate frontal WM is a gain-modulated compositional (weighted-sum) code beating slots. (Corrections: Daume 2024 is theta-gamma PAC control, NOT slots-vs-resource; the 2026 CDA replication UPHELD the asymmetry -- only the slot INTERPRETATION is undermined, by Watters.) A fixed-slot impl is **OUR-INVENTION** worth a fidelity audit |
 | `decode_serial` / `decode_serial_pooled` | recovers the flat sum to ~1.0 up to M~0.25*D via crosstalk cancellation | collapses past 0.25*D; O(m*iter); needs ALL keys; **not a brain mechanism** (no evidence of joint cancellation over a whole history) | keep for the MODERATE-load regime; the leaky write is the book-scale answer | theta-gamma readout PINNED-ish; the successive-interference-cancellation USE is our engineering, not circuit-cited |
 | `situation_model_multibank` sharding | smaller per-bank load -> milder crosstalk | orthogonal to recency; still flat WITHIN a bank | **compose: apply `leak` per-bank** (each bank smaller -> milder leak, more recent capacity) -- a clean follow-on | routing = our engineering; per-bank capacity = same algebra |
 | `HDFactStore` (2nd store) | never-forgets, content-addressed, glass-box, trust-tagged | commit gate not yet wired to live PE/MDL channels | **wire the salience gate to the live prediction-error + `script_grain` MDL-drop channels** (this problem specified + validated the POLICY) | the store is the brain-correct hippocampal-episodic-index analog (established); the missing piece is the gate wiring |
@@ -239,16 +254,23 @@ None.
 1. (strategy) Re-verify `verification/test_register_leaky_write.py` (**11/11**) and land the `PROPOSED_HDLAB_DIFF.md`
    change 1 (`leak` param on `AccumulateRegister` + thread through `make_situation_register`/multibank). Fold the AUDIT
    UPDATE into `notes/BRAIN_FOUNDATIONAL_AUDIT.md`.
-1b. (NEW HIGH-VALUE next-problem seed, from the fidelity deepening) **A MULTI-TIMESCALE CASCADE write** -- the single
-   `leak` I submitted is a first-order approximation; a cascade of leaks (fast->slow) recovers ~3x more of the recency
-   window with a graded gradient (MEASURED, `exp_register_multitimescale_cascade_v1.py`, witness 10-11), and is the
-   brain's actual mechanism (Fusi 2005 / Benna-Fusi 2016 synaptic cascade; Bernacchia 2011 / Murray 2014 hierarchy of
-   intrinsic timescales). File as its own problem: sweep the timescale spectrum, pick the best-margin readout, and
-   measure the window/gradient lift on the live path. The hierarchy-of-timescales idea is substrate-WIDE (not just the
-   register), so it may re-rank several organs.
-1c. (adjacent, candidate problem) **`situation_focus.ChunkedFocus` fidelity audit** -- if the Cowan-4 focus is a hard
-   fixed-slot count, replace it with a GRADED competitive focus (the same graded-beats-discrete-slots lesson this
-   problem measured); the neural evidence favors a graded resource (Watters 2026, Daume 2024).
+The research drill's recommended next-problem order is **B -> C -> A** (highest-value first):
+1b. (NEXT PROBLEM **B**, highest value -- from the drill) **STAGE-appropriate timescales, not one global lambda.** The
+   WM timescale spectrum increases up the cortical hierarchy (Murray 2014, PINNED). Concrete testable gap: the
+   situation-model / discourse integrator should carry a SLOWER timescale than the register; if it currently shares the
+   register's leak, that is a fidelity gap. Test at the long-range / low-data regime, can-fail, one-variable.
+   ANTI-INFLATION CAUTION (from disk): two prior multi-timescale cells HARD_FAILED (`exp_substrate_fast_slow_weights_LM_v1`,
+   `exp_c2_cascade_stc_swr_continual_v2`) and `exp_timescale_gated_predictive_hierarchy_tgph_v1` LANDED -- BUILD ON tgph,
+   do not re-derive, and expect naive multi-timescale to be fragile.
+1c. (NEXT PROBLEM **C**) **`situation_focus.ChunkedFocus` fidelity audit** -- if the Cowan-4 focus is a hard fixed-slot
+   count, replace it with a GRADED gain-weighted focus (effective ~4 from competition). Strong cite: Watters 2026
+   (PMC12893052, gain-modulated compositional WM code beats slots).
+1d. (NEXT PROBLEM **A**, do LAST) **coupled superposition cascade** -- a value-flowing fast->slow cascade is the more
+   Benna-Fusi-faithful form, but ~ a reparameterised bank of leaks; P~0.35-0.40 it beats the independent-sums spectrum.
+   A can-fail test, not a priority.
+1e. (adjacent flag) the salience-gated hand-off (change 2) is a SINGLE-threshold gate; the consolidation literature
+   (Benna-Fusi) says transfer is itself multi-timescale FLOW, so a graded flow may be more faithful than a discrete
+   gate -- a fidelity refinement to consider when landing change 2.
 2. (follow-on, MEDIUM -- build) Wire the salience gate (change 2) to the LIVE prediction-error + `script_grain` MDL
    channels and re-measure on a real reading stream (the policy + controls are validated here; the live-channel
    reliability is the open piece).
@@ -257,3 +279,15 @@ None.
    register's recent-recovery readout; the end-to-end lift is the confirming measurement).
 4. (follow-on, LOW) compose `leak` with `multibank` sharding (per-bank leak) and sweep -- the two capacity levers are
    orthogonal and should stack.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-29 (grade: EXCELLENT; SOLVED owner-DONE — positive capability result)
+
+Integrated by strategy. Reverified FIRST-HAND: `test_register_leaky_write.py` **11/11 PASS**. Argument adversarially audited and sound: the leaky recency write beats the STRONGEST flat floor (flat sum + the landed `decode_serial` readout, not a strawman) CI-separated at overload; graded primate fade-curve (not a queue step); the salience-gated second store beats FIFO; and the self-derived-salience negative control faithfully reproduces an on-disk HARD_FAIL (salience must be an independent channel). Owner-pushed multi-timescale fidelity deepening with two self-caught citation corrections.
+
+**hdlab landing QUEUED (Q111 — full concrete diff in `PROPOSED_HDLAB_DIFF.md`, verdict-independent):** (1) a `leak` param on `AccumulateRegister` (0.0 = flat/byte-identical default; >0 = asymmetric leaky recency write) threaded through `make_situation_register` + the multibank backend; (2) a thin `register_consolidation` helper (salience = max(w_pe·PE, w_cong·CONG), commit to `HDFactStore` iff > θ; PE independent, CONG from `script_grain` MDL; commit-most-salient). Additive/default-off (leak=0.0 is byte-identical). Recorded in the STATUS wire-don't-island debt.
+
+**Audit §2b folded** — including the AUDIT UPGRADE: Watters 2026 (primate frontal WM = gain-weighted SUPERPOSITION beating slots) → the substrate's superposition-register FORM is now PINNED at the population-code READOUT level (a partial retirement of "VSA binding unpinned" — at readout, NOT the bind() algebra). Review + `> ## ✅ SOLVER REVIEW` block in PROBLEM.md; priority cleared.
+
+**Next problem primed:** stage-appropriate multi-timescale registers (the situation-model integrator should run slower than the register — Murray hierarchy; build on the landed `exp_timescale_gated_predictive_hierarchy_tgph_v1`, two prior multi-timescale cells HARD_FAILED so do not re-derive).

@@ -65,6 +65,31 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-29 — THE REGISTER WRITE PATH IS FIXED (asymmetric leaky recency write + salience-gated consolidation); and the
+  SUPERPOSITION-REGISTER FORM IS NOW PINNED AT THE READOUT LEVEL (a partial retirement of "VSA binding unpinned")** (from
+  integrated `the_register_write_path_has_a_hard_capacity_wall`, owner-DONE, SOLVED/EXCELLENT; reverified 11/11 first-hand).
+  **The write mechanism:** a CONTINUOUS asymmetric leaky/recency write `S = λ·S + bind(role, item)` holds recent-4 recovery
+  = 1.000 at every load N∈{16..768}, where the STRONGEST flat floor (flat sum read by the landed `decode_serial` theta-gamma
+  readout — not a strawman) collapses past N=64 (0.100@256); CI-separated from N=128 (+0.825→+0.975); shuffled-key twin
+  ~0.02. **PINNED:** asymmetric leaky recency = MEASURED/PINNED-WEAK (Warden & Miller 2007; Konecky 2017 primate-PFC
+  monotonic recency gradient; geometric λ^age is the faithful per-trace form; the graded curve 1.00/0.958/0.508 reproduces
+  the 66/45/39 shape — a hard bounded QUEUE is a STEP and is LESS faithful). **The single-store trade is fundamental** (leaky
+  UNIFORM collapses 0.45→0.019 → a 2nd store is brain-necessary — NOT an option). **Second store:** a salience-gated commit
+  into the existing `HDFactStore` — salience = weighted-OR(prediction-error, schema-congruence) (SLIMM U-shape; Tse
+  2007/2011; van Kesteren 2012; Lisman-Grace; Redondo-Morris) — recovers 0.643 of salient events vs the FIFO/eviction-order
+  floor 0.247 (+0.395 CI-sep); **commit-most-salient, NOT oldest-evicted = PINNED (P=0.78); PE MUST be an INDEPENDENT
+  channel** (the self-derived-salience negative control does NOT beat FIFO — faithfully reproduces the on-disk
+  `exp_attention_salience_reliability_gate` HARD_FAIL; VTA/LC compute PE in a separate circuit). **FIDELITY DEEPENING:** the
+  single-timescale leak is a first-order approximation — the brain holds a SPECTRUM of timescales (Bernacchia 2011 power-law
+  reservoir; Murray 2014 hierarchy); a multi-timescale cascade extends the recency window ~3× CI-sep (reach 43 vs single 6)
+  without sacrificing recent, reach stays FINITE (2nd store still needed). **AUDIT UPGRADE (Watters 2026, PMC12893052):**
+  primate frontal WM is a GAIN-WEIGHTED SUPERPOSITION that BEATS slots → **the substrate's superposition-register FORM is now
+  PINNED at the population-code READOUT level** — a dent in the "VSA binding is UNPINNED → our-invention" framing: it is
+  unpinned at the bind() ALGEBRA level, but the superposition READOUT form now has direct primate support. **DEVIATION
+  remaining:** not run real-text end-to-end (the wall is an FHRR-algebra property, content-agnostic — the synthetic load
+  sweep is the correct instrument; the reading-score lift is a landing follow-on); the salience channels are MODELLED, not
+  read from the live PE/MDL organs. **Landing QUEUED** (a `leak` param, default-off/byte-identical, + a `register_consolidation`
+  salience-gate helper — full diff in `PROPOSED_HDLAB_DIFF.md`).
 - **2026-08-29 — THE SITUATION MODEL NOW HAS A DISCOURSE-FACT-STORE + BRIDGING RESOLUTION organ (the comprehension→REASONING
   frontier), PROVEN on inter-sentential fact-decisive reference; and the coref-residual lever is REFINED — it is the
   SYNTACTIC binder, NOT the fact store** (from integrated `situation_model_has_no_discourse_fact_reasoning`, owner-DONE,
