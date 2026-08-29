@@ -55,9 +55,12 @@ the foundation; a dedicated careful effort, not a heartbeat-tail task.**
 SPARSE-CODE store (the multibank/sparse-DG line I've been landing) → RELATIONAL REASONING (the transitive_ordering line
 landed this session) — folds into existing lines, no new brief needed. **This closes the NEXT-PHASE-seeding directive: the
 learn-at-runtime capability is PROVEN-and-SAFE-behind-a-gate but stays OFF; the foundation remains static.**
-🎯 **QUEUE now: p3 `pronoun_to_event_binding_caps_who_did_what` (NEW — the successor the name-clustering refutation PROVED
-is THE who-did-what lever, +0.444; wire the tracked-but-unused clause_role/Centering-Cb into the graded scorer); p5
-coherence-prior; p6 bundle-norm audit; p7 shallow-SRL; p8 archaic-prose. 5 ranked-open for solvers. p2 closed. NOTHING
+🎯 **QUEUE now: p3 `pronoun_to_event_binding_caps_who_did_what` (the proven +0.444 who-did-what lever); p4
+`situation_model_has_no_tested_temporal_order_comprehension` (NEW 2026-08-29 — the Zwaan event-indexing TIME dimension,
+the SIBLING of the built SPACE organ; HONESTLY scoped as a composition — tense is already extracted [situation_reader
+VBD/VBN+had] + stored [event_bundle TENSE slot], but NO organ answers before/after when narration order ≠ event order
+[past-perfect flashbacks]; a rigorous negative = a pass); p5 coherence-prior; p6 bundle-norm audit; p7 shallow-SRL; p8
+archaic-prose. 6 ranked-open for solvers (p5/p6/p7 actively worked). p2 closed. NOTHING
 awaiting an owner verdict.**
 
 ### 2026-08-28 -- ✅ **NAME-CLUSTERING (p3) INTEGRATED as a RIGOROUS NEGATIVE (owner-DONE, EXCELLENT): it REFUTES the premise of the brief I packaged — name clustering is NOT the who-did-what cap; PRONOUN→EVENT BINDING is (+0.444), proven by decomposition. The measurement bar caught my own strategic read.**
