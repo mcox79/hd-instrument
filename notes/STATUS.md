@@ -31,7 +31,26 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-29 (LATEST) -- ✅ **INTEGRATED p6 `read_terminal_bundle_stores_normalize_per_component_not_pooled` (owner-DONE, a rigorous negative/PARTIAL, EXCELLENT): NO hdlab landing earned + an AUDIT CORRECTION (register divnorm demoted to OUR-EXTENSION-UNDER-TEST). PACKAGED the measured #1 gap it found as a new brief (the register WRITE-path capacity wall).**
+### 2026-08-29 (LATEST) -- 🔌 **LANDED the shared PREDICATE-ARGUMENT FRONT-END core into hdlab (wire-don't-island; the PROMOTE half of the queued p7 landing, done in an idle window — verdict-independent, p7 is owner-DONE).**
+**Newest first; the entries below carry the fuller context.**
+🔌 **LANDED `hdlab/predicate_argument_frontend.py` (commit `a45c18a38`) — the shared event-semantic predicate-argument
+front-end CORE.** During an idle stretch (nothing owner-DONE, queue healthy, 3 solutions in owner review) I promoted the
+validated p7 mechanism out of `experiments/` into `hdlab/` (wire-don't-island). `route_predicate_arguments` maps a parsed
+clause to argument roles (agent/theme/goal/location/path/source/recipient/direction/instrument) by the brain's
+event-semantics — preposition-telicity (CUE1) modulated by VerbNet event-class (CUE2) + animacy + the constructional
+caused-motion gate (Jackendoff/Talmy/Zwarts), NOT a motion-verb list. Copied VERBATIM from the validated
+`exp_shared_predarg_frontend_v2` (router + v1 parse helpers + live-nltk VerbNet lookup + WordNet place-typing), composing
+the landed `graded_role_assigner`/`relcl_resolver`/`thematic_role_labeler`/`animacy_lexicon`. No external LLM at inference
+(VerbNet/WordNet are static nltk assets, live-nltk like the landed `location_register`). Witness
+`test_predicate_argument_frontend_organ.py` **7/7 PASS** (the five roles the inline rule can't type; CUE2-over-CUE1
+transfer→recipient; the verb-independent caused-motion gate). **Additive/opt-in — no live-reader behaviour changed.**
+🔌 **STILL QUEUED (the WIRE half):** route `situation_reader` through it DEFAULT-OFF + de-dup the 3 inline arg-structure
+copies with MEASURED no-regression (run-the-live-reader work) — narrowed in the wire-don't-island debt below.
+🎯 **QUEUE unchanged: 5 open (p3/p4/p5 ASSIGNED with WIP solutions AWAITING OWNER REVIEW; p6 write-path + p8 archaic-prose
+open).** Nothing owner-DONE awaiting. The predarg CORE is now landed; catalog registration still blocked (stale reformat,
+not this session's).
+
+### 2026-08-29 -- ✅ **INTEGRATED p6 `read_terminal_bundle_stores_normalize_per_component_not_pooled` (owner-DONE, a rigorous negative/PARTIAL, EXCELLENT): NO hdlab landing earned + an AUDIT CORRECTION (register divnorm demoted to OUR-EXTENSION-UNDER-TEST). PACKAGED the measured #1 gap it found as a new brief (the register WRITE-path capacity wall).**
 **Newest first; the entries below carry the fuller context.**
 ✅ **INTEGRATED `read_terminal_bundle_stores_normalize_per_component_not_pooled` (rigorous negative/PARTIAL, EXCELLENT,
 owner-DONE; reverified W1–W11 ALL PASS FIRST-HAND):** the brief's blanket "switch EVERY read-terminal caller to divnorm"
@@ -142,12 +161,13 @@ LEARNER (dependency-typed learner + reliability-weighted fusion, foundation-grow
 keep-both-stores/regression-checked-rollback gate — the landing to get RIGHT); coref `run_graded_retrieval` (the
 resolver-STREAM wiring over TrackedEntity + cross-validation — the core `graded_coref_pick` IS landed); comprehensible-input
 (foraging); `quality_relation` FPE-log; the event-frame shared-primitive wiring (from p4 verb-sense); **the SHARED
-PREDICATE-ARGUMENT FRONT-END (from integrated p7 `no_shared_shallow_predicate_argument_front_end`, 2026-08-29): create
-`hdlab/predicate_argument_frontend.py` (the event-semantic PP-router + v1 parse helpers + live-nltk VerbNet lookup +
-WordNet place-typing, composing the landed binder/passive/animacy organs) + a witness, THEN route `situation_reader`
-default-off + de-dup the 3 inline arg-structure copies with measured no-regression — a ~300-line multi-dependency port +
-run-the-reader work; validated mechanism green in `exp_shared_predarg_frontend_v2` self-test 14/14.** The p3 person-node
-clustering opt-in was EVALUATED + NOT landed (ties the floor, niche, solver-said-skip).
+PREDICATE-ARGUMENT FRONT-END (from integrated p7): ✅ CORE LANDED 2026-08-29 (commit `a45c18a38`) —
+`hdlab/predicate_argument_frontend.py` (`route_predicate_arguments` + the v1 parse helpers + live-nltk VerbNet lookup +
+WordNet place-typing, composing the landed binder/passive/animacy organs), witness `test_predicate_argument_frontend_organ.py`
+7/7. REMAINING (the WIRE half, still queued): route `situation_reader` through it DEFAULT-OFF + de-dup the 3 inline
+arg-structure copies (`location_register._goal_node`, `parse_goal_extraction`, the inline who-did-what rule) with MEASURED
+no-regression — run-the-live-reader work.** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
+floor, niche, solver-said-skip).
 
 ### 2026-08-28 -- ✅ **THE LEARN-FROM-READING LEARNER (p2) INTEGRATED (owner-DONE, EXCELLENT): the "can we grow the foundation by reading?" question is RESOLVED — YES, but ONLY behind a brain-faithful CLS keep-both-stores gate, DEFAULT-OFF. The brain lever is CONTEXT SHAPE (grammatical relations), not the update rule (online==batch). The reader stays STATIC until an explicit gated growth step.**
 **READ THIS FIRST after compaction; then the entries below.**
