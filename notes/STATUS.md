@@ -31,7 +31,34 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-29 (LATEST) -- ✅ **INTEGRATED the coref COHERENCE-PRIOR REFUTATION (owner-DONE/EXCELLENT, a rigorous negative = full pass); LANDED the pool-cleanup win; PACKAGED the residual's MEASURED real lever as a new brief (p5 discourse-fact reasoning).**
+### 2026-08-29 (LATEST) -- ✅ **INTEGRATED p7 `no_shared_shallow_predicate_argument_front_end` (owner-DONE, PARTIAL/STRONG): the shared EVENT-SEMANTIC predicate-argument FRONT-END. QUEUED its hdlab landing as ONE careful dedicated follow-on (verified portable but a ~300-line multi-dependency port + live-reader de-dup — not a heartbeat tail).**
+**Newest first; the entries below carry the fuller context.**
+✅ **INTEGRATED `no_shared_shallow_predicate_argument_front_end` (p7, PARTIAL/STRONG, owner-DONE; reverified 14/14
+FIRST-HAND):** the reader had THREE inline copies of argument-structure extraction and the validated role organs sat
+unplugged (registry `WIRED` but `WIRE_CANDIDATE`, used by tests only). The solver built a shared event-semantic PP-router
+(preposition-telicity + VerbNet event-class + animacy + constructional caused-motion — Jackendoff/Talmy/Zwarts, NOT a verb
+list) that on FrameNet's INDEPENDENT expert gold (58,808 items) recovers location/path/source/recipient/direction — FIVE
+roles the conflating inline rule scores exactly 0.000 on — all CI-separated, info-free twin below each; caused-motion 8/8;
+positive control 0.886 vs 0.648. TWO measurement leaks self-caught (checkpoint-reuse zeroing; candidate-opening twin
+artifact → strict re-test shows the verb-led attachment gain is modest-but-real). Honest bound: goal RECALL loses to the
+blunt inline grabber (precision/recall trade — it calls every spatial PP a goal); the spatial-role ceiling is
+PP-ATTACHMENT (a placeholder batch parser — the incremental-parser swap is the biggest mapped follow-on lever, NOT a
+representation wall). Grade STRONG (the bar's downstream-lift half is the strategy landing). Audit §2b folded; commit `b2f5d5ab1`.
+🔌 **QUEUED (NOT landed) — the hdlab landing (recorded in the wire-don't-island debt below):** create
+`hdlab/predicate_argument_frontend.py` (the event-semantic router + v1 parse helpers + live-nltk VerbNet lookup + WordNet
+place-typing, composing the landed binder/passive/animacy organs) + a witness, THEN route `situation_reader` default-off +
+de-dup the 3 inline copies (`location_register._goal_node`, `parse_goal_extraction`, the inline who-did-what rule) with
+measured no-regression. Verified portable (~300 lines, 4 dependency clusters) but a faithful port + no-regression is a
+dedicated effort — rushing it risks a subtly-wrong organ. Validated mechanism stays green in `exp_shared_predarg_frontend_v2`
+(self-test 14/14).
+🎯 **QUEUE now 5 open (integrate ONLY on `owner_verdict: DONE`): p3 `pronoun_to_event_binding_caps_who_did_what` (ASSIGNED,
+WIP submitted), p4 `situation_model_has_no_tested_temporal_order_comprehension` (ASSIGNED), p5
+`situation_model_has_no_discourse_fact_reasoning` (open), p6 `read_terminal_bundle_stores_normalize_per_component_not_pooled`
+(ASSIGNED/WIP), p8 `role_assignment_is_untested_on_archaic_literary_prose` (open).** 3 assigned, 2 open-unassigned (p5, p8).
+Nothing owner-DONE awaiting (ledger "awaiting: 2" = p3/p6 WIP SOLVEDs, NO owner-DONE — leave alone). The 9 landed organs +
+now the predarg landing remain the wire-don't-island debt (catalog still blocked, unchanged).
+
+### 2026-08-29 -- ✅ **INTEGRATED the coref COHERENCE-PRIOR REFUTATION (owner-DONE/EXCELLENT, a rigorous negative = full pass); LANDED the pool-cleanup win; PACKAGED the residual's MEASURED real lever as a new brief (p5 discourse-fact reasoning).**
 **Newest first; the COMPACTION SNAPSHOT below carries the fuller recovery context (its queue facts are SUPERSEDED by this entry).**
 ✅ **INTEGRATED `the_reader_has_no_coherence_next_mention_prior`** (owner-DONE, EXCELLENT; reverified 11/11 FIRST-HAND):
 the coherence next-mention PRIOR is REFUTED as the coref residual's fix — SIX brain-faithful channels all measured
@@ -88,7 +115,12 @@ sessions'/solvers' — do NOT commit them.**
 LEARNER (dependency-typed learner + reliability-weighted fusion, foundation-growth STAYS OFF behind the CLS
 keep-both-stores/regression-checked-rollback gate — the landing to get RIGHT); coref `run_graded_retrieval` (the
 resolver-STREAM wiring over TrackedEntity + cross-validation — the core `graded_coref_pick` IS landed); comprehensible-input
-(foraging); `quality_relation` FPE-log; the event-frame shared-primitive wiring (from p4 verb-sense). The p3 person-node
+(foraging); `quality_relation` FPE-log; the event-frame shared-primitive wiring (from p4 verb-sense); **the SHARED
+PREDICATE-ARGUMENT FRONT-END (from integrated p7 `no_shared_shallow_predicate_argument_front_end`, 2026-08-29): create
+`hdlab/predicate_argument_frontend.py` (the event-semantic PP-router + v1 parse helpers + live-nltk VerbNet lookup +
+WordNet place-typing, composing the landed binder/passive/animacy organs) + a witness, THEN route `situation_reader`
+default-off + de-dup the 3 inline arg-structure copies with measured no-regression — a ~300-line multi-dependency port +
+run-the-reader work; validated mechanism green in `exp_shared_predarg_frontend_v2` self-test 14/14.** The p3 person-node
 clustering opt-in was EVALUATED + NOT landed (ties the floor, niche, solver-said-skip).
 
 ### 2026-08-28 -- ✅ **THE LEARN-FROM-READING LEARNER (p2) INTEGRATED (owner-DONE, EXCELLENT): the "can we grow the foundation by reading?" question is RESOLVED — YES, but ONLY behind a brain-faithful CLS keep-both-stores gate, DEFAULT-OFF. The brain lever is CONTEXT SHAPE (grammatical relations), not the update rule (online==batch). The reader stays STATIC until an explicit gated growth step.**
