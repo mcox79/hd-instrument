@@ -49,9 +49,21 @@ into a nested store) but the core `AccumulateRegister` does NOT use. Two partial
 this: the `recency` modulator in `hdlab/bundling.py` (OFF by default -- it IS essentially this leaky write) and the
 `multibank` sharding (spreads events across banks -> less per-bank crosstalk = a capacity extension).
 
+**Write-gain FORM fidelity (MEASURED, W10 -- narrows the design space).** The form matters decisively, and it rules
+one option OUT: a SYMMETRIC pooled divisive rescale at write (S/(mean|S|) each step) does NOT extend capacity --
+uniform recall stays ~= flat (0.192 vs 0.199 @N=192) -- because it preserves the RELATIVE weights, so the crosstalk
+collapse still happens; it only bounds magnitude. So the brain's encoding suppression (Buschman) CANNOT be a symmetric
+divisive normalization; it must be ASYMMETRIC (new privileged over old = recency), which is the leaky/queue form
+(recent recovery 1.0). AND the single-store trade is FUNDAMENTAL: leaky/queue give perfect RECENT but forget OLD
+(uniform 0.05); an activity-adaptive leak preserves more TOTAL (uniform 0.207) but weaker recency (0.45). **You cannot
+get both recent AND old in one bounded store -- which is precisely why the brain pairs asymmetric WM suppression with
+CONSOLIDATION to a second (cortical) store.** So the write-path fix is NOT one op; it is an architecture: asymmetric
+recency suppression in the active buffer + a consolidation path for what it displaces.
+
 **MEASURED vs INFERRED.** MEASURED: the flat-write capacity wall; read-norm cannot move it; a write-time leaky gain
-gives unbounded recent capacity (W9). INFERRED (to prove per strategy's build): the best FORM (leaky/recency vs
-per-event divisive vs bounded-buffer+consolidation), and how it composes with multibank sharding + the p2 sparse store.
+gives unbounded recent capacity (W9); the FORM matters and symmetric divisive does not extend capacity (W10). INFERRED
+(to prove per strategy's build): the best asymmetric form (fixed vs activity-adaptive leak vs bounded queue), the
+consolidation mechanism (reuse ChunkedFocus), and how it composes with multibank sharding + the p2 sparse store.
 
 **Fix direction / first deliverable for strategy.** Decide the register's capacity architecture: (1) turn on/validate
 the recency-weighted (leaky) write for reader organs that need recent context; (2) wire a consolidation/chunk path
