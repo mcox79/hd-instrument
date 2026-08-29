@@ -48,10 +48,11 @@ is a SOLVER problem (build+validate in `experiments/`, propose the hdlab diff; s
 `hdlab/` write, Q111), correcting my earlier under-scoping that treated wiring as strategy-only. Can-fail bar: end-to-end
 who-did-what/role lift CI-sep over BOTH the positional reader AND the content-lemma COUNTING floor (a prior generic wiring
 found that floor beats a naive wired reader), info-free twin loses, NO regression. Commit `25d74bec7`.
-🎯 **QUEUE now 4 open: p3 assembly (NEW, open), causation (open), p6-writepath→INTEGRATED (dropped), p8 archaic-prose
-(ASSIGNED).** 2 open-unassigned (assembly, causation). Nothing owner-DONE awaiting. MORE ready problems primed (p5 natural-
-text validation; p4 resultant-STATE register; the write-path's multi-timescale successor). **Landings QUEUED: predarg
-CORE landed; the who-did-what binder, TIME register, discourse-fact organ, and leaky-write are ready hdlab landings.**
+🎯 **QUEUE (as of 2026-08-29, later): 4 open — p3 assembly (ASSIGNED), p4 causation (ASSIGNED), p8 archaic-prose (ASSIGNED),
+`the_discourse_fact_reasoner_is_unvalidated_on_natural_text` (p5 #1 follow-on, NEW/open — refilled the 0-buffer).** Nothing
+owner-DONE awaiting. MORE ready problems primed (p4 resultant-STATE register; the write-path's multi-timescale successor).
+**Landings status: predarg CORE + the leaky-recency WRITE (Change 1) are now LANDED (`fe53d14a9`, witnessed, default-off).
+STILL QUEUED: the who-did-what binder + TIME register + discourse-fact organ + the write-path Change 2 (salience gate).**
 
 ### 2026-08-29 -- ✅ **INTEGRATED TWO situation-model dimensions (both owner-DONE, EXCELLENT): TIME (a queryable before/after register) + DISCOURSE-FACT REASONING (a two-level result — my brief's coref-residual target REFUTED, but the reasoning-frontier capability BUILT+PROVEN). PACKAGED the CAUSATION force-dynamics brief to refill the empty assignable queue. Both hdlab landings QUEUED.**
 **Newest first; the entries below carry the fuller context.**
