@@ -251,7 +251,12 @@ bridging/ToM — NOT a coref patch. A substantial new-organ landing.** **THE LEA
 integrated `the_register_write_path_has_a_hard_capacity_wall`, 2026-08-29 — a FULL concrete diff exists in that folder's
 `PROPOSED_HDLAB_DIFF.md`): (1) a `leak` param on `AccumulateRegister` (0.0 = flat/byte-identical default; >0 = asymmetric
 leaky recency write) threaded through `make_situation_register` + the multibank backend; (2) a thin `register_consolidation`
-salience-gate helper (max(w_pe·PE, w_cong·CONG) → commit to `HDFactStore`). Additive/default-off — a clean, ready landing.** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
+salience-gate helper (max(w_pe·PE, w_cong·CONG) → commit to `HDFactStore`). ✅ **CHANGE 1 LANDED 2026-08-29 (commit
+`fe53d14a9`): the `leak` param on `AccumulateRegister` + `MultiBankAccumulateRegister` (default 0.0 = byte-identical;
+>0 = the asymmetric leaky/recency write) threaded through `make_situation_register` to both backends; witness
+`test_register_leaky_write_organ.py` 5/5 + the 3 existing register witnesses still pass (no regression). REMAINING —
+CHANGE 2 (the `register_consolidation` salience-gate helper) still queued: it needs the live prediction-error / MDL
+channels wired (the solver flagged that as the landing's job).** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
 floor, niche, solver-said-skip). **The WHO-DID-WHAT BINDER (from integrated p3 `pronoun_to_event_binding_caps_who_did_what`,
 2026-08-29): STEP-1 re-instrument the live who-did-what metric as a situation-model EVENT-SET recall (the biggest lever —
 lifts the ceiling 0.589→1.000) + STEP-2 wire the graded binder + gender agreement + person-exclusion onto the live path
