@@ -596,6 +596,27 @@ hint the single-code tradeoff may have NO joint window (which would mandate the 
 but that is under-capacity smoke, not the answer. Read the code-orthogonality resolution above as
 hypothesis-pending-THIS-VET, not established.
 
+**VET RESULT (exp_whitening_similarity_binding_tradeoff_v1, FULL config, 2026-08-29): NO JOINT WINDOW -- and
+it REFUTES code-orthogonality as the analogy-failure cause on our substrate.** The eps-sweep (corpus /
+analogy-set / vocab held FIXED; only the ZCA whitening varies -- so the delta isolates code-correlation) on
+the real 1.8M-token PPMI-SVD codes: IDENTITY reproduces the wall (analogy_top1 0.0323 = the frequency-prior
+floor); the RANDOM_IDEAL positive control fires (0.129, ~4x floor -- discriminator live); but analogy_top1
+stays FLAT AT THE FLOOR across ALL 7 eps points (identity -> full-whiten) while SimLex-rho moves (0.179
+identity -> 0.153 full-whiten). So DECORRELATING the real codes does NOT unlock binding (analogy never leaves
+the floor at any whitening strength) AND whitening hurts similarity -> RIGOROUS_NEGATIVE_NO_JOINT_WINDOW.
+INTERPRETATION: code CORRELATION is NOT the analogy bottleneck on our substrate (if it were, some eps would
+lift analogy) -- this EMPIRICALLY SUPPORTS the correction above; the prior failures were corpus relation-
+sparsity, not code geometry. The real blockers are RELATIONAL-DATA DENSITY (analogy needs enough relational
+co-occurrence -- dense_corpus_v1 HARD_PASS confirms density matters) and BUNDLE CAPACITY (the HRR capacity cap
+here is only ~31 pairs at k=200 -> this REDIRECTS to Wall E's sparse-block-code store, which RAISES capacity:
+the actual code-side lever is CAPACITY/SPARSITY, NOT whitening/decorrelation). CAVEAT: single deterministic
+seed, 31-pair capacity-cap, 1.8M tokens -- SUGGESTIVE not definitive; the stronger test (15M codes + more
+relational pairs + sparse-block-code capacity + multi-seed) would settle it AND test the sparse-capacity
+angle. NET: the reasoning phase does NOT gate on code orthogonality (whitening is a null); it gates on
+relational-data DENSITY + code CAPACITY (sparsity). The overclaim is now empirically corrected by test, not
+just flagged -- the whitening negative REDIRECTS the code-side lever from decorrelation to sparse-capacity
+(Wall E).
+
 ## RESEARCH DRILL -- CURRICULUM / READING-ORDER (online literature, 2026-08-29): a PROVABLE NULL for our batch learner, which CONVERGES on the recipe-diagnostic already queued.
 
 Batch PPMI-SVD is ORDER-INVARIANT: the count matrix is a SUM (commutative), so any read-order / curriculum
