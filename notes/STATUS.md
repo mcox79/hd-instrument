@@ -46,10 +46,15 @@ GATE. HONEST caveats preserved: BAR-3 TIES the MFS-binary oracle (win = removing
 (+0.007); context IN-DOMAIN (out-of-domain regresses → the bottleneck is in-domain sense-tagged DATA, not volume);
 perception/speech unhelped (no-LLM precluded). Review + SOLVER REVIEW in PROBLEM.md; priority cleared; AUDIT §2b folded
 (verb-polysemy wall BUILT).
-🔌 **hdlab landing QUEUED (Q111 — careful spaCy-coupled multi-module port):** `frame_sense_disambiguator.py` +
-`context_prior.py` + `data/{idiom_foundation_v1, context_prior_v1}`; the **IDIOM stored-unit lexicon is the spaCy-free
-FOUNDATION** that can land first (a shared MWE-flagging asset — like I did with location_register's spaCy-free core). Do
-NOT promote a WSD organ.
+🔌 **hdlab landing — IDIOM FOUNDATION LANDED 2026-08-28 (the spaCy-free part, first):** `hdlab/idiom_lexicon.py` —
+a shared, spaCy-FREE stored-unit MWE-flagging FOUNDATION over the committed asset (`data/idiom_foundation_v1/idioms.json`,
+1813 phrasal + 414 verb+object). Runtime = a pure dict lookup (`idiom_sense(verb, particle, object)→coarse frame` or
+None; holistic MWE retrieval, Jackendoff/Cutting&Bock); the offline WordNet/PMI BUILD stays in experiments (a static
+offline-built asset is admissible). Witness `test_idiom_lexicon_organ.py` **5/5 PASS FIRST-HAND** (take|place→stative,
+make|sense→cognition, pass|away→change; literal leave|room→None; spaCy-free+WordNet-free at runtime). Any front-end can
+now flag idioms before literal composition. ⚠️ **Still QUEUED (careful spaCy-coupled port):** the disambiguator itself
+(`frame_sense_disambiguator.py` + `context_prior.py` + `data/context_prior_v1`) — needs the parse; do NOT promote a WSD
+organ. Same decompose-and-land-the-clean-core lens as `location_register`.
 🧠🔧 **ADJACENCIES EVALUATED (owner directive):** (1) the coarse **EVENT-FRAME is a candidate SHARED PRIMITIVE** — wiring
 it into `situation_model` + `location_register` + the ToM ledger banks the BAR-3 win into the live reader (a QUEUED wiring
 follow-on, mine); (2) pronoun/anaphoric-object typing folds into the coref line (p3 + p5), not a new brief; (3) an
