@@ -31,7 +31,28 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-29 (LATEST) -- ✅ **INTEGRATED the register WRITE-PATH fix (owner-DONE, EXCELLENT — leaky-recency write + salience-gated consolidation; the superposition-register FORM is now PINNED at the readout level). PACKAGED the ASSEMBLY-PHASE problem (wire the validated role organs into the live reader — a SOLVER problem, correcting the earlier "wiring is strategy-only" under-scoping).**
+### 2026-08-29 (LATEST) -- ✅ **INTEGRATED TWO owner-DONE, EXCELLENT solutions: CAUSATION (a force-dynamic CAUSE/ENABLE/PREVENT typer — the last-built Zwaan dimension now built) + the ARCHAIC-PROSE PARSE CONFOUND (a rigorous negative that RETIRES the wholesale worry — organ conclusions STAND — with a built fix for the one real exception). Both hdlab landings QUEUED.**
+**Newest first; the entries below carry the fuller context.**
+✅ **INTEGRATED `causation_has_no_force_dynamic_typing` (SOLVED/EXCELLENT, owner-DONE; reverified 16/16 FIRST-HAND):** the
+situation-model CAUSATION dimension — the LEAST-built of Zwaan's five — now has a force-dynamic typer (Wolff CAUSE/ENABLE/
+PREVENT truth-table + a FrameNet Causation lexicon) that beats BOTH the connective/adjacency placeholder (0.929 vs 0.190)
+AND precedence-only CI-sep; force-class-shuffle twin loses; PREVENT killer 0.900 vs 0.000 (only force dynamics represents a
+prevented endstate); the one wall (tendency-ambiguous verbs) crossed via affector magnitude (0.500→1.000); real-text 0.917
+on domain; external lexicon escapes the construction-proof. Citation correction (Kang 2021→Feng et al. 2021).
+✅ **INTEGRATED `role_assignment_is_untested_on_archaic_literary_prose` (SOLVED/EXCELLENT, owner-DONE; reverified 26/26
+FIRST-HAND): a RIGOROUS NEGATIVE that RETIRES the wholesale corpus-age parse confound** — spaCy's subject-ID is NOT
+CI-degraded on 19c prose; correcting ALL 59 role errors moves coref by −0.0009 (shuffle control DOES move it → the null is
+meaningful) → **every organ that trusts the spaCy role stands**. The one real exception (subject-verb inversion) gets a
+PINNED position-dominant + cue-override fix (0.47→0.83 CI-sep, twin loses, no modern regression, register-invariant incl.
+the Shakespeare-EME extreme 0.07→0.75); the solver self-refuted its own cue-first instinct. Commit `e86c4f234`; audit §2b
+folded (new CAUSATION organ; corpus-age confound SUSPECTED→MEASURED-BOUNDED/RETIRED).
+🔌 **Both hdlab landings QUEUED (coupled, in the debt): the causation TYPER into `_read_causation`; the archaic cue-override
+subject stage into `graded_role_assigner` (a concrete INPUT to the assembly p3).**
+🎯 **QUEUE: p3 assembly (ASSIGNED — the strategic #1) + open/unassigned: `the_discourse_fact_reasoner_is_unvalidated_on_natural_text`,
+`the_situation_model_tracks_no_entity_state_history` (NEW).** Both causation + archaic dropped (integrated). Nothing
+owner-DONE awaiting. ALL 5 Zwaan dimensions now have organs (TIME+SPACE integrated, CAUSATION+ENTITIES/state building, GOALS partial).
+
+### 2026-08-29 -- ✅ **INTEGRATED the register WRITE-PATH fix (owner-DONE, EXCELLENT — leaky-recency write + salience-gated consolidation; the superposition-register FORM is now PINNED at the readout level). PACKAGED the ASSEMBLY-PHASE problem (wire the validated role organs into the live reader — a SOLVER problem, correcting the earlier "wiring is strategy-only" under-scoping).**
 **Newest first; the entries below carry the fuller context.**
 ✅ **INTEGRATED `the_register_write_path_has_a_hard_capacity_wall` (SOLVED/EXCELLENT, owner-DONE; reverified 11/11
 FIRST-HAND):** the brain's write path — a CONTINUOUS asymmetric leaky/recency write holds recent-4 recovery = 1.000 at
@@ -261,7 +282,15 @@ salience-gate helper (max(w_pe·PE, w_cong·CONG) → commit to `HDFactStore`). 
 >0 = the asymmetric leaky/recency write) threaded through `make_situation_register` to both backends; witness
 `test_register_leaky_write_organ.py` 5/5 + the 3 existing register witnesses still pass (no regression). REMAINING —
 CHANGE 2 (the `register_consolidation` salience-gate helper) still queued: it needs the live prediction-error / MDL
-channels wired (the solver flagged that as the landing's job).** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
+channels wired (the solver flagged that as the landing's job).** **THE CAUSATION TYPER (from integrated
+`causation_has_no_force_dynamic_typing`, 2026-08-29): promote `experiments/_force_dynamics_lexicon.py` (lexicon + Wolff
+typer + endstate/negation detector) + replace `situation_reader._read_causation`'s untyped link with a TYPED
+`CausalLink(cause, outcome, {CAUSE,ENABLE,PREVENT}, endstate_reached)`; precedence GATES (reuse TIME); gate ENABLE to
+letting verbs until the patient-tendency input exists — a coupled live-path landing.** **THE ARCHAIC-PROSE SUBJECT
+CUE-OVERRIDE (from integrated `role_assignment_is_untested_on_archaic_literary_prose`, 2026-08-29): add the position-
+dominant + cue-override subject stage to `graded_role_assigner` (ref impls `exp_role_cue_repair_inversion_v1.repaired_subject_span`
++ `exp_role_cue_first_subject_v1.full_cue_subject`) + rebuild `data/litbank/who_did_what_events.json` through it — a
+concrete INPUT to the assembly (p3).** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
 floor, niche, solver-said-skip). **The WHO-DID-WHAT BINDER (from integrated p3 `pronoun_to_event_binding_caps_who_did_what`,
 2026-08-29): STEP-1 re-instrument the live who-did-what metric as a situation-model EVENT-SET recall (the biggest lever —
 lifts the ceiling 0.589→1.000) + STEP-2 wire the graded binder + gender agreement + person-exclusion onto the live path
