@@ -4,9 +4,9 @@
 **Tick problems in the GUI (tab 6, PROBLEMS -- the ASSIGNED column), not here.** This file is
 regenerated from that shared state by `python tools/problem_queue.py`; editing it does nothing.
 
-**3 of 4 open problems assigned.**
+**4 of 4 open problems assigned.**
 
 - [x] **p4** situation_model_has_no_tested_temporal_order_comprehension
 - [x] **p5** situation_model_has_no_discourse_fact_reasoning
 - [x] **p6** the_register_write_path_has_a_hard_capacity_wall
-- [ ] **p8** role_assignment_is_untested_on_archaic_literary_prose
+- [x] **p8** role_assignment_is_untested_on_archaic_literary_prose

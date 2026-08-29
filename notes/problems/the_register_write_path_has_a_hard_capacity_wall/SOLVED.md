@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. A CONTINUOUS leaky/recency WRITE on Accumulate
 result: "Synthetic controlled load sweep (the correct instrument for a capacity wall -- load is the IV), D=256, V=100, chance=0.01, 30 trials/load, trial-bootstrap 2000x. RECENT-4 recovery (the reader-relevant quantity): the write-time leaky recency gain = 1.000 at EVERY load Nin{16..768}; the STRONGEST flat floor (flat sum + landed serial crosstalk-cancellation readout) holds to N=64 (0.983) then COLLAPSES (0.175@128, 0.100@256, 0.067@384, 0.025@512, 0.067@768). Paired lift LEAKY - flat+SERIAL is CI-separated from N=128 onward: +0.825 [+0.750,+0.892] @128 -> +0.900 [+0.833,+0.958] @256 -> +0.975 [+0.942,+1.000] @512 (ns at N<=64 where the serial readout already saturates -- the lift appears exactly where the floor breaks). SECOND STORE (salience-gated HDFactStore hand-off, N=200, commit budget 20%, 30 trials, 2000x): salient-event recall weighted-OR gate 0.643 [0.620,0.665] vs FIFO/eviction-order floor 0.247 (+0.395 [+0.366,+0.424] SEP); OR > PE-only 0.530 (+0.112 SEP) and > CONG-only 0.539 (+0.103 SEP); leaky-buffer-alone 0.056. Witness 9/9."
 floor: "STRONGEST floor, recomputed on the same population: the flat sum (lambda=1) read by decode_serial (the LANDED theta-gamma crosstalk-cancellation readout -- NOT the naive flat+argmax strawman). Recent-4 recovery 0.983 @N=64 -> 0.100 @N=256 -> 0.025 @N=512. Flat+argmax is even weaker (0.60@64 -> 0.125@256). For the second store: the FIFO/eviction-order commit floor = salient-recall 0.247."
 controls: "WRITE PATH: (1) info-free twin = read the leaky store at SHUFFLED keys -> collapses to ~0.02 (chance; excludes 'the keys carry it for free'). (2) flat lambda=1 write IS the info-free-write comparison (the floor itself). (3) FORM control = a hard bounded QUEUE (discrete slots): step curve [1.00,1.00,0.01] vs the leaky GRADED monotonic curve [1.00,0.958,0.508] (excludes 'it's just a discrete buffer' -- reproduces the primate 66/45/39 gradient shape). (4) POSITIVE control: at N=256 the leaky write recovers the NEWEST event 1.000 vs flat(argmax|serial) 0.133 (metric moves). SECOND STORE: (5) FIFO/eviction-order floor (excludes 'any commit helps' -- the brain positively rules out eviction-order). (6) info-free RANDOM-commit twin 0.234 (excludes 'the budget alone does it'). (7) SELF-derived-salience NEGATIVE control = commit by the register's own readback confidence -> 0.220, does NOT CI-beat FIFO (-0.028, ns) -- reproduces the on-disk exp_attention_salience_reliability_gate HARD_FAIL; salience MUST be an independent channel. (8) single-channel PE-only / CONG-only each miss one U-shape extreme (excludes 'one axis suffices'). (9) POSITIVE control: OR 0.638 vs leaky-only 0.047 (+0.592) rescues salient-old the buffer loses."
-files_changed: "experiments/exp_register_leaky_write_capacity_v1.py, experiments/exp_register_salience_gated_handoff_v1.py, verification/test_register_leaky_write.py, notes/problems/the_register_write_path_has_a_hard_capacity_wall/{SOLVED.md, PROPOSED_HDLAB_DIFF.md, research_consolidation_salience_gate_2026-08-29.md}"
+files_changed: "experiments/exp_register_leaky_write_capacity_v1.py, experiments/exp_register_salience_gated_handoff_v1.py, experiments/exp_register_multitimescale_cascade_v1.py, verification/test_register_leaky_write.py, notes/problems/the_register_write_path_has_a_hard_capacity_wall/{SOLVED.md, PROPOSED_HDLAB_DIFF.md, research_consolidation_salience_gate_2026-08-29.md}"
 reverify: ".venv/Scripts/python.exe verification/test_register_leaky_write.py"
 ---
 
@@ -110,6 +110,41 @@ decays out, the commit must be by SALIENCE not eviction-order, and the salience 
   with the never-forget store). Adaptive/divisive is the same OUR-EXTENSION class as the read-side divnorm, so fixed
   geometric is the more brain-faithful default; a proper adaptive gain sweep is an optional follow-on, not a wall.
 
+## FIDELITY DEEPENING (post-submission push, owner-requested: "if the brain can do it, we can once we understand it")
+
+Interrogating my OWN solution for the biggest remaining fidelity gap surfaced one, and it is real: **the submitted
+register uses a SINGLE exponential timescale, but the brain's memory spans a CONTINUUM of timescales** (a hierarchy
+of intrinsic neuronal time constants -- Bernacchia 2011, Murray 2014; a cascade of synaptic variables giving
+power-law forgetting -- Fusi 2005, Benna-Fusi 2016). A single geometric leak has ONE recoverable window ~1/(1-lambda);
+the brain does not. So I built and measured a **MULTI-TIMESCALE CASCADE write** (`exp_register_multitimescale_cascade_v1.py`):
+K running sums at leaks spanning fast->slow (0.5..0.995), each event read from the timescale holding the clearest
+trace (a gold-blind best-margin readout -- the same CA1-comparator confidence `decode_gated` already uses).
+
+**MEASURED (D=256, 30 trials, bootstrap 2000x):** the cascade recovers ~3x more of the recency window than a single
+leak, CI-separated at every load, WITHOUT sacrificing recent recovery, and -- decisively -- the reach stays FINITE, so
+the 2nd store is still needed:
+
+| N | cascade reach (pos>0.5) | single-lambda reach | window recovered cascade vs single |
+|---|---|---|---|
+| 128 | 29 | 6 | 28.8 vs 7.6  (+21.2 CI-sep) |
+| 256 | 21 | 6 | 26.6 vs 7.5  (+19.1 CI-sep) |
+| 512 | 20 | 6 | 25.3 vs 7.6  (+17.7 CI-sep) |
+| 768 | 18 | 5 | 24.8 vs 7.2  (+17.6 CI-sep) |
+
+cascade recent-4 = 1.000 (does not trade recent for window); info-free shuffled-key twin collapses (~0.01). The
+cascade's recovery-vs-position curve is a SMOOTH graded gradient over ~24 positions where the single leak is a sharp
+cliff at position 6 -- a materially better match to the brain's graded/power-law retention than my submitted form.
+
+**What this means (honest):** (1) my single-leak solution is a correct FIRST-ORDER approximation that PASSES the bar,
+but the higher-fidelity brain form is a **multi-timescale cascade** -- I flag this as the strongest next-problem seed,
+not a silent gap. (2) The cascade EXTENDS the active buffer ~3x but does NOT replace consolidation -- its reach is
+finite at extreme load, so the salience-gated 2nd store is genuinely necessary (this strengthens, not weakens, the
+two-store architecture). (3) The gain is partly a resource story (5 sums vs 1) -- the pure-fidelity win is the GRADIENT
+SHAPE (graded over a wide window, the brain's spectrum) and it composes with the 2nd store. Brain-status of the
+multi-timescale mechanism is being grounded by a dedicated research drill (Fusi/Benna-Fusi/Murray primary sources);
+preliminary label **PINNED (strong)** -- a hierarchy of intrinsic timescales is directly measured in primate cortex.
+Witness locks it (checks 10-11).
+
 ## KEY REALIZATIONS
 
 1. **Recompute the floor as the STRONGEST landed readout before claiming a lift.** The flat sum's real floor is
@@ -147,12 +182,22 @@ on our organ, add:
 > SLIMM U-shape) is **PINNED (P=0.78)**, eviction-order is the one rule the brain rules out, and the salience signal
 > must be an INDEPENDENT channel (a self-derived gate HARD_FAILs -- matches on-disk `exp_attention_salience_reliability_gate`
 > and the VTA/LC-separate-circuit brain fact). CLS/recency-chunked consolidation stays REFUTED as the 2nd-store analogy.
+>
+> **NEW FIDELITY NOTE (post-submission deepening):** a SINGLE geometric leak is a FIRST-ORDER approximation; the brain's
+> memory is MULTI-TIMESCALE (a hierarchy of intrinsic neuronal time constants -- Bernacchia 2011, Murray 2014 primate
+> cortex; a synaptic cascade giving power-law forgetting -- Fusi 2005, Benna-Fusi 2016). MEASURED on our organ: a
+> multi-timescale CASCADE write (K leaks fast->slow, read per-event from the clearest-trace level) recovers ~3x more of
+> the recency window than a single leak (CI-separated at every load), with a smooth graded gradient, WITHOUT sacrificing
+> recent -- and its reach stays FINITE, so the salience-gated 2nd store is still needed. The higher-fidelity write form is
+> the CASCADE; single-lambda is the correct first approximation. (multi-timescale = **PINNED (strong)**, primate-measured.)
 
 ## Adjacent-component evaluation (owner-requested -- capability / limitation / optimization / brain-status; seeds next problems)
 
 | component | capability | limitation | optimization opportunity | brain-foundational status |
 |---|---|---|---|---|
 | `AccumulateRegister` flat write | accumulates a whole event history in O(1) space | hard capacity wall; recent lost past ~0.25*D even with serial readout | **THIS problem: add a `leak` write option (proposed diff)** | flat sum = **OUR-INVENTION** (no biological analogue); leaky recency = PINNED-WEAK |
+| **MULTI-TIMESCALE cascade write** (this deepening) | **MEASURED: recovers ~3x more of the recency window than single-lambda (CI-sep), smooth graded gradient, recent unharmed** | needs K sums (partly a resource story); reach still finite -> 2nd store still needed | **the strongest next-problem seed: a cascade `leak` spectrum on the register (Fusi/Benna-Fusi)** -- higher-fidelity than the single-lambda I submitted | multi-timescale memory = **PINNED (strong)** -- hierarchy of intrinsic timescales measured in primate cortex (Bernacchia 2011, Murray 2014; Fusi 2005, Benna-Fusi 2016) |
+| `situation_focus.ChunkedFocus` (Cowan ~4-chunk WM focus) | a small attentional focus over the register | **if implemented as a HARD fixed-slot count**, it is the discrete-slot form our own write-path result argues against | **a GRADED competitive focus (effective ~4 from competition, not a literal 4 slots)** -- same graded-beats-slots lesson as this problem | Cowan-4 is behavioral; direct neural evidence favors a GRADED resource (Watters 2026, Daume 2024) -> a fixed-slot impl is **OUR-INVENTION** worth a fidelity audit |
 | `decode_serial` / `decode_serial_pooled` | recovers the flat sum to ~1.0 up to M~0.25*D via crosstalk cancellation | collapses past 0.25*D; O(m*iter); needs ALL keys; **not a brain mechanism** (no evidence of joint cancellation over a whole history) | keep for the MODERATE-load regime; the leaky write is the book-scale answer | theta-gamma readout PINNED-ish; the successive-interference-cancellation USE is our engineering, not circuit-cited |
 | `situation_model_multibank` sharding | smaller per-bank load -> milder crosstalk | orthogonal to recency; still flat WITHIN a bank | **compose: apply `leak` per-bank** (each bank smaller -> milder leak, more recent capacity) -- a clean follow-on | routing = our engineering; per-bank capacity = same algebra |
 | `HDFactStore` (2nd store) | never-forgets, content-addressed, glass-box, trust-tagged | commit gate not yet wired to live PE/MDL channels | **wire the salience gate to the live prediction-error + `script_grain` MDL-drop channels** (this problem specified + validated the POLICY) | the store is the brain-correct hippocampal-episodic-index analog (established); the missing piece is the gate wiring |
@@ -191,9 +236,19 @@ None.
 
 ## NEXT STEPS
 
-1. (strategy) Re-verify `verification/test_register_leaky_write.py` (9/9) and land the `PROPOSED_HDLAB_DIFF.md` change
-   1 (`leak` param on `AccumulateRegister` + thread through `make_situation_register`/multibank). Fold the AUDIT
+1. (strategy) Re-verify `verification/test_register_leaky_write.py` (**11/11**) and land the `PROPOSED_HDLAB_DIFF.md`
+   change 1 (`leak` param on `AccumulateRegister` + thread through `make_situation_register`/multibank). Fold the AUDIT
    UPDATE into `notes/BRAIN_FOUNDATIONAL_AUDIT.md`.
+1b. (NEW HIGH-VALUE next-problem seed, from the fidelity deepening) **A MULTI-TIMESCALE CASCADE write** -- the single
+   `leak` I submitted is a first-order approximation; a cascade of leaks (fast->slow) recovers ~3x more of the recency
+   window with a graded gradient (MEASURED, `exp_register_multitimescale_cascade_v1.py`, witness 10-11), and is the
+   brain's actual mechanism (Fusi 2005 / Benna-Fusi 2016 synaptic cascade; Bernacchia 2011 / Murray 2014 hierarchy of
+   intrinsic timescales). File as its own problem: sweep the timescale spectrum, pick the best-margin readout, and
+   measure the window/gradient lift on the live path. The hierarchy-of-timescales idea is substrate-WIDE (not just the
+   register), so it may re-rank several organs.
+1c. (adjacent, candidate problem) **`situation_focus.ChunkedFocus` fidelity audit** -- if the Cowan-4 focus is a hard
+   fixed-slot count, replace it with a GRADED competitive focus (the same graded-beats-discrete-slots lesson this
+   problem measured); the neural evidence favors a graded resource (Watters 2026, Daume 2024).
 2. (follow-on, MEDIUM -- build) Wire the salience gate (change 2) to the LIVE prediction-error + `script_grain` MDL
    channels and re-measure on a real reading stream (the policy + controls are validated here; the live-channel
    reliability is the open piece).
