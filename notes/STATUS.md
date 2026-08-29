@@ -245,7 +245,11 @@ i.e. the parser-swap (p7 adjacency #1) is a PREREQUISITE of the predarg de-dup, 
 parse source → predarg front-end on the live path → who-did-what binder → single remote no-regression pass.** **THE TIME
 REGISTER (from integrated p4, 2026-08-29): promote `experiments/_temporal_order_register.py` → `hdlab/temporal_order_register.py`
 + fix `situation_reader._read_timeline` (whole-passage, drop the "had"-only gate, apply the clause-pluperfect binder) +
-point `_read_causation` at the register — a direct organ promotion + live-wiring fixes.** **THE DISCOURSE-FACT-STORE ORGAN
+point `_read_causation` at the register. ⚠️ **DESIGN-GATE FINDING (2026-08-29): NOT a single-file promotion — a faithful
+port needs the shared `_temporal_ordering` (282L) + `_temporal_ordering_multiframe` (351L, itself depending on a POS tagger
+from `exp_oracle_mention_upperbound_reader_v1`) to move too, and those shared modules are imported by ~25 experiments. So
+it's a DEDICATED multi-module port (promote the temporal-ordering module SET to hdlab + repoint importers, or keep them
+shared behind a clean hdlab seam), not a heartbeat-tail task.** **THE DISCOURSE-FACT-STORE ORGAN
 (from integrated p5, 2026-08-29): promote the reading-built discourse-fact store + graded 2-hop bridging RESOLUTION as a
 NEW situation-model organ (discourse-age-gated, FHRR, relation-indexed for scaling), wired for downstream QA/next-event/
 bridging/ToM — NOT a coref patch. A substantial new-organ landing.** **THE LEAKY-RECENCY WRITE + CONSOLIDATION (from
