@@ -65,6 +65,35 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-28 — THE LEARN-FROM-READING LEARNER IS VALIDATED + SAFE TO GROW THE FOUNDATION ONLY BEHIND A CLS GATE
+  (default-OFF): the brain-faithful lever is CONTEXT SHAPE (grammatical relations), NOT the update rule** (from
+  `optimize_and_validate_the_learner_before_it_grows_the_foundation`, integrated SOLVED/EXCELLENT, owner-DONE; witness
+  re-verified FIRST-HAND — BAR1 + BAR4 + the CLS safe-growth flip all PASS, recomputed off the landed vectors). The most
+  consequential organ (it can GROW the static offline-built foundation) validated to the owner's demanded standard.
+  **PINNED / measured:** (1) a DEPENDENCY-TYPED (grammatical-relation) distributional learner beats the ±2-window
+  PPMI-SVD baseline on the SIMILARITY axis CI-separated at matched 15M scale (SimLex 0.270 vs 0.210, +0.060; SimVerb
+  0.119 vs 0.084, +0.034; 2/3 populations — WordSim relatedness stays the window's, the PREDICTED dissociation), info-free
+  twins lose, DEP_TYPED > DEP_UNTYPED isolates the relation TYPE, ~2.5× more data-efficient. **(2) The update-rule
+  premise is REFUTED — this CONFIRMS DEVIATION #2 (the sign()/averaging-machine line): SGNS == shifted-PPMI factorisation
+  (Levy & Goldberg 2014) and CBOW == counting is already landed, so ONLINE == BATCH; 'update the brain's way (online/from
+  error)' is a proven dead end — the lever is WHAT it learns over, not HOW it updates.** (3) BAR3: under a
+  reliability-weighted combiner the learned channel is NET-NEUTRAL-not-harmful in the full pool (the supervised WordNet
+  channel dominates its own golds); the window→dependency upgrade net-improves the reading read-out CI-sep; the
+  one-pool combiner regresses where the dissociation-aware one does not. **(4) THE SAFETY GATE (the durable finding):
+  growing the meaning by reading HELPS downstream comprehension (who-did-what 0.071→0.149, info-free growth controls fall
+  below baseline = real structure), BUT a NAIVE overwrite CORRUPTS ~25.6% of previously-correct meanings (uniform across
+  confidence = genuine knowledge loss, not churn). A CLS-FAITHFUL keep-both-stores update (ENSEMBLE_MEAN — the
+  hippocampal+cortical dual store; Norman & O'Reilly CLS) cuts corruption ~3.3× to 7.9% (CI-sep) while keeping 71% of the
+  gain; a rate-limited α=0.25 blend keeps 84% at 18.5%; accuracy SATURATES while corruption climbs monotonically toward
+  the naive value — the CLS signature (slow replay-preserving integration beats wholesale overwrite). So the naive
+  corruption was a MISSING-MECHANISM artifact, not a ceiling.** Fidelity: 4/5 mechanisms pinned; code-decorrelation,
+  distributional is-a, curriculum, affect-grounding, grounded-selpref centroid-averaging all tested + rigorously REFUTED
+  (null/redundant/over-compressing). **hdlab landing QUEUED (careful multi-module port) — the CRITICAL invariant:
+  FOUNDATION-GROWTH STAYS OFF BY DEFAULT, behind the CLS keep-both-stores / regression-checked-rollback gate; the reader
+  remains STATIC offline-built until an explicit, gated, monitored growth step.** NET: the learn-at-runtime capability is
+  PROVEN-and-SAFE-behind-a-gate but stays OFF; the roadmap the learner traces is validated-learner → the SPARSE-CODE
+  store (multibank/sparse-DG) → RELATIONAL REASONING (transitive_ordering).
+
 - **2026-08-28 — NAME CLUSTERING IS NOT THE WHO-DID-WHAT CAP: a RIGOROUS NEGATIVE that CORRECTS the coref §2b entry — the
   head-token name branch is a STRONG floor (head=surname), and the who-did-what cap is PRONOUN→EVENT BINDING + the
   register FAN, not name clustering** (from `the_name_branch_shatters_one_character_into_many_entities`, integrated

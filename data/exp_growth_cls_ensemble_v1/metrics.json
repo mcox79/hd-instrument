@@ -1,0 +1,495 @@
+{
+  "anchor_name": "growth_cls_ensemble_v1",
+  "mode": "full",
+  "seed": 20260827,
+  "config": {
+    "small_tok": 5000000,
+    "large_tok": 15000000,
+    "vocab_cap": 60000,
+    "min_count": 8,
+    "ctx_min_count": 5,
+    "n_boot": 2000,
+    "svd_k": 300,
+    "svd_p": 0.5,
+    "ppmi_alpha": 0.75
+  },
+  "n_tokens": {
+    "small": 5000020,
+    "large": 15000057
+  },
+  "vocab": {
+    "small": 25429,
+    "large": 51417,
+    "union": 51417
+  },
+  "selpref_cols": {
+    "small": 10509,
+    "large": 24132,
+    "union_blend": 29124
+  },
+  "n_total_items": 7543,
+  "n_force_words": 2519,
+  "coverage": {
+    "baseline": 5530,
+    "grown": 6126,
+    "ensemble_mean": 6126,
+    "ensemble_max": 6126,
+    "blend_0.25": 6123,
+    "blend_0.50": 6123,
+    "blend_0.75": 6123,
+    "random": 6849,
+    "core_common": 5514
+  },
+  "arms_differ_verified": true,
+  "arm_accuracy": {
+    "BASELINE_SMALL": {
+      "acc": 0.0716,
+      "ci": [
+        0.0647,
+        0.0787
+      ],
+      "ci_half": 0.007,
+      "n": 5514
+    },
+    "GROWN_LARGE_naive": {
+      "acc": 0.1498,
+      "ci": [
+        0.1402,
+        0.1589
+      ],
+      "ci_half": 0.0093,
+      "n": 5514
+    },
+    "ENSEMBLE_MEAN": {
+      "acc": 0.1273,
+      "ci": [
+        0.1184,
+        0.136
+      ],
+      "ci_half": 0.0088,
+      "n": 5514
+    },
+    "ENSEMBLE_MAX": {
+      "acc": 0.1182,
+      "ci": [
+        0.1099,
+        0.127
+      ],
+      "ci_half": 0.0085,
+      "n": 5514
+    },
+    "BLEND_0.25": {
+      "acc": 0.1373,
+      "ci": [
+        0.1284,
+        0.1462
+      ],
+      "ci_half": 0.0089,
+      "n": 5514
+    },
+    "BLEND_0.50": {
+      "acc": 0.1375,
+      "ci": [
+        0.1282,
+        0.1462
+      ],
+      "ci_half": 0.009,
+      "n": 5514
+    },
+    "BLEND_0.75": {
+      "acc": 0.1373,
+      "ci": [
+        0.1282,
+        0.1462
+      ],
+      "ci_half": 0.009,
+      "n": 5514
+    },
+    "RANDOM_floor": {
+      "acc": 0.0109,
+      "ci": [
+        0.0082,
+        0.0138
+      ],
+      "ci_half": 0.0028,
+      "n": 5514
+    }
+  },
+  "reference": {
+    "grown_vs_baseline_accuracy_delta": {
+      "delta": 0.0782,
+      "ci": [
+        0.0693,
+        0.0874
+      ],
+      "ci_half": 0.0091,
+      "n": 5514,
+      "separated_above": true,
+      "separated_below": false
+    },
+    "grown_naive_corruption_right_to_wrong": {
+      "rate": 0.2557,
+      "ci": [
+        0.2152,
+        0.2987
+      ],
+      "ci_half": 0.0418,
+      "n": 395
+    },
+    "grown_naive_recovery_wrong_to_right": {
+      "rate": 0.1039,
+      "ci": [
+        0.0959,
+        0.1123
+      ],
+      "ci_half": 0.0082,
+      "n": 5119
+    },
+    "prior_run_reference_numbers_MEASURED_at_data_exp_learner_safety_gate_v1_metrics_json": {
+      "baseline_acc": 0.0714,
+      "grown_acc": 0.1494,
+      "delta": 0.078,
+      "corruption_right_to_wrong": 0.2557,
+      "note": "prior-cell numbers on ITS OWN CORE_COMMON population (n=5529, 5-way intersection incl. label/filler/full-shuffle controls this cell does not build); this cell's own recomputed BASELINE_SMALL/GROWN_LARGE_naive numbers above are the apples-to-apples reference for every delta in arm_report"
+    }
+  },
+  "arm_report": {
+    "ENSEMBLE_MEAN": {
+      "accuracy": {
+        "acc": 0.1273,
+        "ci": [
+          0.1184,
+          0.136
+        ],
+        "ci_half": 0.0088,
+        "n": 5514
+      },
+      "delta_acc_vs_baseline": {
+        "delta": 0.0557,
+        "ci": [
+          0.049,
+          0.0624
+        ],
+        "ci_half": 0.0067,
+        "n": 5514,
+        "separated_above": true,
+        "separated_below": false
+      },
+      "delta_acc_vs_grown_naive": {
+        "delta": -0.0225,
+        "ci": [
+          -0.0288,
+          -0.0163
+        ],
+        "ci_half": 0.0063,
+        "n": 5514,
+        "separated_above": false,
+        "separated_below": true
+      },
+      "fraction_of_grown_gain_retained": 0.7123,
+      "corruption_right_to_wrong": {
+        "rate": 0.0785,
+        "ci": [
+          0.0532,
+          0.1063
+        ],
+        "ci_half": 0.0266,
+        "n": 395
+      },
+      "recovery_wrong_to_right": {
+        "rate": 0.066,
+        "ci": [
+          0.0594,
+          0.0727
+        ],
+        "ci_half": 0.0066,
+        "n": 5119
+      },
+      "delta_corruption_vs_grown_naive": {
+        "delta": -0.1772,
+        "ci": [
+          -0.2152,
+          -0.1418
+        ],
+        "ci_half": 0.0367,
+        "n": 395,
+        "separated_above": false,
+        "separated_below": true
+      },
+      "retains_gain_cisep": true,
+      "cuts_corruption_cisep_below_naive": true,
+      "keeps_most_gain_and_cuts_corruption": true
+    },
+    "ENSEMBLE_MAX": {
+      "accuracy": {
+        "acc": 0.1182,
+        "ci": [
+          0.1099,
+          0.127
+        ],
+        "ci_half": 0.0085,
+        "n": 5514
+      },
+      "delta_acc_vs_baseline": {
+        "delta": 0.0466,
+        "ci": [
+          0.0406,
+          0.0533
+        ],
+        "ci_half": 0.0063,
+        "n": 5514,
+        "separated_above": true,
+        "separated_below": false
+      },
+      "delta_acc_vs_grown_naive": {
+        "delta": -0.0316,
+        "ci": [
+          -0.0374,
+          -0.0258
+        ],
+        "ci_half": 0.0058,
+        "n": 5514,
+        "separated_above": false,
+        "separated_below": true
+      },
+      "fraction_of_grown_gain_retained": 0.5959,
+      "corruption_right_to_wrong": {
+        "rate": 0.1013,
+        "ci": [
+          0.0734,
+          0.1291
+        ],
+        "ci_half": 0.0278,
+        "n": 395
+      },
+      "recovery_wrong_to_right": {
+        "rate": 0.058,
+        "ci": [
+          0.0516,
+          0.0649
+        ],
+        "ci_half": 0.0066,
+        "n": 5119
+      },
+      "delta_corruption_vs_grown_naive": {
+        "delta": -0.1544,
+        "ci": [
+          -0.1899,
+          -0.1215
+        ],
+        "ci_half": 0.0342,
+        "n": 395,
+        "separated_above": false,
+        "separated_below": true
+      },
+      "retains_gain_cisep": true,
+      "cuts_corruption_cisep_below_naive": true,
+      "keeps_most_gain_and_cuts_corruption": true
+    },
+    "BLEND_0.25": {
+      "accuracy": {
+        "acc": 0.1373,
+        "ci": [
+          0.1284,
+          0.1462
+        ],
+        "ci_half": 0.0089,
+        "n": 5514
+      },
+      "delta_acc_vs_baseline": {
+        "delta": 0.0657,
+        "ci": [
+          0.058,
+          0.0738
+        ],
+        "ci_half": 0.0079,
+        "n": 5514,
+        "separated_above": true,
+        "separated_below": false
+      },
+      "delta_acc_vs_grown_naive": {
+        "delta": -0.0125,
+        "ci": [
+          -0.0185,
+          -0.0069
+        ],
+        "ci_half": 0.0058,
+        "n": 5514,
+        "separated_above": false,
+        "separated_below": true
+      },
+      "fraction_of_grown_gain_retained": 0.8402,
+      "corruption_right_to_wrong": {
+        "rate": 0.1848,
+        "ci": [
+          0.1494,
+          0.2228
+        ],
+        "ci_half": 0.0367,
+        "n": 395
+      },
+      "recovery_wrong_to_right": {
+        "rate": 0.085,
+        "ci": [
+          0.0774,
+          0.0928
+        ],
+        "ci_half": 0.0077,
+        "n": 5119
+      },
+      "delta_corruption_vs_grown_naive": {
+        "delta": -0.0709,
+        "ci": [
+          -0.1013,
+          -0.038
+        ],
+        "ci_half": 0.0316,
+        "n": 395,
+        "separated_above": false,
+        "separated_below": true
+      },
+      "retains_gain_cisep": true,
+      "cuts_corruption_cisep_below_naive": true,
+      "keeps_most_gain_and_cuts_corruption": true
+    },
+    "BLEND_0.50": {
+      "accuracy": {
+        "acc": 0.1375,
+        "ci": [
+          0.1282,
+          0.1462
+        ],
+        "ci_half": 0.009,
+        "n": 5514
+      },
+      "delta_acc_vs_baseline": {
+        "delta": 0.0658,
+        "ci": [
+          0.0575,
+          0.0742
+        ],
+        "ci_half": 0.0083,
+        "n": 5514,
+        "separated_above": true,
+        "separated_below": false
+      },
+      "delta_acc_vs_grown_naive": {
+        "delta": -0.0123,
+        "ci": [
+          -0.0176,
+          -0.0071
+        ],
+        "ci_half": 0.0053,
+        "n": 5514,
+        "separated_above": false,
+        "separated_below": true
+      },
+      "fraction_of_grown_gain_retained": 0.8414,
+      "corruption_right_to_wrong": {
+        "rate": 0.2405,
+        "ci": [
+          0.2,
+          0.2835
+        ],
+        "ci_half": 0.0418,
+        "n": 395
+      },
+      "recovery_wrong_to_right": {
+        "rate": 0.0895,
+        "ci": [
+          0.0817,
+          0.0975
+        ],
+        "ci_half": 0.0079,
+        "n": 5119
+      },
+      "delta_corruption_vs_grown_naive": {
+        "delta": -0.0152,
+        "ci": [
+          -0.0405,
+          0.0076
+        ],
+        "ci_half": 0.0241,
+        "n": 395,
+        "separated_above": false,
+        "separated_below": false
+      },
+      "retains_gain_cisep": true,
+      "cuts_corruption_cisep_below_naive": false,
+      "keeps_most_gain_and_cuts_corruption": false
+    },
+    "BLEND_0.75": {
+      "accuracy": {
+        "acc": 0.1373,
+        "ci": [
+          0.1282,
+          0.1462
+        ],
+        "ci_half": 0.009,
+        "n": 5514
+      },
+      "delta_acc_vs_baseline": {
+        "delta": 0.0657,
+        "ci": [
+          0.0569,
+          0.074
+        ],
+        "ci_half": 0.0085,
+        "n": 5514,
+        "separated_above": true,
+        "separated_below": false
+      },
+      "delta_acc_vs_grown_naive": {
+        "delta": -0.0125,
+        "ci": [
+          -0.0178,
+          -0.0076
+        ],
+        "ci_half": 0.0051,
+        "n": 5514,
+        "separated_above": false,
+        "separated_below": true
+      },
+      "fraction_of_grown_gain_retained": 0.8402,
+      "corruption_right_to_wrong": {
+        "rate": 0.2709,
+        "ci": [
+          0.2253,
+          0.3139
+        ],
+        "ci_half": 0.0443,
+        "n": 395
+      },
+      "recovery_wrong_to_right": {
+        "rate": 0.0916,
+        "ci": [
+          0.084,
+          0.1
+        ],
+        "ci_half": 0.008,
+        "n": 5119
+      },
+      "delta_corruption_vs_grown_naive": {
+        "delta": 0.0152,
+        "ci": [
+          -0.0101,
+          0.038
+        ],
+        "ci_half": 0.0241,
+        "n": 395,
+        "separated_above": false,
+        "separated_below": false
+      },
+      "retains_gain_cisep": true,
+      "cuts_corruption_cisep_below_naive": false,
+      "keeps_most_gain_and_cuts_corruption": false
+    }
+  },
+  "safe_arms": [
+    "ENSEMBLE_MEAN",
+    "ENSEMBLE_MAX",
+    "BLEND_0.25"
+  ],
+  "verdict": "SAFE_GROWTH_MECHANISM_FOUND__ENSEMBLE_MEAN_ENSEMBLE_MAX_BLEND_0.25",
+  "elapsed_s": 92.0
+}

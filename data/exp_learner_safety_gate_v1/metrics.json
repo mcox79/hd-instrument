@@ -1,0 +1,231 @@
+{
+  "anchor_name": "learner_safety_gate_v1",
+  "mode": "full",
+  "seed": 20260827,
+  "config": {
+    "small_tok": 5000000,
+    "large_tok": 15000000,
+    "vocab_cap": 60000,
+    "min_count": 8,
+    "ctx_min_count": 5,
+    "n_boot": 2000,
+    "svd_k": 300,
+    "svd_p": 0.5,
+    "ppmi_alpha": 0.75
+  },
+  "n_tokens": {
+    "small": 5000020,
+    "large": 15000057
+  },
+  "vocab": {
+    "small": 25429,
+    "large": 51417
+  },
+  "selpref_cols": {
+    "small": 10509,
+    "large": 24132,
+    "labelshuffle": 25371,
+    "fillershuffle": 25256
+  },
+  "n_total_items": 7543,
+  "n_force_words": 2519,
+  "coverage": {
+    "baseline": 5530,
+    "grown": 6126,
+    "labelshuf": 6122,
+    "fillershuf": 6213,
+    "fullshuf": 6849,
+    "conceptual": 7543,
+    "random": 6849,
+    "core_common": 5529
+  },
+  "arm_accuracy": {
+    "BASELINE_SMALL": {
+      "acc": 0.0714,
+      "ci": [
+        0.0647,
+        0.0781
+      ],
+      "ci_half": 0.0067,
+      "n": 5529
+    },
+    "GROWN_LARGE": {
+      "acc": 0.1494,
+      "ci": [
+        0.1404,
+        0.1584
+      ],
+      "ci_half": 0.009,
+      "n": 5529
+    },
+    "INFO_FREE_LABELSHUF": {
+      "acc": 0.1006,
+      "ci": [
+        0.093,
+        0.1082
+      ],
+      "ci_half": 0.0076,
+      "n": 5529
+    },
+    "INFO_FREE_FILLERSHUF": {
+      "acc": 0.0166,
+      "ci": [
+        0.0134,
+        0.0203
+      ],
+      "ci_half": 0.0034,
+      "n": 5529
+    },
+    "INFO_FREE_FULLSHUF": {
+      "acc": 0.0112,
+      "ci": [
+        0.0085,
+        0.0139
+      ],
+      "ci_half": 0.0027,
+      "n": 5529
+    },
+    "CONCEPTUAL_ref": {
+      "acc": 0.6967,
+      "ci": [
+        0.6846,
+        0.7088
+      ],
+      "ci_half": 0.0121,
+      "n": 5529
+    },
+    "RANDOM_floor": {
+      "acc": 0.0051,
+      "ci": [
+        0.0033,
+        0.0071
+      ],
+      "ci_half": 0.0019,
+      "n": 5529
+    }
+  },
+  "gate": {
+    "grown_vs_baseline": {
+      "delta": 0.078,
+      "ci": [
+        0.0698,
+        0.0866
+      ],
+      "ci_half": 0.0084,
+      "n": 5529,
+      "separated_above": true,
+      "separated_below": false
+    },
+    "labelshuf_vs_baseline": {
+      "delta": 0.0291,
+      "ci": [
+        0.0213,
+        0.0367
+      ],
+      "ci_half": 0.0077,
+      "n": 5529,
+      "separated_above": true,
+      "separated_below": false
+    },
+    "fillershuf_vs_baseline": {
+      "delta": -0.0548,
+      "ci": [
+        -0.062,
+        -0.0479
+      ],
+      "ci_half": 0.0071,
+      "n": 5529,
+      "separated_above": false,
+      "separated_below": true
+    },
+    "fullshuf_vs_baseline": {
+      "delta": -0.0602,
+      "ci": [
+        -0.0675,
+        -0.0535
+      ],
+      "ci_half": 0.007,
+      "n": 5529,
+      "separated_above": false,
+      "separated_below": true
+    },
+    "grown_vs_labelshuf_residual": {
+      "delta": 0.0488,
+      "ci": [
+        0.0418,
+        0.057
+      ],
+      "ci_half": 0.0076,
+      "n": 5529,
+      "separated_above": true,
+      "separated_below": false
+    },
+    "grown_vs_fullshuf_residual": {
+      "delta": 0.1382,
+      "ci": [
+        0.129,
+        0.1481
+      ],
+      "ci_half": 0.0096,
+      "n": 5529,
+      "separated_above": true,
+      "separated_below": false
+    },
+    "gate_a_grown_beats_baseline_cisep": true,
+    "gate_b_labelshuf_does_not_beat_baseline_cisep": false,
+    "gate_b_clean_fullshuf_does_not_beat_baseline_AND_grown_beats_fullshuf": true,
+    "gate_pass_clean": true
+  },
+  "corruption": {
+    "corruption_right_to_wrong": {
+      "rate": 0.2557,
+      "ci": [
+        0.2152,
+        0.2987
+      ],
+      "ci_half": 0.0418,
+      "n": 395
+    },
+    "recovery_wrong_to_right": {
+      "rate": 0.1036,
+      "ci": [
+        0.0952,
+        0.1122
+      ],
+      "ci_half": 0.0085,
+      "n": 5134
+    }
+  },
+  "corruption_by_confidence": {
+    "n_base_right_with_confidence": 395,
+    "confidence_median_split_value": 0.07815905095331133,
+    "top_half_confident": {
+      "rate": 0.2538,
+      "ci": [
+        0.1929,
+        0.3147
+      ],
+      "ci_half": 0.0609,
+      "n": 197,
+      "conf_range": [
+        0.07815905095331133,
+        0.7678642175177433
+      ]
+    },
+    "bottom_half_low_confidence": {
+      "rate": 0.2576,
+      "ci": [
+        0.197,
+        0.3232
+      ],
+      "ci_half": 0.0631,
+      "n": 198,
+      "conf_range": [
+        0.0006750774427637801,
+        0.07815905095331133
+      ]
+    }
+  },
+  "verdict": "SAFE_TO_GROW_GATE_A_AND_CLEAN_GATE_B_PASS_CISEP",
+  "elapsed_s": 142.5
+}

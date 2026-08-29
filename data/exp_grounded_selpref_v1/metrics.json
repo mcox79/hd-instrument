@@ -1,0 +1,520 @@
+{
+  "anchor_name": "grounded_selpref_v1",
+  "mode": "full",
+  "n_tokens": 15000057,
+  "vocab": 51038,
+  "verdict": "RIGOROUS_NEGATIVE_NO_GROUNDED_ARM_BEATS_WORDID_CISEP",
+  "verdict_msg": "gates={\"SELPREF_GROUNDED\": false, \"SELPREF_EMB\": false, \"SELPREF_THEMATIC\": false}",
+  "summary": "RIGOROUS_NEGATIVE_NO_GROUNDED_ARM_BEATS_WORDID_CISEP",
+  "context_cols": {
+    "selpref_wordid": 24125,
+    "dep_typed_for_emb": 264599
+  },
+  "verb_tables": {
+    "naive": 8602,
+    "thematic": 8608,
+    "verbs_gaining_by_agent": 1510,
+    "grounded": 8286,
+    "emb": 8602,
+    "thematic_tbl": 8291,
+    "grounded_shuffle": 8286,
+    "role_shuffle": 8286,
+    "filler_pool_grounded_covered": 15225
+  },
+  "config": {
+    "ppmi_alpha": 0.75,
+    "svd_k": 300,
+    "svd_p": 0.5,
+    "vocab_cap": 60000,
+    "min_count": 8,
+    "n_boot": 500,
+    "n_null": 500,
+    "seed": 13,
+    "roles": [
+      "AGENT",
+      "PATIENT"
+    ],
+    "grounded_feature_dim": 12,
+    "emb_feature_dim": 300
+  },
+  "scored": {
+    "simverb": {
+      "n_common_core": 3195,
+      "arms": {
+        "SELPREF_WORDID": {
+          "common_core": {
+            "rho": 0.14984353152486354,
+            "ci_half": 0.03537997444085386,
+            "null_p95": 0.028554653175068646,
+            "n": 3195,
+            "coverage": 1.0
+          },
+          "own": {
+            "rho": 0.14806171752355693,
+            "ci_half": 0.0372795545617979,
+            "null_p95": 0.02739928767186777,
+            "n": 3202,
+            "coverage": 0.9148571428571428
+          }
+        },
+        "SELPREF_GROUNDED": {
+          "common_core": {
+            "rho": 0.009351630406677797,
+            "ci_half": 0.032354575143896176,
+            "null_p95": 0.02823548247831081,
+            "n": 3195,
+            "coverage": 1.0
+          },
+          "own": {
+            "rho": 0.007297186720683193,
+            "ci_half": 0.032832711049242826,
+            "null_p95": 0.02970257975310875,
+            "n": 3221,
+            "coverage": 0.9202857142857143
+          }
+        },
+        "SELPREF_EMB": {
+          "common_core": {
+            "rho": 0.004767288688899921,
+            "ci_half": 0.03668383384561224,
+            "null_p95": 0.02902559577811199,
+            "n": 3195,
+            "coverage": 1.0
+          },
+          "own": {
+            "rho": 0.000863795876273098,
+            "ci_half": 0.030935270514246674,
+            "null_p95": 0.02594625822597753,
+            "n": 3230,
+            "coverage": 0.9228571428571428
+          }
+        },
+        "SELPREF_THEMATIC": {
+          "common_core": {
+            "rho": 0.009955223706584016,
+            "ci_half": 0.03274600160265379,
+            "null_p95": 0.02744888519110862,
+            "n": 3195,
+            "coverage": 1.0
+          },
+          "own": {
+            "rho": 0.007893073962354717,
+            "ci_half": 0.03325241211604506,
+            "null_p95": 0.029205452980763533,
+            "n": 3221,
+            "coverage": 0.9202857142857143
+          }
+        },
+        "GROUNDED_SHUFFLE": {
+          "common_core": {
+            "rho": -0.04650633270655868,
+            "ci_half": 0.033672000134151205,
+            "null_p95": 0.025855764656669625,
+            "n": 3195,
+            "coverage": 1.0
+          },
+          "own": {
+            "rho": -0.04722448114169662,
+            "ci_half": 0.03316266028996585,
+            "null_p95": 0.030594494592615894,
+            "n": 3221,
+            "coverage": 0.9202857142857143
+          }
+        },
+        "ROLE_SHUFFLE": {
+          "common_core": {
+            "rho": -0.04366597089555988,
+            "ci_half": 0.03136595725257625,
+            "null_p95": 0.027776403439905378,
+            "n": 3195,
+            "coverage": 1.0
+          },
+          "own": {
+            "rho": -0.045337916210088286,
+            "ci_half": 0.03344826057684621,
+            "null_p95": 0.029354327459848936,
+            "n": 3221,
+            "coverage": 0.9202857142857143
+          }
+        }
+      }
+    },
+    "simlex": {
+      "n_common_core": 257,
+      "arms": {
+        "SELPREF_WORDID": {
+          "common_core": {
+            "rho": 0.15910312840602467,
+            "ci_half": 0.11920643148828089,
+            "null_p95": 0.0896452054324438,
+            "n": 257,
+            "coverage": 1.0
+          },
+          "own": {
+            "rho": 0.17622069890089503,
+            "ci_half": 0.11189573364561574,
+            "null_p95": 0.09965140060834976,
+            "n": 279,
+            "coverage": 0.27927927927927926
+          }
+        },
+        "SELPREF_GROUNDED": {
+          "common_core": {
+            "rho": -0.019468619266291322,
+            "ci_half": 0.1261045104967177,
+            "null_p95": 0.08950390751675191,
+            "n": 257,
+            "coverage": 1.0
+          },
+          "own": {
+            "rho": -0.019078737099308782,
+            "ci_half": 0.12023966542289125,
+            "null_p95": 0.10631940735558679,
+            "n": 262,
+            "coverage": 0.26226226226226224
+          }
+        },
+        "SELPREF_EMB": {
+          "common_core": {
+            "rho": -0.061489999004259055,
+            "ci_half": 0.11484435962048431,
+            "null_p95": 0.10256252370066625,
+            "n": 257,
+            "coverage": 1.0
+          },
+          "own": {
+            "rho": -0.04906312164781812,
+            "ci_half": 0.11384598879542268,
+            "null_p95": 0.1045829196183996,
+            "n": 268,
+            "coverage": 0.2682682682682683
+          }
+        },
+        "SELPREF_THEMATIC": {
+          "common_core": {
+            "rho": -0.019206688190854034,
+            "ci_half": 0.1262068201939615,
+            "null_p95": 0.08955404911331162,
+            "n": 257,
+            "coverage": 1.0
+          },
+          "own": {
+            "rho": -0.01894428464106287,
+            "ci_half": 0.12050278454363242,
+            "null_p95": 0.10588001805655485,
+            "n": 262,
+            "coverage": 0.26226226226226224
+          }
+        },
+        "GROUNDED_SHUFFLE": {
+          "common_core": {
+            "rho": -0.0413782169960539,
+            "ci_half": 0.1311052377240046,
+            "null_p95": 0.0988061280833154,
+            "n": 257,
+            "coverage": 1.0
+          },
+          "own": {
+            "rho": -0.03880788379502054,
+            "ci_half": 0.12024710587555201,
+            "null_p95": 0.10560213852188242,
+            "n": 262,
+            "coverage": 0.26226226226226224
+          }
+        },
+        "ROLE_SHUFFLE": {
+          "common_core": {
+            "rho": -0.11865908188641615,
+            "ci_half": 0.11785630234781538,
+            "null_p95": 0.09741656645037394,
+            "n": 257,
+            "coverage": 1.0
+          },
+          "own": {
+            "rho": -0.11681522339092741,
+            "ci_half": 0.11635734496674446,
+            "null_p95": 0.0985253093776572,
+            "n": 262,
+            "coverage": 0.26226226226226224
+          }
+        }
+      }
+    }
+  },
+  "gates": {
+    "SELPREF_GROUNDED": {
+      "vs_WORDID": {
+        "delta": -0.1405,
+        "ci": [
+          -0.1806,
+          -0.1007
+        ],
+        "ci_half": 0.0399,
+        "n": 3195,
+        "separated_above": false,
+        "separated_below": true
+      },
+      "beats_wordid": false,
+      "vs_GROUNDED_SHUFFLE": {
+        "delta": 0.0545,
+        "ci": [
+          0.0233,
+          0.0889
+        ],
+        "ci_half": 0.0328,
+        "n": 3221,
+        "separated_above": true,
+        "separated_below": false
+      },
+      "vs_ROLE_SHUFFLE": {
+        "delta": 0.0526,
+        "ci": [
+          0.03,
+          0.0743
+        ],
+        "ci_half": 0.0221,
+        "n": 3221,
+        "separated_above": true,
+        "separated_below": false
+      },
+      "beats_gshuf": true,
+      "beats_rshuf": true,
+      "pass": false
+    },
+    "SELPREF_EMB": {
+      "vs_WORDID": {
+        "delta": -0.1444,
+        "ci": [
+          -0.1805,
+          -0.1048
+        ],
+        "ci_half": 0.0378,
+        "n": 3202,
+        "separated_above": false,
+        "separated_below": true
+      },
+      "beats_wordid": false,
+      "twin_gate_note": "SELPREF_EMB has no requested info-free twin; gated vs WORDID only",
+      "pass": false
+    },
+    "SELPREF_THEMATIC": {
+      "vs_WORDID": {
+        "delta": -0.1399,
+        "ci": [
+          -0.1802,
+          -0.0994
+        ],
+        "ci_half": 0.0404,
+        "n": 3195,
+        "separated_above": false,
+        "separated_below": true
+      },
+      "beats_wordid": false,
+      "vs_GROUNDED_SHUFFLE": {
+        "delta": 0.0551,
+        "ci": [
+          0.0238,
+          0.0895
+        ],
+        "ci_half": 0.0329,
+        "n": 3221,
+        "separated_above": true,
+        "separated_below": false
+      },
+      "vs_ROLE_SHUFFLE": {
+        "delta": 0.0532,
+        "ci": [
+          0.0307,
+          0.0743
+        ],
+        "ci_half": 0.0218,
+        "n": 3221,
+        "separated_above": true,
+        "separated_below": false
+      },
+      "beats_gshuf": true,
+      "beats_rshuf": true,
+      "pass": false
+    }
+  },
+  "generalization": {
+    "SELPREF_GROUNDED": {
+      "median_pair_freq": 61,
+      "n_rare": 1586,
+      "n_freq": 1609,
+      "RARE": {
+        "SELPREF_GROUNDED": {
+          "rho": 0.08135701966607777,
+          "ci_half": 0.049789270049808695,
+          "null_p95": 0.044093987234443195,
+          "n": 1586,
+          "coverage": 1.0
+        },
+        "SELPREF_WORDID": {
+          "rho": 0.17628215318033635,
+          "ci_half": 0.04795915850051616,
+          "null_p95": 0.03919193289662088,
+          "n": 1586,
+          "coverage": 1.0
+        },
+        "paired_delta_vs_wordid": {
+          "delta": -0.0949,
+          "ci": [
+            -0.1493,
+            -0.0398
+          ],
+          "ci_half": 0.0547,
+          "n": 1586,
+          "separated_above": false,
+          "separated_below": true
+        }
+      },
+      "FREQUENT": {
+        "SELPREF_GROUNDED": {
+          "rho": -0.012435638749871702,
+          "ci_half": 0.05044936056560373,
+          "null_p95": 0.044048605764589285,
+          "n": 1609,
+          "coverage": 1.0
+        },
+        "SELPREF_WORDID": {
+          "rho": 0.14839266928042424,
+          "ci_half": 0.05208300707029306,
+          "null_p95": 0.0400624122756909,
+          "n": 1609,
+          "coverage": 1.0
+        },
+        "paired_delta_vs_wordid": {
+          "delta": -0.1608,
+          "ci": [
+            -0.2239,
+            -0.096
+          ],
+          "ci_half": 0.064,
+          "n": 1609,
+          "separated_above": false,
+          "separated_below": true
+        }
+      }
+    },
+    "SELPREF_EMB": {
+      "median_pair_freq": 61,
+      "n_rare": 1591,
+      "n_freq": 1611,
+      "RARE": {
+        "SELPREF_EMB": {
+          "rho": 0.07341407969070726,
+          "ci_half": 0.05208740760854691,
+          "null_p95": 0.039500119232632684,
+          "n": 1591,
+          "coverage": 1.0
+        },
+        "SELPREF_WORDID": {
+          "rho": 0.17499881397149547,
+          "ci_half": 0.051095407737794626,
+          "null_p95": 0.03909207602998338,
+          "n": 1591,
+          "coverage": 1.0
+        },
+        "paired_delta_vs_wordid": {
+          "delta": -0.1016,
+          "ci": [
+            -0.1503,
+            -0.0446
+          ],
+          "ci_half": 0.0529,
+          "n": 1591,
+          "separated_above": false,
+          "separated_below": true
+        }
+      },
+      "FREQUENT": {
+        "SELPREF_EMB": {
+          "rho": 0.00027862224235792585,
+          "ci_half": 0.046768858062262275,
+          "null_p95": 0.038151887978543964,
+          "n": 1611,
+          "coverage": 1.0
+        },
+        "SELPREF_WORDID": {
+          "rho": 0.14672375913000424,
+          "ci_half": 0.04907980893997969,
+          "null_p95": 0.03834242543011246,
+          "n": 1611,
+          "coverage": 1.0
+        },
+        "paired_delta_vs_wordid": {
+          "delta": -0.1464,
+          "ci": [
+            -0.2053,
+            -0.0871
+          ],
+          "ci_half": 0.0591,
+          "n": 1611,
+          "separated_above": false,
+          "separated_below": true
+        }
+      }
+    },
+    "SELPREF_THEMATIC": {
+      "median_pair_freq": 61,
+      "n_rare": 1586,
+      "n_freq": 1609,
+      "RARE": {
+        "SELPREF_THEMATIC": {
+          "rho": 0.08031006169432235,
+          "ci_half": 0.049569084905116925,
+          "null_p95": 0.043180917409680275,
+          "n": 1586,
+          "coverage": 1.0
+        },
+        "SELPREF_WORDID": {
+          "rho": 0.17628215318033635,
+          "ci_half": 0.04795915850051616,
+          "null_p95": 0.03919193289662088,
+          "n": 1586,
+          "coverage": 1.0
+        },
+        "paired_delta_vs_wordid": {
+          "delta": -0.096,
+          "ci": [
+            -0.1512,
+            -0.0408
+          ],
+          "ci_half": 0.0552,
+          "n": 1586,
+          "separated_above": false,
+          "separated_below": true
+        }
+      },
+      "FREQUENT": {
+        "SELPREF_THEMATIC": {
+          "rho": -0.009931276836260284,
+          "ci_half": 0.050046167249296225,
+          "null_p95": 0.0422396217813047,
+          "n": 1609,
+          "coverage": 1.0
+        },
+        "SELPREF_WORDID": {
+          "rho": 0.14839266928042424,
+          "ci_half": 0.05208300707029306,
+          "null_p95": 0.0400624122756909,
+          "n": 1609,
+          "coverage": 1.0
+        },
+        "paired_delta_vs_wordid": {
+          "delta": -0.1583,
+          "ci": [
+            -0.2217,
+            -0.0928
+          ],
+          "ci_half": 0.0644,
+          "n": 1609,
+          "separated_above": false,
+          "separated_below": true
+        }
+      }
+    }
+  },
+  "elapsed_s": 338.8
+}

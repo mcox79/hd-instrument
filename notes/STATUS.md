@@ -31,7 +31,34 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-28 (LATEST) -- ✅ **NAME-CLUSTERING (p3) INTEGRATED as a RIGOROUS NEGATIVE (owner-DONE, EXCELLENT): it REFUTES the premise of the brief I packaged — name clustering is NOT the who-did-what cap; PRONOUN→EVENT BINDING is (+0.444), proven by decomposition. The measurement bar caught my own strategic read.**
+### 2026-08-28 (LATEST) -- ✅ **THE LEARN-FROM-READING LEARNER (p2) INTEGRATED (owner-DONE, EXCELLENT): the "can we grow the foundation by reading?" question is RESOLVED — YES, but ONLY behind a brain-faithful CLS keep-both-stores gate, DEFAULT-OFF. The brain lever is CONTEXT SHAPE (grammatical relations), not the update rule (online==batch). The reader stays STATIC until an explicit gated growth step.**
+**READ THIS FIRST after compaction; then the entries below.**
+✅ **INTEGRATED `optimize_and_validate_the_learner_before_it_grows_the_foundation` (p2, EXCELLENT, owner-DONE):** the most
+consequential organ — it can GROW the static offline-built foundation — validated to the standard the owner demanded.
+Reverified FIRST-HAND (`verify_structured_context_learner.py`, ALL checks PASS — it recomputes deltas/CIs/corruption off
+the landed vectors). **BAR1 (WIN):** a DEPENDENCY-TYPED (grammatical-relation) learner beats the ±2-window PPMI-SVD
+baseline CI-sep at matched 15M scale (SimLex 0.270 vs 0.210; SimVerb 0.119 vs 0.084; 2/3 populations — WordSim
+relatedness stays the window's = predicted dissociation), info-free twins lose, ~2.5× more data-efficient. **BAR2:**
+update-rule premise REFUTED (SGNS==shifted-PPMI, CBOW==counting → online==batch; the lever is WHAT it learns over, not
+HOW). **BAR3 (nuanced):** reliability-weighted fusion → net-neutral-not-harmful in the full pool (WordNet channel
+dominates its golds); the window→dependency upgrade net-improves the reading read-out CI-sep; dissociation preserved.
+**BAR4 — THE SAFETY GATE (exemplary):** growth helps downstream who-did-what (0.071→0.149, info-free growth controls
+fall below baseline = real structure), BUT naive overwrite CORRUPTS ~25.6% of previously-correct (uniform across
+confidence = genuine loss); a CLS keep-both-stores mechanism cuts it to 7.9% (−0.177 CI-sep, ~3.3× less) keeping 71% of
+the gain → **SAFE to grow ONLY behind a CLS-faithful gate, DEFAULT-OFF** (the naive corruption was a missing-mechanism
+artifact, not a ceiling). Review + SOLVER REVIEW in PROBLEM.md; priority cleared; AUDIT §2b folded.
+🔌 **hdlab landing QUEUED (Q111 — CAREFUL multi-module port; the CRITICAL invariant): land the dependency-typed learner +
+reliability-weighted fusion; FOUNDATION-GROWTH STAYS OFF BY DEFAULT, behind the CLS keep-both-stores/regression-checked-
+rollback gate (the gated growth step lands separately). This is the landing to get RIGHT — mis-configured it can corrupt
+the foundation; a dedicated careful effort, not a heartbeat-tail task.**
+🧠🔧 **ADJACENCIES EVALUATED (owner directive):** the learner's own roadmap — validated-learner (default-off) → the
+SPARSE-CODE store (the multibank/sparse-DG line I've been landing) → RELATIONAL REASONING (the transitive_ordering line
+landed this session) — folds into existing lines, no new brief needed. **This closes the NEXT-PHASE-seeding directive: the
+learn-at-runtime capability is PROVEN-and-SAFE-behind-a-gate but stays OFF; the foundation remains static.**
+🎯 **QUEUE now: p5 coherence-prior, p6 bundle-norm audit, p7 shallow-SRL, p8 archaic-prose open for solvers. p2 closed.
+NEXT SUCCESSOR TO PACKAGE (from p3): clause-level pronoun→event binding (the proven +0.444 who-did-what lever).**
+
+### 2026-08-28 -- ✅ **NAME-CLUSTERING (p3) INTEGRATED as a RIGOROUS NEGATIVE (owner-DONE, EXCELLENT): it REFUTES the premise of the brief I packaged — name clustering is NOT the who-did-what cap; PRONOUN→EVENT BINDING is (+0.444), proven by decomposition. The measurement bar caught my own strategic read.**
 **READ THIS FIRST after compaction; then the entries below.**
 ✅ **INTEGRATED `the_name_branch_shatters_one_character_into_many_entities` (p3, EXCELLENT — a rigorous NEGATIVE, owner-DONE):**
 reverified FIRST-HAND (ran both myself) — `test_name_entity_clustering.py` ALL 9 checks PASS (torch-free);

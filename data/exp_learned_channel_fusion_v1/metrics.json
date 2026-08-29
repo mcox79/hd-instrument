@@ -1,0 +1,857 @@
+{
+  "anchor_name": "learned_channel_fusion_v1",
+  "mode": "full",
+  "n_tokens": 15000057,
+  "vocab": 51040,
+  "context_cols": {
+    "typed": 264599,
+    "selpref": 24125,
+    "labelshuf": 396801
+  },
+  "config": {
+    "ppmi_alpha": 0.75,
+    "svd_k": 300,
+    "svd_p": 0.5,
+    "vocab_cap": 60000,
+    "min_count": 8,
+    "n_boot": 500,
+    "n_null": 500,
+    "seed": 13
+  },
+  "benches": {
+    "simlex": {
+      "n_common": 995,
+      "arms": {
+        "CONTROL": {
+          "rho": 0.48744803009531096,
+          "ci_half": 0.04614489892459489,
+          "null_p95": 0.052029426490507076,
+          "n": 995,
+          "coverage": 1.0
+        },
+        "TREATMENT": {
+          "rho": 0.4835658769601017,
+          "ci_half": 0.0478240893736917,
+          "null_p95": 0.05344171145877351,
+          "n": 995,
+          "coverage": 1.0
+        },
+        "NOISE_CTL": {
+          "rho": 0.41767731614371956,
+          "ci_half": 0.04774015280863081,
+          "null_p95": 0.05805818070246225,
+          "n": 995,
+          "coverage": 1.0
+        },
+        "SHUF_CTL": {
+          "rho": 0.45939275727984646,
+          "ci_half": 0.046798731333989846,
+          "null_p95": 0.05282307185795095,
+          "n": 995,
+          "coverage": 1.0
+        }
+      },
+      "spokes": {
+        "GROUNDED": {
+          "own": {
+            "rho": 0.2917089006683457,
+            "ci_half": 0.057415423133634,
+            "null_p95": 0.04677317199453662,
+            "n": 999,
+            "coverage": 1.0
+          },
+          "common": {
+            "rho": 0.294810909604117,
+            "ci_half": 0.05748892297612364,
+            "null_p95": 0.05247113449700523,
+            "n": 995,
+            "coverage": 1.0
+          }
+        },
+        "CONCEPTUAL": {
+          "own": {
+            "rho": 0.5209715575663387,
+            "ci_half": 0.048145465791699815,
+            "null_p95": 0.04719155237732539,
+            "n": 999,
+            "coverage": 1.0
+          },
+          "common": {
+            "rho": 0.5205395397978927,
+            "ci_half": 0.04907152750668892,
+            "null_p95": 0.05463678597089231,
+            "n": 995,
+            "coverage": 1.0
+          }
+        },
+        "DEP_TYPED": {
+          "own": {
+            "rho": 0.2698145583487959,
+            "ci_half": 0.061022500896181345,
+            "null_p95": 0.05041966492327177,
+            "n": 995,
+            "coverage": 0.995995995995996
+          },
+          "common": {
+            "rho": 0.2698145583487959,
+            "ci_half": 0.061022500896181345,
+            "null_p95": 0.05041966492327177,
+            "n": 995,
+            "coverage": 1.0
+          }
+        },
+        "SELPREF": {
+          "own": {
+            "rho": 0.17373747200944273,
+            "ci_half": 0.11441971597401251,
+            "null_p95": 0.10537710626268289,
+            "n": 279,
+            "coverage": 0.27927927927927926
+          },
+          "common": {
+            "rho": 0.17373747200944273,
+            "ci_half": 0.11441971597401251,
+            "null_p95": 0.10537710626268289,
+            "n": 279,
+            "coverage": 0.2804020100502513
+          }
+        }
+      },
+      "paired_deltas": {
+        "TREATMENT_minus_CONTROL": {
+          "delta": -0.0039,
+          "ci": [
+            -0.0335,
+            0.0251
+          ],
+          "ci_half": 0.0293,
+          "n": 995,
+          "separated_above": false,
+          "separated_below": false
+        },
+        "NOISE_CTL_minus_CONTROL": {
+          "delta": -0.0698,
+          "ci": [
+            -0.1013,
+            -0.0377
+          ],
+          "ci_half": 0.0318,
+          "n": 995,
+          "separated_above": false,
+          "separated_below": true
+        },
+        "SHUF_CTL_minus_CONTROL": {
+          "delta": -0.0281,
+          "ci": [
+            -0.056,
+            0.0021
+          ],
+          "ci_half": 0.029,
+          "n": 995,
+          "separated_above": false,
+          "separated_below": false
+        }
+      },
+      "rw_fusion": {
+        "n_halfA": 499,
+        "n_halfB": 496,
+        "reliability_weights_halfA": {
+          "GROUNDED": 0.27141540200746644,
+          "CONCEPTUAL": 0.5641172796486156,
+          "DEP_TYPED": 0.27502187562923003,
+          "RANDOM": 0.053468266444973836
+        },
+        "arms": {
+          "RW_CONTROL": {
+            "rho": 0.5069670295302534,
+            "ci_half": 0.06555426617656601,
+            "null_p95": 0.07271217069112552,
+            "n": 496,
+            "coverage": 1.0
+          },
+          "RW_TREATMENT": {
+            "rho": 0.5094925020882938,
+            "ci_half": 0.06837170196477396,
+            "null_p95": 0.07504081029791576,
+            "n": 496,
+            "coverage": 1.0
+          },
+          "RW_NOISE": {
+            "rho": 0.5019712553684195,
+            "ci_half": 0.06561743390417368,
+            "null_p95": 0.07323427132976243,
+            "n": 496,
+            "coverage": 1.0
+          }
+        },
+        "paired_deltas": {
+          "RW_TREATMENT_minus_RW_CONTROL": {
+            "delta": 0.0025,
+            "ci": [
+              -0.0266,
+              0.0313
+            ],
+            "ci_half": 0.029,
+            "n": 496,
+            "separated_above": false,
+            "separated_below": false
+          },
+          "RW_NOISE_minus_RW_CONTROL": {
+            "delta": -0.005,
+            "ci": [
+              -0.0128,
+              0.0029
+            ],
+            "ci_half": 0.0079,
+            "n": 496,
+            "separated_above": false,
+            "separated_below": false
+          }
+        },
+        "signal_added": false,
+        "noise_clean": true
+      },
+      "reading_upgrade": {
+        "n_common_wd": 995,
+        "eq_arms": {
+          "FUSE_WINDOW_eq": {
+            "rho": 0.29548198754265326,
+            "ci_half": 0.05521818372606192,
+            "null_p95": 0.0555810448847882,
+            "n": 995,
+            "coverage": 1.0
+          },
+          "FUSE_DEP_eq": {
+            "rho": 0.33332103764685983,
+            "ci_half": 0.05667583207276422,
+            "null_p95": 0.05129616184405757,
+            "n": 995,
+            "coverage": 1.0
+          }
+        },
+        "eq_paired_delta_DEP_minus_WINDOW": {
+          "delta": 0.0378,
+          "ci": [
+            0.0147,
+            0.0622
+          ],
+          "ci_half": 0.0238,
+          "n": 995,
+          "separated_above": true,
+          "separated_below": false
+        },
+        "n_halfB_wd": 496,
+        "rw_reliability_weights_halfA": {
+          "GROUNDED": 0.27141540200746644,
+          "WINDOW": 0.22063923003467606,
+          "DEP_TYPED": 0.27502187562923003
+        },
+        "rw_arms": {
+          "RW_WINDOW": {
+            "rho": 0.31780038232174695,
+            "ci_half": 0.07731707334466827,
+            "null_p95": 0.06863395538886218,
+            "n": 496,
+            "coverage": 1.0
+          },
+          "RW_DEP": {
+            "rho": 0.345900394975719,
+            "ci_half": 0.07587204565597683,
+            "null_p95": 0.0676996313449328,
+            "n": 496,
+            "coverage": 1.0
+          }
+        },
+        "rw_paired_delta_RWDEP_minus_RWWINDOW": {
+          "delta": 0.0281,
+          "ci": [
+            -0.0059,
+            0.0635
+          ],
+          "ci_half": 0.0347,
+          "n": 496,
+          "separated_above": false,
+          "separated_below": false
+        }
+      },
+      "coverage_value": {
+        "n_total": 999,
+        "n_conceptual_covered": 999,
+        "n_conceptual_missing": 0,
+        "n_missing_common": 0,
+        "DEP_TYPED_rho_on_missing": {
+          "rho": null,
+          "ci_half": null,
+          "null_p95": null,
+          "n": 0,
+          "coverage": 0.0
+        },
+        "paired_delta_DEP_minus_RANDOM_on_missing": null,
+        "paired_delta_DEP_minus_GROUNDED_on_missing": null
+      }
+    },
+    "simverb": {
+      "n_common": 3425,
+      "arms": {
+        "CONTROL": {
+          "rho": 0.48861625017031135,
+          "ci_half": 0.02583912270069902,
+          "null_p95": 0.028394266585644756,
+          "n": 3425,
+          "coverage": 1.0
+        },
+        "TREATMENT": {
+          "rho": 0.4338899107932363,
+          "ci_half": 0.028201849887568936,
+          "null_p95": 0.026838031308748803,
+          "n": 3425,
+          "coverage": 1.0
+        },
+        "NOISE_CTL": {
+          "rho": 0.4340240116720561,
+          "ci_half": 0.029418752275098076,
+          "null_p95": 0.028829377448771867,
+          "n": 3425,
+          "coverage": 1.0
+        },
+        "SHUF_CTL": {
+          "rho": 0.4193873327758625,
+          "ci_half": 0.028132420664819996,
+          "null_p95": 0.027083323134420433,
+          "n": 3425,
+          "coverage": 1.0
+        }
+      },
+      "spokes": {
+        "GROUNDED": {
+          "own": {
+            "rho": 0.2927078367404111,
+            "ci_half": 0.03166090136021937,
+            "null_p95": 0.029660333169594964,
+            "n": 3487,
+            "coverage": 0.9962857142857143
+          },
+          "common": {
+            "rho": 0.2873391321037684,
+            "ci_half": 0.031035996182287473,
+            "null_p95": 0.025762322849154022,
+            "n": 3425,
+            "coverage": 1.0
+          }
+        },
+        "CONCEPTUAL": {
+          "own": {
+            "rho": 0.5083531719206562,
+            "ci_half": 0.025049460630104436,
+            "null_p95": 0.028972495994016374,
+            "n": 3500,
+            "coverage": 1.0
+          },
+          "common": {
+            "rho": 0.5044676723194916,
+            "ci_half": 0.026320676999936954,
+            "null_p95": 0.031183964321745226,
+            "n": 3425,
+            "coverage": 1.0
+          }
+        },
+        "DEP_TYPED": {
+          "own": {
+            "rho": 0.11761661927664467,
+            "ci_half": 0.03471591376121918,
+            "null_p95": 0.026884450817052107,
+            "n": 3437,
+            "coverage": 0.982
+          },
+          "common": {
+            "rho": 0.11774338317719699,
+            "ci_half": 0.033238793910951525,
+            "null_p95": 0.027207601093621078,
+            "n": 3425,
+            "coverage": 1.0
+          }
+        },
+        "SELPREF": {
+          "own": {
+            "rho": 0.14806167418853136,
+            "ci_half": 0.03727954431224736,
+            "null_p95": 0.027399476533718957,
+            "n": 3202,
+            "coverage": 0.9148571428571428
+          },
+          "common": {
+            "rho": 0.14852844994795553,
+            "ci_half": 0.036190755357936845,
+            "null_p95": 0.029605546627778832,
+            "n": 3192,
+            "coverage": 0.931970802919708
+          }
+        }
+      },
+      "paired_deltas": {
+        "TREATMENT_minus_CONTROL": {
+          "delta": -0.0547,
+          "ci": [
+            -0.0701,
+            -0.0392
+          ],
+          "ci_half": 0.0155,
+          "n": 3425,
+          "separated_above": false,
+          "separated_below": true
+        },
+        "NOISE_CTL_minus_CONTROL": {
+          "delta": -0.0546,
+          "ci": [
+            -0.072,
+            -0.0367
+          ],
+          "ci_half": 0.0176,
+          "n": 3425,
+          "separated_above": false,
+          "separated_below": true
+        },
+        "SHUF_CTL_minus_CONTROL": {
+          "delta": -0.0692,
+          "ci": [
+            -0.0869,
+            -0.0541
+          ],
+          "ci_half": 0.0164,
+          "n": 3425,
+          "separated_above": false,
+          "separated_below": true
+        }
+      },
+      "rw_fusion": {
+        "n_halfA": 1709,
+        "n_halfB": 1716,
+        "reliability_weights_halfA": {
+          "GROUNDED": 0.2973706071757229,
+          "CONCEPTUAL": 0.5111662649059789,
+          "DEP_TYPED": 0.11786516463060887,
+          "RANDOM": 0.03988633287354904
+        },
+        "arms": {
+          "RW_CONTROL": {
+            "rho": 0.5063468967294028,
+            "ci_half": 0.0365519463705766,
+            "null_p95": 0.03811580108758706,
+            "n": 1716,
+            "coverage": 1.0
+          },
+          "RW_TREATMENT": {
+            "rho": 0.4979749326167555,
+            "ci_half": 0.03848368402825139,
+            "null_p95": 0.03781154570702957,
+            "n": 1716,
+            "coverage": 1.0
+          },
+          "RW_NOISE": {
+            "rho": 0.5078723156749251,
+            "ci_half": 0.0358894074529682,
+            "null_p95": 0.03845031912128266,
+            "n": 1716,
+            "coverage": 1.0
+          }
+        },
+        "paired_deltas": {
+          "RW_TREATMENT_minus_RW_CONTROL": {
+            "delta": -0.0084,
+            "ci": [
+              -0.0171,
+              0.0
+            ],
+            "ci_half": 0.0086,
+            "n": 1716,
+            "separated_above": false,
+            "separated_below": false
+          },
+          "RW_NOISE_minus_RW_CONTROL": {
+            "delta": 0.0015,
+            "ci": [
+              -0.0019,
+              0.0044
+            ],
+            "ci_half": 0.0032,
+            "n": 1716,
+            "separated_above": false,
+            "separated_below": false
+          }
+        },
+        "signal_added": false,
+        "noise_clean": true
+      },
+      "reading_upgrade": {
+        "n_common_wd": 3427,
+        "eq_arms": {
+          "FUSE_WINDOW_eq": {
+            "rho": 0.23954164798008262,
+            "ci_half": 0.032365803191805584,
+            "null_p95": 0.02821975475885176,
+            "n": 3427,
+            "coverage": 1.0
+          },
+          "FUSE_DEP_eq": {
+            "rho": 0.26304224004133353,
+            "ci_half": 0.03402040543666167,
+            "null_p95": 0.02810902435053613,
+            "n": 3427,
+            "coverage": 1.0
+          }
+        },
+        "eq_paired_delta_DEP_minus_WINDOW": {
+          "delta": 0.0235,
+          "ci": [
+            0.006,
+            0.04
+          ],
+          "ci_half": 0.017,
+          "n": 3427,
+          "separated_above": true,
+          "separated_below": false
+        },
+        "n_halfB_wd": 1717,
+        "rw_reliability_weights_halfA": {
+          "GROUNDED": 0.2981656492369036,
+          "WINDOW": 0.07636106448233893,
+          "DEP_TYPED": 0.1162242812873284
+        },
+        "rw_arms": {
+          "RW_WINDOW": {
+            "rho": 0.27523735227787577,
+            "ci_half": 0.04405860582312321,
+            "null_p95": 0.03916848945640379,
+            "n": 1717,
+            "coverage": 1.0
+          },
+          "RW_DEP": {
+            "rho": 0.2810571369486625,
+            "ci_half": 0.04299724835918002,
+            "null_p95": 0.0389843941350832,
+            "n": 1717,
+            "coverage": 1.0
+          }
+        },
+        "rw_paired_delta_RWDEP_minus_RWWINDOW": {
+          "delta": 0.0058,
+          "ci": [
+            -0.0072,
+            0.0178
+          ],
+          "ci_half": 0.0125,
+          "n": 1717,
+          "separated_above": false,
+          "separated_below": false
+        }
+      },
+      "coverage_value": {
+        "n_total": 3500,
+        "n_conceptual_covered": 3500,
+        "n_conceptual_missing": 0,
+        "n_missing_common": 0,
+        "DEP_TYPED_rho_on_missing": {
+          "rho": null,
+          "ci_half": null,
+          "null_p95": null,
+          "n": 0,
+          "coverage": 0.0
+        },
+        "paired_delta_DEP_minus_RANDOM_on_missing": null,
+        "paired_delta_DEP_minus_GROUNDED_on_missing": null
+      }
+    },
+    "wordsim": {
+      "n_common": 333,
+      "arms": {
+        "CONTROL": {
+          "rho": 0.5047025830944933,
+          "ci_half": 0.08250146337956663,
+          "null_p95": 0.08738819575983144,
+          "n": 333,
+          "coverage": 1.0
+        },
+        "TREATMENT": {
+          "rho": 0.5547161430118348,
+          "ci_half": 0.0795724353756494,
+          "null_p95": 0.08856626263531785,
+          "n": 333,
+          "coverage": 1.0
+        },
+        "NOISE_CTL": {
+          "rho": 0.4851784262227483,
+          "ci_half": 0.08040266018937114,
+          "null_p95": 0.08103339590029535,
+          "n": 333,
+          "coverage": 1.0
+        },
+        "SHUF_CTL": {
+          "rho": 0.5495758893521386,
+          "ci_half": 0.07738736590957757,
+          "null_p95": 0.08591206274346297,
+          "n": 333,
+          "coverage": 1.0
+        }
+      },
+      "spokes": {
+        "GROUNDED": {
+          "own": {
+            "rho": 0.4012460487060949,
+            "ci_half": 0.09479554572626026,
+            "null_p95": 0.0917841291175185,
+            "n": 335,
+            "coverage": 0.9490084985835694
+          },
+          "common": {
+            "rho": 0.4047441971315325,
+            "ci_half": 0.08746030138870559,
+            "null_p95": 0.08623599751880871,
+            "n": 333,
+            "coverage": 1.0
+          }
+        },
+        "CONCEPTUAL": {
+          "own": {
+            "rho": 0.4028003380976501,
+            "ci_half": 0.09180180804165025,
+            "null_p95": 0.09259776898542871,
+            "n": 352,
+            "coverage": 0.9971671388101983
+          },
+          "common": {
+            "rho": 0.4328397712650715,
+            "ci_half": 0.09126591530231071,
+            "null_p95": 0.09227697389833368,
+            "n": 333,
+            "coverage": 1.0
+          }
+        },
+        "DEP_TYPED": {
+          "own": {
+            "rho": 0.404128382934327,
+            "ci_half": 0.08746725983166495,
+            "null_p95": 0.08913121896332121,
+            "n": 352,
+            "coverage": 0.9971671388101983
+          },
+          "common": {
+            "rho": 0.4370037817339578,
+            "ci_half": 0.0884732530510704,
+            "null_p95": 0.09708375020732823,
+            "n": 333,
+            "coverage": 1.0
+          }
+        },
+        "SELPREF": {
+          "own": {
+            "rho": -0.0037355511792814163,
+            "ci_half": 0.3053897358625166,
+            "null_p95": 0.2537144071709304,
+            "n": 44,
+            "coverage": 0.12464589235127478
+          },
+          "common": {
+            "rho": -0.015398330547367691,
+            "ci_half": 0.31458304269433723,
+            "null_p95": 0.2700644307434579,
+            "n": 42,
+            "coverage": 0.12612612612612611
+          }
+        }
+      },
+      "paired_deltas": {
+        "TREATMENT_minus_CONTROL": {
+          "delta": 0.05,
+          "ci": [
+            0.0138,
+            0.0878
+          ],
+          "ci_half": 0.037,
+          "n": 333,
+          "separated_above": true,
+          "separated_below": false
+        },
+        "NOISE_CTL_minus_CONTROL": {
+          "delta": -0.0195,
+          "ci": [
+            -0.0644,
+            0.0267
+          ],
+          "ci_half": 0.0455,
+          "n": 333,
+          "separated_above": false,
+          "separated_below": false
+        },
+        "SHUF_CTL_minus_CONTROL": {
+          "delta": 0.0449,
+          "ci": [
+            0.0057,
+            0.0838
+          ],
+          "ci_half": 0.039,
+          "n": 333,
+          "separated_above": true,
+          "separated_below": false
+        }
+      },
+      "rw_fusion": {
+        "n_halfA": 168,
+        "n_halfB": 165,
+        "reliability_weights_halfA": {
+          "GROUNDED": 0.45305732751769134,
+          "CONCEPTUAL": 0.4831934686886033,
+          "DEP_TYPED": 0.47736434407545203,
+          "RANDOM": 0.11647702650072723
+        },
+        "arms": {
+          "RW_CONTROL": {
+            "rho": 0.4470839204953621,
+            "ci_half": 0.13796287634252483,
+            "null_p95": 0.13626173562788363,
+            "n": 165,
+            "coverage": 1.0
+          },
+          "RW_TREATMENT": {
+            "rho": 0.49234906027291453,
+            "ci_half": 0.12821268332780483,
+            "null_p95": 0.119812164499763,
+            "n": 165,
+            "coverage": 1.0
+          },
+          "RW_NOISE": {
+            "rho": 0.4440223422981139,
+            "ci_half": 0.13234235777038558,
+            "null_p95": 0.1267883751596248,
+            "n": 165,
+            "coverage": 1.0
+          }
+        },
+        "paired_deltas": {
+          "RW_TREATMENT_minus_RW_CONTROL": {
+            "delta": 0.0453,
+            "ci": [
+              -0.0231,
+              0.1127
+            ],
+            "ci_half": 0.0679,
+            "n": 165,
+            "separated_above": false,
+            "separated_below": false
+          },
+          "RW_NOISE_minus_RW_CONTROL": {
+            "delta": -0.0031,
+            "ci": [
+              -0.0315,
+              0.025
+            ],
+            "ci_half": 0.0282,
+            "n": 165,
+            "separated_above": false,
+            "separated_below": false
+          }
+        },
+        "signal_added": false,
+        "noise_clean": true
+      },
+      "reading_upgrade": {
+        "n_common_wd": 334,
+        "eq_arms": {
+          "FUSE_WINDOW_eq": {
+            "rho": 0.5847673880629186,
+            "ci_half": 0.07590719234375293,
+            "null_p95": 0.08899028985047845,
+            "n": 334,
+            "coverage": 1.0
+          },
+          "FUSE_DEP_eq": {
+            "rho": 0.5070709407356083,
+            "ci_half": 0.0889500761534375,
+            "null_p95": 0.08631338830986791,
+            "n": 334,
+            "coverage": 1.0
+          }
+        },
+        "eq_paired_delta_DEP_minus_WINDOW": {
+          "delta": -0.0777,
+          "ci": [
+            -0.1136,
+            -0.0466
+          ],
+          "ci_half": 0.0335,
+          "n": 334,
+          "separated_above": false,
+          "separated_below": true
+        },
+        "n_halfB_wd": 165,
+        "rw_reliability_weights_halfA": {
+          "GROUNDED": 0.45195267911101117,
+          "WINDOW": 0.5874589224651114,
+          "DEP_TYPED": 0.4781889572841817
+        },
+        "rw_arms": {
+          "RW_WINDOW": {
+            "rho": 0.5524999886325498,
+            "ci_half": 0.10390445586257377,
+            "null_p95": 0.12967617005693335,
+            "n": 165,
+            "coverage": 1.0
+          },
+          "RW_DEP": {
+            "rho": 0.4335285559466384,
+            "ci_half": 0.13273976712681648,
+            "null_p95": 0.11962966531948424,
+            "n": 165,
+            "coverage": 1.0
+          }
+        },
+        "rw_paired_delta_RWDEP_minus_RWWINDOW": {
+          "delta": -0.119,
+          "ci": [
+            -0.183,
+            -0.0623
+          ],
+          "ci_half": 0.0603,
+          "n": 165,
+          "separated_above": false,
+          "separated_below": true
+        }
+      },
+      "coverage_value": {
+        "n_total": 353,
+        "n_conceptual_covered": 352,
+        "n_conceptual_missing": 1,
+        "n_missing_common": 0,
+        "DEP_TYPED_rho_on_missing": {
+          "rho": null,
+          "ci_half": null,
+          "null_p95": null,
+          "n": 0,
+          "coverage": 0.0
+        },
+        "paired_delta_DEP_minus_RANDOM_on_missing": null,
+        "paired_delta_DEP_minus_GROUNDED_on_missing": null
+      }
+    }
+  },
+  "verdict_bits": {
+    "simlex": {
+      "signal_added": false,
+      "noise_clean": true,
+      "shuf_clean": true
+    },
+    "simverb": {
+      "signal_added": false,
+      "noise_clean": true,
+      "shuf_clean": true
+    },
+    "wordsim": {
+      "signal_added": true,
+      "noise_clean": true,
+      "shuf_clean": false
+    }
+  },
+  "verdict": "LEARNED_CHANNEL_DOES_NOT_NET_IMPROVE_CISEP__SEE_PAIRED_DELTAS",
+  "similarity_pass": false,
+  "controls_clean_all": false,
+  "elapsed_s": 334.8
+}

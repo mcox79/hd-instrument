@@ -1,8 +1,44 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Owner-DONE. The most consequential organ — it can GROW the foundation — validated to exactly the standard the owner demanded ('validate the shit out of it before it grows the foundation'). A decisive, mixed result that is a FULL PASS under the 5-part bar, with an EXEMPLARY safety gate. Re-verified FIRST-HAND (ran verify_structured_context_learner.py myself, ALL witness checks PASS — it recomputes the deltas/CIs/corruption off the landed vectors). BAR1 (WIN): the brain-faithful lever is CONTEXT SHAPE, not the update rule — a DEPENDENCY-TYPED (grammatical-relation) distributional learner beats the incumbent ±2-window PPMI-SVD baseline on the SIMILARITY axis CI-separated at matched 15M-token scale: SimLex ρ 0.2699 vs 0.2102 (paired Δρ +0.0598 CI [0.0226,0.0965], n=995); SimVerb 0.1186 vs 0.0844 (+0.0342 CI [0.0074,0.0604], n=3432); 2/3 populations pass (WordSim relatedness stays the window's — the PREDICTED dissociation, not a miss). All info-free twins LOSE CI-sep (label-shuffle, random-tree; a global bijection is SVD-invariant → rejected as degenerate), and DEP_TYPED > DEP_UNTYPED on verbs (+0.042) isolates the grammatical-relation TYPE. At 15M it already matches the incumbent's full-38M SimLex (0.270 > 0.255) — ~2.5× more data-efficient. BAR2: the brief's update-rule premise is REFUTED by argument (the bar's escape hatch) — SGNS == shifted-PPMI factorisation (Levy & Goldberg 2014) and CBOW==counting is already landed on this substrate, so online==batch; 'update the brain's way' is a proven dead end, the lever is what it learns OVER. BAR3 (NUANCED, honest): under a brain-faithful RELIABILITY-weighted combiner the learned channel is NET-NEUTRAL-not-harmful when added to the full pool that already contains the supervised WordNet channel (which dominates the WordNet-derived golds); the within-mission window→dependency upgrade DOES net-improve the reading read-out CI-sep (SimLex +0.038, SimVerb +0.024); equal-weight one-pool fusion HURT (a combiner artifact, honestly flagged) and the dissociation is preserved (reliability-weighted beats one-pool). BAR4 — THE SAFETY GATE (the crux, done to the highest standard): growing the reader's meaning 5M→15M improves downstream LitBank who-did-what 0.0714→0.1494 (+0.078 CI [0.070,0.087]) AND it is REAL learned structure — the strict info-free growth controls (full-corpus token-shuffle 0.0112, filler-shuffle 0.0166) fall BELOW baseline. BUT naive-overwrite growth CORRUPTS ~25.6% of previously-CORRECT answers (CI [0.215,0.299]), UNIFORM across confidence (0.254 vs 0.258 — genuine KNOWLEDGE LOSS, not low-confidence churn → confidence-gating cannot fix it). BUT a CLS-FAITHFUL growth mechanism FLIPS the gate: keeping the pre-growth store and fusing it with the new one (ENSEMBLE_MEAN — the hippocampal+cortical keep-both-stores) cuts corruption to 0.0785 (−0.177 CI-sep vs naive, ~3.3× less) while keeping 71% of the gain; a rate-limited gradual blend (α=0.25) keeps 84% of the gain at corruption 0.185; accuracy SATURATES at α=0.25 while corruption climbs monotonically toward the naive value — the CLS signature (slow replay-preserving integration beats wholesale overwrite). CONCLUSION: the learner is decisively BETTER, growth adds real structure, and it IS SAFE to grow ONLY behind a CLS-faithful mechanism (keep-both-stores ensemble or rate-limited integration) — the 25.6% naive corruption was a MISSING-MECHANISM artifact, not a ceiling. BAR5: the hdlab diff is concrete (default-OFF; growth is a separate gated step). Fidelity discipline: 4/5 mechanisms pinned; several hopeful ideas tested + rigorously REFUTED (code-decorrelation, distributional is-a, curriculum, affect-grounding — all null/redundant; grounded-selpref centroid-averaging over-compresses). ⚠️ TWO optimization tests (generalize-vs-memorize; fixable-vs-data-limited) were still running at submission — ADDITIONAL, the core verdict does not depend on either. hdlab landing QUEUED (Q111 — a CAREFUL multi-module port; the CRITICAL constraint: FOUNDATION-GROWTH STAYS OFF BY DEFAULT, behind the CLS keep-both-stores / regression-checked-rollback gate; land the dependency-typed learner + reliability-weighted fusion first, the gated growth step separately). AUDIT UPDATE folded (§2b). Adjacencies EVALUATED (owner directive): the learner's own roadmap — this learner (validated, default-off) → the SPARSE-CODE store (the substrate lever, = the multibank/sparse-DG line I've been landing) → RELATIONAL REASONING (the next phase, = the transitive_ordering line) — folds into existing lines, no new brief needed."
 ---
+
+> ## ✅ SOLVER REVIEW — INTEGRATED 2026-08-28 (strategy session; grade EXCELLENT; owner_verdict: DONE)
+> **Re-verified FIRST-HAND** (`verification/verify_structured_context_learner.py`, ALL witness checks PASS — ran it
+> myself; it recomputes the deltas/CIs/corruption off the landed vectors, not a verdict-read). **The most consequential
+> organ — it can GROW the foundation — validated to exactly the standard demanded ('validate the shit out of it before
+> it grows the foundation').** A decisive, MIXED result that is a full pass under the 5-part bar.
+> **BAR1 (WIN) — the brain lever is CONTEXT SHAPE, not the update rule:** a dependency-typed (grammatical-relation)
+> distributional learner beats the ±2-window PPMI-SVD baseline CI-sep at matched 15M scale (SimLex 0.270 vs 0.210,
+> +0.060; SimVerb 0.119 vs 0.084, +0.034), 2/3 populations (WordSim relatedness stays the window's — the PREDICTED
+> dissociation); info-free twins lose (label-shuffle, random-tree); DEP_TYPED > DEP_UNTYPED isolates the relation TYPE;
+> ~2.5× more data-efficient (15M matches the incumbent's 38M SimLex). **BAR2:** the update-rule premise is refuted by
+> argument (SGNS==shifted-PPMI, CBOW==counting — online==batch; the bar's escape hatch, satisfied). **BAR3 (nuanced,
+> honest):** reliability-weighted fusion → net-neutral-not-harmful in the full pool (the supervised WordNet channel
+> dominates its own golds); the window→dependency upgrade net-improves the reading read-out CI-sep; equal-weight one-pool
+> fusion HURT (combiner artifact) and the dissociation is preserved.
+> **BAR4 — THE SAFETY GATE (the crux, exemplary):** growth improves downstream who-did-what (0.0714→0.1494, +0.078
+> CI-sep) and is REAL structure (strict info-free growth controls fall below baseline). BUT naive overwrite CORRUPTS
+> **~25.6%** of previously-correct answers, UNIFORM across confidence (genuine knowledge loss — confidence-gating can't
+> fix). BUT a CLS keep-both-stores mechanism (ENSEMBLE_MEAN) cuts corruption to **0.0785** (−0.177 CI-sep, ~3.3× less)
+> keeping 71% of the gain; a rate-limited α=0.25 blend keeps 84% at corruption 0.185; accuracy SATURATES while corruption
+> climbs → the CLS signature. **Conclusion: safe to grow ONLY behind a CLS-faithful gate, default-OFF** — the naive
+> corruption was a missing-mechanism artifact, not a ceiling. This is the highest-standard treatment of a
+> foundation-growth safety question: quantify the danger → prove it's genuine loss → find the brain-faithful fix →
+> mandate default-off.
+> **Fidelity discipline:** 4/5 mechanisms pinned; several hopeful ideas rigorously REFUTED (code-decorrelation,
+> distributional is-a, curriculum, affect-grounding — null/redundant; grounded-selpref over-compresses). **AUDIT UPDATE
+> folded (§2b).**
+> **hdlab landing QUEUED (Q111 — CAREFUL multi-module port; NOT this commit):** land the dependency-typed learner +
+> reliability-weighted fusion; **the CRITICAL constraint — FOUNDATION-GROWTH STAYS OFF BY DEFAULT, behind the CLS
+> keep-both-stores / regression-checked-rollback gate** (the gated growth step lands separately). This is the landing to
+> get RIGHT — mis-configured, it can corrupt the foundation; so it is a dedicated careful effort, not a heartbeat-tail
+> task. **Adjacencies EVALUATED (owner directive):** the learner's roadmap — validated-learner (default-off) → the
+> SPARSE-CODE store (the multibank/sparse-DG line I've been landing) → RELATIONAL REASONING (the transitive_ordering
+> line) — folds into existing lines; no new brief needed. **⚠️ Two optimization tests (generalize-vs-memorize;
+> fixable-vs-data-limited) were still running at submission — additional; the core verdict does not depend on them.**
+
 
 # PROBLEM: the learn-from-reading learner is PROVEN-worth-continuing but UN-OPTIMISED (a crude batch PPMI-SVD, not the brain's online predictive rule) and NEVER validated to IMPROVE the updated substrate — build the most brain-faithful learner, prove it beats the PPMI baseline AND net-improves the current reader's meaning (fused, demand-routed, controls losing) with a hard SAFETY gate, BEFORE it is ever turned on to grow the foundation
 

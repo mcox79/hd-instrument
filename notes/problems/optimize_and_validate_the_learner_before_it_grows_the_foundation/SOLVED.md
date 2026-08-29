@@ -667,15 +667,21 @@ Warriner 2013, Lancaster Sensorimotor Norms 2020, Utsumi 2022.
   with a frequency/support-MATCHED eval (stratified pairs, or WeedsPrec residualised on log-freq-rank) showing
   a CI-separated margin OVER THE FREQUENCY BASELINE, not over 0.5. RE-AUDITABILITY FLAG: no scored_population
   persisted -> the 0.6425 cannot be independently recomputed without rebuilding PPMI.
-- **counter-fit A + recipe-diagnostic B: OPTIONAL Layer-1 follow-ons, not run to completion (not blocking).**
-  Counter-fit FAILED-loud on remote (DISCRIMINATOR_TOO_SPARSE: the word-level 70/30 train/held split left too
-  few DISJOINT SimLex/WordSim pairs -- 94/38 < the 100 minimum; SimVerb 294 was fine -- so the oracle guard
-  correctly refused to score rather than emit an invalid number). Recipe-diagnostic silently ran SMOKE only (a
-  cell --mode default="smoke" bug vs the bare==FULL invariant -> 150k not 15M). BOTH are cheap cell fixes
-  (default->full; SimVerb-primary disjoint gold / relation-level split) -- the cells are being left in a
-  CORRECT, re-runnable state, but NEITHER is re-dispatched: the core submission does not depend on them, and
-  the recipe-diagnostic is largely redundant with the curriculum drill's data-scale finding. Run them later
-  only if the specific numbers (does WordNet structure GENERALISE; exact recipe-vs-data-scale split) are wanted.
+- **>>> TWO OUTSTANDING LAYER-1 OPTIMIZATION TESTS -- STILL RUNNING, RESULTS PENDING. This submission is NOT
+  fully complete on the optimization follow-ons; these two results will be folded in here when they land. <<<**
+  (1) **counter-fit A** -- does injected WordNet taxonomic structure GENERALISE to held-out relations + a
+  disjoint gold, or only MEMORISE? (2) **recipe-diagnostic B** -- is the below-distributional-floor SimLex gap
+  a FIXABLE RECIPE (PPMI shift/alpha/eigenvalue knobs) or DATA-LIMITED? Both hit CELL BUGS on their first
+  remote FULL run: counter-fit FAILED-loud (DISCRIMINATOR_TOO_SPARSE -- the word-level 70/30 train/held split
+  left too few disjoint SimLex/WordSim pairs, 94/38 < the 100 minimum; SimVerb 294 was fine; the oracle guard
+  correctly refused to emit an invalid score); recipe-diagnostic silently ran SMOKE only (a cell --mode
+  default="smoke" bug vs the bare==FULL invariant -> 150k not 15M tokens). BOTH ARE BEING FIXED (default->full;
+  SimVerb-primary disjoint gold / relation-level split) AND RE-DISPATCHED to remote -- STATUS: IN PROGRESS.
+  INTERIM READ (does NOT substitute for the completed runs): the recipe-diagnostic answer is LIKELY "mostly
+  data-scale" per the curriculum drill (order-invariant; SVD already gets progressive-differentiation for
+  free); the counter-fit generalise-vs-memorise question is GENUINELY OPEN until it completes. The core
+  verdict (the 5 bars + safe-growth gate) does NOT depend on either, but the "what to optimise next" story does
+  -- so these are being run to completion, not dropped.
 
 ## RESEARCH DRILL -- CURRICULUM / READING-ORDER (online literature, 2026-08-29): a PROVABLE NULL for our batch learner, which CONVERGES on the recipe-diagnostic already queued.
 
@@ -732,3 +738,28 @@ learner; wire it; keep growth OFF until a regression-checked update gate exists)
 4. Housekeeping: the pre-upos-fix parse caches `parsed_simplewiki_{150000,5000000}tok.jsonl` in
    `data/exp_structured_context_learner_v1/` have empty POS tags (silently break SELPREF/VERB use);
    regenerate or delete them.
+
+---
+INTEGRATED_BY_STRATEGY: 2026-08-28 (grade EXCELLENT; owner_verdict: DONE). The most consequential organ -- it can GROW
+the foundation -- validated to exactly the standard the owner demanded. Re-verified FIRST-HAND (ran
+verify_structured_context_learner.py myself, ALL witness checks PASS -- it recomputes the deltas/CIs/corruption off the
+landed vectors). A decisive, MIXED result = a full pass under the 5-part bar. BAR1 (WIN): the brain lever is CONTEXT
+SHAPE, not the update rule -- a DEPENDENCY-TYPED learner beats the +/-2-window PPMI-SVD baseline CI-sep at matched 15M
+scale (SimLex 0.270 vs 0.210 +0.060; SimVerb 0.119 vs 0.084 +0.034), 2/3 populations (WordSim relatedness stays the
+window's = predicted dissociation), info-free twins lose, ~2.5x more data-efficient. BAR2: update-rule premise REFUTED
+(SGNS==shifted-PPMI, CBOW==counting -> online==batch; the bar's escape hatch). BAR3 (nuanced): reliability-weighted
+fusion -> net-neutral-not-harmful in the full pool (WordNet channel dominates its golds); the window->dependency upgrade
+net-improves the reading read-out CI-sep; dissociation preserved. BAR4 -- THE SAFETY GATE (exemplary): growth helps
+downstream who-did-what (0.0714->0.1494 CI-sep), real structure (info-free growth controls fall below baseline), BUT
+naive overwrite corrupts ~25.6% of previously-correct (uniform across confidence = genuine loss); a CLS keep-both-stores
+mechanism cuts corruption to 0.0785 (-0.177 CI-sep, ~3.3x less) keeping 71% of the gain -> SAFE to grow ONLY behind a
+CLS-faithful gate, DEFAULT-OFF (the naive corruption was a missing-mechanism artifact, not a ceiling). Fidelity: 4/5
+mechanisms pinned; several hopeful ideas rigorously refuted. Review + SOLVER REVIEW block in PROBLEM.md; priority
+cleared. AUDIT UPDATE folded (BRAIN_FOUNDATIONAL_AUDIT 2b). hdlab landing QUEUED (Q111 -- CAREFUL multi-module port; the
+CRITICAL constraint: FOUNDATION-GROWTH STAYS OFF BY DEFAULT, behind the CLS keep-both-stores / regression-checked-rollback
+gate; land the dependency-typed learner + reliability-weighted fusion first, the gated growth step separately; the
+landing to get RIGHT -- mis-configured it can corrupt the foundation). NO hdlab written this commit (Q111). Adjacencies
+EVALUATED (owner directive): the learner's roadmap -- validated-learner (default-off) -> the SPARSE-CODE store (the
+multibank/sparse-DG line) -> RELATIONAL REASONING (the transitive_ordering line) -- folds into existing lines. Two
+optimization tests (generalize-vs-memorize; fixable-vs-data-limited) were still running at submission -- additional; the
+core verdict does not depend on them.
