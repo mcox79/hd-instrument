@@ -1,0 +1,105 @@
+# Research drill: is thematic fit a DISAMBIGUATION-under-uncertainty mechanism or an OVERRIDE-certain-structure mechanism?
+
+Problem: grounded_role_assignment_via_verb_keyed_thematic_fit
+Date: 2026-08-30
+Type: ONLINE literature/neuroscience drill (no experiments run)
+Decides: whether a gold-parse "thematic fit adds nothing to role assignment" result is a REGIME ARTIFACT (must evaluate under structural uncertainty) or a real ceiling.
+
+CENTRAL QUESTION
+  (A) Does the brain use thematic fit to OVERRIDE structure that is already clearly/unambiguously parsed? OR
+  (B) Does the brain use thematic fit to DISAMBIGUATE structure that is UNCERTAIN during incremental parsing, recruited in proportion to parsing uncertainty/conflict?
+
+VERDICT UP FRONT: Hypothesis (B) is STRONGLY SUPPORTED as the dominant, brain-faithful account, with ONE important refinement (see "boundary case / semantic attraction" below). Thematic fit is a constraint that COMPETES to resolve UNCERTAINTY; its measured effect on interpretation/reading time SCALES WITH the amount of structural competition and SHRINKS toward zero when a high-validity structural cue (unambiguous morphology, an overt "by") already determines the parse. Therefore: evaluating role assignment on CLEAN GOLD PARSES removes exactly the uncertainty channel thematic fit is recruited into, so "thematic fit adds nothing on gold parses" is a REGIME ARTIFACT for the disambiguation function, not a capability ceiling. The correct evaluation regime is one WITH structural uncertainty (ambiguous/missing morphology, reduced relatives, garden paths, degraded/noisy input, OR strong-prior small-edit role reversals).
+
+=====================================================================
+SQ1 -- Is thematic-fit / plausibility influence GATED BY / SCALING WITH syntactic ambiguity?
+VERDICT: PINNED-BY-EVIDENCE.
+
+- Trueswell, Tanenhaus & Garnsey (1994), "Semantic influences on parsing: use of thematic role information in syntactic ambiguity resolution," JML 33:285-318. This is the single most decisive study for (B). They re-ran Ferreira & Clifton (1986) with controls:
+    * inanimate-subject reduced relatives (an inanimate noun is an implausible Agent, so thematic fit favors the relative-clause reading),
+    * AND a BASELINE condition with MORPHOLOGICALLY UNAMBIGUOUS verbs (e.g., "stolen" -- past participle distinct from simple past, so the main-clause reading is structurally blocked).
+  Findings: animacy/thematic fit had IMMEDIATE effects AT THE POINT OF AMBIGUITY; only the AMBIGUOUS-verb + animate-Agent condition produced garden-path difficulty. When the verb morphology was UNAMBIGUOUS ("stolen"), there was no ambiguity to resolve and the plausibility manipulation had no comparable disruptive role -- structure alone determined the parse. This is exactly (B): plausibility is recruited where the structural signal is weak/ambiguous, and is displaced by a high-validity structural cue.
+- McRae, Spivey-Knowlton & Tanenhaus (1998), "Modeling the influence of thematic fit (and other constraints) in on-line sentence comprehension," JML 38:283-312. The Competition-Integration Model: competing interpretations (main-clause vs reduced-relative) are simultaneously active; their relative activation is set by a set of weighted probabilistic constraints (thematic fit, main-clause bias, by-transitivity, etc.), settled by NORMALIZED RECURRENCE (a competition/normalization dynamic). Mechanistically, a constraint's INFLUENCE ON READING TIME is a function of how much COMPETITION remains: thematic fit shifts the balance most where the two interpretations are closely competing (the ambiguous region), and once a strongly diagnostic constraint (the disambiguating "by", or unambiguous morphology) drives activation to one interpretation, the competition collapses and residual constraints stop mattering. Thematic fit is "computed and used immediately," but its VISIBLE EFFECT is competition-gated.
+- MacDonald, Pearlmutter & Seidenberg (1994), "The lexical nature of syntactic ambiguity resolution," Psych Review -- the constraint-based lexicalist frame: ambiguity resolution IS the simultaneous satisfaction of probabilistic constraints; there is no separate stage where semantics "overrides" a completed syntax. Semantic/plausibility constraints operate on, and are only decisive within, the space of structurally LICENSED alternatives. No alternatives open (unambiguous structure) -> nothing for plausibility to arbitrate.
+NOTE: individual-differences work (e.g., Memory & Cognition 36(2):375) shows readers VARY in how much they weight plausibility during ambiguity resolution -- consistent with a weighted-constraint competition, not an all-or-none override.
+
+=====================================================================
+SQ2 -- Noisy-channel / rational comprehension: recruitment PROPORTIONAL to surface uncertainty?
+VERDICT: PINNED-BY-EVIDENCE (quantitative).
+
+- Gibson, Bergen & Piantadosi (2013), "Rational integration of noisy evidence and prior semantic expectations in sentence interpretation," PNAS 110(20):8051-8056. A Bayesian noisy-channel comprehender infers the intended sentence s from the perceived sentence s_p by combining the PRIOR over intended meanings (world-knowledge plausibility) with the LIKELIHOOD of noise corrupting s into s_p. Direct confirmations of proportional recruitment:
+    * Manipulating the PROBABILITY that an utterance is corrupted by noise changes interpretation: "the rate of role-reversal interpretations increased with higher noise probability." Higher assumed noise -> MORE reliance on the plausibility prior.
+    * EDIT-DISTANCE asymmetry: "implausible sentences reachable by small edits were interpreted as role-reversals more often than implausible sentences reachable only by large edits." Plausibility (the prior) is recruited in proportion to how EASILY the surface form could have been a corruption of a more plausible intended form.
+  Corollary for our design: when the surface signal is CLEAN and UNAMBIGUOUS and the corruption likelihood is near zero (a gold parse), the posterior collapses onto the literal parse and the plausibility prior contributes ~nothing to role assignment. That is the model PREDICTING our gold-parse null -- and telling us it is a regime artifact of zero assumed noise, not a ceiling on the mechanism.
+- Levy (2008), noisy-channel / surprisal framing: comprehension is probabilistic inference over uncertain input; expectation (including plausibility) does more work exactly where the input under-determines the structure.
+
+=====================================================================
+SQ3 -- Competition Model (MacWhinney & Bates): conflict validity, precision-weighted cue reliability?
+VERDICT: PINNED-BY-EVIDENCE for cue-validity/conflict-validity; the "precision-weighting is context-CONDITIONAL" phrasing is PARTIALLY-PINNED (validity is a stable statistic of the language, not a per-trial precision weight, though conflict validity operates specifically under cue competition).
+
+- Bates & MacWhinney (1989): cue VALIDITY = availability x RELIABILITY (reliability = fraction of times a cue leads to the correct interpretation WHEN PRESENT). Cue strength (how much a comprehender weights a cue) tracks validity. English weights word order highly; case-marking/agreement languages weight morphology; Chinese weights animacy -- because those cues have the highest validity in each language.
+- CONFLICT VALIDITY is defined specifically for the case where cues COMPETE (point to different interpretations): late/expert processing is "dominated by conflict validity" as learners fine-tune mappings in the less-frequent CUE-CONFLICT situations. So cue recruitment is explicitly a function of cue conflict, and a HIGH-VALIDITY unambiguous cue (clear morphology/agreement) WINS the competition and SUPPRESSES reliance on lower-validity cues (order) and on semantic plausibility. This is the Competition-Model statement of (B): a decisive high-validity structural cue down-weights everything else.
+- Relation to precision-weighting: validity is a corpus-level statistic (stable), not a Bayesian per-trial precision. But the OUTCOME is the same as precision-weighted cue integration: the more reliable/less-conflicted cue dominates. A genuinely precision-weighted (per-context) account is better captured by the noisy-channel model in SQ2. Treat "context-conditional precision weighting" as an INTERPRETATION bridging CM and noisy-channel, not a literal CM claim -> SPECULATIVE label on that specific bridge.
+
+=====================================================================
+SQ4 -- GENERALIZATION to NOVEL/unseen nouns: prototype/similarity, not co-occurrence lookup?
+VERDICT: PINNED-BY-EVIDENCE. This is the strongest single reason to prefer a fit-based mechanism over a count/lookup model.
+
+- McRae, Ferretti & Amyote (1997), "Thematic roles as verb-specific concepts," Language & Cognitive Processes 12:137-176. Each verb specifies, for each role, a PROTOTYPE of typical fillers built from situational/world knowledge (feature-based concept), e.g., "a criminal is a poor Agent but a good Patient of arrest." Thematic fit of a noun for a role = FEATURE SIMILARITY of that noun to the role's prototype/centroid -- NOT a memorized verb-noun co-occurrence count.
+- Ferretti, McRae & Hatherell (2001), "Integrating verbs, situation schemas, and thematic role concepts," JML 44:516-547. Verbs PRIME their typical agents, patients, and instruments (e.g., "arresting" primes "cop"), and prime role-appropriate features -- direct evidence the representation is a feature/similarity structure keyed to the role, supporting graceful generalization.
+- Consequence for our build: a similarity-to-role-prototype computation assigns a fit score to ANY noun with features (including unseen nouns), so it GENERALIZES; a verb x noun co-occurrence count/lookup returns nothing for an unseen pair and cannot generalize. If our current implementation is (or behaves like) a count/lookup, its generalization failure is an IMPLEMENTATION gap, not a ceiling of the thematic-fit mechanism. The brain-faithful version is prototype/feature-similarity (distributional feature overlap; cf. arXiv:1707.05967 "Measuring thematic fit with distributional feature overlap" as a computable analog).
+
+=====================================================================
+SQ5 -- Direct neuro evidence that the plausibility signal is recruited MORE under structural ambiguity/conflict?
+VERDICT: MIXED. N400 to selectional/animacy violations is PINNED; "recruited MORE under thematic competition" is PINNED for the N400/animacy case; the noisy-channel P600 reanalysis-is-gated-by-a-plausible-alternative result is PINNED; the specific LIFG/pMTG "more under conflict" localization claim is PARTIALLY-PINNED / lean-SPECULATIVE (not nailed in this drill).
+
+- Selectional/animacy N400: implausible thematic-role assignments and selectional-restriction violations elicit N400 effects (plausibility is computed rapidly). Paczynski & Kuperberg (2012, JML) show a key GATING result: thematic-role animacy violations elicit an N400 specifically WHEN BOTH arguments are animate (i.e., under THEMATIC COMPETITION), but not when one is animate and one inanimate -- "the brain uses animacy information to overcome interpretation problems due to thematic competition." That is plausibility recruited MORE under conflict.
+- Noisy-channel P600 (Ryskin, Stearns, Bergen, Fedorenko, Gibson et al., bioRxiv 2020, "The P600 ERP component as an index of rational error correction within a noisy-channel framework"): a P600 (reanalysis/error-correction) is elicited for anomalies ONLY WHEN THERE IS A CLEAR PLAUSIBLE ALTERNATIVE to correct toward; "when there is no clear alternative to which the flawed input could be corrected, no P600 is observed." Reanalysis/correction effort is proportional to the availability of a better-fitting interpretation -- i.e., recruited by uncertainty + a strong prior, exactly (B).
+- LIFG / pMTG in cue-conflict resolution: LIFG (BA44/45/47) is broadly implicated in controlled selection / conflict resolution among competing representations and pMTG in lexical-semantic combination; the specific claim "plausibility signal localized to LIFG/pMTG scales with structural cue-conflict" is plausible and consistent but I did NOT surface a clean, direct fMRI demonstration in this drill. Mark SPECULATIVE-leaning-supported; do not lean on it.
+
+=====================================================================
+BOUNDARY CASE / THE ONE THING THAT COMPLICATES THE STRONG FORM OF (B): SEMANTIC ATTRACTION / "SEMANTIC P600"
+(Read this before designing the eval -- it defines the correct "uncertainty" axis.)
+
+- Kim & Osterhout (2005) and the "semantic P600" literature: "The hearty meal was devouring the kids." Here the morphology is UNAMBIGUOUS ("was devouring" = active, meal = Agent), yet comprehenders build the semantically plausible reversal (meal as Theme of devour) and show a P600 (structural reanalysis), often with NO N400 -- a "semantic illusion." Taken at face value this looks like plausibility OVERRIDING clean structure (against strong (B)).
+- RECONCILIATION (and why it actually STRENGTHENS the operational conclusion): the noisy-channel account absorbs this. "was devouring" is ONE SMALL EDIT from "was devoured by" (a passive), and the world-knowledge prior for meal-eats-kids is near zero. Under a noise model, a small-edit path to a high-prior meaning gets non-trivial posterior mass, so the comprehender infers the intended (reversed) meaning and flags a correction (P600). So the brain does NOT treat even "clean" morphology as an infinitely reliable switch -- it applies a probabilistic noise model. Plausibility intrusion is STILL proportional to (edit-distance-weighted) uncertainty; it is largest for strong-prior + small-edit cases and vanishes when both the structure is clean AND no small-edit reversal is plausible.
+- OPERATIONAL UPSHOT: the precise, defensible claim is NOT "unambiguous structure => thematic fit contributes exactly zero." It is: "thematic fit is recruited in proportion to interpretive uncertainty, whether that uncertainty comes from (i) genuine structural ambiguity, or (ii) a strong prior making a small-edit reversal likely. A gold parse removes BOTH channels (structure certain AND assumed noise-free), so thematic fit correctly contributes ~zero THERE." This keeps (B) as the mechanism story while explaining the semantic-P600 data.
+
+=====================================================================
+DOES ANYTHING CONTRADICT (B)? -- honest check
+- The ONLY prima facie contradiction is the semantic-attraction/semantic-P600 result (plausibility intruding under clean morphology). It is RESOLVED, not left standing, by the noisy-channel refinement above (the noise model means "clean" != "certain"). It does NOT support an "override arbitrary certain structure" account -- the intrusion is confined to strong-prior + small-edit configurations.
+- "Good-enough parsing" (Ferreira) is adjacent but consistent: comprehenders sometimes settle for shallow/plausibility-driven interpretations, again most under processing difficulty/uncertainty -- not an override of well-supported structure.
+- No evidence found that thematic fit systematically REVERSES a well-supported, low-noise, unambiguous parse in the general case. So (B) stands.
+
+=====================================================================
+DECISIVE CONCLUSION FOR THE EVALUATION DESIGN
+1. A gold-parse evaluation that hands the model CERTAIN, CORRECT structure and asks whether thematic fit improves role assignment is testing the mechanism OUTSIDE its operating regime. "Thematic fit adds nothing" there is a REGIME ARTIFACT (predicted by McRae 1998 competition-gating AND by Gibson 2013 zero-noise posterior collapse), NOT a ceiling.
+2. To fairly test the brain-faithful contribution of thematic fit, evaluate role assignment UNDER UNCERTAINTY. Concrete can-fail regimes, in priority order:
+     (a) Structurally AMBIGUOUS items: reduced relatives / MV-RR ambiguities, missing or morphologically ambiguous voice cues, PP-attachment-style role ambiguity, dropped function words. (McRae/Trueswell/MacDonald home turf.)
+     (b) NOISY / degraded surface: probabilistically corrupt or delete function words (by, to, was), then measure whether thematic fit shifts role assignment toward the plausible reading -- and whether the shift SCALES with corruption probability (Gibson 2013 design gives the exact prediction to match).
+     (c) STRONG-PRIOR small-edit role reversals ("meal devouring kids"): tests the semantic-attraction boundary; thematic fit should intrude here even with clean morphology.
+3. The metric must reward thematic fit precisely where structure is UNCERTAIN. A single averaged score over a clean-gold corpus will DILUTE the effect to zero; condition/stratify the score by structural uncertainty (or ambiguity-region vs unambiguous-region, per Trueswell 1994).
+4. GENERALIZATION (SQ4): build thematic fit as SIMILARITY-TO-ROLE-PROTOTYPE (feature/distributional centroid of typical fillers), NOT verb-noun co-occurrence lookup, so it scores unseen nouns. Test on OOV/novel arguments -- that is where the prototype mechanism beats a count model and where the brain's advantage is expected to show.
+
+TLDR (plain English)
+The brain does not use "who-plausibly-did-what" to overrule a sentence whose grammar already makes the roles clear. It leans on plausibility exactly when the grammar is unclear, missing, garbled, or when a tiny slip could have flipped a very implausible sentence into a sensible one -- and it leans harder the more unclear things are. So a test that first hands the model a perfectly clean, correct grammatical analysis and THEN asks whether plausibility helps is asking the wrong question in the wrong situation: of course it looks useless there. The right test feeds in unclear, ambiguous, or slightly-garbled sentences and checks whether plausibility now picks the right roles -- and checks that it still works on names/words never seen before, which it will only do if we build it as "how typical is this thing for this role" rather than "have we counted this exact word with this exact verb." One wrinkle: even with clean grammar the brain sometimes still overrides an absurd sentence (meal eating kids); that is not a counterexample, it is the same rule, because the brain treats the input as possibly slightly mistyped.
+
+QUESTIONS: none.
+
+NEXT STEPS
+- Reframe the eval away from clean gold parses toward the three uncertainty regimes above; stratify the metric by structural uncertainty.
+- If our current thematic-fit organ is a verb-noun co-occurrence/lookup, re-implement as similarity-to-role-prototype (feature/distributional centroid) so it generalizes to unseen arguments; that is the McRae-faithful computation.
+- Consider replicating the Gibson 2013 corruption-probability manipulation as our can-fail discriminator: thematic-fit contribution should rise monotonically with assumed noise; a flat line would be the real negative.
+
+CITATIONS (URLs used in this drill)
+- McRae, Spivey-Knowlton & Tanenhaus 1998: https://www.sciencedirect.com/science/article/abs/pii/S0749596X97925432 ; PDF (binary, not parsed here): https://dingo.sbs.arizona.edu/~hharley/courses/PDF/McRaeEtAlThematicFit1998.pdf ; readable copy: https://www.coli.uni-saarland.de/~crocker/articles/mcrae.pdf
+- Trueswell, Tanenhaus & Garnsey 1994: https://www.sciencedirect.com/science/article/pii/S0749596X8471014X
+- MacDonald, Pearlmutter & Seidenberg 1994 (constraint-based lexicalist) -- framework reference.
+- Gibson, Bergen & Piantadosi 2013 (PNAS): https://www.pnas.org/doi/10.1073/pnas.1216438110 ; full text PDF: https://colala.berkeley.edu/papers/gibson2013rational.pdf ; PubMed: https://pubmed.ncbi.nlm.nih.gov/23637344/
+- Competition Model (Bates & MacWhinney; cue validity / conflict validity): https://journals.library.columbia.edu/index.php/SALT/article/download/1633/677/4037 ; https://sla.talkbank.org/pubs/UCMlogic.pdf
+- McRae, Ferretti & Amyote 1997 (Thematic roles as verb-specific concepts): https://www.tandfonline.com/doi/abs/10.1080/016909697386835 ; https://www.researchgate.net/publication/236594987_Thematic_Roles_as_Verb-specific_Concepts
+- Ferretti, McRae & Hatherell 2001 (Integrating verbs, situation schemas, thematic role concepts): https://www.academia.edu/15770285/Integrating_Verbs_Situation_Schemas_and_Thematic_Role_Concepts
+- Paczynski & Kuperberg 2012 (animacy/thematic N400 under competition): https://kuperberg.mgh.harvard.edu/wp-content/uploads/paczynskikuperberg_jml_2012.pdf
+- Kim & Osterhout 2005 + Semantic P600 review: https://www.researchgate.net/publication/351591302_The_Semantic_P600_A_Brief_Review
+- Noisy-channel P600 (Ryskin/Gibson et al. bioRxiv 2020): https://www.biorxiv.org/content/10.1101/2020.02.08.930214v1.full
+- Thematic fit via distributional feature overlap (computable analog): https://arxiv.org/pdf/1707.05967

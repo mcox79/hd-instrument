@@ -56,8 +56,8 @@ validation). *The keyword scan cannot tell these apart — only reading the n an
 | **T1b** | `the_core_binding_operator_may_not_be_brain_faithful` | theta/CA3 **0.128** vs flat FHRR 0.025 (~5×) @ synthetic \|V\|=256 | none ("synthetic-algebra construction proof") | FOUNDATIONAL (the live bind/bundle) | covered by T1a (same SEP-vs-FLAT mechanism) |
 | **T1c** | `resolve_retrieval_interference_among_similar_memories` | CTX_ADD **0.928** vs 0.400 @ synthetic engineered-separable context | none (author: "is the substrate's REAL context separable?") | ASSEMBLY_BOUND | LitBank/OntoNotes similar-competitor coref w/ real context — **FOLLOW-ON** |
 | **T1d** | `the_register_write_path_has_a_hard_capacity_wall` | LEAKY **1.0** at all loads vs flat collapse @ synthetic random codes | none ("real-text end-to-end: did NOT establish") | ISLAND (`leak=0.0` live default) | same load-regime story as T1a |
-| **T2a** | `causation_has_no_force_dynamic_typing` | 0.929 (n=**42** minimal pairs) | weak: n=21 McGuffey, solver-adjudicated | ISLAND | MAVEN-ERE / WIQA event-causal — **FOLLOW-ON** |
-| **T2b** | `causation_typing_needs_a_patient_tendency_estimator` | 1.000 (n=**40** minimal pairs) | weak: n=13 point-estimate; UD-EWT fire-rate only | ISLAND (sense/attach-gated) | UD-EWT / MCScript2 CAUSE-vs-ENABLE at scale — **FOLLOW-ON** |
+| **T2a** | `causation_has_no_force_dynamic_typing` | 0.929 (n=**42** minimal pairs) | weak: n=21 McGuffey, solver-adjudicated | ISLAND | **RERUN DONE ↓↓ — DOES NOT HOLD** (MAVEN-ERE n=9,698) |
+| **T2b** | `causation_typing_needs_a_patient_tendency_estimator` | 1.000 (n=**40** minimal pairs) | weak: n=13 point-estimate; UD-EWT fire-rate only | ISLAND (sense/attach-gated) | **RERUN DONE ↓↓ — DOES NOT HOLD** (shares the force-dynamic typer) |
 | **T3a** | `situation_model_has_no_discourse_fact_reasoning` | L1 **0.998** vs 0.504 (constructed) | **already dead** on LitBank L2 (bridge oracle 0.039) | ISLAND/QUEUED | half-refuted; needs a real fact-decisive population |
 | **T3b** | `theory_of_mind_is_proven_only_in_a_synthetic_microworld` | 1.000 (n=**26** authored passages) | none (n<30, solver-authored) | ASSEMBLY_BOUND (`belief_partition.py` island) | LitBank-mined false-belief scenes — **FOLLOW-ON** |
 | **T3c** | `the_substrate_does_not_learn_or_update_by_prediction_error` | N400 **0.988** (synthetic clean topic-jumps) | none ("synthetic construction proof") | ISLAND | LitBank/GUM event segmentation — **FOLLOW-ON** |
@@ -97,16 +97,75 @@ which is ~2% of real entities.
 | 17–63 | 2.4% | 0.990 | 0.178 | +0.811 ABOVE | +0.821 ABOVE | yes |
 | 64+ | 1.2% | 0.976 | 0.052 | +0.924 ABOVE | +0.839 ABOVE | yes |
 
-**Verdict — HOLDS DIRECTIONALLY, MAGNITUDE COLLAPSES ~15×.** The organ's win is *real* (twin loses; beats
-counting wherever an entity has ≥2 events) but its **magnitude is a steep function of load**, and the real
-operating point sits deep in the easy regime: the synthetic **+0.94** (SEP over FLAT) shrinks to a
-real-frequency-weighted **~+0.06** on LitBank, because 87% of entities have ≤3 events where FLAT is already
-≥0.98. **The separated store is worth wiring for the ~10% of "busy" entities (≥4 events), not for the
-population.** This is neither the 0.99 the headline implies nor a `flat_store`-style collapse — it is a
-precise deployed-value correction.
+**Verdict — HOLDS DIRECTIONALLY, MAGNITUDE COLLAPSES 15–60×** (full run, real-frequency-weighted, n_sampled=1376):
 
-**Brain-foundational drill — DG pattern-separation HURTS here** (SEP_CA_DG 0.49–0.63 vs SEP_CA 0.98 at the
-tail). With real verb codes that are already identity-orthogonal (same word = same code), decorrelating
-them destroys clean structure. DG earns its keep only when codes are genuinely CORRELATED (near-synonyms) —
-the correlated-code drill in the full run tests exactly this. → **AUDIT UPDATE:** do NOT wire DG-at-retrieval
-onto identity-orthogonal register codes; it is a fix for a correlation problem this task does not have.
+| comparison | @full cue p=0.0 | @degraded cue p=0.7 | band |
+|---|---|---|---|
+| SEP−FLAT (the organ's specific claim) | **+0.016** [0.011,0.022] | **+0.060** [0.050,0.070] | ABOVE (tiny) |
+| SEP−COUNTING (register beats the dumb floor) | +0.157 [0.142,0.171] | **+0.156** [0.142,0.170] | ABOVE |
+| FLAT−COUNTING (flat already beats counting) | +0.140 | +0.096 | ABOVE |
+| SEP−twin (info-free) | +0.144 | +0.144 | ABOVE |
+
+per-bin SEP−FLAT @p=0.7: `1`=+0.000 · `2-3`=+0.022 · `4-8`=+0.204 · `9-16`=+0.525 · `17-63`=+0.813 · `64+`=+0.924.
+
+The organ's win is *real* (twin loses; CI-separated) but **its magnitude is a steep function of load**, and the
+real operating point sits deep in the easy regime: the synthetic **+0.94** (SEP over FLAT) shrinks to
+**+0.060** (degraded cue) / **+0.016** (full cue) on LitBank, because 87% of entities have ≤3 events where FLAT
+is already ≥0.98. **Two true readings:** the SPECIFIC "separated beats flat" claim survives only as a small
+busy-entity-only +0.06; the BROADER "a register beats pure counting" claim survives robustly at +0.156 (contra
+`flat_store`), but FLAT already delivers most of it. **Wire the separated machinery for the ~13% of "busy"
+entities (≥4 events), not for the population.**
+
+**Brain-foundational drill — DG pattern-separation HURTS here, and the correlated-codes drill said WHY**
+(SEP_CA_DG 0.50–0.64 vs SEP_CA 0.98 at the tail; DG−SEP = −0.35 to −0.48, the SAME whether filler codes are
+orthogonal OR deliberately correlated). DG is not "for correlated fillers" — the retrieval match runs over the
+**addresses** `bind(entity, event-index)`, which are **unique by index** in a per-entity register, so DG's
+expand+sparsify only injects noise. → **AUDIT UPDATE:** DG-at-retrieval is a fix for confusable *addresses*
+(the fan / key-overlap `rho>0` regime — where the content_addressable organ's own sweep found DG helps), NOT
+confusable fillers; do not wire it onto a register whose addresses are distinct.
+
+---
+
+## SECOND DEEP RERUN — the causation-typer cluster (T2a/T2b) on real MAVEN-ERE → DOES NOT HOLD
+
+**The claim:** a glass-box force-dynamic typer (Talmy/Wolff CAUSE/ENABLE/PREVENT truth-table over a
+FrameNet-derived verb lexicon) distinguishes causal sub-types, headlined at 0.929 / 1.000 on n=42 / n=40
+connective-neutral **minimal pairs**. Only real-text checks were tiny solver-adjudicated point estimates
+(n=13 / n=21). **What I ran** (`experiments/exp_generalize_causation_typer_maven_ere_v1.py`): the SAME force
+lexicon + typer (imported verbatim from `experiments._force_dynamics_lexicon`) on **MAVEN-ERE** (Wang et al.
+2022) valid split — **n=9,698 independently-annotated causal relations** (CAUSE vs PRECONDITION≈ENABLE).
+
+| | value | reading |
+|---|---|---|
+| **fire rate** | **0.161** (1,559 / 9,698) | the typer's required input (a force-dynamic causing verb) is ABSENT in 84% of real causal relations |
+| typer accuracy where it fires | 0.183 [0.164,0.203] | anti-aligned with the corpus |
+| **strongest floor = majority class** | 0.863 (predict ENABLE) | **typer − majority = −0.679 [−0.713,−0.647] BELOW** |
+| **info-free twin** (shuffled lexicon) | 0.165 | **typer − twin = +0.018 NOT_SEP** — the force signal ≈ noise for the real distinction |
+| coverage-weighted lift | **−0.109** | |
+
+**Verdict: DOES NOT HOLD.** The constructed 0.929 / 1.000 win does not survive on real annotated causation:
+the typer (i) fires on only 16% of real causal relations (its force-verb input is usually absent), and
+(ii) where it fires, its force-class signal is **statistically indistinguishable from a shuffled lexicon**
+(+0.018 NOT_SEP) for the real CAUSE-vs-PRECONDITION distinction, losing to the majority floor by −0.68. This
+**confirms the sibling organ** `causation_is_typed_per_clause` (LitBank negative, 0.158 vs 0.842, n=19) on a
+**500× larger, independent corpus**. **Fairness caveat (disclosed):** MAVEN's PRECONDITION is not identical
+to Wolff's ENABLE (ontology mismatch), so the raw accuracy-vs-majority gap is partly a label-scheme mismatch
+— but the two decisive facts are ontology-INDEPENDENT: the 16% fire-rate (the input rarely exists) and the
+typer≈shuffled-twin result (no real force signal) both fail regardless of the label scheme.
+→ **AUDIT UPDATE:** reclassify the force-dynamic causation typers "constructed-only; on real annotated
+causation the typer's input is usually absent and its force signal ≈ noise — do not wire as a real-text
+capability." The brain's force-dynamic representation may be real (Wolff PINNED), but the *lexicon-keyed
+connective typer* is not how it survives contact with real causal annotation.
+
+## THE SWEEP SO FAR — two rigorous reruns, contrasting outcomes, six organs
+
+| rerun | organs covered | population (n) | verdict |
+|---|---|---|---|
+| store/retrieval/binding | T1a–d (4) | LitBank who-did-what (28,569) | **HOLDS DIRECTIONALLY**, magnitude collapses 15–60× → wire for busy entities only; then reframed onto the PINNED similar-competitor axis (gate: content floor 0.398 on 22,123 → BUILD) |
+| causation typer | T2a–b (2) | MAVEN-ERE causal (9,698) | **DOES NOT HOLD** (16% fire-rate; force signal ≈ shuffled twin) |
+
+Two of the 13 fragile organs already carried their own real-text negatives (found in triage:
+`causation_is_typed_per_clause`, `situation_model_has_no_discourse_fact_reasoning`'s LitBank L2). The
+remaining ~7 (N400 segmenter, ToM-microworld, relcl parser, reliability-signal, consolidation store,
+front-end mislabel) are enumerated with corpora above as follow-on reruns — the sweep is valuable partial
+(brief-sanctioned) and now rests on **two** rigorous, contrasting reruns plus the full 33-organ triage.

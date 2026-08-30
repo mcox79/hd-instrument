@@ -65,6 +65,20 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `event_bundle` (EventBundleCodec) — CLEAN + well-founded,
+  NO new gap (a confirmatory scan; logged so a future scan skips it).** (a) FIDELITY: encodes an event as
+  `quantize(Σ_r bind(role_key[r], filler[r]))` — role-filler binding is the PINNED computational op; the only deviation is the
+  known BIPOLAR `sign()`-on-a-bundle implementation, ALREADY documented as a wrong-op (graded > sign; the "16× dims → +0.0843,
+  largest measured single lever" representation-format note; cross-ref the §-list sites `situation_focus`/`role_slot_summarizer`/
+  `event_bundle`). Not a new find. (b) GENERALIZATION: it is a CODEC, not a task-gold organ — round-trips cleanly at ~4 role
+  pairs, α=4/N_DIM << the 0.138 bundle-collapse wall (capacity-argued; self-test asserts bit-identity vs
+  `role_slot_summarizer.summarize_flat`). Multi-event capacity is correctly DELEGATED to the store level (the fan is
+  `situation_model_accumulate`'s, addressed by `factorized_entity_store` + set-return). (c) WIRING: LIVE (imported by
+  `situation_reader`). NO bipolar-vs-FHRR algebra clash — the FHRR register binds `(role, event_INDEX)`, indexing events rather
+  than holding bipolar content, so the two algebras are cleanly factored (my initial interoperability worry did not hold on
+  disk). (d) LEVER: the graded-readout / dims lever is known + appropriately deprioritized in favor of the brain-faithful
+  graded/sparse direction. **No problem seeded — event_bundle is correctly scoped, live-wired, and already-characterized.**
+
 - **2026-08-30 — THE FORCE-DYNAMIC READER GETS A LITERALNESS VETO GATE (grounded-simulation-by-default, abstain on violation)
   — and it UNBLOCKS the causation wiring** (from integrated `the_force_dynamic_reader_needs_a_literal_sense_and_attachment_gate`,
   owner-DONE, SOLVED/EXCELLENT; reverified 7/7 first-hand — the reverify upgraded a stale frontmatter number: held-out RACE

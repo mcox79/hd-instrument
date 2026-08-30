@@ -2,10 +2,10 @@
 problem: stress_test_which_organ_wins_actually_generalize_on_held_out_text
 status: SOLVED
 bar: "DELIVERABLE = a GENERALIZATION LEDGER (per audited organ: constructed number -> held-out number -> HOLDS/DOES-NOT-HOLD + the population + the floor + the twin). Plus an AUDIT UPDATE to BRAIN_FOUNDATIONAL_AUDIT.md per reclassified organ." AND per organ "HOLDS = the organ's headline metric beats its strongest floor recomputed ON THAT population, CI-separated (bootstrap; report CI half-width + null p95), with the info-free twin LOSING. NO number crosses populations/scorers."
-result: "GENERALIZATION LEDGER over all 33 keyword-flagged organs: 10 FALSE POSITIVES (already held-out-validated at n=995..28,569), 9 ALREADY NEGATIVES (SOLVED is itself a refutation on real data), 13 GENUINELY FRAGILE (constructed/synthetic-only). DEEP RERUN of the top load-bearing fragile cluster (store/retrieval/binding) on real LitBank who-did-what (n=28,569 events, 7,779 entities, gold coref): the content-addressable separated store's synthetic SEP_CA-over-FLAT win of +0.94 (0.990 vs 0.047 @ load=32) generalizes DIRECTIONALLY but its MAGNITUDE collapses ~15x to a real-frequency-weighted ~+0.06 on real text -- CI-separated ABOVE only for entities with >=4 events (12.7% of the population); at <=3 events (87.3%) SEP_CA ties FLAT (NOT_SEP) because FLAT is already >=0.98. Verdict: HOLDS-DIRECTIONALLY / MAGNITUDE-DOES-NOT-HOLD -> wire for busy entities only, not the population."
+result: "GENERALIZATION LEDGER over all 33 keyword-flagged organs (10 FALSE POSITIVES already held-out-validated at n=995..28,569; 9 ALREADY NEGATIVES; 13 GENUINELY FRAGILE) + TWO rigorous reruns covering SIX organs with CONTRASTING outcomes: (RERUN 2) the CAUSATION-TYPER cluster (T2a/T2b) reran on real MAVEN-ERE (n=9,698 annotated causal relations) DOES NOT HOLD -- the force-dynamic typer fires on only 16.1% of real causal relations and where it fires its force signal is indistinguishable from a shuffled-lexicon twin (+0.018 NOT_SEP), losing to the majority floor by -0.679 (constructed win was 0.929/1.000 on n=42/40 minimal pairs). (RERUN 1) DEEP RERUN of the top load-bearing fragile cluster (store/retrieval/binding) on real LitBank who-did-what (n=28,569 events, 7,779 entities, gold coref; real-frequency-weighted, full run n_sampled=1376, 658s): the content-addressable separated store's synthetic SEP_CA-over-FLAT win of +0.94 (0.990 vs 0.047 @ load=32, harness-reproduced) generalizes DIRECTIONALLY but its MAGNITUDE collapses 15-60x on real text: SEP-FLAT = +0.060 [0.050,0.070] at partial cue p=0.7 / +0.016 [0.011,0.022] at full cue -- CI-separated ABOVE but tiny, concentrated in the ~13% of entities with >=4 events (per-bin SEP-FLAT ~0 at <=3 events where FLAT is already >=0.98, +0.20 at 4-8, +0.92 at 64+). The BROADER capability DOES survive: SEP-COUNTING = +0.156 [0.142,0.170] CI-separated (a register beats pure counting on real text, unlike flat_store) -- but FLAT also beats counting (+0.096..+0.140), so the SEPARATED-store increment is the small +0.06. Verdict: HOLDS-DIRECTIONALLY / MAGNITUDE-DOES-NOT-HOLD -> wire for busy entities only, not the population."
 floor: "per-entity verb COUNTING (predict the entity's most-frequent verb, cue-blind -- the flat_store_destroys_the_code lesson), recomputed on real LitBank: 1.000 @1 event, 0.561 @2-3, 0.348 @4-8, 0.169 @17-63, 0.138 @64+; AND the FLAT superposition read-out (the incumbent live register op) recomputed per load bin. SEP_CA beats COUNTING CI-separated wherever an entity has >=2 events, but ties FLAT at <=3 events."
 controls: "SYNTHETIC POSITIVE CONTROL: the imported arms reproduce the organ's own win (SEP_CA 0.990 vs FLAT 0.047 @ synthetic load=32,p=0.7) -> a real-data null is a generalization gap, not a broken harness. INFO-FREE TWINS: SHUFFLED_KEYS + RANDOM_ROUTE LOSE CI-separated wherever the mechanism fires (>=2 events). LOAD STRATIFICATION: the SEP-FLAT margin is a monotone function of entity event-count, ~0 at the real median (1 event). DG BUILD-ACROSS DRILL: SEP_CA_DG < SEP_CA (BELOW) on identity-orthogonal real codes -- DG-at-retrieval hurts a task whose codes are already separated by word identity. COUNTING floor recomputed per population."
-files_changed: "experiments/exp_generalize_retrieval_real_codes_v1.py, verification/test_generalize_retrieval_real_codes.py, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/GENERALIZATION_LEDGER.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/SOLVED.md"
+files_changed: "experiments/exp_generalize_retrieval_real_codes_v1.py, experiments/exp_generalize_retrieval_similar_competitor_gate_v1.py, experiments/exp_generalize_causation_typer_maven_ere_v1.py, verification/test_generalize_retrieval_real_codes.py, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/GENERALIZATION_LEDGER.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/research_retrieval_interference_load_and_dg_boundary_2026-08-30.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_generalize_retrieval_real_codes.py"
 ---
 
@@ -64,14 +64,20 @@ synthetic organs live at load=32 — ~2% of real entities. Per-bin (partial cue 
 | 17–63 | 2.4% | 0.990 | 0.178 | +0.811 ABOVE | +0.821 ABOVE | yes |
 | 64+ | 1.2% | 0.976 | 0.052 | +0.924 ABOVE | +0.839 ABOVE | yes |
 
-*(smoke pass n=60/bin; the full real-frequency-weighted run confirms the pooled ~+0.06 and the bands — see the metrics.)*
+*(smoke pass n=60/bin shown; the full real-frequency-weighted run, n_sampled=1376, confirms: pooled
+SEP−FLAT **+0.060** [0.050,0.070] @p=0.7 / **+0.016** [0.011,0.022] @full cue; SEP−COUNTING **+0.156**
+[0.142,0.170]; twin loses **+0.144**. Per-bin SEP−FLAT @p=0.7: +0.000 / +0.022 / +0.204 / +0.525 / +0.813 /
++0.924.)*
 
-**Verdict: HOLDS DIRECTIONALLY, MAGNITUDE COLLAPSES ~15×.** The synthetic **+0.94** (SEP over FLAT) shrinks
-to a real-frequency-weighted **~+0.06** on LitBank — because 87% of entities have ≤3 events, where FLAT is
-already ≥0.98 and SEP does not beat it. The mechanism is *real* (twin loses; beats counting wherever an
-entity has ≥2 events) but its value is concentrated in the ~10–13% of "busy" entities (≥4 events). **This is
-neither the 0.99 the headline implies nor a `flat_store`-style collapse — it is a precise deployed-value
-correction: wire the separated store for busy entities, not for the population.**
+**Verdict: HOLDS DIRECTIONALLY, MAGNITUDE COLLAPSES 15–60×.** The synthetic **+0.94** (SEP over FLAT) shrinks
+to a real-frequency-weighted **+0.060** at a degraded cue (and **+0.016** at a full cue) on LitBank — because
+87% of entities have ≤3 events, where FLAT is already ≥0.98 and SEP does not beat it. The separated-store's
+advantage is *real* (twin loses; CI-separated) but concentrated in the ~13% of "busy" entities (≥4 events).
+**Two honest readings, both true:** (1) the organ's SPECIFIC claim — *separated beats flat superposition* —
+survives only as a small, busy-entity-only +0.06; (2) the BROADER claim — *a register read-out beats pure
+counting* — survives robustly at **+0.156** (unlike `flat_store`, which LOST to counting), but FLAT already
+delivers most of that (+0.10–0.14), so the separated machinery adds little on the population. **Wire the
+separated store for busy entities, not for the population.**
 
 ## HOW THE BRAIN DOES THIS — and the DG surprise
 
@@ -79,13 +85,53 @@ The PINNED standard here is generalization/systematicity itself: the brain appli
 novel instances; a competence that only fires at its training operating point is a lookup, not the operation.
 CA3 content-addressable completion is real, and DG pattern-separation (Leutgeb 2007; McHugh 2007; Nakazawa
 2002) is what lets CA3 work on similar memories. My brain-foundational hypothesis going in was: *real codes
-are correlated, so DG should be NEEDED on real text.* **The data refuted my own hypothesis, precisely.** With
-real verb codes that are already **identity-orthogonal** (same word → same code, different words → orthogonal),
-DG-at-retrieval **HURTS** (SEP_CA_DG 0.49–0.63 vs SEP_CA 0.98 at the tail) — decorrelating an already-clean
-code destroys structure. DG earns its keep only where codes are genuinely correlated (near-synonyms); the
-who-did-what register's confusability comes from *repetition* ("say"/"be" recur), not code correlation, so DG
-is a fix for a problem this task does not have. The correlated-codes drill in the full run tests exactly the
-regime where DG should help. → **AUDIT UPDATE below.**
+are correlated, so DG should be NEEDED on real text.* **The data refuted my own hypothesis, precisely — and
+the correlated-codes drill sharpened WHY.** DG-at-retrieval **HURTS** at the tail (SEP_CA_DG 0.50–0.64 vs
+SEP_CA 0.98) — and it hurts by the *same* −0.35 to −0.48 whether the verb-filler codes are identity-orthogonal
+OR deliberately correlated (near-synonyms sharing a base phase). So DG is not "for correlated fillers." The
+retrieval MATCH runs over the **addresses** — `bind(entity, event-index)` — and those are **unique by event
+index** in a per-entity register, so the match is already near-perfect and DG's expand+sparsify only injects
+noise. DG is a fix for confusable **addresses** (the fan / key-overlap `rho>0` regime — which is exactly where
+the content_addressable organ's own sweep found DG helps), and the real who-did-what register does not have
+that: its addresses are distinct by construction. → **AUDIT UPDATE below.**
+
+## SECOND RERUN — the causation-typer cluster on real MAVEN-ERE → a clean DOES-NOT-HOLD
+
+To make the ledger rest on more than one rerun, I reran the **causation-typer cluster** (`causation_has_no_force_dynamic_typing`, `causation_typing_needs_a_patient_tendency_estimator`) — headlined 0.929 / 1.000 on n=42 / n=40 **minimal pairs** — on **MAVEN-ERE** (Wang et al. 2022), **n=9,698 independently-annotated causal relations**, importing the organ's own FrameNet force-lexicon + Wolff typer verbatim (`experiments/exp_generalize_causation_typer_maven_ere_v1.py`). **Result: DOES NOT HOLD.** The typer FIRES on only **16.1%** of real causal relations (its force-verb input is usually absent), and where it fires its force signal is **statistically indistinguishable from a shuffled-lexicon twin** (+0.018 NOT_SEP) for the real CAUSE-vs-PRECONDITION distinction, losing to the majority floor by **−0.679**. This confirms the sibling organ's LitBank negative (0.158 vs 0.842, n=19) on a **500× larger** corpus. Disclosed caveat: MAVEN's PRECONDITION ≠ Wolff's ENABLE (ontology mismatch), but the two decisive facts — 16% fire-rate and typer≈shuffled-twin — are ontology-independent. Full detail + AUDIT UPDATE in `GENERALIZATION_LEDGER.md`. **The sweep now rests on two rigorous, contrasting reruns (a holds-with-nuance and a clean negative) covering six organs, plus the full 33-organ triage.**
+
+## PUSHED FURTHER — the +0.06 measured the WRONG interference axis (research drill + a decisive gate)
+
+A literature drill (`research_retrieval_interference_load_and_dg_boundary_2026-08-30.md`) on the wall the
+rerun hit returned a decisive, PINNED verdict: **event-count-per-entity is not the brain's interference
+axis — and is directly falsified as a primitive** (Radvansky & Zacks 1991: equal fact-count → no fan cost
+once facts integrate into one situation model). The load-bearing axis is **similarity-based cue-overload** —
+how many *other* active entities feature-match the retrieval cue (Van Dyke & McElree 2006, one-variable
+causal; McElree SAT dissociation; Autry & Levine 2014 anaphor fan). **The who-did-what per-entity register,
+with ~1 verb-event/entity and distinct verbs, structurally has near-zero competitor overlap — so it cannot
+reveal the operation's value, and the +0.06 is the honest number for the *wrong axis*.**
+
+So I ran the research's **cheap decisive gate** (`exp_generalize_retrieval_similar_competitor_gate_v1.py`) —
+reframing the SAME corpus onto the right axis: "which of several entities did verb V near sentence s?"
+Competitors = every entity who did V in the document; when a verb is shared by ≥2 entities, content
+(the verb) under-determines. Result (n=**22,123** ambiguous queries, every document has them — this subset
+is *pervasive*, unlike the sparse event-count regime):
+
+| | value | reading |
+|---|---|---|
+| **content-only floor** (frequency affinity, cue-blind) | **0.398** | content genuinely UNDER-DETERMINES (≤0.75 → **GATE = BUILD**) |
+| content floor by competitor count | 0.573 (2) → 0.420 (3–4) → 0.286 (5+) | **textbook cue-overload** (Van Dyke & McElree) |
+| leak-free temporal-context (prior-recency) | 0.402 | ties content alone (+0.003 NOT_SEP) |
+| context vs shuffled-context twin | +0.080 | recency carries **real** information (twin loses) |
+
+**Two honest conclusions.** (1) The reframe is empirically confirmed: on the brain's real interference axis,
+content fails (0.398 on 22k real queries) where the who-did-what event-count task had content near-perfect —
+so **the +0.06 is an axis artifact, not a ceiling on the operation.** (2) But a *naive* recency signal alone
+does not beat the content floor (+0.003 NOT_SEP), though it carries information (+0.080 over its twin) — so
+the reframed rerun's value hinges on **cue COMBINATION** (content-addressable store + context reinstatement
+together, per CMR), which is genuinely uncertain (the research's calibrated P=0.50). **This is a next
+problem** (`resolve_retrieval_interference` reframed onto the similar-competitor axis; pre-registered
+P1/P2/P3 in the research note), NOT built here — but the gate proves it is worth building, on the right axis,
+which the original event-count rerun could never have shown.
 
 ## What I did NOT establish / would withdraw first
 
@@ -129,17 +175,43 @@ regime where DG should help. → **AUDIT UPDATE below.**
 - **STORE / RETRIEVAL cluster (content_addressable / core_binding / register_write):** the separated
   content-addressable store's advantage over flat superposition is a **steep function of load** and the real
   LitBank who-did-what operating point (median 1 event/entity) is deep in the regime where flat superposition
-  is already near-perfect. Deployed value on real text ≈ **+0.06 hit@1** (real-frequency-weighted), vs the
-  **+0.94** synthetic headline — concentrated in the ≥4-event minority. Reclassify these organs from
-  "validated separated-store win" to "**validated, but wire for high-fan entities only; population-level lift
-  is ~+0.06, not the isolation figure.**"
-- **`hdlab/dg_pattern_separation.py` at RETRIEVAL:** confirmed a **negative on identity-orthogonal codes**
-  (DG decorrelation destroys already-separated structure; SEP_CA_DG < SEP_CA). DG is a fix for *correlated*
-  codes only. Do not wire DG-at-retrieval onto register codes keyed by symbol identity.
+  is already near-perfect. Deployed value of the SEPARATED store over flat on real text ≈ **+0.060 hit@1**
+  @degraded cue / **+0.016** @full cue (real-frequency-weighted, CI-separated), vs the **+0.94** synthetic
+  headline — concentrated in the ≥4-event minority. The register read-out (flat OR separated) DOES beat pure
+  COUNTING by **+0.10..+0.16** on real text (a genuine capability, contra `flat_store`). Reclassify these organs
+  from "validated separated-store win" to "**validated, but wire the separated machinery for high-fan entities
+  only; its population lift over the already-strong flat register is ~+0.06, not the isolation figure.**"
+- **`hdlab/dg_pattern_separation.py` at RETRIEVAL:** confirmed a **negative when the register ADDRESSES are
+  distinct** (SEP_CA_DG < SEP_CA by −0.35 to −0.48 at the tail, holding for BOTH orthogonal and
+  filler-correlated codes). DG's expand+sparsify only helps when the *addresses/keys* are confusable (the
+  fan / key-overlap regime); it is NOT a fix for confusable fillers, and it HURTS a per-entity who-did-what
+  register whose addresses are unique by event index. Do not wire DG-at-retrieval onto register codes with
+  distinct addresses.
 - **Generalization method:** the strongest free predictor (test items existed before the mechanism) confirmed
   again — the 10 false-positives all pre-existed their mechanisms; the collapse-prone organs were all
   validated at a synthetic operating point. `tools/generalization_audit.py` should print, next to each FRAGILE
   flag, the held-out n parsed from its SOLVED, so the false-positive rate is visible.
+
+---
+
+## ADJACENT COMPONENTS — brain-foundational status → next problems (owner-directed)
+
+Evaluating what sits next to the store/retrieval cluster, for planning. Each: brain mechanism (PINNED vs
+OUR-INVENTION), current status, and the next-problem seed.
+
+| adjacent component | brain mechanism | fidelity | capability / limitation on real text | next-problem seed |
+|---|---|---|---|---|
+| **Extraction front-end** (event/argument/role reader that FEEDS the store) | language network LIFG/pMTG → thematic-role assignment | PINNED op, **our impl is the weak link** | incremental parser HOLDS (QA-SRL); but end-to-end event/role recall **~0.32**, composed reader BELOW floor on McGuffey. **This is the real bottleneck the whole retrieval cluster hides behind by holding inputs clean.** | **HIGHEST VALUE.** The store is fine; what feeds it is broken. Overlaps the ROLE-dimension wiring debt + McGuffey→modern migration (p1). A retrieval win is worthless until extraction recall rises. |
+| **Counting / co-occurrence floor + meaning channel** | distributional statistical learning; anterior-temporal semantic hub (Phase-1 bottleneck) | PINNED | counting is a **strong** real floor (0.84 weighted; beat *addressed* storage in `flat_store`). Content-addressable retrieval adds **+0.156 EPISODIC specificity** over counting (recover THIS event, not the modal one) — but only for busy entities. `reader_meaning_channel` REFUTED (grounded hub ≤ MFS prior). | Characterize *where* the +0.156 episodic signal lives (which cases counting cannot get) — a candidate capability. Standing lesson: **any new organ must clear counting**, and most do not. |
+| **Context / TCM store** (`resolve_retrieval_interference`, T1c) | temporal-context binding + reinstatement (Howard-Kahana TCM, Polyn-Norman CMR) | **PINNED**, impl synthetic-only | proven only on **engineered-separable** synthetic context; the solver's own open question — "is the substrate's REAL context separable?" — is untested. | **Rerun on real similar-competitor narrative** (LitBank/OntoNotes) — the deepest untested T1 claim; a research drill is scoping whether real similar competitors exist and how to operationalize "genuinely similar." |
+| **Register write path** (`the_register_write_path`, T1d) | PFC working-memory recency gradient | PINNED-ish, synthetic-only | leaky/capacity win is synthetic; the load finding above applies — **the capacity wall it fixes rarely binds at real low load** (median 1 event/entity). | De-prioritize as a *population* lever; like the separated store it matters only for high-fan entities. |
+| **DG pattern separation** (`hdlab/dg_pattern_separation.py`) | dentate-gyrus expansion+kWTA decorrelation | PINNED (Leutgeb 2007, McHugh 2007) | correctly scoped by this rerun: a fix for confusable **addresses** (fan / key-overlap), HURTS where addresses are already distinct. | Identify *where in real reading the situation-model addresses actually overlap* (busy scenes, multiple similar entities) — that is the only regime DG belongs on. |
+
+**The through-line for planning:** the store/retrieval/binding cluster is *validated but low-yield at the
+real operating point* — real narrative rarely stresses it (few events per entity, distinct addresses). The
+value is upstream (extraction recall) and in the one untested lateral (context/TCM for similar competitors).
+Wiring the separated machinery population-wide would import complexity for ~+0.06; wiring it *conditionally*
+for high-fan entities, and investing in the front-end, is the brain-faithful priority order.
 
 ---
 
@@ -153,22 +225,37 @@ most important of the untested group — the "memory retrieval" parts that every
 reran the actual code on a real corpus of 100 novels. The headline said retrieval-by-content beats the simple
 method by a huge margin; on real text that margin shrinks about 15-fold, because real characters are usually
 involved in just one or two actions, where the simple method is already almost perfect. The fancy method only
-pulls ahead for the rare "busy" characters with many actions. So it is worth switching on for those, not for
-everyone. A bonus surprise: a brain-inspired "keep-memories-distinct" step that I expected to help actually
-hurt here, because the memories were already distinct.
+pulls ahead for the rare "busy" characters with many actions. A bonus surprise: a brain-inspired
+"keep-memories-distinct" step that I expected to help actually hurt here, because the memories were already
+distinct. **Then a literature check found the bigger point: we had been measuring the wrong kind of
+difficulty.** Memory in reading gets hard not when one character does many things, but when *two similar
+characters compete for the same cue* (like a pronoun that could mean either of two people). I re-measured on
+that correct kind of difficulty — and it is *everywhere* in real books (22,000 cases), and there the simple
+content method genuinely fails (right only 40% of the time). So the smart memory part does have real work to
+do — just on a problem the first test couldn't see. That reframed test is the clear next thing to build, and
+the ground for it is now laid.
 
 ## QUESTIONS
 
-None — the triage is complete for all 33, the rerun is CI-separated with a floor, an info-free twin, and a
-positive control that reproduces the original win, and the deployed-value correction is quantified.
+None — the triage is complete for all 33; the rerun is CI-separated with a floor, an info-free twin, and a
+positive control; the deployed-value correction is quantified; and the axis-correction is both literature-backed
+(PINNED) and empirically gated (content floor 0.398 on 22,123 real ambiguous queries → BUILD the reframed test).
 
 ## NEXT STEPS
 
-- **Rerun the remaining Category-C organs** on the pre-existing corpora named in the ledger (highest value:
-  `resolve_retrieval_interference` on LitBank/OntoNotes similar-competitor coref with the substrate's REAL
-  context vector — the solver's own open question; then the two causation typers on MAVEN-ERE/UD-EWT at scale).
-- **Strategy (Q111):** fold the AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md`; annotate the store/retrieval
-  organs "wire for high-fan entities only (~+0.06 population lift)"; add the held-out-n column to
+- **NEW PROBLEM, gate-cleared and ready: reframe `resolve_retrieval_interference` onto the similar-competitor /
+  partial-cue axis.** The gate proved content under-determines on a *large* real subset (floor 0.398, n=22,123),
+  so the build is warranted — but naive recency alone ties content, so the test is **cue COMBINATION**
+  (content-addressable store + temporal-context reinstatement, per CMR) with a **code-correlation-gated DG step**.
+  Pre-registered P1/P2/P3 HARD-PASS/HARD-FAIL bands are in the research note; calibrated P(pass)=0.50. Corpora:
+  reconstruct the competitor set on LitBank (gold chains discard competitors) or acquire GAP/ARRAU/ECB+
+  (competitor-carrying, modern — also relieves the McGuffey age confound).
+- **Rerun the remaining Category-C organs** on the ledger's pre-existing corpora (the two causation typers on
+  MAVEN-ERE/UD-EWT at scale; the N400 segmenter on LitBank/GUM; ToM-microworld on LitBank-mined false-belief).
+- **Strategy (Q111):** fold the AUDIT UPDATEs into `BRAIN_FOUNDATIONAL_AUDIT.md` (store/retrieval = "validated
+  but low-yield at the real operating point; the value is on the similar-competitor axis, not event-count";
+  DG = "gate on code correlation, off for distinct addresses"); annotate the store/retrieval organs
+  "wire for high-fan entities only (~+0.06 population lift)"; add the held-out-n column to
   `tools/generalization_audit.py` so the false-positive rate is visible on every future scan.
 - **No hdlab change is required by this problem** — it is a measurement/audit. The one code-relevant finding
-  (do not wire DG-at-retrieval onto identity-orthogonal register codes) is a "do-not," not a diff.
+  (do not wire DG-at-retrieval onto register codes with distinct addresses) is a "do-not," not a diff.
