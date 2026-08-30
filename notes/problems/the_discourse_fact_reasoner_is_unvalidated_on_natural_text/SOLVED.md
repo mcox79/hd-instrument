@@ -387,3 +387,15 @@ problem -- I am flagging that churn honestly rather than hiding it.)
    where detection is not required; scale the positive-domain lift (0.84->0.96) there; (c) do NOT build a fact-
    reliability gate for coref (measured net-zero, and the drill explains WHY: the brain has no such gate); (d)
    couple the graded coherence bridge to the p1 grounded-meaning lane (denser semantic hub, a soft prior).
+
+---
+**INTEGRATED_BY_STRATEGY 2026-08-30 — grade EXCELLENT.** Reverified FIRST-HAND 11/11 (scaffold-free, recomputes every
+headline from source). Argument-audited: a rigorous two-sided validation on real LitBank — the NEGATIVE (fact-bridge
+net-zero on competitive coref, DEV weight 0, both type + rich-entity redundant with salience) is a full pass and
+CONVERGES with the standing fact (residual is syntactic-binder-bound, not KB-bound) + the assembly's own coref-residual
+drill (KB dead ~2-3% — two independent drills triangulate). The POSITIVE (0.84->0.96 on the ~15% fact-present sliver)
+is honest + gated. The gate question drilled to an INTRINSIC BOUND (5 literatures; the brain has no reliability gate).
+NO hdlab landing earned into coref (measured net-zero, brain-faithfully so); NO fact-reliability gate (intrinsic dead
+end); the organ's home is fact-GIVEN tasks (a future landing). Exemplary honesty (withdrew an inflated positive; flagged
+labelling churn). review: EXCELLENT written into PROBLEM.md; AUDIT UPDATE folded into BRAIN_FOUNDATIONAL_AUDIT.md §2b.
+One VET-pending: the strongest "net-zero = correct calibration" equivalence claim is one notch ahead of a direct proof.

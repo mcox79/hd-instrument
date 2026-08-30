@@ -65,6 +65,25 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — THE DISCOURSE-FACT REASONER, MEASURED TWO-SIDED ON REAL TEXT (REFINE): world knowledge is a
+  LOW-VALIDITY cue for competitive coreference, and the brain correctly gives it near-zero weight** (from integrated
+  `the_discourse_fact_reasoner_is_unvalidated_on_natural_text`, owner-DONE, SOLVED/EXCELLENT; reverified 11/11 first-hand,
+  scaffold-free). The parent organ scored 0.998 on a CONSTRUCTED population with idealized extraction + exact KG edges;
+  on real LitBank (100 novels, SELF-extracted facts, no oracle) the fact-bridge fired blind does NOT beat the salience
+  floor (DEV weight 0; forced-on HURTS 0.68–0.78 vs floor 0.805 CI-sep below). A rich-entity action-history model (93%
+  coverage) ALSO collapses — the **law**: for the hard cases the gold antecedent is the LEAST-mentioned entity, so ANY
+  discourse-content bridge (type OR history) is anti-correlated with it → the syntactic binder owns the residual, not
+  memory. **PINNED:** world knowledge integrates as a continuous graded Bayesian PRIOR (McRae 1998; Metusalem 2012;
+  Kehler & Rohde 2013), NOT via a reliability gate — so the measured net-zero is the CORRECT brain-faithful calibration,
+  and NO observable gate recovers a win (oracle ceiling only +0.021). **Positive domain (honest, gated):** on the ~15%
+  fact-present sliver, fusing the fact into the real resolver LIFTS 0.837→0.961 CI-sep (twin crashes); on the 85%
+  complement it HURTS blind → unconditional weight 0. **hdlab:** NO landing into competitive coref (net-zero,
+  brain-faithfully) and NO fact-reliability gate (intrinsic dead end) — the organ's value is fact-GIVEN downstream tasks
+  (QA / bridging), a future landing. **TRIANGULATES** the assembly's independent coref-residual drill (both measured a
+  commonsense KB dead ~2-3% on the anti-typical residual) → the residual is discourse-focus / syntactic-binder bound,
+  NOT world-knowledge bound (a strong two-drill convergence; the next problem = a Grosz-Sidner focus stack). ⚠️ the
+  strongest "net-zero = correct calibration" equivalence claim is VET-pending — do not let a brief lean on it un-VET'd.
+
 - **2026-08-29 — THE ASSEMBLY: the live reader's role path is WIRED through parse → event-semantic router → graded binder,
   and it beats the positional incumbent end-to-end** (from integrated `wire_the_predarg_frontend_and_binder_into_the_live_reader`,
   owner-DONE, SOLVED/STRONG; reverified 10/10 + 6/6 + 2/2 first-hand, the +0.247 role lift reproduced THROUGH the live

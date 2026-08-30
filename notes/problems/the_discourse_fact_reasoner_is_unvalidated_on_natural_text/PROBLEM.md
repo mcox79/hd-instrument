@@ -1,8 +1,48 @@
 ---
-priority: 5
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "A rigorous, two-sided, brain-grounded VALIDATION on real LitBank (100 novels, self-extracted facts, no oracle; reverified 11/11 FIRST-HAND, scaffold-free, recomputes every headline). NEGATIVE (a full pass): fired blind on competitive coref the self-extracted discourse-fact bridge does NOT beat the salience floor (DEV weight 0; forced-on HURTS 0.68-0.78 vs floor 0.805 CI-sep below; the constructed 0.998 was idealized-extraction + exact-KG artifact). Built ACROSS the wall (a rich-entity action-history model, 93% coverage) -- ALSO collapses, and the reason generalizes to a law (for the hard cases the gold antecedent is the LEAST-mentioned entity, so ANY discourse-content bridge is anti-correlated -> the brain uses the syntactic binder, not memory). POSITIVE (honest, gated): on the ~15% fact-present sliver fusing the fact into the REAL resolver LIFTS 0.837->0.961 CI-sep (DEV weight 2, twin crashes to 0.16); on the 85% complement the cue HURTS blind (0.80->0.52) -> unconditional weight 0. GATE drilled to ground: NO observable gate beats the floor (best +0.001; oracle ceiling +0.021 unreachable); research drill (5 literatures) -> INTRINSIC BOUND (the brain has no reliability gate; world knowledge is a graded Bayesian prior, correctly low-weighted). CONVERGES with + triangulates the assembly's own coref-residual drill (a KB is dead ~2-3% on the residual). Correct hdlab call: do NOT wire any discourse-content bridge into competitive coref (measured net-zero, brain-faithfully) and do NOT build a fact-reliability gate (intrinsic dead end) -> NO coref landing earned; the organ's real home is fact-GIVEN downstream tasks (QA/bridging) where the 0.84->0.96 lives. Exemplary honesty (withdrew an inflated construction-proof positive; flagged the PARTIAL/SOLVED labelling churn). Grade EXCELLENT. One VET-pending: the strongest 'net-zero = correct calibration' equivalence claim runs one notch ahead of a direct proof."
 ---
+
+> ## ✅ SOLVER REVIEW — EXCELLENT (integrated 2026-08-30 by the strategy session; owner_verdict: DONE)
+> **A rigorous, two-sided NEGATIVE-leaning validation** — the good kind: it measures the integrated discourse-fact
+> reasoner on real narrative (LitBank, 100 novels, SELF-extracted facts, no oracle) and honestly bounds it, then
+> correctly PREVENTS a wrong wiring. Reverified **11/11 FIRST-HAND** (scaffold-free; recomputes every headline from
+> source — the trustworthy kind, unlike a witness that reads cached metrics).
+>
+> **The result (two-sided):** (NEG, a full pass) fired blind on competitive coref the self-extracted discourse-fact
+> bridge does NOT beat the salience floor — DEV sets its weight to 0; forced-on it HURTS (0.68–0.78 vs the real
+> fact-blind floor 0.805, CI-sep below). The constructed 0.998 was an idealized-extraction + exact-KG artifact (a
+> degradation curve connects 0.998 → floor). The solver then BUILT ACROSS the wall (a rich-entity action-history model,
+> 93% coverage vs 43% for stated types) — it ALSO collapses, and the reason generalizes to a **law**: for the hard
+> cases (salience fails) the gold antecedent is the LEAST-mentioned entity, so ANY discourse-content bridge is
+> anti-correlated with it → the brain uses the syntactic binder there, not memory. (POS, honest + gated) on the ~15%
+> fact-present sliver, fusing the fact into the REAL resolver LIFTS **0.837 → 0.961 CI-sep** (DEV weight 2, info-free
+> twin crashes to 0.16); on the 85% complement the same cue HURTS blind (0.80 → 0.52) — which is exactly why the
+> unconditional weight is 0.
+>
+> **The gate question drilled to ground:** it's a gated capability, so can an observable fact-reliability gate deploy
+> it? Every gate built (clean-type, low-margin, salient-bridger, combinations, a learned logistic gate) — NONE beats
+> the floor (best +0.001); the oracle ceiling is only +0.021 and unreachable. A research drill (5 converging
+> literatures: McRae 1998; Metusalem 2012; Kehler & Rohde 2013; Competition Model; Ferreira & Patson) gives the verdict:
+> **INTRINSIC BOUND, not a missing mechanism** — the brain has no reliability gate; it integrates world knowledge as a
+> continuous graded Bayesian PRIOR, so a low-validity cue correctly gets low weight. The net-zero gate is the CORRECT
+> brain-faithful behavior; a gate is the wrong lever.
+>
+> **Why EXCELLENT:** two-sided, controlled, brain-grounded, and it correctly does NOT deploy a measured-net-zero cue —
+> plus exemplary honesty (it WITHDREW an inflated constructed-2way positive it caught as a construction proof, and
+> flagged its own PARTIAL→SOLVED labelling churn). It also **triangulates** the assembly's independent coref-residual
+> drill (both measured a commonsense KB dead ~2-3% on the anti-typical residual) — two drills this session converge that
+> the residual is discourse-focus / syntactic-binder bound, NOT world-knowledge bound. One VET-pending caveat (does not
+> cap the grade): the strongest "net-zero = correct calibration" equivalence claim runs one notch ahead of a direct
+> proof — do not let a future brief lean on it un-VET'd.
+>
+> **hdlab landing (Q111):** NONE earned into competitive coref (measured net-zero, brain-faithfully so) and NO
+> fact-reliability gate (intrinsic dead end) — the result IS "do not wire it there." The organ's proper home is
+> fact-GIVEN downstream tasks (the parent's QA / next-event / bridging), where the 0.84→0.96 lift lives — a FUTURE
+> landing when such a consumer exists, not now. Audit §2b folded (REFINE: real-text accuracy measured two-sided;
+> intrinsic bound; organ value is fact-given tasks).
+
 
 # PROBLEM: the reading-built discourse-fact store + graded 2-hop bridging RESOLUTION (integrated `situation_model_has_no_discourse_fact_reasoning`) scored 0.998 vs a fact-blind 0.504 (chance) on an INTER-SENTENTIAL fact-decisive population — but that population is CONSTRUCTED (state-a-role-then-refer-by-action), and the near-1.0 reflects IDEALIZED extraction (facts handed in clean) + EXACT KG edges. Its own #1 withdraw-first caveat: real-text accuracy is UNMEASURED. So we do NOT know whether the capability survives when the reader must EXTRACT the facts itself from noisy real prose and the KG coverage is patchy — the difference between "a mechanism that works on a jig we built for it" and "a reading skill." MEASURE it on real narrative: build an inter-sentential fact-decisive population from LitBank/real narrative (a reference resolved by a fact stated earlier about a character, NOT resolvable by grammar/salience alone), have the reader SELF-EXTRACT the per-entity facts (no oracle), and show the fact-store reader beats the fact-BLIND reader CI-separated with the info-free twin losing — PLUS the graceful coverage-degradation curve (accuracy vs the fraction of the deciding fact actually extracted). A rigorous NEGATIVE (real-text extraction/KG coverage caps it at or below the fact-blind floor — quantified) is a FULL PASS that honestly bounds the capability.
 
