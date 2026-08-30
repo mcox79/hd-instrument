@@ -31,7 +31,45 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-29 (LATEST) -- ✅ **INTEGRATED the ENTITIES(state) dimension (owner-DONE, EXCELLENT): a per-entity STATE-HISTORY register that reads "had been X" states + improves the REAL coref reader 0.54→0.96 on state-decisive pronouns (a LIVE-organ serve, not a constructed-task win). Reverify needed a full-metrics regeneration (committed artifact was a smoke run — a setup issue, not a defect).**
+### 2026-08-29 (LATEST) -- 🧭 **COMPACTION SNAPSHOT — READ THIS FIRST. Phase: comprehension→REASONING; all 5 Zwaan situation-model dimensions now have organs. The near-term HIGH-VISIBILITY GOAL is the ASSEMBLY (in flight). Nothing owner-DONE awaits; 3 reader-independent problems on-deck.**
+**READ THIS FIRST after compaction; then the dated entries below for detail.**
+🎯 **THE NEAR-TERM GOAL (owner-facing, high-visibility): the ASSEMBLY milestone** — ONE live, glass-box reader that reads
+real narrative and answers the STRUCTURE-DEPENDENT questions (who-did-what-TO-whom, which "she", where, before/after) **better
+than a WORD-COUNTING baseline, CI-separated, with its reasoning TRACEABLE.** That converts the validated-organ library into
+a reader that measurably comprehends. **NOT there yet** — a prior generic "wire everything" attempt LOST to the counting
+floor, so the bar is beating counting on real text. It is in flight as **p3 `wire_the_predarg_frontend_and_binder_into_the_live_reader`
+(ASSIGNED)**. GATE: the live reader is POSITIONAL (no parse) — it needs a real parse first (the archaic-prose fix supplies it).
+🧩 **ALL 5 ZWAAN DIMENSIONS NOW HAVE ORGANS (integrated this stretch, all owner-DONE, all reverified FIRST-HAND):** SPACE
+(location_register), TIME (temporal_order_register — before/after, flashbacks), CAUSATION (force-dynamics CAUSE/ENABLE/
+PREVENT typer + PREVENT-killer), ENTITIES (coref + who-did-what binder + **state-history register**, live-organ serve
+0.54→0.96), GOALS/ToM (belief_partition; belief-timeline in-flight). Plus: the discourse-fact REASONER (inter-sentential
+bridging), the register WRITE-PATH fix (leaky-recency + salience-gated consolidation), the read-terminal norm rule, the
+archaic-prose parse confound RETIRED-at-aggregate, the learner (growth-OFF). Several were RIGOROUS NEGATIVES = full passes.
+🔌 **LANDED hdlab CORES (default-off / witnessed FIRST-HAND):** `predicate_argument_frontend` (event-semantic role router),
+the leaky-recency WRITE (`AccumulateRegister.leak` + multibank), `force_dynamics_typer` (Wolff causal typer), `graded_coref_pick`
+(+pool-cleanup), `location_register`, `idiom_lexicon`, `transitive_ordering`, `belief_partition`, the register-readout line
+(`decode_serial`/`decode_serial_pooled`/`decode_gated` + `bundle_norm="divnorm"`).
+🔌 **QUEUED LANDINGS — ALL the remaining ones are COUPLED reader-wiring = PART OF THE ASSEMBLY (do NOT land piecemeal; they
+all edit `situation_reader`):** the predarg de-dup, the who-did-what binder, the causation CausalLink into `_read_causation`,
+the archaic cue-override into `graded_role_assigner`, the state-register core (a CLEAN promotion) + its coref re-rank wiring.
+STANDALONE dedicated efforts (not reader-coupled): the TIME register (a multi-module port — register + 2 shared modules + a
+tagger dep, ~25 importers), the discourse-fact organ (big new organ), the write-path Change 2 (salience-gate helper — needs
+live PE/MDL channels).
+🎯 **QUEUE: p3 assembly (ASSIGNED — the strategic #1) + 3 on-deck reader-INDEPENDENT problems (safe to run parallel with the
+assembly — they build/extend organs in experiments, NOT the reader's role path): belief-timeline (p4, ToM×TIME), patient-tendency
+estimator (p7, causation), causal-network edge typing (p8, causation discourse-level). ⚠️ KEEP NEW ASSIGNABLE PROBLEMS
+READER-INDEPENDENT so they don't collide with the assembly's `situation_reader` edits.** PRIMED next: a targeted verb-sense
+gate; multi-timescale registers; an archaic-morphology lexicon; an `incremental_parser` case-override; a VerbNet result-state lexicon.
+🧠 **STANDING STRATEGIC FACTS:** (1) the anti-typical coref RESIDUAL is a SYNTACTIC/intra-sentential wall (converged across the
+coherence-prior, who-did-what, and discourse-fact integrations — NOT a fact-store/KB/coherence-prior gap; the fact store is
+DEAD there). (2) the corpus-age PARSE confound is RETIRED at aggregate (correcting all 59 role errors moves coref by −0.0009;
+organ-level conclusions STAND) — one inversion exception has a built fix. (3) the capability_registry CATALOG is BLOCKED by a
+stale bulk reformat (not this session's) — landed organs are committed+witnessed but un-catalogued. (4) integrate ONLY on
+`owner_verdict: DONE`; reverify FIRST-HAND (a solver's witness can read STALE cached metrics — regenerate before trusting).
+⚠️ **Uncommitted tree = OTHER sessions'/solvers' + regenerable artifacts (registry reformat, metrics.json, QUEUE mirror, a
+solver WIP SOLVED, temp) — NOT this session's; do NOT commit them.** All this session's work is committed (HEAD `f5862463a`).
+
+### 2026-08-29 -- ✅ **INTEGRATED the ENTITIES(state) dimension (owner-DONE, EXCELLENT): a per-entity STATE-HISTORY register that reads "had been X" states + improves the REAL coref reader 0.54→0.96 on state-decisive pronouns (a LIVE-organ serve, not a constructed-task win). Reverify needed a full-metrics regeneration (committed artifact was a smoke run — a setup issue, not a defect).**
 **Newest first; the entries below carry the fuller context.**
 ✅ **INTEGRATED `the_situation_model_tracks_no_entity_state_history` (SOLVED/EXCELLENT, owner-DONE; reverified 61/61
 FIRST-HAND):** the missing Zwaan ENTITIES(state) dimension — a per-entity STATE-HISTORY register (sibling of
