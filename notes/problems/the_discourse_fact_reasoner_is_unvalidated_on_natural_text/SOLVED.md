@@ -2,10 +2,10 @@
 problem: the_discourse_fact_reasoner_is_unvalidated_on_natural_text
 status: SOLVED
 bar: "PASSES only with ALL of: 1. A REAL-TEXT inter-sentential fact-decisive population (built in experiments/ from LitBank/real narrative): a reference (pronoun or definite description) resolvable ONLY by a fact stated earlier about a candidate (NOT by grammar/salience - filter those out, as the parent did), with self-EXTRACTED per-entity facts (no oracle, no gold leak). 2. The fact-store reader beats the fact-BLIND reader CI-separated on real text (the fact-blind graded resolver recomputed on the same population = the floor); the info-free twin (shuffled facts) LOSES CI-separated; report CI half-width + null p95; no number crosses populations. 3. The graceful-degradation curve: accuracy vs the fraction of the deciding fact actually self-extracted (and/or KG coverage) - the honest real-world bound, with the dominant failure mode named (extraction miss / KG gap / no-fact-exists). 4. One-screen summary: population -> floor -> twin -> real-text lift -> degradation curve -> verdict. Heavy -> REMOTE. A rigorous NEGATIVE is a FULL PASS (e.g. 'on real narrative the fact store lifts fact-decisive reference +X CI-sep where the fact IS self-extracted [Y% of cases], but real coverage is Y% so the population-level lift is Z - the constructed 1.0 was an idealized-extraction artifact; the mechanism is real, the bound is extraction/coverage')."
-result: "TWO-SIDED, on REAL LitBank narrative with SELF-EXTRACTED facts (no oracle). (POSITIVE -- the mechanism's real-text HOME, MEASURED) On real FACT-PRESENT reference (n=859 events over 83 novels: a pronoun whose gold's SELF-EXTRACTED type bridges its own clause verb via the real KG, vs a same-gender real distractor, SALIENCE-BALANCED so the stated fact is the only discriminator -- the bar's 'filter out grammar/salience'), the self-extracted fact bridge LIFTS accuracy to 0.886 [0.847,0.921] over a MEASURED 0.497 salience floor (+0.389 [+0.343,+0.435] CI-separated ABOVE), and the info-free twin (fact->entity binding shuffled) CRASHES to 0.113 (below chance) -- the lift is the SPECIFIC self-extracted binding. So on real prose, WHERE a stated fact is present, the landed organ's computation is real (its ~7% coverage is the recall bound). (NEGATIVE -- the coref deployment question) On competitive COREF (n=4023 TEST person mentions, salience UNcontrolled), the same bridge does NOT beat the fact-BLIND graded floor: the DEV-optimal bridge weight is ZERO (held-out DEV rejects it), and FORCED on it HURTS - copula-type bridge 0.783 and all-attribute bridge 0.680 vs the fact-blind FLOOR 0.8049 [0.758,0.846], both CI-separated BELOW (copula delta -0.022 [-0.037,-0.006]; naive -0.125 [-0.160,-0.092]). The mechanism carries REAL but weak signal (it beats its info-free shuffled twin +0.046 [+0.021,+0.072] ABOVE) - it is simply swamped by structural salience and too RARE. The constructed 0.998 is an idealized-extraction + exact-KG artifact: the deciding self-extracted type-fact->verb bridge exists for the gold in only ~7% of references and the pronoun verb is in the sparse KG only ~17% of the time; the controlled degradation curve predicts ~0.60 at real coverage (near the constructed floor 0.55). BEST FAITHFUL SHOT: the two tractable brain-faithful fixes (graded distributional bridge; ambiguity gate) lift verb-visibility 3.8x (17%->67%) and gold-side bridge availability 2.1x (17%->35%) and cut the gate's harm 4x, but STILL do not beat the floor - the residual deep wall is ENTITY-SIDE (real narrative person-entities rarely carry a self-extracted type at all). BUILDING ACROSS THAT WALL (FIX 2, the brain's rich entity model): a rich-entity ACTION-HISTORY bridge (a character known by what they DO, not a stated type) HAS the coverage the type bridge lacked (gold has an action history 93% vs 43%), but is REDUNDANT with salience - DEV-optimal weight 0.0, forced it HURTS (0.750 vs floor 0.805, -0.054 BELOW), it beats its info-free twin (+0.105 ABOVE, real signal) but NOT the floor; on floor-errors it picks gold 0.224 ~ frequency 0.240. So ANY discourse-content bridge (sparse type OR rich action-history) is structurally anti-correlated with the non-salient floor-error gold (its action-history depth 26.5 <= the wrong pick's 28.7) - the lever there is the intra-sentential SYNTACTIC binder (a different organ), not the fact store. Scorer = argmax==gold link accuracy, per-doc bootstrap (docs = resampling unit)."
+result: "TWO-SIDED, on REAL LitBank narrative with SELF-EXTRACTED facts (no oracle), measured against the REAL fact-blind resolver on the NATURAL candidate set. (POSITIVE -- a GATED capability, on the mechanism's proper domain) On the NATURAL fact-present SLIVER (14.8% of person references where the gold carries a self-extracted attribute that bridges the pronoun's verb via the real KG; n=667 TEST), fusing the fact into the REAL graded resolver LIFTS 0.837 [0.774,0.889] -> 0.961 [0.915,0.988] (store-minus-floor +0.124 [+0.080,+0.174] CI-separated ABOVE), held-out DEV picks a NONZERO bridge weight (2), the info-free twin crashes to 0.160, and on the salience-AMBIGUOUS third the lift is 0.617 -> 0.914. THE HONEST BOUNDARY: on the COMPLEMENT (85% with no bridging fact) the same cue fired BLIND HURTS 0.799 -> 0.523 -- which is WHY the unconditional weight is 0. So it is a GATED capability; the oracle-gated whole-population lift is only +0.021 (domain ~15%); the missing component is a fact-reliability GATE (brain's on-demand bridging). [An earlier CONSTRUCTED 2-way with a hardcoded coin-flip floor read 0.886 vs 0.497 -- withdrawn as a construction proof; the natural test above replaces it.] (NEGATIVE -- the coref deployment question, fired BLIND) On competitive COREF (n=4023 TEST person mentions, salience UNcontrolled), the same bridge does NOT beat the fact-BLIND graded floor: the DEV-optimal bridge weight is ZERO (held-out DEV rejects it), and FORCED on it HURTS - copula-type bridge 0.783 and all-attribute bridge 0.680 vs the fact-blind FLOOR 0.8049 [0.758,0.846], both CI-separated BELOW (copula delta -0.022 [-0.037,-0.006]; naive -0.125 [-0.160,-0.092]). The mechanism carries REAL but weak signal (it beats its info-free shuffled twin +0.046 [+0.021,+0.072] ABOVE) - it is simply swamped by structural salience and too RARE. The constructed 0.998 is an idealized-extraction + exact-KG artifact: the deciding self-extracted type-fact->verb bridge exists for the gold in only ~7% of references and the pronoun verb is in the sparse KG only ~17% of the time; the controlled degradation curve predicts ~0.60 at real coverage (near the constructed floor 0.55). BEST FAITHFUL SHOT: the two tractable brain-faithful fixes (graded distributional bridge; ambiguity gate) lift verb-visibility 3.8x (17%->67%) and gold-side bridge availability 2.1x (17%->35%) and cut the gate's harm 4x, but STILL do not beat the floor - the residual deep wall is ENTITY-SIDE (real narrative person-entities rarely carry a self-extracted type at all). BUILDING ACROSS THAT WALL (FIX 2, the brain's rich entity model): a rich-entity ACTION-HISTORY bridge (a character known by what they DO, not a stated type) HAS the coverage the type bridge lacked (gold has an action history 93% vs 43%), but is REDUNDANT with salience - DEV-optimal weight 0.0, forced it HURTS (0.750 vs floor 0.805, -0.054 BELOW), it beats its info-free twin (+0.105 ABOVE, real signal) but NOT the floor; on floor-errors it picks gold 0.224 ~ frequency 0.240. So ANY discourse-content bridge (sparse type OR rich action-history) is structurally anti-correlated with the non-salient floor-error gold (its action-history depth 26.5 <= the wrong pick's 28.7) - the lever there is the intra-sentential SYNTACTIC binder (a different organ), not the fact store. Scorer = argmax==gold link accuracy, per-doc bootstrap (docs = resampling unit)."
 floor: "The fact-BLIND graded resolver (hdlab.graded_competition additive cue net, DEV-tuned weights) recomputed on the SAME real population: person-reference 0.8049 [0.7582,0.8455] (n=4023); full competitive set 0.7752 [0.7286,0.8160] (n=4693). The fact_store arm is CI-separated BELOW it at every positive bridge weight, and the DEV-optimal weight is 0.0 (== the floor exactly)."
-controls: "(1) INFO-FREE TWIN (self-extracted attributes SHUFFLED across the item's candidates) -> the real bridge beats the twin +0.046 [+0.021,+0.072] ABOVE (the bridge carries genuine identity signal, not a hollow shape artifact) YET both lose to the floor -> the real signal is swamped. (2) DEV-REJECTION (held-out DEV bridge-weight sweep) -> optimal weight 0.0 for naive, copula, graded, AND graded+gated -> no positive weight helps on held-out data. (3) AMBIGUITY GATE (FIX 3: fire only when the structural margin is low) -> cuts the harm 4x (-0.099 ungated -> -0.024 gated) but does NOT recover a positive lift. (4) GRADED DISTRIBUTIONAL BRIDGE (FIX 1, the ATL-faithful PPMI+SVD coherence) -> lifts verb-visibility 0.175->0.671 and gold-side availability 0.167->0.351, still BELOW floor -> the KG-sparsity wall is real but not the deep one. (5) COVERAGE FUNNEL + FLOOR-ERROR DECOMPOSITION -> on the references where structure/salience FAILS (n=785, the cases needing help) the self-extracted gold type-fact->verb bridge exists in only 5-11%; DOMINANT bottleneck = KG-vocab (17%) then, once graded, ENTITY-SIDE type-fact absence. (6) DEGRADATION (constructed harness, extraction-coverage + KG-coverage knobs) -> monotone floor->0.998, and real-text coordinates land at ~0.60 (near floor) -> the 0.998 is idealized extraction + exact KG. (7) RICH-ENTITY (FIX 2) REDUNDANCY: the action-history bridge's DEV-optimal weight is 0.0 and it beats its info-free twin but not the floor, and on floor-errors it picks gold 0.224 ~ frequency 0.240 -> the rich entity model is redundant with the salience the floor already has. (8) NO-LEAK self-test -> a fact at sent s is invisible to a query before sent s. (9) POSITIVE-DOMAIN salience-balanced floor MEASURED at 0.497 (not asserted) -> the fact is the only discriminator; the info-free twin (fact->entity binding shuffled) CRASHES to 0.113 (below chance) -> the +0.389 lift is the SPECIFIC self-extracted fact, not shape/coverage."
-files_changed: "experiments/exp_discfact_realtext_validation_v1.py (the honest real-text measurement: coverage funnel + population arms + floor-error decomposition + fact-decisive conditional), experiments/exp_discfact_realtext_degradation_v1.py (the controlled degradation curve connecting the constructed 0.998 to the real-text floor and locating real text on it), experiments/exp_discfact_realtext_fidelity_fixes_v1.py (the best faithful shot: graded distributional bridge + ambiguity gate + residual-bottleneck decomposition), experiments/exp_discfact_realtext_rich_entity_v1.py (BUILDING ACROSS THE WALL, FIX 2: the rich-entity action-history bridge -- has coverage, redundant with salience), experiments/exp_discfact_realtext_factpresent_v1.py (THE POSITIVE DOMAIN: on real fact-present reference with salience controlled, the self-extracted bridge lifts 0.50->0.89 CI-sep, twin crashes), verification/test_discfact_realtext.py (10/10 scaffold-free witness), notes/problems/the_discourse_fact_reasoner_is_unvalidated_on_natural_text/{SOLVED.md, research_realtext_reference_brain_mechanism_2026-08-29.md}. NO hdlab/ write (Q111). Reuses the LANDED harness (build_instances, graded_competition, DiscourseFactStore, the graded PPMI+SVD bridge)."
+controls: "(1) INFO-FREE TWIN (self-extracted attributes SHUFFLED across the item's candidates) -> the real bridge beats the twin +0.046 [+0.021,+0.072] ABOVE (the bridge carries genuine identity signal, not a hollow shape artifact) YET both lose to the floor -> the real signal is swamped. (2) DEV-REJECTION (held-out DEV bridge-weight sweep) -> optimal weight 0.0 for naive, copula, graded, AND graded+gated -> no positive weight helps on held-out data. (3) AMBIGUITY GATE (FIX 3: fire only when the structural margin is low) -> cuts the harm 4x (-0.099 ungated -> -0.024 gated) but does NOT recover a positive lift. (4) GRADED DISTRIBUTIONAL BRIDGE (FIX 1, the ATL-faithful PPMI+SVD coherence) -> lifts verb-visibility 0.175->0.671 and gold-side availability 0.167->0.351, still BELOW floor -> the KG-sparsity wall is real but not the deep one. (5) COVERAGE FUNNEL + FLOOR-ERROR DECOMPOSITION -> on the references where structure/salience FAILS (n=785, the cases needing help) the self-extracted gold type-fact->verb bridge exists in only 5-11%; DOMINANT bottleneck = KG-vocab (17%) then, once graded, ENTITY-SIDE type-fact absence. (6) DEGRADATION (constructed harness, extraction-coverage + KG-coverage knobs) -> monotone floor->0.998, and real-text coordinates land at ~0.60 (near floor) -> the 0.998 is idealized extraction + exact KG. (7) RICH-ENTITY (FIX 2) REDUNDANCY: the action-history bridge's DEV-optimal weight is 0.0 and it beats its info-free twin but not the floor, and on floor-errors it picks gold 0.224 ~ frequency 0.240 -> the rich entity model is redundant with the salience the floor already has. (8) NO-LEAK self-test -> a fact at sent s is invisible to a query before sent s. (9) POSITIVE-DOMAIN, HONEST: the floor is the REAL graded resolver on the NATURAL ~40-candidate set (MEASURED 0.837 on the sliver), held-out DEV picks bridge weight 2, the info-free twin crashes to 0.160, and the COMPLEMENT (no fact) shows the cue HURTS blind (0.799 -> 0.523) -> the sliver lift is a genuine gated capability, not a cherry-pick (the complement is the boundary). [The withdrawn constructed 2-way used a hardcoded coin-flip floor -- replaced.]"
+files_changed: "experiments/exp_discfact_realtext_validation_v1.py (the honest real-text measurement: coverage funnel + population arms + floor-error decomposition + fact-decisive conditional), experiments/exp_discfact_realtext_degradation_v1.py (the controlled degradation curve connecting the constructed 0.998 to the real-text floor and locating real text on it), experiments/exp_discfact_realtext_fidelity_fixes_v1.py (the best faithful shot: graded distributional bridge + ambiguity gate + residual-bottleneck decomposition), experiments/exp_discfact_realtext_rich_entity_v1.py (BUILDING ACROSS THE WALL, FIX 2: the rich-entity action-history bridge -- has coverage, redundant with salience), experiments/exp_discfact_realtext_factpresent_v1.py (THE POSITIVE DOMAIN, honest: on the natural fact-present sliver the fact lifts the REAL resolver 0.84->0.96 CI-sep, complement hurts -> a gated capability), verification/test_discfact_realtext.py (10/10 scaffold-free witness), notes/problems/the_discourse_fact_reasoner_is_unvalidated_on_natural_text/{SOLVED.md, research_realtext_reference_brain_mechanism_2026-08-29.md}. NO hdlab/ write (Q111). Reuses the LANDED harness (build_instances, graded_competition, DiscourseFactStore, the graded PPMI+SVD bridge)."
 reverify: ".venv/Scripts/python.exe verification/test_discfact_realtext.py"
 ---
 
@@ -16,38 +16,43 @@ The brief asked: confront the discourse-fact bridge -- graded EXCELLENT on a CON
 narrative, where the reader must SELF-EXTRACT the per-entity facts and the KG is patchy. I built exactly that
 measurement, then (per the owner's push and the standing protocol) drilled the wall it exposed with brain
 research and gave the brain-faithful fix its best shot, then MEASURED the mechanism's proper domain. **The disk
-gives a TWO-SIDED answer, both halves CI-separated with controls: the self-extracted bridge LIFTS real
-fact-present reference 0.50->0.89 (its proper domain, the headline below) and does NOT help competitive coref
-(salience dominates; the fact is rare). A rigorous negative is a full pass per the bar; here it arrives WITH the
-positive-domain demonstration the validation question was really asking for.**
+gives a TWO-SIDED answer, both halves CI-separated with controls: fused with the REAL resolver on the natural
+fact-present SLIVER (~15% of references) the self-extracted fact LIFTS 0.84->0.96 (a GATED capability -- it HURTS
+fired blind), and unconditionally it does NOT help competitive coref (salience dominates; the fact is rare). A
+rigorous negative is a full pass per the bar; here it arrives WITH the positive-domain demonstration -- measured
+against the real resolver on natural data -- that the validation question was really asking for.**
 
-## THE POSITIVE DOMAIN (the headline): on real FACT-PRESENT reference, the self-extracted bridge LIFTS
-`exp_discfact_realtext_factpresent_v1.py`. The mechanism's proper domain is inter-sentential reference whose
-antecedent is fixed by a STATED fact, with salience NOT the competing signal. I built that on REAL text: mine
-fact-decisive EVENTS -- a pronoun whose GOLD carries a SELF-EXTRACTED type (copula "X is a doctor" or a role
-nominal, from the real parse, `sent < now`) that BRIDGES the pronoun's own clause verb via the real static KG
--- pair the gold with a same-gender REAL distractor (drawn WITHOUT filtering on bridging, so its real attributes
-create honest false positives), and BALANCE the structural cues so the fact-blind floor is a genuine 0.5. The
-types, verbs, bridges and distractor attributes are ALL real self-extracted content; only the pairing + salience
-balance is constructed (the sanctioned way to isolate the fact).
+## THE POSITIVE DOMAIN (the headline): a GATED capability, measured against the REAL resolver on NATURAL data
+`exp_discfact_realtext_factpresent_v1.py`. Does the self-extracted fact help the REAL resolver WHERE a fact is
+present? I answer on the NATURAL population (the landed `build_instances` ~40-candidate set, the genuine graded
+resolver as the floor -- no coin flip, no curated pair), split by whether the GOLD carries a self-extracted
+attribute (copula IS-A or role nominal, `sent < now`) that BRIDGES the pronoun's clause verb via the real KG.
 
-| arm (real fact-present, n=859 events / 83 novels) | acc | vs floor |
-|---|---|---|
-| fact_blind FLOOR (salience-balanced, MEASURED) | 0.497 [0.468,0.526] | -- |
-| **fact_store HARD bridge (self-extracted)** | **0.886 [0.847,0.921]** | **+0.389 [+0.343,+0.435] ABOVE** |
-| fact_store GRADED bridge | 0.623 | +0.126 ABOVE |
-| info_free twin (fact->entity binding shuffled) | **0.113** | crashes BELOW chance |
+| SLIVER = gold has a bridging self-extracted fact (14.8% of person refs; n=667 TEST) | acc |
+|---|---|
+| fact_blind FLOOR (the REAL graded resolver, MEASURED) | 0.837 [0.774,0.889] |
+| **fact_store (real resolver + self-extracted bridge, DEV-tuned weight=2)** | **0.961 [0.915,0.988]** |
+| info_free twin (bridge shuffled across the ~40 candidates) | 0.160 |
+| store - floor | **+0.124 [+0.080,+0.174] ABOVE** |
+| store - twin | +0.801 ABOVE |
+| salience-AMBIGUOUS third: floor 0.617 -> **fact_store 0.914 ABOVE** | -- |
 
-**On real prose, WHERE a stated fact is present and salience is controlled, the self-extracted discourse-fact
-bridge lifts fact-decisive reference from a coin-flip to 0.886 (+0.389 CI-separated), and shuffling which entity
-owns which fact CRASHES it to 0.11 -- so the lift is the SPECIFIC reading-built binding, not a shape or coverage
-artifact.** The 0.886 (not 1.0) is the honest real-text PRECISION: 11% of the time a same-gender distractor's own
-real self-extracted attribute spuriously bridges the verb. (Nuance: the HARD bridge BEATS the graded one here
-(0.89 vs 0.62) -- on the fact-present sliver the exact edge exists, and the graded space over-connects the
-distractor; graded helps RECALL/coverage, hard helps PRECISION -- a hybrid is the clean follow-on, matching the
-parent's L1b note.) **Coverage/recall of this domain is ~7% of competitive references (measured below); so the
-complete real-text characterization is: the mechanism applies to ~7% of references, and on those it discriminates
-at 0.886 over a 0.50 salience-controlled floor.**
+**Where a fact is present, using it genuinely helps resolve REAL reference over and above salience: fused with
+the real resolver it lifts 0.837 -> 0.961 CI-separated, held-out DEV picks a NONZERO weight (2), the info-free
+twin crashes to 0.16, and on the hard salience-ambiguous third the lift is 0.62 -> 0.91.** THE HONEST BOUNDARY
+(what makes the conditioning not a cherry-pick): on the COMPLEMENT -- the 85% of references with NO bridging gold
+fact -- the SAME cue fired blind HURTS, 0.799 -> 0.523 (it fires on distractors). **That complement harm is
+exactly WHY the unconditional DEV weight is 0 (the coref negative above): the cue is double-edged, valuable only
+where a fact exists.** So the mechanism's real-text value is a GATED capability -- and the whole-population lift IF
+a perfect fact-reliability gate fired it only where a trustworthy fact exists is small (+0.021, 0.805 -> 0.826),
+because the domain is only ~15% of references. The missing brain-faithful component is that GATE (the brain's
+on-demand bridging: Haviland & Clark 1974; fire inference only when direct integration fails) -- named, not built.
+
+**HONEST CORRECTION (this cell was rebuilt).** An earlier version measured a CONSTRUCTED salience-balanced 2-way
+with a HARDCODED coin-flip floor and the gold SELECTED to bridge (0.886 vs 0.497) -- a construction proof, not a
+capability, and I flagged it as over-reach. The table above is the corrected honest test: REAL resolver floor,
+NATURAL candidate set, held-out DEV weight, complement boundary. The real positive is smaller and gated, but it is
+genuine (CI-separated over the real resolver on natural data), which the constructed number could not establish.
 
 ## The coref measurement (bar items 1-2): the self-extracted bridge does NOT survive competitive coref
 `exp_discfact_realtext_validation_v1.py`. Population = REAL LitBank competitive pronoun resolution (100 novels;
@@ -133,13 +138,13 @@ lever for real-text competitive coref is the syntactic binder (a DIFFERENT organ
 reasoner's real-text home is inter-sentential fact-PRESENT tasks (QA / next-event), not coref of any kind.**
 
 # What I did NOT establish (and would withdraw first if wrong)
-1. **The positive-domain number is a PRECISION on a SELECTED sliver, not a full-corpus accuracy -- withdraw first
-   any reading of "0.89 on real text" without its two qualifiers.** (a) It is measured on events SELECTED to be
-   fact-present (the gold's self-extracted type bridges its verb) -- so it measures how well the fact
-   DISCRIMINATES the gold from a salience-matched distractor (precision), NOT how often a usable fact exists
-   (recall = ~7%, measured separately). (b) The distractor is drawn same-gender/same-doc but the salience balance
-   is a construction; on a fully natural candidate set salience would re-enter. The honest headline is the PAIR:
-   "~7% coverage, and on it +0.389 over a 0.50 salience-controlled floor." Withdraw any single-number summary.
+1. **The positive is a CONDITIONAL, GATED lift, not a deployable win -- withdraw first any reading of "the fact
+   store improves real-text resolution."** (a) It is measured on the SLIVER where a self-extracted fact bridges
+   the gold (~15% of references); on the other 85% the same cue HURTS (0.799->0.523), so unconditionally it is
+   net-harmful (weight 0). (b) The whole-population lift even with a PERFECT (oracle) gate is only +0.021, because
+   the domain is small. (c) The gate that would make it usable -- detecting when a self-extracted fact is
+   trustworthy -- is NAMED (brain's on-demand bridging) but NOT built. The honest headline is the PAIR: "~15%
+   coverage; on it +0.124 over the REAL resolver; harmful blind; needs a gate." Withdraw any single-number summary.
 2. **FIX 2 (rich entity extraction) is now BUILT and TESTED, and it too is redundant with salience FOR COREF.**
    The rich-entity action-history bridge has coverage (93%) but does not beat the floor (DEV weight 0). What I did
    NOT establish: that a rich entity model fails on the mechanism's PROPER domain (inter-sentential fact-PRESENT
@@ -179,13 +184,14 @@ reasoner's real-text home is inter-sentential fact-PRESENT tasks (QA / next-even
    world-knowledge-decisive reference is RARE BY DESIGN (Winograd corpora are hand-built) means the low coverage
    is partly a property of language -- so the honest target is the competitive subset with a fidelity-corrected
    bridge, not full-corpus accuracy. That is what turns a dead end into a scoped next problem.
-8. **To SHOW the positive domain on real text, CONTROL salience instead of chasing it -- and keep the facts real.**
-   The negative and the positive are the SAME mechanism on the SAME real self-extracted facts; the only difference
-   is whether salience is a competing signal. Pairing the fact-bearing gold against a salience-MATCHED real
-   distractor (the bar's "filter out grammar/salience") isolated the fact and turned a 0.50 floor into a 0.89 win
-   -- while the info-free twin crashed to 0.11. The enabling move was to NOT rebuild the parent's jig (which
-   EMITTED clean facts) but to mine REAL self-extracted facts + REAL bridges and construct ONLY the candidate
-   pairing, so the 0.89 (not 1.0) is exactly the real extraction/KG precision -- an honest number, not a lab one.
+8. **To SHOW the positive domain HONESTLY, measure against the REAL resolver on the NATURAL candidate set, and
+   report the COMPLEMENT.** My first positive cell constructed a salience-balanced 2-way with a hardcoded coin-flip
+   floor and the gold selected to bridge -- a construction proof I caught and withdrew. The honest test splits the
+   NATURAL population by whether a bridging fact exists: on the SLIVER (fact present) fusing the fact into the real
+   resolver lifts 0.84->0.96 CI-separated (DEV picks weight 2, twin crashes); on the COMPLEMENT the same cue HURTS
+   (0.80->0.52). Reporting BOTH is what makes the conditioning honest rather than a cherry-pick -- and it revealed
+   the true shape (a GATED capability with small population headroom), which the coin-flip version hid. The
+   enabling move was the discipline itself: never a hardcoded floor, always the real resolver + the complement.
 7. **Building the fix I proposed (FIX 2), rather than just naming it, found the DEEPER, GENERAL bound.** Instead
    of stopping at "rich entity extraction would help", I built the rich-entity action-history bridge -- and it too
    collapsed to the floor. That failure GENERALIZED the parent's anti-typical-residual insight into a law: on
@@ -212,12 +218,12 @@ reasoner's real-text home is inter-sentential fact-PRESENT tasks (QA / next-even
   43% vs 93%) is redundant with salience and anti-correlated with the non-salient floor-error gold -- generalizing
   the parent's anti-typical-residual diagnosis. So the discourse-fact/situation-model organ is measured to be the
   WRONG tool for competitive coref of any kind (the syntactic binder owns that population). **BUT its real-text
-  HOME is now DEMONSTRATED, not just named:** on real fact-PRESENT reference (salience controlled), the SAME
-  self-extracted bridge LIFTS 0.497->0.886 CI-separated (+0.389), the info-free twin crashes to 0.113, coverage of
-  this domain ~7% of references. So the organ's computation is REAL on natural prose where its precondition holds
-  -- the real-text deviation is coverage (rare) + precision (0.89, honest self-extraction/KG noise), NOT the
-  mechanism. PINNED refs: Lambon Ralph 2017; Gernsbacher/Metusalem 2012; Haviland-Clark 1974; Sturt 2003; Kehler
-  et al. 2008.
+  HOME is now DEMONSTRATED, not just named:** on the NATURAL fact-present sliver (~15% of refs), fused with the
+  REAL resolver the self-extracted fact LIFTS 0.837->0.961 CI-separated (+0.124; DEV weight 2; twin crashes),
+  while on the complement it HURTS blind (0.80->0.52) -- a GATED capability (oracle-gated whole-population lift
+  +0.021). So the organ's computation is REAL on natural prose where its precondition holds; the deviation is
+  coverage (~15%) + the missing fact-RELIABILITY gate, NOT the mechanism. PINNED refs: Lambon Ralph 2017;
+  Gernsbacher/Metusalem 2012; Haviland-Clark 1974; Sturt 2003; Kehler et al. 2008.
 
 # ADJACENT COMPONENTS -- capabilities / limitations / brain-foundational status (seeds the next problems)
 1. **[THE REAL LEVER FOR COREF -- a DIFFERENT organ] The intra-sentential SYNTACTIC binder.** After building BOTH
@@ -258,12 +264,13 @@ reasoner's real-text home is inter-sentential fact-PRESENT tasks (QA / next-even
   for candidates with >=1 prior self-extracted type AND when the structural margin is low) and the **graded
   distributional bridge** (not the boolean hard match), so that on real text it is at worst NEUTRAL (recovers the
   floor) rather than harmful -- the graded+gated arm here is exactly the floor.
-- **The real-text value of the organ is on INTER-SENTENTIAL, fact-PRESENT reference -- now MEASURED, not just
-  asserted:** 0.497->0.886 CI-separated on real self-extracted facts with the twin crashing. Land it (gated) for
-  the fact-present downstream tasks the parent named (bridging QA, next-event prediction, ToM); do NOT wire it into
-  competitive coref, where the fact-decisive rate is ~7% and salience dominates. Land the HARD bridge (better
-  PRECISION on the fact-present sliver, 0.89 vs the graded 0.62) but keep the graded bridge available for
-  RECALL/coverage -- a hybrid (hard where the edge exists, graded to back off) is the clean fidelity win.
+- **The real-text value of the organ is on INTER-SENTENTIAL, fact-PRESENT reference -- now MEASURED against the
+  REAL resolver:** on the natural fact-present sliver the fact lifts the real resolver 0.837->0.961 CI-separated.
+  BUT it is a GATED capability: fired blind it HURTS (complement 0.80->0.52), so it MUST be landed behind a
+  fact-reliability gate (fire the bridge only when a trustworthy self-extracted fact exists), NOT wired
+  unconditionally into competitive coref. The gate is the missing brain-faithful component (on-demand bridging)
+  and the highest-value thing to build before this earns its keep at the population level (oracle-gated headroom
+  only +0.021 until it exists).
 - **For real-text competitive COREF, the next problem is the intra-sentential SYNTACTIC binder, NOT the fact
   store.** I built both discourse-content bridges (type AND rich action-history) and both are redundant with
   salience; the non-salient floor-error gold is the syntactic binder's population (Sturt 2003). The rich entity
@@ -282,40 +289,44 @@ genuinely rare (~1 in 14); the puzzle books that need world knowledge (Winograd 
 for exactly this reason. (2) Our world-knowledge book is thin -- it knows the character's action only 1 time in 6;
 swapping in a "fuzzy" version (the way the brain stores meaning) fixes most of that (up to ~2 in 3). (3) The real
 wall is that novels almost never STATE what a character IS ("Sam is a doctor") -- they just use names and "he/she"
--- so there is usually no fact to look up. **But here is the payoff: I then measured what happens on the real
-sentences where a fact IS stated, with the "who was just mentioned" shortcut taken away -- and there the reading
-memory WORKS: it goes from a coin-flip (50%) to 89% right, and every scrambled version collapses.** So the honest,
-complete picture: on real prose the reading-reasoning step is REAL and it EARNS ITS KEEP exactly where the brain
-uses it -- resolving a reference by a fact the story stated earlier (about 1 sentence in 14). It does NOT help
-with ordinary pronouns, because there the right answer is usually the character we've heard the LEAST about, so
-any memory-based method points the wrong way -- and the brain solves those with grammar, a different tool we have
-not built. The near-perfect lab score (99.8%) came from handing it clean facts; on real self-extracted facts the
-honest number is 89%, and the 11% gap is real reading noise. So: a validated real-text reading skill in its
-proper place, an honest bound everywhere else, and the next problems precisely scoped.
+-- so there is usually no fact to look up. **But here is the payoff, measured honestly against the real reader:
+on the real sentences where a fact IS stated (about 1 in 7), adding that fact to the actual resolver makes it
+clearly BETTER -- 84% right becomes 96% (and on the genuinely hard cases, 62% becomes 91%), while every scrambled
+version collapses.** The honest catch: you cannot use the fact blindly -- on the sentences with no relevant stated
+fact, reaching for one actively MISLEADS (it drops from 80% to 52%), which is why a blind reader is better off
+ignoring it. So the reading memory is a REAL skill with a REAL switch: it helps a lot exactly where a fact was
+stated, and hurts where none was -- so the system needs to know WHEN it has a usable fact (a "reliability gate"
+the brain has and we have not built yet). Because the fact-present case is only ~1 in 7, the whole-book gain even
+with a perfect switch is small today (~+2 points) -- the value grows as the reader extracts more facts. So: a
+genuine, honest, gated real-text reading skill, an honest bound everywhere else, and the next problems
+precisely scoped (build the switch; extract more facts).
 
 ## QUESTIONS
-None. I moved this from PARTIAL to **SOLVED** once the positive-domain measurement landed: the validation question
-("does the capability survive on real self-extracted prose?") now has a complete, two-sided, CI-separated answer
-with controls -- YES on real fact-present reference (0.50->0.89, twin crashes), NO on competitive coref (salience
-dominates; fact rare ~7%), with the ~7% coverage bound and the entity-side/KG bounds all quantified. One honest
-framing note for your review, not a question: the SOLVED rests on the positive-domain number being read as a
-PRECISION on the ~7% fact-present sliver over a salience-controlled floor (see withdraw-first #1), not as a
-full-corpus accuracy. If you prefer the conservative label, PARTIAL carries identical content.
+One honest labelling call for you. The validation question now has a complete, two-sided, CI-separated answer
+with controls -- fired BLIND the fact does NOT help coref (weight 0), and fused into the REAL resolver on the
+natural fact-present sliver (~15%) it LIFTS 0.84->0.96 (DEV weight 2, twin crashes) but HURTS on the complement,
+so it is a GATED capability with small population headroom (+0.021) until a reliability gate exists. I have set
+status **SOLVED** because the measurement is complete and the positive is now genuine (real resolver, natural
+data) rather than the withdrawn construction proof. But it is a defensible **PARTIAL** too: the deployable win is
+gated-and-unbuilt, and the whole-population lift today is +0.02. I lean SOLVED-on-the-measurement; if you weight
+the deployable capability, PARTIAL is right. Content is identical either way. (This is the third label move on this
+problem -- I am flagging that churn honestly rather than hiding it.)
 
 ## NEXT STEPS
 1. **(Strategy)** Re-verify the witness (`verification/test_discfact_realtext.py`, 10/10). Fold the AUDIT UPDATE
    into `BRAIN_FOUNDATIONAL_AUDIT.md` (REFINE the discourse-fact-store entry: real-text accuracy now MEASURED
-   TWO-SIDED -- LIFTS 0.50->0.89 on fact-present reference, does NOT help competitive coref; ~7% coverage bound;
-   all three brain-faithful fixes built/tested; the general bound that any discourse-content bridge is redundant
-   with salience for coref but real when a fact is present).
+   TWO-SIDED -- fused with the REAL resolver LIFTS 0.84->0.96 on the natural fact-present sliver (~15%, GATED --
+   hurts blind), does NOT help competitive coref unconditionally; all three brain-faithful fixes built/tested; the
+   general bound that any discourse-content bridge is redundant with salience for coref but real when a fact is
+   present; the missing component is a fact-reliability GATE).
 2. **(Strategy, hdlab)** If landing the parent's situation-model organ, land it GATED (discourse-age + ambiguity)
    with the GRADED bridge so it is at worst neutral on real text; do NOT wire any discourse-content bridge (type
    OR rich-entity) into real competitive coref -- both are measured redundant with salience there.
 3. **(Follow-on problems, seeded by the adjacent-component evaluation, RE-RANKED by this push)** -- (a) **the
    intra-sentential SYNTACTIC binder** is the real lever for real-text competitive coref (both discourse-content
-   bridges are the wrong tool) -- HIGHEST leverage for the coref line; (b) **a HYBRID hard+graded bridge** -- the
-   positive-domain cell shows HARD wins PRECISION (0.89) and GRADED wins RECALL/coverage; a bridge that uses the
-   exact edge where it exists and backs off to graded coherence otherwise gets both (the parent's L1b note, now
-   with a real-text motivation); (c) scale the positive-domain task to a true QA/next-event benchmark and to
-   definite-description reference (this cell is a salience-controlled reference-pair proxy, n=859); (d) couple the
-   graded coherence bridge to the p1 grounded-meaning lane (denser semantic hub).
+   bridges are the wrong tool) -- HIGHEST leverage for the coref line; (b) **the fact-RELIABILITY GATE** -- the
+   positive-domain cell shows the fact lifts the real resolver where present but HURTS blind; a gate that fires the
+   bridge only when a trustworthy self-extracted fact exists (brain's on-demand bridging; couples to the metacog
+   confidence lane) is what converts the +0.124 conditional lift into a population win -- HIGH leverage; (c) scale
+   the positive-domain to a true QA/next-event benchmark where the fact-present rate is higher by construction;
+   (d) couple the graded coherence bridge to the p1 grounded-meaning lane (denser semantic hub).
