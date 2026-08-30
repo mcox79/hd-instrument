@@ -1,0 +1,59 @@
+{
+  "n": 9698,
+  "coverage_typepair": 0.6018766756032171,
+  "fd_fire_rate": 0.1607547948030522,
+  "acc": {
+    "covariation": 0.8888430604248299,
+    "force_dynamic": 0.7234481336358012,
+    "majority": 0.832645906372448,
+    "cov_twin": 0.7953186223963704
+  },
+  "covariation_minus_majority": {
+    "delta": 0.05619715405238193,
+    "lo": 0.04980150546504434,
+    "hi": 0.06331460094864919,
+    "null_p95": 0.006702412868632708,
+    "band": "ABOVE"
+  },
+  "covariation_minus_twin": {
+    "delta": 0.09352443802845947,
+    "lo": 0.08610022685089709,
+    "hi": 0.10156733347081873,
+    "null_p95": 0.007939781398226438,
+    "band": "ABOVE"
+  },
+  "covariation_minus_forcedynamic": {
+    "delta": 0.16539492678902867,
+    "lo": 0.1566276551866364,
+    "hi": 0.1743658486285832,
+    "null_p95": 0.009486492060218602,
+    "band": "ABOVE"
+  },
+  "on_no_fire_subset": {
+    "n": 8139,
+    "covariation_minus_majority": {
+      "delta": 0.05836097800712618,
+      "lo": 0.05098599336527829,
+      "hi": 0.06561002580169555,
+      "null_p95": 0.007494778228283573,
+      "band": "ABOVE"
+    },
+    "covariation_minus_twin": {
+      "delta": 0.09902936478682885,
+      "lo": 0.0903059343899742,
+      "hi": 0.10799852561739771,
+      "null_p95": 0.009092026047425974,
+      "band": "ABOVE"
+    },
+    "cov_acc": 0.8852438874554613,
+    "maj_acc": 0.8268829094483352
+  },
+  "n_train": 36316,
+  "n_typepairs_learned": 1747,
+  "VERDICT": "IMPLICIT_COVARIATION_IS_THE_MISSING_SIGNAL",
+  "meta": {
+    "anchor": "generalize_causation_implicit_covariation_gate_v1",
+    "ts_iso": "2026-08-30T19:29:09.970688+00:00",
+    "elapsed_s": 7.1752503998577595
+  }
+}

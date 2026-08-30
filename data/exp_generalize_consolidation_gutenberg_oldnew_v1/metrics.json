@@ -1,0 +1,109 @@
+{
+  "sparse_selective_vs_uniform": {
+    "delta": 0.0,
+    "lo": -0.0140625,
+    "hi": 0.0140625,
+    "band": "NOT_SEP",
+    "a_mean": 0.3078125,
+    "b_mean": 0.3078125
+  },
+  "sparse_selective_vs_none": {
+    "delta": 0.003125,
+    "lo": -0.01875,
+    "hi": 0.0171875,
+    "band": "NOT_SEP",
+    "a_mean": 0.3078125,
+    "b_mean": 0.3046875
+  },
+  "dense_selective_vs_uniform": {
+    "delta": -0.0109375,
+    "lo": -0.021875,
+    "hi": -0.003125,
+    "band": "BELOW",
+    "a_mean": 0.3078125,
+    "b_mean": 0.31875
+  },
+  "sparse_need_vs_uniform": {
+    "delta": 0.00546875,
+    "lo": -0.0109375,
+    "hi": 0.021875,
+    "band": "NOT_SEP",
+    "a_mean": 0.31328125,
+    "b_mean": 0.3078125
+  },
+  "sparse_need_vs_selective": {
+    "delta": 0.00546875,
+    "lo": -0.00078125,
+    "hi": 0.01171875,
+    "band": "NOT_SEP",
+    "a_mean": 0.31328125,
+    "b_mean": 0.3078125
+  },
+  "means": {
+    "sparse": {
+      "selective": {
+        "old_after1": 0.4890625,
+        "old_retained": 0.2625,
+        "new_learned": 0.353125,
+        "joint": 0.3078125
+      },
+      "uniform": {
+        "old_after1": 0.4890625,
+        "old_retained": 0.2578125,
+        "new_learned": 0.3578125,
+        "joint": 0.3078125
+      },
+      "none": {
+        "old_after1": 0.4890625,
+        "old_retained": 0.196875,
+        "new_learned": 0.4125,
+        "joint": 0.3046875
+      },
+      "need": {
+        "old_after1": 0.4890625,
+        "old_retained": 0.2625,
+        "new_learned": 0.3640625,
+        "joint": 0.31328125
+      }
+    },
+    "dense": {
+      "selective": {
+        "old_after1": 0.4609375,
+        "old_retained": 0.2640625,
+        "new_learned": 0.3515625,
+        "joint": 0.3078125
+      },
+      "uniform": {
+        "old_after1": 0.4609375,
+        "old_retained": 0.275,
+        "new_learned": 0.3625,
+        "joint": 0.31875
+      },
+      "none": {
+        "old_after1": 0.4609375,
+        "old_retained": 0.184375,
+        "new_learned": 0.415625,
+        "joint": 0.3
+      },
+      "need": {
+        "old_after1": 0.4609375,
+        "old_retained": 0.28125,
+        "new_learned": 0.3546875,
+        "joint": 0.31796875
+      }
+    }
+  },
+  "VERDICT": "DOES_NOT_HOLD",
+  "DRILL_VERDICT": "SELECTIVE_REPLAY_GENUINELY_NO_LEVER_ON_REAL_DATA",
+  "meta": {
+    "anchor": "generalize_consolidation_gutenberg_oldnew_v1",
+    "ts_iso": "2026-08-30T20:41:49.887693+00:00",
+    "elapsed_s": 279.54632900003344,
+    "config": {
+      "CODE_DIM": 48,
+      "HID": 512,
+      "HID_KEEP": 0.02,
+      "N_PAIRS": 128
+    }
+  }
+}

@@ -1,0 +1,117 @@
+---
+priority: 1
+review:
+review_text:
+---
+
+# PROBLEM: the reader's EXTRACTION FRONT-END recovers only ~1/3 of the events and roles in real text, and it caps EVERYTHING downstream — every organ win we have was measured with GOLD extraction handed to it. The generalization stress-test (`stress_test_which_organ_wins_actually_generalize_on_held_out_text`, integrated) made this the flagged #1 lever: "every retrieval/who-did-what number used GOLD extraction; end-to-end the front-end dominates; the robust full solution needs the front-end addressed before any of the above lands as a live-reader gain." The archetype measurement: event/role extraction recall ~0.32 on real SimpleWiki. So the live reader, reading raw text, misses ~2 of every 3 events/roles before any comprehension organ runs — which means our real end-to-end comprehension is bounded far below the organ-level numbers, and it is the ONE bottleneck that, if moved, lifts every dimension at once (who-did-what, coref, causation, QA). This is also the North Star's "narrative extraction → clean foundation" link: a noisy extraction front-end IS the noisy foundation the learner cannot yet grow on. Diagnose WHERE the ~0.32 recall is lost (event detection? argument attachment? role assignment? coref-gated mention linking?), then BUILD the highest-leverage fix, measured on a pre-existing gold, CI-separated over the current live extractor, with the info-free twin LOSING.
+
+**slug:** `the_extraction_front_end_recovers_only_a_third_of_events_and_roles` — **opened:** 2026-08-30 by the strategy session
+(the generalization stress-test's flagged BIGGEST LEVER). **status:** OPEN — a MECHANISM + BUILD problem (the upstream extraction
+pipeline). You build + validate in `experiments/`; strategy lands any hdlab change (Q111). NO external LLM at inference (the invariant).
+
+> **PRIORITY NOTE (the call is the strategy session's):** filed at `1` — the HIGHEST-leverage problem in the substrate right now.
+> It is the ONE upstream bottleneck that gates every downstream organ's REAL (non-gold) payoff, the generalization audit's own #1
+> recommendation, and the North Star's clean-foundation link. Above the in-flight reader-fidelity problems because those improve
+> ONE dimension each while this lifts the ceiling on ALL of them. **Re-rank per the owner.** ⚠️ SCOPE-FIRST: the first deliverable
+> is the DIAGNOSIS (which stage loses the recall), because the fix depends on it — do not assume it is the parser.
+
+> ## ⚙️ SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25, strengthened 2026-08-26; in EVERY problem)
+> **DO THE RIGHT THING, NOT THE CHEAP OR EASY THING** — the mission is the most brain-faithful substrate,
+> not the fastest green check.
+>
+> **🧠 THE OPENING MOVE, BEFORE ANY METHOD: how does the BRAIN actually do THIS?** Name the structure /
+> circuit and the computation it performs, and try to replicate that OPERATION as exactly as you can. This
+> is NOT a tiebreaker you reach for after your tools plateau — it is the FIRST thing you do.
+>
+> **🚀 YOU ARE ENABLED — AND EXPECTED — TO EXPLORE FAR AND WIDE FOR THAT MECHANISM.** Go read the
+> neuroscience. Cross domains. Propose something that looks NOTHING like this brief or the current substrate.
+> If a MORE brain-foundational method conflicts with this brief or the existing organs, SUBMIT that alternative
+> solution or DIRECTION instead (say what is incompatible and why yours is more brain-faithful).
+>
+> **🧱 A SHARED WALL IS A SIGNAL TO GO DEEPER, NOT A REASON TO STOP.** If several angles hit the SAME wall,
+> the faithful method is probably DIFFERENT IN KIND. A wall is a FIDELITY GAP TO BUILD ACROSS, never a ceiling.
+>
+> **⛔ "CONVERGED" HAS A HIGH BAR.** Claim it ONLY when you have (a) identified how the brain performs this
+> computation AND (b) replicated that operation as faithfully as you can and tested it, OR shown a SPECIFIC
+> reason it cannot be replicated here. Exhausting engineering variations is NOT convergence.
+>
+> **🔁 THE 30-MIN DEEPENING CRON (`CronCreate "13,43 * * * *"`) — RUN THIS CHECKLIST EACH FIRE AND ACT ON IT
+> (owner 2026-08-28; this is how you keep pushing without being told):**
+> (1) DO THE RIGHT THING, not the cheap one — and if there is high-value ADJACENT info we can gather that raises
+> fidelity OR PROVES THE POINT (a control, a distance/robustness curve, an ablation, a second gold), GO GET IT.
+> (2) What is LEFT that rationally fits THIS problem? Enumerate + do it. If ADJACENT components bottleneck it, MAP
+> THEM OUT (name the component, the on-disk evidence, the leverage) as candidate follow-ons, never silent gaps — AND
+> EVALUATE each for BRAIN-FOUNDATIONAL FIDELITY + OPTIMIZATION POTENTIAL (is it the brain's actual mechanism or an
+> OUR-INVENTION placeholder? a higher-fidelity / higher-yield version worth building?) — that evaluation seeds the next problem.
+> (3) Any OPTIMIZATIONS left for this module, or brain-foundational FIDELITY to look at more closely with another
+> research drill? If yes, RUN it.
+> (4) Hit an UNEXPECTED WALL? Run a FINER brain-foundational research drill — do NOT stop. If the BRAIN can do this
+> and WE can't, UNDERSTAND why (the brain succeeds where our mechanism fails) then BUILD across — never a ceiling.
+> Each fire: implement → test (can-fail, strongest real floor, info-free twin LOSING) → iterate. CANCEL
+> (`CronDelete`) + submit ONLY when the brain-mechanism bar is met AND this checklist yields nothing more of value.
+>
+> **A rigorous negative is a PASS — but only if what failed was the brain's actual mechanism, faithfully built.**
+>
+> **📖 REFERENCE `notes/BRAIN_FOUNDATIONAL_AUDIT.md`** for the systems you touch; inherit its PINNED/INVENTED verdicts;
+> put a short **AUDIT UPDATE** in your submission for any verdict you find wrong/stale or any new deviation.
+
+## 1. THE PROBLEM IN PLAIN LANGUAGE
+Every clever "brain part" we've built is graded on a test where a perfect assistant first hands it a clean list of the events
+and who-did-what in the sentence. But when the reader has to pull those events out of raw text ITSELF, it only catches about
+one in three. So the real reader — reading a real page — is missing most of what happens before any of the smart parts even
+get to run. That's why our end-to-end results are so much weaker than the individual part-scores suggest. Fixing the part
+that reads events out of text is the single change that helps everything downstream at once. First figure out exactly where
+those two-in-three go missing, then build the fix.
+
+## 2. WHY THIS ONE
+It is the audit-identified #1 lever and the North Star's clean-foundation link. Every other queued problem improves ONE
+comprehension dimension on GOLD inputs; this lifts the ceiling on ALL of them on REAL inputs. A noisy extraction front-end is
+literally the "noisy foundation" the learner is being held OFF from growing on — so this is the same problem as "make the
+substrate extract clean knowledge." Nothing else in the queue compounds this broadly.
+
+## 3. HOW THE BRAIN DOES THIS (frame — PINNED vs OUR-INVENTION)
+- **PINNED (replicate):** event/predicate–argument extraction in the brain is incremental syntactic parsing (LIFG/pSTS) feeding
+  thematic role assignment (posterior temporal / inferior parietal; the Competition Model cue-integration + the graded
+  cue-based retrieval the substrate already pins), gated by referential/coref linking of mentions to entities (the situation
+  model). The recall loss is a FIDELITY gap in one of those stages, not a ceiling.
+- **OUR-INVENTION (flag + sweep):** whatever specific detector/attacher/booster you add; thresholds; any lexicon. Glass-box,
+  no external LLM. If the faithful fix is a better incremental parser vs a role-recall booster vs a coref-gated re-linker, the
+  DIAGNOSIS decides — say which stage and why.
+
+## 4. MEASURED vs INFERRED
+- **MEASURED (the constraint):** event/role extraction recall ~0.32 on real SimpleWiki (the archetype); every integrated organ
+  number used GOLD extraction (the audit's central caveat). The gap between organ-on-gold and organ-on-live-extraction is the
+  prize.
+- **INFERRED (you must measure):** WHERE the ~0.32 is lost (event detection vs argument attachment vs role assignment vs
+  coref-gated mention linking), and whether the highest-leverage brain-faithful fix raises real event/role recall CI-separated
+  over the current live extractor without wrecking precision.
+
+## 5. ALREADY TRIED / DO NOT RE-RUN
+- The incremental left-corner arg-structure builder (`the_argument_parser_is_batch_where_the_brain_is_incremental`, integrated
+  HOLDS on QA-SRL 28k) — a validated identification gain; BUILD ON it, do not redo it.
+- `the_reading_extractor_may_not_beat_a_two_line_rule` (a role-assignment negative on QA-SRL 17k) — the elaborate perceptron
+  LOSES to a two-line word-order+voice rule; do not re-run that arm; it says the ROLE stage's fancy version is not the lever.
+- The archaic-prose parse confound is RETIRED (spaCy subject-ID is not CI-degraded on 19c prose) — corpus-age is not the cause.
+
+## 6. VERIFY BEFORE YOU START (the disk outranks this brief)
+- Reproduce the ~0.32 recall: run the live extractor (`situation_reader._read_events` → `experiments._temporal_ordering.extract_events`,
+  + `predicate_argument_frontend` + `thematic_role_labeler`) against a pre-existing gold (QA-SRL / LitBank / UD-EWT) and report
+  the per-stage recall (events detected → arguments attached → roles assigned → mentions linked). The DIAGNOSIS is the first deliverable.
+- Read the two integrated parser/extractor results (§5) so you build on the identification gain and avoid the role-perceptron dead end.
+
+## 7. THE BAR (can-fail; CI-separated over the strongest REAL floor; the info-free twin MUST LOSE)
+On a pre-existing gold (QA-SRL / LitBank / UD-EWT; MIND THE CORPUS-AGE CONFOUND — prefer modern where possible):
+- **PASS =** the fixed extraction front-end raises real event/role RECALL on the diagnosed-lossy stage, CI-separated over the
+  current live extractor (bootstrap; CI half-width + null p95), WITHOUT a CI-separated precision regression, with the info-free
+  twin (shuffled cues / permuted attachment) LOSING; AND show ONE downstream organ's end-to-end number improves when fed the
+  better extraction (the point of the whole thing).
+- **A rigorous NEGATIVE is a full PASS:** if the recall is lost at a stage that a faithfully-built fix cannot move (e.g. it is
+  genuinely a coref/world-knowledge bottleneck), name the stage + why, enumerated — that redirects the whole substrate.
+
+## 8. FILES AND ENTRY POINTS
+- Live extractor: `hdlab/situation_reader.py` (`_read_events`), `experiments/_temporal_ordering.py` (`extract_events`),
+  `hdlab/predicate_argument_frontend.py`, `hdlab/thematic_role_labeler.py`, the coref path.
+- Golds: `data/corpora/` (QA-SRL, LitBank, UD-EWT). Build + validate in `experiments/`; witness recomputes per-stage recall from source.
+- Fold an **AUDIT UPDATE** into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b (the extraction-recall diagnosis + the stage fixed). This is the
+  gate on every organ's real-text payoff — coordinate with the assembly + the QA measurement instrument.

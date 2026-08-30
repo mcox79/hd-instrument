@@ -65,6 +65,31 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — THE GENERALIZATION STRESS-TEST RE-BASELINES THE SUBSTRATE: three credited wins DO NOT generalize on real text,
+  one shrinks 15–60×, and the meta-lesson is to re-measure at the REAL operating point** (from integrated
+  `stress_test_which_organ_wins_actually_generalize_on_held_out_text`, owner-DONE, SOLVED/EXCELLENT; reverified 34/34 first-hand).
+  A ledger over 33 keyword-flagged organs (10 false positives already validated n=995..28,569; 9 already-negatives; 13 fragile) +
+  4 positive-controlled reruns on pre-existing corpora. **VERDICTS (each corrects a credited or assumed capability):**
+  (i) SEPARATED CONTENT-ADDRESSABLE STORE (`content_addressable_retrieval` / `the_entity_store_is_a_dense_bundle_that_fans`
+  cluster): synthetic +0.94 → real **+0.06** on LitBank (28,569) — HOLDS-DIRECTIONALLY, MAGNITUDE-COLLAPSES; concentrated in the
+  ~13% busy entities (≥4 events); 87% of real entities carry ≤3 events where FLAT is already ≥0.98. **WIRE FOR BUSY ENTITIES
+  ONLY**; DG-at-retrieval HURTS distinct-address codes (use it only for confusable/fan addresses). (ii) `force_dynamics_typer`
+  (WHY/causal): DOES NOT HOLD on MAVEN-ERE (n=9,698) — fires on only **16.1%** of real causal relations, twin-indistinguishable
+  where it fires (+0.018 NOT_SEP), loses to majority −0.679. It is explicit-PHYSICAL-predication only. (iii) `n400_coherence_monitor`
+  event segmenter: DOES NOT HOLD (boundary-F1 0.122 vs synthetic 0.987; content-novelty is the wrong signal — real boundaries
+  track situation-model dimensions, Zwaan-Radvansky/Zacks). (iv) CONSOLIDATION sparse-selective-replay store: DOES NOT HOLD
+  (selective − uniform-twin −0.009 NOT_SEP; the brain-faithful need-priority arm ALSO ties → prioritized replay is genuinely no
+  lever on real cross-domain interference). **TWO PINNED SUCCESSORS gate-cleared → BUILD (packaged p5/p6):** real causation is
+  COVARIATION-based causal-GRAPH inference (Trabasso/van den Broek; Kintsch; Kuperberg 2011; Feng 2021 ALE; left IFG/MTG+rostral
+  mPFC — force-dynamic verbs have a VERIFIED ABSENCE of neural study), scorer beats twin +0.094 / majority +0.056 on the 84% the
+  typer misses; retrieval interference is SIMILAR-COMPETITOR CUE-OVERLOAD (Van Dyke & McElree 2006; Radvansky & Zacks falsify
+  event-count), content under-determines at 0.398, TCM context reinstatement is the disambiguator (combination = the unbuilt
+  step). **THE META-PATTERN (adopt substrate-wide): a synthetic headline is set by the OPERATING POINT/POPULATION — a fact about
+  the corpus, not the mechanism; re-measure every organ at the real operating point before crediting it.** **THE BIGGEST LEVER
+  (flagged, packaged p1): the EXTRACTION FRONT-END (~0.32 event/role recall) — every organ number here used GOLD extraction; the
+  front-end dominates end-to-end and caps every dimension.** `generalization_audit.py` confirmed to over-flag ~2.5× (reading the
+  n is the whole job; a held-out-n column is queued).
+
 - **2026-08-30 — THE SITUATION MODEL GETS A QA READ-OUT, AND IT IS A WIRING-DEBT DIAGNOSTIC** (from integrated
   `the_reader_cannot_answer_a_question_over_its_situation_model`, owner-DONE, SOLVED/STRONG; reverified 8/8 first-hand over
   16,587 questions). A unified glass-box QA interface routes a structure-dependent question to the dimension holding the answer

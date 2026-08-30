@@ -2,10 +2,10 @@
 problem: stress_test_which_organ_wins_actually_generalize_on_held_out_text
 status: SOLVED
 bar: "DELIVERABLE = a GENERALIZATION LEDGER (per audited organ: constructed number -> held-out number -> HOLDS/DOES-NOT-HOLD + the population + the floor + the twin). Plus an AUDIT UPDATE to BRAIN_FOUNDATIONAL_AUDIT.md per reclassified organ." AND per organ "HOLDS = the organ's headline metric beats its strongest floor recomputed ON THAT population, CI-separated (bootstrap; report CI half-width + null p95), with the info-free twin LOSING. NO number crosses populations/scorers."
-result: "GENERALIZATION LEDGER over all 33 keyword-flagged organs (10 FALSE POSITIVES already held-out-validated at n=995..28,569; 9 ALREADY NEGATIVES; 13 GENUINELY FRAGILE) + TWO rigorous reruns covering SIX organs with CONTRASTING outcomes: (RERUN 2) the CAUSATION-TYPER cluster (T2a/T2b) reran on real MAVEN-ERE (n=9,698 annotated causal relations) DOES NOT HOLD -- the force-dynamic typer fires on only 16.1% of real causal relations and where it fires its force signal is indistinguishable from a shuffled-lexicon twin (+0.018 NOT_SEP), losing to the majority floor by -0.679 (constructed win was 0.929/1.000 on n=42/40 minimal pairs). (RERUN 1) DEEP RERUN of the top load-bearing fragile cluster (store/retrieval/binding) on real LitBank who-did-what (n=28,569 events, 7,779 entities, gold coref; real-frequency-weighted, full run n_sampled=1376, 658s): the content-addressable separated store's synthetic SEP_CA-over-FLAT win of +0.94 (0.990 vs 0.047 @ load=32, harness-reproduced) generalizes DIRECTIONALLY but its MAGNITUDE collapses 15-60x on real text: SEP-FLAT = +0.060 [0.050,0.070] at partial cue p=0.7 / +0.016 [0.011,0.022] at full cue -- CI-separated ABOVE but tiny, concentrated in the ~13% of entities with >=4 events (per-bin SEP-FLAT ~0 at <=3 events where FLAT is already >=0.98, +0.20 at 4-8, +0.92 at 64+). The BROADER capability DOES survive: SEP-COUNTING = +0.156 [0.142,0.170] CI-separated (a register beats pure counting on real text, unlike flat_store) -- but FLAT also beats counting (+0.096..+0.140), so the SEPARATED-store increment is the small +0.06. Verdict: HOLDS-DIRECTIONALLY / MAGNITUDE-DOES-NOT-HOLD -> wire for busy entities only, not the population."
+result: "GENERALIZATION LEDGER over all 33 keyword-flagged organs (10 FALSE POSITIVES already held-out-validated at n=995..28,569; 9 ALREADY NEGATIVES; 13 GENUINELY FRAGILE) + FOUR rigorous reruns covering EIGHT of the 13 fragile organs (ALL 13 now accounted for: 8 reran, 2 already-negative in triage, 3 INFEASIBLE-with-documented-blocker). Reruns 3-4 (both DOES NOT HOLD): the N400 event-segmenter on concatenated MCScript2 (boundary-F1 0.122 vs synthetic 0.987 -- ties surface novelty, loses to a rate-matched random detector, barely beats its own permuted twin), and the sparse-selective-replay consolidation store on a real Gutenberg cross-novel OLD/NEW split (selective - uniform-twin = -0.009 NOT_SEP at the organ's own keep=0.02 where it claimed +0.081). Reruns 1-2 with CONTRASTING outcomes: (RERUN 2) the CAUSATION-TYPER cluster (T2a/T2b) reran on real MAVEN-ERE (n=9,698 annotated causal relations) DOES NOT HOLD -- the force-dynamic typer fires on only 16.1% of real causal relations and where it fires its force signal is indistinguishable from a shuffled-lexicon twin (+0.018 NOT_SEP), losing to the majority floor by -0.679 (constructed win was 0.929/1.000 on n=42/40 minimal pairs). (RERUN 1) DEEP RERUN of the top load-bearing fragile cluster (store/retrieval/binding) on real LitBank who-did-what (n=28,569 events, 7,779 entities, gold coref; real-frequency-weighted, full run n_sampled=1376, 658s): the content-addressable separated store's synthetic SEP_CA-over-FLAT win of +0.94 (0.990 vs 0.047 @ load=32, harness-reproduced) generalizes DIRECTIONALLY but its MAGNITUDE collapses 15-60x on real text: SEP-FLAT = +0.060 [0.050,0.070] at partial cue p=0.7 / +0.016 [0.011,0.022] at full cue -- CI-separated ABOVE but tiny, concentrated in the ~13% of entities with >=4 events (per-bin SEP-FLAT ~0 at <=3 events where FLAT is already >=0.98, +0.20 at 4-8, +0.92 at 64+). The BROADER capability DOES survive: SEP-COUNTING = +0.156 [0.142,0.170] CI-separated (a register beats pure counting on real text, unlike flat_store) -- but FLAT also beats counting (+0.096..+0.140), so the SEPARATED-store increment is the small +0.06. Verdict: HOLDS-DIRECTIONALLY / MAGNITUDE-DOES-NOT-HOLD -> wire for busy entities only, not the population."
 floor: "per-entity verb COUNTING (predict the entity's most-frequent verb, cue-blind -- the flat_store_destroys_the_code lesson), recomputed on real LitBank: 1.000 @1 event, 0.561 @2-3, 0.348 @4-8, 0.169 @17-63, 0.138 @64+; AND the FLAT superposition read-out (the incumbent live register op) recomputed per load bin. SEP_CA beats COUNTING CI-separated wherever an entity has >=2 events, but ties FLAT at <=3 events."
 controls: "SYNTHETIC POSITIVE CONTROL: the imported arms reproduce the organ's own win (SEP_CA 0.990 vs FLAT 0.047 @ synthetic load=32,p=0.7) -> a real-data null is a generalization gap, not a broken harness. INFO-FREE TWINS: SHUFFLED_KEYS + RANDOM_ROUTE LOSE CI-separated wherever the mechanism fires (>=2 events). LOAD STRATIFICATION: the SEP-FLAT margin is a monotone function of entity event-count, ~0 at the real median (1 event). DG BUILD-ACROSS DRILL: SEP_CA_DG < SEP_CA (BELOW) on identity-orthogonal real codes -- DG-at-retrieval hurts a task whose codes are already separated by word identity. COUNTING floor recomputed per population."
-files_changed: "experiments/exp_generalize_retrieval_real_codes_v1.py, experiments/exp_generalize_retrieval_similar_competitor_gate_v1.py, experiments/exp_generalize_causation_typer_maven_ere_v1.py, experiments/exp_generalize_causation_implicit_covariation_gate_v1.py, verification/test_generalize_retrieval_real_codes.py, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/GENERALIZATION_LEDGER.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/research_retrieval_interference_load_and_dg_boundary_2026-08-30.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/research_causation_typer_wall_implicit_and_mental_causation_2026-08-30.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/SOLVED.md"
+files_changed: "experiments/exp_generalize_retrieval_real_codes_v1.py, experiments/exp_generalize_retrieval_similar_competitor_gate_v1.py, experiments/exp_generalize_causation_typer_maven_ere_v1.py, experiments/exp_generalize_causation_implicit_covariation_gate_v1.py, experiments/exp_generalize_n400_segmenter_mcscript_v1.py, experiments/exp_generalize_consolidation_gutenberg_oldnew_v1.py, verification/test_generalize_retrieval_real_codes.py, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/GENERALIZATION_LEDGER.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/research_retrieval_interference_load_and_dg_boundary_2026-08-30.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/research_causation_typer_wall_implicit_and_mental_causation_2026-08-30.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_generalize_retrieval_real_codes.py"
 ---
 
@@ -17,6 +17,31 @@ cannot separate "constructed win + STRONG held-out" from "constructed win + THIN
 actual `SOLVED.md` of all 33, recorded each one's real held-out n / population / floor / wiring status, and
 **reran** the top load-bearing genuinely-fragile cluster on a pre-existing corpus. Full ledger:
 `GENERALIZATION_LEDGER.md`.
+
+## GUIDANCE FOR STRATEGY — the path to a robust, generalizing solution (read this first)
+
+*This audit is a compass, not the destination: it de-risks what fails and points at what will work, but the
+constructive mechanisms are gated hypotheses (P≈0.50), not built. In priority order:*
+
+1. **DE-RISK NOW (decisive — act on it).** Do NOT wire as real-text capabilities: the force-dynamic causation
+   typer, the N400 content-PE event segmenter, the sparse-selective-replay consolidation store (all DOES-NOT-HOLD
+   on real data). Wire the separated retrieval store **for high-fan entities only** (~+0.06 population, not the
+   +0.94 headline). Do NOT wire DG-at-retrieval onto distinct-address register codes.
+2. **BUILD NEXT — two brain-PINNED, gate-cleared successor problems (this is the constructive path, but each is
+   ~coin-flip until built):** (a) `narrative_causal_graph_missing_implicit_inference_organ` — a glass-box
+   event-type covariation / selectional-preference causal-graph scorer (gate PASSED: +0.056 over floor on the
+   84% the typer misses); (b) the reframed TCM similar-competitor retrieval (gate PASSED: content
+   under-determines at 0.398 on 22k real cases — but *context-alone tied content*, so the win hinges on cue
+   COMBINATION, which is the unbuilt, uncertain step). Pre-registered P1/P2/P3 bands are in the two research notes.
+3. **THE BIGGEST LEVER IS UPSTREAM, AND THIS AUDIT ONLY FLAGS IT:** the extraction front-end (~0.32 event/role
+   recall). Every retrieval/who-did-what number here used GOLD extraction; end-to-end, the front-end dominates.
+   The robust full solution needs the front-end addressed before any of the above lands as a live-reader gain.
+4. **ADOPT THE METHOD (highest-leverage, cheap):** validate every future organ by re-measuring at the REAL
+   operating point/population before crediting it — the pattern behind all four reruns. Concretely, add a
+   held-out-n column to `tools/generalization_audit.py` so the false-positive rate is visible on every scan.
+5. **WHAT WE CANNOT KNOW YET:** three organs (`theory_of_mind…`, `the_relcl_parser…`,
+   `no_automatic_reliability_signal…`) have no fair pre-existing test on our corpora — an organ untestable on any
+   real data we hold is itself a risk to flag, not to silently trust.
 
 ## What the triage found (the keyword tool over-flags by ~2.5×)
 
@@ -157,6 +182,41 @@ problem** (`resolve_retrieval_interference` reframed onto the similar-competitor
 P1/P2/P3 in the research note), NOT built here — but the gate proves it is worth building, on the right axis,
 which the original event-count rerun could never have shown.
 
+## COVERAGE CLOSURE — all 13 genuinely-fragile organs accounted for
+
+Two more reruns (`exp_generalize_n400_segmenter_mcscript_v1.py`, `exp_generalize_consolidation_gutenberg_oldnew_v1.py`)
+close the sweep; a feasibility scout first separated what can be *fairly* reran from what cannot:
+- **RERUN 3 — N400 event segmenter (T3c) → DOES NOT HOLD.** On concatenated MCScript2 scenarios (real seams =
+  gold boundaries), the landed `relative_threshold_gate` content-PE detector scores boundary-F1 **0.122**
+  (synthetic was 0.987): it ties surface FORM_NOVELTY, LOSES to a rate-matched RANDOM detector, and only
+  weakly beats its own permuted-surprise twin — content-novelty is misaligned with real event boundaries
+  (which the causation drill's Lane 4 pins to situation-model dimension changes, Zwaan-Radvansky/Zacks).
+- **RERUN 4 — sparse-selective-replay consolidation store (T3f) → DOES NOT HOLD.** On a real Gutenberg
+  cross-novel OLD/NEW split, at the organ's own keep=0.02 (where it claimed selective 0.977 vs uniform 0.896,
+  +0.081), **selective − uniform-twin = −0.009 [−0.018, 0.002] NOT_SEP** — surprise-prioritized replay ties
+  random selection. The store *does* interfere (OLD retention drops 0.469→0.26 after learning NEW, so the
+  test is valid); the synthetic win was an artifact of the arbitrary within-simplewiki split.
+  - **DRILL (drilled the negative for mechanism, brain-foundational).** Hypothesis: the organ prioritizes by
+    ENCODING-surprise, but the brain's consolidation replay prioritizes by **need** — what new learning is
+    *currently* eroding (Mattar & Daw 2018, replay = gain × need). I added a dynamic `need` arm (each epoch,
+    replay the OLD items with the highest *current* schema-error against the live NEW-perturbed weights).
+    Result: **need − uniform = +0.005 [−0.011, 0.022] NOT_SEP** — the brain-faithful priority ALSO ties the
+    twin, and even no-replay (0.305) barely trails replay (0.308). **The negative is ROBUST: prioritized
+    replay is genuinely no lever here — it is not a wrong-priority-signal bug.** The regime where prioritization
+    pays (severe interference + scarce budget) is a property of the synthetic instrument, not real reading. My
+    mis-specification hypothesis was refuted by the data — the honest outcome of a real drill.
+- **3 INFEASIBLE, with documented blockers (an honest audit output, not a gap in effort):** `theory_of_mind…`
+  (no false-belief gold on disk; mining it IS the unsolved observation front-end), `the_relcl_parser…` (the
+  fair QA-SRL rerun ALREADY ran, +0.001; real reversibles are <1% of text), `no_automatic_reliability_signal…`
+  (source-selection has no pre-existing gold — RACE/ARC/WIQA are MCQ, the wrong shape). *An organ whose claim
+  cannot be fairly tested on any pre-existing corpus we have is itself a generalization red flag.*
+
+**Net across all 13 fragile organs:** 8 reran (1 holds-with-nuance, 3 clean DOES-NOT-HOLD, +4 in the retrieval
+cluster), 1 already-dead in triage, 1 already-negative, 3 infeasible-with-reason. **The four reruns share one
+pattern — every synthetic win was measured at an operating point that does not occur in real text** (orthogonal
+codes / balanced minimal pairs / clean topic-jumps / an arbitrary corpus split); three collapsed outright, the
+fourth shrank 15–60×, and two of the collapses revealed a better-brain-grounded successor mechanism.
+
 ## What I did NOT establish / would withdraw first
 
 1. **The other 12 fragile organs are triaged, not reran.** I reran the top cluster (T1); T1c
@@ -292,3 +352,15 @@ positive control; the deployed-value correction is quantified; and the axis-corr
   `tools/generalization_audit.py` so the false-positive rate is visible on every future scan.
 - **No hdlab change is required by this problem** — it is a measurement/audit. The one code-relevant finding
   (do not wire DG-at-retrieval onto register codes with distinct addresses) is a "do-not," not a diff.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-30 (grade: EXCELLENT; SOLVED owner-DONE)
+
+Integrated by strategy. Reverified FIRST-HAND: `verification/test_generalize_retrieval_real_codes.py` **34/34 PASS** (scaffold-free; recomputes every headline over LitBank 28,569 events, incl. the positive control reproducing the synthetic win, the real-load collapse, the high-fan-tail win, and the N400/consolidation/drill negatives). Argument audited: a GENERALIZATION LEDGER over 33 keyword-flagged organs (10 FALSE POSITIVES already validated at n=995..28,569 — confirms `generalization_audit.py` over-flags ~2.5x as flagged at build; 9 ALREADY-NEGATIVES; 13 FRAGILE) + 4 rigorous reruns (each positive-controlled). Verdicts: separated store HOLDS-DIRECTIONALLY / MAGNITUDE-COLLAPSES-15-60x (busy-entities-only); the causation force-typer, the N400 segmenter, and the consolidation replay store ALL DOES-NOT-HOLD on real text; 2 brain-PINNED successors gate-cleared (covariation causal-graph +0.094/+0.056; similar-competitor cue-overload retrieval, content-only floor 0.398). Meta-lesson: re-measure every organ at the REAL operating point. Biggest lever flagged: the extraction front-end (~0.32 recall).
+
+**STRATEGY ACTIONS DONE:** (a) audit §2b folded (causation typer / N400 segmenter / consolidation store DON'T generalize on real text; separated retrieval store busy-entities-only; DG for confusable-address codes only). (b) 3 RANKED SUCCESSORS PACKAGED: **p1 `the_extraction_front_end_recovers_only_a_third_of_events_and_roles`** (the biggest lever + the North Star clean-foundation link), **p5 `narrative_causal_graph_missing_implicit_inference_organ`** (the gate-cleared causation successor — the real-text causation lever), **p6 `retrieval_interference_is_similar_competitor_cue_overload_not_event_count`** (the gate-cleared retrieval reframe). ⚠️ COURSE-CORRECTION: the force-typer causation-wiring (p2) is now NARROW (16% explicit-physical only) — p5 is the real-text causation capability; p2 kept for the physical subset + its plumbing (literalness gate) but its causal-typing value is bounded.
+
+**Audit §2b folded.** Review (EXCELLENT) + `> ## ✅ SOLVER REVIEW` block in PROBLEM.md; `priority:` cleared.
+
+**QUEUED tool improvement (adopt-the-method, low priority):** add a held-out-n column to `tools/generalization_audit.py` so the false-positive rate is visible (the audit showed the keyword scan cannot substitute for reading the n).

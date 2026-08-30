@@ -1,0 +1,67 @@
+{
+  "anchor": "generalize_retrieval_similar_competitor_gate_v1",
+  "ts_iso": "2026-08-30T18:36:14.173929+00:00",
+  "elapsed_s": 5.998691500164568,
+  "n_ambiguous_queries": 22123,
+  "n_docs": 100,
+  "chance_1_over_ncand": 0.26003288621641324,
+  "content_only_floor": 0.39818288658861817,
+  "context_recency": 0.4016182253763052,
+  "context_shuffled_twin": 0.32206301134565835,
+  "context_minus_content": {
+    "delta": 0.0034353387876870224,
+    "lo": -0.002713239614880441,
+    "hi": 0.009177100754870491,
+    "half_width": 0.005945170184875466,
+    "null_p95": 0.00587623739999096,
+    "band": "NOT_SEP",
+    "n": 22123
+  },
+  "context_minus_shuffled_twin": 0.07955521403064686,
+  "strata_by_competitor_count": {
+    "2": {
+      "n": 5678,
+      "content_floor": 0.5727368791828108,
+      "ctx": 0.5630503698485382,
+      "ctx_minus_content": {
+        "delta": -0.009686509334272632,
+        "lo": -0.021486438886932017,
+        "hi": 0.0014089468122578373,
+        "half_width": 0.011447692849594928,
+        "null_p95": 0.011817541387812595,
+        "band": "NOT_SEP",
+        "n": 5678
+      }
+    },
+    "3-4": {
+      "n": 6376,
+      "content_floor": 0.41969887076537016,
+      "ctx": 0.4186010037641154,
+      "ctx_minus_content": {
+        "delta": -0.001097867001254705,
+        "lo": -0.01239413425345044,
+        "hi": 0.01004156210790462,
+        "half_width": 0.011217848180677531,
+        "null_p95": 0.011449184441656211,
+        "band": "NOT_SEP",
+        "n": 6376
+      }
+    },
+    "5+": {
+      "n": 10069,
+      "content_floor": 0.28612573244612177,
+      "ctx": 0.2998311649617638,
+      "ctx_minus_content": {
+        "delta": 0.013705432515642069,
+        "lo": 0.004665309365378886,
+        "hi": 0.022246499155824807,
+        "half_width": 0.00879059489522296,
+        "null_p95": 0.008739696096931175,
+        "band": "NOT_SEP",
+        "n": 10069
+      }
+    }
+  },
+  "GATE": "BUILD",
+  "P1_context_preview": "FAIL"
+}

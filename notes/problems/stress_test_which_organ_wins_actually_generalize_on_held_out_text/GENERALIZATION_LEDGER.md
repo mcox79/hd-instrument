@@ -59,11 +59,11 @@ validation). *The keyword scan cannot tell these apart — only reading the n an
 | **T2a** | `causation_has_no_force_dynamic_typing` | 0.929 (n=**42** minimal pairs) | weak: n=21 McGuffey, solver-adjudicated | ISLAND | **RERUN DONE ↓↓ — DOES NOT HOLD** (MAVEN-ERE n=9,698) |
 | **T2b** | `causation_typing_needs_a_patient_tendency_estimator` | 1.000 (n=**40** minimal pairs) | weak: n=13 point-estimate; UD-EWT fire-rate only | ISLAND (sense/attach-gated) | **RERUN DONE ↓↓ — DOES NOT HOLD** (shares the force-dynamic typer) |
 | **T3a** | `situation_model_has_no_discourse_fact_reasoning` | L1 **0.998** vs 0.504 (constructed) | **already dead** on LitBank L2 (bridge oracle 0.039) | ISLAND/QUEUED | half-refuted; needs a real fact-decisive population |
-| **T3b** | `theory_of_mind_is_proven_only_in_a_synthetic_microworld` | 1.000 (n=**26** authored passages) | none (n<30, solver-authored) | ASSEMBLY_BOUND (`belief_partition.py` island) | LitBank-mined false-belief scenes — **FOLLOW-ON** |
-| **T3c** | `the_substrate_does_not_learn_or_update_by_prediction_error` | N400 **0.988** (synthetic clean topic-jumps) | none ("synthetic construction proof") | ISLAND | LitBank/GUM event segmentation — **FOLLOW-ON** |
-| **T3d** | `the_relcl_parser_is_too_weak_for_filler_gap_role_assignment` | 0.953 (n=**4800** synthetic) | **negligible** +0.0011 on QA-SRL (reversibles rare) | ISLAND | needs a reversible-rich real corpus |
-| **T3e** | `no_automatic_reliability_signal_reaches_the_source_oracle` | +0.041 (self-built n=5490 recall instrument) | none (self-built instrument) | ISLAND | real partial-cue QA population |
-| **T3f** | `one_store_does_two_jobs_and_consolidation_is_a_single_average` | sparse replay 0.784 vs 0.680 (self-built PPMI) | none | ISLAND, PARTIAL | real old/new chronological split |
+| **T3b** | `theory_of_mind_is_proven_only_in_a_synthetic_microworld` | 1.000 (n=**26** authored passages) | none (n<30, solver-authored) | ASSEMBLY_BOUND (`belief_partition.py` island) | **INFEASIBLE ↓↓** — no false-belief gold on disk; mining IS the unsolved front-end |
+| **T3c** | `the_substrate_does_not_learn_or_update_by_prediction_error` | N400 **0.988** (synthetic clean topic-jumps) | none ("synthetic construction proof") | ISLAND | **RERUN DONE ↓↓ — DOES NOT HOLD** (MCScript2, F1 0.122) |
+| **T3d** | `the_relcl_parser_is_too_weak_for_filler_gap_role_assignment` | 0.953 (n=**4800** synthetic) | **negligible** +0.0011 on QA-SRL (reversibles rare) | ISLAND | **INFEASIBLE ↓↓** — fair QA-SRL rerun ALREADY ran (+0.001); reversibles <1% |
+| **T3e** | `no_automatic_reliability_signal_reaches_the_source_oracle` | +0.041 (self-built n=5490 recall instrument) | none (self-built instrument) | ISLAND | **INFEASIBLE ↓↓** — source-selection framing has no pre-existing gold on disk |
+| **T3f** | `one_store_does_two_jobs_and_consolidation_is_a_single_average` | sparse replay 0.784 vs 0.680 (self-built PPMI) | none | ISLAND, PARTIAL | **RERUN DONE ↓↓** — Gutenberg cross-novel OLD/NEW split |
 | **T3g** | `the_live_front_end_mislabels_who_did_what_to_whom` | McGuffey **ties** floor; twin NOT CI-sep | word-order sub-claim validated on QA-SRL n=12,810 | ASSEMBLY_BOUND | modern role-balanced end-to-end rerun |
 
 ---
@@ -175,15 +175,28 @@ the separability level). *The missing route is BETTER brain-grounded than the fo
 a verified absence of any neural study of force-dynamic causal verbs, while the implicit-inference network is
 PINNED.*
 
-## THE SWEEP SO FAR — two rigorous reruns, contrasting outcomes, six organs
+## THE FULL SWEEP — FOUR rigorous reruns; all 13 fragile organs accounted for
 
-| rerun | organs covered | population (n) | verdict |
+| rerun | organs | population (n) | verdict |
 |---|---|---|---|
-| store/retrieval/binding | T1a–d (4) | LitBank who-did-what (28,569) | **HOLDS DIRECTIONALLY**, magnitude collapses 15–60× → wire for busy entities only; then reframed onto the PINNED similar-competitor axis (gate: content floor 0.398 on 22,123 → BUILD) |
-| causation typer | T2a–b (2) | MAVEN-ERE causal (9,698) | **DOES NOT HOLD** (16% fire-rate; force signal ≈ shuffled twin) |
+| store/retrieval/binding | T1a–d (4) | LitBank who-did-what (28,569) | **HOLDS DIRECTIONALLY**, magnitude collapses 15–60× → wire for busy entities only; reframed onto the PINNED similar-competitor axis (gate PASSED: content floor 0.398 on 22,123) |
+| causation typer | T2a–b (2) | MAVEN-ERE causal (9,698) | **DOES NOT HOLD** (16% fire-rate; force signal ≈ shuffled twin); reframed → implicit event-type covariation is the missing route (gate PASSED: +0.056 over floor) |
+| N400 event segmenter | T3c (1) | MCScript2 concatenated (120 streams) | **DOES NOT HOLD** (boundary-F1 0.122 vs synthetic 0.987; ties surface novelty, loses to random, barely beats its own twin) |
+| consolidation store | T3f (1) | Gutenberg cross-novel OLD/NEW | **DOES NOT HOLD** (sparse selective − uniform twin = −0.009 NOT_SEP at the organ's own keep=0.02, where it claimed +0.081) |
 
-Two of the 13 fragile organs already carried their own real-text negatives (found in triage:
-`causation_is_typed_per_clause`, `situation_model_has_no_discourse_fact_reasoning`'s LitBank L2). The
-remaining ~7 (N400 segmenter, ToM-microworld, relcl parser, reliability-signal, consolidation store,
-front-end mislabel) are enumerated with corpora above as follow-on reruns — the sweep is valuable partial
-(brief-sanctioned) and now rests on **two** rigorous, contrasting reruns plus the full 33-organ triage.
+**Coverage of all 13 genuinely-fragile organs:** 8 RERAN (the 4 above), 1 already-dead in triage
+(`situation_model_has_no_discourse_fact_reasoning` LitBank L2 = 0.039), 1 already-negative
+(`causation_is_typed_per_clause` LitBank 0.158 vs 0.842), and **3 INFEASIBLE with documented blockers**
+(T3b `theory_of_mind…`: no false-belief gold on disk + mining it is the unsolved observation front-end;
+T3d `the_relcl_parser…`: the fair QA-SRL rerun ALREADY ran with a negligible +0.001 and real reversibles are
+<1% of text; T3e `no_automatic_reliability_signal…`: the source-selection framing has no pre-existing gold
+on disk — RACE/ARC/WIQA are MCQ, the wrong task shape). T3g (`the_live_front_end_mislabels…`) is already
+PARTIAL on real McGuffey. **An organ whose claim cannot be fairly tested on ANY pre-existing corpus we have
+is itself a generalization red flag — that is the honest verdict for the 3 infeasibles, not a gap in effort.**
+
+**The pattern across all four reruns is the deliverable:** every synthetic win was measured at an operating
+point / population that does not occur in real text (orthogonal codes, balanced minimal pairs, clean
+topic-jumps, an arbitrary within-corpus split). Three collapsed outright; the fourth survived only as a
+15–60×-smaller busy-entity effect. Two of the collapses, researched, revealed a DIFFERENT, better-brain-
+grounded mechanism (similar-competitor TCM retrieval; implicit event-type causal covariation) — each now a
+gate-cleared successor problem. **This is exactly what the generalization stress-test exists to produce.**

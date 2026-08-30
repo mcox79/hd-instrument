@@ -1,0 +1,47 @@
+{
+  "n_all": 9698,
+  "n_fire": 1559,
+  "fire_rate": 0.1607547948030522,
+  "gold_dist_fired": {
+    "CAUSE": 214,
+    "ENABLE": 1345
+  },
+  "typer_acc": {
+    "mean": 0.18345093008338678,
+    "lo": 0.16420782552918536,
+    "hi": 0.20271007055804996
+  },
+  "majority_floor": {
+    "mean": 0.8627325208466966,
+    "lo": 0.8454137267479154,
+    "hi": 0.8794098781270044,
+    "class": "ENABLE"
+  },
+  "twin_acc": 0.16549069916613213,
+  "typer_minus_majority": {
+    "delta": -0.6792815907633099,
+    "lo": -0.7132777421423989,
+    "hi": -0.6465683130211675,
+    "null_p95": 0.05067350865939705,
+    "band": "BELOW"
+  },
+  "typer_minus_twin": {
+    "delta": 0.01796023091725465,
+    "lo": 0.004490057729313663,
+    "hi": 0.03207184092366902,
+    "null_p95": 0.014111610006414367,
+    "band": "NOT_SEP"
+  },
+  "coverage_weighted_lift": -0.10919777273664674,
+  "gold_dist_all": {
+    "ENABLE": 8075,
+    "CAUSE": 1623
+  },
+  "lexicon_size": 422,
+  "VERDICT": "DOES_NOT_HOLD",
+  "meta": {
+    "anchor": "generalize_causation_typer_maven_ere_v1",
+    "ts_iso": "2026-08-30T18:58:29.696612+00:00",
+    "elapsed_s": 18.316605900181457
+  }
+}
