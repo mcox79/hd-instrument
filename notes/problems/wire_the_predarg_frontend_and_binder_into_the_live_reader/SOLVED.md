@@ -295,3 +295,15 @@ None.
    ENDS to exclude in the brief: the coherence/next-mention prior (sibling), a static commonsense KB (this drill,
    `exp_coref_residual_world_knowledge_ceiling_v1`), and a "better interference model" (Jager 2017). This does NOT route
    to Phase-1 meaning supply (my initial hypothesis, refuted).
+
+---
+**INTEGRATED_BY_STRATEGY 2026-08-29 — grade STRONG.** Reverified FIRST-HAND (recomputed fresh): live-reader role 10/10,
+LitBank who-did-what 6/6, live-class integration 2/2 (role lift 0.551→0.798 +0.247 CI-sep through the actual read() class).
+Argument-audited: the +0.225/+0.247 win over the positional incumbent is solid and brain-faithful (quotative inversion is a
+real bug in the landed router, PINNED-in-principle); info-free ROLE + BIND twins lose; LitBank +0.095 CI-sep. Graded STRONG
+(not EXCELLENT) because the "beat the word-counting floor CI-separated" milestone axis is met only with an asterisk — +0.264
+on the incumbent's inputs but +0.022 (CI touches 0) on the reader's OWN matched representation (the fair floor per the
+measurement discipline); so the reader went from LOSING to counting to TYING/edging it while decisively beating its prior
+self. Exemplary honesty (flagged PARTIAL-if-literal-bar; corrected its own world-knowledge hypothesis via a drill). Review
+block + review: STRONG written into PROBLEM.md; AUDIT UPDATE folded into BRAIN_FOUNDATIONAL_AUDIT.md §2b; the 3-part hdlab
+diff landed by strategy (Q111).

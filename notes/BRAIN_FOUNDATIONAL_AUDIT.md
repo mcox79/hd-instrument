@@ -65,6 +65,36 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-29 — THE ASSEMBLY: the live reader's role path is WIRED through parse → event-semantic router → graded binder,
+  and it beats the positional incumbent end-to-end** (from integrated `wire_the_predarg_frontend_and_binder_into_the_live_reader`,
+  owner-DONE, SOLVED/STRONG; reverified 10/10 + 6/6 + 2/2 first-hand, the +0.247 role lift reproduced THROUGH the live
+  `SituationReader.read()` class). This is the first POSITIVE assembly result — validated role organs beating the live reader
+  on the exact instrument a prior generic wiring LOST on. **Fidelity findings (load-bearing for the next phase):**
+  (1) **the LANDED `predicate_argument_frontend` has a QUOTATIVE-INVERSION gap** — it computes the COMM VerbNet class but uses
+  it only for recipients, never to assign the postverbal speaker of "said Fred" as AGENT; adding it is +0.253 CI-sep and is
+  the single largest role error on narrative dialogue. PINNED-in-principle (FrameNet Statement / VerbNet say-37.7 / eADM
+  animacy proto-agent, Bornkessel-Schlesewsky 2006); the exact positional mechanism is OUR-INVENTION-UNDER-TEST.
+  (2) **`situation_reader`'s role path was POSITIONAL/parse-free**; routing a parse through the router + a good-enough
+  positional FALLBACK lifts role accuracy +0.225 CI-sep. The parse is a CONSTRAINT SOURCE not a gate (McRae/MacDonald
+  incremental role assignment); the HYBRID fallback is Ferreira good-enough dual-route (PINNED) and halves regression.
+  (3) **the "parse-then-route" SHAPE is itself a fidelity gap** — skilled reading assigns roles INCREMENTALLY word-by-word
+  before a full tree (MacDonald 1994 / McRae 1998 / Frank & Bod 2011); the faithful next build demotes the parse to ONE
+  graded cue (the islanded `hdlab/thematic_role_labeler` Competition Model is the existing substrate). (4) **COPULA /
+  predicate-nominal roles are an unhandled residual, 7× larger on real literature** (15.5% no-verb on 19c prose vs 2.1% on
+  McGuffey) — a copula-argument rule is a higher-value fix on real text than McGuffey suggested. (5) **the archaic-prose
+  parse is NOT a who-did-what wall** (the real arc parse TIES gold, -0.005 NOT_SEP; recovers 93.6% of governing-verb
+  attachments on Dickens) — converges with the retired corpus-age parse confound; who-did-what is bound by COREFERENCE,
+  not parse quality. (6) **the coref residual is DISCOURSE-FOCUS / topic-shift bound, NOT world-knowledge bound** — a
+  research drill BUILT an oracle and measured a commonsense KB resolving only ~2-3% (WordNet 0.02 / CSKG 0.028 at 0.868
+  coverage), refuting the solver's own initial meaning-bound hypothesis; the brain-faithful lever is a Grosz-Sidner (1986)
+  focus-STACK / Kehler-Rohde QUD entity-tracker (structural, KB-free) — the seeded next problem (⚠️ that oracle cell is
+  disk-verified but NOT independently VET'd; VET "KB is dead" before a brief leans on it). **Honest bound (surfaced to the
+  owner, caps the grade at STRONG):** vs the content-lemma COUNTING floor the wired reader wins +0.264 CI-sep on the
+  incumbent's inputs but only +0.022 (CI touches 0) on its OWN matched representation — per the "recompute the floor on the
+  item's own representation" rule the matched store is the fair floor, so the reader went from LOSING to counting (prior
+  attempt) to TYING/edging it while decisively beating its prior self; the clean CI-separated word-counting win is NOT yet
+  reached (the coref residual is the remaining lever). hdlab 3-part diff landed by strategy (Q111).
+
 - **2026-08-29 — THE SITUATION MODEL now has the ENTITIES(state) dimension: a per-entity STATE-HISTORY register** (from
   integrated `the_situation_model_tracks_no_entity_state_history`, owner-DONE, SOLVED/EXCELLENT; reverified 61/61 first-hand
   after regenerating the full metrics — the committed artifact was a `--no-real-baseline` smoke run, a setup issue not a
