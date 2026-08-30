@@ -51,7 +51,7 @@ who-did-what slice already landed (quotative inversion, Change 1) and PROVED the
 
 | Organ (in hdlab, default-off) | Wire target in the reader | Dimension |
 |---|---|---|
-| `force_dynamics_typer` | replace `_read_causation`'s untyped link with a TYPED CausalLink | CAUSATION |
+| `force_dynamics_typer` | replace `_read_causation`'s untyped link with a TYPED CausalLink — **📦 PACKAGED as p2 `wire_the_causation_typer_into_the_live_reader`** (scoped to the within-clause domain; cross-sentence typing is the known dead lever) | CAUSATION |
 | `graded_coref_pick` / graded retrieval + entropy-abstain | the coref resolution stream | ENTITIES(coref) |
 | `location_register` | the SPACE serve (deletes the inline spaCy-proxy stopgap) | SPACE |
 | `temporal_order_register` (once promoted) | before/after gating in the read | TIME |
@@ -104,6 +104,9 @@ tracked burn-down item, not a silent park.
 ---
 
 ## BURN-DOWN LOG (newest first)
+- **2026-08-30** — **ASSEMBLY (DEBT 2) started:** packaged p2 `wire_the_causation_typer_into_the_live_reader` — the first
+  "wire a promoted organ into the live reader" problem (CAUSATION), scoped to the typer's within-clause domain and respecting
+  the integrated cross-sentence negative. Follows the who-did-what assembly template.
 - **2026-08-30** — **PROMOTION debt −1 (#2):** state_register CORE promoted `experiments/` → `hdlab/state_register.py`
   (surgical core-only split matching hdlab/location_register.py; organ witness 14/14; 61/61 unregressed;
   spaCy extraction stays exp-side as a shim). Live-reader wiring pending (ENTITIES coref re-rank).
