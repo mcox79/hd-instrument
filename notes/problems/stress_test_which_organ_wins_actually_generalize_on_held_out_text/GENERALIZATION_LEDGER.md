@@ -157,6 +157,24 @@ causation the typer's input is usually absent and its force signal ≈ noise —
 capability." The brain's force-dynamic representation may be real (Wolff PINNED), but the *lexicon-keyed
 connective typer* is not how it survives contact with real causal annotation.
 
+**…then pushed the wall (research drill + gate), symmetric with the retrieval reframe.** A literature drill
+(`research_causation_typer_wall_implicit_and_mental_causation_2026-08-30.md`) returned a PINNED verdict: real
+narrative causation is a **whole-event causal-GRAPH** property inferred by a **different brain system**
+(Trabasso & van den Broek causal-network; Kintsch construction-integration; Graesser causal-antecedent
+inference; Mason & Just 2004 + Kuperberg 2011 — implicit connective-less causal inference recruits left
+IFG/MTG + rostral mPFC, N400-only). The typer is **narrowly-valid-but-mis-scoped** (keep for explicit
+physical predication), NOT a wrong primitive. The empirical **gate**
+(`exp_generalize_causation_implicit_covariation_gate_v1.py`): a glass-box **event-type covariation** scorer
+(Chambers & Jurafsky / Hu & Walker precedent) = **0.889**, beating its own shuffled twin **+0.094 ABOVE**
+(a REAL signal — where force-dynamics was +0.018 NOT_SEP), the majority floor **+0.056** (clears the
+pre-registered +0.05 HARD-PASS), and the force-dynamic typer **+0.165**, and it carries signal precisely on
+the **83.9% no-fire subset** (+0.058 over majority, +0.099 over twin). → **Named next problem:**
+`narrative_causal_graph_missing_implicit_inference_organ` (the missing implicit event-event causal-inference
+route; adjacent brain system = the narrative causal-network / construction-integration network, PINNED at
+the separability level). *The missing route is BETTER brain-grounded than the force-dynamic typer — there is
+a verified absence of any neural study of force-dynamic causal verbs, while the implicit-inference network is
+PINNED.*
+
 ## THE SWEEP SO FAR — two rigorous reruns, contrasting outcomes, six organs
 
 | rerun | organs covered | population (n) | verdict |

@@ -65,6 +65,24 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `frame_induction` (OOV verb thematic-frame induction) —
+  brain-faithful + generalization-FIRST by design, but its held-out generalization is UN-WITNESSED as an organ → a prime
+  target for the p4 generalization stress-test (feeds p4, does not seed a new problem).** (a) FIDELITY: PINNED — Gleitman
+  (1990) SYNTACTIC BOOTSTRAPPING (induce a novel verb's frame, AGENT vs EXPERIENCER, from the CONSTRUCTIONS it appears in),
+  run through the centralized `hdlab/learner` as a CONFIG-ONLY expand (zero edits to learner core — disciplined). The
+  construction-cue encoder (sentential complement / degree-modification / progressive) is SUPPLIED; the construction→frame
+  mapping is EARNED. (b) GENERALIZATION: built FOR it — "the verb lemma is NEVER a feature," so an induced hypothesis transfers
+  to a held-out novel verb by construction overlap (the explicit fix for a shelved perceptron's ~92% feature-leak
+  near-memorization). **BUT there is NO dedicated held-out organ witness in `verification/`** — the "transfers to novel verbs"
+  claim rests on scattered experiment cells (exp_bridge1 / exp_c5_*), not a clean named held-out test → a generalization-EVIDENCE
+  gap (the owner's first-class check: a design-for-generalization is not a witnessed generalization). (c) WIRING: LIVE (7 refs in
+  `situation_reader`); notably it is the LEARNER used live on a bounded, safe induction task. (d) ROLE + LEVERAGE: the OOV
+  trigger is `lemma not in VERB_FRAMES` and VERB_FRAMES is a **228-verb HAND-AUTHORED** table, so frame_induction is the live
+  fallback that must catch the novel PSYCH verbs (cherish/loathe/crave — subj=EXPERIENCER) the default (subj=AGENT) mislabels;
+  its generalization is load-bearing there but un-witnessed. **ACTION: hand p4 (`stress_test_which_organ_wins_actually_generalize`)
+  frame_induction as a concrete target — write the held-out novel-psych-verb witness (train on in-vocab, test on held-out OOV
+  psych verbs, lemma-blind twin must lose). No new problem packaged (p4 already owns this).**
+
 - **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `event_bundle` (EventBundleCodec) — CLEAN + well-founded,
   NO new gap (a confirmatory scan; logged so a future scan skips it).** (a) FIDELITY: encodes an event as
   `quantize(Σ_r bind(role_key[r], filler[r]))` — role-filler binding is the PINNED computational op; the only deviation is the

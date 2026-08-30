@@ -5,7 +5,7 @@ bar: "DELIVERABLE = a GENERALIZATION LEDGER (per audited organ: constructed numb
 result: "GENERALIZATION LEDGER over all 33 keyword-flagged organs (10 FALSE POSITIVES already held-out-validated at n=995..28,569; 9 ALREADY NEGATIVES; 13 GENUINELY FRAGILE) + TWO rigorous reruns covering SIX organs with CONTRASTING outcomes: (RERUN 2) the CAUSATION-TYPER cluster (T2a/T2b) reran on real MAVEN-ERE (n=9,698 annotated causal relations) DOES NOT HOLD -- the force-dynamic typer fires on only 16.1% of real causal relations and where it fires its force signal is indistinguishable from a shuffled-lexicon twin (+0.018 NOT_SEP), losing to the majority floor by -0.679 (constructed win was 0.929/1.000 on n=42/40 minimal pairs). (RERUN 1) DEEP RERUN of the top load-bearing fragile cluster (store/retrieval/binding) on real LitBank who-did-what (n=28,569 events, 7,779 entities, gold coref; real-frequency-weighted, full run n_sampled=1376, 658s): the content-addressable separated store's synthetic SEP_CA-over-FLAT win of +0.94 (0.990 vs 0.047 @ load=32, harness-reproduced) generalizes DIRECTIONALLY but its MAGNITUDE collapses 15-60x on real text: SEP-FLAT = +0.060 [0.050,0.070] at partial cue p=0.7 / +0.016 [0.011,0.022] at full cue -- CI-separated ABOVE but tiny, concentrated in the ~13% of entities with >=4 events (per-bin SEP-FLAT ~0 at <=3 events where FLAT is already >=0.98, +0.20 at 4-8, +0.92 at 64+). The BROADER capability DOES survive: SEP-COUNTING = +0.156 [0.142,0.170] CI-separated (a register beats pure counting on real text, unlike flat_store) -- but FLAT also beats counting (+0.096..+0.140), so the SEPARATED-store increment is the small +0.06. Verdict: HOLDS-DIRECTIONALLY / MAGNITUDE-DOES-NOT-HOLD -> wire for busy entities only, not the population."
 floor: "per-entity verb COUNTING (predict the entity's most-frequent verb, cue-blind -- the flat_store_destroys_the_code lesson), recomputed on real LitBank: 1.000 @1 event, 0.561 @2-3, 0.348 @4-8, 0.169 @17-63, 0.138 @64+; AND the FLAT superposition read-out (the incumbent live register op) recomputed per load bin. SEP_CA beats COUNTING CI-separated wherever an entity has >=2 events, but ties FLAT at <=3 events."
 controls: "SYNTHETIC POSITIVE CONTROL: the imported arms reproduce the organ's own win (SEP_CA 0.990 vs FLAT 0.047 @ synthetic load=32,p=0.7) -> a real-data null is a generalization gap, not a broken harness. INFO-FREE TWINS: SHUFFLED_KEYS + RANDOM_ROUTE LOSE CI-separated wherever the mechanism fires (>=2 events). LOAD STRATIFICATION: the SEP-FLAT margin is a monotone function of entity event-count, ~0 at the real median (1 event). DG BUILD-ACROSS DRILL: SEP_CA_DG < SEP_CA (BELOW) on identity-orthogonal real codes -- DG-at-retrieval hurts a task whose codes are already separated by word identity. COUNTING floor recomputed per population."
-files_changed: "experiments/exp_generalize_retrieval_real_codes_v1.py, experiments/exp_generalize_retrieval_similar_competitor_gate_v1.py, experiments/exp_generalize_causation_typer_maven_ere_v1.py, verification/test_generalize_retrieval_real_codes.py, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/GENERALIZATION_LEDGER.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/research_retrieval_interference_load_and_dg_boundary_2026-08-30.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/SOLVED.md"
+files_changed: "experiments/exp_generalize_retrieval_real_codes_v1.py, experiments/exp_generalize_retrieval_similar_competitor_gate_v1.py, experiments/exp_generalize_causation_typer_maven_ere_v1.py, experiments/exp_generalize_causation_implicit_covariation_gate_v1.py, verification/test_generalize_retrieval_real_codes.py, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/GENERALIZATION_LEDGER.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/research_retrieval_interference_load_and_dg_boundary_2026-08-30.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/research_causation_typer_wall_implicit_and_mental_causation_2026-08-30.md, notes/problems/stress_test_which_organ_wins_actually_generalize_on_held_out_text/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_generalize_retrieval_real_codes.py"
 ---
 
@@ -98,6 +98,30 @@ that: its addresses are distinct by construction. → **AUDIT UPDATE below.**
 ## SECOND RERUN — the causation-typer cluster on real MAVEN-ERE → a clean DOES-NOT-HOLD
 
 To make the ledger rest on more than one rerun, I reran the **causation-typer cluster** (`causation_has_no_force_dynamic_typing`, `causation_typing_needs_a_patient_tendency_estimator`) — headlined 0.929 / 1.000 on n=42 / n=40 **minimal pairs** — on **MAVEN-ERE** (Wang et al. 2022), **n=9,698 independently-annotated causal relations**, importing the organ's own FrameNet force-lexicon + Wolff typer verbatim (`experiments/exp_generalize_causation_typer_maven_ere_v1.py`). **Result: DOES NOT HOLD.** The typer FIRES on only **16.1%** of real causal relations (its force-verb input is usually absent), and where it fires its force signal is **statistically indistinguishable from a shuffled-lexicon twin** (+0.018 NOT_SEP) for the real CAUSE-vs-PRECONDITION distinction, losing to the majority floor by **−0.679**. This confirms the sibling organ's LitBank negative (0.158 vs 0.842, n=19) on a **500× larger** corpus. Disclosed caveat: MAVEN's PRECONDITION ≠ Wolff's ENABLE (ontology mismatch), but the two decisive facts — 16% fire-rate and typer≈shuffled-twin — are ontology-independent. Full detail + AUDIT UPDATE in `GENERALIZATION_LEDGER.md`. **The sweep now rests on two rigorous, contrasting reruns (a holds-with-nuance and a clean negative) covering six organs, plus the full 33-organ triage.**
+
+### …then pushed the causation wall the same way (research drill + a decisive gate)
+
+Applying the retrieval-wall discipline ("did I test the right thing?"), a literature drill
+(`research_causation_typer_wall_implicit_and_mental_causation_2026-08-30.md`) returned a PINNED verdict:
+real narrative causation is a **whole-event causal-GRAPH** property inferred by a **different brain system**
+(Trabasso & van den Broek causal-network; Kintsch construction-integration; Graesser causal-antecedent
+inference; Zwaan-Radvansky causation dimension; Mason & Just 2004 + Kuperberg 2011 fMRI/ERP — implicit
+connective-less causal inference recruits left IFG/MTG + rostral mPFC, an N400-only signature). The
+force-dynamic typer is a **word-grain** mechanism meeting a **discourse-grain** problem — the 16% fire-rate
+is exactly its footprint. Verdict: **narrowly-valid-but-mis-scoped (keep it for explicit physical-causal
+predication), NOT a wrong primitive.** There is even a *verified absence* of any neural study of
+force-dynamic causal verbs, while the implicit-inference network is PINNED — so the missing route is the
+better-grounded one.
+
+I then ran the empirical **gate** (`exp_generalize_causation_implicit_covariation_gate_v1.py`), symmetric
+with the retrieval gate: does a glass-box **event-type covariation** scorer (learn P(label | cause_type,
+effect_type) from MAVEN train — the Chambers & Jurafsky / Hu & Walker precedent) carry the causal signal the
+force-dynamic route lacks? **Yes, decisively:** covariation **0.889** beats its own shuffled-type-pair twin
+by **+0.094 ABOVE** (a real signal, where force-dynamics was +0.018 NOT_SEP), beats the majority floor by
+**+0.056** (clearing the research's pre-registered +0.05 HARD-PASS), beats the force-dynamic typer by
+**+0.165**, and works precisely on the **83.9% no-fire subset** (+0.058 over majority, +0.099 over twin).
+**This empirically names the next problem** (`narrative_causal_graph_missing_implicit_inference_organ`) and
+proves the missing mechanism is implicit event-type covariation / world-knowledge, not force-dynamic verbs.
 
 ## PUSHED FURTHER — the +0.06 measured the WRONG interference axis (research drill + a decisive gate)
 
@@ -206,6 +230,7 @@ OUR-INVENTION), current status, and the next-problem seed.
 | **Context / TCM store** (`resolve_retrieval_interference`, T1c) | temporal-context binding + reinstatement (Howard-Kahana TCM, Polyn-Norman CMR) | **PINNED**, impl synthetic-only | proven only on **engineered-separable** synthetic context; the solver's own open question — "is the substrate's REAL context separable?" — is untested. | **Rerun on real similar-competitor narrative** (LitBank/OntoNotes) — the deepest untested T1 claim; a research drill is scoping whether real similar competitors exist and how to operationalize "genuinely similar." |
 | **Register write path** (`the_register_write_path`, T1d) | PFC working-memory recency gradient | PINNED-ish, synthetic-only | leaky/capacity win is synthetic; the load finding above applies — **the capacity wall it fixes rarely binds at real low load** (median 1 event/entity). | De-prioritize as a *population* lever; like the separated store it matters only for high-fan entities. |
 | **DG pattern separation** (`hdlab/dg_pattern_separation.py`) | dentate-gyrus expansion+kWTA decorrelation | PINNED (Leutgeb 2007, McHugh 2007) | correctly scoped by this rerun: a fix for confusable **addresses** (fan / key-overlap), HURTS where addresses are already distinct. | Identify *where in real reading the situation-model addresses actually overlap* (busy scenes, multiple similar entities) — that is the only regime DG belongs on. |
+| **Causal reasoning** (force-dynamic typers T2a/b vs the missing implicit-inference route) | force-dynamics = within-event force vectors (Wolff, behavioral-only, **no neural study — verified absence**); implicit event-event = causal-graph inference (left IFG/MTG + rostral mPFC, **PINNED** — Kuperberg 2011, Mason & Just 2004) | the typer is real but **word-grain**; the discourse-grain route is **missing entirely** | RERUN 2 + gate quantified it: typer fires 16%/≈noise; event-type covariation carries the signal (+0.056 over floor on the 84% no-fire subset). | **Gate-cleared next problem** `narrative_causal_graph_missing_implicit_inference_organ` — a glass-box event-type covariation / selectional-preference causal-graph scorer. |
 
 **The through-line for planning:** the store/retrieval/binding cluster is *validated but low-yield at the
 real operating point* — real narrative rarely stresses it (few events per entity, distinct addresses). The
@@ -250,8 +275,16 @@ positive control; the deployed-value correction is quantified; and the axis-corr
   Pre-registered P1/P2/P3 HARD-PASS/HARD-FAIL bands are in the research note; calibrated P(pass)=0.50. Corpora:
   reconstruct the competitor set on LitBank (gold chains discard competitors) or acquire GAP/ARRAU/ECB+
   (competitor-carrying, modern — also relieves the McGuffey age confound).
-- **Rerun the remaining Category-C organs** on the ledger's pre-existing corpora (the two causation typers on
-  MAVEN-ERE/UD-EWT at scale; the N400 segmenter on LitBank/GUM; ToM-microworld on LitBank-mined false-belief).
+- **NEW PROBLEM #2, gate-cleared: `narrative_causal_graph_missing_implicit_inference_organ`.** The causation
+  reframe's gate PASSED its pre-registered bar (event-type covariation +0.056 over majority, +0.094 over its
+  twin, on the 84% subset the force-dynamic typer never touches). Build a glass-box event-type
+  co-occurrence / selectional-preference causal-graph scorer (Chambers & Jurafsky narrative chains; Hu &
+  Walker 2017's Trabasso-typology extractor), scoped to *implicit* event-event causation; keep the
+  force-dynamic typer for explicit physical predication only. Adjacent brain system = the narrative
+  causal-network / construction-integration comprehension network (left IFG/MTG + rostral mPFC; Kuperberg
+  2011, Mason & Just 2004 — PINNED at the separability level).
+- **Rerun the remaining Category-C organs** on the ledger's pre-existing corpora (the N400 segmenter on
+  LitBank/GUM; ToM-microworld on LitBank-mined false-belief; the relcl parser on a reversible-rich corpus).
 - **Strategy (Q111):** fold the AUDIT UPDATEs into `BRAIN_FOUNDATIONAL_AUDIT.md` (store/retrieval = "validated
   but low-yield at the real operating point; the value is on the similar-competitor axis, not event-count";
   DG = "gate on code correlation, off for distinct addresses"); annotate the store/retrieval organs
