@@ -5,8 +5,8 @@ bar: "Types discourse-level causal links CI-separated over the connective/adjace
 result: "MECHANISM (constructed): discourse cross-event edge-typing 4-way accuracy (CAUSE/ENABLE/PREVENT/SEQUENTIAL) NET 1.000 [1.000,1.000] (bootstrap 5000; n=48 connective-neutral cross-SENTENCE passages, extraction given) vs placeholder 0.271, isolated from single-clause typing (perclause 0.729), twins lose. REAL-TEXT (the honest capability test the owner pushed for): the typer does NOT beat a majority-CAUSE placeholder on real cross-sentence causation -- typer 0.158 vs placeholder 0.842 (n=19: 16 verbatim LitBank CAUSE edges + the 3 genuine cross-sentence ENABLE cases found by hand-reading ~40 candidate contexts across 100 novels; ~0 clean cross-sentence PREVENT). A RIGOROUS NEGATIVE, THREE-fold and enumerated: real cross-sentence non-CAUSE causation is (1) RARE (prevention/enabling is packed WITHIN a clause -- the single-clause typer's domain), (2) lexically UNCOVERED (the genuine ENABLE cases use open/unlock, not in the FrameNet force lexicon; the typer abstains on 13/19), (3) MENTAL for the bulk (a different brain system). So the constructed 1.000 is a MECHANISM demonstration, not a real-text capability win. Corpus-age confound: LitBank/McGuffey are 19th-c./~200yr; no modern corpus on disk."
 floor: "the connective/adjacency PLACEHOLDER (type-blind -> majority CAUSE), recomputed on the same population = 0.271 [0.146,0.396]; AND the PERCLAUSE single-clause ablation (endstate read from the CAUSE clause, no cross-event edge) = 0.729 [0.604,0.854]. NET lower CI 1.000 > BOTH upper CIs (0.396 and 0.854). Intentional cell: PHYSICAL-only front-end (wrong system) 0.300 [0.133,0.467] and placeholder 0.333 [0.167,0.500], both beaten CI-separated."
 controls: "(1) force-class-SHUFFLE info-free twin (destroys verb->force): p95 0.562, LOSES (NET lo 1.000). (2) edge-type-SHUFFLE twin (permute predicted types across items): p95 0.354, LOSES. (3) PERCLAUSE ablation (endstate from the CAUSE clause) = the single-clause-typing isolation: 0.729, beaten CI-sep -> the lift is the CROSS-EVENT effect-clause read (the PREVENT class: NET 1.0 / perclause 0.0 / placeholder 0.0). (4) PRECEDENCE positive control (flashback cause-ID): precedence finds the past-perfect cause 1.00 vs text-adjacency 0.00. (5) NECESSITY: NET abstains SEQUENTIAL on non-causal sequence 1.00 vs placeholder false-links 0.00. (6) intentional cell: intentional-class-shuffle twin p95 0.600 LOSES; PHYSICAL-only front-end (wrong brain system) abstains -> 0.300."
-files_changed: "experiments/exp_causal_network_edge_typer_v1.py, experiments/exp_causal_network_realtext_v1.py, experiments/exp_causal_network_intentional_frontend_v1.py, experiments/exp_causal_network_realtext_typing_gold_v1.py, verification/test_causal_network_edge_typer.py, notes/problems/causation_is_typed_per_clause_not_across_the_causal_network/research_causation_systems_brain_mechanism_2026-08-30.md"
-reverify: ".venv/Scripts/python.exe verification/test_causal_network_edge_typer.py   # scaffold-free, 13/13 PASS, recomputes every headline from source"
+files_changed: "experiments/exp_causal_network_edge_typer_v1.py, experiments/exp_causal_network_realtext_v1.py, experiments/exp_causal_network_intentional_frontend_v1.py, experiments/exp_causal_network_realtext_typing_gold_v1.py, experiments/exp_causal_network_graded_necessity_v1.py, verification/test_causal_network_edge_typer.py, notes/problems/causation_is_typed_per_clause_not_across_the_causal_network/research_causation_systems_brain_mechanism_2026-08-30.md, notes/problems/causation_is_typed_per_clause_not_across_the_causal_network/research_graded_necessity_and_cause_dominance_2026-08-30.md"
+reverify: ".venv/Scripts/python.exe verification/test_causal_network_edge_typer.py   # scaffold-free, 14/14 PASS, recomputes every headline from source"
 ---
 
 # SOLVED -- a causal-network EDGE typer that types cross-event causal links, with the brain-faithful bound measured AND built across
@@ -116,10 +116,47 @@ NEGATIVE:
   rare cross-sentence prevention -- NOT a cross-sentence non-CAUSE typing accuracy win, which does not materialise on
   real prose. The bar's own clause -- "a rigorous NEGATIVE is a FULL PASS (a measured bound)" -- is what this is.
 
+## PUSH -- THE HIGHER-FIDELITY DIRECTION: GRADED NECESSITY (deepening drill #2, then built)
+A second brain-mechanism drill (`research_graded_necessity_and_cause_dominance_2026-08-30.md`) returned two
+convergent verdicts that improve the fidelity, and I acted on both:
+- **VERDICT 1 -- the real-text negative is PRINCIPLED, not a corpus artifact.** Cross-sentence CAUSE-dominance is
+  over-determined by brain mechanism: the reader FOREGROUNDS the causal chain of *occurring* events (= CAUSE;
+  Trabasso & van den Broek 1985; Zwaan & Radvansky 1998 event-indexing); ENABLE presupposes the patient ALREADY
+  tends, so its ground is a backgrounded STATE lexicalized within one clause (Talmy force dynamics is clause-level;
+  Mackie's causal field; Cheng & Novick causal selection); PREVENT is a NON-occurrence, and event chains encode
+  occurrences, so cross-sentence PREVENT is ~0 by construction (Wolff & Barbey 2010). So the right architecture is
+  TWO LAYERS -- a foregrounded cross-event CAUSE chain + a backgrounded within-clause enabling/preventing STATE --
+  and the absence of cross-sentence non-CAUSE is a fact to MODEL, not a detector miss.
+- **VERDICT 2 -- a discrete typer is the wrong fidelity; the brain's edge is GRADED (necessity, sufficiency).**
+  Trabasso, van den Broek & Suh 1989 weight edges by graded necessity+sufficiency; Kuperberg, Paczynski & Ditman
+  2011 show a GRADED N400 by causal relatedness (direct online neural evidence against a discrete type); Cheng 1997
+  causal power is continuous; Wolff 2007 DERIVES the three verbs by discretizing continuous force vectors. So
+  CAUSE/ENABLE/PREVENT is a lossy READ-OUT of an underlying graded representation.
+- **BUILT IT** (`exp_causal_network_graded_necessity_v1`, witness W11c): a graded (necessity, sufficiency) estimator
+  where necessity = base-type-necessity (CAUSE/PREVENT high, ENABLE low -- enabling is least necessary) x a DOMAIN-
+  DETERMINISM weight (physical law-like > motivational > psychological probabilistic), and the discrete type is a
+  THRESHOLDED read-out against an explicit reference endstate. Validated against the brain's OWN metric: (1) the
+  read-out reproduces the discrete typer on the constructed gold **1.000** (n=38 -- the discretization is faithful);
+  (2) the graded necessity reproduces Trabasso's measured human ordering **physical > motivational > psychological >
+  enabling, Spearman rho 1.000**, and the info-free twin (shuffle necessity across categories) BREAKS it (p95 0.771);
+  (3) the "he held his tongue because he promised" ambiguity DISSOLVES -- one force config reads CAUSE vs the
+  restraint but PREVENT vs the speaking (the ambiguity is in the discretization, not the representation). HONEST
+  SCOPE: the (necessity, sufficiency) parameterization + determinism magnitudes are OUR-INVENTION (swept); the
+  graded DIRECTION + the ordering are the PINNED cited predictions. The stronger VET -- human necessity-MAGNITUDE
+  data (Trabasso) / graded-N400 norms (Kuperberg) -- is not on disk; this is a mechanism demo of the right direction.
+
 ## What I did NOT establish (and would withdraw first if wrong)
 - **A real-text cross-sentence non-CAUSE typing WIN. It does not exist on this corpus** (0.158 vs 0.842) -- withdraw
   any implication that the cross-event PREVENT/ENABLE typing has broad real-text value. It is a MECHANISM proof + a
   measured rarity bound. This is the first thing to withdraw, and I now state it as the headline, not a footnote.
+- **Even the network's STRUCTURE value (direction/necessity/selection) is NOT demonstrated on real text.** I claimed
+  the typer's real-text worth is the structure, not the typing. On the 16 real LitBank cause-ID edges my precedence+
+  necessity cause-finder does NOT beat plain most-recent adjacency (2-3/16, extraction-dominated): this gold has ~no
+  flashbacks (so precedence never fires) and the necessity abstention costs recall. So the "structure value" is also a
+  CONSTRUCTED-only result (the flashback control fires 1.0 vs 0.0 on constructed items, but flashback-causal edges are
+  rare in this real gold). Withdraw the "real value is the structure" claim too -- it is unproven on real prose; the
+  parent's CAUSAL_NET cause-ID HARD_PASS stands, but MY additions (precedence, force-necessity) target cases rare in
+  real narrative. (Two-front-end coverage DOES double real cause-verb coverage 3->6/16 -- a genuine, witnessed lift.)
 - **Real-text end-to-end 3-way ACCURACY at scale, with automatic extraction.** The 1.000 headline is on CONSTRUCTED
   connective-neutral cross-sentence passages with extraction GIVEN as structured events (exactly as the landed
   single-clause typer's gold gives agent/verb/patient). The real-text cell shows the self-extraction pipeline is
@@ -171,7 +208,14 @@ NEGATIVE:
   event / perception front-ends remain.
 - **New citations (PINNED):** Fischer, Mikhael, Tenenbaum & Kanwisher 2016 PNAS (intuitive-physics engine);
   Saxe & Kanwisher 2003; Leslie 1994 (ToBY/ToMM); Talmy 1988; Wolff & Barbey 2015; Warren, Nicholas & Trabasso 1979;
-  Kuperberg, Paczynski & Ditman 2010 (graded online causal-strength during reading).
+  Kuperberg, Paczynski & Ditman 2011 JoCN (graded online causal-strength during reading).
+- **NEWEST verdict (deepening drill #2): the brain-faithful edge is GRADED (necessity, sufficiency), and the discrete
+  CAUSE/ENABLE/PREVENT type is a DERIVED read-out.** Trabasso/van den Broek/Suh 1989 (graded necessity+sufficiency
+  edge weights); Kuperberg et al. 2011 (graded N400); Cheng 1997 (continuous causal power); Wolff 2007 (types =
+  discretized force vectors). Fidelity target for the CAUSATION organ: a GRADED (necessity, sufficiency) estimator
+  read out from the Wolff force vectors (the discrete typer becomes a thresholded projection). ALSO: cross-sentence
+  causation is brain-foundationally CAUSE-dominant (foreground chain / background state) -- model it as TWO LAYERS,
+  do not treat the non-CAUSE absence as a detector miss.
 
 ## Adjacent components -- capability / limitation / opportunity / brain-foundational status (owner push #2)
 Evaluated for BOTH brain-foundational fidelity AND optimization potential, to seed next problems.
@@ -242,11 +286,20 @@ measured, brain-explained two-system fact, and I built across it with the second
 scale + more front-ends, named as follow-ons.)
 
 ## NEXT STEPS
-1. **Build the fuller MENTALIZING front-end** (adjacent #1): Communication + Death + Perception FrameNet frames into the
-   same typer, and couple to the landed ToM/belief organs -- the bulk of narrative causation lives here.
-2. **Patient-matching cross-clause extraction** (adjacent #2): fixes both the distractor-hijack and the noise-causative
-   confound; the highest-yield real-text lift. Then a larger auto-extracted real-narrative sample with a 2nd adjudicator.
-3. **Necessity from the type** (adjacent #3): derive counterfactual necessity from the force configuration rather than a
-   separate presence check.
-4. Strategy: land the discourse edge typer in hdlab (proposal above), reusing the TIME precedence gate + BOTH force-source
-   front-ends; fold the two-system AUDIT UPDATE into BRAIN_FOUNDATIONAL_AUDIT.md.
+1. **Land the GRADED (necessity, sufficiency) estimator as the CAUSATION edge representation** (the highest-fidelity
+   direction, demo built + validated against Trabasso's ordering): read out continuous necessity+sufficiency from the
+   Wolff force vectors by counterfactual simulation; make the discrete CAUSE/ENABLE/PREVENT a thresholded projection
+   against an explicit reference endstate. STRONG VET to run when data is sourced: reproduce Trabasso's human
+   necessity-MAGNITUDE ratings + Kuperberg's graded-N400-by-relatedness ordering (the brain's own metrics).
+2. **Model causation as TWO LAYERS** (drill verdict 1): a foregrounded cross-event CAUSE chain + a backgrounded
+   within-clause enabling/preventing STATE -- the brain-foundational structure of narrative causation; do not chase
+   cross-sentence non-CAUSE as a detector target.
+3. **Build the fuller MENTALIZING front-end** (adjacent #1): Communication + Death + Perception FrameNet frames into the
+   same typer (two-front-end coverage already doubles real cause-verb coverage 3->6/16), coupled to the landed ToM/belief
+   organs -- the bulk of narrative causation lives here.
+4. **Patient-matching cross-clause extraction** (adjacent #2): fixes the distractor-hijack + noise-causative confound;
+   the highest-yield real-text lift. Then a MODERN narrative corpus (the archaic-corpus confound is real) with automatic
+   extraction + a 2nd adjudicator.
+5. Strategy: land the discourse edge representation in hdlab (graded estimator + two layers + BOTH force-source
+   front-ends, reusing the TIME precedence gate); fold the two-system + graded-necessity AUDIT UPDATE into
+   BRAIN_FOUNDATIONAL_AUDIT.md.

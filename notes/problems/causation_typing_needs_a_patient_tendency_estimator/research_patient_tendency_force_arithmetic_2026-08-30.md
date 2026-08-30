@@ -75,10 +75,30 @@ the BARE pair, and that is the CORRECT behaviour once affordance is made rest-st
   "letting" = removing a barrier; Wolff ENABLE prototype). It is ORTHOGONAL to the three patient-tendency
   cues and is the highest-value adjacent follow-on -- mapped, not built here (the brief scopes 3 terms).
 
+## SECOND DRILL (2026-08-30) -- CAUSING vs LETTING (the 4th cue, Talmy 1988). PINNED.
+Dispatched to ground the affector-ROLE term before building it. Findings:
+- **Q1 PINNED:** LETTING is a DISTINCT force-dynamic pattern from CAUSING (Talmy 1988, Cog.Sci. 12:49-100;
+  steady-state set = causing / letting / helping / hindering / blocking). Letting = the Antagonist that had
+  been impinging CEASES to impinge, so the Agonist's intrinsic tendency manifests (plug/water: "the plug's
+  coming loose let the water drain"). CAUSING = a stronger Antagonist overcomes the patient's rest tendency.
+  NUANCE: canonical letting needs the patient to have a suppressed tendency; "the key opened the gate" is an
+  enabling-CONDITION/INSTRUMENT reading (still ENABLE).
+- **Q2 PINNED + correction:** the CAUSE/ENABLE split is carried by CONCORDANCE, not magnitude (Wolff & Song
+  2003 ENABLE/ALLOW verb class = enable/allow/permit/let/free/release). CORRECTION: ENABLE = concordance=YES
+  AND patient-tendency-for; so implement the letting cue as a concordance signal feeding the SAME decision
+  ADDITIVELY (not a standalone override). Built as e=+1 in the force sum -> ENABLE.
+- **Q3 GAP (honest):** NO neural ENABLE-vs-CAUSE dissociation found (mark UNPINNED). Developmental support:
+  causative sub-types acquired as separable classes (Nat.Hum.Behav. 2025; Bowerman overgeneralization).
+  Alternative account: Sloman, Barbey & Hotaling (2009) Cog.Sci. 33:21-50 (ENABLE = necessity + alt cause).
+- **Q4 design-critical:** restraint-remover lexicon is a reasonable glass-box operationalization (FrameNet
+  Preventing_or_letting LETTING LUs). WARNING: switch/trigger/lever/button/press are ONSET-CAUSE (apply an
+  impulse to START) -> CAUSING, NOT letting; NEVER fire ENABLE. "open" is ambiguous -> decided by the
+  affector-instrument class. Built as a NEGATIVE control (onset-cause instruments must not be typed ENABLE).
+
 ## Bottom line for the build
 1. Force-SUM is faithful; keep it PATIENT-SIDE and read type off sign vs the affector (done).
 2. Affordance + directional are legitimate Wolff force terms (done); the property map is OUR-INVENTION,
-   gated on twin + held-out + control (done).
-3. WordNet alone cannot supply patient disposition (measured) -> principled core-physics lexicon.
-4. Key-vs-wind: bare = under-determined (honest fallback); magnitude-stated = resolved; the full fix is an
-   affector-ROLE term (adjacent #1).
+   gated on twin + held-out + control (done); labile half externally corroborated by CSKG (done).
+3. WordNet/CSKG alone cannot fully supply patient disposition (measured) -> principled core-physics lexicon.
+4. Key-vs-wind: the KEY side is now RESOLVED via the LETTING cue (Talmy causing-vs-letting, 4th term, built);
+   the WIND side stays under-determined (magnitude-stated resolves it: breeze->ENABLE, blast->CAUSE).

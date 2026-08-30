@@ -4,9 +4,9 @@ status: SOLVED
 bar: "Types CAUSE-vs-ENABLE for tendency-ambiguous verbs CI-separated over the lexicon-only floor (0.500) toward the tendency-oracle (1.000) -- on a tendency-ambiguous population (open/move/turn/roll... with the outcome held constant so the contrast isolates tendency, as the demo did); the info-free twin (shuffled affector-magnitude / affordance) LOSES CI-separated; report CI half-width + null p95; no number crosses populations. A POSITIVE control the metric can move (a minimal pair -- key vs wind -- the estimator gets and the lexicon-only typer cannot). Generalizes (held-out affectors). Glass-box estimator = affector-MAGNITUDE + patient-AFFORDANCE + directional/aspectual cues -> patient-tends {yes,no} fed into the force_dynamics_typer truth-table; NO do-calculus, NO external LLM."
 result: "FULL patient-tendency estimator (affector-magnitude + patient-affordance + directional, Wolff patient-side force-sum) types CAUSE-vs-ENABLE at 1.000 [1.000,1.000] on the COMBINED tendency-ambiguous population (n=40 constructed minimal pairs, outcome held reached, extraction given; bootstrap 2000x) -- vs the lexicon-only floor 0.500 (+0.502 [0.350,0.650], half-width 0.150) AND vs the PROVEN affector-magnitude-only term 0.675 (+0.327 [0.200,0.475], half-width 0.138), both CI-separated. Per-cue: on the magnitude-SILENT affordance set +0.505 and directional set +0.504 over magnitude-only; on the magnitude-present set +0.000 NOT_SEP (honest -- the proven first term already suffices there)."
 floor: "The strongest floor actually run is the PROVEN affector-magnitude-only term (the parent problem's demonstrated first term), 0.675 on COMBINED / 0.591 on HELD-OUT -- beaten +0.327 / +0.316 CI-separated. Also run: lexicon-only 0.500 (the brief's floor, recomputed on-population, exactly the 0.500 cap on every isolated set) beaten +0.502; majority-class; oracle ceiling 1.000."
-controls: "(1) info-free TWIN (each cue's +1/-1/0 contribution permuted across items -- same shape, correlation to gold destroyed): COMBINED full_lo 1.000 > twin p95 0.625 (mean 0.495) -> LOSES; excludes 'any three-signal blend scores'. (2) null p95 0.650 (label permutation) < 1.000. (3) per-term ABLATION: best single term 0.675 < full 1.000 -> the terms COMBINE, no single cue is the signal (m/a/d alone 0.675/0.675/0.650). (4) COMBINATION-RULE discriminator (CONFLICT set, n=12, 2-vs-1 cue disagreement with the MINORITY cue rotating evenly, gold = Wolff net-force sign): force-sum 1.000 beats EVERY single-cue-priority (winner-take-all) rule 0.667 CI-separated (+0.337/+0.332/+0.331 ABOVE); no single-cue rule can exceed 8/12 -> the combination is ADDITIVE integration (Wolff vector sum), NOT winner-take-all; twin loses (p95 0.750). (5) HELD-OUT (fresh affectors/patients/cues) 0.910 [0.773,1.000] beats magnitude-only +0.316 CI-sep -> generalization, not fit; the 2 misses are a VERB-GATE coverage gap ('drift' not gated), the tendency MECHANISM is 20/20 on gated verbs. (6) POSITIVE controls the lexicon cannot: ball-vs-crate (affordance), down-vs-up (directional), nudge-vs-shove (magnitude) all correct, lexicon 0/2 each; the brief's key-vs-wind BARE is under-determined (honest fallback) and RESOLVED once magnitude is stated (breeze->ENABLE, blast->CAUSE). (7) WEIGHT SWEEP min 1.000 over 27 weight configs -> robust to the OUR-INVENTION weights, not fitted."
-files_changed: "experiments/_patient_tendency.py (the estimator: magnitude + affordance + directional terms + Wolff patient-side force-sum), experiments/exp_patient_tendency_estimator_v1.py (populations, floors, twin, ablation, held-out, weight-sweep, CONFLICT combination-rule discriminator, controls), experiments/exp_patient_affordance_cskg_grounding_v1.py (external CSKG grounding of the affordance term), verification/test_patient_tendency_estimator.py (scaffold-free witness 17/17), data/exp_patient_tendency_estimator_v1/metrics.json, data/exp_patient_affordance_cskg_grounding_v1/metrics.json, notes/problems/causation_typing_needs_a_patient_tendency_estimator/research_patient_tendency_force_arithmetic_2026-08-30.md"
-reverify: ".venv/Scripts/python.exe verification/test_patient_tendency_estimator.py   # scaffold-free, 13/13 PASS, recomputes every headline from source"
+controls: "(1) info-free TWIN (each cue's +1/-1/0 contribution permuted across items -- same shape, correlation to gold destroyed): COMBINED full_lo 1.000 > twin p95 0.625 (mean 0.500) -> LOSES; excludes 'any signal blend scores'. (2) null p95 0.650 (label permutation) < 1.000. (3) per-term ABLATION: best single term 0.675 < full 1.000 -> the terms COMBINE, no single cue is the signal (m/a/d alone 0.675/0.675/0.650). (4) COMBINATION-RULE discriminator (CONFLICT set, n=12, 2-vs-1 cue disagreement with the MINORITY cue rotating evenly, gold = Wolff net-force sign): force-sum 1.000 beats EVERY single-cue-priority (winner-take-all) rule 0.667 CI-separated (+0.337/+0.332/+0.331 ABOVE); no single-cue rule can exceed 8/12 -> the combination is ADDITIVE integration (Wolff vector sum), NOT winner-take-all; twin loses (p95 0.750). (5) 4th CUE = CAUSING-vs-LETTING (Talmy 1988; SET_L n=12): restraint-remover -> ENABLE (letting), strong force -> CAUSE (causing); full 1.000 vs lexicon-only 0.000 (+1.000 CI-sep); dropping the letting term collapses the ENABLE side 1.000->0.500 (letting carries it); ONSET-CAUSE instruments (switch/trigger/lever/button) NEVER typed ENABLE (the causing-not-letting disambiguation guard); the letting cue does NOT perturb COMBINED (e=0 there, drop_e == full). (6) HELD-OUT (fresh affectors/patients/cues) 0.910 [0.773,1.000] beats magnitude-only +0.316 CI-sep -> generalization, not fit; the 2 misses are a VERB-GATE coverage gap ('drift' not gated), the tendency MECHANISM is 20/20 on gated verbs. (7) POSITIVE controls the lexicon cannot: ball-vs-crate (affordance), down-vs-up (directional), nudge-vs-shove (magnitude), key (letting) all correct, lexicon 0 each; the brief's key-vs-wind KEY side now resolves via LETTING, the WIND side is under-determined and RESOLVED once magnitude is stated (breeze->ENABLE, blast->CAUSE). (8) WEIGHT SWEEP min 1.000 over 27 weight configs -> robust to the OUR-INVENTION weights, not fitted."
+files_changed: "experiments/_patient_tendency.py (the estimator: 4 force-dynamic cues -- affector-magnitude + patient-affordance + directional + affector-letting-role -- + Wolff patient-side force-sum), experiments/exp_patient_tendency_estimator_v1.py (populations SET_M/A/D/L, floors, twin, ablation, held-out, weight-sweep, CONFLICT combination-rule discriminator, causing-vs-letting + onset-cause guard, controls), experiments/exp_patient_affordance_cskg_grounding_v1.py (external CSKG grounding of the affordance term), verification/test_patient_tendency_estimator.py (scaffold-free witness 21/21), data/exp_patient_tendency_estimator_v1/metrics.json, data/exp_patient_affordance_cskg_grounding_v1/metrics.json, notes/problems/causation_typing_needs_a_patient_tendency_estimator/research_patient_tendency_force_arithmetic_2026-08-30.md"
+reverify: ".venv/Scripts/python.exe verification/test_patient_tendency_estimator.py   # scaffold-free, 21/21 PASS, recomputes every headline from source"
 ---
 
 # SOLVED -- the full patient-tendency estimator crosses the CAUSE-vs-ENABLE wall the verb cannot
@@ -27,9 +27,17 @@ that sign from three force terms, combined as a **patient-side force SUM** (`exp
    sliding => afford specific motions; heavy/anchored/structural => resist). Action-specific (Gibson).
 3. **DIRECTIONAL / GRAVITY / aspectual** -- environmental Wolff forces: down-the-slope / with-the-current /
    "on its own" => +1; up / against / "jammed" => -1. Purely linguistic, no KB.
+4. **AFFECTOR ROLE -- CAUSING vs LETTING** (a 4th cue, added in deepening, PINNED to Talmy 1988): an affector
+   that REMOVES A RESTRAINT (key/latch/catch/valve/floodgate; the "un-" family: unlock/unbar/release/free/
+   loosen) does not oppose the patient -- it LETS the result -> ENABLE, INDEPENDENT of magnitude. This is the
+   correct mechanism for the brief's flagship "the key opened the gate" (letting) vs "the wind opened the
+   gate" (causing). Design-critical guard (drill): ONSET-CAUSE instruments (switch/trigger/lever/button)
+   APPLY AN IMPULSE -> causing, NOT letting, and NEVER fire ENABLE.
 
-`T = m + a + d`; `sign(T)` = concordance with the affector (which points to the reached endstate) =>
-ENABLE (tends) / CAUSE (resists); `T = 0` => defer to the verb lexicon. NO do-calculus, NO external LLM.
+`T = m + a + d + e`; `sign(T)` = concordance with the affector (which points to the reached endstate) =>
+ENABLE (tends / let) / CAUSE (resists / overcome); `T = 0` => defer to the verb lexicon. NO do-calculus, NO
+external LLM. (Terms 1-3 estimate PATIENT TENDENCY; term 4 is the affector-role concordance signal, added
+additively per the drill's Wolff-faithfulness correction.)
 
 **The combination rule was research-validated before I committed it** (drill 2026-08-30, hdi_research;
 `research_patient_tendency_force_arithmetic_2026-08-30.md`). Wolff 2007 (JEP:General 136) / Wolff & Barbey
@@ -67,19 +75,21 @@ cue, verified neutral on the other two) with the outcome held reached, so the co
   COMPUTATION (integrate all patient-side forces), not a convenient rule that trusts the strongest or the
   already-proven single cue.
 
-## The key-vs-wind flagship, understood (owner: "if you hit a wall, understand deeply why")
-The brief's headline pair -- "the key opened the gate" (ENABLE) vs "the wind opened the gate" (CAUSE) --
-is the deepest finding, not a pass/fail. My estimator does NOT settle the BARE pair, and that is CORRECT
-once affordance is made **rest-state-honest**: a hinged gate affords bidirectional OSCILLATION (swing/turn)
-but a directional STATE-CHANGE from a stable rest (opening a closed gate) needs an IMPULSE -- it is not
-spontaneously afforded, so "gate" contributes a=0 for "open". The bare pair is then **under-determined**
-(Kuhnmuench & Beller 2005: patient-tendency is "partly linguistically CONSTRUCTED") -- a breeze nudging an
-ajar gate = ENABLE, a gale forcing a shut gate = CAUSE; the same string supports both. The estimator
-declines to invent tendency it cannot read (both fall to the verb lexicon) -- the honest answer. **Once the
-construed force is stated it RESOLVES the flagship: "breeze opened the gate" -> ENABLE, "blast opened the
-gate" -> CAUSE** (positive control `gate_breeze_vs_blast`, in the witness). The fully-general fix is a
-4th Wolff term -- the AFFECTOR'S ROLE (restraint-remover/enabling-instrument: key/latch/release => ENABLE,
-vs force-applier) -- PINNED (Talmy's "letting" = removing a barrier) and mapped as adjacent #1.
+## The key-vs-wind flagship, understood AND resolved (owner: "if the brain can do it, we can once we understand")
+The brief's headline pair -- "the key opened the gate" (ENABLE) vs "the wind opened the gate" (CAUSE) -- is
+the deepest thread, and the deepening RESOLVED the KEY side by the right mechanism. Two moves:
+1. **Rest-state honesty (affordance):** a hinged gate affords bidirectional OSCILLATION (swing/turn) but a
+   directional STATE-CHANGE from a stable rest (opening a closed gate) needs an IMPULSE -- not spontaneously
+   afforded, so "gate" contributes a=0 for "open". This is what stops the estimator inventing tendency.
+2. **The CAUSING-vs-LETTING 4th cue (built in deepening, drill-grounded):** "the key opened the gate" is not
+   about patient tendency at all -- it is LETTING: the key REMOVES A RESTRAINT (the lock) and the gate
+   proceeds. The estimator now types "key open gate" = ENABLE via the letting cue -- the CORRECT Talmy
+   mechanism, not an accidental affordance hit. "the wind opened the gate" is CAUSING (a force overcoming a
+   shut gate); bare, it stays **under-determined** (Kuhnmuench & Beller 2005: "partly linguistically
+   CONSTRUCTED" -- a breeze on an ajar gate = ENABLE, a gale on a shut gate = CAUSE) and is **RESOLVED once
+   the construed force is stated**: "breeze opened the gate" -> ENABLE, "blast opened the gate" -> CAUSE
+   (positive control `gate_breeze_vs_blast`). So the flagship's KEY side is solved by letting, and its WIND
+   side is correctly diagnosed as magnitude-underdetermined-until-stated -- the complete, honest picture.
 
 ## What I did NOT establish (withdraw first if wrong)
 - **Real-text CAUSE-vs-ENABLE accuracy with automatic extraction.** Like the proven demo and the base
@@ -141,12 +151,16 @@ vs force-applier) -- PINNED (Talmy's "letting" = removing a barrier) and mapped 
   now beats the affector-magnitude-only term **+0.327 CI-sep** on tendency-ambiguous verbs, and **+0.5 on
   the magnitude-SILENT populations** -- so the tendency dimension is no longer magnitude-only. The
   combination rule (patient-side vector-SUM, qualitative concordance read-out) is **PINNED** (Wolff 2007 /
-  Wolff & Barbey 2015); the affordance property->lability MAP is **OUR-INVENTION** (Wolff PINS the source:
-  "mechanisms internal to the patient / friction / momentum" + gravity as an "other force"). NEW measured
-  deviation: **WordNet taxonomy cannot supply patient disposition (category != physical disposition)** ->
-  the affordance term is a principled core-physics lexicon with an open real-text coverage bound. NEW named
-  fidelity term: **affector ROLE (enabling-instrument vs force-applier)** resolves the key-vs-wind flagship
-  (bare pair under-determined; magnitude-stated resolved) -- adjacent #1, not built.
+  Wolff & Barbey 2015); the affordance property->lability MAP is **OUR-INVENTION with the LABILE half
+  externally CORROBORATED** (CSKG CapableOf confirms 13 labile patients, 0 contradictions) and the INERT
+  half principled core-physics. The combination rule is proven ADDITIVE (a CONFLICT set with rotating
+  minority: force-sum 12/12 vs every winner-take-all rule 8/12) -- I copied Wolff's vector sum, not a
+  convenient WTA. NEW measured deviations: (a) **WordNet taxonomy cannot supply patient disposition**
+  (category != physical disposition); (b) **commonsense KGs (CSKG/ConceptNet) supply the LABILE 'tends'
+  signal but NOT the INERT 'resists' signal** (they record positive dispositions, not resistance/inertia)
+  -> the resists half is core physics no KB carries. NEW named fidelity term: **affector ROLE
+  (enabling-instrument vs force-applier)** resolves the key-vs-wind flagship (bare pair under-determined;
+  magnitude-stated resolved) -- adjacent #1, not built.
 
 ## Adjacent components -- capability / limitation / opportunity / brain-foundational status (owner push)
 1. **Affector-ROLE term (restraint-remover / enabling-instrument vs force-applier) -- HIGH leverage, the
@@ -162,11 +176,15 @@ vs force-applier) -- PINNED (Talmy's "letting" = removing a barrier) and mapped 
    *Brain status:* the online cue-combination humans use is an OPEN empirical question (no ERP/neural
    CAUSE-vs-ENABLE dissociation exists). *Opportunity:* run the estimator over the parent typer's hand-
    adjudicated McGuffey serve + a larger auto-extracted sample with a 2nd adjudicator (heavy -> REMOTE).
-3. **Patient-affordance lexicon coverage (OUR-INVENTION).** *Capability:* clean on core-physics patients,
-   generalizes held-out. *Limitation:* WordNet cannot extend it (measured); the map is finite. *Brain
-   status:* the SOURCE is PINNED, the map is invented. *Opportunity:* seed from a disposition resource
-   (ConceptNet CapableOf / a physical-property KB / the verbnet_affectedness proto-patient signal) with the
-   same held-out discipline -> broader coverage without gold-tuning.
+3. **Patient-affordance lexicon coverage (OUR-INVENTION, labile half externally corroborated).**
+   *Capability:* clean on core-physics patients, generalizes held-out; the LABILE half is corroborated by
+   CSKG CapableOf (13 patients, 0 contradictions). *Limitation:* CSKG covers only ~half of labile patients
+   (sparse), and the INERT half is structurally KB-ABSENT (measured -- resistance/inertia is not in
+   commonsense KGs); the map is finite. *Brain status:* the SOURCE is PINNED (Wolff), the labile map is
+   externally-corroborated, the resists map is principled core-physics (Spelke inertia). *Opportunity:*
+   AUTO-EXPAND the labile half from CSKG `CapableOf`-motion (a static asset, escapes gold-tuning) and derive
+   the resists half from a physical-property KB (WorldTree PROP-AVG-WEIGHT / MADEOF, mass -> inertia) --
+   raising coverage for real text without inventing entries. A concrete, high-yield next build.
 4. **The verb ambiguous-gate (`AMBIGUOUS_VERBS`).** *Capability:* gates the tendency logic to genuinely
    ambiguous verbs. *Limitation:* finite list; "drift/float/glide" absent (the 2 held-out misses). *Brain
    status:* the ambiguity is a lexical-semantic fact (which verbs under-specify tendency). *Opportunity:*
@@ -220,4 +238,6 @@ not a bug, and resolved once the force is stated.)
    serve + a larger auto-extracted sample with a 2nd adjudicator (heavy -> REMOTE); the #1 coverage bound.
 3. **Broaden the affordance lexicon** from a disposition resource (ConceptNet CapableOf / physical-property
    KB / verbnet proto-patient) with the held-out discipline; and derive the ambiguous-verb gate from a
-   lexical resource (fixes the drift/float/glide coverage misses)
+   lexical resource (fixes the drift/float/glide coverage misses).
+4. Strategy: extend the queued `force_dynamics_typer` landing with the patient-tendency estimator
+   (proposal above), keeping the affordance map flagged OUR-INVENTION and the abstain-to-lexicon behavior.
