@@ -65,6 +65,23 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `context_grounded_valence` (LIVE-WIRED reader organ) — its
+  animacy axis GENERALIZES but its FORCE-VERB identification is a TEST-FITTED HAND LIST; the fix already exists on the shelf.**
+  (a) FIDELITY: partly brain-grounded — biased-competition event assembly (Desimone & Duncan) + a WordNet ANIMACY axis + a
+  frozen appraisal-sim theta valuation; the animacy override is PINNED-ish. (b) GENERALIZATION: the animacy axis is CERTIFIED
+  OPEN-VOCAB (Bopen=1.000, 5 seeds; scramble→0.400 twin loses; no subset-A regression) — a genuine positive, NOT the word-list
+  brittleness we feared. BUT the force-verb gate `FORCE_CLASS_HARM_REAL` = `FORCE_CLASS_HARM ∪ {batter,clobber,wallop,pummel,
+  maul,claw,crack,wrench,twist}` is a CLOSED, TEST-FITTED hand list (the organ's own docstring flags it) — literally the
+  Bopen/Bgap test verbs → it will NOT recognize force-verbs outside that set (the same "principle generalizes, hand-list does
+  not" pattern the McGuffey migration flagged for the animacy cue). Also SCOPED-OPEN honest gaps: body-part animacy (WordNet
+  routes body-parts to inanimate; `BODY_PART_SUPPLEMENT` patches only 9 words), abstract-harm-vs-goal-noun, beneficiary/
+  social-relational valence. (c) WIRING: LIVE (imported by `situation_reader`, 5 refs) — NOT an island. (d) GAP + LEVERAGE + FIX:
+  replace `FORCE_CLASS_HARM_REAL` with the ALREADY-INTEGRATED `force_dynamics_typer`'s FrameNet Causation-family lexicon
+  (~300 verbs whose class assignment PREDATES any test gold; cached `data/force_dynamics_lexicon_v1/lexicon.json`) — a
+  generalization-safe, pre-existing force-verb source AND a wiring CONSOLIDATION (reuse the better organ). Low-risk but
+  behaviour-touching (must preserve the certified Bopen=1.000 + no regression), so it is a SMALL SOLVER PROBLEM (validate the
+  swap generalizes), not a silent strategy edit — SEEDED, not packaged (queue has 2 available; captured for a free slot).
+
 - **2026-08-30 — THE ROLE EVAL MIGRATES McGUFFEY→MODERN, AND McGUFFEY'S ROLE EVAL WAS DEGENERATE + THE ORGAN DOES NOT
   GENERALIZE TO MODERN NON-CANONICAL ORDER** (from integrated `the_reader_eval_is_scored_on_200_year_old_mcguffey_migrate_to_modern_text`,
   owner-DONE, SOLVED/EXCELLENT; reverified 19/19 first-hand — the owner's ~10×-requested corpus-age fix). Built a modern
