@@ -31,7 +31,36 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-30 (LATEST) -- ✅ **BOTH DROPS INTEGRATED + assembly Change 1 LANDED. (1) The ASSEMBLY (p3, STRONG) — the live reader beats its positional self on who-did-what; its BIGGEST lever (quotative "said Fred"→Fred=agent, +0.253) is now LANDED into the shared `predicate_argument_frontend` router, correct-by-default, witnessed 9/9 + no-regression 10/10/6/6/2/2. (2) The DISCOURSE-FACT REASONER (p5, EXCELLENT) — a rigorous two-sided negative: world knowledge is net-zero on competitive coref (do NOT wire it), +0.124 only on the ~15% fact-present sliver. TWO drills triangulate: the coref residual is NOT KB-bound → next problem = a Grosz-Sidner focus stack.**
+### 2026-08-30 (LATEST) -- 🧭 **COMPACTION SNAPSHOT — READ THIS FIRST. The organizing frame is now LEARNER-ON via a CLEAN FOUNDATION.**
+**READ FIRST after compaction; then the dated entries below for detail.**
+🎯 **NORTH STAR (owner strategic discussion 08-30) = LEARNER-ON via a CLEAN FOUNDATION, built by ONE connected chain: `narrative
+extraction → knowledge base → CONSOLIDATION/CLEANUP → clean foundation → SAFE GROWTH`.** The learner is PROVEN-but-OFF (both learner
+problems EXCELLENT; growth deliberately OFF — the foundation is too noisy to grow on). Owner insight: reasoning/narrative work and the
+learner-foundation are ONE chain (the situation model IS structured knowledge), NOT separate threads. Full frame: memory
+[[learner-on-organizing-frame]] + the ORGANIZING-FRAME block further down this POSITION section.
+🔗 **THE MISSING LINK = the consolidation/cleanup organ.** It RUNS (episodic→semantic pass; `cortical_recall`/`cleanup_family`/
+`schema_exemplar_bayes`) but is DISCONNECTED — the cleaned cortical store is WRITTEN-BUT-NEVER-READ (live read-out hits the EPISODIC store;
+ablating consolidation left 9/12 cells identical), and the self-built cortical read did NOT beat word-counting — BUT a SUPPLIED
+distributional space DID, and we have BUILT one (`hdlab/distributional_meaning_channel`) that is NOT yet wired into `cortical_recall`
+(verified 08-30). **Likely genuine gap = wire the distilled space into the cortical/consolidation read + measure (close written-but-never-read).**
+🧭 **STRATEGY'S NEXT FOCUSED STEP (the momentum): a CHAIN-STATE SYNTHESIS — what is PROVEN at each link of the learner-on chain —
+BEFORE packaging, because the consolidation/foundation area is HEAVILY worked (many integrated RIGOROUS NEGATIVES; do NOT hand a solver a
+re-derived negative). Then package ONE targeted consolidation-link problem. ⚠️ VERIFY `teach_the_self_built_space_instead_of_concatenating_it`
+(EXCELLENT) didn't already wire the distilled space before packaging.** METHOD: RESPONSIBLE (learner-growth SAFETY GATE stays — OFF until
+proven clean+safe; flip on evidence) + CLEAR (roadmap TODO: `notes/LEARNER_ON_ROADMAP.md` not yet written) + EFFICIENT (synthesize-then-target).
+📋 **QUEUE (integrate ONLY on `owner_verdict: DONE`):** p1 `the_reader_eval_is_scored_on_200_year_old_mcguffey_migrate_to_modern_text`
+(OWNER-PRIORITY, asked ~10x — migrate the reader eval off 200yo McGuffey to modern annotated text on the shelf; feeds the chain by cleaning
+extraction) + p3 focus-stack (coref residual) + p5 QA-capstone (unified QA over the situation model). **3 WIP AWAITING OWNER REVIEW (the
+pipeline's current gate): p4 belief-timeline, p7 patient-tendency, p8 causal-network — SOLVED ~10h, no owner verdict; LEAVE ALONE, integrate
+instantly when marked DONE.** Nothing owner-DONE awaiting.
+⚠️ **RECENT (owned): RETRACTED a duplicate meaning-channel landing** (I built `distilled_substitutability.py` duplicating the existing wired
+`distributional_meaning_channel` — check-prior-work failure; git rm'd, grounded_similarity byte-identical again, `5e4789a20`). **Assembly
+Change 3 (binder into coref) RECLASSIFIED** = a SOLVER validate-then-land (folds into p3), NOT a mechanical landing I owe. The floor_battery
+bit-rot repair (`f409a5f5d`, ~7 cells) STANDS. **LESSON re-pinned: CHECK hdlab for the organ before building/claiming an owed landing.**
+📁 **Docs updated this session: the learner-on frame is in memory (`MEMORY.md` NEXT-PHASE + [[learner-on-organizing-frame]]) + STATUS; MEMORY.md
+compacted. TODO after compaction: write `notes/LEARNER_ON_ROADMAP.md` (the clear roadmap the owner asked for).**
+
+### 2026-08-30 -- ✅ **BOTH DROPS INTEGRATED + assembly Change 1 LANDED. (1) The ASSEMBLY (p3, STRONG) — the live reader beats its positional self on who-did-what; its BIGGEST lever (quotative "said Fred"→Fred=agent, +0.253) is now LANDED into the shared `predicate_argument_frontend` router, correct-by-default, witnessed 9/9 + no-regression 10/10/6/6/2/2. (2) The DISCOURSE-FACT REASONER (p5, EXCELLENT) — a rigorous two-sided negative: world knowledge is net-zero on competitive coref (do NOT wire it), +0.124 only on the ~15% fact-present sliver. TWO drills triangulate: the coref residual is NOT KB-bound → next problem = a Grosz-Sidner focus stack.**
 **Newest first; the compaction-snapshot entry below remains the recovery anchor.**
 ✅ **INTEGRATED `the_discourse_fact_reasoner_is_unvalidated_on_natural_text` (p5, owner-DONE, SOLVED/EXCELLENT;
 reverified 11/11 FIRST-HAND, scaffold-free):** a rigorous two-sided real-text validation. NEG (full pass) — fired blind
