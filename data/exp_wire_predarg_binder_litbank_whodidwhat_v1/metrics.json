@@ -1,0 +1,151 @@
+{
+  "anchor": "wire_predarg_binder_litbank_whodidwhat_v1",
+  "n_docs": 100,
+  "coverage_gov_verb": {
+    "gold": 0.982,
+    "arc": 0.936,
+    "positional": 0.936
+  },
+  "tuned_weights": {
+    "recency": 1.0,
+    "subject": 0.0,
+    "cb": 2.0,
+    "freq": 0.5,
+    "first": 1.0,
+    "parallel": 0.0,
+    "actr": 1.0,
+    "focus": 0.0,
+    "streak": 0.5,
+    "window": 0.0
+  },
+  "who_did_what_pron_recall": {
+    "gold+ACTR": {
+      "acc": 0.2491,
+      "lo": 0.2101,
+      "hi": 0.2898,
+      "n": 4661
+    },
+    "gold+GRADED": {
+      "acc": 0.3328,
+      "lo": 0.2757,
+      "hi": 0.3881,
+      "n": 4661
+    },
+    "gold+RAND": {
+      "acc": 0.1064,
+      "lo": 0.0921,
+      "hi": 0.1208,
+      "n": 4661
+    },
+    "gold+OPB": {
+      "acc": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 4661
+    },
+    "arc+ACTR": {
+      "acc": 0.2328,
+      "lo": 0.1914,
+      "hi": 0.2785,
+      "n": 4429
+    },
+    "arc+GRADED": {
+      "acc": 0.3281,
+      "lo": 0.2643,
+      "hi": 0.3954,
+      "n": 4429
+    },
+    "arc+RAND": {
+      "acc": 0.1321,
+      "lo": 0.1137,
+      "hi": 0.1512,
+      "n": 4429
+    },
+    "arc+OPB": {
+      "acc": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 4429
+    },
+    "positional+ACTR": {
+      "acc": 0.2283,
+      "lo": 0.1881,
+      "hi": 0.2739,
+      "n": 4429
+    },
+    "positional+GRADED": {
+      "acc": 0.3093,
+      "lo": 0.2515,
+      "hi": 0.3693,
+      "n": 4429
+    },
+    "positional+RAND": {
+      "acc": 0.1294,
+      "lo": 0.1112,
+      "hi": 0.1476,
+      "n": 4429
+    },
+    "positional+OPB": {
+      "acc": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 4429
+    }
+  },
+  "residual_decomposition_arc": {
+    "current_arc_GRADED": 0.3281,
+    "perfect_binding_ceiling_arc_OPB": 1.0,
+    "binder_recovers_of_binding_headroom": 0.124,
+    "binding_headroom_remaining_GRADED_to_OPB": 0.672,
+    "non_binding_residual_OPB_to_1": 0.0,
+    "reading": "headroom from GRADED to OPB = coref/binding still to win (the binder + coherence prior); headroom from OPB to 1.0 = name-clustering + gov_verb attachment + metric strictness -- the NEXT bottleneck if binding were perfect."
+  },
+  "contrasts": {
+    "PARSE_CAP_arc_minus_gold_GRADED": {
+      "delta": -0.0047,
+      "lo": -0.0308,
+      "hi": 0.0201,
+      "half_width": 0.0255,
+      "null_p95": 0.0252,
+      "band": "NOT_SEP"
+    },
+    "BINDER_arc_GRADED_minus_ACTR": {
+      "delta": 0.0953,
+      "lo": 0.0404,
+      "hi": 0.1575,
+      "half_width": 0.0586,
+      "null_p95": 0.0587,
+      "band": "ABOVE"
+    },
+    "BINDER_gold_GRADED_minus_ACTR": {
+      "delta": 0.0837,
+      "lo": 0.0387,
+      "hi": 0.1286,
+      "half_width": 0.0449,
+      "null_p95": 0.0451,
+      "band": "ABOVE"
+    },
+    "WIRED_arcGRADED_minus_positionalACTR": {
+      "delta": 0.0998,
+      "lo": 0.0442,
+      "hi": 0.1617,
+      "half_width": 0.0587,
+      "null_p95": 0.0604,
+      "band": "ABOVE"
+    },
+    "arc_GRADED_minus_RANDtwin": {
+      "delta": 0.196,
+      "lo": 0.138,
+      "hi": 0.2546,
+      "half_width": 0.0583,
+      "null_p95": 0.0587,
+      "band": "ABOVE"
+    }
+  },
+  "verdict": {
+    "binder_lifts_whodidwhat_in_arc_pipeline_CI": true,
+    "wired_beats_positional_incumbent_CI": true,
+    "randbind_twin_loses_CI": true,
+    "archaic_parse_cap_arc_below_gold": "NOT_SEP"
+  }
+}

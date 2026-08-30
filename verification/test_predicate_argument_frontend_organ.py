@@ -21,7 +21,11 @@ Asserts:
   5. TRANSFER verb + to -> RECIPIENT, NOT goal ("handed the letter to Mary") -- CUE2 over CUE1
   6. CAUSED-MOTION, verb-independent: "shoved him to the ground" -> goal=ground even though 'shove' is in NO
      motion-verb list (the constructional gate; v1's list-shape error fixed), and the moved theme is attributed.
-  7. runtime is spaCy-FREE (no external LLM; VerbNet/WordNet are static nltk lexical assets).
+  7. QUOTATIVE INVERSION (added 2026-08-30, the assembly landing): "said John" -> the POSTVERBAL speaker John
+     is the AGENT (not the object) and the quoted content is dropped as a theme (+0.253 CI-sep on real dialogue).
+  8. NON-speech byte-identical control: "Mary pushed John" -> agent=Mary unchanged (quotative fires ONLY for a
+     speech/COMM verb with an animate speaker).
+  9. runtime is spaCy-FREE (no external LLM; VerbNet/WordNet are static nltk lexical assets).
 
 Run: .venv/Scripts/python.exe verification/test_predicate_argument_frontend_organ.py
 """
@@ -85,9 +89,27 @@ def main() -> int:
     checks.append((r6.get("goal") == 5,
                    f"[6] 'shoved him to the ground' -> GOAL=ground(5) though 'shove' is in NO motion list (constructional gate): goal={r6.get('goal')} goal_belongs_to={r6.get('goal_belongs_to')}"))
 
-    # (7) spaCy-free.
+    # (7) QUOTATIVE INVERSION (added 2026-08-30, the assembly landing): a speech verb's AGENT is the
+    # POSTVERBAL speaker, and the quoted content is dropped as a theme. 'Yes , said John .' -> agent=John(4).
+    tok7 = ["Yes", ",", "said", "John", "."]
+    up7 = ["INTJ", "PUNCT", "VERB", "PROPN", "PUNCT"]
+    hd7 = {1: 3, 2: 3, 4: 3, 5: 3}   # said is root (3); John(4)->said
+    r7 = route_predicate_arguments(tok7, up7, hd7, 3)
+    checks.append((r7.get("agent") == 4 and r7.get("theme") is None,
+                   f"[7] 'said John' QUOTATIVE: postverbal speaker John(4)=AGENT, quote-content theme dropped: agent={r7.get('agent')} theme={r7.get('theme')}"))
+
+    # (8) NON-speech verb is BYTE-IDENTICAL (quotative fires ONLY for a speech verb WITH an animate speaker):
+    # 'Mary pushed John' -> agent=Mary(1), the linear pre-verb nominal, unchanged by the quotative addition.
+    tok8 = ["Mary", "pushed", "John", "."]
+    up8 = ["PROPN", "VERB", "PROPN", "PUNCT"]
+    hd8 = {1: 2, 3: 2, 4: 2}
+    r8 = route_predicate_arguments(tok8, up8, hd8, 2)
+    checks.append((r8.get("agent") == 1,
+                   f"[8] 'Mary pushed John' (non-speech) -> agent=Mary(1) unchanged (quotative fires only for speech verbs): agent={r8.get('agent')}"))
+
+    # (9) spaCy-free.
     checks.append(("spacy" not in sys.modules,
-                   f"[7] runtime is spaCy-FREE (no external LLM; VerbNet/WordNet are static nltk assets): {'spacy' not in sys.modules}"))
+                   f"[9] runtime is spaCy-FREE (no external LLM; VerbNet/WordNet are static nltk assets): {'spacy' not in sys.modules}"))
 
     print("=== witness: hdlab.predicate_argument_frontend.route_predicate_arguments (shared event-semantic SRL) ===")
     all_pass = True

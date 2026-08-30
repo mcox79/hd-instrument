@@ -231,6 +231,94 @@ def _goal_belongs_to(theme_idx: Optional[int], goal_obj_idx: int, tokens: Sequen
 
 
 # ------------------------------------------------------------------------------------------------
+# QUOTATIVE INVERSION (landed 2026-08-30 from the integrated assembly
+# `wire_the_predarg_frontend_and_binder_into_the_live_reader`, owner-DONE, SOLVED/STRONG). The router
+# computed the COMM VerbNet class but used it ONLY for recipient routing, never to fix the AGENT of a
+# quotative: on "said Fred" the linear `agent = nearest nominal before the verb` rule branded the
+# POSTVERBAL speaker the object. On real narrative dialogue this was the single largest role error
+# (+0.253 CI-sep to fix). Quotative inversion is the frame semantics of communication verbs (FrameNet
+# Statement; VerbNet say-37.7; Goldberg 1995 construction grammar) + animacy proto-agent prominence
+# (eADM, Bornkessel-Schlesewsky & Schlesewsky 2006, Psych Review 113:787, PMID 17014303) -- PINNED-in-
+# principle; the exact positional mechanism is OUR-INVENTION-UNDER-TEST (no ERP isolates "said Mary"
+# online). The speech-verb set + animacy check are copied VERBATIM from the validated
+# exp_wire_organs_endtoend_v1 (the prior negative's quotative pieces the assembly reused). This fix is
+# ADDITIVE: it changes the router's agent ONLY for a speech/COMM verb that has an animate speaker
+# outside quotes -- byte-identical for every non-speech verb. NO external LLM (the invariant).
+# ------------------------------------------------------------------------------------------------
+_PRO_F = {"she", "her", "hers", "herself"}
+_PRO_M = {"he", "him", "his", "himself"}
+_ANIMATE_PRO = _PRO_F | _PRO_M | {"they", "them", "their"}
+ANIMATE_NOUNS = {
+    "mother", "father", "aunt", "uncle", "man", "woman", "boy", "girl", "child", "children", "boatman",
+    "brother", "sister", "schoolmaster", "lady", "gentleman", "gentlemen", "people", "folks", "son",
+    "daughter", "friend", "teacher", "doctor", "king", "queen", "baby", "nurse", "master", "mistress",
+    "cousin", "parents", "dog", "cat", "bird", "horse", "men", "boys", "girls", "sir", "madam", "captain",
+    "farmer", "soldier", "servant", "maid", "widow", "beggar", "stranger", "neighbor", "neighbour",
+}
+# Curated speech-verb set covering archaic verbs VerbNet's COMM class misses (exclaim/murmur/...); the
+# COMM VerbNet class is the glass-box static-asset primary cue, this set is the recall backstop.
+SPEECH_VERBS = {
+    "say", "said", "says", "answer", "answered", "answers", "ask", "asked", "asks", "reply", "replied",
+    "exclaim", "exclaimed", "cry", "cried", "cries", "shout", "shouted", "call", "called", "tell", "told",
+    "whisper", "whispered", "add", "added", "remark", "remarked", "speak", "spoke", "declare", "declared",
+    "inquire", "inquired", "observe", "observed", "respond", "responded", "continue", "continued",
+    "return", "returned", "repeat", "repeated", "murmur", "murmured", "groan", "groaned", "sob", "sobbed",
+}
+
+
+def _is_animate_head(word: str, tag: str) -> bool:
+    """True if `word` is an animate NOMINAL head (a candidate speaker). `tag` is Penn-ish (NNP proper
+    name / PRP pronoun / NN common); use `_penn_hint` to feed it from UPOS. Copied VERBATIM from the
+    validated exp_wire_organs_endtoend_v1."""
+    wl = word.strip(".,\"'").lower()
+    if wl in _ANIMATE_PRO:
+        return True
+    if tag == "NNP" and word[:1].isupper():   # proper name
+        return True
+    if wl in ANIMATE_NOUNS:
+        return True
+    return False
+
+
+def _penn_hint(upos: str, tok: str) -> str:
+    """_is_animate_head expects a Penn-ish tag; map UPOS PROPN->NNP so its proper-name branch fires."""
+    return "NNP" if upos == "PROPN" else ("PRP" if upos == "PRON" else "NN")
+
+
+def _quote_mask(tokens: Sequence[str]) -> List[bool]:
+    """True for tokens INSIDE a quoted span (quoted speech is the message, never the matrix argument)."""
+    inq = [False] * len(tokens)
+    q = False
+    for i, w in enumerate(tokens):
+        if w in ('"', '``', "''", "“", "”"):
+            q = not q
+        inq[i] = q
+    return inq
+
+
+def is_speech_verb(lemma: str, vclasses: Optional[FrozenSet[str]] = None) -> bool:
+    """COMM event-class (the router's OWN VerbNet class, glass-box static asset) OR the validated curated
+    speech-verb set. Pass `vclasses` (already computed) to avoid a redundant VerbNet lookup."""
+    vc = vclasses if vclasses is not None else get_event_classes(lemma)
+    return ("COMM" in vc) or (lemma in SPEECH_VERBS)
+
+
+def quotative_speaker(tokens: Sequence[str], upos: Sequence[str], v: int) -> Optional[int]:
+    """QUOTATIVE-INVERSION agent: for a speech/COMM verb the SPEAKER is the nearest ANIMATE nominal
+    OUTSIDE quotes, preferring POSTVERBAL ('said Fred') then preverbal; the quoted content is not a
+    filler. Returns a 1-based token index or None. `v` is 1-based. Copied from the validated experiment."""
+    inq = _quote_mask(tokens)
+    v0 = v - 1
+    order = list(range(v0 + 1, len(tokens))) + list(range(v0 - 1, -1, -1))   # postverbal first
+    for i in order:
+        if inq[i]:
+            continue
+        if upos[i] in ("NOUN", "PROPN", "PRON") and _is_animate_head(tokens[i], _penn_hint(upos[i], tokens[i])):
+            return i + 1
+    return None
+
+
+# ------------------------------------------------------------------------------------------------
 # the event-semantic router (copied UNCHANGED from exp_shared_predarg_frontend_v2)
 # ------------------------------------------------------------------------------------------------
 def _route_one_pp(prep: str, obj: int, tokens: Sequence[str], upos: Sequence[str],
@@ -298,11 +386,14 @@ def _route_one_pp(prep: str, obj: int, tokens: Sequence[str], upos: Sequence[str
 def route_predicate_arguments(tokens: Sequence[str], upos: Sequence[str], heads: Dict[int, int],
                               verb_idx: int, prep_to_base: Optional[Dict[str, str]] = None,
                               event_classes_fn=None, dest_fn=None,
-                              animacy_fn=lookup_animacy, max_hops: int = MAX_HOPS) -> dict:
+                              animacy_fn=lookup_animacy, max_hops: int = MAX_HOPS,
+                              quotative: bool = True) -> dict:
     """The SHARED event-semantic predicate-argument router. Returns 1-based token indices (or None):
     {agent, theme, goal, location, path, source, recipient, direction, instrument, goal_belongs_to}.
     prep_to_base / event_classes_fn / dest_fn are override points ONLY for the info-free TWIN control; the
-    defaults are the true _PREP_TO_BASE / get_event_classes / is_destination_verb.
+    defaults are the true _PREP_TO_BASE / get_event_classes / is_destination_verb. `quotative` (default
+    True) applies quotative-inversion agent handling for speech/COMM verbs ("said Fred" -> Fred=AGENT);
+    pass False to disable it (ablation, or callers that apply their own quotative handling separately).
 
     Precedence for the to/for GOAL-vs-RECIPIENT ambiguity (Competition-Model style): (1) TRANSFER/COMM + 'to' ->
     RECIPIENT; (2) MOTION/PUT (to/into/onto/unto) -> GOAL; (3) unclassified verb, 'to', animate object -> RECIPIENT;
@@ -329,6 +420,17 @@ def route_predicate_arguments(tokens: Sequence[str], upos: Sequence[str], heads:
     is_motion_or_put = ("MOTION" in vclasses) or ("PUT" in vclasses)
     is_xfer_or_comm = ("TRANSFER" in vclasses) or ("COMM" in vclasses)
     is_dest = dest_fn(lemma)
+
+    # QUOTATIVE INVERSION (default ON): for a speech/COMM verb, the AGENT is the SPEAKER (nearest animate
+    # nominal outside quotes, postverbal-first), not the linear pre-verb nominal, and the quoted content is
+    # not a theme. ADDITIVE -- fires only for a speech verb WITH an animate speaker; byte-identical
+    # otherwise. `quotative=False` disables it (an ablation/twin hook, like the other override points; used
+    # by callers -- e.g. the validating experiment -- that apply their own quotative handling separately).
+    if quotative and is_speech_verb(lemma, vclasses):
+        sp = quotative_speaker(tokens, upos, v)
+        if sp is not None:
+            agent_idx = sp
+            theme_idx = None
 
     roles: Dict[str, Optional[int]] = {k: None for k in
                                        ("goal", "location", "path", "source", "recipient",

@@ -1,0 +1,1164 @@
+{
+  "anchor": "wire_predarg_binder_live_reader_v1",
+  "n_passages": 57,
+  "n_queries": 178,
+  "pids": [
+    "susie_hears_1",
+    "susie_helps_2",
+    "mary_dash_doll",
+    "harry_carriage",
+    "edgar_thomas_boat",
+    "james_sport_dog",
+    "willie_bounce",
+    "fred_knife",
+    "john_lamb",
+    "dodger_terrier",
+    "patty_forest",
+    "bessie_auntannie_quotative_1",
+    "bessie_toad_afternoon",
+    "bessie_mother_departure",
+    "bessie_rain_auntie",
+    "george_ellet_snowball",
+    "george_ellet_confession",
+    "mary_beach_story",
+    "robert_henry_courage_1",
+    "robert_henry_rescue_2",
+    "herbert_joe_castle_1",
+    "herbert_hetty_papa_castle_2",
+    "herbert_papa_castlebuilding_3",
+    "susan_grandmother_1",
+    "susan_grandmother_2",
+    "henry_bond_grammar",
+    "uncle_ben_harry_eyes_1",
+    "uncle_ben_harry_eyes_2",
+    "hugh_idle_mr_toil_1",
+    "jenny_andrew_quotative_1",
+    "jenny_andrew_bridge_byagent",
+    "preston_soldiers_byagent",
+    "king_ernestine_order",
+    "warren_langford_quotative",
+    "hugh_idle_stranger_2",
+    "hugh_idle_farmer_resemblance",
+    "john_tom_horse_1",
+    "john_tom_horse_2",
+    "robert_henry_aftermath",
+    "g2_dense_bubble_harry_robert_willie",
+    "g2_dense_sam_harry_blindman",
+    "g2_dense_boat_rose_boatman_edgar_thomas",
+    "g2_dense_katie_mary_mother_fire",
+    "g2_dense_willie_bounce_brown_river_rescue",
+    "g2_dense_james_sport_dodger",
+    "g4_dense_george_jennie_two_mammas",
+    "g4_dense_fred_tom_katy_fire",
+    "g4_dense_john_sharp_ben_archery",
+    "g4_dense_harry_frisk_annie",
+    "g4_dense_philip_stephen_robinson",
+    "g4_dense_lucy_john_aunt_kite",
+    "g5_dense_michael_agnes_isabel_jacob",
+    "g5_dense_tom_polly_madam_fan_maud",
+    "g5_dense_squeers_mrssqueers_nicholas_smike",
+    "g5_dense_hugh_agnes_mother",
+    "g6_dense_omar_ali_mansour_banian_cadi",
+    "g6_dense_joab_ahimaaz_cushi_absalom_king"
+  ],
+  "PRIMARY_ARM": "PREDARG (parse -> route_predicate_arguments -> graded binder; no frame labeler)",
+  "POSITION": {
+    "all": {
+      "role_acc": 0.5169,
+      "role_ci": [
+        0.4382,
+        0.5899
+      ],
+      "role_hw": 0.0758,
+      "n": 178
+    },
+    "in_scope": {
+      "role_acc": 0.5621,
+      "role_ci": [
+        0.4837,
+        0.6405
+      ],
+      "role_hw": 0.0784,
+      "n": 153
+    },
+    "non_agent": {
+      "role_acc": 0.3077,
+      "role_ci": [
+        0.1795,
+        0.4615
+      ],
+      "role_hw": 0.141,
+      "n": 39
+    },
+    "predarg_scope": {
+      "role_acc": 0.5542,
+      "role_ci": [
+        0.4759,
+        0.6265
+      ],
+      "role_hw": 0.0753,
+      "n": 166
+    }
+  },
+  "POS_GRADED": {
+    "all": {
+      "role_acc": 0.5225,
+      "role_ci": [
+        0.4494,
+        0.6011
+      ],
+      "role_hw": 0.0758,
+      "n": 178
+    },
+    "in_scope": {
+      "role_acc": 0.5752,
+      "role_ci": [
+        0.4967,
+        0.6538
+      ],
+      "role_hw": 0.0785,
+      "n": 153
+    },
+    "non_agent": {
+      "role_acc": 0.2821,
+      "role_ci": [
+        0.1538,
+        0.4359
+      ],
+      "role_hw": 0.141,
+      "n": 39
+    },
+    "predarg_scope": {
+      "role_acc": 0.5602,
+      "role_ci": [
+        0.4819,
+        0.6325
+      ],
+      "role_hw": 0.0753,
+      "n": 166
+    }
+  },
+  "PREDARG_REC": {
+    "all": {
+      "role_acc": 0.7191,
+      "role_ci": [
+        0.6517,
+        0.7809
+      ],
+      "role_hw": 0.0646,
+      "n": 178
+    },
+    "in_scope": {
+      "role_acc": 0.7843,
+      "role_ci": [
+        0.719,
+        0.8497
+      ],
+      "role_hw": 0.0654,
+      "n": 153
+    },
+    "non_agent": {
+      "role_acc": 0.3846,
+      "role_ci": [
+        0.2308,
+        0.5385
+      ],
+      "role_hw": 0.1538,
+      "n": 39
+    },
+    "predarg_scope": {
+      "role_acc": 0.7711,
+      "role_ci": [
+        0.7048,
+        0.8313
+      ],
+      "role_hw": 0.0633,
+      "n": 166
+    }
+  },
+  "PREDARG_NOQUOT": {
+    "all": {
+      "role_acc": 0.4775,
+      "role_ci": [
+        0.4045,
+        0.5506
+      ],
+      "role_hw": 0.073,
+      "n": 178
+    },
+    "in_scope": {
+      "role_acc": 0.5033,
+      "role_ci": [
+        0.4248,
+        0.5817
+      ],
+      "role_hw": 0.0784,
+      "n": 153
+    },
+    "non_agent": {
+      "role_acc": 0.4359,
+      "role_ci": [
+        0.2821,
+        0.5897
+      ],
+      "role_hw": 0.1538,
+      "n": 39
+    },
+    "predarg_scope": {
+      "role_acc": 0.512,
+      "role_ci": [
+        0.4337,
+        0.5904
+      ],
+      "role_hw": 0.0783,
+      "n": 166
+    }
+  },
+  "PREDARG": {
+    "all": {
+      "role_acc": 0.7303,
+      "role_ci": [
+        0.6629,
+        0.7921
+      ],
+      "role_hw": 0.0646,
+      "n": 178
+    },
+    "in_scope": {
+      "role_acc": 0.8039,
+      "role_ci": [
+        0.7386,
+        0.8627
+      ],
+      "role_hw": 0.0621,
+      "n": 153
+    },
+    "non_agent": {
+      "role_acc": 0.359,
+      "role_ci": [
+        0.2051,
+        0.5128
+      ],
+      "role_hw": 0.1538,
+      "n": 39
+    },
+    "predarg_scope": {
+      "role_acc": 0.7831,
+      "role_ci": [
+        0.7169,
+        0.8434
+      ],
+      "role_hw": 0.0633,
+      "n": 166
+    }
+  },
+  "PREDARG_HYBRID": {
+    "all": {
+      "role_acc": 0.7416,
+      "role_ci": [
+        0.6798,
+        0.8034
+      ],
+      "role_hw": 0.0618,
+      "n": 178
+    },
+    "in_scope": {
+      "role_acc": 0.8105,
+      "role_ci": [
+        0.7516,
+        0.8693
+      ],
+      "role_hw": 0.0588,
+      "n": 153
+    },
+    "non_agent": {
+      "role_acc": 0.3846,
+      "role_ci": [
+        0.2308,
+        0.5385
+      ],
+      "role_hw": 0.1538,
+      "n": 39
+    },
+    "predarg_scope": {
+      "role_acc": 0.7952,
+      "role_ci": [
+        0.7289,
+        0.8554
+      ],
+      "role_hw": 0.0633,
+      "n": 166
+    }
+  },
+  "PREDARG_FRAME": {
+    "all": {
+      "role_acc": 0.6629,
+      "role_ci": [
+        0.5955,
+        0.7303
+      ],
+      "role_hw": 0.0674,
+      "n": 178
+    },
+    "in_scope": {
+      "role_acc": 0.7059,
+      "role_ci": [
+        0.634,
+        0.7778
+      ],
+      "role_hw": 0.0719,
+      "n": 153
+    },
+    "non_agent": {
+      "role_acc": 0.4359,
+      "role_ci": [
+        0.2821,
+        0.5897
+      ],
+      "role_hw": 0.1538,
+      "n": 39
+    },
+    "predarg_scope": {
+      "role_acc": 0.6928,
+      "role_ci": [
+        0.6145,
+        0.759
+      ],
+      "role_hw": 0.0723,
+      "n": 166
+    }
+  },
+  "TWIN_ROLE": {
+    "all": {
+      "role_acc": 0.4382,
+      "role_ci": [
+        0.3708,
+        0.5112
+      ],
+      "role_hw": 0.0702,
+      "n": 178
+    },
+    "in_scope": {
+      "role_acc": 0.5033,
+      "role_ci": [
+        0.4248,
+        0.5817
+      ],
+      "role_hw": 0.0784,
+      "n": 153
+    },
+    "non_agent": {
+      "role_acc": 0.1282,
+      "role_ci": [
+        0.0256,
+        0.2314
+      ],
+      "role_hw": 0.1029,
+      "n": 39
+    },
+    "predarg_scope": {
+      "role_acc": 0.4699,
+      "role_ci": [
+        0.3916,
+        0.5482
+      ],
+      "role_hw": 0.0783,
+      "n": 166
+    }
+  },
+  "TWIN_BIND": {
+    "all": {
+      "role_acc": 0.7303,
+      "role_ci": [
+        0.6629,
+        0.7921
+      ],
+      "role_hw": 0.0646,
+      "n": 178
+    },
+    "in_scope": {
+      "role_acc": 0.7974,
+      "role_ci": [
+        0.732,
+        0.8627
+      ],
+      "role_hw": 0.0654,
+      "n": 153
+    },
+    "non_agent": {
+      "role_acc": 0.359,
+      "role_ci": [
+        0.2051,
+        0.5128
+      ],
+      "role_hw": 0.1538,
+      "n": 39
+    },
+    "predarg_scope": {
+      "role_acc": 0.7831,
+      "role_ci": [
+        0.7169,
+        0.8434
+      ],
+      "role_hw": 0.0633,
+      "n": 166
+    }
+  },
+  "ORACLE_ROLE": {
+    "all": {
+      "role_acc": 0.9831,
+      "role_ci": [
+        0.9607,
+        1.0
+      ],
+      "role_hw": 0.0197,
+      "n": 178
+    },
+    "in_scope": {
+      "role_acc": 0.9804,
+      "role_ci": [
+        0.9542,
+        1.0
+      ],
+      "role_hw": 0.0229,
+      "n": 153
+    },
+    "non_agent": {
+      "role_acc": 0.9744,
+      "role_ci": [
+        0.9231,
+        1.0
+      ],
+      "role_hw": 0.0385,
+      "n": 39
+    },
+    "predarg_scope": {
+      "role_acc": 0.9819,
+      "role_ci": [
+        0.9578,
+        1.0
+      ],
+      "role_hw": 0.0211,
+      "n": 166
+    }
+  },
+  "exact_grain": {
+    "POSITION_all": {
+      "role_acc": 0.4831,
+      "role_ci": [
+        0.4101,
+        0.5506
+      ],
+      "role_hw": 0.0702,
+      "n": 178
+    },
+    "PREDARG_all": {
+      "role_acc": 0.7022,
+      "role_ci": [
+        0.6348,
+        0.7697
+      ],
+      "role_hw": 0.0674,
+      "n": 178
+    },
+    "PREDARG_FRAME_all": {
+      "role_acc": 0.6348,
+      "role_ci": [
+        0.5618,
+        0.7022
+      ],
+      "role_hw": 0.0702,
+      "n": 178
+    }
+  },
+  "floors": {
+    "majority_all": {
+      "role_acc": 0.7809,
+      "role_ci": [
+        0.7191,
+        0.8371
+      ],
+      "role_hw": 0.059,
+      "n": 178,
+      "label": "AGENT"
+    },
+    "majority_non_agent": {
+      "role_acc": 0.6154,
+      "role_ci": [
+        0.4615,
+        0.7692
+      ],
+      "role_hw": 0.1538,
+      "n": 39,
+      "label": "OBJECT"
+    },
+    "majority_predarg_scope": {
+      "role_acc": 0.8373,
+      "role_ci": [
+        0.7771,
+        0.8916
+      ],
+      "role_hw": 0.0572,
+      "n": 166,
+      "label": "AGENT"
+    },
+    "counting_ORACLE_store": {
+      "role_acc": 0.9831,
+      "role_ci": [
+        0.9607,
+        1.0
+      ],
+      "role_hw": 0.0197,
+      "n": 178
+    },
+    "counting_PREDARG_store": {
+      "role_acc": 0.7079,
+      "role_ci": [
+        0.6404,
+        0.7753
+      ],
+      "role_hw": 0.0674,
+      "n": 178
+    },
+    "counting_POSITION_store": {
+      "role_acc": 0.4663,
+      "role_ci": [
+        0.3933,
+        0.5393
+      ],
+      "role_hw": 0.073,
+      "n": 178
+    }
+  },
+  "contrasts": {
+    "PREDARG_over_POSITION_all": {
+      "delta": 0.2135,
+      "ci": [
+        0.1217,
+        0.3039
+      ],
+      "half_width": 0.0911,
+      "null_p95": 0.0913,
+      "band": "ABOVE",
+      "n": 178
+    },
+    "PREDARG_over_POSITION_non_agent": {
+      "delta": 0.0513,
+      "ci": [
+        -0.15,
+        0.2572
+      ],
+      "half_width": 0.2036,
+      "null_p95": 0.204,
+      "band": "NOT_SEP",
+      "n": 39
+    },
+    "PREDARG_over_POSITION_predarg_scope": {
+      "delta": 0.2289,
+      "ci": [
+        0.1296,
+        0.325
+      ],
+      "half_width": 0.0977,
+      "null_p95": 0.0975,
+      "band": "ABOVE",
+      "n": 166
+    },
+    "PREDARG_over_TWINROLE_all": {
+      "delta": 0.2921,
+      "ci": [
+        0.1921,
+        0.3955
+      ],
+      "half_width": 0.1017,
+      "null_p95": 0.1018,
+      "band": "ABOVE",
+      "n": 178
+    },
+    "PREDARG_over_TWINROLE_non_agent": {
+      "delta": 0.2308,
+      "ci": [
+        0.0476,
+        0.4211
+      ],
+      "half_width": 0.1868,
+      "null_p95": 0.188,
+      "band": "ABOVE",
+      "n": 39
+    },
+    "PREDARG_over_TWINBIND_all": {
+      "delta": 0.0,
+      "ci": [
+        -0.0331,
+        0.0324
+      ],
+      "half_width": 0.0328,
+      "null_p95": 0.0328,
+      "band": "NOT_SEP",
+      "n": 178
+    },
+    "EXTRACT_lever_PREDARGREC_over_POSITION_non_agent": {
+      "delta": 0.0769,
+      "ci": [
+        -0.122,
+        0.2703
+      ],
+      "half_width": 0.1961,
+      "null_p95": 0.1939,
+      "band": "NOT_SEP",
+      "n": 39
+    },
+    "BINDER_lever_POSGRADED_over_POSITION_all": {
+      "delta": 0.0056,
+      "ci": [
+        -0.0219,
+        0.0383
+      ],
+      "half_width": 0.0301,
+      "null_p95": 0.0286,
+      "band": "NOT_SEP",
+      "n": 178
+    },
+    "FRAME_contribution_non_agent": {
+      "delta": 0.0769,
+      "ci": [
+        0.0,
+        0.1667
+      ],
+      "half_width": 0.0833,
+      "null_p95": 0.076,
+      "band": "NOT_SEP",
+      "n": 39
+    },
+    "QUOTATIVE_contribution_all": {
+      "delta": 0.2528,
+      "ci": [
+        0.1768,
+        0.3333
+      ],
+      "half_width": 0.0783,
+      "null_p95": 0.0791,
+      "band": "ABOVE",
+      "n": 178
+    },
+    "PREDARG_over_countingPREDARGstore_all": {
+      "delta": 0.0225,
+      "ci": [
+        0.0,
+        0.05
+      ],
+      "half_width": 0.025,
+      "null_p95": 0.0274,
+      "band": "NOT_SEP"
+    },
+    "PREDARG_over_countingPOSITIONstore_all": {
+      "delta": 0.264,
+      "ci": [
+        0.16,
+        0.36
+      ],
+      "half_width": 0.1,
+      "null_p95": 0.1013,
+      "band": "ABOVE"
+    },
+    "PREDARG_over_countingORACLEstore_all": {
+      "delta": -0.2528,
+      "ci": [
+        -0.3182,
+        -0.1899
+      ],
+      "half_width": 0.0641,
+      "null_p95": 0.0639,
+      "band": "BELOW"
+    },
+    "PREDARG_HYBRID_over_POSITION_all": {
+      "delta": 0.2247,
+      "ci": [
+        0.1497,
+        0.3034
+      ],
+      "half_width": 0.0769,
+      "null_p95": 0.0774,
+      "band": "ABOVE",
+      "n": 178
+    },
+    "PREDARG_HYBRID_over_TWINROLE_non_agent": {
+      "delta": 0.2564,
+      "ci": [
+        0.1053,
+        0.4223
+      ],
+      "half_width": 0.1585,
+      "null_p95": 0.1571,
+      "band": "ABOVE",
+      "n": 39
+    }
+  },
+  "no_regression_PREDARG_vs_POSITION": {
+    "pos_correct": 92,
+    "kept": 80,
+    "regressed": 12,
+    "regression_rate": 0.1304,
+    "regressed_items": [
+      {
+        "passage": "mary_dash_doll",
+        "entity": "Mary",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "harry_carriage",
+        "entity": "Harry",
+        "clause": 0,
+        "gold": "theme"
+      },
+      {
+        "passage": "harry_carriage",
+        "entity": "blind_man",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "willie_bounce",
+        "entity": "Willie",
+        "clause": 0,
+        "gold": "theme"
+      },
+      {
+        "passage": "willie_bounce",
+        "entity": "Bounce",
+        "clause": 2,
+        "gold": "patient"
+      },
+      {
+        "passage": "fred_knife",
+        "entity": "Fred",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "dodger_terrier",
+        "entity": "Dodger",
+        "clause": 0,
+        "gold": "theme"
+      },
+      {
+        "passage": "preston_soldiers_byagent",
+        "entity": "soldiers",
+        "clause": 0,
+        "gold": "patient"
+      },
+      {
+        "passage": "robert_henry_aftermath",
+        "entity": "Henry",
+        "clause": 2,
+        "gold": "theme"
+      },
+      {
+        "passage": "g2_dense_sam_harry_blindman",
+        "entity": "blind_man",
+        "clause": 2,
+        "gold": "agent"
+      },
+      {
+        "passage": "g2_dense_james_sport_dodger",
+        "entity": "Sport",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "g5_dense_michael_agnes_isabel_jacob",
+        "entity": "Michael",
+        "clause": 0,
+        "gold": "agent"
+      }
+    ]
+  },
+  "no_regression_PREDARG_HYBRID_vs_POSITION": {
+    "pos_correct": 92,
+    "kept": 86,
+    "regressed": 6,
+    "regression_rate": 0.0652,
+    "regressed_items": [
+      {
+        "passage": "mary_dash_doll",
+        "entity": "Mary",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "harry_carriage",
+        "entity": "Harry",
+        "clause": 0,
+        "gold": "theme"
+      },
+      {
+        "passage": "willie_bounce",
+        "entity": "Bounce",
+        "clause": 2,
+        "gold": "patient"
+      },
+      {
+        "passage": "fred_knife",
+        "entity": "Fred",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "robert_henry_aftermath",
+        "entity": "Henry",
+        "clause": 2,
+        "gold": "theme"
+      },
+      {
+        "passage": "g5_dense_michael_agnes_isabel_jacob",
+        "entity": "Michael",
+        "clause": 0,
+        "gold": "agent"
+      }
+    ]
+  },
+  "no_regression_PREDARGFRAME_vs_POSITION": {
+    "pos_correct": 92,
+    "kept": 67,
+    "regressed": 25,
+    "regression_rate": 0.2717,
+    "regressed_items": [
+      {
+        "passage": "susie_helps_2",
+        "entity": "Susie",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "mary_dash_doll",
+        "entity": "Mary",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "harry_carriage",
+        "entity": "Harry",
+        "clause": 0,
+        "gold": "theme"
+      },
+      {
+        "passage": "harry_carriage",
+        "entity": "blind_man",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "edgar_thomas_boat",
+        "entity": "Edgar",
+        "clause": 0,
+        "gold": "agent"
+      },
+      {
+        "passage": "willie_bounce",
+        "entity": "Willie",
+        "clause": 0,
+        "gold": "theme"
+      },
+      {
+        "passage": "willie_bounce",
+        "entity": "Willie",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "willie_bounce",
+        "entity": "Bounce",
+        "clause": 2,
+        "gold": "patient"
+      },
+      {
+        "passage": "fred_knife",
+        "entity": "Fred",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "john_lamb",
+        "entity": "John",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "dodger_terrier",
+        "entity": "Dodger",
+        "clause": 0,
+        "gold": "theme"
+      },
+      {
+        "passage": "mary_beach_story",
+        "entity": "Lucy",
+        "clause": 2,
+        "gold": "agent"
+      },
+      {
+        "passage": "robert_henry_rescue_2",
+        "entity": "Robert",
+        "clause": 0,
+        "gold": "agent"
+      },
+      {
+        "passage": "susan_grandmother_1",
+        "entity": "Susan",
+        "clause": 1,
+        "gold": "agent"
+      },
+      {
+        "passage": "preston_soldiers_byagent",
+        "entity": "soldiers",
+        "clause": 0,
+        "gold": "patient"
+      },
+      {
+        "passage": "john_tom_horse_1",
+        "entity": "John",
+        "clause": 2,
+        "gold": "agent"
+      },
+      {
+        "passage": "robert_henry_aftermath",
+        "entity": "Henry",
+        "clause": 2,
+        "gold": "theme"
+      },
+      {
+        "passage": "g2_dense_sam_harry_blindman",
+        "entity": "blind_man",
+        "clause": 2,
+        "gold": "agent"
+      },
+      {
+        "passage": "g2_dense_boat_rose_boatman_edgar_thomas",
+        "entity": "Edgar",
+        "clause": 3,
+        "gold": "agent"
+      },
+      {
+        "passage": "g2_dense_willie_bounce_brown_river_rescue",
+        "entity": "Mr_Brown",
+        "clause": 7,
+        "gold": "agent"
+      }
+    ]
+  },
+  "per_role_recall": {
+    "POSITION": {
+      "AGENT": {
+        "recall": 0.576,
+        "n": 139
+      },
+      "AGENT_EXP": {
+        "recall": 0.0,
+        "n": 8
+      },
+      "GOAL": {
+        "recall": 0.0,
+        "n": 1
+      },
+      "OBJECT": {
+        "recall": 0.5,
+        "n": 24
+      },
+      "POSSESSOR": {
+        "recall": 0.0,
+        "n": 4
+      },
+      "RECIPIENT": {
+        "recall": 0.0,
+        "n": 2
+      }
+    },
+    "PREDARG": {
+      "AGENT": {
+        "recall": 0.835,
+        "n": 139
+      },
+      "AGENT_EXP": {
+        "recall": 0.0,
+        "n": 8
+      },
+      "GOAL": {
+        "recall": 1.0,
+        "n": 1
+      },
+      "OBJECT": {
+        "recall": 0.5,
+        "n": 24
+      },
+      "POSSESSOR": {
+        "recall": 0.0,
+        "n": 4
+      },
+      "RECIPIENT": {
+        "recall": 0.5,
+        "n": 2
+      }
+    },
+    "PREDARG_FRAME": {
+      "AGENT": {
+        "recall": 0.727,
+        "n": 139
+      },
+      "AGENT_EXP": {
+        "recall": 0.375,
+        "n": 8
+      },
+      "GOAL": {
+        "recall": 1.0,
+        "n": 1
+      },
+      "OBJECT": {
+        "recall": 0.5,
+        "n": 24
+      },
+      "POSSESSOR": {
+        "recall": 0.0,
+        "n": 4
+      },
+      "RECIPIENT": {
+        "recall": 0.5,
+        "n": 2
+      }
+    }
+  },
+  "parse_quality": {
+    "modern_ud_ewt_dev_UAS_cited": 0.7868,
+    "mcguffey_mean_arc_margin": 14.1576,
+    "mcguffey_median_arc_margin": 10.9984,
+    "mcguffey_frac_low_margin_lt1": 0.0685,
+    "n_tokens": 5474,
+    "n_clauses": 237,
+    "frac_clauses_no_verb_extracted": 0.0211,
+    "note": "McGuffey UAS gold unavailable (no gold heads); parse-quality lift = sibling p8."
+  },
+  "who_did_what": {
+    "all": {
+      "POSITION": {
+        "acc": 0.6364,
+        "ci": [
+          0.5509,
+          0.7143
+        ],
+        "n": 165
+      },
+      "PREDARG_RECENCY": {
+        "acc": 0.8255,
+        "ci": [
+          0.7708,
+          0.8774
+        ],
+        "n": 275
+      },
+      "PREDARG_GRADED": {
+        "acc": 0.8073,
+        "ci": [
+          0.7567,
+          0.8545
+        ],
+        "n": 275
+      },
+      "PREDARG_RANDBIND": {
+        "acc": 0.8218,
+        "ci": [
+          0.7773,
+          0.8667
+        ],
+        "n": 275
+      }
+    },
+    "pronoun": {
+      "POSITION": {
+        "acc": 0.7027,
+        "ci": [
+          0.5312,
+          0.8438
+        ],
+        "n": 37
+      },
+      "PREDARG_RECENCY": {
+        "acc": 0.8511,
+        "ci": [
+          0.7551,
+          0.9362
+        ],
+        "n": 47
+      },
+      "PREDARG_GRADED": {
+        "acc": 0.8936,
+        "ci": [
+          0.8085,
+          0.9767
+        ],
+        "n": 47
+      },
+      "PREDARG_RANDBIND": {
+        "acc": 0.8936,
+        "ci": [
+          0.8043,
+          0.9762
+        ],
+        "n": 47
+      }
+    },
+    "contrasts": {
+      "PREDARG_over_POSITION_all": {
+        "delta": 0.1709,
+        "ci": [
+          0.0936,
+          0.2632
+        ],
+        "half_width": 0.0848,
+        "null_p95": 0.0849,
+        "band": "ABOVE"
+      },
+      "PREDARG_over_POSITION_pronoun": {
+        "delta": 0.1909,
+        "ci": [
+          0.05,
+          0.3482
+        ],
+        "half_width": 0.1491,
+        "null_p95": 0.1476,
+        "band": "ABOVE"
+      },
+      "GRADED_over_recency_pronoun": {
+        "delta": 0.0426,
+        "ci": [
+          -0.04,
+          0.1251
+        ],
+        "half_width": 0.0825,
+        "null_p95": 0.0827,
+        "band": "NOT_SEP"
+      },
+      "GRADED_over_RANDBIND_twin_pronoun": {
+        "delta": 0.0,
+        "ci": [
+          -0.0851,
+          0.0851
+        ],
+        "half_width": 0.0851,
+        "null_p95": 0.0851,
+        "band": "NOT_SEP"
+      }
+    }
+  },
+  "verdict": {
+    "beats_positional_all_CI": true,
+    "PREDARG_over_POSITION_all_delta": 0.2135,
+    "beats_positional_non_agent_CI": false,
+    "role_twin_loses_CI": true,
+    "regressed_count_PREDARG": 12,
+    "regression_rate_PREDARG": 0.1304,
+    "beats_counting_matched_store_CI": false,
+    "beats_counting_ORACLE_store_CI": false,
+    "quotative_contribution_delta": 0.2528,
+    "headline": "WIRED_BEATS_POSITIONAL_CI_SEP_TWIN_LOSES",
+    "counting_note": "PREDARG beats content-counting on MATCHED bindings; the ORACLE-store counting floor (~0.98) is an oracle-input number no front-end can beat (the inherited cap)."
+  }
+}
