@@ -36,6 +36,21 @@ from typing import Callable, Dict, List, Sequence, Tuple
 
 import numpy as np
 
+# ------------------------------------------------------------------------------------------------
+# COMPAT RE-EXPORT (2026-08-30): this filename was REPLACED by the text-eval battery above (commit
+# b500e06d7), which wholesale clobbered an UNRELATED retrieval-floor battery (as_constant_matrix /
+# constant_prototype_floor / frequency_floor / ...) that ~7 meaning+retrieval cells still import from
+# `tools.floor_battery`. The two APIs are DISJOINT. The retrieval-floor battery is restored VERBATIM to
+# tools/retrieval_floor_battery.py (recovered from commit 03fee68cf) and re-exported here so those cells
+# import again WITHOUT edits -- unblocking the meaning-channel landing's reproduction chain. This does NOT
+# touch the text-eval `run_battery` API above. See STATUS meaning-channel bit-rot note.
+from tools.retrieval_floor_battery import (  # noqa: E402,F401
+    l2n, as_constant_matrix, constant_prototype_floor, frequency_floor, scramble_null,
+    oracle_constant_scores, balanced_candidate_sets, pool_admits_a_winning_constant,
+    matched_candidate_sets, hit_at_1_both_tie_conventions, rank_of_best_gold,
+    paired_bootstrap_ci, margin,
+)
+
 NEG = re.compile(
     r"\b(no|not|never|nothing|none|n't|cannot|refus\w*|fail\w*|won't|can't|didn't|hasn't|"
     r"wouldn't|couldn't|shan't|nor)\b", re.I)
