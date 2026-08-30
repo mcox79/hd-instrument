@@ -38,7 +38,7 @@ organ witness, register. Each is a self-contained strategy landing (Q111).
 
 | Organ | Source | Wire-step | Note |
 |---|---|---|---|
-| **belief_timeline** | `experiments/belief_timeline.py` | → `hdlab/belief_timeline.py`, default-off; built purely on belief_partition/binding/graded_temporal_context | integrated this session (EXCELLENT); reader wiring coupled |
+| ~~belief_timeline~~ ✅ **PROMOTED 2026-08-30** | `hdlab/belief_timeline.py` | DONE (default-off organ; witness `test_belief_timeline_organ.py` 11/11; exp file now a re-export shim). **Live-reader wiring still pending** (moves to DEBT 2 / the assembly) | first burn-down |
 | **state_register** | `experiments/…state…` | promote `StateRegister`+`state_match` → `hdlab/state_register.py` | ENTITIES(state); parser-dependent extraction stays exp-side |
 | **temporal_order_register** | `experiments/_temporal_order_register.py` | multi-module port → hdlab (register + 2 shared modules + tagger dep) | TIME dimension; ~25 importers — careful |
 | **perceptual_access_ledger** | `experiments/…perceptual_access…` | promote + extend belief_partition to a sequence ledger; must consume coref/situation organs so hdlab gains NO spaCy dep | the observation-cue front-end (the 0.098 belief-timeline live gap) |
@@ -102,6 +102,12 @@ lands in this map. Re-derive with `tools/wiring_debt.py` on the maintenance cade
 tracked burn-down item, not a silent park.
 
 ---
+
+## BURN-DOWN LOG (newest first)
+- **2026-08-30** — **verification sweep** of all 35 organ witnesses: **34 PASS, 0 FAIL, 1 TIMEOUT**
+  (the parse-frontend witness needs >90s; not a failure). No bit-rot — the incorporated work runs.
+- **2026-08-30** — **PROMOTION debt −1:** belief_timeline promoted `experiments/` → `hdlab/belief_timeline.py`
+  (default-off, organ witness 11/11, exp file → re-export shim, registered). Live-reader wiring still pending.
 
 ## POINTERS (so this is never lost)
 - **Refresh:** `python tools/wiring_debt.py [--full]`
