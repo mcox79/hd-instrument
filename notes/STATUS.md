@@ -31,7 +31,25 @@ its section: grep the four literals, never eyeball the content.** Restored the s
 
 ## POSITION
 
-### 2026-08-29 (LATEST) -- ✅ **INTEGRATED TWO owner-DONE, EXCELLENT solutions: CAUSATION (a force-dynamic CAUSE/ENABLE/PREVENT typer — the last-built Zwaan dimension now built) + the ARCHAIC-PROSE PARSE CONFOUND (a rigorous negative that RETIRES the wholesale worry — organ conclusions STAND — with a built fix for the one real exception). Both hdlab landings QUEUED.**
+### 2026-08-29 (LATEST) -- ✅ **INTEGRATED the ENTITIES(state) dimension (owner-DONE, EXCELLENT): a per-entity STATE-HISTORY register that reads "had been X" states + improves the REAL coref reader 0.54→0.96 on state-decisive pronouns (a LIVE-organ serve, not a constructed-task win). Reverify needed a full-metrics regeneration (committed artifact was a smoke run — a setup issue, not a defect).**
+**Newest first; the entries below carry the fuller context.**
+✅ **INTEGRATED `the_situation_model_tracks_no_entity_state_history` (SOLVED/EXCELLENT, owner-DONE; reverified 61/61
+FIRST-HAND):** the missing Zwaan ENTITIES(state) dimension — a per-entity STATE-HISTORY register (sibling of
+`location_register`) reading "had been X"/copular/resultant states into each entity's timeline over intervals,
+default-persisting. TRACKING 1.000 vs stateless floor 0.719 (twins lose, empty=chance); SEMANTIC guarded WordNet matcher
+0.950 vs exact 0.350 ("is X unwell?"→"ill"); **LIVE-ORGAN SERVE — improves the ACTUAL hdlab CorefReader on state-decisive
+same-gender pronouns from chance 0.54 → 0.96** (register re-ranks the real coref's pool; twin collapses; real-LitBank
+baseline 0.327/582). Two research drills killed wrong intuitions before building (no auto-close pluperfects; no aspect
+confidence-discount). **REVERIFY NOTE:** the witness reads cached exp metrics + the committed live-coref artifact was a
+`--no-real-baseline` smoke run, so it first errored `KeyError:'n_targets'`; I diagnosed it, regenerated the full metrics
+(baseline → 0.327/582, matching the solver), and it passed 61/61 — a setup issue, NOT a defect. Commit `9305bac7d`; audit §2b folded.
+🔌 **Landing QUEUED (Q111):** promote the spaCy-free CORE (`StateRegister` + `state_match` + classes) → `hdlab/state_register.py`
+(sibling of `location_register`); the parser-dependent extraction stays experiment-side; wiring into the ENTITIES/coref
+stack is coupled reader work → part of the assembly.
+🎯 **QUEUE unchanged: p3 assembly (ASSIGNED) + 3 on-deck reader-independent problems (belief-timeline p4, patient-tendency
+p7, causal-network p8). Entity-state dropped (integrated).** Nothing owner-DONE awaiting.
+
+### 2026-08-29 -- ✅ **INTEGRATED TWO owner-DONE, EXCELLENT solutions: CAUSATION (a force-dynamic CAUSE/ENABLE/PREVENT typer — the last-built Zwaan dimension now built) + the ARCHAIC-PROSE PARSE CONFOUND (a rigorous negative that RETIRES the wholesale worry — organ conclusions STAND — with a built fix for the one real exception). Both hdlab landings QUEUED.**
 **Newest first; the entries below carry the fuller context.**
 ✅ **INTEGRATED `causation_has_no_force_dynamic_typing` (SOLVED/EXCELLENT, owner-DONE; reverified 16/16 FIRST-HAND):** the
 situation-model CAUSATION dimension — the LEAST-built of Zwaan's five — now has a force-dynamic typer (Wolff CAUSE/ENABLE/
@@ -301,7 +319,13 @@ TIME); gate ENABLE to letting verbs until the patient-tendency input exists.** *
 CUE-OVERRIDE (from integrated `role_assignment_is_untested_on_archaic_literary_prose`, 2026-08-29): add the position-
 dominant + cue-override subject stage to `graded_role_assigner` (ref impls `exp_role_cue_repair_inversion_v1.repaired_subject_span`
 + `exp_role_cue_first_subject_v1.full_cue_subject`) + rebuild `data/litbank/who_did_what_events.json` through it — a
-concrete INPUT to the assembly (p3).** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
+concrete INPUT to the assembly (p3).** **THE ENTITY STATE-HISTORY REGISTER (from integrated
+`the_situation_model_tracks_no_entity_state_history`, 2026-08-29): promote the spaCy-free CORE (`StateRegister` +
+`state_match` + the state-track classes) → `hdlab/state_register.py` (sibling of `location_register`), keep the
+parser-dependent extraction (`StateReader`/`extract_state_events`) experiment-side (the SPACE split — a CLEAN core
+promotion); THEN wire into the ENTITIES/coref stack (coref key + the TIME-skipped "had been X" channel) + make the
+state-consistency re-rank a default coref candidate filter (serve proven against the live organ 0.54→0.96) — coupled reader
+work, part of the assembly.** The p3 person-node clustering opt-in was EVALUATED + NOT landed (ties the
 floor, niche, solver-said-skip). **The WHO-DID-WHAT BINDER (from integrated p3 `pronoun_to_event_binding_caps_who_did_what`,
 2026-08-29): STEP-1 re-instrument the live who-did-what metric as a situation-model EVENT-SET recall (the biggest lever —
 lifts the ceiling 0.589→1.000) + STEP-2 wire the graded binder + gender agreement + person-exclusion onto the live path
