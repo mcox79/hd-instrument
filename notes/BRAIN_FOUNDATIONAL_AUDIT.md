@@ -65,6 +65,30 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — THE ROLE EVAL MIGRATES McGUFFEY→MODERN, AND McGUFFEY'S ROLE EVAL WAS DEGENERATE + THE ORGAN DOES NOT
+  GENERALIZE TO MODERN NON-CANONICAL ORDER** (from integrated `the_reader_eval_is_scored_on_200_year_old_mcguffey_migrate_to_modern_text`,
+  owner-DONE, SOLVED/EXCELLENT; reverified 19/19 first-hand — the owner's ~10×-requested corpus-age fix). Built a modern
+  situation-model role eval from UD-EWT gold parse (330 passages / 700 in-scope queries; transparent UD-deprel→role, no LLM).
+  **MEASURED:** (1) McGuffey's role eval is DEGENERATE — 90.85% "agent", so a trivial always-agent floor (0.908) BEATS the
+  celebrated vargs organ (0.856); the original eval never gated against the strongest majority-class floor (only a
+  positional-reader 0.517 + twin 0.627). **The celebrated McGuffey role number was partly a degenerate-eval artifact.**
+  (2) On modern text the vargs front-end does NOT clear its floor (0.596 < 0.659) and COLLAPSES on non-canonical order to
+  0.288 (CI-sep below floor) — McGuffey's ~0% non-canonical rate structurally HID it (the corpus-age confound made numeric).
+  **PINNED (the fix, re-deriving the owner-DONE `graded_role_assigner`):** thematic role = GRAMMATICAL FUNCTION (parse) +
+  VOICE, NOT surface position — the front-end's bug is reading roles off AUXILIARIES ("has/is/was"), not the content verb; a
+  passive-aware content-verb assigner recovers non-canon 0.288→0.559 CI-sep (voice-scrambled twin loses). Cue integration is
+  PRECISION/RELIABILITY-WEIGHTED with a conflict-validity GATE (Ernst & Banks 2002; Gibson noisy-channel 2013; Feldman &
+  Friston precision=gain; MacWhinney Competition Model conflict-validity) — NOT a linear cue-sum (which reaches neither
+  domain; two on-disk wrong approaches fenced: scalar-over-fused inert, margin-gating HARD_FAIL); grounded thematic-fit is
+  construction-independent (non-canon 0.688 vs surface 0.039). **OUR-INVENTION-flagged:** the reliability estimator (the
+  surprisal/route-conflict gate) is the sole un-built piece of the flagship follow-on. **hdlab:** TWO landings QUEUED (Q111,
+  dedicated) — swap the default eval to modern UD-EWT + retire degenerate McGuffey-as-primary (diffuse across ~9 hdlab files;
+  re-baselining implications); land the existential/expletive-"there" subject-override into `graded_role_assigner` + rebuild
+  the who-did-what cache. **CORPUS-AGE CONFOUND STATUS: role eval now MODERN (UD-EWT), coref eval MODERN-ish (19c LitBank,
+  owner-DONE); GAP — no single modern NARRATIVE corpus on the shelf has BOTH gold coref AND gold roles (46.6% of modern
+  core-args are pronouns, string-identity-invisible).** Self-correction: 87% of the reported "inversion wall" was the solver's
+  own existential-"there" gold mislabeling (fixed); genuine inversion is a PARSE problem (83% quotative, landed rule handles it).
+
 - **2026-08-30 — THE COREF RESIDUAL IS A HARD-PHI-AGREEMENT VIOLATION, NOT A FOCUS/CENTERING GAP: the flat Centering Cb /
   Grosz-Sidner focus-stack is REFUTED as the residual's fidelity gap** (from integrated `the_coref_residual_needs_a_discourse_focus_stack`,
   owner-DONE, SOLVED/EXCELLENT; reverified 45/45 first-hand, recomputes through the real `graded_antecedent_pick`). A faithful

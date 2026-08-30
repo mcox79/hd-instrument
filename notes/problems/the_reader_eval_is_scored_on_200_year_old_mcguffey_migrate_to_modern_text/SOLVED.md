@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. A MODERN annotated reader-comprehension eval (
 result: "MODERN situation-model role eval built from UD-EWT gold parse (330 passages / 700 in-scope agent/patient queries, transparent UD-deprel->role, NO LLM). Revalidated the reader's role/situation-model organ (vargs front-end + resolver + role scorer, imported UNCHANGED) McGuffey-vs-modern under one scorer. HEADLINE (rigorous, mostly NEGATIVE): (a) McGuffey's role eval is DEGENERATE -- 90.85% of in-scope gold is 'agent', so the always-agent floor scores 0.908 [.863,.948] and the celebrated vargs organ (0.856 [.804,.909]) LOSES to it; the original eval gated vargs against the positional-reader floor (0.517) + an info-free twin (0.627), never against this strongest majority-class floor (0.908). (b) On modern text the current organ does NOT clear its floor: ALL_INSCOPE vargs 0.596 [.561,.634] < floor 0.659 [.624,.694]; and it COLLAPSES on non-canonical constructions to 0.288 [.186,.407] -- below the coin-flip twin (0.576) and CI-separated BELOW the floor (0.610). (c) The wall is a FIXABLE brain-fidelity gap, not a ceiling: a brain-faithful passive-aware content-verb assigner recovers non-canonical 0.288->0.559 [.440,.678] (CI-separated over broken), beats its voice-scrambled info-free twin (0.458), and does not hurt canonical (0.624->0.646). COREF dimension already migrated (owner-DONE): LitBank gold-coref binder GRADED 0.328 vs RAND-twin 0.132 (twin loses CI); graded-ACT-R 0.775 vs incumbent 0.603."
 floor: "Strongest floor = always-predict-the-population-majority-role, recomputed per population/subset. McGuffey in-scope 0.908 [.863,.948] (agent, n=153). Modern in-scope 0.659 [.624,.694] (patient, n=700); modern role-varying 0.497 [.424,.571] (n=177); modern non-canonical 0.610 [.492,.729] (n=59)."
 controls: "(1) Info-free twin per arm -- role labels coin-flipped (VARGS_TWIN) / voice cue scrambled (FIXED_TWIN): loses on McGuffey (0.627<0.856) and on the modern fix (0.458<0.559 non-canonical). (2) Strongest-floor gate: EXCLUDES 'beats a weak twin but not the majority baseline' -- it catches McGuffey's degeneracy (organ<floor) and the modern all-inscope loss. (3) Canonical-vs-non-canonical split: EXCLUDES 'the drop is generic corpus noise' -- localises the collapse to non-canonical order (the NVN-shortcut signature). (4) fix-does-not-hurt-canonical: EXCLUDES 'the fix trades canonical accuracy for non-canonical'. (5) Independent derivation: gold roles come from the UD GOLD parse, the reader re-derives roles from clause TEXT via nltk -> no circularity."
-files_changed: "experiments/exp_mcguffey_migrate_build_modern_gold_v1.py; experiments/exp_mcguffey_migrate_revalidate_v1.py; experiments/exp_mcguffey_migrate_passive_cue_fix_v1.py; experiments/exp_mcguffey_migrate_noncanon_by_type_v1.py; experiments/exp_mcguffey_migrate_cue_competition_v1.py; experiments/exp_mcguffey_migrate_learned_cue_transfer_v1.py; experiments/exp_mcguffey_migrate_adjacency_audit_v1.py; experiments/exp_mcguffey_migrate_grounded_thematic_fit_poc_v1.py; experiments/exp_mcguffey_migrate_scoreboard_v1.py; verification/test_mcguffey_migration.py; data/eval_gold_mention_role_modern_ud_ewt_v1/gold_situation_modern_ud_ewt_v1.jsonl; data/exp_mcguffey_migrate_{build_modern_gold,revalidate,passive_cue_fix,noncanon_by_type,scoreboard}_v1/. NO hdlab/ modified (Q111)."
+files_changed: "experiments/exp_mcguffey_migrate_build_modern_gold_v1.py; experiments/exp_mcguffey_migrate_revalidate_v1.py; experiments/exp_mcguffey_migrate_passive_cue_fix_v1.py; experiments/exp_mcguffey_migrate_noncanon_by_type_v1.py; experiments/exp_mcguffey_migrate_cue_competition_v1.py; experiments/exp_mcguffey_migrate_learned_cue_transfer_v1.py; experiments/exp_mcguffey_migrate_adjacency_audit_v1.py; experiments/exp_mcguffey_migrate_grounded_thematic_fit_poc_v1.py; experiments/exp_mcguffey_migrate_learned_competition_v1.py; experiments/exp_mcguffey_migrate_precision_weighted_v1.py; experiments/exp_mcguffey_migrate_grammatical_function_v1.py; experiments/exp_mcguffey_migrate_scoreboard_v1.py; verification/test_mcguffey_migration.py; data/eval_gold_mention_role_modern_ud_ewt_v1/gold_situation_modern_ud_ewt_v1.jsonl; data/exp_mcguffey_migrate_{build_modern_gold,revalidate,passive_cue_fix,noncanon_by_type,scoreboard}_v1/. NO hdlab/ modified (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_mcguffey_migration.py"
 ---
 
@@ -226,6 +226,156 @@ meaning channel (Priority 2) supplies higher-quality thematic-fit vectors, so th
 **wire the meaning channel FIRST, then build the LEARNED order+thematic-fit cue-competition role assigner.** The
 payoff is now proven, de-risking that investment.
 
+## DEEPENING 5 -- the integration is a GATE, not a linear sum (owner "any more?", the arc's end)
+Tested whether a LEARNED linear competition of order + morphology + grounded thematic-fit reaches BOTH domains
+(`exp_mcguffey_migrate_learned_competition_v1.py`):
+
+| | canonical | non-canonical | ALL | unseen inversion (cross-construction) |
+|---|---|---|---|---|
+| SURFACE (order+passive) | **1.000** | 0.655 | 0.969 | **0.000** |
+| FIT (grounded, alone) | 0.728 | 0.703 | 0.726 | **0.227** |
+| COMBINED (linear learned) | 0.856 | 0.646 | 0.837 | 0.100 |
+
+**A LINEAR learned competition does NOT reach both domains:** it is WORSE than the better single cue in each
+regime -- worse than SURFACE in-distribution (0.837 vs 0.969; the noisy fit feature degrades reliable surface),
+and worse than FIT on unseen inversion (0.100 vs 0.227; the surface "postverbal->patient" bias drags the fit
+signal back). **The reason is brain-foundational: conflict validity is a GATING operation, not a fixed linear
+weight** -- the brain trusts meaning WHEN surface cues conflict / are unreliable (context-dependent), which a
+linear cue-sum structurally cannot represent (my Deepening-4 hand-rule got the gating SHAPE right but hand-tuned
+the weights; the linear model makes the weights learnable but cannot gate). **Refined next-problem spec:** the
+grounded-role organ is a CONFLICT-GATED / reliability-weighted competition (use grounded thematic-fit to OVERRIDE
+order when order is unreliable), NOT a linear cue-sum -- learned, and fed by the real `distributional_meaning_
+channel`. (This is exactly the audit's "graded cue-based CONTENT-ADDRESSABLE retrieval" -- retrieval reliability
+IS the gate.) Honest bound: grounded fit ALONE still only reaches 0.227 on unseen inversion -- inversion is
+information-structural (given/new), the named finer residual; and the proxy grounding caps quality (the wired
+channel is the lift). **This is the arc's end for the eval-migration solver: further work builds the gated
+learned organ on the wired meaning channel = the flagship next problem, out of this problem's scope.**
+
+**GROUNDING (research drill 2026-08-30, PINNED-BY-EVIDENCE) -- the linear-sum failure is a re-derivation of a
+core neuroscience result, NOT our artifact:**
+- **Reliability-weighted (Bayesian) cue integration is the brain's mechanism, and its DYNAMIC weights are the
+  nonlinearity.** Optimal integration weights each cue by reliability=inverse-variance (Ernst & Banks 2002; Knill
+  & Pouget 2004); the weights track reliability trial-to-trial (Fetsch/Pouget/DeAngelis/Angelaki 2011). The
+  mechanistic model states it exactly: "the mathematical rule by which multisensory neurons combine their inputs
+  CHANGES with cue reliability" (Ohshiro/Angelaki/DeAngelis 2011 normalization model). A fixed linear weight is
+  the wrong functional form by construction -- my 0.10-on-inversion (below fit-alone 0.23) is its expected failure.
+- **It applies to thematic roles specifically (noisy-channel).** The meaning PRIOR overrides the surface likelihood
+  WHEN surface is unreliable: Gibson/Bergen/Piantadosi 2013 PNAS (implausible sentences -> comprehenders override
+  literal word order, rate scales with assumed noise + edit size); Gibson 2013 Psych Sci (languages shift SOV->SVO
+  for REVERSIBLE events, where order must carry the load); Levy 2008; Ferreira good-enough. Competition Model:
+  validity = availability x reliability (PINNED), connectionist implementations are interactive/competitive, NOT a
+  linear sum. Honest caveat: noisy-channel has some contested/non-replicated specifics; the CORE (more meaning-
+  reliance as surface reliability drops) is robust.
+- **Neural implementation = divisive normalization / gain control (Carandini & Heeger 2012) == precision-weighting
+  of prediction errors (Feldman & Friston 2010): "trust the reliable cue" = raise the gain on that channel.**
+  GRADED (soft), not a hard gate (near-winner-take-all only under strong conflict). Our ORGAN_MAP already pins
+  "precision x error is the FORM; the precision ESTIMATOR is UNPINNED" -- the estimator is the sole OUR-INVENTION.
+- **What to copy + TWO landed internal constraints that decide the build (reconciled from ORGAN_MAP):** copy the
+  Ohshiro cross-cue normalization pool == content-addressable retrieval with a match-strength gate (Lewis &
+  Vasishth 2005; McClelland IA). CAVEAT A (ORGAN_MAP §3, landed NULL +0.0018): a SCALAR normalizer over ONE fused
+  representation cannot change a two-candidate argmax (cosine is scalar-invariant) -> the reliability gain must be
+  applied ACROSS CUE CHANNELS (per-cue gain), NOT as a scalar over the fused vector. CAVEAT B (ORGAN_MAP C3,
+  HARD_FAIL -0.022): a gain set to the candidate MARGIN made it worse -> the reliability signal must be the CUE's
+  validity-in-context (is word order diagnostic here?), NOT the margin between role candidates.
+- **REFINED FLAGSHIP SPEC:** the role organ replaces the fixed cross-cue weight with a PER-CUE RELIABILITY GAIN
+  estimated from the current input (meaning's weight rises as word-order reliability falls), implemented as
+  cross-cue precision-weighting -- NOT a scalar normalizer over the fused vector, NOT margin-gated. Sole
+  OUR-INVENTION-UNDER-TEST = the reliability estimator (how each cue reports "I am / am not diagnostic here").
+  Can-fail (reuse the 2026-08-20 note's test): beat majority-class AND structure-shuffled ON THE SUBJECT-NOT-FIRST
+  subset. Reconciles: `notes/brain_thematic_role_assignment_is_multi_cue_competition_2026-08-20.md`; ORGAN_MAP F3 /
+  §3 divisive-norm / C3 margin-gain HARD_FAIL / F5 precision-estimator-unpinned.
+
+## DEEPENING 6 -- PROTOTYPED THE PINNED ARCHITECTURE: precision-weighting BEATS the linear sum (owner "do it now")
+Built the brain-pinned reliability-weighted competition (`exp_mcguffey_migrate_precision_weighted_v1.py`): each
+cue weighted by its INFORMATIVENESS-IN-CONTEXT (2*reliability-1, LEARNED per context) -- per-cue gain across
+channels (Caveat A), reliability = cue-validity-in-context not margin (Caveat B). The sole OUR-INVENTION (the
+reliability estimator) is a learned precision: order-reliability by passive-context, fit-reliability by |logodds| bin.
+
+| arm | canonical | passive | inversion | non-canon | ALL |
+|---|---|---|---|---|---|
+| surface (order) | 1.000 | 0.060 | 0.000 | 0.039 | 0.913 |
+| fit (grounded proxy) | 0.736 | 0.903 | 0.270 | 0.715 | 0.734 |
+| linear-combined (Deepening 5) | 0.856 | -- | -- | 0.646 | 0.837 |
+| **PRECISION-WEIGHTED (pinned)** | **0.926** | **0.963** | 0.070 | 0.679 | **0.904** |
+
+**VALIDATED:** the pinned precision-weighting BEATS the linear sum on EVERY cut (ALL 0.904 vs 0.837; canonical
+0.926 vs 0.856; non-canon 0.679 vs 0.646), reaching far closer to best-of-both than the linear model -- confirming
+the drill's claim that reliability-weighting is the right functional FORM. **The passive fix EMERGED, not hand-
+coded:** learned order-reliability is 0.967 on canonical context but 0.037 under passive morphology, so order gets
+a NEGATIVE weight and auto-flips on passives (0.963). This is the brain mechanism (learned precision -> gain)
+working end to end.
+
+**HONEST RESIDUALS (no clean capability claim):** (1) INVERSION stays 0.07 (worse than fit-alone 0.27): passives
+carry a SURFACE reliability marker (morphology) so order self-reports low reliability; inversion has NO surface
+marker, so order stays wrongly-confident and fit cannot override without CONFLICT-gating -- which ORGAN_MAP Caveat
+B showed HARD-FAILS. Inversion needs an information-structure (given/new / definiteness) reliability signal -- the
+harder, less-pinned residual. (2) canonical 0.926 < surface 1.0 (fit-proxy noise; a WIRED meaning channel reduces
+it). (3) my info-free twin was NOT clean (it shuffled the reliability estimator but kept the real cue VOTES), so I
+rely on PW-vs-linear and PW-vs-surface, not the twin. **CONCLUSION: the pinned architecture is validated in
+principle NOW (precision-weighting > linear; passive auto-flip emergent), but a CLEAN capability demonstration
+needs (a) the WIRED meaning channel (better fit, recover the canonical loss) and (b) an information-structure
+reliability signal for unmarked inversion and (c) a construction-role-DECORRELATED eval (reversible items) to
+remove the per-construction-majority confound -- all three are the flagship problem's proper scope. Doing it NOW
+proved the mechanism; doing it CLEANLY is the next problem, now fully de-risked and scoped.**
+
+## DEEPENING 7 -- HOW THE BRAIN SOLVES IT, IMPLEMENTED: grammatical FUNCTION, not position; NOT plausibility
+Owner "drill how the brain solves these and implement". Two findings + a research drill that CONFIRMED the
+implementation re-derives an owner-DONE design.
+
+**(a) 87% of "inversion" was my own GOLD NOISE.** The "inversion" set (postverbal nsubj) is 87% EXISTENTIAL
+"there" ("There has been talk" -> UD calls the pivot nsubj, my rule mislabeled it AGENT; it is not a thematic
+agent). Only 11% (52/455) are genuine inversions. Fixed the transparent rule to exclude existential (expl
+dependent) + copular ('be' head) subjects -- a THEMATIC gold, not a raw-grammatical one. Rebuilt the
+situation-model gold (non-canonical 59->40; headline holds, witness 19/19).
+
+**(b) The genuine constructions are a PARSE problem, solved by GRAMMATICAL FUNCTION + VOICE (implemented,
+non-circular via spaCy).** `exp_mcguffey_migrate_grammatical_function_v1.py`: the brain-faithful structure cue =
+grammatical function (subject/object from a parse) + voice (active subj=agent; passive subj=patient), NOT surface
+position. Tested with spaCy (a REAL parser, independent of the UD gold) vs the position cue:
+
+| construction | surface position | spaCy grammatical function | gold-function upper bound | n |
+|---|---|---|---|---|
+| passive | 0.044 | **0.948** | 1.0 | 727 |
+| inversion (genuine) | 0.000 | **0.731** | 1.0 | 49 |
+| fronting | 0.000 | **0.944** | 1.0 | 43 |
+| canonical | >0.95 | -- | 1.0 | 11051 |
+
+Grammatical function SOLVES the constructions where position collapsed to ~0. **This CORRECTS my own earlier
+thread:** inversion is NOT a thematic-fit problem -- it was existential gold-noise + a position-vs-function
+confusion. Thematic fit's real domain shrinks to genuine ambiguity/reversibles.
+
+**GROUNDING (research drill 2026-08-30) -- the implementation RE-DERIVES an owner-DONE design (~85% already built):**
+- **Q1/Q2 PINNED:** locative inversion keeps the postverbal NP as grammatical SUBJECT (controls agreement, "In
+  the boxes WERE keys"; Bresnan 1994 LFG); existential 'there' is expletive, pivot is notional subject; agreement
+  is STRUCTURAL not semantic (Bock & Miller 1991; Wagers/Lau/Phillips 2009 cue-based retrieval). subject->agent
+  resolves clean inversion with NO plausibility. Thematic fit is decisive ONLY at reduced-relative garden paths
+  (McRae 1998) + noisy/reversible input (Gibson 2013) -- a tie-breaker under ambiguity, not the primary cue.
+- **RECONCILIATION -- ALREADY OWNER-DONE:** `role_assignment_is_untested_on_archaic_literary_prose` (2026-08-29)
+  landed a POSITION-DOMINANT + cue-OVERRIDE subject stage, inversion **0.47->0.83 CI-sep**, twin loses;
+  "the cue-FIRST replacement was SELF-REFUTED" -- position-dominant + structural override IS the faithful design.
+  Quotative inversion is LANDED LIVE in `hdlab/predicate_argument_frontend.py` (+0.253 CI-sep); `graded_role_
+  assigner` is imported by the live `situation_reader`. **My independent spaCy re-derivation (0.73-0.95) matches
+  it.** And the project already measured a FLAT integrator NET-NEGATIVE on canonical (-0.041) -- matching my
+  Deepening 5/6 linear-sum-insufficient finding. Two independent routes, same conclusion.
+- **CORRECTION to my "reliability estimator":** it is TWO signals for TWO regimes, not one -- (1) DISCRETE
+  STRUCTURAL MARKEDNESS (fronted non-subject XP / expletive / agreement-controller / communication verb) detects
+  CLEAN inversion deterministically from the parse, NO confidence gating; (2) surprisal / route-conflict governs
+  ONLY the ambiguous/reversible subset where fit is recruited. My Deepening-5/6 precision-weighting conflated
+  these; the faithful design does NOT gate clean inversion on confidence -- it detects it structurally.
+- **PRECISE REMAINING GAP (small):** (1) the locative/existential/expletive-'there' subject-override is BUILT but
+  LANDING-QUEUED -- not yet in the live `graded_role_assigner` wired path; concrete build = land it + rebuild the
+  who-did-what cache (strategy Q111). (2) the surprisal / route-conflict GATE that recruits the fit competitor on
+  the reversible subset is ISLAND-only. Do NOT wire fit onto the clean-inversion path (flat integrator is
+  net-negative, confirmed twice).
+- **THE CAN-FAIL TEST (for the flagship):** partition held-out into A=clean inversions, B=reversible/ambiguous;
+  with fit ABLATED vs ON: HARD-PASS = structure/voice solves A with fit OFF (beats position CI-sep) AND fit-ON ==
+  fit-OFF on A (fit inert on clean inversion) AND fit-ON > fit-OFF on B CI-sep. HARD-FAIL = fit-ON changes A at all.
+
+**NET:** "how does the brain solve these?" -> grammatical function (parse) + voice + structural override for clean
+non-canonical; plausibility ONLY for the ambiguous/reversible residual. IMPLEMENTED + validated here (spaCy
+0.73-0.95), and it re-derives the owner-DONE `graded_role_assigner` design. The remaining work is landing the
+queued locative/existential override (strategy) + the island-only surprisal gate -- NOT a new solver build.
+
 ## ADJACENT-COMPONENT BRAIN-FIDELITY EVALUATION (to seed next problems; owner 2026-08-30)
 - **`thematic_role_labeler.py` (the role organ) -- FIDELITY LOW, clear build target.** Audit: RIGHT-OP-
   WRONG-METRIC, animacy-dominant, HARD_FAIL on real text. This problem localised WHY: it assigns roles from
@@ -334,3 +484,17 @@ follow-on. I recommend filing the fix as a small follow-on so this problem stays
 3. Build a both-gold modern NARRATIVE situation-model gold (coref + roles on one text) -- the single
    dimension no on-shelf modern corpus supplies; candidate route = a GUM-style corpus (UD parse + coref) or
    hand-authored modern passages in the McGuffey shape.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-30 (grade: EXCELLENT; SOLVED owner-DONE)
+
+Integrated by strategy. Reverified FIRST-HAND: `verification/test_mcguffey_migration.py` **19/19 PASS** (scaffold-free — all headlines recomputed). Argument adversarially audited and sound: (1) McGuffey's role eval is DEGENERATE (90.85% agent → always-agent floor 0.908 BEATS the vargs organ 0.856; never gated against the strongest majority-class floor); the brief's '0.517→0.742' corrected to disk (0.483→0.736) and it fails the strongest-floor test — the celebrated McGuffey role number was partly a degenerate-eval artifact. (2) The organ does NOT generalize to modern text (0.596 < floor 0.659; COLLAPSES on non-canonical to 0.288, CI-sep below floor) — McGuffey's ~0% non-canonical rate structurally hid it (corpus-age confound made numeric). (3) FIXABLE fidelity gap (front-end reads AUXILIARIES not the content verb; passive-aware content-verb assigner recovers non-canon 0.288→0.559 CI-sep, voice-scrambled twin loses, canonical unhurt). Brain depth: learned surface cues wall on unseen constructions (Competition Model conflict-validity), grounded thematic-fit clears the wall, conflict-validity is a GATE not a linear weight, precision/reliability-weighting PINNED — and implementing the mechanism RE-DERIVES the owner-DONE graded_role_assigner (role = grammatical function + voice). Self-corrected two of its own errors (87% of the "inversion wall" was its own existential-"there" gold mislabeling; inversion is a PARSE problem not thematic-fit).
+
+**STRATEGY LANDINGS QUEUED (Q111 — DEDICATED efforts, NOT rushed in this integration):**
+1. **Swap the default role/situation-model eval to the modern UD-EWT gold** (`data/eval_gold_mention_role_modern_ud_ewt_v1/gold_situation_modern_ud_ewt_v1.jsonl`) + RETIRE McGuffey-as-primary (keep it only as an archaic-register robustness check). ⚠️ The McGuffey reference is DIFFUSE across ~9 hdlab files (animacy_lexicon, candidate_generator, coreference_resolver, corpus_registry, self_improving_loop, situation_model_accumulate, situation_reader, substrate, verb_lexical_similarity) — a careful per-file change, NOT a one-liner; and it has RE-BASELINING implications (every reader number reported vs McGuffey must be re-based vs modern). This is the deliverable that actually retires the 200yr eval — flagged to the owner as the top next dedicated action.
+2. **Land the BUILT-but-queued locative/existential/expletive-'there' subject-override** into the live `graded_role_assigner` + rebuild the who-did-what cache (corpus-scale). Composes with the landed position-dominant + structural-override design.
+
+**Audit §2b folded** (the ROLE eval migrates McGuffey→modern UD-EWT; McGuffey's role eval is DEGENERATE 90.85%-agent; the vargs front-end does NOT generalize to modern non-canonical order — reads auxiliaries not the content verb; the fix is grammatical-function + voice + precision-weighted grounded thematic-fit, re-deriving graded_role_assigner). Review (EXCELLENT) + `> ## ✅ SOLVER REVIEW` block in PROBLEM.md; `priority:` cleared.
+
+**Seeded next problems (dependency-linked):** (A) FLAGSHIP — the reversible/ambiguous role residual: recruit grounded thematic-fit via a surprisal/route-conflict GATE (architecture pinned, two wrong approaches fenced, sole invention = the reliability estimator; shares the `distributional_meaning_channel` dependency; can-fail = structure solves clean inversion with fit OFF, fit helps ONLY the reversible subset). (B) a both-gold modern NARRATIVE situation-model gold (the 46.6%-pronoun coverage gap). (C) a grounded/learned animacy cue (principle generalizes, hard-coded word list does not: fire-rate 0.71→0.12 on modern).
