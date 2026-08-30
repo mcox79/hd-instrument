@@ -52,14 +52,17 @@ lever (three integrated results EXCLUDED the coherence prior, the static KB, the
 bottleneck of who-did-what on real prose (~67% of the binding headroom is coref). Buffer now **4 on-deck, all
 reader-independent** (p3 focus-stack, p4 belief-timeline, p7 patient-tendency, p8 causal-network). Note: p7's SOLVED is a
 WIP solver submission (no owner_verdict DONE) — left alone.
-🔌 **ASSEMBLY hdlab LANDING — Change 1 DONE, Changes 2-3 QUEUED (Q111):** ✅ Change 1 (quotative-inversion agent handling
-in `predicate_argument_frontend`, `quotative: bool = True` default-on, the +0.253 biggest lever) LANDED + committed
-`a614f8078` (ported verbatim from the validated cell; witnessed 9/9; the 3 validating experiments pass `quotative=False`
-to keep their ablation faithful; the assembly witnesses reproduce 10/10 + 6/6 + 2/2). ⏳ **Change 2 (a `role_route in
-{positional,predarg,hybrid}` option on `situation_reader` fed by a persisted parse frontend — DEFAULT-OFF/byte-identical)
-+ Change 3 (the graded binder into the live coref STREAM — validated in a standalone LitBank pipeline, NOT yet demonstrated
-wired into `read()`'s coref) are the QUEUED focused reader-wiring landing** — a dedicated careful port (~5 helper ports +
-a ~40-line `_read_events` branch + frontend loading + a fresh witness); deliberately NOT rushed alongside two integrations.
+🔌 **ASSEMBLY hdlab LANDING — Changes 1-2 DONE, Change 3 QUEUED (Q111):** ✅ Change 1 (quotative-inversion agent handling
+in `predicate_argument_frontend`, `quotative: bool = True` default-on, the +0.253 biggest lever) LANDED `a614f8078`
+(witnessed 9/9; the 3 validating experiments pass `quotative=False`; assembly witnesses reproduce 10/10 + 6/6 + 2/2).
+✅ **Change 2 (the `role_route` opt-in on `situation_reader` — routes the reader's role path through parse → router
+(+ reader-native mention-based quotative) with a positional fallback; DEFAULT `"positional"` = BYTE-IDENTICAL) LANDED**
+(ported VERBATIM from the validated `WiredSituationReader`; new witness `test_situation_reader_role_route_organ.py` 4/4 —
+positional byte-identical, hybrid touches ONLY roles, quotative fixed live, recipient emitted; module self-tests + the
+precise-voice witness pass unregressed; frontend load stays LAZY so a default reader is untouched). ⏳ **Change 3 (the
+graded binder into the live coref STREAM — validated in a standalone LitBank pipeline, NOT yet demonstrated wired into
+`read()`'s coref) remains the one QUEUED reader-wiring piece** — a dedicated careful port (the binder CORE `graded_coref_pick`
+is already landed; what's queued is its wiring into the coref resolution stream + a fresh no-regression demonstration).
 
 ### 2026-08-29 -- ✅ **THE ASSEMBLY MILESTONE IS INTEGRATED (owner-DONE, SOLVED/STRONG) — the live reader now beats its positional self on who-did-what end-to-end, reproduced FIRST-HAND through the real `read()` class. HONEST asterisk (owner-facing): it went from LOSING to a word-counting baseline to TYING/edging it; the clean CI-separated word-counting win still needs the coref residual. Change 1 LANDED (see above); Changes 2-3 queued.**
 **Newest first; the compaction-snapshot entry just below is the recovery anchor.**

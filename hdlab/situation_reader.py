@@ -142,6 +142,42 @@ MEM_SEED = 7
 FOCUS_N_DIM = 4096    # shared Cowan-4 focus dim (matches banked EC memory 29511; recent round-trips)
 FOCUS_SEED = 11
 
+# ---- ASSEMBLY reader-role-routing (2026-08-30, opt-in via role_route; DEFAULT-OFF = byte-identical) ----
+# Landed (Change 2) from the integrated assembly `wire_the_predarg_frontend_and_binder_into_the_live_reader`
+# (owner-DONE, SOLVED/STRONG). The stock role path is POSITIONAL (agent=subject-mention, patient=nearest
+# post-predicate nominal; NO parse). role_route != "positional" routes role assignment through a REAL parse
+# -> the landed event-semantic router (+ a reader-native, case-independent QUOTATIVE-inversion agent rule)
+# with a good-enough POSITIONAL fallback -- the HYBRID that lifts end-to-end role accuracy +0.225 CI-sep /
+# +0.247 through the live class on real narrative (validated in exp_wire_predarg_binder_live_reader{,_
+# integration}_v1). Default "positional" is BYTE-IDENTICAL to the stock reader (a top-level branch in
+# _read_events; the wired path is a separate method). Ported VERBATIM from the validated WiredSituationReader.
+# NO external LLM (the router's VerbNet/WordNet are static nltk; the tagger/parser are persisted assets).
+from hdlab.predicate_argument_frontend import (  # noqa: E402
+    route_predicate_arguments, is_speech_verb, matrix_verbs)
+
+# predarg thematic slot -> the reader's role key. agent/patient stay primary; the richer roles
+# (goal/recipient/source/...) are collected as ADDITIVE metadata on `self.wired_extra_roles`, never on
+# EventRecord (so the stock EventRecord shape -- and byte-identical comparisons -- are unchanged).
+PREDARG_TO_GOLD = {
+    "agent": "agent", "theme": "patient", "goal": "goal", "recipient": "recipient",
+    "source": "source", "location": "location", "path": "path", "direction": "direction",
+    "instrument": "instrument",
+}
+_FRONTEND_POS_ASSET = os.path.join(_REPO, "data/frontend_assets/pos_tagger_ud_ewt_upos.json")
+_FRONTEND_ARC_ASSET = os.path.join(_REPO, "data/frontend_assets/arc_parser_hashed_ud_ewt.npz")
+_FRONTEND_CACHE: Dict[str, object] = {}
+
+
+def _load_frontend():
+    """Load the persisted UPOS tagger + hashed arc parser ONCE per process (module-cached). Imported
+    lazily so a default (positional) reader never pays the parser-asset load or the import cost."""
+    if "t" not in _FRONTEND_CACHE:
+        from hdlab.pos_tagger import PosTagger
+        from hdlab.arc_parser import ArcParser
+        _FRONTEND_CACHE["t"] = PosTagger.load(_FRONTEND_POS_ASSET)
+        _FRONTEND_CACHE["p"] = ArcParser.load(_FRONTEND_ARC_ASSET)
+    return _FRONTEND_CACHE["t"], _FRONTEND_CACHE["p"]
+
 _CAUSAL_CONNECTIVES = frozenset(
     set(getattr(C, "CONNECTIVE_CAUSE_FIRST", set()))
     | set(getattr(C, "CONNECTIVE_EFFECT_FIRST", set())))
@@ -492,7 +528,8 @@ class SituationReader:
     def __init__(self, *, gaz: Optional[Dict[str, str]] = None,
                  focus_n_dim: int = FOCUS_N_DIM,
                  pred_gate_fn=None, spacy_pred_gate: bool = False,
-                 gate_intransitive: bool = True) -> None:
+                 gate_intransitive: bool = True,
+                 role_route: str = "positional") -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -509,6 +546,13 @@ class SituationReader:
         # an explicit kwarg -> callers needing the pre-fix positional-only behavior pass
         # gate_intransitive=False to opt back out.
         self.gate_intransitive = bool(gate_intransitive)
+        # ASSEMBLY reader-role-routing (opt-in; default "positional" = byte-identical to the stock reader).
+        # Anything != "positional" routes roles through parse -> router (+ quotative) with a positional
+        # fallback (the validated HYBRID). Loads the persisted parse frontend ONCE, only when turned on.
+        self.role_route = str(role_route)
+        self.wired_extra_roles: List[Dict[str, object]] = []   # additive richer roles, wired path only
+        if self.role_route != "positional":
+            self._tagger, self._parser = _load_frontend()
         # persistent readers (the banked backbone + single-sentence validity baseline)
         self.reader_ec = EventCentralityReader(n_dim=EVENT_N_DIM, mem_seed=MEM_SEED)
         self.reader_ss = CorefReader()
@@ -536,6 +580,8 @@ class SituationReader:
 
     # -- EVENTS: per-sentence predicate+agent+patient -> Cowan-4 bundle focus --
     def _read_events(self, sents, mentions, n_sents):
+        if self.role_route != "positional":
+            return self._read_events_wired(sents, mentions, n_sents)   # ASSEMBLY opt-in; else byte-identical
         codec = EventBundleCodec(n_dim=self.focus_n_dim, roles=DEFAULT_ROLES, seed=FOCUS_SEED)
         focus = ChunkedFocus(codec, capacity=4, fanout=2, seed=FOCUS_SEED)
         sent_noms = _sentence_nominals(mentions, n_sents)
@@ -573,6 +619,123 @@ class SituationReader:
                                           agent=agent, patient=patient, tense=str(e.tense),
                                           subj_role=subj_role, obj_role=obj_role, affect=affect))
                 role_fillers.append(rf)
+                gidx += 1
+        return events, focus, codec, role_fillers, suppressed
+
+    # -- ASSEMBLY reader-role-routing (opt-in; role_route != "positional") -----------------------------
+    # A verbatim port of the validated WiredSituationReader (exp_wire_predarg_binder_live_reader_integration
+    # _v1): route each event's agent/patient through a real parse -> route_predicate_arguments (+ a
+    # reader-native, case-independent quotative-inversion rule) with the positional rule as the good-enough
+    # fallback; richer roles (goal/recipient/...) are collected as additive metadata. Everything else
+    # (event extraction, encoding, focus, frame/affect metadata) is UNCHANGED from the stock _read_events.
+    def _router_roles(self, toks):
+        """{verb_pos0: {pa_role: token_pos0}} from parse -> route_predicate_arguments, fed the reader's OWN
+        tokens so indices align with mention wtok positions. quotative=False: the reader applies its OWN
+        mention-based quotative below (its tokens are lowercased, so the router's capitalization-based
+        speaker scan cannot fire here). Empty for empty / very long token lists."""
+        if not toks or len(toks) > 120:
+            return {}
+        pos = self._tagger.tag(toks)
+        heads = self._parser.parse(toks, pos).heads
+        out = {}
+        for v in matrix_verbs(toks, pos, heads):
+            roles = route_predicate_arguments(toks, pos, heads, v, quotative=False)
+            out[v - 1] = {k: (val - 1) for k, val in roles.items() if isinstance(val, int) and val}
+        return out
+
+    @staticmethod
+    def _align_events_to_toks(evs, toks):
+        """Map each event's predicate (surface e.lemma) to its `toks` index, greedy left-to-right (the
+        event extractor's tokenization != `toks`, so e.idx cannot be trusted). None if no surface match."""
+        low = [t.lower() for t in toks]
+        used = set()
+        out = []
+        for e in evs:
+            j = next((k for k in range(len(low)) if k not in used and low[k] == str(e.lemma).lower()), None)
+            if j is not None:
+                used.add(j)
+            out.append(j)
+        return out
+
+    @staticmethod
+    def _nom_head_at(noms, pos0):
+        """The non-pronoun mention head at/covering token position pos0 (the reader tracks only non-pronoun
+        heads for roles), else the nearest within 1 token, else None."""
+        for m in noms:
+            if m["wtok_start"] == pos0:
+                return m["head"]
+        for m in noms:
+            if abs(m["wtok_start"] - pos0) <= 1:
+                return m["head"]
+        return None
+
+    def _read_events_wired(self, sents, mentions, n_sents):
+        """Copy of _read_events with ONE change: agent/patient come from the parse -> router (mapped to the
+        reader's mention heads) with the positional rule as the good-enough fallback; richer roles are
+        collected on self.wired_extra_roles. Everything else is identical to the stock path."""
+        codec = EventBundleCodec(n_dim=self.focus_n_dim, roles=DEFAULT_ROLES, seed=FOCUS_SEED)
+        focus = ChunkedFocus(codec, capacity=4, fanout=2, seed=FOCUS_SEED)
+        sent_noms = _sentence_nominals(mentions, n_sents)
+        events: List[EventRecord] = []
+        role_fillers: List[Dict[str, str]] = []
+        suppressed: List[SuppressedPredicate] = []
+        self.wired_extra_roles = []
+        gidx = 0
+        for si, toks in enumerate(sents):
+            text = " ".join(toks)
+            evs, _tagged = T.extract_events(text)
+            noms = sent_noms[si] if si < len(sent_noms) else []
+            rr = self._router_roles(list(toks))
+            # the event extractor uses a DIFFERENT tokenization than `toks` (e.idx is its space, not toks-
+            # space); align each event's predicate to its `toks` position by surface match (greedy L->R), so
+            # router roles (keyed in toks-space, the mention wtok_start space) line up with the reader's event.
+            toks_pos = self._align_events_to_toks(evs, toks)
+            verb_lows = self.pred_gate_fn(text) if self.pred_gate_fn is not None else None
+            for ei, e in enumerate(evs):
+                # positional roles (the fallback + the OFF behavior), computed identically to the stock reader
+                agent, patient = _assign_roles(e.idx, noms, lemma=e.lemma,
+                                               gate_intransitive=self.gate_intransitive)
+                extra: Dict[str, object] = {}
+                vp = toks_pos[ei]
+                if vp is not None and is_speech_verb(lemma_verb(e.lemma)):
+                    # QUOTATIVE INVERSION, reader-native (case-independent): the reader's tokens are
+                    # lowercased, so use the MENTION structure -- the speaker (AGENT) is the nearest
+                    # postverbal tracked mention ("... said John"), else the nearest preverbal; the quoted
+                    # content is not a role filler.
+                    post = [m for m in noms if m["wtok_start"] > vp]
+                    pre = [m for m in noms if m["wtok_start"] < vp]
+                    spk = post[0]["head"] if post else (pre[-1]["head"] if pre else None)
+                    if spk is not None:
+                        agent, patient = spk, "?"
+                else:
+                    vr = rr.get(vp) if vp is not None else None
+                    if vr is not None:
+                        a_head = self._nom_head_at(noms, vr["agent"]) if "agent" in vr else None
+                        t_head = self._nom_head_at(noms, vr["theme"]) if "theme" in vr else None
+                        if a_head is not None:
+                            agent = a_head        # ROUTER agent (fixes passive/ditransitive), else positional
+                        if t_head is not None:
+                            patient = t_head
+                        for pa in ("goal", "recipient", "source", "location", "path", "direction", "instrument"):
+                            if pa in vr:
+                                h = self._nom_head_at(noms, vr[pa])
+                                if h is not None:
+                                    extra[PREDARG_TO_GOLD.get(pa, pa)] = h
+                if verb_lows is not None and e.lemma not in verb_lows:
+                    suppressed.append(SuppressedPredicate(sent_idx=si, predicate=e.lemma, tense=str(e.tense),
+                                                          agent=agent, patient=patient))
+                    continue
+                rf = {"PRED": e.lemma, "AGENT": agent, "PATIENT": patient, "TENSE": str(e.tense)}
+                vec = codec.encode_event(rf); focus.push(vec, gidx)
+                subj_role, obj_role = _assign_frame_primary_roles(e.lemma, toks, e.idx, noms,
+                                                                  gate_intransitive=self.gate_intransitive)
+                affect = _assign_affect(patient, text)
+                events.append(EventRecord(global_idx=gidx, sent_idx=si, predicate=e.lemma, agent=agent,
+                                          patient=patient, tense=str(e.tense), subj_role=subj_role,
+                                          obj_role=obj_role, affect=affect))
+                role_fillers.append(rf)
+                if extra:
+                    self.wired_extra_roles.append({"global_idx": gidx, **extra})
                 gidx += 1
         return events, focus, codec, role_fillers, suppressed
 

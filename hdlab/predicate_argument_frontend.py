@@ -184,6 +184,25 @@ def _cands(pos: Sequence[str]) -> List[int]:
     return [i for i in range(1, len(pos) + 1) if pos[i - 1] in NOMINAL]
 
 
+def matrix_verbs(tokens: Sequence[str], upos: Sequence[str], heads: Dict[int, int]) -> List[int]:
+    """The clause's matrix predicate(s) (1-based): the ROOT verb (head==0) + verbs coordinated to it
+    (head==root). Excludes embedded participles/relatives so the who-did-what is the CLAUSE's assertion,
+    not a modifier (matches the positional rule's single-predicate scope; good-enough parsing reads the
+    main clause). Copied VERBATIM from the validated exp_wire_predarg_binder_live_reader_v1 -- the shared
+    matrix-verb selector the reader-role-routing needs to feed route_predicate_arguments per matrix verb."""
+    verbs = [i for i in range(1, len(tokens) + 1) if upos[i - 1] == "VERB"]
+    if not verbs:
+        return []
+    roots = [v for v in verbs if heads.get(v, 0) == 0]
+    if not roots:
+        roots = [verbs[0]]
+    keep = set(roots)
+    for v in verbs:
+        if heads.get(v) in keep:            # coordinated / chained to a matrix verb
+            keep.add(v)
+    return sorted(keep)
+
+
 def _attaches_to_verb(start: int, v: int, heads: Dict[int, int], pos: Sequence[str],
                       max_hops: int = MAX_HOPS) -> bool:
     """Walk UP the head chain from `start`; True iff verb v is reached within max_hops without first hitting a
