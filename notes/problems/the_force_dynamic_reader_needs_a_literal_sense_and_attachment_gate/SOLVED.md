@@ -74,9 +74,10 @@ Four additions, each addressing a debit I named when I judged this STRONG-not-ex
    metaphor, the documented WSD boundary).
 2. **SECOND, INDEPENDENT ADJUDICATOR (`exp_literalness_gate_adjudicator_agreement_v1`).** A blind agent that
    saw only the sentences + the A/B/C/O criterion (never the gate, never my labels) re-labeled all 150 primary
-   items. Cohen's **kappa = 0.932** (raw agreement 0.967 -- "almost perfect"). The gate's precision advantage
-   SURVIVES the independent labels (0.752 vs base 0.593) and the CONSENSUS subset (0.743, n=145). The headline
-   is not a single-annotator artifact. [RACE second-adjudicator agreement queued.]
+   items -- and independently re-labeled all 130 RACE held-out items. Cohen's **kappa = 0.932 (primary) and
+   0.982 (RACE)** -- near-perfect. The gate's precision advantage SURVIVES both independent label sets
+   (primary 0.752 vs base 0.593; RACE 0.380 vs base 0.300) and the CONSENSUS subsets (primary 0.743 n=145).
+   The headline -- AND the held-out generalization -- are not a single-annotator artifact.
 3. **PRECISION-RECALL CURVE (`exp_literalness_gate_prcurve_v1`).** The gate's graded score Pareto-DOMINATES the
    flat FIRE_ANY base-rate floor at EVERY measured recall (avg precision 0.784 vs 0.560; precision 0.72 at
    recall>=0.90, 0.75 at >=0.80, 0.77 at >=0.70). So the precision gain is not a lucky single threshold, and
@@ -234,3 +235,15 @@ inventory + the reliability-gated context cue -- this is what caps generalizatio
 replication. The gate as-is is a net-positive precision guard on the two measured modern genres and is ready
 to land as the causation live-wiring's off-switch; the essay-prose margin is bounded by (2)+(3), which is why
 they are the next problems.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-30 (grade: EXCELLENT; SOLVED owner-DONE)
+
+Integrated by strategy. Reverified FIRST-HAND: `verification/test_literalness_gate_organ.py` **7/7 PASS** (scaffold-free). ⚠️ The reverify RESOLVED two stale frontmatter numbers UPWARD: the SOLVED `result:` line's RACE held-out ("DIRECTIONAL, NOT CI-sep, n=55, +0.092 [0.000,0.186]") is PRE-RERUN — the witness recomputes the n=130 rerun: held-out RACE generalization IS CI-SEPARATED (+0.089 [0.033,0.158], twin loses); and the witness is 7/7 not the frontmatter's stale '5/5'. Argument audited and sound: a glass-box FORCE-AFFORDANCE VETO gate (grounded simulation by default, blocked on an opaque-idiom / known-abstract-force-role / bad-attachment violation; reuses the WSD/idiom organs as directed) — FIRE-PRECISION 0.716 vs FIRE_ANY 0.560 (+0.156 CI-sep), recall 0.929; END-TO-END through the REAL typer it HALVES figurative mislabels (0.89→0.41) keeping literal coverage 0.86; GENERALIZES STRUCTURALLY (zero fit params) to a held-out unseen essay genre (RACE n=130 +0.089 CI-sep) + via WordNet IS-A on the roles. Controls: info-free twin loses CI-sep; per-component ablation (concreteness workhorse; the compositional WSD sense-posterior is net-NEGATIVE and honestly left OFF — matches the parent WSD finding); threshold-robust; 2nd blind adjudicator κ=0.932/0.982 (gate edge holds on their labels). Brain-faithful PINNED (selectional-violation→figurative Wilks/N400; stored-unit idiom Giora; Talmy motion Ground; grounded simulation GRADED not gated → target re-cut to conventional-figurative+idiom). Honest limits (recall drop unavoidable for a gate; smaller on essay prose; residual concrete-role figuratives).
+
+**✅ UNBLOCKS `wire_the_causation_typer_into_the_live_reader`.** The gate's hdlab landing is COUPLED with that causation live-wiring: wire the literalness gate (`experiments/_literalness_gate.py`) + the force typer + the patient-tendency estimator into `situation_reader._read_causation`, engaging ONLY on literal, correctly-attached physical events (ENGAGE_PHYSICAL), abstaining otherwise. All THREE inputs are now validated + ready.
+
+**Audit §2b folded** (the force-dynamic reader now has a LITERALNESS VETO gate — grounded-simulation-by-default, abstain on selectional violation / stored-unit idiom / bad attachment; the compositional WSD frame-posterior is a FALLIBLE literalness cue, net-negative — role-concreteness + VOBJ idiom are the reliable levers; grounded simulation is GRADED not gated, Raposo/Desai). Review (EXCELLENT) + `> ## ✅ SOLVER REVIEW` block in PROBLEM.md; `priority:` cleared.
+
+**Seeded next problems (new organs, owner Q113):** (1) a SOCIAL/INSTITUTIONAL-FORCE reader (the FORCE_NONPHYSICAL bin has no consumer; the leading uncaught class on essay prose); (2) a context-WSD / conventional-metaphor inventory for concrete-role figuratives ('opened up', 'run the company') — caps essay-prose generalization.

@@ -65,6 +65,24 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — THE FORCE-DYNAMIC READER GETS A LITERALNESS VETO GATE (grounded-simulation-by-default, abstain on violation)
+  — and it UNBLOCKS the causation wiring** (from integrated `the_force_dynamic_reader_needs_a_literal_sense_and_attachment_gate`,
+  owner-DONE, SOLVED/EXCELLENT; reverified 7/7 first-hand — the reverify upgraded a stale frontmatter number: held-out RACE
+  generalization is CI-separated at n=130, +0.089 [0.033,0.158], not the `result:` line's n=55 not-CI-sep). PINNED: grounded
+  simulation (Bergen/Barsalou) is attempted BY DEFAULT and VETOED on a detected violation — a selectional violation over the
+  force roles (antagonist/agonist + the Talmy motion-GROUND; known-abstract → figurative; Wilks / N400), an opaque stored-unit
+  VOBJ idiom (Giora), or a bad attachment. Grounded simulation is GRADED not gated (LIT>MET>IDIOM>ABS; Raposo & Desai) → the
+  gate's target is CONVENTIONAL-figurative + idiom. **KEY FIDELITY FINDING (converges with `no_glass_box_verb_sense_disambiguation`):
+  the compositional WSD frame-POSTERIOR is a FALLIBLE literalness cue — net-NEGATIVE, left OFF; the reliable levers are
+  ROLE-CONCRETENESS + the VOBJ stored-unit idiom.** OUR-INVENTION-flagged: the concreteness threshold + the idiom inventory
+  (both generalization-tested: threshold-robust c_min 0.15–0.50; WordNet IS-A generalizes to novel nouns — boulder engages,
+  bureaucracy vetoes). GENERALIZES (owner priority, STRUCTURAL — zero fit params): fire-precision 0.716 vs floor 0.560 (+0.156
+  CI-sep); END-TO-END halves figurative mislabels 0.89→0.41 through the real typer; held-out unseen essay genre +0.089 CI-sep;
+  2nd blind adjudicator κ=0.93. **hdlab:** the gate's landing is COUPLED with the causation live-wiring — wire gate + force
+  typer + patient-tendency into `_read_causation` (engage only on ENGAGE_PHYSICAL). ADJACENT GAPS SEEDED: the FORCE_NONPHYSICAL
+  bin has no consumer (a social/institutional-force reader); concrete-role conventional metaphor ('opened up', 'run the company')
+  caps essay-prose generalization (a context-WSD / metaphor inventory).
+
 - **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `context_grounded_valence` (LIVE-WIRED reader organ) — its
   animacy axis GENERALIZES but its FORCE-VERB identification is a TEST-FITTED HAND LIST; the fix already exists on the shelf.**
   (a) FIDELITY: partly brain-grounded — biased-competition event assembly (Desimone & Duncan) + a WordNet ANIMACY axis + a
