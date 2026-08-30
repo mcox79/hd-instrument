@@ -2,11 +2,11 @@
 problem: causation_is_typed_per_clause_not_across_the_causal_network
 status: SOLVED
 bar: "Types discourse-level causal links CI-separated over the connective/adjacency placeholder -- a discourse causal population (connective-linked clause pairs + multi-event chains); the placeholder (`_causal_network`'s untyped connective+adjacency link) recomputed on the same population = the floor; the info-free twin (shuffled edge types / shuffled network structure) LOSES CI-separated; report CI half-width + null p95; no number crosses populations. A POSITIVE control the metric can move. Isolates the network typing from single-clause typing (an ablation to per-clause typing without the network edges). A rigorous NEGATIVE is a FULL PASS."
-result: "Discourse cross-event edge-typing 4-way accuracy (CAUSE/ENABLE/PREVENT/SEQUENTIAL) NET 1.000 [1.000,1.000] (bootstrap 5000, half-width 0.000; n=48 connective-neutral cross-SENTENCE passages, extraction given as structured events). Real-text bound (16 verbatim LitBank cross-event causal edges, FULL self-extraction): the physical force lexicon covers the cause verb in only 3/16 -- the other 13 are MENTAL/SOCIAL causation a physical-force system structurally cannot type. Built ACROSS it: an INTENTIONAL front-end feeding the SAME Wolff typer scores 1.000 [1.000,1.000] on constructed mental/social causation (n=30)."
+result: "MECHANISM (constructed): discourse cross-event edge-typing 4-way accuracy (CAUSE/ENABLE/PREVENT/SEQUENTIAL) NET 1.000 [1.000,1.000] (bootstrap 5000; n=48 connective-neutral cross-SENTENCE passages, extraction given) vs placeholder 0.271, isolated from single-clause typing (perclause 0.729), twins lose. REAL-TEXT (the honest capability test the owner pushed for): the typer does NOT beat a majority-CAUSE placeholder on real cross-sentence causation -- typer 0.158 vs placeholder 0.842 (n=19: 16 verbatim LitBank CAUSE edges + the 3 genuine cross-sentence ENABLE cases found by hand-reading ~40 candidate contexts across 100 novels; ~0 clean cross-sentence PREVENT). A RIGOROUS NEGATIVE, THREE-fold and enumerated: real cross-sentence non-CAUSE causation is (1) RARE (prevention/enabling is packed WITHIN a clause -- the single-clause typer's domain), (2) lexically UNCOVERED (the genuine ENABLE cases use open/unlock, not in the FrameNet force lexicon; the typer abstains on 13/19), (3) MENTAL for the bulk (a different brain system). So the constructed 1.000 is a MECHANISM demonstration, not a real-text capability win. Corpus-age confound: LitBank/McGuffey are 19th-c./~200yr; no modern corpus on disk."
 floor: "the connective/adjacency PLACEHOLDER (type-blind -> majority CAUSE), recomputed on the same population = 0.271 [0.146,0.396]; AND the PERCLAUSE single-clause ablation (endstate read from the CAUSE clause, no cross-event edge) = 0.729 [0.604,0.854]. NET lower CI 1.000 > BOTH upper CIs (0.396 and 0.854). Intentional cell: PHYSICAL-only front-end (wrong system) 0.300 [0.133,0.467] and placeholder 0.333 [0.167,0.500], both beaten CI-separated."
 controls: "(1) force-class-SHUFFLE info-free twin (destroys verb->force): p95 0.562, LOSES (NET lo 1.000). (2) edge-type-SHUFFLE twin (permute predicted types across items): p95 0.354, LOSES. (3) PERCLAUSE ablation (endstate from the CAUSE clause) = the single-clause-typing isolation: 0.729, beaten CI-sep -> the lift is the CROSS-EVENT effect-clause read (the PREVENT class: NET 1.0 / perclause 0.0 / placeholder 0.0). (4) PRECEDENCE positive control (flashback cause-ID): precedence finds the past-perfect cause 1.00 vs text-adjacency 0.00. (5) NECESSITY: NET abstains SEQUENTIAL on non-causal sequence 1.00 vs placeholder false-links 0.00. (6) intentional cell: intentional-class-shuffle twin p95 0.600 LOSES; PHYSICAL-only front-end (wrong brain system) abstains -> 0.300."
-files_changed: "experiments/exp_causal_network_edge_typer_v1.py, experiments/exp_causal_network_realtext_v1.py, experiments/exp_causal_network_intentional_frontend_v1.py, verification/test_causal_network_edge_typer.py, notes/problems/causation_is_typed_per_clause_not_across_the_causal_network/research_causation_systems_brain_mechanism_2026-08-30.md"
-reverify: ".venv/Scripts/python.exe verification/test_causal_network_edge_typer.py   # scaffold-free, 12/12 PASS, recomputes every headline from source"
+files_changed: "experiments/exp_causal_network_edge_typer_v1.py, experiments/exp_causal_network_realtext_v1.py, experiments/exp_causal_network_intentional_frontend_v1.py, experiments/exp_causal_network_realtext_typing_gold_v1.py, verification/test_causal_network_edge_typer.py, notes/problems/causation_is_typed_per_clause_not_across_the_causal_network/research_causation_systems_brain_mechanism_2026-08-30.md"
+reverify: ".venv/Scripts/python.exe verification/test_causal_network_edge_typer.py   # scaffold-free, 13/13 PASS, recomputes every headline from source"
 ---
 
 # SOLVED -- a causal-network EDGE typer that types cross-event causal links, with the brain-faithful bound measured AND built across
@@ -88,7 +88,38 @@ intentional lexicon adds remember/know/promise). "He held his tongue because he 
 promise is the antagonist force opposing the urge to speak) via the same engine. This is a MECHANISM DEMONSTRATION
 that the typology transfers across the two force systems; it is NOT yet a real-text accuracy at scale.
 
+## PUSH -- THE HONEST REAL-TEXT TYPING TEST (owner: "is this excellent? ... does it beat the placeholder where majority-CAUSE isn't the answer?")
+The owner correctly flagged that the constructed 1.000 (with CI [1.000,1.000], half-width 0.000 -- a too-clean
+ceiling) plus 4 hand-picked SINGLE-clause preventions did NOT show a real cross-sentence typing win. I tried to
+build one (`exp_causal_network_realtext_typing_gold_v1`, witness W11b) and the result is a RIGOROUS, ENUMERATED
+NEGATIVE:
+- **I scanned all 100 LitBank novels + 2 McGuffey readers** by neutral verb-pattern criteria (an enabling act --
+  open/unlock/release/free -- or a preventing act -- shut/bar/hold-back/block/shield -- as a sentence, with the NEXT
+  sentence naming the outcome) and hand-read ~40 candidate contexts. **Genuine cross-SENTENCE ENABLE: ~3 (all using
+  open/unlock). Genuine cross-SENTENCE PREVENT: ~0.** (An absence claim needs an enumeration; this is one -- a bounded
+  hand-search, not a proof of non-existence.)
+- **Real prevention/enabling is packed WITHIN a clause** -- "prevented him FROM going", "saved them FROM drowning",
+  "let Ann get in", "would not let them drown" -- which is the SINGLE-CLAUSE typer's domain (already integrated). The
+  keyword within-clause RATE is confounded by verb polysemy (save/keep/hold/bar in non-force senses), so I do NOT
+  quote it as a clean number; the qualitative dominance is the finding.
+- **On the best real gold I can honestly assemble** (16 verbatim LitBank CAUSE + the 3 genuine cross-sentence ENABLE),
+  the typer scores **0.158 vs the majority-CAUSE placeholder 0.842** -- it LOSES. Three reasons, all measured: the
+  population IS overwhelmingly CAUSE; the typer abstains on 13/19 (physical lexicon covers ~3, mental causation needs
+  the other front-end); the genuine ENABLE verbs (open/unlock) are not force-classed (0/3 typed).
+- **Corpus-age confound (owner, 2026-08-30):** LitBank is 19th-century, McGuffey ~200 years old; there is no modern
+  narrative corpus on disk, so every real-text number here is archaic-prose-bound.
+- **The honest conclusion, which REVISES my earlier framing:** the cross-event edge typer's UNIQUE value over the
+  integrated single-clause typer -- fine CAUSE/ENABLE/PREVENT typing of cross-sentence links -- is BOUNDED to a rare,
+  lexically-uncovered slice, because language packs prevention/enabling into single clauses and most cross-sentence
+  causation is plain CAUSE or mental. The network typer's real-text value is thus the STRUCTURE (precedence-gated
+  direction, necessity-gated existence, cause-selection) on CAUSE edges + not mis-asserting a positive link on the
+  rare cross-sentence prevention -- NOT a cross-sentence non-CAUSE typing accuracy win, which does not materialise on
+  real prose. The bar's own clause -- "a rigorous NEGATIVE is a FULL PASS (a measured bound)" -- is what this is.
+
 ## What I did NOT establish (and would withdraw first if wrong)
+- **A real-text cross-sentence non-CAUSE typing WIN. It does not exist on this corpus** (0.158 vs 0.842) -- withdraw
+  any implication that the cross-event PREVENT/ENABLE typing has broad real-text value. It is a MECHANISM proof + a
+  measured rarity bound. This is the first thing to withdraw, and I now state it as the headline, not a footnote.
 - **Real-text end-to-end 3-way ACCURACY at scale, with automatic extraction.** The 1.000 headline is on CONSTRUCTED
   connective-neutral cross-sentence passages with extraction GIVEN as structured events (exactly as the landed
   single-clause typer's gold gives agent/verb/patient). The real-text cell shows the self-extraction pipeline is
@@ -196,8 +227,14 @@ reading the SECOND sentence). Then the honest limit: on real novels, most "becau
 because she remembered", "he held his tongue because he promised" -- and a physical-force method can't read those.
 That is not a bug: the brain uses a SEPARATE system for reading people's minds than for reading physical forces, but
 it uses the SAME three labels (cause/let/prevent) for both. So I built a second reader for mental causation that feeds
-the same labeller, and it doubles how much real-story causation we can read. The next step is to read the rest --
-speech, death, perception -- the same way.
+the same labeller, and it doubles how much real-story causation we can read. **The honest limit the owner made me
+measure:** on real novels this fine labelling rarely gets to prove itself -- almost all cross-sentence causation is
+plain "cause", and the few "let"/"prevent" cases across sentences are rare (real writing packs "prevent/let" INTO one
+clause, which the earlier single-sentence reader already handles). So on real prose the new labels lose to a
+dumb "always guess cause" (16 of 19), and I now say that plainly: the method is a proven MECHANISM, and its extra
+value on real cross-sentence text is small -- the real payoff is reading MENTAL causation and getting the direction /
+which-event-caused-which right, not the physical cause/let/prevent split, which language rarely spreads across
+sentences. (Also: the only novels on hand are ~150-200 years old -- an added caveat on any real-text number.)
 
 ## QUESTIONS
 None. (The mechanism is built and clears the bar CI-separated with the isolation and twins; the real-text bound is a

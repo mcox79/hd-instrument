@@ -5,8 +5,8 @@ bar: "PASSES only with ALL of: 1. A per-agent BELIEF TIMELINE (built in experime
 result: "Belief-question accuracy (belief 'where does A think X is' + false_belief 'does A hold a false belief', decoded on the substrate's OWN belief_partition FHRR organs) over a construction gold of false-belief-OVER-TIME narratives (60 scenarios, 542 queries, 404 belief/false-belief): the per-agent BELIEF TIMELINE = 1.000 [1.000,1.000] vs the strongest timeline-agnostic floor (current-belief-only, SAME observation cue) 0.460 [0.411,0.510], CI-separated. Info-free twin (shuffled event/observation order) null p95 = 0.535 (< 1.000). Positive control (the belief queries the current-belief floor CANNOT get -- belief-at-T != final-observed, n=218): timeline 1.000 vs floor 0.000. COMPOSED WITH THE REAL temporal-order register on flashback prose: register-ordered belief 1.000 vs narration-ordered 0.000 (n=5 flashback), tie 1.0==1.0 on linear controls, extraction coverage 0.80."
 floor: "Strongest floor actually run = the TIMELINE-AGNOSTIC current-belief tracker (holds the latest observed value, SAME observation cue, no reading-time axis) recomputed on the same population = 0.460 [0.411,0.510]; timeline lower CI 1.000 > floor upper CI 0.510. Other floors: omniscient/reality-reading 0.767 [0.725,0.809] (fails false belief -- leaks reality to the agent), always-initial 0.545 [0.495,0.592], empty-register 0.384 [0.337,0.431], info-free twin mean 0.461 / p95 0.535. Narration-ordered timeline 0.911 overall but 0.000 on the flashback subset (isolates the temporal-order register)."
 controls: "(1) INFO-FREE TWIN (event/observation ORDER shuffled over 200 seeds) -> p95 0.535, LOSES CI-separated (timeline 1.000 > 0.535) -- excludes 'the timeline works from a non-informative order signal'. (2) POSITIVE CONTROL (the floor-cannot-get subset, belief-at-T != final-observed, n=218): timeline 1.000 vs current-belief 0.000 -- the metric CAN move / the floor provably cannot get these. (3) ISOLATION of the TIME composition: current-belief floor uses the SAME observation bits as the timeline; the ONLY difference is the order-aware read-at-T, so the +0.540 lift is the TIMELINE part, not a better cue. (4) DISTANCE robustness: timeline flat 1.000 at event-distance 0..3 while the floor collapses 1.00->0.00 for distance>=1. (5) REALITY+MEMORY controls 1.000 (n=138) -- the belief partition does not corrupt world/initial tracking. (6) EMPTY register 0.384 (degenerate control, not gameable). (7) HINDSIGHT-DECOUPLING (research drill #1): a later UNOBSERVED world change leaves 'what A believed at T' invariant (1.000, n=41) -- a clean store beats the brain's curse-of-knowledge. (8) REP-B timescale stress: the swept FHRR temporal-context representation is exact (1.000) at inter-event gap>=0.5 and degrades to 0.812 at gap 0.1 while discrete rep-A stays 1.000 -- honest representation sweep (discrete = accuracy layer, graded = order-uncertainty/confidence). (9) REGISTER COMPOSITION: register-ordered 1.000 vs narration-ordered 0.000 on flashback prose, tie on linear controls -- excludes 'narration position is enough'."
-files_changed: "experiments/belief_timeline.py (core: sample-and-hold rep A + FHRR temporal-context rep B + floors + twin + testimony/deception edges + hindsight control + belief-gap queries, on hdlab.belief_partition/binding/graded_temporal_context); experiments/belief_timeline_gold.py (construction gold); experiments/exp_belief_timeline_query_v1.py (CI-sep proof); experiments/exp_belief_timeline_flashback_register_v1.py (composition with the REAL temporal-order register); experiments/exp_belief_timeline_gap_v1.py (knowledge-gap / dramatic-irony over time); experiments/exp_belief_timeline_authored_v1.py (hand-authored second gold, external validity); experiments/exp_belief_timeline_real_prose_v1.py (incidence bound); verification/test_belief_timeline.py (witness, 42/42 PASS); notes/problems/the_reader_has_no_belief_timeline_what_an_agent_knew_when/{research_belief_timeline_brain_mechanism_2026-08-29.md, SOLVED.md}; data/{exp_belief_timeline_query_v1,exp_belief_timeline_flashback_register_v1,exp_belief_timeline_gap_v1,exp_belief_timeline_real_prose_v1}/metrics.json. hdlab/ UNTOUCHED (proposed diff below, Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_belief_timeline.py   # 42/42 ; then .venv/Scripts/python.exe experiments/exp_belief_timeline_query_v1.py --mode full  # timeline 1.000 vs floor 0.460 ; .venv/Scripts/python.exe experiments/exp_belief_timeline_flashback_register_v1.py  # register 1.0 vs narration 0.0 on flashback ; .venv/Scripts/python.exe experiments/exp_belief_timeline_gap_v1.py  # gap 1.000 vs floor 0.667, divergence-window 1.0 vs 0.0 ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_authored_v1.py  # second gold 1.000 vs 0.542, 0 hand-gold mismatches"
+files_changed: "experiments/belief_timeline.py (core: sample-and-hold rep A + FHRR temporal-context rep B + floors + twin + testimony/deception edges + hindsight control + belief-gap queries, on hdlab.belief_partition/binding/graded_temporal_context); experiments/belief_timeline_gold.py (construction gold); experiments/exp_belief_timeline_query_v1.py (CI-sep proof); experiments/exp_belief_timeline_flashback_register_v1.py (composition with the REAL temporal-order register); experiments/exp_belief_timeline_gap_v1.py (knowledge-gap / dramatic-irony over time); experiments/exp_belief_timeline_authored_v1.py (hand-authored second gold, external validity); experiments/exp_belief_timeline_confidence_v1.py (decaying-confidence layer, access-decays-value-persists); experiments/exp_belief_timeline_real_prose_v1.py (incidence bound); verification/test_belief_timeline.py (witness, 46/46 PASS); notes/problems/the_reader_has_no_belief_timeline_what_an_agent_knew_when/{research_belief_timeline_brain_mechanism_2026-08-29.md, SOLVED.md}; data/{exp_belief_timeline_query_v1,exp_belief_timeline_flashback_register_v1,exp_belief_timeline_gap_v1,exp_belief_timeline_real_prose_v1}/metrics.json. hdlab/ UNTOUCHED (proposed diff below, Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_belief_timeline.py   # 42/42 ; then .venv/Scripts/python.exe experiments/exp_belief_timeline_query_v1.py --mode full  # timeline 1.000 vs floor 0.460 ; .venv/Scripts/python.exe experiments/exp_belief_timeline_flashback_register_v1.py  # register 1.0 vs narration 0.0 on flashback ; .venv/Scripts/python.exe experiments/exp_belief_timeline_gap_v1.py  # gap 1.000 vs floor 0.667, divergence-window 1.0 vs 0.0 ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_authored_v1.py  # second gold 1.000 vs 0.542, 0 hand-gold mismatches ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_confidence_v1.py  # confidence decays 1.0->~0, Spearman 0.995 vs twin 0.04"
 ---
 
 # The reader now has a per-agent BELIEF TIMELINE -- "what did A know AT THIS POINT?"
@@ -96,6 +96,19 @@ DISAGREES with the hand gold on **0 of 24** questions (it reproduces human judge
 small (the CIs are wide), so this CONFIRMS external validity; the 542-query construction gold remains the
 primary evidence.
 
+## Decaying CONFIDENCE -- access decays, value persists (deepening push 2026-08-30)
+A faithful belief is not just a crisp value: its VALUE persists (sample-and-hold) but its ACCESS/CONFIDENCE
+DECAYS with time-since-last-observation -- a measured human signature (the here-and-now dominates, Anderson/
+Garrod/Sanford 1983; the Temporal Context Model contiguity kernel, Howard & Kahana 2002; drill Q2). I made this
+a first-class output using the substrate's own drifting temporal-context organ (`hdlab.graded_temporal_context`):
+confidence_A(X,T) = kernel(ctx(T), ctx(last-observed-event)). It is **1.000 fresh and decays to ~0 by 12
+intervening events** (curve 1.00, 0.57, 0.37, 0.28, ...), **monotone-decreasing (fraction 1.00)**, predicts
+staleness at **Spearman 0.995** vs an info-free shuffled-staleness twin **|rho| p95 0.040**, and adjudicates
+conflicting evidence (a recent source is held at confidence 0.574 vs a stale source 0.010). The VALUE is
+untouched (rep A); only the access decays -- so a belief timeline can now say not just WHERE A thinks X is but
+HOW freshly A holds it, which is what weights an old observation against a recent testimony and predicts
+revisability. Info-free twin LOSES.
+
 ## Real-narrative incidence (the honest bound)
 Belief-STALENESS ingredients are COMMON: 170/991 (17.2%) of the corpus-mined observation events (LitBank, reused
 from the observation-cue problem) are non-observations where a belief can go stale; 75/92 books carry multi-event
@@ -182,20 +195,24 @@ mechanism level (proposed hdlab landing pending, Q111).
 - **Curse-of-knowledge intrusion term** -- optional: a controllable anchor to MODEL human hindsight error when
   human-likeness (not correctness) is the goal.
 
-## CONVERGENCE (deepening cron cancelled 2026-08-30)
-The brain-mechanism bar is met and the deepening checklist was worked to exhaustion for THIS problem:
-identified the brain mechanism (research drill), replicated it (observation-gated sample-and-hold + belief(x)when
-FHRR binding + register-ordered chronology + testimony/deception edges + belief-gap queries), and tested it with
-a full can-fail battery + info-free twins LOSING across FOUR populations (542-query construction gold; the real
-temporal-order register on flashback prose; the knowledge-gap/dramatic-irony cell; an independent hand-authored
-second gold with 0 mechanism-vs-human mismatches). The drill's corrections are folded (decoupled store beating
-curse-of-knowledge; testimony route for deception; honest rep-B characterization). The REMAINING adjacent items
-are genuinely SEPARATE next problems, not undone parts of THIS mechanism, and are mapped below: (a) an
-intensional / guise-keyed belief store (Superman-Clark opaque contexts); (b) higher-order / recursive ToM (A
-thinks B knew X at T -- out of the first-order scope this problem shares with belief_partition); (c) the
-observation-cue ledger's live integration (strategy's hdlab job, Q111); (d) rep-B event-boundary alignment (a
-low-marginal fidelity refinement -- rep A is ALREADY the event-boundary-aligned discrete layer). Continuing the
-cron on those would be either out-of-scope or busywork, so it was cancelled per its own stop rule.
+## DEEPENING STATUS (2026-08-30)
+The brain-mechanism bar is met and the mechanism is tested with a full can-fail battery + info-free twins LOSING
+across FIVE populations: 542-query construction gold; the real temporal-order register on flashback prose; the
+knowledge-gap/dramatic-irony cell; an independent hand-authored second gold (0 mechanism-vs-human mismatches);
+and the decaying-confidence signature. The research drill's corrections are all folded: observation-gated
+sample-and-hold; belief(x)when FHRR binding; register-ordered chronology; decoupled store beating
+curse-of-knowledge; TESTIMONY/deception route; belief-gap queries; and now the CONFIDENCE-decays-value-persists
+layer. On the owner's push I re-opened and added the confidence layer (a measured human signature, not busywork).
+**One genuine fidelity route within this mechanism's spirit is still open and under an ONLINE research drill:
+belief updates by INFERENCE (drill build-change #4: observed / inferred / communicated -- I built observed +
+communicated; the INFERRED edge, where an agent comes to believe a conclusion by reasoning from observed
+premises, is the last un-built update route). Its result will be folded here or spun out as the next problem
+depending on whether the brain attributes inferential knowledge within first-order ToM or as a distinct
+epistemic-reasoning capability.** The other adjacent items are genuinely SEPARATE next problems, mapped below:
+(a) intensional / guise-keyed belief store (Superman-Clark opaque contexts); (b) higher-order / recursive ToM
+(out of the first-order scope shared with belief_partition); (c) the observation-cue ledger's live integration
+(strategy's hdlab job, Q111); (d) rep-B event-boundary alignment (low-marginal -- rep A is already the
+event-boundary-aligned discrete layer).
 
 ## TLDR
 Understanding a story means tracking not just what is true, but what each character THINKS is true -- and that

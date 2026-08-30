@@ -4,8 +4,8 @@ status: SOLVED
 bar: "Types CAUSE-vs-ENABLE for tendency-ambiguous verbs CI-separated over the lexicon-only floor (0.500) toward the tendency-oracle (1.000) -- on a tendency-ambiguous population (open/move/turn/roll... with the outcome held constant so the contrast isolates tendency, as the demo did); the info-free twin (shuffled affector-magnitude / affordance) LOSES CI-separated; report CI half-width + null p95; no number crosses populations. A POSITIVE control the metric can move (a minimal pair -- key vs wind -- the estimator gets and the lexicon-only typer cannot). Generalizes (held-out affectors). Glass-box estimator = affector-MAGNITUDE + patient-AFFORDANCE + directional/aspectual cues -> patient-tends {yes,no} fed into the force_dynamics_typer truth-table; NO do-calculus, NO external LLM."
 result: "FULL patient-tendency estimator (affector-magnitude + patient-affordance + directional, Wolff patient-side force-sum) types CAUSE-vs-ENABLE at 1.000 [1.000,1.000] on the COMBINED tendency-ambiguous population (n=40 constructed minimal pairs, outcome held reached, extraction given; bootstrap 2000x) -- vs the lexicon-only floor 0.500 (+0.502 [0.350,0.650], half-width 0.150) AND vs the PROVEN affector-magnitude-only term 0.675 (+0.327 [0.200,0.475], half-width 0.138), both CI-separated. Per-cue: on the magnitude-SILENT affordance set +0.505 and directional set +0.504 over magnitude-only; on the magnitude-present set +0.000 NOT_SEP (honest -- the proven first term already suffices there)."
 floor: "The strongest floor actually run is the PROVEN affector-magnitude-only term (the parent problem's demonstrated first term), 0.675 on COMBINED / 0.591 on HELD-OUT -- beaten +0.327 / +0.316 CI-separated. Also run: lexicon-only 0.500 (the brief's floor, recomputed on-population, exactly the 0.500 cap on every isolated set) beaten +0.502; majority-class; oracle ceiling 1.000."
-controls: "(1) info-free TWIN (each cue's +1/-1/0 contribution permuted across items -- same shape, correlation to gold destroyed): COMBINED full_lo 1.000 > twin p95 0.625 (mean 0.495) -> LOSES; excludes 'any three-signal blend scores'. (2) null p95 0.650 (label permutation) < 1.000. (3) per-term ABLATION: best single term 0.675 < full 1.000 -> the terms COMBINE, no single cue is the signal (m/a/d alone 0.675/0.675/0.650). (4) HELD-OUT (fresh affectors/patients/cues) 0.910 [0.773,1.000] beats magnitude-only +0.316 CI-sep -> generalization, not fit; the 2 misses are a VERB-GATE coverage gap ('drift' not gated), the tendency MECHANISM is 20/20 on gated verbs. (5) POSITIVE controls the lexicon cannot: ball-vs-crate (affordance), down-vs-up (directional), nudge-vs-shove (magnitude) all correct, lexicon 0/2 each; the brief's key-vs-wind BARE is under-determined (honest fallback) and RESOLVED once magnitude is stated (breeze->ENABLE, blast->CAUSE). (6) WEIGHT SWEEP min 1.000 over 27 weight configs -> robust to the OUR-INVENTION weights, not fitted."
-files_changed: "experiments/_patient_tendency.py (the estimator: magnitude + affordance + directional terms + Wolff patient-side force-sum), experiments/exp_patient_tendency_estimator_v1.py (populations, floors, twin, ablation, held-out, weight-sweep, controls), verification/test_patient_tendency_estimator.py (scaffold-free witness 13/13), data/exp_patient_tendency_estimator_v1/metrics.json, notes/problems/causation_typing_needs_a_patient_tendency_estimator/research_patient_tendency_force_arithmetic_2026-08-30.md"
+controls: "(1) info-free TWIN (each cue's +1/-1/0 contribution permuted across items -- same shape, correlation to gold destroyed): COMBINED full_lo 1.000 > twin p95 0.625 (mean 0.495) -> LOSES; excludes 'any three-signal blend scores'. (2) null p95 0.650 (label permutation) < 1.000. (3) per-term ABLATION: best single term 0.675 < full 1.000 -> the terms COMBINE, no single cue is the signal (m/a/d alone 0.675/0.675/0.650). (4) COMBINATION-RULE discriminator (CONFLICT set, n=12, 2-vs-1 cue disagreement with the MINORITY cue rotating evenly, gold = Wolff net-force sign): force-sum 1.000 beats EVERY single-cue-priority (winner-take-all) rule 0.667 CI-separated (+0.337/+0.332/+0.331 ABOVE); no single-cue rule can exceed 8/12 -> the combination is ADDITIVE integration (Wolff vector sum), NOT winner-take-all; twin loses (p95 0.750). (5) HELD-OUT (fresh affectors/patients/cues) 0.910 [0.773,1.000] beats magnitude-only +0.316 CI-sep -> generalization, not fit; the 2 misses are a VERB-GATE coverage gap ('drift' not gated), the tendency MECHANISM is 20/20 on gated verbs. (6) POSITIVE controls the lexicon cannot: ball-vs-crate (affordance), down-vs-up (directional), nudge-vs-shove (magnitude) all correct, lexicon 0/2 each; the brief's key-vs-wind BARE is under-determined (honest fallback) and RESOLVED once magnitude is stated (breeze->ENABLE, blast->CAUSE). (7) WEIGHT SWEEP min 1.000 over 27 weight configs -> robust to the OUR-INVENTION weights, not fitted."
+files_changed: "experiments/_patient_tendency.py (the estimator: magnitude + affordance + directional terms + Wolff patient-side force-sum), experiments/exp_patient_tendency_estimator_v1.py (populations, floors, twin, ablation, held-out, weight-sweep, CONFLICT combination-rule discriminator, controls), experiments/exp_patient_affordance_cskg_grounding_v1.py (external CSKG grounding of the affordance term), verification/test_patient_tendency_estimator.py (scaffold-free witness 17/17), data/exp_patient_tendency_estimator_v1/metrics.json, data/exp_patient_affordance_cskg_grounding_v1/metrics.json, notes/problems/causation_typing_needs_a_patient_tendency_estimator/research_patient_tendency_force_arithmetic_2026-08-30.md"
 reverify: ".venv/Scripts/python.exe verification/test_patient_tendency_estimator.py   # scaffold-free, 13/13 PASS, recomputes every headline from source"
 ---
 
@@ -58,6 +58,14 @@ cue, verified neutral on the other two) with the outcome held reached, so the co
   coverage gap, below).
 - **Positive controls** the lexicon-only typer cannot move: ball-vs-crate, down-vs-up, nudge-vs-shove all
   correct (lexicon 0/2 each). Weight-sweep min 1.000 over 27 configs.
+- **The combination rule is Wolff's ADDITIVE vector sum, not winner-take-all -- PROVEN, not assumed.** On a
+  CONFLICT set (n=12) where all three cues are present with a 2-vs-1 disagreement and the MINORITY cue
+  rotates evenly across items (gold = the net-force sign, Wolff's resultant), the force-sum types 12/12
+  while EVERY single-cue-priority (winner-take-all) rule is capped at 8/12 -- each fails exactly the 4 items
+  where its cue is outvoted. Force-sum beats the best single-cue rule +0.337 [0.083,0.583] CI-separated,
+  twin loses (p95 0.750). This is the sharpest brain-fidelity check: it shows I copied the actual Wolff
+  COMPUTATION (integrate all patient-side forces), not a convenient rule that trusts the strongest or the
+  already-proven single cue.
 
 ## The key-vs-wind flagship, understood (owner: "if you hit a wall, understand deeply why")
 The brief's headline pair -- "the key opened the gate" (ENABLE) vs "the wind opened the gate" (CAUSE) --
@@ -80,11 +88,19 @@ vs force-applier) -- PINNED (Talmy's "letting" = removing a barrier) and mapped 
   real-text auto-extraction is the named follow-on. Withdraw the 1.000 first if a larger, independently
   labelled, auto-extracted sample disagrees -- the held-out 0.910 (with a real CI) is the generalization
   evidence I'd stand on.
-- **The patient-affordance property->lability MAP is OUR-INVENTION.** Wolff PINS the patient-force SOURCE;
-  the specific round/buoyant/hinged=>tends map is mine, validated on held-out patients + the twin + the
-  control, NOT on face validity. I MEASURED that WordNet alone cannot supply it (taxonomy separates labile
-  from inert poorly: category != physical disposition) -- so it is a principled core-physics lexicon, and
-  its real-text coverage is an open bound.
+- **The patient-affordance property->lability MAP is OUR-INVENTION, but externally CORROBORATED on the
+  labile half.** Wolff PINS the patient-force SOURCE; the specific round/buoyant/hinged=>tends map is mine,
+  validated on held-out patients + the twin + the control, NOT on face validity. I MEASURED two external
+  resources against it: (a) WordNet cannot supply it (taxonomy/gloss separate labile from inert poorly:
+  category != physical disposition); (b) CSKG/ConceptNet (`exp_patient_affordance_cskg_grounding_v1.py`, 5.7M
+  edges) **CORROBORATES the LABILE half** -- 13 labile patients independently confirmed via `CapableOf`
+  motion (ball->roll, balloon->rise, leaf->float, wheel->circular...), **zero contradictions** -- but the
+  INERT half is **KB-ABSENT** (commonsense KGs record positive dispositions, not resistance/inertia; the
+  only motion edges on inert patients are gravity/driven CONTEXT -- rock "roll down hill", shaft "turn at
+  high speed" -- that the directional/magnitude terms handle, not spontaneous tendency). **So the "tends"
+  half escapes the construction-proof (external corroboration), and the "resists" half is principled core
+  physics (Spelke/Baillargeon inertia) that no KB supplies -- a measured, not asserted, split.** Real-text
+  coverage of the map remains an open bound.
 - **The verb-GATE coverage.** The 2 held-out misses are "drift" (not in the ambiguous-verb gate -> falls
   to SEQUENTIAL before the correctly-computed directional cue is used). I did NOT add it after seeing the
   miss (that would be test-tuning); it is a mapped coverage fix (drift/float/glide are motion verbs the
@@ -108,7 +124,12 @@ vs force-applier) -- PINNED (Talmy's "letting" = removing a barrier) and mapped 
    separated "a hinge oscillates freely" (afforded) from "a closed gate spontaneously opens" (not
    afforded, needs an impulse). This one fidelity fix both explains why the bare flagship is
    under-determined AND lets the estimator resolve it once magnitude is stated.
-5. **A shared wall named twice is one fidelity gap.** The parent problem flagged CAUSE-vs-ENABLE tendency
+5. **Prove the COMBINATION RULE, not just the cues -- with a conflict set that rotates the minority.** It
+   is easy to show three cues each help; it is the additive INTEGRATION (Wolff's vector sum) that is the
+   brain's computation. Building a conflict population where the minority cue rotates evenly is what lets a
+   single control simultaneously refute all three single-cue-priority rules (each capped at 8/12) while the
+   sum gets 12/12 -- turning "I used a sum" into "the sum is required, WTA provably fails."
+6. **A shared wall named twice is one fidelity gap.** The parent problem flagged CAUSE-vs-ENABLE tendency
    and the "stayed in" negation miss as one thing (patient tendency = world-knowledge); here the
    key-vs-wind residual and the drift miss are again ONE thing seen from two sides -- the estimator reads
    what the sentence states and correctly abstains where it does not, rather than hallucinating a type.
@@ -199,6 +220,4 @@ not a bug, and resolved once the force is stated.)
    serve + a larger auto-extracted sample with a 2nd adjudicator (heavy -> REMOTE); the #1 coverage bound.
 3. **Broaden the affordance lexicon** from a disposition resource (ConceptNet CapableOf / physical-property
    KB / verbnet proto-patient) with the held-out discipline; and derive the ambiguous-verb gate from a
-   lexical resource (fixes the drift/float/glide coverage misses).
-4. Strategy: extend the queued `force_dynamics_typer` landing with the patient-tendency estimator
-   (proposal above), keeping the affordance map flagged OUR-INVENTION and the abstain-to-lexicon behavior.
+   lexical resource (fixes the drift/float/glide coverage misses)
