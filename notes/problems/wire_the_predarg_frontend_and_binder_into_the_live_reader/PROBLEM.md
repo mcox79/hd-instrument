@@ -1,8 +1,47 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: STRONG
+review_text: "The ASSEMBLY milestone, POSITIVE. Routing the live reader's role path through a real parse -> the landed event-semantic router (+ a NEW quotative-inversion agent fix) -> the graded binder lifts who-did-what over the POSITIONAL incumbent +0.225/+0.247 CI-sep, reproduced FIRST-HAND through the actual SituationReader.read() class (0.551->0.798); info-free ROLE and BIND twins both lose CI-sep; LitBank who-did-what +0.095 CI-sep; regression 6.5%. Reverified first-hand 10/10 + 6/6 + 2/2. Grade STRONG (not EXCELLENT): the milestone's counting-floor axis is met only with an asterisk -- it beats the word-counting floor decisively on the incumbent's inputs (+0.264) but only marginally on the reader's OWN matched representation (+0.022, CI touches 0), and the measurement discipline says the matched store is the fair floor -- so the reader went from LOSING to counting (prior attempt) to TYING/edging it, while decisively beating its prior self. Exemplary honesty (flags PARTIAL-if-literal-bar, withdraws unestablished claims, corrected its own world-knowledge hypothesis via a drill). hdlab 3-part diff landed by strategy (Q111)."
 ---
+
+> ## ✅ SOLVER REVIEW — STRONG (integrated 2026-08-29 by the strategy session; owner_verdict: DONE)
+> **The near-term ASSEMBLY milestone, and it is a genuine POSITIVE** — the first time the validated role/binder organs
+> beat the live reader end-to-end on the exact real-narrative instrument a prior generic "wire everything" attempt LOST on.
+>
+> **Reverified FIRST-HAND (recomputed fresh, not cached):** `test_wire_predarg_binder_live_reader.py` **10/10**;
+> `test_wire_predarg_binder_litbank_whodidwhat.py` **6/6**; `test_wire_predarg_binder_live_reader_integration.py` **2/2**
+> (byte-identical OFF; quotative fixed live; RECIPIENT emitted; role lift **0.551->0.798 +0.247 CI-sep THROUGH the live
+> `SituationReader.read()` class**). Numbers reproduce the SOLVED (bootstrap variation only).
+>
+> **What carries the grade (the load-bearing result):** the wired role path beats the POSITIONAL incumbent **+0.225
+> [+0.150,+0.303] CI-sep** (family) / +0.219 (exact grain), and the magnitude **originates in the live reader class**
+> (+0.247). The dominant lever is a REAL fidelity bug the solver found in the LANDED `predicate_argument_frontend`
+> router: it computes the COMM verb class but only for recipients, so on "said Fred" it brands the postverbal speaker
+> the object — quotative inversion is worth **+0.253 CI-sep** by itself and is PINNED-in-principle (FrameNet
+> Statement / VerbNet say-37.7 / eADM animacy). Info-free ROLE twin loses +0.292; info-free BIND twin loses; a 2nd
+> binding-sensitive metric confirms +0.171; HYBRID good-enough fallback (Ferreira dual-route) halves regression to 6.5%.
+> On LitBank the graded binder lifts who-did-what +0.095 CI-sep and the real arc parse TIES gold (-0.005) —
+> who-did-what is ENTIRELY coreference-bound (perfect-binding oracle -> 1.000, non-binding residual -> 0.000).
+>
+> **Why STRONG, not EXCELLENT (the honest asterisk, surfaced to the owner):** the milestone's "beat a word-counting
+> baseline CI-separated" axis is met only partially. vs the content-lemma counting floor the wired reader wins **+0.264
+> CI-sep on the incumbent's (positional) inputs**, but only **+0.022 (CI touches 0, NOT CI-sep) on the reader's OWN
+> matched representation**, and loses to the oracle-input 0.983 — which the prior attempt itself established is
+> non-discriminating (ties everything on clean inputs, collapses to 0.253 on paraphrase), so per the measurement
+> discipline (recompute the floor on the item's OWN representation) the fair floor is the matched store. Net: the reader
+> went from LOSING to counting (prior attempt) to TYING/edging it, while decisively beating its prior self — real
+> progress on the milestone, but not yet the clean CI-separated word-counting win. The solver flags all of this and
+> offers "PARTIAL if the literal bar demands 0.983" — exemplary honesty.
+>
+> **Convergences that strengthen it:** (1) a coref-residual drill REFUTED the solver's own world-knowledge hypothesis
+> (a commonsense KB resolves ~2-3% of the residual) — the residual is discourse-focus / topic-shift bound (Grosz-Sidner
+> focus stack), converging with the standing fact that the anti-typical residual is NOT a KB/coherence-prior gap. (2) the
+> archaic-prose parse TIES gold on who-did-what — converging with the already-integrated parse-confound retirement.
+>
+> **hdlab landing (Q111, strategy):** the 3-part additive/default-byte-identical diff — (1) quotative-inversion agent
+> handling in `predicate_argument_frontend`, (2) a `role_route in {positional,predarg,hybrid}` option on
+> `situation_reader` fed by a persisted parse frontend, (3) the graded binder for pronoun resolution. AUDIT UPDATE folded
+> (§2b). NEXT PROBLEM seeded: a glass-box Grosz-Sidner focus-STACK / QUD entity-tracker for the coref residual.
 
 # PROBLEM: the live reader (`hdlab/situation_reader.py`) assigns who-did-what POSITIONALLY — agent = the sentence's subject-mention, patient = the nearest post-predicate nominal (`_assign_roles`/`_pick_role_mentions`) — with NO dependency parse, so it produces only agent/patient and CANNOT use the validated organs that already beat that: the landed `hdlab/predicate_argument_frontend.route_predicate_arguments` (the event-semantic router: goal/location/path/source/recipient the positional rule scores 0.000 on, +five roles CI-separated on FrameNet gold) and the who-did-what graded binder (graded Centering cue-competition + gender agreement + person-exclusion, +0.083 live / +0.136 re-instrumented CI-sep). They are ISLANDED. ASSEMBLE them into the live reader — supply the parse (dependency heads) the front-end needs from an existing parser (`hdlab/arc_parser` / `candidate_generator`, the same heads source the front-end was validated on), route `situation_reader`'s role assignment through the front-end + binder, and MEASURE the end-to-end who-did-what / role lift over BOTH the current positional reader AND the strong content-word-COUNTING floor a prior wiring attempt found beats a naive wired reader — with no-regression on the cases the positional reader already gets right. You build + validate in `experiments/` and propose the hdlab diff; strategy does the final `hdlab/` write (Q111). NO external LLM at inference (the invariant).
 
