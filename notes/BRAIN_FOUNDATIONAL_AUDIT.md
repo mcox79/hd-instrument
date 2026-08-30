@@ -65,6 +65,26 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-29 — THE SITUATION MODEL now has the ENTITIES(state) dimension: a per-entity STATE-HISTORY register** (from
+  integrated `the_situation_model_tracks_no_entity_state_history`, owner-DONE, SOLVED/EXCELLENT; reverified 61/61 first-hand
+  after regenerating the full metrics — the committed artifact was a `--no-real-baseline` smoke run, a setup issue not a
+  defect). Closes the gap the SPACE/TIME entries flagged ("entity STATE history is ABSENT"). **PINNED:** aspect binds a
+  state to an entity and routes it to the entity/resultant layer (Ferretti/Kutas/McRae 2007); states default-persist
+  (Dowty); the perfect's currency is a CANCELLABLE default, NOT entailed-closed → pluperfects are NOT auto-closed (a
+  research drill corrected a naive auto-close design); telic = closable target-state + permanent occurrence-fact
+  (Parsons/Kratzer); state MATCHING is the ATL semantic hub (Patterson 2007), not lexical. **REJECTED (drill):** an aspect
+  confidence-discount — Vos et al. 2025 found the perfect is the MORE reliable state cue (opposite the hypothesis), so it
+  was correctly not built. **Measured:** TRACKING 1.000 vs the strongest stateless floor 0.719 (twins lose, empty register
+  = chance, distance-robust); SEMANTIC guarded WordNet matcher 0.950 vs exact-string 0.350 (3 load-bearing guards —
+  privative / open-vs-closed scale / typed antonymy; "is X unwell?" matches "ill"); **LIVE-ORGAN SERVE — improves the
+  ACTUAL hdlab CorefReader on state-decisive same-gender pronouns from chance 0.54 → 0.96** (register re-ranks the real
+  coref's candidate pool by state-consistency; the shuffled-states twin collapses; the live coref genuinely resolves
+  real-LitBank, baseline 0.327/582). **OUR-INVENTION-swept:** the extraction patterns + antonym lexicon + interval
+  representation. **DEVIATIONS:** real-prose extraction is coverage-0.331 / precision-~0.65, bound by spaCy on 19c syntax
+  (the shared corpus-age parse cap — retired at aggregate by the archaic integration but real for extraction); the interval-
+  CLOSURE (antonym-supersession) channel has ~0 natural incidence in LitBank (proven on construction gold). **Landing
+  QUEUED:** the spaCy-free CORE → `hdlab/state_register.py` (sibling of `location_register`), extraction adapter stays
+  experiment-side; wiring into the ENTITIES/coref stack is coupled reader work (part of the assembly).
 - **2026-08-29 — THE SITUATION-MODEL CAUSATION DIMENSION now has a FORCE-DYNAMIC TYPER (CAUSE/ENABLE/PREVENT); the live
   `_read_causation` was a connective/adjacency PLACEHOLDER** (from integrated `causation_has_no_force_dynamic_typing`,
   owner-DONE, SOLVED/EXCELLENT; reverified 16/16 first-hand). **Mechanism PINNED:** force dynamics (Talmy 1988; Wolff 2007)

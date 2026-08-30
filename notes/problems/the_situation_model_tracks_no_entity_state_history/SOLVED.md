@@ -298,3 +298,17 @@ None.
    happened").
 6. Shared cap: the 19c parser precision (0.331 coverage) is the `role_assignment` corpus-age wall -- its
    cue-override subject stage would directly help state extraction.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-29 (grade: EXCELLENT; SOLVED owner-DONE)
+
+Integrated by strategy. Reverified FIRST-HAND: `test_state_register.py` **61/61 PASS** (after regenerating the full metrics — the committed live-coref artifact was a `--no-real-baseline` smoke run [baseline `{skipped:true}`], so the witness first errored `KeyError:'n_targets'`; I ran the full `exp_state_register_serves_live_coref_v1.py` [real-LitBank baseline → 0.327 on 582 targets, matching the solver] and it passed — a stale-artifact SETUP issue, not a solution defect). Argument adversarially audited and sound: TRACKING 1.000 vs stateless floor 0.719 (twins lose, empty=chance); SEMANTIC guarded matcher 0.950 vs exact 0.350; and — the standout — the LIVE-ORGAN serve improves the REAL hdlab CorefReader on state-decisive same-gender pronouns 0.54→0.96 (twin collapses), an improvement to the actual reader. Two research drills killed wrong intuitions before building (no auto-close pluperfects; no aspect confidence-discount).
+
+**hdlab landing QUEUED (Q111):** promote the spaCy-free CORE (`StateRegister` + `state_match` + the state-track classes) → `hdlab/state_register.py` (sibling of `location_register`: `is_in_state`/`state_at`/`had_been`/`occurrences_of`), keep the parser-dependent extraction adapter (`StateReader` + `extract_state_events`) experiment-side (exactly the SPACE split). THEN wire it into the ENTITIES stack (coref entity key + the TIME-skipped "had been X" channel — closing the loop the TIME solver opened) + make the state-consistency re-rank a default coref candidate filter (the serve is proven against the live organ). The wiring is coupled live-reader work → part of the assembly. Recorded in the STATUS wire-don't-island debt.
+
+**Audit §2b folded** (new ENTITIES(state) dimension organ; the bind-state-to-entity-over-interval COMPUTATION PINNED — Zwaan-Radvansky + Ferretti/Kutas/McRae 2007; default-persist + cancellable-perfect + telic two-field PINNED, corrected from a naive auto-close; extraction patterns + antonym lexicon OUR-INVENTION-swept; deviations: real-prose extraction coverage-0.331/precision-~0.65 parser-capped, closure channel ~0 natural incidence). Review + `> ## ✅ SOLVER REVIEW` block in PROBLEM.md; priority cleared.
+
+**SETUP FOLLOW-ON (minor):** the witness reads cached exp metrics (not scaffold-free); its default committed state was a smoke run. A future hardening = have the witness recompute or ship the full metrics, so a fresh reverify doesn't require running the heavy exp first.
+
+**Next problems primed:** a VerbNet result-state lexicon + a "but now" supersession-cancel cue; evidentiality/reportative confidence ("was said to be").
