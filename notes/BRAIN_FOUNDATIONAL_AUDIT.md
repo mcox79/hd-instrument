@@ -65,6 +65,24 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `event_centrality_coref` (LIVE-WIRED) is a MIDDLE_BAND organ
+  whose core thesis is CONTRADICTED by later integrated coref work → a re-measurement / possible-demotion candidate.**
+  (a) FIDELITY: breaks same-gender coref ties by EVENT CENTRALITY — a Cowan-4 ChunkedFocus of role-slot event bundles is queried
+  (HD unbind+cleanup) so the memory is decision-load-bearing (fixes the write-only-witness gap). Brain-relevant IN PRINCIPLE
+  (event structure feeds reference), BUT the event extraction is POSITIONAL (first-mention = subject proxy, NOT true SRL — the
+  docstring flags it) and it rides on the Cowan-4 focus that a prior scan found rarely fires on real text (median ~1 event/entity).
+  (b) GENERALIZATION: registry verdict = **MIDDLE_BAND** (marginal, not a CI-separated win), and it was an ORPHAN before wiring.
+  (c) WIRING: LIVE (6 refs in `situation_reader`, `EventCentralityReader`). (d) THE GAP: its load-bearing thesis — "event/
+  situation MEMORY disambiguates the same-gender coref residual" — is **contradicted by the integrated coref-residual work**
+  (`the_coref_residual_needs_a_discourse_focus_stack` + the discourse-fact reasoner): the residual is GRAMMAR-FILTER (person/
+  animacy phi-agreement) + DISCOURSE-FOCUS bound, and a commonsense/memory KB is measured DEAD (~2-3%) there — so an
+  event-memory tie-break is expected to be marginal, matching its MIDDLE_BAND verdict. The LANDED phi-agreement pre-filter
+  (`graded_coref_pick.phi_agreement_keep`) is the recall-safe grammar fix for the same tie. **ACTION: re-measure
+  event_centrality_coref's live contribution AGAINST the landed phi-filter (does its event-memory tie-break add anything over
+  grammar agreement on real LitBank same-gender ties, or is it redundant/marginal?); a wiring-review candidate for demotion if
+  it does not clear the phi-filter. Seeded — not packaged (the coref path is covered by p3 + the landed phi-filter; this is a
+  live-organ value re-check, apply the generalization method's real-operating-point re-measurement).**
+
 - **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `hd_fact_store` (the substrate knowledge base) VETS SOURCE-TRUST,
   NOT CORRECTNESS — this is the North Star "noisy foundation" mechanism, on disk.** (a) FIDELITY: facts stored as glass-box
   role-slot-bound hypervectors — `quantize(bind(REL,rel)+bind(ARG0,subj)+bind(ARG1,obj)+bind(SOURCE,src)+bind(TRUST,trust))`,
