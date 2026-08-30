@@ -67,13 +67,19 @@ cue, verified neutral on the other two) with the outcome held reached, so the co
 - **Positive controls** the lexicon-only typer cannot move: ball-vs-crate, down-vs-up, nudge-vs-shove all
   correct (lexicon 0/2 each). Weight-sweep min 1.000 over 27 configs.
 - **The combination rule is Wolff's ADDITIVE vector sum, not winner-take-all -- PROVEN, not assumed.** On a
-  CONFLICT set (n=12) where all three cues are present with a 2-vs-1 disagreement and the MINORITY cue
-  rotates evenly across items (gold = the net-force sign, Wolff's resultant), the force-sum types 12/12
+  CONFLICT set (n=12) where all three tendency cues are present with a 2-vs-1 disagreement and the MINORITY
+  cue rotates evenly across items (gold = the net-force sign, Wolff's resultant), the force-sum types 12/12
   while EVERY single-cue-priority (winner-take-all) rule is capped at 8/12 -- each fails exactly the 4 items
   where its cue is outvoted. Force-sum beats the best single-cue rule +0.337 [0.083,0.583] CI-separated,
   twin loses (p95 0.750). This is the sharpest brain-fidelity check: it shows I copied the actual Wolff
   COMPUTATION (integrate all patient-side forces), not a convenient rule that trusts the strongest or the
   already-proven single cue.
+- **The 4th cue -- CAUSING vs LETTING (Talmy 1988), added in deepening.** On SET_L (n=12) the estimator
+  types restraint-remover ENABLEs (letting) and strong-force CAUSEs (causing) at **1.000 vs lexicon-only
+  0.000** (+1.000 CI-sep); dropping the letting term collapses the ENABLE side to 0.500, so the letting cue
+  carries it (+0.500). The onset-cause guard holds: switch/trigger/lever/button are NEVER typed ENABLE
+  (they apply an impulse -> causing). The cue is cleanly separable -- it is 0 on every SET_M/A/D/CONFLICT
+  item, so it does not perturb the validated tendency result (drop_e == full on COMBINED).
 
 ## The key-vs-wind flagship, understood AND resolved (owner: "if the brain can do it, we can once we understand")
 The brief's headline pair -- "the key opened the gate" (ENABLE) vs "the wind opened the gate" (CAUSE) -- is
@@ -91,13 +97,35 @@ the deepest thread, and the deepening RESOLVED the KEY side by the right mechani
    (positive control `gate_breeze_vs_blast`). So the flagship's KEY side is solved by letting, and its WIND
    side is correctly diagnosed as magnitude-underdetermined-until-stated -- the complete, honest picture.
 
-## What I did NOT establish (withdraw first if wrong)
-- **Real-text CAUSE-vs-ENABLE accuracy with automatic extraction.** Like the proven demo and the base
-  typer's own eval, this is CONSTRUCTED cue-isolated minimal pairs with (affector, verb, patient, context)
-  GIVEN. The value is a mechanism demonstration that the added terms recover the magnitude-silent cases;
-  real-text auto-extraction is the named follow-on. Withdraw the 1.000 first if a larger, independently
-  labelled, auto-extracted sample disagrees -- the held-out 0.910 (with a real CI) is the generalization
-  evidence I'd stand on.
+## REAL-TEXT REALITY CHECK (started -- it found a showstopper and honestly bounded the rest)
+Everything above is CONSTRUCTED cue-isolated minimal pairs with (affector, verb, patient, context) GIVEN
+(as the proven demo + base typer eval were). I began a real-text serve (the parent's move) and it paid off
+by finding a bug and honestly scoping the rest -- this is why I do NOT claim "excellent" on the constructed
+result alone:
+- **LEMMATIZATION was a showstopper (now FIXED, age-INDEPENDENT).** The constructed pairs use base-form
+  verbs (move/roll/open); real narrative is inflected (moved/rolled/opened). WITHOUT lemmatization the
+  estimator abstained on **100% of real sentences** (measured). Added `lemmatize_verb` (WordNet morphy +
+  suffix fallback) at the estimator entry; it now fires on inflected prose (witness check 11), and the
+  constructed witness is byte-unchanged (lemmatize is a no-op on lemmas). This is the project's
+  construction-proof-vs-capability trap, caught by actually looking at real text.
+- **CORPUS-AGE CONFOUND (owner flag): McGuffey is ~200 years old.** So I did NOT use a McGuffey accuracy as
+  the real-text headline. I checked MODERN corpora instead (UD-EWT web text; MCScript2 modern narrative).
+- **The construction is NARROW and SPARSE in modern text.** In modern transactional/web text the
+  tendency-ambiguous verbs are overwhelmingly FIGURATIVE ("pushed hard on the Taliban", "turned into a
+  nightmare", "raised on this stuff"); in modern physical narrative (MCScript2) they are mostly DIRECT
+  AGENTIVE manipulation ("I opened the washer", "I raised the lid") with no patient-tendency at stake. The
+  estimator correctly ABSTAINS on agentive manipulation and fires only when a natural-force/disposition/
+  directional cue is present ("it rolled down the hill", "the wind turned the leaf"). So the target
+  construction (a natural/inanimate affector meeting a patient with its own disposition) is a real but
+  SPECIALIZED phenomenon, concentrated in physical-event NARRATIVE (which skews old).
+- **In-sentence property ADJECTIVES are not read.** "the steam moved the heavy lid" = CAUSE via the
+  adjective "heavy"; my affordance is patient-NOUN-keyed, so it does not read "heavy" (it got CAUSE by the
+  verb-lexicon default, not the cue). Reading modifier adjectives is a concrete next fix.
+- **What I did NOT establish:** a real-text CAUSE-vs-ENABLE ACCURACY with automatic extraction on a MODERN
+  narrative sample with an independent adjudicator. That needs (i) a modern physical-narrative corpus, (ii)
+  parse-based auto-extraction, (iii) adjective-reading affordance, (iv) a 2nd adjudicator -- a genuine
+  follow-on, not a quick add. The held-out 0.910 is the generalization evidence I stand on today; withdraw
+  the constructed 1.000 first if a real modern auto-extracted sample disagrees.
 - **The patient-affordance property->lability MAP is OUR-INVENTION, but externally CORROBORATED on the
   labile half.** Wolff PINS the patient-force SOURCE; the specific round/buoyant/hinged=>tends map is mine,
   validated on held-out patients + the twin + the control, NOT on face validity. I MEASURED two external
@@ -139,7 +167,14 @@ the deepest thread, and the deepening RESOLVED the KEY side by the right mechani
    brain's computation. Building a conflict population where the minority cue rotates evenly is what lets a
    single control simultaneously refute all three single-cue-priority rules (each capped at 8/12) while the
    sum gets 12/12 -- turning "I used a sum" into "the sum is required, WTA provably fails."
-6. **A shared wall named twice is one fidelity gap.** The parent problem flagged CAUSE-vs-ENABLE tendency
+6. **CAUSE-vs-ENABLE is not always about the PATIENT -- "letting" is a distinct affector-role mechanism.**
+   The brief framed the whole problem as patient tendency, and three cues nail that. But the brief's own
+   flagship ("the key opened the gate") is not a tendency case at all -- it is Talmy LETTING (the affector
+   removes a restraint). Reading the primary literature (drill) rather than forcing the example into the
+   tendency frame is what surfaced the 4th cue; the design-critical catch (switch/trigger are onset-CAUSE,
+   not letting) came from the same drill and became a negative control. The lesson: when an example resists
+   your mechanism, the faithful move is often a DIFFERENT mechanism in kind, not a bigger version of yours.
+7. **A shared wall named twice is one fidelity gap.** The parent problem flagged CAUSE-vs-ENABLE tendency
    and the "stayed in" negation miss as one thing (patient tendency = world-knowledge); here the
    key-vs-wind residual and the drift miss are again ONE thing seen from two sides -- the estimator reads
    what the sentence states and correctly abstains where it does not, rather than hallucinating a type.
@@ -158,17 +193,24 @@ the deepest thread, and the deepening RESOLVED the KEY side by the right mechani
   convenient WTA. NEW measured deviations: (a) **WordNet taxonomy cannot supply patient disposition**
   (category != physical disposition); (b) **commonsense KGs (CSKG/ConceptNet) supply the LABILE 'tends'
   signal but NOT the INERT 'resists' signal** (they record positive dispositions, not resistance/inertia)
-  -> the resists half is core physics no KB carries. NEW named fidelity term: **affector ROLE
-  (enabling-instrument vs force-applier)** resolves the key-vs-wind flagship (bare pair under-determined;
-  magnitude-stated resolved) -- adjacent #1, not built.
+  -> the resists half is core physics no KB carries. NEW BUILT fidelity term: **affector ROLE = CAUSING vs
+  LETTING (Talmy 1988)** -- a restraint-remover affector -> ENABLE via letting, resolving the key-vs-wind KEY
+  side by the right mechanism (the WIND side is magnitude-underdetermined-until-stated); onset-cause
+  instruments (switch/trigger) guarded out. So the situation-model CAUSATION dimension's tendency input is
+  now a **4-cue force-dynamic estimator** (magnitude + affordance + directional + letting), additive Wolff
+  sum, brain-validated. GAP flagged: no neural ENABLE-vs-CAUSE dissociation exists (UNPINNED); alternative
+  account Sloman/Barbey/Hotaling 2009 noted.
 
 ## Adjacent components -- capability / limitation / opportunity / brain-foundational status (owner push)
-1. **Affector-ROLE term (restraint-remover / enabling-instrument vs force-applier) -- HIGH leverage, the
-   key-vs-wind fix.** *Capability now:* none (the 3 terms are patient-side). *Limitation:* the flagship
-   bare pair is under-determined without it. *Brain status:* PINNED (Talmy "letting" = removing a barrier;
-   Wolff ENABLE prototype). *Opportunity:* a small principled enabler-instrument lexicon (key/latch/catch/
-   release/switch/unlock) as a 4th Wolff force cue -> ENABLE; orthogonal to the three tendency cues, and
-   the natural next problem. It also fixes the parent's "let-hortative" residual.
+1. **Affector-ROLE term (causing vs letting) -- BUILT in deepening (was HIGH-leverage adjacent #1).**
+   *Capability now:* implemented as the 4th cue (restraint-remover instruments + the "un-" family ->
+   ENABLE via letting), validated on SET_L (+1.000 vs lexicon) with the onset-cause guard. *Brain status:*
+   PINNED (Talmy 1988 letting; Wolff & Song ENABLE class). *Remaining opportunity:* (a) verify the FrameNet
+   `Preventing_or_letting` LETTING lexical units + VerbNet `allow-64` against the live DBs and widen the
+   lexicon; (b) detect FORCE-in-context CAUSE cues ("forced"/"smashed" -- the 2 held-out-letting misses are
+   this, not a letting failure); (c) the strict-Wolff refinement (ENABLE = concordance AND a detected
+   suppressed patient tendency) for the enabling-CONDITION reading. It also subsumes the parent's
+   "let-hortative" residual.
 2. **Real-text CAUSE-vs-ENABLE with automatic (affector, verb, patient, context) extraction -- the #1
    coverage follow-on.** *Capability:* the mechanism is proven on constructed pairs. *Limitation:* the
    affordance/directional cues need the manner/patient/direction STATED; on real narrative the affector
@@ -195,11 +237,11 @@ the deepest thread, and the deepening RESOLVED the KEY side by the right mechani
 
 ## What strategy would change in hdlab (Q111 -- I propose, do not land)
 Extend the queued `force_dynamics_typer` landing with the patient-tendency input:
-- Promote `experiments/_patient_tendency.py` (the three terms + the patient-side force-sum) as the
-  tendency estimator that feeds `force_dynamic_type`'s currently-missing patient-tendency bit. Wire it
-  as: for a tendency-ambiguous verb with the endstate reached, compute `patient_tendency_signal(affector,
-  verb, patient, context)`; +1 -> ENABLE, -1 -> CAUSE, 0 -> keep the verb lexicon's lean (do NOT invent a
-  type -- the under-determination abstention is a feature).
+- Promote `experiments/_patient_tendency.py` (the FOUR force-dynamic cues + the patient-side force-sum) as
+  the tendency/role estimator that feeds `force_dynamic_type`'s currently-missing patient-tendency bit. Wire
+  it as: for a tendency-ambiguous verb with the endstate reached, compute `patient_tendency_signal(affector,
+  verb, patient, context)` (which returns sign over m+a+d+e); +1 -> ENABLE, -1 -> CAUSE, 0 -> keep the verb
+  lexicon's lean (do NOT invent a type -- the under-determination abstention is a feature).
 - Keep the affordance MAP flagged OUR-INVENTION and the weights swept; gate ENABLE-vs-CAUSE emission on the
   tendency signal being non-zero (abstain-to-verb-lexicon otherwise), so the live reader never asserts a
   tendency it cannot read from the sentence.
@@ -232,12 +274,19 @@ twin losing and held-out generalization; the key-vs-wind flagship is understood 
 not a bug, and resolved once the force is stated.)
 
 ## NEXT STEPS
-1. **Affector-ROLE 4th term** (enabling-instrument vs force-applier) -- resolves bare key-vs-wind
-   fully; small principled lexicon, PINNED, orthogonal to the three tendency cues.
-2. **Real-text CAUSE-vs-ENABLE with automatic extraction** -- run the estimator over the parent's McGuffey
-   serve + a larger auto-extracted sample with a 2nd adjudicator (heavy -> REMOTE); the #1 coverage bound.
-3. **Broaden the affordance lexicon** from a disposition resource (ConceptNet CapableOf / physical-property
-   KB / verbnet proto-patient) with the held-out discipline; and derive the ambiguous-verb gate from a
-   lexical resource (fixes the drift/float/glide coverage misses).
-4. Strategy: extend the queued `force_dynamics_typer` landing with the patient-tendency estimator
-   (proposal above), keeping the affordance map flagged OUR-INVENTION and the abstain-to-lexicon behavior.
+1. **Real-text CAUSE-vs-ENABLE on a MODERN physical-narrative corpus with automatic extraction** (NOT
+   McGuffey -- age-confounded, owner flag) -- parse-based (affector, verb, patient, context) extraction +
+   an in-sentence property-ADJECTIVE reader (so "heavy lid" -> resists) + a 2nd adjudicator (heavy ->
+   REMOTE). The lemmatization fix makes this now possible; the construction is sparse so the corpus must be
+   physical-event narrative. This is the #1 path to a real-text ACCURACY (the estimator is a proven
+   mechanism today, not yet a real-text-validated capability).
+2. **Broaden the lexicons from external resources, held-out-disciplined:** auto-expand the affordance labile
+   half from CSKG `CapableOf` + the resists half from WorldTree mass tables; verify the letting lexicon
+   against FrameNet `Preventing_or_letting` + VerbNet `allow-64`; derive the ambiguous-verb gate from a
+   lexical resource (fixes the drift/float/glide misses); add a FORCE-in-context CAUSE detector
+   ("forced"/"smashed").
+3. **Strict-Wolff letting refinement** (ENABLE = concordance AND a detected suppressed patient tendency) for
+   the enabling-CONDITION reading; and the Sloman/Barbey/Hotaling 2009 necessity account as an alternative
+   to cross-check.
+4. Strategy: extend the queued `force_dynamics_typer` landing with the 4-cue estimator (proposal above),
+   keeping the affordance/letting lexicons flagged OUR-INVENTION and the abstain-to-lexicon behavior.

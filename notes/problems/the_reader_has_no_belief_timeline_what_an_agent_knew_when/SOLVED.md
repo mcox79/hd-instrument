@@ -2,11 +2,11 @@
 problem: the_reader_has_no_belief_timeline_what_an_agent_knew_when
 status: SOLVED
 bar: "PASSES only with ALL of: 1. A per-agent BELIEF TIMELINE (built in experiments/): each agent's belief about a tracked fact (e.g. an object's location) over reading-time, updated ONLY on events the agent OBSERVED (via belief_partition's observation cue), ordered by the temporal_order_register; a false belief = last-observed-value != current-true-value. Copy the computation; SWEEP the representation + threshold. NO external LLM. 2. Answers false-belief-over-time queries CI-separated over the timeline-agnostic floor -- a false-belief population: 'where does A think X is?' / 'does A hold a false belief here?'; the floor = a timeline-agnostic CURRENT-belief tracker (or last-mention) recomputed on the same population. The info-free twin (shuffled observation/event order) LOSES CI-separated; report CI half-width + null p95. A POSITIVE control the metric can move (a scene where A's belief is stale because A left BEFORE the change, which the current-belief floor misses). 3. Isolates the TIME composition -- hold the belief-partition/observation cue fixed and show the lift is the TIMELINE (order-aware) part, not a better observation cue (an ablation to the timeline-agnostic tracker with the SAME cue). 4. One-screen summary. A rigorous NEGATIVE is a FULL PASS."
-result: "Belief-question accuracy (belief 'where does A think X is' + false_belief 'does A hold a false belief', decoded on the substrate's OWN belief_partition FHRR organs) over a construction gold of false-belief-OVER-TIME narratives (60 scenarios, 542 queries, 404 belief/false-belief): the per-agent BELIEF TIMELINE = 1.000 [1.000,1.000] vs the strongest timeline-agnostic floor (current-belief-only, SAME observation cue) 0.460 [0.411,0.510], CI-separated. Info-free twin (shuffled event/observation order) null p95 = 0.535 (< 1.000). Positive control (the belief queries the current-belief floor CANNOT get -- belief-at-T != final-observed, n=218): timeline 1.000 vs floor 0.000. COMPOSED WITH THE REAL temporal-order register on flashback prose: register-ordered belief 1.000 vs narration-ordered 0.000 (n=5 flashback), tie 1.0==1.0 on linear controls, extraction coverage 0.80."
+result: "Belief-question accuracy (belief 'where does A think X is' + false_belief 'does A hold a false belief', decoded on the substrate's OWN belief_partition FHRR organs) over a construction gold of false-belief-OVER-TIME narratives (60 scenarios, 542 queries, 404 belief/false-belief): the per-agent BELIEF TIMELINE = 1.000 [1.000,1.000] vs the strongest timeline-agnostic floor (current-belief-only, SAME observation cue) 0.460 [0.411,0.510], CI-separated. Info-free twin (shuffled event/observation order) null p95 = 0.535 (< 1.000). Positive control (the belief queries the current-belief floor CANNOT get -- belief-at-T != final-observed, n=218): timeline 1.000 vs floor 0.000. COMPOSED WITH THE REAL temporal-order register on flashback prose: register-ordered belief 1.000 vs narration-ordered 0.000 (n=5 flashback), tie 1.0==1.0 on linear controls, extraction coverage 0.80. END-TO-END LIVE (the capability test, imperfect extraction in the loop): driven by the REAL observation-cue extractor (perceptual_access_ledger, 0.951 extraction) on 15 real-English multi-event passages (41 queries), LIVE belief accuracy 0.902 [0.805,0.976] vs the timeline-agnostic floor 0.463 [0.317,0.634] CI-separated, oracle 1.000, live-vs-oracle gap 0.098 = the known observation-cue front-end residual."
 floor: "Strongest floor actually run = the TIMELINE-AGNOSTIC current-belief tracker (holds the latest observed value, SAME observation cue, no reading-time axis) recomputed on the same population = 0.460 [0.411,0.510]; timeline lower CI 1.000 > floor upper CI 0.510. Other floors: omniscient/reality-reading 0.767 [0.725,0.809] (fails false belief -- leaks reality to the agent), always-initial 0.545 [0.495,0.592], empty-register 0.384 [0.337,0.431], info-free twin mean 0.461 / p95 0.535. Narration-ordered timeline 0.911 overall but 0.000 on the flashback subset (isolates the temporal-order register)."
 controls: "(1) INFO-FREE TWIN (event/observation ORDER shuffled over 200 seeds) -> p95 0.535, LOSES CI-separated (timeline 1.000 > 0.535) -- excludes 'the timeline works from a non-informative order signal'. (2) POSITIVE CONTROL (the floor-cannot-get subset, belief-at-T != final-observed, n=218): timeline 1.000 vs current-belief 0.000 -- the metric CAN move / the floor provably cannot get these. (3) ISOLATION of the TIME composition: current-belief floor uses the SAME observation bits as the timeline; the ONLY difference is the order-aware read-at-T, so the +0.540 lift is the TIMELINE part, not a better cue. (4) DISTANCE robustness: timeline flat 1.000 at event-distance 0..3 while the floor collapses 1.00->0.00 for distance>=1. (5) REALITY+MEMORY controls 1.000 (n=138) -- the belief partition does not corrupt world/initial tracking. (6) EMPTY register 0.384 (degenerate control, not gameable). (7) HINDSIGHT-DECOUPLING (research drill #1): a later UNOBSERVED world change leaves 'what A believed at T' invariant (1.000, n=41) -- a clean store beats the brain's curse-of-knowledge. (8) REP-B timescale stress: the swept FHRR temporal-context representation is exact (1.000) at inter-event gap>=0.5 and degrades to 0.812 at gap 0.1 while discrete rep-A stays 1.000 -- honest representation sweep (discrete = accuracy layer, graded = order-uncertainty/confidence). (9) REGISTER COMPOSITION: register-ordered 1.000 vs narration-ordered 0.000 on flashback prose, tie on linear controls -- excludes 'narration position is enough'."
-files_changed: "experiments/belief_timeline.py (core: sample-and-hold rep A + FHRR temporal-context rep B + floors + twin + testimony/deception edges + hindsight control + belief-gap queries, on hdlab.belief_partition/binding/graded_temporal_context); experiments/belief_timeline_gold.py (construction gold); experiments/exp_belief_timeline_query_v1.py (CI-sep proof); experiments/exp_belief_timeline_flashback_register_v1.py (composition with the REAL temporal-order register); experiments/exp_belief_timeline_gap_v1.py (knowledge-gap / dramatic-irony over time); experiments/exp_belief_timeline_authored_v1.py (hand-authored second gold, external validity); experiments/exp_belief_timeline_confidence_v1.py (decaying-confidence layer, access-decays-value-persists); experiments/exp_belief_timeline_inference_v1.py (evidence-gated INFERRED update edge, Sodian-Wimmer dissociation + inference-based deception); experiments/exp_belief_timeline_uncertain_v1.py (DISTRIBUTIONAL/partial belief as an FHRR superposition, narrowing over time); experiments/exp_belief_timeline_posterior_v1.py (GRADED posterior -- per-element weights, Bayesian ToM, ranks below-MAP candidates); experiments/exp_belief_timeline_precision_v1.py (recency->precision unification: stale belief flattens; confidence = posterior entropy); experiments/exp_belief_timeline_real_prose_v1.py (incidence bound); verification/test_belief_timeline.py (witness, 62/62 PASS); notes/problems/the_reader_has_no_belief_timeline_what_an_agent_knew_when/{research_belief_timeline_brain_mechanism_2026-08-29.md, SOLVED.md}; data/{exp_belief_timeline_query_v1,exp_belief_timeline_flashback_register_v1,exp_belief_timeline_gap_v1,exp_belief_timeline_real_prose_v1}/metrics.json. hdlab/ UNTOUCHED (proposed diff below, Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_belief_timeline.py   # 42/42 ; then .venv/Scripts/python.exe experiments/exp_belief_timeline_query_v1.py --mode full  # timeline 1.000 vs floor 0.460 ; .venv/Scripts/python.exe experiments/exp_belief_timeline_flashback_register_v1.py  # register 1.0 vs narration 0.0 on flashback ; .venv/Scripts/python.exe experiments/exp_belief_timeline_gap_v1.py  # gap 1.000 vs floor 0.667, divergence-window 1.0 vs 0.0 ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_authored_v1.py  # second gold 1.000 vs 0.542, 0 hand-gold mismatches ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_confidence_v1.py  # confidence decays 1.0->~0, Spearman 0.995 vs twin 0.04 ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_inference_v1.py  # gated inference 1.000 vs never-infer 0.40 / omniscient 0.60 ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_uncertain_v1.py  # distributional F1 1.000 vs crisp 0.494, set-size 1.0 vs 0.0 ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_posterior_v1.py  # graded posterior below-MAP 0.957 vs both floors 0.505"
+files_changed: "experiments/belief_timeline.py (core: sample-and-hold rep A + FHRR temporal-context rep B + floors + twin + testimony/deception edges + hindsight control + belief-gap queries, on hdlab.belief_partition/binding/graded_temporal_context); experiments/belief_timeline_gold.py (construction gold); experiments/exp_belief_timeline_query_v1.py (CI-sep proof); experiments/exp_belief_timeline_flashback_register_v1.py (composition with the REAL temporal-order register); experiments/exp_belief_timeline_gap_v1.py (knowledge-gap / dramatic-irony over time); experiments/exp_belief_timeline_authored_v1.py (hand-authored second gold, external validity); experiments/exp_belief_timeline_confidence_v1.py (decaying-confidence layer, access-decays-value-persists); experiments/exp_belief_timeline_inference_v1.py (evidence-gated INFERRED update edge, Sodian-Wimmer dissociation + inference-based deception); experiments/exp_belief_timeline_uncertain_v1.py (DISTRIBUTIONAL/partial belief as an FHRR superposition, narrowing over time); experiments/exp_belief_timeline_posterior_v1.py (GRADED posterior -- per-element weights, Bayesian ToM, ranks below-MAP candidates); experiments/exp_belief_timeline_precision_v1.py (recency->precision unification: stale belief flattens; confidence = posterior entropy); experiments/exp_belief_timeline_live_e2e_v1.py (END-TO-END LIVE serve: belief timeline + the REAL observation-cue extractor on real prose); experiments/exp_belief_timeline_real_prose_v1.py (incidence bound); verification/test_belief_timeline.py (witness, 66/66 PASS); notes/problems/the_reader_has_no_belief_timeline_what_an_agent_knew_when/{research_belief_timeline_brain_mechanism_2026-08-29.md, SOLVED.md}; data/{exp_belief_timeline_query_v1,exp_belief_timeline_flashback_register_v1,exp_belief_timeline_gap_v1,exp_belief_timeline_real_prose_v1}/metrics.json. hdlab/ UNTOUCHED (proposed diff below, Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_belief_timeline.py   # 66/66 ; then .venv/Scripts/python.exe experiments/exp_belief_timeline_query_v1.py --mode full  # timeline 1.000 vs floor 0.460 ; .venv/Scripts/python.exe experiments/exp_belief_timeline_flashback_register_v1.py  # register 1.0 vs narration 0.0 on flashback ; .venv/Scripts/python.exe experiments/exp_belief_timeline_gap_v1.py  # gap 1.000 vs floor 0.667, divergence-window 1.0 vs 0.0 ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_authored_v1.py  # second gold 1.000 vs 0.542, 0 hand-gold mismatches ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_confidence_v1.py  # confidence decays 1.0->~0, Spearman 0.995 vs twin 0.04 ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_inference_v1.py  # gated inference 1.000 vs never-infer 0.40 / omniscient 0.60 ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_uncertain_v1.py  # distributional F1 1.000 vs crisp 0.494, set-size 1.0 vs 0.0 ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_posterior_v1.py  # graded posterior below-MAP 0.957 vs both floors 0.505 ; .venv/Scripts/python.exe experiments/exp_belief_timeline_precision_v1.py  # entropy rises w/ staleness Spearman 0.963 vs fixed floor -0.00; confidence=entropy Spearman 1.0 ; and .venv/Scripts/python.exe experiments/exp_belief_timeline_live_e2e_v1.py  # LIVE end-to-end 0.902 vs floor 0.463 CI-sep, extraction 0.951, oracle 1.000"
 ---
 
 # The reader now has a per-agent BELIEF TIMELINE -- "what did A know AT THIS POINT?"
@@ -63,6 +63,23 @@ Positive control (the floor CANNOT get -- belief-at-T != final-observed, n=218):
 **0.000**. Distance-robust: timeline flat 1.000 at event-distance 0..3 while the floor collapses to 0.000 for
 distance>=1. Reality+memory controls intact 1.000 (n=138).
 
+## END-TO-END LIVE serve -- the capability test with imperfect extraction IN THE LOOP (2026-08-30)
+The construction proofs above isolate the MECHANISM (arm scores 1.000 on built-for-purpose gold); this cell is
+the CAPABILITY test: does the belief timeline work when you actually READ, with a real extractor in the loop?
+On 15 real-English multi-event passages (41 belief queries), the belief timeline is driven by the LIVE
+observation-cue extractor (`perceptual_access_ledger` -- the integrated ToM front-end, reading "did this agent
+witness this move?" from the prose via presence intervals + perceptual field) and decoded on the belief_partition
+FHRR organs. Result: **LIVE end-to-end 0.902 [0.805,0.976] vs the timeline-agnostic current-belief floor 0.463
+[0.317,0.634], CI-separated**, with the LIVE observation-cue extraction at **0.951** (n=41 move events) and the
+**oracle (gold observation) at 1.000** confirming the mechanism is correct. The **live-vs-oracle gap of 0.098
+localizes the extraction residual** to the observation cue -- the same theme and same front-end the integrated
+ToM organ reports (live-observation 0.821 vs oracle 1.000). So the belief timeline is not only a proven mechanism
+on construction gold: it clears the timeline-agnostic floor on natural prose with real extraction in the loop,
+and where it falls short of oracle is a KNOWN, already-scoped front-end residual, not a timeline failure. (The
+LIVE temporal-order register is proven separately on flashback prose in the composition cell below; these
+passages are chronological, so order = narration is correct here and the observation cue is the load-bearing
+live component.)
+
 ## Composition with the REAL temporal-order register (flashback prose, not oracle)
 The belief timeline's chrono axis is supplied by the LANDED `_temporal_order_register` reconstructing
 chronology from PROSE. On flashback micro-narratives (an agent's belief-setting observation revealed by a
@@ -95,6 +112,18 @@ beats the info-free twin p95 **0.750**, and -- the non-circularity check -- the 
 DISAGREES with the hand gold on **0 of 24** questions (it reproduces human judgement independently). n=24 is
 small (the CIs are wide), so this CONFIRMS external validity; the 542-query construction gold remains the
 primary evidence.
+
+## RECENCY -> PRECISION unification -- confidence IS the posterior's entropy (deepening push 2026-08-30)
+The uncertain-belief drill's Q4: the scalar decaying-confidence signal and the graded posterior are not two
+channels -- they are ONE quantity, the posterior's PRECISION (Pouget/Drugowitsch/Kepecs 2016). So recency acts as
+the posterior's precision: a fresh belief is a SHARP posterior; a STALE belief FLATTENS toward uniform (you keep
+the gist, lose the fine structure), and confidence is DERIVED from posterior entropy -- retiring the free-floating
+scalar. Substrate-native: recency beta(T) = kernel(ctx(T), ctx(c)) tempers the stored weights w_v^beta. Measured:
+posterior entropy rises with staleness (0.933 fresh -> 1.000 uniform), **Spearman(entropy, staleness) 0.963** while
+a **FIXED-precision floor is flat (-0.001)** -- it structurally cannot produce the staleness->uncertainty signature
+(it claims a 12-events-stale belief is as sharp as a fresh one); info-free twin |rho| p95 0.039; and **confidence
+(=1-entropy) tracks the recency signal at Spearman 1.000** -- the two things I had built separately (the confidence
+cell + the posterior cell) are now ONE principled quantity. This is a fidelity UNIFICATION, not another feature.
 
 ## GRADED POSTERIOR belief -- per-element weights (deepening push 2026-08-30)
 The uncertain-belief drill showed the equal-weight SET (below) is the FLOOR, not the target: the mature brain
@@ -195,8 +224,11 @@ by the mechanism -- a coverage-bounded result with the positive controls confirm
 
 ## What I did NOT establish (and would withdraw first)
 - **No corpus-mined false-belief-over-time gold.** The CI-separated numbers are on construction gold + authored
-  flashback prose (the definitional basis the integrated ToM + temporal organs also used). I would withdraw any
-  implied claim of a real-corpus aggregate lift first -- the incidence cell bounds it explicitly.
+  real-English prose (the definitional basis the integrated ToM + temporal organs also used). The END-TO-END LIVE
+  serve (0.902 vs floor 0.463, real extractor in the loop) is on 15 AUTHORED real-English passages, not
+  corpus-mined -- a capability demonstration on natural prose, not a corpus-generality claim. I would withdraw any
+  implied claim of a real-CORPUS aggregate lift first; the incidence cell bounds why (full over-time scenes are
+  not auto-minable, so no gold exists at corpus scale -- the same limit the integrated ToM organ hit).
 - **First-order belief only.** Higher-order "A thinks B knew X at T" is out of scope (matches `belief_partition`;
   the human recursion cap is ~2 orders -- a noted adjacent problem, not a claim here).
 - **Register extraction is 0.80 on the authored flashback prose** (the shared temporal-order/spaCy extraction
@@ -257,20 +289,30 @@ mechanism level (proposed hdlab landing pending, Q111).
 - **Curse-of-knowledge intrusion term** -- optional: a controllable anchor to MODEL human hindsight error when
   human-likeness (not correctness) is the goal.
 
-## DEEPENING STATUS (2026-08-30)
+## DEEPENING STATUS (2026-08-30) -- representation complete; frontier is the next brief
 The brain-mechanism bar is met and the mechanism is tested with a full can-fail battery + info-free twins LOSING
-across FIVE populations: 542-query construction gold; the real temporal-order register on flashback prose; the
-knowledge-gap/dramatic-irony cell; an independent hand-authored second gold (0 mechanism-vs-human mismatches);
-and the decaying-confidence signature. The research drill's corrections are all folded: observation-gated
-sample-and-hold; belief(x)when FHRR binding; register-ordered chronology; decoupled store beating
-curse-of-knowledge; TESTIMONY/deception route; belief-gap queries; and now the CONFIDENCE-decays-value-persists
-layer. On the owner's push I re-opened and added the confidence layer (a measured human signature, not busywork).
-**The INFERRED update route is now BUILT** (evidence-gated inference over a closed schema set; Sodian-Wimmer
-dissociation reproduced; inference-based deception representable), so the belief timeline carries all three
-brain-pinned knowledge sources (observed / communicated / inferred). The drilled seam is clean: the general
-DERIVATION ENGINE (what follows from ARBITRARY premises, neurally distinct fronto-parietal reasoning, later-
-developing) is scoped as the next problem, not this one. The other adjacent items are genuinely SEPARATE next
-problems, mapped below:
+across TEN populations. Over four research drills the belief timeline was deepened to its brain-faithful target
+along every axis the drills named:
+- **Core:** observation-gated sample-and-hold; belief(x)when FHRR binding; register-ordered chronology (real
+  temporal-order register on flashback prose); decoupled store beating curse-of-knowledge (hindsight-invariant).
+- **Knowledge SOURCES (all three brain-pinned):** OBSERVED; COMMUNICATED (testimony/deception); INFERRED
+  (evidence-gated, Sodian-Wimmer dissociation, inference-based deception representable).
+- **Belief REPRESENTATION (crisp -> set -> graded posterior):** distributional SET (superposition + CA3
+  cleanup_set); GRADED POSTERIOR (per-element weights, Bayesian ToM, ranks below-MAP candidates both floors
+  cannot); RECENCY->PRECISION unification (a stale belief flattens; confidence = posterior entropy -- one
+  quantity, not two).
+- **Gap queries:** knowledge-gap / dramatic-irony / deception asymmetry over time.
+- **External validity:** independent hand-authored second gold (0 mechanism-vs-human mismatches).
+
+Every remaining frontier item is a genuinely DISTINCT capability with a DIFFERENT neural substrate that the drills
+themselves scoped as its own next brief -- pushing them under THIS problem's name would blur the seam the
+neuroscience draws. Two are primary next briefs: **(1) POMDP INVERSE-PLANNING** -- infer an agent's belief/desire
+posterior from its observed ACTIONS (Baker et al. 2017; this problem built the belief REPRESENTATION, the next
+builds the action->belief inference; it also unlocks precision-weighted predictive-coding updates + structured
+occlusion priors as operations over the graded weights); **(2) general DERIVATION ENGINE** -- what follows from
+ARBITRARY premises (fronto-parietal deductive reasoning, neurally distinct from the mentalizing network,
+developmentally later), vs the closed inference schema set built here. The other adjacent items are also SEPARATE
+next problems, mapped below:
 (a) intensional / guise-keyed belief store (Superman-Clark opaque contexts); (b) higher-order / recursive ToM
 (out of the first-order scope shared with belief_partition); (c) the observation-cue ledger's live integration
 (strategy's hdlab job, Q111); (d) rep-B event-boundary alignment (low-marginal -- rep A is already the
