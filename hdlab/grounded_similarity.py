@@ -207,6 +207,21 @@ def grounded_similarity(word_a: str, word_b: str) -> Optional[float]:
     return min(GROUNDED_CAP, max(0.0, raw))
 
 
+def substitutability(word_a: str, word_b: str) -> Optional[float]:
+    """The TAUGHT DISTRIBUTIONAL substitutability score -- the word-context channel this organ's
+    norm-only `grounded_similarity` (capped at GROUNDED_CAP=0.45) structurally lacks, so that path pins
+    synonyms (sofa/couch) and mere associates (apple/orange) alike at 0.45. Delegates to the landed
+    `hdlab.distilled_substitutability` (an OFFLINE PPMI+SVD consolidation of the reading co-occurrence
+    counts with a grounded-hub-TAUGHT direction; cleared the licensed 484-pair substitutability
+    instrument at AUC 0.8388, beating the info-free twin's max). UNCAPPED; returns None if either word is
+    out of the consolidated distributional vocabulary (the caller then falls back to `grounded_similarity`).
+    DEFAULT-SEPARATE: a NEW channel -- the capped `grounded_similarity` above is UNCHANGED (every existing
+    caller is byte-identical). Lazy import so a missing asset never breaks THIS module's load. Landed
+    2026-08-30 from `the_live_meaning_organ_has_no_distributional_channel_to_be_taught_by` (Q111)."""
+    from hdlab.distilled_substitutability import distilled_substitutability
+    return distilled_substitutability(word_a, word_b)
+
+
 # ---------------------------------------------------------------------------------------------
 # THE ATL DISTINCTIVE-FEATURE (feature-similarity) READ-OUT -- default-separate, ADDITIVE.
 # ---------------------------------------------------------------------------------------------
