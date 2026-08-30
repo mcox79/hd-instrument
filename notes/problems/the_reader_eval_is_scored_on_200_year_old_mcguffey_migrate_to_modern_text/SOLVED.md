@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. A MODERN annotated reader-comprehension eval (
 result: "MODERN situation-model role eval built from UD-EWT gold parse (330 passages / 700 in-scope agent/patient queries, transparent UD-deprel->role, NO LLM). Revalidated the reader's role/situation-model organ (vargs front-end + resolver + role scorer, imported UNCHANGED) McGuffey-vs-modern under one scorer. HEADLINE (rigorous, mostly NEGATIVE): (a) McGuffey's role eval is DEGENERATE -- 90.85% of in-scope gold is 'agent', so the always-agent floor scores 0.908 [.863,.948] and the celebrated vargs organ (0.856 [.804,.909]) LOSES to it; the original eval gated vargs against the positional-reader floor (0.517) + an info-free twin (0.627), never against this strongest majority-class floor (0.908). (b) On modern text the current organ does NOT clear its floor: ALL_INSCOPE vargs 0.596 [.561,.634] < floor 0.659 [.624,.694]; and it COLLAPSES on non-canonical constructions to 0.288 [.186,.407] -- below the coin-flip twin (0.576) and CI-separated BELOW the floor (0.610). (c) The wall is a FIXABLE brain-fidelity gap, not a ceiling: a brain-faithful passive-aware content-verb assigner recovers non-canonical 0.288->0.559 [.440,.678] (CI-separated over broken), beats its voice-scrambled info-free twin (0.458), and does not hurt canonical (0.624->0.646). COREF dimension already migrated (owner-DONE): LitBank gold-coref binder GRADED 0.328 vs RAND-twin 0.132 (twin loses CI); graded-ACT-R 0.775 vs incumbent 0.603."
 floor: "Strongest floor = always-predict-the-population-majority-role, recomputed per population/subset. McGuffey in-scope 0.908 [.863,.948] (agent, n=153). Modern in-scope 0.659 [.624,.694] (patient, n=700); modern role-varying 0.497 [.424,.571] (n=177); modern non-canonical 0.610 [.492,.729] (n=59)."
 controls: "(1) Info-free twin per arm -- role labels coin-flipped (VARGS_TWIN) / voice cue scrambled (FIXED_TWIN): loses on McGuffey (0.627<0.856) and on the modern fix (0.458<0.559 non-canonical). (2) Strongest-floor gate: EXCLUDES 'beats a weak twin but not the majority baseline' -- it catches McGuffey's degeneracy (organ<floor) and the modern all-inscope loss. (3) Canonical-vs-non-canonical split: EXCLUDES 'the drop is generic corpus noise' -- localises the collapse to non-canonical order (the NVN-shortcut signature). (4) fix-does-not-hurt-canonical: EXCLUDES 'the fix trades canonical accuracy for non-canonical'. (5) Independent derivation: gold roles come from the UD GOLD parse, the reader re-derives roles from clause TEXT via nltk -> no circularity."
-files_changed: "experiments/exp_mcguffey_migrate_build_modern_gold_v1.py; experiments/exp_mcguffey_migrate_revalidate_v1.py; experiments/exp_mcguffey_migrate_passive_cue_fix_v1.py; experiments/exp_mcguffey_migrate_scoreboard_v1.py; verification/test_mcguffey_migration.py; data/eval_gold_mention_role_modern_ud_ewt_v1/gold_situation_modern_ud_ewt_v1.jsonl; data/exp_mcguffey_migrate_{build_modern_gold,revalidate,passive_cue_fix,scoreboard}_v1/. NO hdlab/ modified (Q111)."
+files_changed: "experiments/exp_mcguffey_migrate_build_modern_gold_v1.py; experiments/exp_mcguffey_migrate_revalidate_v1.py; experiments/exp_mcguffey_migrate_passive_cue_fix_v1.py; experiments/exp_mcguffey_migrate_noncanon_by_type_v1.py; experiments/exp_mcguffey_migrate_scoreboard_v1.py; verification/test_mcguffey_migration.py; data/eval_gold_mention_role_modern_ud_ewt_v1/gold_situation_modern_ud_ewt_v1.jsonl; data/exp_mcguffey_migrate_{build_modern_gold,revalidate,passive_cue_fix,noncanon_by_type,scoreboard}_v1/. NO hdlab/ modified (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_mcguffey_migration.py"
 ---
 
@@ -88,6 +88,28 @@ order. It recovers non-canonical **0.288 -> 0.559 CI-separated**, with the voice
 (so the gain is FROM the passive cue) and canonical unhurt. **The brain reads passives; so can we.** This
 is a proposed hdlab diff (below), not landed -- strategy owns hdlab (Q111).
 
+## DEEPENING (cron fa9567c1, CANCELLED after this round -- in-scope checklist exhausted)
+The 30-min deepening cron ran the checklist and produced the two results below, then was cancelled: the
+eval-migration is complete and every remaining high-value item (land the passive fix; build the residual
+order/prominence role cue; build a both-gold modern narrative gold) is an OUT-OF-SCOPE follow-on for
+strategy (Q111 / new problems), not eval-migration work. The brain-mechanism bar is met (the wall is
+understood and partially crossed; the residual is attributed to a specific brain cue family).
+
+### Two robustness/generalisation results
+1. **The McGuffey degeneracy is systemic, not one gold file.** Both McGuffey situation-model golds are
+   in-scope agent-dominated: `gold_multiclause_entity_track_v3` 0.889 (80 agent / 10 patient) and the
+   supposedly-harder multi-entity `gold_multientity_dense_v1` **0.937** (59 agent / 4 patient). The
+   always-agent floor beats the organ on both. The confound is a property of 1830s schoolbook prose, not
+   of one annotation.
+2. **The passive-cue fix is PASSIVE-SPECIFIC -- there is a named residual non-canonical gap.** The 59
+   modern non-canonical queries are passive 30 / inversion 23 / fronting 6. Broken->fixed delta by type:
+   **passive +0.60** (recovered), **inversion -0.087** (not helped), **fronting +0.00** (not helped, n=6).
+   Brain reading: passive is a MORPHOLOGICAL cue (be+VBN, Competition Model -- the fix supplies it);
+   inversion (postverbal subject) and object-fronting are ORDER/PROMINENCE cues resolved by a DIFFERENT
+   cue family (eADM animacy + verb-class proto-role + information structure). So the passive fix closes
+   the dominant non-canonical failure but names the next fidelity target: an order/prominence role cue.
+   (`exp_mcguffey_migrate_noncanon_by_type_v1.py`.)
+
 ## What I did NOT establish (withdraw-first order)
 1. **The both-gold modern NARRATIVE situation-model eval.** No single modern narrative corpus on the
    shelf has BOTH gold coref AND gold roles: UD-EWT = gold roles / web text / string-identity coref (no
@@ -153,7 +175,10 @@ follow-on. I recommend filing the fix as a small follow-on so this problem stays
 ## NEXT STEPS
 1. Strategy: swap the default role/situation-model eval to the modern UD-EWT gold; retire McGuffey-as-primary.
 2. File the passive-cue fix (content-verb role assignment) as a follow-on hdlab problem -- reference impl +
-   can-fail controls are done.
+   can-fail controls are done. AND its named sequel: an ORDER/PROMINENCE role cue (eADM animacy +
+   verb-class proto-role + information structure) for the residual non-canonical constructions the passive
+   fix does NOT recover -- inversion (postverbal subject) and object-fronting (measured: passive +0.60 vs
+   inversion -0.09 / fronting +0.00).
 3. Build a both-gold modern NARRATIVE situation-model gold (coref + roles on one text) -- the single
    dimension no on-shelf modern corpus supplies; candidate route = a GUM-style corpus (UD parse + coref) or
    hand-authored modern passages in the McGuffey shape.
