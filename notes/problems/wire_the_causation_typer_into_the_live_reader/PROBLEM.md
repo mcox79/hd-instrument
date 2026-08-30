@@ -1,8 +1,20 @@
 ---
-priority: 2
+priority: 6
 review:
 review_text:
 ---
+
+> ## ⛔ BLOCKED (owner-directed, 2026-08-30) — DO NOT PICK UP YET
+> Demoted p2 → p6. Two things changed after this brief was written:
+> 1. **The patient-tendency input is now AVAILABLE** — `causation_typing_needs_a_patient_tendency_estimator` integrated
+>    EXCELLENT (owner-DONE 2026-08-30). So ENABLE-vs-CAUSE no longer needs to be gated to lexically-fixed letting verbs;
+>    the 4-cue estimator (`experiments/_patient_tendency.py`) supplies the tendency bit. Consume it when wiring.
+> 2. **A PREREQUISITE must land FIRST** — the owner directed ("queue another problem before wiring it in") that the
+>    causation live-wiring is BLOCKED on `the_force_dynamic_reader_needs_a_literal_sense_and_attachment_gate` (p2). Without
+>    that sense/attachment gate the wired causation reader over-fires on FIGURATIVE physical-verb uses ("the news broke",
+>    "she opened up") — a visible correctness regression. **Do not start this until the gate passes.**
+> When unblocked: wire the typer + the patient-tendency estimator + the sense/attachment gate into `_read_causation`,
+> engaging ONLY on literal, correctly-attached physical events; the §7 bar below still holds (within-clause domain).
 
 # PROBLEM: the live reader records causation as an UNTYPED link — the promoted `hdlab/force_dynamics_typer.py` (Wolff/Talmy CAUSE/ENABLE/PREVENT typer, integrated EXCELLENT, real-text 0.917 on its within-clause domain) is a DEFAULT-OFF ISLAND the reader never calls. `situation_reader._read_causation` (hdlab/situation_reader.py:785) builds `CausalLink(sent_idx, cause, outcome, method)` with NO force type, so the reader cannot tell "the key OPENED the gate" (CAUSE) from "the wind LET the gate swing" (ENABLE) from "the bar KEPT the gate from opening" (PREVENT) — the core of the Zwaan CAUSATION dimension. WIRE the promoted typer into the live reader's causation read, measured END-TO-END, on the typer's PROVEN domain. This is the first CAUSATION entry in the wiring-map ASSEMBLY (`notes/WIRING_MAP.md`, DEBT 2): a promoted, witnessed organ that the live reader does not yet consult.
 

@@ -1,0 +1,465 @@
+{
+  "verdict": "FULL_PATIENT_TENDENCY_ESTIMATOR_BEATS_LEXICON_AND_MAGNITUDE_ONLY__TWIN_LOSES__GENERALIZES",
+  "summary": "FULL patient-tendency estimator (affector-magnitude + patient-affordance + directional, Wolff force-sum) on COMBINED n=40: 1.000 [1.000,1.000] vs lexicon-only 0.500 (+0.502 ABOVE) AND vs the PROVEN affector-magnitude-only 0.675 (+0.327 ABOVE); info-free twin mean 0.500 p95 0.625 (loses=True); null p95 0.650. HELD-OUT n=22: 1.000 beats magnitude-only +0.406 ABOVE. Ablation(COMBINED): {'full_m+a+d+e': 1.0, 'm_only': 0.675, 'a_only': 0.675, 'd_only': 0.65, 'e_only': 0.5, 'drop_m': 0.825, 'drop_a': 0.825, 'drop_d': 0.85, 'drop_e': 1.0}. Weight-sweep min 1.000 over 27 configs. PASS=True.",
+  "elapsed_s": 16.504,
+  "ts_iso": "2026-08-30T14:50:33.648370+00:00",
+  "anchor_name": "patient_tendency_estimator_v1",
+  "populations": {
+    "SET_M_magnitude": {
+      "n": 14,
+      "full_acc": 1.0,
+      "full_ci": [
+        1.0,
+        1.0
+      ],
+      "full_half_width": 0.0,
+      "lexicon_only_floor": 0.5,
+      "affector_magnitude_only_floor": 1.0,
+      "majority_floor": 0.5,
+      "full_minus_lexicon": {
+        "delta": 0.5046,
+        "ci": [
+          0.2143,
+          0.7857
+        ],
+        "half_width": 0.2857,
+        "band": "ABOVE"
+      },
+      "full_minus_magnitude_only": {
+        "delta": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "half_width": 0.0,
+        "band": "NOT_SEP"
+      },
+      "info_free_twin": {
+        "mean": 0.4936,
+        "p95": 0.7143,
+        "loses": true
+      },
+      "null_p95": 0.7143,
+      "ablation": {
+        "full_m+a+d+e": 1.0,
+        "m_only": 1.0,
+        "a_only": 0.5,
+        "d_only": 0.5,
+        "e_only": 0.5,
+        "drop_m": 0.5,
+        "drop_a": 1.0,
+        "drop_d": 1.0,
+        "drop_e": 1.0
+      },
+      "weight_sweep": {
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0,
+        "n_configs": 27
+      }
+    },
+    "SET_A_affordance": {
+      "n": 14,
+      "full_acc": 1.0,
+      "full_ci": [
+        1.0,
+        1.0
+      ],
+      "full_half_width": 0.0,
+      "lexicon_only_floor": 0.5,
+      "affector_magnitude_only_floor": 0.5,
+      "majority_floor": 0.5,
+      "full_minus_lexicon": {
+        "delta": 0.5046,
+        "ci": [
+          0.2143,
+          0.7857
+        ],
+        "half_width": 0.2857,
+        "band": "ABOVE"
+      },
+      "full_minus_magnitude_only": {
+        "delta": 0.5046,
+        "ci": [
+          0.2143,
+          0.7857
+        ],
+        "half_width": 0.2857,
+        "band": "ABOVE"
+      },
+      "info_free_twin": {
+        "mean": 0.4946,
+        "p95": 0.7143,
+        "loses": true
+      },
+      "null_p95": 0.7143,
+      "ablation": {
+        "full_m+a+d+e": 1.0,
+        "m_only": 0.5,
+        "a_only": 1.0,
+        "d_only": 0.5,
+        "e_only": 0.5,
+        "drop_m": 1.0,
+        "drop_a": 0.5,
+        "drop_d": 1.0,
+        "drop_e": 1.0
+      },
+      "weight_sweep": {
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0,
+        "n_configs": 27
+      }
+    },
+    "SET_D_directional": {
+      "n": 12,
+      "full_acc": 1.0,
+      "full_ci": [
+        1.0,
+        1.0
+      ],
+      "full_half_width": 0.0,
+      "lexicon_only_floor": 0.5,
+      "affector_magnitude_only_floor": 0.5,
+      "majority_floor": 0.5,
+      "full_minus_lexicon": {
+        "delta": 0.5045,
+        "ci": [
+          0.25,
+          0.75
+        ],
+        "half_width": 0.25,
+        "band": "ABOVE"
+      },
+      "full_minus_magnitude_only": {
+        "delta": 0.5045,
+        "ci": [
+          0.25,
+          0.75
+        ],
+        "half_width": 0.25,
+        "band": "ABOVE"
+      },
+      "info_free_twin": {
+        "mean": 0.5004,
+        "p95": 0.6667,
+        "loses": true
+      },
+      "null_p95": 0.6667,
+      "ablation": {
+        "full_m+a+d+e": 1.0,
+        "m_only": 0.5,
+        "a_only": 0.5,
+        "d_only": 1.0,
+        "e_only": 0.5,
+        "drop_m": 1.0,
+        "drop_a": 1.0,
+        "drop_d": 0.5,
+        "drop_e": 1.0
+      },
+      "weight_sweep": {
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0,
+        "n_configs": 27
+      }
+    },
+    "SET_L_letting": {
+      "n": 12,
+      "full_acc": 1.0,
+      "full_ci": [
+        1.0,
+        1.0
+      ],
+      "full_half_width": 0.0,
+      "lexicon_only_floor": 0.0,
+      "affector_magnitude_only_floor": 0.5,
+      "majority_floor": 0.5,
+      "full_minus_lexicon": {
+        "delta": 1.0,
+        "ci": [
+          1.0,
+          1.0
+        ],
+        "half_width": 0.0,
+        "band": "ABOVE"
+      },
+      "full_minus_magnitude_only": {
+        "delta": 0.5045,
+        "ci": [
+          0.25,
+          0.75
+        ],
+        "half_width": 0.25,
+        "band": "ABOVE"
+      },
+      "info_free_twin": {
+        "mean": 0.2498,
+        "p95": 0.5,
+        "loses": true
+      },
+      "null_p95": 0.6667,
+      "ablation": {
+        "full_m+a+d+e": 1.0,
+        "m_only": 0.5,
+        "a_only": 0.0,
+        "d_only": 0.0,
+        "e_only": 0.5,
+        "drop_m": 0.5,
+        "drop_a": 1.0,
+        "drop_d": 1.0,
+        "drop_e": 0.5
+      },
+      "weight_sweep": {
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0,
+        "n_configs": 27
+      }
+    },
+    "COMBINED": {
+      "n": 40,
+      "full_acc": 1.0,
+      "full_ci": [
+        1.0,
+        1.0
+      ],
+      "full_half_width": 0.0,
+      "lexicon_only_floor": 0.5,
+      "affector_magnitude_only_floor": 0.675,
+      "majority_floor": 0.5,
+      "full_minus_lexicon": {
+        "delta": 0.5018,
+        "ci": [
+          0.35,
+          0.65
+        ],
+        "half_width": 0.15,
+        "band": "ABOVE"
+      },
+      "full_minus_magnitude_only": {
+        "delta": 0.3265,
+        "ci": [
+          0.2,
+          0.475
+        ],
+        "half_width": 0.1375,
+        "band": "ABOVE"
+      },
+      "info_free_twin": {
+        "mean": 0.5001,
+        "p95": 0.625,
+        "loses": true
+      },
+      "null_p95": 0.65,
+      "ablation": {
+        "full_m+a+d+e": 1.0,
+        "m_only": 0.675,
+        "a_only": 0.675,
+        "d_only": 0.65,
+        "e_only": 0.5,
+        "drop_m": 0.825,
+        "drop_a": 0.825,
+        "drop_d": 0.85,
+        "drop_e": 1.0
+      },
+      "weight_sweep": {
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0,
+        "n_configs": 27
+      }
+    },
+    "HELDOUT": {
+      "n": 22,
+      "full_acc": 1.0,
+      "full_ci": [
+        1.0,
+        1.0
+      ],
+      "full_half_width": 0.0,
+      "lexicon_only_floor": 0.4545,
+      "affector_magnitude_only_floor": 0.5909,
+      "majority_floor": 0.5,
+      "full_minus_lexicon": {
+        "delta": 0.5401,
+        "ci": [
+          0.3182,
+          0.7727
+        ],
+        "half_width": 0.2273,
+        "band": "ABOVE"
+      },
+      "full_minus_magnitude_only": {
+        "delta": 0.4059,
+        "ci": [
+          0.2273,
+          0.6364
+        ],
+        "half_width": 0.2045,
+        "band": "ABOVE"
+      },
+      "info_free_twin": {
+        "mean": 0.4797,
+        "p95": 0.6364,
+        "loses": true
+      },
+      "null_p95": 0.6364,
+      "ablation": {
+        "full_m+a+d+e": 1.0,
+        "m_only": 0.5909,
+        "a_only": 0.6818,
+        "d_only": 0.6364,
+        "e_only": 0.4545,
+        "drop_m": 0.8636,
+        "drop_a": 0.7727,
+        "drop_d": 0.8182,
+        "drop_e": 1.0
+      },
+      "weight_sweep": {
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0,
+        "n_configs": 27
+      }
+    }
+  },
+  "conflict_combination_rule": {
+    "n": 12,
+    "force_sum_acc": 1.0,
+    "single_cue_wta": {
+      "m": 0.6667,
+      "a": 0.6667,
+      "d": 0.6667
+    },
+    "best_single_cue_wta": {
+      "cue": "m",
+      "acc": 0.6667
+    },
+    "lexicon_only": 0.5,
+    "force_sum_minus_best_wta": {
+      "delta": 0.337,
+      "ci": [
+        0.0833,
+        0.5833
+      ],
+      "half_width": 0.25,
+      "band": "ABOVE"
+    },
+    "info_free_twin": {
+      "mean": 0.4969,
+      "p95": 0.75,
+      "loses": true
+    },
+    "note": "gold = net force sign (Wolff resultant); minority cue rotates evenly so NO single-cue rule exceeds 8/12; only additive integration gets 12/12 -> proves the combination is a SUM, not WTA."
+  },
+  "letting_causing_4th_cue": {
+    "n": 12,
+    "full_acc": 1.0,
+    "drop_letting_acc": 0.5,
+    "letting_lift": 0.5,
+    "lexicon_only": 0.0,
+    "full_minus_lexicon": {
+      "delta": 1.0,
+      "ci": [
+        1.0,
+        1.0
+      ],
+      "half_width": 0.0,
+      "band": "ABOVE"
+    },
+    "heldout_letting_acc": 0.6667,
+    "onset_cause_negctrl": {
+      "switch_open_gate": "SEQUENTIAL",
+      "trigger_open_door": "SEQUENTIAL",
+      "lever_open_hatch": "CAUSE",
+      "button_open_lid": "SEQUENTIAL"
+    },
+    "onset_cause_none_enable": true,
+    "note": "ENABLE via restraint-remover (letting), CAUSE via strong force (causing); dropping the letting cue collapses the ENABLE side (letting_lift). Onset-cause instruments (switch/trigger/lever) are NOT typed ENABLE -- the causing-not-letting disambiguation guard."
+  },
+  "positive_control": {
+    "affordance_ball_vs_crate": {
+      "full": [
+        "ENABLE",
+        "CAUSE"
+      ],
+      "lexicon_only": [
+        "CAUSE",
+        "CAUSE"
+      ],
+      "gold": [
+        "ENABLE",
+        "CAUSE"
+      ],
+      "full_correct": true,
+      "lexicon_correct": false
+    },
+    "directional_down_vs_up": {
+      "full": [
+        "ENABLE",
+        "CAUSE"
+      ],
+      "lexicon_only": [
+        "CAUSE",
+        "CAUSE"
+      ],
+      "gold": [
+        "ENABLE",
+        "CAUSE"
+      ],
+      "full_correct": true,
+      "lexicon_correct": false
+    },
+    "magnitude_nudge_vs_shove": {
+      "full": [
+        "ENABLE",
+        "CAUSE"
+      ],
+      "lexicon_only": [
+        "CAUSE",
+        "CAUSE"
+      ],
+      "gold": [
+        "ENABLE",
+        "CAUSE"
+      ],
+      "full_correct": true,
+      "lexicon_correct": false
+    },
+    "brief_key_vs_wind_bare": {
+      "full": [
+        "ENABLE",
+        "ENABLE"
+      ],
+      "lexicon_only": [
+        "SEQUENTIAL",
+        "SEQUENTIAL"
+      ],
+      "gold": [
+        "ENABLE",
+        "CAUSE"
+      ],
+      "full_correct": false,
+      "lexicon_correct": false
+    },
+    "gate_breeze_vs_blast": {
+      "full": [
+        "ENABLE",
+        "CAUSE"
+      ],
+      "lexicon_only": [
+        "SEQUENTIAL",
+        "SEQUENTIAL"
+      ],
+      "gold": [
+        "ENABLE",
+        "CAUSE"
+      ],
+      "full_correct": true,
+      "lexicon_correct": false
+    }
+  },
+  "mechanism": "Wolff patient-side force sum: T = m + a + d over {affector-magnitude(abductive), patient-affordance(core-physics disposition), directional/gravity(environmental O force)}; sign(T)=concordance vs the affector(+endstate) -> ENABLE(tends)/CAUSE(resists). Force-sum + concordance read-out PINNED Wolff 2007 / Wolff & Barbey 2015; affordance property->sign map is OUR-INVENTION-UNDER-TEST gated on the twin + held-out + control.",
+  "scope": "Constructed cue-isolated minimal pairs, extraction GIVEN (as the proven demo + base typer eval). Value = the full estimator types the magnitude-SILENT cases (affordance/directional) the proven first term falls back to the verb on. Real-text auto-extraction is the follow-on."
+}

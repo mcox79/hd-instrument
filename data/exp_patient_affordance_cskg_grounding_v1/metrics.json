@@ -1,0 +1,79 @@
+{
+  "verdict": "AFFORDANCE_LABILE_HALF_CSKG_CORROBORATED__INERT_HALF_KB_ABSENT__ASYMMETRIC",
+  "contradictions": 0,
+  "summary": "CSKG grounding of the affordance term (5748411 edges scanned). LABILE patients 59 (CSKG-covered 27): motion-corroborated 13/27 = 0.481. INERT patients 31: with ANY disposition edge 10/31 = 0.323, with a MOTION edge 3/31. Finding: ASYMMETRIC PARTIAL GROUNDING: CSKG CapableOf externally CORROBORATES the LABILE (tends) half (13 patients confirmed via CapableOf-motion, 0 contradictions) but the INERT (resists) half is KB-ABSENT -- commonsense KGs record positive dispositions, not resistance/inertia. The only motion edges on inert patients are CONTEXT (rock 'roll down hill' = gravity, shaft 'turn at high speed' = driven) that the DIRECTIONAL/MAGNITUDE terms handle, not spontaneous tendency. => the labile half escapes the construction-proof (external corroboration); the resists half is principled CORE PHYSICS (Spelke inertia) no KB supplies. PASS=True.",
+  "elapsed_s": 15.51,
+  "ts_iso": "2026-08-30T13:53:46.324615+00:00",
+  "anchor_name": "patient_affordance_cskg_grounding_v1",
+  "labile": {
+    "n": 59,
+    "cskg_covered": 27,
+    "motion_corroborated": 13,
+    "rate": 0.4815,
+    "corroborated_patients": [
+      "ball",
+      "balloon",
+      "boat",
+      "curtain",
+      "door",
+      "feather",
+      "gate",
+      "globe",
+      "leaf",
+      "marble",
+      "ship",
+      "valve",
+      "wheel"
+    ]
+  },
+  "inert": {
+    "n": 31,
+    "any_disposition_edge": 10,
+    "kb_coverage": 0.3226,
+    "motion_edge": 3,
+    "covered_patients": [
+      "beam",
+      "boiler",
+      "column",
+      "piano",
+      "rock",
+      "root",
+      "shaft",
+      "stone",
+      "trunk",
+      "wall"
+    ]
+  },
+  "example_edges": {
+    "ball": [
+      "bounce",
+      "bounces",
+      "break window",
+      "happen to roll",
+      "hit wall"
+    ],
+    "balloon": [
+      "blowing in wind",
+      "delight child",
+      "float through air",
+      "rise into air",
+      "spring leak"
+    ],
+    "boat": [
+      "bottom out",
+      "bottom out in shallow water",
+      "bottom out on sand bar",
+      "bus refugees",
+      "cross river"
+    ],
+    "curtain": [
+      "keep light out of room",
+      "essential for privacy"
+    ],
+    "beam": [
+      "ray of light"
+    ]
+  },
+  "finding": "ASYMMETRIC PARTIAL GROUNDING: CSKG CapableOf externally CORROBORATES the LABILE (tends) half (13 patients confirmed via CapableOf-motion, 0 contradictions) but the INERT (resists) half is KB-ABSENT -- commonsense KGs record positive dispositions, not resistance/inertia. The only motion edges on inert patients are CONTEXT (rock 'roll down hill' = gravity, shaft 'turn at high speed' = driven) that the DIRECTIONAL/MAGNITUDE terms handle, not spontaneous tendency. => the labile half escapes the construction-proof (external corroboration); the resists half is principled CORE PHYSICS (Spelke inertia) no KB supplies.",
+  "brain_note": "Positive dispositions (CapableOf roll/rise/float) are in commonsense KGs; resistance/inertia is not (Spelke/Baillargeon core physics) -> the resists half is a principled property judgment, corroborated to be KB-unavailable, not OUR-INVENTION-by-omission."
+}

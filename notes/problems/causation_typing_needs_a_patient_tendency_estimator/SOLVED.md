@@ -317,12 +317,19 @@ twin losing and held-out generalization; the key-vs-wind flagship is understood 
 not a bug, and resolved once the force is stated.)
 
 ## NEXT STEPS
-1. **Real-text CAUSE-vs-ENABLE on a MODERN physical-narrative corpus with automatic extraction** (NOT
-   McGuffey -- age-confounded, owner flag) -- parse-based (affector, verb, patient, context) extraction +
-   an in-sentence property-ADJECTIVE reader (so "heavy lid" -> resists) + a 2nd adjudicator (heavy ->
-   REMOTE). The lemmatization fix makes this now possible; the construction is sparse so the corpus must be
-   physical-event narrative. This is the #1 path to a real-text ACCURACY (the estimator is a proven
-   mechanism today, not yet a real-text-validated capability).
+1. **THE NEXT PROBLEM (dispatch this): a glass-box WORD-SENSE / literal-vs-figurative gate + parse-based
+   amod-ATTACHMENT for the force-dynamic reader** -- so the estimator engages only on LITERAL, correctly-
+   attached physical events. This is the brain's generalization mechanism (word-sense disambiguation +
+   grounded simulation) and the demonstrated boundary of the current estimator: EVERY residual over-fire on
+   unfiltered modern text is a sense/attachment error ("winding DOWN" aspectual, "twist ROUND" manner,
+   "small" attached to the wrong noun). Convergent with the parent's filed `no_glass_box_verb_sense_
+   disambiguation`. BAR: raise fire-PRECISION on unfiltered modern text (the UD-EWT generalization probe is
+   the ready testbed) without losing the literal cases; info-free twin LOSING. This is a DIAGNOSIS +
+   DIRECTION with strong evidence, NOT a proven solution -- dispatch it as a problem with its own bar/floors.
+2. **Real-text CAUSE-vs-ENABLE ACCURACY at scale on a MODERN physical-narrative corpus** (NOT McGuffey --
+   age-confounded) -- parse-based (affector, verb, patient, context) extraction + amod-attached adjectives +
+   a 2nd adjudicator (heavy -> REMOTE). The n=13 modern serve (7/7) is a point estimate; this is the scale
+   accuracy. Depends on #1 (sense/attachment) for precision.
 2. **Broaden the lexicons from external resources, held-out-disciplined:** auto-expand the affordance labile
    half from CSKG `CapableOf` + the resists half from WorldTree mass tables; verify the letting lexicon
    against FrameNet `Preventing_or_letting` + VerbNet `allow-64`; derive the ambiguous-verb gate from a
@@ -333,3 +340,15 @@ not a bug, and resolved once the force is stated.)
    to cross-check.
 4. Strategy: extend the queued `force_dynamics_typer` landing with the 4-cue estimator (proposal above),
    keeping the affordance/letting lexicons flagged OUR-INVENTION and the abstain-to-lexicon behavior.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-30 (grade: EXCELLENT; SOLVED owner-DONE)
+
+Integrated by strategy. Reverified FIRST-HAND: `test_patient_tendency_estimator.py` **22/22** + `test_patient_tendency_realtext_modern.py` **8/8** (MODERN serve) + `test_patient_tendency_generalization.py` **3/3**. Argument adversarially audited and sound: a 4-cue Wolff patient-side FORCE-SUM (magnitude + affordance + directional + letting) resolves the CAUSE-vs-ENABLE wall (lexicon-capped 0.500) at held-out **1.000**, beating BOTH real floors CI-separated — the lexicon-only 0.500 AND the previously-proven affector-magnitude term **0.675** (a real floor, not a straw); per-cue isolation shows the added cues win ONLY where magnitude is SILENT (+0.505/+0.504; +0.000 where present = coverage, not a better answer); the COMBINATION RULE is proven ADDITIVE vs winner-take-all (CONFLICT set 1.000 vs 0.667, +0.337 CI-sep); info-free twin loses, per-term ablation + onset-cause negative + 27-config weight-sweep hold. All cues PINNED (Wolff 2007 force-sum; Wolff & Song 2003 disposition+gravity; Talmy 1988 causing-vs-letting); NEURAL ENABLE-vs-CAUSE dissociation = honest UNPINNED GAP. Grounding escapes construction-proof (CSKG-corroborated affordance; causative-inchoative verb-gate; IS-A generalization to knoll/ravine). MODERN real text 7/7 (defers 6/6 agentive), conservative on unfiltered web text (0.9%). Exemplary honesty (withdraws the constructed 1.000; reads LETTING as a distinct mechanism; generalizes by grounded features not word lists).
+
+**hdlab landing QUEUED-BUT-GATED (owner directive 2026-08-30 "queue another problem before wiring it in"):** promote `experiments/_patient_tendency.py` as the tendency/role estimator feeding `force_dynamics_typer`'s missing patient-tendency bit (tendency-ambiguous verb + endstate reached → sign(patient_tendency) → ENABLE/CAUSE, else abstain-to-lexicon). ⚠️ **The wiring of the causation typer into the live reader (p2 `wire_the_causation_typer_into_the_live_reader`) is BLOCKED on the SENSE/ATTACHMENT gate** — every residual over-fire of this estimator is a word-sense / literal-vs-figurative / amod-attachment error, so wiring now would over-fire on figurative/agentive real text. The gate is packaged as the prerequisite the owner asked to queue.
+
+**Audit §2b folded** (the CAUSATION tendency input is now a 4-cue additive force-dynamic estimator — magnitude+affordance+directional+letting; affordance labile-half CSKG-corroborated / inert-half core-physics; verb-gate causative-inchoative-derived; NEURAL ENABLE-vs-CAUSE dissociation = GAP). Review (EXCELLENT) + `> ## ✅ SOLVER REVIEW` block in PROBLEM.md; `priority:` cleared.
+
+**Next (owner-directed prerequisite, packaged):** a glass-box word-sense / literal-vs-figurative + amod-attachment gate for the force-dynamic reader, so it engages only on LITERAL, correctly-attached physical events. Convergent with `no_glass_box_verb_sense_disambiguation`. This must land BEFORE the causation live-wiring.

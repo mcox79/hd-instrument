@@ -65,6 +65,24 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — THE CAUSATION TENDENCY INPUT IS BUILT: a 4-cue additive Wolff force-sum resolves CAUSE-vs-ENABLE
+  for tendency-ambiguous verbs** (from integrated `causation_typing_needs_a_patient_tendency_estimator`, owner-DONE,
+  SOLVED/EXCELLENT; reverified 22/22 + 8/8 MODERN + 3/3 generalization first-hand). The `force_dynamics_typer` read
+  CAUSE/ENABLE/PREVENT from the VERB, but tendency-ambiguous verbs ("the key opened the gate" ENABLE vs "the wind
+  opened the gate" CAUSE) need the patient-tendency bit (lexicon-capped 0.500). **PINNED:** the tendency signal is a
+  patient-side FORCE SUM T = magnitude + affordance + directional + letting, sign(T) = concordance with the affector
+  (Wolff 2007 force-sum + concordance read-out; Wolff & Song 2003 patient disposition + gravity as force terms; Talmy
+  1988 causing-vs-letting — LETTING is a DISTINCT mechanism: the affector removes a restraint, not patient tendency).
+  Held-out 1.000 beats BOTH real floors CI-sep (lexicon 0.500 AND the proven magnitude term 0.675); the combination
+  rule is proven ADDITIVE vs winner-take-all (+0.337 CI-sep); added cues win ONLY where magnitude is silent (coverage).
+  **OUR-INVENTION-flagged:** the affordance/letting lexicons (affordance labile-half CSKG CapableOf-corroborated,
+  inert-half core-physics; verb-gate DERIVED from the causative-inchoative alternation, not a hand-list; inclined-surface
+  schema IS-A-grounded, generalizes to knoll/ravine). **The NEURAL ENABLE-vs-CAUSE dissociation is an honest UNPINNED GAP.**
+  **hdlab:** landing QUEUED-BUT-GATED — promote `_patient_tendency.py` as the typer's tendency input, but the causation
+  LIVE-WIRING is BLOCKED on a word-sense / literal-vs-figurative / amod-attachment gate (every residual over-fire is a
+  sense/attachment error; the estimator is conservative — fires 0.9% on unfiltered web text — and correctly abstains on
+  the figurative/agentive majority). That gate is the DEMONSTRATED boundary + the packaged prerequisite.
+
 - **2026-08-30 — GOALS/ToM × TIME COMPOSITION IS BUILT: a per-agent BELIEF TIMELINE that answers "what did A know at time T"**
   (from integrated `the_reader_has_no_belief_timeline_what_an_agent_knew_when`, owner-DONE, SOLVED/EXCELLENT; reverified 70/70
   first-hand, scaffold-free — recomputes the live e2e from source). Generalizes `belief_partition` from an n=1 snapshot to n

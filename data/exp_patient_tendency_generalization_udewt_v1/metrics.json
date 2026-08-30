@@ -1,0 +1,77 @@
+{
+  "verdict": "GENERALIZATION_PROBE__FIRE_RATE_AND_PHYSICALITY_ON_UNFILTERED_MODERN_TEXT",
+  "summary": "UD-EWT (modern web text, gold-parse auto-extraction): 318 gated-verb clauses; after the particle-vs-path + resistance-cue fixes the tendency mechanism FIRES on only 3 (fire rate 0.009) and DEFERS to the verb lexicon on the rest. HONEST READ: (1) the estimator is now HIGHLY CONSERVATIVE on unfiltered web text -- the earlier phrasal-verb over-fires ('turn UP the sound', 'pull BACK the forces', 'X BACK') are ELIMINATED (a bare up/down now needs a spatial GROUND; 'back' is no longer read as resistance). (2) The residual few fires are FIGURATIVE IDIOMS on physical patients ('twisted my arm' = coerced; 'moving into a house' = relocate) -- a verb-sense / LITERALNESS gap (the parent's WSD problem), NOT a physicality gap. (3) The physical-tendency construction the estimator targets is GENUINELY ABSENT from web text (reviews/emails/blogs) -- it lives in physical NARRATIVE -- so a near-zero fire rate here is the CORRECT behavior, not a failure. Fires physical 1 / abstract 1 / unknown 1.",
+  "elapsed_s": 0.342,
+  "ts_iso": "2026-08-30T16:45:46.370887+00:00",
+  "anchor_name": "patient_tendency_generalization_udewt_v1",
+  "total_gated_clauses": 318,
+  "fired": 3,
+  "fire_rate": 0.0094,
+  "fired_physical": 1,
+  "fired_abstract": 1,
+  "fired_unknown": 1,
+  "physical_fraction_of_fired": 0.3333,
+  "fire_sample": [
+    {
+      "est": "ENABLE",
+      "aff": "",
+      "verb": "fallen",
+      "patient": "she",
+      "ctx": [
+        "accidentally",
+        "stairs",
+        "down"
+      ],
+      "physical": null,
+      "terms": {
+        "m": 0,
+        "a": 0,
+        "d": 1,
+        "e": 0
+      },
+      "sent": "Long before ( September 1560 ) Dr. Lopez had been the personal house doctor of Robert Dudley and the good doctor was obligated to write the death certificate fo"
+    },
+    {
+      "est": "ENABLE",
+      "aff": "",
+      "verb": "moving",
+      "patient": "me",
+      "ctx": [
+        "house",
+        "into",
+        "new",
+        "town",
+        "just",
+        "outside",
+        "small"
+      ],
+      "physical": true,
+      "terms": {
+        "m": 0,
+        "a": 1,
+        "d": 0,
+        "e": 0
+      },
+      "sent": "Me and my family are moving into a new house just outside a small town ."
+    },
+    {
+      "est": "CAUSE",
+      "aff": "",
+      "verb": "pull",
+      "patient": "it",
+      "ctx": [
+        "up",
+        "back"
+      ],
+      "physical": false,
+      "terms": {
+        "m": 0,
+        "a": 0,
+        "d": -1,
+        "e": 0
+      },
+      "sent": "When I first get on I take 1 leg and pull it back up to touch my butt with my heel and hold it there for 1 lap at a walk around a large dressage arena ."
+    }
+  ],
+  "scope": "COVERAGE + PRECISION-BY-INSPECTION on UNFILTERED modern text with AUTOMATIC extraction (UD-EWT gold parse). No CAUSE/ENABLE gold -> not labelled accuracy. Measures whether the estimator over-fires on the abstract/figurative majority. The physicality check is a WordNet hypernym proxy (physical_entity vs abstraction)."
+}

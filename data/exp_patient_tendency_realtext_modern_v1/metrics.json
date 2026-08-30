@@ -1,0 +1,284 @@
+{
+  "verdict": "MODERN_REALTEXT_POINT_ESTIMATE__FIRES_ON_TENDENCY_ABSTAINS_ON_AGENTIVE",
+  "summary": "MODERN real-text serve (n=13: 7 tendency + 6 agentive-abstain; VERBATIM MCScript2/UD-EWT, extraction given, solver-adjudicated). On tendency cases the estimator FIRES on 6/7 (coverage 0.857) and is 1.0 accurate where it fires (6 correct) vs lexicon-only 1/7. On DIRECT AGENTIVE manipulation it correctly ABSTAINS 6/6 (rate 1.0) -- the honest behavior (no patient-tendency at stake). Misses are mapped: verb-gate ('blew'/'drain' not gated) + negation ('not very heavy').",
+  "elapsed_s": 4.364,
+  "ts_iso": "2026-08-30T14:48:09.666030+00:00",
+  "anchor_name": "patient_tendency_realtext_modern_v1",
+  "metrics": {
+    "n_total": 13,
+    "n_tendency": 7,
+    "n_agentive_abstain_gold": 6,
+    "tendency_fired": 6,
+    "tendency_coverage": 0.857,
+    "accuracy_where_fired": 1.0,
+    "n_fired_correct": 6,
+    "lexicon_only_correct_on_tendency": 1,
+    "agentive_abstained_correctly": 6,
+    "agentive_abstain_rate": 1.0
+  },
+  "rows": [
+    {
+      "sent": "A lot of pins were lined up at the end of the lane, and my ball rolled right through the center of them.",
+      "src": "MCScript2",
+      "aff": "",
+      "verb": "rolled",
+      "patient": "ball",
+      "mods": [],
+      "gold": "ENABLE",
+      "est": "ENABLE",
+      "lexonly": "CAUSE",
+      "fired": true,
+      "terms": {
+        "m": 0,
+        "a": 1,
+        "d": 0,
+        "e": 0
+      },
+      "note": "a ball affords rolling (round); it rolled under its own momentum -> patient tended"
+    },
+    {
+      "sent": "I unlocked the bolt on the door, turned the doorknob, and slowly opened the heavy wooden door and then the screen door.",
+      "src": "MCScript2",
+      "aff": "i",
+      "verb": "opened",
+      "patient": "door",
+      "mods": [
+        "heavy"
+      ],
+      "gold": "CAUSE",
+      "est": "CAUSE",
+      "lexonly": "SEQUENTIAL",
+      "fired": true,
+      "terms": {
+        "m": 0,
+        "a": -1,
+        "d": 0,
+        "e": 0
+      },
+      "note": "a HEAVY door resists opening; opened slowly with effort -> the affector overcame it"
+    },
+    {
+      "sent": "I pulled into the lot and parked and saw my friend was already there, sitting on a bench as her son slid down the slide.",
+      "src": "MCScript2",
+      "aff": "",
+      "verb": "slid",
+      "patient": "son",
+      "mods": [
+        "down"
+      ],
+      "gold": "ENABLE",
+      "est": "ENABLE",
+      "lexonly": "CAUSE",
+      "fired": true,
+      "terms": {
+        "m": 0,
+        "a": 0,
+        "d": 1,
+        "e": 0
+      },
+      "note": "slid DOWN the slide -> gravity aligned with the outcome -> patient tended"
+    },
+    {
+      "sent": "I slid it down in the can and secured the ends tightly around the can to make sure it did n't slip down in the can.",
+      "src": "MCScript2",
+      "aff": "i",
+      "verb": "slid",
+      "patient": "it",
+      "mods": [
+        "down"
+      ],
+      "gold": "ENABLE",
+      "est": "ENABLE",
+      "lexonly": "CAUSE",
+      "fired": true,
+      "terms": {
+        "m": 0,
+        "a": 0,
+        "d": 1,
+        "e": 0
+      },
+      "note": "slid it DOWN -> gravity aligned -> tended"
+    },
+    {
+      "sent": "The coffee table was not very heavy, so I pushed it where the couch had been all by myself.",
+      "src": "MCScript2",
+      "aff": "i",
+      "verb": "pushed",
+      "patient": "table",
+      "mods": [
+        "not",
+        "very",
+        "heavy"
+      ],
+      "gold": "ENABLE",
+      "est": "ENABLE",
+      "lexonly": "CAUSE",
+      "fired": true,
+      "terms": {
+        "m": 0,
+        "a": 1,
+        "d": 0,
+        "e": 0
+      },
+      "note": "'not very heavy' -> the table did not resist much, pushed easily alone -> tended (NEGATION: a known gap)"
+    },
+    {
+      "sent": "After it warmed up, I lifted the lid and placed the first page of the document inside of the scanner.",
+      "src": "MCScript2",
+      "aff": "i",
+      "verb": "lifted",
+      "patient": "lid",
+      "mods": [],
+      "gold": "ABSTAIN",
+      "est": "CAUSE",
+      "lexonly": "CAUSE",
+      "fired": false,
+      "terms": {
+        "m": 0,
+        "a": 0,
+        "d": 0,
+        "e": 0
+      },
+      "note": "agentive lift, no tendency cue"
+    },
+    {
+      "sent": "I pushed the vacuum all over the floor in every part of the house.",
+      "src": "MCScript2",
+      "aff": "i",
+      "verb": "pushed",
+      "patient": "vacuum",
+      "mods": [],
+      "gold": "ABSTAIN",
+      "est": "CAUSE",
+      "lexonly": "CAUSE",
+      "fired": false,
+      "terms": {
+        "m": 0,
+        "a": 0,
+        "d": 0,
+        "e": 0
+      },
+      "note": "agentive push, no tendency cue"
+    },
+    {
+      "sent": "I raised the lid and dropped the bag inside.",
+      "src": "MCScript2",
+      "aff": "i",
+      "verb": "raised",
+      "patient": "lid",
+      "mods": [],
+      "gold": "ABSTAIN",
+      "est": "CAUSE",
+      "lexonly": "CAUSE",
+      "fired": false,
+      "terms": {
+        "m": 0,
+        "a": 0,
+        "d": 0,
+        "e": 0
+      },
+      "note": "agentive raise, no tendency cue"
+    },
+    {
+      "sent": "I picked up the alarm clock and turned it over, looking at the back and bottom for a place where the batteries go.",
+      "src": "MCScript2",
+      "aff": "i",
+      "verb": "turned",
+      "patient": "clock",
+      "mods": [],
+      "gold": "ABSTAIN",
+      "est": "CAUSE",
+      "lexonly": "CAUSE",
+      "fired": false,
+      "terms": {
+        "m": 0,
+        "a": 0,
+        "d": 0,
+        "e": 0
+      },
+      "note": "agentive flip, no tendency cue"
+    },
+    {
+      "sent": "I opened the container and dumped the heavy plastic bag.",
+      "src": "MCScript2",
+      "aff": "i",
+      "verb": "opened",
+      "patient": "container",
+      "mods": [],
+      "gold": "ABSTAIN",
+      "est": "SEQUENTIAL",
+      "lexonly": "SEQUENTIAL",
+      "fired": false,
+      "terms": {
+        "m": 0,
+        "a": 0,
+        "d": 0,
+        "e": 0
+      },
+      "note": "agentive open; 'heavy' modifies the BAG not the container (amod attachment) -> container has no cue"
+    },
+    {
+      "sent": "Back in the living room, I tipped the can over each of the plants, offering them water in direct proportion to their sizes.",
+      "src": "MCScript2",
+      "aff": "i",
+      "verb": "moved",
+      "patient": "can",
+      "mods": [],
+      "gold": "ABSTAIN",
+      "est": "CAUSE",
+      "lexonly": "CAUSE",
+      "fired": false,
+      "terms": {
+        "m": 0,
+        "a": 0,
+        "d": 0,
+        "e": 0
+      },
+      "note": "agentive; no patient-tendency cue"
+    },
+    {
+      "sent": "Ever since he ate up Red Riding Hood's grandma and blew down the houses of two-thirds of the Three Little Pigs, the Big Bad Wolf has held a persistently bad reputation.",
+      "src": "UD-EWT",
+      "aff": "wolf",
+      "verb": "blew",
+      "patient": "houses",
+      "mods": [
+        "down"
+      ],
+      "gold": "CAUSE",
+      "est": "CAUSE",
+      "lexonly": "CAUSE",
+      "fired": false,
+      "terms": {
+        "m": 0,
+        "a": 0,
+        "d": 1,
+        "e": 0
+      },
+      "note": "MISS: 'blew' (blow) is not in the ambiguous-verb GATE -> abstains (verb-gate coverage gap)"
+    },
+    {
+      "sent": "First he reached his hand into the full side and pulled out the sink plug, allowing the water to drain.",
+      "src": "MCScript2",
+      "aff": "plug",
+      "verb": "drain",
+      "patient": "water",
+      "mods": [
+        "allowing"
+      ],
+      "gold": "ENABLE",
+      "est": "ENABLE",
+      "lexonly": "SEQUENTIAL",
+      "fired": true,
+      "terms": {
+        "m": 0,
+        "a": 0,
+        "d": 0,
+        "e": 1
+      },
+      "note": "MISS(letting): removing the plug LETS the water drain; 'drain' not gated -> abstains (verb-gate gap)"
+    }
+  ],
+  "scope": "Small HAND-ADJUDICATED point estimate on MODERN verbatim prose (avoids the McGuffey age confound), extraction GIVEN. Demonstrates the mechanism FIRES on modern inflected text (lemmatization) + reads property adjectives (heavy->resist) + ABSTAINS on agentive manipulation. NOT a benchmark; a real-text accuracy at scale needs auto-extraction + amod-attached adjectives + a 2nd adjudicator + a physical-narrative corpus.",
+  "brain_note": "Every cue is a Wolff/Talmy force-dynamic input (PINNED). Lemmatization mirrors morphological->lemma lexical access; adjective-reading supplies Wolff's perception/knowledge force input via the linguistic channel."
+}
