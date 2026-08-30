@@ -1,0 +1,343 @@
+{
+  "per_dimension": {
+    "coref": {
+      "n": 2799,
+      "model_acc": 0.5559,
+      "overlap_floor": 0.0497,
+      "floor_accs": {
+        "overlap_ok": 0.0497,
+        "recency_ok": 0.2805,
+        "mostfreq_ok": 0.4241
+      },
+      "strongest_floor_name": "mostfreq_ok",
+      "strongest_floor": 0.4241,
+      "twin_acc": 0.0,
+      "model_minus_strongest": [
+        0.0531,
+        0.2084
+      ],
+      "model_minus_twin": [
+        0.497,
+        0.6126
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true
+    },
+    "events": {
+      "n": 11523,
+      "model_acc": 0.1448,
+      "overlap_floor": 0.017,
+      "floor_accs": {
+        "overlap_ok": 0.017
+      },
+      "strongest_floor_name": "overlap_ok",
+      "strongest_floor": 0.017,
+      "twin_acc": 0.0,
+      "model_minus_strongest": [
+        0.11,
+        0.1455
+      ],
+      "model_minus_twin": [
+        0.1311,
+        0.1613
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true
+    },
+    "temporal": {
+      "n": 1998,
+      "model_acc": 0.9259,
+      "overlap_floor": 0.0,
+      "floor_accs": {
+        "textorder_ok": 0.3664
+      },
+      "strongest_floor_name": "textorder_ok",
+      "strongest_floor": 0.3664,
+      "twin_acc": 0.0,
+      "model_minus_strongest": [
+        0.5264,
+        0.5925
+      ],
+      "model_minus_twin": [
+        0.9064,
+        0.9448
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true
+    },
+    "causal": {
+      "n": 267,
+      "model_acc": 0.4382,
+      "overlap_floor": 0.0,
+      "floor_accs": {
+        "overlap_ok": 0.0,
+        "adjacency_ok": 0.6554
+      },
+      "strongest_floor_name": "adjacency_ok",
+      "strongest_floor": 0.6554,
+      "twin_acc": 0.0,
+      "model_minus_strongest": [
+        -0.3077,
+        -0.123
+      ],
+      "model_minus_twin": [
+        0.3722,
+        0.5045
+      ],
+      "ci_sep_over_strongest": false,
+      "ci_sep_over_twin": true
+    },
+    "location": {
+      "n": 100,
+      "model_acc": 1.0,
+      "overlap_floor": 0.0,
+      "floor_accs": {
+        "overlap_ok": 0.0
+      },
+      "strongest_floor_name": "overlap_ok",
+      "strongest_floor": 0.0,
+      "twin_acc": 0.0,
+      "model_minus_strongest": [
+        1.0,
+        1.0
+      ],
+      "model_minus_twin": [
+        1.0,
+        1.0
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true
+    },
+    "belief": {
+      "n": 100,
+      "model_acc": 0.96,
+      "overlap_floor": 0.0,
+      "floor_accs": {
+        "overlap_ok": 0.0
+      },
+      "strongest_floor_name": "overlap_ok",
+      "strongest_floor": 0.0,
+      "twin_acc": 0.0,
+      "model_minus_strongest": [
+        0.92,
+        0.99
+      ],
+      "model_minus_twin": [
+        0.92,
+        0.99
+      ],
+      "ci_sep_over_strongest": true,
+      "ci_sep_over_twin": true
+    }
+  },
+  "aggregate": {
+    "n": 16587,
+    "model_acc": 0.313,
+    "overlap_floor": 0.0202,
+    "strongest_floor": 0.1612,
+    "twin_acc": 0.0
+  },
+  "routing_on_gold": {
+    "soft_cue_table": 0.9609,
+    "hard_keyword": 0.9859,
+    "wh_ontology": 0.9894,
+    "n": 16787
+  },
+  "positive_control_coref": {
+    "n_coref": 2799,
+    "model_right_recency_wrong": 1059,
+    "recency_right_model_wrong": 288,
+    "both_right": 497
+  },
+  "n_docs": 100,
+  "seed": 20260830,
+  "paraphrase_generalization": {
+    "n": 18,
+    "n_novel_cue": 5,
+    "router_acc_all": {
+      "exact_keyword": 0.3889,
+      "soft_cue_table": 0.7778,
+      "wh_ontology": 1.0
+    },
+    "router_acc_novel_cue": {
+      "exact_keyword": 0.0,
+      "soft_cue_table": 0.4,
+      "wh_ontology": 1.0
+    },
+    "detail": [
+      {
+        "q": "Who does she refer to ?",
+        "gold": "coref",
+        "novel_cue": false,
+        "exact_keyword": "coref",
+        "soft_cue_table": "coref",
+        "wh_ontology": "coref"
+      },
+      {
+        "q": "Which character does 'her' denote ?",
+        "gold": "coref",
+        "novel_cue": false,
+        "exact_keyword": null,
+        "soft_cue_table": "coref",
+        "wh_ontology": "coref"
+      },
+      {
+        "q": "Who is 'he' ?",
+        "gold": "coref",
+        "novel_cue": false,
+        "exact_keyword": "events",
+        "soft_cue_table": "events",
+        "wh_ontology": "coref"
+      },
+      {
+        "q": "She points back to which individual ?",
+        "gold": "coref",
+        "novel_cue": true,
+        "exact_keyword": null,
+        "soft_cue_table": "coref",
+        "wh_ontology": "coref"
+      },
+      {
+        "q": "Did the fire happen before or after the storm ?",
+        "gold": "temporal",
+        "novel_cue": false,
+        "exact_keyword": "temporal",
+        "soft_cue_table": "temporal",
+        "wh_ontology": "temporal"
+      },
+      {
+        "q": "Which came earlier, the fire or the storm ?",
+        "gold": "temporal",
+        "novel_cue": false,
+        "exact_keyword": null,
+        "soft_cue_table": "temporal",
+        "wh_ontology": "temporal"
+      },
+      {
+        "q": "At what moment did the fire start ?",
+        "gold": "temporal",
+        "novel_cue": true,
+        "exact_keyword": null,
+        "soft_cue_table": "events",
+        "wh_ontology": "temporal"
+      },
+      {
+        "q": "Did the arrival precede the departure ?",
+        "gold": "temporal",
+        "novel_cue": false,
+        "exact_keyword": null,
+        "soft_cue_table": "temporal",
+        "wh_ontology": "temporal"
+      },
+      {
+        "q": "What caused the fire ?",
+        "gold": "causal",
+        "novel_cue": false,
+        "exact_keyword": "causal",
+        "soft_cue_table": "causal",
+        "wh_ontology": "causal"
+      },
+      {
+        "q": "Why did the fire start ?",
+        "gold": "causal",
+        "novel_cue": false,
+        "exact_keyword": "causal",
+        "soft_cue_table": "causal",
+        "wh_ontology": "causal"
+      },
+      {
+        "q": "For what reason did the collapse occur ?",
+        "gold": "causal",
+        "novel_cue": true,
+        "exact_keyword": null,
+        "soft_cue_table": "causal",
+        "wh_ontology": "causal"
+      },
+      {
+        "q": "What led to the collapse ?",
+        "gold": "causal",
+        "novel_cue": false,
+        "exact_keyword": null,
+        "soft_cue_table": "causal",
+        "wh_ontology": "causal"
+      },
+      {
+        "q": "Where is John ?",
+        "gold": "location",
+        "novel_cue": false,
+        "exact_keyword": "location",
+        "soft_cue_table": "location",
+        "wh_ontology": "location"
+      },
+      {
+        "q": "In which place is John ?",
+        "gold": "location",
+        "novel_cue": false,
+        "exact_keyword": null,
+        "soft_cue_table": "location",
+        "wh_ontology": "location"
+      },
+      {
+        "q": "In what spot is John ?",
+        "gold": "location",
+        "novel_cue": true,
+        "exact_keyword": null,
+        "soft_cue_table": "events",
+        "wh_ontology": "location"
+      },
+      {
+        "q": "At which site is John standing ?",
+        "gold": "location",
+        "novel_cue": true,
+        "exact_keyword": null,
+        "soft_cue_table": "coref",
+        "wh_ontology": "location"
+      },
+      {
+        "q": "What does Mary believe ?",
+        "gold": "belief",
+        "novel_cue": false,
+        "exact_keyword": "belief",
+        "soft_cue_table": "belief",
+        "wh_ontology": "belief"
+      },
+      {
+        "q": "What does Mary think is true ?",
+        "gold": "belief",
+        "novel_cue": false,
+        "exact_keyword": "belief",
+        "soft_cue_table": "belief",
+        "wh_ontology": "belief"
+      }
+    ]
+  },
+  "paraphrase_qa_endtoend": {
+    "coref": {
+      "cue_table|canonical": 0.5559,
+      "cue_table|paraphrase": 0.0707,
+      "wh_ontology|canonical": 0.5559,
+      "wh_ontology|paraphrase": 0.5559,
+      "n": 2799
+    },
+    "causal": {
+      "cue_table|canonical": 0.4382,
+      "cue_table|paraphrase": 0.4382,
+      "wh_ontology|canonical": 0.4382,
+      "wh_ontology|paraphrase": 0.4382,
+      "n": 267
+    },
+    "events": {
+      "cue_table|canonical": 0.1448,
+      "cue_table|paraphrase": 0.0,
+      "wh_ontology|canonical": 0.158,
+      "wh_ontology|paraphrase": 0.1424,
+      "n": 11523
+    }
+  },
+  "wired_events_qa": {
+    "positional": 0.1204,
+    "wired": 0.1418,
+    "n": 2850,
+    "n_docs": 25
+  }
+}

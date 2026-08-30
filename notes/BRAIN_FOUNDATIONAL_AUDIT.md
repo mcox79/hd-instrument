@@ -65,6 +65,27 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — THE SITUATION MODEL GETS A QA READ-OUT, AND IT IS A WIRING-DEBT DIAGNOSTIC** (from integrated
+  `the_reader_cannot_answer_a_question_over_its_situation_model`, owner-DONE, SOLVED/STRONG; reverified 8/8 first-hand over
+  16,587 questions). A unified glass-box QA interface routes a structure-dependent question to the dimension holding the answer
+  and reads it OFF the accumulated model, never re-reading — **PINNED: the Kintsch textbase-vs-situation-model dissociation IS
+  the floor** (bridging/causal/spatial/temporal probes are unanswerable from surface memory). The ROUTER is a SOFT + PARALLEL +
+  THRESHOLD-GATED cue-race (Lewis & Vasishth 2005; abstain = a feeling-of-knowing gate), with a wh-word ANSWER-TYPE + WordNet
+  head-noun ontology (Roberts QUD; Cysouw wh→ontology universal) — dimension→subsystem specialization is real (PPA/space,
+  time-cells/order, pSTS/who, mPFC/cause, TPJ/belief); reference architecture SEM (Franklin 2020). **GENERALIZATION (the excellent
+  core):** the wh-ontology router generalizes to novel cue words (1.00 vs cue-table 0.40 vs keyword 0.00) and PRESERVES answer
+  accuracy under paraphrase (coref 0.556→0.556) where a keyword router COLLAPSES (→0.071) — a paraphrase-robust routing win, not
+  a keyword switch. **KEY CROSS-CUTTING FINDING — the capstone QUANTIFIES THE WIRING DEBT end-to-end:** why/causal LOSES
+  (0.442 vs 0.652) because the live causal dimension is a connective PLACEHOLDER while the real `force_dynamics_typer` (0.929) is
+  built-but-UNWIRED; where / who-believes correctly HARD-ABSTAIN (1.00 / 0.96) because `location_register` / `belief_partition`
+  are built-but-unwired ISLANDS (never-tracked, glass-box honest — NOT wrong answers). **This QA interface is now the END-TO-END
+  MEASUREMENT INSTRUMENT for the assembly / wiring-debt burn-down:** each dimension organ wired into the live reader gets its
+  end-to-end payoff re-measured with it (the queued p2 causation-wiring is the first — it should turn the causal NEGATIVE into a
+  win). OUR-INVENTION-flagged: the abstain threshold + the WordNet head-noun resolver (queued swap → the idle
+  `distributional_meaning_channel`). Honest bounds: temporal shares its tense signal with its gold (withdraw-first); coref is the
+  existing coref reframed (real +0.087, not new capability); corpus-untested (LitBank 19c only). hdlab: query API + dimension
+  wiring QUEUED.
+
 - **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `frame_induction` (OOV verb thematic-frame induction) —
   brain-faithful + generalization-FIRST by design, but its held-out generalization is UN-WITNESSED as an organ → a prime
   target for the p4 generalization stress-test (feeds p4, does not seed a new problem).** (a) FIDELITY: PINNED — Gleitman

@@ -6,7 +6,7 @@ result: "POSITIVE. A unified glass-box QA interface (SituationQA) over the live 
 floor: "STRONGEST re-reading floor recomputed per dimension on the SAME questions: coref = max(recency-antecedent 0.281, most-frequent-entity 0.424) = 0.424; temporal = text-order 0.366; events = question-word-overlap 0.017; causal = max(word-overlap 0.000, adjacency-previous-event 0.652) = 0.652 (BEATS the model -- the honest negative); where/believe = word-overlap 0.000. Aggregate strongest-floor 0.161 vs model 0.313."
 controls: "(1) info-free TWIN = the router's cue->dimension table DERANGED (every cue routes to a WRONG dimension, no fixed points -- a plain permutation once kept coref->coref and faked twin==model): twin acc = 0.000 on all 6 dimensions, loses CI-sep. (2) POSITIVE control (coref): the accumulated model resolves 1059 antecedents the recency re-reading floor MISSES vs only 288 the other way (3.7:1) -- the topic-shift/non-adjacent antecedents that REQUIRE the maintained model. (3) MODEL-contribution isolation: per dimension, model readout vs the retrieval floor on the SAME routed questions -- causal is a rigorous NEGATIVE (readout loses to adjacency), localising the gap to the unwired organ. (4) ABSTAIN control: never-tracked (where/believe) hard-abstain, distinct from tracked-but-absent. (5) NON-CIRCULAR gold: causal gold derived from the raw-text connective DIRECTION (grammar), not from the reader's own causal_links (the readout source). (6) NOVEL-cue-word generalization: held-out cue words absent from every table (spot/moment/reason/site) -- only the wh-ontology router routes them."
 files_changed: "experiments/exp_situation_model_qa_v1.py (new; the SituationQA interface + soft/wh-ontology routers + per-dimension gold, floors, twin, bootstrap, generalization); verification/test_situation_model_qa.py (new; 7/7 scaffold-free, recomputes every load-bearing claim independently); data/exp_situation_model_qa_v1/metrics.json (new); notes/problems/the_reader_cannot_answer_a_question_over_its_situation_model/{SOLVED.md, research_situation_model_qa_brain_mechanism_2026-08-30.md, research_situation_model_qa_qud_paraphrase_2026-08-30.md}. hdlab/ UNTOUCHED (proposed diff only, Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_situation_model_qa.py (7/7: router novel-cue generalization 1.0>0.4>0.0, derangement twin, coref beats strongest floor + positive control, temporal beats text-order, causal rigorous-negative vs adjacency, never-tracked abstain, events beats word-overlap)"
+reverify: ".venv/Scripts/python.exe verification/test_situation_model_qa.py (8/8: router novel-cue generalization 1.0>0.4>0.0, derangement twin, coref beats strongest floor + positive control, temporal beats text-order, causal rigorous-negative vs adjacency, never-tracked abstain, events beats word-overlap, AND paraphrase-QA end-to-end: the wh-ontology router PRESERVES coref answer accuracy under a natural paraphrase 0.556->0.556 where the cue-table COLLAPSES 0.556->0.071)"
 ---
 
 # The reader can now be ASKED a question over its situation model -- a unified glass-box QA interface
@@ -65,8 +65,20 @@ Two literature drills (`research_situation_model_qa_brain_mechanism_2026-08-30.m
   **wh-ontology 0.989**. On PARAPHRASES: exact-keyword 0.389, cue-table 0.778, **wh-ontology 1.000**. On the
   **NOVEL-cue-word held-out subset** (spot/moment/reason/site/individual): exact-keyword 0.000, cue-table 0.400,
   **wh-ontology 1.000** -- the wh-ontology router is the only one that generalizes to unseen wordings.
+- **Router generalization MATTERS FOR ANSWERING (end-to-end, not a toy bank) -- paraphrase-QA on REAL questions.**
+  Under a natural paraphrase that drops the cue-table's trigger, ANSWER accuracy: coref (n=2799) cue-table
+  0.556->**0.071** (collapses, it misroutes) vs wh-ontology 0.556->**0.556** (fully preserved); events (n=11523)
+  cue-table 0.145->**0.000** vs wh-ontology 0.158->**0.142** (preserved). So the brain-faithful router is the
+  difference between answering and not answering when the question is reworded -- across TWO dimensions.
+  (causal showed no router separation -- the paraphrase did not break the cue-table there, and the causal readout
+  is weak regardless.)
 - **Positive control (coref):** model-right & recency-wrong = 1059 vs recency-right & model-wrong = 288 (3.7:1)
   -- the accumulated model resolves the non-adjacent / topic-shift antecedents that re-reading proximity misses.
+- **Performance ceiling for who-did-what (the assembly's lever, measured in the QA instrument):** running the QA
+  with the landed WIRED role path lifts events QA positional 0.120 -> **wired 0.142** (+0.022, 25 docs). The lift
+  is modest and the residual localises to COREFERENCE binding (consistent with the assembly's finding that
+  who-did-what is coref-bound, not role-bound) -- so events QA is at its role-lever ceiling; its remaining gap is
+  the coref sibling problem, not this capstone's.
 
 ## What I did NOT establish (withdraw first if wrong)
 - **The temporal WIN shares the tense signal with its gold.** The gold is past-perfect anteriority (Reichenbach,
@@ -83,8 +95,13 @@ Two literature drills (`research_situation_model_qa_brain_mechanism_2026-08-30.m
 - **causal is a NEGATIVE, and I do not dress it up.** The reader's causal_links (connective/adjacency) lose to
   the adjacency floor on a text-connective gold. This is not a ceiling -- it localises the gap to the UNWIRED
   force_dynamics_typer (see AUDIT UPDATE).
-- **The QA interface used role_route="positional"** (the default live reader). I did not run it with the landed
-  wired role path; who-did-what would likely improve, but that is the assembly's lever, not this capstone's.
+- **The default QA runs used role_route="positional"** (the default live reader). I DID test the landed WIRED
+  role path (above): it lifts events QA only +0.022 and the residual is coref-bound -- so who-did-what is at its
+  role-lever ceiling and the remaining gap is the coref sibling problem, not a lever this capstone left unpulled.
+- **CORPUS generalization is UNTESTED (honest bound).** Everything is LitBank 19c literary prose. The questions
+  are STRUCTURE-dependent (corpus-age-robust by design -- the McGuffey lesson), but no second narrative corpus
+  with coref gold is on the shelf to prove transfer. The router's paraphrase-invariance is a within-corpus
+  generalization result; cross-corpus transfer is a stated gap, not a claim.
 
 ## KEY REALIZATIONS (the enabling moves)
 - **THE FLOOR IS THE BRAIN THEORY.** The whole result rests on Kintsch's textbase-vs-situation-model
@@ -184,3 +201,15 @@ None.
    `distributional_meaning_channel` (Priority-2 wiring debt), and re-measure novel-cue generalization.
 4. **Run the QA interface with the wired role path** (role_route from the assembly) to re-measure who-did-what
    end-to-end -- the assembly's lever, now inside the QA instrument.
+
+---
+
+## INTEGRATED_BY_STRATEGY — 2026-08-30 (grade: STRONG; SOLVED owner-DONE)
+
+Integrated by strategy. Reverified FIRST-HAND: `verification/test_situation_model_qa.py` **8/8 PASS** (scaffold-free, heavy — 100 LitBank docs / 16,587 questions; recomputes every headline). Argument audited and sound: a unified glass-box QA interface (SituationQA) routes a structure-dependent question to the dimension holding the answer and reads it off the accumulated model (Kintsch textbase-vs-situation-model, PINNED). THREE CI-sep WINS (which-entity +0.087, when +0.55 [tense-shared, withdraw-first], who-did-what +0.11); info-free twin 0.000 everywhere; positive control 3.7:1. RIGOROUS NEGATIVE on why/causal (0.442 vs 0.652 adjacency) — the live causal dimension is a connective PLACEHOLDER, the real force_dynamics_typer is built-but-UNWIRED. Correct HARD-ABSTAIN on where/who-believes (location_register/belief_partition unwired islands — never-tracked, glass-box honest). GENERALIZATION (excellent core): the wh-ontology answer-type router generalizes to novel cue words (1.00 vs cue-table 0.40 vs keyword 0.00) AND preserves answer accuracy under paraphrase (coref 0.556→0.556 where the cue-table collapses to 0.071). Honest bounds: temporal tense-shared; coref reframed; corpus-untested LitBank-only.
+
+**hdlab landings QUEUED (Q111 — DEDICATED):** (1) LAND THE QUERY API — promote the SituationQA wh-ontology router + add `SituationModel.answer(question)` (pure-addition 'ask it' method); a dedicated extraction (the router is in a 1123-line cell with an exp dependency on `exp_name_entity_clustering`). (2) WIRE the built-but-idle dimension organs DIMENSION-BY-DIMENSION, RE-MEASURING WITH THIS INSTRUMENT each time — force_dynamics_typer→_read_causation (turns the causal NEGATIVE into a candidate win; = the queued p2 causation-wiring), location_register→where, belief_partition+observation-cue→who-believes, state_register, temporal_order_register. (3) swap the router's head-noun resolver WordNet→the idle `distributional_meaning_channel`.
+
+**Audit §2b folded** (the SituationModel gains a QA read-out; the QA capstone is a WIRING-DEBT DIAGNOSTIC that quantifies which dimensions are unwired: why/causal loses because the typer is unwired, where/who-believes abstain because those organs are islands). Review (STRONG) + `> ## ✅ SOLVER REVIEW` block in PROBLEM.md; `priority:` cleared.
+
+**STRATEGIC VALUE (recorded in STATUS + the wiring map):** this QA interface is now the END-TO-END MEASUREMENT INSTRUMENT for the whole assembly / wiring-debt burn-down — as each dimension organ is wired into the live reader, re-measure its end-to-end QA payoff with this instrument. It converts the abstract wiring debt into a concrete per-dimension answerable-question score.
