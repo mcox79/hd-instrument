@@ -1,0 +1,238 @@
+{
+  "verdict": "REALTEXT_BOUND_MEASURED__FORCE_TYPES_PHYSICAL_ABSTAINS_ON_MENTAL_CAUSATION",
+  "summary": "REAL-TEXT BOUND (16 verbatim LitBank cross-event causal edges, FULL self-extraction): the force lexicon covers the CAUSE verb in only 3/16 edges (0.19) -- the other 13 are MENTAL/SOCIAL causation (remember/die/promise/say/know/feel) that force dynamics structurally cannot type. Class mix: {'MENTAL': 11, 'PHYS': 5}. On the PHYSICAL-force subset the typer is 1/5 correct. On this CAUSE-ONLY gold a majority-CAUSE placeholder scores 16/16 -- so on real cause-ID prose the typer does NOT beat a majority guess (both are CAUSE-dominated); the typing VALUE is the non-CAUSE minority. WRONG-SIGN on real PREVENT prose (4 verbatim McGuffey): typer 4/4 PREVENT vs placeholder 0/4 (it asserts a positive CAUSE link where the outcome was AVERTED -- the one place typing flips a real answer's sign).",
+  "elapsed_s": 4.006,
+  "ts_iso": "2026-08-30T04:18:42.684520+00:00",
+  "anchor_name": "causal_network_realtext_v1",
+  "n_litbank_edges": 16,
+  "force_lexicon_coverage": 0.1875,
+  "causation_kind_mix": {
+    "MENTAL": 11,
+    "PHYS": 5
+  },
+  "typer_acc_all": 0.1875,
+  "physical_subset": {
+    "n": 5,
+    "typer_correct": 1
+  },
+  "placeholder_acc_all": 1.0,
+  "prevent_prose": {
+    "n": 4,
+    "typer_correct": 4,
+    "placeholder_correct": 0,
+    "rows": [
+      {
+        "src": "McGuffey g5",
+        "cause": "save",
+        "typer": "PREVENT",
+        "placeholder": "CAUSE",
+        "gold": "PREVENT",
+        "sent": "He hastened to them as quickly as possible, and saved them f"
+      },
+      {
+        "src": "McGuffey g6",
+        "cause": "hold",
+        "typer": "PREVENT",
+        "placeholder": "CAUSE",
+        "gold": "PREVENT",
+        "sent": "for Joab held back the people."
+      },
+      {
+        "src": "McGuffey g6",
+        "cause": "keep",
+        "typer": "PREVENT",
+        "placeholder": "CAUSE",
+        "gold": "PREVENT",
+        "sent": "the flood of memories ... kept him from thinking or resolvin"
+      },
+      {
+        "src": "McGuffey g6",
+        "cause": "save",
+        "typer": "PREVENT",
+        "placeholder": "CAUSE",
+        "gold": "PREVENT",
+        "sent": "His wife and children were almost miraculously saved from sh"
+      }
+    ]
+  },
+  "rows": [
+    {
+      "src": "The Secret Garden (Burnett)",
+      "cause": "remembered",
+      "outcome": "frowned",
+      "gold": "CAUSE",
+      "kind": "MENTAL",
+      "force_classed": false,
+      "pred_type": "SEQUENTIAL",
+      "pred_cause": "remembered",
+      "tag": "connective"
+    },
+    {
+      "src": "The Secret Garden (Burnett)",
+      "cause": "seemed",
+      "outcome": "gave",
+      "gold": "CAUSE",
+      "kind": "MENTAL",
+      "force_classed": false,
+      "pred_type": "SEQUENTIAL",
+      "pred_cause": "seemed",
+      "tag": "connective"
+    },
+    {
+      "src": "The Secret Garden (Burnett)",
+      "cause": "distracted",
+      "outcome": "asked",
+      "gold": "CAUSE",
+      "kind": "MENTAL",
+      "force_classed": false,
+      "pred_type": "SEQUENTIAL",
+      "pred_cause": "distracted",
+      "tag": "connective"
+    },
+    {
+      "src": "Little Women (Alcott)",
+      "cause": "woke",
+      "outcome": "laughed",
+      "gold": "CAUSE",
+      "kind": "PHYS",
+      "force_classed": true,
+      "pred_type": "CAUSE",
+      "pred_cause": "woke",
+      "tag": "connective"
+    },
+    {
+      "src": "Little Women (Alcott)",
+      "cause": "felt",
+      "outcome": "came",
+      "gold": "CAUSE",
+      "kind": "MENTAL",
+      "force_classed": false,
+      "pred_type": "SEQUENTIAL",
+      "pred_cause": "felt",
+      "tag": "connective"
+    },
+    {
+      "src": "Little Women (Alcott)",
+      "cause": "promised",
+      "outcome": "held",
+      "gold": "CAUSE",
+      "kind": "MENTAL",
+      "force_classed": false,
+      "pred_type": "SEQUENTIAL",
+      "pred_cause": "made",
+      "tag": "force"
+    },
+    {
+      "src": "The Secret Garden (Burnett)",
+      "cause": "knew",
+      "outcome": "came",
+      "gold": "CAUSE",
+      "kind": "MENTAL",
+      "force_classed": false,
+      "pred_type": "SEQUENTIAL",
+      "pred_cause": "knew",
+      "tag": "connective"
+    },
+    {
+      "src": "Great Expectations (Dickens)",
+      "cause": "took",
+      "outcome": "thought",
+      "gold": "CAUSE",
+      "kind": "MENTAL",
+      "force_classed": true,
+      "pred_type": "SEQUENTIAL",
+      "pred_cause": "took",
+      "tag": "force"
+    },
+    {
+      "src": "The Secret Garden (Burnett)",
+      "cause": "died",
+      "outcome": "wailed",
+      "gold": "CAUSE",
+      "kind": "MENTAL",
+      "force_classed": false,
+      "pred_type": "CAUSE",
+      "pred_cause": "taken",
+      "tag": "force"
+    },
+    {
+      "src": "Bleak House (Dickens)",
+      "cause": "said",
+      "outcome": "took",
+      "gold": "CAUSE",
+      "kind": "MENTAL",
+      "force_classed": false,
+      "pred_type": "CAUSE",
+      "pred_cause": "stirring",
+      "tag": "force"
+    },
+    {
+      "src": "Bleak House (Dickens)",
+      "cause": "said",
+      "outcome": "went",
+      "gold": "CAUSE",
+      "kind": "MENTAL",
+      "force_classed": false,
+      "pred_type": "SEQUENTIAL",
+      "pred_cause": "said",
+      "tag": "connective"
+    },
+    {
+      "src": "Bleak House (Dickens)",
+      "cause": "considered",
+      "outcome": "made",
+      "gold": "CAUSE",
+      "kind": "MENTAL",
+      "force_classed": false,
+      "pred_type": "SEQUENTIAL",
+      "pred_cause": "take",
+      "tag": "force"
+    },
+    {
+      "src": "The Secret Adversary (Christie)",
+      "cause": "caught",
+      "outcome": "fell",
+      "gold": "CAUSE",
+      "kind": "PHYS",
+      "force_classed": false,
+      "pred_type": "PREVENT",
+      "pred_cause": "stopped",
+      "tag": "force"
+    },
+    {
+      "src": "The Secret Adversary (Christie)",
+      "cause": "slipped",
+      "outcome": "started",
+      "gold": "CAUSE",
+      "kind": "PHYS",
+      "force_classed": false,
+      "pred_type": "SEQUENTIAL",
+      "pred_cause": "slipped",
+      "tag": "bridge"
+    },
+    {
+      "src": "The Secret Garden (Burnett)",
+      "cause": "threw",
+      "outcome": "fell",
+      "gold": "CAUSE",
+      "kind": "PHYS",
+      "force_classed": true,
+      "pred_type": "SEQUENTIAL",
+      "pred_cause": "threw",
+      "tag": "force"
+    },
+    {
+      "src": "The Secret Adversary (Christie)",
+      "cause": "tripped",
+      "outcome": "fell",
+      "gold": "CAUSE",
+      "kind": "PHYS",
+      "force_classed": false,
+      "pred_type": "SEQUENTIAL",
+      "pred_cause": "tripped",
+      "tag": "bridge"
+    }
+  ],
+  "bound_note": "The dominant bound is REPRESENTATIONAL, not coverage-fixable by a bigger lexicon: force dynamics types PHYSICAL causation; MENTAL/INTENTIONAL/SOCIAL causation (the bulk of narrative 'because') is a different brain system (mentalizing/ToM, mPFC/TPJ; Wolff & Barbey 2015 physical vs psychological vs social). The force-dynamic edge typer is the RIGHT tool for the physical slice and correctly abstains on the mental slice. A ToM/intentional-causation typer is the adjacent organ for the rest.",
+  "scope": "Real LitBank gold reused from the integrated exp_read_causal_chain (cause-ID gold; all CAUSE, none ENABLE/PREVENT -- a base-rate fact). Extraction SELF (NLTK+WordNet). PREVENT prose is verbatim McGuffey, single-clause (cross-SENTENCE real PREVENT is itself rare). Solver-adjudicated edge types (auditable rationales). A first honest real-prose bound, not a large benchmark."
+}

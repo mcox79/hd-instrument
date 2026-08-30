@@ -1,0 +1,72 @@
+{
+  "seed": 20260830,
+  "n": 60,
+  "arms": {
+    "timeline": {
+      "acc": 1.0,
+      "ci": [
+        1.0,
+        1.0
+      ]
+    },
+    "never_infer": {
+      "acc": 0.4,
+      "ci": [
+        0.2833333333333333,
+        0.5333333333333333
+      ]
+    },
+    "omniscient": {
+      "acc": 0.6,
+      "ci": [
+        0.4666666666666667,
+        0.7166666666666667
+      ]
+    }
+  },
+  "breakdown": {
+    "timeline": {
+      "all_premises": [
+        1.0,
+        36
+      ],
+      "partial_premise": [
+        1.0,
+        24
+      ]
+    },
+    "never_infer": {
+      "all_premises": [
+        0.0,
+        36
+      ],
+      "partial_premise": [
+        1.0,
+        24
+      ]
+    },
+    "omniscient": {
+      "all_premises": [
+        1.0,
+        36
+      ],
+      "partial_premise": [
+        0.0,
+        24
+      ]
+    }
+  },
+  "twin": {
+    "p95": 0.8,
+    "mean": 0.73375
+  },
+  "inference_deception": {
+    "false_belief_by_inference": 1.0,
+    "n": 12
+  },
+  "verdict": {
+    "beats_never_infer": true,
+    "beats_omniscient": true,
+    "beats_twin": true
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "verdict": "INTENTIONAL_FRONTEND_TYPES_MENTAL_CAUSATION_CI_SEPARATED__SAME_WOLFF_TYPER__TWINS_LOSE",
+  "summary": "INTENTIONAL FRONT-END (FrameNet mental/social frames) + the SAME Wolff typer, on constructed connective-neutral MENTAL/SOCIAL cross-sentence causation: 4-way edge-type acc INTENTIONAL 1.000 [1.000,1.000] vs PHYSICAL-only (wrong front-end) 0.300 [0.133,0.467] (beats=True) and vs PLACEHOLDER (majority) 0.333 [0.167,0.500] (beats=True). Intentional-class-shuffle twin 0.525 (p95 0.600, loses=True); edge-type-shuffle twin 0.260 (p95 0.400, loses=True). REAL-TEXT coverage lift on the 16 LitBank causal edges: COMBINED (physical OR intentional) covers 6/16, DOUBLE the physical-alone 3/16 (intentional adds 3 different verbs -- remember/know/promise) -- the same typology, a second front-end, recovers mental causation the physical lexicon could not.",
+  "elapsed_s": 8.256,
+  "ts_iso": "2026-08-30T04:32:51.483190+00:00",
+  "anchor_name": "causal_network_intentional_frontend_v1",
+  "n_pool": 30,
+  "intentional_lexicon_size": 241,
+  "pooled": {
+    "intentional_acc": 1.0,
+    "intentional_ci": [
+      1.0,
+      1.0
+    ],
+    "physical_only_acc": 0.3,
+    "physical_only_ci": [
+      0.1333,
+      0.4667
+    ],
+    "placeholder_acc": 0.3333,
+    "placeholder_ci": [
+      0.1667,
+      0.5
+    ]
+  },
+  "twin_intentional_class_shuffle": {
+    "mean": 0.525,
+    "p95": 0.6,
+    "loses": true
+  },
+  "twin_edge_type_shuffle": {
+    "mean": 0.26,
+    "p95": 0.4,
+    "loses": true
+  },
+  "per_subset": {
+    "CAUSE_INT": {
+      "n": 10,
+      "intentional": 1.0,
+      "physical_only": 0.0,
+      "placeholder": 1.0
+    },
+    "PREVENT_INT": {
+      "n": 8,
+      "intentional": 1.0,
+      "physical_only": 0.125,
+      "placeholder": 0.0
+    },
+    "ENABLE_INT": {
+      "n": 6,
+      "intentional": 1.0,
+      "physical_only": 0.3333,
+      "placeholder": 0.0
+    },
+    "SEQ_INT": {
+      "n": 6,
+      "intentional": 1.0,
+      "physical_only": 1.0,
+      "placeholder": 0.0
+    }
+  },
+  "real_text_coverage_lift": {
+    "n": 16,
+    "intentional_cov": 3,
+    "physical_cov": 3,
+    "combined_cov": 6,
+    "rows": [
+      {
+        "cause": "remembered",
+        "lemma": "remember",
+        "intentional": "CAUSE",
+        "physical": null
+      },
+      {
+        "cause": "seemed",
+        "lemma": "seem",
+        "intentional": null,
+        "physical": null
+      },
+      {
+        "cause": "distracted",
+        "lemma": "distract",
+        "intentional": null,
+        "physical": null
+      },
+      {
+        "cause": "woke",
+        "lemma": "wake",
+        "intentional": null,
+        "physical": "CAUSE"
+      },
+      {
+        "cause": "felt",
+        "lemma": "felt",
+        "intentional": null,
+        "physical": null
+      },
+      {
+        "cause": "promised",
+        "lemma": "promise",
+        "intentional": "PREVENT",
+        "physical": null
+      },
+      {
+        "cause": "knew",
+        "lemma": "know",
+        "intentional": "CAUSE",
+        "physical": null
+      },
+      {
+        "cause": "took",
+        "lemma": "take",
+        "intentional": null,
+        "physical": "CAUSE"
+      },
+      {
+        "cause": "died",
+        "lemma": "die",
+        "intentional": null,
+        "physical": null
+      },
+      {
+        "cause": "said",
+        "lemma": "say",
+        "intentional": null,
+        "physical": null
+      },
+      {
+        "cause": "said",
+        "lemma": "say",
+        "intentional": null,
+        "physical": null
+      },
+      {
+        "cause": "considered",
+        "lemma": "consider",
+        "intentional": null,
+        "physical": null
+      },
+      {
+        "cause": "caught",
+        "lemma": "catch",
+        "intentional": null,
+        "physical": null
+      },
+      {
+        "cause": "slipped",
+        "lemma": "slip",
+        "intentional": null,
+        "physical": null
+      },
+      {
+        "cause": "threw",
+        "lemma": "throw",
+        "intentional": null,
+        "physical": "CAUSE"
+      },
+      {
+        "cause": "tripped",
+        "lemma": "trip",
+        "intentional": null,
+        "physical": null
+      }
+    ]
+  },
+  "gates": {
+    "beats_placeholder_ci": true,
+    "beats_physical_ci": true,
+    "intentional_twin_loses": true,
+    "edge_twin_loses": true
+  },
+  "brain_note": "Talmy 1988 / Wolff 2007 force dynamics is domain-general (physical/psychological/social); the CAUSE/ENABLE/PREVENT typology is one engine, the force-SOURCE extraction is domain-specific (intuitive-physics ToBY vs mentalizing ToMM, two brain systems). This cell adds the intentional source; the typer is UNCHANGED. Commitment-to-act vs commitment-to-refrain is the intentional tendency-ambiguity (the same world-knowledge bound as physical CAUSE-vs-ENABLE).",
+  "scope": "Constructed connective-neutral MENTAL/SOCIAL cross-sentence causation; extraction GIVEN. Intentional lexicon derived from FrameNet frames BEFORE this gold. The physical-only arm is the 'wrong front-end' control (abstains). Real-text coverage lift is a verb-coverage count, not an accuracy (real cause-ID gold is all-CAUSE). ToM/communication source frames (say/die/seem) remain a follow-on front-end."
+}

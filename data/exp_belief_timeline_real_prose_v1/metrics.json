@@ -1,0 +1,24 @@
+{
+  "corpus": {
+    "n_observation_events": 991,
+    "n_books": 92,
+    "tiers": {
+      "witness": 821,
+      "absence": 8,
+      "ignorant": 155,
+      "irony": 7
+    },
+    "staleness_opportunities": 170,
+    "staleness_fraction": 0.1715438950554995,
+    "explicit_irony_markers": 7,
+    "irony_fraction": 0.007063572149344097,
+    "books_with_multievent_structure_ge3": 75,
+    "n_books_total": 92
+  },
+  "authored_tom_gold": {
+    "n_passages": 26,
+    "over_time_multievent": 0,
+    "single_change_snapshot": 26
+  },
+  "verdict": "Belief-STALENESS ingredients are COMMON in real narrative (170/991 = 17.2% of mined observation events are non-observations where a belief can go stale; 75/92 books carry multi-event structure), but COMPLETE, gold-labelable false-belief-OVER-TIME SCENES (a tracked object + ordered moves + observation state + a query at a past story-time) are NOT automatically minable -- the corpus yields the observation cue-CLAUSES, not the full ordered scene, which is why the integrated ToM organ AUTHORED its gold (26/26 authored passages are single-change snapshots, 0 over-time). Explicit dramatic-irony markers are sparse (7/991 = 0.7%). So the mechanism is proven on construction gold + real flashback prose; the real-corpus AGGREGATE lift is bounded by the annotation gap, NOT by the mechanism -- a coverage-bounded NEGATIVE with the positive controls confirming the mechanism."
+}

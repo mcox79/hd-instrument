@@ -1,0 +1,29 @@
+{
+  "seed": 20260830,
+  "n_passages": 8,
+  "n_queries": 24,
+  "timeline": {
+    "acc": 1.0,
+    "ci": [
+      1.0,
+      1.0
+    ]
+  },
+  "current_belief_floor": {
+    "acc": 0.5416666666666666,
+    "ci": [
+      0.3333333333333333,
+      0.75
+    ]
+  },
+  "twin": {
+    "p95": 0.75,
+    "mean": 0.5127777777777777
+  },
+  "mechanism_vs_handgold_mismatches": [],
+  "verdict": {
+    "ci_separated": true,
+    "beats_twin": true,
+    "mechanism_matches_handgold": true
+  }
+}

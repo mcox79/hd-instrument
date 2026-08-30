@@ -1,0 +1,192 @@
+{
+  "mode": "full",
+  "d": 1024,
+  "seed": 20260829,
+  "gold": {
+    "n_scenarios": 60,
+    "n_queries": 542,
+    "qtypes": {
+      "belief": 202,
+      "false_belief": 202,
+      "reality": 69,
+      "memory": 69
+    },
+    "tags": {
+      "multi_change": 16,
+      "past_t": 54,
+      "re_observe": 14,
+      "two_agent": 9,
+      "stale": 6,
+      "flashback": 6,
+      "deception": 6,
+      "informed": 3
+    },
+    "n_belief": 202
+  },
+  "repB_timescale_stress": {
+    "2.0": {
+      "repA": 1.0,
+      "repB": 1.0,
+      "n": 48
+    },
+    "1.0": {
+      "repA": 1.0,
+      "repB": 1.0,
+      "n": 48
+    },
+    "0.5": {
+      "repA": 1.0,
+      "repB": 1.0,
+      "n": 48
+    },
+    "0.25": {
+      "repA": 1.0,
+      "repB": 0.9791666666666666,
+      "n": 48
+    },
+    "0.1": {
+      "repA": 1.0,
+      "repB": 0.8125,
+      "n": 48
+    }
+  },
+  "arms": {
+    "timeline": {
+      "belief_acc": 1.0,
+      "ci": [
+        1.0,
+        1.0
+      ],
+      "n": 404
+    },
+    "current_belief": {
+      "belief_acc": 0.4603960396039604,
+      "ci": [
+        0.41089108910891087,
+        0.5099009900990099
+      ],
+      "n": 404
+    },
+    "narration_timeline": {
+      "belief_acc": 0.9108910891089109,
+      "ci": [
+        0.8811881188118812,
+        0.9357054455445541
+      ],
+      "n": 404
+    },
+    "omniscient": {
+      "belief_acc": 0.7673267326732673,
+      "ci": [
+        0.7252475247524752,
+        0.8094059405940595
+      ],
+      "n": 404
+    },
+    "always_initial": {
+      "belief_acc": 0.5445544554455446,
+      "ci": [
+        0.49504950495049505,
+        0.5915841584158416
+      ],
+      "n": 404
+    },
+    "empty": {
+      "belief_acc": 0.38366336633663367,
+      "ci": [
+        0.33663366336633666,
+        0.4306930693069307
+      ],
+      "n": 404
+    },
+    "repB_tempctx": {
+      "belief_acc": 1.0,
+      "ci": [
+        1.0,
+        1.0
+      ],
+      "n": 404
+    }
+  },
+  "positive_control_floor_cannot_get": {
+    "timeline": {
+      "acc": 1.0,
+      "ci": [
+        1.0,
+        1.0
+      ],
+      "n": 218
+    },
+    "current_belief": {
+      "acc": 0.0,
+      "ci": [
+        0.0,
+        0.0
+      ],
+      "n": 218
+    },
+    "narration_timeline": {
+      "acc": 0.8899082568807339,
+      "ci": [
+        0.8486238532110092,
+        0.9311926605504587
+      ],
+      "n": 218
+    }
+  },
+  "controls_reality_memory": {
+    "acc": 1.0,
+    "ci": [
+      1.0,
+      1.0
+    ],
+    "n": 138
+  },
+  "twin": {
+    "mean": 0.46146039603960404,
+    "p95": 0.5347772277227723,
+    "n_seeds": 200
+  },
+  "distance_robustness": {
+    "0": {
+      "timeline": 1.0,
+      "current_belief": 1.0,
+      "n": 16
+    },
+    "1": {
+      "timeline": 1.0,
+      "current_belief": 0.0,
+      "n": 16
+    },
+    "2": {
+      "timeline": 1.0,
+      "current_belief": 0.0,
+      "n": 16
+    },
+    "3": {
+      "timeline": 1.0,
+      "current_belief": 0.0,
+      "n": 7
+    }
+  },
+  "hindsight_decoupling": {
+    "invariant_fraction": 1.0,
+    "n": 41,
+    "belief_differs_from_reality_at_risk": 9
+  },
+  "headline": {
+    "timeline": 1.0,
+    "timeline_ci": [
+      1.0,
+      1.0
+    ],
+    "floor_current_belief": 0.4603960396039604,
+    "floor_ci": [
+      0.41089108910891087,
+      0.5099009900990099
+    ],
+    "twin_p95": 0.5347772277227723,
+    "ci_separated": true,
+    "beats_twin": true
+  }
+}

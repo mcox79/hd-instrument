@@ -1,0 +1,72 @@
+{
+  "verdict": "GRADED_NECESSITY_ESTIMATOR__CONSISTENT_READOUT__REPRODUCES_TRABASSO_ORDERING__TWIN_BREAKS",
+  "summary": "GRADED CAUSAL NECESSITY estimator (the higher-fidelity edge representation): the discrete CAUSE/ENABLE/PREVENT type is a THRESHOLDED read-out of a continuous (necessity, sufficiency) derived from the force config x domain determinism. (1) CONSISTENCY: the read-out reproduces the discrete typer on the constructed gold 1.000 (n=38). (2) TRABASSO ORDERING: graded necessity orders physical>motivational>psychological>enabling, Spearman rho 1.000 vs ordinal human gold; determinism-shuffle twin mean 0.041 (p95 0.771, ordering_ok=True). (3) AMBIGUITY DISSOLVES: the 'promised' config reads CAUSE vs the restraint (CAUSE) but PREVENT vs the speaking (PREVENT) -- one graded representation, two discrete labels (dissolved=True).",
+  "elapsed_s": 0.002,
+  "ts_iso": "2026-08-30T14:09:41.922927+00:00",
+  "anchor_name": "causal_network_graded_necessity_v1",
+  "consistency_readout_vs_discrete": 1.0,
+  "trabasso_ordering": {
+    "necessity_values": [
+      1.0,
+      0.75,
+      0.55,
+      0.3,
+      0.225,
+      0.165
+    ],
+    "ordinal_gold": [
+      6,
+      5,
+      4,
+      3,
+      2,
+      1
+    ],
+    "spearman_rho": 1.0,
+    "twin_mean": 0.0411,
+    "twin_p95": 0.7714,
+    "ordering_beats_twin": true,
+    "categories": [
+      "physical_cause",
+      "motivational_cause",
+      "psychological_cause",
+      "physical_enable",
+      "motivational_enable",
+      "psychological_enable"
+    ]
+  },
+  "ambiguity_resolution": {
+    "config": "promise (social antagonist force)",
+    "readout_vs_restraint": "CAUSE",
+    "readout_vs_speaking": "PREVENT",
+    "dissolved": true
+  },
+  "graded_examples": {
+    "physical_cause": {
+      "necessity": 1.0,
+      "sufficiency": 0.8
+    },
+    "motivational_cause": {
+      "necessity": 0.75,
+      "sufficiency": 0.8
+    },
+    "psychological_cause": {
+      "necessity": 0.55,
+      "sufficiency": 0.8
+    },
+    "physical_enable": {
+      "necessity": 0.3,
+      "sufficiency": 0.35
+    },
+    "motivational_enable": {
+      "necessity": 0.225,
+      "sufficiency": 0.35
+    },
+    "psychological_enable": {
+      "necessity": 0.165,
+      "sufficiency": 0.35
+    }
+  },
+  "brain_note": "Trabasso, van den Broek & Suh 1989 (graded necessity+sufficiency edge weights); Kuperberg, Paczynski & Ditman 2011 (graded N400 by causal relatedness); Cheng 1997 (continuous causal power); Wolff 2007 (3 types = discretization of continuous force vectors). The discrete typer is a lossy read-out; the graded (necessity, sufficiency) is the brain-faithful edge, and the discrete type is a per-clause projection against an explicit reference endstate.",
+  "scope": "MECHANISM DEMO: the (necessity, sufficiency) parameterization + determinism magnitudes are OUR-INVENTION (swept); the graded-representation DIRECTION + the physical>motivational>psychological>enabling ORDERING are the PINNED cited predictions. Human necessity-MAGNITUDE data (Trabasso) / graded-N400 norms (Kuperberg) are the stronger VET, not on disk (also archaic-corpus-independent, since this is a representation test, not a real-text extraction test)."
+}

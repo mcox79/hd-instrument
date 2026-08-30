@@ -1,0 +1,203 @@
+{
+  "verdict": "REAL_CROSS_SENTENCE_NONCAUSE_TYPING_IS_A_RIGOROUS_NEGATIVE__RARE_AND_UNCOVERED",
+  "summary": "REAL cross-sentence typing gold (n=19: 16 verbatim LitBank CAUSE edges + 3 genuine cross-sentence ENABLE cases -- the ENTIRE yield of hand-reading ~40 candidate contexts across 100 novels; ~0 clean cross-sentence PREVENT found). FULL self-extraction. The typer does NOT beat a majority-CAUSE placeholder: typer 0.158 vs placeholder 0.842 (beats=False). Gold class mix {'CAUSE': 16, 'ENABLE': 3} is overwhelmingly CAUSE, and the typer ABSTAINS on 13/19 (physical lexicon covers ~3 physical-force verbs; the genuine ENABLE cases use open/unlock, NOT in the FrameNet force lexicon -> 0/3 non-CAUSE typed). MEASURED BOUND: real cross-sentence non-CAUSE causation is rare + lexically uncovered; the construction-proof 1.000 is a MECHANISM demo, not a real-text capability win. CORPUS-AGE confound: LitBank/McGuffey are 19th-c./~200yr; no modern corpus on disk.",
+  "elapsed_s": 4.316,
+  "ts_iso": "2026-08-30T13:51:41.471345+00:00",
+  "anchor_name": "causal_network_realtext_typing_gold_v1",
+  "n": 19,
+  "typer_acc": 0.1579,
+  "placeholder_acc": 0.8421,
+  "typer_beats_placeholder": false,
+  "typer_abstain": 13,
+  "gold_class_mix": {
+    "CAUSE": 16,
+    "ENABLE": 3
+  },
+  "noncause_subset": {
+    "n": 3,
+    "typer_correct": 0,
+    "note": "genuine cross-sentence ENABLE; mostly abstained (open/unlock uncovered)"
+  },
+  "rows": [
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "SEQUENTIAL",
+      "placeholder": "CAUSE",
+      "cause": "remembered",
+      "tag": "connective",
+      "text": "\"No,\" said Mary frowning. She frowned because she remembered that her "
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "SEQUENTIAL",
+      "placeholder": "CAUSE",
+      "cause": "seemed",
+      "tag": "connective",
+      "text": "He hopped about and pecked the earth briskly, looking for seeds and in"
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "SEQUENTIAL",
+      "placeholder": "CAUSE",
+      "cause": "distracted",
+      "tag": "connective",
+      "text": "When Ben Weatherstaff came through the door in the wall he saw him sta"
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "CAUSE",
+      "placeholder": "CAUSE",
+      "cause": "woke",
+      "tag": "connective",
+      "text": "Beth had a rapture with her mother, and then rushed up to impart the g"
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "SEQUENTIAL",
+      "placeholder": "CAUSE",
+      "cause": "felt",
+      "tag": "connective",
+      "text": "But the boy laughed and said pleasantly, though he looked a little sta"
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "SEQUENTIAL",
+      "placeholder": "CAUSE",
+      "cause": "made",
+      "tag": "force",
+      "text": "She obediently descended, and made as light of the prank as she could "
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "SEQUENTIAL",
+      "placeholder": "CAUSE",
+      "cause": "knew",
+      "tag": "connective",
+      "text": "\"The rain is as contrary as I ever was,\" she said. \"It came because it"
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "SEQUENTIAL",
+      "placeholder": "CAUSE",
+      "cause": "took",
+      "tag": "force",
+      "text": "I was very much afraid of him again. I told him I must go, but he took"
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "CAUSE",
+      "placeholder": "CAUSE",
+      "cause": "taken",
+      "tag": "force",
+      "text": "The Ayah had been taken ill in the night, and it was because she had j"
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "CAUSE",
+      "placeholder": "CAUSE",
+      "cause": "stirring",
+      "tag": "force",
+      "text": "He was agreeably surprised to see us stirring so soon and said he woul"
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "SEQUENTIAL",
+      "placeholder": "CAUSE",
+      "cause": "said",
+      "tag": "connective",
+      "text": "\"We are not likely to be far out, my love, if we go in that direction,"
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "SEQUENTIAL",
+      "placeholder": "CAUSE",
+      "cause": "take",
+      "tag": "force",
+      "text": "But of course I soon considered that I must not take tears where I was"
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "PREVENT",
+      "placeholder": "CAUSE",
+      "cause": "stopped",
+      "tag": "force",
+      "text": "Tommy stopped Conrad's rush with a straight blow with his fist. It cau"
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "SEQUENTIAL",
+      "placeholder": "CAUSE",
+      "cause": "slipped",
+      "tag": "bridge",
+      "text": "\"Get a move on, George,\" shouted Julius. The chauffeur slipped in his "
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "SEQUENTIAL",
+      "placeholder": "CAUSE",
+      "cause": "threw",
+      "tag": "force",
+      "text": "He caught hold of his pillow and threw it at her. He was not strong en"
+    },
+    {
+      "kind": "CAUSE_real",
+      "gold": "CAUSE",
+      "typer": "SEQUENTIAL",
+      "placeholder": "CAUSE",
+      "cause": "tripped",
+      "tag": "bridge",
+      "text": "Tommy dodged aside, and the man plunged past him. The second man tripp"
+    },
+    {
+      "kind": "NONCAUSE_real",
+      "gold": "ENABLE",
+      "typer": "CAUSE",
+      "placeholder": "CAUSE",
+      "cause": "drew",
+      "tag": "force",
+      "text": "He jumped up, drew the screen hastily across the picture, and unlocked"
+    },
+    {
+      "kind": "NONCAUSE_real",
+      "gold": "ENABLE",
+      "typer": "ABSTAIN_NO_OUTCOME",
+      "placeholder": "CAUSE",
+      "cause": null,
+      "tag": "no_outcome",
+      "text": "He unlocked the door. She jiggled while he turned the key, and scamper"
+    },
+    {
+      "kind": "NONCAUSE_real",
+      "gold": "ENABLE",
+      "typer": "CAUSE",
+      "placeholder": "CAUSE",
+      "cause": "pushed",
+      "tag": "force",
+      "text": "Then with a long, thin knife we pushed back the fastening of the sashe"
+    }
+  ],
+  "enumeration": {
+    "corpus": "100 LitBank novels + 2 McGuffey readers (data/litbank/original + data/corpora/graded_readers_grade1)",
+    "method": "neutral verb-pattern scan (enabling act / preventing act as a sentence + next-sentence outcome), ~40 candidate contexts hand-read",
+    "genuine_cross_sentence_ENABLE": 3,
+    "genuine_cross_sentence_PREVENT": 0,
+    "within_clause_dominance": "real prevention/enabling is overwhelmingly within-clause (single-clause typer's domain); the keyword rate is polysemy-confounded and NOT quoted as clean"
+  },
+  "brain_note": "Consistent with communicative efficiency + the parent's coverage finding: prevention/enabling is packed into a single clause ('prevent/save/keep X FROM Y', 'let/allow X to Y'), which the integrated single-clause force typer already handles. The cross-event NETWORK typer's UNIQUE non-CAUSE value is thus bounded; its real-text value is the STRUCTURE (direction/necessity/selection) on CAUSE edges + not mis-asserting a positive link on the rare cross-sentence prevention.",
+  "scope": "The honest capability test. A rigorous NEGATIVE (the brief: a rigorous negative is a full pass). Small-n by necessity (the phenomenon is rare); archaic corpus (confound). The MECHANISM proof + the isolation + the twins live in exp_causal_network_edge_typer_v1; the two-system bound + the built intentional front-end live in exp_causal_network_realtext_v1 / _intentional_frontend_v1."
+}

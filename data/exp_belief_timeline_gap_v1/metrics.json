@@ -1,0 +1,45 @@
+{
+  "seed": 20260830,
+  "n_scenarios": 80,
+  "n_queries": 480,
+  "timeline": {
+    "acc": 1.0,
+    "ci": [
+      1.0,
+      1.0
+    ]
+  },
+  "current_belief_floor": {
+    "acc": 0.6666666666666666,
+    "ci": [
+      0.625,
+      0.7083333333333334
+    ]
+  },
+  "twin": {
+    "p95": 0.6002083333333332,
+    "mean": 0.5574791666666666,
+    "n": 200
+  },
+  "divergence_window_t1.5": {
+    "timeline": 1.0,
+    "floor": 0.0,
+    "n": 160
+  },
+  "by_type": {
+    "divergence": {
+      "timeline": 1.0,
+      "floor": 0.6666666666666666,
+      "n": 240
+    },
+    "advantage": {
+      "timeline": 1.0,
+      "floor": 0.6666666666666666,
+      "n": 240
+    }
+  },
+  "verdict": {
+    "ci_separated": true,
+    "beats_twin": true
+  }
+}

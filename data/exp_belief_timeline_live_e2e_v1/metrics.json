@@ -1,0 +1,292 @@
+{
+  "seed": 20260830,
+  "n_passages": 15,
+  "n_queries": 41,
+  "live_end_to_end": {
+    "acc": 0.9024390243902439,
+    "ci": [
+      0.8048780487804879,
+      0.975609756097561
+    ]
+  },
+  "oracle_upper_bound": {
+    "acc": 1.0,
+    "ci": [
+      1.0,
+      1.0
+    ]
+  },
+  "timeline_agnostic_floor": {
+    "acc": 0.4634146341463415,
+    "ci": [
+      0.3170731707317073,
+      0.6341463414634146
+    ]
+  },
+  "observation_cue_extraction_acc": 0.9512195121951219,
+  "n_extracted_events": 41,
+  "verdict": {
+    "live_beats_floor": true,
+    "live_vs_oracle_gap": 0.098
+  },
+  "per_passage": [
+    {
+      "sid": "keys_reobs",
+      "live": [
+        true,
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true,
+        true
+      ],
+      "floor": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "sid": "letter_stale",
+      "live": [
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true
+      ],
+      "floor": [
+        true,
+        true
+      ]
+    },
+    {
+      "sid": "ball_reobs",
+      "live": [
+        false,
+        false,
+        true
+      ],
+      "oracle": [
+        true,
+        true,
+        true
+      ],
+      "floor": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "sid": "medicine_multi",
+      "live": [
+        true,
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true,
+        true
+      ],
+      "floor": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "sid": "phone_reobs",
+      "live": [
+        true,
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true,
+        true
+      ],
+      "floor": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "sid": "book_multi",
+      "live": [
+        true,
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true,
+        true
+      ],
+      "floor": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "sid": "watch_stale",
+      "live": [
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true
+      ],
+      "floor": [
+        true,
+        true
+      ]
+    },
+    {
+      "sid": "ring_reobs",
+      "live": [
+        true,
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true,
+        true
+      ],
+      "floor": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "sid": "coin_multi",
+      "live": [
+        true,
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true,
+        true
+      ],
+      "floor": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "sid": "toy_stale",
+      "live": [
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true
+      ],
+      "floor": [
+        true,
+        true
+      ]
+    },
+    {
+      "sid": "hat_reobs",
+      "live": [
+        true,
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true,
+        true
+      ],
+      "floor": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "sid": "cup_multi",
+      "live": [
+        true,
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true,
+        true
+      ],
+      "floor": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "sid": "doll_stale",
+      "live": [
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true
+      ],
+      "floor": [
+        true,
+        true
+      ]
+    },
+    {
+      "sid": "map_reobs",
+      "live": [
+        false,
+        false,
+        true
+      ],
+      "oracle": [
+        true,
+        true,
+        true
+      ],
+      "floor": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "sid": "pen_multi",
+      "live": [
+        true,
+        true,
+        true
+      ],
+      "oracle": [
+        true,
+        true,
+        true
+      ],
+      "floor": [
+        false,
+        false,
+        true
+      ]
+    }
+  ]
+}

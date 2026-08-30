@@ -1,0 +1,163 @@
+{
+  "seed": 20260829,
+  "d": 1024,
+  "n_scenarios": 10,
+  "n_extracted": 8,
+  "extraction_coverage": 0.8,
+  "flashback": {
+    "register": 1.0,
+    "narration": 0.0,
+    "n": 5
+  },
+  "linear_control": {
+    "register": 1.0,
+    "narration": 1.0,
+    "n": 3
+  },
+  "rows": [
+    {
+      "sid": "fb_letter",
+      "flashback": true,
+      "extracted": true,
+      "gold": "drawer",
+      "register_belief": "drawer",
+      "narration_belief": null,
+      "register_correct": 1,
+      "narration_correct": 0,
+      "set_chrono": 0,
+      "query_chrono": 1,
+      "set_narr": 1,
+      "query_narr": 0
+    },
+    {
+      "sid": "fb_ball",
+      "flashback": true,
+      "extracted": false,
+      "gold": "basket",
+      "register_belief": null,
+      "narration_belief": null,
+      "register_correct": 0,
+      "narration_correct": 0,
+      "set_chrono": 0,
+      "query_chrono": null,
+      "set_narr": 0,
+      "query_narr": null
+    },
+    {
+      "sid": "fb_key",
+      "flashback": true,
+      "extracted": true,
+      "gold": "shelf",
+      "register_belief": "shelf",
+      "narration_belief": null,
+      "register_correct": 1,
+      "narration_correct": 0,
+      "set_chrono": 0,
+      "query_chrono": 1,
+      "set_narr": 1,
+      "query_narr": 0
+    },
+    {
+      "sid": "fb_coin",
+      "flashback": true,
+      "extracted": true,
+      "gold": "pocket",
+      "register_belief": "pocket",
+      "narration_belief": null,
+      "register_correct": 1,
+      "narration_correct": 0,
+      "set_chrono": 0,
+      "query_chrono": 1,
+      "set_narr": 1,
+      "query_narr": 0
+    },
+    {
+      "sid": "fb_ring",
+      "flashback": true,
+      "extracted": true,
+      "gold": "box",
+      "register_belief": "box",
+      "narration_belief": null,
+      "register_correct": 1,
+      "narration_correct": 0,
+      "set_chrono": 0,
+      "query_chrono": 1,
+      "set_narr": 1,
+      "query_narr": 0
+    },
+    {
+      "sid": "fb_book",
+      "flashback": true,
+      "extracted": true,
+      "gold": "desk",
+      "register_belief": "desk",
+      "narration_belief": null,
+      "register_correct": 1,
+      "narration_correct": 0,
+      "set_chrono": 0,
+      "query_chrono": 1,
+      "set_narr": 1,
+      "query_narr": 0
+    },
+    {
+      "sid": "lin_letter",
+      "flashback": false,
+      "extracted": true,
+      "gold": "drawer",
+      "register_belief": "drawer",
+      "narration_belief": "drawer",
+      "register_correct": 1,
+      "narration_correct": 1,
+      "set_chrono": 0,
+      "query_chrono": 1,
+      "set_narr": 0,
+      "query_narr": 1
+    },
+    {
+      "sid": "lin_ball",
+      "flashback": false,
+      "extracted": false,
+      "gold": "basket",
+      "register_belief": null,
+      "narration_belief": null,
+      "register_correct": 0,
+      "narration_correct": 0,
+      "set_chrono": null,
+      "query_chrono": 0,
+      "set_narr": null,
+      "query_narr": 0
+    },
+    {
+      "sid": "lin_key",
+      "flashback": false,
+      "extracted": true,
+      "gold": "shelf",
+      "register_belief": "shelf",
+      "narration_belief": "shelf",
+      "register_correct": 1,
+      "narration_correct": 1,
+      "set_chrono": 0,
+      "query_chrono": 1,
+      "set_narr": 0,
+      "query_narr": 1
+    },
+    {
+      "sid": "lin_coin",
+      "flashback": false,
+      "extracted": true,
+      "gold": "pocket",
+      "register_belief": "pocket",
+      "narration_belief": "pocket",
+      "register_correct": 1,
+      "narration_correct": 1,
+      "set_chrono": 0,
+      "query_chrono": 1,
+      "set_narr": 0,
+      "query_narr": 1
+    }
+  ],
+  "verdict": {
+    "register_beats_narration_on_flashback": true,
+    "no_over_reorder_on_linear": true
+  }
+}

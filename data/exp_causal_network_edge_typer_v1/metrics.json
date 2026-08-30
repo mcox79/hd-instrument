@@ -1,0 +1,117 @@
+{
+  "verdict": "CAUSAL_NETWORK_EDGE_TYPER_CI_SEPARATED_OVER_PLACEHOLDER_AND_PERCLAUSE__TWINS_LOSE",
+  "summary": "CAUSAL-NETWORK EDGE TYPER (cross-sentence, extraction given): pooled 4-way edge-type acc NET 1.000 [1.000,1.000] (hw 0.000) vs PLACEHOLDER (type-blind majority) 0.271 [0.146,0.396] (beats=True) and vs PERCLAUSE ablation (endstate from cause clause) 0.729 [0.604,0.854] (beats=True -- the cross-event PREVENT lift). Force-class-shuffle twin 0.474 (p95 0.562, loses=True); edge-type-shuffle twin 0.252 (p95 0.354, loses=True). PREVENT subset NET 1.000 / perclause 0.000 / placeholder 0.000. Flashback precedence cause-ID 1.000 vs adjacency 0.000 (precedence_gate=True).",
+  "elapsed_s": 1.619,
+  "ts_iso": "2026-08-30T04:15:34.534283+00:00",
+  "anchor_name": "causal_network_edge_typer_v1",
+  "n_pool": 48,
+  "pooled": {
+    "net_acc": 1.0,
+    "net_ci": [
+      1.0,
+      1.0
+    ],
+    "net_ci_halfwidth": 0.0,
+    "perclause_acc": 0.7292,
+    "perclause_ci": [
+      0.6042,
+      0.8542
+    ],
+    "placeholder_acc": 0.2708,
+    "placeholder_ci": [
+      0.1458,
+      0.3958
+    ]
+  },
+  "twin_force_class_shuffle": {
+    "mean": 0.4737,
+    "p95": 0.5625,
+    "loses": true,
+    "n_shuffles": 300
+  },
+  "twin_edge_type_shuffle": {
+    "mean": 0.2523,
+    "p95": 0.3542,
+    "loses": true,
+    "n_shuffles": 300
+  },
+  "per_subset": {
+    "CAUSE": {
+      "n": 10,
+      "net": 1.0,
+      "perclause": 1.0,
+      "placeholder": 1.0
+    },
+    "ENABLE": {
+      "n": 10,
+      "net": 1.0,
+      "perclause": 1.0,
+      "placeholder": 0.0
+    },
+    "PREVENT": {
+      "n": 10,
+      "net": 1.0,
+      "perclause": 0.0,
+      "placeholder": 0.0
+    },
+    "SEQUENTIAL": {
+      "n": 10,
+      "net": 1.0,
+      "perclause": 1.0,
+      "placeholder": 0.0
+    },
+    "CHAIN": {
+      "n": 8,
+      "net": 1.0,
+      "perclause": 0.625,
+      "placeholder": 0.375
+    }
+  },
+  "flashback_precedence_control": {
+    "n": 6,
+    "precedence_cause_id_acc": 1.0,
+    "adjacency_cause_id_acc": 0.0,
+    "detail": [
+      {
+        "gold_cause": "break",
+        "net": "break",
+        "adj": null
+      },
+      {
+        "gold_cause": "release",
+        "net": "release",
+        "adj": null
+      },
+      {
+        "gold_cause": "ignite",
+        "net": "ignite",
+        "adj": null
+      },
+      {
+        "gold_cause": "block",
+        "net": "block",
+        "adj": null
+      },
+      {
+        "gold_cause": "weaken",
+        "net": "weaken",
+        "adj": null
+      },
+      {
+        "gold_cause": "let",
+        "net": "let",
+        "adj": null
+      }
+    ]
+  },
+  "gates": {
+    "beats_placeholder_ci": true,
+    "beats_perclause_ci": true,
+    "force_shuffle_twin_loses": true,
+    "edge_shuffle_twin_loses": true,
+    "precedence_gate": true
+  },
+  "isolation_note": "PREVENT is the measured CROSS-EVENT lift: NET reads the endstate from the EFFECT clause ('...stayed dry'/'no water reached'), so it types a prevented edge; PERCLAUSE reads the CAUSE clause (default reached) and mistypes it (NO_CAUSATION->SEQUENTIAL). CAUSE/ENABLE/SEQUENTIAL do not separate NET from PERCLAUSE; PREVENT does. PLACEHOLDER (majority CAUSE) also fails ENABLE/PREVENT/SEQUENTIAL -- it cannot type at all, and false-links non-causal sequence.",
+  "brain_note": "Trabasso & van den Broek 1985 causal network (events=nodes, edges='necessary in the circumstances'); Wolff 2007 force dynamics LABELS each edge; precedence gates direction (TIME register / past-perfect). Composition is OUR-SYNTHESIS; edge-construction necessity + clause-pair mapping are OUR-INVENTION-UNDER-TEST. Glass-box, no LLM.",
+  "scope": "Constructed connective-neutral CROSS-SENTENCE passages; extraction GIVEN as structured events (verb-lemma + clause tokens + tense), as the landed single-clause typer's gold gives (agent, verb, patient). TESTED: network construction (precedence + necessity), effect-clause endstate read, force typing. FrameNet force lexicon built before this gold. Self-extraction on RAW real prose + coverage bound is the sibling cell exp_causal_network_realtext_v1."
+}

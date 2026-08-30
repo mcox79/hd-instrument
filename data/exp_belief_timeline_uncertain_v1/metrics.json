@@ -1,0 +1,20 @@
+{
+  "seed": 20260830,
+  "d": 1024,
+  "n": 80,
+  "rel_margin": 0.5,
+  "distributional_f1": 1.0,
+  "crisp_floor_f1": 0.49442658092175773,
+  "omniscient_floor_f1": 0.49442658092175773,
+  "twin_p95": 0.7614469453376206,
+  "twin_mean": 0.7332872454448016,
+  "uncertain_setsize_recall": {
+    "distributional": 1.0,
+    "crisp": 0.0
+  },
+  "verdict": {
+    "beats_crisp": true,
+    "beats_omniscient": true,
+    "beats_twin": true
+  }
+}

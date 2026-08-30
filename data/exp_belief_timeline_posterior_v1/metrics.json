@@ -1,0 +1,33 @@
+{
+  "seed": 20260830,
+  "d": 1024,
+  "n": 80,
+  "arms": {
+    "graded": {
+      "all_pairs": 0.9616666666666667,
+      "below_map_pairs": 0.9574999999999999
+    },
+    "equal_set": {
+      "all_pairs": 0.46125,
+      "below_map_pairs": 0.5054166666666666
+    },
+    "value_conf": {
+      "all_pairs": 0.7129166666666666,
+      "below_map_pairs": 0.5054166666666666
+    }
+  },
+  "twin_p95": 0.6610625000000001,
+  "twin_mean": 0.5011861111111112,
+  "weight_separation_stress": {
+    "1.1": 1.0,
+    "1.25": 1.0,
+    "1.5": 1.0,
+    "2.0": 1.0,
+    "3.0": 1.0
+  },
+  "verdict": {
+    "graded_beats_equalset_below_map": true,
+    "graded_beats_valueconf_below_map": true,
+    "graded_beats_twin": true
+  }
+}

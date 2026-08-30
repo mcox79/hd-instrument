@@ -1,0 +1,44 @@
+{
+  "verdict": "FORCE_MODEL_PREDICTS_HUMAN_CAUSAL_VERB_JUDGMENTS__TWIN_LOSES__BEATS_MARGINAL",
+  "summary": "HUMAN-DATA VALIDATION (CICL causative-verbs, Cao et al. 2023; 72 participants, 7 force-dynamics scenes x 9 verbs): the force model predicts the human proportion-yes across 21 (condition x category) cells with Pearson r = 0.993 [0.987,0.999] (graded), 0.949 (binary, no tuned constants); Spearman rho 0.897; 63-verb-cell r 0.989. Info-free twin (shuffle predictions) mean -0.002 (p95 0.374, beats=True); category-marginal baseline r 0.185 (beaten). The config is decoded from the STIMULUS labels, not the responses, so this is a NON-circular validation of the force-dynamic (necessity, sufficiency) representation against real human causal-verb judgments.",
+  "elapsed_s": 0.262,
+  "ts_iso": "2026-08-30T14:36:06.654567+00:00",
+  "anchor_name": "causal_network_human_validation_v1",
+  "n_cells_category": 21,
+  "n_cells_verb": 63,
+  "results": {
+    "binary": {
+      "pearson_r_21cells": 0.9485,
+      "spearman_rho_21cells": 0.8609,
+      "pearson_ci": [
+        0.9034,
+        0.9921
+      ],
+      "pearson_r_63cells": 0.945,
+      "twin_mean": -0.0007,
+      "twin_p95": 0.3825,
+      "beats_twin": true
+    },
+    "graded": {
+      "pearson_r_21cells": 0.9926,
+      "spearman_rho_21cells": 0.8973,
+      "pearson_ci": [
+        0.9871,
+        0.9987
+      ],
+      "pearson_r_63cells": 0.9891,
+      "twin_mean": -0.0018,
+      "twin_p95": 0.3736,
+      "beats_twin": true
+    }
+  },
+  "category_marginal_baseline_r": 0.1847,
+  "dataset": {
+    "name": "CICL causative-verbs (Cao, Geiger, Kreiss, Icard & Gerstenberg 2023)",
+    "url": "github.com/cicl-stanford/causative-verbs",
+    "n_participants_approx": 72,
+    "kb_referent": "data/causative_verbs_cicl_2023/data1.csv"
+  },
+  "brain_note": "This validates the PINNED force-dynamic computation (Wolff) + the graded (necessity, sufficiency) read-out against independent human judgments: the affector-necessity + patient-tendency + endstate structure predicts which of CAUSE/ENABLE/PREVENT humans apply, and how strongly. Replaces the near-circular Trabasso-ordinal check with a real, item-level, human-graded target.",
+  "scope": "Physical force-dynamics scenes (the CORE typing computation), not discourse-level extraction. The config decode is verbatim from the dataset's analysis script. The GRADED variant adds two principled swept discounts (opportunity-not-taken, redundant-prevention); the BINARY variant has none and still beats the twin. Residual: the 'enabled' opportunity reading (enable applies even when the patient chose otherwise) is only half-captured -- a known, honest gap."
+}
