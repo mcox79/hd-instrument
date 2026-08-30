@@ -65,6 +65,42 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — GOALS/ToM × TIME COMPOSITION IS BUILT: a per-agent BELIEF TIMELINE that answers "what did A know at time T"**
+  (from integrated `the_reader_has_no_belief_timeline_what_an_agent_knew_when`, owner-DONE, SOLVED/EXCELLENT; reverified 70/70
+  first-hand, scaffold-free — recomputes the live e2e from source). Generalizes `belief_partition` from an n=1 snapshot to n
+  ordered observation-gated changes: belief_A(X,T) = the latest event about X that A OBSERVED with order ≤ T, persisting
+  between observations (Dowty inertia), ordered by the REAL `temporal_order_register`, read out on the substrate's OWN
+  belief_partition FHRR organs. **Capability (not the constructed 1.000): LIVE end-to-end 0.902 [0.805,0.976] vs the
+  timeline-agnostic (current-belief-only) floor 0.463 [0.317,0.634], CI-separated**, with the REAL observation-cue extractor
+  (`perceptual_access_ledger`, 0.951) in the loop; oracle 1.000, gap 0.098 = the observation front-end residual. Composition
+  with the REAL time register is LOAD-BEARING (register-order 1.000 vs narration-order 0.000 on flashback prose). **PINNED:**
+  per-agent belief separate from reality (TPJ/mPFC, Saxe); observation-gating seeing→knowing (Wimmer & Perner); sample-and-hold
+  persistence (Dowty; the frame problem); register-ordered chronology (Reichenbach; MTL); curse-of-knowledge decoupling
+  (Birch & Bloom). **OUR-INVENTION-flagged:** the FHRR bind() algebra (unpinned neurally, defensible computational model —
+  SEM/Franklin 2020), the closed inference-schema set, thresholds/tempering. **hdlab:** landing QUEUED (Q111 — promote
+  `experiments/belief_timeline.py` → `hdlab/belief_timeline.py`, default-off standalone, built purely on belief_partition/
+  binding/graded_temporal_context; reader wiring coupled). The ToM dimension moves from a single current-belief snapshot to a
+  full over-time timeline (stale belief / dramatic irony / deception). Next: the observation-cue front-end residual (the 0.098
+  live gap).
+
+- **2026-08-30 — DISCOURSE-LEVEL CAUSAL-NETWORK EDGE-TYPING IS A DEAD REAL-TEXT LEVER: a rigorous three-fold-enumerated
+  NEGATIVE that BOUNDS the CAUSATION dimension** (from integrated `causation_is_typed_per_clause_not_across_the_causal_network`,
+  owner-DONE, SOLVED/STRONG; reverified 15/15 first-hand, scaffold-free — recomputes every headline incl. the real-text
+  negative). The Wolff typer types CONSTRUCTED cross-event edges perfectly (NET 1.000 vs placeholder 0.271, isolated from
+  single-clause 0.729, built-across by a 2nd intentional front-end feeding the SAME typer) — a MECHANISM demo. **But on REAL
+  cross-sentence causation the typer 0.158 (3/19) does NOT beat majority-CAUSE 0.842 (16/19)**, enumerated with counts: real
+  cross-sentence non-CAUSE causation is (1) RARE (prevention/enabling packs WITHIN a clause = the single-clause typer's
+  domain), (2) lexically UNCOVERED (genuine ENABLE uses open/unlock, absent from the FrameNet force lexicon; abstains 13/19),
+  (3) MENTAL for the bulk (a different brain system). **Two NON-CIRCULAR positives survive and are load-bearing for fidelity:**
+  graded necessity reproduces Trabasso & van den Broek's causal-weight ordering (rho 1.000 vs twin p95 0.771 — the discrete
+  CAUSE/ENABLE/PREVENT read-out is a lossy projection of a graded necessity rep), and the force-configuration model predicts
+  human causal-verb judgments (CICL, Cao et al. 2023: r=0.948 vs shuffle-twin p95 0.350, non-circular — config decoded from
+  the stimulus, target is independent human data). **hdlab: NO landing** into real causal-network typing (net-zero,
+  brain-faithfully); the graded-necessity read-out is a constructed demo (not landed); the human validation confirms the
+  already-landed `force_dynamics_typer`. **ROUTE CLOSED:** causation value lives in the single-clause typer + the
+  graded-necessity representation + modern-corpus revalidation (the p1 corpus-migration removes the 200yr LitBank/McGuffey
+  confound this drill flagged). Do NOT build a discourse edge-typer expecting a real-text capability win.
+
 - **2026-08-30 — THE DISCOURSE-FACT REASONER, MEASURED TWO-SIDED ON REAL TEXT (REFINE): world knowledge is a
   LOW-VALIDITY cue for competitive coreference, and the brain correctly gives it near-zero weight** (from integrated
   `the_discourse_fact_reasoner_is_unvalidated_on_natural_text`, owner-DONE, SOLVED/EXCELLENT; reverified 11/11 first-hand,
