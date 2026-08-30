@@ -2,10 +2,10 @@
 problem: the_coref_residual_needs_a_discourse_focus_stack
 status: PARTIAL
 bar: "Resolves the anti-typical residual CI-separated over the salience/recency floor — the floor = the current recency/frequency-salience resolver (or `graded_coref_pick` as-is) recomputed on the SAME residual population; the info-free twin (shuffled focus transitions / randomized segment boundaries — so the focus signal is destroyed but the pool is unchanged) LOSES CI-separated. A can-fail ORACLE ceiling FIRST (if a perfect focus-oracle does NOT beat the floor, the mechanism is the wrong lever and that is a rigorous NEGATIVE worth reporting)."
-result: "TWO results. (A) BAR-1 ORACLE CEILING = a RIGOROUS NEGATIVE for the focus-STACK: on the anti-typical residual (n=420 LitBank competitive pronouns, gold best on none of global recency/subject/freq), a focus stack given the STRONGEST oracle segmentation (gold quote spans + paragraph breaks + entity-topic-shift) diverges from finer TOKEN-locality in 1/420 cases and does NOT beat it (focus_best 0.481 vs token_recency 0.479, delta +0.0024 [+0.000,+0.008] NOT_SEP); the info-free quote-boundary-shuffle twin ties. The ~50-60% focus share (research-drill estimate, SPECULATIVE/by-elimination) is refuted; finer token-locality (0.479 vs sentence-recency 0.000) is the real ceiling. (B) The REAL causal brain-faithful lever = DISCOURSE-PARTICIPANT EXCLUSION: on the FULL anti-typical residual (n=420, all 3rd-person pronouns) it lifts the strongest token-recency floor 0.479 -> 0.557 (paired +0.079 [+0.050,+0.109] CI-sep, null_p95 0.041), recall 1.000; person-only (n=204) +0.083 [+0.046,+0.126] CI-sep; and it improves the FULL competitive population (n=9139) +0.036 [+0.022,+0.051] CI-sep, no regression."
+result: "TWO results. (A) BAR-1 ORACLE CEILING = a RIGOROUS NEGATIVE for the focus-STACK: on the anti-typical residual (n=420 LitBank competitive pronouns, gold best on none of global recency/subject/freq), a focus stack given the STRONGEST oracle segmentation (gold quote spans + paragraph breaks + entity-topic-shift) diverges from finer TOKEN-locality in 1/420 cases and does NOT beat it (focus_best 0.481 vs token_recency 0.479, delta +0.0024 [+0.000,+0.008] NOT_SEP); the info-free quote-boundary-shuffle twin ties. The ~50-60% focus share (research-drill estimate, SPECULATIVE/by-elimination) is refuted; finer token-locality (0.479 vs sentence-recency 0.000) is the real ceiling. (B) The REAL causal brain-faithful lever = DISCOURSE-PARTICIPANT EXCLUSION: on the FULL anti-typical residual (n=420, all 3rd-person pronouns) it lifts the strongest token-recency floor 0.479 -> 0.557 (paired +0.079 [+0.050,+0.109] CI-sep, null_p95 0.041), recall 1.000; person-only (n=204) +0.083 [+0.046,+0.126] CI-sep; and it improves the FULL competitive population (n=9139) +0.036 [+0.022,+0.051] CI-sep, no regression. (C) It GENERALIZES as a brain principle, not a 19c-narrator artifact: helps MOST in 1st-person narration (+0.137 CI-sep), NEUTRAL in 3rd-person narration (+0.010 NOT_SEP), helps BOTH pronoun classes (person +0.083, neuter +0.074), NEVER hurts any genre split (recall 1.000 everywhere), and every exclusion threshold from 'any 1st/2nd mention' (+0.117) to '100% participant' (+0.050) beats the floor CI-sep (not a tuned knob). (D) It GENERALIZES ACROSS THE PHI-FEATURE FAMILY: participant exclusion is ONE case of hard phi-agreement hardening. ANIMACY agreement is a second clean recall-safe lever -- for person pronouns drop confirmed-INANIMATE candidates (lexical, no gold NER: +0.123 [+0.079,+0.169], recall 1.000; gold entity-type: +0.054), for it/its drop confirmed-ANIMATE (+0.125 [+0.056,+0.205]); person + animacy COMPOSE to +0.152 [+0.098,+0.205] (person 0.461 -> 0.613); the random-drop twin LOSES (-0.064, recall->0.64). Gender is the PRINCIPLED EXCEPTION (+0.010 NOT_SEP) -- person/animacy are established immediately by the pronoun form / head noun, a freshly-named character's gender often is not."
 floor: "Strongest floor actually run = TOKEN-recency over the permissive candidate pool = 0.479 on the full anti-typical residual (sentence-recency and the landed graded resolver score ~0.000/0.057 on this anti-salient-by-construction population; token-recency is the strongest and is the floor gated on). Landed keep_after_pool_cleanup floor = 0.502."
 controls: "(1) info-free QUOTE-boundary-shuffle twin ties the focus arm (no segment info carried) -> focus-stack refuted. (2) info-free RANDOM-DROP twin (drop same #candidates as the participant filter, at random) LOSES to participant exclusion +0.086 [+0.049,+0.124] CI-sep and collapses recall 1.000->0.902 -> the win is the PARTICIPANT information, not pool-size. (3) participant exclusion is INCREMENTAL over the landed keep_after_pool_cleanup (+0.055 [+0.030,+0.083] CI-sep) -> catches NAMED narrators the pure-pronoun filter misses. (4) recall 1.000 (never drops gold; participant-is-gold ~ 1/200). (5) FULL-population regression control: +0.036 CI-sep, no regression. (6) causal GENDER-agreement NEGATIVE: gender-disagree exclusion +0.000 NOT_SEP, gender adds nothing over participant -0.007 NOT_SEP (the leaky 0.766 used FUTURE mentions). (7) positive control: on the 54 cases where a participant is the wrong token-pick, exclusion recovers 33 (0.61). (8) isolation: all arms differ ONLY in which candidates are dropped; identical recency pick over the kept pool."
-files_changed: "experiments/exp_coref_focus_stack_oracle_ceiling_v1.py (new; bar-1 oracle ceiling + focus-stack + segment oracles + twins); experiments/exp_coref_residual_participant_pool_v1.py (new; the participant-exclusion mechanism + gender negative + regression + positive control); verification/test_coref_residual_focus_and_participant.py (new; 21/21 scaffold-free, recomputes both headlines from source); data/exp_coref_focus_stack_oracle_ceiling_v1/metrics.json + data/exp_coref_residual_participant_pool_v1/metrics.json (new). hdlab/ UNTOUCHED (proposed diff below, Q111)."
+files_changed: "experiments/exp_coref_focus_stack_oracle_ceiling_v1.py (new; bar-1 oracle ceiling + focus-stack + segment oracles + twins); experiments/exp_coref_residual_participant_pool_v1.py (new; the participant-exclusion mechanism + gender negative + regression + positive control); experiments/exp_coref_participant_generalization_v1.py (new; genre/pronoun-class generalization + threshold robustness); experiments/exp_coref_residual_phi_agreement_v1.py (new; the phi-agreement GENERALIZATION -- person + animacy hardening, lexical + gold, gender negative); verification/test_coref_residual_focus_and_participant.py (new; 37/37 scaffold-free, recomputes every headline from source); data/exp_coref_focus_stack_oracle_ceiling_v1/metrics.json + data/exp_coref_residual_participant_pool_v1/metrics.json + data/exp_coref_participant_generalization_v1/metrics.json + data/exp_coref_residual_phi_agreement_v1/metrics.json (new); notes/problems/the_coref_residual_needs_a_discourse_focus_stack/research_deixis_participant_exclusion_brain_mechanism_2026-08-30.md (new; brain-mechanism drill). hdlab/ UNTOUCHED (proposed diff below, Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_coref_residual_focus_and_participant.py"
 ---
 
@@ -54,6 +54,59 @@ majority threshold), so there is no DEV/TEST overfitting to report.
 This is a discourse-attentional mechanism — the PARTICIPANT / deixis layer of Grosz-Sidner attentional state (I/you are
 conversational participants, categorically distinct from the 3rd-person focus-space referents; person-feature agreement is an
 obligatory morphosyntactic constraint — she != I, they != we) — just NOT the segment push/pop stack the brief proposed.
+
+**It GENERALIZES as a principle, not a corpus trick (the owner's "this needs to generalize too", tested directly).** The risk
+was that this only works because 19c novels have a chatty 1st-person NARRATOR. Decomposing by genre kills that worry: the lift
+is **+0.137 CI-sep in 1st-person-narrated docs** (where the narrator "I" floods the pool), **NEUTRAL (+0.010 NOT_SEP) in
+3rd-person-narrated docs** (no narrator to remove), positive in both dialogue-density halves, positive for BOTH person and
+neuter/plural pronouns, and it **HURTS NOWHERE** (recall 1.000 in every split). That is the exact signature of a grammatical
+principle whose BENEFIT scales with how much a text violates it — helps where participant pollution exists, inert where it
+doesn't, harmful never. And it is not a tuned knob: every exclusion threshold from "any 1st/2nd mention" (+0.117) to "100%
+participant" (+0.050) beats the floor CI-separated (recall trades off cleanly; 0.5 is the recall-safe point).
+
+**Brain-fidelity confirmed by a research drill (`research_deixis_participant_exclusion_brain_mechanism_2026-08-30.md`), and
+PINNED vs OUR-INVENTION labelled honestly.** The adversarial question I set the drill — "is person-agreement actually NOT a
+hard/early constraint?" (which would have reframed the result) — FAILED, in the direction that strengthens it:
+- **PINNED — person is the sturdiest phi-feature and a participant is an IMPOSSIBLE (not just unlikely) antecedent.** Benveniste
+  1966 (1st/2nd = the speech-act "persons", 3rd = the "non-person" — disjoint in reference by definition); Mancini et al. 2011
+  (person violations give an N400 tied specifically to the speaker/hearer discourse-participant representation); Van Dyke /
+  Parker & Van Dyke 2019 (person is the feature most RESISTANT to retrieval intrusion). Cross-linguistically UNIVERSAL (Cysouw
+  2003; Silverstein 1976) — so the lever transfers (surface pronoun forms are per-language; the participant/non-participant
+  split is not). The narrator "I" as the single most-accessible entity that any salience ranker grabs unless person is enforced
+  first (Ariel/Gundel/Centering) is a clean theory-match to the +0.137-vs-neutral split.
+- **The drill's one honest correction:** "categorically never" is exactly right at the COMPETENCE (grammar) level but slightly
+  strong at the PROCESSING level (retrieval is graded best-match). The upshot VALIDATES the design: a HARD exclusion on the
+  candidate SET (what I built) is MORE faithful than a graded down-weight, because it mirrors competence-level eligibility — and
+  my recall 1.000 confirms the corpus almost never actually violates it. **OUR-INVENTION (swept, not pinned):** the ">=50% of
+  prior mentions are 1st/2nd-person" proxy for "this entity is a participant"; the drill confirms the GLOBAL person-TYPE proxy
+  is defensible and robust, while per-utterance speaker ATTRIBUTION is genuinely hard (matching the landed WorkingOverlay
+  result). I do NOT claim person > gender as a single ordering (SPECULATIVE — different effect kinds).
+
+**It generalizes ACROSS THE PHI-FEATURE FAMILY (the owner's "generalize in all aspects") -- participant exclusion is
+ONE case of a general principle.** The root cause is not "narrators" specifically; it is that the substrate's candidate
+filter `_gn_compat` is PERMISSIVE (unknown person/gender/number passes), so it admits candidates that VIOLATE hard
+phi-agreement. Hardening the IMMEDIATELY-ESTABLISHED features cleans the pool:
+- **PERSON (participant):** +0.083 CI-sep (validated above).
+- **ANIMACY:** a second clean, recall-safe, CI-sep lever. For person pronouns (he/she/him/her) the antecedent must be
+  ANIMATE -> drop confirmed-INANIMATE candidates (a lexical animacy heuristic with NO gold NER: **+0.123** [+0.079,
+  +0.169], recall **1.000**; the gold LitBank entity-type version: +0.054). For it/its the antecedent must be INANIMATE
+  -> drop confirmed-ANIMATE persons (**+0.125** [+0.056,+0.205], recall 1.000). Person + animacy COMPOSE to **+0.152**
+  [+0.098,+0.205] (person residual 0.461 -> 0.613); the info-free random-drop twin LOSES (-0.064, recall collapses to
+  0.64). That the LEXICAL animacy (a noun list + name gazetteer, no gold annotations) works EVEN BETTER than gold
+  entity-type is the cute-trick guard passing: the win is not an artifact of gold NER labels.
+- **GENDER is the PRINCIPLED EXCEPTION (+0.010 NOT_SEP), and the exception PROVES the rule:** person and animacy are
+  established IMMEDIATELY (the pronoun form is 1st/2nd-person; the head noun "city"/"man" carries animacy), so they are
+  causally available at the pronoun; a freshly-NAMED character's gender often is not yet established by any prior cue, so
+  gender agreement cannot fire causally. The generalization is to the immediately-established phi-features, not to every
+  feature blindly -- exactly what a faithful account predicts. This also PARTLY closes the neuter-residual gap the
+  earlier draft routed as a separate problem: animacy is the lever there too.
+
+**Prior work credited (not re-derived).** `exp_read_deixis_participant_tracking_third_reader_v1` (2026-07-18,
+SCOPE_LIMITED_OR_WEAK) and `hdlab.state_of_mind.WorkingOverlay` (`note_turn/resolve_deixis/speaker/addressee`) already model the
+COMPLEMENTARY, HARDER direction — resolving what "I"/"you" inside quotes REFER TO (bind I->speaker). That attribution was
+scope-limited; my EXCLUSION direction is easier (needs only person-TYPE, not attribution) and is validated CI-sep. The two
+compose: exclude participants from 3rd-person pools (this result) + attribute the 1st/2nd-person indexicals to speaker/addressee
+(WorkingOverlay).
 
 ## KEY REALIZATIONS (the moves that made the result)
 
@@ -116,17 +169,34 @@ Wiring: the caller applies `keep_after_participant_filter` to its candidate pool
 +0.083 CI-sep, recall 1.000, no regression. **Do NOT** add the focus stack (refuted) or a positive gender-agreement cue (a
 leak / causal negative). ⚠️ COORDINATE with the assembly reader-wiring (Changes 2-3) which also touch the coref path.
 
+**The general form (harden phi-agreement, not just the person feature).** The deeper fix is that `_gn_compat` is PERMISSIVE
+(unknown passes). Add a recall-safe ANIMACY constraint alongside person: for a PERSON pronoun (he/she/him/her) drop candidates
+whose entity is CONFIRMED-INANIMATE (a place/object -- from the reader's NER/lexical animacy, NOT gold); for it/its drop
+CONFIRMED-ANIMATE (person) candidates. Measured: lexical animacy +0.123 (person, recall 1.000), it/its +0.125; person +
+animacy compose to +0.152. Keep it CONFIRMED-incompatible-only (recall-safe); do NOT require POSITIVE gender (causal
+non-lever). This is a small, glass-box, KB-free extension of the agreement pre-filter the pool already runs.
+
 ## AUDIT UPDATE (for `notes/BRAIN_FOUNDATIONAL_AUDIT.md`)
 
 - **COREFERENCE organ:** the flat Centering Cb was flagged as an OUR-INVENTION simplification of the Grosz-Sidner attentional
   STACK. MEASURED verdict now: on the anti-typical residual the segment STACK is NOT the missing fidelity (a perfect-segment
   oracle adds 1/420 over finer token-locality). The residual is candidate-SET-quality bound. NEW deviations to record: (i) the
-  candidate pool omits the PARTICIPANT/deixis constraint (1st/2nd-person entities are wrongly admitted as 3rd-person
-  antecedents) — a real, pinned morphosyntactic gap, buildable (+0.036 full CI-sep); (ii) the retrieval recency metric is
-  SENTENCE-grain where the brain uses clause/token-grain (finer-locality recovers 0.479 vs 0.000 on the residual, but is
-  "ungateable globally" per the prior note — an open gating problem); (iii) permissive gender agreement (`_gn_compat` admits
-  unknown gender) — but POSITIVE gender is a causal non-lever here (gold is freshly-named). Citations to add: Grosz & Sidner
-  1986 (participants vs focus space); Levinson 1983 / Buhler (deixis vs anaphora); Kush/Parker (item-level finer locality).
+  candidate pool VIOLATES HARD PHI-AGREEMENT because `_gn_compat` is PERMISSIVE (unknown person/animacy/number/gender all pass);
+  the brain enforces phi-agreement as an obligatory filter. Two immediately-established features are buildable, recall-safe,
+  CI-separated levers: PERSON/participant (1st/2nd-person entities wrongly admitted as 3rd-person antecedents; +0.083 residual /
+  +0.036 full) and ANIMACY (inanimate entities admitted for he/she, animate for it/its; +0.123 lexical / +0.125 it-its; person +
+  animacy compose +0.152). GENDER is the principled EXCEPTION (causally unavailable for freshly-named entities; +0.010 NOT_SEP).
+  (ii) the retrieval recency metric is SENTENCE-grain where the brain uses clause/token-grain (finer-locality recovers 0.479 vs
+  0.000 on the residual, but is "ungateable globally" per the prior note — an open gating problem). The PARTICIPANT gap should be filed
+  as PINNED-BY-EVIDENCE (person-feature agreement is grammar, validated cross-literature) with a HARD-exclusion fix; the fine
+  speaker-ATTRIBUTION half stays OUR-INVENTION/hard (matching `WorkingOverlay`'s SCOPE_LIMITED result). Citations to add:
+  Benveniste 1966 (person = the speech-act persons; 3rd = non-person); Mancini et al. 2011 (person-violation N400 tied to the
+  discourse-participant representation); Cysouw 2003 / Silverstein 1976 (participant/non-participant is a language universal);
+  Ariel/Gundel accessibility + Centering (the self "I" is the most-accessible entity a salience ranker grabs); Parker & Van
+  Dyke 2019 (person most resistant to retrieval intrusion); Grosz & Sidner 1986 (participants vs focus space); McRae &
+  Ferretti / animacy in thematic-fit + the entity model (animacy as an obligatory selectional constraint on he/she vs it). One measured soft
+  spot to record: a quoted "I" belongs to a CHARACTER, not the narrator — layer per-utterance participant tracking INSIDE
+  detected quotes only; do NOT make the exclusion lever depend on attribution.
 
 ## TLDR (plain language)
 
@@ -139,7 +209,11 @@ about forty candidates, most of which are junk — and the single biggest junk e
 reader keeps grabbing for "he"/"she". Telling the reader that the person telling the story ("I", "we", "you") is never who
 "he"/"she" refers to fixes a clean, measurable slice of the errors — it makes the reader right about 8 more pronouns in every
 hundred hard cases, and about 4 more in every hundred cases overall, without ever making anything worse. That is a real,
-brain-faithful improvement (people never confuse the narrator with a third character), and it is the piece worth wiring in.
+brain-faithful improvement (people never confuse the narrator with a third character — this is basic grammar, confirmed against
+the brain-science literature, and it is a universal across languages, not a quirk of old English novels). It behaves exactly
+like a real rule should: it helps a LOT in stories told in the first person, does nothing (and no harm) in stories told in the
+third person, and never once makes any kind of book worse. That "helps where the problem is, harmless everywhere else" pattern
+is how we know it is a genuine principle and not a trick tuned to this one set of books. It is the piece worth wiring in.
 
 ## QUESTIONS
 
@@ -149,13 +223,17 @@ lever is CI-separated, twin-controlled, and regression-checked. The remaining re
 ## NEXT STEPS
 
 1. **Land the participant-exclusion pre-filter** in `hdlab/graded_coref_pick.py` (diff above), sequenced with the assembly
-   reader-wiring — strategy owns it (Q111).
+   reader-wiring — strategy owns it (Q111). It is a PINNED grammatical constraint (person-feature agreement), research-drill
+   confirmed, generalization-tested, hurts nowhere. Compose it with the landed `hdlab.state_of_mind.WorkingOverlay` (which
+   already tracks speaker/addressee for the COMPLEMENTARY attribution direction). Fidelity refinement for later: inside detected
+   quotes, a 1st-person "I" is the CHARACTER speaking, not the narrator — add per-utterance participant tracking there only.
 2. **New problem — finer-locality gating (the biggest remaining lever):** token/clause-grain recency recovers 0.479 of the
    anti-typical residual but the prior note found it "ungateable globally" (regresses structure-decisive cases 1.000->0.814).
    A confidence/entropy-GATED intra-sentential retrieval is the research note's ranked-#2 build and is the real headroom here.
-3. **New problem — the NEUTER (it/its/they) pool is ANIMACY/type-bound:** the neuter residual (~215 cases) needs semantic-type
-   candidate filtering (a "downtown" has an inanimate possessor), a different lever than participant exclusion; scope it
-   separately (and mind that a static commonsense KB was already measured dead ~2-3% on the person residual — this is TYPE
-   filtering, not selectional plausibility).
+3. **The NEUTER (it/its) ANIMACY lever is now DEMONSTRATED (+0.125 CI-sep, recall 1.000) and folds into the same
+   phi-agreement pre-filter** — land it with the animacy constraint. What REMAINS unsolved: "they/them" is
+   animacy-UNCONSTRAINED (a group can be animate or inanimate), and the residual AFTER animacy is finer inanimate-type
+   disambiguation (which "it" of several inanimate things) — that last slice is the genuinely semantic one (a static
+   commonsense KB was measured dead ~2-3%); scope only that remainder separately.
 4. **Fold the AUDIT UPDATE** into `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (participant/deixis gap; sentence-vs-clause recency grain;
    focus-stack-not-the-lever).

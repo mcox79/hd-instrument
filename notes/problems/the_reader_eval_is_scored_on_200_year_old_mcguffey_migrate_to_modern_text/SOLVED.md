@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. A MODERN annotated reader-comprehension eval (
 result: "MODERN situation-model role eval built from UD-EWT gold parse (330 passages / 700 in-scope agent/patient queries, transparent UD-deprel->role, NO LLM). Revalidated the reader's role/situation-model organ (vargs front-end + resolver + role scorer, imported UNCHANGED) McGuffey-vs-modern under one scorer. HEADLINE (rigorous, mostly NEGATIVE): (a) McGuffey's role eval is DEGENERATE -- 90.85% of in-scope gold is 'agent', so the always-agent floor scores 0.908 [.863,.948] and the celebrated vargs organ (0.856 [.804,.909]) LOSES to it; the original eval gated vargs against the positional-reader floor (0.517) + an info-free twin (0.627), never against this strongest majority-class floor (0.908). (b) On modern text the current organ does NOT clear its floor: ALL_INSCOPE vargs 0.596 [.561,.634] < floor 0.659 [.624,.694]; and it COLLAPSES on non-canonical constructions to 0.288 [.186,.407] -- below the coin-flip twin (0.576) and CI-separated BELOW the floor (0.610). (c) The wall is a FIXABLE brain-fidelity gap, not a ceiling: a brain-faithful passive-aware content-verb assigner recovers non-canonical 0.288->0.559 [.440,.678] (CI-separated over broken), beats its voice-scrambled info-free twin (0.458), and does not hurt canonical (0.624->0.646). COREF dimension already migrated (owner-DONE): LitBank gold-coref binder GRADED 0.328 vs RAND-twin 0.132 (twin loses CI); graded-ACT-R 0.775 vs incumbent 0.603."
 floor: "Strongest floor = always-predict-the-population-majority-role, recomputed per population/subset. McGuffey in-scope 0.908 [.863,.948] (agent, n=153). Modern in-scope 0.659 [.624,.694] (patient, n=700); modern role-varying 0.497 [.424,.571] (n=177); modern non-canonical 0.610 [.492,.729] (n=59)."
 controls: "(1) Info-free twin per arm -- role labels coin-flipped (VARGS_TWIN) / voice cue scrambled (FIXED_TWIN): loses on McGuffey (0.627<0.856) and on the modern fix (0.458<0.559 non-canonical). (2) Strongest-floor gate: EXCLUDES 'beats a weak twin but not the majority baseline' -- it catches McGuffey's degeneracy (organ<floor) and the modern all-inscope loss. (3) Canonical-vs-non-canonical split: EXCLUDES 'the drop is generic corpus noise' -- localises the collapse to non-canonical order (the NVN-shortcut signature). (4) fix-does-not-hurt-canonical: EXCLUDES 'the fix trades canonical accuracy for non-canonical'. (5) Independent derivation: gold roles come from the UD GOLD parse, the reader re-derives roles from clause TEXT via nltk -> no circularity."
-files_changed: "experiments/exp_mcguffey_migrate_build_modern_gold_v1.py; experiments/exp_mcguffey_migrate_revalidate_v1.py; experiments/exp_mcguffey_migrate_passive_cue_fix_v1.py; experiments/exp_mcguffey_migrate_noncanon_by_type_v1.py; experiments/exp_mcguffey_migrate_cue_competition_v1.py; experiments/exp_mcguffey_migrate_learned_cue_transfer_v1.py; experiments/exp_mcguffey_migrate_scoreboard_v1.py; verification/test_mcguffey_migration.py; data/eval_gold_mention_role_modern_ud_ewt_v1/gold_situation_modern_ud_ewt_v1.jsonl; data/exp_mcguffey_migrate_{build_modern_gold,revalidate,passive_cue_fix,noncanon_by_type,scoreboard}_v1/. NO hdlab/ modified (Q111)."
+files_changed: "experiments/exp_mcguffey_migrate_build_modern_gold_v1.py; experiments/exp_mcguffey_migrate_revalidate_v1.py; experiments/exp_mcguffey_migrate_passive_cue_fix_v1.py; experiments/exp_mcguffey_migrate_noncanon_by_type_v1.py; experiments/exp_mcguffey_migrate_cue_competition_v1.py; experiments/exp_mcguffey_migrate_learned_cue_transfer_v1.py; experiments/exp_mcguffey_migrate_adjacency_audit_v1.py; experiments/exp_mcguffey_migrate_grounded_thematic_fit_poc_v1.py; experiments/exp_mcguffey_migrate_scoreboard_v1.py; verification/test_mcguffey_migration.py; data/eval_gold_mention_role_modern_ud_ewt_v1/gold_situation_modern_ud_ewt_v1.jsonl; data/exp_mcguffey_migrate_{build_modern_gold,revalidate,passive_cue_fix,noncanon_by_type,scoreboard}_v1/. NO hdlab/ modified (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_mcguffey_migration.py"
 ---
 
@@ -170,6 +170,62 @@ thematic-fit), which the audit already gestures at ("graded additive cue-based C
 Honest bound: cross-construction test n=20 (inversion, corpus-limited); the DIRECTION (surface cues wall, order
 cue over-dominates) is mechanistic and consistent across all three transfer tests.
 
+**GROUNDING (research drill 2026-08-30, PINNED-BY-EVIDENCE) -- the science PREDICTED this wall and pins the path:**
+- The Competition Model's learning trajectory availability -> overall validity -> **CONFLICT VALIDITY** (MacWhinney,
+  Unified/Competition Model) predicts EXACTLY my result: a learner trained on an order-dominant distribution masters
+  word order's OVERALL validity but never reaches CONFLICT validity (reliability when cues conflict = the rare
+  non-canonical cases), so it fails precisely on held-out inversion. My 0.77-in-dist / 0.05-held-out-inversion is a
+  textbook instance.
+- The generalizing mechanism is GROUNDED thematic fit: verb argument structure + argument PLAUSIBILITY resolve roles
+  online before disambiguation (McRae/Spivey-Knowlton/Tanenhaus 1998; Ferretti/McRae event knowledge; Altmann & Kamide
+  1999 anticipatory looks; thematic-role-reversal ERP). Plausibility is **CONSTRUCTION-INDEPENDENT** -- it never encodes
+  "preverbal=agent", so it cannot over-fit word order the way my surface learner did. Honest limit: for REVERSIBLE
+  sentences plausibility is uninformative and the parser FALLS BACK on structure -- so meaning does not REPLACE order,
+  the cues COMPETE (weight learned as conflict validity).
+- Neural locus PINNED: separable agent/patient populations in left STS/STG (Frankland & Greene 2015 PNAS; 2020 AnnRev
+  variable binding); role binding shares the posterior-temporal lexical-semantic substrate (pMTG lexicalized syntax,
+  Matchin & Hickok 2020) -- i.e. role binding lives WHERE meaning lives, supporting the grounded account.
+- Copyable COMPUTATION (components PINNED, wiring OUR-INVENTION): verb-frame = content-addressable retrieval of the
+  verb's argument slots (VSA-native); thematic-fit = cosine of a candidate's grounded vector to the role-PROTOTYPE
+  filler vector (Baroni & Lenci Distributional Memory; Chersoni/Lenci Structured Distributional Model, incremental);
+  combination = probabilistic meaning update trained by prediction error (Sentence Gestalt; Rabovsky/Hansen/McClelland
+  2018 N400) or Lewis & Vasishth 2005 cue-based retrieval.
+- **PROPOSED NEXT PROBLEM: `grounded_role_assignment_via_verb_keyed_thematic_fit`** -- add the grounded plausibility
+  channel keyed on the verb as a COMPETING cue whose weight is learned as conflict validity (construction-blind, so it
+  overrides misleading order on held-out inversion without touching reversibles). **It SHARES an existing dependency:**
+  wiring `distributional_meaning_channel` (already Priority 2, `the_live_meaning_organ_has_no_distributional_channel_
+  to_be_taught_by`) supplies the role-prototype vectors -- so this is not a new dependency, it consumes a planned one.
+  Can-fail gate: beat naive-first-noun AND a structure-shuffled control ON THE HELD-OUT INVERSION SUBSET (not in aggregate).
+
+## DEEPENING 4 -- PUSHING INTO THE SOLUTION: the grounded mechanism CLEARS the wall (owner 2026-08-30, "do it")
+De-risk PoC for the flagship next problem (`exp_mcguffey_migrate_grounded_thematic_fit_poc_v1.py`): does a
+CONSTRUCTION-INDEPENDENT grounded thematic-fit signal clear the held-out non-canonical wall where surface cues
+collapsed? Distributional PROXY for the (unwired) meaning channel: corpus SELECTIONAL PREFERENCES from UD-EWT
+gold parse (verb->typical subject/object + per-noun agentivity backoff), glass-box, no LLM. Random 70/30 split;
+the thematic-fit predictor NEVER uses the test item's word order.
+
+| construction | word order (NVN) | grounded thematic-fit | info-free twin | n |
+|---|---|---|---|---|
+| canonical | **1.000** | 0.719 | 0.634 | 3321 |
+| passive | 0.060 | **0.889** | 0.847 | 216 |
+| fronting | 0.000 | **1.000** | 0.714 | 14 |
+| inversion | 0.000 | 0.210 | 0.120 | 100 |
+| **NON-CANONICAL (all)** | **0.039** | **0.688** | 0.621 | 330 |
+| ALL | 0.913 | 0.716 | 0.633 | 3651 |
+
+**THE MECHANISM WORKS: grounded thematic-fit clears the non-canonical wall (0.688 vs 0.039 surface, vs 0.05 for
+the LEARNED surface model), construction-independently, beating its info-free twin.** And it reveals the
+brain-faithful structure: **the two cues have COMPLEMENTARY validity domains** -- word order owns canonical
+(1.000, useless off it 0.039); grounded meaning owns non-canonical (0.688, weaker on canonical 0.719). A
+HAND-SET combination underperforms BOTH cues in their own domain (0.84 all / 0.40 non-canon / 0.887 canon) --
+**which PROVES the conflict-validity weighting must be LEARNED, not hand-tuned** (Competition Model core claim;
+ties the role organ to the learner). Honest residuals: (a) INVERSION stays hard even for thematic-fit (0.21) --
+it is INFORMATION-STRUCTURAL (existential/presentational subjects are not prototypical agents; needs given/new
++ definiteness cues, a named finer target); (b) my selectional-preference PROXY gets 0.688 -- a WIRED grounded
+meaning channel (Priority 2) supplies higher-quality thematic-fit vectors, so the sequencing is confirmed:
+**wire the meaning channel FIRST, then build the LEARNED order+thematic-fit cue-competition role assigner.** The
+payoff is now proven, de-risking that investment.
+
 ## ADJACENT-COMPONENT BRAIN-FIDELITY EVALUATION (to seed next problems; owner 2026-08-30)
 - **`thematic_role_labeler.py` (the role organ) -- FIDELITY LOW, clear build target.** Audit: RIGHT-OP-
   WRONG-METRIC, animacy-dominant, HARD_FAIL on real text. This problem localised WHY: it assigns roles from
@@ -178,15 +234,21 @@ cue over-dominates) is mechanistic and consistent across all three transfer test
   (Deepening 3) -- surface cues alone do not generalise. **-> next problem A (highest value): GROUNDED role
   assignment = verb argument-frame + argument-plausibility (thematic fit), the meaning-channel consumer, not
   more surface cues.**
-- **`animacy_lexicon.py` (the animacy cue) -- FIDELITY LOW.** The animacy cue my assigner uses is a hard-coded
-  ~40-word McGuffey-flavoured list (`ANIMATE_NOUNS`: boatman, schoolmaster, widow...) + an NNP heuristic. It
-  will not fire on modern entities; a brain-faithful animacy cue is a GROUNDED/LEARNED feature (Dowty
-  sentience proto-agent). **-> next problem B (feeds A).**
+- **`animacy_lexicon.py` (the animacy cue) -- PRINCIPLE brain-foundational, IMPLEMENTATION is not (MEASURED,
+  `exp_mcguffey_migrate_adjacency_audit_v1.py`).** The animacy->agent PRINCIPLE (Dowty) generalizes and even
+  HELPS MORE on modern text: role-validity gap P(agent|animate)-P(agent|inanimate) = **+0.37 modern** vs
+  **-0.10 McGuffey** (McGuffey's 91%-agent skew makes animacy non-discriminative). BUT the IMPLEMENTATION (a
+  hard-coded ~40-word McGuffey-flavoured list + NNP heuristic) does NOT generalize: animacy fire-rate
+  **collapses 0.706 -> 0.124** on modern text -- it barely detects animacy on modern entities, starving a cue
+  that would otherwise help. **-> next problem B: a GROUNDED/LEARNED animacy feature** (feeds A; the grounding
+  channel already exists to supply it).
 - **`verb_lexical_similarity.py` / SPEECH_VERBS (the verb-class cue) -- FIDELITY LOW.** The verb-class cue is a
   hard-coded speech-verb list; it should be learned from argument-structure statistics. **-> folds into A.**
-- **Entity tracking / string-identity coref (my UD-EWT gold) -- KNOWN LIMIT.** UD ships no coref, so the modern
-  role eval tracks entities by string identity (no pronoun/alias). The pronoun dimension is LitBank's (done).
-  **-> next problem C: a both-gold (coref+role) modern NARRATIVE situation-model gold.**
+- **Entity tracking / string-identity coref (my UD-EWT gold) -- LIMIT NOW QUANTIFIED (MEASURED).** In UD-EWT,
+  **46.6% of all core arguments are PRONOUNS** (11,970 / 25,667), invisible to string-identity tracking (UD
+  ships no coref). So the modern role eval cannot test ~HALF the entity-tracking challenge -- the pronoun
+  dimension is exactly where the coref organ's brain-faithful graded-ACT-R work lives (LitBank, done). **-> next
+  problem C (now numerically motivated): a both-gold (coref+role) modern NARRATIVE situation-model gold.**
 
 ## What I did NOT establish (withdraw-first order)
 1. **The both-gold modern NARRATIVE situation-model eval.** No single modern narrative corpus on the
@@ -223,6 +285,16 @@ cue over-dominates) is mechanistic and consistent across all three transfer test
   CI-sep. This is a concrete instance of the audit's "RIGHT-OP-WRONG-METRIC: animacy-dominant; HARD_FAIL on
   real text" for `thematic_role_labeler` -- now with the exact failure (auxiliary role assignment) and a
   proven fix.
+- **NEW (Deepening 3 + research drill):** surface-cue role assignment (even LEARNED) does NOT generalise to
+  unseen constructions/cross-corpus -- the Competition Model's conflict-validity trajectory (MacWhinney)
+  predicts it. The generalising mechanism is GROUNDED thematic fit (verb frame + plausibility; Frankland &
+  Greene 2015 separable agent/patient in STS/STG; Matchin & Hickok pMTG lexicalized syntax), construction-
+  independent, weight learned as conflict validity, competing with order. The brain-faithful role organ is a
+  CONSUMER of the meaning channel, not a surface-cue module. Proposed problem `grounded_role_assignment_via_
+  verb_keyed_thematic_fit` SHARES the `distributional_meaning_channel` (Priority 2) dependency.
+- **Adjacency (measured):** the animacy cue PRINCIPLE generalises (validity gap +0.37 modern vs -0.10 McGuffey)
+  but its IMPLEMENTATION (hard-coded list) does not (fire-rate 0.71->0.12) -> grounded animacy feature. And
+  46.6% of modern core-args are pronouns (string-identity coref blind) -> both-gold modern narrative gold.
 
 ## PROPOSED hdlab DIFF (strategy lands; Q111)
 1. **`hdlab/thematic_role_labeler.py` / the situation-reader role front-end:** assign thematic roles from
