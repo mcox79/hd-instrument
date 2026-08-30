@@ -283,10 +283,11 @@ salience-gate helper (max(w_pe·PE, w_cong·CONG) → commit to `HDFactStore`). 
 `test_register_leaky_write_organ.py` 5/5 + the 3 existing register witnesses still pass (no regression). REMAINING —
 CHANGE 2 (the `register_consolidation` salience-gate helper) still queued: it needs the live prediction-error / MDL
 channels wired (the solver flagged that as the landing's job).** **THE CAUSATION TYPER (from integrated
-`causation_has_no_force_dynamic_typing`, 2026-08-29): promote `experiments/_force_dynamics_lexicon.py` (lexicon + Wolff
-typer + endstate/negation detector) + replace `situation_reader._read_causation`'s untyped link with a TYPED
-`CausalLink(cause, outcome, {CAUSE,ENABLE,PREVENT}, endstate_reached)`; precedence GATES (reuse TIME); gate ENABLE to
-letting verbs until the patient-tendency input exists — a coupled live-path landing.** **THE ARCHAIC-PROSE SUBJECT
+`causation_has_no_force_dynamic_typing`, 2026-08-29): ✅ CORE LANDED — `hdlab/force_dynamics_typer.py` (the FrameNet
+force-lexicon + Wolff CAUSE/ENABLE/PREVENT truth-table + endstate/negation detector), witness
+`test_force_dynamics_typer_organ.py` 5/5. REMAINING (coupled wiring, queued): replace `situation_reader._read_causation`'s
+untyped link with a TYPED `CausalLink(cause, outcome, {CAUSE,ENABLE,PREVENT}, endstate_reached)`; precedence GATES (reuse
+TIME); gate ENABLE to letting verbs until the patient-tendency input exists.** **THE ARCHAIC-PROSE SUBJECT
 CUE-OVERRIDE (from integrated `role_assignment_is_untested_on_archaic_literary_prose`, 2026-08-29): add the position-
 dominant + cue-override subject stage to `graded_role_assigner` (ref impls `exp_role_cue_repair_inversion_v1.repaired_subject_span`
 + `exp_role_cue_first_subject_v1.full_cue_subject`) + rebuild `data/litbank/who_did_what_events.json` through it — a
