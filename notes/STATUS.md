@@ -52,9 +52,12 @@ subject stage into `graded_role_assigner` (a concrete INPUT to the assembly p3).
 (ASSIGNED) + `the_situation_model_tracks_no_entity_state_history` (ASSIGNED) + `the_reader_has_no_belief_timeline_what_an_agent_knew_when`
 (NEW/open — the GOALS/ToM × TIME composition). Solvers pick up fast (0-buffer recurs).** Nothing owner-DONE awaiting. ALL 5
 Zwaan dimensions now have organs (TIME+SPACE integrated, CAUSATION+ENTITIES/state building, GOALS/ToM partial → belief-timeline
-extends it). **Buffer = 2 open/unassigned (belief-timeline p4, patient-tendency-estimator p7 — both NEW this session-stretch). PRIMED
-next problems (ready to package as the buffer thins): a targeted verb-sense gate; type the Trabasso causal-network edges;
-multi-timescale registers (write-path successor); an archaic-morphology lexicon; a case-override for `incremental_parser`.** **Landed CORES
+extends it). **Buffer = 3 on-deck open/unassigned, ALL reader-independent (safe to run parallel with the assembly p3 — they build/extend
+organs in experiments, NOT the live reader's role path): belief-timeline (p4, ToM×TIME), patient-tendency-estimator (p7,
+causation), causal-network edge typing (p8, causation discourse-level). PRIMED next (ready to package): a targeted
+verb-sense gate; multi-timescale registers (write-path successor); an archaic-morphology lexicon; a case-override for
+`incremental_parser`. ⚠️ KEEP NEW ASSIGNABLE PROBLEMS READER-INDEPENDENT so they don't collide with the assembly's
+`situation_reader` edits.** **Landed CORES
 (default-off/witnessed): predarg front-end, leaky-recency write, force-dynamics causal typer. QUEUED coupled landings: the
 live-reader wiring (predarg de-dup + who-did-what binder + causation CausalLink + archaic cue-override → all touch the
 reader, do as ONE assembly pass), the TIME register (multi-module), the discourse-fact organ, the write-path Change 2.**
