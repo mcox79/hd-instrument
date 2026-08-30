@@ -65,6 +65,29 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — THE COREF RESIDUAL IS A HARD-PHI-AGREEMENT VIOLATION, NOT A FOCUS/CENTERING GAP: the flat Centering Cb /
+  Grosz-Sidner focus-stack is REFUTED as the residual's fidelity gap** (from integrated `the_coref_residual_needs_a_discourse_focus_stack`,
+  owner-DONE, SOLVED/EXCELLENT; reverified 45/45 first-hand, recomputes through the real `graded_antecedent_pick`). A faithful
+  push/pop focus stack given the STRONGEST oracle segmentation (gold quote spans + paragraph breaks + entity-topic-shift)
+  diverges from finer token-locality in **1/420** and does NOT beat it (0.481 vs 0.479 NOT_SEP; twin ties) — the ~50-60% focus
+  share was a speculative by-elimination estimate, now disproven. **The real, brain-faithful lever = HARD PHI-AGREEMENT on the
+  candidate pool:** the substrate's `_gn_compat` is PERMISSIVE (unknown person/gender/animacy pass), so the pool (~45 candidates)
+  admits grammatically-impossible antecedents — above all the discourse PARTICIPANT (the narrator "I"/"we", the most salient
+  entity, grabbed for every "he"/"she"). **PINNED:** person-feature agreement (the speech-act "persons" vs the 3rd-person
+  "non-person"; Benveniste 1966; Mancini 2011 person-violation N400) + animacy (an obligatory selectional constraint;
+  McRae/Ferretti) are OBLIGATORY, immediately-established, cross-linguistically UNIVERSAL anaphora constraints (Cysouw 2003;
+  Silverstein 1976); **HARD EXCLUSION is MORE faithful than a graded down-weight** — recall 1.000 confirms the corpus essentially
+  never violates it. GENDER is the PRINCIPLED EXCEPTION (a freshly-named entity's gender is not established at the pronoun, so it
+  cannot fire causally; positive gender was a leak using future mentions). **OUR-INVENTION-flagged:** the refined pure-participant
+  proxy (≥50% 1st/2nd-person mentions AND never 3rd-person-narrated = the true narrator, not a talkative character) + the lexical
+  animacy lexicon. **Validated through the ACTUAL landed resolver:** lifts n=9139 0.786→0.841 (+0.054 CI-sep, recall 0.996);
+  residual 0.057→0.219; **generalizes** (1st-person +0.147, 3rd-person +0.006 no-regression, threshold-robust, no-gold-NER beats
+  gold = anti-cute-trick). **hdlab:** `is_discourse_participant` + `phi_agreement_keep` appended to `graded_coref_pick.py`
+  (additive/opt-in, callers byte-unchanged); reader-wiring coupled with the assembly. **Convergence:** this + the coherence-prior
+  refutation + the static-KB-dead drills now TRIANGULATE the coref residual as a GRAMMAR-FILTER problem (candidate-set quality),
+  not a world-knowledge / focus / interference problem. Residual not closed: they/them (animacy-unconstrained), finer
+  clause-locality, ~2-3% semantic core.
+
 - **2026-08-30 — THE CAUSATION TENDENCY INPUT IS BUILT: a 4-cue additive Wolff force-sum resolves CAUSE-vs-ENABLE
   for tendency-ambiguous verbs** (from integrated `causation_typing_needs_a_patient_tendency_estimator`, owner-DONE,
   SOLVED/EXCELLENT; reverified 22/22 + 8/8 MODERN + 3/3 generalization first-hand). The `force_dynamics_typer` read
