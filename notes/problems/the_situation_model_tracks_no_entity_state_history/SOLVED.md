@@ -4,9 +4,9 @@ status: SOLVED
 bar: "Answers entity-STATE queries on real prose CI-separated over a no-state-history floor -- a real-narrative population of state-decisive queries ('what state had X been in?' / 'is X in state S here?'); the floor = the reader WITHOUT the register (nearest-mention / most-recent-adjective guess) recomputed on the same population. The info-free twin (shuffled state->entity or state->interval bindings) LOSES CI-separated; report CI half-width + null p95; no number crosses populations. A POSITIVE control the metric can move (a state-decisive case the register gets and the floor cannot). ... A rigorous NEGATIVE is a FULL PASS (e.g. 'a faithful state register recovers X% of state-decisive queries where the state IS extracted, but real-prose extraction coverage is Y%, so the population lift is Z -- a measured coverage bound, with the positive control confirming the mechanism')."
 result: "Construction gold (isolates TRACKING; real English state constructions, 4 discriminating structures, n=420 queries over 180 items): STATE REGISTER 1.000 [1.000,1.000] vs the strongest stateless floor nearest-entity-recency 0.719 [0.676,0.762] -- CI-separated. Empty register 0.429 (chance). Real-PROSE (25 LitBank docs, gold-coref entity key held fixed): extraction coverage 0.331 (433/1309 spaCy-reference predications bound to a gold cluster); the previously-DROPPED 'had been X' prior-state channel now extracted+bound (n=33, hand precision ~0.65); entity-state queries are unsolvable by an entity-blind floor (0.492) or the entity-shuffle twin (0.456), both at chance -> the task needs entity-bound state history."
 floor: "STRONGEST of 4 stateless floors recomputed on the same construction population: nearest-entity-recency 0.719 [0.676,0.762] (hi 0.762); ever-entity 0.753; recency 0.503; ever-any 0.503. Register lower CI 1.000 > floor upper CI 0.762. No single stateless floor handles all three mechanisms (BIND/RESULT/SUPERSEDE): ever-entity uses the gold entity key yet fails SUPERSEDE (0.258) and RESULT (0.000); recency fails BIND. Real-prose floor: entity-blind recency 0.492."
-controls: "(1) INFO-FREE ENTITY-SHUFFLE TWIN 0.762 [0.719,0.802] LOSES CI-sep (null p95 0.048) -- destroys state->entity binding. (2) INFO-FREE ORDER-SHUFFLE TWIN 0.843 [0.807,0.879] LOSES CI-sep (null p95 0.038) -- destroys the interval order (supersession/persistence). (3) EMPTY register 0.429 = chance, NOT perfect -> the rank/decision metric is not gameable by emptiness. (4) DISTANCE-ROBUSTNESS: register flat 1.000 at K=0,2,5,10,20 filler clauses while a windowed floor collapses 1.000->0.000 at K>=2 -> state is a MAINTAINED property, not a local read. (5) PER-STRUCTURE positive controls: each floor fails >=1 structure the register gets (RESULT 1.000 vs all floors 0.000; SUPERSEDE 1.000 vs ever-entity 0.258). (6) COREF HELD FIXED (gold clusters, bar #3) in the real-prose eval + a gold-coref stateless floor -> the isolated lift is the state-history logic, not coref. (7) Real-prose ENTITY-SHUFFLE TWIN 0.456 LOSES. (8) SUPERSEDE incidence in the bound real-prose population = 0 (honest bound: the closure channel, proven on construction gold, has ~0 natural incidence here). (9) SEMANTIC MATCHING (fidelity push): guarded WordNet matcher 0.950 vs exact-string 0.350 CI-sep; exact recovers 0.000 of synonym queries, guarded 0.923; the 3 research guards are LOAD-BEARING (guarded 1.000 vs UNGUARDED 0.714 on the trap set, CI-sep); info-free shuffled-stored twin 0.400 LOSES; privative extraction guard blocks 5/6."
-files_changed: "experiments/state_register.py (tracking core + extraction adapter + semantic matcher); experiments/exp_state_register_query_v1.py (construction-gold CI-sep eval); experiments/exp_state_register_real_prose_v1.py (real-LitBank coverage + query + incidence); experiments/exp_state_register_semantic_v1.py (semantic-matching CI-sep eval); verification/test_state_register.py (51/51 witness); notes/problems/the_situation_model_tracks_no_entity_state_history/{SOLVED.md, research_semantic_state_matching_and_perfect_currency_backgrounding_2026-08-29.md}. NO hdlab/ written (Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_state_register.py   # 51/51 ; then .venv/Scripts/python.exe experiments/exp_state_register_query_v1.py   # HARD_PASS register 1.000 vs floor 0.719 ; and experiments/exp_state_register_semantic_v1.py   # HARD_PASS guarded 0.950 vs exact 0.350"
+controls: "(1) INFO-FREE ENTITY-SHUFFLE TWIN 0.762 [0.719,0.802] LOSES CI-sep (null p95 0.048) -- destroys state->entity binding. (2) INFO-FREE ORDER-SHUFFLE TWIN 0.843 [0.807,0.879] LOSES CI-sep (null p95 0.038) -- destroys the interval order (supersession/persistence). (3) EMPTY register 0.429 = chance, NOT perfect -> the rank/decision metric is not gameable by emptiness. (4) DISTANCE-ROBUSTNESS: register flat 1.000 at K=0,2,5,10,20 filler clauses while a windowed floor collapses 1.000->0.000 at K>=2 -> state is a MAINTAINED property, not a local read. (5) PER-STRUCTURE positive controls: each floor fails >=1 structure the register gets (RESULT 1.000 vs all floors 0.000; SUPERSEDE 1.000 vs ever-entity 0.258). (6) COREF HELD FIXED (gold clusters, bar #3) in the real-prose eval + a gold-coref stateless floor -> the isolated lift is the state-history logic, not coref. (7) Real-prose ENTITY-SHUFFLE TWIN 0.456 LOSES. (8) SUPERSEDE incidence in the bound real-prose population = 0 (honest bound: the closure channel, proven on construction gold, has ~0 natural incidence here). (9) SEMANTIC MATCHING (fidelity push): guarded WordNet matcher 0.950 vs exact-string 0.350 CI-sep; exact recovers 0.000 of synonym queries, guarded 0.923; the 3 research guards are LOAD-BEARING (guarded 1.000 vs UNGUARDED 0.714 on the trap set, CI-sep); info-free shuffled-stored twin 0.400 LOSES; privative extraction guard blocks 5/6. (10) DOWNSTREAM SERVE, HAND FLOORS (state->coref): register + semantic matcher resolve state-denoting descriptions ('the sick one') SERVE 0.95-0.99 vs the strongest stateless coref floor (recency/first/gender all ~0.5, CI-sep, 3 seeds); info-free twin ~0.5 LOSES. (11) LIVE-ORGAN SERVE: the register improves the ACTUAL hdlab coref organ (CorefReader, centering+adaptive) on state-decisive same-gender pronouns from CHANCE (0.43-0.54) to REGISTER-SERVED 0.96-0.98, CI-sep, 3 seeds (all resolution runs through the REAL coref code; only a state-consistency re-rank is added); info-free shuffled-states twin collapses (LOSES CI-sep); the live coref's real-LitBank baseline is 0.327 on 582 real pronoun targets (the organ is genuine). Real-prose state-epithet serve NOT scored (n=3 < 10, rare -- honest bound)."
+files_changed: "experiments/state_register.py (tracking core + extraction adapter + semantic matcher); experiments/exp_state_register_query_v1.py; experiments/exp_state_register_real_prose_v1.py; experiments/exp_state_register_semantic_v1.py; experiments/exp_state_register_serves_coref_v1.py (serve vs stateless floors); experiments/exp_state_register_serves_live_coref_v1.py (serve vs the LIVE hdlab coref organ); verification/test_state_register.py (61/61 witness); notes/problems/the_situation_model_tracks_no_entity_state_history/{SOLVED.md, research_semantic_state_matching_and_perfect_currency_backgrounding_2026-08-29.md}. NO hdlab/ written (Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_state_register.py   # 61/61 ; then experiments/exp_state_register_query_v1.py (register 1.000 vs floor 0.719) ; exp_state_register_semantic_v1.py (guarded 0.950 vs exact 0.350) ; exp_state_register_serves_live_coref_v1.py (LIVE coref 0.54 -> register-served 0.96)"
 ---
 
 # The situation model now has a per-entity STATE-HISTORY dimension (Zwaan-Radvansky ENTITIES)
@@ -119,6 +119,44 @@ asked two fidelity questions. It returned one GO and one NO-GO, and the NO-GO sa
   would/could/might have been a soldier" -- Iatridou 2000); the **privative** extraction skip; and the
   **archaic BE-perfect** now tagged PRIOR ("was become/grown", confirming the residual I had flagged).
 
+## Downstream SERVE -- the register buys a real coref capability (the SPACE-organ move)
+The strongest thing an organ can show is that it SERVES a downstream capability, not just that it works in
+isolation. A reader resolves "the invalid asked for water" to whoever is ILL, not the most recent character
+(Garrod & Sanford 1977 -- a description resolves by matching its content to an entity's represented
+properties). A stateless coref backbone, lacking a state history, can only fall back to recency / first-
+mention / gender for such a description. `exp_state_register_serves_coref_v1` composes the state register
+WITH the semantic matcher ("the sick one"/"invalid" ~ stored "ill") to resolve state-denoting descriptions:
+
+- **SERVE 0.95-0.99 vs the strongest stateless coref floor ~0.53** (recency 0.41, first-mention 0.53, gender
+  0.41 -- all at chance BY CONSTRUCTION: position and gender are decorrelated from the referent so the STATE
+  is the only reliable cue), CI-separated across seeds 0/1/2. The info-free state->entity shuffle twin
+  collapses to ~0.5 (LOSES CI-sep) -- so the win is the state binding, not a lexical prior.
+- This is a genuine capability the register unlocks: "the widow"/"the soldier"/"the sick one" resolve to the
+  entity carrying that state, a reference a recency/gender coref reader gets wrong whenever the state-carrier
+  is not the most recent mention.
+- **Real-prose serve honestly NOT scored:** auto-detected state-epithet coreference is RARE in LitBank
+  (n=3 < the 10-item scoring threshold), so this description-serve rests on construction gold (real English
+  epithets + real stateless coref floors) -- the same honest scoping the SPACE organ used.
+
+### Serving the LIVE hdlab coref organ (the top-grade step -- serve the real thing, not a hand floor)
+`exp_state_register_serves_live_coref_v1` goes further: it improves the **ACTUAL** `hdlab.coref.CorefReader`
+(its strongest config, centering + adaptive recency), not a hand-coded floor. Two SAME-gender entities get
+OPPOSITE states ("Anna had been ill. Clara had been well."); a later pronoun's clause predicates a state
+consistent with only one ("She was still unwell." -> Anna). **All resolution runs through the real coref code**
+-- passages are emitted as CoNLL, parsed by the real `parse_litbank_conll`, targeted by the real
+`build_pronoun_targets`, resolved by the real `CorefReader.resolve_stream`; the register only **re-ranks the
+organ's own gender-compatible candidate pool by state-consistency** (Garrod & Sanford 1977; via the semantic
+matcher, so "unwell" ~ "ill" and is incompatible with "well").
+
+- **LIVE COREF ORGAN 0.43-0.54 (chance)** on these state-decisive same-gender pronouns -- gender is
+  neutralised and recency/centering are decorrelated from the referent, so the organ genuinely cannot resolve
+  them -> **REGISTER-SERVED 0.96-0.98**, CI-separated across seeds 0/1/2. The info-free shuffled-states twin
+  collapses back to the organ's level (LOSES CI-sep) -> the win is the state cue, not a lexical prior.
+- **The organ is genuine, not a strawman:** its real-LitBank baseline is **0.327 on 582 real pronoun targets**
+  (the hard cross-sentence residual it was built for) -- I am serving the actual thing. The register supplies
+  a state-agreement cue the coref backbone structurally lacks; this is a real, brain-faithful capability
+  (property-consistent reference resolution) that the register unlocks for the live reader.
+
 ## What I did NOT establish (withdraw-first if wrong)
 - **The CI-separated headline is on CONSTRUCTION gold** (real English state constructions, but controlled
   multi-entity/multi-state threading with by-construction labels), NOT fully-natural raw-prose queries -- for
@@ -229,8 +267,15 @@ which entity a state belongs to, a scrambled version fails (so the skill is the 
 scores at chance (so it is not gaming the test). On real 19th-century novels it correctly pulls out the "had
 been X" facts nothing used before, and those questions turn out to be impossible to answer without it (the
 best entity-blind guess is a coin flip). The one honest limit is reading messy old prose: a modern grammar
-parser gets about 37% of the state sentences cleanly -- the same old-text wall another problem already measured
--- so I fixed what the brain's own typing rules fix and honestly bounded the rest.
+parser gets about 33% of the state sentences cleanly -- the same old-text wall another problem already measured
+-- so I fixed what the brain's own typing rules fix and honestly bounded the rest. Two further pushes: I taught
+it to match states by MEANING, not exact words (ask "is she unwell?" after "she had been ill" and it now says
+yes -- 95% vs 35% for exact-word matching, with safety rules so "a fake soldier" isn't counted as a soldier);
+and I showed the whole thing earns its keep by letting the reader resolve "the sick one" / "the widow" to
+whoever is actually ill/widowed (right ~96% of the time, where the old most-recent-name guess is a coin flip).
+Crucially, I plugged it into the project's REAL coref reader and showed it fixes a case that reader fails: when
+two same-sex characters have opposite states and a "she" refers to one of them by state, the real reader is at
+a coin flip (~50%) and the state-tracker lifts it to ~97%.
 
 ## QUESTIONS
 None.
@@ -245,7 +290,11 @@ None.
 3. Follow-on problem (the drill's own next-drill candidate): **evidentiality / reportative marking** ("was
    said to be", "seemed", "was known to be") as the better-EVIDENCED place for a confidence gradient than
    aspect -- the NO-GO on aspect-confidence pointed here (wall-check item #8).
-4. Optional wiring: join state intervals with the TIME register's event-time ("what state was X in WHEN E
+4. LAND the state-consistency re-rank into the live coref (the serve is already proven against the REAL
+   `CorefReader`, lifting it 0.54 -> 0.96 on state-decisive same-gender pronouns): promote it from the
+   experiments-side re-rank to a default candidate-pool filter in the coref stack, so the live reader gains
+   property-consistent reference resolution permanently.
+5. Optional wiring: join state intervals with the TIME register's event-time ("what state was X in WHEN E
    happened").
-5. Shared cap: the 19c parser precision (0.331 coverage) is the `role_assignment` corpus-age wall -- its
+6. Shared cap: the 19c parser precision (0.331 coverage) is the `role_assignment` corpus-age wall -- its
    cue-override subject stage would directly help state extraction.
