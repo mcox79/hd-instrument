@@ -46,6 +46,12 @@ harmful blind on the complement. GATE drilled to an INTRINSIC BOUND (5 literatur
 commonsense KB DEAD (~2-3%) on the anti-typical residual → it is discourse-focus / syntactic-binder bound, NOT
 world-knowledge bound. Strengthens standing fact #1. **The seeded next problem = a glass-box Grosz-Sidner focus-STACK /
 QUD entity-tracker** (⚠️ the KB-dead oracle cell is disk-verified but NOT independently VET'd — VET before a brief leans on it).
+📦 **PACKAGED `the_coref_residual_needs_a_discourse_focus_stack` (priority 3)** — the focus-stack brief, with a can-fail
+ORACLE-ceiling-FIRST gate + a RE-MEASURE-don't-cite instruction on the un-VET'd oracle. It is the SOLE remaining coref-residual
+lever (three integrated results EXCLUDED the coherence prior, the static KB, the interference model) and the measured #1
+bottleneck of who-did-what on real prose (~67% of the binding headroom is coref). Buffer now **4 on-deck, all
+reader-independent** (p3 focus-stack, p4 belief-timeline, p7 patient-tendency, p8 causal-network). Note: p7's SOLVED is a
+WIP solver submission (no owner_verdict DONE) — left alone.
 🔌 **ASSEMBLY hdlab LANDING — Change 1 DONE, Changes 2-3 QUEUED (Q111):** ✅ Change 1 (quotative-inversion agent handling
 in `predicate_argument_frontend`, `quotative: bool = True` default-on, the +0.253 biggest lever) LANDED + committed
 `a614f8078` (ported verbatim from the validated cell; witnessed 9/9; the 3 validating experiments pass `quotative=False`
