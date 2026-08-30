@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: 1. A MODERN annotated reader-comprehension eval (
 result: "MODERN situation-model role eval built from UD-EWT gold parse (330 passages / 700 in-scope agent/patient queries, transparent UD-deprel->role, NO LLM). Revalidated the reader's role/situation-model organ (vargs front-end + resolver + role scorer, imported UNCHANGED) McGuffey-vs-modern under one scorer. HEADLINE (rigorous, mostly NEGATIVE): (a) McGuffey's role eval is DEGENERATE -- 90.85% of in-scope gold is 'agent', so the always-agent floor scores 0.908 [.863,.948] and the celebrated vargs organ (0.856 [.804,.909]) LOSES to it; the original eval gated vargs against the positional-reader floor (0.517) + an info-free twin (0.627), never against this strongest majority-class floor (0.908). (b) On modern text the current organ does NOT clear its floor: ALL_INSCOPE vargs 0.596 [.561,.634] < floor 0.659 [.624,.694]; and it COLLAPSES on non-canonical constructions to 0.288 [.186,.407] -- below the coin-flip twin (0.576) and CI-separated BELOW the floor (0.610). (c) The wall is a FIXABLE brain-fidelity gap, not a ceiling: a brain-faithful passive-aware content-verb assigner recovers non-canonical 0.288->0.559 [.440,.678] (CI-separated over broken), beats its voice-scrambled info-free twin (0.458), and does not hurt canonical (0.624->0.646). COREF dimension already migrated (owner-DONE): LitBank gold-coref binder GRADED 0.328 vs RAND-twin 0.132 (twin loses CI); graded-ACT-R 0.775 vs incumbent 0.603."
 floor: "Strongest floor = always-predict-the-population-majority-role, recomputed per population/subset. McGuffey in-scope 0.908 [.863,.948] (agent, n=153). Modern in-scope 0.659 [.624,.694] (patient, n=700); modern role-varying 0.497 [.424,.571] (n=177); modern non-canonical 0.610 [.492,.729] (n=59)."
 controls: "(1) Info-free twin per arm -- role labels coin-flipped (VARGS_TWIN) / voice cue scrambled (FIXED_TWIN): loses on McGuffey (0.627<0.856) and on the modern fix (0.458<0.559 non-canonical). (2) Strongest-floor gate: EXCLUDES 'beats a weak twin but not the majority baseline' -- it catches McGuffey's degeneracy (organ<floor) and the modern all-inscope loss. (3) Canonical-vs-non-canonical split: EXCLUDES 'the drop is generic corpus noise' -- localises the collapse to non-canonical order (the NVN-shortcut signature). (4) fix-does-not-hurt-canonical: EXCLUDES 'the fix trades canonical accuracy for non-canonical'. (5) Independent derivation: gold roles come from the UD GOLD parse, the reader re-derives roles from clause TEXT via nltk -> no circularity."
-files_changed: "experiments/exp_mcguffey_migrate_build_modern_gold_v1.py; experiments/exp_mcguffey_migrate_revalidate_v1.py; experiments/exp_mcguffey_migrate_passive_cue_fix_v1.py; experiments/exp_mcguffey_migrate_noncanon_by_type_v1.py; experiments/exp_mcguffey_migrate_scoreboard_v1.py; verification/test_mcguffey_migration.py; data/eval_gold_mention_role_modern_ud_ewt_v1/gold_situation_modern_ud_ewt_v1.jsonl; data/exp_mcguffey_migrate_{build_modern_gold,revalidate,passive_cue_fix,noncanon_by_type,scoreboard}_v1/. NO hdlab/ modified (Q111)."
+files_changed: "experiments/exp_mcguffey_migrate_build_modern_gold_v1.py; experiments/exp_mcguffey_migrate_revalidate_v1.py; experiments/exp_mcguffey_migrate_passive_cue_fix_v1.py; experiments/exp_mcguffey_migrate_noncanon_by_type_v1.py; experiments/exp_mcguffey_migrate_cue_competition_v1.py; experiments/exp_mcguffey_migrate_learned_cue_transfer_v1.py; experiments/exp_mcguffey_migrate_scoreboard_v1.py; verification/test_mcguffey_migration.py; data/eval_gold_mention_role_modern_ud_ewt_v1/gold_situation_modern_ud_ewt_v1.jsonl; data/exp_mcguffey_migrate_{build_modern_gold,revalidate,passive_cue_fix,noncanon_by_type,scoreboard}_v1/. NO hdlab/ modified (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_mcguffey_migration.py"
 ---
 
@@ -110,6 +110,84 @@ understood and partially crossed; the residual is attributed to a specific brain
    the dominant non-canonical failure but names the next fidelity target: an order/prominence role cue.
    (`exp_mcguffey_migrate_noncanon_by_type_v1.py`.)
 
+## DEEPENING 2 -- "does this need to generalize?" answered with evidence (owner 2026-08-30)
+YES, and the brain-faithful WAY to generalize is the finding. A stack of per-construction patches (passive
+rule, inversion rule, ...) is NOT how the brain does it: the Competition Model (Bates & MacWhinney) +
+Dowty proto-roles (1991) say role assignment is ONE mechanism -- graded, additive, cue-validity-weighted
+COMPETITION over a cue set (word order, animacy, case, voice morphology), where each construction is a
+different cue configuration. I built that single assigner (`exp_mcguffey_migrate_cue_competition_v1.py`)
+and tested it per construction type vs BROKEN and vs the passive-only patch:
+
+| construction | BROKEN | passive-only patch | ONE cue-competition mechanism |
+|---|---|---|---|
+| passive (n=30) | 0.333 | **0.933** | 0.567 |
+| inversion (n=23) | 0.261 | 0.174 (fails) | **0.522** (recovers) |
+| fronting (n=6) | 0.167 | 0.167 | 0.167 |
+| canonical (n=641) | 0.624 | 0.646 | 0.630 (unhurt) |
+
+**The general mechanism GENERALISES** -- it recovers inversion (0.261->0.522) where the passive patch
+STRUCTURALLY cannot (0.174, it has no inversion cue), beats its info-free (all-cues-zeroed) twin (0.508 vs
+0.458 on non-canon), and does not hurt canonical. **But it is WEIGHT-SENSITIVE** (a --sweep moves non-canon
+0.39-0.54), and my hand-set voice weight under-serves passives (0.567) vs the dedicated detector (0.933).
+The two are the SAME mechanism at different cue settings. **Conclusion (brain-faithful):** the fix is not a
+fixed rule -- it is a cue-competition architecture whose cue VALIDITIES must be LEARNED from the corpus
+(Competition Model: validities are language/input-specific and learned), which is exactly why hand-tuning
+trades passive-vs-inversion. This connects the role fix to the project's LEARNER. Honest bound: the
+per-type recoveries are point-estimates, not CI-separated -- the modern non-canonical population is
+corpus-limited to n=59 (UD-EWT train+test exhausted).
+
+## DEEPENING 3 -- can we SHOW generalization, and the WALL that names the clear path (owner 2026-08-30)
+I learned the cue validities (glass-box numpy logreg over 6 interpretable cues -- the coefficients ARE the
+Competition Model validities; no LLM) and tested TRANSFER (`exp_mcguffey_migrate_learned_cue_transfer_v1.py`):
+
+| transfer test | learned cue | order-only (NVN) | floor | twin |
+|---|---|---|---|---|
+| **IN-DISTRIBUTION** (modern train/test) | **0.770 [.714,.827]** | 0.719 | 0.653 | 0.653 (loses) |
+| CROSS-CONSTRUCTION (train canon+passive -> UNSEEN inversion) | **0.050** | 0.300 | 1.000 | 0.000 |
+| CROSS-CORPUS (train McGuffey -> test modern) | 0.348 | 0.732 | 0.652 | -- |
+
+Learned validities (in-dist): preverbal +1.93, animate +1.19, passive_subj -1.28, accusative -0.26. Sensible.
+
+**GENERALIZATION HOLDS WITHIN-DISTRIBUTION** (learned 0.770 > order-only 0.719 > floor, twin loses, CI-sep
+over floor). **BUT IT WALLS ON UNSEEN CONSTRUCTIONS AND CROSS-CORPUS.** The learned model over-relies on the
+word-order cue (dominant in training) and predicts postverbal inversion-subjects as PATIENT (0.05, worse than
+the NVN rule); trained on McGuffey it over-predicts agent and fails modern (0.348).
+
+**THE WALL, UNDERSTOOD:** frequency-learned SURFACE cues under-sample the CONFLICT cases (rare non-canonical
+order) that teach cue DOWN-WEIGHTING, so the model cannot generalize to a construction it rarely saw. This is
+the Competition Model's own prediction (validities are learned from the input) turned into a limitation. **The
+brain generalizes because it resolves roles SEMANTICALLY** -- verb argument structure licenses the roles, and
+argument PLAUSIBILITY ("a key cannot *surround*"; McRae/Spivey-Knowlton/Tanenhaus 1998 thematic fit; Gibson
+2013 noisy-channel) overrides a misleading surface cue independent of the construction's frequency. **This is
+the SAME wall the whole project hits: surface statistics without grounding.**
+
+**THE CLEAR PATH (brain-faithful, and it unifies with the project's core):** role assignment must be GROUNDED
+-- a verb-argument-structure frame + argument-plausibility (world-knowledge) term, not surface cues alone. That
+is the meaning/grounding channel the project is already building; role assignment is one of its consumers. So
+the next role-organ problem is not "more surface cues" but "GROUNDED role assignment": the verb's learned
+argument frame + a plausibility score of each candidate as agent/patient of THAT verb (content-addressable /
+thematic-fit), which the audit already gestures at ("graded additive cue-based CONTENT-ADDRESSABLE retrieval").
+Honest bound: cross-construction test n=20 (inversion, corpus-limited); the DIRECTION (surface cues wall, order
+cue over-dominates) is mechanistic and consistent across all three transfer tests.
+
+## ADJACENT-COMPONENT BRAIN-FIDELITY EVALUATION (to seed next problems; owner 2026-08-30)
+- **`thematic_role_labeler.py` (the role organ) -- FIDELITY LOW, clear build target.** Audit: RIGHT-OP-
+  WRONG-METRIC, animacy-dominant, HARD_FAIL on real text. This problem localised WHY: it assigns roles from
+  AUXILIARIES via a hard positional (NVN) rule, collapsing below chance on modern non-canonical order. A
+  learned cue-competition assigner fixes it IN-distribution but WALLS on unseen constructions/cross-corpus
+  (Deepening 3) -- surface cues alone do not generalise. **-> next problem A (highest value): GROUNDED role
+  assignment = verb argument-frame + argument-plausibility (thematic fit), the meaning-channel consumer, not
+  more surface cues.**
+- **`animacy_lexicon.py` (the animacy cue) -- FIDELITY LOW.** The animacy cue my assigner uses is a hard-coded
+  ~40-word McGuffey-flavoured list (`ANIMATE_NOUNS`: boatman, schoolmaster, widow...) + an NNP heuristic. It
+  will not fire on modern entities; a brain-faithful animacy cue is a GROUNDED/LEARNED feature (Dowty
+  sentience proto-agent). **-> next problem B (feeds A).**
+- **`verb_lexical_similarity.py` / SPEECH_VERBS (the verb-class cue) -- FIDELITY LOW.** The verb-class cue is a
+  hard-coded speech-verb list; it should be learned from argument-structure statistics. **-> folds into A.**
+- **Entity tracking / string-identity coref (my UD-EWT gold) -- KNOWN LIMIT.** UD ships no coref, so the modern
+  role eval tracks entities by string identity (no pronoun/alias). The pronoun dimension is LitBank's (done).
+  **-> next problem C: a both-gold (coref+role) modern NARRATIVE situation-model gold.**
+
 ## What I did NOT establish (withdraw-first order)
 1. **The both-gold modern NARRATIVE situation-model eval.** No single modern narrative corpus on the
    shelf has BOTH gold coref AND gold roles: UD-EWT = gold roles / web text / string-identity coref (no
@@ -174,11 +252,13 @@ follow-on. I recommend filing the fix as a small follow-on so this problem stays
 
 ## NEXT STEPS
 1. Strategy: swap the default role/situation-model eval to the modern UD-EWT gold; retire McGuffey-as-primary.
-2. File the passive-cue fix (content-verb role assignment) as a follow-on hdlab problem -- reference impl +
-   can-fail controls are done. AND its named sequel: an ORDER/PROMINENCE role cue (eADM animacy +
-   verb-class proto-role + information structure) for the residual non-canonical constructions the passive
-   fix does NOT recover -- inversion (postverbal subject) and object-fronting (measured: passive +0.60 vs
-   inversion -0.09 / fronting +0.00).
+2. **File the LEARNED cue-competition role assigner as the primary follow-on hdlab problem** (next problem A).
+   Reference impl + can-fail controls are done (`exp_mcguffey_migrate_cue_competition_v1.py`): ONE graded
+   additive cue-competition mechanism (order + animacy + case + voice, Dowty proto-roles / Competition Model)
+   that generalises across constructions (recovers inversion where the passive patch cannot), with cue
+   VALIDITIES LEARNED from the corpus rather than hand-set (the passive patch is its voice-cue-only special
+   case). Feeds: (B) a grounded/learned animacy cue to replace `animacy_lexicon`'s hard-coded list; (C) the
+   verb-class cue learned from argument-structure stats.
 3. Build a both-gold modern NARRATIVE situation-model gold (coref + roles on one text) -- the single
    dimension no on-shelf modern corpus supplies; candidate route = a GUM-style corpus (UD parse + coref) or
    hand-authored modern passages in the McGuffey shape.
