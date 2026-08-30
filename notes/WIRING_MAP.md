@@ -41,7 +41,7 @@ organ witness, register. Each is a self-contained strategy landing (Q111).
 | ~~belief_timeline~~ ✅ **PROMOTED 2026-08-30** | `hdlab/belief_timeline.py` | DONE (default-off organ; witness `test_belief_timeline_organ.py` 11/11; exp file now a re-export shim). **Live-reader wiring still pending** (moves to DEBT 2 / the assembly) | first burn-down |
 | ~~state_register~~ ✅ **PROMOTED 2026-08-30** | `hdlab/state_register.py` | DONE (surgical core-only split; witness `test_state_register_organ.py` 14/14; 61/61 unregressed; extraction stays exp-side). **Live-reader wiring pending** (DEBT 2, ENTITIES coref re-rank) | second burn-down |
 | **temporal_order_register** | `experiments/_temporal_order_register.py` | multi-module port → hdlab (register + 2 shared modules + tagger dep) | TIME dimension; ~25 importers — careful |
-| **perceptual_access_ledger** | `experiments/…perceptual_access…` | promote + extend belief_partition to a sequence ledger; must consume coref/situation organs so hdlab gains NO spaCy dep | the observation-cue front-end (the 0.098 belief-timeline live gap) |
+| ~~perceptual_access_ledger~~ ✅ **PROMOTED 2026-08-30** | `hdlab/perceptual_access_ledger.py` | DONE (wholesale; spaCy lazy = no hard hdlab dep; organ witness 5/5; 6/6 unregressed). **Live-reader wiring pending** (DEBT 2, GOALS/ToM — closes the belief-timeline 0.098 gap) | third burn-down |
 | **CLS keep-both-stores growth** | `experiments/exp_growth_cls_ensemble_v1.py` | promote the keep-both-stores / rate-limited-blend growth mechanism, **default-OFF** | the learner-on roadmap's step-2 (see `LEARNER_ON_ROADMAP.md`) |
 
 ### DEBT 2 — WIRING debt / THE ASSEMBLY (promoted to `hdlab/` default-off, but the live reader never calls them)
@@ -104,6 +104,10 @@ tracked burn-down item, not a silent park.
 ---
 
 ## BURN-DOWN LOG (newest first)
+- **2026-08-30** — **PROMOTION debt −1 (#3):** perceptual_access_ledger promoted `experiments/` → `hdlab/perceptual_access_ledger.py`
+  (wholesale; spaCy lazy → no hard hdlab dep; organ witness 5/5; 6/6 unregressed). The observation-cue front-end;
+  closes the belief-timeline 0.098 gap once reader-wired. **PROMOTION debt remaining: temporal_order_register (multi-module),
+  CLS learner-growth (design-heavy, has a proposed diff to land faithfully).**
 - **2026-08-30** — **ASSEMBLY (DEBT 2) started:** packaged p2 `wire_the_causation_typer_into_the_live_reader` — the first
   "wire a promoted organ into the live reader" problem (CAUSATION), scoped to the typer's within-clause domain and respecting
   the integrated cross-sentence negative. Follows the who-did-what assembly template.
