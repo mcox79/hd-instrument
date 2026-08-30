@@ -91,13 +91,13 @@ res = graded_antecedent_pick([ent_hist[c] for c in cands_with_history], clause_i
 pick = cands_with_history[res["pick"]]      # bind the pronoun to the graded winner
 ```
 
-**HONEST measurement-population caveat (do NOT claim a McGuffey who-did-what lift):** the binder is genuinely
-EXERCISED on McGuffey (147 items, 70% of ambiguous), but it does NOT move the McGuffey ROLE-accuracy number
-(random-BIND twin TIES the graded binder, +0.000 NOT_SEP). Reason: the role label is PARSE-derived, and the
-metric's majority-agent fallback masks binding errors -- so this instrument cannot see binding quality. The
-binder's who-did-what value is established on its OWN population, LitBank: **+0.083 live / +0.136 re-instrumented,
-CI-separated, random twin loses** (the landed `pronoun_to_event_binding_caps_who_did_what`, do not re-derive).
-So: WIRE the binder (it is the right mechanism and composes cleanly) but MEASURE its who-did-what lift on
-LitBank, not on the McGuffey role instrument.
+**MEASURE the binder on LitBank, NOT the McGuffey role instrument (and it now IS measured in-pipeline).** On
+McGuffey the binder is exercised (147 items) but does not move the ROLE number (random-BIND twin ties, +0.000) --
+the parse-derived, majority-masked role metric cannot see binding quality. So I ran the ASSEMBLED pipeline (real
+arc parse -> router -> graded binder) on LitBank who-did-what
+(`exp_wire_predarg_binder_litbank_whodidwhat_v1.py`, 100 docs): **the graded binder lifts who-did-what +0.095
+[+0.040,+0.158] CI-sep in the arc pipeline, the wiring beats the incumbent +0.100 CI-sep, the random-bind twin
+loses, and the real arc parse ties the gold parse (-0.005 NOT_SEP)**. So WIRE the binder (right mechanism, composes
+cleanly, measured value on its right population) and keep measuring who-did-what on LitBank.
 
 **No change to `hdlab/graded_coref_pick.py` or `hdlab/candidate_generator.py`** (composed as-is).
