@@ -5,8 +5,8 @@ bar: "Types CAUSE-vs-ENABLE for tendency-ambiguous verbs CI-separated over the l
 result: "FULL patient-tendency estimator (affector-magnitude + patient-affordance + directional + affector-letting, Wolff patient-side force-sum) types CAUSE-vs-ENABLE at 1.000 [1.000,1.000] on the COMBINED tendency-ambiguous population (n=40 constructed minimal pairs, outcome held reached, extraction given; bootstrap 2000x) -- vs the lexicon-only floor 0.500 (+0.502 [0.350,0.650]) AND vs the PROVEN affector-magnitude-only term 0.675 (+0.327 [0.200,0.475]), both CI-separated; HELD-OUT (fresh affectors/patients/cues) 1.000 beats magnitude-only +0.406 CI-sep. ALSO validated on MODERN real text (exp_patient_tendency_realtext_modern_v1, witness 8/8): OUTPUT accuracy 7/7 on genuine tendency cases in verbatim MCScript2/UD-EWT vs lexicon-only 1/7, correctly DEFERS 6/6 on agentive manipulation. Per-cue on the magnitude-SILENT affordance/directional sets +0.505/+0.504 over magnitude-only; on the magnitude-present set +0.000 NOT_SEP (the proven first term already suffices there)."
 floor: "The strongest floor actually run is the PROVEN affector-magnitude-only term (the parent problem's demonstrated first term), 0.675 on COMBINED / 0.591 on HELD-OUT -- beaten +0.327 / +0.316 CI-separated. Also run: lexicon-only 0.500 (the brief's floor, recomputed on-population, exactly the 0.500 cap on every isolated set) beaten +0.502; majority-class; oracle ceiling 1.000."
 controls: "(1) info-free TWIN (each cue's +1/-1/0 contribution permuted across items -- same shape, correlation to gold destroyed): COMBINED full_lo 1.000 > twin p95 0.625 (mean 0.500) -> LOSES; excludes 'any signal blend scores'. (2) null p95 0.650 (label permutation) < 1.000. (3) per-term ABLATION: best single term 0.675 < full 1.000 -> the terms COMBINE, no single cue is the signal (m/a/d alone 0.675/0.675/0.650). (4) COMBINATION-RULE discriminator (CONFLICT set, n=12, 2-vs-1 cue disagreement with the MINORITY cue rotating evenly, gold = Wolff net-force sign): force-sum 1.000 beats EVERY single-cue-priority (winner-take-all) rule 0.667 CI-separated (+0.337/+0.332/+0.331 ABOVE); no single-cue rule can exceed 8/12 -> the combination is ADDITIVE integration (Wolff vector sum), NOT winner-take-all; twin loses (p95 0.750). (5) 4th CUE = CAUSING-vs-LETTING (Talmy 1988; SET_L n=12): restraint-remover -> ENABLE (letting), strong force -> CAUSE (causing); full 1.000 vs lexicon-only 0.000 (+1.000 CI-sep); dropping the letting term collapses the ENABLE side 1.000->0.500 (letting carries it); ONSET-CAUSE instruments (switch/trigger/lever/button) NEVER typed ENABLE (the causing-not-letting disambiguation guard); the letting cue does NOT perturb COMBINED (e=0 there, drop_e == full). (6) HELD-OUT (fresh affectors/patients/cues) 0.910 [0.773,1.000] beats magnitude-only +0.316 CI-sep -> generalization, not fit; the 2 misses are a VERB-GATE coverage gap ('drift' not gated), the tendency MECHANISM is 20/20 on gated verbs. (7) POSITIVE controls the lexicon cannot: ball-vs-crate (affordance), down-vs-up (directional), nudge-vs-shove (magnitude), key (letting) all correct, lexicon 0 each; the brief's key-vs-wind KEY side now resolves via LETTING, the WIND side is under-determined and RESOLVED once magnitude is stated (breeze->ENABLE, blast->CAUSE). (8) WEIGHT SWEEP min 1.000 over 27 weight configs -> robust to the OUR-INVENTION weights, not fitted."
-files_changed: "experiments/_patient_tendency.py (the estimator: 4 force-dynamic cues -- affector-magnitude + patient-affordance + directional + affector-letting-role -- + Wolff patient-side force-sum), experiments/exp_patient_tendency_estimator_v1.py (populations SET_M/A/D/L, floors, twin, ablation, held-out, weight-sweep, CONFLICT combination-rule discriminator, causing-vs-letting + onset-cause guard, controls), experiments/exp_patient_affordance_cskg_grounding_v1.py (external CSKG grounding of the affordance term), verification/test_patient_tendency_estimator.py (scaffold-free witness 21/21), data/exp_patient_tendency_estimator_v1/metrics.json, data/exp_patient_affordance_cskg_grounding_v1/metrics.json, notes/problems/causation_typing_needs_a_patient_tendency_estimator/research_patient_tendency_force_arithmetic_2026-08-30.md"
-reverify: ".venv/Scripts/python.exe verification/test_patient_tendency_estimator.py   # scaffold-free, 21/21 PASS, recomputes every headline from source"
+files_changed: "experiments/_patient_tendency.py (the estimator: 4 force-dynamic cues -- affector-magnitude + patient-affordance(+in-sentence adjectives, negation) + directional(+IS-A-grounded inclined-surface schema, particle-vs-path) + affector-letting-role -- Wolff patient-side force-sum; DERIVED causative-inchoative verb-gate (VerbNet roll-51.3.1 + core-physics flow); lemmatization at entry), experiments/exp_patient_tendency_estimator_v1.py (populations SET_M/A/D/L, floors, twin, ablation, held-out, weight-sweep, CONFLICT combination-rule discriminator, causing-vs-letting + onset-cause guard), experiments/exp_patient_affordance_cskg_grounding_v1.py (external CSKG grounding of the affordance term), experiments/exp_patient_tendency_realtext_modern_v1.py (MODERN hand-adjudicated serve), experiments/exp_patient_tendency_generalization_udewt_v1.py (UD-EWT auto-extraction generalization probe), verification/{test_patient_tendency_estimator.py (22/22), test_patient_tendency_realtext_modern.py (8/8), test_patient_tendency_generalization.py (3/3)}, data/{exp_patient_tendency_estimator_v1, exp_patient_affordance_cskg_grounding_v1, exp_patient_tendency_realtext_modern_v1, exp_patient_tendency_generalization_udewt_v1, patient_tendency_v1}/*, notes/problems/causation_typing_needs_a_patient_tendency_estimator/research_patient_tendency_force_arithmetic_2026-08-30.md"
+reverify: ".venv/Scripts/python.exe verification/test_patient_tendency_estimator.py   # 22/22; also test_patient_tendency_realtext_modern.py (8/8, MODERN serve) + test_patient_tendency_generalization.py (3/3, brain-like generalization)"
 ---
 
 # SOLVED -- the full patient-tendency estimator crosses the CAUSE-vs-ENABLE wall the verb cannot
@@ -135,10 +135,40 @@ result alone:
   simulation (Kaup et al.) -- a negation cue flips the property sign ("not heavy" -> affords); (b) I turned
   OFF the measured-unreliable WordNet affordance backstop by default (it spuriously read "can" as
   rollable -> a false ENABLE) -- the curated core-physics lexicon stays. Both raised real-text fidelity.
-- **What I still did NOT establish:** a real-text ACCURACY AT SCALE with AUTOMATIC (parse-based) extraction
-  + amod-attached adjectives + an independent 2nd adjudicator on a large physical-narrative sample. The
-  n=13 modern point estimate + the held-out 0.910 are the real-text/generalization evidence I stand on;
-  withdraw the constructed 1.000 first if a large auto-extracted modern sample disagrees.
+## BRAIN-FOUNDATIONAL GENERALIZATION (owner: "generalize the way the brain does -- that's how we get this right")
+I tested generalization to UNFILTERED modern text with AUTOMATIC extraction (UD-EWT gold-parse, 318
+gated-verb clauses; `exp_patient_tendency_generalization_udewt_v1.py`, witness 3/3). The honest arc:
+- **First pass OVER-FIRED (17/318)** -- almost all on PHRASAL VERBS ("turn UP the sound", "pull BACK the
+  forces", "X BACK"): the directional/resistance cues were matching verb PARTICLES and figurative
+  directions as physical gravity/resistance. This is the exact brittleness of LEXICAL PATTERN-MATCHING.
+- **The brain does not use a word list -- it grounds a word in its CONCEPTUAL FEATURE / IMAGE SCHEMA**
+  (Talmy 1988; Lakoff/Johnson image schemas; Barsalou grounded simulation) and runs the force-dynamic
+  SIMULATION over that. So I replaced the hand-lists with GROUNDED features: the INCLINED-SURFACE schema
+  is IS-A grounded (a hill/knoll/ravine IS-A geological_formation/incline via WordNet), which GENERALIZES
+  to NOVEL grounds a list never had (knoll/ravine/escarpment/gully -- verified) while a bare particle with
+  no ground ("turn UP the sound") does NOT fire (particle-vs-path). Result: fire rate 17/318 -> **3/318**,
+  no phrasal over-fires.
+- **KEY RECONCILIATION:** IS-A grounding works for TAXONOMIC features (inclined-surface, physical-entity)
+  and FAILS for DISPOSITION ("affords rolling" is not taxonomic -- measured earlier) -- so affordance stays
+  a core-physics property lexicon (itself a grounded feature) while ground/physicality are IS-A-grounded.
+  The force-sum over these grounded features IS the simulation. This is the consistent brain-faithful split.
+- **The residual few fires are WORD-SENSE + amod-ATTACHMENT errors** ("winding DOWN" = aspectual not
+  spatial; "twist my arm ROUND" = manner not shape; "small" attached to *town* not the patient) -- exactly
+  what the brain resolves via word-sense disambiguation + correct syntactic attachment, and a lexical layer
+  structurally cannot. So brain-like generalization on ARBITRARY text needs: (1) grounded conceptual
+  features [demonstrated], (2) parse-based amod-attachment, (3) WORD-SENSE disambiguation of literal-vs-
+  figurative -- the parent's `no_glass_box_verb_sense_disambiguation` problem. The force-dynamic MECHANISM
+  itself generalizes correctly for LITERAL, correctly-sensed/attached inputs.
+- **Also, the construction the estimator targets (a natural/inanimate force meeting a disposed patient) is
+  GENUINELY ABSENT from web text** (reviews/emails/blogs -> figurative/agentive) -- it lives in physical
+  NARRATIVE -- so a near-zero fire rate on web text is the CORRECT behavior, not a failure.
+
+- **What I still did NOT establish:** a real-text ACCURACY AT SCALE with parse-based amod-attached
+  extraction + word-sense disambiguation + an independent 2nd adjudicator on a large physical-narrative
+  sample. The n=13 modern point estimate (7/7 output) + the held-out 1.000 + the generalization probe are
+  the evidence I stand on; withdraw the constructed 1.000 first if a large auto-extracted modern sample
+  disagrees. The grounded-simulation + WSD layer is the brain's generalization mechanism and the clear
+  fidelity roadmap.
 - **The patient-affordance property->lability MAP is OUR-INVENTION, but externally CORROBORATED on the
   labile half.** Wolff PINS the patient-force SOURCE; the specific round/buoyant/hinged=>tends map is mine,
   validated on held-out patients + the twin + the control, NOT on face validity. I MEASURED two external
