@@ -65,6 +65,24 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `situation_focus` (ChunkedFocus) — brain-faithful (Cowan)
+  but its chunking win is a HIGH-LOAD constructed self-test that likely RARELY FIRES at the real operating point (the same
+  collapse the generalization audit just measured for the entity store).** (a) FIDELITY: PINNED — Cowan (2001) bounded-capacity
+  focus of attention (~4±1 chunks) with hierarchical chunking (oldest units compress into a nested Level-2 CHUNK past CAPACITY);
+  glass-box, reuses the validated bipolar bind/quantize. Genuinely the brain's operation. (b) GENERALIZATION: the win
+  (FlatFocus DEGRADES with load / ChunkedFocus RECOVERS recent items) is demonstrated by CONSTRUCTED self-tests
+  (`_selftest_flat_degrades_chunked_recovers_recent`) on synthetic high-load event streams — **NO held-out / real-text evidence
+  that chunking helps live reading.** (c) WIRING: imported by `situation_reader` (ChunkedFocus), but historically flagged in the
+  island/shelve audits (capability_integration_ledger 07-28; wired-vs-islands 07-25 item a) — live-imported, value un-witnessed.
+  (d) GAP + LEVERAGE (converges with the just-integrated generalization audit): chunking only ENGAGES when active units exceed
+  CAPACITY (~4), but the audit measured that on real text the median entity carries **~1 event (87% ≤ 3)** — so on real reading
+  the focus likely rarely exceeds capacity and **chunking rarely fires**, i.e. its +recovery win lives at a high-load operating
+  point that real narrative seldom reaches (the SAME pattern as the separated entity store, +0.94 synthetic → +0.06 real,
+  busy-entities-only). **ACTION: apply the audit's meta-lesson — re-measure ChunkedFocus-vs-FlatFocus at the REAL focus-load
+  distribution on live reading (does the reader's active focus ever exceed ~4 on real narrative? does chunking then help?);
+  expected outcome busy-context-only, like the store. Seeded (not packaged — the queue is full with p1/p2/p5/p6; this is a
+  re-measurement that folds into the generalization method / the p1 extraction work's operating-point analysis).**
+
 - **2026-08-30 — THE GENERALIZATION STRESS-TEST RE-BASELINES THE SUBSTRATE: three credited wins DO NOT generalize on real text,
   one shrinks 15–60×, and the meta-lesson is to re-measure at the REAL operating point** (from integrated
   `stress_test_which_organ_wins_actually_generalize_on_held_out_text`, owner-DONE, SOLVED/EXCELLENT; reverified 34/34 first-hand).
