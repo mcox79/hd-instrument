@@ -5,7 +5,7 @@ bar: "On the MODERN UD-EWT role gold, scored on the HELD-OUT NON-CANONICAL subse
 result: "TWO regimes. CLEAN-PARSE regime (modern UD-EWT core-arg gold, sentence-level held-out, n_test=3591): on clean parses the achievable non-canonical fix is STRUCTURAL ROUTING, not thematic fit (route_only 0.9858 beats word order +0.0493 [0.0418,0.0563] and graded_role +0.0810 [0.0718,0.0911], CI-sep, canonical/reversible unregressed); the fit gate does NOT CI-separate from graded_role on non-canonical because a gold parse removes the uncertainty fit resolves and graded_role hides an animacy plausibility cue -- the brief's premise is REFUTED for clean parses, exactly as noisy-channel theory predicts. WEAK-PARSER DEPLOYMENT regime (modern QA-SRL role-balanced comprehension gold read through the reader's OWN noisy live front-end, held-out; non-canonical/pre-verbal n=1224, positional floor 0.5): the fit gate DOES beat BOTH named floors on the non-canonical subset -- word order 0.1487 (paired +0.126 [0.102,0.149]) AND the landed graded_role 0.1176 (+0.157 [0.130,0.186]) -- CI-separated, with the info-free twin LOSING (0.2222, +0.052 [0.025,0.078]); AND it GENERALISES to held-out UNSEEN (verb,noun) pairs (n=299: gate 0.2308 beats word order +0.067 [0.020,0.114] and graded_role +0.054 [0.003,0.107], CI-sep; the twin edge does NOT survive to unseen, +0.023 [-0.027,0.074], so the count-fit signal is largely seen-pair memorisation). BUT the gate REGRESSES canonical (0.6552 vs word order 0.8358) and a full tau sweep shows the tradeoff is IRREDUCIBLE (no threshold beats the non-canonical floor while preserving canonical). So P1 (beat both floors + NO canonical regression) FAILS; the bar's P2 clause (a faithfully-built conflict gate cannot separate override-when-conflicting from leave-alone-when-not without hurting canonical, reason enumerated -> a full PASS) IS met, with power. The clean dominant fix is a better PARSER (spaCy structural roles 0.9959, no LLM)."
 floor: "TWO strongest real floors, both recomputed on this population/subset: (a) naive-first-noun / word order = 0.9365 ALL, 0.0420 raw non-canonical, 0.0219 BALANCED non-canonical; (b) the landed grammatical-function assigner hdlab.graded_role_assigner = 0.9048 ALL, 0.9034 raw non-canonical, 0.4715 balanced non-canonical. Also reported: the degenerate always-patient constant = 0.958 raw non-canonical (the subset is ~96% patient), which is why the primary non-canonical metric is BALANCED accuracy (always-patient -> 0.5). Label-permutation null p95: route_only ALL 0.5837."
 controls: "(1) info-free STRUCTURE-SHUFFLED twin (thematic-fit model trained on permuted role labels): LOSES CI-separated on balanced non-canonical (+0.150 [0.002,0.321]) and on the residual (+0.24 [0.08,0.40]) -- EXCLUDES 'any conflict signal helps'. (2) FUSED-ALWAYS control (fit overrides order whenever they disagree, no gate): HURTS canonical (0.752) and loses -- EXCLUDES 'skip the gate'; confirms conflict-validity must be a GATE not a weight (matches the fenced precision-weighted / linear-sum negatives). (3) ROUTING control (strong-passive routing with NO fit) beats both floors on the aggregate -- EXCLUDES 'the aggregate gain is from thematic fit' (it is not; it is structural routing). (4) canonical + reversible no-regression split -- EXCLUDES 'the fit gate trades canonical for non-canonical' (it does: composed fit gate canonical 0.886, reversible 0.571 -> the fused/low-tau fit arm FAILS the no-regression clause, the routing arm PASSES it). (5) noisy-channel CORRUPTION CURVE: masking passive morphology at prob p, the fit-gate-minus-structure gap grows monotonically (-0.103 -> -0.070) as structure degrades and the info-free twin never recovers -- the Gibson-2013 signature; EXCLUDES 'fit's value is regime-independent'. (6) independent derivation: gold roles from the UD GOLD parse; the gate's structure cues + fit are surface-derived -> no circularity."
-files_changed: "experiments/_grounded_role_data.py; experiments/_grounded_role_gate.py; experiments/_grounded_role_protofit.py; experiments/exp_grounded_role_baseline_v1.py; experiments/exp_grounded_role_opportunity_v1.py; experiments/exp_grounded_role_uncertainty_curve_v1.py; experiments/exp_grounded_role_gate_v1.py; experiments/exp_grounded_role_noisy_parse_v1.py; experiments/exp_grounded_role_weak_parser_v1.py; experiments/exp_grounded_role_protofit_generalize_v1.py; verification/test_grounded_role_gate_organ.py; notes/problems/grounded_role_assignment_via_verb_keyed_thematic_fit/{research_thematic_fit_disambiguation_regime_2026-08-30.md, SOLVED.md}. NO hdlab/ modified (Q111)."
+files_changed: "experiments/_grounded_role_data.py; experiments/_grounded_role_gate.py; experiments/_grounded_role_protofit.py; experiments/exp_grounded_role_baseline_v1.py; experiments/exp_grounded_role_opportunity_v1.py; experiments/exp_grounded_role_uncertainty_curve_v1.py; experiments/exp_grounded_role_gate_v1.py; experiments/exp_grounded_role_noisy_parse_v1.py; experiments/exp_grounded_role_weak_parser_v1.py; experiments/exp_grounded_role_protofit_generalize_v1.py; experiments/exp_grounded_role_knn_fit_v1.py; experiments/exp_grounded_role_feature_fit_v1.py; verification/test_grounded_role_gate_organ.py; notes/problems/grounded_role_assignment_via_verb_keyed_thematic_fit/{research_thematic_fit_disambiguation_regime_2026-08-30.md, research_feature_based_role_generalization_2026-08-30.md, research_thematic_fit_ceiling_reconciliation_2026-08-30.md, SOLVED.md}. NO hdlab/ modified (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_grounded_role_gate_organ.py"
 ---
 
@@ -160,25 +160,37 @@ pairs; it does not. HONEST bound: the gate's edge over its INFO-FREE TWIN does N
 (+0.023 [-0.027, 0.074], CI includes 0) -- i.e. the count-based fit's genuine signal is largely seen-pair
 memorisation.
 
-**I then tried to CLOSE that gap with a real meaning space (four fit-vector sources; `exp_grounded_role_protofit_generalize_v1.py`).**
-The result is a precise, brain-foundational bound: NO available meaning space gives BOTH role-accuracy AND
-unseen-pair generalisation.
-- COUNT fit (learns role behaviour directly): role-ACCURATE (0.275 non-canonical) and beats its shuffle overall
-  (+0.052), but its signal-over-twin does NOT survive to unseen pairs (+0.023, CI incl 0) -- it MEMORISES.
-- CONSOLIDATED distributional space (pretrained GloVe-300, a static asset, no LLM = the PINNED PPMI/SVD
-  consolidation with the EXPERIENCE parameter swept toward the brain's regime): its prototype fit is the ONLY
-  arm whose signal GENERALISES to unseen pairs -- proto-GloVe beats its info-free twin on unseen +0.050 [0.020,
-  0.084] CI-separated. BUT it is role-INACCURATE (0.094, BELOW word order), because general distributional
-  similarity encodes TOPIC, not thematic ROLE (the exact `distributional_meaning_channel` finding:
-  substitutability/relatedness != role). A hybrid (count where attested, GloVe-backoff where novel) and a
-  supervised role-tuning of GloVe did not beat their twins cleanly either.
+**I then pushed HARD on WHY the fit signal generalises poorly -- 8 fit-vector methods, TWO brain-research
+drills, and a MEASUREMENT-ARTIFACT correction against myself. The reconciled truth (this is the fully-understood
+version; `exp_grounded_role_protofit_generalize_v1.py`, `exp_grounded_role_knn_fit_v1.py`,
+`exp_grounded_role_feature_fit_v1.py`, `research_feature_based_role_generalization` + `research_thematic_fit_ceiling_reconciliation`):**
 
-**So the fit-vector bottleneck is now a MEASURED, brain-foundational bound, not a hunch:** thematic-role fit
-needs a ROLE-TUNED, GROUNDED semantic space (McRae feature-based fit; the ATL hub shaping the distributional
-spoke toward role structure) -- exactly the brief's `distributional_meaning_channel` dependency. Raw
-distributional similarity generalises but is not role-fit; direct role counts are role-fit but do not
-generalise. Neither is the brain's substrate; the grounded, role-tuned space is, and building it is the named
-follow-on (not closable with the generic assets on the shelf).
+- **A MEASUREMENT ARTIFACT I caught and corrected.** An intermediate probe reported "GloVe predicts role at
+  0.51 = chance on OOV nouns, so distributional CANNOT generalise role". That was wrong two ways: the gate eval
+  has a swap-helps-on-passives confound, and the direct probe used an UNBALANCED logistic on 22%-agent data
+  (it predicted the majority class -> artificial 0.5 balanced accuracy). With a BALANCED classifier and
+  balanced accuracy on held-out OOV nouns, GloVe verb-conditioned generalises role at **0.65** (noun-only
+  0.59), beating its info-free twin (0.48). **Distributional DOES carry generalising role signal** (largely
+  animacy/semantic-type, which GloVe encodes). I withdraw the earlier "distributional is role-inaccurate" claim.
+- **A quick WordNet FEATURE vector (animacy + IS-A concreteness + supersenses) did NOT beat GloVe** on OOV
+  (0.51-0.57 vs 0.65). So the second drill's STRONG claim -- "grounded features >> distributional, bag-of-words
+  is weak" -- is OVERSTATED: the MECHANISM (McRae feature/prototype, verb-keyed, generalises via inferred type;
+  GEK; ATL feature integration) is PINNED and stands, but no published result (and not my data) shows grounded
+  norms beat 300-d embeddings on OOV role, and LREC-2020's actual conclusion is that reliable SYNTAX is the
+  determinant, not grounded features. GloVe-0.65 is CONSISTENT with the field's modest thematic-fit ceiling
+  (graded benchmarks sit ~0.4-0.7 for tuned embeddings, structured DMs, and BERT alike).
+
+**THE LOAD-BEARING, CONVERGENT FINDING: most thematic-role information is STRUCTURAL, not noun-intrinsic.**
+Animacy-alone 0.54, the best noun-side representation (GloVe) 0.65 -- the argument-alone signal is near a
+MODEST CEILING regardless of representation (feature or distributional). This is not a fit-vector engineering
+gap; it is a fact about where role information lives, and it converges with the Competition Model (English is
+order/structure-dominant), the reversible-sentence literature, this problem's own parser result (spaCy
+structural roles 0.996), and the weak-parser result (fit earns its keep only as a competition-gated TIE-BREAKER
+where structure is silent). So: verb-conditioned GloVe is an ADEQUATE fit signal near its ceiling; the lever is
+STRUCTURE (a better parser + the conflict gate), NOT a richer fit vector. This is CONVERGENCE with a specific
+reason (the noun-side ceiling), not engineering exhaustion -- and it withdraws the earlier "build a grounded
+role-tuned space to close the gap" recommendation as low-headroom (a flat result over GloVe is the likely
+outcome; if ever tried, the SOTA axis is a syntax-TYPED distributional prototype, not a hand-built grounded vector).
 
 The count-based selectional-preference fit MEMORISES (verb,noun) pairs. The McRae-faithful generalising form
 is similarity-to-role-PROTOTYPE (centroid of typical role-fillers), which should transfer to unseen arguments
@@ -305,7 +317,9 @@ you read the bar's "rigorous NEGATIVE is a full PASS -- name why" clause as the 
 
 ## NEXT STEPS (for the strategy session; I do not file problems -- Q113)
 
-1. **HIGHEST LEVERAGE -- upgrade the reader's PARSE FRONT-END, not its role logic.** The natural noisy-parse
+1. **HIGHEST LEVERAGE -- upgrade the reader's PARSE FRONT-END, not its role logic** (a ready-to-file
+   brief is packaged at `FOLLOW_ON_PROPOSAL_parse_frontend_upgrade.md` in this folder; strategy lifts it into a
+   new problem, Q113). The natural noisy-parse
    test shows a modern substrate-native parser (spaCy, no LLM) scores 0.9959 on this task and 0.9915 balanced
    on non-canonical -- it essentially solves the non-canonical collapse (0.288 -> ~0.99) that this whole
    problem line targets, dominating word order, the landed graded_role, AND the thematic-fit gate. The
@@ -316,5 +330,9 @@ you read the bar's "rigorous NEGATIVE is a full PASS -- name why" clause as the 
 3. Re-test the thematic-fit gate ONLY in a genuinely WEAK-parser regime (the reader's nltk front-end), where
    the structure-silent residual is large enough to power a CI-separated non-canonical test -- but note (1):
    if the parser is upgraded, that residual shrinks to ~0.4% and thematic fit is largely redundant.
-4. Supply the fit vectors from `distributional_meaning_channel` / a role-fit-tuned embedding before adding a
-   thematic-fit cue -- the generalization result shows vector quality is the bottleneck.
+4. Do NOT invest in a richer fit vector as the lever. The reconciled generalization study (8 methods + 2
+   drills) shows the noun-side thematic-fit signal is near a MODEST ceiling (~0.65 balanced OOV) regardless of
+   representation, because most role information is STRUCTURAL, not noun-intrinsic; grounded features have no
+   proven headroom over verb-conditioned GloVe. Keep verb-conditioned GloVe as an adequate tie-breaker fit
+   signal; spend effort on structure (parser + conflict gate). If a fit upgrade is ever tried, the evidence
+   points to a syntax-TYPED distributional prototype (SDM-style), not a hand-built grounded feature vector.

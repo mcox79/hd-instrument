@@ -65,6 +65,23 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `hd_fact_store` (the substrate knowledge base) VETS SOURCE-TRUST,
+  NOT CORRECTNESS — this is the North Star "noisy foundation" mechanism, on disk.** (a) FIDELITY: facts stored as glass-box
+  role-slot-bound hypervectors — `quantize(bind(REL,rel)+bind(ARG0,subj)+bind(ARG1,obj)+bind(SOURCE,src)+bind(TRUST,trust))`,
+  every field (incl. provenance + trust) recovered by unbind+cleanup (never a plaintext copy); reuses the validated EventBundleCodec
+  binding (computationally faithful role-filler binding; the bipolar-sign impl is the known deviation). Adds per-domain cleanup +
+  a subject-relation HD conflict key + INGEST-VET (trust-ranked REPLACE/COMBINE/FLAG/DROP). (b/d) THE GAP (its own docstring is
+  explicit): **"INGEST-VET is SOURCE-TRUST vetting, NOT correctness vetting… a clean (non-conflicting) fact simply STORES — there
+  is no internal uncertainty gate."** So the store accepts whatever is extracted from a trusted source and only resolves
+  CONFLICTS by source rank — there is NO organ verifying a stored fact is TRUE or CONSISTENT with the rest of the knowledge.
+  **Foundation cleanliness therefore = extraction quality (p1 `the_extraction_front_end…`) + source curation, with a missing
+  CORRECTNESS/CONSISTENCY cleanup** — exactly the consolidation/cleanup organ the learner-on roadmap named as the DISCONNECTED
+  MISSING LINK (`[[learner-on-organizing-frame]]`: the cleaned cortical store is written-but-never-read). (c) WIRING: wired into
+  the SUBSTRATE (the KB / `director_kb_query`), not the live reader. **CONVERGENCE:** this confirms the North Star diagnosis at
+  the fact-store level — the learner is held OFF because the foundation is noisy, and the noise enters precisely HERE (source-trust
+  ingest with no correctness gate); the two levers are p1 (cleaner extraction upstream) + the consolidation/cleanup organ
+  (correctness/consistency downstream). Seeded — NOT packaged (p1 + the roadmap own it; this sharpens WHERE the noise enters).
+
 - **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `situation_focus` (ChunkedFocus) — brain-faithful (Cowan)
   but its chunking win is a HIGH-LOAD constructed self-test that likely RARELY FIRES at the real operating point (the same
   collapse the generalization audit just measured for the entity store).** (a) FIDELITY: PINNED — Cowan (2001) bounded-capacity
