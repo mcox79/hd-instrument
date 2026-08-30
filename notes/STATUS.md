@@ -48,9 +48,16 @@ the Shakespeare-EME extreme 0.07→0.75); the solver self-refuted its own cue-fi
 folded (new CAUSATION organ; corpus-age confound SUSPECTED→MEASURED-BOUNDED/RETIRED).
 🔌 **Both hdlab landings QUEUED (coupled, in the debt): the causation TYPER into `_read_causation`; the archaic cue-override
 subject stage into `graded_role_assigner` (a concrete INPUT to the assembly p3).**
-🎯 **QUEUE: p3 assembly (ASSIGNED — the strategic #1) + open/unassigned: `the_discourse_fact_reasoner_is_unvalidated_on_natural_text`,
-`the_situation_model_tracks_no_entity_state_history` (NEW).** Both causation + archaic dropped (integrated). Nothing
-owner-DONE awaiting. ALL 5 Zwaan dimensions now have organs (TIME+SPACE integrated, CAUSATION+ENTITIES/state building, GOALS partial).
+🎯 **QUEUE (as of 2026-08-29, later): p3 assembly (ASSIGNED — the strategic #1) + `the_discourse_fact_reasoner_is_unvalidated_on_natural_text`
+(ASSIGNED) + `the_situation_model_tracks_no_entity_state_history` (ASSIGNED) + `the_reader_has_no_belief_timeline_what_an_agent_knew_when`
+(NEW/open — the GOALS/ToM × TIME composition). Solvers pick up fast (0-buffer recurs).** Nothing owner-DONE awaiting. ALL 5
+Zwaan dimensions now have organs (TIME+SPACE integrated, CAUSATION+ENTITIES/state building, GOALS/ToM partial → belief-timeline
+extends it). **PRIMED next problems (ready to package as the buffer thins): causation patient-tendency estimator
+(affector-magnitude proven 0.5→1.0); a targeted verb-sense gate; type the Trabasso causal-network edges; multi-timescale
+registers (write-path successor); an archaic-morphology lexicon; a case-override for `incremental_parser`.** **Landed CORES
+(default-off/witnessed): predarg front-end, leaky-recency write, force-dynamics causal typer. QUEUED coupled landings: the
+live-reader wiring (predarg de-dup + who-did-what binder + causation CausalLink + archaic cue-override → all touch the
+reader, do as ONE assembly pass), the TIME register (multi-module), the discourse-fact organ, the write-path Change 2.**
 
 ### 2026-08-29 -- ✅ **INTEGRATED the register WRITE-PATH fix (owner-DONE, EXCELLENT — leaky-recency write + salience-gated consolidation; the superposition-register FORM is now PINNED at the readout level). PACKAGED the ASSEMBLY-PHASE problem (wire the validated role organs into the live reader — a SOLVER problem, correcting the earlier "wiring is strategy-only" under-scoping).**
 **Newest first; the entries below carry the fuller context.**
