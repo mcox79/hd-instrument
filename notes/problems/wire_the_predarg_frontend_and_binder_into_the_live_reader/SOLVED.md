@@ -5,7 +5,7 @@ bar: "PASSES only with ALL of: (1) the live reader's role assignment routed thro
 result: "POSITIVE on BOTH halves. (A) ROLE-LABELING, McGuffey (57 passages, 178 queries, family-grain, bootstrap 2000x): the WIRED role path (parse -> route_predicate_arguments + quotative inversion -> graded binder, positional good-enough FALLBACK = HYBRID) scores 0.742 [0.680,0.803] vs POSITIONAL 0.517 [0.438,0.590] -- +0.225 [+0.150,+0.303] CI-sep (exact grain 0.702 vs 0.483, not a grain artifact); QUOTATIVE inversion is the dominant lever +0.253 [+0.177,+0.333]; per-role recovery (positional 0.000 -> wired) GOAL 1.00 / RECIPIENT 0.50 / EXPERIENCER 0.38 / AGENT 0.58->0.83. (B) WHO-DID-WHAT BINDING, LitBank 19c literary prose (100 docs, ~4.4k pronoun queries, the ASSEMBLED pipeline: real arc parse -> router -> graded binder; scorer = gov-verb-weighted coref of the pronoun to the gold entity's cluster via the landed _score_event_set): the graded binder LIFTS who-did-what IN the assembled arc pipeline +0.095 [+0.040,+0.158] CI-sep (arc+GRADED 0.328 vs arc+ACTR 0.233); the assembled wiring BEATS the live incumbent (positional+ACT-R 0.228) +0.100 [+0.044,+0.162] CI-sep; the random-BIND twin loses +0.196; and the real arc parse TIES the dataset's own gold parse (-0.005 NOT_SEP) -- the archaic-prose parse is NOT the wall for this task."
 floor: "(a) POSITIONAL reader recomputed on the same population = 0.517 family / 0.483 exact (reproduces the prior negative's 0.483 headline). (b) content-lemma-overlap COUNTING floor, family grain: on the wired reader's OWN matched store 0.708 (beaten marginally +0.022 [+0.000,+0.050]); on the POSITIONAL store 0.466 (beaten +0.264 [+0.160,+0.360] CI-sep); on the ORACLE store 0.983 (NOT beaten, -0.253 [-0.318,-0.190]) -- the inherited oracle-INPUT number the prior negative established NO front-end-driven reader can beat. Majority-role floor 0.781 (all) / 0.615 (non-agent) / 0.837 (predarg-scope)."
 controls: "info-free ROLE twin (thematic labels detached from heads, same head multiset) LOSES +0.292 [+0.192,+0.396] CI-sep -> the role-ASSIGNMENT logic carries the gain, not head extraction. QUOTATIVE-OFF ablation isolates the speech-verb lever (+0.253 CI-sep). EXTRACT-lever (predarg extraction + recency, no binder) vs positional isolates the router. 2nd BINDING-SENSITIVE metric (which entity filled the role-slot, mis-bind fails): PREDARG beats POSITION 0.807 vs 0.636 (+0.171 CI-sep ABOVE) -- confirms the wiring on a metric the role-labeling one is blind to. BINDER-lever (positional extraction + graded binder) vs positional +0.006 NOT_SEP; and on the binding-sensitive PRONOUN subset (n=47, the binder's own population) the random-BIND twin TIES the graded binder (+0.000 NOT_SEP) -> CONFIRMED by a DIRECT binding control (not just asserted): McGuffey structurally lacks the same-gender referential competition the binder resolves, so its who-did-what value lives on LitBank (+0.136 CI-sep, landed). HYBRID good-enough fallback cuts regression 12->6 of 92 positional-correct. Positive control: the router recovers GOAL(garden)+RECIPIENT(beggar)+passive-agent(acid) off the REAL parse -- roles the positional rule scores 0.000 on. ORACLE-role upper bound 0.983 localises the residual to the front-end."
-files_changed: "experiments/exp_wire_predarg_binder_live_reader_v1.py (new; McGuffey role + binding-sensitive who-did-what metrics + --litbank-probe); experiments/exp_wire_predarg_binder_litbank_whodidwhat_v1.py (new; the assembled pipeline on LitBank who-did-what); verification/test_wire_predarg_binder_live_reader.py (10/10) + verification/test_wire_predarg_binder_litbank_whodidwhat.py (5/5); data/exp_wire_predarg_binder_live_reader_v1/metrics.json + data/exp_wire_predarg_binder_litbank_whodidwhat_v1/metrics.json (new); notes/problems/wire_the_predarg_frontend_and_binder_into_the_live_reader/{SOLVED.md, PROPOSED_HDLAB_DIFF.md, research_quotative_copula_role_assignment_2026-08-29.md, research_archaic_literary_prose_parse_wall_2026-08-29.md}. hdlab/ UNTOUCHED (proposed diff only, Q111)."
+files_changed: "experiments/exp_wire_predarg_binder_live_reader_v1.py (new; McGuffey role + binding-sensitive who-did-what metrics + --litbank-probe); experiments/exp_wire_predarg_binder_litbank_whodidwhat_v1.py (new; the assembled pipeline on LitBank who-did-what); verification/test_wire_predarg_binder_live_reader.py (10/10) + verification/test_wire_predarg_binder_litbank_whodidwhat.py (5/5); data/exp_wire_predarg_binder_live_reader_v1/metrics.json + data/exp_wire_predarg_binder_litbank_whodidwhat_v1/metrics.json (new); notes/problems/wire_the_predarg_frontend_and_binder_into_the_live_reader/{SOLVED.md, PROPOSED_HDLAB_DIFF.md, research_quotative_copula_role_assignment_2026-08-29.md, research_archaic_literary_prose_parse_wall_2026-08-29.md, research_coref_residual_mechanism_on_literary_prose_2026-08-30.md}; experiments/exp_coref_residual_world_knowledge_ceiling_v1.py + data/exp_coref_residual_world_knowledge_ceiling_v1/metrics.json (a research-drill oracle, pending independent VET). hdlab/ UNTOUCHED (proposed diff only, Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_wire_predarg_binder_live_reader.py (10/10) AND .venv/Scripts/python.exe verification/test_wire_predarg_binder_litbank_whodidwhat.py (5/5, the LitBank who-did-what deepening)"
 ---
 
@@ -109,6 +109,27 @@ coverage 0.936 (gold 0.982). Results (doc-bootstrap 2000x), gold vs arc vs posit
   does not translate into a who-did-what drop here). Absolute levels are modest (0.33) because LitBank coref is hard
   (the landed coref cap ~0.65) and this is a strict gov-verb-weighted metric -- the CONTRASTS are the result.
 
+**DEEPENING 3 -- residual decomposition (names the NEXT bottleneck, per "evaluate adjacent components").** Added a
+perfect-pronoun-binding oracle (HEAD_OPB) to the LitBank cell. Result: **arc+OPB = 1.000, and the non-binding
+residual (OPB -> 1.0) = 0.000.** So the ENTIRE remaining who-did-what wall is COREFERENCE (pronoun -> entity
+binding); the parse (attachment) and name-clustering are NOT bottlenecks -- perfect binding reaches 1.0 even on the
+real arc parse. The graded binder recovers only **~12% of the binding headroom** (0.233 -> 0.328 of the 0.233 -> 1.0
+range); **~67% remains**. PLANNING IMPLICATION: for who-did-what on real literary prose, do NOT invest in
+parse-quality (p8) or name-clustering -- the sole lever is COREFERENCE, and structural cue-integration
+(Centering/ACT-R) recovers a sliver.
+
+**DEEPENING 4 -- what the coref residual actually needs (a research drill that CORRECTED my hypothesis, disk-verified).**
+I hypothesized the residual was WORLD-KNOWLEDGE / MEANING bound (a Phase-1 consumer). A focused drill MEASURED that
+and it is FALSE: on the n=205 LitBank structurally-dominated residual (`exp_coref_residual_world_knowledge_ceiling_v1`,
+disk-verified metrics), a general commonsense KB resolves only ~2-3% (WordNet 4/204=0.02; CSKG 5/178=0.028 despite
+0.868 coverage -- "high coverage, does NOT discriminate"), verdict WORLD_KNOWLEDGE_DEAD_ON_RESIDUAL. Instead the
+residual is DISCOURSE ATTENTIONAL-STATE bound (~50-60%): the gold antecedent is ANTI-TYPICAL (mean recency rank 1.99;
+the resolver grabs the topical/most-frequent entity 0.356 of the time when it shouldn't) -- the topic-SHIFT case. The
+brain-faithful lever is a Grosz & Sidner (1986) focus-STACK / Kehler-Rohde (2016) QUD entity-tracker over the
+accumulating situation model -- STRUCTURAL and KB-FREE. PROVEN DEAD ENDS (do not rebuild): the coherence/next-mention
+prior (sibling), a static commonsense KB (this drill), and a "better interference model" (Jager/Engelmann/Vasishth
+2017: no interference with a fully-cue-matching antecedent -> a tie, not a resolver). See NEXT STEPS.
+
 ## What I did NOT establish (withdraw first if wrong)
 - **NOT a beat of the ORACLE-store counting floor (0.983).** No front-end-driven reader can (it retrieves a gold
   binding from a store of gold bindings). I beat counting on matched/positional stores; I explicitly do NOT claim the
@@ -149,6 +170,11 @@ coverage 0.936 (gold 0.982). Results (doc-bootstrap 2000x), gold vs arc vs posit
   (parse-derived label + majority mask). Building the INVERTED binding-sensitive metric (which entity filled the slot,
   restricted to pronouns) turned it into a measured fact: the random-bind twin TIES the graded binder (n=47), so the
   corpus genuinely lacks the competition -- a positive-control-shaped way to earn the right to defer to LitBank.
+- **MEASURE THE BOTTLENECK'S CAUSE; DON'T ASSUME IT.** I confidently hypothesized the coref residual was
+  world-knowledge / meaning bound (routing it to Phase 1). A research drill BUILT an oracle and measured a commonsense
+  KB resolving only ~2-3% of it -- my hypothesis was wrong. The residual is discourse-focus / topic-shift bound
+  (anti-typical gold). The next problem changed KIND (a Grosz-Sidner focus stack, KB-free) because I measured instead
+  of assumed -- exactly the "ask whether it could have succeeded, then measure" discipline applied to my own planning.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md)
 1. **`predicate_argument_frontend` (the event-semantic router) has a QUOTATIVE-INVERSION fidelity gap (NEW).** Its
@@ -240,3 +266,12 @@ None.
    protagonist (the existing Centering/binder prominence, just a trigger).
 4. Small brain-faithful follow-on: a copula-argument rule in the router (subject + predicate-nominal as theme/attribute)
    to recover the ~5 residual copula regressions; and tighten the OOV experiencer gate before default-ON.
+5. **THE DECOMPOSITION-SEEDED NEXT PROBLEM (highest-value, mechanism now CONFIRMED by a drill): who-did-what on literary
+   prose is ENTIRELY coreference-bound** (perfect binding -> 1.0; parse/clustering not bottlenecks; graded binder recovers
+   ~12% of the headroom, ~67% remains). The residual is NOT world-knowledge bound (drill measured a KB dead, ~2-3%); it is
+   DISCOURSE ATTENTIONAL-STATE / topic-shift bound (gold is anti-typical). **NEXT PROBLEM = build a glass-box Grosz-Sidner
+   focus-STACK / QUD entity-tracker over the accumulating situation model** (structural, KB-free, brain-faithful) --
+   measure its ORACLE ceiling on the 205-case residual FIRST (can-fail + info-free twin) before committing. PROVEN DEAD
+   ENDS to exclude in the brief: the coherence/next-mention prior (sibling), a static commonsense KB (this drill,
+   `exp_coref_residual_world_knowledge_ceiling_v1`), and a "better interference model" (Jager 2017). This does NOT route
+   to Phase-1 meaning supply (my initial hypothesis, refuted).

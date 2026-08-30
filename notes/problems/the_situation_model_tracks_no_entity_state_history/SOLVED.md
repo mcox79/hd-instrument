@@ -2,11 +2,11 @@
 problem: the_situation_model_tracks_no_entity_state_history
 status: SOLVED
 bar: "Answers entity-STATE queries on real prose CI-separated over a no-state-history floor -- a real-narrative population of state-decisive queries ('what state had X been in?' / 'is X in state S here?'); the floor = the reader WITHOUT the register (nearest-mention / most-recent-adjective guess) recomputed on the same population. The info-free twin (shuffled state->entity or state->interval bindings) LOSES CI-separated; report CI half-width + null p95; no number crosses populations. A POSITIVE control the metric can move (a state-decisive case the register gets and the floor cannot). ... A rigorous NEGATIVE is a FULL PASS (e.g. 'a faithful state register recovers X% of state-decisive queries where the state IS extracted, but real-prose extraction coverage is Y%, so the population lift is Z -- a measured coverage bound, with the positive control confirming the mechanism')."
-result: "Construction gold (isolates TRACKING; real English state constructions, 4 discriminating structures, n=420 queries over 180 items): STATE REGISTER 1.000 [1.000,1.000] vs the strongest stateless floor nearest-entity-recency 0.719 [0.676,0.762] -- CI-separated. Empty register 0.429 (chance). Real-PROSE (25 LitBank docs, gold-coref entity key held fixed): extraction coverage 0.374 (489/1309 spaCy-reference predications bound to a gold cluster); the previously-DROPPED 'had been X' prior-state channel now extracted+bound (n=33, hand precision ~0.65); entity-state queries are unsolvable by an entity-blind floor (0.492) or the entity-shuffle twin (0.456), both at chance -> the task needs entity-bound state history."
+result: "Construction gold (isolates TRACKING; real English state constructions, 4 discriminating structures, n=420 queries over 180 items): STATE REGISTER 1.000 [1.000,1.000] vs the strongest stateless floor nearest-entity-recency 0.719 [0.676,0.762] -- CI-separated. Empty register 0.429 (chance). Real-PROSE (25 LitBank docs, gold-coref entity key held fixed): extraction coverage 0.331 (433/1309 spaCy-reference predications bound to a gold cluster); the previously-DROPPED 'had been X' prior-state channel now extracted+bound (n=33, hand precision ~0.65); entity-state queries are unsolvable by an entity-blind floor (0.492) or the entity-shuffle twin (0.456), both at chance -> the task needs entity-bound state history."
 floor: "STRONGEST of 4 stateless floors recomputed on the same construction population: nearest-entity-recency 0.719 [0.676,0.762] (hi 0.762); ever-entity 0.753; recency 0.503; ever-any 0.503. Register lower CI 1.000 > floor upper CI 0.762. No single stateless floor handles all three mechanisms (BIND/RESULT/SUPERSEDE): ever-entity uses the gold entity key yet fails SUPERSEDE (0.258) and RESULT (0.000); recency fails BIND. Real-prose floor: entity-blind recency 0.492."
-controls: "(1) INFO-FREE ENTITY-SHUFFLE TWIN 0.762 [0.719,0.802] LOSES CI-sep (null p95 0.048) -- destroys state->entity binding. (2) INFO-FREE ORDER-SHUFFLE TWIN 0.843 [0.807,0.879] LOSES CI-sep (null p95 0.038) -- destroys the interval order (supersession/persistence). (3) EMPTY register 0.429 = chance, NOT perfect -> the rank/decision metric is not gameable by emptiness. (4) DISTANCE-ROBUSTNESS: register flat 1.000 at K=0,2,5,10,20 filler clauses while a windowed floor collapses 1.000->0.000 at K>=2 -> state is a MAINTAINED property, not a local read. (5) PER-STRUCTURE positive controls: each floor fails >=1 structure the register gets (RESULT 1.000 vs all floors 0.000; SUPERSEDE 1.000 vs ever-entity 0.258). (6) COREF HELD FIXED (gold clusters, bar #3) in the real-prose eval + a gold-coref stateless floor -> the isolated lift is the state-history logic, not coref. (7) Real-prose ENTITY-SHUFFLE TWIN 0.456 LOSES. (8) SUPERSEDE incidence in the bound real-prose population = 0 (honest bound: the closure channel, proven on construction gold, has ~0 natural incidence here)."
-files_changed: "experiments/state_register.py (tracking core + extraction adapter); experiments/exp_state_register_query_v1.py (construction-gold CI-sep eval); experiments/exp_state_register_real_prose_v1.py (real-LitBank coverage + query + incidence); verification/test_state_register.py (35/35 witness); notes/problems/the_situation_model_tracks_no_entity_state_history/SOLVED.md. NO hdlab/ written (Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_state_register.py   # 35/35 ; then .venv/Scripts/python.exe experiments/exp_state_register_query_v1.py   # HARD_PASS, register 1.000 vs floor 0.719, twins lose, empty 0.429"
+controls: "(1) INFO-FREE ENTITY-SHUFFLE TWIN 0.762 [0.719,0.802] LOSES CI-sep (null p95 0.048) -- destroys state->entity binding. (2) INFO-FREE ORDER-SHUFFLE TWIN 0.843 [0.807,0.879] LOSES CI-sep (null p95 0.038) -- destroys the interval order (supersession/persistence). (3) EMPTY register 0.429 = chance, NOT perfect -> the rank/decision metric is not gameable by emptiness. (4) DISTANCE-ROBUSTNESS: register flat 1.000 at K=0,2,5,10,20 filler clauses while a windowed floor collapses 1.000->0.000 at K>=2 -> state is a MAINTAINED property, not a local read. (5) PER-STRUCTURE positive controls: each floor fails >=1 structure the register gets (RESULT 1.000 vs all floors 0.000; SUPERSEDE 1.000 vs ever-entity 0.258). (6) COREF HELD FIXED (gold clusters, bar #3) in the real-prose eval + a gold-coref stateless floor -> the isolated lift is the state-history logic, not coref. (7) Real-prose ENTITY-SHUFFLE TWIN 0.456 LOSES. (8) SUPERSEDE incidence in the bound real-prose population = 0 (honest bound: the closure channel, proven on construction gold, has ~0 natural incidence here). (9) SEMANTIC MATCHING (fidelity push): guarded WordNet matcher 0.950 vs exact-string 0.350 CI-sep; exact recovers 0.000 of synonym queries, guarded 0.923; the 3 research guards are LOAD-BEARING (guarded 1.000 vs UNGUARDED 0.714 on the trap set, CI-sep); info-free shuffled-stored twin 0.400 LOSES; privative extraction guard blocks 5/6."
+files_changed: "experiments/state_register.py (tracking core + extraction adapter + semantic matcher); experiments/exp_state_register_query_v1.py (construction-gold CI-sep eval); experiments/exp_state_register_real_prose_v1.py (real-LitBank coverage + query + incidence); experiments/exp_state_register_semantic_v1.py (semantic-matching CI-sep eval); verification/test_state_register.py (51/51 witness); notes/problems/the_situation_model_tracks_no_entity_state_history/{SOLVED.md, research_semantic_state_matching_and_perfect_currency_backgrounding_2026-08-29.md}. NO hdlab/ written (Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_state_register.py   # 51/51 ; then .venv/Scripts/python.exe experiments/exp_state_register_query_v1.py   # HARD_PASS register 1.000 vs floor 0.719 ; and experiments/exp_state_register_semantic_v1.py   # HARD_PASS guarded 0.950 vs exact 0.350"
 ---
 
 # The situation model now has a per-entity STATE-HISTORY dimension (Zwaan-Radvansky ENTITIES)
@@ -61,7 +61,7 @@ headline + my own knowledge.** The headline changed the design in one load-beari
    0.429 = chance**, not perfect. Distance-robust: register flat 1.000 at K=0..20 while the windowed floor
    collapses to 0.000 at K>=2 (a maintained property, not a local read -- exactly the SPACE signature).
 2. **Real prose** (`exp_state_register_real_prose_v1`, 25 LitBank docs, gold-coref entity key held FIXED).
-   Extraction **coverage 0.374** (489/1309 spaCy-reference predications extracted AND bound to a gold cluster).
+   Extraction **coverage 0.331** (489/1309 spaCy-reference predications extracted AND bound to a gold cluster).
    The previously-**DROPPED "had been X" prior-state channel** -- the brief's whole motivation, 27% of
    pluperfects, consumed by NOTHING -- is now extracted and bound (n=33 prior states; hand precision ~0.65,
    value forms clean: "Lady Elliot had been an excellent woman", "her father had always been busy", "her
@@ -81,29 +81,69 @@ noun), **participle surface forms** ("born"/"known", not the lemma), and four **
 research flagged -- conditional subject-aux **inversion** ("Had he been..."), **"if" irrealis** ("if he had
 been clean"), **habitual** ("in the habit of"), and **existential** ("there has been X", expletive subject).
 These lifted the hand-sampled precision to ~0.55-0.65 overall and ~0.65 on the clean "had been X" channel, at
-coverage 0.374. **The irreducible residual is spaCy attachment error on long 19c syntax -- the SAME corpus-age
+coverage 0.331. **The irreducible residual is spaCy attachment error on long 19c syntax -- the SAME corpus-age
 parse wall already characterised and bounded by `role_assignment_is_untested_on_archaic_literary_prose`** (a
 modern parser degrades on archaic long sentences); it is an ADJACENT-component cap, not a state-register wall.
+
+## Second push -- two brain-fidelity upgrades, one built, one correctly REJECTED (research drill 2026-08-29)
+A second literature drill (`research_semantic_state_matching_and_perfect_currency_backgrounding_2026-08-29.md`,
+double-written to `notes/` and the problem folder so it survives -- the first drill's note did not persist)
+asked two fidelity questions. It returned one GO and one NO-GO, and the NO-GO saved me from an overclaim.
+
+- **BUILT -- SEMANTIC (ATL-hub) state matching, GO-WITH-BOUNDS.** The entity-state layer is the anterior-
+  temporal-lobe semantic hub (Patterson, Nestor & Rogers 2007) -- graded and feature-based, NOT lexical-string.
+  So a reader who stored "ill" should answer "is X **unwell**?" via synonymy, and "is the vase **damaged**?"
+  after "shattered" via entailment. I added `state_match` (glass-box, lazy WordNet, no external LLM) with the
+  **three guards the research made mandatory**: (1) a **privative** blocklist ("fake/former/alleged soldier"
+  -> the property is cancelled, do not assert -- Kamp & Partee 1995); (2) **open-scale vs closed-scale**
+  typing (Kennedy 2007); (3) **typed antonymy** -- "not alive" entails "dead" (contradictory, closed-scale)
+  but "not tall" does NOT entail "short" (contrary, open-scale -- Fong 2004; Gotzner & Alexandropoulou 2024).
+  Result (`exp_state_register_semantic_v1`, n=41): **guarded semantic 0.950 vs exact-string 0.350** CI-sep;
+  the exact-string floor recovers **0.000 of synonym queries** while the guarded matcher recovers **0.923**;
+  the guards are **load-bearing** (guarded 1.000 vs the UNGUARDED ablation 0.714 on the trap set, CI-sep -- so
+  the three guards are not decoration); the info-free shuffled-stored twin loses (0.400). This turns the
+  register from a string-store into a genuine comprehension organ (answer a query in DIFFERENT words than the
+  text used). **This upgrade is OPT-IN (`is_in_state(..., semantic=True)`)** so the exact-match capability
+  proof is unaffected; the hdlab landing chooses the default.
+- **REJECTED -- aspect-driven currency-CONFIDENCE (PRIOR held less confidently than CURRENT), NO-GO.** I was
+  going to make the perfect functionally BACKGROUND a state's currency. The drill found the OPPOSITE: Vos,
+  Minor & Ramchand 2025 (eye-tracking) measured the perfect at 87-95% commitment to the state holding vs
+  simple past at ~54% (chance) -- the perfect is if anything the MORE reliable currency cue, and the
+  formal-semantics literature treats the perfect as silence-about-persistence, not a discounted assertion.
+  **So the existing uniform default-persist design is the faithful one; adding a PRIOR discount would have
+  been a step AWAY from brain fidelity.** This is the SECOND time a research drill corrected a perfect-aspect
+  intuition of mine (the first killed "auto-close the pluperfect") -- exactly why I drilled before building.
+- **Cheap wins folded in (all cited in the drill's wall-check):** an antonym-lexicon **bug fix** (I had
+  lumped synonyms and antonyms into one flat set, so "ill"/"unwell" read as incompatible -- now modelled as
+  OPPOSING GROUPS: same side = synonym, cross side = incompatible); a **modal-perfect irrealis** skip ("he
+  would/could/might have been a soldier" -- Iatridou 2000); the **privative** extraction skip; and the
+  **archaic BE-perfect** now tagged PRIOR ("was become/grown", confirming the residual I had flagged).
 
 ## What I did NOT establish (withdraw-first if wrong)
 - **The CI-separated headline is on CONSTRUCTION gold** (real English state constructions, but controlled
   multi-entity/multi-state threading with by-construction labels), NOT fully-natural raw-prose queries -- for
   the same reason the SPACE organ used construction gold: on unrestricted 19c prose the extraction-precision
-  wall (0.374 coverage, ~0.6 precision, coref) would dominate the tracking signal, and an auto-mined natural
+  wall (0.331 coverage, ~0.6 precision, coref) would dominate the tracking signal, and an auto-mined natural
   gold would be as noisy as the mechanism (circular). The real-prose burden is carried by coverage + the
   prior-channel extraction + the demonstration that the queries are unsolvable by a stateless floor. **First
   thing I would withdraw:** any implied claim that the register answers UNRESTRICTED natural-narrative state
   queries at construction-gold accuracy -- it tracks at that accuracy given clean state events; raw-prose
-  extraction is coverage-0.374 / precision-~0.6-bounded.
+  extraction is coverage-0.331 / precision-~0.6-bounded.
 - **The register=1.000 on the real-prose definitional-gold population is DEFINITIONALLY CIRCULAR** (the gold
   binding IS what the register extracted) and is NOT quoted as a capability number. The meaningful real-prose
   evidence is the coverage, the hand precision, and the entity-blind floor + twin sitting at chance.
 - **The interval-CLOSURE (supersession) advantage, proven CI-separated on construction gold, has ~0 natural
   incidence in this corpus** (0/489 bound events show an extracted antonym-supersession). It is real but rare
   in 19c narrative; I did not manufacture incidence.
-- The archaic BE-perfect ("was become/grown") is captured for VALUE but tagged CURRENT not PRIOR aspect (a
-  minor fidelity gap); same-slot supersession without an antonym ("was a soldier but now a farmer") needs a
-  "but now"/"no longer" discourse-cue detector (mapped follow-on).
+- Same-slot supersession without an antonym ("was a soldier but now a farmer") still needs a "but now"/"no
+  longer" discourse-cue detector + a slot ontology (mapped follow-on). (The archaic BE-perfect aspect-tag and
+  the antonym-lexicon bug flagged in v1 are now FIXED -- see the second-push section.)
+- **The semantic matcher's synonym recall (0.923) is on a CURATED pair set**, and WordNet has real coverage
+  gaps (by-kind synonymy 0.833 -- it misses e.g. "quiet"/"still"); the research deflates the exact
+  "stored-state, later-synonym-probe, verified-true in a QA context" paradigm to P=0.60-0.65 (it is a
+  well-supported extension of adjacent strong literatures, not a directly-run paradigm). **First thing I would
+  withdraw:** any claim that semantic matching is validated on unrestricted real-prose end-to-end -- it is
+  proven on the matcher-level population and is OPT-IN (`semantic=True`), not yet the real-prose default.
 
 ## KEY REALIZATIONS (the enabling moves)
 1. **The research killed my first design and that was the whole win.** I was about to file a pluperfect "had
@@ -139,7 +179,7 @@ modern parser degrades on archaic long sentences); it is an ADJACENT-component c
   not only on an antonym. Fidelity: PARTIAL. **Candidate follow-on: a WordNet-attribute/antonym state
   ontology + a "but now / no longer" discourse-cancellation cue** (the canceller the research says the default
   needs).
-- **The dependency parser (spaCy) on 19c prose is the coverage cap (0.374, precision ~0.6).** This is the
+- **The dependency parser (spaCy) on 19c prose is the coverage cap (0.331, precision ~0.6).** This is the
   SAME corpus-age wall `role_assignment_is_untested_on_archaic_literary_prose` characterised; its proposed
   cue-override subject stage would directly reduce the subject-attachment errors that cost state-extraction
   precision. Fidelity: the parser is a statistical tool, not the brain's mechanism. **Cross-references an
@@ -159,7 +199,7 @@ ENTITIES + Ferretti/Kutas/McRae 2007 aspect->entity-state routing (PINNED) + hip
 entity-over-context binding. Our fidelity: the bind-state-to-entity-over-interval COMPUTATION copied (PINNED),
 default-persist + cancellable-perfect + telic two-field (PINNED, corrected from a naive auto-close); extraction
 patterns + antonym lexicon + interval representation are OUR-INVENTION-swept. Deviations to record: (a)
-real-prose extraction is coverage-0.374 / precision-~0.6-bounded by the modern parser on 19c syntax (shared
+real-prose extraction is coverage-0.331 / precision-~0.6-bounded by the modern parser on 19c syntax (shared
 with the role/parse cap); (b) the interval-CLOSURE channel has ~0 natural incidence in LitBank (proven on
 construction gold); (c) archaic BE-perfect aspect-tagging + same-slot supersession are mapped residuals.
 
@@ -196,11 +236,16 @@ parser gets about 37% of the state sentences cleanly -- the same old-text wall a
 None.
 
 ## NEXT STEPS
-1. Strategy: re-verify + land `hdlab/state_register.py` (spaCy-free core) and wire the ENTITIES stack /
-   TIME-skipped "had been X" channel into it.
+1. Strategy: re-verify + land `hdlab/state_register.py` (spaCy-free core + the guarded semantic matcher) and
+   wire the ENTITIES stack / TIME-skipped "had been X" channel into it. Decide the `semantic=` default at
+   landing (recommend ON, given the guards + the 0.35->0.95 lift).
 2. Follow-on problem: a **VerbNet result-state lexicon + a state-slot antonym/ontology + a "but now / no
-   longer" discourse-cancellation cue** (raises resultant recall + enables same-slot supersession).
-3. Optional wiring: join state intervals with the TIME register's event-time ("what state was X in WHEN E
+   longer" discourse-cancellation cue** (raises resultant recall + enables same-slot supersession, which has
+   ~0 incidence today because the closure lexicon is antonym-only).
+3. Follow-on problem (the drill's own next-drill candidate): **evidentiality / reportative marking** ("was
+   said to be", "seemed", "was known to be") as the better-EVIDENCED place for a confidence gradient than
+   aspect -- the NO-GO on aspect-confidence pointed here (wall-check item #8).
+4. Optional wiring: join state intervals with the TIME register's event-time ("what state was X in WHEN E
    happened").
-4. Shared cap: the 19c parser precision (0.374 coverage) is the `role_assignment` corpus-age wall -- its
+5. Shared cap: the 19c parser precision (0.331 coverage) is the `role_assignment` corpus-age wall -- its
    cue-override subject stage would directly help state extraction.
