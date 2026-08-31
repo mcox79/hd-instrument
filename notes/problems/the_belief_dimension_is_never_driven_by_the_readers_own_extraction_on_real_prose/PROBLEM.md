@@ -1,7 +1,7 @@
 ---
-priority: 5
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: "Reverified 19/19 first-hand. A rigorous REFUTE-AND-REBUILD: empirically refuted the brief's Sally-Anne object-move premise (0 objects with >=2 extracted moves / 8 LitBank books) AND showed it is the wrong brain mechanism (research drill: the mentalizing net holds a CONTENT-GENERAL, SOURCE-TAGGED propositional attitude fed by language about minds -- Koster-Hale/Saxe; object-move is a developmental DIAGNOSTIC, not the mechanism). Rebuilt: drove the PROMOTED belief_timeline from the reader's OWN 4-channel extraction (narrator-epistemic + testimony dominant + perception + inference). HEADLINE on an INDEPENDENT, POWERED, EXTERNAL benchmark (FANToM info-access ToM, Kim 2023, n=3572 judgments): reader 0.893 vs strongest floor 0.665 (+0.228 CI-sep), beats BOTH a shuffled-order twin (+0.138) and a random-presence twin (+0.337) CI-sep, false-belief says-ignorant 0.939 vs beliefless 0.000. LitBank narrative slice corroborates (knowledge-state +0.429 CI-sep, false-belief +0.600 CI-sep; exact-value slice honestly coverage-bounded -- a corpus property, FANToM supplies the powered population). Every extraction gap routed to a VETTED organ ONE AT A TIME (state_register for status, WordNet synonym+entailment for open-ended value, a 3-schema inference extractor) -- vetting caught TWO wrong picks (distributional_meaning_channel + conceptual_meaning REJECTED) before the right one. Dominant channels are substrate-native (belief carried with NO spaCy at inference); source-tagging 0.90; antonym-inflation control confirms no loosening; inference is evidence-gated (silent on unobserved premises). Honest bounds disclosed: location extraction is the shared parser-recall ceiling (routed to p2); narrative exact-value n is small (FANToM is the powered pop, a different genre -- dialogue not narrative -- but the mechanism is content-general and the narrative slice agrees). Brain-faithfulness is high (the drill CHANGED the design). WIRE: QUEUED (track_belief on SituationReader, the lazy-adapter track_space pattern) -- a substantial multi-channel assembly landing, its own focused effort; NOT faked."
 ---
 
 # PROBLEM: the reader's BELIEF / Theory-of-Mind dimension has never been driven by the reader's OWN extraction on real prose. The pieces are built + PINNED-faithful and PROMOTED to hdlab — `belief_timeline.py` (per-agent belief as a PIECEWISE-CONSTANT sample-and-hold function of story-time — it JUMPS at an observed event and PERSISTS between), `belief_partition.py` (belief kept SEPARATE from reality, the FHRR banks), `perceptual_access_ledger.py` (the STICKY REGISTRATION LEDGER observation-cue front-end — "did A perceive/come to know E?"), and the landed `timeline_register` (event ORDER). But NOTHING composes them into the live reader, and the one end-to-end experiment (`exp_belief_timeline_live_e2e_v1`) scores its 0.902 on AUTHOR-CONSTRUCTED multi-event passages where the EVENTS are GOLD (anchored by sent_idx) and only the observation-BIT is extracted live (arms LIVE/ORACLE/FLOOR). So the belief timeline has NEVER been driven from the reader's OWN event extraction on natural narrative — exactly the gap the SPACE dimension just closed for WHERE. Drive `belief_timeline` from the reader's OWN event stream through `SituationReader.read()` → `timeline_register` (order) → `perceptual_access_ledger` (observation-gate) → per-agent belief, and PROVE on REAL narrative that it answers "what did agent A believe about fact F at time T" (and recovers FALSE beliefs) CI-separated over the floors with the info-free twin LOSING — or, if the reader's extraction is too weak to drive it, enumerate WHY (which, per SPACE, points at the parser-recall / forward-prediction ceiling). This is the WHO-BELIEVES-WHAT-WHEN dimension of the assembly, validated the same honest end-to-end way SPACE was.
@@ -159,3 +159,18 @@ On REAL narrative through the LIVE `SituationReader.read()` (capable flags + `ti
 - 🚫 Do NOT score on GOLD events or CONSTRUCTED passages for the headline — that is the exact confound being removed.
 - 🚫 Do NOT re-wire the incremental parser as the role candidate source (a proven fidelity-error NEGATIVE); drive belief
   off the reader's existing extraction.
+
+> ## ✅ SOLVER REVIEW (strategy, 2026-08-31) — EXCELLENT
+> A model refute-and-rebuild. The brief's premise (drive belief from Sally-Anne object-moves) was empirically REFUTED —
+> object-moves are ~absent from real prose (0 objects with ≥2 moves / 8 LitBank books) — and shown to be the wrong brain
+> mechanism by a research drill (the mentalizing network holds a CONTENT-GENERAL, SOURCE-TAGGED propositional attitude fed
+> by language ABOUT minds; the object-move is a developmental diagnostic, not the mechanism). Rebuilt on that mechanism:
+> drive the promoted belief_timeline from the reader's OWN 4-channel extraction (narrator-epistemic + testimony + perception
+> + inference), reality separate, ignorance = None. Validated on an INDEPENDENT, POWERED, EXTERNAL benchmark (FANToM
+> info-access ToM, n=3572): reader 0.893 vs floor 0.665 (+0.228), beats a shuffled twin (+0.138) AND a random-presence twin
+> (+0.337) CI-sep, false-belief 0.939. Reverified 19/19 first-hand. Every extraction gap routed to a VETTED organ (two wrong
+> picks caught in isolation). Honest about the extraction wall (location = the shared parser-recall ceiling → p2) and the
+> small narrative exact-value n (FANToM is the powered population). WIRE: QUEUED — track_belief on SituationReader via the
+> lazy-adapter track_space pattern (drive from experiments/_belief_reader; sm.belief_timeline/believes/knows; witness =
+> the 19/19 + FANToM; register belief_dimension_live_reader_v1). A substantial multi-channel assembly landing = its own
+> focused effort (WIRING_MAP DEBT 2), NOT a heartbeat cram. Flipping it on is default-off/owner-gated.

@@ -5,7 +5,7 @@ bar: "PASS = BOTH gates. (1) INFORMATIVE: live per-argument surprisal predicts t
 result: "INFORMATIVE PASS: live per-argument surprisal (hdlab.predictive_reader driven on the reader's OWN patient bindings through SituationReader.read, role-capable) predicts the reader's own who-did-what errors AUC 0.651 [0.630,0.672] (ROC-AUC; n=2606 QA-SRL v2 dev+test patient items, MODERN text; CI half-width 0.021), shuffle-surprisal twin AUC p95 0.519 (loses). ACTIONABLE PASS via surprisal-abstain: committed accuracy at 80% coverage 0.633 vs random-abstain twin 0.598 -> margin +0.035 [+0.022,+0.050] CI-sep (half-width 0.014). Generalizes to 19c LitBank narrative: AUC 0.624 [0.556,0.690] (n=311, 14 docs), twin p95 0.562."
 floor: "un-gated reader base accuracy 0.599 (no surprisal signal); random same-rate abstention twin committed acc 0.598 (flat); shuffled-surprisal AUC null p95 0.519 (chance 0.5). The live signal clears all three CI-separated."
 controls: "(1) shuffled-surprisal twin R=500 (values permuted across arguments) -> AUC null p95 0.519 = EXCLUDES 'any per-argument number ranks errors'. (2) random same-rate abstention twin -> committed acc 0.598 flat = EXCLUDES 'any withholding at this rate helps'. (3) info-free random-adopt reanalysis twin p95 -0.005 = EXCLUDES 'any reanalysis helps'. (4) NON-CANONICAL stratum n=603 (passive/fronted) gives reanalysis its strongest shot -> +0.003 [-0.010,+0.016] = EXCLUDES 'the re-selection wall is a canonical-case artifact'. (5) LitBank 19c slice = EXCLUDES 'modern-vocabulary artifact'. (6) precision terciles (top 0.684 vs bottom 0.628) = EXCLUDES 'diagnosticity is precision-flat'."
-files_changed: "experiments/_forward_prediction_live.py; experiments/exp_forward_prediction_live_decision_v1.py; experiments/exp_forward_prediction_reselector_probe_v1.py (the exemplar re-selector prototype); experiments/exp_forward_prediction_richer_space_probe_v1.py (wider-feature dimensionality-vs-structure + taxonomic-metric probe); experiments/exp_forward_prediction_agent_conditioned_reselector_v1.py (owner-directed build B); experiments/exp_forward_prediction_agent_conditioned_surprisal_v1.py (build C, agent-conditioned flag) + data/forward_prediction_agent_conditioned_surprisal_v1/metrics.json; experiments/exp_forward_prediction_flag_negative_diagnosis_v1.py (WHY the flag negative) + data/forward_prediction_flag_negative_diagnosis_v1/metrics.json; verification/test_forward_prediction_live_decision_organ.py; data/forward_prediction_live_decision_v1/metrics.json; data/forward_prediction_reselector_probe_v1/metrics.json; data/forward_prediction_richer_space_probe_v1/metrics.json; data/forward_prediction_agent_conditioned_reselector_v1/metrics.json; notes/problems/.../research_drill_3_thematic_fit_ranking_mechanism_2026-08-31.md; notes/problems/the_forward_prediction_organ_is_inert_wire_its_surprisal_into_a_live_decision/{SOLVED.md,research_drill_1_surprisal_as_error_signal_2026-08-31.md,research_drill_2_grounded_space_reselection_wall_2026-08-31.md}. hdlab/ UNTOUCHED."
+files_changed: "experiments/_forward_prediction_live.py; experiments/exp_forward_prediction_live_decision_v1.py; experiments/exp_forward_prediction_reselector_probe_v1.py (the exemplar re-selector prototype); experiments/exp_forward_prediction_richer_space_probe_v1.py (wider-feature dimensionality-vs-structure + taxonomic-metric probe); experiments/exp_forward_prediction_agent_conditioned_reselector_v1.py (owner-directed build B); experiments/exp_forward_prediction_agent_conditioned_surprisal_v1.py (build C, agent-conditioned flag) + data/forward_prediction_agent_conditioned_surprisal_v1/metrics.json; experiments/exp_forward_prediction_flag_negative_diagnosis_v1.py (WHY the flag negative) + data/forward_prediction_flag_negative_diagnosis_v1/metrics.json; experiments/exp_forward_prediction_two_factor_flag_v1.py + experiments/exp_forward_prediction_confusability_flag_v1.py + experiments/exp_forward_prediction_parse_disagreement_flag_v1.py (the two-factor / confusability / parse-disagreement exploration) + their data/*/metrics.json; notes/problems/.../research_drill_4_candidate_competition_mechanism_2026-08-31.md; verification/test_forward_prediction_live_decision_organ.py; data/forward_prediction_live_decision_v1/metrics.json; data/forward_prediction_reselector_probe_v1/metrics.json; data/forward_prediction_richer_space_probe_v1/metrics.json; data/forward_prediction_agent_conditioned_reselector_v1/metrics.json; notes/problems/.../research_drill_3_thematic_fit_ranking_mechanism_2026-08-31.md; notes/problems/the_forward_prediction_organ_is_inert_wire_its_surprisal_into_a_live_decision/{SOLVED.md,research_drill_1_surprisal_as_error_signal_2026-08-31.md,research_drill_2_grounded_space_reselection_wall_2026-08-31.md}. hdlab/ UNTOUCHED."
 reverify: ".venv/Scripts/python.exe verification/test_forward_prediction_live_decision_organ.py"
 ---
 
@@ -157,6 +157,47 @@ conclusion.
   plausibility helps on the anomaly half but HURTS on the structural half (makes a plausible-but-wrong
   pick look even more expected), netting ~zero. So the flag ceiling and the re-selection wall are the
   SAME structural-vs-plausibility boundary, not two coarse-space problems.
+- **D. TWO-FACTOR FLAG exploration (the diagnosis's optimization opportunity -- tested to the mechanism).**
+  The diagnosis said surprisal misses STRUCTURAL semantic-illusion errors (the reader picked a
+  more-plausible-but-wrong argument); drill 1 + drill 4 say the brain flags those with a SECOND stream
+  (LIFG selection / semantic-P600 = retrieval interference). Built + tested three candidate second-factor
+  signals as complements to surprisal, evaluated (drill 4's pre-registered gate) on the LOW-SURPRISAL
+  error subset (the illusion quadrant), CI-sep bar:
+  - NON-CANONICITY (passive/fronted) -- FAILS: AUC 0.487 (~chance); the reader's wired parse handles
+    non-canonical constructions, so its structural errors are NOT there (`exp_forward_prediction_two_factor_flag_v1.py`).
+  - CANDIDATE COUNT -- weak/DIRECTIONAL: standalone AUC 0.67; flags the low-surprisal errors (0.571 on
+    the LOW subset, beats chance); combined lift over surprisal +0.009..+0.033, NOT CI-sep. Partly a
+    raw-difficulty (more competitors -> more errors) effect, but with a real "competition erodes competence"
+    component (reader/chance error ratio rises 0.44->0.67).
+  - COMPETITOR CONFUSABILITY (drill 4's brain-faithful signal: posterior-weighted meaning-similarity of the
+    reader's pick to the other candidates; cue-based retrieval interference) -- FAILS its gate
+    (`exp_forward_prediction_confusability_flag_v1.py`): AUC 0.468 on the LOW subset (~chance, below the
+    null p95 0.546), WORSE than count (-0.103), and it HURTS combined with surprisal (-0.049). The CRUDE
+    count beat the BRAIN-FAITHFUL signal.
+  INTERPRETATION -- NOW DIRECTLY TESTED AND CONFIRMED. Hypothesis: the reader binds POSITIONALLY (word-
+  order/parse), not by semantic cue-match, so its errors are STRUCTURAL and no semantic signal can capture
+  them. DECISIVE TEST (n=355 grounded errors): the reader's wrong-pick-to-GOLD grounded similarity = 0.221,
+  IDENTICAL to the typical competitor-to-gold baseline 0.229 (the wrong pick is MORE similar to gold than a
+  random competitor only 48.5% of the time = CHANCE; 44% of errors are clearly unrelated, 40% near-twin, 16%
+  in-between). So the reader's wrong pick bears NO special meaning-relation to the correct answer -- it is a
+  structurally-selected wrong entity. CONFIRMED: the errors are STRUCTURAL/positional, not semantic near-twin
+  / retrieval errors -- which is exactly why EVERY semantic signal (surprisal-reselection, agent, richer
+  metric, confusability) failed. THE CORRECTED OPTIMIZATION (redirects the second factor from semantic to
+  STRUCTURAL): a two-factor flag = surprisal (thematic anomalies) + PARSE-METHOD DISAGREEMENT (the reader
+  already computes BOTH a positional and a parse-router binding; when they DISAGREE the binding is
+  structurally uncertain -- the actual LIFG/P600 STRUCTURAL conflict, not semantic interference). Deployable
+  (both bindings exist), brain-faithful, and aimed at the structural errors confusability could not reach.
+  BUILT + TESTED (`exp_forward_prediction_parse_disagreement_flag_v1.py`) -- and it FAILS in the OPPOSITE
+  direction, which is the TERMINAL finding: when positional and router DISAGREE the reader is MORE accurate
+  (20% error) than when they AGREE (44%); disagree-AUC 0.44 (BELOW chance). Disagreement flags where the
+  router did HELPFUL extra work (passives/ditransitives), NOT where the parse FAILED. So the reader's
+  structural errors are SILENT POSITIONAL DEFAULTS -- the parse should have overridden the "nearest post-verbal
+  nominal" rule but did not, so BOTH methods agree on the wrong answer. They look CONFIDENT -- which is exactly
+  why NOTHING flags them (surprisal, confusability, agent, richer metric, AND parse-disagreement all fail: the
+  reader is CONFIDENTLY wrong). TERMINUS: the ~half of errors surprisal misses are SILENT PARSE-COVERAGE
+  failures, unflaggable by ANY self-consistency/plausibility signal; the ONLY lever is a BETTER PARSER (the p2
+  predictive parser -- the ORIGINAL filed follow-on, "residual ceiling is parser recall"). The candidate-count
+  that weakly worked is just a raw difficulty proxy.
 - **THE UNIFYING META-FINDING (refined by the diagnosis).** Across SIX probes -- richer dimensions,
   exemplar estimator, taxonomic metric, agent-conditioned re-selection, agent-conditioned flag, and the
   flag-negative diagnosis -- there are TWO nested limits, and the deeper one is NOT "the coarse grounded
