@@ -5,8 +5,8 @@ bar: "PASS = driving `location_register` from the reader's OWN motion-event extr
 result: "Best arm REGISTER_prior_ext (the brain-faithful extraction: veridical embedded-clause routing + caused-motion theme relocation + expanded stative locatives) exact-node where-is = 0.259 vs last-mention-location floor 0.013 (delta +0.246, 95% CI [+0.098,+0.399]) and vs abstain 0.000 (+0.259 [+0.106,+0.402]), beating its OWN info-free null p95 (0.135); it raises motion-event recall 0.25->0.35, node-recall 0.125->0.20, AND precision 0.135->0.168 over the minimal prior arm (REGISTER_prior 0.177). Info-free twin NULL (R=25) mean 0.068 p95 0.112 -- REGISTER_prior BEATS it, parse-as-truth (0.111) sits AT it. present-in-scene 0.389 vs floor 0.071. n=606 where-is queries over 24 character-timelines, 14 real LitBank passages, end-to-end through the live reader + PROMOTED hdlab.location_register."
 floor: "parse-free last-mention-location (place noun nearest the entity's most recent mention) = 0.013 exact-node / 0.071 present-in-scene; also abstain=0.000, first-loc=0.000, most-freq=0.000. Strongest stateless floor = last-mention 0.013. Info-free twin null p95 = 0.112."
 controls: "(1) info-free TWIN NULL (same extracted events, per-entity ORDER destroyed, R=25 reshuffles, deterministic crc32 seed): null mean 0.068, p95 0.112 -- REGISTER_prior (0.177) CLEARS the null p95, but parse-as-TRUTH (0.111) sits AT it (statistically indistinguishable from the info-free ordering). So the PRIOR is what makes it a stateful tracker; parse-as-truth's apparent floor-beating is order-independent (near chance). (2) ABSTAIN floor (current reader, no SPACE) = 0. (3) DISTANCE curve: last-mention collapses to 0.003 at >=11 intervening sentences while REGISTER_prior holds 0.197 (the Zwaan/Rinck persistence signature). (4) spaCy-adapter driver (stronger general parser, parse-as-truth) does NOT beat REGISTER_prior on exact-node (0.045 vs 0.177) -> the lever is the prior, not raw parse quality."
-files_changed: "experiments/_space_reader.py; experiments/_space_reader_spacy.py; experiments/exp_space_where_is_end_to_end_v1.py; verification/test_space_where_is_end_to_end_organ.py (12/12 PASS); data/space_where_is_gold_v1/gold.jsonl (64 change-points, 24 timelines, 14 books, every quote verbatim-verified); data/space_where_is_end_to_end_v1/metrics.json; notes/problems/.../research_brain_space_update_mapping_2026-08-31.md; notes/problems/.../research_brain_embedded_caused_motion_spatial_update_2026-08-31.md. hdlab/ UNTOUCHED."
-reverify: ".venv/Scripts/python.exe verification/test_space_where_is_end_to_end_organ.py   -> ALL 12 CHECKS PASS"
+files_changed: "experiments/_space_reader.py; experiments/_space_reader_spacy.py; experiments/exp_space_where_is_end_to_end_v1.py; verification/test_space_where_is_end_to_end_organ.py (13/13 PASS); data/space_where_is_gold_v1/gold.jsonl (64 change-points, 24 timelines, 14 books, every quote verbatim-verified); data/space_where_is_end_to_end_v1/metrics.json; notes/problems/.../research_brain_space_update_mapping_2026-08-31.md; notes/problems/.../research_brain_embedded_caused_motion_spatial_update_2026-08-31.md; experiments/exp_space_where_is_modern_v1.py + data/space_where_is_modern_v1/ (author-constructed corpus-age control). hdlab/ UNTOUCHED."
+reverify: ".venv/Scripts/python.exe verification/test_space_where_is_end_to_end_organ.py   -> ALL 13 CHECKS PASS"
 ---
 
 # SPACE dimension, END-TO-END through the live reader -- SOLVED (bounded; the wall is the parser, and it is enumerated)
@@ -63,6 +63,19 @@ The +0.083 lift over the minimal prior is directional but NOT CI-separated at n=
 recall/precision lift is the direct evidence. The residual wall is #4 (lexicon/gold granularity) + the harder
 embedded/long-range cases the arc-parser mis-attaches -> the incremental parser (p2).
 
+## CORPUS-AGE CONTROL (the brief's confound) -- generalization holds; NOT a 19c-vocabulary artifact
+Modern narrative-with-movement + coref is not on the shelf (LitBank is all pre-1923), so this is an
+AUTHOR-CONSTRUCTED modern set (8 contemporary passages -- apartment/subway/ER/gym/airport/campus/cafe/office --
+with the hard constructions deliberately included; labeled synthetic, a weaker control than a found corpus).
+`exp_space_where_is_modern_v1`, n=47: **extraction recall 0.444, node-recall 0.296, precision 0.529 -- as good
+or BETTER than 19c LitBank (0.35 / 0.20 / 0.168)**. So the extraction does NOT degrade on modern vocabulary (it
+reads paths off age-stable prepositions; modern prose is if anything syntactically simpler). REGISTER_prior_ext
+0.277 beats the info-free twin null (p95 0.213) and the abstain floor CI-separated, and directionally beats
+last-mention-location (+0.128) though NOT CI-separated at n=47 -- the short modern passages give a denser,
+tougher last-mention floor (0.149 vs 0.013 on the long LitBank passages). Present-in-scene 0.553. **Verdict:
+the corpus-age confound is small-to-absent; the LitBank result is not an artifact of dated vocabulary.** (Honest
+limits: author-constructed and small; the exact-node-vs-last-mention CI-sep is underpowered at n=47.)
+
 ## The brain-mechanism verdict (the highest-value output -- the drill's discriminator, run)
 The research drill (`research_brain_space_update_mapping_2026-08-31.md`) pinned the mechanism: the brain does
 NOT treat its parse as ground truth. It runs **noisy-channel comprehension** -- the parse is *evidence* fused
@@ -83,6 +96,38 @@ compared on the parse-error subset. I built both and ran it:
   recall of embedded/caused/non-motion constructions) -> the incremental PREDICTIVE parser (p2), with a
   prior-integration organ as a real secondary lever.** This is precisely the drill's prediction, now with
   evidence.
+
+## WEAKNESS DRILL -- the low absolute accuracy, understood to the mechanism (not hand-waved)
+Aggressive decomposition of the 606 `prior_ext` where-is queries (`data/space_where_is_end_to_end_v1` +
+diagnostics):
+- **Error composition: FALSE_away 35.3%, MISS-never-caught (scene->named) 26.6%, CORRECT 25.9%,
+  node-mismatch (named!=named) 12.2%.** The dominant error is the register sitting `<away>`/`<scene>` where the
+  gold is a named node -- i.e. it never EXTRACTED the arrival. Node-level confusion (caught it, wrong node) is
+  only 12%.
+- **Reachability rules OUT a scoring artifact.** Only 15% of gold nodes are ones the extractor could never emit
+  (word absent / not place-typed -- ship, crate, ...); accuracy on the REACHABLE subset is 0.260, identical to
+  0.259 overall. So the low number is REAL, not gold-granularity unfairness (I checked precisely because I
+  suspected the opposite).
+- **The FALSE_away error is RECALL-rooted, confirmed by a read-out probe.** A brain-faithful persist-last-known
+  read-out (on a departure to an unnamed place, report the last-known named node instead of hard `<away>` --
+  Zwaan persistence; drill 1 sec3) recovers only +0.02 for `prior_ext` (0.259->0.279) and +0.05 for the noisy
+  parse-as-truth arm -- because most FALSE_away items had NO prior named node to persist (the arrival was never
+  caught). So the ceiling is extraction RECALL, not the away read-out. **(Landing note: adopt the persist
+  read-out anyway -- it is strictly >= and more brain-faithful; it lifts parse-as-truth above the null, which
+  itself shows the hard-`<away>` read-out over-penalizes the noisy arm.)**
+- **Ablation -- which extension earns the lift:** prior 0.177; +caused-motion-theme alone 0.229 (the dominant
+  lever, +0.052); +stative alone 0.182; +embedded-clause alone 0.168 (HURTS alone, -0.009); caused+stative
+  0.234; ALL 0.259. So caused-motion is the robust winner, and embedded-clause routing is the context-dependent
+  one -- it adds noise alone but earns +0.025 on top of caused+stative in the full config. All three ship;
+  embedded is the one to watch / tighten.
+- **Region accuracy is low (0.12)** for the same reason: the register mostly outputs `<scene>`/`<away>` (recall
+  gap) whose region is scene/unknown, while the gold region is indoors/outdoors. present-in-scene (0.335-0.389)
+  is the robust query because it does not require a NAMED node.
+
+**Bottom line of the drill:** every avenue that could have made 0.26 an artifact (gold granularity, the away
+read-out, node confusion) was checked and ruled out; the ceiling is genuinely the reader's parser recall
+(0.25->0.35 of true motion events), which is exactly what the p2 incremental parser is for. The result is
+bounded, and now bounded for a KNOWN, measured reason.
 
 ## What I did NOT establish / would withdraw first
 - **Absolute where-is accuracy is low (0.18).** The claim is CI-separation over floors + twin + the
@@ -123,6 +168,11 @@ compared on the parse-error subset. I built both and ran it:
    recall AND precision simultaneously -- the signature of a real recovery, not a threshold nudge. The move
    that made it safe: gate embedded routing on the embedding verb's VERIDICALITY (factive vs reported), so we
    read more of the reader's competence without importing reported/counterfactual noise.
+7. **Decompose the low number before defending OR excusing it.** I suspected 0.26 was unfairly low from gold
+   granularity; the reachability check REFUTED my own hope (0.260 reachable == 0.259 all). I suspected FALSE_away
+   (35%) was a read-out bug; the persist probe showed it is recall-rooted (+0.02 only). Both checks turned a
+   vague "it's extraction-limited" into a measured, defensible "the ceiling is parser recall, here is the
+   number." Checking the flattering hypothesis and watching it fail is what made the bound trustworthy.
 
 ## AUDIT UPDATE (fold into notes/BRAIN_FOUNDATIONAL_AUDIT.md sec 2b)
 - **SPACE dimension is now wired end-to-end (default-off proposal) and measured on real prose.** The tracking
@@ -173,7 +223,12 @@ Follow the causation/time additive-landing pattern EXACTLY (a default-off flag; 
    best arm (recall 0.35, precision 0.168, where-is 0.259) and beats every floor + its own null CI-separated.
    NO spaCy needed (the in-substrate arm beats spaCy here). Ship the mover-gating on person-clusters and the
    veridicality/accompanied-motion lexicons as static assets (no LLM).
-3. It composes with the reader's flags ON (measure against the fully-on reader, per `reader_capabilities.py`).
+3. **Adopt the persist-last-known read-out** (`where_is` returns the last-known named node with an off-stage
+   flag instead of a bare `<away>` when the entity departed to an unnamed place) -- strictly >= and more
+   brain-faithful (Zwaan persistence); +0.02 here. And note the ablation: **caused-motion-theme is the load-
+   bearing extension** (+0.052) -- if any extension is dropped for safety, keep that one; embedded-clause
+   routing is the context-dependent component (tighten its veridicality lexicon before trusting it standalone).
+4. It composes with the reader's flags ON (measure against the fully-on reader, per `reader_capabilities.py`).
    Update `WIRING_MAP.md` DEBT 2 (SPACE = the fourth situation-model dimension wired end-to-end, after
    entities/time/causation).
 Do NOT promote spaCy for this dimension; the in-substrate driver wins. The prior-integration layer should be
