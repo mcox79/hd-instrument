@@ -5,7 +5,7 @@ bar: "PASS = BOTH gates. (1) INFORMATIVE: live per-argument surprisal predicts t
 result: "INFORMATIVE PASS: live per-argument surprisal (hdlab.predictive_reader driven on the reader's OWN patient bindings through SituationReader.read, role-capable) predicts the reader's own who-did-what errors AUC 0.651 [0.630,0.672] (ROC-AUC; n=2606 QA-SRL v2 dev+test patient items, MODERN text; CI half-width 0.021), shuffle-surprisal twin AUC p95 0.519 (loses). ACTIONABLE PASS via surprisal-abstain: committed accuracy at 80% coverage 0.633 vs random-abstain twin 0.598 -> margin +0.035 [+0.022,+0.050] CI-sep (half-width 0.014). Generalizes to 19c LitBank narrative: AUC 0.624 [0.556,0.690] (n=311, 14 docs), twin p95 0.562."
 floor: "un-gated reader base accuracy 0.599 (no surprisal signal); random same-rate abstention twin committed acc 0.598 (flat); shuffled-surprisal AUC null p95 0.519 (chance 0.5). The live signal clears all three CI-separated."
 controls: "(1) shuffled-surprisal twin R=500 (values permuted across arguments) -> AUC null p95 0.519 = EXCLUDES 'any per-argument number ranks errors'. (2) random same-rate abstention twin -> committed acc 0.598 flat = EXCLUDES 'any withholding at this rate helps'. (3) info-free random-adopt reanalysis twin p95 -0.005 = EXCLUDES 'any reanalysis helps'. (4) NON-CANONICAL stratum n=603 (passive/fronted) gives reanalysis its strongest shot -> +0.003 [-0.010,+0.016] = EXCLUDES 'the re-selection wall is a canonical-case artifact'. (5) LitBank 19c slice = EXCLUDES 'modern-vocabulary artifact'. (6) precision terciles (top 0.684 vs bottom 0.628) = EXCLUDES 'diagnosticity is precision-flat'."
-files_changed: "experiments/_forward_prediction_live.py; experiments/exp_forward_prediction_live_decision_v1.py; verification/test_forward_prediction_live_decision_organ.py; data/forward_prediction_live_decision_v1/metrics.json; notes/problems/the_forward_prediction_organ_is_inert_wire_its_surprisal_into_a_live_decision/{SOLVED.md,research_drill_1_surprisal_as_error_signal_2026-08-31.md,research_drill_2_grounded_space_reselection_wall_2026-08-31.md}. hdlab/ UNTOUCHED."
+files_changed: "experiments/_forward_prediction_live.py; experiments/exp_forward_prediction_live_decision_v1.py; experiments/exp_forward_prediction_reselector_probe_v1.py (the exemplar re-selector prototype); verification/test_forward_prediction_live_decision_organ.py; data/forward_prediction_live_decision_v1/metrics.json; data/forward_prediction_reselector_probe_v1/metrics.json; notes/problems/the_forward_prediction_organ_is_inert_wire_its_surprisal_into_a_live_decision/{SOLVED.md,research_drill_1_surprisal_as_error_signal_2026-08-31.md,research_drill_2_grounded_space_reselection_wall_2026-08-31.md}. hdlab/ UNTOUCHED."
 reverify: ".venv/Scripts/python.exe verification/test_forward_prediction_live_decision_organ.py"
 ---
 
@@ -32,11 +32,13 @@ improves the reader -- or, if too weak, enumerate WHY.
   "withhold/re-read when surprised") raises committed accuracy monotonically 0.62 -> 0.70 as coverage
   drops 0.9 -> 0.5, while a random-abstention twin stays flat ~0.60. **Margin at 80% coverage +0.035
   [+0.022, +0.050]** CI-separated over the un-gated reader AND the info-free twin.
-- **Precision-diagnosticity GRADED signature (the brain's can-fail curve).** The surprisal->error AUC
-  is steeper for SHARP (high-precision) verbs than diffuse ones -- **top-precision-tercile AUC 0.684
-  vs bottom 0.628** (median split +0.029 [-0.014,+0.071], directional). A sharply-constraining verb
-  makes a more trustworthy prediction, so its error signal is more diagnostic (Friston precision-
-  weighting; Federmeier f-PNP). Measured at the DECISION layer, not on raw surprisal magnitude.
+- **Precision-diagnosticity GRADED signature (the brain's can-fail curve) -- CI-SEPARATED at power.**
+  The surprisal->error AUC is steeper for SHARP (high-precision) verbs than diffuse ones -- **top-
+  precision-tercile AUC 0.684 vs bottom 0.628, gap +0.056 [+0.005, +0.110] CI-separated** (the median
+  split is +0.029 [-0.014,+0.071], directional -- the effect concentrates at the extremes, as
+  expected). A sharply-constraining verb makes a more trustworthy prediction, so its error signal is
+  more diagnostic (Friston precision-weighting; Federmeier f-PNP). Measured at the DECISION layer, not
+  on raw surprisal magnitude.
 - **GENERALIZATION.** The INFORMATIVE signal transfers to 19c LitBank narrative: **AUC 0.624 [0.556,
   0.690]** (n=311), twin p95 0.562 (loses). The meaning-level prediction is not a modern-vocabulary
   artifact (it predicts features, not word-forms -- Nieuwland 2018). Abstain generalizes directionally
@@ -68,21 +70,33 @@ A brain-foundational research drill (folded below) reframed BOTH, and the data c
   > knowledge (McRae & Matsuki; Elman 2009; Metusalem 2012), not the ATL sensorimotor-feature hub.
 
   So the honest claim is NOT "surprisal can't rank" -- it is **"the grounded PROTOTYPE is the wrong
-  estimator for re-selection; a structured, verb-specific event/exemplar store is the brain's re-
-  selector."** That is the Phase-1 meaning-supply lever, and it is the seeded follow-on (below). We do
-  NOT generalize this narrow failure to "impossible": the stronger meaning representation was never
-  tested here.
+  estimator; a structured, verb-specific EXEMPLAR/event store is the brain's re-selector."** I
+  PROTOTYPED that fix and DECOMPOSED the wall (`experiments/exp_forward_prediction_reselector_probe_v1.py`,
+  n=2462 of the reader's OWN live who-did-what items, exemplar store fit on QA-SRL train):
 
-  **VERIFIED BY ENUMERATION (not assumed): the substrate has no broad-coverage general-semantic
-  word-vector to serve as a fair richer re-selection basis today.** Checked the shelf:
-  `hdlab/lexical_similarity.py` covers only 89 hand-authored McRae concepts (its own scope note: open-
-  vocabulary coverage is "a separate, missing-LEARNING follow-up"); `hdlab/distributional_meaning_
-  channel.py` is SUBSTITUTABILITY-scoped and explicitly BAD at general similarity (WordSim rho -0.24);
-  `hdlab/ppmi_sparse_encoder.py` is a supervised (sentence,label) char-trigram encoder, not a general
-  semantic word space. So the richer re-selector is genuinely an UNBUILT Phase-1 asset -- I did not
-  half-build it from a substitutability channel or an 89-concept lexicon, because a weak-impl test
-  would fail unfairly and could not license any conclusion. The absence of the asset is itself
-  confirmation of the meaning-supply (Phase-1) bottleneck this negative points at.
+  - **The estimator class WAS part of the wall, and the fix recovers it CI-separated.** Keeping the
+    SAME 12-d grounded space but swapping the prototype CENTROID for an EXEMPLAR store (re-selection
+    top-1 = mean of the top-3 most-similar SEEN fillers of that verb-role; Erk 2007; Nosofsky) lifts
+    re-selection top-1 accuracy **0.364 -> 0.445, +0.081 [+0.061,+0.102] CI-separated** over the
+    prototype (nearest-exemplar +0.075 CI-sep; Santus feature-overlap did NOT help, -0.023). The
+    prototype centroid was demonstrably the wrong estimator, exactly as drill 2 predicted.
+  - **But it does NOT yet cross the wall to beat the PARSE.** Even the exemplar re-selector (0.445),
+    and even GATED by the validated surprisal FLAG (trigger on the top 10-50% most-surprising bindings,
+    re-select with the exemplar store), stays BELOW the reader's own positional/parse pick (0.579) at
+    every trigger level (best -0.011 at the tightest trigger) -- though exemplar beats prototype at
+    every level (e.g. -0.011 vs -0.016), so the estimator-class gain is robust.
+  - **DECOMPOSITION (the actionable finding):** the re-selection wall = ~+0.08 ESTIMATOR CLASS (now
+    FIXED by the exemplar store, CI-sep) + a residual ~0.13 to the parse that is the MEANING
+    REPRESENTATION itself (its 12-d dimensionality + missing relational/event structure). That residual
+    is the Phase-1 meaning-supply lever, and it is genuinely UNBUILT: VERIFIED BY ENUMERATION the shelf
+    has no broad-coverage general-semantic word space (`lexical_similarity` = 89 hand-authored concepts,
+    open-vocab is "a missing-LEARNING follow-up"; `distributional_meaning_channel` = substitutability-
+    scoped, WordSim rho -0.24; `ppmi_sparse_encoder` = supervised trigram encoder). So the follow-on is
+    a STRUCTURED verb-role -> rich-filler event store (Chersoni SDM; angular-gyrus GEK; FHRR role-filler
+    binding), NOT more of the 12-d centroid.
+
+  We do NOT generalize the narrow failure to "impossible": the estimator-class half is now fixed and
+  measured; the residual is a named, unbuilt asset (the Phase-1 lever), not a ceiling.
 
 ## Brain-fidelity labeling (PINNED vs OUR-INVENTION)
 - **PINNED (replicated):** forward pre-activation of expected FEATURES; surprisal = -log P softmax
@@ -95,9 +109,10 @@ A brain-foundational research drill (folded below) reframed BOTH, and the data c
   measured ceiling for re-selection).
 
 ## What I did NOT establish (and would withdraw first if wrong)
-- **First to withdraw:** the precision-diagnosticity signature is DIRECTIONAL, not CI-separated:
-  median split +0.029 [-0.014,+0.071], tercile extremes +0.056 (bootstrapped CI includes 0). It is
-  reported as a directional graded signature, not a proven one.
+- **First to withdraw:** the precision-diagnosticity signature is CI-separated only at the tercile
+  EXTREMES (+0.056 [+0.005,+0.110]); the median split is directional (+0.029 [-0.014,+0.071]). The
+  graded signature is real at the extremes but modest -- if it fails to replicate, the abstain/AUC
+  gates stand on their own.
 - Abstain generalization to 19c LitBank is DIRECTIONAL (+0.024), not CI-separated at n=311 -- the
   INFORMATIVE signal generalizes CI-sep there, the abstain ACTION does not yet.
 - AGENT-role who-did-what was not scored (agents are frequently pronouns the role binder cannot bind);
@@ -123,6 +138,11 @@ A brain-foundational research drill (folded below) reframed BOTH, and the data c
    prototype-vs-exemplar dissociation with a named brain locus (angular gyrus / event knowledge) and a
    near-exact prior analog (Kauf 2023). That turns "our revision failed" into "the centroid is the
    wrong estimator class; build the structured event store" -- a direction, not a ceiling.
+5. **PROTOTYPE the fix in the SAME space to separate estimator-class from dimensionality.** Swapping
+   only the estimator (centroid -> exemplar store) while holding the 12-d features fixed is the fair
+   test of drill 2's claim: it recovered +0.08 CI-sep (estimator class was real) and localized the
+   residual to the meaning representation -- turning "the grounded space is the ceiling" from an
+   assertion into a MEASURED decomposition (estimator +0.08 fixed; ~0.13 residual = Phase-1 lever).
 
 ## AUDIT UPDATE (fold into notes/BRAIN_FOUNDATIONAL_AUDIT.md sec 2b)
 `predictive_reader` is no longer a pure inert island in evidence: its surprisal is now computed LIVE
@@ -183,10 +203,14 @@ what actually fills each slot.
 None.
 
 ## NEXT STEPS (follow-on problems)
-1. **Build the RE-SELECTOR (highest yield, Phase-1 meaning lever):** a structured verb-role ->
-   grounded-filler exemplar/event store (angular-gyrus GEK; Chersoni SDM; FHRR role-filler binding),
-   scored by feature-overlap/similarity-to-exemplars instead of distance-to-centroid. Retest revision
-   with THIS as the prior.
+1. **Build the RE-SELECTOR (highest yield, Phase-1 meaning lever):** the exemplar-store prototype here
+   (experiments/exp_forward_prediction_reselector_probe_v1.py) already recovers the ESTIMATOR-CLASS
+   portion (+0.08 CI-sep) -- promote it as the re-selection estimator. The remaining ~0.13 to beat the
+   parse is the FEATURE space: build a structured verb-role -> RICH-filler event store (broad-coverage
+   distributional/relational features; Chersoni SDM; angular-gyrus GEK; FHRR role-filler binding) to
+   replace the 12-d grounded centroid, and retest gated revision with THIS as the prior. The measured
+   decomposition (estimator +0.08 fixed; ~0.13 residual = feature space) tells the follow-on exactly
+   where the yield is.
 2. **Wire the abstain flag now (Q111):** the validated confidence/abstain decision does not depend on
    the re-selector build.
 3. **Feed `gap_detector`'s write-gate from this surprisal** (the memory-level node; learner-on path).
