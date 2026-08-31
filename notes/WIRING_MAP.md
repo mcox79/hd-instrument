@@ -69,9 +69,17 @@ substance of "an ever more complete substrate": each one measurably grows what t
 ### DEBT 3 — STANDALONE meaning/memory islands (promoted; the reader *could* consult them but doesn't)
 Wire into the reader's meaning / entity read-out (some gated on the assembly landing first).
 
-`scalar_adjective_operation` + `meaning_operation_router` + `fractional_power_encoding` (the p1 magnitude
-channel) · `conceptual_meaning` · `convergent_cue_reader` (log-Bayes cue product) · `factorized_entity_store`
+`scalar_adjective_operation` + `fractional_power_encoding` (the p1 magnitude channel; the scalar op is now an
+optional inject into the routed read-out) · `convergent_cue_reader` (log-Bayes cue product) · `factorized_entity_store`
 + `graded_temporal_context` (the two-system store) · `n400_coherence_monitor` · `transitive_ordering`.
+
+✅ **2026-08-30 (owner-directed): `conceptual_meaning` + `meaning_operation_router` are now COMPOSED INTO `meaning_fusion`**
+(the designated general meaning read-out) as an OPT-IN, demand-routed identity channel, default-off — the reader's meaning
+read-out now holds BOTH dissociable systems (associative/relatedness + ATL identity/similarity). Witness
+`test_meaning_fusion_conceptual_routing.py` (identity win +0.2761 CI-sep on SimLex; routing not pooling). ⚠️ This advances
+DEBT 3 (island→island composition) but NOT the assembly (DEBT 2): `meaning_fusion` itself is still not imported by
+`situation_reader`/`substrate` — the live reader has NO word-meaning read-out yet; wiring the composed read-out into the
+live reader is the remaining step.
 
 ### NON-DEBT — correct no-landing (14 rigorous negatives; DO NOT re-attempt)
 Recorded so they are never re-packaged. Newest: `causation_is_typed_per_clause_not_across_the_causal_network`

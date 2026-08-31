@@ -65,8 +65,31 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — LANDED (strategy, Q111, owner-directed): the CONCEPTUAL IDENTITY channel is now WIRED INTO the general meaning
+  read-out (`meaning_fusion`) — DEMAND-ROUTED, default-off. The reader's meaning read-out now has BOTH dissociable systems.**
+  Closes the wiring gap the conceptual_meaning scan named (entry below). `hdlab/meaning_fusion.py` gained an OPT-IN, demand-routed
+  path: demand='relatedness' (DEFAULT, unchanged reading+grounded z-fusion) | demand='similarity' → the ATL conceptual hub
+  (`conceptual_meaning`), gradable-adjective pairs → the scalar ruler via `meaning_operation_router` (magnitude injected, else an
+  HONEST conceptual fallback) | demand='rating' → z-fuse both. ROUTING NOT POOLING (the fidelity lever): the similarity signal is
+  never averaged into the relatedness pool. FIDELITY: PINNED — two dissociable meaning systems + semantic-control operation
+  selection (LIFG/pMTG; Controlled Semantic Cognition). DEFAULT-OFF ⇒ the object is byte-identical (self_test + prior witness
+  unchanged). WITNESS `verification/test_meaning_fusion_conceptual_routing.py` PASS first-hand, scaffold-free (recomputes SimLex/
+  WordSim): wiring fidelity — `meaning(demand='similarity')` routes to & EQUALS `conceptual.similarity` on all 999 SimLex pairs;
+  the identity WIN — conceptual 0.521 vs the associative route 0.245 on SimLex **similarity (+0.2761 CI[0.2096,0.3448], CI-sep)**;
+  dissociation preserved (lower bound) — conceptual does NOT CI-sep beat associative on WordSim **relatedness** (conc−assoc CI
+  upper 0.132, spans 0), so pooling would only pollute relatedness; shuffled-similarity twin LOSES CI-sep. ⚠️ **HONEST SCOPE
+  (disk outranked the compaction-snapshot brief): (1) the associative comparator is the GROUNDED spoke alone (cheap static asset);
+  the reading spoke (slow live read) deepens relatedness and yields the FULL crossover — separately proven — so (3) is a lower
+  bound. (2) The QA capstone has NO meaning/vocabulary dimension (`coref/events/salience/temporal/causal/location/belief`), so
+  "re-measure end-to-end via the QA instrument" does NOT literally apply; the faithful end-to-end for a word-meaning read-out is
+  its OWN naturalistic task (WordSim relatedness + SimLex/SimVerb similarity), which is where the dissociation lives. (3)
+  `meaning_fusion` itself is STILL not imported by `situation_reader`/`substrate` — this joins the standalone meaning ISLANDS
+  (WIRING-DEBT #3), it is NOT the assembly (#2). Wiring the composed read-out into the live reader remains an open step.**
+  Registered `meaning_fusion_conceptual_identity_channel_v1`.
+
 - **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `conceptual_meaning` (the ATL meaning-IDENTITY hub) GENERALIZES
   and is BRAIN-FAITHFUL — but it is an ISLAND, so the live reader STILL has no meaning-identity system (a high-value wiring gap).**
+  ✅ **ADDRESSED by the landing above (the conceptual channel is now wired into `meaning_fusion`, default-off).**
   (a) FIDELITY: PINNED — the ATL amodal conceptual hub (Controlled Semantic Cognition; Lambon Ralph/Jefferies/Patterson/Rogers
   2017): meaning-IDENTITY (what a word IS) via a WordNet definitional/taxonomic feature bag with DISTINCTIVE-feature privileging
   (global-IDF, the sparse-space analog of the ATL op). Glass-box static asset, no LLM. (b) GENERALIZATION (a genuine positive):

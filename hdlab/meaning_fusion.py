@@ -30,6 +30,35 @@ read-out. THIS organ is the general one; it reuses the other's PPMI+SVD math but
 spokes complementarily instead of collapsing one into the other.
 
 ------------------------------------------------------------------------------------------------
+OPT-IN CONCEPTUAL IDENTITY CHANNEL (wired 2026-08-30; DEFAULT-OFF -- owner-directed).
+------------------------------------------------------------------------------------------------
+The reading+grounded fusion above is a RELATEDNESS read-out (what a word goes WITH; validated on
+WordSim-353). The brain has a SECOND, dissociable meaning system: the ATL amodal hub that reads
+IDENTITY / TAXONOMIC SIMILARITY (what a word IS; validated on SimLex-999 / SimVerb by
+hdlab/conceptual_meaning.ConceptualChannel -- rho 0.521 vs a steelmanned GloVe 0.371, CI-separated;
+a DOUBLE DISSOCIATION holds: conceptual->similarity, associative->relatedness). Until now that hub
+was an ISLAND -- imported by no live read-out. This organ now COMPOSES it in, DEMAND-ROUTED, so the
+reader has both systems:
+
+  * demand='relatedness' (THE DEFAULT) -> the reading+grounded z-fusion, UNCHANGED. With the
+    conceptual channel OFF (the default build), the object is byte-identical to before and every
+    existing method / self-test / witness number is preserved. This is the wire-don't-break invariant.
+  * demand='similarity'  -> the ATL conceptual hub (hdlab.conceptual_meaning). GRADABLE-ADJECTIVE
+    pairs route instead to the scalar-magnitude "ruler" via hdlab.meaning_operation_router (the
+    validated word-class router; magnitude is a "how much" op, NOT a similarity op, so it is added
+    for gradable adjectives, never used on nouns/verbs). The magnitude channel is INJECTED (it needs
+    heavy external norm assets); absent one, gradable-adjective pairs fall back to the conceptual op
+    with an HONEST recorded label, not silently.
+  * demand='rating'      -> decontextualised graded RATING with NO known demand: FUSE (not switch)
+    the conceptual and relatedness signals (z-combined over the batch), per the organ's validated
+    "fusion ties/beats routing for rating" finding.
+
+ROUTING, NOT POOLING (preserve the double dissociation): the channels are kept separate and one is
+SELECTED by the demand + word class; the similarity signal is never averaged into the relatedness
+pool (that would destroy both -- magnitude-on-nouns 0.066 vs gloss 0.599). Enable via
+build(..., enable_conceptual=True) or by passing a ConceptualChannel/router explicitly.
+
+------------------------------------------------------------------------------------------------
 BRAIN-FOUNDATIONAL LABELLING (which structure, and are we replicating it or substituting?)
 ------------------------------------------------------------------------------------------------
 PINNED-BY-EVIDENCE (a described neural operation):
@@ -137,7 +166,10 @@ class MeaningFusion:
     def __init__(self, words: List[str], row_idx: Dict[str, int], phi: np.ndarray,
                  grounded_fn: Callable[[str], Optional[object]],
                  ref_stats: Dict[str, float], weights: Tuple[float, float] = (0.5, 0.5),
-                 ref_n_pairs: int = 0) -> None:
+                 ref_n_pairs: int = 0,
+                 conceptual: Optional[object] = None,
+                 router_fn: Optional[Callable[[str, Optional[str]], str]] = None,
+                 magnitude_fn: Optional[Callable[[str, str], Optional[float]]] = None) -> None:
         self.words = words
         self.row_idx = row_idx
         self.phi = phi                       # l2-normalized reading rows [n_words, k]
@@ -148,6 +180,10 @@ class MeaningFusion:
         self.n_words = len(words)
         self.n_dim = int(phi.shape[1]) if phi.size else 0
         self._grnd_cache: Dict[str, Optional[np.ndarray]] = {}
+        # OPT-IN identity channel (default OFF -> pure relatedness read-out, byte-identical to before):
+        self.conceptual = conceptual          # a ConceptualChannel-like object with .similarity(w1,pos1,w2,pos2)
+        self.router_fn = router_fn            # meaning_operation_router.route(word,pos) -> 'magnitude'|'conceptual'
+        self.magnitude_fn = magnitude_fn      # optional injected pair->score for gradable-adjective magnitude
 
     # ---- spoke cosines -------------------------------------------------------------------------
     def _reading_index(self, word: str) -> Optional[int]:
@@ -241,6 +277,97 @@ class MeaningFusion:
             return zg
         return None
 
+    # ---- OPT-IN routed read-out: relatedness (default) | similarity (ATL) | rating (fuse) --------
+    def route_pair(self, word_a: str, pos_a: Optional[str], word_b: str, pos_b: Optional[str],
+                   demand: str) -> str:
+        """Transparent dispatch decision for a meaning pair (glass-box). Returns the CHANNEL label:
+          'relatedness'  -> reading+grounded z-fusion (the default associative read-out)
+          'conceptual'   -> the ATL identity/similarity hub
+          'magnitude'    -> the scalar 'ruler' (BOTH words gradable adjectives AND a magnitude_fn present)
+          'magnitude_unavailable' -> both gradable but no magnitude_fn injected (falls back to conceptual, recorded)
+          'rating'       -> fuse conceptual + relatedness (decontextualised graded rating)
+        With NO conceptual channel wired (the default object), ALWAYS 'relatedness' -- the organ simply
+        has no identity system yet, reported honestly (never a silent similarity degrade)."""
+        if self.conceptual is None or demand == "relatedness":
+            return "relatedness"
+        both_gradable = (self.router_fn is not None
+                         and self.router_fn(word_a, pos_a) == "magnitude"
+                         and self.router_fn(word_b, pos_b) == "magnitude")
+        if both_gradable:
+            return "magnitude" if self.magnitude_fn is not None else "magnitude_unavailable"
+        if demand == "rating":
+            return "rating"
+        return "conceptual"
+
+    def _conceptual_cos(self, word_a: str, pos_a: Optional[str], word_b: str,
+                        pos_b: Optional[str]) -> Optional[float]:
+        if self.conceptual is None:
+            return None
+        return self.conceptual.similarity(word_a, pos_a or "N", word_b, pos_b or "N")
+
+    def meaning(self, word_a: str, word_b: str, *, pos_a: Optional[str] = "N",
+                pos_b: Optional[str] = "N", demand: str = "relatedness",
+                reference_pairs: Optional[Sequence[Tuple[str, str]]] = None) -> Optional[float]:
+        """Routed single-pair meaning read-out. `demand` in {'relatedness','similarity','rating'}.
+        Higher == more related/similar. None where the routed channel cannot judge the pair.
+        DEFAULT demand='relatedness' with no conceptual channel == self.similarity(...) exactly."""
+        label = self.route_pair(word_a, pos_a, word_b, pos_b, demand)
+        if label == "relatedness":
+            return self.similarity(word_a, word_b, reference_pairs)
+        if label == "magnitude":
+            return self.magnitude_fn(word_a, word_b)  # type: ignore[misc]
+        if label in ("conceptual", "magnitude_unavailable"):
+            return self._conceptual_cos(word_a, pos_a, word_b, pos_b)
+        # label == 'rating': fuse a single pair via the frozen reference z-stats + the conceptual cos.
+        rel = self.similarity(word_a, word_b, reference_pairs)
+        con = self._conceptual_cos(word_a, pos_a, word_b, pos_b)
+        if rel is not None and con is not None:
+            return 0.5 * rel + 0.5 * con
+        return rel if rel is not None else con
+
+    def meaning_batch(self, items: Sequence[Tuple[str, Optional[str], str, Optional[str]]],
+                      demand: str = "relatedness") -> List[Optional[float]]:
+        """Routed batch read-out over (word_a, pos_a, word_b, pos_b) tuples. THE faithful surface.
+          relatedness -> similarity_batch (z over the batch), UNCHANGED.
+          similarity  -> per-item conceptual cosine (already comparable in [0,1]); gradable-adj pairs
+                         route to magnitude_fn if present, else the conceptual op (recorded label).
+          rating      -> z-standardize BOTH the relatedness fusion and the conceptual cosine over the
+                         items each covers (label-free), then average where both are present."""
+        if self.conceptual is None or demand == "relatedness":
+            return self.similarity_batch([(a, b) for (a, _pa, b, _pb) in items])
+        n = len(items)
+        con: List[Optional[float]] = [None] * n
+        for k, (a, pa, b, pb) in enumerate(items):
+            label = self.route_pair(a, pa, b, pb, demand if demand != "rating" else "similarity")
+            if label == "magnitude":
+                con[k] = self.magnitude_fn(a, b)  # type: ignore[misc]
+            else:
+                con[k] = self._conceptual_cos(a, pa, b, pb)
+        if demand == "similarity":
+            return con
+        # rating: fuse z(relatedness) + z(conceptual) over covered items.
+        rel = self.similarity_batch([(a, b) for (a, _pa, b, _pb) in items])
+        r_idx = [k for k in range(n) if rel[k] is not None]
+        c_idx = [k for k in range(n) if con[k] is not None]
+        zr: Dict[int, float] = {}
+        zc: Dict[int, float] = {}
+        if r_idx:
+            zvals = _z_vals(np.array([rel[k] for k in r_idx], dtype=np.float64))
+            zr = {k: float(zvals[j]) for j, k in enumerate(r_idx)}
+        if c_idx:
+            zvals = _z_vals(np.array([con[k] for k in c_idx], dtype=np.float64))
+            zc = {k: float(zvals[j]) for j, k in enumerate(c_idx)}
+        out: List[Optional[float]] = [None] * n
+        for k in range(n):
+            hr, hc = k in zr, k in zc
+            if hr and hc:
+                out[k] = 0.5 * zr[k] + 0.5 * zc[k]
+            elif hr:
+                out[k] = zr[k]
+            elif hc:
+                out[k] = zc[k]
+        return out
+
 
 def _reference_stats(words: List[str], phi: np.ndarray, row_idx: Dict[str, int],
                      grounded_fn: Callable[[str], Optional[object]],
@@ -271,7 +398,11 @@ def build(context_counts: Dict[str, "Counter[str]"], *,
           grounded_fn: Callable[[str], Optional[object]] = grounded_vector,
           svd_k: int = SVD_K, seed: int = MASTER_SEED,
           n_ref_pairs: int = N_REF_PAIRS, ref_seed: int = REF_SEED,
-          weights: Tuple[float, float] = (0.5, 0.5)) -> MeaningFusion:
+          weights: Tuple[float, float] = (0.5, 0.5),
+          enable_conceptual: bool = False,
+          conceptual: Optional[object] = None,
+          router_fn: Optional[Callable[[str, Optional[str]], str]] = None,
+          magnitude_fn: Optional[Callable[[str, str], Optional[float]]] = None) -> MeaningFusion:
     """OFFLINE build of the general meaning read-out from the reading loop's separable
     co-occurrence store.
 
@@ -279,7 +410,14 @@ def build(context_counts: Dict[str, "Counter[str]"], *,
     grounded_fn    : the grounded spoke accessor (default hdlab.grounded_similarity.grounded_vector).
     Steps: (1) count matrix over the store's lemmas (reuses _count_matrix), (2) PPMI+SVD -> phi
     (reuses ppmi_svd; L2-normalized rows), (3) freeze the documented z-reference population.
-    Deterministic (fixed seeds). NO distillation, NO LLM."""
+    Deterministic (fixed seeds). NO distillation, NO LLM.
+
+    OPT-IN identity channel (DEFAULT-OFF): with enable_conceptual=True (or an explicit `conceptual`
+    object), the returned read-out also serves demand='similarity'/'rating' by DEMAND-ROUTING to the
+    ATL conceptual hub (hdlab.conceptual_meaning) + the word-class router (hdlab.meaning_operation_
+    router). Imports are LAZY -- the default build touches neither module, so import-time behaviour and
+    every existing number are byte-identical. `magnitude_fn` optionally injects the scalar-magnitude op
+    for gradable-adjective pairs (it needs heavy external norm assets, so it is not built here)."""
     words = list(context_counts.keys())
     if not words:
         raise ValueError("empty context_counts: nothing to consolidate")
@@ -296,7 +434,14 @@ def build(context_counts: Dict[str, "Counter[str]"], *,
     phi = ppmi_svd(M, svd_k=k, seed=seed)          # l2n unit rows [n_words, k]
     row_idx = {w: i for i, w in enumerate(words)}
     ref_stats, ref_n = _reference_stats(words, phi, row_idx, grounded_fn, n_ref_pairs, ref_seed)
-    return MeaningFusion(words, row_idx, phi, grounded_fn, ref_stats, weights, ref_n)
+    if enable_conceptual and conceptual is None:
+        from hdlab.conceptual_meaning import ConceptualChannel     # lazy: only when opted in
+        conceptual = ConceptualChannel()
+    if conceptual is not None and router_fn is None:
+        from hdlab.meaning_operation_router import route as _mor_route   # lazy
+        router_fn = _mor_route
+    return MeaningFusion(words, row_idx, phi, grounded_fn, ref_stats, weights, ref_n,
+                         conceptual=conceptual, router_fn=router_fn, magnitude_fn=magnitude_fn)
 
 
 # ================================================================================================
@@ -363,6 +508,44 @@ def self_test() -> Dict:
     assert all(g is not None for g in got) and np.allclose(np.array(got), want, atol=1e-12), \
         "similarity_batch must equal 0.5*z(reading)+0.5*z(grounded) over the batch"
     ev["batch_matches_zfusion_formula"] = True
+
+    # (6) OPT-IN routing logic (DATA-FREE: inject a FAKE conceptual channel + FAKE router, no WordNet).
+    # (6a) DEFAULT object (no conceptual) is a pure relatedness read-out: any demand -> 'relatedness',
+    #      and meaning(demand='relatedness') == similarity(...) EXACTLY (the byte-identical invariant).
+    assert mf.route_pair("alpha", "N", "beta", "N", "similarity") == "relatedness", \
+        "no conceptual channel -> must honestly stay relatedness, never a silent similarity degrade"
+    assert mf.meaning("alpha", "beta", demand="relatedness") == mf.similarity("alpha", "beta"), \
+        "default routed read-out must equal the unchanged relatedness path"
+
+    class _FakeConc:                                        # a stand-in ConceptualChannel
+        def similarity(self, w1, p1, w2, p2):
+            return 0.99 if w1 == w2 else 0.11
+    fake_router = lambda w, p: "magnitude" if w in ("big", "small") else "conceptual"  # noqa: E731
+    mfc = MeaningFusion(words, row_idx, phi, gfn, ref, (0.5, 0.5),
+                        conceptual=_FakeConc(), router_fn=fake_router,
+                        magnitude_fn=lambda a, b: 0.77)
+    # (6b) demand routing: relatedness->fusion, similarity(noun)->conceptual, similarity(2 gradable adj)->magnitude.
+    assert mfc.route_pair("dog", "N", "cat", "N", "relatedness") == "relatedness"
+    assert mfc.route_pair("dog", "N", "cat", "N", "similarity") == "conceptual"
+    assert mfc.route_pair("big", "A", "small", "A", "similarity") == "magnitude"
+    assert mfc.route_pair("big", "A", "cat", "N", "similarity") == "conceptual", \
+        "only BOTH-gradable pairs take the magnitude ruler"
+    # (6c) routed values dispatch to the chosen channel.
+    assert mfc.meaning("big", "small", pos_a="A", pos_b="A", demand="similarity") == 0.77, "magnitude route"
+    assert mfc.meaning("dog", "dog", pos_a="N", pos_b="N", demand="similarity") == 0.99, "conceptual identity"
+    assert mfc.meaning("dog", "cat", pos_a="N", pos_b="N", demand="similarity") == 0.11, "conceptual route"
+    # (6d) magnitude-unavailable is HONEST: no magnitude_fn -> gradable pair falls back to conceptual, labelled.
+    mfc2 = MeaningFusion(words, row_idx, phi, gfn, ref, (0.5, 0.5),
+                         conceptual=_FakeConc(), router_fn=fake_router, magnitude_fn=None)
+    assert mfc2.route_pair("big", "small", "A", "A", "similarity") == "magnitude_unavailable" \
+        or mfc2.route_pair("big", "A", "small", "A", "similarity") == "magnitude_unavailable"
+    assert mfc2.meaning("big", "small", pos_a="A", pos_b="A", demand="similarity") == 0.11, \
+        "no magnitude channel -> gradable pair falls back to the conceptual op (recorded, not silent)"
+    # (6e) similarity batch routes per item.
+    sb = mfc.meaning_batch([("dog", "N", "dog", "N"), ("dog", "N", "cat", "N"), ("big", "A", "small", "A")],
+                           demand="similarity")
+    assert sb == [0.99, 0.11, 0.77], "meaning_batch(similarity) must route each item to its channel"
+    ev["routing_logic_ok"] = True
     return ev
 
 
