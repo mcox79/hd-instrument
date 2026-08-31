@@ -99,7 +99,7 @@ each additive default-off with its own equivalence witness; land p5 first [clean
 |---|---|---|
 | ~~`force_dynamics_typer` + `_foreground_eventhood`~~ ✅ **LANDED 2026-08-31 — THE FIRST ASSEMBLY DIMENSION WIRED INTO THE CANONICAL READER** | the reader now has a default-off `causation_typed` flag → `sm.typed_causal_links` (CAUSE/ENABLE/PREVENT + endstate) via `hdlab/causation_typing.py`. Promoted `force_dynamics_lexicon` + `patient_tendency` → hdlab; created `hdlab/causation_typing.py` (ports the validated typer + p3 graded event-hood gate). Default OFF = byte-identical (no spaCy/experiment import). VERIFIED byte-for-byte equivalent to the validated `WiredCausationReader` across 11 configs + witness `test_causation_typed_landing_organ.py` PASS → inherits p2's within-clause AUTO 0.833 and p3's open-text precision gate (`causation_foreground_gate=True` opt-in). The WSD/literalness chain (`frame_sense_disambiguator`/`idiom_gate`/`_literalness_gate`) stays in experiments/ (lazy, default-off) — its own separate queued promotion. Registered `causation_typed_live_reader_v1`. | CAUSATION ✅ |
 | `graded_coref_pick` / graded retrieval + entropy-abstain | the coref resolution stream | ENTITIES(coref) |
-| `location_register` ✅ **VALIDATED END-TO-END 2026-08-31 (STRONG); landing QUEUED** — default-off `track_space` flag → `sm.locations` + `where_is`/`present_in_scene` via `experiments/_space_reader.py` (prior_ext mode + persist read-out), driven by the reader's OWN in-substrate parse (NO spaCy). where-is +0.163/+0.177 CI-sep over floors, twin loses, 63× persistence signature, corpus-age control passed. Ceiling = parser recall (→ the prediction-error p2). | SPACE |
+| `location_register` ✅ **LANDED 2026-08-31 (the 4th assembly dimension wired into the live reader)** — default-off `track_space` flag → `sm.locations` (a LocationRegister; `where_is`/`present_in_scene`) via `experiments/_space_reader.read_locations_in_substrate(prior_ext)`, lazily imported, driven by the reader's OWN in-substrate parse (NO spaCy). Witness `test_track_space_landing_organ.py` PASS: default-off byte-identical (adapter not imported), flag-on `sm.locations.where_is` == the validated register byte-for-byte over all 1040 (entity,t) cells. Registered `track_space_live_reader_v1`. Ceiling = parser recall (→ prediction-error p2). | SPACE ✅ |
 | ~~`temporal_order_register`~~ ✅ **LANDED 2026-08-31 (2nd assembly dimension)** | the reader now has a default-off `timeline_register` flag → `sm.timeline_order` (whole-passage chronological event order incl. flashbacks) via the register, lazily imported (not promoted — the ~25-importer promotion stays a separate nicety). Default-off byte-identical (register not imported; narrow `_read_timeline` untouched). Witness `test_timeline_register_landing_organ.py` PASS (flag-on == register's own output byte-for-byte; flashback reordered). Registered `timeline_register_live_reader_v1`. | TIME ✅ |
 | `state_register` (once promoted) | ENTITIES(state) re-rank of the coref pool | ENTITIES(state) |
 | `belief_partition` + `perceptual_access_ledger` | per-agent belief + observation gate | GOALS/ToM |
@@ -185,6 +185,11 @@ tracked burn-down item, not a silent park.
 ---
 
 ## BURN-DOWN LOG (newest first)
+- **2026-08-31 (heartbeat)** — **ASSEMBLY (DEBT 2) +1: the SPACE dimension (WHERE) LANDED into the live reader**
+  (default-off `track_space` → `sm.locations`; the 4th assembly dimension after causation/time; lazy `_space_reader`
+  prior_ext arm; witness byte-for-byte equivalent over 1040 (entity,t) cells; regressions green). Clears an owed
+  WIRE-DON'T-ISLAND landing. Registered `track_space_live_reader_v1`. Remaining owed reader-wirings: graded verb_subcat
+  (POS/index plumbing), p3 copular/nominal (+entity_states), meaning_fusion→reader, the p4 gate on hd_fact_store.
 - **2026-08-31** — **🎯 THE NORTH-STAR CAPSTONE INTEGRATED (EXCELLENT):** `turn_on_the_learner…` — learn-by-reading
   turns ON safe + beneficial, proven ~9 ways first-hand (5/6 core + 8/8 full; the 1 core fail is the schema-gated arm
   bar-5 refutes). **The default-off CLS SAFE-GROWTH SWITCH landing is now CONFIRMED-OWED + QUEUED** (DEBT 1, CLS row) —

@@ -288,6 +288,10 @@ class SituationModel:
     # opt-in TYPED within-clause causation (hdlab.causation_typing.TypedCausalLink); empty unless
     # the reader is built with causation_typed=True. Additive -- never replaces causal_links.
     typed_causal_links: list = field(default_factory=list)
+    # opt-in SPACE dimension: a hdlab.location_register.LocationRegister (where_is(entity,t) /
+    # present_in_scene per entity over story-time); None unless the reader is built with track_space=True.
+    # Additive -- the 4th situation-model dimension (WHERE), after entities/time/causation.
+    locations: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -560,7 +564,8 @@ class SituationReader:
                  causation_foreground_gate: bool = False,
                  timeline_register: bool = False,
                  preserve_tense: bool = False,
-                 verb_subcat_gate: bool = False, verb_subcat_thr: float = 0.35) -> None:
+                 verb_subcat_gate: bool = False, verb_subcat_thr: float = 0.35,
+                 track_space: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -627,6 +632,16 @@ class SituationReader:
         self.verb_subcat_gate = bool(verb_subcat_gate)
         self.verb_subcat_thr = float(verb_subcat_thr)
         self._vs_mod = None                                    # lazy hdlab.verb_subcat
+        # SPACE dimension (opt-in; default OFF = byte-identical). Integrated 2026-08-31 from
+        # `the_reader_has_no_spatial_location_dimension_end_to_end` (owner-DONE, STRONG): the 4th
+        # situation-model dimension (WHERE). When on, sm.locations = a per-entity LocationRegister
+        # (where_is/present_in_scene) driven by the reader's OWN in-substrate parse+coref via the validated
+        # experiments._space_reader (prior_ext mode -- the noisy-channel parse-as-evidence+PRIOR, the
+        # best-validated arm; a stronger parser does NOT help, the ceiling is parser RECALL). Lazily imported
+        # only when the flag is on. NO spaCy (in-substrate parse). Additive; the narrow inline SPACE proxies
+        # are untouched.
+        self.track_space = bool(track_space)
+        self._space_mod = None                                 # lazy experiments._space_reader
         # CAUSATION TYPING (opt-in; default OFF = byte-identical). Integrated 2026-08-31 from p2
         # (wire_the_causation_typer, STRONG) + p3 (foreground/event-hood gate, STRONG), both owner-DONE.
         # When ON, read() adds a TYPED within-clause causation read (CAUSE/ENABLE/PREVENT) on sm.
@@ -940,6 +955,23 @@ class SituationReader:
         return [{"lemma": lem, "chrono_rank": i, "text_rank": reg.text_rank.get(lem)}
                 for i, lem in enumerate(reg.order)]
 
+    def _read_space(self, conll_path):
+        """Opt-in SPACE dimension (default-off; wired 2026-08-31 from the validated
+        experiments/_space_reader.py). Returns a hdlab.location_register.LocationRegister -- per-entity
+        location as STATE, updated ONLY by motion events and PERSISTING between (Zwaan & Radvansky
+        event-indexing SPACE; categorical nodes) -- driven by the reader's OWN in-substrate parse+coref, in
+        `prior_ext` mode (the validated best arm: noisy-channel parse-as-EVIDENCE fused with a persistence
+        PRIOR + the three brain-faithful recall extensions; a stronger general parser does NOT beat it, so
+        the ceiling is parser RECALL, not parse quality). Query with sm.locations.where_is(entity_id, t) /
+        present_in_scene. NO spaCy (in-substrate). Lazy import -> the default (OFF) reader never imports it."""
+        if self._space_mod is None:
+            from experiments import _space_reader as _SP
+            self._space_mod = _SP
+        _SP = self._space_mod
+        reg, _events, _names, _sents, _persons = _SP.read_locations_in_substrate(
+            conll_path, gaz=self.gaz, mode="prior_ext")
+        return reg
+
     # -- CAUSATION: cause->outcome on the passage's causal-connective sentences --
     @staticmethod
     def _read_causation(sents) -> List[CausalLink]:
@@ -995,6 +1027,8 @@ class SituationReader:
         sm.causal_links = self._read_causation(sents)
         if self.timeline_register:
             sm.timeline_order = self._read_timeline_register(sents)
+        if self.track_space:
+            sm.locations = self._read_space(conll_path)
         if self.causation_typed:
             # opt-in TYPED causation read (default-off; lazy spaCy + experiment-side literalness gate).
             from hdlab.causation_typing import read_typed_causation
