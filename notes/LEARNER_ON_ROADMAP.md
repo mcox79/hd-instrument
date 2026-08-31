@@ -219,10 +219,16 @@ will not spend effort on it.
 roadmap records them.
 
 **NEXT STEPS:**
-1. Keep the queue aimed at Link 4 (extraction cleanliness). UPDATE 2026-08-31: p1 (extraction front-end recall) is DONE +
-   INTEGRATED + LANDED behind a default-off flag (recall 0.33→0.95, the KEYSTONE); the coref-residual + McGuffey-migration
-   pieces are integrated. The current top is p2 `wire_the_incremental_parser…` (the extraction-PRECISION half, gated on parser
-   fidelity). The cross-cutting prediction-error direction above is the candidate BIG next phase (owner direction call pending).
+1. Keep the queue aimed at Link 4 (clean foundation). 🎯 **UPDATE 2026-08-31 — MILESTONE: BOTH clean-foundation halves are now
+   SOLVED.** UPSTREAM (extraction-in): p1 (front-end recall 0.33→0.95, the KEYSTONE) DONE+INTEGRATED+LANDED default-off; coref-
+   residual + McGuffey-migration integrated. DOWNSTREAM (consistency-of-stored): p4 `the_knowledge_store…` DONE+INTEGRATED
+   (EXCELLENT) — a schema-congruence consistency-cleanup organ detects injected wrong facts (far AUC 0.88 on a WordNet-densified
+   store; source-trust INGEST-VET can't, stuck at 0.5), hdlab landing QUEUED (Link 3/foundation store organ, default-off). So the
+   FOUNDATION-side gate the learner-on program was waiting on is now un-gated. STILL open on the input-precision side: p2
+   `wire_the_incremental_parser…` (SOLVED, awaiting owner review) + the copular-recall / tense-preserving detector extensions.
+   The LEARNER-ON landing (the large coordinated program above) is now foundation-un-gated — sequence it per the owner (it still
+   needs the parser p2 + the reliability-weighted meaning-fusion + the CLS safe-growth switch). The prediction-error direction is
+   the other candidate BIG phase (owner direction call pending).
 2. ✅ **VERIFIED 2026-08-31: hdlab has NO existing keep-both-stores / CLS-growth module** (`ls hdlab/` +
    content search both empty) → the CLS safe-growth landing is CONFIRMED-OWED, NOT a duplicate. ⚠️ BUT reading
    the BAR-5 proposed diff (`optimize_and_validate_the_learner…` SOLVED), the owed landing is a SPECIFIED but

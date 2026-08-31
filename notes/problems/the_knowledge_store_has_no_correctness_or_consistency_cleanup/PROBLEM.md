@@ -1,8 +1,39 @@
 ---
-priority: 4
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: A brain-faithful within-store consistency-cleanup organ (schema-congruence; ACC/mPFC conflict monitoring + CLS + Friston precision) that DETECTS injected wrong is-a facts CI-separated over every real floor AND the info-free twin — solved end-to-end under the honest constraint, with a self-correction that OUTRANKS its own headline. Reverified 15/15 FIRST-HAND. The decisive chain: (1) source-trust INGEST-VET is stuck at 0.500 (it structurally cannot pick which side of a conflict is wrong — the exact gap; all 101 injected facts survive it, W10) and a frequency/degree prior LOSES (0.325) — the two real floors; (2) a LEAVE-ONE-OUT audit (the solver's own, W12) caught that its first "robust core" (the relational member-Jaccard arm) leaks the subject's own membership into the geometry judging it → collapses to chance under strict subject-LOO (0.522) — so the HONEST LOO-clean signal is the CONTEXT/distributional arm (0.770); (3) a DENSITY PHASE TRANSITION (W13): structural consistency is chance below indep-pair-fraction ~0.2 and near-perfect above, and the real definitional store is SUBCRITICAL (0.036); (4) the FULL SOLUTION (W14): densifying the foundation with WordNet hypernym chains (an ADMISSIBLE static offline asset per the project's foundation-is-free pivot; glass-box, NO LLM at inference) crosses the boundary → the mechanism works LOO-clean at far AUC 0.8826 (twin 0.5745) / near 0.7967 (twin 0.5827). Plus a coherence CONFIDENCE tier (schema-sharpness = precision) + an INSUFFICIENT_SUPPORT third verdict + a schema-based CORRECTION (assimilation-to-gist, type-correct 1.0 / exact 0.979 vs random 0.042, W15). Leakage-controlled (genus words stripped, W7), paired within-subject design, graded FAR>NEAR distance curve. HONEST BOUNDS (reported, not hidden): the capability is CONDITIONAL on a dense-enough store (the raw definitional store is subcritical → densification required) and demonstrated on is-a/taxonomic facts (the WordNet-densifiable type). Grade EXCELLENT: a decisive, brain-faithful solve of a North-Star-central problem with a leave-one-out self-correction that outranks its headline — the highest form of rigor — clearing the bar over both floors + the twin under an admissible foundation.
 ---
+
+> ## ✅ SOLVER REVIEW -- EXCELLENT (integrated by strategy 2026-08-31)
+> **Why EXCELLENT, specifically:** it solved the North-Star DOWNSTREAM clean-foundation half — "does this stored fact
+> fit what I already know?" — with the brain's actual mechanism (schema-congruence / conflict monitoring, CLS,
+> Friston precision), and it did the single most rigorous thing a solver can do: it REFUTED ITS OWN HEADLINE. Its
+> first result leaned on a relational arm; a leave-one-out audit (its own) showed that arm lets the fact under test
+> sit in the evidence judging it, and under strict subject-LOO it collapses to chance — so the solver demoted it and
+> re-based the win on the LOO-clean context/distributional arm. That is the "reproduce the win from the wrong source,
+> then kill it" discipline applied to itself. It then diagnosed the deeper structure — consistency is a DENSITY phase
+> transition, and the real definitional store is subcritical — and crossed the boundary with an ADMISSIBLE static
+> WordNet foundation (glass-box, no LLM), landing at far AUC 0.88 LOO-clean, twin losing.
+> **Reproduced under my check:** I re-ran `verification/test_knowledge_store_consistency_cleanup.py` — 15/15 PASS,
+> scaffold-free; source-trust floor 0.5 / frequency floor 0.325 (both lose), LOO relational 0.522 vs context 0.770,
+> the phase transition (subcritical 0.55 → supercritical 1.00; real store indep-frac 0.036), the full densified
+> solution (far 0.8826 / near 0.7967, twins ~0.57), the confidence tier, and the schema-correction (0.979 vs 0.042)
+> all reproduce from source. The live HDFactStore end-to-end (all 101 injected facts survive INGEST-VET, paired 0.737
+> > twin) confirms the gap this fills.
+> **Adversarial audit (the two things that could have faked it):** (1) Is WordNet densification cheating? No — the
+> project's own foundation-is-free pivot makes a static offline asset admissible, and it is glass-box with no LLM at
+> inference; the RUNTIME consistency decision is computed from within the (densified) store. (2) Is the win a density
+> artifact rather than a real signal? No — the info-free twin is matched and LOSES at every density, and the FAR>NEAR
+> graded distance curve is the brain's signature (a trivial artifact would catch near-misses equally).
+> **Honest bounds (the solver reported them, so they cap nothing):** the capability needs a dense-enough store (the
+> raw definitional store is subcritical) and was shown on is-a/taxonomic facts. These are the coverage bound the bar
+> asked for, stated plainly.
+> **Landing (QUEUED, Q111 — the clean-foundation store organ):** a consistency-cleanup pass over `hd_fact_store` — the
+> LOO-clean context/schema-congruence scorer + the confidence tier + INSUFFICIENT_SUPPORT verdict, operating over a
+> WordNet-densified schema, default-off (it flags/down-weights facts, a behavior change). Reference impl in
+> `experiments/exp_consistency_cleanup_live_store_v1.py`. **🎯 NORTH-STAR MILESTONE: with p4 done, BOTH halves of the
+> clean foundation are now solved — extraction-in (p1, landed) + consistency-of-stored (p4) — the gate to the
+> learner-on program.**
 
 # PROBLEM: the substrate's knowledge base accepts whatever is extracted from a trusted source and NEVER checks whether a stored fact is CORRECT or CONSISTENT with the rest of the knowledge — so the foundation stays noisy no matter how clean the extraction gets. The component scan of `hd_fact_store` (BRAIN_FOUNDATIONAL_AUDIT §2b, 2026-08-30) found this in the organ's own words: "INGEST-VET is SOURCE-TRUST vetting, NOT correctness vetting… a clean (non-conflicting) fact simply STORES — there is no internal uncertainty gate." It detects same-(subject,relation) CONFLICTS and resolves them by SOURCE RANK (REPLACE/COMBINE/FLAG/DROP), but it has NO mechanism to notice that a fact CONTRADICTS the coherent majority of what is already known, or is internally inconsistent, regardless of its source. This is the North Star's downstream CLEAN-FOUNDATION half: the extraction front-end (`the_extraction_front_end…`, p1) reduces noise going IN; this reduces noise ALREADY IN — and both must hold before the learner can safely grow on the foundation ([[learner-on-organizing-frame]]: the learner is OFF because the foundation is too noisy; the cleaned store is the disconnected missing link). Build the consistency/correctness cleanup — a glass-box organ that scores each stored fact for CONSISTENCY with the surrounding knowledge and downweights/flags the ones that contradict the coherent majority — and validate it removes injected errors without removing correct facts.
 

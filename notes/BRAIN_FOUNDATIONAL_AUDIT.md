@@ -65,6 +65,23 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — INTEGRATED (p4, owner-DONE, EXCELLENT): a brain-faithful within-store CONSISTENCY-CLEANUP organ (schema-
+  congruence) detects injected wrong facts CI-separated over every floor + the twin — the North-Star DOWNSTREAM clean-foundation
+  half. With p4 done, BOTH clean-foundation halves are solved.** Reverified 15/15 first-hand. FIDELITY: PINNED — schema-
+  congruence / conflict monitoring (ACC/mPFC; van Kesteren; Ghosh & Gilboa) + CLS + Friston precision + assimilation-to-gist
+  (Winocur & Moscovitch). The gap it fills is exact: source-trust INGEST-VET is stuck at 0.500 (it cannot pick which side of a
+  conflict is wrong; all 101 injected facts survive it) and a frequency/degree prior LOSES (0.325). EXEMPLARY SELF-CORRECTION
+  (outranks its headline): a leave-one-out audit showed the relational (member-Jaccard) arm leaks the subject's own membership →
+  collapses to chance under strict subject-LOO (0.522); the honest LOO-CLEAN signal is the CONTEXT/distributional arm (0.770).
+  KEY STRUCTURE: consistency is a DENSITY PHASE TRANSITION (chance below indep-pair-fraction ~0.2, near-perfect above); the real
+  definitional store is SUBCRITICAL (0.036), so densifying the foundation with WordNet hypernym chains (an ADMISSIBLE static
+  offline asset — the foundation-is-free pivot; glass-box, NO LLM) crosses the boundary → far AUC 0.8826 (twin 0.5745) / near
+  0.7967 LOO-clean. Plus a coherence CONFIDENCE tier + INSUFFICIENT_SUPPORT verdict + schema-based CORRECTION (assimilation-to-
+  gist 0.979 vs 0.042). HONEST BOUNDS (reported): conditional on a dense-enough store; demonstrated on is-a/taxonomic facts.
+  LANDING QUEUED (Q111): a consistency-cleanup pass over `hd_fact_store` (LOO-clean scorer + confidence tier + INSUFFICIENT_
+  SUPPORT, WordNet-densified, default-off; STORE-write hazards apply). **🎯 NORTH-STAR MILESTONE: BOTH clean-foundation halves
+  now solved — extraction-in (p1, landed) + consistency-of-stored (p4) — the gate the learner-on program was waiting on.**
+
 - **2026-08-31 — LANDED (strategy, Q111, owner-authorized): the CAUSATION dimension is now WIRED INTO the canonical reader
   behind a default-off `causation_typed` flag — the FIRST assembly (DEBT 2) dimension in the live reader.** The reader gains
   `sm.typed_causal_links` (CAUSE/ENABLE/PREVENT + endstate) via `hdlab/causation_typing.py`, composing the validated force-
