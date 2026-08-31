@@ -223,6 +223,16 @@ roadmap records them.
    INTEGRATED + LANDED behind a default-off flag (recall 0.33→0.95, the KEYSTONE); the coref-residual + McGuffey-migration
    pieces are integrated. The current top is p2 `wire_the_incremental_parser…` (the extraction-PRECISION half, gated on parser
    fidelity). The cross-cutting prediction-error direction above is the candidate BIG next phase (owner direction call pending).
-2. Verify hdlab has no existing keep-both-stores growth module; if absent, land the CLS safe-growth
-   mechanism default-OFF (strategy's owed Q111 landing).
+2. ✅ **VERIFIED 2026-08-31: hdlab has NO existing keep-both-stores / CLS-growth module** (`ls hdlab/` +
+   content search both empty) → the CLS safe-growth landing is CONFIRMED-OWED, NOT a duplicate. ⚠️ BUT reading
+   the BAR-5 proposed diff (`optimize_and_validate_the_learner…` SOLVED), the owed landing is a SPECIFIED but
+   LARGE COORDINATED PROGRAM, not a single diff: (i) a new STRUCTURED-CONTEXT dependency-typed similarity learner
+   channel (the brain lever is WHAT it learns over — grammatical role — not the update rule; wins SimLex/SimVerb
+   CI-sep, ~2.5× data-efficient); (ii) RELIABILITY-WEIGHTED fusion EXTENDING `meaning_fusion.py` (equal-weight
+   HARMS — this is the natural next step on the organ just extended with the conceptual channel); (iii) the CLS
+   keep-both-stores SAFE-GROWTH mechanism (the safety switch: corruption 25.6%→7.85%); all GATED on the
+   DEPENDENCY PARSER (`arc_parser`, islanded — the open **p2** incremental-parser territory). So Link 5's landing
+   INTERSECTS the recent meaning_fusion work AND the open p2, and is a candidate coordinated PHASE (like the
+   prediction-error direction) — needs owner SEQUENCING given its size + that it is the learner-on safety path.
+   Do NOT land piecemeal/rushed; sequence it deliberately (p2 parser first is a natural prerequisite).
 3. Later, define a foundation-cleanliness measurement — the gate that decides when growth may flip on.
