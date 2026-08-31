@@ -5,7 +5,7 @@ bar: "PASS = (1) NO-REGRESSION -- each dimension, measured WITH all flags on, re
 result: "Full-system harness over 100 LitBank docs (10-config flag matrix; QA-capstone scorer). (1) NO-REGRESSION is BYTE-EXACT: every dimension's all-flags-on output is byte-identical to its isolated-flag output (interaction exactly 0). (2) AGGREGATE -- MET POSITIVELY once the instrument reads each dimension's CORRECT field: fully-on-corrected 0.3993 vs default 0.3222, +0.0771 CI [+0.0664,+0.0891] (half-width 0.0114), CI-SEPARATED, info-free scrambled-agent twin 0.0976 (collapses); driven by events 0.158->0.2715 (CI [+0.0999,+0.1278]), coref/temporal/causal held (no CI-separated change). The NAIVE aggregate does NOT beat default only because the QA temporal+causal GOLDS are derived from sm.events, which the tense-agnostic keystone rewrites -- an INSTRUMENT coupling, not a reader regression (the reader's dimension fields are byte-identical). (3) INTERACTION MAP: full 10-config matrix; the one shared field (sm.events) composes ADDITIVELY (who-did-what role-acc default 0.158 + TA 0.085 + RR 0.023 = 0.267 ~= observed all-on 0.2715; interaction +0.005); events-margin permutation null p95 0.0245."
 floor: "Strongest per-dimension floor actually run: coref recency/most-frequent 0.5613; events word-overlap 0.017; temporal text-order 0.3664; causal adjacency/overlap 0.6479. Corrected-aggregate info-free twin (scrambled event agents) = 0.0976 vs the 0.2715 real events accuracy. Naive-aggregate info-free shuffled-cue twin = 0.0 on every scored dimension. Events-margin permutation (label-swap) null p95 = 0.0245 (observed margin +0.10 >> 0.0245)."
 controls: "(1) info-free scrambled-agent twin on the corrected aggregate = 0.0976 (events win collapses) -- excludes the win being anything but real role content. (2) shuffled-cue routing twin = 0.0 on every dimension -- excludes chance routing. (3) permutation null p95 0.0245 on the events margin -- excludes a resampling artifact. (4) byte-identity signatures across the 10-config matrix -- excludes hidden cross-dimension regression (proven EXACTLY 0). (5) SILO positive control: the one co-written field (sm.events) DOES interact (event_roles all_on != RR; role-acc additive) -- proves the measurement CAN detect interaction, so the byte-identical zeros elsewhere are real absence. (6) corrected-temporal fix arm (timeline_order readout) + causation-wire arm (parse vs reader 0.833==0.833 on the curated gold) -- exclude 'the reader regressed' and 'the silo is necessary' respectively. (7) instrument faithfulness cross-check: my default per-dim (coref 0.556/events 0.145/temporal 0.926/causal 0.442) reproduces the QA capstone's landed 100-doc numbers -- confirms faithful instrument reuse."
-files_changed: "experiments/exp_assembled_reader_all_flags_on_v1.py; experiments/exp_assembled_reader_corrected_aggregate_v1.py; experiments/exp_assembled_reader_integration_diagnostics_v1.py; verification/test_assembled_reader_all_flags_on.py; data/exp_assembled_reader_all_flags_on_v1/metrics.json (+units.jsonl); data/exp_assembled_reader_corrected_aggregate_v1/metrics.json; data/exp_assembled_reader_integration_diagnostics_v1/metrics.json; notes/problems/the_assembled_reader_is_never_tested_as_a_whole_all_flags_on/research_brain_situation_model_dimension_binding_2026-08-31.md; notes/problems/the_assembled_reader_is_never_tested_as_a_whole_all_flags_on/SOLVED.md"
+files_changed: "experiments/exp_assembled_reader_all_flags_on_v1.py; experiments/exp_assembled_reader_corrected_aggregate_v1.py; experiments/exp_assembled_reader_integration_diagnostics_v1.py; experiments/exp_integrated_shared_event_token_poc_v1.py; verification/test_assembled_reader_all_flags_on.py; data/exp_assembled_reader_all_flags_on_v1/metrics.json (+units.jsonl); data/exp_assembled_reader_corrected_aggregate_v1/metrics.json; data/exp_assembled_reader_integration_diagnostics_v1/metrics.json; data/exp_integrated_shared_event_token_poc_v1/metrics.json; notes/problems/the_assembled_reader_is_never_tested_as_a_whole_all_flags_on/research_brain_situation_model_dimension_binding_2026-08-31.md; notes/problems/the_assembled_reader_is_never_tested_as_a_whole_all_flags_on/research_what_integration_buys_and_how_to_test_it_2026-08-31.md; notes/problems/the_assembled_reader_is_never_tested_as_a_whole_all_flags_on/research_how_the_brain_scales_conjunctive_binding_2026-08-31.md; notes/problems/the_assembled_reader_is_never_tested_as_a_whole_all_flags_on/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_assembled_reader_all_flags_on.py"
 ---
 
@@ -72,6 +72,28 @@ does not build it, so the fix is a wiring job.)
 ### (B'') OFF-GENRE GENERALIZATION
 On 4 constructed MODERN (non-LitBank/non-McGuffey) passages, TA changes the event set but timeline_frames and
 causal_links stay byte-identical (4/4). The silo structure is a property of the CODE, not the corpus.
+
+### (B''') WHAT THE SILO ACTUALLY COSTS -- the BINDING PROBLEM (marginals vs joint), demonstrated
+A 2nd research drill (`research_what_integration_buys_and_how_to_test_it_2026-08-31.md`) gives the
+information-theoretic name for the defect: **a silo stores the MARGINALS (the set of agents, the set of
+times, the set of causes); a bound event token stores the JOINT (which agent goes with which time/cause).**
+This is the classic binding problem (Smolensky tensor-product binding; VSA/HDC). Any inference that is a
+function of the JOINT -- not the product of marginals -- degrades for a silo. Integration-beats-silos is
+EMPIRICALLY ESTABLISHED for the brain via a double dissociation (hippocampal amnesia keeps item/feature
+memory = marginals, loses conjunctive memory + flexible inference = joint; Konkel & Cohen 2009) -- but is
+OPEN for a reading reader. A controlled representational demonstration on the REAL FHRR algebra
+(`exp_integrated_shared_event_token_poc_v1.py`, self-test PASS, 300 scenes): two SAME-TYPE events whose
+marginal sets {t_a,t_b}/{o_a,o_b} are identical, query "what OUTCOME goes with the event whose TIME is t_a?".
+| representation | same-type disambiguation | binding-shuffle flip |
+|---|---|---|
+| **JOINT** (bound event token) | **1.00** | **1.00** (shuffle-SENSITIVE) |
+| **MARGINAL** (silo, strong late-fusion) | **0.47** (chance 0.5) | **0.00** (shuffle-INVARIANT) |
+The bound token answers the binding query and collapses when the binding is shuffled (marginals held fixed);
+the silo is at chance and is INVARIANT to the shuffle -- it provably lacks the joint. This is the concrete
+data-structure reason the silo reader cannot do cross-dimensional inference, and it says the earlier
+constructed-narrative failure was a design artifact (at type-cardinality 1 the joint is recoverable from the
+marginals) -- not evidence against integration. It is a REPRESENTATIONAL demonstration, NOT a comprehension
+score on real text; that proof is the next problem (design below).
 
 ### (B2) THE ONE SHARED FIELD interacts -- MARGINAL + JOINT (additivity)
 `sm.events` is co-written by TA (which verbs fire) and RR (their roles). Who-did-what role accuracy (n=11523):
@@ -144,11 +166,13 @@ improvement."
   disk, so whether the wire IMPROVES causation is UNMEASURED (a next problem, not a win).
 
 ## What I did NOT establish (withdraw-first list)
-1. **That the brain-faithful INTEGRATED architecture beats silos on comprehension.** I proved the reader COMPOSES
-   and that reading each dimension right beats the weak default -- but that is the SUM of independently-computed
-   dimensions read correctly, NOT a shared-event-token model. Building the shared token and showing it beats the
-   silo is the NEXT problem (exact plan below), gated on the tense-preserving detector. The one place I could have
-   shown integration HELPING -- the causation wire -- came back parse==reader on a gold too clean to discriminate.
+1. **That the brain-faithful INTEGRATED architecture beats silos on comprehension of REAL TEXT.** I proved (a)
+   the reader COMPOSES and reading each dimension right beats the weak default, and (b) at the REPRESENTATIONAL
+   level, a bound event token carries the joint that a marginal silo provably lacks (the binding-shuffle
+   demonstration, B'''). What is NOT yet established is the end-to-end COMPREHENSION win on real text -- that
+   needs the full shared-token reader + a real cross-dimensional gold (design below), gated on the tense-
+   preserving detector. The causation wire came back parse==reader on a gold too clean to discriminate, and my
+   first constructed-narrative attempt was a design artifact (joint recoverable from marginals at cardinality 1).
 2. **Genre generalization of the comprehension NUMBER.** The silo/no-regression/overlap findings generalize
    (architectural + the off-genre control); the +0.077 aggregate is single-genre (LitBank) -- no modern
    coref+who-did-what gold is on disk.
@@ -172,6 +196,11 @@ improvement."
   shared token is feasible -- the fix is wiring, and the binding organ is already built.
 - **Build the info-free control for the INTERACTION, not just the win.** Showing the shared field interacts
   (additive role-acc) licenses reading the byte-identical zeros as real absence.
+- **The silo defect has a precise name: it stores the MARGINALS, not the JOINT (the binding problem).** This
+  reframe is what unstuck the "does integration win?" question -- and it explains why my first proof failed
+  (at type-cardinality 1 the joint is recoverable from the marginals, so the design leaked the joint into the
+  marginals). The NON-GAMEABLE discriminator is BINDING-SHUFFLE INVARIANCE: a joint representation must be
+  shuffle-SENSITIVE; a silo is INVARIANT. If your "integrated" arm is shuffle-invariant it is secretly a silo.
 
 ## AUDIT UPDATE (for BRAIN_FOUNDATIONAL_AUDIT.md sec 2b)
 - **E2 (situation-model register / event indexing): the live reader has NO shared event token.** `read()` never
@@ -183,6 +212,18 @@ improvement."
 - **The QA capstone instrument couples to `sm.events`** for its temporal AND causal gold and never consults
   `typed_causal_links` or `timeline_order`; two landed dimensions are invisible end-to-end. Record so no solver
   quotes a TA-on temporal/causal QA number as a reader property.
+- **A single passage-level bound register is NOT brain-faithful (measured "must chunk").** `capacity_curve`
+  shows the flat FHRR bundle collapses ~1/sqrt(M) (M=256 -> 0.39; a passage has ~100-250 events), while the
+  slotted multibank register holds (1.0 to M=512). The faithful scalable shared event token is TIERED: small
+  slotted ACTIVE register + prediction-error SEGMENTATION (flush-and-reset) + pattern-separated EPISODIC store +
+  retrieval. Organ->tier map: FHRR bundle = the small active token; `situation_model_multibank` = the slotted WM;
+  DG pattern separation = the EPISODIC tier; `predictive_coding`/surprise = the boundary controller.
+- **DG pattern separation was tested on the WRONG TIER (adjacent-component rehabilitation).** The DG HARD_FAILs
+  (`exp_dg_pattern_separation_mcscript_purity_v1`, `..._selfplay_dg..._xfit_v1`) tested DG on ACTIVE-read /
+  coreference crosstalk. Per the scaling drill, DG's faithful job is the EPISODIC store (decorrelating the
+  CONSOLIDATED events written one-at-a-time; Treves & Rolls 1994; Yassa & Stark 2011), NOT active WM (that is
+  theta-gamma slots + capacity limit ~4). The prior negatives do not refute DG for its correct tier -- re-scope
+  before re-quoting them.
 
 ## FOR STRATEGY (you land hdlab, Q111)
 
@@ -217,16 +258,38 @@ The binding substrate is BUILT (`situation_model_accumulate.AccumulateRegister.a
    ordering/causation modules use their OWN tokenization; align to sm.events via the existing
    `_align_events_to_toks` (situation_reader.py:724)** -- the main implementation cost (I hit this in the
    tense-preserving work).
-4. **Bind via the register**: wire `make_situation_register` as `sm.event_register`; `add_event(entity, role,
-   global_idx)` for who/what, `CausalLinkRegister.add_causal_link` for why, temporal rank per event_idx for when
-   -> one token indexed on all dimensions (Zwaan/SEM). Use `situation_model_multibank` for >8 events/passage.
-5. **Event SEGMENTATION (the one genuinely un-built piece)**: boundaries are sentence splits today; add
-   prediction-error segmentation (Zacks EST / SEM) to group events into register-sized episodes. This is the only
-   OUR-INVENTION step -- the register + tense are built.
+4. **Bind via a TIERED register -- NOT one passage-level bundle (corrected by the scaling drill +
+   `exp_integrated_shared_event_token_poc_v1.capacity_curve`).** MEASURED: a single flat FHRR bundle collapses
+   as events accumulate (M=64 acc 0.99 -> M=256 0.39 -> M=512 0.12, ~1/sqrt(M) crosstalk), and a LitBank passage
+   carries ~100-250 events -- squarely in the collapse zone. The brain-faithful, scalable design is TIERED
+   (research_how_the_brain_scales_conjunctive_binding_2026-08-31.md): (a) a SMALL ACTIVE register = the current
+   event token, ~4 bindings, SLOTTED via `situation_model_multibank.MultiBankAccumulateRegister` (the theta-gamma
+   phase-slot analog -- MEASURED flat at 1.0 to M=512 where the single bundle is at 0.12), never a passage-level
+   superposition; (b) a BOUNDARY CONTROLLER = a prediction-error / Bayesian-surprise detector (`predictive_coding`
+   organ) that on a spike FLUSHES the completed token to episodic memory and RESETS the active model (Zacks EST /
+   SEM); (c) an EPISODIC STORE = pattern-separated sparse codes (DG->CA3) so flushed events are decorrelated +
+   retrievable; (d) RETRIEVAL pulls a prior token back into the active register for coreference/bridging. Bind
+   who/what via `add_event(entity, role, global_idx)`, why via `CausalLinkRegister.add_causal_link`, when via the
+   temporal rank.
+5. **Event SEGMENTATION is now CENTRAL, not an add-on** (the drill's "must chunk" verdict): the boundary
+   controller (b) is what keeps the active register in its faithful capacity -- without it a passage register is
+   quantitatively lossy. The surprise signal is the one genuinely design-level piece; the `predictive_coding`
+   organ is a candidate boundary detector to evaluate.
 6. **Instrument**: QA decodes from `sm.event_register` by event_idx; golds tense-independent (diff #1).
-**Validation bar (can-fail):** a question needing CROSS-dimension binding -- "did event X (that entity E did) cause
-event Y?" -- where the integrated reader beats the silo reader CI-separated, info-free twin (scrambled bindings)
-losing. Needs a cross-dimensional QA gold -- a dependency to acquire/build.
+**Validation bar (can-fail; drill-grounded design that a heuristic cannot game --
+research_what_integration_buys_and_how_to_test_it_2026-08-31.md):** the discriminating task is SAME-TYPE event
+disambiguation, where the marginals are held IDENTICAL across target and distractor and only the binding differs
+(a lemma silo is at chance by construction). Concretely: **same-lemma EVENT COREFERENCE on the ECB+ corpus**
+(Cybulska & Vossen; real within/cross-document event coref with trigger + participants + time + location;
+filter to docs with >=2 mentions of the same trigger lemma; gold = cluster id). BASELINE it must beat: a
+LATE-FUSION-of-marginals scorer (sum/max of independent per-dimension similarities -- agent overlap, time
+overlap, lemma) + an SBERT baseline (so a win is not lexical overlap). INFO-FREE CONTROL (the clean can-fail
+discriminator): **binding-shuffle** -- permute which time/participant attaches to which trigger while keeping the
+marginal SETS identical; the integrated reader must drop toward chance and the silo must be invariant. WIN =
+integrated beats late-fusion on same-type pairs AND is shuffle-sensitive. DATA-ACQUISITION ACTION: ECB+ is not
+on disk -- acquire it (or, as a bridge, hand-build same-type bridging/anaphora items). The representational
+half of this bar is ALREADY demonstrated on the FHRR algebra (B''': JOINT 1.00/shuffle-sensitive vs SILO
+0.47/shuffle-invariant); the open half is the real-text reader.
 
 ### Other ranked next problems
 2. **Acquire/build a NARRATIVE typed-causation gold** so "does the shared-event wire help WHY?" (it changes 24% of
