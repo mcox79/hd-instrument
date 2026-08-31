@@ -65,6 +65,25 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — COMPONENT SCAN (strategy, verdict-independent): `predictive_reader` (the forward half of predictive coding) is
+  a PINNED, well-grounded organ but a default-off ISLAND reachable ONLY through `incremental_parser` (also an island) — so
+  wiring p2 (incremental parser) is the vehicle that brings the forward-prediction signal into the live reader.** (a) FIDELITY:
+  PINNED — verb+role pre-activates the expected argument's GROUNDED features (selectional-preference centroid; Altmann & Kamide
+  1999, McRae 1998), error = -log P softmax surprisal (Hale 2001, Levy 2008, Michaelov 2024), precision-weighted by selectional
+  concentration (Friston). Predicts MEANING features not word-form (Nieuwland 2018). The forward complement to
+  `n400_coherence_monitor` (backward event-coherence half) — two levels of one predictive hierarchy. NOT a placeholder. (b)
+  GENERALIZATION: honestly MODEST in isolation (its own docstring: "construction-proven; the isolation effect is modest,
+  ceiling'd by the grounded space; NOT a standalone accuracy lift; MEASURE on the live reader"); live value is a graded
+  difficulty/anticipation SIGNAL. (c) WIRING: ISLAND — not imported by `situation_reader`/`substrate`; imported ONLY by
+  `hdlab/incremental_parser.py` (itself an island). (d) TWO FINDINGS: **(i) TRANSITIVE-WIRING PAYOFF — `predictive_reader` is a
+  dependency of the just-opened p2 `wire_the_incremental_parser…` (prediction ON = selectional preference for competing
+  post-verbal nominals); wiring p2 brings BOTH organs live, so p2's payoff includes activating the forward-prediction signal
+  that targets the two-animate who-did-what gap (`the_live_front_end_mislabels_who_did_what_to_whom`).** (ii) SHARED-CEILING
+  FIDELITY LEVER — `predictive_reader` predicts in the COARSE grounded space (grounded_similarity caps sofa/couch = apple/orange
+  = dog/cat at 0.45), the same ceiling found in the meaning work; a richer feature basis (the now-wired conceptual channel /
+  distributional space) is a fidelity/optimization lever for prediction PRECISION. Neither packaged (queue full + correctly
+  ranked); recorded to strengthen p2 and seed a future prediction-basis problem.
+
 - **2026-08-31 — COMPONENT SCAN (strategy, verdict-independent): the reader's TIME dimension (`_read_timeline`) is a NARROW
   past-perfect FLASHBACK detector, not general temporal-order reconstruction — AND it is INDEPENDENT of the p1 keystone flag
   (a precise correction to my own boundary note).** (a) FIDELITY: the reader's TIME read is gated on `"had" in toks` — it fires

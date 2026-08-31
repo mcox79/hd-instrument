@@ -21,6 +21,17 @@ the composition in `experiments/`; strategy lands the hdlab wire (Q111). NO exte
 > organ is validated ONLY in ISOLATION (+0.0352 F1); this problem is the phase-gate the p1 result explicitly warns
 > about — does the isolation win SURVIVE the live reader at real recall?
 
+> **STRATEGY NOTE (2026-08-31 component scan — a transitive payoff + one caveat):** `incremental_parser` imports
+> `hdlab/predictive_reader.py` (the forward-prediction organ: verb+role → expected-argument selectional preference,
+> PINNED — Altmann & Kamide / McRae). `predictive_reader` is currently an ISLAND reachable ONLY through this parser,
+> so wiring the parser BRINGS THE FORWARD-PREDICTION SIGNAL LIVE too — a BONUS payoff beyond the three named ones: the
+> selectional-preference prediction disambiguates competing post-verbal nominals, which targets the two-animate
+> who-did-what gap (`the_live_front_end_mislabels_who_did_what_to_whom`). Measure that as a 4th payoff if it fires.
+> ⚠️ CAVEAT: `predictive_reader` predicts in the COARSE grounded space (its own ceiling — grounded_similarity caps
+> sofa/couch = apple/orange = dog/cat at 0.45), so the prediction's discriminative power is grounded-space-limited; a
+> richer feature basis (the now-wired conceptual channel / a distributional space) would sharpen it — note it, do not
+> chase it here (keep this problem scoped to the parser wiring).
+
 > ## ⚙️ SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25, strengthened 2026-08-26; in EVERY problem)
 > **DO THE RIGHT THING, NOT THE CHEAP OR EASY THING** — the mission is the most brain-faithful substrate,
 > not the fastest green check.
