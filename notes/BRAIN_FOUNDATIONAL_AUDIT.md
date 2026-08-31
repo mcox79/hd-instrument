@@ -65,6 +65,27 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — COMPONENT SCAN + WIRING CORRECTION (strategy, verdict-independent): `arc_parser` is conditionally imported
+  behind the DEFAULT-OFF `role_route` flag (not default-live — a wiring_debt static-scan overcount), it is a UAS~0.79 BATCH
+  parser (not brain-faithful), and it is the SHARED parse front-end that both the assembly role path AND the learner-on
+  structured-context channel depend on — so p2 (incremental parser) is a shared prerequisite for both.** (a) FIDELITY: a
+  glass-box hashed arc-factored AVERAGED-PERCEPTRON dependency parser (per-arc best-minus-second margin = a calibrated abstain
+  signal — a nice glass-box feature). But an arc-factored BATCH parser is NOT how the brain parses (the brain is INCREMENTAL,
+  left-to-right — exactly p2's thesis); it is an OUR-INVENTION engineering parser, a means to get dependency structure, not a
+  brain-mechanism claim. (b) GENERALIZATION: reproduces exp_depparse_hashed_cpu_v1's UAS ~0.79 on UD-EWT — mediocre (modern
+  parsers hit 0.90+), and this 0.79 is exactly the ceiling the p1 keystone flagged ("precision is gated on PARSER FIDELITY…
+  works at gold accuracy, not UAS 0.79"). (c) WIRING — CORRECTION to my own prior "islanded" shorthand: `situation_reader`
+  imports `ArcParser` via `_load_frontend()` ONLY when `role_route != "positional"` (the opt-in assembly path); the DEFAULT
+  (`role_route="positional"`) never loads it (positional role assignment, no parse) → byte-identical default. So it is an
+  OPT-IN, default-off organ, NOT default-live. ⚠️ wiring_debt's static import-scan counts the import LINE as "live", so its
+  "19 live imports" OVERCOUNTS the true DEFAULT-live set (it includes flag-gated default-off imports like arc_parser) — read
+  that number as "import-reachable", not "default-active". (d) CROSS-CUTTING LEVERAGE: `arc_parser` is the CURRENT parse
+  front-end for BOTH (i) the assembly role path (opt-in) and (ii) the learner-on STRUCTURED-CONTEXT channel (last round's
+  finding — the dependency-typed learner needs a parse). p2 `wire_the_incremental_parser…` (validated +0.0352 F1 over this
+  batch parse, brain-faithful incremental) directly addresses BOTH of arc_parser's weaknesses (not-incremental + UAS-0.79-cap)
+  → p2 is a SHARED PREREQUISITE for the assembly AND the learner-on landing, which reinforces its priority-2 ranking. NOT a
+  fresh problem (p2 already covers it); recorded to correct the wiring count + strengthen p2's cross-cutting rationale.
+
 - **2026-08-31 — COMPONENT SCAN (strategy, verdict-independent, CONFIRMATORY + CONNECTIVE): `reading_grounding_loop` (the
   North Star's learn-by-reading ENGINE) is a PINNED, wired, honestly-controlled mechanism; its Route B store is the SAME
   reading spoke that feeds `meaning_fusion` — so the meaning read-out and the learner's grounding foundation share it. No fresh
