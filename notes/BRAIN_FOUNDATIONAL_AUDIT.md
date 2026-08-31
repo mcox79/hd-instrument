@@ -65,6 +65,23 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `conceptual_meaning` (the ATL meaning-IDENTITY hub) GENERALIZES
+  and is BRAIN-FAITHFUL — but it is an ISLAND, so the live reader STILL has no meaning-identity system (a high-value wiring gap).**
+  (a) FIDELITY: PINNED — the ATL amodal conceptual hub (Controlled Semantic Cognition; Lambon Ralph/Jefferies/Patterson/Rogers
+  2017): meaning-IDENTITY (what a word IS) via a WordNet definitional/taxonomic feature bag with DISTINCTIVE-feature privileging
+  (global-IDF, the sparse-space analog of the ATL op). Glass-box static asset, no LLM. (b) GENERALIZATION (a genuine positive):
+  validated on PRE-EXISTING human gold — SimLex-999 rho 0.521 vs a steelmanned GloVe-300 0.371 (+0.15 CI-sep), SimVerb 0.499 vs
+  0.220, shuffled-gloss twin LOSES, and a DOUBLE DISSOCIATION holds (conceptual→similarity, associative→relatedness). Bounded
+  only by WordNet coverage (OOV). (c) WIRING — THE GAP: imported by NEITHER `situation_reader` NOR `meaning_fusion`; only by
+  `convergent_cue_reader` + `meaning_operation_router`, which are THEMSELVES islands. The LIVE meaning read-out (`meaning_fusion`)
+  fuses the distributional (reading) + grounded spokes only — NO conceptual channel. So the reader remains AT CHANCE on
+  meaning-IDENTITY (the exact gap this organ was built to fix) because it is unwired. (d) LEVERAGE + PATH: HIGH — wiring the
+  conceptual channel into the live meaning dispatch gives the reader its missing second meaning system. The path already exists
+  and is queued: `meaning_operation_router` (built to route gradable-adjective→magnitude else→conceptual gloss; "wire into the
+  LIVE meaning dispatch, default-off until wired") → add conceptual as a spoke in `meaning_fusion`. **A top WIRING-DEBT (DEBT 3,
+  standalone meaning islands) candidate — a Q111 landing (router + conceptual channel → meaning_fusion), NOT a new build; the
+  queue is full so seeded, not packaged. Re-measure the fused read-out end-to-end after wiring (the QA capstone instrument).**
+
 - **2026-08-30 — THE NON-CANONICAL ROLE COLLAPSE IS A PARSE-QUALITY PROBLEM, NOT A THEMATIC-FIT PROBLEM (a rigorous negative
   that REDIRECTS to p1)** (from integrated `grounded_role_assignment_via_verb_keyed_thematic_fit`, owner-DONE, SOLVED/STRONG;
   reverified 14/14 first-hand). The McGuffey migration exposed that role assignment collapses on non-canonical order (0.288);
