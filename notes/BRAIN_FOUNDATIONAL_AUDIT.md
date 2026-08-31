@@ -65,6 +65,23 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — LANDED (strategy, Q111, owner-authorized): the CAUSATION dimension is now WIRED INTO the canonical reader
+  behind a default-off `causation_typed` flag — the FIRST assembly (DEBT 2) dimension in the live reader.** The reader gains
+  `sm.typed_causal_links` (CAUSE/ENABLE/PREVENT + endstate) via `hdlab/causation_typing.py`, composing the validated force-
+  dynamic typer (p2) + graded Hopper-Thompson event-hood gate (p3). FIDELITY: PINNED — Talmy/Wolff force dynamics (patient-side
+  force-sum types CAUSE vs ENABLE vs PREVENT within a clause) + Hopper-Thompson transitivity/grounding (only a foregrounded
+  event is a causal-arc candidate). Promoted `force_dynamics_lexicon` + `patient_tendency` → hdlab; created
+  `hdlab/causation_typing.py`. DEFAULT OFF = byte-identical (no spaCy/experiment import on the default path). VERIFIED: the port
+  is BYTE-IDENTICAL to the validated `WiredCausationReader` across 11 configs (constructed + full LitBank), and the witness
+  `test_causation_typed_landing_organ.py` confirms end-to-end through the canonical reader (off byte-identical; flag fires
+  flood→CAUSE/let→ENABLE/prevent→PREVENT; canonical == validated byte-for-byte) → inherits p2's within-clause AUTO 0.833 and
+  p3's open-text precision gate (`causation_foreground_gate=True` opt-in). ⚠️ SCOPE (honest): the WSD/literalness chain
+  (`frame_sense_disambiguator` → `idiom_gate`/`sense_selprefs`/`context_prior` + `_literalness_gate`, ~2000 lines) STAYS in
+  experiments/ and is imported LAZILY only when the flag is on — its own separate queued promotion
+  (`no_glass_box_verb_sense_disambiguation`), NOT dragged into hdlab. spaCy/nltk are permitted (not LLMs) and load only when the
+  flag is on. Registered `causation_typed_live_reader_v1`. This is the first burn-down of the ASSEMBLY the owner authorized;
+  the next assembly dimensions (temporal/state/space/roles) follow the same default-off pattern.
+
 - **2026-08-31 — INTEGRATED (p3, owner-DONE, STRONG): a GRADED Hopper-Thompson event-hood gate raises open-text causal-link
   PRECISION over both floors with recall held EXACTLY — the Stage-1 foreground filter the p2 causation drop named.** Reverified
   11/11 first-hand. PINNED: only FOREGROUNDED, high-transitivity events are causal-arc candidates (Hopper & Thompson 1980

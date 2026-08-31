@@ -266,6 +266,9 @@ class SituationModel:
     coref_resolutions: List[CorefResolution] = field(default_factory=list)
     timeline_frames: List[TimelineFrame] = field(default_factory=list)
     causal_links: List[CausalLink] = field(default_factory=list)
+    # opt-in TYPED within-clause causation (hdlab.causation_typing.TypedCausalLink); empty unless
+    # the reader is built with causation_typed=True. Additive -- never replaces causal_links.
+    typed_causal_links: list = field(default_factory=list)
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -530,7 +533,12 @@ class SituationReader:
                  pred_gate_fn=None, spacy_pred_gate: bool = False,
                  gate_intransitive: bool = True,
                  role_route: str = "positional",
-                 tense_agnostic_events: bool = False) -> None:
+                 tense_agnostic_events: bool = False,
+                 causation_typed: bool = False, causation_gate_mode: str = "force",
+                 causation_use_gate: bool = True, causation_role_source: str = "parse",
+                 causation_tendency: bool = True, causation_use_constructions: bool = True,
+                 causation_sense_gate: bool = True, causation_sense_tau: float = 1.0,
+                 causation_foreground_gate: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -569,6 +577,25 @@ class SituationReader:
         # variant must land first, or TIME breaks (it reconstructs order from real tense/aspect).
         self.tense_agnostic_events = bool(tense_agnostic_events)
         self._ta_tagger = None                                 # lazy hdlab.pos_tagger.PosTagger
+        # CAUSATION TYPING (opt-in; default OFF = byte-identical). Integrated 2026-08-31 from p2
+        # (wire_the_causation_typer, STRONG) + p3 (foreground/event-hood gate, STRONG), both owner-DONE.
+        # When ON, read() adds a TYPED within-clause causation read (CAUSE/ENABLE/PREVENT) on sm.
+        # typed_causal_links via hdlab.causation_typing (Talmy/Wolff force dynamics PINNED; Hopper-Thompson
+        # event-hood for the foreground gate). It uses spaCy + the experiment-side literalness gate, LOADED
+        # LAZILY only when the flag is on -- the default reader imports/loads NEITHER (byte-identical). The
+        # WSD/literalness chain stays in experiments/ (its own separate queued promotion). Defaults are the
+        # validated p2 config (gate_mode="force", use_gate/role_source="parse"/tendency/sense_gate on).
+        self.causation_typed = bool(causation_typed)
+        self.causation_gate_mode = str(causation_gate_mode)
+        self.causation_use_gate = bool(causation_use_gate)
+        self.causation_role_source = str(causation_role_source)
+        self.causation_tendency = bool(causation_tendency)
+        self.causation_use_constructions = bool(causation_use_constructions)
+        self.causation_sense_gate = bool(causation_sense_gate)
+        self.causation_sense_tau = float(causation_sense_tau)
+        self.causation_foreground_gate = bool(causation_foreground_gate)
+        self._causation_nlp = None     # lazy spaCy handle (loaded once, only when causation_typed)
+        self._causation_lex = None     # lazy force lexicon
         # persistent readers (the banked backbone + single-sentence validity baseline)
         self.reader_ec = EventCentralityReader(n_dim=EVENT_N_DIM, mem_seed=MEM_SEED)
         self.reader_ss = CorefReader()
@@ -875,6 +902,23 @@ class SituationReader:
         sm.memory_roundtrip = self._memory_roundtrip(focus, codec, events, role_fillers)
         sm.timeline_frames = self._read_timeline(sents)
         sm.causal_links = self._read_causation(sents)
+        if self.causation_typed:
+            # opt-in TYPED causation read (default-off; lazy spaCy + experiment-side literalness gate).
+            from hdlab.causation_typing import read_typed_causation
+            if self._causation_nlp is None:
+                import spacy
+                self._causation_nlp = spacy.load("en_core_web_sm")
+            if self._causation_lex is None:
+                from hdlab.force_dynamics_lexicon import build_force_lexicon
+                self._causation_lex = build_force_lexicon()
+            sm.typed_causal_links = read_typed_causation(
+                self, conll_path, sm,
+                gate_mode=self.causation_gate_mode, use_gate=self.causation_use_gate,
+                role_source=self.causation_role_source, tendency=self.causation_tendency,
+                use_constructions=self.causation_use_constructions,
+                sense_gate=self.causation_sense_gate, sense_tau=self.causation_sense_tau,
+                foreground_gate=self.causation_foreground_gate,
+                nlp=self._causation_nlp, lexicon=self._causation_lex)
         return sm
 
 
