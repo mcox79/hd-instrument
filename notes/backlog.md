@@ -1,4 +1,10 @@
-# Director BACKLOG (cron drains this -- keep it current: append discovered work, strike done)
+# Director BACKLOG
+
+> ⛔ **STALE (2026-08-31) — DO NOT USE. This is an EARLIER phase (native-reader / chain-drift / generation-dials),
+> unrelated to the current learner-on reasoning-organ wave. The CURRENT consolidated forward backlog is
+> `notes/FORWARD_BACKLOG.md`.** Kept only as history; not maintained.
+
+## (historical) Director BACKLOG (cron drains this -- keep it current: append discovered work, strike done)
 
 Prioritized, unblocked-next-first. The 20-min cron: heartbeat -> route landed results / re-dispatch stalls -> advance the TOP unblocked item here -> append any new work discovered. Only idle if this list is empty AND all lanes in flight. Discipline: prove -> VET -> integrate; brain-ground gaps first; dogfood the substrate API on scours.
 

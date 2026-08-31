@@ -287,3 +287,30 @@ organ), not this wire. I built enough of the prior to PROVE it is the mechanism,
    pattern-completion on re-mention) and the per-passage region parent tree for "is X in the house?" queries.
 4. A larger + MODERN where-is gold (corpus-age control), a node-granularity reconciliation (car/crate/town),
    and the self-motion-vs-caused-motion split distance curve (drill 2's VET on theme-tracking reliability).
+
+## INTEGRATED_BY_STRATEGY 2026-08-31 -- STRONG (the SPACE / WHERE dimension, end-to-end on real prose)
+
+Reverified 13/13 FIRST-HAND (`verification/test_space_where_is_end_to_end_organ.py`, scaffold-free, end-to-end through
+the live SituationReader.read() on 14 real LitBank passages / 24 timelines / n=606): where-is 0.177 vs last-mention 0.013
+(+0.163 [+0.046,+0.301] CI-sep) + vs abstain 0 (+0.177); info-free twin null p95 0.112 LOSES; present-in-scene 0.389 vs
+0.071 (5.5×); the 63× persistence distance-signature; parse-as-TRUTH 0.111 == the null p95 0.112 (the PRIOR is the lever,
+spaCy doesn't help, W5); the brain-faithful extension recall 0.25→0.35 + precision 0.135→0.168 (W11) beating floors+null
+(W12); corpus-age control modern 0.444 ≥ 19c (W13). Brain-faithful + PINNED (Zwaan/Radvansky event-indexing SPACE;
+categorical nodes; persistence; noisy-channel parse-as-evidence+prior; veridicality-gating [Kuperberg]; caused-motion
+theme [Goldberg]; animacy-modulated goal [Lakusta&Landau]). The low absolute DECOMPOSED to a measured cause (parser
+recall) with every flattering hypothesis refuted (reachability, persist read-out, spaCy upper-bound). Graded STRONG.
+Review + review_text in PROBLEM.md; priority cleared; audit 2b + WIRING_MAP folded.
+
+**LANDING STATE (Q111): QUEUED — the SPACE dimension of the assembly (DEBT 2), the causation/time/verb_subcat pattern.**
+Default-off `track_space` flag on SituationReader (byte-identical when off) → `sm.locations` + `where_is`/`present_in_scene`;
+`_read_location_register` promotes `experiments/_space_reader.py` (DEFAULT to the `prior_ext` mode — the best arm — + the
+persist-last-known read-out, +0.02, more brain-faithful); NO spaCy (the in-substrate parse wins). Wire `present_in_scene`
+into the ToM consumer. Reference impls: `experiments/{_space_reader,exp_space_where_is_end_to_end_v1}.py`; gold
+`data/space_where_is_gold_v1/gold.jsonl`. Honest scope: exact-node ~0.26 / present-in-scene ~0.39, genuinely parser-
+recall-bound — the recall ceiling's two levers (the predictive/incremental parser + a belief-world channel for non-factive
+reports) are their OWN follow-on problems.
+
+**CONVERGENCE NOTE:** SPACE's W5 finding (parse-as-truth == the info-free null; the predict-and-revise PRIOR is the lever;
+a stronger parser does not help) independently corroborates the prediction-error scan (audit §2b, predictive_reader). Two
+dimensions arriving at the same conclusion — the ceiling is the missing FORWARD-PREDICTION / noisy-channel prior — is why
+the prediction-error first step was packaged as p2.

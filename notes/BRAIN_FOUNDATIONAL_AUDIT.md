@@ -65,6 +65,23 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — INTEGRATED (SPACE, STRONG): the reader gains its 4th situation-model dimension (WHERE) end-to-end on real
+  prose; the deep finding CONVERGES with the prediction-error scan.** Problem `the_reader_has_no_spatial_location_dimension
+  _end_to_end`, reverified 13/13 first-hand. FIDELITY: PINNED — per-entity LOCATION as STATE updated by motion events and
+  PERSISTING between updates (Zwaan & Radvansky event-indexing SPACE; categorical/topological nodes, Rinck) — confirmed by
+  the 63× persistence distance-signature. NEW PINNED (built + measured): noisy-channel comprehension = parse-as-EVIDENCE
+  fused with a persistence PRIOR, NOT parse-as-truth (Levy/Gibson; hippocampal pattern-completion) — decisively: parse-as-
+  TRUTH sits AT the info-free null (0.111 vs p95 0.112) and a stronger general parser (spaCy) does NOT beat the in-substrate
+  prior, so the LEVER is the PRIOR and the ceiling is parser RECALL (the LIKELIHOOD term), not parse quality; embedded SPACE
+  updates gated by VERIDICALITY (Kuperberg P600); caused-motion relocates the THEME (Goldberg); goal-bias is animacy-
+  modulated (Lakusta & Landau 2012). MEASURED deviation: extraction recovers ~25→35% of true motion events on real prose.
+  **🔗 CONVERGENCE (load-bearing): SPACE arrived — through a DIFFERENT dimension — at the SAME conclusion as the
+  predictive_reader scan below: the ceiling is the missing FORWARD-PREDICTION / predict-and-revise prior. Two independent
+  dimensions pointing at one gap is why the prediction-error first step was PACKAGED (`the_forward_prediction_organ_is_inert
+  _wire_its_surprisal_into_a_live_decision`, p2).** LANDING QUEUED (`track_space` default-off flag → sm.locations). The
+  situation-model dimension count is now: entities/coref, TIME, CAUSATION, SPACE (4 of the 5 Zwaan dimensions wired-or-
+  queued; BELIEF/ToM promoted-but-unwired).
+
 - **2026-08-31 (strategy, ARCHITECT HEARTBEAT scan — the FORWARD half of predictive coding) — `predictive_reader` is
   PINNED-at-computation + held-out-validated but a PURE INERT ISLAND (never computed on any live path); sharpens the
   prediction-error direction with concrete wiring reality.** Scanned the word/feature-level forward predictor.

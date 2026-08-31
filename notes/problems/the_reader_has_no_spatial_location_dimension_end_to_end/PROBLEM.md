@@ -1,8 +1,40 @@
 ---
-priority: 6
-review:
-review_text:
+priority:
+review: STRONG
+review_text: Adds the SPACE (WHERE) dimension to the reader END-TO-END on real prose — the 4th situation-model dimension, driving the promoted `location_register` from the reader's OWN in-substrate parse+coref. Reverified 13/13 FIRST-HAND. Bar MET on 14 real LitBank passages / 24 timelines / n=606: where-is 0.177 vs last-mention-location 0.013 (+0.163 [+0.046,+0.301] CI-sep) AND vs abstain 0.000 (+0.177 CI-sep); info-free TWIN NULL (R=25, per-entity order destroyed) mean 0.068/p95 0.112 LOSES; present-in-scene 0.389 vs floor 0.071 (5.5×, the robust ToM-consumable read-out); and the Zwaan/Rinck PERSISTENCE distance-signature — last-mention collapses to 0.003 at ≥11 intervening sentences while the register HOLDS 0.197 (63×). THE DEEP FINDING (verified W5): parse-as-TRUTH (0.111) sits AT the info-free null p95 (0.112) — statistically it isn't using state — while the noisy-channel PARSE-AS-EVIDENCE+PRIOR clears it; and a STRONGER general parser (spaCy, parse-as-truth) does NOT beat the in-substrate prior (0.045 vs 0.177) → the lever is the PRIOR, not raw parse quality, so the ceiling is parser RECALL not parse quality. The wall was CROSSED brain-faithfully (REGISTER_prior_ext: veridicality-gated embedded-clause routing [Kuperberg] + caused-motion theme relocation [Goldberg] + expanded statives): event-recall 0.25→0.35 AND precision 0.135→0.168 (both up = real recovery), where-is 0.177→0.259 beating every floor CI-sep + its own null (the +0.083 over minimal prior is directional, not CI-sep at n=606 — the recall/precision lift is the evidence). The low absolute (0.26 exact-node / 0.39 present-in-scene) is DECOMPOSED to a MEASURED cause (FALSE_away 35% + missed-arrival 27% = recall-rooted; node-confusion only 12%) with every flattering hypothesis REFUTED: reachability rules out a gold-granularity artifact (0.260 reachable == 0.259 overall — the solver checked because they hoped otherwise), the persist-last-known read-out recovers only +0.02, spaCy doesn't help. CORPUS-AGE control done (owner priority): modern extraction 0.444/0.529 ≥ 19c 0.35/0.168 (path read off age-stable PREPOSITIONS) → not a dated-vocabulary artifact. Gold re-adjudicated (0 fabricated; ~27% contestable ones DEFLATE not inflate → conservative). 9 controls. Grade STRONG: a rigorous, brain-faithful new comprehension dimension end-to-end with the bar met and the ceiling MEASURED (not excused) — held below EXCELLENT only by the modest absolute capability, genuinely parser-recall-bound.
 ---
+
+> ## ✅ SOLVER REVIEW -- STRONG (integrated by strategy 2026-08-31)
+> **Why STRONG, specifically:** it gave the reader its missing WHERE dimension end-to-end on REAL prose (the 4th
+> situation-model dimension), driving the promoted `location_register` from the reader's OWN in-substrate parse+coref —
+> and it did the two hardest-to-fake things: (1) it crossed the extraction wall with the BRAIN's mechanism, not a
+> heuristic — noisy-channel comprehension, where the parse is EVIDENCE fused with a persistence PRIOR (Levy/Gibson;
+> hippocampal pattern-completion), plus veridicality-gated embedded-clause routing (Kuperberg) and caused-motion theme
+> relocation (Goldberg); (2) it decomposed its own low number to a MEASURED cause and refuted every flattering
+> explanation of it.
+> **Reproduced under my check:** re-ran `verification/test_space_where_is_end_to_end_organ.py` — 13/13 PASS,
+> scaffold-free, end-to-end through the live `read()`. where-is 0.177 vs last-mention 0.013 (+0.163 CI-sep) and vs
+> abstain 0 (+0.177); twin null p95 0.112 LOSES; present-in-scene 0.389 vs 0.071; the 63× persistence distance-
+> signature; the extension recall 0.25→0.35 + precision 0.135→0.168; the corpus-age control (modern 0.444 ≥ 19c) — all
+> reproduce from source.
+> **The deepest result (W5):** parse-as-TRUTH sits AT the info-free null p95 (0.111 vs 0.112) — statistically it isn't
+> using state — and a stronger general parser (spaCy) does NOT beat the in-substrate PRIOR. So the lever is the
+> predict-and-revise PRIOR, not parse quality, and the ceiling is genuinely parser RECALL. This is the same finding the
+> prediction-error scan surfaced, arrived at independently through a different dimension — strong convergent evidence.
+> **Adversarial audit (what could have faked it):** (1) Is the win a gold-granularity artifact? No — reachability check:
+> 0.260 on reachable gold == 0.259 overall (the solver ran it hoping otherwise). (2) Is it a read-out bug not a recall
+> problem? No — persist-last-known recovers only +0.02; the errors are FALSE_away (35%) + missed-arrival (27%) =
+> recall-rooted. (3) Is it a dated-vocabulary artifact? No — modern extraction ≥ 19c (path reads off age-stable
+> prepositions). (4) Info-free twin loses; the extension raises recall AND precision (not abstain-more).
+> **Honest bounds (solver-reported, so they cap nothing):** absolute where-is is low (0.26 exact-node / 0.39
+> present-in-scene), genuinely ceiling'd by parser recall; the +0.083 extension gain over the minimal prior is
+> directional, not CI-sep at n=606 (the recall/precision lift is the evidence); the modern corpus is 8 author-constructed
+> passages (no modern narrative-with-movement corpus on the shelf).
+> **Landing (QUEUED, Q111 — the SPACE dimension of the assembly):** a default-off `track_space` flag on SituationReader
+> (byte-identical when off, the causation/time/verb_subcat pattern) → `sm.locations` + `where_is`/`present_in_scene`;
+> `_read_location_register` promotes `experiments/_space_reader.py`, DEFAULT to the `prior_ext` mode (best arm) + the
+> persist-last-known read-out; NO spaCy (in-substrate wins). Wire `present_in_scene` into the ToM consumer. The parser
+> (predictive/incremental) + a belief-world channel are the two levers to raise the recall ceiling (their own problems).
 
 # PROBLEM: the reader still cannot answer "WHERE is each thing?" over a story. The situation model's SPACE dimension (Zwaan & Radvansky) is UNWIRED end-to-end: the tracking CORE is built and promoted (`hdlab/location_register.py` — per-entity presence intervals, `where_is(entity,t)` / `present_in_scene(entity,t)`), and a motion-event extraction adapter exists (`experiments/location_register.py`), but NOTHING drives the tracker from the live reader on general narrative, and the QA capstone HARD-ABSTAINS on "where" questions. Unlike causation and time (which had validated end-to-end reader paths and are now landed), SPACE has never been measured end-to-end through `SituationReader.read()` on real prose — the tracker was validated on abstract motion events, not on the reader's OWN extraction. Build + validate the SPACE dimension end-to-end: extract motion/location events from the reader's parse, feed the tracker, expose `sm.locations` (or where-is answers), and PROVE it answers "where is X at time T" on real narrative CI-separated over the floors — so the reader gains the missing WHERE dimension, the same additive default-off way causation and time landed.
 
