@@ -65,6 +65,28 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — COMPONENT SCAN (strategy, verdict-independent): the reader's SCENE segmentation is a FIXED 5-sentence window
+  (`i // LOCAL_WINDOW`) — an OUR-INVENTION placeholder for a PINNED brain computation (Event Segmentation Theory: event
+  boundaries at PREDICTION-ERROR peaks), and the real segmentation organs are ISLANDS. This composes the two predictive-coding
+  halves already scanned into one functional output (event boundaries).** (a) FIDELITY: the live coref scopes "scenes" by
+  `sid_fixed = [i // LOCAL_WINDOW]` (LOCAL_WINDOW=5) — a fixed window, INVENTED. The brain segments at prediction-error
+  boundaries (Zacks & Swallow 2007 EST; boundaries where the predicted next state diverges), variable-length, not every-5. (b)
+  GENERALIZATION: a fixed window cannot fit variable scene lengths (a scene may be 1 or 20 sentences); it cannot generalize by
+  construction. (c) WIRING: the reader imports ONLY `parse_conll_sentences` (a mechanical utility) from `hdlab/scene_segment.py`
+  — NOT that module's actual scene logic (LEVER 2: cue-based scene-boundary detection via closed-class time/location adjuncts
+  "the next day / meanwhile / years later" + character-set turnover; LEVER 1: topical-protagonist-per-scene coref, VALIDATED for
+  the cross-sentence coref residual). Those levers are an ISLAND. `hdlab/n400_coherence_monitor.py` (the backward prediction-
+  error/coherence mechanism) is ALSO an island (not imported by `situation_reader`/`substrate`). (d) GAP + LEVERAGE: the
+  brain-faithful path is EVENT BOUNDARIES FROM PREDICTION ERROR — compose `predictive_reader` (forward, scanned 2026-08-31) +
+  `n400_coherence_monitor` (backward) → a coherence-drop boundary signal → the scene structure coref/focus already consume,
+  REPLACING the fixed window. A cheaper first upgrade is `scene_segment`'s cue-based detector (already validated for coref).
+  MEDIUM-HIGH leverage: scene structure gates coref (the topical-protagonist lever was validated on the residual) and event
+  boundaries organize the whole situation model. This is the "one lever, multiple payoffs" pattern — the two predictive-coding
+  halves I scanned this week (predictive_reader + n400) unify into event segmentation. NOT packaged (queue full: p2 open + 3
+  awaiting review); seeds an event-segmentation problem when a slot opens. ⚠️ MIND: the gen stress-test flagged the N400
+  SEGMENTER as DOES-NOT-HOLD at its old operating point — so the faithful build must be re-measured at the real operating point,
+  not assumed from the isolation result.
+
 - **2026-08-31 — COMPONENT SCAN (strategy, verdict-independent): `predictive_reader` (the forward half of predictive coding) is
   a PINNED, well-grounded organ but a default-off ISLAND reachable ONLY through `incremental_parser` (also an island) — so
   wiring p2 (incremental parser) is the vehicle that brings the forward-prediction signal into the live reader.** (a) FIDELITY:
