@@ -146,3 +146,15 @@ evidence; the flip is a separate owner call).
 2. Follow-on problems (mapped, with fidelity assessments): prioritized-replay anchor; confirmation-hardened
    (synaptic-consolidation) store; and the `reader_meaning_channel` dependency that makes a truly in-`read()`
    canary possible.
+
+---
+INTEGRATED_BY_STRATEGY: 2026-08-31 (STRONG). Reverified 7/7 first-hand; adversarially audited (old-fiction negative =
+located power artifact, not drift; DECAY can-fail control fires; reliability arm tested+rejected). LANDING STATE
+(Q111): the anti-drift SLOW-ANCHOR primitive `align_and_fuse` (+ procrustes_rotation, _l2norm_rows) PROMOTED VERBATIM
+(byte-identical) into hdlab/cls_growth.py as a DEFAULT-OFF ISLAND primitive, composing with the already-landed
+make_ensemble_sim (keep-both fusion) + rollback_gate. Witness verification/test_cls_growth_anchor_primitive_organ.py
+5/5 (incl. byte-equality to the experiment -> faithful promotion, no drift). Registered cls_growth_anchor_primitive_v1.
+The reader-side `learner_growth` read-out flag is BLOCKED on `reader_meaning_channel` (read() consults no meaning store)
+-> NOT landed (documented, not faked); the experiment keeps its own copy pending a re-export shim (tracked in
+WIRING_MAP). Flipping growth ON by default is a SEPARATE owner decision on this evidence. §2b audit updated; priority
+cleared. NO push.

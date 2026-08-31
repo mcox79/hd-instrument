@@ -1,7 +1,7 @@
 ---
 priority:
-review:
-review_text:
+review: STRONG
+review_text: "Reverified 7/7 first-hand. Rigorous, brain-faithful, honestly-bounded continual-growth result extending the North-Star capstone from a fixed batch to a lifelong live canary. All 5 safety+benefit gates PASS at the brain-faithful EMA slow-anchor on held-out MODERN text; deliverable = the stability-plasticity frontier + a distribution-shift round (lifelong not batch). Adversarial controls comprehensive (twin loses; DECAY can-fail drifts CI-sep above and worse under shift; 16-seed random rollback control fails; reliability arm tested+rejected). The old-fiction negative is a located POWER artifact (not hidden). Below EXCELLENT by disclosed caveats: 'live'=in-experiments not read() (blocked on reader_meaning_channel), self-parsed modern gold, corpus-conditional safe claim. WIRE LANDED (Q111): anti-drift slow-anchor primitive (align_and_fuse) promoted VERBATIM into hdlab/cls_growth.py, default-off island, witness 5/5 incl. byte-equality; reader-side flag stays blocked on reader_meaning_channel (not faked)."
 ---
 
 # PROBLEM: the learner is PROVEN safe+beneficial OFFLINE but has never been run ON in the LIVE substrate over CONTINUAL reading. The North-Star capstone (`turn_on_the_learner…`, EXCELLENT) proved — in experiments — that growing word-meaning by reading turns ON both safe and beneficial via a Complementary Learning Systems KEEP-BOTH-STORES ensemble + a rollback gate. The reversibility HEART of that switch is now promoted to `hdlab/cls_growth.py` (`make_ensemble_sim` keep-both fusion — never discards a defined channel; `rollback_gate` — accept only if a held-out probe isn't corrupted, else roll back), default-off, witnessed. But growth is OFF in the live substrate, and the whole point the owner wants proven — *does it STAY safe and beneficial when it actually runs live, over continual reading, on held-out and modern text?* — has NOT been measured. The offline capstone proved the mechanism on a fixed 5M→15M batch; the LIVE canary must prove it holds as the reader keeps reading (the drift/anchor-preservation question only shows up over time). Build the live-canary: wire the `cls_growth` keep-both switch + the reliability-weighted operating point + an anchor-preserving continual-growth loop onto the live meaning store (default-off), run growth ON in a monitored/canary state over CONTINUAL real reading, and evaluate the FULL safety+benefit suite LIVE — then report whether ALL gates pass (the evidence to flip default-on, an OWNER decision) or which gate fails and why. Because keep-both makes it reversible, running it on is a monitored trial, not a commitment.
@@ -150,3 +150,13 @@ Running growth ON through the LIVE substrate over CONTINUAL reading, with the re
 - 🚫 Do NOT apply the schema-congruence gate to the meaning learner (the capstone refuted it — confirmation bias); it
   belongs on the fact-store.
 - 🚫 Do NOT flip growth on by DEFAULT — landing stays default-off; the flip-on is the owner's decision on your evidence.
+
+> ## ✅ SOLVER REVIEW (strategy, 2026-08-31) — STRONG
+> The learner runs ON continually and stays safe + beneficial at the brain-faithful EMA slow-anchor, proven ~a dozen
+> ways on held-out MODERN text + a lifelong distribution-shift round. Reverified 7/7 first-hand; adversarially audited
+> the ARGUMENT (the old-fiction negative is a located power artifact, not drift; the DECAY can-fail control fires; the
+> reliability arm was tested and rejected). The single anti-drift lever is one parameter (the slow anchor's
+> consolidation rate eta); the deliverable is the stability-plasticity frontier + the corpus-dependent safe operating
+> point the flip-on decision needs. INTEGRATED: the anti-drift slow-anchor primitive is landed in hdlab/cls_growth.py
+> (default-off, byte-identical to the validated experiment, witnessed); the reader-side learner_growth read-out flag is
+> BLOCKED on reader_meaning_channel and is NOT faked. Flipping growth on by default is the owner's call on this evidence.

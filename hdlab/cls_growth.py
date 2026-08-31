@@ -16,12 +16,25 @@ SAFETY PRIMITIVE (verbatim from the validated cells), so any growth loop is REVE
     known-correct items; else roll back to the prior store. A random-decision control fails to protect,
     which is how we know the gate's protection is real.
 
+THE ANTI-DRIFT ANCHOR (added 2026-08-31, Q111, from the integrated live-canary problem
+`run_the_learner_on_live_and_evaluate_the_full_safety_and_benefit_suite`, owner-DONE): `align_and_fuse`
+is the SLOW-ANCHOR consolidation step -- keep-both-stores fused in ONE coordinate frame (Procrustes-rotate
+the grown store onto the anchor's frame, L2-normalise, convex-combine per word `fused = (1-eta)*anchor +
+eta*grown`). Iterated per reading round it IS the continual EMA slow anchor: eta=0 FROZEN (infinite inertia),
+small eta = the brain-faithful slowly-consolidated neocortical store (Kumaran 2016 / mean-teacher; the
+canary's primary safe+beneficial arm on held-out modern text), eta=0.5 DECAY (the can-fail control that
+drifts). `alpha` here IS the consolidation rate eta. This is a COMPUTATIONAL-LEVEL SUBSTITUTE for synaptic
+consolidation (Fusi 2005 cascade / EWC), reproducing anti-forgetting via an external slow store.
+
 WHAT IS NOT HERE YET (deliberately, per WIRING_MAP "land faithfully, not improvise"): the reliability-
-WEIGHTED fusion operating point (Ernst & Banks / Friston precision -- the capstone's BEST arm) and the
-continual, anchor-preserving GROWTH LOOP (build the grown store from reading; anchor-fuse original+
-cumulative to avoid drift). Those land WITH the live-canary evaluation problem
-(`run the learner ON live and evaluate the full safety+benefit suite`), which drives the loop end-to-end
-and picks the operating point on live evidence. This module is the safe substrate that loop stands on.
+WEIGHTED fusion operating point (Ernst & Banks / Friston precision -- the capstone's BEST arm), the LOOP
+ORCHESTRATION that builds each round's grown store from reading (experiment-side; store-write hazards), and
+the reader-side `learner_growth` read-out flag -- the last is BLOCKED on `reader_meaning_channel` (the live
+`read()` consults NO meaning store yet). The primitives here (fusion + rollback + anchor step) are the safe
+substrate those stand on. NOTE (tracked, WIRING_MAP): `align_and_fuse`/`procrustes_rotation`/`_l2norm_rows`
+are promoted byte-identical from `experiments/exp_learner_growth_aligned_continual_v1.py`; the experiment
+keeps its own copy pending a re-export shim (a follow-up promote+shim; the organ witness asserts byte-equality
+so there is no drift at landing).
 
 DEFAULT-OFF / ISLAND: importing this changes NO existing behaviour (no live organ calls it yet -- a DEBT-1
 promotion). ⚠️ The GROWTH loop writes a store; STORE-write hazards apply THERE (binary/newline='', git-
@@ -148,4 +161,54 @@ def rollback_gate(items: Sequence[Dict], base_correct_idx: Sequence[int], sim_pr
     return report
 
 
-__all__ = ["PROBE_FRAC", "zscore_params", "make_ensemble_sim", "argmax_pred", "rollback_gate"]
+# ---------------------------------------------------------------------------------------------------
+# THE ANTI-DRIFT SLOW-ANCHOR consolidation step (the continual EMA anchor). Promoted VERBATIM 2026-08-31
+# from experiments/exp_learner_growth_aligned_continual_v1.py (the validated live-canary mechanism).
+# Pure numpy, self-contained. `alpha` is the consolidation rate eta.
+# ---------------------------------------------------------------------------------------------------
+def procrustes_rotation(src_shared, ref_shared):
+    """Closed-form orthogonal Procrustes: R (d x d) minimizing ||src_shared @ R - ref_shared||_F over the
+    SHARED rows. R = U @ Vt where U,S,Vt = svd(src_shared.T @ ref_shared). Orthogonal -> norm-preserving."""
+    Mmat = src_shared.T @ ref_shared
+    U, _s, Vt = np.linalg.svd(Mmat, full_matrices=False)
+    return U @ Vt
+
+
+def _l2norm_rows(V):
+    n = np.linalg.norm(V, axis=1, keepdims=True)
+    n[n == 0] = 1.0
+    return V / n
+
+
+def align_and_fuse(ref_vecs, ref_idx, new_vecs, new_idx, alpha, do_align):
+    """Keep-both-stores in a SHARED FRAME. Align new_vecs to ref_vecs's frame on the shared vocab (Procrustes
+    rotation), L2-normalise both, convex-combine per word over the UNION vocab: fused = (1-a)*ref + a*new for
+    shared words, ref-only or new(aligned)-only otherwise. Returns (fused_vecs, union_index). do_align=False
+    is the control: average the two UNALIGNED frames (no rotation) -- expected to be meaningless."""
+    shared = [w for w in ref_idx if w in new_idx]
+    if do_align and len(shared) >= 10:
+        A = np.asarray([new_vecs[new_idx[w]] for w in shared], dtype=np.float64)
+        B = np.asarray([ref_vecs[ref_idx[w]] for w in shared], dtype=np.float64)
+        R = procrustes_rotation(A, B)
+        new_aligned = new_vecs @ R
+    else:
+        new_aligned = new_vecs
+    ref_n = _l2norm_rows(np.asarray(ref_vecs, dtype=np.float64))
+    new_n = _l2norm_rows(np.asarray(new_aligned, dtype=np.float64))
+    union = sorted(set(ref_idx) | set(new_idx))
+    uidx = {w: i for i, w in enumerate(union)}
+    d = ref_n.shape[1]
+    fused = np.zeros((len(union), d), dtype=np.float64)
+    for w, i in uidx.items():
+        inr = w in ref_idx; inn = w in new_idx
+        if inr and inn:
+            fused[i] = (1.0 - alpha) * ref_n[ref_idx[w]] + alpha * new_n[new_idx[w]]
+        elif inr:
+            fused[i] = ref_n[ref_idx[w]]
+        else:
+            fused[i] = new_n[new_idx[w]]
+    return fused, uidx
+
+
+__all__ = ["PROBE_FRAC", "zscore_params", "make_ensemble_sim", "argmax_pred", "rollback_gate",
+           "procrustes_rotation", "align_and_fuse"]

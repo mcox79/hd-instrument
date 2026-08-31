@@ -185,6 +185,17 @@ tracked burn-down item, not a silent park.
 ---
 
 ## BURN-DOWN LOG (newest first)
+- **2026-08-31** — **🎯 INTEGRATED (STRONG) the learner LIVE-CANARY `run_the_learner_on_live…`; the continual-growth
+  ANTI-DRIFT ANCHOR primitive LANDED into `hdlab/cls_growth.py`.** The reversibility heart (`make_ensemble_sim`+`rollback_gate`)
+  was landed 08-31 with the capstone; this adds the anti-drift half: `align_and_fuse` (Procrustes-aligned keep-both EMA slow
+  anchor; `alpha`=consolidation-rate `eta`) + `procrustes_rotation`/`_l2norm_rows`, promoted VERBATIM (byte-identical) from
+  `experiments/exp_learner_growth_aligned_continual_v1.py`, DEFAULT-OFF ISLAND. Witness `test_cls_growth_anchor_primitive_organ.py`
+  5/5 incl. **byte-equality to the experiment** (faithful promotion, no drift). Registered `cls_growth_anchor_primitive_v1`.
+  ⚠️ **BLOCKED (documented, not faked): the reader-side `learner_growth` read-out flag depends on `reader_meaning_channel`** —
+  `situation_reader.read()` consults NO meaning store, so there is nowhere live to attach the fused read-out. **This is now the
+  IMMEDIATE unblocker for a truly in-`read()` learner + the flip-on** (candidate next wire/problem). 🧾 **OWED (tracked, not
+  silent): a re-export shim in `exp_learner_growth_aligned_continual_v1.py`** so the 3 promoted functions have ONE source of truth
+  (the experiment keeps its copy for now; the witness proves no drift). Flipping growth ON by default = a separate owner call.
 - **2026-08-31 (heartbeat)** — **INSTRUMENT FIX (owed Q111 "QA-instrument fix" CLEARED — the correct baseline
   every solver needs).** The QA capstone `experiments/exp_situation_model_qa_v1.py` was INSTRUMENT-COUPLED: it ran
   the DEFAULT (weak) reader and read temporal answers off `sm.events` tense, which `tense_agnostic_events` rewrites
