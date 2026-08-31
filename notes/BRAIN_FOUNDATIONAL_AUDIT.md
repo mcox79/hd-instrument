@@ -65,6 +65,26 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 (strategy, ARCHITECT HEARTBEAT scan — the active-register tier of the binding backbone) — the reader's
+  within-EVENT ROLE binding is ALREADY LIVE + PINNED; the p4 tiered-backbone should EXTEND it, not build from scratch.**
+  De-risks the highest-leverage queued problem (`the_assembled_reader_is_parallel_silos_assemble_the_tiered_bound_event
+  _token`). (a) FIDELITY: PINNED — `event_bundle.encode_event` binds (PRED, AGENT, PATIENT, TENSE) into ONE joint token
+  via the validated M1.7 role-slot binding [`event_vec = quantize(Σ_r bind(role_key[r], filler_r))`, glass-box unbindable];
+  `situation_focus`/`ChunkedFocus` (Cowan 2001 ~4-chunk focus, PINNED) holds these bound event bundles as the active WM
+  register. So the ROLE dimensions ARE bound (a JOINT token, not marginals) — the p4 silos are specifically the NON-role
+  dimensions (causation / time / space / belief), computed as SEPARATE lists (`typed_causal_links` / `timeline_order` /
+  `sm.locations`) and NEVER bound onto the event token. This SHARPENS p4: the fix is not "build a binding backbone from
+  scratch" — it is EXTEND the existing role-bound event token to also carry causation/time/space (more role-slots on
+  encode_event). (b) WIRING: `situation_focus` is WIRED (live in `_read_events`); `situation_model_multibank` is an ISLAND
+  — and it is the EXACT capacity fix for the p4 1/√M collapse: it routes an entity's events across n_banks independent
+  sub-bundles (per-bank load = events/n_banks) to avoid the single-superposition cross-talk wall (the measured decode
+  regression 89.8%→67.2% when too many events cram one register). So the p4 "tiered, not one superposition" prescription
+  maps to: SWAP the active register `ChunkedFocus` (superposition + chunking, collapses) → `situation_model_multibank`
+  (slotted, flat). (c) GAP/LEVERAGE: the tiered-backbone = (i) EXTEND `encode_event` to bind the non-role dimensions onto
+  the event token, (ii) SWAP `ChunkedFocus` → `situation_model_multibank` for the active register, (iii) + the
+  `n400_coherence_monitor` boundary + `hippocampal_encoder` episodic tiers p4 named. The role-binding + capacity tiers are
+  BUILT (one live, one island) — the solver builds ON them. Recorded for the p4 solver (verdict-independent).
+
 - **2026-08-31 — 🧩 INTEGRATED (EXCELLENT): the assembled reader is N PARALLEL SILOS, not one integrated situation model
   — the defect is the BINDING PROBLEM (marginals vs joint); the fix is a TIERED bound-event-token backbone (all tiers are
   built islands).** Problem `the_assembled_reader_is_never_tested_as_a_whole_all_flags_on`, reverified 19/19 first-hand.
