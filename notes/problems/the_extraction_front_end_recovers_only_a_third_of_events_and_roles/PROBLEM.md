@@ -16,6 +16,27 @@ pipeline). You build + validate in `experiments/`; strategy lands any hdlab chan
 > ONE dimension each while this lifts the ceiling on ALL of them. **Re-rank per the owner.** ⚠️ SCOPE-FIRST: the first deliverable
 > is the DIAGNOSIS (which stage loses the recall), because the fix depends on it — do not assume it is the parser.
 
+> ## 📩 STRATEGY UPDATE — 2026-08-30 (a directly-relevant finding landed AFTER you started; READ THIS)
+> The integrated `grounded_role_assignment_via_verb_keyed_thematic_fit` (rigorous negative, STRONG) is effectively a
+> DIAGNOSIS of one stage of THIS problem. Its findings, verbatim, so you don't have to re-derive them:
+> - **The non-canonical ROLE-assignment collapse is a PARSE-QUALITY problem, not a thematic-fit problem.** A grounded
+>   thematic-fit + conflict gate was built and refuted: on clean parses structure/routing already wins; on weak parses the
+>   fit gate has an IRREDUCIBLE canonical tradeoff. Do NOT re-open thematic-fit-vector work / a post-hoc fit gate /
+>   fused-linear-precision combinations (all fenced dead-ends there).
+> - **A modern dependency parser (spaCy, substrate-native, NO LLM) scores structural roles 0.9959 balanced non-canonical**,
+>   dominating word-order, the landed `graded_role_assigner`, and every fit gate — the admissible-interim CEILING for the
+>   role stage. If your per-stage diagnosis (§6) shows the role/attachment stage is a major recall loss, THIS is the ceiling
+>   to close toward.
+> - **The brain-faithful target is an INCREMENTAL, cue-integrated PREDICTIVE structure-builder** (Lewis-Vasishth / MacDonald /
+>   Levy — order + morphology + thematic fit competing DURING attachment, fit ONLINE not post-hoc). A ready-made 8-section
+>   brief for it exists: `notes/problems/grounded_role_assignment_via_verb_keyed_thematic_fit/FOLLOW_ON_PROPOSAL_parse_frontend_upgrade.md`.
+>   If your diagnosis confirms the role/parse stage is the dominant loss, that IS the build; if the loss is elsewhere (event
+>   detection / coref-gated linking), say so and the incremental-parser becomes a separate problem.
+> - A small landable side-fix already validated in isolation: restricting `graded_role_assigner`'s structural override to
+>   RELIABLE strong-passive markedness (+0.081 aggregate, fit-independent) — but it needs END-TO-END live-reader validation
+>   (the phase-gate trap), which is exactly this problem's job.
+> **Also see `notes/BRAIN_FOUNDATIONAL_AUDIT.md` §2b (the grounded-role entry).**
+
 > ## ⚙️ SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25, strengthened 2026-08-26; in EVERY problem)
 > **DO THE RIGHT THING, NOT THE CHEAP OR EASY THING** — the mission is the most brain-faithful substrate,
 > not the fastest green check.
