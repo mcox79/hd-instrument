@@ -65,6 +65,23 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — INTEGRATED (p2, owner-DONE, STRONG): the FORCE-DYNAMIC TYPER is validated END-TO-END through the LIVE reader's
+  causation read (with the reader's OWN automatic extraction) — the reader can now type CAUSE/ENABLE/PREVENT within a clause.**
+  Reverified 12/12 first-hand. AUTO 3-way 0.833 [0.714,0.929] > majority-CAUSE/untyped floor 0.429 CI-sep (+0.143); force-class-
+  shuffle twin p95 0.524 loses; PREVENT positive control 11/13 vs 0/13 (only a force-dynamic representation encodes a prevented,
+  never-happened endstate — a capability the untyped reader structurally lacks). FIDELITY: PINNED — within-clause causative
+  extraction (actor-first eADM role binding); CAUSE/ENABLE/PREVENT is CONSTRUCTION-GENERAL (Goldberg; Talmy/Wolff force dynamics),
+  so typing is DOMAIN-GENERAL not physical-only (physical-only 0.762 LOSES — a load-bearing, measured brief deviation). AUDIT
+  CORRECTION vindicated: the earlier scan/stress-test verdict that the typer "does not generalize" is TRUE at the FULL-open-text
+  operating point (fires ~16%, twin indistinct) but the typer HOLDS on the within-clause causative domain it is scoped to — the two
+  are consistent, and open-text precision is the SEPARATE Stage-1 gap. NEW DEVIATION NAMED (OUR-INVENTION, honestly bounded): open-
+  text causal encoding is a by-product of EVENT-MODEL construction decided at EVENT-NODE grain (only a FOREGROUNDED event is a
+  causal-arc candidate; Zwaan & Radvansky, Hopper; causal-by-default, Sanders) — a foreground/event-hood PRECISION FILTER that
+  nothing owns (a measured tradeoff gate exists, default-OFF: cleans descriptive prose 22→17 but regresses curated 0.833→0.810).
+  hdlab LANDING QUEUED (Q111, the assembly DEBT 2 — CausalLink.ctype+endstate_reached; promote lexicon/patient-tendency/literalness
+  → hdlab; default-OFF `causation_typed` flag in `_read_causation`, byte-identical off). Foreground/event-hood gate PACKAGED as the
+  next problem; the `no_glass_box_verb_sense_disambiguation` reframe ("read force-eventhood off the arguments") noted.
+
 - **2026-08-30 — LANDED (strategy, Q111, owner-directed): the CONCEPTUAL IDENTITY channel is now WIRED INTO the general meaning
   read-out (`meaning_fusion`) — DEMAND-ROUTED, default-off. The reader's meaning read-out now has BOTH dissociable systems.**
   Closes the wiring gap the conceptual_meaning scan named (entry below). `hdlab/meaning_fusion.py` gained an OPT-IN, demand-routed

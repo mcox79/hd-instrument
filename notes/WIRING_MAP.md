@@ -53,7 +53,7 @@ who-did-what slice already landed (quotative inversion, Change 1) and PROVED the
 
 | Organ (in hdlab, default-off) | Wire target in the reader | Dimension |
 |---|---|---|
-| `force_dynamics_typer` | replace `_read_causation`'s untyped link with a TYPED CausalLink — **📦 PACKAGED as p2 `wire_the_causation_typer_into_the_live_reader`** (scoped to the within-clause domain; cross-sentence typing is the known dead lever) | CAUSATION |
+| `force_dynamics_typer` | replace `_read_causation`'s untyped link with a TYPED CausalLink — ✅ **p2 SOLVED+INTEGRATED (owner-DONE, STRONG, 2026-08-31): mechanism validated END-TO-END through `SituationReader.read()` (AUTO 0.833 vs untyped 0.429 CI-sep, PREVENT 11/13 vs 0/13, default-off byte-identical). hdlab LANDING QUEUED (target): add `CausalLink.ctype`+`endstate_reached`; promote `_force_dynamics_lexicon`/`_patient_tendency`/`_literalness_gate`→hdlab; default-OFF `causation_typed` flag in `_read_causation` (construction routes + force-event gate). Scoped to within-clause; cross-sentence typing is the known dead lever; open-text precision = the SEPARATE foreground/event-hood gate problem.** | CAUSATION |
 | `graded_coref_pick` / graded retrieval + entropy-abstain | the coref resolution stream | ENTITIES(coref) |
 | `location_register` | the SPACE serve (deletes the inline spaCy-proxy stopgap) | SPACE |
 | `temporal_order_register` (once promoted) | before/after gating in the read | TIME |

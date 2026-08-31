@@ -1,8 +1,42 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: STRONG
+review_text: Wires the promoted force-dynamic typer into the LIVE reader's causation read, measured end-to-end through SituationReader.read() with the reader's OWN automatic extraction -- 3-way CAUSE/ENABLE/PREVENT AUTO 0.833 [0.714,0.929] > majority-CAUSE/untyped floor 0.429 CI-sep (+0.143), info-free force-class-shuffle twin p95 0.524 loses, PREVENT positive control 11/13 vs 0/13 (only force dynamics can represent a prevented endstate). I reverified 12/12 FIRST-HAND scaffold-free -- every headline (floors, bootstrap, construction generalization, force-event gate) recomputes from source; W1 default-off is byte-identical to the stock reader (the landing invariant). STRONG not EXCELLENT: the affirmative gold is small (n=42), single-adjudicator, partly self-authored (construction-proof risk), construction-generalization is on constructed sentences, and open-text precision is understood-but-NOT-solved (the event-hood gate cuts over-fire 34->22 but regresses curated 0.833->0.810, correctly left default-OFF). Load-bearing deviation vindicated: domain-general force typing 0.833 beats the brief's physical-only gate 0.762. Consistent with my generalization stress-test (the typer is narrow on FULL open text) -- the solver honestly scoped to the within-clause domain and diagnosed the open-text gap as a Stage-1 foreground/event-hood problem.
 ---
+
+> ## ✅ SOLVER REVIEW -- STRONG (integrated by strategy 2026-08-31)
+> **Why STRONG, specifically:** it did the thing all three prior causation cells only named -- replaced
+> GIVEN extraction with the live reader's OWN automatic extraction and measured 3-way typing END-TO-END
+> through `SituationReader.read()`, clearing the untyped/majority-CAUSE floor CI-separated (+0.143) with
+> the info-free force-class-shuffle twin losing. The decisive evidence is the PREVENT positive control
+> (AUTO 11/13 vs majority 0/13): only a force-dynamic representation can encode a prevented, never-happened
+> endstate -- the untyped reader asserts a wrong-SIGN positive link, so this is a capability the stock
+> reader structurally lacks, not a scoring nudge. Four brain-literature drills (within-clause causative
+> extraction / construction-general typology / force-eventhood-off-the-arguments / event-model foreground
+> decision), each PINNED, each confirming or CORRECTING the design (auto extraction 0.419->0.833 purely by
+> replicating three named brain ops). The one deliberate brief deviation is load-bearing and measured:
+> physical-only typing 0.762 LOSES; the Talmy/Wolff typology is domain-general, so typing any force event
+> (incl. social/institutional) is what clears the bar.
+> **Reproduced under my check:** I re-ran `verification/test_wire_causation_typer_organ.py` -- 12/12 PASS,
+> scaffold-free; AUTO 0.833[0.714,0.929], majority 0.429, twin p95 0.524, PREVENT 11/13, W1 byte-identical
+> (stock_links=4 unchanged), domain-general 0.833 > physical-only 0.762, construction routes 1.000 all
+> reproduce independently from source. The result survives fully.
+> **The honest docks from EXCELLENT (all solver-volunteered):** n=42 single-adjudicator gold, partly
+> self-authored (construction-proof risk); the construction 1.000 is on constructed sentences (mechanism
+> generalizes, not naturalistic scale); open-text precision is a WORST-CASE artifact on descriptive prose,
+> materially higher on event-dense narrative, with an enumerable verb-class tail (possession/creation/
+> naming/perception) -- improved, NOT solved. This converges with my integrated generalization stress-test
+> (the force typer fires on ~16% of full-open-text causation and its twin is indistinct THERE): the two
+> results are consistent -- 0.833 holds on the WITHIN-CLAUSE causative domain the brief scoped to, and open
+> text is the separate Stage-1 gap.
+> **What matters forward (the seeds, not fixes):** (1) the hdlab landing (add CausalLink.ctype +
+> endstate_reached; promote _force_dynamics_lexicon/_patient_tendency/_literalness_gate; default-OFF
+> causation_typed flag in `_read_causation`, byte-identical when off) is EARNED and QUEUED as the assembly
+> (DEBT 2) -- strategy owns it (Q111). (2) The deepest thing this exposed -- a FOREGROUND / event-hood gate
+> for causal encoding (only a foregrounded event is a causal-arc candidate; Zwaan & Radvansky, Hopper,
+> Sanders) -- nothing owns it; PACKAGED as the next problem. (3) Reframe `no_glass_box_verb_sense_
+> disambiguation` from "build a WSD gate" to "read force-eventhood off the arguments" (a working partial +
+> PINNED architecture already exist here).
 
 > ## ✅ UNBLOCKED + READY (2026-08-30) — all three inputs are integrated and validated
 > Re-ranked p6 → p2 (the prerequisite is done). **This is now a clean, buildable assembly step — wire the CAUSATION dimension
