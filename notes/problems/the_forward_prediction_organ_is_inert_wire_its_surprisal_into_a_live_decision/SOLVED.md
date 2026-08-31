@@ -5,7 +5,7 @@ bar: "PASS = BOTH gates. (1) INFORMATIVE: live per-argument surprisal predicts t
 result: "INFORMATIVE PASS: live per-argument surprisal (hdlab.predictive_reader driven on the reader's OWN patient bindings through SituationReader.read, role-capable) predicts the reader's own who-did-what errors AUC 0.651 [0.630,0.672] (ROC-AUC; n=2606 QA-SRL v2 dev+test patient items, MODERN text; CI half-width 0.021), shuffle-surprisal twin AUC p95 0.519 (loses). ACTIONABLE PASS via surprisal-abstain: committed accuracy at 80% coverage 0.633 vs random-abstain twin 0.598 -> margin +0.035 [+0.022,+0.050] CI-sep (half-width 0.014). Generalizes to 19c LitBank narrative: AUC 0.624 [0.556,0.690] (n=311, 14 docs), twin p95 0.562."
 floor: "un-gated reader base accuracy 0.599 (no surprisal signal); random same-rate abstention twin committed acc 0.598 (flat); shuffled-surprisal AUC null p95 0.519 (chance 0.5). The live signal clears all three CI-separated."
 controls: "(1) shuffled-surprisal twin R=500 (values permuted across arguments) -> AUC null p95 0.519 = EXCLUDES 'any per-argument number ranks errors'. (2) random same-rate abstention twin -> committed acc 0.598 flat = EXCLUDES 'any withholding at this rate helps'. (3) info-free random-adopt reanalysis twin p95 -0.005 = EXCLUDES 'any reanalysis helps'. (4) NON-CANONICAL stratum n=603 (passive/fronted) gives reanalysis its strongest shot -> +0.003 [-0.010,+0.016] = EXCLUDES 'the re-selection wall is a canonical-case artifact'. (5) LitBank 19c slice = EXCLUDES 'modern-vocabulary artifact'. (6) precision terciles (top 0.684 vs bottom 0.628) = EXCLUDES 'diagnosticity is precision-flat'."
-files_changed: "experiments/_forward_prediction_live.py; experiments/exp_forward_prediction_live_decision_v1.py; experiments/exp_forward_prediction_reselector_probe_v1.py (the exemplar re-selector prototype); experiments/exp_forward_prediction_richer_space_probe_v1.py (the wider-feature dimensionality-vs-structure probe); verification/test_forward_prediction_live_decision_organ.py; data/forward_prediction_live_decision_v1/metrics.json; data/forward_prediction_reselector_probe_v1/metrics.json; data/forward_prediction_richer_space_probe_v1/metrics.json; notes/problems/the_forward_prediction_organ_is_inert_wire_its_surprisal_into_a_live_decision/{SOLVED.md,research_drill_1_surprisal_as_error_signal_2026-08-31.md,research_drill_2_grounded_space_reselection_wall_2026-08-31.md}. hdlab/ UNTOUCHED."
+files_changed: "experiments/_forward_prediction_live.py; experiments/exp_forward_prediction_live_decision_v1.py; experiments/exp_forward_prediction_reselector_probe_v1.py (the exemplar re-selector prototype); experiments/exp_forward_prediction_richer_space_probe_v1.py (wider-feature dimensionality-vs-structure + taxonomic-metric probe); experiments/exp_forward_prediction_agent_conditioned_reselector_v1.py (owner-directed build B); verification/test_forward_prediction_live_decision_organ.py; data/forward_prediction_live_decision_v1/metrics.json; data/forward_prediction_reselector_probe_v1/metrics.json; data/forward_prediction_richer_space_probe_v1/metrics.json; data/forward_prediction_agent_conditioned_reselector_v1/metrics.json; notes/problems/.../research_drill_3_thematic_fit_ranking_mechanism_2026-08-31.md; notes/problems/the_forward_prediction_organ_is_inert_wire_its_surprisal_into_a_live_decision/{SOLVED.md,research_drill_1_surprisal_as_error_signal_2026-08-31.md,research_drill_2_grounded_space_reselection_wall_2026-08-31.md}. hdlab/ UNTOUCHED."
 reverify: ".venv/Scripts/python.exe verification/test_forward_prediction_live_decision_organ.py"
 ---
 
@@ -103,6 +103,44 @@ A brain-foundational research drill (folded below) reframed BOTH, and the data c
 
   We do NOT generalize the narrow failure to "impossible": the estimator-class half is now fixed and
   measured; the residual is a named, unbuilt asset (the Phase-1 lever), not a ceiling.
+
+## OWNER-DIRECTED FOLLOW-ON BUILDS (drill 3 -> built + tested; beyond the one-decision bar)
+The owner directed building the re-selector components drill 3 named. Two were built as one-variable
+can-fail probes on the reader's OWN live items; BOTH are informative NEGATIVES that CONVERGE on one
+conclusion.
+
+- **B. Agent-conditioned exemplar retrieval -- NEGATIVE, and diagnostic**
+  (`exp_forward_prediction_agent_conditioned_reselector_v1.py`). Condition patient re-selection on the
+  AGENT (the partial event; McRae combination; Michaelov 2024 agent-preference; angular-gyrus context
+  update), holding estimator=exemplar-top3 and space=grounded FIXED -- the ONLY new variable is whether
+  the exemplar pool is agent-gated. Result (gold agent n=988, reader agent n=2058, K in {10,20,40}):
+  agent-conditioning does NOT beat the verb-only exemplar (WORSE, -0.065 to -0.095 CI-sep), AND the real
+  agent is statistically INDISTINGUISHABLE from a RANDOM-agent twin (delta CI includes 0 at every K,
+  both agent sources) -- the agent SIGNAL is null HERE. DIAGNOSIS: agent-conditioning has nothing to
+  condition because the patient-similarity METRIC (grounded-12d) cannot rank patients -- the metric is
+  UPSTREAM of the conditioning (reorders drill 3's B-first tractability ranking; the substrate says A is
+  the binding constraint). CAVEAT: only the hard agent-gated form was built; the random-agent twin (real
+  ~ random) is the evidence the signal is null across conditioning forms in this space.
+- **A. A better similarity METRIC (taxonomic vs topical) -- NEGATIVE, confirms the axis**
+  (`exp_forward_prediction_richer_space_probe_v1.py`). Swap grounded-12d for a distributional space
+  (Random Indexing over 6M text8 tokens, 40k vocab, glass-box, NO LLM) in WINDOW (topical) and
+  SYMMETRIC-PATTERN ("X and Y" coordination = taxonomic; Schwartz 2015) modes + their fusion with
+  grounded. Result (n=2316, pairwise-common subsets): TAXONOMIC beats TOPICAL as predicted (sympattern
+  -0.043 vs window -0.058 vs grounded), but NO flat metric beats grounded-12d CI-sep (best fused_
+  sympattern ties grounded at -0.003), and none beats the reader's PARSE (all 0.14-0.19 below).
+- **THE CONVERGENT CONCLUSION (the deep understanding, EVIDENCED not speculated).** FOUR independent
+  attempts to out-select the parse with a plausibility signal -- richer DIMENSIONS (drill-2 probe), a
+  better ESTIMATOR (exemplar, +0.08 but caps at 0.46), the right similarity AXIS (taxonomic), and
+  AGENT-conditioning -- ALL fail the same way: none beats the reader's parse (~0.59). This is
+  MacWhinney's COMPETITION MODEL live: English who-did-what is WORD-ORDER dominant; thematic-fit
+  plausibility is a WEAK cue that cannot override structural parsing. So the forward-prediction signal's
+  validated value is as a CONFIDENCE / FLAG (the abstain gate, which works), NOT a re-selector. The ONLY
+  thing that would cross the wall is the FULL structured event store combining all four ingredients WITH
+  the parse's structural/dependency information (SDM proper; Chersoni/Lenci) -- a large Phase-1 build,
+  now MOTIVATED BY EVIDENCE (every cheap approximation converged to "it is structure"), not a guess.
+  NEW on-theme candidate (untested): apply drill-3's agent-preference to the part that WORKS -- does
+  agent-conditioned SURPRISAL (not re-selection) predict errors better than verb-only surprisal (a
+  higher-AUC FLAG; Michaelov 2024)? That is the next probe.
 
 ## Brain-fidelity labeling (PINNED vs OUR-INVENTION)
 - **PINNED (replicated):** forward pre-activation of expected FEATURES; surprisal = -log P softmax
@@ -215,18 +253,19 @@ what actually fills each slot.
 None.
 
 ## NEXT STEPS (follow-on problems)
-1. **Build the RE-SELECTOR (highest yield, Phase-1 meaning lever) -- as STRUCTURE, not more dimensions:**
-   the exemplar-store prototype (experiments/exp_forward_prediction_reselector_probe_v1.py) already
-   recovers the ESTIMATOR-CLASS portion (+0.08 CI-sep) -- promote it as the re-selection estimator. The
-   wider-feature probe RULED OUT dimensionality (a fair 1024-d distributional space is WORSE than 12-d
-   for thematic ranking), so the residual ~0.13 is verb-specific relational EVENT STRUCTURE: build a
-   structured verb-role -> rich-filler event store (Chersoni Structured Distributional Model; angular-
-   gyrus generalized event knowledge; FHRR role-filler binding), NOT a bigger flat embedding, and retest
-   gated revision with THIS as the prior. The measured decomposition tells the follow-on exactly where
-   the yield is (estimator +0.08 fixed; flat dimensionality ruled out; structure = the lever).
-2. **Wire the abstain flag now (Q111):** the validated confidence/abstain decision does not depend on
+1. **Build the RE-SELECTOR (highest yield, Phase-1 meaning lever) -- as STRUCTURE, evidenced by a
+   FOUR-WAY convergent negative.** Four independent plausibility levers were built + tested and NONE
+   out-selects the parse: richer DIMENSIONS (ruled out), the exemplar ESTIMATOR (+0.08 but caps at
+   0.46), the taxonomic METRIC (better than topical, still < grounded), and AGENT-conditioning (null vs
+   twin). So the follow-on is unambiguous: a STRUCTURED verb-role -> rich-filler event store that
+   combines the exemplar estimator + a dependency-parsed selectional metric + agent/event conditioning
+   WITH the parse's structural information (SDM proper; Chersoni/Lenci; FHRR role-filler binding), NOT
+   any single flat component. This is a large Phase-1 build, now motivated by evidence.
+2. **NEW probe (on-theme, applies drill-3's agent-preference to the part that WORKS):** does
+   agent-conditioned SURPRISAL predict the reader's errors BETTER than verb-only surprisal (a higher-AUC
+   FLAG; Michaelov 2024)? The re-selector failed, but the FLAG is the validated win -- agent-conditioning
+   may sharpen it. Cheap to test with the agent fields now in the cache.
+3. **Wire the abstain flag now (Q111):** the validated confidence/abstain decision does not depend on
    the re-selector build.
-3. **Feed `gap_detector`'s write-gate from this surprisal** (the memory-level node; learner-on path).
-4. **(measure-only) wider-feature probe:** how much of the re-selection gap is dimensionality vs
-   estimator class (Kauf predicts it narrows but does not close).
-5. Agent-role who-did-what slice; strengthen the precision signature to CI-separation at power.
+4. **Feed `gap_detector`'s write-gate from this surprisal** (the memory-level node; learner-on path).
+5. Agent-role (not just patient) who-did-what slice for cross-role generalization.
