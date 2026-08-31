@@ -33,8 +33,11 @@ REG = os.path.join(_REPO, "data", "capability_registry.jsonl")
 # everything else (default state, capability text, witness) is DERIVED.
 CAP_FLAGS = {
     "tense_agnostic_events": "extraction_frontend_tense_agnostic_detector_v1",
+    "preserve_tense": "preserve_tense_live_reader_v1",          # refines tense_agnostic_events (composed tense)
     "causation_typed": "causation_typed_live_reader_v1",
     "timeline_register": "timeline_register_live_reader_v1",
+    "track_space": "track_space_live_reader_v1",                # SPACE dimension -> sm.locations
+    "verb_subcat_gate": "verb_subcat_gate_live_reader_v1",      # who-did-what PRESENCE (suppress spurious patients)
     # role_route is a string ("positional" = off; "wired"/other = the assembly who-did-what path)
     "role_route": None,
     "spacy_pred_gate": None,
@@ -103,13 +106,23 @@ def print_manifest():
 
 
 def print_enable():
-    print("# The FULLY-ON reader (all validated dimension flags enabled). NOTE: flag interactions are not")
-    print("# yet validated as a whole -- this is the config the full-system end-to-end harness should measure.")
+    print("# The FULLY-ON reader (all validated dimension flags enabled).")
+    print("# ⚠️ MEASURED 2026-08-31 (the_assembled_reader_is_never_tested_as_a_whole, owner-DONE): the fully-on reader")
+    print("# is N PARALLEL SILOS, not one integrated situation model -- turning flags on COMPOSES but does not BIND")
+    print("# (interaction byte-exactly 0). No dimension flag should be flipped default-ON yet (only role_route is")
+    print("# aggregate-positive + instrument-safe). And the QA capstone is INSTRUMENT-COUPLED: its temporal/causal")
+    print("# golds derive from sm.events, which tense_agnostic_events rewrites -- score temporal Qs off sm.timeline_order")
+    print("# (answers 0.98 at 0.91), NOT the naive sm.events readout. The integration fix is the TIERED bound-event-token")
+    print("# backbone (its own problem), NOT more flags.")
     print("SituationReader(")
     print("    tense_agnostic_events=True,   # event recall 0.33->0.95 (extraction keystone)")
+    print("    preserve_tense=True,          # composed Reichenbach tense/is_pp (refines tense_agnostic_events; feeds TIME)")
     print("    causation_typed=True,         # typed CAUSE/ENABLE/PREVENT (sm.typed_causal_links)")
     print("    timeline_register=True,       # whole-passage chronological order (sm.timeline_order)")
-    print("    role_route='wired',           # assembly who-did-what role routing (verify the accepted value)")
+    print("    track_space=True,             # SPACE / WHERE dimension (sm.locations; where_is/present_in_scene)")
+    print("    verb_subcat_gate=True,        # who-did-what PRESENCE (suppress spurious patients on intransitives)")
+    print("    role_route='wired',           # assembly who-did-what role routing (the one aggregate-positive flag)")
+    print("    spacy_pred_gate=True,         # supplied-grammar predicate gate (changes the event set; measure it)")
     print(")")
 
 
