@@ -86,6 +86,21 @@ reader. This makes the causation landing a careful multi-file effort, not a one-
 **These are the coupled reader-wiring items behind ~10 of the 25 QUEUED landings.** They are the
 substance of "an ever more complete substrate": each one measurably grows what the live reader can do.
 
+🔧 **ASSEMBLY SEQUENCE (2026-08-31, owner: keep landing dimensions) — after CAUSATION (done ✅), by readiness/dependency:**
+Each dimension = a careful default-off landing on the causation PATTERN (promoted organ + lazy experiment-side extraction
+adapter + a delegating call in `read()` + equivalence/byte-identical witness). Next-up, best-first:
+1. **PROMOTE `temporal_order_register` → hdlab** (currently experiment-only; multi-module, ~25 importers — careful). It is a
+   PREREQUISITE that unblocks TWO dimensions (TIME + belief/ToM order it). Do this first.
+2. **TIME dimension** — replace the narrow "had"-gated `_read_timeline` with the promoted temporal register (whole-passage,
+   drop the "had" gate). Additive. Gated on (1) + benefits from the tense-preserving detector (prio 5).
+3. **GOALS/ToM (belief timeline)** — ADDITIVE (`sm.belief_timeline`); promoted (belief_timeline/belief_partition/
+   perceptual_access_ledger all in hdlab), live end-to-end validated (0.902 vs floor 0.463 CI-sep). Needs a WorldEvent +
+   observation-cue extraction adapter (perceptual_access_ledger, spaCy-lazy) + the temporal register (1). Additive, low-risk.
+4. **SPACE (location)** — ADDITIVE (`sm.locations`); `location_register` promoted; needs the motion-event parse adapter.
+5. **ENTITIES(state)** — `state_register` promoted; wiring MODIFIES the coref path (state-consistency re-rank) → higher-risk,
+   land AFTER the additive dimensions + with a coref no-regression witness. Also the ROLE precise_voice wire (from p1, queued).
+The parser (p2, PARSE dimension) is SOLVED-awaiting-owner-review; it improves the adapters' quality when it lands.
+
 ### DEBT 3 — STANDALONE meaning/memory islands (promoted; the reader *could* consult them but doesn't)
 Wire into the reader's meaning / entity read-out (some gated on the assembly landing first).
 
