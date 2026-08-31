@@ -562,8 +562,11 @@ class SituationReader:
         # agnostic, category-based. Lifts end-to-end event recall 0.381->0.966 through THIS reader
         # (CI-separated; generalizes OOD to modern QA-SRL + 19c LitBank; info-free twin loses). This is the
         # KEYSTONE that de-risks the assembly (every downstream dimension reads off the event set). BOUNDARY:
-        # this recall-max detector assigns a PLACEHOLDER tense (TENSE_SIMPLE_PAST) -- do NOT consume this flag
-        # for the TIME/timeline dimension until a tense-preserving variant is validated (queued follow-on).
+        # this recall-max detector assigns a PLACEHOLDER tense (TENSE_SIMPLE_PAST). This flag touches ONLY
+        # _read_events (via _extract_events); the TIME dimension (_read_timeline) does its OWN extraction via
+        # M.extract_events_punct, so the flag does NOT corrupt the timeline today. The caution is FORWARD-
+        # looking: if the dimensions ever share ONE event set (the right architecture), a tense-PRESERVING
+        # variant must land first, or TIME breaks (it reconstructs order from real tense/aspect).
         self.tense_agnostic_events = bool(tense_agnostic_events)
         self._ta_tagger = None                                 # lazy hdlab.pos_tagger.PosTagger
         # persistent readers (the banked backbone + single-sentence validity baseline)

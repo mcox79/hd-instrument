@@ -65,6 +65,25 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — COMPONENT SCAN (strategy, verdict-independent): the reader's TIME dimension (`_read_timeline`) is a NARROW
+  past-perfect FLASHBACK detector, not general temporal-order reconstruction — AND it is INDEPENDENT of the p1 keystone flag
+  (a precise correction to my own boundary note).** (a) FIDELITY: the reader's TIME read is gated on `"had" in toks` — it fires
+  ONLY on past-perfect sentences, reconstructing chrono order via tense/aspect + connectives (`M.reconstruct_order_timeline`)
+  and flagging reordered (flashback) frames. That is a PARTIAL proxy for the PINNED brain computation (event-model temporal
+  indexing / Reichenbach event-reference-speech time; Zwaan & Radvansky TIME dimension): it MISSES ordering carried by
+  connectives (after/before/then/when), tense shifts without "had", and aspect — an OUR-INVENTION narrow lexical trigger, not
+  the before/after relational computation. (b) WIRING: `_read_timeline` IS wired (called in `read()`), but the "had" gate makes
+  it rarely fire; `hdlab/graded_temporal_context.py` is an ISLAND (reader doesn't import it); a full `temporal_order_register`
+  is NOT promoted (only `experiments/_temporal_ordering*`). So the TIME dimension is thinly served. (c) KEYSTONE-FLAG
+  INTERACTION (the timely check): `_read_timeline` uses `M.extract_events_punct` for its OWN event detection — INDEPENDENT of
+  `tense_agnostic_events` (which only affects `_read_events` via `_extract_events`). So the flag does NOT corrupt TIME today;
+  my landed boundary note is a correct FORWARD caution (a future SHARED event set would need a tense-PRESERVING detector, else
+  TIME breaks), NOT a present breakage — clarified in the code comment. (d) GAP + LEVERAGE: a faithful TIME dimension =
+  general temporal-order reconstruction (connectives + tense + aspect + Reichenbach), which NEEDS real tense — so the QUEUED
+  tense-PRESERVING detector variant (p1 follow-on) is a SHARED dependency serving both a proper TIME dimension AND the
+  shared-event-set architecture. Connects to the QA capstone's "when +0.55 [tense-shared caveat]". Medium leverage; a candidate
+  future problem (NOT packaged — queue is full + correctly ranked). Seeds the next temporal problem when a slot opens.
+
 - **2026-08-31 — INTEGRATED + LANDED (p1, owner-DONE, EXCELLENT, THE KEYSTONE): the reader's event detector was TENSE-GATED
   (missed present-tense finite verbs 100%, capping event recall ~0.33); the brain-faithful fix (tense-agnostic UPOS==VERB
   detection) is now WIRED into the live reader behind a default-off flag, lifting end-to-end event recall 0.33→0.95.**
