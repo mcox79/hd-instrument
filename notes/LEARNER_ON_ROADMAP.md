@@ -185,6 +185,20 @@ not a solver brief.
 - **Modern-corpus annotation is imperfect** — LitBank is 19c (newer + annotated, not truly 21c); role gold
   on truly-modern narrative is scarcer, so p1 picks per available gold. This narrows but does not fully
   retire the corpus-age confound; quantify the per-organ delta.
+- **🔗 CROSS-CUTTING CANDIDATE DIRECTION (2026-08-31 scan synthesis) — PREDICTION ERROR is the substrate's biggest
+  fidelity-vs-wiring gap, and its `gap_detector` node IS the learner-on gate.** The brain uses prediction error as its
+  universal control signal (write to memory when surprised; segment events at surprise peaks; detect incoherence; predict
+  the next argument). The substrate has BUILT this at FOUR levels — forward-semantic (`predictive_reader`), event-coherence
+  (`n400_coherence_monitor`), working-memory gating (`slot_attention_wm` PBWM), and memory-novelty (`gap_detector` CA1) — but
+  **three are default-off islands, and the ONE that is wired (`gap_detector`, substrate slot H1) is ablation-AMBIGUOUS**
+  (turning it off moved no counter — inert vs switch-not-fired is unresolved; full detail in `BRAIN_FOUNDATIONAL_AUDIT.md`
+  §2b, 2026-08-31 entries). **Why this is ON the learner-on chain:** `gap_detector` is the gap→gather→learn gate (Link 3/
+  Link 5) — if the gap signal does not reach a downstream decision, the learn loop is disconnected regardless of foundation
+  cleanliness. So a coordinated "wire prediction error into the reader's core operations + prove the gap gate actually fires
+  a decision (a positive control)" push is a candidate high-leverage phase — but it is a COORDINATED program (not a single
+  brief) and it intersects heavily-worked consolidation/ablation territory, so it needs owner buy-in on the DIRECTION before
+  packaging. The already-queued p2 (incremental parser) is the cheapest first step toward it — wiring that parser transitively
+  brings the forward-prediction organ (`predictive_reader`) live. **Surfaced for the owner's direction call; NOT packaged.**
 
 ---
 
@@ -205,7 +219,10 @@ will not spend effort on it.
 roadmap records them.
 
 **NEXT STEPS:**
-1. Keep the queue aimed at Link 4 (p1 corpus-migration is top; p3 coref residual next).
+1. Keep the queue aimed at Link 4 (extraction cleanliness). UPDATE 2026-08-31: p1 (extraction front-end recall) is DONE +
+   INTEGRATED + LANDED behind a default-off flag (recall 0.33→0.95, the KEYSTONE); the coref-residual + McGuffey-migration
+   pieces are integrated. The current top is p2 `wire_the_incremental_parser…` (the extraction-PRECISION half, gated on parser
+   fidelity). The cross-cutting prediction-error direction above is the candidate BIG next phase (owner direction call pending).
 2. Verify hdlab has no existing keep-both-stores growth module; if absent, land the CLS safe-growth
    mechanism default-OFF (strategy's owed Q111 landing).
 3. Later, define a foundation-cleanliness measurement — the gate that decides when growth may flip on.
