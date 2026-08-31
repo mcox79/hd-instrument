@@ -76,7 +76,7 @@ reader. This makes the causation landing a careful multi-file effort, not a one-
 | ~~`force_dynamics_typer` + `_foreground_eventhood`~~ ✅ **LANDED 2026-08-31 — THE FIRST ASSEMBLY DIMENSION WIRED INTO THE CANONICAL READER** | the reader now has a default-off `causation_typed` flag → `sm.typed_causal_links` (CAUSE/ENABLE/PREVENT + endstate) via `hdlab/causation_typing.py`. Promoted `force_dynamics_lexicon` + `patient_tendency` → hdlab; created `hdlab/causation_typing.py` (ports the validated typer + p3 graded event-hood gate). Default OFF = byte-identical (no spaCy/experiment import). VERIFIED byte-for-byte equivalent to the validated `WiredCausationReader` across 11 configs + witness `test_causation_typed_landing_organ.py` PASS → inherits p2's within-clause AUTO 0.833 and p3's open-text precision gate (`causation_foreground_gate=True` opt-in). The WSD/literalness chain (`frame_sense_disambiguator`/`idiom_gate`/`_literalness_gate`) stays in experiments/ (lazy, default-off) — its own separate queued promotion. Registered `causation_typed_live_reader_v1`. | CAUSATION ✅ |
 | `graded_coref_pick` / graded retrieval + entropy-abstain | the coref resolution stream | ENTITIES(coref) |
 | `location_register` | the SPACE serve (deletes the inline spaCy-proxy stopgap) | SPACE |
-| `temporal_order_register` (once promoted) | before/after gating in the read | TIME |
+| ~~`temporal_order_register`~~ ✅ **LANDED 2026-08-31 (2nd assembly dimension)** | the reader now has a default-off `timeline_register` flag → `sm.timeline_order` (whole-passage chronological event order incl. flashbacks) via the register, lazily imported (not promoted — the ~25-importer promotion stays a separate nicety). Default-off byte-identical (register not imported; narrow `_read_timeline` untouched). Witness `test_timeline_register_landing_organ.py` PASS (flag-on == register's own output byte-for-byte; flashback reordered). Registered `timeline_register_live_reader_v1`. | TIME ✅ |
 | `state_register` (once promoted) | ENTITIES(state) re-rank of the coref pool | ENTITIES(state) |
 | `belief_partition` + `perceptual_access_ledger` | per-agent belief + observation gate | GOALS/ToM |
 | the register readout lines (`decode_serial`/`decode_gated`/`divnorm`) | the who-did-what event-set decode | ENTITIES |
@@ -89,10 +89,9 @@ substance of "an ever more complete substrate": each one measurably grows what t
 🔧 **ASSEMBLY SEQUENCE (2026-08-31, owner: keep landing dimensions) — after CAUSATION (done ✅), by readiness/dependency:**
 Each dimension = a careful default-off landing on the causation PATTERN (promoted organ + lazy experiment-side extraction
 adapter + a delegating call in `read()` + equivalence/byte-identical witness). Next-up, best-first:
-1. **PROMOTE `temporal_order_register` → hdlab** (currently experiment-only; multi-module, ~25 importers — careful). It is a
-   PREREQUISITE that unblocks TWO dimensions (TIME + belief/ToM order it). Do this first.
-2. **TIME dimension** — replace the narrow "had"-gated `_read_timeline` with the promoted temporal register (whole-passage,
-   drop the "had" gate). Additive. Gated on (1) + benefits from the tense-preserving detector (prio 5).
+1. ✅ **TIME dimension — LANDED 2026-08-31** (additive `sm.timeline_order` via the register, default-off, lazy import — did
+   NOT require the risky ~25-importer promotion; the promotion stays a separate nicety). The 2nd assembly dimension live.
+2. (superseded — TIME landed above via the lazy-import pattern, not the promote-first plan.)
 3. **GOALS/ToM (belief timeline)** — ADDITIVE (`sm.belief_timeline`); promoted (belief_timeline/belief_partition/
    perceptual_access_ledger all in hdlab), live end-to-end validated (0.902 vs floor 0.463 CI-sep). Needs a WorldEvent +
    observation-cue extraction adapter (perceptual_access_ledger, spaCy-lazy) + the temporal register (1). Additive, low-risk.

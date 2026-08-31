@@ -65,6 +65,21 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — LANDED (strategy, Q111, owner-authorized assembly): the TIME dimension is now WIRED INTO the canonical reader
+  (default-off `timeline_register` flag) — the 2nd assembly (DEBT 2) dimension, after causation.** The reader gains an ADDITIVE
+  `sm.timeline_order` (whole-passage chronological event order incl. flashbacks) via the validated temporal-order register
+  (`experiments/_temporal_order_register.py`, lazily imported). FIDELITY: PINNED — whole-passage temporal-order reconstruction
+  (Zwaan & Radvansky TIME; Reichenbach) via a toposort of tense/aspect + connective constraints + the clause-level PLUPERFECT
+  binder (recovers flashbacks the narrow per-sentence "had"-gated `_read_timeline` drops). This directly closes the fidelity gap
+  the earlier TIME scan named (`_read_timeline` = a narrow "had"-gated flashback detector). DEFAULT OFF = byte-identical (the
+  register is NOT imported; `_read_timeline`/`sm.timeline_frames` untouched). VERIFIED: witness PASS first-hand — flag-on
+  `timeline_order` == the register's own output byte-for-byte (faithful, no new logic), a pluperfect flashback correctly
+  reordered (chrono hidden→opened→read vs narration opened→hidden→read); causation witness still 3/3 (additive edit, no
+  regression). NO spaCy (uses the substrate's own temporal front-end), NO LLM. Registered `timeline_register_live_reader_v1`.
+  ⚠️ SCOPE: additive whole-passage ORDER field; it does not yet REPLACE the per-sentence timeline_frames nor feed `_read_causation`
+  (both are the register's fuller wiring, a follow-on). The register stays experiment-side (lazy) — its hdlab promotion (~25
+  importers) is a separate nicety, not required for the reader wiring.
+
 - **2026-08-31 — INTEGRATED (p4, owner-DONE, EXCELLENT): a brain-faithful within-store CONSISTENCY-CLEANUP organ (schema-
   congruence) detects injected wrong facts CI-separated over every floor + the twin — the North-Star DOWNSTREAM clean-foundation
   half. With p4 done, BOTH clean-foundation halves are solved.** Reverified 15/15 first-hand. FIDELITY: PINNED — schema-

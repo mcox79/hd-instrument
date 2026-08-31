@@ -265,6 +265,7 @@ class SituationModel:
     suppressed_predicates: List["SuppressedPredicate"] = field(default_factory=list)
     coref_resolutions: List[CorefResolution] = field(default_factory=list)
     timeline_frames: List[TimelineFrame] = field(default_factory=list)
+    timeline_order: list = field(default_factory=list)  # whole-passage chronological event order (opt-in timeline_register)
     causal_links: List[CausalLink] = field(default_factory=list)
     # opt-in TYPED within-clause causation (hdlab.causation_typing.TypedCausalLink); empty unless
     # the reader is built with causation_typed=True. Additive -- never replaces causal_links.
@@ -538,7 +539,8 @@ class SituationReader:
                  causation_use_gate: bool = True, causation_role_source: str = "parse",
                  causation_tendency: bool = True, causation_use_constructions: bool = True,
                  causation_sense_gate: bool = True, causation_sense_tau: float = 1.0,
-                 causation_foreground_gate: bool = False) -> None:
+                 causation_foreground_gate: bool = False,
+                 timeline_register: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -594,6 +596,13 @@ class SituationReader:
         self.causation_sense_gate = bool(causation_sense_gate)
         self.causation_sense_tau = float(causation_sense_tau)
         self.causation_foreground_gate = bool(causation_foreground_gate)
+        # TIMELINE REGISTER (opt-in; default OFF = byte-identical). When ON, read() adds the whole-passage
+        # chronological EVENT ORDER on sm.timeline_order via the validated experiments._temporal_order_register
+        # (extract_passage clause_pluperfect=True -> DiscreteOrderRegister toposort). Lazily imported -> a default
+        # (OFF) reader never imports the register. It reuses the SAME temporal modules (T/M) this reader already
+        # imports; the discrete path pulls NO torch/transitive_ordering. It does NOT touch the narrow, "had"-gated
+        # per-sentence _read_timeline path (that stays byte-identical); this is a NEW additive whole-passage field.
+        self.timeline_register = bool(timeline_register)
         self._causation_nlp = None     # lazy spaCy handle (loaded once, only when causation_typed)
         self._causation_lex = None     # lazy force lexicon
         # persistent readers (the banked backbone + single-sentence validity baseline)
@@ -849,6 +858,24 @@ class SituationReader:
                                         chrono_order=chrono, reordered=(chrono != text_ord)))
         return frames
 
+    # -- TIME (opt-in whole-passage register): ONE chronological event order over the WHOLE passage --
+    def _read_timeline_register(self, sents) -> list:
+        """Opt-in whole-passage TEMPORAL-ORDER register (default-off; wired 2026-08-31 from the validated
+        experiments/_temporal_order_register.py). Unlike _read_timeline -- which runs PER-SENTENCE and gates on
+        `"had" in toks` (dropping connective-only reorderings) -- this reconstructs ONE chronological EVENT ORDER
+        over the WHOLE passage using the brain-faithful clause-level pluperfect binder (clause_pluperfect=True,
+        the validated config -- recovers pluperfects the fixed-window extractor mistags) + the discrete
+        constraint-graph toposort (Reference-time carried across sentences, Reichenbach E/R/S). Returns the
+        register's OWN chronological order as a serializable list of dicts, one per event in CHRONOLOGICAL order:
+        {lemma, chrono_rank, text_rank}. NO new ordering logic -- this is exactly reg.order / reg.text_rank, so
+        it is equivalence-checkable against a direct register build. Glass-box + deterministic (discrete toposort;
+        no torch/seed). Lazy import -> the default (OFF) reader never imports the register module."""
+        from experiments import _temporal_order_register as TOR
+        ev, tg, edges = TOR.extract_passage(sents, clause_pluperfect=True)
+        reg = TOR.DiscreteOrderRegister(ev, tg, edges)
+        return [{"lemma": lem, "chrono_rank": i, "text_rank": reg.text_rank.get(lem)}
+                for i, lem in enumerate(reg.order)]
+
     # -- CAUSATION: cause->outcome on the passage's causal-connective sentences --
     @staticmethod
     def _read_causation(sents) -> List[CausalLink]:
@@ -902,6 +929,8 @@ class SituationReader:
         sm.memory_roundtrip = self._memory_roundtrip(focus, codec, events, role_fillers)
         sm.timeline_frames = self._read_timeline(sents)
         sm.causal_links = self._read_causation(sents)
+        if self.timeline_register:
+            sm.timeline_order = self._read_timeline_register(sents)
         if self.causation_typed:
             # opt-in TYPED causation read (default-off; lazy spaCy + experiment-side literalness gate).
             from hdlab.causation_typing import read_typed_causation
