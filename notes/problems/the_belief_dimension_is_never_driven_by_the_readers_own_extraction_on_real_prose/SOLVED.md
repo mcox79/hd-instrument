@@ -38,7 +38,7 @@ Not one averaged number. Three axes, split verdicts:
 | **MECHANISM across fact types** | **YES** | oracle=1.0 on BOTH location and status; the ONE content-general sample-and-hold handles both (Koster-Hale 2017; Dowty inertia). |
 | **EXTRACTION — narrator-epistemic + testimony** | **YES** (the DOMINANT channels) | live 1.0; fully substrate-native (no spaCy; `BELIEF_no_spacy` carries them, real 0.857). |
 | **EXTRACTION — location perception** | **PARTIAL, and the gap is PARSER RECALL** | in-substrate 0.75 → spaCy 0.92; end-to-end 0.788 → 0.848. A stronger parser closes most of it ⇒ the SAME external wall SPACE hit (→ p2), NOT the mechanism. **Proven, not asserted.** |
-| **EXTRACTION — status change-of-state** | **NO — an OPEN, INTRINSIC wall** | 0.00 in-substrate AND **0.25 with spaCy**. A stronger parser does NOT fix it. Implicit state transitions ("the lamp was lit → out", "the master was in the field") need situation-model state tracking / event segmentation, not parsing. **The hardest part, and it is not solved.** |
+| **EXTRACTION — status change-of-state** | **PARTIAL — the RIGHT organ recovers it (NOT intrinsic)** | in-substrate 0.00, a stronger parser only 0.40 — but the PROMOTED situation-model state organ **`state_register` recovers 0.60** (> the parser), and wired in it takes MODERN status live to **1.0**. So the status wall is NOT a parser problem AND NOT intrinsic — it needed the RIGHT organ (change-of-state / aspect / scalar-entailment tracking), which the substrate already has. Residual 0.40 = COS-lexicon ("blew out") + world-knowledge inference ("survived"→alive). |
 | **CONTENT — open-ended belief** (identity, character, intention) | **NOT MEASURED** | real literary belief is mostly open-ended; my exact-match scoring only covers small-valued facts. The FHRR read-out is content-general (multi-seed round-trip 1.0), so the *mechanism* admits open vocab, but I have not *measured* open-ended belief. |
 
 **Am I clearing the bar only on the easy signals?** Partly, and I state it: the real CI-sep headline (knowledge-state +
@@ -79,9 +79,10 @@ The belief/ToM event source is NOT object-moves — belief is content-general (K
 3-channel composition; content-general sample-and-hold; source-tagging + reliability discounting; flashback needs the
 temporal-order register. New MEASURED deviations: (a) real-prose exact-VALUE headline COVERAGE-bounded (literary belief
 open-ended + ignorance-dominated); (b) location-perception extraction = PARSER recall (converges with SPACE → p2);
-(c) **status change-of-state extraction = INTRINSIC wall, unsolved by a stronger parser — the situation-model
-state-tracking / event-segmentation organ (`state_register`) is the right next attack.** BELIEF and SPACE converge on
-the parser ceiling; BELIEF adds a distinct, harder status-extraction ceiling.
+(c) status change-of-state extraction is **NOT intrinsic — the promoted `state_register` organ recovers it (0.60 > a
+stronger parser 0.40; wired → modern status live 1.0)**; residual = COS-lexicon + world-knowledge inference. BELIEF and
+SPACE converge on the parser ceiling for LOCATION; STATUS is handled by the situation-model state organ. New WIRING:
+`state_register` (veridicality-gated, factivity-aware) is the status reality source for belief.
 
 ## PROPOSED hdlab DIFF (default-off; strategy lands, Q111)
 Default-off `track_belief` on `SituationReader` → `sm.belief_timeline` + `believes(A,F,T)` + `knows(A,F,T)`. Event
@@ -89,14 +90,28 @@ source = belief-assertion extractor (RULE0+RULE2, substrate-native) PRIMARY + RU
 ignorance = None; reality separate. Flip on owner approval; the value headline stays flagged coverage-bounded and the
 status-perception channel flagged parser/organ-bounded until the `state_register` attack lands.
 
-## OPEN / ADJACENT (mapped, not hidden)
-1. **Status change-of-state extraction (the hard open wall):** attack with `state_register` (situation-model state
-   tracking) + event segmentation, not parsing. On-disk evidence: spaCy 0.25.
-2. **Open-ended belief content:** the majority of literary belief; needs a distributional/entailment read-out, not
-   exact-match. The FHRR read-out is content-general already.
-3. **Larger real gold + a modern annotated corpus** (the McGuffey/LitBank corpus-age confound bites here too).
-4. **Independent benchmark:** FANToM (info-access ToM) is the ideal external test for the testimony channel; not on
-   disk — a data request for the strategy session.
+## EVERY GAP CHECKED AGAINST THE ORGAN INVENTORY (owner's question: "are there other gaps, and do we have organs?")
+Systematic — each remaining gap routed to an EXISTING organ (I did not invent where the substrate already has one):
+
+| gap | existing organ | status |
+|---|---|---|
+| **status change-of-state extraction** | `hdlab/state_register.py` (situation-model state history: copular/perfect + COS resultants + aspect + scalar entailment) | **WIRED** — 0.60 > parser 0.40; modern status live → 1.0. The user's redirect; decisive. |
+| **location object-move extraction** (parser recall) | `hdlab/predictive_reader.py` / `predictive_coding.py` (forward-prediction = p2, the audit's parser-recall lever) | route to **p2** (a separate packaged problem; SPACE + BELIEF converge here). |
+| **flashback chronology** (I demo'd with gold chrono) | `timeline_register` (promoted, default-off; `situation_reader._read_timeline_register`) | organ EXISTS + proven-needed (chrono 1.0 vs narration 0.0); wire its order at landing instead of gold. |
+| **open-ended belief content** (exact-match can't score it) | `hdlab/distributional_meaning_channel.py` (`substitutability`), `conceptual_meaning.py`, `meaning_fusion.py` | organ EXISTS (island); wire as the belief-value read-out to score open-ended belief distributionally. Follow-on. |
+| **inferred belief** (Sodian & Wimmer — inference as a knowledge source) | `hdlab/reasoner.py` (`DerivationReasoner`), `bayesian_inference.py`, AND `belief_timeline.fired_inference_events` (the hook is already in the organ) | organs EXIST; wire reasoner → the belief_timeline inference hook. Follow-on. |
+| **agent coref on un-annotated prose** (I use gold coref) | `hdlab/coref.py`, `coreference_resolver.py`, `graded_coref_pick.py` | the reader HAS coref; gold is the isolation choice, not a missing organ. |
+
+**Takeaway:** there was no gap without an organ. Two are now wired/used (state_register for status; timeline_register
+proven-needed for flashback); the rest route to promoted organs (predictive_reader/p2, distributional_meaning_channel,
+reasoner) as named follow-ons — not open voids. `state_of_mind.py` despite its name is a coref/deixis overlay, NOT a
+belief tracker (checked, so it is not conflated with belief_timeline).
+
+## STILL GENUINELY OPEN (not organ-shaped yet)
+1. **Open-ended-content belief MEASUREMENT** — the read-out organ exists (distributional_meaning_channel) but wiring +
+   an open-ended gold is a real build.
+2. **Larger real gold + a modern annotated corpus** (McGuffey/LitBank corpus-age confound bites here too).
+3. **Independent benchmark:** FANToM (info-access ToM) — not on disk; a data request for the strategy session.
 
 ## TLDR (plain English)
 The task said to track belief by watching objects get moved around. Real novels don't do that, and neither does the
