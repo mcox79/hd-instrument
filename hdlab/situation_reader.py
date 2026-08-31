@@ -168,6 +168,24 @@ _FRONTEND_ARC_ASSET = os.path.join(_REPO, "data/frontend_assets/arc_parser_hashe
 _FRONTEND_CACHE: Dict[str, object] = {}
 
 
+def _stock_tense(a, TP):
+    """Map a Reichenbach triple (from TP.assign_sentence) to a stock-compatible EventRecord.tense label,
+    so downstream .tense stays meaningful when preserve_tense is on. Byte-identical to the validated ref
+    impl exp_tense_preserving_live_reader_and_timeline_v1._stock_tense; T is the shared _temporal_ordering
+    module (already imported above). Only used behind the default-off preserve_tense flag."""
+    if a["voice"] == TP.PASSIVE:
+        return T.TENSE_PASSIVE
+    if a["tense"] == TP.PAST and a["aspect"] in (TP.PERF, TP.PERF_PROG):
+        return T.TENSE_PAST_PERFECT
+    if a["tense"] == TP.PAST:
+        return T.TENSE_SIMPLE_PAST
+    if a["tense"] == TP.PRES:
+        return "SIMPLE_PRESENT" if a["aspect"] == TP.SIMPLE else "PRESENT_" + str(a["aspect"])
+    if a["tense"] == TP.FUT:
+        return "FUTURE"
+    return T.TENSE_OTHER
+
+
 def _load_frontend():
     """Load the persisted UPOS tagger + hashed arc parser ONCE per process (module-cached). Imported
     lazily so a default (positional) reader never pays the parser-asset load or the import cost."""
@@ -540,7 +558,8 @@ class SituationReader:
                  causation_tendency: bool = True, causation_use_constructions: bool = True,
                  causation_sense_gate: bool = True, causation_sense_tau: float = 1.0,
                  causation_foreground_gate: bool = False,
-                 timeline_register: bool = False) -> None:
+                 timeline_register: bool = False,
+                 preserve_tense: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -579,6 +598,21 @@ class SituationReader:
         # variant must land first, or TIME breaks (it reconstructs order from real tense/aspect).
         self.tense_agnostic_events = bool(tense_agnostic_events)
         self._ta_tagger = None                                 # lazy hdlab.pos_tagger.PosTagger
+        # TENSE-PRESERVING refinement (opt-in; default OFF = byte-identical; REFINES tense_agnostic_events
+        # -- no effect unless that flag is also on). Integrated 2026-08-31 from
+        # `the_tense_agnostic_detector_drops_tense_needed_by_the_time_dimension` (owner-DONE, STRONG, 12/12):
+        # the tense-agnostic detector fires on the SAME UPOS==VERB tokens but replaces the PLACEHOLDER tense
+        # (TENSE_SIMPLE_PAST) with a COMPOSED Reichenbach tense x aspect x voice parse of the verb group
+        # (main verb + auxiliary chain) -- glass-box, in-substrate (UPOS + closed-class aux forms + suffix
+        # morphology), NO spaCy/LLM. Recall is preserved EXACTLY (the detected event SET is identical; only
+        # EventRecord.tense/is_pp change). This is the tense-PRESERVING variant the tense_agnostic BOUNDARY
+        # note called for: with it on, the TIME dimension (timeline_register) can consume ONE is_pp-faithful
+        # event set. In-substrate word-tense 0.770 CI-sep over placeholder/majority/twin; aspect 0.987/voice
+        # 0.933. The composition (assign_sentence) is lazily imported from the validated experiment module
+        # only when the flag is on (the experiment module is nltk-free at import; nltk loads only for the
+        # optional fine-tag path, which this surface-mode landing does NOT use).
+        self.preserve_tense = bool(preserve_tense)
+        self._tp_mod = None                                    # lazy exp_tense_preserving_event_detector_v1
         # CAUSATION TYPING (opt-in; default OFF = byte-identical). Integrated 2026-08-31 from p2
         # (wire_the_causation_typer, STRONG) + p3 (foreground/event-hood gate, STRONG), both owner-DONE.
         # When ON, read() adds a TYPED within-clause causation read (CAUSE/ENABLE/PREVENT) on sm.
@@ -649,6 +683,22 @@ class SituationReader:
             self._ta_tagger = PosTagger.load(_FRONTEND_POS_ASSET)
         toks = text.split()
         up = self._ta_tagger.tag(toks)
+        if self.preserve_tense:
+            # tense-PRESERVING: identical detection (same UPOS==VERB tokens -> recall preserved EXACTLY),
+            # but a COMPOSED Reichenbach tense/is_pp instead of the placeholder constant. Byte-identical to
+            # the validated ref impl (exp_tense_preserving_live_reader_and_timeline_v1.tense_preserving_extract).
+            if self._tp_mod is None:
+                import experiments.exp_tense_preserving_event_detector_v1 as _TP
+                self._tp_mod = _TP
+            _TP = self._tp_mod
+            sent = _TP.assign_sentence(toks, up, mode="surface")
+            events = []
+            for i, tk in enumerate(toks):
+                if up[i] == "VERB":
+                    a = sent[i]
+                    events.append(T.Event(lemma=tk.lower(), idx=i, pos=up[i],
+                                          tense=_stock_tense(a, _TP), is_pp=bool(a["is_pp"])))
+            return events, []
         events = []
         for i, tk in enumerate(toks):
             if up[i] == "VERB":
