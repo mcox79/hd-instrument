@@ -47,9 +47,14 @@ PRESENCE; IDENTITY (`graded_role_assigner`) is assembly-wired. **Remaining:**
 - **PACKAGEABLE: ENTITIES(state)** — wire the (HOLDER,PROPERTY) entity-state dimension `state_register`
   (promoted) + the copular consumption p3 built (validated 0.94) into `sm.entity_states`. Modifies the coref
   re-rank → needs a no-regression witness.
-- **PACKAGEABLE: BELIEF / ToM** — `belief_timeline` + `perceptual_access_ledger` (both promoted) → per-agent
-  belief + observation gate; needs the observation-cue extraction adapter wired (spaCy-lazy). Additive,
-  validated end-to-end (0.902 vs 0.463). *Note: the audit's "ToM absent" is now stale — it is BUILT, UNWIRED.*
+- **SOLVER PROBLEM (NOT a clean landing — corrected 2026-08-31 by the heartbeat scan, audit §2b): BELIEF / ToM
+  end-to-end on REAL prose.** `belief_timeline` + `perceptual_access_ledger` + `belief_partition` are promoted +
+  PINNED-faithful (sample-and-hold belief over story-time; sticky registration ledger, Butterfill & Apperly) but a PURE
+  ISLAND — and their 0.902 "live" number is GOLD events + AUTHOR-CONSTRUCTED passages (only the observation-bit is live),
+  NEVER driven from the reader's OWN extraction on natural narrative. So this needs the SPACE treatment: drive
+  belief_timeline from the reader's own event stream → timeline_register (order) → perceptual_access (observation-gate),
+  and MEASURE "what did A believe at T" on REAL narrative CI-sep over floors, twin losing. Likely parser-recall-ceiling'd.
+  *The §1 "ToM absent" is stale — it is BUILT + promoted, UNWIRED, and UNMEASURED-on-real-prose.*
 - **OWED (mine): the GRADED verb_subcat gate** (the brain-faithful Competition-Model version, 0.30→0.49) —
   needs the reader to expose POS + the patient token index at role-assignment (mid-`_read_events` plumbing).
 - **OWED (mine): the copular/nominal detector wiring** (offline WordNet event-noun asset + cop-arc front-end +

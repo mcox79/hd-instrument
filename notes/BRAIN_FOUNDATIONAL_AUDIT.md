@@ -65,6 +65,29 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 (strategy, ARCHITECT HEARTBEAT scan — the next assembly dimension: BELIEF/ToM) — `belief_timeline` +
+  `perceptual_access_ledger` are PINNED-faithful + promoted but a PURE ISLAND, and their validation rests on GOLD events +
+  CONSTRUCTED passages — so wiring them is a SOLVER end-to-end problem (the SPACE template), NOT a clean landing. CORRECTS
+  the §1 "ToM absent" (stale) AND the FORWARD_BACKLOG "mostly my-landings" (wrong).** (a) FIDELITY: strongly PINNED —
+  per-agent belief kept SEPARATE from reality (TPJ/mPFC mentalizing; Saxe & Kanwisher 2003), updates ONLY on OBSERVED
+  events (seeing→knowing; Wimmer & Perner 1983), composed as a PIECEWISE-CONSTANT sample-and-hold over story-time
+  (default-persist/temporal inertia; Dowty 1986 — the same persistence SPACE + entity-state use) read at the query time,
+  with event ORDER from the (landed) temporal-order register. A faithful GENERALIZATION of `belief_partition` from n=1 to
+  n changes. The observation front-end is a STICKY REGISTRATION LEDGER (Butterfill & Apperly 2013), not a boolean re-
+  evaluated at query time — a well-drilled replacement for the naive keyword extractor (0.808). (b) GENERALIZATION — the
+  gap: `exp_belief_timeline_live_e2e_v1` scores 0.902 "live" on AUTHOR-CONSTRUCTED multi-event passages where the EVENTS
+  are GOLD (anchored by sent_idx) and only the observation-BIT is extracted live (arms LIVE/ORACLE/FLOOR). So the belief
+  timeline has NEVER been driven end-to-end from the reader's OWN event extraction on natural narrative — the number is
+  belief-composition-over-gold-events + a live observation-gate on constructed prose. (c) WIRING: grep 0/0 — not imported
+  by situation_reader/substrate; no live hdlab consumer. PROMOTED (DEBT-1) but UNWIRED (DEBT-2 pending). (d) GAP/LEVERAGE:
+  ALL pieces are promoted/landed (belief_timeline, belief_partition, perceptual_access_ledger, the timeline_register for
+  ORDER) EXCEPT the composition INTO the live reader driven by its OWN extraction. So the next Phase-B problem is a SOLVER
+  END-TO-END VALIDATION (like SPACE): does composing the reader's own event stream → timeline_register → perceptual_access
+  observation-gate → belief_timeline answer "what did A believe at T" on REAL narrative, CI-sep over floors, twin losing?
+  The extraction front-end is now much stronger (keystone + copular/nominal + verb_subcat), so it MAY now be feasible — but
+  it must be MEASURED on real prose, and the likely limiter is the same parser-recall ceiling SPACE hit. **Recorded, NOT
+  packaged (queue full: p1/p2/p4). Seeds the next Phase-B problem when a slot opens.**
+
 - **2026-08-31 — INTEGRATED (SPACE, STRONG): the reader gains its 4th situation-model dimension (WHERE) end-to-end on real
   prose; the deep finding CONVERGES with the prediction-error scan.** Problem `the_reader_has_no_spatial_location_dimension
   _end_to_end`, reverified 13/13 first-hand. FIDELITY: PINNED — per-entity LOCATION as STATE updated by motion events and
