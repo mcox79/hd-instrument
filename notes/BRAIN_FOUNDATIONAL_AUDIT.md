@@ -65,6 +65,33 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 (strategy, ARCHITECT HEARTBEAT scan — the FORWARD half of predictive coding) — `predictive_reader` is
+  PINNED-at-computation + held-out-validated but a PURE INERT ISLAND (never computed on any live path); sharpens the
+  prediction-error direction with concrete wiring reality.** Scanned the word/feature-level forward predictor.
+  (a) FIDELITY: the CORE COMPUTATION is PINNED — forward prediction / pre-activation of expected GROUNDED features, the
+  error IS the signal, surprisal = −log P under softmax competition (Hale 2001; Levy 2008; Michaelov 2024 — LM surprisal
+  is the best single account of the N400); predict MEANING features not word-FORM (Nieuwland 2018); precision-weighted by
+  selectional-preference concentration (Friston constraint strength). INVENTION-under-test (swept, honestly labelled): the
+  role-specific centroid instantiation, the softmax temperature, the grounded space as feature basis. (b) GENERALIZES:
+  real held-out QA-SRL — predictive surprisal beats reactive +0.199 and an info-free wrong-verb twin +0.095; the frequency
+  confound excluded THREE ways; surprisal tracks distributional thematic-fit Spearman 0.239; discriminates reversible role
+  assignment AUC 0.619. Honest modest size (12-dim grounded ceiling — the isolation effect is a graded SIGNAL, not a
+  standalone accuracy lift). (c) WIRING — ENUMERATED (not a single grep): the ONLY hdlab reference is
+  `incremental_parser.py`, which imports `PredictiveReader` as an injectable TYPE (`predictor: Optional[PredictiveReader]
+  = None`) and runs the structural core with prediction INERT when `predictor is None` (the default). `situation_reader`
+  and `substrate` do NOT import it; no live caller ever CONSTRUCTS/injects a predictor, and `incremental_parser` is itself
+  default-off. So predictive_reader's surprisal is NEVER computed on any live reader path -- a PURE INERT ISLAND (the
+  registry's `integration_status: WIRED` means promoted+registered, NOT called-at-inference; strict status = ISLAND).
+  (d) GAP/LEVERAGE: this is the FORWARD half of predictive coding; `n400_coherence_monitor` is the BACKWARD event-coherence
+  half (also default-off), `slot_attention_wm` the WM-gating level (island), and `gap_detector` the memory-novelty level
+  (wired but ablation-AMBIGUOUS). So the substrate has BUILT the prediction-error hierarchy at 4 levels but 3 are inert
+  islands and the 1 wired node does not demonstrably fire a decision. The organ's docstring names its live value: a graded
+  difficulty/anticipation SIGNAL that should feed write-gating / N400 confidence / the relcl route-conflict — NONE of which
+  consume it today. **This CONCRETELY confirms the roadmap's "prediction error is the biggest fidelity-vs-wiring gap"
+  synthesis. NOT packaged: it is a COORDINATED program (wire the forward signal into a downstream decision + prove the gate
+  fires with a positive control), owner-direction-pending per `LEARNER_ON_ROADMAP.md`; the queue is full + correctly ranked.
+  Surfaced for the owner's DIRECTION call.**
+
 - **2026-08-31 (strategy, ARCHITECT HEARTBEAT scan — the who-did-what IDENTITY half) — `graded_role_assigner` is
   PINNED-faithful, held-out-validated, and WIRED on the assembly path (NOT an island); the who-did-what stack is now
   coherently wired.** Scanned the IDENTITY organ adjacent to the PRESENCE gate just landed. (a) FIDELITY: PINNED —
