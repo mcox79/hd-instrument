@@ -65,6 +65,29 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — COMPONENT SCAN (strategy, verdict-independent, CONFIRMATORY + CONNECTIVE): `reading_grounding_loop` (the
+  North Star's learn-by-reading ENGINE) is a PINNED, wired, honestly-controlled mechanism; its Route B store is the SAME
+  reading spoke that feeds `meaning_fusion` — so the meaning read-out and the learner's grounding foundation share it. No fresh
+  gap; the "foundation too noisy" bottleneck is downstream QUALITY (p4 territory).** (a) FIDELITY: PINNED — fast-mapping + slow
+  statistical accumulation (ATL semantic hub: repeated coherent CONTEXTS of use, not one-shot; Distributional Hypothesis, Firth
+  1957). It reuses the validated FLAG→LIBRARY→CONSOLIDATE→GATE→BANK→PROMOTE architecture (grounding_acquisition_loop,
+  HARD_PASS-validated for valence); since general word-meaning has NO polarity vote, the vote-margin gate DEGENERATES to a pure
+  EXPOSURE gate (≥MIN_CONFIRM=4 occurrences), and the grounding decision rides on `schema_consistency_split_half` — does a
+  word's context-of-use COHERE across INDEPENDENT encounters (split-half reliability; Warren 2014 coherence-not-vote-agreement
+  guard). Exemplary honesty: it explicitly frames itself as a DELIBERATELY STRONGER re-test of a prior AUC-0.527 negative
+  (diagnosed as exposure-volume/diversity-limited on a 1685-token homogeneous passage, NOT impossible — the USER
+  narrow-failure-≠-impossible discipline) with ~2 orders more text + diverse registers + a SCRAMBLE-CONTEXT control. (b)
+  GENERALIZATION: the engine is proven-in-principle (the learner is PROVEN-but-OFF); its OUTPUT cleanliness is the open question,
+  not the mechanism. (c) WIRING: WIRED — a LIVE entry point (substrate slots P3 "provenance", B3 "many encounters → a concept",
+  FILLED). ⚠️ Route B (the SEPARABLE co-occurrence store, `track_context_counts`/`observe_context_counts`) is DEFAULT-OFF
+  (byte-identical when off) and turned on for the OFFLINE meaning build — correct (consolidation is slow, run offline). (d)
+  CONNECTIVE FINDING (no fresh problem): Route B IS the reading spoke `meaning_fusion` consumes — so last week's conceptual-
+  channel landing (into meaning_fusion) and the learner's grounding foundation share this substrate; AND the grounding criterion
+  (exposure + split-half COHERENCE across encounters) is itself a form of CONSISTENCY — it relates to p4 (knowledge-store
+  consistency-cleanup), which handles the "foundation too noisy" downstream QUALITY that keeps the learner OFF. Confirmatory:
+  the learn-by-reading engine is sound and wired; the bottleneck is the cleanliness of what it grounds (p4), not the engine.
+  NOT packaged (queue full).
+
 - **2026-08-31 — COMPONENT SCAN (strategy, verdict-independent): `gap_detector` is a PINNED CA1 match/mismatch NOVELTY comparator
   that IS wired (substrate H1) — but its downstream effect is ablation-AMBIGUOUS, and it is itself a PREDICTION-ERROR organ,
   which sharpens the synthesis: the substrate computes prediction error at FOUR levels; three are islands and the ONE wired one
