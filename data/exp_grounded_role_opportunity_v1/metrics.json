@@ -1,0 +1,37 @@
+{
+  "ts_iso": "2026-08-30T18:43:43.578745+00:00",
+  "partitions": {
+    "NONCANON/structMARKED": {
+      "n": 207,
+      "n_agent": 0,
+      "naive_order": 0.0048,
+      "always_patient": 1.0,
+      "graded_role": 0.9952,
+      "thematic_fit": 0.9082
+    },
+    "NONCANON/structSILENT": {
+      "n": 31,
+      "n_agent": 10,
+      "naive_order": 0.2903,
+      "always_patient": 0.6774,
+      "graded_role": 0.2903,
+      "thematic_fit": 0.6129
+    },
+    "canonical/structMARKED": {
+      "n": 708,
+      "n_agent": 424,
+      "naive_order": 1.0,
+      "always_patient": 0.4011,
+      "graded_role": 0.5508,
+      "thematic_fit": 0.5763
+    },
+    "canonical/structSILENT": {
+      "n": 2645,
+      "n_agent": 672,
+      "naive_order": 1.0,
+      "always_patient": 0.7459,
+      "graded_role": 0.9996,
+      "thematic_fit": 0.7701
+    }
+  }
+}

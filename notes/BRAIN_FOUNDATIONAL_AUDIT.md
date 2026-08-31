@@ -65,6 +65,26 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-30 — THE NON-CANONICAL ROLE COLLAPSE IS A PARSE-QUALITY PROBLEM, NOT A THEMATIC-FIT PROBLEM (a rigorous negative
+  that REDIRECTS to p1)** (from integrated `grounded_role_assignment_via_verb_keyed_thematic_fit`, owner-DONE, SOLVED/STRONG;
+  reverified 14/14 first-hand). The McGuffey migration exposed that role assignment collapses on non-canonical order (0.288);
+  the brief hypothesized grounded thematic-fit + a conflict gate. RESULT (two regimes, noisy-channel theory): on CLEAN parses
+  the fix is STRUCTURAL ROUTING not fit (route_only 0.9858 beats word-order + graded_role CI-sep, no canonical regression — fit
+  does not CI-separate); on WEAK parses the fit gate beats both floors + generalizes to unseen pairs but has an IRREDUCIBLE
+  canonical tradeoff (P1 fails, the rigorous-negative P2 clause met with power). **PINNED: thematic fit belongs ONLINE, competing
+  DURING attachment (Lewis-Vasishth; MacDonald; Levy noisy-channel), NOT as a post-hoc override — a post-hoc gate cannot separate
+  override-when-conflicting from leave-alone-when-not.** The real fix = PARSE QUALITY: a modern dependency parser (spaCy,
+  substrate-native, NO LLM) scores structural roles 0.9959 balanced non-canonical, dominating word-order/graded_role/every fit
+  gate — the admissible-interim ceiling; the brain-faithful target is an INCREMENTAL cue-integrated PREDICTIVE structure-builder.
+  **THIS IS p1's DIAGNOSIS** (`the_extraction_front_end_recovers_only_a_third_of_events_and_roles`, in-progress): the
+  non-canonical role stage is a big recall loss and its fix is a better/incremental parser — the solver's ready-made
+  `FOLLOW_ON_PROPOSAL_parse_frontend_upgrade.md` is the 8-section brief for it, ready-to-lift IF p1's diagnosis confirms the
+  incremental parser is a distinct build. **FENCED dead-ends (do NOT re-open): thematic-fit fit-vector work, the post-hoc fit
+  gate, fused-always / linear-sum / precision-weighted (all hurt canonical); the count-fit signal is largely SEEN-PAIR
+  MEMORIZATION (twin edge does not survive to unseen).** hdlab: a routing precision-fix to `graded_role_assigner` (restrict the
+  override to reliable strong-passive markedness, +0.081 CI-sep, fit-independent) QUEUED — needs end-to-end live-reader
+  validation first (the phase-gate trap: isolation ≠ live reader).
+
 - **2026-08-30 — COMPONENT SCAN (strategy, verdict-independent): `event_centrality_coref` (LIVE-WIRED) is a MIDDLE_BAND organ
   whose core thesis is CONTRADICTED by later integrated coref work → a re-measurement / possible-demotion candidate.**
   (a) FIDELITY: breaks same-gender coref ties by EVENT CENTRALITY — a Cowan-4 ChunkedFocus of role-slot event bundles is queried

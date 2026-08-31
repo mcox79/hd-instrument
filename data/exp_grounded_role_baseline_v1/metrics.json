@@ -1,0 +1,271 @@
+{
+  "ts_iso": "2026-08-30T18:43:16.719170+00:00",
+  "n_train": 8279,
+  "n_test": 3591,
+  "arms": {
+    "naive_order": {
+      "ALL": {
+        "acc": 0.9365,
+        "balanced_acc": 0.9516,
+        "n": 3591,
+        "n_agent": 1106,
+        "n_patient": 2485
+      },
+      "canonical": {
+        "acc": 1.0,
+        "balanced_acc": 1.0,
+        "n": 3353,
+        "n_agent": 1096,
+        "n_patient": 2257
+      },
+      "passive": {
+        "acc": 0.0467,
+        "balanced_acc": 0.0467,
+        "n": 214,
+        "n_agent": 0,
+        "n_patient": 214
+      },
+      "inversion": {
+        "acc": 0.0,
+        "balanced_acc": 0.0,
+        "n": 10,
+        "n_agent": 10,
+        "n_patient": 0
+      },
+      "fronting": {
+        "acc": 0.0,
+        "balanced_acc": 0.0,
+        "n": 14,
+        "n_agent": 0,
+        "n_patient": 14
+      },
+      "NONCANON": {
+        "acc": 0.042,
+        "balanced_acc": 0.0219,
+        "n": 238,
+        "n_agent": 10,
+        "n_patient": 228
+      },
+      "reversible": {
+        "acc": 1.0,
+        "balanced_acc": 1.0,
+        "n": 14,
+        "n_agent": 7,
+        "n_patient": 7
+      }
+    },
+    "always_patient": {
+      "ALL": {
+        "acc": 0.692,
+        "balanced_acc": 0.5,
+        "n": 3591,
+        "n_agent": 1106,
+        "n_patient": 2485
+      },
+      "canonical": {
+        "acc": 0.6731,
+        "balanced_acc": 0.5,
+        "n": 3353,
+        "n_agent": 1096,
+        "n_patient": 2257
+      },
+      "passive": {
+        "acc": 1.0,
+        "balanced_acc": 1.0,
+        "n": 214,
+        "n_agent": 0,
+        "n_patient": 214
+      },
+      "inversion": {
+        "acc": 0.0,
+        "balanced_acc": 0.0,
+        "n": 10,
+        "n_agent": 10,
+        "n_patient": 0
+      },
+      "fronting": {
+        "acc": 1.0,
+        "balanced_acc": 1.0,
+        "n": 14,
+        "n_agent": 0,
+        "n_patient": 14
+      },
+      "NONCANON": {
+        "acc": 0.958,
+        "balanced_acc": 0.5,
+        "n": 238,
+        "n_agent": 10,
+        "n_patient": 228
+      },
+      "reversible": {
+        "acc": 0.5,
+        "balanced_acc": 0.5,
+        "n": 14,
+        "n_agent": 7,
+        "n_patient": 7
+      }
+    },
+    "graded_role": {
+      "ALL": {
+        "acc": 0.9048,
+        "balanced_acc": 0.8514,
+        "n": 3591,
+        "n_agent": 1106,
+        "n_patient": 2485
+      },
+      "canonical": {
+        "acc": 0.9049,
+        "balanced_acc": 0.8571,
+        "n": 3353,
+        "n_agent": 1096,
+        "n_patient": 2257
+      },
+      "passive": {
+        "acc": 0.9533,
+        "balanced_acc": 0.9533,
+        "n": 214,
+        "n_agent": 0,
+        "n_patient": 214
+      },
+      "inversion": {
+        "acc": 0.0,
+        "balanced_acc": 0.0,
+        "n": 10,
+        "n_agent": 10,
+        "n_patient": 0
+      },
+      "fronting": {
+        "acc": 0.7857,
+        "balanced_acc": 0.7857,
+        "n": 14,
+        "n_agent": 0,
+        "n_patient": 14
+      },
+      "NONCANON": {
+        "acc": 0.9034,
+        "balanced_acc": 0.4715,
+        "n": 238,
+        "n_agent": 10,
+        "n_patient": 228
+      },
+      "reversible": {
+        "acc": 1.0,
+        "balanced_acc": 1.0,
+        "n": 14,
+        "n_agent": 7,
+        "n_patient": 7
+      }
+    },
+    "thematic_fit": {
+      "ALL": {
+        "acc": 0.7385,
+        "balanced_acc": 0.6191,
+        "n": 3591,
+        "n_agent": 1106,
+        "n_patient": 2485
+      },
+      "canonical": {
+        "acc": 0.7292,
+        "balanced_acc": 0.6214,
+        "n": 3353,
+        "n_agent": 1096,
+        "n_patient": 2257
+      },
+      "passive": {
+        "acc": 0.8972,
+        "balanced_acc": 0.8972,
+        "n": 214,
+        "n_agent": 0,
+        "n_patient": 214
+      },
+      "inversion": {
+        "acc": 0.1,
+        "balanced_acc": 0.1,
+        "n": 10,
+        "n_agent": 10,
+        "n_patient": 0
+      },
+      "fronting": {
+        "acc": 1.0,
+        "balanced_acc": 1.0,
+        "n": 14,
+        "n_agent": 0,
+        "n_patient": 14
+      },
+      "NONCANON": {
+        "acc": 0.8697,
+        "balanced_acc": 0.5018,
+        "n": 238,
+        "n_agent": 10,
+        "n_patient": 228
+      },
+      "reversible": {
+        "acc": 0.5,
+        "balanced_acc": 0.5,
+        "n": 14,
+        "n_agent": 7,
+        "n_patient": 7
+      }
+    },
+    "poc_combined": {
+      "ALL": {
+        "acc": 0.8783,
+        "balanced_acc": 0.8614,
+        "n": 3591,
+        "n_agent": 1106,
+        "n_patient": 2485
+      },
+      "canonical": {
+        "acc": 0.9078,
+        "balanced_acc": 0.8865,
+        "n": 3353,
+        "n_agent": 1096,
+        "n_patient": 2257
+      },
+      "passive": {
+        "acc": 0.4813,
+        "balanced_acc": 0.4813,
+        "n": 214,
+        "n_agent": 0,
+        "n_patient": 214
+      },
+      "inversion": {
+        "acc": 0.0,
+        "balanced_acc": 0.0,
+        "n": 10,
+        "n_agent": 10,
+        "n_patient": 0
+      },
+      "fronting": {
+        "acc": 0.5,
+        "balanced_acc": 0.5,
+        "n": 14,
+        "n_agent": 0,
+        "n_patient": 14
+      },
+      "NONCANON": {
+        "acc": 0.4622,
+        "balanced_acc": 0.2412,
+        "n": 238,
+        "n_agent": 10,
+        "n_patient": 228
+      },
+      "reversible": {
+        "acc": 0.7857,
+        "balanced_acc": 0.7857,
+        "n": 14,
+        "n_agent": 7,
+        "n_patient": 7
+      }
+    }
+  },
+  "test_subset_n": {
+    "ALL": 3591,
+    "canonical": 3353,
+    "passive": 214,
+    "inversion": 10,
+    "fronting": 14,
+    "NONCANON": 238,
+    "reversible": 14
+  }
+}

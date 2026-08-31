@@ -1,0 +1,71 @@
+{
+  "tau": 1.0,
+  "table": {
+    "word_order": {
+      "ALL": 0.9382,
+      "canonical": 0.9978,
+      "NONCANON_raw": 0.0112,
+      "NONCANON_bal": 0.0057,
+      "parse_error": 0.25
+    },
+    "spacy_struct": {
+      "ALL": 0.9959,
+      "canonical": 0.9968,
+      "NONCANON_raw": 0.9832,
+      "NONCANON_bal": 0.9915,
+      "parse_error": 0.0
+    },
+    "fit_gate": {
+      "ALL": 0.8849,
+      "canonical": 0.8879,
+      "NONCANON_raw": 0.838,
+      "NONCANON_bal": 0.59,
+      "parse_error": 0.5
+    },
+    "fit_gate_twin": {
+      "ALL": 0.8403,
+      "canonical": 0.8408,
+      "NONCANON_raw": 0.8324,
+      "NONCANON_bal": 0.4233,
+      "parse_error": 0.4167
+    }
+  },
+  "claims": {
+    "gate_vs_spacy_parseerr": [
+      0.5,
+      0.25,
+      0.75
+    ],
+    "gate_vs_order_parseerr": [
+      0.25,
+      0.0,
+      0.5
+    ],
+    "gate_vs_twin_parseerr": [
+      0.0833,
+      -0.1667,
+      0.3333
+    ],
+    "gate_vs_spacy_ALL": [
+      -0.1111,
+      -0.1226,
+      -0.0993
+    ],
+    "gate_vs_order_ALL": [
+      -0.0533,
+      -0.0672,
+      -0.0381
+    ]
+  },
+  "verdict": {
+    "n_items": 2962,
+    "n_noncanon": 179,
+    "n_parse_error": 12,
+    "spacy_parse_error_rate": 0.0041,
+    "fit_recovers_parse_errors_over_structure": true,
+    "fit_beats_order_on_parse_errors": false,
+    "twin_loses_on_parse_errors": true,
+    "fit_beats_structure_aggregate": false
+  },
+  "ts_iso": "2026-08-30T20:03:40.723514+00:00"
+}

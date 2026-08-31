@@ -1,0 +1,42 @@
+{
+  "n_test": 1543,
+  "n_oov": 462,
+  "base_rate_agent": 0.22,
+  "ALL": {
+    "feature_bal": 0.5718,
+    "feature_twin_bal": 0.5238,
+    "feature_vs_twin": [
+      0.048,
+      0.0102,
+      0.0879
+    ],
+    "glove_bal": 0.6388,
+    "feature_vs_glove": [
+      -0.067,
+      -0.1053,
+      -0.0267
+    ]
+  },
+  "OOV_noun": {
+    "feature_bal": 0.5733,
+    "feature_twin_bal": 0.5863,
+    "feature_vs_twin": [
+      -0.0129,
+      -0.084,
+      0.0569
+    ],
+    "glove_bal": 0.6499,
+    "feature_vs_glove": [
+      -0.0766,
+      -0.1432,
+      -0.0129
+    ]
+  },
+  "verdict": {
+    "feature_fit_generalises_to_OOV_over_twin": false,
+    "feature_beats_distributional_on_OOV": false,
+    "distributional_is_at_chance_on_OOV": false,
+    "SUCCESS_feature_generalises_where_distributional_cannot": false
+  },
+  "ts_iso": "2026-08-30T21:26:14.309133+00:00"
+}

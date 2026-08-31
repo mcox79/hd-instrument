@@ -1,0 +1,90 @@
+{
+  "tau": 1.0,
+  "table": {
+    "ALL": {
+      "order": 0.4922,
+      "graded_role": 0.4665,
+      "gate": 0.4649,
+      "gate_twin": 0.4632
+    },
+    "PRE_noncanon": {
+      "order": 0.1487,
+      "graded_role": 0.1176,
+      "gate": 0.2745,
+      "gate_twin": 0.2222
+    },
+    "POST_canon": {
+      "order": 0.8358,
+      "graded_role": 0.8154,
+      "gate": 0.6552,
+      "gate_twin": 0.7042
+    },
+    "n_all": 2448,
+    "n_pre": 1224,
+    "n_post": 1224
+  },
+  "claims": {
+    "gate_vs_order_PRE": [
+      0.1258,
+      0.1021,
+      0.1487
+    ],
+    "gate_vs_graded_PRE": [
+      0.1569,
+      0.1299,
+      0.1855
+    ],
+    "gate_vs_twin_PRE": [
+      0.0523,
+      0.0245,
+      0.0776
+    ],
+    "gate_vs_graded_POST_noregress": [
+      -0.1601,
+      -0.183,
+      -0.1381
+    ],
+    "gate_vs_order_ALL": [
+      -0.0274,
+      -0.0449,
+      -0.0106
+    ],
+    "gate_vs_graded_ALL": [
+      -0.0016,
+      -0.02,
+      0.0167
+    ]
+  },
+  "generalization": {
+    "n_pre_unseen": 299,
+    "order": 0.1639,
+    "graded_role": 0.1773,
+    "gate": 0.2308,
+    "gate_twin": 0.2074,
+    "gate_vs_order_PRE_UNSEEN": [
+      0.0669,
+      0.0201,
+      0.1137
+    ],
+    "gate_vs_graded_PRE_UNSEEN": [
+      0.0535,
+      0.0033,
+      0.107
+    ],
+    "gate_vs_twin_PRE_UNSEEN": [
+      0.0234,
+      -0.0268,
+      0.0736
+    ]
+  },
+  "verdict": {
+    "gate_beats_order_PRE_CIsep": true,
+    "gate_beats_graded_PRE_CIsep": true,
+    "twin_loses_PRE_CIsep": true,
+    "no_canonical_regression": false,
+    "clean_SOLVED_bar_met_P1": false,
+    "rigorous_negative_P2_met": true,
+    "generalizes_to_unseen_pairs": true
+  },
+  "ts_iso": "2026-08-30T20:37:50.168478+00:00"
+}

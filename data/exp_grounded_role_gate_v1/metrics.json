@@ -1,0 +1,127 @@
+{
+  "n_test": 3591,
+  "n_noncanon": 238,
+  "n_resid_nc": 50,
+  "n_resid_nc_agent": 10,
+  "n_canon": 3353,
+  "n_reversible": 14,
+  "tau": 1.0,
+  "table": {
+    "order": {
+      "ALL": 0.9365,
+      "canonical": 1.0,
+      "NONCANON_raw": 0.042,
+      "NONCANON_bal": 0.0219,
+      "reversible": 1.0,
+      "resid_nc": 0.2
+    },
+    "graded_role": {
+      "ALL": 0.9048,
+      "canonical": 0.9049,
+      "NONCANON_raw": 0.9034,
+      "NONCANON_bal": 0.4715,
+      "reversible": 1.0,
+      "resid_nc": 0.54
+    },
+    "route_only": {
+      "ALL": 0.9858,
+      "canonical": 0.9967,
+      "NONCANON_raw": 0.8319,
+      "NONCANON_bal": 0.4342,
+      "reversible": 1.0,
+      "resid_nc": 0.2
+    },
+    "gate_count": {
+      "ALL": 0.8811,
+      "canonical": 0.8867,
+      "NONCANON_raw": 0.8025,
+      "NONCANON_bal": 0.6101,
+      "reversible": 0.5714,
+      "resid_nc": 0.68
+    },
+    "gate_proto": {
+      "ALL": 0.9479,
+      "canonical": 0.9761,
+      "NONCANON_raw": 0.5504,
+      "NONCANON_bal": 0.4785,
+      "reversible": 0.8571,
+      "resid_nc": 0.36
+    },
+    "composed_count": {
+      "ALL": 0.8886,
+      "canonical": 0.8855,
+      "NONCANON_raw": 0.9328,
+      "NONCANON_bal": 0.6781,
+      "reversible": 0.5714,
+      "resid_nc": 0.68
+    },
+    "gate_twin": {
+      "ALL": 0.8351,
+      "canonical": 0.8384,
+      "NONCANON_raw": 0.7899,
+      "NONCANON_bal": 0.4601,
+      "reversible": 0.4286,
+      "resid_nc": 0.44
+    }
+  },
+  "claims": {
+    "route_vs_order_ALL": [
+      0.0493,
+      0.0418,
+      0.0563,
+      0.0072
+    ],
+    "route_vs_graded_ALL": [
+      0.081,
+      0.0718,
+      0.0911,
+      0.0096
+    ],
+    "gateC_vs_order_residNC": [
+      0.48,
+      0.34,
+      0.62,
+      0.14
+    ],
+    "gateC_vs_graded_residNC": [
+      0.14,
+      -0.02,
+      0.3,
+      0.16
+    ],
+    "gateC_vs_twin_residNC": [
+      0.24,
+      0.08,
+      0.4,
+      0.16
+    ],
+    "gateC_vs_graded_NONCANON_bal": [
+      0.1386,
+      -0.0142,
+      0.3067
+    ],
+    "gateC_vs_order_NONCANON_bal": [
+      0.5882,
+      0.4347,
+      0.7596
+    ],
+    "gateC_vs_twin_NONCANON_bal": [
+      0.15,
+      0.0022,
+      0.3213
+    ]
+  },
+  "nulls": {
+    "gate_count_residNC_null_p95": 0.72,
+    "route_only_ALL_null_p95": 0.5837
+  },
+  "verdict": {
+    "AGGREGATE_win_is_ROUTING_not_fit": true,
+    "fit_helps_the_structure_silent_residual": false,
+    "twin_loses_on_residual": true,
+    "fit_wins_balanced_noncanon_over_both_floors": false,
+    "twin_loses_balanced_noncanon": true,
+    "brief_premise_refuted_on_clean_parses_raw_noncanon": true
+  },
+  "ts_iso": "2026-08-30T19:24:49.906479+00:00"
+}

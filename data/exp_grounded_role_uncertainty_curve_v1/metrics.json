@@ -1,0 +1,183 @@
+{
+  "ps": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "curve_balanced_acc": {
+    "order": [
+      0.8308,
+      0.8308,
+      0.8308,
+      0.8308,
+      0.8308
+    ],
+    "always_patient": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "graded_role": [
+      0.9809,
+      0.9639,
+      0.9361,
+      0.9108,
+      0.8806
+    ],
+    "gate": [
+      0.8777,
+      0.8661,
+      0.8495,
+      0.8304,
+      0.8105
+    ],
+    "gate_twin": [
+      0.8198,
+      0.7974,
+      0.7684,
+      0.7418,
+      0.7103
+    ]
+  },
+  "per_role_recall": {
+    "order": [
+      {
+        "agent": 1.0,
+        "patient": 0.6617
+      },
+      {
+        "agent": 1.0,
+        "patient": 0.6617
+      },
+      {
+        "agent": 1.0,
+        "patient": 0.6617
+      },
+      {
+        "agent": 1.0,
+        "patient": 0.6617
+      },
+      {
+        "agent": 1.0,
+        "patient": 0.6617
+      }
+    ],
+    "always_patient": [
+      {
+        "agent": 0.0,
+        "patient": 1.0
+      },
+      {
+        "agent": 0.0,
+        "patient": 1.0
+      },
+      {
+        "agent": 0.0,
+        "patient": 1.0
+      },
+      {
+        "agent": 0.0,
+        "patient": 1.0
+      },
+      {
+        "agent": 0.0,
+        "patient": 1.0
+      }
+    ],
+    "graded_role": [
+      {
+        "agent": 0.99,
+        "patient": 0.9718
+      },
+      {
+        "agent": 0.9925,
+        "patient": 0.9353
+      },
+      {
+        "agent": 0.995,
+        "patient": 0.8773
+      },
+      {
+        "agent": 0.9925,
+        "patient": 0.8292
+      },
+      {
+        "agent": 0.995,
+        "patient": 0.7662
+      }
+    ],
+    "gate": [
+      {
+        "agent": 0.8897,
+        "patient": 0.8657
+      },
+      {
+        "agent": 0.8897,
+        "patient": 0.8425
+      },
+      {
+        "agent": 0.8897,
+        "patient": 0.8093
+      },
+      {
+        "agent": 0.8897,
+        "patient": 0.7711
+      },
+      {
+        "agent": 0.8897,
+        "patient": 0.7313
+      }
+    ],
+    "gate_twin": [
+      {
+        "agent": 0.812,
+        "patient": 0.8275
+      },
+      {
+        "agent": 0.812,
+        "patient": 0.7828
+      },
+      {
+        "agent": 0.812,
+        "patient": 0.7247
+      },
+      {
+        "agent": 0.812,
+        "patient": 0.6716
+      },
+      {
+        "agent": 0.812,
+        "patient": 0.6086
+      }
+    ]
+  },
+  "n_population": 1002,
+  "n_passive": 214,
+  "verdict": {
+    "gate_minus_structure_gap_by_p": {
+      "0.0": -0.1032,
+      "0.25": -0.0978,
+      "0.5": -0.0866,
+      "0.75": -0.0804,
+      "1.0": -0.0701
+    },
+    "gap_grows_monotonically_with_corruption": true,
+    "twin_minus_structure_gap_by_p": {
+      "0.0": -0.1611,
+      "0.25": -0.1665,
+      "0.5": -0.1677,
+      "0.75": -0.169,
+      "1.0": -0.1703
+    },
+    "gate_does_not_collapse_as_structure_dies": false,
+    "info_free_twin_loses_at_full_corruption": true,
+    "gate_beats_order_and_structure_at_full_corruption": false
+  },
+  "tau": 1.5,
+  "seed": 20260830,
+  "ts_iso": "2026-08-30T19:28:01.892921+00:00"
+}
