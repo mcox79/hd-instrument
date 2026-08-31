@@ -65,6 +65,31 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — COMPONENT SCAN + CROSS-CUTTING SYNTHESIS (strategy, verdict-independent): the reader's WORKING MEMORY is a
+  wired Cowan-4 BUNDLE (`ChunkedFocus`/`EventBundleCodec`); the more brain-faithful `slot_attention_wm` (per-slot PBWM
+  prediction-error-gated state) is an ISLAND — AND this completes a pattern: PREDICTION ERROR is the brain's central control
+  signal, the substrate has BUILT every piece, and wires NONE into the live reader's core operations.** (a) FIDELITY: the wired
+  WM is a Cowan-4 role-slot BUNDLE (sum of bound role-filler pairs into one bounded focus, unbind to read) — capacity-correct
+  (Cowan-4 PINNED) but mechanism-SIMPLIFIED: no separate maintained per-entity slots, no prediction-error-gated updates.
+  `hdlab/slot_attention_wm.py` is the fuller PINNED mechanism (WM = active maintenance of K full-d entity-state slots, per-slot
+  PBWM update from its OWN prediction error — O'Reilly-Frank 2006; learned content-based addressing, role-general/position-
+  invariant — Frankland-Greene; Locatello 2020 slot attention). (b) GENERALIZATION: `slot_attention_wm` is a LEARNED organ
+  (addr/gate/role-key nets trained jointly with an unfrozen encoder) — unvalidated here; the wired bundle is deterministic. (c)
+  WIRING: `slot_attention_wm` is a FULL ISLAND (imported by no hdlab module). (d) ⚠️ RE-TREAD CAVEAT: naive bundle-replacement
+  is an INTEGRATED NEGATIVE (`the_bundle_destroys_meaning_but_replacing_it_hurts`, owner-DONE) + store findings (dense-bundle-
+  that-fans; register-renorm-breaks-serial-readout). `slot_attention_wm`'s learned, prediction-error-gated design is DIFFERENT
+  in kind, but any WM problem MUST gate against that negative — do NOT re-package "replace the bundle" naively.
+  🔗 **THE SYNTHESIS (the real value — spans this week's scans): PREDICTION ERROR is the systematically-UNWIRED control signal.**
+  The brain uses prediction error as its universal control: PBWM WM gating (write when surprised), EST event boundaries
+  (segment at prediction-error peaks), N400 coherence (detect incoherence), forward selectional prediction (Friston free-energy
+  binds them). The substrate has BUILT each piece — `predictive_reader` (forward), `n400_coherence_monitor` (backward),
+  `slot_attention_wm` (PBWM WM gate), and the EST event-boundary need (scene-segmentation scan) — and **wires NONE into the live
+  reader**, which uses fixed/deterministic proxies everywhere (fixed-window scenes, bundle WM summed unconditionally, no forward
+  prediction). This is the substrate's single biggest FIDELITY-vs-WIRING gap and it aligns with the standing "reader is
+  feed-forward where the brain is predictive" thesis + the reasoning/predictive-architecture direction. NOT packaged (queue
+  full: p2 open + 3 awaiting review); recorded as a candidate STRATEGIC direction (a coordinated "wire prediction error into the
+  reader's core operations" program) — surface to the owner, do not force a brief.
+
 - **2026-08-31 — COMPONENT SCAN (strategy, verdict-independent): the reader's SCENE segmentation is a FIXED 5-sentence window
   (`i // LOCAL_WINDOW`) — an OUR-INVENTION placeholder for a PINNED brain computation (Event Segmentation Theory: event
   boundaries at PREDICTION-ERROR peaks), and the real segmentation organs are ISLANDS. This composes the two predictive-coding
