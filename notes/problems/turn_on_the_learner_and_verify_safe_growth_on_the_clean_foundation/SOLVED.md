@@ -5,7 +5,7 @@ bar: "PASS = ALL of: (1) BENEFICIAL -- a DOWNSTREAM comprehension score (who-did
 result: "DECISIVE. The learner turns ON safe AND beneficial, verified SEVEN ways, both negatives DRILLED to mechanism, and the brief's clean-foundation gate REFUTED on the learner but CONSTRUCTIVELY CONFIRMED on the store where it is brain-faithful. Downstream = LitBank who-did-what verb-paraphrase, n_core=5530, 5M->15M growth, base-correct n=387. (1) BENEFICIAL -- every keep-both-stores arm beats OFF (0.070) CI-sep: the PINNED precision-weighted RELIABILITY fusion +0.058, CLS_CORE +0.0595, ensemble +0.056, aligned +0.061. (2) REAL -- info-free growth twin HURTS (-0.0235 CI-sep BELOW OFF). (3) SAFE -- reliability fusion corruption 0.0982 (lowest of all fusions), CLS_NOISY 0.093 [0.067,0.124], CLS_CORE 0.109 [0.078,0.140] all clear the PRE-REGISTERED 0.15. (4) ROLLBACK -- a frozen held-out known-correct probe accepts the clean update and rolls back naive-overwrite (0.253) + adversarial (0.961); random-decision control fails to protect. (5) CLEAN-FOUNDATION EFFECT on the learner REFUTED (schema-congruence gating is confirmation-biased: +0.039 CI-sep MORE corruption than noisy AND than random-drop; core-arg/corroboration do not lower corruption) -- BUT item 6 confirms the p4 schema gate WORKS on the EPISODIC is-a KB (AUC 0.868 [0.860,0.878] separating correct-new from wrong facts; at a 25% consolidation budget wrong-admit 0.30 vs random 0.75, delta -0.45 CI-sep; correct-admit 0.82; info-free twin 0.52) -- so schema-gated consolidation belongs on the KB, not the distributional learner (a category insight, not a dead end). NEGATIVE DRILLS (owner: understand every wall): the ~0.10 corruption floor is BENIGN CHURN, not knowledge loss -- confident-item corruption is 3.1% (96.9% of confident knowledge preserved) vs 16.5% on low-margin ties, and it is LOWER where the verb gained more evidence (0.058 vs 0.130), and every fusion fixes 8.4-9.4 previously-wrong answers per 1 it breaks (reliability ratio 9.45). CONTINUAL growth's apparent compounding (iterated 0.196 at 15M) is ANCHOR-DILUTION: fusing the ORIGINAL store with each cumulative store (anchor weight stays 0.5) holds corruption at the single-step 0.116 -- a fixable path artifact. GENERALISATION -- the benefit transfers to a SECOND, harder comprehension task (WordNet hypernym/troponym cue, different relation): reliability/ensemble beat OFF +0.023/+0.029 CI-sep, twin loses, net 3.98:1 (higher churn on the harder task, the same benign-churn mechanism). OWN PARSER -- the win SURVIVES the substrate's own arc_parser (arc gain +0.0099 ~= spaCy +0.0104, arc corruption 0.128 LOWER than spaCy 0.150, ratio 2.38), no external tool at inference."
 floor: "Recomputed per population on n_core=5530. BENEFICIAL floor = growth-OFF (5M baseline) acc 0.0698 [0.064,0.077] -- every ON arm beats it CI-sep. REAL-STRUCTURE floor = the info-free growth twin (15M filler-shuffle, keep-both-stores) acc 0.0463, gain -0.0235 CI-sep BELOW OFF. CLEAN-GATE floor = the matched RANDOM-DROP twin (identical 90,305-edge drop count, random selection) corruption 0.0933 = noisy -- the schema gate must beat THIS to prove a schema signal, and it is WORSE (+0.0389 CI-sep). Naive-overwrite reference corruption 0.2617 [0.218,0.308]. PRE-REGISTERED corruption bound 0.15 (frontmatter + DESIGN doc, before running)."
 controls: "(1) INFO-FREE GROWTH TWINS (filler-shuffle keep-both, on task 1 AND task 2) LOSE CI-sep -- exclude 'more tokens/writing'. (2) MATCHED RANDOM-DROP twin (identical drop count + pool, random selection) -- isolates the schema SIGNAL from 'less data': the learner schema-gate corrupts MORE than random-drop (+0.0389 CI-sep). (3) UNALIGNED-fusion control (average two unaligned SVD frames) is the anti-brain baseline and is WORST (corruption 0.171 vs frame-safe 0.098-0.116) -- isolates that frame-mixing is real and both keep-both methods avoid it. (4) CONFIDENCE SPLIT -- residual corruption is confidence-separable churn (reliability 0.031 confident vs 0.165 low-margin), excluding confidence-uniform knowledge loss. (5) EVIDENCE-GAIN SPLIT -- corruption is LOWER where the verb gained more evidence (0.058 vs 0.130), excluding 'growth corrupts what it learns'. (6) ANCHORED-vs-ITERATED continual control -- isolates anchor-dilution as the compounding cause. (7) KB info-free twin (shuffled energies AUC 0.52) + matched random-gate (wrong-admit 0.75) LOSE to the p4 gate. (8) ROLLBACK generalization split -- decide on frozen probe, verify on DISJOINT working set; random-decision control fails. (9) OWN-PARSER control -- spaCy vs the substrate's arc_parser, one-variable swap, growth beneficial under both. (10) SCALE control -- the learner schema-gate's sign FLIPS (helps 150k, hurts 5M). All arms on the SAME CORE_COMMON items; no number crosses populations; every floor recomputed in-population."
-files_changed: "CORE: experiments/exp_learner_on_clean_foundation_v1.py (the 5-bar capstone + schema/core-arg/corroboration gates + CLS ensembles + rollback; self-test 6/6); verification/test_learner_on_clean_foundation.py (witness 6/6). EXTENSIONS (items 1-6 + drills): experiments/exp_learner_growth_aligned_continual_v1.py (aligned-basis + PINNED reliability fusion + continual + recovery/corruption decomposition), experiments/exp_learner_growth_second_task_v1.py (2nd task generalization), experiments/exp_learner_growth_own_parser_v1.py (own arc_parser), experiments/exp_learner_kb_growth_p4gate_v1.py (item 6: p4 gate on the episodic KB), experiments/exp_learner_growth_floor_drill_v1.py (drills: floor + continual); verification/test_learner_growth_full_solution.py (extensions witness 6/6); DESIGN_brain_and_mapping.md; data/exp_learner_{on_clean_foundation,growth_aligned_continual,growth_second_task,growth_own_parser,kb_growth_p4gate,growth_floor_drill}_v1/metrics.json. Reuses (READ-ONLY, VERBATIM): exp_learner_safety_gate_v1, exp_growth_cls_ensemble_v1, exp_structured_context_learner_v1, exp_consistency_wordnet_densified_solved_v1, exp_knowledge_store_consistency_cleanup_v1, hdlab.arc_parser. NO hdlab/ CHANGED -- proposed diff below for the strategy session to land (Q111)."
+files_changed: "CORE: experiments/exp_learner_on_clean_foundation_v1.py (the 5-bar capstone + schema/core-arg/corroboration gates + CLS ensembles + rollback; self-test 6/6); verification/test_learner_on_clean_foundation.py (witness 6/6). EXTENSIONS (items 1-6 + drills): experiments/exp_learner_growth_aligned_continual_v1.py (aligned-basis + PINNED reliability fusion + continual + recovery/corruption decomposition), experiments/exp_learner_growth_second_task_v1.py (2nd task generalization), experiments/exp_learner_growth_own_parser_v1.py (own arc_parser), experiments/exp_learner_kb_growth_p4gate_v1.py (item 6: p4 gate on the episodic KB), experiments/exp_learner_growth_floor_drill_v1.py (drills: floor + continual), experiments/exp_learner_growth_multiseed_v1.py (multi-seed headline stability), experiments/exp_learner_growth_mcscript_v1.py (independent MCScript2 benchmark + read-out drill); verification/test_learner_growth_full_solution.py (extensions witness 8/8); DESIGN_brain_and_mapping.md; data/exp_learner_{on_clean_foundation,growth_aligned_continual,growth_second_task,growth_own_parser,kb_growth_p4gate,growth_floor_drill}_v1/metrics.json. Reuses (READ-ONLY, VERBATIM): exp_learner_safety_gate_v1, exp_growth_cls_ensemble_v1, exp_structured_context_learner_v1, exp_consistency_wordnet_densified_solved_v1, exp_knowledge_store_consistency_cleanup_v1, hdlab.arc_parser. NO hdlab/ CHANGED -- proposed diff below for the strategy session to land (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_learner_on_clean_foundation.py && .venv/Scripts/python.exe verification/test_learner_growth_full_solution.py"
 ---
 
@@ -111,9 +111,32 @@ random-gate (0.75, delta -0.45). So schema-gated consolidation -- confirmation-b
 learner -- is exactly right on the episodic KB. The category insight from the refutation is confirmed, not
 merely asserted.
 
+**MULTI-SEED (`exp_learner_growth_multiseed_v1`).** The paraphrase headline is NOT a lucky seed: over 3 SVD
+seeds the PINNED reliability fusion gives gain **+0.0596 +/- 0.0027** (every seed CI-sep beneficial),
+corruption 0.113 +/- 0.011, fix/broken ratio 8.6 +/- 1.3. Seed-stable.
+
+**INDEPENDENT BENCHMARK -- MCScript2.0 MC-QA + a DRILLED read-out wall (`exp_learner_growth_mcscript_v1`).**
+An off-the-shelf 2-choice reading-comprehension benchmark (2020 dev questions, chance 0.5), a DIFFERENT
+read-out (answer<->passage mean-VECTOR cosine, not verb argmax) over a DIFFERENT space (general window
+relatedness, keep-both aligned fusion), 3 seeds. The FIRST read-out hit a WALL -- a max-similarity overlap
+where the info-free twin HELPED (a degenerate space saturates a max-sim read-out). DRILLED + fixed: a
+distributed mean-vector cosine penalises degenerate spaces, and the twin then LOSES cleanly (0.59 vs 0.62).
+The honest result: **growth is NEUTRAL on MC-QA** -- flat/negative on the diluted read-out (-0.005). A SECOND
+drill (does the mean read-out DILUTE the few discriminating words?) resolved it: scoring each answer by only
+its answer-UNIQUE words flips growth to a small POSITIVE (+0.0053, all seeds), an order of magnitude below the
+paraphrase +0.06. **The generalisation BOUNDARY, precisely located:** the safe-growth benefit transfers
+STRONGLY to comprehension that reduces to distributional similarity (paraphrase +0.06, taxonomic-cue +0.03)
+and only MARGINALLY to inference-heavy MC-QA -- because on MC-QA both answers are on-topic, so more reading
+makes both more associated, not the correct one preferentially; the task needs situation-model INFERENCE that
+better word-similarities barely touch. The read-out is valid (twin loses); this is a real capability boundary,
+not a broken instrument. It also confirms WHY the learner-on chain needs the reasoning/situation-model organs,
+not just more reading -- a finding that feeds the North Star.
+
 **What every wall drilled down to:** the corruption "floor" is benign tie-churn (confident knowledge is
 preserved, growth fixes ~9x more than it breaks); continual "compounding" is anchor-dilution (fixed by
-anchoring); the schema-gate "backfire" is a category error (it works on the KB). None was a ceiling; each was
+anchoring); the schema-gate "backfire" is a category error (it works on the KB); the MC "flat" is partly
+read-out dilution (discriminative flips the sign) and partly a genuine similarity-vs-inference boundary
+(growth helps only where comprehension reduces to similarity). None was a ceiling on the mechanism; each was
 understood.
 
 ## The brain mechanism, and where it broke (opening move -> the refutation)
@@ -192,6 +215,16 @@ mechanism, I tested the natural alternatives and found the answer:
   "schema-gating belongs on the episodic KB, not the semantic learner"; building that (item 6) confirmed it --
   the same p4 gate hits AUC 0.87 and cuts wrong-fact admission to 0.30 vs random 0.75 on the is-a KB. The negative
   was not an endpoint; it relocated the mechanism to where it works.
+- **A read-out can HIDE a result in both directions, and a twin + a dilution drill exposed it.** On MCScript2 a
+  max-similarity read-out let a degenerate twin WIN (false positive); switching to a distributed mean-vector
+  cosine made the twin lose. Then the mean read-out DILUTED the discriminating words and hid a small real gain
+  (false negative); scoring only answer-unique words recovered it. The instrument is part of the finding --
+  neither the twin-helps nor the flat-growth reading survived drilling.
+- **The generalisation has a BOUNDARY, and it is the North Star's boundary.** Growth helps comprehension exactly
+  insofar as comprehension reduces to distributional similarity (paraphrase +0.06, taxonomic +0.03) and only
+  marginally on inference-heavy MC-QA (+0.005) -- because reading more sharpens word associations, not
+  situation-model inference. This is why "turn the learner on" is necessary but not sufficient for the North
+  Star: the reasoning/situation-model organs are the other half.
 - **The gate's sign FLIPS with data scale (helps at 150k, hurts at 5M) -- the confirmation-bias smoking
   gun.** A single-scale test would have mis-concluded; running smoke AND full exposed that "schema-violating"
   means "noise" at low data and "valid novelty" at high data.
@@ -286,9 +319,12 @@ to always compare against the ORIGINAL memory, and a brake rolls back any bad up
 a second, harder reading test, and it still works using the reader's OWN grammar engine instead of an outside
 tool. The brief's extra idea -- only let in facts that agree with what it already believes -- backfired ON THE
 MEANING learner (that is confirmation bias), but we proved that SAME idea works perfectly on the reader's FACT
-memory, which is where the brain actually uses it. So: turn the switch on with "keep both memories" (still off
-until you say go), put the agreement-filter on the fact store, and know that the leftover forgetting is harmless
-tidying, not loss.
+memory, which is where the brain actually uses it. We also checked it on a standard off-the-shelf reading test
+(multiple-choice questions about stories) across several random settings: the benefit holds solidly on tasks
+about word meaning and only barely on the multiple-choice test -- because those questions need reasoning about
+the story, not just knowing what words mean. That is an honest boundary, and it points at what the reader still
+needs (the reasoning half). So: turn the switch on with "keep both memories" (still off until you say go), put
+the agreement-filter on the fact store, and know that the leftover forgetting is harmless tidying, not loss.
 
 **QUESTIONS:** None blocking. One decision at landing-time: land the safe-growth switch default-off now (evidence
 is in hand for keep-both-stores + reliability fusion + core-arg + anchored-continual + rollback), and separately
