@@ -90,28 +90,26 @@ source = belief-assertion extractor (RULE0+RULE2, substrate-native) PRIMARY + RU
 ignorance = None; reality separate. Flip on owner approval; the value headline stays flagged coverage-bounded and the
 status-perception channel flagged parser/organ-bounded until the `state_register` attack lands.
 
-## EVERY GAP CHECKED AGAINST THE ORGAN INVENTORY (owner's question: "are there other gaps, and do we have organs?")
-Systematic — each remaining gap routed to an EXISTING organ (I did not invent where the substrate already has one):
+## EVERY GAP ROUTED TO AN ORGAN, VETTED + TESTED ONE AT A TIME (owner: "do we have an organ?" + "vet each")
 
-| gap | existing organ | status |
+| gap | organ (vetted) | VET + TEST result |
 |---|---|---|
-| **status change-of-state extraction** | `hdlab/state_register.py` (situation-model state history: copular/perfect + COS resultants + aspect + scalar entailment) | **WIRED** — 0.60 > parser 0.40; modern status live → 1.0. The user's redirect; decisive. |
-| **location object-move extraction** (parser recall) | `hdlab/predictive_reader.py` / `predictive_coding.py` (forward-prediction = p2, the audit's parser-recall lever) | route to **p2** (a separate packaged problem; SPACE + BELIEF converge here). |
-| **flashback chronology** (I demo'd with gold chrono) | `timeline_register` (promoted, default-off; `situation_reader._read_timeline_register`) | organ EXISTS + proven-needed (chrono 1.0 vs narration 0.0); wire its order at landing instead of gold. |
-| **open-ended belief content** (exact-match can't score it) | `hdlab/distributional_meaning_channel.py` (`substitutability`), `conceptual_meaning.py`, `meaning_fusion.py` | organ EXISTS (island); wire as the belief-value read-out to score open-ended belief distributionally. Follow-on. |
-| **inferred belief** (Sodian & Wimmer — inference as a knowledge source) | `hdlab/reasoner.py` (`DerivationReasoner`), `bayesian_inference.py`, AND `belief_timeline.fired_inference_events` (the hook is already in the organ) | organs EXIST; wire reasoner → the belief_timeline inference hook. Follow-on. |
-| **agent coref on un-annotated prose** (I use gold coref) | `hdlab/coref.py`, `coreference_resolver.py`, `graded_coref_pick.py` | the reader HAS coref; gold is the isolation choice, not a missing organ. |
+| **status change-of-state** | `state_register` (COS resultants + aspect + scalar entailment) | **WIRED + factivity-aware veridicality gate.** in-substrate 0.00 -> state_register **0.60 > a stronger parser 0.40**; modern status live -> **1.0**. The "intrinsic wall" was the wrong tool. |
+| **open-ended belief content** | vetted `distributional_meaning_channel` (WRONG shape: substitutability, needs a corpus+batch) -> `conceptual_meaning` (TOO WEAK: dead~deceased 0.18, antonym guilty~innocent scored higher) -> **WordNet synonym+scalar-entailment** (state_register path: **15/17, ZERO antonym false-positives**) | **WIRED as a meaning-tolerant read-out.** open-ended belief exact **0.00 -> 0.50** (paraphrase: deceased->dead, wed->married); residual = extraction. Antonym-inflating control confirms it does not loosen to antonyms. |
+| **inferred belief** (Sodian & Wimmer) | `belief_timeline.fired_inference_events` (hook in the organ) + `reasoner.DerivationReasoner` | **HOOK VETTED WORKING + evidence-GATED** (fires on an observed premise, silent on unobserved). End-to-end needs an inference-EDGE extractor (the reasoner) -- a real follow-on; the mechanism is proven. |
+| **flashback chronology** | `timeline_register` (`_temporal_order_register`) | **VETTED:** recovers pluperfect ORDER but event extraction incomplete on copular-state flashbacks (bounded by the SAME state-extraction wall state_register addresses). Gold-chrono flashback proof stands (chrono 1.0 vs narration 0.0). |
+| **location object-move** (parser recall) | `predictive_reader` / `predictive_coding` | route to **p2** (separate packaged problem; SPACE + BELIEF converge on this ceiling). Not rebuilt (scope). |
+| **agent coref** | `coref` / `coreference_resolver` / `graded_coref_pick` | LitBank GOLD coref IS the isolation choice; the reader's own coref is a separately-validated axis. Not a gap. |
 
-**Takeaway:** there was no gap without an organ. Two are now wired/used (state_register for status; timeline_register
-proven-needed for flashback); the rest route to promoted organs (predictive_reader/p2, distributional_meaning_channel,
-reasoner) as named follow-ons — not open voids. `state_of_mind.py` despite its name is a coref/deixis overlay, NOT a
-belief tracker (checked, so it is not conflated with belief_timeline).
+**Takeaway:** no gap was without an organ, and VETTING mattered -- the first-named organ for open-ended belief was wrong
+twice before the right one (WordNet-equivalence) tested out. WIRED + TESTED: state_register (status), WordNet-equivalence
+(open-ended read-out). VETTED-WORKING: the inference hook. VETTED-BOUNDED: timeline_register. SCOPED-OUT: predictive_reader
+(p2), coref (isolation). `state_of_mind.py` despite its name is a coref/deixis overlay, NOT a belief tracker (checked).
 
-## STILL GENUINELY OPEN (not organ-shaped yet)
-1. **Open-ended-content belief MEASUREMENT** — the read-out organ exists (distributional_meaning_channel) but wiring +
-   an open-ended gold is a real build.
+## STILL GENUINELY OPEN (honest)
+1. **Inferred-belief EDGE extraction** -- the hook works; extracting inference edges from real prose = the reasoner build.
 2. **Larger real gold + a modern annotated corpus** (McGuffey/LitBank corpus-age confound bites here too).
-3. **Independent benchmark:** FANToM (info-access ToM) — not on disk; a data request for the strategy session.
+3. **Independent benchmark:** FANToM (info-access ToM) -- not on disk; a data request for the strategy session.
 
 ## TLDR (plain English)
 The task said to track belief by watching objects get moved around. Real novels don't do that, and neither does the
