@@ -38,10 +38,21 @@ The one thing that outranks everything. Detail: `LEARNER_ON_ROADMAP.md`.
   metric separates a hand-seeded clean vs dirty store CI-sep, and its info-free twin does not. **Verify it
   isn't already covered before packaging.**
 
-### PHASE B — FINISH THE ASSEMBLY (wire validated dimensions into the live reader). STATUS: ~half done.
+### PHASE B — FINISH THE ASSEMBLY. STATUS: dimensions ~wired, but 🚨 REFRAMED 2026-08-31 (p4, EXCELLENT).
+> **🧩 STRATEGIC REFRAME (p4 `the_assembled_reader_is_never_tested_as_a_whole`, EXCELLENT): wiring dimensions as separate
+> default-off flags COMPOSES but does NOT INTEGRATE — the assembled reader is N PARALLEL SILOS (interaction byte-exactly
+> 0). The real Phase-B completion is NOT "wire dimension N+1" — it is ASSEMBLE THE TIERED BOUND-EVENT-TOKEN BACKBONE so
+> all dimensions bind to ONE event token (the binding problem: marginals vs joint). Every tier is a built island
+> (`slot_attention_wm`/`situation_model_multibank` + `n400_coherence_monitor` + `hippocampal_encoder`). This is packaged
+> as `the_assembled_reader_is_parallel_silos_assemble_the_tiered_bound_event_token` (p4, ABOVE reasoning — a prerequisite
+> for it). The per-dimension wirings below are still useful (each dimension must extract correctly first), but the
+> INTEGRATION is the binding backbone. NO default flag-flip yet (only role_route is aggregate-positive; see the p4 audit
+> §2b + `tools/reader_capabilities.py`).**
+
 The reader's situation model gains a dimension at a time, each additive/default-off. Detail: `WIRING_MAP.md`
 DEBT 2. **Landed this arc:** who-did-what (quotative), CAUSATION, TIME, tense-preserving, verb_subcat
-PRESENCE; IDENTITY (`graded_role_assigner`) is assembly-wired. **Remaining:**
+PRESENCE, SPACE (`track_space`); IDENTITY (`graded_role_assigner`) is assembly-wired. **Remaining (each extracts a
+dimension; the BINDING backbone above is what integrates them):**
 - **p6 `the_reader_has_no_spatial_location_dimension_end_to_end` (SPACE)** — WIP. `sm.locations`; needs the
   motion-event parse adapter driving the promoted `location_register`.
 - **PACKAGEABLE: ENTITIES(state)** — wire the (HOLDER,PROPERTY) entity-state dimension `state_register`

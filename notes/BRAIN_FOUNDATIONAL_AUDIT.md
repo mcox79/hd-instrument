@@ -65,6 +65,34 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — 🧩 INTEGRATED (EXCELLENT): the assembled reader is N PARALLEL SILOS, not one integrated situation model
+  — the defect is the BINDING PROBLEM (marginals vs joint); the fix is a TIERED bound-event-token backbone (all tiers are
+  built islands).** Problem `the_assembled_reader_is_never_tested_as_a_whole_all_flags_on`, reverified 19/19 first-hand.
+  FINDING (byte-exact): turning all dimension flags ON COMPOSES but does not BIND — perturbing the shared event set leaves
+  every other dimension byte-identical (interaction exactly 0), with exactly ONE real interaction point (role-routing
+  consumes the event set). So "no-regression" is TRIVIALLY true; composition-without-interaction is not integration. Each
+  dimension stores the MARGINALS (set of agents/times/causes); nothing stores the JOINT (which-goes-with-which) — the
+  BINDING PROBLEM. Demonstrated on the real FHRR algebra with a NON-GAMEABLE discriminator: bound JOINT token
+  disambiguation 1.00 + binding-shuffle SENSITIVE; marginal SILO 0.44 (chance) + shuffle-INVARIANT (the first constructed
+  proof failed honestly at type-cardinality 1). FIDELITY: PINNED — comprehension builds ONE bound event token indexed on
+  all dimensions (Zwaan & Radvansky event-indexing; SEM/Franklin 2020), and the brain MUST CHUNK (a single passage
+  superposition collapses ~1/√M [0.99@64→0.12@512]; a slotted multibank stays flat) → the faithful token is TIERED. NEW
+  MAP (every tier is a BUILT hdlab ISLAND, none reader-wired): `slot_attention_wm`/`situation_model_multibank` (slotted
+  active register), `n400_coherence_monitor` (prediction-error event-boundary flush/reset), `hippocampal_encoder`
+  (DG-sparse + CA3 + CLS episodic store). INSTRUMENT-COUPLING (corrects a QA-capstone caveat): the QA temporal/causal
+  golds derive from sm.events which the tense-agnostic keystone rewrites (temporal Qs 106→0) — an INSTRUMENT artifact, NOT
+  a reader regression; the fix is reading sm.timeline_order (0.89 vs the broken 0.36). DG-WRONG-TIER REHAB: DG/hippocampal
+  prior HARD_FAILs were on the active-read tier, NOT DG's faithful episodic-store job — do NOT re-quote as a ceiling.
+  **🔗 RECONCILIATION (owner-prompted): this does NOT contradict the prior "separate stores are optimal" findings
+  (`the_entity_store_is_a_dense_bundle_that_fans` factorized two-system; `one_store_does_two_jobs` sparse cortex; keep-both
+  CLS) — those are separation by FUNCTION/TIMESCALE (KEPT by the fix); the silos here are the absence of within-EVENT
+  BINDING (a different, orthogonal axis). And `dimensional_phase_diagram_audit` INDEPENDENTLY found the same wall ("the
+  wall is front-end LINKING, not capacity"). Binding-within-an-event and separation-across-stores are complementary;
+  the tiered-backbone fix keeps the validated slotted/factorized stores and ADDS within-event binding.** STRATEGIC
+  REFRAME: the assembly is no longer "wire dimension N+1" — it is "assemble the tiered binding backbone so all dimensions
+  bind to ONE event token" (packaged as the p4 problem, ranked above reasoning — a prerequisite for it). NO default
+  flag-flip (only role_route is aggregate-positive + instrument-safe).
+
 - **2026-08-31 — 🎯 INTEGRATED THE NORTH-STAR CAPSTONE (EXCELLENT): learn-by-reading turns ON safe AND beneficial on the
   clean foundation.** Problem `turn_on_the_learner_and_verify_safe_growth_on_the_clean_foundation`, reverified FIRST-HAND
   (8/8 full-solution + 5/6 core; see the honest discrepancy). FIDELITY: PINNED — Complementary Learning Systems keep-both-

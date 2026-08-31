@@ -355,3 +355,40 @@ None.
    6-step plan above -- gated on the tense-preserving detector landing.
 3. (next problem) Acquire a narrative typed-causation gold, then measure whether the shared-event wire improves WHY.
 4. (assembly) Wire the built-but-island SPACE and STATE dimensions; BELIEF last (adapter-gated, kill-condition aware).
+
+## INTEGRATED_BY_STRATEGY 2026-08-31 -- EXCELLENT (the assembled reader is PARALLEL SILOS = the BINDING PROBLEM; the fix is a TIERED bound-event-token backbone)
+
+Reverified 19/19 FIRST-HAND (`verification/test_assembled_reader_all_flags_on.py`, the 4-doc smoke -- confirms the
+MECHANISM byte-exactly; the 100-doc aggregate inherited, direction-reproduced +0.053 on 4 docs): silos byte-exact
+([1][2][3][8]); the ONE interaction point ([4] role-routing consumes the event set); the QA instrument-coupling
+([5] temporal 106->0, [6] causal readout blind to typed links) + FIX ([7] timeline_order 0.89 vs 0.36); corrected
+aggregate survives a fixed gold ([9] events 0.2285 > 0.0993); the wiring gap ([10] shared-event organ built, unimported);
+the BINDING-PROBLEM PoC ([11] JOINT disambiguation 1.00 / shuffle-flip 1.00 vs MARGINAL 0.44 / 0.00). Brain-faithful +
+PINNED (Zwaan/Radvansky event-indexing = ONE bound token; SEM/Franklin 2020; the binding problem = marginals vs joint;
+the brain MUST CHUNK -> tiered, not one superposition). Exemplary honesty (the first joint proof failed at cardinality 1;
+the instrument-coupling self-diagnosis; DG-wrong-tier rehab). Graded EXCELLENT. Review + review_text in PROBLEM.md;
+priority cleared; audit 2b + FORWARD_BACKLOG folded.
+
+**RECONCILIATION (owner-prompted, disk-grounded):** does NOT contradict the prior "separate stores are optimal" findings
+(factorized two-system / sparse cortex / keep-both CLS -- separation by FUNCTION/TIMESCALE, KEPT); the silos here are the
+absence of within-EVENT BINDING (a different axis). A prior solver INDEPENDENTLY found the same wall
+(`dimensional_phase_diagram_audit`: "the wall is front-end LINKING, not capacity"). p4 is corroborated, not contradicted;
+the fix keeps the validated slotted/factorized stores + adds within-event binding.
+
+**LANDING STATE (Q111): THREE decisions.**
+- **(a) NO default flag-flip.** Only role_route is aggregate-positive + instrument-safe. Recorded the correct fully-on
+  baseline + the silo/instrument caveats in `tools/reader_capabilities.py` (committed c49859fed) -- the correct baseline
+  every solver needs.
+- **(b) QA-INSTRUMENT FIX -- QUEUED.** Make the QA capstone read each dimension's CORRECT field (sm.timeline_order for
+  temporal Qs -> 0.89; a tense-INDEPENDENT causal gold; consume typed_causal_links) instead of the naive sm.events
+  readout the keystone rewrites. This is the correct-baseline instrument; land it before the next full-system measure.
+- **(c) NEXT PROBLEM -- PACKAGED.** `the_assembled_reader_is_parallel_silos_assemble_the_tiered_bound_event_token`
+  (priority 4, ABOVE reasoning per the owner): assemble the TIERED bound-event-token backbone (slot_attention_wm/
+  situation_model_multibank slotted register + n400_coherence_monitor boundary + hippocampal_encoder episodic store --
+  all built islands) so the dimensions bind onto ONE event token; validate on real event coreference (ECB+) vs a
+  late-fusion-of-marginals baseline + the binding-shuffle control. This is the INTEGRATION the assembly was for, and a
+  prerequisite for reasoning (you cannot reason over silos).
+
+**🧭 STRATEGIC REFRAME:** the assembly programme is no longer "wire dimension N+1" -- it is "assemble the tiered binding
+backbone so all dimensions bind to ONE event token." Wiring dimensions as separate flags was the necessary FIRST step
+(each extracting correctly); binding them is the integration step. FORWARD_BACKLOG Phase B updated accordingly.
