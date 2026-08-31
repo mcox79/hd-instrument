@@ -16,12 +16,21 @@
 
 ## THE HONEST STATUS (derived 2026-08-30 — `python tools/wiring_debt.py`)
 
-- `hdlab/` holds **179 modules**; the **live reader + substrate import only ~19** of them.
-- **80 integrated submissions:** 23 landed, **25 QUEUED** (earned a landing, not confirmed live),
-  14 correct-no-landing (rigorous negatives), 18 unclear.
-- **Registry: 235 capabilities.** 184 tagged `WIRED` — but that tag means *promoted+registered*, not
-  *called at inference*. Strict test: **~9 reach the live reader/substrate; ~111 are island-only**
+- `hdlab/` holds **182 modules**; the **live reader + substrate import only 19** of them (re-derived
+  2026-08-31: arc_parser, context_grounded_valence, coref, corpus_registry, definitional_extraction,
+  event_bundle, event_centrality_coref, frame_induction, gap_detector, hd_fact_store, hippocampal_encoder,
+  information_foraging, pos_tagger, predicate_argument_frontend, reading_grounding_loop, scene_segment,
+  situation_focus, substrate, thematic_role_labeler).
+- **90 integrated submissions:** 24 landed, **27 QUEUED** (earned a landing, not confirmed live),
+  18 correct-no-landing (rigorous negatives), 21 unclear.
+- **Registry: 241 capabilities.** 190 tagged `WIRED` — but that tag means *promoted+registered*, not
+  *called at inference*. Strict test: **10 reach the live reader/substrate; 116 are island-only**
   (used only by their own experiments/witnesses). Plus 24 explicit `ISLAND`, 25 `TRAPPED_SHARED`, 2 shelved.
+- **2026-08-31 note:** the recent conceptual→`meaning_fusion` landing (DEBT 3, island-to-island) and the
+  `tense_agnostic_events` detector (uses the already-imported `pos_tagger`) correctly did NOT change the
+  live-reader import count — honest bookkeeping (a within-organ composition / a flagged behavior addition,
+  not a new live import). The live-reader count moves only when a dimension is wired into `situation_reader`
+  itself (the assembly, DEBT 2) — still the real completion.
 
 **Plain reading:** the *bookkeeping* is durable — organs are promoted, witnessed, registered, and NOT
 lost. But "integrate" has been stopping short of "wire into the live reader," so the live substrate is
