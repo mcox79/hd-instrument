@@ -5,7 +5,7 @@ bar: "PASS = BOTH gates. (1) INFORMATIVE: live per-argument surprisal predicts t
 result: "INFORMATIVE PASS: live per-argument surprisal (hdlab.predictive_reader driven on the reader's OWN patient bindings through SituationReader.read, role-capable) predicts the reader's own who-did-what errors AUC 0.651 [0.630,0.672] (ROC-AUC; n=2606 QA-SRL v2 dev+test patient items, MODERN text; CI half-width 0.021), shuffle-surprisal twin AUC p95 0.519 (loses). ACTIONABLE PASS via surprisal-abstain: committed accuracy at 80% coverage 0.633 vs random-abstain twin 0.598 -> margin +0.035 [+0.022,+0.050] CI-sep (half-width 0.014). Generalizes to 19c LitBank narrative: AUC 0.624 [0.556,0.690] (n=311, 14 docs), twin p95 0.562."
 floor: "un-gated reader base accuracy 0.599 (no surprisal signal); random same-rate abstention twin committed acc 0.598 (flat); shuffled-surprisal AUC null p95 0.519 (chance 0.5). The live signal clears all three CI-separated."
 controls: "(1) shuffled-surprisal twin R=500 (values permuted across arguments) -> AUC null p95 0.519 = EXCLUDES 'any per-argument number ranks errors'. (2) random same-rate abstention twin -> committed acc 0.598 flat = EXCLUDES 'any withholding at this rate helps'. (3) info-free random-adopt reanalysis twin p95 -0.005 = EXCLUDES 'any reanalysis helps'. (4) NON-CANONICAL stratum n=603 (passive/fronted) gives reanalysis its strongest shot -> +0.003 [-0.010,+0.016] = EXCLUDES 'the re-selection wall is a canonical-case artifact'. (5) LitBank 19c slice = EXCLUDES 'modern-vocabulary artifact'. (6) precision terciles (top 0.684 vs bottom 0.628) = EXCLUDES 'diagnosticity is precision-flat'."
-files_changed: "experiments/_forward_prediction_live.py; experiments/exp_forward_prediction_live_decision_v1.py; experiments/exp_forward_prediction_reselector_probe_v1.py (the exemplar re-selector prototype); experiments/exp_forward_prediction_richer_space_probe_v1.py (wider-feature dimensionality-vs-structure + taxonomic-metric probe); experiments/exp_forward_prediction_agent_conditioned_reselector_v1.py (owner-directed build B); verification/test_forward_prediction_live_decision_organ.py; data/forward_prediction_live_decision_v1/metrics.json; data/forward_prediction_reselector_probe_v1/metrics.json; data/forward_prediction_richer_space_probe_v1/metrics.json; data/forward_prediction_agent_conditioned_reselector_v1/metrics.json; notes/problems/.../research_drill_3_thematic_fit_ranking_mechanism_2026-08-31.md; notes/problems/the_forward_prediction_organ_is_inert_wire_its_surprisal_into_a_live_decision/{SOLVED.md,research_drill_1_surprisal_as_error_signal_2026-08-31.md,research_drill_2_grounded_space_reselection_wall_2026-08-31.md}. hdlab/ UNTOUCHED."
+files_changed: "experiments/_forward_prediction_live.py; experiments/exp_forward_prediction_live_decision_v1.py; experiments/exp_forward_prediction_reselector_probe_v1.py (the exemplar re-selector prototype); experiments/exp_forward_prediction_richer_space_probe_v1.py (wider-feature dimensionality-vs-structure + taxonomic-metric probe); experiments/exp_forward_prediction_agent_conditioned_reselector_v1.py (owner-directed build B); experiments/exp_forward_prediction_agent_conditioned_surprisal_v1.py (build C, agent-conditioned flag) + data/forward_prediction_agent_conditioned_surprisal_v1/metrics.json; experiments/exp_forward_prediction_flag_negative_diagnosis_v1.py (WHY the flag negative) + data/forward_prediction_flag_negative_diagnosis_v1/metrics.json; verification/test_forward_prediction_live_decision_organ.py; data/forward_prediction_live_decision_v1/metrics.json; data/forward_prediction_reselector_probe_v1/metrics.json; data/forward_prediction_richer_space_probe_v1/metrics.json; data/forward_prediction_agent_conditioned_reselector_v1/metrics.json; notes/problems/.../research_drill_3_thematic_fit_ranking_mechanism_2026-08-31.md; notes/problems/the_forward_prediction_organ_is_inert_wire_its_surprisal_into_a_live_decision/{SOLVED.md,research_drill_1_surprisal_as_error_signal_2026-08-31.md,research_drill_2_grounded_space_reselection_wall_2026-08-31.md}. hdlab/ UNTOUCHED."
 reverify: ".venv/Scripts/python.exe verification/test_forward_prediction_live_decision_organ.py"
 ---
 
@@ -138,9 +138,39 @@ conclusion.
   thing that would cross the wall is the FULL structured event store combining all four ingredients WITH
   the parse's structural/dependency information (SDM proper; Chersoni/Lenci) -- a large Phase-1 build,
   now MOTIVATED BY EVIDENCE (every cheap approximation converged to "it is structure"), not a guess.
-  NEW on-theme candidate (untested): apply drill-3's agent-preference to the part that WORKS -- does
-  agent-conditioned SURPRISAL (not re-selection) predict errors better than verb-only surprisal (a
-  higher-AUC FLAG; Michaelov 2024)? That is the next probe.
+- **C. Agent-conditioned SURPRISAL as a sharper FLAG (Michaelov 2024 applied to the part that WORKS) --
+  DIRECTIONAL, not CI-sep** (`exp_forward_prediction_agent_conditioned_surprisal_v1.py`). Does
+  conditioning the surprisal centroid on the AGENT sharpen the error flag (not re-selection -- the flag
+  is the validated win)? On the agent-applicable subset (current agent grounded; coverage 0.41 gold /
+  0.85 reader): agent-conditioned surprisal is directionally >= verb-only (gold AUC 0.690 -> 0.699;
+  FUSED verb+agent 0.705, +0.015 [-0.003,+0.035]), reader-agent ~flat (fused +0.008) -- but NOT
+  CI-separated. THE NEGATIVE IS DIAGNOSED (`exp_forward_prediction_flag_negative_diagnosis_v1.py`) --
+  and NOT to "the coarse grounded space" (that was a hand-wave; the diagnosis corrected it):
+  (1) conditioning is NOT inert -- the agent-weighted centroid really shifts (cos(verb_c,agent_c)=0.76,
+  corr(s_verb,s_agent)=0.84, median |dsurprisal|=0.17). (2) DIRECTION depends on AGENT QUALITY: with a
+  CLEAN gold agent it raises surprisal MORE on errors (+0.082 vs +0.056 -- weakly right, the +0.009 gain);
+  with the READER's NOISY agent it raises surprisal more on CORRECT items (+0.030 vs +0.053 -- WRONG
+  direction), so agent-extraction noise HURTS. (3) DOMINANT cause -- ~48% (gold) / 45% (reader) of the
+  reader's errors have s_verb(pick) <= s_verb(gold): the reader chose something MORE thematically expected
+  than the correct answer -- good-enough / SEMANTIC-ILLUSION errors (Ferreira; drill 1) that are LOW-
+  surprisal and STRUCTURAL, which NO plausibility signal (verb, agent, or richer) can flag. Sharpening
+  plausibility helps on the anomaly half but HURTS on the structural half (makes a plausible-but-wrong
+  pick look even more expected), netting ~zero. So the flag ceiling and the re-selection wall are the
+  SAME structural-vs-plausibility boundary, not two coarse-space problems.
+- **THE UNIFYING META-FINDING (refined by the diagnosis).** Across SIX probes -- richer dimensions,
+  exemplar estimator, taxonomic metric, agent-conditioned re-selection, agent-conditioned flag, and the
+  flag-negative diagnosis -- there are TWO nested limits, and the deeper one is NOT "the coarse grounded
+  space": (i) FEATURE SUPPLY -- the grounded space is coarse, capping the plausibility signal's quality
+  (the Phase-1 lever, real but secondary); (ii) THE STRUCTURAL-vs-PLAUSIBILITY BOUNDARY -- ~HALF the
+  reader's who-did-what errors are STRUCTURAL (the reader chose a MORE-plausible-but-wrong binding; a
+  semantic illusion), and these are out of scope for ANY plausibility signal in ANY representation --
+  only the PARSE's structural information reaches them. This is why the SAME boundary appears as the
+  re-selection wall (plausibility can't out-select the parse) AND the flag ceiling (plausibility can't
+  flag structural errors) AND English being word-order-dominant (Competition Model). The forward-
+  prediction MECHANISM is faithful and validated as a FLAG on the thematic-anomaly half; the residual is
+  a DIVISION OF LABOR (the parse owns structural disambiguation; the plausibility signal owns thematic
+  anomalies), not one missing feature. The Phase-1 structured event store helps (i); it will NOT cross
+  (ii) without the parse -- the SDM proper fuses BOTH, which is why that is the named follow-on.
 
 ## Brain-fidelity labeling (PINNED vs OUR-INVENTION)
 - **PINNED (replicated):** forward pre-activation of expected FEATURES; surprisal = -log P softmax
@@ -193,6 +223,14 @@ conclusion.
    richer meaning space" (vague) into "build a STRUCTURED event store, NOT a bigger flat embedding"
    (precise) -- a much sharper follow-on. Ruling out the cheap explanation is what makes the expensive
    one trustworthy.
+7. **DIAGNOSE a negative before labeling it -- I was wrong once and the diagnosis caught it.** I first
+   attributed the flag-probe negative to "the coarse grounded space." Decomposing it (inert? direction?
+   structural?) showed that was a hand-wave: the conditioning FIRES, and the real cause is that ~half the
+   errors are STRUCTURAL semantic-illusions (the reader's wrong pick is MORE plausible than the gold) that
+   NO plausibility signal can flag -- plus agent-EXTRACTION noise actively hurting. That reframed the
+   whole result: the flag ceiling and the re-selection wall are ONE structural-vs-plausibility boundary,
+   and the fix is a DIVISION OF LABOR with the parse, not one missing feature. "Ask whether a component
+   is missing before claiming an intrinsic ceiling" caught a real mislabel.
 
 ## AUDIT UPDATE (fold into notes/BRAIN_FOUNDATIONAL_AUDIT.md sec 2b)
 `predictive_reader` is no longer a pure inert island in evidence: its surprisal is now computed LIVE
@@ -261,11 +299,9 @@ None.
    combines the exemplar estimator + a dependency-parsed selectional metric + agent/event conditioning
    WITH the parse's structural information (SDM proper; Chersoni/Lenci; FHRR role-filler binding), NOT
    any single flat component. This is a large Phase-1 build, now motivated by evidence.
-2. **NEW probe (on-theme, applies drill-3's agent-preference to the part that WORKS):** does
-   agent-conditioned SURPRISAL predict the reader's errors BETTER than verb-only surprisal (a higher-AUC
-   FLAG; Michaelov 2024)? The re-selector failed, but the FLAG is the validated win -- agent-conditioning
-   may sharpen it. Cheap to test with the agent fields now in the cache.
-3. **Wire the abstain flag now (Q111):** the validated confidence/abstain decision does not depend on
-   the re-selector build.
-4. **Feed `gap_detector`'s write-gate from this surprisal** (the memory-level node; learner-on path).
-5. Agent-role (not just patient) who-did-what slice for cross-role generalization.
+2. **Wire the abstain flag now (Q111):** the validated confidence/abstain decision does not depend on
+   the re-selector build. Wire the FUSED (verb+agent) surprisal (directionally the best flag) rather
+   than verb-only.
+3. **Feed `gap_detector`'s write-gate from this surprisal** (the memory-level node; learner-on path).
+4. Agent-role (not just patient) who-did-what slice for cross-role generalization.
+   (The agent-conditioned-SURPRISAL flag probe -- build C above -- is DONE: directional, not CI-sep.)
