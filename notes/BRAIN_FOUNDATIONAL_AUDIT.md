@@ -65,6 +65,28 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 (strategy, ARCHITECT HEARTBEAT scan — the who-did-what IDENTITY half) — `graded_role_assigner` is
+  PINNED-faithful, held-out-validated, and WIRED on the assembly path (NOT an island); the who-did-what stack is now
+  coherently wired.** Scanned the IDENTITY organ adjacent to the PRESENCE gate just landed. (a) FIDELITY: PINNED —
+  role assignment is graded, PARALLEL cue integration (MacWhinney & Bates Competition Model; the additive-cue→softmax
+  IS the Bayesian posterior, McClelland 2013; runs over the landed `graded_competition`). The load-bearing fidelity
+  insight is ROUTE-DON'T-REPLACE: a flat integrator is NET-NEGATIVE (wrecks canonical), so `hybrid_role_patient` keeps
+  `resolve_patient` byte-identical on confident/canonical routes and invokes the competition ONLY on the non-canonical
+  fall-through (strong passive / relativizer-less object gap / unaccusative sole theme). Faithful. (b) GENERALIZES: real
+  held-out (n=4078 role_balanced gold): +0.0242 CI-sep on the non-canonical slice, net-positive +0.0113 overall, canonical
+  PRESERVED, shuffled-validity twin LOSES, seed-robust. Honest modest magnitude. (c) WIRING — CORRECTS a likely "island"
+  read: `situation_reader` reaches it on the OPT-IN `role_route != "positional"` assembly path (`_read_events_wired` →
+  `_router_roles` → `route_predicate_arguments` [predicate_argument_frontend, live] → `hybrid_role_patient`). The DEFAULT
+  reader (positional) does NOT use it. So it is ASSEMBLY-wired, not a hard island (wiring_debt's direct-import scan
+  undercounts it — like arc_parser, read "import-reachable / assembly-active"). (d) GAP/LEVERAGE: the just-landed
+  `verb_subcat_gate` (PRESENCE) is a POST-READ pass → it composes with BOTH the positional and the assembly IDENTITY
+  paths. So the who-did-what stack is now coherent: PRESENCE (verb_subcat, wired simple / graded queued) × IDENTITY
+  (graded_role_assigner, assembly-wired, faithful) × ENTITY (coref, 3× solved). The organ's OWN named residual —
+  reduced-relatives needing "verb-subcat SUPPLY" — is now partly supplied (verb_subcat landed). **No new problem: the
+  full-stack ALL-FLAGS-ON composition + measurement is exactly the OPEN p4 `the_assembled_reader_is_never_tested_as_a_whole`
+  (WIP by a solver) — this scan CONFIRMS p4 is the correct validation gate and the queue is right. The remaining fidelity
+  ceiling is the GRADED verb_subcat upgrade (queued, DEBT 2).**
+
 - **2026-08-31 (strategy, Q111, ARCHITECT HEARTBEAT) — LANDED: `verb_subcat` wired into the live reader (default-off
   `verb_subcat_gate`) — the who-did-what PRESENCE half now reaches the reader.** Promoted the p2 reference organ →
   `hdlab/verb_subcat.py`; the reader suppresses a spurious patient on low-transitivity verbs (post-read transitivity gate,
