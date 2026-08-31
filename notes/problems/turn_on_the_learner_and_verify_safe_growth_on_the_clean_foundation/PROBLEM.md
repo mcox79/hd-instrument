@@ -157,3 +157,7 @@ Turn the learner ON (CLS keep-both-stores growth, default-off switch) on the CLE
   stores safe-growth switch + the reliability-weighted meaning-fusion extension + the structured-context channel,
   ALL DEFAULT-OFF, with the flip-on evidence in hand — coordinate with the learner-on landing program (a large
   coordinated diff; see the roadmap). This is Link 5 (SAFE GROWTH) of the learner-on chain — the capstone.
+
+
+## DO NOT QUOTE / DO NOT REDO
+- 🚫 No live-growth result yet — OPEN; growth stays OFF until proven safe on the day. Do NOT quote the offline learner/CLS numbers (SimLex/SimVerb gains; corruption 25.6%→7.85%) as evidence the learner is safely ON — they are the PRE-conditions, measured offline. A naive-overwrite growth is BARRED.

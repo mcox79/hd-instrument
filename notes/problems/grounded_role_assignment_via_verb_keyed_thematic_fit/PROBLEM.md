@@ -138,3 +138,8 @@ On the MODERN UD-EWT role gold, scored on the HELD-OUT NON-CANONICAL subset (NOT
 - Build + validate in `experiments/`; witness `verification/test_*_organ.py` recomputing from source on the held-out subset.
   Fold an **AUDIT UPDATE** into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b (the CAUSATION/role + Competition-Model entries).
 - Coordinate: the strategy-queued `graded_role_assigner` subject-override + the meaning-channel wiring; compose, don't collide.
+
+
+## DO NOT QUOTE / DO NOT REDO
+- 🚫 This problem is INTEGRATED — the honest result + caveats are in `review_text` (frontmatter) and `INTEGRATED_BY_STRATEGY` (SOLVED.md). Do NOT quote its numbers across a different scorer / population / representation (standing rule: no number crosses scorers or populations); recompute every floor on the target item's own population.
+- 🚫 The direction is CLOSED for re-derivation — build ON it, do not re-run it.

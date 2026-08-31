@@ -65,6 +65,45 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — INTEGRATED (p2 EXCELLENT): the incremental parser as a ROLE lever is a fidelity ERROR; the real who-did-what
+  precision lever is verb-SUBCATEGORIZATION.** Problem `wire_the_incremental_parser_as_the_reader_extraction_front_end`, reverified
+  16/16 first-hand. (i) `incremental_parser_v1` — precision-only (incremental vs batch +0.145 P / +0.093 F1 CI-sep), NO role gain;
+  restricting the role binder to the parser's bounded buffer LOWERS patient acc 0.726→0.696 (a recall/fidelity error). PINNED brain
+  fact: role-binding is a SEPARATE cue-based retrieval stream with independent input access (Frankland & Greene 2015; Lewis &
+  Vasishth 2005; McElree 2006) — structure-BUILDING and role-BINDING are distinct organs (Beber 2025), so hard-restricting the
+  binder to the builder's set is un-faithful. Verdict: keep the incremental parser DEFAULT-OFF precision-only; NOT the role lever;
+  no dead role-flag (registry note corrected). (ii) NEW organ `verb_subcat_v1` (reference `experiments/ref_verb_subcat_organ_v1.py`,
+  BUILT/UNWIRED, WIRE_CANDIDATE default-off) — the who-did-what PRESENCE half: a graded Competition-Model presence gate over a dual
+  WordNet-frame + corpus-P(obj|verb) basis (Levin/VerbNet lexical + Trueswell/Garnsey distributional). AUC ~0.78–0.81 CI-sep over a
+  hard subcat gate AND pure syntax; who-did-what id 0.30→0.49 (do-no-harm); twin ~0.5; unknown-verb safe. FIDELITY: PINNED mechanism
+  (subcat stored lexically + learned distributionally; presence = graded cue integration = the same softmax/Bayesian posterior as the
+  deployed binder). The three-way who-did-what decomposition is now explicit: PRESENCE (verb_subcat) × IDENTITY (graded_role_assigner)
+  × ENTITY (coref).
+
+- **2026-08-31 — INTEGRATED (p5 STRONG): the event detector now preserves TENSE compositionally (Reichenbach), unblocking a shared
+  event set for the TIME dimension.** Problem `the_tense_agnostic_detector_drops_tense_needed_by_the_time_dimension`, reverified 12/12
+  first-hand. FIDELITY: PINNED — event DETECTION stays tenseless (neo-Davidsonian event variable, Bach 1986), and temporal LOCATION is
+  a SEPARATE compositional parse of the verb group (main verb + auxiliary chain) into a Reichenbach tense × aspect × voice triple
+  (Reichenbach 1947; Zwaan & Radvansky TIME; LAN→P600 / LIFG composition) — reading the same morphosyntax the language network reads.
+  In-substrate word-tense 0.770 CI-sep over placeholder/majority/twin; aspect 0.987 / voice 0.933; recall preserved EXACTLY (tense is
+  a label on already-detected tokens → free). NEW PINNED sub-mechanism: non-finite forms carry no independent tense and INHERIT it from
+  the controlling finite verb (sequence-of-tense; Ogihara/Abusch) — the apparent "wall" was a category error, dissolved by mark-and-
+  inherit (oracle-anchor 0.876 = the finite ceiling). REFINEMENT to the keystone's boundary note: the tense-preserving variant it
+  called for now exists; landing it (QUEUED, default-off) lets the TIME dimension consume ONE is_pp-faithful event set.
+
+- **2026-08-31 — INTEGRATED (p3 EXCELLENT): event-detection COMPLETENESS — copular STATES + deverbal NOMINAL events recovered
+  tense-agnostically.** Problem `the_event_detector_misses_copular_and_nominal_predication_events`, reverified 14/14 first-hand.
+  FIDELITY: PINNED — event-hood is NOT verb-slot-bound (neo-Davidsonian; Bach 1986). COPULAR = a distinct KIMIAN STATE (Maienborn 2005)
+  read off the droppable-copula `cop` DEPENDENCY relation (binding HOLDER+PROPERTY, Bemis & Pylkkänen LATL) — recovered CLEANLY (UD
+  recall 0.7951→0.9448 +0.1497 CI-sep, cop-class precision 0.857). DEVERBAL NOMINAL events route through the verb machinery (Garbin 2012)
+  via event-denoting-ness (WordNet ATL) + argument structure (Grimshaw LIFG) + boundedness (Hopper foreground) — recovered with a recall
+  win (LitBank +0.0873, MAVEN cross-corpus +0.1845 CI-sep) but a context-bounded precision. NEW PINNED deviation: the bare-nominal
+  event/kind decision is intrinsically DISCOURSE-MODEL-BOUND (episodic event-token individuation, Renoult & Rugg; 3 local proxies
+  can-fail-tested, none crosses) → the faithful fix is the incremental parser + situation model, not a static cue. REFINEMENT to the
+  keystone's "parser too noisy at UAS 0.79" verdict: fidelity is RELATION-DEPENDENT — the `cop` relation is HIGH-fidelity (0.857) even at
+  UAS 0.79 (local relations recoverable). The reader's ENTITY-STATE dimension (HOLDER,PROPERTY) is built + validated (de-risks the
+  copular consumption) but UNWIRED into the live reader (QUEUED with the copular/nominal landing).
+
 - **2026-08-31 — LANDED (strategy, Q111, owner-authorized assembly): the TIME dimension is now WIRED INTO the canonical reader
   (default-off `timeline_register` flag) — the 2nd assembly (DEBT 2) dimension, after causation.** The reader gains an ADDITIVE
   `sm.timeline_order` (whole-passage chronological event order incl. flashbacks) via the validated temporal-order register

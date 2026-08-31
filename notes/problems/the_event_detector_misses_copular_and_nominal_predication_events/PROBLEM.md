@@ -1,8 +1,40 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: Completes the event-detection front-end tense-agnostically — recovers the two non-verbal predication classes the keystone misses (COPULAR states via the `cop` dependency arc; DEVERBAL nominal events via event-denoting-ness + argument structure + boundedness), raising event RECALL CI-separated end-to-end through the LIVE SituationReader.read() while holding verbal-event precision BYTE-IDENTICAL (purely additive, W5/W12). Reverified 14/14 FIRST-HAND. Copular (the CLEAN class): UD-EWT recall 0.7951→0.9448 (+0.1497 [0.1344,0.1650] CI-sep over keystone AND +0.1330 over the info-free twin), cop-class precision 0.857, overall precision essentially neutral (−0.0089 [−0.0150,−0.0031]) — a clean structural win riding a HIGH-fidelity local relation even at UAS 0.79. Nominal: LitBank recall +0.0873 CI-sep + CROSS-CORPUS MAVEN modern-Wikipedia +0.1845 (the signal GENERALIZES and is LARGER on modern factual prose), nominal-class precision 10.2× the non-verb base rate, info-free twin LOSES on every corpus. The nominal precision wall (~0.20 absolute) was DRILLED to its brain mechanism (episodic event-token individuation; the event-vs-kind reading of a bare deverbal noun is discourse-model-bound) and PROVEN model-bound by CAN-FAIL-testing all three local proxies the literature offers (governing-predicate coercion, countability — which FAILED BACKWARDS on fiction — and event-anaphora) → the residual is irreducibly discourse-bound, not a lexicon gap (independently: the keystone's own verbal precision on LitBank is 0.27 = the gold ceiling, so 0.20 is within ~7pts). NON-CIRCULAR deflation (34.8% of nominal "misses" are lemmas gold-annotated as EVENT elsewhere in-corpus). ADJACENT-COMPONENT de-risking: built + validated the entity-state (HOLDER,PROPERTY) representation the copular states feed (0.677R/0.872P CI-sep over floor+twin; holder|property 0.939). Two tempting shortcuts (existential suppressor, countability) TESTED and REJECTED rather than shipped. Grade EXCELLENT: two classes with OPPOSITE structural profiles the brain predicts (copular clean+local, nominal context-bound), each measured on its PROPER gold, cross-corpus generalization, an honestly-drilled-and-proven-model-bound wall, and adjacent-component de-risking — the extraction-COMPLETENESS half of the front-end, cleanly.
 ---
+
+> ## ✅ SOLVER REVIEW -- EXCELLENT (integrated by strategy 2026-08-31)
+> **Why EXCELLENT, specifically:** event-hood is not tied to the verb slot in the brain (neo-Davidsonian; Bach 1986),
+> and the solver recovered BOTH missing predication classes with the brain's actual distinction — a copular/predicative
+> KIMIAN STATE (Maienborn 2005) read off the droppable-copula `cop` relation, binding HOLDER+PROPERTY; and a deverbal
+> NOMINAL event routed through the verb machinery (Garbin 2012) via event-denoting-ness + argument structure + boundedness.
+> The key structural insight is that the brain PREDICTS which class is clean: copular rides a LOCAL dependency relation
+> (`cop`, high-fidelity even at UAS 0.79 → precision 0.857), while the bare-nominal event/kind reading is intrinsically
+> discourse-model-bound (→ precision ~0.20, honestly context-bounded).
+> **Reproduced under my check:** re-ran `verification/test_copular_nominal_event_detector_organ.py` — 14/14 PASS,
+> scaffold-free, driving the LIVE `SituationReader(tense_agnostic_events=True).read()`. Copular UD 0.7951→0.9448
+> (+0.1497 CI-sep, cop-class prec 0.857, overall-prec neutral −0.0089); nominal LitBank +0.0873 CI-sep + MAVEN
+> cross-corpus +0.1845; class-prec 0.1994 vs twin 0.0195 (10.2×); deflation 0.348 (958/2751); verbal fires
+> BYTE-IDENTICAL across modes AND == the landed keystone (219 preds, W5/W12); entity-state 0.677R/0.872P vs floor/twin
+> CI-sep, holder|property 0.939 — all reproduce from source.
+> **Adversarial audit (what could have faked it):** (1) Is the nominal recall gain just "fire more non-verb tokens"?
+> No — the info-free count-matched twin LOSES on recall AND on class-precision on every corpus; the gain is event-hood
+> alignment. (2) Is the low nominal precision hidden model error? No — the NON-CIRCULAR deflation test (lemma annotated
+> as event elsewhere) + three local proxies tested-and-failed prove it discourse-bound, and it's within ~7pts of the
+> gold's own verbal-precision ceiling. (3) Does it regress verbal precision? No — verbal-class fires are byte-identical
+> (purely additive, checked structurally).
+> **Honest bounds (solver-reported, so they cap nothing):** absolute nominal precision is ~0.20 (gold-deflated +
+> discourse-bound); copular carries a 0.9-pt overall-precision cost (the new class is slightly less precise than verbs;
+> the VERBAL precision itself is invariant); MAVEN/LitBank generalization is 19c-fiction + modern-Wikipedia (no
+> hand-adjudicated modern narrative gold at scale).
+> **Landing (QUEUED, Q111 — COUPLED with p5 into ONE extraction-front-end landing):** behind a default-off
+> `copular_nominal_events` flag, extend `_tense_agnostic_extract` (byte-identical when off) to ALSO fire a `state`-sort
+> node on each `cop` predicate (HOLDER=nsubj, PROPERTY=predicate) and an `event`-sort node on confident event-denoting
+> nouns (bake the WordNet event lexicon to a static JSON asset → no nltk at runtime), plus a new
+> `SituationModel.entity_states` field routed from the state nodes (NOT into the dynamic-event codec). Reference impl
+> `experiments/_copular_nominal_events.py`. The faithful fix for the nominal residual is the incremental parser +
+> situation model (p2, just owner-DONE) — one lever.
 
 # PROBLEM: the just-landed tense-agnostic event detector (the p1 keystone) fires an event at every UPOS==VERB — which took verbal-event recall from ~0.33 to ~0.95, but by construction it MISSES events carried by NON-verbal predication: COPULAR/predicative states ("Sarah IS a doctor", "the room was cold", "he SEEMED nervous") and NOMINAL/deverbal events ("the DESTRUCTION of the city", "her ARRIVAL", "after the EXPLOSION"). The brain does not restrict event-hood to the verb slot: a state or a nominalised happening is an event node in the situation model. Build the missing detector: recover copular/predicative and nominal-event predications as events, tense-agnostically, WITHOUT regressing the verbal-event precision the keystone holds — so the reader's event set is COMPLETE, not just verb-complete.
 
@@ -122,3 +154,8 @@ On a REAL corpus whose gold includes copular + nominal events (LitBank/MAVEN eve
   `read()`. Fold an **AUDIT UPDATE** into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b. This is the extraction-COMPLETENESS half
   of the clean-foundation input (the keystone did verbal recall; p2 does precision); it composes with the landed
   `tense_agnostic_events` keystone.
+
+
+## DO NOT QUOTE / DO NOT REDO
+- 🚫 **Nominal-class precision ~0.20** — gold-DEFLATED (34.8% of "misses" are events elsewhere in-corpus) AND intrinsically discourse-model-bound; do NOT quote it as detector error or re-attempt a static local cue to "fix" it (governing-predicate coercion / countability / event-anaphora all can-fail-TESTED and closed).
+- 🚫 Copular vs nominal numbers are on DIFFERENT golds (UD `cop` vs LitBank realis-event); do not cross them. INTEGRATED (EXCELLENT) — build ON it; the faithful nominal fix is the incremental parser + situation model.

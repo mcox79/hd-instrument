@@ -137,3 +137,8 @@ On real similar-competitor / partial-cue queries (LitBank / OntoNotes coref, a p
   LitBank/OntoNotes coref (`data/corpora/`). Build + validate in `experiments/`; witness recomputes from source.
 - Fold an **AUDIT UPDATE** into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b (retrieval interference = similar-competitor cue-overload, not
   event-count; TCM context reinstatement is the disambiguator; the combination rule is the invention).
+
+
+## DO NOT QUOTE / DO NOT REDO
+- 🚫 This problem is INTEGRATED — the honest result + caveats are in `review_text` (frontmatter) and `INTEGRATED_BY_STRATEGY` (SOLVED.md). Do NOT quote its numbers across a different scorer / population / representation (standing rule: no number crosses scorers or populations); recompute every floor on the target item's own population.
+- 🚫 The direction is CLOSED for re-derivation — build ON it, do not re-run it.

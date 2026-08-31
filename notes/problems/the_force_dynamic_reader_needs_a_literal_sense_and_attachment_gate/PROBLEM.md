@@ -131,3 +131,8 @@ On unfiltered MODERN text (UD-EWT generalization probe is the ready testbed; MIN
   the landed WSD/idiom pieces from `no_glass_box_verb_sense_disambiguation`.
 - Build + validate in `experiments/`; witness `verification/test_*_organ.py` recomputing from source. Fold an **AUDIT UPDATE** into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
 - **This UNBLOCKS `wire_the_causation_typer_into_the_live_reader` (p6):** once this gate passes, the causation live-wiring can proceed (typer + patient-tendency + this gate → engage only on literal physical events).
+
+
+## DO NOT QUOTE / DO NOT REDO
+- 🚫 This problem is INTEGRATED — the honest result + caveats are in `review_text` (frontmatter) and `INTEGRATED_BY_STRATEGY` (SOLVED.md). Do NOT quote its numbers across a different scorer / population / representation (standing rule: no number crosses scorers or populations); recompute every floor on the target item's own population.
+- 🚫 The direction is CLOSED for re-derivation — build ON it, do not re-run it.

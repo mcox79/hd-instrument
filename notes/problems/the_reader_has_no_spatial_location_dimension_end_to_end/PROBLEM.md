@@ -128,3 +128,7 @@ On REAL narrative (LitBank + a small where-is gold; add modern if reachable), th
   through the live reader. Fold an **AUDIT UPDATE** into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b. If it clears the bar,
   strategy lands the hdlab wire (Q111): a default-off `track_space` flag on `SituationReader` → `sm.locations`,
   following the causation/time additive-landing pattern. This is the SPACE dimension of the assembly.
+
+
+## DO NOT QUOTE / DO NOT REDO
+- 🚫 No end-to-end result yet — OPEN. Do NOT quote the tracker's ABSTRACT-motion-event validation as an end-to-end SPACE number (it was validated on abstract events, not the reader's own extraction). Recompute where-is accuracy through the live `read()` on real prose.

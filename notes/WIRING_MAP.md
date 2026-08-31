@@ -71,6 +71,23 @@ drags `frame_sense_disambiguator` + `idiom_gate` + **spaCy** — the landing mus
 roles are spaCy-free, per the p2 OWNER_NOTES) or gate them lazily; do NOT introduce a hard spaCy dep into the canonical
 reader. This makes the causation landing a careful multi-file effort, not a one-round drop.
 
+📌 **QUEUED EXTRACTION-FRONT-END EXTENSIONS (integrated 2026-08-31, Q111 — extend the keystone in `_tense_agnostic_extract`,
+each additive default-off with its own equivalence witness; land p5 first [clean], then p3 [heavier]):**
+- **p5 tense-preserving (STRONG) — CLEAN, land first.** Add a default-off `preserve_tense` sub-flag: when on, assign a
+  COMPOSED Reichenbach tense/is_pp (`assign_sentence`+`_stock_tense`, `experiments/exp_tense_preserving_live_reader_and_timeline_v1.py`)
+  instead of the placeholder `TENSE_SIMPLE_PAST`. `situation_reader` ALREADY imports `experiments._temporal_ordering as T` (the tense
+  constants), so this is a small lazy-import landing. Recall preserved EXACTLY (byte-identical event set). UNBLOCKS the landed TIME
+  dimension (`timeline_register`) consuming ONE is_pp-faithful event set. Do NOT change the existing `tense_agnostic_events` semantics
+  (the keystone witnesses compare against its placeholder path) — a NEW sub-flag.
+- **p3 copular/nominal (EXCELLENT) — HEAVIER, focused follow-on.** Add a default-off `copular_nominal_events` sub-flag firing a
+  `state`-sort node on each `cop` predicate (needs a labeled parse → lazy front-end, like causation) + an `event`-sort node on
+  CONFIDENT event-denoting nouns (bake the WordNet event lexicon to a STATIC JSON asset → no nltk at runtime) + a new
+  `SituationModel.entity_states` field routed from the state nodes. Ref `experiments/_copular_nominal_events.py`.
+- **verb_subcat (from p2, EXCELLENT) — the who-did-what PRESENCE lever.** Land `hdlab/verb_subcat.py` (ref
+  `experiments/ref_verb_subcat_organ_v1.py`) + a default-off `verb_subcat_gate` on `SituationReader`: after the binder assigns a
+  patient, set it back to "?" on low-transitivity verbs. Static glass-box WordNet+corpus assets + learned validities. Cleans the
+  extraction the learner grows over (who-did-what id 0.30→0.49). Being packaged as its own first-class problem too.
+
 | Organ (in hdlab, default-off) | Wire target in the reader | Dimension |
 |---|---|---|
 | ~~`force_dynamics_typer` + `_foreground_eventhood`~~ ✅ **LANDED 2026-08-31 — THE FIRST ASSEMBLY DIMENSION WIRED INTO THE CANONICAL READER** | the reader now has a default-off `causation_typed` flag → `sm.typed_causal_links` (CAUSE/ENABLE/PREVENT + endstate) via `hdlab/causation_typing.py`. Promoted `force_dynamics_lexicon` + `patient_tendency` → hdlab; created `hdlab/causation_typing.py` (ports the validated typer + p3 graded event-hood gate). Default OFF = byte-identical (no spaCy/experiment import). VERIFIED byte-for-byte equivalent to the validated `WiredCausationReader` across 11 configs + witness `test_causation_typed_landing_organ.py` PASS → inherits p2's within-clause AUTO 0.833 and p3's open-text precision gate (`causation_foreground_gate=True` opt-in). The WSD/literalness chain (`frame_sense_disambiguator`/`idiom_gate`/`_literalness_gate`) stays in experiments/ (lazy, default-off) — its own separate queued promotion. Registered `causation_typed_live_reader_v1`. | CAUSATION ✅ |
@@ -116,7 +133,13 @@ DEBT 3 (island→island composition) but NOT the assembly (DEBT 2): `meaning_fus
 live reader is the remaining step.
 
 ### NON-DEBT — correct no-landing (rigorous negatives + capability-without-a-reader-home; DO NOT re-attempt)
-Recorded so they are never re-packaged. Newest: `retrieval_interference_is_similar_competitor_cue_overload_not_event_count`
+Recorded so they are never re-packaged. Newest: `wire_the_incremental_parser_as_the_reader_extraction_front_end`
+(p2, EXCELLENT — reverified 16/16; wiring the incremental parser as the reader's ROLE candidate source is a FIDELITY
+ERROR: precision reproduces [+0.145 CI-sep] but role F1 does NOT improve, and restricting the binder to the parser's
+bounded buffer LOWERS patient acc 0.726→0.696 [role-binding is a SEPARATE cue-based stream — Frankland & Greene 2015 /
+Lewis & Vasishth 2005]; powered voice-sliced QA-SRL confirms; → keep `incremental_parser_v1` DEFAULT-OFF precision-only,
+NO dead role-flag, registry note corrected. The submission's POSITIVE — `verb_subcat` — is QUEUED, not no-landing).
+`retrieval_interference_is_similar_competitor_cue_overload_not_event_count`
 (p6, STRONG — reframe CONFIRMED [interference is content×context, not event-count], but the right-axis organ
 `graded_antecedent_pick` ALREADY EXISTS and BOTH candidate new cues are CI-separated NEGATIVES [multi-timescale TCM −0.001;
 gender/number +0.003/+0.004 over the person cleanup] → NO landing; the residual is STRUCTURAL [72% of errors gold-present-
@@ -155,6 +178,11 @@ tracked burn-down item, not a silent park.
 ---
 
 ## BURN-DOWN LOG (newest first)
+- **2026-08-31** — **INTEGRATED 3 owner-DONE submissions (extraction front-end + parser):** p3 copular/nominal (EXCELLENT,
+  14/14), p5 tense-preserving (STRONG, 12/12), p2 incremental-parser (EXCELLENT, 16/16). p2 = a route-closing NEGATIVE
+  (parser-as-role-lever is a fidelity error → NON-DEBT) + a landing-ready POSITIVE (verb_subcat, who-did-what 0.30→0.49).
+  **QUEUED landings (Q111):** p5 tense-preserving (clean, unblocks TIME), p3 copular/nominal (heavier, +entity_states),
+  verb_subcat (who-did-what presence gate). All extend the keystone extraction front-end; the learner grows over this.
 - **2026-08-30** — **PROMOTION debt −1 (#3):** perceptual_access_ledger promoted `experiments/` → `hdlab/perceptual_access_ledger.py`
   (wholesale; spaCy lazy → no hard hdlab dep; organ witness 5/5; 6/6 unregressed). The observation-cue front-end;
   closes the belief-timeline 0.098 gap once reader-wired. **PROMOTION debt remaining: temporal_order_register (multi-module),

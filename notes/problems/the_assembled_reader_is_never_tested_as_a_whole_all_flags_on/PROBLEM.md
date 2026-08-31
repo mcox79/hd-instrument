@@ -128,3 +128,7 @@ On real narrative (LitBank; add a modern held-out set if reachable), with the re
   `BRAIN_FOUNDATIONAL_AUDIT.md` §2b. If the whole holds, strategy uses the evidence to consider flipping validated
   flags ON by default (Q111, a measured decision, not automatic). This is the assembly's validation gate + the
   correct-baseline reference for every other problem.
+
+
+## DO NOT QUOTE / DO NOT REDO
+- 🚫 No result yet — OPEN. Do NOT quote any per-dimension isolated number as the WHOLE-reader result (that is exactly what this problem exists to measure). Inherit each dimension's isolated witness; do not re-derive it. Recompute floors on the item's own population.

@@ -1,8 +1,42 @@
 ---
-priority: 5
-review:
-review_text:
+priority:
+review: STRONG
+review_text: Replaces the keystone's placeholder tense with a REAL compositional Reichenbach parse (tense × aspect × voice) of each verb group, while preserving recall EXACTLY — the strongest possible no-regression: the event-index set through the live SituationReader.read() is byte-identical (219 events), tense goes from one constant label to 9 real ones. Reverified 12/12 FIRST-HAND. In-substrate word-tense 0.770 [0.7551,0.7856] CI-separated over placeholder 0.2955 / majority 0.3974 / shuffled-twin 0.3356; clausal ASPECT 0.987 and VOICE 0.933 (compositional content no word-tense label carries); FINITE clausal-tense 0.860 (the temporal anchors); every-event effective temporal location 0.712 [0.6945,0.7306] CI-sep over floors, twin losing. The mechanism is brain-faithful and PINNED (two literature drills): detection stays tenseless (neo-Davidsonian event variable); temporal LOCATION is a SEPARATE compositional parse of main-verb + auxiliary chain into a Reichenbach triple, reading the same morphosyntax the language network reads. The brief's negative hint (extra present-tense verbs unrecoverable) is REFUTED (VBZ 1.00, VBP 0.87); the real weak spot — bare infinitives/gerunds — was shown to be a CATEGORY ERROR not a bug: non-finite forms carry no independent tense and INHERIT it from the controlling finite verb (sequence-of-tense; Ogihara/Abusch), and MARK-AND-INHERIT lifts non-finite 0.337→0.674→0.876-with-the-gold-controller (matching the finite ceiling) — so the frame is correct and the entire residual is anchor-finding. PAYOFF (the point): fed to the timeline reconstructor the unified detector reproduces the flashback past-perfect signal (is_pp agreement 0.988), recovers 300+ events the narrow timeline extractor drops, and BEATS the stock path on a flashback gold (1.00 vs 0.88) — so the reader can finally have ONE complete event set that ALSO serves the TIME dimension (already landed). Generalizes to the train split (finite tense 0.912; not fit to any corpus). Grade STRONG: the bar (recall preserved + real tense beating floors CI-sep + twin losing) is fully cleared with brain-faithful compositional machinery, a dissolved "wall," cross-split generalization, and a real payoff to the landed timeline — held just below EXCELLENT because the single most-impressive number (word-tense 0.909) uses a separable NLTK fine-tag (the pure-in-substrate core is 0.770, itself CI-sep) and the timeline payoff rests on a small 8-item constructed flashback gold; both honestly flagged.
 ---
+
+> ## ✅ SOLVER REVIEW -- STRONG (integrated by strategy 2026-08-31)
+> **Why STRONG, specifically:** it turned the keystone's placeholder tense into real WHEN-content the way the brain
+> does — event detection stays tenseless (neo-Davidsonian), and temporal location is a SEPARATE compositional parse of
+> the verb group into a Reichenbach tense × aspect × voice triple (Reichenbach 1947; Zwaan & Radvansky TIME) — and it
+> preserved recall EXACTLY (the event set through the live read() is byte-identical; tense goes from one constant to
+> nine real labels). That exact recall-preservation is the strongest form of no-regression, and the aspect/voice
+> (0.987/0.933) is genuine content no single tense label carries. The deepest result is that the apparent "wall"
+> (non-finite forms) was a CATEGORY ERROR, not a bug: non-finite verbs carry no independent tense and INHERIT it from
+> their finite controller (sequence-of-tense), and mark-and-inherit takes them 0.337→0.674→0.876-with-the-gold-anchor,
+> matching the finite ceiling — the residual is anchor-finding, not the frame.
+> **Reproduced under my check:** re-ran `verification/test_tense_preserving_event_detector.py` — 12/12 PASS,
+> scaffold-free, recomputed from UD-EWT gold + the live reader. Word-tense 0.77 [0.7551,0.7856] CI-sep over placeholder
+> 0.2955 / majority 0.3974 / twin 0.3356; aspect 0.987, voice 0.933; finite clausal-tense 0.860; effective temporal
+> location 0.712 CI-sep, twin losing; recall preserved (219 events identical, 1→9 tenses, W9); is_pp agreement 0.988 +
+> 303 extra events (W10); flashback reconstruction 1.00 vs stock 0.875 (W11) — all reproduce from source.
+> **Adversarial audit (what could have faked it):** (1) Is the tense win just a corpus-fit? No — the fixed composition
+> holds on the train split (finite 0.912), so it is not tuned to test. (2) Is the recall-preservation claim real? Yes —
+> checked structurally: the event-index set through the live read() is identical to the placeholder path (tense is a
+> label on already-detected tokens, so preservation is FREE and EXACT). (3) Does the info-free twin help? No — it loses
+> CI-separated on both word-tense and effective temporal location.
+> **Honest bounds (solver-reported, so they cap nothing):** the 0.909 word-tense headline uses an NLTK fine tag — the
+> fully in-substrate surface mode is 0.770 (an admissible separable morphology PARAMETER, not the core); the clausal
+> aspect/voice gold is DERIVED from the UD tree (UD-EWT has no Aspect feature); the non-finite surface anchor-finder is
+> a proxy (the inheritance FRAME, oracle 0.88, is the robust claim); the timeline payoff rests on is_pp fidelity + an
+> 8-item constructed flashback gold (no large temporal-ordering benchmark on disk).
+> **Landing (QUEUED, Q111 — COUPLED with p3 into ONE extraction-front-end landing):** replace the placeholder-tense
+> line in `_tense_agnostic_extract` with the composed tense/is_pp (validated ref impl `assign_sentence` + `_stock_tense`
+> in `experiments/exp_tense_preserving_live_reader_and_timeline_v1.py`), behind the same default-off flag
+> (byte-identical off). Then the landed TIME dimension (`timeline_register`) consumes the unified is_pp-faithful detector
+> and `EventRecord.tense` becomes real content for every dimension. Follow-on (solver-mapped): rebuild the reader's
+> narrow `_read_timeline` (fires only on "had", the marked exception) into a DRT reference-time ordering graph that also
+> advances on eventive simple-past clauses — needs a temporal-ordering gold ACQUIRED (MATRES, free on GitHub; none on
+> disk).
 
 # PROBLEM: the just-landed tense-agnostic event detector (the p1 keystone) maximised RECALL by firing on every UPOS==VERB — but it assigns a PLACEHOLDER tense (TENSE_SIMPLE_PAST) to every event, throwing away the tense/aspect the TIME dimension needs. Detection was correctly made tense-AGNOSTIC (event-hood is not tied to tense); but tense itself is real situation-model content (WHEN did it happen, before/after, is it ongoing). Build the tense-PRESERVING variant: detect events tense-agnostically (keep the keystone's ~0.95 recall) AND assign each event its correct tense/aspect — so the reader can have ONE complete event set that ALSO serves the TIME/timeline dimension (today the timeline does its OWN separate extraction because it needs real tense the keystone drops).
 
@@ -118,3 +152,8 @@ On a REAL corpus with tense-bearing gold (UD verb tense/aspect features + a time
   instead of the constant, behind the same flag). Witness recomputes recall + tense accuracy from source through the
   live `read()`. Fold an **AUDIT UPDATE** into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b. This unblocks the SHARED-EVENT-SET
   architecture + a proper TIME dimension; it composes with the landed `tense_agnostic_events` keystone.
+
+
+## DO NOT QUOTE / DO NOT REDO
+- 🚫 **word-tense 0.909 uses an NLTK fine-tag** — NOT the pure-substrate number; the in-substrate core is 0.770. Quote 0.770 as the substrate result. The clausal aspect/voice gold is DERIVED from the UD tree (not hand-annotated); the timeline payoff rests on a small 8-item constructed flashback gold — do not over-quote.
+- 🚫 INTEGRATED (STRONG) — build ON it (the composed tense feeds the landed TIME dimension); do not re-derive.

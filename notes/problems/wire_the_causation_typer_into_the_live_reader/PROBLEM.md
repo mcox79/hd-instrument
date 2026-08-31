@@ -184,3 +184,8 @@ CONFOUND: prefer modern where causative-verb gold exists; McGuffey is ~200yr):
 - Build + validate in `experiments/` (a WiredSituationReader or an exp cell measuring end-to-end through `read()`), with a
   witness `verification/test_*_organ.py` that recomputes from source. Fold an **AUDIT UPDATE** into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
 - The map this closes: `notes/WIRING_MAP.md` DEBT 2 (CAUSATION → live reader). Update the burn-down log on submit.
+
+
+## DO NOT QUOTE / DO NOT REDO
+- 🚫 This problem is INTEGRATED — the honest result + caveats are in `review_text` (frontmatter) and `INTEGRATED_BY_STRATEGY` (SOLVED.md). Do NOT quote its numbers across a different scorer / population / representation (standing rule: no number crosses scorers or populations); recompute every floor on the target item's own population.
+- 🚫 The direction is CLOSED for re-derivation — build ON it, do not re-run it.

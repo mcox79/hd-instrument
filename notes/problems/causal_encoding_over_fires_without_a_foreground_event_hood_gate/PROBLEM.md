@@ -160,3 +160,8 @@ for the recall clause):
   **AUDIT UPDATE** into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b (the foreground/event-hood gate: PINNED event-model grain +
   OUR-INVENTION feature set + the measured precision/recall operating point). This is Stage-1 of the causal dimension;
   it composes with the p2 typer (Stage-2) whose hdlab landing is QUEUED (the assembly, DEBT 2).
+
+
+## DO NOT QUOTE / DO NOT REDO
+- 🚫 This problem is INTEGRATED — the honest result + caveats are in `review_text` (frontmatter) and `INTEGRATED_BY_STRATEGY` (SOLVED.md). Do NOT quote its numbers across a different scorer / population / representation (standing rule: no number crosses scorers or populations); recompute every floor on the target item's own population.
+- 🚫 The direction is CLOSED for re-derivation — build ON it, do not re-run it.
