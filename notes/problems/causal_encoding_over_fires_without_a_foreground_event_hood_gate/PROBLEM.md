@@ -1,8 +1,33 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: STRONG
+review_text: A GRADED Hopper-Thompson event-hood gate (the three cleanest transitivity parameters -- ASPECT + INDIVIDUATION + REALIS -- with naming/stative vetoes + a from-complement bypass) that raises open-text causal-link PRECISION CI-separated over BOTH real floors while holding recall EXACTLY. Reverified 11/11 FIRST-HAND (rebuilds the gated reader + LitBank event gold + both floors + the p2 recall gold + the info-free twin + the doc-bootstrap fresh): precision 0.3015->0.3818 vs ungated (+0.0803 [0.0666,0.0945]) AND vs the p2 dep-label stopgap 0.2970 (+0.0848), holds the p2 within-clause 3-way recall EXACTLY (n=42: 0.8333==0.8333, +0.0000) where the stopgap regressed to 0.810, removes 1000/2823 over-fired links of which 84.5% are genuine LitBank non-events (base event-rate 30.1%). The decisive control -- the info-free shuffled-event-hood twin holding the abstention COUNT constant -- LOSES (paired +0.0801 CI-sep, observed > null p95), excluding the trivial 'abstain more -> higher precision' confound. GENERALIZES: CI-separated on BOTH genre strata (descriptive +0.0597, eventive +0.0923), BOTH held-out doc halves (+0.084/+0.077), AND cross-corpus on MAVEN/Wikipedia different-scheme (0.764->0.790, +0.0266 CI-sep). Brain-faithful (Hopper-Thompson grounding/transitivity, PINNED from the p2 drill; only foregrounded events are causal-arc candidates). Additive invariant (ungated base byte-identical to the p2 WiredCausationReader). Honest self-correction: the first submission's full 6-leg cluster gave only +0.0338; taking leg-alignment seriously and DROPPING the weak grounding proxy + the sense-gate-redundant dyn/affect legs MORE THAN DOUBLED the lift (leg alignment independently justified: aspect fg/bg event-rate gap +0.337 vs grounding-alone +0.009). Grade STRONG (excellent-grade rigor + cross-corpus generalization + recall-held-exactly + the decisive twin; deflated from EXCELLENT because the delivered capability is a modest precision refinement -- residual open-text precision is still ~0.38 -- on a dimension whose base typing landing (p2) is itself queued-not-landed).
 ---
+
+> ## ✅ SOLVER REVIEW -- STRONG (integrated by strategy 2026-08-31)
+> **Why STRONG, specifically:** it built the Stage-1 precision filter the p2 causation drop named as its deepest gap,
+> and it did the two things that make an open-text precision claim real. First, RECALL HELD EXACTLY (0.8333 ==
+> 0.8333 on the p2 within-clause gold, paired diff +0.0000) where the p2 stopgap gate regressed it to 0.810 -- so
+> the precision came free, not by throwing away true positives. Second, the INFO-FREE shuffled-event-hood twin
+> (permute the engage/veto decisions holding the abstention COUNT constant) LOSES CI-separated -- which excludes the
+> trivial 'abstain more -> higher precision' confound that would otherwise sink any gate. On top of that it
+> GENERALIZES the hard way: CI-separated across genre, across held-out doc halves, and CROSS-CORPUS on MAVEN
+> (Wikipedia, a different annotation scheme) -- the owner-priority generalization bar, met. The mechanism is
+> brain-faithful (Hopper-Thompson grounding: only FOREGROUNDED, high-transitivity events are causal-arc candidates),
+> and the removal analysis confirms it targets event-hood (84.5% of removed links are genuine non-events vs a 30.1%
+> base rate), not volume.
+> **Reproduced under my check:** I re-ran `verification/test_causal_foreground_gate_organ.py` -- 11/11 PASS,
+> scaffold-free; +0.0803 over ungated, +0.0848 over the stopgap, recall +0.0000, twin loses (+0.0801), MAVEN
+> cross-corpus +0.0266, additive-invariant base (83 links identical to p2) all reproduce from source.
+> **Exemplary honesty:** it REPORTED that its own first submission (the full 6-leg transitivity cluster) gave only
+> +0.0338, then took the leg-alignment measurement seriously, dropped the weak grounding proxy + the sense-gate-
+> redundant dyn/affect legs, and MORE THAN DOUBLED the lift -- leaner is cleaner, and the three chosen legs are
+> independently justified by their fg/bg event-rate gaps.
+> **Landing (QUEUED, coupled with p2):** the foreground gate is additive + recall-held + validated, so it EARNS a
+> landing -- but its home is the `causation_typed` Stage-1 slot in `_read_causation`, which is COUPLED with the
+> still-QUEUED p2 causation landing (Stage-2 force typer). Land them TOGETHER (default-off: Stage-1 foreground gate
+> -> Stage-2 CAUSE/ENABLE/PREVENT typing), byte-identical when off. Honest bound: absolute open-text precision is
+> still ~0.38 (the gate removes 35% of the over-fire; the residual is the next, smaller lever).
 
 # PROBLEM: the reader now TYPES causation within a clause (CAUSE/ENABLE/PREVENT, p2, owner-DONE, integrated) — but on real OPEN TEXT it OVER-FIRES, because it treats every clause as a potential causal event. The brain does not: causal encoding is a BY-PRODUCT of EVENT-MODEL construction, and only a FOREGROUNDED event (an asserted, main-line, eventive happening) is a causal-arc CANDIDATE. Backgrounded description, stative setting, and presupposed/subordinate material are NOT event nodes and must not spawn causal links. Build the missing STAGE-1 precision filter: a glass-box FOREGROUND / EVENT-HOOD gate that decides which events enter the event model as causal-arc candidates, and run causal typing only on those — raising real-text causal-link PRECISION without regressing the within-clause recall the typer already has.
 

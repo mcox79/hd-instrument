@@ -65,6 +65,33 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — INTEGRATED (p3, owner-DONE, STRONG): a GRADED Hopper-Thompson event-hood gate raises open-text causal-link
+  PRECISION over both floors with recall held EXACTLY — the Stage-1 foreground filter the p2 causation drop named.** Reverified
+  11/11 first-hand. PINNED: only FOREGROUNDED, high-transitivity events are causal-arc candidates (Hopper & Thompson 1980
+  transitivity/grounding; the three cleanest legs — ASPECT + INDIVIDUATION + REALIS — with naming/stative vetoes). precision
+  0.3015→0.3818 vs ungated (+0.0803 CI-sep) AND vs the p2 dep-label stopgap 0.2970 (+0.0848); recall held EXACTLY (p2 n=42
+  0.8333==0.8333) where the stopgap regressed to 0.810; the info-free shuffled-event-hood twin (abstention COUNT held constant)
+  LOSES (+0.0801 CI-sep) — excludes the abstain-more confound; removal analysis 84.5% non-events (base 30.1%). GENERALIZES
+  (owner-priority): CI-sep across genre + held-out doc halves + CROSS-CORPUS on MAVEN/Wikipedia different-scheme (+0.0266).
+  Additive/byte-identical base. Honest self-correction (dropped weak grounding + sense-gate-redundant legs → lift more than
+  doubled; leg alignment independently justified, aspect fg/bg gap +0.337 vs grounding +0.009). LANDING QUEUED, COUPLED with the
+  p2 causation landing (one default-off `causation_typed` path: Stage-1 foreground gate → Stage-2 force typer; do NOT land the
+  gate alone). Honest bound: absolute open-text precision still ~0.38 (removes 35% of the over-fire; residual is the next lever).
+
+- **2026-08-31 — INTEGRATED (p6, owner-DONE, STRONG, rigorous NEGATIVE): retrieval interference among similar memories is
+  confirmed to be similar-competitor cue-overload (NOT event-count) — the right-axis organ ALREADY EXISTS and both candidate new
+  cues are rigorous negatives; the residual is STRUCTURAL. NO reader landing.** Reverified 18/18 first-hand (held-out LitBank
+  pronoun coref n=3,378). REFRAME CONFIRMED: the who-did-what event-count proxy content floor 0.398 and naive recency TIE (0.402)
+  — interference is content×context, not count. The landed `graded_antecedent_pick` owns the axis (0.676 vs content 0.521,
+  +0.155 CI-sep; shuffled-context twin loses). BOTH new cues RIGOROUS NEGATIVES: the brief's multi-timescale TCM context adds
+  -0.001 NOT_SEP; gender's marginal over the already-landed PERSON cleanup is +0.003 NOT_SEP (number +0.004) — vindicates the
+  landed organ's own "gender is a non-lever" note. RESIDUAL IS STRUCTURAL: reachable ceiling 0.921 (7.9% cataphora unreachable),
+  72% of errors gold-present-but-not-most-accessible, two combiners (additive 0.650 / Boltzmann 0.659) converge ~0.10 below the
+  oracle-of-cues 0.763 (combination rule is not the bottleneck — the info isn't in these cues). Self-corrected a v7 person/gender
+  conflation via a PERSON-vs-GENDER decomposition. NO hdlab landing (both new cues negative; right organ already landed) — the
+  route "add a memory-axis cue to beat retrieval interference" is CLOSED; the residual is a Centering/accessibility ranking
+  problem, recorded in WIRING_MAP non-debt.
+
 - **2026-08-31 — COMPONENT SCAN + WIRING CORRECTION (strategy, verdict-independent): `arc_parser` is conditionally imported
   behind the DEFAULT-OFF `role_route` flag (not default-live — a wiring_debt static-scan overcount), it is a UAS~0.79 BATCH
   parser (not brain-faithful), and it is the SHARED parse front-end that both the assembly role path AND the learner-on

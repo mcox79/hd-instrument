@@ -73,7 +73,7 @@ reader. This makes the causation landing a careful multi-file effort, not a one-
 
 | Organ (in hdlab, default-off) | Wire target in the reader | Dimension |
 |---|---|---|
-| `force_dynamics_typer` | replace `_read_causation`'s untyped link with a TYPED CausalLink — ✅ **p2 SOLVED+INTEGRATED (owner-DONE, STRONG, 2026-08-31): mechanism validated END-TO-END through `SituationReader.read()` (AUTO 0.833 vs untyped 0.429 CI-sep, PREVENT 11/13 vs 0/13, default-off byte-identical). hdlab LANDING QUEUED (target): add `CausalLink.ctype`+`endstate_reached`; promote `_force_dynamics_lexicon`/`_patient_tendency`/`_literalness_gate`→hdlab; default-OFF `causation_typed` flag in `_read_causation` (construction routes + force-event gate). Scoped to within-clause; cross-sentence typing is the known dead lever; open-text precision = the SEPARATE foreground/event-hood gate problem.** | CAUSATION |
+| `force_dynamics_typer` + `_foreground_eventhood` | replace `_read_causation`'s untyped link with a TYPED CausalLink, gated by a foreground/event-hood Stage-1 filter — ✅ **p2 + p3 BOTH SOLVED+INTEGRATED (owner-DONE, STRONG, 2026-08-31). p2: force typer validated END-TO-END (AUTO 0.833 vs untyped 0.429 CI-sep, PREVENT 11/13 vs 0/13). p3: a graded Hopper-Thompson event-hood gate raises open-text precision 0.3015→0.3818 (+0.0803 CI-sep over both floors), recall held EXACTLY, twin loses, generalizes CROSS-CORPUS (MAVEN +0.0266). COUPLED hdlab LANDING QUEUED (one default-off `causation_typed` path): add `CausalLink.ctype`+`endstate_reached`; promote `_force_dynamics_lexicon`/`_patient_tendency`/`_literalness_gate` + `_foreground_eventhood`→hdlab; Stage-1 foreground gate → Stage-2 CAUSE/ENABLE/PREVENT typing in `_read_causation`, byte-identical off; re-run BOTH witnesses post-landing. Do NOT land the gate alone (it gates a not-yet-live typer). Scoped within-clause; cross-sentence typing is the known dead lever.** | CAUSATION |
 | `graded_coref_pick` / graded retrieval + entropy-abstain | the coref resolution stream | ENTITIES(coref) |
 | `location_register` | the SPACE serve (deletes the inline spaCy-proxy stopgap) | SPACE |
 | `temporal_order_register` (once promoted) | before/after gating in the read | TIME |
@@ -102,7 +102,11 @@ DEBT 3 (island→island composition) but NOT the assembly (DEBT 2): `meaning_fus
 live reader is the remaining step.
 
 ### NON-DEBT — correct no-landing (rigorous negatives + capability-without-a-reader-home; DO NOT re-attempt)
-Recorded so they are never re-packaged. Newest: `narrative_causal_graph_missing_implicit_inference_organ` (p5, STRONG —
+Recorded so they are never re-packaged. Newest: `retrieval_interference_is_similar_competitor_cue_overload_not_event_count`
+(p6, STRONG — reframe CONFIRMED [interference is content×context, not event-count], but the right-axis organ
+`graded_antecedent_pick` ALREADY EXISTS and BOTH candidate new cues are CI-separated NEGATIVES [multi-timescale TCM −0.001;
+gender/number +0.003/+0.004 over the person cleanup] → NO landing; the residual is STRUCTURAL [72% of errors gold-present-
+but-not-most-accessible; ~0.10 below the oracle-of-cues], a Centering/accessibility problem, NOT cue-overload). `narrative_causal_graph_missing_implicit_inference_organ` (p5, STRONG —
 covariation causal typing works on held-out MAVEN-ERE with power + generalizes to unseen type-pairs, but needs OBSERVED
 CONTINGENCY so it is a rigorous NEGATIVE on single-document narrative → **NO reader landing**; the organ's home is
 CORPUS-level causal knowledge, the knowledge-store p4 / the learner, NOT the reader). `causation_is_typed_per_clause_not_across_the_causal_network`

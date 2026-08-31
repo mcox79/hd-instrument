@@ -1,8 +1,29 @@
 ---
-priority: 6
-review:
-review_text:
+priority:
+review: STRONG
+review_text: A rigorous mostly-NEGATIVE that CONFIRMS the reframe and closes the route. Reverified 18/18 FIRST-HAND on held-out LitBank pronoun coref (n=3,378 ambiguous >=2-candidate queries): (1) REFRAME CONFIRMED — the who-did-what event-count proxy content floor 0.398 and naive recency TIES it (0.402), so interference is NOT event-count; it is similar-competitor cue-overload (content x context). (2) The right-axis organ ALREADY EXISTS — the landed graded_antecedent_pick scores 0.676 vs content-only 0.521 (+0.155 CI-sep), beats naive recency + hard-tier, shuffled-context twin LOSES (0.436). (3) BOTH candidate NEW cues are RIGOROUS NEGATIVES: the brief's multi-timescale TCM context adds -0.001 NOT_SEP over the landed organ; gender's marginal over the already-landed PERSON cleanup is +0.003 NOT_SEP (number +0.004) — vindicating the landed organ's own "gender is a non-lever" note. (4) The residual is measurably STRUCTURAL not a memory feature: reachable ceiling 0.921 (only 7.9% cataphora unreachable), 72% of errors are gold-present-but-not-most-accessible, and two combination rules (additive 0.650, Boltzmann 0.659) converge ~0.10 below the oracle-of-cues 0.763 (the combination rule is not the bottleneck — the information isn't there). Exemplary controls: the PERSON-vs-GENDER decomposition caught + corrected a v7 conflation (gender's apparent +0.040 was +0.038 person + 0.003 gender); shuffled twins for both context and phi; no-fit weighting; 6-split robustness (person 6/6, gender +0.001±0.001). NO hdlab landing earned (both new cues negative; the right organ already landed). Grade STRONG (a high-quality rigorous negative that closes the new-cue route and reframes the residual as structural; not EXCELLENT only because it yields no new capability — the honest outcome, not a flaw).
 ---
+
+> ## ✅ SOLVER REVIEW -- STRONG (integrated by strategy 2026-08-31)
+> **Why STRONG (a rigorous negative done right):** it confirmed the reframe on the substrate's OWN task (real
+> held-out LitBank pronoun coref, n=3,378), showed the right-axis organ already exists (`graded_antecedent_pick`
+> +0.155 CI-sep over content), and then RIGOROUSLY REFUTED both candidate new memory-axis cues — the brief's own
+> multi-timescale TCM context (-0.001 NOT_SEP) and gender/number agreement (+0.003 NOT_SEP over the person cleanup).
+> The decisive move was the PERSON-vs-GENDER decomposition: it isolated gender's marginal from the already-landed
+> person cleanup and CAUGHT + CORRECTED its own v7 conflation (the apparent +0.040 was +0.038 person + 0.003 gender)
+> — exactly the "adversarial control that reproduces the win from the wrong source" discipline, applied to itself.
+> And it proved the residual is STRUCTURAL, not a missing memory feature: reachable ceiling 0.921, 72% of errors are
+> gold-present-but-not-most-accessible, and two combination rules converge ~0.10 below the oracle-of-cues (so the
+> combiner is not the bottleneck — the information is not in these cues).
+> **Reproduced under my check:** I re-ran `verification/test_similar_competitor_retrieval.py` — 18/18 PASS,
+> scaffold-free; the event-count tie (0.398/0.402), oracle headroom (0.763 vs 0.620), combiner 0.650 > floors,
+> shuffled twins lose (0.438/0.436), TCM -0.001, gender marginal +0.003, and the structural-residual ceiling (0.921,
+> 72% structural) all reproduce from source.
+> **NO hdlab landing (correct no-landing):** both candidate new cues are CI-separated negatives, and the right organ
+> (`graded_antecedent_pick`) is already landed — there is nothing new to wire. The route "add a memory-axis cue to
+> beat retrieval interference" is CLOSED; the residual is a STRUCTURAL/accessibility problem (Centering-style
+> most-accessible-antecedent selection), not a cue-overload one. Recorded in WIRING_MAP non-debt so it is never
+> re-packaged. A rigorous negative is a full PASS.
 
 # PROBLEM: our memory-interference organ is aimed at the wrong axis — it models interference as EVENT-COUNT per entity, but real retrieval interference is SIMILAR-COMPETITOR CUE-OVERLOAD. The generalization stress-test (`stress_test_which_organ_wins_actually_generalize_on_held_out_text`, integrated) reran the separated store on real LitBank (n=28,569) and found its synthetic +0.94 win collapses 15–60× to +0.06, concentrated in the ~13% of "busy" entities (≥4 events) — because on real text the median entity carries ~1 event, so event-count is almost never the interference driver. The brain-foundational drill (PINNED) reframed it: interference is not "one entity is busy," it is "several OTHER active entities feature-MATCH the retrieval cue" — cue-overload among SIMILAR competitors (Van Dyke & McElree 2006; the partial-cue retrieval the original task deliberately removed). The reframe is GATE-CLEARED on the right axis: on real similar-competitor queries a content-only feature matcher scores only 0.398 (content genuinely UNDER-determines the choice), so there is real headroom for a context-reinstatement mechanism. Build the reframed similar-competitor / partial-cue retrieval — a TCM temporal-discourse CONTEXT-reinstatement cue that disambiguates among feature-matching competitors — and validate it beats the content-only floor on real ambiguous queries.
 
