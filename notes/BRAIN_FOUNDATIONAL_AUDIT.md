@@ -65,6 +65,24 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — COMPONENT SCAN + CROSS-CUTTING INSIGHT (strategy, verdict-independent): `location_register` (SPACE) is a
+  PINNED brain computation but a default-off ISLAND — AND the assembly's per-dimension wirings all share ONE dependency: the
+  extraction/parse front-end. So p1 (the SOLVED extraction fix) is a KEYSTONE for the assembly, not just downstream measurement.**
+  (a) FIDELITY: PINNED — per-entity location STATE updated ONLY by motion events, PERSISTING between updates (Zwaan & Radvansky
+  1998 event-indexing SPACE; hippocampal place / entorhinal grid; Rinck 1997 rules out metric coords for narrative space →
+  categorical topological scene nodes, OUR-INVENTION-swept but well-grounded). A genuine brain-computation organ, not a
+  placeholder; spaCy-free tracking core, adapter-agnostic (consumes abstract motion events `(entity,kind,node,t)`). (b) WIRING —
+  THE GAP: `situation_reader`/`substrate` do NOT import it; the reader only labels "location" as ONE role-filler among
+  goal/source/path/etc. (situation_reader:719), it does NOT track per-entity location over discourse time. SPACE is unwired — the
+  QA capstone HARD-ABSTAINS on "where". Wiring it needs the MOTION-EVENT adapter (`experiments/location_register.py`, parser-
+  dependent). (c) THE CROSS-CUTTING FINDING (the real value of this round): the TWO DEBT-2 dimension wirings examined — CAUSATION
+  (the queued p2 landing needs `_literalness_gate`, which drags `frame_sense_disambiguator` + `idiom_gate` + **spaCy**) and SPACE
+  (needs the motion-event parse adapter) — are BOTH gated on the reader's extraction/parse FRONT-END. `p1
+  the_extraction_front_end…` (SOLVED, recall 0.332→0.954, awaiting owner verdict) IS that front-end. So integrating p1 would
+  materially de-risk EVERY dimension of the assembly (DEBT 2), because each dimension's adapter reads off the same extraction. →
+  p1 is a keystone; the assembly should follow p1's integration, not precede it. (No priority change — p1 is already prio 1 and
+  correctly ranked; this sharpens WHY. Recorded for the owner's review-p1-first recommendation.)
+
 - **2026-08-31 — INTEGRATED (p2, owner-DONE, STRONG): the FORCE-DYNAMIC TYPER is validated END-TO-END through the LIVE reader's
   causation read (with the reader's OWN automatic extraction) — the reader can now type CAUSE/ENABLE/PREVENT within a clause.**
   Reverified 12/12 first-hand. AUTO 3-way 0.833 [0.714,0.929] > majority-CAUSE/untyped floor 0.429 CI-sep (+0.143); force-class-

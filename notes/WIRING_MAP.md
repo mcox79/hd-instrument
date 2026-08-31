@@ -51,6 +51,15 @@ The **biggest lever and the hard part**: these all edit `situation_reader`'s rol
 must be wired as ONE coordinated, measured effort (dimension by dimension) — NOT piecemeal. The
 who-did-what slice already landed (quotative inversion, Change 1) and PROVED the pattern (0.551→0.798).
 
+🔑 **KEYSTONE (2026-08-31 scan): every per-dimension wiring reads off the reader's EXTRACTION/PARSE FRONT-END** —
+CAUSATION needs the literalness gate's frame/spaCy chain, SPACE needs the motion-event parse adapter, ROLE/ENTITIES
+need the predicate-argument parse. `p1 the_extraction_front_end…` (SOLVED, event recall 0.332→0.954, awaiting owner
+verdict) IS that front-end. **Integrating p1 first materially de-risks the WHOLE assembly** — sequence the assembly
+AFTER p1's integration, not before. ⚠️ **Scope caveat on the queued causation landing:** promoting `_literalness_gate`
+drags `frame_sense_disambiguator` + `idiom_gate` + **spaCy** — the landing must decouple these (the reader's native
+roles are spaCy-free, per the p2 OWNER_NOTES) or gate them lazily; do NOT introduce a hard spaCy dep into the canonical
+reader. This makes the causation landing a careful multi-file effort, not a one-round drop.
+
 | Organ (in hdlab, default-off) | Wire target in the reader | Dimension |
 |---|---|---|
 | `force_dynamics_typer` | replace `_read_causation`'s untyped link with a TYPED CausalLink — ✅ **p2 SOLVED+INTEGRATED (owner-DONE, STRONG, 2026-08-31): mechanism validated END-TO-END through `SituationReader.read()` (AUTO 0.833 vs untyped 0.429 CI-sep, PREVENT 11/13 vs 0/13, default-off byte-identical). hdlab LANDING QUEUED (target): add `CausalLink.ctype`+`endstate_reached`; promote `_force_dynamics_lexicon`/`_patient_tendency`/`_literalness_gate`→hdlab; default-OFF `causation_typed` flag in `_read_causation` (construction routes + force-event gate). Scoped to within-clause; cross-sentence typing is the known dead lever; open-text precision = the SEPARATE foreground/event-hood gate problem.** | CAUSATION |
