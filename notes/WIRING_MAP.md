@@ -185,6 +185,12 @@ tracked burn-down item, not a silent park.
 ---
 
 ## BURN-DOWN LOG (newest first)
+- **2026-08-31** — **🎯 THE NORTH-STAR CAPSTONE INTEGRATED (EXCELLENT):** `turn_on_the_learner…` — learn-by-reading
+  turns ON safe + beneficial, proven ~9 ways first-hand (5/6 core + 8/8 full; the 1 core fail is the schema-gated arm
+  bar-5 refutes). **The default-off CLS SAFE-GROWTH SWITCH landing is now CONFIRMED-OWED + QUEUED** (DEBT 1, CLS row) —
+  store-touching, careful, its own focused effort (NOT a heartbeat cram; STORE hazards apply). SEPARATELY: the p4
+  schema-congruence gate lands on `hd_fact_store` (the capstone PROVED it belongs on the KB, not the learner). Flipping
+  growth ON live is a separate owner-gated step. Reasoning (situation-model) is the North Star's remaining frontier.
 - **2026-08-31 (heartbeat)** — **WIRING debt −1: `verb_subcat` LANDED into the live reader.** Promoted the reference
   organ → `hdlab/verb_subcat.py` (+ shim) + a default-off `verb_subcat_gate` (post-read transitivity suppression, the
   through-read()-validated simple gate; == SubcatGateReader byte-for-byte, patients 147→112). Also promoted p5

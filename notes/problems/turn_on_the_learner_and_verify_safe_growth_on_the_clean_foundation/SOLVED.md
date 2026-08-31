@@ -337,3 +337,41 @@ land the fact-store consistency gate (item 6) -- or bundle them into one coordin
    clean-foundation inference, on the store where it is brain-faithful.
 3. Follow-on problem: the full episodic-KB growth loop end-to-end (real just-read facts, p4 gate live,
    fact-recall downstream) -- the cleanest place to actually flip the clean-foundation gate ON.
+
+## INTEGRATED_BY_STRATEGY 2026-08-31 -- EXCELLENT (THE NORTH-STAR CAPSTONE: learner-on proven safe + beneficial)
+
+Reverified FIRST-HAND: `verification/test_learner_growth_full_solution.py` 8/8 PASS (reliability fusion lowest corruption
+0.098 & fix/break 9.4; anchored-continual beats iterated; KB schema gate AUC 0.868 CI-sep, wrong-admit 0.30<random 0.75;
+2nd-task benefit generalizes twin-losing; survives the own arc_parser +0.0093; seed-stable +0.0596±0.0027 over 3 seeds;
+MCScript2 read-out valid + the growth-neutral-on-inference boundary understood). `verification/test_learner_on_clean_
+foundation.py` 5/6 PASS — the load-bearing capability reproduces (check C: a safe+beneficial on-state EXISTS at full scale
+[CLS_NOISY, CLS_CORE, corruption CI-upper < 0.15]; info-free twin loses; bar-5 clean-foundation-improvement REFUTED
+[schema corruption +0.0389 sep-above]; rollback clean-ACCEPT / naive+adversarial-ROLLBACK). ⚠️ HONEST DISCREPANCY: solver
+reported 6/6 core; I reproduced 5/6. The ONE non-reproducing check is "CLS_CLEAN beneficial" (+0.0027, not CI-sep at smoke
+n=2920) — CLS_CLEAN is the SCHEMA-GATED arm bar-5 REFUTES, so its non-benefit is consistent with the submission's own
+conclusion; it means the headline "EVERY keep-both arm beats OFF CI-sep" is slightly overstated (the schema-gated arm is
+not). Capability + all safety controls hold. Brain-faithful + PINNED (CLS keep-both-stores; reliability = Ernst&Banks/
+Friston precision). Graded EXCELLENT (decisive capstone capability + a rigorous bar-5 refutation-then-resolution category
+insight + an honest reasoning-boundary; the 5/6 is a documented caveat on the refuted arm). Review + review_text in
+PROBLEM.md; priority cleared; audit 2b + WIRING_MAP + LEARNER_ON_ROADMAP folded.
+
+**LANDING STATE (Q111): QUEUED — the CLS SAFE-GROWTH SWITCH, default-off, careful, STORE-TOUCHING (do NOT rush; a large
+coordinated landing per the roadmap).** (1) A default-off `learner_growth` / CLS keep-both safe-growth switch on the
+meaning store: PINNED reliability-weighted fusion (Ernst&Banks/Friston), NEVER overwrite; fed from CORE-ARG (p1-cleaned)
+extraction; works with the substrate's OWN arc_parser (no external tool at inference). (2) A ROLLBACK gate on a held-out
+known-correct probe; CONTINUAL growth must be ANCHOR-preserving (fuse original+cumulative — else anchor-dilution). (3)
+Stays DEFAULT-OFF until the owner approves flipping growth on (residual forgetting is proven-benign tie-churn). ⚠️ STORE-
+write hazards apply (binary/newline='', git-commit after every bank, NEVER git add -A on the canonical store, remote-
+persist needs USER auth). Reference impls: `experiments/exp_learner_on_clean_foundation_v1.py` + `exp_learner_growth_
+{aligned_continual,second_task,own_parser,floor_drill,multiseed,mcscript}_v1.py`.
+
+**SEPARATELY (a DIFFERENT store — the owner's Q "together or separately?" → SEPARATELY): wire the p4 schema-congruence gate
+onto the EPISODIC is-a KB (`hd_fact_store`), NOT the learner.** The submission PROVED schema-gating backfires on the
+distributional learner (confirmation bias) but works on the fact-store (AUC 0.868). This is the p4 consistency-cleanup
+organ landing (already queued from the p4 integration) — confirmed to belong on the KB store. Two distinct default-off
+landings on two distinct stores. Reference: `experiments/exp_learner_kb_growth_p4gate_v1.py`.
+
+**🎯 NORTH-STAR STATUS:** the CAPABILITY (learn-by-reading, safe + beneficial on the clean foundation) is now PROVEN +
+INTEGRATED. The learner is un-gated on evidence; flipping growth ON in the live substrate is a SEPARATE owner-gated step
+(the default-off switch lands first). The honest boundary the capstone names — growth helps meaning/similarity strongly
+but inference MC-QA only marginally — makes REASONING (the situation-model half) the North Star's remaining frontier.

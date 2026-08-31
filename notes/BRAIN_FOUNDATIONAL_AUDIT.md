@@ -65,6 +65,24 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — 🎯 INTEGRATED THE NORTH-STAR CAPSTONE (EXCELLENT): learn-by-reading turns ON safe AND beneficial on the
+  clean foundation.** Problem `turn_on_the_learner_and_verify_safe_growth_on_the_clean_foundation`, reverified FIRST-HAND
+  (8/8 full-solution + 5/6 core; see the honest discrepancy). FIDELITY: PINNED — Complementary Learning Systems keep-both-
+  stores growth (McClelland/O'Reilly 1995); reliability-WEIGHTED fusion = optimal cue combination (Ernst & Banks 2002 /
+  Friston precision) — the best operating point. MEASURED: a safe+beneficial on-state EXISTS at full scale (non-gated
+  keep-both + reliability fusion, corruption 0.09–0.11 < the 0.15 pre-reg, +0.0596±0.0027 over 3 seeds all CI-sep, fix/
+  break 9.4); the info-free growth twin HURTS (real learned structure, not more-words); rollback rolls back naive+
+  adversarial (random control fails); generalizes to a 2nd task + survives the substrate's OWN arc_parser (no external
+  tool at inference). NEW PINNED CATEGORY INSIGHT (a re-drawing of the map): schema-congruence GATING is CONFIRMATION-
+  BIASED on the DISTRIBUTIONAL meaning learner (MORE corruption) but WORKS on the EPISODIC is-a fact-store (AUC 0.868) →
+  schema-gating belongs on the fact-store, NOT the learner. HONEST BOUNDARY (names the remaining half of the mission):
+  growth helps SIMILARITY-reducible comprehension strongly (+0.06 paraphrase) but inference MC-QA only marginally (+0.005,
+  MCScript2) — REASONING (the situation-model half) is the North Star's remaining frontier. ⚠️ Honest reverify: 5/6 core
+  (the 1 non-reproducing check is "CLS_CLEAN beneficial" at smoke — the schema-gated arm bar-5 refutes, so consistent;
+  the "every keep-both arm" headline is thereby slightly overstated). **STATUS: the CAPABILITY is PROVEN + INTEGRATED;
+  the default-off CLS safe-growth SWITCH landing is QUEUED (store-touching, careful); flipping growth ON live is a
+  SEPARATE owner-gated step. The learner is un-gated on evidence.**
+
 - **2026-08-31 (strategy, ARCHITECT HEARTBEAT scan — the next assembly dimension: BELIEF/ToM) — `belief_timeline` +
   `perceptual_access_ledger` are PINNED-faithful + promoted but a PURE ISLAND, and their validation rests on GOLD events +
   CONSTRUCTED passages — so wiring them is a SOLVER end-to-end problem (the SPACE template), NOT a clean landing. CORRECTS

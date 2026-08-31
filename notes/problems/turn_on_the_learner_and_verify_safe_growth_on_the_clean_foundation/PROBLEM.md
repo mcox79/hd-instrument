@@ -1,8 +1,43 @@
 ---
-priority: 1
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: THE NORTH-STAR CAPSTONE — learning-from-reading turns ON both SAFE and BENEFICIAL on the clean foundation, proven ~9 ways with both negatives DRILLED to mechanism. Reverified FIRST-HAND (5/6 core + 8/8 full-solution — see the honest discrepancy note below). BENEFICIAL: a safe+beneficial on-state EXISTS at full scale (CLS_NOISY, CLS_CORE keep-both arms, corruption CI-upper < the 0.15 pre-reg), PINNED reliability fusion (Ernst&Banks/Friston precision) is the best operating point (+0.0596±0.0027 over 3 seeds, ALL CI-sep beneficial — not a lucky seed), fixing ~9.4 answers per 1 it breaks. REAL (not more-words): the info-free growth twin HURTS (below growth-OFF). SAFE: corruption 0.09–0.11 all under the 0.15 pre-reg, and the "corruption floor" DRILLED to BENIGN tie-churn (confident-item corruption 3.1%, 96.9% preserved; lower where the verb learned more). ROLLBACK: a held-out known-correct probe ACCEPTS a clean update and ROLLS BACK naive(0.25)+adversarial(0.96); a random-decision control fails to protect. GENERALIZES: a 2nd task (WordNet hypernym) +0.023/+0.029 CI-sep (twin loses), and the benefit SURVIVES the substrate's OWN arc_parser (no external tool at inference). BAR-5 REFUTATION-THEN-RESOLUTION (a category insight that OUTRANKS the headline): the brief's "only accept schema-congruent facts" clean-foundation gate BACKFIRES on the distributional learner (confirmation-biased: +0.039 MORE corruption than noisy, sep-above at full scale) — but the SAME p4 gate WORKS on the episodic is-a KB (AUC 0.868; wrong-fact admit 0.30 vs random 0.75) → schema-gating belongs on the fact-store, NOT the meaning learner. HONEST BOUNDARY (names what's left): growth helps where comprehension reduces to SIMILARITY (+0.06 paraphrase) but only marginally on inference MC-QA (MCScript2, +0.005, twin-loses read-out valid) — "reasoning is the North Star's other half." Walls drilled (none a ceiling): continual "compounding" = ANCHOR-DILUTION, fixed by fusing original+cumulative (holds 0.116). ⚠️ HONEST REVERIFY DISCREPANCY (I reproduced 5/6 core, the solver reported 6/6): the ONE non-reproducing core check is "CLS_CLEAN beneficial" (+0.0027, not CI-sep at the smoke n=2920) — CLS_CLEAN is the SCHEMA-GATED arm the submission's OWN bar-5 REFUTES, so its non-benefit is CONSISTENT with the honest conclusion; it means the headline "EVERY keep-both arm beats OFF CI-sep" is slightly overstated (the schema-gated CLEAN arm is not, at smoke scale — exactly bar-5). The load-bearing capability (a non-gated keep-both arm + reliability fusion is safe+beneficial CI-sep) reproduces via check C + the full 8/8. Grade EXCELLENT: the North-Star capstone decisively proven safe+beneficial with exemplary rigor (multi-seed, cross-task, own-parser, drilled negatives) and a rigorous bar-5 refutation-then-resolution + an honest reasoning-boundary; the 5/6 is a documented caveat on the refuted arm, not a capability failure. LANDING (default-off, careful, store-touching) QUEUED.
 ---
+
+> ## ✅ SOLVER REVIEW -- EXCELLENT (integrated by strategy 2026-08-31) — THE NORTH-STAR CAPSTONE
+> **Why EXCELLENT, specifically:** this is the mission's central question — can the reader safely learn word meaning by
+> reading? — answered decisively: turning growth ON is BOTH safe AND beneficial, proven ~9 independent ways, with both
+> negatives DRILLED to mechanism rather than excused. The brain frame is PINNED and load-bearing (Complementary Learning
+> Systems keep-both-stores; reliability-weighted fusion = Ernst & Banks / Friston precision — the optimal cue combination,
+> which is also the best operating point here). The single most valuable thing it did is a category insight that outranks
+> its own headline: the brief's "only accept schema-congruent facts" clean-foundation gate BACKFIRES on the distributional
+> meaning learner (confirmation bias — MORE corruption), but the SAME gate WORKS on the episodic is-a fact-store — so
+> schema-gating belongs on the fact-store, not the learner. That is a real re-drawing of the map, confirmed constructively.
+> **Reproduced under my check (HONESTLY: 5/6 core + 8/8 full, NOT the reported 6/6):** re-ran both witnesses first-hand.
+> The full-solution witness is 8/8 (reliability fusion lowest corruption 0.098 & fix/break 9.4; anchored-continual beats
+> iterated; KB schema gate AUC 0.868 CI-sep; 2nd-task benefit generalizes twin-losing; survives the own arc_parser;
+> seed-stable +0.0596±0.0027; MCScript2 read-out valid + boundary understood). The core witness is 5/6 — the ONE
+> non-reproducing check is "CLS_CLEAN beneficial" (+0.0027, not CI-sep at the smoke n=2920). CLS_CLEAN is the SCHEMA-GATED
+> arm the submission's OWN bar-5 refutes, so its non-benefit is consistent with the honest conclusion; it shows the
+> headline "EVERY keep-both arm beats OFF CI-sep" is slightly overstated (the schema-gated arm is not — exactly bar-5).
+> The LOAD-BEARING capability — a NON-gated keep-both arm + reliability fusion is safe+beneficial CI-sep, corruption <
+> 0.15 — reproduces (core check C + the full 8/8), as do the twin-loses and rollback controls.
+> **Adversarial audit (the three ways a "learner turns on" could be fake):** (1) Is the benefit more-words not
+> meaning? No — the info-free growth twin HURTS (below growth-OFF). (2) Is "safe" hiding real forgetting? No — the
+> corruption floor is drilled to BENIGN tie-churn (confident items 96.9% preserved, 3.1% corruption), and the rollback
+> gate rolls back naive+adversarial while a random-decision control fails. (3) Is it a lucky seed/task/config? No —
+> multi-seed CI-sep, a 2nd task generalizes, and it survives the substrate's own parser (no external tool at inference).
+> **Honest bounds (solver-reported, so they cap nothing):** growth helps SIMILARITY-reducible comprehension strongly
+> (+0.06 paraphrase) but only marginally on inference MC-QA (+0.005) — "reasoning is the North Star's other half," an
+> honest boundary that names the next half of the mission; the schema-gate confirmation-bias is data-scale-dependent
+> (appears at full scale); the downstream is LitBank who-did-what + WordNet + MCScript2 (mixed corpus ages, the modern
+> MCScript2 is where the reasoning boundary shows).
+> **Landing (QUEUED, Q111 — default-off, careful, STORE-TOUCHING; do NOT rush):** the CLS keep-both safe-growth switch +
+> PINNED reliability fusion (NEVER overwrite), fed from CORE-ARG extraction, with a rollback gate on a held-out
+> known-correct probe and ANCHOR-preserving continual growth — stays DEFAULT-OFF until the owner approves flipping it on.
+> SEPARATELY (a different store), wire the p4 schema-congruence gate onto the EPISODIC is-a KB (`hd_fact_store`) — the
+> submission proved that is where it belongs. STORE-write hazards apply. This is a large, safety-critical, coordinated
+> landing — sequenced as its own focused effort, not a heartbeat cram (per the roadmap).
 
 # PROBLEM: TURN THE LEARNER ON — and prove, deeply and methodically, that letting the reader grow its own knowledge by reading makes it measurably better at COMPREHENSION without corrupting what it already had right. The learner has been deliberately OFF because the foundation was too noisy. That objection is now removed: BOTH clean-foundation halves are solved and integrated — extraction-IN (`the_extraction_front_end…`, EXCELLENT, LANDED: event recall 0.33→0.95) and consistency-of-STORED (`the_knowledge_store_has_no_correctness_or_consistency_cleanup`, EXCELLENT: schema-congruence cleanup detects wrong facts the source-trust gate cannot). And the SAFE-GROWTH mechanism is already VALIDATED (`optimize_and_validate_the_learner_before_it_grows_the_foundation`, EXCELLENT: naive growth corrupts ~25.6% of correct answers, but a CLS keep-both-stores ensemble cuts that to 7.85% while keeping 71% of a +0.078 downstream comprehension gain). This problem is the CAPSTONE: wire the safe-growth switch onto the CLEAN foundation, turn it ON behind the safety gate, and VERIFY end-to-end — with the full control suite, honest corruption accounting, generalization, and a rollback gate — that the on-state is BOTH safe AND beneficial. A rigorous NEGATIVE (it is NOT yet net-beneficial or NOT yet safe on the real clean foundation) is a FULL PASS: it says "not yet — and precisely which sub-condition failed, and why."
 

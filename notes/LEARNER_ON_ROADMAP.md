@@ -12,6 +12,17 @@
 
 ---
 
+> ## 🎯 MILESTONE 2026-08-31 — THE CAPSTONE IS PROVEN + INTEGRATED (EXCELLENT).
+> `turn_on_the_learner_and_verify_safe_growth_on_the_clean_foundation` is DONE: learn-by-reading turns ON **safe AND
+> beneficial** on the clean foundation, proven ~9 ways first-hand (reliability-fusion keep-both, corruption < the 0.15
+> pre-reg, info-free twin HURTS, rollback works, multi-seed, cross-task, survives the own parser). Two refinements the
+> capstone PROVED: (1) schema-congruence gating belongs on the **fact-store**, NOT the meaning learner (confirmation
+> bias); (2) the honest **boundary** — growth helps meaning/similarity strongly but inference MC-QA only marginally, so
+> **REASONING (the situation-model half) is the remaining frontier.** **NEXT: strategy lands the default-off CLS
+> safe-growth SWITCH (store-touching, careful) + the p4 gate on the fact-store — SEPARATE stores. Flipping growth ON in
+> the live substrate is a SEPARATE owner-gated step (the switch lands default-off first).** The critical-path text below
+> is now largely HISTORY (the gate it describes is cleared); kept for provenance.
+
 ## THE NORTH STAR (plain language)
 
 We want the reader to **get better by reading** — the way a person does — instead of being frozen at
