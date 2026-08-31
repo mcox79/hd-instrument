@@ -34,6 +34,16 @@ GLASS-BOX. NO external LLM (gold OR inference). Gold is EXISTING LitBank annotat
 who-did-what events) or a TRANSPARENT, auditable derivation (past-perfect anteriority; explicit
 causal connectives). Writes only to data/exp_situation_model_qa_v1/. Does NOT modify hdlab/.
 
+INSTRUMENT-COUPLING FIX (2026-08-31, strategy Q111 -- the CORRECT BASELINE every solver needs): the
+instrument now scores the CAPABLE reader by default (build_reader: tense_agnostic_events + preserve_tense
++ timeline_register ON) and reads the TEMPORAL answer off the whole-passage register sm.timeline_order.
+WHY: the original ran the DEFAULT (weak) reader and read temporal off sm.events tense, which the
+tense_agnostic_events keystone rewrites to a placeholder -> temporal questions collapse 86->0 and the
+readout degrades (an INSTRUMENT artifact, not a reader regression). sm.timeline_order is a tense-
+independent constraint-graph toposort, so it survives the keystone. Pass capable=False to reproduce the
+historical default-reader run. Causation stays tense-independent already (connective gold + sm.causal_links)
+so it does not need the capable path; spaCy-requiring causation_typed is excluded (remote-safe).
+
 Run: .venv/Scripts/python.exe experiments/exp_situation_model_qa_v1.py --self-test
      .venv/Scripts/python.exe experiments/exp_situation_model_qa_v1.py --run [--docs N]
 """
@@ -383,15 +393,33 @@ class SituationQA:
         cand.sort(reverse=True)
         return self.names.get(cand[0][1])
 
-    # -- TIME: "did <A> happen before or after <B>?" -> chrono order off timeline_frames --
+    # -- TIME: "did <A> happen before or after <B>?" -> whole-passage chrono order --
     def _answer_temporal(self, q: dict) -> Optional[str]:
         a, b = q.get("a"), q.get("b")
-        # read the accumulated chrono order: the frame whose chrono_order contains both
+        # PRIMARY (the CORRECT temporal field -- instrument-coupling fix, 2026-08-31): the whole-passage
+        # chronological register sm.timeline_order (populated when the reader is built with
+        # timeline_register=True). It is a constraint-graph toposort of {lemma, chrono_rank, text_rank}
+        # INDEPENDENT of per-event tense, so it is NOT erased when tense_agnostic_events rewrites event
+        # tense to a placeholder (the defect that collapses the naive event-tense readout to 0.36). It is
+        # also strictly more complete than the had-gated per-sentence frames below (whole-passage + cross-
+        # sentence + connective reorderings). ADDITIVE: when timeline_order is empty (default reader) this
+        # branch is skipped -> byte-identical to the original frames/tense fallback.
+        order = getattr(self.sm, "timeline_order", None)
+        if order:
+            rank: Dict[str, int] = {}
+            for e in order:
+                rank.setdefault(_norm(e.get("lemma")), e.get("chrono_rank"))
+            ra, rb = rank.get(_norm(a)), rank.get(_norm(b))
+            if ra is not None and rb is not None and ra != rb:
+                return "before" if ra < rb else "after"
+        # FALLBACK 1: the had-gated per-sentence flashback frame whose chrono_order contains both
         for fr in self.sm.timeline_frames:
             order = [_norm(x) for x in fr.chrono_order]
             if _norm(a) in order and _norm(b) in order:
                 return "before" if order.index(_norm(a)) < order.index(_norm(b)) else "after"
-        # fall back to event-tense anteriority accumulated in events (past-perfect precedes past)
+        # FALLBACK 2: event-tense anteriority accumulated in events (past-perfect precedes past). This is
+        # the path that DEGRADES under tense_agnostic_events alone (all events -> placeholder SIMPLE_PAST);
+        # it is why the FIX reads sm.timeline_order first. Correct on the default reader / preserve_tense.
         rank = {"PAST_PERFECT": 0, "MODAL_SUBORDINATE": 1, "PARTICIPIAL": 1, "PAST": 2,
                 "PRESENT": 3}
         ta = tb = None
@@ -454,6 +482,33 @@ def _sm_qa_dim_fns(qa: "SituationQA"):
     return {"coref": qa._answer_coref, "events": qa._answer_events, "salience": qa._answer_salience,
             "temporal": qa._answer_temporal, "causal": qa._answer_causal,
             "location": qa._answer_absent, "belief": qa._answer_absent}
+
+
+# ===========================================================================
+# THE READER THE INSTRUMENT SCORES (the correct baseline -- capable by default)
+# ===========================================================================
+def build_reader(gaz, capable: bool = True) -> SituationReader:
+    """Build the reader this QA instrument scores. `capable=True` (the DEFAULT, and the correct baseline
+    every solver needs) turns ON the validated extraction dimensions the live reader ships behind
+    default-off flags:
+      - tense_agnostic_events : UPOS==VERB detection, event recall 0.33->0.95 (the keystone).
+      - preserve_tense        : COMPOSED Reichenbach tense instead of the placeholder -- so PAST_PERFECT
+                                SURVIVES the keystone, and the temporal gold (past-perfect anteriority) is
+                                NOT erased (without it the keystone collapses temporal questions to 0).
+      - timeline_register     : the whole-passage chronological order on sm.timeline_order -- the CORRECT
+                                temporal readout field (a tense-independent constraint-graph toposort).
+    INSTRUMENT-COUPLING FIX (2026-08-31): the original instrument ran the DEFAULT (weak) reader and read
+    temporal answers off sm.events tense, which the keystone rewrites to a placeholder -> temporal Qs
+    collapse 86->0 and the readout degrades. Scoring the CAPABLE reader + reading temporal off
+    sm.timeline_order is the fix (measured: temporal survives + the register readout beats the naive one).
+    spaCy-requiring causation_typed is deliberately EXCLUDED so the instrument stays spaCy-free /
+    remote-safe; the causal gold + readout are already tense-independent (connective grammar +
+    sm.causal_links), so causation does not need the capable path. `capable=False` = the historical
+    DEFAULT (weak) reader, kept for the before/after comparison."""
+    if not capable:
+        return SituationReader(gaz=gaz)
+    return SituationReader(gaz=gaz, tense_agnostic_events=True, preserve_tense=True,
+                           timeline_register=True)
 
 
 # ===========================================================================
@@ -741,7 +796,10 @@ def _shuffled_cue_dim(seed: int) -> Dict[str, str]:
     return {c: remap[d] for c, d in CUE_DIM.items()}
 
 
-def run(docs: List[str], seed: int = 20260830) -> dict:
+def run(docs: List[str], seed: int = 20260830, capable: bool = True) -> dict:
+    """Score QA over the SituationModel per dimension vs floors + twin. `capable=True` (DEFAULT) scores
+    the CAPABLE reader (build_reader) -- the correct baseline: extraction dimensions ON, temporal read off
+    sm.timeline_order. `capable=False` reproduces the historical default-reader run for comparison."""
     from hdlab.coref import parse_litbank_conll, build_pronoun_targets
     gaz = load_given_gazetteer()
     wdw = {rec["doc"]: rec for rec in json.load(open(WDW_GOLD, encoding="utf-8"))}
@@ -756,7 +814,7 @@ def run(docs: List[str], seed: int = 20260830) -> dict:
             continue
         mentions, n_sents = parse_litbank_conll(path, name_gender_map=gaz)
         targets = build_pronoun_targets(mentions)
-        reader = SituationReader(gaz=gaz)
+        reader = build_reader(gaz, capable=capable)
         sm = reader.read(path)
         sents = _conll_sents(path)
         names = _named_clusters(sm)
@@ -817,7 +875,13 @@ def run(docs: List[str], seed: int = 20260830) -> dict:
             row["twin_ok"] = int(_match(t_ans, gold, dim))
             rows.append(row)
 
-    return _aggregate(rows, route_rows, docs, seed)
+    res = _aggregate(rows, route_rows, docs, seed)
+    res["reader_config"] = {
+        "capable": bool(capable),
+        "flags": ("tense_agnostic_events+preserve_tense+timeline_register" if capable else "default(off)"),
+        "temporal_readout": "sm.timeline_order (whole-passage register)",
+    }
+    return res
 
 
 def _acc(rows, key):
@@ -1048,15 +1112,30 @@ def _selftest() -> dict:
     #    build a tiny model to exercise the readout
     assert route("Where is John ?") == "location"
     assert route("What does Mary believe ?") == "belief"
-    # 3) end-to-end on 2 real LitBank docs (base reader), assert questions build + arms populate
+    # 3) INSTRUMENT-COUPLING FIX (fast unit): _answer_temporal reads sm.timeline_order (chrono_rank),
+    #    which is INDEPENDENT of per-event tense -- so it is not erased by the keystone. Constructed sm:
+    #    chrono order is the REVERSE of text order, so a tense/text-position readout would answer the
+    #    opposite -> proves the register field is consulted.
+    _sm = SituationModel(passage_id="t", n_sentences=1)
+    _sm.timeline_order = [{"lemma": "arrive", "chrono_rank": 0, "text_rank": 1},
+                          {"lemma": "leave", "chrono_rank": 1, "text_rank": 0}]
+    _qa = SituationQA(_sm)
+    assert _qa._answer_temporal({"a": "arrive", "b": "leave"}) == "before", "timeline_order not consulted"
+    assert _qa._answer_temporal({"a": "leave", "b": "arrive"}) == "after"
+    # 4) end-to-end on 2 real LitBank docs (CAPABLE reader = the correct baseline), assert questions build
+    #    + arms populate, AND the temporal dimension does NOT collapse under the keystone (preserve_tense
+    #    restores the gold; timeline_register populates the readout field).
     docs = load_docs(2)
-    res = run(docs)
+    res = run(docs)   # capable=True
     assert res["aggregate"]["n"] >= 1, res
     assert res["per_dimension"].get("coref", {}).get("n", 0) >= 1, res["per_dimension"]
+    td = res["per_dimension"].get("temporal")
+    assert td and td["n"] > 0, ("temporal collapsed on the capable reader", res.get("per_dimension"))
     # routing on real gold questions: soft router should route the built questions well
     assert res["routing_on_gold"]["soft_cue_table"] >= 0.8, res["routing_on_gold"]
-    return {"paraphrase": par, "route_smoke_ok": True,
-            "real_docs_agg": res["aggregate"], "coref_n": res["per_dimension"]["coref"]["n"]}
+    return {"paraphrase": par, "route_smoke_ok": True, "reader_config": res["reader_config"],
+            "real_docs_agg": res["aggregate"], "coref_n": res["per_dimension"]["coref"]["n"],
+            "temporal_n": td["n"], "temporal_model_acc": td["model_acc"]}
 
 
 def main():
@@ -1085,7 +1164,10 @@ def main():
     print("=" * 96)
     print("UNIFIED GLASS-BOX QA OVER THE LIVE SituationModel -- per-dimension vs floors + twin")
     print("=" * 96)
-    print(f"docs={res['n_docs']}  aggregate QA n={res['aggregate']['n']}")
+    rc = res.get("reader_config", {})
+    print(f"docs={res['n_docs']}  aggregate QA n={res['aggregate']['n']}  "
+          f"reader={'CAPABLE' if rc.get('capable') else 'default'} [{rc.get('flags')}]  "
+          f"temporal readout={rc.get('temporal_readout')}")
     a = res["aggregate"]
     print(f"\nAGGREGATE  model={a['model_acc']}  overlap-floor={a['overlap_floor']}  "
           f"strongest-floor={a['strongest_floor']}  info-free-twin={a['twin_acc']}")

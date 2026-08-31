@@ -161,6 +161,59 @@ def test_events_who_did_what_beats_word_overlap():
     print(f"PASS events: model={m:.3f} > word-overlap floor={ov:.3f} (n={len(rows['events'])})")
 
 
+def test_temporal_readout_consults_timeline_order_not_event_tense():
+    """LOAD-BEARING unit test for the instrument-coupling FIX (2026-08-31): _answer_temporal reads the
+    whole-passage sm.timeline_order (chrono_rank), which is INDEPENDENT of per-event tense -- so it is not
+    erased when tense_agnostic_events rewrites tense. Constructed sm: chrono order is the REVERSE of text
+    order, so a tense/text-position readout would answer the OPPOSITE -> proves the register field (not
+    tense) is consulted. Also asserts the branch is ADDITIVE: with no timeline_order (default reader) it
+    is skipped -> the original frames/tense fallback path (abstains here with no frames/events)."""
+    from hdlab.situation_reader import SituationModel
+    sm = SituationModel(passage_id="t", n_sentences=1)
+    sm.timeline_order = [{"lemma": "arrive", "chrono_rank": 0, "text_rank": 1},
+                         {"lemma": "leave", "chrono_rank": 1, "text_rank": 0}]
+    qa = Q.SituationQA(sm)
+    assert qa._answer_temporal({"a": "arrive", "b": "leave"}) == "before", "chrono_rank not consulted"
+    assert qa._answer_temporal({"a": "leave", "b": "arrive"}) == "after"
+    sm2 = SituationModel(passage_id="t", n_sentences=1)   # no timeline_order, no frames/events
+    assert Q.SituationQA(sm2)._answer_temporal({"a": "x", "b": "y"}) is None  # branch skipped -> fallback
+    print("PASS temporal-field: _answer_temporal reads sm.timeline_order (chrono), not tense/text-order")
+
+
+def test_temporal_survives_the_keystone_on_the_capable_reader():
+    """The instrument-coupling FIX end-to-end. On the CAPABLE reader (build_reader): tense_agnostic_events
+    rewrites raw event tense -- which alone would collapse the temporal gold to 0 -- but preserve_tense
+    restores PAST_PERFECT so the gold BUILDS, timeline_register populates sm.timeline_order, and the
+    register readout beats the surface text-order floor. Contrast asserted directly: the keystone WITHOUT
+    preserve_tense builds 0 temporal questions (the defect the fix addresses)."""
+    gaz = load_given_gazetteer()
+    docs = Q.load_docs(2)
+    cap_q = okc = toc = keystone_only_q = 0
+    for doc in docs:
+        path = os.path.join(Q.CONLL_DIR, doc + ".conll")
+        if not os.path.exists(path):
+            continue
+        sm = Q.build_reader(gaz, capable=True).read(path)
+        assert sm.timeline_order, "timeline_order not populated on the capable reader"
+        qa = Q.SituationQA(sm)
+        tq = Q.build_temporal_questions(sm)
+        cap_q += len(tq)
+        for q in tq:
+            _d, ans = qa.answer(q["question"], q)
+            okc += int(Q._match(ans, q["gold"], "temporal"))
+            toc += int(Q._match(Q.floor_textorder_temporal(q, sm), q["gold"], "temporal"))
+        # the collapse the fix addresses: keystone alone (no preserve_tense) -> 0 temporal questions
+        sm_k = SituationReader(gaz=gaz, tense_agnostic_events=True).read(path)
+        keystone_only_q += len(Q.build_temporal_questions(sm_k))
+    assert cap_q > 0, "temporal collapsed on the capable reader"
+    assert keystone_only_q == 0, ("keystone-only should collapse temporal to 0", keystone_only_q)
+    macc = okc / cap_q
+    tacc = toc / cap_q
+    assert macc > tacc, {"model": macc, "textorder": tacc}
+    print(f"PASS temporal-keystone: capable temporal_Qs={cap_q} (keystone-only={keystone_only_q}); "
+          f"model={macc:.3f} > text-order floor={tacc:.3f}")
+
+
 def test_paraphrase_qa_endtoend_wh_ontology_preserves_answer_accuracy():
     """The brain-faithful router matters for ANSWERING, not just routing: under a natural coref
     paraphrase ('Who is X?' dropping the 'refer to' trigger) the cue-table router misroutes and coref
@@ -182,6 +235,8 @@ if __name__ == "__main__":
              test_info_free_twin_table_is_a_derangement,
              test_coref_which_entity_beats_the_strongest_rereading_floor,
              test_temporal_before_after_beats_text_order,
+             test_temporal_readout_consults_timeline_order_not_event_tense,
+             test_temporal_survives_the_keystone_on_the_capable_reader,
              test_causal_is_a_rigorous_negative_placeholder_loses_to_adjacency,
              test_never_tracked_dimensions_hard_abstain,
              test_events_who_did_what_beats_word_overlap,

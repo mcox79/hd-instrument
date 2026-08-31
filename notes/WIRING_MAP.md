@@ -185,6 +185,19 @@ tracked burn-down item, not a silent park.
 ---
 
 ## BURN-DOWN LOG (newest first)
+- **2026-08-31 (heartbeat)** — **INSTRUMENT FIX (owed Q111 "QA-instrument fix" CLEARED — the correct baseline
+  every solver needs).** The QA capstone `experiments/exp_situation_model_qa_v1.py` was INSTRUMENT-COUPLED: it ran
+  the DEFAULT (weak) reader and read temporal answers off `sm.events` tense, which `tense_agnostic_events` rewrites
+  to a placeholder → temporal questions **collapse 86→0** (measured; probe A/B/C). **FIX:** `run()` now defaults to
+  the CAPABLE reader (`build_reader`: tense_agnostic_events+preserve_tense+timeline_register) and `_answer_temporal`
+  reads the whole-passage **`sm.timeline_order`** (a tense-INDEPENDENT constraint-graph toposort) FIRST. Additive /
+  back-compat: `capable=False` reproduces the old default-reader run, and the timeline_order branch is skipped when
+  empty (default reader byte-identical — the existing temporal test still passes 0.904>0.394). Witness
+  `verification/test_situation_model_qa.py` **10/10** (+2 new: fast unit — readout consults timeline_order not tense;
+  end-to-end — capable temporal_Qs=64>0, keystone-only=0 collapse asserted, model 0.719 > text-order 0.312). **NOT an
+  hdlab wiring (instrument only)** → no registry row (registry is keyed on hdlab organ paths). Causal already
+  tense-independent (connective gold + `sm.causal_links`); spaCy-free (remote-safe). Remaining owed reader-wirings
+  unchanged: graded verb_subcat, p3 copular/nominal (+entity_states), meaning_fusion→reader, the p4 gate on hd_fact_store.
 - **2026-08-31 (heartbeat)** — **ASSEMBLY (DEBT 2) +1: the SPACE dimension (WHERE) LANDED into the live reader**
   (default-off `track_space` → `sm.locations`; the 4th assembly dimension after causation/time; lazy `_space_reader`
   prior_ext arm; witness byte-for-byte equivalent over 1040 (entity,t) cells; regressions green). Clears an owed
