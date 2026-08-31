@@ -124,6 +124,17 @@ diagnostics):
   gap) whose region is scene/unknown, while the gold region is indoors/outdoors. present-in-scene (0.335-0.389)
   is the robust query because it does not require a NAMED node.
 
+- **GOLD RELIABILITY audit (24-point stratified re-adjudication against the raw text):** 0/22 non-start
+  labels were fabricated/wrong; ~15/22 clean-correct; ~6/22 contestable-but-defensible -- and those are
+  fine-grained sub-locations ("tombstone"), name-generalizations ("town" for *Bistritz*), or habitual/expository
+  labels (schoolhouse/farm). Critically, the contestable labels mostly PENALIZE the register (it emits "bistritz"
+  not "town"; it cannot place a character "at the schoolhouse" during a descriptive aside), so the gold DEFLATES
+  0.26 rather than inflating it. The gold is text-grounded and conservative.
+- **Caused-motion reliability (drill 2's open VET -- is a non-protagonist THEME tracked as reliably as a
+  self-mover?): CLOSED.** On the modern set, caused-motion theme arrivals are recovered 0.67 vs self-motion 0.36
+  -- the moved theme is caught AT LEAST as reliably (the NP-V-NP-PP caused-motion construction is more
+  parser-friendly than messy multi-clause self-motion). Refutes the worry; n small (6 vs 11), indicative.
+
 **Bottom line of the drill:** every avenue that could have made 0.26 an artifact (gold granularity, the away
 read-out, node confusion) was checked and ruled out; the ceiling is genuinely the reader's parser recall
 (0.25->0.35 of true motion events), which is exactly what the p2 incremental parser is for. The result is
@@ -135,8 +146,10 @@ bounded, and now bounded for a KNOWN, measured reason.
   last-mention CI-separated, I would withdraw the PASS -- but the witness recomputes it from source and it holds.
 - **The where-is gold is hand-adjudicated (n=64 change-points).** Quotes are verbatim-verified against the
   cited sentence, and the twin control guards gold=extractor circularity (a shuffled register would score as
-  well if the gold merely echoed the extractor -- it does not). But it is a modest, single-annotator (subagent
-  first-pass, my verification) gold on 19c LitBank; a larger, multi-annotator, and MODERN set would strengthen it.
+  well if the gold merely echoed the extractor -- it does not), and a 24-point re-adjudication audit bounds the
+  error (0 wrong, ~27% contestable-and-register-DEFLATING). But it is a modest, single-source (subagent
+  first-pass, my verification + audit) gold; a fully independent second annotator and a found (not
+  author-constructed) modern corpus would harden it further.
 - **The twin null uses R=25 reshuffles (deterministic crc32 seed).** null mean 0.068, p95 0.112 -- honest but
   modest R; a larger R and a random-node (not just order-shuffle) twin variant would harden it further.
 - **The prior-integration layer is a first cut** (realis cues + persistence-dominance), not the full
