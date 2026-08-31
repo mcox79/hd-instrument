@@ -65,6 +65,24 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — COMPONENT SCAN (strategy, verdict-independent, CONFIRMATORY): `hippocampal_encoder` is a PINNED, faithful CLS
+  primitive that IS wired into the live substrate — a positive datapoint (few organs are both brain-faithful AND live). No new
+  gap; one candidate refinement intersects a KNOWN structural cap (do not re-tread).** (a) FIDELITY: PINNED and well-built — the
+  canonical CLS pipeline: DG random EXPANSION → top-K sparsify (pattern SEPARATION; Dentate-Gyrus analog, ~1% active), CA3
+  Hebbian outer-product auto-associator (pattern COMPLETION; Marr 1971), optional CLS replay to cortex (McClelland/O'Reilly
+  1995; Wilson/McNaughton 1994 SWS replay). It EXPLICITLY avoids the prior naive `sparse_engram_allocation` WTA-collision
+  mechanism. (b) WIRING: WIRED — built in `substrate.py` slot D3 ("one-shot episodic write"); one of the 19 live modules (via
+  substrate, the memory backbone; the comprehension reader uses `ChunkedFocus` for WM — a different layer). (c) PARAMETERS:
+  sparsity ~1% is a SWEPT parameter (DG ~1-3%; defensible, not adopted-from-a-constraint). (d) THE ONE CANDIDATE REFINEMENT +
+  WHY IT IS NOT A FRESH GAP: CA3 `settle()` is ONE-STEP (`sign(W @ cue)`), whereas the brain's CA3 is a RECURRENT attractor
+  (multi-iteration settling to a fixed point). BUT (i) a recurrent option already exists in-module (`from hdlab.iterative_
+  attractor import iterative_cleanup`), and (ii) partial-cue completion is ALREADY known STRUCTURALLY CAPPED
+  (`store_survives_a_partial_cue`, owner-DONE — an exact-key number does not transfer to a partial cue; a floor is cleared by
+  UNDERSTANDING, not by adding iterations), so recurrent settling almost certainly does NOT rescue it. Do NOT re-package
+  "make CA3 recurrent" naively — it intersects that structural cap. CONCLUSION: the core episodic-write primitive is sound;
+  this scan is a confirmatory positive, NOT a problem seed. (Contrast: this is the brain-faithful, wired end of the substrate —
+  the systematically-UNWIRED end is the prediction-error control signal, per the WM/segmentation/predictive-reader synthesis.)
+
 - **2026-08-31 — COMPONENT SCAN + CROSS-CUTTING SYNTHESIS (strategy, verdict-independent): the reader's WORKING MEMORY is a
   wired Cowan-4 BUNDLE (`ChunkedFocus`/`EventBundleCodec`); the more brain-faithful `slot_attention_wm` (per-slot PBWM
   prediction-error-gated state) is an ISLAND — AND this completes a pattern: PREDICTION ERROR is the brain's central control
