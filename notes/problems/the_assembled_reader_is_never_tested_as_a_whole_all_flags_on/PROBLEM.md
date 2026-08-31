@@ -1,8 +1,44 @@
 ---
-priority: 4
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: Turned a "test the whole thing" bookkeeping brief into the deepest architectural finding of the project — answered the BRAIN question (is the assembled reader ONE integrated situation model or N parallel silos?) with a rigorous, byte-exact NEGATIVE: SILOS. Reverified 19/19 FIRST-HAND (the witness's 4-doc smoke — confirms the MECHANISM byte-exactly; the 100-doc aggregate is inherited, direction-reproduced +0.053 on 4 docs). THE FINDING: turning all dimension flags ON COMPOSES but does not BIND — perturbing the shared event set leaves every other dimension BYTE-IDENTICAL (interaction exactly 0; 5 independent event extractors on 3 tokenizers, no shared token), with exactly ONE real interaction point (the role-routing path consumes the event set — the one place a shared token exists). "No regression" is thereby TRIVIALLY true: composition-without-interaction is NOT integration. The precise name is the BINDING PROBLEM (marginals vs joint): each dimension stores the SET of agents / times / causes but nothing stores WHICH-goes-with-WHICH. Demonstrated on the real FHRR algebra with a NON-GAMEABLE discriminator: the bound JOINT token disambiguates same-type events 1.00 and is binding-shuffle SENSITIVE (flip 1.00); the MARGINAL silo is at chance (0.44) and shuffle-INVARIANT (0.00) — and the solver's first constructed proof FAILED honestly (at type-cardinality 1 the joint is recoverable from the marginals — a design artifact) before finding the shuffle-invariance discriminator. INSTRUMENT-COUPLING caught + fixed: the NAIVE aggregate does not beat default only because the QA temporal/causal golds derive from sm.events which the tense-agnostic keystone rewrites (temporal Qs 106→0) — an INSTRUMENT artifact, NOT a reader regression (the dimension fields are byte-identical); reading the CORRECT field (sm.timeline_order) answers 0.89 of temporal Qs vs the broken 0.36. Corrected aggregate SURVIVES a fixed gold (events 0.2285 > 0.0993). THE FIX (constructive reframe — from "build" to "ASSEMBLE"): the brain binds all dimensions onto ONE event token, and MUST CHUNK (a single passage-level superposition collapses ~1/√M [0.99@64 → 0.12@512]; a slotted multibank stays flat) — so the faithful shared token is TIERED, and every tier is ALREADY a built hdlab island (slot_attention_wm/situation_model_multibank slotted register + n400_coherence_monitor boundary + hippocampal_encoder episodic store; check [10] confirms the shared-event organ exists but situation_reader never imports it). RECONCILIATION (owner-prompted, disk-grounded): this does NOT contradict the prior "separate stores are optimal" findings (factorized two-system / sparse cortex / keep-both CLS) — those are separation by FUNCTION/TIMESCALE (kept); silos here are the ABSENCE of within-event BINDING (a different axis) — and a prior solver INDEPENDENTLY found the same wall (dimensional_phase_diagram_audit: "the wall is front-end LINKING, not capacity"). The fix keeps the validated slotted/factorized stores + adds within-event binding. HONEST BOUNDS: proved the reader COMPOSES + reading-it-right beats the weak default + the JOINT buys disambiguation the marginal can't — but NOT the end-to-end comprehension win on real text (needs the tiered reader + a real event-coref gold); +0.077 is single-genre; the temporal "fix" is statistically equal to the working default (no regression, not a gain); DG's prior HARD_FAILs were on the WRONG TIER (active-read, not episodic). Grade EXCELLENT: a decisive brain-question answer with a non-gameable binding discriminator, an instrument-coupling self-diagnosis, honest self-corrections, prior-work corroboration, and a constructive next-problem reframe that turns the whole assembly from "wire more dimensions" into "assemble the tiered binding backbone."
 ---
+
+> ## ✅ SOLVER REVIEW -- EXCELLENT (integrated by strategy 2026-08-31)
+> **Why EXCELLENT, specifically:** the brief looked like a bookkeeping harness ("turn all flags on, measure"). The
+> solver instead asked the brain question — is the assembled reader ONE bound situation model or N parallel silos? — and
+> answered it with a rigorous, byte-exact NEGATIVE: SILOS. That is the single most important thing this test could find,
+> and it re-drew the entire assembly programme (from "wire more dimensions" to "assemble the binding backbone").
+> **Reproduced under my check (19/19, first-hand):** re-ran `verification/test_assembled_reader_all_flags_on.py` — the
+> witness ran its 4-doc smoke, so I confirm the MECHANISM byte-exactly and inherit the 100-doc aggregate (direction
+> reproduced, +0.053 on 4 docs). Every decisive check reproduces: silos byte-exact ([1][2][3][8]); the ONE real
+> interaction point ([4] — role-routing consumes the event set); the QA instrument-coupling ([5] temporal 106→0, [6]
+> causal readout blind to typed links) and its FIX ([7] sm.timeline_order readout 0.89 vs the broken 0.36); the corrected
+> aggregate surviving a fixed gold ([9] events 0.2285 > 0.0993); the wiring gap ([10] the shared-event organ exists but
+> situation_reader never imports it); and the BINDING-PROBLEM PoC ([11] JOINT disambiguation 1.00 / shuffle-flip 1.00 vs
+> MARGINAL 0.44 / shuffle-flip 0.00).
+> **Adversarial audit (what could have faked it):** (1) Is "no-regression" a good result? NO — it is TRIVIALLY true
+> because the dimensions are silos; composition-without-interaction is not integration (the solver names this itself).
+> (2) Is the negative aggregate a reader regression? NO — proven an INSTRUMENT coupling (the QA golds derive from
+> sm.events, which the keystone rewrites), by showing the dimension fields are byte-identical and the corrected readout
+> answers 0.89. (3) Is the JOINT>MARGINAL result gameable? NO — the first constructed proof FAILED honestly at
+> type-cardinality 1; the non-gameable discriminator is binding-shuffle INVARIANCE (the marginal is shuffle-invariant,
+> the joint is not).
+> **The reconciliation (owner-prompted, disk-grounded — recorded so it is never re-litigated):** this does NOT contradict
+> the prior "separate stores are optimal" findings (`the_entity_store_is_a_dense_bundle_that_fans` factorized two-system;
+> `one_store_does_two_jobs` sparse cortex; keep-both CLS). Those are separation by FUNCTION/TIMESCALE, which the fix
+> KEEPS; the silos here are the absence of within-EVENT BINDING (a different axis). And a prior solver INDEPENDENTLY hit
+> the same wall — `dimensional_phase_diagram_audit`: "the wall is front-end LINKING, not capacity." So p4 is corroborated,
+> not contradicted.
+> **Honest bounds (solver-reported, so they cap nothing):** proved COMPOSES + reading-it-right beats the default + the
+> JOINT buys disambiguation — but NOT the end-to-end comprehension win on real text (needs the tiered reader + a real
+> event-coref gold); +0.077 is single-genre; the temporal "fix" is statistically equal to the working default; DG's prior
+> HARD_FAILs were on the WRONG TIER (active-read, not episodic — re-scope, do not re-quote).
+> **Landing (Q111): (a) NO default flag-flip yet** (only role_route is aggregate-positive + instrument-safe — recorded in
+> `tools/reader_capabilities.py`, already updated); **(b) the QA-instrument fix** (read each dimension's correct field —
+> timeline_order for temporal, tense-independent causal gold) is QUEUED as the correct baseline every solver needs;
+> **(c) the NEXT PROBLEM is the tiered bound-event-token backbone** (`the_assembled_reader_is_parallel_silos_assemble_
+> the_tiered_bound_event_token`, ranked p4, ABOVE reasoning) — the INTEGRATION the assembly was for.
 
 # PROBLEM: we have never tested the ASSEMBLED reader as a WHOLE. Each validated dimension is wired into `hdlab.situation_reader` behind a DEFAULT-OFF flag (`tense_agnostic_events`, `causation_typed`, `timeline_register`, `role_route`, …) and each is verified ONLY in ISOLATION (equivalence to its own validated organ, byte-identical when off). NOTHING turns them ALL on together and measures the reader end-to-end — and the QA capstone (`exp_situation_model_qa_v1`), our supposed end-to-end instrument, runs `SituationReader(gaz=gaz)` = the DEFAULT reader with every capability OFF. So (a) we have validated the PARTS but never the WHOLE, (b) flag INTERACTIONS are entirely unmeasured (does tense-agnostic detection change causation's inputs? does the whole compose or interfere?), and (c) every solver who measures a floor/baseline against "the reader" is measuring the artificially-WEAK default. Build the full-system end-to-end harness: run the reader with ALL validated dimension flags ON, on real narrative, measure each dimension WITH the others live, quantify the interactions, and establish the FULLY-ON reader as a measured, validated whole — the actual "complete substrate."
 

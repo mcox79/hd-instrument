@@ -95,6 +95,18 @@ constructed-narrative failure was a design artifact (at type-cardinality 1 the j
 marginals) -- not evidence against integration. It is a REPRESENTATIONAL demonstration, NOT a comprehension
 score on real text; that proof is the next problem (design below).
 
+### (B'''') SCALING -- a passage-level bound register is quantitatively lossy ("must chunk"), MEASURED
+A 3rd drill (`research_how_the_brain_scales_conjunctive_binding_2026-08-31.md`): superposing many bindings into
+ONE register loses retrieval SNR ~1/sqrt(M) (Plate; Frady/Kleyko/Sommer), so a passage-level bound token is
+lossy -- and the brain does NOT do it. It keeps a SMALL active register (~4 bindings, theta-gamma phase-SLOTS not
+superposition; Cowan; Lisman & Idiart 1995), SEGMENTS the stream at prediction-error boundaries (Zacks EST; SEM),
+and consolidates flushed events to a pattern-separated episodic store (DG->CA3). Measured (`capacity_curve`, the
+BUILT organs): a single flat bundle's decode accuracy over M accumulated events, M=[4,16,64,128,256,512] ->
+[1.0, 1.0, 0.99, 0.80, 0.39, 0.12] (COLLAPSES ~1/sqrt(M)); the SLOTTED multibank register (theta-gamma analog) ->
+[1.0,1.0,1.0,1.0,1.0,1.0] (holds). A LitBank passage carries ~100-250 events -- inside the collapse zone. So the
+faithful shared event token is TIERED (small slotted active register + segmentation + pattern-separated episodic
++ retrieval), NOT one passage superposition -- correcting the next-problem architecture below.
+
 ### (B2) THE ONE SHARED FIELD interacts -- MARGINAL + JOINT (additivity)
 `sm.events` is co-written by TA (which verbs fire) and RR (their roles). Who-did-what role accuracy (n=11523):
 | config | role acc | marginal vs default |
@@ -201,6 +213,11 @@ improvement."
   (at type-cardinality 1 the joint is recoverable from the marginals, so the design leaked the joint into the
   marginals). The NON-GAMEABLE discriminator is BINDING-SHUFFLE INVARIANCE: a joint representation must be
   shuffle-SENSITIVE; a silo is INVARIANT. If your "integrated" arm is shuffle-invariant it is secretly a silo.
+- **The brain MUST CHUNK -- so the obvious "one shared register for the passage" fix is itself not brain-faithful.**
+  A single FHRR bundle collapses ~1/sqrt(M) (measured: 0.39 at 256 events; a passage has ~100-250), so the
+  faithful design is a SMALL slotted active register + prediction-error segmentation + pattern-separated episodic
+  store. Drilling the SCALING wall changed the next-problem architecture from "wire one register" to a tiered
+  memory system -- and rehabilitated the shelved DG organ by showing its prior fails tested it on the wrong tier.
 
 ## AUDIT UPDATE (for BRAIN_FOUNDATIONAL_AUDIT.md sec 2b)
 - **E2 (situation-model register / event indexing): the live reader has NO shared event token.** `read()` never
@@ -216,8 +233,11 @@ improvement."
   shows the flat FHRR bundle collapses ~1/sqrt(M) (M=256 -> 0.39; a passage has ~100-250 events), while the
   slotted multibank register holds (1.0 to M=512). The faithful scalable shared event token is TIERED: small
   slotted ACTIVE register + prediction-error SEGMENTATION (flush-and-reset) + pattern-separated EPISODIC store +
-  retrieval. Organ->tier map: FHRR bundle = the small active token; `situation_model_multibank` = the slotted WM;
-  DG pattern separation = the EPISODIC tier; `predictive_coding`/surprise = the boundary controller.
+  retrieval. **ALL FOUR TIERS ARE BUILT ORGANS, none wired into `situation_reader` (verified: it imports none):**
+  active token = FHRR bundle (`situation_model_accumulate`); slotted WM = `situation_model_multibank` +
+  `hdlab/slot_attention_wm.py`; boundary controller = `hdlab/n400_coherence_monitor.py` (EST prediction-error
+  boundary detector); episodic store = `hdlab/hippocampal_encoder.py` (DG sparse + CA3 auto-associator + CLS
+  consolidation) + `cortical_recall.py`. So the next problem is an ASSEMBLY of existing organs, not a build.
 - **DG pattern separation was tested on the WRONG TIER (adjacent-component rehabilitation).** The DG HARD_FAILs
   (`exp_dg_pattern_separation_mcscript_purity_v1`, `..._selfplay_dg..._xfit_v1`) tested DG on ACTIVE-read /
   coreference crosstalk. Per the scaling drill, DG's faithful job is the EPISODIC store (decorrelating the
@@ -273,8 +293,12 @@ The binding substrate is BUILT (`situation_model_accumulate.AccumulateRegister.a
    temporal rank.
 5. **Event SEGMENTATION is now CENTRAL, not an add-on** (the drill's "must chunk" verdict): the boundary
    controller (b) is what keeps the active register in its faithful capacity -- without it a passage register is
-   quantitatively lossy. The surprise signal is the one genuinely design-level piece; the `predictive_coding`
-   organ is a candidate boundary detector to evaluate.
+   quantitatively lossy. **PRIOR-WORK CORRECTION (disk outranks the drill + an earlier draft of this file that
+   called segmentation "un-built"): the boundary detector is ALREADY BUILT** -- `hdlab/n400_coherence_monitor.py`
+   (an online EST event-boundary detector: graded content prediction error, running reset, EST relative
+   threshold; also EST patch-boundaries in `information_foraging.py`, and `exp_event_boundary_relevance_gate_v1`
+   HARD-PASS). So NONE of the four tiers is a from-scratch build; the next problem is an ASSEMBLY of built,
+   unwired organs.
 6. **Instrument**: QA decodes from `sm.event_register` by event_idx; golds tense-independent (diff #1).
 **Validation bar (can-fail; drill-grounded design that a heuristic cannot game --
 research_what_integration_buys_and_how_to_test_it_2026-08-31.md):** the discriminating task is SAME-TYPE event
