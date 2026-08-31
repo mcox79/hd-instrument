@@ -51,11 +51,13 @@ The **biggest lever and the hard part**: these all edit `situation_reader`'s rol
 must be wired as ONE coordinated, measured effort (dimension by dimension) — NOT piecemeal. The
 who-did-what slice already landed (quotative inversion, Change 1) and PROVED the pattern (0.551→0.798).
 
-🔑 **KEYSTONE (2026-08-31 scan): every per-dimension wiring reads off the reader's EXTRACTION/PARSE FRONT-END** —
-CAUSATION needs the literalness gate's frame/spaCy chain, SPACE needs the motion-event parse adapter, ROLE/ENTITIES
-need the predicate-argument parse. `p1 the_extraction_front_end…` (SOLVED, event recall 0.332→0.954, awaiting owner
-verdict) IS that front-end. **Integrating p1 first materially de-risks the WHOLE assembly** — sequence the assembly
-AFTER p1's integration, not before. ⚠️ **Scope caveat on the queued causation landing:** promoting `_literalness_gate`
+🔑 **KEYSTONE — ✅ LANDED 2026-08-31 (p1 integrated, EXCELLENT): the tense-agnostic event detector is now wired into
+the live reader behind a DEFAULT-OFF `tense_agnostic_events` flag** (event recall 0.33→0.95 end-to-end when on;
+byte-identical off; witness `test_tense_agnostic_events_organ.py`). Every per-dimension wiring reads off the event
+set — CAUSATION, SPACE, ROLE/ENTITIES all improve when detection is complete — so **the assembly should now be
+sequenced with this flag ON, re-measuring each dimension at real recall.** ⚠️ Flag boundary: placeholder tense (the
+TIME dimension needs a tense-preserving variant first). NEXT assembly step candidate: turn the flag on + re-measure the
+already-landed dimensions (who-did-what Change 1) at real recall, then wire the next dimension. ⚠️ **Scope caveat on the queued causation landing:** promoting `_literalness_gate`
 drags `frame_sense_disambiguator` + `idiom_gate` + **spaCy** — the landing must decouple these (the reader's native
 roles are spaCy-free, per the p2 OWNER_NOTES) or gate them lazily; do NOT introduce a hard spaCy dep into the canonical
 reader. This makes the causation landing a careful multi-file effort, not a one-round drop.
@@ -90,8 +92,11 @@ DEBT 3 (island→island composition) but NOT the assembly (DEBT 2): `meaning_fus
 `situation_reader`/`substrate` — the live reader has NO word-meaning read-out yet; wiring the composed read-out into the
 live reader is the remaining step.
 
-### NON-DEBT — correct no-landing (14 rigorous negatives; DO NOT re-attempt)
-Recorded so they are never re-packaged. Newest: `causation_is_typed_per_clause_not_across_the_causal_network`
+### NON-DEBT — correct no-landing (rigorous negatives + capability-without-a-reader-home; DO NOT re-attempt)
+Recorded so they are never re-packaged. Newest: `narrative_causal_graph_missing_implicit_inference_organ` (p5, STRONG —
+covariation causal typing works on held-out MAVEN-ERE with power + generalizes to unseen type-pairs, but needs OBSERVED
+CONTINGENCY so it is a rigorous NEGATIVE on single-document narrative → **NO reader landing**; the organ's home is
+CORPUS-level causal knowledge, the knowledge-store p4 / the learner, NOT the reader). `causation_is_typed_per_clause_not_across_the_causal_network`
 (discourse causal-network typing = a dead real-text lever); `the_discourse_fact_reasoner…` (world
 knowledge net-zero on competitive coref); `teach_the_self_built_space…` (teaching does not rescue
 retrieval). Full list: `python tools/wiring_debt.py --full`.

@@ -1,8 +1,34 @@
 ---
-priority: 5
-review:
-review_text:
+priority:
+review: STRONG
+review_text: A covariation causal-graph organ (Cheng power + a hierarchical type-role schema) types CAUSE-vs-PRECONDITION on held-out MAVEN-ERE (n=9698, coverage 1.0) at balanced 0.772 vs the adjacency/precedence structural floor 0.546 (+0.226 CI-sep) and raw +0.058 over majority -- the bar MET with power. Reverified 16/16 FIRST-HAND (recomputes from MAVEN-ERE source): info-free permuted-label twin loses, it GENERALIZES to UNSEEN type-pairs (schema 0.581 vs memorized-lookup chance 0.500 -- a schema, not memorization), survives 20% type-noise, and covariation dominates linguistic cues (+0.226 vs <0.02). Graded STRONG not EXCELLENT: single-corpus (MAVEN-ERE); the mechanism is PHYSICAL-causation only (phys-AUC 0.684 vs intentional 0.570); and OPEN-TEXT/cross-genre transfer is a RIGOROUS NEGATIVE, honestly diagnosed (covariation needs OBSERVED CONTINGENCY -- it does NOT beat the structural floor on unseen pairs, 0.671 vs 0.705). Exemplary honesty: WITHDREW its own earlier over-claimed cross-genre negative as instrument-confounded and re-tested cleanly. NO live-reader landing earned: the reader operates on SINGLE documents where cross-document contingency is absent, so wiring it into the "why?" QA would not help; the organ's home is CORPUS-level causal knowledge (the knowledge-store / learner), not the reader.
 ---
+
+> ## ✅ SOLVER REVIEW -- STRONG (integrated by strategy 2026-08-31)
+> **Why STRONG, specifically:** it met the letter of the bar with power and unusually strong controls -- the
+> covariation typer beats BOTH the majority-class AND an adjacency/precedence STRUCTURAL floor CI-separated
+> (+0.226 balanced), at coverage 1.0 (it fires on every relation, unlike the force typer's 16%), and the win is
+> covariation-driven, not discourse-position (the structural floor isolates that) and not linguistic-cue-driven
+> (cues add <0.02). The decisive generalization control is the seen-vs-UNSEEN type-pair split: the hierarchical
+> schema still types unseen pairs (+0.08) while a memorized lookup collapses to chance -- so it learned a schema,
+> not a lookup table. It survives 40% type-noise / 21-bucket coarsening (not dependent on gold 168-way typing).
+> **Reproduced under my check:** I re-ran `verification/test_narrative_causal_graph_organ.py` -- 16/16 PASS,
+> scaffold-free; balanced 0.772, +0.226 over structural (lo 0.2096), permuted-label twin loses (+0.186), unseen-pair
+> schema 0.581 vs lookup 0.500, detection +0.0462, physical>intentional (+0.114), all reproduce from MAVEN-ERE source.
+> **The honesty that earns the grade (and caps it):** the solver asked the owner's actual question -- does it work on
+> OPEN text? -- and reported a RIGOROUS NEGATIVE, DIAGNOSED: covariation needs OBSERVED CONTINGENCY, so it fails on
+> never-co-observed pairs (the honest within-witness bound: organ 0.671 < structural 0.705 on unseen pairs) and on
+> cross-genre narrative. It even WITHDREW an earlier cross-genre negative it had over-claimed, on finding the probe
+> was instrument-confounded (matrix-verb extraction / explicit-connective pairs), and re-tested within-MAVEN cleanly.
+> A rigorous negative is a pass; the physical-only boundary + single-corpus scope + open-text negative are why this is
+> STRONG, not EXCELLENT.
+> **What I landed vs did NOT (the disciplined call):** NO live-reader landing. The reader reads SINGLE documents,
+> where the cross-document co-occurrence contingency this organ needs does not exist -- so wiring `CovariationModel`/
+> `HierarchicalTyper` into the reader's "why?" QA would ride the open-text negative, not a win (this mirrors the
+> integrated `causation_is_typed_per_clause_not_across_the_causal_network` no-landing). The organ stays experiment-side
+> as a validated capability for CONTINGENCY-OBSERVABLE input; its real future home is CORPUS-level causal knowledge
+> (the knowledge-store consistency-cleanup p4 / the learner), which sees the whole corpus. Recorded in WIRING_MAP as a
+> correct no-reader-landing with that seed. NO hdlab file changed.
 
 # PROBLEM: real narrative causation is a whole-event CAUSAL-GRAPH inference the reader cannot do — the force-dynamic typer we built is aimed at the wrong ~16% of it. The generalization stress-test (`stress_test_which_organ_wins_actually_generalize_on_held_out_text`, integrated) reran `force_dynamics_typer` on real MAVEN-ERE (n=9,698 annotated causal relations) and found it FIRES on only 16.1% of them, and where it fires its force signal is INDISTINGUISHABLE from a shuffled-lexicon twin (+0.018 NOT_SEP) — it loses the population to the majority floor by −0.679 (the constructed win was 0.929/1.000 on n=42/40 minimal pairs). The diagnosis is not a broken typer: it is aimed at explicit PHYSICAL predication, but real narrative causation is overwhelmingly IMPLICIT and MENTAL/event-level — "he studied, so he passed" — a covariation-based causal-GRAPH inference over event TYPES, a different, PINNED brain system (Trabasso & van den Broek; Kintsch; Kuperberg 2011 N400; Feng et al. 2021 ALE — left IFG/MTG + rostral mPFC; force-dynamic verbs have a VERIFIED ABSENCE of any neural study). The stress-test already GATE-CLEARED the successor: a glass-box event-type COVARIATION scorer beats its shuffled twin +0.094 and beats the majority floor +0.056 (clears the pre-registered +0.05 HARD-PASS) on the 83.9% subset the typer never fires. Build the full narrative causal-graph implicit-inference organ that covers that ~84%.
 

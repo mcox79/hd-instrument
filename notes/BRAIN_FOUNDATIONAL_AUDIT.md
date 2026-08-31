@@ -65,9 +65,39 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — INTEGRATED + LANDED (p1, owner-DONE, EXCELLENT, THE KEYSTONE): the reader's event detector was TENSE-GATED
+  (missed present-tense finite verbs 100%, capping event recall ~0.33); the brain-faithful fix (tense-agnostic UPOS==VERB
+  detection) is now WIRED into the live reader behind a default-off flag, lifting end-to-end event recall 0.33→0.95.**
+  Reverified 11/11 first-hand. FIDELITY: PINNED — event detection is tense-agnostic, lexical-category-based (neo-Davidsonian
+  event variable; LIFG/pMTG structure-building references no tense; PAST is the harder discourse-linked form, so gating on
+  tense was backwards — Bastiaanse 2011). GENERALIZATION (the owner-priority check, PASSED): CI-separated on THREE pre-existing
+  golds — UD-EWT + modern QA-SRL (genre change) + 19c LitBank (century change); two info-free twins lose; precision neutral/
+  improving; home-grown UD tagger (NO LLM). END-TO-END through the LIVE `SituationReader.read()` (0.381→0.966), not gold
+  isolation. LANDED: `hdlab/situation_reader.py` `tense_agnostic_events` flag (default OFF = byte-identical; on = 104→219
+  events 2.11x through the canonical reader; witness `test_tense_agnostic_events_organ.py`). BOUNDARY (OUR-INVENTION, honest):
+  placeholder tense → the TIME dimension must not consume the flag until a tense-preserving variant is validated. **KEYSTONE for
+  the assembly (DEBT 2): every downstream dimension reads off the event set, so this flag is the prerequisite to re-measuring
+  the assembly at real recall.** Seeded: copular/nominal-predication recall (UPOS==VERB excludes them); the incremental parser
+  (one lever, three payoffs). precise_voice role wire QUEUED (synthetic-mention caveat). Registered
+  `extraction_frontend_tense_agnostic_detector_v1`.
+
+- **2026-08-31 — INTEGRATED (p5, owner-DONE, STRONG): the covariation causal-graph typer types CAUSE-vs-PRECONDITION on
+  held-out MAVEN-ERE with power (balanced 0.772 vs structural floor 0.546, +0.226 CI-sep, coverage 1.0) — but open-text/
+  single-document transfer is a RIGOROUS NEGATIVE, so NO live-reader landing.** Reverified 16/16 first-hand. FIDELITY: PINNED —
+  covariation/contingency causal induction (Cheng causal power) + a hierarchical type-role schema; it GENERALIZES to UNSEEN
+  type-pairs (schema 0.581 vs memorized-lookup chance 0.500 — a schema, not a lookup), robust to type-noise, physical>intentional
+  (phys-AUC 0.684 vs 0.570 — a measured mechanism boundary). HONEST BOUND (the load-bearing finding): covariation needs OBSERVED
+  CONTINGENCY, so it fails on never-co-observed pairs (organ 0.671 < structural 0.705 on unseen) and on cross-genre narrative;
+  the earlier cross-genre negative was WITHDRAWN as instrument-confounded, then re-tested clean within-MAVEN. **NO reader landing
+  (correct no-landing): the reader reads SINGLE documents where cross-document contingency is absent — wiring it would ride the
+  open-text negative. FUTURE HOME = CORPUS-level causal knowledge (the knowledge-store p4 / the learner), which sees the whole
+  corpus.** Recorded in WIRING_MAP non-debt. No hdlab file changed.
+
 - **2026-08-31 — COMPONENT SCAN + CROSS-CUTTING INSIGHT (strategy, verdict-independent): `location_register` (SPACE) is a
   PINNED brain computation but a default-off ISLAND — AND the assembly's per-dimension wirings all share ONE dependency: the
   extraction/parse front-end. So p1 (the SOLVED extraction fix) is a KEYSTONE for the assembly, not just downstream measurement.**
+  ✅ **p1 NOW INTEGRATED + LANDED (entry above) — the keystone flag is live (default-off); the assembly can now turn it on and
+  re-measure each dimension at real recall.**
   (a) FIDELITY: PINNED — per-entity location STATE updated ONLY by motion events, PERSISTING between updates (Zwaan & Radvansky
   1998 event-indexing SPACE; hippocampal place / entorhinal grid; Rinck 1997 rules out metric coords for narrative space →
   categorical topological scene nodes, OUR-INVENTION-swept but well-grounded). A genuine brain-computation organ, not a

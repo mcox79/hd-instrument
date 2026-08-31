@@ -529,7 +529,8 @@ class SituationReader:
                  focus_n_dim: int = FOCUS_N_DIM,
                  pred_gate_fn=None, spacy_pred_gate: bool = False,
                  gate_intransitive: bool = True,
-                 role_route: str = "positional") -> None:
+                 role_route: str = "positional",
+                 tense_agnostic_events: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -553,6 +554,18 @@ class SituationReader:
         self.wired_extra_roles: List[Dict[str, object]] = []   # additive richer roles, wired path only
         if self.role_route != "positional":
             self._tagger, self._parser = _load_frontend()
+        # TENSE-AGNOSTIC EVENT DETECTION (opt-in; default OFF = byte-identical to the stock detector).
+        # Integrated 2026-08-31 from `the_extraction_front_end_recovers_only_a_third_of_events_and_roles`
+        # (owner-DONE, EXCELLENT): the stock T.extract_events is TENSE-GATED and misses present-tense finite
+        # verbs (VBZ/VBP) 100%, capping event-detection recall at ~0.33. When True, detect an event at every
+        # UPOS==VERB via the in-substrate UD-trained tagger (hdlab.pos_tagger, NO spaCy/LLM) -- tense-
+        # agnostic, category-based. Lifts end-to-end event recall 0.381->0.966 through THIS reader
+        # (CI-separated; generalizes OOD to modern QA-SRL + 19c LitBank; info-free twin loses). This is the
+        # KEYSTONE that de-risks the assembly (every downstream dimension reads off the event set). BOUNDARY:
+        # this recall-max detector assigns a PLACEHOLDER tense (TENSE_SIMPLE_PAST) -- do NOT consume this flag
+        # for the TIME/timeline dimension until a tense-preserving variant is validated (queued follow-on).
+        self.tense_agnostic_events = bool(tense_agnostic_events)
+        self._ta_tagger = None                                 # lazy hdlab.pos_tagger.PosTagger
         # persistent readers (the banked backbone + single-sentence validity baseline)
         self.reader_ec = EventCentralityReader(n_dim=EVENT_N_DIM, mem_seed=MEM_SEED)
         self.reader_ss = CorefReader()
@@ -578,6 +591,32 @@ class SituationReader:
                 bucket=r["bucket"], sent_dist=r["sent_dist"]))
         return resolutions, recs_ec, recs_ss
 
+    # -- event detection dispatch (stock tense-gated vs opt-in tense-agnostic UPOS==VERB) --
+    def _extract_events(self, text):
+        """Return (events, tagged) exactly as T.extract_events, dispatching on the tense_agnostic_events
+        flag. Default (flag OFF) is byte-identical: it IS T.extract_events."""
+        if not self.tense_agnostic_events:
+            return T.extract_events(text)
+        return self._tense_agnostic_extract(text)
+
+    def _tense_agnostic_extract(self, text):
+        """Tense-agnostic UPOS==VERB event detection via the in-substrate UD-trained tagger (glass-box,
+        NO spaCy/LLM). Fires a T.Event at every UPOS==VERB token -- trusting the tagger's own AUX/VERB
+        split (no form-based AUX blocklist, which wrongly drops main-verb have/do/let). This is the
+        validated `fixed_extract_events` from exp_extraction_frontend_end_to_end_live_reader_v1, landed
+        behind the flag. Placeholder tense (see the __init__ boundary note)."""
+        if self._ta_tagger is None:
+            from hdlab.pos_tagger import PosTagger
+            self._ta_tagger = PosTagger.load(_FRONTEND_POS_ASSET)
+        toks = text.split()
+        up = self._ta_tagger.tag(toks)
+        events = []
+        for i, tk in enumerate(toks):
+            if up[i] == "VERB":
+                events.append(T.Event(lemma=tk.lower(), idx=i, pos=up[i],
+                                      tense=T.TENSE_SIMPLE_PAST, is_pp=False))
+        return events, []
+
     # -- EVENTS: per-sentence predicate+agent+patient -> Cowan-4 bundle focus --
     def _read_events(self, sents, mentions, n_sents):
         if self.role_route != "positional":
@@ -591,7 +630,7 @@ class SituationReader:
         gidx = 0
         for si, toks in enumerate(sents):
             text = " ".join(toks)
-            evs, _tagged = T.extract_events(text)
+            evs, _tagged = self._extract_events(text)
             noms = sent_noms[si] if si < len(sent_noms) else []
             # supplied-grammar gate: valid predicate LOW tokens for THIS sentence (spaCy VERBs)
             verb_lows = self.pred_gate_fn(text) if self.pred_gate_fn is not None else None
@@ -683,7 +722,7 @@ class SituationReader:
         gidx = 0
         for si, toks in enumerate(sents):
             text = " ".join(toks)
-            evs, _tagged = T.extract_events(text)
+            evs, _tagged = self._extract_events(text)
             noms = sent_noms[si] if si < len(sent_noms) else []
             rr = self._router_roles(list(toks))
             # the event extractor uses a DIFFERENT tokenization than `toks` (e.idx is its space, not toks-

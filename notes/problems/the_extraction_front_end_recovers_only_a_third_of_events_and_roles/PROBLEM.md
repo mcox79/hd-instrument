@@ -1,8 +1,38 @@
 ---
-priority: 1
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: Diagnoses the reader's ~0.33 event-detection recall to a single defect -- the live detector (T.extract_events) is TENSE-GATED and misses present-tense finite verbs (VBZ/VBP) 100% -- and fixes it with a brain-faithful, tense-agnostic UPOS==VERB detector (in-substrate UD tagger, NO LLM). Reverified 11/11 FIRST-HAND: end-to-end through the LIVE SituationReader.read() event recall 0.381->0.966 (+0.585), and it GENERALIZES OOD on pre-existing gold -- modern QA-SRL 0.373->0.836 and 19c LitBank 0.533->0.740, CI-separated on all three, two info-free twins losing (~0.15). Precision is neutral (RULE variant, gold-POS 0.9977->0.9985) / improves in-domain (0.911->0.941). This is THE keystone: it de-risks the whole assembly (every downstream dimension reads off the event set). Landed the detector behind a default-OFF `tense_agnostic_events` flag (witness: off byte-identical 104 events; on 104->219 2.11x through the canonical reader). EXCELLENT: rigorous diagnosis + OOD-generalizing fix + end-to-end + strong controls + self-corrected its own generalization-cell artifact + honest bounds (copular/nominal predications NOT fixed; precision gated on parser fidelity -> the incremental parser is the one-lever-three-payoffs follow-on; the precise_voice role wire measured through SYNTHETIC mentions -> QUEUED for full-reader validation).
 ---
+
+> ## ✅ SOLVER REVIEW -- EXCELLENT (integrated by strategy 2026-08-31)
+> **Why EXCELLENT, specifically:** it turned a vague "recall is a third" into a single, named, brain-faithful
+> defect and fixed it. The reframe is the move: the detector gated on TENSE and missed present-tense finite verbs
+> 100% (0/560) -- and the drill showed the brain detects predicates from LEXICAL CATEGORY, tense-agnostically
+> (neo-Davidsonian event variable; LIFG/pMTG structure-building references no tense), with PAST being the harder,
+> discourse-linked form -- so the detector "gated on exactly the tense the brain finds easier." The fix is a pure
+> UPOS==VERB detector on the in-substrate UD tagger (no LLM). Crucially it GENERALIZES: measured on THREE
+> pre-existing golds -- UD-EWT, modern QA-SRL (genre change), 19c LitBank (century change) -- CI-separated on all,
+> with LitBank's HIGHER current recall (0.533) independently confirming the past-tense-tuning diagnosis. And it was
+> validated END-TO-END through the actual SituationReader.read() (0.381->0.966), not gold-fed isolation, with two
+> info-free twins losing and a precision control (neutral RULE / +0.030 in-domain REALIZED).
+> **Reproduced under my check:** I re-ran `verification/test_extraction_frontend_recall.py` -- 11/11 PASS,
+> scaffold-free; A (0.3317), C (+0.1704 precision-neutral), D (0/560 present-tense missed), E1/E2/E3 (OOD
+> generalization CI-sep), F (who-did-what 0.2887->0.7461), G (end-to-end 0.4161->0.9463), H/I (precise_voice through
+> the real hdlab _assign_roles) all reproduce from source. And my landing witness confirms the flag: default-off
+> byte-identical, flag-on 104->219 events (2.11x) through the canonical reader.
+> **The honest docks it volunteered (none fatal):** copular/nominal predications are NOT fixed (UPOS==VERB excludes
+> them -- a named next problem); precision at REALIZED taggers dips OOD on QA-SRL (a documented LOWER bound -- QA-SRL
+> under-annotates verbs); the precision fix is GATED ON PARSER FIDELITY (works at gold accuracy, not UAS 0.79) -> the
+> deeper lever is the incremental/integrated argument-structure parser ("one lever, three payoffs"); the precise_voice
+> role wire was measured through the real hdlab role organ but with SYNTHETIC one-per-nominal mentions, not full reader
+> mentions. It even self-corrected a measurement artifact (the generalization cell's apparent -0.06 precision was
+> giving CURRENT gold POS while giving FIX the learned tagger).
+> **What I landed vs queued:** LANDED the tense-agnostic detector behind a default-OFF `tense_agnostic_events` flag
+> (byte-identical off; witness `test_tense_agnostic_events_organ.py`), with an HONEST boundary -- it assigns a
+> placeholder tense, so the TIME/timeline dimension must not consume it until a tense-preserving variant is validated.
+> QUEUED (not landed): the `precise_voice=True, toks=` wire into `_read_events` (the synthetic-mention caveat -> needs
+> full-reader-mention validation first, a phase-gate). This is the KEYSTONE for the assembly (DEBT 2): every dimension
+> wiring reads off the event set, so turning this flag on is the prerequisite to re-measuring the assembly at real recall.
 
 # PROBLEM: the reader's EXTRACTION FRONT-END recovers only ~1/3 of the events and roles in real text, and it caps EVERYTHING downstream — every organ win we have was measured with GOLD extraction handed to it. The generalization stress-test (`stress_test_which_organ_wins_actually_generalize_on_held_out_text`, integrated) made this the flagged #1 lever: "every retrieval/who-did-what number used GOLD extraction; end-to-end the front-end dominates; the robust full solution needs the front-end addressed before any of the above lands as a live-reader gain." The archetype measurement: event/role extraction recall ~0.32 on real SimpleWiki. So the live reader, reading raw text, misses ~2 of every 3 events/roles before any comprehension organ runs — which means our real end-to-end comprehension is bounded far below the organ-level numbers, and it is the ONE bottleneck that, if moved, lifts every dimension at once (who-did-what, coref, causation, QA). This is also the North Star's "narrative extraction → clean foundation" link: a noisy extraction front-end IS the noisy foundation the learner cannot yet grow on. Diagnose WHERE the ~0.32 recall is lost (event detection? argument attachment? role assignment? coref-gated mention linking?), then BUILD the highest-leverage fix, measured on a pre-existing gold, CI-separated over the current live extractor, with the info-free twin LOSING.
 
