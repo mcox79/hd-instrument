@@ -65,6 +65,29 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 — COMPONENT SCAN (strategy, verdict-independent): `gap_detector` is a PINNED CA1 match/mismatch NOVELTY comparator
+  that IS wired (substrate H1) — but its downstream effect is ablation-AMBIGUOUS, and it is itself a PREDICTION-ERROR organ,
+  which sharpens the synthesis: the substrate computes prediction error at FOUR levels; three are islands and the ONE wired one
+  may be functionally disconnected.** (a) FIDELITY: PINNED and sophisticated — CA3/DG pattern completion (iterative_attractor,
+  imported verbatim) picks the best-matching known fact; the margin is the cosine between the probe and that match read BEFORE
+  the attractor settles (a post-settle read would trivially converge and be uninformative — a subtle error correctly avoided).
+  This is the hippocampal CA1 comparator / novelty-detection mechanism (Lisman & Grace 2005): expected/retrieved vs actual/
+  incoming. The codebook rebuilds from `HDFactStore.live_facts()` (consolidation-status-aware), so it tracks the store's real
+  state. (b) GENERALIZATION: MECHANISM self-tests only (known-exact margin=1, wholly-novel low, 2-of-3 intermediate, ablation
+  collapses, scramble flips, empty-KB all-gap) — construction-proven, not held-out-at-scale. (c) WIRING: WIRED (substrate slot
+  H1 "do I already know this"; built by ReadingLoopState). ⚠️ BUT substrate.py records that ABLATING gap_detector ALONE CHANGED
+  NOTHING (moved no counter) — it fires, but its downstream effect on the read-out is ambiguous (cannot distinguish "does
+  nothing" from "switch did not fire"; the same class as the consolidation written-but-never-read finding). (d) THE SYNTHESIS
+  EXTENSION (high leverage): gap_detector is a PREDICTION-ERROR organ (novelty = my memory did not predict this incoming fact).
+  So the substrate computes prediction error at FOUR levels — forward-semantic (`predictive_reader`), event-coherence
+  (`n400_coherence_monitor`), WM-gating (`slot_attention_wm` PBWM), and memory-novelty (`gap_detector` CA1). THREE are islands;
+  the ONE that is wired (gap_detector) is ablation-AMBIGUOUS. So prediction error is both UNDER-WIRED and, where wired, possibly
+  functionally INERT. AND this one is the LEARNER-ON GATE (gap → gather → learn): if the gap signal does not reach a downstream
+  decision, the learn loop is disconnected. The missing measurement = a POSITIVE CONTROL that forces the gap switch to fire and
+  shows its output changes a downstream decision (distinguishing inert from not-fired). ⚠️ Intersects the heavily-worked
+  consolidation/ablation findings — do NOT re-package naively; it sharpens the prediction-error direction (the biggest lever),
+  it is not a fresh standalone problem. NOT packaged (queue full).
+
 - **2026-08-31 — COMPONENT SCAN (strategy, verdict-independent, CONFIRMATORY): `hippocampal_encoder` is a PINNED, faithful CLS
   primitive that IS wired into the live substrate — a positive datapoint (few organs are both brain-faithful AND live). No new
   gap; one candidate refinement intersects a KNOWN structural cap (do not re-tread).** (a) FIDELITY: PINNED and well-built — the
