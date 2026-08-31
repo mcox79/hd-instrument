@@ -83,10 +83,17 @@ each additive default-off with its own equivalence witness; land p5 first [clean
   `state`-sort node on each `cop` predicate (needs a labeled parse → lazy front-end, like causation) + an `event`-sort node on
   CONFIDENT event-denoting nouns (bake the WordNet event lexicon to a STATIC JSON asset → no nltk at runtime) + a new
   `SituationModel.entity_states` field routed from the state nodes. Ref `experiments/_copular_nominal_events.py`.
-- **verb_subcat (from p2, EXCELLENT) — the who-did-what PRESENCE lever.** Land `hdlab/verb_subcat.py` (ref
-  `experiments/ref_verb_subcat_organ_v1.py`) + a default-off `verb_subcat_gate` on `SituationReader`: after the binder assigns a
-  patient, set it back to "?" on low-transitivity verbs. Static glass-box WordNet+corpus assets + learned validities. Cleans the
-  extraction the learner grows over (who-did-what id 0.30→0.49). Being packaged as its own first-class problem too.
+- ~~**verb_subcat (from p2, EXCELLENT) — the who-did-what PRESENCE lever.**~~ ✅ **LANDED 2026-08-31 (ARCHITECT HEARTBEAT).**
+  Promoted `experiments/ref_verb_subcat_organ_v1.py` → `hdlab/verb_subcat.py` (re-export shim left) + a default-off
+  `verb_subcat_gate` on `SituationReader` (post-read pass: suppress a bound patient on low-transitivity verbs). VERIFIED:
+  witness `test_verb_subcat_gate_landing_organ.py` PASS — default-off byte-identical (organ not imported), through read()
+  events 219 held + patients 147→112 (35 spurious suppressed), and == the validated SubcatGateReader byte-for-byte. Static
+  glass-box WordNet+corpus assets, NO LLM. Registered `verb_subcat_gate_live_reader_v1`. ⚠️ This wired the SIMPLE
+  transitivity gate (the through-read()-validated version). **QUEUED REFINEMENT (DEBT 2): the stronger GRADED
+  Competition-Model gate (`hdlab.verb_subcat.patient_present`, QA-SRL who-did-what 0.30→0.49, AUC 0.777) — the brain-faithful
+  version — needs the reader to expose POS + the patient token index at role-assignment time (a mid-`_read_events` plumbing
+  change); a focused follow-on, not a post-read pass. The organ already ships `patient_present` so the upgrade is reader-side
+  plumbing, not a re-derivation.**
 
 | Organ (in hdlab, default-off) | Wire target in the reader | Dimension |
 |---|---|---|
@@ -178,6 +185,11 @@ tracked burn-down item, not a silent park.
 ---
 
 ## BURN-DOWN LOG (newest first)
+- **2026-08-31 (heartbeat)** — **WIRING debt −1: `verb_subcat` LANDED into the live reader.** Promoted the reference
+  organ → `hdlab/verb_subcat.py` (+ shim) + a default-off `verb_subcat_gate` (post-read transitivity suppression, the
+  through-read()-validated simple gate; == SubcatGateReader byte-for-byte, patients 147→112). Also promoted p5
+  (`preserve_tense`) earlier this session. **The live-reader import set grows: `hdlab.verb_subcat` (lazy, flag-on).**
+  Queued refinement: the GRADED gate (needs POS/patient-index plumbing in `_read_events`).
 - **2026-08-31** — **INTEGRATED 3 owner-DONE submissions (extraction front-end + parser):** p3 copular/nominal (EXCELLENT,
   14/14), p5 tense-preserving (STRONG, 12/12), p2 incremental-parser (EXCELLENT, 16/16). p2 = a route-closing NEGATIVE
   (parser-as-role-lever is a fidelity error → NON-DEBT) + a landing-ready POSITIVE (verb_subcat, who-did-what 0.30→0.49).

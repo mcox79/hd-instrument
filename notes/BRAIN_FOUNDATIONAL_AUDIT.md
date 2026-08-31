@@ -65,6 +65,19 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
 
+- **2026-08-31 (strategy, Q111, ARCHITECT HEARTBEAT) — LANDED: `verb_subcat` wired into the live reader (default-off
+  `verb_subcat_gate`) — the who-did-what PRESENCE half now reaches the reader.** Promoted the p2 reference organ →
+  `hdlab/verb_subcat.py`; the reader suppresses a spurious patient on low-transitivity verbs (post-read transitivity gate,
+  the version validated through read(): patients 147→112, == SubcatGateReader byte-for-byte). FIDELITY: PINNED basis
+  (verb subcat is stored lexically — Levin/VerbNet — AND learned distributionally — Trueswell/Garnsey verb bias; the
+  dual WordNet-frame + corpus P(obj|verb) asset). **DEVIATION FLAGGED: the wired gate is the SIMPLE lexical-propensity
+  threshold, NOT the brain-faithful GRADED Competition-Model cue integration (`patient_present`, the softmax posterior
+  that WON on QA-SRL, 0.30→0.49). The graded gate is the higher-fidelity target; it is UNWIRED because the reader does
+  not yet expose POS + the patient token index at role-assignment time — a mid-`_read_events` plumbing gap (WIRING_MAP
+  DEBT 2). So this landing closes the ISLAND (verb_subcat now reaches the reader) but the FIDELITY ceiling is the graded
+  upgrade.** The three-way who-did-what decomposition is now: PRESENCE (verb_subcat, wired simple / graded queued) ×
+  IDENTITY (graded_role_assigner) × ENTITY (coref, 3× solved). Registered `verb_subcat_gate_live_reader_v1`.
+
 - **2026-08-31 — INTEGRATED (p2 EXCELLENT): the incremental parser as a ROLE lever is a fidelity ERROR; the real who-did-what
   precision lever is verb-SUBCATEGORIZATION.** Problem `wire_the_incremental_parser_as_the_reader_extraction_front_end`, reverified
   16/16 first-hand. (i) `incremental_parser_v1` — precision-only (incremental vs batch +0.145 P / +0.093 F1 CI-sep), NO role gain;

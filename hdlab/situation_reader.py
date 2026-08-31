@@ -559,7 +559,8 @@ class SituationReader:
                  causation_sense_gate: bool = True, causation_sense_tau: float = 1.0,
                  causation_foreground_gate: bool = False,
                  timeline_register: bool = False,
-                 preserve_tense: bool = False) -> None:
+                 preserve_tense: bool = False,
+                 verb_subcat_gate: bool = False, verb_subcat_thr: float = 0.35) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -613,6 +614,19 @@ class SituationReader:
         # optional fine-tag path, which this surface-mode landing does NOT use).
         self.preserve_tense = bool(preserve_tense)
         self._tp_mod = None                                    # lazy exp_tense_preserving_event_detector_v1
+        # VERB-SUBCATEGORIZATION patient gate (opt-in; default OFF = byte-identical). Integrated 2026-08-31
+        # from p2 wire_the_incremental_parser... (EXCELLENT): the reader over-generates a patient on
+        # intransitive verbs ("the man arrived at noon" -> patient=noon). When on, SUPPRESS a bound patient
+        # when the verb's transitivity propensity (dual WordNet-frame + corpus P(obj|verb) basis; Levin/
+        # VerbNet + verb-bias, PINNED) is below verb_subcat_thr. This is the glass-box successor to the crude
+        # curated gate_intransitive list (8,700 verbs). Post-read pass (matches the validated SubcatGateReader
+        # through read()): beats the curated list +0.121 and a random same-rate twin +0.158; precision
+        # 0.514->0.643 @ recall 0.936; NO LLM. The stronger GRADED Competition-Model gate (hdlab.verb_subcat.
+        # patient_present, QA-SRL who-did-what 0.30->0.49) is a QUEUED refinement -- it needs the reader to
+        # expose POS + the patient token index at role-assignment time (WIRING_MAP DEBT 2).
+        self.verb_subcat_gate = bool(verb_subcat_gate)
+        self.verb_subcat_thr = float(verb_subcat_thr)
+        self._vs_mod = None                                    # lazy hdlab.verb_subcat
         # CAUSATION TYPING (opt-in; default OFF = byte-identical). Integrated 2026-08-31 from p2
         # (wire_the_causation_typer, STRONG) + p3 (foreground/event-hood gate, STRONG), both owner-DONE.
         # When ON, read() adds a TYPED within-clause causation read (CAUSE/ENABLE/PREVENT) on sm.
@@ -998,6 +1012,17 @@ class SituationReader:
                 sense_gate=self.causation_sense_gate, sense_tau=self.causation_sense_tau,
                 foreground_gate=self.causation_foreground_gate,
                 nlp=self._causation_nlp, lexicon=self._causation_lex)
+        if self.verb_subcat_gate:
+            # post-read patient-presence gate: suppress a bound patient on low-transitivity (intransitive)
+            # verbs. Matches the validated SubcatGateReader (runs AFTER causation/timeline, so those see the
+            # un-suppressed patient exactly as measured). Lazy import -> byte-identical when off.
+            if self._vs_mod is None:
+                from hdlab import verb_subcat as _VS
+                self._vs_mod = _VS
+            _VS = self._vs_mod
+            for e in sm.events:
+                if e.patient not in ("?", None) and _VS.suppress_patient(e.predicate, self.verb_subcat_thr):
+                    e.patient = "?"
         return sm
 
 
