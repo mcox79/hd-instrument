@@ -398,6 +398,27 @@ CONTEXTUAL representation (LLM) barred at inference. LESSON (reusable): compare 
 the naive floor -- the naive floor over-credits any method that just picks the dominant sense. Cell: `--self-
 test` PASS; `--mode full`.
 
+**8d. BOTH BREAK-THROUGH PATHS PROTOTYPED + TESTED (owner "test both right now"). Cell
+`experiments/exp_contextual_encoder_paths_wic_v1.py` on gold WiC vs the HONEST baseline (floor 0.50 AND
+MFS-agreement ~0.59), UNSUP (cosine-threshold, tau tuned on train) + SUPERVISED (logistic on [|v1-v2|,
+v1*v2] pair features):
+- PATH A (glass-box, PREFERRED): contextual encoder from DEPENDENCY-TYPED context (structured_context_
+  learner's lever; spaCy parse + GloVe filler embeddings, NO LLM) vs FULL-bag GloVe. DEP dev/test unsup
+  0.536/0.529, sup 0.558/0.524; FULL unsup 0.560/0.552, sup 0.600/0.574. NEITHER clears MFS-agreement CI-
+  separated. Dependency-typing HURT vs full-bag -- the syntactic lever helps SIMILARITY (SimLex) not SENSE
+  (WiC). Glass-box context is too weak for per-context sense.
+- PATH B (off-the-shelf contextual): all-MiniLM-L6-v2 cached contextual target-token embedding (LLM AT
+  INFERENCE -> bars the invariant; tested to measure the ceiling). Unsup 0.571/0.586, sup 0.556/0.598. Also
+  does NOT clear MFS-agreement CI-separated. (Low vs the field's ~0.68 because MiniLM is a small frozen
+  sentence model + a simple classifier; ~0.68 needs a LARGE contextual LM FINE-TUNED end-to-end = the most
+  invariant-violating option, still not a clean solve.)
+DECISIVE VERDICT: NEITHER path, unsupervised OR supervised, clears the dominant-sense (MFS-agreement ~0.59)
+baseline as prototyped. The glass-box / no-inference-LLM regime caps ~0.59-0.60 on WiC. Path A (glass-box)
+does not reach the break-through; Path B reaches the field level only with a large fine-tuned LLM at
+inference (barred). CONCLUSION: real per-context WSD is LLM-GATED and hard; there is NO clean glass-box
+break-through on this task -- a well-located, gold-tested NEGATIVE for both paths. Cell: `--self-test` PASS;
+`--mode full` (~350s; spaCy + gensim GloVe + MiniLM, all cached locally).
+
 ## Adjacent-component evaluation (brain-foundational fidelity + opportunities, verified on disk)
 
 Per the standing rule to evaluate adjacent components (not just map them), to seed the next problems:

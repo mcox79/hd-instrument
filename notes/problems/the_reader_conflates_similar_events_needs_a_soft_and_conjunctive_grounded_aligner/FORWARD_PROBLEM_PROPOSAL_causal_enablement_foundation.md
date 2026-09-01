@@ -67,6 +67,20 @@ directed premises -> `transitive_ordering`; arms CONCEPTNET / COOCCUR / HYBRID /
 problem's conjunctive aligner + `transitive_ordering` read-out UNCHANGED. If it clears the bar, strategy lands the
 wire (Q111): the offline causal-order KB as a static asset + the KB->premise builder, default-off, witnessed.
 
+## PROTOTYPE RESULT (already run -- a LOCATED NEGATIVE that de-risks the real build)
+`exp_conceptnet_causal_order_foundation_v1.py`, n=301 held-out. The foundation is BUILDABLE and glass-box: an
+offline stream of the full ConceptNet 5.7 CSV yields 70,970 script-order edges (22,710 HasPrerequisite, 16,801
+Causes, +6,221 first/last-subevent) in 62s, NO LLM. The mechanism is sound (edges -> `transitive_ordering`). BUT:
+CONCEPTNET 0.545 < in-text COOCCUR 0.591; HYBRID 0.551. **Root cause, pinned:** a KB<->reader COVERAGE/GRANULARITY
+mismatch -- at phrase precision, only **1 of 301** questioned event-pairs has a ConceptNet BEFORE-edge between the
+two aligned events (direct pair-hit ~0). ConceptNet's generic concepts ("take a shower", "get clean") do not match
+the reader's specific extracted events ("get out of the shower", "dry off with a towel"). So the foundation does not
+FAIL for a mechanism reason; it fails because THIS source, naively phrase-matched, does not cover the specific
+event-pairs the benchmark asks about. **The formalized problem's first job is therefore the KB<->event MAPPING +
+COVERAGE:** (a) grounded/paraphrase-matched KB lookup (match a reader event phrase to the nearest KB concept, not
+exact-string), and/or (b) a higher-coverage / finer-grained source -- ATOMIC (on disk, if-then event knowledge at a
+finer grain) or a consolidated multi-source script KB. Report the pair-hit rate as the headline coverage number.
+
 ## 8. DO NOT QUOTE / DO NOT REDO
 - Do NOT re-run the IN-TEXT order signals expecting a different result: co-occurrence (all aggregators), positional,
   hierarchical, in-text enablement, discourse connectives, episodic, fusion ALL cap <= 0.591 (measured in the sibling
