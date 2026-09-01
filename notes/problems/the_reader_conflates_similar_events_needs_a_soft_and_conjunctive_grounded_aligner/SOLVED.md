@@ -5,7 +5,7 @@ bar: "PASS = the grounded soft-AND CONJUNCTIVE aligner lifts end-to-end before/a
 result: "END-TO-END (n=301 held-out dev+test symmetric before/after, chance 0.5, passage-cluster bootstrap): the conjunctive-granularity gated aligner scores 0.591 vs SIMILARITY 0.525 (+0.066 [-0.017,+0.149], half-width 0.083, null_p95 0.083, NOT CI-sep) and vs text-position 0.518 (+0.073 [-0.010,+0.152], NOT CI-sep); shuffled-order twin 0.545 (FIX-twin +0.046, NOT sep). It BEATS the verb-only incumbent 0.532 (+0.060 [-0.007,+0.126]). dev 0.660 vs test 0.556 (generalization gap). ISOLATED PROBE (n=52030 items over 138 scenarios, top-1 alignment argmax over the full type inventory): the criterial-feature (particle+2nd-arg) ablation collapses particle-sibling alignment 0.926->0.608 (delta +0.318 [+0.301,+0.337] CI-sep); role-scramble 0.926->0.021 (+0.905 CI-sep). The soft-AND PRODUCT does NOT beat the additive sum (-0.002, NOT sep) -- the brief's specific mechanism is refuted; the FEATURE SET + role structure is the lever."
 floor: "SIMILARITY-only floor 0.525 (strongest actually-run for the aggregate before/after contrast); NO-model text-position floor 0.518; both recomputed on the n=301 held-out items with CIs."
 controls: "ISOLATED PROBE: particle/2nd-arg ABLATION (drop criterial slots -> alignment collapses, excludes 'any richer code helps'); ROLE-SCRAMBLE twin (wrong role<-filler binding -> collapses, excludes 'more features, not structure'); ANTONYM control (raw grounded cos(in,out)=0.556 vs discrete kernel 0 -> excludes a grounded cosine on the particle slot); kernel sweep coarse/additive(p=1)/soft-AND(p->0)/harder-AND/DG-expand (excludes 'the product combination rule is the lever'). END-TO-END: SIMILARITY floor, text-position floor, SHUFFLED-ORDER twin (excludes 'any ordering'), PARTICLE-BLIND verb-only ablation (excludes 'the conjunctive nodes are not used'), ADDITIVE-kernel arm (excludes 'the product is needed'), committed-covered decomposition (isolates ordering from coverage), per-split held-out, per-construction particle-hinged, and a HIERARCHICAL coarse-backoff arm (a located negative -- coarse premises drown the fine signal)."
-files_changed: "experiments/exp_conjunctive_event_aligner_probe_v1.py; experiments/exp_conjunctive_aligner_end_to_end_mcscript_v1.py; experiments/exp_enablement_order_mcscript_v1.py; experiments/exp_conceptnet_causal_order_foundation_v1.py (forward: foundation prototype + offline KB builder); verification/test_conjunctive_event_aligner.py; notes/problems/the_reader_conflates_similar_events_needs_a_soft_and_conjunctive_grounded_aligner/{SOLVED.md, FORWARD_PROBLEM_PROPOSAL_causal_enablement_foundation.md, research_combination_rule_and_path_slot_2026-09-01.md, research_canonical_script_order_mechanism_2026-09-01.md, research_model_based_simulation_of_script_order_2026-09-01.md}; data/exp_{conjunctive_event_aligner_probe,conjunctive_aligner_end_to_end,enablement_order,conceptnet_causal_order_foundation}_mcscript_v1/metrics.json + data/exp_conceptnet_causal_order_foundation_v1/order_kb.jsonl (offline static asset). hdlab/ UNTOUCHED (proposed diff below, Q111)."
+files_changed: "experiments/exp_conjunctive_event_aligner_probe_v1.py; experiments/exp_conjunctive_aligner_end_to_end_mcscript_v1.py; experiments/exp_enablement_order_mcscript_v1.py; experiments/exp_conceptnet_causal_order_foundation_v1.py (forward: foundation prototype + offline KB builder); experiments/exp_operator_partial_order_mcscript_v1.py (forward: world-state operator partial-order prototype -> ~99% causally-independent); experiments/exp_construction_integration_reasoner_mcscript_v1.py (forward: Kintsch-CI fusion capstone -> compound wall gated upstream); verification/test_conjunctive_event_aligner.py; notes/problems/the_reader_conflates_similar_events_needs_a_soft_and_conjunctive_grounded_aligner/{SOLVED.md, FORWARD_PROBLEM_PROPOSAL_causal_enablement_foundation.md, research_combination_rule_and_path_slot_2026-09-01.md, research_canonical_script_order_mechanism_2026-09-01.md, research_model_based_simulation_of_script_order_2026-09-01.md}; data/exp_{conjunctive_event_aligner_probe,conjunctive_aligner_end_to_end,enablement_order,conceptnet_causal_order_foundation}_mcscript_v1/metrics.json + data/exp_conceptnet_causal_order_foundation_v1/order_kb.jsonl (offline static asset). hdlab/ UNTOUCHED (proposed diff below, Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_conjunctive_event_aligner.py   # 11/11 checks recompute the headline claims (aligner lever + product-refuted + antonym + conjunctive granularity + enablement mechanism) FROM SOURCE"
 ---
 
@@ -175,6 +175,34 @@ control) are rock-solid, large, CI-separated effects and would survive.
   HONEST bound (drill calibration): on short everyday-script narratives full mutable-state SIMULATION is likely
   measurably IDLE over a cheaper topological sort of a KB-seeded operator graph (few re-toggles/consumed resources);
   the binding constraint is OPERATOR/DEPENDENCY COVERAGE of the specific event-pairs, which is a KB-seeding build.
+- **DEFINITIVE, SELF-CORRECTING finding (exp_operator_partial_order_mcscript_v1.py): the before/after questions are
+  ~99% CAUSALLY-INDEPENDENT, so the causal/enablement route is the WRONG fix for the majority.** Built the brain-
+  faithful mechanism -- coarse STRIPS-style operators (avail/at/open state predicates) -> enable-DAG -> before/after
+  by DAG REACHABILITY with ABSTAIN on independent pairs (the partial order). Result (n=271 decidable): even WITH
+  22,710 ConceptNet HasPrerequisite edges added, the DAG connects only **3 of 271 questioned pairs** (coverage ~1%);
+  268 abstain (no directed enable-path) and are answered by co-occurrence at 0.587. So these questions are ordered by
+  CONVENTION ("shampoo before rinse"), not causal necessity -- which a human reads off a CACHED conventional script-
+  order SCHEMA built from massive exposure, NOT by causal derivation. The causal-simulation machinery is brain-
+  faithful but STRUCTURALLY IDLE here. The ~0.59 ceiling is therefore a WEAK CONVENTIONAL-ORDER estimate (13
+  exposures + direction-blind co-occurrence statistics), and the right foundation is a STRONGER CONVENTIONAL SCRIPT-
+  ORDER schema (far more directional exposures / a conventional-order source), NOT primarily a causal-enablement KB
+  (which covers ~1%). This CORRECTS this problem's own earlier "causal enablement is the fix" forward hypothesis.
+- **FINAL, DEFINITIVE verification (data trace + construction-integration reasoner): the wall is a COMPOUND gated by
+  TWO UPSTREAM components, and NO downstream temporal mechanism breaks ~0.59.** Inspecting concrete items showed gold
+  = the test story's OWN narrated order for the narrated majority -- yet ordering the story's own events gives only
+  ~0.55 because the grounded aligner is NEAR-RANDOM on REAL question cues (nominalizations "the ORDER"<->"ORDERED";
+  cross-POS/paraphrase "check PRINTED"<->"PRESENT check"; world-knowledge paraphrase "ask for IDENTIFICATION"<->
+  "check his age/license"). Concept/lemma-identity resolution helps (0.549->0.609 on the confidently-aligned subset)
+  but the residual paraphrases need the substrate's stage-1 MEANING channel, which the gap-map lists BROKEN. The
+  construction-integration reasoner (Kintsch CI fusion of episodic story-order + conventional schema + causal
+  operators with improved concept-identity resolution; exp_construction_integration_reasoner_mcscript_v1.py) scores
+  0.532 -- fusing near-chance components DILUTES rather than integrates. Across ~10 faithful mechanisms
+  (aligner-kernel / granularity / causal-enablement / ConceptNet-foundation / connectives / positional / hierarchical
+  / operator-partial-order / concept-identity-alignment / CI-fusion) EVERY ONE caps <= 0.591. CONCLUSION: the aligner
+  and the `transitive_ordering` read-out are validated but DOWNSTREAM; the MCScript2 before/after ceiling is gated by
+  (1) the BROKEN contextual MEANING channel (event-mention/paraphrase resolution -- stage 1) and (2) missing
+  world-knowledge/exposure for CONVENTIONAL order. The true brain-foundational path is UPSTREAM (both are separate,
+  already-identified problems), not a further downstream temporal organ.
 
 ## PROPOSED hdlab DIFF (Q111 -- NOT landed; NOT load-bearing yet, since it does not clear the end-to-end bar)
 1. **Conjunctive event-TYPE identity** for any script/ordering schema node: key by the role-filler conjunction

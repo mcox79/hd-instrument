@@ -5,7 +5,7 @@ bar: "PASS = the structured verb-role exemplar store, as the drop-fill TARGET se
 result: "On the MODERN ambiguous-position slice (QA-SRL passive, gold-blind structural, n=1367-1371 coverable), the verb-role EXEMPLAR selector (nearest-exemplar k-NN over grounded fillers of the verb's OBJ slot) picks the patient at 0.432 accuracy, CI-separated over EVERY floor actually run: verb-role MEAN centroid 0.365 (+0.0673 CI[+0.0402,+0.0944]), verb-blind holistic coarse prior 0.331 (+0.1017 CI[+0.0746,+0.1295]), position-only 0.290 (+0.1426 CI[+0.1068,+0.1770]); verb-shuffled twin 0.336 LOSES (+0.0966 CI[+0.0673,+0.1266]); generalizes to UNSEEN fillers (n=1050, +0.062 over holistic CI[+0.031,+0.092]). Replicated in an independent GloVe-300 space (+0.126 over holistic). DEPLOYMENT (FULL population, no pre-slicing, n=2737): the construction-conditional integrated selector (position x exemplar, word-order down-weighted at non-canonical structure) beats the LIVE wired reader 0.481 -> 0.508 (+0.0267 CI[+0.0073,+0.0468]) and its verb-shuffled twin loses (+0.0245 CI[+0.0132,+0.0365]). Scorer = patient-selection accuracy (pick==gold_head), paired item bootstrap 2000-3000x. 19c (LitBank) is a TWO-LAYER LOCATED NEGATIVE: (knowledge layer) the modern store fails to beat the holistic prior (-0.070 CI[-0.082,-0.059]) but an in-domain 19c store BEATS the modern store (+0.081 CI[+0.044,+0.116]) - register-native KNOWLEDGE recovers the signal; (parser layer) a NO-GOLD 19c store built by parsing 19c text with the modern frontend scores WORSE than its own twin (-0.083 CI[-0.115,-0.049]) - the modern parser is too degraded on archaic prose to extract correct (verb,OBJ) pairs, so a no-gold deliverable is blocked by parser era-robustness, not the selectional representation."
 floor: "Strongest floor actually run = the verb-role MEAN centroid (predictive_reader-style per-(verb,OBJ) grounded mean) at 0.365 on QA-SRL passive; beaten CI-separated by the exemplar's +0.0673 CI[+0.0402,+0.0944]. Also run and beaten: verb-blind holistic centroid 0.331 (the coarse prior named in the brief), position-only 0.290."
 controls: "VERB-SHUFFLED twin (fillers kept, verb keys permuted) LOSES CI-sep (+0.097) -> the verb-KEYING does the work, not any per-candidate scorer. CENTROID-vs-EXEMPLAR ablation (same grounded fillers, mean vs nearest-exemplar) -> exemplar beats centroid +0.067 CI-sep -> the lever is the INSTANCE distribution, not richer features. VERB-SELECTIVITY positive control -> the instance advantage concentrates on sharp verbs (sharp exemplar-vs-centroid +0.098) and the win concentrates on INANIMATE/concrete patients (+0.110) while REVERSING on animate patients (-0.057, where two people cannot be separated by grounded fit - Wall B). UNSEEN-filler generalization -> exemplar still wins on gold fillers absent from the verb's store (+0.062 over holistic CI-sep) -> generalization is by grounded similarity, not memorization. Info-free NULL = the verb-shuffled twin (loses CI-sep). RICHER-SPACE control (GloVe-300) -> the modern win survives (+0.126), the 19c null survives -> 19c is register drift, NOT feature-space coarseness."
-files_changed: "experiments/exp_verbrole_exemplar_which_arg_v1.py, experiments/exp_verbrole_exemplar_which_arg_v2.py, experiments/exp_verbrole_exemplar_integrated_v1.py, experiments/exp_verbrole_exemplar_19c_store_v1.py, experiments/exp_verbrole_exemplar_soft_store_v1.py, experiments/_drill_19c_wall_diagnostic_v1.py, experiments/_drill_indomain_store_v1.py, experiments/_drill_shrinkage_calib_v1.py, experiments/_drill_wallB_prominence_v1.py, verification/test_verbrole_exemplar_which_arg.py, data/exp_verbrole_exemplar_which_arg_v1/*, data/exp_verbrole_exemplar_which_arg_v2/*, data/exp_verbrole_exemplar_integrated_v1/*, data/exp_verbrole_exemplar_19c_store_v1/*, data/exp_verbrole_exemplar_soft_store_v1/*, notes/problems/the_plausibility_prior_is_a_coarse_centroid_needs_a_structured_verb_role_exemplar_store/SOLVED.md"
+files_changed: "experiments/exp_verbrole_exemplar_which_arg_v1.py, experiments/exp_verbrole_exemplar_which_arg_v2.py, experiments/exp_verbrole_exemplar_integrated_v1.py, experiments/exp_verbrole_exemplar_19c_store_v1.py, experiments/exp_verbrole_exemplar_soft_store_v1.py, experiments/exp_verbrole_exemplar_em_joint_v1.py, experiments/_drill_19c_wall_diagnostic_v1.py, experiments/_drill_indomain_store_v1.py, experiments/_drill_shrinkage_calib_v1.py, experiments/_drill_wallB_prominence_v1.py, experiments/_drill_19c_canonical_build_v1.py, verification/test_verbrole_exemplar_which_arg.py, data/exp_verbrole_exemplar_which_arg_v1/*, data/exp_verbrole_exemplar_which_arg_v2/*, data/exp_verbrole_exemplar_integrated_v1/*, data/exp_verbrole_exemplar_19c_store_v1/*, data/exp_verbrole_exemplar_soft_store_v1/*, notes/problems/the_plausibility_prior_is_a_coarse_centroid_needs_a_structured_verb_role_exemplar_store/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_verbrole_exemplar_which_arg.py"
 ---
 
@@ -93,6 +93,34 @@ The residual 19c gap (a tie, not a win) is now precisely located: the SOFT SYNTA
 archaic word order, which the literature closes with the EM / self-training loop (use the store's own
 expectations to reweight the parse, iterate) and register adaptation of the parser (Fine 2013; Chang 2006)
 -- a larger build, mapped as the next problem, NOT an intrinsic ceiling.
+
+## Completeness 3 -- THE FULL SOLUTION PROTOTYPED: joint noisy-channel inference + the self-supervised EM loop
+Owner asked to prototype the full brain-faithful architecture, not file it. Built
+`exp_verbrole_exemplar_em_joint_v1.py`: the reader learns the selectional store from its OWN reading with
+NO gold roles and NO hard parse, by the knowledge<->extraction virtuous cycle = EM.
+  - E-STEP (joint noisy-channel): soft-label each verb's object by q(c) ~ P_pos(c)^beta_pos(construction) *
+    P_sel(c | current store), the word-order weight COLLAPSING on non-canonical structure (Competition
+    Model) and the selectional prior filling in -- the brain's move, not the pipeline's hard commit.
+  - M-STEP: re-estimate the grounded exemplar store from the soft counts; iterate.
+RESULTS (leave-one-sentence-out, ambiguous slice):
+  - MODERN: the FULL loop -- self-supervised, no gold, no parse -- recovers the verb-keying signal: store
+    0.344 BEATS its verb-shuffled twin +0.036 CI[+0.007,+0.068], STABLE across iterations. The complete
+    architecture works end to end. (It ties, not beats, the holistic prior -- self-supervision is noisier
+    than the gold-parsed store, which beat holistic +0.10 -- an honest cost of removing the teacher.)
+  - 19c: the loop PLATEAUS at a tie with its twin across all iterations (0.235, flat); the predicted
+    tie->win did NOT occur, and THE DISK OUTRANKS THE PREDICTION. Diagnosis (per "flat learning = broken
+    experiment, not a ceiling"): the EM's bootstrap quality is bounded by its cheapest E-step cue --
+    POSITION -- which is register-UNRELIABLE on exactly the non-canonical 19c slice that matters, so the
+    virtuous cycle has no reliable seed. This LOCATES the final 19c blocker to a single named component:
+    parser register-adaptation (make the E-step's syntactic cue trustworthy on 19c) and/or denser 19c text.
+    The gold oracle beat the twin (+0.047) BECAUSE it had correct object labels; self-supervision cannot
+    manufacture them from a register-unreliable parse. Not a ceiling -- a precisely-located next build.
+  - PROBE (`_drill_19c_canonical_build_v1.py`): a 19c store built from CANONICAL sentences only (reliable
+    extraction, simulating an adapted parser) and tested on the DISJOINT non-canonical slice BEATS its
+    twin +0.0418 CI[+0.0062,+0.0789] -- reliable extraction DOES recover the verb-keying signal -- but
+    STILL only ties the holistic prior (-0.008). So the 19c closure needs BOTH parser register-adaptation
+    (recovers the keying signal) AND more 19c data + Wall-B animate handling (to BEAT the coarse prior).
+    Neither alone suffices; the 19c value is REAL but BOUNDED (as the brief predicted up front).
 
 ## What I did NOT establish (and would withdraw first if wrong)
 1. **A 19c capability WIN over the holistic prior.** I proved the register-native signal is there (gold
@@ -238,13 +266,15 @@ same offline-foundation build the learner-on roadmap wants).
 ## NEXT STEPS
 1. Land the modern selector (proposed wire above), default-off, witnessed (10/10); ship shrinkage as the
    OOD safety layer.
-2. New problem -- JOINT role inference (highest fidelity): replace parse->select with one scorer
-   score = w_syn(parse_confidence)*logP_syntax + w_sel*logP_selectional, plus the EM/self-training store
-   loop (reweight parses by the store's own expectations, iterate). Research predicts it turns the 19c
-   tie into a win at the same parser quality; the soft store (built here) is the first EM iteration.
-3. New problem -- discourse-prominence/givenness cue (Wall B) into role assignment for ANIMATE arguments,
+2. JOINT role inference + EM self-training loop -- PROTOTYPED here (`exp_verbrole_exemplar_em_joint_v1.py`);
+   works end-to-end self-supervised on modern (beats twin +0.036). To LAND: wire the joint scorer
+   (w_syn(parse_confidence)*logP_syntax + w_sel*logP_selectional) as the reader's role-extraction path.
+3. New problem -- parser register-adaptation (the LOCATED final 19c blocker): the EM loop plateaus on 19c
+   because its E-step position cue is register-unreliable; self-train the parser on 19c text so the E-step
+   seed is trustworthy, then re-run the EM loop. Measure exposure -> parse-quality -> store-recovery
+   (honest re Harrington-Stack 2018 replication failure). This is the one build that would convert the 19c
+   tie into a win.
+4. New problem -- discourse-prominence/givenness cue (Wall B) into role assignment for ANIMATE arguments,
    measured on multi-sentence gold (from the coref/entity store).
-4. New problem -- parser register-adaptation: self-train the parser on 19c text; measure exposure ->
-   parse-quality -> store-recovery (honest re Harrington-Stack 2018).
 5. Optional optimization: swap the 12-d filler space for the validated predicted-Binder-65 space when the
    store is wired (GloVe-300 already showed a richer space grows the modern win to +0.126).

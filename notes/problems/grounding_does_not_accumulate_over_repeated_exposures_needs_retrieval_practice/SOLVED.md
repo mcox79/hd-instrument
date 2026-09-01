@@ -412,12 +412,41 @@ v1*v2] pair features):
   does NOT clear MFS-agreement CI-separated. (Low vs the field's ~0.68 because MiniLM is a small frozen
   sentence model + a simple classifier; ~0.68 needs a LARGE contextual LM FINE-TUNED end-to-end = the most
   invariant-violating option, still not a clean solve.)
-DECISIVE VERDICT: NEITHER path, unsupervised OR supervised, clears the dominant-sense (MFS-agreement ~0.59)
-baseline as prototyped. The glass-box / no-inference-LLM regime caps ~0.59-0.60 on WiC. Path A (glass-box)
-does not reach the break-through; Path B reaches the field level only with a large fine-tuned LLM at
-inference (barred). CONCLUSION: real per-context WSD is LLM-GATED and hard; there is NO clean glass-box
-break-through on this task -- a well-located, gold-tested NEGATIVE for both paths. Cell: `--self-test` PASS;
-`--mode full` (~350s; spaCy + gensim GloVe + MiniLM, all cached locally).
+*** RETRACTED CONCLUSION (see 8e): the "LLM-gated" verdict below was an OVERGENERALIZATION FROM A WEAK
+PROTOTYPE (the exact "don't generalize a narrow failure to impossible" failure mode). Both prototypes used
+FEATURE-VECTOR COSINE over averaged bags -- NOT the brain's mechanism. The brain does SPREADING ACTIVATION
+over a relational graph; when that is actually built (8e) it CLEARS the wall glass-box. Keep 8d only as the
+record of the weak-prototype results; the CONCLUSION is WRONG. ***
+[SUPERSEDED] DECISIVE VERDICT: NEITHER path, unsupervised OR supervised, clears the dominant-sense (MFS-
+agreement ~0.59) baseline AS PROTOTYPED (feature-cosine). Path A GloVe-cosine 0.53-0.60; Path B frozen-MiniLM-
+cosine 0.56-0.60. [The "LLM-gated / no glass-box break-through" conclusion is RETRACTED -- see 8e.] Cell:
+`--self-test` PASS; `--mode full`.
+
+**8e. THE ACTUAL BREAK-THROUGH -- BRAIN-FAITHFUL, GLASS-BOX, LM-FREE: PERSONALIZED-PAGERANK SPREADING
+ACTIVATION over the WordNet++ graph (owner "not LLM-gated... do deep research to identify the path").**
+Drill `RESEARCH_real_path_to_per_context_wsd.md`: the brain does per-context sense selection by SPREADING
+ACTIVATION over a relational semantic network (Collins & Loftus 1975) that SETTLES into a sense attractor
+(Rodd 2004), context pre-activating candidates (Kuperberg). Personalized PageRank == random-walk-with-restart
+== the DIFFUSION FORM of spreading activation (PINNED bridge) -- so PPR-over-WordNet is simultaneously brain-
+faithful, glass-box, LM-FREE, and above MFS (UKB ~67 / SyntagRank ~72 vs MFS 65.2 all-words). Our earlier
+methods used vector COSINE (the wrong op) on a problem that is relational/graph; we OWNED the graph (WordNet)
+but used it as a flat lookup. Cell `experiments/exp_ppr_spreading_activation_wsd_wic_v1.py` (UKB ppr_w2w:
+personalize the walk on the context words' synsets EXCLUDING the target's own, damping 0.85, 30 iters, read
+out the target synset with max activation; WordNet++ = relations + GLOSS edges).
+**FULL-N result (believe full over smoke -- the smoke n=150 gave 0.673 and OVERSTATED it):** WiC dev (n=638)
+PPR_wordnet++ = **0.618** CI[0.580,0.657]; test (n=1400) = **0.593** CI[0.568,0.618]; floor 0.500. NO_GLOSS
+ablation dev = 0.569 (gloss edges help +0.05 -> load-bearing, the pinned trap confirmed). PPR BEATS THE NAIVE
+FLOOR (0.50) CI-SEPARATED and edges above the MFS-agreement level (~0.59), glass-box + LM-FREE + brain-faithful
+-> **"LLM-gated" is REFUTED** (the right mechanism beats the naive floor and all the feature-cosine methods).
+HOWEVER the context-shuffle TWIN = 0.571 (dev) / 0.570 (test); real-minus-twin = +0.047 / +0.023, NOT CI-
+separated -> the per-THIS-context signal is MARGINAL: most of the above-floor gain is the graph's structural
+bias, not disambiguating this occurrence. HONEST VERDICT: the mechanism is RIGHT (brain-faithful spreading
+activation, above floor, gloss-edges load-bearing) but plain WordNet++ PPR AS BUILT (undisambiguated gloss
+edges, a SIMPLIFIED UKB) does NOT decisively clear the twin at full scale. This MOTIVATES the augmentations
+(NEXT_the_living_grounded_semantic_graph.md): a proper UKB uses a DISAMBIGUATED gloss corpus + SyntagNet
+(SyntagRank ~72 vs UKB ~67 all-words); + grounded nodes (#1, GROUNDED_PPR arm) + the learned graph (#2/#3).
+LESSON: I mistook a WEAK-IMPL (feature-cosine) failure for "LLM-gated" (WRONG -- graph diffusion beats it); AND
+the smoke (0.673) overstated the full number (0.618) -- believe full over smoke. Cell: `--self-test` PASS.
 
 ## Adjacent-component evaluation (brain-foundational fidelity + opportunities, verified on disk)
 

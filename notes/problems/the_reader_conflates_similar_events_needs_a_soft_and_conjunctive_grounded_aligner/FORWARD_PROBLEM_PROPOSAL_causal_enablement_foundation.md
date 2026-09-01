@@ -7,6 +7,19 @@ before/after ceiling (~0.59) is now a KNOWLEDGE-FOUNDATION gap, not a mechanism 
 **NOTE (scope):** a solver cannot create another problem's folder; this is a proposal. The mechanism is already
 prototyped in `experiments/exp_conceptnet_causal_order_foundation_v1.py` (result folded into this problem's SOLVED.md).
 
+> ## ⚠️ CORRECTION (2026-09-01, after the operator prototype -- a self-refutation to heed before formalizing):
+> The proposed slug names CAUSAL ENABLEMENT, but `exp_operator_partial_order_mcscript_v1.py` measured that the
+> before/after questioned pairs are **~99% causally-INDEPENDENT** -- an operator enable-DAG (surface predicates + all
+> 22,710 ConceptNet HasPrerequisite edges) connects only **3 of 271** pairs. So causal enablement is the fix for ~1%.
+> The MAJORITY are ordered by CONVENTION (shampoo-before-rinse), which the brain reads off a CACHED conventional
+> script-order SCHEMA (mPFC template) built from MASSIVE directional exposure. **RE-SCOPE the problem accordingly:**
+> the primary lever is a STRONGER CONVENTIONAL SCRIPT-ORDER schema -- far more directional script exposures (a large
+> "how-to"/procedural corpus of each activity, offline) or a conventional-order source -- with the causal-enablement
+> operator as a SMALL complementary arm for the ~1% causally-forced pairs. The proposed slug/section-3b (causal
+> operators) is correct MECHANISM but wrong PROPORTION; a better slug: `learn_a_conventional_script_order_schema_
+> from_scaled_exposure`. The core organ still missing either way: a directional order-learning signal that is not
+> the symmetric, exposure-starved co-occurrence estimate (which caps at 0.59 on 13 narratives).
+
 ## 1. THE PROBLEM IN PLAIN LANGUAGE
 Our reader can now tell similar events apart, but it still can't reliably say which of two steps in a routine comes
 first. We proved WHY: it learns order by noticing which steps tend to appear before others across a handful of
