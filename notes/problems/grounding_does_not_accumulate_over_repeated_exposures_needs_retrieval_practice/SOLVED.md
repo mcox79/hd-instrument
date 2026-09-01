@@ -5,7 +5,7 @@ bar: "A rigorous NEGATIVE is a full PASS if located: if retrieval-practice, fait
 result: "REPRESENTATION-BOUND NEGATIVE (the brief's full-PASS-if-located outcome). Retrieval practice, faithfully built (Mozer 2009 MCM Eq.7 + a PBV meaning-retrieval variant), CANNOT select a WordNet-correct grounding above chance on the CONSOLIDATION_FAIL population: selection-AUC (fixed meaning representation) retrieve=0.486 [0.413,0.554] / 0.503 [0.461,0.543] (seed0/seed1), PBV=0.467 [0.402,0.530] / 0.488 [0.446,0.531] -- both CIs INCLUDE chance (0.5). Grounding precision is FLAT at the ~0.25-0.32 base rate across every scheme; n=716/685 CONSOLIDATION_FAIL words, 3000 modern sentences (simplewiki+news+science), scored blind on WordNet."
 floor: "Incumbent split-half RE-STUDY arm at EQUAL exposure (best-case, all traces at once): grounded-CORRECT rate 0.006 (seed0) / 0.004 (seed1) -- it grounds ~none of these words. Rate-independent info-free floor: random-selection AUC 0.447 / 0.456 for picking a correct grounding, which retrieval does not beat."
 controls: "(1) exposure-matched RE-STUDY (incumbent split-half) -- retrieval's apparent recall gain over it is pure threshold-relaxation; (2) EXPOSURE-COUNT arm (strengthen every exposure, no retrieval gate) -- ties/beats retrieval, excluding 'the retrieval gate helps'; (3) info-free TWIN_SHUF (retrieval outcomes shuffled) and TWIN_RAND (random scores) -- retrieval does NOT beat them on grounded-correct; (4) DECISIVE rate-independent selection-AUC vs a random selector -- excludes 'grounds more words at base precision'; (5) PBV meaning-retrieval variant -- rules out a weak self-coherence retrieval; (6) m-quality-matched (hits-only vs full-bundle estimate) -- excludes 'a cleaner estimate'; (7) PPMI+SVD distributional representation probe (phi 0.302 vs bag-of-words 0.303, CI [-0.036,+0.036], not separated) -- excludes 'a richer target-word representation fixes it'; (8) population characterization -- excludes the brief's 'coherent repeated exposures' premise (mean split-half coherence 0.09-0.13; only 0.6-2% coherent-single-sense-with-anchor)."
-files_changed: "experiments/exp_retrieval_practice_consolidation_v1.py; verification/test_retrieval_practice_consolidation.py; notes/problems/grounding_does_not_accumulate_over_repeated_exposures_needs_retrieval_practice/SOLVED.md; data/exp_retrieval_practice_consolidation_v1/metrics.json; data/exp_retrieval_practice_consolidation_v1/dist_probe.json"
+files_changed: "experiments/exp_retrieval_practice_consolidation_v1.py (arms + decisive selection-AUC + PBV variant + distributional-representation probe + multi-prototype sense-splitting probe); verification/test_retrieval_practice_consolidation.py; notes/problems/grounding_does_not_accumulate_over_repeated_exposures_needs_retrieval_practice/SOLVED.md; data/exp_retrieval_practice_consolidation_v1/{metrics.json,dist_probe.json,sense_probe.json}"
 reverify: ".venv/Scripts/python.exe verification/test_retrieval_practice_consolidation.py"
 ---
 
@@ -109,6 +109,53 @@ population that precondition fails in three brain-faithful ways, none of which r
 Retrieval practice is a **durability** mechanism. The `CONSOLIDATION_FAIL` wall is a **representation/structure**
 problem. That is the whole finding.
 
+## Pushing THROUGH the wall: the brain's actual mechanism for the largest slice (sense-splitting) also does not robustly break it
+
+A located negative is not the end -- if the brain grounds these words, we should be able to once we understand how.
+The brain *does* learn the largest slice (41% polysemous words) from reading, by a specific mechanism: it does NOT
+average a word's contexts into one meaning; it **clusters them into separate senses** (multi-prototype; Rodd, Gaskell &
+Marslen-Wilson 2004 separable attractor basins; Klein & Murphy 2001; Neelakantan 2014 online non-parametric sense
+induction; Kulis & Jordan 2012 DP-means). So I built that operation -- online DP-means sense-clustering (assign a context
+to the nearest sense-centroid if cos >= tau, else spawn a new sense; min-count-per-sense gate; tau swept) -- and ground
+each coherent sense-cluster separately, with the 0.45 anchor gate unchanged. The pinned prediction (Rodd/Klein-Murphy):
+clustering recovers senses only for **unrelated** (homonym-like) meanings, not for related regular-polysemy; the honest
+control is a **random-cluster** twin at the same cluster sizes (split-half coherence is inflated for small clusters, so
+"clusters cohere" is only meaningful *above* size-matched random).
+
+**Result (full, 2 seeds, polysemous slice n=293/301): a small, seed-UNSTABLE effect that does NOT robustly break the
+wall.**
+- **Correct-grounding recovery** (grounds a WordNet-correct sense the single-average misses): seed0 **0.041** at split-
+  precision 0.358; seed1 **0.003** at split-precision 0.444. Above the ~0.30 base precision when it fires, but ~4% in one
+  seed and <1% in the other -- not robust.
+- **Coherence recovery is confounded by cluster size**: DP-means clusters cohere (0.33-0.64) far above the whole bundle
+  (0.086-0.089), and above the size-matched random twin in seed0 (0.33 vs 0.21 at tau=0.10) -- but the random twin
+  **ties/beats** DP in seed1 (0.52 vs 0.37 at tau=0.10). The split-half metric is too size-sensitive at these cluster
+  sizes to be a clean readout of "real senses."
+- Relatedness stratification was clean at smoke (recovery only in homonym-like words) but did **not** hold at full scale.
+
+**This deepens the verdict rather than overturning it.** Even the brain's *correct* mechanism for the largest slice,
+faithfully built, cannot reliably find groundable senses **in this substrate's context representation** -- because that
+representation (masked bag-of-content-words, d=256, sign-collapsed) is too weak to separate senses (the retrieval
+self-vs-other AUC was only ~0.63). So the binding constraint sits at the **representation** at *every* level: the single
+average blurs senses, multi-prototype can't cleanly recover them, and a PPMI+SVD upgrade didn't help nearest-anchor
+precision. The lever is a richer context encoding (the p2 parser / structural encoder) and anchor-pool/ATL coverage --
+not the consolidation operation, and not retrieval practice.
+
+## Adjacent-component evaluation (brain-foundational fidelity + opportunities, verified on disk)
+
+Per the standing rule to evaluate adjacent components (not just map them), to seed the next problems:
+
+| component | brain-fidelity | limitation (measured/on-disk) | opportunity |
+|---|---|---|---|
+| **sense-assignment** (`canonicalize`, the 0.45 gate) | ATL nearest-neighbour in a semantic hub -- reasonable at the computational level | **single-prototype**: one bundle per lemma, cannot express multiple senses; precision capped ~0.25-0.35 by anchor-pool coverage | multi-prototype per-sense anchors (my sense-split); this is the largest-slice fix if the representation improves |
+| **anchor-pool expansion** (`process_sentence(anchor_pool=...)` + `exp_anchor_pool_expansion_v1`) | grounded words bootstrap later grounding (developmental vocabulary growth) | **EXISTS but DEFAULT-OFF**; cell verdict `COMPARATOR_IS_BINDING` = anchor-pool SIZE is the binding variable | wire grounded words in as anchors -> directly shrinks the 29% no-anchor slice; a built, un-wired lever |
+| **`ultrametric_clustering`** (WIRED) | hierarchical clustering primitive | not used for sense induction | reuse as the substrate for multi-prototype sense-clustering (don't reinvent) |
+| **single-hypothesis Library / PBV** | brain represents multiple senses; one carried hypothesis is a simplification | OUR-INVENTION single-sense store | multi-sense Library items (the store-level version of sense-splitting) |
+| **context representation** (masked bag-of-content-words, d=256) | crude, order-free, no syntax | self-vs-other retrieval AUC only ~0.63 -> caps every downstream sense/grounding decision | the p2 parser / structural encoder -- the deepest shared lever |
+
+Prior sense work exists but is SHELVED (`exp_sense_collapse_floor_v1`, `exp_sense_structured_hub_ca_v1/v2`, under the
+superseded vwfa/ppmi encoder cluster), so multi-prototype grounding is genuinely un-built on the live path.
+
 ## What I did NOT establish / what I would withdraw first
 
 - I did **not** test retrieval practice on a corpus rich enough to give the tiny (0.6-2%) coherent-single-sense-with-anchor
@@ -136,6 +183,11 @@ problem. That is the whole finding.
 - **Copy the published equation, don't invent one.** Mozer Eq.7 `Delta s = eps*(1-s)` gave a principled retrieval-gated
   accumulator (and the `(1-s)` = New Theory of Disuse for free); the negative is therefore about the substrate, not about
   a hand-rolled rule.
+- **Push through the wall with the brain's mechanism, and let the multi-seed run overrule the smoke.** Rather than stop at
+  "representation-bound," I built the brain's actual mechanism for the largest slice (multi-prototype sense-splitting). At
+  smoke it looked like a clean positive; at full 2-seed scale it was small and seed-unstable, and the coherence readout was
+  confounded by cluster size. Believing the 2-seed result over the smoke turned a tempting false win into a firmer verdict:
+  the constraint is the *representation*, at every level, not the consolidation operation.
 
 ## AUDIT UPDATE (for BRAIN_FOUNDATIONAL_AUDIT.md §2b)
 
@@ -151,20 +203,36 @@ anchor (ATL coverage), 18-24% genuinely incoherent contexts, 6-11% proper-noun/n
 sense-with-anchor. For the `reading_grounding_loop`/B3 entry: the grounding-precision ceiling (~0.25-0.35) is set by the
 sense-assignment (canonicalize) representation and is invariant to the consolidation scheme -- consolidation is not the
 lever for durable *correct* grounding on this population. "Make growth stick" via retrieval practice is refuted as the
-clean-foundation lever; the lever is the meaning representation + sense disambiguation.
+clean-foundation lever; the lever is the meaning representation + sense disambiguation. **FURTHER (the constructive push):**
+the brain's actual mechanism for the largest slice -- multi-prototype **sense-splitting** (Rodd 2004; Neelakantan 2014
+online DP-means) -- was built and tested and it too does NOT robustly ground the polysemous words in the current
+representation (recovery 0.4-4%, seed-unstable; DP-cluster coherence 0.33-0.64 vs whole-bundle 0.09 but confounded by
+cluster size -- a size-matched random twin ties it in one seed). So the constraint is the **context/meaning REPRESENTATION
+at every level** (self-vs-other retrieval AUC ~0.63 caps it), not the consolidation operation. Adjacent components:
+`canonicalize` is single-prototype (no multi-sense); anchor-pool expansion is BUILT default-OFF
+(`exp_anchor_pool_expansion_v1`, `COMPARATOR_IS_BINDING`) and targets the 25-29% no-anchor slice; `ultrametric_clustering`
+(WIRED) can substrate multi-sense clustering; prior sense work (`exp_sense_collapse_floor`, `exp_sense_structured_hub_ca`)
+is SHELVED.
 
 ## FOLLOW-ON PROBLEMS THIS SURFACES (candidate briefs; adjacent-component evaluation)
 
-1. **Sense-splitting for polysemous words (41-44% of the wall).** The consolidation loop carries a *single* hypothesis
-   per lemma (PBV, single-average). Polysemous words need multiple competing sense-hypotheses (a mixture / clustering of
-   the trace contexts before grounding). Brain-fidelity: the ATL semantic hub represents multiple senses; our single-slot
-   Library item is an OUR-INVENTION simplification. High leverage: it is the single largest slice.
-2. **Anchor-pool / ATL coverage (25-29%).** Single-sense words with no eligible anchor cannot ground because the target
-   meaning is absent from the known vocabulary. This is the `reader_meaning_channel`/ATL problem the brief scoped out, and
-   this result quantifies its share of the depth wall. Brain-fidelity: a growing semantic hub whose coverage bootstraps.
+1. **Multi-prototype sense-splitting (41-44% of the wall) -- BUT gated on a better context representation.** The
+   consolidation loop carries a *single* prototype per lemma. Polysemous words need clustered per-sense prototypes. I built
+   and tested this (the push above): the operation is brain-faithful and recovers a small, above-base-precision slice, but
+   does NOT robustly break the wall *in the current d=256 bag-of-words representation* (recovery 0.4-4%, seed-unstable;
+   coherence confounded by cluster size). Honest sequencing: land the sense-splitting consolidation change only once the
+   context encoding can separate senses (see #4). Reuse `ultrametric_clustering` (WIRED) as the clustering substrate.
+2. **Anchor-pool / ATL coverage (25-29%) -- a BUILT, un-wired lever.** Single-sense words with no eligible anchor cannot
+   ground because the target meaning is absent from the known vocabulary. The mechanism already exists default-OFF
+   (`process_sentence(anchor_pool=...)` + `exp_anchor_pool_expansion_v1`, verdict `COMPARATOR_IS_BINDING` = anchor-pool
+   SIZE is the binding variable). Opportunity: wire grounded words in as anchors so grounding bootstraps its own coverage.
+   This is the `reader_meaning_channel`/ATL problem; this result quantifies its 25-29% share of the depth wall.
 3. **Entity grounding for proper nouns (6-11%).** These have no common-word meaning; they belong in an episodic/entity
-   store (cf. the belief/ToM entity work), not the distributional grounding channel -- they should be *routed out* of the
-   grounding target set, not counted as failures.
+   store (cf. the belief/ToM entity work), not the distributional grounding channel -- route them *out* of the grounding
+   target set rather than counting them as failures.
+4. **The context encoding is the deepest shared lever.** The masked bag-of-content-words d=256 vector gives a self-vs-other
+   retrieval AUC of only ~0.63, which caps *every* downstream grounding/sense decision -- it is why both single-average and
+   multi-prototype fail. A structural/parsed encoder (the p2 parser track) sits upstream of #1 and of this whole problem.
 
 ## PROPOSED hdlab CHANGE (Q111 -- strategy lands; here it is a proposed NON-change + a routing fix)
 
@@ -201,8 +269,12 @@ evidence it asked for.)
 ## NEXT STEPS
 
 - Strategy: fold the AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b (retrieval practice refuted as the consolidation
-  lever; the wall is representation-bound).
-- Strategy: consider the three follow-on briefs above -- sense-splitting (largest slice), ATL anchor coverage, and
-  routing proper nouns out of the grounding target set.
-- Do NOT land a retrieval-practice consolidation step (proposed non-change).
-- Reverify anytime: `.venv/Scripts/python.exe verification/test_retrieval_practice_consolidation.py` (12/12).
+  lever; multi-prototype sense-splitting also does not robustly break it in the current representation; the wall is
+  representation-bound at every level).
+- Strategy: the highest-leverage follow-on is the **context encoding** (#4 -- the p2 parser / structural encoder), because
+  it is upstream of both the sense-splitting fix and this problem. Then the BUILT-but-un-wired **anchor-pool expansion**
+  (#2, targets 25-29%) and, once the encoder is stronger, **multi-prototype sense-splitting** (#1, targets 41-44%).
+- Do NOT land a retrieval-practice consolidation step, and do NOT land sense-splitting against the current encoder
+  (proposed non-changes -- both would only relax the threshold / add small unstable gains at the base precision).
+- Reverify anytime: `.venv/Scripts/python.exe verification/test_retrieval_practice_consolidation.py` (13/13 incl. the
+  sense-splitting check).
