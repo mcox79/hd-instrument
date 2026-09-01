@@ -253,6 +253,13 @@ class EventRecord:
     patient_surprisal: Optional[float] = None
     pred_precision: Optional[float] = None
     low_confidence: Optional[bool] = None
+    # PREDICT-REVISE drop-fill (2026-09-01 wire, default-off predict_revise). pred_idx = the verb's 0-based
+    # token index within its sentence (ALWAYS populated, like subj_role/affect -- additive metadata the
+    # drop-fill re-runs the filler-gap resolver on). patient_prerevise = the ORIGINAL patient ('?') before a
+    # drop-fill recovered a head; None unless the predict_revise flag is on AND this event's dropped patient
+    # was recovered (so the recovery is glass-box + reversible). The default reader never sets it.
+    pred_idx: Optional[int] = None
+    patient_prerevise: Optional[str] = None
 
 
 @dataclass
@@ -606,7 +613,8 @@ class SituationReader:
                  surprisal_abstain_tau: Optional[float] = None,
                  predict_surprisal_asset: Optional[str] = None,
                  track_belief: bool = False,
-                 bind_event_tokens: bool = False) -> None:
+                 bind_event_tokens: bool = False,
+                 predict_revise: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -748,6 +756,23 @@ class SituationReader:
         # spaCy / NO LLM. Flipping it default-ON is a SEPARATE owner decision (this is the evidence).
         self.bind_event_tokens = bool(bind_event_tokens)
         self._beb_mod = None           # lazy hdlab.bound_event_backbone
+        # PREDICT-REVISE parse-RECALL drop-fill (opt-in; default OFF = byte-identical). Integrated 2026-09-01
+        # from `the_reader_parses_as_truth_where_the_brain_parses_predictively_predict_and_revise` (p2,
+        # owner-DONE, EXCELLENT). The reader takes its ONE batch parse AS TRUTH and DROPS the patient when it
+        # sits BEFORE the verb (passive / object-relative / pre-verbal gap). When ON, a POST-READ pass fills
+        # each event whose patient is '?' (the structural coverage violation) by REUSING the validated
+        # hdlab.relcl_resolver.resolve_patient (the active-filler filler-gap resolver -- passive-subject /
+        # object-gap / word-order routes) as the fill TARGET, with a nearest-nominal POSITION fallback, and
+        # records the original '?' on EventRecord.patient_prerevise (glass-box, reversible). Recovers
+        # who-did-what CI-separated over the batch parse on BOTH modern QA-SRL (+0.060) and 19c LitBank
+        # (+0.059); the gain is a purely STRUCTURAL drop-fill (NO fitted predictor, NO surprisal gate -- the
+        # drill proved those add nothing). Do NOT wire post-verbal RE-SELECTION or surprisal-gated reanalysis
+        # of committed picks (p2's proven NEGATIVE). Recall-scoped only -> canonical recall PROTECTED. Lazily
+        # imports relcl_resolver + the pos tagger ONLY when on. NO spaCy / NO LLM. Compose with role_route='wired'.
+        self.predict_revise = bool(predict_revise)
+        self._pr_revise_rr = None      # lazy hdlab.relcl_resolver
+        self._pr_revise_tagger = None  # lazy pos tagger (UPOS)
+        self._pr_revise_nom = None     # lazy (NOMINAL, PRON_LOW) from the validated driver
         self._causation_nlp = None     # lazy spaCy handle (loaded once, only when causation_typed)
         self._causation_lex = None     # lazy force lexicon
         # persistent readers (the banked backbone + single-sentence validity baseline)
@@ -856,7 +881,8 @@ class SituationReader:
                 affect = _assign_affect(patient, text)
                 events.append(EventRecord(global_idx=gidx, sent_idx=si, predicate=e.lemma,
                                           agent=agent, patient=patient, tense=str(e.tense),
-                                          subj_role=subj_role, obj_role=obj_role, affect=affect))
+                                          subj_role=subj_role, obj_role=obj_role, affect=affect,
+                                          pred_idx=e.idx))
                 role_fillers.append(rf)
                 gidx += 1
         return events, focus, codec, role_fillers, suppressed
@@ -971,7 +997,7 @@ class SituationReader:
                 affect = _assign_affect(patient, text)
                 events.append(EventRecord(global_idx=gidx, sent_idx=si, predicate=e.lemma, agent=agent,
                                           patient=patient, tense=str(e.tense), subj_role=subj_role,
-                                          obj_role=obj_role, affect=affect))
+                                          obj_role=obj_role, affect=affect, pred_idx=e.idx))
                 role_fillers.append(rf)
                 if extra:
                     self.wired_extra_roles.append({"global_idx": gidx, **extra})
@@ -1108,6 +1134,61 @@ class SituationReader:
             self._beb_mod = _BEB
         BEB = self._beb_mod
         sm.event_tokens, sm.episodic_store = BEB.BoundEventBackbone(d=BEB.D).build(sm.events, sm.locations)
+
+    def _read_predict_revise(self, sm, sents) -> None:
+        """Opt-in PARSE-RECALL drop-fill (default-off; wired 2026-09-01 from the owner-DONE problem
+        the_reader_parses_as_truth_where_the_brain_parses_predictively_predict_and_revise). For each event
+        whose patient is '?' (DROPPED -- the structural coverage violation), fill it by REUSING the validated
+        hdlab.relcl_resolver.resolve_patient (passive-subject / object-gap / word-order routes) as the fill
+        TARGET, with a nearest-nominal POSITION fallback when it declines; record the original '?' on
+        EventRecord.patient_prerevise (glass-box, reversible). Faithful to the validated drill's relcl_fill
+        (resolve_patient + nominal_positions fallback); the witness asserts byte-equality on the reader's own
+        events. Recall-scoped ONLY -- no post-verbal re-selection, no surprisal gate (p2's proven negatives).
+        Lazy imports -> the default (OFF) reader loads none of this. NO spaCy / NO LLM."""
+        if self._pr_revise_rr is None:
+            from hdlab import relcl_resolver as _RR
+            self._pr_revise_rr = _RR
+        RR = self._pr_revise_rr
+        if self._pr_revise_tagger is None:
+            from experiments._forward_prediction_live import get_tagger
+            self._pr_revise_tagger = get_tagger()
+        tagger = self._pr_revise_tagger
+        if self._pr_revise_nom is None:
+            from experiments._forward_prediction_live import NOMINAL, PRON_LOW
+            self._pr_revise_nom = (NOMINAL, PRON_LOW)
+        NOMINAL, PRON_LOW = self._pr_revise_nom
+        pos_cache: Dict[int, list] = {}
+
+        def _pos(si):
+            if si not in pos_cache:
+                pos_cache[si] = tagger.tag(sents[si])
+            return pos_cache[si]
+
+        for e in sm.events:
+            if e.patient not in ("?", None) or e.pred_idx is None:
+                continue
+            si = e.sent_idx
+            if not (0 <= si < len(sents)):
+                continue
+            toks = sents[si]
+            up = _pos(si)
+            v0 = int(e.pred_idx)
+            # nominal (non-pronoun) candidates (head_low, idx) -- VERBATIM the drill's nominal_positions
+            cands = [(toks[i].lower(), i) for i in range(len(toks))
+                     if i < len(up) and up[i] in NOMINAL and toks[i].lower() not in PRON_LOW]
+            idx = RR.resolve_patient(toks, up, v0 + 1)   # resolve_patient is 1-based on the verb index
+            if idx is not None and 1 <= idx <= len(toks):
+                head = toks[idx - 1].lower()
+            elif cands:                                  # position fallback: nearest nominal (first-min wins ties)
+                best, bd = None, 10 ** 9
+                for (h, ci) in cands:
+                    if abs(ci - v0) < bd:
+                        bd, best = abs(ci - v0), h
+                head = best
+            else:
+                continue
+            e.patient_prerevise = e.patient              # the original '?'
+            e.patient = head
 
     @staticmethod
     def _nominal_heads(toks, up) -> List[str]:
@@ -1249,6 +1330,11 @@ class SituationReader:
         if self.track_belief:
             # BELIEF/ToM dimension: bind sm.believes / sm.knows query callables to this passage
             self._read_belief(sm, sents)
+        if self.predict_revise:
+            # PARSE-RECALL drop-fill: recover the DROPPED patient the batch parse missed (runs AFTER
+            # verb_subcat/causation so it only fills genuine '?' drops, and BEFORE the backbone so a bound
+            # event token would see the recovered patient). Additive/reversible.
+            self._read_predict_revise(sm, sents)
         if self.bind_event_tokens:
             # BOUND-EVENT-TOKEN backbone: build sm.event_tokens + sm.episodic_store over the FINAL event set
             # (runs LAST -> binds the events exactly as every other dimension left them). Additive.

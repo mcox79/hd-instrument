@@ -553,3 +553,18 @@ captures the full modern-era gain, with the grounded-prior fill an optional add 
 margin. Beyond the wire, the highest-value follow-on is #3 (a structured verb-role exemplar/event store) — the
 only route to a verb-specific WHICH-argument lever for the drop-fill target where position is ambiguous, and
 the same Phase-1 meaning-supply build p2 named.
+
+
+---
+INTEGRATED_BY_STRATEGY: 2026-09-01 (EXCELLENT). Reverified 8/8 (source test_predict_revise_recall.py) + 4/4
+(landing test_predict_revise_recall_landing_organ.py) first-hand. LANDED the Q111 wire: a default-off
+predict_revise flag on SituationReader -- a post-read pass fills each dropped ('?') patient by REUSING the
+validated hdlab.relcl_resolver.resolve_patient (passive-subject / object-gap / word-order routes) with a
+nearest-nominal position fallback, preserving the original on the additive EventRecord.patient_prerevise
+(glass-box, reversible); ASSET-FREE (no fitted predictor, no surprisal gate -- the drill proved those add
+nothing). Additive EventRecord fields pred_idx + patient_prerevise; composed with role_route='wired'. Witness
+4/4: default-off byte-identical (219 events, patient_prerevise all None) + recall PROTECTED (107 canonical
+unchanged, 0 wrongly changed) + drop-fill fires (111) + 111/111 fills BYTE-EXACT to the independent relcl_fill
+recompute. Registered predict_revise_live_reader_v1; reader_capabilities + BRAIN_FOUNDATIONAL_AUDIT 2b + STATUS
+updated; priority cleared. Do NOT wire post-verbal re-selection or surprisal-gated reanalysis (p2's proven
+negative). Follow-on packaged: the verb-role exemplar store (the WHICH-argument lever). Grade EXCELLENT. NO push.

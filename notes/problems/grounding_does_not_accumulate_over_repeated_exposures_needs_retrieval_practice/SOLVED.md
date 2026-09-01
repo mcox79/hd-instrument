@@ -631,3 +631,17 @@ evidence it asked for.)
   all refuted here (proposed non-changes).
 - Reverify: `.venv/Scripts/python.exe verification/test_retrieval_practice_consolidation.py` (extended with the read-out /
   encoder-not-the-wall checks).
+
+
+---
+INTEGRATED_BY_STRATEGY: 2026-09-01 (EXCELLENT, a located negative). Reverified first-hand (W1-W10 all pass,
+test_retrieval_practice_consolidation.py). A REPRESENTATION-BOUND NEGATIVE drilled to bedrock: distributional
+co-occurrence genuinely lacks the SENSE signal (the correct anchor is retrievable to top-10 ~85% under EVERY
+encoder incl. the full parser -- recoverable 0.81 >> coverage-bound 0.09 -- but selectable by NO distributional
+read-out incl. supervised, all ~chance vs the ~0.87 ceiling); a GROUNDED-hub ATL re-rank is the demonstrated
+fix. Population characterized (polysemy 155 / no-anchor 76 / incoherent 37 / proper-noun-or-oov 26; only 2
+coherent-single-sense). NO hdlab wire (a rigorous negative + a proposed NON-change: do NOT land retrieval-practice
+consolidation or a distributional re-ranker). The de-risked FIX is PACKAGED as the north-star meaning organ
+promote_the_grounded_semantic_graph_to_an_intrinsic_learnable_organ (priority 1), which reframes the reader's
+grounding write-path from a flat store to a relational GRAPH read by spreading activation and subsumes the
+grounded-re-rank follow-on (retired). AUDIT UPDATE folded into 2b; priority cleared. Grade EXCELLENT. NO push.

@@ -41,6 +41,7 @@ CAP_FLAGS = {
     "predict_surprisal": "predict_surprisal_live_reader_v1",    # N400 surprisal -> EventRecord.patient_surprisal (error-risk flag)
     "track_belief": "belief_dimension_live_reader_v1",          # BELIEF/ToM -> sm.believes/sm.knows (the 5th dimension)
     "bind_event_tokens": "bound_event_token_backbone_live_reader_v1",  # the ASSEMBLY: sm.event_tokens + sm.episodic_store (the JOINT the silos can't store)
+    "predict_revise": "predict_revise_live_reader_v1",          # parse-RECALL drop-fill: recover the DROPPED patient via relcl_resolver (EventRecord.patient_prerevise)
     # role_route is a string ("positional" = off; "wired"/other = the assembly who-did-what path)
     "role_route": None,
     "spacy_pred_gate": None,

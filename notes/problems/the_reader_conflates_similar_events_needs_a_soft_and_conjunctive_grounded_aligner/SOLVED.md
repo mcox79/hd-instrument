@@ -295,3 +295,16 @@ None for the owner.
 4. **Enumerate the irreducible slice honestly:** the Q2 reframe could not be confirmed at glass-box recall (only 5%
    of pairs share an extractable entity), so the causally-independent/parallel residual remains UNQUANTIFIED -- a
    richer causal-KB (step 1) is needed to tag it, at which point report it rather than chase it.
+
+
+---
+INTEGRATED_BY_STRATEGY: 2026-09-01 (STRONG). Reverified 11/11 first-hand (test_conjunctive_event_aligner.py). A
+rigorous near-positive that REFUTED the brief's soft-AND (multiplicative) PRODUCT mechanism (a uniform product
+ties/loses the additive sum, -0.002 n.s.) and confirmed the FEATURE SET + role structure IS the lever (on a
+52,030-item isolated probe: dropping particle/2nd-arg collapses particle-sibling alignment 0.926->0.608 CI-sep;
+role-scramble 0.926->0.021 CI-sep). End-to-end the conjunctive-granularity aligner reaches a NEAR-positive
+(0.591 vs similarity 0.525, dev 0.66) but does NOT clean-clear the floors CI-sep at n=301 -- the residual is the
+weak LEARNED canonical ORDER (majority-voted co-occurrence, not cause). NO hdlab wire (does not clear the
+end-to-end bar). SEEDED three high-value follow-ons: the mutable world-state register (PACKAGED,
+situation_model_has_no_mutable_world_state_register, priority 7), the causal-enablement script-order foundation,
+and corroboration of the north-star meaning graph. AUDIT UPDATE folded into 2b; priority cleared. Grade STRONG. NO push.
