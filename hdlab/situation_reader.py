@@ -320,6 +320,14 @@ class SituationModel:
     # {fact_aliases, value_vocab[, fact_type]}. Additive -- never touches the other dimensions.
     believes: Optional[object] = None
     knows: Optional[object] = None
+    # opt-in BOUND-EVENT-TOKEN backbone (the ASSEMBLY completion, p4); both None unless the reader is built
+    # with bind_event_tokens=True. event_tokens = a list of ONE FHRR bound token per event (over
+    # {AGENT,PATIENT,PRED,TENSE}) -- the JOINT the parallel-silo dimensions cannot store; episodic_store = a
+    # hdlab.bound_event_backbone.BoundEpisodicStore (N400-chunked + DG/CA3 episodic tier) whose resolve/
+    # corefer readout answers "does this exact event -- this agent, this action -- occur?" from a partial
+    # mention. Additive -- never touches the other dimensions; the prerequisite for reasoning over the story.
+    event_tokens: Optional[list] = None
+    episodic_store: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -597,7 +605,8 @@ class SituationReader:
                  predict_surprisal: bool = False,
                  surprisal_abstain_tau: Optional[float] = None,
                  predict_surprisal_asset: Optional[str] = None,
-                 track_belief: bool = False) -> None:
+                 track_belief: bool = False,
+                 bind_event_tokens: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -723,6 +732,22 @@ class SituationReader:
         self.track_belief = bool(track_belief)
         self._belief_led = None        # lazy hdlab.perceptual_access_ledger.PerceptualAccessLedger
         self._belief_mod = None        # lazy experiments._belief_reader
+        # BOUND-EVENT-TOKEN backbone (opt-in; default OFF = byte-identical). Integrated 2026-09-01 from
+        # `the_assembled_reader_is_parallel_silos_assemble_the_tiered_bound_event_token` (p4, owner-DONE,
+        # EXCELLENT): the assembled reader was N PARALLEL SILOS -- each dimension stored the MARGINALS (the
+        # set of agents / actions / times), nothing stored the JOINT (which agent did which action). That is
+        # the BINDING PROBLEM. When ON, read() builds sm.event_tokens (ONE FHRR bound token per event over
+        # {AGENT,PATIENT,PRED,TENSE}) + sm.episodic_store (a BoundEpisodicStore: the N400-chunked + DG/CA3
+        # episodic tier, with a resolve/corefer readout over the bound tokens) via the promoted thin
+        # assembler hdlab.bound_event_backbone (COMPOSES existing organs only: binding + n400_coherence_
+        # monitor + hippocampal_encoder). Proven to store the JOINT the silos cannot: JOINT coref 1.000 vs
+        # late-fusion-of-marginals 0.600 CI-sep on LitBank old fiction AND UD-EWT modern web; binding-shuffle
+        # collapses it; the tiered store holds at passage scale where a flat superposition collapses ~1/sqrt(M).
+        # This is the step from the reader HAVING features to the reader UNDERSTANDING which goes with which
+        # -- the prerequisite for reasoning (p6). Lazily imports the assembler ONLY when the flag is on. NO
+        # spaCy / NO LLM. Flipping it default-ON is a SEPARATE owner decision (this is the evidence).
+        self.bind_event_tokens = bool(bind_event_tokens)
+        self._beb_mod = None           # lazy hdlab.bound_event_backbone
         self._causation_nlp = None     # lazy spaCy handle (loaded once, only when causation_typed)
         self._causation_lex = None     # lazy force lexicon
         # persistent readers (the banked backbone + single-sentence validity baseline)
@@ -1069,6 +1094,21 @@ class SituationReader:
         sm.believes = believes
         sm.knows = knows
 
+    def _read_bound_event_tokens(self, sm) -> None:
+        """Opt-in BOUND-EVENT-TOKEN backbone (default-off; wired 2026-09-01 from the owner-DONE problem
+        the_assembled_reader_is_parallel_silos_assemble_the_tiered_bound_event_token, p4). Build ONE FHRR
+        bound token per event over {AGENT,PATIENT,PRED,TENSE} (the JOINT the parallel-silo dimensions never
+        store) + a tiered episodic store (N400-chunked + DG/CA3), via the promoted thin assembler
+        hdlab.bound_event_backbone.BoundEventBackbone (COMPOSES existing organs only; the tokens are
+        torch-equal to the validated cell's). sm.episodic_store.resolve/corefer answers 'does this exact
+        event -- this agent, this action -- occur?' from a partial mention. Lazy -> the default (OFF) reader
+        imports NONE of this. NO spaCy / NO LLM."""
+        if self._beb_mod is None:
+            from hdlab import bound_event_backbone as _BEB
+            self._beb_mod = _BEB
+        BEB = self._beb_mod
+        sm.event_tokens, sm.episodic_store = BEB.BoundEventBackbone(d=BEB.D).build(sm.events, sm.locations)
+
     @staticmethod
     def _nominal_heads(toks, up) -> List[str]:
         """Candidate-argument head strings the reader could have bound (lowercased, deduped, sorted) --
@@ -1209,6 +1249,10 @@ class SituationReader:
         if self.track_belief:
             # BELIEF/ToM dimension: bind sm.believes / sm.knows query callables to this passage
             self._read_belief(sm, sents)
+        if self.bind_event_tokens:
+            # BOUND-EVENT-TOKEN backbone: build sm.event_tokens + sm.episodic_store over the FINAL event set
+            # (runs LAST -> binds the events exactly as every other dimension left them). Additive.
+            self._read_bound_event_tokens(sm)
         return sm
 
 

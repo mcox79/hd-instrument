@@ -40,6 +40,7 @@ CAP_FLAGS = {
     "verb_subcat_gate": "verb_subcat_gate_live_reader_v1",      # who-did-what PRESENCE (suppress spurious patients)
     "predict_surprisal": "predict_surprisal_live_reader_v1",    # N400 surprisal -> EventRecord.patient_surprisal (error-risk flag)
     "track_belief": "belief_dimension_live_reader_v1",          # BELIEF/ToM -> sm.believes/sm.knows (the 5th dimension)
+    "bind_event_tokens": "bound_event_token_backbone_live_reader_v1",  # the ASSEMBLY: sm.event_tokens + sm.episodic_store (the JOINT the silos can't store)
     # role_route is a string ("positional" = off; "wired"/other = the assembly who-did-what path)
     "role_route": None,
     "spacy_pred_gate": None,
@@ -110,10 +111,16 @@ def print_manifest():
 def print_enable():
     print("# The FULLY-ON reader (all validated dimension flags enabled).")
     print("# ⚠️ MEASURED 2026-08-31 (the_assembled_reader_is_never_tested_as_a_whole, owner-DONE): the fully-on reader")
-    print("# is N PARALLEL SILOS, not one integrated situation model -- turning flags on COMPOSES but does not BIND")
-    print("# (interaction byte-exactly 0). No dimension flag should be flipped default-ON yet (only role_route is")
-    print("# aggregate-positive + instrument-safe). The integration fix is the TIERED bound-event-token backbone")
-    print("# (its own problem), NOT more flags.")
+    print("# is N PARALLEL SILOS, not one integrated situation model -- turning the DIMENSION flags on COMPOSES but")
+    print("# does not BIND (interaction byte-exactly 0). No dimension flag should be flipped default-ON yet (only")
+    print("# role_route is aggregate-positive + instrument-safe).")
+    print("# ✅ FIXED 2026-09-01 (the_assembled_reader_is_parallel_silos..., p4 owner-DONE, EXCELLENT): the")
+    print("# integration fix -- the TIERED bound-event-token backbone -- is now LANDED as the default-off")
+    print("# bind_event_tokens flag: read() builds sm.event_tokens (ONE FHRR bound token per event = the JOINT")
+    print("# the silos can't store) + sm.episodic_store (resolve/corefer readout). JOINT coref 1.000 vs late-")
+    print("# fusion-of-marginals 0.600 CI-sep on old+modern text. Turning it ON is the integration; flipping it")
+    print("# default-ON is a SEPARATE owner decision (this is the evidence). The remaining ecological lever is the")
+    print("# FRONT-END role assignment (agent-role 0.271 while event recall 0.953), NOT more flags.")
     print("# ✅ FIXED 2026-08-31 (QA-instrument coupling): the QA capstone exp_situation_model_qa_v1 used to run the")
     print("# DEFAULT weak reader and read temporal off sm.events tense, which tense_agnostic_events rewrites to a")
     print("# placeholder -> temporal questions collapse 86->0. It now defaults to the CAPABLE reader (build_reader:")
@@ -129,6 +136,7 @@ def print_enable():
     print("    verb_subcat_gate=True,        # who-did-what PRESENCE (suppress spurious patients on intransitives)")
     print("    role_route='wired',           # assembly who-did-what role routing (the one aggregate-positive flag)")
     print("    spacy_pred_gate=True,         # supplied-grammar predicate gate (changes the event set; measure it)")
+    print("    bind_event_tokens=True,       # the ASSEMBLY: sm.event_tokens + sm.episodic_store (the JOINT the silos can't store)")
     print(")")
 
 

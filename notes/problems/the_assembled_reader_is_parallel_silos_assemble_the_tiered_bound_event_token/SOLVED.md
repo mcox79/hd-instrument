@@ -272,3 +272,26 @@ problem produces the evidence; the flip is a separate owner call and needs the w
    - A downstream QA task that CONSUMES the bound token (features -> comprehension score, the p6 reasoning link).
    - Train `slot_attention_wm` as the active register vs the deterministic multibank; sweep the n400 tau on
      real event content for faithful segmentation (max segment 283/384 today).
+
+---
+INTEGRATED_BY_STRATEGY: 2026-09-01 (EXCELLENT). Reverified 10/10 first-hand (test_tiered_bound_event_token_coref.py):
+JOINT bound-token coref 1.000 CI-ABOVE late-fusion-of-marginals 0.600 (sep +0.400) on LitBank old fiction AND UD-EWT
+modern web; binding-shuffle LOSES CI-separated (pos-recognition 1.000->0.12 -- the conjunctive-memory dissociation);
+info-free twin null; MUST-CHUNK fires (flat single bundle collapses 1.0->0.40 @ M=256 while multibank + DG/CA3 hold);
+cued retrieval 1.00 (bound token) vs 0.01 (silo, chance 1/M); NECESSITY (paraphrase) grounded 0.379 BEATS symbol 0.217
+(chance) -- all numbers match the SOLVED headline. Adversarially audited the ARGUMENT: the mechanism claim is a
+REPRESENTATIONAL ceiling (both arms bind the SAME extracted tuples, so the +0.40 gap is a data-structure fact
+independent of extraction noise -- which is exactly why it holds identically on messy old fiction and clean modern web);
+the win lives on RECOMBINATION hard-negatives (non-gameable); the honest bounds (not a downstream comprehension score;
+constructed probes not annotated coref; CA3 completion DG-at-retrieval low-fidelity; fusion corpus-bound; slot_attention
+unused) are all stated by the solver and stand. LANDING STATE (Q111): LANDED -- default-off bind_event_tokens flag on
+SituationReader builds sm.event_tokens (ONE FHRR bound token per event over {AGENT,PATIENT,PRED,TENSE}) + sm.episodic_
+store (a BoundEpisodicStore: N400 CHUNK + DG/CA3 STORE + resolve/corefer readout via the DIRECT bound-token route) via a
+NEW thin assembler hdlab/bound_event_backbone.py that COMPOSES existing organs only (binding + n400_coherence_monitor +
+hippocampal_encoder), promoted VERBATIM from the validated cell so a wired token is torch-EQUAL to the cell's. Witness
+test_bound_event_backbone_landing_organ.py 5/5 first-hand (default-off byte-identical on 219 events + all 219 tokens
+byte-exact vs the cell + resolve==joint_decide 30/30 + the tiered store genuinely assembled). Registered
+bound_event_token_backbone_live_reader_v1; reader_capabilities manifest updated; PLACE-binding + a faithful CA3 completer
++ the front-end role-assignment lever (agent-role 0.271) are mapped follow-ons. §2b audit updated; priority cleared.
+This is the ASSEMBLY completion -- the reader now has ONE bound, queryable event representation (the prerequisite for
+reasoning, p6). Flipping bind_event_tokens default-ON is a SEPARATE owner decision (this problem is the evidence). NO push.
