@@ -169,5 +169,32 @@ class PredictiveReader:
         true_idx = cands.index(actual)
         return _softmax_neglogp_true(scores, true_idx, self.temp if temp is None else float(temp))
 
+    # -- persistence (a fitted predictor is a static OFFLINE-BUILT foundation asset; the 5 fitted
+    #    dicts are numpy arrays + counts, glass-box, NO LLM). Added 2026-08-31 for the predict_surprisal
+    #    live-reader landing so the reader loads a persisted predictor instead of re-fitting per process. --
+    def save(self, path: str) -> None:
+        """Pickle the fitted state (temp + the 5 dicts) to `path`. Deterministic; no external deps."""
+        import pickle
+        state = {"temp": self.temp, "argvecs": self._argvecs, "vr_centroid": self._vr_centroid,
+                 "role_centroid": self._role_centroid, "vr_count": self._vr_count,
+                 "precision": self._precision}
+        with open(path, "wb") as f:
+            pickle.dump(state, f, protocol=pickle.HIGHEST_PROTOCOL)
+
+    @classmethod
+    def load(cls, path: str) -> "PredictiveReader":
+        """Load a predictor persisted by `save` (a fitted foundation asset). Byte-faithful to the
+        fitted model: surprisal/precision reproduce the fit's outputs exactly."""
+        import pickle
+        with open(path, "rb") as f:
+            state = pickle.load(f)
+        pr = cls(temp=state["temp"])
+        pr._argvecs = state["argvecs"]
+        pr._vr_centroid = state["vr_centroid"]
+        pr._role_centroid = state["role_centroid"]
+        pr._vr_count = state["vr_count"]
+        pr._precision = state["precision"]
+        return pr
+
 
 __all__ = ["PredictiveReader", "DEFAULT_TEMP"]

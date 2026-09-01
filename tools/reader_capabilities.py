@@ -38,6 +38,7 @@ CAP_FLAGS = {
     "timeline_register": "timeline_register_live_reader_v1",
     "track_space": "track_space_live_reader_v1",                # SPACE dimension -> sm.locations
     "verb_subcat_gate": "verb_subcat_gate_live_reader_v1",      # who-did-what PRESENCE (suppress spurious patients)
+    "predict_surprisal": "predict_surprisal_live_reader_v1",    # N400 surprisal -> EventRecord.patient_surprisal (error-risk flag)
     # role_route is a string ("positional" = off; "wired"/other = the assembly who-did-what path)
     "role_route": None,
     "spacy_pred_gate": None,

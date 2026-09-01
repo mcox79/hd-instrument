@@ -95,7 +95,7 @@ from hdlab.frame_induction import (
     real_construction_feats as FI_real_construction_feats,
     predict_subj_role as FI_predict_subj_role,
 )
-from hdlab.thematic_role_labeler import lemma_verb, is_strictly_intransitive
+from hdlab.thematic_role_labeler import lemma_verb, lemma_word, is_strictly_intransitive
 
 # WIRE-DON'T-ISLAND (2026-08-05): the OOV-subject construction->frame hypothesis, induced from the
 # real litbank-mined TRAIN split only (experiments/data/experiencer_narrative_roles_v1.jsonl);
@@ -165,6 +165,15 @@ PREDARG_TO_GOLD = {
 }
 _FRONTEND_POS_ASSET = os.path.join(_REPO, "data/frontend_assets/pos_tagger_ud_ewt_upos.json")
 _FRONTEND_ARC_ASSET = os.path.join(_REPO, "data/frontend_assets/arc_parser_hashed_ud_ewt.npz")
+# FORWARD-PREDICTION surprisal: the persisted QA-SRL-fitted PredictiveReader (default asset, committed
+# alongside the other frontend model assets). Loaded lazily only when predict_surprisal is ON.
+_PREDICT_SURPRISAL_ASSET = os.path.join(_REPO, "data/frontend_assets/predict_surprisal_predictor_v1.pkl")
+# candidate-nominal POS + pronoun exclusion for the surprisal pass -- VERBATIM from the validated driver
+# experiments/_forward_prediction_live.py (nominal_heads): the argument heads the reader could have bound.
+_SURPRISAL_NOMINAL_POS = {"NOUN", "PROPN", "PRON"}
+_SURPRISAL_PRON_LOW = {"i", "you", "he", "she", "it", "we", "they", "me", "him", "her", "us", "them",
+                       "myself", "yourself", "himself", "herself", "itself", "ourselves", "themselves",
+                       "this", "that", "these", "those", "who", "whom", "which", "what"}
 _FRONTEND_CACHE: Dict[str, object] = {}
 
 
@@ -233,6 +242,17 @@ class EventRecord:
     # Bopen=1.000 open-vocab); every other event (no patient, animacy lookup miss, tokenizer miss)
     # ABSTAINS (None) rather than guessing off an uncertified path. Backward-compatible default.
     affect: Optional[str] = None
+    # FORWARD-PREDICTION surprisal (2026-08-31 wire, default-off predict_surprisal), ADDITIVE metadata
+    # only -- the N400 error-RISK FLAG the predictive_reader organ was validated LIVE as (predicts the
+    # reader's OWN who-did-what errors AUC 0.651 CI-sep; surprisal-abstain lifts committed accuracy).
+    # patient_surprisal = -log P of the reader's bound PATIENT among the sentence's candidate nominals
+    # under the verb-role selectional preference; pred_precision = the verb-role constraint sharpness
+    # (Friston precision-weighting); low_confidence = True when patient_surprisal exceeds the abstain
+    # tau (the validated withhold decision -- do NOT auto-revise, that is a proven negative). None when
+    # the flag is off OR the verb-role/filler is ungrounded (abstain, never a guess). Backward-compatible.
+    patient_surprisal: Optional[float] = None
+    pred_precision: Optional[float] = None
+    low_confidence: Optional[bool] = None
 
 
 @dataclass
@@ -565,7 +585,10 @@ class SituationReader:
                  timeline_register: bool = False,
                  preserve_tense: bool = False,
                  verb_subcat_gate: bool = False, verb_subcat_thr: float = 0.35,
-                 track_space: bool = False) -> None:
+                 track_space: bool = False,
+                 predict_surprisal: bool = False,
+                 surprisal_abstain_tau: Optional[float] = None,
+                 predict_surprisal_asset: Optional[str] = None) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -666,6 +689,19 @@ class SituationReader:
         # imports; the discrete path pulls NO torch/transitive_ordering. It does NOT touch the narrow, "had"-gated
         # per-sentence _read_timeline path (that stays byte-identical); this is a NEW additive whole-passage field.
         self.timeline_register = bool(timeline_register)
+        # FORWARD-PREDICTION surprisal (opt-in; default OFF = byte-identical). Integrated 2026-08-31 from
+        # `the_forward_prediction_organ_is_inert_wire_its_surprisal_into_a_live_decision` (owner-DONE,
+        # EXCELLENT). When ON, a POST-READ pass computes, per event, the N400 SURPRISAL of the reader's own
+        # bound PATIENT among its sentence's candidate nominals via the promoted hdlab.predictive_reader
+        # (loaded from a persisted QA-SRL-fitted foundation asset), exposing EventRecord.patient_surprisal +
+        # pred_precision as ADDITIVE metadata (the validated error-RISK FLAG: predicts the reader's OWN
+        # who-did-what errors AUC 0.651 CI-sep). If surprisal_abstain_tau is set, events with surprisal > tau
+        # are marked low_confidence (the validated WITHHOLD decision; do NOT auto-revise -- a proven NEGATIVE).
+        # Lazily loads the predictor + the tagger ONLY when the flag is on. NO spaCy / NO LLM.
+        self.predict_surprisal = bool(predict_surprisal)
+        self.surprisal_abstain_tau = surprisal_abstain_tau
+        self.predict_surprisal_asset = predict_surprisal_asset
+        self._pr_predictor = None      # lazy hdlab.predictive_reader.PredictiveReader (from the persisted asset)
         self._causation_nlp = None     # lazy spaCy handle (loaded once, only when causation_typed)
         self._causation_lex = None     # lazy force lexicon
         # persistent readers (the banked backbone + single-sentence validity baseline)
@@ -972,6 +1008,55 @@ class SituationReader:
             conll_path, gaz=self.gaz, mode="prior_ext")
         return reg
 
+    @staticmethod
+    def _nominal_heads(toks, up) -> List[str]:
+        """Candidate-argument head strings the reader could have bound (lowercased, deduped, sorted) --
+        VERBATIM from the validated experiments/_forward_prediction_live.nominal_heads: NOUN/PROPN/PRON
+        tokens minus the closed-class pronouns (which the reader never binds as role heads)."""
+        out = []
+        for i, tk in enumerate(toks):
+            if i < len(up) and up[i] in _SURPRISAL_NOMINAL_POS:
+                low = tk.lower()
+                if low in _SURPRISAL_PRON_LOW:
+                    continue
+                out.append(low)
+        return sorted(set(out))
+
+    def _read_surprisal(self, sm, sents) -> None:
+        """Opt-in FORWARD-PREDICTION surprisal (default-off; wired 2026-08-31 from the owner-DONE problem
+        the_forward_prediction_organ_is_inert...). POST-READ pass: for each event, compute the N400
+        surprisal of the reader's OWN bound PATIENT among its sentence's candidate nominals via the promoted
+        predictive_reader (loaded from the persisted QA-SRL-fitted asset), and expose it + the verb-role
+        precision as ADDITIVE EventRecord metadata; mark low_confidence above the abstain tau. Matches the
+        validated experiments/_forward_prediction_live driver byte-for-byte (verb=lemma_word(predicate),
+        role='PATIENT', cands=_nominal_heads). NO spaCy / NO LLM; abstains (None) on an ungrounded verb-role
+        or filler rather than guessing. Runs LAST (after verb_subcat_gate), so it scores the final patient."""
+        if self._pr_predictor is None:
+            from hdlab.predictive_reader import PredictiveReader
+            self._pr_predictor = PredictiveReader.load(self.predict_surprisal_asset or _PREDICT_SURPRISAL_ASSET)
+        pr = self._pr_predictor
+        if self._ta_tagger is None:
+            from hdlab.pos_tagger import PosTagger
+            self._ta_tagger = PosTagger.load(_FRONTEND_POS_ASSET)
+        tagger = self._ta_tagger
+        cand_cache: Dict[int, List[str]] = {}
+
+        def cands_for(si: int) -> List[str]:
+            if si not in cand_cache:
+                toks = sents[si] if 0 <= si < len(sents) else []
+                cand_cache[si] = self._nominal_heads(toks, tagger.tag(toks)) if toks else []
+            return cand_cache[si]
+
+        for e in sm.events:
+            if e.patient in ("?", None):
+                continue
+            verb = lemma_word(str(e.predicate).lower())
+            s = pr.surprisal(verb, "PATIENT", str(e.patient).lower(), cands_for(e.sent_idx))
+            e.patient_surprisal = None if s is None else round(float(s), 6)
+            e.pred_precision = pr.precision(verb, "PATIENT")
+            if e.patient_surprisal is not None and self.surprisal_abstain_tau is not None:
+                e.low_confidence = bool(e.patient_surprisal > self.surprisal_abstain_tau)
+
     # -- CAUSATION: cause->outcome on the passage's causal-connective sentences --
     @staticmethod
     def _read_causation(sents) -> List[CausalLink]:
@@ -1057,6 +1142,9 @@ class SituationReader:
             for e in sm.events:
                 if e.patient not in ("?", None) and _VS.suppress_patient(e.predicate, self.verb_subcat_thr):
                     e.patient = "?"
+        if self.predict_surprisal:
+            # forward-prediction surprisal metadata + abstain flag (runs LAST -> scores the FINAL patient)
+            self._read_surprisal(sm, sents)
         return sm
 
 
