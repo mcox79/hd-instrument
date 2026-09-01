@@ -5,7 +5,7 @@ bar: "PASS = the predict-and-revise parse pass RECOVERS who-did-what (and the ar
 result: "A parse-RECALL pass that recovers the DROPPED patient the batch parse left empty ('?') — a structural coverage-violation trigger, recall-scoped (fill-a-drop or promote a PRE-VERBAL head; NO post-verbal re-selection) — RECOVERS who-did-what CI-separated over the strongest real floor on BOTH eras (who-did-what patient recall through the LIVE SituationReader.read(), scorer = pick==gold head, bootstrap CI by sentence cluster). MODERN QA-SRL v2 dev+test, n=2737 non-pronoun-gold patient items: the pass 0.5407 vs the wired parse-router 0.4808 = +0.0599 [+0.0395,+0.0889] (half 0.0247, frac<=0 0.000); on the positional floor 0.4417 vs 0.3858 = +0.0559 [+0.0350,+0.0827]. 19c LitBank narrative, n=5999: 0.2879 vs the (there-strongest) positional floor 0.2287 = +0.0592 [+0.0525,+0.0659] (half 0.0067, frac<=0 0.000). Gains localize to non-canonical constructions: QA-SRL passive 0.287->0.567, pre-verbal-gap 0.023->0.511; canonical recall PROTECTED 0.509->0.526. DRILLED: the entire gain is DROP-FILLING — firing on dropped patients ONLY (no surprisal reanalysis of committed picks) reaches 0.5433 (+0.0625 over wired, CI-sep) and TIES the surprisal-gated pass (gated-vs-dropped_only -0.0026 n.s.); the 391/704 surprisal-triggered revisions of COMMITTED picks add nothing (confirming p2's refuted re-selection from the recall side)."
 floor: "the batch parse-as-truth reader at equal inputs, BOTH routes actually run: positional-default (QA-SRL 0.3858 / LitBank 0.2287) and the stronger wired parse-router (QA-SRL 0.4808 / LitBank 0.1852). The pass beats WHICHEVER is stronger per era CI-separated (QA-SRL strongest = wired, beaten by +0.0599; LitBank strongest = positional because the modern-trained arc_parser DEGRADES on 19c prose, beaten by +0.0592). It also beats the OTHER floor in both eras."
 controls: "(1) info-free RANDOM-LOCI twin (fire at the same rate at random loci) LOSES CI-sep: QA-SRL +0.0442 [+0.0284,+0.0642], LitBank +0.0395 [+0.0343,+0.0448] = EXCLUDES 'any extra re-parsing at this rate helps' (firing on the DROPPED-slot events, not random ones, is what carries it). (2) info-free UNIFORM (random-vector) PRIOR twin LOSES CI-sep: QA-SRL +0.0325 [+0.0134,+0.0594], LitBank +0.0492 [+0.0426,+0.0558] = EXCLUDES 'any prior-shaped candidate scorer helps' (the fill TARGET uses real animacy/position). (3) revise-EVERYWHERE positive control: the recall-scoped pass BEATS revise-everywhere CI-sep (QA-SRL +0.0106 [+0.0040,+0.0173], LitBank +0.0083 [+0.0060,+0.0107]); it fires on only ~28-30% of eligible events = it does NOT fire everywhere (revising committed picks breaks as many as it fixes). (4) recall_only scope = no post-verbal re-selection (p2's REFUTED route) -> canonical recall PROTECTED, not eroded (QA-SRL 0.509->0.526). (5) DROP-FILL localisation (the decisive drill): firing on DROPPED patients ONLY (a purely STRUCTURAL trigger, NO surprisal) reaches 0.5433 and TIES the surprisal-gated pass (gated-vs-dropped_only -0.0026 [-0.0076,+0.0027] n.s.) while beating wired +0.0625 CI-sep = EXCLUDES 'the surprisal signal is needed for RECALL'; the 391/704 surprisal-triggered revisions of COMMITTED picks add nothing. (6) LOCATED-LEVER: a verb-SHUFFLED prior loses only slightly (QA-SRL +0.0142, LitBank +0.0022 n.s.) and a NO-PRIOR STRUCTURAL fill TIES on modern QA-SRL (+0.0026 n.s.) though the prior BEATS it on 19c prose (+0.0217 [+0.0129,+0.0307]) = the lever is the STRUCTURAL drop-fill; the VERB-SPECIFIC selectional prior is a MINOR cue (position carries modern recall; the prior adds only where the parser degrades)."
-files_changed: "experiments/exp_predict_revise_recall_v1.py (the mechanism + full control battery incl. the dropped-only DROP-FILL drill + sweep + LitBank); experiments/exp_predict_revise_recall_diagnostic_v1.py (the could-it-succeed recall decomposition + oracle headroom); experiments/_drill_animacy_fill_v1.py (the ANIMACY-vs-POSITION cue drill + scrambled-animacy twin); experiments/_drill_ceiling_and_ambiguity_v1.py (drop-fill ceiling + animacy-under-position-conflict); experiments/_drill_agent_recall_v1.py (AGENT-role recall + why drop-fill is patient-specific); experiments/_drill_construction_fill_v1.py (construction-cued filler-gap PROTOTYPE for the residual 45% + interference-scaling); experiments/_drill_reuse_relcl_resolver_v1.py (REUSE the validated hdlab.relcl_resolver organ on the drops — +0.0066 overall); experiments/_drill_ditransitive_frame_v1.py + _drill_construction_role_v2.py + _drill_construction_role_v3.py (OWNER-DIRECTED wrong-bind blowout: the double-object construction fix, verb + 19c-era generalization, construction-gate control); experiments/_drill_integrated_pass_v1.py (integrated drop-fill + double-object + preverbal, both eras — the era-robustness finding); experiments/_drill_cue_integration_role_v1.py (the PARALLEL CUE-INTEGRATION role assigner — Competition Model, era-robust, +0.098/+0.027 over position both eras) + data/predict_revise_recall_v1/_population_litbank.json; verification/test_predict_revise_recall.py (scaffold-free witness, 8/8); data/predict_revise_recall_v1/metrics.json + _population.json + _drill_dropped_only.json; data/predict_revise_recall_diagnostic_v1_smoke/. hdlab/ UNTOUCHED (Q111 — proposed default-off predict_revise flag stated below)."
+files_changed: "experiments/exp_predict_revise_recall_v1.py (the mechanism + full control battery incl. the dropped-only DROP-FILL drill + sweep + LitBank); experiments/exp_predict_revise_recall_diagnostic_v1.py (the could-it-succeed recall decomposition + oracle headroom); experiments/_drill_animacy_fill_v1.py (the ANIMACY-vs-POSITION cue drill + scrambled-animacy twin); experiments/_drill_ceiling_and_ambiguity_v1.py (drop-fill ceiling + animacy-under-position-conflict); experiments/_drill_agent_recall_v1.py (AGENT-role recall + why drop-fill is patient-specific); experiments/_drill_construction_fill_v1.py (construction-cued filler-gap PROTOTYPE for the residual 45% + interference-scaling); experiments/_drill_reuse_relcl_resolver_v1.py (REUSE the validated hdlab.relcl_resolver organ on the drops — +0.0066 overall); experiments/_drill_ditransitive_frame_v1.py + _drill_construction_role_v2.py + _drill_construction_role_v3.py (OWNER-DIRECTED wrong-bind blowout: the double-object construction fix, verb + 19c-era generalization, construction-gate control); experiments/_drill_integrated_pass_v1.py (integrated drop-fill + double-object + preverbal, both eras — the era-robustness finding); experiments/_drill_cue_integration_role_v1.py (the PARALLEL CUE-INTEGRATION role assigner — Competition Model, era-robust, +0.098/+0.027 over position both eras) + data/predict_revise_recall_v1/_population_litbank.json; experiments/_drill_reuse_graded_role_v1.py (REUSE the validated hdlab.graded_role_assigner routed Competition-Model organ — 0.6076 modern, beats the flat integrator); experiments/_drill_agent_patient_contrast_v1.py (research fix #1 prototyped — agent/patient contrast HURTS in the coarse grounded space -> needs a distributional asset); experiments/_drill_distributional_role_fit_v1.py (the brain-foundational role-separated DISTRIBUTIONAL fit with a GloVe foundation asset — DECISIVE negative: ties grounded on modern, fails 19c; the ceiling is position/parse, not fit-quality); verification/test_predict_revise_recall.py (scaffold-free witness, 8/8); data/predict_revise_recall_v1/metrics.json + _population.json + _drill_dropped_only.json; data/predict_revise_recall_diagnostic_v1_smoke/. hdlab/ UNTOUCHED (Q111 — proposed default-off predict_revise flag stated below)."
 reverify: ".venv/Scripts/python.exe verification/test_predict_revise_recall.py"
 ---
 
@@ -285,6 +285,77 @@ ground this were dispatched but died on a transient API outage — built from th
   and EVENT-DETECTION-bound — both large builds the ceiling analysis already named — NOT another rule on the
   current parse. What I proved: the ARCHITECTURE (parse-as-evidence + parallel cue-integration, not parse-as-
   truth) is right and era-robust; the remaining gap is cue QUALITY + event recall.
+
+## REUSE THE VALIDATED ORGAN + THE RESEARCH-DIRECTED FIXES (owner: "look at the organs + prototype the fix")
+Enumerating the substrate (my own discipline, owner-held) surfaced that I HAND-ROLLED an organ that already
+exists: **`hdlab/graded_role_assigner.py`** — the Competition-Model routed cue-integration role assigner (landed
+2026-08-27, 6/6 witness), encoding the fidelity lesson my flat integrator VIOLATED: "the lever is ROUTING, NOT
+REPLACEMENT — a flat integrator wrecks canonical cases." `hybrid_role_patient` keeps the word-order default on
+confident cases and invokes the graded competition (`hdlab.graded_competition`; cues order/adjacency/passive/
+gap/unacc/by-agent/animacy by LEARNED validities) only on the non-canonical residual.
+- **REUSE WINS.** The validated organ ALONE reaches **0.6076 (modern QA-SRL, +0.1268 over wired)** — BEATING my
+  flat integrator (0.575), exactly as its docstring predicted. (19c: 0.4104; neither the organ nor the flat
+  version dominates both eras — the organ is stronger on modern, the flat cue-set on 19c.) This is the BEST
+  who-did-what result, from a VALIDATED organ, not a hack.
+- **RESEARCH FIX #1 (agent/patient centroid CONTRAST) — PROTOTYPED, HONEST NEGATIVE.** A 2-drill research retry
+  (which validated the design: structured role-separated distributional models discriminate agent/patient at
+  62-72%; a single patient centroid caps near chance — Chersoni/Santus/Lenci 2017) named the agent-centroid as
+  the top fit fix. I built it by reusing `extract_triples` (already yields AGENT+PATIENT triples) + grounded
+  centroids. Result: patient-only fit HELPS (+0.039 modern), but the CONTRAST (patient_fit − agent_fit) HURTS
+  (-0.0124 modern [-0.022,-0.004]; -0.0223 on 19c) — because in the COARSE 12-d grounded space the agent and
+  patient centroids are too similar (subtracting removes shared signal). This CONFIRMS the research's caveat and
+  p2's coarse-space ceiling: the contrast needs a DISTRIBUTIONAL (PPMI role-filler) space, not the grounded
+  centroid — a FOUNDATION build, not a free add.
+- **THE BLOWOUT IS GATED ON TWO NAMED FOUNDATION BUILDS (ceiling analysis + research CONVERGE).** (1) A
+  DISTRIBUTIONAL agent+patient role-filler space from a large MODERN parsed corpus (DM/TypeDM + Weighted-Overlap
+  scoring; ρ≈0.50, agent/patient 62-72%), applied at inference by LEMMA lookup (no parse → era-robust) — the
+  research's decisive test: does it transfer to 19c? (2) A NOMINALIZATION / light-verb / copula lexicon (NOMLEX-
+  style, glass-box) for the ~10% EXTRACTION-MISS bucket (missed events are largely non-verbal predicates). Both
+  are the "foundation is free to build" regime, NOT more heuristics on the noisy parse. WHAT IS PROVEN HERE: the
+  ARCHITECTURE (parse-as-evidence + routed parallel cue-integration, era-robust) is right and the validated organ
+  delivers it (0.61 modern); the remaining gap to ~0.95 is cue QUALITY (distributional role-filler space) +
+  event RECALL (nominalization lexicon) — two bounded foundation assets, precisely localized.
+
+## THE BRAIN-FOUNDATIONAL FIT FIX, PROTOTYPED IN FULL — a DECISIVE negative that relocates the ceiling
+(owner: "prototype the brain-foundational correct fix, using organs where available"). The research's
+highest-ceiling recommendation was a ROLE-SEPARATED DISTRIBUTIONAL selectional-preference model (Baroni & Lenci
+DM; McRae thematic fit): per verb, PATIENT-centroid = mean vector of nouns that ACTUALLY occur as its object,
+AGENT-centroid = its subjects; score candidates by the contrast in a RICH distributional space. I built exactly
+this, reusing organs (`extract_triples` for the role-filler experience, `graded_role_assigner` as the routing
+base) and a large-corpus DISTRIBUTIONAL FOUNDATION ASSET (GloVe-wiki-gigaword-300, 6B tokens, 400k vocab, 300-d
+— a static offline lookup, NOT an LLM; admissible per "foundation is free to build"; the substrate's own
+`random_indexing`/`ppmi_sparse_encoder` organ would build the production version). GloVe separates roles sharply
+(cos(food,bread)=0.51 vs cos(food,man)=0.17) where the 12-d grounded space could not.
+- **RESULT — the rich distributional fit does NOT deliver the blowout.** QA-SRL: +grounded-fit 0.567,
+  +GloVe-CONTRAST 0.575 = **+0.0080 [-0.0049,+0.0211] (n.s.)** — a 6-billion-token role-separated model TIES the
+  coarse 12-d grounded centroid. 19c LitBank: +grounded 0.448, +GloVe 0.428 = **-0.0192 [-0.0295,-0.0091]** —
+  the distributional fit is WORSE on 19c (era-transfer FAILS: modern centroids don't match 19c vocabulary — the
+  research's flagged #1 risk, now measured). Either fit cue adds only ~+0.03-0.04 over position on modern, ~0 on
+  19c.
+- **THE CEILING IS RELOCATED (the decisive finding of the whole blowout push).** who-did-what is NOT
+  fit-quality-bound. English weights WORD ORDER so heavily (Competition Model cue validity) that even the best
+  possible selectional cue — a billion-token role-separated distributional model — is MARGINAL over position and
+  does not transfer across eras. So the gap from ~0.61 (the validated graded organ, modern) to human ~0.95 is
+  NOT closable with richer meaning cues; it is bound by (1) STRUCTURAL PARSE errors on the residual wrong-binds
+  (a better parser — which itself degrades on 19c, so the era-robust substitute IS the cue-integration I built),
+  and (2) EVENT-DETECTION recall (~10%, the nominalization lexicon — the one remaining untested lever). This
+  CORRECTS the research's fit-first hypothesis for THIS task, evidenced by building the rich version and
+  measuring it tie/lose. The brain-foundational ARCHITECTURE (routed parallel cue-integration, era-robust) is
+  right and delivered (0.61 modern via the validated organ); a richer selectional cue is NOT the lever.
+
+## EVENT-DETECTION (the last untested lever) — and it EXPOSES the deep mechanism gap
+Diagnosing the ~10% EXTRACTION-MISS bucket (owner: do the last lever): it is NOT nominalizations (QA-SRL
+predicates are verbal). **71% are the gold VERB mis-tagged as a NOUN, 15% as an ADJ** by the pos-tagger —
+verb/noun homographs in SVO clauses ("Wet clay FORMS mud", "The atmosphere SUPPORTS life", "The Sun HEATS
+Earth's surface"). A STRUCTURE-AWARE predicate detector (a nominal-tagged token in an unambiguous
+subject-_-object predicate slot with no other finite verb IS the predicate) would recover the event: 51% of
+misses sit in such a slot; recovering them lifts who-did-what +0.0234 overall. Modest, but it EXPOSES the deep
+problem the owner named: we run a BOTTOM-UP PIPELINE (tag -> detect -> assign), and it fails on the homographs
+precisely because it commits POS before structure. **The brain does NOT tag-then-parse; it infers the clause
+structure JOINTLY / GENERATIVELY — the predicate slot between a subject and an object DEMANDS a verb, so
+"forms" is never a noun there.** This is the SAME reason cue-integration plateaus: both are piecewise
+approximations of a JOINT GENERATIVE computation we have not yet replicated. (This is the honest answer to
+"do we understand EXACTLY how the brain does this?" — NO, not yet; see the mechanism drill dispatched at submit.)
 
 ## BRAIN-FUNCTION BENEFIT AUDIT (literature-grounded — what we replicate vs FORGO)
 A research drill (18 sources) grounds exactly which benefits of the brain's predictive / noisy-channel /
