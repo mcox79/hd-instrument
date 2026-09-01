@@ -312,6 +312,14 @@ class SituationModel:
     # present_in_scene per entity over story-time); None unless the reader is built with track_space=True.
     # Additive -- the 4th situation-model dimension (WHERE), after entities/time/causation.
     locations: Optional[object] = None
+    # opt-in BELIEF/ToM dimension (WHO-BELIEVES-WHAT-WHEN); None unless the reader is built with
+    # track_belief=True. Two CALLABLES bound to this passage's own extraction (the 5th situation-model
+    # dimension): believes(agent_aliases, fact, t) -> the agent's registered belief VALUE at story-time t
+    # (piecewise-constant sample-and-hold; may DIVERGE from reality = the false-belief case); knows(...) ->
+    # the Butterfill & Apperly registration status ("current"/"stale"/"ignorant"). fact is a dict
+    # {fact_aliases, value_vocab[, fact_type]}. Additive -- never touches the other dimensions.
+    believes: Optional[object] = None
+    knows: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -588,7 +596,8 @@ class SituationReader:
                  track_space: bool = False,
                  predict_surprisal: bool = False,
                  surprisal_abstain_tau: Optional[float] = None,
-                 predict_surprisal_asset: Optional[str] = None) -> None:
+                 predict_surprisal_asset: Optional[str] = None,
+                 track_belief: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -702,6 +711,18 @@ class SituationReader:
         self.surprisal_abstain_tau = surprisal_abstain_tau
         self.predict_surprisal_asset = predict_surprisal_asset
         self._pr_predictor = None      # lazy hdlab.predictive_reader.PredictiveReader (from the persisted asset)
+        # BELIEF/ToM dimension (opt-in; default OFF = byte-identical). Integrated 2026-08-31 from
+        # `the_belief_dimension_is_never_driven_by_the_readers_own_extraction_on_real_prose` (owner-DONE,
+        # EXCELLENT; validated on FANToM, reader 0.893 vs floor 0.665 CI-sep). When ON, read() exposes
+        # sm.believes/sm.knows -- CALLABLES that drive the promoted hdlab.belief_timeline from the reader's
+        # OWN extraction (4 channels: narrator-epistemic + testimony dominant + perception + inference) via
+        # the lazily-imported experiments._belief_reader adapter (which composes _space_reader/state_register)
+        # + a hdlab.perceptual_access_ledger observation gate. The DOMINANT belief-assertion channels are
+        # substrate-native (NO spaCy); the PERCEPTION track lazily loads spaCy (opt-in, local-only, like
+        # causation_typed). Additive; nothing else changes.
+        self.track_belief = bool(track_belief)
+        self._belief_led = None        # lazy hdlab.perceptual_access_ledger.PerceptualAccessLedger
+        self._belief_mod = None        # lazy experiments._belief_reader
         self._causation_nlp = None     # lazy spaCy handle (loaded once, only when causation_typed)
         self._causation_lex = None     # lazy force lexicon
         # persistent readers (the banked backbone + single-sentence validity baseline)
@@ -1008,6 +1029,46 @@ class SituationReader:
             conll_path, gaz=self.gaz, mode="prior_ext")
         return reg
 
+    def _read_belief(self, sm, sents) -> None:
+        """Opt-in BELIEF/ToM dimension (default-off; wired 2026-08-31 from the owner-DONE problem
+        the_belief_dimension_is_never_driven_by_the_readers_own_extraction_on_real_prose). Bind two QUERY
+        callables to THIS passage's own sentences: sm.believes(agent_aliases, fact, t) and sm.knows(...).
+        Each drives the promoted hdlab.belief_timeline from the reader's OWN 4-channel extraction via the
+        lazily-imported experiments._belief_reader.drive (narrator-epistemic + testimony [substrate-native] +
+        perception [PAL observation gate, lazy spaCy] + inference), reality separate, ignorance = None. A
+        `fact` is {fact_aliases, value_vocab[, fact_type]}. believes -> the registered belief VALUE at t
+        (may diverge from reality = false belief); knows -> Butterfill & Apperly registration
+        (current/stale/ignorant). Byte-faithful to the validated driver (the witness asserts believes ==
+        timeline_belief(*drive(...))). Lazy -> the default (OFF) reader imports NONE of this."""
+        if self._belief_mod is None:
+            from experiments import _belief_reader as _BR
+            self._belief_mod = _BR
+        BR = self._belief_mod
+        from hdlab.belief_timeline import timeline_belief, reality_at
+        if self._belief_led is None:
+            from hdlab.perceptual_access_ledger import PerceptualAccessLedger
+            self._belief_led = PerceptualAccessLedger()   # spaCy lazy-loaded on first perception use
+        led = self._belief_led
+        by_sent = {i: [] for i in range(len(sents))}
+
+        def _drive(fact, agent_aliases):
+            events, observed, agent, _re, _ba, _src = BR.drive(sents, by_sent, fact, agent_aliases, led)
+            return events, observed, agent, str(fact["fact_aliases"][0]).lower()
+
+        def believes(agent_aliases, fact, t):
+            events, observed, agent, fh = _drive(fact, agent_aliases)
+            return timeline_belief(events, observed, agent, fh, float(t))
+
+        def knows(agent_aliases, fact, t):
+            events, observed, agent, fh = _drive(fact, agent_aliases)
+            belief = timeline_belief(events, observed, agent, fh, float(t))
+            if belief is None:
+                return "ignorant"
+            return "current" if belief == reality_at(events, fh, float(t)) else "stale"
+
+        sm.believes = believes
+        sm.knows = knows
+
     @staticmethod
     def _nominal_heads(toks, up) -> List[str]:
         """Candidate-argument head strings the reader could have bound (lowercased, deduped, sorted) --
@@ -1145,6 +1206,9 @@ class SituationReader:
         if self.predict_surprisal:
             # forward-prediction surprisal metadata + abstain flag (runs LAST -> scores the FINAL patient)
             self._read_surprisal(sm, sents)
+        if self.track_belief:
+            # BELIEF/ToM dimension: bind sm.believes / sm.knows query callables to this passage
+            self._read_belief(sm, sents)
         return sm
 
 
