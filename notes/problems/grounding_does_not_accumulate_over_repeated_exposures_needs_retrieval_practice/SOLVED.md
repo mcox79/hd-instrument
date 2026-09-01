@@ -276,5 +276,5 @@ evidence it asked for.)
   (#2, targets 25-29%) and, once the encoder is stronger, **multi-prototype sense-splitting** (#1, targets 41-44%).
 - Do NOT land a retrieval-practice consolidation step, and do NOT land sense-splitting against the current encoder
   (proposed non-changes -- both would only relax the threshold / add small unstable gains at the base precision).
-- Reverify anytime: `.venv/Scripts/python.exe verification/test_retrieval_practice_consolidation.py` (13/13 incl. the
-  sense-splitting check).
+- Reverify anytime: `.venv/Scripts/python.exe verification/test_retrieval_practice_consolidation.py` (14/14 incl. the
+  sense-splitting checks W9/W9b).

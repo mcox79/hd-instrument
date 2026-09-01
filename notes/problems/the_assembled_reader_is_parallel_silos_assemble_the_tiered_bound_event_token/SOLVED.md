@@ -97,13 +97,20 @@ over uniquely-identifying partial cues (LitBank / UD-EWT):
   than the accept/reject gap and it is the operational reason reasoning (p6) needs the bound token.
 - **The bound token degrades gracefully** (1.00 at every drop) -- it is content-addressable, the neurally-
   realizable property a passage-marginal list is not.
-- **HONEST FIDELITY NUANCE (a real wall, drilled):** the DG+CA3 episodic layer UNDER-completes very partial
-  cues (0.68-0.81) -- LOWER than the raw bound-token cleanup. This is the classic DG pattern-SEPARATION vs
-  pattern-COMPLETION tension (O'Reilly & McClelland 1994): DG amplifies input differences (which is exactly
-  WHY it holds the store flat to M=256 in the capacity curve), but that same amplification pushes a partial
-  cue's DG code away from the stored full-token code, hurting completion. The DG sparsity/expansion are
-  OUR-INVENTION parameters tuned for SEPARATION, not COMPLETION. **This is an adjacent-component optimization,
-  mapped as a follow-on**, not a failure of the assembly (the bound token itself completes at 1.00).
+- **HONEST FIDELITY WALL, DRILLED TO ROOT CAUSE (`experiments/_drill_ca3_completion.py`):** the DG+CA3
+  episodic layer UNDER-completes very partial cues. Research drill (Marr 1971; Treves & Rolls 1994; O'Reilly &
+  McClelland 1994): CA3 completion is RECURRENT attractor dynamics, and crucially DG separation is an
+  ENCODING operation (orthogonalize distinct memories) -- RETRIEVAL in the brain is EC->CA3 DIRECT (perforant
+  path), BYPASSING DG, because separating a PARTIAL cue pushes it AWAY from the stored pattern. My assembly
+  did the un-faithful thing: it DG-separated the retrieval cue. Measured (UD-EWT, hit@1 by drop level):
+  DG-encode-cue + 1 CA3 settle = 0.24/0.56; ITERATING the CA3 settle makes it WORSE (0.05 -> 0.02: the Hebbian
+  net collapses to a dominant attractor); but the **DIRECT completion path (compare the cue to the stored
+  bound tokens by similarity, no DG re-separation) = 1.00/1.00**. **Conclusion: the fix is brain-faithful and
+  understood** -- retrieve via the direct EC->CA3 similarity route (which the bound token natively supports and
+  which completes perfectly), and reserve DG separation for ENCODING. This does NOT weaken the SOLVED claim
+  (the coref bar + capacity curve use the direct/bound-token path); it CORRECTS the `hippocampal_encoder`
+  retrieval path and seeds a well-scoped follow-on (a faithful CA3 completer: EC->CA3-direct retrieval + sparse
+  attractor dynamics that do not collapse to a dominant attractor under iteration).
 
 ## KEY REALIZATIONS (the enabling moves)
 1. **A single passage-level superposition IS the marginal silo -- provably.** The flat register's readout for
@@ -180,10 +187,12 @@ problem produces the evidence; the flip is a separate owner call and needs the w
    default-off `bind_event_tokens` flag + `hdlab/bound_event_backbone.py` per the proposed wire -- byte-
    identical when off.
 2. Follow-on problems (mapped, fidelity-assessed in the supporting note; ranked by leverage):
-   - **DG separation-vs-completion balance** (NEW, from the deepening): sweep DG sparsity/expansion + add CA3
-     recurrent-settle iterations so the episodic store COMPLETES partial cues (0.68->?) without losing the
-     capacity-scale separation. The brain balances these with distinct DG (separation) and CA3 recurrence
-     (completion); our params only tuned separation. High-value, concrete, adjacent.
+   - **A brain-faithful CA3 completer** (NEW, DRILLED to root cause): the `hippocampal_encoder` retrieval path
+     DG-separates the cue and single-steps CA3 -> under-completes (0.24-0.56), and iterating collapses to a
+     dominant attractor (0.02). The fix is architectural, not a parameter sweep: EC->CA3-DIRECT retrieval
+     (bypass DG separation at recall; DG is for ENCODING) + sparse attractor dynamics that do not collapse.
+     The direct similarity path already completes at 1.00; the follow-on is making the CA3 net itself faithful.
+     High-value, concrete, adjacent -- this is an `hippocampal_encoder` fidelity problem in its own right.
    - **Semantic fillers** (the corruption/paraphrase regime): bind SEMANTIC vectors (distributional meaning)
      instead of random symbols, so a paraphrased/pronominal mention still matches -- the regime where the
      bound token's graded similarity beats symbolic exact-match. Ties into `reader_meaning_channel`.
