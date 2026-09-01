@@ -5,8 +5,8 @@ bar: "PASS = the grounded soft-AND CONJUNCTIVE aligner lifts end-to-end before/a
 result: "END-TO-END (n=301 held-out dev+test symmetric before/after, chance 0.5, passage-cluster bootstrap): the conjunctive-granularity gated aligner scores 0.591 vs SIMILARITY 0.525 (+0.066 [-0.017,+0.149], half-width 0.083, null_p95 0.083, NOT CI-sep) and vs text-position 0.518 (+0.073 [-0.010,+0.152], NOT CI-sep); shuffled-order twin 0.545 (FIX-twin +0.046, NOT sep). It BEATS the verb-only incumbent 0.532 (+0.060 [-0.007,+0.126]). dev 0.660 vs test 0.556 (generalization gap). ISOLATED PROBE (n=52030 items over 138 scenarios, top-1 alignment argmax over the full type inventory): the criterial-feature (particle+2nd-arg) ablation collapses particle-sibling alignment 0.926->0.608 (delta +0.318 [+0.301,+0.337] CI-sep); role-scramble 0.926->0.021 (+0.905 CI-sep). The soft-AND PRODUCT does NOT beat the additive sum (-0.002, NOT sep) -- the brief's specific mechanism is refuted; the FEATURE SET + role structure is the lever."
 floor: "SIMILARITY-only floor 0.525 (strongest actually-run for the aggregate before/after contrast); NO-model text-position floor 0.518; both recomputed on the n=301 held-out items with CIs."
 controls: "ISOLATED PROBE: particle/2nd-arg ABLATION (drop criterial slots -> alignment collapses, excludes 'any richer code helps'); ROLE-SCRAMBLE twin (wrong role<-filler binding -> collapses, excludes 'more features, not structure'); ANTONYM control (raw grounded cos(in,out)=0.556 vs discrete kernel 0 -> excludes a grounded cosine on the particle slot); kernel sweep coarse/additive(p=1)/soft-AND(p->0)/harder-AND/DG-expand (excludes 'the product combination rule is the lever'). END-TO-END: SIMILARITY floor, text-position floor, SHUFFLED-ORDER twin (excludes 'any ordering'), PARTICLE-BLIND verb-only ablation (excludes 'the conjunctive nodes are not used'), ADDITIVE-kernel arm (excludes 'the product is needed'), committed-covered decomposition (isolates ordering from coverage), per-split held-out, per-construction particle-hinged, and a HIERARCHICAL coarse-backoff arm (a located negative -- coarse premises drown the fine signal)."
-files_changed: "experiments/exp_conjunctive_event_aligner_probe_v1.py; experiments/exp_conjunctive_aligner_end_to_end_mcscript_v1.py; verification/test_conjunctive_event_aligner.py; notes/problems/the_reader_conflates_similar_events_needs_a_soft_and_conjunctive_grounded_aligner/{SOLVED.md, research_combination_rule_and_path_slot_2026-09-01.md}; data/exp_conjunctive_event_aligner_probe_v1/metrics.json; data/exp_conjunctive_aligner_end_to_end_mcscript_v1/metrics.json. hdlab/ UNTOUCHED (proposed diff below, Q111)."
-reverify: ".venv/Scripts/python.exe verification/test_conjunctive_event_aligner.py   # 9/9 checks recompute the headline claims FROM SOURCE"
+files_changed: "experiments/exp_conjunctive_event_aligner_probe_v1.py; experiments/exp_conjunctive_aligner_end_to_end_mcscript_v1.py; experiments/exp_enablement_order_mcscript_v1.py; verification/test_conjunctive_event_aligner.py; notes/problems/the_reader_conflates_similar_events_needs_a_soft_and_conjunctive_grounded_aligner/{SOLVED.md, research_combination_rule_and_path_slot_2026-09-01.md, research_canonical_script_order_mechanism_2026-09-01.md}; data/exp_{conjunctive_event_aligner_probe,conjunctive_aligner_end_to_end,enablement_order}_mcscript_v1/metrics.json. hdlab/ UNTOUCHED (proposed diff below, Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_conjunctive_event_aligner.py   # 11/11 checks recompute the headline claims (aligner lever + product-refuted + antonym + conjunctive granularity + enablement mechanism) FROM SOURCE"
 ---
 
 # What I built, what I measured, and how the brief was REFINED
@@ -80,6 +80,40 @@ them regardless of the aligner. Keying nodes by the conjunction fixes that.
   generated 3697 premises/scenario that *conflict with and drown* the 66 high-quality fine premises (0.515, below
   SIM). The sparse fine premises are higher quality than a dense coarse order -- a real, if negative, finding.
 
+### 3. THE ORDERING WALL, drilled to bedrock (deep drill research_canonical_script_order_mechanism_2026-09-01.md + exp_enablement_order_mcscript_v1.py)
+The end-to-end residual is the learned canonical ORDER, so I drilled it to the mechanism level and tested the brain's fix.
+- **WHY co-occurrence caps at ~0.59 (PINNED, the strongest result of the whole problem):** the successor representation
+  is a GENERALIZATION device that makes co-present states SIMILAR (the same force that conflates events) and
+  temporal-context matching is SYMMETRIC -- structurally strong on "belongs-together", structurally weak on
+  DIRECTION (Dayan 1993; Schapiro 2016; Gershman & Moore 2012). So ~0.59 (+0.07 over shuffle) is the EXPECTED ceiling
+  of ANY co-occurrence/told-order signal, not a tuning miss. Confirmed empirically: the reliability stratification
+  found only ~3 pairs/eval with strong direct train consensus and ~67% answered by transitive fill-in; a
+  positional-mean prior is WORSE (0.548); more narratives are unavailable (~13/scenario).
+- **The brain's fix (PINNED cognitively): CAUSAL ENABLEMENT** (Schank & Abelson 1977 -- each action's effect
+  establishes the next's precondition). I built it glass-box (reuse-not-reinvent): a directed ENABLE-edge graph over
+  the conjunctive event types (object-availability acquire->use, location-gating enter->act, state-toggle
+  open->use, + `hdlab.force_dynamics_lexicon`'s FrameNet CAUSE/ENABLE/PREVENT verb map), edges fed as PREMISES into
+  the SAME `transitive_ordering` read-out (one-variable swap: directed causal premises vs symmetric co-occurrence).
+- **RESULT -- a located NEGATIVE (n=301):** ENABLE 0.568 does NOT beat COOCCUR 0.591; HYBRID 0.588 ~= co-occurrence;
+  the shuffled-order twin loses (0.485). Enable-edges are DENSE (99/scenario vs co-occurrence 66) -- so the research's
+  sparsity worry is refuted; the edges simply do not improve the DIRECTION over co-occurrence.
+- **The Q2 reframe (answerable=causally-dependent, irreducible=parallel) does NOT hold at glass-box extraction
+  recall:** tagging dependency STRUCTURALLY (gold-free) and grading with the co-occurrence order (a different signal),
+  only 5% of questioned pairs even share an extractable entity (13/261), and those are answered 0.615 vs 0.593 for
+  independent -- a non-significant trend. A strict enable-PATH connects only 2/261 pairs. This is an EXTRACTION-recall
+  floor (shallow spaCy misses implicit preconditions/effects + coref), not proof the pairs are truly independent.
+- **The ceiling is robust:** EVERY ordering signal caps at ~0.59 (co-occurrence 0.591, enablement 0.568, hybrid 0.588,
+  positional 0.548, hierarchical 0.515), and real cues are almost always fuzzy (only 9/261 exactly match a node), so
+  the aligner is doing real work (252/261) at committed 0.599 -- the wall is the ORDER, not alignment.
+
+**Definitive attribution:** the ~0.59 ceiling is a KNOWLEDGE-FOUNDATION gap, not a mechanism gap. I understand exactly
+how the brain does it (causal-enablement premises into the reused cognitive map) and built that mechanism faithfully;
+it does not clear the wall because reliable causal-enablement PREMISES require world knowledge the brain has from rich
+embodied experience but that our glass-box, NO-LLM extraction cannot recover from ~13 short narratives (dense but
+shallow edges that miss the questioned pairs). Closing it needs an OFFLINE causal-script knowledge FOUNDATION (a
+static offline-built asset -- admissible under the FOUNDATION pivot, and the project's stated direction), NOT the
+aligner and NOT better statistics on the given text.
+
 ## What I did NOT establish
 - That the aligner lifts before/after **CI-separated over the floors** -- it does not, at n=301. This is a **located
   near-positive**, not a pass.
@@ -108,6 +142,12 @@ control) are rock-solid, large, CI-separated effects and would survive.
    be a DISCRETE feature, not a graded cosine -- the drill predicted it and the data confirmed it.
 5. **Densifying a sparse ordering with coarse backoff HURTS** -- the few fine premises are higher quality than many
    conflicting coarse ones. The brain's hierarchy is not "lift the coarse order onto every fine pair."
+6. **The ~0.59 ceiling has a MECHANISTIC explanation, not a tuning one:** the successor representation is a
+   generalization device (makes co-present states similar -- the very conflation force) and temporal-context
+   matching is symmetric, so a co-occurrence signal is structurally strong on "belongs-together" and weak on
+   DIRECTION. Once the drill named this, I stopped tuning aggregators and tested a categorically-different
+   (directed causal) premise -- which is the right move even though it turned out to be an extraction-recall-bound
+   negative. Knowing WHY a wall is a wall changes what you build next.
 
 ## AUDIT UPDATE (for BRAIN_FOUNDATIONAL_AUDIT.md sec 2b)
 - **The before/after wall, re-localized again.** p6 localized it to "event-ALIGNMENT precision (coarse grounded
@@ -164,10 +204,16 @@ true remaining bottleneck is now precisely located in a different component (how
 None for the owner.
 
 ## NEXT STEPS
-1. **Open the real remaining problem: learn canonical script ORDER from CAUSAL/GOAL structure**, not noisy
-   told-order tallies (compose `goal_outcome_relation` / `consequence_learning_loop` with the schema; the ~0.59 ->
-   ~0.70-0.80 headroom lives here). This is where the end-to-end bar can actually be cleared.
+1. **The real remaining problem is now drilled to bedrock and it is a KNOWLEDGE-FOUNDATION build, not a mechanism:**
+   an OFFLINE causal-script knowledge asset (preconditions/effects per event type, richer than shallow spaCy
+   state-change recovery) fed as ENABLE premises into `transitive_ordering`. The in-text glass-box enablement is a
+   located negative (0.568 <= 0.591 co-occurrence); the gap is extraction recall of IMPLICIT preconditions/effects,
+   which needs a static offline foundation (admissible; the FOUNDATION pivot), NOT an LLM at inference. Open it as a
+   distinct problem (`learn_canonical_script_order_from_a_causal_enablement_foundation`), not this aligner.
 2. **Land the conjunctive event-TYPE identity** (verb, particle, patient) as default-off schema infrastructure once
    (1) gives it a strong order to separate -- the validated, brain-faithful lever, inert without a good order.
 3. **A second temporal population** (another script/order benchmark) to test the dev/test generalization gap and
    power the +0.06 granularity effect that is real-direction but underpowered at n=301.
+4. **Enumerate the irreducible slice honestly:** the Q2 reframe could not be confirmed at glass-box recall (only 5%
+   of pairs share an extractable entity), so the causally-independent/parallel residual remains UNQUANTIFIED -- a
+   richer causal-KB (step 1) is needed to tag it, at which point report it rather than chase it.

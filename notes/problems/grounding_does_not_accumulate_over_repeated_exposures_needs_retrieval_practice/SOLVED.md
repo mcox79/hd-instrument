@@ -364,6 +364,40 @@ So: the wall is real and gold-confirmed; the break-through (grounded definitiona
 and leak-free -- the honest proof, and the concrete lever to scale (richer sense embeddings / graph PPR toward
 the ~0.68 knowledge-based band, human ~0.80). Cell: `--self-test` PASS; `--mode full`.
 
+**8b. THE FINAL OPTIMIZATION prototyped + measured (owner "show the prototype for the final optimization").**
+Three leak-free, shelf-only (no LLM) optimizations added to the cell:
+- **OPT_EXTGLOSS_EMBED (WINNER): extended-gloss embedding** -- expand each sense's definition with its
+  hypernym/hyponym DEFINITIONS before grounding (extended Lesk x Binder). 0.591 -> **0.619 (dev) / 0.594
+  (test)**, CI-separated above the wall and above plain gloss-embedding. Richer definitional context = better.
+- **OPT_GRAPH_taxonomic: shared-hypernym-ancestry to the context's concepts = 0.508 dev / 0.499 test = CHANCE**
+  -- GOLD-CONFIRMS the relational_graph_probe seed-shuffle null: taxonomic-graph-OVER-CONTEXT carries no sense
+  signal (the context concepts are too noisy). Same wall, now on gold labels.
+- **OPT_FUSION (embed + graph) HURTS** (0.582 dev / 0.538 test) -- the chance graph signal drags the embedding
+  down; the best is grounded-definitional ALONE.
+CONCLUSION: the winning final optimization is GROUNDED-DEFINITIONAL, made RICHER (extended gloss), capping
+~0.62 with our shelf embeddings; the graph-over-context and fusion routes are dead (gold-confirmed). Reaching
+the ~0.68 knowledge band needs richer SENSE embeddings than mean-Binder (LMMS-style; unavailable w/o an LLM) --
+the honest ceiling of the shelf-only approach. Cell: `--self-test` PASS; `--mode full`.
+
+**8c. HONEST CORRECTION (owner "deeply understand sense embeddings + prototype glass-box before submission" ->
+the verification caught an OVER-CLAIM). New cell `experiments/exp_glassbox_sense_embeddings_wic_v1.py` builds
+glass-box sense embeddings (LMMS analog, NO LLM) from SemCor usage: SENSE_DIST (Yarowsky/Naive-Bayes context-
+word distribution), SENSE_GRND (mean-Binder of usage contexts), FUSION, gloss backoff. Added the CONTROL THE
+FIRST WiC CELL LACKED: a per-method MIS-SEEDED TWIN (assign side-2 from a RANDOM other context) = the MFS-
+AGREEMENT baseline (how well you do by knowing the word's sense inventory / dominant sense, IGNORING the
+specific context). RESULT (full dev 638 / test 1400): the twin sits at ~0.56-0.61, NOT the naive 0.50 floor.
+Against the twin, `real - twin` is TINY and inconsistent: dev NO method beats its twin (ext-gloss +0.020 ns,
+grnd +0.044 ns, fusion +0.031 ns); test only ext-gloss barely (+0.034, CI[0.002,0.065]). SENSE_DIST/GRND/FUSION
+(usage-based) do NOT beat ext-gloss, so the LMMS "usage>gloss" insight does NOT hold glass-box here.
+**THEREFORE the §8/§8b "0.62 CI-separated break-through" was measured against the WRONG baseline (0.50 floor);
+against the honest MFS-agreement baseline (~0.59) the real per-context definitional signal is only ~+0.02-0.03,
+MARGINAL/inconsistent.** DEFLATED HONEST VERDICT: on gold WiC, glass-box sense embeddings (usage OR gloss) do
+NOT clear the wall beyond the DOMINANT-SENSE baseline; the wall demonstration (context ~ chance) stands, but the
+"definitional break-through" is mostly MFS-agreement with a marginal real edge. Real per-context WSD needs a
+CONTEXTUAL representation (LLM) barred at inference. LESSON (reusable): compare to the MFS-AGREEMENT twin, NOT
+the naive floor -- the naive floor over-credits any method that just picks the dominant sense. Cell: `--self-
+test` PASS; `--mode full`.
+
 ## Adjacent-component evaluation (brain-foundational fidelity + opportunities, verified on disk)
 
 Per the standing rule to evaluate adjacent components (not just map them), to seed the next problems:
