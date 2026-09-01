@@ -100,3 +100,30 @@ Two further drills pinned the residual to ONE thing and named the brain-faithful
 1. **Build the soft-AND conjunctive event aligner** (grounded per-role kernel, PRODUCT-combined, with path/particle + 2nd argument) as the reader's event-alignment; keep `transitive_ordering` as the read-out. Recommended first: a cheap ISOLATED alignment-precision probe (coarse-cosine vs additive vs soft-AND, paraphrased-cue -> right-event among similar distractors) as a can-fail discriminator, then the end-to-end. Built-in go/no-go = twin-loses + both-floors CI-sep. Highest-leverage build to convert the near-positive into a clean positive.
 2. **Compose organs:** the aligner = `bound_event_backbone`'s conjunctive role-filler structure + `content_addressable_retrieval`'s graded matching, with a soft-AND (multiplicative) grounded kernel between them (DG pattern-separation). `script_grain_acquisition_loop` alone HARD_FAILED MCScript2 -- it needs this aligner.
 3. Low-cost substrate fixes surfaced: persist `frame_induction`'s >90s recompute to disk; key `timeline_register` events by `(lemma, sent_idx)` (de-dup fidelity).
+
+---
+INTEGRATED_BY_STRATEGY: 2026-09-01 (EXCELLENT). Reverified 15/15 first-hand (test_reasoning_over_situation_model.py;
+the SOLVED.md's "13/13" was a stale doc count -- the witness is 15). All load-bearing numbers reproduce: the
+aggregator PLATEAU (tally 0.532 / precision 0.505 / sr 0.514 / precision+sr 0.523, none above chance), the episodic
+twin LOSES CI-sep (MODEL-TWIN +0.036 [0.0044,0.0671]), timeline beats text-order on reordered (0.737 vs 0.263, n=19),
+clean extraction NOT sufficient (object-retrieval committed 0.446 ties the random-order twin 0.482), and the
+semantic-alignment NEAR-positive (SEM 0.593 BEATS its shuffled-order twin CI-sep +0.111 [0.019,0.200] but does NOT
+clean-clear similarity, +0.074 [-0.019,0.158]). Adversarially audited the ARGUMENT: this is a RIGOROUS LOCATED NEGATIVE
+(a full PASS per the bar), and its value is the localization -- decisively discriminated by a chain of controlled
+experiments, each REFUTING a cheaper hypothesis: retrieval rule-out (coverage up, accuracy flat) killed "my matcher is
+the wall"; the aggregator ablation killed "the crude tally"; the 90-98%-in-passage partition killed "commonsense not in
+text"; and -- the exemplary move -- the oracle clean-extraction LOOP-CLOSER REFUTED the solver's OWN prior conclusion
+"extraction is the binding wall" (clean spaCy raised coverage 0.36->0.74 but accuracy stayed at chance). The dominant
+residual is SEMANTIC cross-narrative event ALIGNMENT (DG/CA3 pattern-separation), de-risked by a gold-free headroom
+drill (98% of confusable pairs separable by particle/arg/prep; 51% of Qs hinge on a particle the code ignores).
+CAVEAT (honest, not blocking): the W4 witness verdict STRING still reads "extraction noise is the binding wall" -- that
+is the pre-loop-closer label; W6/W7 supersede it, and the SOLVED.md conclusion + this note carry the corrected verdict.
+One process miss the solver flagged themselves: they re-derived a known negative (the Aug-2026 script_grain_acquisition_
+loop MCScript2 HARD_FAIL) by not checking experiment_index first -- but the independent convergence is now a STRENGTH.
+LANDING STATE (Q111): NO load-bearing hdlab wire (the capability did not clear the floor -- correctly no registry row).
+The AUDIT UPDATE is folded into BRAIN_FOUNDATIONAL_AUDIT.md 2b (below). The de-risked FIX is PACKAGED as the assignable
+follow-on `the_reader_conflates_similar_events_needs_a_soft_and_conjunctive_grounded_aligner` (priority 4, opened
+2026-09-01 -- this problem's NEXT STEP #1). Two OPTIONAL low-cost substrate fixes are OWED, not landed here (each needs
+its own witness + care): persist frame_induction's >90s recompute to disk (perf); key timeline_register by
+(lemma, sent_idx) instead of lemma alone (the de-dup fidelity limit -- naturally in scope for the aligner problem, which
+turns on exactly that particle/argument distinction). Priority cleared. NO push.
