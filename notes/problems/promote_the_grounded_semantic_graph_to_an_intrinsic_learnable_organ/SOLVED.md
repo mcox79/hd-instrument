@@ -5,7 +5,7 @@ bar: "A grounded, augmentable semantic-graph organ, read by spreading activation
 result: "cn arm (WordNet relations + MFS-disambiguated gloss edges + ConceptNet MFS-disambiguated thematic edges), personalized-PageRank spreading activation, gold WiC HELD-OUT TEST (n=1400, human-judged same/different-sense): acc 0.6164 CI[0.5907,0.6414]; real-minus-context-shuffle-twin +0.0521, paired margin CI [0.0229,0.0807] (excludes 0 -> CI-SEPARATED above the twin). Dev (n=638): 0.6661, +0.1066 [0.0642,0.1505]. base arm (no ConceptNet) also clears held-out: +0.0464 [0.0171,0.0764]."
 floor: "context-shuffle twin (dominant-sense null; side-2 disambiguated from a RANDOM other sentence) = 0.5643 (WiC test) / 0.5596-0.5737 (dev) -- the strongest floor for bar (a), gated on the paired-margin lower CI. Also: naive floor 0.50; MFS 0.50 on balanced WiC; NO_GLOSS (relations-only) ~MFS (0.569 dev, baseline cell). CROSS-TASK BOUNDARY: on SemCor all-words WSD the frequency prior MFS=0.7292 (n=2500 polysemous n/v) BEATS the walk (pure 0.39; +prior 0.58) -- reported as the honest scope limit."
 controls: "context-shuffle twin (winner CI-separates above it on HELD-OUT test, paired margin CI excludes 0); NO_GLOSS ablation ~MFS (gloss edges load-bearing); disambiguated(g1) vs undisambiguated(g3) glosses -- g3 does NOT clear the twin (+0.047 beats=False), g1 does; IC-weighting ablation NEUTRAL-TO-NEGATIVE (cn_ic +0.078 < cn +0.107 -- excludes IC as the lever); grounded-node ablation SHRINKS the margin (context-free lift -- excludes feature-vectors as the per-context lever); prior-combination (Rodd resting-level) on WiC dilutes but preserves the twin win (+0.044 [0.006,0.083]) and on SemCor lifts 0.39->0.58 but stays < MFS (locates the missing reliability-weighted-control component); damping sweep d0.6-0.95 all clear (robust); SemCor cross-task (MFS floor); log-linear blend (lambda tuned on a DISJOINT SemCor dev split, frozen) confirms the combination mechanism (lambda*=0.5 dev-optimal, self-gating; lambda=0==MFS, lambda->inf==pure walk) but does NOT beat MFS on SemCor test (+0.0004 [-0.009,0.009], balanced-subset +0.005) -- locates the residual to context-SIGNAL-STRENGTH, not weighting."
-files_changed: "experiments/exp_grounded_semantic_graph_ladder_wsd_v1.py (new); verification/test_grounded_semantic_graph_ladder.py (new witness, 5/5); notes/problems/promote_the_grounded_semantic_graph_to_an_intrinsic_learnable_organ/SOLVED.md. Reuses UNMODIFIED: experiments/exp_ppr_spreading_activation_wsd_wic_v1.py (baseline PPR operator), experiments/exp_sense_wall_breakthrough_wic_v1.py, tools/load_wsd_benchmarks.py, data/datasets/conceptnet5_en_100k.jsonl, nltk wordnet_ic + semcor."
+files_changed: "experiments/exp_grounded_semantic_graph_ladder_wsd_v1.py (new; incl. the log-linear blend + the competitive-settling `_settle`/`_settle_batch` organ); verification/test_grounded_semantic_graph_ladder.py (new witness, 5/5); notes/problems/promote_the_grounded_semantic_graph_to_an_intrinsic_learnable_organ/{SOLVED.md, LEARNED_GRAPH_brain_mechanism_spec.md}. Reuses UNMODIFIED: experiments/exp_ppr_spreading_activation_wsd_wic_v1.py (baseline PPR operator), experiments/exp_sense_wall_breakthrough_wic_v1.py, tools/load_wsd_benchmarks.py, data/datasets/conceptnet5_en_100k.jsonl, nltk wordnet_ic + semcor."
 reverify: ".venv/Scripts/python.exe verification/test_grounded_semantic_graph_ladder.py"
 ---
 
@@ -101,6 +101,27 @@ dominant residual**. Combined with the blend result, the residual is located to:
    fires suppression only on high-conflict items. A marginal refinement over a global lambda; NOT the dominant
    residual (the blend showed even correct global weighting doesn't clear it -- signal strength does).
 
+## What I measured -- 4) Competitive attractor settling (the brain's EXACT read mechanism) -- a fidelity insight + a THIRD convergent negative
+A deep drill established (PINNED across Rodd/Gaskell 2004, Kawamoto 1993, McClelland-Rumelhart IAC, Snyder/Munakata
+"inhibition IS selection") that the brain does NOT do linear diffusion for sense selection -- it does NONLINEAR
+COMPETITIVE ATTRACTOR SETTLING (recurrent excitation + LATERAL INHIBITION), and personalized PageRank is a LINEAR
+operator that can only ADD, never SUPPRESS a competitor. This is a real FIDELITY insight: our PPR is the linear
+STAND-IN for the brain's competitive settling. I built the faithful equation (recurrent DIVISIVE NORMALIZATION,
+Carandini-Heeger; `_settle`/`_settle_batch`, self-test: competition provably sharpens, peak 0.68->0.90) and ran the
+can-fail sweep. RESULT (honest):
+- The competition exponent nexp had ~NO effect at rho=1 (prior-dominated) and HURT at rho=0 (pure context: nexp=1
+  reproduces PPR 0.666, nexp>1 drops to 0.628) -- because my GLOBAL divisive normalization competes the target's
+  senses against the WHOLE graph (wrong pool; the drill specified the target-word sense pool), suppressing them.
+- The deeper truth: for a single-token ARGMAX-WSD readout, competition CANNOT help -- a symmetric within-pool
+  competition only amplifies the sense that already LEADS (sharpens CONFIDENCE, not the CHOICE); competition's real
+  value is in DYNAMICS our accuracy metric does not expose (reaction-time/ambiguity effects; COUPLED multi-word
+  disambiguation; overriding the prior only when context is already strong -- subordinate-bias).
+- **THREE-MECHANISM CONVERGENCE:** linear PPR, the log-linear blend, AND competitive settling all hit the SAME wall.
+  Per our discipline, a shared wall across faithful variations means the fidelity gap is NOT the read mechanism -- it
+  is the GRAPH's context-signal STRENGTH (SyntagNet + the learned graph). Honest scope: the FAIR test of competition
+  (within-target-pool + recurrence-coherence readout, on a GRADED/COUPLED metric, not single-token argmax accuracy)
+  is the owed follow-on; my prediction from the above is it reproduces PPR on argmax-WSD and only helps a graded metric.
+
 ## The honest negatives (what did NOT work, and why it teaches)
 1. **IC-weighting (my OUR-INVENTION heuristic) does not help** -- cn_ic (+0.078 dev) < cn (+0.107 dev); IC
    erodes the ConceptNet gain. A reliability reweighting is brain-plausible, but this STATIC IC edge-weight is
@@ -170,7 +191,12 @@ gated by `semantic_control` (the context-vs-prior reliability weighting) -- the 
 frequency prior on all-words SemCor (0.39/0.58 vs 0.73). NEW deviation to record: `reading_grounding_loop.
 canonicalize` is a FLAT cosine read-out where the brain-faithful operation is graph diffusion (spreading
 activation settling into a sense attractor; Collins & Loftus 1975 / Rodd 2004). PINNED bridge confirmed:
-personalized PageRank == random-walk-with-restart == the diffusion form of spreading activation.
+personalized PageRank == random-walk-with-restart == the diffusion form of spreading activation. NEW FIDELITY
+REFINEMENT: the brain's read op is more exactly NONLINEAR COMPETITIVE ATTRACTOR SETTLING (lateral inhibition;
+Rodd/Gaskell 2004, McClelland-Rumelhart IAC, Carandini-Heeger) -- PPR is the LINEAR stand-in -- but for a
+single-token argmax-WSD accuracy metric the two are equivalent (competition sharpens confidence, not the argmax);
+the settling fidelity matters for graded/coupled-selection dynamics, not this metric. The LEARNED-graph WRITE side
+(CLS + schema-gated consolidation + usage-based sense split/merge) is specced in LEARNED_GRAPH_brain_mechanism_spec.md.
 
 ## ADJACENT-COMPONENT EVALUATION (fidelity / capability / limitation / opportunity -> next problems)
 Evaluated the organs the graph would touch (not map-only), to seed the next problems:
@@ -230,4 +256,8 @@ SyntagNet (the one static ingredient not already on disk, and the literature's l
 3. **Wire `semantic_control` onto the walk** (PPR coherence + frequency prior) -- the landed PINNED per-item gate;
    the log-linear blend (lambda~0.5) is its smooth global twin. Per-item refinement over a global lambda.
 4. **Add per-context selection to `meaning_fusion` + wire it into `situation_reader`** -- kills two wiring debts.
-5. **The #2/#3 LEARNED graph** (grow/retune/own-granularity) = the north-star follow-on program.
+5. **The #2/#3 LEARNED graph** (grow/retune/own-granularity) = the north-star follow-on program. EXACT brain
+   mechanism now specced (CLS + schema-gated consolidation + usage-based sense split/merge; BCM/XCAL edges;
+   log-frequency resting levels) in `LEARNED_GRAPH_brain_mechanism_spec.md` -- de-risked, ready to build.
+6. **Fair test of competitive settling** (within-target-pool + recurrence-coherence readout, on a GRADED/coupled
+   metric) -- owed per "test the stronger version"; prediction: reproduces PPR on argmax-WSD, helps only a graded metric.
