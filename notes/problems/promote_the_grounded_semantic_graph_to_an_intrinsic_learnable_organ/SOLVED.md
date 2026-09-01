@@ -297,14 +297,17 @@ the audit's "meaning organs are unwired islands" gap). (2) inference substrate (
 (3) predictive pre-activation. (4) iterative bidirectional settling. (5) grounded simulation for OOV. NET: the WSD win
 validates the mechanism landed in the right basin; the brain's FULL benefit needs the settled representation wired into
 downstream cognition -- the meaning organ's real job is "produce the contextual meaning the reader consumes," not "emit a synset."
-- **TESTED opportunity #1 on WiC (settled-distribution similarity readout vs discrete argmax):** dev showed +0.024, but
-  HELD-OUT (dev-tuned tau -> WiC test, n=1400) = +0.0000 (argmax 0.6414 == settled 0.6414; the dev gain was tau-overfitting,
-  CAUGHT by the held-out check). HONEST + SHARPENING: WiC same/diff is a BINARY, argmax-EQUIVALENT task ("do the top senses
-  match?"), so a single-threshold graded readout CANNOT beat argmax on it -- WiC cannot reveal the settled state's value.
-  Its value is GRADED (relatedness, composition, inference, the situation model), which requires the DOWNSTREAM pipeline,
-  not a WiC readout tweak. So the settled-state opportunity is VALID but must be demonstrated on a graded/compositional
-  task (or wired into `situation_reader`), NOT on WiC. This is the real integration + the reason the meaning organ must
-  produce a REPRESENTATION, not a label.
+- **TESTED opportunity #1, THE FIX DONE RIGHT -- the settled REPRESENTATION is a materially better meaning signal
+  (held-out, CI-separated).** First, the WRONG way: an accuracy@THRESHOLD readout dev-showed +0.024 but held-out = +0.0000
+  -- because collapsing a GRADED signal to a binary same/diff decision at one tuned threshold discards the graded info AND
+  overfits the threshold (caught by the held-out check). THE RIGHT way -- measure the REPRESENTATION'S quality
+  THRESHOLD-FREE (AUC = ranking of same vs different pairs), held-out WiC-test n=1400: **argmax(discrete) AUC=0.6414 vs
+  settled-state(graded cosine) AUC=0.7088, +0.067 CI[+0.047,+0.089] CI-SEPARATED (settled-JS 0.696 concurs).** So the settled
+  activation state carries SUBSTANTIALLY more discriminative meaning than the discrete label -- the argmax was throwing it
+  away, and WiC-accuracy was hiding it. This EMPIRICALLY validates "produce a REPRESENTATION, not a label": the meaning organ
+  should output the graded settled vector for downstream cognition (situation model / composition / inference), where that
+  +0.067-AUC-richer signal compounds. The remaining architectural step (wire the settled vector into `situation_reader`) is
+  the real completion + fixes the audit's "meaning organs are unwired islands"; reproduce: experiments/exp_settled_auc_v1.py.
 
 ## What I did NOT establish / would withdraw first
 - **[RESOLVED 3c] Task-general WSD above MFS IS now established -- on the FIELD-STANDARD eval.** (Earlier this said
@@ -336,18 +339,26 @@ network grow its own senses -- NOT a flaw in the spreading-activation idea itsel
 None blocking. One decision for the owner when convenient: whether to authorize an external download of
 SyntagNet (the one static ingredient not already on disk, and the literature's largest remaining lever).
 
-## NEXT STEPS (ranked by leverage, per the drill + the adjacent-component evaluation)
-1. **Strategy: land the wire** -- grounded-semantic-graph organ + reframe `canonicalize` flat->graph, default-off, witnessed.
-2. **CONTEXT-SIGNAL STRENGTH = the dominant residual.** SyntagNet edges DONE (owner-auth, downloaded + wired;
-   validated the diagnosis -- context contribution over MFS doubled, lambda* rose). REMAINING lever = frequency-
-   WEIGHTED walk personalization (UKB's other trick; I seed uniformly today) + the standard Senseval/SemEval
-   all-words test sets (where the field's +4.4 lives, vs the near-oracle SemCor-per-token MFS here). This closes
-   the all-words gap, NOT more weighting.
-3. **Wire `semantic_control` onto the walk** (PPR coherence + frequency prior) -- the landed PINNED per-item gate;
-   the log-linear blend (lambda~0.5) is its smooth global twin. Per-item refinement over a global lambda.
-4. **Add per-context selection to `meaning_fusion` + wire it into `situation_reader`** -- kills two wiring debts.
-5. **The #2/#3 LEARNED graph** (grow/retune/own-granularity) = the north-star follow-on program. EXACT brain
-   mechanism now specced (CLS + schema-gated consolidation + usage-based sense split/merge; BCM/XCAL edges;
-   log-frequency resting levels) in `LEARNED_GRAPH_brain_mechanism_spec.md` -- de-risked, ready to build.
-6. **Fair test of competitive settling** (within-target-pool + recurrence-coherence readout, on a GRADED/coupled
-   metric) -- owed per "test the stronger version"; prediction: reproduces PPR on argmax-WSD, helps only a graded metric.
+## NEXT STEPS (ranked by leverage; * = the BRAIN-FOUNDATIONAL COMPLETION, empirically justified)
+0. **[STRATEGY, Q111] Land the base wire** -- the grounded-semantic-graph organ (`experiments/grounded_semantic_graph_
+   organ.py`, promotable ~verbatim) + reframe `reading_grounding_loop.canonicalize` FLAT cosine -> graph diffusion;
+   default-off, byte-identical when off, witnessed. Reverify: `verification/test_grounded_semantic_graph_ladder.py` (5/5).
+1. ***THE BRAIN-FOUNDATIONAL COMPLETION -- output a REPRESENTATION, not a label.** [STRATEGY lands hdlab; then a downstream
+   demo] The meaning organ must EMIT the graded SETTLED activation vector (the brain's contextual meaning), NOT argmax a
+   synset. EMPIRICALLY JUSTIFIED: the settled vector ranks meaning +0.067 AUC richer than the discrete label, held-out
+   CI-sep [0.047,0.089] (`experiments/exp_settled_auc_v1.py`). STEP: (a) strategy exposes the settled vector from the organ
+   + routes it into `situation_reader` / `meaning_fusion` / composition / inference (this ALSO fixes the audit's "meaning
+   organs are unwired islands" debt); (b) DEMO the compounded value on a GRADED/COMPOSITIONAL/INFERENCE task (e.g.
+   MCScript2, sentence similarity) -- NOT WiC (binary = argmax-equivalent, cannot reveal it) -- ON REMOTE (this box kills
+   heavy runs at ~250s). WSD stays a DIAGNOSTIC; the settled meaning is the product.
+2. **The LEARNED graph (north-star; ON REMOTE).** grow/retune/own-granularity; EXACT brain mechanism specced (CLS +
+   schema-gated consolidation + usage-based sense split/merge; BCM/XCAL edges; log-frequency resting levels) in
+   `LEARNED_GRAPH_brain_mechanism_spec.md`. NAIVE co-occurrence learning already tested = clean NEGATIVE (doesn't beat the
+   shuffle twin); the FAITHFUL fix = context-DISAMBIGUATED (self-trained) edges, not MFS-disambiguated. Needs a non-hostile box.
+3. **Wire `semantic_control` onto the walk** (PPR coherence + frequency prior) -- the landed PINNED per-item gate; the
+   log-linear blend (lambda~0.5) is its smooth global twin. Per-item refinement.
+4. **Optimize toward SyntagRank (71.7).** The all-words wall is CROSSED (glass-box beats MFS +0.030 CI-sep on the standard
+   eval, ~UKB 67.3); frequency-weighted seeding is a CONFIRMED NON-LEVER; the remaining ~4 pts = the full SyntagNet graph
+   config + IC/damping tuning, on the standard sets. (SUPERSEDES the old "FW seeding" item.)
+5. **Adjacent + resolved (low priority):** add per-context selection as a `meaning_fusion` spoke; competitive settling is
+   understood by reduction (within-pool competition == the blend on argmax-WSD; value is coupled multi-word selection).
