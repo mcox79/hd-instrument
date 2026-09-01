@@ -102,10 +102,12 @@ over uniquely-identifying partial cues (LitBank / UD-EWT):
   McClelland 1994): CA3 completion is RECURRENT attractor dynamics, and crucially DG separation is an
   ENCODING operation (orthogonalize distinct memories) -- RETRIEVAL in the brain is EC->CA3 DIRECT (perforant
   path), BYPASSING DG, because separating a PARTIAL cue pushes it AWAY from the stored pattern. My assembly
-  did the un-faithful thing: it DG-separated the retrieval cue. Measured (UD-EWT, hit@1 by drop level):
-  DG-encode-cue + 1 CA3 settle = 0.24/0.56; ITERATING the CA3 settle makes it WORSE (0.05 -> 0.02: the Hebbian
-  net collapses to a dominant attractor); but the **DIRECT completion path (compare the cue to the stored
-  bound tokens by similarity, no DG re-separation) = 1.00/1.00**. **Conclusion: the fix is brain-faithful and
+  did the un-faithful thing: it DG-separated the retrieval cue. Measured (UD-EWT, hit@1 at drop-1):
+  DG-encode-cue + 1 CA3 settle rises MONOTONICALLY as DG separation is REDUCED (sparsity 0.02/0.05/0.10 =
+  0.24/0.50/0.60) -- direct evidence that DG separation is what hurts partial-cue retrieval; ITERATING the CA3
+  settle makes it WORSE at every sparsity (~0.01-0.03: the Hebbian net collapses to a dominant attractor); but
+  the **DIRECT completion path (compare the cue to the stored bound tokens by similarity, no DG re-separation)
+  = 1.00 at every sparsity**. **Conclusion: the fix is brain-faithful and
   understood** -- retrieve via the direct EC->CA3 similarity route (which the bound token natively supports and
   which completes perfectly), and reserve DG separation for ENCODING. This does NOT weaken the SOLVED claim
   (the coref bar + capacity curve use the direct/bound-token path); it CORRECTS the `hippocampal_encoder`
