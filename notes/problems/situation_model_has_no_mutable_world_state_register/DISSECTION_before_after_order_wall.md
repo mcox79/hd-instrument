@@ -329,3 +329,98 @@ EVENT-MENTION ALIGNMENT (47% of items cannot be located in story or script).
 
 ## Reproduce
 `.venv/Scripts/python.exe experiments/exp_order_fusion_precedence_v1.py --mode full --cap 50`
+
+---
+
+# ALIGNMENT FIX BUILT + TESTED -> a SELF-CORRECTION: alignment COVERAGE is not the accuracy lever
+
+Did the drill's full program: (1) mis-binding-vs-null diagnostic, (2) built the event-frame/role-structure
+aligner (predicate+agent+patient+setting, conceptual per-slot, CA3-completion style), (3) built the CRITERIAL
+DG-pattern-separation variant (conjunctive gate: require the specific OBJECT to match, not just verb-class).
+`experiments/exp_role_structure_aligner_v1.py`, n=301.
+
+## Results
+- MIS-BINDING diagnostic CONFIRMS the drill: on lexical-alignment failures (n=237) the role aligner FINDS a
+  candidate 65% of the time (not null) -- but accuracy when found = 0.50 (CHANCE). It confidently binds a
+  NEIGHBORING event = mis-binding (CA3 attractor pull), exactly as predicted.
+- CRITERIAL DG-separation (require the object to match): correctly refuses to bind on object-mismatch (found
+  drops 0.65 -> 0.23), BUT accuracy when it DOES commit is STILL 0.50 (chance).
+- FUSION re-run: lexical 0.565, coarse-role 0.538, criterial 0.548 -- role/criterial alignment SHRINKS the
+  abstain tier (0.47 -> 0.21 coarse) but does NOT raise accuracy; it makes it slightly WORSE, because the added
+  coverage is chance-precision.
+
+## THE SELF-CORRECTION (this overturns the earlier "alignment is THE lever" claim)
+Fixing alignment to get COVERAGE does NOT convert to accuracy. The pairs the aligner newly covers are answered
+at CHANCE -- because they are EITHER (a) still mis-bound on the DISCRIMINATING feature (the criterial feature is
+often the PARTICLE/direction "get IN" vs "get OUT", or the specific 2nd-arg, not the object -- the original
+aligner's finding), OR (b) GENUINELY ORDER-FREE (parallel steps). Reconciled with the schema result: the pairs
+that are BOTH alignable AND script-reliably-ordered score ~0.65 (schema confident subset); the pairs that need
+the role/criterial aligner are the HARD ones (order-free or particle-ambiguous) and sit at chance. So alignment
+COVERAGE and order-ambiguity are CONFOUNDED -- more coverage brings in unanswerable pairs.
+
+## The corrected, deepest understanding
+The binding constraint is NOT alignment coverage. It is that the ANSWERABLE pairs (reliably script-ordered AND
+correctly alignable on their criterial feature) are a MINORITY (~1/4), and on them the SCRIPT canonical-position
++ ABSTAIN readout ALREADY gets ~0.675. The rest are order-free (abstain is correct) or turn on a fine
+particle/direction feature that even the original aligner (type-level 0.926) could not convert to order past
+0.59 -- because the ORDER SIGNAL, not the alignment, is the bottleneck there. Every lever has now been built and
+measured; they converge on the same ceiling.
+
+## FINAL optimization verdict (brain-foundational)
+1. SHIP the partial-order + script-canonical-position readout WITH ABSTAIN as the capability: answer the ~1/4
+   reliably-ordered pairs at ~0.67, abstain on the rest (Zwaan partial order + the TOJ point-of-subjective-
+   simultaneity). This is the honest, brain-faithful readout and it is BUILT.
+2. Keep the precedence cascade (episodic>script, correct on the 4% conflict slice) + the criterial aligner as
+   the synonym/near-object component (real on that slice). They compose; none is the aggregate lever.
+3. The ONLY remaining aggregate lever is DATA: a domain-matched everyday-life script corpus with human-authored
+   canonical order (for a stronger, directional order signal on the order-free-looking pairs) + more eval items
+   for power. Mechanism engineering is EXHAUSTED on this corpus (register, meaning-matcher, script-schema,
+   precedence-fusion, role/criterial alignment ALL built + measured -> same ~0.59 ceiling; the answerable subset
+   is ~0.67 and already reached). This is a resource decision, not a mechanism gap.
+
+## Reproduce
+`.venv/Scripts/python.exe experiments/exp_role_structure_aligner_v1.py --mode full --cap 50`
+
+---
+
+# NEXT-STEP #2 DONE: domain-matched corpus (ROCStories) -- coverage 4x, but accuracy is order-signal-bound; the exact resource is now pinned
+
+Acquired a DOMAIN-MATCHED everyday corpus (ROCStories, ~98k everyday 5-sentence causally-ordered stories; the
+domain MCScript2 is drawn from) since wikiHow's tech how-tos were mismatched. Built a directional event-order
+prior (verb-pair before/after) and re-ran the partial-order abstain eval. `experiments/exp_rocstories_order_prior_v1.py`.
+
+## Result (n=301; prior from 8k stories, 28,928 verb-pairs)
+| corpus | domain | decidable coverage | acc on confident subset (>=20% cov) | clears 0.59 |
+|---|---|---|---|---|
+| wikiHow numbered-steps | MISMATCHED | 0.09 | ~0.53 | no |
+| ROCStories | MATCHED (everyday) | 0.39 (4x wikiHow) | 0.545 [0.42,0.67] | no |
+| MCScript2 in-corpus SCENARIO schema | matched + scenario-specific | 0.27 | 0.675 | closest |
+
+## The direction, shown
+1. DOMAIN-MATCH fixes COVERAGE: ROCStories decidable coverage 0.39 vs wikiHow 0.09 (4x) -- confirmed, the
+   domain match is real and matters for how many pairs we can even attempt.
+2. BUT a NARRATIVE-derived order prior is co-occurrence-BOUNDED on ACCURACY (ROCStories confident-subset 0.545,
+   does not clear the wall), because everyday events genuinely lack a fixed CROSS-TELLING order (the same
+   direction-blindness / order-freeness). Scale and domain-match do NOT fix the accuracy ceiling.
+3. SCENARIO-SPECIFICITY beats domain-general: the MCScript2 in-corpus scenario schema (0.675 confident) still
+   beats the cross-corpus everyday prior (0.545). A per-scenario canonical order is a stronger signal than a
+   domain-general verb-pair prior.
+
+## The EXACT resource that would clear the wall (now pinned by elimination)
+Clearing the wall CI-separably needs a corpus that has BOTH properties, which no available corpus does:
+  * SCENARIO-SPECIFIC canonical order (MCScript2-schema has this; ROCStories domain-general does not), AND
+  * HUMAN-AUTHORED / DIRECTIONAL canonical step order (wikiHow's numbered steps have this; narrative
+    co-occurrence does not).
+That is exactly a scenario-keyed Event-Sequence-Description corpus -- DeScript / InScript (Modi et al.:
+crowdsourced ordered step-sequences for ~40 everyday scenarios, many per scenario), which is NOT on HuggingFace
+(academic download). A wikiHow subset filtered to everyday-life how-tos would be a partial substitute. This is
+the single remaining resource lever; the mechanism side is exhausted (all built -> same ceiling).
+
+## What ships now (best on-disk result)
+The MCScript2 scenario-schema + partial-order ABSTAIN readout (answer the ~1/4 reliably-ordered pairs at
+~0.675, abstain on the rest). Domain-matched ROCStories can be folded in as a COVERAGE back-off (it decides 4x
+more pairs) with abstain gating, but it does not raise the confident-subset accuracy. The wall-clearing step is
+acquiring a scenario-keyed ESD corpus (DeScript/InScript) -- the pinned resource decision.
+
+## Reproduce
+`.venv/Scripts/python.exe experiments/exp_rocstories_order_prior_v1.py --mode full --n-stories 8000`
