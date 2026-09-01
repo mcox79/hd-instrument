@@ -346,3 +346,18 @@ None.
 3. **Feed `gap_detector`'s write-gate from this surprisal** (the memory-level node; learner-on path).
 4. Agent-role (not just patient) who-did-what slice for cross-role generalization.
    (The agent-conditioned-SURPRISAL flag probe -- build C above -- is DONE: directional, not CI-sep.)
+
+---
+INTEGRATED_BY_STRATEGY: 2026-08-31 (EXCELLENT). Reverified 8/8 first-hand (test_forward_prediction_live_decision_organ.py);
+adversarially audited the ARGUMENT — both gates met with power + 8 controls, and the auto-revise negative is DECOMPOSED to
+an evidence-forced terminus (the decisive test: the reader's wrong pick is no more similar to gold than a random competitor
+→ STRUCTURAL errors → parser-recall-bound, the sole remaining lever). Brain-led (4 drills; two dissociable streams;
+surprisal = a risk FLAG not a verdict). Generalizes cross-era (19c LitBank AUC 0.624, twin loses). LANDING STATE (Q111):
+(1) the adjacent hdlab bug is FIXED — hdlab/frame_induction.is_passive_real bounded range by len(tokens) (was IndexError on
+~1/1300 sentences; verified no-crash on out-of-range v_idx, normal case unchanged). (2) The predict_surprisal read-out flag
+is QUEUED (WIRING_MAP DEBT 2 / prediction-error Phase C) — it needs an OFFLINE-FITTED PredictiveReader asset (fit on QA-SRL
+selectional preferences, persisted; no existing asset on disk) + an additive EventRecord surprisal/precision field + a
+post-read surprisal+abstain pass; the live driver experiments/_forward_prediction_live.py imports ONLY promoted hdlab
+organs (clean), so the wire is bounded but is a focused build (asset + schema), not a heartbeat cram. Register
+predict_surprisal_live_reader_v1 at land. Do NOT wire auto-revision (proven NEGATIVE). §2b audit updated; priority cleared.
+Flip-on default-off. NO push.

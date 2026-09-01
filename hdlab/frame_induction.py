@@ -192,7 +192,7 @@ def is_passive_real(tokens: Sequence[str], v_idx: int, window: int = 3) -> bool:
     v_idx itself is the (possibly irregular) participle by construction of the psych-verb data).
     """
     lo = max(0, v_idx - window)
-    for i in range(lo, v_idx):
+    for i in range(lo, min(v_idx, len(tokens))):   # bound by len(tokens): v_idx may exceed the token list
         if _clean(tokens[i]) in _BE_AUX and (v_idx - i - 1) <= 1:
             return True
     return False
