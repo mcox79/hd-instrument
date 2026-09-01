@@ -457,17 +457,26 @@ None blocking. One decision for the strategy session at wiring time: whether to 
 (19c/Gutenberg) selectional store now as part of this landing, or file it as the next problem (it is the
 same offline-foundation build the learner-on roadmap wants).
 
-## NEXT STEPS
-1. Land the modern selector (proposed wire above), default-off, witnessed (10/10); ship shrinkage as the
-   OOD safety layer.
-2. JOINT role inference + EM self-training loop -- PROTOTYPED here (`exp_verbrole_exemplar_em_joint_v1.py`);
-   works end-to-end self-supervised on modern (beats twin +0.036). To LAND: wire the joint scorer
-   (w_syn(parse_confidence)*logP_syntax + w_sel*logP_selectional) as the reader's role-extraction path.
-3. Parser register-adaptation -- BUILT + REFUTED as a standalone 19c fix (self-training stalls; the 19c
-   ceiling is density + animate patients, not extraction reliability). Do NOT re-attempt self-training
-   adaptation without a NEW signal source (register-native supervision or much more 19c text).
-4. New problem -- discourse-prominence/givenness cue (Wall B) into role assignment for ANIMATE arguments,
-   measured on multi-sentence gold (from the coref/entity store). This is now the higher-value 19c lever
-   (a THIRD of the 19c ambiguous patients are animate, where selectional fit structurally cannot help).
-5. Optional optimization: swap the 12-d filler space for the validated predicted-Binder-65 space when the
-   store is wired (GloVe-300 already showed a richer space grows the modern win to +0.126).
+## NEXT STEPS -- FOR THE STRATEGY SESSION (ordered; do in this order)
+1. **RE-VERIFY, then INTEGRATE the SOLVED modern contribution.** Run the witness (`reverify` above, 10/10).
+   Then LAND (default-off, witnessed, byte-identical when off -- Q111): the verb-role nearest-EXEMPLAR
+   selector as the drop-fill / role-assignment prior at non-canonical position, composed with position via
+   construction-conditional cue weighting (deployment win +0.027 on the full modern reader). Optionally ship
+   the FHRR-bound role-assignment variant (`exp_fhrr_event_role_assignment_v1.py`; reuses the wired
+   `hdlab.binding` + composes with `bound_event_backbone`) -- it is the brain-foundational form and beats the
+   exemplar/cosine stores. Ship the semantic-control shrinkage as the OOD safety layer.
+2. **FILE THE #1 FOLLOW-ON PROBLEM (the definitively-located wall).** Lift `PROPOSED_FOLLOWON_domain_matched_
+   selectional_store.md` (this folder) into `notes/problems/the_selectional_event_store_is_learned_from_the_
+   wrong_domain_needs_a_register_native_corpus/PROBLEM.md`, set the frontmatter (priority HIGH), file. This is
+   the MEASURED #1 lever for who-did-what (+0.149 domain effect); it OWNS the residual the modern selector
+   cannot close. The brief already closes the domain-vs-leakage trap in its bar.
+3. **FOLD THE AUDIT UPDATE** into `notes/BRAIN_FOUNDATIONAL_AUDIT.md` (§2b): the selectional/event store is
+   DOMAIN/REGISTER-RELATIVE (the corpus is the lever; grounding/mechanism/combiner are measured NON-levers);
+   who-did-what front-end role assignment is at ~0.35x human normalized, wall = domain-matched knowledge.
+4. **De-prioritize / do NOT re-attempt (measured non-levers, this problem):** richer features (Binder-65/
+   GloVe-300), a learned combiner / arbitration / hybrid, parser register-adaptation via self-training -- all
+   measured dead-ends or non-levers for the located wall. (Binder-65 is a minor optimization only, when wired.)
+5. **Separate future problems (real, but not the #1 wall):** the Wall-B discourse-prominence/givenness cue for
+   ANIMATE arguments (organ `graded_coref_pick` validated, +0.156 over shuffle; needs multi-sentence gold);
+   and the SECOND wall -- the impoverished input (full parse + discourse instead of a degraded candidate set),
+   which owns the 0.55 -> human-0.83 residual.
