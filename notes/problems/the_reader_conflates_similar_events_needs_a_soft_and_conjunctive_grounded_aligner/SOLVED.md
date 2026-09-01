@@ -5,7 +5,7 @@ bar: "PASS = the grounded soft-AND CONJUNCTIVE aligner lifts end-to-end before/a
 result: "END-TO-END (n=301 held-out dev+test symmetric before/after, chance 0.5, passage-cluster bootstrap): the conjunctive-granularity gated aligner scores 0.591 vs SIMILARITY 0.525 (+0.066 [-0.017,+0.149], half-width 0.083, null_p95 0.083, NOT CI-sep) and vs text-position 0.518 (+0.073 [-0.010,+0.152], NOT CI-sep); shuffled-order twin 0.545 (FIX-twin +0.046, NOT sep). It BEATS the verb-only incumbent 0.532 (+0.060 [-0.007,+0.126]). dev 0.660 vs test 0.556 (generalization gap). ISOLATED PROBE (n=52030 items over 138 scenarios, top-1 alignment argmax over the full type inventory): the criterial-feature (particle+2nd-arg) ablation collapses particle-sibling alignment 0.926->0.608 (delta +0.318 [+0.301,+0.337] CI-sep); role-scramble 0.926->0.021 (+0.905 CI-sep). The soft-AND PRODUCT does NOT beat the additive sum (-0.002, NOT sep) -- the brief's specific mechanism is refuted; the FEATURE SET + role structure is the lever."
 floor: "SIMILARITY-only floor 0.525 (strongest actually-run for the aggregate before/after contrast); NO-model text-position floor 0.518; both recomputed on the n=301 held-out items with CIs."
 controls: "ISOLATED PROBE: particle/2nd-arg ABLATION (drop criterial slots -> alignment collapses, excludes 'any richer code helps'); ROLE-SCRAMBLE twin (wrong role<-filler binding -> collapses, excludes 'more features, not structure'); ANTONYM control (raw grounded cos(in,out)=0.556 vs discrete kernel 0 -> excludes a grounded cosine on the particle slot); kernel sweep coarse/additive(p=1)/soft-AND(p->0)/harder-AND/DG-expand (excludes 'the product combination rule is the lever'). END-TO-END: SIMILARITY floor, text-position floor, SHUFFLED-ORDER twin (excludes 'any ordering'), PARTICLE-BLIND verb-only ablation (excludes 'the conjunctive nodes are not used'), ADDITIVE-kernel arm (excludes 'the product is needed'), committed-covered decomposition (isolates ordering from coverage), per-split held-out, per-construction particle-hinged, and a HIERARCHICAL coarse-backoff arm (a located negative -- coarse premises drown the fine signal)."
-files_changed: "experiments/exp_conjunctive_event_aligner_probe_v1.py; experiments/exp_conjunctive_aligner_end_to_end_mcscript_v1.py; experiments/exp_enablement_order_mcscript_v1.py; verification/test_conjunctive_event_aligner.py; notes/problems/the_reader_conflates_similar_events_needs_a_soft_and_conjunctive_grounded_aligner/{SOLVED.md, research_combination_rule_and_path_slot_2026-09-01.md, research_canonical_script_order_mechanism_2026-09-01.md}; data/exp_{conjunctive_event_aligner_probe,conjunctive_aligner_end_to_end,enablement_order}_mcscript_v1/metrics.json. hdlab/ UNTOUCHED (proposed diff below, Q111)."
+files_changed: "experiments/exp_conjunctive_event_aligner_probe_v1.py; experiments/exp_conjunctive_aligner_end_to_end_mcscript_v1.py; experiments/exp_enablement_order_mcscript_v1.py; experiments/exp_conceptnet_causal_order_foundation_v1.py (forward: foundation prototype + offline KB builder); verification/test_conjunctive_event_aligner.py; notes/problems/the_reader_conflates_similar_events_needs_a_soft_and_conjunctive_grounded_aligner/{SOLVED.md, FORWARD_PROBLEM_PROPOSAL_causal_enablement_foundation.md, research_combination_rule_and_path_slot_2026-09-01.md, research_canonical_script_order_mechanism_2026-09-01.md, research_model_based_simulation_of_script_order_2026-09-01.md}; data/exp_{conjunctive_event_aligner_probe,conjunctive_aligner_end_to_end,enablement_order,conceptnet_causal_order_foundation}_mcscript_v1/metrics.json + data/exp_conceptnet_causal_order_foundation_v1/order_kb.jsonl (offline static asset). hdlab/ UNTOUCHED (proposed diff below, Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_conjunctive_event_aligner.py   # 11/11 checks recompute the headline claims (aligner lever + product-refuted + antonym + conjunctive granularity + enablement mechanism) FROM SOURCE"
 ---
 
@@ -159,6 +159,22 @@ control) are rock-solid, large, CI-separated effects and would survive.
   `content_addressable_retrieval` (additive, under-separates) do bracket the answer, but the operative fix is
   **conjunctive event-TYPE identity + a discrete-particle role-structured code**, NOT a soft-AND PRODUCT kernel
   (product ~= additive ~= coarse, measured). `transitive_ordering` reused UNCHANGED as the read-out (witnessed).
+- **NEW, deepest fidelity finding (drill-confirmed -- research_model_based_simulation_of_script_order_2026-09-01.md):
+  the whole substrate recovers event order by STATIC ORDER LOOKUP; the brain recovers it by GENERATIVE, STATE-
+  CONDITIONED SIMULATION.** Comprehension is a rolling forward model that GENERATES the next event (Event Segmentation
+  Theory, Zacks/Reynolds 2007); consolidation trains a GENERATIVE sequence model (Spens & Burgess 2024; SEM is run,
+  not indexed); order is read off a rollout over a MUTABLE WORLD STATE where each event's EFFECT establishes the next's
+  PRECONDITION (Schank & Abelson). Our co-occurrence table, `transitive_ordering` magnitude line, and static causal-KB
+  edges ALL lack a mutable world state and a generative policy -- so they can only CORRELATE surface positions, never
+  SIMULATE the causal chain. **Adversarial correction (kept honest):** `transitive_ordering` IS the brain's stored
+  ordinal line (a legitimate compiled read-out for FAMILIAR material); simulation SUPPLIES the directed premises, it
+  does not replace the line. The genuinely missing organ is the WORLD-STATE register + operator (precondition/effect)
+  model. And a REPRESENTATIONAL TYPE-ERROR explains the cap precisely: script order is a PARTIAL order (only causally-
+  dependent steps ordered; parallel steps free), and a total-order magnitude line must INVENT unrecoverable order for
+  parallel pairs -- so the read-out should be fed only causally-dependent edges and ABSTAIN on independent ones.
+  HONEST bound (drill calibration): on short everyday-script narratives full mutable-state SIMULATION is likely
+  measurably IDLE over a cheaper topological sort of a KB-seeded operator graph (few re-toggles/consumed resources);
+  the binding constraint is OPERATOR/DEPENDENCY COVERAGE of the specific event-pairs, which is a KB-seeding build.
 
 ## PROPOSED hdlab DIFF (Q111 -- NOT landed; NOT load-bearing yet, since it does not clear the end-to-end bar)
 1. **Conjunctive event-TYPE identity** for any script/ordering schema node: key by the role-filler conjunction
@@ -171,16 +187,37 @@ control) are rock-solid, large, CI-separated effects and would survive.
 Hold landing until the ORDERING-signal problem (below) is solved -- as infrastructure it is inert without a stronger
 canonical order.
 
-## ADJACENT COMPONENTS evaluated (brain-fidelity + optimization -- seeds for the next problem)
-- **The learned canonical-ORDER induction (the real remaining wall).** Currently: majority-voted first-occurrence
-  precedence over ~12 narratives. Brain-fidelity: LOW -- the brain orders scripts by **causal/goal ENABLEMENT** and
-  many exposures (Baldassano/mPFC schema; enablement not mere temporal co-occurrence), not noisy told-order tallies.
-  Optimization potential: HIGH and it is the bottleneck (committed 0.594; twin +0.069). Candidate follow-on problem:
-  *learn canonical script order from causal/goal structure* (compose `goal_outcome_relation` / `consequence_learning_
-  loop` with the schema), which is where the ~0.59 -> ~0.70-0.80 headroom lives. This is OUT of the aligner's scope.
-- **Real-cue extraction of the particle from the QUESTION** is 82% when present -- adequate, not the wall; a live-reader
-  wire depends on p2 (the reader's own noisy extraction), so this aligner was tested on clean spaCy (as p6 did).
-- **transitive_ordering** as the read-out is brain-faithful (cognitive map; PINNED) and reused UNCHANGED -- correct.
+## ADJACENT COMPONENTS evaluated for brain-fidelity + opportunity (seeds for the NEXT problems)
+Each is named with on-disk evidence, its brain-fidelity verdict, and the leverage it offers -- ranked by value.
+1. **THE WORLD-STATE REGISTER -- MISSING, highest value.** The reader tracks entity/event LISTS but has NO mutable
+   STATE (predicates have(X)/at(L)/open(X)/clean over the situation, updated by each event's effect, read by the
+   next's precondition). Brain-fidelity: LOW (we have no here-and-now state register; the brain's situation model
+   centrally does -- Zwaan event-indexing). This is the deepest gap and it unblocks the generative-simulation order
+   fix. NEXT PROBLEM: `situation_model_has_no_mutable_world_state_register`.
+2. **The canonical-ORDER induction (the located wall).** Currently majority-voted first-occurrence co-occurrence.
+   Brain-fidelity: LOW -- static-lookup where the brain runs a generative model. Fix = KB-seeded STRIPS-style
+   operators (precondition/effect) joined on state predicates + topo-sort into `transitive_ordering`, ABSTAIN on
+   causally-independent pairs. NEXT PROBLEM: `learn_canonical_script_order_from_a_causal_enablement_foundation`
+   (proposal drafted here; prototype = a located negative, coverage-bound at 1/301 for flat ConceptNet).
+3. **transitive_ordering (the read-out / stored ordinal line).** Brain-fidelity: HIGH for total-order magnitude
+   tasks (PINNED cognitive map; reused, twin loses). NEW fidelity finding: it is a TOTAL order, a representational
+   TYPE-ERROR for the PARTIAL order of scripts -- must invent order for parallel pairs. OPPORTUNITY: a partial-order
+   variant that ABSTAINS on causally-independent pairs (AUDIT UPDATE candidate).
+4. **Coreference / entity-tracking (slot E3, NEEDS_ADAPTER -- built, off-path).** My state-predicate/entity join
+   covered only ~5% of questioned pairs because pronouns/paraphrase break entity identity with no coref. Brain-
+   fidelity: coref IS the brain's entity-tracking (bridging). HIGH leverage: coref-densified state-predicate join is
+   a precondition for the operator/foundation approach to reach coverage. NEXT-PROBLEM enabler.
+5. **The reader's EXTRACTION / incremental parser (stage READ THE TEXT = WEAK; p2 territory).** The aligner + order
+   were tested on clean spaCy because the reader's own extraction is noisy (parses-as-truth). Brain-fidelity: a real
+   parse-fidelity gap. It is the UPSTREAM unblocker for wiring the aligner + order into the LIVE reader.
+6. **The learner / `script_grain_acquisition_loop` (HARD_FAILED MCScript2).** Brain-fidelity: it is a model-FREE
+   statistical script learner -- same symmetric-SR cap I measured. OPPORTUNITY: rebuild as a model-BASED generative
+   forward model (operator learning; LOCM/ARMS-style precondition/effect induction).
+7. **force_dynamics_lexicon / causation_typing (reused here for enable-verb typing).** Brain-fidelity: PINNED
+   (Talmy/Wolff). Limitation: WITHIN-clause, not cross-event/stateful. OPPORTUNITY: lift a force-dynamic outcome to a
+   cross-event STATE EFFECT (the operator model's effect predicates).
+8. **The grounded meaning channel (stage DECIDE WHAT WORDS MEAN = BROKEN).** The per-slot kernel of the validated
+   aligner rides on it; the proven meaning signal is UNWIRED + context-free. Adjacent dependency, not this wall.
 
 ## TLDR (plain English)
 Our reader keeps getting "did X happen before or after Y" wrong because it confuses similar events like "get IN" and

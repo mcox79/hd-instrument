@@ -33,6 +33,28 @@ representation statistics are a GENERALIZATION device (symmetric, direction-weak
 -- which is exactly why the in-text co-occurrence signal caps. See
 `research_canonical_script_order_mechanism_2026-09-01.md` (in the sibling folder).
 
+## 3b. SHARPENED MECHANISM (drill-confirmed -- research_model_based_simulation_of_script_order_2026-09-01.md)
+The brain recovers order by MODEL-BASED SIMULATION of a GENERATIVE, STATE-CONDITIONED forward model, not by a static
+order lookup (event models generate the next event -- Zacks/Reynolds 2007; SEM is RUN not indexed -- Franklin 2020;
+consolidation trains a generative SEQUENCE model -- Spens & Burgess 2024; forward-replay during temporal-order
+judgment -- eLife 2020). Order is a BY-PRODUCT of a rollout over a MUTABLE WORLD STATE (each event's EFFECT
+establishes the next's PRECONDITION), and it is a PARTIAL order. IMPLICATIONS FOR THE BUILD (all drill-pinned):
+- **Keep `transitive_ordering` as the integrator (it IS the brain's stored ordinal line); simulation SUPPLIES the
+  directed premises.** The genuinely-new organ is a WORLD-STATE register + operator model, NOT a new read-out.
+- **The fix for the flat-KB coverage failure (1/301): SEED OPERATORS, don't query flat order.** Each event type = a
+  STRIPS/PDDL operator (preconditions + add/delete effects) over a coarse predicate state (existence/location/toggle;
+  ProPara grid). ConceptNet `HasPrerequisite`->precondition, `Causes`->effect; ATOMIC `xNeed`->precondition,
+  `xEffect`->effect (seed OFFLINE, freeze a static library -- NaRuto does this but with an LM at generation; we do it
+  offline). Join operators on shared STATE PREDICATES (have(X)/at(L)) -- predicates are shared across many events, so
+  they cover densely where event-PAIR edges did not. Operators are learnable glass-box (LOCM, ARMS, ProPara).
+- **Order = topological sort / forward-sim of the operator graph; feed the line only causally-DEPENDENT edges and
+  ABSTAIN on independent (parallel) pairs** (fixes the total-vs-partial-order type-error).
+- **HONEST calibration (do not over-build):** on short everyday-script narratives full mutable-state SIMULATION is
+  likely measurably IDLE over the cheaper topo-sort (few re-toggles/consumed resources) -- LEAD WITH THE TOPO-SORT;
+  build the rollout simulator only if a non-trivial re-toggle/consumption/branching subset is enumerable (can-fail
+  test c'). "Simulation faithful-but-idle" is a full located PASS. Drill P: framing-right ~0.60; KB-seeded topo-sort
+  beats 0.591 CI-sep ~0.30-0.40 (coverage risk); mutable-state sim beats static topo-sort ~0.15-0.25.
+
 ## 4. PINNED vs OUR-INVENTION
 - **PINNED (copy):** causal-enablement precondition/effect chains fix order; the reused `transitive_ordering`
   cognitive-map read-out integrates directed premises into one ordering; event identity is the conjunctive role-filler

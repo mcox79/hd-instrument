@@ -5,7 +5,7 @@ bar: "PASS = the structured verb-role exemplar store, as the drop-fill TARGET se
 result: "On the MODERN ambiguous-position slice (QA-SRL passive, gold-blind structural, n=1367-1371 coverable), the verb-role EXEMPLAR selector (nearest-exemplar k-NN over grounded fillers of the verb's OBJ slot) picks the patient at 0.432 accuracy, CI-separated over EVERY floor actually run: verb-role MEAN centroid 0.365 (+0.0673 CI[+0.0402,+0.0944]), verb-blind holistic coarse prior 0.331 (+0.1017 CI[+0.0746,+0.1295]), position-only 0.290 (+0.1426 CI[+0.1068,+0.1770]); verb-shuffled twin 0.336 LOSES (+0.0966 CI[+0.0673,+0.1266]); generalizes to UNSEEN fillers (n=1050, +0.062 over holistic CI[+0.031,+0.092]). Replicated in an independent GloVe-300 space (+0.126 over holistic). DEPLOYMENT (FULL population, no pre-slicing, n=2737): the construction-conditional integrated selector (position x exemplar, word-order down-weighted at non-canonical structure) beats the LIVE wired reader 0.481 -> 0.508 (+0.0267 CI[+0.0073,+0.0468]) and its verb-shuffled twin loses (+0.0245 CI[+0.0132,+0.0365]). Scorer = patient-selection accuracy (pick==gold_head), paired item bootstrap 2000-3000x. 19c (LitBank) is a TWO-LAYER LOCATED NEGATIVE: (knowledge layer) the modern store fails to beat the holistic prior (-0.070 CI[-0.082,-0.059]) but an in-domain 19c store BEATS the modern store (+0.081 CI[+0.044,+0.116]) - register-native KNOWLEDGE recovers the signal; (parser layer) a NO-GOLD 19c store built by parsing 19c text with the modern frontend scores WORSE than its own twin (-0.083 CI[-0.115,-0.049]) - the modern parser is too degraded on archaic prose to extract correct (verb,OBJ) pairs, so a no-gold deliverable is blocked by parser era-robustness, not the selectional representation."
 floor: "Strongest floor actually run = the verb-role MEAN centroid (predictive_reader-style per-(verb,OBJ) grounded mean) at 0.365 on QA-SRL passive; beaten CI-separated by the exemplar's +0.0673 CI[+0.0402,+0.0944]. Also run and beaten: verb-blind holistic centroid 0.331 (the coarse prior named in the brief), position-only 0.290."
 controls: "VERB-SHUFFLED twin (fillers kept, verb keys permuted) LOSES CI-sep (+0.097) -> the verb-KEYING does the work, not any per-candidate scorer. CENTROID-vs-EXEMPLAR ablation (same grounded fillers, mean vs nearest-exemplar) -> exemplar beats centroid +0.067 CI-sep -> the lever is the INSTANCE distribution, not richer features. VERB-SELECTIVITY positive control -> the instance advantage concentrates on sharp verbs (sharp exemplar-vs-centroid +0.098) and the win concentrates on INANIMATE/concrete patients (+0.110) while REVERSING on animate patients (-0.057, where two people cannot be separated by grounded fit - Wall B). UNSEEN-filler generalization -> exemplar still wins on gold fillers absent from the verb's store (+0.062 over holistic CI-sep) -> generalization is by grounded similarity, not memorization. Info-free NULL = the verb-shuffled twin (loses CI-sep). RICHER-SPACE control (GloVe-300) -> the modern win survives (+0.126), the 19c null survives -> 19c is register drift, NOT feature-space coarseness."
-files_changed: "experiments/exp_verbrole_exemplar_which_arg_v1.py, experiments/exp_verbrole_exemplar_which_arg_v2.py, experiments/_drill_19c_wall_diagnostic_v1.py, experiments/_drill_indomain_store_v1.py, experiments/_drill_shrinkage_calib_v1.py, experiments/_drill_wallB_prominence_v1.py, verification/test_verbrole_exemplar_which_arg.py, data/exp_verbrole_exemplar_which_arg_v1/*, data/exp_verbrole_exemplar_which_arg_v2/*, notes/problems/the_plausibility_prior_is_a_coarse_centroid_needs_a_structured_verb_role_exemplar_store/SOLVED.md"
+files_changed: "experiments/exp_verbrole_exemplar_which_arg_v1.py, experiments/exp_verbrole_exemplar_which_arg_v2.py, experiments/exp_verbrole_exemplar_integrated_v1.py, experiments/exp_verbrole_exemplar_19c_store_v1.py, experiments/exp_verbrole_exemplar_soft_store_v1.py, experiments/_drill_19c_wall_diagnostic_v1.py, experiments/_drill_indomain_store_v1.py, experiments/_drill_shrinkage_calib_v1.py, experiments/_drill_wallB_prominence_v1.py, verification/test_verbrole_exemplar_which_arg.py, data/exp_verbrole_exemplar_which_arg_v1/*, data/exp_verbrole_exemplar_which_arg_v2/*, data/exp_verbrole_exemplar_integrated_v1/*, data/exp_verbrole_exemplar_19c_store_v1/*, data/exp_verbrole_exemplar_soft_store_v1/*, notes/problems/the_plausibility_prior_is_a_coarse_centroid_needs_a_structured_verb_role_exemplar_store/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_verbrole_exemplar_which_arg.py"
 ---
 
@@ -61,12 +61,46 @@ holistic prior (-0.070 CI-sep). I drilled why, and ruled causes IN and OUT with 
   a real 19c corpus store would be denser). This is the corpus-age confound the brief flagged, now
   mechanistically located and with a proven fix.
 
+## Completeness 1 -- DEPLOYMENT (the full population, not a pre-sliced ambiguous set)
+In deployment you cannot pre-select the hard items, so the store must help on the whole distribution. The
+brain-pinned CONSTRUCTION-CONDITIONAL integration (Competition Model; noisy-channel) -- score(c) =
+beta_pos(construction) * log_softmax(position) + log_softmax(exemplar_fit), with the word-order weight
+COLLAPSING on non-canonical structure -- applied to the FULL QA-SRL population (n=2737) moves the LIVE
+wired reader 0.4808 -> 0.5075 (+0.0267 CI[+0.0073,+0.0468]); the verb-shuffled twin loses (+0.0245
+CI[+0.0132,+0.0365]). So the verb-role store is a NET-POSITIVE lever in deployment, and the verb-keying
+does the work. (On 19c the same integration beats the wired reader +0.22, but the twin TIES it -- that
+gain is the position DOWN-WEIGHTING avoiding the non-canonical position trap, NOT the store; reported
+honestly, not claimed as the store's contribution.)
+
+## Completeness 2 -- the 19c wall is a PIPELINE artifact, and the brain's JOINT move overcomes it
+The deepest result, and it came from taking the owner's "how EXACTLY does the brain do it" to the parser
+layer. I first read the 19c wall as two layers: register-native KNOWLEDGE (oracle recovers it) blocked by
+a degraded PARSER. But a no-gold 19c store built by HARD 1-best parsing scored WORSE than its own twin
+(-0.083 CI-sep) -- and that is the exact failure signature of a feedforward parse->select PIPELINE, which
+converts parser noise into ANTI-signal. The brain does NOT hard-commit to a parse (constraint-based, McRae
+1998; noisy-channel, Gibson 2013; good-enough, Ferreira 2003; Kuperberg's semantic stream): it treats an
+unfamiliar register as a HIGH-NOISE CHANNEL and learns selectional preference as an AGGREGATE statistic so
+unbiased parse noise AVERAGES OUT (Resnik 1996). I built that fix -- a SOFT-aggregated no-gold store (every
+candidate credited as a soft object, position-weighted, aggregated; no hard parse, no gold) -- and it
+confirms the diagnosis:
+- MODERN: the no-gold soft store BEATS its verb-shuffled twin (+0.0325 CI[+0.0035,+0.0637]) -> a reader
+  can build a working selectional store from its OWN reading, self-supervised, with NO gold and NO hard
+  parse (witness W10).
+- 19c: the soft store RECOVERS from the -0.083 disaster to a TIE with its twin (-0.003, CI spans 0) and
+  BEATS the register-mismatched modern store (+0.044 CI-sep). The pipeline's noise-amplification was the
+  culprit; soft aggregation removes it.
+The residual 19c gap (a tie, not a win) is now precisely located: the SOFT SYNTACTIC CUE ITSELF is weak on
+archaic word order, which the literature closes with the EM / self-training loop (use the store's own
+expectations to reweight the parse, iterate) and register adaptation of the parser (Fine 2013; Chang 2006)
+-- a larger build, mapped as the next problem, NOT an intrinsic ceiling.
+
 ## What I did NOT establish (and would withdraw first if wrong)
-1. **A 19c capability WIN.** I proved the signal is there (in-domain store beats twin and modern store)
-   but did not build the deliverable register-native store (that needs an offline 19c-corpus parse -- the
-   FOUNDATION-IS-FREE / learner-on move, flagged as the follow-on). If any claim is wrong, it is most
-   likely an over-read of how much a full 19c store would beat the holistic prior; the leave-one-out
-   oracle only reached parity with holistic, so a modest 19c win is the honest expectation, not a blowout.
+1. **A 19c capability WIN over the holistic prior.** I proved the register-native signal is there (gold
+   oracle beats twin +0.047 and modern store +0.075; the no-gold soft store recovers from -0.083 to a tie
+   with its twin and beats the modern store +0.044) -- but the no-gold 19c store only TIES the holistic
+   prior, not beats it, because the soft syntactic cue is weak on archaic word order. A clean 19c WIN over
+   holistic needs the EM/self-training loop + parser register-adaptation (mapped, not built). If any claim
+   is wrong first, it is an over-read of how close to a 19c holistic-beating win the soft store already is.
 2. **The semantic-control shrinkage as a WIN-maker.** Context-conditioned shrinkage (Lambon Ralph/
    Jefferies controlled semantic cognition) achieves GRACEFUL DEGRADATION on OOD 19c (converts the loss
    to a tie) but cannot manufacture absent knowledge -- correct and brain-faithful (control selects among
@@ -96,6 +130,16 @@ holistic prior (-0.070 CI-sep). I drilled why, and ruled causes IN and OUT with 
    overfits OOD, the coarse prior generalizes) predicted shrinkage would convert the 19c loss to a tie --
    it did exactly that and no more, which is the correct signature of a control operation over a store
    that lacks the register knowledge.
+6. **The PARSE->SELECT PIPELINE was the 19c culprit, not the parser's accuracy.** A no-gold 19c store built
+   from HARD 1-best parses scored WORSE than random (its twin) -- a feedforward pipeline converts parser
+   noise into ANTI-signal. Switching to SOFT aggregation (credit all candidates, position-weighted, let
+   noise average out -- Resnik 1996; the brain's noisy-channel move) flipped -0.083 into a tie on 19c and a
+   twin-beating WIN on modern, at the SAME parser quality. The architecture, not the parser, was the wall.
+   This is the owner's "how EXACTLY does the brain do it" paying off: the brain never hard-commits to a parse.
+7. **A working selectional store needs neither gold roles NOR a parse.** The soft store is built purely from
+   verbs + candidate nouns + positions, self-supervised, and still beats its verb-shuffled twin on modern
+   (+0.033). That is the "learn selectional preference from your own reading" loop, and it is why the brain
+   can bootstrap this knowledge without a teacher.
 
 # AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md 2b)
 - `predictive_reader` / the plausibility prior: the entry should record that the per-(verb,role) MEAN
@@ -107,6 +151,13 @@ holistic prior (-0.070 CI-sep). I drilled why, and ruled causes IN and OUT with 
   its verb-shuffled twin), and the WHICH-argument lever there requires a register-native store (in-domain
   store recovers +0.081). OUR-INVENTION-UNDER-TEST that FAILED: the EPP typicality-weighted SUM as the
   aggregation (re-collapses to the centroid); nearest-exemplar is the faithful operation for selection.
+- **ARCHITECTURE deviation (new, load-bearing for the whole reader):** the live reader's role extraction
+  is a FEEDFORWARD PIPELINE (parse -> read off roles) where the brain is JOINT/noisy-channel (parse and
+  roles co-inferred; the parse is down-weighted when unreliable -- McRae 1998; Gibson 2013; Kuperberg
+  2016). Measured cost: a store built by hard 1-best parsing 19c prose scores WORSE than random (-0.083);
+  soft aggregation (the brain's move) recovers it. Record the pipeline as OUR-INVENTION-UNDER-TEST and the
+  joint scorer + EM self-training loop as the pinned target. This deviation is not specific to selectional
+  preference -- it is the reader's role-extraction architecture.
 
 # ADJACENT COMPONENTS (evaluated for brain-fidelity + optimization, per the standing protocol)
 - **Discourse-prominence / givenness channel (Wall B) -- MISSING, high value, a different circuit.** On
@@ -120,10 +171,25 @@ holistic prior (-0.070 CI-sep). I drilled why, and ruled causes IN and OUT with 
   placeholder (position) where the brain has a pinned discourse circuit. **Candidate next problem:** wire
   a discourse-prominence/givenness cue (from the coref/entity store) into role assignment for animate
   arguments, measured on multi-sentence gold.
-- **Register-native selectional store (the 19c overcome) -- BUILDABLE, the learner-on link.** The
-  in-domain oracle proved the signal is there; the deliverable is an OFFLINE 19c-corpus selectional store
-  (Gutenberg/LitBank parse through the same glass-box extractor -- FOUNDATION-IS-FREE). This is the
-  North-Star "learn the foundation from the reading corpus" move applied to selectional preference.
+- **JOINT (not pipeline) role inference -- the highest-fidelity architectural gap, PARTIALLY built.** The
+  live reader parses THEN reads off roles THEN could select -- a feedforward pipeline that hard-commits to a
+  degraded parse (proven to convert parser noise into anti-signal on 19c, -0.083 worse than random). The
+  brain does JOINT noisy-channel inference (constraint-based, McRae 1998; Gibson 2013; Kuperberg's semantic
+  stream), down-weighting the parse when it is unreliable. I built the two halves: construction-conditional
+  integration at SELECTION time (deployment win +0.027) and SOFT-aggregated store BUILDING (recovers the
+  -0.083 to a tie/modern-beating). Fidelity: the pipeline is OUR-INVENTION where the brain is joint. **Next
+  problem:** a single joint scorer score = w_syn(parse_conf)*logP_syntax + w_sel*logP_selectional, plus the
+  EM/self-training loop (use the store's expectations to reweight parses, iterate) -- the research predicts
+  this converts the 19c tie into a win at the SAME parser quality.
+- **Parser register-adaptation -- the residual 19c blocker, a missing-LEARNING gap.** The soft store ties
+  (not beats) holistic on 19c because the syntactic cue is weak on archaic word order. Syntactic adaptation
+  (Fine 2013; Chang-Dell-Bock 2006 error-based learning) says this is LEARNABLE, not a ceiling (one honest
+  caveat: Harrington-Stack 2018 failed to replicate rapid adaptation -- measure the magnitude). **Next
+  problem:** self-train the parser on 19c text; measure the exposure -> parse-quality -> store-recovery curve.
+- **Register-native selectional store (the 19c overcome) -- PARTIALLY built, the learner-on link.** The
+  no-gold SOFT store already learns register-native selectional preference from 19c reading (beats the
+  modern store +0.044) -- self-supervised, the North-Star "learn the foundation from the reading corpus"
+  move. Denser 19c text + the EM loop is the path to a clean 19c win.
 - **Feature-space depth -- OPTIMIZATION available.** The 12-d Lancaster space works but is below every
   empirical floor (LSA<50; Binder-65; McRae hundreds). A validated glass-box predicted-Binder-65 space
   exists (`exp_binder_attr_prediction_grounding_v1`, predictor gate delta=0.69); the GloVe-300 test shows
@@ -151,12 +217,18 @@ letters, you DRIVE cars), learned from many examples and grounded in what those 
 text this picks the right word far better than position or the old blurry sense -- and it still works on
 words it never saw the verb used with, so it is genuinely understanding kinds of things, not memorizing.
 The key trick was to compare a new word to the NEAREST familiar object the verb takes, not to a blurry
-average of them. On 200-year-old prose it stops working -- but I proved exactly why: the knowledge it
-learned is modern, and old books use verbs differently. When I let it learn from the old text itself, the
-per-verb knowledge comes right back. So the wall is "it learned from the wrong era," not "this can't be
-done" -- the fix is to grow the knowledge from the actual books being read. One case it correctly cannot
-do -- telling two PEOPLE apart as the target -- needs a different signal the brain uses (who was just
-being talked about), which lives in a separate part of the system we have but have not connected yet.
+average of them. And it improves the reader on ordinary text too, not just the hard cases. On 200-year-old
+prose it stops working -- but I proved exactly why, in two steps. First: the knowledge it learned is modern,
+and old books use verbs differently (when I let it learn from the old text with a teacher, the knowledge
+comes right back). Second, and deeper: my reader worked out grammar FIRST and meaning SECOND, and on
+unfamiliar old prose the grammar step is shaky, so trusting it fully poisoned everything -- which is exactly
+NOT how the brain works. The brain works out grammar and meaning together and trusts its plausibility-sense
+MORE when the grammar is hard to read. When I rebuilt the knowledge that way -- letting many noisy examples
+average out instead of trusting each grammar-guess -- the reader learned a usable store from old text with
+NO teacher and NO grammar step at all. So none of these are dead ends: the old-prose wall is "learned from
+the wrong era AND read it the wrong way," both of which have a clear fix. One case it correctly cannot do --
+telling two PEOPLE apart as the target -- needs a different signal the brain uses (who was just being talked
+about), which lives in a separate part of the system we have but have not connected yet.
 
 ## QUESTIONS
 None blocking. One decision for the strategy session at wiring time: whether to build the register-native
@@ -164,11 +236,15 @@ None blocking. One decision for the strategy session at wiring time: whether to 
 same offline-foundation build the learner-on roadmap wants).
 
 ## NEXT STEPS
-1. Land the modern selector (proposed wire above), default-off, witnessed; ship shrinkage as the OOD
-   safety layer.
-2. Build the register-native selectional store offline (Gutenberg/LitBank through the glass-box
-   extractor) -- the proven 19c overcome and a learner-on foundation piece.
-3. New problem: wire a discourse-prominence/givenness cue (from the coref/entity store) into role
-   assignment for ANIMATE arguments, measured on multi-sentence gold (the Wall-B circuit).
-4. Optional optimization: swap the 12-d filler space for the validated predicted-Binder-65 space when
-   the store is wired (grows the modern win).
+1. Land the modern selector (proposed wire above), default-off, witnessed (10/10); ship shrinkage as the
+   OOD safety layer.
+2. New problem -- JOINT role inference (highest fidelity): replace parse->select with one scorer
+   score = w_syn(parse_confidence)*logP_syntax + w_sel*logP_selectional, plus the EM/self-training store
+   loop (reweight parses by the store's own expectations, iterate). Research predicts it turns the 19c
+   tie into a win at the same parser quality; the soft store (built here) is the first EM iteration.
+3. New problem -- discourse-prominence/givenness cue (Wall B) into role assignment for ANIMATE arguments,
+   measured on multi-sentence gold (from the coref/entity store).
+4. New problem -- parser register-adaptation: self-train the parser on 19c text; measure exposure ->
+   parse-quality -> store-recovery (honest re Harrington-Stack 2018).
+5. Optional optimization: swap the 12-d filler space for the validated predicted-Binder-65 space when the
+   store is wired (GloVe-300 already showed a richer space grows the modern win to +0.126).
