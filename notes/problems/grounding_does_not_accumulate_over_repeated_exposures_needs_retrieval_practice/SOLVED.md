@@ -261,6 +261,49 @@ it does NOT relax the grounding bar (the brief's prohibition). Its landing gate 
 CONSOLIDATION_FAIL grounding PRECISION rise CI-separated above the ~0.30 distributional ceiling, 2-seed, info-free twin
 loses, recall not bought by bar-relaxation (REMOTE).
 
+## TOWARD THE CEILING -- how close to 1.0, understood intrinsically (owner: "as close to 1 as possible... every wall intrinsically")
+
+The full-lift cascade reaches ~0.45 (within-set); the owner asked how far toward 1.0 we can push and to
+understand every wall INTRINSICALLY. Researched (`RESEARCH_toward_ceiling_sense_selection.md`) + prototyped
++ fair-tested. Decisive answer:
+
+**1. The ceiling is ~0.85, NOT 1.0 (a hard cap).** The correct anchor is only IN the distributional
+shortlist ~85% of the time (cannot select what is not there); fine-grained WordNet human inter-annotator
+agreement is ~0.70-0.80; best supervised all-words WSD ~0.80-0.83. Our wup>=0.5 scoring is coarse-
+equivalent (ceiling ~0.90) but the shortlist cap dominates -> realistic ceiling ~0.85. The last 0.85->1.0
+is a SHORTLIST-RECALL problem (a different lever), not selection.
+
+**2. The selection algorithm is SATURATED** (unsupervised cascade ~0.47 == supervised-over-grounded-features
+ceiling ~0.41). The only lever with headroom is making the grounded features OCCURRENCE-SPECIFIC (context-
+conditioned) rather than one static per-word sense-blend (research-pinned: Barsalou situated conceptualization;
+predictive-coding context pre-activation).
+
+**3. Context-gating (the pinned lever) was PROTOTYPED TWO WAYS and FAILS on this population -- fair-tested,
+2-seed, intrinsically understood:**
+- `context_gated_probe` (g: occurrence-context d256-hashed-bag -> Binder-65): CTXGATE ~0.24 << GRD65_static
+  ~0.39 (CI-sep below 0). FAIR controls: a MONOSEMOUS-only-trained g (avoids the blend-target circularity)
+  STILL loses (~0.23 << 0.38); and with a VALID cross-word shuffle, CTXGATE ~= a random OTHER word's context
+  (lift -0.0015, CI incl 0). The stored d256 HASHED occurrence context carries ZERO sense-discriminative signal.
+- `situation_grounding_probe` (ground each occurrence by the mean Binder of its ACTUAL context WORDS -- the
+  rich, un-hashed version): SITU ~0.29 STILL << GRD65_static ~0.37-0.45 (CI-sep below 0, both seeds). Real
+  context words carry a TINY real signal over cross-word-shuffle (+0.03/+0.045; seed1 CI-separated) -- more
+  than the hashed d256's zero -- but an order of magnitude too small to beat static grounding.
+
+**4. WHY (intrinsic):** for these hard words, averaging the experiential features of a word's NEIGHBORS is a
+BLURRIER meaning cue than the word's OWN static grounding -- context here DILUTES rather than SHARPENS,
+because this population's contexts are genuinely low-coherence (0.09-0.13). g(thin/noisy occurrence context)
+is a noisy estimate of the word's grounding, strictly worse than the clean per-word average (which IS that
+estimate averaged over all contexts). Context-gating is the correct brain mechanism but is bottlenecked by
+(a) the occurrence-context REPRESENTATION and (b) the intrinsic incoherence of THESE words' contexts, plus
+(c) the per-word any-sense metric under-rewards occurrence-sense-specificity.
+
+**5. THE REAL WALL to ~0.85 is a SENSE-INDUCTION wall, not a selection/grounding wall.** To beat static you
+need PER-SENSE grounded prototypes (split a word's occurrences into senses, ground each separately) + a per-
+occurrence sense-correctness metric. Sense-splitting is the sub-problem already shown UNSTABLE here (recovery
+0.4-4%, seed-dependent, W9). That is the identified, hard, currently-open gap -- NAMED, not hand-waved. Plus
+shortlist-recall for the final stretch. So the practical best remains the static grounded cascade (~0.45
+smoke, ~0.85 asymptote gated by robust sense induction).
+
 ## Adjacent-component evaluation (brain-foundational fidelity + opportunities, verified on disk)
 
 Per the standing rule to evaluate adjacent components (not just map them), to seed the next problems:

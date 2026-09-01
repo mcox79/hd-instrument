@@ -47,6 +47,19 @@ distributional shortlist roughly DOUBLES correct sense selection. 2-seed SMOKE, 
 not perfect. The residual = harder senses where grounded features don't separate + grounded-read noise.
 The supervised CEILING probe (upper bound on extractable grounded signal; NOT a wire) frames it.
 
+**TOWARD THE CEILING (owner 2026-09-01; researched + prototyped + FAIR-tested; see SOLVED.md "TOWARD THE
+CEILING" + `RESEARCH_toward_ceiling_sense_selection.md`):** the ceiling is **~0.85 NOT 1.0** (hard shortlist-
+recall cap + WordNet human IAA ~0.7-0.8). Selection is SATURATED; the only lever = occurrence-specific
+(context-conditioned) grounding. PROTOTYPED it two ways -- `context_gated_probe` (g: d256-hashed-context ->
+Binder) and `situation_grounding_probe` (mean Binder of ACTUAL context WORDS) -- BOTH lose to static per-word
+grounding (0.24-0.29 << 0.38-0.45, CI-sep, 2-seed). FAIR-tested: monosemous-only g still loses; valid cross-
+word shuffle shows hashed context = ZERO signal, real words = TINY signal (+0.03/+0.045). INTRINSIC WHY:
+averaging a hard word's neighbors' experiential features is BLURRIER than the word's own static grounding
+(context DILUTES not SHARPENS, because these contexts are low-coherence 0.09-0.13). THE REAL WALL to ~0.85 =
+a SENSE-INDUCTION wall (per-SENSE prototypes + per-occurrence sense gold); sense-splitting is UNSTABLE here
+(0.4-4%, W9) -- the named open gap. Practical best stays the static grounded cascade (~0.45).
+NEW probes/flags: `--context-gated-probe`, `--situation-probe` (capture has `collect_ctx_words=True`).
+
 ---
 ## WHAT IS BUILT (this session, all on disk)
 - `experiments/exp_retrieval_practice_consolidation_v1.py`:
