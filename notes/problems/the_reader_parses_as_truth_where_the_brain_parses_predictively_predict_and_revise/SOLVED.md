@@ -5,7 +5,7 @@ bar: "PASS = the predict-and-revise parse pass RECOVERS who-did-what (and the ar
 result: "A parse-RECALL pass that recovers the DROPPED patient the batch parse left empty ('?') — a structural coverage-violation trigger, recall-scoped (fill-a-drop or promote a PRE-VERBAL head; NO post-verbal re-selection) — RECOVERS who-did-what CI-separated over the strongest real floor on BOTH eras (who-did-what patient recall through the LIVE SituationReader.read(), scorer = pick==gold head, bootstrap CI by sentence cluster). MODERN QA-SRL v2 dev+test, n=2737 non-pronoun-gold patient items: the pass 0.5407 vs the wired parse-router 0.4808 = +0.0599 [+0.0395,+0.0889] (half 0.0247, frac<=0 0.000); on the positional floor 0.4417 vs 0.3858 = +0.0559 [+0.0350,+0.0827]. 19c LitBank narrative, n=5999: 0.2879 vs the (there-strongest) positional floor 0.2287 = +0.0592 [+0.0525,+0.0659] (half 0.0067, frac<=0 0.000). Gains localize to non-canonical constructions: QA-SRL passive 0.287->0.567, pre-verbal-gap 0.023->0.511; canonical recall PROTECTED 0.509->0.526. DRILLED: the entire gain is DROP-FILLING — firing on dropped patients ONLY (no surprisal reanalysis of committed picks) reaches 0.5433 (+0.0625 over wired, CI-sep) and TIES the surprisal-gated pass (gated-vs-dropped_only -0.0026 n.s.); the 391/704 surprisal-triggered revisions of COMMITTED picks add nothing (confirming p2's refuted re-selection from the recall side)."
 floor: "the batch parse-as-truth reader at equal inputs, BOTH routes actually run: positional-default (QA-SRL 0.3858 / LitBank 0.2287) and the stronger wired parse-router (QA-SRL 0.4808 / LitBank 0.1852). The pass beats WHICHEVER is stronger per era CI-separated (QA-SRL strongest = wired, beaten by +0.0599; LitBank strongest = positional because the modern-trained arc_parser DEGRADES on 19c prose, beaten by +0.0592). It also beats the OTHER floor in both eras."
 controls: "(1) info-free RANDOM-LOCI twin (fire at the same rate at random loci) LOSES CI-sep: QA-SRL +0.0442 [+0.0284,+0.0642], LitBank +0.0395 [+0.0343,+0.0448] = EXCLUDES 'any extra re-parsing at this rate helps' (firing on the DROPPED-slot events, not random ones, is what carries it). (2) info-free UNIFORM (random-vector) PRIOR twin LOSES CI-sep: QA-SRL +0.0325 [+0.0134,+0.0594], LitBank +0.0492 [+0.0426,+0.0558] = EXCLUDES 'any prior-shaped candidate scorer helps' (the fill TARGET uses real animacy/position). (3) revise-EVERYWHERE positive control: the recall-scoped pass BEATS revise-everywhere CI-sep (QA-SRL +0.0106 [+0.0040,+0.0173], LitBank +0.0083 [+0.0060,+0.0107]); it fires on only ~28-30% of eligible events = it does NOT fire everywhere (revising committed picks breaks as many as it fixes). (4) recall_only scope = no post-verbal re-selection (p2's REFUTED route) -> canonical recall PROTECTED, not eroded (QA-SRL 0.509->0.526). (5) DROP-FILL localisation (the decisive drill): firing on DROPPED patients ONLY (a purely STRUCTURAL trigger, NO surprisal) reaches 0.5433 and TIES the surprisal-gated pass (gated-vs-dropped_only -0.0026 [-0.0076,+0.0027] n.s.) while beating wired +0.0625 CI-sep = EXCLUDES 'the surprisal signal is needed for RECALL'; the 391/704 surprisal-triggered revisions of COMMITTED picks add nothing. (6) LOCATED-LEVER: a verb-SHUFFLED prior loses only slightly (QA-SRL +0.0142, LitBank +0.0022 n.s.) and a NO-PRIOR STRUCTURAL fill TIES on modern QA-SRL (+0.0026 n.s.) though the prior BEATS it on 19c prose (+0.0217 [+0.0129,+0.0307]) = the lever is the STRUCTURAL drop-fill; the VERB-SPECIFIC selectional prior is a MINOR cue (position carries modern recall; the prior adds only where the parser degrades)."
-files_changed: "experiments/exp_predict_revise_recall_v1.py (the mechanism + full control battery incl. the dropped-only DROP-FILL drill + sweep + LitBank); experiments/exp_predict_revise_recall_diagnostic_v1.py (the could-it-succeed recall decomposition + oracle headroom); experiments/_drill_animacy_fill_v1.py (the ANIMACY-vs-POSITION cue drill + scrambled-animacy twin); experiments/_drill_ceiling_and_ambiguity_v1.py (drop-fill ceiling + animacy-under-position-conflict); experiments/_drill_agent_recall_v1.py (AGENT-role recall + why drop-fill is patient-specific); verification/test_predict_revise_recall.py (scaffold-free witness, 8/8); data/predict_revise_recall_v1/metrics.json + _population.json + _drill_dropped_only.json; data/predict_revise_recall_diagnostic_v1_smoke/. hdlab/ UNTOUCHED (Q111 — proposed default-off predict_revise flag stated below)."
+files_changed: "experiments/exp_predict_revise_recall_v1.py (the mechanism + full control battery incl. the dropped-only DROP-FILL drill + sweep + LitBank); experiments/exp_predict_revise_recall_diagnostic_v1.py (the could-it-succeed recall decomposition + oracle headroom); experiments/_drill_animacy_fill_v1.py (the ANIMACY-vs-POSITION cue drill + scrambled-animacy twin); experiments/_drill_ceiling_and_ambiguity_v1.py (drop-fill ceiling + animacy-under-position-conflict); experiments/_drill_agent_recall_v1.py (AGENT-role recall + why drop-fill is patient-specific); experiments/_drill_construction_fill_v1.py (construction-cued filler-gap PROTOTYPE for the residual 45% + interference-scaling); experiments/_drill_reuse_relcl_resolver_v1.py (REUSE the validated hdlab.relcl_resolver organ on the drops — +0.0066 overall); verification/test_predict_revise_recall.py (scaffold-free witness, 8/8); data/predict_revise_recall_v1/metrics.json + _population.json + _drill_dropped_only.json; data/predict_revise_recall_diagnostic_v1_smoke/. hdlab/ UNTOUCHED (Q111 — proposed default-off predict_revise flag stated below)."
 reverify: ".venv/Scripts/python.exe verification/test_predict_revise_recall.py"
 ---
 
@@ -129,6 +129,13 @@ proposed MECHANISM EMPHASIS (the prior + surprisal-gated reanalysis) is correcte
    asset is not needed to drive it" — which both confirms the brief's own dropped-vs-kept distinction empirically
    and simplifies the landing to an asset-free structural pass. *A control that removes a candidate ingredient is
    worth more than one more arm that adds recall.*
+6. **ENUMERATE the substrate before claiming a NEW BUILD — the brain reuses circuits, so should we (owner
+   catch).** I initially called the residual filler-gap a "new build"; enumerating hdlab (not searching) found
+   `relcl_resolver.py` ALREADY does it (validated), and the SAME cue-based retrieval primitive
+   (`content_addressable_retrieval` / the E3 coref organ) underlies BOTH coref and filler-gap — reuse lifted
+   recall for free (+0.0066). The lesson: filler-gap ≡ coreference ≡ cue-based content-addressable retrieval
+   (Lewis & Vasishth; McElree) — one primitive, many surface tasks; an "we need to build X" claim demands a disk
+   ENUMERATION first, because the substrate has usually already built the primitive under another task's name.
 
 ## FURTHER DRILLS (completeness push — every avenue I could think of, tested)
 - **DROP-FILL CEILING.** Of the 313 wired-dropped patients, the gold head IS a candidate in **313/313
@@ -143,14 +150,36 @@ proposed MECHANISM EMPHASIS (the prior + surprisal-gated reanalysis) is correcte
   (word-order) CONFLICT. So the faithful fill is POSITION-primary with an ANIMACY tie-break under conflict; the
   global "position wins" masks a real cue-interaction. (Small overall: ~+0.003, but brain-faithful and it
   conveys the cue-integration benefit.)
-- **THE RESIDUAL 45% IS THE INTERFERENCE / INTERVENING-NP REGIME (literature-sharpened).** Position is a PROXY
-  that free-rides on English SVO (the structurally-correct filler is usually ALSO the nearest nominal), so it
-  fails precisely where an INTERVENING distractor NP sits between the true filler and the gap (Van Dyke &
-  McElree cue-based retrieval interference; Wagers & Phillips 2014). The brain resolves these by construction-
-  cued, case/grammatical-cue memory retrieval of the DISPLACED filler (the filled-gap effect; Crain & Fodor
-  1985; Stowe 1986), not by proximity. That is the concurrent `relcl filler-gap parser` problem — MAPPED, not
-  duplicated. A sharp follow-on drill (named below): does position's miss-rate scale with the COUNT of
-  intervening candidate nominals rather than raw token distance?
+- **THE RESIDUAL 45% IS ENTIRELY RETRIEVAL INTERFERENCE — MEASURED, then PROTOTYPED (owner: "prototype getting
+  that last 45% here?").** The literature (Van Dyke & McElree cue-based retrieval interference; Wagers & Phillips
+  2014) predicts position fails where an INTERVENING distractor NP sits between the true filler and the gap.
+  DIRECT TEST — position-fill recall on the 313 drops, stratified by # intervening candidate nominals between
+  the gold filler and the verb: **0 intervening -> 0.754 (n=228); 1 -> 0.000 (n=53); 2 -> 0.000 (n=24); 3+ ->
+  0.125 (n=8).** Position NAILS it with no distractor and COLLAPSES TO EXACTLY 0% the moment one intervenes — it
+  grabs the distractor every time. So the whole residual is the ~85 interference drops (recoverable in
+  principle: ORACLE 1.000). PROTOTYPE of the brain's fix (construction-cued filler-gap: a relativizer/passive
+  signals a gap -> jump OVER the distractor to the antecedent / surface subject; Crain & Fodor 1985; Stowe 1986)
+  — a NEGATIVE, and diagnostic: a string-heuristic detector fires on only 14/85 interference cases (and 0.024 vs
+  position 0.012 on them, overall +0.0004). The cheap heuristic CANNOT crack it — the other 71 are reduced
+  relatives / coordination / appositives that need REAL syntactic filler-gap resolution (the antecedent
+  identified by structure, not a string match). Target for whatever owns it: 85 interference drops, position 0%,
+  oracle 1.0.
+- **REUSE, NOT A NEW BUILD (owner-prompted ENUMERATION — I had overstated "new build").** Enumerating hdlab (not
+  searching) surfaced the reusable organs: **`relcl_resolver.py`** — the VALIDATED active-filler filler-gap
+  resolver (`resolve_patient(toks,pos,v)`, landed 2026-08-27, 8/8 witness; does the object-relative
+  jump-over-the-distractor + passive-subject routes, glass-box over UPOS, NO arc graph); `content_addressable_
+  retrieval.py` + `coreference_resolver.py` — the SAME cue-based content-addressable RETRIEVAL primitive (Lewis &
+  Vasishth 2005; McElree) the brain reuses for BOTH coreference AND filler-gap; plus `graded_competition`,
+  `salience_binder`, `coref_distractor_suppress`. REUSING `relcl_resolver.resolve_patient` as the drop-fill
+  TARGET (instead of my position heuristic) lifts OVERALL who-did-what recall **0.5440 -> 0.5506 (+0.0066)** and
+  the drop-subset recall **0.5527 -> 0.6102 (+0.057)** — a free, MORE brain-faithful improvement from an existing
+  validated organ, and it recovers the object-relative interference cases position gets 0% on (0.00 -> 0.25 on
+  the object-gap fires). The genuinely-unbuilt remainder is NARROW and the SUBSTRATE ITSELF names it:
+  `content_addressable_retrieval`'s docstring states "interference RESOLUTION is a separate open problem" —
+  graded retrieval under SIMILAR competitors (reduced relatives / coordination with no overt relativizer), which
+  EXTENDS the existing retrieval primitive, not a from-scratch build. HONEST ANSWER to "is this a new build?":
+  the object-relative/passive filler-gap is ALREADY an organ (reuse it — see the proposal); the residual
+  unmarked-interference is ONE acknowledged open problem that reuses the same cue-based retrieval primitive.
 - **AGENT recall (the 'who' half) — the mechanism structurally DOES NOT apply, and I measured why.** Non-pronoun
   agent recall through the wired reader is 0.567 (n=826; 27% of agent gold is pronoun, excluded), but agents are
   **DROPPED only 1.2%** of the time — because the positional rule looks PRE-verbal for the subject, which is
@@ -162,6 +191,27 @@ proposed MECHANISM EMPHASIS (the prior + surprisal-gated reanalysis) is correcte
   `precise_voice` positional passive-swap is NOT in the live `_read_events` path; the WIRED floor already routes
   passives through the parse (`_read_events_wired`, "ROUTER agent fixes passive/ditransitive"). So the +0.073
   passive headroom is measured over the reader's actual passive-capable path — fair.
+
+## WHERE THIS SITS IN THE WHO-DID-WHAT CEILING (owner: "not a blowout — how well does the brain do, and why?")
+Honest framing so the +0.06 is not oversold. Decomposing the wired reader's who-did-what on n=2737:
+correct 0.481 / **wrong-bind 0.309** / **dropped 0.114 (MINE)** / extraction-miss 0.096. EVERY error is
+recoverable in principle (the gold head is present as a candidate in ALL buckets: 846/846, 313/313, 262/262),
+so the ORACLE ceiling is **1.000**. QA-SRL gold IS human annotation -> the BRAIN sits at **~0.90-0.95**; our
+reader at ~0.48-0.55. The ~0.40-point gap decomposes, and MY problem is the SMALLEST slice:
+- **wrong-bind 0.309 — THE BIGGEST, and NOT this problem.** The reader confidently binds the WRONG post-verbal
+  nominal (the positional default). Fixing it is p2's REFUTED re-selection wall: English is word-order-dominant,
+  so a plausibility re-rank cannot override the structural default (MacWhinney Competition Model). It needs the
+  brain's FULL cue-integration + real hierarchical syntax + world knowledge — the concurrent graded-role /
+  incremental-parser problems, not a drop-fill. Ceiling stage: 0.595 -> 0.904 (+0.309).
+- **dropped 0.114 — MINE.** Drop-fill (+ relcl_resolver reuse) recovers ~0.61 of it (to ~0.55 overall); the
+  rest is the interference residual (the retrieval-resolution open problem). Ceiling stage: 0.481 -> 0.595.
+- **extraction-miss 0.096 — event DETECTION, a separate front-end organ.** Ceiling stage: 0.904 -> 1.000.
+**WHY the brain does ~0.95 and we do ~0.5:** it (a) detects essentially all events; (b) assigns roles by
+INTEGRATING cues (word-order + animacy + agreement + verb-specific selectional structure + world knowledge +
+real hierarchical syntax) instead of our "nearest post-verbal nominal" default, which alone loses 31%; (c)
+resolves interference by cue-based retrieval. My pass faithfully closes the DROP slice; a blowout requires the
+wrong-bind slice, which is the harder, DIFFERENT problem. This is not a ceiling of the drop-fill — it is the
+drop-fill being one (well-executed) slice of a three-slice gap.
 
 ## BRAIN-FUNCTION BENEFIT AUDIT (literature-grounded — what we replicate vs FORGO)
 A research drill (18 sources) grounds exactly which benefits of the brain's predictive / noisy-channel /
@@ -237,17 +287,19 @@ selectional: not).
 ## PROPOSED hdlab CHANGE (Q111 — strategy lands; a proposed diff, not a landed one)
 A default-off flag `predict_revise=False` on SituationReader (byte-identical when off; the additive-metadata
 pattern of causation/timeline). When ON, AFTER the role read, run a post-read parse-RECALL pass over sm.events:
-for each event whose patient is '?' (DROPPED — the structural coverage violation), fill it over the full
-sentence nominals under the RECALL scope (promote a PRE-VERBAL head on a sharp verb via
-`fit - beta*position_penalty`, else the best-fit candidate), writing the recovered head to `EventRecord.patient`
-and preserving the original as `EventRecord.patient_prerevise` (glass-box, inspectable). **The recall pass needs
-NO fitted PredictiveReader asset and NO surprisal gate** (the drill shows drop-filling captures the full gain;
-the surprisal-triggered revision of committed picks adds nothing and slightly hurts). A minimal, asset-free
-version uses the position-only fill (`struct`, which ties the prior fill on modern text); the grounded-prior
-fill is worth keeping only for the 19c-robustness margin. NO external LLM, NO spaCy (the reader's own pos_tagger
-+ arc_parser + grounded space). Compose with `role_route='wired'`. Register `predict_revise_live_reader_v1` at
-land; witness required. Do NOT wire a post-verbal re-selection OR a surprisal-gated reanalysis of committed
-picks (p2's proven NEGATIVE, re-confirmed here) — the pass is DROP-FILL / recall-scoped only.
+for each event whose patient is '?' (DROPPED — the structural coverage violation), fill it by REUSING the
+already-validated `hdlab.relcl_resolver.resolve_patient(toks, pos, v)` (the active-filler filler-gap resolver:
+passive-subject / object-gap-filler / word-order routes) as the fill TARGET, writing the recovered head to
+`EventRecord.patient` and preserving the original as `EventRecord.patient_prerevise` (glass-box, inspectable).
+Reusing that organ beats a raw position heuristic (+0.0066 overall / +0.057 on drops) and is more brain-faithful
+(measured). **The recall pass needs NO fitted PredictiveReader asset and NO surprisal gate** (drop-filling
+captures the full gain; the surprisal-triggered revision of committed picks adds nothing and slightly hurts).
+NO external LLM, NO spaCy (the reader's own pos_tagger + relcl_resolver). Compose with `role_route='wired'`.
+Register `predict_revise_live_reader_v1` at land; witness required. Do NOT wire a post-verbal re-selection OR a
+surprisal-gated reanalysis of committed picks (p2's proven NEGATIVE, re-confirmed here) — the pass is DROP-FILL
+/ recall-scoped only. The unmarked-interference remainder (reduced relatives / coordination) is left to the
+substrate's own named "interference resolution" open problem (a graded extension of `content_addressable_
+retrieval` / `graded_competition`), NOT this wire.
 
 ## ADJACENT COMPONENTS — fidelity / opportunity (seeds the next problems)
 | Component | Brain role | Fidelity now | Opportunity -> next problem |
@@ -256,7 +308,8 @@ picks (p2's proven NEGATIVE, re-confirmed here) — the pass is DROP-FILL / reca
 | `predictive_reader` (12-d grounded centroid) | the plausibility prior + violation gate | valid GATE, coarse target-SELECTOR (p2 + here) | The Phase-1 STRUCTURED verb-role exemplar/event store is the ONLY route that could make the verb-specific prior a WHICH-argument lever; the coarse space cannot. |
 | positional role binder | who-did-what | parse-as-TRUTH; drops pre-verbal patients | THIS pass augments its RECALL (the proposed wire). |
 | `animacy_lexicon` (WordNet-backed) | the Competition Model / eADM animacy cue | PINNED cue, 88% candidate coverage, BUT a name-homograph bug (PROPN "John"->object; PROPER_NOUN_OVERRIDES empty) | Fix PROPN handling (names default animate); measured here to be a LOW-VALIDITY cue for English who-did-what (ties its scramble) — high validity would show on a case-rich language or a genuinely position-ambiguous slice. |
-| filler-gap / construction cue (relativizer / passive morphology) | the brain's actual gap-resolution (filled-gap effect, Stowe 1986) | NOT built here (I use linear position as the approximation) | A construction-cued gap-filler (fill with the relcl antecedent / passive subject / fronted wh) is the brain-faithful upgrade to the position heuristic — this is the CONCURRENT `relcl filler-gap parser` problem; MAP, do not duplicate. |
+| `relcl_resolver.py` (active-filler filler-gap; landed 2026-08-27, validated) | the brain's actual gap-resolution (filled-gap effect, Stowe 1986; Frazier & Flores d'Arcais) | EXISTS + validated (0.953 vs 0.499 floor); glass-box, no arc graph | **REUSE it as the drop-fill target** (measured +0.0066 overall / +0.057 on drops) — the proposed wire below. Handles object-relative + passive; unmarked reduced-relatives are out of its construction gate. |
+| `content_addressable_retrieval` / `graded_competition` / `coreference_resolver` | cue-based content-addressable RETRIEVAL — the SAME primitive for coref AND filler-gap (Lewis & Vasishth 2005; McElree) | primitive PRESENT; `content_addressable_retrieval` states "interference RESOLUTION is a separate open problem" | The unmarked-interference residual (reduced relatives / coordination) is a GRADED EXTENSION of this existing primitive — the brain's reuse, not a new build. |
 | event detector | which predicates fire | ~16% extraction-miss ceiling (measured) | Event-DETECTION recall — a separate front-end gap this pass cannot reach. |
 
 ## FOLLOW-ONS (precisely scoped)
@@ -272,10 +325,9 @@ picks (p2's proven NEGATIVE, re-confirmed here) — the pass is DROP-FILL / reca
 4. AGENT-role recall — ANSWERED by the drill: agents are dropped only 1.2% (canonically pre-verbal, so the
    positional rule catches them); the drop-fill is structurally patient-specific. Agent errors are wrong-binds
    (re-selection territory, refuted). No cross-role generalization to build.
-5. **INTERVENING-NP interference test (literature-sharpened, HIGH value):** does the position fill's 45% miss
-   scale with the COUNT of candidate nominals between the true filler and the gap (Van Dyke & McElree; Wagers &
-   Phillips)? If yes, it converts "45% headroom" into "the residual is retrieval interference" and motivates the
-   construction-cued filler-gap resolver (the concurrent relcl problem) with a mechanism, not just a number.
+5. **INTERVENING-NP interference test — DONE (above):** position recall collapses 0.754 -> 0.000 the moment a
+   distractor NP intervenes; the residual IS retrieval interference, and a cheap construction heuristic can't
+   crack it. The real filler-gap resolver (concurrent relcl problem) is required, now with a measured target.
 6. **Reanalysis on a GARDEN-PATH corpus (falsifiable):** the null reanalysis result here is expected for a
    coverage-drop corpus; the literature (Ferreira 2003; Christianson 2001) predicts reanalysis SHOULD show a
    CI-separated benefit on reduced-relative / NP-S garden-path items — worth a targeted test to EARN the claim
