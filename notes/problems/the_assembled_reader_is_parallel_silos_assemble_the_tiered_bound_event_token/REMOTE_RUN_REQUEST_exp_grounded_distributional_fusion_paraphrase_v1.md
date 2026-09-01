@@ -6,8 +6,8 @@ timeout_s: 7200
 results_path: data/exp_grounded_distributional_fusion_paraphrase_v1/metrics.json
 self_test: green
 smoke: green
-question: Does fusing the GROUNDED sensorimotor spoke (Lancaster) with the DISTRIBUTIONAL/linguistic spoke (PPMI-SVD from UD-EWT) -- the ATL complementary hub fusion -- cross the sensorimotor-coarseness wall on paraphrase-robust event coreference, at FULL corpus scale?
-gate: PASS = fusion_g11_distrib hit@1 CI/margin ABOVE grounded11 AND above distributional (all above chance 0.234). A rigorous NEGATIVE (fusion does not beat the better single spoke) is a full PASS -- it says the coarse sensorimotor space is the ceiling for this instrument and the fusion does not help, which re-scopes the meaning-channel follow-on.
+question: (CONFIRMATION-ONLY -- see note) Does fusing GROUNDED (Lancaster) + DISTRIBUTIONAL (PPMI-SVD from UD-EWT) cross the coarseness wall? The local PHASE DIAGRAM already answered: UD-EWT is only ~12.5k sentences, so the distributional spoke is CORPUS-CAPPED (flat at 0.274 from 40k sents on) and NO simple fusion beats grounded-alone (0.444); the ORACLE route reaches 0.60 (complementarity is extractable) and FAMILIARITY weighting beats z-sum (0.40 vs 0.37). This full run only re-confirms at full n; it will NOT move the number on UD-EWT. The REAL fix is a LARGE-corpus distributional (simplewiki-15M / Wikipedia PPMI) -- a separate cell.
+gate: PASS = reproduces the phase-diagram finding (distributional FLAT past the corpus size; oracle ~0.60; freq_wt > zsum). A rigorous NEGATIVE is a PASS. NOTE: low priority -- the science is already established locally; run only if GPU is idle.
 kb_referents:
   - data/exp_grounded_distributional_fusion_paraphrase_v1/instances.json
   - data/grounding_testbed/Lancaster_sensorimotor_norms_for_39707_words.csv

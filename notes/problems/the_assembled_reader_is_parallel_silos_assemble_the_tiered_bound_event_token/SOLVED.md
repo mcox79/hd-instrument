@@ -136,20 +136,53 @@ Real UD-EWT, 5190 instances / 458 passages:
   margin +0.169 [0.153, 0.185] CI-separated. The EXACT control (all arms 1.00) proves the advantage is SPECIFIC
   to graded matching -> the brain-faithful DISTRIBUTED + GROUNDED bound token does something a symbolic
   list-of-dicts structurally cannot: recognise a paraphrased event.
-- **HONEST LIMIT + DRILL (the coarseness wall, understood deeply):** 0.404 is well above chance but far from
-  1.00 -- the 11-dim Lancaster SENSORIMOTOR space is a COARSE proxy for the concept hub. Drilled the wall
-  (`experiments/exp_grounded_distributional_fusion_paraphrase_v1.py`, smoke; full-scale run dispatched to the
-  GPU queue): the brain-faithful fix is the ATL COMPLEMENTARY FUSION (embodied grounding + distributional
-  context; Patterson 2007). Adding a DISTRIBUTIONAL spoke (PPMI-SVD from UD-EWT, no LLM) and FUSING gives
-  hit@1 0.44 > grounded-alone 0.41 > distributional-alone 0.29. The MECHANISM is complementarity: the two
-  spokes are NEAR-INDEPENDENT (correctness correlation -0.04), each solving cases the other misses
-  (grounded-only-right 0.32, distributional-only-right 0.17), with an either-right CEILING of 0.61 -- far
-  above either alone. This is a direct demonstration of the DUAL-ROUTE hub-and-spoke theory of meaning
-  (embodied 'how' + distributional 'context'), and the concrete brain-foundational reason the reader needs the
-  meaning-channel FUSION, not one spoke. The naive z-concat fusion (0.44) does not yet reach the 0.61 ceiling
-  -> a learned/reliability-weighted fusion is the mapped follow-on. NOTE: heavy full-scale numbers land from
-  the remote GPU run (`REMOTE_RUN_REQUEST_exp_grounded_distributional_fusion_paraphrase_v1.md`); the smoke
-  values here are coverage-limited (distributional vocab grows with corpus scale).
+- **HONEST LIMIT + DRILL (the coarseness wall -- a REAL complementarity, but an OPEN fusion problem):** 0.404
+  is well above chance but far from 1.00 -- the 11-dim Lancaster SENSORIMOTOR space is a COARSE proxy for the
+  concept hub. Drilled the wall (`experiments/exp_grounded_distributional_fusion_paraphrase_v1.py`, smoke;
+  full-scale run queued to the GPU). Two-part finding, reported honestly:
+  1. **The dual-route COMPLEMENTARITY is REAL** (the brain-foundational insight): a DISTRIBUTIONAL spoke
+     (PPMI-SVD from UD-EWT, no LLM) and the GROUNDED sensorimotor spoke are NEAR-INDEPENDENT (correctness
+     correlation -0.04), each solving cases the other misses (grounded-only-right 0.32, distributional-only
+     0.17), with an either-right CEILING of 0.61 -- far above either alone (grounded 0.44 / distributional
+     0.29 on the covered subset). This is a direct demonstration of the DUAL-ROUTE hub-and-spoke theory of
+     meaning (embodied 'how' + distributional 'context'; Patterson 2007) -- neither route alone suffices.
+  2. **But no SIMPLE fusion extracts it, and the PHASE DIAGRAM locates WHY (the wall is CORPUS SIZE, not
+     method or compute):** on the MATCHED covered subset, z-concat (0.439), z-sum (0.370), confidence-route
+     (0.360), margin-weight (0.360) TIE or LOSE to grounded-alone (0.444) -- the weak, noisy distributional
+     spoke drags grounded down. Swept the distributional corpus SCALE (the reliability axis) -> distributional
+     acc is FLAT (0.274) from 40k sentences on, because UD-EWT is only ~12.5k sentences (~250k tokens): the
+     corpus is EXHAUSTED, so more compute/GPU CANNOT help. The spoke is corpus-STARVED. **KEY REALIZATIONS
+     from the phase diagram:** (a) the ORACLE per-instance route reaches 0.60 -> the complementarity IS
+     extractable with correct reliability estimation (the ceiling is real, not illusory); (b) the
+     brain-faithful FAMILIARITY (log-frequency) weighting BEATS equal-weight z-sum (0.40 vs 0.37) -> frequency
+     is a valid reliability signal, the right direction; (c) crossing the wall needs a LARGE-corpus
+     distributional spoke (simplewiki-15M / the on-disk Wikipedia PPMI space), NOT a bigger UD-EWT run. **The
+     queued GPU run on UD-EWT is therefore corpus-capped and will not move the number -- its value is the
+     phase-diagram + oracle confirmation, already obtained here.** **Earlier I quoted "fusion 0.44 > grounded
+     0.41"; that was an n-mismatch (fusion on 3504 covered vs grounded on 5190) and is WITHDRAWN -- on matched
+     n, no simple fusion beats grounded at UD-EWT scale.** The concrete follow-on is now precise: a
+     large-corpus distributional spoke + familiarity/reliability-weighted (or learned) fusion = the ATL-hub
+     mechanism, and the reason to wire `reader_meaning_channel` (which already does grounded+distributional
+     complementary z-fusion at corpus scale).
+
+## WALLS DRILLED (owner: "drill all walls") -- the complete map, each to root cause
+- **THE EXTRACTION-ROLE WALL (the REAL ecological bottleneck, now measured):** the tuples feeding the bound
+  tokens have event RECALL 0.953 (the detector finds ~all gold events) but who-did-what AGENT-ROLE accuracy
+  only **0.271** (LitBank, 20 docs, gold SUBJECT events, via the QA readout). So the brief's "name WHY" is
+  answered: the integration gap is the FRONT-END ROLE ASSIGNMENT, not event recall and not the binding codec.
+  The MECHANISM claim is unaffected (both arms bind the SAME extracted tuples; probes are defined relative to
+  the extracted set), but the ECOLOGICAL who-did-what is role-assignment-limited -> the highest-leverage
+  adjacent problem is the agent/role front-end (ties to `the_live_front_end_mislabels_who_did_what_to_whom`).
+- **THE N400 CHUNK-TIER (load-bearing, but partial -- honest):** an active WM register that GROWS unbounded
+  degrades current-event retrieval late (0.953 early -> 0.876 late; 1/sqrt(M) crosstalk); flushing the
+  register keeps it high (n400 0.907 / fixed 0.920 late) -> CHUNKING (bounding the register) is NECESSARY.
+  BUT the N400's CONTENT-DRIVEN boundary does NOT beat arbitrary FIXED-size flushing on this token-retrieval
+  task (fixed 0.920 >= n400 0.907). The N400's specific value -- semantically-CORRECT event boundaries --
+  needs an EVENT-BOUNDARY gold to demonstrate (a mapped follow-on); on retrieval alone, any bounded register
+  suffices. Reported, not overclaimed (`experiments/_drill_n400_chunking.py`).
+- **THE CA3-COMPLETION WALL** -- root-caused above (DG-at-retrieval; EC->CA3-direct is the fix; direct path
+  completes 1.00). **THE GROUNDED-COARSENESS / FUSION WALL** -- root-caused above (corpus-size, phase diagram;
+  oracle 0.60; familiarity weighting is the right signal). Both understood; fixes are scoped follow-ons.
 
 ## KEY REALIZATIONS (the enabling moves)
 1. **A single passage-level superposition IS the marginal silo -- provably.** The flat register's readout for
