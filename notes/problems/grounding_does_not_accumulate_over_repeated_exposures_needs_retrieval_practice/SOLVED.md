@@ -304,6 +304,43 @@ occurrence sense-correctness metric. Sense-splitting is the sub-problem already 
 shortlist-recall for the final stretch. So the practical best remains the static grounded cascade (~0.45
 smoke, ~0.85 asymptote gated by robust sense induction).
 
+**6. THE DEEPEST UNDERSTANDING (4th drill, `RESEARCH_breakthrough_sense_grounding_from_limited_exposure.md`):
+the ~0.45 plateau is the ceiling of FEATURE-COSINE, and sense selection is TAXONOMIC/RELATIONAL.** Pinned,
+doubly-dissociated brain fact: TAXONOMIC relations (whisky~brandy, same-kind) live in the ATL hub; THEMATIC
+relations (whisky~wedding, co-occur) live in TPJ/pMTG (Mirman 2017; Schwartz 2011 PNAS). Our distributional
+channel is a THEMATIC machine; the correct-SENSE signal is TAXONOMIC -- which is WHY grounded (Binder) features
+doubled selection (they are the taxonomic substrate). BUT we reach the taxonomic system with a FLAT FEATURE-
+VECTOR COSINE over a blend -- a lossy proxy for what the ATL taxonomic system IS: a RELATIONAL is-a graph.
+EMPIRICAL PROOF the feature-cosine family is EXHAUSTED: FIVE controlled prototypes -- per-word blend (~0.45),
+context-gated (loses), occurrence-clustered (+0.05 over random), per-sense GLOSS grounding (`gloss_grounding_probe`:
+GLOSS_PERSENSE 0.27-0.29 <= blend 0.29-0.37 both seeds; GLOSS_ANYSENSE upper bound == random-gloss multi-try
+= ZERO real per-sense structure) -- ALL plateau or fail. You cannot recover a RELATIONAL structure by averaging
+feature vectors at ANY granularity. **THE BREAK-THROUGH is a change in KIND: RELATIONAL selection over a
+taxonomic GRAPH** (WordNet IS one; personalized-PageRank/Lesk seeded by OBSERVED grounded anchors; per-sense
+gloss vectors as seed nodes, NOT the selection cosine). **HONEST BLOCKER: our correctness metric IS WordNet-
+relatedness, so a WordNet-graph selector is CIRCULAR against it (grade-by-what-you-ground-by).** Validly building
++ testing the relational lever requires a GOLD per-occurrence sense benchmark (modern sense-annotated corpus,
+independent of the graph, MFS baseline) -- ALREADY a standing priority (migrate the reader eval off the proxy).
+NEXT PROBLEM (well-scoped): (1) gold-sense WSD eval; (2) relational gloss-grounded selector measured on it with
+beat-MFS + seed-shuffle->chance + hold-out-target-synset controls. New probes: `--gloss-probe` (+ earlier
+`--context-gated-probe`, `--situation-probe`, `--sense-cluster-probe`).
+
+**7. BOTH BREAK-THROUGH LEVERS PROTOTYPED + FAIL -- the reading context is EXHAUSTED (the converged, controls-
+verified conclusion).** `relational_graph_probe` (Lever 2, the change-in-KIND): score each candidate anchor by
+TAXONOMIC coherence (shared-hypernym-ancestry Jaccard over WordNet) to the KNOWN grounded anchors OBSERVED in the
+word's contexts. THE VALID (metric-INDEPENDENT) CONTROL -- RELATIONAL(real seeds) vs RELATIONAL(shuffled seeds
+from a random other word) -- is NULL both seeds: 0.223 vs 0.239 (seed0), 0.247 vs 0.302 (seed1), CI incl 0. The
+observed context of these words carries NO more sense signal than a RANDOM word's context. RELATIONAL also LOSES
+to GRD65_static (0.22-0.25 vs 0.34-0.42, CI-sep). So BOTH families are eliminated OVER THE READING CONTEXT: the
+FEATURE-COSINE family (blend/context/cluster/gloss, 5 prototypes) AND the RELATIONAL-GRAPH family -- and both for
+the SAME root reason, now controls-proven: these are CONSOLIDATION_FAIL words BECAUSE their contexts are low-
+coherence (0.09-0.13), so any mechanism leaning on that context (feature-average OR graph-seed) is no better than
+random. The static per-word grounding wins BECAUSE it ignores the incoherent context. DECISIVE, EMPIRICALLY-FORCED
+CONCLUSION: no mechanism over these words' reading context can break the plateau -- the break-through must bring
+RICHER KNOWLEDGE FROM THE SHELF (definitional/relational grounding per hard word; "a definition is worth many
+contexts", Borman-Lupyan), validly proven on a GOLD per-occurrence sense benchmark (escape the WordNet
+circularity). New probe: `--relational-probe`.
+
 ## Adjacent-component evaluation (brain-foundational fidelity + opportunities, verified on disk)
 
 Per the standing rule to evaluate adjacent components (not just map them), to seed the next problems:

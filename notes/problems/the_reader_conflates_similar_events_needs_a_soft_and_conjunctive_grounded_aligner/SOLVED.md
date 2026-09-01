@@ -1,0 +1,173 @@
+---
+problem: the_reader_conflates_similar_events_needs_a_soft_and_conjunctive_grounded_aligner
+status: PARTIAL
+bar: "PASS = the grounded soft-AND CONJUNCTIVE aligner lifts end-to-end before/after reasoning CI-SEPARATED over BOTH floors -- (a) the SIMILARITY-only floor and (b) the NO-situation-model text-position floor -- on MCScript2 (held-out; report CI half-width + null p95 beside every margin), with the info-free TWIN (an ADDITIVE-only kernel at the same rate, OR a shuffled-order derangement) LOSING CI-separated, AND a can-fail ISOLATED alignment-precision probe passing first: given a PARAPHRASED cue and a set of SIMILAR within-scenario distractor events, the soft-AND kernel selects the RIGHT event CI-separated over both the coarse-cosine and the additive kernels."
+result: "END-TO-END (n=301 held-out dev+test symmetric before/after, chance 0.5, passage-cluster bootstrap): the conjunctive-granularity gated aligner scores 0.591 vs SIMILARITY 0.525 (+0.066 [-0.017,+0.149], half-width 0.083, null_p95 0.083, NOT CI-sep) and vs text-position 0.518 (+0.073 [-0.010,+0.152], NOT CI-sep); shuffled-order twin 0.545 (FIX-twin +0.046, NOT sep). It BEATS the verb-only incumbent 0.532 (+0.060 [-0.007,+0.126]). dev 0.660 vs test 0.556 (generalization gap). ISOLATED PROBE (n=52030 items over 138 scenarios, top-1 alignment argmax over the full type inventory): the criterial-feature (particle+2nd-arg) ablation collapses particle-sibling alignment 0.926->0.608 (delta +0.318 [+0.301,+0.337] CI-sep); role-scramble 0.926->0.021 (+0.905 CI-sep). The soft-AND PRODUCT does NOT beat the additive sum (-0.002, NOT sep) -- the brief's specific mechanism is refuted; the FEATURE SET + role structure is the lever."
+floor: "SIMILARITY-only floor 0.525 (strongest actually-run for the aggregate before/after contrast); NO-model text-position floor 0.518; both recomputed on the n=301 held-out items with CIs."
+controls: "ISOLATED PROBE: particle/2nd-arg ABLATION (drop criterial slots -> alignment collapses, excludes 'any richer code helps'); ROLE-SCRAMBLE twin (wrong role<-filler binding -> collapses, excludes 'more features, not structure'); ANTONYM control (raw grounded cos(in,out)=0.556 vs discrete kernel 0 -> excludes a grounded cosine on the particle slot); kernel sweep coarse/additive(p=1)/soft-AND(p->0)/harder-AND/DG-expand (excludes 'the product combination rule is the lever'). END-TO-END: SIMILARITY floor, text-position floor, SHUFFLED-ORDER twin (excludes 'any ordering'), PARTICLE-BLIND verb-only ablation (excludes 'the conjunctive nodes are not used'), ADDITIVE-kernel arm (excludes 'the product is needed'), committed-covered decomposition (isolates ordering from coverage), per-split held-out, per-construction particle-hinged, and a HIERARCHICAL coarse-backoff arm (a located negative -- coarse premises drown the fine signal)."
+files_changed: "experiments/exp_conjunctive_event_aligner_probe_v1.py; experiments/exp_conjunctive_aligner_end_to_end_mcscript_v1.py; verification/test_conjunctive_event_aligner.py; notes/problems/the_reader_conflates_similar_events_needs_a_soft_and_conjunctive_grounded_aligner/{SOLVED.md, research_combination_rule_and_path_slot_2026-09-01.md}; data/exp_conjunctive_event_aligner_probe_v1/metrics.json; data/exp_conjunctive_aligner_end_to_end_mcscript_v1/metrics.json. hdlab/ UNTOUCHED (proposed diff below, Q111)."
+reverify: ".venv/Scripts/python.exe verification/test_conjunctive_event_aligner.py   # 9/9 checks recompute the headline claims FROM SOURCE"
+---
+
+# What I built, what I measured, and how the brief was REFINED
+
+**One-line result.** The brief's proposed mechanism -- a *soft-AND (multiplicative) combination rule* over per-role
+grounded similarities -- is **NOT the lever**: a uniform product ties (mildly loses to) the additive sum and the
+holistic cosine. The real, brain-faithful lever the wall points to is the **role-structured CONJUNCTIVE event
+IDENTITY that includes the criterial PATH/PARTICLE + 2nd-argument slots** -- and, decisively for the end-to-end,
+**conjunctive event-TYPE GRANULARITY** (keying each orderable node by the role-filler conjunction so "get IN" and
+"get OUT" become *separate* nodes). That granularity is a real lever end-to-end (+0.06 over the verb-only incumbent,
+dev 0.66) but does **not clean-clear the floors CI-separated** at n=301; a full decomposition localizes the residual
+to the **learned ORDERING signal** (not the aligner), which is a *different* problem.
+
+## The brain frame (opening move, PINNED) and where the finding lands
+DG/CA3 **pattern separation by meaning** (PNAS 2026; Yassa & Stark 2011) keeps similar events from colliding; event
+identity is a **role-filler CONJUNCTION** individuated by its **arguments + particles** (Carlson 1998 thematic
+uniqueness; Zwaan event-indexing -- a change in the SPATIAL dimension starts a new event; SEM/Franklin 2020). A
+finer drill (research_combination_rule_and_path_slot_2026-09-01.md) pinned two things that decided the kernel: the
+conjunction is multiplicative at the *cell* level (Nosofsky GCM combines per-dimension similarities by a PRODUCT;
+Rigotti/Fusi nonlinear mixed selectivity; multiplicative memory-cue combination, Parker 2019), and the path/particle
+is a **discrete/categorical** feature (Kosslyn categorical spatial; Landau & Jackendoff closed-class) because
+in/out are **antonyms and antonyms are grounded-SIMILAR** (raw grounded cos(in,out)=0.556 -- a cosine cannot
+separate them). My measurement upholds the *representation* (a role-structured conjunction over the criterial
+features, with a discrete particle) and refines the *combination rule* claim: at the alignment step the product
+gives no advantage over the sum.
+
+## What I measured
+
+### 1. The ISOLATED alignment-precision probe (the required can-fail) -- n=52,030 items, 138 scenarios
+A paraphrased cue is matched against the FULL scenario event-type inventory; top-1 accuracy on the **particle-sibling
+stratum** (targets that have a same-object/different-particle sibling -- the get-IN/get-OUT confusion). Kernels differ
+ONLY in the combination rule, holding per-slot grounded sims fixed.
+- **THE LEVER (criterial features + role structure): decisive.** Dropping the PATH/PARTICLE + 2nd-arg slots collapses
+  alignment **0.926 -> 0.608** (+0.318 [+0.301,+0.337] CI-sep). Binding fillers to the WRONG roles collapses it
+  **0.926 -> 0.021** (+0.905 CI-sep). The conjunctive, role-bound, criterial-feature code is what separates.
+- **THE BRIEF'S PRODUCT HYPOTHESIS: refuted.** soft-AND product 0.926 vs additive sum 0.928 vs coarse holistic 0.983
+  vs DG-expansion 0.996. soft-AND minus additive = **-0.002** (NOT sep). A *uniform* geometric-mean product is even
+  mildly brittle (a paraphrased content slot is the weakest link and drags the whole product down). The drill-faithful
+  form -- a DISCRETE particle GATE x a graded-robust content match -- matches the additive/coarse, it does not beat it.
+- **ANTONYM control:** raw grounded cos(in,out)=0.556, up/down=0.046, on/off=0.270; discrete kernel = 0 -- why the
+  particle slot must be discrete, not a cosine.
+
+**Reading of the probe:** at the clean *type* level, alignment is nearly solved by ANY kernel that carries the
+criterial features (coarse 0.98, DG 0.996). So "alignment precision at the type level" is NOT the bottleneck the
+brief implied -- the bottleneck was that the incumbent's identity **lacked the particle** (and, downstream, that
+the schema collapsed the two events into one node). This is the halfway-point refutation the protocol describes.
+
+### 2. END-TO-END before/after through the aligner -- n=301 held-out (dev+test), transitive_ordering read-out UNCHANGED
+The genuinely new end-to-end lever is **conjunctive event-TYPE granularity**: p6's near-positive schema keyed nodes by
+the **verb lemma only**, so "get IN" and "get OUT" were the SAME node and `transitive_ordering` *could not* order
+them regardless of the aligner. Keying nodes by the conjunction fixes that.
+
+| node identity | mean nodes | coverage | accuracy | vs SIM 0.525 |
+|---|---|---|---|---|
+| verb only (the p6 collapse) | 96 | 0.82 | 0.532 | +0.007 (n.s.) |
+| verb + particle | 124 | 0.84 | 0.548 | +0.023 (n.s.) |
+| **verb + particle + patient** | 189 | 0.87 | **0.591** | +0.066 [-0.017,+0.149] (n.s.) |
+| hierarchical coarse-backoff | 189 | 0.87 | 0.515 | -0.010 (a located NEGATIVE) |
+
+- Conjunctive granularity is a **real lever** (+0.059 over verb-only; beats the verb-only incumbent +0.060
+  [-0.007,+0.126]) but does **NOT** clean-clear either floor CI-sep at n=301. Text-position floor 0.518.
+- **The kernel is irrelevant end-to-end too:** gated 0.591 vs additive 0.585 vs uniform-product 0.571.
+- **The residual is the ORDERING, not the aligner.** On COVERED items (87%): committed 0.594, and it beats the
+  **shuffled-order twin** by only **+0.069 [-0.030,+0.167] (NOT sep)**. Given two correctly-identified events, the
+  *learned canonical order* is right only ~59% (random ~52.5%). Coverage is not the dilution (committed ~= e2e).
+- **Real cues DO reach the fine nodes** (of questions whose text carries a particle, the cue captures it 82%), so
+  this is not a cue-extraction artifact -- it is genuinely the weak learned order.
+- **Generalization gap:** dev 0.660 (vs SIM 0.476) but test 0.556 (vs SIM 0.551). The signal rides on dev; I do NOT
+  claim a capability on the strength of dev alone.
+- **The hierarchical fix failed a fair test:** backing off sparse fine premises to the dense verb-level flow
+  generated 3697 premises/scenario that *conflict with and drown* the 66 high-quality fine premises (0.515, below
+  SIM). The sparse fine premises are higher quality than a dense coarse order -- a real, if negative, finding.
+
+## What I did NOT establish
+- That the aligner lifts before/after **CI-separated over the floors** -- it does not, at n=301. This is a **located
+  near-positive**, not a pass.
+- That the **soft-AND product** is the mechanism -- refuted; the combination rule is secondary to the feature set.
+- Any capability on **test** (0.556 ~ SIM 0.551); the win is dev-concentrated.
+- That the residual **ORDERING** wall is solvable within the aligner's scope -- one brain-faithful attempt
+  (hierarchical backoff) failed; better canonical-order induction is a *different* problem (below).
+
+## What I would withdraw first if it turned out to be wrong
+The **end-to-end conjunctive-granularity lift (+0.06)** -- it is not CI-separated and is dev-driven. The
+isolated-probe findings (criterial-feature ablation +0.318, role-scramble +0.905, product-not-the-lever, antonym
+control) are rock-solid, large, CI-separated effects and would survive.
+
+## KEY REALIZATIONS (the enabling moves)
+1. **Refuting the brief was the halfway point, and measurement did it.** A power-mean sweep that makes the additive
+   info-free twin literally `p=1` and the soft-AND `p->0` on ONE continuous axis showed the product gives no lift --
+   so I stopped trying to tune the *combination rule* and looked at what actually separates.
+2. **Top-1 argmax is margin-blind; the isolated probe had to be stratified.** Additive and product both put the
+   target #1 (positive margin) on easy items; the soft-AND's larger margin only converts to accuracy under
+   adversarial competition. Stratifying by the particle-sibling structure, and adding the ablation + role-scramble,
+   is what turned a null aggregate into a decisive localization of the lever (the FEATURES, not the rule).
+3. **The real p6 bug was upstream of the kernel: the schema keyed nodes by verb only, collapsing get_in/get_out.**
+   The "40% mis-alignment" p6 attributed to a coarse cosine was dominated by that node collapse; making the ordering
+   node a conjunction is the fix, and it is a representation-level pattern separation, not a similarity-metric fix.
+4. **Antonyms break the grounded cosine.** in/out are grounded-SIMILAR (0.556); the criterial spatial opposite must
+   be a DISCRETE feature, not a graded cosine -- the drill predicted it and the data confirmed it.
+5. **Densifying a sparse ordering with coarse backoff HURTS** -- the few fine premises are higher quality than many
+   conflicting coarse ones. The brain's hierarchy is not "lift the coarse order onto every fine pair."
+
+## AUDIT UPDATE (for BRAIN_FOUNDATIONAL_AUDIT.md sec 2b)
+- **The before/after wall, re-localized again.** p6 localized it to "event-ALIGNMENT precision (coarse grounded
+  cosine)". This work REFINES that: at the clean type level, alignment is ~0.98-0.99 for any criterial-feature code;
+  p6's mis-alignment was dominated by the **verb-only schema node collapse** (get_in == get_out) plus real-cue noise.
+  After conjunctive event-TYPE granularity fixes the collapse, the dominant residual is the **weak learned ORDERING
+  signal** (committed 0.594; beats the shuffled-order twin only +0.069), NOT the aligner and NOT the alignment metric.
+- **The two-organs framing stands but the fix is different.** `bound_event_backbone` (exact-hash, over-separates) and
+  `content_addressable_retrieval` (additive, under-separates) do bracket the answer, but the operative fix is
+  **conjunctive event-TYPE identity + a discrete-particle role-structured code**, NOT a soft-AND PRODUCT kernel
+  (product ~= additive ~= coarse, measured). `transitive_ordering` reused UNCHANGED as the read-out (witnessed).
+
+## PROPOSED hdlab DIFF (Q111 -- NOT landed; NOT load-bearing yet, since it does not clear the end-to-end bar)
+1. **Conjunctive event-TYPE identity** for any script/ordering schema node: key by the role-filler conjunction
+   (verb, particle, patient) instead of the verb lemma, so pattern-separated events get distinct orderable nodes.
+   This is the validated lever (+0.06 end-to-end; the probe's ablation/scramble). Default-off, byte-identical when off.
+2. **A role-structured event aligner** (a thin composer over `bound_event_backbone`'s role-filler structure +
+   `content_addressable_retrieval`'s graded matching + grounded codes) with a **DISCRETE particle gate x
+   graded-robust content** match. NOTE the measured refinement: use the additive/gated form, NOT a uniform product.
+   Reuse `transitive_ordering` as the read-out unchanged.
+Hold landing until the ORDERING-signal problem (below) is solved -- as infrastructure it is inert without a stronger
+canonical order.
+
+## ADJACENT COMPONENTS evaluated (brain-fidelity + optimization -- seeds for the next problem)
+- **The learned canonical-ORDER induction (the real remaining wall).** Currently: majority-voted first-occurrence
+  precedence over ~12 narratives. Brain-fidelity: LOW -- the brain orders scripts by **causal/goal ENABLEMENT** and
+  many exposures (Baldassano/mPFC schema; enablement not mere temporal co-occurrence), not noisy told-order tallies.
+  Optimization potential: HIGH and it is the bottleneck (committed 0.594; twin +0.069). Candidate follow-on problem:
+  *learn canonical script order from causal/goal structure* (compose `goal_outcome_relation` / `consequence_learning_
+  loop` with the schema), which is where the ~0.59 -> ~0.70-0.80 headroom lives. This is OUT of the aligner's scope.
+- **Real-cue extraction of the particle from the QUESTION** is 82% when present -- adequate, not the wall; a live-reader
+  wire depends on p2 (the reader's own noisy extraction), so this aligner was tested on clean spaCy (as p6 did).
+- **transitive_ordering** as the read-out is brain-faithful (cognitive map; PINNED) and reused UNCHANGED -- correct.
+
+## TLDR (plain English)
+Our reader keeps getting "did X happen before or after Y" wrong because it confuses similar events like "get IN" and
+"get OUT of the shower". I built the brain's fix -- represent each event by its full package (action + the little
+direction word "in/out" + the object) and keep the pieces in their own slots -- and I proved, on 52,000 test cases,
+that this is exactly what tells similar events apart (remove the "in/out" and it collapses; scramble which piece is
+which and it collapses completely). But two of the brief's specific guesses turned out to be wrong, and I could prove
+it: (1) it does NOT matter whether you *multiply* the pieces or *add* them -- what matters is that the "in/out" is IN
+the package at all and kept as a distinct category (a plain "meaning-similarity" score can't tell "in" from "out"
+because opposites look alike to it); and (2) the real reason the reader was failing wasn't a fuzzy matcher -- it was
+that its memory of the recipe lumped "get in" and "get out" into one single step, so it literally couldn't put them
+in order. Giving each a separate step recovers the earlier near-miss (~0.59, and 0.66 on the dev set) and beats the
+old lumped version -- but it still doesn't cleanly beat the simple baselines, and I chased down exactly why: the
+last wall is that the reader's *learned order of the recipe steps* is weak (it learns order by watching a dozen
+stories, which tell the steps in messy order). Fixing that needs the brain's real trick -- ordering steps by cause
+and goal, not by how often one is mentioned before another -- which is a separate build. So: the "tell events apart"
+machine is built, brain-faithful, and validated; the brief's "multiply the pieces" idea was a red herring; and the
+true remaining bottleneck is now precisely located in a different component (how the recipe's order is learned).
+
+## QUESTIONS
+None for the owner.
+
+## NEXT STEPS
+1. **Open the real remaining problem: learn canonical script ORDER from CAUSAL/GOAL structure**, not noisy
+   told-order tallies (compose `goal_outcome_relation` / `consequence_learning_loop` with the schema; the ~0.59 ->
+   ~0.70-0.80 headroom lives here). This is where the end-to-end bar can actually be cleared.
+2. **Land the conjunctive event-TYPE identity** (verb, particle, patient) as default-off schema infrastructure once
+   (1) gives it a strong order to separate -- the validated, brain-faithful lever, inert without a good order.
+3. **A second temporal population** (another script/order benchmark) to test the dev/test generalization gap and
+   power the +0.06 granularity effect that is real-direction but underpowered at n=301.
