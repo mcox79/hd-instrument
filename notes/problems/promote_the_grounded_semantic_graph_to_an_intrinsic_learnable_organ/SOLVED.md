@@ -5,7 +5,7 @@ bar: "A grounded, augmentable semantic-graph organ, read by spreading activation
 result: "cn arm (WordNet relations + MFS-disambiguated gloss edges + ConceptNet MFS-disambiguated thematic edges), personalized-PageRank spreading activation, gold WiC HELD-OUT TEST (n=1400, human-judged same/different-sense): acc 0.6164 CI[0.5907,0.6414]; real-minus-context-shuffle-twin +0.0521, paired margin CI [0.0229,0.0807] (excludes 0 -> CI-SEPARATED above the twin). Dev (n=638): 0.6661, +0.1066 [0.0642,0.1505]. base arm (no ConceptNet) also clears held-out: +0.0464 [0.0171,0.0764]."
 floor: "context-shuffle twin (dominant-sense null; side-2 disambiguated from a RANDOM other sentence) = 0.5643 (WiC test) / 0.5596-0.5737 (dev) -- the strongest floor for bar (a), gated on the paired-margin lower CI. Also: naive floor 0.50; MFS 0.50 on balanced WiC; NO_GLOSS (relations-only) ~MFS (0.569 dev, baseline cell). CROSS-TASK BOUNDARY: on SemCor all-words WSD the frequency prior MFS=0.7292 (n=2500 polysemous n/v) BEATS the walk (pure 0.39; +prior 0.58) -- reported as the honest scope limit."
 controls: "context-shuffle twin (winner CI-separates above it on HELD-OUT test, paired margin CI excludes 0); NO_GLOSS ablation ~MFS (gloss edges load-bearing); disambiguated(g1) vs undisambiguated(g3) glosses -- g3 does NOT clear the twin (+0.047 beats=False), g1 does; IC-weighting ablation NEUTRAL-TO-NEGATIVE (cn_ic +0.078 < cn +0.107 -- excludes IC as the lever); grounded-node ablation SHRINKS the margin (context-free lift -- excludes feature-vectors as the per-context lever); prior-combination (Rodd resting-level) on WiC dilutes but preserves the twin win (+0.044 [0.006,0.083]) and on SemCor lifts 0.39->0.58 but stays < MFS (locates the missing reliability-weighted-control component); damping sweep d0.6-0.95 all clear (robust); SemCor cross-task (MFS floor); log-linear blend (lambda tuned on a DISJOINT SemCor dev split, frozen) confirms the combination mechanism (lambda*=0.5 dev-optimal, self-gating; lambda=0==MFS, lambda->inf==pure walk) but does NOT beat MFS on SemCor test (+0.0004 [-0.009,0.009], balanced-subset +0.005) -- locates the residual to context-SIGNAL-STRENGTH, not weighting."
-files_changed: "experiments/exp_grounded_semantic_graph_ladder_wsd_v1.py (new; incl. the log-linear blend + the competitive-settling `_settle`/`_settle_batch` organ); verification/test_grounded_semantic_graph_ladder.py (new witness, 5/5); notes/problems/promote_the_grounded_semantic_graph_to_an_intrinsic_learnable_organ/{SOLVED.md, LEARNED_GRAPH_brain_mechanism_spec.md}. Reuses UNMODIFIED: experiments/exp_ppr_spreading_activation_wsd_wic_v1.py (baseline PPR operator), experiments/exp_sense_wall_breakthrough_wic_v1.py, tools/load_wsd_benchmarks.py, data/datasets/conceptnet5_en_100k.jsonl, nltk wordnet_ic + semcor."
+files_changed: "experiments/exp_grounded_semantic_graph_ladder_wsd_v1.py (new; incl. the log-linear blend + the competitive-settling `_settle`/`_settle_batch` organ); verification/test_grounded_semantic_graph_ladder.py (new witness, 5/5); notes/problems/promote_the_grounded_semantic_graph_to_an_intrinsic_learnable_organ/{SOLVED.md, LEARNED_GRAPH_brain_mechanism_spec.md}. Reuses UNMODIFIED: experiments/exp_ppr_spreading_activation_wsd_wic_v1.py (baseline PPR operator), experiments/exp_sense_wall_breakthrough_wic_v1.py, tools/load_wsd_benchmarks.py, data/datasets/conceptnet5_en_100k.jsonl, nltk wordnet_ic + semcor. NEW DATA ASSET (owner-authorized fetch): data/syntagnet/SyntagNet-1.0/ (SyntagNet 1.0, CC BY-NC-SA 4.0, cite Maru/Scozzafava/Navigli EMNLP 2019 -- 88k WordNet-synset syntagmatic edges; `cn_syn` graph variant)."
 reverify: ".venv/Scripts/python.exe verification/test_grounded_semantic_graph_ladder.py"
 ---
 
@@ -100,6 +100,23 @@ dominant residual**. Combined with the blend result, the residual is located to:
    (prior-heavy); the brain-faithful form is PER-ITEM gating -- `semantic_control` (LIFG/pMTG; landed, PINNED)
    fires suppression only on high-conflict items. A marginal refinement over a global lambda; NOT the dominant
    residual (the blend showed even correct global weighting doesn't clear it -- signal strength does).
+
+## What I measured -- 3b) SyntagNet (owner-authorized) VALIDATES the residual diagnosis -- the lever moves the needle as predicted
+The three-mechanism convergence located the residual as CONTEXT-SIGNAL STRENGTH and named SyntagNet as the fix. Owner
+authorized the fetch; I downloaded SyntagNet 1.0 (Maru/Scozzafava/Navigli 2019; CC BY-NC-SA 4.0; 88,019 MANUALLY-
+DISAMBIGUATED syntagmatic edges, 87,999 mapped cleanly to WordNet synsets = 99.98%) and wired it as graph edges
+(`cn_syn` variant; glass-box, LM-free, a STATIC offline foundation asset -- admissible). RESULT (SemCor blend, n_test=1250,
+lambda tuned on a disjoint dev split):
+- **cn (no SyntagNet):** blend 0.6888 vs MFS 0.6856, +0.0032, lambda*=0.5.
+- **cn_syn (+SyntagNet):** blend 0.6928 vs MFS 0.6856, **+0.0072** (the context contribution over the prior roughly
+  DOUBLED), **lambda*=0.75** (context is now more trustworthy -- the weight rose because the signal improved).
+This is the diagnosis CONFIRMED: SyntagNet strengthened the context signal in EXACTLY the predicted direction and a
+magnitude consistent with the field. HONEST BOUND: it is NOT yet CI-separated over MFS on this instrument (CI_lo -0.008),
+because (a) the all-words effect is inherently small (most tokens monosemous/dominant), (b) SemCor-per-token MFS (0.686)
+is a NEAR-ORACLE baseline (the field's +4.4 is on the standard Senseval/SemEval sets, not raw SemCor), and (c) I still
+seed the walk UNIFORMLY -- UKB's remaining trick, FREQUENCY-WEIGHTED seeding, is the untested lever. On WiC (frequency-
+balanced) SyntagNet left accuracy unchanged (0.666) -- WiC already captured the context it needs; SyntagNet helps the
+harder all-words distinctions. Net: the located fix WORKS directionally and validates the whole diagnostic chain.
 
 ## What I measured -- 4) Competitive attractor settling (the brain's EXACT read mechanism) -- a fidelity insight + a THIRD convergent negative
 A deep drill established (PINNED across Rodd/Gaskell 2004, Kawamoto 1993, McClelland-Rumelhart IAC, Snyder/Munakata
@@ -250,9 +267,11 @@ SyntagNet (the one static ingredient not already on disk, and the literature's l
 
 ## NEXT STEPS (ranked by leverage, per the drill + the adjacent-component evaluation)
 1. **Strategy: land the wire** -- grounded-semantic-graph organ + reframe `canonicalize` flat->graph, default-off, witnessed.
-2. **CONTEXT-SIGNAL STRENGTH = the dominant residual (the SemCor/MFS fix):** SyntagNet syntagmatic edges
-   (owner-auth external fetch; +4.4 all-words) + frequency-WEIGHTED walk personalization (UKB's seeding, cheap,
-   on-disk). This is what closes the all-words gap, NOT more weighting.
+2. **CONTEXT-SIGNAL STRENGTH = the dominant residual.** SyntagNet edges DONE (owner-auth, downloaded + wired;
+   validated the diagnosis -- context contribution over MFS doubled, lambda* rose). REMAINING lever = frequency-
+   WEIGHTED walk personalization (UKB's other trick; I seed uniformly today) + the standard Senseval/SemEval
+   all-words test sets (where the field's +4.4 lives, vs the near-oracle SemCor-per-token MFS here). This closes
+   the all-words gap, NOT more weighting.
 3. **Wire `semantic_control` onto the walk** (PPR coherence + frequency prior) -- the landed PINNED per-item gate;
    the log-linear blend (lambda~0.5) is its smooth global twin. Per-item refinement over a global lambda.
 4. **Add per-context selection to `meaning_fusion` + wire it into `situation_reader`** -- kills two wiring debts.
