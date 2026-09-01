@@ -80,6 +80,31 @@ against the passage's stored events: POSITIVE (both attributes from the same rea
   card=1, card=2 AND card>=3; the marginal fails (0.000) at EVERY level -> the win is the binding, not a low-
   cardinality design leak. (n=290/48/22 LitBank; 3918/207/47 UD-EWT.)
 
+## DEEPENING (owner ask): cued event retrieval + the DG separation-vs-completion trade-off
+A coreferent mention rarely restates every attribute, so the brain-foundational test is CUED RETRIEVAL /
+pattern completion: recover the correct event from a DEGRADED mention (drop 1-2 attributes). Measured hit@1
+over uniquely-identifying partial cues (LitBank / UD-EWT):
+
+| arm | drop0 | drop1 | drop2 | what it shows |
+|---|---|---|---|---|
+| bound token (FHRR cleanup) | 1.00 / 1.00 | 1.00 / 1.00 | 1.00 / 1.00 | content-addressable; graceful; ties symbolic |
+| DG+CA3 episodic | 0.95 / 0.99 | 0.68 / 0.81 | 0.72 / 0.80 | under-completes partial cues (see below) |
+| **MARGINAL silo** | **0.004 / 0.010** | **0.004 / 0.010** | **0.004 / 0.010** | **chance (1/M): STRUCTURAL capability gap** |
+
+- **The silo is at chance at EVERY level** -- cued event retrieval is a capability class it LACKS entirely (it
+  has no per-event token to address), not merely a lower score. The JOINT enables a whole family of operations
+  (cued recall, pattern completion, "what did X do") the silo cannot do at all. This is a stronger statement
+  than the accept/reject gap and it is the operational reason reasoning (p6) needs the bound token.
+- **The bound token degrades gracefully** (1.00 at every drop) -- it is content-addressable, the neurally-
+  realizable property a passage-marginal list is not.
+- **HONEST FIDELITY NUANCE (a real wall, drilled):** the DG+CA3 episodic layer UNDER-completes very partial
+  cues (0.68-0.81) -- LOWER than the raw bound-token cleanup. This is the classic DG pattern-SEPARATION vs
+  pattern-COMPLETION tension (O'Reilly & McClelland 1994): DG amplifies input differences (which is exactly
+  WHY it holds the store flat to M=256 in the capacity curve), but that same amplification pushes a partial
+  cue's DG code away from the stored full-token code, hurting completion. The DG sparsity/expansion are
+  OUR-INVENTION parameters tuned for SEPARATION, not COMPLETION. **This is an adjacent-component optimization,
+  mapped as a follow-on**, not a failure of the assembly (the bound token itself completes at 1.00).
+
 ## KEY REALIZATIONS (the enabling moves)
 1. **A single passage-level superposition IS the marginal silo -- provably.** The flat register's readout for
    a probed conjunction (v1,v2) is LINEAR = count(events with r1=v1) + count(events with r2=v2), a function of
@@ -154,7 +179,15 @@ problem produces the evidence; the flip is a separate owner call and needs the w
 1. Strategy re-verifies (`verification/test_tiered_bound_event_token_coref.py`) and, if landing, adds the
    default-off `bind_event_tokens` flag + `hdlab/bound_event_backbone.py` per the proposed wire -- byte-
    identical when off.
-2. Follow-on problems (mapped, fidelity-assessed in the supporting note): ECB+ cross-document event-coref gold
-   (ecological validity); a downstream QA task that CONSUMES the bound token (features -> comprehension score);
-   train `slot_attention_wm` as the active register vs the deterministic multibank; sweep the n400 tau on real
-   event content for faithful segmentation.
+2. Follow-on problems (mapped, fidelity-assessed in the supporting note; ranked by leverage):
+   - **DG separation-vs-completion balance** (NEW, from the deepening): sweep DG sparsity/expansion + add CA3
+     recurrent-settle iterations so the episodic store COMPLETES partial cues (0.68->?) without losing the
+     capacity-scale separation. The brain balances these with distinct DG (separation) and CA3 recurrence
+     (completion); our params only tuned separation. High-value, concrete, adjacent.
+   - **Semantic fillers** (the corruption/paraphrase regime): bind SEMANTIC vectors (distributional meaning)
+     instead of random symbols, so a paraphrased/pronominal mention still matches -- the regime where the
+     bound token's graded similarity beats symbolic exact-match. Ties into `reader_meaning_channel`.
+   - ECB+ cross-document event-coref gold (ecological validity beyond constructed recombination probes).
+   - A downstream QA task that CONSUMES the bound token (features -> comprehension score, the p6 reasoning link).
+   - Train `slot_attention_wm` as the active register vs the deterministic multibank; sweep the n400 tau on
+     real event content for faithful segmentation (max segment 283/384 today).
