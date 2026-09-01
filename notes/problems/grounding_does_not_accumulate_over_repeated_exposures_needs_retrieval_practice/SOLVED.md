@@ -448,6 +448,20 @@ edges, a SIMPLIFIED UKB) does NOT decisively clear the twin at full scale. This 
 LESSON: I mistook a WEAK-IMPL (feature-cosine) failure for "LLM-gated" (WRONG -- graph diffusion beats it); AND
 the smoke (0.673) overstated the full number (0.618) -- believe full over smoke. Cell: `--self-test` PASS.
 
+**8f. THE CLOSER -- DISAMBIGUATED gloss edges CLEAR THE TWIN (mechanism-done-right; owner "do all").**
+`--gloss-compare` (full dev, WordNet++ with gloss_cap=1 MFS-disambiguated vs gloss_cap=3 undisambiguated):
+- undisambiguated (g3): 0.618, twin 0.571, real-twin +0.047, real>twin=FALSE (the marginal 8e result).
+- **MFS-DISAMBIGUATED (g1): 0.652 CI[0.614,0.690], twin 0.574, real-twin +0.078, real>twin=TRUE.**
+Disambiguating each gloss word to its MFS (1 clean edge, not top-3 noisy) both RAISES accuracy (+0.034) AND
+CI-SEPARATES above the context-shuffle twin -- the twin stays flat (0.574) while accuracy rises, so the +0.078
+is GENUINELY context-driven (uses THIS occurrence's context, not structural bias). **DECISIVE, HONEST VERDICT
+for the whole thread: "LLM-gated" is REFUTED -- the brain's actual mechanism (spreading activation over a
+relational graph), built PROPERLY (disambiguated glosses), reaches the field's knowledge-based-WSD level (~0.65
+vs LMMS 0.677 which NEEDS a live LLM) glass-box + LM-free, and CLEARS the strict twin baseline.** The
+augmentation ladder works: the FIRST rung (disambiguated glosses) already clears the bar; SyntagNet/ConceptNet/
+grounded-nodes/the learned graph (the #2/#3 Problem) are further rungs toward the ~0.72+ ceiling. Make g1
+(disambiguated) the default. Cell: `--self-test` PASS; `--gloss-compare --mode full` (~320s, graph cached).
+
 ## Adjacent-component evaluation (brain-foundational fidelity + opportunities, verified on disk)
 
 Per the standing rule to evaluate adjacent components (not just map them), to seed the next problems:
