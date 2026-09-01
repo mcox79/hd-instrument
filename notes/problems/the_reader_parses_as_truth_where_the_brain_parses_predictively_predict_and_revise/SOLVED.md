@@ -5,7 +5,7 @@ bar: "PASS = the predict-and-revise parse pass RECOVERS who-did-what (and the ar
 result: "A parse-RECALL pass that recovers the DROPPED patient the batch parse left empty ('?') — a structural coverage-violation trigger, recall-scoped (fill-a-drop or promote a PRE-VERBAL head; NO post-verbal re-selection) — RECOVERS who-did-what CI-separated over the strongest real floor on BOTH eras (who-did-what patient recall through the LIVE SituationReader.read(), scorer = pick==gold head, bootstrap CI by sentence cluster). MODERN QA-SRL v2 dev+test, n=2737 non-pronoun-gold patient items: the pass 0.5407 vs the wired parse-router 0.4808 = +0.0599 [+0.0395,+0.0889] (half 0.0247, frac<=0 0.000); on the positional floor 0.4417 vs 0.3858 = +0.0559 [+0.0350,+0.0827]. 19c LitBank narrative, n=5999: 0.2879 vs the (there-strongest) positional floor 0.2287 = +0.0592 [+0.0525,+0.0659] (half 0.0067, frac<=0 0.000). Gains localize to non-canonical constructions: QA-SRL passive 0.287->0.567, pre-verbal-gap 0.023->0.511; canonical recall PROTECTED 0.509->0.526. DRILLED: the entire gain is DROP-FILLING — firing on dropped patients ONLY (no surprisal reanalysis of committed picks) reaches 0.5433 (+0.0625 over wired, CI-sep) and TIES the surprisal-gated pass (gated-vs-dropped_only -0.0026 n.s.); the 391/704 surprisal-triggered revisions of COMMITTED picks add nothing (confirming p2's refuted re-selection from the recall side)."
 floor: "the batch parse-as-truth reader at equal inputs, BOTH routes actually run: positional-default (QA-SRL 0.3858 / LitBank 0.2287) and the stronger wired parse-router (QA-SRL 0.4808 / LitBank 0.1852). The pass beats WHICHEVER is stronger per era CI-separated (QA-SRL strongest = wired, beaten by +0.0599; LitBank strongest = positional because the modern-trained arc_parser DEGRADES on 19c prose, beaten by +0.0592). It also beats the OTHER floor in both eras."
 controls: "(1) info-free RANDOM-LOCI twin (fire at the same rate at random loci) LOSES CI-sep: QA-SRL +0.0442 [+0.0284,+0.0642], LitBank +0.0395 [+0.0343,+0.0448] = EXCLUDES 'any extra re-parsing at this rate helps' (firing on the DROPPED-slot events, not random ones, is what carries it). (2) info-free UNIFORM (random-vector) PRIOR twin LOSES CI-sep: QA-SRL +0.0325 [+0.0134,+0.0594], LitBank +0.0492 [+0.0426,+0.0558] = EXCLUDES 'any prior-shaped candidate scorer helps' (the fill TARGET uses real animacy/position). (3) revise-EVERYWHERE positive control: the recall-scoped pass BEATS revise-everywhere CI-sep (QA-SRL +0.0106 [+0.0040,+0.0173], LitBank +0.0083 [+0.0060,+0.0107]); it fires on only ~28-30% of eligible events = it does NOT fire everywhere (revising committed picks breaks as many as it fixes). (4) recall_only scope = no post-verbal re-selection (p2's REFUTED route) -> canonical recall PROTECTED, not eroded (QA-SRL 0.509->0.526). (5) DROP-FILL localisation (the decisive drill): firing on DROPPED patients ONLY (a purely STRUCTURAL trigger, NO surprisal) reaches 0.5433 and TIES the surprisal-gated pass (gated-vs-dropped_only -0.0026 [-0.0076,+0.0027] n.s.) while beating wired +0.0625 CI-sep = EXCLUDES 'the surprisal signal is needed for RECALL'; the 391/704 surprisal-triggered revisions of COMMITTED picks add nothing. (6) LOCATED-LEVER: a verb-SHUFFLED prior loses only slightly (QA-SRL +0.0142, LitBank +0.0022 n.s.) and a NO-PRIOR STRUCTURAL fill TIES on modern QA-SRL (+0.0026 n.s.) though the prior BEATS it on 19c prose (+0.0217 [+0.0129,+0.0307]) = the lever is the STRUCTURAL drop-fill; the VERB-SPECIFIC selectional prior is a MINOR cue (position carries modern recall; the prior adds only where the parser degrades)."
-files_changed: "experiments/exp_predict_revise_recall_v1.py (the mechanism + full control battery incl. the dropped-only DROP-FILL drill + sweep + LitBank); experiments/exp_predict_revise_recall_diagnostic_v1.py (the could-it-succeed recall decomposition + oracle headroom); experiments/_drill_animacy_fill_v1.py (the ANIMACY-vs-POSITION cue drill + scrambled-animacy twin); verification/test_predict_revise_recall.py (scaffold-free witness, 8/8); data/predict_revise_recall_v1/metrics.json + _population.json + _drill_dropped_only.json; data/predict_revise_recall_diagnostic_v1_smoke/. hdlab/ UNTOUCHED (Q111 — proposed default-off predict_revise flag stated below)."
+files_changed: "experiments/exp_predict_revise_recall_v1.py (the mechanism + full control battery incl. the dropped-only DROP-FILL drill + sweep + LitBank); experiments/exp_predict_revise_recall_diagnostic_v1.py (the could-it-succeed recall decomposition + oracle headroom); experiments/_drill_animacy_fill_v1.py (the ANIMACY-vs-POSITION cue drill + scrambled-animacy twin); experiments/_drill_ceiling_and_ambiguity_v1.py (drop-fill ceiling + animacy-under-position-conflict); experiments/_drill_agent_recall_v1.py (AGENT-role recall + why drop-fill is patient-specific); verification/test_predict_revise_recall.py (scaffold-free witness, 8/8); data/predict_revise_recall_v1/metrics.json + _population.json + _drill_dropped_only.json; data/predict_revise_recall_diagnostic_v1_smoke/. hdlab/ UNTOUCHED (Q111 — proposed default-off predict_revise flag stated below)."
 reverify: ".venv/Scripts/python.exe verification/test_predict_revise_recall.py"
 ---
 
@@ -130,6 +130,64 @@ proposed MECHANISM EMPHASIS (the prior + surprisal-gated reanalysis) is correcte
    and simplifies the landing to an asset-free structural pass. *A control that removes a candidate ingredient is
    worth more than one more arm that adds recall.*
 
+## FURTHER DRILLS (completeness push — every avenue I could think of, tested)
+- **DROP-FILL CEILING.** Of the 313 wired-dropped patients, the gold head IS a candidate in **313/313
+  (100%)** — so every drop is recoverable in principle; NONE is gold-absent. Position captures **0.553** of
+  them. So ~45% of recoverable drops are LEFT ON THE TABLE — the residual is NOT irreducible, it is a NAMED
+  buildable gap (below).
+- **ANIMACY SURFACES UNDER POSITION-CONFLICT (the Competition-Model cue-interaction).** Globally animacy ties
+  position (and its own scramble). But on the subset where position is ambiguous — drops with MIXED-animacy
+  candidates (n=80) — ANIMACY beats position **+0.088** (CI[-0.027,+0.211], frac<=0 0.095: ~90% of bootstraps
+  positive; underpowered at n=80), and the gold patient is genuinely inanimate in **82%** of those. This is
+  exactly the Competition-Model signature: the subordinate cue (animacy) surfaces precisely under dominant-cue
+  (word-order) CONFLICT. So the faithful fill is POSITION-primary with an ANIMACY tie-break under conflict; the
+  global "position wins" masks a real cue-interaction. (Small overall: ~+0.003, but brain-faithful and it
+  conveys the cue-integration benefit.)
+- **THE RESIDUAL 45% IS THE INTERFERENCE / INTERVENING-NP REGIME (literature-sharpened).** Position is a PROXY
+  that free-rides on English SVO (the structurally-correct filler is usually ALSO the nearest nominal), so it
+  fails precisely where an INTERVENING distractor NP sits between the true filler and the gap (Van Dyke &
+  McElree cue-based retrieval interference; Wagers & Phillips 2014). The brain resolves these by construction-
+  cued, case/grammatical-cue memory retrieval of the DISPLACED filler (the filled-gap effect; Crain & Fodor
+  1985; Stowe 1986), not by proximity. That is the concurrent `relcl filler-gap parser` problem — MAPPED, not
+  duplicated. A sharp follow-on drill (named below): does position's miss-rate scale with the COUNT of
+  intervening candidate nominals rather than raw token distance?
+- **AGENT recall (the 'who' half) — the mechanism structurally DOES NOT apply, and I measured why.** Non-pronoun
+  agent recall through the wired reader is 0.567 (n=826; 27% of agent gold is pronoun, excluded), but agents are
+  **DROPPED only 1.2%** of the time — because the positional rule looks PRE-verbal for the subject, which is
+  exactly where English agents sit. So there is almost nothing to drop-fill; agent errors are WRONG-BINDS (31%)
+  = p2's refuted re-selection territory (structural), and a nearest-pre-verbal fill recovers 0/10 dropped agents.
+  The drop-fill is thus specific to the role whose canonical position the parser MISSES (the pre-verbal patient);
+  this is a property of English structure, measured not assumed.
+- **precise_voice floor fairness — resolved by ENUMERATION (reading the code, not a search).** The reader's
+  `precise_voice` positional passive-swap is NOT in the live `_read_events` path; the WIRED floor already routes
+  passives through the parse (`_read_events_wired`, "ROUTER agent fixes passive/ditransitive"). So the +0.073
+  passive headroom is measured over the reader's actual passive-capable path — fair.
+
+## BRAIN-FUNCTION BENEFIT AUDIT (literature-grounded — what we replicate vs FORGO)
+A research drill (18 sources) grounds exactly which benefits of the brain's predictive / noisy-channel /
+revising comprehension function this pass conveys. It is NOT "all of them" — and honestly naming the gap is
+the point. The pass faithfully conveys the ONE benefit that lifts who-did-what recall; the rest are either
+inapplicable to this task, captured in a sibling organ, or a NAMED separate problem.
+
+| Brain-function benefit (theory) | This pass (sentence-local, position-primary + animacy-under-conflict drop-fill) |
+|---|---|
+| Recover a DROPPED argument via a DELETION-type edit (Levy 2008 noisy-channel; Gibson/Bergen/Piantadosi 2013). The Bayesian size principle makes deletion cheaper than insertion — which independently explains why the parser DROPS rather than mis-inserts. | **CONVEYS** — the core operation; matches the deletion>insertion asymmetry. |
+| Plausibility/world-knowledge-WEIGHTED posterior over candidate fillers (noisy-channel). | **MOSTLY FORGOES** — the grounded selectional prior loses globally; plausibility re-selection failed (p2). Reconciled: noisy-channel plausibility effects are TASK-DEPENDENT (Ryskin et al. 2018) — strong under explicit correction, weak in the implicit reading/coverage regime this pass probes. Stated as a DISCREPANCY, not glossed. |
+| Cue-validity / cue-cost integration: cheap DOMINANT cue first, costlier SUBORDINATE cue under CONFLICT (Bates & MacWhinney 1984; eADM Bornkessel-Schlesewsky). | **CONVEYS — the strongest match.** Global word-order dominance + conflict-subset animacy is a near-textbook replication; Weckerly & Kutas 1999 shows animacy intruding on English object-relatives precisely under non-canonical conflict. (Caveat: the classic paradigms test PRESENT NPs, not gap-filling — our extension is literature-CONSISTENT, not directly replicated; confidence ~0.45.) |
+| Construction-cued, structurally-licensed GAP identification + case/grammatical-cue retrieval of the displaced filler (Crain & Fodor 1985; Stowe 1986; Wagers & Phillips 2014). | **PARTIALLY** — finds the right SLOT (acts on parser-flagged drops) but resolves WHICH filler by a linear-position PROXY that free-rides on English SVO (the true filler is usually also nearest). Predicted to fail where INTERVENING distractor NPs sit between filler and gap (Van Dyke & McElree interference) — the literature-sharp characterization of our residual 45%. |
+| Online PREDICTIVE gap-positing before bottom-up confirmation; incrementality (Active Filler Strategy; filled-gap effect). | **FORGOES** — this is an offline post-parse pass, no real-time predictive timing. (The incremental parser is a separate organ / concurrent problem.) |
+| REANALYSIS / overwrite of an actively-wrong committed structure, limiting lingering misinterpretation (Ferreira 2003; Christianson et al. 2001; P600/LIFG). | **FORGOES — by design, correctly for THIS corpus.** Tested null; expected because a DROP is the parser correctly declining to commit (no false commitment to overwrite). Falsifiable prediction: reanalysis SHOULD show a benefit on a GARDEN-PATH-heavy corpus (reduced-relative / NP-S ambiguities) — a named follow-on, not a gap here. |
+| GRADED / distributional confidence over multiple parses -> cheap CROSS-SENTENCE reweighting + metacognitive comparison (MacDonald 1994; Kuperberg & Jaeger 2016). | **FORGOES** — a single discrete commit, sentence-local. This is the substrate's standing "discrete where the brain is graded" theme (a concurrent problem). |
+| Online-ADAPTIVE noise model tuned to local error statistics (Ryskin/Poppels/Gibson). | **FORGOES** — a fixed heuristic; no adaptation to genre/era error rates (relevant to the 19c degradation). |
+
+**Verdict on "fully brain-foundational / all benefits":** the pass is a FAITHFUL instantiation of the specific
+benefit it targets — noisy-channel DELETION-recovery of a dropped argument, resolved by the Competition-Model
+cue hierarchy (word-order dominant, animacy under conflict). It does NOT convey the broader function's other
+benefits (plausibility-weighted posterior, construction-cued retrieval, reanalysis, graded distribution,
+incrementality, adaptive noise) — and each of those is now NAMED with its owning theory and its status
+(inapplicable-here / sibling-organ / separate-problem). That IS the complete honest fidelity picture for a
+bounded who-did-what-RECALL problem; conveying the forgone benefits means building the named separate organs.
+
 ## Brain-fidelity labeling (PINNED vs OUR-INVENTION)
 - **PINNED (replicated / CONFIRMED):** noisy-channel comprehension = parse-as-EVIDENCE + a plausibility prior,
   NOT parse-as-truth (Levy 2008; Gibson 2013); the FILLED-GAP / active gap-filling reflex (Crain & Fodor 1985;
@@ -211,7 +269,19 @@ picks (p2's proven NEGATIVE, re-confirmed here) — the pass is DROP-FILL / reca
    lever (p2's Phase-1 meaning-supply build); the coarse grounded space cannot (confirmed here + p2's 4-way
    negative). Would help the drop-fill TARGET selection where position is ambiguous (multiple pre-verbal
    nominals), most on degraded parses / archaic prose.
-4. AGENT-role recall (agents are often pronouns the binder cannot bind) — cross-role generalization.
+4. AGENT-role recall — ANSWERED by the drill: agents are dropped only 1.2% (canonically pre-verbal, so the
+   positional rule catches them); the drop-fill is structurally patient-specific. Agent errors are wrong-binds
+   (re-selection territory, refuted). No cross-role generalization to build.
+5. **INTERVENING-NP interference test (literature-sharpened, HIGH value):** does the position fill's 45% miss
+   scale with the COUNT of candidate nominals between the true filler and the gap (Van Dyke & McElree; Wagers &
+   Phillips)? If yes, it converts "45% headroom" into "the residual is retrieval interference" and motivates the
+   construction-cued filler-gap resolver (the concurrent relcl problem) with a mechanism, not just a number.
+6. **Reanalysis on a GARDEN-PATH corpus (falsifiable):** the null reanalysis result here is expected for a
+   coverage-drop corpus; the literature (Ferreira 2003; Christianson 2001) predicts reanalysis SHOULD show a
+   CI-separated benefit on reduced-relative / NP-S garden-path items — worth a targeted test to EARN the claim
+   "reanalysis is task-specifically null, not universally null."
+7. GRADED / distributional drop-fill (keep alternatives for cross-sentence reweighting) — the substrate's
+   "discrete where the brain is graded" theme; a concurrent problem.
 
 ## TLDR (plain English)
 Our reader runs one grammar-parse of each sentence and trusts it, so when the thing being acted upon comes
