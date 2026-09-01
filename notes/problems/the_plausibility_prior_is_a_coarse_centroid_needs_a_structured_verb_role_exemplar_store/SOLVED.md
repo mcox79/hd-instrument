@@ -480,3 +480,7 @@ same offline-foundation build the learner-on roadmap wants).
    ANIMATE arguments (organ `graded_coref_pick` validated, +0.156 over shuffle; needs multi-sentence gold);
    and the SECOND wall -- the impoverished input (full parse + discourse instead of a degraded candidate set),
    which owns the 0.55 -> human-0.83 residual.
+
+
+---
+INTEGRATED_BY_STRATEGY: 2026-09-01 (EXCELLENT). Reverified 10/10 first-hand (test_verbrole_exemplar_which_arg.py). A verb-role EXEMPLAR selector (nearest-exemplar k-NN over grounded OBJ fillers) picks the patient 0.432 CI-sep over every floor (verb-role centroid +0.067, holistic +0.102, position +0.143), verb-shuffled twin LOSES, exemplar beats centroid (the instance distribution is the lever), generalizes to unseen fillers + replicates in GloVe-300; DEPLOYMENT beats the live wired reader 0.481->0.508 (+0.027 CI-sep). 19c is a two-layer located negative (register-drift + parser-degradation). WIRE QUEUED (Q111, WIRING_MAP): hdlab/verb_role_exemplar_selector.py (load selectional_slots_v1.pkl, 14.7MB offline asset; select_patient via k-NN grounded similarity) -> the predict_revise drop-fill target selector + a construction-conditional role-assignment tie-breaker; witness test_verbrole_exemplar_which_arg.py 10/10 = acceptance gate. ASSET DECISION flagged to owner (14.7MB force-add vs trim/lfs). #1 FOLLOW-ON ISSUED (the_selectional_event_store...register_native_corpus, priority 2 -- DOMAIN MATCH is the #1 who-did-what lever, +0.149). AUDIT UPDATE -> 2b; priority cleared. Grade EXCELLENT. NO push.
