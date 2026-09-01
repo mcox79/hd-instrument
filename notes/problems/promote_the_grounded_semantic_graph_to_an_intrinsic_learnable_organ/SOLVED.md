@@ -278,6 +278,34 @@ Evaluated the organs the graph would touch (not map-only), to seed the next prob
   - (Honesty note: an early PARTIAL run suggested learned +0.097 > base; the completed shuffle-twin control reversed it
     -- the control was decisive, exactly as designed.)
 
+## BRAIN-FOUNDATIONAL COMPLETENESS -- benefits CAPTURED vs DISCARDED (owner Q, the deepest gap)
+Honest: the MECHANISM is brain-faithful (grounded relational graph read by spreading activation, settling with a
+prior; competitive-attractor + semantic-control understood), but the READOUT is NARROW -- we argmax over the target's
+senses and DISCARD the settled activation state, which IS the brain's contextual meaning representation. So we convey
+the sense-ID SLICE of the brain's meaning function and throw away most of its value for a reading/reasoning brain:
+- **Settled state as a graded, context-shaded meaning vector** (Rodd continuous space) -- computed then DISCARDED
+  (we keep only the argmax label). THE biggest miss: that vector is the input comprehension/reasoning should consume.
+- **Predictive pre-activation** (Kuperberg) -- not exploited (walk is reactive, not anticipatory).
+- **Composition / binding** into phrase/sentence meaning (the situation model) -- not exploited (per-word only).
+- **Inference over the network** (spreading activation reaches IMPLIED concepts: commonsense, bridging, gap-fill) --
+  used only to ID a sense, not to infer.
+- **Grounding -> mental SIMULATION + OOV generalization** -- barely (Binder nodes gave only a context-free lift).
+- **Bidirectional constraint** (word disambiguates context AND vice versa, iteratively) -- one-directional only.
+THE FIX (ranked opportunities to learn+exploit): (1) STOP DISCARDING THE SETTLED STATE -- feed the diffusion vector to
+`situation_reader`/composition/inference; WSD becomes a diagnostic, the settled meaning is the product (this ALSO wires
+the audit's "meaning organs are unwired islands" gap). (2) inference substrate (commonsense bridging/prediction).
+(3) predictive pre-activation. (4) iterative bidirectional settling. (5) grounded simulation for OOV. NET: the WSD win
+validates the mechanism landed in the right basin; the brain's FULL benefit needs the settled representation wired into
+downstream cognition -- the meaning organ's real job is "produce the contextual meaning the reader consumes," not "emit a synset."
+- **TESTED opportunity #1 on WiC (settled-distribution similarity readout vs discrete argmax):** dev showed +0.024, but
+  HELD-OUT (dev-tuned tau -> WiC test, n=1400) = +0.0000 (argmax 0.6414 == settled 0.6414; the dev gain was tau-overfitting,
+  CAUGHT by the held-out check). HONEST + SHARPENING: WiC same/diff is a BINARY, argmax-EQUIVALENT task ("do the top senses
+  match?"), so a single-threshold graded readout CANNOT beat argmax on it -- WiC cannot reveal the settled state's value.
+  Its value is GRADED (relatedness, composition, inference, the situation model), which requires the DOWNSTREAM pipeline,
+  not a WiC readout tweak. So the settled-state opportunity is VALID but must be demonstrated on a graded/compositional
+  task (or wired into `situation_reader`), NOT on WiC. This is the real integration + the reason the meaning organ must
+  produce a REPRESENTATION, not a label.
+
 ## What I did NOT establish / would withdraw first
 - **[RESOLVED 3c] Task-general WSD above MFS IS now established -- on the FIELD-STANDARD eval.** (Earlier this said
   "not established" from SemCor-per-token; that was a near-oracle-MFS artifact. On Raganato ALL our glass-box beats
