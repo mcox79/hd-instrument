@@ -28,6 +28,12 @@ quality; WordNet defines paraphrases INDEPENDENTLY of both spaces -> not circula
   distributional      -- PPMI-SVD verb vectors from UD-EWT (~0.29 smoke, coverage-limited at smoke scale).
   fusion_g11_distrib  -- z-concat of the two spokes (~0.44 smoke -> beats either alone).
 
-REMOTE-SAFETY: module imports only numpy/torch/csv/json/math (NO spaCy, NO nltk at run time). The
-WordNet-dependent instances are pre-built LOCALLY and shipped as instances.json (a KB_REFERENT); the cell
-LOADS the cache and never parses. Full run defaults ON when invoked bare (smoke only under --smoke).
+REMOTE-SAFETY: module imports only numpy/torch/csv/json/math (NO spaCy, NO nltk, NO experiments.*, NO hdlab
+at run time -- verified clean). The WordNet-dependent instances are pre-built LOCALLY (experiments/
+_build_fusion_instances.py) and shipped as instances.json (a KB_REFERENT); the cell LOADS the cache and never
+parses. Full run defaults ON when invoked bare (smoke only under --smoke).
+
+RE-TRIGGER 2026-09-01: fixed the two prior rejections -- (1) queue line had an inline comment (removed);
+(2) --self-test exceeded 300s (now a TINY distributional build: --self-test 4s, --smoke 3s, both GREEN). The
+cell no longer imports any spaCy-closure module. The earlier queue_add.sh rc=1 coincided with the local-box
+reset; re-dispatching.
