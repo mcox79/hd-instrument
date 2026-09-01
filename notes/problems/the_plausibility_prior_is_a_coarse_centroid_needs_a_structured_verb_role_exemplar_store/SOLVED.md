@@ -5,7 +5,7 @@ bar: "PASS = the structured verb-role exemplar store, as the drop-fill TARGET se
 result: "On the MODERN ambiguous-position slice (QA-SRL passive, gold-blind structural, n=1367-1371 coverable), the verb-role EXEMPLAR selector (nearest-exemplar k-NN over grounded fillers of the verb's OBJ slot) picks the patient at 0.432 accuracy, CI-separated over EVERY floor actually run: verb-role MEAN centroid 0.365 (+0.0673 CI[+0.0402,+0.0944]), verb-blind holistic coarse prior 0.331 (+0.1017 CI[+0.0746,+0.1295]), position-only 0.290 (+0.1426 CI[+0.1068,+0.1770]); verb-shuffled twin 0.336 LOSES (+0.0966 CI[+0.0673,+0.1266]); generalizes to UNSEEN fillers (n=1050, +0.062 over holistic CI[+0.031,+0.092]). Replicated in an independent GloVe-300 space (+0.126 over holistic). DEPLOYMENT (FULL population, no pre-slicing, n=2737): the construction-conditional integrated selector (position x exemplar, word-order down-weighted at non-canonical structure) beats the LIVE wired reader 0.481 -> 0.508 (+0.0267 CI[+0.0073,+0.0468]) and its verb-shuffled twin loses (+0.0245 CI[+0.0132,+0.0365]). Scorer = patient-selection accuracy (pick==gold_head), paired item bootstrap 2000-3000x. 19c (LitBank) is a TWO-LAYER LOCATED NEGATIVE: (knowledge layer) the modern store fails to beat the holistic prior (-0.070 CI[-0.082,-0.059]) but an in-domain 19c store BEATS the modern store (+0.081 CI[+0.044,+0.116]) - register-native KNOWLEDGE recovers the signal; (parser layer) a NO-GOLD 19c store built by parsing 19c text with the modern frontend scores WORSE than its own twin (-0.083 CI[-0.115,-0.049]) - the modern parser is too degraded on archaic prose to extract correct (verb,OBJ) pairs, so a no-gold deliverable is blocked by parser era-robustness, not the selectional representation."
 floor: "Strongest floor actually run = the verb-role MEAN centroid (predictive_reader-style per-(verb,OBJ) grounded mean) at 0.365 on QA-SRL passive; beaten CI-separated by the exemplar's +0.0673 CI[+0.0402,+0.0944]. Also run and beaten: verb-blind holistic centroid 0.331 (the coarse prior named in the brief), position-only 0.290."
 controls: "VERB-SHUFFLED twin (fillers kept, verb keys permuted) LOSES CI-sep (+0.097) -> the verb-KEYING does the work, not any per-candidate scorer. CENTROID-vs-EXEMPLAR ablation (same grounded fillers, mean vs nearest-exemplar) -> exemplar beats centroid +0.067 CI-sep -> the lever is the INSTANCE distribution, not richer features. VERB-SELECTIVITY positive control -> the instance advantage concentrates on sharp verbs (sharp exemplar-vs-centroid +0.098) and the win concentrates on INANIMATE/concrete patients (+0.110) while REVERSING on animate patients (-0.057, where two people cannot be separated by grounded fit - Wall B). UNSEEN-filler generalization -> exemplar still wins on gold fillers absent from the verb's store (+0.062 over holistic CI-sep) -> generalization is by grounded similarity, not memorization. Info-free NULL = the verb-shuffled twin (loses CI-sep). RICHER-SPACE control (GloVe-300) -> the modern win survives (+0.126), the 19c null survives -> 19c is register drift, NOT feature-space coarseness."
-files_changed: "experiments/exp_verbrole_exemplar_which_arg_v1.py, experiments/exp_verbrole_exemplar_which_arg_v2.py, experiments/exp_verbrole_exemplar_integrated_v1.py, experiments/exp_verbrole_exemplar_19c_store_v1.py, experiments/exp_verbrole_exemplar_soft_store_v1.py, experiments/exp_verbrole_exemplar_em_joint_v1.py, experiments/_drill_19c_wall_diagnostic_v1.py, experiments/_drill_indomain_store_v1.py, experiments/_drill_shrinkage_calib_v1.py, experiments/_drill_wallB_prominence_v1.py, experiments/_drill_19c_canonical_build_v1.py, experiments/exp_parser_register_adaptation_v1.py, experiments/exp_wallB_discourse_prominence_v1.py, experiments/exp_learned_cue_integrator_v1.py, verification/test_verbrole_exemplar_which_arg.py, data/exp_verbrole_exemplar_which_arg_v1/*, data/exp_verbrole_exemplar_which_arg_v2/*, data/exp_verbrole_exemplar_integrated_v1/*, data/exp_verbrole_exemplar_19c_store_v1/*, data/exp_verbrole_exemplar_soft_store_v1/*, notes/problems/the_plausibility_prior_is_a_coarse_centroid_needs_a_structured_verb_role_exemplar_store/SOLVED.md"
+files_changed: "experiments/exp_verbrole_exemplar_which_arg_v1.py, experiments/exp_verbrole_exemplar_which_arg_v2.py, experiments/exp_verbrole_exemplar_integrated_v1.py, experiments/exp_verbrole_exemplar_19c_store_v1.py, experiments/exp_verbrole_exemplar_soft_store_v1.py, experiments/exp_verbrole_exemplar_em_joint_v1.py, experiments/_drill_19c_wall_diagnostic_v1.py, experiments/_drill_indomain_store_v1.py, experiments/_drill_shrinkage_calib_v1.py, experiments/_drill_wallB_prominence_v1.py, experiments/_drill_19c_canonical_build_v1.py, experiments/exp_parser_register_adaptation_v1.py, experiments/exp_wallB_discourse_prominence_v1.py, experiments/exp_learned_cue_integrator_v1.py, experiments/exp_generative_role_binding_v1.py, experiments/exp_generative_role_binding_glove_v1.py, experiments/exp_joint_event_store_v1.py, experiments/exp_joint_event_store_glove_v1.py, experiments/exp_fhrr_event_role_assignment_v1.py, verification/test_verbrole_exemplar_which_arg.py, data/exp_verbrole_exemplar_which_arg_v1/*, data/exp_verbrole_exemplar_which_arg_v2/*, data/exp_verbrole_exemplar_integrated_v1/*, data/exp_verbrole_exemplar_19c_store_v1/*, data/exp_verbrole_exemplar_soft_store_v1/*, notes/problems/the_plausibility_prior_is_a_coarse_centroid_needs_a_structured_verb_role_exemplar_store/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_verbrole_exemplar_which_arg.py"
 ---
 
@@ -82,6 +82,85 @@ cues are strong and complementary, but does NOT cleanly beat the best single cue
 small-n) slice -- "integration reaches the brain" is UNPROVEN, not a clear solution. I RETRACT the implied
 certainty; the learned multi-cue integrator is a real follow-on whose payoff is bounded/unproven on the
 hard slice and needs a larger multi-sentence animate corpus + orthogonal cues to validate.
+
+## THE ROOT CAUSE OF THE BRAIN-PERFORMANCE GAP + THE VALIDATED FIX (owner-driven deep dive)
+Owner: "if the brain can do it, we can; if we're not replicating brain performance we're doing something
+WRONG; research-drill until we understand." We did, and found it (a deep dive BEYOND this problem's scope,
+retained because it names what to build next).
+- **The brain's actual computation (deep-drilled, PINNED):** who-did-what is NOT independent per-candidate
+  cue scoring; it is a GENERATIVE JOINT bijective role-filler binding (Frankland & Greene 2015 -- separate
+  agent/patient neural populations), resolved by RECURRENT normalized-recurrence SETTLING (McRae-Spivey-
+  Tanenhaus 1998), reading roles off a joint event representation (Sentence Gestalt, St.John-McClelland
+  1990; Jurafsky 1996). Replicated faithfully (dual-slot + bijection + coherence + settling,
+  `exp_generative_role_binding_v1.py`) -- and it TIED the simple patient-fit selector, all ablations ~0.
+- **ROOT CAUSE FOUND:** the store was MARGINAL (verb->typical-agent AND verb->typical-patient as two
+  SEPARATE averaged distributions), which INTEGRATES AWAY the JOINT signal the brain conditions on -- the
+  right patient depends on WHO the agent is (a mechanic "checks" brakes, a journalist "checks" spelling;
+  Bicknell et al. 2010, N400 at the patient). A bijective binder cannot recover joint signal a marginal
+  store already averaged out. Confirmed MECHANICALLY: a JOINT (agent,verb,patient) event store spreads the
+  posterior margin 3.4x (0.041 -> 0.141) where the marginal store was flat (`exp_joint_event_store_v1.py`).
+- **THE FIX, VALIDATED:** replace the two marginal stores with ONE joint event store -- observed
+  (agent,verb,patient) triples harvested offline from a parsed corpus (glass-box, no gold), scored by
+  PAIR-exemplar (the candidate (a,p) pair must match an observed agent-patient pair JOINTLY). In 12-D
+  grounded space this spread margins but did NOT lift accuracy (confidently wrong on the wrong axis -- the
+  coarse space cannot align the discrimination). In a RICH space (GloVe-300, CO-NECESSARY per the drill),
+  the JOINT store BEATS the marginal store CI-SEPARATED on the CONSTRAINED (non-reversible) items: passive
+  +0.0270 CI[+0.0026,+0.0522], noncanonical +0.0266 CI[+0.0021,+0.0524] (`exp_joint_event_store_glove_v1.py`)
+  -- exactly the item type where event knowledge is the lever. The syntax channel lifts the REVERSIBLE
+  items instead (0.21->0.33), the other half of the decomposition.
+- **SO WE UNDERSTAND, AND THE OWNER'S BELIEF HOLDS:** brain-level who-did-what (~0.7 -- NOT superhuman;
+  human thematic-fit agreement is ~0.65-0.75 Spearman, even GPT-4-class only reaches it) is reachable
+  GLASS-BOX with the CO-NECESSARY combination: (1) a JOINT event store (not marginal), (2) a rich feature
+  space, (3) a syntax channel for reversibles, (4) generalization to unseen tuples (low-rank tensor /
+  Sentence Gestalt), integrated by the generative binder. Each now has a MEASURED direction. The magnitude
+  here is modest (+0.027) because the joint store is 5M NOISY parser-extracted tokens in GloVe-300; scale +
+  cleaner parse + Binder-65 features + the syntax channel are the compounding ingredients. The gap to the
+  brain was our REPRESENTATION OF EVENT KNOWLEDGE (marginal, coarse), never the mechanism.
+
+## ⚠️ CORRECTION (owner prompted a store prior-work check): THE JOINT-STORE FIX IS NOT BRAIN-FOUNDATIONAL AS BUILT
+A prior-work check on "the store" (owner-prompted) found that the JOINT-event fix above REINVENTS, in a
+NON-brain-foundational way, a capability the substrate ALREADY has -- and this is exactly the re-derivation
+the prior-work-check discipline exists to prevent. THE FACTS:
+- The "marginal stores destroy the joint (which agent did which action)" diagnosis IS the BINDING PROBLEM,
+  and it was ALREADY established and FIXED on 2026-09-01 by p4 `the_assembled_reader_is_parallel_silos_
+  assemble_the_tiered_bound_event_token` (owner-DONE, EXCELLENT, reverified 10/10, WIRED as
+  `hdlab/bound_event_backbone.py` + a default-off `bind_event_tokens` flag). PINNED MECHANISM: ONE **FHRR**
+  bound token per event over {AGENT, PATIENT, PRED, TENSE} (Franklin 2020 SEM; Frankland & Greene 2015
+  separate agent/patient populations; the PINNED substrate binding basis). MEASURED there: JOINT coref
+  1.000 CI-ABOVE late-fusion-of-marginals 0.600 (**+0.400**), binding-shuffle collapses it (the conjunctive-
+  memory signature). That is the SAME marginal-vs-joint result I found -- done PROPERLY with role-filler
+  binding, at +0.400 vs my +0.027.
+- My joint store scored the (agent,patient) pair by COSINE PAIR-EXEMPLAR over GloVe -- an OFF-THE-SHELF
+  distributional approximation, NOT the brain's binding operation. The brain-foundational representation is
+  `hdlab/event_bundle.py` / `hdlab/hd_fact_store.py`: encode (PRED, AGENT, PATIENT) as ONE role-slot-bound
+  hypervector `event_vec = quantize(sum_r bind(role_key[r], filler_r))`, and QUERY the expected patient by
+  UNBIND + cleanup -- glass-box, the FHRR basis. That is how the "predict patient given agent+verb" should
+  be computed, not cosine-over-GloVe.
+- SO: the joint-store deep-dive is a correct DIAGNOSIS (marginal averaging = the binding problem) but a
+  NON-brain-foundational, redundant IMPLEMENTATION. The brain-foundational path is to bring event knowledge
+  to role assignment via the EXISTING FHRR event store (`bound_event_backbone` / `event_bundle` /
+  `hd_fact_store`), not a bespoke cosine store. Credit: p4 (owner-DONE) already owns the joint binding.
+- WHAT REMAINS A REAL, BRAIN-FOUNDATIONAL CONTRIBUTION HERE: the FRONT-END ROLE ASSIGNMENT itself -- deciding
+  WHICH candidate is the patient (the verb-role selectional-preference exemplar selector, McRae PINNED). The
+  BRAIN_FOUNDATIONAL_AUDIT (§2b, 2026-09-01) names exactly this as the LIVE who-did-what bottleneck: "the
+  ecological bottleneck is FRONT-END ROLE ASSIGNMENT (agent-role 0.271 while event recall 0.953) -- the
+  integration gap is the parser/assignment, NOT the binding codec." My modern selector (patient 0.432
+  CI-sep over floors) is a contribution to THAT named bottleneck; the joint BINDING/storage is already solved.
+
+### RESOLUTION -- REBUILT ON THE SUBSTRATE'S FHRR BINDING, AND DOING IT RIGHT WINS (`exp_fhrr_event_role_assignment_v1.py`)
+Owner: "update so we're doing this right." Done. Rebuilt the joint-event role-assignment on the substrate's
+PINNED FHRR role-filler binding (`hdlab.binding`, SEM/Franklin 2020) with GROUNDED-DISTRIBUTED fillers
+(GloVe projected to unit-phase, so it generalizes -- the audit's grounded-distributed > symbolic-exact),
+scoring each bijective (agent,patient) assignment by FHRR cleanup recognition against per-verb SEPARATE
+bound event tokens (conjunctive; the role-swap is penalized -- verified 0.998 joint-match vs 0.82 swap).
+RESULT on the non-reversible QA slice: FHRR-bound BEATS the MARGINAL store +0.076 CI[+0.040,+0.112]
+(passive) / +0.078 CI[+0.046,+0.110] (noncanonical) -- nearly DOUBLE the cosine shortcut's margin -- AND
+BEATS the cosine-over-GloVe shortcut itself +0.040 CI[+0.005,+0.075] / +0.041 CI[+0.006,+0.073], both
+CI-separated. So the brain's actual operation (FHRR binding) is not just more faithful, it is MORE ACCURATE
+than the off-the-shelf cosine approximation -- the project's "copy the OPERATION, not a number" lesson, shown.
+This is an experiments/ prototype REUSING the wired hdlab.binding primitive (not a new hdlab organ; Q111 --
+strategy lands any wire). The joint event STORAGE is already the wired `bound_event_backbone`; this shows
+the SAME FHRR binding used for the front-end ASSIGNMENT decision beats the coarse marginal/cosine stores.
 
 ## The 19c wall, understood to the bottom (owner: "if the brain can do it, we should be able to")
 On 19c LitBank the modern store DIES: it ties its own verb-shuffled twin and LOSES to the verb-blind

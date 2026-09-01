@@ -4,7 +4,7 @@ status: SOLVED
 bar: "A grounded, augmentable semantic-graph organ, read by spreading activation, that (a) CI-SEPARATES above the MFS-AGREEMENT / context-shuffle-twin baseline on gold WSD/WiC (NOT just the naive floor -- the floor over-credits dominant-sense), OR (b) if it cannot, LOCATES the residual as the WordNet<->task GRANULARITY/COVERAGE gap (foundation, not algorithm) with the evidence -- and in EITHER case reframes the reader's grounding write-path from a flat store to the graph."
 result: "cn arm (WordNet relations + MFS-disambiguated gloss edges + ConceptNet MFS-disambiguated thematic edges), personalized-PageRank spreading activation, gold WiC HELD-OUT TEST (n=1400, human-judged same/different-sense): acc 0.6164 CI[0.5907,0.6414]; real-minus-context-shuffle-twin +0.0521, paired margin CI [0.0229,0.0807] (excludes 0 -> CI-SEPARATED above the twin). Dev (n=638): 0.6661, +0.1066 [0.0642,0.1505]. base arm (no ConceptNet) also clears held-out: +0.0464 [0.0171,0.0764]."
 floor: "context-shuffle twin (dominant-sense null; side-2 disambiguated from a RANDOM other sentence) = 0.5643 (WiC test) / 0.5596-0.5737 (dev) -- the strongest floor for bar (a), gated on the paired-margin lower CI. Also: naive floor 0.50; MFS 0.50 on balanced WiC; NO_GLOSS (relations-only) ~MFS (0.569 dev, baseline cell). CROSS-TASK BOUNDARY: on SemCor all-words WSD the frequency prior MFS=0.7292 (n=2500 polysemous n/v) BEATS the walk (pure 0.39; +prior 0.58) -- reported as the honest scope limit."
-controls: "context-shuffle twin (winner CI-separates above it on HELD-OUT test, paired margin CI excludes 0); NO_GLOSS ablation ~MFS (gloss edges load-bearing); disambiguated(g1) vs undisambiguated(g3) glosses -- g3 does NOT clear the twin (+0.047 beats=False), g1 does; IC-weighting ablation NEUTRAL-TO-NEGATIVE (cn_ic +0.078 < cn +0.107 -- excludes IC as the lever); grounded-node ablation SHRINKS the margin (context-free lift -- excludes feature-vectors as the per-context lever); prior-combination (Rodd resting-level) on WiC dilutes but preserves the twin win (+0.044 [0.006,0.083]) and on SemCor lifts 0.39->0.58 but stays < MFS (locates the missing reliability-weighted-control component); damping sweep d0.6-0.95 all clear (robust); SemCor cross-task (MFS floor)."
+controls: "context-shuffle twin (winner CI-separates above it on HELD-OUT test, paired margin CI excludes 0); NO_GLOSS ablation ~MFS (gloss edges load-bearing); disambiguated(g1) vs undisambiguated(g3) glosses -- g3 does NOT clear the twin (+0.047 beats=False), g1 does; IC-weighting ablation NEUTRAL-TO-NEGATIVE (cn_ic +0.078 < cn +0.107 -- excludes IC as the lever); grounded-node ablation SHRINKS the margin (context-free lift -- excludes feature-vectors as the per-context lever); prior-combination (Rodd resting-level) on WiC dilutes but preserves the twin win (+0.044 [0.006,0.083]) and on SemCor lifts 0.39->0.58 but stays < MFS (locates the missing reliability-weighted-control component); damping sweep d0.6-0.95 all clear (robust); SemCor cross-task (MFS floor); log-linear blend (lambda tuned on a DISJOINT SemCor dev split, frozen) confirms the combination mechanism (lambda*=0.5 dev-optimal, self-gating; lambda=0==MFS, lambda->inf==pure walk) but does NOT beat MFS on SemCor test (+0.0004 [-0.009,0.009], balanced-subset +0.005) -- locates the residual to context-SIGNAL-STRENGTH, not weighting."
 files_changed: "experiments/exp_grounded_semantic_graph_ladder_wsd_v1.py (new); verification/test_grounded_semantic_graph_ladder.py (new witness, 5/5); notes/problems/promote_the_grounded_semantic_graph_to_an_intrinsic_learnable_organ/SOLVED.md. Reuses UNMODIFIED: experiments/exp_ppr_spreading_activation_wsd_wic_v1.py (baseline PPR operator), experiments/exp_sense_wall_breakthrough_wic_v1.py, tools/load_wsd_benchmarks.py, data/datasets/conceptnet5_en_100k.jsonl, nltk wordnet_ic + semcor."
 reverify: ".venv/Scripts/python.exe verification/test_grounded_semantic_graph_ladder.py"
 ---
@@ -61,25 +61,45 @@ SemCor-derived, so MFS is near-oracle here -- reported with that caveat):
 | **+ resting-level prior (base)** | **0.579** | -0.150 | NO |
 | + resting-level prior (cn) | 0.577 | -0.152 | NO |
 
-**The pure walk LOSES to the frequency prior on all-words WSD** -- decisively. Adding the resting-level prior
-lifts it 0.39 -> 0.58 (+0.19) but, at equal z-weight, context still DRAGS the pick off MFS (0.73). This does
-NOT contradict the WiC win: WiC's context-shuffle twin controls for frequency, so WiC measures PURE
-per-context signal (which is real, +0.05 held-out); SemCor's MFS floor is the frequency prior itself. The two
-golds together locate the gap precisely (below).
+**The pure walk LOSES to the frequency prior on all-words WSD** -- decisively. This does NOT contradict the WiC
+win: WiC's context-shuffle twin controls for frequency, so WiC measures PURE per-context signal (real, +0.05
+held-out); SemCor's MFS floor IS the frequency prior. UKB's own prior-free walk loses to MFS by the same 7-8
+points (drill; Agirre et al. 2018). The fix is the field recipe -- the log-linear blend, below.
 
-## Locating the residual (bar (b)) -- the brief's guess is REFUTED; two better-located components
+## What I measured -- 3) The log-linear blend (the drill's decisive recipe) -- combination SOLVED, residual REFINED
+A research drill (semantic-control neuroscience + the UKB/SyntagRank WSD literature) returned one convergent
+mechanism: `score(s) = log P_freq(s) + lambda * log PPR(s)` -- the field's UKB linear-combination AND the
+brain's ambiguity gate (a peaked prior needs a confident walk to override = subordinate-bias; a flat prior lets
+context decide). One parameter, self-gating. I tuned lambda on a DISJOINT SemCor dev split, froze it, and
+scored a held-out SemCor test (cn graph, n=2500 each):
+- **Combination CONFIRMED correct**: dev grid peaks at lambda*=0.5 (lambda=0 -> MFS 0.683; 0.687 at 0.5; falls
+  to 0.56 at lambda=5), and the sanity checks hold (lambda=0 == MFS; lambda->inf == pure walk 0.398).
+- **But the blend does NOT beat MFS on SemCor test**: 0.6908 vs MFS 0.6904, **+0.0004 CI [-0.009,0.009]** --
+  indistinguishable. Even the BALANCED-word subset (n=643; near-equal-frequency senses, where context should pay
+  off most) gains only **+0.005**. And at the SemCor-optimal lambda*=0.5 the WiC twin win is LOST (+0.014, not
+  CI-sep) -- WiC wants lambda HIGH (context-heavy), SemCor wants lambda LOW; a single global lambda can't serve both.
+
+**REFINED RESIDUAL (this SUPERSEDES the equal-weight z+z reading above):** the COMBINATION is solved (the
+log-linear blend with lambda~0.5 is the right, self-gating mechanism). The residual is the **context-signal
+STRENGTH of the (simplified) graph**, NOT the weighting. I seed the walk UNIFORMLY on context senses; UKB seeds
+it FREQUENCY-WEIGHTED over the full relation set, and its +2.1 over MFS comes from a STRONGER context signal, not
+a different combination. The drill's SyntagNet lesson is decisive -- "sharpen the context edges, keep the blend
+fixed" (+4.4 -> 71.7 all-words). So the located fix is SyntagNet syntagmatic edges (owner-auth fetch) + frequency-
+weighted seeding, plus the LEARNED graph -- NOT more weighting cleverness.
+
+## Locating the residual (bar (b)) -- the brief's guess is REFUTED; located to CONTEXT-SIGNAL STRENGTH
 WiC-dev error decomposition (base, 222/638 errors): monosemous/no-context = 3; WordNet OVER-SPLIT
 near-synonyms (gold=same, we said different, wup>=0.8) = 3; **everything else = 216 (97%)**. So the
 WordNet<->task GRANULARITY/COVERAGE gap the brief guessed is only ~2.7% of the residual -- **REFUTED as the
-dominant residual**. The residual is instead:
-1. **Per-context SIGNAL STRENGTH (WiC):** 97% of errors are the walk picking a wrong (not near-synonymous)
-   sense -- the diffusion is real but not sharp enough. Levers: stronger edges (SyntagNet, ConceptNet already
-   helped), the LEARNED graph.
-2. **The missing RELIABILITY-WEIGHTED PRIOR (SemCor):** the walk needs the frequency/resting-level prior AND
-   a control layer that weights context-vs-prior by reliability. The optimal weight is task-dependent
-   (context-heavy on frequency-balanced WiC; prior-heavy on frequency-skewed SemCor) -- a FIXED z+z cannot be
-   optimal for both. This is exactly the job of **`semantic_control` (PFC/IFG; Controlled Semantic
-   Cognition)** -- a distinct, already-named organ. THE located next component.
+dominant residual**. Combined with the blend result, the residual is located to:
+1. **CONTEXT-SIGNAL STRENGTH of the graph (dominant).** 97% of WiC errors are the walk picking a wrong (not
+   near-synonymous) sense, and the log-linear blend at the correct lambda still cannot beat MFS on SemCor even
+   on the balanced subset -- the diffusion is real but too weak. The field's proven fix is a STRONGER context
+   graph: SyntagNet syntagmatic edges (+4.4 all-words) + frequency-weighted personalization. Plus the LEARNED graph.
+2. **PER-ITEM weighting (secondary).** A single global lambda can't serve both WiC (context-heavy) and SemCor
+   (prior-heavy); the brain-faithful form is PER-ITEM gating -- `semantic_control` (LIFG/pMTG; landed, PINNED)
+   fires suppression only on high-conflict items. A marginal refinement over a global lambda; NOT the dominant
+   residual (the blend showed even correct global weighting doesn't clear it -- signal strength does).
 
 ## The honest negatives (what did NOT work, and why it teaches)
 1. **IC-weighting (my OUR-INVENTION heuristic) does not help** -- cn_ic (+0.078 dev) < cn (+0.107 dev); IC
@@ -152,6 +172,26 @@ canonicalize` is a FLAT cosine read-out where the brain-faithful operation is gr
 activation settling into a sense attractor; Collins & Loftus 1975 / Rodd 2004). PINNED bridge confirmed:
 personalized PageRank == random-walk-with-restart == the diffusion form of spreading activation.
 
+## ADJACENT-COMPONENT EVALUATION (fidelity / capability / limitation / opportunity -> next problems)
+Evaluated the organs the graph would touch (not map-only), to seed the next problems:
+- **`semantic_control.py` -- THE located weighting-gate, and it is ALREADY a landed organ.** PINNED (LIFG/pMTG
+  conflict-gated suppression; Thompson-Schill/Jefferies): `resolve(scores, coherences, prior_idx)` computes
+  `conflict = max_{s!=prior} coh(ctx,s) - coh(ctx,prior)` and gate-suppresses the prior. Feed it my PPR per-sense
+  activation as `coherences` and the frequency prior as `scores` and it IS the WSD combiner (a per-item-gated
+  twin of my log-linear blend). LIMITATION: an ISLAND (imported by no live read-out; fed only a weak coherence
+  today). OPPORTUNITY (high, low build cost): wire the graph walk's coherence + frequency prior into it. Trigger
+  AUC 0.79-0.81; gain modest + trigger-limited.
+- **`meaning_fusion.py` -- the general meaning read-out, MISSING per-context selection.** PINNED (two dissociable
+  systems: relatedness = reading+grounded z-fusion ~0.45 WordSim; similarity = ATL `conceptual_meaning` ~0.52
+  SimLex; demand-ROUTED not pooled). LIMITATION: NO per-context sense-selection spoke, and it is itself unwired
+  into `situation_reader` (WIRING-DEBT #3). OPPORTUNITY: add the graph walk as a 3rd demand + wire into the reader.
+- **`reading_grounding_loop.canonicalize` -- the FLAT write-path (my primary reframe).** OUR-INVENTION (cosine
+  nearest-anchor over a flat ConceptSpace). OPPORTUNITY: reframe to seed-the-diffusion assignment; meaning
+  accumulates as graph structure (the grounding-accumulation fix).
+- **`conceptual_meaning.py`** -- ATL identity hub (PINNED, WordNet taxonomic bag); context-FREE. OPPORTUNITY: its
+  bag = grounded NODE content for the graph. **`distributional_meaning_channel.py`** -- substitutability
+  specialist (AUC 0.84) but "actively bad" at general similarity (WordSim -0.24); idle -- low priority here.
+
 ## What I did NOT establish / would withdraw first
 - **Task-general WSD accuracy above MFS is NOT established** -- on SemCor the walk (even +prior at equal weight)
   loses to the frequency prior. The claim is bounded to: the walk carries real per-context signal (clears the
@@ -182,8 +222,12 @@ network grow its own senses -- NOT a flaw in the spreading-activation idea itsel
 None blocking. One decision for the owner when convenient: whether to authorize an external download of
 SyntagNet (the one static ingredient not already on disk, and the literature's largest remaining lever).
 
-## NEXT STEPS
-1. Strategy: land the wire (grounded-semantic-graph organ + reframe `canonicalize` flat->graph), default-off, witnessed.
-2. The `semantic_control` reliability gate (context-vs-prior weighting) -- the located fix for the SemCor/MFS gap.
-3. SyntagNet edges (owner-auth external fetch) = the next static rung toward ~0.72.
-4. The #2/#3 LEARNED graph (grow/retune/own-granularity) = the north-star follow-on program.
+## NEXT STEPS (ranked by leverage, per the drill + the adjacent-component evaluation)
+1. **Strategy: land the wire** -- grounded-semantic-graph organ + reframe `canonicalize` flat->graph, default-off, witnessed.
+2. **CONTEXT-SIGNAL STRENGTH = the dominant residual (the SemCor/MFS fix):** SyntagNet syntagmatic edges
+   (owner-auth external fetch; +4.4 all-words) + frequency-WEIGHTED walk personalization (UKB's seeding, cheap,
+   on-disk). This is what closes the all-words gap, NOT more weighting.
+3. **Wire `semantic_control` onto the walk** (PPR coherence + frequency prior) -- the landed PINNED per-item gate;
+   the log-linear blend (lambda~0.5) is its smooth global twin. Per-item refinement over a global lambda.
+4. **Add per-context selection to `meaning_fusion` + wire it into `situation_reader`** -- kills two wiring debts.
+5. **The #2/#3 LEARNED graph** (grow/retune/own-granularity) = the north-star follow-on program.
