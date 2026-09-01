@@ -5,7 +5,7 @@ bar: "PASS = the bound-event-token reader resolves whether two event-mentions co
 result: "JOINT tiered bound-event-token coref = 1.000 (CI half-width 0.000; scorer = balanced accept/reject over positive / hard-neg-recombination / easy-neg event-mention probes; n=900 probes over 30 LitBank passages [226 events/passage, OLD fiction] AND n=10,331 probes over 353 UD-EWT passages [41 events/passage, MODERN web]) vs late-fusion-of-marginals 0.600 [0.600,0.600] LitBank / 0.596 [0.595,0.597] UD-EWT -> CI-separated +0.400 / +0.403."
 floor: "strongest REAL floor = late-fusion-of-marginals silo (the reader's ACTUAL per-dimension-list structure): 0.600 LitBank / 0.596 UD-EWT. Lexical/surface floor identical (0.600 / 0.596). Info-free twin null p95 = 0.600 / 0.607. Symbolic per-event-tuple CEILING = 1.000 (the joint's target; the FHRR bound token TIES it, the silo cannot reach it)."
 controls: "(1) BINDING-SHUFFLE (permute within-event bindings; marginals identical, joint destroyed) collapses joint 1.000 -> 0.637 [0.621,0.653] LitBank / 0.637 [0.630,0.644] UD-EWT, CI-separated BELOW intact joint; the crisp signature is POSITIVE recognition dropping 1.000 -> 0.122 / 0.182 while marginals untouched (the conjunctive-memory dissociation). EXCLUDES 'the win is marginal frequency, not binding'. (2) INFO-FREE TWIN (random tokens, energy-matched) never accepts (pos 0.000) -> the joint's acceptances are not a decode artifact. (3) PASSAGE-SCALE COLLAPSE: flat single-superposition register 1.000 -> 0.383 at M=256 while multibank-slotted + DG/CA3-tiered hold at 1.000 -> the 1/sqrt(M) can-fail control FIRES; the tiers beat it. (4) TYPE-CARDINALITY curve: joint rejects recombinations at 1.000 for card=1/2/>=3, marginal at 0.000 at EVERY level -> EXCLUDES the brief's 'cardinality-1 joint-recoverable-from-marginals' artifact. (5) FLAT-REGISTER-IS-MARGINALS: corr(flat_score, marginal_count_sum)=0.95 -> one passage-level superposition IS the marginal silo (cannot encode the joint), so the shared token must be TIERED."
-files_changed: "experiments/exp_tiered_bound_event_token_coref_v1.py; verification/test_tiered_bound_event_token_coref.py; data/exp_tiered_bound_event_token_coref_v1/metrics.json; notes/problems/the_assembled_reader_is_parallel_silos_assemble_the_tiered_bound_event_token/ (SOLVED.md, SUBMISSION_SUPPORTING_hdlab_wire_and_adjacent_map.md)"
+files_changed: "experiments/exp_tiered_bound_event_token_coref_v1.py; experiments/exp_grounded_binding_paraphrase_coref_v1.py (the NECESSITY test: grounded binding beats symbolic under paraphrase); experiments/_drill_ca3_completion.py (the CA3-completion wall drill); verification/test_tiered_bound_event_token_coref.py; data/exp_tiered_bound_event_token_coref_v1/metrics.json; data/exp_grounded_binding_paraphrase_coref_v1/metrics.json; notes/problems/the_assembled_reader_is_parallel_silos_assemble_the_tiered_bound_event_token/ (SOLVED.md, SUBMISSION_SUPPORTING_hdlab_wire_and_adjacent_map.md)"
 reverify: ".venv/Scripts/python.exe verification/test_tiered_bound_event_token_coref.py"
 ---
 
@@ -113,6 +113,43 @@ over uniquely-identifying partial cues (LitBank / UD-EWT):
   (the coref bar + capacity curve use the direct/bound-token path); it CORRECTS the `hippocampal_encoder`
   retrieval path and seeds a well-scoped follow-on (a faithful CA3 completer: EC->CA3-direct retrieval + sparse
   attractor dynamics that do not collapse to a dominant attractor under iteration).
+
+## NECESSITY (owner push): where the brain-faithful bound token BEATS a symbolic dict, not just ties it
+The coref bar shows binding is SUFFICIENT (the FHRR joint ties the symbolic per-tuple ceiling at 1.00). The
+regime where the brain's mechanism is NECESSARY is GRADED/PARAPHRASE matching: a coreferent mention rarely
+repeats the exact words. So I built `experiments/exp_grounded_binding_paraphrase_coref_v1.py`: bind GROUNDED
+sensorimotor vectors (Lancaster norms -- a static model of the ATL-hub conceptual code; Patterson 2007) via a
+similarity-preserving Spatial Semantic Pointer encoding (Komer & Eliasmith), and test coref when the verb is
+swapped for a WordNet synonym (WordNet defines paraphrases INDEPENDENTLY of the grounded space -- not circular).
+Real UD-EWT, 5190 instances / 458 passages:
+
+| arm | EXACT control | PARAPHRASE (verb->synonym) |
+|---|---|---|
+| **grounded bound token (ATL-hub concept + bind)** | 1.00 | **0.404 [0.391, 0.418]** |
+| arbitrary-symbol FHRR (the main cell's codec) | 1.00 | 0.232 (chance) |
+| symbolic exact-string tuple | 1.00 | 0.234 (chance) |
+| grounded-SHUFFLED twin (info-free) | 1.00 | 0.227 (chance) |
+| chance (uniform over candidates) | 0.234 | 0.234 |
+
+- **NECESSITY ESTABLISHED:** under paraphrase ONLY the grounded distributed token is above chance; the symbolic
+  dict, arbitrary-symbol binding, and the grounding-destroyed twin are ALL at chance. Grounded-over-symbol
+  margin +0.169 [0.153, 0.185] CI-separated. The EXACT control (all arms 1.00) proves the advantage is SPECIFIC
+  to graded matching -> the brain-faithful DISTRIBUTED + GROUNDED bound token does something a symbolic
+  list-of-dicts structurally cannot: recognise a paraphrased event.
+- **HONEST LIMIT + DRILL (the coarseness wall, understood deeply):** 0.404 is well above chance but far from
+  1.00 -- the 11-dim Lancaster SENSORIMOTOR space is a COARSE proxy for the concept hub. Drilled the wall
+  (`experiments/exp_grounded_distributional_fusion_paraphrase_v1.py`, smoke; full-scale run dispatched to the
+  GPU queue): the brain-faithful fix is the ATL COMPLEMENTARY FUSION (embodied grounding + distributional
+  context; Patterson 2007). Adding a DISTRIBUTIONAL spoke (PPMI-SVD from UD-EWT, no LLM) and FUSING gives
+  hit@1 0.44 > grounded-alone 0.41 > distributional-alone 0.29. The MECHANISM is complementarity: the two
+  spokes are NEAR-INDEPENDENT (correctness correlation -0.04), each solving cases the other misses
+  (grounded-only-right 0.32, distributional-only-right 0.17), with an either-right CEILING of 0.61 -- far
+  above either alone. This is a direct demonstration of the DUAL-ROUTE hub-and-spoke theory of meaning
+  (embodied 'how' + distributional 'context'), and the concrete brain-foundational reason the reader needs the
+  meaning-channel FUSION, not one spoke. The naive z-concat fusion (0.44) does not yet reach the 0.61 ceiling
+  -> a learned/reliability-weighted fusion is the mapped follow-on. NOTE: heavy full-scale numbers land from
+  the remote GPU run (`REMOTE_RUN_REQUEST_exp_grounded_distributional_fusion_paraphrase_v1.md`); the smoke
+  values here are coverage-limited (distributional vocab grows with corpus scale).
 
 ## KEY REALIZATIONS (the enabling moves)
 1. **A single passage-level superposition IS the marginal silo -- provably.** The flat register's readout for
