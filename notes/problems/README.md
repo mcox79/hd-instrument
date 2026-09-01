@@ -29,6 +29,20 @@ the brief.*
 
 ---
 
+## ✍️ **EVERY BRIEF: BRAIN-FOUNDATIONAL + REUSE, TIGHT, FIRST-STEPS-UP-FRONT (OWNER 2026-09-01)**
+
+**Two standing rules for how STRATEGY writes a brief, and what it asks the SOLVER to do first:**
+- **Require the brain's actual mechanism + REUSE existing organs where possible.** Do not invent a new organ for a
+  job the substrate already does; do not reach for what is lying around instead of the brain-faithful method.
+- **The solver's FIRST STEPS (stated in VERIFY BEFORE YOU START, not buried):** (1) **understand ALL the existing
+  organs available** — `python tools/substrate_map.py`, `python tools/reader_capabilities.py`, skim `hdlab/`; (2)
+  **read the related previous SOLVED solutions IN THEIR ENTIRETY** (the brief names them) before proposing anything.
+  This is how you avoid re-deriving a known result or rebuilding an organ we already have.
+- **Keep the brief TIGHT.** The `# PROBLEM:` line is ONE clear sentence (not a paragraph cramming problem + evidence
+  + citations + fix). State the problem ONCE crisply, ONCE in plain language, ONCE as "why now" — no more. Put
+  floors/controls inside THE BAR, citations inside HOW THE BRAIN DOES THIS. Use ⚠️/🚫 sparingly. A brief packed with
+  restatement and warnings is harder to act on, not safer.
+
 ## 🔢 **PRIORITY -- OWNER INSTRUCTION 2026-08-22: *"I also want a priority for what problems to tackle first, on the problem page"***
 
 > ## 🚨 **THE RANK AND THE RATING LIVE IN `PROBLEM.md`'s FRONTMATTER. PROSE AT THE TOP OF THE BRIEF IS NOT ENOUGH -- IT WAS TRIED AND THE OWNER SAW NOTHING.**
