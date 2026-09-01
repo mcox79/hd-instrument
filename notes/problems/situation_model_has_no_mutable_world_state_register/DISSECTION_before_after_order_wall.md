@@ -192,3 +192,93 @@ decision, not more mechanism engineering on this corpus.
 
 ## Reproduce
 `.venv/Scripts/python.exe experiments/exp_script_schema_foundation_v1.py --mode full --cap 50`
+
+---
+
+# "DO ALL": partial-order ABSTAIN readout (works) + richer external corpus (wikiHow -- domain-mismatch negative)
+
+Owner: do all, brain-foundationally. Two things done.
+
+## 1. PARTIAL-ORDER + ABSTAIN readout -- brain-foundational, and it WORKS in direction
+`experiments/exp_partial_order_abstain_v1.py`. The situation model orders only reliably-ordered events and
+ABSTAINS on order-free ones (Zwaan partial order; metacognitive "I don't know" = the substrate's refuse/
+conformal gate). Using the in-corpus script-schema, CONFIDENCE = the canonical-position GAP; commit on
+gap >= threshold. Result (n=301; schema-decidable 130):
+| commit when gap >= | coverage | acc when committed | shuffled twin |
+|---|---|---|---|
+| 0.0 (all decidable) | 0.43 | 0.592 (= the wall) | 0.52 |
+| 0.1 | 0.27 | 0.675 [0.575,0.775] | 0.50 |
+| 0.2 | 0.16 | 0.646 | 0.46 |
+Abstaining on order-free (small-gap) pairs LIFTS accuracy 0.592 -> 0.675 on the confidently-orderable ~27%,
+twin at chance. This CONFIRMS the ~0.59 aggregate is TASK-DILUTION by genuinely order-free pairs, not a
+mechanism ceiling. NOT CI-clean of 0.591 (n=81, CI lower 0.575) -- underpowered; the fix for power is more
+data (below).
+
+## 2. RICHER EXTERNAL CORPUS (wikiHow) -- an honest NEGATIVE (domain mismatch + tiny)
+`experiments/exp_wikihow_order_prior_v1.py`. Built a domain-general canonical event-order prior from wikiHow's
+human-NUMBERED step lists (directional, authored order -- NOT co-occurrence). Streamed the HF dataset
+`b-mc2/wikihow_lists` -> only 2,433 articles / 6,258 verb-pairs (this HF subset is SMALL, not the full ~200k).
+On MCScript2: 9% coverage, E2E 0.532 (~SIM, below the wall); confident subset ~0.58-0.60 (noisy). CAUSE:
+(a) tiny corpus, (b) DOMAIN MISMATCH -- wikiHow is tech/how-to ("zoom on Facebook"), MCScript2 is everyday-life
+narrative ("buying alcohol", "restaurant"), so most scenario verb-pairs have no wikiHow evidence. A GENERIC
+how-to corpus does not transfer to everyday-life scripts.
+
+## COMBINED VERDICT (brain-foundational)
+The way to OVERCOME the wall that WORKS is the PARTIAL-ORDER + ABSTAIN readout: stop forcing a coin-flip on
+genuinely order-free pairs; commit only on reliably-ordered ones (recovers ~0.67 vs the 0.59 aggregate, twin
+flat) and abstain otherwise (a partial order, Zwaan; the brain's "I don't know"). This is the correct
+brain-faithful readout and it composes with the validated script-schema alignment (which doubled coverage over
+lexical). What it still lacks is POWER + high COVERAGE for a CI-clean, high-aggregate headline, and that needs
+a DOMAIN-MATCHED everyday-life script corpus (the generic wikiHow subset does not transfer) plus more eval
+items -- a resource decision, not more mechanism engineering. The mechanism question is answered: partial-order
+abstain is the fix; the residual is data (matched-domain scripts + scale).
+
+## Reproduce
+`.venv/Scripts/python.exe experiments/exp_partial_order_abstain_v1.py --mode full --cap 50`
+`.venv/Scripts/python.exe experiments/exp_wikihow_order_prior_v1.py --mode full --n-articles 40000`
+
+---
+
+# DRILL-HARD INTERROGATION: the diagnosis DEEPENED + a clean control (exp_order_wall_interrogate_v1)
+
+Stress-tested our own story by (1) running the control that separates real order-signal from easy-item
+selection, and (2) READING the actual items. Result: understanding is deeper AND partly revised.
+
+## The clean control (n=130 schema-decidable)
+- CONFIDENT pairs (canonical-position gap >= 0.2, n=48): SCHEMA 0.646 vs SIM 0.479 -- **paired +0.167**. SIM is
+  at CHANCE on exactly these pairs while the schema is well above it -> the confident lift is REAL ORDER
+  SIGNAL, not easy-item selection (the control we had been missing). The script-schema genuinely carries order
+  information the surface floor cannot.
+- ORDER-FREE pairs (gap < 0.2, n=82): SCHEMA 0.561 ~ SIM 0.537 -- both near chance -> genuinely ambiguous
+  (parallel prep steps: "get the knife" vs "take out the vegetables"; "rinse" vs "wash the silverware"). This
+  CONFIRMS the task-dilution story by direct reading, not just by the abstain curve.
+
+## What reading the items REVEALED -- a THIRD failure mode (was hidden in the aggregate)
+The wall is not two components but THREE:
+1. EVENT-MENTION ALIGNMENT (dominant, ~79%): the candidate phrases are events my extraction mis-locates
+   ("After the party was in full swing" -> the event is "party-in-full-swing", not a clean verb; the schema
+   matched "start" and answered the wrong pair). Alignment/extraction is still the top gate.
+2. ORDER-FREE pairs (task-dilution): genuinely parallel steps; the abstain readout correctly declines them.
+3. **SCRIPT-vs-EPISODE CONFLICT (new, from reading the confident-WRONG items):** the canonical script says
+   go->decide, but a SPECIFIC story is decide->go ("decided to eat spaghetti, THEN went to the restaurant").
+   A pure script-order prior is CONFIDENTLY WRONG whenever the story DEVIATES from canonical order. Only the
+   story's OWN stated order (episodic) gets these; only the script gets the unstated pairs. NEITHER alone is
+   sufficient -- and this is exactly the brain's situation model = EPISODIC order + SCHEMA fallback, arbitrated.
+
+## Do we understand it deeply now? YES, and it is controlled:
+- The script-schema carries real, CI-direction order signal on orderable pairs (+0.167 over a chance SIM floor).
+- The ~0.59 aggregate is diluted by genuinely order-free pairs (read + confirmed) -> abstain is correct.
+- The residual on the confident subset (0.646, not higher) is (a) mis-ALIGNMENT and (b) SCRIPT-vs-EPISODE
+  conflict -- the two named, addressable levers.
+
+## OPTIMIZATION next steps (ranked, brain-foundational)
+1. **FUSE EPISODIC + SCRIPT order (highest value, the new insight).** Use the story's OWN stated order where the
+   story specifies the pair (episodic/situation model), fall back to the script-schema prior where it does not
+   (canonical). This directly fixes the script-vs-episode conflict (confidently-wrong-on-deviation) AND covers
+   unstated pairs. The brain does exactly this (Ghosh & Gilboa schema + hippocampal episodic; schema-consistency
+   effects). Currently the two arms are SEPARATE; fuse with a confidence-weighted combination + abstain.
+2. **Better event-mention alignment/extraction** (the 79% gate): candidate phrases -> their actual event
+   (multi-word/stative events like "party in full swing"), via the conceptual/graph matcher (already prototyped)
+   composed with the script-schema step membership.
+3. **Abstain on order-free pairs** (validated): partial-order readout, keep it.
+4. **Power + domain-matched script corpus** (generic wikiHow failed): for a CI-clean high-coverage headline.

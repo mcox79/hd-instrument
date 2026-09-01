@@ -5,7 +5,7 @@ bar: "A grounded, augmentable semantic-graph organ, read by spreading activation
 result: "cn arm (WordNet relations + MFS-disambiguated gloss edges + ConceptNet MFS-disambiguated thematic edges), personalized-PageRank spreading activation, gold WiC HELD-OUT TEST (n=1400, human-judged same/different-sense): acc 0.6164 CI[0.5907,0.6414]; real-minus-context-shuffle-twin +0.0521, paired margin CI [0.0229,0.0807] (excludes 0 -> CI-SEPARATED above the twin). Dev (n=638): 0.6661, +0.1066 [0.0642,0.1505]. base arm (no ConceptNet) also clears held-out: +0.0464 [0.0171,0.0764]."
 floor: "context-shuffle twin (dominant-sense null; side-2 disambiguated from a RANDOM other sentence) = 0.5643 (WiC test) / 0.5596-0.5737 (dev) -- the strongest floor for bar (a), gated on the paired-margin lower CI. Also: naive floor 0.50; MFS 0.50 on balanced WiC; NO_GLOSS (relations-only) ~MFS (0.569 dev, baseline cell). CROSS-TASK BOUNDARY: on SemCor all-words WSD the frequency prior MFS=0.7292 (n=2500 polysemous n/v) BEATS the walk (pure 0.39; +prior 0.58) -- reported as the honest scope limit."
 controls: "context-shuffle twin (winner CI-separates above it on HELD-OUT test, paired margin CI excludes 0); NO_GLOSS ablation ~MFS (gloss edges load-bearing); disambiguated(g1) vs undisambiguated(g3) glosses -- g3 does NOT clear the twin (+0.047 beats=False), g1 does; IC-weighting ablation NEUTRAL-TO-NEGATIVE (cn_ic +0.078 < cn +0.107 -- excludes IC as the lever); grounded-node ablation SHRINKS the margin (context-free lift -- excludes feature-vectors as the per-context lever); prior-combination (Rodd resting-level) on WiC dilutes but preserves the twin win (+0.044 [0.006,0.083]) and on SemCor lifts 0.39->0.58 but stays < MFS (locates the missing reliability-weighted-control component); damping sweep d0.6-0.95 all clear (robust); SemCor cross-task (MFS floor); log-linear blend (lambda tuned on a DISJOINT SemCor dev split, frozen) confirms the combination mechanism (lambda*=0.5 dev-optimal, self-gating; lambda=0==MFS, lambda->inf==pure walk) but does NOT beat MFS on SemCor test (+0.0004 [-0.009,0.009], balanced-subset +0.005) -- locates the residual to context-SIGNAL-STRENGTH, not weighting."
-files_changed: "experiments/exp_grounded_semantic_graph_ladder_wsd_v1.py (new; incl. the log-linear blend + the competitive-settling `_settle`/`_settle_batch` organ); verification/test_grounded_semantic_graph_ladder.py (new witness, 5/5); notes/problems/promote_the_grounded_semantic_graph_to_an_intrinsic_learnable_organ/{SOLVED.md, LEARNED_GRAPH_brain_mechanism_spec.md}. Reuses UNMODIFIED: experiments/exp_ppr_spreading_activation_wsd_wic_v1.py (baseline PPR operator), experiments/exp_sense_wall_breakthrough_wic_v1.py, tools/load_wsd_benchmarks.py, data/datasets/conceptnet5_en_100k.jsonl, nltk wordnet_ic + semcor. NEW DATA ASSET (owner-authorized fetch): data/syntagnet/SyntagNet-1.0/ (SyntagNet 1.0, CC BY-NC-SA 4.0, cite Maru/Scozzafava/Navigli EMNLP 2019 -- 88k WordNet-synset syntagmatic edges; `cn_syn` graph variant)."
+files_changed: "experiments/exp_grounded_semantic_graph_ladder_wsd_v1.py (new; incl. the log-linear blend + the competitive-settling `_settle`/`_settle_batch` organ); verification/test_grounded_semantic_graph_ladder.py (new witness, 5/5); experiments/grounded_semantic_graph_organ.py (new -- the integration-ready reference organ: build/select_sense/add_edges/learn_from_text); notes/problems/promote_the_grounded_semantic_graph_to_an_intrinsic_learnable_organ/{SOLVED.md, LEARNED_GRAPH_brain_mechanism_spec.md}. Reuses UNMODIFIED: experiments/exp_ppr_spreading_activation_wsd_wic_v1.py (baseline PPR operator), experiments/exp_sense_wall_breakthrough_wic_v1.py, tools/load_wsd_benchmarks.py, data/datasets/conceptnet5_en_100k.jsonl, nltk wordnet_ic + semcor. NEW DATA ASSET (owner-authorized fetch): data/syntagnet/SyntagNet-1.0/ (SyntagNet 1.0, CC BY-NC-SA 4.0, cite Maru/Scozzafava/Navigli EMNLP 2019 -- 88k WordNet-synset syntagmatic edges; `cn_syn` graph variant)."
 reverify: ".venv/Scripts/python.exe verification/test_grounded_semantic_graph_ladder.py"
 ---
 
@@ -234,6 +234,30 @@ Evaluated the organs the graph would touch (not map-only), to seed the next prob
 - **`conceptual_meaning.py`** -- ATL identity hub (PINNED, WordNet taxonomic bag); context-FREE. OPPORTUNITY: its
   bag = grounded NODE content for the graph. **`distributional_meaning_channel.py`** -- substitutability
   specialist (AUC 0.84) but "actively bad" at general similarity (WordSim -0.24); idle -- low priority here.
+
+## INTEGRATION-READINESS + "can it learn / be added to?" (owner questions, 2026-09-01)
+- **READY TO INTEGRATE -- yes.** The read mechanism is proven (witness 5/5) and PACKAGED as a clean reference organ
+  `experiments/grounded_semantic_graph_organ.py` (`GroundedSemanticGraph`: build / select_sense / select_sense_blended
+  / add_edges / learn_from_text) -- the exact API the strategy session promotes to `hdlab/grounded_semantic_graph.py`
+  (Q111; inline the ~8 imported primitives). The wire is a default-off diff (new organ + reframe
+  `reading_grounding_loop.canonicalize`).
+- **CAN BE ADDED TO -- yes, DEMONSTRATED.** The graph is augmentable by design (the source/variant system): added
+  ConceptNet (thematic, `cn`) and SyntagNet (88k syntagmatic, `cn_syn`) edges, each a clean ablation. `add_edges()`
+  accepts any synset-index edge set (static source or learned).
+- **CAN LEARN (grow from reading) -- the graph GROWS, but naive corpus-learned edges do NOT (yet) improve WSD
+  (a clean can-fail NEGATIVE).** `learn_from_text()` grows syntagmatic edges from LitBank co-occurrence via the
+  cross-situational gate (Yu & Smith; the specced brain mechanism) -- it grew **21,724 real structured edges** from
+  15k sentences (a LEARNED version of SyntagNet's manual edges). BUT the completed can-fail test REFUTES a WSD gain:
+  WiC-dev margin base=+0.0784, **learned=+0.0721 (BELOW base), info-free shuffle-twin=+0.1034 (ABOVE both)** -- the
+  learned edges do NOT beat random rewired edges, and all three are within noise. So at this scale/method the growth
+  is graph-perturbation NOISE, not useful structure. WHY (located): the edges are MFS-disambiguated (crude/circular --
+  the graph should disambiguate them, not MFS), from a NARROW corpus (2-3 novels, poor coverage of WiC's general
+  vocab), and SPARSE (21k vs SyntagNet's 88k manual). The FAITHFUL learned graph needs context-disambiguated edges +
+  broad reading + the CLS schema-gate + sense split/merge (`LEARNED_GRAPH_brain_mechanism_spec.md`) -- the naive
+  version is a fair test of a WEAK impl, and it fairly fails. NET: the organ can grow and be added to; making growth
+  IMPROVE WSD is the open north-star program, and this run gives it a clean negative baseline to beat.
+  (Honesty note: an earlier PARTIAL run suggested learned +0.097 > base; the COMPLETED run with the shuffle-twin
+  control reversed it -- the control was decisive, exactly as designed.)
 
 ## What I did NOT establish / would withdraw first
 - **Task-general WSD accuracy above MFS is NOT established** -- on SemCor the walk (even +prior at equal weight)
