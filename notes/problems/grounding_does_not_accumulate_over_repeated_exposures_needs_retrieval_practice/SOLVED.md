@@ -341,6 +341,29 @@ RICHER KNOWLEDGE FROM THE SHELF (definitional/relational grounding per hard word
 contexts", Borman-Lupyan), validly proven on a GOLD per-occurrence sense benchmark (escape the WordNet
 circularity). New probe: `--relational-probe`.
 
+**8. THE WALL + BREAK-THROUGH DEMONSTRATED ON GOLD, WORDNET-INDEPENDENT LABELS (owner "test and show proof").**
+New cell `experiments/exp_sense_wall_breakthrough_wic_v1.py` on WiC (Word-in-Context; human same/different-sense
+judgements, balanced -> floor 0.50; escapes the WordNet-relatedness circularity). Reused `tools.load_wsd_
+benchmarks.load_wic`; prior WiC work (`exp_frame_sense_wic_v1`, a CONSTRUCTION/frame disambiguator) HARD_FAILED,
+and `exp_context_conditioned_sense_selection_v1/v2` HARD_FAILED -- both INDEPENDENTLY confirm the context wall.
+RESULT (dev n=638 / test n=1400, CI, leak-free):
+- **THE WALL**: thematic co-occurrence context (CTX_OVERLAP) = 0.52 (CI includes the 0.50 floor); simple gloss-
+  word-overlap (Lesk) = 0.52-0.53; info-free twin = 0.52 -- ALL at chance. Co-occurrence context AND simple
+  definitional overlap CANNOT discriminate sense.
+- **THE BREAK-THROUGH**: the RICHER definitional representation -- GLOSS-EMBEDDING (mean predicted-Binder-65 of
+  the DEFINITION words, matched to the context's grounded vector) -- = 0.600 (dev) / 0.586 (test), CI-SEPARATED
+  above the 0.50 floor AND above every context arm (+0.05-0.08). Modest (WiC is hard; human ~0.80) but REAL,
+  gold-labeled, leak-free, controlled (mis-seeded twin at chance). The break-through = embedding the DEFINITION
+  into grounded EXPERIENTIAL space -- definitional knowledge (the sense inventory) + grounded features (the
+  taxonomic substrate) TOGETHER clear the wall where neither context nor gloss-words alone can.
+- **HONESTY CATCH (reusable, load-bearing):** the FIRST run scored 0.83 -- a LEAK: WiC was CONSTRUCTED FROM
+  WordNet/Wiktionary sense EXAMPLE sentences, so including `synset.examples()` in the gloss bag let each eval
+  sentence match its own source synset (dev 0.517 -> 0.831). Caught by the "verify a too-good number vs the
+  human ceiling 0.80" discipline; examples EXCLUDED -> the honest 0.52-0.60. THE VERIFY-TOO-GOOD RULE PAID OFF.
+So: the wall is real and gold-confirmed; the break-through (grounded definitional knowledge) is real, modest,
+and leak-free -- the honest proof, and the concrete lever to scale (richer sense embeddings / graph PPR toward
+the ~0.68 knowledge-based band, human ~0.80). Cell: `--self-test` PASS; `--mode full`.
+
 ## Adjacent-component evaluation (brain-foundational fidelity + opportunities, verified on disk)
 
 Per the standing rule to evaluate adjacent components (not just map them), to seed the next problems:
