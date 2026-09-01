@@ -5,7 +5,7 @@ bar: "PASS = the predict-and-revise parse pass RECOVERS who-did-what (and the ar
 result: "A parse-RECALL pass that recovers the DROPPED patient the batch parse left empty ('?') — a structural coverage-violation trigger, recall-scoped (fill-a-drop or promote a PRE-VERBAL head; NO post-verbal re-selection) — RECOVERS who-did-what CI-separated over the strongest real floor on BOTH eras (who-did-what patient recall through the LIVE SituationReader.read(), scorer = pick==gold head, bootstrap CI by sentence cluster). MODERN QA-SRL v2 dev+test, n=2737 non-pronoun-gold patient items: the pass 0.5407 vs the wired parse-router 0.4808 = +0.0599 [+0.0395,+0.0889] (half 0.0247, frac<=0 0.000); on the positional floor 0.4417 vs 0.3858 = +0.0559 [+0.0350,+0.0827]. 19c LitBank narrative, n=5999: 0.2879 vs the (there-strongest) positional floor 0.2287 = +0.0592 [+0.0525,+0.0659] (half 0.0067, frac<=0 0.000). Gains localize to non-canonical constructions: QA-SRL passive 0.287->0.567, pre-verbal-gap 0.023->0.511; canonical recall PROTECTED 0.509->0.526. DRILLED: the entire gain is DROP-FILLING — firing on dropped patients ONLY (no surprisal reanalysis of committed picks) reaches 0.5433 (+0.0625 over wired, CI-sep) and TIES the surprisal-gated pass (gated-vs-dropped_only -0.0026 n.s.); the 391/704 surprisal-triggered revisions of COMMITTED picks add nothing (confirming p2's refuted re-selection from the recall side)."
 floor: "the batch parse-as-truth reader at equal inputs, BOTH routes actually run: positional-default (QA-SRL 0.3858 / LitBank 0.2287) and the stronger wired parse-router (QA-SRL 0.4808 / LitBank 0.1852). The pass beats WHICHEVER is stronger per era CI-separated (QA-SRL strongest = wired, beaten by +0.0599; LitBank strongest = positional because the modern-trained arc_parser DEGRADES on 19c prose, beaten by +0.0592). It also beats the OTHER floor in both eras."
 controls: "(1) info-free RANDOM-LOCI twin (fire at the same rate at random loci) LOSES CI-sep: QA-SRL +0.0442 [+0.0284,+0.0642], LitBank +0.0395 [+0.0343,+0.0448] = EXCLUDES 'any extra re-parsing at this rate helps' (firing on the DROPPED-slot events, not random ones, is what carries it). (2) info-free UNIFORM (random-vector) PRIOR twin LOSES CI-sep: QA-SRL +0.0325 [+0.0134,+0.0594], LitBank +0.0492 [+0.0426,+0.0558] = EXCLUDES 'any prior-shaped candidate scorer helps' (the fill TARGET uses real animacy/position). (3) revise-EVERYWHERE positive control: the recall-scoped pass BEATS revise-everywhere CI-sep (QA-SRL +0.0106 [+0.0040,+0.0173], LitBank +0.0083 [+0.0060,+0.0107]); it fires on only ~28-30% of eligible events = it does NOT fire everywhere (revising committed picks breaks as many as it fixes). (4) recall_only scope = no post-verbal re-selection (p2's REFUTED route) -> canonical recall PROTECTED, not eroded (QA-SRL 0.509->0.526). (5) DROP-FILL localisation (the decisive drill): firing on DROPPED patients ONLY (a purely STRUCTURAL trigger, NO surprisal) reaches 0.5433 and TIES the surprisal-gated pass (gated-vs-dropped_only -0.0026 [-0.0076,+0.0027] n.s.) while beating wired +0.0625 CI-sep = EXCLUDES 'the surprisal signal is needed for RECALL'; the 391/704 surprisal-triggered revisions of COMMITTED picks add nothing. (6) LOCATED-LEVER: a verb-SHUFFLED prior loses only slightly (QA-SRL +0.0142, LitBank +0.0022 n.s.) and a NO-PRIOR STRUCTURAL fill TIES on modern QA-SRL (+0.0026 n.s.) though the prior BEATS it on 19c prose (+0.0217 [+0.0129,+0.0307]) = the lever is the STRUCTURAL drop-fill; the VERB-SPECIFIC selectional prior is a MINOR cue (position carries modern recall; the prior adds only where the parser degrades)."
-files_changed: "experiments/exp_predict_revise_recall_v1.py (the mechanism + full control battery incl. the dropped-only DROP-FILL drill + sweep + LitBank); experiments/exp_predict_revise_recall_diagnostic_v1.py (the could-it-succeed recall decomposition + oracle headroom); verification/test_predict_revise_recall.py (scaffold-free witness, 8/8); data/predict_revise_recall_v1/metrics.json + _population.json + _drill_dropped_only.json; data/predict_revise_recall_diagnostic_v1_smoke/. hdlab/ UNTOUCHED (Q111 — proposed default-off predict_revise flag stated below)."
+files_changed: "experiments/exp_predict_revise_recall_v1.py (the mechanism + full control battery incl. the dropped-only DROP-FILL drill + sweep + LitBank); experiments/exp_predict_revise_recall_diagnostic_v1.py (the could-it-succeed recall decomposition + oracle headroom); experiments/_drill_animacy_fill_v1.py (the ANIMACY-vs-POSITION cue drill + scrambled-animacy twin); verification/test_predict_revise_recall.py (scaffold-free witness, 8/8); data/predict_revise_recall_v1/metrics.json + _population.json + _drill_dropped_only.json; data/predict_revise_recall_diagnostic_v1_smoke/. hdlab/ UNTOUCHED (Q111 — proposed default-off predict_revise flag stated below)."
 reverify: ".venv/Scripts/python.exe verification/test_predict_revise_recall.py"
 ---
 
@@ -74,13 +74,21 @@ from the recall side). This SHARPENS the brief's own load-bearing distinction �
 do NOT re-choose among the KEPT" — into a measured result. It also SIMPLIFIES the hdlab landing: the recall
 pass needs no fitted predictor asset, only the structural drop trigger + candidate promotion.
 
-**(B) Within drop-filling, the TARGET selection is STRUCTURAL, not the verb-specific prior.** A NO-PRIOR
-structural fill (promote the nearest pre-verbal nominal) TIES the prior pass on modern QA-SRL (+0.0026 n.s.);
-a verb-SHUFFLED prior loses only marginally (+0.0142). So POSITION carries the modern recall. The info-free
-twins (random-loci, uniform random-vector prior) still LOSE CI-sep — locus (the dropped slot) and SOME
-candidate information (animacy/position) are load-bearing, but the VERB-SPECIFIC selectional prior is a minor
-cue. **On 19c prose, where the parser degrades and word-order is less reliable, the prior DOES beat pure
-structure (+0.0217 CI-sep)** — the selectional prior earns its keep exactly where structure is unreliable.
+**(B) Within drop-filling, the TARGET cue is POSITION — not the selectional prior, and NOT animacy.** A
+NO-PRIOR structural fill (nearest nominal to the verb) TIES the grounded-prior fill on modern QA-SRL (+0.0026
+n.s.); a verb-SHUFFLED prior loses only marginally. I then research-drilled the obvious brain-foundational
+alternative — the Competition Model / eADM (Bornkessel-Schlesewsky) PIN ANIMACY as the primary undergoer cue
+(patients are prototypically inanimate), so "position" might be a STAND-IN for animacy. It is NOT: an
+ANIMACY-cued fill (prefer the inanimate candidate; the substrate's `animacy_lexicon`, 88% candidate coverage)
+gives 0.5473 vs position 0.5440 = +0.0033 (NOT CI-sep) AND TIES its own SCRAMBLED-animacy twin exactly
+(+0.0000 [-0.0038,+0.0041]) — the animacy INFORMATION does nothing; the position tie-break carries it. Forcing
+a pre-verbal preference is WORSE than nearest-to-verb (-0.0088 CI-sep) — many wired DROPS are the router
+failing on a POST-verbal object, recovered by proximity. So all three meaning/animacy cues (verb-specific
+prior, grounded fit, animacy) FAIL to beat linear POSITION. **This is exactly the Competition Model's
+cue-validity ranking for English: word-order >> animacy >> lexical-plausibility** (English is the word-order-
+dominant extreme; animacy is a high-validity cue in case-rich languages, a low-validity one here). The prior
+earns its keep ONLY on 19c prose, where the parser degrades and word-order is less reliable (+0.0217 CI-sep) —
+consistent with the same account (when the dominant cue weakens, a subordinate cue surfaces).
 
 Both drills CONVERGE with p2 and with the audit: English who-did-what is word-order-dominant (MacWhinney
 Competition Model), so the recoverable signal is the STRUCTURAL argument the parse DROPPED (the LIKELIHOOD /
@@ -123,10 +131,13 @@ proposed MECHANISM EMPHASIS (the prior + surprisal-gated reanalysis) is correcte
    worth more than one more arm that adds recall.*
 
 ## Brain-fidelity labeling (PINNED vs OUR-INVENTION)
-- **PINNED (replicated):** noisy-channel comprehension = parse-as-EVIDENCE + a plausibility prior, NOT parse-
-  as-truth (Levy 2008; Gibson 2013); reanalysis GATED by a prediction violation (P600/LIFG, distinct from the
-  N400); incremental/predictive parsing (Hale; Altmann & Kamide). Structure-dominance of English who-did-what
-  (MacWhinney Competition Model) — CONFIRMED as the reason the prior is not the target-selector here.
+- **PINNED (replicated / CONFIRMED):** noisy-channel comprehension = parse-as-EVIDENCE + a plausibility prior,
+  NOT parse-as-truth (Levy 2008; Gibson 2013); the FILLED-GAP / active gap-filling reflex (Crain & Fodor 1985;
+  Stowe 1986) — recover the argument at the empty slot — which the DROP-FILL directly instantiates. **The
+  Competition Model cue-validity ranking for English (MacWhinney; Bates & MacWhinney) is EMPIRICALLY CONFIRMED
+  here: word-order/POSITION >> animacy >> lexical-plausibility** — all three meaning/animacy cues fail to beat
+  linear position for the drop-fill, and animacy ties its own scramble (English is the word-order-dominant
+  extreme). This is why the plausibility prior is not the target-selector on modern edited prose.
 - **OUR-INVENTION-UNDER-TEST (swept, not adopted):** the surprisal threshold tau (swept {0.5,1,1.5,2}), the
   word-order likelihood weight beta (swept {0.1,0.2,0.35,0.5}), the precision floor for pre-verbal promotion
   (swept {0,0.3,0.5}); the grounded 12-d space as the prior basis (its coarseness is p2's measured ceiling).
@@ -155,9 +166,12 @@ non-canonical (passive / pre-verbal-gap) constructions. NEW MEASURED (converges 
 the entire gain is DROP-FILLING — recovering the patient the parse left EMPTY ('?') — triggered by a STRUCTURAL
 coverage violation; a surprisal gate on COMMITTED picks adds nothing (dropped-only ties the surprisal-gated
 pass, +0.0625 over wired). So `predict_surprisal` is NOT needed to DRIVE this recall (it remains p2's validated
-error-RISK FLAG, but the recall pass is asset-free). Within drop-filling the TARGET selection is STRUCTURAL
-(position), not the VERB-SPECIFIC selectional prior — a no-prior structural fill ties on modern text; the prior
-earns its keep only where the parser degrades (19c prose, +0.022). The "prior is the lever" verdict inherited
+error-RISK FLAG, but the recall pass is asset-free). Within drop-filling the TARGET cue is POSITION,
+not the VERB-SPECIFIC selectional prior AND not ANIMACY — a no-prior structural fill ties on modern text, and
+an animacy-cued fill (the Competition-Model/eADM primary undergoer cue, via `animacy_lexicon`) ties BOTH
+position and its own scrambled twin (the animacy info is inert here). This EMPIRICALLY CONFIRMS the Competition
+Model cue-validity ranking for English (word-order >> animacy >> lexical-plausibility). The prior earns its
+keep only where the parser degrades (19c prose, +0.022). The "prior is the lever" verdict inherited
 from SPACE does NOT transfer to who-did-what: the lever is the structural drop-fill (the likelihood/parser-RECALL
 term the audit named). The noisy-channel LEVER is dimension-specific (SPACE persistence: lever; who-did-what
 selectional: not).
@@ -183,6 +197,8 @@ picks (p2's proven NEGATIVE, re-confirmed here) — the pass is DROP-FILL / reca
 | `arc_parser` (UD-EWT-trained) | the parse EVIDENCE/likelihood | GENERALIZES POORLY to 19c prose (0.185 < 0.229 positional there) | An era-robust / self-supervised parse, or the predict-and-revise pass AS the robustness layer (it already recovers the parser's 19c degradation). |
 | `predictive_reader` (12-d grounded centroid) | the plausibility prior + violation gate | valid GATE, coarse target-SELECTOR (p2 + here) | The Phase-1 STRUCTURED verb-role exemplar/event store is the ONLY route that could make the verb-specific prior a WHICH-argument lever; the coarse space cannot. |
 | positional role binder | who-did-what | parse-as-TRUTH; drops pre-verbal patients | THIS pass augments its RECALL (the proposed wire). |
+| `animacy_lexicon` (WordNet-backed) | the Competition Model / eADM animacy cue | PINNED cue, 88% candidate coverage, BUT a name-homograph bug (PROPN "John"->object; PROPER_NOUN_OVERRIDES empty) | Fix PROPN handling (names default animate); measured here to be a LOW-VALIDITY cue for English who-did-what (ties its scramble) — high validity would show on a case-rich language or a genuinely position-ambiguous slice. |
+| filler-gap / construction cue (relativizer / passive morphology) | the brain's actual gap-resolution (filled-gap effect, Stowe 1986) | NOT built here (I use linear position as the approximation) | A construction-cued gap-filler (fill with the relcl antecedent / passive subject / fronted wh) is the brain-faithful upgrade to the position heuristic — this is the CONCURRENT `relcl filler-gap parser` problem; MAP, do not duplicate. |
 | event detector | which predicates fire | ~16% extraction-miss ceiling (measured) | Event-DETECTION recall — a separate front-end gap this pass cannot reach. |
 
 ## FOLLOW-ONS (precisely scoped)

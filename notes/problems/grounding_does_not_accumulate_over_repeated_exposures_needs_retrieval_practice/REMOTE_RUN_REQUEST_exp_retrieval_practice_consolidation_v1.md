@@ -8,7 +8,7 @@ results_path: data/exp_retrieval_practice_consolidation_v1/confirm_all.json
 self_test: green
 smoke: green
 question: "At FULL 3000-sentence scale, does the READ-OUT verdict hold -- is the correct meaning-anchor RETRIEVABLE (top-10) under every encoder yet NOT SELECTABLE by any read-out (incl. supervised)?"
-gate: "PASS = (a) oracle representation_recoverable >> coverage_bound (a correct anchor EXISTS for most CONSOLIDATION_FAIL words); (b) every encoder phi/bag/PPMI+SVD puts the correct anchor in top-10 for the majority (frac_correct_in_top10 >= 0.6) -> the encoder is not the wall; (c) NO read-out selects it -- NEAREST/BG_SUBTRACT/DISTILLED/SUPERVISED rank-1 all << the top-10 ceiling (best << 0.6), and supervised lift_over_nearest <= 0.10. A rigorous confirmation of the smoke-decisive negative (the selection signal is absent from distributional context -> grounded/ATL is the lever)."
+gate: "PASS = (a) oracle representation_recoverable >> coverage_bound (a correct anchor EXISTS for most CONSOLIDATION_FAIL words); (b) every encoder phi/bag/PPMI+SVD puts the correct anchor in top-10 for the majority (frac_correct_in_top10 >= 0.6) -> the encoder is not the wall; (c) NO read-out selects it -- NEAREST/BG_SUBTRACT/DISTILLED/SUPERVISED rank-1 all << the top-10 ceiling (best << 0.6), and supervised lift_over_nearest <= 0.10; (d) THE DEMONSTRATED FIX: grounded-hub re-rank (Lancaster sensorimotor + Warriner affect) BEATS distributional nearest at sense selection (grounded_lift_over_distributional > 0) -- grounded features select where distributional cannot. A rigorous confirmation of the smoke-decisive result: the selection signal is absent from distributional context but PRESENT in grounded/ATL features (Phase 1)."
 kb_referents:
   - data/corpora/base_vocabulary/cleaned/base_vocabulary_ordered.csv
   - data/corpora/simplewiki
@@ -17,6 +17,8 @@ kb_referents:
   - data/corpora/breadth_v1
   - data/corpora/textbook_biology_2e
   - data/corpora/textbook_psychology_2e
+  - data/grounding_testbed/Lancaster_sensorimotor_norms_for_39707_words.csv
+  - data/grounding_testbed/Ratings_Warriner_et_al.csv
 ---
 # REMOTE_RUN_REQUEST -- exp_retrieval_practice_consolidation_v1 (--confirm-all, full, CPU)
 

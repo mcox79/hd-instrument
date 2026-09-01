@@ -2,10 +2,10 @@
 problem: grounding_does_not_accumulate_over_repeated_exposures_needs_retrieval_practice
 status: SOLVED
 bar: "A rigorous NEGATIVE is a full PASS if located: if retrieval-practice, faithfully built and exposure-matched, does NOT beat re-reading on this population, then the 59% wall is REPRESENTATION-bound (the trace can't encode the distinction) not ENCODING-SCHEME-bound -- name it, with the evidence (e.g. the retrieval scorer's own accuracy ceiling on these words), and hand the representation gap to reader_meaning_channel/ATL."
-result: "REPRESENTATION-BOUND NEGATIVE (the brief's full-PASS-if-located outcome). Retrieval practice, faithfully built (Mozer 2009 MCM Eq.7 + a PBV meaning-retrieval variant), CANNOT select a WordNet-correct grounding above chance on the CONSOLIDATION_FAIL population: selection-AUC (fixed meaning representation) retrieve=0.486 [0.413,0.554] / 0.503 [0.461,0.543] (seed0/seed1), PBV=0.467 [0.402,0.530] / 0.488 [0.446,0.531] -- both CIs INCLUDE chance (0.5). Grounding precision is FLAT at the ~0.25-0.32 base rate across every scheme; n=716/685 CONSOLIDATION_FAIL words, 3000 modern sentences (simplewiki+news+science), scored blind on WordNet. FURTHER, owner-drilled to the bottom: the wall is representation-bound at the SELECTION level. For the ~78% of words where a correct anchor EXISTS (oracle), the correct anchor is RETRIEVABLE -- median rank ~3, top-10 recall ~85% -- under EVERY encoder incl. the full SYNTACTIC/dependency-parse encoder (so the encoder is NOT the wall), but it is NOT SELECTABLE by ANY read-out: nearest 0.21, background-subtraction 0.23, the landed distilled-substitutability axis (0.865 on its own instrument) 0.24, and a SUPERVISED logistic on top-K features (CV over held-out words) 0.22 (lift +0.008, all coefs ~0) -- vs the top-10 ceiling ~0.87. The signal separating the correct SENSE from the topical ASSOCIATE is genuinely absent from distributional co-occurrence; the lever is GROUNDED/sensorimotor input (reader_meaning_channel/ATL = Phase 1), NOT a better encoder or read-out."
+result: "REPRESENTATION-BOUND NEGATIVE (the brief's full-PASS-if-located outcome). Retrieval practice, faithfully built (Mozer 2009 MCM Eq.7 + a PBV meaning-retrieval variant), CANNOT select a WordNet-correct grounding above chance on the CONSOLIDATION_FAIL population: selection-AUC (fixed meaning representation) retrieve=0.486 [0.413,0.554] / 0.503 [0.461,0.543] (seed0/seed1), PBV=0.467 [0.402,0.530] / 0.488 [0.446,0.531] -- both CIs INCLUDE chance (0.5). Grounding precision is FLAT at the ~0.25-0.32 base rate across every scheme; n=716/685 CONSOLIDATION_FAIL words, 3000 modern sentences (simplewiki+news+science), scored blind on WordNet. FURTHER, owner-drilled to the bottom: the wall is representation-bound at the SELECTION level. For the ~78% of words where a correct anchor EXISTS (oracle), the correct anchor is RETRIEVABLE -- median rank ~3, top-10 recall ~85% -- under EVERY encoder incl. the full SYNTACTIC/dependency-parse encoder (so the encoder is NOT the wall), but it is NOT SELECTABLE by ANY read-out: nearest 0.21, background-subtraction 0.23, the landed distilled-substitutability axis (0.865 on its own instrument) 0.24, and a SUPERVISED logistic on top-K features (CV over held-out words) 0.22 (lift +0.008, all coefs ~0) -- vs the top-10 ceiling ~0.87. The signal separating the correct SENSE from the topical ASSOCIATE is genuinely absent from distributional co-occurrence; the lever is GROUNDED/sensorimotor input (reader_meaning_channel/ATL = Phase 1), NOT a better encoder or read-out. **DEMONSTRATED (not just inferred): re-ranking the retrieved top-K by GROUNDED-HUB similarity (the ATL hub-and-spoke feature vector -- 11 Lancaster sensorimotor + 3 Warriner affect dims) SELECTS the correct sense where NO distributional read-out could: rank-1 correct 0.32/0.35 vs distributional 0.24/0.27 (seed0/seed1, lift +0.08/+0.07), beating every distributional read-out (all 0.21-0.24), at ~78% grounded coverage of these words. So the fix is concrete and brain-faithful -- ground the sense-selection in sensorimotor+affective features -- and it is a partial lift (to ~0.33, not the ~0.87 ceiling), so richer grounding (Binder 65-dim / a learned grounded selector) + coverage for the ~22% uncovered abstract words is the remaining work."
 floor: "Incumbent split-half RE-STUDY arm at EQUAL exposure (best-case, all traces at once): grounded-CORRECT rate 0.006 (seed0) / 0.004 (seed1) -- it grounds ~none of these words. Rate-independent info-free floor: random-selection AUC 0.447 / 0.456 for picking a correct grounding, which retrieval does not beat."
 controls: "(1) exposure-matched RE-STUDY (incumbent split-half) -- retrieval's apparent recall gain over it is pure threshold-relaxation; (2) EXPOSURE-COUNT arm (strengthen every exposure, no retrieval gate) -- ties/beats retrieval, excluding 'the retrieval gate helps'; (3) info-free TWIN_SHUF (retrieval outcomes shuffled) and TWIN_RAND (random scores) -- retrieval does NOT beat them on grounded-correct; (4) DECISIVE rate-independent selection-AUC vs a random selector -- excludes 'grounds more words at base precision'; (5) PBV meaning-retrieval variant -- rules out a weak self-coherence retrieval; (6) m-quality-matched (hits-only vs full-bundle estimate) -- excludes 'a cleaner estimate'; (7) PPMI+SVD distributional representation probe (phi 0.302 vs bag-of-words 0.303, CI [-0.036,+0.036], not separated) -- excludes 'a richer target-word representation fixes it'; (8) population characterization -- excludes the brief's 'coherent repeated exposures' premise (mean split-half coherence 0.09-0.13; only 0.6-2% coherent-single-sense-with-anchor)."
-files_changed: "experiments/exp_retrieval_practice_consolidation_v1.py (retrieval arms + decisive selection-AUC + PBV + distributional-representation probe + sense-splitting probe + ORACLE anchor-ceiling decomposition + ENCODER diagnostic with read-out re-rankers [nearest/bg-subtract/abstain/distilled] + SUPERVISED re-ranker probe); verification/test_retrieval_practice_consolidation.py; notes/problems/grounding_does_not_accumulate_over_repeated_exposures_needs_retrieval_practice/SOLVED.md; data/exp_retrieval_practice_consolidation_v1/{metrics.json,dist_probe.json,sense_probe.json,oracle_probe.json,encoder_probe.json,supervised_probe.json}"
+files_changed: "experiments/exp_retrieval_practice_consolidation_v1.py (retrieval arms + decisive selection-AUC + PBV + distributional-representation probe + sense-splitting probe + ORACLE anchor-ceiling decomposition + ENCODER diagnostic with read-out re-rankers [nearest/bg-subtract/abstain/distilled] + SUPERVISED re-ranker probe + GROUNDED-hub re-ranker probe [the demonstrated fix]); verification/test_retrieval_practice_consolidation.py; notes/problems/grounding_does_not_accumulate_over_repeated_exposures_needs_retrieval_practice/SOLVED.md; data/exp_retrieval_practice_consolidation_v1/{metrics.json,dist_probe.json,sense_probe.json,oracle_probe.json,encoder_probe.json,supervised_probe.json}"
 reverify: ".venv/Scripts/python.exe verification/test_retrieval_practice_consolidation.py"
 ---
 
@@ -168,6 +168,38 @@ probe both failing. **So the wall is representation-bound at the SELECTION level
 meaning signal (the `reader_meaning_channel`/ATL problem = Phase 1 of the long-term plan, sensorimotor spokes -> ATL
 hub), NOT a better encoder, NOT a read-out re-ranker, NOT the consolidation operation, NOT retrieval practice.**
 
+## THE DEMONSTRATED FIX -- grounded sense-selection (elimination -> proof; "exactly how")
+
+A located negative that only *infers* the lever by elimination is not enough; the brain-foundational standard is to
+*show* the brain's mechanism works. The ATL hub-and-spoke model (Lambon Ralph, Patterson, Rogers) says sense meaning is
+an amodal hub fed by SENSORIMOTOR spokes -- so "whisky" and "brandy" are close via shared grounded features (amber
+spirits you drink) while "whisky" and "wedding" are close only distributionally. **I tested it directly and it holds.**
+
+Re-ranking the SAME retrieved top-K by GROUNDED-HUB similarity -- the project's `build_grounded_hub` teacher, an
+ATL-shaped 14-dim vector (11 Lancaster sensorimotor dims: auditory/gustatory/haptic/visual/hand-arm/mouth/... + 3
+Warriner affective dims: valence/arousal/dominance) -- SELECTS the correct sense where NO distributional read-out could:
+
+| selector over the retrieved top-K (same population) | rank-1 correct (seed0 / seed1) |
+|---|---|
+| distributional nearest (incumbent) | 0.24 / 0.27 |
+| every distributional read-out (bg-subtract / distilled / supervised) | 0.21 - 0.24 |
+| **GROUNDED hub (sensorimotor + affective)** | **0.32 / 0.35 -- lift +0.08 / +0.07** |
+
+at **~78% grounded coverage** of these words (84% of anchors). Both seeds. This is the POSITIVE demonstration: grounded
+features carry the sense-selection signal that distributional co-occurrence does not, exactly as the hub-and-spoke model
+predicts.
+
+**EXACTLY HOW TO SOLVE THIS (concrete, actionable, brain-faithful, uses existing assets):** the reader retrieves a
+distributional top-K (already ~85% contains the right meaning) and then SELECTS with a GROUNDED read-out --
+`hdlab.distributional_meaning_channel.build_grounded_hub` (Lancaster + Warriner norms, already on disk) -- ranking the
+candidates by grounded-hub similarity, not distributional cosine. That is the wire: a grounded sense-selection read-out
+on top of the existing retrieval, which is precisely Phase-1 (sensorimotor spokes -> ATL hub).
+
+**Honest bound:** it is a PARTIAL lift (to ~0.33, not the ~0.87 top-10 ceiling), and it only helps the ~78% with grounded
+norms. So the demonstrated lever is real but not a full solution; the residual is richer grounding (Binder 65-dim
+experiential; a learned grounded selector) and coverage for the ~22% uncovered (abstract words whose senses may need
+affective/linguistic rather than purely sensorimotor grounding -- Barsalou/Vigliocco). That is the shape of the follow-on.
+
 ## Adjacent-component evaluation (brain-foundational fidelity + opportunities, verified on disk)
 
 Per the standing rule to evaluate adjacent components (not just map them), to seed the next problems:
@@ -264,13 +296,14 @@ scheme AND to the encoder. Adjacent: anchor-pool expansion is BUILT default-OFF 
 
 ## FOLLOW-ON PROBLEMS THIS SURFACES (candidate briefs; adjacent-component evaluation)
 
-1. **THE lever -- a GROUNDED/sensorimotor meaning signal for SENSE SELECTION (`reader_meaning_channel`/ATL = Phase 1).**
-   The drill proved the correct meaning is retrievable (top-10 ~85%) but not selectable by ANY distributional read-out
-   (nearest/bg-subtract/distilled/supervised all ~0.21-0.24). The missing signal -- what separates the correct SENSE from
-   the topical ASSOCIATE -- is absent from distributional co-occurrence and must come from grounded input (sensorimotor
-   spokes -> ATL hub). This is the highest-leverage follow-on and it is squarely the project's named Phase-1 bottleneck.
-   NOT a better encoder (refuted head-to-head incl. the p2 parser), NOT a distributional re-ranker (refuted incl.
-   supervised).
+1. **THE lever -- a GROUNDED sense-selection read-out (`reader_meaning_channel`/ATL = Phase 1), DEMONSTRATED.** The drill
+   proved the correct meaning is retrievable (top-10 ~85%) but not selectable by ANY distributional read-out (all
+   0.21-0.24), AND that a GROUNDED-hub re-rank (Lancaster sensorimotor + Warriner affect) DOES select it (+0.08/+0.07 lift
+   over distributional, both seeds, ~78% coverage). Concrete wire (see "THE DEMONSTRATED FIX" above): select over the
+   retrieved distributional top-K with `build_grounded_hub` similarity, not distributional cosine. Highest leverage; the
+   project's named Phase-1 bottleneck. NOT a better encoder (refuted head-to-head), NOT a distributional re-ranker
+   (refuted incl. supervised). Next: richer grounding (Binder 65-dim / learned grounded selector) + coverage for the ~22%
+   uncovered abstract words to close the residual toward the ~0.87 ceiling.
 2. **Anchor-pool / ATL coverage (~8% genuinely coverage-bound; ~25-29% no-anchor before dedup) -- a BUILT, un-wired lever.**
    Words whose meaning is absent from the known vocabulary. The mechanism exists default-OFF
    (`process_sentence(anchor_pool=...)` + `exp_anchor_pool_expansion_v1`, verdict `COMPARATOR_IS_BINDING` = anchor-pool
