@@ -5,7 +5,7 @@ bar: "PASS = a no-gold, REGISTER-NATIVE selectional/event store built OFFLINE fr
 result: "On the held-out QA-SRL SCIENCE test (grade-school earth/general science; non-reversible passive + noncanonical slices), a no-gold register-native SCIENCE event store built OFFLINE from a genuinely DISJOINT corpus (the ARC grade-school-science corpus; leakage-guarded, 0 test sentences in the store) BOUND with the substrate's FHRR role-filler event codec RECOVERS who-did-what CI-separated over the out-of-domain simplewiki FHRR store: passive +0.0391 CI[+0.0029,+0.0734] half=0.035 frac<=0=0.017 (n=1022); noncanonical +0.0353 CI[+0.0009,+0.0687] half=0.034 frac<=0=0.020 (n=1077). The brain-foundational SOFT-AND (multiplicative per-role conjunctive) kernel recovers it slightly more robustly: passive +0.0470 CI[+0.0137,+0.0802]; noncanonical +0.0436 CI[+0.0102,+0.0752]. Scorer = patient-selection accuracy (pick==gold_head), paired item bootstrap. CRITICAL LOCATED CORRECTION: the effect lives in the JOINT event code, NOT the marginal store -- the MARGINAL (verb->OBJ) science store TIES simplewiki (passive -0.0085 CI[-0.0358,+0.0171] frac<=0=0.738; noncanonical -0.0073 frac<=0=0.729), i.e. the parent's +0.149 marginal domain effect does NOT transfer to a genuinely disjoint corpus -- it was topical near-leakage from leave-one-sentence-out on the TEST corpus. The true deployable disjoint-domain effect is ~+0.04, carried by who-did-what-to-what event structure."
 floor: "Strongest floor actually run = the out-of-domain (simplewiki) store built the SAME way (same frontend UD parser, same 1.2M-token budget, no gold) -- FHRR simplewiki 0.354 (passive) / 0.358 (noncanonical); the science FHRR store beats it CI-separated (science 0.393). simplewiki has MORE joint triples than science (14,349 vs 11,110) yet LOSES -> the win is DOMAIN, not data volume. Also run: MARGINAL simplewiki 0.408 (TIES science 0.400 -- the located correction); position-only 0.271-0.281."
 controls: "(1) VERB-SHUFFLED TWIN of the science FHRR store (same triples, verb keys permuted = 'same corpus, wrong-domain labels', the brief's named domain-scramble; it is ALSO the tightest size control -- identical corpus and size) LOSES CI-sep: FHRR science vs twin +0.0939 CI[+0.0607,+0.1282] (passive) / +0.0938 (noncanonical), frac<=0=0.000 -> the verb-KEYING does the work. (2) WRONG-DOMAIN corpus (fiction, matched frontend/no-gold) LOSES: marginal fiction 0.269 does NOT beat simplewiki 0.408 (-0.139 CI-sep BELOW); science BEATS fiction +0.130 CI-sep -> the science DOMAIN, not any disjoint corpus, does the work. (3) LEAKAGE GUARD: every store corpus rejected any sentence matching a test sentence (n_leak=0 for science/simplewiki/fiction) -> the recovery is transfer, not memorization. (4) DATA-VOLUME excluded: simplewiki has more triples yet loses (above). NULL: the verb-shuffled twin IS the info-free null (single permutation); science FHRR 0.393 vs twin 0.299, margin CI-sep."
-files_changed: "experiments/exp_register_native_store_v1.py, verification/test_register_native_store.py, data/exp_register_native_store_v1/pairs_science_1200000tok.json, data/exp_register_native_store_v1/pairs_simplewiki_1200000tok.json, data/exp_register_native_store_v1/pairs_fiction_1200000tok.json, data/exp_register_native_store_v1/metrics.json, notes/problems/the_selectional_event_store_is_learned_from_the_wrong_domain_needs_a_register_native_corpus/SOLVED.md"
+files_changed: "experiments/exp_register_native_store_v1.py, experiments/exp_brain_faithful_who_did_what_v1.py, verification/test_register_native_store.py, data/exp_register_native_store_v1/*, data/exp_brain_faithful_who_did_what_v1/metrics.json, notes/problems/the_selectional_event_store_is_learned_from_the_wrong_domain_needs_a_register_native_corpus/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_register_native_store.py"
 ---
 
@@ -103,9 +103,10 @@ bites harder as the store densifies) -- this de-risks the open priority-4 proble
    register-native store helps who-did-what on held-out disjoint text.
 3. **Soft-AND as a decisive winner.** It ties additive at this scale; I claim only "at-least-as-good and more
    robustly separated," pending the density test.
-4. **Deployment lift on the FULL population.** The marginal store ties in deployment (SCIENCE 0.391 vs
-   SIMPLEWIKI 0.394 on the full non-reversible slice); the FHRR win is on the joint-covered subset. A
-   full-population FHRR deployment arm (with backoff) is not yet run.
+4. **Deployment lift from the store ALONE (no parse fix).** On a crude linear-position deployment the store
+   does not move the aggregate score -- who-did-what is word-order-dominated. The store's deployment value
+   REQUIRES the parser fix (STRUCT+SEL, +0.056 FULL CI-sep; see BRAIN-FAITHFUL INTEGRATION). I do not claim the
+   store helps in deployment on top of a crude position cue; I claim it helps on top of a real parse.
 
 ## KEY REALIZATIONS (the enabling moves)
 1. **A genuinely disjoint corpus dissolves the marginal +0.149.** The single most important move was refusing
@@ -118,6 +119,13 @@ bites harder as the store densifies) -- this de-risks the open priority-4 proble
 3. **Data volume is not the lever, and the twin proves it twice over.** simplewiki has MORE triples and loses;
    the verb-shuffled twin has IDENTICAL corpus and size and loses. Together they exclude both "more data" and
    "any corpus" as the explanation -- it is domain-appropriate joint structure.
+4. **THE STORE WAS INERT ON A BROKEN CUE, NOT INTRINSICALLY.** The biggest enabling move: when the integrated
+   selectional store added nothing in deployment, I asked "could this experiment have succeeded?" -- the
+   position cue it rode on was a crude LINEAR proxy that is confidently wrong on non-canonical order. Replacing
+   it with a REAL PARSE (grammatical object / passive subject + voice) both raised the score itself (+0.04-0.09
+   over position) AND unlocked the selectional store (+0.056-0.096 on top). A store looks worthless on a broken
+   cue and valuable on a faithful one -- the same lesson the parent learned about pipelines converting parse
+   noise to anti-signal, seen from the deployment side.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md 2b)
 - CORRECT the p5 row's "+0.149 domain effect (~80% of the gap)": that figure was measured with
@@ -156,6 +164,45 @@ acceptance gate. Do NOT ship the marginal register-native store as a who-did-wha
 text). Build the store from text IN THE READER'S OWN READING DOMAIN (the North-Star "grow the foundation from
 the reading corpus"), NOT from generic simplewiki.
 
+## BRAIN-FAITHFUL INTEGRATION -- implementing all 7 brain mechanisms, and the DEPLOYMENT lever (owner: "make this match the brain 1-7 ... this is how we get higher scores")
+Built `experiments/exp_brain_faithful_who_did_what_v1.py`: the brain's who-did-what mechanism with all 7
+deviations as ABLATABLE toggles, precision-weighted noisy-channel integration (Ernst & Banks; Competition
+Model), measured on the held-out QA-science test (HARD non-canonical n=1296, FULL non-reversible n=2420,
+POS-AMBIG = word-order-flat subset n=504). THE DECISIVE FINDING, in two moves:
+
+1. **On a CRUDE LINEAR-POSITION cue, the selectional store adds NOTHING** (SEL_vs_POS FULL -0.114 CI-sep
+   BELOW; POS+SEL 0.474 == POS 0.474). This looked like a negative -- English who-did-what is word-order-
+   dominated (Competition Model), and a noisy position proxy already captures the easy cases. The generative
+   (#3) TIES, and grounded-12d (#5) LOWERS the score (the substrate's grounded space is too coarse -- the
+   North-Star organ owns that). Learning from a corpus (#4) shows the N400 prediction-error curve but the
+   generative arm does not win here.
+
+2. **But the "position" cue was the WRONG structural cue. Replaced it with a REAL PARSE** (the PARSER cue:
+   patient = the verb's grammatical OBJECT `obj`/`dobj` or PASSIVE SUBJECT `nsubj:pass`, from the frontend UD
+   parse -- grammatical function + voice -> thematic role, the eADM/Competition-Model structural cue, NOT
+   linear position). Everything changes, all CI-separated:
+   - **PARSER (STRUCT) beats linear POSITION**: HARD +0.0856, FULL +0.0405, POS-AMBIG +0.0456 (all frac<=0<=0.01).
+   - **The register-native SELECTIONAL store, added on top of the real parse, gives a LARGE lift**: STRUCT+SEL
+     over STRUCT +0.0957 (HARD) / +0.0558 (FULL) / +0.0952 (POS-AMBIG), all frac<=0=0.00 -- whereas it added
+     nothing on top of crude position. **who-did-what: 0.474 (position) -> 0.514 (parser) -> 0.570
+     (parser + register-native selectional store)**, +0.096 total, every step CI-separated. That closes ~27%
+     of the position->human (0.474->0.83) gap.
+
+**SO THE OWNER'S DIRECTIVE IS VINDICATED, and the earlier "negative" was the "ask whether it COULD have
+succeeded first" discipline:** the selectional integration could not help on a broken position cue; on the
+brain's actual structural cue (a real parse) it helps a lot. The two levers for who-did-what are (a) the
+STRUCTURAL PARSE (grammatical-role+voice, not linear position -- the biggest single lever, and the parent p5
+audit's "the sole lever is a better parser" independently re-confirmed) and (b) THIS problem's register-native
+selectional store, which the parse UNLOCKS. Grounded features (#5), the generative model (#3), and animacy
+were measured NON-levers on this task at this scale. The selectional store's value concentrates where the
+parse leaves genuine ambiguity (POS-AMBIG +0.095) -- exactly the brain's cue-usage profile (up-weight
+selectional when structure is uninformative).
+
+**NEW hdlab WIRE (higher priority than the store alone):** change role assignment from `role_route="positional"`
+to a PARSED-STRUCTURAL-WITH-VOICE route (patient = grammatical object / passive subject), and integrate the
+register-native selectional store as the secondary cue via precision-weighted noisy-channel (down-weight the
+parse when it is unreliable). This is the +0.096 deployment lift, default-off, witnessed.
+
 ---
 
 ## TLDR (plain English)
@@ -168,22 +215,39 @@ science text it disappears. Second -- and this is the real result -- there IS a 
 reading the right kind of text, but only when the reader stores WHOLE events (who did what to what together),
 not just "this verb likes these objects." Storing whole events is exactly what the brain does, so this is the
 brain-faithful design paying off. I also built the stricter "both the doer and the thing-done-to must fit one
-remembered event" test the notes call for, and it works at least as well and a bit more reliably.
+remembered event" test the notes call for, and it works at least as well and a bit more reliably. Then I went
+further (owner asked to build the brain's whole method): the biggest jump in getting who-did-what right does
+NOT come from the word-knowledge at all -- it comes from reading the GRAMMAR properly (which noun is the
+grammatical object, and handling "was read" style reversals), instead of the shortcut "the thing after the
+verb is what got acted on." Fixing that raised the score a lot, and -- crucially -- ONCE the grammar was read
+properly, the word-knowledge store started helping a lot too (it was useless on top of the broken shortcut,
+valuable on top of the real reading). Together they take who-did-what from about 47% to about 57% right. So the
+lesson: the store is worth having, but the biggest win is teaching the reader to read grammar the way the brain
+does, and the store pays off on top of that.
 
 ## QUESTIONS
-None blocking. One judgement call for the strategy session at wiring time: whether to ship this as a
-per-reading-domain event store now (the North-Star foundation build) or to first scale it on the full ARC
-corpus to see how much larger the ~+0.04 joint-domain effect gets with a denser store (a scaling run is in
-progress; numbers fold in above when ready).
+None blocking. The one strategic call (my recommendation in prose, not a widget): the highest-value next build
+is the PARSER STRUCTURAL ROLE-ROUTE (+0.096 who-did-what, the biggest measured lever), with this problem's
+register-native store integrated on top. I recommend filing that as the #1 follow-on and wiring the store as
+part of it, rather than shipping the store alone.
 
 ## NEXT STEPS -- FOR THE STRATEGY SESSION (ordered)
 1. **RE-VERIFY** with the witness (`reverify` above). It rebuilds the stores from the disjoint corpora and
    asserts the FHRR recovery + all controls.
-2. **FOLD THE AUDIT UPDATE** (above) into `BRAIN_FOUNDATIONAL_AUDIT.md` -- correct the p5 "+0.149" row to the
-   disjoint-corpus reality (marginal ties; the ~+0.04 domain effect is joint-only).
-3. **WIRE (default-off)** the FHRR register-native event store as the JOINT selectional prior consulted by role
-   assignment, built offline per reading domain; do NOT wire the marginal register-native store as a
-   who-did-what lever.
-4. **SEED THE NEXT PROBLEMS:** (a) the CLS composition of this consolidated store with p4's episodic backbone;
-   (b) the soft-AND conjunctive aligner (priority-4) now has a supporting datapoint; (c) scale the science
-   store on full ARC (remote) to bound the true joint-domain effect size.
+2. **🥇 FILE THE #1 FOLLOW-ON -- THE PARSER STRUCTURAL ROLE-ROUTE (the biggest measured lever, +0.096 who-did-
+   what).** The highest-value result here: role assignment via `role_route="positional"` (linear position) is
+   the wrong cue; a PARSED-STRUCTURAL-WITH-VOICE route (patient = grammatical object `obj`/`dobj` or passive
+   subject `nsubj:pass`) beats it +0.04-0.09 CI-sep, and integrating THIS problem's register-native selectional
+   store on top adds a further +0.056-0.096 CI-sep (0.474 -> 0.514 -> 0.570). Prototype:
+   `experiments/exp_brain_faithful_who_did_what_v1.py`. File it as its own problem (the parser role-route +
+   noisy-channel selectional integration) -- it is where the who-did-what score actually moves.
+3. **FOLD THE AUDIT UPDATE** (above) into `BRAIN_FOUNDATIONAL_AUDIT.md` -- correct the p5 "+0.149" row to the
+   disjoint-corpus reality (marginal ties; the ~+0.04 domain effect is joint-only); add that the who-did-what
+   levers are the STRUCTURAL PARSE (grammatical-role+voice > linear position) and the selectional store the
+   parse UNLOCKS; grounded-12d/generative/animacy measured NON-levers on this task.
+4. **WIRE (default-off)** the FHRR register-native event store as the JOINT selectional prior consulted by role
+   assignment, built offline per reading domain -- but INTEGRATED WITH THE PARSED-STRUCTURAL CUE (that is where
+   it pays off), not as a standalone who-did-what lever, and not the marginal store.
+5. **SEED THE NEXT PROBLEMS:** (a) the CLS composition of this consolidated store with p4's episodic backbone;
+   (b) the soft-AND conjunctive aligner (priority-4) now has a supporting datapoint; (c) the richer grounded
+   meaning space (North-Star) -- grounded-12d LOWERS the score, so the coarse ATL space is a real ceiling.
