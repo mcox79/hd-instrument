@@ -282,3 +282,50 @@ The wall is not two components but THREE:
    composed with the script-schema step membership.
 3. **Abstain on order-free pairs** (validated): partial-order readout, keep it.
 4. **Power + domain-matched script corpus** (generic wikiHow failed): for a CI-clean high-coverage headline.
+
+---
+
+# OPTIMIZATION: precedence-cascade fusion (episodic > script > abstain) -- brain-faithful, works in direction, and TRIANGULATES the dominant lever to ALIGNMENT
+
+Built the arbitration rule the drill prescribed (SLIMM/Tse; hard PRECEDENCE cascade, not a weighted blend):
+Tier1 aligned EPISODIC order from THIS story wins outright; Tier2 canonical SCRIPT fallback; Tier3 abstain.
+`experiments/exp_order_fusion_precedence_v1.py`, n=301.
+
+## Result
+- FUSION 0.575 > SCRIPT-only 0.558 > EPISODIC-only 0.538 > SIM 0.525 (fusion beats both single arms, as
+  predicted); committed 0.613 (n=160); still < co-occurrence 0.591 (alignment + order-free cap it).
+- Tiers: EPISODIC fired 21%, SCRIPT 32%, ABSTAIN 47%. **The 47% abstain tier = neither the story NOR the
+  script could locate the two events = the ALIGNMENT gate, re-confirmed a THIRD time as the dominant residual.**
+- CONFLICT axis (the drill's key test): both signals present on only 34 items; AGREE 22, **CONFLICT just 12
+  (4% of all)**. On the CONFLICT slice: FUSION/episodic-wins 0.583 vs SCRIPT-only 0.417 -- episodic overrides
+  script in the PREDICTED direction (+0.166), confirming the precedence rule qualitatively. BUT n=12 is far too
+  small for CI-separation, and BLEND (0.583) ties FUSION -- so the categorical-vs-weighted distinction does not
+  cash out at this scale.
+
+## What this settles (exactly as the drill's HARD-FAIL #3 warned)
+The script-vs-episode CONFLICT is REAL and the precedence fix is CORRECT (episodic wins, directionally) -- but
+it is a LOW-FREQUENCY phenomenon (4% of items), so it does NOT move the aggregate, and it is not the lever.
+The precedence cascade is worth keeping (cheap + correct), but the dominant, now TRIPLE-confirmed lever is
+EVENT-MENTION ALIGNMENT (47% of items cannot be located in story or script).
+
+## The fully triangulated understanding (every angle agrees)
+- world-state/possession register: NOT the order lever (state, not order) -- measured.
+- lexical/frame meaning matcher: insufficient (script-level paraphrase, not lexical) -- measured.
+- script-schema: carries REAL order signal (+0.167 controlled over a chance SIM floor on confident pairs) --
+  measured; but capped by alignment + order-free + tiny-conflict.
+- precedence fusion: brain-faithful, beats both single arms, correct on conflict -- but conflict is 4%, low yield.
+- >>> DOMINANT LEVER (confirmed by the dissection's 79%, the fusion's 47% abstain, and the resolver's coverage
+  curve): EVENT-MENTION ALIGNMENT. Everything else is either downstream of it or low-frequency.
+
+## Next optimization (evidence-directed, the drill's mechanism)
+1. FIX ALIGNMENT -- the one lever with mass. The drill's mechanism: build the alignment KEY as an EVENT-FRAME
+   representation (predicate + core semantic ROLES: agent/patient/setting), CA3-pattern-completion style, NOT
+   string/embedding cosine. PREDICTED failure mode = MIS-BINDING to a neighboring script step, not null match.
+2. CHEAP DIAGNOSTIC FIRST (the drill's HARD-FAIL test, do before the build): inspect current paraphrase-
+   alignment errors -- are they MIS-BINDING (matches the wrong nearby event -> fix = role-structure
+   DISCRIMINATION) or NULL (matches nothing -> fix = coverage/RECALL)? Different builds; determine which.
+3. KEEP the precedence cascade (episodic>script) + the partial-order abstain (both correct, cheap).
+4. Aggregate lift still needs a domain-matched script corpus + power (generic wikiHow failed).
+
+## Reproduce
+`.venv/Scripts/python.exe experiments/exp_order_fusion_precedence_v1.py --mode full --cap 50`
