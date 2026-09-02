@@ -1,4 +1,12 @@
-# Measured findings (smoke = 4 SemCor files, 2658 polysemous items, 696 subordinate; full 30-file run pending)
+# Measured findings (working note)
+
+> **NOTE (2026-09-02): SUPERSEDED BY THE POWERED RUN.** These are the 4f-SMOKE numbers. The authoritative
+> POWERED numbers (30 files, n=17,317 / 5,281 subordinate) are in `SOLVED.md`. Two changes at power: detector
+> AUCs are ~0.03-0.05 LOWER (struct_domI 0.69 not 0.74; ordering identical), and the "Zwaan situation-dimension
+> signature" below (Sec 6 of the stratify) DID NOT REPLICATE (n=36 spatial was a small-sample artifact; at n=481
+> spatial recovers equal-or-higher than event) -- RETRACTED. Read SOLVED.md for the final result.
+
+# Smoke findings (4 SemCor files, 2658 polysemous items, 696 subordinate)
 
 All numbers glass-box, LM-free at inference, deterministic. Reused organs: `_settle` competitive attractor
 settling, `hdlab/semantic_control` LIFG signed suppression, `_sense_prior` reordered-access frequency prior,
