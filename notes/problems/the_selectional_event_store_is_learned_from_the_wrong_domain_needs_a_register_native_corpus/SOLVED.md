@@ -421,3 +421,21 @@ part of it, rather than shipping the store alone.
 5. **SEED THE NEXT PROBLEMS:** (a) the CLS composition of this consolidated store with p4's episodic backbone;
    (b) the soft-AND conjunctive aligner (priority-4) now has a supporting datapoint; (c) the richer grounded
    meaning space (North-Star) -- grounded-12d LOWERS the score, so the coarse ATL space is a real ceiling.
+
+## INTEGRATED_BY_STRATEGY — 2026-09-01 (grade: EXCELLENT; SOLVED owner-DONE)
+Reverified **5/5+2 first-hand** (`verification/test_register_native_store.py`, cached pair stores): W1 FHRR science vs
+simplewiki +0.0353 [+0.0009,+0.0678] frac≤0=0.025; W2 vs verb-shuffled twin +0.0938 (twin loses); W3a/W3b fiction
+loses; **W4 marginal science vs simplewiki TIE −0.0073 [−0.0342,+0.0187] frac≤0=0.73** (the located correction — the
+parent's +0.149 was leave-one-sentence-out leakage on the TEST corpus). A rigorous located CORRECTION + a real
+positive: the domain lever is REAL but lives in the JOINT (subj,verb,obj) FHRR event code, not the marginal store; the
+deep dive took who-did-what to 0.658 (68% of chance→human) and proved the integration SATURATED — the parser is the sole
+remaining lever (parse-correct → 0.989; the substrate parser loses to spaCy +0.073).
+
+**NO hdlab WIRE (correct, p6-style):** the proposed wire (the FHRR store as a selectional cue into
+`graded_role_assigner`/`convergent_cue_reader`) is NOT landed live, because those integrators are NOT imported by the
+live `situation_reader` (the 0.658 was an experiment composition, not through `read()`), AND the store's value is
+SATURATED at the current parser — a bounded island-to-island wire is not worth it. The store is a VALIDATED per-domain
+offline ASSET whose live payoff is gated on the parser; its home is the parser problem's reliability-weighted integration
+(use the store on parse-BROKEN items, where it beats 0.308 vs 0.145, NOT on parse-correct items where it hurts).
+
+**Outputs of this fold-in:** (1) **ISSUED the #1 follow-on** — `the_extraction_front_end_parser_is_the_cross_task_bottleneck_needs_a_significantly_better_parse` (priority 1), written MULTI-OBJECTIVE per the owner's directive that the parser must serve all needs (the 8 needs + the measured non-transfers a cross-solution survey synthesized). (2) **AUDIT §2b folded** — corrects the p5 "+0.149 domain lever" row to the disjoint-corpus reality (marginal ties; ~+0.035 joint-only) and records the parser as the cross-task ceiling. (3) **p5 wire premise RETIRED** — the deferred p5 verb-role (MARGINAL) selector gets NO domain lift on a disjoint corpus, so "wire p5 on the domain-matched store" is withdrawn. `priority:` cleared; review (EXCELLENT) written into PROBLEM.md.

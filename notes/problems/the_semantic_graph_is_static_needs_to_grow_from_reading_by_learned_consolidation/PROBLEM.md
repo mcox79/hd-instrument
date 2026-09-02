@@ -1,8 +1,14 @@
 ---
-priority: 1
+priority: 2
 review:
 review_text:
 ---
+
+<!-- RE-RANK 2026-09-01 (strategy): moved 1 -> 2, below the parser problem
+(the_extraction_front_end_parser_is_the_cross_task_bottleneck...). The parser is the highest-COMPOUNDING lever
+(three convergent solver lines) and it gates THIS learner's LIVE payoff too -- a meaning graph grown on a bad
+parse inherits the parse errors. This remains the north-star meaning-organ work; unchanged in scope. RE-RANK PER THE OWNER. -->
+
 
 # PROBLEM: the grounded semantic graph is STATIC — built offline from WordNet + ConceptNet + SyntagNet, it does NOT GROW from the reader's OWN reading. That growth is the North Star (LEARNER-ON via a clean foundation): the reader must grow new senses, tune edges, and re-carve granularity from its experienced text, by brain-faithful CONSOLIDATION. Build the LEARNED graph — REUSING the co-occurrence store + learner buffer as the FAST pattern-separated store, the WordNet++ settling graph as the SLOW cortical store, and WIRING the consolidation organ to REPLAY the fast store back into the graph (which also fixes the flagged "cleaned store written-but-never-read" bug — the real completion). Prove the grown graph improves settling-WSD on HELD-OUT MODERN text over the static graph CI-separated, or locate why (naive co-occurrence learning is already a clean NEGATIVE; the faithful fix is context-DISAMBIGUATED self-trained edges).
 
