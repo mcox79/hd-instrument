@@ -15,11 +15,17 @@ PHASE 1 instruments (all TRACKED components):
   A. Reader QA -- 5 live dimensions + aggregate on 19c LitBank  (exp_situation_model_qa_v1.run, capable)
   B. who-did-what role-path arms on 19c LitBank                 (positional / wired / wired_arceager)
   C. WSD on WiC-dev (modern)                                    (grounded_semantic_graph.select_sense vs MFS)
-PHASE 2 (NOT built here -- listed as pending in the .md): modern who-did-what (QA-SRL) + who-has-what
-  (MCScript2), both blocked on persisting the parser/world-state solver cells (untracked, HARD-FAIL Q115).
+PHASE 2 instruments (GRADUATED 2026-09-02 -- their solver cells are now TRACKED; assembled here):
+  D. MODERN who-did-what on QA-SRL: arc/richfeat vs arc-eager parser  (exp_parser_through_real_organs_v1.run_pop)
+     -- THE arm that shows the parser's +0.033 lift, invisible on the 19c board (B). Arms: positional /
+        richfeat(live) / arc_eager(promoted) / organ_hybrid_role(live wired organ).
+  E. who-has-what: LitBank he/she coref-densify (NON-CIRCULAR honest headline, blind->reader +0.148,
+        exp_world_state_coref_densify_v1.run) + MCScript2 end-to-end (exp_world_state_endtoend_whohaswhat_v1.run,
+        FLAGGED: full==gold==twin==1.0 -> degenerate twin, so LitBank is the headline).
 
 Run:  .venv/Scripts/python.exe tools/baseline_board.py --docs 16
-      (be patient: the WSD graph build is ~1-2 min, then ~2-3 min to score WiC-dev with the twin.)
+      (be patient: ~10-15 min. WSD graph build ~1-2 min + WiC scoring ~2-3 min; the new D/E parser +
+      world-state arms add ~5 min. Every instrument degrades gracefully -- artifacts are ALWAYS written.)
 """
 from __future__ import annotations
 
@@ -197,16 +203,130 @@ def instrument_wsd_wic(seed: int = SEED, wic_max: Optional[int] = None) -> List[
 
 
 # ==================================================================================================
+# D. MODERN who-did-what (QA-SRL) -- arc/richfeat (LIVE) vs arc-eager (PROMOTED) parser, via
+#    exp_parser_through_real_organs_v1.run_pop (loads the V1 QA-SRL population; scores the who-did-what
+#    PATIENT through the real organs + the two parser arms). This is THE arm that shows the parser's
+#    measured +0.033 modern lift that the 19c LitBank board (Instrument B) cannot see. NOTHING re-implemented.
+# ==================================================================================================
+def instrument_who_did_what_qasrl(nboot: int) -> List[dict]:
+    metric, corpus, domain = "who_did_what", "QA-SRL", "modern"
+    _arms = ("positional", "richfeat (arc-factored, LIVE parser)", "arc_eager (promoted parser)")
+    try:
+        import experiments.exp_verbrole_exemplar_which_arg_v1 as V1
+        import experiments.exp_parser_through_real_organs_v1 as PRO
+        import experiments.exp_arceager_parser_operator_v1 as AEO
+        from hdlab.pos_tagger import PosTagger
+        tg = PosTagger.load(os.path.join(REPO, "data", "frontend_assets", "pos_tagger_ud_ewt_upos.json"))
+        W = AEO.load_model(AEO.MODEL_PATH)
+        res = PRO.run_pop("qa", V1.QA, W, tg, nboot)
+    except Exception as e:
+        return [_rec(metric, metric, corpus, domain, None, None, None, None, arm,
+                     f"ERROR: {type(e).__name__}: {e}") for arm in _arms]
+    acc = res.get("acc", {}).get("FULL", {}); n = res.get("n_FULL")
+    pos = acc.get("POS"); rich = acc.get("BASE_labeler"); ae = acc.get("AE_LABELFREE(mine)")
+    organ = acc.get("ORGAN_hybrid_role"); resolve = acc.get("ORGAN_resolve_patient")
+    d = res.get("deltas", {}).get("AE_vs_BASE", {})
+    ae_note = ("promoted arc-eager parser (heads + label-free patient rule). arc_eager vs richfeat "
+               "delta=%+.4f CI[%+.4f,%+.4f] frac<=0=%.3f -- THE modern lift the 19c board (Instrument B) "
+               "cannot see. CAVEAT (strategy to confirm): this pair mixes TWO changes (parser richfeat->"
+               "arc-eager AND extraction labeled->label-free); the pure one-variable head-swap through "
+               "predicate_argument_frontend is +0.0152 matrix-verb / +0.0265 pp-arg F1 (exp_predarg_frontend_organ_v1)."
+               ) % (d.get("delta", float("nan")), d.get("ci_lo", float("nan")),
+                    d.get("ci_hi", float("nan")), d.get("frac_le_0", float("nan")))
+    organ_note = ("the actual wired who-did-what IDENTITY organ (graded_role_assigner: position+voice, "
+                  "head-INDEPENDENT -> a better parser does not move it directly; resolve_patient organ ties "
+                  "arc_eager at %s). Position floor = the positional row." %
+                  (("%.4f" % resolve) if resolve is not None else "n/a"))
+    return [
+        _rec(metric, metric, corpus, domain, pos, None, None, n, "positional",
+             "linear-position floor on the modern QA-SRL FULL population (non-reversible items)."),
+        _rec(metric, metric, corpus, domain, rich, pos, None, n, "richfeat (arc-factored, LIVE parser)",
+             "the current LIVE frontend parser (arc_parser_richfeat) + labeler object-extraction -- the baseline "
+             "arc-eager improves on. Floor = positional."),
+        _rec(metric, metric, corpus, domain, ae, pos, None, n, "arc_eager (promoted parser)", ae_note),
+        _rec(metric, metric, corpus, domain, organ, pos, None, n, "organ_hybrid_role (LIVE wired organ)", organ_note),
+    ]
+
+
+# ==================================================================================================
+# E. who-has-what -- the coref-densifier's lift. TWO populations:
+#    E1 LitBank he/she densify (NON-CIRCULAR -> the HONEST headline; blind->reader +0.148, twin loses),
+#       via exp_world_state_coref_densify_v1.run.
+#    E2 MCScript2 end-to-end through the full EntityBinder, via exp_world_state_endtoend_whohaswhat_v1.run
+#       -- FLAGGED: full==gold==twin==1.0 (degenerate twin; the lift is mostly cheap indexical), so E1 leads.
+# ==================================================================================================
+def instrument_who_has_what(nboot: int, coref_docs: int, mcscript_stories: int) -> List[dict]:
+    metric = "who_has_what"
+    rows: List[dict] = []
+    # --- E1: LitBank he/she densify (the HONEST, non-circular headline) ---
+    try:
+        import experiments.exp_world_state_coref_densify_v1 as DEN
+        r = DEN.run(mode="full", n_docs=coref_docs, n_boot=nboot, seed=20260901)
+        n = r.get("n_queries")
+        blind = r["blind"]["acc"]; reader = r["reader"]["acc"]
+        gold = r["gold_oracle"]["acc"]; twin = r["twin_shuffled_coref"]["acc"]
+        dmb = r["reader_minus_blind"]; dmt = r["reader_minus_twin"]
+        rows.append(_rec(metric, metric, "LitBank", "19c", blind, None, None, n,
+                         "blind (raw-string keys)",
+                         "the coref-BLIND world-state register wired today (holder key = raw surface head)."))
+        rows.append(_rec(metric, metric, "LitBank", "19c", reader, blind, twin, n,
+                         "reader (coref-densified) = HONEST HEADLINE",
+                         "holder keyed through the reader's OWN he/she coref. reader vs blind delta=%+.4f "
+                         "CI[%+.4f,%+.4f] (twin[shuffled-coref]=%.4f loses: reader-twin %+.4f CI[%+.4f,%+.4f]); "
+                         "gold-cluster oracle ceiling=%.4f. NON-CIRCULAR: object key held constant, scored in "
+                         "gold-cluster space, so the ONLY varying thing is he/she holder resolution."
+                         % (dmb["delta"], dmb["ci"][0], dmb["ci"][1], twin, dmt["delta"],
+                            dmt["ci"][0], dmt["ci"][1], gold)))
+        ph = r.get("pronoun_holder_subset")
+        if ph:
+            rows.append(_rec(metric, metric, "LitBank", "19c", ph["reader"]["acc"], ph["blind"]["acc"],
+                             ph["twin_single_draw"]["acc"], ph["n"],
+                             "reader he/she-holder SUBSET (where blindness bites)",
+                             "decisive subset: holder is a he/she pronoun -> blind=%.4f by construction (a pronoun "
+                             "string maps to no entity); reader=coref recall, gold=%.4f; shuffled-coref null "
+                             "p95=%.4f (reader beats p95=%s)."
+                             % (ph["blind"]["acc"], ph["gold"]["acc"],
+                                ph["shuffled_coref_null"]["p95"], ph["shuffled_coref_null"]["reader_beats_null_p95"])))
+    except Exception as e:
+        rows.append(_rec(metric, metric, "LitBank", "19c", None, None, None, None,
+                         "reader (coref-densified)", f"ERROR: {type(e).__name__}: {e}"))
+    # --- E2: MCScript2 end-to-end (FLAGGED circular/degenerate twin) ---
+    try:
+        import experiments.exp_world_state_endtoend_whohaswhat_v1 as E2E
+        r = E2E.run(mode="full", n_stories=mcscript_stories, n_boot=nboot, seed=SEED)
+        n = r.get("n_questions")
+        blind = r["blind"]["acc"]; full = r["full"]["acc"]; twin = r["twin"]["acc"]
+        bidx = r["blind_idx"]["acc"]; fmb = r["full_minus_blind"]; fmbi = r["full_minus_blindidx"]
+        rows.append(_rec(metric, metric, "MCScript2", "modern", blind, None, None, n,
+                         "blind (raw-string keys)",
+                         "coref-blind register on MCScript2 first-person narrative (deterministic gold)."))
+        rows.append(_rec(metric, metric, "MCScript2", "modern", full, blind, twin, n,
+                         "full_binder (EntityBinder) -- CIRCULAR/degenerate twin",
+                         "END-TO-END through the full EntityBinder. full=gold=twin=%.4f -> the object-anaphora "
+                         "twin does NOT lose (full_beats_twin_CIsep=%s); the +%.4f lift over blind is mostly the "
+                         "cheap indexical normalization (blind+idx=%.4f; object-anaphora-only full-blindidx=%+.4f "
+                         "CI[%+.4f,%+.4f]). DEGENERATE-TWIN CAVEAT -> the LitBank row is the honest headline."
+                         % (twin, r.get("full_beats_twin_CIsep"), fmb["delta"], bidx,
+                            fmbi["delta"], fmbi["ci"][0], fmbi["ci"][1])))
+    except Exception as e:
+        rows.append(_rec(metric, metric, "MCScript2", "modern", None, None, None, None,
+                         "full_binder (EntityBinder)", f"ERROR: {type(e).__name__}: {e}"))
+    return rows
+
+
+# ==================================================================================================
 # rendering: printed table + notes/BASELINE_BOARD.md (same records) + json snapshot
 # ==================================================================================================
-_PHASE2 = [
-    ("modern who-did-what (QA-SRL)",
-     "The arm that shows the parser's measured +0.033 lift. Its gold/scorer live in the parser solver's "
-     "UNTRACKED cells (exp_arceager_parser_operator_v1 / exp_predarg_frontend_organ_v1 / QA-SRL pop) which "
-     "HARD-FAIL the Q115 repro hook -> blocked on persisting those cells."),
-    ("who-has-what (MCScript2)",
-     "The coref-densifier's arm. Its gold/scorer live in the untracked exp_world_state_* cells -> blocked on "
-     "persisting those cells."),
+_PHASE2_LANDED = [
+    ("D. modern who-did-what (QA-SRL)",
+     "LANDED 2026-09-02. On the board as instrument `who_did_what` / corpus QA-SRL: arc/richfeat (LIVE) vs "
+     "arc-eager (PROMOTED) parser -- the +0.033 modern lift the 19c board (B) cannot see. Assembled from the "
+     "now-tracked exp_parser_through_real_organs_v1.run_pop (+ exp_arceager_parser_operator_v1)."),
+    ("E. who-has-what (LitBank + MCScript2)",
+     "LANDED 2026-09-02. On the board as instrument `who_has_what`: LitBank he/she coref-densify is the honest "
+     "non-circular headline (blind->reader +0.148, twin loses); MCScript2 end-to-end is included but FLAGGED "
+     "(full==gold==twin==1.0 -> degenerate twin). Assembled from the now-tracked exp_world_state_coref_densify_v1 "
+     "+ exp_world_state_endtoend_whohaswhat_v1."),
 ]
 
 
@@ -253,8 +373,13 @@ def write_markdown(records: List[dict], meta: dict) -> None:
              f"**elapsed:** {meta['elapsed_s']:.0f}s")
     L.append(f"- **snapshot JSON:** `{os.path.relpath(meta['json_path'], REPO).replace(os.sep, '/')}`")
     L.append(f"- **HOW TO RE-RUN:** `.venv/Scripts/python.exe tools/baseline_board.py --docs {meta['docs']}` "
-             "(patient: WSD graph build ~1-2 min). model/floor/twin are accuracies in [0,1]; higher model, "
-             "and model separated above floor & twin, is the win.")
+             "(patient: ~10-15 min -- WSD graph build ~1-2 min + the D/E parser & world-state arms ~5 min). "
+             "model/floor/twin are accuracies in [0,1]; higher model, and model separated above floor & twin, is the win.")
+    caps = meta.get("caps", {})
+    if caps:
+        L.append(f"- **Phase-2 (D/E) caps:** newarm_nboot={caps.get('newarm_nboot')}, "
+                 f"coref_docs={caps.get('coref_docs')} (LitBank he/she densify), "
+                 f"mcscript_stories={caps.get('mcscript_stories')} (MCScript2 end-to-end). n recorded per row.")
     L.append("")
     L.append("| instrument | metric | corpus | domain | model | floor | twin | n | config |")
     L.append("|---|---|---|---|---|---|---|---|---|")
@@ -269,11 +394,11 @@ def write_markdown(records: List[dict], meta: dict) -> None:
             L.append(f"- **{r['instrument']} / {r['metric']} ({r['config'].split(';')[0]}):** "
                      f"{r['note'].replace(chr(10), ' ')}")
     L.append("")
-    L.append("## PHASE 2 (pending cell persistence)")
+    L.append("## PHASE 2 (LANDED 2026-09-02)")
     L.append("")
-    L.append("These levers are NOT on the board yet -- honest about what it does not cover. Both are blocked "
-             "on persisting untracked solver cells (they HARD-FAIL the Q115 repro hook), not on the science:")
-    for name, why in _PHASE2:
+    L.append("Both Phase-2 levers are now ON the board (their solver cells became tracked). Nothing else is "
+             "pending. Each carries its own honesty caveat in the row notes above:")
+    for name, why in _PHASE2_LANDED:
         L.append(f"- **{name}** — {why}")
     L.append("")
     with open(OUT_MD, "w", encoding="utf-8") as f:
@@ -284,12 +409,18 @@ def main():
     ap = argparse.ArgumentParser(description="Versioned baseline board across the reading-comprehension levers.")
     ap.add_argument("--docs", type=int, default=16, help="LitBank docs for the reader-QA + who-did-what arms (default 16).")
     ap.add_argument("--wic-max", type=int, default=None, help="cap WiC-dev pairs (default: full dev, ~638).")
+    ap.add_argument("--newarm-nboot", type=int, default=1000,
+                    help="bootstrap resamples for the Phase-2 (D/E) arms (default 1000; deterministic seeds).")
+    ap.add_argument("--coref-docs", type=int, default=25,
+                    help="LitBank coref docs for the who-has-what densify arm (default 25 -> ~135 queries, the tracked headline).")
+    ap.add_argument("--mcscript-stories", type=int, default=800,
+                    help="MCScript2 stories for the who-has-what end-to-end arm (default 800 -> ~660 Qs; the full 3000 is ~2437 Qs, same degenerate twin).")
     ap.add_argument("--seed", type=int, default=SEED)
     args = ap.parse_args()
 
     t0 = time.time()
     docs = SITQA.load_docs(args.docs)
-    print(f"[baseline_board] docs={len(docs)}  seed={args.seed}  running 3 instruments (degrade-gracefully)...")
+    print(f"[baseline_board] docs={len(docs)}  seed={args.seed}  running 5 instruments (degrade-gracefully)...")
 
     records: List[dict] = []
     print("[A] reader QA (5 live dims + aggregate, 19c LitBank) ...")
@@ -298,6 +429,11 @@ def main():
     records += instrument_who_did_what(docs)
     print("[C] WSD on WiC-dev (modern) -- building the settling graph (heavy) ...")
     records += instrument_wsd_wic(seed=args.seed, wic_max=args.wic_max)
+    print("[D] modern who-did-what (QA-SRL): arc/richfeat (LIVE) vs arc-eager (PROMOTED) parser ...")
+    records += instrument_who_did_what_qasrl(nboot=args.newarm_nboot)
+    print("[E] who-has-what: LitBank he/she densify (honest) + MCScript2 end-to-end (flagged) ...")
+    records += instrument_who_has_what(nboot=args.newarm_nboot, coref_docs=args.coref_docs,
+                                       mcscript_stories=args.mcscript_stories)
 
     elapsed = time.time() - t0
     date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -306,6 +442,8 @@ def main():
     meta = {"generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "docs": args.docs, "seed": args.seed, "elapsed_s": round(elapsed, 1),
             "json_path": json_path, "n_records": len(records),
+            "caps": {"newarm_nboot": args.newarm_nboot, "coref_docs": args.coref_docs,
+                     "mcscript_stories": args.mcscript_stories, "wic_max": args.wic_max},
             "note": "Versioned baseline board. Top-level is {meta, records}; `records` is the list of rows."}
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump({"meta": meta, "records": records}, f, indent=2)
