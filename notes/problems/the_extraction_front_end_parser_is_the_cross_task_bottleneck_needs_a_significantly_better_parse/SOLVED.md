@@ -5,7 +5,7 @@ bar: "PASS = the substrate's OWN glass-box parser, improved (via the in-substrat
 result: "Improved parser = arc-eager incremental heads (UD-EWT test UAS 0.8184 gold-POS / 0.7827 pred-POS vs the LIVE richfeat 0.775/0.744, +0.043/+0.039) + LABEL-FREE thematic role recovery (drop the harmful arc_labeler) + an emitted calibrated attachment distribution. who-did-what patient (QA-SRL science, FULL n=2423): 0.5147 -> 0.5407, +0.0260 CI[+0.0116,+0.0396] frac<=0=0.000 (HARD n=1296: +0.0849 CI[+0.063,+0.107]); 19c LitBank FULL n=3015: 0.2610 -> 0.3721, +0.1111 CI[+0.098,+0.123]. Argument-attach PRECISION on UD-EWT (arc-eager vs live richfeat): object(->patient) 0.9419 vs 0.9249 +0.0170 CI[+0.001,+0.033]; subject(->agent, the 2nd role/task) 0.8748 vs 0.8569 +0.0205 CI[+0.007,+0.035]; passive-subject +0.068; oblique/recipient 0.690 vs 0.637 +0.053. N7: arc-eager attach-conf/graded_competition-entropy predict who-did-what errors AUC 0.708 (QA) / 0.761 (19c), shuffled-confidence twin AUC 0.507/0.490. LOCATED NEGATIVE: cannot reach spaCy-level UAS with the sanctioned infra -- arc-eager caps ~0.818 and GLOBAL structured-perceptron/beam training HARD_FAILED on disk (0.809 vs 0.811); the residual to spaCy's who-did-what 0.588 is representation/domain saturation, follow-on = gold target-domain parse data."
 floor: "Live baseline BASE_CURRENT = richfeat heads + arc_labeler LABELED = 0.5147 (= the parent-measured 0.515) on QA-SRL FULL; position floor 0.3743; richfeat UAS 0.775 (gold-POS) on UD-EWT test. All improved arms gated CI-separated over these strongest floors actually run."
 controls: "(1) info-free HEAD twin -- shuffle the arc-eager head assignments -> who-did-what collapses to 0.346, improved arm beats it +0.195 CI-sep (QA) / +0.164 (19c). (2) info-free CONFIDENCE twin -- shuffled difficulty score -> N7 AUC 0.507/0.490 (~chance) vs the real 0.708/0.761. (3) label-free vs labeled ISOLATION on the SAME heads -> excludes 'better heads' as the modern lever (arc-eager vs richfeat heads on modern who-did-what is ns, -0.0037; the modern gain is entirely the labeler-drop +0.0297 CI-sep). (4) global-beam-vs-local ISOLATION on disk (HARD_FAIL) -> excludes the brief's search route. Each control excludes a specific alternative explanation."
-files_changed: "experiments/exp_parser_gap_decomp_v1.py (disambiguation), experiments/exp_arceager_parser_operator_v1.py (arc-eager operator train+persist+parse+confidence; model data/frontend_assets_exp/arceager_dynamic_ud_ewt.npz), experiments/exp_parser_multiobjective_v1.py (multi-objective eval), experiments/exp_parser_argument_attach_v1.py (per-argument attach precision + 2nd task), verification/test_parser_improved_operator.py (witness), notes/problems/<slug>/CONSUMER_FIDELITY_MAP.md, FINDINGS_disambiguation.md"
+files_changed: "experiments/exp_parser_gap_decomp_v1.py (disambiguation), experiments/exp_arceager_parser_operator_v1.py (arc-eager operator train+persist+parse+confidence; model data/frontend_assets_exp/arceager_dynamic_ud_ewt.npz), experiments/exp_parser_multiobjective_v1.py (multi-objective eval), experiments/exp_parser_argument_attach_v1.py (per-argument attach precision + 2nd task), experiments/exp_arceager_cluster_features_v1.py (word-cluster representation lever vs the UAS ceiling), experiments/exp_parser_graded_cue_integration_v1.py (reliability-weighted graded cue integration -- MAP boundary), verification/test_parser_improved_operator.py (witness), notes/problems/<slug>/CONSUMER_FIDELITY_MAP.md, FINDINGS_disambiguation.md"
 reverify: ".venv/Scripts/python.exe verification/test_parser_improved_operator.py"
 ---
 
@@ -71,18 +71,30 @@ the labeler, not the parse. Signal path, end to end:
    (coverage of emitted patients) RISES 0.183->0.304 (QA) and 0.080->0.323 (19c): label-free recovers MORE
    arguments (the labeler was dropping them). POS/lemma unchanged (the parser consumes POS, does not produce it).
    19c who-did-what +0.111 CI-sep.
-5. **Confidence/distribution (N7)** -- YES. arc-eager attach-confidence + `graded_competition` entropy predict
-   who-did-what errors **AUC 0.708 (QA) / 0.761 (19c)**; shuffled-confidence twin AUC 0.507 / 0.490 (chance).
+5. **Confidence/distribution (N7)** -- YES, and correctly SCOPED. arc-eager attach-confidence + `graded_competition`
+   entropy predict who-did-what errors **AUC 0.708 (QA) / 0.761 (19c)**; shuffled-confidence twin AUC 0.507 / 0.490
+   (chance). And I tested the tempting over-reach -- reliability-WEIGHTING the structural cue by its confidence
+   (Ernst-Banks optimal cue combination) to try to LIFT accuracy (`exp_parser_graded_cue_integration_v1`): it does
+   NOT help, it slightly HURTS (GRADED_CONF vs the hard rule -0.0169 CI-sep on modern; ns on 19c; twin loses
+   +0.19). This is the `graded_competition` MAP-optimality THEOREM confirmed on this task: the maintained
+   distribution CANNOT beat its own argmax on accuracy -- its value is UNCERTAINTY (the N7 difficulty/abstain
+   signal), not the point estimate. So the confidence is correctly wired as a difficulty flag, not a selector.
 
 ## THE LOCATED NEGATIVE (the bar's escape clause, independently satisfied)
 **The in-substrate parser CANNOT be brought to spaCy-level UAS with the available glass-box infra, and I name the
-number and the mechanism.** Arc-eager caps at UAS 0.818 (gold-POS) / 0.783 (pred-POS); the sanctioned lever to
-cross it -- GLOBAL structured-perceptron + beam early-update (Collins-Roark) -- is **HARD_FAILED on disk**
-(`exp_depparse_global_beam_earlyupdate`: global 0.809 vs local 0.811, the earned bound being "search does not help
-this feature set; the saturation is a representation gap deeper than decode"). So AE_LABELFREE reaches who-did-what
-0.541, not spaCy's 0.588; the residual is the head-attachment/representation/domain saturation (UD-EWT-trained
-features vs science prose). **Mechanism named; follow-on named: GOLD target-domain parse data (self-training is
-refuted).** Separately, a genuine NON-TRANSFER: arc-eager REGRESSES the buried-subject long-arc case (0.156 vs
+number and the mechanism -- confirmed by refuting BOTH available levers.** Arc-eager caps at UAS 0.818 (gold-POS) /
+0.783 (pred-POS). (a) The sanctioned SEARCH lever -- GLOBAL structured-perceptron + beam early-update
+(Collins-Roark) -- is **HARD_FAILED on disk** (`exp_depparse_global_beam_earlyupdate`: global 0.809 vs local 0.811,
+earned bound "search does not help this feature set; the saturation is deeper than decode"). (b) I then tested the
+REPRESENTATION lever the earned bound pointed to -- a richer brain-plausible LEXICAL representation (distributional
+word-cluster features, K-means K=500 over GloVe-300; Koo/Carreras/Collins 2008) -- and it adds only **+0.0015
+(0.8184 -> 0.8199)**, essentially null (`exp_arceager_cluster_features_v1`). **So the ~0.81 ceiling survives BOTH a
+richer search AND a richer lexical representation** -- the residual to spaCy (UAS ~0.90) is a deeper
+representation/architecture gap (contextual/neural encoders, or the OntoNotes-vs-UD annotation scheme, or the
+UD-EWT->science DOMAIN shift), none of which the available glass-box perceptron infra reaches. So AE_LABELFREE
+reaches who-did-what 0.541, not spaCy's 0.588; **follow-on named: GOLD target-DOMAIN parse data + a
+richer-than-linear representation class (self-training refuted, word clusters refuted, global search refuted).**
+Separately, a genuine NON-TRANSFER: arc-eager REGRESSES the buried-subject long-arc case (0.156 vs
 richfeat 0.281, n=32 -- classic transition-parser error propagation, McDonald & Nivre 2011; underpowered but
 theory-consistent) even though it wins subject attachment overall (+0.021) -- a named follow-on (a hybrid /
 global-decode fix for long attractor arcs).
@@ -119,7 +131,9 @@ Full table in `CONSUMER_FIDELITY_MAP.md`. Brain-fidelity-weighted verdicts:
   voice + position). The live frontend loads the WEAKER `richfeat` (UAS 0.775) though `hashed` (0.791) and
   arc-eager (0.818) are better.
 - **Do NOT quote the brief's global-training route as open**: `exp_depparse_global_beam_earlyupdate` HARD_FAILED
-  (0.809 vs 0.811) -- the ~0.81 UAS ceiling is a representation gap the sanctioned search infra cannot cross.
+  (0.809 vs 0.811). The ~0.81 UAS ceiling now survives TWO refutations -- richer SEARCH (global-beam, null) AND a
+  richer LEXICAL representation (GloVe word clusters, +0.0015, `exp_arceager_cluster_features_v1`) -- so it is a
+  deeper representation/architecture gap, not a search or shallow-feature gap.
 - The register-robustness verdict flips the "swap to spaCy" intuition: spaCy heads are WORSE than the substrate's
   own on 19c label-free role recovery (-0.10); the register-robust who-did-what path is our-own-parser + label-free.
 - Confidence: arc-eager attachment confidence -> graded_competition entropy is a validated difficulty signal
@@ -161,6 +175,7 @@ None blocking.
 1. Strategy: land the three default-off wires above (arc-eager operator, label-free role route, confidence->
    graded_competition), re-verify with the witness.
 2. Follow-on problems this seeds (each brain-fidelity-evaluated): retire the arc_labeler from the live role path;
-   re-found or retire the `semantic_parser` placeholder; gold target-DOMAIN parse data to cross the 0.81 UAS
-   saturation (self-training refuted); a long-arc / buried-subject fix for the incremental parser's error
-   propagation; make the graded wired role path default-on.
+   re-found or retire the `semantic_parser` placeholder; to cross the 0.81 UAS saturation, a richer-than-linear
+   representation CLASS + gold target-DOMAIN parse data (the three cheap levers -- self-training, global search,
+   word clusters -- are ALL refuted, so this is a genuine architecture step, not a tuning step); a long-arc /
+   buried-subject fix for the incremental parser's error propagation; make the graded wired role path default-on.
