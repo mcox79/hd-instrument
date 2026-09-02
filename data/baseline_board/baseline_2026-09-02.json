@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "generated_utc": "2026-09-02T14:57:48Z",
+    "docs": 16,
+    "seed": 20260902,
+    "elapsed_s": 420.6,
+    "json_path": "C:\\AI\\hd-instrument\\data\\baseline_board\\baseline_2026-09-02.json",
+    "n_records": 11,
+    "note": "Versioned baseline board. Top-level is {meta, records}; `records` is the list of rows."
+  },
+  "records": [
+    {
+      "instrument": "reader_qa",
+      "metric": "qa_coref",
+      "corpus": "LitBank",
+      "domain": "19c",
+      "model": 0.5688,
+      "floor": 0.3968,
+      "twin": 0.0,
+      "n": 436,
+      "config": "capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=mostfreq_ok",
+      "note": "which-entity from accumulated coref_resolutions (LitBank coref gold)."
+    },
+    {
+      "instrument": "reader_qa",
+      "metric": "qa_events",
+      "corpus": "LitBank",
+      "domain": "19c",
+      "model": 0.2257,
+      "floor": 0.0361,
+      "twin": 0.0,
+      "n": 1830,
+      "config": "capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=overlap_ok",
+      "note": "who-did-what agent off the event index (LitBank WDW gold); CAPABLE reader (tense-agnostic detector on)."
+    },
+    {
+      "instrument": "reader_qa",
+      "metric": "qa_temporal",
+      "corpus": "LitBank",
+      "domain": "19c",
+      "model": 0.8358,
+      "floor": 0.2761,
+      "twin": 0.0,
+      "n": 268,
+      "config": "capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=textorder_ok",
+      "note": "before/after off sm.timeline_order; HONEST CAVEAT: gold shares the tense signal (tests the QA claim, not independent temporal reasoning)."
+    },
+    {
+      "instrument": "reader_qa",
+      "metric": "qa_causal",
+      "corpus": "LitBank",
+      "domain": "19c",
+      "model": 0.1485,
+      "floor": 0.5446,
+      "twin": 0.0,
+      "n": 101,
+      "config": "capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=adjacency_ok",
+      "note": "cause off causal_links vs grammar-direction gold; the reader's causal organ is connective-reducible (a connective detector, not force-dynamics)."
+    },
+    {
+      "instrument": "reader_qa",
+      "metric": "qa_location",
+      "corpus": "LitBank",
+      "domain": "19c",
+      "model": 1.0,
+      "floor": 0.0,
+      "twin": 0.0,
+      "n": 16,
+      "config": "capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=overlap_ok",
+      "note": "ISLAND dim -- organ not wired into the live reader; score = correct-ABSTAIN rate (faithful behavior is to abstain)."
+    },
+    {
+      "instrument": "reader_qa",
+      "metric": "qa_belief",
+      "corpus": "LitBank",
+      "domain": "19c",
+      "model": 1.0,
+      "floor": 0.0,
+      "twin": 0.0,
+      "n": 16,
+      "config": "capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=overlap_ok",
+      "note": "ISLAND dim -- ToM organ not wired into the live reader; score = correct-ABSTAIN rate."
+    },
+    {
+      "instrument": "reader_qa",
+      "metric": "qa_aggregate",
+      "corpus": "LitBank",
+      "domain": "19c",
+      "model": 0.3416,
+      "floor": 0.1632,
+      "twin": 0.0,
+      "n": 2635,
+      "config": "capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; temporal_readout=sm.timeline_order (whole-passage register)",
+      "note": "Aggregate model accuracy over the 4 scored dimensions vs strongest per-dim floors + info-free (deranged-router) twin."
+    },
+    {
+      "instrument": "who_did_what",
+      "metric": "who_did_what",
+      "corpus": "LitBank",
+      "domain": "19c",
+      "model": 0.1202,
+      "floor": null,
+      "twin": null,
+      "n": 1830,
+      "config": "positional",
+      "note": "roles assigned POSITIONALLY (default reader; no parse). Scores the AGENT slot (subject head) via build_events_questions."
+    },
+    {
+      "instrument": "who_did_what",
+      "metric": "who_did_what",
+      "corpus": "LitBank",
+      "domain": "19c",
+      "model": 0.1426,
+      "floor": null,
+      "twin": null,
+      "n": 1830,
+      "config": "wired",
+      "note": "roles routed through a real parse -> route_predicate_arguments (+ quotative), positional fallback. Scores the AGENT slot (subject head) via build_events_questions."
+    },
+    {
+      "instrument": "who_did_what",
+      "metric": "who_did_what",
+      "corpus": "LitBank",
+      "domain": "19c",
+      "model": 0.1404,
+      "floor": null,
+      "twin": null,
+      "n": 1830,
+      "config": "wired_arceager",
+      "note": "wired parse routed through the promoted arc-eager parser. EXPECTED ~flat here: arceager is modern-trained; LitBank is 19c/OOD. The modern lift (+0.033) shows in Phase-2 QA-SRL (pending). Scores the AGENT slot (subject head) via build_events_questions."
+    },
+    {
+      "instrument": "wsd",
+      "metric": "wsd",
+      "corpus": "WiC-dev",
+      "domain": "modern",
+      "model": 0.6661,
+      "floor": 0.5,
+      "twin": 0.5815,
+      "n": 638,
+      "config": "grounded_semantic_graph(relations_glosses+conceptnet+syntagnet)",
+      "note": "select_sense (ppr_w2w spreading activation); graph=1025488 edges built in 22s. Predict SAME-sense iff the two independently-disambiguated synsets match. Floor=MFS (predict same always). Twin=context-shuffle (side-2 from a random sentence); model>twin = the context is used."
+    }
+  ]
+}

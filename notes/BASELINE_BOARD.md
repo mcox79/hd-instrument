@@ -2,24 +2,24 @@
 
 **The versioned baseline to diff future improvements against.** Each row is one existing, tracked eval; re-run this and compare snapshots to see what a change actually yields. Regenerated on every run (do not hand-edit).
 
-- **generated (UTC):** 2026-09-02T14:50:17Z
-- **docs (LitBank arms):** 2  |  **seed:** 20260902  |  **elapsed:** 150s
+- **generated (UTC):** 2026-09-02T14:57:48Z
+- **docs (LitBank arms):** 16  |  **seed:** 20260902  |  **elapsed:** 421s
 - **snapshot JSON:** `data/baseline_board/baseline_2026-09-02.json`
-- **HOW TO RE-RUN:** `.venv/Scripts/python.exe tools/baseline_board.py --docs 2` (patient: WSD graph build ~1-2 min). model/floor/twin are accuracies in [0,1]; higher model, and model separated above floor & twin, is the win.
+- **HOW TO RE-RUN:** `.venv/Scripts/python.exe tools/baseline_board.py --docs 16` (patient: WSD graph build ~1-2 min). model/floor/twin are accuracies in [0,1]; higher model, and model separated above floor & twin, is the win.
 
 | instrument | metric | corpus | domain | model | floor | twin | n | config |
 |---|---|---|---|---|---|---|---|---|
-| reader_qa | qa_coref | LitBank | 19c | 0.8438 | 0.8750 | 0.0000 | 32 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=mostfreq_ok |
-| reader_qa | qa_events | LitBank | 19c | 0.1258 | 0.0126 | 0.0000 | 159 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=overlap_ok |
-| reader_qa | qa_temporal | LitBank | 19c | 0.7188 | 0.3125 | 0.0000 | 64 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=textorder_ok |
-| reader_qa | qa_causal | LitBank | 19c | 0.0909 | 0.4545 | 0.0000 | 11 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=adjacency_ok |
-| reader_qa | qa_location | LitBank | 19c | 1.0000 | 0.0000 | 0.0000 | 2 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=overlap_ok |
-| reader_qa | qa_belief | LitBank | 19c | 1.0000 | 0.0000 | 0.0000 | 2 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=overlap_ok |
-| reader_qa | qa_aggregate | LitBank | 19c | 0.3534 | 0.2068 | 0.0000 | 266 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; temporal_readout=sm.timeline_order (whole-passage register) |
-| who_did_what | who_did_what | LitBank | 19c | 0.0692 | — | — | 159 | positional |
-| who_did_what | who_did_what | LitBank | 19c | 0.0881 | — | — | 159 | wired |
-| who_did_what | who_did_what | LitBank | 19c | 0.0881 | — | — | 159 | wired_arceager |
-| wsd | wsd | WiC-dev | modern | 0.6667 | 0.3333 | 0.4167 | 12 | grounded_semantic_graph(relations_glosses+conceptnet+syntagnet) |
+| reader_qa | qa_coref | LitBank | 19c | 0.5688 | 0.3968 | 0.0000 | 436 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=mostfreq_ok |
+| reader_qa | qa_events | LitBank | 19c | 0.2257 | 0.0361 | 0.0000 | 1830 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=overlap_ok |
+| reader_qa | qa_temporal | LitBank | 19c | 0.8358 | 0.2761 | 0.0000 | 268 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=textorder_ok |
+| reader_qa | qa_causal | LitBank | 19c | 0.1485 | 0.5446 | 0.0000 | 101 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=adjacency_ok |
+| reader_qa | qa_location | LitBank | 19c | 1.0000 | 0.0000 | 0.0000 | 16 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=overlap_ok |
+| reader_qa | qa_belief | LitBank | 19c | 1.0000 | 0.0000 | 0.0000 | 16 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; floor=overlap_ok |
+| reader_qa | qa_aggregate | LitBank | 19c | 0.3416 | 0.1632 | 0.0000 | 2635 | capable_reader[tense_agnostic_events+preserve_tense+timeline_register]; temporal_readout=sm.timeline_order (whole-passage register) |
+| who_did_what | who_did_what | LitBank | 19c | 0.1202 | — | — | 1830 | positional |
+| who_did_what | who_did_what | LitBank | 19c | 0.1426 | — | — | 1830 | wired |
+| who_did_what | who_did_what | LitBank | 19c | 0.1404 | — | — | 1830 | wired_arceager |
+| wsd | wsd | WiC-dev | modern | 0.6661 | 0.5000 | 0.5815 | 638 | grounded_semantic_graph(relations_glosses+conceptnet+syntagnet) |
 
 ### Row notes
 - **reader_qa / qa_coref (capable_reader[tense_agnostic_events+preserve_tense+timeline_register]):** which-entity from accumulated coref_resolutions (LitBank coref gold).
