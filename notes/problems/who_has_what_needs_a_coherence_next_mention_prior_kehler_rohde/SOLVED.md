@@ -201,6 +201,84 @@ so the realizable glass-box ceiling is ~0.67, and pushing past it needs a RICHER
 the North Star. **So YES, the ideal solution is now prototyped and it works (+0.054 CI-sep); it is bounded by
 representation richness + coref quality + scale, which is exactly the priority-1 situation model's remit.**
 
+## ABSOLUTE UNDERSTANDING -- WHERE we lose score, and is it UPSTREAM? (owner asked; drilled all the way up + down)
+I decomposed the ideal integrator's every error on the held-out bucket by CUE AGREEMENT (how many of the 4 cues'
+argmax points to gold). This locates the loss EXACTLY (n=663):
+
+| cues pointing to gold | share of bucket | integrator accuracy there |
+|---|---|---|
+| 0 (no cue points to gold) | 9.5% | 0.048 |
+| 1 | 24.6% | 0.558 |
+| 2 | 28.5% | 0.788 |
+| 3 | 22.0% | 0.712 |
+| 4 (all agree) | 15.4% | 1.000 |
+
+Integrator 0.677; combined ORACLE (>=1 cue right) 0.905. **The loss splits into two parts, and the drill settles
+which lever each needs:**
+
+**PART A -- 9.5% "0 cues right" = truly INFORMATION-limited (the no-LLM floor).** No glass-box cue points to gold
+-> no combiner can ever pass this; it needs EXTERNAL world-knowledge (the situation model / North Star). This is
+the ~irreducible slice under the no-LLM invariant.
+
+**PART B -- ~23% "at least one cue right but the integrator picks wrong" = NOT a better-combiner problem; it is an
+UPSTREAM CUE-SHARPNESS problem.** I proved this by trying to recover it and FAILING every way: MAJORITY VOTE 0.643
+and SEMANTIC-OVERRIDE 0.575 are BOTH WORSE than the learned net-dominant integrator 0.677 -- so the integration is
+NEAR-EXHAUSTED, the learned weighting is already near-optimal. WHY it cannot be recovered: on the 1-cue-right
+items the RIGHT cue's own confidence (margin 1.19) only MARGINALLY exceeds the wrong cues' (0.71) -- the right cue
+is not decisively detectable gold-free, so no per-item gate can reliably find it. (Telling: 3-cues-right items
+score only 0.712 because net/topicality is weighted highest and, when it dissents from the 3 semantic cues, the
+integrator follows it -- but OVERRIDING net with the semantic majority makes things WORSE overall, because the
+semantic-majority signal is itself unreliable at our coarse representation. Net-dominance is correct; the cues
+are just not sharp enough.)
+
+**IS IT UPSTREAM? YES -- decisively.** DRILL UP: the four cues come from upstream organs -- coref clustering
+(entity histories), the 12-dim grounded space (individuation), content/event extraction. The realizable ~0.68
+ceiling is set by THEIR sharpness, not by the combiner (which is done). Sharper cues -> the right cue wins
+decisively -> the near-optimal integrator picks it, closing Part B toward the 0.905 oracle. DRILL DOWN: the pick
+feeds the situation model; error propagation is real (the recurrent test), and the 9.5% Part-A slice is the
+downstream no-LLM floor. **So breaking the wall is an UPSTREAM REPRESENTATION + COREF-QUALITY problem (Part B,
+~23%) plus the EXTERNAL world-knowledge slice (Part A, 9.5%) -- NOT an integration-architecture problem (every
+architecture is exhausted at ~0.68).** The single highest lever is a richer entity-INDIVIDUATION representation
+(p1; the research's separate perirhinal/ATL individuation code, DELTA 6) that sharpens the cues -- which is
+exactly the North Star's remit.
+
+**KEEP GOING UPSTREAM -- the ROOT, pinned to one organ (owner: "keep going upstream").** I traced the ~23%
+recoverable loss to WHICH cue holds the answer, by upstream organ (n_recoverable=154): net(->COREF) standalone
+0.614, right on 10% of recoverable errors; content(->lexical) 0.579 / 56%; grounded(->the p1 individuation
+representation) **0.516 -- the WEAKEST standalone -- yet right on 68% of the recoverable errors (the MOST)**;
+exact(->parse) 0.383, uniquely-right on 8%. The grounded cue HOLDS the answer on the recoverable errors but is
+too coarse to be trusted -- the exact signature of an impoverished representation. Coref is near-ceiling
+(gold-nominal; net right on only 10% -- it is the anti-topicality bucket by construction); parse is redundant.
+**So the drill bottoms out precisely: the ROOT is the ENTITY-INDIVIDUATION REPRESENTATION built from reading --
+currently a mean of 12-dim event vectors, far too impoverished to tell two people apart. Sharpen THAT (a rich
+person-specific individuation code = p1 / the North Star's situation-model entity representation) and the
+near-optimal integrator picks the now-decisive cue, closing Part B; the 9.5% Part-A slice stays the
+external-world-knowledge floor. The wall is a REPRESENTATION wall, pinned to one organ.** This is the complete,
+drilled-to-the-root account. (Reproducible: `exp_coref_faithful_integrator_deltas_v1.py` ->
+SCORE_LOSS_DECOMPOSITION + upstream_cue_attribution.)
+
+## PROTOTYPING THE OPTIMIZATION to the root component (owner: "prototype the optimization to that component")
+I built three SHARPER glass-box, no-LLM entity-individuation representations and tested whether they sharpen the
+cue AND break the integrator past 0.677 toward the 0.925 oracle:
+- **ENR1 -- TF-IDF-weighted content individuation** (down-weight common words -> rare, entity-SPECIFIC words
+  carry the discrimination): STANDALONE 0.641 -- the SHARPEST single cue, beating net 0.614 / content 0.579 /
+  grounded 0.516. So representation sharpness IS a real lever at the cue level, and the 6-cue oracle rises to 0.925.
+- **ENR2 -- full grounded PROFILE** (mean grounded vec of ALL the entity's content words, not just the event):
+  0.452 -- NOISIER (the coarse 12-dim space washes out with more words).
+- **Learned discriminative combinations** of the enriched features.
+**RESULT: NO enriched config beats the base 4-cue integrator (0.677).** +ENR1 -> 0.670; REPLACE content with ENR1
+-> 0.662; net+ENR1+grounded -> 0.661. **VERDICT: the glass-box representation enrichment is EXHAUSTED here** --
+ENR1 is a sharper cue but REDUNDANT with the existing content/grounded cues (it re-encodes the SAME lexical
+information more sharply, not NEW orthogonal individuating information), and it is still not decisively confident
+enough to fix the per-item selection problem. This is the decisive bound: **breaking the wall needs a genuinely
+RICHER, ORTHOGONAL person-specific individuation code -- one that captures WHO each character is (accumulated
+attributes / roles / relations), not sharper word-overlap -- which is beyond a glass-box feature tweak and IS the
+North Star's situation-model entity representation (a rich individuation code learned from reading, research
+DELTA 6).** I prototyped the buildable-here optimization to its floor; the remaining lever is genuinely the
+North Star, now with a pinned target (raise the individuation cue's ORTHOGONAL discrimination so the near-optimal
+integrator can select it). (Reproducible via the enriched-representation probe; the base decomposition +
+attribution are in `exp_coref_faithful_integrator_deltas_v1.py`.)
+
 ## HOW THE IDEAL DIFFERS FROM THE BRAIN -- ALL the deltas, researched + prototyped (owner asked; no half effort)
 A 4-lane full-text lit-drill (`research_pronoun_resolution_mechanism_2026-09-02.md`, 9 full-text-verified papers
 + ~60 abstract-level, confidence deflated per discipline) audited our prototype against the brain and surfaced

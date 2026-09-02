@@ -288,6 +288,44 @@ cue set.** The fundable path to a genuinely more-ideal system is to make each ST
 Gestalt unbinding readout, not a bag-of-context mean) -- not to bolt more weak cues onto the strong one. This
 sharpens the whole chain's headline: representation is the lever, all the way down.
 
+---
+
+## PART 6 -- ABSOLUTE UNDERSTANDING: the metric was wrong, and the structured situation model earns its keep on multi-participant events
+
+Chasing a "more ideal" system on exact-patient MRR kept failing. A ceiling diagnosis (`exp_prediction_ceiling_
+diagnosis_v1`) explains why and reframes the whole question:
+- **Exact-patient prediction is near its INTRINSIC ceiling.** Each verb admits a median **~164 effectively-distinct
+  patients** (in a 300-pool); the empirical count-conditional P(patient|agent,verb) itself reaches only **0.165
+  MRR**, and our vectors (0.145) are already within 0.02 of it. The patient is genuinely underdetermined by
+  agent+verb -- exactly the graded fan-out the brain pre-activates (Altmann-Kamide; Federmeier; Metusalem). **We
+  were measuring the wrong competence.**
+- **On the BRAIN'S competence -- graded thematic-fit, a frequency-controlled 2AFC** (Chambers-Jurafsky 2010 freq
+  fix; DTFit; Chersoni *SEM 2021 validates 2AFC as a proxy for human-rating rho) -- the system is genuinely
+  competent where exact-match hid it (`exp_thematic_fit_2afc_v1`):
+  - **verb-level thematic fit = 0.72 2AFC** (true patient vs a frequency-matched verb-atypical foil).
+  - **richer representation HELPS on the graded metric** (dim-200 vs dim-50 **+0.009 CI-sep**) -- the headroom
+    exact-match hid.
+  - **agent-composition (Bicknell) is REAL but small, and isolatable**: on verb-TYPICAL foils (where the marginal
+    is at chance by design, so only the agent can decide) COMPOSED beats MARGINAL **+0.018 CI-sep** -- the first
+    clean isolation of the composition signal.
+- **The structured situation model (Sentence-Gestalt) -- honest verdict + honest test.** The research verdict: a
+  glass-box FHRR situation vector is a CARICATURE on single {agent, verb} sentences (no patient term to unbind;
+  redundant with the hub) but earns independent signal with an additional bound participant. Tested exactly there
+  (`exp_sentence_gestalt_multiparticipant_v1`, multi-participant events, n=2538, graded 2AFC verb-typical foils):
+  **agent-only = 0.493 (chance) -> agent + second-participant = 0.527, +0.035 CI-sep, with the oblique-shuffle twin
+  losing (+0.030 CI-sep).** The richer/structured stream DOES add real patient-prediction signal -- precisely on the
+  events where it has extra terms the hub never sees.
+
+**THE COMPLETE, RECONCILED PICTURE.** (1) English who-did-what SELECTION is order-dominant (we match the brain);
+thematic fit is not a selection lever there. (2) Thematic fit is a PREDICTION/anticipation mechanism; measured as
+exact next-word it looks weak, but that is near an intrinsic ceiling. (3) On the brain's actual GRADED competence
+the system is strong (0.72 verb-level), representation richness helps (+0.009), agent-composition is real-and-small
+(+0.018 isolated), and a structured multi-participant situation model adds further real signal (+0.035 where it has
+the terms). (4) The one place naive "more ideal" bolt-ons failed was weak, non-complementary cues under any
+integrator -- the lever throughout is the QUALITY and STRUCTURE of the representation, not the integration
+architecture. The distance to the brain is a genuinely richer ATL-grade store + a real discourse/multi-participant
+situation model -- both now shown, on the right metric, to be the levers that pay.
+
 ### One-line reconciliation with the audit
 The register/selection story is now fully brain-scoped: **English who-did-what SELECTION is word-order-dominant
 (we match the brain); thematic-fit/composition is a forward-PREDICTION mechanism that is REPRESENTATION-bounded (spoke
