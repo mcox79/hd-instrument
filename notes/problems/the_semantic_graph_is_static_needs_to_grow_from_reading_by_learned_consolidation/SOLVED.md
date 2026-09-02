@@ -41,7 +41,30 @@ version worth revisiting, and only inside the Tier-3 continuous/comprehension or
      positive (grow from a domain corpus, test that domain's WSD; needs a domain-sense gold).
 **KEY WARNING for whoever takes (a)/(b):** every TYPICAL-USAGE / LOCAL signal (co-occurrence, selectional
 preference, the frequency prior) reinforces DOMINANCE and cannot crack subordinate override; a sense-level
-selectional model is CIRCULAR (needs WSD). The lever must be top-down understanding of the SPECIFIC situation.
+selectional model is CIRCULAR IN ISOLATION (needs WSD). The lever must be top-down understanding of the SPECIFIC
+situation -- which IS buildable (below), not a ceiling.
+
+## HOW TO FULLY SOLVE THIS -- glass-box, brain-foundational, buildable (NOT a ceiling)
+"AI-complete" here means ONLY "as hard as general comprehension" (the WSD literature's term for needing world
+knowledge beyond the text) -- it is NOT an impossibility claim. The brain resolves subordinate senses with a
+mechanistic, glass-box neural system, so WE CAN TOO. The buildable brain-foundational path (all glass-box, NO
+external LLM at inference -- the invariant):
+1. **STRUCTURED SITUATION MODEL as the top-down predictor** -- REUSE the `situation_reader` (events / entities /
+   roles / coref the project already extracts). This IS the generative model the sense prediction reads from.
+2. **TOP-DOWN PREDICTIVE CODING** -- the situation model predicts each incoming word's expected sense (predictive
+   coding); the prediction error (N400) gates OVERRIDE of the dominant sense. Selection dynamics = the VALIDATED
+   competitive settling (settle >> bag +0.234) + `semantic_control` LIFG suppression -- both glass-box, both proven here.
+3. **BOOTSTRAPPING dissolves the apparent circularity** -- senses and comprehension CO-DEVELOP through
+   cross-situational reading (Yu & Smith 2007; Srinivasan): start coarse, use comprehension to disambiguate, use
+   the disambiguated usage to refine sense granularity (split/merge via `ultrametric_clustering`) AND the situation
+   model, then iterate. This is the learner-on loop; a child does exactly this. It is NOT circular -- it is a fixpoint.
+4. **GRADED CONTINUOUS, SENSE-specific representation** (`meaning_fusion` node vectors, sense-resolved) so meaning
+   is the graded situation-shaded vector (Rodd), re-carved by (3) -- the representation fork.
+NET: the full solution is the North-Star COMPREHENSION organ + the sense/comprehension BOOTSTRAPPING loop, assembled
+glass-box from pieces THIS submission validated (competitive settling, semantic_control) plus existing organs
+(situation_reader, ultrametric_clustering, meaning_fusion). This located negative's value is that it PROVES
+growth-of-a-local-graph is the wrong lever and hands that concrete glass-box build the map -- it is a redirection,
+not a dead end.
 
 ## What I built
 An intrinsic LEARNED semantic-graph organ that grows the static graph from reading, and the brain-foundational
@@ -144,9 +167,11 @@ READ that consumes it -- every brain-foundational aspect INTEGRATED (the owner's
    -0.085 subordinate (worse), because typical-usage IS the dominant sense -- and building a sense-level
    (non-dominance-biased) selectional model is CIRCULAR (needs WSD to build the thing that does WSD). NET: shallow
    structure is a REAL, correctly-directed signal (helps coarse) but every TYPICAL-USAGE / LOCAL signal reinforces
-   dominance and cannot crack subordinate override; the circularity IS the AI-completeness. The fix is the FULL
-   situation-understanding model (comprehend THIS specific situation calling for the atypical sense) -- the North
-   Star. Validated sub-mechanism to carry forward: COMPETITIVE SETTLING as the coherence/gist former (settle >> bag).
+   dominance and cannot crack subordinate override; the circularity is DISSOLVED by BOOTSTRAPPING (senses +
+   comprehension co-develop through cross-situational reading -- Yu & Smith / Srinivasan; see HOW TO FULLY SOLVE),
+   so it is NOT a ceiling. The fix is the FULL situation-understanding model (comprehend THIS specific situation
+   calling for the atypical sense) -- the North Star, buildable glass-box. Validated sub-mechanism to carry
+   forward: COMPETITIVE SETTLING as the coherence/gist former (settle >> bag).
 
 ## The located residual, and the walls drilled
 Every negative in context-conditioned sense selection unified into one gap, and the growth failure into one more:
