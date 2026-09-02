@@ -1,0 +1,86 @@
+# THE BRAIN-FOUNDATIONAL EXTRACTION CHAIN — exact signal each needs + FIRST-STEP fidelity (+ the 19c root cause)
+
+Owner Qs (2026-09-02): "why exactly did we lose on 19c — disambiguate at each step for the truly
+brain-foundational components, understand the parser loss at the root, improve if we can" AND "how many truly
+brain-foundational components are there? do we know exactly what signal they need, and can we disambiguate the
+first step for all of them?"
+
+## THE KEY STRUCTURAL FACT: they form ONE DEPENDENCY CHAIN, so every "first step" collapses onto 5 shared signals
+```
+  TOKENS  ->  POS/LEMMA  ->  HEADS  ->  ROLES  ->  EVENTS
+ (segment)   (pos_tagger)  (parser) (role organs) (situation model)
+```
+Every truly brain-foundational component's FIRST required signal is one of these 5. So "disambiguate the first
+step for all of them" = measure the fidelity of these 5 shared signals — which we now have.
+
+## THE COMPONENTS (truly brain-foundational = PINNED "copy the brain's operation", NOT OUR-INVENTION placeholders)
+| # | component | brain mechanism (PINNED) | EXACT signal it needs | its FIRST step (root input) |
+|---|---|---|---|---|
+| 1 | `pos_tagger` | lexical-category access (ventral stream) | token string + local char/word context | TOKENS |
+| 2 | arc-eager parser | incremental structure-building (Now-or-Never; left-corner) | tokens + POS | POS |
+| 3 | `graded_role_assigner` (hybrid_role_patient) | Competition-Model role binding (position-dominant + voice/gap OVERRIDE) | tokens + POS + verb-idx + candidate nominals | POS + POSITION |
+| 4 | `relcl_resolver` / `predict_revise` | active-filler filler-gap (Frazier; Stowe) | tokens + POS + verb + relativizers/voice | POS |
+| 5 | `predicate_argument_frontend` | structure + role pools (Matchin-Hickok); matrix-verb + PP/oblique roles | tokens + POS + **HEADS** | HEADS |
+| 6 | `verb_subcat` | lexical argument structure | verb LEMMA | LEMMA |
+| 7 | `predictive_reader` (predict_surprisal) | N400 forward prediction (predictive coding) | the extracted EVENT (verb+role+patient) | ROLES/EVENT |
+| 8 | `graded_competition` | maintained distribution (Bayesian posterior; McClelland 2013) | per-candidate cue SUPPORTS + validities | the CUES (from #3) |
+| 9 | `world_state_register` | event-indexing situation model (Zwaan-Radvansky; STRIPS) | events with agent/patient/RECIPIENT roles | ROLES/EVENT |
+**Count: 9 truly brain-foundational components in the extraction chain** (further downstream: conceptual_meaning
+/ belief / coref — different dimensions). NON-foundational, flagged, EXCLUDED: `arc_labeler` (grammatical labels
+— measured harmful), `semantic_parser` (intent/slot placeholder). **Yes — we know exactly what each needs (the
+"EXACT signal" column, read from the code), and the first step for all 9 is one of the 5 shared signals.**
+
+## FIRST-STEP FIDELITY (measured; `exp_19c_signal_loss_v1` + the organ cells)
+| shared signal | who needs it first | MODERN fidelity | 19c fidelity | drop |
+|---|---|---|---|---|
+| TOKENS | #1 tagger | pre-tokenized (PTB-style, clean) | pre-tokenized | ~0 |
+| POS — verb tagged VERB | #2,#3,#4 | **0.892** | **0.791** | **−0.100** |
+| POS — patient tagged NOMINAL | #3 | 0.997 | 1.000 | +0.003 |
+| POSITION — patient post-verbal | #3 | 0.725 | 0.879 | +0.155 (19c EASIER on order) |
+| HEADS — patient attaches to verb | #5, my head-rule | **0.578** | **0.458** | **−0.121** |
+| ROLES — patient organ accuracy | #7,#9 downstream | 0.541 | 0.411 | −0.130 |
+
+## THE 19c ROOT CAUSE, DISAMBIGUATED (answering "why exactly did we lose on 19c")
+The 19c items are STRUCTURALLY EASIER (88% post-verbal vs 72%; only 12% passive/non-canonical vs 53%) — yet
+accuracy is LOWER (0.41 vs 0.55). The loss is NOT the role mechanism; it is the two UPSTREAM brain-foundational
+signals both degrading on an archaic register neither component has READ:
+1. **POS (verb identification) drops −0.100** (0.892 -> 0.791): the tagger, trained on modern UD-EWT, mis-tags
+   ~21% of 19c verbs (archaic morphology / literary syntax). This corrupts the voice cue AND the parse.
+2. **HEADS (patient attachment) drops −0.121** (0.578 -> 0.458): the parser, trained on modern UD-EWT, attaches
+   the patient to its verb only 46% of the time on 19c. THIS is exactly why my head-using rule LOSES to the
+   position organ on 19c — the heads are wrong 54% of the time, so the position-dominant organ (which ignores the
+   degraded heads — the brain-faithful move) is correctly more robust. Partition evidence: 19c "parser-did-not-
+   attach" items are 54% of the set (vs 42% modern), and there the organ falls back to position (acc 0.27).
+**ROOT = a REGISTER/experience gap in the two shared upstream signals (POS + HEADS), not a mechanism defect.**
+The brain parses 19c by having READ 19c (experience-based statistics; Competition-Model validities are learned
+per register). Our tagger + parser have not. This is the SAME root as the modern arc->spaCy residual (domain
+shift), now localized to 19c with numbers.
+
+## ⚠️ PROTOTYPE CORRECTION (`exp_tagger_prototype_19c_v1`) -- the tagger/parser register gap is NOT the who-did-what lever
+Owner asked to prototype the fix to the worst component and show it improves. I fed a BETTER tagger (spaCy UPOS,
+strong-reference proxy for a gold-target-register tagger) into the SAME parser + real organ. Result:
+| signal | who-did-what recovery | verb-ID (S1) recovery | parser-attach (S4) recovery |
+|---|---|---|---|
+| modern | **+0.002 (none)** | +0.057 | +0.024 |
+| 19c | **+0.000 (none)** | +0.025 | +0.010 |
+The components DO improve at their OWN job (the tagger's verb-ID rises, the parser attaches a bit better), but
+**none of it reaches who-did-what.** Reason: `hybrid_role_patient` is GIVEN the verb index and its candidates are
+already 100% nominal-tagged, so it is ROBUST to tagger errors and position-dominant -- a better POS only nudges
+the voice cue, not the position-dominant pick. **So my "the 19c who-did-what loss is rooted in the tagger+parser
+register gaps" hypothesis is REFUTED by the prototype.** The register gaps are real AT the tagger/parser level
+(and matter for the parser's OWN consumers -- matrix-verb F1, PP-role F1), but they do NOT flow to the patient
+decision. THE REAL 19c who-did-what lever is the **SELECTION layer**: 43% of 19c items are "parser-did-not-attach
++ post-verbal" where the position fallback (nearest post-verbal) picks the WRONG one among several candidates --
+a PLAUSIBILITY / world-knowledge decision (which noun is the plausible patient of THIS verb), i.e. the
+register-native selectional store (the prior owner-DONE problem), NOT the tagger/parser. This is the value of
+prototyping before attributing: the worst-MEASURED components were not the who-did-what lever.
+
+## CAN WE IMPROVE IT? (the brain-faithful fix, and what is already correct)
+- **Already correct (do not "fix"):** the position-dominant + cue-override organ is the RIGHT mechanism for 19c —
+  it correctly down-weights the degraded heads. Wiring heads INTO it hurts 19c (measured −0.044). Keep it.
+- **The lever is register EXPERIENCE for the two upstream signals** (confirmed at the root): (a) tagger
+  register-adaptation for archaic morphology (recovers the −0.10 verb-ID), (b) parser register-native training on
+  GOLD 19c/literary parse data (recovers the −0.12 attach; self-training is refuted). Both are the SAME
+  gold-target-register follow-on, now motivated by the exact per-step numbers rather than asserted.
+- The residual after those (post-verbal multi-candidate selection on complex 19c clauses) is the selectional/
+  world-knowledge layer, not the parser.

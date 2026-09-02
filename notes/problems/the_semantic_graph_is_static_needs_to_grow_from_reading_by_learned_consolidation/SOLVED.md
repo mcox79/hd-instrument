@@ -88,6 +88,22 @@ READ that consumes it -- every brain-foundational aspect INTEGRATED (the owner's
    (it works, brain-consistently) but (a) the see-saw (settling with no prior-fallback over-shifts weak-context
    DOMINANT items) and (b) the detector -- both requiring the next organ (selection only where warranted, over a
    graded continuous representation with emergent, homonym-vs-polysemy-aware granularity).
+8. **[ROOT-CAUSE, the deepest finding] ALL the walls trace to ONE gap: the missing TOP-DOWN GENERATIVE
+   SITUATION-MODEL PREDICTION -- and it makes subordinate WSD == COMPREHENSION (AI-complete).** Three independent
+   gold-blind detectors -- conflict, neg-entropy, and a NEW predictive PRECISION detector (rigorously validated:
+   beats a shuffled-detector twin +0.0295 CI-sep so it carries REAL signal, but nets ZERO over PPR held-out) --
+   ALL cap at ~AUC 0.79 / no net win. A naive continuous-representation prototype (PPMI+SVD gloss vectors) is
+   WORSE than the discrete graph (-0.082 CI-sep). Research (predictive-coding N400; Kuperberg/Rabovsky) resolves
+   why: the brain selects senses by TOP-DOWN prediction from a HIERARCHICAL GENERATIVE model of the SITUATION
+   (world knowledge, event/entity structure, discourse) -- the N400 is the SEMANTIC prediction error -- and WSD
+   is AI-COMPLETE (needs knowledge "beyond what is in the text"). WHERE WE DIFFER: we compute a BOTTOM-UP, LOCAL,
+   LEXICAL signal (bag-of-nearby-words coherence); the discriminating signal lives at the TOP of the hierarchy
+   (the situation model), which we lack. This UNIFIES every wall (detector ceiling, continuous-rep negative,
+   see-saw, growth-redundancy) as one root, and REFRAMES the located negative: **growth of a LOCAL graph CANNOT
+   solve subordinate WSD, because the mechanism is top-down prediction from a generative situation model -- the
+   sense-selection detector IS the comprehension/situation model (the project's North Star).** Falsifiable
+   prediction under test (proto4b): a COHERENT-SITUATION signal (competitive-settled prior discourse) beats
+   sentence-local; controlled vs a discourse-BAG and a shuffled-discourse twin.
 
 ## The located residual, and the walls drilled
 Every negative in context-conditioned sense selection unified into one gap, and the growth failure into one more:
