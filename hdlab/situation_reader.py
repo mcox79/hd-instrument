@@ -623,6 +623,7 @@ class SituationReader:
                  bind_event_tokens: bool = False,
                  predict_revise: bool = False,
                  track_world_state: bool = False,
+                 densify_world_state: bool = False,
                  parser_arceager: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
@@ -793,6 +794,18 @@ class SituationReader:
         # mechanism). Lazily loads the cached FrameNet lexicon ONLY when on. spaCy-free / NO LLM.
         self.track_world_state = bool(track_world_state)
         self._ws_lex = None            # lazy hdlab.possession_operators FrameNet lexicon (cached json)
+        # COREF-DENSIFIED WORLD-STATE (opt-in; default OFF = byte-identical). Wired 2026-09-02 from the owner-DONE
+        # problem the_world_state_register_is_coref_blind... : key sm.world_state HOLDERS on the canonical DISCOURSE
+        # ENTITY (Glenberg/Meyer/Lindem 1987; possession attaches to the entity node, not the surface mention) via
+        # the promoted hdlab.world_state_entity_binding.EntityBinder STAGE-1 dispatcher instead of the raw head
+        # string. Self-contained routes (indexical I/me->NARRATOR; object it->recency theme; nominal->head;
+        # we/you/pleonastic->abstain) fire on the head alone; the he/she anaphoric route consumes the reader's OWN
+        # coref resolution (recs_ec) supplied per (sent_idx, head) -- REUSE, no new resolver. Requires
+        # track_world_state (it re-keys the SAME fold). Additive fidelity: the +0.148 who-has-what LEVER is measured
+        # in the isolated gold-aligned harness (exp_world_state_coref_densify_v1, on the board's RIGHT corpus); this
+        # wire lands the ENTITY-KEYED representation live so the STATE dimension is not a raw-string island. NO LLM.
+        self.densify_world_state = bool(densify_world_state)
+        self._ws_binder_mod = None     # lazy hdlab.world_state_entity_binding
         # IMPROVED PARSER (opt-in; default OFF = byte-identical). Wired 2026-09-02 from the owner-DONE parser problem
         # the_extraction_front_end_parser_is_the_cross_task_bottleneck...: route the WIRED who-did-what front-end
         # through the promoted arc-eager parser (hdlab.arceager_parser, UD-EWT UAS 0.775->0.842) instead of the
@@ -1237,13 +1250,35 @@ class SituationReader:
         hdlab.world_state_register.WorldState whose has(entity,obj,t)/holder_of(obj,t)/is_open(obj,t)/
         unmet_preconditions() answer the STATE the parallel-silo event LIST could not. Open-text who-has-what is
         coref-bound (the located residual, a NAMED existing organ). Lazy import -> the default (OFF) reader loads
-        none of this. NO spaCy / NO LLM."""
+        none of this. NO spaCy / NO LLM.
+
+        COREF-DENSIFY SUB-FLAG (densify_world_state, default OFF): when on, HOLDER keys are the canonical
+        discourse-entity (EntityBinder) instead of the raw head, so possession attaches to the entity node
+        (John...he...him -> one key), not the surface mention. Default OFF -> raw-head keying, byte-identical."""
         from hdlab.world_state_register import WorldState
         if self._ws_lex is None:
             from hdlab.possession_operators import build_lexicon
             self._ws_lex = build_lexicon()
         lex = self._ws_lex
         extra_by_gi = {r.get("global_idx"): r for r in (getattr(self, "wired_extra_roles", None) or [])}
+        # COREF-DENSIFY (opt-in, default OFF -> binder is None -> raw-head keying, byte-identical). When on, key
+        # each HOLDER on its canonical discourse-entity via the promoted EntityBinder: self-contained routes
+        # (indexical/object-anaphora/nominal/abstain) fire on the head; the he/she anaphoric route consumes the
+        # reader's OWN coref via a (sent_idx, pronoun-head) -> resolved-cluster map built from sm.coref_resolutions
+        # (the reader already computed it; no new resolver, no gold at inference). Events are folded in reading
+        # order (global_idx), so the binder's Centering recency (object 'it' -> salient nominal theme) is faithful.
+        binder = None
+        he_she_cluster: Dict[tuple, int] = {}
+        if self.densify_world_state:
+            if self._ws_binder_mod is None:
+                from hdlab import world_state_entity_binding as _WSB
+                self._ws_binder_mod = _WSB
+            binder = self._ws_binder_mod.EntityBinder()
+            for r in (sm.coref_resolutions or []):
+                rc = r.resolved_cluster
+                if rc is not None and rc >= 0:
+                    # the RAW cluster id: EntityBinder.bind_participant formats the "C%s" key itself.
+                    he_she_cluster[(r.sent_idx, (r.pronoun or "").lower())] = rc
         reps = []
         for e in sm.events:
             v = (e.predicate or "").lower()
@@ -1253,6 +1288,14 @@ class SituationReader:
             arg2 = roles.get("recipient") or roles.get("source")
             ag = e.agent if e.agent not in ("?", None) else None
             pat = e.patient if e.patient not in ("?", None) else None
+            if binder is not None:
+                # canonicalize theme FIRST so a same-event nominal theme is the salient antecedent for object
+                # anaphora within this event's holders; holders (agent + recipient/source) -> entity keys.
+                pat = (binder.bind_theme(pat, verb=v)[0]) if pat is not None else None
+                ag = (binder.bind_participant(ag, coref_cluster=he_she_cluster.get((e.sent_idx, ag.lower())))[0]
+                      if ag is not None else None)
+                arg2 = (binder.bind_participant(arg2, coref_cluster=he_she_cluster.get((e.sent_idx, arg2.lower())))[0]
+                        if arg2 is not None else None)
             reps.append({"PRED": v, "AGENT": ag, "PATIENT": pat, "ARG2": arg2, "OP": op})
         sm.world_state = WorldState().fold(reps)
 
