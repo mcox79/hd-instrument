@@ -1,7 +1,7 @@
 ---
-priority: 3
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: INTEGRATED 2026-09-02 (reverified 8/8 + 4/4 first-hand). PARTIAL — brief mechanism (coherence next-mention prior) REFUTED + caught it was a near-DUPLICATE of an already-dead owner-DONE problem; found the RIGHT mechanism (learned cue-integrator +0.054 CI-sep, learnable without gold, calibrated) and drilled the root to the ENTITY-INDIVIDUATION REPRESENTATION. NO hdlab wire (prior refuted; integrator is a gold-harness prototype, optional Q111). CONSOLIDATED INTO P1 — carries P1's instrument (score-loss decomposition) + pre-registered target (0.905 oracle). §2b updated.
 ---
 
 # PROBLEM: after the entity-maintenance wire, the who-has-what residual is now LOCATED — 29.4% of he/she errors are STRUCTURALLY-DOMINATED (the gold antecedent is reachable by NO recency/subject/frequency cue) and 99.5% of wrong picks are CONFIDENT, so the missing signal is the COHERENCE next-mention PRIOR (Kehler-Rohde: discourse-coherence relations drive who gets re-mentioned) — forward-looking predictive coreference, not a chaining defect — so build a glass-box coherence/next-mention prior that predicts the likely next referent from the discourse-coherence relation and multiplies the graded-retrieval posterior before the argmax, and prove it recovers the structurally-dominated error bucket CI-separated over the entity-maintenance floor with a shuffled-coherence twin LOSING.

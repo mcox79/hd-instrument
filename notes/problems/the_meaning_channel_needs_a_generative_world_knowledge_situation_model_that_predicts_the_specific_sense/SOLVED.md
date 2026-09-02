@@ -60,13 +60,44 @@ One pass suffices, and I state why rather than claim a converging loop: the net-
 ## What I did NOT establish / would withdraw first
 - **Withdraw first:** any implication that the LEARNED generative predictor beats MFS -- its leave-one-doc-out numbers are corpus-overfit; the honest strict number is net -0.038.
 - The net gain is modest (+0.0116) and on SemCor; a fairer external floor (Raganato ALL, MFS 0.6474) is recommended follow-up (the signal is graph/knowledge-based and leak-free, so it should transfer, but I did not run it).
-- The generative-source a_s lever is a located negative on THIS glass-box substrate; it is NOT shown impossible -- SG-lite at scale is the untested route, and the human-level residual genuinely needs inference-time reconstruction (an LLM) that the invariant forbids.
+- The generative-source a_s lever is a located negative on the STATIC/NB approaches tested -- it is NOT shown impossible. CORRECTION (owner-pressed, and right): I earlier wrote the human-level residual "needs inference-time reconstruction (an LLM)". That is WRONG and withdrawn. The ~0.4 rare-sense figure is a property of the nearest-centroid READOUT (structurally MFS-biased), NOT of neural sense selection: BEM lifts rare-sense F1 37.0->52.6 at FIXED model size purely by switching to a gloss RECONSTRUCTION-MATCH readout, and UKB+SyntagNet (a pure glass-box graph, no neural net) rivals supervised WSD. The brain does inference-time reconstruction GLASS-BOX (predictive-coding settling / analysis-by-synthesis / attractor settling; Nour-Eddine-Kuperberg 2024 is an explicit ~13k-unit network, not an LLM). The route to break the readout ceiling is grounded per-sense reps + a reconstruction-match readout + top-down settling -- all offline-buildable (see WHAT REMAINS below).
 - Bar 1's a_s comparison is on the subordinate population; the "fired-subordinate" gating is the parent's detector held fixed.
 
 ## TO REALIZE THE GAINS (ordered; strategy lands hdlab, Q111, default-off, witnessed)
 1. **Land the brain-faithful precision-weighted ADDITIVE read path** (reordered access, non-margin reliability gate) in `hdlab/semantic_control` as the sense read-out over the cn_syn graph + prior. Accept: OFF byte-identical; ON nets over MFS CI-separated held-out with the shuffled-situation twin losing (this result). This is the generalizing lever and the net-gain fix.
 2. Wire the static world-knowledge situation signal (event-role selectional expectation + FrameNet/ConceptNet expansion) as a default-off orthogonal add to the read path (small but real net increment).
 3. BUILD SG-lite (self-supervised incremental generative predictor) as the a_s lever -- the north-star learner organ -- and re-measure a_s vs this located negative.
+
+## WHAT REMAINS TO REACH OPTIMAL (disparate components, ranked by leverage; the "what's left" map)
+This problem is NOT fully optimized. The robust net-gain lever (the decision rule) is done; the a_s lever is
+open, and the ceiling is NOT the LLM-limit I wrongly claimed. The route to optimal, in buildable pieces:
+
+1. **[ACTIVE, the ceiling-breaker] Generative RECONSTRUCTION-MATCH + predictive-coding SETTLING readout.** Score
+   each candidate sense by how well it reconstructs the gestalt's top-down predicted meaning mu (per-sense
+   GROUNDED signature, not an MFS-biased centroid), then iterate a 3-5 step settling loop (sense feeds back ->
+   sharpen situation -> re-predict). BUILT: `exp_sg_lite_generative_readout_v1.py` (`_recon`/`_settle`/`_epi`).
+   Expected: break the nearest-centroid ~0.4 readout ceiling toward BEM-class LFS (~0.5+), with settling as the
+   edge BEM/UKB lack. Can-fail benchmark: centroid vs recon(k=1) vs recon+settle(k=3-5), LFS-stratified, strict
+   doc-disjoint. [Pending the SG-lite gestalt training completing.]
+2. **The GROUNDED per-sense table** (the representation lever): gloss + examples + hypernym/hyponym/meronym +
+   SyntagNet syntagmatic partners + the `grounded_semantic_graph` PPR + `distributional_meaning_channel`, FULL
+   WordNet coverage incl. rare senses, projected into the gestalt's prediction space. ENRICHED in
+   `exp_sg_lite_sense_gestalt_v1._gloss_vec`; still to add graph-PPR + full coverage.
+3. **Self-supervised SCALE on the GPU:** train the gestalt on the ~277M-token ARC+simplewiki sweet spot (RTX
+   4060 Ti via `overnight_queue`), vs the current 41M CPU run. Generalization fix already; scale sharpens mu.
+4. **Role-filler / situation prediction TARGET (true Sentence-Gestalt):** train the gestalt to predict the
+   event's who-did-what-to-whom (SRL/FrameNet-projected) instead of the next word -- the biggest FIDELITY gap
+   (my SG-lite predicts next-word, a language-model proxy for the situation query).
+5. **The DECISION-RULE read path (the robust net-gain lever) landed** default-off in `semantic_control`
+   (additive reordered-access + non-margin precision) -- this problem's PROVEN result (bar 2, +0.0116 CI-sep).
+6. **Grounded INPUT spoke** (concat `grounded_vector` sensorimotor features to the frozen embeddings; retrain) +
+   **LIFG biased-competition** selection via `semantic_control` (inhibitory settling, not argmax) +
+   **DIVISIVE prediction error + explicit error units** (Nour-Eddine; the N400 learning-gate).
+7. **Adjacent caps that bound the LIVE number:** the coherence next-mention PRIOR (Kehler-Rohde residual); the
+   parser/role extraction front-end (recipient 0.33; turn ON the landed `tense_agnostic_events` flag, event
+   recall 0.32->0.95, before any live measurement); wire the meaning organs into `read()` (DEBT-3 islands).
+8. **External validity:** run on Raganato ALL (fairer MFS floor 0.6474) + a modern corpus (avoid the McGuffey
+   200-year-old-text confound), LFS-stratified.
 
 ## TLDR (plain English)
 Words with a rare meaning are the hard case: the common meaning is right about 99% of the time, so anything that "overrides" toward the rare meaning risks breaking the many easy cases -- a see-saw the previous effort could not beat. I found the fix is not a smarter meaning-lookup but the brain's DECISION RULE: never switch off the common meaning; only let the surrounding words *add* weight to a rare meaning, and only trust that push in proportion to how reliable the clue is. With that rule the reader now does slightly better than always guessing the common meaning, held out on unseen documents, and a scrambled-context control fails -- so the improvement is real, and it never wrecks the common meaning. I also built the "ideal" version the research pointed to -- a small model that learns to predict meanings from reading -- and it looked much better at first, but a strict test showed that was memorizing the specific documents, not learning to generalize; the honest number is that it does not yet beat the common-meaning baseline on unseen documents. The real fix for that is to train it on far more ordinary text, which is the next build. Bottom line: the see-saw the last effort was stuck on is broken by copying the brain's rule; getting the rare meaning itself right needs a much larger learned reading model, and the last stretch to human level genuinely needs the kind of on-the-fly reasoning we have chosen not to use at run time.

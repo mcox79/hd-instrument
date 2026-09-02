@@ -364,6 +364,61 @@ world-knowledge situation model.** Detection/likelihood is maxed in both (coref:
 WSD: the directional detector AUC ~0.71); the entire remaining gain lives in GENERATION. This convergence is why
 the North Star outranks both -- it is the shared organ.
 
+## WHAT REMAINS TO REACH OPTIMAL -- the full backlog (owner asked; every disparate component, in one place)
+This submission is a rigorous PARTIAL + a complete located-understanding, NOT the optimum. Here is EVERYTHING
+still needed to reach optimal on this wall, consolidated, each tagged with WHERE it lives and its MEASURABLE
+target. The instrument for all of it is this problem's `SCORE_LOSS_DECOMPOSITION` (integrator 0.677 -> oracle
+0.905/0.925; loss = 9.5% external-knowledge + ~23% representation).
+
+THE PRIMARY LEVER (breaks the ~23% -- the biggest, and the whole point):
+1. **A rich, ORTHOGONAL, person-specific ENTITY-INDIVIDUATION representation** -- capturing WHO each character is
+   (accumulated attributes / roles / relations), not sharper word-overlap (glass-box enrichment is exhausted,
+   proven). WHERE: the priority-1 North Star situation-model entity code + p1 (research DELTA 6:
+   perirhinal/ATL conjunctive individuation, distinct from category semantics). TARGET: raise the individuation
+   cue's ORTHOGONAL discrimination so the near-optimal integrator selects it -> bucket toward 0.905.
+
+THE EXTERNAL-KNOWLEDGE FLOOR (the 9.5% "0 cues right"):
+2. **Specific-discourse + world knowledge** so a candidate the text under-determines can still be resolved.
+   WHERE: the North Star situation model + the learner reading a large corpus. BOUND: a slice is genuinely
+   irreducible under the no-LLM invariant (Winograd core).
+
+BRAIN-FIDELITY DELTAS still open (all North-Star architecture, not tweaks here -- see the delta section):
+3. **DELTA 3 -- recurrent two-pass revision + a live salience state** updated ASYMMETRICALLY (enhance winner /
+   actively suppress losers, Gernsbacher; not passive decay), fed back to the next pronoun.
+4. **DELTA 9 -- incremental word-by-word commitment** (~300-450ms; Brodbeck 2015) with a running ambiguity state,
+   vs our batch one-shot.
+5. **DELTA 1 -- self-supervised cue-validity learning**: a genuinely OPEN empirical question (pre-register a
+   NULL; van Wonderen & Nieuwland 2023 is a direct negative). WHERE: the learner. Down-ranked from "known fix."
+6. **DELTA 4 -- the discrete mismatch/fan nonlinearity** (not smooth multiplicative) + full-text Parker 2019 for
+   the interaction-term sign (couldn't obtain full text this session).
+
+ENABLING / QUALITY LEVERS:
+7. **Coref quality** -- the realized +0.054/+0.060 use gold-nominal grouping; live glass-box coref eats them
+   (the animacy filter is a REQUIRED gate, proven). Better name-unification/coref is a prerequisite gate.
+8. **Land the realized learned integrator** (default-off Q111): a composition of the EXISTING phi_agreement_keep
+   + situation_model_accumulate; marginal (+0.038/0.054), so weigh the wire cost -- at minimum it is the North
+   Star's first staged step.
+
+VERIFICATION / DUE-DILIGENCE remaining (to make THIS submission airtight):
+9. **Confirm the individuation-root diagnosis on the CLEAN parent-harness bucket** (my decomposition is on the
+   cache-representation bucket; the faithful premise is via the parent harness -- cross-check the root there).
+10. **Fold the two-stage (DELTA 8) + the optimization-enrichment tests into the WITNESSED core** -- they are
+    currently in prose + a persisted probe (`prototype_optimization_individuation_representation.py`), not
+    witness-guarded (the 8/8 + 4/4 witnesses do not cover them).
+11. **Run the fan/competitor-count feature interaction test** (DELTA 7 refined) -- I flagged it underpowered on
+    this low-competitor-variance bucket but did not run it.
+12. **OOD**: LitBank is the coref's home corpus; absolute recall may be optimistic OOD (the deltas hold, being
+    same-corpus both arms).
+
+RESEARCH FOLLOW-UPS (open questions the drill named, not resolvable by build):
+13. Visual-world eye-tracking under PARAMETRIC cue conflict (Kaiser/Brown-Schmidt) -> the flat-vs-deferred
+    posterior + deferral-vs-integration-cost debates (Q4/Q6 were the thinnest-evidenced).
+14. Full-text Parker (2019) for the exact nonlinearity sign (DELTA 4).
+
+RANKED: #1 (individuation representation) is THE lever and is the North Star's core; #7 (coref quality) gates
+whether any of it realizes live; #2 is the irreducible-ish remainder; #9-#11 make this submission airtight; the
+rest are North-Star architecture (#3-6) + open research (#13-14).
+
 ## ADJACENT COMPONENTS -- capabilities / limitations / opportunities / brain status (seeds the next problems)
 1. **The GENERATIVE world-knowledge situation model (OPEN, priority-1) -- THE lever.** CAP: assembles built
    pieces (situation_reader, the confirmed detector, meaning_fusion, ultrametric_clustering, FrameNet/script
@@ -517,3 +572,32 @@ prototype of the ideal mechanism, not a landed robust capability. Otherwise: non
    learner proof, staged (fix coref -> build entity representation -> add world-knowledge), on the organ that can
    carry it. The two gates to report: coref quality (the lever is gold-coref today) and the modest in-text ceiling.
 4. (Fold) The AUDIT UPDATE into BRAIN_FOUNDATIONAL_AUDIT.md 2b.
+
+## INTEGRATED_BY_STRATEGY 2026-09-02
+
+Reverified BOTH witnesses FIRST-HAND: `test_coref_coherence_prior_on_chain_bucket.py` **8/8** (W4
+event-state lever near-chance + positive control fires = RIGOROUS_NEGATIVE_REPRODUCES; W5 wall localized
+to a richer in-text rep; W6 realized lever +0.0377 CI-sep on the animacy-filtered pool, twin loses; W7
+wall is INTEGRATION not missing-info, combined ceiling 0.857 >> topicality 0.563; W8 learned
+cue-integrator +0.0543 CI-sep over floor, twin loses) and `test_coref_faithful_integrator_deltas.py`
+**4/4** (self-supervised +0.060 ~= gold +0.063 = learnable WITHOUT gold; calibrated posterior AUC 0.807
+→ realizable defer; recurrent/multiplicative/interference deltas are HONEST NEGATIVES at our features).
+
+Accepted **PARTIAL** (brief mechanism REFUTED + a near-DUPLICATE caught + the real problem partially
+solved by the correct mechanism + the wall drilled to its root), rating **EXCELLENT** — exemplary: it
+CAUGHT that the brief's coherence next-mention prior was already owner-DONE dead (2026-08-29
+`the_reader_has_no_coherence_next_mention_prior`), reproduced the premise EXACTLY, confirmed the prior
+stays dead after entity-maintenance, then found the RIGHT mechanism (Kehler-Rohde is LEARNED cue
+integration, not a prior): a glass-box LM-free conditional-softmax cue-integrator (wiring the existing
+`phi_agreement_keep` + `situation_model_accumulate`) recovers the bucket +0.054 CI-sep, learnable
+without gold, calibrated. Drilled the score-loss to the ROOT: the ENTITY-INDIVIDUATION REPRESENTATION
+(the 12-d individuation cue is the wall), and sharper glass-box reps don't beat it (redundant, not
+orthogonal) → the fix is a RICHER, ORTHOGONAL person-specific individuation code learned from reading.
+
+**NO hdlab wire** (the coherence prior is refuted/a duplicate; the realized cue-integrator +0.054 is a
+gold-nominal-grouping, animacy-filtered-pool PROTOTYPE with wide CIs — an OPTIONAL default-off Q111 wire,
+NOT landed, its live value coref-quality-bound). **AUDIT UPDATE folded into §2b.** Priority cleared.
+**CONSOLIDATED INTO P1 (the solver's explicit request):** this coref residual, the WSD a_s residual, and
+the composition-as-prediction representation bound are ONE wall — the "which SPECIFIC one" problem, fixed
+by a rich learned ORTHOGONAL individuation/meaning representation. P1 now carries this problem's
+INSTRUMENT (the SCORE_LOSS_DECOMPOSITION) + pre-registered TARGET (the 0.905 coref oracle).

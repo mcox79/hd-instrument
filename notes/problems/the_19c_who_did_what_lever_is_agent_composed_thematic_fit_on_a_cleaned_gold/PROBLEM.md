@@ -1,7 +1,7 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: INTEGRATED 2026-09-02 (reverified 22/22 first-hand). REFUTED composition-as-SELECTION at power (built the cleaned gold n=669; the parent's +0.076 was small-sample noise; position gets 0.918 on clean direct objects — English is word-order-dominant, the 19c gold is 100% active so the thematic-fit-selection regime is absent) + validated composition as PREDICTION (+0.032 MRR CI-sep; a de-risked composed-exemplar predictor is 2.3x MRR, representation-bounded). NO hdlab wire (located negative). Measured levers routed to 2 follow-ons; the deep representation finding consolidates into P1; board 19c who-did-what contamination caveat added. §2b updated.
 ---
 
 # PROBLEM: the register-native-data problem PROVED the 19c who-did-what lever is not the grammar but SELECTION — an agent-COMPOSED thematic-fit store P(patient|agent,verb), learned from raw exposure, that its own drill demonstrated real on the CLEANED direct-object gold (+0.097 verb-specific, +0.076 agent-composed, both CI-sep) but underpowered at n=171; so CLEAN the ~85%-oblique-contaminated 19c who-did-what gold and build the agent-composed + taxonomically-smoothed thematic-fit store, showing it picks the patient CI-separated over position, the marginal (verb→object) store, AND a bag-of-args store on a LARGER cleaned held-out 19c/literary gold with the info-free twins LOSING — or a located negative naming the data/knowledge ceiling.

@@ -4,25 +4,27 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-09-02T19:07:32Z  |  HEAD: 2b1a564ce
+generated: 2026-09-02T23:25:09Z  |  HEAD: 66c7c928b
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 6964 min ago <-- STALE
-  - orchestrator: 53030 min ago <-- STALE
-  - research: 98 min ago <-- STALE
-  - skunkworks: 55702 min ago <-- STALE
-  - testbed: 92276 min ago <-- STALE
+  - exp_dev: 7222 min ago <-- STALE
+  - orchestrator: 53288 min ago <-- STALE
+  - research: 29 min ago
+  - skunkworks: 55960 min ago <-- STALE
+  - testbed: 92534 min ago <-- STALE
 data/ directories touched in the last 180 min:
   - logs: 0 min ago, NO metrics.json yet (likely in-flight)
   - local_cpu_queue: 0 min ago, NO metrics.json yet (likely in-flight)
-  - hook_state: 6 min ago, NO metrics.json yet (likely in-flight)
-  - .metrics_sync: 12 min ago, NO metrics.json yet (likely in-flight)
-  - exp_19c_composition_thematic_fit_prototype_v1: 90 min ago, has metrics.json
-  - exp_learned_graph_cls_grow_v1: 119 min ago, NO metrics.json yet (likely in-flight)
+  - hook_state: 1 min ago, NO metrics.json yet (likely in-flight)
+  - .metrics_sync: 11 min ago, NO metrics.json yet (likely in-flight)
+  - exp_sentence_gestalt_multiparticipant_v1: 16 min ago, has metrics.json
+  - exp_thematic_fit_2afc_v1: 20 min ago, has metrics.json
+  - exp_coref_faithful_integrator_deltas_v1: 23 min ago, has metrics.json
+  - exp_prediction_ceiling_diagnosis_v1: 33 min ago, has metrics.json
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *ENUMERATED FROM DISK 08-23 23:0x: `10` open (priorities `1`-`10`, contiguous), `8` solved+reviewed. **THE PREVIOUS TEXT HERE READ `11` open / `5` reviewed -- I MIRRORED A REMEMBERED COUNT ON THE VERY LINE THAT SAYS ENUMERATE.** Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - ✅ **TWO OF THE THREE ARE NOW REVIEWED (08-23 late). BOTH RE-VERIFIES PASS; I THEN AUDITED THE
@@ -142,13 +144,12 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap)) -- source: data\exp_orthographic_floor_vet_v1\metrics.json
 
 ## 4. What moved since the last snapshot
-- 5 new commit(s) since last snapshot (HEAD 98bbd6711 -> 2b1a564ce)
-- data/ directory count: 8866 -> 8867 (+1)
+- nothing measurable moved since the last snapshot
 
 ## 5. What is stuck (blocked / pending / no owner)
 - comparator it did not use (it ran TWO supplied arms and quoted the weaker) and **it held**: the
 - US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8867, "generated_at": "2026-09-02T19:07:32Z", "head_commit": "2b1a564ce774fff46a94abe5438260ae26e476be", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8889, "generated_at": "2026-09-02T23:25:09Z", "head_commit": "66c7c928bed99d3d0ce26b83d5bdfba35deb62c6", "step_status": {}}
 -->
