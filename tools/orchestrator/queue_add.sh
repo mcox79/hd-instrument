@@ -318,6 +318,34 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
         SHIPPED_SIBLINGS+=("${SIB_BASE}")
       fi
     done < <(python "${SIBLING_IMPORT_HELPER}" "${SCRIPT_LOCAL}" 2>/dev/null || true)
+
+    # ── Pattern 7 (2026-09-02): ship the FULL TRANSITIVE cross-package import
+    # closure (experiments/ + tools/ + hdlab/) the STALE remote is missing. This
+    # ROOT-CAUSES the long-MISDIAGNOSED "remote enqueue is broken": Pattern 6 ships
+    # only DIRECT experiments siblings, so a TRANSITIVE sibling or any tools/ /
+    # hdlab/ module the cell imports was absent on the stale remote -> the remote
+    # --self-test gate died with ModuleNotFoundError -> queue_add.sh exited 1 (read
+    # for weeks as "the watcher is not dispatching"). One batched remote presence
+    # check, then SCP only the MISSING files to their subdir. Best-effort: every
+    # step is `|| true`; it must NEVER block the ship (degrades to today's behavior).
+    CLOSURE_LIST=$(python "${SIBLING_IMPORT_HELPER}" "${SCRIPT_LOCAL}" --closure-paths 2>/dev/null | tr -d '\r' || true)
+    if [[ -n "${CLOSURE_LIST}" ]]; then
+      CL_CSV=$(echo "${CLOSURE_LIST}" | paste -sd, - || true)
+      MISSING=$(ssh -o BatchMode=yes -o ConnectTimeout=10 "${SSH_TARGET}" \
+        "powershell -Command \"foreach (\$f in '${CL_CSV}'.Split(',')) { if (\$f -and -not (Test-Path ('${REPO_REMOTE}/' + \$f))) { \$f } }\"" 2>/dev/null | tr -d '\r' || true)
+      if [[ -n "${MISSING}" ]]; then
+        while IFS= read -r REL; do
+          REL="${REL%$'\r'}"; [[ -z "${REL}" ]] && continue
+          LOCAL_F="${REPO_LOCAL}/${REL}"
+          REMOTE_DIR="${REPO_REMOTE}/$(dirname "${REL}")"
+          if [[ -f "${LOCAL_F}" ]]; then
+            echo "[queue-add] AUTO-SCP transitive-closure dep (Pattern 7, remote was missing it) -> ${REL}"
+            ssh -o BatchMode=yes -o ConnectTimeout=10 "${SSH_TARGET}" "powershell -Command \"New-Item -ItemType Directory -Force -Path '${REMOTE_DIR}' | Out-Null\"" 2>/dev/null || true
+            scp -o ConnectTimeout=10 "${LOCAL_F}" "${SSH_TARGET}:${REMOTE_DIR}/" || true
+          fi
+        done <<< "${MISSING}"
+      fi
+    fi
   fi
 
   # SSH+PowerShell payload. Single-quote bash outer per [[feedback-ssh-powershell-quoting]].
