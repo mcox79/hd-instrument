@@ -6,7 +6,7 @@ result: "PRIMARY (LitBank coref-CoNLL, ALL 25 gold-coref docs, the reader's OWN 
 floor: "Strongest floor = the coref-BLIND raw-string register (the register wired today): aggregate 0.5704 [0.4889,0.6519]; on he/she holders 0.000 (a pronoun holder string maps to NO discourse entity). Gate is the PAIRED reader-minus-blind delta +0.1481 [0.0963,0.2076] (excludes 0); the he/she subset is fully separated (reader lower CI 0.3077 > blind upper CI 0.000). GOLD-coref oracle 1.000 = ceiling. by-holder-class: nominal 0.731->0.798, he/she 0.000->0.500, object 'it' 0.2->0.2 (reader out of scope = the object-anaphora residual, named with its number)."
 controls: "(1) SHUFFLED-COREF twin (same clusters, wrong assignment): aggregate single-draw same-gender twin 0.652, reader-minus-twin +0.0667 [0.0148,0.1185] (excludes 0); on the he/she subset a K=2000-permutation NULL mean 0.078 / p95 0.154, reader 0.500 >> p95 (CORRECT identity, not coref-shape, does the work). (2) POSITIVE CONTROL change-point: the reported holder CHANGES at the transferring event on 95.6%% of queries (not a constant echo). (3) GOLD-coref oracle == 1.000 (the register is faithful given correct entities -- isolates Stage-1 from Stage-2). (4) PLEONASTIC-'it' filter active: object anaphora ABSTAINS on expletive 'it' / no-antecedent (never-confidently-wrong). (5) SCOPE-OUT controls: we/you ABSTAIN (not bound) -- a named residual (group entity / rotating addressee), not a wrong bind. (6) OBJECT-ANAPHORA controls (LitBank gold, n=189): random-twin NULL p95 0.323 loses to recency 0.730; first-mention floor 0.132 (can-fail); reader coref 0.000 (abstains); subject-salience ablation HURTS (paired -0.212 CI-sep) = the parameter sweep."
 files_changed: "experiments/world_state_entity_binding.py (the brain-foundational Stage-1 dispatcher: pleonastic->indexical->anaphoric->object-anaphora->nominal); experiments/exp_world_state_coref_diagnose_v1.py (residual decomposition); experiments/exp_world_state_coref_densify_v1.py (LitBank he/she holder densification: blind vs reader vs gold vs shuffled-null twin); experiments/exp_world_state_deixis_object_v1.py (MCScript2 build-across of the indexical + object routes, routed through the EntityBinder); experiments/exp_world_state_object_anaphora_gold_v1.py (object-anaphora ACCURACY on real LitBank gold: recency vs salience vs first-mention floor vs random-twin NULL); experiments/exp_world_state_he_she_ceiling_v1.py (CEILING-LIFT: the landed graded_coref_pick vs the reader's resolver vs recency/hard-tier over the same gold pool); verification/test_world_state_coref_densify.py (13/13 witness). NO hdlab/ written (Q111 -- the proposed wire is in FOR STRATEGY below)."
-reverify: ".venv/Scripts/python.exe verification/test_world_state_coref_densify.py   # 12/12 -- recomputes EntityBinder routes + register core + LitBank he/she headline (reader>blind, gold=1.0, change-point) + MCScript2 object-anaphora impact + object-anaphora ACCURACY on LitBank gold (recency>twin-NULL, salience hurts) FROM SOURCE"
+reverify: ".venv/Scripts/python.exe verification/test_world_state_coref_densify.py   # 13/13 -- recomputes EntityBinder routes + register core + LitBank he/she headline (reader>blind, gold=1.0, change-point) + MCScript2 object-anaphora impact + object-anaphora ACCURACY on LitBank gold + the graded-coref CEILING-LIFT FROM SOURCE"
 ---
 
 # The world-state register is coref-blind: the fix is a two-stage entity binder, and "coref" is three routes, not one
@@ -101,10 +101,16 @@ same cluster). Resolving them to a prior nominal mention (correct = matching gol
 - **The binder's transfer-context object route uses recency-among-THEMES (recency_object 0.614 on general LitBank
   'it'); the gold says PURE recency (any-role, 0.730) is better** -- a small tuning: the hdlab wire should feed the
   binder the recent nominal context, not only transfer themes (noted in FOR STRATEGY).
-- **The he/she recovery ceiling is 0.500**, set by the reader's coref recall on *same-gender transfer pronouns*
-  (the hardest Centering case). This is the reader's coref organ, not the register -- and it is on LitBank, the
-  coref's home corpus, so 0.5 is if anything optimistic OOD. The lever to raise it is a landed, unwired organ
-  (below), not this problem.
+- **The he/she recovery ceiling is 0.500, set by the reader's CURRENT resolver -- and it is LIFTABLE, now
+  QUANTIFIED** (`exp_world_state_he_she_ceiling_v1`, LitBank, transfer-holder subset n=36): swapping in the landed
+  brain-faithful graded retrieval (`hdlab.graded_coref_pick`, ACT-R base-level activation + the landed pool
+  cleanup) takes it 0.500 -> 0.750. Decomposed HONESTLY: the graded organ's PICK alone (isolated over the identical
+  gold-clustered pool) beats recency +0.194 [0.056,0.361] and hard-tier +0.222 CI-sep; the full register-input
+  headroom (grouping+pick, an UPPER BOUND since graded here gets gold-grouped candidates) is +0.250. On all 1690
+  he/she targets the fair pick-only lift is graded-recency +0.083 [0.062,0.105] CI-sep (twin p95 0.059). So the
+  ceiling is NOT intrinsic -- it is the reader using its weaker resolver; the fix is a filed next-problem (wire
+  graded_coref_pick into the resolver stream), and the register consistency-checks out (reader on holders = 0.500,
+  exactly the primary result).
 - **we/you/they are SCOPED OUT and abstain** (research: "we" is a group entity, "you" a rotating per-turn
   addressee) -- ~13% of MCScript2 agents left unbound (named, never-confidently-wrong).
 - **Quoted first-person ("embedded deictic centers")** are not handled -- a flat narrator rule mis-binds quoted
@@ -132,6 +138,12 @@ same cluster). Resolving them to a prior nominal mention (correct = matching gol
    turned an "impact-only" claim into a CI-separated accuracy -- and the sweep then overturned my own initial
    design (drop the subject weight). Objects are not the backward-looking center, so the SAME Centering machinery
    with a DIFFERENT parameter setting (recency, not Cf-prominence) is the faithful copy.
+7. **The he/she ceiling (0.5) is NOT intrinsic -- it is the reader using its weaker resolver, and the fix is
+   already on disk.** Driving the landed brain-faithful graded retrieval over the SAME targets lifts the route to
+   0.75. The enabling RIGOR move was refusing the flattering number: giving graded gold-clustered candidates
+   conflates entity GROUPING with the PICK, so I isolated the pick (same pool for all arms -> graded beats recency
+   +0.194 / hard-tier +0.222 CI-sep) and reported the grouping+pick gap only as a labelled UPPER BOUND. A wall
+   that turns out to be an unwired-organ gap, quantified honestly, is the most actionable kind of next-problem.
 
 ## ADJACENT COMPONENTS (brain-foundational status + optimization -> next problems)
 Evaluated per the owner's standing instruction (which components feeding/drawing-from this are brain-foundational,
@@ -142,10 +154,11 @@ where is the optimization, which are NOT brain-foundational and should be improv
   densification ceiling. This is the organ the register's he/she route depends on.
 - **`hdlab.graded_coref_pick` (landed, NOT stream-wired; brain-foundational -- ACT-R base-level activation graded
   cue retrieval, Lewis-Vasishth 2005).** From `coreference_is_capped_at_065_on_real_narrative` (SOLVED/EXCELLENT):
-  it **beats the hard subject-first tier +0.172 CI-sep**, entropy predicts its own errors AUC 0.806. Its
+  beats the hard subject-first tier +0.172 CI-sep, entropy predicts its own errors AUC 0.806. **MEASURED HERE
+  against the register's he/she ceiling (`exp_world_state_he_she_ceiling_v1`): on transfer holders it takes the
+  route 0.500 -> 0.750 (pick-only lift over recency +0.194 CI-sep; full input headroom +0.250 upper bound).** Its
   resolver-stream wiring is a QUEUED follow-on. **-> STRONGEST next problem: wire graded_coref_pick into the
-  resolver stream feeding the register, to raise the he/she densification ceiling above 0.5.** (High leverage,
-  proven organ, on-disk evidence.)
+  resolver stream feeding the register -- the ceiling-lift is now quantified, not hypothetical.**
 - **`hdlab.coreference_resolver` (NEEDS_ADAPTER; brain-foundational -- Principle B + quote speaker/addressee
   DEIXIS + name-bridging + honest-mode abstain).** Handles the EMBEDDED deictic center (quoted "I") my binder
   scopes out. **-> Next problem: wire it (+ quotation deictic scope) for dialogue-bearing prose.**
@@ -176,8 +189,9 @@ is OBJECT ANAPHORA (it -> salient theme; 259/374 MCScript2 relocations; resolver
 0.730 vs twin-NULL p95 0.323), an organ the substrate lacked. NEW brain-foundational finding: object anaphora is
 RECENCY-dominant -- the person-anaphora Centering Cf-ranking (subject-prominence) HURTS objects CI-sep (-0.212),
 because objects are not the backward-looking center; same machinery, recency parameter. Ceiling on the he/she route
-= the reader coref's same-gender recall (~0.5); the landed-but-unwired `graded_coref_pick` (+0.172 CI-sep) is the
-path to raise it.
+= the reader's CURRENT resolver (~0.5), and it is LIFTABLE and now QUANTIFIED: the landed-but-unwired
+`graded_coref_pick` (ACT-R retrieval) takes the transfer-holder route 0.500 -> 0.750 (pick-only lift over recency
++0.194 CI-sep; input headroom +0.250 upper bound) -- so the ceiling is the reader's weaker resolver, not intrinsic.
 
 ## FOR STRATEGY (you land hdlab; Q111 -- I do not write hdlab/)
 The proposed wire is a densifier IN FRONT of the register's fold, default-off, byte-identical when off:
@@ -218,8 +232,10 @@ None.
 ## NEXT STEPS
 1. Strategy: promote the `EntityBinder` + wire a default-off `densify_world_state` densifier in front of
    `_read_world_state` (feeding the reader's own he/she resolution as the anaphoric input).
-2. Raise the he/she ceiling: wire the landed `graded_coref_pick` (+0.172 CI-sep, proven) into the resolver stream
-   the register reads (the biggest single lever; its stream-wiring is a queued follow-on).
+2. Raise the he/she ceiling (now QUANTIFIED: 0.500 -> 0.750 on transfer holders): wire the landed `graded_coref_pick`
+   into the resolver stream the register reads. The pick-only lift is CI-sep isolated (+0.194 over recency); the
+   remaining headroom to the +0.250 upper bound is entity GROUPING (the aliaser) -- so the wire is graded-pick +
+   stronger grouping. The biggest single lever, evidence on disk.
 3. Promote the object-anaphora resolver (recency + number agreement + pleonastic filter) as a general glass-box
    'it'-resolver (validated on LitBank gold 0.730); add a plural/group 'they' route and a stronger pleonastic-'it'
    classifier. (The he/she + object routes together are the full non-first-person entity binder.)
