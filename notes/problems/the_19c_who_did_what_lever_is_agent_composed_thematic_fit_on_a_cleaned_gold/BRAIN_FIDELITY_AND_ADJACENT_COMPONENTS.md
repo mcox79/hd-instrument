@@ -105,6 +105,39 @@ mechanism for long/embedded 19c sentences but is mechanism-heavy -- log it, don'
 4. **(log, do not fund near-term)** cue-based retrieval interference (Lewis-Vasishth ACT-R) for long/embedded 19c
    sentences; verb-subcategorization SUPPLY from WordNet frames (already named by `graded_role_assigner`).
 
+---
+
+## PART 3 -- OPTIMIZATION HEADROOM (measured; `exp_composition_representation_optimization_v1`)
+
+The brain-fidelity finding ("composition is representation-bounded -- spoke fails, hub works") makes a falsifiable
+optimization prediction: the composition margin should GROW with representational capacity. It does -- a clean
+dose-response (held-out prediction MRR; agent-shuffle margin; n=4000):
+
+| filler representation | MRR | COMPOSED - AGENT-SHUFFLE |
+|---|---|---|
+| 12-d grounded sensorimotor (SPOKE -- the organ's current basis) | 0.0594 | +0.0022 **ns (dead)** |
+| PPMI-SVD dim 25 | 0.1062 | +0.0224 CI-sep |
+| PPMI-SVD dim 50 | 0.1377 | +0.0339 CI-sep |
+| PPMI-SVD dim 100 | 0.1590 | +0.0403 CI-sep |
+| **PPMI-SVD dim 200** | **0.1638** | +0.0442 CI-sep |
+| PPMI-SVD dim 300 | 0.1623 | +0.0456 CI-sep |
+
+**Optimizations, with numbers:**
+1. **Swap the 12-d sensorimotor SPOKE for a ~200-d register-native distributional HUB proxy.** This is the big
+   lever: MRR 0.059 -> 0.164 (2.8x) and the composition margin 0.002 (dead) -> 0.044 (CI-sep). The margin doubles
+   from dim-25 to dim-300 and MRR peaks at ~200 then plateaus -- so ~200 dims is the efficient operating point
+   (300 adds noise dims, MRR dips to 0.162). This CONFIRMS "representation is the bottleneck, not the mechanism."
+2. **gamma (agent-weight sharpness) ~3.0**, not the default 2.0: margin +0.0483 vs +0.0456. Small, free.
+3. **Do NOT naively concatenate spoke+hub.** Measured: HUBSPOKE_concat MRR 0.1167 < HUB-alone 0.1540 -- the coarse
+   near-collinear spoke dims DILUTE the hub. Brain-faithful reading: the ATL hub is a DEEP transmodal integration of
+   the spokes (Lambon Ralph 2017), not a vector concatenation; use the hub-grade distributional representation, do
+   not bolt the raw sensorimotor spoke onto it. (An honest negative that sharpens the "hub, not concat" recommendation.)
+
+**Net for the `predictive_reader` upgrade next-problem:** agent-composed EXEMPLAR over a ~200-d register-native
+distributional (hub-proxy) filler representation, gamma~3, no raw-spoke concat -- a REPRESENTATION swap, KEEP FHRR.
+Quantified headroom: MRR 0.059 -> ~0.16 on held-out patient prediction; the mechanism only switches on once the
+representation is hub-grade.
+
 ### One-line reconciliation with the audit
 The register/selection story is now fully brain-scoped: **English who-did-what SELECTION is word-order-dominant
 (we match the brain); thematic-fit/composition is a forward-PREDICTION mechanism that is REPRESENTATION-bounded (spoke
