@@ -4,8 +4,8 @@ status: SOLVED
 bar: "PASS = the substrate's OWN glass-box parser, improved (via the in-substrate arc-eager + global-training infra, NOT an LLM), simultaneously: 1. raises who-did-what structural patient selection CI-separated over the current arc_parser (0.515) toward the spaCy level (0.588+) on the held-out QA-SRL science test, reported as parse-attach PRECISION on ARGUMENTS, not just overall UAS; 2. holds a UAS/LAS gain on the UD-EWT test set; 3. COMPOUNDS -- measure >=1 SECOND downstream task and show the gain carries; 4. does NOT regress the competing needs -- an explicit MUST-NOT-REGRESS check on argument RECALL (N2), POS/lemma (N4), and the 19c arm treated as a SEPARATE sub-goal; 5. reports the emitted confidence/distribution (N7). A rigorous located negative -- the in-substrate parser CANNOT be brought to spaCy level with the available infra, OR two needs are provably non-co-satisfiable -- is a FULL PASS if it names which need, the number, and the mechanism."
 result: "Improved parser = arc-eager incremental heads + RICH NON-LOCAL STRUCTURAL FEATURES (Zhang-Nivre 2011; dependents/valency/head-of-stack) -- UD-EWT test UAS 0.8421 gold-POS / 0.8053 pred-POS vs the LIVE richfeat 0.775/0.744 (GAIN +0.067/+0.061) -- + LABEL-FREE thematic role recovery (drop the harmful arc_labeler) + an emitted calibrated attachment distribution. who-did-what patient (QA-SRL science, FULL n=2423): 0.5147 -> 0.5477, +0.0330 CI[+0.0194,+0.0462] frac<=0=0.000 (HARD n=1296: +0.0903 CI[+0.070,+0.110]); 19c LitBank FULL n=3015: 0.2610 -> 0.3668, +0.1058 CI[+0.094,+0.118]. Argument-attach PRECISION on UD-EWT (rich arc-eager vs live richfeat): object(->patient) 0.9508 vs 0.9249 +0.0259 CI[+0.012,+0.040]; subject(->agent, the 2nd role/task) 0.9001 vs 0.8569 +0.0469 CI[+0.033,+0.061]; passive-subject 0.833 vs 0.716 +0.117; oblique/recipient 0.716 vs 0.637 +0.079; BURIED-subject (long-arc) 0.406 vs 0.281 -- the rich features RESOLVE the prior error-propagation regression. N7: arc-eager attach-conf/graded_competition-entropy predict who-did-what errors AUC 0.694 (QA) / 0.764 (19c), shuffled-confidence twin AUC 0.506/0.488. WALL PARTLY CROSSED: the ~0.81 UAS ceiling survived richer SEARCH (global-beam HARD_FAIL 0.809 vs 0.811) and richer LEXICAL features (GloVe clusters +0.0015) but the STRUCTURAL rich-feature lever crosses it (+0.024, 0.818->0.842); residual to spaCy ~0.90 is a deeper representation/domain gap, follow-on = a richer representation class + gold target-domain data."
 floor: "Live baseline BASE_CURRENT = richfeat heads + arc_labeler LABELED = 0.5147 (= the parent-measured 0.515) on QA-SRL FULL; position floor 0.3743; richfeat UAS 0.775 (gold-POS) on UD-EWT test. All improved arms gated CI-separated over these strongest floors actually run."
-controls: "(1) info-free HEAD twin -- shuffle the arc-eager head assignments -> who-did-what collapses to 0.346, improved arm beats it +0.195 CI-sep (QA) / +0.164 (19c). (2) info-free CONFIDENCE twin -- shuffled difficulty score -> N7 AUC 0.507/0.490 (~chance) vs the real 0.708/0.761. (3) label-free vs labeled ISOLATION on the SAME heads -> excludes 'better heads' as the modern lever (arc-eager vs richfeat heads on modern who-did-what is ns, -0.0037; the modern gain is entirely the labeler-drop +0.0297 CI-sep). (4) global-beam-vs-local ISOLATION on disk (HARD_FAIL) -> excludes the brief's search route. Each control excludes a specific alternative explanation."
-files_changed: "experiments/exp_parser_gap_decomp_v1.py (disambiguation), experiments/exp_arceager_parser_operator_v1.py (arc-eager operator train+persist+parse+confidence; model data/frontend_assets_exp/arceager_dynamic_ud_ewt.npz), experiments/exp_parser_multiobjective_v1.py (multi-objective eval), experiments/exp_parser_argument_attach_v1.py (per-argument attach precision + 2nd task), experiments/exp_arceager_cluster_features_v1.py (word-cluster lever, null), experiments/exp_arceager_richfeat_transition_v1.py (rich non-local STRUCTURAL features -- the wall-crossing lever, +0.024), experiments/exp_parser_graded_cue_integration_v1.py (reliability-weighted graded cue integration -- MAP boundary), verification/test_parser_improved_operator.py (witness), notes/problems/<slug>/CONSUMER_FIDELITY_MAP.md, FINDINGS_disambiguation.md"
+controls: "(1) info-free HEAD twin -- shuffle the arc-eager head assignments -> who-did-what collapses to 0.346, improved arm beats it +0.195 CI-sep (QA) / +0.164 (19c). (2) info-free CONFIDENCE twin -- shuffled difficulty score -> N7 AUC 0.507/0.490 (~chance) vs the real 0.708/0.761. (3) label-free vs labeled ISOLATION on the SAME heads -> excludes 'better heads' as the modern lever (arc-eager vs richfeat heads on modern who-did-what is ns, -0.0037; the modern gain is entirely the labeler-drop +0.0297 CI-sep). (4) global-beam-vs-local ISOLATION on disk (HARD_FAIL) -> excludes the brief's search route. (5) MULTI-SEED replication of the rich-structural UAS gain (3 seeds: base 0.8177-0.8184, rich 0.8421-0.8437, gains +0.0237/+0.0253/+0.0259) -> excludes a seed artifact. Each control excludes a specific alternative explanation."
+files_changed: "experiments/exp_parser_gap_decomp_v1.py (disambiguation), experiments/exp_arceager_parser_operator_v1.py (arc-eager operator train+persist+parse+confidence; model data/frontend_assets_exp/arceager_dynamic_ud_ewt.npz), experiments/exp_parser_multiobjective_v1.py (multi-objective eval), experiments/exp_parser_argument_attach_v1.py (per-argument attach precision + 2nd task), experiments/exp_arceager_cluster_features_v1.py (word-cluster lever, null), experiments/exp_arceager_richfeat_transition_v1.py (rich non-local STRUCTURAL features -- the wall-crossing lever, +0.024), experiments/exp_parser_graded_cue_integration_v1.py (reliability-weighted graded cue integration -- MAP boundary), experiments/exp_arceager_train_on_predpos_v1.py (train-on-predicted-POS deployment lever -- recovers 13% of the tagger gap), verification/test_parser_improved_operator.py (witness), notes/problems/<slug>/CONSUMER_FIDELITY_MAP.md, FINDINGS_disambiguation.md"
 reverify: ".venv/Scripts/python.exe verification/test_parser_improved_operator.py"
 ---
 
@@ -97,7 +97,9 @@ word-cluster features, K-means over GloVe-300; Koo 2008) adds only **+0.0015** (
 (c) But the STRUCTURAL lever -- Zhang & Nivre 2011 rich non-local features (dependents / valency / head-of-stack;
 a structured working-memory buffer, brain-plausible Now-or-Never-with-structure) -- **CROSSES it: +0.024
 (0.8184 -> 0.8421)** (`exp_arceager_richfeat_transition_v1`), so the deployed parser is UAS 0.842 / 0.805 pred-POS
-(+0.067 / +0.061 over the live parser). *The near-miss was the lesson: after search and lexical features both
+(+0.067 / +0.061 over the live parser). **This crossing is SEED-ROBUST, not a fluke: across 3 seeds the base is
+0.8177-0.8184 and rich is 0.8421-0.8437, gains +0.0237 / +0.0253 / +0.0259 (mean +0.025, 2SE-lo ~+0.024,
+CI-separated from 0).** *The near-miss was the lesson: after search and lexical features both
 failed I nearly declared the ceiling un-crossable; the FINER structural drill found the crossing.* The RESIDUAL to
 spaCy (~0.90) is now precisely characterized -- NOT a search gap (refuted), NOT a shallow-lexical gap (refuted),
 PARTLY a structural-feature gap (crossed +0.024); what remains is a deeper representation gap (contextual/neural
@@ -132,6 +134,20 @@ Full table in `CONSUMER_FIDELITY_MAP.md`. Brain-fidelity-weighted verdicts:
   wired role path default-on -- the parser's value is latent until then.**
 - **predict_revise / verb_subcat / graded_role_assigner** -- PINNED-faithful, real needs, all served by
   head-attachment + voice + coverage; no change needed to their demands.
+- **POS tagger (`pos_tagger`) + the tag->parse PIPELINE** -- the newly-surfaced adjacent bottleneck, and the
+  brain-fidelity drill on it points PAST "improve the tagger". On-disk evidence: the rich parser is UAS 0.842 with
+  GOLD POS but **0.805 with the tagger's PREDICTED POS -- a 3.7-point deployment loss**, now the largest single
+  loss upstream of the parser (the arc-eager already uses word features so it is PARTLY POS-robust; 3.7 pts is
+  what leaks through). BRAIN-FIDELITY VERDICT: the substrate runs a STRICT PIPELINE tag->parse, but lexical
+  category and syntactic structure are CO-DETERMINED in the brain (POS is disambiguated BY the structure -- "the
+  old man the boats"; interactive constraint satisfaction, MacDonald 1994) -- so a strict pipeline is an
+  OUR-INVENTION simplification that lets POS errors propagate IRREVERSIBLY into the parse. I tested the cheap
+  in-scope mitigation (TRAIN the parser on the tagger's PREDICTED POS so train/test match and it learns to
+  compensate; `exp_arceager_train_on_predpos_v1`): it recovers only **+0.0048 (0.8053 -> 0.8101), ~13% of the
+  0.037 tagger gap** -- a small free deployment win, but it CONFIRMS the other 87% is a genuine tagger/joint-
+  inference problem, not a train-test-mismatch artifact. **Follow-on (higher fidelity than a tagger pass): JOINT
+  POS+dependency inference (or a POS-as-soft-cue parser) -- doubly-compounding because POS feeds both the parser
+  AND the meaning channel's lemma/POS.**
 
 ## AUDIT UPDATE (for BRAIN_FOUNDATIONAL_AUDIT.md sec.2b)
 - The parser cross-task ceiling is now decomposed: **the arc_labeler is a HARMFUL low-fidelity component**
@@ -188,7 +204,10 @@ None blocking.
 1. Strategy: land the three default-off wires above (arc-eager operator, label-free role route, confidence->
    graded_competition), re-verify with the witness.
 2. Follow-on problems this seeds (each brain-fidelity-evaluated): retire the arc_labeler from the live role path;
-   re-found or retire the `semantic_parser` placeholder; to cross the 0.81 UAS saturation, a richer-than-linear
-   representation CLASS + gold target-DOMAIN parse data (the three cheap levers -- self-training, global search,
-   word clusters -- are ALL refuted, so this is a genuine architecture step, not a tuning step); a long-arc /
-   buried-subject fix for the incremental parser's error propagation; make the graded wired role path default-on.
+   re-found or retire the `semantic_parser` placeholder; to close the remaining gap to spaCy (0.842 -> ~0.90), a
+   richer-than-linear representation CLASS + gold target-DOMAIN parse data (search + word clusters refuted; rich
+   STRUCTURAL features already banked +0.024 -- so this is a genuine architecture step); the **POS TAGGER is the
+   newly-surfaced adjacent bottleneck** -- pred-POS UAS 0.805 vs gold-POS 0.842, the tagger costs ~3.7 UAS points
+   (brain-foundational: lexical-category assignment is real; worth an accuracy pass); make the graded wired role
+   path default-on. NOTE: the incremental parser's buried-subject error-propagation regression is now RESOLVED by
+   the rich structural features (0.281 -> 0.406), so it is no longer a follow-on.

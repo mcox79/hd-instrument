@@ -86,11 +86,13 @@ same cluster). Resolving them to a prior nominal mention (correct = matching gol
 - **RECENCY 0.730 [0.667,0.794]** (the most-recent number-agreed nominal) >> **random-twin NULL p95 0.323** >>
   **first-mention floor 0.132** (can-fail) >> **reader's coref 0.000** (it/they are OUT of `TARGET_PRONOUNS` -- the
   reader abstains entirely; the organ recovers what the reader cannot).
-- **BRAIN-FOUNDATIONAL SWEEP (copy the computation, sweep the parameter):** subject-prominence Centering HURTS
-  objects -- salience 0.518, paired -0.212 [-0.286,-0.132] vs recency. Objects are rarely the backward-looking
-  center (Cb), so the person-anaphora Cf-ranking (subject>object) is the WRONG cue for "it"; recency/locality is
-  right. `W_SUBJECT` was OUR-INVENTION and the gold says drop it -> the object route is PURE RECENCY (+ number
-  agreement + pleonastic filter).
+- **BRAIN-FOUNDATIONAL SWEEP (copy the computation, sweep the parameter) -- both PINNED features earn their place
+  CI-sep, the one OUR-INVENTION hurts:** (a) NUMBER AGREEMENT (it/its->singular, they/them->plural; PINNED) is
+  load-bearing -- recency WITH agreement 0.730 vs WITHOUT 0.524, +0.206 [0.148,0.265] CI-sep; (b) the PLEONASTIC-it
+  filter (PINNED) is active; (c) subject-prominence Centering (OUR-INVENTION, the person-anaphora cue) HURTS --
+  salience 0.518, -0.212 [-0.286,-0.132] vs recency. Objects are rarely the backward-looking center (Cb), so the
+  Cf-ranking (subject>object) is the WRONG cue for "it"; recency/locality is right. `W_SUBJECT` -> drop it. The
+  object route is RECENCY + number agreement + pleonastic filter.
 
 ## WHAT I DID NOT ESTABLISH (withdraw-first)
 - **The object-anaphora who-has-what IMPACT on MCScript2 (259 relocations) is a lever size, not an accuracy** --
