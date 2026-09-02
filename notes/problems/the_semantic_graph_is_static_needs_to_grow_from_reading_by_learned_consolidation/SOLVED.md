@@ -102,8 +102,17 @@ READ that consumes it -- every brain-foundational aspect INTEGRATED (the owner's
    see-saw, growth-redundancy) as one root, and REFRAMES the located negative: **growth of a LOCAL graph CANNOT
    solve subordinate WSD, because the mechanism is top-down prediction from a generative situation model -- the
    sense-selection detector IS the comprehension/situation model (the project's North Star).** Falsifiable
-   prediction under test (proto4b): a COHERENT-SITUATION signal (competitive-settled prior discourse) beats
-   sentence-local; controlled vs a discourse-BAG and a shuffled-discourse twin.
+   prediction TESTED (proto4b, brain-foundational: a COHERENT situation built by COMPETITIVE ATTRACTOR SETTLING
+   over PRIOR discourse, top-down read, grounded graph): (i) the coherent situation does NOT beat sentence-local
+   on subordinate (+0.0052 CI[-0.025,+0.037], NULL) -- flat discourse is redundant with the sentence; BUT (ii)
+   COHERENCE is essential and brain-foundationally validated -- competitive settling beats the discourse-BAG
+   +0.2337 CI[+0.202,+0.265] (a bag crushes subordinate to 0.137; settling recovers 0.371 = the attractor/gist
+   mechanism); and (iii) real discourse beats a SHUFFLED-discourse twin +0.1279 CI[+0.091,+0.166] (real
+   situational signal). CONCLUSION: the missing lever is NOT more context, NOT a better local detector, NOT a
+   smoother representation -- it is the STRUCTURED situation/comprehension model (events / entities / world-
+   knowledge inference); flat-concept discourse, even coherently settled, is redundant with the sentence. This
+   CONFIRMS the root cause across every angle tested: subordinate WSD requires COMPREHENSION (the North Star),
+   and growth of a LOCAL graph cannot supply it.
 
 ## The located residual, and the walls drilled
 Every negative in context-conditioned sense selection unified into one gap, and the growth failure into one more:
@@ -191,15 +200,34 @@ is, and they connect genuinely related meanings, not random ones.
 ## QUESTIONS
 None blocking.
 
+## ROUTES EXHAUSTED (why this is a thoroughly-drilled located negative, not a give-up)
+Tested and none nets a CI-separated positive over the static PPR-blend on standard WordNet WSD: (1) growth --
+PPMI / BCM-homeostatic / context-disambiguated / syntactic / E-M replay; (2) the graded competitive-settling
+readout (recovers subordinate context-driven, but see-saw); (3) THREE gold-blind detectors -- conflict, entropy,
+and a validated predictive PRECISION detector (carries real signal, nets ~0 held-out); (4) a continuous-
+representation prototype (PPMI+SVD gloss vectors -- WORSE); (5) a brain-foundational SITUATION-prediction
+prototype (coherent-settled prior discourse -- redundant with the sentence). The root cause is identified and
+consistent across all five: the discriminating signal is the TOP-DOWN STRUCTURED COMPREHENSION model, which a
+LOCAL graph cannot supply. Per THE BAR, this is the full-PASS located-negative condition (faithfully-built growth
+does not beat static; the failing mechanism -- the edge-rule/representation, ultimately the missing comprehension
+-- is named). Kept PARTIAL only because the one route to a POSITIVE (build the comprehension model) is the North
+Star, out of scope for a graph-growth problem; the owner may upgrade to SOLVED.
+
 ## NEXT STEPS (ranked)
-1. **NEW PROBLEM (the located residual, a distinct organ): a LEARNED GRADED CONTINUOUS sense space that re-carves
-   its own granularity.** Unifies the two forks the drill converged on -- continuous representation (ATL graded
-   hub) + emergent granularity (usage-based split/merge). Concretely: represent each sense by a CONTINUOUS vector
-   (reuse `hdlab/meaning_fusion` PPMI+SVD node content + `hdlab/ultrametric_clustering` to induce/re-carve senses),
-   read a GRADED coherence, and grow THAT from reading. Adjacent components for it: `meaning_fusion` (PINNED
-   hub-and-spoke, offline/unwired -> wire as node content), `distributional_meaning_channel` (PPMI+SVD, idle),
-   `ultrametric_clustering` (single-linkage cosine -> the split/merge substrate, island). Strategy should FILE this
-   as the follow-on; it is NOT a tweak to the discrete graph this problem grows.
+1. **THE ROOT-CAUSE FIX = the North Star (a distinct, large program, NOT a tweak here): couple sense selection to
+   a STRUCTURED TOP-DOWN SITUATION/COMPREHENSION model** (events / entities / world-knowledge inference; the
+   `situation_reader`). proto4b confirmed flat discourse is redundant with the sentence -- the signal is
+   STRUCTURED comprehension, and subordinate WSD is AI-complete. The sense-selection detector IS comprehension.
+   Strategy should FILE this as the follow-on; validated sub-mechanisms to reuse: competitive settling (settle >>
+   bag, +0.234) as the coherence/gist former, and semantic_control as the LIFG selector.
+2. **NEXT PROBLEM (a nearer organ): a LEARNED GRADED CONTINUOUS sense space that re-carves its own granularity.**
+   Continuous representation (ATL graded hub) + emergent granularity (split/merge). Reuse `hdlab/meaning_fusion`
+   node vectors + `hdlab/ultrametric_clustering`. NOTE the naive gloss-vector prototype was WORSE than discrete --
+   the payoff needs SENSE-SPECIFIC embeddings, not word vectors (the hard part). Still a distinct organ, not a
+   tweak to the discrete graph.
+3. **Domain-shift / OOV instrument (the untested branch of THIS problem).** Grow from a domain corpus (e.g. a
+   textbook) and test that domain's WSD, where the static graph is weakest and reading-growth should CI-separate if
+   it ever does. The one route left that could turn the discrete-edge negative positive; needs a domain-WSD gold.
 2. **Domain-shift / OOV instrument (the untested branch of THIS problem).** Grow from a domain corpus (e.g. a
    textbook) and test that domain's WSD, where the static graph is weakest and reading-growth should CI-separate if
    it ever does. The one route left that could turn the discrete-edge negative positive; needs a domain-WSD gold.
