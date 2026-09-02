@@ -295,3 +295,24 @@ None blocking.
 - **DO NOT re-open** (refuted): general-UAS->spaCy via global search or word-clusters (both null; not
   spec-load-bearing anyway); the buried-subject regression (RESOLVED by rich features); wiring heads into the
   patient organ (hurts 19c); the parser distribution as an accuracy lever (MAP boundary).
+
+## INTEGRATED_BY_STRATEGY — 2026-09-02 (grade: EXCELLENT; SOLVED owner-DONE)
+Reverified 8/8 first-hand. An EXCELLENT dual result: (1) a genuinely improved glass-box parser — arc-eager
+incremental heads + rich non-local STRUCTURAL features, UD-EWT test UAS 0.775→0.842 gold-POS (+0.067, 3-seed
+CI-sep), who-did-what patient 0.5147→0.5477 (+0.033 CI-sep; HARD +0.090; 19c LitBank +0.106), per-argument attach
+precision up across obj/subj/passive/oblique, BURIED-subject regression resolved, plus a CALIBRATED abstain/drop
+signal (ECE 0.153→0.026, errors concentrate 4.2x, N7 entropy AUC 0.694/0.764). (2) THE HEADLINE — a precise PARSER
+SERVICE SPEC: measuring all 9 consumers' head-dependence, one parser serves them all iff it supplies UPOS +
+verb-lemma + voice + accurate 1-best PP-CHAIN attachment (the SOLE high-precision head demand, oracle-PP +0.10–0.18)
++ a calibrated abstain — NOT general head-accuracy (the patient organ is head-independent + label-free), NOT
+dependency labels (harmful), NOT an n-best distribution (MAP theorem). Honest scope: general UAS improved but is NOT
+the load-bearing lever; the two biggest levers (register-robust POS, PP-chain attachment) are DATA-BOUNDED
+follow-ons. WIRE: the arc-eager parse operator is PROMOTED to hdlab/arceager_parser.py (self-contained, verified
+BYTE-FAITHFUL 6/6, DEBT-1 burned; registered arceager_parser_operator_v1). The reader-integration (a default-off
+parser='arceager' route + attach_conf→graded_competition + calibrated-abstain→predict_revise drop-trigger + routing
+predicate_argument_frontend through the improved parser) is a scoped DEBT-2 wiring round. Follow-on FILED:
+register_native_parse_and_pos_training_data_for_pp_attachment_and_robust_tagging (priority 2, the two data-bounded
+levers combined). Grade EXCELLENT.
+
+`priority:` cleared; review (EXCELLENT) + this block written into PROBLEM.md; capability `arceager_parser_operator_v1`
+registered; AUDIT §2b folded.

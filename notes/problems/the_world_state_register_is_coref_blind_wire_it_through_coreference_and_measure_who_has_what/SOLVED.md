@@ -421,3 +421,23 @@ None.
    roles on a QA-SRL / OntoNotes-SRL gold -- the parent put recipient extraction at 0.33, which caps the register
    regardless of coref. No gold SRL is on disk, so this is a resource/next-problem.
 7. Wire a downstream who-has-what QA consumer of `sm.world_state` ("who has the key now?") -- the payoff.
+
+## INTEGRATED_BY_STRATEGY — 2026-09-02 (grade: EXCELLENT; SOLVED owner-DONE)
+Reverified 18/18 first-hand. EXCELLENT + disk-outranks-brief: 'reuse the reader's own coref' cannot resolve object
+'it' or first-person 'I' (its coref is he/she-only), so the solver DECOMPOSED the parent's 81%-pronoun agents into
+three routes and built the two the reader lacked — a brain-foundational two-stage EntityBinder (pleonastic-it filter
+→ indexical I/me→NARRATOR → anaphoric he/she via the reader's coref → object-anaphora it→recency → nominal) + a
+confidence-abstain gate. MEASURED (CI-sep, floors+twins+change-point): he/she densification aggregate reader 0.719
+vs coref-blind 0.570 (+0.148 [0.096,0.208]; on the bites-population 0.000→0.500); object-anaphora recency 0.730 vs
+random-twin p95 0.323 vs first-mention 0.132 (subject-salience HURTS objects −0.212 — objects aren't the
+backward-looking center); end-to-end who-has-what blind 0.285→full 1.000; powered bridging detection blind
+71.5%-false-flag→densified 0%. Honest self-correction: the he/she ceiling is GROUPING-bound (~91% pronoun-chaining,
+realistic glass-box ceiling ~0.46 not 0.75), graded pick near-optimal (located negative). WIRE: the EntityBinder is
+self-contained and ready to promote to hdlab/world_state_entity_binding.py; a default-off densify_world_state flag on
+the landed _read_world_state (indexical + object-anaphora routes are self-contained; the he/she route needs the
+reader's mention-level coref stream plumbed in) is a scoped DEBT-2 wiring round. Follow-on FILED:
+incremental_entity_maintenance_pronoun_chaining_for_who_has_what (priority 3, the ~91% ceiling lever). Grade
+EXCELLENT.
+
+`priority:` cleared; review (EXCELLENT) + this block written into PROBLEM.md; AUDIT §2b folded. No hdlab wire this
+round — the EntityBinder promotion + densify_world_state flag is a scoped DEBT-2 wiring round.

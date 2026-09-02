@@ -296,3 +296,24 @@ Star, out of scope for a graph-growth problem; the owner may upgrade to SOLVED.
    situational/precision-gate) + the reordered-access + settling + semantic_control read path. NOTE: land it only
    if the continuous-space fork (step 1) produces a win -- the discrete-edge growth is a confirmed non-improvement
    on standard WSD, so wiring it as-is would add cost without benefit.
+
+## INTEGRATED_BY_STRATEGY — 2026-09-02 (grade: EXCELLENT; SOLVED owner-DONE)
+Reverified 4/4 first-hand. A rigorous, multiply-controlled LOCATED NEGATIVE (a full PASS under the bar's
+located-negative clause) + a real READ-SIDE POSITIVE. Growing the meaning graph from reading does NOT improve WSD
+(Raganato argmax −0.0088; powered subordinate-override: growth HURTS rare senses −0.0148) — and the ROOT CAUSE is
+established from ~8 controlled angles: the discriminating signal for rare/subordinate sense selection is TOP-DOWN
+STRUCTURED COMPREHENSION (predictive coding; the N400 = semantic prediction error), NOT local co-occurrence (5
+bottom-up routes all fail consistently). CONFIRMED brain sub-mechanism: naive Hebbian/PPMI growth is rich-get-richer
+(helps dominant, starves rare); the brain's HOMEOSTATIC BCM fix rescues rare senses (+0.0155 CI-sep) but does not
+beat static. READ-SIDE POSITIVE (validated, controlled): the graded COMPETITIVE-SETTLING readout recovers
+subordinate senses +0.19 over discrete argmax, context-driven (beats shuffled-context +0.17 CI-sep), strongest for
+homonyms; semantic_control reproduces. NOT a ceiling — the route to a positive is building the comprehension model
+(bootstrapping senses+comprehension). WIRE: TIER-1 = the read organ (reordered-access → competitive settling →
+semantic_control) is a real read-side meaning-channel upgrade (a scoped DEBT-2 wiring round — this is also the
+graph-organ DEBT-2 completion, 'emit the settled vector not argmax'); TIER-2 = do NOT wire the discrete-edge growth
+(confirmed non-improvement). Follow-on FILED: wire_the_situation_model_as_a_top_down_predictive_coding_sense_selector
+(priority 1, north-star — the convergence point of all three recent submissions). Grade EXCELLENT (located-negative).
+
+`priority:` cleared; review (EXCELLENT) + this block written into PROBLEM.md; AUDIT §2b folded. No hdlab wire this
+round — the TIER-1 read-organ upgrade is a scoped DEBT-2 wiring round; the discrete-edge growth is a confirmed
+non-improvement and is NOT wired.
