@@ -2,11 +2,11 @@
 problem: the_world_state_register_is_coref_blind_wire_it_through_coreference_and_measure_who_has_what
 status: SOLVED
 bar: "PASS = a coref-densified world-state register (entity + object keys resolved through the reader's OWN coref BEFORE the effect is applied) RECOVERS who-has-what CI-separated over the coref-BLIND raw-string register on a HELD-OUT real-prose test with state-CHANGING transfers, with a SHUFFLED-COREF twin (same clusters, wrong assignment) LOSING CI-sep and a positive control that the answer CHANGES at the transferring event. A rigorous located negative is a full PASS if it names the residual precisely (coref recall on transfer agents vs recipient-PP extraction vs verb-sense) with the number for each. Report CI half-width + null p95. Do NOT grade on the same corpus the store/coref were tuned on without a held-out split."
-result: "PRIMARY (LitBank coref-CoNLL, ALL 25 gold-coref docs, the reader's OWN he/she coref; who-has-what over state-changing transfers, n=135 queries): binding the HOLDER through the reader's coref recovers who-has-what READER 0.7185 [0.6444,0.7926] vs coref-BLIND 0.5704 [0.4889,0.6519], PAIRED delta +0.1481 [0.0963,0.2076] (CI half-width 0.056, excludes 0). On the DECISIVE he/she-holder subset -- the population where coref-blindness bites, n=26: coref-BLIND 0.000 [0,0] -> READER 0.500 [0.3077,0.6923], +0.500; GOLD-coref oracle 1.000. BUILD-ACROSS of the two routes the reader's coref LACKS (MCScript2 first-person, 2729 stories / 8777 transfers, through the brain-foundational EntityBinder): OBJECT ANAPHORA relocates 259/374 'it'-transfers blind applied to the wrong object (who-has-what impact 0.69; 'it'-antecedent coverage 0.65); the INDEXICAL narrator rule collapses the narrator that blind fragments into >=2 case-keys in 5.3% of stories."
+result: "PRIMARY (LitBank coref-CoNLL, ALL 25 gold-coref docs, the reader's OWN he/she coref; who-has-what over state-changing transfers, n=135 queries): binding the HOLDER through the reader's coref recovers who-has-what READER 0.7185 [0.6444,0.7926] vs coref-BLIND 0.5704 [0.4889,0.6519], PAIRED delta +0.1481 [0.0963,0.2076] (CI half-width 0.056, excludes 0). On the DECISIVE he/she-holder subset -- the population where coref-blindness bites, n=26: coref-BLIND 0.000 [0,0] -> READER 0.500 [0.3077,0.6923], +0.500; GOLD-coref oracle 1.000. BUILD-ACROSS of the two routes the reader's coref LACKS (MCScript2 first-person, 2729 stories / 8777 transfers, through the brain-foundational EntityBinder): OBJECT ANAPHORA relocates 259/374 'it'-transfers blind applied to the wrong object (who-has-what impact 0.69; 'it'-antecedent coverage 0.65); the INDEXICAL narrator rule collapses the narrator that blind fragments into >=2 case-keys in 5.3% of stories. OBJECT-ANAPHORA ACCURACY on REAL LitBank gold (n=189 gold-clustered object pronouns, `exp_world_state_object_anaphora_gold_v1`): resolving 'it/they' by RECENCY 0.730 [0.667,0.794] vs random-twin NULL p95 0.323 (CI-sep) vs first-mention floor 0.132 vs the reader's coref 0.000 (abstains -- out of scope); subject-prominence Centering HURTS objects (salience 0.518, paired -0.212 [-0.286,-0.132])."
 floor: "Strongest floor = the coref-BLIND raw-string register (the register wired today): aggregate 0.5704 [0.4889,0.6519]; on he/she holders 0.000 (a pronoun holder string maps to NO discourse entity). Gate is the PAIRED reader-minus-blind delta +0.1481 [0.0963,0.2076] (excludes 0); the he/she subset is fully separated (reader lower CI 0.3077 > blind upper CI 0.000). GOLD-coref oracle 1.000 = ceiling. by-holder-class: nominal 0.731->0.798, he/she 0.000->0.500, object 'it' 0.2->0.2 (reader out of scope = the object-anaphora residual, named with its number)."
-controls: "(1) SHUFFLED-COREF twin (same clusters, wrong assignment): aggregate single-draw same-gender twin 0.652, reader-minus-twin +0.0667 [0.0148,0.1185] (excludes 0); on the he/she subset a K=2000-permutation NULL mean 0.078 / p95 0.154, reader 0.500 >> p95 (CORRECT identity, not coref-shape, does the work). (2) POSITIVE CONTROL change-point: the reported holder CHANGES at the transferring event on 95.6%% of queries (not a constant echo). (3) GOLD-coref oracle == 1.000 (the register is faithful given correct entities -- isolates Stage-1 from Stage-2). (4) PLEONASTIC-'it' filter active: object anaphora ABSTAINS on expletive 'it' / no-antecedent (never-confidently-wrong). (5) SCOPE-OUT controls: we/you ABSTAIN (not bound) -- a named residual (group entity / rotating addressee), not a wrong bind."
-files_changed: "experiments/world_state_entity_binding.py (the brain-foundational Stage-1 dispatcher: pleonastic->indexical->anaphoric->object-anaphora->nominal); experiments/exp_world_state_coref_diagnose_v1.py (residual decomposition); experiments/exp_world_state_coref_densify_v1.py (LitBank he/she holder densification: blind vs reader vs gold vs shuffled-null twin); experiments/exp_world_state_deixis_object_v1.py (MCScript2 build-across of the indexical + object routes, routed through the EntityBinder); verification/test_world_state_coref_densify.py (11/11 witness). NO hdlab/ written (Q111 -- the proposed wire is in FOR STRATEGY below)."
-reverify: ".venv/Scripts/python.exe verification/test_world_state_coref_densify.py   # 11/11 -- recomputes EntityBinder routes + register core + LitBank he/she headline (reader>blind, gold=1.0, change-point) + MCScript2 object-anaphora impact FROM SOURCE"
+controls: "(1) SHUFFLED-COREF twin (same clusters, wrong assignment): aggregate single-draw same-gender twin 0.652, reader-minus-twin +0.0667 [0.0148,0.1185] (excludes 0); on the he/she subset a K=2000-permutation NULL mean 0.078 / p95 0.154, reader 0.500 >> p95 (CORRECT identity, not coref-shape, does the work). (2) POSITIVE CONTROL change-point: the reported holder CHANGES at the transferring event on 95.6%% of queries (not a constant echo). (3) GOLD-coref oracle == 1.000 (the register is faithful given correct entities -- isolates Stage-1 from Stage-2). (4) PLEONASTIC-'it' filter active: object anaphora ABSTAINS on expletive 'it' / no-antecedent (never-confidently-wrong). (5) SCOPE-OUT controls: we/you ABSTAIN (not bound) -- a named residual (group entity / rotating addressee), not a wrong bind. (6) OBJECT-ANAPHORA controls (LitBank gold, n=189): random-twin NULL p95 0.323 loses to recency 0.730; first-mention floor 0.132 (can-fail); reader coref 0.000 (abstains); subject-salience ablation HURTS (paired -0.212 CI-sep) = the parameter sweep."
+files_changed: "experiments/world_state_entity_binding.py (the brain-foundational Stage-1 dispatcher: pleonastic->indexical->anaphoric->object-anaphora->nominal); experiments/exp_world_state_coref_diagnose_v1.py (residual decomposition); experiments/exp_world_state_coref_densify_v1.py (LitBank he/she holder densification: blind vs reader vs gold vs shuffled-null twin); experiments/exp_world_state_deixis_object_v1.py (MCScript2 build-across of the indexical + object routes, routed through the EntityBinder); experiments/exp_world_state_object_anaphora_gold_v1.py (object-anaphora ACCURACY on real LitBank gold: recency vs salience vs first-mention floor vs random-twin NULL); verification/test_world_state_coref_densify.py (12/12 witness). NO hdlab/ written (Q111 -- the proposed wire is in FOR STRATEGY below)."
+reverify: ".venv/Scripts/python.exe verification/test_world_state_coref_densify.py   # 12/12 -- recomputes EntityBinder routes + register core + LitBank he/she headline (reader>blind, gold=1.0, change-point) + MCScript2 object-anaphora impact + object-anaphora ACCURACY on LitBank gold (recency>twin-NULL, salience hurts) FROM SOURCE"
 ---
 
 # The world-state register is coref-blind: the fix is a two-stage entity binder, and "coref" is three routes, not one
@@ -79,12 +79,28 @@ resolution). All 25 LitBank coref docs, n=135 who-has-what queries over state-ch
   **5.3%**. So the dominant 64.7% first-person share OVERSTATES coref's who-has-what cost -- it needs the *cheap*
   indexical normalization (i/me/my -> NARRATOR), not the hard anaphoric coref the brief invoked.
 
+### 3. OBJECT-ANAPHORA ACCURACY on real gold (`exp_world_state_object_anaphora_gold_v1`)
+LitBank's coref CoNLL gold-clusters NON-PERSON entities too (facility/location/vehicle/group), so 354
+object-pronoun mentions (it/its/they/them/their) carry a gold cluster; 189 are resolvable (a prior nominal in the
+same cluster). Resolving them to a prior nominal mention (correct = matching gold cluster):
+- **RECENCY 0.730 [0.667,0.794]** (the most-recent number-agreed nominal) >> **random-twin NULL p95 0.323** >>
+  **first-mention floor 0.132** (can-fail) >> **reader's coref 0.000** (it/they are OUT of `TARGET_PRONOUNS` -- the
+  reader abstains entirely; the organ recovers what the reader cannot).
+- **BRAIN-FOUNDATIONAL SWEEP (copy the computation, sweep the parameter):** subject-prominence Centering HURTS
+  objects -- salience 0.518, paired -0.212 [-0.286,-0.132] vs recency. Objects are rarely the backward-looking
+  center (Cb), so the person-anaphora Cf-ranking (subject>object) is the WRONG cue for "it"; recency/locality is
+  right. `W_SUBJECT` was OUR-INVENTION and the gold says drop it -> the object route is PURE RECENCY (+ number
+  agreement + pleonastic filter).
+
 ## WHAT I DID NOT ESTABLISH (withdraw-first)
-- **Object-anaphora and indexical routes are demonstrated by IMPACT/coverage, not CI-separated accuracy** --
-  because no corpus on disk annotates object coreference (LitBank clusters people/places, NOT common objects like
-  "cup"/"letter"; verified). The 259 relocations are real who-has-what recoveries, but the object-anaphora rule's
-  own error rate needs an object-coref gold (OntoNotes/GUM -- a resource call, filed below). **First thing I would
-  withdraw:** any claim that object anaphora is CI-separated-accurate on open text.
+- **The object-anaphora who-has-what IMPACT on MCScript2 (259 relocations) is a lever size, not an accuracy** --
+  its resolver accuracy is proven on LitBank gold (0.730 above), but MCScript2 has no gold, so the 259 is "blind
+  applied the transfer to the wrong key" (a provable blind failure), not "the resolver picked the right object
+  259/259". **First thing I would withdraw:** any implication that all 259 relocations are verified-correct
+  resolutions (the resolver's own error rate is ~0.27 by the LitBank number).
+- **The binder's transfer-context object route uses recency-among-THEMES (recency_object 0.614 on general LitBank
+  'it'); the gold says PURE recency (any-role, 0.730) is better** -- a small tuning: the hdlab wire should feed the
+  binder the recent nominal context, not only transfer themes (noted in FOR STRATEGY).
 - **The he/she recovery ceiling is 0.500**, set by the reader's coref recall on *same-gender transfer pronouns*
   (the hardest Centering case). This is the reader's coref organ, not the register -- and it is on LitBank, the
   coref's home corpus, so 0.5 is if anything optimistic OOD. The lever to raise it is a landed, unwired organ
@@ -111,6 +127,11 @@ resolution). All 25 LitBank coref docs, n=135 who-has-what queries over state-ch
 5. **Stage 2 was already faithful; the whole problem was Stage 1.** The register (possession bound to a key,
    STRIPS effect/precondition) copies Glenberg's entity-bound possession. Coref-blindness is entirely a Stage-1
    reference-resolution gap -- which is why the fix is a densifier IN FRONT of the register, not a register change.
+6. **Object anaphora is RECENCY-dominant, and the person-anaphora rule ACTIVELY HURTS it** (subject-salience
+   -0.212 CI-sep on LitBank gold). The enabling move was noticing LitBank gold-clusters non-person entities, which
+   turned an "impact-only" claim into a CI-separated accuracy -- and the sweep then overturned my own initial
+   design (drop the subject weight). Objects are not the backward-looking center, so the SAME Centering machinery
+   with a DIFFERENT parameter setting (recency, not Cf-prominence) is the faithful copy.
 
 ## ADJACENT COMPONENTS (brain-foundational status + optimization -> next problems)
 Evaluated per the owner's standing instruction (which components feeding/drawing-from this are brain-foundational,
@@ -134,9 +155,11 @@ where is the optimization, which are NOT brain-foundational and should be improv
   expectation-driven parse).**
 - **`hdlab.coref.EntityAliaser` (WIRED; brain-foundational -- entity unification, Miss Bennet = Elizabeth).** Works;
   gives the small nominal-holder gain (0.731->0.798).
-- **Object anaphora as an organ: DOES NOT EXIST** -- the `EntityBinder` is the first. Brain-foundational (Centering
-  entity-type-agnostic + Lappin-Leass pleonastic). **-> Needs an object-coref-annotated corpus (OntoNotes/GUM) to
-  measure CI-separated -- a resource call.**
+- **Object anaphora as an organ: DID NOT EXIST -- the `EntityBinder` is the first, and it is now VALIDATED on real
+  gold** (LitBank non-person clusters; recency 0.730 vs twin-NULL p95 0.323; subject-salience hurts -0.212 CI-sep).
+  Brain-foundational (Centering entity-type-agnostic, recency parameter + Lappin-Leass pleonastic). **-> Candidate
+  organ to promote (a general glass-box 'it'-resolver the substrate lacks -- reader coref abstains on 'it'); a
+  plural/group 'they' resolver and a stronger pleonastic classifier are the two refinements.**
 - **Downstream (draws FROM the register):** `sm.world_state` is default-off and NOTHING consumes it yet
   (who-has-what QA: "who has the key now?"). **-> Wiring a who-has-what query consumer is the payoff of this whole
   line.**
@@ -149,9 +172,12 @@ he/she coref recovers who-has-what CI-separated over the coref-blind register (L
 (Stage-2) is faithful; the gap is entirely Stage-1 reference resolution. The dominant real-prose share (64.7%
 first-person on MCScript2) is the CHEAP indexical route (i/me/my -> NARRATOR), not anaphora -- and first-person is
 mostly a stable self-key, so "81% pronoun agents" overstates coref's who-has-what cost. The biggest concrete lever
-is OBJECT ANAPHORA (it -> salient theme; 259/374 MCScript2 relocations), an organ the substrate lacked. Ceiling on
-the he/she route = the reader coref's same-gender recall (~0.5); the landed-but-unwired `graded_coref_pick`
-(+0.172 CI-sep) is the path to raise it.
+is OBJECT ANAPHORA (it -> salient theme; 259/374 MCScript2 relocations; resolver validated on LitBank gold RECENCY
+0.730 vs twin-NULL p95 0.323), an organ the substrate lacked. NEW brain-foundational finding: object anaphora is
+RECENCY-dominant -- the person-anaphora Centering Cf-ranking (subject-prominence) HURTS objects CI-sep (-0.212),
+because objects are not the backward-looking center; same machinery, recency parameter. Ceiling on the he/she route
+= the reader coref's same-gender recall (~0.5); the landed-but-unwired `graded_coref_pick` (+0.172 CI-sep) is the
+path to raise it.
 
 ## FOR STRATEGY (you land hdlab; Q111 -- I do not write hdlab/)
 The proposed wire is a densifier IN FRONT of the register's fold, default-off, byte-identical when off:
@@ -163,10 +189,12 @@ The proposed wire is a densifier IN FRONT of the register's fold, default-off, b
      mention from sm.coref_resolutions>)`;
    - theme (object) -> `bind_theme(head, verb)` (object anaphora + pleonastic filter, stateful over the passage).
    Feed the reader's OWN he/she resolution as `coref_cluster` (the faithful reuse); the indexical + object routes
-   are the binder's. Default OFF = byte-identical (`_read_world_state` unchanged).
-3. **Witness:** `verification/test_world_state_coref_densify.py` (11/11) covers every route + the LitBank headline.
-4. The ceiling-raiser (`graded_coref_pick` -> resolver stream) and the object-coref-gold corpus are the two filed
-   follow-ons, not this wire.
+   are the binder's. Default OFF = byte-identical (`_read_world_state` unchanged). TUNING (from the gold sweep):
+   resolve 'it' by PURE RECENCY over recent number-agreed nominals (NOT subject-salience, which hurts -0.212
+   CI-sep) -- feed the binder the recent nominal context, not only transfer themes.
+3. **Witness:** `verification/test_world_state_coref_densify.py` (12/12) covers every route + the LitBank headline
+   + the object-anaphora accuracy on gold.
+4. The ceiling-raiser (`graded_coref_pick` -> resolver stream) is the filed follow-on for the he/she route.
 
 ## TLDR
 As you read a story you keep track of who currently has what. Our tracker was right when people and objects were
@@ -192,7 +220,9 @@ None.
    `_read_world_state` (feeding the reader's own he/she resolution as the anaphoric input).
 2. Raise the he/she ceiling: wire the landed `graded_coref_pick` (+0.172 CI-sep, proven) into the resolver stream
    the register reads (the biggest single lever; its stream-wiring is a queued follow-on).
-3. Measure object anaphora CI-separated on an object-coref-annotated corpus (OntoNotes/GUM) -- a resource call.
+3. Promote the object-anaphora resolver (recency + number agreement + pleonastic filter) as a general glass-box
+   'it'-resolver (validated on LitBank gold 0.730); add a plural/group 'they' route and a stronger pleonastic-'it'
+   classifier. (The he/she + object routes together are the full non-first-person entity binder.)
 4. Add the embedded-deictic-center (quoted-"I") scope via `hdlab.coreference_resolver.run_principle_b_deixis` for
    dialogue-bearing prose; handle "we" (group entity) and "you" (rotating addressee) as their own routes.
 5. Wire a downstream who-has-what QA consumer of `sm.world_state` ("who has the key now?") -- the payoff.
