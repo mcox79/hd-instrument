@@ -158,10 +158,53 @@ exemplar sharpening that backs off to the base when the agent is OOV; gamma=2 = 
   hub the centroid is already expressive -- near-orthogonality preserves cluster structure, Erk 2010), and WordNet
   taxonomic smoothing HURTS (-0.005; adds noise to already-covered fillers).
 
-**Net for the `predictive_reader` upgrade next-problem:** the fundable win is the REPRESENTATION swap (12-d spoke ->
-~200-d register-native distributional hub, MRR 0.063 -> 0.140, 2.2x); add agent-composed-exemplar sharpening (gamma
-2, centroid backoff) as a small real topping on the ~43% of inputs with an in-vocab agent; do NOT use exemplar-
-marginal or WordNet smoothing. KEEP FHRR. This is the assembled ideal, controlled and decomposed.
+### DRILLING THE "composition net gain is small" WALL -> it was an ESTIMATOR weakness, and the brain's fix crosses it
+The IDEAL showed raw agent-composition adds ~0 net over the strong hub-centroid base (+0.002 ns). Drilled
+(`exp_composition_diagnosticity_v1`, gold-blind binning by how much the agent moves the prediction): raw composition
+HELPS where the agent barely shifts the verb prior (LOW/MID shift +0.012 / +0.015 CI-sep) but HURTS where it shifts
+a lot (HIGH shift -0.013) -- sparse (agent,verb) evidence lets the estimator OVER-COMMIT to a spurious direction.
+That is an under-regularization, not a ceiling. The brain-faithful fix is PRECISION-WEIGHTING (Friston free-energy
+precision; Kleinschmidt-Jaeger ideal-adapter reliability weighting; and the `predictive_reader` organ's OWN stated
+principle "precision-weighted by the verb's selectional-preference concentration" -- which the raw estimator did not
+implement): trust the agent shift in proportion to the PRECISION of its evidence (peak agent similarity), and shrink
+to the verb prior when no close agent was attested. `score = (1-lam)*centroid + lam*composed`, `lam =
+clip((peak_agent_cos - 0.20)/0.35, 0, 1)`.
+
+Result (`exp_composition_precision_weighted_v1`, agent-covered held-out, n=4404): **PRECISION_BLEND beats the
+verb-prior centroid base +0.0140 CI[+0.009,+0.020] CI-sep** (raw composition was +0.005 ns -- precision-weighting
+~TRIPLED the net gain), beats raw composition +0.009 CI-sep, beats its agent-shuffle twin +0.032 CI-sep; and the
+HIGH-shift damage is REMOVED (-0.013 -> +0.004 ns) while LOW/MID gains hold (+0.011 / +0.027 CI-sep). **The
+capability is real once regularized the brain's way; the wall was the missing precision term.**
+
+**Net for the `predictive_reader` upgrade next-problem (final recipe):** (1) the dominant win is the REPRESENTATION
+swap (12-d sensorimotor spoke -> ~200-d register-native distributional hub, held-out prediction MRR 0.063 -> 0.140,
+2.2x); (2) add PRECISION-WEIGHTED agent-composed exemplar sharpening (blend to the verb-prior centroid by peak-agent
+precision; gamma 2) -- a real net topping +0.014 CI-sep on the ~43% of inputs with an in-vocab agent, where the RAW
+estimator was null-and-sometimes-harmful; (3) do NOT use exemplar-marginal or WordNet smoothing (both hurt). KEEP
+FHRR. Every ingredient controlled, decomposed, and each earns its keep or is dropped.
+
+### THE RECIPE, ASSEMBLED AND PROVEN (`exp_ideal_recipe_v1` -- a reusable `IdealComposedPredictor` class)
+The whole recipe written as one drop-in predictor (`fit(exposure_triples)` -> `score_pool(verb, agent, ...)`;
+hub representation + verb-prior centroid base + precision-weighted agent-composed sharpening + centroid backoff) and
+PROVEN end-to-end on held-out forward prediction (n=3429-3769; every contrast CI-separated):
+
+| arm | MRR | hit@1 | hit@10 |
+|---|---|---|---|
+| ORGAN (12-d spoke + centroid) -- today | 0.0626 | 0.026 | 0.116 |
+| + HUB representation | 0.1382 | 0.079 | 0.238 |
+| + raw composition | 0.1414 | 0.082 | 0.248 |
+| **IDEAL (+ precision-weighting)** | **0.1451** | **0.084** | 0.249 |
+| control: agent-shuffle twin | 0.1303 | | |
+| control: verb-shuffle twin | 0.0312 | | |
+
+- **IDEAL vs ORGAN = +0.083 CI[+0.072,+0.094] CI-sep -- 2.3x held-out prediction MRR.**
+- both info-free twins LOSE CI-sep (agent-shuffle +0.015, verb-shuffle +0.114).
+- precision-composition net over the hub-centroid base = **+0.007 CI-sep on the FULL set** (+0.016 on the 43%
+  agent-covered) -- where RAW composition was ns; the precision term itself earns its place (IDEAL vs RAW +0.004 CI-sep).
+- decomposition: representation +0.075 (the lever) >> precision-composition +0.007 (a real, controlled topping).
+
+This is the fundable `predictive_reader` upgrade, de-risked to a proven class. Reverify:
+`.venv/Scripts/python.exe experiments/exp_ideal_recipe_v1.py` (or the witness).
 
 ### One-line reconciliation with the audit
 The register/selection story is now fully brain-scoped: **English who-did-what SELECTION is word-order-dominant
