@@ -244,6 +244,50 @@ This is precisely the brain's division of labour, not a failure of our store.
 - **Net:** we have reproduced the brain's OPERATIONS faithfully and hit the brain's OWN division of labour (fit
   predicts, order selects); the remaining distance is representational richness + cue breadth, not mechanism.
 
+---
+
+## PART 5 -- THE "MORE IDEAL" SYSTEM: faithfully built, and an HONEST NEGATIVE (`exp_more_ideal_system_v1`)
+
+The full-system report named three gaps vs the brain (representation, cue breadth, coverage). A research drill
+(`BRAIN_MECHANISM_DRILL_more_ideal_implementation.md`) gave the FAITHFUL mechanism for each and one unifying fix: the
+brain integrates cues by PER-ITEM, RELIABILITY-WEIGHTED, MULTIPLICATIVE (log-probability) combination (Ernst-Banks
+2002; Lenci 2011) -- NOT the additive/unnormalized combination my first draft (and both earlier negatives) used. I
+implemented all three gap-closers around that primitive:
+- **GAP 1 representation** -> multimodal HUB+SPOKE fusion by Bayesian integration with accuracy-calibrated reliability.
+- **GAP 2 cue breadth** -> event/discourse CONTEXT as a third multiplicative cue.
+- **GAP 3 coverage** -> dense k-NN agent proxy (place an OOV-in-hub agent via its nearest spoke-neighbours) + graded
+  cross-stream fallback.
+
+**RESULT -- honest negative, with the reason MEASURED.** Coverage rose (agent-conditioning fires 43% -> **98%**), but
+NO faithful integration beats the hub-only ideal on held-out prediction MRR:
+
+| arm | MRR vs IDEAL (0.146) |
+|---|---|
+| Bayesian fusion (per-item reliability) | -0.047 **NEG** |
+| Bayesian fusion (accuracy-calibrated) | -0.015 **NEG** |
+| additive fusion | +0.001 ns |
+| Bayesian context | -0.015 **NEG** |
+| context (accuracy-calibrated) | -0.001 ns |
+| additive context | +0.007 ns (best combined arm, not CI-sep) |
+| MORE_IDEAL (all, calibrated) | -0.008 **NEG** |
+
+**WHY (the crux, measured): cue QUALITY, not the integration operation.** Standalone MRR: hub **0.146**, spoke
+**0.061**, context **0.078** (chance 0.021). The secondary streams are 2-2.4x WEAKER than the hub and not
+complementary; multiplicative integration lets a confidently-wrong weak cue tank the true patient, and even
+accuracy-calibrated down-weighting cannot make a weak non-complementary cue ADD signal to a strong one. Coverage
+without quality does not help either -- the kNN-proxy agent is noisy, so conditioning on it is worse than the
+centroid backoff. Controls pass (the system beats its ctx-shuffle +0.030 and verb-shuffle +0.091 CI-sep -- it USES
+real signal; it just cannot beat the single strong stream).
+
+**THE REFINED LESSON (brain-faithful).** The brain's multimodal gain (Andrews-Vigliocco-Vinson 2009: the joint model
+beats either stream) requires TWO STRONG, COMPLEMENTARY streams. Our 12-d sensorimotor spoke and bag-of-context are
+IMPOVERISHED, largely-redundant streams -- so no integration architecture recovers a gain. **The distance to the
+brain is the REPRESENTATIONAL QUALITY of each stream, not the integrator (which we built faithfully) and not the
+cue set.** The fundable path to a genuinely more-ideal system is to make each STREAM richer -- an ATL-grade hub
+(higher-fidelity, better vocabulary coverage), a richer grounded spoke, a STRUCTURED situation model (Sentence-
+Gestalt unbinding readout, not a bag-of-context mean) -- not to bolt more weak cues onto the strong one. This
+sharpens the whole chain's headline: representation is the lever, all the way down.
+
 ### One-line reconciliation with the audit
 The register/selection story is now fully brain-scoped: **English who-did-what SELECTION is word-order-dominant
 (we match the brain); thematic-fit/composition is a forward-PREDICTION mechanism that is REPRESENTATION-bounded (spoke
