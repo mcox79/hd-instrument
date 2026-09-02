@@ -193,3 +193,25 @@ the discourse-event signal would not raise.)
 4. **[STRATEGY, Q111] hdlab wire (default-off, witnessed):** the DIRECTIONAL domI detector as semantic_control's
    frequency-independent trigger + the MFS-default biased-competition read path. Land only the read path; the
    discrete override does not net-gain, so wire it as an instrument, not a default.
+
+## INTEGRATED_BY_STRATEGY — 2026-09-02 (grade: EXCELLENT; SOLVED owner-DONE)
+Reverified 4/4 first-hand. A rigorous, POWERED, multiply-controlled LOCATED NEGATIVE (full PASS under the bar) + a
+CONFIRMED brain-faithful sub-mechanism. On SemCor (30 files, n=17,317 / 5,281 subordinate): the DIRECTIONAL
+predictive-error detector (domI = N400 on the DOMINANT reading) is CONFIRMED real -- AUC 0.712 struct_domI > 0.689
+struct_sym > 0.658 bag (all >> the brief's claimed ~0.51; the disk corrected the brief). But the top-down gated
+selector does NOT net-beat the MFS frequency floor: best over ALL detector/override/threshold combos NET -0.0013
+CI[-0.0025,-0.0002] (CI-separated BELOW). THE WALL is a BASE-RATE SEE-SAW (dominant senses 0.9828 MFS-near-perfect,
+subordinate only ~30% of items). DECOMPOSED: net = fired*[p*a_s - (1-p)*c_d] with detector-precision p~0.48,
+override-accuracy a_s~0.33, dominant-disruption c_d~0.64; break-even needs p*a_s~0.34, we get ~0.16 -> THE BINDING
+LIMIT is a_s = 'which specific rare sense' = GENERATION from a world-knowledge situation model (detection p is cheaply
+improvable 0.74->0.77; the readout is NOT the fix). Controls all CI-sep (shuffled-structure twin loses, error-gate
+ablation removes the gain). Exemplary honesty: RETRACTED a smoke 'Zwaan dimension signature' that did not replicate at
+power. This DECISIVELY re-localizes the north star to the GENERATIVE half (a_s). Grade EXCELLENT.
+
+**WIRE (scoped DEBT-2, an INSTRUMENT to land — NOT yet landed; Q111, default-off, witnessed):** TIER-1 INSTRUMENT-only
+— land the DIRECTIONAL domI predictive-error detector as `hdlab/semantic_control`'s frequency-independent trigger + the
+MFS-default biased-competition read path. Land as an INSTRUMENT, NOT a default (the discrete override does NOT net-gain;
+the located negative says so). No hdlab/ was written by the solver (Q111). The NET meaning gains do NOT live here — they
+live in the north-star follow-on (the generative world-knowledge situation model = the a_s override-accuracy lever),
+now filed PRIORITY 1 as `the_meaning_channel_needs_a_generative_world_knowledge_situation_model_that_predicts_the_specific_sense`.
+`priority:` cleared; review (EXCELLENT) + this block written into PROBLEM.md.

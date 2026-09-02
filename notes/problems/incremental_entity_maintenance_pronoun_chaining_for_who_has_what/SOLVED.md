@@ -254,3 +254,29 @@ None.
    lever left.
 3. (Follow-on problem) Episodic cold-entity re-instatement via `ca3_completer` (the WM->episodic handoff, Wall B).
 4. (Fold) The AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` 2b.
+
+## INTEGRATED_BY_STRATEGY — 2026-09-02 (grade: EXCELLENT; SOLVED owner-DONE)
+Reverified 12/12 first-hand. A recurrent incremental entity-maintenance loop (chain each resolved he/she pronoun back
+into the PICKED entity's ACT-R activation history) over the near-optimal graded pick raises he/she who-has-what
+CI-separated over the no-chaining floor: HELD-OUT (12 docs, n=977) 0.4637 -> 0.5210 PAIRED +0.0573 [0.0328,0.0809];
+ALL 25 docs 0.4735 -> 0.5382 +0.0647 [0.0465,0.0841]; fully-glass-box +0.098/+0.068. ATTRIBUTION surgical: identical
+pick + candidates, only the histories differ -> 100% entity-maintenance (the local pick is BIT-EQUAL to
+hdlab.graded_coref_pick). The entire gain is LONG-DISTANCE RE-INSTATEMENT: far-from-nominal (>=2 back, n=717)
+0.261 -> 0.471 = 43% of that bucket's gap; near inert. Shuffled-chain twin LOSES (0.538 >> p95 0.283). Walls drilled
+to brain mechanisms + numbers: SOFT 'hold both' LOSES to HARD commit (attractors SETTLE -- CA3/Hopfield); PICK x
+MAINTENANCE are COUPLED (the loop helps the graded pick +0.065 but HURTS the rigid hard-tier -0.025 -> wire graded pick
++ loop TOGETHER); decay-robust d=2/3/4 flips negative at d=1 (the lever exists BECAUSE memory decays); the residual =
+the missing COHERENCE next-mention PRIOR (29.4% of errors structurally-dominated); cold re-instatement (2+ sentences
+gone) needs episodic CA3 (out of scope). Object-'it' generalizes (+0.0226 CI-sep, twin loses). Self-corrected 2 own
+measurement bugs before trusting numbers. Grade EXCELLENT.
+
+**WIRE (scoped DEBT-2, a default-off reader path to land — NOT yet landed; Q111, witnessed):** add a default-off
+`graded_chain` path on the reader's coref — run the recurrent entity-maintenance loop over
+`hdlab/graded_coref_pick.graded_antecedent_pick` (with the landed `keep_after_pool_cleanup` + `is_discourse_participant`
+filters), HARD-committing each resolved he/she pronoun into the picked entity's mention history (weight 1). The reader
+already HAS the `chain_pronouns` primitive in `event_centrality_coref` but on its WEAKER centrality pick — the wire moves
+the loop onto the graded pick; then carry the maintained histories into `densify_world_state` (STEP 2). Flag OFF ->
+byte-identical. No hdlab/ was written by the solver (Q111). The residual (the missing coherence next-mention PRIOR,
+Kehler-Rohde; owns 29.4% of the errors) is a SEPARATE build, now filed PRIORITY 3 as
+`who_has_what_needs_a_coherence_next_mention_prior_kehler_rohde`. `priority:` cleared; review (EXCELLENT) + this block
+written into PROBLEM.md.
