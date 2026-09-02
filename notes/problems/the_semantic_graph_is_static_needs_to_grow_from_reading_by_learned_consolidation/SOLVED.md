@@ -57,6 +57,28 @@ READ that consumes it -- every brain-foundational aspect INTEGRATED (the owner's
    BCM vs PPMI +0.0044 (not sep), and growth still does NOT beat static (+0.0030 null). So growth fails to
    CI-separate above static on BOTH the strong and the weak graph -> the residual is NOT density/room.
 
+5. **[cron drill] The GRADED competitive-settling readout genuinely recovers subordinate senses -- CONTEXT-DRIVEN,
+   CI-separated (a read-side positive; validates the parent's owed competition test).** On the subordinate
+   population (Raganato, n=868), the graded competitive-settling readout (nonlinear divisive-normalization,
+   nexp=2, pure-context) scores **0.3779 vs discrete argmax-PPR 0.1855 (+0.19)**; the DECISIVE shuffled-context
+   twin drops to 0.2062, so **REAL - SHUFFLED = +0.1717 CI[+0.130,+0.211] (context-driven, not a rare-sense bias --
+   only ~+0.02 is bias).** This is the parent's explicitly-OWED "fair test of competition on a graded metric":
+   competitive settling SUPPRESSES competitors (which linear PPR cannot), and on subordinate items where context
+   supports the rare sense, that helps. Reconciles the prior "settling==argmax" nulls (those were the linear-
+   equivalent config on OVERALL WSD). CAVEAT (honest): it is a global SEE-SAW -- overall accuracy DROPS 0.678->0.617
+   (dominant crashes ~-0.21, since context is weak there) -- so it needs a per-item GATE to apply settling only
+   where the prior is unreliable. Growth does NOT add here either (static-settle 0.378 ~ grown-settle 0.364) -- the
+   effect is the READOUT/representation, reinforcing that the residual is the GRADED representation, not growth.
+6. **[cron drill] The completing GATE fails at the DETECTOR (the prior_swamps wall, confirmed on settling).**
+   Conflict-gating the graded settling onto the best read (PPR-blend 0.6780) to apply it only on high-conflict
+   items does NOT net-win: best case (fire top 5% conflict) overall 0.6792 vs PPR 0.6780 = **+0.0012
+   CI[-0.0048,+0.0068] (parity, null)**. Every subordinate item the gate recovers (sub 0.183->0.214) costs a
+   dominant one (dom 0.941->0.927). The bottleneck is the gold-blind DETECTOR (conflict trigger AUC ~0.79, per
+   context_override) -- it cannot separate subordinate from dominant cleanly enough. So the BINDING CONSTRAINT is
+   the detector (prior_swamps' exact wall), now confirmed on a stronger readout: the graded representation carries
+   the subordinate signal, but converting it to a net WSD gain needs a better frequency-independent detector,
+   which on fine-grained WordNet is near a ~70-80% human-agreement ceiling.
+
 ## The located residual, and the walls drilled
 Every negative in context-conditioned sense selection unified into one gap, and the growth failure into one more:
 - **prior_swamps [REFUTED] + context_conditioned [HARD_FAIL]:** on subordinate senses only SIGNED SUPPRESSION
