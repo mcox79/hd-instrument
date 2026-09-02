@@ -5,20 +5,44 @@ bar: "PASS = the substrate's OWN glass-box parser, improved (via the in-substrat
 result: "Improved parser = arc-eager incremental heads + RICH NON-LOCAL STRUCTURAL FEATURES (Zhang-Nivre 2011; dependents/valency/head-of-stack) -- UD-EWT test UAS 0.8421 gold-POS / 0.8053 pred-POS vs the LIVE richfeat 0.775/0.744 (GAIN +0.067/+0.061) -- + LABEL-FREE thematic role recovery (drop the harmful arc_labeler) + an emitted calibrated attachment distribution. who-did-what patient (QA-SRL science, FULL n=2423): 0.5147 -> 0.5477, +0.0330 CI[+0.0194,+0.0462] frac<=0=0.000 (HARD n=1296: +0.0903 CI[+0.070,+0.110]); 19c LitBank FULL n=3015: 0.2610 -> 0.3668, +0.1058 CI[+0.094,+0.118]. Argument-attach PRECISION on UD-EWT (rich arc-eager vs live richfeat): object(->patient) 0.9508 vs 0.9249 +0.0259 CI[+0.012,+0.040]; subject(->agent, the 2nd role/task) 0.9001 vs 0.8569 +0.0469 CI[+0.033,+0.061]; passive-subject 0.833 vs 0.716 +0.117; oblique/recipient 0.716 vs 0.637 +0.079; BURIED-subject (long-arc) 0.406 vs 0.281 -- the rich features RESOLVE the prior error-propagation regression. N7: arc-eager attach-conf/graded_competition-entropy predict who-did-what errors AUC 0.694 (QA) / 0.764 (19c), shuffled-confidence twin AUC 0.506/0.488. WALL PARTLY CROSSED: the ~0.81 UAS ceiling survived richer SEARCH (global-beam HARD_FAIL 0.809 vs 0.811) and richer LEXICAL features (GloVe clusters +0.0015) but the STRUCTURAL rich-feature lever crosses it (+0.024, 0.818->0.842); residual to spaCy ~0.90 is a deeper representation/domain gap, follow-on = a richer representation class + gold target-domain data."
 floor: "Live baseline BASE_CURRENT = richfeat heads + arc_labeler LABELED = 0.5147 (= the parent-measured 0.515) on QA-SRL FULL; position floor 0.3743; richfeat UAS 0.775 (gold-POS) on UD-EWT test. All improved arms gated CI-separated over these strongest floors actually run."
 controls: "(1) info-free HEAD twin -- shuffle the arc-eager head assignments -> who-did-what collapses to 0.346, improved arm beats it +0.195 CI-sep (QA) / +0.164 (19c). (2) info-free CONFIDENCE twin -- shuffled difficulty score -> N7 AUC 0.507/0.490 (~chance) vs the real 0.708/0.761. (3) label-free vs labeled ISOLATION on the SAME heads -> excludes 'better heads' as the modern lever (arc-eager vs richfeat heads on modern who-did-what is ns, -0.0037; the modern gain is entirely the labeler-drop +0.0297 CI-sep). (4) global-beam-vs-local ISOLATION on disk (HARD_FAIL) -> excludes the brief's search route. (5) MULTI-SEED replication of the rich-structural UAS gain (3 seeds: base 0.8177-0.8184, rich 0.8421-0.8437, gains +0.0237/+0.0253/+0.0259) -> excludes a seed artifact. Each control excludes a specific alternative explanation."
-files_changed: "experiments/exp_parser_gap_decomp_v1.py (disambiguation), experiments/exp_arceager_parser_operator_v1.py (arc-eager operator train+persist+parse+confidence; model data/frontend_assets_exp/arceager_dynamic_ud_ewt.npz), experiments/exp_parser_multiobjective_v1.py (multi-objective eval), experiments/exp_parser_argument_attach_v1.py (per-argument attach precision + 2nd task), experiments/exp_arceager_cluster_features_v1.py (word-cluster lever, null), experiments/exp_arceager_richfeat_transition_v1.py (rich non-local STRUCTURAL features -- the wall-crossing lever, +0.024), experiments/exp_parser_graded_cue_integration_v1.py (reliability-weighted graded cue integration -- MAP boundary), experiments/exp_arceager_train_on_predpos_v1.py (train-on-predicted-POS deployment lever -- recovers 13% of the tagger gap), experiments/exp_parser_through_real_organs_v1.py (who-did-what through the REAL patient organs -- head-independent), experiments/exp_predarg_frontend_organ_v1.py (matrix-verb + PP-role F1 through predicate_argument_frontend -- the head-consuming organ, CI-sep gains), verification/test_parser_improved_operator.py (witness), notes/problems/<slug>/CONSUMER_FIDELITY_MAP.md, FINDINGS_disambiguation.md"
+files_changed: "experiments/exp_parser_gap_decomp_v1.py (disambiguation), experiments/exp_arceager_parser_operator_v1.py (arc-eager operator train+persist+parse+confidence; model data/frontend_assets_exp/arceager_dynamic_ud_ewt.npz), experiments/exp_parser_multiobjective_v1.py (multi-objective eval), experiments/exp_parser_argument_attach_v1.py (per-argument attach precision + 2nd task), experiments/exp_arceager_cluster_features_v1.py (word-cluster lever, null), experiments/exp_arceager_richfeat_transition_v1.py (rich non-local STRUCTURAL features -- the wall-crossing lever, +0.024), experiments/exp_parser_graded_cue_integration_v1.py (reliability-weighted graded cue integration -- MAP boundary), experiments/exp_arceager_train_on_predpos_v1.py (train-on-predicted-POS deployment lever -- recovers 13% of the tagger gap), experiments/exp_parser_through_real_organs_v1.py (who-did-what through the REAL patient organs -- head-independent), experiments/exp_predarg_frontend_organ_v1.py (matrix-verb + PP-role F1 through predicate_argument_frontend), experiments/exp_19c_signal_loss_v1.py + exp_19c_selection_failure_v1.py + exp_19c_pp_attachment_prototype_v1.py (19c wall = 93% PP-embedding), experiments/exp_tagger_prototype_19c_v1.py (tagger not the who-did-what lever), experiments/exp_arceager_calibrated_abstain_v1.py (spec behavior #5: calibrated abstain/drop), notes/problems/<slug>/PARSER_SERVICE_SPEC_brain_foundational.md + BRAIN_FOUNDATIONAL_CHAIN_first_step_fidelity.md, verification/test_parser_improved_operator.py (witness 8/8), notes/problems/<slug>/CONSUMER_FIDELITY_MAP.md, FINDINGS_disambiguation.md"
 reverify: ".venv/Scripts/python.exe verification/test_parser_improved_operator.py"
 ---
 
 # The parser IS the cross-task ceiling -- but "better" means better AT SERVING ITS CONSUMERS, not a higher 1-best UAS chasing spaCy
 
-**Bottom line: SOLVED as a multi-objective improvement WITH a rigorously located negative.** The substrate's own
-glass-box parser is made significantly better on every downstream need the bar names -- who-did-what (modern +
-19c), argument-attach precision across roles, argument recall, and a usable confidence distribution -- by three
-changes, each measured with can-fail floors and info-free twins. AND the brief's headline route (raise the
-in-substrate UAS to spaCy level via global training) is shown REFUTED ON DISK, with the residual to spaCy named
-and quantified. Per the bar, that combination is a full PASS.
+**Bottom line: SOLVED as a multi-objective improvement WITH a rigorously located negative** -- AND, after an
+owner-driven deep-dive, RE-CENTERED on the finding that matters most: a PRECISE, measured specification of what
+every brain-foundational consumer needs from the parser, so one parser serves them all.
 
-## WHAT I BUILT (the improved parser = 3 changes, each a REUSE, not a reinvention)
+## THE CENTRAL RESULT (re-centered per the owner) -- the PRECISE PARSER SERVICE SPEC
+Full spec: `PARSER_SERVICE_SPEC_brain_foundational.md`. By reading all 9 brain-foundational consumers' solver
+submissions and MEASURING each one's head-dependence (not assuming it), the parser's brain-foundational service
+contract is exactly: **(1) accurate UPOS (the universal floor -- caps everything, degrades most on register);
+(2) verb LEMMA; (3) VOICE; (4) accurate 1-best PP-CHAIN attachment (ADP->object->verb) -- the SOLE
+high-precision head demand and the ONLY measured parse ceiling (oracle-PP +0.10..+0.18); (5) a CALIBRATED
+ABSTAIN/DROP signal (expose coverage gaps for drop-fill, don't confabulate).** It does NOT need: general
+who-did-what head-accuracy (position-driven, head-INDEPENDENT -- measured), dependency LABELS (harmful for role
+recovery; wanted only by two argument-structure precision gates), or an n-best parse DISTRIBUTION (no consumer
+uses one; graded_competition builds its own). **This corrects my own earlier over-claim** that the improved
+parser lifts who-did-what: the wired patient organ is head-independent (0.541/0.411 with or without better heads);
+the parser earns its keep on PP-attachment + POS + abstention. This coheres with the 19c wall (93% of 19c
+who-did-what failures are PP-embedding -- i.e. the 19c wall IS the PP-attachment signal).
+
+## WHAT IS BUILT vs the spec (honest scope)
+- **UPOS floor** -- NOT improved (tagger unchanged); named as the #1 shared lever (data-bounded: needs gold
+  target-register POS).
+- **PP-CHAIN attachment** -- the rich-structural parser nudges reachability (70% vs 68%) but is NOT specifically
+  targeted; register-native parse training is the real lever (data-bounded follow-on).
+- **CALIBRATED ABSTAIN/DROP (spec behavior #5)** -- **BUILT** (`exp_arceager_calibrated_abstain_v1`): Platt-
+  calibrating the arc-eager margin on dev drops calibration error **ECE 0.153 -> 0.026**; risk-coverage rises
+  (attach acc 0.844 -> 0.905 @80% -> 0.936 @50%, shuffled twin FLAT); abstaining the bottom-20% confident
+  concentrates errors **4.2x** (dropped err 0.40 vs kept 0.095) -- exactly the "expose drops for predict_revise"
+  behavior the spec requires. This is the one spec lever that was tractable now, and it is delivered + witnessed.
+- **General UAS** -- improved 0.775 -> 0.842 (+0.067, seed-robust) -- real, but NOT the load-bearing lever per the
+  spec; it is the parse-quality substrate the PP-attachment + abstention gains ride on.
+
+## WHAT I BUILT (the improved parser = the UAS/structure substrate + label-free roles + calibrated abstention)
 1. **Arc-eager incremental heads + RICH NON-LOCAL STRUCTURAL FEATURES, promoted to a loadable `parse()` operator**
    (`exp_arceager_parser_operator_v1`). The live frontend loads the WEAKER arc-FACTORED `richfeat` (UD-EWT test UAS
    0.775 gold-POS / 0.744 pred-POS); the arc-eager transition parser with a dynamic oracle (reused bit-identically
@@ -229,11 +253,16 @@ None blocking.
 ## NEXT STEPS
 1. Strategy: land the three default-off wires above (arc-eager operator, label-free role route, confidence->
    graded_competition), re-verify with the witness.
-2. Follow-on problems this seeds (each brain-fidelity-evaluated): retire the arc_labeler from the live role path;
-   re-found or retire the `semantic_parser` placeholder; to close the remaining gap to spaCy (0.842 -> ~0.90), a
-   richer-than-linear representation CLASS + gold target-DOMAIN parse data (search + word clusters refuted; rich
-   STRUCTURAL features already banked +0.024 -- so this is a genuine architecture step); the **POS TAGGER is the
-   newly-surfaced adjacent bottleneck** -- pred-POS UAS 0.805 vs gold-POS 0.842, the tagger costs ~3.7 UAS points
-   (brain-foundational: lexical-category assignment is real; worth an accuracy pass); make the graded wired role
-   path default-on. NOTE: the incremental parser's buried-subject error-propagation regression is now RESOLVED by
-   the rich structural features (0.281 -> 0.406), so it is no longer a follow-on.
+2. Follow-on problems, now PRIORITIZED BY THE SERVICE SPEC (not by general UAS):
+   - **#1 UPOS register-robustness** -- the universal floor that caps every consumer and degrades most on
+     register (19c verb-ID -0.10); needs gold target-register POS (data-bounded). Doubly-compounding (parser +
+     meaning channel).
+   - **#2 PP-CHAIN attachment accuracy** -- the sole high-precision head demand + the only measured parse ceiling
+     (oracle-PP +0.10..+0.18) + the 19c wall (93% PP-embedding); needs register-native parse training (gold
+     target-register data; self-training refuted).
+   - **#3 wire the calibrated abstain signal** (built here) into `predict_revise` as the drop trigger + into
+     `graded_competition` as the difficulty currency; and make the graded wired role path default-on.
+   - lower: retire the arc_labeler from the role path (keep a targeted `obj`/`obl`/`cop` labeler ONLY for the two
+     argument-structure precision gates); re-found/retire the `semantic_parser` placeholder. NOTE: the
+     buried-subject regression is RESOLVED by rich features; general-UAS -> spaCy is a representation follow-on but
+     is NOT spec-load-bearing.
