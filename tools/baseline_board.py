@@ -114,6 +114,12 @@ def instrument_reader_qa(docs: List[str]) -> List[dict]:
 # ==================================================================================================
 # B. WHO-DID-WHAT role-path arms (19c LitBank) -- SAME gold + scorer as SITQA.run_wired_events_qa
 #    (build_events_questions + SituationQA + _match, gold WDW_GOLD), with the arc-eager arm ADDED.
+# !! GOLD CAVEAT (integrated 2026-09-02, problem the_19c_who_did_what_lever_is_agent_composed_thematic_fit_on_a_cleaned_gold):
+#    the WDW_GOLD who-did-what ARGUMENT annotations are ~76% OBLIQUE-CONTAMINATED (a to/from/at PP object mislabelled
+#    as the core argument). This arm scores the AGENT/subject slot, which is LESS affected than the object slot, but the
+#    gold is KNOWN-NOISY -- the honest cleaned DIRECT-OBJECT patient number is ~0.92 (nearest-post-verbal position, on
+#    a precision-98.5% cleaned n=669 gold), NOT the low aggregate here. Do NOT quote this arm as a clean who-did-what
+#    capability number; the clean-gold re-measure is the routed follow-on (the_who_did_what_selection_residual_is_structural...).
 # ==================================================================================================
 _WDW_ARMS = {
     "positional": dict(role_route="positional"),
@@ -149,7 +155,8 @@ def instrument_who_did_what(docs: List[str]) -> List[dict]:
                     n += 1
             model = (ok / n) if n else None
             rows.append(_rec("who_did_what", "who_did_what", "LitBank", "19c", model, None, None, n,
-                             arm, _WDW_NOTE[arm] + " Scores the AGENT slot (subject head) via build_events_questions."))
+                             arm, _WDW_NOTE[arm] + " Scores the AGENT slot (subject head) via build_events_questions."
+                             + " [GOLD ~76% oblique-contaminated -- known-noisy; honest cleaned direct-object ~0.92; do not quote as clean.]"))
         except Exception as e:
             rows.append(_rec("who_did_what", "who_did_what", "LitBank", "19c", None, None, None, None,
                              arm, f"ERROR: {type(e).__name__}: {e}"))
