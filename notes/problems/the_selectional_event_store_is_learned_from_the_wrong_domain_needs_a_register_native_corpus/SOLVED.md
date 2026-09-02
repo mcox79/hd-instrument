@@ -318,6 +318,40 @@ The PINNED/faithful parts are the REPRESENTATION (joint conjunctive FHRR role bi
 register-native thematic-fit knowledge) and the INTEGRATION PRINCIPLE (reliability-weighting); the gap is the
 INFERENCE ARCHITECTURE (a robust incremental parser doing joint constraint satisfaction with graded precision).
 
+### REUSE, NOT REINVENT (owner: "make sure we don't have organs already") -- the integrator EXISTS, owner-DONE
+The substrate ALREADY has the brain-foundational role-integration organs (I was about to reinvent them):
+`hdlab/graded_role_assigner.py` (Competition-Model precision-gated role assigner, owner-DONE 6/6),
+`hdlab/graded_competition.py` (additive-cue->softmax = Bayesian posterior + entropy difficulty, owner-DONE),
+`hdlab/convergent_cue_reader.py` (Ernst-Banks precision-weighted 2-cue `convergent_pick`, owner-DONE 7/7),
+`hdlab/thematic_role_labeler.py`, `hdlab/predictive_reader.py` (`.precision`/`.surprisal` = the conflict signal).
+THE INSIGHT: this problem's register-native store is the SELECTIONAL cue those organs were MISSING (they
+integrate the SYNTACTIC cues -- order/voice/animacy -- but had no strong thematic-fit cue). Composing
+`convergent_cue_reader.convergent_pick(syntactic_cue, register_native_store, w)` -- REUSING the validated
+organ, not a hand-rolled gate -- reaches 0.658 (modern FULL), BEATING my hand-rolled hard gate +0.025 CI-sep,
+and GENERALIZES to 19c +0.092 CI-sep over the hard gate (graded precision-weighting auto-adapts to the broken
+19c parser). So the graded organ > my hard gate confirms the brain analysis (graded > binary). FINAL LADDER:
+position 0.474 -> real parse 0.588 -> +voice 0.602 -> +store-gate 0.628 -> +agreement 0.634 -> CONVERGENT
+(reused organ) 0.658 = **68% of the chance->human range** (was 34%). `exp_brain_foundational_integrator_v1.py`.
+PROPER HAND-BACK: wire the register-native store as the SELECTIONAL cue for graded_role_assigner /
+convergent_cue_reader (default-off), NOT a new organ.
+
+### THE REMAINING 4 DEVIATIONS -- addressed (owner: "address/prototype the remaining 4")
+1. **Parser (#10) + joint parse<->role co-inference (#2) = ONE DEDICATED BUILD (do NOT stub).** A robust
+   incremental parser that maintains a DISTRIBUTION over attachments (soft, not 1-best) -- reuse
+   `graded_competition` (the maintained-distribution organ) as its output. Headroom MEASURED: spaCy +0.073 over
+   the frontend parser; 47% of gold patients are parse-attach misses. This is the filed incremental-parser
+   problem and the DOMINANT remaining lever. Honestly flagged, not prototyped (a stub would be a fake organ).
+2. **Conflict-driven precision (#4) = LARGELY DONE via `convergent_cue_reader`** (Ernst-Banks precision-
+   weighting, +0.025 modern / +0.092 19c CI-sep). Available refinement: per-verb precision from the fitted
+   `predictive_reader.precision(verb, role)` asset instead of a global tau -- a small reuse-add.
+3. **Sensorimotor grounding (#8) = DEDICATED BUILD (the North-Star meaning hub).** Headroom MEASURED: the
+   substrate's grounded-12d space LOWERS the score (too coarse); GloVe-300 is the working stand-in. Needs the
+   richer grounded space; not prototypable in a cell.
+4. **Incremental/predictive (#1) + running-discourse (#9).** #1: the register-native store IS forward-
+   prediction of the argument; the full incremental version reuses `predict_surprisal`. #9: discourse-
+   prominence reuses `graded_coref_pick` (Wall B, parent-validated +0.156) but applies to ANIMATE/reversible
+   items (excluded from this non-reversible test) -- a separate filed problem needing multi-sentence coref gold.
+
 ### THE NEGATIVES -- every one understood mechanistically (owner: "do we understand why those didn't work?")
 | negative | mechanism (WHY it failed) |
 |---|---|
