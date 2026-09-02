@@ -133,10 +133,35 @@ dose-response (held-out prediction MRR; agent-shuffle margin; n=4000):
    the spokes (Lambon Ralph 2017), not a vector concatenation; use the hub-grade distributional representation, do
    not bolt the raw sensorimotor spoke onto it. (An honest negative that sharpens the "hub, not concat" recommendation.)
 
-**Net for the `predictive_reader` upgrade next-problem:** agent-composed EXEMPLAR over a ~200-d register-native
-distributional (hub-proxy) filler representation, gamma~3, no raw-spoke concat -- a REPRESENTATION swap, KEEP FHRR.
-Quantified headroom: MRR 0.059 -> ~0.16 on held-out patient prediction; the mechanism only switches on once the
-representation is hub-grade.
+### THE IDEAL PREDICTOR, ASSEMBLED (`exp_ideal_composed_predictor_v1`) -- brain-faithful ablation ladder
+All ingredients composed into the best configuration and decomposed so each earns its keep (held-out patient
+prediction MRR, n=4000; the verb sets the prior, the agent sharpens it -- centroid-marginal base with agent-composed
+exemplar sharpening that backs off to the base when the agent is OOV; gamma=2 = MRR-optimal):
+
+| rung | configuration | MRR | increment |
+|---|---|---|---|
+| R0 ORGAN TODAY | 12-d spoke + centroid + marginal (`predictive_reader` now) | 0.0630 | -- |
+| R1 +HUB | 200-d register-native hub + centroid + marginal | 0.1381 | **+0.0751 CI-sep** |
+| R2 +exemplar (diagnostic) | hub + exemplar-marginal | 0.1183 | -0.0198 NEG (drop) |
+| **R3 IDEAL** | hub + centroid base + agent-COMPOSED exemplar sharpening | **0.1400** | +0.0217 CI-sep over R2 |
+| R4 +WordNet smooth | IDEAL + taxonomic OOV back-off | 0.1354 | -0.0046 NEG (drop) |
+| control: agent-shuffle twin | | 0.1219 | IDEAL beats it +0.0181 CI-sep |
+| control: verb-shuffle twin | | 0.0323 | IDEAL beats it +0.1077 CI-sep |
+
+**IDEAL vs ORGAN = +0.0771 CI[+0.067,+0.087] CI-sep -- a 2.2x held-out prediction MRR.** The honest decomposition:
+- **The REPRESENTATION swap (12-d sensorimotor spoke -> 200-d register-native distributional hub) is essentially the
+  ENTIRE gain (+0.075 of +0.077).** This is the star; it is what turns the coarse spoke into a hub-grade filler code.
+- **Composition is real WHERE IT FIRES** (beats its agent-shuffle twin +0.018 CI-sep; fires on 43% of triples -- the
+  fraction with an in-vocabulary agent) **but its NET gain over the strong hub-CENTROID base is small (+0.002 ns on
+  the full set).** Composition is a modest topping bounded by agent coverage, not the lever.
+- **Two intuitive ingredients are DEAD ENDS here and must be dropped:** exemplar-marginal HURTS (-0.020; in a high-D
+  hub the centroid is already expressive -- near-orthogonality preserves cluster structure, Erk 2010), and WordNet
+  taxonomic smoothing HURTS (-0.005; adds noise to already-covered fillers).
+
+**Net for the `predictive_reader` upgrade next-problem:** the fundable win is the REPRESENTATION swap (12-d spoke ->
+~200-d register-native distributional hub, MRR 0.063 -> 0.140, 2.2x); add agent-composed-exemplar sharpening (gamma
+2, centroid backoff) as a small real topping on the ~43% of inputs with an in-vocab agent; do NOT use exemplar-
+marginal or WordNet smoothing. KEEP FHRR. This is the assembled ideal, controlled and decomposed.
 
 ### One-line reconciliation with the audit
 The register/selection story is now fully brain-scoped: **English who-did-what SELECTION is word-order-dominant

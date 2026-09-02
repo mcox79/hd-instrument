@@ -139,9 +139,13 @@ clause and the entity's accumulated mention-contexts; +0.0271 [0.007,0.0512]) --
 strongest as an oracle, WASHES OUT as a fused cue (tunes to weight 0), because it fires sparsely and correlates
 with the net's existing signal. On the animacy-POLLUTED full pool the whole thing is NULL (weight 0) -- so the
 animacy organ is a REQUIRED gate, and coref/pool quality is the first lever, exactly as predicted.
-**This is honest about its size:** the gain is MARGINAL (lower CI bound ~0.002) and uses gold-NOMINAL grouping
-(entity histories correctly clustered -- the floor's grouping); it is a proof-of-concept that the buildable
-lever is LIVE and twin-attributable, wired from existing organs, at an effect size the coref-quality gate caps.
+**This is honest about its size:** the gain is MARGINAL and AT THE DETECTION THRESHOLD -- CI lower bound ~0.001
+(deterministic across PYTHONHASHSEED 0/42 but the CI barely excludes 0), and it is SPLIT-FRAGILE (on a 40-doc
+subset it falls to +0.006, within noise; the +0.033 needs the full 100-doc / 50-test-doc scale to detect). It
+uses gold-NOMINAL grouping (entity histories correctly clustered -- the floor's grouping). So it is a
+proof-of-concept that the buildable lever is LIVE and twin-attributable, wired from existing organs, at an effect
+size the coref-quality gate caps -- NOT a robust capability win. Do not quote +0.033 as a stable number; quote
+"a marginal, threshold-level, twin-controlled realized gain."
 The full gain (toward the +0.085 gold-coref ceiling, then external world-knowledge toward 0.73) is the North
 Star's to realize with better coref + a richer representation. **PROPOSED hdlab WIRE (Q111, default-off): add an
 `accumulated_entity` cue to the graded coref pick = phi_agreement_keep (animacy) + a content-cohesion score from
@@ -223,6 +227,13 @@ the North Star outranks both -- it is the shared organ.
    applicable-set-confounded oracle can hide a real signal OR invent a fake one; the honest wall-localization
    needed a clean population, a matched comparator, and a CI -- and only then does "partly buildable, partly
    bounded" replace the too-strong "purely external."
+7. **The buildable lever was already two EXISTING organs -- check the disk before building.** Before wiring the
+   realized lever I checked whether the substrate already supplies its pieces (owner's directive), and it does:
+   the animacy pre-filter is `phi_agreement_keep` (landed) and the accumulated-entity representation is
+   `situation_model_accumulate` (landed, validated). So the "realization" is a COMPOSITION of two landed organs
+   into the coref pick, not a new mechanism -- and the CONTENT (lexical-cohesion) channel, not the
+   exact-predicate channel, is what survives fusion. Querying the disk turned a "build a new organ" into a
+   "wire two organs" (and told me pred-only would wash out before I over-invested in it).
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md 2b -- strategy folds in)
 The who-has-what structurally-dominated residual, after the entity-maintenance wire, is STILL not
@@ -237,7 +248,11 @@ pool-polluted read that called the in-text signal "exhausted" -- on the animacy-
 lever is masked; on the clean ~7-candidate pool it is CI-separated. Part (3) is the SAME generative "which
 SPECIFIC one" wall as the WSD override-accuracy a_s residual; both are the OPEN priority-1 generative-world-
 knowledge situation model. The learner (ON, beneficial for word-meaning) builds word-substitutability, the WRONG
-representation for parts (2)-(3), which need an ENTITY-level accumulated representation. Citations to add: Garrod & Sanford 1994 (bonding/resolution);
+representation for parts (2)-(3), which need an ENTITY-level accumulated representation. NEW: part (2) is now
+REALIZED LIVE (not just a gold-coref ceiling) by WIRING two EXISTING organs (the phi_agreement_keep animacy
+filter + situation_model_accumulate) into the graded pick -- +0.033 CI-sep (marginal) on the animacy-filtered
+bucket, twin loses, no harm, null on the polluted pool (the animacy organ is a required gate). See CONSTRUCTIVE
+REALIZATION below. Citations to add: Garrod & Sanford 1994 (bonding/resolution);
 Bott & Solstad 2014 (coherence bias = slot not entity); Hagoort 2004 (world knowledge as fast as word meaning);
 Rogers & Lambon Ralph 2004 (ATL PDP distributional); Hobbs 1993 (abduction); Sharma et al. (multi-fact Winograd).
 
@@ -274,8 +289,12 @@ animacy-filtered sub-pool, gold-nominal grouping); the content is identical eith
 1. (Strategy) CONSOLIDATE this priority-3 problem into the priority-1 North Star
    (`the_meaning_channel_needs_a_generative_world_knowledge_situation_model...`) rather than assigning a re-derive.
    Re-verify the witness (5/5) first.
-2. (Strategy) Do NOT land a coherence prior / event-coherence prior / static-KG cue -- all measured dead. The
-   graded pick + entropy-abstain is the right output (defer the confident structural residual).
+2. (Strategy) Do NOT land a coherence prior / event-coherence prior / static-KG cue -- all measured dead. DO
+   consider landing the CONSTRUCTIVE REALIZATION (Q111, default-off): an `accumulated_entity` content-cohesion
+   cue = phi_agreement_keep (animacy, EXISTING) + situation_model_accumulate (EXISTING) fused into the graded
+   pick -- +0.033 CI-sep (marginal) on the animacy-filtered bucket, twin loses, no harm, null on the polluted
+   pool. It is a COMPOSITION of two landed organs; flag OFF -> byte-identical. Weigh the marginal gain vs the
+   wiring cost; at minimum it is the priority-1 organ's first staged step.
 3. (Priority-1) When the generative world-knowledge situation model is built, use THIS cell's ceiling + anatomy
    as its instrument + PRE-REGISTERED TARGET: an accumulated-entity representation should recover the +0.07-0.085
    in-text lever (bucket 0.42 -> ~0.63 in-text ceiling, gated by coref quality), then external world-knowledge
