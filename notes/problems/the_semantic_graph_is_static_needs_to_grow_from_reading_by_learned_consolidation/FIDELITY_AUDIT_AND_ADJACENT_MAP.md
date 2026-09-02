@@ -86,6 +86,38 @@ biased). **The missing piece is the syntactic signal, not the selection machiner
 (windowed co-occurrence); the full lever is dependency-parsed selectional edges (needs a parser; the next
 rung if the windowed run walls on the subordinate subset -- which prior_swamps predicts it will).
 
+## E. THE SATURATION WALL IS A MISSING ORGAN: HOMEOSTATIC PLASTICITY (drill, 2026-09-01)
+
+MEASURED: growth adds 66,843 edges (57,939 novel; april.n.01 goes 24->104 neighbours) yet argmax WSD on
+cn_syn barely moves (-0.0088). SEPARATELY, the emergent frequency-dominance signature is rho=0.36 (learned
+degree ~ frequency). THESE ARE THE SAME PHENOMENON: naive Hebbian/PPMI co-occurrence learning is
+RICH-GET-RICHER positive feedback -- it deepens already-deep (FREQUENT) basins and CANNOT help the shallow
+(SUBORDINATE) senses, which is exactly where WSD needs help. So the signature I first read as *faithfulness*
+is actually *incomplete* fidelity.
+
+**The brain REQUIRES a counter-force, and it is well-established:**
+- **BCM sliding threshold** (Bienenstock-Cooper-Munro; Scholarpedia): the plasticity threshold theta_M is set
+  by INTEGRATED PAST ACTIVITY -- high activity slides theta_M UP -> LTD (depression); low activity slides it
+  DOWN -> LTP. So a FREQUENT sense's edges get depressed, a SUBORDINATE sense's edges preferentially
+  strengthen. Hebbian positive feedback is unstable WITHOUT this (the temporal-paradox literature).
+- **Synaptic scaling** (Turrigiano): chronic high activity homeostatically WEAKENS synapses.
+
+**THE VERDICT: the saturation is a MISSING ORGAN, not a ceiling.** The spec named BCM/XCAL with
+theta_M=<a^2>; I SUBSTITUTED PPMI for it, so my learner is a *lesioned, runaway-Hebbian* learner (rich-get-
+richer, no homeostasis) -- directly analogous to context_override finding its reader was a "semantic-aphasia
+brain" missing semantic_control. **Built the fix (2026-09-01): BCM homeostatic edge weighting** --
+`w_bcm(i,j) = PPMI(i,j) * mbar/(a_i+mbar) * mbar/(a_j+mbar)`, depressing edges to high-activity synsets so
+growth strengthens subordinate senses' context edges. Now a testable arm in the powered subordinate run
+(`bcm_control` vs `grown_control`). Prediction: BCM growth helps subordinate override where plain PPMI growth
+cannot -- if so, the located fix is CONFIRMED; if not, the residual is the continuous-space representation.
+
+**Adjacent-component update (the homeostasis lens):**
+- **Resting-level / frequency prior (Rodd)** -- ours is a STATIC prior; the brain's basin depth is
+  homeostatically regulated (sliding). OUR-INVENTION placeholder; the BCM version is the fidelity upgrade.
+- **`semantic_control`** -- its trigger is frequency-biased (prior_swamps: 95.65% correlated errors). A
+  HOMEOSTATIC (frequency-independent) coherence signal from BCM-grown edges is a candidate for the "genuinely
+  new orthogonal directional signal" its own docstring names as the forward lever. This links the two organs.
+
 ## Research drills (sources)
 - Continuous, distributed semantic space (not discrete regions): Huth et al., *A continuous semantic space...*, and cortical semantic-relation mapping. Word-sense acquisition by **semantic chaining** (new senses extend from existing by similarity), PNAS 2025-26. GPT-2 embeddings predict association-cortex (not sensorimotor) semantics — supports fuse-don't-choose.
 - **Reordered Access** (all senses activate; dominance + context set the order; dominance persists even under subordinate-biasing context) — validates soft multi-sense responsibilities AND argues the E-step should blend dominance with context.
