@@ -335,6 +335,13 @@ class SituationModel:
     # mention. Additive -- never touches the other dimensions; the prerequisite for reasoning over the story.
     event_tokens: Optional[list] = None
     episodic_store: Optional[object] = None
+    # opt-in mutable WORLD-STATE dimension (WHO-HAS-WHAT / OPEN-CLOSED at story-time t); None unless the reader
+    # is built with track_world_state=True. A hdlab.world_state_register.WorldState folded from THIS passage's
+    # own extracted events: world_state.has(entity,obj,t) / holder_of(obj,t) / is_open(obj,t) /
+    # unmet_preconditions(). Additive -- the STATE dimension (Zwaan & Radvansky event-indexing; possession =
+    # Glenberg/Meyer/Lindem availability); never touches the other dimensions. Open-text who-has-what is
+    # coref-bound (the located residual). None on the default reader.
+    world_state: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -614,7 +621,8 @@ class SituationReader:
                  predict_surprisal_asset: Optional[str] = None,
                  track_belief: bool = False,
                  bind_event_tokens: bool = False,
-                 predict_revise: bool = False) -> None:
+                 predict_revise: bool = False,
+                 track_world_state: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -773,6 +781,17 @@ class SituationReader:
         self._pr_revise_rr = None      # lazy hdlab.relcl_resolver
         self._pr_revise_tagger = None  # lazy pos tagger (UPOS)
         self._pr_revise_nom = None     # lazy (NOMINAL, PRON_LOW) from the validated driver
+        # WORLD-STATE register (opt-in; default OFF = byte-identical). Integrated 2026-09-01 from the owner-DONE
+        # problem `situation_model_has_no_mutable_world_state_register` (PARTIAL/EXCELLENT, reverified 36/36).
+        # When ON, read() folds the reader's OWN extracted events into a hdlab.world_state_register.WorldState
+        # (possession have(holder,obj) + open/closed toggles as STRIPS operators; operator classes from the
+        # FrameNet-derived hdlab.possession_operators lexicon; recipient/source from the reader's wired_extra_roles)
+        # and sets sm.world_state -> has(entity,obj,t)/holder_of(obj,t)/is_open(obj,t)/unmet_preconditions().
+        # Mechanism 1.000 vs the strongest stateless floor last_obj_mention 0.750 (+0.250 CI-sep); open-text
+        # who-has-what is COREF-bound (81% pronoun agents -- the located residual, a NAMED existing organ, not the
+        # mechanism). Lazily loads the cached FrameNet lexicon ONLY when on. spaCy-free / NO LLM.
+        self.track_world_state = bool(track_world_state)
+        self._ws_lex = None            # lazy hdlab.possession_operators FrameNet lexicon (cached json)
         self._causation_nlp = None     # lazy spaCy handle (loaded once, only when causation_typed)
         self._causation_lex = None     # lazy force lexicon
         # persistent readers (the banked backbone + single-sentence validity baseline)
@@ -1179,7 +1198,7 @@ class SituationReader:
             idx = RR.resolve_patient(toks, up, v0 + 1)   # resolve_patient is 1-based on the verb index
             if idx is not None and 1 <= idx <= len(toks):
                 head = toks[idx - 1].lower()
-            elif cands:                                  # position fallback: nearest nominal (first-min wins ties)
+            elif cands:                                  # fallback: nearest nominal (position)
                 best, bd = None, 10 ** 9
                 for (h, ci) in cands:
                     if abs(ci - v0) < bd:
@@ -1189,6 +1208,36 @@ class SituationReader:
                 continue
             e.patient_prerevise = e.patient              # the original '?'
             e.patient = head
+
+    def _read_world_state(self, sm, sents) -> None:
+        """Fold THIS passage's OWN extracted events into a mutable WORLD-STATE register (default-off
+        track_world_state; wired 2026-09-01 from the owner-DONE problem
+        situation_model_has_no_mutable_world_state_register). Per event: PRED/AGENT/PATIENT from the reader's
+        extraction (dropped '?'/None normalized away so no junk track, but the event is KEPT so story-time t
+        stays aligned), ARG2 (recipient/source) from self.wired_extra_roles (the wired richer-role metadata,
+        keyed by global_idx), and the STRIPS operator class from the FrameNet-derived
+        hdlab.possession_operators lexicon (cached json -- no nltk at inference). Sets sm.world_state = a
+        hdlab.world_state_register.WorldState whose has(entity,obj,t)/holder_of(obj,t)/is_open(obj,t)/
+        unmet_preconditions() answer the STATE the parallel-silo event LIST could not. Open-text who-has-what is
+        coref-bound (the located residual, a NAMED existing organ). Lazy import -> the default (OFF) reader loads
+        none of this. NO spaCy / NO LLM."""
+        from hdlab.world_state_register import WorldState
+        if self._ws_lex is None:
+            from hdlab.possession_operators import build_lexicon
+            self._ws_lex = build_lexicon()
+        lex = self._ws_lex
+        extra_by_gi = {r.get("global_idx"): r for r in (getattr(self, "wired_extra_roles", None) or [])}
+        reps = []
+        for e in sm.events:
+            v = (e.predicate or "").lower()
+            entry = lex.get(v)
+            op = entry.get("op") if entry else None
+            roles = extra_by_gi.get(e.global_idx) or {}
+            arg2 = roles.get("recipient") or roles.get("source")
+            ag = e.agent if e.agent not in ("?", None) else None
+            pat = e.patient if e.patient not in ("?", None) else None
+            reps.append({"PRED": v, "AGENT": ag, "PATIENT": pat, "ARG2": arg2, "OP": op})
+        sm.world_state = WorldState().fold(reps)
 
     @staticmethod
     def _nominal_heads(toks, up) -> List[str]:
@@ -1339,6 +1388,11 @@ class SituationReader:
             # BOUND-EVENT-TOKEN backbone: build sm.event_tokens + sm.episodic_store over the FINAL event set
             # (runs LAST -> binds the events exactly as every other dimension left them). Additive.
             self._read_bound_event_tokens(sm)
+        if self.track_world_state:
+            # WORLD-STATE dimension: fold the FINAL event set into sm.world_state (possession have(holder,obj)
+            # + open/closed toggles). Runs LAST so it sees the patients predict_revise recovered. Additive --
+            # sm.world_state stays None when the flag is off.
+            self._read_world_state(sm, sents)
         return sm
 
 

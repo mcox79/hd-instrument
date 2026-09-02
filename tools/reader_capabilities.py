@@ -42,6 +42,7 @@ CAP_FLAGS = {
     "track_belief": "belief_dimension_live_reader_v1",          # BELIEF/ToM -> sm.believes/sm.knows (the 5th dimension)
     "bind_event_tokens": "bound_event_token_backbone_live_reader_v1",  # the ASSEMBLY: sm.event_tokens + sm.episodic_store (the JOINT the silos can't store)
     "predict_revise": "predict_revise_live_reader_v1",          # parse-RECALL drop-fill: recover the DROPPED patient via relcl_resolver (EventRecord.patient_prerevise)
+    "track_world_state": "world_state_dimension_live_reader_v1",  # mutable WORLD-STATE -> sm.world_state (who-has-what / open-closed at story-time t)
     # role_route is a string ("positional" = off; "wired"/other = the assembly who-did-what path)
     "role_route": None,
     "spacy_pred_gate": None,
@@ -138,6 +139,7 @@ def print_enable():
     print("    role_route='wired',           # assembly who-did-what role routing (the one aggregate-positive flag)")
     print("    spacy_pred_gate=True,         # supplied-grammar predicate gate (changes the event set; measure it)")
     print("    bind_event_tokens=True,       # the ASSEMBLY: sm.event_tokens + sm.episodic_store (the JOINT the silos can't store)")
+    print("    track_world_state=True,       # mutable WORLD-STATE / STATE dimension (sm.world_state; who-has-what / open-closed at t)")
     print(")")
 
 

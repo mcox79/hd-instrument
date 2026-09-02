@@ -221,3 +221,31 @@ None.
 2. Wire the register's entity key through coref (the located 81%-pronoun open-text lever) and re-measure who-has-what on real text.
 3. Frame-SENSE selection before operator application (kills the "take me to the room" false positive) -- the meaning-channel dependency.
 4. Consolidate the learning tier onto `consequence_learning_loop` / `result_type_induction`; add a stative-possession channel ("belongs to" / "had").
+
+## INTEGRATED_BY_STRATEGY — 2026-09-01 (grade: EXCELLENT; SOLVED owner-DONE)
+Reverified **36/36 first-hand** (`verification/test_world_state_register.py` -- recomputes CORE + mechanism +
+precondition + FrameNet operators + learning + open-text FROM SOURCE). A rigorous, brain-foundational positive
+with an honestly-located open-text residual (PARTIAL, but a full PASS as a located result). Register 1.000 vs the
+strongest stateless floor last_obj_mention 0.750 (+0.250 CI-sep); all three info-free twins LOSE; change-point
+100%/0%; precondition-read 1.000 vs ever-had 0.512; FrameNet 105-verb operator lexicon WITH the recipient role;
+learn-and-adapt recovers gold 1.000 vs shuffle 0.417 + abstains on non-transfer; open text 1467 transfers with the
+residual precisely located to coref (81% pronoun agents) -- a NAMED existing organ, not the mechanism; the
+downstream serve-test honestly confirms the register does NOT break the ~0.59 order wall (order is conventional --
+the register is correctly a STATE organ, not an order organ). Reuses the existing location/state registers.
+
+**WIRE LANDED (Q111, WIRING_MAP):** promoted `experiments/world_state_register.py` -> **`hdlab/world_state_register.py`**
+and `experiments/possession_operators.py` -> **`hdlab/possession_operators.py`** VERBATIM (byte-for-byte behavior;
+the FrameNet lexicon loads from the cached `data/possession_operators_v1/lexicon.json` -- no nltk at inference). Added
+a **default-off `track_world_state` flag** on `SituationReader`: when on, `read()` (running LAST over the FINAL event
+set) folds the reader's OWN extracted events into `sm.world_state` = a `hdlab.world_state_register.WorldState`
+(PRED/AGENT/PATIENT from the reader's extraction, ARG2 recipient/source from `wired_extra_roles`, operator class from
+the FrameNet lexicon) exposing `has(entity,obj,t)` / `holder_of(obj,t)` / `is_open(obj,t)` / `unmet_preconditions()`.
+Default OFF = byte-identical (`sm.world_state` None; nothing imported). **Witness `test_world_state_register_landing_organ.py`**:
+[1] default-off byte-identical (219 events / 136 entities on 1023_bleak_house), [2] flag-on register == an independent
+recompute through BOTH the hdlab core AND the experiments core BYTE-EXACT (proves the promotion is faithful + the wire
+builds the register from the right reps), [3] the promoted core's transfer/toggle/precondition mechanism, [4] the wire
+builds the correct mutable possession on a known transfer (anna GETs then GIVEs to ben; recipient consumed). Registered
+`world_state_dimension_live_reader_v1`. **HONEST BOUND:** the wire lands the CAPABILITY (mechanism-proven, byte-faithful);
+LIVE who-has-what on real prose is COREF/parser-recall-bound (the register faithfully folds whatever the reader extracts,
+so 19c extraction noise flows through -- the located residual, the register-through-coref re-measure is the follow-on).
+`priority:` cleared; review (EXCELLENT) + this block written into PROBLEM.md; AUDIT §2b folded.
