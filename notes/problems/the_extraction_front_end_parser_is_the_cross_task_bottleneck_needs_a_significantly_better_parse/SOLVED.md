@@ -214,18 +214,37 @@ Full table in `CONSUMER_FIDELITY_MAP.md`. Brain-fidelity-weighted verdicts:
 - Confidence: arc-eager attachment confidence -> graded_competition entropy is a validated difficulty signal
   (AUC 0.71-0.76), same currency as predictive_reader surprisal.
 
-## PROPOSED hdlab WIRE (Q111 -- strategy lands; default-off; witnessed)
-1. Land the arc-eager + rich-structural operator as `hdlab/arceager_parser.py` (train+save offline; a
-   `parse(tokens,pos)->heads+attach_conf` mirroring `arc_parser.ParseResult`, PLUS a per-arc confidence; the rich
-   non-local features need the child/valency/head tracking through the transition), asset
-   `arceager_dynamic_ud_ewt.npz` (UAS 0.842). Point `situation_reader._load_frontend()` at it behind a default-off
-   `parser=arceager` flag (fallback = current richfeat).
-2. In `predicate_argument_frontend` / `graded_role_assigner`, add a default-off `role_route='labelfree'` that
-   recovers roles from head-attachment + voice + position, BYPASSING `arc_labeler` (the measured-harmful step).
-3. Wire the arc-eager `attach_conf` -> `graded_competition` as the parser's difficulty signal (N7), shared with
-   predictive_reader surprisal.
-Acceptance gate: `verification/test_parser_improved_operator.py` (7/7). All default-off; the DEFAULT reader is
-byte-identical.
+## PROPOSED hdlab WIRE (Q111 -- strategy lands; default-off; witnessed). Each wire names its EXACT source + the measured gain it realizes.
+1. **Land the improved parser operator** as `hdlab/arceager_parser.py`. SOURCE: promote the parse operator out of
+   `experiments/exp_arceager_parser_operator_v1.py` -- the verbatim functions `_config_feats` (RICH=True),
+   `_legal`, `_apply` (with the child/valency/head `lc,rc,hd` tracking), `_score_actions`, `parse_with_conf`,
+   `load_model`; asset `data/frontend_assets_exp/arceager_dynamic_ud_ewt.npz` (UAS 0.842). Expose
+   `parse(tokens,pos)->ParseResult(heads, attach_conf, margins)` mirroring `arc_parser.ParseResult`. Behind a
+   default-off `parser=arceager` flag on `situation_reader._load_frontend()` (fallback = current richfeat).
+2. **Route `predicate_argument_frontend` through the improved parser** -- THIS is where the parser's gain is
+   realized (measured): matrix-verb F1 0.9567->0.9720 (+0.015 CI-sep) + PP/oblique-role F1 0.9102->0.9368 (+0.027
+   CI-sep), which feed the spatial/recipient roles AND `world_state_register`'s ARG2. (NOTE: do NOT add a
+   "label-free patient route" -- the live patient organ `hybrid_role_patient` is ALREADY head-independent +
+   label-free at 0.541/0.411; the arc_labeler is NOT on the live role path, so that gain is already banked. The
+   parser's realizable value is PP-attachment, not the patient decision.)
+3. **Wire the calibrated ABSTAIN/DROP signal** (`exp_arceager_calibrated_abstain_v1`: Platt params fit offline on
+   UD-EWT dev = a static asset; ECE 0.026, drops concentrate errors 4.2x) so the parser exposes low-confidence
+   attachments as DROPS ('?') into `predict_revise` (the drop-fill trigger) -- spec behavior #5.
+4. **Wire `attach_conf` -> `graded_competition`** as the parser difficulty signal (N7), shared with
+   predictive_reader surprisal (uncertainty signal, NOT an accuracy lever -- MAP boundary).
+Acceptance gate: `verification/test_parser_improved_operator.py` (**8/8**). All default-off; DEFAULT reader byte-identical.
+
+## HOW TO REALIZE THE FULL GAINS (now-realizable vs data-bounded -- read before scoping)
+- **NOW (from the built artifacts, on integration):** wires 2-4 above realize measured gains today -- PP/oblique
+  role attachment (+0.015 matrix-verb, +0.027 PP-role), the calibrated drop signal into predict_revise, and the
+  difficulty currency into graded_competition. This is the parser's spec value that is BUILT and ready.
+- **FULL gains are DATA-BOUNDED (the two top follow-ons), and I did not fake them:** the biggest headroom is (a)
+  UPOS register-robustness (caps every consumer; 19c verb-ID -0.10) and (b) PP-CHAIN attachment accuracy (the only
+  measured ceiling; oracle-PP shows +0.10..+0.18 headroom on spatial/recipient roles; the 19c wall is 93%
+  PP-embedding). BOTH require GOLD TARGET-REGISTER data (annotated 19c/literary POS + parses) that is NOT on the
+  shelf -- self-training is refuted, word-clusters + global-search are refuted. So the path to full gains is a
+  DATA-acquisition + register-native-training follow-on, not more tuning of this parser. Strategy should file
+  these as problems with the data requirement stated up front.
 
 ## WHAT I WOULD WITHDRAW FIRST IF WRONG
 The arc-eager UAS gain's downstream value on MODERN canonical who-did-what (it is ~0, word-order-saturated; the
@@ -250,19 +269,29 @@ mystery.
 ## QUESTIONS
 None blocking.
 
-## NEXT STEPS
-1. Strategy: land the three default-off wires above (arc-eager operator, label-free role route, confidence->
-   graded_competition), re-verify with the witness.
-2. Follow-on problems, now PRIORITIZED BY THE SERVICE SPEC (not by general UAS):
-   - **#1 UPOS register-robustness** -- the universal floor that caps every consumer and degrades most on
-     register (19c verb-ID -0.10); needs gold target-register POS (data-bounded). Doubly-compounding (parser +
-     meaning channel).
-   - **#2 PP-CHAIN attachment accuracy** -- the sole high-precision head demand + the only measured parse ceiling
-     (oracle-PP +0.10..+0.18) + the 19c wall (93% PP-embedding); needs register-native parse training (gold
-     target-register data; self-training refuted).
-   - **#3 wire the calibrated abstain signal** (built here) into `predict_revise` as the drop trigger + into
-     `graded_competition` as the difficulty currency; and make the graded wired role path default-on.
-   - lower: retire the arc_labeler from the role path (keep a targeted `obj`/`obl`/`cop` labeler ONLY for the two
-     argument-structure precision gates); re-found/retire the `semantic_parser` placeholder. NOTE: the
-     buried-subject regression is RESOLVED by rich features; general-UAS -> spaCy is a representation follow-on but
-     is NOT spec-load-bearing.
+## NEXT STEPS FOR STRATEGY (explicit, ordered)
+**A. INTEGRATE THIS SOLUTION (on owner_verdict: DONE):**
+1. Re-verify: `.venv/Scripts/python.exe verification/test_parser_improved_operator.py` -> expect **8/8**; run
+   `tools/problem_ledger.py --check` (clean).
+2. Land the four default-off wires in the PROPOSED hdlab WIRE section (arc-eager+rich operator as
+   `hdlab/arceager_parser.py` + asset `arceager_dynamic_ud_ewt.npz`; label-free `role_route`; `attach_conf` ->
+   `graded_competition`; calibrated abstain -> `predict_revise` drop trigger). ALL default-off; DEFAULT reader
+   byte-identical; witness is the acceptance gate.
+3. Fold the AUDIT UPDATE into `notes/BRAIN_FOUNDATIONAL_AUDIT.md` sec.2b (the parser ceiling is
+   structural-feature-crossed +0.024; the who-did-what patient organ is HEAD-INDEPENDENT; the parser's service
+   contract = UPOS + lemma + voice + PP-chain + abstention; the arc_labeler is measured-harmful for roles).
+4. Register the capability + add to `WIRING_MAP` (default-off; the live payoff is spec-lever-gated, below).
+
+**B. FILE THESE FOLLOW-ON PROBLEMS, PRIORITIZED BY THE SERVICE SPEC (not by general UAS):**
+- **#1 UPOS register-robustness** -- the universal floor; caps every consumer, degrades most on register (19c
+  verb-ID -0.10); needs gold target-register POS (DATA-BOUNDED). Doubly-compounding (parser + meaning channel).
+- **#2 PP-CHAIN attachment accuracy** -- the sole high-precision head demand + the only measured parse ceiling
+  (oracle-PP +0.10..+0.18) + the 19c wall (93% PP-embedding); needs register-native parse training on gold
+  target-register data (self-training refuted). #1 and #2 are where a better parser actually pays off.
+- **#3 the argument-structure precision gates** (verb_subcat + the copular event detector) -- the ONLY consumers
+  that want dep-labels: a targeted `obj`/`obl`/`cop` labeler for THOSE gates only (never for role recovery).
+- **lower / verdict-independent:** make the graded wired role path default-ON (parser value is latent until then);
+  retire the arc_labeler from the role path; re-found/retire the `semantic_parser` placeholder.
+- **DO NOT re-open** (refuted): general-UAS->spaCy via global search or word-clusters (both null; not
+  spec-load-bearing anyway); the buried-subject regression (RESOLVED by rich features); wiring heads into the
+  patient organ (hurts 19c); the parser distribution as an accuracy lever (MAP boundary).

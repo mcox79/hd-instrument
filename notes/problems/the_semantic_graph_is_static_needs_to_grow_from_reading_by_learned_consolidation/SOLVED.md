@@ -21,6 +21,28 @@ residual is localized to the discrete-edge REPRESENTATION with a named next fork
 because the positive bar is unmet AND one high-value route (domain-shift/OOV, where the static graph is
 weakest) is untested -- per "come back with refuted alone only once no route you could test remains."
 
+## FOR STRATEGY -- how to realize the gains (3 tiers, actionable)
+**TIER 1 -- WIRE NOW (proven, default-off, witnessed; Q111):** the READ organ -- reordered-access (freq prior +
+graph context coherence) -> COMPETITIVE ATTRACTOR SETTLING (validated: settle >> bag +0.234; recovers subordinate
+senses context-driven +0.17) -> `semantic_control` LIFG suppression (already landed). This is a real read-side
+upgrade to the meaning path (addresses the "meaning organs are islands" debt) EVEN THOUGH growth doesn't help.
+Reuse `experiments/exp_learned_graph_cls_grow_v1.py` (`_settle_coherence`, `eval_raganato_read`). Reverify:
+`verification/test_learned_graph_cls_grow.py` (4/4).
+**TIER 2 -- DO NOT WIRE the discrete-edge GROWTH as-is.** It is a confirmed non-improvement on standard WSD
+(this problem's whole finding); wiring it adds cost without benefit. The homeostatic-BCM growth is the only
+version worth revisiting, and only inside the Tier-3 continuous/comprehension organ.
+**TIER 3 -- FILE THESE NEXT PROBLEMS (where the gains actually live):**
+ (a) **[HIGHEST] the North-Star COMPREHENSION / situation model** -- subordinate WSD is proven AI-complete here;
+     the sense-selection detector IS comprehension. Reuse the validated competitive-settling coherence-former.
+ (b) **a LEARNED GRADED-CONTINUOUS sense space with EMERGENT granularity** (`meaning_fusion` node vectors +
+     `ultrametric_clustering`) -- the representation fork; note the naive gloss-vector prototype was WORSE, so it
+     needs SENSE-SPECIFIC embeddings, not word vectors.
+ (c) **the domain-shift/OOV instrument** -- the one untested route that could turn the discrete-edge negative
+     positive (grow from a domain corpus, test that domain's WSD; needs a domain-sense gold).
+**KEY WARNING for whoever takes (a)/(b):** every TYPICAL-USAGE / LOCAL signal (co-occurrence, selectional
+preference, the frequency prior) reinforces DOMINANCE and cannot crack subordinate override; a sense-level
+selectional model is CIRCULAR (needs WSD). The lever must be top-down understanding of the SPECIFIC situation.
+
 ## What I built
 An intrinsic LEARNED semantic-graph organ that grows the static graph from reading, and the brain-foundational
 READ that consumes it -- every brain-foundational aspect INTEGRATED (the owner's synergy thesis), not in isolation:
@@ -113,6 +135,18 @@ READ that consumes it -- every brain-foundational aspect INTEGRATED (the owner's
    knowledge inference); flat-concept discourse, even coherently settled, is redundant with the sentence. This
    CONFIRMS the root cause across every angle tested: subordinate WSD requires COMPREHENSION (the North Star),
    and growth of a LOCAL graph cannot supply it.
+9. **[structured-comprehension prototype series -- done RIGHT at 3 fidelity levels; the WHY of the ceiling].**
+   proto5 struct-only (1-hop predicate-argument, DROPS context) HURT subordinate -0.099 -> IMPL flaw, diagnosed.
+   proto5b structure-WEIGHTED (graded attention, keeps context, up-weights syntactic) FIXED it: +0.0101 subordinate,
+   and BRAIN-CONSISTENT by granularity -- COARSE/MID +0.009/+0.018, FINE -0.019 (structure discriminates distinct
+   meanings, not fine polysemy; Rodd/Klepousniotou). proto5c EXPLICIT LEARNED selectional preferences P(arg|verb,
+   role) from 40k parsed sentences (bugs fixed: full corpus + COMBINED with context) is DOMINANCE-REINFORCING:
+   -0.085 subordinate (worse), because typical-usage IS the dominant sense -- and building a sense-level
+   (non-dominance-biased) selectional model is CIRCULAR (needs WSD to build the thing that does WSD). NET: shallow
+   structure is a REAL, correctly-directed signal (helps coarse) but every TYPICAL-USAGE / LOCAL signal reinforces
+   dominance and cannot crack subordinate override; the circularity IS the AI-completeness. The fix is the FULL
+   situation-understanding model (comprehend THIS specific situation calling for the atypical sense) -- the North
+   Star. Validated sub-mechanism to carry forward: COMPETITIVE SETTLING as the coherence/gist former (settle >> bag).
 
 ## The located residual, and the walls drilled
 Every negative in context-conditioned sense selection unified into one gap, and the growth failure into one more:

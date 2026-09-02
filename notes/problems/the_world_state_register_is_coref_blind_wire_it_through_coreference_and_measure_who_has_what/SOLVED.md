@@ -5,8 +5,8 @@ bar: "PASS = a coref-densified world-state register (entity + object keys resolv
 result: "PRIMARY (LitBank coref-CoNLL, ALL 25 gold-coref docs, the reader's OWN he/she coref; who-has-what over state-changing transfers, n=135 queries): binding the HOLDER through the reader's coref recovers who-has-what READER 0.7185 [0.6444,0.7926] vs coref-BLIND 0.5704 [0.4889,0.6519], PAIRED delta +0.1481 [0.0963,0.2076] (CI half-width 0.056, excludes 0). On the DECISIVE he/she-holder subset -- the population where coref-blindness bites, n=26: coref-BLIND 0.000 [0,0] -> READER 0.500 [0.3077,0.6923], +0.500; GOLD-coref oracle 1.000. BUILD-ACROSS of the two routes the reader's coref LACKS (MCScript2 first-person, 2729 stories / 8777 transfers, through the brain-foundational EntityBinder): OBJECT ANAPHORA relocates 259/374 'it'-transfers blind applied to the wrong object (who-has-what impact 0.69; 'it'-antecedent coverage 0.65); the INDEXICAL narrator rule collapses the narrator that blind fragments into >=2 case-keys in 5.3% of stories. OBJECT-ANAPHORA ACCURACY on REAL LitBank gold (n=189 gold-clustered object pronouns, `exp_world_state_object_anaphora_gold_v1`): resolving 'it/they' by RECENCY 0.730 [0.667,0.794] vs random-twin NULL p95 0.323 (CI-sep) vs first-mention floor 0.132 vs the reader's coref 0.000 (abstains -- out of scope); subject-prominence Centering HURTS objects (salience 0.518, paired -0.212 [-0.286,-0.132])."
 floor: "Strongest floor = the coref-BLIND raw-string register (the register wired today): aggregate 0.5704 [0.4889,0.6519]; on he/she holders 0.000 (a pronoun holder string maps to NO discourse entity). Gate is the PAIRED reader-minus-blind delta +0.1481 [0.0963,0.2076] (excludes 0); the he/she subset is fully separated (reader lower CI 0.3077 > blind upper CI 0.000). GOLD-coref oracle 1.000 = ceiling. by-holder-class: nominal 0.731->0.798, he/she 0.000->0.500, object 'it' 0.2->0.2 (reader out of scope = the object-anaphora residual, named with its number)."
 controls: "(1) SHUFFLED-COREF twin (same clusters, wrong assignment): aggregate single-draw same-gender twin 0.652, reader-minus-twin +0.0667 [0.0148,0.1185] (excludes 0); on the he/she subset a K=2000-permutation NULL mean 0.078 / p95 0.154, reader 0.500 >> p95 (CORRECT identity, not coref-shape, does the work). (2) POSITIVE CONTROL change-point: the reported holder CHANGES at the transferring event on 95.6%% of queries (not a constant echo). (3) GOLD-coref oracle == 1.000 (the register is faithful given correct entities -- isolates Stage-1 from Stage-2). (4) PLEONASTIC-'it' filter active: object anaphora ABSTAINS on expletive 'it' / no-antecedent (never-confidently-wrong). (5) SCOPE-OUT controls: we/you ABSTAIN (not bound) -- a named residual (group entity / rotating addressee), not a wrong bind. (6) OBJECT-ANAPHORA controls (LitBank gold, n=189): random-twin NULL p95 0.323 loses to recency 0.730; first-mention floor 0.132 (can-fail); reader coref 0.000 (abstains); subject-salience ablation HURTS (paired -0.212 CI-sep) = the parameter sweep."
-files_changed: "experiments/world_state_entity_binding.py (the brain-foundational Stage-1 dispatcher: pleonastic->indexical->anaphoric->object-anaphora->nominal); experiments/exp_world_state_coref_diagnose_v1.py (residual decomposition); experiments/exp_world_state_coref_densify_v1.py (LitBank he/she holder densification: blind vs reader vs gold vs shuffled-null twin); experiments/exp_world_state_deixis_object_v1.py (MCScript2 build-across of the indexical + object routes, routed through the EntityBinder); experiments/exp_world_state_object_anaphora_gold_v1.py (object-anaphora ACCURACY on real LitBank gold: recency vs salience vs first-mention floor vs random-twin NULL); experiments/exp_world_state_he_she_ceiling_v1.py (CEILING-LIFT: the landed graded_coref_pick vs the reader's resolver vs recency/hard-tier over the same gold pool); experiments/exp_world_state_endtoend_whohaswhat_v1.py (END-TO-END combined who-has-what through the FULL binder vs blind, deterministic non-circular gold, MCScript2); experiments/exp_world_state_graded_optimize_v1.py (graded-coref parameter sweep on a held-out doc split: d + cue-weights -> near-optimal, a located negative); experiments/exp_world_state_grouping_optimize_v1.py (GROUPING sweep: graded over surface/aliaser/gold_nom/gold -> the he/she headroom is ~91%% PRONOUN-CHAINING, correcting the ceiling-lift claim); experiments/exp_world_state_downstream_v1.py (DOWNSTREAM benefit: who-has-what QA + bridging/impossible-action detection, blind vs densified); verification/test_world_state_coref_densify.py (17/17 witness). NO hdlab/ written (Q111 -- the proposed wire is in FOR STRATEGY below)."
-reverify: ".venv/Scripts/python.exe verification/test_world_state_coref_densify.py   # 17/17 -- EntityBinder routes (incl. confidence-abstain) + register core + LitBank he/she + object-anaphora ACCURACY + graded CEILING-LIFT + END-TO-END who-has-what + CONFIDENCE-ABSTAIN + GROUPING decomposition + DOWNSTREAM who-has-what QA benefit FROM SOURCE"
+files_changed: "experiments/world_state_entity_binding.py (the brain-foundational Stage-1 dispatcher: pleonastic->indexical->anaphoric->object-anaphora->nominal); experiments/exp_world_state_coref_diagnose_v1.py (residual decomposition); experiments/exp_world_state_coref_densify_v1.py (LitBank he/she holder densification: blind vs reader vs gold vs shuffled-null twin); experiments/exp_world_state_deixis_object_v1.py (MCScript2 build-across of the indexical + object routes, routed through the EntityBinder); experiments/exp_world_state_object_anaphora_gold_v1.py (object-anaphora ACCURACY on real LitBank gold: recency vs salience vs first-mention floor vs random-twin NULL); experiments/exp_world_state_he_she_ceiling_v1.py (CEILING-LIFT: the landed graded_coref_pick vs the reader's resolver vs recency/hard-tier over the same gold pool); experiments/exp_world_state_endtoend_whohaswhat_v1.py (END-TO-END combined who-has-what through the FULL binder vs blind, deterministic non-circular gold, MCScript2); experiments/exp_world_state_graded_optimize_v1.py (graded-coref parameter sweep on a held-out doc split: d + cue-weights -> near-optimal, a located negative); experiments/exp_world_state_grouping_optimize_v1.py (GROUPING sweep: graded over surface/aliaser/gold_nom/gold -> the he/she headroom is ~91%% PRONOUN-CHAINING, correcting the ceiling-lift claim); experiments/exp_world_state_downstream_v1.py (DOWNSTREAM who-has-what QA benefit, blind vs densified); experiments/exp_world_state_bridging_powered_v1.py (POWERED impossible-action/bridging detection with balanced injected violations: blind false-flags 71.5%%, densified fixes it); verification/test_world_state_coref_densify.py (18/18 witness). NO hdlab/ written (Q111 -- the proposed wire is in FOR STRATEGY below)."
+reverify: ".venv/Scripts/python.exe verification/test_world_state_coref_densify.py   # 18/18 -- EntityBinder routes (incl. confidence-abstain) + register core + LitBank he/she + object-anaphora ACCURACY + graded CEILING-LIFT + END-TO-END who-has-what + CONFIDENCE-ABSTAIN + GROUPING decomposition + DOWNSTREAM QA + POWERED bridging detection FROM SOURCE"
 ---
 
 # The world-state register is coref-blind: the fix is a two-stage entity binder, and "coref" is three routes, not one
@@ -170,10 +170,14 @@ The register is a situation-model DIMENSION; its read-out interface (`holder_of`
 1. **Who-has-what QA** (`holder_of`/`has`) -- "who has the key now?". DEMONSTRATED: a QA consumer answers
    entity-canonically BLIND 0.293 -> DENSIFIED 1.000 on MCScript2 deterministic gold. The clear benefit.
 2. **Impossible-action / bridging-inference detection** (`unmet_preconditions`; Haviland-Clark) -- comprehension
-   MONITORING ("he gave the key away, then unlocks the door with it -> bridging demand"). Shown DIRECTIONALLY
-   (blind falsely flags 25%% of genuinely-possible gives as impossible; densified 0%%) but UNDERPOWERED on natural
-   text (only n=8 clean GET->GIVE-same-object chains -- the parser rarely captures them). A powered version needs a
-   denser-possession corpus or injected violations (next-problem).
+   MONITORING ("he gave the key away, then unlocks the door with it -> bridging demand"). POWERED with balanced
+   injected violations (`exp_world_state_bridging_powered_v1`, n=2827 probes = 2437 valid + 390 violations): the
+   coref-BLIND register scores 0.382 raw / **0.637 balanced (chance 0.5)** -- BELOW the always-possible majority
+   floor 0.862, i.e. ACTIVELY HARMFUL: it **false-flags 71.5%% of genuinely-possible actions as impossible** (it
+   cannot confirm the holder, so it defaults to "bridging inference"), while catching violations only by
+   flagging-everything. DENSIFIED: **0%% false-flag, 0%% miss** (balanced 1.000). NB densified==gold by construction
+   on the deterministic subset (the binder implements the gold rule), so this quantifies the BLIND breakage; the
+   binder's per-route accuracy-where-it-can-err is the non-circular LitBank numbers (he/she 0.5, object 0.73).
 3. **Forward prediction / plausibility** (`predict_surprisal`) -- a giver must hold the object; a taken object
    can't be re-taken. The register gates next-event plausibility.
 4. **Belief / ToM** (`track_belief`) -- grounds beliefs about possession ("Mary thinks she has the key" vs reality).
@@ -330,22 +334,51 @@ because objects are not the backward-looking center; same machinery, recency par
 `graded_coref_pick` (ACT-R retrieval) takes the transfer-holder route 0.500 -> 0.750 (pick-only lift over recency
 +0.194 CI-sep; input headroom +0.250 upper bound) -- so the ceiling is the reader's weaker resolver, not intrinsic.
 
-## FOR STRATEGY (you land hdlab; Q111 -- I do not write hdlab/)
-The proposed wire is a densifier IN FRONT of the register's fold, default-off, byte-identical when off:
-1. **Promote `experiments/world_state_entity_binding.py` -> `hdlab/world_state_entity_binding.py`** (the glass-box
-   Stage-1 dispatcher; self-tested, no LLM).
-2. **In `hdlab/situation_reader._read_world_state`, add a default-off `densify_world_state` option** that, before
-   `WorldState().fold(reps)`, rewrites each rep's AGENT/PATIENT/ARG2 through an `EntityBinder`:
-   - agent/recipient/source (holder) -> `bind_participant(head, coref_cluster=<reader he/she resolution for this
-     mention from sm.coref_resolutions>)`;
-   - theme (object) -> `bind_theme(head, verb)` (object anaphora + pleonastic filter, stateful over the passage).
-   Feed the reader's OWN he/she resolution as `coref_cluster` (the faithful reuse); the indexical + object routes
-   are the binder's. Default OFF = byte-identical (`_read_world_state` unchanged). TUNING (from the gold sweep):
-   resolve 'it' by PURE RECENCY over recent number-agreed nominals (NOT subject-salience, which hurts -0.212
-   CI-sep) -- feed the binder the recent nominal context, not only transfer themes.
-3. **Witness:** `verification/test_world_state_coref_densify.py` (12/12) covers every route + the LitBank headline
-   + the object-anaphora accuracy on gold.
-4. The ceiling-raiser (`graded_coref_pick` -> resolver stream) is the filed follow-on for the he/she route.
+## TO FULLY REALIZE THE GAINS -- ORDERED PLAN (you land hdlab; Q111 -- I do not write hdlab/)
+Each step has a CONCRETE deliverable + an ACCEPTANCE TEST (what to measure, expected direction, what falsifies).
+Steps 1-2 realize the proven gain; 3 is the biggest remaining lever; 4 closes the resource-bound gaps.
+
+**STEP 1 -- LAND THE DENSIFIER (default-off, byte-identical when off). Unblocks everything below.**
+- Promote `experiments/world_state_entity_binding.py` -> `hdlab/world_state_entity_binding.py` VERBATIM (glass-box
+  Stage-1 dispatcher; self-tested; no LLM).
+- In `hdlab/situation_reader._read_world_state`, add a default-off `densify_world_state` flag that, BEFORE
+  `WorldState().fold(reps)`, rewrites each rep through an `EntityBinder`: holder (agent/recipient/source) ->
+  `bind_participant(head, coref_cluster=<the reader's OWN he/she resolution for that mention from
+  sm.coref_resolutions>)`; theme -> `bind_theme(head, verb)`. Feed the binder the recent NOMINAL context (not only
+  transfer themes) so 'it' resolves by pure recency+number (the gold-sweep tuning; subject-salience HURTS).
+- ACCEPTANCE: (a) flag OFF -> `_read_world_state` byte-identical (non-regression, witness [1]-style); (b) flag ON ->
+  `sm.world_state` holders are ENTITY keys (NARRATOR / cluster / name), never raw pronouns. FALSIFIES if OFF changes
+  any existing count.
+
+**STEP 2 -- WIRE A WHO-HAS-WHAT QA CONSUMER (this is where the gain becomes a LIVE number).**
+- Add a read-out that answers "who has X at time t?" from `sm.world_state.holder_of`, entity-canonical.
+- ACCEPTANCE: on a held-out QA set, densified >> blind (demonstrated direction: entity-canonical 0.29 -> ~1.0 on
+  deterministic gold; expect a smaller but CI-separated live gain bounded by parser role-recall). FALSIFIES if
+  densified does not beat the raw-string register CI-separated. This is the step that converts "capability" into
+  "moves a downstream number" -- the missing piece for FULLY-SOLVED.
+
+**STEP 3 -- RAISE THE CEILING via INCREMENTAL ENTITY MAINTENANCE (the biggest lever; the grouping drill re-targeted
+this from "swap the pick").** ~91%% of the he/she headroom is PRONOUN-CHAINING, not the pick.
+- Wire `hdlab.graded_coref_pick` into the resolver stream (a real but MODEST pick gain, params near-optimal), AND --
+  the big one -- chain resolved pronouns into entity activation histories with high fidelity (a recurrent-completion
+  / resonator-readout problem; ties to the CA3-completion organs).
+- ACCEPTANCE: he/she who-has-what rises from the ~0.46 glass-box floor toward the ~0.72 gold-grouping ceiling;
+  attribute the lift to entity-maintenance (not the pick) via the grouping decomposition. FALSIFIES if the lift comes
+  only from the pick (it will not -- pick is near-optimal).
+
+**STEP 4 -- CLOSE THE RESOURCE-BOUND GAPS.**
+- (a) OOD generalization: re-run he/she densification on OntoNotes/GUM gold coref (LitBank is the coref's home
+  corpus). ACCEPTANCE: the blind-vs-densified DELTA holds OOD (the absolute recall may drop).
+- (b) Confidence-abstain gate: carry the graded entropy into the register and DEFER on high-entropy coref (built in
+  the binder: `bind_participant(coref_entropy, abstain_tau)`). ACCEPTANCE: who-has-what precision rises with
+  abstention (demonstrated 0.72 -> 0.92 @ 40%% coverage).
+- (c) Object anaphora CI-sep on an object-coref-annotated corpus; a plural/group 'they' route; the quotation
+  deictic scope (`hdlab.coreference_resolver.run_principle_b_deixis`) + 'we'(group)/'you'(addressee) routes -- all
+  currently ABSTAINED (never-confidently-wrong), filed with the brain-faithful spec.
+
+**WITNESS:** `verification/test_world_state_coref_densify.py` (18/18) recomputes every route + the register core +
+the LitBank he/she headline + object-anaphora gold accuracy + the ceiling-lift + end-to-end who-has-what +
+confidence-abstain + the grouping decomposition + the powered bridging demo, all FROM SOURCE.
 
 ## TLDR
 As you read a story you keep track of who currently has what. Our tracker was right when people and objects were
