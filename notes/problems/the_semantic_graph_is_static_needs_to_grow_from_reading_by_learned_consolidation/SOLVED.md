@@ -1,0 +1,163 @@
+---
+problem: the_semantic_graph_is_static_needs_to_grow_from_reading_by_learned_consolidation
+status: PARTIAL
+bar: "PASS = a graph GROWN from reading (fast-map + cross-situational confirmation + schema-gated consolidation + BCM/XCAL tuning + usage-based split/merge, context-DISAMBIGUATED edges) improves SETTLING-WSD on HELD-OUT MODERN text CI-separated over the STATIC WordNet++ graph (gated on the static upper bound; recompute the floor on the held-out population), with an info-free twin (shuffled-context / naive-co-occurrence edges) LOSING CI-sep, AND an anti-interference control (the grown graph does NOT DEGRADE on already-known senses). Report CI half-width + null p95. A rigorous located NEGATIVE is a full PASS: if faithfully-built growth does not beat the static graph, name which mechanism (fast-map / schema-gate / split-merge / edge-rule) fails and why."
+result: "LOCATED NEGATIVE + a CONFIRMED brain sub-mechanism. A graph GROWN from reading (66,843 context-disambiguated, PPMI, cross-situational, precision-gated edges from 40k simplewiki sentences; VERIFIED != static, sum|dT|=5398, april.n.01 24->104 neighbours) does NOT improve WSD over the static WordNet++ graph. (1) Standard Raganato ALL argmax (n=2500): grown 0.6692 vs static 0.6692 = -0.0088 (touched subset -0.0109). (2) POWERED subordinate override (SemCor MFS=0, n=5,935 subordinate / 13,076 dominant), read via reordered-access + the LANDED semantic_control organ: static+control 0.1535; grown+control 0.1387 (growth HURTS subordinate -0.0148 CI[-0.0214,-0.0084]); BCM-homeostatic+control 0.1542 -- BCM does NOT beat static (+0.0007 CI[-0.0013,0.0027], null). WHY (named, edge-rule): naive Hebbian/PPMI growth is RICH-GET-RICHER (helps dominant +0.0102 CI-sep, hurts subordinate; the emergent frequency-dominance rho=0.36 IS this failure), which the brain's HOMEOSTATIC plasticity (BCM sliding threshold) counters -- built + CONFIRMED (BCM beats PPMI on subordinate +0.0155 CI[0.0096,0.0217], removes the dominant boost). base-vs-cn_syn discriminator (weak graph, no SyntagNet): growth still does not beat static (+0.0030 null) -> the residual is NOT graph density; it is the discrete-edge REPRESENTATION."
+floor: "STATIC graph, recomputed per population. Argmax Raganato static = 0.6692 (the grown graph must beat -> it does not, -0.0088). SUBORDINATE (MFS=0 by construction, chance low): the strongest floor is static+semantic_control = 0.1535 (cn_syn) / 0.1243 (base) -- growth must beat this upper bound; BCM-grown reaches only PARITY (+0.0007 / +0.0015, null). Info-free SHUFFLED-CONTEXT null = 0.0783 subordinate (grown-coherence beats it +0.0603 CI[0.0505,0.0699], so the signal is real)."
+controls: "(1) SHUFFLED-CONTEXT twin LOSES CI-separated (grown coherence +0.0603 [0.0505,0.0699]) -- the graph signal is real, not machinery. (2) DOMINANT see-saw cost REPORTED (semantic_control -0.0052; PPMI-growth +0.0102 rich-get-richer; BCM -0.0004) -- the honest trade-off, and the discriminating signature of rich-get-richer vs homeostasis. (3) BCM-vs-PPMI ISOLATES the edge-rule as the lever (+0.0155 CI-sep) -- the failure is the homeostasis-free rule, not growth per se. (4) base-vs-cn_syn discriminator EXCLUDES 'it's just density/saturation on the strong graph' -- growth fails to beat static on the WEAK graph too. (5) GROWN graph VERIFIED != static (nnz 1,797,370 vs 1,681,492; sum|dT|=5398). (6) EMERGENT-signature nulls: frequency-dominance rho=0.36 vs shuffled-freq null -0.015; semantic-coherence learned 0.116 vs random-pair 0.095 CI-sep -- growth learns brain-faithful structure. (7) semantic_control reproduces context_override (+0.0057 subordinate CI-sep) -- the read organ is validated."
+files_changed: "experiments/exp_learned_graph_cls_grow_v1.py (new -- the learned-graph organ: grow/PPMI/BCM/cross-situational/precision-gate/E-M-replay + reordered-access/settling/semantic_control read + powered subordinate/discriminator/signatures/fullstack harnesses, self-test, resumable), verification/test_learned_graph_cls_grow.py (new -- scaffold-free witness, 4/4), notes/problems/the_semantic_graph_is_static_needs_to_grow_from_reading_by_learned_consolidation/{SOLVED.md, FIDELITY_AUDIT_AND_ADJACENT_MAP.md}. Reuses UNMODIFIED: experiments/exp_grounded_semantic_graph_ladder_wsd_v1.py (build_graph/_ppr/_settle/_sense_prior/_semcor_instances/eval_wic), hdlab/semantic_control.py (the LANDED validated LIFG organ), data/corpora/simplewiki, data/wsdeval (Raganato ALL), data/syntagnet, data/datasets/conceptnet, spaCy en_core_web_sm (LOCAL, parse cached)."
+reverify: ".venv/Scripts/python.exe verification/test_learned_graph_cls_grow.py"
+---
+
+# Growing the semantic graph from reading: the edge-rule failure (rich-get-richer) is a MISSING ORGAN (homeostatic plasticity) which I built and confirmed; growth still does not beat the static graph, and the residual is the discrete-edge REPRESENTATION
+
+## Verdict
+**PARTIAL — a rigorous, fully-powered, fully-controlled LOCATED NEGATIVE with a CONFIRMED brain
+sub-mechanism.** A graph grown from reading does not improve settling-WSD over the static WordNet++ graph
+(the North Star is not achieved). But the failing mechanism is NAMED (the edge-rule: naive Hebbian growth is
+rich-get-richer), the brain's fix is BUILT and CONFIRMED (homeostatic BCM rescues the damage CI-separated),
+the density explanation is EXCLUDED (a discriminator shows growth fails on the weak graph too), and the
+residual is localized to the discrete-edge REPRESENTATION with a named next fork. Marked PARTIAL not SOLVED
+because the positive bar is unmet AND one high-value route (domain-shift/OOV, where the static graph is
+weakest) is untested -- per "come back with refuted alone only once no route you could test remains."
+
+## What I built
+An intrinsic LEARNED semantic-graph organ that grows the static graph from reading, and the brain-foundational
+READ that consumes it -- every brain-foundational aspect INTEGRATED (the owner's synergy thesis), not in isolation:
+- **WRITE:** local-collocation (windowed) + **syntactic dependency** edges grown from simplewiki, each token
+  CONTEXT-DISAMBIGUATED by the current graph's spreading activation (reordered-access E-step, context-dominated),
+  **PPMI surprise-weighted** (the proven `does_learning_from_reading` lever), **cross-situational** gated
+  (Yu & Smith), **precision/schema** gated (fast if schema-consistent, slow if novel), with **E-M REPLAY** rounds
+  (CLS bootstrap) and a **BCM HOMEOSTATIC** weighting variant (depress edges to high-activity synsets).
+- **READ:** reordered-access (frequency prior + graph context coherence) -> **competitive attractor settling**
+  (lateral inhibition) -> **`semantic_control`** conflict-gated suppression of the dominant sense (the LANDED,
+  validated LIFG organ, trigger AUC 0.79). The grown graph's coherence is tested as semantic_control's signal.
+- Glass-box, LM-FREE at inference, deterministic, resumable/checkpointed. spaCy parse local-only (cached).
+
+## What I measured
+1. **ARGMAX WSD saturates: growth = static on cn_syn.** 66,843 edges; grown graph VERIFIED different
+   (nnz 1,797,370 vs 1,681,492; sum|dT|=5,398; april.n.01 24->104 neighbours). Raganato argmax grown 0.6692 vs
+   static 0.6692 = **-0.0088** (touched subset -0.0109). WiC twin still cleared (dev r-t 0.086) -> growth does not
+   BREAK the context signal. Large per-node structural change does not move argmax on the dense graph.
+2. **EMERGENT brain-faithfulness signatures (POSITIVE, separated).** Frequency-dominance Spearman(log freq,
+   learned degree) = **0.360** (shuffled-freq null -0.015); semantic coherence learned-edge path-sim **0.116** vs
+   random **0.095** CI-sep. The Rodd "basin depth ~ frequency" geometry and meaningful structure fall out UNBID.
+3. **POWERED subordinate override (SemCor MFS=0, n=5,935 sub / 13,076 dom) -- homeostasis CONFIRMED, growth
+   does NOT beat static:**
+   - static+argmax 0.1478 -> static+**semantic_control** 0.1535 (**control helps subordinate +0.0057
+     CI[0.0039,0.0078]**, reproduces context_override; dominant see-saw cost -0.0052).
+   - **PPMI growth is RICH-GET-RICHER (verified):** HURTS subordinate (grown+control 0.1387; -0.0148
+     CI[-0.0214,-0.0084]) while HELPING dominant (+0.0102 CI[0.0070,0.0133]) -- exactly the rho=0.36 signature.
+   - **BCM homeostasis FIXES the edge-rule:** BCM+control 0.1542 beats PPMI-growth **+0.0155 CI[0.0096,0.0217]**
+     on subordinate and removes the dominant boost (bcm dominant -0.0004).
+   - **But even BCM growth only reaches PARITY with static:** BCM+control vs static+control **+0.0007
+     CI[-0.0013,0.0027] (null)**. Info-free shuffled-context twin loses **+0.0603 CI[0.0505,0.0699]**.
+4. **base-vs-cn_syn DISCRIMINATOR (weak graph, no SyntagNet) -- density EXCLUDED.** On base: PPMI growth does
+   NOT significantly hurt subordinate (-0.0029, not sep -- the rich-get-richer harm is graph-strength-dependent),
+   BCM vs PPMI +0.0044 (not sep), and growth still does NOT beat static (+0.0030 null). So growth fails to
+   CI-separate above static on BOTH the strong and the weak graph -> the residual is NOT density/room.
+
+## The located residual, and the walls drilled
+Every negative in context-conditioned sense selection unified into one gap, and the growth failure into one more:
+- **prior_swamps [REFUTED] + context_conditioned [HARD_FAIL]:** on subordinate senses only SIGNED SUPPRESSION
+  wins, gated by a detector we lacked because bag-of-words context is frequency-biased. FIX = frequency-
+  independent (syntactic/selectional) context -> semantic_control inhibition (built; the read organ WORKS,
+  +0.0057). Deep dependency-syntax as isolated FEATURES was a known +0.007 negative (context_override); tested
+  here PAIRED as graph edges + settling + control per the synergy thesis.
+- **THE EDGE-RULE FAILURE = a MISSING ORGAN (homeostatic plasticity), NAMED + BUILT + CONFIRMED.** The emergent
+  frequency-dominance (rho=0.36) I first read as faithfulness IS the failure: naive Hebbian/PPMI growth is
+  rich-get-richer, deepening frequent basins and starving subordinate senses. The brain requires BCM sliding
+  threshold (high activity -> LTD, low -> LTP) + synaptic scaling (Turrigiano). The spec named BCM/XCAL; I had
+  substituted PPMI -- a lesioned runaway-Hebbian learner. Built the fix; it rescues subordinate vs PPMI CI-sep.
+- **THE REMAINING RESIDUAL = the discrete-edge REPRESENTATION.** Even context-disambiguated, surprise-weighted,
+  homeostatically-balanced reading-grown EDGES do not add the graded per-context signal subordinate
+  disambiguation needs, on strong OR weak graphs. The static WordNet++ relational structure already captures the
+  discrete relatedness. The domain-shift/OOV instrument is the untested branch where growth should matter most.
+- **DEEPENING (cron drill, research-confirmed): the residual is TWO fidelity gaps pointing the SAME way, and it
+  is a different ORGAN than this problem's discrete graph.** (a) REPRESENTATION: the brain's ATL encodes a GRADED,
+  multidimensional CONTINUOUS semantic space (convergence zones; Lambon Ralph graded-hub), not discrete senses --
+  a WordNet graph is a lossy discretization of it. (b) GRANULARITY: fine-grained WordNet WSD has a ~70-80% HUMAN
+  inter-annotator ceiling (fine senses are the main cause), so the subordinate target is partly a GENUINE
+  difficulty floor AND the wrong granularity -- the brain uses emergent, usage-based granularity, not WordNet's
+  fixed fine senses. BOTH are solved by ONE next mechanism: a LEARNED GRADED CONTINUOUS sense space that re-carves
+  its own granularity (unifying the continuous-space fork + the deferred split/merge). That is a distinct substrate
+  from the discrete relational graph this problem grows -- i.e. the next PROBLEM, not a tweak here.
+
+## KEY REALIZATIONS (the enabling moves)
+1. **Read prior work FIRST -> avoided a known dead-end + reused a validated organ.** context_override already
+   showed deep dependency-syntax FEATURES add +0.007 (a clean negative) and BUILT+validated semantic_control. So
+   "implement everything brain-foundational" meant REUSE the inhibition organ + feed it a better signal, not
+   rebuild selection.
+2. **The emergent signature I celebrated as faithfulness IS the failure.** Frequency-dominance = rich-get-richer;
+   the missing homeostasis (BCM) is the located, buildable fix -- a wall turned into an organ, built + confirmed.
+3. **The discriminator moved the conclusion from "saturation" to "representation."** Growth fails on the WEAK
+   graph too -> the ceiling is not density; it is what a discrete edge can carry.
+4. **A large structural change != a functional change on a graph that already has the relatedness.** 66k edges,
+   april 24->104, argmax -0.0088 -> evidence FOR the continuous-space substrate as the other fidelity fork.
+5. **Eval was WordNet-lookup + PPR bound; caching lookups (byte-identical) made the powered population feasible.**
+
+## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md §2b)
+The LEARNED meaning-graph organ grows from reading by context-disambiguated, surprise-weighted, cross-situational,
+precision-gated consolidation; emergent frequency-dominance + semantic-coherence confirm brain-faithful basin
+geometry. NEW located deviation + FIX: naive Hebbian/PPMI growth is RICH-GET-RICHER and lacks HOMEOSTATIC
+plasticity (BCM sliding threshold / synaptic scaling) -- built the BCM variant, CONFIRMED it rescues subordinate
+senses CI-separated. NEW located ceiling: reading-grown DISCRETE edges (even homeostatic) do not beat the static
+WordNet++ graph on subordinate WSD, on strong OR weak graphs -> the residual is the discrete-vs-CONTINUOUS
+representation, not graph density. The READ path (reordered-access + settling + semantic_control) is validated and
+addresses the "meaning organs are islands" debt on the read side. semantic_control's frequency-biased trigger
+(prior_swamps) could take a HOMEOSTATIC (frequency-independent) coherence signal as its named forward lever.
+
+## What I did NOT establish / would withdraw first
+- **No positive growth win** -- growth does not beat static on WSD; withdraw any implication that reading-growth
+  improves the foundation on standard WordNet-scored WSD (it does not, discrete-edge form).
+- **Domain-shift/OOV UNTESTED** -- the branch where the static graph is weakest and growth should matter most
+  needs a domain-annotated WSD instrument; not built here. This is why status is PARTIAL not a closed negative.
+- **The continuous-space fork is DIAGNOSED, not built** -- meaning_fusion node embeddings as node content is the
+  proposed next mechanism, not tested.
+- **Split/merge (usage-based sense induction, ultrametric_clustering) NOT built** -- it cannot score against fixed
+  WordNet gold; it is the novel-sense branch.
+- **E-M replay / syntactic-edge synergy (fullstack)** is a moderate-scale first pass, de-prioritized once growth
+  reached only parity even with BCM.
+
+## Compute honesty (no silent caps)
+Grew from 40k of simplewiki's ~38M sentences (checkpointed acc). Raganato argmax on a 2,500 sample of 4,478.
+Powered subordinate on 30 SemCor files (19,011 polysemous items; 5,935 subordinate). spaCy parse 15k sentences
+(local). BCM, E-M replay, and syntactic edges are first-pass scales. Eval is PPR+WordNet bound (~3h per full
+subordinate sweep even cached); the domain-shift branch is deferred on that cost, not on principle.
+
+## TLDR (plain English)
+The reader has a fixed dictionary-graph it reads by letting meaning spread through it. I built the machinery to
+let it GROW that graph from its own reading -- the brain's way -- and to read the result with the brain's
+meaning-selection circuit. Growing it changed the graph a lot but did NOT improve the standard "pick the right
+meaning" score. The reason is precise and it's a real brain fact: the naive way of learning is rich-get-richer --
+it strengthens meanings that were already common and STARVES the rare ones, which are exactly the hard cases. I
+confirmed that (learning helps common meanings, hurts rare ones) and then built the brain's own fix for it -- a
+self-balancing rule that holds back over-used connections -- and confirmed THAT works too (it rescues the rare
+cases). But even balanced, the reading-grown links don't beat the dictionary we already have, and this holds even
+when we start from a SPARSER dictionary -- so the limit isn't "not enough room," it's that a simple on/off link
+can't carry the fine, shaded meaning the hard cases need. The next step is a smoother, vector-like meaning
+representation (which we already have a piece of), and testing growth on specialist text where the dictionary is
+genuinely weak. Two brain-faithfulness checks pass throughout: the learned links respect how common each meaning
+is, and they connect genuinely related meanings, not random ones.
+
+## QUESTIONS
+None blocking.
+
+## NEXT STEPS (ranked)
+1. **NEW PROBLEM (the located residual, a distinct organ): a LEARNED GRADED CONTINUOUS sense space that re-carves
+   its own granularity.** Unifies the two forks the drill converged on -- continuous representation (ATL graded
+   hub) + emergent granularity (usage-based split/merge). Concretely: represent each sense by a CONTINUOUS vector
+   (reuse `hdlab/meaning_fusion` PPMI+SVD node content + `hdlab/ultrametric_clustering` to induce/re-carve senses),
+   read a GRADED coherence, and grow THAT from reading. Adjacent components for it: `meaning_fusion` (PINNED
+   hub-and-spoke, offline/unwired -> wire as node content), `distributional_meaning_channel` (PPMI+SVD, idle),
+   `ultrametric_clustering` (single-linkage cosine -> the split/merge substrate, island). Strategy should FILE this
+   as the follow-on; it is NOT a tweak to the discrete graph this problem grows.
+2. **Domain-shift / OOV instrument (the untested branch of THIS problem).** Grow from a domain corpus (e.g. a
+   textbook) and test that domain's WSD, where the static graph is weakest and reading-growth should CI-separate if
+   it ever does. The one route left that could turn the discrete-edge negative positive; needs a domain-WSD gold.
+3. **Wire the HOMEOSTATIC coherence into `semantic_control`** as the frequency-independent trigger it names as its
+   forward lever (links the two organs; BCM-grown coherence is a candidate orthogonal signal).
+4. **[STRATEGY, Q111] hdlab wire (default-off, witnessed):** the learned-graph organ (grow/PPMI/BCM/cross-
+   situational/precision-gate) + the reordered-access + settling + semantic_control read path. NOTE: land it only
+   if the continuous-space fork (step 1) produces a win -- the discrete-edge growth is a confirmed non-improvement
+   on standard WSD, so wiring it as-is would add cost without benefit.

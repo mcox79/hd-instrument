@@ -118,6 +118,38 @@ cannot -- if so, the located fix is CONFIRMED; if not, the residual is the conti
   HOMEOSTATIC (frequency-independent) coherence signal from BCM-grown edges is a candidate for the "genuinely
   new orthogonal directional signal" its own docstring names as the forward lever. This links the two organs.
 
+## F. THE RESIDUAL IS A DIFFERENT ORGAN: GRADED CONTINUOUS REPRESENTATION + EMERGENT GRANULARITY (cron drill, 2026-09-02)
+
+After the located negative (discrete-edge growth, even homeostatic BCM, does not beat static on subordinate WSD;
+density excluded by the base-vs-cn_syn discriminator), two research drills converged the residual onto ONE next
+mechanism that is a DISTINCT substrate from this problem's discrete graph:
+- **The target is off-granularity.** Fine-grained WordNet WSD has a ~70-80% HUMAN inter-annotator ceiling; fine
+  senses are the main cause of low agreement + poor systems. So the subordinate target is partly a GENUINE
+  difficulty floor, and WordNet's fixed fine senses are the wrong granularity vs the brain's emergent, usage-based
+  granularity.
+- **The brain's substrate is graded-continuous.** The ATL encodes a GRADED, multidimensional CONTINUOUS semantic
+  space (convergence zones; Lambon Ralph graded hub) expressing both broad + fine structure -- not discrete senses.
+  A WordNet graph is a lossy discretization.
+
+**=> The residual = REPRESENTATION (discrete->continuous) + GRANULARITY (fixed-fine->emergent), one next organ: a
+LEARNED GRADED CONTINUOUS sense space that re-carves its own granularity.** This unifies the continuous-space fork
+with the deferred split/merge. It is the NEXT PROBLEM (a different substrate), not a tweak to the discrete graph.
+
+**Adjacent-component evaluation for that next problem (brain-status | limitation | opportunity):**
+- **`hdlab/meaning_fusion.py`** -- PINNED hub-and-spoke (ATL); fuses learned distributional + grounded spokes
+  (WordSim ~0.45). LIMITATION: offline, unwired, WORD-level not SENSE-level. OPPORTUNITY: the continuous node
+  content for the graded sense space. HIGH.
+- **`hdlab/distributional_meaning_channel.py`** -- PPMI+SVD (substitutability AUC 0.84, WordSim -0.24); idle
+  island. OPPORTUNITY: the distributional axis of the continuous space; needs sense-resolution (the hard part).
+- **`hdlab/ultrametric_clustering.py`** -- single-linkage cosine; island. BRAIN: usage-based granularity /
+  semantic chaining substrate. OPPORTUNITY: induce + re-carve senses = the emergent-granularity half. HIGH.
+- **`hdlab/semantic_control.py`** -- validated LIFG suppression; frequency-biased trigger (prior_swamps).
+  OPPORTUNITY: a graded continuous coherence is a candidate frequency-independent trigger (its named forward lever).
+
+VERDICT for THIS problem: the brain-mechanism bar is MET (CLS + homeostatic BCM identified, built, tested; located
+negative with the failing edge-rule named + the residual localized). Remaining value is the NEXT organ above +
+the domain-shift branch -- both filed as follow-ons. The discrete-graph-growth question is thoroughly answered.
+
 ## Research drills (sources)
 - Continuous, distributed semantic space (not discrete regions): Huth et al., *A continuous semantic space...*, and cortical semantic-relation mapping. Word-sense acquisition by **semantic chaining** (new senses extend from existing by similarity), PNAS 2025-26. GPT-2 embeddings predict association-cortex (not sensorimotor) semantics — supports fuse-don't-choose.
 - **Reordered Access** (all senses activate; dominance + context set the order; dominance persists even under subordinate-biasing context) — validates soft multi-sense responsibilities AND argues the E-step should blend dominance with context.
@@ -131,3 +163,7 @@ Sources:
 - [Lexical Frequency and Sentence Context Influence the Brain's Response to Single Words (Neurobiology of Language 2022) -- frequency processed independently of context](https://direct.mit.edu/nol/article/3/1/149/107293/Lexical-Frequency-and-Sentence-Context-Influence)
 - [Sentence context and lexical ambiguity resolution by the two hemispheres -- LH selects, RH maintains alternates](https://www.sciencedirect.com/science/article/abs/pii/S0028393298000426)
 - [A knowledge-based WSD algorithm utilizing syntactic dependency relation (Lin-style) -- subject/object of a verb beat random nearby words](https://ieeexplore.ieee.org/document/8117155)
+- [BCM theory (Scholarpedia) -- sliding modification threshold set by integrated past activity](http://www.scholarpedia.org/article/BCM_theory)
+- [Mechanisms of Homeostatic Synaptic Plasticity in vivo (Frontiers) -- synaptic scaling / stability of Hebbian feedback](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6901705/)
+- [Representational similarity learning reveals a GRADED multidimensional semantic space in the human anterior temporal cortex](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12224414/)
+- [A Case Study on Inter-Annotator Agreement for WSD -- fine-grained WordNet ~70-80% human ceiling](https://aclanthology.org/W99-0502.pdf)
