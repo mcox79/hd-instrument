@@ -73,6 +73,22 @@ A glass-box, LM-free-at-inference top-down sense selector (`exp_topdown_situatio
    Radvansky (1998): situation tracking is automatic for time/causation/goal/protagonist but NOT for space --
    and the canonical hard cases (river BANK) are spatial/object. Our mechanism fails in the BRAIN'S OWN pattern.
 
+## Prototyped fixes for the two differences (which is buildable NOW vs North Star)
+Directly tested the cheap fix for each gap term (4f):
+- **p (detector precision) IS cheaply improvable.** A MULTI-SIGNAL directional detector (z-summed struct_domI +
+  bag_domI) raises AUC 0.744 (best single) -> **0.766**; adding disc/sym does not help further. Detection is buildable.
+- **a_s (override accuracy) is NOT a readout fix -> it is the WORLD-KNOWLEDGE SOURCE (North Star).** A
+  sense-SPECIFIC SIGNATURE readout (score each sense by the inferred-situation-gist activation over its whole
+  neighbourhood: hypernyms/hyponyms/meronyms/gloss senses) is WORSE than the single-node readout (a_s 0.261 ->
+  0.213, CI-separated worse; combined 0.249, null). The single sense-node readout is already better -> the
+  cn_syn-inferred situation does not carry enough sense-specific signal NO MATTER how it is read out. The
+  override gap is the generative situation representation, not the readout.
+- **SYNTHESIS:** a_s is the BINDING term (break-even needs p*a_s~0.30). p is nudgeable (0.744->0.766) but is the
+  NON-binding term; a_s resists the cheap fix because it IS the generative comprehension problem. Stacking the
+  buildable detector (p~0.55) on the capped a_s~0.35 still gives p*a_s~0.19 < 0.30. The difference we CAN
+  prototype (detection) is not the one that matters; the one that matters (generating the specific sense from
+  world knowledge) is exactly the North-Star organ -- confirmed by direct test, not assumed.
+
 ## The wall, drilled (research-confirmed): fidelity gap, not a clean ceiling
 The neuroscience drill (24 sources) established: (a) the human brain is ALSO see-saw-limited -- residual
 dominant-sense cost 14-51ms is never fully eliminated even under strong subordinate bias (PINNED), so PART of
