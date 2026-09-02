@@ -201,6 +201,57 @@ so the realizable glass-box ceiling is ~0.67, and pushing past it needs a RICHER
 the North Star. **So YES, the ideal solution is now prototyped and it works (+0.054 CI-sep); it is bounded by
 representation richness + coref quality + scale, which is exactly the priority-1 situation model's remit.**
 
+## HOW THE IDEAL DIFFERS FROM THE BRAIN -- the deltas (owner asked; small-but-important flagged)
+Our ideal (a DEV-trained conditional-softmax cue-integrator) copies the brain's COMPUTATION (learned weighted
+cue integration) but differs in several ways. Two of the "small" ones are potentially the most important.
+
+**DELTA 1 -- SUPERVISED vs SELF-SUPERVISED learning (the DEEPEST gap; OPEN).** We trained the integrator on GOLD
+antecedent labels. The brain never gets labeled antecedents -- it learns cue VALIDITY from PREDICTION ERROR
+(predict the next mention, update on the outcome; the N400 is the error signal; Competition Model validity is
+experience-driven). This looks like a small detail (how you get the weights) but it is the load-bearing one: it
+decides whether the LEARNER can build this organ label-free on real reading (the whole North Star). The substrate
+HAS the pieces to close it (predictive_reader forward pre-activation + the n400_coherence_monitor error signal) --
+a self-supervised predict-and-update integrator is the brain-faithful version, and our supervised prototype is a
+stand-in that proves the target is reachable. **This is the #1 fidelity gap to build across.**
+
+**DELTA 2 -- COMMIT vs DEFER (small, and I TESTED it -- REALIZABLE, near-closed).** Our integrator argmax-commits;
+the brain DEFERS on genuinely ambiguous cases (the Nref "hold both"; Garrod-Sanford resolution stalls). Crucially,
+the parent found the GRADED pick's wrong picks are 99.5% CONFIDENT (uncalibrated -- cannot defer). MEASURED here:
+the LEARNED integrator's posterior entropy predicts its OWN errors at AUC 0.796, and deferring the highest-entropy
+34% raises kept accuracy 0.668 -> 0.803 (keep 50% -> 0.864), while a random-defer twin is flat (0.650). So cue
+INTEGRATION restores the brain's calibrated "hold both" signature that the single-cue pick lacked -- and the
+deferred items ARE the genuinely-hard residual. The delta is near-closed by wiring the EXISTING entropy-abstain
+(parent Track B) onto the integrator. Two-for-one: integration buys accuracy AND legible uncertainty.
+
+**DELTA 3 -- FEED-FORWARD vs RECURRENT parallel-constraint (small: a settling loop; important for re-analysis).**
+The brain's interactive-activation settling (McClelland) lets a LATER cue REVISE an earlier commitment (cataphora,
+garden-path recovery) and feeds each resolution back into the entity representations that drive the next pronoun.
+Our integrator is one-shot per pronoun. The substrate has the settling primitive (iterative_attractor); wiring the
+integrator INTO the recurrent entity-maintenance loop (so picks feed back) is the faithful version.
+
+**DELTA 4 -- LINEAR-in-features vs genuinely MULTIPLICATIVE combination (small: the nonlinearity form; important:
+it caps us).** Parker (2019): cues combine multiplicatively (all-agree is super-additive; conflict is flat). Our
+learned betas show the win is mostly linear cue WEIGHTING -- the confidence-interaction (gate) terms took small
+weights, so we are NOT yet capturing the genuine multiplicativity, which is part of why we realize ~0.67 not the
+0.857 oracle. A learned multiplicative/attention gate (per-item cue reliability) is the missing nonlinearity.
+
+**DELTA 5 -- STATIC vs CONTINUAL (small; important OOD).** Our weights are frozen after DEV; the brain re-weights
+cue validity continually (a new genre where content-cohesion is more/less reliable shifts the weights online).
+
+**DELTA 6 -- the CUE SET is hand-engineered + COARSE (the p1 representation gap).** Our four cues are hand-picked
+and the grounded one is the 12-dim space (too coarse to individuate two people -- grounded-max is the weak cue).
+The brain's cues EMERGE from a rich distributional hub (ATL PDP) and the set grows with learning.
+
+**DELTA 7 -- NO similarity-based interference / fan effect modeled.** The brain's cue-based retrieval degrades
+when two candidates are feature-similar (Lewis-Vasishth similarity-based interference; Van Dyke). Our softmax
+competition captures some of this but does not explicitly represent inter-candidate interference.
+
+**Bottom line for the owner:** the two small deltas that matter most are (1) SELF-SUPERVISED learning (open -- the
+North Star's core, and the reason to build it there not here) and (2) DEFER (near-closed -- I showed the
+integrated posterior is calibrated and deferral works, unlike the single-cue pick). Deltas 3-4 (recurrence +
+genuine multiplicativity) are the next fidelity increments; 5-7 are representation/continual-learning, the
+standing p1 + learner lanes.
+
 ## THE UNIFYING FINDING (for planning -- these are ONE wall)
 The who-has-what coref residual (this problem), the WSD override-accuracy a_s residual (my previous problem
 `wire_the_situation_model_as_a_top_down_predictive_coding_sense_selector`), and the OPEN priority-1 North Star
