@@ -38,8 +38,21 @@ brain-foundational READ that consumes it. Every brain-foundational aspect, integ
    Spearman(log SemCor freq, learned-edge degree) = **0.360** (shuffled-frequency null -0.015) -- the Rodd
    "basin depth ~ frequency" geometry fell out UNBID. Semantic coherence: learned edges connect WordNet-related
    senses (path-sim 0.116) vs random pairs (0.095), CI-separated -- the growth learns STRUCTURE, not noise.
-3. **[TBD] Powered subordinate override (large SemCor, MFS=0 population):** static-argmax -> +semantic_control ->
-   +PPMI-growth -> +BCM-growth, with the dominant see-saw cost and a shuffled-context null. [numbers pending]
+3. **Powered subordinate override (SemCor MFS=0 population, n=5,935 subordinate / 13,076 dominant) — the
+   homeostatic hypothesis is CONFIRMED, and growth does NOT beat static (a located negative):**
+   - static+argmax 0.1478 -> static+**semantic_control** 0.1535 (**control helps subordinate +0.0057 CI[0.0039,0.0078]**,
+     reproduces context_override; dominant see-saw cost -0.0052).
+   - **PPMI growth is RICH-GET-RICHER, verified:** grown+control HURTS subordinate (0.1387; growth-helps-control
+     **-0.0148 CI[-0.0214,-0.0084]**) while HELPING dominant (**+0.0102 CI[0.0070,0.0133]**). Exactly the rho=0.36
+     frequency-dominance signature.
+   - **BCM homeostasis FIXES the edge-rule:** BCM-grown+control 0.1542 beats PPMI-grown by **+0.0155
+     CI[0.0096,0.0217]** on subordinate (rescues the damage) and removes the dominant boost (bcm dominant -0.0004).
+   - **But growth (even homeostatic) only reaches PARITY with static:** BCM+control vs static+control
+     **+0.0007 CI[-0.0013,0.0027] (null)**. So the strong static cn_syn graph already saturates the discrete
+     relational signal; even frequency-balanced reading-grown edges are REDUNDANT with it.
+   - Info-free SHUFFLED-CONTEXT twin loses decisively: grown-coherence vs shuffled **+0.0603 CI[0.0505,0.0699]**.
+   - [base-vs-cn_syn discriminator pending: does growth help the WEAK base graph (no SyntagNet) = the redundancy
+     test + the real-world OOV/domain case.]
 
 ## The walls, drilled (each = a fidelity gap, per the discipline)
 Every negative in context-conditioned sense selection unifies into ONE gap and one located missing organ:
