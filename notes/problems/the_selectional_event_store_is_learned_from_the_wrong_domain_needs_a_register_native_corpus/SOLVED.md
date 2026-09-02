@@ -5,7 +5,7 @@ bar: "PASS = a no-gold, REGISTER-NATIVE selectional/event store built OFFLINE fr
 result: "On the held-out QA-SRL SCIENCE test (grade-school earth/general science; non-reversible passive + noncanonical slices), a no-gold register-native SCIENCE event store built OFFLINE from a genuinely DISJOINT corpus (the ARC grade-school-science corpus; leakage-guarded, 0 test sentences in the store) BOUND with the substrate's FHRR role-filler event codec RECOVERS who-did-what CI-separated over the out-of-domain simplewiki FHRR store: passive +0.0391 CI[+0.0029,+0.0734] half=0.035 frac<=0=0.017 (n=1022); noncanonical +0.0353 CI[+0.0009,+0.0687] half=0.034 frac<=0=0.020 (n=1077). The brain-foundational SOFT-AND (multiplicative per-role conjunctive) kernel recovers it slightly more robustly: passive +0.0470 CI[+0.0137,+0.0802]; noncanonical +0.0436 CI[+0.0102,+0.0752]. Scorer = patient-selection accuracy (pick==gold_head), paired item bootstrap. CRITICAL LOCATED CORRECTION: the effect lives in the JOINT event code, NOT the marginal store -- the MARGINAL (verb->OBJ) science store TIES simplewiki (passive -0.0085 CI[-0.0358,+0.0171] frac<=0=0.738; noncanonical -0.0073 frac<=0=0.729), i.e. the parent's +0.149 marginal domain effect does NOT transfer to a genuinely disjoint corpus -- it was topical near-leakage from leave-one-sentence-out on the TEST corpus. The true deployable disjoint-domain effect is ~+0.04, carried by who-did-what-to-what event structure."
 floor: "Strongest floor actually run = the out-of-domain (simplewiki) store built the SAME way (same frontend UD parser, same 1.2M-token budget, no gold) -- FHRR simplewiki 0.354 (passive) / 0.358 (noncanonical); the science FHRR store beats it CI-separated (science 0.393). simplewiki has MORE joint triples than science (14,349 vs 11,110) yet LOSES -> the win is DOMAIN, not data volume. Also run: MARGINAL simplewiki 0.408 (TIES science 0.400 -- the located correction); position-only 0.271-0.281."
 controls: "(1) VERB-SHUFFLED TWIN of the science FHRR store (same triples, verb keys permuted = 'same corpus, wrong-domain labels', the brief's named domain-scramble; it is ALSO the tightest size control -- identical corpus and size) LOSES CI-sep: FHRR science vs twin +0.0939 CI[+0.0607,+0.1282] (passive) / +0.0938 (noncanonical), frac<=0=0.000 -> the verb-KEYING does the work. (2) WRONG-DOMAIN corpus (fiction, matched frontend/no-gold) LOSES: marginal fiction 0.269 does NOT beat simplewiki 0.408 (-0.139 CI-sep BELOW); science BEATS fiction +0.130 CI-sep -> the science DOMAIN, not any disjoint corpus, does the work. (3) LEAKAGE GUARD: every store corpus rejected any sentence matching a test sentence (n_leak=0 for science/simplewiki/fiction) -> the recovery is transfer, not memorization. (4) DATA-VOLUME excluded: simplewiki has more triples yet loses (above). NULL: the verb-shuffled twin IS the info-free null (single permutation); science FHRR 0.393 vs twin 0.299, margin CI-sep."
-files_changed: "experiments/exp_register_native_store_v1.py, experiments/exp_brain_faithful_who_did_what_v1.py, verification/test_register_native_store.py, data/exp_register_native_store_v1/*, data/exp_brain_faithful_who_did_what_v1/metrics.json, notes/problems/the_selectional_event_store_is_learned_from_the_wrong_domain_needs_a_register_native_corpus/SOLVED.md"
+files_changed: "experiments/exp_register_native_store_v1.py, experiments/exp_brain_faithful_who_did_what_v1.py, experiments/exp_parser_headroom_v1.py, experiments/exp_richer_extraction_v1.py, verification/test_register_native_store.py, data/exp_register_native_store_v1/*, data/exp_brain_faithful_who_did_what_v1/*, data/exp_parser_headroom_v1/metrics.json, data/exp_richer_extraction_v1/metrics.json, notes/problems/the_selectional_event_store_is_learned_from_the_wrong_domain_needs_a_register_native_corpus/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_register_native_store.py"
 ---
 
@@ -240,6 +240,102 @@ parse when it is unreliable). This is the +0.096 deployment lift, default-off, w
    integration is the brain's method and transfers; the parser component is register-fragile (needs
    robustness) and the selectional store is register-relative (needs a register-native corpus -- THIS problem).
 
+## THE PARSER IS THE BOTTLENECK -- localized with 3 measurements (owner: "is the parser causing lower scores? would richer extraction help?")
+`experiments/exp_parser_headroom_v1.py` + `experiments/exp_richer_extraction_v1.py`, modern QA-science:
+1. **USE THE PARSE, NOT LINEAR POSITION:** the structural role cue beats `role_route="positional"` +0.14
+   (FRONTEND_vs_POS FULL) CI-sep -- the wired reader's positional route leaves this on the table.
+2. **PARSER ACCURACY IS THE LIVE BOTTLENECK:** a DIFFERENT/better parser (spaCy en_core_web_sm) beats the
+   substrate's own frontend UD parser +0.073 [+0.060,+0.086] (FULL) / +0.092 (HARD) CI-sep at the SAME
+   structural rule -- so improving parse accuracy directly raises who-did-what. (Both parsers COLLAPSE on 19c:
+   FULL ~0.26, HARD ~0.005 -- register-robust parsing is a separate hard problem.)
+3. **RICHER EXTRACTION (the world-state template) does NOT transfer -- REFUTED with the reason.** A diagnostic
+   of where the gold patient sits in the parse: 50.3% IS the direct object (STRUCT gets it), 47.3% is NOT a verb
+   argument at all (parse-accuracy misses), only 2.4% is an oblique/PP. So adding oblique/PP extraction (as the
+   world-state problem added the recipient PP) HURTS here -0.051 CI-sep (it injects noise for 2.4% headroom) --
+   because a PATIENT is grammatically the direct OBJECT, unlike a RECIPIENT which really is PP-realized. The
+   dominant 47.3% gap is parse ACCURACY, not a missing role. (Sub-finding: when richer extraction does yield >1
+   argument, this problem's register-native store correctly picks the patient, RICHSEL_vs_RICH +0.042 HARD
+   CI-sep -- the store is the "which argument" decider, not an extraction fix.)
+=> THE #1 WHO-DID-WHAT LEVER IS A BETTER/REGISTER-ROBUST PARSER (spaCy-level accuracy buys +0.073; the incremental
+parser more), with this problem's register-native store integrated as the which-argument decider on top. NOT
+richer role extraction (refuted for patients). This triangulates the parent p5 audit ("the sole lever is a
+better parser") and the `situation_model_has_no_mutable_world_state_register` submission (parser = highest-
+compounding front-end lever) -- three independent lines, one conclusion.
+
+### AGGRESSIVE SIGNAL-LOSS DECOMPOSITION (owner: "where, exactly, are you losing signal") -- `exp_error_decomposition_v1.py`
+Every item partitioned by the RELATION of the gold patient to its verb in the (spaCy) parse; STRUCT=0.588 is
+accounted for EXACTLY (n=2423 FULL non-reversible):
+| partition | share | POS | STRUCT | store-only | the loss / fix |
+|---|---|---|---|---|---|
+| A gold IS the parsed OBJECT | 50.1% | 0.560 | **0.989** | 0.397 | NO loss -- and the store HURTS here (multi-object subset STRUCT+SEL 0.796 < STRUCT 0.898); do NOT use the store when the parse is confident |
+| D gold NOT attached to the verb | **35.2%** | 0.152 | 0.145 | **0.308** | the DOMINANT loss = parser ATTACHMENT failure; the store recovers 2x here -- its EXACT niche |
+| E verb not tagged VERB | 9.4% | 0.304 | 0.304 | 0.273 | POS-tagger error |
+| C gold attached, non-arg relation | 2.9% | 0.099 | 0.127 | 0.225 | parser LABEL/VOICE error (48/71 = passive patient mislabeled `nsubj` not `nsubj:pass`) |
+| B gold is oblique/PP | 2.4% | 0.379 | 0.379 | 0.172 | richer extraction (tiny) |
+THE ANSWER: when the parse is right (50.1%) who-did-what is 0.989 -- essentially SOLVED; the ENTIRE deficit is
+the ~47.5% of items where the parser FAILS (D attachment 35.2% + E tagging 9.4% + C label/voice 2.9%), and there
+STRUCT ~0.15. So who-did-what is PARSER-ACCURACY-BOUND, not knowledge-bound -- quantified exactly. The register-
+native store is NOT a general booster: it is PRECISELY the fallback for parser-failure items (D 0.308 vs 0.15,
+2x) and it HURTS on parse-correct items. TWO precise levers: (1) RELIABILITY-GATE -- trust the parse when it
+yields an object (0.989), fall back to the STORE not position when it does not (0.308 vs 0.145): oracle-gated
+upper bound ~0.588->~0.65 with TODAY's parser; (2) PARSER ATTACHMENT ACCURACY -- shrink the 35.2% D bucket
+(better parser + incremental parser). This makes the follow-on concrete: parser-accuracy + a reliability-gated
+store fallback, NOT more selectional knowledge.
+
+### OPTIMIZED (realizable fixes, NO new parser) -- `exp_optimized_who_did_what_v1.py`, each fix ablated
+| stacked arm | FULL | vs prev | what it fixes |
+|---|---|---|---|
+| BASE STRUCT (spaCy obj, position backoff) | 0.588 | -- | the structural cue |
+| +UNION (spaCy OR frontend object) | 0.590 | +0.003 (ns) | marginal -- spaCy already covers the frontend's hits |
+| +VOICE (accept passive SUBJECT as patient) | 0.602 | +0.012 CI-sep | recovers C's passive-mislabels (nsubj not nsubj:pass) |
+| +STOREGATE (store, not position, on parse-fail) | 0.628 | +0.026 CI-sep | the store's exact niche (parse-fail bucket) |
+| **+AGREEMENT-GATE (store when the two parsers DISAGREE) = OPTIMIZED** | **0.634** | **+0.006 CI-sep** | reliability-gate by parser-agreement (a proxy for the brain's conflict monitor) |
+| [ablation] store-on-single-parser | 0.552 | -0.081 | too aggressive -- one parser is usually still right |
+| [ablation] +VTIE voice-aware tiebreak | 0.607 | -0.021 | HURTS -- voice != position (see negatives) |
+NET: 0.588 -> **0.634** (+0.046 CI-sep, HARD 0.545 -> 0.627) with TODAY's parser + the register-native store,
+reliability-gated. Ladder: position 0.474 -> real parse 0.588 -> +voice 0.602 -> +store-gate 0.628 ->
++agreement-gate 0.634 = **64% of the chance->human range** (was 34%). The rest is parser ATTACHMENT accuracy
+(the 35% D bucket) + the graded-precision upgrade (below).
+
+### THE MECHANISM IS THE BRAIN'S, AND IT GENERALIZES (owner: "how does the brain do this, and does it generalize?")
+The reliability-gate IS the brain's mechanism: PRECISION-WEIGHTED parallel cue integration (Competition Model,
+Bates & MacWhinney; Ernst & Banks 2002) under NOISY-CHANNEL inference (Levy 2008; Gibson 2013) -- trust the
+structural cue where reliable, DOWN-WEIGHT it and lean on the selectional prior where not. The brain's
+reliability signal is an intrinsic CONFLICT MONITOR (P600/LIFG structural + N400 thematic-fit -- the parent
+p5's dissociable `predict_surprisal` streams); my parser-AGREEMENT is a crude two-parser PROXY for it, and even
+the proxy adds signal (+0.006). GENERALIZATION (measured on 19c LitBank): the SAME gate that helps on modern
+(+0.026) fires CORRECTLY on 19c where the parser COLLAPSES (BASE HARD 0.0055) -- it detects the failure and
+defers to the store, recovering HARD 0.0055 -> 0.107 (+0.10 CI-sep) and FULL +0.021 CI-sep. So the MECHANISM is
+register-UNIVERSAL (it self-adapts to parse reliability -- the Competition Model's cross-linguistic claim); only
+the COMPONENTS (a register-robust parser, a register-native store) are register-bound. WHERE WE STILL DIFFER
+FROM THE BRAIN (ranked by cost): (1) the parser is a fragile statistical module, not the brain's robust
+incremental structure-builder -- the 47% parse-fail bucket + the 19c collapse; (2) we hard-commit a FEEDFORWARD
+parse instead of JOINT parallel constraint satisfaction; (3) our reliability-gate is HARD/discrete on a 2-parser
+proxy where the brain's is GRADED/continuous on an intrinsic conflict monitor -- the faithful upgrade
+(`predict_surprisal`-driven graded precision) is the concrete next optimization and the ~0.634->~0.65 oracle
+gap; (4) batch not incremental; distributional not sensorimotor-grounded; no running-discourse conditioning.
+The PINNED/faithful parts are the REPRESENTATION (joint conjunctive FHRR role binding over consolidated
+register-native thematic-fit knowledge) and the INTEGRATION PRINCIPLE (reliability-weighting); the gap is the
+INFERENCE ARCHITECTURE (a robust incremental parser doing joint constraint satisfaction with graded precision).
+
+### THE NEGATIVES -- every one understood mechanistically (owner: "do we understand why those didn't work?")
+| negative | mechanism (WHY it failed) |
+|---|---|
+| marginal store ties simplewiki (disjoint) | +0.149 was topical near-leakage; marginal object-preference is ~identical across expository registers -> can't discriminate domain (signal is in the JOINT structure) |
+| soft-AND ties additive head-to-head | store not dense enough for the fan effect (shared-role events) to make multiplicative beat additive; only more robustly SEPARATED from simplewiki |
+| generative (DistMult) ties/loses | low-rank factorization compresses away exact-instance discrimination; candidates are common SEEN words so retrieval suffices, unseen-tuple edge unstressed |
+| grounded-12d LOWERS score | the 12-d Lancaster space is too COARSE -- science patients collapse to near-identical vectors; GloVe-300 has the dimensionality (North-Star meaning-organ gap) |
+| store adds nothing on linear position | word-order dominates; a crude position cue is confidently WRONG on non-canonical items and precision-weighting can't tell reliable from not -> drowns the store. Proven by the fix: on a REAL parse the store helps |
+| richer extraction (PP/oblique) hurts -0.051 | only 2.4% of patients are PP-realized (they're direct objects, unlike recipients); adding all obliques injects noise for ~0 recall -> world-state template does not transfer |
+| store hurts on parse-correct items | when the parser found the object, the positional tiebreak decides better; the store only adds noise where syntax already resolves it -> gate it OFF there |
+| voice-aware tiebreak (VTIE) hurts -0.021 | VOICE != POSITION: on passive items the gold patient is POST-verbal 51% of the time (measured), so "nearest pre-verbal" is wrong half the time; 56% have >=2 pre-verbal candidates |
+| union of parsers marginal | spaCy already covers the frontend's easy hits; both fail on the SAME hard attachment bucket |
+| both parsers collapse on 19c | modern parser cannot read archaic syntax (trained on modern UD); the store partially carries it (register-relative) |
+THREE KINDS of negative: (a) a sophisticated mechanism that a simpler cue already covers on easy items while the
+hard items need a better PARSE (soft-AND, generative, store-on-position, store-on-parse-correct); (b) a substrate
+component too coarse/fragile for the regime (grounded-12d, 19c parser); (c) a heuristic that encodes a FALSE
+assumption (patients-are-PPs; passive-means-pre-verbal). None is an intrinsic ceiling; each names a component.
+
 ---
 
 ## TLDR (plain English)
@@ -271,13 +367,16 @@ part of it, rather than shipping the store alone.
 ## NEXT STEPS -- FOR THE STRATEGY SESSION (ordered)
 1. **RE-VERIFY** with the witness (`reverify` above). It rebuilds the stores from the disjoint corpora and
    asserts the FHRR recovery + all controls.
-2. **🥇 FILE THE #1 FOLLOW-ON -- THE PARSER STRUCTURAL ROLE-ROUTE (the biggest measured lever, +0.096 who-did-
-   what).** The highest-value result here: role assignment via `role_route="positional"` (linear position) is
-   the wrong cue; a PARSED-STRUCTURAL-WITH-VOICE route (patient = grammatical object `obj`/`dobj` or passive
-   subject `nsubj:pass`) beats it +0.04-0.09 CI-sep, and integrating THIS problem's register-native selectional
-   store on top adds a further +0.056-0.096 CI-sep (0.474 -> 0.514 -> 0.570). Prototype:
-   `experiments/exp_brain_faithful_who_did_what_v1.py`. File it as its own problem (the parser role-route +
-   noisy-channel selectional integration) -- it is where the who-did-what score actually moves.
+2. **🥇 FILE THE #1 FOLLOW-ON -- THE PARSER (accuracy + structural role-route), the biggest measured lever.**
+   Three findings scope it precisely: (a) role assignment must use the PARSED STRUCTURAL role (obj/passive-
+   subject + voice), NOT `role_route="positional"` (+0.14 CI-sep); (b) PARSER ACCURACY is the live bottleneck
+   -- a better parser (spaCy) beats the substrate frontend +0.073 CI-sep on modern, and 47.3% of gold patients
+   are parse-attach MISSES; (c) richer role extraction (the world-state PP template) is REFUTED for patients
+   (hurts -0.051; patients are objects, not PPs). So the problem is: raise who-did-what parse accuracy (adopt
+   spaCy-level / build the incremental parser) + the structural role-route, with THIS problem's register-native
+   store as the which-argument decider on top (+0.056-0.096). Prototypes: `exp_brain_faithful_who_did_what_v1.py`,
+   `exp_parser_headroom_v1.py`, `exp_richer_extraction_v1.py`. Modern lift 0.474 -> 0.514 -> 0.570 -> (~0.59 with
+   a better parse); 19c needs register-robust parsing (a separate hard problem -- both parsers collapse there).
 3. **FOLD THE AUDIT UPDATE** (above) into `BRAIN_FOUNDATIONAL_AUDIT.md` -- correct the p5 "+0.149" row to the
    disjoint-corpus reality (marginal ties; the ~+0.04 domain effect is joint-only); add that the who-did-what
    levers are the STRUCTURAL PARSE (grammatical-role+voice > linear position) and the selectional store the
