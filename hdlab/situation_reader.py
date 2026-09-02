@@ -622,7 +622,8 @@ class SituationReader:
                  track_belief: bool = False,
                  bind_event_tokens: bool = False,
                  predict_revise: bool = False,
-                 track_world_state: bool = False) -> None:
+                 track_world_state: bool = False,
+                 parser_arceager: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -792,6 +793,15 @@ class SituationReader:
         # mechanism). Lazily loads the cached FrameNet lexicon ONLY when on. spaCy-free / NO LLM.
         self.track_world_state = bool(track_world_state)
         self._ws_lex = None            # lazy hdlab.possession_operators FrameNet lexicon (cached json)
+        # IMPROVED PARSER (opt-in; default OFF = byte-identical). Wired 2026-09-02 from the owner-DONE parser problem
+        # the_extraction_front_end_parser_is_the_cross_task_bottleneck...: route the WIRED who-did-what front-end
+        # through the promoted arc-eager parser (hdlab.arceager_parser, UD-EWT UAS 0.775->0.842) instead of the
+        # richfeat ArcParser -- swapping ONLY the head source in _router_roles that feeds predicate_argument_frontend
+        # (matrix_verbs/route_predicate_arguments; the solver measured matrix-verb F1 +0.015, PP/oblique-role F1 +0.027).
+        # Refines role_route='wired' ONLY. Default OFF -> the ArcParser richfeat heads, byte-identical. NO LLM.
+        self.parser_arceager = bool(parser_arceager)
+        self._ae_W = None              # lazy hdlab.arceager_parser model weights
+        self._ae_parse = None          # lazy hdlab.arceager_parser.parse_with_conf
         self._causation_nlp = None     # lazy spaCy handle (loaded once, only when causation_typed)
         self._causation_lex = None     # lazy force lexicon
         # persistent readers (the banked backbone + single-sentence validity baseline)
@@ -920,7 +930,14 @@ class SituationReader:
         if not toks or len(toks) > 120:
             return {}
         pos = self._tagger.tag(toks)
-        heads = self._parser.parse(toks, pos).heads
+        if self.parser_arceager:                     # opt-in: route the wired parse through the improved arc-eager parser
+            if self._ae_W is None:
+                from hdlab.arceager_parser import load_model, parse_with_conf, MODEL_PATH
+                self._ae_W = load_model(MODEL_PATH)
+                self._ae_parse = parse_with_conf
+            heads = self._ae_parse(toks, pos, self._ae_W)[0]   # Dict[int,int] 1-based child->head (same shape as ArcParser)
+        else:
+            heads = self._parser.parse(toks, pos).heads
         out = {}
         for v in matrix_verbs(toks, pos, heads):
             roles = route_predicate_arguments(toks, pos, heads, v, quotative=False)

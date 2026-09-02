@@ -43,6 +43,7 @@ CAP_FLAGS = {
     "bind_event_tokens": "bound_event_token_backbone_live_reader_v1",  # the ASSEMBLY: sm.event_tokens + sm.episodic_store (the JOINT the silos can't store)
     "predict_revise": "predict_revise_live_reader_v1",          # parse-RECALL drop-fill: recover the DROPPED patient via relcl_resolver (EventRecord.patient_prerevise)
     "track_world_state": "world_state_dimension_live_reader_v1",  # mutable WORLD-STATE -> sm.world_state (who-has-what / open-closed at story-time t)
+    "parser_arceager": "parser_arceager_route_live_reader_v1",    # route the WIRED who-did-what front end through the improved arc-eager parser (refines role_route='wired')
     # role_route is a string ("positional" = off; "wired"/other = the assembly who-did-what path)
     "role_route": None,
     "spacy_pred_gate": None,
