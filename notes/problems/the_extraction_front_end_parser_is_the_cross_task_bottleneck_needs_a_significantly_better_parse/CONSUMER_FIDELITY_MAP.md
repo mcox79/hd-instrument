@@ -20,6 +20,15 @@ a live number only once the wired/graded path is turned on. *This is itself a fi
 does position-DOMINANT + cue-OVERRIDE (Competition Model, Bates & MacWhinney); pure-positional with no
 override is a degenerate placeholder.*
 
+## ⚠️ MEASURED CORRECTION (2026-09-02, `exp_parser_through_real_organs_v1` + `exp_predarg_frontend_organ_v1`)
+Running the improved parser THROUGH the real organs refined this map: the who-did-what **PATIENT-IDENTITY**
+organs (`graded_role_assigner.hybrid_role_patient`, `relcl_resolver.resolve_patient`) are **HEAD-INDEPENDENT** --
+they take `(toks,pos,v,cands)` and decide the patient from POSITION + VOICE + competition, NOT the parse heads
+(they score 0.541/0.411 on QA/19c, already label-free, unmoved by the parser). The parser's HEADS are consumed by
+`predicate_argument_frontend` (matrix-verb selection + PP/oblique roles), where the better parser DOES help
+CI-sep (matrix-verb F1 +0.015, PP-role F1 +0.027). So the "head-attachment" need in the rows below belongs to
+`predicate_argument_frontend`, NOT to the patient organs -- read the table with that correction.
+
 ## THE MAP — consumer × parse-property-needed × brain-fidelity × implication for the parser
 
 | consumer | live? | parse property it needs | brain-fidelity (audit verdict) | implication for THIS problem |

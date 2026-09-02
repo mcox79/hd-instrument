@@ -5,8 +5,8 @@ bar: "PASS = a coref-densified world-state register (entity + object keys resolv
 result: "PRIMARY (LitBank coref-CoNLL, ALL 25 gold-coref docs, the reader's OWN he/she coref; who-has-what over state-changing transfers, n=135 queries): binding the HOLDER through the reader's coref recovers who-has-what READER 0.7185 [0.6444,0.7926] vs coref-BLIND 0.5704 [0.4889,0.6519], PAIRED delta +0.1481 [0.0963,0.2076] (CI half-width 0.056, excludes 0). On the DECISIVE he/she-holder subset -- the population where coref-blindness bites, n=26: coref-BLIND 0.000 [0,0] -> READER 0.500 [0.3077,0.6923], +0.500; GOLD-coref oracle 1.000. BUILD-ACROSS of the two routes the reader's coref LACKS (MCScript2 first-person, 2729 stories / 8777 transfers, through the brain-foundational EntityBinder): OBJECT ANAPHORA relocates 259/374 'it'-transfers blind applied to the wrong object (who-has-what impact 0.69; 'it'-antecedent coverage 0.65); the INDEXICAL narrator rule collapses the narrator that blind fragments into >=2 case-keys in 5.3% of stories. OBJECT-ANAPHORA ACCURACY on REAL LitBank gold (n=189 gold-clustered object pronouns, `exp_world_state_object_anaphora_gold_v1`): resolving 'it/they' by RECENCY 0.730 [0.667,0.794] vs random-twin NULL p95 0.323 (CI-sep) vs first-mention floor 0.132 vs the reader's coref 0.000 (abstains -- out of scope); subject-prominence Centering HURTS objects (salience 0.518, paired -0.212 [-0.286,-0.132])."
 floor: "Strongest floor = the coref-BLIND raw-string register (the register wired today): aggregate 0.5704 [0.4889,0.6519]; on he/she holders 0.000 (a pronoun holder string maps to NO discourse entity). Gate is the PAIRED reader-minus-blind delta +0.1481 [0.0963,0.2076] (excludes 0); the he/she subset is fully separated (reader lower CI 0.3077 > blind upper CI 0.000). GOLD-coref oracle 1.000 = ceiling. by-holder-class: nominal 0.731->0.798, he/she 0.000->0.500, object 'it' 0.2->0.2 (reader out of scope = the object-anaphora residual, named with its number)."
 controls: "(1) SHUFFLED-COREF twin (same clusters, wrong assignment): aggregate single-draw same-gender twin 0.652, reader-minus-twin +0.0667 [0.0148,0.1185] (excludes 0); on the he/she subset a K=2000-permutation NULL mean 0.078 / p95 0.154, reader 0.500 >> p95 (CORRECT identity, not coref-shape, does the work). (2) POSITIVE CONTROL change-point: the reported holder CHANGES at the transferring event on 95.6%% of queries (not a constant echo). (3) GOLD-coref oracle == 1.000 (the register is faithful given correct entities -- isolates Stage-1 from Stage-2). (4) PLEONASTIC-'it' filter active: object anaphora ABSTAINS on expletive 'it' / no-antecedent (never-confidently-wrong). (5) SCOPE-OUT controls: we/you ABSTAIN (not bound) -- a named residual (group entity / rotating addressee), not a wrong bind. (6) OBJECT-ANAPHORA controls (LitBank gold, n=189): random-twin NULL p95 0.323 loses to recency 0.730; first-mention floor 0.132 (can-fail); reader coref 0.000 (abstains); subject-salience ablation HURTS (paired -0.212 CI-sep) = the parameter sweep."
-files_changed: "experiments/world_state_entity_binding.py (the brain-foundational Stage-1 dispatcher: pleonastic->indexical->anaphoric->object-anaphora->nominal); experiments/exp_world_state_coref_diagnose_v1.py (residual decomposition); experiments/exp_world_state_coref_densify_v1.py (LitBank he/she holder densification: blind vs reader vs gold vs shuffled-null twin); experiments/exp_world_state_deixis_object_v1.py (MCScript2 build-across of the indexical + object routes, routed through the EntityBinder); experiments/exp_world_state_object_anaphora_gold_v1.py (object-anaphora ACCURACY on real LitBank gold: recency vs salience vs first-mention floor vs random-twin NULL); experiments/exp_world_state_he_she_ceiling_v1.py (CEILING-LIFT: the landed graded_coref_pick vs the reader's resolver vs recency/hard-tier over the same gold pool); verification/test_world_state_coref_densify.py (13/13 witness). NO hdlab/ written (Q111 -- the proposed wire is in FOR STRATEGY below)."
-reverify: ".venv/Scripts/python.exe verification/test_world_state_coref_densify.py   # 13/13 -- recomputes EntityBinder routes + register core + LitBank he/she headline (reader>blind, gold=1.0, change-point) + MCScript2 object-anaphora impact + object-anaphora ACCURACY on LitBank gold + the graded-coref CEILING-LIFT FROM SOURCE"
+files_changed: "experiments/world_state_entity_binding.py (the brain-foundational Stage-1 dispatcher: pleonastic->indexical->anaphoric->object-anaphora->nominal); experiments/exp_world_state_coref_diagnose_v1.py (residual decomposition); experiments/exp_world_state_coref_densify_v1.py (LitBank he/she holder densification: blind vs reader vs gold vs shuffled-null twin); experiments/exp_world_state_deixis_object_v1.py (MCScript2 build-across of the indexical + object routes, routed through the EntityBinder); experiments/exp_world_state_object_anaphora_gold_v1.py (object-anaphora ACCURACY on real LitBank gold: recency vs salience vs first-mention floor vs random-twin NULL); experiments/exp_world_state_he_she_ceiling_v1.py (CEILING-LIFT: the landed graded_coref_pick vs the reader's resolver vs recency/hard-tier over the same gold pool); experiments/exp_world_state_endtoend_whohaswhat_v1.py (END-TO-END combined who-has-what through the FULL binder vs blind, deterministic non-circular gold, MCScript2); verification/test_world_state_coref_densify.py (14/14 witness). NO hdlab/ written (Q111 -- the proposed wire is in FOR STRATEGY below)."
+reverify: ".venv/Scripts/python.exe verification/test_world_state_coref_densify.py   # 15/15 -- recomputes EntityBinder routes + register core + LitBank he/she headline + object-anaphora ACCURACY on gold + graded CEILING-LIFT + END-TO-END combined who-has-what + CONFIDENCE-ABSTAIN precision-lift FROM SOURCE"
 ---
 
 # The world-state register is coref-blind: the fix is a two-stage entity binder, and "coref" is three routes, not one
@@ -17,8 +17,12 @@ recovers who-has-what, blind 0.000 -> 0.500 on the population where blindness bi
 95.6%). But **the disk outranks the brief**: "wire the reader's own coref" cannot resolve object "it" or
 first-person "I" (the reader's coref is he/she-only), and those -- not he/she -- are the dominant real-prose gap.
 So I built the FULL brain-foundational solution: a two-stage **EntityBinder** implementing all three Stage-1
-reference routes (indexical / anaphoric / object anaphora), and measured each where gold or a deterministic
-answer exists. SOLVED, with the residual precisely located and the ceiling named.
+reference routes (indexical / anaphoric / object anaphora). END-TO-END, the full binder takes entity-canonical
+who-has-what from coref-BLIND 0.285 to 1.000 (+0.715 CI-sep, MCScript2, deterministic gold; change-point 0.976).
+Each route is validated NON-circularly where gold exists (he/she 0.500, liftable to 0.750 via the landed graded
+resolver; object anaphora 0.730 on LitBank gold; indexical the dominant, cheapest route). SOLVED, with every
+residual located, the ceiling named AND quantified, and one earlier claim self-corrected (first-person is the
+biggest who-has-what gap by size, not "low-impact").
 
 ## THE OPENING MOVE -- how does the brain do this? (which structure; replicate or substitute)
 Binding "who has what" is TWO stages the literature keeps distinct (research drill 2026-09-01, primary-lit
@@ -74,10 +78,29 @@ resolution). All 25 LitBank coref docs, n=135 who-has-what queries over state-ch
   blind applied to the wrong object** (who-has-what impact 0.69). Blind silently loses the object's holder ("I
   grabbed the cup ... I gave **it** to the waiter" -> blind's `have(cup)` stays stale forever); the object route
   recovers it.
-- **INDEXICAL narrator rule (cheap, low-impact -- the refinement):** first-person "I" is a STABLE self-key, so
-  blind tracks it fine in **94.7%** of stories; it fragments the narrator into >=2 case-keys ({i, me}) in only
-  **5.3%**. So the dominant 64.7% first-person share OVERSTATES coref's who-has-what cost -- it needs the *cheap*
-  indexical normalization (i/me/my -> NARRATOR), not the hard anaphoric coref the brief invoked.
+- **INDEXICAL narrator rule (DOMINANT-by-size, but CHEAP -- and I CORRECT an earlier claim here):** first-person
+  fragments the narrator across CASE-forms ({i, me}) in only 5.3% of stories, so I first called it "low-impact."
+  The END-TO-END test (below) shows that was WRONG for *entity-canonical* who-has-what: the register is queried for
+  the ENTITY (the protagonist dimension; Zwaan-Radvansky), and blind stores "i", which is not the NARRATOR entity --
+  so blind fails on ALL first-person holders. Corrected: first-person is the BIGGEST who-has-what gap by SIZE (it is
+  ~65% of holders) but the CHEAPEST to fix (a deterministic i/me/my -> NARRATOR rule, NOT anaphoric coref). "It
+  overstates COREF's cost" stands (it is deixis, not coref); "it is low-impact" does not.
+
+### 3b. END-TO-END combined who-has-what -- the FULL binder vs blind (`exp_world_state_endtoend_whohaswhat_v1`)
+The routes above are proven separately; this is the ONE number for the whole binder. On 2437 real MCScript2
+who-has-what Qs with DETERMINISTIC, non-circular gold (first-person->NARRATOR; named->name; "it"->O only where O is
+the UNIQUE recent nominal -> FORCED, so blind keying on "it" is provably wrong and any resolver must pick O):
+- **coref-BLIND 0.285 [0.268,0.302] -> FULL BINDER 1.000, +0.715 [0.697,0.733] CI-sep**; change-point 0.976; gold
+  1.000 (sanity).
+- **Route decomposition:** the INDEXICAL route is the bulk (blind 0.285 -> blind+indexical 0.981, +0.696); OBJECT
+  ANAPHORA adds +0.019 [0.014,0.025] CI-sep on top (small here because the deterministic-gold subset is
+  nominal-object-heavy and excludes ambiguous "it"; its full IMPACT is the 259 relocations in 3a).
+- **HONEST caveat (why this is the GAP number, not an independent binder-accuracy):** on the unambiguous-gold
+  subset the binder EQUALS the gold rule by construction (full==gold), so this quantifies the BLIND-register GAP and
+  the route decomposition -- NOT "the binder resolves correctly" (that is circular here). The binder's per-route
+  ACCURACY *where it can err* is the NON-circular LitBank-gold numbers: he/she 0.500 (graded 0.750), object 0.730.
+  Together: the wired register answers entity-canonical who-has-what only 28.5% of the time; entity binding closes
+  it, most cheaply via the indexical route.
 
 ### 3. OBJECT-ANAPHORA ACCURACY on real gold (`exp_world_state_object_anaphora_gold_v1`)
 LitBank's coref CoNLL gold-clusters NON-PERSON entities too (facility/location/vehicle/group), so 354
@@ -94,7 +117,26 @@ same cluster). Resolving them to a prior nominal mention (correct = matching gol
   Cf-ranking (subject>object) is the WRONG cue for "it"; recency/locality is right. `W_SUBJECT` -> drop it. The
   object route is RECENCY + number agreement + pleonastic filter.
 
+### 4. CONFIDENCE-ABSTAIN + the ceiling residual UNDERSTOOD (`exp_world_state_he_she_ceiling_v1`)
+Two brain-faithfulness additions surfaced by "is the wall understood, and does the register defer like the brain?":
+- **CONFIDENCE-ABSTAIN (the never-confidently-wrong defer, PINNED -- Nieuwland & Van Berkum 2008 Nref "hold
+  both").** The graded resolver emits a calibrated ENTROPY; using it to abstain, who-has-what accuracy-when-
+  committed rises monotonically as the register defers on uncertain coref: coverage 1.00 -> 0.721; 0.60 -> 0.860;
+  0.40 -> 0.916; 0.20 -> 0.970. So the register CAN answer its confident fraction at ~0.92-0.97 instead of writing
+  a wrong holder -- a wrong holder is worse than "unknown" for downstream state tracking.
+- **THE 0.75 CEILING RESIDUAL IS UNDERSTOOD (a finer drill, not a mystery):** graded's wrong picks have ~2x the
+  antecedent distance (0.78 vs 0.38 sentences) at the SAME pool size (35.98 vs 34.63) -- so the wall is
+  LONG-DISTANCE reference (ACT-R base-level decay), NOT same-gender pool competition; and wrong picks carry 3x the
+  entropy (0.069 vs 0.023), so the defer signal FLAGS exactly the errors abstention removes. The wall is a
+  memory-decay gap the brain also pays, and it is self-flagged.
+
 ## WHAT I DID NOT ESTABLISH (withdraw-first)
+- **The PARSER/extraction cap on LIVE who-has-what is NOT freshly quantified here** -- the parent measured
+  recipient-on-GIVE extraction at 0.33 and agent at 0.51, which caps the register REGARDLESS of coref (no extracted
+  recipient -> no holder to bind). A clean CI-separated gold-roles-vs-parsed-roles ablation needs gold SRL role
+  annotation, which is NOT on disk (LitBank/MCScript2 annotate coref, not roles). So this is a NAMED, parent-
+  quantified cap and a filed next-problem (measure through a QA-SRL / OntoNotes-SRL gold), not something this
+  submission establishes. It is the shared upstream lever for the register AND the meaning channel.
 - **The object-anaphora who-has-what IMPACT on MCScript2 (259 relocations) is a lever size, not an accuracy** --
   its resolver accuracy is proven on LitBank gold (0.730 above), but MCScript2 has no gold, so the 259 is "blind
   applied the transfer to the wrong key" (a provable blind failure), not "the resolver picked the right object
@@ -123,9 +165,13 @@ same cluster). Resolving them to a prior nominal mention (correct = matching gol
    routes of wildly different size, difficulty, and brain mechanism. The parent's located residual ("coref") was
    right that pronouns are the gap but wrong that it is one thing -- 65% of it is the *cheapest* route (first-person
    indexical), not the hard anaphoric coref.
-2. **First-person "I" is a STABLE self-key, so it is NOT the who-has-what wall it appears to be.** Blind tracks it
-   fine 94.7% of the time. The who-has-what damage from coref-blindness is concentrated in OBJECT ANAPHORA (the
-   transfer lands on "it", not the cup) and he/she holders -- not the 65% first-person share.
+2. **First-person is the BIGGEST who-has-what gap by SIZE but the CHEAPEST to fix (a self-correction the end-to-end
+   forced).** I first called it "low-impact" because blind tracks "i" *consistently* (case-fragmentation is only
+   5.3%). But who-has-what is an ENTITY question, and blind's "i" is not the NARRATOR entity -- so the end-to-end
+   test shows blind fails on ALL first-person holders (0.285 -> 0.981 from the indexical rule alone). The lesson:
+   "consistent surface key" is NOT "correct entity" -- the situation model needs the entity, and first-person needs
+   deixis (cheap, deterministic), not anaphora. Refusing to let the tidy 5.3% fragmentation number stand once the
+   entity-canonical framing exposed it is the kind of correction that matters.
 3. **The brain uses TWO Stage-1 operations, not one** (indexical lookup vs anaphoric search). Building the binder
    as a single anaphoric resolver would have been wrong; the dispatcher (route-by-mention-type) is the faithful
    copy, and it is why the fix generalizes across genres (first-person everyday AND third-person literary).
@@ -243,4 +289,11 @@ None.
    classifier. (The he/she + object routes together are the full non-first-person entity binder.)
 4. Add the embedded-deictic-center (quoted-"I") scope via `hdlab.coreference_resolver.run_principle_b_deixis` for
    dialogue-bearing prose; handle "we" (group entity) and "you" (rotating addressee) as their own routes.
-5. Wire a downstream who-has-what QA consumer of `sm.world_state` ("who has the key now?") -- the payoff.
+5. Wire a CONFIDENCE-ABSTAIN gate on the register: carry the graded ENTROPY and defer the holder write on uncertain
+   coref (demonstrated precision lift: coverage 0.40 -> acc 0.916). A wrong holder is worse than "unknown"
+   downstream; this is the never-confidently-wrong discipline in code, and it composes with the existing
+   precondition-read/bridging layer.
+6. QUANTIFY THE PARSER CAP (the shared upstream lever): measure LIVE who-has-what with gold roles vs the parser's
+   roles on a QA-SRL / OntoNotes-SRL gold -- the parent put recipient extraction at 0.33, which caps the register
+   regardless of coref. No gold SRL is on disk, so this is a resource/next-problem.
+7. Wire a downstream who-has-what QA consumer of `sm.world_state` ("who has the key now?") -- the payoff.
