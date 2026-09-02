@@ -224,3 +224,243 @@ sources; the adjudication does not depend on them.)
   *Comp. Ling.* selectional-preference generalization.
 - Williams (1981) Right-hand Head Rule (compound heads); Jackendoff (1977) X-bar syntax; Collins (2003) head-driven
   parsing (NP-head-finding as a distinct syntactic operation).
+
+---
+
+## REPRESENTATION CAPACITY + REMAINING WALLS
+**Read-only adjudication of a NEW on-disk finding: agent×verb composition as forward-PREDICTION of the held-out
+patient (MRR) is REAL in a 100-d register-native PPMI-SVD space (+0.032 over exemplar CI-sep; +0.040 vs
+agent-shuffle CI-sep; composed-exemplar +0.014 over the organ's centroid-marginal) but TIES its agent-shuffle twin
+(+0.002 ns) in the 12-d sensorimotor GROUNDED space `hdlab/predictive_reader.py` uses, where exemplar still beats
+centroid (+0.036 CI-sep).** Solver's read to adjudicate: *the composition mechanism is real but
+REPRESENTATION-BOUNDED — 12-d sensorimotor is too coarse to carry AGENT IDENTITY separably for the agent×verb
+conjunction; a richer distributed space supports it.*
+
+### VERDICT: the read is BRAIN-FAITHFUL, with ONE precision refinement (separate the two dimensionalities). No new SELECTION wall found; one cheap SELECTION cue (morphological case) is under-weighted for the register.
+
+---
+
+### A. REPRESENTATION DIMENSIONALITY / CAPACITY — is the brain's thematic-fit / generalized-event-knowledge code HIGH-D and DISTRIBUTED, and is a low-D sensorimotor-only code known to be INSUFFICIENT for the conjunction? → CONFIRMED (high confidence)
+
+The brain's semantic representation that carries thematic fit / selectional preference / generalized event
+knowledge is a **high-dimensional, distributed, transmodal representation**, not a short sensorimotor feature
+vector. Controlled Semantic Cognition (Lambon Ralph, Jefferies, Patterson & Rogers 2017, *Nat. Rev. Neurosci.*
+"The neural and computational bases of semantic cognition") is explicit: modality-specific **spokes** (perception,
+action, valence, language) feed a single **transmodal HUB in the anterior temporal lobe (ATL)**, and it is the HUB
+— a deep, distilled, high-dimensional space — that supports **fine conceptual individuation and generalization**,
+NOT the spokes. The sensorimotor spokes carry coarse experiential/grounding attributes.
+
+**This is exactly the 12-d-vs-100-d split.** The 12-d GROUNDED space our forward-prediction organ uses is a
+**sensorimotor SPOKE** — it is the Lancaster-family code (Lynott, Connell et al. 2020, *Behav. Res. Methods*: the
+Lancaster Sensorimotor Norms are **11 dimensions** — 6 perceptual [touch, hearing, smell, taste, vision,
+interoception] + 5 action effectors [mouth, hand, foot, head, torso]; a 12th grounding dim is a common add). That
+code is ADEQUATE for coarse plausibility/imageability/concreteness (its designed purpose) but **cannot individuate
+two animate human agents.** "Mechanic" and "journalist" are near-collinear in sensorimotor space — same
+animacy, similar perceptual/action profiles — so **conditioning the patient prediction on agent adds ~no
+information → composition ties its agent-shuffle twin.** Even Binder et al. (2016)'s richer ~65-attribute
+experiential set is a spoke, not the hub. The AGENT-IDENTITY signal that distinguishes what a *mechanic* vs a
+*journalist* characteristically acts upon lives in **distributional / associative co-occurrence structure**, which
+a 100-d PPMI-SVD space captures and a sensorimotor spoke discards. This is the settled
+**embodied-vs-distributional complementarity** result: distributional and sensorimotor information make
+**complementary** contributions and models trained on BOTH beat either alone (Andrews, Vigliocco & Vinson 2009,
+*Psych. Rev.* "Integrating experiential and distributional data to learn semantic representations"; Andrews, Frank &
+Vigliocco 2014) — with the distributional stream specifically carrying the **relational/associative** structure
+that grounding lacks. A ~12-dim code is also far below the effective dimensionality (hundreds) that fMRI/behavioural
+work assigns to human conceptual space.
+
+**WHERE WE DIFFER, PRECISELY:** our forward-prediction organ computes thematic FIT in a **sensorimotor SPOKE (12-d)
+as if it were the hub.** The brain computes the agent×verb→patient expectation over the **high-D transmodal ATL
+hub**, where fillers are individuated. The 100-d PPMI-SVD result is a *proxy for the hub*; the 12-d sensorimotor
+result is a *spoke used out of role*. The split is not a bug and not a ceiling — it is the **expected signature of
+using a spoke where a hub is required.** Brain-faithful.
+
+### B. CONJUNCTIVE ROLE-FILLER BINDING — is agent×verb composition a conjunctive binding op that inherently needs capacity, and is the 12-d space the wrong basis even though FHRR binding is high-D? → CONFIRMED, and this is the crux the solver's framing must get exactly right (high confidence)
+
+**Frankland & Greene (2015), *PNAS* 112:11732–11737, "An architecture for encoding sentence meaning in left
+mid-superior temporal cortex."** MVPA found that **left mid-superior temporal cortex (lmSTC) encodes "who did what
+to whom" in DISTINCT agent and patient subregions** — the neural pattern for a given filler *as agent* differs from
+the same filler *as patient*. That is **conjunctive role⊗filler coding with explicit constituent structure** — the
+neural instantiation of role-filler binding (the computational-level frame is Smolensky 1990 tensor-product
+representations / Plate 1995 HRR; capacity to bind–store–unbind without crosstalk scales with dimensionality). So
+YES: agent×verb→patient composition **is** a conjunctive binding operation, and conjunction inherently needs
+representational capacity.
+
+**BUT the capacity that is short is NOT the binding algebra — it is the FILLER CONTENT.** There are two distinct
+dimensionalities, and conflating them is the one error to avoid:
+1. **The binding ALGEBRA dimensionality** — our FHRR/VSA bind is already high-D. **This is fine; it is not the
+   bottleneck.**
+2. **The FILLER CONTENT dimensionality** — the semantic vector of "mechanic"/"journalist" that gets bound/compared.
+   In the failing case this is the **12-d sensorimotor content**, in which the agent filler is not individuated.
+
+The conjunction P(patient | agent, verb) only shifts the prediction if the AGENT filler is individuated finely
+enough that conditioning on it changes the distribution. A high-D binding algebra over **near-collinear 12-d
+fillers** still yields near-identical bindings → no conditioning signal. So the solver's proposed differ is
+**exactly right and should be stated this way:** *we compute thematic FIT in a 12-d content space, but the brain's
+conjunction (lmSTC role⊗filler) operates over hub-grade, high-D distributed filler representations (ATL hub).* The
+fix is **NOT to change the binding operation** (keep FHRR — consistent with the standing owner ruling that FHRR is
+the chosen binding basis) — it is to **feed hub-grade (distributional/high-D) filler vectors into the conjunction**
+instead of a sensorimotor spoke. Brain-faithful; the crux lands.
+
+### C. EXEMPLAR vs PROTOTYPE across representations — is the exemplar>centroid advantage REPRESENTATION-DEPENDENT? → CONSISTENT / brain-plausible (medium-high confidence)
+
+Yes, and the on-disk pattern (exemplar>centroid in 12-d; centroid≥exemplar-marginal in 100-d; composed-exemplar
+best in 100-d) matches the established account. **Erk (2007, EMNLP "A simple, similarity-based model for selectional
+preferences") and Erk, Padó & Padó (2010, *Comput. Linguist.* "A flexible, corpus-driven model of regular and
+inverse selectional preferences")** represent a role's preference as the **set of attested filler EXEMPLARS**
+(similarity to nearest/aggregate instances); **Baroni & Lenci (2010, *Comput. Linguist.* "Distributional Memory")**
+use a **PROTOTYPE** — one centroid vector averaging the typical fillers' dependency vectors. Both were benchmarked on
+the same McRae/Padó thematic-fit ratings, so they are the field's directly-comparable pair.
+
+Erk's core argument is precisely that a **single centroid COLLAPSES the MULTIMODAL structure** of a role's fillers
+(a verb's plausible patients form several clusters). **That collapse is catastrophic in a LOW-D space** — 12 dims
+cannot hold multiple filler modes, so the centroid is a poor summary and **exemplars win.** In a HIGH-D space,
+near-orthogonality means a centroid **retains discriminating structure** even under averaging, so the **centroid is
+already expressive** and ties the exemplar-marginal — exactly your 100-d result. And **composed-exemplar best in
+100-d** is consistent: an instance store lets you condition on THIS agent+verb (retrieve the patients that actually
+co-occurred), which a marginal centroid structurally cannot. Brain angle (medium confidence on the tight mapping):
+prototype ≈ neocortical semantic gist; exemplar/instance ≈ MTL/hippocampal **episodic** retrieval; **Complementary
+Learning Systems (McClelland, McNaughton & O'Reilly 1995)** predicts the brain uses BOTH, with episodic instances
+sharpening a **conjunctive** prediction on top of a semantic prototype — which is what composed-exemplar-best shows.
+Brain-consistent; the representation-dependence of the exemplar advantage is expected.
+
+### D. SWEEP FOR A MISSED WALL — any who-did-what brain mechanism not yet accounted for that is a fundable lever? → ONE under-weighted CHEAP SELECTION cue (morphological case), register-matched; secondary error-mechanism (retrieval interference); rest largely covered.
+
+Given what is already accounted for (position dominates English who-did-what SELECTION per the Competition Model;
+composition = a PREDICTION effect, representation-bounded per A–C above; canonical-DO residual 89% NP-head
+structural; non-canonical handled by the `graded_role_assigner` Competition-Model organ whose named residual =
+verb-subcategorization SUPPLY + incremental clause segmentation + coref), I evaluated five candidates:
+
+1. **MORPHOLOGICAL CASE (pronoun nom/acc + who/whom) — GENUINELY UNDER-WEIGHTED, cheap, and REGISTER-MATCHED. (high
+   confidence it is a real cue; medium that it is actually absent from the organ.)** Brain basis: in the Competition
+   Model, **morphology is the HIGHEST-validity cue where it exists** — case-marking languages let morphology
+   OVERRIDE word order (German/Italian speakers follow case, not position, in cue-conflict). English is usually
+   called caseless, but it has a **RESIDUAL case system on pronouns (he/him, she/her, they/them, we/us, I/me) and
+   who/whom** that is a reliable role cue **exactly in the position-AMBIGUOUS regime** where thematic fit is
+   otherwise the only lever: fronted patients ("*Him* she never forgave"), relative-clause patients ("the man *whom*
+   she loved"), and pronoun objects generally. **Crucially, 19c prose PRESERVES "whom" and pronoun case far better
+   than modern text** — so this cue is MORE available in the target register than in a modern gold. It is **NOT in
+   the named residual** (verb-subcat + clause-seg + coref), it is **surface-cheap** (morphological lookup, no
+   distributed store), and it resolves who-did-what in the non-canonical regime **without needing thematic fit at
+   all.** RECOMMENDATION: add nominative/accusative pronoun case + who/whom as an explicit high-validity cue in
+   `graded_role_assigner` (verify first whether it is already weighted; the named residual implies not). This is the
+   strongest fundable lever the sweep surfaced.
+
+2. **CUE-BASED RETRIEVAL INTERFERENCE (Lewis & Vasishth 2005, *Cogn. Sci.*; ACT-R) — REAL, distinct, but
+   mechanism-heavy. (medium)** A distinct ERROR mechanism, not a cue: at the verb the parser **retrieves** the
+   argument from content-addressable memory using role cues; a **similarity-based-interfering** competitor NP causes
+   mis-retrieval → a who-did-what error. Brain basis: content-addressable cue-based retrieval (ACT-R; MTL/PFC).
+   Predicts role errors scale with **NP similarity + dependency distance** — i.e. it bites on **long/embedded 19c
+   sentences**, precisely the hard tail. Not covered by the current organs (which model cue-weighted *assignment*,
+   not *retrieval interference during dependency formation*). Fundable but requires an incremental retrieval model —
+   heavier than case; MEDIUM priority, relevant mainly to the long-sentence residual. (Note: the LV05 parser is
+   left-corner, so **incremental left-corner parsing is already subsumed** under the named "incremental clause
+   segmentation.")
+
+3. **CONSTRUCTION-GRAMMAR ARGUMENT-STRUCTURE CONSTRUCTIONS (Goldberg 1995, 2006) — largely a REFRAMING of an
+   existing cue. (medium-low as a new lever.)** The construction/frame (passive, cleft, dative, caused-motion,
+   tough-movement) carries role meaning independent of the verb and supplies a **prior over role assignment from the
+   syntactic frame.** But that prior is essentially **what the Competition Model's syntactic cue already computes**;
+   the "learned inventory of constructions" framing overlaps heavily with clause-segmentation + non-canonical-frame
+   recognition. Useful as a *reframing* of how to enumerate non-canonical frames, not a distinct fundable store.
+   (Neural evidence for construction-level coding is thinner than for A/B above.)
+
+4. **DISCOURSE / REFERENTIAL EVENT-MODEL CONSTRAINT (Altmann & Kamide 1999; Kamide, Altmann & Haywood 2003;
+   Metusalem et al. 2012) — COVERED, and it lives in the PREDICTION pathway.** Prior-discourse event models
+   pre-activate upcoming arguments (topic/given entities, event schemas). This is a **bigger version of the same
+   forward-prediction mechanism** the file already routes composition to — not a new SELECTION lever for canonical
+   DOs — and coref is already named. Covered.
+
+5. **ANIMACY as the cheap high-validity PARTIAL selection cue — verify it is explicit. (housekeeping.)** English DOES
+   use an animate-first bias as a secondary cue (a subset of the Competition Model cue set), cheaper than full
+   agent×verb composition and a partial selection cue even in canonical English. Likely already inside the
+   `graded_role_assigner` cue set; flag to confirm animacy is weighted as its own cue distinct from full thematic fit.
+
+**No brain mechanism for who-did-what COMPREHENSION was found that is both uncovered AND a large lever.** The only
+genuinely under-weighted *selection* lever is **morphological case**, which is cheap and register-matched; retrieval
+interference is real but heavy; the rest are covered or reframings.
+
+---
+
+### BOTTOM LINE (answers to the two questions asked)
+
+**(1) Is "composition is representation-bounded; 12-d sensorimotor is too coarse for the agent×verb conjunction; the
+brain uses a high-D distributed conjunctive representation" brain-faithful and correctly stated?**
+**YES — brain-faithful, with ONE precision refinement.** The refinement: separate the two dimensionalities. The
+**binding/conjunction ALGEBRA (FHRR/lmSTC role⊗filler) is high-D and is NOT the bottleneck** — do not say "the
+conjunction is too coarse." What is too coarse is the **FILLER CONTENT representation**: a 12-d sensorimotor SPOKE
+that cannot individuate agent identity, used where the brain uses the **high-D transmodal ATL hub** (Lambon Ralph
+2017). So the precise claim is: *the composition MECHANISM is real (conjunctive role-filler binding — Frankland &
+Greene 2015); it is bounded by the CONTENT space, not the binding op; a sensorimotor spoke (Lancaster ~11-d /
+Binder ~65) is adequate for coarse plausibility but cannot carry agent identity for the conjunction, whereas a
+hub-grade high-D distributional space (100-d PPMI-SVD) can.* The 12-fails/100-works split is the **expected
+signature of a spoke used where a hub is required**, not a ceiling. The remedy is representational (feed hub-grade
+fillers into the FHRR conjunction), not algebraic (do not replace FHRR).
+
+**(2) Any missed wall?** One cheap, under-weighted, **register-matched SELECTION cue: MORPHOLOGICAL CASE** (pronoun
+nominative/accusative + who/whom), a highest-validity Competition-Model cue that is *better preserved in 19c prose
+than modern text* and resolves who-did-what in the position-ambiguous regime without thematic fit — recommend adding
+it explicitly to `graded_role_assigner` (verify it isn't already weighted). Secondary: **cue-based retrieval
+interference** (Lewis & Vasishth 2005) is a real, distinct error mechanism for long/embedded sentences but is
+mechanism-heavy. Construction-grammar and discourse-event constraint are largely covered (syntactic cue-weighting /
+the prediction pathway). No large uncovered lever.
+
+### TLDR (plain English)
+The machine that guesses "given this doer and this action, what's the likely thing acted on" only works when each
+doer is described in enough detail to tell doers apart. In the coarse 12-number "how it feels to see/touch/do it"
+code, a mechanic and a journalist look almost identical (both are people who do things), so knowing which one is
+doing the acting tells you nothing extra — and the guess collapses. In a richer 100-number "what words this word
+hangs around" code, mechanic and journalist are clearly different, so the guess works and beats the plain average.
+The brain agrees: it stores meaning in a big, rich, distributed hub (front of the temporal lobe), and it stamps
+"who did it / to whom" into nearby brain patches (Frankland & Greene). Our binding machinery is fine and high-detail
+— the problem is only that we fed it the thin 12-number description instead of the rich one. So the solver's read is
+right, with one wording fix: it's the *description of the doer* that's too thin, not the *combining operation*. On
+missed levers: old prose still uses "whom" and he/him vs she/her, which flat-out tells you who's the object in
+scrambled sentences — that's a cheap, reliable clue we may not be using, and it's better preserved in 1800s writing
+than today's. Worth adding.
+
+### QUESTIONS
+None blocking. (One flagged uncertainty, non-blocking: whether pronoun/who-whom morphological case is ALREADY a
+weighted cue in `graded_role_assigner` — the named residual implies not, but this should be verified on disk before
+funding it as a new lever.)
+
+### NEXT STEPS (for strategy)
+1. **Restate the composition finding with the two-dimensionalities refinement:** real conjunctive mechanism,
+   CONTENT-bounded not binding-bounded; the remedy is to feed hub-grade (distributional/high-D) filler vectors into
+   the existing FHRR conjunction — a representation swap, NOT a binding-algebra change (keep FHRR).
+2. **Route composition to the forward-prediction pathway on a GRADED metric** (as the prior sections already
+   recommend), now specifically **on the 100-d register-native representation, not the 12-d sensorimotor spoke** —
+   the spoke is the wrong basis for this conjunction.
+3. **File morphological case (pronoun + who/whom) as a candidate cheap SELECTION cue** for `graded_role_assigner`,
+   register-matched to 19c; first verify on disk whether it is already weighted, and whether animacy is an explicit
+   cue.
+4. **Log cue-based retrieval interference (Lewis-Vasishth) as a known, distinct, heavier error mechanism** for the
+   long/embedded-sentence residual — not a near-term lever, but the correct brain account of who-did-what errors in
+   complex sentences (so it is not mistaken later for a thematic-fit gap).
+
+### CITATIONS (this section)
+- Lambon Ralph, Jefferies, Patterson & Rogers (2017) *Nat. Rev. Neurosci.* "The neural and computational bases of
+  semantic cognition" (Controlled Semantic Cognition; hub-and-spoke; transmodal ATL hub vs modality spokes).
+- Frankland & Greene (2015) *PNAS* 112:11732–11737 "An architecture for encoding sentence meaning in left
+  mid-superior temporal cortex" (lmSTC conjunctive agent/patient role⊗filler coding; constituent structure).
+- Smolensky (1990) tensor-product representations; Plate (1995) Holographic Reduced Representations (binding capacity
+  scales with dimensionality) — computational-level frame for conjunctive binding.
+- Lynott, Connell, Brysbaert, Brand & Carney (2020) *Behav. Res. Methods* "The Lancaster Sensorimotor Norms" (11
+  dimensions: 6 perceptual + 5 action); Binder et al. (2016) *Cogn. Neuropsychol.* brain-based componential semantics
+  (~65 experiential attributes).
+- Andrews, Vigliocco & Vinson (2009) *Psych. Rev.* "Integrating experiential and distributional data to learn
+  semantic representations"; Andrews, Frank & Vigliocco (2014) (embodied+distributional complementarity; both-trained
+  models beat either alone; distributional stream carries relational structure).
+- Erk (2007) EMNLP "A simple, similarity-based model for selectional preferences"; Erk, Padó & Padó (2010)
+  *Comput. Linguist.* "A flexible, corpus-driven model of regular and inverse selectional preferences" (EXEMPLAR);
+  Baroni & Lenci (2010) *Comput. Linguist.* "Distributional Memory" (PROTOTYPE/centroid). Directly comparable on
+  McRae/Padó thematic-fit ratings.
+- McClelland, McNaughton & O'Reilly (1995) *Psych. Rev.* Complementary Learning Systems (neocortical prototype vs
+  hippocampal episodic/exemplar).
+- MORPHOLOGICAL CASE cue: Bates & MacWhinney Competition Model (morphology = highest-validity cue where present;
+  case-marking languages override word order). English residual case on pronouns + who/whom.
+- Lewis & Vasishth (2005) *Cogn. Sci.* cue-based retrieval / ACT-R (left-corner incremental parsing;
+  similarity-based retrieval interference as a who-did-what error mechanism).
+- Goldberg (1995, 2006) Argument Structure Constructions (construction-level role priors — largely a reframing of
+  the Competition Model syntactic cue).
+- Altmann & Kamide (1999); Kamide, Altmann & Haywood (2003); Metusalem et al. (2012) — discourse/referential
+  event-model prediction (covered; prediction pathway).
