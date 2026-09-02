@@ -1,7 +1,7 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: INTEGRATED 2026-09-02 (reverified 13/13 first-hand). REFUTED + a deconfounded positive — the parse/POS-data framing is the wrong lever (PP-attach = 8% of the 19c residual; the "-0.10 verb-ID collapse" is 87% copula-as-AUX correct-UPOS). The real 19c who-did-what lever is agent-COMPOSED thematic-fit on a CLEANED gold (routed to the priority-2 follow-on); the copular is-a binding is a separate gap (priority-4 follow-on). NO hdlab wire (located negative). §2b updated.
 ---
 
 # PROBLEM: the just-improved parser located its two biggest remaining cross-task levers — PP-CHAIN attachment (the SOLE high-precision head demand; oracle-PP +0.10–0.18; and the 200-year-old-prose wall is 93% PP-embedding) and register-robust UPOS — and PROVED both are DATA-BOUNDED (every no-new-data route refuted), so acquire or build GOLD target-register (19c / literary) POS+parse data and train the substrate's OWN glass-box parser/tagger on it, raising PP-attachment precision and 19c who-did-what CI-separated over the current arc-eager operator on held-out target-register data while HOLDING the modern UD-EWT gain and NOT regressing recall/POS — or a located negative naming exactly which data is the blocker.
