@@ -78,6 +78,16 @@ READ that consumes it -- every brain-foundational aspect INTEGRATED (the owner's
    the detector (prior_swamps' exact wall), now confirmed on a stronger readout: the graded representation carries
    the subordinate signal, but converting it to a net WSD gain needs a better frequency-independent detector,
    which on fine-grained WordNet is near a ~70-80% human-agreement ceiling.
+7. **[cron drill] The settling subordinate gain is GRADED by sense COARSENESS -- strongest for HOMONYMS,
+   brain-consistent.** Splitting subordinate items by wup(gold, dominant-sense): settle-minus-ppr = COARSE
+   (homonym-like, wup<0.33, n=374) **+0.2246 CI[0.177,0.273]** > MID (n=410) +0.1780 > FINE (polysemy-like,
+   wup>=0.6, n=83) +0.1446 [0.072,0.217]. The gradient matches the neuroscience: the brain engages cognitive
+   control (PFC) to SELECT distinct (homonym) meanings, while related (polysemy) senses blend (single-entry,
+   reduced context/dominance effects; Rodd; Klepousniotou). Settling still helps FINE (so not homonym-only), but
+   the effect is largest exactly where the brain selects most. This LOCATES the net-win ceiling: not our mechanism
+   (it works, brain-consistently) but (a) the see-saw (settling with no prior-fallback over-shifts weak-context
+   DOMINANT items) and (b) the detector -- both requiring the next organ (selection only where warranted, over a
+   graded continuous representation with emergent, homonym-vs-polysemy-aware granularity).
 
 ## The located residual, and the walls drilled
 Every negative in context-conditioned sense selection unified into one gap, and the growth failure into one more:
