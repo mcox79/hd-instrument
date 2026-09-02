@@ -424,3 +424,35 @@ acquiring a scenario-keyed ESD corpus (DeScript/InScript) -- the pinned resource
 
 ## Reproduce
 `.venv/Scripts/python.exe experiments/exp_rocstories_order_prior_v1.py --mode full --n-stories 8000`
+
+---
+
+# MEANING-CHANNEL optimization (brain method: spreading activation): MECHANISM validated, SYNTAGMATIC axis is NOT a lever (definitive)
+
+Applied the brain-mechanism method to the compounding bottleneck (meaning). Prototype:
+`experiments/exp_syntagmatic_axis_optimizes_wsd_v1.py` (checkpointed; raw-edge cache; NO parser -- gold WiC/SemCor
+lemma+POS + content-word context + WordNet/ConceptNet/SyntagNet + PPR).
+
+## Results
+- MECHANISM VALIDATED: spreading activation (personalized PageRank) clears the info-free shuffled-graph twin on
+  per-context WiC -- cn 0.6661 vs twin 0.5674, real-twin +0.0987 CI-separated. The brain's spreading-activation
+  meaning mechanism WORKS (confirms the graph-organ result with a fresh twin).
+- SYNTAGMATIC AXIS (SyntagNet 88k edges) = NOT A LEVER, tested both ways:
+    naive (unit weight): WiC +0.0000 ; SemCor +0.0072 (still -0.12 below near-oracle MFS). Edges diluted in the
+      937k-edge WordNet backbone.
+    up-weighted (x8): WiC 0.6552 = -0.0109 (WORSE -- it drowns the paradigmatic signal that carries WiC).
+  So the paradigmatic WordNet+ConceptNet graph is already the OPTIMUM for the walk; the syntagmatic axis (the
+  graph organ's #1 located lever) does not help here. Located-negative, definitive.
+- On all-words SemCor, NO walk variant beats MFS (0.689) -- the frequency prior is near-oracle (WordNet sense
+  order == SemCor frequency); this is a benchmark property, not a mechanism gap (matches the graph organ).
+
+## CRITICAL for any gain claim: these numbers DO NOT use the parser (verified: no arc_parser/pos_tagger/spaCy
+in the WSD path; lemma+POS are gold from WiC/SemCor; context is a content-word bag). So the +0.0987 spreading-
+activation gain is CLEAN-INPUT. Wired into the LIVE reader, the target lemma+POS come from the reader's OWN
+extraction (parser/POS-tagger) -> the live gain is PARSER-BOUNDED and lower. Measure the wiring gain THROUGH the
+live extractor, not on gold WiC.
+
+## Optimum confirmed
+For the spreading-activation meaning channel with on-disk resources: the mechanism is validated and at its
+optimum (paradigmatic graph; syntagmatic axis tested + rejected; MFS near-oracle on SemCor). Remaining GAIN is
+WIRING it live (parser-bounded), not further graph tuning.

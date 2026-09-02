@@ -176,6 +176,26 @@ transitions in 1500 real sentences). The register is a STATE organ, not an ORDER
 3. The LEARNING tier and the stative-possession channel are the two follow-ons; verb-sense/frame selection is
    the meaning-channel dependency.
 
+## GAINS TO BE MADE AND HOW (post-investigation, owner-directed; deflated, with the parser caveat made explicit)
+This problem's register is done; the owner then directed a brain-mechanism-method sweep of the adjacent
+compounding levers. Every mechanism candidate was BUILT and MEASURED. The honest map of what gain is available
+and exactly how to realize it (all files + reproduce commands are in
+`notes/problems/situation_model_has_no_mutable_world_state_register/DISSECTION_before_after_order_wall.md`):
+
+| lever | status (measured) | gain (deflated) | HOW (brain-faithful) | risk / caveat |
+|---|---|---|---|---|
+| **World-state/possession register** | BUILT, proven, witnessed 36/36 | a NEW capability the reader lacked: answers who-has-what at story-time + flags impossible (precondition-violated) actions | promote the spaCy-free core; wire a default-off `track_world_state` flag ROUTED THROUGH `coreference_resolver` | on real prose it is **coref-bound** -- 81% of agents are pronouns; the register itself is not the gap |
+| **Spreading-activation MEANING channel** | mechanism VALIDATED: PPR walk beats the info-free shuffled-graph twin +0.099 CI-sep on per-context WiC | per-context sense selection the live reader lacks (its meaning read-out is flat/co-occurrence) | land the grounded-semantic-graph organ; wire as a live meaning read-out (paradigmatic WordNet+ConceptNet graph) | **the +0.099 is CLEAN-INPUT (gold lemma/POS, no parser). The LIVE gain is PARSER-BOUNDED** -- the reader must supply the target lemma+POS from its own parser/POS-tagger. Measure the wiring gain THROUGH the live extractor, never on gold WiC. |
+| **Syntagmatic axis (SyntagNet 88k)** | TESTED, REJECTED: naive +0.000 WiC; up-weighted x8 = -0.011 WiC (drowns the paradigmatic signal) | ~0 / negative | -- | do NOT invest; the paradigmatic graph is already the walk's optimum. Located negative. |
+| **Before/after ORDERING** | CLOSED by diagnosis: all 3 brain mechanisms replicated (DG/CA3 identity, partial-order abstain, SLIMM script/episode precedence) | ~0 aggregate (task/data-capped: ~half the pairs are genuinely order-free); **~0.67 on the answerable ~1/4** via the partial-order abstain readout | ship the partial-order + ABSTAIN readout (answer the reliably-ordered pairs, decline the rest) | none -- diagnosed shut; do NOT chase (a domain-matched everyday-script corpus was the only remaining lever, and it is a resource decision, not mechanism) |
+| **Parser / extraction front-end** | known cap; surfaced by the parser question | **highest-COMPOUNDING** -- it gates the *live* payoff of BOTH validated mechanisms above (roles for the register; lemma/POS for the meaning channel) | the existing parse-fidelity / extraction-front-end work | this is *why* both live gains are bounded; it is the shared upstream lever |
+
+**The through-line (the single most important sentence for the reader of this submission):** both validated
+mechanisms (register + spreading-activation meaning) prove out on clean/gold input and each realizes its LIVE
+gain only as far as the parser supplies correct roles / lemma+POS -- so the most compounding investment for
+more *effective live comprehension* is the extraction front-end; everything else here is validated and waiting
+on it. Ordering is closed; the syntagmatic axis is a located negative; do not spend effort on either.
+
 ## TLDR
 As you read, you track who currently has what and update it every time something changes hands. Our reader
 already did this for WHERE things are and whether they're open, but not for WHO HAS WHAT, and it had no way to

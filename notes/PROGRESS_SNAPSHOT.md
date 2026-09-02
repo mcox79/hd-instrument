@@ -4,27 +4,27 @@
 
 **HEADLINE: 0/1 plan steps done; C3 vs spelling-only floor: our 0.0480 is LOSING to spelling-alone 0.0870 (delta +0.0390, CI excludes zero (real gap))**
 
-generated: 2026-09-01T23:24:00Z  |  HEAD: 76b4075aa
+generated: 2026-09-02T00:12:23Z  |  HEAD: ece7c2306
 
 ## 1. Where we are against the plan (notes/PLAN_NEXT_12H.md)
 - UNKNOWN -- notes/PLAN_NEXT_12H.md not readable
 
 ## 2. What is running right now
 Heartbeats (data/heartbeats/*.timestamp):
-  - exp_dev: 5781 min ago <-- STALE
-  - orchestrator: 51847 min ago <-- STALE
-  - research: 585 min ago <-- STALE
-  - skunkworks: 54518 min ago <-- STALE
-  - testbed: 91092 min ago <-- STALE
+  - exp_dev: 5829 min ago <-- STALE
+  - orchestrator: 51895 min ago <-- STALE
+  - research: 633 min ago <-- STALE
+  - skunkworks: 54567 min ago <-- STALE
+  - testbed: 91141 min ago <-- STALE
 data/ directories touched in the last 180 min:
   - logs: 0 min ago, NO metrics.json yet (likely in-flight)
   - local_cpu_queue: 0 min ago, NO metrics.json yet (likely in-flight)
-  - .metrics_sync: 10 min ago, NO metrics.json yet (likely in-flight)
-  - exp_brain_faithful_who_did_what_v1: 33 min ago, has metrics.json
-  - exp_syntagmatic_axis_optimizes_wsd_v1: 44 min ago, has metrics.json
-  - exp_grounded_semantic_graph_ladder_wsd_v1: 60 min ago, NO metrics.json yet (likely in-flight)
-  - exp_register_native_store_v1: 64 min ago, has metrics.json
-  - exp_rocstories_order_prior_v1: 79 min ago, has metrics.json
+  - exp_brain_faithful_who_did_what_v1: 2 min ago, has metrics.json
+  - exp_register_native_store_v1: 9 min ago, has metrics.json
+  - exp_syntagmatic_axis_optimizes_wsd_v1: 11 min ago, has metrics.json
+  - .metrics_sync: 16 min ago, NO metrics.json yet (likely in-flight)
+  - hook_state: 29 min ago, NO metrics.json yet (likely in-flight)
+  - exp_grounded_semantic_graph_ladder_wsd_v1: 108 min ago, NO metrics.json yet (likely in-flight)
 notes/STATUS.md WHAT IS RUNNING (verbatim):
   - 🏗️ **OPERATING MODEL (OWNER 08-22): STRATEGY SESSION + SOLVER SESSIONS.** This session keeps the  10k view, writes briefs and INTEGRATES; solvers solve one bounded problem. **THE ORDER LIVES IN EACH  `notes/problems/<slug>/PROBLEM.md` FRONTMATTER (`priority:`) -- ENUMERATE, NEVER MIRROR.** *ENUMERATED FROM DISK 08-23 23:0x: `10` open (priorities `1`-`10`, contiguous), `8` solved+reviewed. **THE PREVIOUS TEXT HERE READ `11` open / `5` reviewed -- I MIRRORED A REMEMBERED COUNT ON THE VERY LINE THAT SAYS ENUMERATE.** Q111: solvers never write `hdlab/`.* `notes/problems/README.md`
   - ✅ **TWO OF THE THREE ARE NOW REVIEWED (08-23 late). BOTH RE-VERIFIES PASS; I THEN AUDITED THE
@@ -151,5 +151,5 @@ notes/STATUS.md WHAT IS RUNNING (verbatim):
 - US** (*"the sweep never bit"* -- a random baseline breaks inside that range where it held `1.0000`).
 
 <!-- SNAPSHOT_STATE_JSON
-{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8822, "generated_at": "2026-09-01T23:24:00Z", "head_commit": "76b4075aa45a272a69c5bcbf048138d1d0957f70", "step_status": {}}
+{"c_now": {"C1": "**0.6980** (was 0.6395)", "C2": "**+0.1005** (0.6395 with context vs 0.5390 without)", "C3": "**NOT PASSED.** Live open-vocabulary **hit@1 4.80%**, n=4000, 5491 anchors; tautology rate **0.0%**. Under the HARDENED gate: FAILS magnitude, and UNMEASURED on 3 of its 4 conditions", "C4": "**0.7193** = **41/57** (earned 0.6842)"}, "data_dir_count": 8822, "generated_at": "2026-09-02T00:12:23Z", "head_commit": "ece7c2306c537131393b08bd64ab89d70c6a730f", "step_status": {}}
 -->

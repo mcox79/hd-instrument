@@ -95,14 +95,29 @@ good and more robustly separated; whether it pulls decisively ahead is a DATA-DE
 bites harder as the store densifies) -- this de-risks the open priority-4 problem
 `the_reader_conflates_similar_events_needs_a_soft_and_conjunctive_grounded_aligner`, which owns that kernel.
 
+## SCALING to 3M tokens -- the effect is the TRUE size (not data-limited), and SOFT-AND is the deliverable form
+Re-ran at a 3M-token matched budget (science 27,679 SVO triples, 2.5x the 1.2M store; simplewiki 32,053).
+The domain effect is STABLE, NOT data-limited: SOFT-AND FHRR science-over-simplewiki is +0.0364 CI[+0.0054,
++0.0664] (passive) / +0.0355 CI[+0.0061,+0.0659] (noncanonical), CI-separated on BOTH slices -- essentially
+unchanged from 1.2M. The ADDITIVE FHRR goes BORDERLINE at 3M (+0.0328 passive frac<=0=0.03; +0.0243
+noncanonical frac<=0=0.075) -- so at higher density the brain-foundational SOFT-AND (conjunctive kernel) is the
+robustly-separated form and the additive cleanup is not. The marginal still TIES (+0.009, frac<=0=0.25 -- the
+leakage-correction is robust to 2.5x more data). FULL-population FHRR DEPLOYMENT (backoff) now shows a domain
+edge (+0.027 passive frac<=0=0.048). CONCLUSION: the true deployable disjoint-domain effect is ~+0.035, carried
+by the JOINT SOFT-AND event code; scaling the corpus does not grow it (it is the real, modest size), and the
+SOFT-AND kernel -- not additive cleanup -- is the form to ship. Reverify: `exp_register_native_store_v1.py
+--eval --tokens 3000000`.
+
 ## What I did NOT establish (and would withdraw first if wrong)
 1. **A LARGE domain effect.** The deployable disjoint-domain effect is MODEST (~+0.04), an order smaller than
    the parent's +0.149. If any claim is wrong first, it is not this one -- I would withdraw any reading that
    treats +0.04 as "recovering the +0.149"; it does not. The +0.149 was topical near-leakage.
 2. **A MARGINAL-store domain win on a disjoint corpus.** There is none (it ties). I do not claim the marginal
    register-native store helps who-did-what on held-out disjoint text.
-3. **Soft-AND as a decisive winner.** It ties additive at this scale; I claim only "at-least-as-good and more
-   robustly separated," pending the density test.
+3. **Soft-AND as a HEAD-TO-HEAD winner over additive.** It does not beat additive candidate-for-candidate
+   (AND_vs_ADDITIVE ties, -0.004 to -0.009, CI spans 0 at both 1.2M and 3M). My claim is narrower and now
+   density-tested: soft-AND is the more robustly CI-SEPARATED form vs simplewiki (it stays separated at 3M
+   where additive goes borderline). I do not claim it strictly dominates additive per-item.
 4. **Deployment lift from the store ALONE (no parse fix).** On a crude linear-position deployment the store
    does not move the aggregate score -- who-did-what is word-order-dominated. The store's deployment value
    REQUIRES the parser fix (STRUCT+SEL, +0.056 FULL CI-sep; see BRAIN-FAITHFUL INTEGRATION). I do not claim the
@@ -202,6 +217,28 @@ selectional when structure is uninformative).
 to a PARSED-STRUCTURAL-WITH-VOICE route (patient = grammatical object / passive subject), and integrate the
 register-native selectional store as the secondary cue via precision-weighted noisy-channel (down-weight the
 parse when it is unreliable). This is the +0.096 deployment lift, default-off, witnessed.
+
+## DOES IT GENERALIZE? (owner asked) -- three senses, measured
+1. **Within-register, to unseen fillers/verbs: YES.** The store generalizes by grounded similarity (parent
+   +0.062 on gold fillers absent from the verb's store) and the generative model's held-out prediction-error
+   curve rises (generalizes to unseen (a,v,p) combinations).
+2. **The two cues across REGISTER (tested on 19c LitBank, HARD n=363 / FULL n=3011):** the picture is
+   COMPLEMENTARY and honest.
+   - The **PARSER cue does NOT generalize to 19c**: STRUCT loses to linear POS -0.197 (FULL) / -0.224
+     (POS-AMBIG) CI-sep -- the modern UD parser COLLAPSES on archaic syntax (parent's 19c parser-degradation
+     wall, independently reconfirmed). So the parser is the biggest lever on MODERN prose and BREAKS on 19c;
+     its generalization needs a register-robust parser (a filed problem).
+   - The **SELECTIONAL store is the robust fallback that carries where structure fails**: on the non-canonical
+     19c slice where BOTH position (0.022) and parser (0.008) are dead, SEL alone scores 0.132 and STRUCT+SEL
+     beats STRUCT +0.102 (HARD) / +0.081 (POS-AMBIG) CI-sep -- EVEN with a register-MISMATCHED science store
+     (a register-native 19c store would help more; the parent showed +0.081 there). This is exactly the brain's
+     cue-usage profile: up-weight selectional when structure is uninformative.
+   - Position on 19c FULL (0.457) beats the broken parser -- so the correct behaviour is RELIABILITY-weighted
+     integration (down-weight the parser where it is unreliable), the noisy-channel principle; my fixed
+     precision does not yet auto-detect the 19c parser collapse -- a refinement (reliability-based cue weight).
+3. **The ARCHITECTURE generalizes; the COMPONENTS are register-bound.** The parser+selectional noisy-channel
+   integration is the brain's method and transfers; the parser component is register-fragile (needs
+   robustness) and the selectional store is register-relative (needs a register-native corpus -- THIS problem).
 
 ---
 
