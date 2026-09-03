@@ -267,3 +267,35 @@ None blocking. One routing note (with recommendation):
 5. **The real room is elsewhere** (not this task): a position-ambiguous 19c gold (the parent's blocked A3) to exercise
    case/frames, and a graded proto-role metric (the parent's C1). DO NOT re-open chunking (X-bar hurts), a modern
    parser/tagger (both lose on 19c), or a meaning store for SELECTION (parent-refuted at power).
+
+## INTEGRATED_BY_STRATEGY 2026-09-03
+
+Reverified `verification/test_whodidwhat_nphead_case.py` FIRST-HAND: **45/45** (NP-head chunker 0.9178->0.9806
++0.0628 CI-sep above null; chunk-shuffle twin ties the floor; held-out both halves; NO modern regression
+qasrl +0.128; EVERY consumer +0.20 -- resolve_patient/hybrid_role_patient 0.683->0.888, competition_pick
+0.671->0.873, route_predarg theme end-to-end 0.683->0.888, twins fail; full stack 0.9806 = +0.2975 over
+landed; mention-path _assign_roles 0.7728->0.9477 +0.1749; case cue REAL but 0/669 availability = the
+Competition Model's OWN prediction). Grade **EXCELLENT** -- SOLVED (chunker) + a brain-faithful located
+negative (case); at/above the 19c parse ceiling (spaCy 0.9297 < ours); PINNED (Williams 1981 RHR, Abney 1987
+DP-head, Nelson 2017 bracket-closure); traced downstream propagation first-hand; honest bounds.
+
+**Q111 WIRE LANDED (two sites, one shared rule, all default-off = byte-identical):**
+- Promoted the reducer to `hdlab/np_head_reduce.py` (`np_head_reduce`/`is_np_head`/`np_head_reduce_pairs`),
+  byte-exact to the validated prototypes.
+- **PRIMITIVE site (the "one down", +0.20 to every consumer):** a default-off `np_head_reduce` flag on
+  `relcl_resolver.resolve_patient`, `graded_role_assigner.hybrid_role_patient` + `competition_pick`, and
+  `predicate_argument_frontend.route_predicate_arguments` -- reduce `cands` to NP heads before the pick.
+- **READER site (the "reader bug"):** a default-off `np_head_reduce` flag on `SituationReader` -> (a) the
+  POSITIONAL path filters `noms` to NP-head mentions before `_assign_roles` (lifts 0.7728->0.9477), (b) the
+  ROUTER path passes the flag into `route_predicate_arguments`.
+- Witness `test_np_head_reduce_wire_landing_organ.py` 3/3 (promotion byte-exact to BOTH prototypes; primitives
+  default-off byte-identical; flag-on fixes "the undertaker's shop" -> shop). Reader verified: default ==
+  np_head_reduce=False byte-identical, np_head_reduce=True fires on real prose (52/104 events changed). The
+  who-did-what witness stays 45/45 with the default-off flags in place. Registered `np_head_reduce_wire_v1`.
+
+**HONEST BOUNDS / OWED:** (1) the flags are DEFAULT-OFF; flipping default-ON is a SEPARATE owner decision.
+(2) The ~20 role-output organs (bound_event_backbone, event_bundle, causation_typing, possession_operators,
+hd_fact_store, world_state_register, ...) inherit the fix automatically when a consumer turns it on -- RE-RUN
++ RE-VALIDATE anything tuned on the OLD (wrong) patient outputs (they change on ~1/3 of clean clauses). (3) The
+22% coverage/abstention gap is a SEPARATE problem -> filed `the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses`.
+§2b AUDIT UPDATE folded in; priority cleared.

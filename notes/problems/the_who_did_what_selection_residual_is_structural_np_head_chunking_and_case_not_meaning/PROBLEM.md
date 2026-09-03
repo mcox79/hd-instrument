@@ -1,7 +1,7 @@
 ---
-priority: 2
-review:
-review_text:
+priority:
+review: EXCELLENT
+review_text: INTEGRATED 2026-09-03 (reverified 45/45 first-hand). SOLVED (NP-head chunker) + brain-faithful located negative (case cue = the Competition Model's own prediction, 0/669 availability). THE high-value structural fix: reducing candidates to their NP head lifts EVERY who-did-what consumer +0.20 (0.683->0.888), the full stack +0.30, +0.35 end-to-end; at/above the 19c parse ceiling (spaCy 0.9297 < ours 0.9806). Q111 WIRE LANDED default-off at both sites the solver proved -- the shared hdlab/np_head_reduce helper + np_head_reduce flags on the primitives (resolve_patient/hybrid_role_patient/competition_pick/route_predicate_arguments) AND on SituationReader (positional noms-reduction + router pass-through). Witness 3/3; reader default-off byte-identical, flag-on fires. Flip-default-ON = a separate owner decision; the ~20 output organs must re-validate on the new outputs. 22% coverage gap filed separately.
 ---
 
 # PROBLEM: powering the cleaned 19c who-did-what gold PROVED the patient-selection residual is 89% STRUCTURAL, not semantic — position already gets 0.918 on clean direct objects (English is word-order-dominant) and an NP-head chunker lifts it +0.043 CI-separated to ~0.981, while thematic-fit selection value is exactly 0; so build the glass-box NP-HEAD CHUNKER (compound + genitive) and the morphological CASE cue (measured ABSENT, cheapest, better preserved in 19c) into the reader's role assignment, raising clean 19c who-did-what selection CI-separated over the position floor with the info-free twin LOSING — or a located negative naming the structural ceiling.

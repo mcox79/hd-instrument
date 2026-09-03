@@ -160,8 +160,12 @@ def cue_supports(toks: Sequence[str], pos: Sequence[str], v: int, cands: List[in
 
 
 def competition_pick(toks: Sequence[str], pos: Sequence[str], v: int, cands: List[int],
-                     weights: Optional[Dict[str, float]] = None) -> Optional[int]:
-    """The patient = graded_competition argmax over the learned additive cue activation."""
+                     weights: Optional[Dict[str, float]] = None, np_head_reduce: bool = False) -> Optional[int]:
+    """The patient = graded_competition argmax over the learned additive cue activation. NP-HEAD REDUCE
+    (default OFF -> byte-identical): when on, reduce `cands` to NP heads first (+0.20 on 19c who-did-what)."""
+    if np_head_reduce:
+        from hdlab.np_head_reduce import is_np_head
+        cands = [i for i in cands if is_np_head(toks, pos, i - 1)] or cands
     w = DEFAULT_VALIDITIES if weights is None else weights
     S = cue_supports(toks, pos, v, cands)
     idx = map_pick(S, w)
@@ -169,7 +173,8 @@ def competition_pick(toks: Sequence[str], pos: Sequence[str], v: int, cands: Lis
 
 
 def hybrid_role_patient(toks: Sequence[str], pos: Sequence[str], v: int,
-                        cands: Optional[List[int]] = None, weights: Optional[Dict[str, float]] = None) -> Optional[int]:
+                        cands: Optional[List[int]] = None, weights: Optional[Dict[str, float]] = None,
+                        np_head_reduce: bool = False) -> Optional[int]:
     """THE DEPLOYABLE net-positive route. Keep `resolve_patient` BYTE-IDENTICAL on every confident discrete route +
     plain word-order default (canonical / precise-passive / overt-relativizer relatives UNTOUCHED); invoke the graded
     competition ONLY on the non-canonical fall-through where a marked OVERRIDE cue fires: a STRONG reduced/got/being/
@@ -177,6 +182,9 @@ def hybrid_role_patient(toks: Sequence[str], pos: Sequence[str], v: int,
     (word order then carries no signal). The weak bare-participle cue is deliberately NOT a trigger."""
     if cands is None:
         cands = _cands(pos)
+    if np_head_reduce:                                       # NP-head reduce ONCE at the top; sub-calls inherit
+        from hdlab.np_head_reduce import is_np_head
+        cands = [i for i in cands if is_np_head(toks, pos, i - 1)] or cands
     w = DEFAULT_VALIDITIES if weights is None else weights
     base = resolve_patient(toks, pos, v, cands)
     if precise_passive(toks, pos, v) or is_object_gap(toks, pos, v):

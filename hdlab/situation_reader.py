@@ -624,7 +624,8 @@ class SituationReader:
                  predict_revise: bool = False,
                  track_world_state: bool = False,
                  densify_world_state: bool = False,
-                 parser_arceager: bool = False) -> None:
+                 parser_arceager: bool = False,
+                 np_head_reduce: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -815,6 +816,15 @@ class SituationReader:
         self.parser_arceager = bool(parser_arceager)
         self._ae_W = None              # lazy hdlab.arceager_parser model weights
         self._ae_parse = None          # lazy hdlab.arceager_parser.parse_with_conf
+        # NP-HEAD REDUCE (opt-in; default OFF = byte-identical). Wired 2026-09-03 from the owner-DONE who-did-what
+        # fix the_who_did_what_selection_residual_is_structural_np_head_chunking_and_case_not_meaning: the reader's
+        # role assigners grab the wrong word inside a noun phrase ("the undertaker's shop" -> undertaker; "iron
+        # gate" -> iron) -- 96% of their who-did-what misses. When on, reduce candidates to their NP HEAD (compound
+        # Right-hand Head Rule + genitive DP-head) at BOTH sites the solver proved: (a) the ROUTER path -> pass
+        # np_head_reduce into route_predicate_arguments (the primitive all consumers funnel through, +0.20 each);
+        # (b) the POSITIONAL path -> filter `noms` to NP-head mentions before _assign_roles (lifts the landed
+        # _assign_roles 0.7728 -> 0.9477). Reuses hdlab.np_head_reduce. NO spaCy / NO LLM.
+        self.np_head_reduce = bool(np_head_reduce)
         self._causation_nlp = None     # lazy spaCy handle (loaded once, only when causation_typed)
         self._causation_lex = None     # lazy force lexicon
         # persistent readers (the banked backbone + single-sentence validity baseline)
@@ -953,7 +963,8 @@ class SituationReader:
             heads = self._parser.parse(toks, pos).heads
         out = {}
         for v in matrix_verbs(toks, pos, heads):
-            roles = route_predicate_arguments(toks, pos, heads, v, quotative=False)
+            roles = route_predicate_arguments(toks, pos, heads, v, quotative=False,
+                                              np_head_reduce=self.np_head_reduce)
             out[v - 1] = {k: (val - 1) for k, val in roles.items() if isinstance(val, int) and val}
         return out
 
@@ -999,6 +1010,12 @@ class SituationReader:
             text = " ".join(toks)
             evs, _tagged = self._extract_events(text)
             noms = sent_noms[si] if si < len(sent_noms) else []
+            if self.np_head_reduce and noms:
+                # POSITIONAL-path fix: drop mentions whose head token is a compound modifier / genitive possessor,
+                # so _assign_roles + the router's _nom_head_at pick the NP HEAD (mention-level 2nd-pass wire).
+                from hdlab.np_head_reduce import is_np_head as _is_np_head
+                _up = self._tagger.tag(list(toks))
+                noms = [m for m in noms if _is_np_head(toks, _up, m["wtok_start"])] or noms
             rr = self._router_roles(list(toks))
             # the event extractor uses a DIFFERENT tokenization than `toks` (e.idx is its space, not toks-
             # space); align each event's predicate to its `toks` position by surface match (greedy L->R), so

@@ -406,7 +406,7 @@ def route_predicate_arguments(tokens: Sequence[str], upos: Sequence[str], heads:
                               verb_idx: int, prep_to_base: Optional[Dict[str, str]] = None,
                               event_classes_fn=None, dest_fn=None,
                               animacy_fn=lookup_animacy, max_hops: int = MAX_HOPS,
-                              quotative: bool = True) -> dict:
+                              quotative: bool = True, np_head_reduce: bool = False) -> dict:
     """The SHARED event-semantic predicate-argument router. Returns 1-based token indices (or None):
     {agent, theme, goal, location, path, source, recipient, direction, instrument, goal_belongs_to}.
     prep_to_base / event_classes_fn / dest_fn are override points ONLY for the info-free TWIN control; the
@@ -424,7 +424,7 @@ def route_predicate_arguments(tokens: Sequence[str], upos: Sequence[str], heads:
     v = verb_idx
     cands = _cands(upos)
     passive = precise_passive(tokens, upos, v)
-    theme_idx = hybrid_role_patient(tokens, upos, v, cands=cands)
+    theme_idx = hybrid_role_patient(tokens, upos, v, cands=cands, np_head_reduce=np_head_reduce)
     pp_args = _pp_args_for_verb(tokens, upos, heads, v, max_hops=max_hops)
 
     by_obj = next((o for (p, o) in pp_args if p == "by"), None)

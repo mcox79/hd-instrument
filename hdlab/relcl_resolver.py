@@ -107,14 +107,23 @@ def is_object_gap(toks: Sequence[str], pos: Sequence[str], v: int) -> bool:
 
 
 def resolve_patient(toks: Sequence[str], pos: Sequence[str], v: int,
-                    cands: Optional[List[int]] = None, prec_voice: Optional[bool] = None) -> Optional[int]:
+                    cands: Optional[List[int]] = None, prec_voice: Optional[bool] = None,
+                    np_head_reduce: bool = False) -> Optional[int]:
     """The active-filler filler-gap resolver (THE DELIVERABLE). Returns the 1-based index of verb v's PATIENT:
       (1) passive (aux+participle) -> the pre-aux subject is the patient (ventral voice route);
       (2) an attached relative-clause OBJECT gap (subject filled, object empty) -> the fronted filler is the patient;
       (3) otherwise (subject-gap / filled object / canonical) -> the word-order (two-line) rule.
-    Takes NO arc heads -- glass-box over UPOS + closed-class relativizers."""
+    Takes NO arc heads -- glass-box over UPOS + closed-class relativizers.
+
+    NP-HEAD REDUCE (default OFF -> byte-identical; 2026-09-03 from the owner-DONE who-did-what fix): when on,
+    reduce `cands` to NP HEADS first (drop compound modifiers + genitive possessors, Right-hand Head Rule) so
+    the picked patient is the phrase HEAD ("the undertaker's shop" -> shop, not undertaker). Lifts this primitive
+    +0.20 on clean 19c who-did-what (0.683->0.888, CI-sep, twin loses); the DOMINANT who-did-what error mode."""
     if cands is None:
         cands = _cands(pos)
+    if np_head_reduce:
+        from hdlab.np_head_reduce import is_np_head
+        cands = [i for i in cands if is_np_head(toks, pos, i - 1)] or cands
     if prec_voice is None:
         prec_voice = precise_passive(toks, pos, v)
     low = [t.lower() for t in toks]

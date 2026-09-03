@@ -181,14 +181,21 @@ n=14882/7453, on WordNet is-a gold (`prototype_isa_distributional_measures_ceili
 - **Only the SYMBOLIC hierarchy works** (ConceptNet/WordNet IsA edge ~1.0 WHERE it has coverage -- but coverage is
   only ~36% of pairs) -- and it is an explicit taxonomy, exactly the representation Rogers/Patterson say the brain
   does NOT use.
-**Conclusion (the wall entire):** the brain does is-a inheritance near-perfectly, but EVERY glass-box mechanism
-buildable from raw TEXT either caps at ~0.69 (distributional), fails (property-intersection), or degenerates to a
-coverage-limited symbolic lookup. This strongly implies the brain's is-a is NOT text-derivable alone -- it needs
-GROUNDED multimodal features accumulated over many exposures + structured learning (Kemp & Tenenbaum tree
-induction), which is the project's grounding north-star, not a copular-binding sub-fix. The is-a link into the
-entity node is BUILT (a category-string is attached); rich INHERITANCE is a grounding-foundation problem, routed
-there. (A pending deep drill -- `research_isa_inheritance_wall_2026-09-02.md` -- confirms the mechanism + a
-"how to replicate" verdict; I will fold it in.)
+**Conclusion (the wall entire), RESOLVED by the deep drill:** the reason EVERY similarity/overlap mechanism caps
+at ~0.69 or chance is that **is-a is NOT a similarity computation at all** -- across 30yr of literature (and my
+numbers) is-a is text-derivable ONLY as EXPLICIT RELATION EXTRACTION (Hearst 1992 lexico-syntactic patterns:
+"X is a Y", "Y such as X", "X and other Y"), never as distributional/feature overlap. The brain's ATL feature-
+overlap is the REPRESENTATION substrate, but the ACQUISITION + READOUT of is-a is relational. **THE KEY
+CONSEQUENCE FOR THIS PROBLEM: the copula "X is a Y" is the single most reliable Hearst is-a pattern, so the copular
+binding I ALREADY built IS the read-time is-a EDGE extractor** -- I was testing the wrong mechanism (similarity)
+when the right one (relation extraction) was the copular binding itself. The recommended brain-faithful build (drill
+"HOW TO REPLICATE"): TWO-TIER -- (1) FOUNDATION: harvest an is-a graph offline via Hearst patterns + symbolic union
+(WordNet/ConceptNet); (2) READ-TIME: the copula adds a DIRECT is-a edge, inheritance = TRAVERSE the graph with
+CANCELLATION (exceptions), distributional fallback only on a coverage miss. So rich INHERITANCE is a FOUNDATION
+build (Hearst-harvest, offline-admissible), not a copular sub-fix -- and it composes directly with this problem's
+copular edge. Strategy filed the exp_dev hand-off for the Hearst-harvest foundation. (Next open question the drill
+flagged: token-vs-type entity-fact binding -- perirhinal individuation vs ATL categorization -- genuinely open,
+routed to entity-tracking.)
 
 **(C) The identity->coreference route is the other high-fidelity opportunity.** The drill PINNED that coreference
 reactivates hippocampal concept cells (Dijksterhuis 2024) and equative identity is symmetric/hippocampal (CA3).
