@@ -15,6 +15,14 @@ reverify: ".venv/Scripts/python.exe verification/test_copular_is_a_binding_organ
 all three sub-types (nominal is-a + adjectival + identity). No `hdlab/` file changed; the exact wire is proposed
 below for strategy to land (Q111). Glass-box, NO external LLM at inference (the invariant).
 
+## INTEGRATED_BY_STRATEGY (2026-09-03) — EXCELLENT
+Reverified first-hand: core `test_copular_is_a_binding_organ.py` 10/10 + improvements `test_copular_improvements_organ.py` 6/6. LANDED the Q111 wire DEFAULT-OFF:
+- Promoted the two pure binding primitives VERBATIM to **`hdlab/copular_binding.py`** (`extract_entity_states` the high-precision labeled `cop` path + `predicted_type` the glass-box Higgins classifier + the frontend asset paths) — byte-faithful to `experiments._copular_nominal_events` + `exp_copular_is_a_binding_readout_v1.predicted_type` (witness [5]).
+- Wired into `hdlab/situation_reader.py` behind a default-off **`bind_entity_states`** flag (added to `CAPABILITY_FLAGS`): `read()` adds `sm.entity_states` (typed `EntityState(holder, property, htype)` per copular predication) + `sm.state_register` (predicational states applied → `state_at`/`is_in_state`/`had_been` read-back). Lazy-imported → default reader byte-identical.
+- Witness **`verification/test_copular_is_a_binding_landing_organ.py` 5/5**: default-off byte-identical; flag-on fires + Higgins-typed (`ahab→captain` pred_nom, `room→cold` pred_adj, `she→wife` ident); flag-on == the promoted primitive byte-for-byte; `state_at('ahab')=['captain']` round-trips; promotion faithful.
+- The DETECTION default is the high-precision label path (per the solution's operating-point split); `robust_cop` recall-max + the identity→coref merge remain available follow-ons.
+- §2b AUDIT UPDATE folded. Registry entry `copular_is_a_binding_live_reader_v1` (owed — deferred while `capability_registry.jsonl` is under concurrent write). NO push.
+
 ## Honest framing first: what was already built vs what this adds
 The CORE binding primitive -- `extract_entity_states` (for each `cop` arc, PROPERTY = the predicate head, HOLDER
 = its nsubj) -- was ALREADY built and validated by the sibling problem `the_event_detector_misses_copular_and_

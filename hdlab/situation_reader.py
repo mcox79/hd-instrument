@@ -301,6 +301,18 @@ class SuppressedPredicate:
 
 
 @dataclass
+class EntityState:
+    # opt-in copular is-a/attribute BINDING (bind_entity_states): a Kimian state binding a HOLDER (subject
+    # entity) to a PROPERTY/TYPE (the predicate complement) -- Maienborn 2005; Bemis & Pylkkanen 2011 LATL.
+    # htype = the glass-box Higgins type: "pred_adj" / "pred_nom" (predicational property/is-a) or "ident"
+    # (identificational / symmetric identity). From the owner-DONE the_reader_has_no_copular_is_a_binding_schema.
+    sent_idx: int
+    holder: str
+    property: str
+    htype: str
+
+
+@dataclass
 class SituationModel:
     passage_id: str
     n_sentences: int
@@ -342,6 +354,13 @@ class SituationModel:
     # Glenberg/Meyer/Lindem availability); never touches the other dimensions. Open-text who-has-what is
     # coref-bound (the located residual). None on the default reader.
     world_state: Optional[object] = None
+    # opt-in COPULAR is-a/attribute BINDING (bind_entity_states); empty/None unless the reader is built with
+    # bind_entity_states=True. entity_states = typed (holder, property, htype) EntityState per detected copular
+    # predication ("Ahab was a captain" / "the room was cold" / "she was his wife"); state_register = a
+    # hdlab.state_register.StateRegister with the predicational states applied (read-back: state_at / is_in_state
+    # / had_been). Additive -- never touches the other dimensions. From the owner-DONE copular-is-a solution.
+    entity_states: List["EntityState"] = field(default_factory=list)
+    state_register: Optional[object] = None
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
@@ -625,7 +644,8 @@ class SituationReader:
                  track_world_state: bool = True,
                  densify_world_state: bool = True,
                  parser_arceager: bool = False,
-                 np_head_reduce: bool = True) -> None:
+                 np_head_reduce: bool = True,
+                 bind_entity_states: bool = False) -> None:
         # === DEFAULTS FLIPPED ON 2026-09-03 (owner-authorized: "switch them on... 1 at a time, top down,
         # measure which are net positives"). The greedy forward-activation sweep (tools/flag_activation_sweep.py,
         # data/flag_activation_sweep/results.json) measured each flag one-at-a-time in dependency order on the
@@ -838,6 +858,18 @@ class SituationReader:
         # (b) the POSITIONAL path -> filter `noms` to NP-head mentions before _assign_roles (lifts the landed
         # _assign_roles 0.7728 -> 0.9477). Reuses hdlab.np_head_reduce. NO spaCy / NO LLM.
         self.np_head_reduce = bool(np_head_reduce)
+        # COPULAR is-a/attribute binding (opt-in; default OFF = byte-identical). When ON, read() adds a typed
+        # is-a/attribute read on sm.entity_states + sm.state_register via the validated copular binding
+        # (experiments._copular_nominal_events.extract_entity_states, high-precision labeled path) + the
+        # glass-box Higgins typing. Integrated 2026-09-03 from the owner-DONE the_reader_has_no_copular_is_a_
+        # binding_schema (10/10 + 6/6). Lazy imports -> byte-identical when off. NO LLM.
+        self.bind_entity_states = bool(bind_entity_states)
+        self._es_mod = None            # lazy experiments._copular_nominal_events
+        self._es_typed = None          # lazy predicted_type (Higgins classifier)
+        self._es_pos = None            # lazy PosTagger (the copular assets' tagger)
+        self._es_arc = None            # lazy ArcParser (M._ARC_ASSET)
+        self._es_lab = None            # lazy ArcLabeler (M._LAB_ASSET)
+        self._es_reg_cls = None        # lazy hdlab.state_register.StateRegister
         self._causation_nlp = None     # lazy spaCy handle (loaded once, only when causation_typed)
         self._causation_lex = None     # lazy force lexicon
         # persistent readers (the banked backbone + single-sentence validity baseline)
@@ -851,7 +883,8 @@ class SituationReader:
     CAPABILITY_FLAGS = (
         "tense_agnostic_events", "preserve_tense", "timeline_register", "verb_subcat_gate", "track_space",
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
-        "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate")
+        "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed", "spacy_pred_gate",
+        "bind_entity_states")
 
     @classmethod
     def all_capabilities_off(cls, gaz=None, **overrides):
@@ -1424,6 +1457,46 @@ class SituationReader:
                 break
         return links
 
+    def _read_entity_states(self, sm, sents) -> None:
+        """COPULAR is-a/attribute BINDING (default-off bind_entity_states; wired 2026-09-03 from the owner-DONE
+        the_reader_has_no_copular_is_a_binding_schema, 10/10+6/6). For each sentence, recover the labeled copular
+        (HOLDER, PROPERTY) pairs via the validated primitive
+        experiments._copular_nominal_events.extract_entity_states (the high-precision `cop`-label path -- read-back
+        recall 0.672 CI-sep over the most-recent-noun floor, shuffle twin loses), TYPE each with the glass-box
+        Higgins classifier (predicational property/is-a vs identificational identity), and record sm.entity_states.
+        Predicational states are applied to sm.state_register (a landed hdlab.state_register.StateRegister) so
+        "what is X" round-trips (state_at / is_in_state / had_been). Uses the copular solution's OWN validated
+        frontend assets so flag-on == the validated experiment. Lazy imports -> byte-identical when off. NO LLM."""
+        if self._es_mod is None:
+            from hdlab import copular_binding as _M
+            from hdlab.pos_tagger import PosTagger
+            from hdlab.arc_parser import ArcParser
+            from hdlab.arc_labeler import ArcLabeler
+            from hdlab.state_register import StateRegister
+            self._es_mod = _M
+            self._es_typed = _M.predicted_type
+            self._es_pos = PosTagger.load(_M.POS_ASSET)
+            self._es_arc = ArcParser.load(_M.ARC_ASSET)
+            self._es_lab = ArcLabeler.load(_M.LAB_ASSET)
+            self._es_reg_cls = StateRegister
+        M = self._es_mod
+        reg = self._es_reg_cls()
+        states: List[EntityState] = []
+        for si, toks in enumerate(sents):
+            if not toks:
+                continue
+            up = self._es_pos.tag(toks)
+            for (h, p) in M.extract_entity_states(toks, up, self._es_arc, self._es_lab):
+                if not (0 <= h < len(toks) and 0 <= p < len(toks)):
+                    continue
+                htype = self._es_typed(toks, up, h, p)
+                holder, prop = toks[h], toks[p]
+                states.append(EntityState(sent_idx=si, holder=holder, property=prop, htype=htype))
+                if htype in ("pred_adj", "pred_nom"):     # predicational -> state register (read-back)
+                    reg.apply_state(holder.lower(), prop.lower())
+        sm.entity_states = states
+        sm.state_register = reg
+
     def read(self, conll_path: str) -> SituationModel:
         mentions, n_sents = parse_litbank_conll(conll_path, name_gender_map=self.gaz)
         sents = parse_conll_sentences(conll_path)
@@ -1509,6 +1582,10 @@ class SituationReader:
             # + open/closed toggles). Runs LAST so it sees the patients predict_revise recovered. Additive --
             # sm.world_state stays None when the flag is off.
             self._read_world_state(sm, sents)
+        if self.bind_entity_states:
+            # COPULAR is-a/attribute dimension: typed (holder, property) states on sm.entity_states +
+            # sm.state_register. Additive -- both stay empty/None when the flag is off.
+            self._read_entity_states(sm, sents)
         return sm
 
 
