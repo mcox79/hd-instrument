@@ -141,16 +141,63 @@ def closure_paths(script_path: Path) -> list[str]:
     return sorted(out)
 
 
+def _nltk_corpora_in_file(path: Path) -> set[str]:
+    """NLTK corpus names a file depends on at RUNTIME: `from nltk.corpus import X`,
+    `import nltk.corpus.X`, `nltk.download("X")`, `nltk.data.find(".../X")`. These are
+    NOT file-path KB_REFERENTs (PROT-022 misses them) and often are NOT hit by the
+    --self-test (so the gate passes and the FULL run dies 7 min in with LookupError:
+    Resource 'X' not found -- exactly the sg_lite/semcor failure 2026-09-02)."""
+    try:
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    except (OSError, SyntaxError, ValueError, UnicodeDecodeError):
+        return set()
+    out: set[str] = set()
+    for node in ast.walk(tree):
+        # `from nltk.corpus import semcor, wordnet as wn` -- nltk.corpus.<X> IS a corpus by
+        # definition, so this is unambiguous (no false positives, unlike parsing find()/download()
+        # string args which caught arbitrary paths).
+        if isinstance(node, ast.ImportFrom) and node.module == "nltk.corpus" and not node.level:
+            for a in node.names:
+                if a.name != "*":
+                    out.add(a.name)
+        elif isinstance(node, ast.Import):
+            for a in node.names:
+                if a.name.startswith("nltk.corpus."):
+                    out.add(a.name.split(".")[2])
+    return out
+
+
+def nltk_corpora(script_path: Path) -> list[str]:
+    """The union of NLTK corpus deps across the cell's full transitive closure."""
+    files = [script_path.relative_to(_repo_root_of(script_path)).as_posix()] + closure_paths(script_path)
+    root = _repo_root_of(script_path)
+    found: set[str] = set()
+    for rel in files:
+        found |= _nltk_corpora_in_file(root / rel)
+    # drop obvious non-corpus tokens (download of a tokenizer model etc. is still a real dep, keep it)
+    return sorted(found)
+
+
+def _repo_root_of(script_path: Path) -> Path:
+    for anc in [script_path.parent, *script_path.parents]:
+        if (anc / "experiments").is_dir():
+            return anc
+    return script_path.parent
+
+
 def main() -> int:
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     flags = {a for a in sys.argv[1:] if a.startswith("--")}
     if len(args) != 1:
-        print("usage: extract_sibling_imports.py <script_path> [--closure-paths]", file=sys.stderr)
+        print("usage: extract_sibling_imports.py <script_path> [--closure-paths|--nltk-corpora]", file=sys.stderr)
         return 2
     script_path = Path(args[0]).resolve()
     if "--closure-paths" in flags:
         for rel in closure_paths(script_path):
             print(rel)
+    elif "--nltk-corpora" in flags:
+        for c in nltk_corpora(script_path):
+            print(c)
     else:
         for base in find_sibling_modules(script_path):
             print(base)

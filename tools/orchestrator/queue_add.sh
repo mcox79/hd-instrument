@@ -346,6 +346,27 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
         done <<< "${MISSING}"
       fi
     fi
+
+    # ── Pattern 8 (2026-09-02): queue-time NLTK-CORPUS DEPENDENCY CHECK. The gate
+    # verifies code modules (Pattern 7) + KB_REFERENT files (PROT-022) but NOT NLTK
+    # corpora -- so a `from nltk.corpus import semcor` the --self-test never exercised
+    # let the run get DISPATCHED and die ~7 min in with `LookupError: Resource 'X' not
+    # found` (sg_lite/semcor, 2026-09-02). Detect the closure's NLTK corpora, verify +
+    # auto-PROVISION them on the remote, and REJECT the queue here (exit 6) if any is
+    # unresolvable -- never burn a GPU slot on a run whose data dep is absent.
+    NLTK_DEPS=$(python "${SIBLING_IMPORT_HELPER}" "${SCRIPT_LOCAL}" --nltk-corpora 2>/dev/null | tr -d '\r' | tr '\n' ' ' || true)
+    if [[ -n "${NLTK_DEPS// /}" ]]; then
+      scp -o BatchMode=yes -o ConnectTimeout=10 "${REPO_LOCAL}/tools/orchestrator/check_nltk_deps.py" "${SSH_TARGET}:${REPO_REMOTE}/tools/orchestrator/" 2>/dev/null || true
+      echo "[queue-add] NLTK-dep check (Pattern 8): ${NLTK_DEPS}"
+      NLTK_RC=0
+      NLTK_OUT=$(ssh -o BatchMode=yes -o ConnectTimeout=60 "${SSH_TARGET}" \
+        "powershell -Command \"cd ${REPO_REMOTE}; .\\.venv\\Scripts\\python.exe tools/orchestrator/check_nltk_deps.py ${NLTK_DEPS}; exit \$LASTEXITCODE\"" 2>&1) || NLTK_RC=$?
+      echo "${NLTK_OUT}" | grep -v "post-quantum\|store now\|upgraded\|openssh\|pynvml\|FutureWarning\|import pynvml" || true
+      if [[ "${NLTK_RC}" -ne 0 ]]; then
+        echo "FAIL: NLTK-corpus dependency check -- a corpus the cell imports is NOT loadable on ${SSH_TARGET} and could not be auto-provisioned. Declare/cache it or download it on the runner; refusing to queue a run that will fail at load time." >&2
+        exit 6
+      fi
+    fi
   fi
 
   # SSH+PowerShell payload. Single-quote bash outer per [[feedback-ssh-powershell-quoting]].
