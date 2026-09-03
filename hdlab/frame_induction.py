@@ -38,8 +38,10 @@ Public API:
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import pickle
 from typing import List, Optional, Sequence, Tuple
 
 from hdlab.learner import registry
@@ -342,6 +344,72 @@ DEFAULT_REAL_DATA_PATH = os.path.join(
 
 _INDUCED_SUBJ_HYP_CACHE: dict = {}
 
+# PERSISTENT DISK CACHE for the induced subject hypothesis (2026-09-03 perf fix). The induction is a
+# DETERMINISTIC ~130s program-enumeration (612M expression evals) run on the FIRST read() of every
+# fresh process -- the in-process cache above only amortizes WITHIN a process, so every witness /
+# benchmark / board process re-paid it (this was mis-diagnosed as a disk "cold start"; it is COMPUTE,
+# not I/O). The result (chosen_name, hypothesis-dict) is a pure function of (train-file content, spec),
+# so we persist it: only the FIRST-EVER build pays ~130s; every process after loads in ~ms. Keyed by a
+# content hash of the train file + the spec (atoms/max_nodes/classes) so any data/spec change auto-
+# invalidates. Byte-identical to re-inducing (witness: test_frame_induction_cache_speed_organ.py).
+_INDUCED_SUBJ_HYP_DISK_DIR = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "frame_induction_cache")
+_INDUCED_CACHE_VERSION = "proginduction_v1"
+
+
+def _induced_cache_key(path: str, spec: dict) -> Optional[str]:
+    """sha1 over (train-file bytes + the induction-relevant spec fields + a version tag). None if the
+    file is unreadable (then we skip the disk cache and fall through to a live induce)."""
+    try:
+        with open(path, "rb") as fh:
+            file_bytes = fh.read()
+    except (OSError, IOError):
+        return None
+    pi = (spec or {}).get("per_plugin", {}).get("proginduction", {})
+    spec_sig = json.dumps({"atoms": pi.get("atoms"), "max_nodes": pi.get("max_nodes"),
+                           "classes": pi.get("classes"), "v": _INDUCED_CACHE_VERSION},
+                          sort_keys=True).encode("utf-8")
+    h = hashlib.sha1()
+    h.update(file_bytes)
+    h.update(b"|")
+    h.update(spec_sig)
+    return h.hexdigest()
+
+
+def _load_induced_disk_cache(path: str, spec: dict):
+    """Return the cached (chosen_name, hypothesis) tuple, or None on any miss/corruption (never raises)."""
+    key = _induced_cache_key(path, spec)
+    if key is None:
+        return None
+    fp = os.path.join(_INDUCED_SUBJ_HYP_DISK_DIR, "subj_hyp_" + key + ".pkl")
+    if not os.path.exists(fp):
+        return None
+    try:
+        with open(fp, "rb") as fh:
+            obj = pickle.load(fh)
+        if isinstance(obj, tuple) and len(obj) == 2:
+            return obj
+    except Exception:
+        return None
+    return None
+
+
+def _save_induced_disk_cache(path: str, spec: dict, result) -> None:
+    """Persist (chosen_name, hypothesis) atomically. Best-effort -- a write failure just means the next
+    process re-induces (correct, only slower)."""
+    key = _induced_cache_key(path, spec)
+    if key is None:
+        return
+    try:
+        os.makedirs(_INDUCED_SUBJ_HYP_DISK_DIR, exist_ok=True)
+        fp = os.path.join(_INDUCED_SUBJ_HYP_DISK_DIR, "subj_hyp_" + key + ".pkl")
+        tmp = fp + ".tmp"
+        with open(tmp, "wb") as fh:
+            pickle.dump(result, fh, protocol=pickle.HIGHEST_PROTOCOL)
+        os.replace(tmp, fp)
+    except Exception:
+        pass
+
 
 def _load_real_train_episodes(data_path: str) -> List[dict]:
     """TRAIN-split-only episodes from the real litbank-mined psych-verb dataset, built with the
@@ -387,9 +455,16 @@ def get_induced_subj_hypothesis(data_path: Optional[str] = None,
         if train_eps:
             classes = sorted({ep["gold_class"] for ep in train_eps})
             spec = default_spec(classes, atoms=REAL_CONSTRUCTION_ATOMS)
-            chosen_name, chosen, _all = induce(train_eps, spec=spec)
-            if chosen is not None:
-                result = (chosen_name, chosen.hypothesis)
+            # DISK CACHE: skip the ~130s deterministic induction if a prior process already built it.
+            disk = _load_induced_disk_cache(path, spec) if use_cache else None
+            if disk is not None:
+                result = disk
+            else:
+                chosen_name, chosen, _all = induce(train_eps, spec=spec)
+                if chosen is not None:
+                    result = (chosen_name, chosen.hypothesis)
+                    if use_cache:
+                        _save_induced_disk_cache(path, spec, result)
     except (OSError, IOError, ValueError, KeyError):
         result = (None, None)
     if use_cache:
