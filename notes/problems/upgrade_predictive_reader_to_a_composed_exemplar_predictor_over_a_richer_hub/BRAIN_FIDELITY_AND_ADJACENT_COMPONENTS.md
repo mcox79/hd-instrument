@@ -10,15 +10,19 @@ from the two research drills folded into `SOLVED.md`.
 
 ## PART 1 -- THE WALLS, EVALUATED FOR BRAIN-FIDELITY (gap to build across, or brain-consistent ceiling?)
 
-### WALL A -- the live who-did-what deployment does not lift with the hub (AUC +0.008 ns; Channel-A +0.012 ns)
-- **How the brain does it:** English who-did-what SELECTION is word-order-dominant (Competition Model,
-  MacWhinney-Bates; the parent's audit). Thematic fit is a LOW-validity cue that surfaces only at syntactic
-  ambiguity. The live candidate pool competes co-event participants (agent/obliques), so ranking the patient
-  there is a selection task where position rules.
-- **Verdict: BRAIN-CONSISTENT CEILING, not a fidelity gap.** The brain ALSO would not use the meaning
-  representation to win who-did-what selection here -- it uses syntax. The hub's advantage is real for
-  *prediction* (random-distractor pools: +0.076 held-out, +0.049..+0.114 across the pool-size sweep) and it
-  is muted in the selection-flavored live pool exactly as the Competition Model predicts. No gap to build.
+### WALL A -- the live lift LOOKED absent (AUC +0.008 ns; sentence-noun Channel-A +0.012 marginal) -- RESOLVED: it was a MEASUREMENT-FIDELITY error
+- **How the brain does it:** the N400 forward prediction is a GRADED PRE-ACTIVATION over a BROAD plausible-
+  filler space BEFORE the word is read (Altmann-Kamide 1999; Kukona 2011 -- a role-inappropriate off-sentence
+  competitor activates as strongly as the true target; Federmeier 2007). It is NOT a post-hoc pick among the
+  few nouns visible in the clause.
+- **Verdict: NOT a ceiling -- a wrong instrument. RESOLVED.** Ranking the target among the ~4 visible sentence
+  nouns is selection-flavored (base MRR 0.67, competes the agent) and hid the lift (+0.017, and marginal until
+  powered). Measured the brain's way -- broad graded pre-activation over ~300 plausible patients driven by the
+  live parse (`exp_composedhub_livebroad_v1`, n=12463) -- the hub beats the spoke **+0.0686 CI-sep, BOTH twins
+  losing**, essentially the full held-out advantage, ON THE LIVE READER. An architecture drill (Federmeier;
+  Kukona) confirmed the broad pool is the brain-faithful instrument. (The live SELECTION/error-FLAG remains
+  order/ambiguity-bound -- WALL B -- but that is a different job from PREDICTION, which is the deliverable.)
+  The competition SET is a fidelity decision, not a measurement convenience.
 
 ### WALL B -- 46.9% of the reader's residual errors are un-flaggable by marginal surprisal
 - **How the brain does it (two mechanisms):** (1) good-enough processing (Ferreira 2003) -- the brain
