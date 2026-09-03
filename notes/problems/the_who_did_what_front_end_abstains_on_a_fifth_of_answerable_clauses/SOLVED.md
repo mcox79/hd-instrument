@@ -5,7 +5,7 @@ bar: "PASS = a coverage recovery (attempt every finite verb + parser-robust cand
 result: "RECOMPUTED against the CURRENT live reader (the stored 0.6293 floor went STALE -- upstream modules landed DURING this work and lifted the live wired reader to 0.7877; predict_revise = +0.0643 of it). On the 669 clean-19c direct-object clauses, scorer pick==gold_head, effective end-to-end (abstention=wrong): CURRENT live wired 0.7877 -> STRUCTURAL recovery 0.9851, marginal +0.1973 CI[+0.1689,+0.2272] CI-separated. The recovery's contribution is now primarily ACCURACY (it fixes 65 of the reader's 75 remaining wrong picks) plus the 47 verb_subcat + 20 no-event abstentions. Modern QA-SRL (n=1261) 0.5678 -> 0.9025, +0.3347 CI-sep (modern floor not yet re-run against current substrate)."
 floor: "Strongest floor actually run = the CURRENT live wired reader 0.7877 (predict_revise ON; recomputed first-hand, NOT the stale stored 0.6293). predict_revise OFF = 0.7235. The RECOVERED path beats the current floor +0.1973 CI[+0.1689,+0.2272]. best-available-parser wired floor (updated arc-eager UAS 0.842) 0.6308 at the time it was run -- also now superseded by the upstream lift. RETIRED as stale: the stored wired_pick 0.6293."
 controls: "(1) info-free twin = full coverage + UNIFORM-RANDOM post-verbal pick 0.4185, LOSES CI-sep. (2) NO-REGRESSION: present-accuracy 0.807->0.981; 5 individual flips (hard ditransitive/copula/distant-noun). (3) INTRANSITIVE precision control (constructed, can-fail): naive soft rule over-generates on 100% of intransitives; STRUCTURAL-DO abstains correctly 0.975 AND recovers the 47 AND does not regress the main gold. (4) CURRENT-FLOOR recompute (first-hand): the recovery marginal is measured over the CURRENT 0.7877 reader, not the stale 0.6293; predict_revise attributed (+0.064). (5) fair-floor: the updated arc-eager parser recovers only 1/669 -> abstention was not parse-quality. (6) per-cause ablation is exhaustive."
-files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, experiments/exp_whodidwhat_mention_source_transfer_v1.py, experiments/exp_whodidwhat_meaning_prediction_completeness_v1.py, experiments/exp_whodidwhat_live_wire_end_to_end_v1.py, experiments/exp_whodidwhat_current_floor_rediagnosis_v1.py, experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_verbid_override_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, experiments/exp_whodidwhat_noncanonical_upstream_v1.py, experiments/exp_whodidwhat_fillergap_fix_v1.py, experiments/exp_whodidwhat_composed_pipeline_v1.py, experiments/exp_whodidwhat_verbid_learned_combiner_v1.py, experiments/exp_whodidwhat_competent_reader_benchmark_v1.py, experiments/exp_whodidwhat_verbid_joint_pos_parse_v1.py, experiments/exp_whodidwhat_noncanonical_gold_rebuild_v1.py, experiments/exp_whodidwhat_fillergap_parse_v1.py, experiments/exp_whodidwhat_joint_pos_parse_coherence_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
+files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, experiments/exp_whodidwhat_mention_source_transfer_v1.py, experiments/exp_whodidwhat_meaning_prediction_completeness_v1.py, experiments/exp_whodidwhat_live_wire_end_to_end_v1.py, experiments/exp_whodidwhat_current_floor_rediagnosis_v1.py, experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_verbid_override_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, experiments/exp_whodidwhat_noncanonical_upstream_v1.py, experiments/exp_whodidwhat_fillergap_fix_v1.py, experiments/exp_whodidwhat_composed_pipeline_v1.py, experiments/exp_whodidwhat_verbid_learned_combiner_v1.py, experiments/exp_whodidwhat_competent_reader_benchmark_v1.py, experiments/exp_whodidwhat_verbid_joint_pos_parse_v1.py, experiments/exp_whodidwhat_noncanonical_gold_rebuild_v1.py, experiments/exp_whodidwhat_fillergap_parse_v1.py, experiments/exp_whodidwhat_joint_pos_parse_coherence_v1.py, experiments/exp_whodidwhat_joint_local_arc_v1.py, experiments/exp_whodidwhat_joint_noisy_channel_v1.py, experiments/exp_whodidwhat_joint_generalization_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_whodidwhat_coverage.py"
 ---
 
@@ -255,6 +255,68 @@ A substrate map corrected several of my exploratory conclusions; recording hones
 targeting the gold-POS→pred-POS UAS gap (0.842→0.805; ~87% joint-inference headroom). Everything else I "found" as a
 gap (non-canonical, filler-gap) is already landed; I was measuring against broken/rebuilt gold or reinventing organs.
 This is the honest correction the research bought.
+
+## 0i. THE IMPACTFUL BUILD, now fully understood + spec'd (research 2026-09-03) — a JOINT-DECODED transition parser
+The two research drills closed the understanding gap. The single impactful, un-owned, brain-foundational build is a
+**joint-decoded incremental transition parser**: POS-tag assignment becomes ONE MORE SCORED ACTION inside the same
+beam search, not a fixed upstream input — so a mis-tag cannot propagate because there is no committed tag to propagate.
+
+- **Why (brain):** ERP shows no syntax-first serial signal (Fromont, Steinhauer & Royle 2020) — category, structure,
+  and role settle jointly (MacDonald et al. 1994). Noisy-channel (Gibson et al. 2013): treat a per-token tag as a
+  LIKELIHOOD combined with the parser's structural PRIOR, never a hard fact.
+- **Why (NLP, converged mechanism not convenient tool):** Bohnet & Nivre 2012 + Hatori et al. 2011 built exactly this
+  — POS as a `SHIFT_p` action scored by the same joint linear model; gains concentrate on OUR failure class
+  (verb-read-as-noun VBZ→NN). Hatori's "delayed features" keep it left-to-right incremental.
+- **The build (a SMALL delta, not a rebuild):** the substrate tagger (`hdlab/pos_tagger.py`) and arc-eager parser
+  (`hdlab/arceager_parser.py`) are ALREADY the same averaged-perceptron paradigm. Add k-best `SHIFT_p` actions
+  (candidates from the tagger's own emission-score margins), fold them into the SAME linear weight vector already
+  scoring arc actions, run a small beam (4-8), RETRAIN jointly on UD-EWT. Target: the gold-POS→pred-POS UAS gap
+  (0.842→0.805; ~87% joint-inference recoverable) + the ~2% genuine 19c verb mistags.
+- **My 4 refuted post-hoc approaches are the evidence it needs the real thing:** heuristic combined cue (3.72 FP);
+  learned sequential combiner (0.05 rec — the parser-attachment feature was corrupted by the very mis-tag); heuristic
+  joint re-tag (0.05); parse-COHERENCE override (0.15 rec but the BEST precision, 0.11 FP). The drill's verdict on the
+  coherence probe: directionally right (uses parse evidence to override a tag) but a weak GLOBAL-MEAN proxy — "if it
+  does nothing, that is NOT evidence against joint decoding; the aggregate signal is too weak to detect the real local
+  per-arc effect." Exactly what the 0.15/0.11 profile shows.
+- **FILE IT** as a new problem (un-owned; owns the parser SOLVED's named top follow-on). Filler-gap is NOT part of it
+  (already landed, `relcl_resolver` 0.953). This is a substantial retrain — correctly a focused problem, not a patch.
+
+## 0j. THE ABSOLUTE WIN, PROTOTYPED — a brain-foundational noisy-channel joint POS override that CLEARS the bar
+Following the architecture drill's precise correction (use the LOCAL per-arc signal, not the global mean), the joint
+POS override was built up in three measured steps and the last one PASSES:
+| approach | recovery of the 20 mis-tagged 19c verbs | false-verbs/sent | verdict |
+|---|---|---|---|
+| global-mean parse coherence (cell `..._joint_pos_parse_coherence_v1`) | 0.15 | 0.11 | too-weak proxy (the drill predicted this) |
+| LOCAL per-arc structure — token acquires subj+obj deps (cell `..._joint_local_arc_v1`) | **0.80** | 2.05 | best recovery, FP too high |
+| **NOISY-CHANNEL: local gain + global non-degradation guard** (cell `..._joint_noisy_channel_v1`) | **0.50** | **0.92** | **HARD_PASS** |
+
+This is the brain-faithful mechanism (Gibson et al. 2013 noisy-channel): P(verb | data) ∝ P(verb-tag) × P(structure |
+verb) — the LOCAL signal (does the token gather a subject + object as high-confidence dependents when read as a verb)
+combined with the GLOBAL guard (forcing VERB must not degrade the whole-sentence parse, which rejects nouns that
+manufacture fake local structure). It is the FIRST of five approaches to recover the mis-tagged verbs at a usable
+false-verb rate (0.50 recovery @ 0.92/sent, vs 0.00-0.15 recovery for every prior approach at FP<=1.0). Where the
+tagger recovers 0% of these, this recovers half — glass-box, no LLM/spaCy, on the landed arc-eager operator.
+
+HONEST bounds: recovery is marginal (0.50, exactly the bar; n=20) and it is a POST-HOC override (parse twice per
+candidate), not the fully JOINT-DECODED beam parser of §0i — which the drill says would push recovery higher at lower
+FP by scoring POS jointly INSIDE the search rather than re-parsing after.
+
+**GENERALIZATION — it does NOT generalize; the win is 19c-register-specific** (cell `..._joint_generalization_v1`).
+On MODERN UD-EWT with GOLD-verified mis-tags (n=400 sents, 25 mis-tags), recovery drops to **0.16 @ 0.46 FP** (vs
+0.50 @ 0.92 on 19c). Reason: the modern tagger mis-tags verbs rarely (0.062/sent), so the RESIDUAL mis-tags are its
+hardest, most-confident errors that lack the structural signal the override relies on; 19c mis-tags are systematic
+register artifacts where subject+object ARE present, so structurally recoverable. So the post-hoc override is a real
+but 19c-SPECIFIC partial fix, not a general verb detector.
+
+**OPTIMIZE — via the override (incremental) and upstream (the real lever):**
+- via the override: replace the WordNet-verbhood proxy with the tagger's actual P(verb-tag) (needs the perceptron's
+  internal scores — not exposed publicly); extend binary VERB-vs-original to the tagger's k-best POS (recovers ADJ/ADP
+  mistags, not only verbs); use arc MARGIN not just confidence. Incremental.
+- upstream (the real optimization): the **JOINT-DECODED parser (§0i)** scores POS jointly INSIDE the beam (not a
+  post-hoc re-parse), so it learns a register-general joint POS+structure model — the path that WOULD generalize where
+  the post-hoc override does not. Tagger retraining upstream is BLOCKED (no 19c gold; self-training refuted, substrate
+  map). NET: the generalization failure is itself the strongest evidence that the trained joint parser (§0i), not a
+  tuned post-hoc override, is the correct build. Direction validated on 19c; deployable+general version = §0i.
 
 ## 1. The diagnosis — first-hand, exhaustive (cell: exp_whodidwhat_coverage_diagnosis_v1) [floor superseded by §0]
 I re-ran the actual `hdlab.situation_reader.SituationReader` (the "strong" reader the gold was built with:
