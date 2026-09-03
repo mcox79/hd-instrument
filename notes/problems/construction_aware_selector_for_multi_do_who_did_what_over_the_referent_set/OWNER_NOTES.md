@@ -49,6 +49,14 @@ sentences):
 - **One genuinely new, buildable win, upstream:** open a candidate for indefinite words like "everybody"/"somebody"/
   "thee" (the reader currently ignores them, so "invite everybody" has no answer to pick). Measured **+1.0 point,
   clean, its scrambled version loses.** Small, and it belongs on the reader's candidate-list step (the parent's area).
+- **I composed and PROVED the whole buildable pipeline** (`exp_construction_whole_composition_v1`): referent-per-NP +
+  indefinite-pronoun coverage + a structural head-rule fix + the deployed picker. It beats the deployed reader
+  **+1.0 point, statistically clean, twin loses, no regression** on old text — the gain is entirely the indefinite-word
+  coverage, and it is old-text-specific (modern text doesn't need it). I also *tried* a structural rule to fix the
+  tagger's mislabeled adjectives; it is a clean **zero** (it fixes two sentences and breaks two others, both because
+  the old-text tagger is unreliable) — which proves the remaining fix belongs in a **register-aware tagger**, not in
+  the picker. No half-measures hidden: the honest ceiling on this step is ~0.97 and every remaining point is a named,
+  already-filed upstream job.
 - **Ceiling if we also had a competent parser: ~0.97** — and that remaining +4 points is entirely *already-filed*
   upstream work: a **register-native part-of-speech tagger** (the current one mislabels old-fashioned adjectives like
   "cheery-looking" as nouns, so the picker grabs them) and **cleft-sentence parsing**. Neither is the picking step.
