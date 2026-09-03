@@ -5,7 +5,7 @@ bar: "PASS = an is-a/attribute binding readout (glass-box, NO LLM) that, on a cl
 result: "The is-a/attribute binding READ-BACK answers 'what/who is X' at recall 0.6718 / precision 0.7690 on 451 gold copular predications (UD-EWT test; nominal is-a + adjectival + identity), CI-separated +0.1685 [+0.1136,+0.2172] hw=0.0518 nullp95=0.0518 over the most-recent-noun floor (0.5033), with the info-free binding-SHUFFLE twin LOSING +0.2195 [+0.1767,+0.2625] recall / +0.2322 precision CI-sep. THE FIX (label-robust copula-anchored detection, prototyped) raises it to recall 0.8182 (+0.1463 [+0.1114,+0.1833] CI-sep over base; twin still loses +0.2949 recall CI-sep), the gain CONCENTRATED on the identity weak point (adj +0.102, is-a +0.194, identity +0.247). Glass-box Higgins TYPE classifier 0.9690 coarse. Register-independent (modern 0.900->1.000, archaic 0.450->0.700 with the fix). No-regression: state_register self-test 11/11 + the typed binding feeds it and round-trips ('what is Ahab?'->captain, 'what is the room?'->cold)."
 floor: "Strongest simple floor ACTUALLY RUN, recomputed on the same 451-clause population = most-recent-noun / parse-free positional holder (extract_entity_states_positional): read-back recall 0.5033, precision 0.3969. Info-free SHUFFLE twin (keep the detected property, bind a RANDOM preceding nominal as holder): recall 0.4523. The binding beats BOTH CI-separated; the fix beats both by more."
 controls: "(1) most-recent-noun POSITIONAL floor recomputed on the same population -> excludes 'any copula-anchored heuristic wins' (binding beats it +0.1685 CI-sep). (2) info-free binding-SHUFFLE twin (random holder, matched property/count) -> excludes 'the holder binding is noise' (twin loses +0.2195 recall / +0.2322 precision CI-sep for base; +0.2949 / +0.2017 for the fix). (3) PROCESS MAP stage decomposition (451 gold -> 319 detected -> 303 bound -> 297 typed) -> LOCATES the residual loss at DETECTION (the arc labeler's `cop` recall), not binding (95% lossless given detection) -> excludes 'binding is the bottleneck'. (4) per-Higgins-type gradient (adj 0.746 > is-a 0.621 > identity 0.466) + gold-detection ceiling (0.807) -> excludes 'the loss is uniform'; it is concentrated in identity/equative. (5) NO-REGRESSION: landed state_register self-test 11/11 unchanged + typed binding composes -> excludes 'the readout breaks the existing registers'. (6) register-independence on a controlled modern<->archaic matched set -> excludes 'this is a modern-text artifact'. Each control excludes a specific alternative."
-files_changed: "experiments/exp_copular_is_a_binding_readout_v1.py (process map + typed is-a/attribute read-back + floor + shuffle twin + THE FIX + symmetric-identity arm + glass-box Higgins classifier), experiments/exp_copular_is_a_binding_register_and_noregress_v1.py (register-independence controlled set + no-regression), experiments/exp_copular_incremental_discourse_reader_v1.py (THE FULL SOLUTION: incremental discourse-contextualized reader -- closes losses 2+5, reuses the coref-resolver salience organ), experiments/exp_copular_ideal_incremental_predictive_v1.py (the IDEAL composition prototype: incremental-vs-batch + power-law salience -- honest negatives, reuses incremental_parser/predictive_reader), verification/test_copular_is_a_binding_organ.py (scaffold-free witness, 10/10), notes/problems/the_reader_has_no_copular_is_a_binding_schema/research_copular_is_a_binding_2026-09-02.md (4-lane full-text brain drill), notes/problems/the_reader_has_no_copular_is_a_binding_schema/research_incremental_discourse_mechanism_2026-09-02.md (incremental-mechanism drill: power-law salience, no copula-locked slot), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_identity_gain_ci.py (persisted: identity-only gain CI + specificational typing), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_precision_and_identity_residual.py (persisted: fix precision-cost deflation + identity residual decomposition), notes/problems/the_reader_has_no_copular_is_a_binding_schema/IDEAL_copular_is_a_architecture_2026-09-02.md (the ideal 6-stage brain-faithful system + research gaps), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_isa_inheritance_feature_overlap.py (persisted: is-a inheritance via feature-overlap -- located gap), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_signal_loss_waterfall.py (persisted: exact per-stage brain-vs-us signal-loss waterfall), notes/problems/the_reader_has_no_copular_is_a_binding_schema/SOLVED.md. REUSES (unmodified): experiments/_copular_nominal_events.extract_entity_states (the sibling's binding primitive), hdlab.state_register (landed, the read-back store), the in-substrate pos_tagger/arc_parser/arc_labeler. NO hdlab/ file changed -- proposed diff below (Q111)."
+files_changed: "experiments/exp_copular_is_a_binding_readout_v1.py (process map + typed is-a/attribute read-back + floor + shuffle twin + THE FIX + symmetric-identity arm + glass-box Higgins classifier), experiments/exp_copular_is_a_binding_register_and_noregress_v1.py (register-independence controlled set + no-regression), experiments/exp_copular_incremental_discourse_reader_v1.py (THE FULL SOLUTION: incremental discourse-contextualized reader -- closes losses 2+5, reuses the coref-resolver salience organ), experiments/exp_copular_ideal_incremental_predictive_v1.py (the IDEAL composition prototype: incremental-vs-batch + power-law salience -- honest negatives, reuses incremental_parser/predictive_reader), experiments/exp_copular_arceager_parser_comparison_v1.py (switch to the arc-eager tree: base binding +0.111 CI-sep, identity +0.055, reuses hdlab.arceager_parser), verification/test_copular_is_a_binding_organ.py (scaffold-free witness, 10/10), notes/problems/the_reader_has_no_copular_is_a_binding_schema/research_copular_is_a_binding_2026-09-02.md (4-lane full-text brain drill), notes/problems/the_reader_has_no_copular_is_a_binding_schema/research_incremental_discourse_mechanism_2026-09-02.md (incremental-mechanism drill: power-law salience, no copula-locked slot), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_identity_gain_ci.py (persisted: identity-only gain CI + specificational typing), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_precision_and_identity_residual.py (persisted: fix precision-cost deflation + identity residual decomposition), notes/problems/the_reader_has_no_copular_is_a_binding_schema/IDEAL_copular_is_a_architecture_2026-09-02.md (the ideal 6-stage brain-faithful system + research gaps), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_isa_inheritance_feature_overlap.py (persisted: is-a inheritance via feature-overlap -- located gap), notes/problems/the_reader_has_no_copular_is_a_binding_schema/prototype_signal_loss_waterfall.py (persisted: exact per-stage brain-vs-us signal-loss waterfall), notes/problems/the_reader_has_no_copular_is_a_binding_schema/SOLVED.md. REUSES (unmodified): experiments/_copular_nominal_events.extract_entity_states (the sibling's binding primitive), hdlab.state_register (landed, the read-back store), the in-substrate pos_tagger/arc_parser/arc_labeler. NO hdlab/ file changed -- proposed diff below (Q111)."
 reverify: ".venv/Scripts/python.exe verification/test_copular_is_a_binding_organ.py"
 ---
 
@@ -321,6 +321,31 @@ errors are tree/attachment); the np_head_reduce ROLE-PICK fix specifically does 
 already the labeled head.** The who-did-what gain and this copular problem are BOTH parser-consumers, but they
 consume DIFFERENT parser outputs: who-did-what consumed the (buggy) role PICK, copular consumes the (labeled) TREE.
 
+## THE ARC-EAGER TREE IS THE LEVER (owner-directed switch) -- confirms the taxonomy's prediction
+The taxonomy predicted a better parse TREE (not the role-pick fix) would move this problem. Switching the July
+tree (`arc_parser_hashed_ud_ewt.npz`, UAS 0.744 pred-POS) to the shipped **arc-eager tree**
+(`data/frontend_assets_exp/arceager_dynamic_ud_ewt.npz`, UAS 0.805 pred-POS, +0.061), re-run on UD-EWT (MODERN --
+the owner-flagged tree-lever case), `exp_copular_arceager_parser_comparison_v1.py`, n=451 gold:
+
+| tree | detection | base recall | fix recall | fix precision |
+|---|---|---|---|---|
+| July | 0.865 | 0.672 | 0.818 | 0.615 |
+| **arc-eager** | 0.869 | **0.783** | **0.832** | 0.621 |
+| delta | +0.004 | **+0.111 [+0.073,+0.152] CI-sep** | +0.013 (ns) | +0.006 |
+
+**The BASE (labeled `cop`/`nsubj`) binding jumps +0.111 CI-separated** -- the better tree recovers the copular
+structure much more accurately -- and the **identity type gains most (+0.055 fix recall)**, exactly the hard
+equative attachment the taxonomy flagged as tree-bound. **The FIX only rises +0.013 (ns)** because `robust_cop`
+(my label-robust detector) had ALREADY compensated for the July tree's `cop`-label misses -- so with the better
+tree, the principled labeled path (base 0.783) nearly catches the workaround (July fix 0.818), and the best config
+is arc-eager tree + fix = **0.832**. **DETECTION barely moves** (0.865->0.869): the residual undetected hard
+equatives/clefts remain hard even for the arc-eager tree (a genuine parser ceiling, register-independent).
+**CONCLUSION: switch the copular binding to the arc-eager tree** -- it lifts the labeled path +0.111 CI-sep, is
+the more brain-faithful path (rely on an accurate tree, not a label-robust workaround), and helps identity most.
+This VINDICATES the tree-lever prediction: a better TREE moves this problem; the np_head_reduce role-PICK fix did
+not, because copular consumes the labeled TREE, not the role pick -- two different parser outputs, exactly as the
+taxonomy said. (The proposed hdlab wire updates to `parser_arceager=True` on the entity-state route.)
+
 ## KEY REALIZATIONS (the enabling moves)
 1. **Check the existing organs BEFORE building.** Three organs already covered most of the binding
    (`extract_entity_states`, `state_register`, `definitional_extraction`). Re-deriving the binding would have been
@@ -391,19 +416,64 @@ property ("cold"), a category ("a captain"), and an identity ("his wife") -- are
 time, and I follow the brain in treating identity as a two-way link (the brain stores such links both directions,
 via the hippocampus).
 
+## IMPORTANT IMPROVEMENTS TO MAKE HERE (plain language, for the owner) -- ranked by value
+Yes -- beyond the grammar-parser there are four more real optimizations. In order of how much they would help:
+
+1. **A better grammar-parser -- the biggest lever, and partly banked already.** The reader leans on the
+   grammar-parser to spot "X is a Y". Switching to the newer parser this session already lifted the reliable path
+   from 67 to 78 correct out of 100, with the largest gain on the hardest "is-the-same-as" sentences. TWO more
+   parser gains remain: a parser trained on OLD-FASHIONED prose (the current one tops out on 200-year-old novels
+   and on the trickiest constructions -- backwards word order, "it was X that..." sentences). That is the main
+   thing still holding back the roughly 1-in-8 "X is Y" sentences the reader cannot yet spot at all. RISK of my
+   recommendation: building old-prose training data is a genuine effort and only helps old text; on modern text
+   the newer parser is most of the win.
+
+2. **Teaching the reader to INHERIT categories -- the deepest missing piece.** The reader now records that a
+   character IS a doctor, but cannot yet conclude "therefore a person, therefore can heal". We PROVED this cannot
+   be guessed from word-similarity -- every such method landed barely above a coin-flip. It needs a separately
+   built look-up table of "is-a" facts, harvested offline from a lot of reading (using the fact that "X is a Y" is
+   itself the most reliable pattern to harvest), then looked up and followed at read-time (a doctor is a person is
+   a living thing), with exceptions handled. RISK: this is the largest of the five and belongs to the broader
+   knowledge-foundation effort, not this one problem -- it is already routed there.
+
+3. **Answering about a character across the WHOLE story, not one sentence.** Right now the fact is pinned to the
+   exact words in a single sentence. To answer "what is Ahab?" when he is later called "he" or "the captain", the
+   fact must be tied to the character across the story. I showed this works -- about 4 in 10 facts become
+   answerable across sentences -- it just needs wiring into the live reader. RISK: low; mostly plumbing, but it
+   inherits any mistakes the character-tracker makes.
+
+4. **A fuller job of telling the three kinds of "X is Y" apart -- and admitting when it is genuinely unclear.**
+   The reader already tells "a doctor" (a category) from "his wife" (an identity) 97 times in 100. A fuller
+   version would use a few more clues and, importantly, say "unclear" on the truly ambiguous cases (like "his
+   wife", which can honestly go either way) instead of forcing a guess -- which is what a person does. RISK: low;
+   a polish with a small gain.
+
+5. **Using story context for backwards-worded sentences.** In "the captain was Ahab" the reader can use which
+   character was already being talked about to attach the fact to the right one. This is a safety net for a rare
+   case -- it matters on the ~1-in-10 backwards-worded sentences; on normal word order the sentence already tells
+   you. RISK: little value on ordinary text; it mainly guards against the rare failure.
+
 ## QUESTIONS
 None blocking. One judgement call, flagged: the FIX trades precision (0.77->0.62) for recall (0.67->0.82). I
 default the LANDED detector to the high-precision label path and expose the recall-max fix as an option (matching
 the sibling's operating-point split). If the owner wants recall-max as the default on the entity-state route, the
 fix is ready.
 
-## NEXT STEPS
-1. **Land the wire** (proposed diff above): `SituationModel.entity_states` + the typed binding, default-off,
-   coupled with the sibling's queued copular landing. Route predicational -> state_register, identificational ->
-   symmetric identity edge to coref.
-2. **File the is-a inheritance follow-on** ("X is a doctor" -> "X is a person") as a feature-overlap link into the
-   grounded/distributional space (NOT a WordNet hierarchy -- Rogers/Patterson), graded per the minimalist bar.
-3. **File the equative subject/predicate assignment follow-on** -- a topicality/givenness cue (the field's one
-   consensus lever) to fix the labeler's equative reversal; the symmetric-identity treatment sidesteps it now.
-4. **Route identity copulas into coreference** (X == Y merge) -- the brain-faithful home for identity (hippocampal
-   relational binding; Dijksterhuis 2024).
+## NEXT STEPS (ordered by value)
+1. **Land the wire** (proposed diff above), NOW WITH `parser_arceager=True` on the entity-state route:
+   `SituationModel.entity_states` + the typed binding, default-off, coupled with the sibling's queued copular
+   landing. Route predicational -> state_register, identificational -> symmetric identity edge to coref. The
+   arc-eager tree lifts the labeled binding +0.111 CI-sep and identity +0.055 -- fold it into the wire.
+2. **The is-a inheritance foundation (the deep lever), corrected by the drill: it is RELATION EXTRACTION, NOT
+   feature-overlap.** Harvest an is-a graph OFFLINE via Hearst patterns ("X is a Y" -- which the copular binding
+   already extracts -- + "Y such as X") unioned with WordNet/ConceptNet; at read-time the copula adds a direct
+   is-a edge and inheritance = graph TRAVERSAL with cancellation. (Distributional/feature-overlap is REFUTED as
+   the mechanism -- it caps at ~0.69/chance.) Routed to the knowledge-foundation effort (strategy filed the
+   exp_dev hand-off).
+3. **Better parse tree for the hard residual.** arc-eager is banked (modern +0.111 base CI-sep). The ~13%
+   undetected hardest equatives/clefts + the 19c archaic residual need REGISTER-NATIVE parse/POS data (the
+   arc-eager tree does not move the 19c ceiling -- owner's caveat) -- route to the register-parse-data problem.
+4. **Compose with coreference end-to-end** -- canonical-entity read-back (cross-sentence "what is X", 0.43 of
+   predications) + route identity copulas into coref as a symmetric X==Y merge (hippocampal; Dijksterhuis 2024).
+5. **Fuller Higgins typing + ambiguity-zone deferral** (a polish): the full PINNED cue inventory (reversibility,
+   pronominalization, demonstrative) + DEFER on the possessive ambiguity zone instead of forcing it.
