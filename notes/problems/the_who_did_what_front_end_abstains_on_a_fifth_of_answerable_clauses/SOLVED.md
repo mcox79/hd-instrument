@@ -2,10 +2,10 @@
 problem: the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses
 status: SOLVED
 bar: "PASS = a coverage recovery (attempt every finite verb + parser-robust candidate building, glass-box, NO LLM) that raises the LIVE reader's EFFECTIVE end-to-end who-did-what (abstention counted as wrong) CI-separated over the current 0.629, WITHOUT regressing the picked-clause NP-head precision (an explicit no-regression check on the accuracy the parent landed), with an info-free twin (recover random clauses) LOSING. Report CI half-width + null p95; recompute floors on the same population. A rigorous located NEGATIVE — the dropped clauses are genuinely un-recoverable glass-box, with the named cause + number — is a FULL PASS. Strategy lands the Q111 wire (default-off, witnessed)."
-result: "Effective end-to-end who-did-what (abstention=wrong), 669 clean-19c direct-object clauses, scorer pick==gold_head: LIVE wired 0.6293 -> RECOVERED 0.9806, +0.3513 CI[+0.3154,+0.3886] half=0.0366 null_p95=0.0375. Modern QA-SRL (n=1261) 0.5678 -> 0.9025, +0.3347 CI-sep. Present-accuracy 0.807 -> 0.981 (precision UP, not regressed)."
+result: "Effective end-to-end who-did-what (abstention=wrong), 669 clean-19c direct-object clauses, scorer pick==gold_head: LIVE wired 0.6293 -> RECOVERED 0.9806, +0.3513 CI[+0.3154,+0.3886] half=0.0366 null_p95=0.0375 (the more brain-faithful STRUCTURAL-DO refinement 0.9851). Modern QA-SRL (n=1261) 0.5678 -> 0.9025, +0.3347 CI-sep. Present-accuracy 0.807 -> 0.981 (precision UP, not regressed)."
 floor: "Strongest floor actually run = the reader's OWN better route, LIVE positional 0.7294 (RECOVERED beats it +0.2511 CI[+0.2167,+0.2840]). Also: LIVE wired 0.6293; best-available-parser wired floor (updated arc-eager, UD-EWT UAS 0.842) 0.6308 -- the abstention is parser-INDEPENDENT, not a strawman floor."
-controls: "(1) info-free twin = full coverage + UNIFORM-RANDOM post-verbal pick 0.4185, LOSES CI-sep (REC-vs-twin +0.5620). (2) NO-REGRESSION: of 421 clauses the live reader already got right, RECOVERED keeps 416 (5 individual flips, all hard ditransitive/copula/distant-noun cases); present-accuracy 0.807->0.981. (3) fair-floor: the UPDATED arc-eager parser recovers only 1/669 -> abstention is not parse-quality. (4) first-hand reader reproduces the stored wired_pick/pos_pick 100%. (5) per-cause ablation is exhaustive (recovered-correct sums exactly to 0.9806)."
-files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
+controls: "(1) info-free twin = full coverage + UNIFORM-RANDOM post-verbal pick 0.4185, LOSES CI-sep (REC-vs-twin +0.5620). (2) NO-REGRESSION: of 421 clauses the live reader already got right, RECOVERED keeps 416 (5 individual flips, all hard ditransitive/copula/distant-noun cases); present-accuracy 0.807->0.981. (3) INTRANSITIVE precision control (constructed, can-fail): the naive soft rule over-generates on 100% of intransitives; the brain-faithful STRUCTURAL-DO rule abstains correctly 0.975 AND recovers the 47 the hard gate loses AND does not regress the main gold (0.9851>=0.9806). (4) fair-floor: the UPDATED arc-eager parser recovers only 1/669 -> abstention is not parse-quality. (5) first-hand reader reproduces the stored wired_pick/pos_pick 100%. (6) per-cause ablation is exhaustive (recovered-correct sums exactly to 0.9806)."
+files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_whodidwhat_coverage.py"
 ---
 
@@ -108,15 +108,55 @@ replacement — each step recovers one cause while keeping the router's genuine 
 2. **Positional fallback in the router (backstop):** the wired path must never emit `patient='?'` when the positional
    `_assign_roles` found one; the router `theme` is an ADDITIVE override (keep it — it is what correctly handles the 5
    ditransitive/passive cases), never a delete.
-3. **Soft transitivity (recovers 47):** replace the hard `verb_subcat_gate` veto with an override — do not suppress
-   the patient when a plausible adjacent post-verbal candidate is present (Competition Model). Keep the transitivity
-   signal as a down-weight for genuine intransitives.
+3. **STRUCTURAL direct-object filter (recovers 47, replaces the verb_subcat veto — REFINED by the deepening below):**
+   restrict the patient candidate set to BARE post-verbal nominals (no intervening preposition) before the pick — a
+   patient is structurally a DIRECT object; a preposition-governed oblique is never the patient. This recovers the 47
+   the hard gate false-suppressed AND correctly abstains on genuine intransitives (measured 0.975), AND slightly
+   IMPROVES the main gold (0.9806 -> 0.9851). It subsumes the `verb_subcat_gate`'s protective purpose without its
+   false-suppression, and needs no transitivity threshold at all.
 4. **NP-head reduction** is already landed (`hdlab/np_head_reduce.py`) and should stay on this path (the accuracy half).
 5. The **20 no-event** is a LOCATED sub-negative: it is upstream POS-tagger recall on 19c verbs, not a role-assignment
    defect — recovered here only because the who-did-what task supplies the verb index. It is filed as follow-on
    problem 1c below, not silently folded in.
 
 Reference implementation of the full recovered path: `experiments/exp_whodidwhat_full_fix_v1.role_patient_full_fix`.
+
+## 6. DEEPENING — two pushes that made the fix more brain-faithful and closed my own gaps
+A second research drill (verb/noun category ambiguity, ditransitive linking, singleton referents) plus two new cells:
+
+**(a) STRUCTURAL direct-object rule beats "soft transitivity" — a cleaner mechanism, discovered by pushing.**
+(cell: `exp_whodidwhat_coverage_transitivity_control_v1`.) My first recovery softened the transitivity veto, and I had
+flagged its no-regression as *argued, not measured*. I measured it on a constructed can-fail INTRANSITIVE control ("the
+man arrived at noon", "she sat by the fire", …; correct answer = no patient): the naive soft rule OVER-GENERATES on
+**100%** of them (assigns the oblique as patient) — a real regression. The brain-faithful fix is not a softer
+transitivity threshold at all: **the patient is structurally a direct object, so restrict candidates to BARE
+post-verbal nominals (no intervening preposition); a preposition-governed oblique is never the patient** (grounded in
+the definition of the patient role + structural DO evidence — Goldberg construction linking; Bresnan 2007). This
+STRUCTURAL-DO rule: recovers the 47 hard-suppressed clauses (1.00), abstains correctly on **0.975** of the
+intransitive control (vs the hard gate's 1.00), and *improves* the main gold **0.9806 → 0.9851**. It subsumes the
+`verb_subcat_gate` entirely — no transitivity number needed. This is the recommended form of wire-step 3.
+
+**(b) The 20 no-event is SOLVABLE-in-principle, not a wall — but not trivially (honest located sub-result).**
+(cell: `exp_whodidwhat_verb_id_recoverable_v1`.) The mis-tagged 19c verbs ARE lexically verbs (WordNet verb-reading on
+**18/20**), confirming the research verdict that verbhood is recoverable from lexicon+structure, not a static tag. But
+a cheap glass-box heuristic does NOT cleanly recover them: "verb-reading + any preceding subject" gets 75% at an
+unusable 5.0 false-verbs/sentence; a Mintz frequent-frame cue (N-[verb]-N, no verb in the predicate slot) gets only
+30% at 0.8 FP/sentence. So a clean recovery needs REAL clause-level predicate identification (the research's
+parser-attachment-as-verbhood-override), which is the adjacent component — filed as follow-on 1c with this evidence,
+NOT claimed as solved here. "If the brain can do it we can too" holds; the honest scope is that it needs a mechanism,
+not a heuristic.
+
+## 7. ADJACENT-COMPONENT MAP — brain-fidelity, capability, limitation, opportunity (to seed the next problems)
+Evaluated while solving this, per the standing instruction to map adjacent components:
+
+| component (hdlab) | brain status | capability now | limitation found | opportunity / next problem |
+|---|---|---|---|---|
+| **event detection** (`_extract_events` / `tense_agnostic`) | Davidsonian per-verb = PINNED ✓; verb-IDENTIFICATION by static UD tag = OUR-INVENTION deviation | fires at every UPOS==VERB (recall 0.97 through the reader) | capped by UD-tagger 19c verb recall — the 20 no-event; verb-ID should be position+morphology, not a tag | **1c: register-robust predicate identification** (parser-attachment/frame verbhood override; evidence in cell (b)) |
+| **role routing** (`_read_events_wired`, parse route) | Competition-Model incremental role assignment = PINNED; full-parse-gated routing = deviation | richer passive/ditransitive roles when the parse succeeds | net-NEGATIVE for patient coverage on 19c (−0.10); quotative veto + no positional fallback | **this problem's wire** (demote router to additive override; positional/structural-DO primary) |
+| **transitivity gate** (`verb_subcat`) | verb bias = graded overridable cue (PINNED); hard threshold = deviation | suppresses spurious intransitive patients | false-suppresses genuinely-transitive 19c verbs (47) | **subsumed** by the STRUCTURAL-DO rule (push (a)) — candidate for retirement on this path |
+| **quotative inversion** (`is_speech_verb` branch) | speaker-inversion is real; lexical-class trigger = deviation | handles "'…,' said John" | over-fires on every speech verb with a real object (80) | fold into the wire: gate on actual quote structure |
+| **mention / candidate builder** (`parse_litbank_conll`) | referent-per-NP incl. singletons = PINNED (Kamp/Heim) | eval marks every content noun a mention | DEPLOYED `read()` derives mentions from COREF chains — can drop singleton referents | **next problem: referent-per-NP first, coref as a downstream LINKING pass** (Q3 confirms our design premise) |
+| **ditransitive linking** (positional/NP-head) | double-object construction obj1=recipient/obj2=theme = PINNED (Goldberg; VerbNet) | word-order patient works for mono-transitives | mis-assigns recipient vs theme (1 of the 5 regressions) | **1d / the filed non-canonical-argument problem**: VerbNet ditransitive frame + animacy backoff (research: cheapest win) |
 
 ## KEY REALIZATIONS
 - **The abstention was disguised as a parser problem and was actually three lexical/threshold gates.** The enabling
@@ -130,6 +170,12 @@ Reference implementation of the full recovered path: `experiments/exp_whodidwhat
   gap NOT move is what licenses "parser-free is the right lever".
 - **Coverage, not accuracy, was the larger loss** — and it hid behind a 0.98 present-accuracy number. Counting
   silence as wrong is the measurement that made the real bottleneck visible.
+- **Pushing on "soft transitivity" replaced it with a better mechanism entirely.** Building the can-fail intransitive
+  control showed the naive soft rule regresses (over-generates on 100% of intransitives); the fix was not a softer
+  threshold but a structural principle — *the patient is a direct object, obliques never are* — which needs no
+  transitivity number, recovers the 47, abstains 0.975 on intransitives, and even improves the main gold. The lesson:
+  when a gate mis-fires, the brain-faithful move is often to delete the gate and use the structural definition of the
+  role, not to re-tune the gate's threshold.
 
 ## AUDIT UPDATE (for notes/BRAIN_FOUNDATIONAL_AUDIT.md §2b)
 `situation_reader` role assignment: the `role_route=wired` patient path carries two OUR-INVENTION precision gates
@@ -143,10 +189,10 @@ Davidsonian event detector is correct but capped by UD-tagger 19c verb recall (a
 ## What I did NOT establish (would withdraw first if wrong)
 - I did NOT edit hdlab or measure the wire landed in-place — I proved the mechanism in experiments/ and the strategy
   session lands it (Q111). The 0.981 is the reference-path measurement, first-hand-reproduced against the live reader.
-- The soft-transitivity recovery is validated on an ALL-transitive gold; I did not build a mixed-intransitive
-  precision control here, so "soft transitivity does not over-generate on genuine intransitives" is argued from the
-  mechanism (override only when a candidate is present) + the modern no-regression, not measured on a dedicated
-  intransitive set. First thing to withdraw if a mixed-population check shows over-generation.
+- The intransitive precision control is a CONSTRUCTED (glass-box, hand-built) set of 40 clauses, not mined 19c
+  intransitives; it can-fail and the STRUCTURAL-DO rule passes it (0.975), but a corpus-mined intransitive population
+  would be a stronger control. First thing to withdraw if mined intransitives over-generate. (This SUPERSEDES the
+  earlier "argued not measured" caveat — the gap is now measured.)
 - The 20 no-event are recovered here only because the task supplies the verb index; in free-text deployment they
   depend on POS-tagger 19c recall (follow-on 1c). I do NOT claim end-to-end event DETECTION is solved.
 - Register-independence is an extrapolation (no direct archaic-register study); the evidence is the modern+19c
@@ -173,13 +219,18 @@ additive passive/ditransitive override (recommended — it correctly handles the
 misses) or drop it entirely for simplicity.
 
 ### NEXT STEPS
-1. **Land the wire** (strategy, Q111, default-off, witnessed): quotative-on-evidence + positional fallback + soft
-   transitivity in `_read_events_wired`; re-measure through the live reader; then re-validate the ~20 role-output
-   organs (they inherit the fix — re-validate, don't re-code).
-2. **Follow-on 1c — the 20 no-event = 19c POS-tagger verb recall** (adjacent component): the UD tagger mis-tags 19c
-   verbs (ADJ/ADP/ADV/NOUN); a register-robust verb-identification cue (clausal position + agreement/tense morphology,
-   per the brain literature) is the fix. Verdict-independent, high-value for free-text event detection.
-3. **Follow-on 1d — ditransitive recipient-vs-theme** (the residual accuracy axis, 1 of the 5 regressions): the
-   positional/NP-head rule does not model ARG2-GOL (recipient) vs ARG1-PPT (theme); the parse router or a PropBank
-   frame cue is the lever. Small n here; its real home is the non-canonical-argument-structure problem already filed.
-4. **Mixed-intransitive precision control** for soft transitivity (close the one un-measured no-regression gap).
+1. **Land the wire** (strategy, Q111, default-off, witnessed): quotative-on-evidence + positional fallback +
+   **STRUCTURAL-DO candidate filter** (patient = bare post-verbal nominal; the refined form that subsumes verb_subcat)
+   in `_read_events_wired`; re-measure through the live reader; then re-validate the ~20 role-output organs (they
+   inherit the fix — re-validate, don't re-code).
+2. **Follow-on 1c — register-robust predicate identification** (the 20 no-event; adjacent component, SOLVABLE not a
+   wall): the mis-tagged tokens ARE lexically verbs (18/20 WordNet), but a heuristic can't cleanly recover them (cell
+   (b)) — the fix is the research-indicated parser-attachment / clause-structure verbhood override, not a better
+   static tagger. High-value for free-text event detection; verdict-independent.
+3. **Follow-on 1d — ditransitive recipient-vs-theme** (1 of the 5 regressions): the double-object construction assigns
+   obj1=recipient/obj2=theme (Goldberg; VerbNet) with animacy backoff (Bresnan 2007) — the research calls this the
+   cheapest win (a wiring fix against resources already held). Its home is the filed non-canonical-argument problem.
+4. **Referent-per-NP mention sourcing** (adjacent, brain-fidelity): the deployed `read()` derives mentions from coref
+   chains, which can drop singleton referents; the brain-faithful order is referent-per-NP first (Kamp/Heim), coref as
+   a downstream LINKING pass. Verify the deployed mention source annotates singletons; if not, it is a coverage
+   ceiling this recovery's eval harness hides. Candidate next problem.

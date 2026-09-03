@@ -26,21 +26,39 @@ from the two research drills folded into `SOLVED.md`.
   the brain has a SECOND, dissociable error signal our organ lacks: the semantic P600 / conflict-monitor
   (Van Herten & Kolk 2005/06; Kuperberg thematic-role-reversal) -- it fires on a role assignment that
   CONFLICTS with a more plausible alternative, not merely on a low-probability filler.
-- **Verdict: PARTLY a fidelity gap.** The share that is good-enough/ambiguous is a brain-consistent ceiling.
-  The share where a decisively-better alternative exists is a gap the marginal-surprisal flag cannot see but
-  a conflict signal can. **TESTED HERE** (`exp_composedhub_conflict_flag_v1`): the hub CONFLICT margin
-  (s_pick - min_{c!=pick} s_c) as the error-flag vs the deployed marginal spoke surprisal. [Result folded
-  into SOLVED.md once landed; if it beats the marginal AUC CI-sep it is the live win the marginal flag hid.]
+- **Verdict: BRAIN-CONSISTENT CEILING (tested at power).** `exp_composedhub_conflict_flag_v1` (n=2992,
+  200-d): the CONFLICT margin (s_pick - min_{c!=pick} s_c) as the error-flag is CI-separated WORSE than the
+  marginal surprisal (HUB conflict vs marginal -0.028 CI[-0.048,-0.010] NEG; ORGAN -0.038 NEG). Two
+  drill-grounded reasons: (1) the P600 conflict signal fires on thematic-role REVERSALS, but the reader's
+  wrong pick is the agent only 3.3% of the time -- the residual errors are good-enough (a plausible
+  NON-agent noun), not reversals. (2) The margin form is not the brain's mechanism: the only FORMALIZED P600
+  account (Brouwer, Crocker, Venhuizen & Hoeks 2017) is a same-stream INTEGRATION-COST metric [1 -
+  cos(integration_t, integration_{t-1})] over the compositional SITUATION-MODEL update, NOT a
+  margin-against-a-competing-alternative -- so the faithful conflict signal is an integration-cost over the
+  situation model (the north-star P1's generative state), which the verb-patient predictor cannot compute.
+  And good-enough processing (Christianson 44-74%, Ferreira 12-45%, Patson 69-74% undetected) confirms the
+  ~47% residual is what a HUMAN reader also misses. **Kill for this organ; the correct form belongs to P1.**
 
 ### WALL C -- ~11.5% live coverage loss (pick/verb OOV of the hub); the hub's dim cap is on VOCAB coverage
 - **How the brain does it:** ATL taxonomic generalization -- a rare/novel concept inherits the semantic
   neighbourhood of its category (Lambon Ralph). The faithful computational form is Resnik selectional
   association (1996): back off an OOV filler to the WordNet class with MAXIMAL selectional association to the
   verb slot, weighted by that association -- an evidence-SELECTED backoff, not a uniform hypernym average.
-- **Verdict: a REAL fidelity gap with a named, buildable, brain-faithful fix.** The parent measured that
-  NAIVE hypernym-averaging HURTS and dense-kNN is noisy; the Resnik evidence-selected version is untested.
-  **Candidate next problem** (see Part 2). This does not help WALL A (the live selection pool) but it
-  extends the hub's proven prediction lever to the rare-filler tail.
+- **Verdict: a REAL fidelity gap, DE-RISKED to a well-specified next problem (drill-grounded recipe below).**
+  The parent measured NAIVE hypernym-averaging HURTS; the drill confirms WHY and gives the faithful fix.
+  **Exact recipe (Resnik 1996 + Clark & Weir 2002):** selectional preference strength
+  S_R(v) = sum_c P(c|v) log[P(c|v)/P(c)]; per-class association A_R(v,c) = (1/S_R(v)) P(c|v) log[P(c|v)/P(c)],
+  with P(c|v)/P(c) estimated by spreading each patient's corpus count across its WordNet sense-ancestor
+  classes. Back off an OOV filler n to c* = argmax_c A_R(v,c) over n's OWN ancestor chain, and represent n
+  by that class's hub centroid. **Do NOT use naive argmax alone** -- Clark & Weir show it still
+  over-generalizes (climbs 4.2 levels, 63.9% pseudo-disambiguation) vs their chi-square evidence-gated
+  stopping rule (1.9 levels, 73.9%); a high ancestor class scores spuriously from unrelated verbs (the ATL
+  "damaged-hub over-generalization" parallel). **Pre-registered kill-criterion:** HARD-PASS = frequency-
+  stratified held-out MRR improves on the OOV/rare bin over drop-OOV with non-overlapping CIs WHILE the
+  covered bin does not regress beyond its CI; HARD-FAIL = evidence-gated backoff's rare-bin gain vanishes OR
+  covered-bin regresses (then the coverage tail is taxonomically unrecoverable -- do NOT retry uniform
+  averaging, already refuted). Not built here (a proper Clark-Weir build is its own problem; a rushed naive
+  version would reproduce the known failure) -- handed off with this recipe. It does not help WALL A.
 
 ### WALL D -- composition (agent x verb) adds nothing live, is small held-out (+0.018 agent-covered)
 - **How the brain does it:** conjunctive role-filler binding (Frankland & Greene 2015). The research drill
