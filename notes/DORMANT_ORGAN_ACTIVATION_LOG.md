@@ -92,3 +92,43 @@ INTEGRATED arm; lazy-load the store + grounded space when on. Delivers: modern (
 Witness: default-off byte-identical + flag-on == INTEGRATED byte-for-byte + twin loses (modern). NOT the register-
 native 19c store (separate problem). This is the FIRST proof the dormant-organ activation method yields a measured
 downstream gain + a structural insight — exactly the owner's thesis.
+
+---
+
+## #2–#5 — TRIAGE (2026-09-03, researched aggressively; NONE a clean independent activation — recorded so they are not re-examined)
+
+After #1's located negative I worked worst-first from `tools/substrate_map.py --gaps` (value is in the top gaps).
+Each top-gap dormant organ was deep-dived (brain function + on-disk consumers + the [BROKEN]/[WEAK]/live path).
+**Finding: the flag flip harvested the easy dormant-organ wins; the remaining high-value organs are either
+net-negative, not live-deployable, orphaned, or the north-star P1 meaning cluster (P1 owner-DONE; its continuation
+`build_sg_lite_...` is OPEN and owns the meaning unification).** A full Explore-agent map backs this (below).
+
+- **#2 `distributional_meaning_channel`** (top gap [BROKEN] DECIDE WHAT WORDS MEAN) — **NOT live-deployable.**
+  Substitutability specialist (AUC ~0.84) but WordSim rho −0.24 (actively bad as a general read-out), and its
+  orientation sign is IRREDUCIBLY TRANSDUCTIVE (needs the presented candidate batch to orient — the live reader
+  has none) + OFFLINE by design ("never live"). Docstring says so itself. Shelved-as-live (stays a valid island).
+- **#3 `information_foraging`** (top gap [WEAK] KNOW WHAT IT IS MISSING; Charnov MVT, beautifully pinned) —
+  **orphaned, uncertain live value.** NO experiment/live consumer imports it; the `aimed_reading_...` problem that
+  spawned it PIVOTED to the meaning-integration mechanism (complementary fusion) and left the organ dormant. Its
+  evidence beat RANDOM text (3.9×) but was never tested vs a FIXED schedule (the gap's own named missing test), and
+  a build-plan note found its ablations "moved no counter." Wiring = build-a-consumer + a heavy grounding-coverage
+  run for an only-beats-random signal. Not a clean flip; deferred (if pursued: run aimed-vs-fixed-schedule remote).
+- **#4/#5 the meaning read-out cluster** (`meaning_fusion` 0.4455 WordSim; `conceptual_meaning` 0.521 SimLex /
+  double-dissociation; `meaning_operation_router`; `convergent_cue_reader` 0.744 who-did-what @oracle-ceiling) —
+  **P1-territory or no-live-consumer.** The board's ONLY meaning-consumed metric is WiC WSD via
+  `grounded_semantic_graph.select_sense` (PPR), which imports NONE of these; none of the 30 live modules imports any
+  of them. `meaning_fusion`/`router` are decontextualized with only their own witnesses as consumers (no live
+  metric). `conceptual_meaning` + `convergent_cue_reader` are consumed by P1's `exp_generative_situation_sense_
+  selector` and are folded into P1's shared-representation build; the only wiring that yields a live metric
+  (meaning read-out → context-conditioned sense selection into `select_sense`) is exactly P1's DEBT-3 +
+  `build_sg_lite`'s scope. **SEED handed to `build_sg_lite` (do NOT wire from strategy — it front-runs that OPEN
+  problem): `conceptual_meaning` is STATIC-ASSET-READY (no offline store) — a synset-level IDF-Lesk score from its
+  bag machinery, blended into `select_sense`/`select_sense_blended` on WiC, is the concrete testable hook for the
+  bottom-up identity channel; measure it there.**
+
+**Strategic conclusion (verdict-independent):** there is no free, non-P1, live-deployable dormant-organ flip left in
+the top gaps. The remaining meaning value is the OPEN `build_sg_lite` continuation (context-conditioned generative
+sense) — support it, don't duplicate it. The next verdict-independent strategy moves are the coverage-gap fix
+(SOLVED +0.35, integrate on owner-DONE) and any NEW clean island with a genuine live consumer + headroom. Method
+lesson reinforced (memory): a dormant organ only counts as activatable if it has a LIVE CONSUMER on a CONSUMED
+metric; a validated island with no live consumer is not a flip.
