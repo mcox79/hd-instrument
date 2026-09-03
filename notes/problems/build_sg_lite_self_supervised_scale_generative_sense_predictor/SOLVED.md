@@ -2,10 +2,10 @@
 problem: build_sg_lite_self_supervised_scale_generative_sense_predictor
 status: SOLVED
 bar: "PASS = a self-supervised generative sense predictor (SG-lite at scale + a role-filler prediction target; glass-box, persisted as a static asset, NO external LLM at inference) that raises a_s CI-separated over the located-negative 0.198 (report also vs the 41M 0.280) on STRICT disjoint-document SemCor, with a shuffled-situation twin LOSING CI-separated, and NO net regression over MFS. ... A rigorous located NEGATIVE -- scale + event-target + gloss enrichment do NOT robustly raise a_s, with the named ceiling + number -- is a FULL PASS."
-result: "a_s(subordinate senses, subject-weighted, strict document-disjoint SemCor, n_sub_test~2676) raised to 0.306 -- the APEX -- by STACKING the two levers this problem found: the 277M-token gestalt (best knowledge) + a richer glass-box TOP-K gloss readout (paired +0.0262 CI-sep over that gestalt's mean-pool 0.280). >> the located-negative NB 0.198, the nearest-centroid 0.22, and the parent's 0.280. Each lever alone: KNOWLEDGE -- paired 41M-vs-8M recon a_s +0.0277 CI-sep [0.0120,0.0445] (reverify witness; n=2676), rising 8M 0.255 -> 41M 0.280 -> 277M 0.291 (sharp to ~40M then slow continued rise, NOT a hard plateau); REPRESENTATION -- top-k gloss readout +0.0310 CI-sep on the 41M gestalt (0.265->0.296) and +0.0262 on the 277M gestalt (0.280->0.306). Shuffled twin LOSES CI-sep and net over MFS(0.6831) is POSITIVE CI-sep at every point. The BRIEF's event/role-filler TARGET is a rigorous LOCATED NEGATIVE (4 convergent tests below)."
+result: "a_s(subordinate senses, subject-weighted, strict document-disjoint SemCor, n_sub_test~2676). BRAIN-FOUNDATIONAL FIX prototyped + validated: a biased-competition DIAGNOSTIC-CONTEXT readout (semantic control -- amplify sense-discriminating context words, suppress shared topic; glass-box, no LLM) raises a_s to 0.307 on the 41M gestalt, paired +0.0389 CI-sep [+0.019,+0.059] over flat-context 0.268, with a shuffled-diagnosticity twin LOSING CI-sep. This is the most brain-faithful arm and beats the top-k key trick. Prior APEX (readout tricks): 0.306 by STACKING the 277M gestalt (best knowledge) + a richer TOP-K gloss readout (paired +0.0262 CI-sep over that gestalt's mean-pool 0.280). >> the located-negative NB 0.198, the nearest-centroid 0.22, and the parent's 0.280. Each lever alone: KNOWLEDGE -- paired 41M-vs-8M recon a_s +0.0277 CI-sep [0.0120,0.0445] (reverify witness; n=2676), rising 8M 0.255 -> 41M 0.280 -> 277M 0.291 (sharp to ~40M then slow continued rise, NOT a hard plateau); REPRESENTATION -- top-k gloss readout +0.0310 CI-sep on the 41M gestalt (0.265->0.296) and +0.0262 on the 277M gestalt (0.280->0.306). Shuffled twin LOSES CI-sep and net over MFS(0.6831) is POSITIVE CI-sep at every point. The BRIEF's event/role-filler TARGET is a rigorous LOCATED NEGATIVE (4 convergent tests below)."
 floor: "MFS overall 0.6831 (net-gain floor, gated on upper bound); a_s floors: overfit-NB 0.198 and nearest-centroid readout 0.22 (both strict document-disjoint). Every net-over-MFS is CI-separated ABOVE 0 with the twin losing."
 controls: "STRICT document-disjoint foundation (even/odd docs; the parent's leave-one-doc-out leak catch); shuffled-situation twin LOSES CI-sep at every knowledge point; WRONG-ROLE twin (right-role NOT CI-above wrong-role -> role identity carries no signal); FUSION control (role signal added to next-word still loses -> non-complementary); paired bootstrap on the SAME items for the knowledge rise and the top-k gain (reports CI + null p95 half-width). Each excludes: leak / info-free-shape / role-is-noise / role-adds-nothing / point-estimate-illusion."
-files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/exp_sg_lite_event_target_gestalt_v1.py, experiments/exp_sg_lite_knowledge_scaling_v1.py, experiments/exp_sg_lite_selectional_fit_readout_v1.py, experiments/exp_sg_lite_signal_loss_trace_v1.py, verification/test_event_role_and_knowledge_scaling.py, data/exp_sg_lite_knowledge_scaling_v1/metrics_know{530000,7500000,0}.json, data/exp_sg_lite_event_{role_readout,target_gestalt}_v1/metrics.json, data/exp_sg_lite_selectional_fit_readout_v1/metrics{,_know0}.json, data/exp_sg_lite_signal_loss_trace_v1/metrics.json"
+files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/exp_sg_lite_event_target_gestalt_v1.py, experiments/exp_sg_lite_knowledge_scaling_v1.py, experiments/exp_sg_lite_selectional_fit_readout_v1.py, experiments/exp_sg_lite_signal_loss_trace_v1.py, experiments/exp_sg_lite_diagnostic_context_readout_v1.py, verification/test_event_role_and_knowledge_scaling.py, data/exp_sg_lite_knowledge_scaling_v1/metrics_know{530000,7500000,0}.json, data/exp_sg_lite_event_{role_readout,target_gestalt}_v1/metrics.json, data/exp_sg_lite_selectional_fit_readout_v1/metrics{,_know0}.json, data/exp_sg_lite_signal_loss_trace_v1/metrics.json, data/exp_sg_lite_diagnostic_context_readout_v1/metrics.json"
 reverify: ".venv/Scripts/python.exe verification/test_event_role_and_knowledge_scaling.py"
 ---
 
@@ -101,6 +101,28 @@ also covers the uncovered 48%. To go materially higher one must either (a) raise
 corpus/curriculum that oversamples subordinate senses -- the learner's job), or (b) build a sense-DISCRIMINATIVE
 (not topic-level) context representation. More raw scale and query-side elaboration are ruled out with numbers.
 
+## THE BRAIN-FOUNDATIONAL FIX (prototyped + validated; `exp_sg_lite_diagnostic_context_readout_v1`)
+The trace said the query is a topic-blur (flat context avg ~= the model's mu ~= 0.28) that cannot separate a rare
+sense from its dominant twin sharing the topic. **The brain does not average context -- it does BIASED COMPETITION /
+controlled semantic cognition (LIFG/pMTG; Jefferies 2013, Lambon-Ralph 2017): amplify the context features that
+DISCRIMINATE the competing senses, suppress the shared ones** (precision-weighting, Feldman-Friston, at the word
+level). Prototyped glass-box (no LLM, no gold -- all candidate senses symmetric): weight each context word by its
+DIAGNOSTICITY (spread of its cosine to the candidate senses' gloss signatures), form the query from the
+diagnostic-weighted context, score sense = cos(query, gloss).
+
+| readout (frozen 41M gestalt, test-sub n=2676) | a_s | vs flat context |
+|---|---|---|
+| flat context avg x gloss (topic-average) | 0.268 | -- |
+| **DIAGNOSTIC context x gloss (biased competition)** | **0.307** | **+0.0389 CI-sep [+0.019,+0.059]** |
+| diagnostic context x top-k key | 0.244 | query- and key-selection are redundant, don't stack |
+
+**Shuffled-diagnosticity twin** (same weight distribution permuted onto the WRONG words) LOSES CI-separated
+(real-vs-shuffled +0.0381, sep) -- so it is the CORRECT diagnostic words carrying the signal, not the weighting
+shape. This is the most brain-faithful result in the problem: it is the actual semantic-control mechanism, it BEATS
+the top-k key-side trick (0.296) while running on the SMALLER 41M gestalt, and it is gestalt-independent (context
+words + glosses). It attacks the REPRESENTATION half of the loss; the COVERAGE half (48% unseen rare senses) remains
+the learner's curriculum job. **This is the fix to wire** (supersedes item 1 below): default-off, witnessed, Q111.
+
 ## KEY REALIZATIONS
 - **The brief named the wrong lever.** "Role-filler target raises a_s" is refuted; the levers that actually move
   `a_s` are (1) corpus knowledge up to ~40M and (2) the readout's sense-signature representation (top-k, not
@@ -127,8 +149,10 @@ corpus/curriculum that oversamples subordinate senses -- the learner's job), or 
   corpus growth is a real but bounded lever.
 
 ## FOR STRATEGY -- how to optimize from here (ordered)
-1. **Wire the TOP-K gloss readout** (replace mean-pool in the reconstruction-match path) -- default-off, witnessed,
-   Q111. It is the one CI-separated `a_s` gain here (+0.031 -> 0.296); tune k on train docs first.
+1. **Wire the DIAGNOSTIC-CONTEXT (biased-competition) readout** -- the brain-foundational fix, the best + most
+   faithful arm (a_s 0.307, +0.0389 CI-sep, twin loses; `exp_sg_lite_diagnostic_context_readout_v1`). Default-off,
+   witnessed, Q111. (The top-k gloss readout, 0.296, is the KEY-side variant -- redundant with this QUERY-side fix;
+   wire the diagnostic-context one.)
 2. **Do NOT invest more in the event/role target as-is** -- located negative. If revisited, ONLY via a role-specific
    selectional-preference readout (not general-gloss reconstruction); expect low yield.
 3. **Corpus growth (learner-on) helps fast to ~40M then slowly** -- worth turning on, but the signal-loss trace shows
@@ -159,5 +183,7 @@ a mechanistic reason rather than building the one remaining readout redesign (ro
 strategy may want that redesign tested before fully closing the event route.
 
 ## NEXT STEPS
-Wire the top-k readout (item 1); fold the 277M point in here when it lands; fix queue_add.sh (item 4). The event
-target is closed pending the optional selectional-fit-readout redesign.
+Wire the DIAGNOSTIC-CONTEXT (biased-competition) readout -- the brain-foundational fix, best + most faithful arm
+(item 1); it supersedes the top-k readout. Then the COVERAGE half of the loss needs the learner's targeted
+curriculum (oversample subordinate senses at training time) -- the higher-ceiling, training-time build. Fix
+queue_add.sh (item 4). The event/role target is closed pending the optional selectional-fit-readout redesign.

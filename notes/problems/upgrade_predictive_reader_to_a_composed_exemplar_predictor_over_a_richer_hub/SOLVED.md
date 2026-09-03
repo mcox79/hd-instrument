@@ -5,7 +5,7 @@ bar: "PASS = a ~200-dim hub + composed-exemplar predictor, upgrading `predictive
 result: "HELD-OUT: the ~200-d hub + precision-weighted composed-exemplar predictor beats the spoke organ +0.0761 MRR CI[+0.0684,+0.0837] (half=0.0076) = 2.4x, n=4052 shared paired QA-SRL dev+test triples. LIVE (brain-faithful, forward prediction measured the way the N400 works -- graded pre-activation over a broad ~300-candidate space, driven by the LIVE reader's parsed verb+agent): hub +0.0686 MRR CI[+0.0641,+0.0732] (half=0.0046, null_p95=0.0048) CI-sep, n=12463 -- essentially the full held-out advantage, on the LIVE reader. On the narrower sentence-noun pool it is also CI-sep at power (+0.0228 CI[+0.0156,+0.0297], n=11574). Scorer = held-out/live patient-prediction MRR; population = QA-SRL dev+test."
 floor: "Strongest floor actually run = the deployed spoke organ (`hdlab.predictive_reader.PredictiveReader`, 12-d sensorimotor spoke + role-filler centroid), recomputed on the SAME population as the hub at every point. Held-out ORGAN MRR 0.0546 (n=4052). LIVE brain-faithful broad-pool ORGAN(spoke) MRR 0.0605 (n=12463). LIVE sentence-noun-pool SPOKE 0.6551 (n=11574). LIVE error-flag ORGAN AUC 0.6547 (reproduces the deployed organ's validated 0.651 -- the no-regression anchor). Also run: count-conditional ceiling P(patient|agent,verb)=0.1101 (the hub SURPASSES it +0.0206)."
 controls: "TWINS (info-free; null_p95 reported; recomputed per population). HELD-OUT: agent-shuffle -- hub beats it +0.0159 CI-sep; verb-shuffle +0.1036 CI-sep; hub-shuffle +0.1098 CI-sep. LIVE brain-faithful broad pool (n=12463): hub-shuffle LOSES +0.1082 CI-sep AND agent-shuffle LOSES +0.0209 CI-sep -- BOTH twins lose. LIVE sentence-noun TYPED pool (n=8001): both lose (hub-shuffle +0.0717, agent-shuffle +0.0088, CI-sep). COMPETITION-SET control: the sentence-noun pool (post-hoc selection among ~4 visible nouns) is a selection-flavored UNDER-measurement (+0.017..+0.023) vs the brain-faithful broad pre-activation (+0.069) -- validated by an architecture drill (Federmeier 2007; Kukona 2011: the brain's competition space is bounded neither by the sentence's nouns nor by syntactic role). CROSS-TASK deployment: hub beats spoke on WiC sense discrimination +0.0272 AUC CI[+0.0071,+0.0469] CI-sep (n=5394), shuffled-hub twin LOSES +0.0906 CI-sep. COVERAGE (Resnik/Clark-Weir taxonomic backoff): recovers 99.7% of the OOV tail; evidence-selected class beats naive-hypernym-average +0.097 CI-sep, random +0.043 CI-sep, shuffle-class twin +0.072 CI-sep (n=629). NO-REGRESSION: the deployed organ is byte-identical (git-clean; separate opt-in class; witness). SECONDARY (disclosed, NOT the deliverable): the live error-flag AUC (a calibration metric, not ranking) is ns +0.0081 -- an intrinsic ambiguity ceiling (47% of the reader's residual who-did-what errors are good-enough/plausible-wrong-noun, brain-consistent per Christianson/Ferreira); the semantic-P600 conflict signal was tested and HURTS (located negative)."
-files_changed: "experiments/_composed_hub_predictor.py (HubComposedPredictor -- the drop-in recipe, agent-optional; byte-identical to IdealComposedPredictor on all-agent triples), experiments/exp_composedhub_signal_loss_v1.py (held-out signal-loss decomposition + twins + coverage), experiments/exp_composedhub_livebroad_v1.py (BRAIN-FAITHFUL live forward prediction -- broad graded pre-activation; the headline live lift), experiments/exp_composedhub_livetyped_v1.py (live sentence-noun/patient-eligible pools -- the selection-flavored under-measurement), experiments/exp_composedhub_live_v1.py (live error-flag AUC + NP-head flag), experiments/exp_composedhub_live_errordiag_v1.py (end-to-end funnel + Channel-A), experiments/exp_composedhub_parser_loss_v1.py (upstream parser vs internal loss), experiments/exp_composedhub_sense_readout_v1.py (WiC cross-task deployment), experiments/exp_composedhub_individuation_v1.py (SimLex individuation -- relatedness vs perceptual axis), experiments/exp_composedhub_resnik_coverage_v1.py (Resnik/Clark-Weir taxonomic coverage backoff), experiments/exp_composedhub_poolsize_sweep_v1.py, experiments/exp_composedhub_generalize_v1.py (cross-register transfer), experiments/exp_composedhub_ideal_system_v1.py (multi-stream honest negative), experiments/exp_composedhub_conflict_flag_v1.py (semantic-P600 conflict flag -- located negative), verification/test_composedhub_signal_loss.py + verification/test_composedhub_no_regression.py (scaffold-free witnesses), notes/problems/upgrade_predictive_reader_to_a_composed_exemplar_predictor_over_a_richer_hub/BRAIN_FIDELITY_AND_ADJACENT_COMPONENTS.md, data/{composedhub_signal_loss_v1,composedhub_livebroad_v1,composedhub_livetyped_v1,composedhub_live_v1,composedhub_live_errordiag_v1,composedhub_parser_loss_v1_nphead,composedhub_parser_loss_v1_baseline,composedhub_sense_readout_v1,composedhub_individuation_v1,composedhub_resnik_coverage_v1,composedhub_poolsize_sweep_v1,composedhub_generalize_v1,composedhub_ideal_system_v1,composedhub_conflict_flag_v1}/metrics.json. NO hdlab/ writes (Q111; proposed diff below)."
+files_changed: "experiments/_composed_hub_predictor.py (HubComposedPredictor -- the drop-in recipe, agent-optional; byte-identical to IdealComposedPredictor on all-agent triples), experiments/exp_composedhub_signal_loss_v1.py (held-out signal-loss decomposition + twins + coverage), experiments/exp_composedhub_livebroad_v1.py (BRAIN-FAITHFUL live forward prediction -- broad graded pre-activation; the headline live lift), experiments/exp_composedhub_livetyped_v1.py (live sentence-noun/patient-eligible pools -- the selection-flavored under-measurement), experiments/exp_composedhub_live_v1.py (live error-flag AUC + NP-head flag), experiments/exp_composedhub_live_errordiag_v1.py (end-to-end funnel + Channel-A), experiments/exp_composedhub_parser_loss_v1.py (upstream parser vs internal loss), experiments/exp_composedhub_sense_readout_v1.py (WiC cross-task deployment), experiments/exp_composedhub_individuation_v1.py (SimLex individuation -- relatedness vs perceptual axis), experiments/exp_composedhub_resnik_coverage_v1.py (Resnik/Clark-Weir taxonomic coverage backoff), experiments/exp_composedhub_poolsize_sweep_v1.py, experiments/exp_composedhub_generalize_v1.py (cross-register transfer), experiments/exp_composedhub_ideal_system_v1.py (multi-stream honest negative), experiments/exp_composedhub_conflict_flag_v1.py (semantic-P600 conflict flag -- located negative), experiments/exp_composedhub_multiarg_v1.py (2-bound-argument conditioning + whole-chain signal-loss ladder -- the bounded-tuple ceiling / P1 boundary), verification/test_composedhub_signal_loss.py + verification/test_composedhub_no_regression.py (scaffold-free witnesses), notes/problems/upgrade_predictive_reader_to_a_composed_exemplar_predictor_over_a_richer_hub/BRAIN_FIDELITY_AND_ADJACENT_COMPONENTS.md, data/{composedhub_signal_loss_v1,composedhub_livebroad_v1,composedhub_livetyped_v1,composedhub_live_v1,composedhub_live_errordiag_v1,composedhub_parser_loss_v1_nphead,composedhub_parser_loss_v1_baseline,composedhub_sense_readout_v1,composedhub_individuation_v1,composedhub_resnik_coverage_v1,composedhub_poolsize_sweep_v1,composedhub_generalize_v1,composedhub_ideal_system_v1,composedhub_conflict_flag_v1}/metrics.json. NO hdlab/ writes (Q111; proposed diff below)."
 reverify: ".venv/Scripts/python.exe verification/test_composedhub_signal_loss.py && .venv/Scripts/python.exe verification/test_composedhub_no_regression.py"
 ---
 
@@ -140,6 +140,13 @@ CI-sep, random +0.043 CI-sep, and the shuffle-class twin +0.072 CI-sep** -- the 
   good-enough ceiling (47%, brain-consistent); the semantic-P600 conflict signal HURTS (located negative).
 - **Resnik/Clark-Weir taxonomic backoff recovers the OOV tail (NEW):** evidence-selection beats naive
   averaging +0.097 CI-sep.
+- **The compositional predictor is a BOUNDED-TUPLE, not a situation model (NEW, locates the P1 boundary):**
+  conditioning the patient prediction on the role-blind SET of bound arguments -- the 2nd argument helps
+  (+0.016 CI-sep on the 2+-covered subset, wrong-arg twin loses +0.035 CI-sep) but the 3rd+ SATURATES
+  (+0.0004 ns). Chow 2015 bounded-tuple event knowledge: the compositional route ends at ~2 arguments; the
+  remaining upside (graded simultaneously-maintained role-filler uncertainty) is the generative situation
+  model (Rabovsky Sentence-Gestalt) = the north-star P1. The in-scope chain (representation > 2-arg
+  composition > precision > coverage) is exhausted; P1 owns the rest.
 
 ## PROPOSED hdlab CHANGE (Q111 — strategy lands; default-off, byte-identical when off)
 1. **Promote `HubComposedPredictor`** to `hdlab/hub_composed_predictor.py` (glass-box, numpy, NO LLM).
@@ -155,13 +162,24 @@ CI-sep, random +0.043 CI-sep, and the shuffle-class twin +0.072 CI-sep** -- the 
    error-FLAG lift (parser+ambiguity-bound). Wire the hub predictor into `predict_surprisal` for the
    prediction/anticipation signal; keep the error-flag decision as-is.
 
-## PRE-REGISTERED FOLLOW-ON (in-scope, brain-precedented; drill-validated)
-**2-bound-argument compositional conditioning** (condition the patient prediction on the agent AND one other
-bound argument, e.g. an oblique/instrument -- Bicknell 2010; Matsuki 2011; Chow 2015; corroborates the
-substrate's own +0.035 from a 2nd participant). Pre-registered boundary (from the architecture drill): a 3rd
-argument still helping = compositional/in-scope; saturation after 2 = a bounded-tuple ceiling (in-scope);
-only a demonstrated need for graded simultaneously-maintained role-filler uncertainty (the reversal-anomaly
-signature) = the full generative situation model, which is P1's separate problem. Not built here.
+## WHOLE-CHAIN OPTIMIZATION -- the in-scope compositional chain is now EXHAUSTED, and the P1 boundary is located
+**2-bound-argument compositional conditioning -- BUILT and it WORKS** (`exp_composedhub_multiarg_v1`, the
+brain's bounded-tuple event knowledge: condition the patient prediction on the role-blind SET of bound
+arguments -- Bicknell 2010; Matsuki 2011; Chow 2015). Fresh whole-chain signal-loss ladder (held-out, broad
+pool, n=2432): representation +0.0998 CI-sep (the lever) -> +1 argument (agent) +0.0216 CI-sep -> **+2nd
+argument +0.0033 overall CI-sep, +0.0159 CI[+0.001,+0.031] on the 2+-arg-covered subset (n=509)** -> **3rd+
+argument +0.0004 ns (SATURATES)**. The wrong-argument twin LOSES +0.035 CI-sep (composition uses real
+argument identity). This is EXACTLY the drill's pre-registered boundary: the 2nd argument helps
+(compositional/in-scope), the 3rd saturates (a bounded-tuple ceiling) -- so the compositional route ends at
+~2 arguments, and the remaining upside (graded, simultaneously-maintained role-filler uncertainty) requires
+the GENERATIVE situation model, which is P1's separate problem. **The optimized predictor conditions on the
+agent + one more bound argument, precision-weighted.**
+
+The chain's IN-SCOPE optimization is now complete and each lever is measured: REPRESENTATION (the dominant
+lever, +0.076..+0.10) > 2-argument COMPOSITION (bounded-tuple, +0.025 all-composition) > PRECISION (+0.006) >
+COVERAGE (Resnik, recovers the OOV tail). Two refinements remain (both measurement/wiring, not new mechanism):
+a verb-CONDITIONED pre-activation pool (more faithful than the frequency pool; likely same-or-larger lift)
+and wiring the Resnik backoff into the end-to-end predictor. Everything beyond is the situation model (P1).
 
 ## TLDR (plain English)
 The reader's "guess the next important word" part was held back by the tiny 12-number meaning code it used.
@@ -186,7 +204,9 @@ as the shared foundation representation (recommended -- proven live + cross-task
    It is the shared ~200-d representation P1 needs -- build it ONCE.
 2. **The live PREDICTION lift is proven; measure it on the wired reader** over a broad (ideally
    verb-conditioned) pre-activation pool, not the sentence-noun pool (the fidelity lesson).
-3. **File the 2-bound-argument conditioning** as the pre-registered in-scope follow-on (boundary marker above).
+3. **Fold the 2-bound-argument conditioning into the landed predictor** (BUILT here; +0.016 CI-sep on the
+   2+-covered subset; the 3rd+ saturates -> the bounded-tuple ceiling, P1 owns beyond). The optimized recipe
+   conditions on the agent + one more bound argument, precision-weighted.
 4. **File the Resnik/Clark-Weir coverage backoff** for the OOV tail (recipe + kill-criterion in the adjacent doc).
 5. **DO NOT** chase a live error-flag lift (parser+ambiguity-bound), a same-hub gist stream (collinear), or a
    conflict/reversal flag on the verb-patient predictor (tested negative). Those belong to the parser and to
