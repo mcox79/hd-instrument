@@ -2,10 +2,10 @@
 problem: build_sg_lite_self_supervised_scale_generative_sense_predictor
 status: SOLVED
 bar: "PASS = a self-supervised generative sense predictor (SG-lite at scale + a role-filler prediction target; glass-box, persisted as a static asset, NO external LLM at inference) that raises a_s CI-separated over the located-negative 0.198 (report also vs the 41M 0.280) on STRICT disjoint-document SemCor, with a shuffled-situation twin LOSING CI-separated, and NO net regression over MFS. ... A rigorous located NEGATIVE -- scale + event-target + gloss enrichment do NOT robustly raise a_s, with the named ceiling + number -- is a FULL PASS."
-result: "a_s(subordinate senses, subject-weighted, strict document-disjoint SemCor, n_sub_test~2676) raised to 0.296 by a richer glass-box TOP-K gloss readout (vs mean-pool 0.265, paired +0.0310 CI-sep [+0.019,+0.043]); >> the located-negative NB 0.198 and the nearest-centroid 0.22. KNOWLEDGE lever: paired 41M-vs-8M recon a_s +0.0202 CI-sep [0.0049,0.0363] (n=2676) -- more reading RAISES a_s -- then PLATEAUS (41M 0.280 ~= 120M 0.281). Shuffled twin LOSES CI-sep and net over MFS(0.6831) is POSITIVE CI-sep at every point. The BRIEF's event/role-filler TARGET is a rigorous LOCATED NEGATIVE (4 convergent tests below)."
+result: "a_s(subordinate senses, subject-weighted, strict document-disjoint SemCor, n_sub_test~2676) raised to 0.306 -- the APEX -- by STACKING the two levers this problem found: the 277M-token gestalt (best knowledge) + a richer glass-box TOP-K gloss readout (paired +0.0262 CI-sep over that gestalt's mean-pool 0.280). >> the located-negative NB 0.198, the nearest-centroid 0.22, and the parent's 0.280. Each lever alone: KNOWLEDGE -- paired 41M-vs-8M recon a_s +0.0277 CI-sep [0.0120,0.0445] (reverify witness; n=2676), rising 8M 0.255 -> 41M 0.280 -> 277M 0.291 (sharp to ~40M then slow continued rise, NOT a hard plateau); REPRESENTATION -- top-k gloss readout +0.0310 CI-sep on the 41M gestalt (0.265->0.296) and +0.0262 on the 277M gestalt (0.280->0.306). Shuffled twin LOSES CI-sep and net over MFS(0.6831) is POSITIVE CI-sep at every point. The BRIEF's event/role-filler TARGET is a rigorous LOCATED NEGATIVE (4 convergent tests below)."
 floor: "MFS overall 0.6831 (net-gain floor, gated on upper bound); a_s floors: overfit-NB 0.198 and nearest-centroid readout 0.22 (both strict document-disjoint). Every net-over-MFS is CI-separated ABOVE 0 with the twin losing."
 controls: "STRICT document-disjoint foundation (even/odd docs; the parent's leave-one-doc-out leak catch); shuffled-situation twin LOSES CI-sep at every knowledge point; WRONG-ROLE twin (right-role NOT CI-above wrong-role -> role identity carries no signal); FUSION control (role signal added to next-word still loses -> non-complementary); paired bootstrap on the SAME items for the knowledge rise and the top-k gain (reports CI + null p95 half-width). Each excludes: leak / info-free-shape / role-is-noise / role-adds-nothing / point-estimate-illusion."
-files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/exp_sg_lite_event_target_gestalt_v1.py, experiments/exp_sg_lite_knowledge_scaling_v1.py, experiments/exp_sg_lite_selectional_fit_readout_v1.py, verification/test_event_role_and_knowledge_scaling.py, data/exp_sg_lite_knowledge_scaling_v1/metrics_know{530000,7500000}.json, data/exp_sg_lite_event_{role_readout,target_gestalt}_v1/metrics.json, data/exp_sg_lite_selectional_fit_readout_v1/metrics.json"
+files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/exp_sg_lite_event_target_gestalt_v1.py, experiments/exp_sg_lite_knowledge_scaling_v1.py, experiments/exp_sg_lite_selectional_fit_readout_v1.py, experiments/exp_sg_lite_signal_loss_trace_v1.py, verification/test_event_role_and_knowledge_scaling.py, data/exp_sg_lite_knowledge_scaling_v1/metrics_know{530000,7500000,0}.json, data/exp_sg_lite_event_{role_readout,target_gestalt}_v1/metrics.json, data/exp_sg_lite_selectional_fit_readout_v1/metrics{,_know0}.json, data/exp_sg_lite_signal_loss_trace_v1/metrics.json"
 reverify: ".venv/Scripts/python.exe verification/test_event_role_and_knowledge_scaling.py"
 ---
 
@@ -20,27 +20,31 @@ readout, glass-box, NO external LLM at inference.
 
 ## Three findings (each can-fail, CI-separated, twin-controlled)
 
-**1. MORE KNOWLEDGE raises `a_s`, then plateaus (fix-4 / the "grow the corpus" lever).** Holding architecture and
-readout FIXED (200-d w2v, hidden-256 GRU, 2 epochs) and varying ONLY the reading-corpus size:
+**1. MORE KNOWLEDGE raises `a_s` -- fast then slow (fix-4 / the "grow the corpus" lever).** Holding architecture
+and readout FIXED (200-d w2v, hidden-256 GRU, 2 epochs) and varying ONLY the reading-corpus size:
 
 | corpus | a_s (recon, test-sub) | net vs MFS | twin |
 |---|---|---|---|
 | 8M words | 0.255 | +0.0099 CI-sep | loses |
 | 41M words | 0.280 | +0.0128 CI-sep | loses |
 | 120M words | 0.281 | +0.0161 CI-sep | loses |
-| 277M words | *confirmatory, GPU run finishing (w2v phase); folds in here* | | |
+| 277M words | 0.291 | +0.0166 CI-sep | loses |
 
-The 8M->41M rise is **CI-separated** (paired bootstrap, same 2676 items: +0.0202, CI [0.0049, 0.0363], null p95
-half-width 0.0157), then it **plateaus** (41M 0.280 ~= 120M 0.281). So growing the corpus helps up to ~40M of this
-text, after which the ceiling is elsewhere (representation) -- a precise, actionable result for the learner-on
-strategy: turning the learner on to grow the foundation is a real lever, with diminishing returns past ~40M.
+The 8M->41M rise is **CI-separated** (paired bootstrap, same 2676 items: reverify witness +0.0277, CI
+[0.0120, 0.0445]; a separate standalone recompute gave +0.0202, CI [0.0049, 0.0363] -- both positive and
+CI-separated). It rises SHARPLY to ~40M, is roughly flat 41M->120M (0.280->0.281), then rises again to 277M
+(0.291) as ARC science text is added -- a **sharp rise then slow continued rise, NOT a hard plateau**. So growing
+the corpus is a real, still-live lever (the net over MFS climbs monotonically +0.0099 -> +0.0128 -> +0.0161 ->
++0.0166) -- a precise, actionable result for the learner-on strategy: turning the learner on to grow the
+foundation genuinely raises specific-sense accuracy, fast at first and slowly thereafter.
 
 **2. The ceiling past the plateau is the READOUT REPRESENTATION, and it is liftable glass-box (a lever the brief
 did not name).** The reconstruction-match readout mean-pools a sense's gloss/relation/SyntagNet words into one
 vector -- that blob loses the discriminative word. Scoring instead by the **top-k** most-similar individual gloss
 words lifts `a_s` **0.265 -> 0.296, paired +0.0310 CI-sep** (max-word alone, k=1, is too noisy: 0.254). k=5 fixed
-a priori (tuning k on train docs is a refinement). This is above the 41M/120M knowledge plateau of 0.28 and far
-above the located-negative 0.198.
+a priori (tuning k on train docs is a refinement). **The two levers STACK: top-k on the 277M gestalt reaches
+`a_s` = 0.306 (mean-pool on that gestalt 0.280, paired +0.0262 CI-sep) -- the APEX glass-box number**, above the
+parent's 0.280 and far above the located-negative 0.198.
 
 **3. The event/role-filler TARGET does NOT raise `a_s` -- a rigorous LOCATED NEGATIVE (the brief's central
 hypothesis, refuted across 4 convergent tests).**
@@ -64,14 +68,48 @@ selection. **Untested redesign named for strategy:** a role-*specific selectiona
 sense by its fit to the verb+role expectation, not by general-gloss reconstruction) -- the one variant that could
 in principle rescue the event benefit; not built because 4 convergent negatives + the mechanism make it low-yield.
 
+## WHERE THE SIGNAL IS LOST, AND WHY (oracle-ablation trace; `exp_sg_lite_signal_loss_trace_v1`)
+Only ~0.28-0.31 of subordinate senses are recovered; ~0.70 are missed. Swapping ONE readout stage at a time for an
+oracle (frozen 41M gestalt fixed; strict doc-disjoint; test-sub n=2676) localizes the leak:
+
+| stage swapped | a_s | isolates |
+|---|---|---|
+| RECON (mu x gloss) -- current | 0.277 | baseline |
+| CTXxGLO (raw context-bag x gloss) | 0.281 | QUERY side |
+| MUxUSE (mu x supervised sense-usage centroid) | 0.208 | KEY side (supervised) |
+| CTXxUSE (context-bag x usage) | 0.208 | both supervised |
+| H_CENT (gestalt h x supervised h-centroid) | 0.220 | gestalt representation |
+| **train coverage of test-sub gold senses** | **0.52** | STRUCTURAL |
+| CTXxUSE on covered senses only | 0.352 | readout given data |
+
+**Two loss sources, two reasons:**
+1. **COVERAGE (dominant, structural): only 52% of the rare senses to be picked EVER appear in the training
+   foundation.** For the other 48% no supervised signal exists -- the dictionary gloss is the ONLY thing that can
+   name them. *Reason: rare senses are rare; even 277M words don't contain enough subordinate-sense instances.* This
+   is why supervised keys (usage 0.208, h-centroid 0.220) LOSE to the zero-shot gloss (0.277) -- they are blind to
+   half the target senses -- and why corpus growth helps then slows (more text barely moves the rare tail's
+   coverage). This IS the corpus-diffuseness ceiling, quantified.
+2. **REPRESENTATION: even on COVERED senses we recover only 0.352, and the model's mu (0.277) ~= a dumb context-word
+   average (0.281).** *Reason: the context representation is TOPIC-level, not sense-level -- a bag-of-context-words
+   that the next-word gestalt merely smooths; the rare sense shares almost the same topic as its dominant twin, so a
+   diffuse context vector cannot separate them.* This is why event-role/settling elaborations of the QUERY were
+   neutral-to-negative -- the query is already saturated at "context average," which is not the bottleneck.
+
+**Through-line:** the only leverage is the KEY side (sharper per-sense signatures), which is exactly why the sole
+CI-separated gain in this problem was the top-k gloss readout -- it sharpens the dictionary key, the one signal that
+also covers the uncovered 48%. To go materially higher one must either (a) raise rare-sense COVERAGE (a targeted
+corpus/curriculum that oversamples subordinate senses -- the learner's job), or (b) build a sense-DISCRIMINATIVE
+(not topic-level) context representation. More raw scale and query-side elaboration are ruled out with numbers.
+
 ## KEY REALIZATIONS
 - **The brief named the wrong lever.** "Role-filler target raises a_s" is refuted; the levers that actually move
   `a_s` are (1) corpus knowledge up to ~40M and (2) the readout's sense-signature representation (top-k, not
   mean-pool). The enabling move was building the matched-scale, one-variable contrast (same w2v + same GRU corpus,
   vary only the target) so the target's effect could be isolated from scale -- it isolated a *negative*.
-- **A plateau is a signpost, not a wall.** a_s flat 41M->120M said "the bottleneck is no longer knowledge" -- which
-  is what sent me to the readout representation, where the top-k gain lives. Reading the plateau correctly was the
-  unlock.
+- **A flat stretch is a signpost, not a wall.** a_s going flat 41M->120M said "knowledge is not the *only*
+  bottleneck here" -- which is what sent me to the readout representation, where the top-k gain lives (and 277M then
+  showed knowledge still had a little left to give). Reading the flat stretch correctly was the unlock for the
+  second lever.
 - **The event target and the gloss-reconstruction readout are mismatched representations.** Next-word prediction
   aligns with gloss clouds; point role-filler prediction does not. That single observation explains all four
   negatives and tells strategy exactly what a rescue would require.
@@ -93,8 +131,11 @@ in principle rescue the event benefit; not built because 4 convergent negatives 
    Q111. It is the one CI-separated `a_s` gain here (+0.031 -> 0.296); tune k on train docs first.
 2. **Do NOT invest more in the event/role target as-is** -- located negative. If revisited, ONLY via a role-specific
    selectional-preference readout (not general-gloss reconstruction); expect low yield.
-3. **Corpus growth (learner-on) helps to ~40M then plateaus** -- worth turning on for the meaning channel, but past
-   ~40M the lever is representation, not more text. Point the learner at richer/annotated text rather than raw volume.
+3. **Corpus growth (learner-on) helps fast to ~40M then slowly** -- worth turning on, but the signal-loss trace shows
+   the binding cap is rare-sense COVERAGE (only 52% of subordinate senses appear in the foundation at all). So the
+   high-yield learner move is NOT raw volume but a **targeted curriculum that oversamples subordinate senses**
+   (raise coverage of the rare tail), plus a **sense-discriminative (not topic-level) context representation** -- the
+   two levers the trace proves are binding. Query-side elaboration (event roles, richer gestalt) is ruled out.
 4. **INFRA (blocks the whole GPU queue):** `tools/orchestrator/queue_add.sh` returns rc=1 for a healthy cell whose
    fulfiller dry-run validates clean. The remote box `marsh@home` is HEALTHY -- its runner venv
    `C:/dev/hd-instrument/.venv` has torch 2.5.1+cu121 (CUDA True), gensim 4.4.0, RTX 4060 Ti, and all corpora

@@ -2,10 +2,10 @@
 problem: the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses
 status: SOLVED
 bar: "PASS = a coverage recovery (attempt every finite verb + parser-robust candidate building, glass-box, NO LLM) that raises the LIVE reader's EFFECTIVE end-to-end who-did-what (abstention counted as wrong) CI-separated over the current 0.629, WITHOUT regressing the picked-clause NP-head precision (an explicit no-regression check on the accuracy the parent landed), with an info-free twin (recover random clauses) LOSING. Report CI half-width + null p95; recompute floors on the same population. A rigorous located NEGATIVE — the dropped clauses are genuinely un-recoverable glass-box, with the named cause + number — is a FULL PASS. Strategy lands the Q111 wire (default-off, witnessed)."
-result: "Effective end-to-end who-did-what (abstention=wrong), 669 clean-19c direct-object clauses, scorer pick==gold_head: LIVE wired 0.6293 -> RECOVERED 0.9806, +0.3513 CI[+0.3154,+0.3886] half=0.0366 null_p95=0.0375 (the more brain-faithful STRUCTURAL-DO refinement 0.9851). Modern QA-SRL (n=1261) 0.5678 -> 0.9025, +0.3347 CI-sep. Present-accuracy 0.807 -> 0.981 (precision UP, not regressed)."
-floor: "Strongest floor actually run = the reader's OWN better route, LIVE positional 0.7294 (RECOVERED beats it +0.2511 CI[+0.2167,+0.2840]). Also: LIVE wired 0.6293; best-available-parser wired floor (updated arc-eager, UD-EWT UAS 0.842) 0.6308 -- the abstention is parser-INDEPENDENT, not a strawman floor."
-controls: "(1) info-free twin = full coverage + UNIFORM-RANDOM post-verbal pick 0.4185, LOSES CI-sep (REC-vs-twin +0.5620). (2) NO-REGRESSION: of 421 clauses the live reader already got right, RECOVERED keeps 416 (5 individual flips, all hard ditransitive/copula/distant-noun cases); present-accuracy 0.807->0.981. (3) INTRANSITIVE precision control (constructed, can-fail): the naive soft rule over-generates on 100% of intransitives; the brain-faithful STRUCTURAL-DO rule abstains correctly 0.975 AND recovers the 47 the hard gate loses AND does not regress the main gold (0.9851>=0.9806). (4) fair-floor: the UPDATED arc-eager parser recovers only 1/669 -> abstention is not parse-quality. (5) first-hand reader reproduces the stored wired_pick/pos_pick 100%. (6) per-cause ablation is exhaustive (recovered-correct sums exactly to 0.9806)."
-files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, experiments/exp_whodidwhat_mention_source_transfer_v1.py, experiments/exp_whodidwhat_meaning_prediction_completeness_v1.py, experiments/exp_whodidwhat_live_wire_end_to_end_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
+result: "RECOMPUTED against the CURRENT live reader (the stored 0.6293 floor went STALE -- upstream modules landed DURING this work and lifted the live wired reader to 0.7877; predict_revise = +0.0643 of it). On the 669 clean-19c direct-object clauses, scorer pick==gold_head, effective end-to-end (abstention=wrong): CURRENT live wired 0.7877 -> STRUCTURAL recovery 0.9851, marginal +0.1973 CI[+0.1689,+0.2272] CI-separated. The recovery's contribution is now primarily ACCURACY (it fixes 65 of the reader's 75 remaining wrong picks) plus the 47 verb_subcat + 20 no-event abstentions. Modern QA-SRL (n=1261) 0.5678 -> 0.9025, +0.3347 CI-sep (modern floor not yet re-run against current substrate)."
+floor: "Strongest floor actually run = the CURRENT live wired reader 0.7877 (predict_revise ON; recomputed first-hand, NOT the stale stored 0.6293). predict_revise OFF = 0.7235. The RECOVERED path beats the current floor +0.1973 CI[+0.1689,+0.2272]. best-available-parser wired floor (updated arc-eager UAS 0.842) 0.6308 at the time it was run -- also now superseded by the upstream lift. RETIRED as stale: the stored wired_pick 0.6293."
+controls: "(1) info-free twin = full coverage + UNIFORM-RANDOM post-verbal pick 0.4185, LOSES CI-sep. (2) NO-REGRESSION: present-accuracy 0.807->0.981; 5 individual flips (hard ditransitive/copula/distant-noun). (3) INTRANSITIVE precision control (constructed, can-fail): naive soft rule over-generates on 100% of intransitives; STRUCTURAL-DO abstains correctly 0.975 AND recovers the 47 AND does not regress the main gold. (4) CURRENT-FLOOR recompute (first-hand): the recovery marginal is measured over the CURRENT 0.7877 reader, not the stale 0.6293; predict_revise attributed (+0.064). (5) fair-floor: the updated arc-eager parser recovers only 1/669 -> abstention was not parse-quality. (6) per-cause ablation is exhaustive."
+files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, experiments/exp_whodidwhat_mention_source_transfer_v1.py, experiments/exp_whodidwhat_meaning_prediction_completeness_v1.py, experiments/exp_whodidwhat_live_wire_end_to_end_v1.py, experiments/exp_whodidwhat_current_floor_rediagnosis_v1.py, experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_verbid_override_prototype_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_whodidwhat_coverage.py"
 ---
 
@@ -19,7 +19,54 @@ effective end-to-end to **0.981** (+0.3513 CI-separated, info-free twin loses, n
 to modern text). The abstention was **never** a "the parser could not find the noun" problem — it is three
 OUR-INVENTION precision gates mis-firing on 19c prose.
 
-## 1. The diagnosis — first-hand, exhaustive (cell: exp_whodidwhat_coverage_diagnosis_v1)
+## 0. ⚠️ THE FLOOR MOVED DURING THIS WORK — recomputed honestly (cell: exp_whodidwhat_current_floor_rediagnosis_v1)
+The substrate was being improved by the strategy session WHILE this problem was worked, so the numbers below that are
+stated against the stored `wired_pick` (0.6293) are STALE. Recomputed first-hand against the CURRENT live reader:
+
+| floor | effective (669 clean-19c DOs) | note |
+|---|---|---|
+| stored `wired_pick` (gold-build time) | 0.6293 | **STALE — retired** |
+| current live wired, predict_revise OFF | 0.7235 | other landings lifted it +0.094 |
+| **current live wired (the honest floor)** | **0.7877** | predict_revise adds +0.0643 |
+| STRUCTURAL recovery (this work) | 0.9851 | **marginal +0.1973 CI[+0.1689,+0.2272] CI-sep** |
+
+**What upstream already recovered, and where signal is NOW lost:** `predict_revise`'s drop-fill (landed 2026-09-01)
+plus other landings recovered the **80 speech-quotative** event-no-patient drops entirely. The CURRENT reader's
+remaining loss is: **75 WRONG picks (accuracy)** — of which the structural NP-head/DO recovery fixes **65** — plus
+**47 verb_subcat** + **20 no-event** abstentions. So the bottleneck RE-LOCATED from coverage to ACCURACY: the
+recovery is still worth +0.1973 CI-separated, but now chiefly as an accuracy fix (65 wrong picks) on top of the
+coverage upstream recovered. The rest of this document's diagnosis (80/47/20) describes the state AT THE TIME it was
+run and remains a correct account of the mechanism; only the headline floor is superseded by §0.
+
+## 0b. THE CURRENT LOSSES, PINPOINTED + PROTOTYPED FIXES (the renewed optimization opportunity)
+After the floor moved to 0.7877, I pinpointed every remaining loss first-hand and prototyped a fix for each. Ranked
+by leverage:
+
+**(1) REFERENT-PER-NP mention source — the biggest lever, prototyped and WORKING** (cell:
+`exp_whodidwhat_referent_per_np_prototype_v1`). This is a DEPLOYMENT loss, not visible in the eval (which supplies
+every noun): the live `read()` sources candidates from the coref column, so on the 25 real LitBank docs the gold
+patient is a candidate only **0.8183** of the time (entity-type coref only). The brain opens a referent for EVERY NP
+(Kamp 1981; Heim 1982). Prototype `referent_per_np_mentions` (a mention per content-noun head, coref demoted to a
+downstream linking pass) lifts patient candidate-coverage to **0.9705, +0.1521** across 1354 clauses. Tractable,
+brain-foundational, and it dwarfs the in-eval losses — the recommended next problem.
+
+**(2) 20 NO-EVENT (verb mis-tagged) — prototyped, LOCATED PARTIAL** (cell: `exp_whodidwhat_verbid_override_prototype_v1`).
+The tokens ARE verbs (18/20 WordNet). A combined glass-box override (WordNet verbhood AND (arc-eager parser attaches
+it as a predicate head/root OR a Mintz subject-[verb]-object frame)) recovers **10/20** — but at **3.72 false-verbs
+per sentence** (2417 spurious promotions on 649 clauses). Unusable as a heuristic: the recovery/precision tradeoff is
+bad because content nouns routinely have verb readings and sit in noun-flanked frames. Clean recovery needs a
+register-robust TRAINED predicate model — this is the honest scope of follow-on 1c (a heuristic will not do it).
+
+**(3) 75 WRONG picks — 65 fixed by the structural-DO recovery (this work); the 10 residual pinpointed as follow-on 1d.**
+Of the 10 the structural recovery still misses: **1** is a candidate-quality bug (it picked the pronoun "our" over
+"people" — a drop-PRON-candidate fix), and **9 are genuine NON-CANONICAL constructions** outside this problem's
+canonical-DO scope — object-complement/naming ("call her bungalow **a place**" → gold=place; "called _**hell**_" →
+gold=regions), ditransitive ("gave the **man** godspeed" → gold=man/recipient; "paint you the dreamiest **bit**"),
+and copula ("seemed odd **people**"). These are the VerbNet-double-object + animacy fix (Goldberg; Bresnan 2007) the
+research called the cheapest win — they belong to the filed non-canonical-argument problem (1d), and the structural-DO
+rule is correct-by-design to not claim them.
+
+## 1. The diagnosis — first-hand, exhaustive (cell: exp_whodidwhat_coverage_diagnosis_v1) [floor superseded by §0]
 I re-ran the actual `hdlab.situation_reader.SituationReader` (the "strong" reader the gold was built with:
 `role_route=wired`, `tense_agnostic_events=True`, `verb_subcat_gate=True`) first-hand on the 669 clean-19c
 direct-object clauses. It reproduces the gold's stored `wired_pick`/`wired_no_event` fields **100%**. Every content
@@ -200,14 +247,17 @@ Davidsonian event detector is correct but capped by UD-tagger 19c verb recall (a
 
 ---
 
-### TLDR (plain language)
-The reader's "who did what to whom" is right about 98% of the time when it answers, but on old-fashioned prose it
-stays completely silent on about one in five sentences that DO have an answer — so, counting silence as a miss, it is
-really right only ~63% of the time. I ran the reader itself and found the silence has three exact causes, and none of
-them is "the grammar tool couldn't find the noun": (1) it throws away the object of every "saying" verb — "call
-**me**", "tell my **wife**" — because it assumes a speech verb must be someone speaking; (2) it deletes the object
-whenever a word-frequency table thinks the verb is rarely transitive, which misfires on old verbs; (3) it never
-starts because its part-of-speech tool mislabels old verbs like "the lake **presents**" as nouns. Fixing all three
+### TLDR (plain language) — UPDATED after the floor moved (see §0)
+IMPORTANT HONESTY UPDATE: while I was working this, the shared system was being improved by the other session, and
+the reader's "who did what" score quietly climbed on its own — from the ~63% the brief cites to about **79%** now.
+The biggest thing I had diagnosed (it throws away the object of "saying" verbs like "call **me**") was fixed upstream
+by that work. So counting silence as a miss, the honest starting point is now ~79%, not 63%. My fix still helps — it
+takes it to ~98.5%, a **+20-point CI-separated gain that is now mostly about ACCURACY** (picking the right word inside
+a phrase) rather than the silence, plus recovering two smaller silent buckets. Original diagnosis, still a correct
+account of the mechanism: the silence had three causes, none of them "couldn't find the noun": (1) it threw away the
+object of every "saying" verb — "call **me**", "tell my **wife**"; (2) it deleted the object whenever a word-frequency
+table thought the verb was rarely transitive, which misfires on old verbs; (3) it never starts because its
+part-of-speech tool mislabels old verbs like "the lake **presents**" as nouns. Fixing all three
 with a robust, brain-style rule (nearest sensible noun after the verb, always try, treat those two vetoes as soft
 hints not hard blocks) takes it from 63% to 98%, holds up on modern text too, and a scrambled version collapses to
 42% — proving the fix is real, not luck. I also turned on the newest, most accurate grammar parser to be fair: it
