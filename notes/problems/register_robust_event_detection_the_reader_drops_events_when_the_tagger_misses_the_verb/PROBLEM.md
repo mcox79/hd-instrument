@@ -1,0 +1,50 @@
+---
+priority: 6
+review:
+review_text:
+---
+
+# PROBLEM: the who-did-what eval SUPPLIES the verb index, so a whole class of real-document loss is invisible — on raw prose the reader drops the ENTIRE event (agent + patient) when the POS tagger fails to recognize a real verb (register-diverse / archaic / noun-flanked verbs). Build register-robust glass-box PREDICATE detection (a trained self-supervised verbhood model, since heuristics over-generate) and prove it raises real-document who-did-what EVENT recall CI-separated with an info-free twin losing — or a located negative naming the ceiling.
+
+**slug:** `register_robust_event_detection_the_reader_drops_events_when_the_tagger_misses_the_verb` — **opened:** 2026-09-03 by the strategy session, lifted from `the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses` §0b lever-2 (the "no-event" losses; explicitly named as un-filed follow-on 1c: "clean recovery needs a register-robust TRAINED predicate model — a heuristic will not do it"). **status:** OPEN. Strategy lands any hdlab wire (Q111, default-off, witnessed). Glass-box, NO external LLM at inference (the invariant); an offline self-supervised model persisted as a static asset is admissible.
+
+> ## ⚙️ SOLVER OPERATING PROTOCOL (standing — owner 2026-08-25/26)
+> **DO THE RIGHT THING, NOT THE CHEAP OR EASY THING.** The mission is the most brain-faithful substrate.
+> **🧠 OPENING MOVE, BEFORE ANY METHOD: how does the BRAIN do THIS?** Name the structure + computation, replicate that OPERATION as exactly as you can — the FIRST move. Mark each choice PINNED vs OUR-INVENTION.
+> **🚀 EXPLORE FAR + WIDE for the mechanism**; if a MORE brain-foundational method conflicts with this brief, submit THAT (say why).
+> **🧱 A SHARED WALL = GO DEEPER, not stop.** A rigorous located NEGATIVE is a PASS — but only if the brain's actual mechanism, faithfully built, is what failed.
+> **📖 REFERENCE `notes/BRAIN_FOUNDATIONAL_AUDIT.md`**; inherit its PINNED/INVENTED verdicts; add an AUDIT UPDATE for any deviation.
+
+## 1. THE PROBLEM IN PLAIN LANGUAGE
+Every who-did-what event needs a verb to hang the agent and patient on. Our test HANDS the reader the verb's position, so if a verb is hard to spot the test never notices. On real prose the reader must find the verbs itself — and when its part-of-speech tagger fails to recognize a real verb (common with archaic forms, or a verb that looks like a noun and sits between two nouns), the reader emits NO event at all, silently losing the whole clause: who did what to whom, gone. The parent found the tokens really are verbs (18 of 20 are verbs in WordNet), but a simple rule to rescue them over-generates massively (~3.7 false verbs per sentence) because content nouns routinely have verb readings. The brain does not decide verbhood by a lexical lookup; it predicts, from the unfolding structure, that THIS slot is an event predicate. The job: build a register-robust, glass-box predicate detector (a trained self-supervised model, since a heuristic will not separate real verbs from noun-with-a-verb-reading), and show it recovers dropped events on real documents without flooding the reader with false events.
+
+## 2. WHY THIS ONE — it is the symmetric half of real-document extraction coverage
+The parent's §0b split the reader's real-document loss into (1) missing ARGUMENTS (the referent-per-NP problem, filed) and (2) missing PREDICATES (this). Both are invisible to the noun-supplied / verb-index-supplied eval and both drop signal BEFORE role assignment runs. A heuristic verbhood override (WordNet-verb AND (arc-eager predicate-head OR a Mintz subject-verb-object frame)) recovers 10/20 dropped events but at 3.72 false verbs/sentence (2417 spurious promotions on 649 clauses) — UNUSABLE. The recovery/precision tradeoff proves this needs a learned predicate model, not a rule. This is the extraction front-end's predicate-coverage lever, and event detection gates everything downstream.
+
+## 3. HOW THE BRAIN DOES THIS (the opening move)
+PINNED: predicate/event detection is not lexical lookup but STRUCTURE-PREDICTED — the comprehender predicts an event predicate from the incremental syntactic/thematic context (predictive coding over the parse; the P600/eLAN structural stream; event segmentation, Zacks). A self-supervised model trained to predict "is this token the event predicate here" from context is the faithful analog (glass-box, NOT an LLM). OUR-INVENTION-under-test: the exact model class / features / scale + the abstain threshold (sweep). Mark PINNED vs OUR-INVENTION.
+
+## MEASURED vs INFERRED
+- **MEASURED (do NOT re-derive — from the parent §0b lever-2):** 20 no-event losses on the 669-clause slice; 18/20 tokens are WordNet verbs; the combined heuristic override recovers 10/20 at 3.72 false-verbs/sentence (unusable). (Source: `experiments/exp_whodidwhat_verbid_override_prototype_v1.py`.)
+- **INFERRED (you must measure):** whether a register-robust trained self-supervised predicate detector raises real-document who-did-what EVENT recall CI-separated over the current live floor at a controlled false-event rate (an explicit precision guard — do NOT flood the event stream), with an info-free twin (random verbhood promotion) LOSING; whether it transfers modern↔19c; the residual + its named cause (tagger vs model vs genuine ambiguity).
+
+## VERIFY BEFORE YOU START (the disk outranks this brief)
+- **FIRST STEPS:** (1) understand ALL organs — `python tools/substrate_map.py`, `python tools/reader_capabilities.py`, skim `hdlab/`; (2) read IN FULL the parent SOLVED.md §0b (lever 2) + the tense-agnostic event-detection lineage (`the_extraction_front_end_recovers_only_a_third_of_events_and_roles`, owner-DONE — the event-recall backbone you build ON); (3) `python tools/before_you_start.py "register robust predicate event detection verbhood"`.
+- Reproduce on your own recompute: the 10/20 recovery at 3.72 false-verbs/sentence (the can-fail heuristic baseline the trained model must beat on precision).
+- Inspect what you will REUSE: `hdlab/pos_tagger.py` (the UD-EWT UPOS tagger whose verbhood recall is the gap), `hdlab/situation_reader.py` (`tense_agnostic_events` = detect-at-every-UPOS-VERB, already default-on — you are improving its verbhood RECALL without wrecking precision), `hdlab/arceager_parser.py` (predicate-head signal), the WordNet verbhood asset, `experiments/exp_whodidwhat_verbid_override_prototype_v1.py`. Heavy training → REMOTE GPU. Measure on the board's who-did-what real-document arms.
+
+## THE BAR (can-fail; CI-separated; the info-free twin must lose)
+PASS = a register-robust glass-box predicate detector (trained self-supervised, persisted as a static asset, NO external LLM) that raises the LIVE reader's real-document who-did-what EFFECTIVE event recall CI-separated over the current live floor AT A CONTROLLED false-event rate (explicit precision guard — no event-stream flooding, an explicit no-regression check on the picked-clause accuracy), with a random-verbhood info-free twin LOSING CI-separated. Report CI half-width + null p95; recompute floors on the same population. A rigorous located NEGATIVE — the dropped events are genuinely un-recoverable within the precision budget, with the named cause + number — is a FULL PASS. Strategy lands the Q111 wire (default-off, witnessed).
+
+## ALREADY TRIED / DO NOT REDO
+- The HEURISTIC override (WordNet-verb AND (arc-eager head OR Mintz frame)) — located NEGATIVE (10/20 at 3.72 false/sentence). Do not re-file a heuristic; the scope is a TRAINED model.
+- Register-native PARSE/POS training data as a WHO-DID-WHAT lever — located NEGATIVE in `register_native_parse_and_pos_training_data...` (the PP-attachment/verb-ID-collapse framing; "−0.10 verb-ID collapse is 87% copula-as-AUX correct-UPOS"). This problem is NOT that: it is verbhood RECALL for DROPPED events on real prose, precision-guarded — a different axis. Read that SOLVED.md so you do not repeat its dead end.
+- tense-agnostic event detection (present-tense verbs) — DONE + landed; you build on it, not redo it.
+
+## FILES AND ENTRY POINTS
+Build in `experiments/` + `verification/`. REUSE `hdlab/pos_tagger.py`, `hdlab/situation_reader.py` (tense_agnostic_events path), `hdlab/arceager_parser.py`, the override prototype cell, WordNet. Heavy runs go REMOTE GPU. Strategy lands any hdlab wire (Q111, default-off, witnessed). Fold an AUDIT UPDATE into `BRAIN_FOUNDATIONAL_AUDIT.md` §2b.
+
+## DO NOT QUOTE
+- Do NOT quote the verb-index-supplied eval as the deployment number — the loss is exactly that deployment must detect the verb itself.
+- Do NOT report a recall gain without its false-event rate — precision is the whole difficulty here.
+- Do NOT use an external LLM as the detector or trainer at inference (the invariant).
