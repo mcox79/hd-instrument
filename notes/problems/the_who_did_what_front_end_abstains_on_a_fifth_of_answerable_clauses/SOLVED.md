@@ -5,7 +5,7 @@ bar: "PASS = a coverage recovery (attempt every finite verb + parser-robust cand
 result: "RECOMPUTED against the CURRENT live reader (the stored 0.6293 floor went STALE -- upstream modules landed DURING this work and lifted the live wired reader to 0.7877; predict_revise = +0.0643 of it). On the 669 clean-19c direct-object clauses, scorer pick==gold_head, effective end-to-end (abstention=wrong): CURRENT live wired 0.7877 -> STRUCTURAL recovery 0.9851, marginal +0.1973 CI[+0.1689,+0.2272] CI-separated. The recovery's contribution is now primarily ACCURACY (it fixes 65 of the reader's 75 remaining wrong picks) plus the 47 verb_subcat + 20 no-event abstentions. Modern QA-SRL (n=1261) 0.5678 -> 0.9025, +0.3347 CI-sep (modern floor not yet re-run against current substrate)."
 floor: "Strongest floor actually run = the CURRENT live wired reader 0.7877 (predict_revise ON; recomputed first-hand, NOT the stale stored 0.6293). predict_revise OFF = 0.7235. The RECOVERED path beats the current floor +0.1973 CI[+0.1689,+0.2272]. best-available-parser wired floor (updated arc-eager UAS 0.842) 0.6308 at the time it was run -- also now superseded by the upstream lift. RETIRED as stale: the stored wired_pick 0.6293."
 controls: "(1) info-free twin = full coverage + UNIFORM-RANDOM post-verbal pick 0.4185, LOSES CI-sep. (2) NO-REGRESSION: present-accuracy 0.807->0.981; 5 individual flips (hard ditransitive/copula/distant-noun). (3) INTRANSITIVE precision control (constructed, can-fail): naive soft rule over-generates on 100% of intransitives; STRUCTURAL-DO abstains correctly 0.975 AND recovers the 47 AND does not regress the main gold. (4) CURRENT-FLOOR recompute (first-hand): the recovery marginal is measured over the CURRENT 0.7877 reader, not the stale 0.6293; predict_revise attributed (+0.064). (5) fair-floor: the updated arc-eager parser recovers only 1/669 -> abstention was not parse-quality. (6) per-cause ablation is exhaustive."
-files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, experiments/exp_whodidwhat_mention_source_transfer_v1.py, experiments/exp_whodidwhat_meaning_prediction_completeness_v1.py, experiments/exp_whodidwhat_live_wire_end_to_end_v1.py, experiments/exp_whodidwhat_current_floor_rediagnosis_v1.py, experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_verbid_override_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, experiments/exp_whodidwhat_noncanonical_upstream_v1.py, experiments/exp_whodidwhat_fillergap_fix_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
+files_changed: "experiments/exp_whodidwhat_coverage_diagnosis_v1.py, experiments/exp_whodidwhat_coverage_recover_v1.py, experiments/exp_whodidwhat_coverage_parser_floor_v1.py, experiments/exp_whodidwhat_coverage_transitivity_control_v1.py, experiments/exp_whodidwhat_verb_id_recoverable_v1.py, experiments/exp_whodidwhat_mention_source_transfer_v1.py, experiments/exp_whodidwhat_meaning_prediction_completeness_v1.py, experiments/exp_whodidwhat_live_wire_end_to_end_v1.py, experiments/exp_whodidwhat_current_floor_rediagnosis_v1.py, experiments/exp_whodidwhat_referent_per_np_prototype_v1.py, experiments/exp_whodidwhat_verbid_override_prototype_v1.py, experiments/exp_whodidwhat_ideal_brain_foundational_v1.py, experiments/exp_whodidwhat_noncanonical_upstream_v1.py, experiments/exp_whodidwhat_fillergap_fix_v1.py, experiments/exp_whodidwhat_composed_pipeline_v1.py, verification/test_whodidwhat_coverage.py, notes/problems/the_who_did_what_front_end_abstains_on_a_fifth_of_answerable_clauses/SOLVED.md"
 reverify: ".venv/Scripts/python.exe verification/test_whodidwhat_coverage.py"
 ---
 
@@ -130,6 +130,27 @@ fully brain-foundational, every info-free twin loses, and the predictive-confide
 prior-work verdict that the non-canonical blowout is gated on a joint-generative valence parser (a named successor),
 not on more cues here. So the ideal is COMPLETE and brain-foundational for the canonical regime; the honest remaining
 depth is (a) the non-canonical frontier and (b) the referent-per-NP deployment source (§0b).
+
+## 0d. THE IMPLEMENTATION — composed drop-in + per-stage SIGNAL-LOSS LEDGER (cell: exp_whodidwhat_composed_pipeline_v1)
+All CONFIRMED brain-foundational STRUCTURAL fixes composed into one glass-box drop-in (`composed_who_did_what`):
+referent-per-NP candidates → Davidsonian coverage → NP-head → route (canonical: structural-DO + competition;
+non-canonical: nearest-preverbal theme) → predictive confidence. **L3 grounded-valence is EXCLUDED** — the
+meaning-channel research (2026-09-03) CONFIRMED who-did-what selection is parse/structure-bound, not fit-bound
+(structural roles ~0.996; the fit-gate tradeoff is irreducible), so a valence cue on selection is a fenced negative;
+its real home is forward prediction, and the generative situation model is a separately-filed deep successor (priority
+1, under the learner-on north star) — CITED, not opened here.
+
+**Per-stage SIGNAL-LOSS LEDGER (where signal is lost, measured):**
+| regime | ORACLE (gold reachable) | current floor | **COMPOSED** | residual loss to oracle | twin |
+|---|---|---|---|---|---|
+| CANONICAL (n=669) | 0.9895 | 0.6293 | **0.9596** | **0.0299 (near-saturated)** | 0.833 (loses) |
+| NON-CANONICAL cleaned (n=284) | 0.9965 | 0.0704 | **0.2923** (4× floor) | **0.7042 (the frontier)** | — |
+
+Reading the ledger: the structural pipeline **nearly saturates** canonical (only 0.030 of the reachable signal lost),
+while non-canonical still loses **0.70** — recovered 4× off the floor by structure but the residual is gated on the
+meaning channel (structural cues cannot close it; the generative situation model is the successor). Combined effective
+0.7607. The confidence layer still flags the composed pipeline's own errors (surprisal wrong 2.60 > correct 1.66).
+This is the reference drop-in the strategy session lands (Q111, default-off, witnessed).
 
 ## 1. The diagnosis — first-hand, exhaustive (cell: exp_whodidwhat_coverage_diagnosis_v1) [floor superseded by §0]
 I re-ran the actual `hdlab.situation_reader.SituationReader` (the "strong" reader the gold was built with:

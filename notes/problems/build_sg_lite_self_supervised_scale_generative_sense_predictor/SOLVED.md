@@ -5,7 +5,7 @@ bar: "PASS = a self-supervised generative sense predictor (SG-lite at scale + a 
 result: "a_s(subordinate senses, subject-weighted, strict document-disjoint SemCor, n_sub_test~2676). BRAIN-FOUNDATIONAL FIX prototyped + validated: a biased-competition DIAGNOSTIC-CONTEXT readout (semantic control -- amplify sense-discriminating context words, suppress shared topic; glass-box, no LLM) reaches a_s = 0.326 (APEX) with 277M embeddings (paired +0.0430 CI-sep over flat-context 0.283), and 0.307 on 41M (paired +0.0389 CI-sep [+0.019,+0.059] over 0.268), with a shuffled-diagnosticity twin LOSING CI-sep both times. It STACKS knowledge (better embeddings 0.307->0.326) with the brain mechanism, is the most brain-faithful arm, and beats the top-k key trick. Prior APEX (readout tricks): 0.306 by STACKING the 277M gestalt (best knowledge) + a richer TOP-K gloss readout (paired +0.0262 CI-sep over that gestalt's mean-pool 0.280). >> the located-negative NB 0.198, the nearest-centroid 0.22, and the parent's 0.280. Each lever alone: KNOWLEDGE -- paired 41M-vs-8M recon a_s +0.0277 CI-sep [0.0120,0.0445] (reverify witness; n=2676), rising 8M 0.255 -> 41M 0.280 -> 277M 0.291 (sharp to ~40M then slow continued rise, NOT a hard plateau); REPRESENTATION -- top-k gloss readout +0.0310 CI-sep on the 41M gestalt (0.265->0.296) and +0.0262 on the 277M gestalt (0.280->0.306). Shuffled twin LOSES CI-sep and net over MFS(0.6831) is POSITIVE CI-sep at every point. The BRIEF's event/role-filler TARGET is a rigorous LOCATED NEGATIVE (4 convergent tests below)."
 floor: "MFS overall 0.6831 (net-gain floor, gated on upper bound); a_s floors: overfit-NB 0.198 and nearest-centroid readout 0.22 (both strict document-disjoint). Every net-over-MFS is CI-separated ABOVE 0 with the twin losing."
 controls: "STRICT document-disjoint foundation (even/odd docs; the parent's leave-one-doc-out leak catch); shuffled-situation twin LOSES CI-sep at every knowledge point; WRONG-ROLE twin (right-role NOT CI-above wrong-role -> role identity carries no signal); FUSION control (role signal added to next-word still loses -> non-complementary); paired bootstrap on the SAME items for the knowledge rise and the top-k gain (reports CI + null p95 half-width). Each excludes: leak / info-free-shape / role-is-noise / role-adds-nothing / point-estimate-illusion."
-files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/exp_sg_lite_event_target_gestalt_v1.py, experiments/exp_sg_lite_knowledge_scaling_v1.py, experiments/exp_sg_lite_selectional_fit_readout_v1.py, experiments/exp_sg_lite_signal_loss_trace_v1.py, experiments/exp_sg_lite_diagnostic_context_readout_v1.py, experiments/exp_sg_lite_brain_gap_attribution_v1.py, verification/test_event_role_and_knowledge_scaling.py, data/exp_sg_lite_knowledge_scaling_v1/metrics_know{530000,7500000,0}.json, data/exp_sg_lite_event_{role_readout,target_gestalt}_v1/metrics.json, data/exp_sg_lite_selectional_fit_readout_v1/metrics{,_know0}.json, data/exp_sg_lite_signal_loss_trace_v1/metrics.json, data/exp_sg_lite_diagnostic_context_readout_v1/metrics.json"
+files_changed: "experiments/exp_sg_lite_event_role_readout_v1.py, experiments/exp_sg_lite_event_target_gestalt_v1.py, experiments/exp_sg_lite_knowledge_scaling_v1.py, experiments/exp_sg_lite_selectional_fit_readout_v1.py, experiments/exp_sg_lite_signal_loss_trace_v1.py, experiments/exp_sg_lite_diagnostic_context_readout_v1.py, experiments/exp_sg_lite_brain_gap_attribution_v1.py, experiments/exp_sg_lite_graph_knowledge_scaling_v1.py (reuses grounded_semantic_graph_organ UNMODIFIED), verification/test_event_role_and_knowledge_scaling.py, data/exp_sg_lite_knowledge_scaling_v1/metrics_know{530000,7500000,0}.json, data/exp_sg_lite_event_{role_readout,target_gestalt}_v1/metrics.json, data/exp_sg_lite_selectional_fit_readout_v1/metrics{,_know0}.json, data/exp_sg_lite_signal_loss_trace_v1/metrics.json, data/exp_sg_lite_diagnostic_context_readout_v1/metrics.json"
 reverify: ".venv/Scripts/python.exe verification/test_event_role_and_knowledge_scaling.py"
 ---
 
@@ -108,10 +108,23 @@ Coverage barely matters: unseen senses are recovered AS WELL as seen ones (the g
 even WITH training data the supervised key caps at 0.350. So the binding constraint is NOT coverage (Stage-5
 learning) -- it is the CONTEXT REPRESENTATION (Stage-2 situation model): topic-level, cannot discriminate a sense
 from its dominant twin sharing the topic, seen or unseen. Full-chain gap decomposition: ours 0.31-0.33 -> +supervised
-key on seen 0.35 (learning, +0.04 MINOR) -> SOTA-LFS 0.53 (a contextual sense-discriminative encoder, +0.18, THE
-lever) -> human 0.72 (grounding + inference, +0.19). **Through-line:** the leverage is a SENSE-DISCRIMINATIVE context
-representation (the diagnostic-context fix is a first step on the readout; the deeper fix is a better Stage-2 encoder).
-The top-k KEY sharpening and the learner COVERAGE curriculum are secondary; raw scale and query-elaboration are ruled
+key on seen 0.35 (learning, +0.04 MINOR) -> SOTA-LFS 0.53 (a contextual encoder, +0.18, THE lever) -> human ~0.72
+(grounding + inference). **COMPARABILITY CAVEAT (rigor drill):** BEM-LFS 0.53 is the comparable population
+(gold = a less-frequent sense) but on Raganato ALL (F1) not SemCor (subject-weighted acc); the human 0.72 is the
+OVERALL fine-grained inter-annotator ceiling (Navigli), NOT subordinate-only -- the fair human number for THIS
+(harder, subordinate) population is LOWER and not cleanly reported. So treat 0.72 as an upper reference, not the
+subordinate target.
+
+**Through-line (CORRECTED by a research drill + a graph control):** the lever is ENCODING (query CONSTRUCTION), not
+sense-DISCRIMINATION and not coverage. Evidence: (a) our sense-discriminative graph organ (distinct sense nodes,
+spreading activation; `exp_sg_lite_graph_knowledge_scaling_v1`) caps at a_s 0.27 -- BELOW the topic-word2vec 0.33 --
+so discriminative sense representations alone do NOT beat the bag-of-words; (b) the literature (Rodd-Gaskell-Marslen
+2002; Klepousniotou 2007; Messi-Pylkkanen 2025; Erk-Pado 2008/2010; Thater 2011) converges: for topic-confounded
+polysemy the WordNet gloss TARGETS are fine, the flat-bag QUERY is the gap, and the fix is a query built from
+SYNTACTICALLY-STRUCTURED local context (dependency/governor-filtered), not a topic average. The diagnostic-context
+fix is the semantic version of this; the named next prototype (`notes/research_wsd_contextual_encoding_glassbox_mechanisms_2026-09-03.md`)
+is arm 1: dependency-filtered second-order context vectors (P_deflated 0.40), with arm 2 exemplar-retrieval (0.35) and
+arm 3 a small recurrent Sentence-Gestalt encoder as the ceiling. Coverage curriculum + raw scale are secondary/ruled
 out with numbers.
 
 ## THE BRAIN-FOUNDATIONAL FIX (prototyped + validated; `exp_sg_lite_diagnostic_context_readout_v1`)
@@ -202,7 +215,10 @@ strategy may want that redesign tested before fully closing the event route.
 
 ## NEXT STEPS
 Wire the DIAGNOSTIC-CONTEXT (biased-competition) readout -- the brain-foundational fix, best + most faithful arm
-(item 1). Then the highest-yield follow-on is a **sense-discriminative Stage-2 context encoder** (the attribution
-shows the binding cap is the topic-level context representation, not coverage: even with training data we cap at
-0.35 vs SOTA 0.53 vs human 0.72). Fix queue_add.sh (item 4). The event/role target is closed pending the optional
+(item 1). Then the highest-yield follow-on (research drill + graph control, both landed) is **arm 1: a
+dependency/governor-filtered second-order context vector replacing the flat context bag** -- the lever is the QUERY
+CONSTRUCTION (encoding), not sense-discrimination (the graph organ caps 0.27 < word2vec 0.33) and not coverage.
+Mandatory control: the gain must be concentrated on TOPIC-CONFOUNDED items and NOT reproduced by a same-cardinality
+RANDOM context subset. Details + arms 2/3 in `notes/research_wsd_contextual_encoding_glassbox_mechanisms_2026-09-03.md`.
+Fix queue_add.sh (item 4). The event/role target is closed pending the optional
 selectional-fit-readout redesign.
