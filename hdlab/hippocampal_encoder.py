@@ -71,6 +71,26 @@ def _unit_norm(x: np.ndarray, eps: float = 1e-8) -> np.ndarray:
 # DGProjection: expansion + top-K sparsify (Dentate-Gyrus analog)
 # ---------------------------------------------------------------------------
 
+_DG_PROJ_CACHE: dict = {}
+
+
+def _dg_projection_matrix(input_dim: int, dg_dim: int, seed: int) -> np.ndarray:
+    """Cached bipolar {+1,-1}/sqrt(input_dim) JL projection (dg_dim x input_dim), keyed by (input_dim, dg_dim,
+    seed). PERF (2026-09-03): this matrix depends ONLY on those three fixed params, so it is IDENTICAL every
+    construction; bound_event_backbone builds a HippocampalEncoder (hence a DGProjection) PER read(), which
+    regenerated this (dg_dim x input_dim) random matrix every time (~82% of per-read reader time). Build once per
+    param triple (deterministic rng -> byte-identical) and return READ-ONLY (encode/encode_batch only matmul it)."""
+    key = (int(input_dim), int(dg_dim), int(seed))
+    P = _DG_PROJ_CACHE.get(key)
+    if P is None:
+        rng = np.random.default_rng(int(seed) * 991 + 7)
+        P = ((rng.integers(0, 2, size=(int(dg_dim), int(input_dim))) * 2 - 1).astype(np.float32))
+        P *= 1.0 / np.sqrt(float(input_dim))
+        P.flags.writeable = False                # shared read-only -> accidental mutation fails loud
+        _DG_PROJ_CACHE[key] = P
+    return P
+
+
 @dataclass
 class DGProjection:
     """Fixed random expansion projection + top-K threshold. Sparse ternary output.
@@ -97,11 +117,10 @@ class DGProjection:
             )
         if not (0.0 < self.sparsity < 1.0):
             raise ValueError(f"sparsity must be in (0, 1); got {self.sparsity}")
-        rng = np.random.default_rng(int(self.seed) * 991 + 7)
-        # Bipolar {+1, -1} projection scaled by 1/sqrt(input_dim) (approx JL).
-        self._P = ((rng.integers(0, 2, size=(self.dg_dim, self.input_dim)) * 2 - 1)
-                   .astype(np.float32))
-        self._P *= 1.0 / np.sqrt(float(self.input_dim))
+        # Bipolar {+1,-1}/sqrt(input_dim) JL projection -- CACHED module-level (see _dg_projection_matrix): it
+        # depends only on (input_dim, dg_dim, seed), so it was needlessly regenerated on every read() (the reader's
+        # #1 per-read cost). Byte-identical (same deterministic rng); shared read-only (encode only matmuls it).
+        self._P = _dg_projection_matrix(self.input_dim, self.dg_dim, self.seed)
 
     def encode(self, x: np.ndarray) -> np.ndarray:
         """Expand + sign-preserving top-K threshold. [input_dim] -> ternary [dg_dim]."""
