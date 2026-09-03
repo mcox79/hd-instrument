@@ -295,6 +295,32 @@ architectural difference is why the parser fails on hard constructions (batch no
 fails on equatives (no discourse givenness), and why coref is not composed (modular) -- and it is exactly the
 incremental predictive parser + situation-model context the substrate has repeatedly named as its one big lever.
 
+## WHERE THE COPULAR SIGNAL IS LOST, DISAMBIGUATED TO THE CLAUSE (owner: "understand exactly why")
+The landed +0.20 who-did-what fix is NP-head reduction (`hdlab.np_head_reduce`): the role assigners grabbed a
+compound modifier / genitive possessor instead of the phrase head -- **96% of who-did-what misses**. It is a
+ROLE-PICK fix on the SAME parse tree (the arc_parser/labeler assets are UNCHANGED, July 20-21; np_head_reduce
+landed Sep 2). A per-clause error taxonomy of the copular binding (`prototype_signal_loss_...`, n=451) shows WHY
+it does not transfer, exactly:
+
+| error class | share | fixable by np_head_reduce? |
+|---|---|---|
+| CORRECT | 81.8% | -- |
+| **DETECTION miss** (the parse TREE / labeler wrong on hard equatives/clefts) | **13.5%** | NO -- a tree problem |
+| **HOLDER wrong, BOTH candidates already NP-heads** (semantic / long-range / clausal-subject attachment) | **3.8%** | NO -- a tree/attachment problem |
+| HOLDER wrong, non-head mismatch | 0.7% | no |
+| **HOLDER wrong-word-in-NP** (modifier/possessor -- what the fix targets) | **0.2% (ONE clause)** | yes |
+
+**The disambiguation is decisive:** wrong-word-in-NP is **0.2%** of copular errors vs **96%** of who-did-what
+misses. The reason: the copular HOLDER is the labeled `nsubj`, which IS the NP head by UD definition -- **the
+labeled parse ALREADY does the NP-head reduction the who-did-what role assigners lacked.** So np_head_reduce is
+redundant here (and applying it only strips correct heads via is_np_head false-positives -> recall 0.818->0.805).
+**The real copular losses are ~17% PARSE-TREE issues** (13.5% detection + 3.8% holder-attachment on hard/clausal
+subjects -- e.g. gold holder "acceptance"/"boycott" where the subject is a clause and the tree mis-attaches a
+nominal inside it) + 2% typing. **CONSEQUENCE: a genuinely improved PARSE TREE would help this problem (~17% of
+errors are tree/attachment); the np_head_reduce ROLE-PICK fix specifically does not, because copular holder is
+already the labeled head.** The who-did-what gain and this copular problem are BOTH parser-consumers, but they
+consume DIFFERENT parser outputs: who-did-what consumed the (buggy) role PICK, copular consumes the (labeled) TREE.
+
 ## KEY REALIZATIONS (the enabling moves)
 1. **Check the existing organs BEFORE building.** Three organs already covered most of the binding
    (`extract_entity_states`, `state_register`, `definitional_extraction`). Re-deriving the binding would have been
