@@ -163,6 +163,12 @@ parse-typed candidate set the front end does not yet expose.
   32.2%), not the meaning representation. Keep `predict_surprisal` default-off for the live flag.
 - **The multi-stream "more ideal" gain is an honest negative on a same-hub gist stream (redundant/collinear);
   the orthogonal strong stream is entity/role-keyed narrative chains (P1), not a bag-of-context bolt-on.**
+- **The semantic-P600 CONFLICT error-flag is a located negative for this organ (NEW):** the conflict margin
+  is CI-sep WORSE than the marginal N400 surprisal (n=2992) because the residual errors are good-enough
+  NON-reversals (agent-pick 3.3%), and the faithful P600 form (Brouwer 2017) is an integration-cost over the
+  situation-model state, not a verb-patient margin. The ~47% un-flaggable residual is brain-consistent
+  (good-enough processing misses 20-75% in humans). The N400/marginal flag is the organ's ceiling; the P600
+  conflict signal belongs to P1's generative situation model.
 
 ## PUSHING FURTHER — the two remaining live fidelity gaps, evaluated (owner ask: "any more we can push?")
 Full wall-fidelity + adjacent-component evaluation in `BRAIN_FIDELITY_AND_ADJACENT_COMPONENTS.md`. Both
@@ -232,6 +238,12 @@ lever, register-general), but keep `predict_surprisal_hub` default-off (no live 
 3. **The live who-did-what bottleneck is the PARSER, and it is already being fixed:** the NP-head fix cut the
    role-pick error 0.392->0.312. The next live lever is front-end recall (extraction-miss 8.3% + abstain
    10.4%), not the representation.
-4. **DO NOT** flip `predict_surprisal_hub` on for the live surprisal flag, and DO NOT chase a second
-   bag-of-context stream (collinear, honest negative). The orthogonal strong stream is P1's narrative-chain
-   situation model.
+4. **File the Resnik/Clark-Weir COVERAGE backoff as a small next problem** (recipe + pre-registered
+   kill-criterion in `BRAIN_FIDELITY_AND_ADJACENT_COMPONENTS.md` WALL C) — it extends the hub's proven
+   prediction lever to the ~11.5% rare-filler tail. Brain-faithful (ATL taxonomic generalization); use
+   evidence-gated backoff, NOT naive averaging (refuted).
+5. **DO NOT** flip `predict_surprisal_hub` on for the live surprisal flag; DO NOT chase a second
+   bag-of-context stream (collinear, honest negative); DO NOT build a conflict/reversal error-flag on the
+   verb-patient predictor (tested negative — the faithful conflict signal is an integration-cost over P1's
+   situation model, and ~47% of residual errors are good-enough/un-flaggable by any signal). The orthogonal
+   strong stream — and the faithful home of the conflict signal — is P1's narrative-chain situation model.
